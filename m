@@ -1,105 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m1973179.qiye.163.com (mail-m1973179.qiye.163.com [220.197.31.79])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5A483E5A1F
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 08:51:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3CC93E4C85;
+	Mon, 25 May 2026 08:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.79
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779699095; cv=none; b=XLUut9vbb95WCLAPWeawHIYQ6TURafIBklN9+z8o9D4Sa60bz5fm+RThLwCimAjpE9PU3JcTRFNqsnAeTbJwBHxowos2ZjHa43VzfHQNBTWuCW13IwGMzKqbSIP596cvc2exKU7RrnvNHLVPYnlXPsPU+T9bWk76dm7c6XizCkI=
+	t=1779699393; cv=none; b=Bi3Yi8uxX4L3EOZDivdaAU5MujOx6iIy+OFR1vquk3UcIXUULI6iPx/fgNnaZp6bj5f2sazoZV69yOujf6Zvrmrao/cpkPu6ewlqFxriL6Te2XBgvoEhux/Z1/En3bfTmpR4N3aNxowdQkFX3RqHlcbJBQ+rY7w0YRtXyI8Mte4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779699095; c=relaxed/simple;
-	bh=Zbnq4nVouh2tLKfym5eJlvrjRep9DIypEy3NGdo1Xwk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fruXnIpm+hxs2u9lFsmZu08qiSIvXGbkU/tN9gKpy8BX+LHhj1OEzwFTlmyDZrPFkmkr1AuhAPUqixzvI2uuv5AnnDTSXjOHxYuzNqwNwXJmkW5LSx8cFwi42y8+P8JPz60IYmzeDR0rWy79D4PNAQAR+hkpr1aPW6YWs/ksDWM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PE9HmvBJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779699393; c=relaxed/simple;
+	bh=Vb/+79JKJAjhfGOqNRTYMXUE34coIOLrSj+oMXKHGGg=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=dCfYHkjWw9a9QUPeKLEXnaJgGJqBISIp7WGTdxBUHRURMj1yokLRPJroK4I7K6JhEvQYn+rVSVCvnnRYS0cbHHflq349z8NnG2soibPUYdVlqrm3Lz1oPMuYmw8A+oJDO0Au+rvybhw/ARVo4+3/1P+4R8o5m4z03dlcBYfM9ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=kXMWZuth; arc=none smtp.client-ip=220.197.31.79
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PE9HmvBJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96E081F000E9;
-	Mon, 25 May 2026 08:51:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779699090;
-	bh=F37OX8fnagYNDRFJjeXB9Y84J1ea3DB791PXUgjEpb4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PE9HmvBJyz1BzQAt+S9K29oCLGxxdE4puAmc20+qwNd3w2ftq5quaTLWDTlN3PJrD
-	 KEY7yQ4a84OPlawe15UqUpbTmV/oAnLZYfmydlKgpnVnPenymiA/qInI9ZS5SRVykv
-	 aWb2Mi+rjSkamdhCsFE37/PntORctK4kvYhKLVfUQTSR4YZHjXWmeKDzF69l+s4sY1
-	 NhCKLEKWK+1q1PQApmVgl+sxCOGa7+e/PwWbZt0KL0jqlTrfGfts6x6s12LbvDz+oe
-	 QbgBhcWhMhvd0TOlzrGT5WZEVg68mAHbnoWGEwrHttNb4xUWWHMF1hRZFOmUGAgy4z
-	 4Ac+ktH/9IsbQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 10/10] drm/rockchip: analogix_dp: Add support for
- RK3576
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525082033.117569-11-damon.ding@rock-chips.com>
-References: <20260525082033.117569-11-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 08:51:30 +0000
-Message-Id: <20260525085130.96E081F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="kXMWZuth"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3fb20c03e;
+	Mon, 25 May 2026 16:20:46 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v7 01/10] dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock for RK3588
+Date: Mon, 25 May 2026 16:20:24 +0800
+Message-Id: <20260525082033.117569-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260525082033.117569-1-damon.ding@rock-chips.com>
+References: <20260525082033.117569-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e5e38df9203a3kunmb64b982110262f
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaSUIfVhpPSxhKTktOTU9ISlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=kXMWZuthBp4IhfKD6NwB04lvkb39Ogw5tkdcx+aarzTn5EJRVqAbYDv45bNRaLHiTxvUlCxWsZR3GQq07SDNsJLRlfbTL43Q6PrT0bfCeW6VBWT7vxI0Y4LLXzeEeKrFdcHdk8kQFM7pilY5N8h2Acz6plynxXAMt08WuHDTfa0=; s=default; c=relaxed/relaxed; d=rock-chips.com; v=1;
+	bh=dQwBu0YtodeQdy0em6IbiCybI/3ACJDaYdTGPpk8esI=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing GRF `.edp_mode` initialization or dead device tree requi=
-rement for RK3576
---
+RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+registers and enable the video datapath.
 
-commit f660558fa407a4832fc6ade863a03b6fd050bfd2
-Author: Damon Ding <damon.ding@rock-chips.com>
+Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+phandle reference, which allowed the eDP to work without explicitly
+managing the hclk_vo1 clock. However, this is not safe or explicit.
 
-drm/rockchip: analogix_dp: Add support for RK3576
+To make the clock dependency explicit, enforce per-SoC clock-names
+requirements:
+ - RK3288: 2 clocks (dp, pclk)
+ - RK3399: 3 clocks (dp, pclk, grf)
+ - RK3588: 3 clocks (dp, pclk, hclk)
 
-This commit adds dedicated chip data and a device tree matching entry to br=
-ing
-up basic eDP functionality for the RK3576 platform.
+Do not reuse the 'grf' clock name for RK3588 because it represents
+a different clock with distinct control logic:
+- The 'grf' clock is only for GRF register access and is toggled
+  dynamically during register access.
+- The 'hclk' clock controls both GRF access and video datapath
+  gating, and must remain enabled during probe.
 
-> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gp=
-u/drm/rockchip/analogix_dp-rockchip.c
-> index d2af5eb29dbb5..d4c5dd61e95bb 100644
-> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-[ ... ]
-> @@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[=
-] =3D {
->  	{ /* sentinel */ }
->  };
-> =20
-> +static const struct rockchip_dp_chip_data rk3576_edp[] =3D {
-> +	{
-> +		.chip_type =3D RK3576_EDP,
-> +		.reg =3D 0x27dc0000,
-> +	},
+Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-[Severity: Medium]
-Does the RK3576 require GRF register programming for eDP mode?
+---
 
-The newly added rk3576_edp data table omits the .edp_mode and .lcdc_sel
-GRF register fields. Because they are zero-initialized, their internal
-valid flags evaluate to false, causing rockchip_grf_field_write() to
-silently skip GRF configuration.
+Changes in v4:
+- Modify the commit msg.
 
-However, rockchip_dp_of_probe() unconditionally requires the rockchip,grf
-phandle and fails the probe with -ENODEV if it is missing.
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
 
-If the RK3576 combo PHY requires GRF programming to enter eDP mode (similar
-to the RK3588 design mentioned in the commit message), will the driver
-fail if the bootloader hasn't already configured the PHY, or fail after a
-system suspend and resume cycle?
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
 
-Alternatively, if the RK3576 genuinely does not require any GRF programming
-for eDP, should the rockchip,grf requirement in the driver be bypassed for
-this platform so the device tree isn't forced to supply an unused phandle?
+Changes in v7:
+- List all valid clock names at the top level, and constrain the clock
+  count for each platform with minItems/maxItems in allOf.
+---
+ .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
+ 1 file changed, 33 insertions(+), 1 deletion(-)
 
-> +	{ /* sentinel */ }
-> +};
-> +
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index d99b23b88cc5..7fe7655c1f37 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -26,7 +26,9 @@ properties:
+     items:
+       - const: dp
+       - const: pclk
+-      - const: grf
++      - enum:
++        - grf
++        - hclk
+ 
+   power-domains:
+     maxItems: 1
+@@ -60,6 +62,32 @@ required:
+ allOf:
+   - $ref: /schemas/display/bridge/analogix,dp.yaml#
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3288-dp
++    then:
++      properties:
++        clocks:
++          maxItems: 2
++        clock-names:
++          maxItems: 2
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3399-edp
++    then:
++      properties:
++        clocks:
++          minItems: 3
++        clock-names:
++          minItems: 3
++
+   - if:
+       properties:
+         compatible:
+@@ -68,6 +96,10 @@ allOf:
+               - rockchip,rk3588-edp
+     then:
+       properties:
++        clocks:
++          minItems: 3
++        clock-names:
++          minItems: 3
+         resets:
+           minItems: 2
+         reset-names:
+-- 
+2.34.1
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525082033.1175=
-69-1-damon.ding@rock-chips.com?part=3D10
