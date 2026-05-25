@@ -1,38 +1,38 @@
-Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC46B3E4C85;
-	Mon, 25 May 2026 08:50:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5216C3E559E;
+	Mon, 25 May 2026 08:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779699058; cv=none; b=CaScQMrWPJvM7zuXEEfEXEATHUH8dZLDCRB46PuyaqPLdrFgSn3vYtBa8EOT4BiRWhF9gbdQxkcOUdV1vCrl8e9XZwso1uSDH78F9pJRgafKsz4JYGi+Lxfi54LWrJ2qiz+c72UM0o8gOrW8MOyWJvHwlbt57Ba7uriFfu5NHcM=
+	t=1779699063; cv=none; b=BdxtE6y5jCCAU3/k+JiESNSqOEswxSu675GJjmi6OS24a22vctjfy07vsjYbvdvx1XS0x9qWCcK2fOQFUPZdFZKL50z4Hklmu8Px9vrWT9xz5adiAp/EtQnmzRgYcA472oOA5uPSv6zmQLxeHAw8GNZI9jCw8scT93yHjML06d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779699058; c=relaxed/simple;
-	bh=KpCO9eHvT8d3nR/4YUBDfXaRy/ttkT9HA9CpcrVWDJ0=;
+	s=arc-20240116; t=1779699063; c=relaxed/simple;
+	bh=+1OksplOeFc7VHTrmlwTMk07oCAH3aoE1BZmw9LqqIo=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=LL4dSK9fcJBd4ePQFE0bFGIq+owBS/+GIcDPhAFszQJ5hOSHsC9nT+FFuCyH4ALiZd0wu4d82ThmlKIBlHqfjX6R7aIja6bnmzGWMOGz9HVsp0cOrZ8YGvjgYnOrnpLw9DXxrGuNgdLbU3d/eSYhJhcseHwD9gUG4Z9sttrbp3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Oy9JB+Ks; arc=none smtp.client-ip=113.46.200.217
+	 MIME-Version:Content-Type; b=lztMU7WcbQAaBcVxohVtt4xFn1fiZGecdCs7yJ7LqloZu+VoNV7xgD/9K+hupxrYZN56jiZkP/DOcy9vlA6H4qyapSqULGYAvqMrEiSkJTvlC/MkNAByYBRa3xXaHjHraH9JRQl58FOiHuotYtQWonMzuV00Wbb/tR/3Boxj1GA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=TybJFSW9; arc=none smtp.client-ip=113.46.200.216
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Oy9JB+Ks"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="TybJFSW9"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=aNnJ5g76/A8DM4cjgV0eUEW9iYoKEJHUZgY5fbqQNRY=;
-	b=Oy9JB+Ks+4WoWZUkzMsSO0IztH179Ne83LO9WhFzpmUIZc4+A0kskw/HbPAgSZ8gmD9FGIGBr
-	52If9E7QFOnjtb7uouTbrXDHPRpdJwDYb4XaR7bJW9vWKkm6PlHj5uLLVxD1Y8PbHBwr/ynZJbf
-	doD65VWwl/4kd2jL38jOWC8=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4gP8Xq1r4Qzcb1Z;
-	Mon, 25 May 2026 16:43:07 +0800 (CST)
+	bh=yvr4bCXcJCPd8D4DBs3QOoT49bvc06o4/wVbNRJdXbc=;
+	b=TybJFSW9GLvV4xNVHO8fZwd15CFZdkg2Akh3GDeCP92Rr/Nfyqsvqwuf/awGm3KfQCWekw0Su
+	/0DyIIys0NN6XGyIa8RQi49kaHqJJu0TeEn6Y7EIvRR58+B9PW5pl6g2nk32UA3wlmQFP543Yw7
+	c+brN5L1/2Cltqmd5m0FTs8=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4gP8Xh0vlVz1T4Ll;
+	Mon, 25 May 2026 16:43:00 +0800 (CST)
 Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 46C124048F;
-	Mon, 25 May 2026 16:50:50 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 681CA40537;
+	Mon, 25 May 2026 16:50:58 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
  (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 25 May
- 2026 16:50:46 +0800
+ 2026 16:50:54 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
@@ -62,9 +62,9 @@ To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v14 10/17] arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
-Date: Mon, 25 May 2026 16:49:25 +0800
-Message-ID: <20260525084932.934910-11-ruanjinjie@huawei.com>
+Subject: [PATCH v14 12/17] riscv: kexec_file: Use crash_prepare_headers() helper to simplify code
+Date: Mon, 25 May 2026 16:49:27 +0800
+Message-ID: <20260525084932.934910-13-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260525084932.934910-1-ruanjinjie@huawei.com>
 References: <20260525084932.934910-1-ruanjinjie@huawei.com>
@@ -80,103 +80,81 @@ X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  dggpemf500011.china.huawei.com (7.185.36.131)
 
 Use the newly introduced crash_prepare_headers() function to replace
-the existing prepare_elf_headers(), allocate cmem and exclude crash
-kernel memory in the crash core, which reduce code duplication.
+the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
+memory in the crash core, which reduce code duplication.
 
 Only the following two architecture functions need to be implemented:
-- arch_get_system_nr_ranges(). Use for_each_mem_range() to traverse
-  and pre-count the max number of memory ranges.
+- arch_get_system_nr_ranges(). Call get_nr_ram_ranges_callback()
+  to pre-counts the max number of memory ranges.
 
-- arch_crash_populate_cmem(). Use for_each_mem_range to traverse
-  and collect the memory ranges and fills them into cmem.
+- arch_crash_populate_cmem(). Use prepare_elf64_ram_headers_callback()
+  to collects the memory ranges and fills them into cmem.
 
-Acked-by: Catalin Marinas <catalin.marinas@arm.com>
+Cc: Paul Walmsley <pjw@kernel.org>
+Cc: Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Albert Ou <aou@eecs.berkeley.edu>
+Cc: Alexandre Ghiti <alex@ghiti.fr>
+Cc: Guo Ren <guoren@kernel.org>
 Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
 Acked-by: Baoquan He <bhe@redhat.com>
 Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- arch/arm64/kernel/kexec_image.c        |  6 +---
- arch/arm64/kernel/machine_kexec_file.c | 44 ++++++++------------------
- 2 files changed, 14 insertions(+), 36 deletions(-)
+ arch/riscv/kernel/machine_kexec_file.c | 51 ++++++--------------------
+ 1 file changed, 12 insertions(+), 39 deletions(-)
 
-diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_image.c
-index 884e446f08e3..770a4c7bf573 100644
---- a/arch/arm64/kernel/kexec_image.c
-+++ b/arch/arm64/kernel/kexec_image.c
-@@ -12,7 +12,6 @@
- #include <linux/errno.h>
- #include <linux/kernel.h>
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index a88362dfbd89..d2bb61a8b6b6 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -8,7 +8,6 @@
+  */
  #include <linux/kexec.h>
+ #include <linux/elf.h>
 -#include <linux/memory_hotplug.h>
- #include <linux/pe.h>
- #include <linux/string.h>
- #include <asm/byteorder.h>
-@@ -97,14 +96,11 @@ static void *image_load(struct kimage *image,
- 
- #ifdef CONFIG_CRASH_DUMP
- 	if (image->type == KEXEC_TYPE_CRASH) {
--		get_online_mems();
--		ret = prepare_elf_headers(&headers, &headers_sz);
-+		ret = crash_prepare_headers_locked(true, &headers, &headers_sz, NULL);
- 		if (ret) {
- 			pr_err("Preparing elf core header failed\n");
--			put_online_mems();
- 			return ERR_PTR(ret);
- 		}
--		put_online_mems();
- 		image->elf_headers = headers;
- 		image->elf_headers_sz = headers_sz;
- 	}
-diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
-index c0ace89ded92..66fbfbaec1c6 100644
---- a/arch/arm64/kernel/machine_kexec_file.c
-+++ b/arch/arm64/kernel/machine_kexec_file.c
-@@ -40,51 +40,33 @@ int arch_kimage_file_post_load_cleanup(struct kimage *image)
+ #include <linux/slab.h>
+ #include <linux/of.h>
+ #include <linux/libfdt.h>
+@@ -45,6 +44,15 @@ static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
+ 	return 0;
  }
  
- #ifdef CONFIG_CRASH_DUMP
--int prepare_elf_headers(void **addr, unsigned long *sz)
 +unsigned int arch_get_system_nr_ranges(void)
++{
++	unsigned int nr_ranges = 2; /* For exclusion of crashkernel region */
++
++	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
++
++	return nr_ranges;
++}
++
+ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+ {
+ 	struct crash_mem *cmem = arg;
+@@ -59,41 +67,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+ 	return 0;
+ }
+ 
+-static int prepare_elf_headers(void **addr, unsigned long *sz)
++int arch_crash_populate_cmem(struct crash_mem *cmem)
  {
 -	struct crash_mem *cmem;
 -	unsigned int nr_ranges;
 -	int ret;
--	u64 i;
-+	unsigned int nr_ranges = 2; /* for exclusion of crashkernel region */
- 	phys_addr_t start, end;
-+	u64 i;
- 
--	nr_ranges = 2; /* for exclusion of crashkernel region */
- 	for_each_mem_range(i, &start, &end)
- 		nr_ranges++;
- 
+-
+-	nr_ranges = 2; /* For exclusion of crashkernel region */
+-	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+-
 -	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
 -	if (!cmem)
 -		return -ENOMEM;
-+	return nr_ranges;
-+}
-+
-+int arch_crash_populate_cmem(struct crash_mem *cmem)
-+{
-+	phys_addr_t start, end;
-+	u64 i;
- 
+-
 -	cmem->max_nr_ranges = nr_ranges;
 -	cmem->nr_ranges = 0;
- 	for_each_mem_range(i, &start, &end) {
--		if (WARN_ON_ONCE(cmem->nr_ranges >= cmem->max_nr_ranges)) {
--			ret = -EAGAIN;
--			goto out;
--		}
-+		if (WARN_ON_ONCE(cmem->nr_ranges >= cmem->max_nr_ranges))
-+			return -EAGAIN;
- 
- 		cmem->ranges[cmem->nr_ranges].start = start;
- 		cmem->ranges[cmem->nr_ranges].end = end - 1;
- 		cmem->nr_ranges++;
- 	}
- 
+-	ret = walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+-	if (ret)
+-		goto out;
+-
 -	/* Exclude crashkernel region */
 -	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
 -	if (ret)
@@ -193,10 +171,27 @@ index c0ace89ded92..66fbfbaec1c6 100644
 -out:
 -	kfree(cmem);
 -	return ret;
-+	return 0;
++	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
  }
- #endif
  
+ static char *setup_kdump_cmdline(struct kimage *image, char *cmdline,
+@@ -285,15 +261,12 @@ int load_extra_segments(struct kimage *image, unsigned long kernel_start,
+ 	if (image->type == KEXEC_TYPE_CRASH) {
+ 		void *headers;
+ 		unsigned long headers_sz;
+-		get_online_mems();
+-		ret = prepare_elf_headers(&headers, &headers_sz);
++		ret = crash_prepare_headers_locked(true, &headers, &headers_sz, NULL);
+ 		if (ret) {
+-			put_online_mems();
+ 			pr_err("Preparing elf core header failed\n");
+ 			goto out;
+ 		}
+ 
+-		put_online_mems();
+ 		kbuf.buffer = headers;
+ 		kbuf.bufsz = headers_sz;
+ 		kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
 -- 
 2.34.1
 
