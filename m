@@ -1,240 +1,165 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9F86E2DAFCB;
-	Mon, 25 May 2026 21:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779743790; cv=none; b=ud+MxcNLUqq3dxE65ZrdJaYu46XwXz1M31c769hKY8ovr8tdQr6uYFlPA4et3AlJDdQh5ItY4SmD+ZNPW/2i7dlOeag9c00gLQMUJhxrZAsOmwJAPKNXpNIc1vsiKz9j+xFGYfLT+dbQcSRocMuSN2Cml1TipKHadhYsP5sNJew=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779743790; c=relaxed/simple;
-	bh=Q3KznSmPGXShIXkpUxQ+T6UiVEFFgAzT1PTN8IZQDcA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NVBjsQYAlqbI8UHRDgjAXfYiatojlAVmvM43h4YAyvD98HgYOyBArhku0WoV9jgC8yO6FHWXxVthSmxZ9RvPYMtugLOiPPCmN7QK74Ij6Xd9BG9INvV4b+niZlEy+0M0d6dIzgZEVU/kp6cMQWbO0Cv1vjf/q/a6m25xCkMZzPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=DceHwUns; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011055.outbound.protection.outlook.com [52.101.125.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62061280335;
+	Mon, 25 May 2026 22:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779749168; cv=fail; b=Tjionnm5KcGaZWDHmpBKPN5v4XQ9t9/OG5brta32oKlc/LnPUWP4Qvbfj2zR5wvbpcXncpxmXZJ0UWafws0vPC1kpuMPtgOBjvUcaLhKfOp41gzxMVHOds6C0XNRWgdocKLQ7j8Q5VeDKWl3qCKt0HZG8F6XT+cjR7/pQGFCeC8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779749168; c=relaxed/simple;
+	bh=pAv6JHdwi5EUuiyDHcFdF76rVR22eK70gEmmHZEGPds=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=U/nnJ5fmP1E4UG8ciB8Eu8qoASazojb6sBREsQuApUcRQin+lrgyHas5OKkttxsidEzcpog4z6wLZ9Q6AZGCsQA9ftfx9uMFwDYj+SS6piUGXV3NwnkATkUNJv8NXwjYmS2+d8r4HG9w3PUd8RLqLnmzOXEk6nEmn/mVdDMz/K0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=EDKJyeD9; arc=fail smtp.client-ip=52.101.125.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="DceHwUns"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7FB001758;
-	Mon, 25 May 2026 14:16:21 -0700 (PDT)
-Received: from ryzen.lan (usa-sjc-mx-foss1.foss.arm.com [172.31.20.19])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id F29713F632;
-	Mon, 25 May 2026 14:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1779743786; bh=Q3KznSmPGXShIXkpUxQ+T6UiVEFFgAzT1PTN8IZQDcA=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:From;
-	b=DceHwUnsr+h9yMlBWX/oFjrCB/CAS+EBlWKkxrF7rijrwncPuyE1VOcEfF6eFEnUV
-	 ERbPoaErMvi9f6rVI+fnr6fCMje0FFMj1FD+ANSgdfBohsCTdD5ydudgxRAk+BDj2Q
-	 56tLHKt09r4Vai3S95SsZnNzDvx/rH9y9TwVIxEw=
-Date: Mon, 25 May 2026 23:15:26 +0200
-From: Andre Przywara <andre.przywara@arm.com>
-To: Richard Genoud <richard.genoud@bootlin.com>
-Cc: Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
- <jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, Philipp
- Zabel <p.zabel@pengutronix.de>, Paul Kocialkowski <paulk@sys-base.io>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, John Stultz
- <jstultz@google.com>, Joao Schim <joao@schimsalabim.eu>,
- bigunclemax@gmail.com, linux-pwm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-sunxi@lists.linux.dev, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v6 0/4] Introduce Allwinner H616 PWM controller
-Message-ID: <20260525231526.0c5d9a10@ryzen.lan>
-In-Reply-To: <20260416134037.3160537-1-richard.genoud@bootlin.com>
-References: <20260416134037.3160537-1-richard.genoud@bootlin.com>
-Organization: Arm Ltd.
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.31; x86_64-slackware-linux-gnu)
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="EDKJyeD9"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=j81ii3NZMYy1oTF/O4cqpYC+fIS2hj3q69H4kw+2SN6PAvUoTUIxYdfZgfQu3X/4WdcTMEsWsG+Kuzs4CVVP/d+kVGwUeo7UYffahg8Ta1EB9G6je/wfZ8lWK3ZELdHwa4NeWpYHpTU+4EsUNyheoeH53ok8ywPR63dFqVh/d5rYu6bxK1/nPdCtP/o8zHkFoaq4qoVxS5NnrMzyHgvyoAbUAFTVwn/T8KuNRXGF9I+vb1EZy8RxtTbB5ghqZFPbvVnGAWzFmgrSckq+gMIrdrai+CADg4Wpy9T/PfOw+X4OSzUfPHRk1H6yAzk+9wLlriEruG0kqWeK18vFuuL8xw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=CYKptlnMDIIaXXm0iM9UV1G04Jm/L9BWkOEPMrcDsxg=;
+ b=jT5ngmKRum+irGqQ5UoydGsCUgqLe6mxeTUa1AWQeMmEBxPyq6Uc/2lHikhtC9UzMqD6J8EC+Nprtf9xTcGwwyBLJnBOJkAKxjohhYqD4nW4EJsOH2Q05HZXJwxk2AAiqhP/xm7v7klIKxOKLHkbA1Q0Aiiqp4xP0IORMf2wdzV5V8M5C8VOsWUMmMsNVWLBdHeIdkUnT4eRlZfpmqoIzuzD3U7vpdMO0jGOlXOOJilryXh2avWeZnFbNPey9g6XH3QuUHHvHPI+gn/ZpFxjCf2goZXf1unjpC8qLWbuz31N94w9qj720m5mNpKnB9darLZliP+FEWVM/C/JkKllzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=CYKptlnMDIIaXXm0iM9UV1G04Jm/L9BWkOEPMrcDsxg=;
+ b=EDKJyeD9gQ/GU8T6qboMm+Vo2y2iQRhrbd1wnF8w6zujcREDFZGC/PT5EljvxmeEdWKAzHse5Pp8KgqpAJhxb6Btfb68dvE5eizqKgcCgXOAzHXdAlz3Pyb5dPe9pp8sjSAHtXCHnO8FkfUysnso3sG0esUcHIMqeKyGX9j6ahA=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com (2603:1096:400:373::8)
+ by TYCPR01MB10085.jpnprd01.prod.outlook.com (2603:1096:400:1ea::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
+ 2026 22:46:02 +0000
+Received: from TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383]) by TY3PR01MB11797.jpnprd01.prod.outlook.com
+ ([fe80::1868:c915:c230:a383%5]) with mapi id 15.21.0048.019; Mon, 25 May 2026
+ 22:45:37 +0000
+Message-ID: <875x4bjegq.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	john.madieu@gmail.com,
+	linux-sound@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v7 00/18] ASoC: rsnd: Add RZ/G3E audio driver support
+In-Reply-To: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
+References: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
+User-Agent: Wanderlust/2.15.9 Emacs/29.3 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 25 May 2026 22:45:31 +0000
+X-ClientProxiedBy: DM6PR17CA0010.namprd17.prod.outlook.com
+ (2603:10b6:5:1b3::23) To TY3PR01MB11797.jpnprd01.prod.outlook.com
+ (2603:1096:400:373::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY3PR01MB11797:EE_|TYCPR01MB10085:EE_
+X-MS-Office365-Filtering-Correlation-Id: f81f8516-0c78-46c6-dd43-08debaaf56f1
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|52116014|1800799024|18002099003|22082099003|56012099003|38350700014|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	zVF5uwC0BzgOBHX0qXo+y+yrCuDfj1cY1mz8Tp7PIasDBbg33Be+6bUw8vDjuLen6L8Lryy6ruly4Msq3CHC8Qr7RmAKfnUPZdKhb0vbOwwo7uciUEk0oyiuCEk1dknX2Z3g7wNLv6EQBlpTh3uEvmnt52CDnat4o0njkBeAeLI6eN7Pj3hxx5U04gQVfgez7t8Q/W8OYqwsOnY7m3x8p1cmu3KOHlkAOCSG8Qx38aNHC4/SfMYHDV7nBqprcVIA7rotERiXhk5BVMf1GdNoO/6aBvxCO9q1kG6hCtKm2fjlvYL4iOTozrOzFFzrpxUEDACexXSAfLWtqpjqgg4sqxY8YPAe+gExy9VeSjdtRmcnPgLUwC5XFoz+KTGWHkJ5StdL6cXumMni7jyWHJBPuhT69+Ff/KRkvJChr2/gUG2oFfSflnW2JtiYJkWYoL5NhGfgZfa9BVQFKGucdaKLd7tOTKguPk8d0InxjfozrY3LlqBbPI7LAoPycS+IUJ1Vjm5fnWOet/sR7gjsooj7O645A1Yi00j7eslh9trLrDxrv437o3vC749AF5J7CvI5/vuXHHyp67PhkZvdkkoiQkbvGbtn7FftnkfFJWeHfgQCSeKrISsT0FNOR8uxQH4zMp23tbCqfZt00ySP/hnrZIbnE+Nh/PbGzeT4f6QOKevXI0qqM/z9LC4nMoQIxKpjGyGqXrxAbEU8UebLU+leLWJGDaySfmPRypWLP34JOR+M3Uu3Cny/3eDKEeJUxvIs
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11797.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(52116014)(1800799024)(18002099003)(22082099003)(56012099003)(38350700014)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?fIUfKp/k0GjWfcXwNysITJWNztAro/40bmt6N1P2yRhUbJIZ2DITC0ZBlZAD?=
+ =?us-ascii?Q?IFwzvQNbMNKTkz7eOoz4RK6GVxbs9pwuJ2WdGlFYmnzM5FF+C695oVBIUCmx?=
+ =?us-ascii?Q?jdGOX3oFrISeEnMSrTq1ZovDZ9RQINu+Xp00xdSMpSv2ClmB5zVTkTb7Ni4T?=
+ =?us-ascii?Q?nMCdQ2+mwjwqLdg1tDCwtA+3VaJwfUOApDqF5ztSEZXNDHQe40wpFlwyU+An?=
+ =?us-ascii?Q?f+LrhE9UEWIBPomjtQiOpsi6CCBn4YDGnANxDefcLeaLcLsagRFrc4WqLf76?=
+ =?us-ascii?Q?82TyP5t6uGs9ok69KZ/14QPx5j0hObK5t/PEWfAeGUqdihm0f6rz+juG8zwz?=
+ =?us-ascii?Q?ukzoCL+SeM1mV1zmUbDbRZIRwPzdABUS69CyNiNYiXROlz5hwSgv6WjfKz1L?=
+ =?us-ascii?Q?M+c4cGycCwSijCsMYux9RKoei/DS5kD1UkNAXcKqz9yYxPOH7hZTktDe/ruI?=
+ =?us-ascii?Q?T2bvaoUm9t1JoMzwuI7nlYsA/OLfoxMHhiMSkfPoRBg8YG0Vrvuwb9jnoMbA?=
+ =?us-ascii?Q?+u6x8TJEOF6YvTkn4yNq5E/IbJLqRreRL6Ko10KQJREfx2WX7ZxD8pIzxwBj?=
+ =?us-ascii?Q?TGvUZWJUIEf0NdeEEURJj7A137Kz4OAqzkANz3IYyUPsvCk8WHkfM+H6XLyS?=
+ =?us-ascii?Q?zOborJ3x5S/gaQgL5mBzXpWH1fcTZkI7NRkCIKlAfMBHJIVbLErAo0DtkRK5?=
+ =?us-ascii?Q?0daytEzdpYxb7g77xWaiMgim1Ahv8wOkKQQImBZVhcUOP2DpDU2XNbj6T8Oj?=
+ =?us-ascii?Q?zjHFsyiWE3C78qM795KfVqNXzn8a4tVTifVwIL0McLBxLcx467DUcDla6HnZ?=
+ =?us-ascii?Q?K3f5nIu2CebnkcWWVhLdkHBY8WVZDvYGOjxUhcOGijbla6twoMrcE5U+5R/w?=
+ =?us-ascii?Q?ifpbKT8bdBoD6sZaNOI6b4Ycdg3V1FT3u4Q7yNVPcKovQHBL6/XZEOP92lc5?=
+ =?us-ascii?Q?J7qit99B2ZvvRVQ3qIi+VEDdoCsCTQhjiTLIXMbXU2FXBuwpXx3pA9KSj/PM?=
+ =?us-ascii?Q?G96SNEnzvnI/ay9rkCT+iWYIRTo/z2I1xDBjP/oC/9ALlRvQ3OObfgWiSZA5?=
+ =?us-ascii?Q?GHdUCopInY6K+0pbKhYQFTIZfCwtlUw4ObpcuT7u+rdSDghg/3IP26VlyVPu?=
+ =?us-ascii?Q?t9tfeI61OJPUmP4sfsO8y7j93I6XukvJR9sDxeoVMdBkmTL969c/L5faM/6j?=
+ =?us-ascii?Q?MdRH565+N/muuXxbIBRA6zokmBk6+7PTqPrr93sqyfMj4DM6X2YAlLNTy2dw?=
+ =?us-ascii?Q?JQ/JLUAT69NsrhLZep7ePMNRgJKWzeWvzmgEGB/GW3g/kMF7tGbT6IQCoRY2?=
+ =?us-ascii?Q?mgvRh87qfiC6CQD4A3dly4ve1drMJq6i8MdShnr33BspT22tDWMAe2gNh1WE?=
+ =?us-ascii?Q?fvUHXNubc6JZLYzrsMSQG5tycE/KHrmHMRuZYpw/AYOhKZ8cElUcVfa98G1Z?=
+ =?us-ascii?Q?UU7Zp6Zw4Q0BkHZ56TZbZxVA1628qHIhh/zdbs53T1C2NiwuvYmyJQywLJw1?=
+ =?us-ascii?Q?OLpk7+TT9eGh3wyGz1cVcAFLiJmJbRMWT/FATIG/YnCzBPLKamGbRBPG1LAv?=
+ =?us-ascii?Q?0ZHbzRNWLx8pGj7s9TpQWYzF71fdq8LyM0uVnesFkWBI8d/e84uzibpvf9Jt?=
+ =?us-ascii?Q?XJ/GU3YHAXcngl1jqdZeU4xkdTbvh74yemzftZemzKzQNqCqh3KrDJBQRvJW?=
+ =?us-ascii?Q?18gSHIvgJAWVnxiU8N9U92D1ZuobY7wp8PqGFYwp1MxETDBdJYOKMzS86FNA?=
+ =?us-ascii?Q?z+U+flLRJKUsMmH4lRevjwNZ6vGZjjhZKHcQj0+6v7mblyA0ZnUJ?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f81f8516-0c78-46c6-dd43-08debaaf56f1
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11797.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 22:45:37.5249
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Ohavghr0z3l1R+1nBNMxlAbzlYQYOlyH+OXIT/7QvBgNeQ1hl59VdZPZ/dUMYcSHRySnIskhoE9A5r2ORfZ6NOECjX497KGG4cTTAtCUXTrsFZh/cY2pCkBd6rIt65hm
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB10085
 
-On Thu, 16 Apr 2026 15:40:33 +0200
-Richard Genoud <richard.genoud@bootlin.com> wrote:
 
-Hi Richard,
+Hi John
 
-> Allwinner H616 PWM controller is quite different from the A10 one.
+> Add audio support for the Renesas RZ/G3E SoC to the R-Car Sound
+> driver. The RZ/G3E audio subsystem is based on R-Car Sound IP but
+> has several differences requiring dedicated handling:
 > 
-> It can drive 6 PWM channels, and like for the A10, each channel has a
-> bypass that permits to output a clock, bypassing the PWM logic, when
-> enabled.
-> 
-> But, the channels are paired 2 by 2, sharing a first set of
-> MUX/prescaler/gate.
-> Then, for each channel, there's another prescaler (that will be bypassed
-> if the bypass is enabled for this channel).
-> 
-> It looks like that:
->             _____      ______      ________
-> OSC24M --->|     |    |      |    |        |
-> APB1 ----->| Mux |--->| Gate |--->| /div_m |-----> PWM_clock_src_xy
->            |_____|    |______|    |________|
->                           ________
->                          |        |
->                       +->| /div_k |---> PWM_clock_x
->                       |  |________|
->                       |    ______
->                       |   |      |
->                       +-->| Gate |----> PWM_bypass_clock_x
->                       |   |______|
-> PWM_clock_src_xy -----+   ________
->                       |  |        |
->                       +->| /div_k |---> PWM_clock_y
->                       |  |________|
->                       |    ______
->                       |   |      |
->                       +-->| Gate |----> PWM_bypass_clock_y
->                           |______|
-> 
-> Where xy can be 0/1, 2/3, 4/5
-> 
-> PWM_clock_x/y serve for the PWM purpose.
-> PWM_bypass_clock_x/y serve for the clock-provider purpose.
-> The common clock framework has been used to manage those clocks.
-> 
-> This PWM driver serves as a clock-provider for PWM_bypass_clocks.
-> This is needed for example by the embedded AC300 PHY which clock comes
-> from PMW5 pin (PB12).
-> 
-> Usually, to get a clock from a PWM driver, we use the pwm-clock driver
-> so that the PWM driver doesn't need to be a clk-provider itself.
-> While this works in most cases, here it just doesn't.
-> That's because the pwm-clock request a period from the PWM driver,
-> without any clue that it actually wants a clock at a specific frequency,
-> and not a PWM signal with duty cycle capability.
-> So, the PWM driver doesn't know if it can use the bypass or not, it
-> doesn't even have the real accurate frequency information (23809524 Hz
-> instead of 24MHz) because PWM drivers only deal with periods.
-> 
-> With pwm-clock, we loose a precious information along the way (that we
-> actually want a clock and not a PWM signal).
-> That's ok with simple PWM drivers that don't have multiple input clocks,
-> but in this case, without this information, we can't know for sure which
-> clock to use.
-> And here, for instance, if we ask for a 24MHz clock, pwm-clock will
-> requests 42ns (assigned-clocks doesn't help for that matter). The logic
-> is to select the highest clock (100MHz) with no prescaler and a duty
-> cycle value of 2/4 => we have 25MHz instead of 24MHz.
+>   - SSI operates exclusively in BUSIF mode (no PIO)
+>   - 2-4 BUSIF channels per SSI (layout differs from R-Car)
+>   - Separate register regions for SCU, ADG, SSIU, SSI accessed by name
+>   - Per-SSI ADG and SSIF supply clocks
+>   - Dedicated audmapp clock/reset for Audio DMAC peri-peri
+>   - Per-SSI and per-module reset controllers via CPG
+>   - Unprefixed DT sub-node names (ssi, ssiu, src, ...) instead of
+>     rcar_sound,xxx
+>   - Hyphenated indexed clock/reset names (ssi-0, src-0, adg-ssi-0,
+>     audio-clka, ...) instead of the legacy dotted form
 
-Didn't we discuss this choice of "highest clock" before? I dimly
-remember asking whether we cannot use a least-error approach, so
-considering all clocks and choosing the one which matches the target
-best?
+Thank you for the patches.
 
-> And that's a perfectly fine choice for a PMW, because we still can
-> change the duty cycle in the range [0-4]/4.
-> But obviously for a clock, we don't care about the duty cycle, but more
-> about the clock accuracy.
+For all patches (except DT bindings)
 
-Thanks for your research into this and summarising this up! I see your
-point, and always found the choice to use nanoseconds in PWM somewhat
-problematic, especially when looking at the rounding errors.
-And while turning the PWM into a clock provider looks like a clever
-solution, this is somewhat arbitrary - why do we have this for those
-SoCs and not the other (older) ones? The 24 MHz != 1/42ns problem is
-the same there.
-What also bugs me a bit is also that this is actually a decision
-affecting the generic hardware devicetree description of the system,
-but its rooted in a Linux implementation detail (ns resolution periods).
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 
-So before we consider going this route:
-- Can we change the internal interface in Linux, maybe introducing
-  some special interface from pwm-clock to the pwm drivers, to convey
-  frequencies directly, instead of period lengths?
-- Can we add an optional interface for pwm drivers in general, to use
-  a frequency / duty-cycle pair to describe a PWM setup? I would naively
-  think those to be some kind of natural PWM parameters.
-- Can we at least add a picosecond precision interface? That doesn't
-  solve the rounding issue for those number not only divisible by
-  2 or 5 (like 24), but at least it seems to mitigate it:
-  24 MHz => 41666 ps => 24.000384 MHz
 
-I see that having a clock provider seems like a more sustainable and
-fitting choice, but as mentioned it's something that affects the DT
-description, so I don't want to change that lightly.
+Thank you for your help !!
 
-Cheers,
-Andre
-
-> And actually, this PWM is really a PWM AND a real clock when the bypass
-> is set.
-> 
-> This series is based onto v7.0
-> 
-> NB: checkpatch is not happy with patch 2, but it's a false positive.
-> It doesn't detect that PWM_XY_SRC_MUX/GATE/DIV are structures, but as
-> it's more readable like that, I prefer keeping it that way.
-> 
-> Changes since v5:
-> - remove trailing junk after commit message in patch 4
-> - remove Tested-by when it doesn't make sense.
-> (sorry for the noise)
-> 
-> Changes since v4:
-> - Fix a bug on bypass for channels greater than 1
-> - add colons to clarify 2 debug messages
-> - switch from H616 to sun8i prefix (in code, filename, module name)
-> - fix consistency issues in macro parameters
-> - rename some macros with a confusing naming
-> - rebase on v7.0
-> 
-> Changes since v3:
-> - gather Acked-by/Tested-by
-> - fix cast from pointer to integer of different size (kernel test robot
->   with arc platform)
-> - add devm_action for clk_hw_unregister_composite as suggested by Philipp
-> - remove now unused pwm_remove as suggested by Philipp
-> 
-> Changes since v2:
-> - use U32_MAX instead of defining UINT32_MAX
-> - add a comment on U32_MAX usage in clk_round_rate()
-> - change clk_table_div_m (use macros)
-> - fix formatting (double space, superfluous comma, extra line feed)
-> - fix the parent clock order
-> - simplify code by using scoped_guard()
-> - add missing const in to_h616_pwm_chip() and rename to
-> h616_pwm_from_chip()
-> - add/remove missing/superfluous error messages
-> - rename cnt->period_ticks, duty_cnt->duty_ticks
-> - fix PWM_PERIOD_MAX
-> - add .remove() callback
-> - fix DIV_ROUND_CLOSEST_ULL->DIV_ROUND_UP_ULL
-> - add H616_ prefix
-> - protect _reg in macros
-> - switch to waveforms instead of apply/get_state
-> - shrink struct h616_pwm_channel
-> - rebase on v6.19-rc4
-> 
-> Changes since v1:
-> - rebase onto v6.19-rc1
-> - add missing headers
-> - remove MODULE_ALIAS (suggested by Krzysztof)
-> - use sun4i-pwm binding instead of creating a new one (suggested by Krzysztof)
-> - retrieve the parent clocks from the devicetree
-> - switch num_parents to unsigned int
-> 
-> Richard Genoud (4):
->   dt-bindings: pwm: allwinner: add h616 pwm compatible
->   pwm: sun8i: Add H616 PWM support
->   arm64: dts: allwinner: h616: add PWM controller
->   MAINTAINERS: Add entry on Allwinner sun8i/H616 PWM driver
-> 
->  .../bindings/pwm/allwinner,sun4i-a10-pwm.yaml |  19 +-
->  MAINTAINERS                                   |   5 +
->  .../arm64/boot/dts/allwinner/sun50i-h616.dtsi |  47 +
->  drivers/pwm/Kconfig                           |  12 +
->  drivers/pwm/Makefile                          |   1 +
->  drivers/pwm/pwm-sun8i.c                       | 938 ++++++++++++++++++
->  6 files changed, 1021 insertions(+), 1 deletion(-)
->  create mode 100644 drivers/pwm/pwm-sun8i.c
-> 
-> 
-> base-commit: 028ef9c96e96197026887c0f092424679298aae8
-> 
-
+Best regards
+---
+Kuninori Morimoto
