@@ -1,370 +1,285 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB0C63B8922;
-	Sun, 24 May 2026 23:57:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84958632
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 00:13:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779667068; cv=none; b=EtOgNCvNJXcMDzuQMskP7dQEpooIUNQuxRKa4+PD8I72NdYr4RuYteCe0RNxMu2EqnLwurnX+dgZxtHn2ReUmheQJoH/8VQbmxup62M4MpeAFXYsMtlsjJ+ZcmnzxCFVcRHTJatqW2vy4a0kF1ZqGnAj6Og+kO0N99Cut/QyHOE=
+	t=1779668032; cv=none; b=nWNEABXDl4QOz3xorbf+3WE9re3xLF4r3JIvPrCNyQlhEwv2h41iRFdKEV3Zg5KkUKqJL0bz8Jv/Lkp3VgCCMNskEJr71QvtW+LqZWjbl6hkfAFr37Ew7Bv6JsY9GccGJEi+E8MWJJ8Y1C2s0hJln+fVhleG12rsxUpyMGWd+6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779667068; c=relaxed/simple;
-	bh=cQZIxogxHi6/a1bq9hWHDBDDLMtTIO/xab7UaBUTm3o=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=opJsY3lkYsc+MlHYA1GsD6eZX5pbQfIMFGwIVt1A56I9rKrMmwG//Qe29hT6J0wQX1H8iEryHYFZJ63PlGd5e42SM0QYbmdC8ophwbq4C/ngiNaXbO09Dc5nlViU/55x68JG4Ovxtc3UaGt6RcLSBMEgt2VzK3yuA+5cdwvZmjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UschymkL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779668032; c=relaxed/simple;
+	bh=ekVuOU05YAsiGWkmpwCIzKcEVQiCLoQw9FPXCoaLYgw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FZha0wco46yrs1OdeUlnq+ccqZRC7LN2ecnEEE8GZ47KJvA61JmV5gnh9MUWel3Dahw5ks8xvPcc3AKgITbyJ6hvVGn1nMHwq8G8MR/Es24H8Cif9xMRPXdG7MOIJ201HuFk1dTFWzHkqH7h4H/M3SmTcUFwVDYjIRvX1/Qsu7Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J2lzzbCV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UschymkL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98BE31F0155E;
-	Sun, 24 May 2026 23:57:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J2lzzbCV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 987641F000E9;
+	Mon, 25 May 2026 00:13:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779667062;
-	bh=EllR/1CEo+TtZv0/iyFInnJU3GZT/dZGiV/si/OJVsA=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=UschymkLhpsZAcrY4tvBRbXe5RxmMF0kfbcCiyoO4888lSnqXCJImwKldXyGvOYYk
-	 IkZRp4CYDfZzhOidA7rgFJtvaM1O5WzNqPcHCk9/UekwMOvWGkNNvg+DBl9wOA6GEv
-	 +N3UwHBEUByKzEEI/0p3m4TpXsM03wgoA1Ss8ilpIqqLSkPtVQUxMTh83oGcNZI32b
-	 1QCpi2QkAqHYAD7/cSmWZ2Nf7WqDRFhKHM+3gEeNmfFLzUXQRcdH3KDczdWz6DjSrL
-	 7SJM/VRo/wnkkjQqO1twyaCEwDNxC5Vi4rP/jHpB4HkePGqtl/paKoJNKWKPAzkwzi
-	 sFnFJxI/MNUgg==
-From: Drew Fustini <fustini@kernel.org>
-Date: Sun, 24 May 2026 16:55:45 -0700
-Subject: [PATCH RFC v5 15/18] riscv_cbqri: resctrl: Add mbm_total_bytes
- bandwidth monitoring
+	s=k20260515; t=1779668030;
+	bh=uDyYD3xQB1/xl3yuMuNAwPUZ4dFTkRojhXwSEHAPBRs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=J2lzzbCVSFFnx+xaZvy3R5MDf/GhbnEqa72+ysEcAloxULxAJ/7xpEPdpL4pWUoGD
+	 GcjAtELItSXi+3WoBWu8nqFTvT0g8j9tZgZUZyJBYsK3c0gtjBr6fR5hZLKEBupBbK
+	 m+vAIKilVBXKeD/eYnDvYtu3LJVs+/IPkgj/IuNlG08O0SQkIXNWldbdgNN0MmVwim
+	 WSXRobAjZ8OU1RR46q4a3061BXvZQdwQdzSWNLSRT1FODDoiqrcgC/QlZ0D1sxlaOF
+	 jsy+JGvB6bZDHSGkxX3KmpDriHUwcg1C3ET1XOpCtPN/p7J1QPYMu9Mmnc0bMRLU8l
+	 gpwKStqJUulEQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 4/4] iio: light: veml6031x00: add support for events
+ and trigger
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260524-veml6031x00-v3-4-29165609b2b5@gmail.com>
+References: <20260524-veml6031x00-v3-4-29165609b2b5@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 00:13:50 +0000
+Message-Id: <20260525001350.987641F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-15-78d3a7ba9dbe@kernel.org>
-References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org>
-In-Reply-To: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org>
-To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
- Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
- =?utf-8?q?Radim_Kr=C4=8Dm=C3=A1=C5=99?= <rkrcmar@ventanamicro.com>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Adrien Ricciardi <aricciardi@baylibre.com>, 
- Nicolas Pitre <npitre@baylibre.com>, 
- =?utf-8?q?Kornel_Dul=C4=99ba?= <mindal@semihalf.com>, 
- Atish Patra <atish.patra@linux.dev>, 
- Atish Kumar Patra <atishp@rivosinc.com>, 
- Vasudevan Srinivasan <vasu@rivosinc.com>, Ved Shanbhogue <ved@rivosinc.com>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- yunhui cui <cuiyunhui@bytedance.com>, Chen Pei <cp0613@linux.alibaba.com>, 
- Liu Zhiwei <zhiwei_liu@linux.alibaba.com>, Weiwei Li <liwei1518@gmail.com>, 
- guo.wenjia23@zte.com.cn, Gong Shuai <gong.shuai@sanechips.com.cn>, 
- Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn, 
- Reinette Chatre <reinette.chatre@intel.com>, 
- Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>, 
- Peter Newman <peternewman@google.com>, Fenghua Yu <fenghua.yu@intel.com>, 
- James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>, 
- Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
- Robert Moore <robert.moore@intel.com>, Sunil V L <sunilvl@ventanamicro.com>, 
- Drew Fustini <fustini@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>, 
- Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>, 
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>, 
- Clark Williams <clrkwllms@kernel.org>, Steven Rostedt <rostedt@goodmis.org>, 
- Jonathan Corbet <corbet@lwn.net>
-Cc: linux-kernel@vger.kernel.org, linux-riscv@lists.infradead.org, 
- x86@kernel.org, linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev, 
- devicetree@vger.kernel.org, Paul Walmsley <paul.walmsley@sifive.com>, 
- Conor Dooley <conor@kernel.org>, linux-rt-devel@lists.linux.dev, 
- linux-doc@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=9431; i=fustini@kernel.org;
- h=from:subject:message-id; bh=cQZIxogxHi6/a1bq9hWHDBDDLMtTIO/xab7UaBUTm3o=;
- b=owGbwMvMwCV2+43O4ZsaG3kYT6slMWQJT8i8+oHZvP8y25zQxHjb5zfcdFP1Qj76r1At+Ni5m
- fWip65HRykLgxgXg6yYIsumD3kXlniFfl0w/8U2mDmsTCBDGLg4BWAi2x8y/GSc8nJ+9HLnCWuq
- uXfKesroLz+Q1bGI5XPrw8v1ss4xkY6MDB81GRmknE9s+yPQb/l0TX6Pb0Kxx/fzLUsKpGS/BQr
- 4cwEA
-X-Developer-Key: i=fustini@kernel.org; a=openpgp;
- fpr=1B6F948213EA489734F3997035D5CD577C1E6010
 
-Expose CBQRI bandwidth controller's combined read+write counter as
-the L3 mbm_total_bytes event. A software accumulator keeps the
-64-bit byte total monotonic across the 62-bit hardware counter wrap.
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
+s) to consider:
 
-mbm_local_bytes is not supported because the CBQRI spec has no way
-to distinguish total versus local. mbm_total_bytes is enabled only
-when the platform exposes exactly one mon-capable bandwidth
-controller and exactly one L3 domain. Pairing a single BC with
-multiple L3 domains would let standard userspace tools overcount
-system bandwidth by summing the same counter across domains.
+New issues:
+- [High] Cache pollution of AF_TRIG causes unintended conversions and unnec=
+essary I2C reads.
+- [High] The trigger reference acquired via iio_trigger_get() is leaked on =
+probe error paths and driver unbind.
+- [High] PM runtime usage counter leaks if the driver unbinds while an even=
+t is enabled.
+- [High] Sysfs read/write functions and trigger operations access hardware =
+without acquiring a PM runtime reference.
+- [High] Out-of-bounds array write in veml6031x00_trig_handler when the tim=
+estamp channel is enabled.
+- [Medium] Dead event sysfs attributes are exposed when no IRQ is present.
 
-Assisted-by: Claude:claude-opus-4-7
-Co-developed-by: Adrien Ricciardi <aricciardi@baylibre.com>
-Signed-off-by: Adrien Ricciardi <aricciardi@baylibre.com>
-Signed-off-by: Drew Fustini <fustini@kernel.org>
----
- drivers/resctrl/cbqri_resctrl.c | 191 +++++++++++++++++++++++++++++++++++++++-
- 1 file changed, 187 insertions(+), 4 deletions(-)
+Pre-existing issues:
+- [High] Unbalanced double-put of the runtime PM usage counter on driver un=
+bind.
+- [High] The shutdown action accesses I2C registers after PM runtime has be=
+en disabled.
+--
 
-diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resctrl.c
-index ba764bc6ef17..f11709d7e479 100644
---- a/drivers/resctrl/cbqri_resctrl.c
-+++ b/drivers/resctrl/cbqri_resctrl.c
-@@ -29,6 +29,13 @@ struct cbqri_resctrl_res {
- struct cbqri_resctrl_dom {
- 	struct rdt_ctrl_domain  resctrl_ctrl_dom;
- 	struct cbqri_controller *hw_ctrl;
-+	/*
-+	 * For an L3 capacity controller paired with a bandwidth controller
-+	 * of matching topology, paired_bc caches that BC so mbm_total_bytes
-+	 * reads / resets don't have to walk cbqri_controllers on every hit.
-+	 * NULL for non-L3 domains and L3s without a paired BC.
-+	 */
-+	struct cbqri_controller *paired_bc;
- };
- 
- static struct cbqri_resctrl_res cbqri_resctrl_resources[RDT_NUM_RESOURCES];
-@@ -37,7 +44,7 @@ static struct cbqri_resctrl_res cbqri_resctrl_resources[RDT_NUM_RESOURCES];
-  * Per-event controller table. Only events CBQRI can back occupy a
-  * slot, so other events do not bloat the array.
-  */
--#define CBQRI_MAX_EVENT QOS_L3_OCCUP_EVENT_ID
-+#define CBQRI_MAX_EVENT QOS_L3_MBM_TOTAL_EVENT_ID
- static struct cbqri_controller *cbqri_resctrl_counters[CBQRI_MAX_EVENT + 1];
- 
- static bool exposed_alloc_capable;
-@@ -228,6 +235,36 @@ void resctrl_arch_reset_rmid(struct rdt_resource *r, struct rdt_l3_mon_domain *d
- 		mutex_unlock(&ctrl->lock);
- 		break;
- 
-+	case QOS_L3_MBM_TOTAL_EVENT_ID: {
-+		struct cbqri_controller *bc;
-+
-+		cd = cbqri_find_ctrl_domain(&r->ctrl_domains, d->hdr.id);
-+		if (!cd)
-+			break;
-+		hw_dom = container_of(cd, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
-+		bc = hw_dom->paired_bc;
-+		if (!bc)
-+			break;
-+		if (WARN_ON_ONCE(!bc->mbm_total_states))
-+			break;
-+		if (rmid >= bc->mcid_count)
-+			break;
-+
-+		mutex_lock(&bc->lock);
-+		/*
-+		 * CONFIG_EVENT both resets and re-arms. Skip the accumulator
-+		 * memset on failure. A stale hardware counter X with
-+		 * prev_ctr=0 would inject overflow(0, X) on the next read.
-+		 */
-+		if (!cbqri_mon_op(bc, CBQRI_BC_MON_CTL_OFF,
-+				  CBQRI_BC_MON_CTL_OP_CONFIG_EVENT, rmid,
-+				  CBQRI_BC_EVT_ID_TOTAL_READ_WRITE, NULL))
-+			memset(&bc->mbm_total_states[rmid], 0,
-+			       sizeof(*bc->mbm_total_states));
-+		mutex_unlock(&bc->lock);
-+		break;
-+	}
-+
- 	default:
- 		break;
- 	}
-@@ -240,8 +277,10 @@ void resctrl_arch_reset_rmid_all(struct rdt_resource *r, struct rdt_l3_mon_domai
- 	int i;
- 
- 	/* Bound by max_rmid (system-wide minimum mcid_count). */
--	for (i = 0; i < max_rmid; i++)
-+	for (i = 0; i < max_rmid; i++) {
- 		resctrl_arch_reset_rmid(r, d, 0, i, QOS_L3_OCCUP_EVENT_ID);
-+		resctrl_arch_reset_rmid(r, d, 0, i, QOS_L3_MBM_TOTAL_EVENT_ID);
-+	}
- }
- 
- int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
-@@ -305,6 +344,82 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr *hdr,
- 		mutex_unlock(&ctrl->lock);
- 		break;
- 
-+	case QOS_L3_MBM_TOTAL_EVENT_ID: {
-+		struct cbqri_controller *bc;
-+
-+		/*
-+		 * The L3 monitoring domain's id is the L3 cache id. The
-+		 * matching ctrl domain's hw_dom->paired_bc was cached at
-+		 * add time to avoid walking cbqri_controllers on every read.
-+		 */
-+		d = cbqri_find_ctrl_domain(&r->ctrl_domains, hdr->id);
-+		if (!d) {
-+			err = -ENOENT;
-+			break;
-+		}
-+		hw_dom = container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
-+		bc = hw_dom->paired_bc;
-+		if (!bc) {
-+			err = -ENOENT;
-+			break;
-+		}
-+		if (WARN_ON_ONCE(!bc->mbm_total_states)) {
-+			err = -EIO;
-+			break;
-+		}
-+		if (rmid >= bc->mcid_count) {
-+			err = -ERANGE;
-+			break;
-+		}
-+
-+		mutex_lock(&bc->lock);
-+		/* Pass EVT_ID explicitly. Same reason as the CC path above. */
-+		err = cbqri_mon_op(bc, CBQRI_BC_MON_CTL_OFF,
-+				   CBQRI_BC_MON_CTL_OP_READ_COUNTER, rmid,
-+				   CBQRI_BC_EVT_ID_TOTAL_READ_WRITE, NULL);
-+		if (err)
-+			goto out_bc;
-+
-+		ctr_val = ioread64(bc->base + CBQRI_BC_MON_CTR_VAL_OFF);
-+
-+		if (ctr_val & CBQRI_BC_MON_CTR_VAL_INVALID) {
-+			/*
-+			 * Return the last good total and leave prev_ctr so
-+			 * the next valid sample resumes from there.
-+			 */
-+			*val = bc->mbm_total_states[rmid].chunks;
-+		} else if (ctr_val & CBQRI_BC_MON_CTR_VAL_OVF) {
-+			/*
-+			 * OVF is sticky until next CONFIG_EVENT.
-+			 * cbqri_bc_mon_overflow() can recover at most
-+			 * one wrap. With OVF set, the count is unknown,
-+			 * so re-arm and re-anchor prev_ctr=0.
-+			 */
-+			struct cbqri_bc_mon_state *s = &bc->mbm_total_states[rmid];
-+
-+			pr_warn_ratelimited("BC@%pa MCID %u: bandwidth counter overflow\n",
-+					    &bc->addr, rmid);
-+			err = cbqri_mon_op(bc, CBQRI_BC_MON_CTL_OFF,
-+					   CBQRI_BC_MON_CTL_OP_CONFIG_EVENT, rmid,
-+					   CBQRI_BC_EVT_ID_TOTAL_READ_WRITE, NULL);
-+			if (err)
-+				goto out_bc;
-+
-+			s->prev_ctr = 0;
-+			*val = s->chunks;
-+		} else {
-+			struct cbqri_bc_mon_state *s = &bc->mbm_total_states[rmid];
-+			u64 cur = ctr_val & CBQRI_BC_MON_CTR_VAL_CTR_MASK;
-+
-+			s->chunks  += cbqri_bc_mon_overflow(s->prev_ctr, cur);
-+			s->prev_ctr = cur;
-+			*val        = s->chunks;
-+		}
-+out_bc:
-+		mutex_unlock(&bc->lock);
-+		break;
-+	}
-+
- 	default:
- 		err = -EINVAL;
- 		break;
-@@ -738,6 +853,15 @@ static int cbqri_resctrl_control_init(struct cbqri_resctrl_res *cbqri_res)
- 			res->mon.num_rmid = ctrl->mcid_count;
- 			resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID,
- 						 false, 0, NULL);
-+
-+			/*
-+			 * Expose BC bandwidth monitoring as the L3's
-+			 * mbm_total_bytes when they share topology.
-+			 */
-+			if (cbqri_resctrl_counters[QOS_L3_MBM_TOTAL_EVENT_ID])
-+				resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID,
-+							 false, 0, NULL);
-+
- 			res->mon_capable = true;
- 		}
- 		break;
-@@ -824,15 +948,54 @@ static int cbqri_resctrl_pick_bw_alloc(void)
- }
- 
- /*
-- * Pick one controller per monitoring event.  L3 OCCUP comes from the
-- * picked L3 CC (if mon_capable).
-+ * Pick one controller per monitoring event. L3 OCCUP comes from the
-+ * picked L3 CC if mon_capable. MBM_TOTAL from the only mon-capable BC,
-+ * but only when the system exposes exactly one L3 cache. Pairing a
-+ * single BC with multiple L3 domains would overcount system bandwidth
-+ * by a factor equal to the L3 domain count.
-  */
- static void cbqri_resctrl_pick_counters(void)
- {
- 	struct cbqri_resctrl_res *l3 = &cbqri_resctrl_resources[RDT_RESOURCE_L3];
-+	struct cbqri_controller *ctrl, *prev;
-+	unsigned int l3_count = 0;
- 
- 	if (l3->ctrl && l3->ctrl->mon_capable)
- 		cbqri_resctrl_counters[QOS_L3_OCCUP_EVENT_ID] = l3->ctrl;
-+
-+	/* Count distinct L3 cache_ids */
-+	list_for_each_entry(ctrl, &cbqri_controllers, list) {
-+		bool seen = false;
-+
-+		if (ctrl->type != CBQRI_CONTROLLER_TYPE_CAPACITY)
-+			continue;
-+		if (ctrl->cache.cache_level != 3)
-+			continue;
-+
-+		list_for_each_entry(prev, &cbqri_controllers, list) {
-+			if (prev == ctrl)
-+				break;
-+			if (prev->type != CBQRI_CONTROLLER_TYPE_CAPACITY)
-+				continue;
-+			if (prev->cache.cache_level != 3)
-+				continue;
-+			if (prev->cache.cache_id == ctrl->cache.cache_id) {
-+				seen = true;
-+				break;
-+			}
-+		}
-+		if (!seen)
-+			l3_count++;
-+	}
-+
-+	if (l3_count > 1) {
-+		pr_warn_once("multiple L3 domains (%u) detected. mbm_total_bytes disabled\n",
-+			     l3_count);
-+		return;
-+	}
-+
-+	cbqri_resctrl_counters[QOS_L3_MBM_TOTAL_EVENT_ID] =
-+		cbqri_find_only_mon_bc();
- }
- 
- static void cbqri_resctrl_accumulate_caps(void)
-@@ -948,6 +1111,26 @@ static int cbqri_attach_cpu_to_l3_mon(struct cbqri_controller *ctrl,
- 	else
- 		list_add_tail(&mon_dom->hdr.list, &res->mon_domains);
- 
-+	/*
-+	 * Pair this L3 domain with the system's mon-capable BC and
-+	 * initialise the BC's per-MCID software accumulators before
-+	 * resctrl_online_mon_domain() exposes the domain to userspace.
-+	 * A concurrent sysfs read of mbm_total_bytes between online and
-+	 * BC init would otherwise pass the !bc->mbm_total_states check
-+	 * with a half-initialised pointer.
-+	 */
-+	hw_dom = container_of(ctrl_dom, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
-+
-+	hw_dom->paired_bc = cbqri_find_only_mon_bc();
-+	if (hw_dom->paired_bc) {
-+		err = cbqri_init_bc_mon_counters(hw_dom->paired_bc);
-+		if (err) {
-+			pr_err("BC @%pa: mon init failed (%d)\n", &hw_dom->paired_bc->addr, err);
-+			hw_dom->paired_bc = NULL;
-+			goto err_listdel;
-+		}
-+	}
-+
- 	err = resctrl_online_mon_domain(res, &mon_dom->hdr);
- 	if (err)
- 		goto err_listdel;
+commit cbdd69d1454af4788d5d18a23d3fb6854c9981e9
+Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
 
--- 
-2.43.0
+iio: light: veml6031x00: add support for events and trigger
 
+The device provides a shared interrupt line for to notify events and
+data ready, which can be used as a trigger. The interrupt line is not a
+requirement for the device to work. Implement variants for the cases
+whether the interrupt line is provided or not.
+
+> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031=
+x00.c
+> index 9968d4414dc96..c57aaa29abf30 100644
+> --- a/drivers/iio/light/veml6031x00.c
+> +++ b/drivers/iio/light/veml6031x00.c
+
+[ ... ]
+
+> @@ -136,6 +189,8 @@ static const struct iio_chan_spec veml6031x00_channel=
+s[] =3D {
+>  		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>  		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>  		.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCALE),
+> +		.event_spec =3D veml6031x00_event_spec,
+> +		.num_event_specs =3D ARRAY_SIZE(veml6031x00_event_spec),
+
+[Severity: Medium]
+Will this expose dead event sysfs attributes when no IRQ is present?
+
+When i2c->irq is 0, the driver registers veml6031x00_info_no_irq which lacks
+event callbacks. However, this channel array unconditionally defines
+event_spec and num_event_specs. The IIO core will parse these and expose
+event sysfs files. Reading or writing these files will fail with -EINVAL
+because the callbacks are NULL, which violates the sysfs API contract.
+
+[ ... ]
+
+> +static int veml6031x00_read_event_val(struct iio_dev *iio,
+> +				      const struct iio_chan_spec *chan,
+> +				      enum iio_event_type type,
+> +				      enum iio_event_direction dir,
+> +				      enum iio_event_info info,
+> +				      int *val, int *val2)
+> +{
+
+[Severity: High]
+Are PM runtime references needed here before accessing hardware?
+
+This function, as well as veml6031x00_write_event_val() and
+veml6031x00_set_trigger_state(), performs I2C accesses via regmap without
+first calling pm_runtime_resume_and_get(). If the device is
+runtime-suspended and its PM domain has powered it off, will these I2C
+accesses fail or time out?
+
+[ ... ]
+
+> +static int veml6031x00_write_event_config(struct iio_dev *iio,
+> +					  const struct iio_chan_spec *chan,
+> +					  enum iio_event_type type,
+> +					  enum iio_event_direction dir,
+> +					  bool state)
+> +{
+> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	int ret;
+> +
+> +	guard(mutex)(&data->lock);
+> +
+> +	/* avoid multiple increments/decrements from one source */
+> +	if (state =3D=3D data->ev_en)
+> +		return 0;
+> +
+> +	if (state) {
+> +		ret =3D pm_runtime_resume_and_get(data->dev);
+
+[Severity: High]
+Could this leak the PM runtime usage counter if the driver unbinds?
+
+Enabling an event increments the PM runtime usage counter here. If the
+driver is unbound via sysfs while an event is enabled, the IIO core does
+not automatically disable the event. Since there is no unbind cleanup
+mechanism to release the pending PM reference when data->ev_en is true,
+does this keep the device powered on indefinitely?
+
+[ ... ]
+
+> +/* AF_TRIG is reset by hardware, but the rest of the fields are persiste=
+nt */
+> +static int veml6031x00_set_af_trig(struct veml6031x00_data *data, bool s=
+tate)
+> +{
+> +	regcache_drop_region(data->regmap, VEML6031X00_REG_CONF0,
+> +			     VEML6031X00_REG_CONF0);
+> +
+> +	return regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
+> +				  VEML6031X00_CONF0_AF_TRIG,
+> +				  FIELD_PREP(VEML6031X00_CONF0_AF_TRIG, state));
+> +}
+
+[Severity: High]
+Can this cause unintentional active force conversions due to cache pollutio=
+n?
+
+This sets the self-clearing AF_TRIG bit using regmap_update_bits().
+Because CONF0 is not marked as a volatile register, regmap_update_bits()
+writes AF_TRIG=3D1 and caches it. Any subsequent read-modify-write on CONF0
+(e.g., toggling the interrupt or changing integration time) will read the
+cached AF_TRIG=3D1 and write it back to hardware, unintentionally triggering
+an active force conversion and causing hardware state corruption.
+
+[ ... ]
+
+>  static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
+>  {
+>  	struct iio_poll_func *pf =3D p;
+>  	struct iio_dev *iio =3D pf->indio_dev;
+>  	struct veml6031x00_data *data =3D iio_priv(iio);
+>  	int ch, ret, i =3D 0;
+>  	struct {
+>  		__le16 chans[2];
+>  		aligned_s64 timestamp;
+>  	} scan =3D { };
+> =20
+>  	if (*iio->active_scan_mask =3D=3D (BIT(VEML6031X00_SCAN_ALS) |
+>  				       BIT(VEML6031X00_SCAN_IR))) {
+>  		ret =3D regmap_bulk_read(data->regmap,
+>  				       VEML6031X00_REG_ALS_L,
+>  				       &scan.chans, sizeof(scan.chans));
+>  		if (ret)
+>  			goto done;
+>  	} else {
+>  		iio_for_each_active_channel(iio, ch) {
+>  			ret =3D regmap_bulk_read(data->regmap,
+>  					       iio->channels[ch].address,
+>  					       &scan.chans[i++],
+
+[Severity: High]
+Does this loop cause an out-of-bounds array write if the timestamp
+channel is enabled?
+
+The iio_for_each_active_channel() loop does not exclude the soft timestamp
+channel. If the user enables ALS, IR, and TIMESTAMP channels, the loop
+iterates 3 times. However, the scan.chans array is declared as=20
+__le16 chans[2]. Processing the timestamp channel increments the index i
+to 2 and writes to scan.chans[2], causing an out-of-bounds memory write.
+
+Furthermore, because the timestamp channel's address is 0, this incorrectly
+attempts a bogus I2C read from VEML6031X00_REG_CONF0.
+
+[ ... ]
+
+> +static int veml6031x00_setup_irq(struct i2c_client *i2c, struct iio_dev =
+*iio)
+> +{
+> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	struct device *dev =3D data->dev;
+> +	int ret;
+> +
+> +	data->trig =3D devm_iio_trigger_alloc(dev, "%s-drdy%d", iio->name,
+> +					    iio_device_id(iio));
+> +	if (!data->trig)
+> +		return -ENOMEM;
+> +
+> +	data->trig->ops =3D &veml6031x00_trigger_ops;
+> +	iio_trigger_set_drvdata(data->trig, iio);
+> +
+> +	ret =3D devm_iio_trigger_register(dev, data->trig);
+> +	if (ret)
+> +		return ret;
+> +
+> +	iio->trig =3D iio_trigger_get(data->trig);
+
+[Severity: High]
+Is the trigger reference acquired here leaked on driver unbind?
+
+Calling iio_trigger_get() increments the trigger device's refcount and the
+driver module's refcount. If the driver fails probe afterwards or is unbound
+later, iio_trigger_put() is never called because there is no devres action
+registered for it and no custom remove callback. Does this permanently leak
+the trigger device reference and prevent the module from being unloaded?
+
+[ ... ]
+
+> @@ -618,6 +1039,10 @@ static int veml6031x00_probe(struct i2c_client *i2c)
+
+[ ... ]
+
+>  	ret =3D devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action, =
+data);
+
+[Severity: High]
+This is a pre-existing issue, but does this shutdown action access I2C
+registers after PM runtime has been disabled?
+
+This action is registered via devm_add_action_or_reset() before PM runtime
+is enabled. On teardown, devm actions run in reverse, meaning PM runtime is
+disabled before the shutdown action runs. The shutdown action then attempts
+I2C writes while PM runtime is disabled. If the device was suspended, it
+cannot be resumed, potentially causing I2C transfer failures.
+
+[ ... ]
+
+>  	pm_runtime_put_autosuspend(dev);
+
+[Severity: High]
+This is a pre-existing issue, but is there an unbalanced double-put of the
+runtime PM usage counter on driver unbind?
+
+The probe function registers a cleanup action to drop the PM reference via
+devm_pm_runtime_get_noresume(dev). However, this explicit put at the end
+of probe means the devm action will drop the reference a second time on
+unbind, causing a PM usage counter underflow that breaks the PM runtime
+state machine.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-veml6031x0=
+0-v3-0-29165609b2b5@gmail.com?part=3D4
