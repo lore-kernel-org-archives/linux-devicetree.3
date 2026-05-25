@@ -1,72 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 598B33D0C0B
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B335B3E4C9E
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779701012; cv=none; b=gdXMYWWxV9YGBNOaqAIgYRCYdoiXpq6t3hoxRNukqHzwCqW0Rp1sDxeIgI8xF3hafeuY/m4lgQfKrJ2aeGzHpP7w26AtTmpmCIFjmMmbtMYzXBXRArKoDDUIdKHETI1LAkWA7g3d9/MiuFoVY63wImUPVzxZrAJmlMdiN1uy2Yc=
+	t=1779701034; cv=none; b=sub2aNa/ogrGPtZKGbTVoyUMSeTE09f+rfDgHGyti1XFN3A0N34bS4TzfzmeZC3dvt3jRsRwXNgg7mxhoJpxvJRzNXykmOP2ICBaMezdxMLRWFKR7P1EKNXYCLP3owZ5bWxOepPL06MPQbxnHWgisLNjAJ48X+WVRbGRPyLnivs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779701012; c=relaxed/simple;
-	bh=HSqMR1BUhZmAPoEEsJ7CSGo/YWAmtsvZVxjNmWMnpv8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kS23HhqQ67nFGgk0OD2N3+HGPlf0TA1M/QZDT/jUSHwYs62YFofSbFi83HnmCI0uJgOISOkudYnYboCmbz4yWJOpyDLr2K7rqff3g+qjA3cqvDD6OPMYtVqfVm/Sunn1KaTMPEjY/6WShYDtA1iS2j8iC0yHjoiwTq916dymVY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bY5RO9ze; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779701034; c=relaxed/simple;
+	bh=yMesBNc83KFeDSyEVsHsqZR1yAWMj5zw8lrvjBNS3N8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mNhkP8nDf9CdJH7zXMk/zjdl3B5k0l5xwWYWTN0CWSgdy/7BxcGl6bitqPGuR3gMI/3x90eym/85j6rrswJcdQ/ozTubsoAwWnLIqH7+HySy+R4frNRPkoKsC7GUiJdUmLd5ZYSfXyTDn1+Hpu4Egp6+92SCPxjZKa/oRg7KWfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TMtLprGb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jMbOop1d; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bY5RO9ze"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 183FF1F00A3E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779701011;
-	bh=HSqMR1BUhZmAPoEEsJ7CSGo/YWAmtsvZVxjNmWMnpv8=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=bY5RO9zeN2x3Sx/sqgo2aknq4O6QBadaN73qg/yfFYfFj1VFzTuYX5o/YDTtIhE+q
-	 7hwNQawZXELa/v/bcY6sAvMO325Vy2GJlc6YqVhrDmKUvK+ZmgeeM0lCDSeWqxoLQb
-	 f8ujT09CuayXKFW5Hyn8wj1rStcaKQVPaflf4SQcVG126wstv1ufwwz+4u2gsLIiXE
-	 pR1oxgNT6N6o3yltF1VFTK1j9+F1Bm39BZAhUiJbcuE3/5LErESwI8KrtcZ6Msp90G
-	 fg3pRmNg2jbV91FjV4Jf+sICABFNtU/EFI6OTLAeaHXycKuCOQDKKnkza89bylr8jw
-	 zxFHO5pXuTVlw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5a887ebb416so11329099e87.2
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 02:23:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8htWD4MxAjjEDl6GA6tCWMIxJQuLm6ZzlHofe2qwSO19ghdAU5dbJYXQl1Ku+/bKPmB5YQnJClgW+L@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIFXoZbcmTc+Sh2TBQVjw/6ooa62PgEUW/5GuysHYLz4+0JGeY
-	ZXyCnp1fwq/AnHkouod5W1d/2RfAVY61zoNudHLosm3Usf72pzm8fYcboEo9Hwizsfysv8q0HIM
-	I1dZjWZX48NbKkpVJ44ALJ7n4i18KtVQ=
-X-Received: by 2002:a19:f614:0:b0:5a8:d1f3:501 with SMTP id
- 2adb3069b0e04-5aa323d4911mr3163269e87.22.1779701009859; Mon, 25 May 2026
- 02:23:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TMtLprGb";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jMbOop1d"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P7NMbB793675
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:52 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=ZgEROvWEv1cb9w2QdV5vokQY
+	l9MdDAQ1ReIXJgtHI+8=; b=TMtLprGbDMI/hnPqqiYx+U/blMZFw0vbp82uc7bV
+	ooCXpTVMNnGMYmPP2wGeLXGZlLmClFHi9qjstlIAnKAWK7GAD990gatTG2frv2eR
+	XQ/r6guqNDn+yeFlbFGFzW5sqEGxbRi5fA2m16RCeHrnjG44WiQbG+ExlTu2qV2B
+	X/WKO+uYWXz8plEefKKasBbG4JxRg7RNHAKyjoG0RnStdGTvD7BrnP9TmEJR71G8
+	rbyum6Nq4U1csA97iDrFXzcMgPLjXkJih+JdfychF2q5NwPN9Ihp2x9BTHSNxbUi
+	UKopP6vYMNA6s+ku9VTahM+Wkx3YaaCGIlEgQ17FBrZGUQ==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb5h9nua8-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:51 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-516da5a1db4so65821361cf.0
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 02:23:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779701031; x=1780305831; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZgEROvWEv1cb9w2QdV5vokQYl9MdDAQ1ReIXJgtHI+8=;
+        b=jMbOop1dqPsfu+VeBFOFpXpPwXOcY3gYx56YjvAl+Qj0H0X0bUgdQ4+fb/Bd5bMNbd
+         XlYra/zQIUa0/0EtWoMIaPhP/3I4LvL0jCY0roH+MyEIPGTTJqJxpVkomgjX41dRukZT
+         S2nfbXoM5XCc1pbp2nF9h2nMwfvBTvWtC7n25PInDTMSR5zt/Jp3+f4S5gu+xXMw82uh
+         zOAUK/Ecrkgg14E4ItMpxOt961ji4IdjRPnK9VrYPOwNZeU33PqLXhGwvxiryOPmEK7G
+         5XpXLQNdcYPhmSUKn57BWeITMbemzod4smY5L2EOe6G7HqZZq9YaV1rJaNQ9YGjvaMgp
+         jYGw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779701031; x=1780305831;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ZgEROvWEv1cb9w2QdV5vokQYl9MdDAQ1ReIXJgtHI+8=;
+        b=ec7ccc2A506eOJopjl25Kc7jXiH7g6bUtASaJmfqmR3UgHigFMu+vnRNr5sS0KEp5d
+         jv67HEttBRb5gh4PfsMucgtTqZjduGkM3aioglI/afNetTYv07UaD2gJj1ZSb+JgZDvZ
+         4khd6otFX9JnGmyBI99tlqKkOvr9HbwdgH4+LSIpp+f20P7TALchIkf9prTEktJ2IULe
+         N6/CGY6tWwFge+T/gxHtdA2fCZsKCmAgv/njfq/vPVe70slOqIrwHyyXKHx2cQUZVWLb
+         lM9SKzdwp5FgulsGSX59xV7FbULWu4EXl9YW+Thw5+Scfhm/9fmUQ6vETUGWAF4eLwNJ
+         hUuw==
+X-Forwarded-Encrypted: i=1; AFNElJ8da8yEJ7e6rJkyHfFuDxDRoTvKdt0JWcB7N50eZVH1Ha5K2iOT36DcNngo2dDc8skLlgWHEgfMeUsf@vger.kernel.org
+X-Gm-Message-State: AOJu0YxbJct15xIEkeEnB397+D/X2GHrfrEREPboDA+qR03H7D6SExNl
+	mdXV1/YtbxkLAZNw9pMHTmWSSnJ6ZDEoNoEpHpB++kpy3RaVhmgG9oAJ7ofmO4wHAh8ANSJGbRL
+	1JcKAoGisrEwTa5Fyth/wqgkYPYJLcqfWsJuKSHX7d2zVPPzeo8/cq2MZU6Z/p7nG
+X-Gm-Gg: Acq92OGGjY8ijhdmimt9iTo54M9MJtVkujvnrvpJtGLDI8Vq3GWlbHLggTcn1wbzoEH
+	93iKhsUgT840ygqjZ3Ukh9tZEQvWmznAqcs7dmXzu4N/DwzpnhwSCpHJPr51ywo2wBhZJMR+4IK
+	GQtdFqwya1CEFwq7OrGR6/5cEaq62OOcLk1WqJdCaEx9TlfXbGg2zf/61bN1vtQPHlJb0AX5kqO
+	y6rQPAe+Csp+h4g6ByW1oinXCxVBpXD3Teh21E5duzr0yF3KaCNFxChn9RnCqg/sKJKMqnwzls+
+	NBvF2JaVepxQYzNqthYM9GM0b+9ojDvEdr6gyQdGJLVr+WhVD4ev2qBZsuQ0+SDu/KZHceGiAYy
+	HXwMB+bL5dD18OLkEua1wigojWX/Lip9KDX2aqh9VNGAedtdbZdSOMn/Uj+0yGi4QU76G32gw4m
+	5FRhtG/AlpFeymDNpYFWt15YdN8OM9EypGp/M=
+X-Received: by 2002:ac8:7e93:0:b0:50f:c36a:3826 with SMTP id d75a77b69052e-516d42bfb1amr206103331cf.16.1779701030676;
+        Mon, 25 May 2026 02:23:50 -0700 (PDT)
+X-Received: by 2002:ac8:7e93:0:b0:50f:c36a:3826 with SMTP id d75a77b69052e-516d42bfb1amr206103101cf.16.1779701030247;
+        Mon, 25 May 2026 02:23:50 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395dcc41ca0sm22447561fa.36.2026.05.25.02.23.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 May 2026 02:23:49 -0700 (PDT)
+Date: Mon, 25 May 2026 12:23:47 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
+Subject: Re: [PATCH 07/16] arm64: dts: qcom: shikra: Add CPU OPP tables to
+ scale DDR/L3
+Message-ID: <4ugjyb73ftcjypi6wfqz47j2vvvfxj3ljunsqlixzdzzajy72c@3gb2bnx7coy5>
+References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
+ <20260525-shikra-dt-m1-v1-7-f51a9838dbaa@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com> <20260515-ultrarisc-pinctrl-v1-4-bf559589ea8a@ultrarisc.com>
-In-Reply-To: <20260515-ultrarisc-pinctrl-v1-4-bf559589ea8a@ultrarisc.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 25 May 2026 11:23:17 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmjm=Zgs+jNGTVdasy+9O1GvqM6EP=rVRR5mP=L9V13Mw@mail.gmail.com>
-X-Gm-Features: AVHnY4KZDPHsMnDjXhSnKvV5S7ZKJ_9tMzfEYPdLup3zNAoK-EI-0JPPNTFt604
-Message-ID: <CAD++jLmjm=Zgs+jNGTVdasy+9O1GvqM6EP=rVRR5mP=L9V13Mw@mail.gmail.com>
-Subject: Re: [PATCH 4/9] dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl bindings
-To: wangjia@ultrarisc.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Samuel Holland <samuel.holland@sifive.com>, Paul Walmsley <paul.walmsley@sifive.com>, 
-	Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525-shikra-dt-m1-v1-7-f51a9838dbaa@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: L-9RHZ776dUtKROUQ-wk6rOSQkseWwYf
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDA5NSBTYWx0ZWRfX0zwgvwESw1RW
+ b9UA7A95Ib4a+KZMIpGseF9fQ0B3ni5SchhE7VXPoE91VH8UyaU7H/SdfTfzHw0nzRXkxW/pCqC
+ B7zqOy4bpPDdIkNDDuqcTMFY9XBEwypS1cmyIYZTT4q4L19rIU92BSyF+y5YNWo6oXgRUKfuyF0
+ hm1dImllcUgUFMEO2HRMPFsJDbuQEEQlc8X+X2P9FchEify3N/3JvIkJUn9P/BO7uWaQpFnYjNe
+ 7c1VwZPs9RrIFapXN3oZ2LPjMjwgAIeZhDq4g3132zLeDTBBbgyP4r+QUZMyPLic/tPpAiG8Uqt
+ jv20UWhYnvOEYgFdHqYwcrco0W+LXHVW/YmJyCJXRRf4j3jsIkqWFB2IESmiTBPE5Uq0qDsCtu7
+ NY2Av2mu55ZilxAzN/rsKwhSvyAN+WXKCwiEy307zJJIIDOsB4btUK22xZxhYu5RutCc3zWuhS0
+ i5MBUXl0zY48sDZ+kBg==
+X-Authority-Analysis: v=2.4 cv=H7jrBeYi c=1 sm=1 tr=0 ts=6a141527 cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
+ a=djs_V13T0nIvbdZk5PcA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: L-9RHZ776dUtKROUQ-wk6rOSQkseWwYf
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_02,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605250095
 
-On Fri, May 15, 2026 at 3:18=E2=80=AFAM Jia Wang via B4 Relay
-<devnull+wangjia.ultrarisc.com@kernel.org> wrote:
+On Mon, May 25, 2026 at 01:19:11AM +0530, Komal Bajaj wrote:
+> From: Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
+> 
+> Add OPP tables required to scale DDR and L3 per freq-domain on
+> Shikra SoC.
+> 
+> Signed-off-by: Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
+> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/shikra.dtsi | 84 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 84 insertions(+)
 
-> +++ b/include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h
+Does it really make sense to split cpufreq_hw, EPSS and OPP tables into
+three separate patches?
 
-Move this to something like arch/*/dts/vendor/dp1000-pinctrl.dtsi
+> 
+> @@ -144,6 +164,70 @@ memory@80000000 {
+>  		/* We expect the bootloader to fill in the size */
+>  		reg = <0x0 0x80000000 0x0 0x0>;
+>  	};
+> +	cpu0_opp_table: opp-table-cpu0 {
 
-Yours,
-Linus Walleij
+Missing empty line.
+
+> +		compatible = "operating-points-v2";
+> +		opp-shared;
+> +
+> +		cpu0_opp_768mhz: opp-768000000 {
+
+Drop useless labels.
+
+> +			opp-hz = /bits/ 64 <768000000>;
+> +			opp-peak-kBps = <1200000 17817600>;
+> +		};
+
+-- 
+With best wishes
+Dmitry
