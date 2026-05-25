@@ -1,63 +1,63 @@
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5559C3B47CF
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:47:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7783EDE43
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:47:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779720471; cv=none; b=luShS7asg5C0v4GUFPOELFCI3sO5nCyXiiBg1GkPXhT4duxvDLe5+M9yo4DEpAp6hUgJqQ63TCnUVqItQpqXt9IM4j3veBCAbdVVjZgLQjD8E1MTxPWtB3HYvqQlGQSMWL8MYVBiNp3hRTjtQZo6udfFoHSEzczYPhBJ6N4H4hM=
+	t=1779720479; cv=none; b=rMgyQKH8XAIOZ2gWrP5Er08Ajf8ujzChi/44iokGI6g6SIjuX7REWgmrUpz6lO2c0lo/L39zB1pCKeXyMquCNglyc9CEE0kj4grfV7tulFOc9zu7IIWBFVAva68qn2nB3ZOhUbMhLgzKAJG21U8vPnaZbe3+9sly6USSwnR/Pw0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779720471; c=relaxed/simple;
-	bh=rQev9snjUDQDOjiwl73HCrNzxpOg3GjolVgiv9srQUs=;
+	s=arc-20240116; t=1779720479; c=relaxed/simple;
+	bh=ApyTNGQqGjBxvFRvwMaHvvYHMwId1OBVvi//Xkx5AxY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dydNkMB/ilWm8SabK87dTts5E/Fd55mOiBOvlPnUkJiFlocJifhhgRcJQFZH7gKCpXF23wxCnsWQcwAcpscWEL5sW+5MhyUMw28z3VlavJMy4xtFoL8kM6QBLqxCDG/2ShmmR6ZKGa1nVE8nKz/Y1frbdxupyBBe/Y2R8Ow6VCM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UlFEFbtE; arc=none smtp.client-ip=209.85.216.43
+	 MIME-Version; b=kEusIXriQ8PdGLXaSTPsiLMhhqCWlLQ4AUkRF0WRmNSj2CvD71maL2ypfAVO1WQ6wQQAwZ7Otc1hmy3ET8FQZmMf+J6VZ7ztQ1tIPkpAIFqW4urPGIPPVbxIo8YAucFDk7ePFVUDk8LXTcc+E8NkGZgWS2VTI/6SZwQ91HTNG+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MoQ7A+EY; arc=none smtp.client-ip=209.85.216.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UlFEFbtE"
-Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-3664df32e91so11165720a91.3
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:47:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MoQ7A+EY"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-36974217d4eso6314371a91.2
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:47:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779720470; x=1780325270; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779720478; x=1780325278; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rVVGG9O42cYkv4+MEhpJhN2Gsiqdr8SLjGLZwhgYa/0=;
-        b=UlFEFbtE4LX8kXg4191YimQ3eaMGAtBr7w0P51NQTkYRRd/JGvwIF6zH4KVfzCEFsf
-         ck860WhFm07gR+HHLGAW3m5LbhgNvOFwjqfBX/eGYW9o2BMDi4T2mcqF2yKfgOfLkf7B
-         c9YvT39L8wBDCebbfMvJpaY5vpmu6S8VP5b8gTEWqfqA2JkB2U3KfOWIwPg+N71ShVkd
-         2my3IJnbNudbfyMSjOEDBG7pzWqQNpmaOXPmIWBPq5t2tzmiCEZ4WEr8RQs9OzMzrk2h
-         Y5xGzLepZ6VsIY8bogN1TU6nrewVqakKLoo0SO/EAwo1/L3Wllh5KLmUW/SHo8Yif3YL
-         J3Ww==
+        bh=pqwtJk8xmatM/f20tiZM3MnIEuWEW+BjNIaufm9TpJE=;
+        b=MoQ7A+EYfe7BKJLVo0cLGDctXXJ1skLbBTwRPdiT5c/mACHra88EM8jRRPMcdroUj1
+         SJxpG++n4pqxLuqzrmWZ8mFq5MT+W+nMlOpyxdZ2nciSxERtFw+nZD/A8UlCk0rvPksI
+         xxkx8sRcAv+Ui8GyF7mGegHYbVShHUjczntM2J+YEtV6KN5li/EwXfSRZqHgfRCVQPPu
+         y+QNN7r1EW3omWbmOyaBnRXIN+BFd68PfUIf2dq7sm1M2txLnjUcQicvwWo2Fptr3UtK
+         JKfE1c1t4cKFBK+/7KVEWiHBsfUC0VB8iO6XNG0eHKLEtwh4Si1qKehYrmUODVq6Uc1b
+         2fbg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779720470; x=1780325270;
+        d=1e100.net; s=20251104; t=1779720478; x=1780325278;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=rVVGG9O42cYkv4+MEhpJhN2Gsiqdr8SLjGLZwhgYa/0=;
-        b=eSkXfe42ZnAOixI/IHfqUohLUJz6PIoK2L+8qnlBOLx6OV4f4T/kr9BuLptYWA2pyg
-         VKmdsDGl1ezSUNu4D27cNLbdgNf6XUyX3lHN5rdXFTW2yENeVyamdYOrxGyiKjB/Vmd2
-         dWyMW3C9ra68Gw5xJRCVMEtVzk8pkyekblq/CyXTPx5UMdugA0LXmw5kn4XVH7aTVUpH
-         AD2IvJU+6b6OqgVVGXFyEBF31ZM+1USQ4rNV90YYtVndbDAtPrOsujl7ldpKAnJkHdsj
-         eihf+jS4Yi1Fb17mraCCMqi3cW8H0d49o5WftNgQbu5B2BtazWOU7myLfjQEKBA8NJuI
-         bSpg==
-X-Forwarded-Encrypted: i=1; AFNElJ93fHCRz8ULtF4fnFiKDRka+bCNztfmFPgCQd9TYtVzeOM4CdtLT20BTBkVObT6csp20E1dLkfpr8mQ@vger.kernel.org
-X-Gm-Message-State: AOJu0YzgkLQTG/MiohC0xIftCvXat3g2Pq9T5meyMOUDlvZ6mLU/2Atv
-	BoVy9vGgnLnFVYqnE7HHZ3Xtcl+1bYGcg41fnDfSF+bDMMw7iF/NccP3
-X-Gm-Gg: Acq92OHZ29juNph3UjjrSq56BIdTY13bhrYUje5Hghwl/KmTZ4FfxxQUnweOEgk8NrL
-	S8bjPgfv2D3LUaf4r8xqhvO0D2vASB3wYsz6roqhSGrGIXXbyxO+/rLg/aj/pgOT/OJ/gUs/nNj
-	F8XtBBusatuIvV3SRjzjS7ouNsmZR373zT3xk+F3WWtUWNjGLTxR83vyM1MOIvWqpXtrcVTBqGp
-	Txm1SDntjPH52puxKFaRZ+60lRkAclhldMOPLJPtSU93kA3Trptfrqx103Vlih9QIUrEsjrUJ6N
-	QHX4bXz8ZcqQ4beF7kzep1E/yWdmh+/kOUbDQgcQJIau/txttMahKqbv1EF+DviJ+5N+SeQtMbM
-	tAMcS25G3q5os1xvGD4vMt0aE6dAOUE5HHxbNwNeuAUYc4oYX7Md0K2O4IBtoyx1qJteW5MV9/K
-	B3FScozLqFQfSbieciySDy/jqcFyeZI4SD5lH5cSY=
-X-Received: by 2002:a17:90b:5284:b0:35f:b7f5:9b3 with SMTP id 98e67ed59e1d1-36a67420e95mr13511527a91.3.1779720469769;
-        Mon, 25 May 2026 07:47:49 -0700 (PDT)
+        bh=pqwtJk8xmatM/f20tiZM3MnIEuWEW+BjNIaufm9TpJE=;
+        b=afPEz05RCCsIB4yiiE4qGYRKPZ3C8f+/4wMqKeP43+K854KHcshjmLC6ckgNzbhH5Y
+         1sKBL9mN/nlyx3F8hoyaQiuqU/ejhhcxbC1KKgrIljaCiZRRDZDv4jIyIQp8hqUnGBbt
+         OCYOOJKX/PgFQDz+L9d2XEUX90wPgBZtblVUEop38r9Lg3bijnNCvjLFtllef863L2DG
+         WS2cMmdMe8NV0Ky6e0TSWSbi1IXNW3QWBhtgKsoiD9AcZxeimV8qbbN+UjzFjzcIZdHb
+         6T5Yjl+B6ZprRY0e3qZ7i2V5qZObQAvufiufEaMeDGzMeAMRHNI2bwS4an34EvZNJYMi
+         NUdQ==
+X-Forwarded-Encrypted: i=1; AFNElJ86KQNIyBx3t1aY6Rax6qASwk/yH2TEWWaAke78VzkKNoRH3bYlgGwOeYQkZKYguyGqMziW/ROPF4WW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyiLBS6rxB0P5/TOZtp5yVtW15+NwnYjJCPzO+HEU9JUIbQvt0W
+	e5oxGHt3cmdSmJZJd2njz89iWefQp9WrGzUYlnKkkcVLZVLlY8hXMzVH
+X-Gm-Gg: Acq92OErJ9gR8hTYj5cnBBy7+O2eNRqTkFi/FAKcrARYwxLyHNNWDLL5y1qoRYd6mz8
+	KCCzmiz6WXx7iC1Twpd6usV/zniAoIejvZ9GR+cTXIQOAbnuf+ADecimPSALCh95Ysa9EihPBDE
+	ZgM4c5Wr4xwO+6u/EjeBFtUVgcigyXOprNBmF9i0z8oD4XQbv7LC/ncQDyWh/gEDyo4hPFvWIVk
+	difwuR7iv10dCYekXVtVkqEnEwk7vna/Hm0jRnQlvZelY48taJycn6zjikoLKqOcImL+M6uN9E3
+	WgubqkPHARKtsu3nsoYxCB+8HyLwhrQwdB2Fo5N0TqqSNf1vXJoY7XcBvG6n8lzhgGc9AZgv2nG
+	U/KZV7MBI8i4WtaRKiYth1fL6eB62E8yz1GZXMHIwZXeqsf2lDeUqBKXsSPH8lvNv5z1A3tk1Pu
+	b2yNKbdZNNjuzjMsjO0ZBwuVdAMtqTeM2DgVwJMs9fYrz8BUXf0A==
+X-Received: by 2002:a17:90b:274d:b0:36a:caa9:47d2 with SMTP id 98e67ed59e1d1-36acaa94cb2mr5894653a91.1.1779720478207;
+        Mon, 25 May 2026 07:47:58 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.47.43
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.47.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 07:47:49 -0700 (PDT)
+        Mon, 25 May 2026 07:47:57 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: linusw@kernel.org,
 	dmitry.baryshkov@oss.qualcomm.com,
@@ -75,27 +75,25 @@ To: linusw@kernel.org,
 	Vincent Knecht <vincent.knecht@mailoo.org>,
 	Grant Feng <von81@163.com>,
 	Andre Przywara <andre.przywara@arm.com>,
-	Viresh Kumar <viresh.kumar@linaro.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
+	Alexandre TORGUE <alexandre.torgue@st.com>,
+	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
 	Robert Marko <robert.marko@sartura.hr>
 Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Pavel Machek <pavel@ucw.cz>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>,
-	Romain Perier <romain.perier@gmail.com>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Baruch Siach <baruch@tkos.co.il>,
 	linux-leds@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v2 4/6] arm64: dts: qcom: msm8916-alcatel-idol347: Fix sn3190 shutdown GPIO polarity
-Date: Mon, 25 May 2026 22:46:10 +0800
-Message-ID: <20260525144629.498630-5-jerrysteve1101@gmail.com>
+Subject: [PATCH v2 5/6] ARM: dts: qcom: msm8974-oneplus-bacon: Fix sn3193 shutdown GPIO polarity
+Date: Mon, 25 May 2026 22:46:11 +0800
+Message-ID: <20260525144629.498630-6-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260525144629.498630-1-jerrysteve1101@gmail.com>
 References: <20260525144629.498630-1-jerrysteve1101@gmail.com>
@@ -107,31 +105,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sn3190 shutdown pin is active-low [1]. Correct the GPIO flags
+The sn3193 shutdown pin is active-low[1]. Correct the GPIO flags
 from GPIO_ACTIVE_HIGH to GPIO_ACTIVE_LOW to match the hardware.
 
-[1] https://lumissil.com/assets/pdf/core/IS31FL3190_DS.pdf
+[1] https://lumissil.com/assets/pdf/core/IS31FL3193_DS.pdf
 
-Fixes: 1c8cc183d070 ("arm64: dts: qcom: msm8916-alcatel-idol347: add LED indicator")
+Fixes: 724ba6751532 ("ARM: dts: Move .dts files to vendor sub-directories")
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
 Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts | 2 +-
+ arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts b/arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts
-index 2de8b6f9531b..6d51d6efcbac 100644
---- a/arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8916-alcatel-idol347.dts
-@@ -197,7 +197,7 @@ &blsp_i2c6 {
- 	led-controller@68 {
- 		compatible = "si-en,sn3190";
+diff --git a/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts b/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts
+index 258bbbecd927..c528d42bade5 100644
+--- a/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts
++++ b/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts
+@@ -147,7 +147,7 @@ led-controller@68 {
+ 		compatible = "si-en,sn3193";
  		reg = <0x68>;
--		shutdown-gpios = <&tlmm 89 GPIO_ACTIVE_HIGH>;
-+		shutdown-gpios = <&tlmm 89 GPIO_ACTIVE_LOW>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&led_enable_default &led_shutdown_default>;
+ 
+-		shutdown-gpios = <&tlmm 45 GPIO_ACTIVE_HIGH>;
++		shutdown-gpios = <&tlmm 45 GPIO_ACTIVE_LOW>;
+ 
  		#address-cells = <1>;
+ 		#size-cells = <0>;
 -- 
 2.54.0
 
