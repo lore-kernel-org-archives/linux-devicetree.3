@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D8F3EDE6E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 15:23:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA5B3F4118
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 15:25:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779722607; cv=none; b=oRQzK0O5ld9GbSA7QL3vyNcPB+uViApXhFLJDr7K5tjgWae2QDMy1KJnVh73LxEf8WwRIYbuwMvoscdJnss2IQAG/A+fiCiVAGjtp1Q53FwhzyEHEZuFIVp0yWkSm/vlB9TDWJJfKdiAUMHI/iKpSWnB5mC7gVD7h0TaTGLWqrU=
+	t=1779722750; cv=none; b=FN6QpcEcCbWNt1BvDsSil7wVcOfFFJHVvhzXujGCItSlO+p60IC1jbXC9EMa9nE9OJ3Anb57XZNzAwe1OA7sFwJHFyz4GXWZG+kjnFoHtD1MSrW7MiWz1LpTefYtAyeCFPLgJ3epPzip+oO+53Xw3q0zgRGJdI8r+gRGD+vA+ZA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779722607; c=relaxed/simple;
-	bh=5xccS+1rv3Hx9m5jMR9NjR94SBuSiIQBsCcQHo+P29Y=;
+	s=arc-20240116; t=1779722750; c=relaxed/simple;
+	bh=vhUHAti+c53Dxr/c3KuVZxqZyqXzCSohbTTlQIpqdoo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VVdxQrzh8fWoAu/LpGm0lcbJoLgFtGjEmrW+wGE3WmbMLA4k4JuyvjitRK7D9BDJcEwFwKqQgoUI0/EzmzwHeG9Zrt3OKJv/5sMQNZ5vR0tW+PAfIF0DZZxY5z4qLU85lC1Lkopk2MSxh7faJ3tLgsGGw/Wwk40Ua+H8VNRmTR8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h44/yJS1; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=eGnrXHkywbJDsp88E/89+ldEPBlKrh/4P8Mt+3TVuZ01Be1GLiJRhHRSg7wmKbzBhad2mDSe3DEULSKNxh6SJxJ1qDuKBzaGp2RRGdEnRSJBPSuRjsmCbtLC1ktAhNeTUS9D88ZloBr91uit8pnDwCwM8fTQbtv+2qC+DqSJhac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LqtmXdzo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h44/yJS1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1E51F000E9;
-	Mon, 25 May 2026 15:23:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LqtmXdzo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C001F000E9;
+	Mon, 25 May 2026 15:25:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779722606;
-	bh=KA8IpEuh48WQRwSU3CwA3WFMR7nC3dUDqvMEHxifQEU=;
+	s=k20260515; t=1779722748;
+	bh=rkceiDKo6xALWEMqgzRs+U6DP8NZGDF5ng33eQBgteI=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=h44/yJS14OvTXdZwKbKYUHeBsMZFKyuW/0WspvLjghaw3+/IkGnHwH0KpExcztOxu
-	 W0SwBDcM/yBtyv+lwkt+vKTgDEEdgerRv3Tui+HFMgEc6/KUedG3LzlFjGXuW6siND
-	 SdtqoEtLoFe4urumhYjIwbxrl5ev9j+LYD9wieq/UR8hR3B2HlQm65EuKBE/j2vLZE
-	 tNP8mheIP8CXnijOQhPX5Q7+eCArMYElRhGq5t3wZsOluOxVY+n44AV1mFHLgZbdcm
-	 zgsyvOgndC08iuGXt2duf4NKuNdMN6dAQWBEdrRnEoj68dKYxKZe8OT2wDfoVYT4ac
-	 1njk3yF1QZRMA==
-Message-ID: <d6cb3046-7c3b-4798-a199-04700ae662d8@kernel.org>
-Date: Mon, 25 May 2026 17:23:22 +0200
+	b=LqtmXdzoAbxwVEblySAOMz9ZwxEHPo/zFdj1HQqzgwEIBhGc7QDdngA01upNjlbyj
+	 lSyAySPVushHHn8cIUhEMmyIfayIKfZi6OVsuVUcSxySjykILFwI9AG1xA+/VuxsVr
+	 rDImQYGETBG3JmVySrXKPWCXp+LrsDpzdVBTNU5JGv9AFX41Bb1qTxduHxLqIiH0gC
+	 lL4XBN9H09ip4kJD0dpHkN9hYDqEd0rnC2fQADtfl4eygBxuojUhbkwnwyzlctpZSM
+	 aLbATff5kn9RayKgMamUI3GuvMCawmJNTJpGDY8EUhA6zjt7WV4D1925oD8lt7FbU5
+	 6AiVq/OqW7ZcA==
+Message-ID: <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org>
+Date: Mon, 25 May 2026 17:25:45 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/3] dt-bindings: i3c: dw: Describe core reset
+Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
 To: Jisheng Zhang <jszhang@kernel.org>,
  Alexandre Belloni <alexandre.belloni@bootlin.com>,
  Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
@@ -43,7 +43,7 @@ To: Jisheng Zhang <jszhang@kernel.org>,
  <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
 Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
 References: <20260525140018.19598-1-jszhang@kernel.org>
- <20260525140018.19598-2-jszhang@kernel.org>
+ <20260525140018.19598-3-jszhang@kernel.org>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,30 +89,45 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260525140018.19598-2-jszhang@kernel.org>
+In-Reply-To: <20260525140018.19598-3-jszhang@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 25/05/2026 16:00, Jisheng Zhang wrote:
-> The "core_rst" reset support has been in the code from day1, but the
+> Add dt-binding for support of apb reset which is to reset the APB
+> interface.
 
-<Driver requests the "core_rst" since day1 (commit foo bar)....>
-
-Reset cannot be supported and it is about ABI implemented by the driver.
-
-> dt-binding doesn't exist. Add dt-binding to describe reset property.
-
+And this is ABI break, so you must explain WHY breaking ABI is worth
+doing that or what is the impact. Additionally you should explain which
+devices have it. Does Altera have it? You really lack explanation WHY
+you are doing it and which hardware you exactly describe.
 
 > 
-> Then why not remove the "_rst" suffix? Krzysztof pointed out "Cleanup
-> of name is not really worth affecting users. core_rst is not the best
-> name but it is not incorrect, either."
+> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> ---
+>  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> index 613dce7757bc..2575442b28ff 100644
+> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> @@ -38,10 +38,12 @@ properties:
+>    resets:
+>      items:
+>        - description: Reset signal
+> +      - description: APB interface reset signal
+>  
+>    reset-names:
+>      items:
+>        - const: core_rst
+> +      - const: apb_rst
 
-This drop, irrelevant. You can provide Link: to previous discussions, OTOH.
+apb
 
-With above improved:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>  
+>    interrupts:
+>      maxItems: 1
 
 
 Best regards,
