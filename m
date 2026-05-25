@@ -1,179 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54B818EB0
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:04:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451D033F5AF
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:05:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779714283; cv=none; b=EXb4g3C+tbOEx2/l2kEv7MIELOE9PsuxQNOpVht5Z+PIRloMuHiftQpLaGO7jTTxnTn+TQT2N2GJhYZx12bXJYlFEX+vz2fHA5TL6vKMxIcQdADI6A20a3ny9YuIghMgxzJJO2UVp0Qc2ioDFHaK4+qzCRzJzVOetrJ9z57R3zs=
+	t=1779714345; cv=none; b=q/f02ex+uR8kg2wnU8bJkxoMXCrz81KMoUvDognAkzJq4jOmf9rc4BIAkxo0obA0JNUBveLYM1m7TT22tmfLhgYidKh5z8P7SI92QkXaLEkIuPQGLFTL8sqhCPVr50Tw+f55HiGqfrZ0kExMFfh1KYeqPTkSSjEvekaQK6SpV8I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779714283; c=relaxed/simple;
-	bh=UMnHkDDnr/z0RY1FZOz1bxk8DvmVvKw762RtMD0LR40=;
+	s=arc-20240116; t=1779714345; c=relaxed/simple;
+	bh=lS4xE/XPSaty6+I9OB8YFTRuPd/CsQjrOtFjz8Z99aw=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f0HPu5dASEuFfxbRZlzR9zPsQbZVqec6hsbss3K6zeo5wN5r82qUbR2pQgnf4Zu/Hs6654CxKTczszkCdmGp6hf1hvLYtNz3TIuygvP0sBfAJaIlf8hmeE4N88C3SjzzWK/11FjH57vuIuze3pYvEvAfLMemYCxqXLJEWD4UoGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q8RgXmJj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HcNKzipgRQtOQHF26YekXSgCJt1QCYLoI1E3K2zICAwiT+W/W4/RQulAdViaYw3W5qmBDxYFjKGW7/IhR17OqoLHTfuvYn62NvMlV0wtRaE8sBkxfVbeJK2AjvfoneDrlD2IKDVr77H7ZPoP4LDG7N2tbFH4FP3fjmH831B14F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPYnTron; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q8RgXmJj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 672011F000E9;
-	Mon, 25 May 2026 13:04:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPYnTron"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC2921F000E9;
+	Mon, 25 May 2026 13:05:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779714281;
-	bh=k6xYSsOxe9P0k07Yglq0RNzWOpch657zTv082x8uzNA=;
+	s=k20260515; t=1779714344;
+	bh=mSJrXehZ0quMstbN6VW2ZUzDT87++eydShiNIfTe3Zk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Q8RgXmJjiVKWX3+tyFmQc/gBI2HsVk9/BSGl4TnbXib/NEpxAVOiwY8AZCsPFDzBa
-	 N2TQ2ppzjAuU24Zqoby40ZsNlfuvfnVPiTB4WHc7j6catR3A1ORYifI6q9Y74gKseY
-	 Pwkvu7OBwCuwFDZCQkQmqVel+JD4lDZ3PnohGmXxhLGJP8QiGoWdxdgYWFNALu4fH0
-	 R5kxt/VNljtKXNFOFYimWE2cvle5KGyFbnsOx/TBVHZhYJqVVTMS+efQHESRfnm3Wj
-	 GdLU8ojLya3ZHEhQMMUH8WeE8aQFC00MI6UUFwSlIuTb47oLhJ/Fpn5h9UScs3ppQL
-	 WbohR5h4avB7A==
+	b=ZPYnTron6dIEobNYUJOyod/MsYnWMb9dv3aVajCwRDPnA/Z8VNAOMJlVeIMssM53J
+	 AnRK5sWzeguhDTCJpfY/ErGpLgWE3zyjXYDB6g/4DPa7xqxjTESO8n+V3hiDyZq3PE
+	 F/qDNacfL0Kux85fODHKyn6aZ/NBErLk90jOh7/s9yZHZB/KZl+L5Cr0Gc+H4E79Sq
+	 xZD7L8cexMkWpeo/OHxYx+71LT5inak2gsgsBhf8wdIeZF0kDn5Mrx0FrFRFCB4Sfp
+	 t2rqdW5uqo+m939EYBcSjD6Uiw7ToRUgMnWF7bxBLgof1BLgRCUjpV2oDZrqJfIObX
+	 qCR4rMUbzbVlQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/7] clk: qcom: camcc: Add support for camera clock
- controller for Eliza
+Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp:
+ Fix hclk as third clock for RK3588
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525-eliza_mm_cc_v2-v5-6-a1d125619a5a@oss.qualcomm.com>
-References: <20260525-eliza_mm_cc_v2-v5-6-a1d125619a5a@oss.qualcomm.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260525125331.140059-2-damon.ding@rock-chips.com>
+References: <20260525125331.140059-2-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 13:04:40 +0000
-Message-Id: <20260525130441.672011F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 13:05:43 +0000
+Message-Id: <20260525130543.BC2921F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `cam_cc_eliza_desc` structure in `camcc-eliza.c` is missing th=
-e `.use_rpm =3D true` flag, preventing runtime PM enablement.
-- [High] Missing `clk_alpha_pll_postdiv` definition for `cam_bist_mclk_cc_p=
-ll0_out_even` causes incorrect rate calculation and hardware configuration.
-- [Low] Inconsistent 'default m if ARCH_QCOM' across related Eliza clock co=
-nfigs.
+- [Medium] The schema fails to enforce the per-SoC clock names for the thir=
+d clock as claimed in the commit message.
 --
 
+commit 610de2ebf53101c37f8a390596d7553b1a60ba5c
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-commit 5422290959f8d7c156105b5bd2ca77def397be5f
-Author: Taniya Das <taniya.das@oss.qualcomm.com>
+dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock for RK=
+3588
 
-clk: qcom: camcc: Add support for camera clock controller for Eliza
+This commit changes the analogix-dp binding to require the hclk clock
+for the RK3588 eDP controller to make the dependency explicit. It attempts
+to define per-SoC clock requirements, specifying 2 clocks for RK3288,
+and 3 clocks for RK3399 (grf) and RK3588 (hclk).
 
-Add support for the Camera Clock Controller (CAMCC) on the Eliza
-platform. The CAMCC block on Eliza includes both the primary camera
-clock controller and the Camera BIST clock controller.
-
-> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
-> index 5641929a3da49..cb44a9972a6a6 100644
-> --- a/drivers/clk/qcom/Kconfig
-> +++ b/drivers/clk/qcom/Kconfig
-> @@ -19,6 +19,17 @@ menuconfig COMMON_CLK_QCOM
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
+analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
+hip,analogix-dp.yaml
+> index d99b23b88cc59..a1ab7a77bdd35 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> @@ -26,7 +26,9 @@ properties:
+>      items:
+>        - const: dp
+>        - const: pclk
+> -      - const: grf
+> +      - enum:
+> +          - grf
+> +          - hclk
 > =20
->  if COMMON_CLK_QCOM
-> =20
-> +config CLK_ELIZA_CAMCC
-> +	tristate "Eliza Camera Clock Controller"
-> +	depends on ARM64 || COMPILE_TEST
-> +	select CLK_ELIZA_GCC
-> +	default m if ARCH_QCOM
+>    power-domains:
+>      maxItems: 1
 
-[Severity: Low]
-This isn't a bug, but should this default match the adjacent
-CLK_ELIZA_DISPCC config, which does not specify a default?
+[ ... ]
 
-> +	help
-> +	  Support for the camera clock controller on Qualcomm Technologies, Inc
-> +	  Eliza devices.
-> +	  Say Y if you want to support camera devices and functionality such as
-> +	  capturing pictures.
+> @@ -60,6 +62,32 @@ required:
+>  allOf:
+>    - $ref: /schemas/display/bridge/analogix,dp.yaml#
+
+[ ... ]
+
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+> +              - rockchip,rk3399-edp
+> +    then:
+> +      properties:
+> +        clocks:
+> +          minItems: 3
+> +        clock-names:
+> +          minItems: 3
 > +
->  config CLK_ELIZA_DISPCC
->  	tristate "Eliza Display Clock Controller"
->  	depends on ARM64 || COMPILE_TEST
+>    - if:
+>        properties:
+>          compatible:
+> @@ -68,6 +96,10 @@ allOf:
+>                - rockchip,rk3588-edp
+>      then:
+>        properties:
+> +        clocks:
+> +          minItems: 3
+> +        clock-names:
+> +          minItems: 3
 
-[ ... ]
+[Severity: Medium]
+The commit message explicitly states the intent to enforce per-SoC clock-na=
+mes
+requirements, specifying that RK3399 requires grf as the third clock while
+RK3588 requires hclk.
 
-> diff --git a/drivers/clk/qcom/cambistmclkcc-eliza.c b/drivers/clk/qcom/ca=
-mbistmclkcc-eliza.c
-> new file mode 100644
-> index 0000000000000..b65e224a1be90
-> --- /dev/null
-> +++ b/drivers/clk/qcom/cambistmclkcc-eliza.c
+Does this implementation actually enforce the per-SoC clock names for the t=
+hird
+clock?
 
-[ ... ]
+The conditional blocks only add minItems: 3 to the clock-names property wit=
+hout
+explicitly defining the sequence of allowed values. Since the top-level
+clock-names definition allows an enum of grf and hclk, could an
+RK3399 node successfully validate while using hclk, or an RK3588 node
+validate while using grf?
 
-> +static const struct parent_map cam_bist_mclk_cc_parent_map_0[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_CAM_BIST_MCLK_CC_PLL0_OUT_EVEN, 3 },
-> +	{ P_CAM_BIST_MCLK_CC_PLL0_OUT_MAIN, 5 },
-> +};
-> +
-> +static const struct clk_parent_data cam_bist_mclk_cc_parent_data_0[] =3D=
- {
-> +	{ .index =3D DT_BI_TCXO },
-> +	{ .hw =3D &cam_bist_mclk_cc_pll0.clkr.hw },
-> +	{ .hw =3D &cam_bist_mclk_cc_pll0.clkr.hw },
-
-[Severity: High]
-Does this code map P_CAM_BIST_MCLK_CC_PLL0_OUT_EVEN directly to the main
-PLL hardware instead of a dedicated clk_alpha_pll_postdiv structure? Without
-a postdiv structure, the Common Clock Framework will evaluate the EVEN outp=
-ut
-rate identically to the MAIN output (960 MHz) instead of its physically
-divided rate (480 MHz).
-
-> +};
-
-[ ... ]
-
-> +static const struct freq_tbl ftbl_cam_bist_mclk_cc_mclk0_clk_src[] =3D {
-> +	F(19200000, P_BI_TCXO, 1, 0, 0),
-> +	F(24000000, P_CAM_BIST_MCLK_CC_PLL0_OUT_EVEN, 10, 1, 4),
-
-[Severity: High]
-With the missing postdiv structure above, this frequency table uses a divis=
-or
-of 10 to target 24 MHz based on a 960 MHz parent. Since the hardware
-actually supplies 480 MHz on the physical EVEN output, applying the same
-divisor will result in a physical output of 12 MHz, halving the MCLK
-frequency. Should a clk_alpha_pll_postdiv be added and this frequency table
-updated to use the correct divisor?
-
-> +	F(68571429, P_CAM_BIST_MCLK_CC_PLL0_OUT_MAIN, 14, 0, 0),
-> +	{ }
-> +};
-
-[ ... ]
-
-> diff --git a/drivers/clk/qcom/camcc-eliza.c b/drivers/clk/qcom/camcc-eliz=
-a.c
-> new file mode 100644
-> index 0000000000000..b96a2a58b32a7
-> --- /dev/null
-> +++ b/drivers/clk/qcom/camcc-eliza.c
-
-[ ... ]
-
-> +static const struct qcom_cc_desc cam_cc_eliza_desc =3D {
-> +	.config =3D &cam_cc_eliza_regmap_config,
-> +	.clks =3D cam_cc_eliza_clocks,
-> +	.num_clks =3D ARRAY_SIZE(cam_cc_eliza_clocks),
-> +	.resets =3D cam_cc_eliza_resets,
-> +	.num_resets =3D ARRAY_SIZE(cam_cc_eliza_resets),
-> +	.gdscs =3D cam_cc_eliza_gdscs,
-> +	.num_gdscs =3D ARRAY_SIZE(cam_cc_eliza_gdscs),
-> +	.driver_data =3D &cam_cc_eliza_driver_data,
-
-[Severity: High]
-Is the .use_rpm =3D true flag missing from this structure? In the qcom_cc
-framework, this flag instructs qcom_cc_probe() to enable runtime PM.
-Omitting it means the power domain remains off, which leads to unclocked
-register accesses and causes a Data Abort or bus stall when the driver
-attempts to access the registers or GDSCs during probe.
-
-> +};
+Should the then clauses explicitly define clock-names: items with the exact
+sequence of const strings required for each specific SoC to fully enforce
+these constraints?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-eliza_mm_c=
-c_v2-v5-0-a1d125619a5a@oss.qualcomm.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525125331.1400=
+59-1-damon.ding@rock-chips.com?part=3D1
