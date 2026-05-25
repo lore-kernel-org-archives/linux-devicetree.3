@@ -1,170 +1,206 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE06B3812D2;
-	Mon, 25 May 2026 12:22:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE5D633D4EE
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:23:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779711778; cv=none; b=ImF/2qR5sqTqLQkQuBTeYn81qA+pHqw4sR4RgqwWeQqJf0yEqFsacxW9DaW05sHhU7aGsa+7EQjcDJDYBiHTaPRHFi0ev6BMp6edmuHejv6014dpbDPJxoSRtbOXbQBOwaJMw2wtICG5Ps50pYrUB0QUDD0HNRmXQbUFOOU9OTQ=
+	t=1779711783; cv=none; b=aqPpYBrntWKGjQYolcxXg7rVbnHfTjRVbKKICGBIoJ0KP7IggamYkzz49ZjUtmi6zKhjza/ygVLPxgJ5StTM8BunLAa07wM5KkgUM2w3/8Yvd3k2tf7rA3G4kwKcXHEFV26lCiMsrkAOmogg6sAZNlUZOcKLO/M1sB7+pxNmnNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779711778; c=relaxed/simple;
-	bh=7cta4UESMkPob+xTSBhcOLsucZ7b+POlZ3aTECK9ytA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=i5ieFvhTmRAKes49Lc96YUmKvgWkphCjmkhGPYBpZgHFizbne9uy1WS9qN5lANnx9mDweHnhBKBhHUlcsQ3ZU4HIPqbSxzX6aFIinNio/vCSbnUa2js4yeumCBnQ3CEmNZA62GQAeD2wniO6LjmTqKLHApn8HpSPFGJDjW3JvIU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjBAJDL8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779711783; c=relaxed/simple;
+	bh=IDnxsW0/sYN63NavRZIYlwbC7xdsIW8HwQ1Sf7NtlQE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CRzrg6BE7mK9+WV163Hek249cAW9XdciHfBK1n6o/ZgrYsyq0e62T5qRmUlnjWDNOF5l/W1I5PnRm+owrHLhExceMSe3Tjl2cM0j48n4X5oj/9mD/KNxpN1vHpwsXHpDVIGp5G/K/M8hG2B0wSSCZXnppJJZpqFmzKy9vNx2Yvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PBhTVSsP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjBAJDL8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1DA3B1F000E9;
-	Mon, 25 May 2026 12:22:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PBhTVSsP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 206D01F00A3A;
+	Mon, 25 May 2026 12:23:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779711776;
-	bh=UPgmERJ8/sRCOwwVj/MiRxzf5Ss7A55xUqwU6ZnpZww=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DjBAJDL8t7olMZy/s+nmuNkNX0nrWNqGakwSqSzvm+njYJPJf2Eqz/TjLuVpe37wy
-	 kzujRhkMx0jgP+nDrVI8d3NOBzQcNDknuzSNFRpcjQaSV7WgLSpbkucAzP64GBd05t
-	 QKfNCCEWZxv06dCSi1FFRO0mH1WQ2Dwyn/BBlEUB8PpmsGTJGdXJ4h/LEJLX5pgNKg
-	 ktWBuI/Zb4/D86r+LN/tvI6OXQug7Aj3TREtxrV38MXJvem6DsXa+3SDgj19KT3GOo
-	 1i0mPMnN3OVhKHDqTDrqQyVDUn3ZJmRSoqB5d60f6jLEH6PcLHxXDKqBsurAVRwR8j
-	 aQSXCFES1DqPQ==
-Message-ID: <1fcfe6d0-f0c9-4041-8c29-d408f4cde195@kernel.org>
-Date: Mon, 25 May 2026 14:22:50 +0200
+	s=k20260515; t=1779711781;
+	bh=zoABT4FgWqKyW46IY2YgmxwFRyiFm5O9TvAtLfMNi4A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=PBhTVSsPnKMKUjqs2XzAB9nJQIKjDXtuRdJVD8syl2M19tGofWUAcbKw24JKkQyiW
+	 RQfyFTkJIyICSjUPbL3IfreoycIP/N42UtyFHadW5R2MufwaYnHN7jPqRZN3o/VP0J
+	 JPyNQAKLSPqV96QKeBElPFYMecZqJPQ3RFpoLpF7USGvoDgfcXtg721d9H3KM2gVlV
+	 W2oT5LIJv+l4ItASxkoZTvqbabpB3CiNAQxZTgq9OVyt/4epAuN0hQnVd8vQ6qxomX
+	 R8CU54MovZ21KbLEyRolKMCDC/66d+qHdsfXwTL69EUugYoTyfEcpCBHaZ3TjwWTWC
+	 wHpxbX4udvwNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 18/18] ASoC: rsnd: Add system suspend/resume support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260525110230.4014435-19-john.madieu.xa@bp.renesas.com>
+References: <20260525110230.4014435-19-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 12:23:00 +0000
+Message-Id: <20260525122301.206D01F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] PCI: qcom: Add Support for Eliza
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Lorenzo Pieralisi
- <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?=
- <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
- Bjorn Andersson <andersson@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org
-References: <20260521-eliza-v1-0-97cdbe88389d@oss.qualcomm.com>
- <20260521-eliza-v1-3-97cdbe88389d@oss.qualcomm.com>
- <20260522-discerning-sympathetic-moth-daa9e7@quoll>
- <5593d136-569e-4ba9-9a2f-e635125899aa@oss.qualcomm.com>
- <c751f5f9-f9c2-4575-a029-0be4148e1aee@kernel.org>
- <t6wljnlnz77dvthbohlr7v4qlhsqzvykhcm6evmtnvkgtqk34w@o7sl6nq5lkbi>
- <fecce3a2-5c45-4e30-ad1b-2173b697960d@kernel.org>
- <k7sncylpd4qg2x3qhqjho6ml2d64vpvbo6nrpyqzwloeyckzvd@d6v3s6avedzt>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <k7sncylpd4qg2x3qhqjho6ml2d64vpvbo6nrpyqzwloeyckzvd@d6v3s6avedzt>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 25/05/2026 08:11, Manivannan Sadhasivam wrote:
-> On Fri, May 22, 2026 at 01:03:09PM +0200, Krzysztof Kozlowski wrote:
->> On 22/05/2026 12:48, Manivannan Sadhasivam wrote:
->>> On Fri, May 22, 2026 at 11:34:30AM +0200, Krzysztof Kozlowski wrote:
->>>> On 22/05/2026 11:31, Krishna Chaitanya Chundru wrote:
->>>>>
->>>>>
->>>>> On 5/22/2026 12:21 PM, Krzysztof Kozlowski wrote:
->>>>>> On Thu, May 21, 2026 at 07:35:31PM +0530, Krishna Chaitanya Chundru wrote:
->>>>>>> Add support for Eliza soc, which has two PCIe controllers capable
->>>>>>> of 8GT/s X1 and 8GT/s X2, using the cfg_1_9_0 configuration.
->>>>>>>
->>>>>>> Signed-off-by: Krishna Chaitanya Chundru <krishna.chundru@oss.qualcomm.com>
->>>>>>> ---
->>>>>>>  drivers/pci/controller/dwc/pcie-qcom.c | 1 +
->>>>>>>  1 file changed, 1 insertion(+)
->>>>>>>
->>>>>>> diff --git a/drivers/pci/controller/dwc/pcie-qcom.c b/drivers/pci/controller/dwc/pcie-qcom.c
->>>>>>> index af6bf5cce65b..40f0a5f247eb 100644
->>>>>>> --- a/drivers/pci/controller/dwc/pcie-qcom.c
->>>>>>> +++ b/drivers/pci/controller/dwc/pcie-qcom.c
->>>>>>> @@ -2123,6 +2123,7 @@ static int qcom_pcie_resume_noirq(struct device *dev)
->>>>>>>  static const struct of_device_id qcom_pcie_match[] = {
->>>>>>>  	{ .compatible = "qcom,pcie-apq8064", .data = &cfg_2_1_0 },
->>>>>>>  	{ .compatible = "qcom,pcie-apq8084", .data = &cfg_1_0_0 },
->>>>>>> +	{ .compatible = "qcom,pcie-eliza", .data = &cfg_1_9_0 },
->>>>>> So compatible with sm8550. Why isn't this explained in commit msg of
->>>>>> the binding?
->>>>> No, PCIe controller is not compatible with sm8550, we are just re using the boot
->>>>> sequence used by the sm8550.
->>>>
->>>> Then with what it is compatible? You cannot use someone else's match
->>>> data and claim they are not compatible. This is contradictory to itself.
->>>>
->>>
->>> 'cfg_1_9_0' is the match data of base PCIe IP v1.9.0, not just SM8550. The 'ops'
->>> callbacks for 'cfg_1_9_0' are compatible with PCIe IPs used in many SoCs such as
->>> SM8550, SM8450, SM8350, SM8250, SM8150, SDX55, SC8180X, and SC7280. And Eliza is
->>> also falling into the same category.
->>>
->> And if all implementations uses the same SW interface, why are you
->> claiming these are not compatible?
->>
-> 
-> I didn't 'claim' these SoCs are not compatible. In fact, I explicitly said that
-> Eliza is compatible with the base IP v1.9.0. But the resources such as clocks,
-> regulators might be different between them, though the SWI is compatible. So
-> Eliza deserves a new compatible.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Incorrect clock and reset ordering in `rsnd_suspend_clk_reset` and=
+ `rsnd_resume_clk_reset`.
+- [Medium] The `scu_supply` clock is omitted from suspend/resume management=
+ in the SRC module.
+- [Medium] Return values from critical resource management functions are si=
+lently ignored during system resume.
+--
 
-Whether Eliza deserves a new compatible was NEVER a part of discussion
-here. Bindings are very clear here and do not leave any room for
-interpretation.
+commit 0690a34131ef80f23f3d83d8daa691b816da9afc
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
+Date:   Mon May 25 11:02:30 2026 +0000
 
-We discuss ONLY this patch.
+ASoC: rsnd: Add system suspend/resume support
+   =20
+This commit adds system suspend and resume support for the ASoC rsnd driver,
+distributing the module-specific suspend/resume operations across individual
+files instead of centralizing them in core.c.
 
-> 
-> Also, the direct baseline of Eliza is not supported in upstream. So by
-> 'compatible', if you are referring to 'fallback' in DT, then using SM8750 would
-> be appropriate.
+> diff --git a/sound/soc/renesas/rcar/core.c b/sound/soc/renesas/rcar/core.c
+> index fbf7f72364600..9ce56cd84f46d 100644
+> --- a/sound/soc/renesas/rcar/core.c
+> +++ b/sound/soc/renesas/rcar/core.c
 
-You still won't get an entry for sm8750, so not sure where does that
-bring you...
+[ ... ]
 
-Best regards,
-Krzysztof
+> @@ -2159,11 +2160,35 @@ static void rsnd_remove(struct platform_device *p=
+dev)
+>  		remove_func[i](priv);
+>  }
+> =20
+> +void rsnd_suspend_clk_reset(struct clk *clk, struct reset_control *rstc)
+> +{
+> +	clk_unprepare(clk);
+> +	reset_control_assert(rstc);
+
+[Severity: High]
+Will this sequence send the reset command to an unclocked IP block?
+
+Looking at the driver's normal module quit sequence in rsnd_mod_quit(), the
+reset is asserted before unpreparing the clock. Could asserting the reset
+after unpreparing the clock here cause the IP blocks to hang?
+
+> +}
+> +
+> +void rsnd_resume_clk_reset(struct clk *clk, struct reset_control *rstc)
+> +{
+> +	reset_control_deassert(rstc);
+> +	clk_prepare(clk);
+
+[Severity: High]
+Is it safe to deassert the reset before the clock is prepared?
+
+The hardware typically requires the clock to be stable before deasserting
+the reset, which is explicitly noted in rsnd_dma_resume() and done correctly
+in rsnd_mod_init(). Will deasserting early here cause issues for the
+modules using this helper (SSI, SRC, CTU, MIX, DVC, and ADG)?
+
+[Severity: Medium]
+Should the return values of clk_prepare() and reset_control_deassert() be
+checked here?
+
+If a clock fails to prepare or a reset fails to deassert, these failures
+are silently ignored. Could subsequent register accesses to these IP blocks
+trigger a synchronous external abort if they didn't actually resume?
+
+> +}
+
+[ ... ]
+
+> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
+> index 537b71841f8e2..793dd4adbe5c6 100644
+> --- a/sound/soc/renesas/rcar/dma.c
+> +++ b/sound/soc/renesas/rcar/dma.c
+
+[ ... ]
+
+> @@ -1035,3 +1035,25 @@ int rsnd_dma_probe(struct rsnd_priv *priv)
+> +void rsnd_dma_resume(struct rsnd_priv *priv)
+> +{
+> +	struct rsnd_dma_ctrl *dmac =3D rsnd_priv_to_dmac(priv);
+> +
+> +	if (dmac) {
+> +		/* Clock must be stable before reset is deasserted */
+> +		clk_prepare_enable(dmac->audmapp_clk);
+
+[Severity: Medium]
+Is it necessary to check the return value of clk_prepare_enable() here?
+
+If enabling the DMA clock fails, the hardware won't be accessible, and the
+error will be silently dropped, potentially leading to panics when the block
+is accessed.
+
+> +		rsnd_resume_clk_reset(NULL, dmac->audmapp_rstc);
+> +	}
+> +}
+
+[ ... ]
+
+> diff --git a/sound/soc/renesas/rcar/src.c b/sound/soc/renesas/rcar/src.c
+> index cad15fcc37f22..ac806bdc96d9e 100644
+> --- a/sound/soc/renesas/rcar/src.c
+> +++ b/sound/soc/renesas/rcar/src.c
+
+[ ... ]
+
+> @@ -834,3 +834,37 @@ void rsnd_src_remove(struct rsnd_priv *priv)
+> +void rsnd_src_suspend(struct rsnd_priv *priv)
+> +{
+> +	struct rsnd_src_ctrl *src_ctrl =3D rsnd_priv_to_src_ctrl(priv);
+> +	struct rsnd_src *src;
+> +	int i;
+> +
+> +	if (!src_ctrl)
+> +		return;
+> +
+> +	for_each_rsnd_src(src, priv, i)
+> +		rsnd_suspend_clk_reset(rsnd_mod_get(src)->clk,
+> +				       rsnd_mod_get(src)->rstc);
+> +
+> +	clk_disable_unprepare(src_ctrl->scu_x2);
+> +	clk_disable_unprepare(src_ctrl->scu);
+
+[Severity: Medium]
+Does this skip disabling the scu_supply clock during suspend?
+
+During rsnd_src_probe(), scu, scu_x2, and scu_supply are all acquired and
+enabled. If scu_supply is omitted here, will it remain enabled throughout
+system suspend and prevent the clock domain from entering a low-power state?
+
+> +}
+> +
+> +void rsnd_src_resume(struct rsnd_priv *priv)
+> +{
+> +	struct rsnd_src_ctrl *src_ctrl =3D rsnd_priv_to_src_ctrl(priv);
+> +	struct rsnd_src *src;
+> +	int i;
+> +
+> +	if (!src_ctrl)
+> +		return;
+> +
+> +	clk_prepare_enable(src_ctrl->scu);
+> +	clk_prepare_enable(src_ctrl->scu_x2);
+
+[Severity: Medium]
+Should the return values of these clk_prepare_enable() calls be checked?
+
+If the clocks fail to prepare, the error is discarded.
+
+Also, similar to the suspend path, should scu_supply be re-enabled here?
+
+> +
+> +	for_each_rsnd_src(src, priv, i)
+> +		rsnd_resume_clk_reset(rsnd_mod_get(src)->clk,
+> +				      rsnd_mod_get(src)->rstc);
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
+435-1-john.madieu.xa@bp.renesas.com?part=3D18
