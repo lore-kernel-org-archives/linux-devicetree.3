@@ -1,134 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACA5B3F4118
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 15:25:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88C032B107;
+	Mon, 25 May 2026 15:26:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779722750; cv=none; b=FN6QpcEcCbWNt1BvDsSil7wVcOfFFJHVvhzXujGCItSlO+p60IC1jbXC9EMa9nE9OJ3Anb57XZNzAwe1OA7sFwJHFyz4GXWZG+kjnFoHtD1MSrW7MiWz1LpTefYtAyeCFPLgJ3epPzip+oO+53Xw3q0zgRGJdI8r+gRGD+vA+ZA=
+	t=1779722775; cv=none; b=PdRxBs2Dcvd/o4p01cIotspNA70ZzMnVUNiOPl2VLuSlyPXXDOctPmhjz6uoa3rE2rGXVcrx08xBa2zSBkSj+T//FCulVasMyyBKC06VnVWZD9Z9tX0I1u1ESfTb126Q487/1wDLSnUDA7xZb5LmDGU00i1cTy/uJ1qZx9dgWsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779722750; c=relaxed/simple;
-	bh=vhUHAti+c53Dxr/c3KuVZxqZyqXzCSohbTTlQIpqdoo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=eGnrXHkywbJDsp88E/89+ldEPBlKrh/4P8Mt+3TVuZ01Be1GLiJRhHRSg7wmKbzBhad2mDSe3DEULSKNxh6SJxJ1qDuKBzaGp2RRGdEnRSJBPSuRjsmCbtLC1ktAhNeTUS9D88ZloBr91uit8pnDwCwM8fTQbtv+2qC+DqSJhac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LqtmXdzo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779722775; c=relaxed/simple;
+	bh=RfcMM+1Ul1TH6o3SyNkodcSPyLfrfonQGF9fF1wOB2Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NABw89P/QV/by9T0tEgOYW4gyPaZ3nj5Rrm1Jm3PgyLMTmufP2BaYruJZxiEekPU0VsnJ7V5sVEcS0uiWnXMYOISvZxfBmfZQgQ1uooKknXwowZ6LILadN8YNBqiYa7tawPUzBhE9UfkpZR5/J3GPwG6s1vaiCK1k4DfRCFvhjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETJnT1Pn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LqtmXdzo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3C001F000E9;
-	Mon, 25 May 2026 15:25:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETJnT1Pn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C5B1F000E9;
+	Mon, 25 May 2026 15:26:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779722748;
-	bh=rkceiDKo6xALWEMqgzRs+U6DP8NZGDF5ng33eQBgteI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=LqtmXdzoAbxwVEblySAOMz9ZwxEHPo/zFdj1HQqzgwEIBhGc7QDdngA01upNjlbyj
-	 lSyAySPVushHHn8cIUhEMmyIfayIKfZi6OVsuVUcSxySjykILFwI9AG1xA+/VuxsVr
-	 rDImQYGETBG3JmVySrXKPWCXp+LrsDpzdVBTNU5JGv9AFX41Bb1qTxduHxLqIiH0gC
-	 lL4XBN9H09ip4kJD0dpHkN9hYDqEd0rnC2fQADtfl4eygBxuojUhbkwnwyzlctpZSM
-	 aLbATff5kn9RayKgMamUI3GuvMCawmJNTJpGDY8EUhA6zjt7WV4D1925oD8lt7FbU5
-	 6AiVq/OqW7ZcA==
-Message-ID: <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org>
-Date: Mon, 25 May 2026 17:25:45 +0200
+	s=k20260515; t=1779722774;
+	bh=fMUe6rHhr5mw4H4Gp29XCyqFGgOSultc4Wo1eFJ9vMk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ETJnT1PnKGCa4aTIfPr9o/NcH3g0HfaCkon7m+kBUe0LdVeEOTyu1sdmfXdDTgF1Z
+	 qejbctwH4buPjePVwT5glKjN83ZxQ7Unk3/7KCAEJqutSs+TFKD+shQHG7lP03+aJY
+	 6FqwhMEzXEqS78RMW25/4GItalC4KxH6CRgAF8FCTq3wyy4NIOrgv526M1XaEkPYsG
+	 6F7iW4TsLSCDN8Y8Wy2pxlLVNrjXK+XtnA7Ls7AQ0Yljvqv+fDetJ90OkGVGdOwaKp
+	 CcQm/24Qr4p0RGCuQIQfV70MgVRlfJ/wPyfeo4ZagRKzMkd7Er5DdguX2noWFbkcDO
+	 Sj3Wk5UHZPs6g==
+Date: Mon, 25 May 2026 10:26:11 -0500
+From: Eric Biggers <ebiggers@kernel.org>
+To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
+Cc: Thara Gopinath <thara.gopinath@gmail.com>,
+	Herbert Xu <herbert@gondor.apana.org.au>,
+	"David S. Miller" <davem@davemloft.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
+	Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
+Message-ID: <20260525152611.GD2018@quark>
+References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
+ <20260514194735.GA1939213@google.com>
+ <d4d35e17-84fa-4c95-9bfb-abfd25ea7f4a@oss.qualcomm.com>
+ <20260522024912.GC5937@quark>
+ <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
+ <20260525142843.GA2018@quark>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
-To: Jisheng Zhang <jszhang@kernel.org>,
- Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
-Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
-References: <20260525140018.19598-1-jszhang@kernel.org>
- <20260525140018.19598-3-jszhang@kernel.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260525140018.19598-3-jszhang@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525142843.GA2018@quark>
 
-On 25/05/2026 16:00, Jisheng Zhang wrote:
-> Add dt-binding for support of apb reset which is to reset the APB
-> interface.
-
-And this is ABI break, so you must explain WHY breaking ABI is worth
-doing that or what is the impact. Additionally you should explain which
-devices have it. Does Altera have it? You really lack explanation WHY
-you are doing it and which hardware you exactly describe.
-
+On Mon, May 25, 2026 at 09:28:43AM -0500, Eric Biggers wrote:
+> ARMv8 Crypto Extensions are "hardware" as well, just in the CPU.  They
+> provide constant-time execution, for example.
 > 
-> Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
-> ---
->  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 2 ++
->  1 file changed, 2 insertions(+)
+> Granted, they don't protect from power analysis and electromagnetic
+> emanation attacks.  Does QCE actually provide those protections, though?
 > 
-> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> index 613dce7757bc..2575442b28ff 100644
-> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-> @@ -38,10 +38,12 @@ properties:
->    resets:
->      items:
->        - description: Reset signal
-> +      - description: APB interface reset signal
->  
->    reset-names:
->      items:
->        - const: core_rst
-> +      - const: apb_rst
+> Either way, it doesn't really matter in this case.  There are multiple
+> aspects to security, and before even considering these advanced
+> protections, the basics of security need to be absolutely solid.  That
+> is, the driver needs to always compute the crypto algorithms correctly,
+> and it needs to be completely robust when fuzzed by unprivileged
+> userspace (because it can accessed in that way).
 
-apb
+Looks like these protections are not even present either.  From
+https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5077.pdf :
 
->  
->    interrupts:
->      maxItems: 1
+    > The Qualcomm Crypto Engine Core does not support any non-invasive
+    > security techniques. Therefore, this section is not applicable.
+    [...]
+    > The Qualcomm Crypto Engine Core does not implement security
+    > mechanisms to mitigate other attacks.
 
-
-Best regards,
-Krzysztof
+- Eric
