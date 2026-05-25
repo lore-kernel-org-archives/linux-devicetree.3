@@ -1,292 +1,125 @@
-Received: from mail-dl1-f50.google.com (mail-dl1-f50.google.com [74.125.82.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 862453859E6
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:33:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0BCD38228B
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:36:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779716038; cv=none; b=W+t/AGBgDrzp3u/OFub/jqrv/KYnpMJIxCcxJqDomYgIQhoV3Gft9gtTv3CnWSpyiv4UPRmI0C1M8Tpi+dIxPv26MWSerqaGw1z659d2FZfnsmQ+arBmriYb+ODtUnX3WpAYl3AQUplqk1iBKkPyo7P0u6PO76EK774GwtOa07Q=
+	t=1779716177; cv=none; b=hgDWTrpOcwHWj857TZreAfQsh8ZHj+Pyir/W1LqPK3XwenMm3dz0vVVJXuSdmm622klQmcH1oUg/iEShIRJNil1YcKtslOkbd5ZZc7UkYXQ+UbyKrfIMFgWbnnyPt8VDDUGRJlL6XOTG6iQBQthjDHOCsWSrXRv3NTsMSOZ2oP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779716038; c=relaxed/simple;
-	bh=E9mJ0ZSaqPkh3BkO8yS/DfFowBkoUmjAGTIbFIbX2Ws=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LuQfIgLCe/72JrRa/SGSTlblTaOeAVFp7C7sMZCLj4Ah0eJzMh0iAublLe+oOgonoIMF7cJejG9HMfTTzQqBSToiiHWyFogMthqBYvZAQuZul6EMrM997QZUYYcK1iEWlNORukfeQvt/YCPjW0grJfOPmbUw4pqu2gHErj2x9R4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QSVSSdZX; arc=none smtp.client-ip=74.125.82.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779716177; c=relaxed/simple;
+	bh=RRhPkxE4SFGxOKOkz86PJ4O+CcCCrkrHlHtLfUUJrRE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XujsWKMdxvu1YKUVn26nmEpsx+BDsdb16wif+5rIYdlrX05+jSnTwvHjfK5bi/Dy1eWbpuDrAfQBmoGmqIW2MPlo1m4bZsKPpWMX+EqgU2WrnZgPuMJIylNuDfspRurEi9ezAlOXOwg+jFTuBzrfBsghsjUzXdAFnYtg3PZ3L1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CnkQlvcl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QSVSSdZX"
-Received: by mail-dl1-f50.google.com with SMTP id a92af1059eb24-1329fc4bf77so6961797c88.1
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 06:33:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779716036; x=1780320836; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=WnFay5PIcb5rM2eujuo4gD1l7YH3IarEX6qo/MN+h1g=;
-        b=QSVSSdZXMpOZsTXzmtKO2u56khRZe839rkg5G7yxDItAWI7fd4pQ4MBH/3Xb5HRqLy
-         qt7u7hYFUOfV2r9J4VrnXyGI9quIsRyUi0+AKNHwoebSnnMBfu769e0vBkRWDBEKbR2N
-         KCH28frXR8RXjDNmo5IUviAHaQ6bUsWNalLVCplJPJACBNs/Ay5NxXLUeQtJmpgNsA4S
-         Q3GPugvDzdJwWBhaJ37m/1EhPAnaRs1ZCvlDI9USQlm8cudcUD1NL3EKJt7wU0yXMP8a
-         qp610N+8tFyF0SvD/iuFstEHBkGkvqeFeNmnYsPVB2bq5oQXffZxex/Cos5yTEDTcH2l
-         Lhsw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779716036; x=1780320836;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:sender:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=WnFay5PIcb5rM2eujuo4gD1l7YH3IarEX6qo/MN+h1g=;
-        b=VSSsCjsnfbU1aKiJ4UhMfyDZHkDUsxpnhw91Y/wfS92kXfrxNK6f7V575LqGWTdO7d
-         nIfKGPNm4yx0f2isXQ7vXrqry2FC9fVZhlS+huo5PoJzhIfLtBPImuNKFmsoUKbUvr0D
-         IF4V3/j2DkQfdqzgXfKhjVxCUsEB2nRSuM1XD2qugVxvbhQrlvF//UuD7hypRiHlNKA2
-         zbLj9cUVfofBRu4dCG4W34HfCAfVFl3SBFLkEnXh682VU9g4sprZDxYmOEqexMZMQtKJ
-         ShwL/FUqaPSt2LJf5QCjz8J/xQLOvvBUEgF2bF2BKcVo+snFbT6wgrP9UjnYx4+Abjpf
-         Pm1g==
-X-Forwarded-Encrypted: i=1; AFNElJ8D8Wu+XjzBPq9uDySXwgHkhPU/KgvU38bgK4LvzX3uh5EXBmnBMYagom1BwSsNwksPjXD9lRI/dQ7I@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmwhyJvlYTiHPoKwzTJ10yTsrhTYckXoFo2Tp2zZ02P5f7+5z7
-	IlLfCNIEXDw3qzHAUajlTxIkZWHdM+50J0w2569gfobR4p6O/o1Sggsz
-X-Gm-Gg: Acq92OHiFUy4Ns7IrUzct94hlALo6dSr4fQSCcsYekJCbBRVut6ZRMo/2Js/YoapKaf
-	FQOTeVoSBnqhDWrNFnj2EFQuscq/gZx/Sipw5Fn70s/pFRlej6JPyzbE4CHaSC3NX9SAvwFIZoW
-	Th33WokAceWe4aI82DisOjaKdeMZ5UMi+GHOXld9RgGvWLa75wXSl05GDZbuJ/H3/d/X4c+HNMG
-	5Gk7fP2DlyMOWcOhzSuhwF3WCBS1xnm8Of/d/4Wu4/vHUQ3DRRo75kknHwSuZy59wDavHB3TxjL
-	8jMhNkWvOmjWcRf8rGiewRSBh7jkz4LvVYDCTCdUZrvp2/MeGGJ15sa+O88Ie++Gwm9pZdgo5x6
-	VGMAXUYJMx6jKAnHnbu5cRSEW4V3SQDVxNgtkJr4DopaMmOASaNEbmGzCG0is07JTCgYEawGBsU
-	dA1tZngHsuFG1D20k6ozlgmoS+F5gQfTCevJA6
-X-Received: by 2002:a05:7022:4393:b0:12a:949b:b9b with SMTP id a92af1059eb24-1365fb526d4mr5122952c88.23.1779716035456;
-        Mon, 25 May 2026 06:33:55 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-136b3706ad6sm3785990c88.13.2026.05.25.06.33.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 06:33:54 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Mon, 25 May 2026 06:33:53 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: James Calligeros <jcalligeros99@gmail.com>
-Cc: Sven Peter <sven@kernel.org>, Janne Grunau <j@jannau.net>,
-	Alyssa Rosenzweig <alyssa@rosenzweig.io>,
-	Neal Gompa <neal@gompa.dev>, Lee Jones <lee@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Jean Delvare <jdelvare@suse.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Jonathan Corbet <corbet@lwn.net>, asahi@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-rtc@vger.kernel.org,
-	linux-hwmon@vger.kernel.org, linux-input@vger.kernel.org,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH v5 02/11] dt-bindings: hwmon: Add Apple System Management
- Controller hwmon schema
-Message-ID: <2571c780-7bb7-4519-92bd-52b82ae6a965@roeck-us.net>
-References: <20251112-macsmc-subdevs-v5-0-728e4b91fe81@gmail.com>
- <20251112-macsmc-subdevs-v5-2-728e4b91fe81@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CnkQlvcl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D7D71F000E9;
+	Mon, 25 May 2026 13:36:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779716175;
+	bh=gftYTTFDNsPwN7s0Yy6eQKqBmuaqL2hrZvImmvb3NQk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=CnkQlvcl/2OAALvDj1tRM6rwaQih43BIsDyrIVaoCjRtc7KiBugs+YARpSrm1DB6O
+	 uuKcIlY9mq3vPJLCBI50I0OMkZunCDRh7uQltwqhZmM8aopDbAI4s7uYl8Cjr0ixy3
+	 wgr9l0s9r7BwFvttacQpA0Z75wx+nxkOTYZexpAryUmnZ10RASRcPeGnFXA5YrTUwk
+	 H0ksmmIcWNdlIvr2qTWZYg9XAOHZ5LYxT51irUfNtU+PDMikJCG4myvEMjuZ2hqbWe
+	 b6KKmbA0gXmz0AiPABHyanW10XhKBgHwE3d+qQBHdgQI9dL1n3Y/vNlWNJ0qo25ZMu
+	 E2dNeoB261sCQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 10/10] drm/rockchip: analogix_dp: Add support for
+ RK3576
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260525125331.140059-11-damon.ding@rock-chips.com>
+References: <20260525125331.140059-11-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 13:36:14 +0000
+Message-Id: <20260525133615.5D7D71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20251112-macsmc-subdevs-v5-2-728e4b91fe81@gmail.com>
 
-On Wed, Nov 12, 2025 at 09:16:48PM +1000, James Calligeros wrote:
-> Apple Silicon devices integrate a vast array of sensors, monitoring
-> current, power, temperature, and voltage across almost every part of
-> the system. The sensors themselves are all connected to the System
-> Management Controller (SMC). The SMC firmware exposes the data
-> reported by these sensors via its standard FourCC-based key-value
-> API. The SMC is also responsible for monitoring and controlling any
-> fans connected to the system, exposing them in the same way.
-> 
-> For reasons known only to Apple, each device exposes its sensors with
-> an almost totally unique set of keys. This is true even for devices
-> which share an SoC. An M1 Mac mini, for example, will report its core
-> temperatures on different keys to an M1 MacBook Pro. Worse still, the
-> SMC does not provide a way to enumerate the available keys at runtime,
-> nor do the keys follow any sort of reasonable or consistent naming
-> rules that could be used to deduce their purpose. We must therefore
-> know which keys are present on any given device, and which function
-> they serve, ahead of time.
-> 
-> Add a schema so that we can describe the available sensors for a given
-> Apple Silicon device in the Devicetree.
-> 
-> Reviewed-by: Neal Gompa <neal@gompa.dev>
-> Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
-> Signed-off-by: James Calligeros <jcalligeros99@gmail.com>
-> ---
->  .../bindings/hwmon/apple,smc-hwmon.yaml  | 86 +++++++++++++++++++++++++
->  .../bindings/mfd/apple,smc.yaml          | 36 +++++++++++
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-I see that the rest of this series is going to be applied. This patch
-touches bindings in mfd, which I can not apply.
+New issues:
+- [High] The `rk3576_edp` chip data table omits `.edp_mode` GRF register fi=
+eld initialization, which may prevent the combo PHY from being properly con=
+figured.
 
-With the assumption that the patch will be applied through some other tree,
-presumably mfd:
+Pre-existing issues:
+- [Critical] A `sprintf` call formats a potentially long device node path i=
+nto a fixed 32-byte stack buffer `name`, causing a stack overflow vulnerabi=
+lity.
+--
 
-Acked-by: Guenter Roeck <linux@roeck-us.net>
+commit d5d21d53d47c2f7f634710afc76442e39aeaf0f8
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-Guenter
+drm/rockchip: analogix_dp: Add support for RK3576
 
->  MAINTAINERS                              |  1 +
->  3 files changed, 123 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/apple,smc-hwmon.yaml b/Documentation/devicetree/bindings/hwmon/apple,smc-hwmon.yaml
-> new file mode 100644
-> index 000000000000..2eec317bc4b3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/apple,smc-hwmon.yaml
-> @@ -0,0 +1,86 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/apple,smc-hwmon.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Apple SMC Hardware Monitoring
-> +
-> +description:
-> +  Apple's System Management Controller (SMC) exposes a vast array of
-> +  hardware monitoring sensors, including temperature probes, current and
-> +  voltage sense, power meters, and fan speeds. It also provides endpoints
-> +  to manually control the speed of each fan individually. Each Apple
-> +  Silicon device exposes a different set of endpoints via SMC keys. This
-> +  is true even when two machines share an SoC. The CPU core temperature
-> +  sensor keys on an M1 Mac mini are different to those on an M1 MacBook
-> +  Pro, for example.
-> +
-> +maintainers:
-> +  - James Calligeros <jcalligeros99@gmail.com>
-> +
-> +$defs:
-> +  sensor:
-> +    type: object
-> +
-> +    properties:
-> +      apple,key-id:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        pattern: "^[A-Za-z0-9]{4}$"
-> +        description: The SMC FourCC key of the desired sensor.
-> +          Must match the node's suffix.
-> +
-> +      label:
-> +        description: Human-readable name for the sensor
-> +
-> +    required:
-> +      - apple,key-id
-> +
-> +properties:
-> +  compatible:
-> +    const: apple,smc-hwmon
-> +
-> +patternProperties:
-> +  "^current-[A-Za-z0-9]{4}$":
-> +    $ref: "#/$defs/sensor"
-> +    unevaluatedProperties: false
-> +
-> +  "^fan-[A-Za-z0-9]{4}$":
-> +    $ref: "#/$defs/sensor"
-> +    unevaluatedProperties: false
-> +
-> +    properties:
-> +      apple,fan-minimum:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        pattern: "^[A-Za-z0-9]{4}$"
-> +        description: SMC key containing the fan's minimum speed
-> +
-> +      apple,fan-maximum:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        pattern: "^[A-Za-z0-9]{4}$"
-> +        description: SMC key containing the fan's maximum speed
-> +
-> +      apple,fan-target:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        pattern: "^[A-Za-z0-9]{4}$"
-> +        description: Writeable endpoint for setting desired fan speed
-> +
-> +      apple,fan-mode:
-> +        $ref: /schemas/types.yaml#/definitions/string
-> +        pattern: "^[A-Za-z0-9]{4}$"
-> +        description: Writeable key to enable/disable manual fan control
-> +
-> +
-> +  "^power-[A-Za-z0-9]{4}$":
-> +    $ref: "#/$defs/sensor"
-> +    unevaluatedProperties: false
-> +
-> +  "^temperature-[A-Za-z0-9]{4}$":
-> +    $ref: "#/$defs/sensor"
-> +    unevaluatedProperties: false
-> +
-> +  "^voltage-[A-Za-z0-9]{4}$":
-> +    $ref: "#/$defs/sensor"
-> +    unevaluatedProperties: false
-> +
-> +additionalProperties: false
-> diff --git a/Documentation/devicetree/bindings/mfd/apple,smc.yaml b/Documentation/devicetree/bindings/mfd/apple,smc.yaml
-> index 0410e712c900..34ce048619f5 100644
-> --- a/Documentation/devicetree/bindings/mfd/apple,smc.yaml
-> +++ b/Documentation/devicetree/bindings/mfd/apple,smc.yaml
-> @@ -49,6 +49,9 @@ properties:
->    rtc:
->      $ref: /schemas/rtc/apple,smc-rtc.yaml
->  
-> +  hwmon:
-> +    $ref: /schemas/hwmon/apple,smc-hwmon.yaml
-> +
->  additionalProperties: false
->  
->  required:
-> @@ -89,5 +92,38 @@ examples:
->            nvmem-cells = <&rtc_offset>;
->            nvmem-cell-names = "rtc_offset";
->         };
-> +
-> +        hwmon {
-> +          compatible = "apple,smc-hwmon";
-> +
-> +          current-ID0R {
-> +            apple,key-id = "ID0R";
-> +            label = "AC Input Current";
-> +          };
-> +
-> +          fan-F0Ac {
-> +            apple,key-id = "F0Ac";
-> +            apple,fan-minimum = "F0Mn";
-> +            apple,fan-maximum = "F0Mx";
-> +            apple,fan-target = "F0Tg";
-> +            apple,fan-mode = "F0Md";
-> +            label = "Fan 1";
-> +          };
-> +
-> +          power-PSTR {
-> +            apple,key-id = "PSTR";
-> +            label = "Total System Power";
-> +          };
-> +
-> +          temperature-TW0P {
-> +            apple,key-id = "TW0P";
-> +            label = "WiFi/BT Module Temperature";
-> +          };
-> +
-> +          voltage-VD0R {
-> +            apple,key-id = "VD0R";
-> +            label = "AC Input Voltage";
-> +          };
-> +        };
->        };
->      };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 51942a9a9b43..6e5e219c5fe6 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -2422,6 +2422,7 @@ F:	Documentation/devicetree/bindings/cpufreq/apple,cluster-cpufreq.yaml
->  F:	Documentation/devicetree/bindings/dma/apple,admac.yaml
->  F:	Documentation/devicetree/bindings/gpio/apple,smc-gpio.yaml
->  F:	Documentation/devicetree/bindings/gpu/apple,agx.yaml
-> +F:	Documentation/devicetree/bindings/hwmon/apple,smc-hwmon.yaml
->  F:	Documentation/devicetree/bindings/i2c/apple,i2c.yaml
->  F:	Documentation/devicetree/bindings/input/touchscreen/apple,z2-multitouch.yaml
->  F:	Documentation/devicetree/bindings/interrupt-controller/apple,*
+This commit adds dedicated chip data and a device tree matching entry to
+bring up basic eDP functionality for the RK3576 platform. It notes that
+the hardware blocks fully match the proven RK3588 design.
+
+> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gp=
+u/drm/rockchip/analogix_dp-rockchip.c
+> index d2af5eb29dbb5..d4c5dd61e95bb 100644
+> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+> @@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[=
+] =3D {
+>  	{ /* sentinel */ }
+>  };
+> =20
+> +static const struct rockchip_dp_chip_data rk3576_edp[] =3D {
+> +	{
+> +		.chip_type =3D RK3576_EDP,
+> +		.reg =3D 0x27dc0000,
+
+[Severity: High]
+Does this missing .edp_mode initialization prevent the combo PHY from
+being properly configured?
+
+The commit message states that the RK3576 hardware blocks fully match
+the RK3588 design. However, the RK3588 implementation uses .edp_mode to
+configure the combo PHY via GRF when powering on the DP controller.
+
+Because .edp_mode is left uninitialized here, when rockchip_dp_poweron()
+calls rockchip_grf_field_write(), it will silently return 0 since .valid
+is false, skipping the GRF configuration entirely.
+
+[ ... ]
+
+This isn't a bug introduced by this patch, but while reviewing this file
+I noticed a pre-existing issue in rockchip_dp_drm_encoder_enable():
+
+drivers/gpu/drm/rockchip/analogix_dp-rockchip.c:rockchip_dp_drm_encoder_ena=
+ble() {
+    char name[32];
+    ...
+    if (remote_port_parent) {
+        if (of_get_child_by_name(remote_port_parent, "ports")) {
+            ...
+            sprintf(name, "%s vp%d", remote_port_parent->full_name, port_id=
+);
+    ...
+}
+
+[Severity: Critical]
+Since remote_port_parent->full_name points to the device tree node's full
+name (which can exceed 32 characters), can this unbounded string write
+overflow the 32-byte name buffer on the stack?
+
+Additionally, it appears the name variable is never actually used for
+anything after being formatted, meaning this vulnerability exists purely
+in dead logic.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525125331.1400=
+59-1-damon.ding@rock-chips.com?part=3D10
