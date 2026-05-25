@@ -1,347 +1,164 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2280D3E51C6
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:31:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0004135B633
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779701508; cv=none; b=R3BdlgcO5T/oSEVmoA3kb+px2qdJ9rAVrxTep0gbXbJvWIqH0F4GZYlM0os7fc+dXH+lEsC0UbnRQ5wAHsZDUojslRF8F7gDOv7QRZBfuTW2BAmlSdwrZF9OZ3Yj2GKaNDPHWnPFGZac7UCFnTxkImqt4UVJ8hf3CSQpPrTm7MM=
+	t=1779701590; cv=none; b=kNvUFbuXJlJqGJYV/OZuD/zleir3kSrAnQKu23W8KBT16EsETQDWlcHohdEXzXVhxkKte9hnHh0J+zOxRLGtlaqrlHHSHk0nsuQJ7ufBDfzIQQLFOi4P/udWSDls9D1hp75P8OiPvjOt5f6tb4D6PMJygfFUy6hEn5TwdSbEYIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779701508; c=relaxed/simple;
-	bh=hI4IsAPP6xRaE5/KkrwSJJuWpVi5D+NdQjpmBtWOY4k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=g74X6mYeE1iw2kaPmDFyO+0gKtzbnQHzuBMX4pfvaCaUOEe7jelsEybgUgRwc3aG9bT+jRQEGj/WlYcF2gwLOxGEG5ESCpW+3hpElliXrbyQhimzr7w1fRJD/IL29v6vT+Sl47Vymzq8bZ2qmKCP+VekSSy2/oo/nzpYutHAAcQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lllmDNYY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779701590; c=relaxed/simple;
+	bh=2+pxe1kU4fEfdSxs26jAJpTMIaMSl6lYnVxeYKl+0io=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=P9Oa4db1ezuIjp9GCw6Jy+0kItWcyc4mwrl3IaxqhiqqK21sxj1o3jd8pzsAIHpy1j6ov2BueQA/+GGUKs+3U1KTT1NOwj5lfOrRZXp9fxnrKI5datCwVl1k3n3rua9YpcEC8vizT3LOrriX7TPYVTR7X6MORAkGZzYrgZ/a0W4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XY7Dy1J0; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lllmDNYY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6391F000E9;
-	Mon, 25 May 2026 09:31:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779701506;
-	bh=B8rdrOJoD9epMP6lrQZWjEbcruh8srZb3iG4inU1p6g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lllmDNYYOYfvfrDdbUOEAnJxA3pYzS+5hQi+zbbQX9GorCwFNA6jYFbR/h6KAc7TO
-	 NTFt/PeP7jOv1B/IiRUbO5biCgt+Z5Oc2db2JqXKIMu1zpypc6X0Q6FOpXEVnaeRe2
-	 bw/N/iX/AM8iSL8jv4yoqVgA416/UQMC+2z637a+c67f4QUMeiGarLTqZeiA+OGkHp
-	 k1AftiSP98hAQ1yOqBOCMHlHEntR1+EDN6UJ6IE2D58Iio9HUCYOPYupzj74iVHvjc
-	 uM9d2gaOucUzclUBPlofemCI+l7qrQ833qWzV7XS6HstU5E86Hb98ag7vVcYcKelfv
-	 gc6Big3enNkyw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 7/9] i3c: hub: Add support for the I3C interface in
- the I3C hub
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260525064209.2263045-8-lakshay.piplani@nxp.com>
-References: <20260525064209.2263045-8-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 09:31:46 +0000
-Message-Id: <20260525093146.9E6391F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XY7Dy1J0"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-48a563e4ef7so69506255e9.0
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 02:33:07 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779701586; x=1780306386; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=DoERE+8L5vLj1dPanKPuhfMBdwOHVvuHRasN+h+wvto=;
+        b=XY7Dy1J0v9GjqHUP3kCcP+HunkHtpw3HSWpkzPjG3wO3iaWW+TmQPTmRL7ok3OstKU
+         atJTDISqf7EPVmQiTbaGlvCcByuWcug6z5NjcY8BymOblQxWfAWduXiBU7POLJC4QwF4
+         Hg0vvxKnVkLGiOTaIVua/zx0z4Lg5KIH6Y2SXfP4Ti9/zyCsgWgLdg00zpru25WzaBou
+         7HZNjPlxpW5X/h+KxBgVYLoUADWVVn/ysn9xmo7OZ8AmvQFtC8hh60muO8bcG8Qh4oK4
+         DOG6F5rN4o+TSu/UE2H0h6JjYpJ70Hqrgs3hTfZWlykiJmQKzGsRXla5I5zDXtAsLNEo
+         t+jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779701586; x=1780306386;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=DoERE+8L5vLj1dPanKPuhfMBdwOHVvuHRasN+h+wvto=;
+        b=WePyCeIhwjlxfaX8/DdHyVGZ1r5PNSyv4dXhMJ57G9Dr9/2yqncl08No8MbPIOit77
+         pS3dNra7fF1qvjOYgB0qEEPB5D/NRmoh5kRICAAPaHRMlv4XY+9c8XHfRSvh/YvNGqub
+         6qd0DMi1tSX1TUrVIspy0yU/ScsWNCUnN1DZvJnwKMytepi6QAumsAkFbWqdfnRqSI3+
+         r0PPOi3eHa24HBj/1hHtu/Ly95ardDDyiuf/yu6sj842F38gXd5y2qUSOTYXpzlg5rBx
+         WUBa6QkBa0NYuVQOYUN9K61Dpaki/nPd6v5/jmsdrDqW9gYoljEDkrkE9uu2bSA6mwVl
+         06ew==
+X-Forwarded-Encrypted: i=1; AFNElJ/UStMY2IWegXao5FZqElnNXw7kXVheUCmagnwYLMIgBTZYN4CFi4kEYpyt4f3Z7uj8ZOc5ZF/MXuLz@vger.kernel.org
+X-Gm-Message-State: AOJu0YxVWp/flRfoc80oqf7EtWesqS7qzq4mO/6RWHnKNxFgGMTaphEI
+	J6y3wdqUb9+JpdQCv3AZWBYq8I2xOdvv4QX47szTK/kTPrs7ekYK0/xvQTqsAA==
+X-Gm-Gg: Acq92OECl5sQn73lUsuW5klxGTZTMycfcvNlhIQmzrlNbB29H9ly/NK0adJZ1pK+5L0
+	6JTwJ88HRYEPu8plP/stZ+vCImh7PhiRWMkjsHgJ2Q50AvjKTYYxUaR0kdAxTTuXAxizYjS5+zy
+	JQlak+VNHYjghc5Xqh2tbmxS0/WHpdgZxJgaAt9lIC0dlqHzhEbd9e0Hy55JmXgJHti6E7RN4FB
+	0Cy/olIq7pcktd1pONXUApeB616K3jsBl9gc+Trcf9dGK/Bf4W1G/HYmIGpxqUI3FFeukDNopCq
+	W4BTkCjEsDFRKCW8gPzIQ3r2NDoaqisUESGz1FY4Dsf2u8kgB6tRldEQeSbeg68ENFqy/mNqiR4
+	UxPLXd3TgOA65Wr5buo6xmLmcb0VhpkOVLvlpE+9IwZLfNG4cj2j0WGOeP5++N3fKT4quuk9ooE
+	eHTrTeHJu3q2tQVfjJFcah/XFiSMaagDobuMFzr7gfH5Y1tQgNwoTJX4yv
+X-Received: by 2002:a05:600c:8484:b0:490:3c94:a3c6 with SMTP id 5b1f17b1804b1-490428e205cmr231028375e9.26.1779701586132;
+        Mon, 25 May 2026 02:33:06 -0700 (PDT)
+Received: from [10.25.212.250] ([128.77.115.157])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4904333146bsm135468715e9.0.2026.05.25.02.33.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 May 2026 02:33:05 -0700 (PDT)
+Message-ID: <3c2bc7b9-33e8-4840-af41-ce6e7308ae2f@gmail.com>
+Date: Mon, 25 May 2026 02:33:02 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 3/5] arm64: dts: freescale: imx95-toradex-smarc: move CM7
+ node to SoC DTSI
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260522111849.783-1-laurentiumihalcea111@gmail.com>
+ <20260522111849.783-4-laurentiumihalcea111@gmail.com>
+ <ahOwvnij7Fwxh3La@shlinux89>
+Content-Language: en-US
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+In-Reply-To: <ahOwvnij7Fwxh3La@shlinux89>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
 
-New issues:
-- [Critical] Unconditional NULL pointer dereference in `i3c_dev_free_ibi_lo=
-cked()` via recursive `i3c_hub_free_ibi()`.
-- [High] Missing `up_write(&parent->bus.lock)` release on the error path in=
- `i3c_hub_request_ibi()`.
-- [High] Double free of `desc->ibi` and leaked workqueue on the error path =
-in `i3c_hub_request_ibi()`.
-- [High] `i3c_hub_master_priv_xfers()` modifies shared hub device state and=
- parent bus topology without holding the parent controller's bus lock.
-- [High] Bus address slot tracking is bypassed in `i3c_hub_master_priv_xfer=
-s()` due to identical address arguments.
-- [High] Failure to restore the hub device's dynamic address (`hub_dev->inf=
-o.dyn_addr`) on the reattach error path in `i3c_hub_master_priv_xfers()`.
-- [High] Architectural flaw: DAA logic incorrectly delegates directly to th=
-e parent controller, permanently bypassing the virtual hub.
-- [High] Missing `i3c_master_direct_detach_i3c_dev_locked()` on the error p=
-ath in `i3c_hub_request_ibi()`.
-- [Medium] Bitwise OR incorrectly used to combine signed error codes, resul=
-ting in corrupted errno values.
 
-Pre-existing issues:
-- [High] Leaked workqueue on the error path of IBI requests in the I3C mast=
-er core.
---
+On 5/24/2026 7:15 PM, Peng Fan wrote:
+> On Fri, May 22, 2026 at 04:18:47AM -0700, Laurentiu Mihalcea wrote:
+>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>>
+>> The CM7 remoteproc configuration is common to multiple MX95-based
+>> platforms (e.g. MX95-19x19-EVK, MX95-15x15-FRDM, SMARC-IMX95, etc.).
+>> Therefore, move the node to the MX95 SoC DTSI. While at it, split the mbox
+>> channels using <>.
+>>
+>> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>> ---
+>> .../boot/dts/freescale/imx95-toradex-smarc.dtsi    | 14 ++++++--------
+>> arch/arm64/boot/dts/freescale/imx95.dtsi           |  7 +++++++
+>> 2 files changed, 13 insertions(+), 8 deletions(-)
+>>
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
+>> index 7d760470201f..c94a63a3bf8f 100644
+>> --- a/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
+>> +++ b/arch/arm64/boot/dts/freescale/imx95-toradex-smarc.dtsi
+>> @@ -145,14 +145,6 @@ reg_wifi_en: regulator-wifi-en {
+>> 		startup-delay-us = <2000>;
+>> 	};
+>>
+>> -	remoteproc-cm7 {
+>> -		compatible = "fsl,imx95-cm7";
+>> -		mboxes = <&mu7 0 1 &mu7 1 1 &mu7 3 1>;
+>> -		mbox-names = "tx", "rx", "rxdb";
+>> -		memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+>> -				<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>, <&m7_reserved>;
+>> -	};
+>> -
+>> 	reserved-memory {
+>> 		#address-cells = <2>;
+>> 		#size-cells = <2>;
+>> @@ -204,6 +196,12 @@ vdevbuffer: vdevbuffer@88020000 {
+>> 	};
+>> };
+>>
+>> +&cm7 {
+>> +	memory-region = <&vdevbuffer>, <&vdev0vring0>, <&vdev0vring1>,
+>> +			<&vdev1vring0>, <&vdev1vring1>, <&rsc_table>, <&m7_reserved>;
+>> +	status = "okay";
+>> +};
+>> +
+>> /* SMARC GBE0 */
+>> &enetc_port0 {
+>> 	pinctrl-names = "default";
+>> diff --git a/arch/arm64/boot/dts/freescale/imx95.dtsi b/arch/arm64/boot/dts/freescale/imx95.dtsi
+>> index 3e35c956a4d7..f8760ac067fa 100644
+>> --- a/arch/arm64/boot/dts/freescale/imx95.dtsi
+>> +++ b/arch/arm64/boot/dts/freescale/imx95.dtsi
+>> @@ -272,6 +272,13 @@ opp-1000000000 {
+>> 		};
+>> 	};
+>>
+>> +	cm7: remoteproc-cm7 {
+>> +		compatible = "fsl,imx95-cm7";
+>> +		mboxes = <&mu7 0 1>, <&mu7 1 1>, <&mu7 3 1>;
+>> +		mbox-names = "tx", "rx", "rxdb";
+> 
+> Please not put mboxes and mbox-names in dtsi. Some demos may not
+> require them and boards may use different MUs.
+> 
+> Regards
+> Peng
+> 
 
-commit 75489fdfdbca4c7d1708dfb61bdd09e7018b9a0b
-Author: Lakshay Piplani <lakshay.piplani@nxp.com>
+Not going to insist on this.
+Frank Li, are you ok with dropping this patch and handling this at board/SoM level?
 
-i3c: hub: Add support for the I3C interface in the I3C hub
-
-Add virtual I3C bus support for the hub by creating virtual master controll=
-ers
-for downstream ports and forwarding bus operations through the hub device. =
-It
-also provides an interface used by hub drivers to enable or disable downstr=
-eam
-ports during bus transactions.
-
-> diff --git a/drivers/i3c/hub.c b/drivers/i3c/hub.c
-> new file mode 100644
-> index 0000000000000..da0e209ee5b79
-> --- /dev/null
-> +++ b/drivers/i3c/hub.c
-[ ... ]
-> @@ -54,26 +54,26 @@ static void i3c_hub_detach_i3c_dev(struct i3c_dev_des=
-c *dev)
->   */
->  static int i3c_hub_do_daa(struct i3c_hub *hub,
->  			  struct i3c_master_controller *controller)
->  {
->  	struct i3c_master_controller *parent;
->  	int ret;
-> =20
->  	if (!hub || !hub->hub_dev)
->  		return -ENODEV;
-> =20
->  	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
->  	if (!parent)
->  		return -ENODEV;
-> =20
->  	i3c_hub_enable_port(controller);
->  	ret =3D i3c_master_do_daa(parent);
->  	i3c_hub_disable_port(controller);
-
-[Severity: High]
-Does this discovery logic bypass the virtual hub permanently?
-
-When calling i3c_master_do_daa(parent), newly discovered downstream devices
-are attached directly to the parent controller's bus. Future transfers or
-IBI requests targeting these devices will use the parent controller directly
-instead of i3c_hub_master_priv_xfers().
-
-Because of this, will i3c_hub_enable_port() never be invoked for these
-devices, leaving them unreachable?
-
-[ ... ]
-> @@ -126,45 +126,45 @@ static int i3c_hub_send_ccc_cmd(struct i3c_hub *hub,
->   */
->  static int i3c_hub_master_priv_xfers(struct i3c_dev_desc *dev,
->  				     struct i3c_xfer *xfers,
->  				     int nxfers,
->  				     enum i3c_xfer_mode mode)
->  {
->  	struct i3c_master_controller *controller =3D i3c_dev_get_master(dev);
->  	struct i3c_hub_controller *hub_controller;
->  	struct i3c_dev_desc *hub_dev;
->  	u8 hub_addr, target_addr;
->  	struct i3c_hub *hub;
->  	int ret;
-> =20
->  	hub_controller =3D dev_get_drvdata(&controller->dev);
->  	if (!hub_controller || !hub_controller->hub)
->  		return -ENODEV;
-> =20
->  	hub =3D hub_controller->hub;
-> =20
->  	if (!hub->hub_dev)
->  		return -ENODEV;
-> =20
->  	hub_dev =3D hub->hub_dev->desc;
-> =20
->  	i3c_hub_enable_port(controller);
-> =20
->  	hub_addr =3D hub_dev->info.dyn_addr ?
->  		   hub_dev->info.dyn_addr : hub_dev->info.static_addr;
-> =20
->  	target_addr =3D dev->info.dyn_addr ?
->  		      dev->info.dyn_addr : dev->info.static_addr;
-> =20
->  	if (hub_addr !=3D target_addr) {
->  		hub_dev->info.dyn_addr =3D target_addr;
->  		ret =3D i3c_master_reattach_i3c_dev_locked(hub_dev, target_addr);
-
-[Severity: High]
-Can this sequence cause a race condition when modifying shared hub state?
-
-This code modifies hub_dev->info.dyn_addr and invokes
-i3c_master_reattach_i3c_dev_locked() without holding parent->bus.lock for
-writing.
-
-If multiple virtual master controllers (hub ports) initiate transfers
-concurrently, might threads race to manipulate these shared hardware address
-tables and enable multiple downstream ports simultaneously without
-arbitration, leading to physical bus collisions?
-
-[Severity: High]
-Will bus address slot tracking be bypassed here?
-
-The code sets hub_dev->info.dyn_addr =3D target_addr and then passes
-target_addr as the old_dyn_addr argument to
-i3c_master_reattach_i3c_dev_locked().
-
-Inside the core function, the condition (dev->info.dyn_addr !=3D old_dyn_ad=
-dr)
-will evaluate to false, which skips updating the addr_slot_status tracking
-array. Could this permanently corrupt the parent controller's view of free
-and used bus addresses?
-
->  		if (ret)
->  			goto disable;
-
-[Severity: High]
-Should the dynamic address be restored on this error path?
-
-If i3c_master_reattach_i3c_dev_locked() fails, the code jumps to the disable
-label and returns. Since hub_dev->info.dyn_addr is not restored to hub_addr,
-does this leave the software descriptor desynchronized from the actual
-hardware state?
-
->  	}
-> =20
->  	ret =3D i3c_device_do_xfers(hub->hub_dev, xfers, nxfers, mode);
-> =20
->  	if (hub_addr !=3D target_addr) {
->  		hub_dev->info.dyn_addr =3D hub_addr;
->  		ret |=3D i3c_master_reattach_i3c_dev_locked(hub_dev, hub_addr);
->  	}
-> =20
->  disable:
-
-[Severity: Medium]
-Is it safe to use a bitwise OR to combine these error codes?
-
-Both i3c_device_do_xfers() and i3c_master_reattach_i3c_dev_locked() can
-return negative error codes like -EAGAIN or -EBUSY. Performing a bitwise OR
-combines these signed values, which can corrupt the resulting error code
-and return a nonsensical status to the caller.
-
-[ ... ]
-> @@ -250,45 +250,45 @@ static bool i3c_hub_master_supports_ccc_cmd(struct =
-i3c_master_controller *contro
->   */
->  static int i3c_hub_request_ibi(struct i3c_dev_desc *desc,
->  			       const struct i3c_ibi_setup *req)
->  {
->  	struct i3c_master_controller *controller =3D i3c_dev_get_master(desc);
->  	struct i3c_hub_controller *hub_controller;
->  	struct i3c_master_controller *orig_parent;
->  	struct i3c_master_controller *parent;
->  	struct i3c_hub *hub;
->  	int ret;
-> =20
->  	hub_controller =3D dev_get_drvdata(&controller->dev);
->  	if (!hub_controller || !hub_controller->hub)
->  		return -ENODEV;
-> =20
->  	hub =3D hub_controller->hub;
-> =20
->  	if (!hub->hub_dev)
->  		return -ENODEV;
-> =20
->  	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
-> =20
->  	down_write(&parent->bus.lock);
-> =20
->  	orig_parent =3D i3c_hub_update_desc_parent(&desc->common, parent);
-> =20
->  	ret =3D i3c_master_direct_attach_i3c_dev_locked(parent, desc);
->  	if (ret) {
->  		i3c_hub_update_desc_parent(&desc->common, orig_parent);
->  		return ret;
-
-[Severity: High]
-Is a lock release missing on this error path?
-
-A write lock is acquired on parent->bus.lock, but if the attachment fails,
-the function returns immediately. Should up_write(&parent->bus.lock) be
-called here to prevent a system deadlock on future parent bus operations?
-
->  	}
-> =20
->  	kfree(desc->ibi);
->  	desc->ibi =3D NULL;
-
-[Severity: High]
-Could this lead to a double free and a resource leak?
-
-When i3c_dev_request_ibi_locked() is called, it allocates desc->ibi and a
-workqueue. This code blindly calls kfree(desc->ibi), which leaves the
-workqueue memory leaked.
-
-Furthermore, if the inner call to i3c_dev_request_ibi_locked() fails, it
-sets desc->ibi to NULL. The outer i3c_dev_request_ibi_locked() will then
-receive the error and execute kfree(ibi) on the original pointer that was
-already freed, leading to a double free.
-
->  	ret =3D i3c_dev_request_ibi_locked(desc, req);
-
-[Severity: High]
-If this recursive call fails, should the device be detached?
-
-The downstream device is directly attached to the parent hardware controlle=
-r.
-If i3c_dev_request_ibi_locked() fails, the function restores the descriptor
-and returns without detaching the device from the parent. Since free_ibi
-will never be called to clean up a failed request, does this permanently
-leak the hardware attachment resources in the parent controller?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the core I3C code leak a
-workqueue on this error path?
-
-In drivers/i3c/master.c:i3c_dev_request_ibi_locked(), an ordered workqueue
-is allocated and assigned to ibi->wq. If the controller's request_ibi
-callback fails, the code frees the ibi context but does not destroy the
-workqueue, leading to a memory and kernel resource leak.
-
-> =20
->  	i3c_hub_update_desc_parent(&desc->common, orig_parent);
-> =20
->  	up_write(&parent->bus.lock);
-> =20
->  	return ret;
->  }
-> =20
->  static void i3c_hub_free_ibi(struct i3c_dev_desc *desc)
->  {
->  	struct i3c_master_controller *controller =3D i3c_dev_get_master(desc);
->  	struct i3c_hub_controller *hub_controller;
->  	struct i3c_master_controller *orig_parent;
->  	struct i3c_master_controller *parent;
->  	struct i3c_hub *hub;
-> =20
->  	hub_controller =3D dev_get_drvdata(&controller->dev);
->  	if (!hub_controller || !hub_controller->hub)
->  		return;
-> =20
->  	hub =3D hub_controller->hub;
-> =20
->  	parent =3D i3c_dev_get_master(hub->hub_dev->desc);
-> =20
->  	i3c_hub_enable_port(controller);
-> =20
->  	down_write(&parent->bus.lock);
->  	orig_parent =3D i3c_hub_update_desc_parent(&desc->common, parent);
->  	i3c_master_direct_detach_i3c_dev_locked(desc);
->  	i3c_dev_free_ibi_locked(desc);
-
-[Severity: Critical]
-Does this recursive call result in a guaranteed NULL pointer dereference?
-
-When the core invokes the hub's free_ibi callback, this function recursively
-calls i3c_dev_free_ibi_locked() using the parent context. The inner call
-frees dev->ibi and sets dev->ibi =3D NULL.
-
-Upon returning to the outer i3c_dev_free_ibi_locked(), the core immediately
-evaluates if (dev->ibi->wq). Since dev->ibi was just set to NULL, won't this
-trigger a NULL pointer dereference on the success path?
-
->  	i3c_hub_update_desc_parent(&desc->common, orig_parent);
->  	up_write(&parent->bus.lock);
-> =20
->  	i3c_hub_disable_port(controller);
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525064209.2263=
-045-1-lakshay.piplani@nxp.com?part=3D7
