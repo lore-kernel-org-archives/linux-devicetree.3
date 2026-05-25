@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0683B37FF44
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:41:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B0D137F8AC
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:41:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779709266; cv=none; b=Ymef14bwIeR3c/aMBk1+eNM6YxOFdTufcVVzlHMKoyOGi5c4yYy2TDuTMKVXaYRoTosJV7t5uWAi5qLWARetS05E3HbXBq3k5a2ApWJAc3VM/vsoluEhvq8nbh6uzo7yLKPgrGoTAtlCk1FOhjF4aGFV/xW9nMLyeGPTbNdBbFk=
+	t=1779709286; cv=none; b=PtAvUf3VXbnbQqhGLOLC9nD1o6s9KETbKSwJXVBbr9f70hYeT/X7Ou0wV1/Ep2ilA2lnycFZyr5bDzPHkAXCsyWP1oc6o+OQerzOgFxMbcbIPGEDeAdxhNFPg8SEjY+xBdtHnik1pfssvFEuz8smviqVdXqqSZMnRMIiVrEdvCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779709266; c=relaxed/simple;
-	bh=9kJghh+kFOC7vPikt520bUNLL0u14h5cPfYz9NaBpRc=;
+	s=arc-20240116; t=1779709286; c=relaxed/simple;
+	bh=Yb88PVwLQbUIwfH+ZUbv9KRcGQSNVZ3z/iDGeIJ1zME=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fhEfywUHjPffdkyGUx0kqUDWwRJ/S0xEziZaKrB1ix3kOMaSXzYQcUhUHIaoixm8S0B4agnuFRGBZ8l4ly6R3IRI542PKnhn0IiF7U3SnAgxbuKwVaXNOX3HZ1r/Qe0DzxQZMMxitt6Jck+qUA2JVQ9zDCAkwgqHzNWTqSDgfF0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXXLNUMV; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BkdaUESDGL0pIwRVrUtE1+Zp4UVqS0KdU7G/PexfTl6AuLCf3j3ebbUwjMV882zk5SC5XIhU+Rj8VHPQjpu0Ge9itVZMEofUUNzcFX0Ny5Fe1L47794Cn7VNj7jdP3mvgnvojCvm/RyEkZdxjz36ci82w2nm/Cp1DZAQjAAZs+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J/Kv7X9f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXXLNUMV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682B21F00A3A;
-	Mon, 25 May 2026 11:41:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J/Kv7X9f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8C601F000E9;
+	Mon, 25 May 2026 11:41:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779709264;
-	bh=DsbO3vVtHEUahvJgSKSAHoVdSUWotUjxUopEwXWoWpc=;
+	s=k20260515; t=1779709284;
+	bh=ienxeBNnxHoCdnhLVuQFBZpO2Asch8EnXppH0lrQCPk=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=QXXLNUMVp5YIXS66WraYn0RgRf0kUObgUsrz7SLJYUkKCs+WahEiojy7PQA1tYcdQ
-	 1BeXuPXl+jnsd7JLFX2EmnP5VbYTc+WOEjgPbVH98LpUImzK4e7ukN/y6NGgpbfjIU
-	 FGv1lSBivOIHa5X3J0gVTjXBNkOm+P5T02rKd+jbTDt8lmSmoY4jS3+qJ8YQ/smilX
-	 T/DF5SPBzaq6IWsZrQKb+eWi6/VUH+QZ2UP208PZas1Cjkbx83r/O80ep6GmpFWpN8
-	 KshlQdFKIWevk382sNTlAttW92aNQ0YKkExWNjeWHvra8zfbbGipv5YCAGdhJzjawJ
-	 QgFJ3o34ah0pw==
+	b=J/Kv7X9fWGC4xISLJtZziLPsFhZWdFRp5o5pPQAGxWIc4w6EXzvdyt46DJIqMj5+u
+	 wZGEqyMS68F1lzEdhuFXGHlOoiPcd8uxwPvgahb36FVMYGUo+0MtmDMZmHIPIsdMer
+	 yfGQufTbtcZMazb483Svxk78rLscR1xB4j6uiA6IeVQ80DvT7hj2u+oQ0Ge5ikvDCs
+	 xppEAjxOoit4S7czgy3+fcJJ4Lql8l0bEQwMpJDFH5mx1l/ekgkDVB2bbS/2WHgrV2
+	 pZ0Gh5fNho39jBYO675+anAfganu3qaA28QZDXx+laaZT2E89HqdPoBZQj0pXyecQv
+	 huujaTxlN7IDQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 3/8] arm64: dts: renesas: rzv2h: Add audio clock
- inputs
+Subject: Re: [PATCH v7 09/18] ASoC: rsnd: ssiu: Add shared SSI reset
+ controller support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
-In-Reply-To: <20260525110603.4018170-4-john.madieu.xa@bp.renesas.com>
-References: <20260525110603.4018170-4-john.madieu.xa@bp.renesas.com>
+Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260525110230.4014435-10-john.madieu.xa@bp.renesas.com>
+References: <20260525110230.4014435-10-john.madieu.xa@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:41:04 +0000
-Message-Id: <20260525114104.682B21F00A3A@smtp.kernel.org>
+Date: Mon, 25 May 2026 11:41:23 +0000
+Message-Id: <20260525114123.C8C601F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,62 +46,55 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Newly added fixed-clock nodes use a deprecated naming convention th=
-at will trigger dtbs_check warnings.
+
+Pre-existing issues:
+- [High] Missing rollback on probe error paths leaks the shared reset contr=
+ol's deassert count.
 --
 
-commit cf2cd1c875fd06adde5a2a08dd0af97c4fa1ae15
+commit 75b9405455f9c9d54972ded411c26d45e6a17c73
 Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-arm64: dts: renesas: rzv2h: Add audio clock inputs
+ASoC: rsnd: ssiu: Add shared SSI reset controller support
 
-This commit models optional external audio clock inputs as CPG input clocks
-for RZ/V2H family SoCs, allowing the Audio Clock Generator (ADG) to derive
-internal audio clocks. The clock frequencies are left at zero to be overrid=
-den
-in board DTS files.
+The RZ/G3E SoC exposes a single shared "ssi-all" reset that gates all
+SSI/SSIU modules. Acquire it at SSIU probe and pass it through
+rsnd_mod_init() so it is wired into the rsnd_mod->rstc plumbing.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g047.dtsi
-> index 95a4e30a064d1..eedc5bb933b7b 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-> @@ -14,6 +14,20 @@ / {
->  	#size-cells =3D <2>;
->  	interrupt-parent =3D <&gic>;
+> diff --git a/sound/soc/renesas/rcar/ssiu.c b/sound/soc/renesas/rcar/ssiu.c
+> --- a/sound/soc/renesas/rcar/ssiu.c
+> +++ b/sound/soc/renesas/rcar/ssiu.c
+[ ... ]
+> @@ -586,7 +593,7 @@ int rsnd_ssiu_probe(struct rsnd_priv *priv)
+>  		}
 > =20
-> +	audio_clkb: audio-clkb {
+>  		ret =3D rsnd_mod_init(priv, rsnd_mod_get(ssiu),
+> -				    ops, NULL, NULL, RSND_MOD_SSIU, i);
+> +				    ops, NULL, rstc, RSND_MOD_SSIU, i);
+>  		if (ret)
+>  			return ret;
 
-[Severity: Low]
-Will this node name trigger dtbs_check warnings?
+[Severity: High]
+This is a pre-existing issue, but does this error path leak the shared reset
+control's deassert count?
 
-According to the fixed-clock device tree bindings, node names should match =
-the
-pattern '^clock-([0-9]+|[a-z0-9-]+)$'. The "audio-clkb" name falls under the
-'any name allowed' fallback, which is explicitly marked as deprecated in the
-schema.
+If probe fails on a subsequent module (for example, returning -EPROBE_DEFER
+from rsnd_mod_init), the function returns directly without calling
+rsnd_mod_quit() for the modules initialized in previous iterations of the l=
+oop.
 
-While this matches the style of the pre-existing "audio-clk" node, adding n=
-ew
-nodes with deprecated names might not be desired.
+Since rsnd_mod_init() calls reset_control_deassert(), the reset remains
+deasserted for those modules.
 
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		/* This value must be overridden by the board */
-> +		clock-frequency =3D <0>;
-> +	};
-> +
-> +	audio_clkc: audio-clkc {
+While devres cleanup will call reset_control_put() on the shared reset acqu=
+ired
+via devm_reset_control_get_optional_shared(), this only drops the kref. It =
+does
+not balance the atomic deassert_count or assert the hardware line.
 
-[Severity: Low]
-Will this node name also trigger dtbs_check warnings for the same reason?
-
-> +		compatible =3D "fixed-clock";
-> +		#clock-cells =3D <0>;
-> +		/* This value must be overridden by the board */
-> +		clock-frequency =3D <0>;
-> +	};
+Across common initialization events like -EPROBE_DEFER retries, will the
+deassert count grow unbounded and leave the hardware permanently deasserted?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110603.4018=
-170-1-john.madieu.xa@bp.renesas.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
+435-1-john.madieu.xa@bp.renesas.com?part=3D9
