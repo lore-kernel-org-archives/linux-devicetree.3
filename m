@@ -1,209 +1,711 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C11930C17E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:57:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20B3A386C20;
+	Mon, 25 May 2026 13:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779717447; cv=none; b=oxXyiXbLH9eL49DTyV+s07tBrLuris9xXxPZQcFbv0wg6T6aujYOyglFwLEnYckMcQwOZbq34e381ZeNCL+EPiwgExVj0ho8N9Sd3cZSQvE17RDWmrejo/zQlyTzoIy85Zd78s6oz/RXfSk6K2yI+QcD6OAUovGolxIUU7Clikg=
+	t=1779717518; cv=none; b=hRv+BGaz9qyUWd8kKdgjbkkAcIX5I3X2QvJQyQAIVN/Md6mpB/1YFarKd3s0LvezqyAxKchb2n8yh8U8EgtclvpSW+ldDr9D2JJbGOARS9wR3nF4mDFeL4PxBYL824viV91tyPZlYbBb5gnXvTcdF7ju7LM2lz0Zgf8CTSNx2hU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779717447; c=relaxed/simple;
-	bh=ULoE+8zvbjsOuy0ZREHWAwS+PUKadWFHLcTSEr6ofH4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JhnQB5grw38vSdUouQMuN0zegsk4PkDHs4GmTFLq+VzWZ/wP9HWPxcMtKERY9ySIoZCGGiVX/wr0uugobqCob+wZIoE8xLTkVqLZedGAAw2jJ1MLjhuPemiCbjTazKkO0WaRnr/C9PEomaFBC1kvrnzrCqVip/vq9AXzx2a+STI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=QJrVBNGB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nkh0G4b8; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779717518; c=relaxed/simple;
+	bh=6LsufyGBZ63p+fsFQNTSEHnU/iHrHtNm41I4QASENBg=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=FMY6TQ+caYod7/ODPJ9bUHkXb1hEE8Gpjn6B2XcnRhGkshmiOng75XEPY7Bzkk7Pgav9YaC12VuJGiNtpKRP8FSVghDwMsA4RCeoDWvhBw9vqhQksDMzWb4kgmMLay89RKUyI0kfMSqtGgW4XRuEmi1SB7XqJLt+vEJ/ZIY2KOs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=GV68ruIQ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="QJrVBNGB";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nkh0G4b8"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64PCh4id1211066
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:57:25 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	KIjppU7tpPql8YjmItwFuxQF55bJ2eaCplY4WbpqW+Y=; b=QJrVBNGBR0Ppfdp2
-	hdcOGj20Fgyr9lsx6ewZJXwZP3evi+Kn5q//E9JJx/BvLFt7kLFp+Qb9VF/HGmYl
-	mL1f+i6yO5MGx1momOKQQ6jPo0zKyKlPrvkkhukuJYak8m7kSTCielO6JZr2/8bV
-	CT+lA1U4e4tKZf8mYKDQJni519TZA+mm9r+HsWxefKbi0uQ0x1Wz/aiXvuV6EpWf
-	2DC9Cj2PbLHs5Rq0szw00BHhNv+xkU5RSLQOJs+WmIa73m02yeC5vMcy3ZBtZSFw
-	w9SGWmoCTFLGXy80LrNgwlU+eVoCAbEJcKr7Jv43P8lg/pGTw8JLl/hHb4U/8mjO
-	VYvV1w==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb4m7pw8u-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 13:57:25 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2bc763c7256so212002275ad.3
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 06:57:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779717444; x=1780322244; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KIjppU7tpPql8YjmItwFuxQF55bJ2eaCplY4WbpqW+Y=;
-        b=Nkh0G4b8bMtB6kgbciwCrbU7D5RBM0wOrwhL/Mnh/5wsjrAtwuZ7tCQ7BT5L8E03rJ
-         nayz/SXCKA2b1DshqnBtKMfMBiIde9M47st7VlCl4CbbLnLYaVAHZFRmxP0BlI6TTV9F
-         Ceizha6FubaBXyLUZDk6qNloll40lcQYIEEL6q5/U5cBkAFxcWD1huDa9hFjqhN54kVX
-         b/cnv+/I0kdmG73iHSOTJGQlO/Pcm5yQ6PXb0F6d2qPfl9TgV74kpG+FuC5Df4XHnmio
-         j8LpJu9XfTRPkNxifi8gIk4YJs1e+mMXIfU5I4ofRYPYOP1xf02zUjbxLvrKGD1lcr+V
-         z7ig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779717444; x=1780322244;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KIjppU7tpPql8YjmItwFuxQF55bJ2eaCplY4WbpqW+Y=;
-        b=QtMJVb1RVuxxzVnyuUm9bgu54J/ByuHhkmwpOl0slIze6ztiuSrlqtCY47KoG2gBot
-         mgDsT2FldPoQTrkqO0Vfq72vKPKbEXONdVO+G/ttS6BmYRe1EXa2bQ2lOjJvBG9rZXR/
-         dSLeZ5GAYzEkwRDPMEFGmmWfnd4fqyIFztzzhCg8WMbNEXrBGetD9Fz7jDIjuM7eN3u4
-         kmP4IGbnaZqWePuvD/pA/hbcHy63ptPWkgtihDdePZ6lI/GGruFkTAtLPdCqiMvSUoIs
-         Z5hD3NQ7D7ZfWHtSAROImZmttVd8gsDHoYSgOZCSCnOpj6my6OYggYiY400fhimpsJxF
-         Avdw==
-X-Forwarded-Encrypted: i=1; AFNElJ+ZD4PQOTOSkKgs+KBG7hlhIjp60I4jidANGd+Z7apz9+0buleN8v301TqOwr15IKjyQemk3Wop6Qgl@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz5VgxtCajYIoFpqeymaGIVH5n9LQ/r6f4fcGrdUCackzSz9EkG
-	1OzIoxlcN8oQh5s0iNjzT4ZvgUoGOJ1ZODH0jV7Z9KFwtBZW98Ro0N2AlcDdKGk4TrSjoSu8DLe
-	vIGSla0PGEdHJvd0ZQCEYkooUcODLcik4/WhJ7UB2VBOkXFjdRlBp72z6lV69Un9c
-X-Gm-Gg: Acq92OHkfKhs8QQM4+sNOKN3C5d1h9k9BGswBPpN1EmKcr+J3vnS7W0hvEK7RNhJOqT
-	6Ena13WoQjaRSBc8r0QaeOJ2oWySxGup8X5jokceBKkdBhffu6TQ+dLnw5Li32H0W/GImwKnbZh
-	Z5xSh9dqLTb0O9UcIR5tA89VAG6a+tbmr/cX4YVhHwIfVNTWgv1WtnM6Hlkg34hjNLw5Ry0kxZq
-	8IRe7dFZ0BLqBZ4ss8m5xg0s6MD5E9zPOZS94mWRYDdYOf+cVNj41GGTK6Gtq7IH2uFOiGN4ZuB
-	dVhqQuIANe4FfAlUALB6aoTjQ2K2WTm8reZKF2BEnhAZhQWK6q4yBYRej9S+Mj0PAm6ouVs3Iq6
-	cmsnVQN+bNunGiC0znYGhJlRY118boOR30mcUmqX6/Y4q0nkM/03kM3i1bAZikRwDYKXWkQhH+R
-	1c3/h6fMkQ3lcZPw8Qp5T28A+cwTBGqw8byyuy09CoZ/azMr8=
-X-Received: by 2002:a17:902:c951:b0:2b4:5aff:de60 with SMTP id d9443c01a7336-2beb06fc2c0mr175846025ad.22.1779717443915;
-        Mon, 25 May 2026 06:57:23 -0700 (PDT)
-X-Received: by 2002:a17:902:c951:b0:2b4:5aff:de60 with SMTP id d9443c01a7336-2beb06fc2c0mr175845575ad.22.1779717443399;
-        Mon, 25 May 2026 06:57:23 -0700 (PDT)
-Received: from [10.79.138.73] (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb5695f05sm124815515ad.6.2026.05.25.06.57.18
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 25 May 2026 06:57:23 -0700 (PDT)
-Message-ID: <ef361240-b302-42c8-abb6-b4129b4e05bb@oss.qualcomm.com>
-Date: Mon, 25 May 2026 19:27:17 +0530
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="GV68ruIQ"
+Received: from mail.ideasonboard.com (unknown [IPv6:2a01:cb1d:8f2:800:ad48:920a:da6f:a034])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 57A907FA;
+	Mon, 25 May 2026 15:58:09 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1779717489;
+	bh=6LsufyGBZ63p+fsFQNTSEHnU/iHrHtNm41I4QASENBg=;
+	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
+	b=GV68ruIQd+gHighQ561LLSyz8dbOQhUt35K0NGMZYsUsyFGUi1gHKLrx5j8RMgoON
+	 05A+clgp12Z6fnHiDaCvlnFMifEbiU0APY2eaBcje9/fnw3feZax5EL+SOSJYWJbYb
+	 3Rr5merWgy6MZ5gSrR9fVObA+n3DOAbBQbsJoKeY=
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] arm64: dts: qcom: Move board nodes to common DTSI
-To: Krzysztof Kozlowski <krzk@kernel.org>,
-        Pankaj Patil <pankaj.patil@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        sibi.sankar@oss.qualcomm.com, rajendra.nayak@oss.qualcomm.com
-References: <20260326-glymur-mahua-common-nodes-v1-1-12bb26920ea4@oss.qualcomm.com>
- <03996c07-f9f3-4586-96ae-075927da2577@kernel.org>
- <83c78333-4db9-4943-b90f-164981bb68d8@oss.qualcomm.com>
- <hc3bkodsdzq3to4aaax7vaeahhlrisk3iytuaxu46bjm37p75w@4e7c4a3gh3lb>
- <05c377ab-33ef-44e7-8708-575647de088e@oss.qualcomm.com>
- <c07d2798-95e4-4e50-9385-7adfc5791e3b@kernel.org>
-Content-Language: en-US
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-In-Reply-To: <c07d2798-95e4-4e50-9385-7adfc5791e3b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-GUID: 5uP-poYEjzBFY4_xUHVmllo2Zquru2v_
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDE0MyBTYWx0ZWRfX9J+ZXCjWkuWK
- pGr3jaAWf40SS+8PJVUI/9WkBqIYFks9Xos4Mo7PCXuDLTwVcKZejNK7xbcqxPS4xqU2ZK7K+Gj
- HXWjlWMDfh+8mUncRL1T+NJHqSbuWIzqaZzpdTxJgUmhpiF5iFN29niGmXkI3/iy/O0kt9iC3Ur
- DvdcpiY1gqWjSt9X1h3NT6IKDmEEmzXXrVa2+EuhR9dCmcCe/6B9o8e5Cz7SI/t04KGKl385lH3
- VDLMbQYFXekwLJvUJim/3vWrBOTisqGxpcENjAXnnTzTy6Xwm7YXUnmxeCE/vippSyEtSKdDcKN
- STO5n64T98SH+pVvxoGXgRTr6CUyrTPcUPxBqtvjAG4XfJGfcvL9zh14slDatQ6hCPjH3w225/J
- 9nDzq7gXdBzu+oIBWjAVnetpgUydY9hQki5L2pyL9i2lILD7gHg+7EeFLC/67qukFnDhehm5Ghn
- vWQMW0Qj99Zv1I02OyQ==
-X-Authority-Analysis: v=2.4 cv=MrJiLWae c=1 sm=1 tr=0 ts=6a145545 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=9xvNNVmrUaz2OP-DQ1sA:9 a=3ZKOabzyN94A:10
- a=QEXdDO2ut3YA:10 a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-ORIG-GUID: 5uP-poYEjzBFY4_xUHVmllo2Zquru2v_
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-25_04,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 impostorscore=0
- lowpriorityscore=0 clxscore=1015 bulkscore=0 malwarescore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605250143
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <PN3P287MB1829DE5A82688FB30D1AA28A8B0F2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+References: <20260520-imx678-v3-0-8b5f9676486e@ideasonboard.com> <20260520-imx678-v3-2-8b5f9676486e@ideasonboard.com> <PN3P287MB1829DE5A82688FB30D1AA28A8B0F2@PN3P287MB1829.INDP287.PROD.OUTLOOK.COM>
+Subject: Re: [PATCH v3 2/2] media: i2c: imx678: Add driver for Sony IMX678
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Cc: Lachlan Michael <Lachlan.Michael@sony.com>, Ryuichi Tadano <Ryuichi.Tadano@sony.com>, Kengo Hayasaka <Kengo.Hayasaka@sony.com>, "linux-media@vger.kernel.org" <linux-media@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>, Kieran Bingham <kieran.bingham@ideasonboard.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, Sakari Ailus <sakari.ailus@linux.intel.com>, Tarang Raval <tarang.raval@siliconsignals.io>
+Date: Mon, 25 May 2026 15:58:20 +0200
+Message-ID: <177971750040.2341049.6027802052267528675@selene>
+User-Agent: alot/0.12.dev70+g31692a239
 
+Hi Tarang,
 
+Quoting Tarang Raval (2026-05-22 19:01:01)
+> Hi Jai,
+>=20
+> I noticed a few issues and also have one question. Could you please help =
+me
+> understand that part?
+>=20
+> Please check the comments below.
+>=20
+> > Add a V4L2 subdev driver for the Sony IMX678 image sensor.
+> >
+> > IMX678 is a diagonal 8.86 mm (Type 1/1.8) CMOS active pixel type
+> > solid-state image sensor with a square pixel array and 8.40 M effective
+> > pixels.
+> >
+> > The following features are supported by the driver:
+> > - Monochrome and Color (Bayer filter) variants
+> > - Multiple input clock frequencies supported
+> > - Multiple link frequencies supported
+> > - VBLANK and HBLANK control for variable framerate
+> > - Freely configurable crop rectangle through S_SELECTION ioctl
+> > - Configurable resolution with 2x2 binning (for the current crop)
+> >   through S_FMT ioctl
+> > - VFLIP and HFLIP control for flipping readout
+> > - Test pattern control support
+> > - Exposure and gain control
+> > - MIPI RAW12 output
+> >
+> > Following features are not currently supported but may be added later:
+> > - Pixel-perfect crop reporting, account for the shift-by-1 when flipping
+> >   using HFLIP/VFLIP, which maintains the bayer readout order
+> > - Increased framerate (lower HMAX/VMAX) when cropping
+> > - MIPI RAW10 output mode
+> > - Embedded data stream
+> >
+> > Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
+> > ---
+>=20
+> ...
+>=20
+> > +#define IMX678_REG_INCK_SEL             CCI_REG8(0x3014)
+> > +
+> > +/* Link Speed */
+> > +#define IMX678_REG_DATARATE_SEL         CCI_REG8(0x3015)
+> > +
+> > +/* Lane Count */
+> > +#define IMX678_REG_LANEMODE             CCI_REG8(0x3040)
+> > +
+> > +/*
+> > + * The internal readout clock runs at 74.25 Hz. In one cycle the AD re=
+ads 8
+>=20
+> I think it's 74.25 MHz.
 
-On 5/24/2026 11:53 PM, Krzysztof Kozlowski wrote:
-> On 15/05/2026 11:14, Pankaj Patil wrote:
->> On 3/29/2026 4:27 PM, Dmitry Baryshkov wrote:
->>> On Fri, Mar 27, 2026 at 06:16:59PM +0530, Gopikrishna Garmidi wrote:
->>>>
->>>>
->>>> On 3/26/2026 7:55 PM, Krzysztof Kozlowski wrote:
->>>>> On 26/03/2026 15:21, Gopikrishna Garmidi wrote:
->>>>>> The display, peripherals (touchpad/touchscreen/keypad), usb and their
->>>>>> dependent device nodes are common to both Glymur and Mahua CRDs,
->>>>>> so move them from glymur-crd.dts to glymur-crd.dtsi to enable code
->>>>>> reuse.
->>>>>>
->>>>>
->>>>> Same questions as for earlier tries (why this has to be repeated?), e.g.
->>>>> x1-crd: Please describe here what is the actual common hardware. In
->>>>> terms of physical hardware, not what you want to share.
->>>>>
->>>>
->>>> Hi krzysztof,
->>>>
->>>> Thanks for the review,
->>>>
->>>> Will update the commit message in the next re-spin.
->>>
->>> Before you respin, you can actually respond to the question. Do Glymur
->>> and Mahua CRD actually share those devices (in case of USB that would
->>> mean having the same baseboard with different SoCs being wired) or is it
->>> just "oh, this looks similar enough, let's create a common file".
->>>
->>
->> Hello,
->> Yes we've verified across glymur crd and mahua crd schematics, the regulator supply
->> and data lines are common across both targets for the nodes in the patch
-> 
-> That's not an answer to the question. Or rather you just confirmed -
-> they are similar, so let's create a common file.
-> 
-> That's not a valid reason. Don't create common parts just because a few
-> nodes are the same.
+Argh, yes.
 
-Hi Krzysztof,
+>=20
+> > + * pixels, thus giving us a rate of 74.25 * 8 =3D 594 MPix/s
+> > + */
+> > +#define IMX678_PIXEL_RATE              594000000
+> > +#define IMX678_PIX_PER_CLK             8
+> > +
+> > +/* VMAX - Frame Length in Lines */
+> > +#define IMX678_REG_VMAX                 CCI_REG24_LE(0x3028)
+> > +#define IMX678_VMAX_MAX                 0xfffff
+> > +#define IMX678_VMAX_DEFAULT             2250
+>=20
+> ...
+>=20
+> > +static const int imx678_tpg_val[] =3D {
+> > +       IMX678_TPG_ALL_000,
+> > +       IMX678_TPG_ALL_000,
+> > +       IMX678_TPG_ALL_FFF,
+> > +       IMX678_TPG_ALL_555,
+> > +       IMX678_TPG_ALL_AAA,
+> > +       IMX678_TPG_TOG_555_AAA,
+> > +       IMX678_TPG_TOG_AAA_555,
+> > +       IMX678_TPG_TOG_000_555,
+> > +       IMX678_TPG_TOG_555_000,
+> > +       IMX678_TPG_TOG_000_FFF,
+> > +       IMX678_TPG_TOG_FFF_000,
+> > +       IMX678_TPG_H_COLOR_BARS,
+> > +       IMX678_TPG_V_COLOR_BARS,
+> > +};
+> > +
+> > +/* IMX678 Register List */
+> > +/* Common Modes */
+>=20
+> You can remove these comments or keep only one of them.
+>=20
+> > +static const struct cci_reg_sequence common_regs[] =3D {
+> > +       {IMX678_REG_THIN_V_EN, 0x00},
+> > +       {IMX678_REG_VCMODE, 0x01},
+> > +       {CCI_REG8(0x306B), 0x00},
+> > +       {IMX678_REG_GAIN_PGC_FIDMD, 0x01},
+> > +       {CCI_REG8(0x3460), 0x22},
+> > +       {CCI_REG8(0x355A), 0x64},
+>=20
+> ...
+>=20
+> > +static void imx678_set_framing_limits(struct imx678 *imx678,
+> > +                                     struct v4l2_subdev_state *state)
+> > +{
+> > +       const struct v4l2_mbus_framefmt *format =3D imx678_state_format=
+(state);
+> > +       s64 min_hblank, default_hblank, max_hblank, vblank;
+> > +       const u32 hmax_4lane =3D min_hmax_4lane[__ffs(imx678->link_freq=
+_bitmap)];
+> > +       const u32 lane_scale =3D imx678->lane_mode =3D=3D IMX678_LANEMO=
+DE_2L ? 2 : 1;
+> > +       const bool binning =3D imx678_state_binning(state);
+> > +       const u8 bpp =3D binning ? 10 : 12;
+> > +       u32 hmax, min_hmax;
+> > +
+> > +       imx678->vmax =3D IMX678_VMAX_DEFAULT;
+> > +       hmax =3D hmax_4lane * lane_scale;
+> > +
+> > +       /* HMAX can go lower when using 10bit AD for binning */
+> > +       min_hmax =3D (hmax * bpp) / 12;
+> > +       min_hblank =3D min_hmax * IMX678_PIX_PER_CLK - format->width;
+> > +       default_hblank =3D hmax * IMX678_PIX_PER_CLK - format->width;
+> > +       max_hblank =3D IMX678_HMAX_MAX * IMX678_PIX_PER_CLK - format->w=
+idth;
+> > +
+> > +       __v4l2_ctrl_modify_range(imx678->hblank, min_hblank, max_hblank,
+> > +                                IMX678_PIX_PER_CLK, default_hblank);
+> > +       __v4l2_ctrl_s_ctrl(imx678->hblank, default_hblank);
+> > +
+> > +       vblank =3D imx678->vmax - format->height;
+> > +       __v4l2_ctrl_modify_range(imx678->vblank, vblank,
+> > +                                IMX678_VMAX_MAX - format->height, 2, v=
+blank);
+> > +       __v4l2_ctrl_s_ctrl(imx678->vblank, IMX678_VMAX_DEFAULT - format=
+->height);
+> > +
+> > +       __v4l2_ctrl_modify_range(imx678->exposure, IMX678_EXPOSURE_MIN,
+> > +                                imx678->vmax - IMX678_SHR_MIN, 1,
+> > +                                IMX678_EXPOSURE_DEFAULT);
+>=20
+> This control operation can fail, so please check the error value.
+>=20
+> Also, return the error by changing the return type accordingly.
+>=20
 
-Thanks for getting back.
+Ack.
 
-Just to clarify — this patch does not introduce the common board
-file, that was already done in an earlier patch:
-https://lore.kernel.org/all/20260318124100.212992-4
-gopikrishna.garmidi@oss.qualcomm.com/
+> > +}
+> > +
+> > +static int imx678_set_ctrl(struct v4l2_ctrl *ctrl)
+> > +{
+> > +       struct imx678 *imx678 =3D container_of(ctrl->handler, struct im=
+x678, ctrl_handler);
+> > +       struct v4l2_subdev_state *state;
+> > +       struct i2c_client *client =3D v4l2_get_subdevdata(&imx678->sd);
+> > +       const struct v4l2_mbus_framefmt *format;
+> > +       int ret =3D 0;
+> > +
+> > +       state =3D v4l2_subdev_get_locked_active_state(&imx678->sd);
+> > +       format =3D imx678_state_format(state);
+> > +
+> > +       if (ctrl->id =3D=3D V4L2_CID_VBLANK) {
+> > +               u32 current_exposure =3D imx678->exposure->cur.val;
+> > +
+> > +               imx678->vmax =3D format->height + ctrl->val;
+> > +
+> > +               current_exposure =3D clamp_t(u32, current_exposure, IMX=
+678_EXPOSURE_MIN,
+> > +                                          imx678->vmax - IMX678_SHR_MI=
+N);
+> > +               __v4l2_ctrl_modify_range(imx678->exposure, IMX678_EXPOS=
+URE_MIN,
+> > +                                        imx678->vmax - IMX678_SHR_MIN,=
+ 1,
+> > +                                        current_exposure);
+>=20
+> Same here, please check the error value.
 
-We clearly describe the physical differences between Glymur and Mahua in 
-that series and a consensus was reached.
+Ack.
 
-We have re-verified both the Glymur CRD and Mahua CRD schematics
-and also physically verified on both devices. The differences
-between the two boards are limited to what was already described
-in the patch above.
+>=20
+> > +       }
+> > +
+> > +       /*
+> > +        * Applying V4L2 control value only happens
+> > +        * when power is up for streaming
+> > +        */
+> > +       if (pm_runtime_get_if_in_use(&client->dev) =3D=3D 0)
+>=20
+> Use pm_runtime_get_if_active.
+>=20
 
-This patch simply moves the remaining common nodes into that
-already-accepted shared file.
+We anyway write all control values everytime in enable_streams(), so I
+think it's okay to keep this check a bit strict and skip the writes if the
+sensor is RPM_ACTIVE with 0 users. (i.e. streaming has stopped, but device
+not suspended yet, which is unlikely given we don't have an autosuspend
+timer but suspend immediately here)
 
-Happy to update the commit message if you have specific
-suggestions on what needs to be changed and we will address it
-in v3, or if you feel a separate Mahua board file is the right
-approach we can go that route too — just let us know.
+Unless of course I misunderstood why you're suggesting it?
+
+> > +               return 0;
+> > +
+> > +       switch (ctrl->id) {
+> > +       case V4L2_CID_VBLANK:
+> > +               cci_write(imx678->cci, IMX678_REG_VMAX, imx678->vmax, &=
+ret);
+> > +               fallthrough; /* SHR =3D VMAX - exposure, so update it */
+> > +       case V4L2_CID_EXPOSURE: {
+> > +               u32 shr =3D imx678->vmax - imx678->exposure->val;
+> > +
+> > +               cci_write(imx678->cci, IMX678_REG_SHR, shr, &ret);
+> > +               break;
+> > +       }
+> > +       case V4L2_CID_ANALOGUE_GAIN:
+> > +               cci_write(imx678->cci, IMX678_REG_ANALOG_GAIN, ctrl->va=
+l, &ret);
+> > +               break;
+> > +       case V4L2_CID_HBLANK: {
+> > +               u32 hmax =3D (format->width + ctrl->val) / IMX678_PIX_P=
+ER_CLK;
+> > +
+> > +               cci_write(imx678->cci, IMX678_REG_HMAX, hmax, &ret);
+> > +               break;
+> > +       }
+> > +       case V4L2_CID_TEST_PATTERN: {
+> > +               cci_write(imx678->cci, IMX678_REG_TPG_COLORWIDTH,
+> > +                         IMX678_TPG_COLORWIDTH_160PIX, &ret);
+> > +               cci_write(imx678->cci, IMX678_REG_TPG_PATSEL_DUOUT,
+> > +                         imx678_tpg_val[ctrl->val], &ret);
+> > +               cci_write(imx678->cci, IMX678_REG_TPG_EN_DUOUT, (ctrl->=
+val) ? 1 : 0,
+> > +                         &ret);
+> > +               break;
+> > +       }
+> > +       case V4L2_CID_HFLIP:
+> > +               cci_write(imx678->cci, IMX678_REG_WINMODEH, ctrl->val, =
+&ret);
+> > +               break;
+> > +       case V4L2_CID_VFLIP:
+> > +               cci_write(imx678->cci, IMX678_REG_WINMODEV, ctrl->val, =
+&ret);
+> > +               break;
+> > +       default:
+> > +               dev_warn(&client->dev,
+> > +                        "ctrl(id:0x%x,val:0x%x) is not handled\n",
+> > +                        ctrl->id, ctrl->val);
+> > +               break;
+> > +       }
+> > +
+> > +       pm_runtime_put(&client->dev);
+> > +
+> > +       return ret;
+> > +}
+> > +
+> > +static const struct v4l2_ctrl_ops imx678_ctrl_ops =3D {
+> > +       .s_ctrl =3D imx678_set_ctrl,
+> > +};
+>=20
+> ...
+>=20
+> > +static int imx678_set_selection(struct v4l2_subdev *sd,
+> > +                               struct v4l2_subdev_state *sd_state,
+> > +                               struct v4l2_subdev_selection *sel)
+> > +{
+> > +       struct imx678 *imx678 =3D to_imx678(sd);
+> > +       struct v4l2_rect *crop;
+> > +       struct v4l2_rect rect;
+> > +
+> > +       if (sel->target !=3D V4L2_SEL_TGT_CROP || sel->pad !=3D 0)
+> > +               return -EINVAL;
+> > +
+> > +       if (sel->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE &&
+> > +           v4l2_subdev_is_streaming(sd))
+> > +               return -EBUSY;
+> > +
+> > +       /* Align left, top to 4 */
+> > +       rect.left =3D clamp_t(s32, ALIGN(sel->r.left, IMX678_CROP_HST_A=
+LIGN),
+> > +                           imx678_active_area.left,
+> > +                           imx678_active_area.width - IMX678_PIXEL_ARR=
+AY_MIN_WIDTH);
+>=20
+> You are ignoring the active_area offset here; please correct it.
+>=20
+> In imx296, crop bounds start at (0, 0), so no offset handling is needed t=
+here.
+>=20
+> You can refer to my patch:
+> https://lore.kernel.org/linux-media/20260424092554.26130-4-elgin.perumbil=
+ly@siliconsignals.io/#t
+>=20
+
+Ah good catch, will fix.
+
+> > +       rect.top =3D clamp_t(s32, ALIGN(sel->r.top, IMX678_CROP_VST_ALI=
+GN),
+> > +                          imx678_active_area.top,
+> > +                          imx678_active_area.height - IMX678_PIXEL_ARR=
+AY_MIN_HEIGHT);
+> > +       /* Align width to 16 and height to 4 */
+> > +       rect.width =3D clamp_t(u32, ALIGN(sel->r.width, IMX678_CROP_HWI=
+DTH_ALIGN),
+> > +                            IMX678_PIXEL_ARRAY_MIN_WIDTH, imx678_activ=
+e_area.width);
+> > +       rect.height =3D clamp_t(u32, ALIGN(sel->r.height, IMX678_CROP_V=
+WIDTH_ALIGN),
+> > +                             IMX678_PIXEL_ARRAY_MIN_HEIGHT, imx678_act=
+ive_area.height);
+> > +
+> > +       rect.width =3D min_t(u32, rect.width, imx678_native_area.width =
+- rect.left);
+> > +       rect.height =3D min_t(u32, rect.height, imx678_native_area.heig=
+ht - rect.top);
+> > +
+> > +       crop =3D v4l2_subdev_state_get_crop(sd_state, sel->pad);
+> > +
+> > +       if (rect.width !=3D crop->width || rect.height !=3D crop->heigh=
+t) {
+> > +               struct v4l2_mbus_framefmt *format =3D
+> > +                       v4l2_subdev_state_get_format(sd_state, sel->pad=
+);
+> > +               format->width =3D rect.width;
+> > +               format->height =3D rect.height;
+>=20
+> Why are we not checking here whether binning mode is currently enabled?
+>=20
+> Suppose binning mode is enabled, and then userspace changes the crop.
+>=20
+> With the below lines:
+>=20
+> format->width =3D rect.width;
+> format->height =3D rect.height;
+>=20
+> the format size becomes equal to the crop size, which silently disables b=
+inning.
+
+This was intentional.
+
+Let's say I'm streaming in 640x480 binned mode (1280x960 crop) and want to
+switch to 3200x1600, I prefer if a single S_SELECTION call with 3200x1600
+crop size to do that directly.
+
+On the other hand, if I modify just the (top, left) of my crop without
+changing its size (1280x960), I want it to stay in the binned mode and not
+snap back the active format to full size.
+
+This is a matter of opinion though, which I hope would become irrelevant
+once we move to the new raw sensor model with explicit controls for
+binning. I plan to look into it before I post a v4, as Sakari suggested in
+his review.
+
+>=20
+> Am I missing something here?
+>=20
+> > +       }
+> > +
+> > +       *crop =3D rect;
+> > +       sel->r =3D *crop;
+> > +
+> > +       if (sel->which =3D=3D V4L2_SUBDEV_FORMAT_ACTIVE)
+> > +               imx678_set_framing_limits(imx678, sd_state);
+> > +
+> > +       return 0;
+> > +}
+> > +
+> > +static int imx678_init_state(struct v4l2_subdev *sd,
+> > +                            struct v4l2_subdev_state *state)
+> > +{
+> > +       struct imx678 *imx678 =3D to_imx678(sd);
+> > +       struct v4l2_subdev_selection sel =3D {
+> > +               .which =3D V4L2_SUBDEV_FORMAT_TRY,
+> > +               .target =3D V4L2_SEL_TGT_CROP,
+> > +               .r =3D imx678_active_area,
+> > +       };
+> > +       struct v4l2_subdev_format fmt =3D {
+> > +               .which =3D V4L2_SUBDEV_FORMAT_TRY,
+> > +               .pad =3D 0,
+> > +               .format =3D {
+> > +                       .code =3D imx678_default_mbus_code(imx678),
+> > +                       .width =3D imx678_active_area.width,
+> > +                       .height =3D imx678_active_area.height,
+> > +               },
+> > +       };
+> > +
+> > +       imx678_set_selection(sd, state, &sel);
+> > +       imx678_set_pad_format(sd, state, &fmt);
+> > +
+> > +       return 0;
+> > +}
+>=20
+> ...
+>=20
+> > +static int imx678_enable_streams(struct v4l2_subdev *sd,
+> > +                                struct v4l2_subdev_state *state, u32 p=
+ad,
+> > +                                u64 mask)
+> > +{
+> > +       struct i2c_client *client =3D v4l2_get_subdevdata(sd);
+> > +       struct imx678 *imx678 =3D to_imx678(sd);
+> > +       const struct v4l2_rect *crop =3D imx678_state_crop(state);
+> > +       const bool binning =3D imx678_state_binning(state);
+> > +       int ret =3D 0;
+>=20
+> You can omit the initialization here.
+>=20
+> > +
+> > +       ret =3D pm_runtime_resume_and_get(&client->dev);
+> > +       if (ret < 0)
+> > +               return ret;
+> > +
+> > +       ret =3D imx678_program_window(imx678, crop, binning);
+> > +       if (ret) {
+> > +               dev_err(&client->dev, "%s failed to set mode\n", __func=
+__);
+> > +               goto err_rpm_put;
+> > +       }
+> > +
+> > +       ret =3D __v4l2_ctrl_handler_setup(imx678->sd.ctrl_handler);
+> > +       if (ret) {
+> > +               dev_err(&client->dev, "%s failed to apply user values\n=
+", __func__);
+> > +               goto err_rpm_put;
+> > +       }
+> > +
+> > +       cci_write(imx678->cci, IMX678_REG_MODE_SELECT, IMX678_MODE_STRE=
+AMING, &ret);
+> > +       usleep_range(IMX678_STREAM_DELAY_US, IMX678_STREAM_DELAY_US +
+> > +                    IMX678_STREAM_DELAY_RANGE_US);
+> > +       cci_write(imx678->cci, IMX678_REG_XMSTA, 0x00, &ret);
+> > +
+> > +       if (ret) {
+> > +               dev_err(&client->dev, "%s failed to start streaming\n",=
+ __func__);
+> > +               goto err_rpm_put;
+> > +       }
+> > +
+> > +       return 0;
+> > +
+> > +err_rpm_put:
+> > +       pm_runtime_put(&client->dev);
+> > +
+> > +       return ret;
+> > +}
+>=20
+> ...
+>=20
+> > +static const struct v4l2_subdev_core_ops imx678_core_ops =3D {
+> > +       .subscribe_event =3D v4l2_ctrl_subdev_subscribe_event,
+> > +       .unsubscribe_event =3D v4l2_event_subdev_unsubscribe,
+> > +};
+>=20
+> Drop this
+>=20
+> See: https://lore.kernel.org/linux-media/20241029162106.3005800-1-tomm.me=
+rciai@gmail.com/
+>=20
+
+Ack.
+
+> > +static const struct v4l2_subdev_video_ops imx678_video_ops =3D {
+> > +       .s_stream =3D v4l2_subdev_s_stream_helper,
+> > +};
+> > +
+> > +static const struct v4l2_subdev_pad_ops imx678_pad_ops =3D {
+> > +       .enum_mbus_code =3D imx678_enum_mbus_code,
+> > +       .get_fmt =3D v4l2_subdev_get_fmt,
+> > +       .set_fmt =3D imx678_set_pad_format,
+> > +       .get_selection =3D imx678_get_selection,
+> > +       .set_selection =3D imx678_set_selection,
+> > +       .enum_frame_size =3D imx678_enum_frame_size,
+> > +       .enable_streams =3D imx678_enable_streams,
+> > +       .disable_streams =3D imx678_disable_streams,
+> > +};
+>=20
+> ...
+>=20
+> > +static int imx678_probe(struct i2c_client *client)
+> > +{
+> > +       struct device *dev =3D &client->dev;
+> > +       struct imx678 *imx678;
+> > +       int ret, i;
+> > +
+> > +       imx678 =3D devm_kzalloc(&client->dev, sizeof(*imx678), GFP_KERN=
+EL);
+> > +       if (!imx678)
+> > +               return -ENOMEM;
+> > +
+> > +       v4l2_i2c_subdev_init(&imx678->sd, client, &imx678_subdev_ops);
+> > +
+> > +       imx678->cci =3D devm_cci_regmap_init_i2c(client, 16);
+> > +       if (IS_ERR(imx678->cci))
+> > +               return dev_err_probe(dev, PTR_ERR(imx678->cci),
+> > +                                    "failed to init CCI\n");
+> > +
+> > +       if (imx678_check_hwcfg(dev, imx678))
+> > +               return -EINVAL;
+> > +
+> > +       imx678->xclk =3D devm_v4l2_sensor_clk_get(dev, NULL);
+> > +       if (IS_ERR(imx678->xclk))
+> > +               return dev_err_probe(dev, PTR_ERR(imx678->xclk),
+> > +                                    "failed to get xclk\n");
+> > +
+> > +       imx678->xclk_freq =3D clk_get_rate(imx678->xclk);
+> > +
+> > +       for (i =3D 0; i < ARRAY_SIZE(imx678_inck_table); ++i) {
+> > +               if (imx678_inck_table[i].xclk_hz =3D=3D imx678->xclk_fr=
+eq) {
+> > +                       imx678->inck_sel_val =3D imx678_inck_table[i].i=
+nck_sel;
+> > +                       break;
+> > +               }
+> > +       }
+> > +
+> > +       if (i =3D=3D ARRAY_SIZE(imx678_inck_table))
+> > +               return dev_err_probe(dev, -EINVAL,
+> > +                                    "unsupported XCLK rate %u Hz\n",
+> > +                                    imx678->xclk_freq);
+> > +
+> > +       ret =3D imx678_get_regulators(imx678);
+> > +       if (ret)
+> > +               return dev_err_probe(dev, ret, "failed to get regulator=
+s\n");
+> > +
+> > +       imx678->reset_gpio =3D devm_gpiod_get_optional(dev, "reset",
+> > +                                                    GPIOD_OUT_HIGH);
+> > +       if (IS_ERR(imx678->reset_gpio))
+> > +               return dev_err_probe(dev, PTR_ERR(imx678->reset_gpio),
+> > +                                    "failed to get reset GPIO\n");
+> > +
+> > +       ret =3D imx678_power_on(dev);
+> > +       if (ret)
+> > +               return ret;
+> > +
+> > +       ret =3D imx678_identify_model(imx678);
+> > +       if (ret)
+> > +               goto error_power_off;
+> > +
+> > +       pm_runtime_set_active(dev);
+> > +       pm_runtime_enable(dev);
+> > +
+> > +       ret =3D imx678_init_controls(imx678);
+> > +       if (ret)
+> > +               goto error_pm_runtime;
+> > +
+> > +       imx678->sd.internal_ops =3D &imx678_internal_ops;
+> > +       imx678->sd.flags |=3D V4L2_SUBDEV_FL_HAS_DEVNODE |
+> > +                               V4L2_SUBDEV_FL_HAS_EVENTS;
+> > +       imx678->sd.entity.function =3D MEDIA_ENT_F_CAM_SENSOR;
+> > +
+> > +       imx678->pad.flags =3D MEDIA_PAD_FL_SOURCE;
+> > +
+> > +       ret =3D media_entity_pads_init(&imx678->sd.entity, 1, &imx678->=
+pad);
+> > +       if (ret) {
+> > +               dev_err(dev, "failed to init entity pads: %d\n", ret);
+>=20
+> Use dev_err_probe.
+>=20
+> > +               goto error_handler_free;
+> > +       }
+> > +
+> > +       imx678->sd.state_lock =3D imx678->ctrl_handler.lock;
+> > +       ret =3D v4l2_subdev_init_finalize(&imx678->sd);
+> > +       if (ret < 0) {
+> > +               dev_err(dev, "subdev init error\n");
+>=20
+> Use dev_err_probe.
+>=20
+> > +               goto error_media_entity;
+> > +       }
+> > +
+> > +       ret =3D v4l2_async_register_subdev_sensor(&imx678->sd);
+> > +       if (ret < 0) {
+> > +               dev_err(dev, "failed to register sensor sub-device: %d\=
+n", ret);
+>=20
+> Use dev_err_probe.
+>=20
+
+Ack.
 
 Thanks,
-Gopikrishna
+    Jai
+
+> > +               goto error_subdev_cleanup;
+> > +       }
+> > +
+> > +       pm_runtime_idle(dev);
+> > +
+> > +       return 0;
+> > +
+> > +error_subdev_cleanup:
+> > +       v4l2_subdev_cleanup(&imx678->sd);
+> > +
+> > +error_media_entity:
+> > +       media_entity_cleanup(&imx678->sd.entity);
+> > +
+> > +error_handler_free:
+> > +       imx678_free_controls(imx678);
+> > +
+> > +error_pm_runtime:
+> > +       pm_runtime_disable(&client->dev);
+> > +       pm_runtime_set_suspended(&client->dev);
+> > +
+> > +error_power_off:
+> > +       imx678_power_off(&client->dev);
+> > +
+> > +       return ret;
+> > +}
+> > +
+> > +static void imx678_remove(struct i2c_client *client)
+> > +{
+> > +       struct v4l2_subdev *sd =3D i2c_get_clientdata(client);
+> > +       struct imx678 *imx678 =3D to_imx678(sd);
+> > +
+> > +       v4l2_async_unregister_subdev(sd);
+> > +       v4l2_subdev_cleanup(sd);
+> > +       media_entity_cleanup(&sd->entity);
+> > +       imx678_free_controls(imx678);
+> > +
+> > +       pm_runtime_disable(&client->dev);
+> > +       if (!pm_runtime_status_suspended(&client->dev))
+> > +               imx678_power_off(&client->dev);
+> > +       pm_runtime_set_suspended(&client->dev);
+> > +}
+> > +
+> > +static const struct dev_pm_ops imx678_pm_ops =3D {
+> > +       SET_RUNTIME_PM_OPS(imx678_power_off, imx678_power_on, NULL)
+> > +};
+> > +
+> > +static const struct of_device_id imx678_of_match[] =3D {
+> > +       { .compatible =3D "sony,imx678" },
+> > +       { .compatible =3D "sony,imx678-aamr", .data =3D &imx678_aamr_in=
+fo },
+> > +       { .compatible =3D "sony,imx678-aaqr", .data =3D &imx678_aaqr_in=
+fo },
+> > +       { /* sentinel */ }
+> > +};
+> > +
+> > +MODULE_DEVICE_TABLE(of, imx678_of_match);
+> > +
+> > +static struct i2c_driver imx678_i2c_driver =3D {
+> > +       .driver =3D {
+> > +               .name =3D "imx678",
+> > +               .of_match_table =3D imx678_of_match,
+> > +               .pm =3D &imx678_pm_ops,
+> > +       },
+> > +       .probe =3D imx678_probe,
+> > +       .remove =3D imx678_remove,
+> > +};
+> > +
+> > +module_i2c_driver(imx678_i2c_driver);
+> > +
+> > +MODULE_AUTHOR("Will Whang <will@willwhang.com>");
+> > +MODULE_AUTHOR("Tetsuya NOMURA <tetsuya.nomura@soho-enterprise.com>");
+> > +MODULE_AUTHOR("Jai Luthra <jai.luthra@ideasonboard.com>");
+> > +MODULE_DESCRIPTION("Sony imx678 sensor driver");
+> > +MODULE_LICENSE("GPL");
+> >
+> > --
+> > 2.54.0
+>=20
+> Best Regards,
+> Tarang
