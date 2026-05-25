@@ -1,134 +1,118 @@
-Received: from mail-m127103.qiye.163.com (mail-m127103.qiye.163.com [115.236.127.103])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CD3282F3E;
-	Mon, 25 May 2026 16:23:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.103
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4B7385D66;
+	Mon, 25 May 2026 16:24:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779726213; cv=none; b=GVpe6bnEID1k3bYfjlz08ReNu9xNw1DCBiaTaMPsDJceCfCCYWILVKm18gYQelCFtaaw7aJo1uvOezQI3nb9XfpjMp/6ctOhvwXGcGlO07beFij5/sDKYdLd1reVDv1bDC5xsZLUNdXNhvH2ofG8xpOPTcUiFfRu3Xx66e21lZE=
+	t=1779726296; cv=none; b=Bkl9uRmeUXHvmWs//LYR8xCpyDUr1X5q00Ha46frUGpR5D56DmaAFKawBWrWxIuKXerr/OtZAm1ym6TQS7aQAiZ0YMcuH6wZszaA0Yfi1laLA0OxBGI0VtpYO1BfkykXz91nxt2ovfG8kmY1XxEIqAzS7hpQj9r3cIgYZyXDJ+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779726213; c=relaxed/simple;
-	bh=52aGuBysztm7C/lZOPWUUGAQiFJ5sqeIqjrIhPDdS7A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oboT2sbRagTVBWtPBzP9RDKmfUiNp7p9qY6JNKla8wHk37L0GVyeJTjvRQE0DlGXzfi7i3QBdEVe5GMNQq/dfbf0kv2c51EAbZ2h3BpGTsuiicwrLKKpe6U5kmlfG3Tj0nIucEjgk/rnXFbqZrsFeMXMmCzaRtTNTs28/nkdfl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bJHMYrkF; arc=none smtp.client-ip=115.236.127.103
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1779726296; c=relaxed/simple;
+	bh=ZMHiQr/fk+ug7JnzXTfAQv3QSX0dsIz58n1pIgpSlXs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TKWka2oUfR2dDDU0TRPwS9ehYXLB7864cG8S7aDHkCexdCBmwVm4ka0Eg0JbULOLiSbq/ew0ppGeQPBTZNMS1sligfAjVgGGZD+P2GQxwoe9XD33iv+fJqD8LKRryfhOaBvj66R73vicw8ojJxtfuahxJbF0RXhGf2C3hKc0vhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8c1ewr4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bJHMYrkF"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3fbb28c5c;
-	Mon, 25 May 2026 20:54:06 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v8 10/10] drm/rockchip: analogix_dp: Add support for RK3576
-Date: Mon, 25 May 2026 20:53:31 +0800
-Message-Id: <20260525125331.140059-11-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260525125331.140059-1-damon.ding@rock-chips.com>
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8c1ewr4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E681F000E9;
+	Mon, 25 May 2026 16:24:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779726295;
+	bh=1vZP/w4vb1NchJIH4WIxAeRFWvhs5AkPrPlvL/oDYXQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=B8c1ewr4n7od/oY9yET/GNR5Vg0fDwCmly/2J6tW7sovJrH6QSTeYRqqR0wBnYS0e
+	 5Gu5CkR7Jvj94dxpV9chUyOtWKa9d9zD8lGVRWHXptCbWri3M3kR45PrGD3exJKFMi
+	 XQ1lqmaeK58vfUFmn6hWKOkWitr/UQvpxQ0WRYO4Vkp+RJAeUa5Qy5JugdPPfSfCxO
+	 Otxa6w7aNn4Ky8UA5bmfuAYuSXaXuDil1FVvGmMYF+EsBxkRpW5+hXxKxHNVHBQkaS
+	 O8brwLl0QTL2lkVuiXVaY+YfdMduJTSUnDRz2sCyNXvjBGjFuo63Qr43sFM5pM5mRC
+	 KdVIkU3SxPHLg==
+Date: Mon, 25 May 2026 17:24:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Abel Vesa <abel.vesa@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Benjamin Tissoires <bentiss@kernel.org>,
+	Jiri Kosina <jikos@kernel.org>, linux-arm-msm@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	20260519-glymur-mahua-common-nodes-v2-1-9f1b89a3f398@oss.qualcomm.com
+Subject: Re: [PATCH v2 1/2] dt-bindings: input: hid-over-i2c: Add reset-gpios
+ property
+Message-ID: <20260525-cornfield-limes-06c426bfef51@spud>
+References: <20260523-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v2-0-5c333051e5bb@oss.qualcomm.com>
+ <20260523-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v2-1-5c333051e5bb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e5f331e4303a8kunm7b8971f5af5ce8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0NLVk5IQxpKSB5JTExMQlYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=bJHMYrkFPtDToUXpBmOxPgW8OKsa6Ti6tAahAhCBuDEJW0OYfTpIvoBk7n4VHS+klqSC7R2kukeuiy3H5IWUCzKYvKbxvznbCrnZx1V/44zhhQ8U9kuhdSqDGIqmL8BSJY9aJJgnEoeMWqCC98xskI/ZFxML5GR9HW9XYC2vQZU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=1rwBuI0cZbyqqOuJPZchZLjHCX6v5TeUOe9K2mvsrfM=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="e5Uyo1ZYqW/lJ71j"
+Content-Disposition: inline
+In-Reply-To: <20260523-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v2-1-5c333051e5bb@oss.qualcomm.com>
 
-RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
-hardware blocks that fully match the proven RK3588 design.
 
-Add dedicated chip data table and device tree matching entry
-to bring up basic eDP functionality for the RK3576 platform.
+--e5Uyo1ZYqW/lJ71j
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Support is limited to RGB output up to 4K@60Hz for now; audio,
-PSR and other advanced eDP 1.3 features remain unvalidated.
+On Sat, May 23, 2026 at 01:25:37AM +0530, Pradyot Kumar Nayak wrote:
+> Document reset-gpios property for devices that explicitly require
+> the reset line to be de-asserted during power up.
 
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+If there are devices that require this, it seems short-sighted to not
+add their compatibles to hid-over-i2c.yaml and make the property
+required for them.
+pw-bot: changes-requested
 
----
+Cheers,
+Conor.
 
-Changes in v2:
-- Split out a separate patch to enable the "hclk" clock.
-- Add Reviewed-by tag.
+>=20
+> Signed-off-by: Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
+> ---
+>  Documentation/devicetree/bindings/input/hid-over-i2c.yaml | 4 ++++
+>  1 file changed, 4 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/input/hid-over-i2c.yaml b/=
+Documentation/devicetree/bindings/input/hid-over-i2c.yaml
+> index 138caad96a29..fe0ec4fce673 100644
+> --- a/Documentation/devicetree/bindings/input/hid-over-i2c.yaml
+> +++ b/Documentation/devicetree/bindings/input/hid-over-i2c.yaml
+> @@ -50,6 +50,10 @@ properties:
+>      description: Time required by the device after enabling its regulato=
+rs
+>        or powering it on, before it is ready for communication.
+> =20
+> +  reset-gpios:
+> +    maxItems: 1
+> +    description: GPIO line used to reset the device.
+> +
+>    touchscreen-inverted-x: true
+> =20
+>    touchscreen-inverted-y: true
+>=20
+> --=20
+> 2.43.0
+>=20
 
-Changes in v3:
-- Add Reviewed-by tag.
+--e5Uyo1ZYqW/lJ71j
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Changes in v4:
-- Modify the commit msg.
----
- drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-index d2af5eb29dbb..d4c5dd61e95b 100644
---- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
- 	{ /* sentinel */ }
- };
- 
-+static const struct rockchip_dp_chip_data rk3576_edp[] = {
-+	{
-+		.chip_type = RK3576_EDP,
-+		.reg = 0x27dc0000,
-+	},
-+	{ /* sentinel */ }
-+};
-+
- static const struct rockchip_dp_chip_data rk3588_edp[] = {
- 	{
- 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
-@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
- static const struct of_device_id rockchip_dp_dt_ids[] = {
- 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
- 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
-+	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
- 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
- 	{}
- };
--- 
-2.34.1
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahR30QAKCRB4tDGHoIJi
+0skuAP993JrCjc9mRNHbDcawYAAftZ6urOMUfG+bqxXJTNAvrQD/cZ79SRItSH67
+OIM9pOQzkfEJ6iOvafjhm8zzUH/ZVg8=
+=hFqh
+-----END PGP SIGNATURE-----
 
+--e5Uyo1ZYqW/lJ71j--
