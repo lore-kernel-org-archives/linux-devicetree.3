@@ -1,138 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37CBC3A1DB
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 15:17:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8D8F3EDE6E
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 15:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779722250; cv=none; b=S5vhB9mlcx1AXiT/jGdh+MmJpOdD9aS4FB8JPjPI/Y/1ztyUrEuc+/SStlksjJ3l6sT+o16pKAt+aUlbzUdfIzYGEHP2HL8RjGmXhfVr83CJfMrn9H0ZmxedXFMxggHXNHwWH4T/TAoR+5SUUVXu2rt/b/A8kY2lvT2xVVi5DzA=
+	t=1779722607; cv=none; b=oRQzK0O5ld9GbSA7QL3vyNcPB+uViApXhFLJDr7K5tjgWae2QDMy1KJnVh73LxEf8WwRIYbuwMvoscdJnss2IQAG/A+fiCiVAGjtp1Q53FwhzyEHEZuFIVp0yWkSm/vlB9TDWJJfKdiAUMHI/iKpSWnB5mC7gVD7h0TaTGLWqrU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779722250; c=relaxed/simple;
-	bh=OHz7LbAXzaFwZrpRRno0mSqbe8h0w6nOlwLOEzTTCqc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JiaNNyDz+LPKZwihS9MnfYdToh5nT4LGnAG3S/IAaJuUhctF1ucPXI36wqmrZA/WI4ELzIAFdUcFkr59RLaFod+6IT6xKxlv2J0X94jbe8EbbMLUA83jf2TxhWoEY8pa+1y+m01Fwvz8x6KB56yMZcxOYtPqgsGkxLeq7TNNArk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SLgk1eCS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779722607; c=relaxed/simple;
+	bh=5xccS+1rv3Hx9m5jMR9NjR94SBuSiIQBsCcQHo+P29Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VVdxQrzh8fWoAu/LpGm0lcbJoLgFtGjEmrW+wGE3WmbMLA4k4JuyvjitRK7D9BDJcEwFwKqQgoUI0/EzmzwHeG9Zrt3OKJv/5sMQNZ5vR0tW+PAfIF0DZZxY5z4qLU85lC1Lkopk2MSxh7faJ3tLgsGGw/Wwk40Ua+H8VNRmTR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h44/yJS1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SLgk1eCS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4A3B1F00A3A;
-	Mon, 25 May 2026 15:17:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h44/yJS1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E1E51F000E9;
+	Mon, 25 May 2026 15:23:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779722248;
-	bh=FMgOdtjlME3ikR+FWWil/7Ykiis2ROUZlo8nibhDleM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SLgk1eCS9qgJYOgLdqAkWGJdJSzga13YQ8YtYTcwvEouDGQYfqPDgiPUPAW29G/aV
-	 hgVf7BWaT7SC2bnKXZQDXLL3ZxEkwdnzfQGUApC2D4tA8uMgGu9Wj3rC7GcCTQE/qH
-	 frrFXdp1jw0TltaAIQZehaSfhdCNDxpNqlMThvFki114ZfEVoNQA9qzyXGLD/ZHRyN
-	 tKcjHa7fXdmCezc3+F7rI258IGM1n/9MP/TbAqb18g2Ad0/Na1YgSk2e8PYz9jBP6F
-	 nGaueukaG/UEj2bMEZ9PSXlG5NSm7XsY4U8egoMVWCmugSZWq4j9C9nQO//hIi/nDq
-	 sGC6Np3su1WrA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] leds: is31fl319x: Fix shutdown GPIO initial
- state and remove redundant startup pulse
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525144629.498630-3-jerrysteve1101@gmail.com>
-References: <20260525144629.498630-3-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 15:17:28 +0000
-Message-Id: <20260525151728.A4A3B1F00A3A@smtp.kernel.org>
+	s=k20260515; t=1779722606;
+	bh=KA8IpEuh48WQRwSU3CwA3WFMR7nC3dUDqvMEHxifQEU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=h44/yJS14OvTXdZwKbKYUHeBsMZFKyuW/0WspvLjghaw3+/IkGnHwH0KpExcztOxu
+	 W0SwBDcM/yBtyv+lwkt+vKTgDEEdgerRv3Tui+HFMgEc6/KUedG3LzlFjGXuW6siND
+	 SdtqoEtLoFe4urumhYjIwbxrl5ev9j+LYD9wieq/UR8hR3B2HlQm65EuKBE/j2vLZE
+	 tNP8mheIP8CXnijOQhPX5Q7+eCArMYElRhGq5t3wZsOluOxVY+n44AV1mFHLgZbdcm
+	 zgsyvOgndC08iuGXt2duf4NKuNdMN6dAQWBEdrRnEoj68dKYxKZe8OT2wDfoVYT4ac
+	 1njk3yF1QZRMA==
+Message-ID: <d6cb3046-7c3b-4798-a199-04700ae662d8@kernel.org>
+Date: Mon, 25 May 2026 17:23:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/3] dt-bindings: i3c: dw: Describe core reset
+To: Jisheng Zhang <jszhang@kernel.org>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>
+Cc: linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260525140018.19598-1-jszhang@kernel.org>
+ <20260525140018.19598-2-jszhang@kernel.org>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260525140018.19598-2-jszhang@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Changing the shutdown GPIO initialization to `GPIOD_OUT_LOW` break=
-s backwards compatibility with existing device trees that use `GPIO_ACTIVE_=
-HIGH`.
-- [High] Removing the 5ms startup pulse on the shutdown GPIO eliminates a c=
-ritical hardware stability workaround necessary for I2C recovery.
---
+On 25/05/2026 16:00, Jisheng Zhang wrote:
+> The "core_rst" reset support has been in the code from day1, but the
 
-commit fcc0a676fc8cf1ed234a4483a3db1410e5475415
-Author: Jun Yan <jerrysteve1101@gmail.com>
+<Driver requests the "core_rst" since day1 (commit foo bar)....>
 
-leds: is31fl319x: Fix shutdown GPIO initial state and remove redundant star=
-tup pulse
+Reset cannot be supported and it is about ABI implemented by the driver.
 
-This commit alters the initial state of the shutdown GPIO from OUT_HIGH
-to OUT_LOW. It also removes the 5ms toggle of the shutdown GPIO during
-driver probe, relying instead on the existing software reset via I2C.
+> dt-binding doesn't exist. Add dt-binding to describe reset property.
 
-Link: https://lumissil.com/assets/pdf/core/IS31FL3193_DS.pdf
 
-> diff --git a/drivers/leds/leds-is31fl319x.c b/drivers/leds/leds-is31fl319=
-x.c
-> index e411cee06dabd..41087ed262cb4 100644
-> --- a/drivers/leds/leds-is31fl319x.c
-> +++ b/drivers/leds/leds-is31fl319x.c
-> @@ -396,7 +396,10 @@ static int is31fl319x_parse_fw(struct device *dev, s=
-truct is31fl319x_chip *is31)
->  	int count;
->  	int ret;
-> =20
-> -	is31->shutdown_gpio =3D devm_gpiod_get_optional(dev, "shutdown", GPIOD_=
-OUT_HIGH);
-> +	/* Driving this GPIO line low (in fact high) takes the chip out of shut=
-down,
-> +	 * as it is flagged as GPIO_ACTIVE_LOW in provider (such as the device =
-tree).
-> +	 */
-> +	is31->shutdown_gpio =3D devm_gpiod_get_optional(dev, "shutdown", GPIOD_=
-OUT_LOW);
+> 
+> Then why not remove the "_rst" suffix? Krzysztof pointed out "Cleanup
+> of name is not really worth affecting users. core_rst is not the best
+> name but it is not incorrect, either."
 
-[Severity: High]
-Does this break backwards compatibility with existing device trees that
-configured the shutdown pin as GPIO_ACTIVE_HIGH?
+This drop, irrelevant. You can provide Link: to previous discussions, OTOH.
 
-Legacy device trees mapping logical 1 (GPIOD_OUT_HIGH) to a physical HIGH
-signal will now drive the physical pin LOW when GPIOD_OUT_LOW is used. This
-keeps the chip permanently in shutdown.
+With above improved:
 
-While a subsequent gpiolib commit in this series attempts to add a polarity
-quirk, that quirk only covers 3 specific compatibles (issi,is31fl3199,
-si-en,sn3190, si-en,sn3193). The driver supports 10 distinct compatibles,
-so out-of-tree device trees using the other 7 (like issi,is31fl3193 or
-si-en,sn3196) will bypass the quirk and fail to probe.
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
-[ ... ]
 
-> @@ -506,12 +509,6 @@ static int is31fl319x_probe(struct i2c_client *clien=
-t)
->  	if (err)
->  		return err;
-> =20
-> -	if (is31->shutdown_gpio) {
-> -		gpiod_direction_output(is31->shutdown_gpio, 0);
-> -		mdelay(5);
-> -		gpiod_direction_output(is31->shutdown_gpio, 1);
-> -	}
-> -
-
-[Severity: High]
-Does removing this hardware toggle prevent recovery of a wedged I2C bus?
-
-The commit message states the toggle is redundant because a software reset
-is performed via I2C later. However, the original commit adding this pulse
-(dddb4e38c6ba) noted it was to make the chip more stable in complex EM
-environments.
-
-If EMI causes the chip's I2C state machine to become stuck (e.g., holding
-SDA low), the subsequent software reset command via regmap_write() will
-fail because the bus is unresponsive. Toggling the hardware shutdown pin
-acts as a hardware reset for the I2C interface. Without this pulse, the
-driver loses its ability to recover a hung I2C interface, which could lead
-to probe failures with a no response from chip write error.
-
->  	is31->client =3D client;
->  	is31->regmap =3D devm_regmap_init_i2c(client, is31->cdef->is31fl319x_re=
-gmap_config);
->  	if (IS_ERR(is31->regmap))
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525144629.4986=
-30-1-jerrysteve1101@gmail.com?part=3D2
+Best regards,
+Krzysztof
