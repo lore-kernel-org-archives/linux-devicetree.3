@@ -1,52 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC4B7385D66;
-	Mon, 25 May 2026 16:24:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA443F5BD7;
+	Mon, 25 May 2026 16:30:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779726296; cv=none; b=Bkl9uRmeUXHvmWs//LYR8xCpyDUr1X5q00Ha46frUGpR5D56DmaAFKawBWrWxIuKXerr/OtZAm1ym6TQS7aQAiZ0YMcuH6wZszaA0Yfi1laLA0OxBGI0VtpYO1BfkykXz91nxt2ovfG8kmY1XxEIqAzS7hpQj9r3cIgYZyXDJ+U=
+	t=1779726611; cv=none; b=AQvpAKmYPwELDfUaJMxslejVFCY54skgWsk1F951HQ0sPYwQ9mRCG0XNOe0IFWDgx700ZTj9vLS/RbqVNPljwHu8lKQz0pBRAbkQ4aNJE2cvr28A1XkgkICB6nluQBpQZXQdUG6BBwC64dlKo6u2UaZrl+VIVGRNfy2mqLOCuy4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779726296; c=relaxed/simple;
-	bh=ZMHiQr/fk+ug7JnzXTfAQv3QSX0dsIz58n1pIgpSlXs=;
+	s=arc-20240116; t=1779726611; c=relaxed/simple;
+	bh=+UxIrZYQCZEEiS7KeSOLtxAWKDIemVLC311YUWDD9NY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TKWka2oUfR2dDDU0TRPwS9ehYXLB7864cG8S7aDHkCexdCBmwVm4ka0Eg0JbULOLiSbq/ew0ppGeQPBTZNMS1sligfAjVgGGZD+P2GQxwoe9XD33iv+fJqD8LKRryfhOaBvj66R73vicw8ojJxtfuahxJbF0RXhGf2C3hKc0vhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B8c1ewr4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=rRY6MIYqTCVyniUTnt6RDhBoTTmrGE/pc301vXIqOtLlPOpqECEnAPNhLDixLa2fV68Huoe26aD1X05yDLXY83yU7XcrWCZDaNJkNxjGPyO++RJqITsuSSNdlu3Ujlclh5R1y8VbtBQG19XDA9LyNuvIJ0NK80kvBP/EYPySCHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNb4uZSk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B8c1ewr4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75E681F000E9;
-	Mon, 25 May 2026 16:24:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNb4uZSk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8471F000E9;
+	Mon, 25 May 2026 16:30:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779726295;
-	bh=1vZP/w4vb1NchJIH4WIxAeRFWvhs5AkPrPlvL/oDYXQ=;
+	s=k20260515; t=1779726607;
+	bh=7e4ZjPZTzdJ7a9vb91nzCeyvVjuclLuvDc6BQmWdQRU=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B8c1ewr4n7od/oY9yET/GNR5Vg0fDwCmly/2J6tW7sovJrH6QSTeYRqqR0wBnYS0e
-	 5Gu5CkR7Jvj94dxpV9chUyOtWKa9d9zD8lGVRWHXptCbWri3M3kR45PrGD3exJKFMi
-	 XQ1lqmaeK58vfUFmn6hWKOkWitr/UQvpxQ0WRYO4Vkp+RJAeUa5Qy5JugdPPfSfCxO
-	 Otxa6w7aNn4Ky8UA5bmfuAYuSXaXuDil1FVvGmMYF+EsBxkRpW5+hXxKxHNVHBQkaS
-	 O8brwLl0QTL2lkVuiXVaY+YfdMduJTSUnDRz2sCyNXvjBGjFuo63Qr43sFM5pM5mRC
-	 KdVIkU3SxPHLg==
-Date: Mon, 25 May 2026 17:24:50 +0100
+	b=hNb4uZSkYgaa7z+NOOVNswqhmvL0sto1/BW92/7A0PCsitvkCNDEE/IqWczRrstTu
+	 cPVqHJSqnY4uPhcyFC65BTLNGRoujQQCIBF5wqFIYstIfQebYILF53K0iAPUW8AYeE
+	 dRmcWb6+MZweGAhfCAvawH0B64aQoVKc4SOiQ+/UX6z5HdC0HkUiAv9R3/i0pPTI5w
+	 X72+lD+rX+WkfDv72k952vCturPts5k+JYofr3qm4cOOvQuhwZ7HtIocQVE+Q45/Xc
+	 yEXBQSgi4Qk4+g5jErOy8ROfdp2y9hFFbzW+rUyVRKEj1RS8O9Tnjw5zCbD5u+GU2j
+	 aNZMfrUIDMSxw==
+Date: Mon, 25 May 2026 17:30:02 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Janani Sunil <janani.sunil@analog.com>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Abel Vesa <abel.vesa@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Benjamin Tissoires <bentiss@kernel.org>,
-	Jiri Kosina <jikos@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	20260519-glymur-mahua-common-nodes-v2-1-9f1b89a3f398@oss.qualcomm.com
-Subject: Re: [PATCH v2 1/2] dt-bindings: input: hid-over-i2c: Add reset-gpios
- property
-Message-ID: <20260525-cornfield-limes-06c426bfef51@spud>
-References: <20260523-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v2-0-5c333051e5bb@oss.qualcomm.com>
- <20260523-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v2-1-5c333051e5bb@oss.qualcomm.com>
+	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <20260525-dedicator-strut-6f7618a92180@spud>
+References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
+ <20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
+ <20260522180207.63b725fb@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,65 +54,110 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="e5Uyo1ZYqW/lJ71j"
+	protocol="application/pgp-signature"; boundary="6uUOUNcFd2y0rFek"
 Content-Disposition: inline
-In-Reply-To: <20260523-arm64-dts-glymur-crd-add-reset-gpio-to-touchscreen-v2-1-5c333051e5bb@oss.qualcomm.com>
+In-Reply-To: <20260522180207.63b725fb@jic23-huawei>
 
 
---e5Uyo1ZYqW/lJ71j
-Content-Type: text/plain; charset=us-ascii
+--6uUOUNcFd2y0rFek
+Content-Type: text/plain; charset=iso-8859-1
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Sat, May 23, 2026 at 01:25:37AM +0530, Pradyot Kumar Nayak wrote:
-> Document reset-gpios property for devices that explicitly require
-> the reset line to be de-asserted during power up.
+On Fri, May 22, 2026 at 06:02:07PM +0100, Jonathan Cameron wrote:
+> On Tue, 19 May 2026 17:42:58 +0200
+> Janani Sunil <janani.sunil@analog.com> wrote:
+>=20
+> > Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> > buffered voltage output digital-to-analog converter (DAC) with an
+> > integrated precision reference.
+>=20
+> Note that I'm seeing this as Changes Requested in the DT-binding patchwork
+> but didn't see any replies.
+>=20
+> Seems I didn't get the sashiko reply - nor did the IIO patchwork.
+> Hopefully Janani did!
+> https://patchwork.kernel.org/project/devicetree/patch/20260519-ad5529r-dr=
+iver-v3-1-267c0731aa68@analog.com/
 
-If there are devices that require this, it seems short-sighted to not
-add their compatibles to hid-over-i2c.yaml and make the property
-required for them.
-pw-bot: changes-requested
-
-Cheers,
-Conor.
+The sashiko stuff is per subsystem or something, so dt stuff only goes
+to us and the submitters. I think that's kinda stupid but also probably
+required to avoid pissing people off. There's quite a bit of noise
+generated by it, especially with it repeating the same incorrect stuff
+on every version.
 
 >=20
-> Signed-off-by: Pradyot Kumar Nayak <pradyot.nayak@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/input/hid-over-i2c.yaml | 4 ++++
->  1 file changed, 4 insertions(+)
+> >=20
+> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> > ---
+> >  .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 217 +++++++++++++=
+++++++++
+> >  MAINTAINERS                                        |   7 +
+> >  2 files changed, 224 insertions(+)
+> >=20
+> > diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml=
+ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> > new file mode 100644
+> > index 000000000000..eb66f6ca063d
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> > @@ -0,0 +1,217 @@
+> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > +%YAML 1.2
+> > +---
+> > +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
+> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > +
+> > +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
+> > +
+> > +maintainers:
+> > +  - Janani Sunil <janani.sunil@analog.com>
+> > +
+> > +description: |
+> > +  The AD5529R is a 16-channel, 12-bit or 16-bit, high voltage, buffere=
+d voltage output
 >=20
-> diff --git a/Documentation/devicetree/bindings/input/hid-over-i2c.yaml b/=
-Documentation/devicetree/bindings/input/hid-over-i2c.yaml
-> index 138caad96a29..fe0ec4fce673 100644
-> --- a/Documentation/devicetree/bindings/input/hid-over-i2c.yaml
-> +++ b/Documentation/devicetree/bindings/input/hid-over-i2c.yaml
-> @@ -50,6 +50,10 @@ properties:
->      description: Time required by the device after enabling its regulato=
-rs
->        or powering it on, before it is ready for communication.
-> =20
-> +  reset-gpios:
-> +    maxItems: 1
-> +    description: GPIO line used to reset the device.
-> +
->    touchscreen-inverted-x: true
-> =20
->    touchscreen-inverted-y: true
+> Long line. Check the wrap.
 >=20
-> --=20
-> 2.43.0
+> > +  digital-to-analog converter (DAC) with an integrated precision refer=
+ence.
+> > +  The device operates from unipolar and bipolar supplies. It is guaran=
+teed
+> > +  monotonic and has built-in rail-to-rail output buffers that can sour=
+ce or
+> > +  sink up to 25mA.
+> > +
+> > +  Specifications:
+> > +  * 16 independent 12-bit or 16-bit DAC channels
+> > +  * Independently programmable output ranges: 0V to 5V, 0V to 10V, 0V =
+to 20V,
+> > +    0V to 40V, =B15V, =B110V, =B115V, and =B120V
+> > +  * The device supports SPI communication with Mode 0 and Mode 3.
+> > +  * 4.096V precision reference, 12ppm/=B0C maximum
+> > +  * Built-in function generation: Toggle, Sinusoidal Dither, and Ramp =
+waveforms
+> > +  * Multiplexer for output voltage, load current sense and die tempera=
+ture
+> > +
+> > +  Datasheet: https://www.analog.com/media/en/technical-documentation/d=
+ata-sheets/ad5529r.pdf
+> > +
+>=20
+> > +patternProperties:
+> > +  "^channel@([0-9]|1[0-5])$":
+>=20
+> Sashiko commented that this should be hex.  Why the forcing to decimal?
 >=20
 
---e5Uyo1ZYqW/lJ71j
+--6uUOUNcFd2y0rFek
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahR30QAKCRB4tDGHoIJi
-0skuAP993JrCjc9mRNHbDcawYAAftZ6urOMUfG+bqxXJTNAvrQD/cZ79SRItSH67
-OIM9pOQzkfEJ6iOvafjhm8zzUH/ZVg8=
-=hFqh
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahR5CgAKCRB4tDGHoIJi
+0tLtAQD2NkZ3SKvwFKlYRM6tkItnO0qro7viL1UlnWD1XTzOKAEA2QVFNfAlYphU
+rSUGx+kylIOdUu3kU2WYXyI0bqasvQU=
+=TboO
 -----END PGP SIGNATURE-----
 
---e5Uyo1ZYqW/lJ71j--
+--6uUOUNcFd2y0rFek--
