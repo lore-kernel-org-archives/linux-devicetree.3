@@ -1,86 +1,66 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1600835F19A
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:29:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C64837B03B
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:31:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779712149; cv=none; b=cfEkRpcViRN6zRD7h+eXsNATZzADyT0JEWXojy1BrOU+YqBKFh6gUNAhsb6FVmeQhZV8hzitxQd6SYbDsHVU6/23Jewzk+QusKjOw9iqDtO2leJvA+3kFJu/TdYP9YHOLiJkHVu6AwjSZvSadOI+5KA/2L0EYxEC5Pl8ejzVGeY=
+	t=1779712292; cv=none; b=rB1XacwDzONSpeRoiAh0uA2EG1DoWJrZWD+j/xKffZhxEwR67ck/DM8Q3asxpu+Jeqst7SNu2NMSxRV77Oqdl/DEbKppyI1I2ndUW3UTYEhJFl/O1/1vhWraIXkwpRWcPo7LA8R3+zJ/RE+0yylOVkOsWGz85/s7mM+jYQPdV0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779712149; c=relaxed/simple;
-	bh=bJam9d9wgB1Gn2ocppTVU+blL4ywYWSzJ5jYeRngki0=;
+	s=arc-20240116; t=1779712292; c=relaxed/simple;
+	bh=qpbNNT9LTg/BQrpX4c+/wUPqtP5MSqmpILKrnhojHyI=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Dgkx8Qcj3nFWIOyAwIAJ/hxKPHTQCfifLlaqz2UCIfiW92IrGpn8qnN+ITROVOVLpSyvkWmiiz6puarnHODQg+YE6z0EZf+/kWUj+8oUEeMu4NVelolJGcxV7/tbyEQcgjfhUQ14CU4p2nMs7ZNCuJAwBZjOOL+GlAKZ90kRUNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Am+uQnFz; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MZGJ0Dtm; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 In-Reply-To:Content-Type; b=b316QOCyQjQdSsv2UvXutUmT/UuGirssa4t0JoLecBfVJiTvZo6BOdI+avkwEUGUbsHJQH93P5BHijOcKiXXc63xdV6MF93IPXBVSnwpFIPFrCIqougO+mzwxIGw4XYfB6R71Jkd9cMScGc380bZB7qjfeY/9fBD3qsY5XnrP+Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c2Km1n4E; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Am+uQnFz";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MZGJ0Dtm"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P9EYd9079445
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:29:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	LVcfpp7gDg3CEL3Q/5mwWyOqC+o1OugfM7GNZUcI9AY=; b=Am+uQnFzsmLVdXDP
-	CGYlwOTyMNPPFP9L0d3xidEQHlE2Ya+qHaBlQX4ht4c9e/Gj7ML6gPIanHhdHJdx
-	eJ6/mUL3Im37LYRnT0XSxbN3M6Zt+lBfazlxakWP6B7NbBAUIwInTD6ZpQK3ZJGY
-	3xRSlbDka/eQ9l49OgVsKNf7TOhDk8y0DHrUCLHSY6TbBGEvmP6ONLQUO5lqDZtC
-	bZzuxfB2PdTydluIpCVa3QEuRpBqmq7k4ngqbZWY67hUGkq4V9XoHNQPYQKASW+R
-	DIWSsqEI9S/kRgshy70AxBuqUow0GU8tWMLpUiK6iIB3jNVwVgFP//gFJs9sZZER
-	xBSSIA==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eckma8m10-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:29:07 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-50e5d7f4b63so21862781cf.0
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 05:29:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c2Km1n4E"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4891e5b9c1fso82043865e9.2
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 05:31:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779712146; x=1780316946; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779712290; x=1780317090; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=LVcfpp7gDg3CEL3Q/5mwWyOqC+o1OugfM7GNZUcI9AY=;
-        b=MZGJ0Dtmu5xqiIITOHAip81gCovCJLE+4zAxj/F1ttKqFRzz43WoWHZl5J8woRdeNQ
-         s/zrqMChujw8ibpl44ZlQdF+BXw4jd5x9STfIXnboV+nX9BwGCXNneZ+72cdD/Wn7fn3
-         Wdho+NdeZ+M2fKLfrr6erAQ7iM2zxonVLsMRdioJMhgTG4MAJwiu5ROsTtl0IaKSuvip
-         2gPEqNbJboUa+fKuKMVD9Xi1IFW/S1DyOrNDejEfe7PDzWqkeKYloXIMd08XygBQafB4
-         a9CUKw0Y8DEGTlyZ4C55kgu7yjTnay7Ne0ikBtgxw1a0i3R58Ct+Tud+S8QjNulYOuH6
-         jm+g==
+        bh=zrIDVk+3CslyJkUrNGl34AIpYDsI+Gmqf4gQKToWHJM=;
+        b=c2Km1n4EqS2KLiF8/aD/TOQ6BMa15NRDAYhTmh3epjc6mGYfSNE55qzGliy+SPhYc+
+         7IHQ6lkTJ6dSEzgH9XnWMpxSC5E+NeSpxiKZIwep90j7F9HMspamzLSOnhqDZms6D2+z
+         bJAKVoS3525EKJzgIHLprLyFgRsxDe+sjBV8Ld71pOA9ufg/hMKzEXK5uhkSrsLwvXsB
+         6VmNU8YATKyKEOk9XLQtrru00ECQUMErzE4moxPHDr7kobDXwhOatt6VLWO3VEaZHl4h
+         lbkB56fuPwy1v1Ot6hFAsJJKinkCDcEbuTySFPZH12JGZUg4/IJv/f4jyKMi4w9WEFe/
+         WnLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779712146; x=1780316946;
+        d=1e100.net; s=20251104; t=1779712290; x=1780317090;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=LVcfpp7gDg3CEL3Q/5mwWyOqC+o1OugfM7GNZUcI9AY=;
-        b=DH6NJhwrsfG26LF/xP3Ocj4122Rirhxg0JMBqfThy7UiijePC9gs03Z5hDxaPUbA87
-         j0zIIj+o/RKLld8rkILp3A7dOBNf8BmwcdtiX9U7+eZRvxT6s+QRGSdzdW3hYvpbMSmx
-         Ucl23JB5i+3zmFbZzI+eQPtNDq/52C/FK+rRFpGc4EDf4LCHZ0JCKCa54Zm1yHqXpUjX
-         e7UUeFXsyVOXy1boYQzhHLjNl9RSYzhd6kWcX9EFh+X1qR9cLdnKm+CLVnWLYBcXR66H
-         qyKQ4QAz00spMlP+yskqmYXZlL04lKnT1UY+Fmjk/uMQzJDBrST9ZKj1Tv7r7afTxz3S
-         //Tw==
-X-Forwarded-Encrypted: i=1; AFNElJ/YbMZ+dTbtOU7sHs+QnUOe7dFkc2VUr9dABij0dXDkL3xiTkz9Z/GJj//+9+4lFcN6oSq02NxdoNKt@vger.kernel.org
-X-Gm-Message-State: AOJu0YxYkHlK8iisSrCEdP+zCE0XZRUtsMYcYmSb8qOQS/qLUsIEASja
-	Reqvjfj5k5dFNFYGYnfphSuwcwf0aJkVINdNXxcwWbbf364wcV5ZheGN6U/gGxQvUVGDmMZDXjX
-	BvkNnecCx1rH/bqAbJ9gUsISEKJbEtRLYFi/WNQTcKHeNUOkFWXRFgO6xUOMEaQN+
-X-Gm-Gg: Acq92OFMfFytBK/N05Tx763DaBnMcy8SaV2fAmmxoLA6YhHvVugNghGrLsW+CuGmjL3
-	iJWaWogppifX7kMieoNx5s5/B1BwQkOnRiQIAxmGGc1DeRGcqzQ9CUlZm6NZZQ7+S3Nh2OwfigK
-	zqhxtw2nuSNNLkGVrCKEtvU8gRbCLUDSoUqXCj47Bq5tFXbCwFd6tmKRWqkm7crRCslbAgM+/5v
-	fWb2KLEf2jCNarOMnnPdI303YqBDzpE+xWlnk2PaUHSCI86JTytE4lD0QnXdu/2rtUl35Mg5TF2
-	fXDvWOWUYfkMvweEPdWvwHFG9fA5vALxMfm+4wrntzdG7iG8w/iSh1uuuxC7UMRqojBKZgdyGJ8
-	XwICUtX/YNPY8aibw+XZq3/yWBSdL1xgO+lwTA2SSwDwSiA==
-X-Received: by 2002:a05:622a:14cd:b0:50f:bfe3:a04e with SMTP id d75a77b69052e-516d43cc357mr154594471cf.7.1779712146369;
-        Mon, 25 May 2026 05:29:06 -0700 (PDT)
-X-Received: by 2002:a05:622a:14cd:b0:50f:bfe3:a04e with SMTP id d75a77b69052e-516d43cc357mr154594131cf.7.1779712145909;
-        Mon, 25 May 2026 05:29:05 -0700 (PDT)
-Received: from [192.168.119.254] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc62d3f21sm391655866b.44.2026.05.25.05.29.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 25 May 2026 05:29:05 -0700 (PDT)
-Message-ID: <7d2aedb2-4bcd-4453-80be-5c7ca6bdff95@oss.qualcomm.com>
-Date: Mon, 25 May 2026 14:29:02 +0200
+        bh=zrIDVk+3CslyJkUrNGl34AIpYDsI+Gmqf4gQKToWHJM=;
+        b=HKWlvSlI4mUUTd07aJxrZC8I4JAdUzNnGEVJPCANDhKeidJ1vSEtn58mIQSXINIup0
+         uO6Np/uwBf2Rwm/RLvGWSkqmicb18uLEQBSHpwP5WBXpwUUmr6DxfEg2ubIOKhP+dATa
+         iVwlVhlURkdVaZzA3XMMGRcjJi/EDh1wesb/dGQarIhhRwiduA64hhNkuM9w/pDs4+sU
+         vmaUcloxP2dBgmLYjDMqMEmEeVats5FJC9A93EKJeT2Tq7ZFcBBmeU2Ec5iV+Pei3tR8
+         50/5nZgCbpICD2hPRYKRX40N/H9+PVfbbwL7qQK0C8ouULgqbdmG7Pmebx0j6vIF5T6u
+         bnPg==
+X-Forwarded-Encrypted: i=1; AFNElJ8h6bO7cS5GhjWdNNkIN2DRXFbkQy6WRKQO9DkEhe/HaxdiLzQ0ouWU8PQyYJiGWediB9Mr+E/g4re+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjvaBzLEnf8diEhMrAD6Bltt8IZrqjxswSYLyycob0NnjZ+9YZ
+	ZSi15CvZCA+KAwbJ7oWmeKegBxdqgFFAANJs8/jpWj4QAAeFiL+btNMB
+X-Gm-Gg: Acq92OFA67N176QmyPU67Ar0AW9FzwWo3sJLjgZo2/av6U2QiYUzvynM4g4q+xikUN0
+	S5gQ519TyBIhZ3AAqyk3cJ93Lxr20JYNQOWeqgWhBfHE8RxcV4YtSju783Gso+JJ2udQcO4n86B
+	R4h1W3Oq9V+t9SW0ByfCoyZAs+2FzOwUPWSjEH9sKYa3yGGHkTZG1Wx3X++qJRHch7hDEA6aqP+
+	ZyTUzcFPlMjNmCA6a9FbxJ3ZnIJtpLU4PQIVndCltF//Dgf6c5CY7ojgekUCIrTPao16iEbljZX
+	k4GYzltf1yok5KuMo4KxzAb2gP8YpHa0POWEwkaX1eOovgO0evH9MIRRgL+y/sk0KT/2GnZ1s4V
+	fCHID1LygqRXtxDQnSRA+XWHAeYxIetSo6XjLImqS6GG+eAmDFyphi3LhzfhcnHikwhM0/7vMrS
+	2npN3+AnCgYZzQMep0CpuJr55DINWWUgFf0kmr4VB+Okb+2JmVyF4Fr71W
+X-Received: by 2002:a05:600c:3d96:b0:490:5429:1513 with SMTP id 5b1f17b1804b1-49054291bbamr158545285e9.6.1779712289494;
+        Mon, 25 May 2026 05:31:29 -0700 (PDT)
+Received: from [10.25.212.250] ([128.77.115.157])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490428e6d68sm85965215e9.22.2026.05.25.05.31.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 May 2026 05:31:28 -0700 (PDT)
+Message-ID: <9fb59c65-8cee-4502-bc10-1375f276e25c@gmail.com>
+Date: Mon, 25 May 2026 05:31:24 -0700
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,84 +68,77 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/2] arm64: dts: qcom: hamoa: Fix xbl_tmp_buffer_mem size
-To: Hans de Goede <johannes.goede@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260525114749.5939-1-johannes.goede@oss.qualcomm.com>
- <20260525114749.5939-2-johannes.goede@oss.qualcomm.com>
+Subject: Re: [PATCH 2/5] remoteproc: imx_rpoc: fix carveout name parsing
+To: Peng Fan <peng.fan@oss.nxp.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+ Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>,
+ Fabio Estevam <festevam@gmail.com>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260522111849.783-1-laurentiumihalcea111@gmail.com>
+ <20260522111849.783-3-laurentiumihalcea111@gmail.com>
+ <ahOwO7LBXCYFIngw@shlinux89>
 Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260525114749.5939-2-johannes.goede@oss.qualcomm.com>
+From: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+In-Reply-To: <ahOwO7LBXCYFIngw@shlinux89>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=cL3QdFeN c=1 sm=1 tr=0 ts=6a144093 cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=3EQkVh1QaxhCAZB67zEA:9 a=QEXdDO2ut3YA:10
- a=kacYvNCVWA4VmyqE58fU:22
-X-Proofpoint-ORIG-GUID: CjUE91mIzOSDEp_Lamva24zv66qwaPkZ
-X-Proofpoint-GUID: CjUE91mIzOSDEp_Lamva24zv66qwaPkZ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDEyOCBTYWx0ZWRfXxGTlGQd0rFax
- KRrJrKHF9puuABSsRjzcZWvF62Xxy1DIpSos9Iw78P5xqdOM0OBoqKujuMSzyEIi6RWTLVXAibc
- ii1Qb8Yi5khsDnItfeAlXaUvW5WhbqyYCc9AY0E7TMz3bNvA4pslNhrH4SEn8ayFn5oa794X2NT
- J7TA0pbwQol00kwSO6PPNwSJg8v3NFKnFmGuE5+oGqLOsfQvacb8IHixy4H6RRsI8COA5unmCkg
- F4wfFTWhBR8cxLndtUEPEz41PFnfkPwG6NDFykUiy2NO3l56eqLDk7hFpQRv/TuPVoVgBQ4lT/c
- nfA6ssYEL7ynIIdEV7uo0U8/qmB7W7bGCqckpyMUIHPILIxbpxi6NlTwjL9h+EKwEeGOPIJhjlj
- h3qM0jA9ZOzMPGngelRyyuBIqD2dTtemcl0+JV8d8Y/acvzeQ0qah1o/5w4fD76U/Qr9ZgZMztS
- Qr/odRcnYYwXWfIvCPg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 bulkscore=0 priorityscore=1501 phishscore=0 adultscore=0
- lowpriorityscore=0 spamscore=0 suspectscore=0 clxscore=1015 impostorscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605250128
 
-On 5/25/26 1:47 PM, Hans de Goede wrote:
-> The EFI memtable (shown when booting with efi=debug) shows that the
-> xbl_tmp_buffer_mem region size is 0x1c0000 bytes large not 0xc00000 bytes:
-> 
-> efi:   0x000082800000-0x0000829bffff [Reserved    |
-> efi:   0x0000829c0000-0x000083efffff [Conventional|
-> 
-> This fix aligns the size with the EFI reported size and makes /proc/iomem
-> correctly show mem blocks matching the EFI memmap:
-> 
-> 82800000-829bffff : reserved
-> 829c0000-83efffff : System RAM
-> 
-> Instead of:
-> 
-> 82800000-833fffff : reserved
-> 83400000-83efffff : System RAM
-> 
-> before this change
-> 
-> Signed-off-by: Hans de Goede <johannes.goede@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/hamoa.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> index de0f2346cb38..5a2e84365901 100644
-> --- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-> @@ -582,7 +582,7 @@ tz_stat_mem: tz-stat@82700000 {
->  		};
->  
->  		xbl_tmp_buffer_mem: xbl-tmp-buffer@82800000 {
-> -			reg = <0x0 0x82800000 0x0 0xc00000>;
-> +			reg = <0x0 0x82800000 0x0 0x1c0000>;
 
-FWIW the reference memory map shows a contiguous block of:
 
-0x8280_0000 -> "no reclaim XBL scratch_buffer2"
-0x829c_0000 -> "reclaimable XBL scratch_buffer"
-0x83f0_0000-0x8400_0000 -> "no reclaim xbl scratch_buffer1"
+On 5/24/2026 7:13 PM, Peng Fan wrote:
+> On Fri, May 22, 2026 at 04:18:46AM -0700, Laurentiu Mihalcea wrote:
+>> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>>
+>> The imx remoteproc driver assumes that the names of the reserved memory
+>> regions reflect their usage (e.g. "vdevbuffer", "vdev0vring0", etc.). This
+>> conflicts with the devicetree specification's recommendation, which states
+>> that the names of the devicetree nodes should be generic.
+>>
+>> Therefore, instead of relying on the node names, use the names passed via
+>> the "memory-region-names" property if present. Otherwise, keep the old
+>> behavior.
+>>
+>> The definition of imx_rproc_rmem_to_resource() is added to a common place
+>> as imx_dsp_rproc.c can also use it given that it suffers from the same
+>> aforementioned problem.
+>>
+>> Signed-off-by: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
+>> ---
+>> drivers/remoteproc/imx_rproc.c |  7 +++++--
+>> drivers/remoteproc/imx_rproc.h | 19 +++++++++++++++++++
+>> 2 files changed, 24 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/drivers/remoteproc/imx_rproc.c b/drivers/remoteproc/imx_rproc.c
+>> index 7f54322244ac..1ee1c658dcc1 100644
+>> --- a/drivers/remoteproc/imx_rproc.c
+>> +++ b/drivers/remoteproc/imx_rproc.c
+>> @@ -672,7 +672,7 @@ static int imx_rproc_prepare(struct rproc *rproc)
+>> 		int err;
+>> 		struct resource res;
+>>
+>> -		err = of_reserved_mem_region_to_resource(np, i++, &res);
+>> +		err = imx_rproc_rmem_to_resource(np, i++, &res);
+>> 		if (err)
+>> 			break;
+>>
+>> @@ -850,11 +850,14 @@ static int imx_rproc_addr_init(struct imx_rproc *priv,
+>> 	if (nph <= 0)
+>> 		return 0;
+>>
+>> +	if (!of_property_present(np, "memory-region-names"))
+>> +		dev_warn(dev, "using node names for carveouts should be avoided\n");
+> 
+> Please check 'memory-regions && !memory-region-names', some demos may not
+> need to use memory regions.
+> 
+> Regards
+> Peng
+> 
 
-Konrad
+What for? You'll not reach this check unless "memory-regions" is specified?
