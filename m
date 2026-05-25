@@ -1,38 +1,38 @@
 Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11F243E4C74;
-	Mon, 25 May 2026 08:50:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 454A03E51D8;
+	Mon, 25 May 2026 08:50:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779699052; cv=none; b=QUoSM6JVXy21QCjYySTRK11OxqVjzcAUjEha4v471Ejcrylg8zmeFNkB+Wh3KYLqMBdrG/fNqntgQp0ucjI9U6fiFrhB3Qsdhdba0N5i2+aQv9WikmFwS2ovnek+ndQ/Re9kDkKUNO4+cRIqp9GAFjhP+IQu9DzuXbYmVGXThow=
+	t=1779699058; cv=none; b=GTevMTNIlZwt/HuKpMuyS2XYUJijhlr7LJowf1/DKvm7ahw5XoZ+yHYsUFiE5qPW/VZq3c6T7zsCqq00b1QyrHIr9tAZr7JAYzK6harjOcaBpHsmqT0brKGIxyBagyDna3/8h5qYBOVylGfKtIH7hsArjN1W01UFeRJkJoVwP0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779699052; c=relaxed/simple;
-	bh=LaU5rvVfxiw948rDiwlD5TT8Ac+JljkdsfsfrwmHJl4=;
+	s=arc-20240116; t=1779699058; c=relaxed/simple;
+	bh=SCrAq2X571drLC+aVqB6tCaw73m2/8B2l91e5heKxz0=;
 	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZAD/UGMHj8ZW5vkmWOJTgr6kdK03DJIDrLibPMkfYzcIXzJ0gk6sYXaxx69h8IoSZR6onQrb6at8dAE7H9lH+lDmKxMofdehb/mF089D1JkqnHiNpnyDc+R0QpKHxskfysg881m7y+/tcwIdowKSl+dqOrlrlWrouEDdSo+z26A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=o+EsDr9X; arc=none smtp.client-ip=113.46.200.219
+	 MIME-Version:Content-Type; b=NmUSsWyVNHfgyrVyz9vPKvJM9ywMlIJWjFiQoJOSYRZ+slVZWfjgbyS68YAItR/+nL8oy008+YK0nHxmsCSXIaUnBsQv5w3D2FT/hJdF6fe00kDHUDUQe99FNCqyOB+hnTbsMfT/vKTIvREbeIHfKWghfxBHHl+WyRARbRqbuy0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=MGrsXNZ1; arc=none smtp.client-ip=113.46.200.219
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="o+EsDr9X"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="MGrsXNZ1"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=E2FmGASpc2xVjQNRSjf7/UIxL66JXY1CNygMG02QeK0=;
-	b=o+EsDr9X9hQAB31GOyzLOPni0fHN1lpMVW8BMJEe6jCbDy/zhnlaLHdI7YU8sNM+rO8G50JFC
-	UzDX34L0j62bPYat7DpWBD/35+eqtQcarjY6NviwKmbWAJbbUOEtpdUrmJvTcNnmnLyfMcTNNWu
-	LRd05aksXjgyogT9pZKd5ks=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gP8Xg3fTLz1prKP;
-	Mon, 25 May 2026 16:42:59 +0800 (CST)
+	bh=s+swiDeCPjZNQiMPbwC355gr6g04gFdIOC7QXnxqniw=;
+	b=MGrsXNZ1ejydULg609vJ3WJUkrR6RzUrrn5IpU25a7hbGVd3Ekm1r3UqomPphPOWYJ4qIS6Oo
+	0eJZNCVXY54lb7F+EJSpmr9ODZ1+LA+iOVJx89WU/s1GqJC95TnmA0d8vNBXbH2MpdHpW9FFkT2
+	Im40bToB2M9Hzwy6OFaTpCY=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gP8Xq4fd7z1prKP;
+	Mon, 25 May 2026 16:43:07 +0800 (CST)
 Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id 6592340561;
-	Mon, 25 May 2026 16:50:46 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 8D3AE40537;
+	Mon, 25 May 2026 16:50:54 +0800 (CST)
 Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
  (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 25 May
- 2026 16:50:42 +0800
+ 2026 16:50:50 +0800
 From: Jinjie Ruan <ruanjinjie@huawei.com>
 To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
@@ -62,9 +62,9 @@ To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
 	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
 	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
 CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v14 09/17] crash: Add crash_prepare_headers() to exclude crash kernel memory
-Date: Mon, 25 May 2026 16:49:24 +0800
-Message-ID: <20260525084932.934910-10-ruanjinjie@huawei.com>
+Subject: [PATCH v14 11/17] x86/kexec: Use crash_prepare_headers() helper to simplify code
+Date: Mon, 25 May 2026 16:49:26 +0800
+Message-ID: <20260525084932.934910-12-ruanjinjie@huawei.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260525084932.934910-1-ruanjinjie@huawei.com>
 References: <20260525084932.934910-1-ruanjinjie@huawei.com>
@@ -79,176 +79,194 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
  dggpemf500011.china.huawei.com (7.185.36.131)
 
-The crash memory alloc, and the exclude of crashk_res, crashk_low_res
-and crashk_cma memory are almost identical across different architectures,
-handling them in the crash core would eliminate a lot of duplication, so
-add crash_prepare_headers() helper to handle them in the common code.
+Use the newly introduced crash_prepare_headers() function to replace
+the existing prepare_elf_headers(), allocate cmem and exclude crash kernel
+memory in the crash core, which reduce code duplication.
 
-To achieve the above goal, three architecture-specific functions are
-introduced:
+Only the following three architecture functions need to be implemented:
+- arch_get_system_nr_ranges(). Call get_nr_ram_ranges_callback()
+  to pre-count the max number of memory ranges.
 
-- arch_get_system_nr_ranges(). Pre-counts the max number of memory ranges.
+- arch_crash_populate_cmem(). Use prepare_elf64_ram_headers_callback()
+  to collect the memory ranges and fills them into cmem.
 
-- arch_crash_populate_cmem(). Collects the memory ranges and fills them
-  into cmem.
+- arch_crash_exclude_ranges(). Exclude the low 1M for x86.
 
-- arch_crash_exclude_ranges(). Architecture's additional crash memory
-  ranges exclusion, defaulting to empty.
+By the way, remove the unused "nr_mem_ranges" in
+arch_crash_handle_hotplug_event().
 
+Cc: Thomas Gleixner <tglx@kernel.org>
+Cc: Ingo Molnar <mingo@redhat.com>
+Cc: Borislav Petkov <bp@alien8.de>
+Cc: Dave Hansen <dave.hansen@linux.intel.com>
+Cc: Andrew Morton <akpm@linux-foundation.org>
+Cc: Vivek Goyal <vgoyal@redhat.com>
 Reviewed-by: Sourabh Jain <sourabhjain@linux.ibm.com>
 Acked-by: Baoquan He <bhe@redhat.com>
 Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
 ---
- include/linux/crash_core.h |  7 +++
- kernel/crash_core.c        | 95 ++++++++++++++++++++++++++++++++++++--
- 2 files changed, 99 insertions(+), 3 deletions(-)
+ arch/x86/kernel/crash.c | 96 ++++++-----------------------------------
+ 1 file changed, 12 insertions(+), 84 deletions(-)
 
-diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-index c1dee3f971a9..d69c4c7c1f5e 100644
---- a/include/linux/crash_core.h
-+++ b/include/linux/crash_core.h
-@@ -59,6 +59,10 @@ extern int crash_exclude_mem_range(struct crash_mem *mem,
- 				   unsigned long long mend);
- extern int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
- 				       void **addr, unsigned long *sz);
-+extern int crash_prepare_headers(int need_kernel_map, void **addr,
-+				 unsigned long *sz, unsigned long *nr_mem_ranges);
-+extern int crash_prepare_headers_locked(int need_kernel_map, void **addr,
-+					unsigned long *sz, unsigned long *nr_mem_ranges);
- 
- struct kimage;
- struct kexec_segment;
-@@ -76,6 +80,9 @@ int kexec_should_crash(struct task_struct *p);
- int kexec_crash_loaded(void);
- void crash_save_cpu(struct pt_regs *regs, int cpu);
- extern int kimage_crash_copy_vmcoreinfo(struct kimage *image);
-+extern unsigned int arch_get_system_nr_ranges(void);
-+extern int arch_crash_populate_cmem(struct crash_mem *cmem);
-+extern int arch_crash_exclude_ranges(struct crash_mem *cmem);
- 
- #else /* !CONFIG_CRASH_DUMP*/
- struct pt_regs;
-diff --git a/kernel/crash_core.c b/kernel/crash_core.c
-index 4f21fc3b108b..e84f3b63e79d 100644
---- a/kernel/crash_core.c
-+++ b/kernel/crash_core.c
-@@ -13,6 +13,7 @@
- #include <linux/sizes.h>
- #include <linux/kexec.h>
- #include <linux/memory.h>
-+#include <linux/memory_hotplug.h>
- #include <linux/mm.h>
- #include <linux/cpuhotplug.h>
+diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
+index f319308b06ee..26f140dff348 100644
+--- a/arch/x86/kernel/crash.c
++++ b/arch/x86/kernel/crash.c
+@@ -25,7 +25,6 @@
+ #include <linux/slab.h>
+ #include <linux/vmalloc.h>
  #include <linux/memblock.h>
-@@ -168,9 +169,6 @@ static inline resource_size_t crash_resource_size(const struct resource *res)
- 	return !res->end ? 0 : resource_size(res);
- }
+-#include <linux/memory_hotplug.h>
  
--
--
--
- int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
- 			  void **addr, unsigned long *sz)
- {
-@@ -272,6 +270,97 @@ int crash_prepare_elf64_headers(struct crash_mem *mem, int need_kernel_map,
+ #include <asm/bootparam.h>
+ #include <asm/processor.h>
+@@ -154,16 +153,8 @@ static int get_nr_ram_ranges_callback(struct resource *res, void *arg)
  	return 0;
  }
  
-+static struct crash_mem *alloc_cmem(unsigned int nr_ranges)
-+{
-+	struct crash_mem *cmem;
-+
-+	cmem = kvzalloc_flex(*cmem, ranges, nr_ranges);
-+	if (!cmem)
-+		return NULL;
-+
-+	cmem->max_nr_ranges = nr_ranges;
-+	return cmem;
-+}
-+
-+unsigned int __weak arch_get_system_nr_ranges(void) { return 0; }
-+int __weak arch_crash_populate_cmem(struct crash_mem *cmem) { return -1; }
-+int __weak arch_crash_exclude_ranges(struct crash_mem *cmem) { return 0; }
-+
-+static int crash_exclude_core_ranges(struct crash_mem *cmem)
-+{
-+	int ret, i;
-+
-+	/* Exclude crashkernel region */
-+	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
+-/* Gather all the required information to prepare elf headers for ram regions */
+-static struct crash_mem *fill_up_crash_elf_data(void)
++unsigned int arch_get_system_nr_ranges(void)
+ {
+-	unsigned int nr_ranges = 0;
+-	struct crash_mem *cmem;
+-
+-	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+-	if (!nr_ranges)
+-		return NULL;
+-
+ 	/*
+ 	 * Exclusion of crash region, crashk_low_res and/or crashk_cma_ranges
+ 	 * may cause range splits. So add extra slots here.
+@@ -178,49 +169,16 @@ static struct crash_mem *fill_up_crash_elf_data(void)
+ 	 * But in order to lest the low 1M could be changed in the future,
+ 	 * (e.g. [start, 1M]), add a extra slot.
+ 	 */
+-	nr_ranges += 3 + crashk_cma_cnt;
+-	cmem = vzalloc(struct_size(cmem, ranges, nr_ranges));
+-	if (!cmem)
+-		return NULL;
+-
+-	cmem->max_nr_ranges = nr_ranges;
++	unsigned int nr_ranges = 3 + crashk_cma_cnt;
+ 
+-	return cmem;
++	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
++	return nr_ranges;
+ }
+ 
+-/*
+- * Look for any unwanted ranges between mstart, mend and remove them. This
+- * might lead to split and split ranges are put in cmem->ranges[] array
+- */
+-static int elf_header_exclude_ranges(struct crash_mem *cmem)
++int arch_crash_exclude_ranges(struct crash_mem *cmem)
+ {
+-	int ret = 0;
+-	int i;
+-
+ 	/* Exclude the low 1M because it is always reserved */
+-	ret = crash_exclude_mem_range(cmem, 0, SZ_1M - 1);
+-	if (ret)
+-		return ret;
+-
+-	/* Exclude crashkernel region */
+-	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
+-	if (ret)
+-		return ret;
+-
+-	if (crashk_low_res.end)
+-		ret = crash_exclude_mem_range(cmem, crashk_low_res.start,
+-					      crashk_low_res.end);
+-	if (ret)
+-		return ret;
+-
+-	for (i = 0; i < crashk_cma_cnt; ++i) {
+-		ret = crash_exclude_mem_range(cmem, crashk_cma_ranges[i].start,
+-					      crashk_cma_ranges[i].end);
+-		if (ret)
+-			return ret;
+-	}
+-
+-	return 0;
++	return crash_exclude_mem_range(cmem, 0, SZ_1M - 1);
+ }
+ 
+ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+@@ -237,35 +195,9 @@ static int prepare_elf64_ram_headers_callback(struct resource *res, void *arg)
+ 	return 0;
+ }
+ 
+-/* Prepare elf headers. Return addr and size */
+-static int prepare_elf_headers(void **addr, unsigned long *sz,
+-			       unsigned long *nr_mem_ranges)
++int arch_crash_populate_cmem(struct crash_mem *cmem)
+ {
+-	struct crash_mem *cmem;
+-	int ret;
+-
+-	cmem = fill_up_crash_elf_data();
+-	if (!cmem)
+-		return -ENOMEM;
+-
+-	ret = walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+-	if (ret)
+-		goto out;
+-
+-	/* Exclude unwanted mem ranges */
+-	ret = elf_header_exclude_ranges(cmem);
+-	if (ret)
+-		goto out;
+-
+-	/* Return the computed number of memory ranges, for hotplug usage */
+-	*nr_mem_ranges = cmem->nr_ranges;
+-
+-	/* By default prepare 64bit headers */
+-	ret = crash_prepare_elf64_headers(cmem, IS_ENABLED(CONFIG_X86_64), addr, sz);
+-
+-out:
+-	vfree(cmem);
+-	return ret;
++	return walk_system_ram_res(0, -1, cmem, prepare_elf64_ram_headers_callback);
+ }
+ #endif
+ 
+@@ -423,14 +355,11 @@ int crash_load_segments(struct kimage *image)
+ 				  .buf_max = ULONG_MAX, .top_down = false };
+ 
+ 	/* Prepare elf headers and add a segment */
+-	get_online_mems();
+-	ret = prepare_elf_headers(&kbuf.buffer, &kbuf.bufsz, &pnum);
+-	if (ret) {
+-		put_online_mems();
++	ret = crash_prepare_headers_locked(IS_ENABLED(CONFIG_X86_64), &kbuf.buffer,
++					   &kbuf.bufsz, &pnum);
 +	if (ret)
-+		return ret;
-+
-+	if (crashk_low_res.end) {
-+		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	for (i = 0; i < crashk_cma_cnt; ++i) {
-+		ret = crash_exclude_mem_range(cmem, crashk_cma_ranges[i].start,
-+					      crashk_cma_ranges[i].end);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+int crash_prepare_headers(int need_kernel_map, void **addr, unsigned long *sz,
-+			  unsigned long *nr_mem_ranges)
-+{
-+	unsigned int max_nr_ranges;
-+	struct crash_mem *cmem;
-+	int ret;
-+
-+	max_nr_ranges = arch_get_system_nr_ranges();
-+	if (!max_nr_ranges)
-+		return -ENOMEM;
-+
-+	cmem = alloc_cmem(max_nr_ranges);
-+	if (!cmem)
-+		return -ENOMEM;
-+
-+	ret = arch_crash_populate_cmem(cmem);
-+	if (ret)
-+		goto out;
-+
-+	ret = crash_exclude_core_ranges(cmem);
-+	if (ret)
-+		goto out;
-+
-+	ret = arch_crash_exclude_ranges(cmem);
-+	if (ret)
-+		goto out;
-+
-+	/* Return the computed number of memory ranges, for hotplug usage */
-+	if (nr_mem_ranges)
-+		*nr_mem_ranges = cmem->nr_ranges;
-+
-+	ret = crash_prepare_elf64_headers(cmem, need_kernel_map, addr, sz);
-+
-+out:
-+	kvfree(cmem);
-+	return ret;
-+}
-+
-+int crash_prepare_headers_locked(int need_kernel_map, void **addr, unsigned long *sz,
-+				 unsigned long *nr_mem_ranges)
-+{
-+	int ret;
-+
-+	get_online_mems();
-+	ret = crash_prepare_headers(need_kernel_map, addr, sz, nr_mem_ranges);
-+	put_online_mems();
-+
-+	return ret;
-+}
-+
- /**
-  * crash_exclude_mem_range - exclude a mem range for existing ranges
-  * @mem: mem->range contains an array of ranges sorted in ascending order
+ 		return ret;
+-	}
+ 
+-	put_online_mems();
+ 	image->elf_headers	= kbuf.buffer;
+ 	image->elf_headers_sz	= kbuf.bufsz;
+ 	kbuf.memsz		= kbuf.bufsz;
+@@ -520,7 +449,6 @@ unsigned int arch_crash_get_elfcorehdr_size(void)
+ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+ {
+ 	void *elfbuf = NULL, *old_elfcorehdr;
+-	unsigned long nr_mem_ranges;
+ 	unsigned long mem, memsz;
+ 	unsigned long elfsz = 0;
+ 
+@@ -538,7 +466,7 @@ void arch_crash_handle_hotplug_event(struct kimage *image, void *arg)
+ 	 * Create the new elfcorehdr reflecting the changes to CPU and/or
+ 	 * memory resources.
+ 	 */
+-	if (prepare_elf_headers(&elfbuf, &elfsz, &nr_mem_ranges)) {
++	if (crash_prepare_headers(IS_ENABLED(CONFIG_X86_64), &elfbuf, &elfsz, NULL)) {
+ 		pr_err("unable to create new elfcorehdr");
+ 		goto out;
+ 	}
 -- 
 2.34.1
 
