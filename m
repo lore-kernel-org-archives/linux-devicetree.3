@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 821FC336EF8
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:29:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EA730569B
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:33:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779708594; cv=none; b=gHAHxH/ZxRQwoRqo0TyU0a4kc09HbraZ2XppNR+uvzZ95ukDukMOoVs+orCh16xMwn21YitmEUPBUiUHE8nToIiH4mPJRA2aTywkfzIhq464dNtDpjZ/fh8tX7410o7lNmqeCqi0iksOU6zkJZJ2V4mGtMOO6TkmpTNnhDpsazs=
+	t=1779708830; cv=none; b=DZgMNDY/QChRc2OgW83ZVAd6y7swTgoq/YaxMcNfL9EpLMyxEQNzBwdFFv5yACUlz/QkUp3PIwheDIDI9bcH9vE+IJbYgF8yrZtj9kjNP5U6fmqg/Un6U6p8TrXqKZAh6/IyyCcP5r7RpoanVhSXKwHKgMAmKafO7N/PUsC3Qts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779708594; c=relaxed/simple;
-	bh=bLdlkhzXpWD4IA9hbOy8NkX6kT/mNKEQ5+knNom0agc=;
+	s=arc-20240116; t=1779708830; c=relaxed/simple;
+	bh=+2rjWY7cBjgTz2QnQYitp+pNSIj6nykEBIeyXCeR1mQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YDz2CVqyuID+UOXUXU6xWEcoSRJm0Z9LrpQ0kL9YyvPq35Om74PV9ZJuI9EO4J6DUcTU7BnMKFTHWAq2H7s5upvhFItmy7Sww6AeDzOw+AzW2HNTYBk7Is2AXNIDdEbb+nWIa9mL4ryFGtDfe0gHdxdprH9zXTqy3xo1k+uGSjk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EGbv3sxE; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=OE1uio0mKWtx2g7I4TIqhh1hbbmi6YvPhiUCcznZw+j0Zz6j08Kr+7YmrequDJhUIKJnU63BnIS7nR2RpPpzx3xkMueeAReEIuxt4+UpVgyNXEEHW8yVswBjn9dxfrhjmWciZm7N7ybPZhwBn2vgZA6BTURC4kKLfwm3mbtrhOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g7nbkpGV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EGbv3sxE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E28A81F000E9;
-	Mon, 25 May 2026 11:29:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g7nbkpGV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C79B21F000E9;
+	Mon, 25 May 2026 11:33:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779708593;
-	bh=koGIWNzaYrld3pAUWQazBQG0Lkq7zM68gYAVbJTBeUs=;
+	s=k20260515; t=1779708829;
+	bh=7bLSAuwIJslZ/7hULYbVkozdRhuGUXqDl5sE5P8Rdm4=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EGbv3sxE/Cxp7Ud85ZePKmORN3h+Tpxowd+NA+bjdsS/xgM/b4WEjeHq3o4WvqXrk
-	 CQE1T38PcDVq4UoncFWOB9+T99bVDZgjCa1OD8wNxMGn/NAPER4X/OuqHd1tAMIKlc
-	 9LFq8LApsjAvgyI9s1bFxx8X0uBBvEtp80BRB4TctuHxjodK/FqLWGu0kqgc/Vz/qF
-	 Fnka1NNLxhMSc9sSWY5asiiK3wquhLlkPaPoM1vKJAGaNTKUgl6ROQovH+MxWHS3K/
-	 SfrUpfHvgsOd/EiIYpqiHPXyB1VR0Sb6AayDFJsVsCR+5KjPUqhhdjmOU27TkCwqZa
-	 KbijPkqDgpDOQ==
+	b=g7nbkpGVIZ6bFm+zNtH0NiAXJJiJpON1WIW6KsaZZNVN+dBwBHZuOuZav8fq+kyBe
+	 6wUf8vloR0eQ9EascLi6y/fV/wiHYE/SAWFjiqMcWuZI2gK+JUfmQZOaC8OK+gB2AR
+	 EL1xcpXtp4pp1A0DRw8At2l2rIfj1GZY0TN18nhMp4XNhIjdpBMGdJ3pHkg5ZhMez6
+	 UtVBUX8zccFsa5sRF2OoPmXfnDNOMEC+aB8Rg0IVwcEClJSMmDYuTTwaiYIIZhG/NU
+	 iokqN2RsC+rnxbeDgum5mZqXKEeqeNhZj9omXVrrBVhKoBlrwnhaK0l02At9yjoAwI
+	 GUZCC6QKQjUxg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 08/18] ASoC: rsnd: Add RZ/G3E DMA address calculation
- support
+Subject: Re: [PATCH v10 11/11] iio: adc: hx711: add support for HX710B
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260525110230.4014435-9-john.madieu.xa@bp.renesas.com>
-References: <20260525110230.4014435-9-john.madieu.xa@bp.renesas.com>
+To: "Piyush Patle" <piyushpatle228@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260525105127.180156-12-piyushpatle228@gmail.com>
+References: <20260525105127.180156-12-piyushpatle228@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:29:52 +0000
-Message-Id: <20260525112952.E28A81F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 11:33:48 +0000
+Message-Id: <20260525113348.C79B21F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,64 +47,67 @@ Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
 
 Pre-existing issues:
-- [High] Potential NULL pointer dereference in rsnd_rzg3e_dma_addr() when e=
-valuating the bus interface (busif) if the SSIU module is absent. This prob=
-lem wasn't introduced by this patch, but was copied from the pre-existing r=
-snd_gen2_dma_addr() function and propagated to the new RZ/G3E platform.
+- [High] Missing iio_device_claim_direct_mode() in hx711_read_raw and hx711=
+_write_raw allows sysfs access to race with triggered buffer scans, causing=
+ data corruption for the HX711 variant.
 --
 
-commit 81338bf6d6c4e6f1f0cb642937dcc5c87e6a300d
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
+commit b65710cec2d2223666cdb19d42f5604d7de0dec1
+Author: Piyush Patle <piyushpatle228@gmail.com>
 
-ASoC: rsnd: Add RZ/G3E DMA address calculation support
+iio: adc: hx711: add support for HX710B
 
-This commit adds RZ/G3E DMA address calculation support to the rsnd
-driver. It implements a dedicated rsnd_rzg3e_dma_addr function to
-handle the different register base addresses and offsets for this SoC.
+This commit adds support for the AVIA HX710B ADC, which shares the HX711
+GPIO interface but uses trailing PD_SCK pulses to select the active mode.
+It models the HX710B with variant-specific channel tables and tracks the
+active channel across conversions.
 
-> diff --git a/sound/soc/renesas/rcar/dma.c b/sound/soc/renesas/rcar/dma.c
-> index 0ce77eee338da..92974610ac153 100644
-> --- a/sound/soc/renesas/rcar/dma.c
-> +++ b/sound/soc/renesas/rcar/dma.c
+> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
+> index 5c326f01c5543..1dac9cc8b63fe 100644
+> --- a/drivers/iio/adc/hx711.c
+> +++ b/drivers/iio/adc/hx711.c
+
 [ ... ]
-> @@ -644,6 +644,85 @@ rsnd_gen2_dma_addr(struct rsnd_dai_stream *io,
-[ ... ]
-> +static dma_addr_t
-> +rsnd_rzg3e_dma_addr(struct rsnd_dai_stream *io,
-> +		    struct rsnd_mod *mod, int is_play, int is_from)
-> +{
-> +	struct rsnd_priv *priv =3D rsnd_io_to_priv(io);
-> +	phys_addr_t ssi_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SSI);
-> +	phys_addr_t src_reg =3D rsnd_gen_get_phy_addr(priv, RSND_BASE_SCU);
-> +	int id    =3D rsnd_mod_id(mod);
-> +	int busif =3D rsnd_mod_id_sub(rsnd_io_to_mod_ssiu(io));
+
+> @@ -322,6 +383,9 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
+>  		if (*val < 0)
+>  			return *val;
+>  		return IIO_VAL_INT;
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*val =3D hx711_data->samp_freq;
+> +		return IIO_VAL_INT;
+>  	case IIO_CHAN_INFO_SCALE:
+>  		*val =3D 0;
+>  		mutex_lock(&hx711_data->lock);
 
 [Severity: High]
-This is a pre-existing issue, but can this lead to a NULL pointer dereferen=
-ce
-if the SSIU module is absent?
+This isn't a bug introduced by this patch, but is it possible for sysfs acc=
+ess
+to race with triggered buffer scans here?
 
-If the device tree configures the SSI module for PIO mode, the SSIU module
-might not be connected to the audio stream, meaning rsnd_io_to_mod_ssiu(io)
-evaluates to NULL.
+It looks like hx711_read_raw() and the corresponding hx711_write_raw() do n=
+ot
+call iio_device_claim_direct_mode(), which allows sysfs reads and writes to
+execute concurrently with an active triggered buffer session (serialized on=
+ly
+by the internal lock).
 
-If another module in the pipeline, such as SRC, unconditionally requests DMA
-during probe, rsnd_dma_alloc() will determine the DMA path and call
-rsnd_rzg3e_dma_addr().
+For the HX711 variant, changing the channel or gain consumes a hardware sam=
+ple
+and sets the mode for the next conversion without doing a dummy read and wa=
+it.
+If a sysfs read or write intercepts the triggered buffer, it alters the
+trailing-pulse state machine. When the buffer trigger next executes, it wou=
+ld
+receive the data converted under the sysfs operation's mode, potentially
+causing data corruption in the sample sequence stream.
 
-Since rsnd_mod_id_sub() does not check for a NULL mod pointer:
-
-sound/soc/renesas/rcar/core.c:rsnd_mod_id_sub() {
-        if ((mod)->ops->id_sub)
-                return (mod)->ops->id_sub(mod);
-        return 0;
-}
-
-Could evaluating rsnd_mod_id_sub(rsnd_io_to_mod_ssiu(io)) here trigger a ke=
-rnel
-panic on probe with a misconfigured device tree? Should this be handled
-gracefully instead?
+The newly added HX710B variant seems to handle channel switching robustly v=
+ia
+dummy reads and waits, but the HX711 variant appears to remain vulnerable to
+this stream corruption. Does the original code need an update to use
+iio_device_claim_direct_mode() to prevent these races?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
-435-1-john.madieu.xa@bp.renesas.com?part=3D8
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105127.1801=
+56-1-piyushpatle228@gmail.com?part=3D11
