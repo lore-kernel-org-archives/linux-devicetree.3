@@ -1,113 +1,107 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568B71E3DDE;
-	Mon, 25 May 2026 11:37:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0683B37FF44
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:41:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779709044; cv=none; b=T8JupniVCD1SIH4x4+L61uzowUz/DQ46J4lCgqDEU7LTjFNMFD47EXivYU/qynjwpthAwXl8Fle8X8D1EnfqXbPZH4T5Spc75hQCEpLhgsDMMlxjlrsG+MeFJRTvGh4D1Zzf7uGvnBn5eAq+2ytp0nCRpGKUdnVLz4FlmPQOL1g=
+	t=1779709266; cv=none; b=Ymef14bwIeR3c/aMBk1+eNM6YxOFdTufcVVzlHMKoyOGi5c4yYy2TDuTMKVXaYRoTosJV7t5uWAi5qLWARetS05E3HbXBq3k5a2ApWJAc3VM/vsoluEhvq8nbh6uzo7yLKPgrGoTAtlCk1FOhjF4aGFV/xW9nMLyeGPTbNdBbFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779709044; c=relaxed/simple;
-	bh=smbfgPlCYiq0oxIfwbTZ6QHrcnegZjptbxn2JVpzSUo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DVlcDR6eVOB+tMUph9a7+zlzyOmZyrnlOZ20wOqWHDglztWCBAr7F/5idi3xzjZD/bJGfUC3ogkbdLEJpD3pJQcHaTP0trkpMv/7Fs3u4Jl317n6F/dycL/Je1wAu8XaOPaICHpONwEI7ikgo9PJ1VJjGTr4ZPEIR06jL8a1jIE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9sT/QL/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779709266; c=relaxed/simple;
+	bh=9kJghh+kFOC7vPikt520bUNLL0u14h5cPfYz9NaBpRc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fhEfywUHjPffdkyGUx0kqUDWwRJ/S0xEziZaKrB1ix3kOMaSXzYQcUhUHIaoixm8S0B4agnuFRGBZ8l4ly6R3IRI542PKnhn0IiF7U3SnAgxbuKwVaXNOX3HZ1r/Qe0DzxQZMMxitt6Jck+qUA2JVQ9zDCAkwgqHzNWTqSDgfF0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXXLNUMV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9sT/QL/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BBD1F000E9;
-	Mon, 25 May 2026 11:37:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXXLNUMV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 682B21F00A3A;
+	Mon, 25 May 2026 11:41:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779709043;
-	bh=kPbn/f1fuyb07lSfD/0s4GT4WdFio8z3401p2vvqFyE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=W9sT/QL/8R3LJxQuJnqULPdrM1nsn4daH1Hjg/KpYXguHjTqD086qv20sIL6mYl7R
-	 XvOBmsbGn+aUBuuD7YmCOeIBLyz0kPBoaqx8/W3s5VRN8Uno0zD9eWzhOy98TVtqHK
-	 uA5YsM6E1BhscTKFZqCHI7pnI0htTV0tK3UF7zLRCukCjMI3DNJkV8VmQGJ6ffOdN0
-	 iYCyXUqWwY3mrHjVk0kX4Rj4QjgL5c4kWpv5gUyVC+8qN/Ciuck/k/UyX3sdsCSWpw
-	 EdG7Pg1gWabsDFCJzyUMK6eYBu2NWAC8UFjZF4q/8uJvLDBi9zqnwL/M3hikizHgFZ
-	 G0HKwZWWlmGyg==
-Date: Mon, 25 May 2026 14:36:57 +0300
-From: Mike Rapoport <rppt@kernel.org>
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>, corbet@lwn.net,
-	skhan@linuxfoundation.org, catalin.marinas@arm.com, will@kernel.org,
-	kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
-	npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
-	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
-	dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
-	saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, rdunlap@infradead.org, pmladek@suse.com,
-	feng.tang@linux.alibaba.com, dapeng1.mi@linux.intel.com,
-	kees@kernel.org, elver@google.com, kuba@kernel.org,
-	lirongqing@baidu.com, ebiggers@kernel.org, paulmck@kernel.org,
-	thuth@redhat.com, ardb@kernel.org, masahiroy@kernel.org,
-	mark.rutland@arm.com, maz@kernel.org, james.morse@arm.com,
-	leitao@debian.org, sourabhjain@linux.ibm.com, yeoreum.yun@arm.com,
-	coxu@redhat.com, jbohac@suse.cz, ryan.roberts@arm.com,
-	cfsworks@gmail.com, tangyouling@kylinos.cn, ritesh.list@gmail.com,
-	songshuaishuai@tinylab.org, junhui.liu@pigmoral.tech,
-	vishal.moola@gmail.com, kas@kernel.org, debug@rivosinc.com,
-	namcao@linutronix.de, liaoyuanhong@vivo.com,
-	fuqiang.wang@easystack.cn, seanjc@google.com, guoren@kernel.org,
-	chenjiahao16@huawei.com, hbathini@linux.ibm.com, bgwin@google.com,
-	takahiro.akashi@linaro.org, lizhengyu3@huawei.com, x86@kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org
-Subject: Re: [PATCH v14 00/17] arm64/riscv: Add support for crashkernel CMA
- reservation
-Message-ID: <ahQ0WRiMsB011tym@kernel.org>
-References: <20260525084932.934910-1-ruanjinjie@huawei.com>
- <CAAhV-H4NA7vgyxKnK+N_3C6pWBnwXc2URUyLh_h1m-MO=MnsGQ@mail.gmail.com>
+	s=k20260515; t=1779709264;
+	bh=DsbO3vVtHEUahvJgSKSAHoVdSUWotUjxUopEwXWoWpc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QXXLNUMVp5YIXS66WraYn0RgRf0kUObgUsrz7SLJYUkKCs+WahEiojy7PQA1tYcdQ
+	 1BeXuPXl+jnsd7JLFX2EmnP5VbYTc+WOEjgPbVH98LpUImzK4e7ukN/y6NGgpbfjIU
+	 FGv1lSBivOIHa5X3J0gVTjXBNkOm+P5T02rKd+jbTDt8lmSmoY4jS3+qJ8YQ/smilX
+	 T/DF5SPBzaq6IWsZrQKb+eWi6/VUH+QZ2UP208PZas1Cjkbx83r/O80ep6GmpFWpN8
+	 KshlQdFKIWevk382sNTlAttW92aNQ0YKkExWNjeWHvra8zfbbGipv5YCAGdhJzjawJ
+	 QgFJ3o34ah0pw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/8] arm64: dts: renesas: rzv2h: Add audio clock
+ inputs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org
+In-Reply-To: <20260525110603.4018170-4-john.madieu.xa@bp.renesas.com>
+References: <20260525110603.4018170-4-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 11:41:04 +0000
+Message-Id: <20260525114104.682B21F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <CAAhV-H4NA7vgyxKnK+N_3C6pWBnwXc2URUyLh_h1m-MO=MnsGQ@mail.gmail.com>
 
-Hi Huacai,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Newly added fixed-clock nodes use a deprecated naming convention th=
+at will trigger dtbs_check warnings.
+--
 
-On Mon, May 25, 2026 at 06:14:52PM +0800, Huacai Chen wrote:
-> On Mon, May 25, 2026 at 4:50 PM Jinjie Ruan <ruanjinjie@huawei.com> wrote:
-> >
-> > Jinjie Ruan (16):
-> >   riscv: kexec_file: Fix crashk_low_res not exclude bug
-> >   powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
-> >   arm64: kexec: Fix image->elf_headers memory leak during retry loop
-> >   x86/kexec: Fix potential buffer overflow in prepare_elf_headers()
-> >   arm64: kexec_file: Fix potential buffer overflow in
-> >     prepare_elf_headers()
-> >   riscv: kexec_file: Fix potential buffer overflow in
-> >     prepare_elf_headers()
-> >   LoongArch: kexec: Fix potential buffer overflow in
-> >     prepare_elf_headers()
-> >   crash: Add crash_prepare_headers() to exclude crash kernel memory
-> >   arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
-> >   x86/kexec: Use crash_prepare_headers() helper to simplify code
-> >   riscv: kexec_file: Use crash_prepare_headers() helper to simplify code
-> >   LoongArch: kexec: Use crash_prepare_headers() helper to simplify code
-> >   crash: Use crash_exclude_core_ranges() on powerpc
-> >   arm64: kexec: Add support for crashkernel CMA reservation
-> >   riscv: kexec: Add support for crashkernel CMA reservation
-> >   arm64/crash: Add crash hotplug support
-> I have some bikesheedings about the subjects. Can we unify the prefix formats?
-> x86/kexec, arm64: kexec_file, riscv: kexec_file, LoongArch: kexec .....
+commit cf2cd1c875fd06adde5a2a08dd0af97c4fa1ae15
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-It might look weird in the series, but powerpc and x86 use '/' and arm64 and
-riscv use ':' so in the logs in arch/ this would be actually fine.
+arm64: dts: renesas: rzv2h: Add audio clock inputs
 
-With the only exception of arm64/crash that should have been arm64: crash:
- 
-> Huacai
+This commit models optional external audio clock inputs as CPG input clocks
+for RZ/V2H family SoCs, allowing the Audio Clock Generator (ADG) to derive
+internal audio clocks. The clock frequencies are left at zero to be overrid=
+den
+in board DTS files.
 
--- 
-Sincerely yours,
-Mike.
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g047.dtsi
+> index 95a4e30a064d1..eedc5bb933b7b 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> @@ -14,6 +14,20 @@ / {
+>  	#size-cells =3D <2>;
+>  	interrupt-parent =3D <&gic>;
+> =20
+> +	audio_clkb: audio-clkb {
+
+[Severity: Low]
+Will this node name trigger dtbs_check warnings?
+
+According to the fixed-clock device tree bindings, node names should match =
+the
+pattern '^clock-([0-9]+|[a-z0-9-]+)$'. The "audio-clkb" name falls under the
+'any name allowed' fallback, which is explicitly marked as deprecated in the
+schema.
+
+While this matches the style of the pre-existing "audio-clk" node, adding n=
+ew
+nodes with deprecated names might not be desired.
+
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		/* This value must be overridden by the board */
+> +		clock-frequency =3D <0>;
+> +	};
+> +
+> +	audio_clkc: audio-clkc {
+
+[Severity: Low]
+Will this node name also trigger dtbs_check warnings for the same reason?
+
+> +		compatible =3D "fixed-clock";
+> +		#clock-cells =3D <0>;
+> +		/* This value must be overridden by the board */
+> +		clock-frequency =3D <0>;
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110603.4018=
+170-1-john.madieu.xa@bp.renesas.com?part=3D3
