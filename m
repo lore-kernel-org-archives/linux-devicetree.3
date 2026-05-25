@@ -1,151 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB933859DC;
-	Mon, 25 May 2026 14:28:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6AE72D94A0
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:36:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779719327; cv=none; b=TozRAIe73Y94yYwfd5l93XPUcS96HN3s8rfA/V15Zf6V3INZfwas3/5dP3uML1aj6/eYqztTR2+Bmt+add48Ys5IZ4XjPt2amyxmmLRGuM88hymo/O+KRAK1/pGBvk/qxivJWZRxAGt8U6bZO1EOozXQVsf4l8LamSBP1M3pWDs=
+	t=1779719777; cv=none; b=MXwK2h0t8vZxEQ+Ktq82sr6s0HbEbDILBSa24f5RMe046Y8wOKlKiF4hHULPMede9iXx6e7UjA2zprpbEO8G+CQ3cmh6/MFEwApeinXwpb5NNqoNqsZF0g3dAvO+8FHRGin0obsQ4FxEk3sAhWbtXYNAaZbQj7Ch5eLdQoE4WmA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779719327; c=relaxed/simple;
-	bh=6cb6z2BBZRQJ7bnscG0pV7ki/3VvomBAR+MXNL+zNi0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=neECjLS4+NfxqZBQT+GlW+JxgxZdTNcefy+eXJjFAXSC+tvUQfaqopFpGtZxisBPXdM7MK4UeqC/EajxTq76yW5RrL5/AVF9kgk/vWFAMrW4ke6vbc/RWotizMS1TxZRakJOm4PD1xbHgWgZnHb9ROzC/8Ec9ekONMx9whoLjAw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SDMizhPw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779719777; c=relaxed/simple;
+	bh=/V4pmKo5pdZ2AX8UlqZuBuhi0wd0f2X5XL9XKMCBpm0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=A+L1q6oPK26NwRG/YOrO71QLRaoBOrb5FZ8prINE1ODE3O4qMh7g0GEKK/6kTXs8syAiO/6VhAygd4QSeZoHeWLjJ/fcIsFJklKomVW/EQ9FWPVVKKZNqEfRpA+guQ5lrlfoOM/ySbs3GvDmPWaLEXFmX/2s2Ns897oTGyuQ6E4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MaVTf6za; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SDMizhPw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED79D1F000E9;
-	Mon, 25 May 2026 14:28:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MaVTf6za"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AFEC1F000E9;
+	Mon, 25 May 2026 14:36:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779719326;
-	bh=Gc8TIeAOC4qdMwFacD5GmDdKx0GJXpEWvPVgjCfPElw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SDMizhPwX0xZzS0fH+xUwBftFY6sa12bt5uSBmGojFP4irF9V6vpdUvbPEnAWKn/r
-	 9XhKPl2ahdJofwQsrW2L+m4SK6rTYIN2SUYSFr+2I/IlTnMmmh9z6bXnLCf9Sbs8Jo
-	 eC/ksxNRPEoUzXFg1pado0o7Lwdutvw4esnSRt6/aRC50UINhTrHErVuCrqxh7o3kI
-	 //zGPX0gI48jnu+d4HCln3KwbWQ+cSXKBCFQultWv/zUxTP06eEzvul65vGT6Xpdl6
-	 VzhZsZ/c1ySzIvgzNEVkxyCv2VwnXKznBE2d84MzFZK08bXTXKKZkazZgI+L8Y9GfA
-	 izBxEdV9jQZVw==
-Date: Mon, 25 May 2026 09:28:43 -0500
-From: Eric Biggers <ebiggers@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
-Message-ID: <20260525142843.GA2018@quark>
-References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
- <20260514194735.GA1939213@google.com>
- <d4d35e17-84fa-4c95-9bfb-abfd25ea7f4a@oss.qualcomm.com>
- <20260522024912.GC5937@quark>
- <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
+	s=k20260515; t=1779719776;
+	bh=mVORZIMHSjn0rBAziTOy+nvibeC86/ynkPZuMqIwdRU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MaVTf6za8jSvTVKN1DhJjjQkQrGJKPsu1Rbq3ygq/YSSGH8V13tVr3oFkrr6bYTqu
+	 RR8hdZPZqQeEqISd5IXspLvbiNojDgtxXp3ScuEdmD4/RRN5Y1M5z1Uhu0y4S1cKse
+	 F5j/pAz0KHDAohpq8xLuq7Tv0kTBJiIf9kgRK0NM5bfawskcwg7B9fTIMkI89ByvcS
+	 yPx0x0m+tTCvKLszcE5z9tS0MuFx1WawBAQIQiyShCh4aTMz/M1B9bf/hMLnF0x4S8
+	 HQanz4wUEhUVlOyTKJ0KML0kwlvtZZ0t/NiXlQzSRG9Xw/tqQX6Pi90lYfBZgTsscx
+	 XdeZXUGfwKX3g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jisheng Zhang" <jszhang@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525140018.19598-3-jszhang@kernel.org>
+References: <20260525140018.19598-3-jszhang@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 14:36:15 +0000
+Message-Id: <20260525143616.1AFEC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
 
-On Mon, May 25, 2026 at 11:10:10AM +0530, Kuldeep Singh wrote:
-> > It sounds like you don't actually have an answer to my questions, then.
-> > 
-> > Performance tests (e.g.
-> > https://lore.kernel.org/r/20250615031807.GA81869@sol/) have clearly
-> > shown that this driver is an order of magnitude slower than the CPU.
-> > 
-> > This driver has historically been quite harmful.  People were using it
-> > accidentally and encountering very bad performance, as well as bugs such
-> > as crashes and filesystem hangs.  We fixed that by lowering its
-> > cra_priority.  But for the same reason, even when enabled on a platform,
-> > it's not actually used.  Linux would be better without this driver.
-> >
-> 
-> +Bartosz, Gaurav, Neeraj
-> 
-> Hi Eric,
-> 
-> GPCE is relevant in terms of providing hardware security.
-> There are multiple usecases coming up for example to handle DRM/secure
-> buffer usecases to improve overall throughput for secure content.
-> 
-> Regarding performance, it's currently slower compared to arm CE but
-> provides an edge by giving hardware security which is considered more
-> secure.
-> 
-> Btw, there's been performance improvement with new targets and we are
-> expecting to achieve far more better performance with new SoCs family.
-> Pakala:    GPCE - 550MBps, ARMv8 - 8GBps
-> Kaanapali: GPCE - 3GBps,   ARMv8 - 10GBps
-> 
-> Please note, there's almost 5x improvement in kaanapali compared to
-> pakala. Though overall is still slower compared to arm but as mentioned,
-> expecting better performance with hardware improvements as we progress.
-> 
-> Also, currently qce driver exhibit stability issues and that's what we
-> are putting effort in stabilizing the software on immediate basis.
-> 
-> There's parallel effort ongoing by Bartosz to introduce baseline for
-> secure buffer usecases.
-> https://lore.kernel.org/lkml/20260522-qcom-qce-cmd-descr-v18-0-99103926bafc@oss.qualcomm.com/
-> There's active development ongoing and i believe lowering cra_priority
-> for qce is fine as of now and can scale values once qce becomes
-> performance efficient.
-> 
-> Please share your thoughts. Thanks!
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Adding a second item to `resets` and `reset-names` without speci=
+fying `minItems: 1` makes the new reset mandatory, breaking validation for =
+device trees that only provide the core reset.
+--
 
-ARMv8 Crypto Extensions are "hardware" as well, just in the CPU.  They
-provide constant-time execution, for example.
+commit 620ece5c39191636270140b0c99ea8ddfa402c6f
+Author: Jisheng Zhang <jszhang@kernel.org>
 
-Granted, they don't protect from power analysis and electromagnetic
-emanation attacks.  Does QCE actually provide those protections, though?
+dt-bindings: i3c: dw: Add apb reset
 
-Either way, it doesn't really matter in this case.  There are multiple
-aspects to security, and before even considering these advanced
-protections, the basics of security need to be absolutely solid.  That
-is, the driver needs to always compute the crypto algorithms correctly,
-and it needs to be completely robust when fuzzed by unprivileged
-userspace (because it can accessed in that way).
+Add dt-binding for support of apb reset which is to reset the APB
+interface.
 
-Yet, this driver "exhibits stability issues", fails the self-tests, and
-doesn't even have exclusive access to the hardware!  These are all
-security bugs.  That very much defeats the claimed point.  (Plus, due to
-the performance issues no one wants to use it in Linux anyway.)
+> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yam=
+l b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> index 613dce7757bc3..2575442b28ff4 100644
+> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> @@ -38,10 +38,12 @@ properties:
+>    resets:
+>      items:
+>        - description: Reset signal
+> +      - description: APB interface reset signal
+> =20
+>    reset-names:
+>      items:
+>        - const: core_rst
+> +      - const: apb_rst
 
-As for "decrypting into secure buffers": if added that would be a new
-feature, separate from the driver's current features.  It's not even
-supported by the crypto API.  So regardless of whether this would be a
-useful feature or not (it's unclear it would be), using it as an
-argument that the current features of the driver are useful is nonsense.
+[Severity: Medium]
+Does adding a second item to resets and reset-names without minItems: 1
+make the new reset mandatory?
 
-As for performance getting higher over time, it's still irrelevant when
-it's still much slower than the CPU, especially in practical conditions.
-Yet, somehow this driver is documented as an "accelerator":
+In dt-schema, when items is defined as a list, the minItems and maxItems
+properties implicitly default to the number of items in the list. By adding
+apb_rst as a second item without specifying minItems: 1, the binding now
+strictly requires exactly two items whenever the resets property is present.
 
-        config CRYPTO_DEV_QCE                                                            
-            tristate "Qualcomm crypto engine accelerator"
+This breaks backward compatibility for existing device trees that supply on=
+ly
+core_rst, causing them to fail make dtbs_check. To fix this schema issue,
+minItems: 1 must be explicitly added to both resets and reset-names.
 
-The CPU is just much a better approach performance-wise.  It has no
-overhead in setting up DMA, waking/notifying the hardware, and context
-switching.  The CPU has a lot of room to improve too, via further
-optimizations to hardware and the ISA, and in some cases software
-optimizations such as interleaving.  We've already seen this play out on
-x86_64, where Vector AES boosted the AES throughput by a further 2-4x
-from its already-super-fast performance.
-
-- Eric
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525140018.1959=
+8-1-jszhang@kernel.org?part=3D2
