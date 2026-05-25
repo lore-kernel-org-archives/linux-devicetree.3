@@ -1,95 +1,79 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9ED3112AD
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:54:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32FF037FF53;
+	Mon, 25 May 2026 12:55:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779713697; cv=none; b=V0OOXvIEgDwagCD1m8FjNrY7E61RJ2KgBn3774somUDqMVVCsoEuUTi5omRWuG7YRoFV87PbdaruoOOO7UNChb3AxTgsJq74DZTA4XQZjXhBWRt1/tamV6pSUeiRvv1jVcRNJN1cPWZA7nhRy1XIhxSlGHsBZV6+FA19kqhoYL4=
+	t=1779713709; cv=none; b=Ei4/WIQuabQxiU3kdF2VIdVkWgm+X4U5jK0eKvxXfEZzAN1m3fBytK5GHnjsOLP4tFLQeqLiZQsJkk8Mm3UeKfI4AspqAkMqk8OGQEbOSWGuUjKntok9WEc6V+i+Udi6/HbwmgFuSqTAx8enxFwx2KmMl+G1mdblTy3dIuD40T8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779713697; c=relaxed/simple;
-	bh=vsR4UbnCI9AGZDnX38TlL40KFTg9AVrmRGfDTPvz2/w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YilYVCFWF8vk7RbLLkJ2cs6WqSqQ6x89T0CHQ5xDyUxnMFvYeRxlmVeXN0LtB6lwSq25uDZA9d0atsFCSIJWQeYmsjyXbfsFejTXxflOYPHKjdjtfgh/O2ufdbE4h8/7tCAwosj/NlFtp2AHNgJjUq450wYq5SkL8Xuj8jv3jFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJVgJwfi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779713709; c=relaxed/simple;
+	bh=Dobp+8XPRNGUvZqXv7EUCJ4nA2PN4VPudIxcDeZbQb4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=Y0flmIUJbFboIk3rMHqy7dLhoFz/rVkKP/hPJfXJU6LIRMta6OiBPIGrTIVTFxjMuOJujpSsD0k26o1q/wgEnZVui/Be2rB0iju9cDp80vFyPZSlwIhe/qL9w1HKQeNQBgh1JnxLiw4SU0eNP5jOTiilVIJX7qT8HgLpcx7uKG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=goLKnkLg; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJVgJwfi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF31A1F000E9;
-	Mon, 25 May 2026 12:54:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779713695;
-	bh=pZHyJhIzowN9JQ+wjodL1pcq9SPVb2WzACuS54STROE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lJVgJwfiIwgLJqHhamveNjHmHXTpTcPRhsbCVlHQItSWTurocr/Om7xVQmmE/LATz
-	 tXa4l5ZDGNfCFpjidCmT0k8GDH/teYolSX/Hm9JMQT61/3Ly/uG9Dq4fcQIQ+ISbt6
-	 ZW+ijsTny2A4aCOlFw+kptS6nzupjN/Ar4t3lvh+F0BOn0f5wQcDAVYq4w1DGro2UT
-	 6HXiefyA3GnQaVmDBxiaXxUZL7jR5wtOpIVQqui1y8hF2IuNeTiL57cF4foDP6COFu
-	 ik8vTFJll+VRjjMjyune7yzjz7tKssZP7XWlvb3kDI+a3JKgehfVvsuDRlMTQqNJ4+
-	 TT2X/a9fealtw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/5] dt-bindings: thermal: Add Google GS101 TMU
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tudor Ambarus" <tudor.ambarus@linaro.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
-References: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 12:54:54 +0000
-Message-Id: <20260525125455.AF31A1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="goLKnkLg"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 64PCsqeP71059474, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1779713693;
+	bh=Dobp+8XPRNGUvZqXv7EUCJ4nA2PN4VPudIxcDeZbQb4=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=goLKnkLgJqbMTkBApizRUnmPxHU1FwJiLYOD0k/fkYrZEJor/knhkhv5vih+Wn7KY
+	 vGW+JdpoO+SDOMAIFJAB5Rv9dL6AsnWjwYBeVi9pg6Eq1zY5x2XgCUNLABhza0H2tc
+	 z30rGKxDQIBUXopjSOmz7V2+T2O6oQGcprjLZe1ZqqhmOAysuUy+uUatTH9TjT/PUM
+	 KBHZBbtPmtHWSbGTHOkRY1NPSBFAJ/4Dr+EJoI46+EVKmxUPxrLSrksSiW6v6mcDvn
+	 9wntm0/DsUUlwIjeVk4xyQQt6Olj2tfSnGMsk5lhBf/uWR0PIhVWhoABwsBemIlqHP
+	 NzS7ermyr9Xtg==
+Received: from RS-EX-MBS1.realsil.com.cn ([172.29.17.101])
+	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 64PCsqeP71059474
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 25 May 2026 20:54:53 +0800
+Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
+ RS-EX-MBS1.realsil.com.cn (172.29.17.101) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Mon, 25 May 2026 20:54:52 +0800
+Received: from RS-EX-MBS2.realsil.com.cn ([fe80::a797:6c5d:dfd:80aa]) by
+ RS-EX-MBS2.realsil.com.cn ([fe80::a797:6c5d:dfd:80aa%9]) with mapi id
+ 15.02.2562.017; Mon, 25 May 2026 20:54:52 +0800
+From: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
+To: Krzysztof Kozlowski <krzk@kernel.org>, "linux-staging@lists.linux.dev"
+	<linux-staging@lists.linux.dev>, "linux-i3c@lists.infradead.org"
+	<linux-i3c@lists.infradead.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>
+CC: "gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
+	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
+	"Frank.Li@nxp.com" <Frank.Li@nxp.com>, "robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org"
+	<conor+dt@kernel.org>, "linusw@kernel.org" <linusw@kernel.org>,
+	"brgl@kernel.org" <brgl@kernel.org>, "linux-gpio@vger.kernel.org"
+	<linux-gpio@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, =?utf-8?B?546L54Kc?=
+	<wei_wang@realsil.com.cn>
+Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggMS8yXSBkdC1iaW5kaW5nczogaTNjOiBhZGQgYmluZGluZyBmb3IgUmVhbHRlayBSVFM0OTB4IEkzQyBIVUI=?=
+Thread-Topic: [PATCH 1/2] dt-bindings: i3c: add binding for Realtek RTS490x
+ I3C HUB
+Thread-Index: AQHc2JrXcMCnLUwHnkiPRbUzP688hrX4ZM2AgCZ0w6A=
+Date: Mon, 25 May 2026 12:54:52 +0000
+Message-ID: <9ce3eeed6ec344b88cc7f488493a78ff@realsil.com.cn>
+References: <20260430121354.6253-1-zain_zhou@realsil.com.cn>
+ <a75d18d5-1637-45ec-ba78-01867089a2af@kernel.org>
+In-Reply-To: <a75d18d5-1637-45ec-ba78-01867089a2af@kernel.org>
+Accept-Language: en-US, zh-CN
+Content-Language: zh-CN
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `samsung,acpm-ipc` property is missing from the `required` l=
-ist despite being functionally mandatory for device operation.
---
-
-commit f4129715b1366153f8c291ba713ab0836fdf5768
-Author: Tudor Ambarus <tudor.ambarus@linaro.org>
-
-dt-bindings: thermal: Add Google GS101 TMU
-
-Document the Thermal Management Unit found on the Google GS101 SoC.
-This hardware uses a hybrid control model where the Application Processor
-delegates high-level functional tasks to the ACPM firmware via IPC.
-
-> diff --git a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-t=
-op.yaml b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.ya=
-ml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
-
-[ ... ]
-
-> +  samsung,acpm-ipc:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: Phandle to the ACPM IPC node.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - interrupts
-> +  - "#thermal-sensor-cells"
-
-[Severity: Medium]
-Since the commit message and binding description indicate that the
-Application Processor relies entirely on the ACPM firmware for all
-functional TMU tasks, shouldn't samsung,acpm-ipc be included in this
-required list?
-
-Without it, incomplete device tree nodes might silently pass schema
-validation.
-
-> +
-> +additionalProperties: false
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-acpm-tmu-v=
-5-0-85fde739752e@linaro.org?part=3D1
+VGhhbmsgeW91IGZvciB0aGUgcmV2aWV3LiBBbGwgaXNzdWVzIGhhdmUgYmVlbiBhZGRyZXNzZWQg
+aW4gdjIuDQoNCkJlc3QgUmVnYXJkc++8jA0KWmFpbiBaaG91IOWRqOWvhQ0KUmVhbHNpbCBNaWNy
+b2VsZWN0cm9uaWNzIENPLiBMVEQuDQpFLW1haWzinIkgOiB6YWluX3pob3VAcmVhbHNpbC5jb20u
+Y24NCg0KDQoNCg==
