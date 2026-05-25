@@ -1,89 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D88C032B107;
-	Mon, 25 May 2026 15:26:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402C53E51D3
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 15:42:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779722775; cv=none; b=PdRxBs2Dcvd/o4p01cIotspNA70ZzMnVUNiOPl2VLuSlyPXXDOctPmhjz6uoa3rE2rGXVcrx08xBa2zSBkSj+T//FCulVasMyyBKC06VnVWZD9Z9tX0I1u1ESfTb126Q487/1wDLSnUDA7xZb5LmDGU00i1cTy/uJ1qZx9dgWsk=
+	t=1779723773; cv=none; b=jI14Pw1GCiqxkNqEjQeysfiVaUqIDcb7PdrN/yD59RRVi8F10S6TuBJoyqYLYxtxLnOghaCkdVIHMdmSuQHX2INsO4icYUa9aRMr1Ds7VhbnWmN/Be5EHRdfVE7fWLqxd/uPs6C7xKbi6uxRFfa8+XtqqO8yV3QQiFbGE1M2zD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779722775; c=relaxed/simple;
-	bh=RfcMM+1Ul1TH6o3SyNkodcSPyLfrfonQGF9fF1wOB2Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NABw89P/QV/by9T0tEgOYW4gyPaZ3nj5Rrm1Jm3PgyLMTmufP2BaYruJZxiEekPU0VsnJ7V5sVEcS0uiWnXMYOISvZxfBmfZQgQ1uooKknXwowZ6LILadN8YNBqiYa7tawPUzBhE9UfkpZR5/J3GPwG6s1vaiCK1k4DfRCFvhjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ETJnT1Pn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779723773; c=relaxed/simple;
+	bh=f3J2rzcZyRu/qX6Yse1MzbUe0xt0sxF9ZDhDiEwzK4I=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Oo1uLSkllP/VbuNBQsNu8rOj9KcJRYwj0F5KB0b/S9N+QQ9HijWL8R6Ko9QH3HR5c/EbnOtoi5IGnTXefqLAoqmraTI8cr0AlvvDW2EwA+bZ6/QapdhfHQbJ14T3jvBPbUGESd3kE+ZCoBQgsolzf++VbCYO8mIufDbNbKoJZKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNi0H8sW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ETJnT1Pn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16C5B1F000E9;
-	Mon, 25 May 2026 15:26:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNi0H8sW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E151F000E9;
+	Mon, 25 May 2026 15:42:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779722774;
-	bh=fMUe6rHhr5mw4H4Gp29XCyqFGgOSultc4Wo1eFJ9vMk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ETJnT1PnKGCa4aTIfPr9o/NcH3g0HfaCkon7m+kBUe0LdVeEOTyu1sdmfXdDTgF1Z
-	 qejbctwH4buPjePVwT5glKjN83ZxQ7Unk3/7KCAEJqutSs+TFKD+shQHG7lP03+aJY
-	 6FqwhMEzXEqS78RMW25/4GItalC4KxH6CRgAF8FCTq3wyy4NIOrgv526M1XaEkPYsG
-	 6F7iW4TsLSCDN8Y8Wy2pxlLVNrjXK+XtnA7Ls7AQ0Yljvqv+fDetJ90OkGVGdOwaKp
-	 CcQm/24Qr4p0RGCuQIQfV70MgVRlfJ/wPyfeo4ZagRKzMkd7Er5DdguX2noWFbkcDO
-	 Sj3Wk5UHZPs6g==
-Date: Mon, 25 May 2026 10:26:11 -0500
-From: Eric Biggers <ebiggers@kernel.org>
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>,
-	Herbert Xu <herbert@gondor.apana.org.au>,
-	"David S. Miller" <davem@davemloft.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-	Andy Gross <agross@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, dmaengine@vger.kernel.org,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
-Message-ID: <20260525152611.GD2018@quark>
-References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
- <20260514194735.GA1939213@google.com>
- <d4d35e17-84fa-4c95-9bfb-abfd25ea7f4a@oss.qualcomm.com>
- <20260522024912.GC5937@quark>
- <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
- <20260525142843.GA2018@quark>
+	s=k20260515; t=1779723771;
+	bh=AlXnpMBcnhUL6cv8Y+XMRtFjiQixBjk2LR7IgqYhGIs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=mNi0H8sWTFwQpznBJbP0WAPRfEqjIkdUPGFpLosNr4BoJY7HsuyLEL1wDl/j70KwX
+	 OSEMkXqCmq6KtlaFXAI5LlwPGR25NTsfu97ioXmcRaBYtdEu6pigrBjJEBMesh/u8l
+	 8u2oHmITYp6w3Kv/rAIyNCVXMy+nSilabklnuplUgaPMrZRtHa+ah8hWLp6NlXwjcW
+	 dqXq+akyn8f4J6hv0Bqnc7FIDEGrqo/xRbH8SRouGwm8/a4meP07ZdHZyZFxHY7pWZ
+	 4xOtRRxmfGHIbp35eaA/f361O+0E+qfJamenoeDnqM27pkfYVcryDVn8IjRXXLCHjN
+	 4oeuPJZNJgIPw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/6] gpiolib: of: add quirk for IS31FL319X shutdown
+ line
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jun Yan" <jerrysteve1101@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260525144629.498630-4-jerrysteve1101@gmail.com>
+References: <20260525144629.498630-4-jerrysteve1101@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 15:42:50 +0000
+Message-Id: <20260525154251.A0E151F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260525142843.GA2018@quark>
 
-On Mon, May 25, 2026 at 09:28:43AM -0500, Eric Biggers wrote:
-> ARMv8 Crypto Extensions are "hardware" as well, just in the CPU.  They
-> provide constant-time execution, for example.
-> 
-> Granted, they don't protect from power analysis and electromagnetic
-> emanation attacks.  Does QCE actually provide those protections, though?
-> 
-> Either way, it doesn't really matter in this case.  There are multiple
-> aspects to security, and before even considering these advanced
-> protections, the basics of security need to be absolutely solid.  That
-> is, the driver needs to always compute the crypto algorithms correctly,
-> and it needs to be completely robust when fuzzed by unprivileged
-> userspace (because it can accessed in that way).
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Incomplete backward compatibility quirk for IS31FL319X shutdown =
+GPIO polarity, risking breakage for out-of-tree platforms.
+- [Low] Use of non-ASCII characters (non-breaking hyphens) in source code c=
+omments.
+--
 
-Looks like these protections are not even present either.  From
-https://csrc.nist.gov/CSRC/media/projects/cryptographic-module-validation-program/documents/security-policies/140sp5077.pdf :
+commit 8f0eb876e212314197458aa41b5be24457af3ea3
+Author: Jun Yan <jerrysteve1101@gmail.com>
 
-    > The Qualcomm Crypto Engine Core does not support any non-invasive
-    > security techniques. Therefore, this section is not applicable.
-    [...]
-    > The Qualcomm Crypto Engine Core does not implement security
-    > mechanisms to mitigate other attacks.
+gpiolib: of: add quirk for IS31FL319X shutdown line
 
-- Eric
+This commit adds a fixup to force the consumer active low for legacy
+device trees that incorrectly configure the SDB pin as active-high.
+
+> diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
+> index 2c923d17541f2..f60291dcc90f7 100644
+> --- a/drivers/gpio/gpiolib-of.c
+> +++ b/drivers/gpio/gpiolib-of.c
+[ ... ]
+> @@ -194,6 +194,16 @@ static void of_gpio_try_fixup_polarity(const struct =
+device_node *np,
+>  		{ "himax,hx8357",	"gpios-reset",	false },
+>  		{ "himax,hx8369",	"gpios-reset",	false },
+>  #endif
+> +#if IS_ENABLED(CONFIG_LEDS_IS31FL319X)
+> +		/*
+> +		 * According to the IS31FL319x datasheet, the SDB pin is active=E2=80=
+=91low.
+> +		 * However, existing device tree incorrectly configure it
+> +		 * as active=E2=80=91high.
+
+[Severity: Low]
+This isn't a bug, but are there non-ASCII non-breaking hyphens (U+2011) used
+here instead of standard ASCII hyphens?
+
+Using standard ASCII hyphens (U+002D) for "active-low" and "active-high"
+helps ensure the terms can be found using standard text search tools like
+git grep.
+
+> +		 */
+> +		{ "issi,is31fl3199",	"shutdown-gpios",	false },
+> +		{ "si-en,sn3190",	"shutdown-gpios",	false },
+> +		{ "si-en,sn3193",	"shutdown-gpios",	false },
+
+[Severity: Medium]
+Will this omission break out-of-tree platforms using legacy device trees wi=
+th
+the other compatible strings for this driver?
+
+The driver supports several other compatible strings (such as "issi,is31fl3=
+190",
+"issi,is31fl3196", "si-en,sn3196") which are not listed here.
+
+If a legacy device tree uses one of the omitted compatibles, this quirk wil=
+l be
+bypassed. Because the updated driver now requests the GPIO with GPIOD_OUT_L=
+OW,
+a legacy device tree specifying GPIO_ACTIVE_HIGH would map to a physical LOW
+signal, which would permanently hold the chip in shutdown.
+
+Could we list all the compatible strings for this hardware family to ensure
+ABI compatibility isn't broken for other legacy users?
+
+> +#endif
+>  #if IS_ENABLED(CONFIG_MTD_NAND_JZ4780)
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525144629.4986=
+30-1-jerrysteve1101@gmail.com?part=3D3
