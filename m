@@ -1,105 +1,152 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB7137E2EB;
-	Mon, 25 May 2026 11:13:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC5137F734
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779707630; cv=none; b=n4sEyrmEaXpzL0qu/FRFIzOn76LLlx5r8D7iuUBRUzGoxgdk4491G3/4BagoPiZRVNgsU7302vWsvwJxpSsXmBaN6iS7JCvIeNkhGAlBIigH5ytiv8Eav2So+qJaNQEmfO2WhAh+AQoyljc3ODcQo1cWfGm1ZskKJwbUEwrkTWM=
+	t=1779707635; cv=none; b=QvurNbO8OL+sCNYxSXIRS7pm36DegMXML89gsRcCK6bC7y6C+Gw8EEJWNDPkkBNYnaEINx4Z/UQqYvG+q/hlpRK2l6FvfivVx3JzMUK7rrCyZM2GY2BLq3KuuUsP2p2+7+Eap9FtzqfaPMtbZnI+o6HNZ0MHgMz+yM01malfQIg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779707630; c=relaxed/simple;
-	bh=LvUqYJqeZE+/zNF2jioA/WkRcXM5DHcyfhDCLnDwtaU=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=nIw771Tvb66TXcpQsIoOii1tdKKatYp3zjew1sP9Iozs0cco6rMixMG1j4XDcvyGN8As0aLFM1rCwgf5zB8ajEULz4AHBuRU0FqSNVtoBF+ldfc80VS6qQaActu7uNZnNpQiX3mQ2ep4fMG2MXGV/KW35TnMokaV/c+MYS/irDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DOzzvhQS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779707635; c=relaxed/simple;
+	bh=FSL4P7O0X1xNtnH7ooNyT/DRDEXy9s/ZlSMFqEbPEDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gE5T4P72jtGxGC/AJ8Em/27YP7bxwuqyJu6odAYc6JO87WoGCwdFPDpmvgXZ+Vq4u+F7g6rQK/2RsJzD6zzRTShnwlOjgsVqR0zOwT6KoWRjVxTtraiunJOfYOcUlrCgA4QevtZtxg1rmN0hXuIN/EziuV8+7BIZMEiKtp993vI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=i5Gfb5//; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IB2Xj8pg; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DOzzvhQS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFB331F00A3A;
-	Mon, 25 May 2026 11:13:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779707628;
-	bh=gzBDFr43Boq9Lj7lrwvex2le7up+8Wg9eGEwYQ+PjtU=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=DOzzvhQSiS34iWE7nXECeeQpcxWWsGg/C9aX/BghWrz+rvSMthodByxXcIe2gTPn1
-	 frRj9aAbz9cFPG+jTgToU6avpbHx5CJrJf2YC6R4DMwn28O+lXO3eAucd2tyFiPTae
-	 zMAQZxXfUzM1gt4rvwfBKhgk5zcbHC9vxFX/eL3Kx0MSplvx+mOvzndibbwCnWYr8m
-	 81deYGQtF89WAPPHMTAzCz2VrFYfom70TOUbauHvXMQR4Kjq2uXrt4Zid/Cat4knP/
-	 /NTqdujID3PpecLSePgSx/DyFTN66aS601brDxoDcIYE0JaGgrv8e7wU0rC3WeEBAh
-	 Bnix/jWsap93w==
-Date: Mon, 25 May 2026 06:13:47 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="i5Gfb5//";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IB2Xj8pg"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P7QNO73063423
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:13:53 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=1c/8HKj+BHzZE5YaarXghzDZ
+	Q9RCYcyLQSuiliCSSg8=; b=i5Gfb5//OFq2kUm54IF3leCGsAoRElFaOmqzTqHE
+	4LdtnZmd/ImQSr30gS/SNbn+Dp/cUywi/+Mf7K1rMAcXzU1A7HLlx5cIpHhLn9pC
+	JxGVl5a5sMslXTuiuyjFswNF1MZkMPGekUGZ+1QV+e1CtTprcBICJyMDHB29wlFV
+	ZJUyLUt6oS1tVc6U5N7svrc/Aly3z8dgck8ZM7OR4t98HW9rAWStQsJrBGby+qog
+	XimCGYGLkeFSXEg/Tk5FoqKe2If2mthXyPGkHsDv2DULtWBp1YThMgS3n3DijFHU
+	Uyrhsq6iuadSl0OqK4daKp4OPCxaFv2BvA/dRaq7Er6cFA==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecj1ggukr-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:13:52 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-516e0846095so40718601cf.0
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 04:13:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779707632; x=1780312432; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=1c/8HKj+BHzZE5YaarXghzDZQ9RCYcyLQSuiliCSSg8=;
+        b=IB2Xj8pgYT2kWJYtAg9x9PfdUcQC0MiUOU9FrVT3nflY5KH5sLdyP3A3NXZKVZKQBj
+         PmHK5NSBnYsM4Hr34YnfjoiI6ENlLfMN0tQMGDL1DZXOB9TJ0qUvMy+5TjVorg6smd1n
+         LiYn1V4Wr1ERsw/vQhyAByiXcasNfitt3K6OelObHwAkezHlfzvBJF466HlIFa1O8PbS
+         UH1BK6+N3ig+8GGx4BFBrJHLZ9UPDC6Mdzp4vzqMUG78Y7UhtQ5g5y4NriccwPAi9+CT
+         GlZzAqpztRZ6kuofDvw7U41KVqvE0ZqlyJMBwdabbf322iDQ1x0y5ISF4cG+DRTTEZcV
+         X8/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779707632; x=1780312432;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=1c/8HKj+BHzZE5YaarXghzDZQ9RCYcyLQSuiliCSSg8=;
+        b=DcW9WIOf4UWWxYfn/XiaMs/pAhgP7NRn4G6RvwxDC339qm/0wr47aT/8H9y5NQad42
+         jsB4VHnGpa8gBSMNhCrJDdgUC0Qq0ZhmcmMb2+uKHCaNfrUwux+XvWFhwqfonMKNUnmW
+         dVYFav1yMizZPSxU40B9MfYm0l0vnc3ll3S00/TuAX68jLtFRVbQu6KXz5TtbI3fjJAm
+         24q0EV3xel7m4xmObDrr5KRPMjOWe9Ylp7a3r0eTapcyp8/FTdol2yYNIx7u44sSeBOJ
+         7LTiQWsKHI7jPXY2/z3c9QZu6QdkvaOoseTE6r4qlyapM92g8S+UC8QPBRPwQj5TfyqW
+         DiUA==
+X-Forwarded-Encrypted: i=1; AFNElJ8vB4N02hk4fYQJQzFzeTSOMXgsmU3YPfvS55BiL6swQLlSt4oL5qWPWAvUzfNdiXIqUYP1BWdQEouE@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6VuX1ZdORglnHBo+9fy5khzuDVXmFBnW0C8xxkDEpm82ncy52
+	zUUaKR8hiKkUrysLrMmRZWtR87XFg+QOidPaUvi+Bqs1hKO0goJFgw8PZJmXJPvZjphuxEvS0Nh
+	Pkj1viFiEuSkpVtHDyPBQQlxBMxx+Nlr7AqPVAk6oF3TEoYcD1zPQ3YQ+ep8z5t/+
+X-Gm-Gg: Acq92OE/mm+BdVaMW1Se/SmKbxQI5qBjmi9fSmWwlvGeSwgfZJmFdyXlKIj7sTdc9WF
+	eJ4SyQj1zbEylEJ9FzoBTS/vxr5Fr5YgpHhx9jGjQaZDaQ72yY+snAAP/FIS9RJ4VBkfUP+EtP7
+	TFHy/Cag7P1N2pUuUTtQzOrhv99KVdOi4tHwFcXdIcdkYkydRzQv8tSZ2k8m8qZfdGGQlCc3oKD
+	aZUu7JVgW7yoegCA6HYO6WdOsgacN7wCP0PbIRCBRSbckFrS9hc/CBi26qP93/517WtA7afH458
+	pIOC/S9cK9ZYBLLTONW2AA9SYHX1sQa+gG0oKyKWzEr0v79c9h7O2TatucXtH/qDV4RiHgglRot
+	RWvxPjzLeYdInK/k6291SUmiZOj0clecebL285EaC4su0SrlvETOWOcanl69sbm9qABM1ZmRja0
+	dglPJj+l3Bkb/oWBZV31A39kBVPdqzJj9tyw8=
+X-Received: by 2002:a05:622a:2513:b0:516:d4b1:48cd with SMTP id d75a77b69052e-516d4b14c3amr180285691cf.2.1779707632294;
+        Mon, 25 May 2026 04:13:52 -0700 (PDT)
+X-Received: by 2002:a05:622a:2513:b0:516:d4b1:48cd with SMTP id d75a77b69052e-516d4b14c3amr180285331cf.2.1779707631854;
+        Mon, 25 May 2026 04:13:51 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395dca7853esm22973391fa.14.2026.05.25.04.13.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 May 2026 04:13:50 -0700 (PDT)
+Date: Mon, 25 May 2026 14:13:48 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Taniya Das <taniya.das@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+        Alexandre Torgue <alexandre.torgue@foss.st.com>,
+        Luca Weiss <luca.weiss@fairphone.com>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-stm32@st-md-mailman.stormreply.com,
+        linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v5 7/7] arm64: dts: qcom: eliza: Add support for MM clock
+ controllers
+Message-ID: <u42lv62h7ps35zwqzxxmk727rmnd4ql4zmhb65q4bkjfwhi4f2@ihis7lc7zm62>
+References: <20260525-eliza_mm_cc_v2-v5-0-a1d125619a5a@oss.qualcomm.com>
+ <20260525-eliza_mm_cc_v2-v5-7-a1d125619a5a@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: mripard@kernel.org, luca.ceresoli@bootlin.com, tzimmermann@suse.de, 
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
- krzk+dt@kernel.org, dmitry.baryshkov@oss.qualcomm.com, conor+dt@kernel.org, 
- cristian.ciocaltea@collabora.com, Laurent.pinchart@ideasonboard.com, 
- rfoss@kernel.org, sebastian.reichel@collabora.com, 
- linux-rockchip@lists.infradead.org, dri-devel@lists.freedesktop.org, 
- andy.yan@rock-chips.com, andrzej.hajda@intel.com, jernej.skrabec@gmail.com, 
- simona@ffwll.ch, devicetree@vger.kernel.org, 
- nicolas.frattaroli@collabora.com, m.szyprowski@samsung.com, 
- Conor Dooley <conor.dooley@microchip.com>, hjc@rock-chips.com, 
- airlied@gmail.com, maarten.lankhorst@linux.intel.com, jonas@kwiboo.se, 
- dianders@chromium.org, heiko@sntech.de, neil.armstrong@linaro.org
-To: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260525082033.117569-7-damon.ding@rock-chips.com>
-References: <20260525082033.117569-1-damon.ding@rock-chips.com>
- <20260525082033.117569-7-damon.ding@rock-chips.com>
-Message-Id: <177970762670.3598384.1698792096821270137.robh@kernel.org>
-Subject: Re: [PATCH v7 06/10] dt-bindings: display: rockchip: analogix-dp:
- Add support for RK3576
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525-eliza_mm_cc_v2-v5-7-a1d125619a5a@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: e2laDvphBnXS-TxNv_qVvQzLlarZ5gMI
+X-Proofpoint-GUID: e2laDvphBnXS-TxNv_qVvQzLlarZ5gMI
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDExNSBTYWx0ZWRfX9tCBk5Bi26IY
+ We8u/PFjRXpwUc8DfWH6/DPVkxBlRjpFU5z2fOxx/SX2ITSazJhWCfSOvlSutdbbbE76MvxVxeF
+ mGCHOXFVe2ZG4Rg95//OkzoIe6ZJ2mVsAA0YvAKpNReqr0RL/zekxwf2WHprTFBwo3Ak/iXUWJF
+ uX6/WYBktJy7GmYZqJcxi5h8RrESuZhATMG+KJZQFDXh2G8VYSsn8bJ2RZzJRlaUuuslQOFrDfI
+ e+3oacBkS14Qb/DZFr1spGO8OJ5t6gtGgqvVMP2CMFbdB4MtGqSissMLdVoMrefdaRKh00hPffp
+ wPof9CzXXbEDuCNdHs/G0RdVweaKF1nVMybcSyhwSjenL4spoqqE5jEb9tJ8j4YXwI7pYAbkozJ
+ F5gytoOhHRu2b/XumwE57871U1dYFa2rAG9kJo6eqxsA/ftDjQgoGW62nw98Hi3py9MwMjexnaQ
+ lT6jdGVgRY6aSIMKDnQ==
+X-Authority-Analysis: v=2.4 cv=D8F37PRj c=1 sm=1 tr=0 ts=6a142ef0 cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=h40nfcmH4B8cT1TSTS0A:9 a=CjuIK1q_8ugA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
+ definitions=2026-05-25_03,2026-05-18_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 malwarescore=0 priorityscore=1501 spamscore=0
+ adultscore=0 bulkscore=0 lowpriorityscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605250115
 
-
-On Mon, 25 May 2026 16:20:29 +0800, Damon Ding wrote:
-> RK3576 integrates an eDP TX controller compatible with the existing
-> RK3588 hardware design, reuse the same binding configuration directly.
+On Mon, May 25, 2026 at 04:16:09PM +0530, Taniya Das wrote:
+> Add the device nodes for the multimedia clock controllers (cambistmclkcc,
+> camcc, videocc, gpucc) for Qualcomm Eliza SoC.
 > 
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
-> 
+> Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
 > ---
-> 
-> Changes in v2:
-> - Split out a separate patch to add the "hclk" clock reference.
-> 
-> Chanegs in v4:
-> - Modify the commit msg.
-> 
-> Changes in v5:
-> - Add Acked-by tag.
-> ---
->  .../bindings/display/rockchip/rockchip,analogix-dp.yaml         | 2 ++
->  1 file changed, 2 insertions(+)
+>  arch/arm64/boot/dts/qcom/eliza.dtsi | 61 +++++++++++++++++++++++++++++++++++++
+>  1 file changed, 61 insertions(+)
 > 
 
-My bot found errors running 'make dt_binding_check' on your patch:
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-yamllint warnings/errors:
-./Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml:34:9: [warning] wrong indentation: expected 10 but found 8 (indentation)
 
-dtschema/dtc warnings/errors:
-
-doc reference errors (make refcheckdocs):
-
-See https://patchwork.kernel.org/project/devicetree/patch/20260525082033.117569-7-damon.ding@rock-chips.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+-- 
+With best wishes
+Dmitry
