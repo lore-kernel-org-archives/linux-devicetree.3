@@ -1,183 +1,95 @@
-Received: from mail-m10204.netease.com (mail-m10204.netease.com [154.81.10.204])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25D6734DCF3;
-	Mon, 25 May 2026 12:53:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=154.81.10.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9ED3112AD
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:54:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779713642; cv=none; b=mB4dF8eqSR+5aMhAE9XKSMjTCGy5btSpOauNEyKIPvDYIbfPbanWZOyKnn5kotcZ7Ei4vUD6hZ9sKxaYruWvMCGgYcQNV36S5eZw6KATgZ0r4pXCuwLFX/QfveIP0mClE3NRDM/JFx/SefPDfdpdJEhAKHh3YPFfmiWnRzqsO6Q=
+	t=1779713697; cv=none; b=V0OOXvIEgDwagCD1m8FjNrY7E61RJ2KgBn3774somUDqMVVCsoEuUTi5omRWuG7YRoFV87PbdaruoOOO7UNChb3AxTgsJq74DZTA4XQZjXhBWRt1/tamV6pSUeiRvv1jVcRNJN1cPWZA7nhRy1XIhxSlGHsBZV6+FA19kqhoYL4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779713642; c=relaxed/simple;
-	bh=n+B9NNa1WX6Qh7WmhZgwpfjKUn4AiU1UBkcMAAsCrjI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=bT6Bc9qhdeqTcrTFX8lSgiR7z/STBGgmhSfpI4hI3YZ0ZpuqewFgnU4oylmOPuQ3vULt14A5hKKqgRJJz2YsKaULa+G8DK8C9Fy64ad+VypLGI+t7exaA7ZX03xRbjyy5112i5k+Gv1gjIkB0JTAOUbWWidffOQGqabOoKW8vUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=JBRvdXu4; arc=none smtp.client-ip=154.81.10.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1779713697; c=relaxed/simple;
+	bh=vsR4UbnCI9AGZDnX38TlL40KFTg9AVrmRGfDTPvz2/w=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YilYVCFWF8vk7RbLLkJ2cs6WqSqQ6x89T0CHQ5xDyUxnMFvYeRxlmVeXN0LtB6lwSq25uDZA9d0atsFCSIJWQeYmsjyXbfsFejTXxflOYPHKjdjtfgh/O2ufdbE4h8/7tCAwosj/NlFtp2AHNgJjUq450wYq5SkL8Xuj8jv3jFQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lJVgJwfi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="JBRvdXu4"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3fbb28c36;
-	Mon, 25 May 2026 20:53:53 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock for RK3588
-Date: Mon, 25 May 2026 20:53:22 +0800
-Message-Id: <20260525125331.140059-2-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260525125331.140059-1-damon.ding@rock-chips.com>
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lJVgJwfi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF31A1F000E9;
+	Mon, 25 May 2026 12:54:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779713695;
+	bh=pZHyJhIzowN9JQ+wjodL1pcq9SPVb2WzACuS54STROE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lJVgJwfiIwgLJqHhamveNjHmHXTpTcPRhsbCVlHQItSWTurocr/Om7xVQmmE/LATz
+	 tXa4l5ZDGNfCFpjidCmT0k8GDH/teYolSX/Hm9JMQT61/3Ly/uG9Dq4fcQIQ+ISbt6
+	 ZW+ijsTny2A4aCOlFw+kptS6nzupjN/Ar4t3lvh+F0BOn0f5wQcDAVYq4w1DGro2UT
+	 6HXiefyA3GnQaVmDBxiaXxUZL7jR5wtOpIVQqui1y8hF2IuNeTiL57cF4foDP6COFu
+	 ik8vTFJll+VRjjMjyune7yzjz7tKssZP7XWlvb3kDI+a3JKgehfVvsuDRlMTQqNJ4+
+	 TT2X/a9fealtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 1/5] dt-bindings: thermal: Add Google GS101 TMU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
+References: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 12:54:54 +0000
+Message-Id: <20260525125455.AF31A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e5f32ebfd03a8kunm7b8971f5af5ca8
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZHRofVksYGUxJThofSEMaGFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=JBRvdXu4VBOWculfMGW1p12ir8mK0NGPCY3lAiRBunQ8wTSFxCdZI92DF1JhzBulSvKY6Trp1yB2ffkKc2NFojVR63jCWVtXTysash1rJKf7qc68r0nuz+b9VdhsVk0Ux9mVkMJRQWXFQ5zBxJI46i7ev2S30A2T+3EyObCuKFU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=B1Pgm5fgAIBBrBIfq8w1AC4ZF6Yr44L+xq3CWoFD+VQ=;
-	h=date:mime-version:subject:message-id:from;
 
-RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
-registers and enable the video datapath.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `samsung,acpm-ipc` property is missing from the `required` l=
+ist despite being functionally mandatory for device operation.
+--
 
-Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
-phandle reference, which allowed the eDP to work without explicitly
-managing the hclk_vo1 clock. However, this is not safe or explicit.
+commit f4129715b1366153f8c291ba713ab0836fdf5768
+Author: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-To make the clock dependency explicit, enforce per-SoC clock-names
-requirements:
- - RK3288: 2 clocks (dp, pclk)
- - RK3399: 3 clocks (dp, pclk, grf)
- - RK3588: 3 clocks (dp, pclk, hclk)
+dt-bindings: thermal: Add Google GS101 TMU
 
-Do not reuse the 'grf' clock name for RK3588 because it represents
-a different clock with distinct control logic:
-- The 'grf' clock is only for GRF register access and is toggled
-  dynamically during register access.
-- The 'hclk' clock controls both GRF access and video datapath
-  gating, and must remain enabled during probe.
+Document the Thermal Management Unit found on the Google GS101 SoC.
+This hardware uses a hybrid control model where the Application Processor
+delegates high-level functional tasks to the ACPM firmware via IPC.
 
-Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+> diff --git a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-t=
+op.yaml b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.ya=
+ml
+> new file mode 100644
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
 
----
+[ ... ]
 
-Changes in v4:
-- Modify the commit msg.
+> +  samsung,acpm-ipc:
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +    description: Phandle to the ACPM IPC node.
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +  - clocks
+> +  - interrupts
+> +  - "#thermal-sensor-cells"
 
-Changes in v5:
-- Enforce the correct third clock name on a per-compatible basis.
-- Modify the commit msg simultaneously.
+[Severity: Medium]
+Since the commit message and binding description indicate that the
+Application Processor relies entirely on the ACPM firmware for all
+functional TMU tasks, shouldn't samsung,acpm-ipc be included in this
+required list?
 
-Changes in v6:
-- Expand more detail commit msg about using hclk instead of grf clock.
+Without it, incomplete device tree nodes might silently pass schema
+validation.
 
-Changes in v7:
-- List all valid clock names at the top level, and constrain the clock
-  count for each platform with minItems/maxItems in allOf.
+> +
+> +additionalProperties: false
 
-Changes in v8:
-- Fix indentation to 10 for enum in clock-names property.
----
- .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
- 1 file changed, 33 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index d99b23b88cc5..a1ab7a77bdd3 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -26,7 +26,9 @@ properties:
-     items:
-       - const: dp
-       - const: pclk
--      - const: grf
-+      - enum:
-+          - grf
-+          - hclk
- 
-   power-domains:
-     maxItems: 1
-@@ -60,6 +62,32 @@ required:
- allOf:
-   - $ref: /schemas/display/bridge/analogix,dp.yaml#
- 
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - rockchip,rk3288-dp
-+    then:
-+      properties:
-+        clocks:
-+          maxItems: 2
-+        clock-names:
-+          maxItems: 2
-+
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            enum:
-+              - rockchip,rk3399-edp
-+    then:
-+      properties:
-+        clocks:
-+          minItems: 3
-+        clock-names:
-+          minItems: 3
-+
-   - if:
-       properties:
-         compatible:
-@@ -68,6 +96,10 @@ allOf:
-               - rockchip,rk3588-edp
-     then:
-       properties:
-+        clocks:
-+          minItems: 3
-+        clock-names:
-+          minItems: 3
-         resets:
-           minItems: 2
-         reset-names:
--- 
-2.34.1
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-acpm-tmu-v=
+5-0-85fde739752e@linaro.org?part=3D1
