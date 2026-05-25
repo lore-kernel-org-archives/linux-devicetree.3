@@ -1,99 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302B737AA6C
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 19:06:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97D83305684;
+	Mon, 25 May 2026 19:08:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779735978; cv=none; b=cKkOBbjXNGuGuQSsssEDSqVbiwqWO8LacCe8H2X//wG1qy8cnQpQ+1EZBn5cfoGUeR2eXHQqVJLhGv66WsNME7aUxVSobwZOI2Fxjo4fSfRQ+HUZrX1nIcj33NZx7r/SpQFt68+NeBhYtdPFWtFZmLTBUs9wVZTEAgqaho7vJwI=
+	t=1779736135; cv=none; b=YbI/EFsQ0yV9YpmoNO9RwLWKWiB4G9IYUWAXgMgkK7FFN9uMu3bkGtppsjXEmROZGG5sFPrT6Trt/RRhkNw83vVLIgsVvjiKBPmbS2Wj/fRLxwYMMwKhjKcuEIyR4JgLHdzmonnCsFnTqN+jEojW+h3kGoldqsuGmhnFlYzl3Rg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779735978; c=relaxed/simple;
-	bh=d+1knqiu/eegqYy/ZGU+FkxwP7shorm+zQ/fkq4+o3E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M6UrdKJCmoKuNwZTs1oA+NuYW6rJ5Y01Tdlzjws3loOLvyY5VNUp0WJCUCfRXJk/e0B7FR6WbGFIXQJ5rGepkM3OTj681Y5kR7GD0BDjSQb9EFh4y8wbHnaCpcnPIVoEk/6UONcQCD/Yk2Ng35O1HLDsovscNczP3DBo6/lg6Wk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVtq6iXv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779736135; c=relaxed/simple;
+	bh=psWr5Ra3S1+T0qmP+j1ZT22j2o4RvkP48ItcuQ1y11c=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dWuFyL8O9BhQrEWltbLeQTMLZh9ecFmiY8i4mt5K4ElPdB0Pok7iqVqpvqZpemu4XBO7KPQ97EXtlURCa4hBK0KjI+fgzzuXVol9NYR6BV0LlTrSHUxxkqRNq3Cy6QhIaLZZvHe7NbuVxjlMlSNHWIEVClUHYRLiDiWB96nWLSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CPDpUGdU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVtq6iXv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 272A41F000E9;
-	Mon, 25 May 2026 19:06:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CPDpUGdU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40DE1F000E9;
+	Mon, 25 May 2026 19:08:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779735976;
-	bh=uwpdm9kVYdqrwslbrqjTS6ZLO1VWDZ4FpDWSEfH3jD8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MVtq6iXvrN2qLnCrIzHNZuRB16f7yqkyqcW7in/8DXd1Ro6vIvWiLNUkATlkK+ca5
-	 Xw97+qXltM7081zuhX06oye32+lyR2rHo6zBPr+Lw8jpXX4MLUgnlbdSnCBiWNcPGp
-	 0OQY1FFElfIBRerNN/H9QqSO99CVTiK+7VeAe4bIJ1Bl/8UooEMAEizo7H26zIKOLY
-	 q/YGDkZNwYVJFaCgs6XM6c8OluzJCU7b7PFuzrjSvxHgz3scY4UbKI3K/ninnYn5Nc
-	 Fte+pSfUWDP3luH5H/jzlaizZAbXzApeRWJz5auNny0ZsPFkBjpwGs+4r2Teyzu4mM
-	 mIKJpMPYizoSQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 9/9] iio: temperature: ltc2983: Add support for
- ADT7604
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Liviu Stan" <liviu.stan@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525164013.118614-10-liviu.stan@analog.com>
-References: <20260525164013.118614-10-liviu.stan@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 19:06:14 +0000
-Message-Id: <20260525190616.272A41F000E9@smtp.kernel.org>
+	s=k20260515; t=1779736134;
+	bh=JlLnJwu/Ox/kDjl4MFqofOdgURhg0UQ3j5uHccDwMdw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=CPDpUGdUVo1EqJVpz2hEmNSYUdaSvaWO2zvPWStcPpL39GG03nTZcv5xCGI+FC7rw
+	 DzxG63QDQUk5SFBXUiZkUeaf/8zi7oX38mNeMYpWkVzns6X5kMPDEQQP6P4TBRIldQ
+	 In1Df2uTawaeIVy/J5+JVHGyYK2ia+lQtfkwkKIpvnulCPV3wqsBe3Byh0AlFYfvud
+	 cbmkFm7HrUn9CVmXcHm7OOR2hlu2la3tTsitWxo+IaLqBPXdtQZcbuNaenCnBDLI1d
+	 Tl1On7HBVtouGSmsiyUlfeMYTYyPQFgdeaE4JwP4cn/RDsUzEIjyyiOeaMUjUGH0vC
+	 jZIYFf/RtWxZQ==
+Date: Mon, 25 May 2026 12:08:53 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org,
+ devicetree@vger.kernel.org, conor+dt@kernel.org, netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v8 10/10] net: airoha: Support multiple LAN/WAN
+ interfaces for hw MAC address configuration
+Message-ID: <20260525120853.7157bc9a@kernel.org>
+In-Reply-To: <ahFkG32jFRJ7W_cv@lore-desk>
+References: <20260519-airoha-eth-multi-serdes-v8-10-6bd70e329df6@kernel.org>
+	<20260520085934.54AD01F00894@smtp.kernel.org>
+	<ag2t4eVe4DcfU2yZ@lore-desk>
+	<20260522112514.1ad6e947@kicinski-fedora-PF5CM1Y0>
+	<ahCtsVA1VhYmhZq-@lore-desk>
+	<20260522165820.04839729@kernel.org>
+	<ahFkG32jFRJ7W_cv@lore-desk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Sat, 23 May 2026 10:23:55 +0200 Lorenzo Bianconi wrote:
+> > If the MACs are not provided something is obviously wrong with the
+> > device. We should try to provide enough functionality for the user
+> > to be able to troubleshoot. For an AP perhaps that means SSH / remote
+> > logs? So switching/routing doesn't have to work, I'd think. 
+> > 
+> > Will the user be able to log in when REG_FE_LAN_MAC_H does not match
+> > the MAC of a port?  
+> 
+> REG_FE_LAN_MAC_H and REG_FE_WAN_MAC_H regs are used by the FE module to
+> hw accelerate forwarded traffic and does not prevent the user to log into
+> the device even if they are set to a different values with respect to the
+> configured mac addresses (just hw acceleration will not work properly).
+> To prove it, I set to 0 REG_FE_WAN_MAC_H, REG_FE_WAN_MAC_LMIN and
+> REG_FE_WAN_MAC_LMAX and I still able to ping the device via the WAN
+> interface.
+> I guess the easiest solution is to neglect errors from airoha_set_macaddr()
+> in airoha_dev_init() (as it is in the current codebase) in order to allow
+> the device to probe successfully and provide a warning message to the user
+> regarding the mac address misconfiguration. What do you think?
 
-Pre-existing issues:
-- [High] Integer truncation of `num_channels` leads to an out-of-bounds wri=
-te on the heap when parsing device tree children.
---
-
-commit 482bc8c51e04185002511817885173bd265542d8
-Author: Liviu Stan <liviu.stan@analog.com>
-
-iio: temperature: ltc2983: Add support for ADT7604
-
-This commit adds support for the ADT7604 sensor, repurposing custom RTD
-and thermistor sensor types as copper trace and leak detectors. It
-introduces new structs, parser functions, and hardware register mappings
-to handle these new types.
-
-> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/=
-ltc2983.c
-> index 130ab7fddc2fe..fc65d8352d120 100644
-> --- a/drivers/iio/temperature/ltc2983.c
-> +++ b/drivers/iio/temperature/ltc2983.c
-
-[ ... ]
-
-> @@ -1348,7 +1672,7 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
->  	if (!st->sensors)
->  		return -ENOMEM;
-> =20
-> -	st->iio_channels =3D st->num_channels;
-> +	st->iio_channels =3D 0;
-
-[Severity: High]
-This is a pre-existing issue, but does st->num_channels silently truncate
-the number of child nodes since it is defined as a u8?
-
-If a device tree is provided with 256 or more child nodes (e.g., 257
-nodes via DT overlays), device_get_child_node_count() returns 257, but
-st->num_channels truncates this to 1. This causes devm_kcalloc() to
-allocate only a 1-element array for st->sensors.
-
-The device_for_each_child_node_scoped() loop directly following this will
-then iterate over the children and write into st->sensors[chan], resulting
-in out-of-bounds writes on the heap. Could num_channels be changed to an
-unsigned int to prevent this memory corruption?
-
->  	device_for_each_child_node_scoped(dev, child) {
->  		struct ltc2983_sensor sensor;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525164013.1186=
-14-1-liviu.stan@analog.com?part=3D9
+Maybe we should also enter some sort of error mode where bridging and
+forwarding offloads are rejected? Either way, sounds orthogonal enough
+to this series.
