@@ -1,81 +1,138 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973181.qiye.163.com (mail-m1973181.qiye.163.com [220.197.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D48F14E2F2;
-	Mon, 25 May 2026 13:07:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088E23803EF;
+	Mon, 25 May 2026 13:09:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779714482; cv=none; b=A6GAigUp5JUVMpQdQHcru1P4TznL0e/2E24K/4D1OWAasGTwTI2zJhpEv0CHj0fFBDXf0jyxMEnnpDq+24m+ZnVy1NmyasVeylaQTC2DgCcp8xC8UM8/GDdV0J8w/F7gbm7SFoaMmhTG8IAqlJmTIUk5gd3qJRSdXkZzCGxjCBU=
+	t=1779714583; cv=none; b=tTeTtOYP0Ck01fKSRkMEKgkP87TDWhbG/+Tu3ze/lnbRTguLgfbeTgdSuCWwd4PEcUQjnvEqWYy9bLHC7b7dUadNHSud8cbLc316jWEg560kwKT9qDSL5cbBC875zxI2cdgB/l5cmafEkYYjmx57W4GyN9niwhcYs0t/rF0HBAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779714482; c=relaxed/simple;
-	bh=RToh+6gSjpe+Jlt7aGEVqRli78mk+c1io2CsQwG8XyI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=qFwZE00FtF+9Re1aUjgefrYorI2EHKdLJ+kQTi7xiP7Btab0gqxNKVOg/x+8fPD9ucZHnjwqRGaJoienUqZUsYUJhHp9KgaA1q4LHpkXtttfx1CJxy/MkiJg1l6xOXDduINdenOHIDfAckmZVqosRd+fSJmAY302ueD5Y0fELbE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=EBCtgRBv; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
+	s=arc-20240116; t=1779714583; c=relaxed/simple;
+	bh=GFPWi/xaj2KK9JkNv4kgMVIXco4zFkyHwtNhMlrUhGI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=NJLE/VAYFNXn/Drlbov/k9iDpUqqK6IFlzSeOmjhWJ5wTEPHWXrREwmkQiGqPBLdK1qn3NxL7ufiwxAVfxfYafab590iTMnbAKXk5mm16ira4PnESy3zBpAgA/Q4rtFdKiNFEXsbVNSTZbAqsf5GPB5JR9oYQXSLVPfBLzRaB0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=U0/TcoCK; arc=none smtp.client-ip=220.197.31.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="EBCtgRBv"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 64PD7dszE1063728, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
-	s=dkim; t=1779714460;
-	bh=RToh+6gSjpe+Jlt7aGEVqRli78mk+c1io2CsQwG8XyI=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=EBCtgRBvKk5TY2TjH8mGuly/JI6u4PJmCNjdRb5qkuvdxDeRinR2ufy22WNou16XM
-	 B5Jup5NWd6k2Np9R42FgJ2EDOpk4XR3Psd0iEGCzmESEqTsOPg5oat1LRrNxwHAYkV
-	 YaZvsbBinMfXvqgDeK+hoVgo8n9/nku3ns927nDxoTj7mOAvAIsv9fXbPcBl+7wVqr
-	 YgQ4Mly0n+9nKm2Nko5LR0kWC3UkY7Jm7YeUYdvCmFUYuILaum6FlRSRFZ8hGsi4P8
-	 yNtRZSEm2IDRIoOZCH7RERWtKugKu03QjEMy1RCusq4JqLDSc3q9odLcTiiIaiQ3tV
-	 IyUsEOeCA2Nkw==
-Received: from RS-EX-MBS4.realsil.com.cn ([172.29.17.104])
-	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 64PD7dszE1063728
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Mon, 25 May 2026 21:07:40 +0800
-Received: from RS-EX-MBS2.realsil.com.cn (172.29.17.102) by
- RS-EX-MBS4.realsil.com.cn (172.29.17.104) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Mon, 25 May 2026 21:07:39 +0800
-Received: from RS-EX-MBS2.realsil.com.cn ([fe80::a797:6c5d:dfd:80aa]) by
- RS-EX-MBS2.realsil.com.cn ([fe80::a797:6c5d:dfd:80aa%9]) with mapi id
- 15.02.2562.017; Mon, 25 May 2026 21:07:39 +0800
-From: =?utf-8?B?5ZGo5a+F?= <zain_zhou@realsil.com.cn>
-To: Frank Li <Frank.li@nxp.com>
-CC: "linux-staging@lists.linux.dev" <linux-staging@lists.linux.dev>,
-	"linux-i3c@lists.infradead.org" <linux-i3c@lists.infradead.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"gregkh@linuxfoundation.org" <gregkh@linuxfoundation.org>,
-	"alexandre.belloni@bootlin.com" <alexandre.belloni@bootlin.com>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"linusw@kernel.org" <linusw@kernel.org>, "brgl@kernel.org" <brgl@kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	=?utf-8?B?546L54Kc?= <wei_wang@realsil.com.cn>
-Subject: =?utf-8?B?562U5aSNOiBbUEFUQ0ggMS8yXSBkdC1iaW5kaW5nczogaTNjOiBhZGQgYmluZGluZyBmb3IgUmVhbHRlayBSVFM0OTB4IEkzQyBIVUI=?=
-Thread-Topic: [PATCH 1/2] dt-bindings: i3c: add binding for Realtek RTS490x
- I3C HUB
-Thread-Index: AQHc2JrXcMCnLUwHnkiPRbUzP688hrX902GAgCEKCSA=
-Date: Mon, 25 May 2026 13:07:39 +0000
-Message-ID: <871742681d2047c794f0a46c03620dcb@realsil.com.cn>
-References: <20260430121354.6253-1-zain_zhou@realsil.com.cn>
- <afkCvVaPb-NrLs2P@lizhi-Precision-Tower-5810>
-In-Reply-To: <afkCvVaPb-NrLs2P@lizhi-Precision-Tower-5810>
-Accept-Language: en-US, zh-CN
-Content-Language: zh-CN
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="U0/TcoCK"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3fbb28c53;
+	Mon, 25 May 2026 20:54:02 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v8 07/10] arm64: dts: rockchip: Add eDP node for RK3576
+Date: Mon, 25 May 2026 20:53:28 +0800
+Message-Id: <20260525125331.140059-8-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260525125331.140059-1-damon.ding@rock-chips.com>
+References: <20260525125331.140059-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e5f330f1403a8kunm7b8971f5af5cd6
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCGUlLVkIeT0sYHRlKShlDGlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=U0/TcoCKMItwGwK9SUTsNVneQMuTCuK7Y8+HL3vlNUXWgVYcZXokdodlG/3J5VidwYzNgk8RJ1DFm0zd6NSsO4voPKBarQDhnGYQQGP3tmKJF3ZlyuTCQUxQj9bSyOwgR+dht2Z1HO8kwkew5dKuUJ2Df/ceIGXhWTXUODKTEFo=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=K1DLY9Im8emQ1pvFmDCS9X34Zpvqnm1ezAB2dEZJU7I=;
+	h=date:mime-version:subject:message-id:from;
 
-SGkgRnJhbmssDQoNCiAgVGhhbmtzIGZvciB0aGUgdXBkYXRlIOKAlCBncmVhdCB0byBoZWFyIHRo
-ZSBOWFAgaTNjIGh1YiBmcmFtZXdvcmsgaXMgbmVhcmx5IGRvbmUhDQoNCiAgV2UgcGxhbiB0byBy
-ZWJhc2Ugb24gdGhlIGdlbmVyaWMgZnJhbWV3b3JrIG9uY2UgdGhlIFAzSDJ4NHggc2VyaWVzIGlz
-IG1lcmdlZCwgYW5kIG1vdmUgdGhlIGRyaXZlciBvdXQgb2Ygc3RhZ2luZyBhdCB0aGF0IHBvaW50
-Lg0KDQogIExvb2tpbmcgZm9yd2FyZCB0byBpdCBsYW5kaW5nIHVwc3RyZWFtLg0KDQpCZXN0IFJl
-Z2FyZHPvvIwNClphaW4gWmhvdSDlkajlr4UNClJlYWxzaWwgTWljcm9lbGVjdHJvbmljcyBDTy4g
-TFRELg0KRS1tYWls4pyJIDogemFpbl96aG91QHJlYWxzaWwuY29tLmNuDQo=
+Add full device tree definition for the integrated eDP controller
+on RK3576, following the existing RK3588 hardware layout.
+
+Configure required register range, clocks, interrupt, phy, power
+domain, reset and grf properties to fully describe the controller.
+
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+
+---
+
+Changes in v2:
+- Add Reviewed-by tag.
+
+Changes in v4:
+- Modify the commit msg.
+---
+ arch/arm64/boot/dts/rockchip/rk3576.dtsi | 28 ++++++++++++++++++++++++
+ 1 file changed, 28 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/rockchip/rk3576.dtsi b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+index 28175d8200d5..733449cb88b1 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3576.dtsi
++++ b/arch/arm64/boot/dts/rockchip/rk3576.dtsi
+@@ -1496,6 +1496,34 @@ hdmi_out: port@1 {
+ 			};
+ 		};
+ 
++		edp: edp@27dc0000 {
++			compatible = "rockchip,rk3576-edp";
++			reg = <0x0 0x27dc0000 0x0 0x1000>;
++			clocks = <&cru CLK_EDP0_24M>, <&cru PCLK_EDP0>, <&cru HCLK_VO0_ROOT>;
++			clock-names = "dp", "pclk", "hclk";
++			interrupts = <GIC_SPI 365 IRQ_TYPE_LEVEL_HIGH>;
++			phys = <&hdptxphy>;
++			phy-names = "dp";
++			power-domains = <&power RK3576_PD_VO0>;
++			resets = <&cru SRST_EDP0_24M>, <&cru SRST_P_EDP0>;
++			reset-names = "dp", "apb";
++			rockchip,grf = <&vo0_grf>;
++			status = "disabled";
++
++			ports {
++				#address-cells = <1>;
++				#size-cells = <0>;
++
++				edp_in: port@0 {
++					reg = <0>;
++				};
++
++				edp_out: port@1 {
++					reg = <1>;
++				};
++			};
++		};
++
+ 		dp: dp@27e40000 {
+ 			compatible = "rockchip,rk3576-dp";
+ 			reg = <0x0 0x27e40000 0x0 0x30000>;
+-- 
+2.34.1
+
