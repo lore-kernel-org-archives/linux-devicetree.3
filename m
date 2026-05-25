@@ -1,107 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE5934887E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:53:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BACFF305676
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:59:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779709994; cv=none; b=ceon9DSoYvPi6TuVW8BKEdZ/zGmwXE8x39zTYra4H4ItR06Y18KeJynYQIDG+PLseVRyOzNMWvhtMQSaAvJBJ1WlWg/PTSmvwT7WwBQszUOXFWc02WgfFRnsZlpMbBcPjkVnXUmgf0zO+XF+m3k04CMh5QEIGI+O55CpDBoKsCk=
+	t=1779710391; cv=none; b=X/SDU8QusKiymNrVPxRFyJLV1qbrj5ZioF4ped5FBjlMqLwppidGTItSXou6Dd94zQmEkrXlSOBSrRccikr65RBQkcFn/LfhhM7/v4M08aaUNuA1DWgMcBFJDblMZZru1IOKC87O3G+9A85mvtLnUSjRlHhcR5UHL8KN4iMLtrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779709994; c=relaxed/simple;
-	bh=TFpHBK7Ap1RApDy2OLSxq/40oO9dcfcVOjmYkqiO33Y=;
+	s=arc-20240116; t=1779710391; c=relaxed/simple;
+	bh=lf1FODyXIpSOdR+Qrm3h8HrB/tg/rDpoB6/udtWzrOA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uG2h5V3OVeKmfMnZifw3FmXX5o5b8Nm/jT3RJIfozUcq7h+UTwV27iX998XfWnclzRU2/gMmofePhiUw3kUDz4ZeXCFs0sJAFUp/xl7xz/8TX4FiGOdqGyzZuSfBdHKss3jwnaYpWNU/Cn7sUuZpyJBlpzp3/rEFaQkOrbp586o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApWGJ9bq; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pVQrp6fgNWmSO7cBjuozyW1k+9fo92+pPDTJ4xKWwSEFM66JW+Pnfq232cHPoBLn5kH+23xLK2O77mXiQ0nUnGQi6AAHQyqwA72RuQQguzt6/pHm8b2L3TdDVGn0oAI+6v4nC116QlYweqpc7vAmSTGEHHpoOG1ZktvZs1AxMTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kzj34Buz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApWGJ9bq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF931F000E9;
-	Mon, 25 May 2026 11:53:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kzj34Buz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 381FE1F000E9;
+	Mon, 25 May 2026 11:59:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779709993;
-	bh=mWvznx7l9H3iJo2BaTeyUswIZ9aOdQdjOXbRH7zVKTY=;
+	s=k20260515; t=1779710390;
+	bh=cmirufJNEPBz9kvtsD8Dg+fAc/n5iEBdLhcx35/BqFA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ApWGJ9bqkOROicxWo3fNHMMSpO3qD6+ie1gkqQJlM65mplfduxrll0rbYTFi/eJ6y
-	 BxJEJFHiKsd0m6sZzRy33XpsDXE6UxTR/8Kz+1wOKJaJHmaqr3brlBXkizicGCcrXm
-	 Q1/RP8LP2snMyRQUhL6cgiItlo1JUCr76A+bKAjRqEw24Qgviwx14rQ35sgGVv4Eb/
-	 KvDP77QfAyVVyt1HjubHNSqX8BMJbohJacTdqwfLEWR2or63GOXC7F4/XHA0lvp6gx
-	 Fkrg+qM8NsDkJbBngQYwWEhgPmruAliIuy1qwTJeBsVvrMlEg8S1UKQXU4ggF0MmhN
-	 CbdXh6v6ohRNg==
+	b=Kzj34BuzDn9gvfJEOwBu5CzQoMHMysl6hTjRBQsor8Lll5K+Rjcim35HqmZz0UjX9
+	 tG0CXHubnNvllQaHIxexTZ9Y7p/AnrCJBsV+lDrasEhI1m7Rleq1zIaQCj6nelPfjR
+	 iHKQeiYrTlxF646Kx/aZTxNzBKj0Bb4OL4iRFTweovdjVIPGze/GzAbYOod/FG8Lqe
+	 P86bu8vqkvQkFYinMve7CirDElV+CsNfAiSggIibhoOBfJDGI/+qqVphmybIYopbQf
+	 64geQw9IFsPPZUgYGD+es8nRzVS0Cj3CmnC8Ukvh3dIIOHG30o07BX4h35FOpQJ9N1
+	 WTJ13/SMDHo8Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 14/18] ASoC: rsnd: adg: Look up RZ/G3E clkin under
- audio-clk{a,b,c,i}
+Subject: Re: [PATCH v5 4/7] clk: qcom: videocc: Add video clock controller
+ driver for Eliza
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
-In-Reply-To: <20260525110230.4014435-15-john.madieu.xa@bp.renesas.com>
-References: <20260525110230.4014435-15-john.madieu.xa@bp.renesas.com>
+To: "Taniya Das" <taniya.das@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525-eliza_mm_cc_v2-v5-4-a1d125619a5a@oss.qualcomm.com>
+References: <20260525-eliza_mm_cc_v2-v5-4-a1d125619a5a@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:53:12 +0000
-Message-Id: <20260525115313.4EF931F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 11:59:49 +0000
+Message-Id: <20260525115950.381FE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Error handling in `rsnd_adg_null_clk_clean` blindly dereferences a=
-n `ERR_PTR`, leading to a guaranteed kernel panic on deferred probe.
+- [High] The `video_cc_eliza_desc` structure omits the `.use_rpm =3D true` =
+flag (or explicit PM runtime enablement), leading to unpowered register acc=
+ess during probe.
+- [Low] CLK_ELIZA_VIDEOCC sets 'default m if ARCH_QCOM', which is inconsist=
+ent with Kconfig conventions for Eliza clock controllers.
+- [Low] CLK_ELIZA_VIDEOCC implements GDSCs but lacks an explicit 'select QC=
+OM_GDSC' dependency.
 --
 
-commit cc9d8467b86b1274ca6e7e69addd9762d7c23073
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
+commit 7f851311a4cc00578bd0ab62871977440dcab6e4
+Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-ASoC: rsnd: adg: Look up RZ/G3E clkin under audio-clk{a,b,c,i}
+clk: qcom: videocc: Add video clock controller driver for Eliza
 
-This patch updates the R-Car Sound ADG block driver to support the RZ/G3E
-sound binding. It introduces a new array mapping the master clock inputs
-to their DT naming conventions. The driver is also modified to dispatch to
-this new table when the RZ/G3E SoC is detected.
+Add support for the video clock controller for video clients to be able
+to request for videocc clocks on Eliza platform.
 
-> diff --git a/sound/soc/renesas/rcar/adg.c b/sound/soc/renesas/rcar/adg.c
-> index 5dce62287d200..483979c243198 100644
-> --- a/sound/soc/renesas/rcar/adg.c
-> +++ b/sound/soc/renesas/rcar/adg.c
-
+> diff --git a/drivers/clk/qcom/Kconfig b/drivers/clk/qcom/Kconfig
+> --- a/drivers/clk/qcom/Kconfig
+> +++ b/drivers/clk/qcom/Kconfig
 [ ... ]
-
-> @@ -574,6 +581,9 @@ static int rsnd_adg_get_clkin(struct rsnd_priv *priv)
->  	if (rsnd_is_gen4(priv)) {
->  		clkin_name =3D clkin_name_gen4;
->  		clkin_size =3D ARRAY_SIZE(clkin_name_gen4);
-> +	} else if (rsnd_is_rzg3e(priv)) {
-> +		clkin_name =3D clkin_name_rzg3e;
-> +		clkin_size =3D ARRAY_SIZE(clkin_name_rzg3e);
->  	}
+> @@ -45,6 +45,16 @@ config CLK_ELIZA_TCSRCC
+>  	  Support for the TCSR clock controller on Eliza devices.
+>  	  Say Y if you want to use peripheral devices such as USB/PCIe/UFS.
 > =20
->  	/*
+> +config CLK_ELIZA_VIDEOCC
+> +	tristate "Eliza Video Clock Controller"
+> +	depends on ARM64 || COMPILE_TEST
+> +	select CLK_ELIZA_GCC
+
+[Severity: Low]
+Since this driver implements GDSCs (video_cc_mvs0_gdsc and
+video_cc_mvs0c_gdsc), shouldn't it explicitly select QCOM_GDSC here?
+
+While it may compile by transitively inheriting the dependency from
+CLK_ELIZA_GCC, could this cause Kconfig unmet dependency warnings if the
+GCC configuration changes in the future?
+
+> +	default m if ARCH_QCOM
+
+[Severity: Low]
+Is this default configuration intentional?
+
+This deviates from Kconfig conventions for the rest of the Eliza clock
+controllers (like CLK_ELIZA_DISPCC, CLK_ELIZA_GCC, and CLK_ELIZA_TCSRCC)
+which do not set default values and instead rely on defconfig for enablemen=
+t.
+
+> +	help
+> +	  Support for the video clock controller on Eliza devices.
+> +	  Say Y if you want to support video devices and functionality such as
+> +	  video encode and decode.
+> +
+[ ... ]
+> diff --git a/drivers/clk/qcom/videocc-eliza.c b/drivers/clk/qcom/videocc-=
+eliza.c
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/clk/qcom/videocc-eliza.c
+[ ... ]
+> +static const struct qcom_cc_desc video_cc_eliza_desc =3D {
+> +	.config =3D &video_cc_eliza_regmap_config,
+> +	.clks =3D video_cc_eliza_clocks,
+> +	.num_clks =3D ARRAY_SIZE(video_cc_eliza_clocks),
+> +	.resets =3D video_cc_eliza_resets,
+> +	.num_resets =3D ARRAY_SIZE(video_cc_eliza_resets),
+> +	.gdscs =3D video_cc_eliza_gdscs,
+> +	.num_gdscs =3D ARRAY_SIZE(video_cc_eliza_gdscs),
+> +	.driver_data =3D &video_cc_eliza_driver_data,
 
 [Severity: High]
-This is a pre-existing issue, but does this addition make the error handling
-more likely to trigger a boot crash?
+Will omitting the .use_rpm flag (or explicit PM runtime enablement) cause a
+synchronous external abort and hang the system during boot?
 
-If clk_register_fixed_rate() fails, it returns an ERR_PTR which is cached in
-adg->null_clk. The cleanup function rsnd_adg_null_clk_clean() checks
-if (adg->null_clk) (which evaluates to true for an ERR_PTR like -EEXIST or
--ENOMEM) and blindly passes it to clk_unregister_fixed_rate().
+Multimedia clock controllers usually require their hardware power domains
+(such as MMCX) to be enabled via PM runtime before their registers can be r=
+ead
+or written.
 
-Inside the clock framework, __clk_get_hw() dereferences the invalid pointer,
-causing an immediate kernel panic.
+Without .use_rpm =3D true, qcom_cc_really_probe() skips calling
+devm_pm_runtime_enable() and pm_runtime_resume_and_get(), which would cause
+the subsequent initialization of PLLs and CBCRs to attempt register access =
+on
+unpowered hardware.
 
-This reliably crashes the system on deferred probe: if rsnd_probe() returns=
- an
-error after rsnd_adg_probe() successfully registers the rsnd_adg_null clock,
-the driver aborts without calling rsnd_adg_remove().
-
-This leaks the registered clock. On the next deferred probe attempt,
-clk_register_fixed_rate() fails with -EEXIST (returning ERR_PTR(-EEXIST)).
-The driver then jumps to the error path, passes this ERR_PTR to
-clk_unregister_fixed_rate(), and panics.
+> +};
+> +
+> +static const struct of_device_id video_cc_eliza_match_table[] =3D {
+> +	{ .compatible =3D "qcom,eliza-videocc" },
+> +	{ }
+> +};
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
-435-1-john.madieu.xa@bp.renesas.com?part=3D14
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-eliza_mm_c=
+c_v2-v5-0-a1d125619a5a@oss.qualcomm.com?part=3D4
