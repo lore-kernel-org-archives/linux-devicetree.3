@@ -1,63 +1,63 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD7783EDE43
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:47:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3063F0AA9
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:48:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779720479; cv=none; b=rMgyQKH8XAIOZ2gWrP5Er08Ajf8ujzChi/44iokGI6g6SIjuX7REWgmrUpz6lO2c0lo/L39zB1pCKeXyMquCNglyc9CEE0kj4grfV7tulFOc9zu7IIWBFVAva68qn2nB3ZOhUbMhLgzKAJG21U8vPnaZbe3+9sly6USSwnR/Pw0=
+	t=1779720488; cv=none; b=fCbEByEd2lVP1rvjvAFlQXCW98zhceGpmf0Omf7dS5RPP4Y0LerQ1RgMOTC3T2ZjSkKPZNfQTg3LDgCwjkwrydPMBw4w7iBnel/S8dQwFcojEbZ8SUId+w/gI449kho7fkkg95Ub0sLsIf5RS3KJHoI229nRzqrmi6l+PPBLOaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779720479; c=relaxed/simple;
-	bh=ApyTNGQqGjBxvFRvwMaHvvYHMwId1OBVvi//Xkx5AxY=;
+	s=arc-20240116; t=1779720488; c=relaxed/simple;
+	bh=ow2Pp8Yde2ialN0PVZ+ngSDDkSxMoIzeQ2w8Qc4ooeg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kEusIXriQ8PdGLXaSTPsiLMhhqCWlLQ4AUkRF0WRmNSj2CvD71maL2ypfAVO1WQ6wQQAwZ7Otc1hmy3ET8FQZmMf+J6VZ7ztQ1tIPkpAIFqW4urPGIPPVbxIo8YAucFDk7ePFVUDk8LXTcc+E8NkGZgWS2VTI/6SZwQ91HTNG+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MoQ7A+EY; arc=none smtp.client-ip=209.85.216.50
+	 MIME-Version; b=SGKObA3mV4q1zExlCN0q8qy6Ir3tb9K0rF3KcaNiC5a1b5ZsjV+cLMb/VocQXkaZps5Y6FffFjoK/3L7XKXR8/d88jJxhkBsY3D9Z2cKOJUZCzVDSzEANXvda5uCukL6HTEojaQD+HIp6oRtmnGrvrfK6ceAmLJKYxDG7q5aNiE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Admtch7U; arc=none smtp.client-ip=209.85.216.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MoQ7A+EY"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-36974217d4eso6314371a91.2
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:47:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Admtch7U"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3664df30f53so5723957a91.1
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:48:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779720478; x=1780325278; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779720487; x=1780325287; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=pqwtJk8xmatM/f20tiZM3MnIEuWEW+BjNIaufm9TpJE=;
-        b=MoQ7A+EYfe7BKJLVo0cLGDctXXJ1skLbBTwRPdiT5c/mACHra88EM8jRRPMcdroUj1
-         SJxpG++n4pqxLuqzrmWZ8mFq5MT+W+nMlOpyxdZ2nciSxERtFw+nZD/A8UlCk0rvPksI
-         xxkx8sRcAv+Ui8GyF7mGegHYbVShHUjczntM2J+YEtV6KN5li/EwXfSRZqHgfRCVQPPu
-         y+QNN7r1EW3omWbmOyaBnRXIN+BFd68PfUIf2dq7sm1M2txLnjUcQicvwWo2Fptr3UtK
-         JKfE1c1t4cKFBK+/7KVEWiHBsfUC0VB8iO6XNG0eHKLEtwh4Si1qKehYrmUODVq6Uc1b
-         2fbg==
+        bh=IY5VpH1QCqNL+Hxqm+EMdHN3zeBtEzU6Oz9nJybwNNI=;
+        b=Admtch7UI0gu5S8ZMD2Q1X5linI28LEuf2Znabbk/HF89K7f/+QpiKWvfsRGy1riXr
+         zolhcnbGN2MoA7M2jfcEhw3bh9/hvifTRHtsFOQt3rrz7/Jf5kY78O0p4TMTm+A+lqVe
+         LldrbdJog8Se0y6HZMUYuLWOOndczHvpMDOXWGCiJ07GxhHZgq9dKrDq9iFLjSaDesu+
+         YVfVTWovmuG9ghuT5InQ9mC55D3dXEP5kCoD4Vbh0M9MtOC+3z87bMoYTHh9sSCffmLv
+         wSmSeYuqYYLoSiFbE9/rHj1Tcd/73zBcy8VOOaWCAkEpfg8oEcE4KhCaHqUEoHeKIIfj
+         VsRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779720478; x=1780325278;
+        d=1e100.net; s=20251104; t=1779720487; x=1780325287;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=pqwtJk8xmatM/f20tiZM3MnIEuWEW+BjNIaufm9TpJE=;
-        b=afPEz05RCCsIB4yiiE4qGYRKPZ3C8f+/4wMqKeP43+K854KHcshjmLC6ckgNzbhH5Y
-         1sKBL9mN/nlyx3F8hoyaQiuqU/ejhhcxbC1KKgrIljaCiZRRDZDv4jIyIQp8hqUnGBbt
-         OCYOOJKX/PgFQDz+L9d2XEUX90wPgBZtblVUEop38r9Lg3bijnNCvjLFtllef863L2DG
-         WS2cMmdMe8NV0Ky6e0TSWSbi1IXNW3QWBhtgKsoiD9AcZxeimV8qbbN+UjzFjzcIZdHb
-         6T5Yjl+B6ZprRY0e3qZ7i2V5qZObQAvufiufEaMeDGzMeAMRHNI2bwS4an34EvZNJYMi
-         NUdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ86KQNIyBx3t1aY6Rax6qASwk/yH2TEWWaAke78VzkKNoRH3bYlgGwOeYQkZKYguyGqMziW/ROPF4WW@vger.kernel.org
-X-Gm-Message-State: AOJu0YyiLBS6rxB0P5/TOZtp5yVtW15+NwnYjJCPzO+HEU9JUIbQvt0W
-	e5oxGHt3cmdSmJZJd2njz89iWefQp9WrGzUYlnKkkcVLZVLlY8hXMzVH
-X-Gm-Gg: Acq92OErJ9gR8hTYj5cnBBy7+O2eNRqTkFi/FAKcrARYwxLyHNNWDLL5y1qoRYd6mz8
-	KCCzmiz6WXx7iC1Twpd6usV/zniAoIejvZ9GR+cTXIQOAbnuf+ADecimPSALCh95Ysa9EihPBDE
-	ZgM4c5Wr4xwO+6u/EjeBFtUVgcigyXOprNBmF9i0z8oD4XQbv7LC/ncQDyWh/gEDyo4hPFvWIVk
-	difwuR7iv10dCYekXVtVkqEnEwk7vna/Hm0jRnQlvZelY48taJycn6zjikoLKqOcImL+M6uN9E3
-	WgubqkPHARKtsu3nsoYxCB+8HyLwhrQwdB2Fo5N0TqqSNf1vXJoY7XcBvG6n8lzhgGc9AZgv2nG
-	U/KZV7MBI8i4WtaRKiYth1fL6eB62E8yz1GZXMHIwZXeqsf2lDeUqBKXsSPH8lvNv5z1A3tk1Pu
-	b2yNKbdZNNjuzjMsjO0ZBwuVdAMtqTeM2DgVwJMs9fYrz8BUXf0A==
-X-Received: by 2002:a17:90b:274d:b0:36a:caa9:47d2 with SMTP id 98e67ed59e1d1-36acaa94cb2mr5894653a91.1.1779720478207;
-        Mon, 25 May 2026 07:47:58 -0700 (PDT)
+        bh=IY5VpH1QCqNL+Hxqm+EMdHN3zeBtEzU6Oz9nJybwNNI=;
+        b=hI1ZnsUKomirhkJxg05byYrue9iqYUem5Y/Htf1Hs2eqiW7GRjRu4eiX3gMcg6CTl2
+         530G/MyzpoZhXlLN6QDkZQmqe6FvS0LARzzoqG/+msh7i1HccjL2ItT/Xb2LKG3M8vwu
+         5DBGuFN2h0gZsChjFp7t077F/+0FrHzy0xPTXHt57cijsA2z9oOLvmrTrIQz8KoiCDJI
+         K8dDP59tGQloZzoNXwQyLYQU1MrIu33UMWDYtck2+5N54geUSE4eQklOFAHlNjGXaFoY
+         CwJjgrAG5EisMg7tZY5ca4VzvUN2c2r1stWjkMUz7LB8AUzM3H8lpTiS0kW8Tgl2Yo7/
+         0OoQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8cmndcWfEnMoyKPNV81TaTU3JZt4gZYtU5nKJT66gHyFnnBjc5Hv79SvOQsIsJk+ikWS3WBcyBt9xL@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtHEmSGlfpEcw9uN/SFjTkCWlqggc7v1oTE8Vzi/89Vex2aD0h
+	YYzLLRHWYhndk3D2dFFqFOBA0phfgr7/NUsJgJJZ/wAheog3aTOmS+Zp
+X-Gm-Gg: Acq92OE+rxSIyJXtDX9cwdj76GJwtX9geychQwLYXtONg9BlbilaA6ZZf20AqKSKXe8
+	nrkxYi78i4zlbc4FT8vI0LVhwgaTokV3qiq1X8QWpezAT2KFGiiMP+BSQqYhlwbkfPwxzo32PU3
+	kcBHSG82oO9C3bnUzw3fucg2P6FLOKrlBHwLbNl9J3QXD8BM5LdkanoMn+wnJFbEHthOkbWwSFg
+	weONOATZ5t4AC/icaM55l7myI1IwQQz/DxCGQWlskzXhfPFqsYZoBbJhH0++WFfhvZHSP5FiQd7
+	doPEk8urWReTB0T9LSfpCJ9cYGtHxBFUcokby1DqTN3uOJygAwcuMcnjh3+Yw3mwtXF3Rv6OmpC
+	NRDmXXif+bny50zFzYiqG79IpZki8YOFwH1KP0mHqUgMKC4yjlreIqZeTo0o+ZNlxFT4f8XaabT
+	5DAjF5W+I+WUEID/bYixA10B6OqKIPY+ZQ15Y/7okapzeaGa6SeE/3bNbYI+HL
+X-Received: by 2002:a17:90b:2e88:b0:369:a359:b18e with SMTP id 98e67ed59e1d1-36a67449708mr14002024a91.9.1779720486941;
+        Mon, 25 May 2026 07:48:06 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.47.52
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.48.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 07:47:57 -0700 (PDT)
+        Mon, 25 May 2026 07:48:06 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: linusw@kernel.org,
 	dmitry.baryshkov@oss.qualcomm.com,
@@ -75,25 +75,25 @@ To: linusw@kernel.org,
 	Vincent Knecht <vincent.knecht@mailoo.org>,
 	Grant Feng <von81@163.com>,
 	Andre Przywara <andre.przywara@arm.com>,
-	Alexandre TORGUE <alexandre.torgue@st.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Baruch Siach <baruch@tkos.co.il>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Paul Barker <paul.barker@sancloud.com>,
 	Robert Marko <robert.marko@sartura.hr>
 Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
 	Pavel Machek <pavel@ucw.cz>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
+	Wei Xu <xuwei5@hisilicon.com>,
 	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Baruch Siach <baruch@tkos.co.il>,
+	Patrice Chotard <patrice.chotard@foss.st.com>,
 	linux-leds@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v2 5/6] ARM: dts: qcom: msm8974-oneplus-bacon: Fix sn3193 shutdown GPIO polarity
-Date: Mon, 25 May 2026 22:46:11 +0800
-Message-ID: <20260525144629.498630-6-jerrysteve1101@gmail.com>
+Subject: [PATCH v2 6/6] arm64: dts: marvell: armada-7040-mochabin: Fix is31fl3199 shutdown GPIO polarity
+Date: Mon, 25 May 2026 22:46:12 +0800
+Message-ID: <20260525144629.498630-7-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260525144629.498630-1-jerrysteve1101@gmail.com>
 References: <20260525144629.498630-1-jerrysteve1101@gmail.com>
@@ -105,31 +105,30 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The sn3193 shutdown pin is active-low[1]. Correct the GPIO flags
+The is31fl3199 shutdown pin is active-low [1]. Correct the GPIO flags
 from GPIO_ACTIVE_HIGH to GPIO_ACTIVE_LOW to match the hardware.
 
-[1] https://lumissil.com/assets/pdf/core/IS31FL3193_DS.pdf
+[1] https://lumissil.com/assets/pdf/core/IS31FL3199_DS.pdf
 
-Fixes: 724ba6751532 ("ARM: dts: Move .dts files to vendor sub-directories")
+Fixes: 737929191283 ("arm64: dts: marvell: add Globalscale MOCHAbin")
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 ---
- arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts | 2 +-
+ arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts b/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts
-index 258bbbecd927..c528d42bade5 100644
---- a/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts
-+++ b/arch/arm/boot/dts/qcom/qcom-msm8974pro-oneplus-bacon.dts
-@@ -147,7 +147,7 @@ led-controller@68 {
- 		compatible = "si-en,sn3193";
- 		reg = <0x68>;
- 
--		shutdown-gpios = <&tlmm 45 GPIO_ACTIVE_HIGH>;
-+		shutdown-gpios = <&tlmm 45 GPIO_ACTIVE_LOW>;
- 
- 		#address-cells = <1>;
+diff --git a/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts b/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts
+index 6bdc4f1e6939..cf690a85cc2a 100644
+--- a/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts
++++ b/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts
+@@ -236,7 +236,7 @@ leds@64 {
  		#size-cells = <0>;
+ 		pinctrl-names = "default";
+ 		pinctrl-0 = <&is31_sdb_pins>;
+-		shutdown-gpios = <&cp0_gpio1 30 GPIO_ACTIVE_HIGH>;
++		shutdown-gpios = <&cp0_gpio1 30 GPIO_ACTIVE_LOW>;
+ 		reg = <0x64>;
+ 
+ 		led1_red: led@1 {
 -- 
 2.54.0
 
