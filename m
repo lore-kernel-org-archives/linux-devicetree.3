@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431AC3F4105;
-	Mon, 25 May 2026 17:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E30F345CB2;
+	Mon, 25 May 2026 17:09:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779728865; cv=none; b=jz2z+g9YzfVJUNIqU7TTNKhlxxubw3fbBIHGJvYrigwBbeUcjCi4ENHueok+U5DK3/EVrUYoHw1YwIpZLY0bjnE2cSL74bYaEHv51cA5N3x1iZR9El05q878R95q8u0j4nVdJwi6lZInAK4kh+1crD7kOAmAediYXrJhi7bfZVA=
+	t=1779728988; cv=none; b=pUvZBFRwjboQsvlYkf70AjvucLoFM4y4+ZtNcJmVgvQ3sthsgcjHeDvFapHklShXX0UwMc+qw9yg3b37tSXP2QwyVWzr6JW820f7572NdLm3AmWBtoDsYW3+P60XwMwbhjqneCQ8mtB8zpqeM/OCo3xUG1ted6gztqJNss2PuoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779728865; c=relaxed/simple;
-	bh=2NuiB/7pVZs7/mo6om4ZDvUx5zgg7W0lkmX8dVqOGIA=;
+	s=arc-20240116; t=1779728988; c=relaxed/simple;
+	bh=776gli8nBCsvSUpsl2DeMe+PlKQIK0wqxLkm39lKFuk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NuXcmhmpzZhNWoN2YrG0FamqCUfECzsR0ebOXP6WfTA18teq87Qc99ERFospxjtsE+/uiECU2n4F3NkAVt9Qfsx7tUgFjWx4YsBDI7mAOlE4K0tx7tZkv2ec2giS6hSd0qZ3zacBi1GA7H0TcwIu/Dls0wxedLa/qJt83c6wCW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NQWFmpq8; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=EKAQ/tq4Gez8rRyOyGmCB8iGE60YGI6xs1q6gLhMnTv3m893R1Nzjo3+ETh1tgMjf+KgSm9QxTh3sz/8uRyHChJM0EK1JIzpnslebJbpxeysf2q6vn7XwNy65C+SkGLCSL+6gTzHEi6hsTTScXP+R+HK1a5Ch4sqEwkvv/P7UD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HqfoiliK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NQWFmpq8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F5851F00A3E;
-	Mon, 25 May 2026 17:07:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HqfoiliK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B26681F000E9;
+	Mon, 25 May 2026 17:09:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779728864;
-	bh=8qfT/VrLn2tMM7E8cHORdw+2KnFn7ArQRa0hGXS5lDE=;
+	s=k20260515; t=1779728986;
+	bh=keLBe3JO12ACIaqgkIDEU1i71fxDUP4mnJ3l8xXe9D8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NQWFmpq8vC+x8uNWDP26EH7FgL5cphbqS7JmqfKxnqGqRshb2DhLEg10AVLewKdaP
-	 bUTBWencX3rdpSO7mun4txdyPxT62uFaHNskfz/VAZJGAUX8yQLvARQQXQE1j6c8Va
-	 PXOcsB2yt8t4MzdHaMS7kD55ojPBnuOARR0IYRwI9MQDeezVK0XcsZyh7o+DAQieUk
-	 UFBQKrE3yiPMIzx26YFfL/b2X/dNI5YLPC6D5u+hWFPNBZGaMmvY7+kYF/oDzl3MlX
-	 5lGMTMtJLwzKq0QSQeiRw91njNczx+ffT2KcXlFwbOX3bWdYO/QyHn56rd9ZEufg5V
-	 53RhvNV/0jdzQ==
-Date: Mon, 25 May 2026 18:07:40 +0100
+	b=HqfoiliKDmIa0DIyn1CBrX5FQXFSrVlW6UfhqrPO77JtTrsHn49bVoufMX0US909n
+	 3JgJI7yPcDKCZ4VK+WGka5t9t8awRWouATkoCAvMTMkHIkNOeKS9Ht23Ib40os6Exa
+	 V4a0yJ2T6bT1a9XBsgmPOVRPjpINK142WwuOtcHssOcdqCEYw/tsFJwonsaJqNNYN+
+	 SPmybYcBc7cpAmQovR3QTBp1hQ4qdVfQchHXjznx7AJjmBJISAnY3rQWj6MlKRLBKG
+	 NwME9irZdu8AAmtH0e4JzOzT+S+uJLcUd59cdqfu33A5SK2ltIBMGOEhtelPjNUQ1J
+	 ilm/KF/xJmi1A==
+Date: Mon, 25 May 2026 18:09:42 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Biju Das <biju.das.au@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com,
-	linux-renesas-soc@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: display: bridge: Document Renesas
- RZ/G3L LVDS encoder
-Message-ID: <20260525-camisole-unmasking-3e28b6471a9b@spud>
-References: <20260524194457.479681-2-biju.das.jz@bp.renesas.com>
- <20260524195829.960401F000E9@smtp.kernel.org>
- <CADT+UeAYhrwpmApCWaJ9w0gK3zF4eR4LVptTTwegGucvF6mmiA@mail.gmail.com>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: wbg@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+	conor+dt@kernel.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v5 1/3] dt-bindings: counter: add gpio-counter binding
+Message-ID: <20260525-register-bogus-b198545b69a8@spud>
+References: <20260515153616.157605-1-wafgo01@gmail.com>
+ <20260524193846.19216-1-wafgo01@gmail.com>
+ <20260524193846.19216-2-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,97 +44,36 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="vw1OibTdUJGoJ2s2"
+	protocol="application/pgp-signature"; boundary="FCkyTi3LdI/ouxrU"
 Content-Disposition: inline
-In-Reply-To: <CADT+UeAYhrwpmApCWaJ9w0gK3zF4eR4LVptTTwegGucvF6mmiA@mail.gmail.com>
+In-Reply-To: <20260524193846.19216-2-wafgo01@gmail.com>
 
 
---vw1OibTdUJGoJ2s2
-Content-Type: text/plain; charset=utf-8
+--FCkyTi3LdI/ouxrU
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 25, 2026 at 08:45:00AM +0100, Biju Das wrote:
-> Hi Bot,
+On Sun, May 24, 2026 at 09:38:44PM +0200, Wadim Mueller wrote:
+> Add a binding for a generic GPIO-based counter.  Two GPIOs (signal-a,
+> signal-b) drive the counter; an optional index GPIO loads a preset.
+> The counter function (quadrature, pulse-direction, increase/decrease)
+> is choosen at runtime through the counter sysfs interface.
 >=20
-> On Sun, May 24, 2026 at 8:58=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 2 potential is=
-sue(s) to consider:
-> > - [Low] The compatible string 'renesas,r9a08g046-lvds-cmn' is used in t=
-he dt-binding example but is not documented.
-> > - [Low] The parent node 'lvds-cmn' in the example lacks a 'ranges' prop=
-erty, breaking address translation for its child nodes.
-> > --
-> >
-> > commit be595c0db2d85d9ea1396f0f30ac7ad75f4101fe
-> > Author: Biju Das <biju.das.jz@bp.renesas.com>
-> >
-> > dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-> >
-> > Documents the LVDS encoder IP found on the RZ/G3L SoC. It supports
-> > single-link mode and shares a peripheral clock and reset signal with the
-> > MIPI-DSI interface.
-> >
-> > > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas=
-,r9a08g046-lvds.yaml b/Documentation/devicetree/bindings/display/bridge/ren=
-esas,r9a08g046-lvds.yaml
-> > > new file mode 100644
-> > > index 0000000000000..b1f6d020ae7b1
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g=
-046-lvds.yaml
-> >
-> > [ ... ]
-> >
-> > > +examples:
-> > > +  - |
-> > > +    #include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
-> > > +
-> > > +    lvds-cmn@108a0000 {
-> > > +        compatible =3D "renesas,r9a08g046-lvds-cmn",
-> > > +                     "simple-mfd", "syscon";
-> >
-> > [Severity: Low]
-> > Is this compatible string documented somewhere else? It looks like
-> > renesas,r9a08g046-lvds-cmn isn't present in the tree, which might cause
-> > dt_binding_check to fail when it validates the example.
->=20
-> This compatible is documented and is in next [1].
->=20
-> Q1) Can you please reun the AI review with [1] ?
->=20
-> [1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/c=
-ommit/?h=3Dnext-20260522&id=3D51284d8b1dbcd7fa0220c49eeab29b14617e0d88
->=20
-> >
-> > > +        reg =3D <0x108a0000 0x10000>;
-> > > +        #address-cells =3D <1>;
-> > > +        #size-cells =3D <1>;
-> >
-> > [Severity: Low]
-> > Does this parent node need a ranges property? Without it, address trans=
-lation
-> > for the child node's reg =3D <0x10 0x8> might fail, and dtc often warns=
- about
-> > missing ranges in simple-mfd nodes with children.
->=20
-> I don't get any error or dtc warnings. Have you ran dt-binding check
-> before providing
-> such comment?
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 
-=46rom what I can establish, it mentions the checks etc but never actually
-runs them.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
---vw1OibTdUJGoJ2s2
+--FCkyTi3LdI/ouxrU
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahSB3AAKCRB4tDGHoIJi
-0qWaAQDXJEWm12vTIZGORwuQfIlkVHJJbCWaKQ7fVBmpRD5ZPQD+Ks8UZvEGOxnU
-8OT3fJlAKKQeQDQEeVRruEGe9/AQJQo=
-=/8sT
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahSCVgAKCRB4tDGHoIJi
+0ggEAP4nAFWuNqj5L0YpDvZXpghRId9SVSALoSAKoAfz3qHHbAD/XZCTl79Rjuwo
+3Qy+Wi5V5ziiw6YQ+CmdKVuDJOsviQQ=
+=pXLa
 -----END PGP SIGNATURE-----
 
---vw1OibTdUJGoJ2s2--
+--FCkyTi3LdI/ouxrU--
