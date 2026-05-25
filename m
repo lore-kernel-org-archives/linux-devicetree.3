@@ -1,134 +1,127 @@
-Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D3063F0AA9
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:48:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2247B384CCA
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:49:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779720488; cv=none; b=fCbEByEd2lVP1rvjvAFlQXCW98zhceGpmf0Omf7dS5RPP4Y0LerQ1RgMOTC3T2ZjSkKPZNfQTg3LDgCwjkwrydPMBw4w7iBnel/S8dQwFcojEbZ8SUId+w/gI449kho7fkkg95Ub0sLsIf5RS3KJHoI229nRzqrmi6l+PPBLOaQ=
+	t=1779720560; cv=none; b=PnudRTDjZGWujpivkBkmByHjtnibXjl+0EKb5fKYLK4F6uW0W5JVI2vZCB6VUaOP4mjH0B4RUTyb2+bsjGswUoWQt6ifMRg+Pa8SkpubAP2hsD/hHmw/XfNa6ioCUAXAgEDZzdQZuYZ8+vvhgPlYXvpYHy6S41enKpOnCVVSABQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779720488; c=relaxed/simple;
-	bh=ow2Pp8Yde2ialN0PVZ+ngSDDkSxMoIzeQ2w8Qc4ooeg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SGKObA3mV4q1zExlCN0q8qy6Ir3tb9K0rF3KcaNiC5a1b5ZsjV+cLMb/VocQXkaZps5Y6FffFjoK/3L7XKXR8/d88jJxhkBsY3D9Z2cKOJUZCzVDSzEANXvda5uCukL6HTEojaQD+HIp6oRtmnGrvrfK6ceAmLJKYxDG7q5aNiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Admtch7U; arc=none smtp.client-ip=209.85.216.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779720560; c=relaxed/simple;
+	bh=UrFSRVdGBmh9DUklZmSwUJeubdTX7wcI+aVIJWzATz8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=E747BtpGoEeMhe6oI4tbA/+VEQ3SN2Bkp75K2THr/L3zn+aV/D9ac5avJOhA86qbeUFDs24gAPamY02zTasvC9m5fC9hIuC0FdWy6aA4IbOrjUJYgt836gzzSxdIZ80MfYwWLhuqWp68mB3+RJbsX59+YRrz442lFwcV4RJ4Vf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KXEqcm/I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Admtch7U"
-Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-3664df30f53so5723957a91.1
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:48:07 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779720487; x=1780325287; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=IY5VpH1QCqNL+Hxqm+EMdHN3zeBtEzU6Oz9nJybwNNI=;
-        b=Admtch7UI0gu5S8ZMD2Q1X5linI28LEuf2Znabbk/HF89K7f/+QpiKWvfsRGy1riXr
-         zolhcnbGN2MoA7M2jfcEhw3bh9/hvifTRHtsFOQt3rrz7/Jf5kY78O0p4TMTm+A+lqVe
-         LldrbdJog8Se0y6HZMUYuLWOOndczHvpMDOXWGCiJ07GxhHZgq9dKrDq9iFLjSaDesu+
-         YVfVTWovmuG9ghuT5InQ9mC55D3dXEP5kCoD4Vbh0M9MtOC+3z87bMoYTHh9sSCffmLv
-         wSmSeYuqYYLoSiFbE9/rHj1Tcd/73zBcy8VOOaWCAkEpfg8oEcE4KhCaHqUEoHeKIIfj
-         VsRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779720487; x=1780325287;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=IY5VpH1QCqNL+Hxqm+EMdHN3zeBtEzU6Oz9nJybwNNI=;
-        b=hI1ZnsUKomirhkJxg05byYrue9iqYUem5Y/Htf1Hs2eqiW7GRjRu4eiX3gMcg6CTl2
-         530G/MyzpoZhXlLN6QDkZQmqe6FvS0LARzzoqG/+msh7i1HccjL2ItT/Xb2LKG3M8vwu
-         5DBGuFN2h0gZsChjFp7t077F/+0FrHzy0xPTXHt57cijsA2z9oOLvmrTrIQz8KoiCDJI
-         K8dDP59tGQloZzoNXwQyLYQU1MrIu33UMWDYtck2+5N54geUSE4eQklOFAHlNjGXaFoY
-         CwJjgrAG5EisMg7tZY5ca4VzvUN2c2r1stWjkMUz7LB8AUzM3H8lpTiS0kW8Tgl2Yo7/
-         0OoQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8cmndcWfEnMoyKPNV81TaTU3JZt4gZYtU5nKJT66gHyFnnBjc5Hv79SvOQsIsJk+ikWS3WBcyBt9xL@vger.kernel.org
-X-Gm-Message-State: AOJu0YxtHEmSGlfpEcw9uN/SFjTkCWlqggc7v1oTE8Vzi/89Vex2aD0h
-	YYzLLRHWYhndk3D2dFFqFOBA0phfgr7/NUsJgJJZ/wAheog3aTOmS+Zp
-X-Gm-Gg: Acq92OE+rxSIyJXtDX9cwdj76GJwtX9geychQwLYXtONg9BlbilaA6ZZf20AqKSKXe8
-	nrkxYi78i4zlbc4FT8vI0LVhwgaTokV3qiq1X8QWpezAT2KFGiiMP+BSQqYhlwbkfPwxzo32PU3
-	kcBHSG82oO9C3bnUzw3fucg2P6FLOKrlBHwLbNl9J3QXD8BM5LdkanoMn+wnJFbEHthOkbWwSFg
-	weONOATZ5t4AC/icaM55l7myI1IwQQz/DxCGQWlskzXhfPFqsYZoBbJhH0++WFfhvZHSP5FiQd7
-	doPEk8urWReTB0T9LSfpCJ9cYGtHxBFUcokby1DqTN3uOJygAwcuMcnjh3+Yw3mwtXF3Rv6OmpC
-	NRDmXXif+bny50zFzYiqG79IpZki8YOFwH1KP0mHqUgMKC4yjlreIqZeTo0o+ZNlxFT4f8XaabT
-	5DAjF5W+I+WUEID/bYixA10B6OqKIPY+ZQ15Y/7okapzeaGa6SeE/3bNbYI+HL
-X-Received: by 2002:a17:90b:2e88:b0:369:a359:b18e with SMTP id 98e67ed59e1d1-36a67449708mr14002024a91.9.1779720486941;
-        Mon, 25 May 2026 07:48:06 -0700 (PDT)
-Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.48.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 07:48:06 -0700 (PDT)
-From: Jun Yan <jerrysteve1101@gmail.com>
-To: linusw@kernel.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	Lee Jones <lee@kernel.org>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Gregory Clement <gregory.clement@bootlin.com>,
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Vincent Knecht <vincent.knecht@mailoo.org>,
-	Grant Feng <von81@163.com>,
-	Andre Przywara <andre.przywara@arm.com>,
-	Baruch Siach <baruch@tkos.co.il>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Paul Barker <paul.barker@sancloud.com>,
-	Robert Marko <robert.marko@sartura.hr>
-Cc: Jun Yan <jerrysteve1101@gmail.com>,
-	Pavel Machek <pavel@ucw.cz>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Wei Xu <xuwei5@hisilicon.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-gpio@vger.kernel.org
-Subject: [PATCH v2 6/6] arm64: dts: marvell: armada-7040-mochabin: Fix is31fl3199 shutdown GPIO polarity
-Date: Mon, 25 May 2026 22:46:12 +0800
-Message-ID: <20260525144629.498630-7-jerrysteve1101@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260525144629.498630-1-jerrysteve1101@gmail.com>
-References: <20260525144629.498630-1-jerrysteve1101@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KXEqcm/I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B711F000E9;
+	Mon, 25 May 2026 14:49:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779720558;
+	bh=xLbBhNBtrcAFocX5iciV8jU+JEM2do+MXCyw+GJwDGY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KXEqcm/I5bAV+alAyW2RnL93aVrR5pdvtnDTeOBpWyuizCS3HGSZZxFQAgr/QcIv5
+	 vrSGaUIQUP2/CiEtmwriL077rZ9j3NNAEzlx/jLPE9nNC6Vpw0sjib8bkdUjDfc+pf
+	 4W3iiakhbRc0CBvqrlfOXo+By3Ik1HBhfIfmkCbS3qkuJ/jh+R4WKEcsX/3dF9l3Va
+	 wuY1PEPN+pW9ocF+mVAte9c27QLxUchI44gWeJZk6+x1TJYWyZUtVleQbQ2fNysn8V
+	 DKZLRBDrT6zKdCFRJg7zD2sfp3TveOm09aQNyd6HGl0xcmBhRbrntIf2L6q4UjMs5q
+	 t8V+S0n4ZrMtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/3] i3c: dw: Add apb reset support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jisheng Zhang" <jszhang@kernel.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525140018.19598-4-jszhang@kernel.org>
+References: <20260525140018.19598-4-jszhang@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 14:49:18 +0000
+Message-Id: <20260525144918.86B711F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The is31fl3199 shutdown pin is active-low [1]. Correct the GPIO flags
-from GPIO_ACTIVE_HIGH to GPIO_ACTIVE_LOW to match the hardware.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-[1] https://lumissil.com/assets/pdf/core/IS31FL3199_DS.pdf
+New issues:
+- [High] Asymmetric reset assertion/deassertion order for APB and Core rese=
+ts violates hardware sequencing rules.
 
-Fixes: 737929191283 ("arm64: dts: marvell: add Globalscale MOCHAbin")
-Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
----
- arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Pre-existing issues:
+- [High] Missing error handling for clock enablement and reset deassertion =
+in runtime resume leads to potential kernel panics.
+--
 
-diff --git a/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts b/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts
-index 6bdc4f1e6939..cf690a85cc2a 100644
---- a/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts
-+++ b/arch/arm64/boot/dts/marvell/armada-7040-mochabin.dts
-@@ -236,7 +236,7 @@ leds@64 {
- 		#size-cells = <0>;
- 		pinctrl-names = "default";
- 		pinctrl-0 = <&is31_sdb_pins>;
--		shutdown-gpios = <&cp0_gpio1 30 GPIO_ACTIVE_HIGH>;
-+		shutdown-gpios = <&cp0_gpio1 30 GPIO_ACTIVE_LOW>;
- 		reg = <0x64>;
- 
- 		led1_red: led@1 {
--- 
-2.54.0
+commit f0e43b6549a854c56bb22e329a26e4ad0bcd7e1c
+Author: Jisheng Zhang <jszhang@kernel.org>
+Subject: i3c: dw: Add apb reset support
 
+This commit adds support for an APB interface reset in the DesignWare I3C
+master driver. It fetches the optional reset during probe and updates the
+runtime power management callbacks to assert and deassert it alongside the
+core reset.
+
+> diff --git a/drivers/i3c/master/dw-i3c-master.c b/drivers/i3c/master/dw-i=
+3c-master.c
+> index a7593d6efac5a..03efd46db8d0c 100644
+> --- a/drivers/i3c/master/dw-i3c-master.c
+> +++ b/drivers/i3c/master/dw-i3c-master.c
+[ ... ]
+> @@ -1784,6 +1789,7 @@ static int __maybe_unused dw_i3c_master_runtime_sus=
+pend(struct device *dev)
+>  	dw_i3c_master_disable(master);
+> =20
+>  	reset_control_assert(master->core_rst);
+> +	reset_control_assert(master->apb_rst);
+>  	dw_i3c_master_disable_clks(master);
+>  	pinctrl_pm_select_sleep_state(dev);
+>  	return 0;
+> @@ -1796,6 +1802,7 @@ static int __maybe_unused dw_i3c_master_runtime_res=
+ume(struct device *dev)
+>  	pinctrl_pm_select_default_state(dev);
+>  	dw_i3c_master_enable_clks(master);
+>  	reset_control_deassert(master->core_rst);
+> +	reset_control_deassert(master->apb_rst);
+
+[Severity: High]
+Should the reset deassertion order in resume be reversed to follow standard
+hardware sequencing?
+
+Currently, the resets are asserted in the suspend path as core_rst followed
+by apb_rst, and they are deasserted in the resume path in the exact same
+order. Standard practice usually requires a last-in, first-out sequence.
+
+Additionally, dw_i3c_common_probe() requests these resets in core_rst then
+apb_rst order. This means the automatic devres teardown will assert them as
+apb_rst then core_rst, which is the opposite of the manual runtime suspend
+logic introduced here.
+
+Could this asymmetric sequencing cause bus hangs or IP initialization
+failures if a core is released from reset while its APB bus interface
+remains in reset?
+
+[Severity: High]
+This is a pre-existing issue, but this patch extends the pattern to the new=
+ly
+added apb_rst. Are we missing error handling for the clock enablement and
+reset deassertion?
+
+The return values from dw_i3c_master_enable_clks() and both calls to
+reset_control_deassert() are being discarded. If any of these operations
+fail, the driver will proceed to configure the hardware by calling
+dw_i3c_master_set_intr_regs().
+
+Would it be safer to check these return values and return an error code to
+the PM framework to avoid potential synchronous external aborts when
+accessing inactive IP registers?
+
+> =20
+>  	dw_i3c_master_set_intr_regs(master);
+>  	dw_i3c_master_restore_timing_regs(master);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525140018.1959=
+8-1-jszhang@kernel.org?part=3D3
