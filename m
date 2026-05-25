@@ -1,113 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 928C4344025
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:49:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A327B3128CC;
+	Mon, 25 May 2026 11:51:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779709788; cv=none; b=I51yBa722K+xqNXg8jZQJKjJceBFeBlRKgLMepZyeyDdraMuf/VgVeBhNNEPqZuVxz8fTGj6ZcfrE14pQEhnedzIrzz9EncZ0Jvu3BVJzl3xsvL/Gn1n7ozBDtoS7tsdabLAhQE60/Koo4E1jZ50RF1SqpfmdSPZ/q/WBo0Wc8E=
+	t=1779709910; cv=none; b=jBhyTgNj8iiONGe6DXVQ3hhTpuVa9qDSDVRG6cHet0Fuhr1fvf+JwGIYXtgyD0QRjW9JibbQPWFRIP0WGmAiYFOT1TWktRkKGaLHFx6lGmwfcl0sBtD057xQPmncWzeNT9oVU1JieYAwtZIPSmZnM2pL+C62/8DJLg5Bllzy+x0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779709788; c=relaxed/simple;
-	bh=aYyZSJk4TI5bEzGw7ismVy6+YAOH0RwT+G8M/P1lUU4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HXZ963hUkaSTqiBu9QoEOCKjZtAiAX1XcryRkhn4Ax4aKN0TNjfdbeXjRPp7IgTZwCEwKawRa92P3VUPuULZfspuJzbvadOskuQRliCwGLTe8daIubIjZIfYnCClsCdyMzS3UmRSQxB7nqyPF6Y20nrffeIcBVo2iJ84nh2NRa0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H74Dj2Yw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779709910; c=relaxed/simple;
+	bh=ix/HmgCwt3LlOUIIgp49Jv1ENXNdT1pCtpF3I2NB33E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ow9Q9esNgnUVWyXdAAqWzx8DvwydQv7OG6bZQcFTqu+WMZZeaR7TWz3ClepeNJJ4uLvgIbYwphtnnsOVephSnDp87bGiTxSmPcZeIsg3vZaZ7CrysGSHz0VrExC8rK7ep4F0+sL+Q7PDrkpeQSBqguiOX7He08kuhFQiB/VSnxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CK5fGqle; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=5WPT95+m; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H74Dj2Yw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B0E1F000E9;
-	Mon, 25 May 2026 11:49:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779709787;
-	bh=hAdUM86yPCWOn81DznBAXV3plyk26Mhnwi2i4a4jZ60=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=H74Dj2Yw1sK3X/D5TG4Bg8QPAu1ElrgMMyzUOjW6G0eIOOq4byxPGDcTDkqgGdaPh
-	 jSj2yPj/b9RAhldEUcAnjhC4hCahjH1LI7vqGabwO/YH5SbkUObV/Mb7W3mxKsc23u
-	 s9o5OwKnWVBwTc0+V/f4ExM7396vMgrEVmGGFCnTioGGYKXx4ox2NMk4HadM9QHzqe
-	 CeqVA8pAGtSwpVxGLxvi8C8Htn++KCxewFVkDFzbTZKa8B1PavBW+EXqoKctE8C3dz
-	 Z+wn4hNRx89q0CyQvevMmRTK61PIzXNP1+rk1rxUPso4zI6bojZENr1oeYMfis81lm
-	 fOQjLgikU+Cwg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 12/18] ASoC: rsnd: Add ADG reset support for RZ/G3E
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
-In-Reply-To: <20260525110230.4014435-13-john.madieu.xa@bp.renesas.com>
-References: <20260525110230.4014435-13-john.madieu.xa@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:49:46 +0000
-Message-Id: <20260525114947.09B0E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CK5fGqle";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="5WPT95+m"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1779709887; bh=QTRYxDaTolkVrcRshuXeyNq
+	jRyNHMRkA6+Q2W7POAHY=; b=CK5fGqlezE5hBMZIUWtJSGx/O1boUOCJRqqakTzYkdUV2EETqt
+	+rYOyVVObD82QT2j8w+gIVSeCyGtLeU20sTSPyORZ1lyhWEbssBcOhkULqsW6SuaN0kF81Us2CW
+	4cAvCeqIvt2m101Pkr8e7leH+BuyTKJM+N3y2O700JpSOB/w8g3bxPp6tEw02CWEMglSmIf9McQ
+	nuBSgiJYWhWtY+BNfwoVzHUpCM3nuzQ2cWMDjD1zZxmrhVgXFfSDyQLJfTp6aZobKpPv1pN7Bvh
+	0OE71N78G6zgqZbhwEWJAHPhIV9R5/5GrjIvLhjdvpFMVgPyEJRMZn1Es5x0q3s2VkQ==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=From:To:Subject:Date:Message-ID; t=1779709887; bh=QTRYxDaTolkVrcRshuXeyNq
+	jRyNHMRkA6+Q2W7POAHY=; b=5WPT95+mzSdHL3wnfFkkLMLc+K8Wag3ZC4AG7Hg1vXKThjwtlR
+	DQizkY/utig1L3mH1/N414RzukVcuKY8FtDg==;
+Message-ID: <3fe41d7b-0e65-4937-afda-b9a9e470e638@mainlining.org>
+Date: Mon, 25 May 2026 14:51:25 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/15] ASoC: dt-bindings: qcom: q6dsp: add internal
+ mi2s support
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Richard Acayan <mailingradian@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Srinivas Kandagatla <srini@kernel.org>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20260501153128.8152-1-mailingradian@gmail.com>
+ <20260501153128.8152-3-mailingradian@gmail.com>
+ <20260503-devout-mamba-of-sorcery-d4ecb2@quoll> <afe8bQ3SIAu9rP1S@rdacayan>
+ <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
+Content-Language: ru-RU, en-US
+From: Nickolay Goppen <setotau@mainlining.org>
+In-Reply-To: <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The ADG module reset is deasserted before its module clock is requ=
-ested or enabled, violating hardware sequencing rules.
-- [Medium] The newly introduced ADG reset control is never asserted on driv=
-er unbind or probe error paths, leaking the hardware state.
---
 
-commit d6340a23ee109a2c61a0071ea77ab96a55373b74
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
+14.05.2026 16:55, Krzysztof Kozlowski пишет:
+> On 03/05/2026 23:21, Richard Acayan wrote:
+>> On Sun, May 03, 2026 at 02:11:31PM +0200, Krzysztof Kozlowski wrote:
+>>> On Fri, May 01, 2026 at 11:31:15AM -0400, Richard Acayan wrote:
+>>>> The internal MI2S ports are found on devices with the internal sound
+>>>> card for Snapdragon 660. Add support for them.
+>>>>
+>>>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+>>>> ---
+>>>>   .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  4 ++--
+>>>>   include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 14 ++++++++++++++
+>>>>   2 files changed, 16 insertions(+), 2 deletions(-)
+>>> Same feedback as last time. DO NOT send next versions, untill you reply
+>>> or address the feedback.
+>> Ok, I believe this is about [1] and [2] with reference to the patches
+>> already in v7.1-rc1 [3].
+>>
+>> My patches add INT0_MI2S_RX through INT6_MI2S_TX, which correspond to
+>> q6afe port IDs 0x102e - 0x103b. Srini's patches add LPI_MI2S_RX_0
+>> through LPI_MI2S_TX_4, but no q6afe port IDs.
+>>
+>> I asked if the LPI_MI2S ports have q6afe port IDs to check if we're
+>> referring to the same ports, but apparently q6afe is too old to have it
+>> [4]:
+>>
+>> 	> Is the LPI MI2S on Q6AFE? I don't see the AFE port ID.
+>> 	I think the older SOCs did not have this I guess,
+>>
+>> Even if there's already an allocation of dt-bindings ports for LPI_MI2S,
+>> they can't just be reused for INT_MI2S. There are allegedly INT5_MI2S
+>> and INT6_MI2S (each RX and TX) but LPI_MI2S only counts to 4.
+> Then what is the difference between INT and LPI? People stuff here some
+> hardware names but this is SW ABI, so MI2S_RX_0 is only one. Just like
+> we have DISPLAY_PORT_RX_0, but no LPI_DISPLAY_PORT_RX_0 and
+> INT_DISPLAY_PORT_RX_0.
+Then do you mean that LPI_MI2S ports need to have port ID's assigned 
+like Richard done that for INT_MI2S? +Srini, Is this a good idea?
+> Best regards,
+> Krzysztof
 
-ASoC: rsnd: Add ADG reset support for RZ/G3E
+-- 
+Best regards,
+Nickolay
 
-This commit adds support for an optional ADG reset line for the RZ/G3E SoC.
-It fetches the reset control in rsnd_adg_probe() and passes it to
-rsnd_mod_init() during initialization.
-
-> diff --git a/sound/soc/renesas/rcar/adg.c b/sound/soc/renesas/rcar/adg.c
-> index 0105c60a144e0..813ad5eabba61 100644
-> --- a/sound/soc/renesas/rcar/adg.c
-> +++ b/sound/soc/renesas/rcar/adg.c
-[ ... ]
-> @@ -779,8 +780,11 @@ int rsnd_adg_probe(struct rsnd_priv *priv)
->  	if (!adg)
->  		return -ENOMEM;
-> =20
-> -	ret =3D rsnd_mod_init(priv, &adg->mod, &adg_ops,
-> -		      NULL, NULL, 0, 0);
-> +	rstc =3D devm_reset_control_get_optional_exclusive(dev, "adg");
-> +	if (IS_ERR(rstc))
-> +		return dev_err_probe(dev, PTR_ERR(rstc), "failed to get adg reset\n");
-> +
-> +	ret =3D rsnd_mod_init(priv, &adg->mod, &adg_ops, NULL, rstc, 0, 0);
-
-[Severity: High]
-Does this sequence deassert the ADG module reset before its module clock is
-enabled?
-
-When rsnd_mod_init() is called here, the clk argument is passed as NULL.
-Inside rsnd_mod_init(), clk_prepare_enable() does nothing for a NULL clock,
-and then reset_control_deassert() is executed immediately.
-
-Since the ADG clock is not fetched until the subsequent call to
-rsnd_adg_get_clkin() and is only enabled later in rsnd_adg_clk_enable(),
-this appears to deassert a synchronous hardware reset without an active
-module clock. Can this invalid sequence fail to propagate the reset state
-properly or lead to bus lockups?
-
->  	if (ret)
->  		return ret;
-> =20
-
-[Severity: Medium]
-Are there missing error handling and teardown paths for this new reset?
-
-If rsnd_adg_probe() fails after rsnd_mod_init() completes successfully
-(for example, if rsnd_adg_get_clkin() returns an error), the function
-returns directly. It appears there is no call to rsnd_mod_quit() to unwind
-the state and assert the reset line on this error path.
-
-While the devm framework will free the reset control reference on probe
-failure, it does not automatically assert the line, leaving the hardware
-permanently out of reset. Is an update to rsnd_adg_remove() also needed to
-ensure the reset is properly asserted during driver unbind?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
-435-1-john.madieu.xa@bp.renesas.com?part=3D12
