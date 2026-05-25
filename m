@@ -1,228 +1,257 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 343483D1A8E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:27:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A18D6FC3
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:39:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779694064; cv=none; b=nGKS9duor7RwPvzw+kM/1M21X/Dl2snbrovL1MmRFKZrBj6wRWx4vJTm9Ro3xkmYDRtROqII8bFN+arB+vOoeETLGIgiSkEkiMsNBLKDsq6DAS1wdQDJLv5JFVri7+PBgj4kkeSL4KbXhURpWV1nmnbpJCMY0YWqGTfoy3Xwfoo=
+	t=1779694782; cv=none; b=mdTv0SkGuYhZ8U6/7jlMz7z1SHwUG9xedsr8mNuFZLt7UjkpQwlK8LFftAskpSsl7Ohrnnh2fiEhXK7of2L+srw4j1+Cah84bAgwXlkJFv1EgHOPpBh5/tGw4eHaXyOA+VgDAi2WU9fvaegRcNDqbs3cwW2QWrQk+2+lYxtk12k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779694064; c=relaxed/simple;
-	bh=b+fRIX7C6fr84aPBl4hswANQogblnbbZxE9mFPFUrXg=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=d00LsrNRhvoEJp0T162CSupogYtvJZh+BWa7sbFVCP9g2hKtP2chYCWfSIGvJbU1oOtlF8mT7THcI9Ow45hwLac56+dkQP780921TNvHYnNLNiQ2EM/kKL3T+WouGXsifsPyX6C1Spz79/UYgrRMXsxAxpjwkQQP7AVZMiNSpuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=M7kHD5U+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=klXW4mfs; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779694782; c=relaxed/simple;
+	bh=Ml83agGrwbmcx9wuLB8ydnvu7kuIR1kaEAjSbP4D+Dk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Yr5dkskm/2PjuaH9H7WNSize8ypU6/lRmq03A1YsGvqGPH/+lQbfcHxLWPU0uNuhD/JI7xPEiRjIzXS0HBfBo89ZsEKFxVw/orqcVx+njNjfjPyZtdSiFHL7okgcYkTNNYF8rfL7jUjyFTWoJTrYT2idfMmMzPR5TVcBzT363aI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ldSyZB9D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="M7kHD5U+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="klXW4mfs"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P6bgGN236109
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:27:41 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=hSZnChPk1TWRUFz23ooFNx
-	z8/9ibfnIjGVWt3fXZ3Z0=; b=M7kHD5U+eGqLWCr1YuWD3AzT1GHD66ZZjYyofL
-	h64akDk9zxIA1mrcyFwUgQoyJE5RK6fX5rWInKVGYxEy8XVGS+4CsT/qZi6iGZZU
-	EEekgOuhTF9yjd7zmQWoLiwkxV4DzZ6hjtKy1PuaprXmlxM+vs8zNBEdofBWYLyF
-	dl1BxO6kCkkINMehTm6gmpjdz7BzUPc1q7awAuK3oIq77IRRTaUvylXop3ZncHXy
-	WL5jJSICs59sMBf1uawApZ7tSeq4DHmN6tuw2X65tlxTmNi2A9P1zD7uFsGJDVuL
-	6lWjt2/OI6VyZCp9+2olkekmUL4fYafQbDdDEhVuXiyB+XVg==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb5h9nd18-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:27:41 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-304627c66ddso155964eec.0
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 00:27:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779694061; x=1780298861; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hSZnChPk1TWRUFz23ooFNxz8/9ibfnIjGVWt3fXZ3Z0=;
-        b=klXW4mfsVXRM2NQvrNc8smjY1eYtXikVAU4RQnPOljOracY/NDizIsUNm6sZVrY+ai
-         2vRRw2nUJ15UQmzOoQun/TGPaZaKUwGBR5jqH4zW9Mz00kjSgu72TUlte8BozaGBFKux
-         gXOGDKt9qJPHQPj4sM3ZGcYCUTFhFT47pgeXHYv1XYKywuvKT5+MNRNZMptDgvesvolG
-         M3+6lFn5J9JiTmLXbpSE4Bv1w7QIVDDcEZnTVHF9Yn0weVLIILdyWjqt0RuGNt9QjlXT
-         LSBt6PitHrs7J00HN+F74bX18dISDp5hACj8W1hE3HcAwArbwzG5gsbcvQbCtn7TpNDX
-         CgqQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779694061; x=1780298861;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=hSZnChPk1TWRUFz23ooFNxz8/9ibfnIjGVWt3fXZ3Z0=;
-        b=dHKc1tBdSOzGFVJZTbgncb+SjuyYqCLY71uhfUBfW1h8KRGoG0ivcvu6fmRiA2G8F2
-         mmFb9DbpX0a1LNk0pRThCWPsUaxBk6tArK3FCtL0F1bsuEHMif/0F4ZFRC1aZNvjqw/R
-         O2/GV8Nfj1pSAVekmUtEBvVoNweR+/P0CI+yWqi5mnbZdrAuEcBvO0z8AOzJYZmK2goi
-         R7wUae5mO46fyx6TwmxztDWKktoXZDlLrSz55GgTFB+YPcxZS4LpLvtSkJP8eGKEQ77+
-         GF9kxBkWNYWF40StYFzCfCiMItHOZFwi5wVI84JLCc+/pW2ERT1Sg5JawrI0l81ZX3Rs
-         o4vw==
-X-Forwarded-Encrypted: i=1; AFNElJ/30X0M7lP2i02O4JfxtPpKJltvqq3wdndvhTyUZXWjbJzNly97jMj8aFR8sUpXVwmLfztBM7/7DnzL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwY5Bpf6Xom+JMfps4gq146ReN71u/CYuvdBmsrgrCvn7pYzxRf
-	XFyQwUPNUIZ345KFTO4K7sgXlYnchamens7x3m8k3Rrrst2LB3K9dNsixx5xMhvALTmLYVgZ96I
-	tJlZriPt2IN2pxeWMXbBDFysMler/Tsvvmh2koNBWHFrOYfPx4bbTbw4XlwpcDf9m
-X-Gm-Gg: Acq92OH8v1Atn879Z+MKEsZE+i+VuXyBl77Bb8+l8eSXD6bhRyFXYPPqP1wAYeH6FmL
-	YCeLMb4UuCFVZ0+XUbf/cUT3VC7cqASqXz2GZLsZcUQsyQovdVNn4wm6uHWyLBJJ5WHjEcPcQBO
-	dh3bFE6lWP/vhgU44o58k3SpOjSTfxfAuBz/W2eDVYPwisbWSIF9hGZ7LRXrzU/1upv9QnWlQEU
-	n+Ap+tHUhglDPzxRTvYiCd5EeEnshPmpy7oWUI7JetAlKm5vmH50rNeMmdu1ZERQiNKgYNfZIGB
-	3KD2TRNKpDXkRxDpFyilB/mv5617rLaYViOCKzpNGevLsa4oGMTjp2MbwWqljnZcMFywvpkh2ig
-	L2pR5MmGFi53fKNALSUdSG86UsMMU2hwQZXU+MB2lxL/v8ZvUEdrvPE8hw8KvabdkM9fjI1Ra
-X-Received: by 2002:a05:7301:19a5:b0:2df:919f:ce59 with SMTP id 5a478bee46e88-30449149c79mr6594634eec.19.1779694060939;
-        Mon, 25 May 2026 00:27:40 -0700 (PDT)
-X-Received: by 2002:a05:7301:19a5:b0:2df:919f:ce59 with SMTP id 5a478bee46e88-30449149c79mr6594599eec.19.1779694059989;
-        Mon, 25 May 2026 00:27:39 -0700 (PDT)
-Received: from hu-jingyw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30451ca2d80sm9180367eec.0.2026.05.25.00.27.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 00:27:39 -0700 (PDT)
-From: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Date: Mon, 25 May 2026 00:27:29 -0700
-Subject: [PATCH] dt-bindings: cache: qcom,llcc: Document Maili SoC
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ldSyZB9D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC7E1F000E9;
+	Mon, 25 May 2026 07:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779694780;
+	bh=NdjexsjUL8poX7zAsA9UTVY8nB++iAxSgElIGvgMMf0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ldSyZB9DC6kouJMQDIfZg1ubLOWyplPNKp3kgJk4KkLELerU/xFPlKgiPqQO2DHmP
+	 KqNR9cKtUDASdmpaPRzgP2wrzWEdWHmaw8HFmYEI1Qs7DX20DMXigzDQAO3kRZ04If
+	 cFmNixFVpFxpcLmDfOz/yBLuGb698Sy/usdRBfGrtcdI31a1SZ/+SFM0TymYyXZ0uu
+	 tL745+NPhNQGCfpm6H5/rALj9wg7mTbhGTTXMlKtu9KKZpehSQyMkN+jSayQyFWBKJ
+	 mfqr28Sbikb4mNsf19ycodsRuck2SmwEhRfH34oDJLXpw34izZVVfBeshQ1luTTaxp
+	 K5Sm044eFle/A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 2/9] i3c: master: Expose the APIs to support I3C hub
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525064209.2263045-3-lakshay.piplani@nxp.com>
+References: <20260525064209.2263045-3-lakshay.piplani@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 07:39:39 +0000
+Message-Id: <20260525073940.9EC7E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260525-maili-llcc-v1-1-cdc72b98b671@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAOD5E2oC/x3MQQqDQAxA0atI1g1oMBW8SnER01gD41RmoBTEu
- zd1+Rb/H1CtuFUYmwOKfbz6Owe6WwO6Sn4Z+jMM1NK9ZWLcxJNjSqoovVHHOvDQM0SwF1v8e80
- eU3iWajgXybr+F5ETnOcPTuNwPHMAAAA=
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Conor Dooley <conor@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: aiqun.yu@oss.qualcomm.com, tingwei.zhang@oss.qualcomm.com,
-        trilok.soni@oss.qualcomm.com, yijie.yang@oss.qualcomm.com,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-X-Mailer: b4 0.15-dev-3d134
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779694058; l=2756;
- i=jingyi.wang@oss.qualcomm.com; s=20250911; h=from:subject:message-id;
- bh=b+fRIX7C6fr84aPBl4hswANQogblnbbZxE9mFPFUrXg=;
- b=+U78c4x4dHLD6eJFeT/mAv4oLyrBL6Sm+byYWIEGFC/Rf5WkN9SMcfAiIFzjXAe95QUJbl3D5
- BvcDsCQ4k0cAx02Xm4pVZZU7+CLyvXgiRFhOknONWsTSUgLFtH/qT0e
-X-Developer-Key: i=jingyi.wang@oss.qualcomm.com; a=ed25519;
- pk=PSoHZ6KbUss3IW8FPRVMHMK0Jkkr/jV347mBYJO3iLo=
-X-Proofpoint-ORIG-GUID: 0LUeBkyYHCwzlYDR1_CIGO-cyo2fmNZB
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDA3MyBTYWx0ZWRfXzmuSjNYejN5x
- 23TiofC1fOb1OGrS8TWLal3vkOnhuVvHzNS4f9YLnBxl+8kXGSY7+872j+QIXu8PN7BiRdCbYhS
- BjLPbGy9rJwXa+MENpv74rdNDV3pLY7UdInPzJOmAC3IrZ+E6uoTB2hPPtqg0KDjgLLN8geVqGF
- v6BBrkV2Tx2Yv3bH9QLO0ITImSzf4ZphLltlllj3FnWmYDD3beJvnxSLp6/C2fJ+mnLGXMPcLAh
- N9Nxb2Aop2QX0CXbba8yUBVfmYgArVhR0iqp9FOoUFui0rknxFvaytRrpzDkcUyvJsp0lQYyxMK
- op1DD14WshyDslSsN1zJ3NJjWwHc+9bcSVZJ9QbRjcSn+cb/DTy3u3ybZ9tr7QY124YdB3rrjcf
- rJ1L2sQuql3gRKdmhzmjbWhp6mT7yZW4Vqq44u1akiw0CzVqgmWLgsYzPSbIzh5ADSi6KMQXjVC
- 6nvqXLwedvyyrGqAzOA==
-X-Authority-Analysis: v=2.4 cv=H7jrBeYi c=1 sm=1 tr=0 ts=6a13f9ed cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=cvMXTzhbIQYqWXFn2VAA:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: 0LUeBkyYHCwzlYDR1_CIGO-cyo2fmNZB
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-25_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605250073
 
-Add documentation for the Last Level Cache Controller (LLCC) bindings
-for Qualcomm Maili SoC which fallback to Hawi SoC with System Cache
-Table (SCT) programmed by firmware outside of Linux.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Signed-off-by: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
----
- .../devicetree/bindings/cache/qcom,llcc.yaml       | 63 ++++++++++++----------
- 1 file changed, 34 insertions(+), 29 deletions(-)
+New issues:
+- [Medium] `i3c_master_reattach_i3c_dev_locked()` does not validate slot av=
+ailability despite documentation claiming it returns `-EBUSY`.
 
-diff --git a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-index 34e3a2d78592..a1340226a0d0 100644
---- a/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-+++ b/Documentation/devicetree/bindings/cache/qcom,llcc.yaml
-@@ -19,35 +19,40 @@ description: |
- 
- properties:
-   compatible:
--    enum:
--      - qcom,eliza-llcc
--      - qcom,glymur-llcc
--      - qcom,hawi-llcc
--      - qcom,ipq5424-llcc
--      - qcom,kaanapali-llcc
--      - qcom,qcs615-llcc
--      - qcom,qcs8300-llcc
--      - qcom,qdu1000-llcc
--      - qcom,sa8775p-llcc
--      - qcom,sar1130p-llcc
--      - qcom,sar2130p-llcc
--      - qcom,sc7180-llcc
--      - qcom,sc7280-llcc
--      - qcom,sc8180x-llcc
--      - qcom,sc8280xp-llcc
--      - qcom,sdm670-llcc
--      - qcom,sdm845-llcc
--      - qcom,shikra-llcc
--      - qcom,sm6350-llcc
--      - qcom,sm7150-llcc
--      - qcom,sm8150-llcc
--      - qcom,sm8250-llcc
--      - qcom,sm8350-llcc
--      - qcom,sm8450-llcc
--      - qcom,sm8550-llcc
--      - qcom,sm8650-llcc
--      - qcom,sm8750-llcc
--      - qcom,x1e80100-llcc
-+    oneOf:
-+      - enum:
-+          - qcom,eliza-llcc
-+          - qcom,glymur-llcc
-+          - qcom,hawi-llcc
-+          - qcom,ipq5424-llcc
-+          - qcom,kaanapali-llcc
-+          - qcom,qcs615-llcc
-+          - qcom,qcs8300-llcc
-+          - qcom,qdu1000-llcc
-+          - qcom,sa8775p-llcc
-+          - qcom,sar1130p-llcc
-+          - qcom,sar2130p-llcc
-+          - qcom,sc7180-llcc
-+          - qcom,sc7280-llcc
-+          - qcom,sc8180x-llcc
-+          - qcom,sc8280xp-llcc
-+          - qcom,sdm670-llcc
-+          - qcom,sdm845-llcc
-+          - qcom,shikra-llcc
-+          - qcom,sm6350-llcc
-+          - qcom,sm7150-llcc
-+          - qcom,sm8150-llcc
-+          - qcom,sm8250-llcc
-+          - qcom,sm8350-llcc
-+          - qcom,sm8450-llcc
-+          - qcom,sm8550-llcc
-+          - qcom,sm8650-llcc
-+          - qcom,sm8750-llcc
-+          - qcom,x1e80100-llcc
-+      - items:
-+          - enum:
-+              - qcom,maili-llcc
-+          - const: qcom,hawi-llcc
- 
-   reg:
-     minItems: 1
+Pre-existing issues:
+- [High] `i3c_master_reattach_i3c_dev_locked` corrupts the bus address stat=
+e if the reattach operation fails.
+- [High] Missing synchronization and improper error handling in `i3c_dev_di=
+sable_ibi_locked` and `i3c_dev_free_ibi_locked` lead to Use-After-Free.
+- [High] Missing memory barrier between `reinit_completion()` and `atomic_r=
+ead()` can lead to a deadlock in `i3c_dev_disable_ibi_locked`.
+--
 
----
-base-commit: c1ecb239fa3456529a32255359fc78b69eb9d847
-change-id: 20260525-maili-llcc-a4e215c75745
+commit 9189e89cd793462892bddcec9432ec1ed64052bf
+Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
 
-Best regards,
--- 
-Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+i3c: master: Expose the APIs to support I3C hub
 
+This commit exposes several internal static I3C functions as public APIs
+to support a new I3C hub driver. It adds EXPORT_SYMBOL_GPL and kernel-doc
+comments for functions handling IBI operations and device reattachment.
+
+> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
+> index c45b450af319d..ec3547f75469e 100644
+> --- a/drivers/i3c/master.c
+> +++ b/drivers/i3c/master.c
+[ ... ]
+> -static int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
+> -					      u8 old_dyn_addr)
+> +/**
+> + * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a =
+new address
+> + * @dev: I3C device descriptor to reattach
+> + * @old_dyn_addr: previous dynamic address of the device
+> + *
+> + * This function reattaches an existing I3C device to the bus when its d=
+ynamic
+> + * address has changed. It updates the bus address slot status according=
+ly:
+> + * - Marks the new dynamic address as occupied by an I3C device.
+> + * - Frees the old dynamic address slot if applicable.
+> + *
+> + * This function must be called with the bus lock held in write mode.
+> + *
+> + * Return: 0 on success, or a negative error code if reattachment fails
+> + *         (e.g. -EBUSY if the new address slot is not free).
+> + */
+> +int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
+> +				       u8 old_dyn_addr)
+>  {
+>  	struct i3c_master_controller *master =3D i3c_dev_get_master(dev);
+>  	int ret;
+
+[Severity: Medium]
+The kernel-doc mentions returning -EBUSY if the new address slot is not fre=
+e.
+Does the implementation actually check this?
+
+It appears i3c_bus_set_addr_slot_status() is called unconditionally,
+overwriting the slot status without validating if it was previously occupie=
+d.
+
+Since external driver authors may rely on this documented contract, could t=
+his
+lead to masking conflicts if they omit their own slot availability checks?
+
+[ ... ]
+> @@ -1677,6 +1692,7 @@ static int i3c_master_reattach_i3c_dev_locked(struc=
+t i3c_dev_desc *dev,
+> =20
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_locked);
+
+[Severity: High]
+This is a pre-existing issue, but exporting this function exposes an error
+handling path that can corrupt the bus address state. If the hardware reatt=
+ach
+callback fails:
+
+i3c_master_reattach_i3c_dev_locked() {
+    ...
+    if (master->ops->reattach_i3c_dev) {
+        ret =3D master->ops->reattach_i3c_dev(dev, old_dyn_addr);
+        if (ret) {
+            i3c_master_put_i3c_addrs(dev);
+            return ret;
+        }
+    ...
+}
+
+Calling i3c_master_put_i3c_addrs() marks the device's dynamic and static
+address slots as I3C_ADDR_SLOT_FREE. However, the device is not logically
+detached, remains in the bus list, and retains its dyn_addr.
+
+Since the bus allocator now views the slot as free, can subsequent dynamic
+address assignments or hot-joins assign this address to another device, lea=
+ding
+to address collisions on the bus?
+
+[ ... ]
+> +/**
+> + * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific de=
+vice
+> + * @dev: device on which IBIs should be disabled
+> + *
+> + * This function disable IBIs coming from a specific device and wait for
+> + * all pending IBIs to be processed.
+> + *
+> + * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
+> + * Return: 0 in case of success, a negative error core otherwise.
+> + */
+>  int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
+>  {
+>  	struct i3c_master_controller *master;
+> @@ -3216,7 +3242,22 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc=
+ *dev)
+> =20
+>  	return 0;
+>  }
+> +EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the lack of a memory
+barrier here risk a deadlock?
+
+i3c_dev_disable_ibi_locked() {
+    ...
+    reinit_completion(&dev->ibi->all_ibis_handled);
+    if (atomic_read(&dev->ibi->pending_ibis))
+        wait_for_completion(&dev->ibi->all_ibis_handled);
+    ...
+}
+
+Because there is no full memory barrier between writing the completion stat=
+e in
+reinit_completion() and reading the atomic counter, could store-load reorde=
+ring
+occur?
+
+If a concurrent IBI workqueue handler decrements pending_ibis to 0 and calls
+complete() before the completion reset is globally visible, the
+wait_for_completion() call would block indefinitely.
+
+[Severity: High]
+Also a pre-existing issue, but does this lack synchronization with in-flight
+interrupts?
+
+If an IRQ handler is executing on another CPU right before
+atomic_inc(&dev->ibi->pending_ibis) is called, i3c_dev_disable_ibi_locked()
+could read pending_ibis as 0 and return early.
+
+If i3c_dev_free_ibi_locked() is subsequently called to free dev->ibi, would=
+ the
+delayed IRQ handler then access freed memory?
+
+[ ... ]
+> +/**
+> + * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
+> + * @dev: device on which you want to release IBI resources
+> + *
+> + * This function is responsible for de-allocating resources previously
+> + * allocated by i3c_device_request_ibi(). It should be called after disa=
+bling
+> + * IBIs with i3c_device_disable_ibi().
+> + *
+> + * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
+> + */
+>  void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
+>  {
+>  	struct i3c_master_controller *master =3D i3c_dev_get_master(dev);
+> @@ -3301,6 +3366,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *d=
+ev)
+>  	kfree(dev->ibi);
+>  	dev->ibi =3D NULL;
+>  }
+> +EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_locked);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but exporting these APIs highlig=
+hts
+a potential use-after-free vector.
+
+i3c_dev_free_ibi_locked() {
+    ...
+    if (dev->ibi->enabled) {
+        ...
+        ret =3D i3c_dev_disable_ibi_locked(dev);
+        ...
+        if (ret)
+            dev_err(&master->dev, "Failed to disable IBI before freeing\n");
+    }
+    ...
+    kfree(dev->ibi);
+}
+
+If i3c_dev_disable_ibi_locked() fails to disable hardware IBIs, this functi=
+on
+logs an error but proceeds to call kfree(dev->ibi) and destroy the workqueu=
+e.
+
+Since the hardware might still be enabled and firing interrupts, won't the
+master's IRQ handler attempt to access the freed dev->ibi when it receives =
+the
+next interrupt?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525064209.2263=
+045-1-lakshay.piplani@nxp.com?part=3D2
