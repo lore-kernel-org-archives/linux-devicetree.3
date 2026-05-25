@@ -1,104 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0DCC379EF2;
-	Mon, 25 May 2026 18:45:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 302B737AA6C
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 19:06:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779734717; cv=none; b=uC2LJzmElGThkjKSWPU61k6ZO6J1EPA4yefTI1UJwxhMFWJqdtoh8dt3rYyI6Dh1REQWnxLXUhVrD5ggVpEGi1Q5hfHAWD8POBxEUU2xNbAGUR8p4bVG/fpjYkMxJleYzrdx9MjxxrerHb0yrtogvXLAlOgX+kASXPqcwP72DrY=
+	t=1779735978; cv=none; b=cKkOBbjXNGuGuQSsssEDSqVbiwqWO8LacCe8H2X//wG1qy8cnQpQ+1EZBn5cfoGUeR2eXHQqVJLhGv66WsNME7aUxVSobwZOI2Fxjo4fSfRQ+HUZrX1nIcj33NZx7r/SpQFt68+NeBhYtdPFWtFZmLTBUs9wVZTEAgqaho7vJwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779734717; c=relaxed/simple;
-	bh=03Un+L4U/WbKGCEwwjeTdw4zVgtXpZk1M28Ig4TLEr8=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=V5t0D+HAFSY/OzCnmzHLAlSzxPvF4NaCtsHAGXXol2E3M4SbBqC3h/c9QvStYNOZYN0Sive4fRsvdFH3YiwED5S2SsdLKnLCsKxYm7o5wX3EPVydzpCEY7hcr2t2JqK9SELqGN+t2fCMFhumZ/14FkCJYJxVkSGCda4BW8b0ySY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MgybNK8e; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779735978; c=relaxed/simple;
+	bh=d+1knqiu/eegqYy/ZGU+FkxwP7shorm+zQ/fkq4+o3E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=M6UrdKJCmoKuNwZTs1oA+NuYW6rJ5Y01Tdlzjws3loOLvyY5VNUp0WJCUCfRXJk/e0B7FR6WbGFIXQJ5rGepkM3OTj681Y5kR7GD0BDjSQb9EFh4y8wbHnaCpcnPIVoEk/6UONcQCD/Yk2Ng35O1HLDsovscNczP3DBo6/lg6Wk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MVtq6iXv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MgybNK8e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68E281F000E9;
-	Mon, 25 May 2026 18:45:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MVtq6iXv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 272A41F000E9;
+	Mon, 25 May 2026 19:06:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779734715;
-	bh=64e79zTo0Q/3LTOxcKMi6PmSR/wzB/guSZphOxF/gzg=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=MgybNK8e0qDHzldZoTzHC4seiisEWAeA9YkqVlO80OC3g5EwZK2bBSsVmE3ZKoFdz
-	 UNygU6b5ZqVG/6WJkRDh9Mse/ZjObjuaWU/45K+K8DCy5maEZyOGGgX9hpA+f1rx06
-	 arEWKWJQ/hKGPpprOvUZMK5NIJmNvTKPWmzdCCFOFCBfarBJz91XRVTPqy/ysv/S5r
-	 TRB0wfVzXVW6izyDUKvqUiKPgsJo+jN/yHIuVm3aGMGp9Tir+moBdS7N9lkX0rNGVX
-	 wpONYLWinFang3PCQk20mbS9aN+zOpjObtCM8Yl2bjtY7itoLzBUFeFogtvBhTQBq5
-	 jvVGgwfFosk7Q==
-Date: Mon, 25 May 2026 13:45:14 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1779735976;
+	bh=uwpdm9kVYdqrwslbrqjTS6ZLO1VWDZ4FpDWSEfH3jD8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MVtq6iXvrN2qLnCrIzHNZuRB16f7yqkyqcW7in/8DXd1Ro6vIvWiLNUkATlkK+ca5
+	 Xw97+qXltM7081zuhX06oye32+lyR2rHo6zBPr+Lw8jpXX4MLUgnlbdSnCBiWNcPGp
+	 0OQY1FFElfIBRerNN/H9QqSO99CVTiK+7VeAe4bIJ1Bl/8UooEMAEizo7H26zIKOLY
+	 q/YGDkZNwYVJFaCgs6XM6c8OluzJCU7b7PFuzrjSvxHgz3scY4UbKI3K/ninnYn5Nc
+	 Fte+pSfUWDP3luH5H/jzlaizZAbXzApeRWJz5auNny0ZsPFkBjpwGs+4r2Teyzu4mM
+	 mIKJpMPYizoSQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 9/9] iio: temperature: ltc2983: Add support for
+ ADT7604
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Liviu Stan" <liviu.stan@analog.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525164013.118614-10-liviu.stan@analog.com>
+References: <20260525164013.118614-10-liviu.stan@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 19:06:14 +0000
+Message-Id: <20260525190616.272A41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: krzk+dt@kernel.org, linux-staging@lists.linux.dev, 
- gregkh@linuxfoundation.org, devicetree@vger.kernel.org, 
- alexandre.belloni@bootlin.com, Frank.Li@nxp.com, conor+dt@kernel.org, 
- linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org, 
- brgl@kernel.org, linux-gpio@vger.kernel.org, linusw@kernel.org, 
- wei_wang@realsil.com.cn
-To: zain_zhou@realsil.com.cn
-In-Reply-To: <20260525125128.297-1-zain_zhou@realsil.com.cn>
-References: <20260525125128.297-1-zain_zhou@realsil.com.cn>
-Message-Id: <177973471463.4085017.2026764711842557373.robh@kernel.org>
-Subject: Re: [PATCH v2 1/2] dt-bindings: i3c: add Realtek RTS490x I3C HUB
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On Mon, 25 May 2026 20:51:27 +0800, zain_zhou@realsil.com.cn wrote:
-> From: Yin Zhou <zain_zhou@realsil.com.cn>
-> 
-> Add DT binding schema for Realtek RTS490x series I3C HUB devices.
-> 
-> The binding describes configuration properties for:
->   - LDO enable/disable and voltage level per port group
->   - Pull-up resistance per port group
->   - IO driver strength per port
->   - Per target-port mode (I3C/SMBus/GPIO/disabled), pull-up,
->     IO mode, SMBus clock frequency and polling interval
->   - Hub network always-I3C mode
->   - Hardware identification via CSEL pin (id) and CP1 pins (id-cp1)
-> 
-> Signed-off-by: Yin Zhou <zain_zhou@realsil.com.cn>
-> 
-> Changes in v2:
-> - Rework binding per Krzysztof Kozlowski's review:
->   add realtek, vendor prefix to all custom properties; use boolean
->   for enable flags; use u32 with unit suffixes (-microvolt, -ohms)
->   for voltage/resistance; change to unevaluatedProperties: false;
->   fix title, maintainer name, description, $nodename pattern
-> - Consolidate examples; add dt-bindings/i2c/i2c.h include
-> ---
->  .../bindings/i3c/realtek,rts490x-i3c-hub.yaml | 263 ++++++++++++++++++
->  1 file changed, 263 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
-> 
+Pre-existing issues:
+- [High] Integer truncation of `num_channels` leads to an out-of-bounds wri=
+te on the heap when parsing device tree children.
+--
 
-My bot found errors running 'make dt_binding_check' on your patch:
+commit 482bc8c51e04185002511817885173bd265542d8
+Author: Liviu Stan <liviu.stan@analog.com>
 
-yamllint warnings/errors:
+iio: temperature: ltc2983: Add support for ADT7604
 
-dtschema/dtc warnings/errors:
-Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.example.dtb: /example-0/i3c-master@d040000/hub@70,4ba00000000/target-port@1/i2c@10: failed to match any schema with compatible: ['i2c-slave-mqueue']
+This commit adds support for the ADT7604 sensor, repurposing custom RTD
+and thermistor sensor types as copper trace and leak detectors. It
+introduces new structs, parser functions, and hardware register mappings
+to handle these new types.
 
-doc reference errors (make refcheckdocs):
+> diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/=
+ltc2983.c
+> index 130ab7fddc2fe..fc65d8352d120 100644
+> --- a/drivers/iio/temperature/ltc2983.c
+> +++ b/drivers/iio/temperature/ltc2983.c
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260525125128.297-1-zain_zhou@realsil.com.cn
+[ ... ]
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+> @@ -1348,7 +1672,7 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
+>  	if (!st->sensors)
+>  		return -ENOMEM;
+> =20
+> -	st->iio_channels =3D st->num_channels;
+> +	st->iio_channels =3D 0;
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+[Severity: High]
+This is a pre-existing issue, but does st->num_channels silently truncate
+the number of child nodes since it is defined as a u8?
 
-pip3 install dtschema --upgrade
+If a device tree is provided with 256 or more child nodes (e.g., 257
+nodes via DT overlays), device_get_child_node_count() returns 257, but
+st->num_channels truncates this to 1. This causes devm_kcalloc() to
+allocate only a 1-element array for st->sensors.
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+The device_for_each_child_node_scoped() loop directly following this will
+then iterate over the children and write into st->sensors[chan], resulting
+in out-of-bounds writes on the heap. Could num_channels be changed to an
+unsigned int to prevent this memory corruption?
 
+>  	device_for_each_child_node_scoped(dev, child) {
+>  		struct ltc2983_sensor sensor;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525164013.1186=
+14-1-liviu.stan@analog.com?part=3D9
