@@ -1,121 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64E43381AF0;
-	Mon, 25 May 2026 12:11:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C78E2AE78
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:14:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779711110; cv=none; b=gCB92nD51jKSyOUztqb86kyIdnRphzHcnTgwebBj5iTMBrtagHPYSidUhQW9hfbd/5xFZxbJPkb7AxMoESbkt8O+y5YdVFEY+CX/IRosBGZJxEenvtNG49g/n5wtH0TVdd7NJCg8GKAworAdGw0EQHho+peykq7i8g1Dnl7SxSU=
+	t=1779711263; cv=none; b=OeJM6R7tlpLzbS8mvt1ze6IBCreNyD5WqkgGEOhUepNXwC+zEieAXE+ZpzMZlOrd7WbI1Tr3DDOBJXchcju5oU/+QFjfjfkjoNVtlmAxf8OQgwMeI4wAN708w2RT43VLflu5r0HGBaX/GH/r4mx2RoEfL2JjSt9CPn62q56RkTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779711110; c=relaxed/simple;
-	bh=Ou+Gl9epNVyhgTtWxRTjDQr7Fu8jCJLfWv8l8xFn1Rc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qfnEGJqrRqhOtB2YLwQUHnpIqYT1BEzVAzTknJm129knRglsLISML7K5JTks7pg25Cqy/wC0nFxcbYVjl9zgSwcrLzDPxBKGa0a0prubUh075m7BRWIB5O9R95Im88FJUDGPpYMFJnpLzEphF7vgWG6JtjA0apcDmSy/VN8f3TE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I5wxmU2I; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779711263; c=relaxed/simple;
+	bh=JonA6QRPgXFgFa/ZXSwNaYcmgoi+BJy/JdaHj+NoRdE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=rQYTk9R86IiiGodtZyDXRVlQCC0BFz2w682HheFa2D9DtRHhoxia3QcpbxDyDmtiDUmD/MjG9cvmg/nevlWXCwcZLw2MSA4xURcbz1PfZOTVzBl1MV1ZPSXGFOzIYM/OlnuOCCtSPkX6dVC0xrJQ4Mb2QVTrENRUVOh5TAPC4v0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VnlcGr0a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I5wxmU2I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5FC81F000E9;
-	Mon, 25 May 2026 12:11:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VnlcGr0a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DC6A1F00A3C;
+	Mon, 25 May 2026 12:14:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779711109;
-	bh=GAhk43rjhZZEhdOnFJWDTWuFRm+h6EKztPaH69/nN1g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=I5wxmU2Ibjxri5eo5zS/T8/eC3AChzpgc6wjQ0A2A+TdAtk6tNcyMiSFA/UJMBueG
-	 di8KgvheQIFcOqKWKRfgYSrzt6IVqOm4TDWa1um7JrtEKH/4OTHOKzZnCTFvVMM8sm
-	 2T2Bf2XQZMbJYHxnzwQ6UatM2MzQpakIaC8gKcJUrxpVivhKyb5aPRV/nyFetpXrXx
-	 RjZCkIhTTcMsalrb1I5d+9WMUVIPKqKgYv4ki83H+RlWGWehEw7cwGk17aL4c/cqoS
-	 ulrdapdOQUjAj1gEfR3ARtWgu5xhM3vD3MfSIk7WGwQ5RobI4IXfqg8cipEjmkGBob
-	 AmetRhqCKekIA==
-Message-ID: <5e1939b0-0842-431e-9787-75a88262bb2f@kernel.org>
-Date: Mon, 25 May 2026 14:11:45 +0200
+	s=k20260515; t=1779711261;
+	bh=G1xOlQwbA/OsO5cpc6v8/qXOJHs7lPuZrraz/xtlV2s=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VnlcGr0a3e5nS4Bey01GL9z7ja+miJQfvyLKsF4mSCTW/WNBwHAZ7FFnmT2n3senX
+	 nMOA02Nf8+Gae6su1EwDuryjNHFp4kLLVYpv0W1J/ohcoskwfyUYbBBkrpjBBmengo
+	 6VetPA12NKvv5vZ9nvJbNejs6lLKA8nvuKoGitMG3NumDbgQLQriVIlC+stXqyQcAT
+	 1eLeRM2fVefw05W7dDCq6+Sww3QYmDfQsOW1pLHsGNwFoUQ9nnd/UaaQ0EHpLlXmBv
+	 MlHAwlHX0GklNLrlDqpbObvg2Ip5aQsMyofRRKeTDV1DWxJhqaBcuF/xyw3KkO/73j
+	 TKbpclboaPzhg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 13/18] ASoC: rsnd: adg: Add per-SSI ADG and SSIF
+ supply clock management
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525110230.4014435-14-john.madieu.xa@bp.renesas.com>
+References: <20260525110230.4014435-14-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 12:14:20 +0000
+Message-Id: <20260525121421.9DC6A1F00A3C@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH RFC v2 7/7] MAINTAINERS: add Open Sensor Fusion IIO driver
-To: Jinseob Kim <kimjinseob88@gmail.com>, Jonathan Cameron
- <jic23@kernel.org>, linux-iio@vger.kernel.org
-Cc: David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260524085312.15369-1-kimjinseob88@gmail.com>
- <20260524085312.15369-8-kimjinseob88@gmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260524085312.15369-8-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 24/05/2026 10:53, Jinseob Kim wrote:
-> Add file patterns for the driver, binding, and protocol reference.
-> 
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-> ---
->  MAINTAINERS | 9 +++++++++
->  1 file changed, 9 insertions(+)
-> 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2c6d7927..9238701f4 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19977,6 +19977,15 @@ F:	Documentation/networking/oa-tc6-framework.rst
->  F:	drivers/net/ethernet/oa_tc6.c
->  F:	include/linux/oa_tc6.h
->  
-> +OPEN SENSOR FUSION IIO DRIVER
-> +M:	Jinseob Kim <kimjinseob88@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +L:	devicetree@vger.kernel.org
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The SSI module ID can exceed the bounds of the `adg->clk_adg_ssi` =
+array, leading to out-of-bounds memory access.
+- [Low] Inaccurate comment states unprepare happens in `hw_free`.
+--
 
-Drop both lists.
+commit 1339aa202161336aea7400a2edeb8b4b15c203d4
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-Best regards,
-Krzysztof
+ASoC: rsnd: adg: Add per-SSI ADG and SSIF supply clock management
+
+This commit adds support for per-SSI ADG clocks and a shared SSIF supply
+clock for RZ/G3E SoCs. These clocks are acquired and managed as optional
+resources transparently for platforms that require them.
+
+> diff --git a/sound/soc/renesas/rcar/adg.c b/sound/soc/renesas/rcar/adg.c
+> index 813ad5eabba61..5dce62287d200 100644
+> --- a/sound/soc/renesas/rcar/adg.c
+> +++ b/sound/soc/renesas/rcar/adg.c
+[ ... ]
+> @@ -343,8 +350,16 @@ int rsnd_adg_clk_query(struct rsnd_priv *priv, unsig=
+ned int rate)
+> =20
+>  int rsnd_adg_ssi_clk_stop(struct rsnd_mod *ssi_mod)
+>  {
+> +	struct rsnd_priv *priv =3D rsnd_mod_to_priv(ssi_mod);
+> +	struct rsnd_adg *adg =3D rsnd_priv_to_adg(priv);
+> +	int id =3D rsnd_mod_id(ssi_mod);
+> +
+>  	rsnd_adg_set_ssi_clk(ssi_mod, 0);
+> =20
+> +	/* RZ/G3E: only disable here, unprepare is done in hw_free */
+
+[Severity: Low]
+This isn't a bug, but is this comment accurate regarding hw_free?
+
+Looking at rsnd_adg_ssi_clk_unprepare(), it is only called from
+rsnd_adg_clk_control(priv, 0), which runs during the driver's remove and
+suspend phases, not during the PCM hw_free callback.
+
+> +	clk_disable(adg->clk_adg_ssi[id]);
+
+[Severity: High]
+Does this code overflow the adg->clk_adg_ssi array?
+
+The array is defined with a fixed size of ADG_SSI_MAX (10), but the id
+variable is dynamically derived from the Device Tree node name via
+rsnd_mod_id(). This can yield indices up to 63 via rsnd_node_fixed_index().
+
+If a Device Tree contains an SSI index of 10 or greater, won't this read
+past the end of the array and pass an invalid pointer to clk_disable()?
+The same issue appears to exist in rsnd_adg_ssi_clk_try_start() with
+clk_enable().
+
+> +	clk_disable(adg->clk_ssif_supply);
+> +
+>  	return 0;
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
+435-1-john.madieu.xa@bp.renesas.com?part=3D13
