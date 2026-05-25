@@ -1,242 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60E16381AE0;
-	Mon, 25 May 2026 12:28:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C1737FF6F
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:28:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779712118; cv=none; b=D+c5N9GxmP2jIA9vyJrQSjhdNKDCALqb42/+6T6kDc+LnahNc8sWZM4iunYrA/aRu+/D5E3wxm9hqwhgJZDM/+0rQGbPSRYL60toUPbUkxDAPYhMeuzpELgQd07Dnq5L65pdXFqarenthm7Q4RHySQ7ZlhYX2QtjudbnBWrkaRY=
+	t=1779712124; cv=none; b=W41YgViksWUDccaE/Dy4F6G8g17X2KYWAdDq6b4yEMctV0w996uv2xBegnjQGYkQw3O5FFkc05gCQfhFBLv3PbH/UruObVppaaVDE9dNm/+0QesbdXSJIG+KhHsW0GknmH5DI5rGe7pTXjZk0oWXULtAVrmQsc36yAmWmJ9ZNO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779712118; c=relaxed/simple;
-	bh=s6EajfLMOM1LDpJPwMs/oSCiSOte87+x4aYrsrt3nac=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YLTU3kCVF3FQsE7C2iJ2GkiVCKNhceorh5jQwtmHI08lcFhR4OQ3u4YZubComPFqd09AhUHT+2pqTWs9mFWDUaQs4cnarNuA+SYX2G0ZrycF0OjW+zWuVjxdsgsiLOpXjvWxWbYj06SXqAZx3rq9FQOmcI+WZL/oKtKUm5wRWXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N4zc4RPZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779712124; c=relaxed/simple;
+	bh=hzcTxfJbkhR7g2rrUJ566gI8HKVXMxO7A7dSRQYfBf4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=D7eQ8Wz+1D8LUB9+PMMZL5IVve6WzPDBKJVeZCZ/5y66LbliSy4Jz4llIiOcRK0UQ8WcY1QqGX6fjYgy9LPlYSNHEEppbLhF5g+GeEO9M8FmeUBzthdlLhvVrLv4zoGQ5QSGEIkBJIBQVxmTHgKRoyBDQSDIU5bbCWpUodPchuA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XRqELGxU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N4zc4RPZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7B1B1F00A3A;
-	Mon, 25 May 2026 12:28:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XRqELGxU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10D481F000E9;
+	Mon, 25 May 2026 12:28:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779712117;
-	bh=rG5FSAIqm0gl60Kib+PBHlUScNgwLQMgHAfVV2AI5gQ=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=N4zc4RPZFO/rbuANzKKx7I46HlsqHS8Yv+8jr8VildSSNtdFex5zb/pCwqMDCo7rf
-	 FD/qAaevgeIZNz8vwkRHhgtEjCShBlYOx7mAN5JqUkBn1ahvnYQb4SEaMctG7BpC91
-	 8C7EfQ7udA07EkKbQTcBNlnyRdJktiIRy5Fs4A4gfeg+RfdkFT5Fpm0ebSXa5m2NSi
-	 auxhxZLfp+/DNU7/iYdRi/hqWzeH9k9g92Ysw4WdZjoyUYNzbEynfQlgseeErCd+1f
-	 lKSMfQ3fXBnULPHqn0B4SxDlVBKQLLW5btQOpf77QKmEiQZYElc6TPmeV2ctUvHgtH
-	 56cXvPgYUXxLQ==
-Message-ID: <8046287e-87a2-4d18-ad3d-248620a752a9@kernel.org>
-Date: Mon, 25 May 2026 14:28:32 +0200
+	s=k20260515; t=1779712123;
+	bh=TiEzfv7A8AQisD+gKXvTG5OCnuOoISN38Y2Py47sMAY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XRqELGxUXyBTa0JDjkNm2LOaMIZqF9f16k48Xow5tUhhYig1j9abpw7R+AZBr54tP
+	 vE+sw4Pg6GNemXJj9k/KwWUO7z/yZE24GfVvtFN1d9YD+HqHDAwJ5jGB5h4Sy0CGUb
+	 q+yfCE0hU93siuvZZHIVzT+r07EK3j3Er8oHeRt5MPq2TPAoOLqzBX6e6r87FXBjyG
+	 Vqq3R3qwRaVBm+GuQr2qbHpGkEgIA/NFONB6QBkqC9P4m++3WtI5KTdLvAubVyn6X8
+	 dtt/raA98nwLTUVPGSsJdqGvexWZyLjyCz+sShpdKaNQGM9asf3uSsW8siY/pwxirh
+	 gbUfm+WRoXCsg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 7/8] arm64: dts: renesas: rzg3e-smarc-som: add audio
+ pinmux definitions
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525110603.4018170-8-john.madieu.xa@bp.renesas.com>
+References: <20260525110603.4018170-8-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 12:28:42 +0000
+Message-Id: <20260525122843.10D481F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] dt-bindings: connector: Add fsl,io-connector binding
-To: "Chancel Liu (OSS)" <chancel.liu@oss.nxp.com>, Frank Li <frank.li@nxp.com>
-Cc: Chancel Liu <chancel.liu@nxp.com>, "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "s.hauer@pengutronix.de" <s.hauer@pengutronix.de>,
- "festevam@gmail.com" <festevam@gmail.com>,
- "mturquette@baylibre.com" <mturquette@baylibre.com>,
- "sboyd@kernel.org" <sboyd@kernel.org>,
- "kernel@pengutronix.de" <kernel@pengutronix.de>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "imx@lists.linux.dev" <imx@lists.linux.dev>,
- "linux-arm-kernel@lists.infradead.org"
- <linux-arm-kernel@lists.infradead.org>,
- "linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>
-References: <20260509024846.2094049-1-chancel.liu@nxp.com>
- <20260509024846.2094049-3-chancel.liu@nxp.com>
- <20260515-resourceful-singing-roadrunner-ce25ec@quoll>
- <AM9PR04MB8353FE81D06852D45514E460E3032@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <d2b13e51-1684-4acb-a5ed-294c8aa95906@kernel.org>
- <AM9PR04MB83538C4A07A6835FF8A74793E3002@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <20260519-macho-degu-from-nibiru-960af2@quoll>
- <AM9PR04MB8353B563519EBC1AD6C5BFE1E3012@AM9PR04MB8353.eurprd04.prod.outlook.com>
- <e23a610f-e1ad-4536-80fb-8b5707e77f39@kernel.org>
- <ag3GMdmxw60B15Oe@lizhi-Precision-Tower-5810>
- <74eb56fb-546d-4b2c-9bbc-01a40937f5d3@kernel.org>
- <AM9PR04MB835333895276201A81251210E30A2@AM9PR04MB8353.eurprd04.prod.outlook.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <AM9PR04MB835333895276201A81251210E30A2@AM9PR04MB8353.eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-On 25/05/2026 08:26, Chancel Liu (OSS) wrote:
->>>>>>>>>>> +description:
->>>>>>>>>>> +  The NXP I/O connector represents a physically present I/O
->>>>>>>>>>> +connector on the
->>>>>>>>>>> +  base board. It acts as a nexus that exposes a constrained
->>>>>>>>>>> +set
->>>>>> of
->>>>>>>>>>> +I/O
->>>>>>>>>>> +  resources, such as GPIOs, clocks, PWMs and interrupts,
->>>>>>>>>>> +through fixed
->>>>>>>>>>> +  electrical wiring. All actual hardware providers reside on
->>>>>>>>>>> +the
->>>>>> base
->>>>>>>> board.
->>>>>>>>>>> +  The connector node only defines index-based mappings to
->>>>>>>>>>> + those
->>>>>>>>>> providers.
->>>>>>>>>>> +
->>>>>>>>>>> +properties:
->>>>>>>>>>> +  compatible:
->>>>>>>>>>> +    const: fsl,io-connector
->>>>>>>>>>
->>>>>>>>>> Everything is IO. Everything is connector, so your compatible
->>>>>>>>>> does not match requirements from writing bindings.
->>>>>>>>>>
->>>>>>>>>
->>>>>>>>> Yes, this compatible is too generic. I will rename the
->>>>>>>>> compatible to fsl,aud-io-connector.
->>>>>>>>
->>>>>>>> aud is not much better. Which boards have it? What's the pinout?
->>>>>> What's
->>>>>>>> standard? Is it described anywhere? If so, provide reference to
->>>>>> spec/docs.
->>>>>>>>
->>>>>>>
->>>>>>> This is not an industry standard electrical interface. This
->>>>>>> connector
->>>>>>
->>>>>> Then if you do not have standard, then you have board specific
->>>>>> layouts thus you need board-specific compatibles. You can use
->>>>>> fallbacks. Generic fallback could work, but both io-connector and
->>>>>> aud-io-connector are just too generic. Every connector is
->>>>>> "connector" and "io", thus absolutely anything can be
->>>>>> "io-connector". "aud" improves it only a bit, thus honestly I would
->> go with board specific fallback as well.
->>>>>>
->>>>>
->>>>> How about board specific + common fallback compatible like this:
->>>>>   compatible:
->>>>>     items:
->>>>>       - enum:
->>>>>           - fsl,imx95-19x19-evk-aud-io-connector
->>>>>           - fsl,imx952-evk-aud-io-connector
->>>>>       - const: fsl,imx-aud-io-connector Since the daughter board is
->>>>> named “IMX-AUD-IO” in publicly available
->>>>
->>>> I don't think it is named like that.
->>>>
->>>> git grep -i imx-aud-io
->>>>
->>>>> documentation, common compatible clearly indicates that this
->>>>> connector is intended for that.
->>>>>
->>>>> Also, I want to talk about the topic of generic connector. It's a
->>>>> common design that daughter board is connected to base board through
->>>>> a connector. This connector more often acts as a nexus that exposes
->>>>> a constrained subset of GPIO, clock, PWM and interrupt resources to
->>>>> the daughter board. Can we document this kind of connector as a
->>>>> generic binding?
->>>>
->>>> So this binding is the connector between carrier and some addon? Then
->>>> you don't get a compatible for that at all, because it is not
->>>> necessary, not useful and NEVER used. Do you see socket LGA "connector"
->> bindings? No.
->>>
->>> Not exactly. Any connector connects a carrier board with an add-on
->> board.
->>> The key point here is that this connector type is reused across
->>> different boards, even though it is not an industry-standard
->>> connector. Both the signal definitions and the mechanical layout are
->> defined.
->>>
->>> The same add-on boards can therefore be reused across different base
->>> boards that use this type of connector.
->>>
->>> There are also GPIO mappings involved. For example, pin 1 on the
->>> connector may represent reset-gpios, but it could be connected to
->>> GPIO0 on board A and GPIO1 on board B.
->>>
->>> Without a connector definition layer, this would create an N × M
->>> combination problem. The Nexus node discussion already covered this
->> topic:
->>> https://osseu2025.sched.com/event/25Vrw
->>>
->>> An LGA socket is a CPU socket, where the signals are completely
->>> transparent to software, so it is not a good comparison. A PCIe M.2
->>> Key-M/E connector would be a more appropriate comparison.
->>>
->>
->> So the terminology of daughter and carrier boards was confusing. If this
->> is a hat, mezzanine or other addon, it's fine.
->>
-> 
-> The IMX-AUD-IO is an add-on board that attaches to the base board. To
-> make it clearer, I will replace "daughter board" with "add-on board"
-> throughout descriptions.
-> 
->> I still insist on board specific compatibles - fallback and specific.
->>
-> 
-> The base board has a slot component that is mechanically compatible
-> with a PCIe x8 connector. However, it carries no PCIe signals and the
-> pins are repurposed to carry fixed board-level audio I/O related
-> signals.
-> 
-> I think we can name a compatible reflects a standard mechanical form
-> factor.
-> For the compatibles (specific + fallback) I propose:
-> - enum:
->     - fsl,imx95-19x19-evk-aud-io-pcie-x8-slot 
->     - fsl,imx952-evk-aud-io-pcie-x8-slot
-> - const: fsl,aud-io-pcie-x8-slot
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The device tree node `sound_clk` uses an underscore instead of a hy=
+phen, violating naming conventions.
+--
 
-Does not solve my request, so I won't ack it. Maybe you will get ack
-from other DT maintainer then.
+commit d0daff3ab55c18eb7640dc053ae11aaa9c14d357
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
-Best regards,
-Krzysztof
+arm64: dts: renesas: rzg3e-smarc-som: add audio pinmux definitions
+
+This commit adds pinmux definitions for the SSI3 and SSI4 audio interfaces
+on the RZ/G3E SMARC SoM. It configures the sound clock pins and the sound
+data and control pins.
+
+> diff --git a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi b/arch/arm6=
+4/boot/dts/renesas/rzg3e-smarc-som.dtsi
+> index 493f6783d5833..f4532a06cc31d 100644
+> --- a/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzg3e-smarc-som.dtsi
+[ ... ]
+> @@ -353,6 +353,18 @@ sd2-pwen {
+>  		};
+>  	};
+> =20
+> +	sound_clk_pins: sound_clk {
+
+[Severity: Low]
+This isn't a bug, but should this node name use a hyphen instead of an
+underscore?
+
+According to the Devicetree specification, node names should use hyphens
+rather than underscores to separate words. Using an underscore here might
+trigger compiler warnings for node_name_chars_strict. Renaming the node to
+sound-clk would align with standard DT conventions.
+
+> +		pinmux =3D <RZG3E_PORT_PINMUX(4, 2, 8)>, /* AUDIO_CLKB */
+> +			 <RZG3E_PORT_PINMUX(4, 3, 8)>; /* AUDIO_CLKC */
+> +	};
+> +
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110603.4018=
+170-1-john.madieu.xa@bp.renesas.com?part=3D7
