@@ -1,119 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE59B3A6B68
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 08:48:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E4843D34A2;
+	Mon, 25 May 2026 08:50:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779698889; cv=none; b=rtZnLVWly/LAlFZIZy4tazzCwJoYOv1RlnxquCduEyMsxEU5fCPPRpElPMCcrE4I50i8HStkrCGue0Tl2WlOC9PdwHdFJcomysKac1azns/OSTjGUhN/dvpEStIkoDdmZQnaliLkDtig43Vj171fxuEEi+fHSUMnKpEbFcsw1gM=
+	t=1779699022; cv=none; b=YmjPqk6x3rNTJZ30QWbHqPyfPGdzEh1X0hm1LLefPEJQoiRcqiWRgsICHMYI1TF8YImvCmV9WAt9X71Rpqbvp6co2zKJBf1XPdU5sztgthJQNsj68wRn5ZgMgofxksE1RyAIZYYS5f4D50I8LShkJfKdKjySV2B6i1zXcWNRPNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779698889; c=relaxed/simple;
-	bh=FOwXCnWbHcx6UHhHIBi33U2geRYPxqghh1IHxCmGHMo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=BSxK2khAh8BCEBZq+ExIK15Bjj0wCvSJqQ7BtHpM/V6eklRvg/DKLGi3lfbIUy/dUd0Ss9S3VDxZEdGEzRrwDF2lGr2R65SvTOiBGPld3eBwcVOt6ta/ZXpc9v8fRGjKM0U3L+dOlS/tvbIabjf97u1WMOVrkSYWMv+bIcHykTA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JjXmUag2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779699022; c=relaxed/simple;
+	bh=mTUcFKsbwiD0LIrg49RZV6ZL6jdqAvgndaKIqOJxJTc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mnBrO+Aj0UmnGHtS1uIvAgQfaRX/bl8HL21PqgiefF86O6q8otHQCaIWg08OVsEUf1kqAYbgW5xzjw1SGC8RSxJSWpq/N6u2WgNECv1S5AYWwuY9o3zULfTWbcQTPR+4JaqrOHoNnZzsP3y3npeP1XNasE4lWvsZa0XcqZc0BKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xXm5VJ0g; arc=none smtp.client-ip=113.46.200.220
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JjXmUag2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292061F000E9;
-	Mon, 25 May 2026 08:48:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779698888;
-	bh=pkKxIjlj2rwzL7EHRmvP7j28JN+SQat/w8cn2extqwE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JjXmUag2pTBRMHzzWvkZ5lGjcJRmQoOUyOTqYgu4feDGtqsTSKz5YM/kH/g9lL8z4
-	 FHusexnYz078IQR8r+dOJYizGrjm4rNh1qwFiNbZX9ZZssVelIZyoEfKX6JYkXeNws
-	 i51SjUavcmEg63CLkE2CcIzJ0Ae59+CVysbMFGwIwSeLptFZdyO3CVCseQukMu/kO2
-	 GGKvik56BDBYK+yGsYgvKmSvIM5KbH0yGYLCblvcuUlwj9JnlvvlBz63TQ6iTTIOC4
-	 nggJ04G/b96Bl0nt7dQerJiCuTjvdQ9R/wnVru2ELybacTaZq/VCIY/X8w2rkhyFl9
-	 9VFnUy5ezDxCw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/10] drm/rockchip: analogix_dp: Enable hclk for
- RK3588
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260525082033.117569-6-damon.ding@rock-chips.com>
-References: <20260525082033.117569-6-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 08:48:07 +0000
-Message-Id: <20260525084808.292061F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xXm5VJ0g"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=MS+svJjwX+WERXmMYEnQYyI5Mc94faKy2CdWQtmAb8o=;
+	b=xXm5VJ0gzjFo5FI6ifJNt2lYYB9fpiEFwKvKrblrK5cZ5X5QR0VEIsC4iprJlRC3urHXpb75e
+	XRqctvGI7uS/yew73xY6QXp4G2a2n8T+yKdd4nuZDj5kccyoaXIEo3Ic4MOgmKWA5NZ5J2KJg3p
+	VaGi5GtRXJK44kah7P/dE2Q=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4gP8Wp315lz12LCf;
+	Mon, 25 May 2026 16:42:14 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id 46EDE40537;
+	Mon, 25 May 2026 16:50:15 +0800 (CST)
+Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
+ (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 25 May
+ 2026 16:50:11 +0800
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
+	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
+	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
+	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
+	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
+	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
+	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
+	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
+	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
+	<rdunlap@infradead.org>, <pmladek@suse.com>, <feng.tang@linux.alibaba.com>,
+	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
+	<kuba@kernel.org>, <lirongqing@baidu.com>, <ebiggers@kernel.org>,
+	<paulmck@kernel.org>, <thuth@redhat.com>, <ardb@kernel.org>,
+	<masahiroy@kernel.org>, <mark.rutland@arm.com>, <maz@kernel.org>,
+	<james.morse@arm.com>, <leitao@debian.org>, <sourabhjain@linux.ibm.com>,
+	<yeoreum.yun@arm.com>, <coxu@redhat.com>, <jbohac@suse.cz>,
+	<ryan.roberts@arm.com>, <cfsworks@gmail.com>, <tangyouling@kylinos.cn>,
+	<ritesh.list@gmail.com>, <songshuaishuai@tinylab.org>,
+	<junhui.liu@pigmoral.tech>, <vishal.moola@gmail.com>, <kas@kernel.org>,
+	<debug@rivosinc.com>, <namcao@linutronix.de>, <liaoyuanhong@vivo.com>,
+	<fuqiang.wang@easystack.cn>, <seanjc@google.com>, <guoren@kernel.org>,
+	<chenjiahao16@huawei.com>, <hbathini@linux.ibm.com>, <bgwin@google.com>,
+	<takahiro.akashi@linaro.org>, <lizhengyu3@huawei.com>, <x86@kernel.org>,
+	<linux-doc@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <loongarch@lists.linux.dev>,
+	<linuxppc-dev@lists.ozlabs.org>, <linux-riscv@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <kexec@lists.infradead.org>
+CC: <ruanjinjie@huawei.com>
+Subject: [PATCH v14 01/17] riscv: kexec_file: Fix crashk_low_res not exclude bug
+Date: Mon, 25 May 2026 16:49:16 +0800
+Message-ID: <20260525084932.934910-2-ruanjinjie@huawei.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260525084932.934910-1-ruanjinjie@huawei.com>
+References: <20260525084932.934910-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+As done in commit 944a45abfabc ("arm64: kdump: Reimplement crashkernel=X")
+and commit 4831be702b95 ("arm64/kexec: Fix missing extra range for
+crashkres_low.") for arm64, while implementing crashkernel=X,[high,low],
+riscv should have excluded the "crashk_low_res" reserved ranges from
+the crash kernel memory to prevent them from being exported through
+/proc/vmcore, and the exclusion would need an extra crash_mem range.
 
-New issues:
-- [Medium] Power and clock leak for 'hclk' during suspend and display power=
-down.
+Just simply tested on qemu with crashkernel=4G with kexec in [1] mentioned
+in [2]. And the second kernel can be started normally.
 
-Pre-existing issues:
-- [Critical] Dangling pointer dereference / Use-After-Free via `endpoint.lo=
-cal_node`.
---
+	# dmesg | grep crash
+	[    0.000000] crashkernel low memory reserved: 0xf8000000 - 0x100000000 (128 MB)
+	[    0.000000] crashkernel reserved: 0x000000017fe00000 - 0x000000027fe00000 (4096 MB)
 
-commit 4b37db64b85dfb304df892e845f75e6e05adbfbe
-Author: Damon Ding <damon.ding@rock-chips.com>
+Cc: Guo Ren <guoren@kernel.org>
+Cc: Baoquan He <bhe@redhat.com>
+[1]: https://github.com/chenjh005/kexec-tools/tree/build-test-riscv-v2
+[2]: https://lore.kernel.org/all/20230726175000.2536220-1-chenjiahao16@huawei.com/
+Fixes: 5882e5acf18d ("riscv: kdump: Implement crashkernel=X,[high,low]")
+Reviewed-by: Guo Ren <guoren@kernel.org>
+Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
+---
+ arch/riscv/kernel/machine_kexec_file.c | 14 +++++++++++---
+ 1 file changed, 11 insertions(+), 3 deletions(-)
 
-drm/rockchip: analogix_dp: Enable hclk for RK3588
+diff --git a/arch/riscv/kernel/machine_kexec_file.c b/arch/riscv/kernel/machine_kexec_file.c
+index 54e2d9552e93..3f7766057cac 100644
+--- a/arch/riscv/kernel/machine_kexec_file.c
++++ b/arch/riscv/kernel/machine_kexec_file.c
+@@ -61,7 +61,7 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+ 	unsigned int nr_ranges;
+ 	int ret;
+ 
+-	nr_ranges = 1; /* For exclusion of crashkernel region */
++	nr_ranges = 2; /* For exclusion of crashkernel region */
+ 	walk_system_ram_res(0, -1, &nr_ranges, get_nr_ram_ranges_callback);
+ 
+ 	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
+@@ -76,8 +76,16 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+ 
+ 	/* Exclude crashkernel region */
+ 	ret = crash_exclude_mem_range(cmem, crashk_res.start, crashk_res.end);
+-	if (!ret)
+-		ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
++	if (ret)
++		goto out;
++
++	if (crashk_low_res.end) {
++		ret = crash_exclude_mem_range(cmem, crashk_low_res.start, crashk_low_res.end);
++		if (ret)
++			goto out;
++	}
++
++	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
+ 
+ out:
+ 	kfree(cmem);
+-- 
+2.34.1
 
-This commit acquires and enables the HCLK_VO1 bus clock explicitly for
-the RK3588 eDP controller. It fetches the optional hclk clock in the
-driver probe to align with updated device tree bindings.
-
-> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gp=
-u/drm/rockchip/analogix_dp-rockchip.c
-> index 06072efd7fca3..d2af5eb29dbb5 100644
-> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-
-[ ... ]
-
-> @@ -327,6 +328,11 @@ static int rockchip_dp_of_probe(struct rockchip_dp_d=
-evice *dp)
->  		return dev_err_probe(dev, PTR_ERR(dp->pclk),
->  				     "failed to get pclk property\n");
-> =20
-> +	clk =3D devm_clk_get_optional_enabled(dev, "hclk");
-> +	if (IS_ERR(clk))
-> +		return dev_err_probe(dev, PTR_ERR(clk),
-> +				     "failed to get hclk property\n");
-> +
-
-[Severity: Medium]
-Does this cause a clock leak during system suspend or when the eDP
-controller is powered down?
-
-Because hclk is acquired and enabled here but only stored in a local
-variable, the driver has no way to reference it later to disable it
-during suspend or powerdown.
-
-Unlike pclk which is saved in the driver context and explicitly managed,
-would leaving this clock permanently enabled prevent its parent power
-domain from entering low-power states?
-
->  	dp->rst =3D devm_reset_control_get(dev, "dp");
->  	if (IS_ERR(dp->rst))
-
-[ ... ]
-
-[Severity: Critical]
-This is a pre-existing issue, but can the usage of endpoint.local_node
-in rockchip_dp_drm_encoder_enable() cause a use-after-free?
-
-drm_of_encoder_active_endpoint() populates the of_endpoint structure,
-setting endpoint.local_node to the endpoint node, but explicitly calls
-of_node_put(ep) before returning. This drops the reference to the node.
-
-When rockchip_dp_drm_encoder_enable() later passes this unreferenced
-pointer to of_graph_get_remote_port_parent(), could this result in
-dereferencing a dangling pointer if the node's reference count has
-reached zero?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525082033.1175=
-69-1-damon.ding@rock-chips.com?part=3D5
