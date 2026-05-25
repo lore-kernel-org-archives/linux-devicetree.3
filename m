@@ -1,86 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m127103.qiye.163.com (mail-m127103.qiye.163.com [115.236.127.103])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBB1822FDE6
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 16:03:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CD3282F3E;
+	Mon, 25 May 2026 16:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.236.127.103
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779725019; cv=none; b=mmOmZERF4g2JNCSvIeJq0uzZVLBpi9P7DrD8Mu5LK13747mPpkHg5WmBdQweBj+vKr0ffl/vGmdEoip7dWqwPJ+LzEJvxwGpen9BrsB+DFgmvPKoNjuC7+O3n3OlOLJgZQLWAiccT8R/nfwJfPxZExQtkcvuM0oI0WMGFaj2TpI=
+	t=1779726213; cv=none; b=GVpe6bnEID1k3bYfjlz08ReNu9xNw1DCBiaTaMPsDJceCfCCYWILVKm18gYQelCFtaaw7aJo1uvOezQI3nb9XfpjMp/6ctOhvwXGcGlO07beFij5/sDKYdLd1reVDv1bDC5xsZLUNdXNhvH2ofG8xpOPTcUiFfRu3Xx66e21lZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779725019; c=relaxed/simple;
-	bh=Fe5rju6GxmSKUMQVjJaNKvbFdlDOgq3/KdyDf1lUm6Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YG8rlyrnB6AT4ilpsXnWGy/bD2uSJRA/vXJmdSOhWMDuUCI0Z54n9TuvWiPB1beLeVPJY/JEMYTg3CEcIQTuVKqGt2QMKstxhrsK3XyDA+pW08VUGmO4mWyqT/ihwXqtMCZApa9wBNecoeW2yJ3XYzKR4WzgvGXgVZKmJVmJUbQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=huHmDDCY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779726213; c=relaxed/simple;
+	bh=52aGuBysztm7C/lZOPWUUGAQiFJ5sqeIqjrIhPDdS7A=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=oboT2sbRagTVBWtPBzP9RDKmfUiNp7p9qY6JNKla8wHk37L0GVyeJTjvRQE0DlGXzfi7i3QBdEVe5GMNQq/dfbf0kv2c51EAbZ2h3BpGTsuiicwrLKKpe6U5kmlfG3Tj0nIucEjgk/rnXFbqZrsFeMXMmCzaRtTNTs28/nkdfl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=bJHMYrkF; arc=none smtp.client-ip=115.236.127.103
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="huHmDDCY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C4241F000E9;
-	Mon, 25 May 2026 16:03:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779725018;
-	bh=Fe5rju6GxmSKUMQVjJaNKvbFdlDOgq3/KdyDf1lUm6Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=huHmDDCYhOrLMjKz1aWG84EapaSLu/IsMmjvvb6QTzlyqnFKEtQL7c3HZrxcyBiud
-	 mSHQlfBHoKcmdtPItfg7wKWIzqKDiuZzbidDyMb9S92RQuTGyjHaRDsHxrKLwBJBu2
-	 Bgu9s/OJUlxRfM0lilzNIPatFmuxSu1/ng5C4Xb0pgSEd7Tp+I7np6eYlAu5Rpx45J
-	 rqP6IRT0+aDjiiApkKvEsD26QqeedOkmTO/R60cpHdnJ69H0l6i+GEWEMTHJpjINSB
-	 IjSf1QSzWo7ITmpjd+ZQk5wmkElgbUwXM4BBRZJg2j4RZwo1t3Yykflk8EewrwIiuJ
-	 fkt0PBHpl4u1g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/6] ARM: dts: qcom: msm8974-oneplus-bacon: Fix
- sn3193 shutdown GPIO polarity
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jun Yan" <jerrysteve1101@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260525144629.498630-6-jerrysteve1101@gmail.com>
-References: <20260525144629.498630-6-jerrysteve1101@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 16:03:37 +0000
-Message-Id: <20260525160338.1C4241F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="bJHMYrkF"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3fbb28c5c;
+	Mon, 25 May 2026 20:54:06 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v8 10/10] drm/rockchip: analogix_dp: Add support for RK3576
+Date: Mon, 25 May 2026 20:53:31 +0800
+Message-Id: <20260525125331.140059-11-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260525125331.140059-1-damon.ding@rock-chips.com>
+References: <20260525125331.140059-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e5f331e4303a8kunm7b8971f5af5ce8
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZS0NLVk5IQxpKSB5JTExMQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=bJHMYrkFPtDToUXpBmOxPgW8OKsa6Ti6tAahAhCBuDEJW0OYfTpIvoBk7n4VHS+klqSC7R2kukeuiy3H5IWUCzKYvKbxvznbCrnZx1V/44zhhQ8U9kuhdSqDGIqmL8BSJY9aJJgnEoeMWqCC98xskI/ZFxML5GR9HW9XYC2vQZU=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=1rwBuI0cZbyqqOuJPZchZLjHCX6v5TeUOe9K2mvsrfM=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `Fixes` tag in the commit message incorrectly points to the =
-commit that moved the DTS file rather than the one that introduced the issu=
-e.
---
+RK3576 integrates Analogix eDP 1.3 TX and Samsung combo PHY
+hardware blocks that fully match the proven RK3588 design.
 
-commit fdcc6b03fb02176ae8f78463b918136ece476e62
-Author: Jun Yan <jerrysteve1101@gmail.com>
+Add dedicated chip data table and device tree matching entry
+to bring up basic eDP functionality for the RK3576 platform.
 
-ARM: dts: qcom: msm8974-oneplus-bacon: Fix sn3193 shutdown GPIO polarity
+Support is limited to RGB output up to 4K@60Hz for now; audio,
+PSR and other advanced eDP 1.3 features remain unvalidated.
 
-This commit corrects the sn3193 shutdown GPIO polarity from GPIO_ACTIVE_HIGH
-to GPIO_ACTIVE_LOW to match the hardware specification.
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
-> The sn3193 shutdown pin is active-low[1]. Correct the GPIO flags
-> from GPIO_ACTIVE_HIGH to GPIO_ACTIVE_LOW to match the hardware.
->=20
-> [1] https://lumissil.com/assets/pdf/core/IS31FL3193_DS.pdf
->=20
-> Fixes: 724ba6751532 ("ARM: dts: Move .dts files to vendor sub-directories=
-")
+---
 
-[Severity: Medium]
-Does this Fixes tag point to the correct commit? Commit 724ba6751532 appears
-to be a structural tree reorganization that just moved the DTS file.=20
+Changes in v2:
+- Split out a separate patch to enable the "hclk" clock.
+- Add Reviewed-by tag.
 
-The led-controller@68 node with the faulty GPIO_ACTIVE_HIGH flag seems to
-have been originally introduced in commit 3835f9a0cf56 ("ARM: dts: qcom:
-msm8974-oneplus-bacon: Add notification LED").
+Changes in v3:
+- Add Reviewed-by tag.
 
-Pointing to a file-move commit might break automated backporting to stable
-kernels.
+Changes in v4:
+- Modify the commit msg.
+---
+ drivers/gpu/drm/rockchip/analogix_dp-rockchip.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
 
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+index d2af5eb29dbb..d4c5dd61e95b 100644
+--- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
++++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
+@@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[] = {
+ 	{ /* sentinel */ }
+ };
+ 
++static const struct rockchip_dp_chip_data rk3576_edp[] = {
++	{
++		.chip_type = RK3576_EDP,
++		.reg = 0x27dc0000,
++	},
++	{ /* sentinel */ }
++};
++
+ static const struct rockchip_dp_chip_data rk3588_edp[] = {
+ 	{
+ 		.edp_mode = GRF_REG_FIELD(0x0000, 0, 0),
+@@ -539,6 +547,7 @@ static const struct rockchip_dp_chip_data rk3588_edp[] = {
+ static const struct of_device_id rockchip_dp_dt_ids[] = {
+ 	{.compatible = "rockchip,rk3288-dp", .data = &rk3288_dp },
+ 	{.compatible = "rockchip,rk3399-edp", .data = &rk3399_edp },
++	{.compatible = "rockchip,rk3576-edp", .data = &rk3576_edp },
+ 	{.compatible = "rockchip,rk3588-edp", .data = &rk3588_edp },
+ 	{}
+ };
+-- 
+2.34.1
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525144629.4986=
-30-1-jerrysteve1101@gmail.com?part=3D5
