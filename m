@@ -1,63 +1,63 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
+Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EA883815DF
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:47:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E3A397AF5
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 14:47:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779720445; cv=none; b=uGMm1tDrriaOBoMAiMADk471O/G9RTkZAs9H+Zk1QWx84uSzrkGrodEenGaq5grVuOvacFnVYEU82jEL5PYaY3WTp01sHlfEnsscE9OmX6z+N/18PKYFWlrhlN9y6cyyyY4Muh4lYwKZAx/wg7dk+KPkAMX8H1XASGGbijvmumk=
+	t=1779720454; cv=none; b=NwA/VT6Pse8VW5gCQk9dh7lckvrOVaiQsxBtlA/N3lbpLgKUCARLgjiw3Ij9iqBgAMnvWFqwfLQ2ySeDiH9oaaP7ode82cy2plTsIQbavUeMpgIyEQqTubScjqJmKhIcjLa54CHwPQgVNwOrJcBKy9hKvjCKdTQglZw/O1XPUWo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779720445; c=relaxed/simple;
-	bh=DLsg2y1+bliXCGG/reyDyV3bIVP7ZQeG9EfRj65TbF4=;
+	s=arc-20240116; t=1779720454; c=relaxed/simple;
+	bh=J1/LbVdtBZ+LOAFAQJmwliG2jdxMbt8JaagyM4ndmvk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VYbQHfnMLqweEzoLt4B+XytUsmvtuFPNyJYgAdIJWv98FMe0oGNc0avmx/Y/OPgT1BshWz7mhKYeUnRGwuKgHvO8BBQJb5A8xZ6li8rFn4xo+YgbEy5Rca0kg7pROsxn9sX+78eeMYiT60HrfnrMt0ax2w1bwTQKNcNC4FJCNmo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JGGlizXL; arc=none smtp.client-ip=209.85.216.54
+	 MIME-Version; b=vEAQI3ildlrFyc/JVp/DuwdNpezs3VefV+pqCg8RrRis/XOZVkTfcLbwEmwhnLGS2etZGks2hSWB3lm0uEbx/oX52/4WbMvWiYN012f/6akPQEZbjTTQ1e6IVYg428F1QAqbOQkaxN9z4JPGwIByL0M+OWpusiykqt7eYTqbt30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHrBesYQ; arc=none smtp.client-ip=209.85.216.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JGGlizXL"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-366375c4076so4076130a91.3
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:47:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHrBesYQ"
+Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-36a35e4eefeso3075764a91.1
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:47:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779720444; x=1780325244; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779720452; x=1780325252; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=MYwtJECaHP5wUeZHKflBOjjaT0Cdv+xswmxDcx7ZgJo=;
-        b=JGGlizXLFOdXxSL3LwmSAX5532L9SEsX5fI4bLNm2kQmqrVgQG2+c/OyyHmAyDHS78
-         N8butyk0xZ3eHFiXZExuQQaTWYC5/xiD8yKRSPR433jJ3q40G/6wJCe/MVthxSE17ar+
-         f39ON8WjbjhavWzVG4VqinC7WcjHaMWDtW4v+zJS4KE7tabYpP++Jl+274wrLtBy4xPh
-         Rsk6aD79zPGd128FUBX0d55bGRnqWO3o5p9YS8bJB2/hkiAtPD4FoA9Ezm5MK43KdQAF
-         dfTgc+G6N9X6xfZYWrKpwoIurQT4DkvjHNwgDW530ppEazyRl5/dEXJLsSQQ0O0UdeVV
-         LkuQ==
+        bh=wCToqKFCbrUX7FSNvgPMJdWqTINioLrARjrzWOT0nyY=;
+        b=JHrBesYQRaI5e4WC2b9ogmODLsFEjp7JtJD5RtSokDayoX/n6TfDtV9wLkQHob6eYK
+         EQsDldfFFXOWxZo8mJOEvYmKJzWy502c1rC0l9s+dcOf0xLcVU5tphZg9IhgfxQ1xoR3
+         OuuBYDFfJe3z6b/FId/yHfJn0CZ1KcPsGJ05AeclJPrgZqzdEY/7zYlNPVZr363Q0mEi
+         6ABSPEY6N2wgGNj+oYphiyGSPu47u4IyzG8dslqRcS7cb2bJDS+k40r1DiiUU2/Rm286
+         Ma4rpn++bP2t1eEVW6ogN1Vx9x/jo8g5HdG6P7D5uzf28WyYMLOOW94GfVwMnDzwUG+y
+         pLDQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779720444; x=1780325244;
+        d=1e100.net; s=20251104; t=1779720452; x=1780325252;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=MYwtJECaHP5wUeZHKflBOjjaT0Cdv+xswmxDcx7ZgJo=;
-        b=r1+lmS0OvblVUOjKhfjBgflAE6vMZzEdsKyluFJjdAIrDAK8xKCKjO/CmnS521cZvv
-         sXmATW2BJtpF1CgjYFQI3RaFdAJGw8AiEw3FVCcLILnVgqKEDoopR2Nh0aom6HLTqhnN
-         SBJLmWz97vBzz5AYzxDKb1Bn1CDYIMY++Qojf7lwMjEnCrQ3NgoUdyL2dx6+vWhIK+JI
-         g/HsNkFE7vRoIyujh2CZDxAV+RzdWZG8kZ5zegD285jcTUIiL5zzmaclSZstaqlfx2Gx
-         haUMeLWR3+vLll9WlBQ7J8UcDXHpf+4bmte8x0GYTaNXFJskvzUkI8PZhZh60b2PR8kl
-         PEOg==
-X-Forwarded-Encrypted: i=1; AFNElJ+/nrf14F3jwtHh/tLmuVzikLTnhaqxwQZ7xlpYAGZz0jx478ZwB3YZsI6UkquAZDrKaWz+CFBxdsUN@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCqZOFq6GCd0ZUagLliUE1gqJ32RmTzZh7QH+VFSAowOaUZCJS
-	w7lm15PDDJpb/h9JyGW637cWhr70yJvIitctPwfv/gm9YEHslNcn+lVY
-X-Gm-Gg: Acq92OHpz6JG4ZkD/VEk2wmWoJVDYB/4aOxV8VRDEKN87p1Pe9iclC1sJ7MjV0uSCV7
-	NC8b3tV/onbcLTEgSAfGmV1+j+FNOHCBHdsyO4hTdhkAcFU1DdmZZY229bX130NwGgxuRWhYRy/
-	CX9HOcGsIx5Zdm6orQZllal22FICoxVNFRhLbOFUS15mU5KdX4gsB2rFaqMUmb8fapBK1WXyAB6
-	kDicIPRYTL4Oq4Dtfh3UuAfMe7+4WiVuYOYUkOcA+6l5yS3cjMI72N5RsHs72uO7Gb055oWayzb
-	hq4lyr5wsySbCtlVcaW3ugTwt7P4jX99IYuJLCobRkh5d0RklXhas/wQ929RF/waY4Z5rwpc3OW
-	VehOo3rhySl/bRr/ItMWi9h6jxkxu5/l4h/mszZQpdzvUVtHm3PfHkGBzYsh6uldnGsLUz13FMf
-	ycaRLnUnO7MDNlNt8zFzFnFPMY2+ja0ZBgbcOvbAw=
-X-Received: by 2002:a17:90b:1b07:b0:369:a9e8:dbf5 with SMTP id 98e67ed59e1d1-36a6749ea42mr13774833a91.3.1779720443648;
-        Mon, 25 May 2026 07:47:23 -0700 (PDT)
+        bh=wCToqKFCbrUX7FSNvgPMJdWqTINioLrARjrzWOT0nyY=;
+        b=gB/DEWtylOujQug96nJYJKDH6ykTKdmO7RcSYEOjbSKW9GhIfDvwiTh5Siuwz+Z+Ey
+         usZwFG52m8kOlGICMgTOWxH7mwdO1kErdSuPVxydDcyVBF1gFJmJYLO0zEixW/bat5WO
+         zvz48eff8HTW910IiIskdJwFdvopj+XsNK2Q9uVGgiCeNrPtjZZkmR9DZ9kN/Bydlzrz
+         GTWGWtGXLypOGbV+8QWhCd4Y9KliTq3ksPh5LVvPvcDuklfT3vMzE0GsYl3/Pc/c0+Kd
+         CwdxSA8+s0hpbESEOXzoTzMhLJosOIV4ffg1PLoIom/HBSclgeL9YqgW47gPHSBPXdRU
+         twMw==
+X-Forwarded-Encrypted: i=1; AFNElJ/Se7Qh2/ipl7ykFekYuml1WaGIxCm//QTt3jTFs0n4r4zsrc/ZD6oHkWfgHfIe4U/q5OkG597ZauOb@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWzGXkBoXd0FYPlFfg3Y5QsnLLe2hahCvvfkuxEdP4DzvU0PO8
+	fIvFddRn4/IcNPVdDeMsXeMtyH0iBrhJjYjQ/m+N42fPvsqt1bbOAC5d
+X-Gm-Gg: Acq92OGLdaTW+x3TS+mRTJU5868gG7KjlMx1iGpVc3sDdcrEfhbWQ6Ej6i8fttLeVeX
+	YHNZ/aHk0GNED6fiKHMH57ok/EAhd0iZLFescZwsmi8E3KbJ2nq2001fT9z4EnGaXZKlC18BZAH
+	3UyjyiZLWT1reAaBVt2KN1+w4emsNDOZKREl6sH/48jAT12Xkfhkb02Dcxe4WKfwWZd8YXQ10mD
+	Ky0UEo6ermDdo5QIcf9vX0mUxFM+cL0flEV0n07qMMWaXy0h8hdg9dQrEHEp5zTu71LFNiURBeG
+	mw82vJfHcj1YBcLMlIH1/DsqBZELRCNIczK4B2frzzNnC9jvVKKNIz2HiygEtg9eC+wJwuHAa44
+	TGTBen1nzpvp8bwzA4eLa5VbbwadIa7IjJl+0q/OcBc1OVw4+FkpurptQ41O9aLLM2TwMX2JnDK
+	nfs0FycwDi27TnerpYh9sTEd8qUlMlp8M2EjUSytE=
+X-Received: by 2002:a17:90b:2f88:b0:369:a962:8cd7 with SMTP id 98e67ed59e1d1-36a6749afa1mr15044923a91.12.1779720452269;
+        Mon, 25 May 2026 07:47:32 -0700 (PDT)
 Received: from arch.localdomain ([2409:8a28:a5f:4fa1:cc65:18c0:209b:38a4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.47.17
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36abfe17c95sm2721993a91.0.2026.05.25.07.47.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 07:47:23 -0700 (PDT)
+        Mon, 25 May 2026 07:47:31 -0700 (PDT)
 From: Jun Yan <jerrysteve1101@gmail.com>
 To: linusw@kernel.org,
 	dmitry.baryshkov@oss.qualcomm.com,
@@ -75,26 +75,25 @@ To: linusw@kernel.org,
 	Vincent Knecht <vincent.knecht@mailoo.org>,
 	Grant Feng <von81@163.com>,
 	Andre Przywara <andre.przywara@arm.com>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Wei Xu <xuwei5@hisilicon.com>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Tony Lindgren <tony@atomide.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Viresh Kumar <viresh.kumar@linaro.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
 	Robert Marko <robert.marko@sartura.hr>
 Cc: Jun Yan <jerrysteve1101@gmail.com>,
 	Pavel Machek <pavel@ucw.cz>,
 	Krzysztof Kozlowski <krzk@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Kunihiko Hayashi <hayashi.kunihiko@socionext.com>,
+	Shawn Guo <shawnguo@kernel.org>,
 	Michal Simek <michal.simek@amd.com>,
+	Heiko Stuebner <heiko@sntech.de>,
 	linux-leds@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-gpio@vger.kernel.org
-Subject: [PATCH v2 1/6] dt-bindings: leds: issi,is31fl319x: Update description for the shutdown-gpios property
-Date: Mon, 25 May 2026 22:46:07 +0800
-Message-ID: <20260525144629.498630-2-jerrysteve1101@gmail.com>
+Subject: [PATCH v2 2/6] leds: is31fl319x: Fix shutdown GPIO initial state and remove redundant startup pulse
+Date: Mon, 25 May 2026 22:46:08 +0800
+Message-ID: <20260525144629.498630-3-jerrysteve1101@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260525144629.498630-1-jerrysteve1101@gmail.com>
 References: <20260525144629.498630-1-jerrysteve1101@gmail.com>
@@ -106,48 +105,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The IS31FL319X series features an SDB shutdown pin.
-Driving it low (active low) places the chip into hardware shutdown
-mode for power saving, while all register contents are preserved
-and registers are not reset.
+1. Per IS31FL319x datasheet [1], the hardware shutdown pin (SDB) is
+active-low.
 
-Update description for the shutdown down (SDB) pin and fix the example
-device tree binding.
+Fix incorrect initial GPIO level to properly release the chip from shutdown
+state.
 
-Fixes: dbc801b472c1 ("dt-bindings: leds: Convert is31fl319x to dtschema")
+2. According to datasheet [1] definition:
+  Shutdown mode can either be used as a means of
+  reducing power consumption or generating a flashing
+  display (repeatedly entering and leaving shutdown
+  mode). During shutdown mode all registers retain their
+  data.
+shutdown mode does NOT perform chip reset.A dedicated software reset is
+already implemented in driver by writing 0 to reset chip.
+
+Remove redundant unnecessary toggling of the shutdown GPIO.
+
+[1] https://lumissil.com/assets/pdf/core/IS31FL3193_DS.pdf
+
+Fixes: dddb4e38c6ba ("leds: is31fl319x: Add shutdown pin and generate a 5ms low pulse when startup")
 Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
 ---
- .../devicetree/bindings/leds/issi,is31fl319x.yaml        | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/leds/leds-is31fl319x.c | 11 ++++-------
+ 1 file changed, 4 insertions(+), 7 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/leds/issi,is31fl319x.yaml b/Documentation/devicetree/bindings/leds/issi,is31fl319x.yaml
-index 906735acfbaf..ebf2bed51e7f 100644
---- a/Documentation/devicetree/bindings/leds/issi,is31fl319x.yaml
-+++ b/Documentation/devicetree/bindings/leds/issi,is31fl319x.yaml
-@@ -39,7 +39,12 @@ properties:
+diff --git a/drivers/leds/leds-is31fl319x.c b/drivers/leds/leds-is31fl319x.c
+index e411cee06dab..41087ed262cb 100644
+--- a/drivers/leds/leds-is31fl319x.c
++++ b/drivers/leds/leds-is31fl319x.c
+@@ -396,7 +396,10 @@ static int is31fl319x_parse_fw(struct device *dev, struct is31fl319x_chip *is31)
+ 	int count;
+ 	int ret;
  
-   shutdown-gpios:
-     maxItems: 1
--    description: GPIO attached to the SDB pin.
-+    description: |
-+      GPIO attached to the chip's SDB pin.
-+      Driving this GPIO low places the chip into hardware shutdown mode
-+      for power saving. All register contents are preserved and registers
-+      are not reset during shutdown. The chip exits hardware shutdown mode
-+      when the SDB pin is pulled high.
+-	is31->shutdown_gpio = devm_gpiod_get_optional(dev, "shutdown", GPIOD_OUT_HIGH);
++	/* Driving this GPIO line low (in fact high) takes the chip out of shutdown,
++	 * as it is flagged as GPIO_ACTIVE_LOW in provider (such as the device tree).
++	 */
++	is31->shutdown_gpio = devm_gpiod_get_optional(dev, "shutdown", GPIOD_OUT_LOW);
+ 	if (IS_ERR(is31->shutdown_gpio))
+ 		return dev_err_probe(dev, PTR_ERR(is31->shutdown_gpio),
+ 				     "Failed to get shutdown gpio\n");
+@@ -506,12 +509,6 @@ static int is31fl319x_probe(struct i2c_client *client)
+ 	if (err)
+ 		return err;
  
-   audio-gain-db:
-     default: 0
-@@ -174,7 +179,7 @@ examples:
-             #address-cells = <1>;
-             #size-cells = <0>;
- 
--            shutdown-gpios = <&gpio0 11 GPIO_ACTIVE_HIGH>;
-+            shutdown-gpios = <&gpio0 11 GPIO_ACTIVE_LOW>;
- 
-             led@1 {
-                 reg = <1>;
+-	if (is31->shutdown_gpio) {
+-		gpiod_direction_output(is31->shutdown_gpio, 0);
+-		mdelay(5);
+-		gpiod_direction_output(is31->shutdown_gpio, 1);
+-	}
+-
+ 	is31->client = client;
+ 	is31->regmap = devm_regmap_init_i2c(client, is31->cdef->is31fl319x_regmap_config);
+ 	if (IS_ERR(is31->regmap))
 -- 
 2.54.0
 
