@@ -1,174 +1,130 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE2B0335555;
-	Mon, 25 May 2026 11:33:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7B5335555
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:34:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779708831; cv=none; b=YNI2pbH016fXzzxnDuxJbt0IzPd8smCYDyKiI2jyKJ+V1/poBndm0AZPlSTcn04wXmvlGJSvOMPDvor9nOr3RS6ZxojW+LCo06CYwDpGwJcdOOE9KaNGbHEI3B2pSVlhOwxtUCAvfzV7VeLb8qfc9g4OLPTcL3h5EELDw2BtcAw=
+	t=1779708865; cv=none; b=RSUmKRMAsHUynNkbKK2Ed6BB00WkGWid8GvZnTYBc6dY3em01nYZKUhWWAt/x/VdLxvQ7buW2RKMGn0Akp+hthqHuqUKQcegyJ7R8WH5QUXsUUq7C8wN0G/hRBRnDF1/Hvn1zkGkydypK1Zy1jKdVpVJyocC9ReiJVbS0mMuF8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779708831; c=relaxed/simple;
-	bh=Laov1FUjobcUTu/tQOih70AjqKBWirqKflwXsTQLhlQ=;
+	s=arc-20240116; t=1779708865; c=relaxed/simple;
+	bh=0uV/xlFQ3ELaCy8NvwhVKsYJkihCJOjrrbXB07qf37Q=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dZcrCYtqciVFdziOVOG4sBMkmvRjERqh6Sit7uuxI0lQAnfQVLaR4K/MqwkCUuoGF23Yf/uNhIAkoDjzrYFGLT/TWl7vQSCvg/i6ntB3UBOI7+HBEnIZsZ0z8mZmbLqR94/HbsT6onK0k/GS5PH81/qnDEXrhI2k5wyIRBjRyxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PSjNbcHw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CLZ/amH/M3iVeULgRK1MAWJ5468ctmFYkF6fvuUUEfehyQ0XqM7ThLb9YuDFotE/Z9LzTuJifmlaQRPiDgsC5tT7D1cF/YOxmAnNsoP7Rj2pnv6D3GPiE292qVsrXJZWFImdirDRb3iNix1iLZr6t9PVhaURIC2uugxaL4qrLRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVadT4NP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PSjNbcHw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68D6E1F00A3D;
-	Mon, 25 May 2026 11:33:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVadT4NP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C321F000E9;
+	Mon, 25 May 2026 11:34:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779708829;
-	bh=VCjaGzAn78vEBMsChjUib0AiS3nKSv5EcGC4aMT3l6w=;
+	s=k20260515; t=1779708864;
+	bh=9wM66xIKiy9sIRGs0USzjiz818DI4nZ2JG1x8Hvty6M=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PSjNbcHw6OgwTSGOhMKNCRFFfjmL8aXZ9Vab2ek42E5Jyt8iXN8fSU5hwp+KdGgEF
-	 RYj/1VkysRA+DEq4Y/Nsj5yvFOsoM4X8Ehx+lrADRo1kiKEoqzY9utqi+1qoiHo5s3
-	 hN+3SRoXgIjdg8zCpmQvJy7Zrp2PgJn5DZg3Wvv3JkkP9lEER3k9MBlTOOi4xs1FYM
-	 3XeSUYsyVu5GI4EXhcSq4W0d7/VxRK/24sVRF1Xsi/OB2gbQCPSwAifBmT3eaNM7AX
-	 THGpaYv//z0tpJFBy7Wk88eGzJyL6DUNvO+aUgt5Y6bgPx1mAf6ekGWGgn3XOeEeZu
-	 Tbr4HJCtZbU6g==
+	b=SVadT4NPY58paz9kpGi1UGQe5D0YCiZU42b9Ptn3V4MtrI8RrazmEvvBhFGF3FtlU
+	 ZrKNTBr9A8XeAA/JXavR0GpotTMAG48aEzO/T/hShtYBTKnJBDcCHLuc+wHRMXmhez
+	 C+qJusBgo82Dwm14hrP5W7YHlJRi9zxtmyL9pF4W8qlp3WZwVaRVzblNRj0+U8CN6H
+	 R868S/d5zaULjT1QPgGMreNuVSD7LVUYUImmbTZ8oetJ4/BWKlVQLHFGMKp+gdByjt
+	 jxzjtOSu3+wRD5Iq4IYtP6brMNjtPVFYJD2bI7tqEmV36csDbg3X5ysjKO4J4gGNr3
+	 +/ID+yv28EMBA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] dmaengine: zynqmp_dma: Add per-channel reset
- support
+Subject: Re: [PATCH v10 06/11] iio: adc: hx711: introduce hx711_chip_info
+ structure
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Golla Nagendra" <nagendra.golla@amd.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, dmaengine@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525105042.2249542-3-nagendra.golla@amd.com>
-References: <20260525105042.2249542-3-nagendra.golla@amd.com>
+To: "Piyush Patle" <piyushpatle228@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525105127.180156-7-piyushpatle228@gmail.com>
+References: <20260525105127.180156-7-piyushpatle228@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:33:49 +0000
-Message-Id: <20260525113349.68D6E1F00A3D@smtp.kernel.org>
+Date: Mon, 25 May 2026 11:34:23 +0000
+Message-Id: <20260525113424.48C321F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The probe error path leaks a runtime PM usage counter reference, p=
-ermanently breaking runtime PM and leaving hardware clocks enabled.
-- [High] Dropping the spinlock inside `list_for_each_entry_safe` allows con=
-current modification of the list, leading to memory corruption.
-- [High] Hardware registers are accessed in the IRQ handler without verifyi=
-ng if the device is active, risking a kernel panic on spurious interrupts.
+- [Medium] Probing fails unconditionally with `-ENODEV` for devices bound b=
+y platform name instead of Device Tree or ACPI.
+- [Low] Use of undeclared macro `__counted_by_ptr` causes an immediate comp=
+ilation error.
 --
 
-commit b2d2a678f48614c7188f8d81cbc70143b2bdfc0f
-Author: Golla Nagendra <nagendra.golla@amd.com>
-Subject: dmaengine: zynqmp_dma: Add per-channel reset support
+commit 2560eb8cf3b905048ac157fc1d9dd7c2068b2f2d
+Author: Piyush Patle <piyushpatle228@gmail.com>
 
-This commit introduces per-channel reset support for Versal Gen 2 and
-Versal Net SoCs. It adds reset handling in the channel probe path using
-device_reset_optional() to trigger a reset pulse during initialization.
-Platforms without per-channel reset are unaffected.
+iio: adc: hx711: introduce hx711_chip_info structure
 
-> diff --git a/drivers/dma/xilinx/zynqmp_dma.c b/drivers/dma/xilinx/zynqmp_=
-dma.c
-> index f6a812e49ddca..51c831760372c 100644
-> --- a/drivers/dma/xilinx/zynqmp_dma.c
-> +++ b/drivers/dma/xilinx/zynqmp_dma.c
+This patch introduces a per-variant static configuration structure for the=
+=20
+hx711 driver. It populates IIO device fields from this structure at probe t=
+ime
+to prepare for supporting additional hardware variants.
+
+> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
+> index 823fd74f9cf95..062d6860da7d6 100644
+> --- a/drivers/iio/adc/hx711.c
+> +++ b/drivers/iio/adc/hx711.c
 [ ... ]
-> @@ -916,6 +917,11 @@ static int zynqmp_dma_chan_probe(struct zynqmp_dma_d=
-evice *zdev,
->  	if (IS_ERR(chan->regs))
->  		return PTR_ERR(chan->regs);
+> @@ -74,6 +76,20 @@ static int hx711_get_scale_to_gain(const int *gain_sca=
+le, int scale)
+>  	return -EINVAL;
+>  }
 > =20
-> +	err =3D device_reset_optional(&pdev->dev);
-> +	if (err)
-> +		return dev_err_probe(&pdev->dev, err,
-> +				     "failed to reset channel\n");
+> +/**
+> + * struct hx711_chip_info - per-variant static configuration
+> + * @name: IIO device name
+> + * @channels: channel specification array
+> + * @num_channels: number of entries in @channels
+> + * @iio_info: IIO info ops for this variant
+> + */
+> +struct hx711_chip_info {
+> +	const char			*name;
+> +	const struct iio_chan_spec	*channels __counted_by_ptr(num_channels);
+
+[Severity: Low]
+Does __counted_by_ptr exist in the kernel headers?
+
+The kernel supports __counted_by for flexible array members, but it looks
+like __counted_by_ptr is undefined. Using an undeclared macro here might
+cause an immediate compilation error.
+
+> +	unsigned int			num_channels;
+> +	const struct iio_info		*iio_info;
+> +};
 > +
+[ ... ]
+> @@ -473,6 +498,12 @@ static int hx711_probe(struct platform_device *pdev)
+> =20
+>  	mutex_init(&hx711_data->lock);
+> =20
+> +	chip_info =3D device_get_match_data(dev);
+> +	if (!chip_info)
+> +		return dev_err_probe(dev, -ENODEV, "missing driver data\n");
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this error path leak a
-runtime PM usage counter reference?
+[Severity: Medium]
+Will this unconditionally fail for devices bound by platform name instead
+of Device Tree or ACPI?
 
-In zynqmp_dma_probe(), pm_runtime_resume_and_get() is called to increment
-the runtime PM usage counter and enable the device clocks. If a subsequent
-initialization step fails, such as the newly added device_reset_optional()
-returning -EPROBE_DEFER, the code jumps to the err_disable_pm label:
+For traditional platform devices instantiated manually,
+device_get_match_data() returns NULL because the device lacks a firmware
+node and the driver lacks an id_table. platform_match() will fall back to
+name matching, but this new probe check will now reject the bind with
+-ENODEV.
 
-zynqmp_dma_probe()
-    ...
-	ret =3D pm_runtime_resume_and_get(zdev->dev);
-    ...
-	ret =3D zynqmp_dma_chan_probe(zdev, pdev);
-	if (ret) {
-		dev_err_probe(&pdev->dev, ret, "Probing channel failed\n");
-		goto err_disable_pm;
-	}
-    ...
-err_disable_pm:
-	if (!pm_runtime_enabled(zdev->dev))
-		zynqmp_dma_runtime_suspend(zdev->dev);
-	pm_runtime_disable(zdev->dev);
-	return ret;
+Would it be better to fall back to the default hx711_chip configuration
+or provide an id_table to prevent breaking backward compatibility for
+non-DT/ACPI users?
 
-Since the device is still runtime PM enabled, it skips
-zynqmp_dma_runtime_suspend() and fails to drop the usage counter with
-pm_runtime_put_noidle().
-
-Because -EPROBE_DEFER is a normal occurrence during boot, this path can
-be hit multiple times. Will this permanently leave the usage counter above
-zero, preventing the device from ever entering runtime suspend and leaving
-its clocks enabled indefinitely?
-
->  	chan->bus_width =3D ZYNQMP_DMA_BUS_WIDTH_64;
->  	chan->dst_burst_len =3D ZYNQMP_DMA_MAX_DST_BURST_LEN;
-
-[Severity: High]
-This is a pre-existing issue, but does dropping the spinlock inside
-list_for_each_entry_safe() in zynqmp_dma_chan_desc_cleanup() allow concurre=
-nt
-modification of the list, leading to memory corruption?
-
-When zynqmp_dma_chan_desc_cleanup() temporarily drops the lock to invoke
-the DMA callback:
-
-zynqmp_dma_chan_desc_cleanup()
-    ...
-	list_for_each_entry_safe(desc, next, &chan->done_list, node) {
-        ...
-		if (dmaengine_desc_callback_valid(&cb)) {
-			spin_unlock_irqrestore(&chan->lock, irqflags);
-			dmaengine_desc_callback_invoke(&cb, NULL);
-			spin_lock_irqsave(&chan->lock, irqflags);
-		}
-
-A client driver can concurrently invoke dmaengine_terminate_sync(), which
-calls zynqmp_dma_device_terminate_all() and executes
-zynqmp_dma_free_descriptors(). This moves all remaining elements, including
-the prefetched next pointer, from done_list to free_list.
-
-When zynqmp_dma_chan_desc_cleanup() reacquires the lock, won't it continue
-iterating using the corrupted next pointer that now resides in free_list,
-eventually interpreting the list head &chan->free_list as a struct
-zynqmp_dma_desc_sw and resulting in out-of-bounds memory accesses?
-
-[Severity: High]
-This is a pre-existing issue, but are hardware registers accessed in the
-IRQ handler without verifying if the device is active, risking a kernel
-panic on spurious interrupts?
-
-The IRQ handler zynqmp_dma_irq_handler() directly reads the ISR and IMR
-hardware registers:
-
-zynqmp_dma_irq_handler()
-    ...
-	isr =3D readl(chan->regs + ZYNQMP_DMA_ISR);
-	imr =3D readl(chan->regs + ZYNQMP_DMA_IMR);
-
-According to the Power Management Subsystem guidelines, IRQ handlers must
-use pm_runtime_get_if_active() before accessing hardware registers.
-
-Although this IRQ is not shared, spurious interrupts can still occur. If a
-spurious interrupt fires while the device is in a suspended state with its
-clocks disabled via zynqmp_dma_runtime_suspend(), could this unprotected
-register read lead to a synchronous external abort and crash the kernel?
+> +
+> +	hx711_data->chip_info =3D chip_info;
+> +
+>  	/*
+>  	 * PD_SCK stands for power down and serial clock input of HX711
+>  	 * in the driver it is an output
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105042.2249=
-542-1-nagendra.golla@amd.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105127.1801=
+56-1-piyushpatle228@gmail.com?part=3D6
