@@ -1,352 +1,359 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EA42383302
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:50:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78A53815FA;
+	Mon, 25 May 2026 12:52:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779713438; cv=none; b=nhGGScH3VBCR2G/RtuhGkEufX/6L8hOsb4+FsYN2T6gXm3MQx7FWTMrVTwFYQC9yMPwyff3TVXMjBY62QL7Csi5L/13IfBEaRLN3D3IdHOVGvP/I09s6xFYJB3XSoxJDFGW70413tzZ1gtbzkWIBSEkA6qX7oKNEkKC6MelSOuI=
+	t=1779713545; cv=none; b=hMAyRtKXLVKbNG+OPjDmwZWE8EtVL5l65jq0SK2lzI5/ACBA14vdYZcPnWNIfTsg12Ua2PccbyQIpdJAOfb4RlMNHXn6xdpSfk05kQgaIhZ0quo0W0xkC9/cwE2X7ZoyIEBiNuVUhkgg7R/cPfrjGgkPBE1/O6Fr0ngv7iBUHjU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779713438; c=relaxed/simple;
-	bh=z5Fhpx6IUPSYAgFvZrJUnVUKezx0DwqehwsV2CJ50Xs=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Fl8bR3xuCufX+4PcJa0gK+66sdec3O7kDR33QbZhpYMgUsMUjDllGklg1cw11RkwsP+igazYvIC2MtI0wJg7E3ihGvgnt951ProcxDFLBHBiaDtOtX3zO9c56Lj1N+t6HaYBeNvGdElQwVNyKYxyOccxliJ9BEH+fxL17X1Ntb0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=zRA2Hnq5; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779713545; c=relaxed/simple;
+	bh=6ia9If4p5ELlMHzXcCL2ncMHZvn8D2QDM9egXntQjxk=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=eSQxk7Mqs40kDg475Cf19YTRFvRQBTGFjAQH6zP0rvvWpRODNaU8Ga5wSBEzkPASuZarJgdLheVK7P78mNU+b9pXmR/7kEptlJalgP0/uB0lE6rovvaLrSboEqvX75uiIFjSB1d9v3xHYg9+PiHGWTmfpgZoq4gmcbAvZNAV11o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn; spf=pass smtp.mailfrom=realsil.com.cn; dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b=pyht0Q78; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realsil.com.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realsil.com.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="zRA2Hnq5"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-49048e043e5so20511815e9.1
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 05:50:34 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779713432; x=1780318232; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=hGd5UlriZ0Fmljc0R8krxuZT/x7hHgGTNiWkLANtVt8=;
-        b=zRA2Hnq5l9LGbTHaKibx/EDxnQC9qcH/C7kcl/LreiDc+7g1TiwUnPFzbXUBBvxNlL
-         cJxPRHVpxO9QMKXZhSiWhSTQtJlcSpTisnvO/V142nAqlHLIQQxynrQSsKhPiDwKdLX9
-         XERUd2bek4BqAVdEcU8WwJep84p+DnTC9myip2dno/PF+ifKCNiCaH8/MIgaBOaJHN3Y
-         NeF/qf+pOTZ3rwDXXLRQh4CcpZd7Fj4D8UYHnzG0U+//2Uy7CJpjzChxRqXJbn1LU9Y+
-         g3yt0K6wPOXqCvku4phPKI4hMHWRBAd4Ad3AZtWRUM2Ubr1AIJZn1FF+Gi+MGqaJMXQn
-         SRaQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779713432; x=1780318232;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=hGd5UlriZ0Fmljc0R8krxuZT/x7hHgGTNiWkLANtVt8=;
-        b=eb0tFyXWL5Kx3hUGNvnTquPwwJrIXqVaTUMNNbv8YTYorM4SGKK19RqE9Wd4z5W0dW
-         niYyQNrItVTsZUiVupohERg+P0Uc8voV5bi3dnydRGfqfBGF/oO/OHJgI/sXgnb+K29v
-         jURHDMp+dS4zTJUZ/mqoUxxewDPtImJvN8XJz9M276LIxh9zPVKPqWCQshXUFBzYYqy0
-         FdLsfl5HiCWOwDbp3MxGvwUFFHmSwziqUVS4pSnVcPNSA/SE7e/11ZOkZPAcG4xdizgB
-         ujYpXHctMYHtE1rZ4VPz8S9bpzv3I9rZA7qFQ8ITnB7fte5Kbk+PeNlJXHVKbwGjpEoR
-         DHAw==
-X-Forwarded-Encrypted: i=1; AFNElJ/UAnWU4f3GfVpPGFP0LO3V2tcm6IiwQSwloRNRgqVpMc3D0LrhDhoVjUhuWhnu1XooPRN9mSsNSgJm@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz1xBMWUMJdperF/smMyiEZwrchAF/KkIrx8+cbJ4UkcXi8RTqM
-	DtA1MueHh6aT8z3RR6Y/TXfGjHbtO07fyb6bW9Diyo/YaAenymXvNcskmd233/OyD+4=
-X-Gm-Gg: Acq92OEKHWfjiYrydYJmfOf6Np7ANF36QDiM2OW0KG1KTN2K+eIZCymK7u4LmECiEnT
-	1kkhenrs1aPeb9yZ+65lY/se/Ei4QWMhArFRooz9jSzbR77GiyOv9kG/BJf6X1XA2H2zDyS+Bb4
-	NAdN+S3Z+Zv1by99k5s/OXv1YxRvnu8WkRQI2zSmcEgpIHjJ7nDT4UYt9rkOXfkq+6n+k7arhuU
-	lzf2NPDtbF7A894u+sGPebEvDP+wwYbJHLX0eEbSmvsKDwcRZ/QekKhxKeNJL7qqPmsKYj5W7Pb
-	C1yUyXbsvZP+Nx6KIR93QHffyNrRbbVhkR//J4u1ozeQz0MGwUJScKk7oFSiAExlswhgzs29yEX
-	4Kj93/7SFjm6AXlzwOTyllCgZ5yxk94ohR+bw4DdgLrt/dcyHNIiq97ml0ly/8auwBBbFLURYHd
-	RS0ukBce584EdOoKQOgyf5+21cggq9ZowFx5PSt70x28Azxuh7qayML2uOTKLP1fMbeMzfaxRdo
-	Fz/z9yZPFwYBo+vOA==
-X-Received: by 2002:a05:600c:8599:b0:485:9a50:3370 with SMTP id 5b1f17b1804b1-490424acb4cmr187576005e9.8.1779713432460;
-        Mon, 25 May 2026 05:50:32 -0700 (PDT)
-Received: from ta2.c.googlers.com (231.141.38.34.bc.googleusercontent.com. [34.38.141.231])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490454cfcaesm241824825e9.4.2026.05.25.05.50.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 05:50:31 -0700 (PDT)
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-Date: Mon, 25 May 2026 12:50:24 +0000
-Subject: [PATCH v5 4/5] arm64: dts: exynos: gs101: Add thermal management
- unit
+	dkim=pass (2048-bit key) header.d=realsil.com.cn header.i=@realsil.com.cn header.b="pyht0Q78"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 64PCpesuF1058787, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realsil.com.cn;
+	s=dkim; t=1779713501;
+	bh=HhuAfq0KrjWR2hOdUgLXv8apqAQKmXIb959Lev66uvE=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:
+	 Content-Transfer-Encoding:Content-Type;
+	b=pyht0Q78EiaIC6iJIjqw82xk6qOYzBBQYM1XQgHw4FnU3QBcLkHQGXM4hXj3Rx63s
+	 IINYyHVdMcJNimOgpi3to4fXBSum/VRH93zi9EtpnYNYJBF40jPMvbiweQ0rZ4Eo/w
+	 QBZfkrbY3wWeiflA+lM0Ers2RKoP7CJVFsykn+1uFZR9WRXd595i3k3lZo3SUbxGFU
+	 +KwzzS4eJBY6CjR3+V6cfLALLRribH1ZM1DkZL0QwGV8OCtlZz3fkONBqJ68dLjs1k
+	 o1HiD2Q/qcGxZSHcHLNOo7jjVUMXox/lDShLWF/EWPoCqGPRwAEJHAPXfgziUj0dui
+	 0ZcCgbLVRM9Ng==
+Received: from RS-EX-MBS2.realsil.com.cn ([172.29.17.102])
+	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 64PCpesuF1058787
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 25 May 2026 20:51:41 +0800
+Received: from A106071510.realsil.com.cn (172.29.42.211) by
+ RS-EX-MBS2.realsil.com.cn (172.29.17.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.17; Mon, 25 May 2026 20:51:40 +0800
+From: <zain_zhou@realsil.com.cn>
+To: <linux-staging@lists.linux.dev>, <linux-i3c@lists.infradead.org>,
+	<devicetree@vger.kernel.org>
+CC: <gregkh@linuxfoundation.org>, <alexandre.belloni@bootlin.com>,
+	<Frank.Li@nxp.com>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <linusw@kernel.org>, <brgl@kernel.org>,
+	<linux-gpio@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<wei_wang@realsil.com.cn>, Yin Zhou <zain_zhou@realsil.com.cn>
+Subject: [PATCH v2 1/2] dt-bindings: i3c: add Realtek RTS490x I3C HUB
+Date: Mon, 25 May 2026 20:51:27 +0800
+Message-ID: <20260525125128.297-1-zain_zhou@realsil.com.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260525-acpm-tmu-v5-4-85fde739752e@linaro.org>
-References: <20260525-acpm-tmu-v5-0-85fde739752e@linaro.org>
-In-Reply-To: <20260525-acpm-tmu-v5-0-85fde739752e@linaro.org>
-To: "Rafael J. Wysocki" <rafael@kernel.org>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>, 
- "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
- Peter Griffin <peter.griffin@linaro.org>, 
- =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: jyescas@google.com, linux-kernel@vger.kernel.org, 
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
- linux-arm-kernel@lists.infradead.org, 
- Tudor Ambarus <tudor.ambarus@linaro.org>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779713428; l=7065;
- i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
- bh=z5Fhpx6IUPSYAgFvZrJUnVUKezx0DwqehwsV2CJ50Xs=;
- b=3kUfL+Zlfc10wC65GccpAO0ZPOAehBJ+CwGSYYMwyBlA4abF5mKa9zhEwrLJ/e2DuOv0D9zzK
- x9O1Mlwz+gUBKJp3v8i5DgWGhBfDRSqnCqBTzSTS4H5kch6hq6l7za7
-X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
- pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: RS-EX-MBS1.realsil.com.cn (172.29.17.101) To
+ RS-EX-MBS2.realsil.com.cn (172.29.17.102)
 
-Add the Thermal Management Unit (TMU) support for the Google GS101 SoC.
+From: Yin Zhou <zain_zhou@realsil.com.cn>
 
-Describe the TMU using a consolidated SoC node that includes memory
-resources for interrupt identification and a phandle to the ACPM IPC
-interface for functional control.
+Add DT binding schema for Realtek RTS490x series I3C HUB devices.
 
-Define thermal zones for the little, mid, and big CPU clusters, including
-associated trip points and cooling-device maps to enable thermal
-mitigation.
+The binding describes configuration properties for:
+  - LDO enable/disable and voltage level per port group
+  - Pull-up resistance per port group
+  - IO driver strength per port
+  - Per target-port mode (I3C/SMBus/GPIO/disabled), pull-up,
+    IO mode, SMBus clock frequency and polling interval
+  - Hub network always-I3C mode
+  - Hardware identification via CSEL pin (id) and CP1 pins (id-cp1)
 
-Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Signed-off-by: Yin Zhou <zain_zhou@realsil.com.cn>
+
+Changes in v2:
+- Rework binding per Krzysztof Kozlowski's review:
+  add realtek, vendor prefix to all custom properties; use boolean
+  for enable flags; use u32 with unit suffixes (-microvolt, -ohms)
+  for voltage/resistance; change to unevaluatedProperties: false;
+  fix title, maintainer name, description, $nodename pattern
+- Consolidate examples; add dt-bindings/i2c/i2c.h include
 ---
- arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi | 136 +++++++++++++++++++++++
- arch/arm64/boot/dts/exynos/google/gs101.dtsi     |  18 +++
- 2 files changed, 154 insertions(+)
+ .../bindings/i3c/realtek,rts490x-i3c-hub.yaml | 263 ++++++++++++++++++
+ 1 file changed, 263 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
 
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi b/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi
+diff --git a/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml b/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
 new file mode 100644
-index 000000000000..b27d1a539ec2
+index 000000000000..851a433abcd3
 --- /dev/null
-+++ b/arch/arm64/boot/dts/exynos/google/gs101-tmu.dtsi
-@@ -0,0 +1,136 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Google GS101 TMU configurations device tree source
-+ *
-+ * Copyright 2020 Samsung Electronics Co., Ltd.
-+ * Copyright 2020 Google LLC.
-+ * Copyright 2026 Linaro Ltd.
-+ */
++++ b/Documentation/devicetree/bindings/i3c/realtek,rts490x-i3c-hub.yaml
+@@ -0,0 +1,263 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/i3c/realtek,rts490x-i3c-hub.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#include <dt-bindings/thermal/thermal.h>
++title: Realtek RTS490x I3C HUB
 +
-+/ {
-+	thermal-zones {
-+		cpucl2-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 0>;
++maintainers:
++  - Yin Zhou <zain_zhou@realsil.com.cn>
 +
-+			trips {
-+				big_switch_on: big-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
++description:
++  The Realtek RTS490x is an I3C HUB device that provides voltage level
++  translation between I3C controller and target devices, bus capacitance
++  isolation, address conflict isolation, I3C port expansion (up to 8
++  target ports), simultaneous dual-controller port support, and per-port
++  mode selection (I3C, SMBus, GPIO, or disabled).
 +
-+				big_mitigate: big-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++properties:
++  $nodename:
++    pattern: "^hub@[0-9a-f]+(,[0-9a-f]+)*$"
 +
-+				big_hot: big-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
++  compatible:
++    const: realtek,rts490x-i3c-hub
 +
-+				big_critical: big-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
++  reg:
++    maxItems: 1
++    description:
++      Encodes the static I2C address, manufacturer ID, and part/instance ID
++      as defined by the I3C specification.
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&big_mitigate>;
-+					cooling-device = <&cpu6 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu7 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
++  assigned-address:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    minimum: 0x1
++    maximum: 0xff
++    description:
++      Dynamic I3C address to assign to this device.
 +
-+		cpucl1-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 1>;
++  dcr:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    description:
++      Device Characteristic Register value of the hub.
 +
-+			trips {
-+				mid_switch_on: mid-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
++  "#address-cells":
++    const: 1
 +
-+				mid_mitigate: mid-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++  "#size-cells":
++    const: 0
 +
-+				mid_hot: mid-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
++  realtek,cp0-ldo-enable:
++    type: boolean
++    description:
++      Enable the on-die LDO for Controller Port 0.
 +
-+				mid_critical: mid-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
++  realtek,cp1-ldo-enable:
++    type: boolean
++    description:
++      Enable the on-die LDO for Controller Port 1.
 +
-+			cooling-maps {
-+				map0 {
-+				     trip = <&mid_mitigate>;
-+					cooling-device = <&cpu4 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu5 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+			       };
-+			};
-+		};
++  realtek,tp0145-ldo-enable:
++    type: boolean
++    description:
++      Enable the on-die LDO for Target Ports 0/1/4/5.
 +
-+		cpucl0-thermal {
-+			polling-delay-passive = <0>;
-+			polling-delay = <0>;
-+			thermal-sensors = <&tmu_top 2>;
++  realtek,tp2367-ldo-enable:
++    type: boolean
++    description:
++      Enable the on-die LDO for Target Ports 2/3/6/7.
 +
-+			trips {
-+				little_switch_on: little-switch-on {
-+					temperature = <80000>;
-+					hysteresis = <2000>;
-+					type = "passive";
-+				};
++  realtek,cp0-ldo-microvolt:
++    enum: [1000000, 1100000, 1200000, 1800000]
++    description:
++      Output voltage of the Controller Port 0 on-die LDO, in microvolts.
 +
-+				little_mitigate: little-mitigate {
-+					temperature = <90000>;
-+					hysteresis = <5000>;
-+					type = "passive";
-+				};
++  realtek,cp1-ldo-microvolt:
++    enum: [1000000, 1100000, 1200000, 1800000]
++    description:
++      Output voltage of the Controller Port 1 on-die LDO, in microvolts.
 +
-+				little_hot: little-hot {
-+					temperature = <100000>;
-+					hysteresis = <5000>;
-+					type = "hot";
-+				};
++  realtek,tp0145-ldo-microvolt:
++    enum: [1000000, 1100000, 1200000, 1800000]
++    description:
++      Output voltage of the Target Ports 0/1/4/5 on-die LDO, in
++      microvolts.
 +
-+				little_critical: little-critical {
-+					temperature = <105000>;
-+					hysteresis = <2000>;
-+					type = "critical";
-+				};
-+			};
++  realtek,tp2367-ldo-microvolt:
++    enum: [1000000, 1100000, 1200000, 1800000]
++    description:
++      Output voltage of the Target Ports 2/3/6/7 on-die LDO, in
++      microvolts.
 +
-+			cooling-maps {
-+				map0 {
-+					trip = <&little_mitigate>;
-+					cooling-device = <&cpu0 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu1 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu2 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>,
-+							 <&cpu3 THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
-+				};
-+			};
-+		};
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/exynos/google/gs101.dtsi b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-index 86933f22647b..b6866ef99fb3 100644
---- a/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-+++ b/arch/arm64/boot/dts/exynos/google/gs101.dtsi
-@@ -74,6 +74,7 @@ cpu0: cpu@0 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0000>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -86,6 +87,7 @@ cpu1: cpu@100 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0100>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -98,6 +100,7 @@ cpu2: cpu@200 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0200>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -110,6 +113,7 @@ cpu3: cpu@300 {
- 			compatible = "arm,cortex-a55";
- 			reg = <0x0300>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL0>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&ananke_cpu_sleep>;
- 			capacity-dmips-mhz = <250>;
-@@ -122,6 +126,7 @@ cpu4: cpu@400 {
- 			compatible = "arm,cortex-a76";
- 			reg = <0x0400>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL1>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&enyo_cpu_sleep>;
- 			capacity-dmips-mhz = <620>;
-@@ -134,6 +139,7 @@ cpu5: cpu@500 {
- 			compatible = "arm,cortex-a76";
- 			reg = <0x0500>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL1>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&enyo_cpu_sleep>;
- 			capacity-dmips-mhz = <620>;
-@@ -146,6 +152,7 @@ cpu6: cpu@600 {
- 			compatible = "arm,cortex-x1";
- 			reg = <0x0600>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL2>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&hera_cpu_sleep>;
- 			capacity-dmips-mhz = <1024>;
-@@ -158,6 +165,7 @@ cpu7: cpu@700 {
- 			compatible = "arm,cortex-x1";
- 			reg = <0x0700>;
- 			clocks = <&acpm_ipc GS101_CLK_ACPM_DVFS_CPUCL2>;
-+			#cooling-cells = <2>;
- 			enable-method = "psci";
- 			cpu-idle-states = <&hera_cpu_sleep>;
- 			capacity-dmips-mhz = <1024>;
-@@ -639,6 +647,15 @@ watchdog_cl1: watchdog@10070000 {
- 			status = "disabled";
- 		};
- 
-+		tmu_top: thermal-sensor@100a0000 {
-+			compatible = "google,gs101-tmu-top";
-+			reg = <0x100a0000 0x800>;
-+			clocks = <&cmu_misc CLK_GOUT_MISC_TMU_TOP_PCLK>;
-+			interrupts = <GIC_SPI 769 IRQ_TYPE_LEVEL_HIGH 0>;
-+			samsung,acpm-ipc = <&acpm_ipc>;
-+			#thermal-sensor-cells = <1>;
-+		};
++  realtek,tp0145-pullup-ohms:
++    enum: [0, 250, 500, 1000, 2000]
++    description:
++      Pull-up resistance for Target Ports 0/1/4/5, in ohms. 0 disables
++      the pull-up.
 +
- 		trng: rng@10141400 {
- 			compatible = "google,gs101-trng",
- 				     "samsung,exynos850-trng";
-@@ -1862,3 +1879,4 @@ timer {
- };
- 
- #include "gs101-pinctrl.dtsi"
-+#include "gs101-tmu.dtsi"
-
++  realtek,tp2367-pullup-ohms:
++    enum: [0, 250, 500, 1000, 2000]
++    description:
++      Pull-up resistance for Target Ports 2/3/6/7, in ohms. 0 disables
++      the pull-up.
++
++  realtek,cp0-io-strength-ohms:
++    enum: [20, 30, 40, 50]
++    description:
++      Output driver impedance for Controller Port 0, in ohms.
++
++  realtek,cp1-io-strength-ohms:
++    enum: [20, 30, 40, 50]
++    description:
++      Output driver impedance for Controller Port 1, in ohms.
++
++  realtek,tp0145-io-strength-ohms:
++    enum: [20, 30, 40, 50]
++    description:
++      Output driver impedance for Target Ports 0/1/4/5, in ohms.
++
++  realtek,tp2367-io-strength-ohms:
++    enum: [20, 30, 40, 50]
++    description:
++      Output driver impedance for Target Ports 2/3/6/7, in ohms.
++
++  realtek,id:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1, 3]
++    description: |
++      I3C HUB hardware ID based on CSEL pin state. Values:
++        0 - CP0 is selected as primary Controller Port
++        1 - Primary Controller Port selected by software
++        3 - CP1 is selected as primary Controller Port
++
++  realtek,id-cp1:
++    $ref: /schemas/types.yaml#/definitions/uint32
++    enum: [0, 1, 2, 3]
++    description:
++      I3C HUB hardware ID based on CP1 SDA and SCL pin state probed
++      during power-on.
++
++patternProperties:
++  "^target-port@[0-9]+$":
++    type: object
++    description:
++      I3C HUB target port child node, named target-port@<id>.
++
++    properties:
++      compatible:
++        const: realtek,rts490x-i3c-hub-port
++
++      reg:
++        maxItems: 1
++        description:
++          Target port index (0-based).
++
++      "#address-cells":
++        const: 1
++
++      "#size-cells":
++        const: 0
++
++      realtek,mode:
++        enum: [disabled, i3c, smbus, gpio]
++        description:
++          Operating mode of this target port.
++
++      realtek,pullup-enable:
++        type: boolean
++        description:
++          When present, enables the pull-up for this target port.
++
++      realtek,always-enable:
++        type: boolean
++        description:
++          When present, the target port is always enabled. Otherwise
++          the port is enabled on demand and disabled after use.
++
++      realtek,polling-interval-ms:
++        minimum: 0
++        description:
++          SMBus polling interval in milliseconds. If absent or 0,
++          polling is disabled and IBI is used instead.
++
++      clock-frequency:
++        enum: [100000, 200000, 400000, 1000000]
++        description:
++          SMBus clock frequency in Hz. Applies only when mode is smbus.
++          Defaults to 400000 if absent.
++
++    additionalProperties: true
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/i2c/i2c.h>
++    i3c-master@d040000 {
++      reg = <0xd040000 0x1000>;
++      #address-cells = <3>;
++      #size-cells = <0>;
++
++      hub@70,4ba00000000 {
++        compatible = "realtek,rts490x-i3c-hub";
++        reg = <0x70 0x4ba 0x00000000>;
++        assigned-address = <0x70>;
++        dcr = <0xc2>;
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        realtek,cp0-ldo-enable;
++        realtek,cp1-ldo-enable;
++        realtek,cp0-ldo-microvolt = <1000000>;
++        realtek,cp1-ldo-microvolt = <1100000>;
++        realtek,tp0145-ldo-enable;
++        realtek,tp0145-ldo-microvolt = <1200000>;
++        realtek,tp2367-ldo-microvolt = <1800000>;
++        realtek,tp0145-pullup-ohms = <2000>;
++        realtek,tp2367-pullup-ohms = <500>;
++        realtek,tp0145-io-strength-ohms = <50>;
++        realtek,tp2367-io-strength-ohms = <30>;
++        realtek,cp0-io-strength-ohms = <20>;
++        realtek,cp1-io-strength-ohms = <40>;
++
++        target-port@0 {
++          compatible = "realtek,rts490x-i3c-hub-port";
++          reg = <0>;
++          realtek,mode = "i3c";
++          realtek,pullup-enable;
++          realtek,always-enable;
++        };
++
++        target-port@1 {
++          compatible = "realtek,rts490x-i3c-hub-port";
++          reg = <1>;
++          #address-cells = <1>;
++          #size-cells = <0>;
++          realtek,mode = "smbus";
++          realtek,pullup-enable;
++          clock-frequency = <1000000>;
++          realtek,polling-interval-ms = <10>;
++
++          i2c@10 {
++            compatible = "i2c-slave-mqueue";
++            reg = <(0x10 | I2C_OWN_SLAVE_ADDRESS)>;
++          };
++        };
++
++        target-port@2 {
++          compatible = "realtek,rts490x-i3c-hub-port";
++          reg = <2>;
++          realtek,mode = "gpio";
++        };
++
++        target-port@3 {
++          compatible = "realtek,rts490x-i3c-hub-port";
++          reg = <3>;
++          realtek,mode = "disabled";
++        };
++      };
++    };
 -- 
-2.54.0.746.g67dd491aae-goog
+2.34.1
 
