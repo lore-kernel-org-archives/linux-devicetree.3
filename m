@@ -1,144 +1,132 @@
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com [209.85.216.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EFBA5372ECA
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 10:52:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB8C3E9F61
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 10:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779706345; cv=none; b=U7KOBWFcu4ORgALAyRz7ITv9Eq3eUfe2jMnLt07LUJS5cGcHQJ5xNBbXrHLCHnLUhJwUWJbKTJeMON/xXq0NSLAJl3fHYzrw7rnK6s5Q0XMRcsgzLWTVu/YycU9S986ggFuCcY27Fw3SaJbhE03zGrEjxnt6CzKdzjkemIrVSwA=
+	t=1779706349; cv=none; b=YmjGiJJvKH8/jxerUSqWtAjGei4IFLwwhsfkWqtA+vmsUlTbqunw9+uURi+qLsYQql8uBFosdJsm5m29JwRDypdsydGfdts7WJtRm0KscfKYC6R1OMZUZQzkxPeAaH/x0lRY3InQ2B6tAvgU8JLQiJk2p+9JjYXjbDifcf2DkdA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779706345; c=relaxed/simple;
-	bh=8sTc3ePfTO1HkNzwXZekmT2AeOdDHgPOdpy0VtjDF3A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tABLMoJrsFzA6Ch32prkYCL6v8JXlNWipGfzpTLZ8rP8prl0hgwDtn05UlRqHYuaP7JrDeZWLAZ6OiGANqOcZs/G0WXCwZeh76nvzQihbfIj0ruVZLdtfF1V9lchaw/Cbw/0zRwD91RfP1OIiG4EeQTde52Zw7XUz545uSjNdC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GYL6qeQO; arc=none smtp.client-ip=209.85.216.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779706349; c=relaxed/simple;
+	bh=iSvM5FSXg8aEBadxyyqQYD1FnPy2Lb3Pjm3JnZjQyDI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uvOTk+Z+2NaTIi4XRj6ANk7RnJ/4epAY22AxEXq0J1RDLFrgO4O/kKYJkpLQDi+rjPWzG+6T9s1pV6RaWFSFd6aUZOKyUVb8pG8zmytDlj5vNQa957iBWpyJWbFdpj/wF9zATlns+/W6xqzTexlf2wqj+wlwy+BP7icgTG+yr9U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSRPaKFk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GYL6qeQO"
-Received: by mail-pj1-f46.google.com with SMTP id 98e67ed59e1d1-366375c4076so3978891a91.3
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 03:52:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779706343; x=1780311143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RTBVI1ML053TliZ0TwngU1Pm81C+cTmh1wKJVMjMXjs=;
-        b=GYL6qeQOgFsAbiNfZPuEXAjds/fXUhR18YR02uFdt3cNwpb59TJGKqrQ1LWb01TyB5
-         7fM8s6jY9s6hRF1PEOTNNWrOMlp/71VAMlyiBZaNb0bEDtUOkARkr9L7G0H3UMMEQ4QU
-         nnYR6eXyjUFM+H1fQWBR9a06hfi7rsHeifeoRriqkSXnmd6WHEKl2uVXPYWj9gUp9Hik
-         yH5AFeciNE4ho56S1pThyVgSTGmR6j7fi3qZ54a6QF+TN/SyFAgDIFDxg054ortvc8pu
-         UOH8OrWchUFBrg+yGKQmtUxpcuTjDQ9bCm+sSZbTqBGyVcQ9JlUPOXCpXkYZeD4EQJs3
-         ha4A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779706343; x=1780311143;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=RTBVI1ML053TliZ0TwngU1Pm81C+cTmh1wKJVMjMXjs=;
-        b=l3eIK+r655xJMSVWGDPUD2cpMyGPp/oCQ3YY7CH2oPhFeHrf58lrvNtclmJFDQtkJQ
-         SZ7tmUqaxHmZyANSfD+t1u/3GSDPkP8LczDMj2iwmGxA/9CIcr3+7EUOeeUFsl0d8CE0
-         c4fT87KPxUQ1LsgZjEvv2oD4/OBY29n9X1Jk38DGCHb+xz5/lwIoguzu2+HWrRLHEf81
-         6SznTka+nkkTTrVNTn2WGMt2lrzEVcSttZLX91dP3EqSdFlGjy6u3Nv8xLSOupIXNADP
-         qii9EGXIbproK4nPBVfIMuUcXsP+K8eVDvvB0YK/q8DCfrOWSgRw9LM6RB8n1kl+nY+9
-         Ieug==
-X-Forwarded-Encrypted: i=1; AFNElJ8sSDL70iO1DY1QR5zp+V0tYApdDBEE5BGnfy7m7dGHZ2UnqnsNbCnxzJQ5RuabDY042gjBfy3URDv4@vger.kernel.org
-X-Gm-Message-State: AOJu0YzEbsJPS37KLAOmB8Y+ifugtkinBXg+iYrt1l8onhbBZhQ5wI4A
-	ueBHivQuC/QsQoDE3bDwO+5nXjJaErw7aBxKgRWzD+n5lWuCVMjaX94S
-X-Gm-Gg: Acq92OGT18WLzr7pVT2P4N1Qo14XYJde4yM9gXKqNXcbGQvGUUDaBF2mWP2px9rA1JA
-	sq88E7NSCPB62QV1r8kmRNod9xtojxeYnrkBD0hIBqV5hBnUi757RC+mlWwjQXhrvnLcX76q2io
-	cZTYDzDKYnnacRTNJdo5gMngf+ZF5GG/0UJuO4FtLz9zoW0lmzjNSXRAIjE+Sewmj01/CZvtMF/
-	O6wqhxKk8q2Ise/76tRtgdysVnhdWxBzqjJcYBDixEjwFy8p3HqBmtXdSjucitKMI+HSi98BIFI
-	mWBGewQBEvWgfIlrIqFpiX/RMmfG7l7N7dBWjfefzt2USj1ByNETzfv7mw5giUR3YlkW6qrRGwP
-	K6/SY6Z+PUmzeFSZGv+ih/NfiKinQ12V9JwBuxorEc4fGvB0qOmKuow1nDoU3vUMddeTX0QPF8f
-	/4eelADgZZcT/3fWkaMM95Ri5F7T1C7nIN5JnDpZKysasizejZMdG6WqxbL4BnSeIXK2SuKgOWt
-	/uxh/0SpjZSVupEmlpNzXWWy38djnZPaHzsP3Z9d/m3TPOXjsJf
-X-Received: by 2002:a17:90b:1b07:b0:369:a9e8:dbf5 with SMTP id 98e67ed59e1d1-36a6749ea42mr13009276a91.3.1779706343136;
-        Mon, 25 May 2026 03:52:23 -0700 (PDT)
-Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2405:201:2011:e829:fadd:33b:8fc3:b2c8])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a7265a001sm9302388a91.7.2026.05.25.03.52.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 03:52:22 -0700 (PDT)
-From: Piyush Patle <piyushpatle228@gmail.com>
-To: linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: jic23@kernel.org,
-	ak@it-klinger.de,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andy@kernel.org,
-	nuno.sa@analog.com,
-	dlechner@baylibre.com
-Subject: [PATCH v10 09/11] iio: adc: hx711: localize loop iterators in hx711_read
-Date: Mon, 25 May 2026 16:21:25 +0530
-Message-ID: <20260525105127.180156-10-piyushpatle228@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260525105127.180156-1-piyushpatle228@gmail.com>
-References: <20260525105127.180156-1-piyushpatle228@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSRPaKFk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C2421F000E9;
+	Mon, 25 May 2026 10:52:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779706347;
+	bh=0GxtY0yogvNkAhD2ZNPYNGZJ7CWT0X3CDgizI1YYqE0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RSRPaKFkT2L9I08L2tVIgK5tG6c0QhbR0tSB6YrefsDe+ubyw/nC7Jd3EHwO0cHo/
+	 xLhA1pZTsAuhwhkeMixQy2jrWzUhpjiDtIdDPHCoXyxbVnfxurvKnEzvAMJBGpfDGl
+	 jPeHS4ukpkN3FgDdVcnUXP3zHJzST6LawcCux1VHlwqyn9tS39+xx+L6z/25qUIZWo
+	 KdI1lR1dk9exEZ+3tUKuh8UXLmyARueQ9XktVpZa+m1Vb4OlKUihR7K6dnWaTDZAn8
+	 h8SUxW9PPsfNM+pwPxv8A/85u8pv2JWHFkELS6PbUYNMZpH5015On/ksRzobBK3qY6
+	 QsP+qtWRZkPWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 06/17] arm64: kexec_file: Fix potential buffer
+ overflow in prepare_elf_headers()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinjie Ruan" <ruanjinjie@huawei.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525084932.934910-7-ruanjinjie@huawei.com>
+References: <20260525084932.934910-7-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 10:52:26 +0000
+Message-Id: <20260525105227.3C2421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Tighten the scope of the loop variables in hx711_read() now that
-trailing-pulse selection is already handled by the callers.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Also replace the 24-bit loop bound with a named constant while touching
-the same code.
+Pre-existing issues:
+- [High] If kexec_add_buffer() fails for the ELF headers segment in load_ot=
+her_segments(), it erroneously calls vfree(headers). However, the caller im=
+age_load() operates in a placement retry loop and will reuse the freed poin=
+ter on the next iteration, leading to a Use-After-Free. Furthermore, the gl=
+obal cleanup path will double-free the pointer.
+- [High] In crash_load_dm_crypt_keys(), if kexec_add_buffer() fails, the gl=
+obal keys_header is freed via kvfree() but the pointer is not set to NULL. =
+If the kexec load sequence retries, it will trigger a Use-After-Free or Dou=
+ble Free.
+--
 
-Suggested-by: Andy Shevchenko <andy@kernel.org>
-Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
----
- drivers/iio/adc/hx711.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+commit 205dd983aa0b64a4b48461b2eeaf22aeada0f3e8
+Author: Jinjie Ruan <ruanjinjie@huawei.com>
 
-diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-index 4ccb0bf2d71f..e5d842853b71 100644
---- a/drivers/iio/adc/hx711.c
-+++ b/drivers/iio/adc/hx711.c
-@@ -23,6 +23,8 @@
- #include <linux/gpio/consumer.h>
- #include <linux/regulator/consumer.h>
- 
-+#define HX711_DATA_BITS		24
-+
- /* gain to pulse and scale conversion */
- #define HX711_GAIN_MAX		3
- #define HX711_RESET_GAIN	128
-@@ -157,16 +159,16 @@ static int hx711_cycle(struct hx711_data *hx711_data)
- 
- static int hx711_read(struct hx711_data *hx711_data, int trailing_pulses)
- {
--	int i, ret;
- 	int value = 0;
- 	int val;
-+	int ret;
- 
- 	/* we double check if it's really down */
- 	val = gpiod_get_value(hx711_data->gpiod_dout);
- 	if (val)
- 		return -EIO;
- 
--	for (i = 0; i < 24; i++) {
-+	for (int i = 0; i < HX711_DATA_BITS; i++) {
- 		value <<= 1;
- 		ret = hx711_cycle(hx711_data);
- 		if (ret)
-@@ -175,7 +177,7 @@ static int hx711_read(struct hx711_data *hx711_data, int trailing_pulses)
- 
- 	value ^= 0x800000;
- 
--	for (i = 0; i < trailing_pulses; i++)
-+	for (int i = 0; i < trailing_pulses; i++)
- 		hx711_cycle(hx711_data);
- 
- 	return value;
--- 
-2.43.0
+arm64: kexec_file: Fix potential buffer overflow in prepare_elf_headers()
 
+This commit addresses a TOCTOU race condition in prepare_elf_headers() duri=
+ng
+memory hotplug events by physically isolating the locking contexts. It moves
+the get_online_mems() read lock to the top-level architecture image loaders
+and adds bounds checking in machine_kexec_file.c.
+
+> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_im=
+age.c
+> index 79efeaeb71e93..884e446f08e34 100644
+> --- a/arch/arm64/kernel/kexec_image.c
+> +++ b/arch/arm64/kernel/kexec_image.c
+
+[ ... ]
+
+> @@ -96,11 +97,14 @@ static void *image_load(struct kimage *image,
+> =20
+>  #ifdef CONFIG_CRASH_DUMP
+>  	if (image->type =3D=3D KEXEC_TYPE_CRASH) {
+> +		get_online_mems();
+>  		ret =3D prepare_elf_headers(&headers, &headers_sz);
+>  		if (ret) {
+>  			pr_err("Preparing elf core header failed\n");
+> +			put_online_mems();
+>  			return ERR_PTR(ret);
+>  		}
+> +		put_online_mems();
+>  		image->elf_headers =3D headers;
+>  		image->elf_headers_sz =3D headers_sz;
+>  	}
+
+[Severity: High]
+This is a pre-existing issue, but does the retry loop directly below this
+code lead to a use-after-free if kexec_add_buffer() fails in
+load_other_segments()?
+
+Looking at image_load(), the while loop attempts to load segments and calls
+load_other_segments() repeatedly. If load_other_segments() fails during
+kexec_add_buffer(), it calls vfree(headers). However, the loop in
+image_load() will try again and pass the same freed headers pointer to
+load_other_segments() on the next iteration.
+
+Additionally, if the loop exhausts all options, does the global cleanup path
+arch_kimage_file_post_load_cleanup() also unconditionally call
+vfree(image->elf_headers), resulting in a double-free?
+
+[Severity: High]
+This is a pre-existing issue, but can this retry loop similarly trigger
+a use-after-free or double-free with keys_header?
+
+If kexec_add_buffer() fails inside crash_load_dm_crypt_keys(), the global
+pointer keys_header is freed via kvfree() but not set to NULL.
+
+When image_load() retries, crash_load_dm_crypt_keys() is invoked again. If =
+it
+calls build_keys_header(), it executes:
+
+    if (keys_header !=3D NULL)
+        kvfree(keys_header);
+
+which would trigger a double-free. Alternatively, if is_dm_key_reused is
+true, would it reuse the freed pointer directly for a new
+kexec_add_buffer() call?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525084932.9349=
+10-1-ruanjinjie@huawei.com?part=3D6
