@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C78F13E558E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:06:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9997330B11
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:11:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779700012; cv=none; b=HGK387vUcRS85vO3+fb/FZkjKslNPMdnxAJ3OUVrM8hAEcn4cOTAg89MTyK7BQX3JqMPv9T4fhz3EPamiSYbLgqkX4Xa7DZq+BVRk//nwIfNJBSZmfuWb8rxtrSb+o/pboYXrzKflUiQ4zL3kqCu913iayVTnk/It9ze9+f7tTk=
+	t=1779700311; cv=none; b=Zii8K4J+cRGRK8lDj0VXErIBGSTe4bLmwLMDgZZu7RKQLw2SCIf5n5X7RgXGfJ06yrRG+7pAhJR1mE5ojyuxyZPVZBfHaifvT+FncXoimicwYsmVdFcYbFGw3iel/8XBODejHKgZ8RBF26B5GKHAySPynepOsU4Eg0+9ZZJmSUA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779700012; c=relaxed/simple;
-	bh=0NbCr9ayqXyVbPcpj2JAYOhekLerj8YrpBPIkEgQzYI=;
+	s=arc-20240116; t=1779700311; c=relaxed/simple;
+	bh=t3Uj+AAmWqrYhDRnj/Jc73UEUesmnCGX1RIcFLcaWZY=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jKgLw9IAZUUMLDjrRNWTSkkCuoyMTj0HhSFLCA9XUW5vuYRFP0+E4hpThJmmte3SlQoC9q8SdSvM8sDgUskg9hRaLxGNLpkV2ExOOk5FjJIr4Uud9qjEG6HkKmqXDVxetaGfQ8VgppDR5xdLTlIt6hrOM9Ca0B/zrJkbGshXRxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnHtIyRj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=ZxcrSIlfNxRmOJ35rSrSBb79OMv7iMESjCLzeO8bEnc0EiXW4hGFGWgw2NOaNILzvrwj6HClBdGNBlh4tODzMpQvPPoPBjFyPlDS67+I62Ij+DsMnGcs/rYYHWjaQnwXBtCda/5jqyUyDRUSc3AQvyZBABO/mKJGwbNkrHM/vp8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ecCdrPBK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnHtIyRj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3DA4B1F000E9;
-	Mon, 25 May 2026 09:06:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ecCdrPBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A1E01F00A3D;
+	Mon, 25 May 2026 09:11:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779700010;
-	bh=swdWm/0iTnVS2k9BLL7JZNN87vf5uKigIcWeJkFhvfU=;
+	s=k20260515; t=1779700309;
+	bh=DFQgW4KRUMLUlZr52Gl1waa6iZspm+vHBYyC1vWUSm0=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hnHtIyRjdwpHiDKPAGF8OaoEK5y0DeoZMbmjdkNRHYZRvQ0Filzbjj43Brp3DOUTM
-	 f1Qu8X/DLuYiKWc/fQRPEuv6+3CdORYicqk0qqd7i5R3BAofWcI2e1mt1Esvq4Qaq3
-	 Cv6O46FpWkuqcDvk+GUxIMsYsHgaY3LVJWRBzoUzxQoOkAJowtOXcvSN/d4ZnJcs5k
-	 d8AQ9/7TCOw++rt+kgR/0m+ihf0XBtaLF38GVVMp4NAMy25qyceexwLbKlL0jo0Nu+
-	 KitbOv2zIW4sMOqmeot0Vpsh2bJjogUsMxvvoi0Cg4zkVeyeiU/rHgli34vvGaDy8n
-	 5+mllF607GTTw==
+	b=ecCdrPBKwzmz5n1ZdUQI5fHEb6DYdHjI8r7kcj68X5UEYjhpKnHL82Yx2yIogK8F/
+	 XWautovR8Xl4CF2CpAf53GTnYD831O5sXxfiNU8kMyadZQ2RVuM6+VxtVOiLXmQMWT
+	 u3eGz0d32GZyQck3rrmTcjSSvO770TJDJngy68Te9bBsuMY8RLZSEVnneWTBw9dFPc
+	 M2o8I27jQvWSir+qbXwBbDbVS6MaLbqvKebtG+7XOPrMVLaul2CDhFYdVXjrscgLgd
+	 tysBFD7Qo3pGEpXNqZoyjyLCsMap6buDICKeTFoenY+jJJEHg6K8MyPorQXi05l44M
+	 K4LcCTqf30F+A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 6/9] regulator: p3h2x4x: Add driver for on-die
- regulators in NXP P3H2x4x i3c hub
+Subject: Re: [PATCH v14 04/17] arm64: kexec: Fix image->elf_headers memory
+ leak during retry loop
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525064209.2263045-7-lakshay.piplani@nxp.com>
-References: <20260525064209.2263045-7-lakshay.piplani@nxp.com>
+To: "Jinjie Ruan" <ruanjinjie@huawei.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260525084932.934910-5-ruanjinjie@huawei.com>
+References: <20260525084932.934910-5-ruanjinjie@huawei.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 09:06:49 +0000
-Message-Id: <20260525090650.3DA4B1F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 09:11:48 +0000
+Message-Id: <20260525091149.1A1E01F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,144 +46,164 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] Race condition in hardware unlock/lock sequence across regulators
-- [Medium] Silent hardware state mismatch due to unhandled errors in lock g=
-uard
-- [Medium] Missing MODULE_ALIAS prevents automatic module loading
-- [Low] Incorrect use of of_match_ptr() on string literals
+
+New issues:
+- [Critical] Use-After-Free and Double Free due to residual `vfree(headers)=
+` in the error path.
+- [Low] Compilation failure when CONFIG_CRASH_DUMP is disabled.
+- [Low] Uninitialized variables passed to `load_other_segments()` when load=
+ing non-crash kernels.
+
+Pre-existing issues:
+- [High] CMA pages allocated for kexec segments are permanently leaked when=
+ `image->nr_segments` is truncated.
 --
 
-commit 4a0c2a87632650e322585272d36928a08ab2888d
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+commit c40f3dfedb4fb90dbc751e696184623090b1055a
+Author: Jinjie Ruan <ruanjinjie@huawei.com>
+arm64: kexec: Fix image->elf_headers memory leak during retry loop
 
-regulator: p3h2x4x: Add driver for on-die regulators in NXP P3H2x4x i3c hub
+This commit moves the ELF header allocation outside the retry loop in
+image_load() to fix a memory leak during kexec placement retries. It reuses
+the single allocated buffer and updates load_other_segments() to receive the
+headers and size as arguments instead of allocating them internally.
 
-This commit adds a platform driver for the on-die voltage regulators of the
-NXP P3H2x4x multi-function I3C Hub device, registering them through the
-regulator framework via MFD.
+> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_im=
+age.c
+> index b70f4df15a1ae..79efeaeb71e93 100644
+> --- a/arch/arm64/kernel/kexec_image.c
+> +++ b/arch/arm64/kernel/kexec_image.c
+> @@ -44,6 +44,11 @@ static void *image_load(struct kimage *image,
+>  	struct kexec_buf kbuf =3D {};
+>  	unsigned long text_offset, kernel_segment_number;
+>  	struct kexec_segment *kernel_segment;
+> +#ifdef CONFIG_CRASH_DUMP
+> +	/* load elf core header */
+> +	unsigned long headers_sz;
+> +	void *headers;
+> +#endif
+>  	int ret;
 
 [ ... ]
 
-> diff --git a/drivers/regulator/p3h2840_i3c_hub_regulator.c b/drivers/regu=
-lator/p3h2840_i3c_hub_regulator.c
-> new file mode 100644
-> index 0000000000000..4f2514d4d928e
-> --- /dev/null
-> +++ b/drivers/regulator/p3h2840_i3c_hub_regulator.c
-
-[ ... ]
-
-> +static void p3h2x4x_reg_guard_enter(struct regulator_dev *rdev,
-> +				    struct p3h2x4x_reg_state *state)
-> +{
-> +	state->restore =3D false;
-> +
-> +	if (regmap_read(rdev->regmap,
-> +			P3H2X4X_DEV_REG_PROTECTION_CODE,
-> +			&state->orig))
-> +		return;
-> +
-> +	if (state->orig !=3D P3H2X4X_REGISTERS_UNLOCK_CODE) {
-> +		regmap_write(rdev->regmap,
-> +			     P3H2X4X_DEV_REG_PROTECTION_CODE,
-> +			     P3H2X4X_REGISTERS_UNLOCK_CODE);
-
-[Severity: Medium]
-Does this silently ignore hardware I/O errors?
-
-If the I3C/I2C write to unlock the hardware fails, the hardware remains
-locked. Because guard constructors cannot propagate errors, the caller will
-proceed to modify the regulator configuration. The regmap_update_bits() call
-will succeed in software but fail in hardware, causing the kernel's tracking
-of the regulator's state to diverge from the physical hardware.
-
-> +		state->restore =3D true;
+> @@ -89,6 +94,18 @@ static void *image_load(struct kimage *image,
+> =20
+>  	kernel_segment_number =3D image->nr_segments;
+> =20
+> +#ifdef CONFIG_CRASH_DUMP
+> +	if (image->type =3D=3D KEXEC_TYPE_CRASH) {
+> +		ret =3D prepare_elf_headers(&headers, &headers_sz);
+> +		if (ret) {
+> +			pr_err("Preparing elf core header failed\n");
+> +			return ERR_PTR(ret);
+> +		}
+> +		image->elf_headers =3D headers;
+> +		image->elf_headers_sz =3D headers_sz;
 > +	}
-> +}
+> +#endif
 > +
-> +static void p3h2x4x_reg_guard_exit(struct regulator_dev *rdev,
-> +				   struct p3h2x4x_reg_state *state)
-> +{
-> +	if (state->restore)
-> +		regmap_write(rdev->regmap,
-> +			     P3H2X4X_DEV_REG_PROTECTION_CODE,
-> +			     state->orig);
-> +}
-> +
-> +DEFINE_LOCK_GUARD_1(p3h2x4x_reg, struct regulator_dev,
-> +		    p3h2x4x_reg_guard_enter(_T->lock, &_T->state),
-> +		    p3h2x4x_reg_guard_exit(_T->lock, &_T->state),
-> +		    struct p3h2x4x_reg_state state);
-
-[Severity: High]
-Can this cause a race condition between different regulators on the same ch=
-ip?
-
-The p3h2x4x_reg guard is instantiated per-regulator, and the regulator
-subsystem only holds a per-regulator lock. If Thread A unlocks the hardware
-for ldo-cp0, and Thread B concurrently reads the protection register for
-ldo-cp1, Thread B may observe the hardware as already unlocked and skip its
-own unlock/restore sequence.
-
-When Thread A completes, it relocks the device. Thread B's subsequent
-register update will then be written to a locked hardware state, causing
-the write to be discarded and leading to silent state mismatch. Should a
-shared lock from the MFD parent be used to ensure atomicity?
-
-> +
-> +static int p3h2x4x_regulator_enable(struct regulator_dev *rdev)
-> +{
-> +	guard(p3h2x4x_reg)(rdev);
-> +	return regulator_enable_regmap(rdev);
-> +}
-
-[ ... ]
-
-> +static struct regulator_desc p3h2x4x_regulators[] =3D {
-> +	{
-> +		.name =3D "ldo-cp0",
-> +		.of_match =3D of_match_ptr("ldo-cp0"),
-> +		.regulators_node =3D of_match_ptr("regulators"),
+>  	/*
+>  	 * The location of the kernel segment may make it impossible to satisfy
+>  	 * the other segment requirements, so we try repeatedly to find a
+> @@ -99,7 +116,8 @@ static void *image_load(struct kimage *image,
+>  		kernel_segment =3D &image->segment[kernel_segment_number];
+>  		ret =3D load_other_segments(image, kernel_segment->mem,
+>  					  kernel_segment->memsz, initrd,
+> -					  initrd_len, cmdline);
+> +					  initrd_len, cmdline,
+> +					  headers, headers_sz);
 
 [Severity: Low]
-Is it safe to use of_match_ptr() on string literals here?
+Will this cause a build failure when CONFIG_CRASH_DUMP is disabled?
 
-On non-OF builds, of_match_ptr() evaluates to NULL. This breaks regulator
-matching for systems that use non-OF firmware interfaces (like ACPI PRP0001
-or swnodes) which still rely on these strings to be present. Applying it
-to string literals doesn't save any memory since the strings are already
-compiled in for the name field.
+The headers and headers_sz variables are declared inside an
+#ifdef CONFIG_CRASH_DUMP block, but are unconditionally passed to
+load_other_segments() here.
 
-> +		.volt_table =3D p3h2x4x_voltage_table,
-> +		.n_voltages =3D ARRAY_SIZE(p3h2x4x_voltage_table),
-> +		.ops =3D &p3h2x4x_ldo_ops,
+Also, when CONFIG_CRASH_DUMP is enabled but the image is a standard kexec
+kernel (image->type !=3D KEXEC_TYPE_CRASH), headers and headers_sz remain
+uninitialized.
+
+Could passing these uninitialized variables trigger compiler warnings or
+undefined behavior?
+
+>  		if (!ret)
+>  			break;
+> =20
+> @@ -107,7 +125,7 @@ static void *image_load(struct kimage *image,
+>  		 * We couldn't find space for the other segments; erase the
+>  		 * kernel segment and try the next available hole.
+>  		 */
+> -		image->nr_segments -=3D 1;
+> +		image->nr_segments =3D kernel_segment_number;
+
+[Severity: High]
+This is a pre-existing issue, but does truncating image->nr_segments here
+leak CMA pages?
+
+When kexec_add_buffer() successfully allocates from CMA, it saves the page
+in image->segment_cma[image->nr_segments]. If we erase segments by rolling
+back image->nr_segments, the cleanup function kimage_free_cma() will only
+iterate up to the new nr_segments.
+
+Are the CMA pages for the discarded segments permanently lost?
+
+>  		kbuf.buf_min =3D kernel_segment->mem + kernel_segment->memsz;
+>  		kbuf.mem =3D KEXEC_BUF_MEM_UNKNOWN;
+>  	}
+> diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/m=
+achine_kexec_file.c
+> index e31fabed378a5..daf81a873bbd3 100644
+> --- a/arch/arm64/kernel/machine_kexec_file.c
+> +++ b/arch/arm64/kernel/machine_kexec_file.c
 
 [ ... ]
 
-> +static struct platform_driver p3h2x4x_regulator_driver =3D {
-> +	.driver =3D {
-> +		.name =3D "p3h2x4x-regulator",
-> +		.probe_type =3D PROBE_PREFER_ASYNCHRONOUS,
-> +	},
-> +	.probe =3D p3h2x4x_regulator_probe,
-> +};
-> +module_platform_driver(p3h2x4x_regulator_driver);
-> +
-> +MODULE_AUTHOR("Aman Kumar Pandey <aman.kumarpandey@nxp.com>");
-> +MODULE_AUTHOR("Vikash Bansal <vikash.bansal@nxp.com>");
-> +MODULE_AUTHOR("Lakshay Piplani <lakshay.piplani@nxp.com>");
-> +MODULE_DESCRIPTION("NXP P3H2X4X I3C HUB Regulator driver");
-> +MODULE_LICENSE("GPL");
+> @@ -105,16 +106,7 @@ int load_other_segments(struct kimage *image,
+>  	kbuf.buf_min =3D kernel_load_addr + kernel_size;
+> =20
+>  #ifdef CONFIG_CRASH_DUMP
+> -	/* load elf core header */
+> -	void *headers;
+> -	unsigned long headers_sz;
+>  	if (image->type =3D=3D KEXEC_TYPE_CRASH) {
+> -		ret =3D prepare_elf_headers(&headers, &headers_sz);
+> -		if (ret) {
+> -			pr_err("Preparing elf core header failed\n");
+> -			goto out_err;
+> -		}
+> -
+>  		kbuf.buffer =3D headers;
+>  		kbuf.bufsz =3D headers_sz;
+>  		kbuf.mem =3D KEXEC_BUF_MEM_UNKNOWN;
+> @@ -128,9 +120,7 @@ int load_other_segments(struct kimage *image,
+>  			vfree(headers);
+>  			goto out_err;
 
-[Severity: Medium]
-Does this prevent automatic module loading?
+[Severity: Critical]
+Since the headers buffer allocation was moved out to image_load(), does this
+vfree() cause a use-after-free and double free?
 
-The driver registers as an MFD child device using a platform driver named
-"p3h2x4x-regulator". Because it relies on the platform bus matching by name
-and does not provide an id_table or of_match_table, the MFD core will emit
-a uevent with MODALIAS=3Dplatform:p3h2x4x-regulator. Without a corresponding
-MODULE_ALIAS declaration, udev cannot map the uevent to the kernel module.
+If kexec_add_buffer() fails, this path frees the headers buffer and returns
+an error. The retry loop in image_load() will then unconditionally call
+load_other_segments() again, passing the now freed headers pointer back to
+kexec_add_buffer().
+
+Additionally, the post-load cleanup function
+arch_kimage_file_post_load_cleanup() unconditionally calls
+vfree(image->elf_headers).
+
+Could this lead to memory corruption?
+
+>  		}
+> -		image->elf_headers =3D headers;
+>  		image->elf_load_addr =3D kbuf.mem;
+> -		image->elf_headers_sz =3D headers_sz;
+> =20
+>  		kexec_dprintk("Loaded elf core header at 0x%lx bufsz=3D0x%lx memsz=3D0=
+x%lx\n",
+>  			      image->elf_load_addr, kbuf.bufsz, kbuf.memsz);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525064209.2263=
-045-1-lakshay.piplani@nxp.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525084932.9349=
+10-1-ruanjinjie@huawei.com?part=3D4
