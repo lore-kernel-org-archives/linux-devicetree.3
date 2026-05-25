@@ -1,257 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com [209.85.208.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A18D6FC3
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779694782; cv=none; b=mdTv0SkGuYhZ8U6/7jlMz7z1SHwUG9xedsr8mNuFZLt7UjkpQwlK8LFftAskpSsl7Ohrnnh2fiEhXK7of2L+srw4j1+Cah84bAgwXlkJFv1EgHOPpBh5/tGw4eHaXyOA+VgDAi2WU9fvaegRcNDqbs3cwW2QWrQk+2+lYxtk12k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779694782; c=relaxed/simple;
-	bh=Ml83agGrwbmcx9wuLB8ydnvu7kuIR1kaEAjSbP4D+Dk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Yr5dkskm/2PjuaH9H7WNSize8ypU6/lRmq03A1YsGvqGPH/+lQbfcHxLWPU0uNuhD/JI7xPEiRjIzXS0HBfBo89ZsEKFxVw/orqcVx+njNjfjPyZtdSiFHL7okgcYkTNNYF8rfL7jUjyFTWoJTrYT2idfMmMzPR5TVcBzT363aI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ldSyZB9D; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1F23D4127
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 07:45:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.41
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779695115; cv=pass; b=Jq4gzowQ08KD3RPpXXc4DfIhtkuOacq6lhSWwbIafcTzviL4/Au/TgJ72owmrOoBaHaYHOsU7TBMklGWnrkSRYFBny+tzWzXXzOnf9b2StBhGWF2+xFQGQqGU3eJlLyHa0JuEObk3daf11bmXIrm9OJ/ZSXgjK6/BMr4Mnzdg7c=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779695115; c=relaxed/simple;
+	bh=nqsZdMf/BBR6bmZa7PHlqIirSjOFDpDYL5VK3Qr4DD8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cyfv7UcgSyYwjNPL+yT7mR2gf92kbtGgHPpnyMfh+fWGXsMmegeJ/iCnoz0Rsv16VtmXaWSxc8maHyIEf9oAqsoBTJjPtWjv02Od6+a/kcBn6h2U/1RTpVh4RHKpL9QQO2e5Oq6lTOjtUa2WC7Yb8sodE1UJI5Nd9pEqQcTiTlg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VbBBaLPA; arc=pass smtp.client-ip=209.85.208.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ldSyZB9D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EC7E1F000E9;
-	Mon, 25 May 2026 07:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779694780;
-	bh=NdjexsjUL8poX7zAsA9UTVY8nB++iAxSgElIGvgMMf0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ldSyZB9DC6kouJMQDIfZg1ubLOWyplPNKp3kgJk4KkLELerU/xFPlKgiPqQO2DHmP
-	 KqNR9cKtUDASdmpaPRzgP2wrzWEdWHmaw8HFmYEI1Qs7DX20DMXigzDQAO3kRZ04If
-	 cFmNixFVpFxpcLmDfOz/yBLuGb698Sy/usdRBfGrtcdI31a1SZ/+SFM0TymYyXZ0uu
-	 tL745+NPhNQGCfpm6H5/rALj9wg7mTbhGTTXMlKtu9KKZpehSQyMkN+jSayQyFWBKJ
-	 mfqr28Sbikb4mNsf19ycodsRuck2SmwEhRfH34oDJLXpw34izZVVfBeshQ1luTTaxp
-	 K5Sm044eFle/A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 2/9] i3c: master: Expose the APIs to support I3C hub
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Lakshay Piplani" <lakshay.piplani@nxp.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525064209.2263045-3-lakshay.piplani@nxp.com>
-References: <20260525064209.2263045-3-lakshay.piplani@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 07:39:39 +0000
-Message-Id: <20260525073940.9EC7E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VbBBaLPA"
+Received: by mail-ed1-f41.google.com with SMTP id 4fb4d7f45d1cf-67c1e0229acso15180513a12.1
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 00:45:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779695112; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Yieb3ss/61O1QMSdcI+u9rMpaJRdyeaP7pdP/9lesEI/KLo5+3B9lVWdo1Fwsx4ZUE
+         iq7+UPfEID0zo5hA6tnMq2TnMPbRt5G6r3hqJDghu7cbVYWD/SyWKX+DaTHlwl+cyrTU
+         ApcejmxOpA4oN3V15X93VqkuscPDKsJM7NrZA8At2VPb1UsyY71wPQY6ooNxl+pNTlx1
+         IbdVKpgW8xuiq0cVVnWvbhMtVlDr/HnfmO7Q0jiCghOjkNdyVAIe4eLmBWAD2gfkwO2e
+         91deAu2sWaMkd6uH+C6FlHdQ4LPYoN1VsA77bX8uKQXdmQl33VrraGVE71UIUSYtVLqB
+         jzsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=11TeJZv77ZnpXb/3P3ZRF+nGs5n1ErGbq37h0PDsIHg=;
+        fh=YGHlOFahmdzHrHok1Sn39Alun2Jv+DDOdSmDV2m2Gek=;
+        b=aaD0tJzpCNgffTX93ze2cRltEFEZIl98AfPJDQexfFDdB5A1g0boRL/7HPcM9knXXf
+         DhR1s7cDCBy4yiT0N+u6cPWUjgOijqZNUCMLL/Tt+c56u6rG9oqiGGAUB/PMqctTjVX9
+         04flpBhSEryfDHWFNyzgVDgYTt5KCDHQxStDagxRlzCYHRqcPSNW02GbX+waWAiRXvUX
+         2B4PPvmXEwW7F+PWyeynkjrqOkyy/vAsszgZAXlMhN/z+YEvnfaZQ3ps7LZ5qXixP5Rt
+         uViAeKqNdnTcr2YSrkr1WwWneoJpSqxezvoeP+jX/sN3dddLR2OgfUm9IU7CnJmazqLO
+         Fg6w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779695112; x=1780299912; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=11TeJZv77ZnpXb/3P3ZRF+nGs5n1ErGbq37h0PDsIHg=;
+        b=VbBBaLPAHxqCacTP1YSBEer3oKVRZkdClyqxUjON0HgD02C+7CJDfduCj4scKlkSNZ
+         lkW0RWhhsS3InNV2oPRafQt5KeF88lBq0vCFjoEh6blhMd/wiUa9XKRNfsPI8jAgctkL
+         vZBNH3wpO0icAgKAZoY3uhPSwe2JVkTkmv7lbkK94soxzbrq1RAcNQWJpO6yXbKbAleG
+         dUQLoGw9cYu4ZM+FnUdWOFEDbJHAunuF6EQyuBJ03j/a62Iynlp7e/b/4rJgUh1Svbzv
+         xsfa1U0fq8c0E3r36mor9U0bHfufy9Dpf2ul4RcYD8qSDvMxtqLhBNxx0f5ZcKKgHfGb
+         mLzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779695112; x=1780299912;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=11TeJZv77ZnpXb/3P3ZRF+nGs5n1ErGbq37h0PDsIHg=;
+        b=CZAN5Gne6LZNumOtujSKijir9f1T5Twp6IG2vy0BQ/uF2IPPfXOvJ2neE7E4uZpaNt
+         KWJz0A/MHcmyuokMDSoDTWkg/MaPAfcmJZxb6ZKicNzFhhiT3xuaOu2A9JlizHdOaHzx
+         6mv6latg9w1vYXXGG5eUGanb2LecZQ0nm5+IWOC61qh+zdtYGwv3ZDtJ4NtzyvVfG60m
+         DcD6w8lc5/W0L/7DL3+VXAXUgxTO9cbYMxECsahAkvvT0C4NoQMETqc6KjXub7nmYboj
+         tMZ9gmgtYPyr+ehXL+2BXGmPrKn6wGHKYNpKoHiPEzm1RTur0KItcsDb6xm1pnAz1XJf
+         JyiQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+cHeORIEQxmSAyu8iwU/DIvqzMp0AxdwKERxPCDmqW7apTS4YN1heApGLKACM+H0uGdBsYnBisGqnW@vger.kernel.org
+X-Gm-Message-State: AOJu0YxNpapsG1b9j6xzXhrVExtu4UM4a/9/OoepWSS3WSKiUsWodFFq
+	mdMFibTsmLLzkB3QnddNk5qb6Z1fjakY/WOA9DLzep5Wdq43uxjb2I410h0Ce4+dFd5YOmR+ybX
+	pEohamTQVpeSm6XmpvouWFQLgPdHqrf8=
+X-Gm-Gg: Acq92OEUffbn7Hj19vdaFpoyVW2AHxXJKuySsCKwZ0z6NAg+O+bhbLg/b0dN7TlBg8k
+	utd2guou+5RhGR2QOrmLzk5bxJiFAWdjxoYwRcXVaPD3Uo/IfFfeyfIFUG+aLOJtgUrUVayeFLz
+	MqCj4x54KZjLezKVbfeqIs4gLuJyO/B92VoSOsOuDFvl1OoiZ3igN/tsEdMOuycHEWsz8RB8ca5
+	JzBDCYUR3llCDtxovY4uhtofYLeDBksx4Hcqk6uCzf/qScezGgobIn4qzzff+76eLaiwZBrqglc
+	iLwMo7C95w==
+X-Received: by 2002:a17:907:271b:b0:bd8:26e5:d79b with SMTP id
+ a640c23a62f3a-bdd2aee6e70mr587552666b.43.1779695111967; Mon, 25 May 2026
+ 00:45:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260524194457.479681-2-biju.das.jz@bp.renesas.com> <20260524195829.960401F000E9@smtp.kernel.org>
+In-Reply-To: <20260524195829.960401F000E9@smtp.kernel.org>
+From: Biju Das <biju.das.au@gmail.com>
+Date: Mon, 25 May 2026 08:45:00 +0100
+X-Gm-Features: AVHnY4L2cxrewHdjoi6U0d3gX5aaO0YVqb1OMYH4rfrIl1qNl3L7Ph_c-s2fQ24
+Message-ID: <CADT+UeAYhrwpmApCWaJ9w0gK3zF4eR4LVptTTwegGucvF6mmiA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: display: bridge: Document Renesas
+ RZ/G3L LVDS encoder
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, 
+	wsa+renesas@sang-engineering.com, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hi Bot,
 
-New issues:
-- [Medium] `i3c_master_reattach_i3c_dev_locked()` does not validate slot av=
-ailability despite documentation claiming it returns `-EBUSY`.
+On Sun, May 24, 2026 at 8:58=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
+>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Low] The compatible string 'renesas,r9a08g046-lvds-cmn' is used in the=
+ dt-binding example but is not documented.
+> - [Low] The parent node 'lvds-cmn' in the example lacks a 'ranges' proper=
+ty, breaking address translation for its child nodes.
+> --
+>
+> commit be595c0db2d85d9ea1396f0f30ac7ad75f4101fe
+> Author: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
+>
+> Documents the LVDS encoder IP found on the RZ/G3L SoC. It supports
+> single-link mode and shares a peripheral clock and reset signal with the
+> MIPI-DSI interface.
+>
+> > diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,r=
+9a08g046-lvds.yaml b/Documentation/devicetree/bindings/display/bridge/renes=
+as,r9a08g046-lvds.yaml
+> > new file mode 100644
+> > index 0000000000000..b1f6d020ae7b1
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g04=
+6-lvds.yaml
+>
+> [ ... ]
+>
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
+> > +
+> > +    lvds-cmn@108a0000 {
+> > +        compatible =3D "renesas,r9a08g046-lvds-cmn",
+> > +                     "simple-mfd", "syscon";
+>
+> [Severity: Low]
+> Is this compatible string documented somewhere else? It looks like
+> renesas,r9a08g046-lvds-cmn isn't present in the tree, which might cause
+> dt_binding_check to fail when it validates the example.
 
-Pre-existing issues:
-- [High] `i3c_master_reattach_i3c_dev_locked` corrupts the bus address stat=
-e if the reattach operation fails.
-- [High] Missing synchronization and improper error handling in `i3c_dev_di=
-sable_ibi_locked` and `i3c_dev_free_ibi_locked` lead to Use-After-Free.
-- [High] Missing memory barrier between `reinit_completion()` and `atomic_r=
-ead()` can lead to a deadlock in `i3c_dev_disable_ibi_locked`.
---
+This compatible is documented and is in next [1].
 
-commit 9189e89cd793462892bddcec9432ec1ed64052bf
-Author: Aman Kumar Pandey <aman.kumarpandey@nxp.com>
+Q1) Can you please reun the AI review with [1] ?
 
-i3c: master: Expose the APIs to support I3C hub
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/com=
+mit/?h=3Dnext-20260522&id=3D51284d8b1dbcd7fa0220c49eeab29b14617e0d88
 
-This commit exposes several internal static I3C functions as public APIs
-to support a new I3C hub driver. It adds EXPORT_SYMBOL_GPL and kernel-doc
-comments for functions handling IBI operations and device reattachment.
+>
+> > +        reg =3D <0x108a0000 0x10000>;
+> > +        #address-cells =3D <1>;
+> > +        #size-cells =3D <1>;
+>
+> [Severity: Low]
+> Does this parent node need a ranges property? Without it, address transla=
+tion
+> for the child node's reg =3D <0x10 0x8> might fail, and dtc often warns a=
+bout
+> missing ranges in simple-mfd nodes with children.
 
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index c45b450af319d..ec3547f75469e 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-[ ... ]
-> -static int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
-> -					      u8 old_dyn_addr)
-> +/**
-> + * i3c_master_reattach_i3c_dev_locked() - reattach an I3C device with a =
-new address
-> + * @dev: I3C device descriptor to reattach
-> + * @old_dyn_addr: previous dynamic address of the device
-> + *
-> + * This function reattaches an existing I3C device to the bus when its d=
-ynamic
-> + * address has changed. It updates the bus address slot status according=
-ly:
-> + * - Marks the new dynamic address as occupied by an I3C device.
-> + * - Frees the old dynamic address slot if applicable.
-> + *
-> + * This function must be called with the bus lock held in write mode.
-> + *
-> + * Return: 0 on success, or a negative error code if reattachment fails
-> + *         (e.g. -EBUSY if the new address slot is not free).
-> + */
-> +int i3c_master_reattach_i3c_dev_locked(struct i3c_dev_desc *dev,
-> +				       u8 old_dyn_addr)
->  {
->  	struct i3c_master_controller *master =3D i3c_dev_get_master(dev);
->  	int ret;
+I don't get any error or dtc warnings. Have you ran dt-binding check
+before providing
+such comment?
 
-[Severity: Medium]
-The kernel-doc mentions returning -EBUSY if the new address slot is not fre=
-e.
-Does the implementation actually check this?
-
-It appears i3c_bus_set_addr_slot_status() is called unconditionally,
-overwriting the slot status without validating if it was previously occupie=
-d.
-
-Since external driver authors may rely on this documented contract, could t=
-his
-lead to masking conflicts if they omit their own slot availability checks?
-
-[ ... ]
-> @@ -1677,6 +1692,7 @@ static int i3c_master_reattach_i3c_dev_locked(struc=
-t i3c_dev_desc *dev,
-> =20
->  	return 0;
->  }
-> +EXPORT_SYMBOL_GPL(i3c_master_reattach_i3c_dev_locked);
-
-[Severity: High]
-This is a pre-existing issue, but exporting this function exposes an error
-handling path that can corrupt the bus address state. If the hardware reatt=
-ach
-callback fails:
-
-i3c_master_reattach_i3c_dev_locked() {
-    ...
-    if (master->ops->reattach_i3c_dev) {
-        ret =3D master->ops->reattach_i3c_dev(dev, old_dyn_addr);
-        if (ret) {
-            i3c_master_put_i3c_addrs(dev);
-            return ret;
-        }
-    ...
-}
-
-Calling i3c_master_put_i3c_addrs() marks the device's dynamic and static
-address slots as I3C_ADDR_SLOT_FREE. However, the device is not logically
-detached, remains in the bus list, and retains its dyn_addr.
-
-Since the bus allocator now views the slot as free, can subsequent dynamic
-address assignments or hot-joins assign this address to another device, lea=
-ding
-to address collisions on the bus?
-
-[ ... ]
-> +/**
-> + * i3c_dev_disable_ibi_locked() - Disable IBIs coming from a specific de=
-vice
-> + * @dev: device on which IBIs should be disabled
-> + *
-> + * This function disable IBIs coming from a specific device and wait for
-> + * all pending IBIs to be processed.
-> + *
-> + * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
-> + * Return: 0 in case of success, a negative error core otherwise.
-> + */
->  int i3c_dev_disable_ibi_locked(struct i3c_dev_desc *dev)
->  {
->  	struct i3c_master_controller *master;
-> @@ -3216,7 +3242,22 @@ int i3c_dev_disable_ibi_locked(struct i3c_dev_desc=
- *dev)
-> =20
->  	return 0;
->  }
-> +EXPORT_SYMBOL_GPL(i3c_dev_disable_ibi_locked);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does the lack of a memory
-barrier here risk a deadlock?
-
-i3c_dev_disable_ibi_locked() {
-    ...
-    reinit_completion(&dev->ibi->all_ibis_handled);
-    if (atomic_read(&dev->ibi->pending_ibis))
-        wait_for_completion(&dev->ibi->all_ibis_handled);
-    ...
-}
-
-Because there is no full memory barrier between writing the completion stat=
-e in
-reinit_completion() and reading the atomic counter, could store-load reorde=
-ring
-occur?
-
-If a concurrent IBI workqueue handler decrements pending_ibis to 0 and calls
-complete() before the completion reset is globally visible, the
-wait_for_completion() call would block indefinitely.
-
-[Severity: High]
-Also a pre-existing issue, but does this lack synchronization with in-flight
-interrupts?
-
-If an IRQ handler is executing on another CPU right before
-atomic_inc(&dev->ibi->pending_ibis) is called, i3c_dev_disable_ibi_locked()
-could read pending_ibis as 0 and return early.
-
-If i3c_dev_free_ibi_locked() is subsequently called to free dev->ibi, would=
- the
-delayed IRQ handler then access freed memory?
-
-[ ... ]
-> +/**
-> + * i3c_dev_free_ibi_locked() - Free all resources needed for IBI handling
-> + * @dev: device on which you want to release IBI resources
-> + *
-> + * This function is responsible for de-allocating resources previously
-> + * allocated by i3c_device_request_ibi(). It should be called after disa=
-bling
-> + * IBIs with i3c_device_disable_ibi().
-> + *
-> + * Context: Must be called with mutex_lock(&dev->desc->ibi_lock) held.
-> + */
->  void i3c_dev_free_ibi_locked(struct i3c_dev_desc *dev)
->  {
->  	struct i3c_master_controller *master =3D i3c_dev_get_master(dev);
-> @@ -3301,6 +3366,7 @@ void i3c_dev_free_ibi_locked(struct i3c_dev_desc *d=
-ev)
->  	kfree(dev->ibi);
->  	dev->ibi =3D NULL;
->  }
-> +EXPORT_SYMBOL_GPL(i3c_dev_free_ibi_locked);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but exporting these APIs highlig=
-hts
-a potential use-after-free vector.
-
-i3c_dev_free_ibi_locked() {
-    ...
-    if (dev->ibi->enabled) {
-        ...
-        ret =3D i3c_dev_disable_ibi_locked(dev);
-        ...
-        if (ret)
-            dev_err(&master->dev, "Failed to disable IBI before freeing\n");
-    }
-    ...
-    kfree(dev->ibi);
-}
-
-If i3c_dev_disable_ibi_locked() fails to disable hardware IBIs, this functi=
-on
-logs an error but proceeds to call kfree(dev->ibi) and destroy the workqueu=
-e.
-
-Since the hardware might still be enabled and firing interrupts, won't the
-master's IRQ handler attempt to access the freed dev->ibi when it receives =
-the
-next interrupt?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525064209.2263=
-045-1-lakshay.piplani@nxp.com?part=3D2
+Cheers,
+Biju
