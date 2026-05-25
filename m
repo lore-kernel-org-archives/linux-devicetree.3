@@ -1,143 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E46AE305664
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:00:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B71ED305664;
+	Mon, 25 May 2026 11:00:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779706826; cv=none; b=QU3ARdwkugK+zWPuRcs2WnXKv5zLFfpQnD711P6FNf+22Igb8xaiUqC4V5fb/l39pXLSVjAwZhCC6bubYazwhh20QhpBzzhv5tQ+Aoihg5tOeW5xy7/xBray2g4aNj3GQGp6ASz7UyOR8wIcrfXOFIFslmalLMirqYizk3G4FnU=
+	t=1779706827; cv=none; b=trpea7UGtk8gi7AtvKjSgs2Vn8sIw0j2ycWukaoB7+VksaXviuWmFD8ULoPeWa8iN/A9DcM4C425uXaS1YQXsDZ8oHGqGOOAmC8MIXPO6MCuCX7dN8HxxjiOWh8Q6sDLoR5YWbnE7t7Mq7fDJsblrm6SFPemdFP9YHf636/+mxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779706826; c=relaxed/simple;
-	bh=ETHmMXPR1H8uldXCkMLo/T/Pg33TE/RTQ8O8EUrXaXM=;
+	s=arc-20240116; t=1779706827; c=relaxed/simple;
+	bh=9fO42m13Y+bTIv6JtDGor1y/+un63WzVmdLOttikl8U=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=fnEaA8EqyqL7nIc9s8g5q8jreOAXv6iuQy27dEN+uuWfBwPJELoSGzOnvFwihIQm5DUehjfETAhSLBK0EIT/hUM8oJGxwZbqlGs8GOX0SPb2dfxFTFp+mU7OaeG9IQRUQD3vUemlRkeEI3lnUK5Z3IAquYJyEQRlQ01oMqt0jis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDc/redx; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=W+r19jCNn4eD/IAteBiSu+jCeUUVh9P1OsBoS+q77VDOUg0Y1NcIWobucfG8wlpgxQesB3Y0htfh4cyXPQORdMYs61O3AE/Sc5W2hAj6HDgug9KXUZSLlNdScVMgCSFB+fKcXu/A6hpyKf+1gWH08cbAnGSjNTHz2AdTDlaPPs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n/if9Mq8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDc/redx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EE4F1F000E9;
-	Mon, 25 May 2026 11:00:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n/if9Mq8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5A6A1F00A3A;
+	Mon, 25 May 2026 11:00:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779706824;
-	bh=sBp5JJ2iDmlLiKTzT5uaFeXo79Ds++E0Lgi42DivQp8=;
+	s=k20260515; t=1779706826;
+	bh=57r+jJp3UJIEesFoQJ1jmjc92WpqOyR0vcVIjhhpBnc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lDc/redxvXMaknh+33hHRrB6xCK/C93lm7rkJW6MRK+oc5Rmgw4qsfiRchqREX9zZ
-	 KGZNoSBwrvP3nZx7UYh/f8q/GzDLuoTvK30iWaldTsvPnB9VNm1vY9+MVEf7PyL2/F
-	 K89cGqJBnTg1hQlGqqJLl25BktHuWmleLAmZGl82ehQ+ta4qKPsRQQHIXF2JQ3FFVJ
-	 KcoukGEDw6IsbTFTK+EZnkgobkFjvQULiXKK1pF/X9REQMKNAYhPgqWoh6jSleJJIH
-	 ld0s8558kVHNPuiNcqT6zIvZatzT2KMSnddClKRhLpJxOumBhqvCSkcD8z2IE2X+Jr
-	 +SKq+bls9S/oA==
+	b=n/if9Mq8Tu0wMHHjNCgmRTZB6IGg7DDShROE6yGtdZwIe1NkNExnkpxo7uMj6IpVN
+	 mAGw5PLAaK+w/OKFfM0oDYb5RFhpNox4XlAhBrE8SU/5CMK1aeNgGAOYYtOGv5a/Sr
+	 7m/SKiMKeSKAyQKUG1MxewsGYDj05maxc3CRdXrYPX2tDjIPuY73tgzGGM7Ia0U2ir
+	 6nhlzoSkcANTR4Wsm2zTtego3pZfmzWOCwwg3AYO8D/m1tXOq09of/Yg55e2PwkLof
+	 4F5thXcokqUKTu/reSFNifW6dLcbYgj8aW5tlRUJoswpbAHhqxmirBToUa7NRQGK0R
+	 UBEvJnOA7stag==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] dt-bindings: serial: maxim,max310x: allow per-port
- subnodes for rs485
+Subject: Re: [PATCH 1/2] dt-bindings: dma: xilinx: Add optional resets
+ property for ZDMA
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525-b4-max310x-rs485-dt-v1-2-e6c19b4d5592@vaisala.com>
-References: <20260525-b4-max310x-rs485-dt-v1-2-e6c19b4d5592@vaisala.com>
+To: "Golla Nagendra" <nagendra.golla@amd.com>
+Cc: devicetree@vger.kernel.org, dmaengine@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260525105042.2249542-2-nagendra.golla@amd.com>
+References: <20260525105042.2249542-2-nagendra.golla@amd.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:00:23 +0000
-Message-Id: <20260525110024.5EE4F1F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 11:00:25 +0000
+Message-Id: <20260525110025.E5A6A1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The binding uses `port@N` subnodes for UART channels and sets `u=
-nevaluatedProperties: false` after only referencing `rs485.yaml`. This viol=
-ates the standard Devicetree naming convention (which requires `serial` for=
- UART nodes) and makes it impossible to describe standard serial slave devi=
-ces (like `bluetooth` or `gnss`) attached to specific ports.
-- [Medium] The numeric constraint `maximum: 3` is applied directly to the `=
-reg` property. In dt-schema, `reg` is treated as an array type (uint32-matr=
-ix), and according to JSON Schema, the `maximum` keyword only applies to nu=
-meric types. Therefore, the constraint is silently ignored.
+- [Medium] The `resets` property is added globally without conditional cons=
+traints, allowing it to pass validation on older SoCs that do not support i=
+t in hardware.
 --
 
-commit 9b3598af4d01913809f43c040005125c955bbbe1
-Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
+commit 832c482914e7639cb1a410d061bf9d631b41ae68
+Author: Jay Buddhabhatti <jay.buddhabhatti@amd.com>
 
-dt-bindings: serial: maxim,max310x: allow per-port subnodes for rs485
+dt-bindings: dma: xilinx: Add optional resets property for ZDMA
 
-This commit introduces per-port subnodes (matching the pattern "^port@[0-3]=
-$")
-for the MAX310x multi-port UART driver. It pulls in properties from rs485.y=
-aml
-to support configurations where each port has distinct RS485 wiring, while
-still accepting top-level properties for compatibility.
+This commit adds an optional resets property for ZDMA on newer SoCs like
+Versal Gen2 and Versal-Net. Older SoCs do not have a reset line provision.
 
-> diff --git a/Documentation/devicetree/bindings/serial/maxim,max310x.yaml =
-b/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> index 889eeaca64a02..b7095c9abacde 100644
-> --- a/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> +++ b/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-[ ... ]
-> @@ -40,6 +40,34 @@ properties:
->      minItems: 1
->      maxItems: 16
+> diff --git a/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma=
+-1.0.yaml b/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.=
+0.yaml
+> index 2da86037ad79e..dff16763e11b9 100644
+> --- a/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.ya=
+ml
+> +++ b/Documentation/devicetree/bindings/dma/xilinx/xlnx,zynqmp-dma-1.0.ya=
+ml
+> @@ -56,6 +56,9 @@ properties:
+>    iommus:
+>      maxItems: 1
 > =20
-> +  "#address-cells":
-> +    const: 1
+> +  resets:
+> +    maxItems: 1
 > +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^port@[0-3]$":
 
 [Severity: Medium]
-Does this node naming convention limit the extensibility of the hardware
-representation?
+The commit message notes that older SoCs do not support this reset line.
+Since the resets property is added to the top-level properties block, will
+this allow device trees for older hardware to erroneously define a reset li=
+ne
+and silently pass validation?
 
-The standard Devicetree naming convention requires "serial" for UART nodes,
-while "port" is conventionally reserved for OF graph bindings.
+Should this be guarded by an allOf conditional block restricting the resets
+property to the newer hardware compatible strings?
 
-Using "^serial@[0-3]$" and referencing serial.yaml would be the standard
-approach.
-
-> +    type: object
-> +    description:
-> +      Per-port subnode that carries the RS-485 properties from
-> +      /schemas/serial/rs485.yaml# for a single UART channel of the
-> +      chip. Only those rs485-* properties (and the per-port reg) are
-> +      accepted here; device-wide settings stay on the parent node.
-> +
-> +    allOf:
-> +      - $ref: /schemas/serial/rs485.yaml#
-> +
-> +    properties:
-> +      reg:
-> +        description: Port number on the chip.
-> +        maximum: 3
-
-[Severity: Medium]
-Will this numeric constraint be silently ignored?
-
-In dt-schema, the "reg" property is treated as an array type (uint32-matrix=
-).
-Because JSON Schema only applies the "maximum" keyword to numeric types,
-invalid port numbers (e.g. reg =3D <4>) will pass schema validation.
-
-Should this constraint be applied to the array items instead?
-
-> +
-> +    required:
-> +      - reg
-> +
-> +    unevaluatedProperties: false
-
-[Severity: Medium]
-Does this strict property evaluation prevent describing standard serial sla=
-ve
-devices?
-
-By setting unevaluatedProperties to false after only referencing rs485.yaml,
-valid configurations (such as attaching a bluetooth or gnss device to one of
-the UART ports) cannot be described and will fail schema validation.
+>    power-domains:
+>      maxItems: 1
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-b4-max310x=
--rs485-dt-v1-0-e6c19b4d5592@vaisala.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105042.2249=
+542-1-nagendra.golla@amd.com?part=3D1
