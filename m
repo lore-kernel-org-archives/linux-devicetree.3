@@ -1,170 +1,241 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011034.outbound.protection.outlook.com [52.101.65.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B335B3E4C9E
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779701034; cv=none; b=sub2aNa/ogrGPtZKGbTVoyUMSeTE09f+rfDgHGyti1XFN3A0N34bS4TzfzmeZC3dvt3jRsRwXNgg7mxhoJpxvJRzNXykmOP2ICBaMezdxMLRWFKR7P1EKNXYCLP3owZ5bWxOepPL06MPQbxnHWgisLNjAJ48X+WVRbGRPyLnivs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779701034; c=relaxed/simple;
-	bh=yMesBNc83KFeDSyEVsHsqZR1yAWMj5zw8lrvjBNS3N8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mNhkP8nDf9CdJH7zXMk/zjdl3B5k0l5xwWYWTN0CWSgdy/7BxcGl6bitqPGuR3gMI/3x90eym/85j6rrswJcdQ/ozTubsoAwWnLIqH7+HySy+R4frNRPkoKsC7GUiJdUmLd5ZYSfXyTDn1+Hpu4Egp6+92SCPxjZKa/oRg7KWfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=TMtLprGb; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jMbOop1d; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A15830C16C;
+	Mon, 25 May 2026 09:24:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779701045; cv=fail; b=qe1Wsb4+tL0YerHF73YY5r4ATnxPj89f9/F88kcE1pq3gYwGjvbbl/ctr8gSithvgz7ZhzgvHjOt0/NK9ftSm0Xs+o/dkhijTiuLwR4SJibSLHPHuWNbj4jd3Xk+DD1oyOZemLXhqr7l0piSwmaGNjMS/Co8AW2wzBO98SYMg0U=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779701045; c=relaxed/simple;
+	bh=jbUMTvryz8OKkHYhH5FTyKWFKhrQHCkZuxoaSyZa3Vs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=MvwVzYdINcAPhq9U1M1EufOV3A30DIem91bGS+0BFRI5R9SGizPcAJbvsZKrYdZlagPztuGWn1DsG3Kbxa6xtfXnsPtnsbvAJceFw+1VAhSqBdXo4cBhkJf+t09DgPmutBJWLzNSVc+TLnzsMagyZV4S0Vqsiz5KqClFa4MX+H8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=c+gHXmRy; arc=fail smtp.client-ip=52.101.65.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="TMtLprGb";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jMbOop1d"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64P7NMbB793675
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ZgEROvWEv1cb9w2QdV5vokQY
-	l9MdDAQ1ReIXJgtHI+8=; b=TMtLprGbDMI/hnPqqiYx+U/blMZFw0vbp82uc7bV
-	ooCXpTVMNnGMYmPP2wGeLXGZlLmClFHi9qjstlIAnKAWK7GAD990gatTG2frv2eR
-	XQ/r6guqNDn+yeFlbFGFzW5sqEGxbRi5fA2m16RCeHrnjG44WiQbG+ExlTu2qV2B
-	X/WKO+uYWXz8plEefKKasBbG4JxRg7RNHAKyjoG0RnStdGTvD7BrnP9TmEJR71G8
-	rbyum6Nq4U1csA97iDrFXzcMgPLjXkJih+JdfychF2q5NwPN9Ihp2x9BTHSNxbUi
-	UKopP6vYMNA6s+ku9VTahM+Wkx3YaaCGIlEgQ17FBrZGUQ==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eb5h9nua8-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 09:23:51 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-516da5a1db4so65821361cf.0
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 02:23:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779701031; x=1780305831; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ZgEROvWEv1cb9w2QdV5vokQYl9MdDAQ1ReIXJgtHI+8=;
-        b=jMbOop1dqPsfu+VeBFOFpXpPwXOcY3gYx56YjvAl+Qj0H0X0bUgdQ4+fb/Bd5bMNbd
-         XlYra/zQIUa0/0EtWoMIaPhP/3I4LvL0jCY0roH+MyEIPGTTJqJxpVkomgjX41dRukZT
-         S2nfbXoM5XCc1pbp2nF9h2nMwfvBTvWtC7n25PInDTMSR5zt/Jp3+f4S5gu+xXMw82uh
-         zOAUK/Ecrkgg14E4ItMpxOt961ji4IdjRPnK9VrYPOwNZeU33PqLXhGwvxiryOPmEK7G
-         5XpXLQNdcYPhmSUKn57BWeITMbemzod4smY5L2EOe6G7HqZZq9YaV1rJaNQ9YGjvaMgp
-         jYGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779701031; x=1780305831;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ZgEROvWEv1cb9w2QdV5vokQYl9MdDAQ1ReIXJgtHI+8=;
-        b=ec7ccc2A506eOJopjl25Kc7jXiH7g6bUtASaJmfqmR3UgHigFMu+vnRNr5sS0KEp5d
-         jv67HEttBRb5gh4PfsMucgtTqZjduGkM3aioglI/afNetTYv07UaD2gJj1ZSb+JgZDvZ
-         4khd6otFX9JnGmyBI99tlqKkOvr9HbwdgH4+LSIpp+f20P7TALchIkf9prTEktJ2IULe
-         N6/CGY6tWwFge+T/gxHtdA2fCZsKCmAgv/njfq/vPVe70slOqIrwHyyXKHx2cQUZVWLb
-         lM9SKzdwp5FgulsGSX59xV7FbULWu4EXl9YW+Thw5+Scfhm/9fmUQ6vETUGWAF4eLwNJ
-         hUuw==
-X-Forwarded-Encrypted: i=1; AFNElJ8da8yEJ7e6rJkyHfFuDxDRoTvKdt0JWcB7N50eZVH1Ha5K2iOT36DcNngo2dDc8skLlgWHEgfMeUsf@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbJct15xIEkeEnB397+D/X2GHrfrEREPboDA+qR03H7D6SExNl
-	mdXV1/YtbxkLAZNw9pMHTmWSSnJ6ZDEoNoEpHpB++kpy3RaVhmgG9oAJ7ofmO4wHAh8ANSJGbRL
-	1JcKAoGisrEwTa5Fyth/wqgkYPYJLcqfWsJuKSHX7d2zVPPzeo8/cq2MZU6Z/p7nG
-X-Gm-Gg: Acq92OGGjY8ijhdmimt9iTo54M9MJtVkujvnrvpJtGLDI8Vq3GWlbHLggTcn1wbzoEH
-	93iKhsUgT840ygqjZ3Ukh9tZEQvWmznAqcs7dmXzu4N/DwzpnhwSCpHJPr51ywo2wBhZJMR+4IK
-	GQtdFqwya1CEFwq7OrGR6/5cEaq62OOcLk1WqJdCaEx9TlfXbGg2zf/61bN1vtQPHlJb0AX5kqO
-	y6rQPAe+Csp+h4g6ByW1oinXCxVBpXD3Teh21E5duzr0yF3KaCNFxChn9RnCqg/sKJKMqnwzls+
-	NBvF2JaVepxQYzNqthYM9GM0b+9ojDvEdr6gyQdGJLVr+WhVD4ev2qBZsuQ0+SDu/KZHceGiAYy
-	HXwMB+bL5dD18OLkEua1wigojWX/Lip9KDX2aqh9VNGAedtdbZdSOMn/Uj+0yGi4QU76G32gw4m
-	5FRhtG/AlpFeymDNpYFWt15YdN8OM9EypGp/M=
-X-Received: by 2002:ac8:7e93:0:b0:50f:c36a:3826 with SMTP id d75a77b69052e-516d42bfb1amr206103331cf.16.1779701030676;
-        Mon, 25 May 2026 02:23:50 -0700 (PDT)
-X-Received: by 2002:ac8:7e93:0:b0:50f:c36a:3826 with SMTP id d75a77b69052e-516d42bfb1amr206103101cf.16.1779701030247;
-        Mon, 25 May 2026 02:23:50 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395dcc41ca0sm22447561fa.36.2026.05.25.02.23.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 02:23:49 -0700 (PDT)
-Date: Mon, 25 May 2026 12:23:47 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
-Subject: Re: [PATCH 07/16] arm64: dts: qcom: shikra: Add CPU OPP tables to
- scale DDR/L3
-Message-ID: <4ugjyb73ftcjypi6wfqz47j2vvvfxj3ljunsqlixzdzzajy72c@3gb2bnx7coy5>
-References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
- <20260525-shikra-dt-m1-v1-7-f51a9838dbaa@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="c+gHXmRy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=QfAXMTPHapPFZ7x+qaZiTOEDoycxrUWKQjv/CJstSdYPJrwrgjUqOBHuaNj/ZNAVJSbjSzH3XVpszrOHy0DxXwpkJ66ooDyImDheyAc0/drROQqjl09g0A2uPL74V9ri3cqADTu7gnFEkQjKY4ukAGWymDXQCbN6Wyeb1mEt6Ryayt+xuh8WxZ13Gc0sTeBMfafdss8TuPs+ptvdVZr0XOw82vnUVNzi4JP/Jjub6tjG2WyhCe+8DYgcAAWYjqW5Oj8Bn5ot3K6XVSFG7R3N5swPqbHK13GFleFe1laig1/uyWqAmHqm26I2rZKEd6F3g6rN/7q5L7hj7AgkpOHtag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=01J3qiexOjdO3U2vGPz6oDk4u0lA71pdSq0cfvenwD0=;
+ b=UOjFJq8V8C0lDd3tkW6PHLIybD/gsSDS1qIS/Wugua7MHuYAuNnMjF2yESTzh30PASU4lTvsOScSXpihg3cnaG8V9rQqo6QNQmW6PBx9uhpnWrbfC7TMeP5OLLRsesT/RsQ+LaeMsy+Uw7sYJ8ECiiqL9KqQhMFp0f8wGmsbG77DVqF3d7MJZ7ptKpifJ/e0UJ0MsXbys6xAx2vqP+aByGeTdZ7nGKEf7nZE2jNiPUVkU2YO7zGP5Eo9HqPjq0wJ6whjI0JHlufHGxCuw1/pfj8WOOww8olPVUqTBykOumjVgu7mqPErtoyp2GfmtsKGRboJvn9M+qbCV8vEAbjpGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=01J3qiexOjdO3U2vGPz6oDk4u0lA71pdSq0cfvenwD0=;
+ b=c+gHXmRy7cI66HldtuItz5/ay/ps4r24IlLABGwGsP6lo+uciMwjK1QqXC2oKHsDzfKDqQk2ljcEJhCRKv3eTscLuPdUeXkM45PfSPnICLj1zpMQ0Ykv55x2UuQNVtOQCrzZN6dv/0wVNTYM8NdwUh3F/GLrxZLdZAa2OMFzDWyBsqi915jO4tFNoVvewaRdjxERA9RVZ0U82P1c5XU4oNKhdIqSsAGPzqShrNmM1V38VQhIseIC07yvlqtP5IQ3kPMsk0xnuE3W3BU4CSoB6jYUSi4JJlNE8D9zd14HDH1knoGbDAyqLkTvoFxR9OlT5HTrb/BfMkgrXRzmaG2CLA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB7821.eurprd04.prod.outlook.com (2603:10a6:102:c5::5)
+ by AS4PR04MB9623.eurprd04.prod.outlook.com (2603:10a6:20b:4cd::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Mon, 25 May
+ 2026 09:24:00 +0000
+Received: from PA4PR04MB7821.eurprd04.prod.outlook.com
+ ([fe80::67dc:4bd2:8552:9b50]) by PA4PR04MB7821.eurprd04.prod.outlook.com
+ ([fe80::67dc:4bd2:8552:9b50%6]) with mapi id 15.21.0048.019; Mon, 25 May 2026
+ 09:24:00 +0000
+Date: Mon, 25 May 2026 17:26:17 +0800
+From: Robby Cai <robby.cai@nxp.com>
+To: Frank Li <Frank.li@nxp.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	s.hauer@pengutronix.de, festevam@gmail.com,
+	sebastian.krzyszkowiak@puri.sm, kernel@pengutronix.de,
+	devicetree@vger.kernel.org, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/1] arm64: dts: imx8mq-evk: Enable MIPI CSI and dual
+ OV5640 cameras
+Message-ID: <20260525092544.GA2716225@shlinux88>
+References: <20260515111143.2980956-1-robby.cai@nxp.com>
+ <agcnS4H_XJRL7duw@lizhi-Precision-Tower-5810>
+ <20260520065452.GA2269979@shlinux88>
+ <ag4C6MjnOJGjEpKN@lizhi-Precision-Tower-5810>
+ <20260521114952.GA215762@shlinux88>
+ <ag8byj8ZavKyxWRR@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ag8byj8ZavKyxWRR@lizhi-Precision-Tower-5810>
+X-ClientProxiedBy: MA5PR01CA0117.INDPRD01.PROD.OUTLOOK.COM
+ (2603:1096:a01:1a7::14) To PA4PR04MB7821.eurprd04.prod.outlook.com
+ (2603:10a6:102:c5::5)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260525-shikra-dt-m1-v1-7-f51a9838dbaa@oss.qualcomm.com>
-X-Proofpoint-ORIG-GUID: L-9RHZ776dUtKROUQ-wk6rOSQkseWwYf
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI1MDA5NSBTYWx0ZWRfX0zwgvwESw1RW
- b9UA7A95Ib4a+KZMIpGseF9fQ0B3ni5SchhE7VXPoE91VH8UyaU7H/SdfTfzHw0nzRXkxW/pCqC
- B7zqOy4bpPDdIkNDDuqcTMFY9XBEwypS1cmyIYZTT4q4L19rIU92BSyF+y5YNWo6oXgRUKfuyF0
- hm1dImllcUgUFMEO2HRMPFsJDbuQEEQlc8X+X2P9FchEify3N/3JvIkJUn9P/BO7uWaQpFnYjNe
- 7c1VwZPs9RrIFapXN3oZ2LPjMjwgAIeZhDq4g3132zLeDTBBbgyP4r+QUZMyPLic/tPpAiG8Uqt
- jv20UWhYnvOEYgFdHqYwcrco0W+LXHVW/YmJyCJXRRf4j3jsIkqWFB2IESmiTBPE5Uq0qDsCtu7
- NY2Av2mu55ZilxAzN/rsKwhSvyAN+WXKCwiEy307zJJIIDOsB4btUK22xZxhYu5RutCc3zWuhS0
- i5MBUXl0zY48sDZ+kBg==
-X-Authority-Analysis: v=2.4 cv=H7jrBeYi c=1 sm=1 tr=0 ts=6a141527 cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=djs_V13T0nIvbdZk5PcA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: L-9RHZ776dUtKROUQ-wk6rOSQkseWwYf
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-25_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 adultscore=0 suspectscore=0 clxscore=1015 bulkscore=0
- impostorscore=0 spamscore=0 phishscore=0 priorityscore=1501
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605250095
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB7821:EE_|AS4PR04MB9623:EE_
+X-MS-Office365-Filtering-Correlation-Id: 467c6fd9-ed11-44e4-2f02-08deba3f5ab1
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|52116014|7416014|376014|366016|19092799006|38350700014|5023799004|6133799003|11063799006|4143699003|22082099003|18002099003|56012099003;
+X-Microsoft-Antispam-Message-Info:
+	q+KUwsVJ090Vo1QaJxg1XrGDu+5tmS7hE6kAJ5CyeelXwb9UvnMc6pY0VpiA3f19aMUH3RCd9sVpBx4X5jLfNe/wYKUSTEqo6kOxOsmKOi42eK8hE5HQU7S9Esqd8saoMN5d3YTxoHa6oU7A+x0IdiCL7QpZJ/eDo4DuTuv115ptf0Rq9ISCwfao8jIMKuvyoAOdiK5YVCS+cwlfQzsRmaJS2WYSeIFfGbWSLY0zN+DUAK8mr/YFmvupwTlaSvUEOpueClbquPq2tSrBmYD2tKjEHkg5pb6+D8qw1XK3Re73So24ovESoPK/jsHqSM7HFTZFOq2+bmwEdmYkrhFdPNyoAkc/NQu+F9G1hE1tRzDfoukggiuXBIycgcDBdj4gtG0TCI2Fwig/BwncchavDoKL2S5A0tcZl0dTpa8CZr/eGBXJkv+3y2O1UWjDU+odKvb2ccJ6hgdUfSWdti0K0OPXvnU55aNFHvlV7ejMwfK17F41CeGQ+9fGKKpARRnTnf3TsyytWkR8VfTRkNQEEMlGeL/yNOvnIZREkCCwwguldZrtaji3FWgWmvUSffSg3GyW7e5Yar6hpNzMSPxZWnmHIKwlSdpqi/eB3NNQtOhVe0zPdG2ZnGWA3u7bkmX0ivTzbuIWwT6gu0N5koLJJ0c3/jZucetSNXV5S2FrY827XZMb31ynFzrweJYftT0YPLxVPtUqi2vkxWrgXEuIfLhNYCozAcK1QADxMt3RgEEh2+6bwUV9UitkaoqHe6/5
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB7821.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(7416014)(376014)(366016)(19092799006)(38350700014)(5023799004)(6133799003)(11063799006)(4143699003)(22082099003)(18002099003)(56012099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?b8FC6eukAlOPc/faefJ6BjypVm9Q98UDFiYf2krAeuqJ7IHjQKaMsAXnn0tE?=
+ =?us-ascii?Q?rgU0ZxQi6sNQAzrhZmxQQWnjUX5TcC+uozNk+u2tPWiTmgbhJLmppv0ts7DF?=
+ =?us-ascii?Q?tMUGHoa/InL2ZYOM1u+g0howu9uOGEr316UFlaRlBzOVgmGyzYL5ZziID6rj?=
+ =?us-ascii?Q?iC803FLSow7uEroiwRvHPAJodyPTtxNSaSwBGSxE8iuhojSeHhLOXCBRYmuQ?=
+ =?us-ascii?Q?tA++e52E3uucyqCbyg8xtmVaL6kSXkaC3YDh7R6mGisbidJEGzXXwQSZmcUm?=
+ =?us-ascii?Q?g0tpMO/wCMFKL5mcf+oSLe8qCzFkdwy7nLl1uld2TRYtMtrBJjRWVuQLTQDK?=
+ =?us-ascii?Q?PR95f6PMVHt4jBuONTURGLZWppOOTRgVA7E9H1In1JrWQJYVAti1jQmVxGVX?=
+ =?us-ascii?Q?sZ9kOR24L0O1MqXhvA1JgRnrau8DrPZkfxxv4r+PZ1nerMv9rsIQb4hKJEAD?=
+ =?us-ascii?Q?/cEiJmqBcuKH8fjPoJAuHwy5sOe460f3/gF0zNZ9d9PtlUyTp8duiH0d09Nc?=
+ =?us-ascii?Q?KiL7TERmWKhx7it9eQX704DJgj9LMCaH869Q8Wcd1OwKL34KxeXU7FUIRNAt?=
+ =?us-ascii?Q?XpJWtt/UF/6QiR7vWT/NWoNIi8y5RDyrZxiiIRZrzcRKyyEmWIahxhiSmxbH?=
+ =?us-ascii?Q?pAH7BchJboitrsSWwsLep+QU347gt+sBmG0DBvJBovp7V6W1DILB5TODNRjB?=
+ =?us-ascii?Q?US4uKIpsx5KD0cXFfyO4JDrGc7RLRVJTpp++UYRrew4YabFzPWafS5lkKCXX?=
+ =?us-ascii?Q?kmdXoXxy1S+118jHj+e8PmMHnR/6ebPcFAS88T3+XT5wDLrUA4rJvN8buJkC?=
+ =?us-ascii?Q?x7ZyUZNgUDP8aygdxa/q1lDCD/G6DBczi3mACqy+Mew7oFWvKAl+6w/XTnN8?=
+ =?us-ascii?Q?ysR0uQlTkVKlF+tIAsoQkDsvvld7MQDX33AJcp3VrPp221F5XdvvM/THw4B8?=
+ =?us-ascii?Q?K4lL4A1ZSGx9mWSYLdQPbcoliA+3pQJmvm0M6nIKKllAEqn2BgJPQnZUG48z?=
+ =?us-ascii?Q?cQRDGKcwNGbF4t+DIzmZsDcnlVPQo1CI2YroPojCpb7f+X9IJKQjBzVqfuhf?=
+ =?us-ascii?Q?HXK6RJH/n5AN9k6fs9aUgZ8DuOmbe+mG/pvpRa1+q1CzGged60hfoW5lXdZi?=
+ =?us-ascii?Q?eLCjaYLHouU6yCJm+S6Pj9QNvVD8d/KN6f8EuQHmPZ5FfiDY4fi6//7ZZpPQ?=
+ =?us-ascii?Q?G3fFwvfIfNeB6IM3qViyntVcULY87SuEHsEPSU9cU2DHErz8FHvCA6T8/O4Z?=
+ =?us-ascii?Q?cCR0BsJ8cvy6GxMuOsuFEcpJNdJvUMUNOqx/fkJzF4ZaNRX1m49etLwzUsAf?=
+ =?us-ascii?Q?UavrrTlGhIi7tqvTK6uad4c9mzmwELWuuF4MUchNj4LyZWUHxm/HQjO6rjCJ?=
+ =?us-ascii?Q?UY/bysrt0YKV0GYAUOYQvA38qRu5jus5H68Ub1hFBij8hloLTDpOci8XnKQq?=
+ =?us-ascii?Q?a2lGv8mfPgh2tW/B1b3C2cIJM71qXlsLKU3ddCkVJRSzfxuv1bwzyD9Nz6sA?=
+ =?us-ascii?Q?AgpNZ4YqQ02FdB8SkeGD84GD93H+cacw/4Sx8yhQ2IApv/JigOPAsayymczB?=
+ =?us-ascii?Q?i+TEFw10zC8ITSzzGgrIBrp8GRm+J68fmokcoDEiQuBq8IIspT3Hyis2GOU2?=
+ =?us-ascii?Q?FM8IWnE/Vz9BJFtDxGJqac86IUTfi4M+p47hWapWQ4tvN7ItuelBsBMhpJC0?=
+ =?us-ascii?Q?uOFQBI2LU8D3abB1vp900rqFxZi7cq0N1BZ3ckHhA2oMAQPLHtDECHhZ0eb1?=
+ =?us-ascii?Q?zaxOZi9tEQ=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 467c6fd9-ed11-44e4-2f02-08deba3f5ab1
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB7821.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 25 May 2026 09:24:00.5759
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hFxPDkCrTWgCq/I23ohj/SbDfrK6nKBivEQ9qdfcv9pLn2vtu6kHz/lH6WxLaj/tELdJsW5ttR9DaTirOK1thw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4PR04MB9623
 
-On Mon, May 25, 2026 at 01:19:11AM +0530, Komal Bajaj wrote:
-> From: Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
+On Thu, May 21, 2026 at 10:50:50AM -0400, Frank Li wrote:
+> On Thu, May 21, 2026 at 07:49:52PM +0800, Robby Cai wrote:
+> > On Wed, May 20, 2026 at 02:52:24PM -0400, Frank Li wrote:
+> > > On Wed, May 20, 2026 at 02:54:52PM +0800, Robby Cai wrote:
+> > > > On Fri, May 15, 2026 at 10:01:47AM -0400, Frank Li wrote:
+> > > > > On Fri, May 15, 2026 at 07:11:43PM +0800, Robby Cai wrote:
+> > > > > > Enable the MIPI CSI bridges and corresponding CSI-2 host interfaces
+> > > > > > on the i.MX8MQ EVK, and add two OV5640 camera sensors.
+> > > > > >
+> > > > > > The sensors are connected via I2C1 and I2C2, each with proper
+> > > > > > endpoint descriptions to form complete media pipelines.
+> > > > > >
+> > > > > > The resulting pipelines are:
+> > > > > >
+> > > > > >   - OV5640 (I2C2) -> MIPI CSI1 -> CSI1 bridge
+> > > > > >   - OV5640 (I2C1) -> MIPI CSI2 -> CSI2 bridge
+> > > > > >
+> > > > > > Both pipelines have been validated on the i.MX8MQ EVK using the
+> > > > > > upstream OV5640 driver.
+> > > > > >
+> > > > > > Both OV5640 sensors share a single reset GPIO on this board,
+> > > > > > which prevents independent hardware reset when both cameras
+> > > > > > are enabled. As a result, the reset line is kept deasserted
+> > > > > > via a GPIO hog, and sensor reset is performed via software.
+> > > > >
+> > > > > Does reset_control_get_shared() resolve this problem?
+> > > > >
+> > > >
+> > > > No, reset_control_get_shared() does not really solve this issue.
+> > > >
+> > > > The problem here is not about software coordination, but about the
+> > > > hardware topology: both sensors are physically tied to the same reset
+> > > > line. This means any reset operation will always affect both devices
+> > > > simultaneously, regardless of how the reset framework is used.
+> > >
+> > > Reset framework is resolve this problem. It is quite common that many devices
+> > > shared one reset pin.
+> >
+> > okay, I'll try to switch to use this approach in next revision.
+> >
+> > Some devices require coordinated RESET and PWDN sequencing, but in this
+> > case the device can be properly initialized with RESET held inactive and
+> > controlled solely via the PWDN signal, which makes this approach viable.
 > 
-> Add OPP tables required to scale DDR and L3 per freq-domain on
-> Shikra SoC.
-> 
-> Signed-off-by: Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 84 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 84 insertions(+)
+> PWDN should go through regulator interface.
 
-Does it really make sense to split cpufreq_hw, EPSS and OPP tables into
-three separate patches?
+Thanks for the suggestion.
+
+Modeling PWDN via the regulator framework makes sense, but it would require
+changes across multiple platforms beyond NXP. To keep this series focused
+and easier to review, I would prefer to address this in a follow-up patch set.
 
 > 
-> @@ -144,6 +164,70 @@ memory@80000000 {
->  		/* We expect the bootloader to fill in the size */
->  		reg = <0x0 0x80000000 0x0 0x0>;
->  	};
-> +	cpu0_opp_table: opp-table-cpu0 {
+> >
+> > >
+> > > >
+> > > > While reset_control_get_shared() introduces reference counting to avoid
+> > > > unintended assertions, it does not allow independent reset control.
+> > > > In particular:
+> > > >
+> > > >   - A reset operation (assert) will still impact both sensors.
+> > >
+> > > yes, only when first devices toggle reset signal. Second device do nothing.
+> > >
+> > > >   - It does not solve the requirement for per-device hardware reset.
+> > >
+> > > It is hardware limitation.
+> > >
+> > > >
+> > > > Therefore, using a shared reset control does not provide true isolation
+> > > > between the two OV5640 instances.
+> > >
+> > > It is not isolation. Just don't allow second device to toggle reset pin.
+> > >
+> > > >
+> > > > Keeping the reset line permanently deasserted (e.g. via GPIO hog) and
+> > > > handling initialization through software/power sequencing is a valid
+> > > > and practical solution for this hardware design.
+> > >
+> > > If use i2c gpio, expandor driver may probe after sensor driver probe. So
+> > > reset may happen after sensor driver probe.
+> >
+> >
+> > Just to clarify, the reset GPIO in this design is provided by the SoC GPIO
+> > controller (gpio1), not an external I2C GPIO expander.
+> 
+> It is just special case. you touch ov5640 driver code, so need consider
+> more general case.
 
-Missing empty line.
+Yes, agreed. I will take the more general use cases into account.
 
-> +		compatible = "operating-points-v2";
-> +		opp-shared;
-> +
-> +		cpu0_opp_768mhz: opp-768000000 {
-
-Drop useless labels.
-
-> +			opp-hz = /bits/ 64 <768000000>;
-> +			opp-peak-kBps = <1200000 17817600>;
-> +		};
-
--- 
-With best wishes
-Dmitry
+Regards,
+Robby
+> 
+> Frank
+> >
+> > Therefore, the "late reset" issue you mentioned does not apply here.
+> >
+> > Regards,
+> > Robby
+> > >
+> > > Frank
+> > > >
+> > > > This matches the intention of the upstream changes as well, where GPIO-
+> > > > based resets are treated as simple control signals rather than fully
+> > > > isolated reset domains.
+> > > >
+> > > > In practice, using a shared reset here can even introduce subtle
+> > > > interference between the two cameras during probe or power cycling,
+> > > > so it is safer to avoid using reset for runtime control entirely.
+> > > >
+> > > > Regards,
+> > > > Robby
+> > > >
