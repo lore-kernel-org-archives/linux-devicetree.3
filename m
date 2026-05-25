@@ -1,52 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EA443F5BD7;
-	Mon, 25 May 2026 16:30:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B2EA2D592D;
+	Mon, 25 May 2026 16:37:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779726611; cv=none; b=AQvpAKmYPwELDfUaJMxslejVFCY54skgWsk1F951HQ0sPYwQ9mRCG0XNOe0IFWDgx700ZTj9vLS/RbqVNPljwHu8lKQz0pBRAbkQ4aNJE2cvr28A1XkgkICB6nluQBpQZXQdUG6BBwC64dlKo6u2UaZrl+VIVGRNfy2mqLOCuy4=
+	t=1779727056; cv=none; b=HatxhBm5+PCxC4gipDQ9lNrR2HGAxxAHj+1VXiZdbZ+nzeLQakoDHV6XfRSC/cFGFYxW3+k+Nk1RkFPdYuh7FA+cGdIz0sW+Zf3CzGCLN3xZSEzdbkNZ3bQW2w4NveojCOnyXE+oFyyXVWGcoPVKAM9ziSN4/A7Yd5sMwTlmGyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779726611; c=relaxed/simple;
-	bh=+UxIrZYQCZEEiS7KeSOLtxAWKDIemVLC311YUWDD9NY=;
+	s=arc-20240116; t=1779727056; c=relaxed/simple;
+	bh=AHi7rNNpn/yTAAbk276BCOHZ69vvOQJTiWrJaKnuwvw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rRY6MIYqTCVyniUTnt6RDhBoTTmrGE/pc301vXIqOtLlPOpqECEnAPNhLDixLa2fV68Huoe26aD1X05yDLXY83yU7XcrWCZDaNJkNxjGPyO++RJqITsuSSNdlu3Ujlclh5R1y8VbtBQG19XDA9LyNuvIJ0NK80kvBP/EYPySCHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hNb4uZSk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=J813ZnVeco2HekdWC9xj8lp7j6TOqBFY36xWbkuML/UUn+SYZT3Qu5feWEjIlaWGQChqkwerOFdb8dsrvknE5Xb3Dodcv46Ao0tc3a0HFKLE4pJZurVEu2JlXwvQSvNnRpaNvQZecqGXMqiLTInvQs2KiFqEe3bYrHBNqETDSGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AVKURIBT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hNb4uZSk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A8471F000E9;
-	Mon, 25 May 2026 16:30:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AVKURIBT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FC741F000E9;
+	Mon, 25 May 2026 16:37:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779726607;
-	bh=7e4ZjPZTzdJ7a9vb91nzCeyvVjuclLuvDc6BQmWdQRU=;
+	s=k20260515; t=1779727054;
+	bh=OAXtG9eZJMx69Khid3reGVm+fhOBTP5LDIu/QiAbPyM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hNb4uZSkYgaa7z+NOOVNswqhmvL0sto1/BW92/7A0PCsitvkCNDEE/IqWczRrstTu
-	 cPVqHJSqnY4uPhcyFC65BTLNGRoujQQCIBF5wqFIYstIfQebYILF53K0iAPUW8AYeE
-	 dRmcWb6+MZweGAhfCAvawH0B64aQoVKc4SOiQ+/UX6z5HdC0HkUiAv9R3/i0pPTI5w
-	 X72+lD+rX+WkfDv72k952vCturPts5k+JYofr3qm4cOOvQuhwZ7HtIocQVE+Q45/Xc
-	 yEXBQSgi4Qk4+g5jErOy8ROfdp2y9hFFbzW+rUyVRKEj1RS8O9Tnjw5zCbD5u+GU2j
-	 aNZMfrUIDMSxw==
-Date: Mon, 25 May 2026 17:30:02 +0100
+	b=AVKURIBTKW2rhJOBiGcgIuKGFWaPzoF/XIwaoHYWGyAsAAKvzwRb13i6TuU53KX9F
+	 ofJR+9vl8rQ6U5LQmr5vyyyaF2X1Ou+Q7NwJRG8kWYX0qVcMVdZpqQYGyQgyO/VBhA
+	 z+pN79QRVCqlLVHU1cFq38iFqCbipwsx75BHhl+PEKEriLdXFwQoF1CIkC4R8K33/n
+	 kL2PQZSceA3Gcig3AUkCUeFpyFWf1pKp/yUXNTxdwdqjEtJNpBCzhMfZ8/ckXKv2vz
+	 +2m2HOI4fevRxM2W5e5ok+pow2Mu/h0qo3MdzXJsjNqvR7Z4VuZF6GxbDj09u1mNyY
+	 HI5QF5W1S0LLg==
+Date: Mon, 25 May 2026 17:37:31 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Janani Sunil <janani.sunil@analog.com>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-doc@vger.kernel.org, Janani Sunil <jan.sun97@gmail.com>
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
-Message-ID: <20260525-dedicator-strut-6f7618a92180@spud>
-References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
- <20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
- <20260522180207.63b725fb@jic23-huawei>
+To: sashiko-reviews@lists.linux.dev
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>, robh@kernel.org,
+	wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH] dt-bindings: clock: renesas: div6: Use ZT/ZTR trace
+ clock in R-Mobile APE6 example
+Message-ID: <20260525-myth-flanking-667fa0a706ac@spud>
+References: <20260523192622.56605-1-marek.vasut+renesas@mailbox.org>
+ <20260523194047.AB7CA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,110 +44,73 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="6uUOUNcFd2y0rFek"
+	protocol="application/pgp-signature"; boundary="PHtn3q++te5nap0r"
 Content-Disposition: inline
-In-Reply-To: <20260522180207.63b725fb@jic23-huawei>
+In-Reply-To: <20260523194047.AB7CA1F00A3A@smtp.kernel.org>
 
 
---6uUOUNcFd2y0rFek
-Content-Type: text/plain; charset=iso-8859-1
+--PHtn3q++te5nap0r
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 22, 2026 at 06:02:07PM +0100, Jonathan Cameron wrote:
-> On Tue, 19 May 2026 17:42:58 +0200
-> Janani Sunil <janani.sunil@analog.com> wrote:
+On Sat, May 23, 2026 at 07:40:47PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issu=
+e(s) to consider:
+> - [Low] Adding 18 items to `clock-output-names` in the example triggers a=
+ `dt_binding_check` schema validation error due to an un-updated top-level =
+constraint in `renesas,cpg-clocks.yaml`.
+> --
 >=20
-> > Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
-> > buffered voltage output digital-to-analog converter (DAC) with an
-> > integrated precision reference.
+> commit aaa0ff6ae07f5974071a547fef4a5b41bc484428
+> Author: Marek Vasut <marek.vasut+renesas@mailbox.org>
 >=20
-> Note that I'm seeing this as Changes Requested in the DT-binding patchwork
-> but didn't see any replies.
+> dt-bindings: clock: renesas: div6: Use ZT/ZTR trace clock in R-Mobile APE=
+6 example
 >=20
-> Seems I didn't get the sashiko reply - nor did the IIO patchwork.
-> Hopefully Janani did!
-> https://patchwork.kernel.org/project/devicetree/patch/20260519-ad5529r-dr=
-iver-v3-1-267c0731aa68@analog.com/
+> This commit updates the R-Mobile APE6 clock node example to include
+> the "zt" and "ztr" clock-output-names entries. This aligns the example
+> with the expectations documented in a previous commit.
+>=20
+> > diff --git a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-c=
+lock.yaml b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.=
+yaml
+> > index 2197c952e21df..b6ee8c8efd46d 100644
+> > --- a/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.ya=
+ml
+> > +++ b/Documentation/devicetree/bindings/clock/renesas,cpg-div6-clock.ya=
+ml
+> > @@ -60,7 +60,7 @@ examples:
+> >              clock-output-names =3D "main", "pll0", "pll1", "pll2",
+> >                                    "pll2s", "pll2h", "z", "z2",
+> >                                    "i", "m3", "b", "m1", "m2",
+> > -                                  "zx", "zs", "hp";
+> > +                                  "zx", "zs", "hp", "ztr", "zt";
+>=20
+> [Severity: Low]
+> Does adding these two items cause a schema validation failure during
+> dt_binding_check?
+>=20
+> The top-level clock-output-names property in renesas,cpg-clocks.yaml has a
+> maxItems constraint of 17. Adding "ztr" and "zt" here brings the total
+> item count to 18.
+>=20
+> While the underlying limit omission occurred in the earlier commit
+> 2abdc3dcf978, modifying this example to 18 items will now directly
+> trigger the overarching validation limit error.
 
-The sashiko stuff is per subsystem or something, so dt stuff only goes
-to us and the submitters. I think that's kinda stupid but also probably
-required to avoid pissing people off. There's quite a bit of noise
-generated by it, especially with it repeating the same incorrect stuff
-on every version.
+What does renesas,cpg-clocks.yaml have to do with this?
+This is just complete crap, right?
 
->=20
-> >=20
-> > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
-> > ---
-> >  .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 217 +++++++++++++=
-++++++++
-> >  MAINTAINERS                                        |   7 +
-> >  2 files changed, 224 insertions(+)
-> >=20
-> > diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml=
- b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> > new file mode 100644
-> > index 000000000000..eb66f6ca063d
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
-> > @@ -0,0 +1,217 @@
-> > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
-> > +
-> > +maintainers:
-> > +  - Janani Sunil <janani.sunil@analog.com>
-> > +
-> > +description: |
-> > +  The AD5529R is a 16-channel, 12-bit or 16-bit, high voltage, buffere=
-d voltage output
->=20
-> Long line. Check the wrap.
->=20
-> > +  digital-to-analog converter (DAC) with an integrated precision refer=
-ence.
-> > +  The device operates from unipolar and bipolar supplies. It is guaran=
-teed
-> > +  monotonic and has built-in rail-to-rail output buffers that can sour=
-ce or
-> > +  sink up to 25mA.
-> > +
-> > +  Specifications:
-> > +  * 16 independent 12-bit or 16-bit DAC channels
-> > +  * Independently programmable output ranges: 0V to 5V, 0V to 10V, 0V =
-to 20V,
-> > +    0V to 40V, =B15V, =B110V, =B115V, and =B120V
-> > +  * The device supports SPI communication with Mode 0 and Mode 3.
-> > +  * 4.096V precision reference, 12ppm/=B0C maximum
-> > +  * Built-in function generation: Toggle, Sinusoidal Dither, and Ramp =
-waveforms
-> > +  * Multiplexer for output voltage, load current sense and die tempera=
-ture
-> > +
-> > +  Datasheet: https://www.analog.com/media/en/technical-documentation/d=
-ata-sheets/ad5529r.pdf
-> > +
->=20
-> > +patternProperties:
-> > +  "^channel@([0-9]|1[0-5])$":
->=20
-> Sashiko commented that this should be hex.  Why the forcing to decimal?
->=20
-
---6uUOUNcFd2y0rFek
+--PHtn3q++te5nap0r
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahR5CgAKCRB4tDGHoIJi
-0tLtAQD2NkZ3SKvwFKlYRM6tkItnO0qro7viL1UlnWD1XTzOKAEA2QVFNfAlYphU
-rSUGx+kylIOdUu3kU2WYXyI0bqasvQU=
-=TboO
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahR6ywAKCRB4tDGHoIJi
+0s4LAQCN4ZclgsCmp6W9ngXCxKJuTscAuGKFvTYvKJmWuLoMuQEA3zpykWl3tyyA
++l4vJl3u926PXHJjSRIKT/yR++YsPww=
+=1z7V
 -----END PGP SIGNATURE-----
 
---6uUOUNcFd2y0rFek--
+--PHtn3q++te5nap0r--
