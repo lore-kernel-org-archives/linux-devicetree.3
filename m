@@ -1,132 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFB8C3E9F61
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 10:52:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC1283E92BA
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 10:52:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779706349; cv=none; b=YmjGiJJvKH8/jxerUSqWtAjGei4IFLwwhsfkWqtA+vmsUlTbqunw9+uURi+qLsYQql8uBFosdJsm5m29JwRDypdsydGfdts7WJtRm0KscfKYC6R1OMZUZQzkxPeAaH/x0lRY3InQ2B6tAvgU8JLQiJk2p+9JjYXjbDifcf2DkdA=
+	t=1779706350; cv=none; b=OUExE1bHqvp5v/p0scxbtl4DWEP5FVxE0hS3b3Bp902PskvxGSbW4oWSGITh7CgKSRGvTyjCpZlyeicge5JdL6DWbz8p/7VfdHBmgka+EUWq0hBmtF3S4ZQaLFQtWwOvU4VsSM9fDLm/LTtC7gH8ySDEFTrQKt+1krYVX3dL9Cw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779706349; c=relaxed/simple;
-	bh=iSvM5FSXg8aEBadxyyqQYD1FnPy2Lb3Pjm3JnZjQyDI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uvOTk+Z+2NaTIi4XRj6ANk7RnJ/4epAY22AxEXq0J1RDLFrgO4O/kKYJkpLQDi+rjPWzG+6T9s1pV6RaWFSFd6aUZOKyUVb8pG8zmytDlj5vNQa957iBWpyJWbFdpj/wF9zATlns+/W6xqzTexlf2wqj+wlwy+BP7icgTG+yr9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RSRPaKFk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779706350; c=relaxed/simple;
+	bh=3FrcsQlVziUdeKI/N9eYaCs4RJmRsrcZLsIz3cZSFq8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ZsSkx73aD9fKdlkXi/hyEQRedJyq9X0QmO98kO2ntNKHCmZ8489Sko5ZqgpvL2mZqIr8nxg/umT22C3xUeL/ulz2iAYj7S4AbcnnA1KTVhjELCvdrHhVxw62QkfZ3wo/biMLdrHWeMmpUqSokhT4eO0J/X7/sqKHugOeLBYd5sk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dZtk8YJI; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RSRPaKFk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C2421F000E9;
-	Mon, 25 May 2026 10:52:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779706347;
-	bh=0GxtY0yogvNkAhD2ZNPYNGZJ7CWT0X3CDgizI1YYqE0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RSRPaKFkT2L9I08L2tVIgK5tG6c0QhbR0tSB6YrefsDe+ubyw/nC7Jd3EHwO0cHo/
-	 xLhA1pZTsAuhwhkeMixQy2jrWzUhpjiDtIdDPHCoXyxbVnfxurvKnEzvAMJBGpfDGl
-	 jPeHS4ukpkN3FgDdVcnUXP3zHJzST6LawcCux1VHlwqyn9tS39+xx+L6z/25qUIZWo
-	 KdI1lR1dk9exEZ+3tUKuh8UXLmyARueQ9XktVpZa+m1Vb4OlKUihR7K6dnWaTDZAn8
-	 h8SUxW9PPsfNM+pwPxv8A/85u8pv2JWHFkELS6PbUYNMZpH5015On/ksRzobBK3qY6
-	 QsP+qtWRZkPWQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 06/17] arm64: kexec_file: Fix potential buffer
- overflow in prepare_elf_headers()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinjie Ruan" <ruanjinjie@huawei.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260525084932.934910-7-ruanjinjie@huawei.com>
-References: <20260525084932.934910-7-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 10:52:26 +0000
-Message-Id: <20260525105227.3C2421F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dZtk8YJI"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-36ad15213fbso525878a91.0
+        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 03:52:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779706348; x=1780311148; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uk0PkavUtmrtR763X7Xl8KGOaAn01gQsV9JDZDG7T1A=;
+        b=dZtk8YJIakMNipqUj/t5VM0UmqEioiPb7T2UipJtFDoWhi4qCo56fwFT2KsuV5PZjb
+         k8aSFdt6dwFKw3IReX3g2yzvHufrQTQR+AWNiiqKvPX10vU0zGg+gJFpondnj+q7e2BK
+         nM99xoOaui8jmirBTZOHXxna4aA8NIuWa75LUJ3iFuIW/2mu9D/BHE74ndl/bBcN4ajE
+         OHVNerqehTF+KgMbTKtcPjOs0SgQKyRSTHFNoB+X9AdC8mOI4WzYVHcj1xrYzpQ8i/sI
+         wGKEafYgnMumxyj3cBuAZu/ZxYi87OxevNP8atoijn5gEYP+PT8QAkzbNUccN9ZVVsn6
+         H7Sg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779706348; x=1780311148;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=uk0PkavUtmrtR763X7Xl8KGOaAn01gQsV9JDZDG7T1A=;
+        b=g8G2e0F2FlSlcyRNgzWAjiyKKSFgW3jowK9UXYVT9PuYOwnl1fcY71Q8BzN7FZPXvl
+         mMhOrKkZsgElZXXxaxqX+OFRClubYOF/U1pYCwle7jbfhTuTVHinJuiTaVHw3Ik3Z2cM
+         HYqbVh0YiivwNu4nCgJnziCnvIsqU6rXWO+wbe/STEkcJVELxA0/HWXSx+q9hLLQLK5N
+         YxrvOJHth+NYEQMSD2URLsEtwQNFbiC0/TBu/jS3itFixUN52MClMdKicQ4clpTmOE0F
+         dxIXCecZpb7fn9Y5SZLcgMhKmtd+btPOk4GoS2jKXWc/jCqxoV5VxRydXl9bGCXnoFzS
+         SWbA==
+X-Forwarded-Encrypted: i=1; AFNElJ8+ITUB1mpfriI/dpMB9gsqkclXTc8ujFQoxLCpKSiVBchoniLeHQw8KUkUiW5huqrcmI9d0F37300C@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1xcMVRsG9ZA9rB3FMfnsu1s+fqlYj60oeGIpznUXBTwPJjjhT
+	kVcL6pxl7PoV9Rb4v1UghCHGU5AIpAfi+wzAkCM/q2aJiG2XjfurEGeq
+X-Gm-Gg: Acq92OFyeDu09pWi5LKz7TPTaiqZ7BUiJy0CxABOOnX7XkCEFIh27+kS6bEp7NpCvrt
+	rCB4HNJwGlBzirYGzuCzcc/Z8p7Y8oeluDiY/v2apkG4RtMNF7rfTOJJ/d5drTpQQbz49wPhCgi
+	MgcY7M9Ym2EXiI9cG5+9pbN1Gbv0+OREALoz3d71ezEGfyMspA6HZ7//GUMHQ5SXWPLqbl0otqB
+	Mz2nJ1HPxaHxVWKf9jG8OurhOySQ7wYCYfodAj916qik+6XrZ10F+/IoimwjzWWUoXLweS1a8yP
+	sSWOqF+BBFWkzZTCdica34g+ePgeTy7ipSaB/AR5liriBCNJbH4LRj8YWzzT7AvUOTJItq/DBml
+	VN3+IpqqJ+pW/98L0GLgMf94lgoee9I+oNZAUKbh/IosqmAjZe1lXHIbvxs1OZLM8g4swWdU7eX
+	UKIsevcg5r3sleH2ha2NSL+WYzq9WYMlrlImyCMbvn80w9RXCO1ZArXhTl26B8OhmeKkphkMPie
+	T8+jVZgdCRuSGrlkuWNzdrYP472wVtkTbeb8o77k5CpYtGy/RlI
+X-Received: by 2002:a17:90b:558c:b0:369:932a:2b8b with SMTP id 98e67ed59e1d1-36a6778aedbmr14172064a91.11.1779706348076;
+        Mon, 25 May 2026 03:52:28 -0700 (PDT)
+Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2405:201:2011:e829:fadd:33b:8fc3:b2c8])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36a7265a001sm9302388a91.7.2026.05.25.03.52.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 25 May 2026 03:52:27 -0700 (PDT)
+From: Piyush Patle <piyushpatle228@gmail.com>
+To: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jic23@kernel.org,
+	ak@it-klinger.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com
+Subject: [PATCH v10 10/11] iio: adc: hx711: pass iio_chan_spec to hx711_reset_read
+Date: Mon, 25 May 2026 16:21:26 +0530
+Message-ID: <20260525105127.180156-11-piyushpatle228@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260525105127.180156-1-piyushpatle228@gmail.com>
+References: <20260525105127.180156-1-piyushpatle228@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Change hx711_reset_read() to accept the channel descriptor directly and
+update its callers accordingly.
 
-Pre-existing issues:
-- [High] If kexec_add_buffer() fails for the ELF headers segment in load_ot=
-her_segments(), it erroneously calls vfree(headers). However, the caller im=
-age_load() operates in a placement retry loop and will reuse the freed poin=
-ter on the next iteration, leading to a Use-After-Free. Furthermore, the gl=
-obal cleanup path will double-free the pointer.
-- [High] In crash_load_dm_crypt_keys(), if kexec_add_buffer() fails, the gl=
-obal keys_header is freed via kvfree() but the pointer is not set to NULL. =
-If the kexec load sequence retries, it will trigger a Use-After-Free or Dou=
-ble Free.
---
+Split the existing HX711 channel-selection work into a small helper so a
+later variant-specific change can add a matching helper without growing
+hx711_reset_read() further.
 
-commit 205dd983aa0b64a4b48461b2eeaf22aeada0f3e8
-Author: Jinjie Ruan <ruanjinjie@huawei.com>
+No functional change.
 
-arm64: kexec_file: Fix potential buffer overflow in prepare_elf_headers()
+Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
+---
+ drivers/iio/adc/hx711.c | 27 +++++++++++++++++++++------
+ 1 file changed, 21 insertions(+), 6 deletions(-)
 
-This commit addresses a TOCTOU race condition in prepare_elf_headers() duri=
-ng
-memory hotplug events by physically isolating the locking contexts. It moves
-the get_online_mems() read lock to the top-level architecture image loaders
-and adds bounds checking in machine_kexec_file.c.
+diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
+index e5d842853b71..fde95758b9a0 100644
+--- a/drivers/iio/adc/hx711.c
++++ b/drivers/iio/adc/hx711.c
+@@ -268,7 +268,23 @@ static int hx711_set_gain_for_channel(struct hx711_data *hx711_data, int chan)
+ 	return 0;
+ }
+ 
+-static int hx711_reset_read(struct hx711_data *hx711_data, int chan)
++static int hx711_set_hx711_channel(struct hx711_data *hx711_data,
++				   const struct iio_chan_spec *chan,
++				   int *trailing_pulses)
++{
++	int ret;
++
++	ret = hx711_set_gain_for_channel(hx711_data, chan->channel);
++	if (ret < 0)
++		return ret;
++
++	*trailing_pulses = hx711_get_gain_to_pulse(hx711_data->gain_set);
++
++	return 0;
++}
++
++static int hx711_reset_read(struct hx711_data *hx711_data,
++			    const struct iio_chan_spec *chan)
+ {
+ 	int trailing_pulses;
+ 	int ret;
+@@ -282,11 +298,10 @@ static int hx711_reset_read(struct hx711_data *hx711_data, int chan)
+ 		return -EIO;
+ 	}
+ 
+-	ret = hx711_set_gain_for_channel(hx711_data, chan);
++	ret = hx711_set_hx711_channel(hx711_data, chan, &trailing_pulses);
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	trailing_pulses = hx711_get_gain_to_pulse(hx711_data->gain_set);
+ 	return hx711_read(hx711_data, trailing_pulses);
+ }
+ 
+@@ -300,7 +315,7 @@ static int hx711_read_raw(struct iio_dev *indio_dev,
+ 	case IIO_CHAN_INFO_RAW:
+ 		mutex_lock(&hx711_data->lock);
+ 
+-		*val = hx711_reset_read(hx711_data, chan->channel);
++		*val = hx711_reset_read(hx711_data, chan);
+ 
+ 		mutex_unlock(&hx711_data->lock);
+ 
+@@ -390,8 +405,8 @@ static irqreturn_t hx711_trigger(int irq, void *p)
+ 	memset(&hx711_data->buffer, 0, sizeof(hx711_data->buffer));
+ 
+ 	iio_for_each_active_channel(indio_dev, i) {
+-		hx711_data->buffer.channel[j] = hx711_reset_read(hx711_data,
+-					indio_dev->channels[i].channel);
++		hx711_data->buffer.channel[j] =
++			hx711_reset_read(hx711_data, &indio_dev->channels[i]);
+ 		j++;
+ 	}
+ 
+-- 
+2.43.0
 
-> diff --git a/arch/arm64/kernel/kexec_image.c b/arch/arm64/kernel/kexec_im=
-age.c
-> index 79efeaeb71e93..884e446f08e34 100644
-> --- a/arch/arm64/kernel/kexec_image.c
-> +++ b/arch/arm64/kernel/kexec_image.c
-
-[ ... ]
-
-> @@ -96,11 +97,14 @@ static void *image_load(struct kimage *image,
-> =20
->  #ifdef CONFIG_CRASH_DUMP
->  	if (image->type =3D=3D KEXEC_TYPE_CRASH) {
-> +		get_online_mems();
->  		ret =3D prepare_elf_headers(&headers, &headers_sz);
->  		if (ret) {
->  			pr_err("Preparing elf core header failed\n");
-> +			put_online_mems();
->  			return ERR_PTR(ret);
->  		}
-> +		put_online_mems();
->  		image->elf_headers =3D headers;
->  		image->elf_headers_sz =3D headers_sz;
->  	}
-
-[Severity: High]
-This is a pre-existing issue, but does the retry loop directly below this
-code lead to a use-after-free if kexec_add_buffer() fails in
-load_other_segments()?
-
-Looking at image_load(), the while loop attempts to load segments and calls
-load_other_segments() repeatedly. If load_other_segments() fails during
-kexec_add_buffer(), it calls vfree(headers). However, the loop in
-image_load() will try again and pass the same freed headers pointer to
-load_other_segments() on the next iteration.
-
-Additionally, if the loop exhausts all options, does the global cleanup path
-arch_kimage_file_post_load_cleanup() also unconditionally call
-vfree(image->elf_headers), resulting in a double-free?
-
-[Severity: High]
-This is a pre-existing issue, but can this retry loop similarly trigger
-a use-after-free or double-free with keys_header?
-
-If kexec_add_buffer() fails inside crash_load_dm_crypt_keys(), the global
-pointer keys_header is freed via kvfree() but not set to NULL.
-
-When image_load() retries, crash_load_dm_crypt_keys() is invoked again. If =
-it
-calls build_keys_header(), it executes:
-
-    if (keys_header !=3D NULL)
-        kvfree(keys_header);
-
-which would trigger a double-free. Alternatively, if is_dm_key_reused is
-true, would it reuse the freed pointer directly for a new
-kexec_add_buffer() call?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525084932.9349=
-10-1-ruanjinjie@huawei.com?part=3D6
