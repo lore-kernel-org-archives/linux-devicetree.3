@@ -1,129 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73A30381AE0
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:23:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7202381B1B
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 12:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779711788; cv=none; b=TqzBA2hBRyMpUwCE7BhvHVvcateXRdtwxGPwVZUVqtAlEBE7BH5bYB/LYtAnEoTZd7B8LAMTiNh33yXjpqSLQf/IZqr4BFfHDjSgHnkNI/AMEtYBVVzvyS3oPjsY1Pzjw+brMFRckOZMoPyUEtjVASEqb6hl0Swx9JsSd+wkLU4=
+	t=1779711979; cv=none; b=g3/GvMnDauFOCaPgu2mrHYjNgZcqBS6GWRpDl7NiCSWVxcXWsLYGY6LIAT+zC7L+y4BPMDPuvbfLATl/seYsGWzZDuyzSXWi/8/1wIZrP4tTFvhphXlIYi/vRm9pS1666N6ICa+0d4HJmfD2tnWeFW8fOWPKm1T+XggywGX9nb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779711788; c=relaxed/simple;
-	bh=ziLuSDW3HmRf4pDzufiT+C0KmTwDS9dsmkbZcg/rjtA=;
+	s=arc-20240116; t=1779711979; c=relaxed/simple;
+	bh=DZUS9vpbfdaPYEwgf4pxexBE6EeAqOtwLnzzDaHR/gI=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KwTyMVVQ8olRWGUT4SxvZ5WhXsry3nwU4YaVXwwVhIgQkSJaMc7+zoYC9jVIqrzfmzUX0v+X/T6aHRFYRMMEuM2bQ9Eln7T4rENPxs0V3JVggw/ky1wYD5uUKtHcFOMsoQLwNw7m61UgrenJOnTli+gQJPNbDH+O/uBFCjQ9azM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hAaNjIrw; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nRtqKg2RPAvWOafrXskL0K8tzZ+QuRbM0UWaFyy130a+mt+DWLWUU7TieoP0G08Bi1QXQsx4DLPuK2hNmPxS88yOw3z8klsmQr27+g9NoHHf8lQPzAsGVpvqYDfHH8HI52b+aaMrcq/gP6RxmZN/nyIz40TN+fkUTn255tdz5kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOw5bHFT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hAaNjIrw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C77321F000E9;
-	Mon, 25 May 2026 12:23:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOw5bHFT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF28E1F000E9;
+	Mon, 25 May 2026 12:26:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779711787;
-	bh=xzecqRis/su8YWa4DcabQDZ5O2to4FdFuYEfDzUi7zw=;
+	s=k20260515; t=1779711978;
+	bh=pR38G2sRJqIJb/VViOvmph4ISbl38Hy5/NZ52RzP/1Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hAaNjIrwjGvsTlaepXyIVQ/53YKy1GzTzvl8AQDf/toOKYO797B7I2bzkCwbB4/Dg
-	 BX/gQznjvYjgkHkimomULeHAFCKZQo+/BxKHUMK+7qQExZ8oEKpn+7+Q57U8NX5Gwt
-	 DSW9QoEqOeUZp1LhkRC3ZlnyWT6Co495zuqVqiCbgpHFiPppGymT/qSYu3tl+Tx3GR
-	 /hWixUSRA8M+l09xUwOJzGKSUy527Ck2fUY8wc8WPdzfJZkaEeOgjHYi1ALd4/tKPe
-	 r/InZfqi4Pnr31YIPMe9+cSKj2Y+V9l2SUQhfI6/lI2rkJuKmWuG7NSwkUIo65jcBd
-	 mFZmfgEE06EBw==
+	b=QOw5bHFTufqNGpvWmN4RbW/zZ8cJdNXKPihZguJWEih+GF5vhRONTfVJfBnpZKtOW
+	 WaM+lSYcP385gKu8fS+vzP4accCpPVwjqy1XWI4c2yoQUUu2RlhH3Pep9UbFs02zcY
+	 vtXklV14lp8eYhRf2frUt1Cg0JUTcXSt2GOebxKFy1vRG/hflM/w12O5qcc5IY76Tw
+	 dimJS4YYDTQYrflVhU0CW6+oONIKctZMP+ml9oW5PKypeWelhaRXqcvshd88Wbbsu6
+	 eux8EGnHZlHcwHFJWLw0IDZxrEgkE/c7b3lVRJX0BW7AnNfK/4F3l4PFRZPqUxBvEv
+	 sn4R3XNYZhyQQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/18] ASoC: rsnd: Add RZ/G3E SoC probing and
- register map
+Subject: Re: [PATCH v13 4/6] iio: adc: ad4691: add SPI offload support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "John Madieu" <john.madieu.xa@bp.renesas.com>
-Cc: robh@kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525110230.4014435-6-john.madieu.xa@bp.renesas.com>
-References: <20260525110230.4014435-6-john.madieu.xa@bp.renesas.com>
+To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260525-ad4692-multichannel-sar-adc-driver-v13-4-1b7626d3b35c@analog.com>
+References: <20260525-ad4692-multichannel-sar-adc-driver-v13-4-1b7626d3b35c@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 12:23:06 +0000
-Message-Id: <20260525122306.C77321F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 12:26:17 +0000
+Message-Id: <20260525122617.CF28E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Critical] The driver computes an incorrect physical address for DMA tran=
-sfers on RZ/G3E by mistakenly falling back to R-Car Gen2/Gen3 hardcoded off=
-sets.
-- [Medium] The driver unconditionally attempts to write to `SSI_MODE0` duri=
-ng stream initialization for RZ/G3E, but this register is omitted from the =
-RZ/G3E register map, causing continuous error logs.
+- [Low] The newly introduced C macro `AD4691_OFFLOAD_CHANNEL` incorrectly u=
+ses `.format =3D 'u'` instead of `.sign =3D 'u'` for the `struct iio_scan_t=
+ype` designated initializer. `struct iio_scan_type` does not have a `format=
+` member, which causes a build failure.
 --
 
-commit 15c83e0793c513d3877a09357bf6e83e9029bbdb
-Author: John Madieu <john.madieu.xa@bp.renesas.com>
-Date:   Mon May 25 11:02:17 2026 +0000
+commit 93cce4b8ea73bcfdca8b9d9c533e462db205a412
+Author: Radu Sabau <radu.sabau@analog.com>
 
-ASoC: rsnd: Add RZ/G3E SoC probing and register map
+iio: adc: ad4691: add SPI offload support
 
-This commit adds probe support and register layouts for the RZ/G3E audio
-subsystem. It introduces specific register maps to accommodate the different
-base address organization and register offsets compared to R-Car Gen2/3/4.
+This patch adds SPI offload support to the AD4691 ADC driver to enable
+DMA-based, CPU-independent data acquisition using the SPI Engine framework.
 
-> diff --git a/sound/soc/renesas/rcar/gen.c b/sound/soc/renesas/rcar/gen.c
-> index d1f20cde66be1..05d5f656fb01c 100644
-> --- a/sound/soc/renesas/rcar/gen.c
-> +++ b/sound/soc/renesas/rcar/gen.c
-> @@ -464,6 +464,184 @@ static int rsnd_gen1_probe(struct rsnd_priv *priv)
->  	return ret_adg | ret_ssi;
->  }
+> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
+> index 2b7bb6717e574..6563488ab8b89 100644
+> --- a/drivers/iio/adc/ad4691.c
+> +++ b/drivers/iio/adc/ad4691.c
+[ ... ]
+> @@ -139,6 +150,30 @@ struct ad4691_chip_info {
+>  		},							\
+>  	}
 > =20
 > +/*
-> + *		RZ/G3E Generation
+> + * Offload path (bits_per_word=3D16): the SPI Engine assembles received
+> + * bits into native 16-bit words before DMA, so samples are in
+> + * CPU-native byte order (IIO_CPU). storagebits=3D16 matches the 16-bit
+> + * DMA word size.
 > + */
-> +static int rsnd_rzg3e_probe(struct rsnd_priv *priv)
-> +{
-> +	static const struct rsnd_regmap_field_conf conf_ssiu[] =3D {
-> +		RSND_GEN_S_REG(SSI_MODE1,		0x804),
+> +#define AD4691_OFFLOAD_CHANNEL(ch)					\
+> +	{								\
+> +		.type =3D IIO_VOLTAGE,					\
+> +		.indexed =3D 1,						\
+> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW),		\
+> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_SCALE)	\
+> +				    | BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
+> +		.info_mask_shared_by_all_available =3D			\
+> +				      BIT(IIO_CHAN_INFO_SAMP_FREQ),	\
+> +		.channel =3D ch,						\
+> +		.scan_index =3D ch,					\
+> +		.scan_type =3D {						\
+> +			.format =3D 'u',					\
 
-[Severity: Medium]
-Will this cause unsupported register access errors during stream initializa=
-tion?
+[Severity: Low]
+Does this struct initialization cause a build failure? It looks like struct
+iio_scan_type does not have a member named .format, and this should probably
+be .sign instead.
 
-The conf_ssiu register map omits SSI_MODE0, but rsnd_ssiu_init() will
-unconditionally attempt to write to it using rsnd_mod_bset(). Without this
-register in the map, rsnd_is_accessible_reg() might fail, potentially
-leading to error logs every time a stream starts.
-
-I note this regression is addressed in the subsequent commit
-"ASoC: rsnd: ssiu: Add RZ/G3E BUSIF support". Could this cause issues for
-users who bisect to this specific commit?
-
-> +		RSND_GEN_S_REG(SSI_MODE2,		0x808),
-> +		RSND_GEN_S_REG(SSI_MODE3,		0x80c),
-
-[ ... ]
-
-> @@ -487,6 +665,8 @@ int rsnd_gen_probe(struct rsnd_priv *priv)
->  		ret =3D rsnd_gen2_probe(priv);
->  	else if (rsnd_is_gen4(priv))
->  		ret =3D rsnd_gen4_probe(priv);
-> +	else if (rsnd_is_rzg3e(priv))
-> +		ret =3D rsnd_rzg3e_probe(priv);
-
-[Severity: Critical]
-Does this new RZ/G3E generation cause a regression in rsnd_dma_addr()?
-
-When setting up a DMA transfer, there doesn't seem to be a specific branch
-for RZ/G3E address calculations. Because rsnd_is_gen1() and rsnd_is_gen4()
-evaluate to false, execution appears to default to rsnd_gen2_dma_addr().
-
-This fallback subtracts hardcoded offsets valid only for R-Car Gen2/Gen3,
-which could yield an incorrect physical address for RZ/G3E and potentially
-cause incorrect memory access during DMA transfers.
-
-I note this regression is fixed later in the series by the commit
-"ASoC: rsnd: Add RZ/G3E DMA address calculation support". Should the DMA
-calculation support be included in this patch to maintain bisectability?
-
-> =20
->  	if (ret < 0)
->  		dev_err(dev, "unknown generation R-Car sound device\n");
+> +			.realbits =3D 16,					\
+> +			.storagebits =3D 16,				\
+> +		},							\
+> +	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
-435-1-john.madieu.xa@bp.renesas.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525-ad4692-mul=
+tichannel-sar-adc-driver-v13-0-1b7626d3b35c@analog.com?part=3D4
