@@ -1,86 +1,94 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6090DDA9
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 00:30:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EEC37E105
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 00:30:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779669021; cv=none; b=ffAqyDo+W+6KpZP7njvOv7dZ1eQ8k84z9TiuLdCqQr1MtwrxGApeSm6ZhhmwyI93ZxUDS/4FTbo0vSv+yBAa6rFZ1xlDHt9/qCinFF0OCtncVZ5barjWjMhIEI9P3SmU/3VYjd99HrEbu2yRei/Q4gFn5pieU99gla9/CeRRJZQ=
+	t=1779669042; cv=none; b=OFz4ppdkSXmVdZ1nNQ2M32lY4g5ghRte0WppIDWUHBq3PdUcGls/7sUE2FAGRCDlrMbPQa7KKiwknY201Kq9T7fMO3SDBW4iFds3MuIPsjzFzNgtaLndtjo4y+RXCsTBeP/ekv7BFmxsE5fplQ9A/8vMbHcyFz4eC2LX7wOzbYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779669021; c=relaxed/simple;
-	bh=v38zaK051KXoiRKXvKpDLH8cmWECxYCtq8q0wqxT2pc=;
+	s=arc-20240116; t=1779669042; c=relaxed/simple;
+	bh=b5cIXW9LwBG/VhH3g8YBpRK2SZUMRRyLkeAzM9tzxSs=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=VxrUbDh5ULBSS5ypjSoPNWi2eMGfk1cgZdnvV1U6J0Fv5qVB/NSzSjhoioa9K7hdKqUIFdgcTfDm8ATxF+DAI2xBpFYAqj6Ej9HetJsNDw7TNW+FwCntMbzsfy9KiTZbXyh/TzIXqThJflvW5vfp/I5GEkX1YRuWcV4UES//DXg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EMhHR+yO; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Y9/GYCj38L9aOb2c44uT6pb467r7PBQd8oojyKcidf3kCpETl3wo1xeakskRPrKpE5Wb+1A0y8yQ0/sZM8iuNn3QmWmzS2TYJV/g9peuJIoHwvHUY6XUmRmL5UVM4WZYiVwaKiEFxOEy5eYCtFKrzg8uWazdM06n3q3Sc7KFwB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aikIkwMW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EMhHR+yO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5597A1F000E9;
-	Mon, 25 May 2026 00:30:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aikIkwMW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E4E41F000E9;
+	Mon, 25 May 2026 00:30:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779669019;
-	bh=D3bZaGBztI3WQJhw/jFJkoIprCdeEHrKqgvXvNXSa2s=;
+	s=k20260515; t=1779669040;
+	bh=WwjLjzaAtpsQztqU8i8/xUEUkb70+JP7WPa9+m29DGQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EMhHR+yOeTdA+n+HPqUy+fDavuxtpHCYjU6tuc4JgpfGU0AAkNtesCdIQf7RnUfL5
-	 OKFXxfhiwhDdaov4JGKmxX9r5sw9oC1t2Zw8J+T52jNo1G5OABTab66ooDDLuIcKmY
-	 0l3fXXF8GfiTDDQORCkz3l1uw0Fs+ghKiaPpaJHHpYLZV1GrkBWlSy/1KEbf2XUYR7
-	 ZIN3rmHwtBxmVKMvzLZ+dDfRo37AZlc/8VcYCgvIGfUxIz5xkxHp9o0dlPwDPQm/lw
-	 JmKsrYwEbejhtJCWKctFmbdJOMEZLffmYjf9pJcwE0qlhso6cFZZ21EI4s9bapCWJI
-	 C3iFi3ptY6bWQ==
+	b=aikIkwMWLoAxVLj2Zv7EBxwWLfrkC+UdwGrvlrVkxDvrIJMfhhEfq6fUo8JSZgLpx
+	 XZQUzlJ87frk6qHuyw3DX2PY2JcEM4sHCn9GiSXpArRE2IYuEZrIo+Bj45XwPSBJOx
+	 axqWpLfqbzsr+Toh/0k5bGBh5xw6VA9zoEprhZfDlbzdXM9JzT1ZV+G1Plktqt6eg9
+	 KEqRpdcIR/1CPq0CefFtiGG8rHJfbKIbMjzUAILsex6FcKtHqaeA4R8OrMDpELbKoA
+	 oeO+G4nbOghDwcClCLCaJ3IX2aaB0ab5PyAQq+R9I1l4D9YEFSEnVLSUg0zSLdtIUc
+	 hR80r+4PvHHzw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v5 07/18] riscv_cbqri: Add capacity controller probe
- and allocation device ops
+Subject: Re: [PATCH RFC v5 09/18] riscv_cbqri: Add bandwidth controller
+ probe and allocation device ops
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Drew Fustini" <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-7-78d3a7ba9dbe@kernel.org>
-References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-7-78d3a7ba9dbe@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-9-78d3a7ba9dbe@kernel.org>
+References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-9-78d3a7ba9dbe@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 00:30:07 +0000
-Message-Id: <20260525003019.5597A1F000E9@smtp.kernel.org>
+Date: Mon, 25 May 2026 00:30:40 +0000
+Message-Id: <20260525003040.9E4E41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Build failure due to undefined macro `CBQRI_MON_CTL_EVT_ID_MASK`.
-- [High] Generic registration API unconditionally calls ACPI-specific funct=
-ions, breaking DT support.
-- [High] Synchronous `cache_size` resolution during early boot permanently =
-disables occupancy monitoring.
-- [High] Bitwise inversion of `GENMASK` 32-bit masks silently zeroes the up=
-per 32 bits of 64-bit hardware registers.
-- [Medium] Invalid bounds check for `rcid_count` uses a register bitmask in=
-stead of a max count, and `mcid_count` is unchecked.
+- [High] The standalone read functions (`cbqri_read_rbwb` and `cbqri_read_m=
+weight`) are vulnerable to the silent READ_LIMIT no-op hardware bug describ=
+ed in the commit message.
+- [High] The bandwidth allocation operation inadvertently preserves the Acc=
+ess Type (AT) field left by firmware or prior probe operations, potentially=
+ applying limits to the wrong access type.
+- [Medium] Modifying the hardware staging register before verifying the con=
+troller is ready (BUSY=3D0) can cause silent corruption of the unmodified f=
+ield.
 --
 
-commit 13b45d9c450f72077987054f81435f84c681a8fe
+commit 43b9fe0d5868fdc96ff8dc83b2e5d5819da5ef2e
 Author: Drew Fustini <fustini@kernel.org>
-Subject: riscv_cbqri: Add capacity controller probe and allocation device o=
-ps
 
-Add support for the RISC-V CBQRI capacity controller (CC). The firmware
-discovery layer (ACPI or DT) is responsible for passing the
-cbqri_controller_info descriptor to riscv_cbqri_register_controller().
+riscv_cbqri: Add bandwidth controller probe and allocation device ops
+
+This commit adds support for CBQRI bandwidth controller discovery and
+allocation control knobs (Rbwb and Mweight). It implements software caches
+and pre-write sentinels to prevent stale data leakage caused by a silent
+hardware bug during READ_LIMIT operations.
 
 > diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devi=
 ces.c
-> new file mode 100644
-> index 0000000000000..a97511825eedf
-> --- /dev/null
+> index 90a95fd111909..2a80197764a9c 100644
+> --- a/drivers/resctrl/cbqri_devices.c
 > +++ b/drivers/resctrl/cbqri_devices.c
-> @@ -0,0 +1,564 @@
 
 [ ... ]
 
-> +static int cbqri_cc_alloc_op(struct cbqri_controller *ctrl, int operatio=
-n,
-> +			     int rcid, enum cbqri_at at)
+> @@ -135,6 +193,41 @@ int cbqri_mon_op(struct cbqri_controller *ctrl, int =
+reg_offset,
+>  	return 0;
+>  }
+> =20
+> +/*
+> + * Perform bandwidth allocation control operation on bandwidth controlle=
+r.
+> + * Caller must hold ctrl->lock.
+> + */
+> +static int cbqri_bc_alloc_op(struct cbqri_controller *ctrl, int operatio=
+n, int rcid)
 > +{
-> +	int reg_offset =3D CBQRI_CC_ALLOC_CTL_OFF;
+> +	int reg_offset =3D CBQRI_BC_ALLOC_CTL_OFF;
 > +	int status;
 > +	u64 reg;
 > +
@@ -92,147 +100,121 @@ n,
 > +	}
 > +	FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_OP_MASK, &reg, operation);
 > +	FIELD_MODIFY(CBQRI_CONTROL_REGISTERS_RCID_MASK, &reg, rcid);
-> +
-> +	/*
-> +	 * CBQRI Table 1: AT 0=3DData, 1=3DCode. Program AT on controllers
-> +	 * that report supports_alloc_at_code. On controllers that don't,
-> +	 * AT is reserved-zero and the op acts on both halves.
-> +	 */
-> +	reg &=3D ~CBQRI_CONTROL_REGISTERS_AT_MASK;
+> +	iowrite64(reg, ctrl->base + reg_offset);
 
 [Severity: High]
-On 32-bit architectures, does bitwise inversion of a GENMASK macro (which
-evaluates to unsigned long) silently zero the upper 32 bits of the 64-bit
-register variable?
+Does this operation inadvertently preserve the Access Type (AT) field left =
+over
+by firmware or prior probe operations?
 
-If the 32-bit inverted mask is zero-extended to 64 bits, this would truncate
-bits 63:32, potentially clearing the STATUS and BUSY fields. Should
-GENMASK_ULL be used for these masks instead?
-
-> +	if (ctrl->cc.supports_alloc_at_code)
-> +		reg |=3D FIELD_PREP(CBQRI_CONTROL_REGISTERS_AT_MASK, at);
+Since this reads the control register and modifies only OP and RCID via
+FIELD_MODIFY, the AT bits are left untouched. If the field was left set to
+a specific type (such as CBQRI_CONTROL_REGISTERS_AT_CODE during probe),
+would the limits applied here silently inherit that type, throttling only
+Code bandwidth while leaving Data bandwidth unconstrained?
 
 [ ... ]
 
-> +static int cbqri_probe_feature(struct cbqri_controller *ctrl, int reg_of=
-fset,
-> +			       int operation, int *status, bool *access_type_supported)
+> @@ -266,6 +359,152 @@ int cbqri_read_cache_config(struct cbqri_controller=
+ *ctrl, u32 closid,
+>  	return err;
+>  }
+> =20
+> +/*
+> + * Apply a per-RCID update to one field (Rbwb or Mweight) of bc_bw_alloc.
+> + * bc_bw_alloc packs both fields, so both halves are seeded from the
+> + * authoritative software caches before CONFIG_LIMIT. This avoids the
+> + * silent READ_LIMIT no-op window where stale data from a prior op's
+> + * RCID could leak into the unmodified field. The verify step uses an
+> + * inverted-value sentinel to confirm hardware accepted the target field.
+> + *
+> + * Caller must hold ctrl->lock.
+> + */
+> +static int cbqri_apply_bc_field(struct cbqri_controller *ctrl, u32 closi=
+d,
+> +				enum cbqri_bc_field field, u64 val)
 > +{
-> +	const u64 active_mask =3D CBQRI_CONTROL_REGISTERS_OP_MASK |
-> +				CBQRI_CONTROL_REGISTERS_AT_MASK |
-> +				CBQRI_CONTROL_REGISTERS_RCID_MASK |
-> +				CBQRI_MON_CTL_EVT_ID_MASK;
-
-[Severity: High]
-Is CBQRI_MON_CTL_EVT_ID_MASK defined in this patch? It seems to be missing,
-which might cause a build failure due to an undeclared identifier.
-
-> +	u64 reg, saved_reg;
-> +	int at;
-
-[ ... ]
-
-> +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
-> +{
-> +	int err, status;
-> +	u64 reg;
-
-[ ... ]
-
-> +	/*
-> +	 * Resolve cache_size via cacheinfo. cpus_read_lock satisfies
-> +	 * lockdep_assert_cpus_held() inside get_cpu_cacheinfo_level(). If
-> +	 * every cpu_mask member is offline, cache_size stays 0 and the
-> +	 * controller cannot back occupancy monitoring.
-> +	 */
-> +	cpus_read_lock();
-> +	if (!ctrl->cache.cache_size) {
-> +		int cpu =3D cpumask_first_and(&ctrl->cache.cpu_mask, cpu_online_mask);
+> +	u64 rbwb =3D ctrl->rbwb_cache[closid];
+> +	u64 mweight =3D ctrl->mweight_cache[closid];
+> +	u64 readback;
+> +	int ret;
 > +
-> +		if (cpu < nr_cpu_ids) {
-> +			struct cacheinfo *ci;
+> +	lockdep_assert_held(&ctrl->lock);
 > +
-> +			ci =3D get_cpu_cacheinfo_level(cpu, ctrl->cache.cache_level);
-> +			if (ci)
-> +				ctrl->cache.cache_size =3D ci->size;
-
-[Severity: High]
-Is this resolution actually lazy? cbqri_probe_cc() is called immediately
-during registration by cbqri_probe_controller(), which happens at
-acpi_arch_init time.
-
-Since cacheinfo is unpopulated during early boot, won't
-get_cpu_cacheinfo_level() return NULL and leave cache_size as 0 permanently,
-disabling occupancy monitoring?
-
-> +		}
-> +	}
-> +	cpus_read_unlock();
-
-[ ... ]
-
-> +int riscv_cbqri_register_controller(const struct cbqri_controller_info *=
-info)
-> +{
-> +	struct cbqri_controller *ctrl;
-> +	int err;
-
-[ ... ]
-
-> +	ctrl->addr =3D info->addr;
-> +	ctrl->size =3D info->size;
-> +	ctrl->type =3D info->type;
-> +	ctrl->rcid_count =3D info->rcid_count;
-> +	ctrl->mcid_count =3D info->mcid_count;
+> +	if (field =3D=3D CBQRI_BC_FIELD_RBWB)
+> +		rbwb =3D val;
+> +	else
+> +		mweight =3D val;
 > +
-> +	/*
-> +	 * SRMCFG encodes RCID in 12 bits.  ACPI's acpi_parse_rqsc() already
-> +	 * caps info->rcid_count at CBQRI_MAX_RCID (1024) so this is unreachable
-> +	 * today, but a future DT discovery path or a malformed firmware table
-> +	 * routed through a different validator could bypass that ceiling.
-> +	 * Catch the violation here rather than silently truncating in every
-> +	 * FIELD_PREP(SRMCFG_RCID_MASK, closid) on the schedule-in fast path.
-> +	 */
-> +	if (WARN_ON_ONCE(ctrl->rcid_count > SRMCFG_RCID_MASK)) {
+> +	cbqri_set_bc_bw_alloc(ctrl, rbwb, mweight);
+> +
+> +	ret =3D cbqri_bc_alloc_op(ctrl, CBQRI_BC_ALLOC_CTL_OP_CONFIG_LIMIT, clo=
+sid);
 
 [Severity: Medium]
-Does this correctly validate the count limit? If SRMCFG_RCID_MASK is a
-register bitmask (like 0xFFF), won't a hardware limit of 4096 IDs be
-incorrectly rejected because 4096 is greater than 4095?
+Could modifying the hardware staging register before verifying the controll=
+er
+is ready cause a silent corruption of the unmodified field?
 
-Also, should there be a similar bounds check for mcid_count?
+If a previous operation timed out but is still executing, the BUSY flag wou=
+ld
+be 1, and the hardware might ignore the cbqri_set_bc_bw_alloc() write.
 
-> +		cbqri_controller_destroy(ctrl);
-> +		return -EINVAL;
-> +	}
-> +
-> +	switch (info->type) {
-> +	case CBQRI_CONTROLLER_TYPE_CAPACITY: {
-> +		int level;
-> +
-> +		ctrl->cache.cache_id =3D info->cache_id;
-> +
-> +		level =3D find_acpi_cache_level_from_id(info->cache_id);
+If that prior operation then completes while cbqri_bc_alloc_op() polls for
+BUSY=3D0, the new CONFIG_LIMIT would be issued. Could the hardware then app=
+ly
+the stale staging register payload?
 
-[Severity: High]
-Does this unconditional call to ACPI-specific functions break Device Tree
-support?
-
-If CONFIG_ACPI is disabled, these stubs return -ENOENT. For DT-based
-platforms, these functions might fail to resolve DT cache IDs, potentially
-causing registration to fail entirely.
-
-> +		if (level < 0) {
-> +			pr_warn("Failed to resolve cache level for cache id 0x%x (%d), skippi=
-ng\n",
-> +				info->cache_id, level);
-> +			cbqri_controller_destroy(ctrl);
-> +			return level;
-> +		}
-> +		ctrl->cache.cache_level =3D level;
+If the modified field in the stale payload happens to match the target valu=
+e,
+the post-write sentinel verification would falsely succeed, while the
+unmodified field is silently corrupted.
 
 [ ... ]
+
+> +/*
+> + * Read the Rbwb (reserved bandwidth blocks) for closid via READ_LIMIT.
+> + */
+> +int cbqri_read_rbwb(struct cbqri_controller *ctrl, u32 closid, u64 *rbwb=
+_out)
+> +{
+> +	int err;
+> +
+> +	mutex_lock(&ctrl->lock);
+> +	err =3D cbqri_bc_alloc_op(ctrl, CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT, closi=
+d);
+> +	if (err =3D=3D 0)
+> +		*rbwb_out =3D cbqri_get_rbwb(ctrl);
+> +	mutex_unlock(&ctrl->lock);
+> +	return err;
+> +}
+> +
+> +/*
+> + * Read the Mweight (opportunistic weight) for closid via READ_LIMIT.
+> + */
+> +int cbqri_read_mweight(struct cbqri_controller *ctrl, u32 closid, u64 *m=
+weight_out)
+> +{
+> +	int err;
+> +
+> +	mutex_lock(&ctrl->lock);
+> +	err =3D cbqri_bc_alloc_op(ctrl, CBQRI_BC_ALLOC_CTL_OP_READ_LIMIT, closi=
+d);
+> +	if (err =3D=3D 0)
+> +		*mweight_out =3D cbqri_get_mweight(ctrl);
+> +	mutex_unlock(&ctrl->lock);
+> +	return err;
+> +}
+
+[Severity: High]
+Are these standalone read functions vulnerable to the same silent READ_LIMIT
+no-op hardware bug described in the commit message?
+
+Since they execute a bare READ_LIMIT without the pre-write sentinel validat=
+ion
+used in cbqri_apply_bc_field(), could they return stale data from a prior
+operation if the hardware bug triggers?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-ssqosid-cb=
-qri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org?part=3D7
+qri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org?part=3D9
