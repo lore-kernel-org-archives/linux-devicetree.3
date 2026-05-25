@@ -1,151 +1,96 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4577E3E5EFD;
-	Mon, 25 May 2026 09:25:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77A1D3E5A32;
+	Mon, 25 May 2026 09:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779701133; cv=none; b=rT9lH923mwSZvySJ6uw7SWPOFadwV5jpEvcr/dRnk+FTA+rprMj5iGwaXKvj9M5LSN1LDAh230XC2ZaAxKJjvyWFbeLMhzpDJxU+Cs5UsIm3EIAl78dF5itBG5OrUftFD49bFAcygemQDfNTJlPTGqvmuVP+4FNHTqWtx4opfK4=
+	t=1779701167; cv=none; b=G1cVuzqSPuw3H071PtPEDv1+9TaDMELcy6Vrz6EnqAUnCanJKdrNGWqPD1WvBGx65Q5Q94xrnjJOdQlOMBbELOP2Z/Rhfz26zblbnyVWcWsjN+HmbxI0pSG23ld+zrVvvceR9yQwJ25C893MIVpyNnkLPBzHrouY4YjVAByOsY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779701133; c=relaxed/simple;
-	bh=ZmyfIH5KhFAjKsOYICrfyLRCXsbn+1dxlewuuX1LfIQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=a2CuP5Wu+uasIMzmPmX2K7Tt5gkXdb8YP9nxvMWoIJrONXi8ebex78mgOOFJKOAQ2wu1jZpFtztZlttRPfztihjQKUG75B72Iiu69cgbOs5afOTA6S+HUTlDK0B73U/9LPicRdQVE7Vcj2Qqm5W8bTNgZ6O6SaOXsJyPOvmdIiI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=prAeJLbW; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1779701167; c=relaxed/simple;
+	bh=jmYi9k8kfIYDV6PSc0blAw2ZCe6obcAFkc4TkEVBsD0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Z104y+NCD/uTTfSCAHgIEO3k1gw+qNdD2zDJiNweiNflheIZzJfmOzfSf6yrxwXzLupGiGAQyhfRwDms+MyY9i0Ic5YaIrOWk9/Q7+Ayg+v/ZVYUJkvzmhnc9vGyj2vJup1jcnY9Fi936Fs223/d50RA8P0vXhcGnHez7I+Dsfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H7H8MfXD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="prAeJLbW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1779701132; x=1811237132;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=ZmyfIH5KhFAjKsOYICrfyLRCXsbn+1dxlewuuX1LfIQ=;
-  b=prAeJLbWPBcYw2kmWtovWzISTLhI+f2QSkl1K/sSW46f1mUeNXQUTuy5
-   BjwVywisZxB+neSmfmE/mupf7ellro/0j1Tm4k761qgQOY/gf7YThDYgC
-   sexrhzrhQcDG2e4Q5p8C+ZbkjoGLd5PE2A0ZAtYdvGO/+LpJ9ckhpHC32
-   0Bk1Wj421UmpGjofOl3RrW+wx/81t2tnbzx7Jq87E0jhFU1skRr5bKj8r
-   MoyWo/Nt1DrLtopDYxz7uTQNA/Sb3SSBtGZRnQ+E+LLobT8+y/QLFKkYp
-   hEPrnuMpZKEF/S89Yhl7CXXAX1YAhEvdzNKCa2cXU3IbHlvjAqpF+IP5L
-   Q==;
-X-CSE-ConnectionGUID: ErrMcRDBRb2Cm5bGCRCQQQ==
-X-CSE-MsgGUID: J4LVG0OBTUegvkqNrxcbUg==
-X-IronPort-AV: E=Sophos;i="6.24,167,1774335600"; 
-   d="scan'208";a="289388357"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 25 May 2026 02:24:30 -0700
-Received: from chn-vm-ex02.mchp-main.com (10.10.87.72) by
- chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Mon, 25 May 2026 02:24:29 -0700
-Received: from che-lt-i67131.microchip.com (10.10.85.11) by
- chn-vm-ex02.mchp-main.com (10.10.85.144) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Mon, 25 May 2026 02:24:20 -0700
-From: Manikandan Muralidharan <manikandan.m@microchip.com>
-To: <alexandre.belloni@bootlin.com>, <Frank.Li@nxp.com>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <nicolas.ferre@microchip.com>,
-	<claudiu.beznea@tuxon.dev>, <linux@armlinux.org.uk>,
-	<mturquette@baylibre.com>, <sboyd@kernel.org>, <bmasney@redhat.com>,
-	<aubin.constans@microchip.com>, <Ryan.Wanner@microchip.com>,
-	<romain.sioen@microchip.com>, <tytso@mit.edu>,
-	<cristian.birsan@microchip.com>, <adrian.hunter@intel.com>,
-	<npitre@baylibre.com>, <linux-i3c@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-clk@vger.kernel.org>
-CC: Manikandan Muralidharan <manikandan.m@microchip.com>, Conor Dooley
-	<conor.dooley@microchip.com>
-Subject: [PATCH v7 1/5] dt-bindings: i3c: mipi-i3c-hci: add Microchip SAMA7D65 compatible
-Date: Mon, 25 May 2026 14:54:01 +0530
-Message-ID: <20260525092405.1514213-2-manikandan.m@microchip.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260525092405.1514213-1-manikandan.m@microchip.com>
-References: <20260525092405.1514213-1-manikandan.m@microchip.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H7H8MfXD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A02E1F000E9;
+	Mon, 25 May 2026 09:26:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779701166;
+	bh=skzTssuwru7jF3TpsgIsQPJu8IbIuLMfcBBNvTemjVE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=H7H8MfXDgcg2czwLwQhZFCL2kqMjRCt9tXoVzp4zeEDmKAYkQrEXUVc2JEUW2iIjK
+	 Vuzy3H5k3Lla3w9XIbEjkEw8EIAEUxPr9Ik+YywZqcE3XvMlv0kK6kyA9tTXjno7ax
+	 YZGG6k95KRRS3MHsk0avHWKKMJA+wHrlHeDeeYtuBWyv+l8X9+TDVPr8HJxWx+TXLZ
+	 DzQ4fKJC3n1V0kfuXrlqZ9kmDUuSBoEywRGAyrWlR1QAL/PvGbajSvlG5VuW6KgYe8
+	 Pg9qRoSl+NV2ibriujglyE7gRvcEXZwZx+fG2cs5PIfYpf+TQ44LxUg/jTMrE4RZvv
+	 Sdbjhi2TLVoxQ==
+From: Sven Peter <sven@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Neal Gompa <neal@gompa.dev>,
+	Wim Van Sebroeck <wim@linux-watchdog.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Mark Kettenis <kettenis@openbsd.org>,
+	Sasha Finkelstein <k@chaosmail.tech>,
+	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
+	Janne Grunau <j@jannau.net>
+Cc: Sven Peter <sven@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	asahi@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-watchdog@vger.kernel.org,
+	linux-pwm@vger.kernel.org,
+	Joshua Peisach <jpeisach@ubuntu.com>,
+	Michael Reeves <michael.reeves077@gmail.com>
+Subject: Re: (subset) [PATCH v3 0/5] Initial Apple silicon M3 device trees and dt-bindings
+Date: Mon, 25 May 2026 11:25:48 +0200
+Message-ID: <177970089799.4336.5106410094266979561.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
+References: <20260507-apple-m3-initial-devicetrees-v3-0-ca07c81b5dc7@jannau.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
 
-Add the microchip,sama7d65-i3c-hci compatible string to the MIPI I3C
-HCI binding. The Microchip SAMA7D65 I3C controller is based on the
-MIPI HCI specification but requires two clocks, so add a conditional
-constraint when this compatible is present.
+On Thu, 07 May 2026 09:33:06 +0200, Janne Grunau wrote:
+> Hej,
+> 
+> This series adds initial device trees for M3 Apple silicon devices. The
+> device trees contain only a minimal set of hardware not going much
+> beyond the minimum required for booting kernel and initramfs and
+> verify via serial console that the hardware and drivers work.
+> The hardware with the exception of the interrupt controller is
+> compatible with the M1 and M2 SoCs and the existing drivers.
+> `make dtbs_check` depends on the already applied and dropped apple,i2c
+> and apple,pmgr dt-binding changes.
+> The watchdog load depends on stalled and forgotten addition of the
+> "apple,t8103-wdt" compatible posted in [1]. I've replied to the thread
+> to get the change merged.
+> 
+> [...]
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Signed-off-by: Manikandan Muralidharan <manikandan.m@microchip.com>
----
-Changes in v5:
-- drop min/maxItems around clock entries
-- use if/then/else clause instead of separate allOf entry
-- cosmetic fixes for indentation and formatting
+Applied to local tree (apple-soc/dt-7.2), thanks!
 
-Changes in v4:
-- Define and describe the clock property in the top-level properties
-  section rather than inside the if/then conditional
+[1/5] dt-bindings: power: apple,pmgr-pwrstate: Add t8122 compatible
+      https://github.com/AsahiLinux/linux/commit/4d28a9a428f6
+[3/5] dt-bindings: pwm: apple,s5l-fpwm: Add t8122 compatible
+      https://github.com/AsahiLinux/linux/commit/d0960529afbd
+[4/5] dt-bindings: arm: apple: Add M3 based devices
+      https://github.com/AsahiLinux/linux/commit/5701af106b03
+[5/5] arm64: dts: apple: Initial t8122 (M3) device trees
+      https://github.com/AsahiLinux/linux/commit/1dfa78533534
 
- .../devicetree/bindings/i3c/mipi-i3c-hci.yaml | 27 ++++++++++++++++---
- 1 file changed, 23 insertions(+), 4 deletions(-)
-
-diff --git a/Documentation/devicetree/bindings/i3c/mipi-i3c-hci.yaml b/Documentation/devicetree/bindings/i3c/mipi-i3c-hci.yaml
-index 39bb1a1784c9..d488fb420945 100644
---- a/Documentation/devicetree/bindings/i3c/mipi-i3c-hci.yaml
-+++ b/Documentation/devicetree/bindings/i3c/mipi-i3c-hci.yaml
-@@ -9,9 +9,6 @@ title: MIPI I3C HCI
- maintainers:
-   - Nicolas Pitre <npitre@baylibre.com>
- 
--allOf:
--  - $ref: /schemas/i3c/i3c.yaml#
--
- description: |
-   MIPI I3C Host Controller Interface
- 
-@@ -28,9 +25,17 @@ description: |
- 
- properties:
-   compatible:
--    const: mipi-i3c-hci
-+    enum:
-+      - mipi-i3c-hci
-+      - microchip,sama7d65-i3c-hci
-   reg:
-     maxItems: 1
-+
-+  clocks:
-+    items:
-+      - description: Peripheral bus clock
-+      - description: System Generic clock
-+
-   interrupts:
-     maxItems: 1
- 
-@@ -39,6 +44,20 @@ required:
-   - reg
-   - interrupts
- 
-+allOf:
-+  - $ref: /schemas/i3c/i3c.yaml#
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: microchip,sama7d65-i3c-hci
-+    then:
-+      required:
-+        - clocks
-+    else:
-+      properties:
-+        clocks: false
-+
- unevaluatedProperties: false
- 
- examples:
+Best regards,
 -- 
-2.25.1
+Sven Peter <sven@kernel.org>
 
