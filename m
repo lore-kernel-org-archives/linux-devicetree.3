@@ -1,115 +1,107 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A327B3128CC;
-	Mon, 25 May 2026 11:51:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE5934887E
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:53:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779709910; cv=none; b=jBhyTgNj8iiONGe6DXVQ3hhTpuVa9qDSDVRG6cHet0Fuhr1fvf+JwGIYXtgyD0QRjW9JibbQPWFRIP0WGmAiYFOT1TWktRkKGaLHFx6lGmwfcl0sBtD057xQPmncWzeNT9oVU1JieYAwtZIPSmZnM2pL+C62/8DJLg5Bllzy+x0=
+	t=1779709994; cv=none; b=ceon9DSoYvPi6TuVW8BKEdZ/zGmwXE8x39zTYra4H4ItR06Y18KeJynYQIDG+PLseVRyOzNMWvhtMQSaAvJBJ1WlWg/PTSmvwT7WwBQszUOXFWc02WgfFRnsZlpMbBcPjkVnXUmgf0zO+XF+m3k04CMh5QEIGI+O55CpDBoKsCk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779709910; c=relaxed/simple;
-	bh=ix/HmgCwt3LlOUIIgp49Jv1ENXNdT1pCtpF3I2NB33E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ow9Q9esNgnUVWyXdAAqWzx8DvwydQv7OG6bZQcFTqu+WMZZeaR7TWz3ClepeNJJ4uLvgIbYwphtnnsOVephSnDp87bGiTxSmPcZeIsg3vZaZ7CrysGSHz0VrExC8rK7ep4F0+sL+Q7PDrkpeQSBqguiOX7He08kuhFQiB/VSnxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CK5fGqle; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=5WPT95+m; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1779709994; c=relaxed/simple;
+	bh=TFpHBK7Ap1RApDy2OLSxq/40oO9dcfcVOjmYkqiO33Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uG2h5V3OVeKmfMnZifw3FmXX5o5b8Nm/jT3RJIfozUcq7h+UTwV27iX998XfWnclzRU2/gMmofePhiUw3kUDz4ZeXCFs0sJAFUp/xl7xz/8TX4FiGOdqGyzZuSfBdHKss3jwnaYpWNU/Cn7sUuZpyJBlpzp3/rEFaQkOrbp586o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ApWGJ9bq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CK5fGqle";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="5WPT95+m"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1779709887; bh=QTRYxDaTolkVrcRshuXeyNq
-	jRyNHMRkA6+Q2W7POAHY=; b=CK5fGqlezE5hBMZIUWtJSGx/O1boUOCJRqqakTzYkdUV2EETqt
-	+rYOyVVObD82QT2j8w+gIVSeCyGtLeU20sTSPyORZ1lyhWEbssBcOhkULqsW6SuaN0kF81Us2CW
-	4cAvCeqIvt2m101Pkr8e7leH+BuyTKJM+N3y2O700JpSOB/w8g3bxPp6tEw02CWEMglSmIf9McQ
-	nuBSgiJYWhWtY+BNfwoVzHUpCM3nuzQ2cWMDjD1zZxmrhVgXFfSDyQLJfTp6aZobKpPv1pN7Bvh
-	0OE71N78G6zgqZbhwEWJAHPhIV9R5/5GrjIvLhjdvpFMVgPyEJRMZn1Es5x0q3s2VkQ==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=From:To:Subject:Date:Message-ID; t=1779709887; bh=QTRYxDaTolkVrcRshuXeyNq
-	jRyNHMRkA6+Q2W7POAHY=; b=5WPT95+mzSdHL3wnfFkkLMLc+K8Wag3ZC4AG7Hg1vXKThjwtlR
-	DQizkY/utig1L3mH1/N414RzukVcuKY8FtDg==;
-Message-ID: <3fe41d7b-0e65-4937-afda-b9a9e470e638@mainlining.org>
-Date: Mon, 25 May 2026 14:51:25 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ApWGJ9bq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EF931F000E9;
+	Mon, 25 May 2026 11:53:12 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779709993;
+	bh=mWvznx7l9H3iJo2BaTeyUswIZ9aOdQdjOXbRH7zVKTY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ApWGJ9bqkOROicxWo3fNHMMSpO3qD6+ie1gkqQJlM65mplfduxrll0rbYTFi/eJ6y
+	 BxJEJFHiKsd0m6sZzRy33XpsDXE6UxTR/8Kz+1wOKJaJHmaqr3brlBXkizicGCcrXm
+	 Q1/RP8LP2snMyRQUhL6cgiItlo1JUCr76A+bKAjRqEw24Qgviwx14rQ35sgGVv4Eb/
+	 KvDP77QfAyVVyt1HjubHNSqX8BMJbohJacTdqwfLEWR2or63GOXC7F4/XHA0lvp6gx
+	 Fkrg+qM8NsDkJbBngQYwWEhgPmruAliIuy1qwTJeBsVvrMlEg8S1UKQXU4ggF0MmhN
+	 CbdXh6v6ohRNg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 14/18] ASoC: rsnd: adg: Look up RZ/G3E clkin under
+ audio-clk{a,b,c,i}
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "John Madieu" <john.madieu.xa@bp.renesas.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org
+In-Reply-To: <20260525110230.4014435-15-john.madieu.xa@bp.renesas.com>
+References: <20260525110230.4014435-15-john.madieu.xa@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 11:53:12 +0000
+Message-Id: <20260525115313.4EF931F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/15] ASoC: dt-bindings: qcom: q6dsp: add internal
- mi2s support
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Richard Acayan <mailingradian@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Adam Skladowski <a39.skl@gmail.com>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20260501153128.8152-1-mailingradian@gmail.com>
- <20260501153128.8152-3-mailingradian@gmail.com>
- <20260503-devout-mamba-of-sorcery-d4ecb2@quoll> <afe8bQ3SIAu9rP1S@rdacayan>
- <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
-Content-Language: ru-RU, en-US
-From: Nickolay Goppen <setotau@mainlining.org>
-In-Reply-To: <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-14.05.2026 16:55, Krzysztof Kozlowski пишет:
-> On 03/05/2026 23:21, Richard Acayan wrote:
->> On Sun, May 03, 2026 at 02:11:31PM +0200, Krzysztof Kozlowski wrote:
->>> On Fri, May 01, 2026 at 11:31:15AM -0400, Richard Acayan wrote:
->>>> The internal MI2S ports are found on devices with the internal sound
->>>> card for Snapdragon 660. Add support for them.
->>>>
->>>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
->>>> ---
->>>>   .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  4 ++--
->>>>   include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 14 ++++++++++++++
->>>>   2 files changed, 16 insertions(+), 2 deletions(-)
->>> Same feedback as last time. DO NOT send next versions, untill you reply
->>> or address the feedback.
->> Ok, I believe this is about [1] and [2] with reference to the patches
->> already in v7.1-rc1 [3].
->>
->> My patches add INT0_MI2S_RX through INT6_MI2S_TX, which correspond to
->> q6afe port IDs 0x102e - 0x103b. Srini's patches add LPI_MI2S_RX_0
->> through LPI_MI2S_TX_4, but no q6afe port IDs.
->>
->> I asked if the LPI_MI2S ports have q6afe port IDs to check if we're
->> referring to the same ports, but apparently q6afe is too old to have it
->> [4]:
->>
->> 	> Is the LPI MI2S on Q6AFE? I don't see the AFE port ID.
->> 	I think the older SOCs did not have this I guess,
->>
->> Even if there's already an allocation of dt-bindings ports for LPI_MI2S,
->> they can't just be reused for INT_MI2S. There are allegedly INT5_MI2S
->> and INT6_MI2S (each RX and TX) but LPI_MI2S only counts to 4.
-> Then what is the difference between INT and LPI? People stuff here some
-> hardware names but this is SW ABI, so MI2S_RX_0 is only one. Just like
-> we have DISPLAY_PORT_RX_0, but no LPI_DISPLAY_PORT_RX_0 and
-> INT_DISPLAY_PORT_RX_0.
-Then do you mean that LPI_MI2S ports need to have port ID's assigned 
-like Richard done that for INT_MI2S? +Srini, Is this a good idea?
-> Best regards,
-> Krzysztof
+Pre-existing issues:
+- [High] Error handling in `rsnd_adg_null_clk_clean` blindly dereferences a=
+n `ERR_PTR`, leading to a guaranteed kernel panic on deferred probe.
+--
 
--- 
-Best regards,
-Nickolay
+commit cc9d8467b86b1274ca6e7e69addd9762d7c23073
+Author: John Madieu <john.madieu.xa@bp.renesas.com>
 
+ASoC: rsnd: adg: Look up RZ/G3E clkin under audio-clk{a,b,c,i}
+
+This patch updates the R-Car Sound ADG block driver to support the RZ/G3E
+sound binding. It introduces a new array mapping the master clock inputs
+to their DT naming conventions. The driver is also modified to dispatch to
+this new table when the RZ/G3E SoC is detected.
+
+> diff --git a/sound/soc/renesas/rcar/adg.c b/sound/soc/renesas/rcar/adg.c
+> index 5dce62287d200..483979c243198 100644
+> --- a/sound/soc/renesas/rcar/adg.c
+> +++ b/sound/soc/renesas/rcar/adg.c
+
+[ ... ]
+
+> @@ -574,6 +581,9 @@ static int rsnd_adg_get_clkin(struct rsnd_priv *priv)
+>  	if (rsnd_is_gen4(priv)) {
+>  		clkin_name =3D clkin_name_gen4;
+>  		clkin_size =3D ARRAY_SIZE(clkin_name_gen4);
+> +	} else if (rsnd_is_rzg3e(priv)) {
+> +		clkin_name =3D clkin_name_rzg3e;
+> +		clkin_size =3D ARRAY_SIZE(clkin_name_rzg3e);
+>  	}
+> =20
+>  	/*
+
+[Severity: High]
+This is a pre-existing issue, but does this addition make the error handling
+more likely to trigger a boot crash?
+
+If clk_register_fixed_rate() fails, it returns an ERR_PTR which is cached in
+adg->null_clk. The cleanup function rsnd_adg_null_clk_clean() checks
+if (adg->null_clk) (which evaluates to true for an ERR_PTR like -EEXIST or
+-ENOMEM) and blindly passes it to clk_unregister_fixed_rate().
+
+Inside the clock framework, __clk_get_hw() dereferences the invalid pointer,
+causing an immediate kernel panic.
+
+This reliably crashes the system on deferred probe: if rsnd_probe() returns=
+ an
+error after rsnd_adg_probe() successfully registers the rsnd_adg_null clock,
+the driver aborts without calling rsnd_adg_remove().
+
+This leaks the registered clock. On the next deferred probe attempt,
+clk_register_fixed_rate() fails with -EEXIST (returning ERR_PTR(-EEXIST)).
+The driver then jumps to the error path, passes this ERR_PTR to
+clk_unregister_fixed_rate(), and panics.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525110230.4014=
+435-1-john.madieu.xa@bp.renesas.com?part=3D14
