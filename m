@@ -1,130 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF7B5335555
-	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 11:34:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 568B71E3DDE;
+	Mon, 25 May 2026 11:37:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779708865; cv=none; b=RSUmKRMAsHUynNkbKK2Ed6BB00WkGWid8GvZnTYBc6dY3em01nYZKUhWWAt/x/VdLxvQ7buW2RKMGn0Akp+hthqHuqUKQcegyJ7R8WH5QUXsUUq7C8wN0G/hRBRnDF1/Hvn1zkGkydypK1Zy1jKdVpVJyocC9ReiJVbS0mMuF8E=
+	t=1779709044; cv=none; b=T8JupniVCD1SIH4x4+L61uzowUz/DQ46J4lCgqDEU7LTjFNMFD47EXivYU/qynjwpthAwXl8Fle8X8D1EnfqXbPZH4T5Spc75hQCEpLhgsDMMlxjlrsG+MeFJRTvGh4D1Zzf7uGvnBn5eAq+2ytp0nCRpGKUdnVLz4FlmPQOL1g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779708865; c=relaxed/simple;
-	bh=0uV/xlFQ3ELaCy8NvwhVKsYJkihCJOjrrbXB07qf37Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CLZ/amH/M3iVeULgRK1MAWJ5468ctmFYkF6fvuUUEfehyQ0XqM7ThLb9YuDFotE/Z9LzTuJifmlaQRPiDgsC5tT7D1cF/YOxmAnNsoP7Rj2pnv6D3GPiE292qVsrXJZWFImdirDRb3iNix1iLZr6t9PVhaURIC2uugxaL4qrLRM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SVadT4NP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779709044; c=relaxed/simple;
+	bh=smbfgPlCYiq0oxIfwbTZ6QHrcnegZjptbxn2JVpzSUo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DVlcDR6eVOB+tMUph9a7+zlzyOmZyrnlOZ20wOqWHDglztWCBAr7F/5idi3xzjZD/bJGfUC3ogkbdLEJpD3pJQcHaTP0trkpMv/7Fs3u4Jl317n6F/dycL/Je1wAu8XaOPaICHpONwEI7ikgo9PJ1VJjGTr4ZPEIR06jL8a1jIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W9sT/QL/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SVadT4NP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48C321F000E9;
-	Mon, 25 May 2026 11:34:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W9sT/QL/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BBD1F000E9;
+	Mon, 25 May 2026 11:37:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779708864;
-	bh=9wM66xIKiy9sIRGs0USzjiz818DI4nZ2JG1x8Hvty6M=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SVadT4NPY58paz9kpGi1UGQe5D0YCiZU42b9Ptn3V4MtrI8RrazmEvvBhFGF3FtlU
-	 ZrKNTBr9A8XeAA/JXavR0GpotTMAG48aEzO/T/hShtYBTKnJBDcCHLuc+wHRMXmhez
-	 C+qJusBgo82Dwm14hrP5W7YHlJRi9zxtmyL9pF4W8qlp3WZwVaRVzblNRj0+U8CN6H
-	 R868S/d5zaULjT1QPgGMreNuVSD7LVUYUImmbTZ8oetJ4/BWKlVQLHFGMKp+gdByjt
-	 jxzjtOSu3+wRD5Iq4IYtP6brMNjtPVFYJD2bI7tqEmV36csDbg3X5ysjKO4J4gGNr3
-	 +/ID+yv28EMBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 06/11] iio: adc: hx711: introduce hx711_chip_info
- structure
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Piyush Patle" <piyushpatle228@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260525105127.180156-7-piyushpatle228@gmail.com>
-References: <20260525105127.180156-7-piyushpatle228@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 25 May 2026 11:34:23 +0000
-Message-Id: <20260525113424.48C321F000E9@smtp.kernel.org>
+	s=k20260515; t=1779709043;
+	bh=kPbn/f1fuyb07lSfD/0s4GT4WdFio8z3401p2vvqFyE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=W9sT/QL/8R3LJxQuJnqULPdrM1nsn4daH1Hjg/KpYXguHjTqD086qv20sIL6mYl7R
+	 XvOBmsbGn+aUBuuD7YmCOeIBLyz0kPBoaqx8/W3s5VRN8Uno0zD9eWzhOy98TVtqHK
+	 uA5YsM6E1BhscTKFZqCHI7pnI0htTV0tK3UF7zLRCukCjMI3DNJkV8VmQGJ6ffOdN0
+	 iYCyXUqWwY3mrHjVk0kX4Rj4QjgL5c4kWpv5gUyVC+8qN/Ciuck/k/UyX3sdsCSWpw
+	 EdG7Pg1gWabsDFCJzyUMK6eYBu2NWAC8UFjZF4q/8uJvLDBi9zqnwL/M3hikizHgFZ
+	 G0HKwZWWlmGyg==
+Date: Mon, 25 May 2026 14:36:57 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Huacai Chen <chenhuacai@kernel.org>
+Cc: Jinjie Ruan <ruanjinjie@huawei.com>, corbet@lwn.net,
+	skhan@linuxfoundation.org, catalin.marinas@arm.com, will@kernel.org,
+	kernel@xen0n.name, maddy@linux.ibm.com, mpe@ellerman.id.au,
+	npiggin@gmail.com, chleroy@kernel.org, pjw@kernel.org,
+	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+	tglx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, hpa@zytor.com, robh@kernel.org,
+	saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, rdunlap@infradead.org, pmladek@suse.com,
+	feng.tang@linux.alibaba.com, dapeng1.mi@linux.intel.com,
+	kees@kernel.org, elver@google.com, kuba@kernel.org,
+	lirongqing@baidu.com, ebiggers@kernel.org, paulmck@kernel.org,
+	thuth@redhat.com, ardb@kernel.org, masahiroy@kernel.org,
+	mark.rutland@arm.com, maz@kernel.org, james.morse@arm.com,
+	leitao@debian.org, sourabhjain@linux.ibm.com, yeoreum.yun@arm.com,
+	coxu@redhat.com, jbohac@suse.cz, ryan.roberts@arm.com,
+	cfsworks@gmail.com, tangyouling@kylinos.cn, ritesh.list@gmail.com,
+	songshuaishuai@tinylab.org, junhui.liu@pigmoral.tech,
+	vishal.moola@gmail.com, kas@kernel.org, debug@rivosinc.com,
+	namcao@linutronix.de, liaoyuanhong@vivo.com,
+	fuqiang.wang@easystack.cn, seanjc@google.com, guoren@kernel.org,
+	chenjiahao16@huawei.com, hbathini@linux.ibm.com, bgwin@google.com,
+	takahiro.akashi@linaro.org, lizhengyu3@huawei.com, x86@kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org
+Subject: Re: [PATCH v14 00/17] arm64/riscv: Add support for crashkernel CMA
+ reservation
+Message-ID: <ahQ0WRiMsB011tym@kernel.org>
+References: <20260525084932.934910-1-ruanjinjie@huawei.com>
+ <CAAhV-H4NA7vgyxKnK+N_3C6pWBnwXc2URUyLh_h1m-MO=MnsGQ@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAAhV-H4NA7vgyxKnK+N_3C6pWBnwXc2URUyLh_h1m-MO=MnsGQ@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Probing fails unconditionally with `-ENODEV` for devices bound b=
-y platform name instead of Device Tree or ACPI.
-- [Low] Use of undeclared macro `__counted_by_ptr` causes an immediate comp=
-ilation error.
---
+Hi Huacai,
 
-commit 2560eb8cf3b905048ac157fc1d9dd7c2068b2f2d
-Author: Piyush Patle <piyushpatle228@gmail.com>
+On Mon, May 25, 2026 at 06:14:52PM +0800, Huacai Chen wrote:
+> On Mon, May 25, 2026 at 4:50 PM Jinjie Ruan <ruanjinjie@huawei.com> wrote:
+> >
+> > Jinjie Ruan (16):
+> >   riscv: kexec_file: Fix crashk_low_res not exclude bug
+> >   powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
+> >   arm64: kexec: Fix image->elf_headers memory leak during retry loop
+> >   x86/kexec: Fix potential buffer overflow in prepare_elf_headers()
+> >   arm64: kexec_file: Fix potential buffer overflow in
+> >     prepare_elf_headers()
+> >   riscv: kexec_file: Fix potential buffer overflow in
+> >     prepare_elf_headers()
+> >   LoongArch: kexec: Fix potential buffer overflow in
+> >     prepare_elf_headers()
+> >   crash: Add crash_prepare_headers() to exclude crash kernel memory
+> >   arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
+> >   x86/kexec: Use crash_prepare_headers() helper to simplify code
+> >   riscv: kexec_file: Use crash_prepare_headers() helper to simplify code
+> >   LoongArch: kexec: Use crash_prepare_headers() helper to simplify code
+> >   crash: Use crash_exclude_core_ranges() on powerpc
+> >   arm64: kexec: Add support for crashkernel CMA reservation
+> >   riscv: kexec: Add support for crashkernel CMA reservation
+> >   arm64/crash: Add crash hotplug support
+> I have some bikesheedings about the subjects. Can we unify the prefix formats?
+> x86/kexec, arm64: kexec_file, riscv: kexec_file, LoongArch: kexec .....
 
-iio: adc: hx711: introduce hx711_chip_info structure
+It might look weird in the series, but powerpc and x86 use '/' and arm64 and
+riscv use ':' so in the logs in arch/ this would be actually fine.
 
-This patch introduces a per-variant static configuration structure for the=
-=20
-hx711 driver. It populates IIO device fields from this structure at probe t=
-ime
-to prepare for supporting additional hardware variants.
+With the only exception of arm64/crash that should have been arm64: crash:
+ 
+> Huacai
 
-> diff --git a/drivers/iio/adc/hx711.c b/drivers/iio/adc/hx711.c
-> index 823fd74f9cf95..062d6860da7d6 100644
-> --- a/drivers/iio/adc/hx711.c
-> +++ b/drivers/iio/adc/hx711.c
-[ ... ]
-> @@ -74,6 +76,20 @@ static int hx711_get_scale_to_gain(const int *gain_sca=
-le, int scale)
->  	return -EINVAL;
->  }
-> =20
-> +/**
-> + * struct hx711_chip_info - per-variant static configuration
-> + * @name: IIO device name
-> + * @channels: channel specification array
-> + * @num_channels: number of entries in @channels
-> + * @iio_info: IIO info ops for this variant
-> + */
-> +struct hx711_chip_info {
-> +	const char			*name;
-> +	const struct iio_chan_spec	*channels __counted_by_ptr(num_channels);
-
-[Severity: Low]
-Does __counted_by_ptr exist in the kernel headers?
-
-The kernel supports __counted_by for flexible array members, but it looks
-like __counted_by_ptr is undefined. Using an undeclared macro here might
-cause an immediate compilation error.
-
-> +	unsigned int			num_channels;
-> +	const struct iio_info		*iio_info;
-> +};
-> +
-[ ... ]
-> @@ -473,6 +498,12 @@ static int hx711_probe(struct platform_device *pdev)
-> =20
->  	mutex_init(&hx711_data->lock);
-> =20
-> +	chip_info =3D device_get_match_data(dev);
-> +	if (!chip_info)
-> +		return dev_err_probe(dev, -ENODEV, "missing driver data\n");
-
-[Severity: Medium]
-Will this unconditionally fail for devices bound by platform name instead
-of Device Tree or ACPI?
-
-For traditional platform devices instantiated manually,
-device_get_match_data() returns NULL because the device lacks a firmware
-node and the driver lacks an id_table. platform_match() will fall back to
-name matching, but this new probe check will now reject the bind with
--ENODEV.
-
-Would it be better to fall back to the default hx711_chip configuration
-or provide an id_table to prevent breaking backward compatibility for
-non-DT/ACPI users?
-
-> +
-> +	hx711_data->chip_info =3D chip_info;
-> +
->  	/*
->  	 * PD_SCK stands for power down and serial clock input of HX711
->  	 * in the driver it is an output
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260525105127.1801=
-56-1-piyushpatle228@gmail.com?part=3D6
+-- 
+Sincerely yours,
+Mike.
