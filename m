@@ -1,836 +1,250 @@
-Received: from out198-27.us.a.mail.aliyun.com (out198-27.us.a.mail.aliyun.com [47.90.198.27])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7830E12B143;
-	Mon, 25 May 2026 01:11:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.27
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ABB2249E5
+	for <devicetree@vger.kernel.org>; Mon, 25 May 2026 01:27:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779671493; cv=none; b=lU0vS/5TMs8GBXUw2b0/CdkJN8sSppse96c4GOw8VlKNYMKst4a7boHPeb36Lb3JftEJWqvoNn30RymPottaf7IfIg8a4ov54PXBnTs1lC408Rs7tw53lMHmifTuAMtxFhRBbPfm86JLoWqrBA554RpXCpW7AdQ0Oe2v5Q+EpPw=
+	t=1779672464; cv=none; b=iKiQ8IzuTCmvBC5XF9NITB+sNmK1rXnPAjiOp0b1zjPpK0x1ECtnFnCnz0HfiHg++QKjbO28FWAN8pq3rS45Vibo95CnWIVd5MboCYVZmYqRXZ4m/GOutqFNeJf9MmhW1IyFnwEJzAs0RQ0jJHHZKUOaQ9OkpWFE7DcYPQfxreo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779671493; c=relaxed/simple;
-	bh=979Jq2S0FG16wUG83avQMezd3v0+tXol5QLHCqvd4Jg=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=QCtwZbA89ItvaM0KviLf+6NrR+AQvwmEHe4m3yTEW+FaAayFn7AUyLwEO8mJQOSGqoBzMaqIHNzNHcX3yvqOqib9Nb0iTkO80bvgyXYNX9liEODlPNMgmYph7qDhSVZSndaE3QmjiVj4Zl7MC+G2R5Wzf9BGTQCxQ2hucUXivFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=sJx867N7; arc=none smtp.client-ip=47.90.198.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1779672464; c=relaxed/simple;
+	bh=iUhlET6ygopBuCLy2tkk+WarYv1BE3PWgs8sWPkYL9E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X5QyO/+71c2Y5deEfg+ykGmd35ejO+bjftEEPXzfJQK7iQcEUPcNK9gsc4Qu9lq8zwv4l/JtEYQ/cVPMcbqwlqZncSoyQmqhAhV0DvDw1grx+WUGWy0XDc4JSCWoiKDcj2t8NerShlPYHexCC/vsUxLnEZjQKtAov9q8Cxmawkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M9ZVjL1Q; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="sJx867N7"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1779671473; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=2aJDggx9y6t99G0LsdaSuYcvveXmKfdH4dU9nhj9a08=;
-	b=sJx867N7//sH90yga5rPz2WAviCxxWYf0Y79fLIpTTVX7uIhwV7op5ezoYWMyifRcPhubicVHxWUpAtYFFV4cIme7RSUB/0ldv0qm7W/UyTM66rd4fDx4Q5qSOVjWbAdJEYplzr0U7A3mesdsOjwyknOvZB8xn/IQbgEIzm/tskHsw1rbDxzcdkF7wanaMuoVfUAwnKAmjS3OZIoE3Or7BVQxkDeCR0r/e32MWrGpZus/epfM2Qd621nwFk8v1CFSMp57SIS24pVh7hDE5guJJ/nTdDvg5GHs/sTi8yGR59YzO5A8C1UmT4SpS6bu/yPcQsqC9TLvdxcvK4X1RX2fA==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_alarm|0.0174432-0.000376842-0.98218;FP=18327748716022818547|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033045213054;MF=syyang@lontium.com;NM=1;PH=DS;RN=23;RT=23;SR=0;TI=SMTPD_---.hfqF6b1_1779671151;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hfqF6b1_1779671151 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 25 May 2026 09:05:52 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	qdchen@lontium.com,
-	llzhang@lontium.com,
-	Sunyun Yang <syyang@lontium.com>
-Subject: [PATCH v12 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-Date: Mon, 25 May 2026 09:05:44 +0800
-Message-Id: <20260525010545.9470-3-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260525010545.9470-1-syyang@lontium.com>
-References: <20260525010545.9470-1-syyang@lontium.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M9ZVjL1Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7007E1F000E9;
+	Mon, 25 May 2026 01:27:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779672463;
+	bh=0GzpiMGfemvO6BYqJnS9dgR7JKw8giv8E6pKgmBEIjo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=M9ZVjL1QIgWJ4rpJ0+stR7i4RJWVYIXZga5k3mVynBeWEE3/qFN4MaP0IEcUPglrY
+	 RJ88qzveRxMyDuufl+dDq8kNqImmOb6L2yL5p7uOQx47CqM4o2+RHBt2q+CEmrhcBZ
+	 G0qcBD0okIjbszQP+OC2prGpP+I4r68W8wtnP8Iw+Bn7F91Zq98VrgzNFWSt+blaIx
+	 xppSU1ObVyfanwIhkKAQltRSwOiAtVASTrqlLcrLLc1bjdJ9QJko3ozCRr4eg+bvNy
+	 u7pVF7WS6CZ6gNUpWqjpV1cU1GI7pfbDOuE5HmZK5ZwbUbKoMTDNuRVNCFNMg001rS
+	 0pVDSw66Tak6w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v5 15/18] riscv_cbqri: resctrl: Add mbm_total_bytes
+ bandwidth monitoring
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-15-78d3a7ba9dbe@kernel.org>
+References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-15-78d3a7ba9dbe@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 25 May 2026 01:27:42 +0000
+Message-Id: <20260525012742.7007E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Sunyun Yang <syyang@lontium.com>
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
 
-Add support for the Lontium LT7911EXC bridge chip, which converts
-eDP input to MIPI DSI output using an internal firmware-controlled
-pipeline.
+New issues:
+- [Medium] Domain bringup failure and redundant allocations due to bypassed=
+ topology validation.
+- [Medium] System RMID capacity artificially crippled by unused Bandwidth C=
+ontrollers.
 
-The driver provides:
-- DRM bridge integration for eDP-to-DSI routing
-- MIPI DSI host interface for downstream panel attachment
-- Firmware upgrade mechanism over I2C (erase/program/verify)
-- GPIO-based reset and regulator management
+Pre-existing issues:
+- [Critical] Use-after-free (UAF) execution context upon cpuhp read lock re=
+lease.
+- [High] Out-of-bounds RMID allocations lead to -ERANGE read failures and s=
+tale monitoring state.
+--
 
-Display timing and MIPI DCS packet generation are handled by the chip
-firmware and are not configured by the driver.
+commit 1063299534eebd0856c698cf6583a1b91c07b030
+Author: Drew Fustini <fustini@kernel.org>
 
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
----
- drivers/gpu/drm/bridge/Kconfig             |  16 +
- drivers/gpu/drm/bridge/Makefile            |   1 +
- drivers/gpu/drm/bridge/lontium-lt7911exc.c | 700 +++++++++++++++++++++
- 3 files changed, 717 insertions(+)
- create mode 100644 drivers/gpu/drm/bridge/lontium-lt7911exc.c
+riscv_cbqri: resctrl: Add mbm_total_bytes bandwidth monitoring
 
-diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-index c3209b0f4678..013e431e8871 100644
---- a/drivers/gpu/drm/bridge/Kconfig
-+++ b/drivers/gpu/drm/bridge/Kconfig
-@@ -132,6 +132,22 @@ config DRM_ITE_IT6505
- 	help
- 	  ITE IT6505 DisplayPort bridge chip driver.
- 
-+config DRM_LONTIUM_LT7911EXC
-+	tristate "Lontium eDP/MIPI DSI bridge"
-+	depends on OF
-+	depends on I2C
-+	select CRC32
-+	select DRM_PANEL
-+	select DRM_MIPI_DSI
-+	select DRM_KMS_HELPER
-+	select FW_LOADER
-+	select REGMAP_I2C
-+	help
-+	  DRM driver for the Lontium LT7911EXC bridge
-+	  chip.The LT7911EXC converts eDP input to MIPI
-+	  DSI output.
-+	  Please say Y if you have such hardware.
-+
- config DRM_LONTIUM_LT8912B
- 	tristate "Lontium LT8912B DSI/HDMI bridge"
- 	depends on OF
-diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-index beab5b695a6e..70ddca75dd3a 100644
---- a/drivers/gpu/drm/bridge/Makefile
-+++ b/drivers/gpu/drm/bridge/Makefile
-@@ -13,6 +13,7 @@ obj-$(CONFIG_DRM_I2C_NXP_TDA998X) += tda998x.o
- obj-$(CONFIG_DRM_INNO_HDMI) += inno-hdmi.o
- obj-$(CONFIG_DRM_ITE_IT6263) += ite-it6263.o
- obj-$(CONFIG_DRM_ITE_IT6505) += ite-it6505.o
-+obj-$(CONFIG_DRM_LONTIUM_LT7911EXC) += lontium-lt7911exc.o
- obj-$(CONFIG_DRM_LONTIUM_LT8912B) += lontium-lt8912b.o
- obj-$(CONFIG_DRM_LONTIUM_LT9211) += lontium-lt9211.o
- obj-$(CONFIG_DRM_LONTIUM_LT9611) += lontium-lt9611.o
-diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-new file mode 100644
-index 000000000000..de6953ed1e3b
---- /dev/null
-+++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
-@@ -0,0 +1,700 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Lontium Semiconductor, Inc.
-+ */
-+
-+#include <linux/crc32.h>
-+#include <linux/delay.h>
-+#include <linux/firmware.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/module.h>
-+#include <linux/mutex.h>
-+#include <linux/of_graph.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
-+#include <linux/slab.h>
-+
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_bridge.h>
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_of.h>
-+#include <drm/drm_probe_helper.h>
-+#include <video/mipi_display.h>
-+
-+#define FW_SIZE (64 * 1024)
-+#define LT_PAGE_SIZE 32
-+#define FW_FILE  "Lontium/lt7911exc_fw.bin"
-+#define LT7911EXC_PAGE_CONTROL 0xff
-+
-+struct lt7911exc_dsi_output {
-+	struct mipi_dsi_device *dev;
-+	struct drm_panel *panel;
-+	struct drm_bridge *bridge;
-+};
-+
-+struct lt7911exc {
-+	struct device *dev;
-+	struct i2c_client *client;
-+	struct drm_bridge bridge;
-+	struct work_struct work;
-+	struct mipi_dsi_host dsi_host;
-+	struct lt7911exc_dsi_output output;
-+	struct regmap *regmap;
-+	/* Fast lock: guards short register r/w and status checks */
-+	struct mutex ocm_lock;
-+	/* Long lock: serializes firmware upgrade process to prevent DRM interference */
-+	struct mutex upgrade_lock;
-+	struct gpio_desc *reset_gpio;
-+	int fw_version;
-+	bool upgrade;
-+	bool removed;
-+};
-+
-+static const struct regmap_range_cfg lt7911exc_ranges[] = {
-+	{
-+		.name = "register_range",
-+		.range_min =  0,
-+		.range_max = 0xe8ff,
-+		.selector_reg = LT7911EXC_PAGE_CONTROL,
-+		.selector_mask = 0xff,
-+		.selector_shift = 0,
-+		.window_start = 0,
-+		.window_len = 0x100,
-+	},
-+};
-+
-+static const struct regmap_config lt7911exc_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = 0xe8ff,
-+	.ranges = lt7911exc_ranges,
-+	.num_ranges = ARRAY_SIZE(lt7911exc_ranges),
-+};
-+
-+static u32 cal_crc32_custom(const u8 *data, u64 length)
-+{
-+	u32 crc = 0xffffffff;
-+	u8 buf[4];
-+	u64 i;
-+
-+	if (!length || (length & 3))
-+		return 0;
-+
-+	for (i = 0; i < length; i += 4) {
-+		buf[0] = data[i + 3];
-+		buf[1] = data[i + 2];
-+		buf[2] = data[i + 1];
-+		buf[3] = data[i + 0];
-+		crc = crc32_be(crc, buf, 4);
-+	}
-+
-+	return crc;
-+}
-+
-+static inline struct lt7911exc *bridge_to_lt7911exc(struct drm_bridge *bridge)
-+{
-+	return container_of(bridge, struct lt7911exc, bridge);
-+}
-+
-+static inline struct lt7911exc *dsi_host_to_lt7911exc(struct mipi_dsi_host *host)
-+{
-+	return container_of(host, struct lt7911exc, dsi_host);
-+}
-+
-+static void lt7911exc_reset(struct lt7911exc *lt7911exc)
-+{
-+	/* Assert reset pin: logical 1 -> physical state low (Reset Active) */
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+	msleep(20);
-+
-+	/* Deassert reset pin: logical 0 -> physical state high (Run state) */
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 0);
-+	msleep(400);
-+
-+	dev_dbg(lt7911exc->dev, "lt7911exc physical hardware reset sequence completed.\n");
-+}
-+
-+static int lt7911exc_hw_mcu_halt(struct lt7911exc *lt7911exc)
-+{
-+	return regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+}
-+
-+static int lt7911exc_hw_mcu_run(struct lt7911exc *lt7911exc)
-+{
-+	return regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+}
-+
-+static int lt7911exc_regulator_enable(struct lt7911exc *lt7911exc)
-+{
-+	int ret;
-+
-+	ret = devm_regulator_get_enable(lt7911exc->dev, "vcc");
-+	if (ret < 0)
-+		return dev_err_probe(lt7911exc->dev, ret, "failed to enable vcc regulator\n");
-+
-+	usleep_range(5000, 10000);
-+
-+	ret = devm_regulator_get_enable(lt7911exc->dev, "vdd");
-+	if (ret < 0)
-+		return dev_err_probe(lt7911exc->dev, ret, "failed to enable vdd regulator\n");
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
-+{
-+	u8 buf[3];
-+	int ret;
-+
-+	/* no need to halt MCU for this register access */
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0xe081, buf, ARRAY_SIZE(buf));
-+	if (ret)
-+		return ret;
-+
-+	return (buf[0] << 16) | (buf[1] << 8) | buf[2];
-+}
-+
-+static int lt7911exc_block_erase(struct lt7911exc *lt7911exc)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	const u32 addr = 0x00;
-+	int ret;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe054, 0x01),
-+		REG_SEQ0(0xe055, 0x06),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe051, 0x00),
-+		REG_SEQ0(0xe054, 0x05),
-+		REG_SEQ0(0xe055, 0xd8),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+		REG_SEQ0(0xe051, 0x01),
-+		REG_SEQ0(0xe050, 0x00),
-+	};
-+
-+	ret = regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+	if (ret)
-+		return ret;
-+
-+	msleep(200);
-+	dev_dbg(dev, "erase flash done.\n");
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_prog_init(struct lt7911exc *lt7911exc, u64 addr)
-+{
-+	int ret;
-+
-+	const struct reg_sequence seq_write[] = {
-+		REG_SEQ0(0xe0ee, 0x01),
-+		REG_SEQ0(0xe05f, 0x01),
-+		REG_SEQ0(0xe05a, (addr >> 16) & 0xff),
-+		REG_SEQ0(0xe05b, (addr >> 8) & 0xff),
-+		REG_SEQ0(0xe05c, addr & 0xff),
-+	};
-+
-+	ret = regmap_multi_reg_write(lt7911exc->regmap, seq_write, ARRAY_SIZE(seq_write));
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_data(struct lt7911exc *lt7911exc, const struct firmware *fw, u64 addr)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	int ret;
-+	int page = 0, num = 0, page_len = 0;
-+	u64 size, offset;
-+	const u8 *data;
-+
-+	data = fw->data;
-+	size = fw->size;
-+	page = (size + LT_PAGE_SIZE - 1) / LT_PAGE_SIZE;
-+	if (page * LT_PAGE_SIZE > FW_SIZE) {
-+		dev_err(dev, "firmware size out of range\n");
-+		return -EINVAL;
-+	}
-+
-+	dev_dbg(dev, "%u pages, total size %llu byte\n", page, size);
-+
-+	for (num = 0; num < page; num++) {
-+		offset = num * LT_PAGE_SIZE;
-+		page_len = (offset + LT_PAGE_SIZE <= size) ? LT_PAGE_SIZE : (size - offset);
-+		ret = lt7911exc_prog_init(lt7911exc, addr);
-+		if (ret)
-+			return ret;
-+
-+		ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, &data[offset], page_len);
-+		if (ret) {
-+			dev_err(dev, "write error at page %d\n", num);
-+			return ret;
-+		}
-+
-+		if (page_len < LT_PAGE_SIZE) {
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+			regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+			//hardware requires delay
-+			usleep_range(1000, 2000);
-+		}
-+
-+		regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+		addr += LT_PAGE_SIZE;
-+	}
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_write_crc(struct lt7911exc *lt7911exc, u32 crc32, u64 addr)
-+{
-+	u8 crc[4];
-+	int ret;
-+
-+	crc[0] = crc32 & 0xff;
-+	crc[1] = (crc32 >> 8) & 0xff;
-+	crc[2] = (crc32 >> 16) & 0xff;
-+	crc[3] = (crc32 >> 24) & 0xff;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe05a, (addr >> 16) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05b, (addr >> 8) & 0xff);
-+	regmap_write(lt7911exc->regmap, 0xe05c, addr & 0xff);
-+
-+	ret = regmap_raw_write(lt7911exc->regmap, 0xe05d, crc, 4);
-+	if (ret)
-+		return ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x05);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x01);
-+	usleep_range(1000, 2000);
-+	regmap_write(lt7911exc->regmap, 0xe05f, 0x00);
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc, u32 crc32)
-+{
-+	struct device *dev = lt7911exc->dev;
-+	u32 read_hw_crc = 0;
-+	u8 crc_tmp[4];
-+	int ret;
-+
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x01);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x60);
-+	regmap_write(lt7911exc->regmap, 0xe07b, 0x40);
-+	msleep(150);
-+	ret = regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, ARRAY_SIZE(crc_tmp));
-+	if (ret) {
-+		dev_err(lt7911exc->dev, "Failed to read CRC: %d\n", ret);
-+		return ret;
-+	}
-+	regmap_write(lt7911exc->regmap, 0xe0ee, 0x00);
-+
-+	read_hw_crc = ((u32)crc_tmp[0] << 24) | ((u32)crc_tmp[1] << 16) |
-+				((u32)crc_tmp[2] << 8) | ((u32)crc_tmp[3]);
-+
-+	if (read_hw_crc != crc32) {
-+		dev_err(dev, "lt7911exc firmware upgrade failed, expected CRC=0x%08x, read CRC=0x%08x\n",
-+			crc32, read_hw_crc);
-+		return -EIO;
-+	}
-+
-+	dev_dbg(dev, "lt7911exc firmware upgrade success, CRC=0x%08x\n", read_hw_crc);
-+	return 0;
-+}
-+
-+static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
-+{
-+	struct lt7911exc *lt7911exc = container_of(work, struct lt7911exc, work);
-+	struct device *dev = lt7911exc->dev;
-+	const struct firmware *fw;
-+	u8 *buffer;
-+	size_t total_size = FW_SIZE - 4;
-+	u32 crc32;
-+	int ret;
-+
-+	ret = request_firmware(&fw, FW_FILE, dev);
-+	if (ret) {
-+		dev_err(dev, "failed to load '%s'\n", FW_FILE);
-+		goto out_clear_status;
-+	}
-+
-+	if (fw->size > total_size) {
-+		dev_err(dev, "firmware too large (%zu > %zu)\n", fw->size, total_size);
-+		goto out_release_fw;
-+	}
-+
-+	buffer = kvmalloc(total_size, GFP_KERNEL);
-+	if (!buffer) {
-+		ret = -ENOMEM;
-+		goto out_release_fw;
-+	}
-+
-+	memset(buffer, 0xff, total_size);
-+	memcpy(buffer, fw->data, fw->size);
-+	crc32 = cal_crc32_custom(buffer, total_size);
-+
-+	kvfree(buffer);
-+
-+	mutex_lock(&lt7911exc->upgrade_lock);
-+
-+	lt7911exc_reset(lt7911exc);
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	lt7911exc_hw_mcu_halt(lt7911exc);
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+	ret = lt7911exc_block_erase(lt7911exc);
-+	if (ret) {
-+		dev_err(dev, "failed to block erase.\n");
-+		goto out_unlock;
-+	}
-+
-+	ret = lt7911exc_write_data(lt7911exc, fw, 0);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware data\n");
-+		goto out_unlock;
-+	}
-+
-+	ret = lt7911exc_write_crc(lt7911exc, crc32, FW_SIZE - 4);
-+	if (ret < 0) {
-+		dev_err(dev, "failed to write firmware crc\n");
-+		goto out_unlock;
-+	}
-+
-+	lt7911exc_reset(lt7911exc);
-+
-+	ret = lt7911exc_upgrade_result(lt7911exc, crc32);
-+	if (ret)
-+		dev_err(dev, "firmware verification failed\n");
-+
-+out_unlock:
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	lt7911exc_hw_mcu_run(lt7911exc);
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+	mutex_unlock(&lt7911exc->upgrade_lock);
-+	/* Notify DRM framework that hardware state changed/needs a modeset */
-+	if (lt7911exc->bridge.dev)
-+		drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
-+
-+out_release_fw:
-+	release_firmware(fw);
-+
-+out_clear_status:
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	/* Only clear status if the module is not in the process of removal */
-+	if (!lt7911exc->removed)
-+		lt7911exc->upgrade = false;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+}
-+
-+static void lt7911exc_atomic_pre_enable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	guard(mutex)(&lt7911exc->ocm_lock);
-+
-+	//enable mipi stream
-+	if (!lt7911exc->upgrade)
-+		regmap_write(lt7911exc->regmap, 0xe0b0, 0x01);
-+}
-+
-+static void lt7911exc_atomic_post_disable(struct drm_bridge *bridge, struct drm_atomic_state *state)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	guard(mutex)(&lt7911exc->ocm_lock);
-+
-+	//disable mipi stream
-+	if (!lt7911exc->upgrade)
-+		regmap_write(lt7911exc->regmap, 0xe0b0, 0x00);
-+}
-+
-+static int lt7911exc_bridge_attach(struct drm_bridge *bridge,
-+				   struct drm_encoder *encoder,
-+				   enum drm_bridge_attach_flags flags)
-+{
-+	struct lt7911exc *lt7911exc = bridge_to_lt7911exc(bridge);
-+
-+	if (!lt7911exc->output.bridge) {
-+		dev_warn(lt7911exc->dev, "Next bridge/panel not attached yet, deferring\n");
-+		return -EPROBE_DEFER;
-+	}
-+
-+	return drm_bridge_attach(encoder, lt7911exc->output.bridge, bridge, flags);
-+}
-+
-+static const struct drm_bridge_funcs lt7911exc_bridge_funcs = {
-+	.attach = lt7911exc_bridge_attach,
-+	.atomic_pre_enable = lt7911exc_atomic_pre_enable,
-+	.atomic_post_disable = lt7911exc_atomic_post_disable,
-+	.atomic_reset = drm_atomic_helper_bridge_reset,
-+	.atomic_duplicate_state = drm_atomic_helper_bridge_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_bridge_destroy_state,
-+};
-+
-+static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct mipi_dsi_device *dev)
-+{
-+	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
-+	struct drm_bridge *bridge;
-+	struct drm_panel *panel;
-+	int ret;
-+
-+	if (lt7911exc->output.dev)
-+		return -EBUSY;
-+
-+	ret = drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel, &bridge);
-+	if (ret)
-+		return ret;
-+
-+	if (panel) {
-+		bridge = drm_panel_bridge_add_typed(panel, DRM_MODE_CONNECTOR_DSI);
-+		if (IS_ERR(bridge))
-+			return PTR_ERR(bridge);
-+	}
-+	lt7911exc->output.dev = dev;
-+	lt7911exc->output.bridge = bridge;
-+	lt7911exc->output.panel = panel;
-+
-+	return 0;
-+}
-+
-+static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct mipi_dsi_device *dev)
-+{
-+	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
-+
-+	if (!lt7911exc->output.dev)
-+		return 0;
-+
-+	if (lt7911exc->output.panel && lt7911exc->output.bridge) {
-+		drm_panel_bridge_remove(lt7911exc->output.bridge);
-+		lt7911exc->output.bridge = NULL;
-+		lt7911exc->output.panel = NULL;
-+	}
-+
-+	lt7911exc->output.dev = NULL;
-+
-+	return 0;
-+}
-+
-+/*
-+ * The internal firmware controls the panel initialization
-+ * sequence and handles all MIPI DSI command transmission.
-+ */
-+static ssize_t lt7911exc_dsi_host_transfer(struct mipi_dsi_host *host,
-+					   const struct mipi_dsi_msg *msg)
-+{
-+	struct lt7911exc *lt7911exc = dsi_host_to_lt7911exc(host);
-+
-+	if (msg->rx_len) {
-+		dev_warn(lt7911exc->dev, "MIPI DSI read is not supported\n");
-+		return -EOPNOTSUPP;
-+	}
-+
-+	switch (msg->type) {
-+	case MIPI_DSI_DCS_SHORT_WRITE:
-+	case MIPI_DSI_DCS_SHORT_WRITE_PARAM:
-+	case MIPI_DSI_DCS_LONG_WRITE:
-+	case MIPI_DSI_GENERIC_SHORT_WRITE_0_PARAM:
-+	case MIPI_DSI_GENERIC_SHORT_WRITE_1_PARAM:
-+	case MIPI_DSI_GENERIC_SHORT_WRITE_2_PARAM:
-+	case MIPI_DSI_GENERIC_LONG_WRITE:
-+	break;
-+	default:
-+	return -EOPNOTSUPP;
-+	}
-+
-+	guard(mutex)(&lt7911exc->ocm_lock);
-+
-+	if (lt7911exc->upgrade)
-+		return -EBUSY;
-+
-+	return msg->tx_len;
-+}
-+
-+static const struct mipi_dsi_host_ops lt7911exc_dsi_host_ops = {
-+	.attach = lt7911exc_dsi_host_attach,
-+	.detach = lt7911exc_dsi_host_detach,
-+	.transfer = lt7911exc_dsi_host_transfer,
-+};
-+
-+static ssize_t lt7911exc_firmware_store(struct device *dev, struct device_attribute *attr,
-+					const char *buf, size_t len)
-+{
-+	struct lt7911exc *lt7911exc = dev_get_drvdata(dev);
-+
-+	if (!mutex_trylock(&lt7911exc->upgrade_lock))
-+		return -EBUSY;
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+
-+	if (lt7911exc->upgrade || lt7911exc->removed) {
-+		mutex_unlock(&lt7911exc->ocm_lock);
-+		mutex_unlock(&lt7911exc->upgrade_lock);
-+		return -EBUSY;
-+	}
-+
-+	lt7911exc->upgrade = true;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+	mutex_unlock(&lt7911exc->upgrade_lock);
-+
-+	schedule_work(&lt7911exc->work);
-+
-+	return len;
-+}
-+
-+static ssize_t lt7911exc_firmware_show(struct device *dev, struct device_attribute *attr, char *buf)
-+{
-+	struct lt7911exc *lt7911exc = dev_get_drvdata(dev);
-+	int version;
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	version = lt7911exc->fw_version;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+	return sysfs_emit(buf, "0x%04x\n", version);
-+}
-+
-+static DEVICE_ATTR_RW(lt7911exc_firmware);
-+
-+static struct attribute *lt7911exc_attrs[] = {
-+	&dev_attr_lt7911exc_firmware.attr,
-+	NULL,
-+};
-+
-+static const struct attribute_group lt7911exc_attr_group = {
-+	.attrs = lt7911exc_attrs,
-+};
-+
-+static const struct attribute_group *lt7911exc_attr_groups[] = {
-+	&lt7911exc_attr_group,
-+	NULL,
-+};
-+
-+static int lt7911exc_probe(struct i2c_client *client)
-+{
-+	struct lt7911exc *lt7911exc;
-+	struct device *dev = &client->dev;
-+	struct device_node *np = dev->of_node;
-+	int ret;
-+
-+	if (!np)
-+		return -ENODEV;
-+
-+	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C))
-+		return dev_err_probe(dev, -ENODEV, "device doesn't support I2C\n");
-+
-+	lt7911exc = devm_drm_bridge_alloc(dev, struct lt7911exc, bridge, &lt7911exc_bridge_funcs);
-+	if (IS_ERR(lt7911exc))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc), "drm bridge alloc failed.\n");
-+
-+	dev_set_drvdata(dev, lt7911exc);
-+
-+	lt7911exc->client = client;
-+	lt7911exc->dev = dev;
-+	lt7911exc->upgrade = false;
-+	lt7911exc->removed = false;
-+
-+	ret = devm_mutex_init(dev, &lt7911exc->ocm_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init mutex\n");
-+
-+	ret = devm_mutex_init(dev, &lt7911exc->upgrade_lock);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to init upgrade_lock\n");
-+
-+	lt7911exc->regmap = devm_regmap_init_i2c(client, &lt7911exc_regmap_config);
-+	if (IS_ERR(lt7911exc->regmap))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->regmap), "regmap i2c init failed\n");
-+
-+	lt7911exc->reset_gpio = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(lt7911exc->reset_gpio))
-+		return dev_err_probe(dev, PTR_ERR(lt7911exc->reset_gpio),
-+				     "failed to acquire reset gpio\n");
-+
-+	ret = lt7911exc_regulator_enable(lt7911exc);
-+	if (ret)
-+		return ret;
-+
-+	lt7911exc_reset(lt7911exc);
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+
-+	lt7911exc->fw_version = lt7911exc_read_version(lt7911exc);
-+
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+	if (lt7911exc->fw_version < 0)
-+		return dev_err_probe(dev, lt7911exc->fw_version, "failed read version of chip\n");
-+
-+	lt7911exc->dsi_host.dev = dev;
-+	lt7911exc->dsi_host.ops = &lt7911exc_dsi_host_ops;
-+	lt7911exc->bridge.of_node = np;
-+
-+	INIT_WORK(&lt7911exc->work, lt7911exc_firmware_upgrade_work);
-+
-+	i2c_set_clientdata(client, lt7911exc);
-+
-+	drm_bridge_add(&lt7911exc->bridge);
-+
-+	ret = mipi_dsi_host_register(&lt7911exc->dsi_host);
-+	if (ret) {
-+		drm_bridge_remove(&lt7911exc->bridge);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static void lt7911exc_remove(struct i2c_client *client)
-+{
-+	struct lt7911exc *lt7911exc = i2c_get_clientdata(client);
-+
-+	mutex_lock(&lt7911exc->ocm_lock);
-+	lt7911exc->removed = true;
-+	lt7911exc->upgrade = true;
-+	mutex_unlock(&lt7911exc->ocm_lock);
-+
-+	cancel_work_sync(&lt7911exc->work);
-+
-+	mipi_dsi_host_unregister(&lt7911exc->dsi_host);
-+	drm_bridge_remove(&lt7911exc->bridge);
-+
-+	gpiod_set_value_cansleep(lt7911exc->reset_gpio, 1);
-+}
-+
-+static const struct i2c_device_id lt7911exc_i2c_table[] = {
-+	{"lt7911exc"},
-+	{/* sentinel */}
-+};
-+
-+MODULE_DEVICE_TABLE(i2c, lt7911exc_i2c_table);
-+
-+static const struct of_device_id lt7911exc_devices[] = {
-+	{.compatible = "lontium,lt7911exc"},
-+	{/* sentinel */}
-+};
-+MODULE_DEVICE_TABLE(of, lt7911exc_devices);
-+
-+static struct i2c_driver lt7911exc_driver = {
-+	.id_table	= lt7911exc_i2c_table,
-+	.probe		= lt7911exc_probe,
-+	.remove		= lt7911exc_remove,
-+	.driver		= {
-+		.name	= "lt7911exc",
-+		.of_match_table = lt7911exc_devices,
-+		.dev_groups = lt7911exc_attr_groups,
-+	},
-+};
-+module_i2c_driver(lt7911exc_driver);
-+
-+MODULE_AUTHOR("SunYun Yang <syyang@lontium.com>");
-+MODULE_DESCRIPTION("Lontium LT7911EXC EDP to MIPI DSI bridge driver");
-+MODULE_LICENSE("GPL");
-+MODULE_FIRMWARE(FW_FILE);
--- 
-2.34.1
+Expose CBQRI bandwidth controller's combined read+write counter as
+the L3 mbm_total_bytes event. A software accumulator keeps the
+64-bit byte total monotonic across the 62-bit hardware counter wrap.
 
+> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
+trl.c
+> --- a/drivers/resctrl/cbqri_resctrl.c
+> +++ b/drivers/resctrl/cbqri_resctrl.c
+
+[ ... ]
+
+> @@ -305,6 +344,82 @@ int resctrl_arch_rmid_read(struct rdt_resource *r, s=
+truct rdt_domain_hdr *hdr,
+>  		mutex_unlock(&ctrl->lock);
+>  		break;
+> =20
+> +	case QOS_L3_MBM_TOTAL_EVENT_ID: {
+> +		struct cbqri_controller *bc;
+> +
+> +		/*
+> +		 * The L3 monitoring domain's id is the L3 cache id. The
+> +		 * matching ctrl domain's hw_dom->paired_bc was cached at
+> +		 * add time to avoid walking cbqri_controllers on every read.
+> +		 */
+> +		d =3D cbqri_find_ctrl_domain(&r->ctrl_domains, hdr->id);
+> +		if (!d) {
+> +			err =3D -ENOENT;
+> +			break;
+> +		}
+> +		hw_dom =3D container_of(d, struct cbqri_resctrl_dom, resctrl_ctrl_dom);
+> +		bc =3D hw_dom->paired_bc;
+> +		if (!bc) {
+> +			err =3D -ENOENT;
+> +			break;
+> +		}
+> +		if (WARN_ON_ONCE(!bc->mbm_total_states)) {
+> +			err =3D -EIO;
+> +			break;
+> +		}
+> +		if (rmid >=3D bc->mcid_count) {
+> +			err =3D -ERANGE;
+> +			break;
+> +		}
+
+[Severity: High]
+This is a pre-existing issue, but will the core allocate out-of-bounds
+RMIDs that trigger this -ERANGE error? Looking at
+cbqri_resctrl_control_init(), num_rmid is bound to the local capacity
+rather than the global minimum (max_rmid). Could this lead to stale
+monitoring state and bypass the max_rmid-bounded reset loop?
+
+> +
+> +		mutex_lock(&bc->lock);
+
+[ ... ]
+
+> @@ -824,15 +948,54 @@ static int cbqri_resctrl_pick_bw_alloc(void)
+>  }
+> =20
+>  /*
+> - * Pick one controller per monitoring event.  L3 OCCUP comes from the
+> - * picked L3 CC (if mon_capable).
+> + * Pick one controller per monitoring event. L3 OCCUP comes from the
+> + * picked L3 CC if mon_capable. MBM_TOTAL from the only mon-capable BC,
+> + * but only when the system exposes exactly one L3 cache. Pairing a
+> + * single BC with multiple L3 domains would overcount system bandwidth
+> + * by a factor equal to the L3 domain count.
+>   */
+>  static void cbqri_resctrl_pick_counters(void)
+>  {
+>  	struct cbqri_resctrl_res *l3 =3D &cbqri_resctrl_resources[RDT_RESOURCE_=
+L3];
+> +	struct cbqri_controller *ctrl, *prev;
+> +	unsigned int l3_count =3D 0;
+> =20
+>  	if (l3->ctrl && l3->ctrl->mon_capable)
+>  		cbqri_resctrl_counters[QOS_L3_OCCUP_EVENT_ID] =3D l3->ctrl;
+> +
+> +	/* Count distinct L3 cache_ids */
+> +	list_for_each_entry(ctrl, &cbqri_controllers, list) {
+
+[ ... ]
+
+> +		if (!seen)
+> +			l3_count++;
+> +	}
+> +
+> +	if (l3_count > 1) {
+> +		pr_warn_once("multiple L3 domains (%u) detected. mbm_total_bytes disab=
+led\n",
+> +			     l3_count);
+> +		return;
+> +	}
+
+[Severity: Medium]
+When mbm_total_bytes is disabled here, will the unused Bandwidth
+Controller's smaller mcid_count still artificially clamp the global
+max_rmid in cbqri_resctrl_accumulate_caps()? The unused BC remains
+mon_capable, which might restrict valid occupancy monitoring system-wide.
+
+> +
+> +	cbqri_resctrl_counters[QOS_L3_MBM_TOTAL_EVENT_ID] =3D
+> +		cbqri_find_only_mon_bc();
+>  }
+
+[ ... ]
+
+> @@ -948,6 +1111,26 @@ static int cbqri_attach_cpu_to_l3_mon(struct cbqri_=
+controller *ctrl,
+>  	else
+>  		list_add_tail(&mon_dom->hdr.list, &res->mon_domains);
+> =20
+> +	/*
+> +	 * Pair this L3 domain with the system's mon-capable BC and
+> +	 * initialise the BC's per-MCID software accumulators before
+> +	 * resctrl_online_mon_domain() exposes the domain to userspace.
+> +	 * A concurrent sysfs read of mbm_total_bytes between online and
+> +	 * BC init would otherwise pass the !bc->mbm_total_states check
+> +	 * with a half-initialised pointer.
+> +	 */
+> +	hw_dom =3D container_of(ctrl_dom, struct cbqri_resctrl_dom, resctrl_ctr=
+l_dom);
+> +
+> +	hw_dom->paired_bc =3D cbqri_find_only_mon_bc();
+> +	if (hw_dom->paired_bc) {
+> +		err =3D cbqri_init_bc_mon_counters(hw_dom->paired_bc);
+
+[Severity: Medium]
+If mbm_total_bytes was disabled in cbqri_resctrl_pick_counters() due to
+multiple L3 domains, does this unconditionally allocate memory and issue
+MMIO resets for an unused BC? Could an initialization failure in this unused
+BC cause the entire L3 bringup to abort here?
+
+> +		if (err) {
+> +			pr_err("BC @%pa: mon init failed (%d)\n", &hw_dom->paired_bc->addr, e=
+rr);
+> +			hw_dom->paired_bc =3D NULL;
+> +			goto err_listdel;
+> +		}
+> +	}
+> +
+>  	err =3D resctrl_online_mon_domain(res, &mon_dom->hdr);
+>  	if (err)
+>  		goto err_listdel;
+> =20
+>  	err =3D cbqri_init_mon_counters(ctrl);
+>  	if (err)
+>  		goto err_offline;
+> =20
+>  	return 0;
+> =20
+>  err_offline:
+>  	/*
+>  	 * cancel_delayed_work (not _sync) avoids deadlocking against the
+>  	 * cqm_limbo worker which takes cpus_read_lock while this hotplug
+>  	 * callback already holds cpus_write_lock. mbm_over is only
+>  	 * INIT_DELAYED_WORK'd when MBM_TOTAL was enabled, so gate the
+>  	 * cancel on the same condition to avoid touching a zeroed work
+>  	 * struct.
+>  	 */
+>  	cancel_delayed_work(&mon_dom->cqm_limbo);
+> +	if (resctrl_is_mon_event_enabled(QOS_L3_MBM_TOTAL_EVENT_ID))
+> +		cancel_delayed_work(&mon_dom->mbm_over);
+>  	resctrl_offline_mon_domain(res, &mon_dom->hdr);
+>  err_listdel:
+>  	list_del(&mon_dom->hdr.list);
+>  err_free:
+>  	kfree(mon_dom);
+>  	return err;
+>  }
+
+[Severity: Critical]
+This is a pre-existing issue, but since this patch introduces a new trigger
+instance for mbm_over, does this create a use-after-free window?
+
+Since cancel_delayed_work() is used without _sync, if a worker is currently
+stalled waiting on the cpus_read_lock, won't kfree(mon_dom) execute
+synchronously here? Once the write lock is dropped, couldn't the pending
+worker resume and dereference the freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260524-ssqosid-cb=
+qri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org?part=3D15
