@@ -1,172 +1,218 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDF23F8704
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779798580; cv=pass; b=CeeaaJjr1vmBJCeuw+iaD3ePUH7nJ0X2/dhfxZ9+Id+3nn77abQkG9hLba0r0B9iK7YkPVTHQgYGTvj8HBHj/eH4iWBw63/IylSVUq0Y4EphddxAi4IFiNEmc7BUEapTvdA5MfUq/pDR+8u1Hq9EdDxMLSXmDiVqOKx8tC1CKf8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779798580; c=relaxed/simple;
-	bh=Dg3mTo5Mcn8ngqMvpVvFnTbUkbCXNIGOywIbkn4YrmE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=LwBzMREYAvL3upmjlTv62bCxlB9m83iPGZ/SiQFnUoXnh4j7bpz1d1Vpsa0qN4c045JB9zxo/ugW3TmCiL+F8NsNo1oZ0hdGP3lPyg7q8QFVN4cTTys7FqK9Ht8T0B41Z5YSXI4A+/6pEO8AhQjQX7Nl+kJY4aMhcrikgdoV4Xg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1yXffAp; arc=pass smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 442383D9020;
+	Tue, 26 May 2026 12:29:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779798589; cv=none; b=eUpRFdwHfGhKe5B+lqQF+wrUFM7m2Y3FKSWV4pm4+NvMEyUXdL37Dlaa7yrqMWNcZY3GAEt5R/oMhuhmEoKEgrkofTUFmtXV1AnReoAWW5ErwlZd59yJPfgVuP8GX56NF2XLJNkjd9dx6qMqyWAUk6ZTlV++KZfF35axcjsLRNc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779798589; c=relaxed/simple;
+	bh=ft6YEOEK17g++V2pW9DIBhbX6s5uO6lIPyqPyzdYXKk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=XnzODMjllCxey0nH8HFWQDqswOkZpZtkFEHoDvqYNvK1hq/LHn2R5Kik48qjg6w+eYhuNH3r7u6dL7L5WttkEtMVmNKsD05Y+hA8lZzdLfVQq41GDasLgFZ8vNwuTFXlmAcCqLEBfz9RS7E1mkqEkyggHCgeZSL3WkUcncM4Jj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i+rR01GT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1yXffAp"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-304545f5206so5513727eec.0
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 05:29:39 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779798578; cv=none;
-        d=google.com; s=arc-20240605;
-        b=XeIOs/2azEgh+jR6I/uKD5PgZY52gGU1CPP3ibPkHPBzOGxxRvifcSMLxyiaEQRm1m
-         CVEkgMSKsREcXnoLKS1UQM8OQ5UZdwgQybO52G2XJGS3DjRiPiBZpYNNNEeU9IXNCgxH
-         W+oYf4lp2NtxnpI60WdtkW/TQpxwAaHA3A5G4wu/egtsv8KmXpATFFt3eKXxeMBShopT
-         0E5DGXyvL7l6xr1p3g06bvorkBnMHhSdA5c2C6xGYH/VbQihpvPXHaPFvRQav1/3sb5o
-         jd9WNsPNz946nllAiA3owT8FtjAGY6TSEngjxwqgh6XAh21wNFaaJz7yxFctdq/no7Wd
-         /1eA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=prH/VGp3s5plVdS0J3nbTvDbEC8lmkPqocrz3Fq1Ipw=;
-        fh=eCasnmCrf2jBLDwC2DZSKj3MnkLjX5WxWPYpXbO59SU=;
-        b=GB5IX5tDqySeJATbdm+ABGA4Wmd41bhdw13qH+r03dzOsT4+qGy5vnkkR2oJGDjS60
-         fqyBMBVhce+wLszLgXuaro1Se3n36cS/pZ8xON1NV1i5TSG8cmTVp4Mmp8B9unClorI5
-         wIABfVgMkxeFWSOoWJqBs/P/rvFFD5zkhOk15BxyIGlRW4Zc4IrmCrqFfxfVXxNlt5hn
-         A2wBJr8SxMOQVDCeMd2pJosGypcxATG9H/txdSZg6qzSbueZeM+tauWHtRPbSb1j75Oc
-         cBCCDJLPCEBauZSd47a6AzTwXfJ4qexYtZQIgGHHaKT729Nhhf9GoAt6kOHx1sBtChCN
-         cp7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779798578; x=1780403378; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=prH/VGp3s5plVdS0J3nbTvDbEC8lmkPqocrz3Fq1Ipw=;
-        b=h1yXffApRVj8DnmaJq+9aVe0KzjkXkD7ErPjhLHgtj/9+w+F562VG8pO3sXXPDfzE2
-         CsSZfsBa6BLtwlYJNE7WfvqJRJe1MIUNQr4fygoIXnczSysRZWfOTnRUfm8rR19kXgIp
-         d0xTUaowzopt2gjqzp8V2gX2NFivEX54c6vmjR1rv81VgWFK+dafm39kA8NvPbt1SATc
-         maOUrWS7XlbNMJIdhE36j37/+6IT+SgmPpyCil8GJOFBNRL72ei83nTIWYykjANfazrp
-         WI6XWQgRWIJf3V2NpZTvq6MurtJU2Bee8QV6/mNIpZlLi9lHDcNVgZ9if4dcCyUf0bgw
-         lY9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779798578; x=1780403378;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=prH/VGp3s5plVdS0J3nbTvDbEC8lmkPqocrz3Fq1Ipw=;
-        b=DBJ7FzZiKbZuaGb9k4dKGbJFB8ksdVT7fVVtTyvOglrqsGsmovuXVOFPrUKma9kaLt
-         0/eVsmsst94BrY4HcvR9sFayyTLeR3S2zUyrN3cRrIZtoXTPEFpO9H/fWUXuHm811zYy
-         euvA32JFPzXN6jXCVh7XQsAXMei2/aQVeymyR7dQ8KCrk/MeLhZ4SKax7L2PX6PqGm/7
-         bOV/LIoFotp7vrMTRihDs9K0uyTpGTIJ08cHERFv/zoKl2H26+bkHj09EhyTGtuMjp++
-         cI+0dm/vfz/3Hb/zrPfyX3p/U5yzahoxY0EzLw2FmXQ89Yhp+ENuCJIaov8Z7yT7smm+
-         xtOw==
-X-Forwarded-Encrypted: i=1; AFNElJ9J3/yTTuNheDOsum5+VMLW3kHWgYrXv2D4XO2uggig95fUxI4dnMz4jQ0B8lR+2QxyFzIvejpvHyGK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz3pNfiS53tIkpxPKct7ymfq3h9aMop/OuCd/WxYsV1AX6wMqLd
-	UK34HZmaCF/d1zF3ZdbqlfVV2eGSdCRc8yljRj3i/PPpr8LIOiSTeErdg9Ai2i+ClnPurhLtIDr
-	o9i38MAvb71SvwJrqUI2eQWTun73lrXM=
-X-Gm-Gg: Acq92OEnmk0R3FlQftWjmVVMSl8noqTvTdPMTGktfVOY6W7vsS+xMWIuVLwjRR51rFO
-	bJcrtRE0aq/lAelzz1H8ZzAL0ETEwtCS7W2bqgoGojIv9815QA2iYbZvPWfcqhAVEBA75yBUXZZ
-	4rj+4A24Z9rJKPhlaO4eMan/PntNPSm+0HOFM4VCGWqYmLnc6YfIrgbdHdJ5QrJE5BTlxHj5yKR
-	4gDOHQyAg3yd8zybZW17PWQL28w2qNFx/pXblzzHLKnCcmekEx02hQiZnYTkiaQTyqUllZkl0W9
-	TTps16+O
-X-Received: by 2002:a05:693c:2c0c:b0:303:a1af:5042 with SMTP id
- 5a478bee46e88-30448d51723mr8826200eec.0.1779798578350; Tue, 26 May 2026
- 05:29:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i+rR01GT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 92C5F1F000E9;
+	Tue, 26 May 2026 12:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779798587;
+	bh=oUNsGHdOmMSQXK0Lu7gexvE/BygIT4cqeMVi5MZV/4c=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=i+rR01GTB536M7SDkkVuqMD9mOL9yBlQJihdQ2oIzdjispo8VIrdsDRN/GIUgCSZT
+	 XaG7Vwc3/xYj0bsjzjAfU0GQsr2bmR1V/IZNSbivAO3OvAx43KGURpEvi3TF+GJpJd
+	 9v97PiJQ3MKClrZuPT//wr9D+liW2Fm/3/AT/Jg0ElWho0bmJZXndQq5OxfxCxWJqA
+	 rOBVL/hBhRyJ/Y97oMDrZEHEfrE6Bh5qQbt8o1kAforDsjCGIRPG8B0yndvNDEnMV4
+	 C62NRJaIDxvzeUJyGiOLzgN7n0Y5K4Xsr7azbMCW8V1YiZG2fmCBuODM8cRP28OQlh
+	 zDe00NXnh/7sQ==
+Date: Tue, 26 May 2026 13:29:37 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macromorgan@hotmail.com>
+Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
+ andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
+ jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
+ devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
+ krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
+Subject: Re: [PATCH V8 05/10] iio: imu: inv_icm42607: Add PM support for
+ icm42607
+Message-ID: <20260526132937.491f75af@jic23-huawei>
+In-Reply-To: <PH0PR19MB99733838CE49A3752AAEA250ABA50F2@PH0PR19MB997338.namprd19.prod.outlook.com>
+References: <20260518200526.458421-1-macroalpha82@gmail.com>
+	<20260518200526.458421-6-macroalpha82@gmail.com>
+	<20260520181353.0a0371cb@jic23-huawei>
+	<PH0PR19MB9973386EF146AD6590DE5508F5A50E2@PH0PR19MB997338.namprd19.prod.outlook.com>
+	<20260522120515.652661ed@jic23-huawei>
+	<PH0PR19MB99733838CE49A3752AAEA250ABA50F2@PH0PR19MB997338.namprd19.prod.outlook.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260523085102.51000-1-clamor95@gmail.com> <20260523085102.51000-2-clamor95@gmail.com>
- <CAMRc=MfXVwD2u0e115RapnyLzf5JRjWMs=2PSNzMnm0GDd7aaQ@mail.gmail.com>
- <CAPVz0n1G5Yu2X5f+=q90RAbnsWi9psMq-L5tWDMM4JRC4R_mPg@mail.gmail.com> <CAMRc=Me4G-YqKoFan3epofXk2OWzxY1iPE1mP=uwEjs9wgA6Cw@mail.gmail.com>
-In-Reply-To: <CAMRc=Me4G-YqKoFan3epofXk2OWzxY1iPE1mP=uwEjs9wgA6Cw@mail.gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 26 May 2026 15:29:25 +0300
-X-Gm-Features: AVHnY4LlPJQvUtSK0QH2SeBmOMPhEhv-MZAC_ScpGO8WYUg9vZq45m_SVat0lzY
-Message-ID: <CAPVz0n2P-zB1_uetZN9pVcQChK+FkdQowbF4Z0YZOBQBsB76WQ@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
- modem pwrseq
-To: Bartosz Golaszewski <brgl@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-=D0=B2=D1=82, 26 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 14:1=
-4 Bartosz Golaszewski <brgl@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Tue, 26 May 2026 12:03:59 +0200, Svyatoslav Ryhel <clamor95@gmail.com>=
- said:
-> > =D0=B2=D1=82, 26 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-12:51 Bartosz Golaszewski <brgl@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >>
-> >> On Sat, May 23, 2026 at 10:51=E2=80=AFAM Svyatoslav Ryhel <clamor95@gm=
-ail.com> wrote:
-> >> >
-> >> > Document the Tegra modem pwseq used by various devices based on the =
-Nvidia
-> >> > Tegra SoC, describing its usage. The power sequence provides interac=
-tion
-> >> > between the modem and SoC-specific interface configurations.
-> >> >
-> >> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> >> > ---
-> >>
-> >> ...
-> >>
-> >> > +
-> >> > +examples:
-> >> > +  - |
-> >> > +    #include <dt-bindings/gpio/gpio.h>
-> >> > +
-> >> > +    pwrseq-modem {
-> >> > +        compatible =3D "nvidia,tegra-modem-pwrseq";
-> >> > +
-> >> > +        enable-gpios =3D <&gpio 165 GPIO_ACTIVE_HIGH>;
-> >> > +        power-supply =3D <&vdd_3v3_vbat>;
-> >> > +
-> >> > +        nvidia,usb-bus =3D <&usb2>;
-> >> > +    };
-> >> > --
-> >> > 2.51.0
-> >> >
-> >>
-> >> I assume there's no such component as the tegra modem *pwrseq*?
-> >
-> > Hardware component, I assume no.
-> >
-> >> What is the relationship between this node and the "infineon,xmm6260"
-> >> compatible node?
-> >>
-> >
-> > The xmm6260 has a phandle reference to it. Since there is consumer
-> > matching logic in the pwrseq driver I am leaning towards removing this
-> > node entirely. This patches is still in non-final stage and I would
-> > like to hear any opinions on the way to improving it.
-> >
->
-> The node attached to the pwrseq provider device should represent a real
-> hardware component. Are the enable-gpios and power-supply lines connected
-> to the modem package?
+On Fri, 22 May 2026 11:23:59 -0500
+Chris Morgan <macromorgan@hotmail.com> wrote:
 
-Yes, enable-gpio is connected to the modem and signals that USB is set
-and ready to work with the modem, while power-supply is an optional
-supply connected to the modem's vbus input.
+> On Fri, May 22, 2026 at 12:05:15PM +0100, Jonathan Cameron wrote:
+> >   
+> > > >     
+> > > > > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > index e9c81b52f9ef..bc0cefa2fb77 100644
+> > > > > --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> > > > > @@ -9,6 +9,7 @@
+> > > > >  #include <linux/irq.h>
+> > > > >  #include <linux/module.h>
+> > > > >  #include <linux/mutex.h>
+> > > > > +#include <linux/pm_runtime.h>
+> > > > >  #include <linux/property.h>
+> > > > >  #include <linux/regmap.h>
+> > > > >  #include <linux/regulator/consumer.h>
+> > > > > @@ -72,6 +73,62 @@ const struct inv_icm42607_hw inv_icm42607p_hw_data = {
+> > > > >  };
+> > > > >  EXPORT_SYMBOL_NS_GPL(inv_icm42607p_hw_data, "IIO_ICM42607");
+> > > > >  
+> > > > > +static int inv_icm42607_set_pwr_mgmt0(struct inv_icm42607_state *st,
+> > > > > +				      enum inv_icm42607_sensor_mode gyro,
+> > > > > +				      enum inv_icm42607_sensor_mode accel,
+> > > > > +				      bool temp, unsigned int *sleep_ms)
+> > > > > +{
+> > > > > +	enum inv_icm42607_sensor_mode oldgyro = st->conf.gyro.mode;
+> > > > > +	enum inv_icm42607_sensor_mode oldaccel = st->conf.accel.mode;
+> > > > > +	bool oldtemp = st->conf.temp_en;
+> > > > > +	unsigned int sleepval;
+> > > > > +	unsigned int val;
+> > > > > +	int ret;
+> > > > > +
+> > > > > +	if (gyro == oldgyro && accel == oldaccel && temp == oldtemp)
+> > > > > +		return 0;
+> > > > > +
+> > > > > +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, gyro);
+> > > > > +	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, accel);
+> > > > > +	if (!temp)
+> > > > > +		val |= INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL;
+> > > > > +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
+> > > > > +	if (ret)
+> > > > > +		return ret;
+> > > > > +
+> > > > > +	st->conf.gyro.mode = gyro;
+> > > > > +	st->conf.accel.mode = accel;
+> > > > > +	st->conf.temp_en = temp;
+> > > > > +
+> > > > > +	sleepval = 0;
+> > > > > +	if (temp && !oldtemp) {
+> > > > > +		if (sleepval < INV_ICM42607_TEMP_STARTUP_TIME_MS)
+> > > > > +			sleepval = INV_ICM42607_TEMP_STARTUP_TIME_MS;    
+> > > > 		sleepval = max(sleepval,)
+> > > > or just assign it here if not later patches add stuff in between
+> > > > the assignment to 0 and here.    
+> > Wow I write some garbage English sometimes (no excuse, it is my
+> > native language!)   
+> > > 
+> > > I'm going to assign it to 0 here (unless you think I should define it
+> > > at the beginning as 0) and then tweak as needed. I think this code
+> > > here can be further optimized, especially if we make the assumption
+> > > that START and STOP time for each sensor is comparable (the datasheet
+> > > doesn't say, so I'm going to go with yes since that greatly simplifies
+> > > things).  
+> > 
+> > I'm a bit lost. Suggestion was just to do
+> > 		sleepval = INV_ICM42607_TEMP_STARTUP_TIME_MS;
+> > as we know it is 0.   Probably not worth it though as ends up with fragile
+> > code.  Fine to keep it to what you have but use max() rather than
+> > if()
+> > 
+> > ...
+> >   
+> > > > > +static int inv_icm42607_resume(struct device *dev)
+> > > > > +{
+> > > > > +	struct inv_icm42607_state *st = dev_get_drvdata(dev);
+> > > > > +	int ret;
+> > > > > +
+> > > > > +	guard(mutex)(&st->lock);
+> > > > > +    
+> > > > Given the bunch of stuff we've run into recently around these
+> > > > I'm getting more paranoid.
+> > > > Similar to above, could you use pm_runtime_force_resume()
+> > > > You would need to gate stuff added later to not occur
+> > > > though if it wasn't runtime suspended.    
+> > > 
+> > > This I'm having trouble understanding. If I use
+> > > pm_force_runtime_resume() I'm assuming that either I got an error (in
+> > > which case I'd return the error) or the device is runtime resumed
+> > > after the call completes. If that's the case, wouldn't my suspend and
+> > > resume steps just be pm_force_runtime_suspend/resume, and enabling the
+> > > regulator (first for resume) or disabling the regulator (last for
+> > > suspend) as needed?  
+> > 
+> > If you call pm_runtime_force_resume() it will do the right thing
+> > wrt to runtime PM state prior to suspend.  If it wasn't runtime suspended
+> > it will runtime resume - if it was it'll no do anything. It won't
+> > directly tell you which one it did though.
+> > 
+> > The extra stuff that you know can't be the case if runtime pm is on
+> > will need some sort of gating.  However, looking again it may already
+> > be protected by more specific checks.
+> > 
+> > 
+> > 	pm_runtime_force_resume();
+> > 
+> > 	if (st->fifo.on) { //I'd failed to look at what was added.
+> > 		ret = regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
+> > 				   INV_ICM42607_FIFO_CONFIG1_MODE);
+> > 		if (ret)
+> > 			return ret;
+> > 	}
+> > 
+> > That if (st->fifo.on) previously didn't get checked if we were runtime
+> > suspended because in fifo mode we never are.  So I was thinking you'd
+> > need that check to be
+> > 	if (!pm_runtime_suspended(dev) && st->fifo.on)
+> > but the fifo.on check is sufficient by the same argument that if fifo.on
+> > is true we aren't in runtime suspend.
+> > 
+> > Basically I overthought it and didn't check what got added where the
+> > comment is in this patch.  
+> 
+> I'm still lost here... are you saying the existing logic is sufficient or
+> that we need to do something more (like force the runtime resume/suspend
+> in different places).
 
-> Is there an internal structure to it, like a PMIC to which these lines co=
-nnect
-> that controls the actual modem IC?
+I'm saying you should call pm_runtime_force_resume() in the resume()
+callback and the equivalent in the suspend() callback + call anything
+extra that is done in those callbacks in appropriate order.
 
-Modem does have internal PMIC to power up all its components, but they
-are controlled by the modems internal firmware and are not accessible
-via any standard means.
+My original thought that some of the 'extra' stuff not covered by
+pm_runtime_force...() would need extra gating but I think what you have
+there is effectively the same via checks that happen to align with the
+runtime resume / suspend states.
 
-> Bart
+Jonathan
+
+> 
+> Thank you again for all of your help, you've been amazing.
+> 
+> Chris
+> 
+> > 
+> >    
+> > >   
+> > > > 
+> > > >     
+> > > > > +	if (pm_runtime_suspended(dev))
+> > > > > +		return 0;
+> > > > > +
+> > > > > +	ret = inv_icm42607_enable_vddio_reg(st);
+> > > > > +	if (ret)
+> > > > > +		return ret;
+> > > > > +
+> > > > > +	/* Nothing else to restore at this time. */
+> > > > > +
+> > > > > +	return 0;
+> > > > > +}  
+> >   
+
