@@ -1,183 +1,234 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 435C035A384
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA5E53DD84D
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:34:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779791224; cv=none; b=WpuD3I1sQweL1kY2JmRSzhmFpkhEh5JwzgBoWdplw9a5xk5rgQ+SZR7OErdr+mYmEei2RepUERlyLt7pZP47oO6P/ARgeatBxJP3x5yaJuZkSaz3XhSb0W3n4IFZKeTvAn/XF0jcXLNdk2LGDvwt9dDNHDBc3DW5mI0UnzzBhGw=
+	t=1779791659; cv=none; b=Yq5pgBk8/rRKoXtuDkdPVmK7vXHNZH6YIq4SuuR9JUINqQ34Jc9WXMJ4yaMmt/dOg8F+Mazdq7ttogYgiGevn78AssTSogKS/EP9za5t4hTiH6OWPv9B65Uv6NVHLHvp4/V8i8XjE2HbqCS934gujMczL/7yw3zIVx7doo2Dfvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779791224; c=relaxed/simple;
-	bh=s5jP9u0JRTqt5gO23kuCrmJTSSJHCQEPoQQltRN4c48=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=SgwH9NDu7GQhmVzak/TzcmM7evHdytVoGL6oRM6G6hIql50Re6QNY8WSkXUV8QoTyfxBmIRzWUcOh8CDNTGg0wR7YSTIoElWW1+ybdhAsT2aQLDfl5F6ii4fVKuqaUQaMUsXkTn5vbPInHlAalDDtvXw8jj3ZQVT5zUa1m/WdWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B9WS7m2q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779791659; c=relaxed/simple;
+	bh=sFsRO0yDsb89oIT21S7eA8A6dy+u3vy3rLbnkAXXODM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NVRwksp1ETr7mnMyCZM0fm4GHCAm3V9RTqjnBRyZ/u2PGzcfYbB3o+YGCU29edpSt3gCSE5kbAPfE9fu6F+fEv8fu/qq8TT8ItLoYT+OU8G+0oDAtZFcHx0FrkcAHcMvplLHtDP53afbn+gw38Hjc5MH+TLVt6gnId4tgQGRTXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h6DAze2G; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YDlbefO3; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B9WS7m2q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E57B11F000E9;
-	Tue, 26 May 2026 10:27:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779791223;
-	bh=DazMTjL7rdUhvhBH001E/pN+qSftDoUEOhCdgaC1eSI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B9WS7m2q8Cr8N03yNUIV/zgjHBHW1vrT1EJhhgqHOueRdgxNm08jHGMlnyX58ol5c
-	 +QFFf7t2yw2mKTJ/j2y7iHtMlw6MADzass+lsVJD4RMHeEaL669ZvTPVhzZtcYdM6A
-	 zRcbGRJIBuqxXAHIlc/hOW1oOJ8WD1kbLwFvkSlhBX9itJmfI0cMSv2Jvb8G7OxObB
-	 ZklQPIRCCk5qxPuVC6Tq6GfGa0eBA80pjfDcLuIWpyMNoYZt15CLbouOmTIkl7td2x
-	 cygh3BHTwVd5h2Xj0n9i82yrx1EYXlU+7A5vujIH0CXI+V+AhLEUOviHu/FJ0yyxYG
-	 /Xi9N6ZATy5Jw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 6/7] ARM: dts: stm32: Add boot phase tags for
- STMicroelectronics mp15 boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526-upstream_uboot_properties-v7-6-e17cd424d5db@foss.st.com>
-References: <20260526-upstream_uboot_properties-v7-6-e17cd424d5db@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 10:27:02 +0000
-Message-Id: <20260526102702.E57B11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h6DAze2G";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YDlbefO3"
+Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64Q5s32l2146351
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:34:17 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	M6rrwvTxF7kpNlbgbAaNRd9qzBWBl+jhGHIIgmLXSLM=; b=h6DAze2G1t7voQ+I
+	3q65s89rrWntoHB5fhr5aJ2BjUPY12d4DnktScZv7z9KFW40LAsfTK7obOjiIPfg
+	tyhkXjZKWid28CNg8JkLL9l2lXEUtxIUnmP4NDJd2FTE6tU14bHjnknFWCWSInm7
+	FeeaD56RHAkHo96hI+gPA0mLZWy6wME0CkZmh4duwRag4n25N03ypyquGwV0tntB
+	2jqJnZMvU7sEhz8Rgq2QLpodBW3JnykLzO0y/NyfXlI516x+2BjtNxDQ7yyBrL2j
+	vyeo8pBmLjf+2cU9+F1SE+w6BXv4gHUeV0DEae8Tj3jerLvaOoXwaEONXj0IsoPd
+	dslUjA==
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecmbv486j-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:34:16 +0000 (GMT)
+Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2bd1dbcccf6so36052625ad.2
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:34:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779791656; x=1780396456; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=M6rrwvTxF7kpNlbgbAaNRd9qzBWBl+jhGHIIgmLXSLM=;
+        b=YDlbefO3S7I4V7GGJv1vKmEteW4zxTSe5+YkfeHLLehTc2nlDMGi5outd0HLvGoQMm
+         J1w0il1vQFBgV8a4HB0MQGISf2mgqyfm853a4kc2H8uNzzKT0V2El+Xv2zL7r3ObcFya
+         BsYzuQDdbPwKLyXL2SIS2D/hAwF2pTEref5ee77rSiX4csQ4tHncvmDNr6sCOJvYz6L2
+         xYWxlzgbYm7N5xF9liKPEZvNgZafHfz1LkSjJt3+D+mYmW0bg4j3Q5/fS+Zc7z30twym
+         u8ke42+BckiHBVhkhY/ObuiYHFICjY8xC7/aElfUMZRk6jEooNM1zpcc6sho3rZyJXOb
+         pH8g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779791656; x=1780396456;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=M6rrwvTxF7kpNlbgbAaNRd9qzBWBl+jhGHIIgmLXSLM=;
+        b=MaN9ms0wFRcq3xiFx0+M3GvjfGC3aie+Fd+VX5ocxO6/wwIEatKPFCWOs3uWrieRGQ
+         VBS8B9fdRerHxx0Y5Mc7igWD97vfoZbhpEKON2EYiiUJ/7Rb3byByYjVt3k31HKZ6MJK
+         27I9R7W/NngsUBGnDFWimHrgKNOE1i3avc/7nXKFWg1poaYVUy+aHnGqfdIn+h3F0G34
+         0sOeHG4WgDm5I4OBOR5X2yCxPTmXO0c5vsHzcbr8vndC6PFXHHKUXaJvlhlwcogCoiM7
+         g127Bl6iaV/kInPIyAjaB0dQTdqukO+pT0X9EP+Vaa1XrH0F5wgwfIJ/+2KpqilVjvGZ
+         bHuA==
+X-Forwarded-Encrypted: i=1; AFNElJ/e1nm8+OaRbzLjnl6fiOBsHngNq/U7w1mntxzkb3hpGylcfEfDSuKRsaz9boApMMjRU02ejVa78rfq@vger.kernel.org
+X-Gm-Message-State: AOJu0YzKOgvf0kXTOsaJ7WKV68wXyGkf0QUiURTsfAzZ7yW1Phh/MVto
+	3qcVo/L14q6oRmcaj4D/bqEyg17yli1083RFUvQEzcIGRMs9J5DAADS05sDqbFxJm1qWQyfteGB
+	9G+bVL7pVppKRxcDXSfusLd/qc6G7ls+Fw1yvf01Hwg6BiO1V+5C7R1mxxDhpRiSZ
+X-Gm-Gg: Acq92OHpkAfkVITi5iPvB3B1OBMC3v7ReP1kxmMuAhxIzXVI1+9tCK72u7b7jahtwW7
+	pIeFZ4gANnSp0+Mf/urX2CbmpWhRBdyHuvB0uPJP75NEYthOxKMprp1F/btoYYRYMvsy4d94Oc+
+	0fKMQ+eE25CGt8iFEBZUEwhJvCQ6fw6FriLWfFTkPU3yRCko5Zy/J5iKiZU6iPy9WIZDFknhQJv
+	CRCoqdK+BFR+e9tr1CfKVETopH9DWKymYdcGpFcR41M15e4lNp6wqaZRH7OxIUMs4KRa3BjzkgH
+	sTGe8sqwMayoF4g9YmFZGw/RUMWEpDMCTrPicP3eItstonJmUcpmJISDS4b5dr3DmO0FyIKqive
+	SBDqybZbQ/qLFPiQXQSKbNa25UC9DsTASWxzYmbi/FUf8sKARwoQ=
+X-Received: by 2002:a17:902:d489:b0:2ba:6ca2:bca with SMTP id d9443c01a7336-2beb0680e99mr203240965ad.26.1779791656216;
+        Tue, 26 May 2026 03:34:16 -0700 (PDT)
+X-Received: by 2002:a17:902:d489:b0:2ba:6ca2:bca with SMTP id d9443c01a7336-2beb0680e99mr203240575ad.26.1779791655684;
+        Tue, 26 May 2026 03:34:15 -0700 (PDT)
+Received: from [10.206.100.243] ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56e090fsm131331095ad.34.2026.05.26.03.34.10
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 May 2026 03:34:15 -0700 (PDT)
+Message-ID: <a5313752-17ef-4d00-9f61-7717e4f06982@oss.qualcomm.com>
+Date: Tue, 26 May 2026 16:02:45 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: display: panel: add Ilitek ILI7807S
+ panel controller
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Jessica Zhang <jesszhan0024@gmail.com>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org,
+        Ayushi Makhija <ayushi.makhija@oss.qualcomm.com>,
+        rajeevny@qti.qualcomm.com
+References: <20260518-ili7807s-panel-v1-0-d7b048163b1c@oss.qualcomm.com>
+ <20260518-ili7807s-panel-v1-1-d7b048163b1c@oss.qualcomm.com>
+ <20260519-curly-courageous-sturgeon-2facfe@quoll>
+ <dd065ccd-d7cb-45b5-8733-64b4f6571b3d@oss.qualcomm.com>
+ <yn7rwuguaqliovlyukcj2olxby7zerv57na3jf2pgbke5zgahk@aasd4ojwdy2u>
+Content-Language: en-US
+From: Arpit Saini <arpit.saini@oss.qualcomm.com>
+In-Reply-To: <yn7rwuguaqliovlyukcj2olxby7zerv57na3jf2pgbke5zgahk@aasd4ojwdy2u>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA5MiBTYWx0ZWRfX9sy4tSdbC8Ng
+ xHZ0BqXtIfM0LxjP5ADGOhPmwY7fviIWItTtgicuniCsQ2mqCbIFaQcZYycMcHlFVAFNIYPZ1ZF
+ f3zDcvfV9RvXUwG2RA/+8nkpUGgmoGxVZpX82TqmVIbZe2nuBKDe1mVcumEHUDI/rBekueHCw15
+ 10B1hXbjh8ztevz6ANp53DqQBk+5xPPR0Ip64V7E6amjJ3LvuD46r+e1bXT9D/8bNaVJ4Y8JIr9
+ SY8ty7Gx38jXTjzPWL++h26kYua8wUn+lYZ6GO80YTanlUSpSIOF2dFULK9fgGDVFO4cT4CxjY5
+ jW0ePf6plXEU1b0f3CYBCiDE1WyNrtGuqnkN8VrrAuUqeIYrxdNxJzZ7kRma2KaR2XQhQWOsvgJ
+ /FaGB0Xh5oLKOkZqEkFuMJZFQSQk88NxF0vm4kIe8kvcDaVLSKMqFAmLTIWHv/5xu+wrIV2aCdk
+ Dr/X9gsBIve0AWPYYCQ==
+X-Proofpoint-GUID: -jEEhj0j8m5NLpSfmP4el3jD9tRx3R5F
+X-Proofpoint-ORIG-GUID: -jEEhj0j8m5NLpSfmP4el3jD9tRx3R5F
+X-Authority-Analysis: v=2.4 cv=XqTK/1F9 c=1 sm=1 tr=0 ts=6a157728 cx=c_pps
+ a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
+ a=IV4c8OSHAAAA:8 a=QqSZzXjYCKH221ueLxIA:9 a=QEXdDO2ut3YA:10
+ a=uG9DUKGECoFWVXl0Dc02:22 a=Q6n48rkgcAvIKCAITAMI:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-26_02,2026-05-26_01,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
+ suspectscore=0 spamscore=0 adultscore=0 clxscore=1015 bulkscore=0
+ impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605260092
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Missing boot phase tag on the secondary flash node.
-- [High] Conflicting pinctrl properties due to missing `/delete-property/`.
-- [Medium] Meaningful code and commit message mismatch regarding the scope =
-of added tags.
-- [Low] Redundant boot phase properties on the same node.
---
+Hi Krzysztof , Dmitry
 
-commit 14d5fc0d2bb2bdd48adf7a7f9c0b21cba6b63b86
-Author: Patrice Chotard <patrice.chotard@foss.st.com>
-ARM: dts: stm32: Add boot phase tags for STMicroelectronics mp15 boards
+On 5/20/2026 6:56 PM, Dmitry Baryshkov wrote:
+> On Wed, May 20, 2026 at 06:10:57PM +0530, Arpit Saini wrote:
+>> Hi Krzysztof , Dmitry
+>>
+>> On 5/19/2026 4:02 PM, Krzysztof Kozlowski wrote:
+>>> On Mon, May 18, 2026 at 04:34:12PM +0530, Arpit Saini wrote:
+>>>> ILI7807S is a DSI display controller used to drive MIPI-DSI panels.
+>>>> The DLC DLC0697 1080x1920 LCD panel is based on this controller.
+> 
+> I can't find this panel on the DLC website. Do you have a pointer to the
+> product page?
+> 
+https://v4.cecdn.yun300.cn/100001_2012175013/DLC0697AAL21MF-1.pdf
+>>>>
+>>>> The panel requires a reset GPIO, backlight enable GPIO, I/O voltage
+>>>
+>>> If panel requires it, so should the binding.
+>>>
+>> Ack, I will update.
+>>> ...
+>>>
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +    description: DSI virtual channel
+>>>> +
+>>>> +  reset-gpios: true
+>>>> +
+>>>> +  backlight-en-gpios:
+>>>> +    description: Backlight enable GPIO (active high)
+>>>
+>>> What is the name of the pin in ili7807s device?
+>>>
+>> Display daughter card has WLED driver as well as LCD bias driver.
+> 
+> What is the display daughter card here? Is it a Qualcomm board or is it
+> a part of the panel?
+> 
+> Also you wrote a lot of text, but you didn't really answer either of the
+> quesitons. Is there a GPIO on the panel connector that enables the
+> backlight? If not, this is some external supply on your (assumingly)
+> daughter card. And it should be modelled accordingly.
+> 
+>>
+>> The WLED driver's Enable is coming from WLED_P1_EN and PWM is coming from
+>> LCD_CABC output of the panel.
+>>
+>> DISPLAY0_BACKLIGHT_ENABLE (GPIO 91) of ITP baseband card ==> WLED_P1_EN of
+>> Display Daughter Card (DC)
+>>
+>> In the display daughter card of Shikra ITP platform, we are not using the
+>> external PWM for WLED driver. But connected the CABC output of the panel to
+>> the WLED driver. Backlight update is happening using MIPI DCS command which
+>> is driving the CABC output (i.e., PWM for WLED).
+>>
+>> Because of above HW configuration, we need to enable the MIPI DCS brightness
+>> update on this panel. The below command of dlc0697_init_sequence() is
+>> enabling this.
+>> mipi_dsi_dcs_write_seq_multi(dsi_ctx, 0x53, 0x24);
+> 
+> So, this should be then dependent on the presence of the backlight in
+> the DT. Either it is a panel-internal one, or an external one.
+> 
+>>
+>>
+>> After checking this, I realized that this panel can be used without the DCS
+>> backlight as well when it's using PWM based backlight control.
+>>
+>> I can add `has_dcs_backlight`  in panel_desc and set it true for dlc0697. I
+>> will update bindings and add backlight as optional property.
+> 
+> Why? Use backlight property instead. It's already there. Anyway, you
+> really, really need to describe the panel in the bidings. Not your
+> daughter card.
+> 
+This `has_dcs_backlight` in panel_desc will serves both the purpose, as 
+for our current platform constraint , we need to create our own backlight.
+But this panel can be used without the DCS
+backlight as well when it's using PWM based backlight control.
 
-The bootph-all flag was introduced in dt-schema to define node usage across
-different boot phases. This patch adds these flags to ensure SD boot for
-various stm32 boards.
+So in this case I need to implement the backlight as implemented in 
+panel-novatek-nt36523.c, panel-himax-hx83121a.c.
 
-> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-> present in all boot stages, so add missing bootph-all phase flag
+with this implementation ,I will remove the backlight from the dt-bindings.
 
-[Severity: Medium]
-Is this commit message accurate regarding the scope of the changes? The text
-only mentions adding the bootph-all flag to timer, gpio, syscfg, clock and
-uart nodes. However, the patch also introduces bootph-pre-ram and
-bootph-some-ram tags to other subsystems like QSPI, PMIC, LTDC, OPTEE, SCMI,
-PSCI, and SDMMC. Could the message be updated to reflect the full scope of
-the modifications?
+Please let me know,if I am missing something.
 
-> diff --git a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts =
-b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts
-> index 60ce4425a7fdd..ac4e313ca3716 100644
-> --- a/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp157a-icore-stm32mp1-ctouch2.dts
+Thanks,
+Arpit
 
-[ ... ]
 
-> @@ -53,6 +53,16 @@ &uart4 {
->  	status =3D "okay";
->  };
-> +
-> +&uart4_pins_a {
-> +	bootph-all;
-> +	pins1 {
-> +		bootph-all;
-> +	};
-> +
-> +	pins2 {
-> +		bootph-all;
-> +		bias-pull-up;
-> +	};
-> +};
-
-[Severity: High]
-Does this introduce mutually exclusive electrical configurations? The base
-definition for these pins in stm32mp15-pinctrl.dtsi already specifies
-bias-disable. Because Device Tree append semantics merge node contents, the
-resulting tree will contain both bias-disable and bias-pull-up. Should this
-include /delete-property/ bias-disable before setting the pull-up?
-
-> diff --git a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts b/arch/arm/boot/dts=
-/st/stm32mp157c-ev1.dts
-> index 0e65a1862eb53..c4be802ef1e78 100644
-> --- a/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-> +++ b/arch/arm/boot/dts/st/stm32mp157c-ev1.dts
-
-[ ... ]
-
-> @@ -314,6 +315,7 @@ &qspi_bk2_sleep_pins_a
->  	reg =3D <0x58003000 0x1000>, <0x70000000 0x4000000>;
->  	#address-cells =3D <1>;
->  	#size-cells =3D <0>;
-> +	bootph-pre-ram;
->  	status =3D "okay";
-> =20
->  	flash0: flash@0 {
-> @@ -323,6 +325,7 @@ flash0: flash@0 {
->  		spi-max-frequency =3D <108000000>;
->  		#address-cells =3D <1>;
->  		#size-cells =3D <1>;
-> +		bootph-pre-ram;
->  	};
-> =20
->  	flash1: flash@1 {
-> @@ -335,6 +338,41 @@ flash1: flash@1 {
->  	};
->  };
-
-[ ... ]
-
-> +&qspi_bk2_pins_a {
-> +	bootph-pre-ram;
-> +	pins {
-> +		bootph-pre-ram;
-> +	};
-> +};
-> +
-> +&qspi_cs2_pins_a {
-> +	bootph-pre-ram;
-> +	pins {
-> +		bootph-pre-ram;
-> +	};
-> +};
-
-[Severity: High]
-Will this omission prevent the secondary flash from being accessible during
-the SPL boot phase? The patch adds the bootph-pre-ram tag to the QSPI
-controller, flash0, and the pinmux definitions dedicated to the secondary
-flash (qspi_bk2_pins_a and qspi_cs2_pins_a), but it is omitted from the
-flash1 node itself. Should the tag be added to flash1 as well?
-
-> diff --git a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi b/arch/arm/b=
-oot/dts/st/stm32mp15xx-dhcom-som.dtsi
-> index 4cc633683c6b7..04e91d02cc287 100644
-> --- a/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
-> +++ b/arch/arm/boot/dts/st/stm32mp15xx-dhcom-som.dtsi
-
-[ ... ]
-
-> @@ -253,6 +299,8 @@ &i2c4 {
->  	pinctrl-0 =3D <&i2c4_pins_a>;
->  	i2c-scl-rising-time-ns =3D <185>;
->  	i2c-scl-falling-time-ns =3D <20>;
-> +	bootph-all;
-> +	bootph-pre-ram;
-
-[Severity: Low]
-Are both of these properties necessary? Since the bootph-all property
-inherently specifies that a node is present in all boot phases, adding
-bootph-pre-ram to the same node appears redundant.
-
->  	status =3D "okay";
->  	/* spare dmas for other usage */
->  	/delete-property/dmas;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-upstream_u=
-boot_properties-v7-0-e17cd424d5db@foss.st.com?part=3D6
