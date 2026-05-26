@@ -1,114 +1,96 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92172D5C7A;
-	Tue, 26 May 2026 08:24:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3879B2C181;
+	Tue, 26 May 2026 08:40:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779783844; cv=none; b=A+cM0MVfs+xz8BoP3JoU264kb10KnFGu8f13eQWiw3o0jyczYCfbEiE//g4qWEQF1e7cnmZNTgUTjOVBjde6o+m2ICQK0d9QpobDcT5gF4Yvdd6e4P0tjzC2b5BBnx/7yoXSEYOUh9lfpD7Idh0u4aFGFVSJR3ankAJLTmU2z1w=
+	t=1779784832; cv=none; b=uZ8CtwK5lfW2ADsq4x8AtUZr15D0M4xcSWyt4how4rXhVK7Tg4Cfoq3CHI/VLeuzN+ZOKFNZWgyS8C1JAd24ssCMnThnemJgOWGdGdHgI6qmtdXwFVxJSA2hWSwaaiMmV17gk+GU1IFfJcbb50hAp6YElOsG9N3eYzHlKsx6gqM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779783844; c=relaxed/simple;
-	bh=jzPDUrYU5YUBI5VtcpGXBZDnsZJiBGb7cYlhvsOTwB0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u7ok/vJhZ04RqvePX2WloXSxLtY5BCyCGOBgZmZNilwsy0t+L64udfg2R5Fh+ki3FfPvwMw8pOXYr8b4ai49YrUYQ41Rdu3gVDmf5pFYnvWDYs9GPgzjguEEdjnd7EfpqULCS25FH9s/u69XMwjWpqLzIqxl/MBb9lCWfbCg6LU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=ZyGQyVQT; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1779784832; c=relaxed/simple;
+	bh=dK6d6cYoqFc3ZfUKf9JNJjrgbE7x6z5aNRmfsd9a828=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=dMVk7PpTdo9mzMMI82zJ3R3kG3FHY0mYxZl4vBU3Ocgxzhv0O4HakVMWEF5Pv7B2vR7xGl7Zscc3qgEg6LTUlk2Fr8wVVViI4ejHWDcUwIw45lKHGBoGGRn548pkDqEsZpWN8br3QhWa7MC8ctiqfd1lGyfsUFSzSF8FWqPfmGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NkB8Nsjc; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="ZyGQyVQT"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=Jz2YYHrj1dgz9D267IoLZDXvPm7YaDuL+I5moOpvFWE=; b=ZyGQyVQTYvZazDTz43A4s9V6U6
-	RiYJ8cZTKGcPRbAVpyh2CSvaWNEwsxidxgPIBNUAcx2T+XJbHyGSh7Ih9laSNIh/hejE1Bn/XmX4F
-	EabNmK8K64bIMz1tbBAZwGmuOXTF3253BwT8B9oRH+U/pUbRy1CGF1w6LeA3iltvR2/sySAiJNtvv
-	NfbsJyltzrEARriRgXsdJTXJ1TCWCcl6jCTYJDkrrbOKQTjFGQZWzDrNKTKazDNoqe3s1AxTCekA2
-	rl15FCUNp35Ws01m4aDnpvFn6vGyy8XfmGEuDE0zDnN3GuIqCeQbFrRSaEJg/H4vRPrY5nJHJJWbo
-	oyc6dRhQ==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wRn4y-00078m-0z;
-	Tue, 26 May 2026 10:24:00 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wRn4x-000EHC-11;
-	Tue, 26 May 2026 10:23:59 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Shawn Guo <shawnguo@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Nora Schiffer <nora.schiffer@ew.tq-group.com>
-Subject: Re: [PATCH 0/7] TQMLX2160A-MBLS2160A DT fixes/updates
-Date: Tue, 26 May 2026 10:23:58 +0200
-Message-ID: <2834667.mvXUDI8C0e@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260331141915.2918927-1-alexander.stein@ew.tq-group.com>
-References: <20260331141915.2918927-1-alexander.stein@ew.tq-group.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NkB8Nsjc"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id EBB34C2BCC9;
+	Tue, 26 May 2026 08:40:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1779784832;
+	bh=dK6d6cYoqFc3ZfUKf9JNJjrgbE7x6z5aNRmfsd9a828=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=NkB8NsjcnV73TcMgKtM5K7PZYJCymRuRmuMxVskgVAZM8r0WiOfQqWbVGazBgjmtX
+	 twsGmuXMD3jkvQBiNptHEzJlBYVYVWsDOg0w8v8T1YJn+4hyKaTZalkk3ZM4pLjPIw
+	 epk8NdfTE7MLaeoGh2DZJoZ79q4PthIT3geepOHMaB/k7keg7ubhazX4jg55iFKtt8
+	 yiEwPbEePlXAtBgBmITm6IXW/ooP5rqo1W026GeD6dk85OZImTlI2mscayw/iNsSWn
+	 ywLydZl9LW0aVYQzKa/3eWfa6pEw5NieEGFr6abJXJsYSAX+j+voOw5QSqWDpLwaxn
+	 HwP+5gHUMmVGw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E3134CD5BDD;
+	Tue, 26 May 2026 08:40:31 +0000 (UTC)
+From: Zhentao Guo via B4 Relay <devnull+zhentao.guo.amlogic.com@kernel.org>
+Date: Tue, 26 May 2026 16:40:18 +0800
+Subject: [PATCH RFC RESEND v5 2/6] firmware: meson: sm: video firmware
+ loading via secure monitor
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28012/Tue May 26 08:24:34 2026)
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260526-b4-s4-vdec-upstream-v5-2-33bc817f93f4@amlogic.com>
+References: <20260526-b4-s4-vdec-upstream-v5-0-33bc817f93f4@amlogic.com>
+In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-0-33bc817f93f4@amlogic.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-amlogic@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org, 
+ devicetree@vger.kernel.org, Zhentao Guo <zhentao.guo@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779784828; l=663;
+ i=zhentao.guo@amlogic.com; s=20251024; h=from:subject:message-id;
+ bh=2+l4DUwLwWn2GDHI6LoxkCkn7TDYkl4Sv8Q4p9SlS/E=;
+ b=K7DQ71fqbh3rYm2IuWeVYzvl26czXaJUk8ABXFSly1FA93FtCy5MvdN+V97ol5CT3L/Ne6gVs
+ uiXU0OZRZ+nAqzEtvPQxyrRgdqJ+VgAZoNl41CZfQc9FQaxaTCVp9fZ
+X-Developer-Key: i=zhentao.guo@amlogic.com; a=ed25519;
+ pk=5yfDKrjreXwcAoEUsdtWafy6YN500upXp/CgtnXjLVU=
+X-Endpoint-Received: by B4 Relay for zhentao.guo@amlogic.com/20251024 with
+ auth_id=555
+X-Original-From: Zhentao Guo <zhentao.guo@amlogic.com>
+Reply-To: zhentao.guo@amlogic.com
 
-Hi Frank,
+From: Zhentao Guo <zhentao.guo@amlogic.com>
 
-Am Dienstag, 31. M=E4rz 2026, 16:19:01 CEST schrieb Alexander Stein:
-> Hi,
->=20
-> this series adds small fixes and improvements for TQMLX2160A DTs.
-> The DT overlays address specific hardware behaviour when serdes is config=
-ured
-> differently.
+Add SM_LOAD_VIDEO_FW to the secure monitor command enum
+to allow decoder drivers to load firmware through the meson_sm
+interface.
 
-Any feedback here?
+Signed-off-by: Zhentao Guo <zhentao.guo@amlogic.com>
+---
+ include/linux/firmware/meson/meson_sm.h | 1 +
+ 1 file changed, 1 insertion(+)
 
-Thank and best regards,
-Alexander
+diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firmware/meson/meson_sm.h
+index 8eaf8922ab02..f40867a000f1 100644
+--- a/include/linux/firmware/meson/meson_sm.h
++++ b/include/linux/firmware/meson/meson_sm.h
+@@ -14,6 +14,7 @@ enum {
+ 	SM_GET_CHIP_ID,
+ 	SM_A1_PWRC_SET,
+ 	SM_A1_PWRC_GET,
++	SM_LOAD_VIDEO_FW,
+ };
+ 
+ struct meson_sm_firmware;
 
->=20
-> Best regards,
-> Alexander
->=20
-> Alexander Stein (1):
->   arm64: dts: fsl-lx2160a-tqmlx2160a: Remove deprecated properties
->=20
-> Nora Schiffer (6):
->   arm64: dts: fsl-lx2160a-tqmlx2160a: fix LED polarity
->   arm64: dts: fsl-lx2160a-tqmlx2160a-mblx2160a: use DPMAC 17 and 18 for
->     SGMII in SERDES2 configs 7 and 11
->   arm64: dts: fsl-lx2160a-tqmlx2160a: add aliases for all 18 DPMAC
->     instances
->   arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: add various GPIO hogs
->   arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: enable pcs_mdio17 and
->     pcs_mdio18 in appropriate overlays
->   arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: specify Ethernet PHY
->     reset GPIOs
->=20
->  .../fsl-lx2160a-tqmlx2160a-mblx2160a.dts      | 306 +++++++++++++++++-
->  ...l-lx2160a-tqmlx2160a-mblx2160a_x_11_x.dtso |  20 ++
->  ...sl-lx2160a-tqmlx2160a-mblx2160a_x_7_x.dtso |  20 ++
->  .../dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi |  23 +-
->  4 files changed, 357 insertions(+), 12 deletions(-)
->=20
->=20
-
-
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+-- 
+2.42.0
 
 
