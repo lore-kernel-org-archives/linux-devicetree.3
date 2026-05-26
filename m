@@ -1,189 +1,85 @@
-Received: from leonov.paulk.fr (leonov.paulk.fr [185.233.101.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAAA332634
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 14:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.233.101.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483132F691F;
+	Tue, 26 May 2026 14:34:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779804807; cv=none; b=E2wMBOWWP5OKE4CVK3AQazJARlWNbeSG4AJ++6cV9AhwZElv8qiQe2agyPXHS6iFHJKQ1mx4ufmUfhfjXRtkOoGpfm7zuLyy5fl7GdW9yns1IjRzuONCM2wWLxFH5r4WK3NTn/35iX/yU0GQodUS/VeZoIppNsZi6vP8xt0u8Wc=
+	t=1779806082; cv=none; b=VTrQ6G/ys75u79rbSFj7waPOU8DRh+nQ0SImadilIYjCYMsJQgiG37AbXK6zNgdKTb6x8iyABjWuNxR8cla+qIxUiXcsKojiHy/BspUDpSCQbYcqV/9119zNO7PXHkRHw8EhBo14ukfYxFNAAOy5S1r8YG6WtUj0lNPY4fJts6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779804807; c=relaxed/simple;
-	bh=0ExaLqZz8H/scaF4ESGOgbBXyDPgoURUWi3f4cwnXos=;
+	s=arc-20240116; t=1779806082; c=relaxed/simple;
+	bh=mDzX9CdYP640nxuSpX4i4TSvETI3+PkI7fFzmV7MiT4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MsPmNJ2SjjVjluCrEvfx85Rgmi8B/LKD9xghsZiGRMsK1c1ncz0x32sM36S3M4ThS/7T69LpxcuZ/b38MU6ILUv4mKRdjs9XyHUXMJRIXM8en9gNnTMfonTMX27tLh5Rn4VOOZjQlPn6sarrtkiXYQ4M0MIajeCSLRjPZi8pawk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io; spf=pass smtp.mailfrom=sys-base.io; arc=none smtp.client-ip=185.233.101.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sys-base.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sys-base.io
-Received: from laika.paulk.fr (12.234.24.109.rev.sfr.net [109.24.234.12])
-	by leonov.paulk.fr (Postfix) with ESMTPS id 443F137002DF
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 14:13:17 +0000 (UTC)
-Received: by laika.paulk.fr (Postfix, from userid 65534)
-	id 52038B408F7; Tue, 26 May 2026 14:13:16 +0000 (UTC)
-X-Spam-Level: 
-Received: from shepard (unknown [37.167.72.125])
-	by laika.paulk.fr (Postfix) with ESMTPSA id E42EAB408F4;
-	Tue, 26 May 2026 14:13:14 +0000 (UTC)
-Date: Tue, 26 May 2026 16:13:05 +0200
-From: Paul Kocialkowski <paulk@sys-base.io>
-To: Chen-Yu Tsai <wens@kernel.org>
-Cc: linux-sunxi@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
-	devicetree@vger.kernel.org, sashiko-reviews@lists.linux.dev
-Subject: Re: [PATCH v9 5/9] ARM: dts: sun8i: v3s: Add nodes for MIPI CSI-2
- support
-Message-ID: <ahWqcWy_6QuNIOi-@shepard>
-References: <20260518153339.619947-6-paulk@sys-base.io>
- <20260518161130.F0A4CC2BCB7@smtp.kernel.org>
- <CAGb2v65+JwwU2p5TQ6hrqonYNUgVgZQMPY6D=ROqWJu=xy=drQ@mail.gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=eqo4jVIM/0RkgtMgjN4cg/woTPhdn7v00OoQ5+uLosNNuG0WUQYK3YCj6qeCi+pdBeLi7mjYBA2WWpC+CYIEpGPzooyfTbrCKSRZno6jEHgJOeRe2zBdRQO5G2LWT6hbezjK4FbbsP0i4LtufCOPYg+1KE1vAC8XePjBQn92zVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LBZyNc0u; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LBZyNc0u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A0271F000E9;
+	Tue, 26 May 2026 14:34:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779806081;
+	bh=Ek5lrBzczU2aR62gMDENtWcjQ/WBpYlAIGjf7K7K2dw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=LBZyNc0uVf+MpCe4+Hr9THXbdTyK0ESJ0a5W5iuD4M/0kUY69afClvjM8+Fp4eypN
+	 BpCa2sjPiK4FpN4efpD795tZmoaHfl7zAQWJsVEZSxvHsxTVWIhN7r0i2MXVxG3Ith
+	 4RgUZGNdufUEHQpmU5SEEgDa9fY0toJHG0G86HZJBlZTWM8wbAuWsDKsJj+UoqyOxu
+	 Sl6TwVaEFvMDgrmK3gz/u1yyUn/8vlAXBk2Wu7PPiqznWqYtmZ0B5Ug0NIlaDUakBw
+	 AkIVeD3q6mc/4MnXKO5PtjeHXx4fpy/Q1yYTSO4GuIn4raGKBEHMsjg0DGqa+qe+Mh
+	 dN2K4coa+rNSw==
+Date: Tue, 26 May 2026 16:34:38 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Tudor Ambarus <tudor.ambarus@linaro.org>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, 
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v5 1/5] dt-bindings: thermal: Add Google GS101 TMU
+Message-ID: <20260526-nocturnal-dragon-from-lemuria-c517a4@quoll>
+References: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
+ <20260525125455.AF31A1F000E9@smtp.kernel.org>
+ <4832a220-ace5-40ba-b85b-7c69b3aed869@linaro.org>
+ <20260526-uptight-bustard-from-jupiter-291e59@quoll>
+ <08eba1cf-2df8-4f2f-a527-ee03ee792920@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="3/yyHngUfyzKNMrH"
-Content-Disposition: inline
-In-Reply-To: <CAGb2v65+JwwU2p5TQ6hrqonYNUgVgZQMPY6D=ROqWJu=xy=drQ@mail.gmail.com>
-
-
---3/yyHngUfyzKNMrH
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <08eba1cf-2df8-4f2f-a527-ee03ee792920@linaro.org>
 
-Hi Chen-Yu,
+On Tue, May 26, 2026 at 01:02:37PM +0300, Tudor Ambarus wrote:
+> 
+> 
+> On 5/26/26 12:39 PM, Krzysztof Kozlowski wrote:
+> > On Mon, May 25, 2026 at 04:06:40PM +0300, Tudor Ambarus wrote:
+> >>>
+> >>> [Severity: Medium]
+> >>> Since the commit message and binding description indicate that the
+> >>> Application Processor relies entirely on the ACPM firmware for all
+> >>> functional TMU tasks, shouldn't samsung,acpm-ipc be included in this
+> >>> required list?
+> >>>
+> >>
+> >> I disagree. The property remains optional because the ACPM firmware
+> >> can be bypassed entirely. The TMU IP is capable of handling thermal
+> >> management directly without IPC intervention, so the phandle is not
+> >> a strict hardware requirement.
+> > 
+> > I see your driver will fail probe without it, so something is not
+> > matching here.
+> > 
+> 
+> 
+> Yes, that's because plain TMU register access, without the ACPM, is not
+> currently implemented in the driver. The ACPM can be bypassed in theory,
+> which is why I left the phandle optional in the binding to reflect the
+> hardware.
 
-On Sun 24 May 26, 20:49, Chen-Yu Tsai wrote:
-> On Mon, May 18, 2026 at 6:12=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
-> >
-> > Thank you for your contribution! Sashiko AI review found 1 potential is=
-sue(s) to consider:
-> > - [Medium] The `dphy` node is missing the required `interrupts` propert=
-y and a SoC-specific compatible string.
-> > --
-> >
-> > commit ceae1b5da24380c4a30d9a8b480a23eaee3c0814
-> > Author: Paul Kocialkowski <paul.kocialkowski@bootlin.com>
-> >
-> > ARM: dts: sun8i: v3s: Add nodes for MIPI CSI-2 support
-> >
-> > This commit adds MIPI CSI-2 support to the Allwinner V3s SoC. It introd=
-uces
-> > the device tree nodes for the CSI0 controller, the MIPI CSI-2 bridge, a=
-nd
-> > the D-PHY block.
-> >
-> > > diff --git a/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi b/arch/arm/bo=
-ot/dts/allwinner/sun8i-v3s.dtsi
-> > > --- a/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi
-> > > +++ b/arch/arm/boot/dts/allwinner/sun8i-v3s.dtsi
-> > [ ... ]
-> > > +             dphy: d-phy@1cb2000 {
-> > > +                     compatible =3D "allwinner,sun6i-a31-mipi-dphy";
-> >
-> > Should a SoC-specific compatible string like "allwinner,sun8i-v3s-mipi-=
-dphy"
-> > be included here alongside the generic a31 fallback?
->=20
-> Following our general guideline, I believe it should.
+The point is that phandle is not optional currently. Binding must
+accurately describe the interface implemented by SW, so either SW does
+not fail the probe on missing property or the property is mandatory.
 
-Yes I guess it makes sense. I don't think we've been doing that in every ca=
-se
-but it doesn't hurt.
+Best regards,
+Krzysztof
 
-> > > +                     reg =3D <0x01cb2000 0x1000>;
-> > > +                     clocks =3D <&ccu CLK_BUS_CSI>,
-> > > +                              <&ccu CLK_MIPI_CSI>;
-> > > +                     clock-names =3D "bus", "mod";
-> > > +                     resets =3D <&ccu RST_BUS_CSI>;
-> >
-> > Will this node fail dtbs_check schema validation? The existing device t=
-ree
-> > binding schema for "allwinner,sun6i-a31-mipi-dphy" requires an interrup=
-ts
-> > property, which appears to be missing here.
->=20
-> Yeah, this is definitely going to fail validation.
-
-To be very clear about this, the interrupt is absolutely not required for
-proper operation of the unit and there's a chance we might eventually see
-a SoC that doesn't have it wired.
-
-I could just hook the interrupt for now and we could make it optional if ev=
-er
-needed, but I could also mark is as optional now if you prefer.
-
-> > If the V3s hardware physically lacks a D-PHY interrupt, would it be bet=
-ter
-> > to add the V3s-specific compatible string and update the binding schema
-> > to make the interrupts property conditionally optional for the V3s?
->=20
-> FWIW the vendor kernel has some code for the D-PHY's interrupt bits [1].
-> Could you add the interrupt (I'm guessing the MIPI-CSI interrupt?) and
-> give it a quick test?
-
-Thanks for digging this up! It really looks like it's just used for debug
-purposes.
-
-I have previously used the mipi csi-2 interrupt for the mipi csi-2 controll=
-er
-and never for the d-phy. There's a chance it's the same interrupt that is w=
-ired
-to both units (like it is for isp/csi).
-
-I'll give it a try when I get back home. If it doesn't trigger, it probbaly
-means it's not wired to the d-phy and should really be made optional.
-
-All the best,
-
-Paul
-
->=20
->=20
-> Thanks
-> ChenYu
->=20
-> [1] https://github.com/gediz/v3s-linux-sdk/blob/master/linux-3.4/drivers/=
-media/video/sunxi-vfe/mipi_csi/dphy/dphy_reg.c
->=20
->=20
-> > > +                     allwinner,direction =3D "rx";
-> > > +                     status =3D "disabled";
-> > > +                     #phy-cells =3D <0>;
-> > > +             };
-> > > +
-> >
-> > --
-> > Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260518153339.=
-619947-1-paulk@sys-base.io?part=3D5
-> >
-
---=20
-Paul Kocialkowski,
-
-Independent contractor - sys-base - https://www.sys-base.io/
-Free software developer - https://www.paulk.fr/
-
-Expert in multimedia, graphics and embedded hardware support with Linux.
-
---3/yyHngUfyzKNMrH
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEAbcMXZQMtj1fphLChP3B6o/ulQwFAmoVqnEACgkQhP3B6o/u
-lQyVBxAAkmBbJfWH/Zap2m4SELdLqBWc4TbBFrxkvapEAEVhEDEjPt43XnjnVTGB
-RlS4WMVVEdLi1WtYEYPA7VkcGsYZQsuwySF5q0DoNkUbumm7qu0c2oewxahvd8i4
-iC1xUQHV+tgcIOd3KzRWgb6r+PoEASdHP1ND+Nn5ifZtA4qQODLtIK92cQfx2qXR
-zKvub/V2rDx9U6wHaoDcDkY5WTDh27Yb95Pwv9EuublD1RovX4zhNyDRFSTol3pB
-APuNJoQZAEhL7YLOK+myTEnZgQTSsYCrALKJyIpj++9wtBUfaCQvzZVhTBQJrq0H
-v4WHw/vc0M0FcULjEU4kQhpqpkDKx44rhny8yXxiI+9DpNWrJ5o8neoVUiEn+Yzi
-omFq3SSeGGbw9r5A57Y6COhERx5IFkIJ0p+0oz5ANwFwKSADL7/JTk35Fu/cg6Hn
-zJ+SMjLHJJFl4P5AunKhxed1M4w1QGev8kkkmp5FXcdwNU/qDVKEqiBXTgCdr6mA
-f0JT8pmhSCp3esUbvYrNS+thKgR3s5B+YEUikO9pLhIMvBnfAsmp8RTbRmFyIK78
-Lw1Diz6iGKBR+6rsxZlTySZ5nAPEeKIXScdnJFsQPGCBudGhIUEIv82ev7uESu3x
-xKIO6SYIio+eUZgeA8QXVqGWVDCvJYUDC5yQ8nS4TqjfI8diJAs=
-=sw0R
------END PGP SIGNATURE-----
-
---3/yyHngUfyzKNMrH--
