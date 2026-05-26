@@ -1,80 +1,84 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3001400E02
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 14:53:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 005AC400E10
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 14:53:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779807223; cv=none; b=FODreZUV38k5hZSGRdpw8FfHsqzQNvfncswMOH6Btz3jFytgYjZ+oc6uH57fC7wr9Z0k0mri2mNd3dV2MaghECotefBxq+oIFx/nTD3qcQyQVJbwlPctT6g5HWTwi1XtRTrQRBapy3JoWLeNr3ni6ezYRy3EY1KXq7kfT46P7AY=
+	t=1779807225; cv=none; b=ik3MH+7kBptSsCwAU2df+xLecYIVWOXHPBxBi/qfTomNjBvdAuFy84pv/mRWmljq+rdlryhTbdQ+cPIXuEo6JrocQM7c7NDgOA7I3VE0lUmWkbfgggKwH3+7hc2s80aLC9nBK+yJJRG4WmNJABdh6ujmNsAXCeMFBtLUTZI8iEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779807223; c=relaxed/simple;
-	bh=9raiExYJwinCsjU0ztkvcMXuLXTubkfh6tboMQl05Yc=;
+	s=arc-20240116; t=1779807225; c=relaxed/simple;
+	bh=Sqbs2OkiSdwuY7yyEzdomyWRGXYA8rO5hY6K9hT0/W4=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=oWydn8e3yPLuUikGBWR/V29qyncQx4bDFU5Fi3cZnhcD+iBeVRJGiNT/aIqq/UwtcL15ckmx56G4q8JghOioSw5Y7gdKBMLc4Cr1bB9sRZWHURBvR13NLHLGe4VcKJNdwX449pfOdnUOmaIDCMtMIjITetkMtPq5KytlGaDA8Fo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=mSIyVNNq; arc=none smtp.client-ip=209.85.221.46
+	 MIME-Version:Content-Type; b=NZmdTPgmPWc3is5a6d+3SmqfgUliXQBjUwDORTMFGRNZ/69zxv5cvs4EVl1rKUHP8swrOIx5Q4EUnviA12BUtCPw2OejGST6dd/NZ4zTU2QTNx9KCWfxoBFEyEZ3tzmMk4w9A2T2BKKVJ2zgglBunx7jGXbMcaHGid0B1Zol/pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=F5vVh/a/; arc=none smtp.client-ip=209.85.221.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="mSIyVNNq"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-44e5624c053so6408206f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:53:40 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="F5vVh/a/"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-44dd5cb0f81so7674040f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:53:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779807219; x=1780412019; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1779807221; x=1780412021; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t5cQRAN/rOy/5Hd0UrHoeFdJRowMHdiS3Folbw6peeI=;
-        b=mSIyVNNqkAjQb3sgpn4phz4E2yP0ijpPC5seankeOEgRLw/TStcuPB0l3ejA6H29jW
-         4GhJNKvqYm28ADZmPW0pzUF2OrQOnyIJny0anw62K4mEWh4EXOySmU0pUFP6RmQc0YTy
-         DpH87r3K7AMz8t9llg3Ct7c//p6dw/ET46/EIFHiovTeioi0KdjFQ2Xq4jUFd3wdnK5W
-         +t4a0wQt3LdSycj+aMUHMJbF8zrxxe4DMsIYhiJVyxvKiwc2pp6Y2VT1oiO/O/quCgOx
-         9LFmmiPQRdRzkwky3g9a6HwQbYnlhXECKBnAraJ1xpa2VsgMRCYgey14sLq0G7wcvCjZ
-         c2fw==
+        bh=VW3FGEMYl3HtrO5py8lQ+JYd7M0lWOH5Fx7/bpcIlXg=;
+        b=F5vVh/a/1e3jRJftQLFlxC3rNB5bS90muDoj+qFSQvlPVDasatTDMXKYzX0SLIvGND
+         UFeCmVDXH0YJe1J+0pGUeCFagiZ3X7BMte1/eEnkquBGKCwfOIiW00rfryBLErtmGadW
+         XY9HcUEXTe5fVucbf2NvtY1t/tVk0DQ8VZz9BWNgmqJn/GiHxAxzbCh6XmC9r8fW2vsp
+         g/Sd9mMm2nOBZtmuLebxcB6U2LslOpL4F+v2qOzJyBbsMaX9pbJN1anzEopOoNT7NQsf
+         VQ+igFaa2dMZ+U9R6aDj1Mlkz94MW8wMNGgup4OITut1Szr782SQrBrj0YCVZfkotiod
+         Asow==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779807219; x=1780412019;
+        d=1e100.net; s=20251104; t=1779807221; x=1780412021;
         h=content-transfer-encoding:mime-version:date:message-id:subject
          :references:in-reply-to:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=t5cQRAN/rOy/5Hd0UrHoeFdJRowMHdiS3Folbw6peeI=;
-        b=EZuDobSCciZIfCDR+R9hXV3EZsiDN5NnRG3pLL1DtZSEqTt+tdIVg7hDaUSZwZUEjI
-         L/6O8bNFERVWvHZhim3BvSwZ8gWzVCgw0loZ1P4bp78ns73tuv7UBUx7WI36j3WnQvYk
-         at7vLdCFPZPS1HMCJrqKKSFuyVv6fSZFS8BBdA1zp+Uz404VX94KM01PysPwPjlTAz3A
-         jPfCFBiqqbNaKMSbbRXc6u8hGlCiyfgxvoS50C4ZMYkt5QGRXV9SX5dydb1kQFTo3tzh
-         1Q7SsHG4xqtMP4ZeJxiodsKsVG9WHhjF/psDBUnd1VkTl6VXcgVUa9hfdml70yVj+kbM
-         SLzw==
-X-Forwarded-Encrypted: i=1; AFNElJ+GInVSf8RPZqpL1LSKKk5zop0oog6+JTD88XTaUsNaZvgZQhuyh0suMu8v3Xh8IhkTUlg8r9Qi9mB9@vger.kernel.org
-X-Gm-Message-State: AOJu0YzViq5uLPxftQTg4HTKT3b8G56u/upIqVhVb3BPe93JSU7JQUvg
-	0Bvp0lshNFw5SqaAKkbC8MI8g0wzBQeKA9SUwhPbA+/auZqCW5q/C/z8G/2dptR35cM=
-X-Gm-Gg: Acq92OHeVaxICyq82sGlGyKzPr/4kcoEOQUXLQwibVjZYrJ4lS+K1WV40GevSnOxS6/
-	+bLjgsvR/anis9i9atcK6jNZi8TpIOCIgvU1wRz2PntR/Gn4v06eeju2iqmSgTQqQdq2cwrhfqF
-	WaMEbNx7XLAAw3ZReL6cmyLKNn9VRk9DCiB/vQzKpWFwUsapKlE6JPbG/79JW0qRcOYfA6MX+YW
-	z7MsnxPdzBQuIzrK6YBQcpA2G+0qQYve3WNiWr7YInkv+3Zi5d8lYw9RiKcmHShfsFfjHsK6kTr
-	31c4OSzOs1NTg3GRcM9W4SFYvY9vbyjJtSbppXNVFT1hdUrd8/3JswUKQhUO8pnfpKzTkwkbJ/T
-	x4mLmnbAl4SnFznAp/Xgmo4cPIZAM2vgQhA4t5f+eiyodO3JJg4QEboVGLR3kaVSZfiq6GjTxcl
-	LDmZpc3ylojL7zpZEcTKgnfAtN5V9RSYfq2F91XJTAc7RHPDYgsHMJ24U=
-X-Received: by 2002:a05:6000:1a87:b0:43f:e2b7:7160 with SMTP id ffacd0b85a97d-45eb3673319mr34044860f8f.4.1779807218962;
-        Tue, 26 May 2026 07:53:38 -0700 (PDT)
+        bh=VW3FGEMYl3HtrO5py8lQ+JYd7M0lWOH5Fx7/bpcIlXg=;
+        b=qLyJiNEfL7xGNwxSLKQV5G2q67J06238Znbgj44c9f2/oHE8RhGZWBPvuXf0qZlEa9
+         bEQSHlyLpnvxMGfgdg26NQARcqkkKKT+8NAA5Wn/yd9YyDTREtDSBMKi4qcBFfKimmcz
+         iYvScD6kesW7SPnHoPCHPm0VVxrgE1eyB+OBPWgMMu8SoUYxC4iZNeKJ+dMKeGd5u8NC
+         BbkXfQas3j+63plhIe0r7+yRwYl+O2cJ0kwRQSbRQ3o84JRHy68s1/2tebGGVup7d1BY
+         hUA64wkFsFPi4y7BAVGLI6llamUP3+LjIdrGlsxnmGXoD7J2WUbOad70sXUOMLNMtZ3N
+         1/lA==
+X-Forwarded-Encrypted: i=1; AFNElJ90WLg2OYLNcWiew15l/xAZPvF0jP+yCpJ555iooPH2RYphQBwcsYhH34c4nuMwkAImNKDua4gsZGK1@vger.kernel.org
+X-Gm-Message-State: AOJu0YwJI8LwjHKr4nR2EqucSvYKmmKxMBfhzW0rOzs6siGNNeQbUVb4
+	I2F43owAHP6OHPZ33f5/GI1obBXJzz8++7eNT3bpaUKXkUkMx6mvW4d3KistkJkvaJWL4znZ+1k
+	R9UZ7WSc=
+X-Gm-Gg: Acq92OEs6DyLCLAZVx2EVMALhSNAOImVHHjg8fF4UmCIbHXqIgaSzrCpMHOZeyE6QGu
+	UyZsXC99wy8czBn17FMK7COp1CSiLawqWzzRmWS5dQQsrWTzdp4oYuVc7h0llWwvt5+s6k2JOGN
+	1QU3Bmy7j9sS37xGTqX6VDiV/WMdUB2wYP8S9PDpRBwMDbU7GmS/1yYKRCeOQYPW6/DvopSnibb
+	hE5wba2Y5QAID/5Xt/pcOSwMm2Slux2/afYzSB000Qur8Txei7vHHhOrGivDvGuCj8rQA1jyu5C
+	B7fvmQnQ3cLGtFB9QYm4AcqwR+P11o5ba4vGYKfgmXOfKPzzK1DCDIypiw/F8kTc1FrcuG32zTf
+	FxUBvFYbBNkN/QA7oaQze9ABa7xnVE1v6b4fQqqUAqYl+tFlTHbXcmA4M20+8LOBrtHflGrPI3q
+	N6LbSHRtDBDz2iCPdBNQyuGmG0yfFmE6gCNECQn+xgUWea
+X-Received: by 2002:a05:6000:258a:b0:45e:6a3e:1ddb with SMTP id ffacd0b85a97d-45ea3128db3mr35001389f8f.1.1779807220786;
+        Tue, 26 May 2026 07:53:40 -0700 (PDT)
 Received: from arrakeen.starnux.net ([2a01:e0a:106d:1080:8261:5fff:fe11:bdda])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d49132sm36278884f8f.24.2026.05.26.07.53.38
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d49132sm36278884f8f.24.2026.05.26.07.53.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 07:53:38 -0700 (PDT)
+        Tue, 26 May 2026 07:53:40 -0700 (PDT)
 From: Neil Armstrong <neil.armstrong@linaro.org>
-To: Jessica Zhang <jesszhan0024@gmail.com>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>, 
+ Simona Vetter <simona@ffwll.ch>, 
  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
  Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Thierry Reding <thierry.reding@gmail.com>, Sam Ravnborg <sam@ravnborg.org>, 
- Steffen Trumtrar <s.trumtrar@pengutronix.de>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-In-Reply-To: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
-References: <20260518-v7-1-topic-panel-simple-nl6448bc33-v3-0-21ea14a6e835@pengutronix.de>
-Subject: Re: [PATCH v3 0/2] Add NEC LCD Technologies NL6448BC33-70C Panel
- Support
-Message-Id: <177980721808.3070642.13975316431536819752.b4-ty@b4>
-Date: Tue, 26 May 2026 16:53:38 +0200
+ Conor Dooley <conor+dt@kernel.org>, Nishanth Menon <nm@ti.com>, 
+ Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, 
+ Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>, 
+ Thierry Reding <thierry.reding@gmail.com>, Vitor Soares <ivitro@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>, 
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
+References: <20260522161105.277519-13-ivitro@gmail.com>
+Subject: Re: (subset) [PATCH v3 00/11] arm64: dts: ti: k3-am62-verdin: Add
+ display and peripheral overlays
+Message-Id: <177980721984.3070642.16547338359984019493.b4-ty@b4>
+Date: Tue, 26 May 2026 16:53:39 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -87,15 +91,20 @@ X-Mailer: b4 0.15.1
 
 Hi,
 
-On Mon, 18 May 2026 09:47:44 +0200, Steffen Trumtrar wrote:
-> Add support for the above mentioned LCD panel from NEC.
+On Fri, 22 May 2026 17:11:04 +0100, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+> 
+> This series adds device tree overlays, expanding the hardware support for
+> the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
+> and peripherals available through Toradex carrier boards and the accessory
+> ecosystem.
+> 
+> [...]
 
 Thanks, Applied to https://gitlab.freedesktop.org/drm/misc/kernel.git (drm-misc-next)
 
-[1/2] dt-bindings: display: simple: Add NEC NL6448BC33-70C panel
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/7a1d12f6f9305578641d3fd0ab01777e511f1785
-[2/2] drm/panel: simple: add NEC NL6448BC33-70C
-      https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/23c8c2cd3d4a2b65c21d31cf91e81d5e0b81ecd5
+[04/11] dt-bindings: display: panel-lvds: Add Riverdi RVT70HSLNWCA0 and RVT101HVLNWC00
+        https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3c3c5fb9b36836d279ebe370189d68a0a3387362
 
 -- 
 Neil
