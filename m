@@ -1,157 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5513625782A
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 15:58:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FCE13932EE;
+	Tue, 26 May 2026 15:59:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779811101; cv=none; b=g2jG8o8jhXwQhThaSuIGso/CfZoaQ1vVpa4letml1s/l+5SrPWWjk0B2ZJWTBtvidemXLUcDuE2NMSsGQZFx6WEXayFS5qkJnVV4R1YH9TGyjTUcLs4cn9gxiQV3UmGYqh9eC/kYCBcfEojgtvk1xkYH8PSm7ADepu61tazMTSo=
+	t=1779811184; cv=none; b=oA7YLg2xL3XCieQhY8OLdkBfe0YmH0GnMbUyODEMIRj7nmEL4ungzjG2eEId7sYC1rcUwUcwe/qew04hcovUY6cyAaGtEhmch7UblUFdoplM7UUzqBhIIMpxs8y/ctaiMzvH3+0F7sW0L4p1OhiTZDwX6+1gfX3EoMmqRloUAXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779811101; c=relaxed/simple;
-	bh=5wdzPUvJwS5RBD2TTxlRJUxAbqIyM1ztV9EPNzo/K0w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mWEEb7pZEn9y+KCZezxPbP+AXSTIHXFnDOPXtnGJiiaJ6KkR/HpxtTKsuGKRnM+YRrD/nJz4E8ZIeTq0HWnIF1XNfyWHUrlb8ZvECWYDImW/EfefP21COqWeD9QtfSsbcrZ05zYjK16ZqDgZZD+kAoDD9o+0ER3cFQIEDVEukzM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LYoOtYKG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779811184; c=relaxed/simple;
+	bh=Fbj+HA7Y4zZAajJ06B7a8ywqKiZGgShMGA/BuE8VdkU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EGydXlAWBQzFJOcIBxEL3I0bNnjVYARwq5uUij5Q0p2rbCOD7WnD3Z5pUMlbH8dYZ4vXyOtJ26UEvi6ryFnDxj+DgHAEmrU0UHPTCl7BJZXqM0u71cFjfnhR/7e/sfyNxb5N2e0skEiKChr6SrFoeTIGSnoIcnBgZrFPKxR58g4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M8sUKeTp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LYoOtYKG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6D111F000E9;
-	Tue, 26 May 2026 15:58:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M8sUKeTp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 894B21F000E9;
+	Tue, 26 May 2026 15:59:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779811099;
-	bh=IhsdHQYeM0ntHVLmAYbfb46EJ/xQQ3fExfL6l1fJKVc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LYoOtYKGfji3c1npTBltrk2uaIGyVfPxyVzj7E+4swfp5EAZeQQFyujp4eKdhC4GD
-	 BDQcH49k09ksa0H2MwgnrHrJOr/VhsoZ83cCgYsVNwj8Kzsrl1tk1FFySvP7/Q3FpX
-	 b9GdkRWUEy+4lq8B2xct/ehnHd6HqPZ+l4qYIY2nLUPTeytZmwqs8CcELhtCpRkHnX
-	 RU5Z95vm+xnFpfL+VPeKSDs8nozzsmhLqi7SR/MzOWAumbp2meV/894BxDdYx5vAOy
-	 IJWpVMdmNLWls+nNFg16gBtOT8a2pDkyfl/ro49T/KmOuaMU7TVAQxbVnmsI4dTFkW
-	 p+Q3F6jgLy7Jw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC 1/2] ASoC: codecs: lpass-tx-macro: Use correct
- config for sc7280
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Luca Weiss" <luca.weiss@fairphone.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526-sc7280-tx-macro-v1-1-1aad6900fec0@fairphone.com>
-References: <20260526-sc7280-tx-macro-v1-1-1aad6900fec0@fairphone.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 15:58:19 +0000
-Message-Id: <20260526155819.A6D111F000E9@smtp.kernel.org>
+	s=k20260515; t=1779811182;
+	bh=JSHZa+SCpPqY8KZl7vp369SU7CDYzcdSW/h3q9lPPos=;
+	h=From:Subject:Date:To:Cc;
+	b=M8sUKeTpe/rbzRfVOwd5VQx2nXZe1zc6oICttP0ZzoBwFP1X42xDPw5Yh4cg7ITiX
+	 2uGhlePJ+JZP4UVOOaFUMDM1Cmfpkb/d/1f6TD5h577uL/TThZg4bApFGPdqgvNehS
+	 PD3thrS1ijM5ERm6l/yHCZe93mWqmbSyiHMUqv36vhmLUKte+5xClR62b7yw6j5dX7
+	 Zw1LiVdUya+nQKmuTDyOy/6JIiYhNN2Nd7vLAPZwJ9RHEwoil2EVb1EiLZgH9cMHrb
+	 JnG3T27pt3bZtiLcv/m4xuOcxBDvLg6iMbzWSetgrIurV16Yy6FmmzKZcmrPAA5JJ1
+	 J5/AmdItDso+g==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH net-next v3 0/5] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+Date: Tue, 26 May 2026 17:59:30 +0200
+Message-Id: <20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WNzRKCIBSFX8VhHQ2gqLTqPZoWhhclG2iAHMvx3
+ UPc9LO7Z+75vjMjD06DR4dsRg5G7bU1MeS7DMm+MR1g3caMGGEl4UTgwddCcBxsvF41plzlSsi
+ aVVShCN0dKD0l4QkZCNjAFNB5+/jH5QoyrL6122sfrHum7ZEmYpuh5e/MSDHBFWkJqKJpuCqOA
+ zgDt711XbKP7INn7I9nkecVZZK0UkDFv/hlWd7aooIFCQEAAA==
+X-Change-ID: 20260509-ks8995-to-ksz8-15f3f9c8271f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+This series breaks with the dated attempt to polish the old
+KS8995 driver, and instead implement support for the KS8995XA
+in the KSZ driver, and after that delete the old KS8995 driver.
 
-New issues:
-- [High] Changing the match data for qcom,sc7280-lpass-tx-macro breaks user=
-space ALSA ABI and in-kernel DTS routing.
+The hardware clearly has the same ancestry, the KSZ8995XA is
+just a rebrand of the much older Micrel KX8995XA switch.
 
-Pre-existing issues:
-- [High] The v9.2 SMIC selection logic contains dead code and fails to init=
-ialize DMIC clocks.
---
+The old drivers referce to "KS8995" was actually KS8995XA only,
+it never supported the sibling devices KS8995E or KS8995MA.
+This is reflected in this patch set.
 
-commit 75eb73d3fec8fc578947e66030a2b59ca6333c91
-Author: Luca Weiss <luca.weiss@fairphone.com>
+Add new compatibles, add special code paths for the KSZ8995XA
+and add a new tagger for the special front tag found in the
+KSZ8995XA.
 
-ASoC: codecs: lpass-tx-macro: Use correct config for sc7280
+The patches were tested with the Actiontec MI424WR rev D (which
+has the KS8995XA) and OpenWrt as userspace.
 
-This commit updates the match data for the qcom,sc7280-lpass-tx-macro
-compatible string to use lpass_ver_9_2 instead of lpass_ver_9. The commit
-message notes this will change control names and warns it is a breaking
-change.
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v3:
+- Rebase on net-next again, moving target!
+- Fix a netdev_info() print in the tagger to be netdev_debug()
+- Add net/dsa/tag_ks8995.c to MAINTAINERS
+- Link to v2: https://patch.msgid.link/20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org
 
-> Note, that this will change control names so it's a breaking change.
+Changes in v2:
+- Avoid trying to configure TOS priority settings (DCB) on the KSZ8995XA.
+  It does have some support for this, but let's add that later.
+- Pick up Krzysztof's ACK on the new DT bindings.
+- Reset the KSZ8995XA by disabling and enabling the switch like the old
+  driver does.
+- Move mutually exclusive Kconfig over to the patch introducing the
+  old Micrel compatibles to the Microchip ksz_spi driver.
+  (this complaint from Sashiko.)
+- Use __be16 instead of u16 when casting into the SKB in the tagger
+  (this complaint from Sashiko.)
+- Do not modify the hdr->h_vlan_TCI if no hardware accelerated tag
+  is detected, it would get nullified. Use whatever the Linux network stack
+  assigned to TCI there.
+  (this complaint from Sashiko.)
+- Avoid dereference of NULL in debug prints in the tagger.
+  (this complaint from Sashiko.)
+- Ignored comment: Sashiko complains about ilog2(0) being potentially
+  undefined but that is clearly defined as 0 in the Linux kernel.
+- Link to v1: https://patch.msgid.link/20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org
 
-[Severity: High]
-Does this violate the kernel's policy against breaking userspace ABI?
+---
+Linus Walleij (5):
+      net: dsa: microchip: Add fallback Micrel compatibles
+      dt-bindings: net: dsa: microchip: Add KSZ8995XA
+      net: dsa: tag_ks8995: Add the KS8995 tag handling
+      net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+      net: dsa: ks8995: Delete surplus driver
 
-Changing the match data to lpass_ver_9_2 alters the names of DAPM widgets
-and ALSA controls. This will break existing ALSA UCM configurations that
-rely on the old names.=20
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml |   1 +
+ MAINTAINERS                                        |   1 +
+ drivers/net/dsa/Kconfig                            |   8 -
+ drivers/net/dsa/Makefile                           |   1 -
+ drivers/net/dsa/ks8995.c                           | 857 ---------------------
+ drivers/net/dsa/microchip/Kconfig                  |   1 +
+ drivers/net/dsa/microchip/ksz8.c                   | 170 +++-
+ drivers/net/dsa/microchip/ksz8.h                   |   2 +
+ drivers/net/dsa/microchip/ksz8_reg.h               |   7 +
+ drivers/net/dsa/microchip/ksz_common.c             |  58 +-
+ drivers/net/dsa/microchip/ksz_common.h             |  11 +-
+ drivers/net/dsa/microchip/ksz_spi.c                |  33 +-
+ include/linux/platform_data/microchip-ksz.h        |   1 +
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_ks8995.c                               | 132 ++++
+ 17 files changed, 388 insertions(+), 904 deletions(-)
+---
+base-commit: 18b9f739d3f292925ca7f67ad63f3a4c0bbfad3d
+change-id: 20260509-ks8995-to-ksz8-15f3f9c8271f
 
-Additionally, will this break in-kernel DTS routing for other SC7280 boards?
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
-Multiple in-tree SC7280 device tree files (like sc7280-herobrine and
-sc7280-idp) hardcode the old routing names (TX SWR_ADCn and TX SWR_DMICn).
-
-Since these DTS files aren't updated, could the sound card fail to
-instantiate on those boards due to missing audio routes?
-
-> diff --git a/sound/soc/codecs/lpass-tx-macro.c b/sound/soc/codecs/lpass-t=
-x-macro.c
-> index f7d168f557dd8..7f93ab0c38723 100644
-> --- a/sound/soc/codecs/lpass-tx-macro.c
-> +++ b/sound/soc/codecs/lpass-tx-macro.c
-> @@ -2493,14 +2493,9 @@ static const struct tx_macro_data lpass_ver_11 =3D=
- {
-> =20
->  static const struct of_device_id tx_macro_dt_match[] =3D {
->  	{
-> -		/*
-> -		 * The block is actually LPASS v9.4, but keep LPASS v9 match
-> -		 * data and audio widgets, due to compatibility reasons.
-> -		 * Microphones are working on SC7280 fine, so apparently the fix
-> -		 * is not necessary.
-> -		 */
->  		.compatible =3D "qcom,sc7280-lpass-tx-macro",
-> -		.data =3D &lpass_ver_9,
-> +		/* LPASS v9.4 */
-> +		.data =3D &lpass_ver_9_2,
-
-[Severity: High]
-This is a pre-existing issue, but by forcing SC7280 to use the v9.2 code pa=
-ths,
-does this expose the device to a broken DMIC clock initialization logic?
-
-In tx_macro_put_dec_enum(), tx_macro_update_smic_sel_v9_2() is exclusively
-called in the else branch when widget->shift is 0:
-
-sound/soc/codecs/lpass-tx-macro.c:tx_macro_put_dec_enum() {
-	...
-	if (val !=3D 0) {
-		if (widget->shift) /* MSM DMIC */
-			snd_soc_component_write_field(...);
-		else if (tx->data->ver <=3D LPASS_VER_9_0_0)
-			tx_macro_update_smic_sel_v9(...);
-		else
-			tx_macro_update_smic_sel_v9_2(component, widget, tx,
-						      mic_sel_reg, val);
-	}
-	...
-}
-
-However, inside tx_macro_update_smic_sel_v9_2(), there is an if block inten=
-ded
-to initialize the DMIC clocks:
-
-sound/soc/codecs/lpass-tx-macro.c:tx_macro_update_smic_sel_v9_2() {
-	...
-	if (widget->shift) {
-		/* MSM DMIC */
-		snd_soc_component_write_field(component, mic_sel_reg,
-					      CDC_TXn_ADC_DMIC_SEL_MASK, 1);
-		...
-		snd_soc_component_write_field(component, dmic_clk_reg,
-					      CDC_TX_SWR_DMIC_CLK_SEL_MASK,
-					      CDC_TX_SWR_MIC_CLK_DEFAULT);
-	}
-}
-
-Because widget->shift is always 0 when this function is called, this block
-appears to be dead code and structurally impossible to reach.
-
-Consequently, are DMIC clocks failing to initialize for v9.2 hardware?
-
->  	}, {
->  		.compatible =3D "qcom,sm6115-lpass-tx-macro",
->  		.data =3D &lpass_ver_10_sm6115,
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-sc7280-tx-=
-macro-v1-0-1aad6900fec0@fairphone.com?part=3D1
