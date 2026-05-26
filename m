@@ -1,108 +1,157 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DE043F8EA1
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:35:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBC33282F1D;
+	Tue, 26 May 2026 12:35:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779798921; cv=none; b=jwR78MXMqvwwpuhnbmOK17MIqRIgRTqaraVKdDBquwv0koUBCOabhpzfVLwrSOjtENzjaq9ucBRlUPpTbKzMfyKt0GIkK6KnXruFHF9p4gQek/TfWO2Cd9o8fe/6xEoZkJB/C/xapMxwSeWmcIIyMPyDl74hqvr4mLY/O/5Iffs=
+	t=1779798930; cv=none; b=mV1wPKFzIdbQjFbi14rE/iYJsAbSP9zfK3x5gpN57PO9BjHnYc4LUG/fyoZ5KR5GB7CNwlTeLtWz8zplJWvjhIDDzPcy/ykytuLOTEdEH1SY8n+cB5Sg5saIIIfREnSoEExq1K3OILrttZ4iWJHuYpjJcO2/9gqXEMDTmkS2n8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779798921; c=relaxed/simple;
-	bh=uPfbrIiekRdi5c+dg2yX1VDpWIrwfNRjnUuAs2MeJ/8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=D2m6YM3Ps8K18VpQfb1sPGCdDIlgI+EvT/sZ6shqZvoEwNXS/Rh2uitkmHK/cAknuEgHzBvqKoyXdaOXo8KYIxI/mctN2yqVdLoQ6nLuUizJ47L1zvNFFFIUnU+OiWCGr4UZpa98HQnFV3jB7mzvUChZ58gNpvSn4nxovCIufPk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vbARjkY+; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779798930; c=relaxed/simple;
+	bh=n7j2xB/p2/bpJ4PAZFAH2CPKG+pYjXlg/jFOgnW2DLY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ABO4aED5VdF4oSxk/QNAuPmgGCTU24CQHU5AG3n2F+yYGge/1j2frlaQpj0qpbWqJFdNITIY2CJ1+TA0NOCi6LTdNhennFC4+DyflaY7JTQggYYsrSGzaDndJwOmm0Ba+hL7ElX1+Fcr6X1Bn8gemLNpzOEDzcvxW26k9MLn8CU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mVrWbuS1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vbARjkY+"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-459bf19e87bso6211691f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 05:35:20 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779798919; x=1780403719; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+FnVwdbtAOn6T98aiA6Qvgl3nhPcMwGorw0+JjGTmQs=;
-        b=vbARjkY+VkxTDWDTZz9suVzzwNiP1Z4bwHHksjhXpz0hry5MDWniviPT/x3MJeVYD+
-         9doeTZosUr95wAp070Cr7lqFoe7WRcbAFjtz/B+wKXtPyVcOw/oQXJ5JimrP5DuAn05W
-         0Nom8u4esgTR7AYjYRExXMV0VpEDTiUZM+oCxbskqUpI5svEDXQbyQtcLZStSdLWIKK4
-         BhFRwPsDNnjZ5tQcYZ+WeUIlC47B97XBY9Sn2r6aAnZ/3X7m3wlLV3NsXhswrdOz8+kq
-         vUUIovd80OnOesopANQhwjP/G2LNN7K/BnQsSYaCveDC4NTPW+s24HUnq+lyQAdwIvHT
-         TDvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779798919; x=1780403719;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+FnVwdbtAOn6T98aiA6Qvgl3nhPcMwGorw0+JjGTmQs=;
-        b=a525YXPa11/yA/bbcLZzhIi2bdNibdKQ6PU0FMGgqLSyn4jpkAgOpCT48vLi7wMlKz
-         vJpNzsk3+auETQFkPZ+gQ0gtCVSWKtPvUdrVpGb/2MhH9zZhA0yt6jeDAdZYeQIkzGR4
-         TK5lhEnkUGuQu+qLC49rLKIZn0h12OnRFtPBM57bOicoSdFnMBykNDQ7fXWtq1lubyOy
-         Z+OGabt5KH+Q2yS2r5kLiB0QKB70CW0St2p7TNOENblgzNPupwS/pIkZmVmRamSqmsA7
-         L/1FfCC+QHC9y2qEGmokcvfRYaZGvr8i9K38PDXqSXFzavieYIefv6OEzqlI5lrGgfdc
-         5Jqg==
-X-Forwarded-Encrypted: i=1; AFNElJ+9bBc6btcunO8s/yWNAvriCnCUyg64lq3zLEYzqTOAnGcKbyBbVx+oIL0yJuXJmOOKFUJuTpv5bUs2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzdPgZYU9xiNLNGPuWD5ECMHB7y46DORl1ZHYZvyrJUlBgpCimB
-	bWI2f+az5UcOX4lpVPaPMk2fiPE00His60z5SlWQ+pUkl80o0e1QoEowyVbmT8vvsXM=
-X-Gm-Gg: Acq92OE324XtFwuHslLlWLndysqFy5cZlDLhPJWObiKo76AFFT+2rlUZiO+cYWM53xM
-	gJZSHtem13hbOrLEWbaP5W59jtgku0Rttr/9xjwUCZ3nttK8t0YJ58xHzXn7lIHrI1AHiaMQ30Z
-	qULcClQvyJZidAmxvGP+JvW9jz4ftfcVKTwEUzNc/Py+k+QGEvpHNv5PkByT1VshRnB5VOaPJfB
-	xOUHCj8ToAZAN4f9yXWyW/CR2twKbZ9MpWk81Lmk2Z45sAV/8PTb81cpRKrb6xeyF9P4lMMSyyz
-	2AuEuprvszZQy2MxZSeV96QRwYXG+rP88SFSIZM492F3GRiA6Nlu0mwh6dAHV85Qc5lYoP+qNeF
-	3DMOIFE0bR0y0FoEuYNFX6R1n3qADYK5UFhs4zRyjGiameoaGSCSkJPtF/Qh0Y0V/dwbSXtbE72
-	y8n1MDg4z1dkbUWb5nwEg2fS/gkzU9
-X-Received: by 2002:a05:6000:25e3:b0:45e:739c:f187 with SMTP id ffacd0b85a97d-45eb38c5329mr29111131f8f.22.1779798918558;
-        Tue, 26 May 2026 05:35:18 -0700 (PDT)
-Received: from linaro.org ([77.64.147.108])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6bc5479sm37517812f8f.0.2026.05.26.05.35.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 05:35:18 -0700 (PDT)
-Date: Tue, 26 May 2026 14:34:46 +0200
-From: Stephan Gerhold <stephan.gerhold@linaro.org>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-gpio@vger.kernel.org,
-	Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Subject: Re: [PATCH v2 3/8] irqchip/qcom-pdc: Remove pdc_enable_intr() wrapper
-Message-ID: <ahWTZj727RCNZPR9@linaro.org>
-References: <20260526-hamoa_pdc-v2-0-f6857af1ce91@oss.qualcomm.com>
- <20260526-hamoa_pdc-v2-3-f6857af1ce91@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mVrWbuS1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0E9121F000E9;
+	Tue, 26 May 2026 12:35:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779798928;
+	bh=A4I37u3pxMkDLwlxmTpz4QG4dLPJrI76nlF19AT6q0I=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mVrWbuS1XS8D3hQMpCtLJLpnHf6D6jAOgx476wTlix+2MGFvfbpg1YBsuH9+iOE3M
+	 ehoBHdgaQhjGCN3XnDZiu495rlZ0RS9alDi9zTJGtWSYv06o/tia5kgRIpWvUTomr8
+	 6S/kpe1YRlyltFd7QyJ+a9idd7tpmWMwWnB4DIcn/ch/peJ5jLNgBAWTbn0z+gQnyP
+	 TvygqtFjVDwlMKiXi55/NLyDFTQpbIBnNWfXKrp+NxGsl5hru6fZ/T1QAeXv/yyXW5
+	 W2ujko2fWTBrm/4rbOIoTmgEOL0Cg2nds0hZZo0b8OWj12xabcqpiyKv4Llh49MCaE
+	 WhR4tpzTt0/SA==
+Date: Tue, 26 May 2026 13:35:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Conor Dooley <conor@kernel.org>
+Cc: Janani Sunil <janani.sunil@analog.com>, Lars-Peter Clausen
+ <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, David
+ Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Jonathan
+ Corbet <corbet@lwn.net>, Shuah Khan <skhan@linuxfoundation.org>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, Janani Sunil
+ <jan.sun97@gmail.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: iio: dac: Add AD5529R
+Message-ID: <20260526133519.232fd9d6@jic23-huawei>
+In-Reply-To: <20260525-dedicator-strut-6f7618a92180@spud>
+References: <20260519-ad5529r-driver-v3-0-267c0731aa68@analog.com>
+	<20260519-ad5529r-driver-v3-1-267c0731aa68@analog.com>
+	<20260522180207.63b725fb@jic23-huawei>
+	<20260525-dedicator-strut-6f7618a92180@spud>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260526-hamoa_pdc-v2-3-f6857af1ce91@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 26, 2026 at 04:24:39PM +0530, Maulik Shah wrote:
-> pdc->enable_intr() function already points to respective version
-> specific enable function. pdc_enable_intr() now only kept as wrapper.
-> Remove the wrapper and invoke pdc->enable_intr() from caller.
-> 
-> Locking in pdc_enable_intr() applies lock to all pdc->enable_intr()
-> however its only required for pdc_enable_intr_bank() which uses
-> a shared bank across all interrupts. pdc_enable_intr_cfg() do not
-> required locking as IRQ_CFG registers are one per interrupt. Move
-> locking accordingly.
+On Mon, 25 May 2026 17:30:02 +0100
+Conor Dooley <conor@kernel.org> wrote:
 
-Well, pdc_enable_intr_cfg() is still a read-modify-write. If two CPUs
-read IRQ_i_CFG at the same time and modify different bits (e.g. enable
-and type bits) then write back the modified register one of the
-modifications will get lost. Can we be sure that this won't happen?
+> On Fri, May 22, 2026 at 06:02:07PM +0100, Jonathan Cameron wrote:
+> > On Tue, 19 May 2026 17:42:58 +0200
+> > Janani Sunil <janani.sunil@analog.com> wrote:
+> >  =20
+> > > Devicetree bindings for AD5529R 16 channel 12/16 bit high voltage,
+> > > buffered voltage output digital-to-analog converter (DAC) with an
+> > > integrated precision reference. =20
+> >=20
+> > Note that I'm seeing this as Changes Requested in the DT-binding patchw=
+ork
+> > but didn't see any replies.
+> >=20
+> > Seems I didn't get the sashiko reply - nor did the IIO patchwork.
+> > Hopefully Janani did!
+> > https://patchwork.kernel.org/project/devicetree/patch/20260519-ad5529r-=
+driver-v3-1-267c0731aa68@analog.com/ =20
+>=20
+> The sashiko stuff is per subsystem or something, so dt stuff only goes
+> to us and the submitters. I think that's kinda stupid but also probably
+> required to avoid pissing people off. There's quite a bit of noise
+> generated by it, especially with it repeating the same incorrect stuff
+> on every version.
 
-Perhaps we can since PDC has IRQCHIP_SET_TYPE_MASKED, but personally
-I would keep the lock there to be sure, especially with the new GPIO
-operations you add that also read-modify-write the same register..
+When I get on top of the long weekend's backlog I'll start a discussion
+on whether we ask for emails from Sashiko be sent to linux-iio.
 
-Thanks,
-Stephan
+I was nervous about doing that until I had some experience of how=20
+reliable the reviews are but given I'm either cutting and pasting stuff
+into threads or telling people to go look, might as well have those emails.
+
+Jonathan
+
+>=20
+> >  =20
+> > >=20
+> > > Signed-off-by: Janani Sunil <janani.sunil@analog.com>
+> > > ---
+> > >  .../devicetree/bindings/iio/dac/adi,ad5529r.yaml   | 217 +++++++++++=
+++++++++++
+> > >  MAINTAINERS                                        |   7 +
+> > >  2 files changed, 224 insertions(+)
+> > >=20
+> > > diff --git a/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.ya=
+ml b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> > > new file mode 100644
+> > > index 000000000000..eb66f6ca063d
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/iio/dac/adi,ad5529r.yaml
+> > > @@ -0,0 +1,217 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/iio/dac/adi,ad5529r.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Analog Devices AD5529R 16-Channel 12/16-bit High Voltage DAC
+> > > +
+> > > +maintainers:
+> > > +  - Janani Sunil <janani.sunil@analog.com>
+> > > +
+> > > +description: |
+> > > +  The AD5529R is a 16-channel, 12-bit or 16-bit, high voltage, buffe=
+red voltage output =20
+> >=20
+> > Long line. Check the wrap.
+> >  =20
+> > > +  digital-to-analog converter (DAC) with an integrated precision ref=
+erence.
+> > > +  The device operates from unipolar and bipolar supplies. It is guar=
+anteed
+> > > +  monotonic and has built-in rail-to-rail output buffers that can so=
+urce or
+> > > +  sink up to 25mA.
+> > > +
+> > > +  Specifications:
+> > > +  * 16 independent 12-bit or 16-bit DAC channels
+> > > +  * Independently programmable output ranges: 0V to 5V, 0V to 10V, 0=
+V to 20V,
+> > > +    0V to 40V, =C2=B15V, =C2=B110V, =C2=B115V, and =C2=B120V
+> > > +  * The device supports SPI communication with Mode 0 and Mode 3.
+> > > +  * 4.096V precision reference, 12ppm/=C2=B0C maximum
+> > > +  * Built-in function generation: Toggle, Sinusoidal Dither, and Ram=
+p waveforms
+> > > +  * Multiplexer for output voltage, load current sense and die tempe=
+rature
+> > > +
+> > > +  Datasheet: https://www.analog.com/media/en/technical-documentation=
+/data-sheets/ad5529r.pdf
+> > > + =20
+> >  =20
+> > > +patternProperties:
+> > > +  "^channel@([0-9]|1[0-5])$": =20
+> >=20
+> > Sashiko commented that this should be hex.  Why the forcing to decimal?
+> >  =20
+
