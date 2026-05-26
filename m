@@ -1,131 +1,268 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F17D23AEF50;
-	Tue, 26 May 2026 16:12:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 027FC3B0AF3;
+	Tue, 26 May 2026 16:13:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779811946; cv=none; b=A9aUqsuE6bkV188Nv2og4IwY23QciTtSs257pafpQ9XzkzYrOJ+9is8m2bncVkyLVxqpQhe8Q67pgirq25TAi41MFraka8CPu+aNQfRhFT5IHzNWh3BkExOOnLv162dmyalzMBmKEsPjvT2JhriC1Avc+udOKE/5vMTE3aOI6is=
+	t=1779812015; cv=none; b=f3MfrkLmZ5wBRVR+uD19Wfj3bJOhUo7JwvFTWDqeAM17tOqYcUpq6MDG8dm9YSwp58Fv7JIMTvrxeZYfw6Z0+5RDgPmQ9odzEZtrg8SdTBUBBLNvHROPZYqgiBuXDEQ4ijU0M8i0cmd2csPDp98qI4ju1Sf33UdFn9Hsx+i8fMs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779811946; c=relaxed/simple;
-	bh=RAZDgZybTsxV7F0Fross356NGYm/d8B+Zj5caDvivuw=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=FERTMQjA8bntM0jSj/3kT98dGd1QdWUvBPznWBS0lWJ7gWJnzyDFTIng0tug1qRnTSFJOi+wyW4dHLzx5055T9RtUs4ujJEP2GuWoZIf8QgQHLR4VKmRxhU78jGSPVELfAUUzWlwe7QvUAsFY22GB+/Vz8F5xcKAzeF+SLndMSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mB6TzzYP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779812015; c=relaxed/simple;
+	bh=xW7mQnwXGedcSKCCtrk1aQP/FL3phBCCx5+Hkemnwac=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qNSpMQpPsN7jvvBuLP065QSTefo8xdkX18U3h2fl/Oz/Qdn2Chr7gfE/893lddsd96ZrZgenVF4pii8auqwmCwnpQFt3+bV+568//4ePhWAWViwsuvyG+9NvRPScrB1UoFcbaihf64P2b7CM8uvIhRJvMNyi9i02LbyaKxPN8ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OpQ4xLvT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mB6TzzYP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 692D31F000E9;
-	Tue, 26 May 2026 16:12:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OpQ4xLvT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B75F1F000E9;
+	Tue, 26 May 2026 16:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779811944;
-	bh=gSSDYSlqPHqTPBhZPOHsll15IHiisRmIKULXHcoesic=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=mB6TzzYPdwv7njp0DHvXxZR5nf892jtYd3JhFGUBVzT2vB1vWaBngvhSRxoSLtHkd
-	 pUDjdbdELzmTUeNglmsPEgejB45f1htzfJgNV5NF8WHjxYcesqHfyYcNZv70WjpkuV
-	 02XG3aqcXdpCH6n3ckQ+5JF/5y0u3ez2of+fo88uDKp5bkoxs/GMgETbl3+7PqCchF
-	 dgkJ9p9PgDF1dcsZkrAiiJRnLmDzPJJ4RMLgdV913KWFmQhhH632qsKVvQuhvEbp2M
-	 KJ7N80oUn0kX3KZDGIIf+kB81SVqBd6i0r2LoQMEItA9JI6PKU4pqq+xHO+l7ej78B
-	 +HSo/oSviGK4g==
-Date: Tue, 26 May 2026 17:12:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: lars@metafoo.de, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux@roeck-us.net, jdelvare@suse.com, ak@it-klinger.de,
- linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1 0/4] iio: add Sensirion SLF3x liquid flow sensor
- support
-Message-ID: <20260526171214.750c2e25@jic23-huawei>
-In-Reply-To: <20260524205112.26638-1-wafgo01@gmail.com>
-References: <20260524205112.26638-1-wafgo01@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779812013;
+	bh=HoQ502gwpeiNp5KJxRq0pIgzkr0RP/tEx2RDysEICWw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OpQ4xLvTA4MJ2XS4/Vzdju1ys4yv/uQ85topgEYflLbhAA+30vT7ARUmzmvcB/T77
+	 s1M3fGkNAq2adWMicf7Qw3bch7WWAf11yxvEGYj8io1m1Rs94FPDZ6bzh3UvkO5Owy
+	 5SMqjHw6gSZfdvJZOi+Qk+Sw6+qwprY11fe6oU5YpprUv9BPObJ16z4A8NQ21DAsBo
+	 BFgwbdoLUSLINdcXBiS25P4kP2OcrQgYYHLpItpcamJFTyGyVJQhyNYTsnMLowV6/9
+	 wXK0teGW1H8GSpIOWjz1Q0VXcoLj3vt0G/R8kD1l8WeX61h64NZ3Nq79MJ28Z5pDRC
+	 GqjLQst7v2aYw==
+Date: Tue, 26 May 2026 21:43:19 +0530
+From: Sumit Garg <sumit.garg@kernel.org>
+To: bod@kernel.org
+Cc: andersson@kernel.org, linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
+	freedreno@lists.freedesktop.org, linux-media@vger.kernel.org,
+	netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+	ath12k@lists.infradead.org, linux-remoteproc@vger.kernel.org,
+	konradybcio@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, robin.clark@oss.qualcomm.com, sean@poorly.run,
+	akhilpo@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+	jesszhan0024@gmail.com, marijn.suijten@somainline.org,
+	airlied@gmail.com, simona@ffwll.ch, vikash.garodia@oss.qualcomm.com,
+	dikshita.agarwal@oss.qualcomm.com, mchehab@kernel.org,
+	elder@kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+	jjohnson@kernel.org, mathieu.poirier@linaro.org,
+	trilokkumar.soni@oss.qualcomm.com, mukesh.ojha@oss.qualcomm.com,
+	pavan.kondeti@oss.qualcomm.com, jorge.ramirez@oss.qualcomm.com,
+	tonyh@qti.qualcomm.com, vignesh.viswanathan@oss.qualcomm.com,
+	srinivas.kandagatla@oss.qualcomm.com,
+	amirreza.zarrabi@oss.qualcomm.com, jens.wiklander@linaro.org,
+	op-tee@lists.trustedfirmware.org, apurupa@qti.qualcomm.com,
+	skare@qti.qualcomm.com, linux-kernel@vger.kernel.org,
+	Sumit Garg <sumit.garg@oss.qualcomm.com>
+Subject: Re: [PATCH v7 00/15] firmware: qcom: Add OP-TEE PAS service support
+Message-ID: <ahXGn4wrEozWd_Ur@sumit-xelite>
+References: <20260522115936.201208-1-sumit.garg@kernel.org>
+ <177975399325.14006.12128272008783925649.b4-reply@b4>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <177975399325.14006.12128272008783925649.b4-reply@b4>
 
-On Sun, 24 May 2026 22:49:35 +0200
-Wadim Mueller <wafgo01@gmail.com> wrote:
+Hey Brian,
 
-> From: Wadim Mueller <wadim.mueller@cmblu.de>
-> 
-> Hi all,
-> 
-> this RFC adds support for the Sensirion SLF3x family of liquid-flow
-> sensors (SLF3S-0600F and SLF3S-4000B).  Before I send it as a normal
-> patch I'd like to ask three things:
-> 
-> 1. Subsystem.  Liquid-flow sensors don't seem to have a home in
->    mainline yet.  iio/ feels like the natural place for me, but
->    please correct me if hwmon (or somewhere else) is prefered.
+On Tue, May 26, 2026 at 01:06:33AM +0100, bod@kernel.org wrote:
+> On 2026-05-22 17:29 +0530, Sumit Garg wrote:
+> > From: Sumit Garg <sumit.garg@oss.qualcomm.com>
+> > 
+> > Qcom platforms has the legacy of using non-standard SCM calls
+> > splintered over the various kernel drivers. These SCM calls aren't
+> > compliant with the standard SMC calling conventions which is a
+> > prerequisite to enable migration to the FF-A specifications from Arm.
+> > 
+> > OP-TEE as an alternative trusted OS to Qualcomm TEE (QTEE) can't
+> > support these non-standard SCM calls. And even for newer architectures
+> > using S-EL2 with Hafnium support, QTEE won't be able to support SCM
+> > calls either with FF-A requirements coming in. And with both OP-TEE
+> > and QTEE drivers well integrated in the TEE subsystem, it makes further
+> > sense to reuse the TEE bus client drivers infrastructure.
+> > 
+> > The added benefit of TEE bus infrastructure is that there is support
+> > for discoverable/enumerable services. With that client drivers don't
+> > have to manually invoke a special SCM call to know the service status.
+> > 
+> > So enable the generic Peripheral Authentication Service (PAS) provided
+> > by the firmware. It acts as the common layer with different TZ
+> > backends plugged in whether it's an SCM implementation or a proper
+> > TEE bus based PAS service implementation.
+> > 
+> > The TEE PAS service ABI is designed to be extensible with additional API
+> > as PTA_QCOM_PAS_CAPABILITIES. This allows to accommodate any future
+> > extensions of the PAS service needed while still maintaining backwards
+> > compatibility.
+> > 
+> > Currently OP-TEE support is being added to provide the backend PAS
+> > service implementation which can be found as part of this PR [1].
+> > This implementation has been tested on Kodiak/RB3Gen2 board with lemans
+> > EVK board being the next target. In addition to that WIN/IPQ targets
+> > planning to use OP-TEE will use this service too. Surely the backwards
+> > compatibility is maintained and tested for SCM backend.
+> > 
+> > Note that kernel PAS service support while running in EL2 is at parity
+> > among OP-TEE vs QTEE. Especially the media (venus/iris) support depends
+> > on proper IOMMU support being worked out on the PAS client end.
+> > 
+> > Patch summary:
+> > - Patch #1: adds Kodiak EL2 overlay since boot stack with TF-A/OP-TEE
+> >   only allow UEFI and Linux to boot in EL2.
+> > - Patch #2: adds generic PAS service.
+> > - Patch #3: migrates SCM backend to generic PAS service.
+> > - Patch #4: adds TEE/OP-TEE backend for generic PAS service.
+> > - Patch #5-#13: migrates all client drivers to generic PAS service.
+> > - Patch #14: drops legacy PAS SCM exported APIs.
+> > 
+> > The patch-set is based on qcom tree tip [2] and can be found in git tree
+> > here [3].
+> > 
+> > Merge strategy:
+> > 
+> > It is expected due to APIs dependency, the entire patch-set to go via
+> > the Qcom tree. All other subsystem maintainers, it will be great if I
+> > can get acks for the corresponding subsystem patches.
 
-I'm fine with this type of sensor in IIO, but open to hear from others!
+It looks like you missed this merge strategy part of the cover letter.
+
+> > 
+> > [1] https://github.com/OP-TEE/optee_os/pull/7721 (already merged)
+> > [2] https://git.kernel.org/pub/scm/linux/kernel/git/qcom/linux.git/log/?h=for-next
+> > [3] https://git.kernel.org/pub/scm/linux/kernel/git/sumit.garg/linux.git/log/?h=qcom-pas-v7
+> > 
+> > ---
+> > Changes in v7:
+> > - Rebased to qcom tree (for-next branch) tip.
+> > - Merged patch #5 and #7 due to build dependency.
+> > - Disabled modem for kodiak EL2 as it isn't tested yet.
+> > - Fix an issue found out by sashiko-bot for patch #4.
+> 
+> This whole series needs to be broken up into different parts and sent in
+> smaller chunks landing the core changes into the firmware, the drivers and
+> finally the dts.
+
+The DTS EL2 change for Kodiak is totally independent one and that's why
+it's the first one in this series which can be picked independently.
 
 > 
-> 2. Channel type.  IIO has no flow channel type so far.  The series
->    adds IIO_VOLUMEFLOW with _scale in litres per second per LSB,
->    so drivers reporting smaller units only need a fractional scale.
->    IIO_MASSFLOW (for gas-flow sensors) was left out on purpose --
->    happy to add it in the same series if that's more usefull.
-
-Would be good to have a little more detail on difference etc to have
-that discussion.  Superficially I'm assuming this is a compressible vs
-non compressible thing?
-
+> For example applying the Iris stuff is impossible until the remoteproc
+> stuff lands.
 > 
-> 3. Subdirectory.  I put the driver in a new drivers/iio/flow/
->    since there is no flow subsytem in iio yet.  If colocating with
->    drivers/iio/pressure/ (next to sdp500) is preferred I'll respin.
+> Instead of sending one giant series which no one maintainer can apply send
+> a number of series where one posts a dependency on the other.
 
-This is easy to change later if we make a wrong decision. For now I think
-iio/flow is fine.
-
-Thanks
-
-Jonathan
-
+The subsystem changes like for Iris are just about renaming of the
+firmware APIs to be used which is moving away from SCM specific API to
+the generic PAS API. I don't think there is any clean way to merge the
+API renaming changes independently of when the new API gets introduced.
 
 > 
-> Patches:
+> Lumping the TEE stuff in with video encoder, wifi, dts is spanning too many
+> things and makes merging a NAK.
 > 
->   1/4  iio: types: add IIO_VOLUMEFLOW channel type
->   2/4  dt-bindings: iio: flow: add sensirion,slf3s binding
->   3/4  iio: flow: add Sensirion SLF3x driver
->   4/4  MAINTAINERS: add entry
-> 
-> Tested with a SLF3S-0600F on a TI AM64x platform.
-> 
-> Thanks,
-> Wadim
-> 
-> Wadim Mueller (4):
->   iio: types: add IIO_VOLUMEFLOW channel type
->   dt-bindings: iio: flow: add Sensirion SLF3x liquid flow sensor
->   iio: flow: add Sensirion SLF3x liquid flow sensor driver
->   MAINTAINERS: add entry for Sensirion SLF3x flow sensor driver
-> 
->  Documentation/ABI/testing/sysfs-bus-iio       |  17 ++
->  .../bindings/iio/flow/sensirion,slf3s.yaml    |  49 ++++
->  MAINTAINERS                                   |   7 +
->  drivers/iio/Kconfig                           |   1 +
->  drivers/iio/Makefile                          |   1 +
->  drivers/iio/flow/Kconfig                      |  22 ++
->  drivers/iio/flow/Makefile                     |   7 +
->  drivers/iio/flow/slf3x.c                      | 264 ++++++++++++++++++
->  drivers/iio/industrialio-core.c               |   1 +
->  include/uapi/linux/iio/types.h                |   1 +
->  tools/iio/iio_event_monitor.c                 |   2 +
->  11 files changed, 372 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
->  create mode 100644 drivers/iio/flow/Kconfig
->  create mode 100644 drivers/iio/flow/Makefile
->  create mode 100644 drivers/iio/flow/slf3x.c
-> 
-> 
-> base-commit: 3cd8b194bf3428dfa53120fee47e827a7c495815
+> Break this up into logical chunks and sequence a one series on top of the
+> other - accpeting that you might, likely will have to keep on top of the
+> various series and resend/rebase as things get merged.
 
+I tried my best for the logical split of the patches here keeping the
+subsystems changes to very minimal required (only renaming firmware
+APIs). I would be open to any further suggestions.
+
+However, if you are happy with firmware APIs renaming for the media
+subsystem then it will be nice to get ack from you. I hope Bjorn can
+then pickup the entire series.
+
+-Sumit
+
+> 
+> > Changes in v6:
+> > - Rebased to v7.1-rc4 tag.
+> > - Patch #14: fixed ret error print.
+> > - Add Kconfig descriptions for PAS symbols such that they are visible
+> >   in menuconfig to update.
+> > 
+> > Changes in v5:
+> > - Incorporated misc. comments from Mukesh.
+> > - Split up patch #11 into 2 to add an independent commit for passing
+> >   proper PAS ID to set_remote_state API.
+> > - Picked up tags.
+> > 
+> > Changes in v4:
+> > - Incorporate misc. comments on patch #4.
+> > - Picked up an ack for patch #10.
+> > - Clarify in cover letter about state of media support.
+> > 
+> > Changes in v3:
+> > - Incorporated some style and misc. comments for patch #2, #3 and #4.
+> > - Add QCOM_PAS Kconfig dependency for various subsystems.
+> > - Switch from pseudo TA to proper TA invoke commands.
+> > 
+> > Changes in v2:
+> > - Fixed kernel doc warnings.
+> > - Polish commit message and comments for patch #2.
+> > - Pass proper PAS ID in set_remote_state API for media firmware drivers.
+> > - Added Maintainer entry and dropped MODULE_AUTHOR.
+> > 
+> > Mukesh Ojha (1):
+> >   arm64: dts: qcom: kodiak: Add EL2 overlay
+> > 
+> > Sumit Garg (14):
+> >   firmware: qcom: Add a generic PAS service
+> >   firmware: qcom_scm: Migrate to generic PAS service
+> >   firmware: qcom: Add a PAS TEE service
+> >   remoteproc: qcom_q6v5_pas: Switch over to generic PAS TZ APIs
+> >   remoteproc: qcom_q6v5_mss: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom_wcnss: Switch to generic PAS TZ APIs
+> >   remoteproc: qcom: Select QCOM_PAS generic service
+> >   drm/msm: Switch to generic PAS TZ APIs
+> >   media: qcom: Switch to generic PAS TZ APIs
+> >   media: qcom: Pass proper PAS ID to set_remote_state API
+> >   net: ipa: Switch to generic PAS TZ APIs
+> >   wifi: ath12k: Switch to generic PAS TZ APIs
+> >   firmware: qcom_scm: Remove SCM PAS wrappers
+> >   MAINTAINERS: Add maintainer entry for Qualcomm PAS TZ service
+> > 
+> >  MAINTAINERS                                   |   9 +
+> >  arch/arm64/boot/dts/qcom/Makefile             |   2 +
+> >  arch/arm64/boot/dts/qcom/kodiak-el2.dtso      |  39 ++
+> >  drivers/firmware/qcom/Kconfig                 |  21 +-
+> >  drivers/firmware/qcom/Makefile                |   2 +
+> >  drivers/firmware/qcom/qcom_pas.c              | 291 +++++++++++
+> >  drivers/firmware/qcom/qcom_pas.h              |  50 ++
+> >  drivers/firmware/qcom/qcom_pas_tee.c          | 477 ++++++++++++++++++
+> >  drivers/firmware/qcom/qcom_scm.c              | 302 ++++-------
+> >  drivers/gpu/drm/msm/Kconfig                   |   1 +
+> >  drivers/gpu/drm/msm/adreno/a5xx_gpu.c         |   4 +-
+> >  drivers/gpu/drm/msm/adreno/adreno_gpu.c       |  11 +-
+> >  drivers/media/platform/qcom/iris/Kconfig      |  25 +-
+> >  .../media/platform/qcom/iris/iris_firmware.c  |   9 +-
+> >  drivers/media/platform/qcom/venus/Kconfig     |   1 +
+> >  drivers/media/platform/qcom/venus/firmware.c  |  11 +-
+> >  drivers/net/ipa/Kconfig                       |   2 +-
+> >  drivers/net/ipa/ipa_main.c                    |  13 +-
+> >  drivers/net/wireless/ath/ath12k/Kconfig       |   2 +-
+> >  drivers/net/wireless/ath/ath12k/ahb.c         |  10 +-
+> >  drivers/remoteproc/Kconfig                    |   4 +-
+> >  drivers/remoteproc/qcom_q6v5_mss.c            |   5 +-
+> >  drivers/remoteproc/qcom_q6v5_pas.c            |  51 +-
+> >  drivers/remoteproc/qcom_wcnss.c               |  12 +-
+> >  drivers/soc/qcom/mdt_loader.c                 |  12 +-
+> >  include/linux/firmware/qcom/qcom_pas.h        |  43 ++
+> >  include/linux/firmware/qcom/qcom_scm.h        |  29 --
+> >  include/linux/soc/qcom/mdt_loader.h           |   6 +-
+> >  28 files changed, 1124 insertions(+), 320 deletions(-)
+> >  create mode 100644 arch/arm64/boot/dts/qcom/kodiak-el2.dtso
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.c
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas.h
+> >  create mode 100644 drivers/firmware/qcom/qcom_pas_tee.c
+> >  create mode 100644 include/linux/firmware/qcom/qcom_pas.h
+> > 
+> > -- 
+> > 2.51.0
+> > 
+> > 
+> 
+> 
