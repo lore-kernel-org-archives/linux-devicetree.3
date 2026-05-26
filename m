@@ -1,91 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E8703A7F5F;
-	Tue, 26 May 2026 12:33:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1CE3F9F49
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:35:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779798787; cv=none; b=pMJuQrKEhir1odEVEXhoNJxRxHYsPsXMEDa7By56y6AIV4YiY7pF+Eg+tvkKcbgSrmLWkUktnXu5sshcz/n0ZME06nhk1XUFNIWw9K8/k79L/6EDU6FCPsIcXK3W5TEgvD7oFjOXInLeZ3qdqKd0xznEcnUOMhzt7o+u+npke2s=
+	t=1779798904; cv=none; b=Gf1Cln9InB2VHQQmddV4cEpTrHWwKiFOX9XKPYgEPc+AGccLEMS/QLQIAFgGaYlfCANW/3gbUAyCVzvEjcUMozpxtzhG3sm8TOMrOfjHkLzrQ6N/NqbmUokl2pDqvUv2e0+nYMcfTxDiSEPUspz+i0VdBsoLnVWsNKUHnB+uoto=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779798787; c=relaxed/simple;
-	bh=YRUex1hghA+tO41he3dHRIZQx/gJ1U/095M/6qHa47E=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=l0vEhy1X7p1GYFKRGEk5m4Ss0AURWgteqrfI2cEwwvjyZWX/3EJ60zRrWpYuxs4wNdBCJDxp8JJYOSpUVzqOnz/pgK0NEmTCvolvB0pqQAOL+n2pZhLs6squFs8xr6hw5WODEVpVy7C5mr5o+GrhLNvB8m5y+mqzTdGTBM++IG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LPyFj7Fi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779798904; c=relaxed/simple;
+	bh=jawOlGnnD26Ppp+JufdrTQn9Lmw7mrNyUF89gdMdb9o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=k9TRVsAU/+7fMLbqnwCmzb8q2CgaqaehseKTw29NWOVJdrNXyZcWy0ngmgTkwprcTJEedt85mmM3TutIEXBr1PNV0buZlfxxQx3NBaZUOQXIS1MvrBZkDWo24ZDdIdC0uJMktJzWoXW/OYJ7Ijn/56dB4WLN8OGqPUugEztJgAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LwVpsN6P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LPyFj7Fi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE7C11F000E9;
-	Tue, 26 May 2026 12:33:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LwVpsN6P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F30DA1F00A3E
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:35:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779798785;
-	bh=UXy+Aq3ip8ggzdAob3fH1MwYAHbx0+lsclrzD0G6o8Q=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=LPyFj7Fi/8dsVw+6KLIF3BQeHFNvnYUAHDLUn+9cvtKgFfeoJPLCv0wXAUzwY5Rk2
-	 AebALP6aVBQr1C3Qpmswmy+KrWdhLFV0RMdoGZLYVQ4dXipG0If4ZDGpAvtoEb4Rhv
-	 4B2xW/UDP1eYZgKwZUbbVUforJgUFyBidA+Z2cGHT3INUyMchg+239WbgMwt8qbkh9
-	 ShRLuNTbJdzTx73JwXczuKZUYUo/6eq6vBjA+ovnx6/cw3FpkUWghIFjiMvObZQ0Zr
-	 kD1vgyWsH7IfBASq6FvSlO/cZFgIDJHrEJi8k80o8jhAxvthcWSLn9oagATDvk/4Jj
-	 nUDtkvro3rKlA==
-Date: Tue, 26 May 2026 13:32:56 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Piyush Patle <piyushpatle228@gmail.com>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Andreas Klinger <ak@it-klinger.de>, Andy
- Shevchenko <andy@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v9 04/11] dt-bindings: iio: adc: hx711: add HX710B
- support
-Message-ID: <20260526133256.4b781fa6@jic23-huawei>
-In-Reply-To: <CAMB+xkYUC-OqncD+SxOo9K36ZR9iC-5CFUs6wKojz2j+M24K4g@mail.gmail.com>
-References: <20260518220228.63322-1-piyushpatle228@gmail.com>
-	<20260518220228.63322-5-piyushpatle228@gmail.com>
-	<20260520111919.5e99fe72@jic23-huawei>
-	<CAMB+xkYUC-OqncD+SxOo9K36ZR9iC-5CFUs6wKojz2j+M24K4g@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779798903;
+	bh=jx8+h1I+icjwj5kn/NeTmz1laMq204QO0s7URIhHUtI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LwVpsN6P5UEzTeVt5QAJXNyIaW3bUzRSi9pyWqIQCau+pSgBlVl2c0A/uY1byxZ4U
+	 lGfpwYaaxGMaOskeSHnMrKJuwuKbJ0vyczbks7yYqegBu8BfpI/m16r2Sqv2fEufFp
+	 6Pyn+y+DhToXxl4O+wHYlypWvHpBShkloWAsNK9Kbl+p2qWq4iP6RfEeUcqgAxMv3O
+	 eW3dkE0gK80ccpkU4UBYmeUSyg8SDCDToEhBULBI14cX63G/t7Hu1feBHfrZMfmYHM
+	 LsXAB8WKzh4tZkeEPy1K2lcCPvc60NXeOTG5QbuVnNt7fm+3f8tXZfKHTMsm7zWTU7
+	 LMM0+cUoNvDfA==
+Received: by mail-lj1-f169.google.com with SMTP id 38308e7fff4ca-395f24a5f2cso26310421fa.2
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 05:35:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+keKwxytZOuLXOi8UlD5ph5e6P2Bub1sKNwbigJMbePfZgD+0aIsiaI97RvQRJdOx2lTe7UPzXeckS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxixL21aCVJ/lhe19Jd2JPjkgPKUwngfdGeD3ozj5kkFV4VjdQq
+	5eE5MMYf40ACs/Ze1jKK/UC2eQ4F4JY+SDWe3xAsEe8kmlzBY5ey+iMKL3hvHtEdu6WOsK49yRl
+	g3Xy59nyAqDsk6qpTsAoQbR73c6f0bFj4s0OWzu3o/A==
+X-Received: by 2002:a05:651c:541:b0:391:1570:b6c6 with SMTP id
+ 38308e7fff4ca-395d8c64fd3mr62255981fa.2.1779798901544; Tue, 26 May 2026
+ 05:35:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+References: <20260523085102.51000-1-clamor95@gmail.com> <20260523085102.51000-2-clamor95@gmail.com>
+ <CAMRc=MfXVwD2u0e115RapnyLzf5JRjWMs=2PSNzMnm0GDd7aaQ@mail.gmail.com>
+ <CAPVz0n1G5Yu2X5f+=q90RAbnsWi9psMq-L5tWDMM4JRC4R_mPg@mail.gmail.com>
+ <CAMRc=Me4G-YqKoFan3epofXk2OWzxY1iPE1mP=uwEjs9wgA6Cw@mail.gmail.com> <CAPVz0n2P-zB1_uetZN9pVcQChK+FkdQowbF4Z0YZOBQBsB76WQ@mail.gmail.com>
+In-Reply-To: <CAPVz0n2P-zB1_uetZN9pVcQChK+FkdQowbF4Z0YZOBQBsB76WQ@mail.gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Tue, 26 May 2026 14:34:48 +0200
+X-Gmail-Original-Message-ID: <CAMRc=MfAAE4UtnW4S1=pY+2yvS6Hsd-U9+uveUFtPGoJPrv6aA@mail.gmail.com>
+X-Gm-Features: AVHnY4KHpaK2guCMzD84efob-Fn_1e4ff05aeaWlnbgoKMEGNNeAbfQ9YXcn-6s
+Message-ID: <CAMRc=MfAAE4UtnW4S1=pY+2yvS6Hsd-U9+uveUFtPGoJPrv6aA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
+ modem pwrseq
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, 24 May 2026 08:15:27 +0530
-Piyush Patle <piyushpatle228@gmail.com> wrote:
-
-> On Wed, May 20, 2026 at 3:49=E2=80=AFPM Jonathan Cameron <jic23@kernel.or=
-g> wrote:
+On Tue, May 26, 2026 at 2:29=E2=80=AFPM Svyatoslav Ryhel <clamor95@gmail.co=
+m> wrote:
+>
+> =D0=B2=D1=82, 26 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 14=
+:14 Bartosz Golaszewski <brgl@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
 > >
-> > On Tue, 19 May 2026 03:32:20 +0530
-> > Piyush Patle <piyushpatle228@gmail.com> wrote:
-> > =20
-> > > Add the avia,hx710b compatible and document the HX710B-specific
-> > > DVDD and VREF supplies.
+> > On Tue, 26 May 2026 12:03:59 +0200, Svyatoslav Ryhel <clamor95@gmail.co=
+m> said:
+> > > =D0=B2=D1=82, 26 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=
+=BE 12:51 Bartosz Golaszewski <brgl@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >>
+> > >> On Sat, May 23, 2026 at 10:51=E2=80=AFAM Svyatoslav Ryhel <clamor95@=
+gmail.com> wrote:
+> > >> >
+> > >> > Document the Tegra modem pwseq used by various devices based on th=
+e Nvidia
+> > >> > Tegra SoC, describing its usage. The power sequence provides inter=
+action
+> > >> > between the modem and SoC-specific interface configurations.
+> > >> >
+> > >> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > >> > ---
+> > >>
+> > >> ...
+> > >>
+> > >> > +
+> > >> > +examples:
+> > >> > +  - |
+> > >> > +    #include <dt-bindings/gpio/gpio.h>
+> > >> > +
+> > >> > +    pwrseq-modem {
+> > >> > +        compatible =3D "nvidia,tegra-modem-pwrseq";
+> > >> > +
+> > >> > +        enable-gpios =3D <&gpio 165 GPIO_ACTIVE_HIGH>;
+> > >> > +        power-supply =3D <&vdd_3v3_vbat>;
+> > >> > +
+> > >> > +        nvidia,usb-bus =3D <&usb2>;
+> > >> > +    };
+> > >> > --
+> > >> > 2.51.0
+> > >> >
+> > >>
+> > >> I assume there's no such component as the tegra modem *pwrseq*?
 > > >
-> > > Add constraints that forbid HX711-only properties on HX710B nodes and
-> > > require vref-supply for HX710B, then add a separate HX710B example.
+> > > Hardware component, I assume no.
 > > >
-> > > Signed-off-by: Piyush Patle <piyushpatle228@gmail.com>
-> > > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> > > Acked-by: Conor Dooley <conor.dooley@microchip.com> =20
-> > FWIW the only thing Sashiko doesn't like is dvdd is enabled for the old
-> > parts. Move it to the earlier supply adding patch for hx711 and we shou=
-ld
-> > be good to go!
+> > >> What is the relationship between this node and the "infineon,xmm6260=
+"
+> > >> compatible node?
+> > >>
+> > >
+> > > The xmm6260 has a phandle reference to it. Since there is consumer
+> > > matching logic in the pwrseq driver I am leaning towards removing thi=
+s
+> > > node entirely. This patches is still in non-final stage and I would
+> > > like to hear any opinions on the way to improving it.
+> > >
 > >
-> > Jonathan =20
->=20
-> Because dvdd-supply now lands in 02/11 as a shared property, I will
-> remove it from 04/11's properties block.  The allOf constraint in
-> 04/11 does NOT gain a dvdd-supply: false in the else (HX711) branch
-> DVDD is valid and meaningful for HX711 nodes too.  The only things
-> forbidden for HX711 remain vref-supply (else branch); the only things
-> forbidden for HX710B remain vsup-supply and rate-gpios (then branch).
-> I think this will be a suitable approach, right ??
+> > The node attached to the pwrseq provider device should represent a real
+> > hardware component. Are the enable-gpios and power-supply lines connect=
+ed
+> > to the modem package?
+>
+> Yes, enable-gpio is connected to the modem and signals that USB is set
+> and ready to work with the modem, while power-supply is an optional
+> supply connected to the modem's vbus input.
+>
 
-Yes. Sounds right to me.
+The modem is a hard-wired USB device? Do you implement it as a
+platform driver or a USB driver?
 
-Jonathan
+Is there a connector of any kind that could be used as the HW
+component represented by the pwrseq device?
 
-
+Bart
