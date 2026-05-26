@@ -1,136 +1,121 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BECA18B0F
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 20:46:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241FA3AB5B7
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 21:00:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779828406; cv=none; b=jHXAhrVYyRGdHICkf6At7D8rNDpo/SWmu+iQ137ybzQREXh8qqyQonajNPm3wVEfXIMAJ8XNC2mjwtwOzYqdbmhjqLKxWA/kVz5gX54d42KUk+OrhJ6viZd6aiqaPYjBNgKE19w/Afh8d8rljBKbZlndMmvWfxUPrR8SI1Myljg=
+	t=1779829258; cv=none; b=ombPWCOK9ilebG6F8fR9/WfogCZsWHsEOLQM1xypYDqan74sHn0naWZTJYVgYUE6p++IdItya6JH/lhLwopaWvFNKBWMuT5VwG94D5+Z5sWuToijhD1Iw8OYSoyQfOa68S1HlXHFiFaCsElL1axTOBkpS2xrjpmH1X8MlAlszEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779828406; c=relaxed/simple;
-	bh=2z5bTtd/HxPEU8eYLMrzRgawfNVrHqvpf4qq3+29xt4=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=bRCV4O/y40fz/LWQt8/aCgbuR6nu4eT1gmoFf1AiR20YSQ0RUGmJfOdd1db/keHCb6VJmEV5qYzsCwdZnIEzamPlG0//M+YmMT47gjybe11Wubbs4U9JKAnN3IhLUajOhiU9B9DVBhmvmimySO2LluSBIC5S7e2UYdqquhKwBjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SWhLAaYz; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779829258; c=relaxed/simple;
+	bh=PACiooJabi8lsjM1OapSXL9WYHqncVa4GXQLBuufkiY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=friU++MqH8uvRguucA/GY2uHhhXEnykYCl8Ci5rJTFJHtY4J1R4/a+bGI+Bd3rJuB6xqO388vTl2uiL7YoG9od9T4yap+KaYYOex696qDKPa1zVUR6snoFVLy75REtRhBdLAr4lDbNU0rQEuUOWHNCtSnZ5faCN2c5/jX5Y+G+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jj7dicaa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SWhLAaYz"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49048e043e5so34501095e9.1
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 13:46:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779828403; x=1780433203; darn=vger.kernel.org;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Sw9iPfDQzt8bW0KV99nuWsMFk8LtY4w/e81ccwJ3ovc=;
-        b=SWhLAaYzSI/gcN1IvuSPrKabWDPi91V5uIzMGxNEXVoCd7ATx3iW3DHasA0aStYG4K
-         W9BCc486WSrOd0hdiIQ3vF32+orXOicbi6DdsQQDYA4TwLVlzL92q8rlcSIIRse9gVw7
-         2/BwX19aWvUeEaQ7XQ+AREZXkbJ02jEkkDT4OdY8HPLohlWkECP69yfZGzBMeHEXwRym
-         kF9k2Rpf+LGth5BFHQBMW3+DczDrOmVigPr1hXO6wWcrhsUNMcEnFR/KGdBL09Z7mbCK
-         T+WNzS93yO5OtxdP/sC+YrWri/kDvsNYRD40ZJwaVAP6yXHx95cc8RKUi9GYYrJBffx3
-         dCqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779828403; x=1780433203;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Sw9iPfDQzt8bW0KV99nuWsMFk8LtY4w/e81ccwJ3ovc=;
-        b=sCIyh7H2k4274JGnFsEp9HfQbz2zKpAGOb/rRSmJfBpCt7f92YQMYZWm7+oty2uVRJ
-         nzfJbenItSG9E0qUWwONG2A1hWhg6/u06Hv8D2M0WKJkCn45T1zWuzvkVEtDEDBF8P9x
-         wyZJ/Y4hkx8JU57u89jnPnaWh1zRnxAirntucYm+oqfumwq3/W+Id/SckD/oc9JUlvhJ
-         1aMD1SP7NrmoKX/n7pbrzvvhgz7KN8xkD6KQEFIzvqiiKVoENqUJ2Qk8rBTUXWiyYGk3
-         cRl/VnmmNVbmtp95GnbOD/X56h2Au3ESbarRNOuokUP1TKrddjJDsqaw3sa1O+Ptasro
-         lNGw==
-X-Forwarded-Encrypted: i=1; AFNElJ+o9TQIxzMBNs3nZVSoxN/pmgAlyUx4op3NZXdlMEsujRO73+LDaKmYIsKvxGKn3HV1CJojGcKonoae@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxnzjg4mk7GJi+vpHztEjMcptsMi7wgR+iQ5Isnfb5zC9JpaCMi
-	ZxjZNitIZAvf7r0ssC4lJoTBFYYMQx4V7BneBBovrdHkhu9zQl/tdc2e
-X-Gm-Gg: Acq92OE4UTb6chUrw91+s3fND6P9NpKFtZf1d4r5oaWKKddKcesxsEQt59Wve6Vt/7L
-	nVJjCpopG6Xfzp+s22umOwNw/90xY1ytwWu6Y5rbGPOSt8gGL+1SdCi3fSiVeXgmWdZgMq/jydI
-	UGFdMLJUkmD1HNDlprEjF7u1SNm3Q4j6/B7HQBRKxZM8hUU6kxs1zVfCgCUkGP2cGfgsq9ELK3R
-	ApgOaalpLhQ1vn6FOMeGjcyVcpdhJ788cxFEs3daqcdUh/yZr7he/tXkdYpjtoj6Ko/9RAO7ixy
-	ZZrLpYZ39AC/PFuMUwOjaj5XWwFN3K9jfeklrYcIZWHrX6353mqSlOSz4gfxBWFpvy/swAIPLmL
-	BxaZtaHwOC7PuqkXTNUmwDtSK+Yw11dRahO3gOBI5/UiCuaxBBOaieEx1lngQTcmoEtG2T86URC
-	5z30LksLvQVrJiolMgo6Ig1fcifMgulHfFhnxf7a+SPSsWDPU=
-X-Received: by 2002:a05:600c:4f88:b0:490:50eb:b777 with SMTP id 5b1f17b1804b1-49050ebb9e0mr298822445e9.5.1779828403347;
-        Tue, 26 May 2026 13:46:43 -0700 (PDT)
-Received: from localhost ([2001:4bb8:19a:6947:136e:fa14:24f7:1e97])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49045284855sm356054775e9.0.2026.05.26.13.46.40
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 May 2026 13:46:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jj7dicaa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE551F000E9;
+	Tue, 26 May 2026 21:00:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779829257;
+	bh=GQtTdXjjRGDXBU+L40MXovfCW8nB+smL+rcIj3vDK8A=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Jj7dicaa73BrGyJVcnh1IGHtYpiWdQhiKKC2/5pAcz2MJnMURIgjbbAiWsFVCgMZP
+	 JhCEQld5BRCCBKZjibLDGc+DTRx+2djOWfZngOGZ7PjnrhkGIuesurStUYmm7UtIoJ
+	 h90pPymqG+MTzrE1ljTOyxB0SbID1qWzfxRTKIbi8z3DBQLHkbcnnukONgZpKP4win
+	 A4SnyGtEy2Bz8lZtojZI0oNkpcQxejUMo+cnZMjupagJvoTAIVor0ES5bCM6Nqfy11
+	 2WE6lpnWikG0kqJGj0gzPS11LOLzyKfgl3/JVWMdTpC/2x3leRaKtd7Uxe1G58z5La
+	 UaBkGNtcW668A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] arm64: dts: renesas: r9a09g077: Add xSPI nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
+In-Reply-To: <20260526204045.3481604-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260526204045.3481604-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 21:00:56 +0000
+Message-Id: <20260526210056.ADE551F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 26 May 2026 22:46:40 +0200
-Message-Id: <DISWIFAG1KHL.3CUT30EQMVS81@gmail.com>
-Subject: Re: [PATCH v3 2/4] iio: light: add support for veml6031x00 ALS
- series
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Matti Vaittinen"
- <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
- <javier.carrasco.cruz@gmail.com>
-From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
-References: <20260524-veml6031x00-v3-0-29165609b2b5@gmail.com>
- <20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
- <20260526185933.0084679f@jic23-huawei>
- <20260526190528.0efe80c6@jic23-huawei>
-In-Reply-To: <20260526190528.0efe80c6@jic23-huawei>
 
-On Tue May 26, 2026 at 8:05 PM CEST, Jonathan Cameron wrote:
-> On Tue, 26 May 2026 18:59:33 +0100
-> Jonathan Cameron <jic23@kernel.org> wrote:
->
->> On Sun, 24 May 2026 23:53:56 +0200
->> Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
->>
->> > These sensors provide two light channels (ALS and IR), I2C communicati=
-on
->> > and a multiplexed interrupt line to signal data ready and configurable
->> > threshold alarms.
->> >
->> > This first implementation provides basic functionality (measurement
->> > configuration, raw reads and ID validation) and defines the different
->> > register regions in preparation for extended features in the subsequen=
-t
->> > patches of the series.
->> >
->> > Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
->>
->> A few things inline.  Biggest one is that device driver specific state n=
-eeds
->> local well documented locking. Here the whole complex gain handling mean=
-s there
->> are a bunch of register field where the accesses to each set of them nee=
-d
->> to appear atomic.
-> The sashiko comment on underflowing pm counters also looks plausible
-> so check that as well.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The xSPI nodes provide fewer clocks and resets than strictly req=
+uired by the fallback compatible string 'renesas,r9a09g047-xspi', causing d=
+tbs_check validation failures and breaking the hardware compatibility contr=
+act.
+- [Low] Inconsistent numeric formatting in the 'resets' property between xs=
+pi0 and xspi1.
+--
 
-Hi Jonathan, thanks for your review to this and the other patches of the
-series. I will go through all your comments within the next days.
+commit 5e178072e3e48c6e7ba03bbaf8ea699cb37031c4
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-I replied to its comment on the PM underflow, but as I only replied to it,
-and then I forwarded the message, it might have gone unseen.
+arm64: dts: renesas: r9a09g077: Add xSPI nodes
 
-I believe Sashiko is misinterpreting how this pattern works (not
-introduced by me, it is already available upstream in
-drivers/spi/atmel-quadspi.c). Decrementing the usage counter is fine
-because the devres action uses pm_runtime_put_noidle(), which in turns uses
-atomic_add_unless(usage_count, -1, 0) to avoid decrementing the usage_count
-if it is already 0. Otherwise the devm_ variant would be unusable
-because it would not be possible to put the device in autosuspend for
-the same reason Sashiko is complaining.
+This commit adds device tree nodes for the two xSPI (Expanded SPI)
+controllers integrated into the RZ/T2H (R9A09G077) SoC.
 
-Best regards,
-Javier
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot=
+/dts/renesas/r9a09g077.dtsi
+> --- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
+[ ... ]
+> +		xspi0: spi@801c0000 {
+> +			compatible =3D "renesas,r9a09g077-xspi", "renesas,r9a09g047-xspi";
+> +			reg =3D <0 0x801c0000 0 0x1000>,
+> +			      <0 0x40000000 0 0x10000000>;
+> +			reg-names =3D "regs", "dirmap";
+> +			interrupts =3D <GIC_SPI 654 IRQ_TYPE_LEVEL_HIGH>,
+> +				     <GIC_SPI 655 IRQ_TYPE_LEVEL_HIGH>;
+> +			interrupt-names =3D "pulse", "err_pulse";
+> +			clocks =3D <&cpg CPG_MOD 4>,
+> +				 <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
+> +			clock-names =3D "ahb", "spi";
+> +			resets =3D <&cpg 0x4>;
+
+[Severity: Medium]
+Will this trigger validation errors during make dtbs_check?
+
+The fallback compatible string renesas,r9a09g047-xspi typically requires
+exactly 4 clocks (ahb, axi, spi, spix2) and 2 resets (hresetn, aresetn) in
+its bindings schema. Since these nodes only provide 2 clocks and 1 reset,
+does this break the hardware compatibility contract expected by older
+software?
+
+Should there be a corresponding dt-bindings schema update to document the
+new compatible string and relax these resource constraints?
+
+> +			reset-names =3D "hresetn";
+> +			power-domains =3D <&cpg>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
+> +
+> +		xspi1: spi@801c1000 {
+[ ... ]
+> +			clock-names =3D "ahb", "spi";
+> +			resets =3D <&cpg 5>;
+
+[Severity: Low]
+This isn't a bug, but the reset index is formatted as a decimal here,
+whereas the xspi0 node above uses hexadecimal (0x4). Would it be better
+to use consistent numeric formatting across adjacent, identical hardware
+block definitions?
+
+> +			reset-names =3D "hresetn";
+> +			power-domains =3D <&cpg>;
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
+> +			status =3D "disabled";
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526204045.3481=
+604-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
