@@ -1,94 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E6172139C9;
-	Tue, 26 May 2026 06:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267663C0639
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 06:29:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779775949; cv=none; b=ZNBRBYynJiYlg6/W+vFDvsWwRJZytsrt1CW7W2Z/lYOhTwsk+7znv6GtQFMSPn9KqJZ/RP60maworOqS9Rl+pAOBuX1NXrxWXgXoAxbGBTV8lVpcWCnzU8PvU6KP8LBvBjiuIUq9HIMPm3W69XEyKzCXJf/n1hmX+WPPcNvzOyE=
+	t=1779776945; cv=none; b=hVX5S0q9b1o4fgTHYFojOjWZdGZ0gnxDTfJv73Hrm53VAGUZfG3SGDrpZ9OaUgzSaQYXIVlT3vvcxfBeFrBYoj3ckCXwKI85FwrCnuV/uwGDGFBz1SSC35qG7P0lj7ryd9OGWuXOi8rkw/W9hdsFtDrr4HRccl4XNEtPkQ5x7O4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779775949; c=relaxed/simple;
-	bh=yghNJcQrkYUWWNbAKrpBz58BflQIvrggSW45MBSWtH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q32VmntnZDOgPomUb0Mvx8smp5o/4XtDAxMSwI9sQX577RRURwCcRdFhTO2a+zD7q18B+BusGsdS9RsDI0VGvsPn4KAV/ErU6jivKVjjo6baT4iQslhL/WLw+9omulWgIXJcV0RqV2GWw/+GXJOmI3tKMUIcHKsM496uWSTn8rg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PaNxY70+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779776945; c=relaxed/simple;
+	bh=LLp4xk81XvSl0TqCmYuoGlgdq34x3Ta7aTqO6kbjNHM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=VFTOZaaQB4zfVnY0zYcxHAwCldV3uquJbpBMLIlnsCBKDAFP6gJ3HhEfD/f1oN+ZrFw21g9FXzVe1tWG5kPabyFEFzzQtWSRJIcy6qJFUPBMAjYZ1YQ2958vGb9JTa6jkRPrDVS+B39FeWYGJQUMamncwndQwPBiX4w/zgUohcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OkO728N+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PaNxY70+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3D341F000E9;
-	Tue, 26 May 2026 06:12:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OkO728N+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B19CE1F000E9;
+	Tue, 26 May 2026 06:29:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779775948;
-	bh=C4Q6K7bbOoVpU1MwP5UtVcbQqMSK8GB1uvqgVWAyIgA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PaNxY70+YMonEMLTIazGO/O55U8XOU9hI8Sd6x+lIwRz+krY7I2MIFVP2TtWHQRk6
-	 oLs6o/MlXIoueCpSrWzl4/TP61gPF+HN/xvzZ2vYpOcuWB0Dm95zHR9huRUsF9V+Hf
-	 YnTyB9za+3uCaHbFr+R2wcRewXry6G17iicxgZkjKeAXoiSONhiO8kf+vbI4ljsIDR
-	 1fy3F+EBJAgg0t5T5mg4+PsdSDHbAEaAyRvnVetK1IwZ8UztJCg6MOoYJa1oLvRi7m
-	 9dhRl/AKdtuVr7cjGvsAMXrJhl9YyIGQK1PcdmnOV19LefKY14Nezbe0MAE8vRqjtb
-	 Xzj2xjTt805IA==
-Date: Tue, 26 May 2026 08:12:26 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Cc: Nipun Gupta <nipun.gupta@amd.com>, 
-	Nikhil Agarwal <nikhil.agarwal@amd.com>, Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-	Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Thomas Gleixner <tglx@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Richard Zhu <hongxing.zhu@nxp.com>, 
-	Lucas Stach <l.stach@pengutronix.de>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>, 
-	Stefano Stabellini <sstabellini@kernel.org>, Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>, 
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
-	Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>, Rob Herring <robh@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Prakash Gupta <prakash.gupta@oss.qualcomm.com>, Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
-	linux-kernel@vger.kernel.org, iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	devicetree@vger.kernel.org, linux-pci@vger.kernel.org, imx@lists.linux.dev, 
-	xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org, 
-	Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Subject: Re: [PATCH v15 0/3] of: parsing of multi #{iommu,msi}-cells in maps
-Message-ID: <20260526-finicky-crafty-hare-eae27c@quoll>
-References: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
+	s=k20260515; t=1779776941;
+	bh=9G08+jHNQo/pDBk8uqMaYGIAJjZv0qGoYAgBFXtuwE8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=OkO728N+JQN5prLSl1CH+7CGZWTtEqzUFPqP+QKgoH7fpNfbu/263SIZdACPnMvFV
+	 JdRA+GnYPVrJVd7fmMYb8vuJcMPJgECjHeM8gJj9d6yLkGspc7oB9L2vj4r+YPGRNb
+	 Mdy2jduyCbBjpdv/QeS5mnQtGv7vDpPr5i/AXdr8zsFZb/+31KPv5QaiKyGvFeVxKA
+	 8X5VTyuISKA988nB4JsiQwqApjm/PapRNKy1gLEfEq6SjRSpCRqOOvH1g8eC5VmhsV
+	 5wv960tselFOpvZ3Ot75e0xhSIBad3uk9We2xHMCqfM5TinPdzexFkFaulHqKVDTE5
+	 xy0EAD3bPO05Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 RESEND 5/5] arm64: dts: qcom: Add device tree for
+ SA8797P Ride board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Shawn Guo" <shengchao.guo@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260526051300.1669201-6-shengchao.guo@oss.qualcomm.com>
+References: <20260526051300.1669201-6-shengchao.guo@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 06:29:00 +0000
+Message-Id: <20260526062900.B19CE1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
 
-On Wed, May 20, 2026 at 01:32:39PM +0530, Vijayanand Jitta wrote:
-> So far our parsing of {iommu,msi}-map properties has always blindly
-> assumed that the output specifiers will always have exactly 1 cell.
-> This typically does happen to be the case, but is not actually enforced
-> (and the PCI msi-map binding even explicitly states support for 0 or 1
-> cells) - as a result we've now ended up with dodgy DTs out in the field
-> which depend on this behaviour to map a 1-cell specifier for a 2-cell
-> provider, despite that being bogus per the bindings themselves.
-> 
-> Since there is some potential use[1] in being able to map at least
-> single input IDs to multi-cell output specifiers (and properly support
-> 0-cell outputs as well), add support for properly parsing and using the
-> target nodes' #cells values, albeit with the unfortunate complication of
-> still having to work around expectations of the old behaviour too.
-> 							-- Robin.
-> 
-> Unlike single #{}-cell, it is complex to establish a linear relation
-> between input 'id' and output specifier for multi-cell properties, thus
-> it is always expected that len never going to be > 1.
-> 
-> These changes have been tested on QEMU for the arm64 architecture.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Thermal zones lack a critical trip point and use passive trips wit=
+hout cooling maps.
+- [Medium] UART nodes are enabled without pinctrl configurations.
+--
 
-So there is no real user for that. That's unconvincing. I would assume
-that at least you have real user where you test it.
+commit 2a7d549a569e32271efac6bc43150f202ba201ce
+Author: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
 
-If you want to speed up acceptance of your patches, then also I would
-prefer to see at least one more user, beside Qualcomm. IOW, show how you
-solve other people problems, not only yours.
+arm64: dts: qcom: Add device tree for SA8797P Ride board
 
-Best regards,
-Krzysztof
+This commit adds the initial device tree for the Qualcomm SA8797P Ride
+reference board. It configures the primary and secondary serial consoles,
+enables UFS storage support, and defines multiple thermal zones.
 
+> diff --git a/arch/arm64/boot/dts/qcom/sa8797p-ride.dts b/arch/arm64/boot/=
+dts/qcom/sa8797p-ride.dts
+> new file mode 100644
+> index 0000000000000..d429de313f248
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sa8797p-ride.dts
+
+[ ... ]
+
+> +&thermal_zones {
+> +	pm_kobra_thermal: pm-a-die-thermal {
+> +		polling-delay-passive =3D <100>;
+> +		polling-delay =3D <0>;
+> +		thermal-sensors =3D <&scmi23_sensor 3>;
+> +
+> +		trips {
+> +			trip0 {
+> +				temperature =3D <115000>;
+> +				hysteresis =3D <5000>;
+> +				type =3D "passive";
+> +			};
+> +
+> +			trip1 {
+> +				temperature =3D <135000>;
+> +				hysteresis =3D <5000>;
+> +				type =3D "passive";
+> +			};
+> +		};
+> +	};
+
+[Severity: High]
+Are we missing cooling maps and critical trip points in these thermal zones?
+
+These passive trips set high temperature limits (up to 135C for PMIC and 12=
+5C
+for UFS) but lack a cooling-maps section, meaning the thermal core cannot
+take action to throttle a cooling device.
+
+Furthermore, by omitting a type =3D "critical" trip point, the kernel is
+prevented from performing an emergency orderly shutdown when excessive
+temperatures are reached. Does this leave the hardware unprotected against
+thermal runaway?
+
+[ ... ]
+
+> +&uart4 {
+> +	status =3D "okay";
+> +};
+> +
+> +&uart15 {
+> +	status =3D "okay";
+> +};
+
+[Severity: Medium]
+Do these UART nodes need pinctrl configurations?
+
+They are enabled without defining or assigning any pinctrl properties
+(such as pinctrl-0 and pinctrl-names). On Qualcomm platforms, explicit pin
+multiplexing configurations are usually required to map UART TX and RX
+lines to physical pins.
+
+Without these properties, will the UARTs fail to route data and remain
+non-functional unless they rely purely on implicit bootloader configuration=
+s?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526051300.1669=
+201-1-shengchao.guo@oss.qualcomm.com?part=3D5
