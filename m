@@ -1,278 +1,136 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2466A3BFAC8
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 20:40:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BECA18B0F
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 20:46:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779828058; cv=none; b=hXqFogrMvNUG3xi+iOtgzi9wCfoxza2XweBeKGxMVGBiBTGe9wUDB0HvCFm1abGQ4Dtx4WG9ui0FIFRpcWOTbozcAMfZ6EmYP+bJvLrym047R9drCS+iU14UIki+pROsFbxwYRtPuNYsUufButJgFez8AYNHfktFqepnLzW8sT0=
+	t=1779828406; cv=none; b=jHXAhrVYyRGdHICkf6At7D8rNDpo/SWmu+iQ137ybzQREXh8qqyQonajNPm3wVEfXIMAJ8XNC2mjwtwOzYqdbmhjqLKxWA/kVz5gX54d42KUk+OrhJ6viZd6aiqaPYjBNgKE19w/Afh8d8rljBKbZlndMmvWfxUPrR8SI1Myljg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779828058; c=relaxed/simple;
-	bh=GY+3JuwvqmoMB+7D3MTbrtRBNTJrIqJO/hk0l4ca7mc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nt3okGgoJkPob7Ro1DhfU23x5TAT05lZCC3ZH7yotoxYx4i4Btv+fSoosHFL7SEmeZxfwKlsquCHgkMp+JQc6M9ReSgT2Wqq1spAh7J5JMYUt8qaHSWzssXOndQGU6qn9VGs8oKdU9BpWvVsvL5MX5UIMOSnzCpV/RHHxK1DnvY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F8r1Kjad; arc=none smtp.client-ip=209.85.221.47
+	s=arc-20240116; t=1779828406; c=relaxed/simple;
+	bh=2z5bTtd/HxPEU8eYLMrzRgawfNVrHqvpf4qq3+29xt4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=bRCV4O/y40fz/LWQt8/aCgbuR6nu4eT1gmoFf1AiR20YSQ0RUGmJfOdd1db/keHCb6VJmEV5qYzsCwdZnIEzamPlG0//M+YmMT47gjybe11Wubbs4U9JKAnN3IhLUajOhiU9B9DVBhmvmimySO2LluSBIC5S7e2UYdqquhKwBjU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SWhLAaYz; arc=none smtp.client-ip=209.85.128.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F8r1Kjad"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45e8a834cc2so6302470f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 13:40:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SWhLAaYz"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49048e043e5so34501095e9.1
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 13:46:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779828054; x=1780432854; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1779828403; x=1780433203; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Y3zfcrPXxIeWk32OZbqQALutCssJlFsmq9m7NFPHnKI=;
-        b=F8r1KjadpNixTcU7aIj7JzgixOq3A7EhNKjW5rNrGf2wZMHIJz85EgJHBXu487duIX
-         XfRrqt7JFsaercxVXCuV6hlb/+gqQvj4w1fyNoBPAqthlGVZqtcIRpMuQyB8awCW1Rwt
-         HzSFRvQcAnX9WfamIhQQcZRu3a5+vC7IycPVQHa8drhOcpM3Pqg3ZruxX4sLH4jCYNTS
-         pbbRwNiaL7bKPB2TPEIsiwBdMPzlqTyyxF9iNTx9BWItr+LLXMv6T+27qc0VUlu2F8E3
-         4y2GhqJWrgBiBPAs91JZtIDsRMhXsIHqg+T+Qxvvo+w16/kqIW+qtFMEUvyd2UiJ8ube
-         oJIg==
+        bh=Sw9iPfDQzt8bW0KV99nuWsMFk8LtY4w/e81ccwJ3ovc=;
+        b=SWhLAaYzSI/gcN1IvuSPrKabWDPi91V5uIzMGxNEXVoCd7ATx3iW3DHasA0aStYG4K
+         W9BCc486WSrOd0hdiIQ3vF32+orXOicbi6DdsQQDYA4TwLVlzL92q8rlcSIIRse9gVw7
+         2/BwX19aWvUeEaQ7XQ+AREZXkbJ02jEkkDT4OdY8HPLohlWkECP69yfZGzBMeHEXwRym
+         kF9k2Rpf+LGth5BFHQBMW3+DczDrOmVigPr1hXO6wWcrhsUNMcEnFR/KGdBL09Z7mbCK
+         T+WNzS93yO5OtxdP/sC+YrWri/kDvsNYRD40ZJwaVAP6yXHx95cc8RKUi9GYYrJBffx3
+         dCqw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779828054; x=1780432854;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Y3zfcrPXxIeWk32OZbqQALutCssJlFsmq9m7NFPHnKI=;
-        b=CrxJLB1qcD5S3XUR5gw9zIGZSMbYFwDm1hW+ER9Wvv+TN8wRvVBSPVyou/CGghDXro
-         Vdur8QMapSNSEWibuAdcsO9bAL01gsrEg5yXeaqYVz6+W+RvqhkQ+E5WyQ1HLlnpZpki
-         VaZ7SG2Wa23b0EgbFt7D52f1dArwrfbD+ClnGQnc2CCB2Eaeh0LSRbAtTxatLi0Dqj+K
-         Eu9Zo8mx5lNRBbmAanuNvalDELb0EhfJoILzUQPZaAiB6NDkSJVTIK11YLHwBBR4FiH+
-         hVfgtEpd9zhnU51P0XMkdp+A5wwAYNoXhD4IGVDj7JMRiunUnVetRfrLh6tMA1EwsFfv
-         n3LQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/ooXQUj6MbgQQX0REtDx+VGyL58VMn3B5D1O+6ew+9NxHeX+6h+4btKOix0MiNNhyYkM0ms9HM+PXX@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQhf8hd+QHEO0tgdchWtB6Vc/UshdeTTxZutFv1UnGzwc9O44t
-	Eo+hEhCty3sfwOoSESh2kNWWPN0/VrUYmgSbD0hiR3TFB2ofubz+5/N8
-X-Gm-Gg: Acq92OF9Nadaohlhvtl9v7GwyZAsUSF9AgN4m9JAoLEPe42O+hLRJXxlVQsworuTafd
-	Vu0dGVCvQAlMOB+bJH3sAINV5hXkeX8nQ7nQBFbLpdik8EM73vmuk2hyNn8D2DsaaTpT2Q3VOh4
-	YUvk9o8o4vWUqQcm7D9k+qst/lM88+PpUekDlJi3Pf4JyL5MDMMitrNFeC/bwy6HKoauCocHMbl
-	FYRDBuwu9PsWrHtsGK3y+EO37sbhNprjmoM1PNNLEBIik26esMeaHOFlSNMLixzZjhYi9zaD4af
-	vHKusmvo2dFNw9BR5zR+pbOScNNxGCQ/XnaukDem9I8q2QOVgp2gj3SmLpWCJ5qHPf9mwMtDOBN
-	pMPTVTefPughggbIla9zyj8ExC5kdO9yaFYDmxgQYf1svVFpeOZkvWEupfAGzGvvo4J/9cwRJOJ
-	Wbyj/5bPYorPaQW1NJFKHl7nMjj6Q1ZcNmcU9i8xpkaxJ03Csw2STFd1Q4TD4L3lDKsEjK/L4Jc
-	b5uipIDQpWVjXt/+x/nEWgoI/RI+WGbBwWZAaK6J9lthubq
-X-Received: by 2002:a05:6000:1acd:b0:448:69c0:8da0 with SMTP id ffacd0b85a97d-45eb3692456mr33444947f8f.7.1779828054000;
-        Tue, 26 May 2026 13:40:54 -0700 (PDT)
-Received: from iku.Home ([2a06:5906:61b:2d00:6e49:e380:c3e5:25e9])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb557545sm904864f8f.12.2026.05.26.13.40.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 13:40:53 -0700 (PDT)
-From: Prabhakar <prabhakar.csengg@gmail.com>
-X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar <prabhakar.csengg@gmail.com>,
-	Biju Das <biju.das.jz@bp.renesas.com>,
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: [PATCH 3/3] arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI nodes
-Date: Tue, 26 May 2026 21:40:45 +0100
-Message-ID: <20260526204045.3481604-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260526204045.3481604-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260526204045.3481604-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+        d=1e100.net; s=20251104; t=1779828403; x=1780433203;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Sw9iPfDQzt8bW0KV99nuWsMFk8LtY4w/e81ccwJ3ovc=;
+        b=sCIyh7H2k4274JGnFsEp9HfQbz2zKpAGOb/rRSmJfBpCt7f92YQMYZWm7+oty2uVRJ
+         nzfJbenItSG9E0qUWwONG2A1hWhg6/u06Hv8D2M0WKJkCn45T1zWuzvkVEtDEDBF8P9x
+         wyZJ/Y4hkx8JU57u89jnPnaWh1zRnxAirntucYm+oqfumwq3/W+Id/SckD/oc9JUlvhJ
+         1aMD1SP7NrmoKX/n7pbrzvvhgz7KN8xkD6KQEFIzvqiiKVoENqUJ2Qk8rBTUXWiyYGk3
+         cRl/VnmmNVbmtp95GnbOD/X56h2Au3ESbarRNOuokUP1TKrddjJDsqaw3sa1O+Ptasro
+         lNGw==
+X-Forwarded-Encrypted: i=1; AFNElJ+o9TQIxzMBNs3nZVSoxN/pmgAlyUx4op3NZXdlMEsujRO73+LDaKmYIsKvxGKn3HV1CJojGcKonoae@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxnzjg4mk7GJi+vpHztEjMcptsMi7wgR+iQ5Isnfb5zC9JpaCMi
+	ZxjZNitIZAvf7r0ssC4lJoTBFYYMQx4V7BneBBovrdHkhu9zQl/tdc2e
+X-Gm-Gg: Acq92OE4UTb6chUrw91+s3fND6P9NpKFtZf1d4r5oaWKKddKcesxsEQt59Wve6Vt/7L
+	nVJjCpopG6Xfzp+s22umOwNw/90xY1ytwWu6Y5rbGPOSt8gGL+1SdCi3fSiVeXgmWdZgMq/jydI
+	UGFdMLJUkmD1HNDlprEjF7u1SNm3Q4j6/B7HQBRKxZM8hUU6kxs1zVfCgCUkGP2cGfgsq9ELK3R
+	ApgOaalpLhQ1vn6FOMeGjcyVcpdhJ788cxFEs3daqcdUh/yZr7he/tXkdYpjtoj6Ko/9RAO7ixy
+	ZZrLpYZ39AC/PFuMUwOjaj5XWwFN3K9jfeklrYcIZWHrX6353mqSlOSz4gfxBWFpvy/swAIPLmL
+	BxaZtaHwOC7PuqkXTNUmwDtSK+Yw11dRahO3gOBI5/UiCuaxBBOaieEx1lngQTcmoEtG2T86URC
+	5z30LksLvQVrJiolMgo6Ig1fcifMgulHfFhnxf7a+SPSsWDPU=
+X-Received: by 2002:a05:600c:4f88:b0:490:50eb:b777 with SMTP id 5b1f17b1804b1-49050ebb9e0mr298822445e9.5.1779828403347;
+        Tue, 26 May 2026 13:46:43 -0700 (PDT)
+Received: from localhost ([2001:4bb8:19a:6947:136e:fa14:24f7:1e97])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49045284855sm356054775e9.0.2026.05.26.13.46.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 May 2026 13:46:42 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 26 May 2026 22:46:40 +0200
+Message-Id: <DISWIFAG1KHL.3CUT30EQMVS81@gmail.com>
+Subject: Re: [PATCH v3 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Matti Vaittinen"
+ <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260524-veml6031x00-v3-0-29165609b2b5@gmail.com>
+ <20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
+ <20260526185933.0084679f@jic23-huawei>
+ <20260526190528.0efe80c6@jic23-huawei>
+In-Reply-To: <20260526190528.0efe80c6@jic23-huawei>
 
-From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+On Tue May 26, 2026 at 8:05 PM CEST, Jonathan Cameron wrote:
+> On Tue, 26 May 2026 18:59:33 +0100
+> Jonathan Cameron <jic23@kernel.org> wrote:
+>
+>> On Sun, 24 May 2026 23:53:56 +0200
+>> Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
+>>
+>> > These sensors provide two light channels (ALS and IR), I2C communicati=
+on
+>> > and a multiplexed interrupt line to signal data ready and configurable
+>> > threshold alarms.
+>> >
+>> > This first implementation provides basic functionality (measurement
+>> > configuration, raw reads and ID validation) and defines the different
+>> > register regions in preparation for extended features in the subsequen=
+t
+>> > patches of the series.
+>> >
+>> > Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+>>
+>> A few things inline.  Biggest one is that device driver specific state n=
+eeds
+>> local well documented locking. Here the whole complex gain handling mean=
+s there
+>> are a bunch of register field where the accesses to each set of them nee=
+d
+>> to appear atomic.
+> The sashiko comment on underflowing pm counters also looks plausible
+> so check that as well.
 
-Enable the xSPI0 and xSPI1 controllers on the RZ/T2H N2H EVK board.
+Hi Jonathan, thanks for your review to this and the other patches of the
+series. I will go through all your comments within the next days.
 
-Configure the xSPI0 controller interface to 1-bit (x1) mode, even though
-the connected MX25LW51245 octal flash device supports octal mode. Add a
-corresponding inline hardware comment detailing this restriction;
-operating in octal mode causes the BootROM to fail loading the first-stage
-bootloader following a Watchdog Timer (WDT) reset.
+I replied to its comment on the PM underflow, but as I only replied to it,
+and then I forwarded the message, it might have gone unseen.
 
-Configure the xSPI1 controller interface connected to the AT25SF128A
-flash device for 4-bit (x4) mode to utilize all available data lines.
+I believe Sashiko is misinterpreting how this pattern works (not
+introduced by me, it is already available upstream in
+drivers/spi/atmel-quadspi.c). Decrementing the usage counter is fine
+because the devres action uses pm_runtime_put_noidle(), which in turns uses
+atomic_add_unless(usage_count, -1, 0) to avoid decrementing the usage_count
+if it is already 0. Otherwise the devm_ variant would be unusable
+because it would not be possible to put the device in autosuspend for
+the same reason Sashiko is complaining.
 
-Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
----
- .../dts/renesas/rzt2h-n2h-evk-common.dtsi     | 139 ++++++++++++++++++
- 1 file changed, 139 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-index f87c2492f414..fff63d08e3a3 100644
---- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-+++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-@@ -5,6 +5,7 @@
-  * Copyright (C) 2025 Renesas Electronics Corp.
-  */
- 
-+#include <dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h>
- #include <dt-bindings/gpio/gpio.h>
- #include <dt-bindings/leds/common.h>
- #include <dt-bindings/net/mscc-phy-vsc8531.h>
-@@ -20,6 +21,8 @@ aliases {
- 		mmc0 = &sdhi0;
- 		mmc1 = &sdhi1;
- 		serial0 = &sci0;
-+		spi0 = &xspi0;
-+		spi1 = &xspi1;
- 	};
- 
- 	chosen {
-@@ -331,6 +334,59 @@ ctrl-pins {
- 				 <RZT2H_PORT_PINMUX(17, 4, 0x29)>; /* SD1_CD */
- 		};
- 	};
-+
-+	xspi0_pins: xspi0-group {
-+		clk-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(5, 1, 0x1c)>, /* XSPI0_CKP */
-+				 <RZT2H_PORT_PINMUX(5, 2, 0x1c)>; /* XSPI0_CKN */
-+			input-schmitt-disable;
-+			slew-rate = <1>;
-+			drive-strength-microamp = <9000>;
-+		};
-+
-+		data-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(5, 6, 0x1c)>, /* XSPI0_IO0 */
-+				 <RZT2H_PORT_PINMUX(5, 7, 0x1c)>, /* XSPI0_IO1 */
-+				 <RZT2H_PORT_PINMUX(6, 0, 0x1c)>, /* XSPI0_IO2 */
-+				 <RZT2H_PORT_PINMUX(6, 1, 0x1c)>, /* XSPI0_IO3 */
-+				 <RZT2H_PORT_PINMUX(6, 2, 0x1c)>, /* XSPI0_IO4 */
-+				 <RZT2H_PORT_PINMUX(6, 3, 0x1c)>, /* XSPI0_IO5 */
-+				 <RZT2H_PORT_PINMUX(6, 4, 0x1c)>, /* XSPI0_IO6 */
-+				 <RZT2H_PORT_PINMUX(6, 5, 0x1c)>; /* XSPI0_IO7 */
-+			input-schmitt-disable;
-+			slew-rate = <1>;
-+			drive-strength-microamp = <9000>;
-+		};
-+
-+		ctrl-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(5, 3, 0x1c)>, /* XSPI0_CS0 */
-+				 <RZT2H_PORT_PINMUX(6, 6, 0x1c)>, /* XSPI0_RESET0 */
-+				 <RZT2H_PORT_PINMUX(5, 5, 0x1c)>; /* XSPI0_DS */
-+			input-schmitt-disable;
-+			slew-rate = <1>;
-+			drive-strength-microamp = <9000>;
-+		};
-+	};
-+
-+	xspi1_pins: xspi1-group {
-+		ctrl-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(1, 0, 0x1c)>, /* XSPI1_CKP */
-+				 <RZT2H_PORT_PINMUX(1, 1, 0x1c)>; /* XSPI1_CS0 */
-+			input-schmitt-enable;
-+			slew-rate = <1>;
-+			drive-strength-microamp = <9000>;
-+		};
-+
-+		data-pins {
-+			pinmux = <RZT2H_PORT_PINMUX(1, 4, 0x1c)>, /* XSPI1_IO0 */
-+				 <RZT2H_PORT_PINMUX(1, 5, 0x1c)>, /* XSPI1_IO1 */
-+				 <RZT2H_PORT_PINMUX(1, 6, 0x1c)>, /* XSPI1_IO2 */
-+				 <RZT2H_PORT_PINMUX(1, 7, 0x1c)>; /* XSPI1_IO3 */
-+			input-schmitt-enable;
-+			slew-rate = <1>;
-+			drive-strength-microamp = <9000>;
-+		};
-+	};
- };
- 
- &sci0 {
-@@ -395,3 +451,86 @@ &wdt2 {
- 	timeout-sec = <60>;
- };
- 
-+&xspi0 {
-+	pinctrl-0 = <&xspi0_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	assigned-clocks = <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
-+	assigned-clock-rates = <50000000>;
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		m25p,fast-read;
-+		/*
-+		 * Configure for 1-bit mode to prevent the BootROM from failing
-+		 * to load the first-stage bootloader following a watchdog reset.
-+		 */
-+		spi-tx-bus-width = <1>;
-+		spi-rx-bus-width = <1>;
-+		vcc-supply = <&reg_3p3v>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "bl2-0";
-+				reg = <0x00000000 0x00060000>;
-+				read-only;
-+			};
-+
-+			partition@1fb000 {
-+				label = "fip-0";
-+				reg = <0x00060000 0x007a0000>;
-+				read-only;
-+			};
-+
-+			partition@300000 {
-+				label = "user-0";
-+				reg = <0x800000 0x003800000>;
-+			};
-+		};
-+	};
-+};
-+
-+&xspi1 {
-+	pinctrl-0 = <&xspi1_pins>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+
-+	assigned-clocks = <&cpg CPG_CORE R9A09G077_XSPI_CLK1>;
-+	assigned-clock-rates = <50000000>;
-+
-+	flash@0 {
-+		compatible = "jedec,spi-nor";
-+		reg = <0>;
-+		m25p,fast-read;
-+		spi-tx-bus-width = <4>;
-+		spi-rx-bus-width = <4>;
-+		vcc-supply = <&reg_3p3v>;
-+
-+		partitions {
-+			compatible = "fixed-partitions";
-+			#address-cells = <1>;
-+			#size-cells = <1>;
-+
-+			partition@0 {
-+				label = "bl2-1";
-+				reg = <0x00000000 0x00060000>;
-+			};
-+
-+			partition@60000 {
-+				label = "fip-1";
-+				reg = <0x00060000 0x007a0000>;
-+			};
-+
-+			partition@800000 {
-+				label = "user-1";
-+				reg = <0x800000 0x800000>;
-+			};
-+		};
-+	};
-+};
--- 
-2.54.0
-
+Best regards,
+Javier
