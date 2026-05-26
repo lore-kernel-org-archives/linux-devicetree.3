@@ -1,46 +1,46 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013035.outbound.protection.outlook.com [40.107.201.35])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010053.outbound.protection.outlook.com [52.101.46.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59C543CD8BF;
-	Tue, 26 May 2026 21:53:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.35
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EC43C98B3;
+	Tue, 26 May 2026 22:36:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.53
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779832417; cv=fail; b=rszLos+XuJrOSbH1K7ncYgTxdu9Xa5rayzNzJgWok/CLQOVGl5FcBAxedWSJYywwm1dRXjo8Ul8EXXDwvoygXVNp6bcDopEsJpbjg8Gb0xB0kvtb9hbdId1GlyLBfDxhEqgwKw22FKzKVtdDSFhe1C+MEhxuXElKzC167LCWjEY=
+	t=1779834996; cv=fail; b=Fw2TBdSQf8NI123Pq8jzm13Mq5a03pwbSLCB9zptaev0suYfYHn93wwCF91q7dmjEcbx3VlhNIvyl8IVD43gdvXMR4ZloGk72zfV4K8lqGoXYbgiznBhmv1aLVf2bXvb9iXgghEhyTs3JDdQlEtDEJSq/hw1znE12M8JpfxlE/o=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779832417; c=relaxed/simple;
-	bh=9BlLALeYlLwianm3Ivvl21UOhH3YvKisgyobjsxmpyg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=hSlwEnTcpdQUCkM8xIM2wyZnryyVvUJovAsw7DOYOuq52uY3+c5xpxcDVQwiUo4v/TqGHH/LxMR/2jmXyp6uLMpMCmdGOJuDkeGrOruR6TSOK00XTrOIm+CjPIXqg63MhaIQ2/Ecq2Asz9t1X0CcyXDEcgVYTnN4yi940QVj+8c=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=awLiMpMp; arc=fail smtp.client-ip=40.107.201.35
+	s=arc-20240116; t=1779834996; c=relaxed/simple;
+	bh=L69zylSNFpNVDfiH7ZDrnjGIYfFUXefM+vpIFY3WaLM=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:CC:References:
+	 In-Reply-To:Content-Type; b=I9XYpu8/R85ksAHNi2TF3CkYqdyLuXAI65Xg3EZS1sk68O0sBNIZI4cLwra0reVo3HTNirOAxPx82OLCbRBDXQIYmwm9DlkAufngLDXRGH6CvXqijkd01/KLGObRmfs09A1RcB7CPvvV3JJUyAVevLSW+ZdyBnKNX54if5abzzw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=jCvw7guZ; arc=fail smtp.client-ip=52.101.46.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="awLiMpMp"
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="jCvw7guZ"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aPBS8S53cr2AQiuveCDV+jmWPbVGYblSfFJgFaL692BEXF/waQXSVAdeu4z+qYqz99Wh4LjVq1qOIy3KaRMuAEZ4xdIIL5z+X8WeX9CWs7XaaEPjVhrVo1RgzjWaNaUFeRSD3ljOddDKkzxWe8ezFdJ4Vo6obsv9Q+A1uhCFzw9ocRz9078LeHnMvLYn2pZ9nx26n4wS3omHirHaTs76L/xEx7VuABHTGGNoHc/SfRsljsmKmFKc+dyavITT1Om7b139MmBvIrDG6El+Rjx1JU8CQtN5h29OfJ+ev5g2F++ZzuQFUKcfoswBi8rEm69faaTlyVfI957lNgPMp9Tw4Q==
+ b=RxQf2RUW7fPTOzh535xI/RZYL8Tw8l9qthiNB/vZXKc1vQkCIcLDy0Ztrog3oUfsToEuMlQTX0yC7QYwomvVqbgEBgdL+Ggt57EAGiYeY3qaAsqYEwmy4GlK1o3+Cu6+8FyU2v3qcSozAs/yifYRbfvq0xFRurt0ZMa3cTIbzrDUKFtT0DpXIBBXEQMj3Hfe8e6VrrOcZyp72+4rUMLUukihpI/XuuZv/bw2uo1f/lwUoY9qq0xX4Lpg//U4xXFfWCe79CeJ0GpHP3jI4T936EEnbP4zn5NcG61harMDuWJelRiqF4KUP2pOgqD5iIovtqj/SZDecYBV+3SvWZ5y+A==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=QWmDfUoUxhXZd/fkYU4u0VqaMt04Qm8oDwjOUCgfzn0=;
- b=KCAKkLPhWcJxlflkbTBpI8trO0mKoGfxUGDsn8xAKH+ARTDBbT1YnJCpVfBYX4bcoqIdOi+tqaex8MSgqyqW9J5ILUP5x7/Cg0dIc/mVeAlidom/nObQ0aE2ef4DdCWV9bqKwQhCGmcvn9boKCjmbrvRxTaieOPtEUpGf43kg7YhBNuH2T+T84j3+Hcj1e21+WXhPk+g2smwj0TkCW0tIa3FnzUMVK7hHvTHbBPJ0DlPFj87NTWxiS7jANu7uWLVD86p3mMYZBxAoHe1ntYaZ7oWfhV1jAHE6aUqvb9Gxlrmo3r9H2AEWG13NNChaFaEqFyrk4IlKimElxoR0Zl3yA==
+ bh=/xlSn/ASZpIQh0ZYHGii0yx1BE+FrhF+Z/Y9aY230zY=;
+ b=VcF45LY3zmdbxHIOFWIr5RXYjMPjjSgkqQQgeXU5BN8lEPVp8QHrygE+J6CWy7jYMqLPaTmUqd614iEWHrEECsSZlhbJYZmbKFcUY5JzfmmZuwRtwnIeI7IFpPbcn+7EjEhBdnjSUKTmCNS2w0iI+WkCk95+ao9UMH3BaAR8uIxcoq/bREYqwpNPynLOip2CVQB2rNTqSn3EkRBAdNf2nRrxrKUehFO8zL3ENZFfL572nbn8S1hs3BpCkwHHxoqnbxwnYyGVH+U6TUVg5R1lOtTkDtNcFurXv6yZXeoP+498fgq1IR6GC2GjYrxuc/IJmQrwEmiSg0UWlhtrDVuPnA==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
  198.47.23.195) smtp.rcpttodomain=gmail.com smtp.mailfrom=ti.com; dmarc=pass
  (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
  (message not signed); arc=none (0)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=QWmDfUoUxhXZd/fkYU4u0VqaMt04Qm8oDwjOUCgfzn0=;
- b=awLiMpMpE60GYS/ZydAhfglaVE4Ie69l3lTJdSSDduf/dR1U3XH903BFmAZ8d7kpVC76ppf19xwj4xE1JftqSu/5XMLyTDzPYh1KldFA0M+AuljNyeaOnx1J9/X09WJUxx4/Vq7LyTeLSW46Bp2VB7uHTPlVU83uJFuWzSw+mEY=
-Received: from SJ2PR07CA0019.namprd07.prod.outlook.com (2603:10b6:a03:505::21)
- by CO1PR10MB4484.namprd10.prod.outlook.com (2603:10b6:303:90::12) with
+ bh=/xlSn/ASZpIQh0ZYHGii0yx1BE+FrhF+Z/Y9aY230zY=;
+ b=jCvw7guZ0u3dpiakLCTMwxn7/275B0X18sGYDIG+y/n0b4YctrxNNBtFLxcfSub50bkE1acGo9nBzAmENeyfT/x0yjfWlj2DE67nGqpm5GxYIl1wffluOHdk9vTUpc5mwT2XA4MlUjOApzj2qMVCS0RtsNJHE5JjqQo6JWZ0/4o=
+Received: from BL0PR05CA0005.namprd05.prod.outlook.com (2603:10b6:208:91::15)
+ by PH0PR10MB997667.namprd10.prod.outlook.com (2603:10b6:510:382::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
- 2026 21:53:33 +0000
-Received: from MWH0EPF000A672F.namprd04.prod.outlook.com
- (2603:10b6:a03:505:cafe::8a) by SJ2PR07CA0019.outlook.office365.com
- (2603:10b6:a03:505::21) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
+ 2026 22:36:30 +0000
+Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
+ (2603:10b6:208:91:cafe::a5) by BL0PR05CA0005.outlook.office365.com
+ (2603:10b6:208:91::15) with Microsoft SMTP Server (version=TLS1_3,
  cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Tue, 26
- May 2026 21:53:33 +0000
+ May 2026 22:36:30 +0000
 X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
  smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
  action=none header.from=ti.com;
@@ -48,26 +48,26 @@ Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
  198.47.23.195 as permitted sender) receiver=protection.outlook.com;
  client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
 Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- MWH0EPF000A672F.mail.protection.outlook.com (10.167.249.21) with Microsoft
+ MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 21:53:32 +0000
-Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 22:36:30 +0000
+Received: from DLEE215.ent.ti.com (157.170.170.118) by lewvzet201.ext.ti.com
  (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 26 May
- 2026 16:53:31 -0500
-Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 17:36:29 -0500
+Received: from DLEE209.ent.ti.com (157.170.170.98) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 26 May
- 2026 16:53:30 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
+ 2026 17:36:29 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE209.ent.ti.com
+ (157.170.170.98) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 26 May 2026 16:53:30 -0500
+ Transport; Tue, 26 May 2026 17:36:29 -0500
 Received: from [128.247.81.105] (judy-hp.dhcp.ti.com [128.247.81.105])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64QLrU521736851;
-	Tue, 26 May 2026 16:53:30 -0500
-Message-ID: <3c4c5104-97c4-4d5d-8bb4-21332e39c707@ti.com>
-Date: Tue, 26 May 2026 16:53:30 -0500
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64QMaTXR2333587;
+	Tue, 26 May 2026 17:36:29 -0500
+Message-ID: <1d62e614-084b-456d-823b-21fc7d78c0c9@ti.com>
+Date: Tue, 26 May 2026 17:36:29 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,6 +76,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
 Subject: Re: [PATCH v4 2/3] arm64: dts: ti: Add k3-am62l3-beaglebadge
+From: Judith Mendez <jm@ti.com>
 To: Nishanth Menon <nm@ti.com>
 CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
 	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -86,305 +87,145 @@ CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
 References: <20260515153541.294698-1-jm@ti.com>
  <20260515153541.294698-3-jm@ti.com>
  <20260518131137.zazw4xf6n7ftil6l@predator>
+ <3c4c5104-97c4-4d5d-8bb4-21332e39c707@ti.com>
 Content-Language: en-US
-From: Judith Mendez <jm@ti.com>
-In-Reply-To: <20260518131137.zazw4xf6n7ftil6l@predator>
+In-Reply-To: <3c4c5104-97c4-4d5d-8bb4-21332e39c707@ti.com>
 Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
 X-EOPAttributedMessage: 0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MWH0EPF000A672F:EE_|CO1PR10MB4484:EE_
-X-MS-Office365-Filtering-Correlation-Id: 5858de7e-7907-4565-0b6f-08debb713af3
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|PH0PR10MB997667:EE_
+X-MS-Office365-Filtering-Correlation-Id: 49f27f0b-0b75-40b2-6afe-08debb773b31
 X-LD-Processed: e5b49634-450b-4709-8abb-1e2b19b982b7,ExtAddr
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|13003099007|18002099003|22082099003|56012099006|3023799007|4143699003;
+	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|13003099007|22082099003|18002099003|56012099006|3023799007|4143699003;
 X-Microsoft-Antispam-Message-Info:
-	hvF/5+XanNFXmRfzzSXMW+NYAZUVomuZAdjsMKMnI1dfhOZdQPPaVe/m3ctSosOK1We78e4aznl8qKBxtMzLJoN1Z4S0pFV/PrcQ6Us/swXJvfV+bFwMGxcU3ZDhZwUpmeBHAQOkU06UJf0HOjL+1pGMIDAFHwXi1o/SDky3THTB7Wzj3NJCZxADqJAgMyoPBbDxDmDsV9D6BsSDMhyk9k3hhZ5/SRd3SOFqcvjJEAJP9MUvWI7nEzgJ362iHsPIbDs9gzm7ncv8oecv5IrbmzH9chv4aD6GM5SYyTX9F/noFku6SlMssYRZ7o08/48UIB1A6wttUPBQStj/dy35exfmCxl/HGRitiwbStzc9+7oR/KgD/RdAUgOQzr4WBtG7QALWbQJ3oKw3spjHhNsLLup8M4mmzKqz+YL1G47E+F2N0lityJlWHDaFJnAvqrQP2FcP/+rGGs+kL9p3wVYg+5/zYgsT+tEEjooRid/qTrGKvIeUQou1ZEPRkTqeD8GoKcWuOvSY0hJXDm8Q25H/5mt7FXuRzavJF9jt5xNSegHpUx+oFJqAb6mIQbH84xoLwrtLAPxu9eKZYU2eSyJBNriecZRce3UZYssmsTjIa+6LNCI8RBYklbDiW+peMF3vv10drwecUsaazdrVW0yJDSmbUCbApqpNOrzdrwmD/Q=
+	3357JyNefJQja9auSZwHN/bBUds+HTUQPN2Bud0oGepd1j+wioRsQ6xbRYvvcyaxXKESIdS7SRGv9lkfH5MzdOLW2EfiauIfowcfwCkMTKpZ/JBYB9m/taCMbfOhuJu7GgOy4KfHz+Z+oBK04yAvY4pxnvBjWN2fyL7F61QguE5xfTBAjGjYcxTU0Q2xhBzO2cj3u6rIsP+NF8dT2C8AoEAQmO0YPfegxDEu8DSX2UzEF37ENKaoYK9qFbF28t+y9Zn4dahMtAhFrHTdrQLwzwBHakh6QfS+snkSuBxjJRFLOKknd0YRpY8OVFgQAlcRWf1p+oaCZsByc9p/oCdst1PL9AiGLrLvSsXKHBu180La0qGLHiU5/PLg9OArCcRfgSk7wDqDQBCM0UB2O9u0QfMChBlLSoYIHER+7PxQFfy90dg2XmWRWD/kpOB1bPaOvzr9PM1pB3zfNmyVImEhqFnxC64h88j49buVsKm2KUBiSkvJ0gdSNA9Y3NjQuEYXWAsmqeUN6xKQn1SWXIC7eu9uUj3he9qXbqloTzk9II9rcZyHx9oSvJfdPY3eswTNAZt3xQsYW2lPC1sxi3f+0nbFOmuJcTbKR36geTd3JEEiUNM5CmIJCwOdUeWJgjO0g0/DlFgjSFsjTXLO2Tb9k2SVsmEJE+yAWzw4P3cYMIGCHo52KCvgDznyz6+3TSQn
 X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(13003099007)(18002099003)(22082099003)(56012099006)(3023799007)(4143699003);DIR:OUT;SFP:1101;
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(13003099007)(22082099003)(18002099003)(56012099006)(3023799007)(4143699003);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	n27b7MA50CNLB1Sv4sdtyKMWtODaz+E1N/gPtQH0x2lHzunXlQJ/vn7nLPbJ/oHPODJ9gFCJ/Qqc9sAOsAiwtpfqHU6lXmMaU6KZTnHPx97gwNcPT60EdXSGgsHfxWOtozves3Kt7aS1U1qNnfoKZ79cyHK2z2y/1Psl499sItKknh/2TyG1DXY/ohog6w/g0yiB8RDeEgLiH9QeyIv2xCydjyLbZWpiGEZ3S1w1lNHRY2tzBp+ufEFtGIzCT3yq9GaL1UMPLsNP45Lgg9w7imWOi/YVZ3OWn7h75lO8STOjViGLDciQy8QsxOrjSYjoBAl+Hi7bVsuMwZ1ZPH88lkM0f4Htq2NK3ybJdYA8Virmyad0mSQ/bd+AUlaOZNr+OM/5H8ZUu3ZqT4b2FGWVHkCAKXpz73l/JwVC7O220ZdOKyFGTficNHA5uWh8jS1T
+	jGYK5rOIhIc0Uh7pzWQ/wIIH6sFqUK1qo1UGYdB81HffxgGdjuybi7gClz4A581YBvMI74efbxz8hku8RoBZyu2nuh251dhh9O3XqL0v4pHmUY0vSOy7L5MtpfchY4LLV3SCdI+V8fKjA+wv5Unz7RDouEEc6VKFMY0ubJd/oLoesfhst8HvDiRfRNsHLSVIvFFIIgAtdoVm+BnK2o7N0uWL+ff9WlpOTsVXHwITheXs0Dc6QuYo7v2fKZo/bNOxzUA/ajHBt8mZcTL4xbRtf53p+V/AlAo3DnpKp88DAHrDB7fvMiLz7Y2ioBHZF/MrVn7a8Hy6pEkscd2u2sU25h/JMZucWEziq6ypNaOfMMLXJzwnoSGdBxPKyDsFluv7uHsyW0efaMbH5sgblhKaq2JRYkkoviIvYy/zcvIrXvDuyd9Iml32C+z9v4sOT72g
 X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 21:53:32.6607
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 22:36:30.0510
  (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5858de7e-7907-4565-0b6f-08debb713af3
+X-MS-Exchange-CrossTenant-Network-Message-Id: 49f27f0b-0b75-40b2-6afe-08debb773b31
 X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
 X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
 X-MS-Exchange-CrossTenant-AuthSource:
-	MWH0EPF000A672F.namprd04.prod.outlook.com
+	MN1PEPF0000ECD9.namprd02.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Anonymous
 X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO1PR10MB4484
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR10MB997667
 
-On 5/18/26 8:11 AM, Nishanth Menon wrote:
-> On 10:35-20260515, Judith Mendez wrote:
->> BeagleBoard.org BeagleBadge is a compact, affordable open source
->> hardware single board computer based on the Texas Instruments AM62L3
->> SoC designed for IoT and embedded applications with low power
->> consumption. Expansion is provided over open standards based headers
->> including QWIIC and GPIO interfaces.
+Hi Nishanth,
+
+On 5/26/26 4:53 PM, Judith Mendez wrote:
+> On 5/18/26 8:11 AM, Nishanth Menon wrote:
+>> On 10:35-20260515, Judith Mendez wrote:
+>>> BeagleBoard.org BeagleBadge is a compact, affordable open source
+>>> hardware single board computer based on the Texas Instruments AM62L3
+>>> SoC designed for IoT and embedded applications with low power
+>>> consumption. Expansion is provided over open standards based headers
+>>> including QWIIC and GPIO interfaces.
+>>>
+>>> https://github.com/beagleboard/BeagleBadge
 >>
->> https://github.com/beagleboard/BeagleBadge
+>> Why not use https://www.beagleboard.org/boards/beaglebadge ?
 > 
-> Why not use https://www.beagleboard.org/boards/beaglebadge ?
-
-Will switch link
-
+> Will switch link
+> 
+>>>
+>>> Co-developed-by: Andrew Davis <afd@ti.com>
+>>> Signed-off-by: Andrew Davis <afd@ti.com>
+>>> Signed-off-by: Judith Mendez <jm@ti.com>
+>>> ---
+>>> Changelog since v3:
+>>> - Add missing newline in commit message
+>>> - Drop beagleboard URL
+>>> - Drop uneeded header files
+>>> - Add boothph flags in wkup_i2c0 & PMC nodes
+>>> ---
+>>>   arch/arm64/boot/dts/ti/Makefile               |   1 +
+>>>   .../boot/dts/ti/k3-am62l3-beaglebadge.dts     | 700 ++++++++++++++++++
+>>>   2 files changed, 701 insertions(+)
+>>>   create mode 100644 arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+>>>
+>>> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ 
+>>> ti/Makefile
+>>> index 5269c9619b65c..4e377ca011cd8 100644
+>>> --- a/arch/arm64/boot/dts/ti/Makefile
+>>> +++ b/arch/arm64/boot/dts/ti/Makefile
+>>> @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62d2-evm.dtb
+>>>   # Boards with AM62Lx SoCs
+>>>   dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
+>>> +dtb-$(CONFIG_ARCH_K3) += k3-am62l3-beaglebadge.dtb
+>>>   # Boards with AM62Px SoC
+>>>   dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
+>>> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts b/arch/ 
+>>> arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+>>> new file mode 100644
+>>> index 0000000000000..30fc9c83b1f44
+>>> --- /dev/null
+>>> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+>>> @@ -0,0 +1,700 @@
+>>> +// SPDX-License-Identifier: GPL-2.0
+>>> +/*
+>>> + * https://www.beagleboard.org/boards/beaglebadge
+>>> + *
+>>> + * Copyright (C) 2026 Texas Instruments Incorporated - https:// 
+>>> www.ti.com/
 >>
->> Co-developed-by: Andrew Davis <afd@ti.com>
->> Signed-off-by: Andrew Davis <afd@ti.com>
->> Signed-off-by: Judith Mendez <jm@ti.com>
->> ---
->> Changelog since v3:
->> - Add missing newline in commit message
->> - Drop beagleboard URL
->> - Drop uneeded header files
->> - Add boothph flags in wkup_i2c0 & PMC nodes
->> ---
->>   arch/arm64/boot/dts/ti/Makefile               |   1 +
->>   .../boot/dts/ti/k3-am62l3-beaglebadge.dts     | 700 ++++++++++++++++++
->>   2 files changed, 701 insertions(+)
->>   create mode 100644 arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
+>> Seeing the tags, I assume no BeagleBoard.org member contributions?
+> 
+> Not yet ^.^
+> 
 >>
->> diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
->> index 5269c9619b65c..4e377ca011cd8 100644
->> --- a/arch/arm64/boot/dts/ti/Makefile
->> +++ b/arch/arm64/boot/dts/ti/Makefile
->> @@ -41,6 +41,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62d2-evm.dtb
->>   
->>   # Boards with AM62Lx SoCs
->>   dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
->> +dtb-$(CONFIG_ARCH_K3) += k3-am62l3-beaglebadge.dtb
->>   
->>   # Boards with AM62Px SoC
->>   dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
->> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
->> new file mode 100644
->> index 0000000000000..30fc9c83b1f44
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-beaglebadge.dts
->> @@ -0,0 +1,700 @@
->> +// SPDX-License-Identifier: GPL-2.0
->> +/*
->> + * https://www.beagleboard.org/boards/beaglebadge
->> + *
->> + * Copyright (C) 2026 Texas Instruments Incorporated - https://www.ti.com/
-> 
-> Seeing the tags, I assume no BeagleBoard.org member contributions?
+>>> + */
+>>> +
+>>> +/dts-v1/;
+>>> +
+>>> +#include <dt-bindings/gpio/gpio.h>
+>>> +#include <dt-bindings/input/input.h>
+>>> +#include <dt-bindings/leds/common.h>
+>>> +#include "k3-am62l3.dtsi"
+>>> +#include "k3-pinctrl.h"
+>>> +
+>>> +/ {
+>>> +    compatible = "beagle,am62l3-beaglebadge", "ti,am62l3";
+>>> +    model = "BeagleBoard.org BeagleBadge";
+>>> +
+>>> +    chosen {
+>>> +        stdout-path = &uart0;
+>>> +    };
+>>> +
+>>> +    aliases {
+>>> +        gpio0 = &gpio0;
+>>> +        gpio2 = &wkup_gpio0;
+>>> +        i2c0 = &i2c0;
+>>> +        i2c1 = &i2c1;
+>>> +        i2c2 = &i2c2;
+>>> +        i2c4 = &wkup_i2c0;
+>>> +        mmc1 = &sdhci1;
+>>> +        mmc2 = &sdhci2;
+>>> +        serial3 = &uart1;
+>>> +        usb0 = &usb0;
+>>> +        usb1 = &usb1;
+>>
+>> is this valid?
+>> git grep of_alias_ driver/usb/
+>>
+>> am I missing something?
 
-Not yet ^.^
 
-> 
->> + */
->> +
->> +/dts-v1/;
->> +
->> +#include <dt-bindings/gpio/gpio.h>
->> +#include <dt-bindings/input/input.h>
->> +#include <dt-bindings/leds/common.h>
->> +#include "k3-am62l3.dtsi"
->> +#include "k3-pinctrl.h"
->> +
->> +/ {
->> +	compatible = "beagle,am62l3-beaglebadge", "ti,am62l3";
->> +	model = "BeagleBoard.org BeagleBadge";
->> +
->> +	chosen {
->> +		stdout-path = &uart0;
->> +	};
->> +
->> +	aliases {
->> +		gpio0 = &gpio0;
->> +		gpio2 = &wkup_gpio0;
->> +		i2c0 = &i2c0;
->> +		i2c1 = &i2c1;
->> +		i2c2 = &i2c2;
->> +		i2c4 = &wkup_i2c0;
->> +		mmc1 = &sdhci1;
->> +		mmc2 = &sdhci2;
->> +		serial3 = &uart1;
->> +		usb0 = &usb0;
->> +		usb1 = &usb1;
-> 
-> is this valid?
-> git grep of_alias_ driver/usb/
-> 
-> am I missing something?
-> 
->> +	};
->> +
->> +	memory@80000000 {
->> +		/* 256MB */
->> +		reg = <0x00000000 0x80000000 0x00000000 0x10000000>;
->> +		device_type = "memory";
->> +		bootph-all;
->> +	};
->> +
->> +	thermal-zones {
->> +		wkup0-thermal {
->> +			polling-delay-passive = <250>;	/* milliSeconds */
->> +			polling-delay = <500>;		/* milliSeconds */
->> +			thermal-sensors = <&vtm0 0>;
->> +
->> +			trips {
->> +				crit0 {
->> +					temperature = <125000>;
->> +					hysteresis = <2000>;
->> +					type = "critical";
->> +				};
->> +			};
->> +		};
->> +	};
-> 
-> This is better done by having something like
-> arch/arm64/boot/dts/ti/k3-am62l-industrial-thermal.dtsi
-
-I am following what k3-am62l3-evm.dts is doing [0], we moved
-thermal-zones node to the board file instead of defining in thermal.dtsi
-
-[0] 
-https://github.com/torvalds/linux/blob/master/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts#L61
-
-> 
-> [..]
-> 
->> +
->> +	sensor_3v3: regulator-4 {
->> +		/* TPS22918DBVR */
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "Sensor_3V3";
->> +		regulator-min-microvolt = <3300000>;
->> +		regulator-max-microvolt = <3300000>;
->> +		vin-supply = <&vdd_3v3>;
->> +		regulator-boot-on;
->> +		regulator-always-on;
-> 
-> Why sensor supply is always on?
-
-No special reason, I can remove to help with power saving.
-
-> 
->> +		enable-active-high;
->> +		gpio = <&wkup_gpio0 1 GPIO_ACTIVE_HIGH>;
->> +		pinctrl-names = "default";
->> +		pinctrl-0 = <&sensor_3v3_ena_pins_default>;
->> +		bootph-all;
->> +	};
->> +
->> +	wlan_en: regulator-5 {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "wlan_en";
->> +		regulator-min-microvolt = <1800000>;
->> +		regulator-max-microvolt = <1800000>;
->> +		enable-active-high;
->> +		gpios = <&gpio0 51 GPIO_ACTIVE_HIGH>;
->> +		pinctrl-names = "default";
->> +		pinctrl-0 = <&wlan_en_pins_default>;
->> +	};
->> +};
->> +
-> 
-> [..]
-> 
->> +
->> +	usr_button_pins_default: usr-button-default-pins {
->> +		pinctrl-single,pins = <
->> +			AM62LX_IOPAD(0x00a4, PIN_INPUT, 7) /* (H18) GPMC0_AD11.GPIO0_26 */
->> +			AM62LX_IOPAD(0x01e4, PIN_INPUT, 7) /* (D16) EXT_REFCLK1.GPIO0_104 */
->> +			AM62LX_IOPAD(0x00c0, PIN_INPUT, 7) /* (N19) GPMC0_ADVn_ALE.GPIO0_32 */
->> +			AM62LX_IOPAD(0x00e8, PIN_INPUT, 7) /* (L19) GPMC0_CSn1.GPIO0_42 */
->> +			AM62LX_IOPAD(0x00b8, PIN_INPUT, 7) /* (L21) GPMC0_CLK.GPIO0_31 */
->> +			AM62LX_IOPAD(0x01c0, PIN_INPUT, 7) /* (B13) UART0_RTSn.GPIO0_95 */
->> +		>;
->> +	};
-> 
-> no wakeup from usr buttons?
-
-RTC wakeup node is not in upstream tree, so no, user button wakeup
-support is not enabled yet.
-
-> 
-> [...]
-> 
->> +};
->> +
->> +&gpio0 {
->> +	gpio-line-names ="","","","","","","","","","",									/* 0-9 */
-> 
-> space after that =
-
-Will fix.
-
-> 
->> +			 "","","","","","BOOST_5V_ENA","VDD_3V3_SD_ENA","","","",					/* 10-19 */
->> +			 "","","","","","MCP23S18_RESET","BTN_SELECT","","","",						/* 20-29 */
->> +			 "","BTN_LEFT","BTN_UP","","LORA_RESET","","","","","",						/* 30-39 */
->> +			 "FUEL_GAUGE_BATLOW","LORA_RFSW","BTN_DOWN","USB_HUB_RST","MIKROBUS_INT","","","","","",	/* 40-49 */
->> +			 "","WLAN_EN","","","","","","","","",								/* 50-59 */
->> +			 "","","","","","","","","","",									/* 60-69 */
->> +			 "","","","","","","","","","",									/* 70-79 */
->> +			 "","","","","MIKROBUS_RST","","","","LORA_BUSY","",						/* 80-89 */
->> +			 "","","","","LORA_DIO","BTN_RIGHT","","","","",						/* 90-99 */
->> +			 "","","","","BTN_BACK","","","","","",								/* 100-109 */
->> +			 "","","","","","","","","","",									/* 110-119 */
->> +			 "","","SD_CD","","","";									/* 120-125 */
-> 
-> Could you keep these under 100 chars?
-
-I could for most of these lines I believe, but it will completely mess
-up the alignment in comments, If that is fine, I will fix. (:
-
-> 
->> +	pinctrl-names = "default";
->> +	pinctrl-0 = <&gpio0_pins_default>, <&usr_button_pins_default>, <&lora_control_pins_default>;
->> +	bootph-all;
->> +	status = "okay";
->> +};
->> +
->> +&wkup_gpio0 {
->> +	gpio-line-names ="","SENSOR_3V3_ENA","","","","","","";								/* 0-7 */
-> 
-> same
-> 
->> +	bootph-all;
->> +	status = "okay";
->> +};
->> +
->> +&sdhci1 {
->> +	/* SD/MMC */
->> +	vmmc-supply = <&vdd_3v3_sd>;
->> +	disable-wp;
->> +	cd-gpios = <&gpio0 122 GPIO_ACTIVE_LOW>;
->> +	cd-debounce-delay-ms = <100>;
->> +	ti,fails-without-test-cd;
->> +	pinctrl-names = "default";
->> +	pinctrl-0 = <&mmc1_pins_default>;
->> +	bootph-all;
->> +	status = "okay";
->> +};
->> +
->> +&sdhci2 {
->> +	vmmc-supply = <&wlan_en>;
->> +	bus-width = <4>;
->> +	non-removable;
->> +	cap-power-off-card;
->> +	keep-power-in-suspend;
->> +	pinctrl-names = "default";
->> +	pinctrl-0 = <&mmc2_pins_default>;
->> +	ti,driver-strength-ohm = <50>;
->> +	ti,fails-without-test-cd;
->> +	status = "okay";
->> +};
-> 
-> Why not introduce the sdhci2 and supplies once we get wlan driver in
-> upstream?
-
-I can do that. NP.
+Missed this one, actually I had originally copied alias list from 
+beagleplay [0], but checking once, seems like these aliases are not
+needed, so will remove for Badge & beagleplay as well.
 
 ~ Judith
 
 ...
+
