@@ -1,278 +1,332 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011010.outbound.protection.outlook.com [52.101.70.10])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E50F82D97AA
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 16:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.10
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779813094; cv=fail; b=GUC85dPpRgCfCiofSxUmJFx/7CcIwwfxA7i5sOcwdQ6rpGMFUjGzi11xdzm+K7grLxppmrC0+O3ip57NjzDqPBW4STVCObomIXbFIM4Xmfq5EgqtTZjhWH6+CL8qQV3Cb/7brwSqmX8AklUEo6pHiHVRZqXUWWDBqbAvFhPVknY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779813094; c=relaxed/simple;
-	bh=a7Evjih5lHGtpzTsuUS/ifzDf8P12d/CgBMoCX0Dr/g=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=Na1zGwtLOFjODaVmIDOADWpgMAei0qGBL4w9HuXsqdl7FXE1YlZJkEcVix3l0DEIlOTIu6famVSXKUSiPxIJ2HDZHSvuz5f7C087wGGsA8ScxCUSy9PV81fge5aAg5HH0LbGFpYhYnB4HJgXvJ6AJ3Fis02dFggT4OsSfzB8Djc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=HeshFqNs; arc=fail smtp.client-ip=52.101.70.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26DAC3B9933;
+	Tue, 26 May 2026 16:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779813343; cv=none; b=jd/vFQZGbtYJN9AE8XHf/FY7D6qiuZAmLkKpXb3oiIZr7RFEH2j2755NaXaaocfpEYRRZvGj8caWpBi9DidiTnQnel59w1/z82ryBAw67iaZyeNZTEiFMSvonMVLayCDRIAnBo37wdT27xGrQ0H9VA0wTIhCY1ZmGSVT5yFMo+A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779813343; c=relaxed/simple;
+	bh=+b/2FDm44BYVimQz5KNkxkQyefbSextrJyDGK9b1GMI=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=DRfMbJS6zZuomc2Ee9ja39MuAAw/GaEDkD/lk4IdVF+ekO2y78cAsSU5+3Y8xSDsdXWNkG8DyQTq574vlfigQXRIItQBy/xpdYm3etmuWd2Bkp+aMUUnuxlvYPYtpc+gHjIrquK/PM/yFuvv4g30LhhMakFRHlJAIyPzpHgfWtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2hqW+KA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="HeshFqNs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=I+f+Miw88rPtMzydyjGRP7cEn9VndHEHd/+fH9warHb7cP63cDlMO8mFof+JCTfu9InWI/LIXESHzKgiAJur9ZiqHaPzytqQcoznviR1jBSyeZ51Q1rbASXbg8xGTL5+1CrXkfiHt+/Z/j7QV5p1W2gv+pVAZgFmMjF2oAmO8lxB0A1YxRjgQKtxqynMB8e/xdYbz8J8qHzN+1svAk7sJnzfq1siEu+iAwU4iCdMDjqXc3obUoBSXn79CNyzLP967wSaesI6ymdR9CCNIIELX6oe87vuLqSW2JfQ78lrqkfl4kVZWQ9SL6qGE82NBHGqNiRsKCFg4k2SCgT9P5fptQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=02HwkQl8m1LU8Nlpxl/FRtTTskhVtqBqjBvyHM7KFU4=;
- b=kw/gJ/PRF5UZI6y+KTyP0KOYRp4+Se/Pz8ldFXchkMB0spcKLkNSgpe0D7BhoBfhtaXYU/cMWkLNIEk8o2gi+0L/JpkKX0ebpEXuDYA8QO7km817MxdS3AsUWI7lke9/ICZWcIcLxtaIJhlfx9DfD4BLtiYSCaSPW4idu+WTMGaey6LgQ5YPKI4s+52aSgvz5yZ2+78RGei4gmFypqNIIXPC78fcLaO9ENWSRSdr7Z+yoGzHpejnW0rgKeYz/Zj6C3te4KxncYKM04gAcBObwwFOBillx9owR9SlmwIi6LOkqW4Gx7WKRKylAkYNE28LcJKe9J5DUjd2OuXyalvigA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=02HwkQl8m1LU8Nlpxl/FRtTTskhVtqBqjBvyHM7KFU4=;
- b=HeshFqNsPglO9O4iAyZgdM7u3CAv5Hy4RdT6bpskpKCBAcXbaLQyNAtvEUosO2YgNTxtyO/2I53EDCOzPdknkSeGpFYCxL+eMHf+JA8QO4f2UWL4q9sf0xk4+rWhgBbR6C0ELWAOrnlT+x4P9livWO9bYYlCJS5h1Og/ZsKv3DFn8t/KWvpWD/7AAoaXSiSHOTOR++X+xgk8tmMF10zGxBDHt/opOMVYcdiwWq+XjqaVJwugDaFLL1scLAmVAfN3pZenZQQKquIAUh2XrUXeMfvKuxWyB6OBJrqdyXCzvNPFnUKf4IjTfIIB1O98Ztv5JblcVGNNS6tB/U5wQuqT/A==
-Received: from AM9P192CA0005.EURP192.PROD.OUTLOOK.COM (2603:10a6:20b:21d::10)
- by VI1PR10MB3485.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:800:13f::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.20; Tue, 26 May
- 2026 16:31:28 +0000
-Received: from AM1PEPF000252DB.eurprd07.prod.outlook.com
- (2603:10a6:20b:21d:cafe::1d) by AM9P192CA0005.outlook.office365.com
- (2603:10a6:20b:21d::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.20 via Frontend Transport; Tue, 26
- May 2026 16:31:27 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- AM1PEPF000252DB.mail.protection.outlook.com (10.167.16.53) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 16:31:27 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 26 May
- 2026 18:35:31 +0200
-Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE2.st.com
- (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 26 May
- 2026 18:31:26 +0200
-Message-ID: <7b7c68b6-d2d2-45aa-bdf7-b786eb027227@foss.st.com>
-Date: Tue, 26 May 2026 18:31:26 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2hqW+KA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CFFC1F000E9;
+	Tue, 26 May 2026 16:35:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779813341;
+	bh=xZZ0K9Fo1F3j4GMSgNa62iwtfEmYqiQnJ48IkSSIqRw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=H2hqW+KARje2T+fXdXXT9BYGAKwPMIvJDZOe97eINgVGX5AraTw4JJzj0tOcM48dE
+	 ZR2364zuxp0vzd3qsnccJiFdhGyIjUtGLYQyhhJWCcLnMDGREhpzeO0NDaqZH/nV77
+	 0psGadfzfJJBu0cz9M1Ungnl+A5GJF0PmRKmmQCJn6dXZi0idA/l0pOdD3Phsb+aaN
+	 TSOEVQcx4d4DfkcI6WZXhRnoXCx9Nt1+AMPpp11wEN8lXFXrR/gB50ZfIze4Levdki
+	 7sTgoHAjydDW9ckeHZuqm4buuLQwyYVelqhgif+hhoAK30TS+9mP4nIZy1TFBrUmVR
+	 k2CPqYkYPf3Cg==
+Date: Tue, 26 May 2026 17:35:31 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: lars@metafoo.de, dlechner@baylibre.com, nuno.sa@analog.com,
+ andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux@roeck-us.net, jdelvare@suse.com, ak@it-klinger.de,
+ linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [RFC PATCH v1 3/4] iio: flow: add Sensirion SLF3x liquid flow
+ sensor driver
+Message-ID: <20260526173531.4422ae40@jic23-huawei>
+In-Reply-To: <20260524205112.26638-4-wafgo01@gmail.com>
+References: <20260524205112.26638-1-wafgo01@gmail.com>
+	<20260524205112.26638-4-wafgo01@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/7] ARM: dts: stm32: Add boot phase tags for
- STMicroelectronics f7 boards
-To: <sashiko-reviews@lists.linux.dev>
-CC: <devicetree@vger.kernel.org>, <conor+dt@kernel.org>, <robh@kernel.org>
-References: <20260526-upstream_uboot_properties-v7-2-e17cd424d5db@foss.st.com>
- <20260526095449.20E1F1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20260526095449.20E1F1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM1PEPF000252DB:EE_|VI1PR10MB3485:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bd2c326-0e95-48ee-9d89-08debb443c53
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|376014|82310400026|36860700016|18002099003|22082099003|56012099006|6133799003|11063799006|4143699003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	m6tGb6obTj99qNAX3v8lOuThmt3ndK997n21JvKv2gm1KCraAUf7bH/ZTDd9ZwF2WrDIZ1iF2PbbjCH5GKxZ11W1nNVnrCYhRZ51WEI8P9P+YvFnNlKzXr/ux4FxYLWnJvQRtTCoYlzsW0hS4FhCPSDr3fI5SweHwBMUpkmTdL3V1B9IZo/+HBjMVi8l+paDLcUIWlBf9OX+jvVoKFXEmZ4IqB1IWOUNs62t3Q44sL27AHeRjwbM2EGDXBq/IqLxldFVe0raPkqOHgPXyuuQSt3DuIG1FD2trXMZN7V56rBh3QUmbBE5R72blQELoD4wneobI0S9vcCRxSOCNnHZ3c31y5ggQMKydLdvWHR/fQcoCOJbsmPf4OHqq7kSOJHm+1fFxszc1a/4OFIQ/ZcMLQskbiGb2vYKA++LrX1KpsIzTHtbDI5a2zYtXJ3ezSQ4NFEKIYKAgA+aRsFI8GZ+Scj5EpPu4QJTxlILcDFixH+ntSBattr3tfDmzwe1fgTvz4Q1hUlBC5TwHd4wgRKgBBkSdiLGdTp13oQN6d0CJ6NUxQl5jWPQHBYitbEF7JiP0oO4IpBRSQd3j+GeWGectnzB33SmewDK8WRhIAN1T+GATm/1AKNNGCXhviplNd09Zvaku4JfBRvXSzvKcjmbIINnR3LySRgxVauXk6CbM+n6nLb3AS4O8FZYlzLzf9Glj+0edgZWAi+e1ZrC3Keys+GRT3Fo66F3FDbsViPWX+4=
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(376014)(82310400026)(36860700016)(18002099003)(22082099003)(56012099006)(6133799003)(11063799006)(4143699003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	7ZaoRGy0itrbIN3FQNnpehPWwQzY+P+W4WlrG4yhZ7kihMNqkvHCgKFDccmfJ+3yuWroAbbWcqceJCPZRnRlJR66zhjiYGt/OZRcc8xbWEZe4DnXOQdWHwCo3Rmr1/nOiAiXOsoSvQpNDvWP4RdK6hU23bxIiU4oo8d16CRJFx7S79NVLhoCNILcZqD4XddpmXBX8Qjrl49lQ79Kd7Kil0R8+erCwG9IWyZ8jqh6hYYmtLoi9DIZJAzsGwzyjyQRnLuZzgt0W+yveIPjxXFoKioEX/LDd9oTsFP2+fkMt+RMRYGhZrDqaU/95wVcxiAKj4Qnkt+iBvLKIXr9ZbSYWyCsIxPxl6TDJSB+GZRCVlwgahjJsqEf/RmvbrpmdWdXyMVFMZQvQnMUFw+UKJ/81QT/6v3fInfHkSVALy9Hw4L9oSv9MDolKEJmXF7dxXP7
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 16:31:27.6598
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bd2c326-0e95-48ee-9d89-08debb443c53
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	AM1PEPF000252DB.eurprd07.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3485
+
+On Sun, 24 May 2026 22:49:38 +0200
+Wadim Mueller <wafgo01@gmail.com> wrote:
+
+> From: Wadim Mueller <wadim.mueller@cmblu.de>
+> 
+> Add an IIO driver for the Sensirion SLF3S family of digital
+> liquid-flow sensors.  The supported sub-types (SLF3S-0600F,
+> SLF3S-4000B) share the same register map and command set and are
+> distinguished only by the flow scale; the variant is detected at
+> probe time from the product-information register.
+> 
+> The driver exposes two IIO channels:
+>   - in_volumeflow_raw / in_volumeflow_scale (litres per second)
+>   - in_temp_raw       / in_temp_scale       (milli-degC)
+> 
+> Continuous measurement mode is started in probe and stopped via
+> devm-action; read_raw() fetches the most recent sample on demand.
+> 
+> Signed-off-by: Wadim Mueller <wadim.mueller@cmblu.de>
+Hi Wadim
+
+Hopefully I haven't overlapped too much with the review Guenter did.
+
+Various comments inline
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/flow/Kconfig b/drivers/iio/flow/Kconfig
+> new file mode 100644
+> index 000000000..355857a6b
+> --- /dev/null
+> +++ b/drivers/iio/flow/Kconfig
+> @@ -0,0 +1,22 @@
+> +# SPDX-License-Identifier: GPL-2.0-only
+> +#
+> +# Liquid / gas flow sensor drivers
+> +#
+> +# When adding new entries keep the list in alphabetical order
+> +
+> +menu "Flow sensors"
+> +
+> +config SENSIRION_SLF3X
+> +	tristate "Sensirion SLF3x liquid flow sensor"
+> +	depends on I2C
+> +	select CRC8
+> +	help
+> +	  Say yes here to build support for the Sensirion SLF3S family of
+> +	  digital liquid-flow sensors (SLF3S-0600F, SLF3S-4000B, ...).
+
+We try to have full listings of supported parts in the help text as it
+gets searched by folk looking for a driver. To minimize the churn consider
+a bulleted list with one per line.
+
+> +	  The driver reports the volumetric flow rate and the embedded
+> +	  temperature reading via the standard IIO interface.
+> +
+> +	  To compile this driver as a module, choose M here: the module
+> +	  will be called slf3x.
+> +
+> +endmenu
+
+> diff --git a/drivers/iio/flow/slf3x.c b/drivers/iio/flow/slf3x.c
+> new file mode 100644
+> index 000000000..e4ee1a04a
+> --- /dev/null
+> +++ b/drivers/iio/flow/slf3x.c
+> @@ -0,0 +1,264 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Sensirion SLF3x liquid flow sensor driver.
+> + *
+> + * Copyright (C) 2026 CMBlu Energy
+> + * Author: Wadim Mueller <wadim.mueller@cmblu.de>
+> + */
+> +
+> +#include <linux/crc8.h>
+> +#include <linux/delay.h>
+> +#include <linux/i2c.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/mod_devicetable.h>
+> +#include <linux/module.h>
+> +#include <linux/regulator/consumer.h>
+> +
+> +#include <linux/unaligned.h>
+The gap before this header and others in other drivers is an historical oddity as it used
+to be in asm and the blanket rename didn't tidy up the white space.
+No need to separate it.
 
 
+> +DECLARE_CRC8_TABLE(slf3x_crc_table);
+> +
+> +struct slf3x_variant {
+> +	u8 sub_type;
+> +	const char *name;
+> +	/*
+> +	 * Flow scale exposed via IIO_CHAN_INFO_SCALE in litres per second
+> +	 * per LSB, encoded as IIO_VAL_FRACTIONAL (num / den).  The encoding
+> +	 * comes from the Sensirion datasheet's "scale factor" (ticks per
+> +	 * ml/min) combined with the 1 ml/min = 1/60000 l/s conversion.
+> +	 */
+> +	int scale_num;
+> +	int scale_den;
+> +};
+> +
+> +static const struct slf3x_variant slf3x_variants[] = {
+> +	{ .sub_type = 0x03, .name = "slf3s-0600f",
+> +	  .scale_num = 1, .scale_den = 6000000 },
+> +	{ .sub_type = 0x05, .name = "slf3s-4000b",
+> +	  .scale_num = 1, .scale_den = 1666680000 },
 
-On 5/26/26 11:54, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 5 potential issue(s) to consider:
-> - [High] The patch completely omits necessary `bootph-all` tags for the `stm32746g-eval.dts` board.
-> - [High] Missing `bootph-all` on SDIO controller nodes despite the patch claiming to support SD boot.
-> - [High] The `&soc` parent bus node lacks the `bootph-all` tag in `stm32f769-disco.dts` and `stm32746g-eval.dts`.
-> - [High] The patch tags `pwrcfg` instead of the `syscfg` node claimed in the commit message, breaking `pinctrl` initialization.
-> - [Low] The patch erroneously adds `bootph-all` tags to display-related nodes (`&ltdc` and `&dsi`), which are unrelated to SD boot.
-> --
-> 
-> commit 616809e6aaaad31d633ea36ad66133cc44b7b361
-> Author: Patrice Chotard <patrice.chotard@foss.st.com>
-> 
-> ARM: dts: stm32: Add boot phase tags for STMicroelectronics f7 boards
-> 
-> The bootph-all flag was introduced in dt-schema to define node usage
-> across different boot phases. To ensure SD boot, timer, gpio, syscfg,
-> clock, and uart nodes need to be present in all boot stages, so this
-> patch adds the missing flags.
-> 
->> diff --git a/arch/arm/boot/dts/st/stm32746g-eval.dts b/arch/arm/boot/dts/st/stm32746g-eval.dts
->> --- a/arch/arm/boot/dts/st/stm32746g-eval.dts
->> +++ b/arch/arm/boot/dts/st/stm32746g-eval.dts
-> [ ... ]
->> @@ -226,6 +226,16 @@ &usart1 {
->>  	status = "okay";
->>  };
->>  
->> +&usart1_pins_a {
->> +	bootph-all;
->> +	pins1 {
->> +		bootph-all;
->> +	};
->> +	pins2 {
->> +		bootph-all;
->> +	};
->> +};
-> 
-> [Severity: High]
-> The commit message mentions adding tags to timer, gpio, syscfg, clock, and
-> uart nodes, but for this board only the usart1 pin configuration is modified.
-> 
-> Are controllers like &usart1, &timers5, &clk_hse, &pinctrl, &gpio*, &rcc,
-> and &soc also supposed to be tagged here?
+Maybe format this as one per line.  These structure tend to grow as
+more features are added to a driver so it will perhaps result in less
+churn in the long run!
+	{
+		.sub_type = 0x05,
+		.name = "slf3s-4000b",
+		.scale_num = 1,
+		.scale_den = 1666680000,
+	},
+> +};
+...
 
-Correct, bootph-all property is missing for &usart1, &timers5, &clk_hse, &pinctrl, &gpio*, &rcc, 
-&pwrcfg nodes for stm32746g-eval.dts.
-> 
-> Without these tags, the early bootloader (SPL) might drop these nodes,
-> causing the SD boot sequence to fail for this board.
-> 
-> Additionally, since the explicit goal of the commit is to support SD boot,
-> should the SD/MMC controller nodes (like &sdio1 and &sdio2) also be
-> tagged with bootph-all?
+> +static int slf3x_write_cmd(struct i2c_client *client, const u8 *cmd)
 
-The SD/MMC controller nodes soesn't need to be tagged, as SD/MMC is not needed neither in SPL mode nor
-before U-Boot relocation.
+Might be good to use
+const u8 cmd[at_least 2])
+to let the compiler know the constraints.
 
-> 
-> Without the tag, the device tree tooling for U-Boot SPL will prune the
-> SDIO nodes entirely, leaving the bootloader without knowledge of the SD
-> hardware.
-> 
->> diff --git a/arch/arm/boot/dts/st/stm32f746-disco.dts b/arch/arm/boot/dts/st/stm32f746-disco.dts
->> --- a/arch/arm/boot/dts/st/stm32f746-disco.dts
->> +++ b/arch/arm/boot/dts/st/stm32f746-disco.dts
-> [ ... ]
->> @@ -179,6 +224,7 @@ touchscreen@38 {
->>  &ltdc {
->>  	pinctrl-0 = <&ltdc_pins_a>;
->>  	pinctrl-names = "default";
->> +	bootph-all;
->>  	status = "okay";
-> 
-> [Severity: Low]
-> Is bootph-all required on the LCD-TFT Display Controller for SD boot?
-> 
-> Retaining this node bloats the memory-constrained early bootloader device
-> tree (SPL) with display hardware nodes that may not be functionally
-> necessary for booting.
+> +{
+> +	int ret = i2c_master_send(client, cmd, 2);
+> +
+> +	if (ret == 2)
+> +		return 0;
+> +	return ret < 0 ? ret : -EIO;
+> +}
+> +
+> +static int slf3x_read_product_info(struct slf3x_data *sf)
+> +{
+> +	struct i2c_client *client = sf->client;
+> +	u8 buf[SLF3X_PRODUCT_ID_LEN];
+> +	int ret, i;
+> +
+> +	ret = slf3x_write_cmd(client, slf3x_cmd_prep_pid);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = slf3x_write_cmd(client, slf3x_cmd_read_pid);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = i2c_master_recv(client, buf, sizeof(buf));
+> +	if (ret != sizeof(buf))
+> +		return ret < 0 ? ret : -EIO;
+> +
+> +	for (i = 0; i < SLF3X_PRODUCT_ID_LEN; i += 3) {
+> +		if (slf3x_verify_crc(&buf[i])) {
+> +			dev_err(&client->dev,
+> +				"product-info CRC mismatch at byte %d\n", i);
+> +			return -EIO;
+For all returns in stuff only called from probe() use dev_err_probe().
 
-bootph-all property is needed to be able to allocate the frame buffer before U-Boot relocation.
+> +		}
 
-> 
->>  	port {
-> [ ... ]
->> @@ -188,6 +234,22 @@ ltdc_out_rgb: endpoint {
->>  	};
->>  };
->>  
->> +&pinctrl {
->> +	bootph-all;
->> +};
->> +
->> +&pwrcfg {
->> +	bootph-all;
->> +};
-> 
-> [Severity: High]
-> The commit message indicates that the syscfg node needs to be present in all
-> boot stages, but &pwrcfg is tagged here instead.
+> +
+> +static int slf3x_read_sample(struct slf3x_data *sf, s16 *flow, s16 *temp)
+> +{
+> +	u8 buf[SLF3X_MEAS_LEN];
+> +	int ret, i;
+> +
+> +	ret = i2c_master_recv(sf->client, buf, sizeof(buf));
+> +	if (ret != sizeof(buf))
+> +		return ret < 0 ? ret : -EIO;
+> +
+> +	for (i = 0; i < SLF3X_MEAS_LEN; i += 3) {
+Fine to do
+	for (unsigned int i = 0; i < ..
 
-Correctn, I will update the commit message accordingly.
+> +		if (slf3x_verify_crc(&buf[i]))
+> +			return -EIO;
+> +	}
+> +
+> +	*flow = (s16)get_unaligned_be16(&buf[0]);
 
-> 
-> Does this leave the actual syscfg node (syscon@40013800) untagged?
-> 
-> The pinctrl node relies on syscfg via a phandle. If the syscfg node is
-> pruned in SPL because it lacks a boot phase tag, will the pinctrl driver
-> fail to probe due to a broken phandle, cascading into GPIO initialization
-> failures?
-> 
->> diff --git a/arch/arm/boot/dts/st/stm32f769-disco.dts b/arch/arm/boot/dts/st/stm32f769-disco.dts
->> --- a/arch/arm/boot/dts/st/stm32f769-disco.dts
->> +++ b/arch/arm/boot/dts/st/stm32f769-disco.dts
-> [ ... ]
->> @@ -140,11 +136,13 @@ &cec {
->>  
->>  &clk_hse {
->>  	clock-frequency = <25000000>;
->> +	bootph-all;
->>  };
->>  
->>  &dsi {
->>  	#address-cells = <1>;
->>  	#size-cells = <0>;
->> +	bootph-all;
->>  	status = "okay";
-> 
-> [Severity: Low]
-> Similar to the ltdc node above, is the MIPI DSI host required to be
-> present during the early SPL boot phase for SD boot?
-> 
->>  	ports {
-> [ ... ]
->> @@ -199,6 +242,19 @@ ltdc_out_dsi: endpoint {
->>  	};
->>  };
->>  
->> +&pinctrl {
->> +	bootph-all;
->> +};
->> +
->> +&pwrcfg {
->> +	bootph-all;
->> +};
->> +
->> +&rcc {
->> +	compatible = "st,stm32f769-rcc", "st,stm32f746-rcc", "st,stm32-rcc";
->> +	bootph-all;
->> +};
-> 
-> [Severity: High]
-> The &soc node was properly tagged in stm32f746-disco.dts, but it appears to
-> be omitted for stm32f769-disco.dts and stm32746g-eval.dts.
+Prefer to make this a little more self documenting as
 
-The soc node doesn't need to be tagged in stm32f746-disco.dts. bootph-all will be removed.
+	*flow = sign_extend32(get_unaligned_be16(&buf[0]), 15);
+ 
+> +	*temp = (s16)get_unaligned_be16(&buf[3]);
+> +	return 0;
+> +}
+> +
+> +static const struct iio_chan_spec slf3x_channels[] = {
+> +	{
+> +		.type = IIO_VOLUMEFLOW,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +	},
+> +	{
+> +		.type = IIO_TEMP,
+> +		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
+> +				      BIT(IIO_CHAN_INFO_SCALE),
+> +	},
+> +};
+> +
 
-> 
-> If a parent simple-bus node lacks a boot phase tag in U-Boot SPL processing,
-> its properties are stripped and the driver model will not bind to the bus.
-> 
-> Should &soc also be tagged with bootph-all here to ensure the children
-> nodes can probe successfully?
-> 
 
+> +
+> +static void slf3x_stop_meas(void *data)
+> +{
+> +	struct slf3x_data *sf = data;
+> +
+> +	slf3x_write_cmd(sf->client, slf3x_cmd_stop);
+> +}
+> +
+> +static int slf3x_probe(struct i2c_client *client)
+> +{
+> +	struct device *dev = &client->dev;
+> +	struct iio_dev *indio_dev;
+> +	struct slf3x_data *sf;
+> +	int ret;
+> +
+> +	ret = devm_regulator_get_enable_optional(dev, "vdd");
+
+No need to turn this on until we are somewhere nearer ready to chat
+to the device.  Normally we do it just before first access.
+I'd move it down a little. It's also not optional unless
+there is some other way of powering the device.
+Just let the regulator framework provide a stub regulator if it's not
+in the firmware description.
+
+> +	if (ret < 0 && ret != -ENODEV)
+> +		return dev_err_probe(dev, ret, "failed to enable vdd\n");
+> +
+> +	indio_dev = devm_iio_device_alloc(dev, sizeof(*sf));
+> +	if (!indio_dev)
+> +		return -ENOMEM;
+> +
+> +	sf = iio_priv(indio_dev);
+> +	sf->client = client;
+> +	crc8_populate_msb(slf3x_crc_table, SLF3X_CRC8_POLY);
+> +
+> +	ret = slf3x_read_product_info(sf);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "product info read failed\n");
+As in the other review thread, this shouldn't be an error a we want
+those fallback compatibles to work in future.
+
+> +
+> +	ret = slf3x_write_cmd(client, slf3x_cmd_start_water);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "start measurement failed\n");
+> +
+> +	usleep_range(SLF3X_MEAS_DELAY_US, SLF3X_MEAS_DELAY_US + 1000);
+
+fsleep() for fuzzy sleeps like this - it applies a standard amount of 'slack' time
+and means we don't need to reason about whether that is a good value or not.
+
+
+> +
+> +	ret = devm_add_action_or_reset(dev, slf3x_stop_meas, sf);
+> +	if (ret)
+> +		return ret;
+
+> +
+> +	return devm_iio_device_register(dev, indio_dev);
+> +}
+> +
+> +static const struct i2c_device_id slf3x_id[] = {
+> +	{ "slf3s" },
+
+Please use a named initializer here like you do for the of_device_id.
+Uwe is working on making sure all drivers do this and I just took a patch
+that updated most of the IIO ones to do so.
+
+
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, slf3x_id);
