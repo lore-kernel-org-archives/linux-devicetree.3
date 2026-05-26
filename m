@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 829A432AAA8
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 21:14:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D2F3C140D
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 21:23:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779830096; cv=none; b=WmnI9JzS559sRXnaeFUE1EobUef5nFJs9ZbqeB814dXKrzDDJDMk7z2vUs/OhUyuH3ZdGWfAURfWo7KkP4P+y8Ty2dn/iQlRBY4nwL1Th6Fqj+krR0v69KKPyXxGIdQnD8eE9wCOAXQBDLPmyGLB+9lY30HWpeU1feyilFq6WvA=
+	t=1779830607; cv=none; b=nydKYUxqROcgjg7HYrU6X6U4LX8xcUQvCY6Dv28EozAh6n3hG8uw+pkci4iNKDerjSCSkoU0GNqws5sbzlkm9jkZwqtgLvxskHfSF557eS9K/FnQfdZGMCYvCssbBsqSXKh+TKgVrH/wjWdccHSLA/12FgfVsT/QBH3oLjxAniw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779830096; c=relaxed/simple;
-	bh=GXKhzhdJBPx/RDEnJPZZEJlUYZgH14ChJFwpO5XFZlE=;
+	s=arc-20240116; t=1779830607; c=relaxed/simple;
+	bh=DsvXdMa0WCl87GxgcSXIbd/hTc3CegQO4+efQVuS2Ak=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=A3MwALiswVrVhl0p9LJ1Tue3hDLrZufX0RT6HCmud1LDkARlr+JWhgkrkXQzE/HnRm97z5IFbKEeCyF6HimzoW7ZtJZ6eneekb7r/mmM8LIVm7NDLPJu7zBJM+Fs3dZXd1/J+ZC51JqnmIMLpGcNZx9mgapwwLPAbc8EIhBRPEg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m4QpiBPj; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=nEFNibIDXnvYRCKRG6lz+oZJMmMKY4ip1WxyDxJME9tnbpZuWJorsEwobIIo9RIzHxVfPu96tvhvhG47rwJ5YMemMgZA9YZG/OBOYavTuh2N2CqcNaEWRN1Eq6VWZcWQNWKyTuktYTJwi4ieo7kqiOacdCpHVjkLsE6Iw61p8RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEe9J4Fi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m4QpiBPj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F24C1F000E9;
-	Tue, 26 May 2026 21:14:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEe9J4Fi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9EF31F000E9;
+	Tue, 26 May 2026 21:23:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779830095;
-	bh=bQWl+jJ96JZ+H3dW8hllh7Tlx76uuearytYoBT2DskQ=;
+	s=k20260515; t=1779830606;
+	bh=T9siKw/U1zx4d3iUGndgAJbcN9oFhWM0yKaxxaC0LGo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=m4QpiBPjgJYNgvi8f58sXAbOHVpzAL6LKxsvnXGNpdWGcbYyrl6okpxOsOyeAA6VO
-	 b0Y6iufx3z4zDbvcHi5Py0HQQH23sGb4sdrtbrIdsSWO+tkITJgKbFxfHox4blIg10
-	 McfMlZwYcty1p9HFuUCAdksofVjSz0Gn44aNzY5vxla/AP4IjW8O6q/zzqX3/1IZys
-	 IM5iIbsSK/0YnFHug27v3Yr3wtAOVp6ZfVnYCJYU8jfvsSvECiBUTIUbz1Q/eVJHWJ
-	 HiFGGov3s1T2CyXUI4gIdkGu9CeUZ/92mFdzsjh3XKAfIA4OEjMPJEIiOv4C8vWLkW
-	 rWJ/oR9BuD74g==
+	b=aEe9J4FiXtJUyBgSYMq4tZevB71ZW4L7m7WI83q+6ADFl51QTFUSFLNrXtC3xhQ0d
+	 /MIJ5C/3pSgA6JPcstEb/H+ZGSm/8PvIImdy3SD9g3b/Spo3kvWHZqf7Gh3rl5YrfE
+	 R3IOMaT7IEFF8UhrOWyCKX51ogwQGfgq/6MeknUQ2jWNgI4rO5Z/h2zrt3J6KZlt0N
+	 X6tO6qFwVVh3kN/Ayh+mV6SxIvlVlH/xzifvxmgejRshLUnRpMcgZoCN+fLErh/w2U
+	 uFf9/gYyA58CbR8cPGw7RNaPLJaNYBko/Uk6REqPI83+cATpAmv47YkVON1lBWOaN+
+	 xHC6HU600zz9Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] arm64: dts: renesas: r9a09g087: Add xSPI nodes
+Subject: Re: [PATCH 3/3] arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI
+ nodes
 Reply-To: sashiko-reviews@lists.linux.dev
 To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526204045.3481604-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260526204045.3481604-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Cc: wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260526204045.3481604-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260526204045.3481604-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 21:14:54 +0000
-Message-Id: <20260526211455.1F24C1F000E9@smtp.kernel.org>
+Date: Tue, 26 May 2026 21:23:25 +0000
+Message-Id: <20260526212325.D9EF31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,96 +46,140 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The xSPI nodes provide incomplete clock and reset properties for=
- the fallback compatible string (`renesas,r9a09g047-xspi`), which will caus=
-e schema validation errors.
-- [Low] Mixed decimal and hexadecimal notation for reset indices in sibling=
- nodes.
+- [Medium] The 'spi-max-frequency' property is missing from the SPI NOR fla=
+sh peripheral nodes (flash@0) under both xspi0 and xspi1.
+- [Low] The unit addresses in the partition node names for xspi0 do not mat=
+ch their corresponding 'reg' base addresses.
 --
 
-commit 7421051c9fdf7ba19830d3741837bab97e76f110
+commit 61aa7aa9a0a6654d6fbf30169801908b8247d8cd
 Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-arm64: dts: renesas: r9a09g087: Add xSPI nodes
+arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI nodes
 
-Add device tree nodes for the two xSPI (Expanded SPI) controllers
-integrated into the RZ/N2H (R9A09G087) SoC.
+Enable the xSPI0 and xSPI1 controllers on the RZ/T2H N2H EVK board.
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g087.dtsi
-> index f697e9698ed39..e63a6b74d90b0 100644
-> --- a/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g087.dtsi
+> diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi b/arch=
+/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> index f87c2492f414a..fff63d08e3a3c 100644
+> --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
 
 [ ... ]
 
-> @@ -1009,6 +1009,44 @@ mii_conv3: mii-conv@3 {
->  			};
->  		};
+> @@ -395,3 +451,86 @@ &wdt2 {
+>  	timeout-sec =3D <60>;
+>  };
 > =20
-> +		xspi0: spi@801c0000 {
-> +			compatible =3D "renesas,r9a09g087-xspi", "renesas,r9a09g047-xspi";
-> +			reg =3D <0 0x801c0000 0 0x1000>,
-> +			      <0 0x40000000 0 0x10000000>;
-> +			reg-names =3D "regs", "dirmap";
-> +			interrupts =3D <GIC_SPI 654 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 655 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names =3D "pulse", "err_pulse";
-> +			clocks =3D <&cpg CPG_MOD 4>,
-> +				 <&cpg CPG_CORE R9A09G087_XSPI_CLK0>;
-> +			clock-names =3D "ahb", "spi";
-> +			resets =3D <&cpg 0x4>;
-> +			reset-names =3D "hresetn";
+> +&xspi0 {
+> +	pinctrl-0 =3D <&xspi0_pins>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +
+> +	assigned-clocks =3D <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
+> +	assigned-clock-rates =3D <50000000>;
+> +
+> +	flash@0 {
+> +		compatible =3D "jedec,spi-nor";
+> +		reg =3D <0>;
 
 [Severity: Medium]
-Will this node pass schema validation for the r9a09g047-xspi fallback?
+Should there be a 'spi-max-frequency' property specified here?
 
-The YAML binding schema for renesas,r9a09g047-xspi requires four clocks (ah=
-b,
-axi, spi, spix2) and two resets (hresetn, aresetn), but only two clocks and
-one reset are provided here.
+Standard SPI peripheral Device Tree bindings require the 'spi-max-frequency'
+property on child nodes to explicitly specify the maximum SPI clock speed
+the device can tolerate. Omitting this property will cause 'dtbs_check'
+warnings.
 
-Because device tree schema lists match positionally by index, providing spi
-at index 1 of clock-names violates the schema that expects axi at that
-position, which will cause dtbs_check to fail.
+Furthermore, without it, the SPI core framework initializes the device's
+max_speed_hz to 0, forcing reliance on the controller's internal clock
+fallback behavior.
 
-Additionally, should the primary compatible string renesas,r9a09g087-xspi be
-documented in the bindings before adding it here?
+> +		m25p,fast-read;
 
-> +			power-domains =3D <&cpg>;
+[ ... ]
+
+> +		partitions {
+> +			compatible =3D "fixed-partitions";
 > +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			status =3D "disabled";
-> +		};
+> +			#size-cells =3D <1>;
 > +
-> +		xspi1: spi@801c1000 {
-> +			compatible =3D "renesas,r9a09g087-xspi", "renesas,r9a09g047-xspi";
-> +			reg =3D <0 0x801c1000 0 0x1000>,
-> +			      <0 0x50000000 0 0x10000000>;
-> +			reg-names =3D "regs", "dirmap";
-> +			interrupts =3D <GIC_SPI 656 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 657 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names =3D "pulse", "err_pulse";
-> +			clocks =3D <&cpg CPG_MOD 5>,
-> +				 <&cpg CPG_CORE R9A09G087_XSPI_CLK1>;
-> +			clock-names =3D "ahb", "spi";
-> +			resets =3D <&cpg 5>;
+> +			partition@0 {
+> +				label =3D "bl2-0";
+> +				reg =3D <0x00000000 0x00060000>;
+> +				read-only;
+> +			};
+> +
+> +			partition@1fb000 {
+> +				label =3D "fip-0";
+> +				reg =3D <0x00060000 0x007a0000>;
 
 [Severity: Low]
-This isn't a bug, but is it intentional to use decimal notation here
-compared to hexadecimal notation for the reset index in the xspi0 node?
+Does this unit address match the first address specified in its 'reg' prope=
+rty?
 
-The xspi0 node uses <&cpg 0x4> while xspi1 uses <&cpg 5>. Should these use
-a consistent notation base since they are identical adjacent hardware block=
-s?
+The Device Tree specification requires the unit-address (the part after '@'=
+) in
+a node name to exactly match the first address specified in its 'reg'
+property. Here, 'partition@1fb000' defines its base address as '0x00060000'.
 
-> +			reset-names =3D "hresetn";
-> +			power-domains =3D <&cpg>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			status =3D "disabled";
+This mismatch will trigger 'unit_address_vs_reg' warnings during device tree
+compilation.
+
+> +				read-only;
+> +			};
+> +
+> +			partition@300000 {
+> +				label =3D "user-0";
+> +				reg =3D <0x800000 0x003800000>;
+
+[Severity: Low]
+Does this unit address match the first address specified in its 'reg' prope=
+rty?
+
+The Device Tree specification requires the unit-address (the part after '@'=
+) in
+a node name to exactly match the first address specified in its 'reg'
+property. Here, 'partition@300000' defines its base address as '0x800000'.
+
+This mismatch will trigger 'unit_address_vs_reg' warnings during device tree
+compilation.
+
+Additionally, does the size value '0x003800000' contain an extraneous leadi=
+ng
+zero?
+
+> +			};
 > +		};
+> +	};
+> +};
+> +
+> +&xspi1 {
+> +	pinctrl-0 =3D <&xspi1_pins>;
+> +	pinctrl-names =3D "default";
+> +	status =3D "okay";
+> +
+> +	assigned-clocks =3D <&cpg CPG_CORE R9A09G077_XSPI_CLK1>;
+> +	assigned-clock-rates =3D <50000000>;
+> +
+> +	flash@0 {
+> +		compatible =3D "jedec,spi-nor";
+> +		reg =3D <0>;
+
+[Severity: Medium]
+Should there be a 'spi-max-frequency' property specified here?
+
+Standard SPI peripheral Device Tree bindings require the 'spi-max-frequency'
+property on child nodes to explicitly specify the maximum SPI clock speed
+the device can tolerate. Omitting this property will cause 'dtbs_check'
+warnings.
+
+Furthermore, without it, the SPI core framework initializes the device's
+max_speed_hz to 0, forcing reliance on the controller's internal clock
+fallback behavior.
+
+> +		m25p,fast-read;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526204045.3481=
-604-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D2
+604-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D3
