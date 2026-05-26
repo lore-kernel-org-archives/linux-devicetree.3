@@ -1,245 +1,248 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS8PR02CU002.outbound.protection.outlook.com (mail-japanwestazon11022127.outbound.protection.outlook.com [40.107.75.127])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B2A3CAE74;
-	Tue, 26 May 2026 09:58:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789498; cv=none; b=X+EHioG6WNhc+IhfDSnE5N9A7pR+bOG+OJ91AQ5kYlJswRkz8pEEliH5k7jhtqE/iqNvu6OEyCGMHIDShLJg7j8PUX9cginJdXCHzlUn+idCMtf3ZSYb9V3/S67kkPeIiSq+pWbOmrrWG7wd8ES6e7stmneSdk2k2WQWiIItNSc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789498; c=relaxed/simple;
-	bh=KT5kWMKmVPL6w0rKVQ1vm8hOH1tc1nglBRT5f5U8y9k=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=unl4dt7zbwl21K7zp5LyhTUAGP5lOojSEEkpZe4wyhwS95JYCRBoLRzHCW1/0YeXqNIhRG25EYx14W3IDLEDxbzuPSMcB4Xzk2DYf2JyXbDmUu8vKQAlYz03YTl82Q8IePHv9yShlAOllKcPz/ABkEtfdeeH1Gbua6j8OwGUGxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqQN5jBF; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62B9C349AF6;
+	Tue, 26 May 2026 09:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.75.127
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779789507; cv=fail; b=NCkhHS4ZkWuegojTm7N7AvKmLNWJ9w7v4alsNQtJZMypKHNZrWhdO4WeKme/zCjT/h5AsKzpNS0ht9NkdCu44XTsZ7e6uiXMYXPxFHCDeW+fzQPnQh8WC4iC8WmkIW9gSkVfqxcna05FOaeOB9dd4SWZPl/OJ6ymCHmNrLNQH7I=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779789507; c=relaxed/simple;
+	bh=30nrS2uMvo/qIKI2oa2N1kT6Fa+c3e0sVkdn5kzDh1k=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=mGB4OLlBdH54bc8DDq1mK5hliBJ0nqHh1ZvKmYuWutc8UA6Cq4pZ9bvLd7EPUhrls2M6c8EffbYePtb1/hw82ZAXVke4TGdyj16yFe5GRBZuEvt6p3EioCgEZJRs5Vd9TMJrI9pNbpShnssKth5+w9/XgPoQYGc6cheDI7dQAR4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=L+WH+nIR; arc=fail smtp.client-ip=40.107.75.127
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqQN5jBF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783061F000E9;
-	Tue, 26 May 2026 09:58:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779789497;
-	bh=uA5NhkbDkIgEGwM2hOxFD456ASr++z1K/LIMVB2rLqE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=cqQN5jBFY+rg0VteIrEadzA0DYhaNw84W84EHZj7A+2/yRUCAeG3kaiaf5haaZV0e
-	 MsoAE+PCjPigIlQD30qw96mhph3yPoFrUP1E6q3iY7WGCZF9W4TVfRcnw2SyqIWBnO
-	 FG9R+x2e0H00qNaTWuPf43Br+IRul/d4hZhReahsOVRQPhXNzyJks+xiAjOedfHaBd
-	 55hLT6PD5UBDTJTrKft5PcrKqlh3LkJscVa09eGQt1FqdtJ1JIe3ETVa5XRWUQf2DE
-	 aOEjtH3s5HJz0M0hJ1SYrrbjcj4UeUISHLPqiiSdQGBul/ziAlD1oh9CjtJ1hrqxdQ
-	 TCg9zPtLfqFbg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 3/4] PCI: tegra: Add Tegra264 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Thierry Reding" <thierry.reding@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260526-tegra264-pcie-v5-3-84a813b979d7@nvidia.com>
-References: <20260526-tegra264-pcie-v5-3-84a813b979d7@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 09:58:15 +0000
-Message-Id: <20260526095815.783061F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="L+WH+nIR"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Qre/BnxHvItClEmKiwLiNJRuBZioRxzbgPiDfkB7H2Cl6z7kDm85YI8jw8kUfxkiezDddwS0X2srahoef37hQWOZUea4arNeDH1rDj8hJcUeEwt9JGbp1pYr4lHWTezMIe8WYwYYOyAmO1aL6O4TqmrTKOwLrq0SNHGoc/O4Np8dF2xOS9gXkMwERUmx9XslBCaAQmVQrMbVGHpSJDpjftSdNv8ovyLecdN1eEU+eZTxSFEPj2QbJroNYfEv51uD1SgqL9U9scTcy7VQb6+XwITg3sknOxKc7ShMJY7MykmjNZWUyRBbFisTnDMJNNU5b7uHVXYlhPnxgq/bj0UVRg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vohjKr/7bo4L9MkAcI42YrMqH3TfW+vOG9VO4+llpqU=;
+ b=YlNs0DXPs6tIYKkmQXrG48SCE2iU8s/1C12GZv4QHdM9GPBq1Q6izv6ftPCiTMuseaM+JQrtJ0pZ7XhyQTLu4E0tImZl5EiwkNzN3oCyxXQ/LktVjty/TFKF7q5A+aY4pxv9cMn9NxSh041hXcix0uAZS42RHXvCyV9+2J0ppE6rbolKRiEAEnzoyoOwXwtUvjoukPxGINVli3kZ4WcFTlomSPhLx9wXUvNazTSszWEgGTv4DQRIOmAuJCv1kXl03PJqdl+KjaE49GxLFVefLXPCIqwur9Ne1F30BTUZIAu91w2NNGLpIWuCXIvc2SB9I+5H7/oc+NoThtMZkbVeuQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vohjKr/7bo4L9MkAcI42YrMqH3TfW+vOG9VO4+llpqU=;
+ b=L+WH+nIRQevsMzTpMNJDN76x9x0NdR1MwGdES0K4hCRNGfntvnZHypvJSmU5m8lfxE2BSadvHgtaK7UNbP1qfwrGPGZSfBdRdqNRiyHUB3V8VcwS5rDgKugoTqUQrEpvNEkmHGzIkFFP3dU2uSZGX4YHs5Jl5QbchsCcthsYNF078fELp2Ed+2OnIN6TcRVnnBBwtvB1jbKnSYmXMLu2V1MWegPdrPZ1LW3zJXoOYry8mKnL8KbbzdN2hAYNywvJsxbJ1arg/oTuPRQYbBMDSu2kg80hMhRN58WQztUqaqxiAqvijIyNbcHdtf3Dh9LSlj3ytraOZcsPMH3EO/Hntg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com (2603:1096:820:ca::7)
+ by TYZPR03MB8252.apcprd03.prod.outlook.com (2603:1096:405:1d::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 09:58:22 +0000
+Received: from KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506]) by KL1PR03MB7149.apcprd03.prod.outlook.com
+ ([fe80::2f06:12a:fff0:6506%5]) with mapi id 15.21.0071.005; Tue, 26 May 2026
+ 09:58:21 +0000
+Message-ID: <3fda1592-f7d0-4e86-8615-602804673414@amlogic.com>
+Date: Tue, 26 May 2026 17:58:19 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
+ pre-divider
+To: Jerome Brunet <jbrunet@baylibre.com>
+Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>,
+ Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Xianwei Zhao <xianwei.zhao@amlogic.com>, Kevin Hilman
+ <khilman@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-amlogic@lists.infradead.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+ <20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
+ <1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
+ <8d89b669-e72e-4663-9596-999a12922d32@amlogic.com>
+ <1jqzn65y9l.fsf@starbuckisacylon.baylibre.com>
+From: Jian Hu <jian.hu@amlogic.com>
+In-Reply-To: <1jqzn65y9l.fsf@starbuckisacylon.baylibre.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR02CA0132.apcprd02.prod.outlook.com
+ (2603:1096:4:188::15) To KL1PR03MB7149.apcprd03.prod.outlook.com
+ (2603:1096:820:ca::7)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: KL1PR03MB7149:EE_|TYZPR03MB8252:EE_
+X-MS-Office365-Filtering-Correlation-Id: 7e4e8a99-b378-4512-1dfc-08debb0d51f4
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|22082099003|18002099003|56012099003|11063799006|6133799003|5023799004|3023799007|4143699003;
+X-Microsoft-Antispam-Message-Info:
+	XzhcmZB5WWCEGnBxH2bRc7oSKwKmsyo+camFtcor+VYSfAHZCCElBqGADiGLTCru5RSK62zunKJsb7Pv5EjMsjQEauj1enZB4l3PFsQ1xj9G7RJXBfnLaL1HNMRGhTFVsyG1Dtll2k0bT9F/xYO3DeX637km1ax5mbS5QLy5+24hRDXKh47WoIggfO83pd7ga+4rZPUqoUXcGy/ihHzyEBbdtGIOvwGL4w7MsWmZFM0vNEyFtiKqtxblTRcXepE+DRhlfHELYYXNqi8Erj4m36tEoXbZFtnNQCjeW5R85fZn5D0ojmaAywTjBeJua6Os7YLvw3cGtiotVHgI8FLraXSmFtOek6Cpy8OwnJosE2wbnvSERw0wfAx5PFEM2wKzisF6P3jSlEI0inIxuLoTqQmNPOqqZZBDHqFL1V6TcFqD0dXVZZ75jrXWWvxpt05AGsJhW+Lh4c9fNB+O/61+9wIXjLA5Dm9l1JwD1PqGnjHzt1+6S+7fGzTK8WhjNIeUw/9UTDDAYlwY66Vla4cHGKsCpJH2DN4YM1c0RZ9pUGWXBqeLQP/0s3gACFQ0A2Sk5pvkrKa1sDWnipEOcu04/NX7yWyAvSMu+6LoZq2k+ILTBCalgzvzoVu4+jbtGoV0tzFVYLrLqi/9roLhpfxbuU2pbxnLwasFFH2kw2HGefL0ork6APVXvJ2c8rATSNNe
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:KL1PR03MB7149.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(22082099003)(18002099003)(56012099003)(11063799006)(6133799003)(5023799004)(3023799007)(4143699003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WWw1K0pCNEVYRk9qUWx1THAyUnFSeURTWE1VU2kzOElWeFdhWCt3MGJyWk1Z?=
+ =?utf-8?B?REowTXRYejhBWGNad2kzWlJualpLanhzYWpsaHRlSUp0MHYwY0tkOUFFL1RW?=
+ =?utf-8?B?ZE11U0Z3RC9EWEx1ZkRQeEFMek5LZXNxK3NQQjgvcEdvNmRvU0drYmRxRlVC?=
+ =?utf-8?B?M29kYTM3UFRhaFZoVWczbnEwK2JaRzVyQTBJRzJiMW5qQkxscGZid0RKWG14?=
+ =?utf-8?B?MXhneU1Ud2c5UXlSZ2dRWEoyRHYxQ2h4ZlpETkthSG1EdzBqd0c0dmhBRUhr?=
+ =?utf-8?B?NldBUkx2WG9DSFVWdXFxUnJFRDFLT0dSaTRNVEtNTmNNTVB3ZUlNZVBjeWU4?=
+ =?utf-8?B?QklLK01JcTM2VCtqcTRTY3N4NmlqNzhWaDAxdFd2YlNObzRpS25lekVVcjc0?=
+ =?utf-8?B?RUxoYllyTGlRUG9ZbWxEL3I2b2xtQVQvNFZHUGdHTmZ1RWRrRXVXNCtnRzh1?=
+ =?utf-8?B?WU1XTDUxSVRhRERCOFR6S0VCWG5lRzdyTHMzR3hDOHEvcUFxSFBoZVZ3RURR?=
+ =?utf-8?B?NDQxQUZqQTdNZnhtQU5TTlNiN1ZOb0wrYzZLbExQLy9CZU83RFJxYURBRG1m?=
+ =?utf-8?B?Z3lFc241SGsyamwwdDJtV0hDa1ZYdjMyOTArcXBUelAweG9DQjUxSzRVMlFG?=
+ =?utf-8?B?WVQ0SldqVHlpUFdIaHRscU9RajF2eUVqU2gyZ3hXUkliMWJWQW41VkxxaEJn?=
+ =?utf-8?B?WkdGZEE1TjMxQWk2V1pDN1ZZdXdBa0NsZENOY0FvTDFlZ3UxaExGWFk0SCsx?=
+ =?utf-8?B?LzlGeTZmU0Iyb2lRMENSME5NQWhiY0orazFOZU5pWDNXZzFJT2dhZlhlalp1?=
+ =?utf-8?B?ZXUzVkFseWU1UTFsaWQvSHNETVlMNzI1VHFGWStDS2NsM0c5NWZtWHE1VnF0?=
+ =?utf-8?B?MC9CVTJIdzNkMVJ6T1o3bnNzNFlHNEFRSDhNV3oxYkxJS3FXUVVBZXNzN05z?=
+ =?utf-8?B?NXAxcUZWL3NCZi9SWHdIR2FhUnZiREJDQlpvSmkycTFZeEsvVVo1aW9ydC8y?=
+ =?utf-8?B?bFEzRWpHWmN3NytHV0VqRmtESXRNYVB2Zm1zZXFZZTVHQmFZZzNzVkd6K0VI?=
+ =?utf-8?B?TmJFWUFTZE9nNUhEMnp2RUYwZzkxMXlrcEZzSkRFS085TE0zclFjbGhwaXVY?=
+ =?utf-8?B?V1IrQ01GSnlCVFhiUHVUazN1YTM5OVM1aGVjSGtCQ2Z1Q3pCdnN5VldZczNa?=
+ =?utf-8?B?T1Y2aG1nZDNEeVcrYVhBUTZxdkI3YVZjUWcxZThhNUJVd0pWS2ZlMVpWTXZ1?=
+ =?utf-8?B?WDdPalA0OGp3SW1UK0s2Z0Z2VzZkcUZmdE52b01lVHJBdGZ6aktCOW81SGVy?=
+ =?utf-8?B?c1Jya1BkQmJ0VG50MVNwOW1LQXRuaWxqMXg0UnRpQjhVa3Y3SGk2dmxwSkpF?=
+ =?utf-8?B?UHFuL2Nva1F0OG1TY3Z3RWRrbWpPMExqSVNhbE1UVkNneitCQ3FLZlZuRjZr?=
+ =?utf-8?B?eHBuODFtY2F2eFZoN0UzbHNKMFlsWFp0eHU5cjdNdkxkMHA5ZU54NldrckJI?=
+ =?utf-8?B?TnZUM0pOeGt4Q1lkWlhTL3RFWXFzWm9UYjcrOUIxd1ZTRUM2QnRjbHpudXlZ?=
+ =?utf-8?B?cE5wanFtc21ET1dVMGlHbUM1QzBrS0JnRkl4MlBmZldiekRDaTVSQzY1NnVB?=
+ =?utf-8?B?MFZuVVp4VDVpb1BPY1BGZnBjK2xjcHhGMW9zUllvZDZOS0NoQkNxTkt2QWk0?=
+ =?utf-8?B?UHRaQlZHR0ZXWEZzQzNWT2JaQkxrb2ROdXpXTWQ0MURyMy9MdzUwcTFRdHNj?=
+ =?utf-8?B?cGhBSWhQeGlaOUV4ZnBjKytKZUd6QXpBU1pRTDBBR2FxTng3RmJ0eDR0MlRP?=
+ =?utf-8?B?SlBGMVJjYzU0Z0I4R0NoenplWDNXTWxZVVhoVGJWczlzWTIvNk42S2kraFFP?=
+ =?utf-8?B?L1VWNWFaRi9lYWZsd0JRSk9xY2wrRGtBUFlzZ0xDcDZTZ0ZYTy9QalIyb1Bq?=
+ =?utf-8?B?OG03UEZZVXp5YUVGaFZ5Rk9QdEtMcjFOM1hKV0poRUhzSlJGSDdRTFp3Skd3?=
+ =?utf-8?B?RWNiN25aSXJYbERvY2hZMExYMUFFbWxRZDVvV29iRmprSVVYaGw4YmZ2K1pM?=
+ =?utf-8?B?YUtxOS9nYlhXK2dHRlpuWG5ZbWtJYzRRSnY0aTNramVIendrL0Vkd3VpK0Q2?=
+ =?utf-8?B?UFRQYmxOSDg4ZmNOWWtvaWpGMzBjMkZQN1RlQ3dTMUVCR0xONlRPbXdQT1Rk?=
+ =?utf-8?B?TE9uYnVtMTlKQVpwejVob0NNdEYzVk9QLy9UbFFaU2RITGlnSU1uOXd6ZUFT?=
+ =?utf-8?B?QmdxRTczWlUxTk1VaXpNTVd6ODVUNjZaU2pMR0lwbVM3QS8remdFRHRMNWVt?=
+ =?utf-8?B?eTRlcElwTHVhbDE2bXFaTDh6TXFsNXFlUWpNNU02UWlpWjNVWExEQT09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 7e4e8a99-b378-4512-1dfc-08debb0d51f4
+X-MS-Exchange-CrossTenant-AuthSource: KL1PR03MB7149.apcprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 09:58:21.8732
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: TUhYLv2+SM0m/AzidhZXvmrIVBHZIUODk10ZrYIU9Q9LX9ON7ob04IjFCdsZ3LgA9KU7nkV1UCLmZNwLO/giLQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYZPR03MB8252
 
-Thank you for your contribution! Sashiko AI review found 12 potential issue=
-(s) to consider:
-- [High] Missing `err` argument in `dev_err_probe()` call.
-- [High] Passing `ERR_PTR(err)` to the integer `err` argument of `dev_err_p=
-robe()`.
-- [High] Call to undefined function `tegra_pcie_deinit()` in the suspend ca=
-llback.
-- [High] The probe function returns success when the link is down but frees=
- resources, causing a kernel crash on removal.
-- [High] The driver calls a non-existent runtime PM API `devm_pm_runtime_ac=
-tive_enabled()`.
-- [High] The PCIe bandwidth request calculation always evaluates to 0 MBps.
-- [High] Calling sleeping functions inside a noirq PM callback.
-- [High] Ignoring the return value of `pm_runtime_get_sync()` leads to unsa=
-fe hardware access and kernel crashes.
-- [Medium] Leaking the BPMP reference if runtime PM initialization fails.
-- [Medium] Unbalanced `pm_runtime_disable()` call during driver removal.
-- [Medium] Wake IRQ is mapped and enabled for wakeup but never actually req=
-uested.
-- [Low] Missing `pm_ptr()` wrapper for the PM operations structure pointer.
---
+On 5/20/2026 3:35 PM, Jerome Brunet wrote:
+> [ EXTERNAL EMAIL ]
+>
+> On mer. 20 mai 2026 at 13:47, Jian Hu <jian.hu@amlogic.com> wrote:
+>
+>> On 5/14/2026 11:11 PM, Jerome Brunet wrote:
+>>> [ EXTERNAL EMAIL ]
+>>>
+>>> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org> wrote:
+>>>
+>>>> From: Jian Hu <jian.hu@amlogic.com>
+>>>>
+>>>> The A9 PLL pre-divider uses a division factor of 2^n to ensure a clock
+>>>> duty cycle of 50% after predivision.
+>>>>
+>>>> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
+>>>> pre-divider division factor is 2^n.
+>>> I understand what you are doing here but I have to ask why this can't be
+>>> implemented with independent dividers that already supports power of 2 ?
+>>
+>> If we use independent dividers, the n member would have to be removed from
+>> meson_clk_pll_data.
+>>
+>> However, n is referenced 35 times in clk-pll.c, which means we would need
+>> to modify all
+>> related logic across the file. This would be a relatively large
+>> change.
+> Yes
+>
+>>
+>> Moreover, for all Amlogic chips, the n divider is an indispensable part of
+>> the DCO clock.
+> There is hardly a justification here
+>
+>> The difference between SoC generations is as follows:
+>>      Previous SoCs PLL: n = 1, 2, 3, 4... (linear divider)
+>>      A9 SoC PLL:            n = 2^0, 2^1, 2^2, 2^3, 2^4... (power-of-two
+>> divider)
+> Yes that was fairly obvious
+>
+>> Therefore, splitting out the n divider from the DCO clock might not be a
+>> good design choice.
+> I'm not sure I agree and you've only stated your point of view without
+> providing any technical justification here.
+>
+>  From the datasheets of the different SoC we have, the documented
+> limitation is always the DCO output rate range. Nothing related to n (or
+> m, or the mult-range for that matter). This is a legacy problem, we
+> started with monolithic driver and slowly simplified it.
+>
+> As far as I can see now, reworking the PLL driver to be a simple
+> multiplier driver with range output rate constraint could actually be
+> simpler than the current code. I would also make simpler to accomodate
+> differences such as the one presented here.
+>
+> Unless you can provide technical reasons why going in this direction
+> would be incorrect, that's where I'd prefer to go.
+>
+>> [...]
+>>
+>> Best regards,
+>>
+>> Jian
+> --
+> Jerome
 
-commit f706a8f756af69546e040928eae0b5849025ac5c
-Author: Thierry Reding <treding@nvidia.com>
-Subject: PCI: tegra: Add Tegra264 support
 
-This patch adds a driver for the PCIe controller found on NVIDIA Tegra264 S=
-oCs,
-setting up address translation registers and creating a standard PCI host
-using ECAM.
+I agree that having an independent N divider would simplify the PLL rate 
+calculation.
 
-> diff --git a/drivers/pci/controller/pcie-tegra264.c b/drivers/pci/control=
-ler/pcie-tegra264.c
-> new file mode 100644
-> index 0000000000000..0b8e0f724e251
-> --- /dev/null
-> +++ b/drivers/pci/controller/pcie-tegra264.c
-[ ... ]
-> +static void tegra264_pcie_icc_set(struct tegra264_pcie *pcie)
-> +{
-> +	u32 value, speed, width;
-> +	int err;
-> +
-> +	value =3D readw(pcie->ecam + XTL_RC_PCIE_CFG_LINK_STATUS);
-> +	speed =3D FIELD_GET(PCI_EXP_LNKSTA_CLS, value);
-> +	width =3D FIELD_GET(PCI_EXP_LNKSTA_NLW, value);
-> +
-> +	value =3D Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(speed));
+A separate pre-divider for N is technically possible, but there are some
+hardware constraints that need to be considered:
 
-[Severity: High]
-Does this calculation evaluate to 0 MBps? The speed variable is populated
-with the raw hardware CLS value, but PCIE_SPEED2MBS_ENC() expects a mapped
-enum pci_bus_speed constant. If the raw values do not match the expected
-constants, the macro evaluates to 0, which would heavily throttle performan=
-ce.
+N = 1 is the preferred operating mode except a few fixed-frequency PLLs.
+Larger N values reduce the PLL phase detector frequency, which may 
+negatively impact
+jitter performance and overall PLL stability.
 
-[ ... ]
-> +static int tegra264_pcie_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	if (tegra_is_silicon()) {
-> +		pcie->bpmp =3D tegra_bpmp_get_with_id(dev, &pcie->ctl_id);
-> +		if (IS_ERR(pcie->bpmp))
-> +			return dev_err_probe(dev, PTR_ERR(pcie->bpmp),
-> +					     "failed to get BPMP\n");
-> +	}
-> +
-> +	err =3D devm_pm_runtime_active_enabled(dev);
+Because of this, we cannot guarantee stable system operation when 
+arbitrary larger
+N values are used.
 
-[Severity: High]
-Does devm_pm_runtime_active_enabled() exist in the kernel tree? It appears
-this might be a typo for devm_pm_runtime_enable() or a similar helper, which
-would cause a compilation error due to an unresolved symbol.
+Some PLLs require non-1 N values to generate specific fixed output 
+frequencies because
+the target rate cannot be achieved with N = 1 while keeping the PLL 
+while keeping the
+PLL within its valid operating range. So N is designed to have other 
+values ​​to
+satisfy this requirement.
 
-[Severity: Medium]
-If the devm_pm_runtime_active_enabled() call fails and the function returns
-early, does this leak the BPMP reference? It looks like tegra_bpmp_put()
-is not called on this error path.
+For example, the AXG PCIe PLL uses N = 3 to generate the required 100 
+MHz output frequency,
+since the target frequency cannot be achieved with N = 1.
 
-> +	if (err < 0)
-> +		return dev_err_probe(dev, "failed to enable runtime PM\n");
 
-[Severity: High]
-Does this dev_err_probe() call have the correct number of arguments? It see=
-ms
-the integer error code argument is missing. This will cause the format stri=
-ng
-to be cast to the integer err parameter, leading to an uninitialized format
-string and a likely crash or compilation error.
+Additionally, is the refactored pre-divider N implemented as a separate 
+patchset,
+independent from the A9 PLL changes?
 
-> +
-> +	pm_runtime_get_sync(dev);
 
-[Severity: High]
-Should the return value of pm_runtime_get_sync() be checked here? If poweri=
-ng
-on the device fails, the driver proceeds to read MMIO registers during the
-subsequent tegra264_pcie_check_ranges() call. Accessing unpowered hardware
-registers can trigger a synchronous external abort and kernel panic.
+Best regards,
 
-[ ... ]
-> +	tegra264_pcie_init(pcie);
-> +
-> +	if (!pcie->link_up)
-> +		goto free_ecam;
 
-[Severity: High]
-If the link is not up, does this branch cause probe() to return success
-while freeing the ECAM resources? The err variable is not set to a negative
-error code before the goto. This would cause the driver to bind successfull=
-y,
-but pcie->bridge->bus would remain uninitialized, leading to a NULL pointer
-dereference during unbind in tegra264_pcie_remove().
+Jian
 
-> +
-> +	err =3D pci_host_probe(bridge);
-> +	if (err < 0) {
-> +		dev_err_probe(dev, ERR_PTR(err), "failed to register host\n");
-
-[Severity: High]
-Is ERR_PTR(err) the correct argument to pass here? dev_err_probe() expects =
-an
-integer as its second parameter. Passing a pointer could cause a build
-breakage or result in incorrect error logging.
-
-[ ... ]
-> +static void tegra264_pcie_remove(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	pm_runtime_put_sync(&pdev->dev);
-> +	pm_runtime_disable(&pdev->dev);
-
-[Severity: Medium]
-Since a devres helper is used in probe to enable runtime PM, it will
-automatically queue a pm_runtime_disable() call on removal. Does calling it
-explicitly here cause an unbalanced disable_depth counter? If the driver is
-unbound and rebound, the counter might remain greater than 0, breaking
-runtime PM for this device permanently.
-
-[ ... ]
-> +static int tegra264_pcie_suspend_noirq(struct device *dev)
-> +{
-> +	struct tegra264_pcie *pcie =3D dev_get_drvdata(dev);
-> +	int err;
-> +
-> +	tegra_pcie_deinit(pcie);
-
-[Severity: High]
-Is tegra_pcie_deinit() a typo? The driver defines the deinitialization
-function as tegra264_pcie_deinit(pcie). Calling an undefined function will
-cause a build failure.
-
-> +
-> +	if (pcie->wake_gpio && device_may_wakeup(dev)) {
-> +		err =3D enable_irq_wake(pcie->wake_irq);
-
-[Severity: Medium]
-Is there a registered interrupt handler for this wake IRQ? The IRQ is mapped
-and enabled for wakeup, but it does not seem to be requested anywhere via
-request_irq() or dev_pm_set_wake_irq(). When the IRQ triggers, the kernel
-will likely find no action handler, log a spurious interrupt error, and
-permanently mask the IRQ, breaking subsequent wakeups.
-
-[ ... ]
-> +static int tegra264_pcie_resume_noirq(struct device *dev)
-> +{
-[ ... ]
-> +	if (pcie->link_up =3D=3D false)
-> +		return 0;
-> +
-> +	tegra264_pcie_init(pcie);
-
-[Severity: High]
-Can tegra264_pcie_init() safely run in a noirq callback? The callback execu=
-tes
-with hardware interrupts disabled, but tegra264_pcie_init() invokes sleeping
-functions like usleep_range() and msleep(). Calling sleeping functions in an
-atomic or noirq context will trigger a system hang or kernel bug.
-
-[ ... ]
-> +static struct platform_driver tegra264_pcie_driver =3D {
-> +	.probe =3D tegra264_pcie_probe,
-> +	.remove =3D tegra264_pcie_remove,
-> +	.driver =3D {
-> +		.name =3D "tegra264-pcie",
-> +		.pm =3D &tegra264_pcie_pm_ops,
-
-[Severity: Low]
-Should the pm operations pointer be wrapped with pm_ptr()? Directly assigni=
-ng
-it without the wrapper prevents the compiler from eliminating the dev_pm_ops
-structure as dead code when PM support is disabled.
-
-> +		.of_match_table =3D tegra264_pcie_of_match,
-> +	},
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-tegra264-p=
-cie-v5-0-84a813b979d7@nvidia.com?part=3D3
