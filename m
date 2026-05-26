@@ -1,158 +1,239 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0494E3D47B3
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:25:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 148073F88AA
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:27:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779798314; cv=none; b=qo+mMUX73oY627kBjL3WwcivzsU/HSOB/zUSMBhlfWm3UGy3nI4O9Ccz8Do0vBOJZ4Jsbs9ZNp6iyvpcmaC5oLVXMge6IfeqSyKh0nvsrT0H1zEy5GN/p24hK1LDQpBkrQSE6jrjk0KHFzemCE/SJT+424KFus9T+y6F8zQ2IeA=
+	t=1779798438; cv=none; b=oDJfZduAjdqYmFFCOt0MhsoxVA6Ht2FJpThqSFiGOzTugRLGaLzm6iTAPmJk6GnpwGfvZiovA4kQbEdSQFW9pdgdKaVy/wOPyovhyy7vQ9Gtz75jCVVXRq+V7h4TcTZXY0jXcdmNKQaQLwPH35vQBvXWPB0iqUod7QdvhKxfT8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779798314; c=relaxed/simple;
-	bh=OBdNDmdFyX3Btzx0luHZFVbkPIZYv5WwtCm4c5mXnnk=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BYou7XJXV6ufbRZuKe/krNDWbYEvSwGrHCoY2ChEHEQNOdj4mPt4bcpgXTIN8GMI6d8fp1khaFWsF9Gwe1NtAlbDUMOJyPAaEwcRZmSjmgKGDAd+ehBfMZeZSYj9Swdb4er1v7gyxjZoRIDrMEBQFFB3hWAkcCQrJjCuMYUSJYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=vLWZ+Thk; arc=none smtp.client-ip=209.85.221.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779798438; c=relaxed/simple;
+	bh=qRnUxvygp1KcdF2l04pnogmsyxmTPyetgRbXjdsRehE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=XViPyQtcL6TD51u/A8Xr78RRDpTrs62UCJ/nzyuoJ7SqKon6LbtG3vU5B8NCE1SdRyJyfMzTDHPloZT6eqFxtf7g01UTyB05rqKP4pDNi8FqyEYOfPeA3/A22C5Lo+K//PReVpGv9XKZjYUbGQKvAioJ/kc7B+mllXzJyXqGOEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=ptZXLKJ7; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="vLWZ+Thk"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-43fe608cb92so6404555f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 05:25:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="ptZXLKJ7"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-45e6a4d0be0so4634939f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 05:27:15 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779798311; x=1780403111; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jgI53DJMq4E1/u2WXvBPkXuolOc+9wuhSnRSjksHASg=;
-        b=vLWZ+ThkhFXsC8LKnSTk2ErfnJnZyY6y9PnwFfvGAO7w9sU9mJIqgXeSeV1TnIDUTE
-         TNLsVyv01kkVJmeLml9elRJgJxRnCZgAFN/EbuO89QXYoLuLclXk1MxiueOnBvUeJ4cV
-         jzgyrCxj529GO7l6U6qtrqHjBJ40RRkyLaOmzodRZRYN9YryNIDE5EB8rxQFSRccAID4
-         22y78XIgzVNP/Px1ORKXRZC12ekjTxSLMfMU7GPEG/EGP7xZPJlb106IPbJOAmjmOnzG
-         ISpsvhVohX+sp5gWfF+PqjQwGzNRNGc0NLY0jg7xdQFW9yVFxjHhK6LDqZVq8661pFYv
-         KicA==
+        d=baylibre.com; s=google; t=1779798434; x=1780403234; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=3cGdeRIyed7u9Vu7ldN0+lFeh1o2iiXjimB366st4kA=;
+        b=ptZXLKJ7vVSlo9eQltDXhMGdyc1bbQb21NUD6EcnRWM0p21m0qOfWM7NG2/zyPgcge
+         C4KbOIJJIQNPTqUbESio3N/GNIrxma6UyPQ1LJaKhp2c/QWFmaQdZmUbDJo57nPbyEXb
+         d+5LFyFkCT7WnOGlg8EHvL41YYT57mpqFeDvYk4OESIRwSGN+SJFh2RhJBbPq5tz82PH
+         1mj8yFAeuwMcsgwWCmPFwM6ow9b5jHbuQaJtbLv3YqjyKVKWwduhA99IQwi7+WN2P4Zd
+         dh7VeZJwQIjgDgNgJte+WPb9wyGeH/tXWTyBhGF3PcdDS3d7ItJjkCGxIDhMpdwTjyI/
+         PEtg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779798311; x=1780403111;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jgI53DJMq4E1/u2WXvBPkXuolOc+9wuhSnRSjksHASg=;
-        b=MjywdFZU8Uo8jn6ADlRrx4v4UoF1jyNXbY4z7yGE0V3l+ApQ4gqbVGyadVHQddjKkX
-         +IrIdl/t2ox/Su67WINMCM6nU2hz+oADH/QwlHcnWKzeZjEfGYcVE7R3j2iOsFXxwOaV
-         nbyvoP5zgWMqOux/qzh8P1xJt5FxJH/kWgAtl00Lhvz3I42EzwRfhHuyO25Oh+QtXZGb
-         PGmELZ5MiID7+Z26zs4/DwMax+daafZGdDdhJjcuQH2nF/jhGLrXuYNaTPLGCuoKn72h
-         OUW1ra8/pKABljauIEO391VhSrJ0AztncQGZhKQR//33uqKx1UJeCGijRnTk7BTRirLW
-         bShg==
-X-Forwarded-Encrypted: i=1; AFNElJ/y2JChT5KXPc97A/6IZa2tadxgUuOXGI7Ea3eNaITslWxeWS/GshQQL0pYZlx2aRXsIuHBQWXA9xlD@vger.kernel.org
-X-Gm-Message-State: AOJu0YzpS31SMTonJE0eHAxbBMPI/av8NAm/UXWq/YVVgP6iT+7OBan7
-	88TWBcjO7SvwWxlXvCs4sMOfTHyUxHXO2RKdC1ukHRV7Cvc6Ta74jy7/N98XRvzlReM=
-X-Gm-Gg: Acq92OF6tbOtsMlyVSLheHSHEdciGqBit3k9+y4ERDmq98W0OURY0UTD/tYmCWetBAr
-	6RL3FwvwCBoc/YpJpoW9s2OR9MX2/xZXZ46GtA2SwFM/IJAQsGMHTux0P1VBXWwMQvuKK2PxvPE
-	DR4Lthhn17z542v9pvyRSG5M0XLyyFGvsrpZpCc8YdXImuwI4Qo15XRvGP+kG0gA9/Trg2eUop1
-	HAh+vqsQO6NrbWYuIiGBhmti71V9bv340xxqo4qrZeIHjnnz/ysC1f/uzHoe+ibEPnje4wcV92a
-	h20trJ8kCX3MCm5iqQ66+CCLuAeqrOFpOWKTdA3Z1QIAjQwtmHoM98dNqc9jZ+elt6SB5nxKiRJ
-	6j6dgvy3gkFU/gJK3WFpp2dVDi1dWt5lB+PUrN0A0GlV/p7ULV1LQy9i9R2RvetRL6Aeb/zdnfO
-	wy7V0HfxFReYX6A1Kw+9tXC+Tzpq7daGAHKZu062TOcl0=
-X-Received: by 2002:a05:6000:2412:b0:44f:9b70:2996 with SMTP id ffacd0b85a97d-45eb38c53bamr33323679f8f.21.1779798311332;
-        Tue, 26 May 2026 05:25:11 -0700 (PDT)
-Received: from [10.149.200.45] ([89.101.53.6])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ed1939c6asm14041928f8f.2.2026.05.26.05.25.05
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 May 2026 05:25:10 -0700 (PDT)
-Message-ID: <9ececc65-d2d4-4310-9218-beaeb5496dca@linaro.org>
-Date: Tue, 26 May 2026 13:25:03 +0100
+        d=1e100.net; s=20251104; t=1779798434; x=1780403234;
+        h=content-transfer-encoding:mime-version:message-id:date:user-agent
+         :references:in-reply-to:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=3cGdeRIyed7u9Vu7ldN0+lFeh1o2iiXjimB366st4kA=;
+        b=rPm89daUFfNSMFAenwZNFUKt48eHJquRyG2CK+UiNqsoxlBsFbmux6MXyaZxamw+OX
+         DQMT1JOxMpHCJXwUUszYUpGrydlgUQ/T5s/Tf9t2SolBJf1M7kIDAEAvFgykul56JNyI
+         KNEeEbimHcH9GSkdQ8nL1XDMZsh0Kz3XYm8Z7ncnkbW7mWJosYoFUcFW53mGB+j+pI3F
+         kZGaHB02Ns4XxzTgmFDylncUcg7fH3LTfY1YFcI8AolIVJCMmWPPDjNZl4HNsiEafpag
+         J9vTH5Ix58566L9Z3SR8t4ghGtxd9UyXJQceortKLmTMveoWnQymaWxKz9/T77APyQgJ
+         2oPA==
+X-Forwarded-Encrypted: i=1; AFNElJ9DLoVt2YiEfW7CRFvGBJzoZX9V9bcs2UlV6sKh6k1PirhZaAH3APxPODKFlwWwO4SF1cGXJ7I6smaT@vger.kernel.org
+X-Gm-Message-State: AOJu0YzP8FaG/T0e9LK5pXPeTxfNph73ES1OsrpdIHfYts2eVsA1el99
+	e5wacMs2lO6Pfz2T+MyyyfEYUHAZAVKC4rnCUJipv+KbVGbQ1ahaUS5PIDFwMF7ArQU=
+X-Gm-Gg: Acq92OGPxtK9pmgu8FCGRsumRM4XZD+AlVypQKzYh6yaZwutBs5jNYeqy1vmuwS0j6P
+	5wrsnH9cXAC0varvl1oPAYaTJp7xcpp9EPgKyl5FTMPZZ/UgmGk5yFTmWAOomnGovOl5Q0wrCGq
+	DpMvcbXrBm6Z7Sn8l7AeT1FtINaX79c9RULf8YtBhPWi7J8IDfZ4dxNzBksGFKEwguSIPwKPzUs
+	53swpjayxVbX34o3LLmDTmUEofQFNzl2h0aJsoOBtM5QuQaE8zgUsfCSrNFfrssU7YhJ72geLRN
+	0l4pUnNFbbsg5d47T5oYaFFr5F1MSjTz76bdEL2w2+DXxbhhIf18f3/y71xN43GA5D0BX3nkY7u
+	XrGKqrQOoXV9gb2EPzkk1O+5EUudSIi0oYNYd6l8mhklUtvTpmcPUHiwrxvAwcf+Pnac/pKRV40
+	2UiwafMf3Yv7gGM/2LsrI+LndWEpCu+Lg6
+X-Received: by 2002:a05:6000:2408:b0:45e:941e:77b3 with SMTP id ffacd0b85a97d-45eb38c9299mr32625100f8f.41.1779798434376;
+        Tue, 26 May 2026 05:27:14 -0700 (PDT)
+Received: from localhost ([2a01:e0a:3c5:5fb1:4a0c:b15a:3467:f4ed])
+        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-45eb6d5cb9asm38009953f8f.27.2026.05.26.05.27.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 05:27:13 -0700 (PDT)
+From: Jerome Brunet <jbrunet@baylibre.com>
+To: Jian Hu <jian.hu@amlogic.com>
+Cc: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>,  Michael
+ Turquette <mturquette@baylibre.com>,  Stephen Boyd <sboyd@kernel.org>,
+  Rob Herring <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,
+  Conor Dooley <conor+dt@kernel.org>,  Neil Armstrong
+ <neil.armstrong@linaro.org>,  Xianwei Zhao <xianwei.zhao@amlogic.com>,
+  Kevin Hilman <khilman@baylibre.com>,  Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,  linux-kernel@vger.kernel.org,
+  linux-clk@vger.kernel.org,  devicetree@vger.kernel.org,
+  linux-amlogic@lists.infradead.org,  linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 07/10] clk: amlogic: Support POWER_OF_TWO for PLL
+ pre-divider
+In-Reply-To: <3fda1592-f7d0-4e86-8615-602804673414@amlogic.com> (Jian Hu's
+	message of "Tue, 26 May 2026 17:58:19 +0800")
+References: <20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com>
+	<20260511-b4-a9_clk-v1-7-41cb4071b7c9@amlogic.com>
+	<1jy0hm6n7e.fsf@starbuckisacylon.baylibre.com>
+	<8d89b669-e72e-4663-9596-999a12922d32@amlogic.com>
+	<1jqzn65y9l.fsf@starbuckisacylon.baylibre.com>
+	<3fda1592-f7d0-4e86-8615-602804673414@amlogic.com>
+User-Agent: mu4e 1.12.9; emacs 30.1
+Date: Tue, 26 May 2026 14:27:12 +0200
+Message-ID: <1ja4tm5pb3.fsf@starbuckisacylon.baylibre.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 2/2] arm64: dts: qcom: x1e80100-lenovo-yoga-slim7x: Add
- Embedded Controller node
-To: Daniel J Blueman <daniel@quora.org>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Sibi Sankar <sibi.sankar@oss.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Hans de Goede <hansg@kernel.org>,
- Randy Dunlap <rdunlap@infradead.org>, Bjorn Andersson
- <andersson@kernel.org>, linux-kernel@vger.kernel.org,
- Anvesh Jain P <anvesh.p@oss.qualcomm.com>,
- Maya Matuszczyk <maccraft123mc@gmail.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Akhil P Oommen <akhilpo@oss.qualcomm.com>,
- Abel Vesa <abel.vesa@oss.qualcomm.com>,
- Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-References: <20260526112409.66325-1-daniel@quora.org>
- <20260526112409.66325-2-daniel@quora.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <20260526112409.66325-2-daniel@quora.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On 26/05/2026 12:24, Daniel J Blueman wrote:
-> The Lenovo Slim7x uses the same Embedded Controller as the Qualcomm Hamoa
-> X1 Customer Reference Device. Use the lenovo,yoga-slim7x-ec compatible
-> introduced by patch 1 for fan control, thermal sensor and suspend
-> behaviour.
-> 
-> Signed-off-by: Daniel J Blueman <daniel@quora.org>
-> ---
-> Changes in v3:
-> - use lenovo,yoga-slim7x-ec compatible (introduced by patch 1)
-> - v2 link: https://lore.kernel.org/lkml/20260502063518.15153-1-daniel@quora.org/
-> Changes in v2:
-> - corrected DT compatible node
-> - v1 link: https://lore.kernel.org/all/20260429103301.17449-1-daniel@quora.org/
-> 
->   .../dts/qcom/x1e80100-lenovo-yoga-slim7x.dts  | 22 +++++++++++++++++++
->   1 file changed, 22 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-> index beb1475d7fa0..1ee2a2296129 100644
-> --- a/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-> +++ b/arch/arm64/boot/dts/qcom/x1e80100-lenovo-yoga-slim7x.dts
-> @@ -951,6 +951,22 @@ retimer_ss0_con_sbu_out: endpoint {
->   	};
->   };
->   
-> +&i2c5 {
-> +	clock-frequency = <400000>;
-> +
-> +	status = "okay";
-> +
-> +	embedded-controller@76 {
-> +		compatible = "lenovo,yoga-slim7x-ec", "qcom,hamoa-crd-ec";
-> +		reg = <0x76>;
-> +
-> +		interrupts-extended = <&tlmm 66 IRQ_TYPE_EDGE_FALLING>;
-> +
-> +		pinctrl-0 = <&ec_int_n_default>;
-> +		pinctrl-names = "default";
-> +	};
-> +};
-> +
->   &i2c7 {
->   	clock-frequency = <400000>;
->   
-> @@ -1352,6 +1368,12 @@ &tlmm {
->   			       <44 4>, /* SPI (TPM) */
->   			       <238 1>; /* UFS Reset */
->   
-> +	ec_int_n_default: ec-int-n-state {
-> +		pins = "gpio66";
-> +		function = "gpio";
-> +		bias-disable;
-> +	};
-> +
->   	edp_reg_en: edp-reg-en-state {
->   		pins = "gpio70";
->   		function = "gpio";
+On mar. 26 mai 2026 at 17:58, Jian Hu <jian.hu@amlogic.com> wrote:
 
-Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> On 5/20/2026 3:35 PM, Jerome Brunet wrote:
+>> [ EXTERNAL EMAIL ]
+>>
+>> On mer. 20 mai 2026 at 13:47, Jian Hu <jian.hu@amlogic.com> wrote:
+>>
+>>> On 5/14/2026 11:11 PM, Jerome Brunet wrote:
+>>>> [ EXTERNAL EMAIL ]
+>>>>
+>>>> On lun. 11 mai 2026 at 20:47, Jian Hu via B4 Relay <devnull+jian.hu.am=
+logic.com@kernel.org> wrote:
+>>>>
+>>>>> From: Jian Hu <jian.hu@amlogic.com>
+>>>>>
+>>>>> The A9 PLL pre-divider uses a division factor of 2^n to ensure a clock
+>>>>> duty cycle of 50% after predivision.
+>>>>>
+>>>>> Add flag 'CLK_MESON_PLL_N_POWER_OF_TWO' to indicate that the PLL
+>>>>> pre-divider division factor is 2^n.
+>>>> I understand what you are doing here but I have to ask why this can't =
+be
+>>>> implemented with independent dividers that already supports power of 2=
+ ?
+>>>
+>>> If we use independent dividers, the n member would have to be removed f=
+rom
+>>> meson_clk_pll_data.
+>>>
+>>> However, n is referenced 35 times in clk-pll.c, which means we would ne=
+ed
+>>> to modify all
+>>> related logic across the file. This would be a relatively large
+>>> change.
+>> Yes
+>>
+>>>
+>>> Moreover, for all Amlogic chips, the n divider is an indispensable part=
+ of
+>>> the DCO clock.
+>> There is hardly a justification here
+>>
+>>> The difference between SoC generations is as follows:
+>>>      Previous SoCs PLL: n =3D 1, 2, 3, 4... (linear divider)
+>>>      A9 SoC PLL:            n =3D 2^0, 2^1, 2^2, 2^3, 2^4... (power-of-=
+two
+>>> divider)
+>> Yes that was fairly obvious
+>>
+>>> Therefore, splitting out the n divider from the DCO clock might not be a
+>>> good design choice.
+>> I'm not sure I agree and you've only stated your point of view without
+>> providing any technical justification here.
+>>
+>>  From the datasheets of the different SoC we have, the documented
+>> limitation is always the DCO output rate range. Nothing related to n (or
+>> m, or the mult-range for that matter). This is a legacy problem, we
+>> started with monolithic driver and slowly simplified it.
+>>
+>> As far as I can see now, reworking the PLL driver to be a simple
+>> multiplier driver with range output rate constraint could actually be
+>> simpler than the current code. I would also make simpler to accomodate
+>> differences such as the one presented here.
+>>
+>> Unless you can provide technical reasons why going in this direction
+>> would be incorrect, that's where I'd prefer to go.
+>>
+>>> [...]
+>>>
+>>> Best regards,
+>>>
+>>> Jian
+>> --
+>> Jerome
+>
+>
+> I agree that having an independent N divider would simplify the PLL rate
+> calculation.
+>
+> A separate pre-divider for N is technically possible, but there are some
+> hardware constraints that need to be considered:
+>
+> N =3D 1 is the preferred operating mode except a few fixed-frequency PLLs.
+> Larger N values reduce the PLL phase detector frequency, which may
+> negatively impact
+> jitter performance and overall PLL stability.
 
----
-bod
+Understood. You could really make a difference by going deeper and
+explaining what those constraints are, especially since you ask question
+internally at Amlogic.
+
+At the moment what is documented is a range regarding the output rate of
+the PLLs. A PLL is made of a pre-divider and fractional multiplier.
+and you are saying that for the multiplier to work and lock, there is
+actually a constraint the input rate too.
+
+If you can discuss with your HW team and clarify what the constraints
+really are, that would help to better model the PLL. In then more likely
+for us to figure out the best way to drive it.
+
+
+>
+> Because of this, we cannot guarantee stable system operation when arbitra=
+ry
+> larger
+> N values are used.
+>
+> Some PLLs require non-1 N values to generate specific fixed output
+> frequencies because
+> the target rate cannot be achieved with N =3D 1 while keeping the PLL whi=
+le
+> keeping the
+> PLL within its valid operating range. So N is designed to have other valu=
+es
+> =E2=80=8B=E2=80=8Bto
+> satisfy this requirement.
+
+Again it seems like the constraints we are using are not the real
+limitation, just by-products, which the situation unclear.
+
+>
+> For example, the AXG PCIe PLL uses N =3D 3 to generate the required 100 M=
+Hz
+> output frequency,
+> since the target frequency cannot be achieved with N =3D 1.
+>
+
+PCIe is a topic in itself. It uses different ops for historic reasons though
+I suspect, with proper constraints, it would not really need to.
+
+>
+> Additionally, is the refactored pre-divider N implemented as a separate
+> patchset,
+> independent from the A9 PLL changes?
+
+I could be seen as a pre-requisite.
+
+>
+>
+> Best regards,
+>
+>
+> Jian
+
+--=20
+Jerome
