@@ -1,475 +1,188 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B5838AC9C
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:46:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58B171922FD
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:49:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779767200; cv=none; b=E+A48jjOa7Av2+jF/TZxM3SRbmRCzkM5TKs10sadqaB0p9js+FuF6c4gpRzKHKJ2aI4gdRwjHUVyCzRtZNG8sSn6RxZb4bDSG9TGfnCD74jAAtiHvvoDctAJ7rSv7crY9Eh9CHjZ+QSDij+dnv/Mtd5SHhn5f93nmgeKV798+nM=
+	t=1779767392; cv=none; b=gtYg/jFaNPHlZZGF/SR2VOR3FUu8gnNedPN5EFWr8wvaA+n4F27v8IHYJBMvfJO6+K2Zd/WARa+vc4L2BDzPFZuraYunD70+dfmxXVL7dT/nkWI5kbOmWDx1vmxeQ+Ygmeysr3oUiolHvnLNDPbfcnYNLogPIfibCMgZNd8uydk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779767200; c=relaxed/simple;
-	bh=cd7Lv3gHALiOnDd9kTk4goO5mwyskrhI0eEGS8i7o2U=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=H+Y7RqI0fXgSVTxtkgDfEbLQxjqzLWAta1QkGqQgLDdJI4l71SKcQJirfJTYJbMzYFpnPI6ThKqmwf4RAGqOelLWuCrHKG4TEroks61M+6LN4UfPT76yTJoDGdt7jzb1yxmvtYUKPcM8rlXyeyHMD2nQNRv3yY5bsxvn7r4oo08=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OoZj7iXf; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Y5fV7aGP; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779767392; c=relaxed/simple;
+	bh=dDKEz8f+gIiDmp7YrUpq4mVwiK6V0yz2S6OJP9GTAcI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UGpLZtRSv0OCTpnk5a1QEZJ64hxbg0p5bX2s2hpJarfiP+aWxv1J+S2vhKe+Dy0LtHNvAb8Qzt9Kp0QNjOMBUgWv2mksXpFMqfPaKvajTWHBSpYNrxdajnAwI5k6KnpBuoLFvzf9iNMFhPI6988ZTte7+uqr1/w244UIJ3nNpws=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xq7zXVYz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OoZj7iXf";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Y5fV7aGP"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64PJficD2145861
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:46:39 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=aAWUzZEf752
-	JzQGgDomzJSno3XJVOKvj5fNxQP1q+Ko=; b=OoZj7iXf2QBR6DrEuTTtcnGJXiV
-	GwHH7+98QRAHOc3jxf02Z/AvcXB3ygNBvhfoQ0vOy1Pn3pPbSb0mVKD7+oFDvGPL
-	3ZzlXicVUMZERlewOTL8b3v0dM8RtbfwYOYUOa01GDI0C07TioLOsFhlqRoAYLPW
-	S9e2kWHQX88vY3o0Ddi1esoro7EG3YXHIpzySgksaUDyApR1XBlPOubli4uSYsWY
-	QkahpVzKzpNFM+f1BoYsN5t9wQt5nJN6GzBG6nWPpF3mshTk5DzKJ4C0IE3Cl9uo
-	RBDJwHqlsl+FFKceGejJx54YZqCaCY7loivDzWP70U8682dVPF/RvGhHnYw==
-Received: from mail-dy1-f197.google.com (mail-dy1-f197.google.com [74.125.82.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecmbv2qs9-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:46:38 +0000 (GMT)
-Received: by mail-dy1-f197.google.com with SMTP id 5a478bee46e88-2f2d983d109so1472064eec.0
-        for <devicetree@vger.kernel.org>; Mon, 25 May 2026 20:46:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779767198; x=1780371998; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=aAWUzZEf752JzQGgDomzJSno3XJVOKvj5fNxQP1q+Ko=;
-        b=Y5fV7aGPRRWkQ/fQwp28kGZ/LLdqlCQxszz1lP3ju68vmOwz2h+SwPfNkrp1klbWqQ
-         UFEydPqje91RKoyt/O7ahGWVnQSA8kaHPOyFAR8vYenI42LYkX4nufgHk8q9RAzStwn3
-         5R3rJwrs5cWmofOIffFfRHMVArHjJyTSuBJ1AD/tMt0TAWJddcgdvbRD1pYLfLmwNuGv
-         kcAGHd8Fl+sexxFvh+Uwwnd6PX90/HhIFgR/Rl8Pr5KKMSV6N6g0VRzZGALmV4/vVVzG
-         XR76PnxM9e/8GQ9q/GbvB8eQNvAGn6O4FeX7Lei7XngOLjNRRxumrPa5xSC5Cet/7F56
-         A+JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779767198; x=1780371998;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=aAWUzZEf752JzQGgDomzJSno3XJVOKvj5fNxQP1q+Ko=;
-        b=bh8LPH6FkF5d3KW7gRAUhWNwYkvVFk2bjxMibONwMh+TnSQn2eJ+clG4L0vPDlgMU1
-         CGFue+l3h3+0LtI7ijQU3rOYUpiPnXlKf4wDSmzEgCrDeUzre9it9ZNhB/rVHuCkPfjw
-         1+IAdYzYgKCGgx1iLe1OVdGshylfc0Fi0KsZDX1tC3jtKtzG0F3P8/kjCZhMlbN9Gw1B
-         DdJGzAB0koNwUU/Gj77aDCsbv/8/hKyLzBw022fJ4KEpMtx8po7dPhsKuP2NzxVEaThV
-         Lrjdd4HsZ2t8akW/xh85scIlURcfFxh6NfR0FXDZNS15IWzN9hb5TIQT3jrLq2SoXVTi
-         Axxw==
-X-Forwarded-Encrypted: i=1; AFNElJ9Z1565NQFu82mFOfHvPYRhT7tCgQx1l+/baPa8bmUKzp3g8f5IbTw3y3Pf0dJnGjT/Pp/dmEpf/z0I@vger.kernel.org
-X-Gm-Message-State: AOJu0YzvgwFzLUq2j91Miq4rG7Nz7v8JaRSum5rJZ8nKs/WLiNW259n4
-	lPrRYmeOk2LW73nSfB/RSksPmHJsVB48tvcEELor7rJ4/y5Vjp5LAEq2AL/CrFq1WE9AB4pRz1t
-	QIG78hxLODvSGBAV9hJHaPY301ws6/igzb9dhkY3k3HjZJKB3GlCgpGdbCyEgf9tX
-X-Gm-Gg: Acq92OFoCrbQDkgFkWxv2BP11wcPOl1Nl3dg6ysbWGWGxRdnQXtmsqs8rGsKiu64/BN
-	YCMQGjdWc/gwEDe08i8Y6HKp6iHBvfJUFM8Nc1Q9bOxvRMPrj1Fc+n9VMh2MErwpdskSAL+CHXE
-	9v/SzuRhDN8kAwJDrv6X1/YTYRime7x4meHjudpgxre/7Jqk1KzDBnOAzoPElkeVeiahHDAcL2e
-	7ouCQKYooJLZaz1aojno87L72jU7pt/mQUKYJPaiZP90vAJfVMcKj225I2fyLUHHA3Eb7M0TQ9I
-	CVRyFA8cvAATUyutmQS8bfP8C0sQ59L49aPiloY9jBb07fQnX4BK2gZWdWNlqTmAcTAQJAy9d1h
-	8ScymTYCY+iibe8IJC/O0ONEifPgVwvSy0qJcD6xoZhr5b7sPylZEaxWIZ/KCPGbekaC6g1ICGL
-	9jOEkZNg==
-X-Received: by 2002:a05:7300:bc97:b0:2ed:6f94:9d9d with SMTP id 5a478bee46e88-304490264femr7372295eec.8.1779767198072;
-        Mon, 25 May 2026 20:46:38 -0700 (PDT)
-X-Received: by 2002:a05:7300:bc97:b0:2ed:6f94:9d9d with SMTP id 5a478bee46e88-304490264femr7372247eec.8.1779767196837;
-        Mon, 25 May 2026 20:46:36 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y.qualcomm.com (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-304522547fesm9792271eec.21.2026.05.25.20.46.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 25 May 2026 20:46:36 -0700 (PDT)
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Dmitry Baryshkov <lumag@kernel.org>,
-        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-        Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>,
-        Harshal Dev <harshal.dev@oss.qualcomm.com>,
-        Herbert Xu <herbert@gondor.apana.org.au>, devicetree@vger.kernel.org,
-        linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.or,
-        Shawn Guo <shengchao.guo@oss.qualcomm.com>
-Subject: [PATCH v3 5/5] arm64: dts: qcom: Add device tree for SA8797P Ride board
-Date: Tue, 26 May 2026 11:45:57 +0800
-Message-ID: <20260526034557.1669007-6-shengchao.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260526034557.1669007-1-shengchao.guo@oss.qualcomm.com>
-References: <20260526034557.1669007-1-shengchao.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xq7zXVYz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B16281F000E9;
+	Tue, 26 May 2026 03:49:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779767391;
+	bh=+ULWGYT0LXtyu0w8c/7KKCsnLdphCDHbFDYlpUbfVbE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xq7zXVYzc+svheiHMdSbBFRv9wT+EGnJvyJPC9EV9g95hDBoZ3jUAIGnVahAnDzf1
+	 MXzXUBOcO6qdyZPZzuAzc+foH3xZj8Yf/1SAoPp1rs70RtNdBjV0w9Z3BsSbka59d4
+	 kMspydstcsqBSQr2TzNXzK+QeobNdJtkysKAKSdRQqgPdE4l651YONdUx9yPtNFlPG
+	 Os3guv/ZwVyBNFtadU3ZmzHEvG8NqlBXT6S/i3VHIiZL38kXGdaKt9vZT5nNLoS7JT
+	 mQth2W2WJiI2hH/DOoGxKiKmUcxRWBas7dJkm8oealGJNAoKAGExX0EwFt9W38/KI3
+	 eQqRn/fHrfhPg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] i2c: ls2x: Add clocks property parsing and
+ adjust bus speed
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hongliang Wang" <wanghongliang@loongson.cn>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260526031021.32662-3-wanghongliang@loongson.cn>
+References: <20260526031021.32662-3-wanghongliang@loongson.cn>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 03:49:50 +0000
+Message-Id: <20260526034950.B16281F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDAzMCBTYWx0ZWRfX0FSmnUaCXPB7
- LlJ1Q6dtzz2yLFrhcbpdanjDh842Ozp07Hn/cVo2sEfIen2kt9ZXnPGN+pr5vBVePvUqTr7vO2M
- rPEcnQPJl10gRGf96O17NoOwZcFCmtPUo3bshelPzvL7n/y+GAvKNBALXR3C+nDMxUHb3EH0EaY
- QrNSR4uABV3mSJxwzr63tFp1wjNIDTRIN4ThGRv6Q9Wbg5nbH6rWSWTMj3r0PvkCcCfS22+As18
- F1kmd07YS2/frmwxQgdhyZgUyNcqSqM0kqHXuobcFykZNLT5OMEN+ZmAoXEJ7bG+Nyb6uyLSjdp
- viYTIur2oJ9EdZx0lxEyru/Mc1bqwC26ahYpdpuKUJbmWVF5DCtskb3lH9mWFPcJEn7ysCh+9ih
- bjrlHcxddgixPwn0byWRtEz8n7y01ZS/1qaz9bkDQ5zLuf4zaUzSQ73M5kL8bYgUpPGhtXP68cF
- CL/nMCHzAzxiiC07w2g==
-X-Proofpoint-GUID: U8CPxERBcGOfwxmxFRewjj7gFWUq12zJ
-X-Proofpoint-ORIG-GUID: U8CPxERBcGOfwxmxFRewjj7gFWUq12zJ
-X-Authority-Analysis: v=2.4 cv=XqTK/1F9 c=1 sm=1 tr=0 ts=6a15179e cx=c_pps
- a=Uww141gWH0fZj/3QKPojxA==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22 a=EUspDBNiAAAA:8
- a=TKQXpbtUPQeuIP00yFIA:9 a=PxkB5W3o20Ba91AHUih5:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-26_01,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 phishscore=0 priorityscore=1501 lowpriorityscore=0
- suspectscore=0 spamscore=0 adultscore=0 clxscore=1015 bulkscore=0
- impostorscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605260030
 
-From: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
 
-Add initial device tree for the Qualcomm SA8797P Ride reference board.
+New issues:
+- [High] Calling `devm_clk_get_optional_enabled()` dynamically inside the h=
+ardware initialization function causes unbounded devres memory leaks, unbal=
+anced clock enable counts, and potential memory reclaim deadlocks.
+- [High] The driver silently ignores `-EPROBE_DEFER` from `devm_clk_get_opt=
+ional_enabled()`, failing to defer probe and instead initializing with an i=
+ncorrect fallback frequency.
+- [High] Unvalidated `div` values from device match data or ACPI properties=
+ can cause a division by zero kernel panic during prescaler calculation.
+- [Medium] Repurposing the standard "clocks" property as a `u32` integer fo=
+r ACPI violates standard device property bindings.
+- [Medium] The I2C clock prescaler calculation uses 32-bit arithmetic, whic=
+h can overflow if the reference clock is too large.
 
- - Configure UART15 as the primary console and UART4 as the secondary
-   serial port
- - Enable UFS storage support
- - Define thermal zones for PMIC dies, UFS, and two SDRAM sensors,
-   all sourced from SCMI sensor protocol on channel 23
+Pre-existing issues:
+- [High] Hardware interrupts are enabled before the IRQ handler is register=
+ed, risking unhandled interrupt storms.
+--
 
-Signed-off-by: Deepti Jaggi <deepti.jaggi@oss.qualcomm.com>
-Signed-off-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile         |   1 +
- arch/arm64/boot/dts/qcom/sa8797p-ride.dts | 306 ++++++++++++++++++++++
- 2 files changed, 307 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/sa8797p-ride.dts
+commit 09494456e295e0b7fa53296c66ae490bc54b296b
+Author: wanghongliang <wanghongliang@loongson.cn>
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 6f33c4e2f09c..2746fc29c45d 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -218,6 +218,7 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sa8295p-adp.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sa8540p-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sa8775p-ride.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sa8775p-ride-r3.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= sa8797p-ride.dtb
- sc7180-acer-aspire1-el2-dtbs	:= sc7180-acer-aspire1.dtb sc7180-el2.dtbo
- dtb-$(CONFIG_ARCH_QCOM)	+= sc7180-acer-aspire1.dtb sc7180-acer-aspire1-el2.dtb
- sc7180-ecs-liva-qc710-el2-dtbs	:= sc7180-ecs-liva-qc710.dtb sc7180-el2.dtbo
-diff --git a/arch/arm64/boot/dts/qcom/sa8797p-ride.dts b/arch/arm64/boot/dts/qcom/sa8797p-ride.dts
-new file mode 100644
-index 000000000000..d429de313f24
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/sa8797p-ride.dts
-@@ -0,0 +1,306 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "nord-sa8797p.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. SA8797P Ride";
-+	compatible = "qcom,sa8797p-ride", "qcom,sa8797p", "qcom,nord";
-+
-+	aliases {
-+		serial0 = &uart15;
-+		serial1 = &uart4;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+
-+	clocks {
-+		xo_board_clk: xo-board-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <38400000>;
-+			#clock-cells = <0>;
-+		};
-+
-+		sleep_clk: sleep-clk {
-+			compatible = "fixed-clock";
-+			clock-frequency = <32000>;
-+			#clock-cells = <0>;
-+		};
-+	};
-+};
-+
-+&scmi3 {
-+	status = "okay";
-+};
-+
-+&scmi11 {
-+	status = "okay";
-+};
-+
-+&scmi15 {
-+	status = "okay";
-+};
-+
-+&scmi23 {
-+	status = "okay";
-+};
-+
-+&thermal_zones {
-+	pm_kobra_thermal: pm-a-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 3>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_0_thermal: pm-e-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 4>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_1_thermal: pm-f-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 5>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_2_thermal: pm-g-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 6>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_3_thermal: pm-h-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 7>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_4_thermal: pm-i-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 8>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_5_thermal: pm-j-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 9>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_6_thermal: pm-k-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 10>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_7_thermal: pm-l-die-thermal {
-+		polling-delay-passive = <100>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 11>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <135000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_ufs_thermal: ufs-thermal {
-+		polling-delay-passive = <0>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 0>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <125000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_sdram0_thermal: sdram0-thermal {
-+		polling-delay-passive = <0>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 1>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <125000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+
-+	pm_kai_sdram1_thermal: sdram1-thermal {
-+		polling-delay-passive = <0>;
-+		polling-delay = <0>;
-+		thermal-sensors = <&scmi23_sensor 2>;
-+
-+		trips {
-+			trip0 {
-+				temperature = <115000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+
-+			trip1 {
-+				temperature = <125000>;
-+				hysteresis = <5000>;
-+				type = "passive";
-+			};
-+		};
-+	};
-+};
-+
-+&uart4 {
-+	status = "okay";
-+};
-+
-+&uart15 {
-+	status = "okay";
-+};
-+
-+&ufs_mem_hc {
-+	status = "okay";
-+};
--- 
-2.43.0
+    i2c: ls2x: Add clocks property parsing and adjust bus speed
 
+This commit adds clock property parsing for the i2c-ls2x driver to
+adjust the bus speed based on the reference clock and divider values
+obtained from device tree or ACPI.
+
+> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
+> index b475dd27b7af9..6d332e59452d2 100644
+> --- a/drivers/i2c/busses/i2c-ls2x.c
+> +++ b/drivers/i2c/busses/i2c-ls2x.c
+[ ... ]
+> @@ -107,12 +117,29 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i=
+2c_priv *priv)
+>  	else
+>  		t->bus_freq_hz =3D LS2X_I2C_FREQ_STD;
+> =20
+> +	if (dev_of_node(dev)) {
+> +		clk =3D devm_clk_get_optional_enabled(dev, NULL);
+
+[Severity: High]
+Does calling devm_clk_get_optional_enabled() during hardware initialization
+risk memory leaks and unbalanced clock counts?
+
+ls2x_i2c_adjust_bus_speed() is called from ls2x_i2c_init(), which executes
+during probe, resume, and when an I2C transfer times out in
+ls2x_i2c_xfer_one().
+
+Calling a devres allocation function on every timeout or resume cycle
+allocates new memory and increments the clock enable count each time without
+a matching disable, leading to unbounded leaks. Additionally, performing
+devres allocations in the transfer path can cause memory reclaim deadlocks.
+
+> +		if (clk && !IS_ERR(clk))
+> +			pclk =3D clk_get_rate(clk);
+> +		else
+> +			pclk =3D LS2X_I2C_PCLK_FREQ;
+
+[Severity: High]
+If devm_clk_get_optional_enabled() returns -EPROBE_DEFER, will this code
+fail to defer the probe?
+
+By catching the error here and silently falling back to LS2X_I2C_PCLK_FREQ,
+the hardware will initialize assuming a 50 MHz clock instead of waiting for
+the clock provider to be ready. This could leave the clock unenabled by the
+framework and lead to incorrect bus speeds.
+
+> +
+> +		div =3D priv->div;
+> +
+> +		val =3D (pclk * 10) / (div * t->bus_freq_hz) - 1;
+
+[Severity: High]
+Can 'div' be zero here, leading to a division by zero panic?
+
+If the device is bound manually via sysfs without a matching compatible
+string, device_get_match_data() will return NULL, leaving priv->div as 0.
+
+[Severity: Medium]
+Will the calculation (pclk * 10) overflow 32-bit arithmetic if the reference
+clock rate exceeds approximately 429.5 MHz?
+
+Casting to 64-bit for the multiplication would prevent wraparound.
+
+> +	} else {
+> +		if (!device_property_read_u32(dev, "clocks", &pclk) &&
+
+[Severity: Medium]
+Does reading "clocks" as a raw 32-bit integer violate standard device
+bindings?
+
+In generic device properties and Device Tree, the "clocks" property is
+strictly standardized to contain an array of references (phandles) to clock
+providers. Overloading this standardized property to store an integer can
+cause generic parsing code to fail. Should a standard property like
+"clock-frequency" be used instead?
+
+> +		    !device_property_read_u32(dev, "clock-div", &div))
+> +			val =3D (pclk * 10) / (div * t->bus_freq_hz) - 1;
+
+[Severity: High]
+Could a zero value in the "clock-div" ACPI property cause a division by zero
+panic here?
+
+> +		else
+> +			val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
+> +	}
+> +
+[ ... ]
+> @@ -295,6 +322,8 @@ static int ls2x_i2c_probe(struct platform_device *pde=
+v)
+>  	if (!priv)
+>  		return -ENOMEM;
+> =20
+> +	priv->div =3D (unsigned int)(unsigned long)device_get_match_data(dev);
+> +
+
+[Severity: High]
+This is a pre-existing issue, but does initializing the hardware before
+requesting the shared IRQ risk an unhandled interrupt storm?
+
+ls2x_i2c_probe() currently performs:
+
+	ls2x_i2c_init(priv);
+
+	ret =3D devm_request_irq(dev, irq, ls2x_i2c_isr, IRQF_SHARED, ...);
+
+ls2x_i2c_init() writes CTR_READY_MASK (which includes LS2X_CTR_IEN, bit 6)
+to the hardware control register, enabling the device to assert interrupts.
+
+If the device asserts an interrupt immediately on the shared IRQ line, it
+will fire before devm_request_irq() completes. Other drivers sharing the IRQ
+will return IRQ_NONE, leading to an unhandled interrupt storm that could
+cause the kernel to permanently disable the shared IRQ line.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526031021.3266=
+2-1-wanghongliang@loongson.cn?part=3D2
