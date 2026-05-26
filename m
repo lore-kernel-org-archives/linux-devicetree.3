@@ -1,42 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85C2E3FB07B;
-	Tue, 26 May 2026 16:43:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7089F3F39DD;
+	Tue, 26 May 2026 16:45:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779813839; cv=none; b=tyTLWfDY9iErAmpxXnJCGyOZteX6ufdwpiMf3G75vwKvTRdl7B+kF1pDc2f8iPHYf7DKNwfrS/OtDYdgGIBWHmtldVeU1oZa6E5mrLGaVQck06z8KqTM8wQ9/JoboYQyd2UUrHAg3LWjT7bwcUWyvV2Q+ffDaoa1yTwK/K064yA=
+	t=1779813923; cv=none; b=U4WwaqsNT4mO/ElZ/rEJzm4Yw52lQRr4on8+Fs/OZG5pJP0jlPOd1WfxtAQN7ftITjzKMJ19x1dQg0SZEUcrZesX0taXazcHLDChYbqhBbu5vYFFsCmD6JIpSTzHblOKQsdoxuEiBOugU07k6tF+fYu3TF3JAGlV+3BpC+mfqBY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779813839; c=relaxed/simple;
-	bh=4iGxpqreUMKZqfZJta2HzBWwW9Zct0UhY51b8JS9hUA=;
+	s=arc-20240116; t=1779813923; c=relaxed/simple;
+	bh=4YuWWIChWk0yUgGUXU1F+I0lhuLlhRPeMLXGEXAPs28=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CV5nH4geLishUzzN3uMwKNsOPS9VQzauUKkGhY5jTyYcG21P+pa+ZIpkoGstmc4khvNvUWSvBsSY4fPLSgChkd1isvrpfIIC8yXkgfxAOJm7U773FRlf5DmqFOOsRvtnSJs+12PfRYL45u8BBWiF4YYQur2DFIT61VyCe2g67u8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ot0gjLdf; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=f7FLQteFylTfr6n7kvW8UkL1wzrO9RCrYf+Z5qbHmw75JdPutyFvxFwknMe31BdcPTqgnl6CvlZ5h4lYadQjL8Pid7L6ILJG5WJm26TX8dUcByJ0jw4c0LTEVph3s38H3u5L/ckF8UyPu6Qsix5Uwi9Eh/iMrY41ifK5PYaJlhs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kU9oDuNc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ot0gjLdf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E1C461F000E9;
-	Tue, 26 May 2026 16:43:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kU9oDuNc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 771461F000E9;
+	Tue, 26 May 2026 16:45:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779813837;
-	bh=4iGxpqreUMKZqfZJta2HzBWwW9Zct0UhY51b8JS9hUA=;
+	s=k20260515; t=1779813920;
+	bh=4YuWWIChWk0yUgGUXU1F+I0lhuLlhRPeMLXGEXAPs28=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ot0gjLdfkX6K9J6JjAfXoCdJ9wZ3mqd9Gb19fryXvdC1y0Z2W6K1SZRMOJvaup6aw
-	 6GbBEV5K8uOJFZwtJkBuYgT+KnDc71Coe+s/uiI9hmVpx3U+QLfcXX/S9qRSWNTRRb
-	 uiTDwT2NRcxcr2otoOZ0fpZOk7QMLBAPAvsBwn8fJHru47dQEsTo38eHOKdkYrOYei
-	 +0fPTeZWUjgk5hNnwAR2RsGNzSVHGnuZUYgw034XF9rXXQh60iZq2eCdXErm2X6q1p
-	 cehN01AesPINd0bBQsdJTOpDg2vrDsVFIQGBgHhVNzMqQPBFQ0y4cZCY3X4XtQgiaa
-	 Q+yIK4dTUK4Xg==
-Date: Tue, 26 May 2026 17:43:53 +0100
+	b=kU9oDuNcoTuvDqZ9Wz0Ekupccbo+RQmdoM8U0EVV8yQjju8SNIxYlqY026mKu2E7y
+	 WY0IS7ZDgmHo13iaRn6a2dhZf+5xwoBTE+nqyM5eW5OzpQzJ2Mp5ZJQZj+ofSvtA7u
+	 63/TZhl7XbX8LHL/4ZvGbr/2UJxrpXooPOTzhOk6lbm6F7HEwjWg63RVecI/AJW2rX
+	 vKZl35OosHQmjgophyUgD1h8YMf+JNh0BDvhu5nhs/zu8xOL2EDuGt+grOHwm5DwE4
+	 OFoz2gAyh6AJSn4LOqsWBC4hveIZoPAKlLNHpoMFspXP+NIO41/a8918N74cQcj2rT
+	 Y4CU7rU/zPaeg==
+Date: Tue, 26 May 2026 17:45:15 +0100
 From: Conor Dooley <conor@kernel.org>
-To: "Jose A. Perez de Azpillaga" <azpijr@gmail.com>
-Cc: linux-iio@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v4 1/2] dt-bindings: iio: light: add Broadcom APDS9999
-Message-ID: <20260526-deceased-divisibly-1c76d5208d79@spud>
-References: <cover.1779781224.git.azpijr@gmail.com>
- <2da5163825ceb794c73c9aebb5cadf6ab3728097.1779781224.git.azpijr@gmail.com>
+To: Chuanhong Guo <gch981213@gmail.com>
+Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>, Yao Zi <me@ziyao.cc>,
+	linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] dt-bindings: clock: add header/doc for Siflower
+ sf21-topcrm
+Message-ID: <20260526-outbreak-triceps-48ac74ceea05@spud>
+References: <20260524-sf21-topcrm-v2-0-4527aae05c3d@gmail.com>
+ <20260524-sf21-topcrm-v2-2-4527aae05c3d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,41 +51,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="RmfARgWHh0ZSQRkS"
+	protocol="application/pgp-signature"; boundary="FzGP7dsmN1NUJIaP"
 Content-Disposition: inline
-In-Reply-To: <2da5163825ceb794c73c9aebb5cadf6ab3728097.1779781224.git.azpijr@gmail.com>
+In-Reply-To: <20260524-sf21-topcrm-v2-2-4527aae05c3d@gmail.com>
 
 
---RmfARgWHh0ZSQRkS
+--FzGP7dsmN1NUJIaP
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Tue, May 26, 2026 at 09:55:15AM +0200, Jose A. Perez de Azpillaga wrote:
-> Add Device Tree binding for the Broadcom APDS9999 ambient light
-> and proximity sensor. A separate binding file is used rather
-> than merging with avago,apds9300.yaml because the APDS9999
-> has an additional vcsel-supply for the VCSEL.
+On Sun, May 24, 2026 at 09:13:07PM +0800, Chuanhong Guo wrote:
+> Add the device tree binding header and binding doc for
+> Siflower SF21A6826/SF21H8898 toplevel clock and reset module.
 >=20
-> The APDS9999 features individual R, G, B, and IR channels with
-> a green channel that uses optical coating to approximate the
-> human eye spectral response for ALS/lux measurements. Calibrated
-> RGB color sensing is not yet implemented in the driver.
+> CLK_ETH_REF_P is a clock name that exists in the vendor datasheet.
+> This clock connects directly to CLK_PCIEPLL_FOUT2 and there's no
+> clock gate/mux in between. An alias is created for this clock
+> to make available clock names align with the datasheet.
 >=20
-> Signed-off-by: Jose A. Perez de Azpillaga <azpijr@gmail.com>
+> Signed-off-by: Chuanhong Guo <gch981213@gmail.com>
 
 Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
 pw-bot: not-applicable
 
---RmfARgWHh0ZSQRkS
+--FzGP7dsmN1NUJIaP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahXNyQAKCRB4tDGHoIJi
-0qhGAQDbYJ6pvXiznURbTsN6RQf2dhiJeZZTPJ5szCiA12A6SQEAoStqXaokjbqX
-EivfbXXKxWPHKVN7FCR3hZg64SOZlg8=
-=/aVD
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahXOGwAKCRB4tDGHoIJi
+0sPuAQCmij/iq15WxKbT7Sk29Pt6Mx4jeETaq//KaAOiasXL5QEAiTcmMKmssmw2
+6N4ZR50/hHMSMwZfyHd4FvdXI+pa4QY=
+=TsNU
 -----END PGP SIGNATURE-----
 
---RmfARgWHh0ZSQRkS--
+--FzGP7dsmN1NUJIaP--
