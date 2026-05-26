@@ -1,144 +1,73 @@
-Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A415E402BB0;
-	Tue, 26 May 2026 14:59:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49E32409627;
+	Tue, 26 May 2026 15:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779807570; cv=none; b=T2hTA0JnJqUpLP58Upd0Im7+iyZua7iOXtqUOgoxTIZIrwxF2MpGoz293SmtBkyJzG305omhlB+5xjgh+kJ7e/dKFZ/b5YBdb9XZaPodz7gH/HYmzLE7gUv6oKP90XHituwvq4PmEFbQIDiYOk2j4+cTiafWB2t0gTWf/8yadm0=
+	t=1779807832; cv=none; b=MZfxZ3VSxvCnrWYIwYSYxoDJJjNogx3JtWpXjMExtF5XafghY2qe8EHm+j2Wvu3hepowFEonj7hAf+mZ2nMMJ/LHF7EvJQVa/xgRTCgLEXB5HhD02cd7xZhhQzQNFyt0zGhZOW0Bk07jpjrCns2X3OPEBzG1vmMqj106uLptEYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779807570; c=relaxed/simple;
-	bh=qDIKeceRZQi8Kht1iTmljrU4lnSxyn0oEHL2dPnESio=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=g/MP4Kv6tiP+fQxkWiMmjgBP+tgk08t+dW6KwvFBW+x7xlYPm6e8EzypJ3SpWIh8uGCNphYooCXaTpEOP+CgN0irlcsBhXXPACLcErFCNzTNEcGWe9n5d4XmNcrn07h0gq8ZY/XMTM1OhgY4BGAUjxwq/02EryFQguQ/HS/Ftos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=IBgymD9j; arc=none smtp.client-ip=148.251.105.195
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	s=arc-20240116; t=1779807832; c=relaxed/simple;
+	bh=7WY9SpLgKNoK6SbB2sNnWTouW3Gpclt2bWosMYonSCU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=P5xizaliv/Fy8RHRisT85KH33KGkq2zXw6g/1uy43w7YpcI/Bk4+Jg/sB6FJmaqp1CxfZ7wW7fJ5VekZvqLZSFseBwrqW9uGJejKjkE9Uq8qy+0rYFiAGnVNDu2uc4w+bOpKhoVlHj9ba/FT9jO0SCzPYb0xMwrGdBDAwqAsnFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cO4b7eaq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="IBgymD9j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
-	s=mail; t=1779807567;
-	bh=qDIKeceRZQi8Kht1iTmljrU4lnSxyn0oEHL2dPnESio=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=IBgymD9jo/vveamU7KQIQ/SPp78mS7Js7yWQRSQUAKFwMKjek1sPLKWJ5LbPDp0Ya
-	 6mQ5QkKCWBxQzj1G3v4wOd0AMy+qjeUPnHGBVyj/8q3+ch77h8jtYmhbxZzhEP8Yhi
-	 OeDD01C1+JkhvtGrrY1Qdsr9HLmE7f4rF7sQ5FbsARd6VlAe9Tx6zp/rnAZMDvGsvy
-	 8hriMyGzR1KiOhKkoF+I71euLBo3Q0hEZJGVeLWdypiUrLNaM+IfaNOnLPX39Hlhdr
-	 RQQ2vZIOUe0onX6EB2DI9ucKcpJjvRNL2fdrNajgRcZDHuJjWV/q7W5fGhNVX+8Bjy
-	 P41cLMzcV1cAA==
-Received: from yukiji.home (unknown [100.64.0.131])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	(Authenticated sender: laeyraud)
-	by bali.collaboradmins.com (Postfix) with ESMTPSA id 87E6417E0CF3;
-	Tue, 26 May 2026 16:59:25 +0200 (CEST)
-From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Date: Tue, 26 May 2026 16:58:11 +0200
-Subject: [PATCH net-next v5 6/6] net: phy: air_an8801: ensure maximum
- available speed link use
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cO4b7eaq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42FDB1F000E9;
+	Tue, 26 May 2026 15:03:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779807830;
+	bh=+rZSJLBmdmQ5TDTNTam+3vDjLLn8hPQyVj5Ex2NgWpw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=cO4b7eaqhuJSwFhFXIFYHnMi76Y8H3sGhZDVaUcsmkOYUyMqBED38lkmdSuEKh3zz
+	 EMWV7LG7KJ7bHCeRYWAZsOeouwNgBKsYICl9VbvcXbVkfvBG2SPey9xrSniSFyFM2n
+	 G9sznW4hAkIXHwTM/4Od3VwZLm989KZ6UNO/GE8n2wUfGOUN/gjjPDm+3kxGAUUxM6
+	 ULZetA2zNTYrQir5+BrLadNXo+HlyPBZDIymhVqrflbROtpmNcYraHwmuuoVQgAlmq
+	 PfxGVWGPnXE6n5MW3gVPYCOP0K+pV0VohphikWECT3t6ho7f8C1BPdtK09I56uQG2/
+	 cCEgaIJORcN1A==
+Date: Tue, 26 May 2026 17:03:47 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Hongliang Wang <wanghongliang@loongson.cn>
+Cc: Binbin Zhou <zhoubinbin@loongson.cn>, 
+	Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, devicetree@vger.kernel.org, 
+	loongarch@lists.linux.dev
+Subject: Re: [PATCH v4 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
+ clock-frequency properties
+Message-ID: <20260526-inquisitive-sambar-of-wholeness-22f99d@quoll>
+References: <20260526031021.32662-1-wanghongliang@loongson.cn>
+ <20260526031021.32662-2-wanghongliang@loongson.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260526-add-airoha-an8801-support-v5-6-01aea8dee69b@collabora.com>
-References: <20260526-add-airoha-an8801-support-v5-0-01aea8dee69b@collabora.com>
-In-Reply-To: <20260526-add-airoha-an8801-support-v5-0-01aea8dee69b@collabora.com>
-To: Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
- Russell King <linux@armlinux.org.uk>
-Cc: kevin-kw.huang@airoha.com, macpaul.lin@mediatek.com, 
- matthias.bgg@gmail.com, kernel@collabora.com, netdev@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779807555; l=2209;
- i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
- bh=qDIKeceRZQi8Kht1iTmljrU4lnSxyn0oEHL2dPnESio=;
- b=6olIzN9aEMnfSw8gvWsFpzgsQ2QyrEQpwURR/hnSZZuk3wyNrHv4JqSvAxvw44N9mUNGAoBQy
- 3sADk+71SEUBD7gsGYrXKlLSRNBW+437hj52O6IomH+0DItxEgJ792M
-X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
- pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260526031021.32662-2-wanghongliang@loongson.cn>
 
-To ensure that the Airoha AN8801R PHY uses the maximum available link
-speed, an additional register write is needed to configure the function
-mode for either 1G or 100M/10M operation after link detection.
+On Tue, May 26, 2026 at 11:10:20AM +0800, Hongliang Wang wrote:
+> From: wanghongliang <wanghongliang@loongson.cn>
+> 
+> clocks property describes the i2c bus reference clock from APB clock.
+> clock-frequency property describes i2c bus speed.
 
-So, in air_an8801 driver, implement a custom read_status callback, that
-after genphy_read_status determines the link speed, sets the bit 0 of
-the link mode register (REG_LINK_MODE) if the detected speed is 1Gbps,
-or unsets it otherwise.
+Not rally relevant to your code. We know what clocks and clock-frequency
+are.
 
-Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
----
- drivers/net/phy/air_an8801.c | 36 ++++++++++++++++++++++++++++++++++++
- 1 file changed, 36 insertions(+)
+> 
+> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
 
-diff --git a/drivers/net/phy/air_an8801.c b/drivers/net/phy/air_an8801.c
-index aa24bb182d64..f97c78e43023 100644
---- a/drivers/net/phy/air_an8801.c
-+++ b/drivers/net/phy/air_an8801.c
-@@ -996,6 +996,41 @@ static int an8801r_config_init(struct phy_device *phydev)
- 	return 0;
- }
- 
-+static int an8801r_read_status(struct phy_device *phydev)
-+{
-+	int prev_speed, ret;
-+	u32 val;
-+
-+	prev_speed = phydev->speed;
-+
-+	ret = genphy_read_status(phydev);
-+	if (ret)
-+		return ret;
-+
-+	if (!phydev->link) {
-+		phydev->speed = SPEED_UNKNOWN;
-+		return 0;
-+	}
-+
-+	if (prev_speed != phydev->speed) {
-+		/* Ensure that PHY switches to 1G speed when available,
-+		 * by configuring the function mode for either 1G or 100M/10M
-+		 * operation.
-+		 * Therefore, set the link mode register, after read_status
-+		 * determines the link speed.
-+		 */
-+		val = phydev->speed == SPEED_1000 ?
-+		      AN8801_BPBUS_LINK_MODE_1000 : 0;
-+
-+		return an8801_buckpbus_reg_rmw(phydev,
-+					       AN8801_BPBUS_REG_LINK_MODE,
-+					       AN8801_BPBUS_LINK_MODE_1000,
-+					       val);
-+	}
-+
-+	return 0;
-+}
-+
- static int an8801r_probe(struct phy_device *phydev)
- {
- 	struct device *dev = &phydev->mdio.dev;
-@@ -1093,6 +1128,7 @@ static struct phy_driver airoha_driver[] = {
- 	.suspend		= an8801r_suspend,
- 	.resume			= an8801r_resume,
- 	.config_aneg		= genphy_config_aneg,
-+	.read_status		= an8801r_read_status,
- 	.config_intr		= an8801r_config_intr,
- 	.handle_interrupt	= an8801r_handle_interrupt,
- 	.set_wol		= an8801r_set_wol,
+Please do not use login name as actual name. Your email has different
+Latin transcription than above.
 
--- 
-2.54.0
+> ---
+>  Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
+>  1 file changed, 3 insertions(+)
+
+Best regards,
+Krzysztof
 
