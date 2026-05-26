@@ -1,220 +1,101 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA7F43D75B1
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:46:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495A93DB623
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:48:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779788771; cv=none; b=jKGNypPux+wQfRCr/veHsm0LcIrF3Uv1Qo/0RoA7xQpgLIKbO1/ZvFC62ZgpWyNrf01Vohwy/J61UP6+RqlELa2div5Eo+p9Cbs/5E3bWTBUM+bMnudOHWuniQxezFur0JzStZ3WLEqjEZdxkLf24I2kBB1Ae0I3fkDdVy/uZXU=
+	t=1779788897; cv=none; b=BidjgRDVMCNCHMBK0cPBYyGrdZ4IaJvZ4P+xJhiKc+Pwy6fawamfwg1UjJHJDHF/z7B0v+UOq3/qmMfFPTOmuZAP6KeUdD09g2qg7dBbN1pH7gK2T2hp/0PN1R72KPKC4fvVghWSHBU/haAsrelCWJQwDvO7KQyHgeCYOxfArrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779788771; c=relaxed/simple;
-	bh=ZCAvrcBAJIXTnHEvSKz8Yq0JKkscj5TsSoJRyS3heaY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ZMtDVNmtVCxmCMofd4UVgZS+Of4xZizRHoqNETOz4BGgaTEoqwN9vZTDMqVUweGD0VxfOJuGKD7JjIhoN0SZf0Qy/HivgwXY5FdjJJ4AIabeAFbhEZI5ov0SDZuLnNBfwKXiJXyECJ+0zR/Zff5eG+yeHOZhB3yO3PrNsvp7WxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fr1+vbDE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VnBuMI1T; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779788897; c=relaxed/simple;
+	bh=6xgiU7UHk0fyH8OtVpuJExgRt0VbjZpUEjJ/frbR0FA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J9Vb1Q8BglISZCBvwSG65aUuqyPC2gA4F4+LYWNrXvo5MtR0mGDmrTza0hC/1TUwbP59POZIOaelScOvHaewjXx1XLyh+nPlbnBhB9u1yWvGVHMfDih+DKLdTwNip040stl9z60uxqlSXXbUpRfB26tlj+mACK1vXFdzXF7PZ9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NVZlTsys; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fr1+vbDE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VnBuMI1T"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64Q7KnFE2041057
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:46:09 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	+tNWCjXxY3vDlbxeyc6dAiioLTzJiUtHmEfK77uv8QU=; b=fr1+vbDENVQY5Zkc
-	AWKEyhljX0yFvxH6I1SvWUMTfp19xN/S0yh+TGoyD9Cl2mMP1B+cxYr4CMbB+3HK
-	i6mgb6GJt0ChQnVW/edYstQ2ZQ/3qEyz7787O7HhTjAw4XPZE3hs5gii8npI7Amv
-	SV4YTLdzF9yQsyRYbZhe8MXQpEJ8I1OBPDETlM0oT+VsBZIO/86gjRfEn9vRxRhD
-	fa7RK+Fn5PB0Yls+1QT2cAgdVoCp2+ET9/qfV+TNX1+bxgF2y68cg7pgqK+nzx0o
-	z9PP/dkyTpf4v2k4Ml/cIFZEvKeM5ltrMipw4x5NALhFjWWhKMw9d8b7GJjlf880
-	lK0fmQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecpy2kgcd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:46:09 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ba15e384c7so72057475ad.3
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 02:46:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779788768; x=1780393568; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=+tNWCjXxY3vDlbxeyc6dAiioLTzJiUtHmEfK77uv8QU=;
-        b=VnBuMI1TbZBKQ34ChVJFTVJ581pMrscHMt/ZxDDDtXbNvdk+5dbGI6vVcHo/krt1Lr
-         l6Xo9bnGE5zvJWHOAzMEaUM9fyCGrQaeJxeV70X8y0LsjEDY36lhXnI14EEHu7QBIKkD
-         ypPdArXCTba+KbIIamJ+5M9so4EI3mjhzWntGGE/F5lfszIRuRabmBe4W9NDLgtJV+mf
-         ICHUASGVX9Bb2pYSNhlR223M1LOrjsOnTyeO7IvRliTW0KquZqj/tq5LD7k4Lg37MyFa
-         /SUTerOC80RbmOqA+v1gVaDTWKic2CHqwCqoaRGReMDpb7qaiq9Nda79xIByORjrPOYJ
-         hzFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779788768; x=1780393568;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=+tNWCjXxY3vDlbxeyc6dAiioLTzJiUtHmEfK77uv8QU=;
-        b=sHkJEOdy94xulLj6TvRHs9UTpUNiZ8cyDsnJBm3dJK/yHU2i9FpTP7NWbznj2qUkQN
-         6WNOrZpFYUZZra2x7j3v6pp+k9Z4pXVzUOlwN9aqxq7WHuqeySkTralZZNjsvh051kD3
-         QcivNwc83lTg//pSEQLkcbB5vVBck5OaXE+xi3qH1kVueMqhXTDMWNPcdT2xOnl9EleZ
-         XnuFT4eDNBPxPZ6mX+AD/LpAN7YpQ9eirvtaBZUEk+VRvza+8DAqKG9CvfSPeLx5VsGt
-         BR0M7lf0ZtP6+XqpG4ofpFIkOVj20bqDvhXJ7+HSeRQOTaUxEiecGd4iesCaC/v0+eak
-         W5JQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+2QpnDJyH7fhMsKZZxJFWthyIXF0FTN2LCEntOGX31TBROEuv7l5eIad+DRUWCUa7F0+9B6ojf1Hy/@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8Tca4jnsgjSs7Sjp5rTxpRTD2p0VnBEvJfVByUKO/vRzPeEAH
-	znPKYV2Jx+THl3EIsvGyHoUXwLcvqhsYX7HoTBjL2BLj5sXsICw/Opc7tHQt+Ya8IQa4qB5wHZ0
-	42pLohaO0iyhnygdpBcSLU02dSHTg+zn1C/PiK/pxiuqxRvKAl+CGx7Owpv3LO5VSUwaSWkfO
-X-Gm-Gg: Acq92OEUygnzWmWSfotxKHlycBsxosCAZPkA+1v1wH44VN6GGjhwlBW8gSk367ycvuQ
-	7sDCZDPuRbZCXNDVqvcNnPiBLVy1a4DHZvQ6B5EsiDXT5oTeM/V/wPGTvvAbsOS0zqZGDNe0VQS
-	TKcuOFrMCIRe6GmM/sC+yjxtflxD4n0FoLDnt30kGk9FXikj0N84T0OaVL2OFFJRFHrDPznAoDT
-	9Jl0zNdhHAH1j2vhfGbTQ9vwoEkE3JNaKCvMAyGVQ3g01d95rTwcOFZ7Hn6g+JkkL7DG+ykbEgK
-	7rALDMhLOBJA8AsiZTqT0ziuT0BogVJCXW3A3rjLtEAGw9Ad6bR1M6Mex3RhkyPnnmQKDabTfPA
-	3qEbFzs3eq7ZsMxUSuGOAxRXGsHoGtxU4/AYJrBSgOgWQK/JcD/MsqEDk
-X-Received: by 2002:a17:903:41c2:b0:2ba:e42a:231e with SMTP id d9443c01a7336-2beb064837dmr200645555ad.37.1779788768352;
-        Tue, 26 May 2026 02:46:08 -0700 (PDT)
-X-Received: by 2002:a17:903:41c2:b0:2ba:e42a:231e with SMTP id d9443c01a7336-2beb064837dmr200645035ad.37.1779788767805;
-        Tue, 26 May 2026 02:46:07 -0700 (PDT)
-Received: from [10.219.57.109] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb58b2ebcsm121223885ad.49.2026.05.26.02.45.57
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 May 2026 02:46:07 -0700 (PDT)
-Message-ID: <f2eb5c9d-a78b-401c-8796-f7ef7a8d7386@oss.qualcomm.com>
-Date: Tue, 26 May 2026 15:15:55 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NVZlTsys"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3AF51F0155A
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:48:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779788895;
+	bh=6xgiU7UHk0fyH8OtVpuJExgRt0VbjZpUEjJ/frbR0FA=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=NVZlTsys9BWdtHzTDLDn5rfEhTbtLxyyJGzF9yhWAnDRt41GZGQkchM1KVUs4BE+V
+	 1ZfotqeJQVRfUIDBM6RJ2k1gVu2eBPsu9O+FeP6SXfWF/fNjDthrrS7mHTkNCjm0tu
+	 z8lXLoRuCz3oM81VIG4KNypW0wZMBD+C0W5bBLTTQrUkpCxFSnVeLs5s6QmfusqyrK
+	 2DZ+l73jxUWSahhHCjeNnze7jpJ4/4lfxQqN/demRkAnfOOJj/aQiLbtdK7j/e7uRU
+	 bs0KQ9vbAJ0Tk2r4RTaxzHBYygw2z2HFkI95yphzgxLV8SHOsGkb3Hm9fXVZm2Odf1
+	 r7Hx6MJKvNEGw==
+Received: by mail-lj1-f180.google.com with SMTP id 38308e7fff4ca-392445f11c5so105831741fa.1
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 02:48:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/0hXynEDPKcYVEipXJJHpO2BQCLDvXSNnQHfoOPZrgaCW0iZR11btkDoZm4/d3yOijhAL+6fV31f8l@vger.kernel.org
+X-Gm-Message-State: AOJu0Yztpk4w+NI9UcDUFWRXq4G/sHR0PbAH9dJ9kdd8dTxZCocmMJdK
+	PmNNQJkJF371wmLRgJfxjLV5s/EIoz67amhvcUeyzikK7FnblMLQxRlbwun+cL6tjK1fja5XwS6
+	GLfBU6lRnO6rOtGASyMA5a0gDYRmYdl+0bHX5heXuMg==
+X-Received: by 2002:a05:651c:20cd:20b0:38e:94c6:b706 with SMTP id
+ 38308e7fff4ca-395ca1c8679mr43054031fa.7.1779788893678; Tue, 26 May 2026
+ 02:48:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 0/3] of: parsing of multi #{iommu,msi}-cells in maps
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Nipun Gupta <nipun.gupta@amd.com>,
-        Nikhil Agarwal
- <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>, Marc Zyngier <maz@kernel.org>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Thomas Gleixner <tglx@kernel.org>,
-        Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas
- <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-        Bjorn Andersson <bjorn.andersson@oss.qualcomm.com>,
-        Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Prakash Gupta <prakash.gupta@oss.qualcomm.com>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        linux-kernel@vger.kernel.org, iommu@lists.linux.dev,
-        linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-pci@vger.kernel.org, imx@lists.linux.dev,
-        xen-devel@lists.xenproject.org, linux-arm-msm@vger.kernel.org,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-References: <20260520-parse_iommu_cells-v15-0-b5f99ad4e7e8@oss.qualcomm.com>
- <20260526-finicky-crafty-hare-eae27c@quoll>
-Content-Language: en-US
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-In-Reply-To: <20260526-finicky-crafty-hare-eae27c@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: lllYNbPSNFECCmTTrhgD0edoKS-uoYCF
-X-Authority-Analysis: v=2.4 cv=ML5QXsZl c=1 sm=1 tr=0 ts=6a156be1 cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=Jo8nEopC4ZUABtMbiE8A:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22
-X-Proofpoint-ORIG-GUID: lllYNbPSNFECCmTTrhgD0edoKS-uoYCF
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA4NSBTYWx0ZWRfX3MBElqSg3zNG
- stQytTMrHCliJD4DD8lyO0eEmvLg+Br2PIEjakHF2arvUz4vbgzIumianTmXgr9/7+iqGmggIr4
- z1qxp7+/ZvKiOzJWRx4K2P6qobu5FCTp7xKct4U1OaOlrCkR7M4JfAIBFXg5sCyLkweHDyfS5wp
- 6Lg+PSl3zUFWtN+/Cp+3rIfD1Q/IdHFsOvItJPfFMyNODBAI3Yjx38QVap49f1JGPUQHC5Bvd+N
- w7SJpr5wFLic6bSCL7zwUXYwmy4x2xLlFdY5cPe5aM+i5Mf2zA3EvYKBghDEyJtDztvbQrKsr23
- yd1AKKHmhDIv2Eb1aBJobHoyeMxa4qR77gL7ofPghX1PNZSqV/kM+vj/vjlnBo6rFKHhzwFAZGw
- YFJicRTQT0/a6iNa6P7aiK6CaiEVC/EHYc8XIQCxjHlOZKOiWGEfYvXt89pJsZ5SrgfxhqUrS6E
- 2F/l2JTmoqpoiK7YCow==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-26_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605260085
+References: <20260515090149.3169406-1-wenst@chromium.org> <CAMRc=MdnjRRMVzxPkkrPhQ4dz7rsK8-HKUp9cQ0z11apL3escQ@mail.gmail.com>
+ <CAGXv+5HC3dqgcE3KnKzakHHWFHB6m_X42orOkNUvZvp=SL_O8g@mail.gmail.com>
+In-Reply-To: <CAGXv+5HC3dqgcE3KnKzakHHWFHB6m_X42orOkNUvZvp=SL_O8g@mail.gmail.com>
+From: Bartosz Golaszewski <brgl@kernel.org>
+Date: Tue, 26 May 2026 11:48:01 +0200
+X-Gmail-Original-Message-ID: <CAMRc=Med-_0GSYzoFBRiwFzBCK0DZqJD8_SEBxi+zwR20GS-HA@mail.gmail.com>
+X-Gm-Features: AVHnY4JnWCndh1h2w4rgycQThCJN5e2R-74Cpg5S6rpAEGBFVHeaeEFDCnabd1Q
+Message-ID: <CAMRc=Med-_0GSYzoFBRiwFzBCK0DZqJD8_SEBxi+zwR20GS-HA@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/12] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, May 24, 2026 at 10:06=E2=80=AFAM Chen-Yu Tsai <wenst@chromium.org> =
+wrote:
+>
+> > >
+> > > I expect some discussion on this patch, because a) it adds some
+> > > OF-specific code into an otherwise generic (core) driver, and
+> > > b) it doesn't yet handle USB 2.0 / 3.x shared ports; it ends up power=
+ing
+> > > on the port twice, which negates the port reset part.
+> > >
+> >
+> > I understand that you do this because the port device has no OF node
+> > assigned. If we wanted to call pwrseq_get() for the port device, is
+> > there really no other way to associate it with the correct pwrseq
+> > provider?
+>
+> I suppose we could tie the "port@X" node to the usb port device, but
+> AFAIK no other subsystem does this so we would be introducing a new
+> pattern.
+>
+> In the M.2 pwrseq driver, we would have to match by port node instead
+> of its parent device node. We may end up with different behavior for
+> the USB target vs the other targets.
+>
 
+I imagine, we can check the bus type of the parent device to know if
+this is USB?
 
-On 5/26/2026 11:42 AM, Krzysztof Kozlowski wrote:
-> On Wed, May 20, 2026 at 01:32:39PM +0530, Vijayanand Jitta wrote:
->> So far our parsing of {iommu,msi}-map properties has always blindly
->> assumed that the output specifiers will always have exactly 1 cell.
->> This typically does happen to be the case, but is not actually enforced
->> (and the PCI msi-map binding even explicitly states support for 0 or 1
->> cells) - as a result we've now ended up with dodgy DTs out in the field
->> which depend on this behaviour to map a 1-cell specifier for a 2-cell
->> provider, despite that being bogus per the bindings themselves.
->>
->> Since there is some potential use[1] in being able to map at least
->> single input IDs to multi-cell output specifiers (and properly support
->> 0-cell outputs as well), add support for properly parsing and using the
->> target nodes' #cells values, albeit with the unfortunate complication of
->> still having to work around expectations of the old behaviour too.
->> 							-- Robin.
->>
->> Unlike single #{}-cell, it is complex to establish a linear relation
->> between input 'id' and output specifier for multi-cell properties, thus
->> it is always expected that len never going to be > 1.
->>
->> These changes have been tested on QEMU for the arm64 architecture.
-> 
-> So there is no real user for that. That's unconvincing. I would assume
-> that at least you have real user where you test it.
-> 
-> If you want to speed up acceptance of your patches, then also I would
-> prefer to see at least one more user, beside Qualcomm. IOW, show how you
-> solve other people problems, not only yours.
-> 
-> Best regards,
-> Krzysztof
-> 
+> Also, the "port@X" nodes only exist for the OF graph connections to
+> connectors and/or muxes (this series doesn't deal with the latter).
+> For directly connected devices, there is a "device@X" child node
+> directly under the USB hub node. That node is what gets tied to the
+> the USB device.
+>
 
-Hi Krzysztof,
+Is this a problem? I don't think I understand what you're saying here.
 
-Thank you for the feedback.
-
-The upstream user for the multi-cell iommu-map support is the Lemans
-platform's VPU device, which requires iommu-map entries targeting a
-2-cell IOMMU node. We are currently working on the glymur series [1]
-and once that is finalized we will post the Lemans patches as well.
-
-That said, I think this series can go through independently for the
-following reasons:
-
-1. Correctness fix: The iommu-map/msi-map bindings have always
-   specified that the output cell count is determined by
-   #iommu-cells/#msi-cells on the target node. The kernel has been
-   silently ignoring this and assuming 1 cell. This patch makes the
-   kernel respect the binding specification.
-
-2. Backward compatibility preserved: The of_check_bad_map() workaround
-   handles existing deployed DTs that target 2-cell IOMMU nodes with
-   1-cell entries. This series has been tested on the glymur platform
-   [1], which uses iommu-map with 1-cell specifiers, and the existing
-   parsing continues to work correctly.
-
-Thanks,
-Vijay
-
-[1] https://lore.kernel.org/all/20260515-glymur-v6-5-f6a99cb43a24@oss.qualcomm.com/
+Bart
