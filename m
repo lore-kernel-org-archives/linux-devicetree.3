@@ -1,124 +1,142 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452FB3FB07E
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 13:31:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F503FB070
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 13:33:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779802318; cv=none; b=ktOpImo5JSVh8tWsggNIvvrmk6OcoYV5sZ/zU3duO01wTAarasV4Wn538WNKjsG5ETmyVL24PwsRCrhbtRQLUnKHFp2jNukMyTA3rSjFj9b3M2K4Dz4uHYQ1Q3UtT2vphW6kcSJH23I6CzmzCD0PkmF8y72ri48571EVQycqWuk=
+	t=1779802398; cv=none; b=QRokI1Xw0WJZn5kmIj7BaPYtf5gN2UPObYLakylRUPxHMsIBw9byQ6Gmah2FMYy4YBr44qbdS6y037VyThciuAwwxuy8G5YE3WfDNyIUfUe3w8P6PFezkCyWioLmvtOlMlpqkH9TvRY0rn3nNASF9vP0ElBpUfy4iDNILVVkutU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779802318; c=relaxed/simple;
-	bh=u1ZxeAc19H3I75eYjPO22qxUQ5RQA6sI/ieAA9yHFvU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mrkTaW9uTfBphFR31DZci9mc99ySn95FWz/Z+FD72VL5u143ZMv5O8SvAuFn9apfIEY2hahMANFpD1oTJVSoyLHkPhl6IOyviMdi5iZyXZTWdIcKj9PrXF6jY0A8siAXkAuaE2JxAoWV67TwP9tpiXcnhEsm1FwbdCJZZN43mcA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FaFpYZiY; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779802398; c=relaxed/simple;
+	bh=RwSgfu+aimDDshn4/Mvmy5847N692TWKcIF/53HFfsw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=quwA37EMRuvkjvyWP9mAETocmw5ZqFsIqqiVxSPKvQkL3jkBaTNTU1tvmuVh212EW/BtqeG1wZV55tjNJqIWYjikNyk/SkFvqbGaFv2iRuVh9FBpRnsycxZaQyiDVI5j30JmDLaztY7WCrDsSxLnBVgXd3pLRCOqURSZsWxapA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=c23KoPgu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=jkJ3tsNw; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FaFpYZiY"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-44e5624c053so6349044f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 06:31:50 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="c23KoPgu";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="jkJ3tsNw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779802396;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=LySWU6z4ou6sFqqDsgWsKWCcfiqiidI/mEwHVACYugw=;
+	b=c23KoPguu2WrhzXj0q9PDo/lq2yGKs9cXpNlrZGI7bGVkquCYY/sD7Wh4k2+YoZGqtKmwu
+	S69yjzESB7vzduilVnTlfjQd1Lbkq7OFxkPkvzyqGMCeg28QtUBiWkKoD5bLzxRBXE1dag
+	V2Fu4zMaF9C8rYCJ01T1NUx1Xt/uX3A=
+Received: from mail-wm1-f70.google.com (mail-wm1-f70.google.com
+ [209.85.128.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-59-cavX7iRGMR-HsvqysBGMIQ-1; Tue, 26 May 2026 09:33:11 -0400
+X-MC-Unique: cavX7iRGMR-HsvqysBGMIQ-1
+X-Mimecast-MFC-AGG-ID: cavX7iRGMR-HsvqysBGMIQ_1779802390
+Received: by mail-wm1-f70.google.com with SMTP id 5b1f17b1804b1-49050c44bcdso41594025e9.3
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 06:33:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779802308; x=1780407108; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xLO7DOU1ouh67wd4NrLBkCSh/jnFkIqwlgXZjoPnVfo=;
-        b=FaFpYZiYG8kkPPU8xAUK0V1ai0Yrr41pASF/JQ+2Ywq7KfHjbjK9CWyTrczbjy04Pt
-         DLq8Oxg1534SpO1GC5aMMNMIE90jX6JvXqHP0+eoBA6H0HoMaBX7pvW/nUrar+YKMtYc
-         iPbwNUPNemE6g1gJ6YVrQ1iyYXdu7JfafFLgfJtrFy6NhgiQUZR81y+1y3087PhFbqZW
-         uXg9kNrku8POn98YwlSrcaKysrobJ+7YKFMZej+oyHkY8u7+fi6xBbhiW6jDJjmzRHmk
-         0iKD8hVITO3N1AEOM5nILjyAemFyrbZiVwyTe5OVvNSLuyx2+XAdcPQOVIvWTOkHgIT8
-         ixWw==
+        d=redhat.com; s=google; t=1779802390; x=1780407190; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LySWU6z4ou6sFqqDsgWsKWCcfiqiidI/mEwHVACYugw=;
+        b=jkJ3tsNwwKQekizCCJOgHjw7qdCMFFd8XrhancNI1TKv21I8fEGwllmMGeIZMZ9TpH
+         I8YNXFp00seBEO3wSVWd37UXuKM7JMzb5sR8sw6rO2F9/Egx1NR0g9kq5kS9Ib5wUHdS
+         eFnKsuy7nJ/3PaD1jFVfKXXZMRnjsc13XSiD3boFz/v2Pc3biIDnAKsnTMEahmwh0OVH
+         n7fkSvuuwaBxumRf7fe9eGogv6+6JL7iHzjEVmCmAjs+ZW2SF1S2AKfVTjXh+VV8J5xT
+         O1xfM2z3EvsWVw+9napwBaJpPmgyABOhdf3gP7LxMt+6jxUPbV4pfj78EsdJ82OsY9MN
+         6zzg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779802308; x=1780407108;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xLO7DOU1ouh67wd4NrLBkCSh/jnFkIqwlgXZjoPnVfo=;
-        b=FWYUETkCkJOoDB2KOTZBAKF9ppVED03evUfm285yytZVow25aqvKUGaMyXKrwzA1a5
-         SEhL5kUwhvqJ5MP2keoG/vgnJCeB0RuFp7qvEpchQU7ZjZI20RgaaRcCzf+MpdyksWNY
-         YmxUq4f1QCxT6JtabN1GcUyuhPvU8dJKzRtYceERb7kIL9nTOHv0+NTI3S2t79f5XSUL
-         ZC7B7h2s0KbdYTQg9kvbt/bQtA6kTVIW6k6YBHvPd7aVT0x8IhxvYqtpHmn8rYf89qEp
-         4ovHhiyk1m6x2eOF69VTTxYKL2legEc7UXwYO6NGV5tuZoF9FjS2CF9WVaXJgABjpe3K
-         qxHA==
-X-Forwarded-Encrypted: i=1; AFNElJ/MUBTDEF+a44nGQjUFb6h6YWLFU/2vARKMW1/jBrbmcSjngNxu7fe2oZXtETb0D3nOODJurYWDelvp@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIYPaw8N2tc35Zh1TeLSdXfXkVbJ2kJ3ZeJoteaNHmtIOcQv1k
-	j7I97C4ru4cu9riznr/GZ2WcPuxeiXFCvvzC8doX9r0Yd4JN2sUi3sAx
-X-Gm-Gg: Acq92OGchcAJNl8Cmhj5D9mOYGS/P/vW50zzy6TCSgF0Gi8EGJh4C6vsI/VAH7lIq3A
-	oX0m5u35IfRMjr8Wjc63AA5cyPdhN9Jyj7M2M4uBcJBHojXdBsrvVdx6kY8V+kosw1OoRXV33+w
-	R+h1uoYOQTawxTC7pNUh+53k7f83wWjbho5TIvVWKqSnJOs2U4B5pW1oG1tbmP9VNssw3Dp3t91
-	2m78m0nWjis6iwY33mmqhXDNCzgfMfT1S36t6Ta/JRM6L+EKJ2xK2w6zIMMDwDsGWXG8yofksuZ
-	vSLGKxFBI8BEDIRmCnne6w6p5yTuPI4h7drGw3dkssX/GLFwEu8TzILZnZZFw63KpfP+YnebSpM
-	pRJw8l0LyT8b8nm3dHqMl8mVZJDXUqQPd0d6lbI0CPxS5f3CtCOF2KyBtFyX5yosKIi864OCuzP
-	T9cdyvGQduFwyI4cMTj2XzYRhJTA==
-X-Received: by 2002:a05:600c:a402:b0:490:3f7a:108b with SMTP id 5b1f17b1804b1-490426c5be8mr262860365e9.16.1779802307589;
-        Tue, 26 May 2026 06:31:47 -0700 (PDT)
-Received: from [192.168.0.39] ([79.133.247.80])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490452580dfsm170958895e9.1.2026.05.26.06.31.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 06:31:47 -0700 (PDT)
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Tue, 26 May 2026 16:24:31 +0300
-Subject: [PATCH v9 8/8] arm64: dts: qcom: msm8939-asus-z00t: add Venus
+        d=1e100.net; s=20251104; t=1779802390; x=1780407190;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LySWU6z4ou6sFqqDsgWsKWCcfiqiidI/mEwHVACYugw=;
+        b=m6RIG4YuthDkywN8FEG2Q6pSaEbG7MDFi95ZwJ8uvi+AMj9WzBXSX3C06akiaKE/gg
+         ACXzeMAafK7OYwFGqe0FGa6NdAiGlIbTrAGgfrXjCMT+FraDKVXLLze6p93baw7ikMzn
+         XFJeewLg23qXP+Coqu0hg4ZVc21bpS8mfuv/sOgCdfhX1vnQSQDkvlcPbWWjZK2bpjpo
+         NNcwq/BbPs6Yl8WLrmpDu+CM1bUBiWk8Xr2qUnlrFTF7HtQLYW8z4uIbTEOW6FCfX2R6
+         Yo97O03IUdzNus/MNQ6zJxglH9F0N9LHFiOwCt70D5fvz5S+abv6IQP+SgFBa4su6c1z
+         TT9w==
+X-Forwarded-Encrypted: i=1; AFNElJ8Hxjs4b26uERTqlFRUENRz4TfnPinYxAwz7IJjaYBlcA2XYT3ww5gFDRnRoJv/QZXfl979IRfMfhZg@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywc76BloQPWo2Sg8UzYEJ71qtjDGhEpcR+vj+tu3tg2LiomEsjd
+	AzQ1tEOJ4KBnEazY1Vdk1FLxqE/Zk3VB++YHMzFXNt6VkwYliOs9/DXEOvP6Cyd3cpQnVG9ADfL
+	QcNh6xNYMsyBDULN0k5t7XOZbdEYWhWKgBf+jG6h8fCbx39ji/n+mUkiiP0O0hww=
+X-Gm-Gg: Acq92OE3IW5nlUqqQlphxHIn1psDxGN4t7kppO1gpwFJY/DEyG/3ik+BsfMOL4yjOQW
+	XuINy1vGfcHbXj/eBXJv0EQiw3lQjJeeCnk+/StndoBOXEl2/PP1qHCVZpWp94Z83l6oDQxUQZm
+	Qh2ksaGTfZjy/9RoDC6YX63dFNCaGrfjCG06wZU2RS1IqDP6qXShqhtTes+9dawe+Rzfb+6BMz5
+	uEXgjbJtvPYtN07oDGtpxRSIaOpKGRx+aI2nMaULub/OzTplgA4qrNu5dOnoBikNNsTKP3JLJww
+	emSObY8TMsSkbf89ssAeJ67fTjbxSa/G3kbVkrIZiRmZ1UkGAaRNRGjQRcSt+iq2fNYGaz9Oqp8
+	wGCIuk9K1lFgkQBs4MGoUIhFU5QOYdaHwuoYXJuqcwTsBZs+AywhZ9qXJNQ==
+X-Received: by 2002:a05:600c:3b0a:b0:490:60cb:560b with SMTP id 5b1f17b1804b1-49060cb57b1mr182636095e9.28.1779802390010;
+        Tue, 26 May 2026 06:33:10 -0700 (PDT)
+X-Received: by 2002:a05:600c:3b0a:b0:490:60cb:560b with SMTP id 5b1f17b1804b1-49060cb57b1mr182635215e9.28.1779802389499;
+        Tue, 26 May 2026 06:33:09 -0700 (PDT)
+Received: from [192.168.88.32] ([212.105.155.152])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490428e6d68sm112189255e9.22.2026.05.26.06.33.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 May 2026 06:33:08 -0700 (PDT)
+Message-ID: <a387630f-6954-4d21-bde1-68773d1228e7@redhat.com>
+Date: Tue, 26 May 2026 15:33:06 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v2 3/5] net: dsa: tag_ks8995: Add the KS8995 tag
+ handling
+To: Linus Walleij <linusw@kernel.org>, Woojung Huh
+ <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>,
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org
+References: <20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org>
+ <20260522-ks8995-to-ksz8-v2-3-5712c0dc9e75@kernel.org>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260522-ks8995-to-ksz8-v2-3-5712c0dc9e75@kernel.org>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260526-msm8939-venus-rfc-v9-8-bb1069f3fe02@gmail.com>
-References: <20260526-msm8939-venus-rfc-v9-0-bb1069f3fe02@gmail.com>
-In-Reply-To: <20260526-msm8939-venus-rfc-v9-0-bb1069f3fe02@gmail.com>
-To: Bryan O'Donoghue <bod@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- =?utf-8?q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
-X-Mailer: b4 0.15.2
 
-Enable Venus video encoder/decoder for Asus ZenFone 2 Laser/Selfie.
+On 5/22/26 3:21 PM, Linus Walleij wrote:
+> The KS8995 100Mbit switch can do proper DSA per-port tagging
+> with the proper set-up. This adds the code to handle ingress
+> and egress KS8995 tags.
+> 
+> The tag is a modified 0x8100 ethertype tag where a bit in the
+> last nybble is set for each target port.
+> 
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-Default firmware paths work on Asus ZenFone 2 Laser/Selfie, which
-means firmware-name property can be left out.
+Does not apply cleanly to net-next, please rebase and resend.
 
-Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
----
- arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts | 8 ++++++++
- 1 file changed, 8 insertions(+)
+> +static struct sk_buff *ks8995_rcv(struct sk_buff *skb, struct net_device *dev)
+> +{
+> +	int portmask;
+> +	u16 etype;
+> +
+> +	/* We are expecting all received packets to have a mangled VLAN
+> +	 * TPID, so drop anything else. Because of the non-standard TPID,
+> +	 * don't even bother looking for a tag in the hwaccel area.
+> +	 *
+> +	 * We have to inspect the ethertype directly because skb->protocol
+> +	 * will contain garbage.
+> +	 */
+> +	etype = ntohs(*(__be16 *)dsa_etype_header_pos_rx(skb));
+> +	if ((etype & KS8995M_STPID_STD) != ETH_P_8021Q) {
+> +		netdev_info(dev, "%s: dropped ethertype 0x%04x\n",
+> +			    __func__, etype);
 
-diff --git a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-index 90e966242720..231a3e9c1929 100644
---- a/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-+++ b/arch/arm64/boot/dts/qcom/msm8939-asus-z00t.dts
-@@ -267,6 +267,14 @@ &usb_hs_phy {
- 	extcon = <&usb_id>;
- };
- 
-+&venus {
-+	status = "okay";
-+};
-+
-+&venus_mem {
-+	status = "okay";
-+};
-+
- &wcnss {
- 	status = "okay";
- };
+While at it, please avoid printk that could be triggered on each
+incoming packet.
 
--- 
-2.54.0
+/P
 
