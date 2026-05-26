@@ -1,152 +1,87 @@
-Received: from mail.ozlabs.org (gandalf.ozlabs.org [150.107.74.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B14B03D45FA;
-	Tue, 26 May 2026 09:16:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=150.107.74.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B86C3D3492
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:18:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779787011; cv=none; b=PgKO4PSKQ2qgKHAB+bEPPNfoVn1smxsihD799XOiXJ7SsrkBZ3ojmNK3nVApUoFWJBat0DYzX4Ah6t677tLUC8mT9iTf3SrHgqIyJuJpGyqGxQ+Fdivk6Otye65uhe0EhzpobfSpY41AFaJ8lQ/Wj8r8/X6H9+Gitsh1QswVabk=
+	t=1779787088; cv=none; b=GLGiiHUjFPYtFySXzIsgMXOya3VX3w1RnxQ65qzm+qtjcIkdZGuKLAhD/JpkTtVOJZWL3jFGPYPhug72l2dr3+eg3tMXiQOLmY6PPd8V+fcbiMD6gtJnIQ91mzqo2oNCeByw0+XtrjY+jN+ZNttClJoFCMTsatq1wztJpb8HOt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779787011; c=relaxed/simple;
-	bh=BP9cn15ZhN4Y66iRzKKpcKOKtn7Xsi0XDPeBNbnFEWw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pbZbvAQZQLO+H3a3JzZ8utONqsGDmMBTAybZob+B1ECOFtdarnrFdhcDovQOrrQQ+idgzg2ADlEVfv+QKnYsic3/fcE+b7CT7jR5FrPXxZORwhBZTIPSN10PSg6Ks5KYVje6eJeR4PO3gHywpJDu88ppy1Yya1jyWrgqJFMVBzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au; spf=pass smtp.mailfrom=gandalf.ozlabs.org; dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b=bFIUdpME; arc=none smtp.client-ip=150.107.74.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gibson.dropbear.id.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gandalf.ozlabs.org
+	s=arc-20240116; t=1779787088; c=relaxed/simple;
+	bh=HaCHpZ8Jvr+yhV/3zlly2KZcPGlzsNeDwNvZeKaEb9A=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=bsXOSvigc72rJORD+pBnA2QJYx0MW1/tmO8rlKjQ+9BO4K0+dWj+72nGQs7rnj6+J4Jw/yXBbkFHaLREWZT/nHHTeNAIzOT/P3BY1zqjkh6LCk/WPuw0LIDrpH003yI6gsRPWtm/n79EYbs3DSfrHk9NoeCwP+jx6LKuOBUW/9M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNCZwn6v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gibson.dropbear.id.au header.i=@gibson.dropbear.id.au header.b="bFIUdpME"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=gibson.dropbear.id.au; s=202602; t=1779787000;
-	bh=uFL0kwpYH5xYLFC2QgP8jp9lOSLZnERss/OQfiKILlI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=bFIUdpMEVIrFJ+ix4PJJJRemrb7Oc8emQhtlTqtG0A2GykaoUnt0sqCpf++xai8pL
-	 Vaj//dycuTJKFxGoOkSN++lzQ1DuHmyojjv3yU03l/j7qllHqDf3flBrV/chxFomSU
-	 8ui9smLUkMGY+o3XmARs2yXX1OUNi7/Jk5y7nhe+4PmmwUfTq4gSVinNtTMsFbd/3d
-	 C/BodYS96020JcdCp0oV2cwX77W7l1M4Z+j2kqEun4yHlmw/0QwESZKbXzmkB+ZIsV
-	 bQmOJrHmissdqlyX/20v1x2ShuqQqvaUfjWEKaY6n8C8//xyNuawKTYh9EwxZVmHCd
-	 +egpg0ZnfCJWg==
-Received: by gandalf.ozlabs.org (Postfix, from userid 1007)
-	id 4gPnF42Jx0z4xRh; Tue, 26 May 2026 19:16:40 +1000 (AEST)
-Date: Tue, 26 May 2026 19:16:29 +1000
-From: David Gibson <david@gibson.dropbear.id.au>
-To: devicetree-compiler@vger.kernel.org
-Cc: devicetree@vger.kernel.org
-Subject: Re: DTC 1.8.0 released
-Message-ID: <ahVk7cy6XnpF3xaZ@zatzit>
-References: <ahVka0oWJ3RApioU@zatzit>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNCZwn6v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974891F000E9;
+	Tue, 26 May 2026 09:18:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779787084;
+	bh=Idn2QWCE2Hph4NT9PLQI+/aoKLgElIcn1Ab2J3XR5Kg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BNCZwn6vYArXG7TxPEc1kSoVK1EHVQxcK2NDpfVMRDzoosdHX/RJ9BC2Aq5N5VS9T
+	 lheP3Qc2NcyLWfudNRUjdZZRRI4MqnHEMHw1EMZ5s+q9hD4OllTKC/Nw2ZrIdA9iV2
+	 slWmbHSWOxU9H3tJfSqFjiEGEE5S9Kyu6s4UEs38Aa7PMqvmOCfVebAalQXxxKF8Iw
+	 fkfsuuyZlcFRY31SbdzByvGaFURRXASH+LC3O90CWqqbRZVE6bbe575IFJFDnwLcZN
+	 x7u1M4PGcRqIxTuzuB4J34/euopvvFJFfBYTDnoIm+w1vUGiz1cLam6/UiwANEWauo
+	 BHFB9oDgCac7g==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC RESEND v5 2/6] firmware: meson: sm: video firmware
+ loading via secure monitor
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Zhentao Guo via B4 Relay" <devnull+zhentao.guo.amlogic.com@kernel.org>
+Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org
+In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-2-33bc817f93f4@amlogic.com>
+References: <20260526-b4-s4-vdec-upstream-v5-2-33bc817f93f4@amlogic.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 09:18:04 +0000
+Message-Id: <20260526091804.974891F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="X5TyPcbBzOzOErrT"
-Content-Disposition: inline
-In-Reply-To: <ahVka0oWJ3RApioU@zatzit>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch series is incorrectly ordered, separating the enum declar=
+ation of `SM_LOAD_VIDEO_FW` from its usage, which breaks `git bisect` due t=
+o a build failure.
+--
 
---X5TyPcbBzOzOErrT
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 7da77dd38d2ea56fe7b57e246847b5cd118fd85e
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-On Tue, May 26, 2026 at 07:14:19PM +1000, David Gibson wrote:
-> DTC 1.8.0
->=20
-> Changes since v1.7.2 include:
->  * dtc
->    - Add informative error for stray identifiers (e.g. unexpanded macros)
->    - Better decompiling of plugins
->      - Restore labels from __symbols__ node when possible
->      - Restore phandle references from __local_fixups__ and __fixups__
->        when possible
->      - Improve type guessing when compiling to dts format
->    - Add only new data to fixup nodes instead of complete regeneration
->=20
->  * libfdt
->    - Add fdt_setprop_namelen() and fdt_setprop_namelen_string()
->    - Add fdt_get_property_namelen_w()
->    - Add fdt_find_string_len_()
->    - Introduce fdt_downgrade_version()
->    - Verify alignment of sub-blocks in dtb
->    - Handle FDT_NOP tags before FDT_END in fdt_check_full()
->    - Document most remaining functions in libfdt.h
->    - Standardise "returns:" annotation in documentation
->=20
->  * checks
->    - Warn about missing #address-cells for interrupt parents
->    - Relax avoid_unnecessary_addr_size to allow child ranges properties
->    - Fix detection of 'i2c-bus' child node
->    - Remove check for graph child addresses (redundant with schema valida=
-tion)
->    - Do not check overlays for alias paths
->=20
->  * fdtdump
->    - Remove overly strict dtb version check
->=20
->  * pylibfdt
->    - Fix backwards compatibility of return values with SWIG v4.3
->    - Port python bindings to build natively via meson and meson-python
->=20
->  * Build
->    - Deprecate Makefile in favor of Meson
->    - Support building libfdt without static library
->    - Don't build test programs by default
->    - Fix -Dtools=3Dfalse build
->    - Add FreeBSD and non-GNU linker compatibility
->=20
->  * CI
->    - Add macOS build to GitHub Actions
->    - Add Cirrus CI for FreeBSD testing
->    - Add GitLab CI for Linux builds
->    - Update GitHub Actions ubuntu runner to 24.04
->    - Skip swig install for mingw32 Windows build
->=20
->  * Tests
->    - Add compatibility with uutils (Rust coreutils)
->    - Mark .so from asm output as non-executable stack (glibc-2.41 compat)
->=20
->  * General
->    - Consider drive letters when checking absolute paths on Windows
->    - Add AI contribution guidelines
->    - Assorted bugfixes and cleanups
->    - Add clang-format config
->    - Add SBOM file in CycloneDX format
->=20
-> --=20
-> David Gibson (he or they)	| I'll have my music baroque, and my code
-> david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-> 				| around.
-> http://www.ozlabs.org/~dgibson
+firmware: meson: sm: video firmware loading via secure monitor
 
+This commit adds the SM_LOAD_VIDEO_FW command to the secure monitor
+command enum. This enables decoder drivers to load firmware through
+the meson_sm interface.
 
+> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firm=
+ware/meson/meson_sm.h
+> index 8eaf8922ab020..f40867a000f10 100644
+> --- a/include/linux/firmware/meson/meson_sm.h
+> +++ b/include/linux/firmware/meson/meson_sm.h
+> @@ -14,6 +14,7 @@ enum {
+>  	SM_GET_CHIP_ID,
+>  	SM_A1_PWRC_SET,
+>  	SM_A1_PWRC_GET,
+> +	SM_LOAD_VIDEO_FW,
+
+[Severity: Low]
+Could this patch series ordering break git bisect?
+
+The previous commit 087141e411e53 ("firmware: meson: sm: Add video firmware
+loading SMC call") uses the SM_LOAD_VIDEO_FW command, but the enum value is
+not declared until this subsequent commit. Checking out the previous commit
+would result in an undeclared identifier compilation error. Should this
+declaration be moved before its usage to maintain bisectability?
+
+>  };
 
 --=20
-David Gibson (he or they)	| I'll have my music baroque, and my code
-david AT gibson.dropbear.id.au	| minimalist, thank you, not the other way
-				| around.
-http://www.ozlabs.org/~dgibson
-
---X5TyPcbBzOzOErrT
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCgAdFiEEO+dNsU4E3yXUXRK2zQJF27ox2GcFAmoVZMwACgkQzQJF27ox
-2GdggQ/9EiPXDXJtf6G9Ods1ssswZM6L1yCwkgiO8KmuMguJLe7UrGAU6JoPRLRC
-A6AKllPuDXzOjd5z7jJ+d2w6hZSJFTNyFM59NqqSx+qB8jaSNa93dU7EwwKtIUp6
-5YrC7G1FY7zP4BU26EYi7v5DAeDkBnrK/iJFtQQ00J9v+Q254BK3pcaBn0G2In80
-nr3xoCjTdck6dxhNs5UfatWljbYJ99gzo6ss7SF0UFSUuE4mdM/cxfIIk5z4D/q9
-9ngQDBN+4ATYylZKBw2HAdfMnBfcWiTRwHNSrpmEu1EBIKYf/nv0c8ZEXcwn2cuZ
-dgIYHJyEI/Y09/AJKLAj91zM/pXc/dTvrn+i4WWnCRXHJExvPAsjsOlA2p/hIWJ/
-GsXLoC4f1933T0kQ0VebvBTLhcGUpIqOrW5UO2wl7xuvk0gEmMh9rmJ1TZG0XjKF
-AkIJsBsue/HKkF4goewKcxVFh5NwyoHlJEupZaM0svIMe7hoMbZu+8VWQWFahOGr
-5gChSDkEGdfVQ1hkdLuDQ4MWd16IiMpfp36wD/VHJlv0ho8CRhk8eO/omGtJ4SXN
-INkjiikmrGaxpzwkJJY8icxM3HWG/F6fWreiUrBZsBdHXz1PdgdchZx5w+JoXjzJ
-MhKHfRTKaWNOj3a0SnUd7csYBCtg+L80mCiSKgcz3S8Q3QvmbcE=
-=RHb1
------END PGP SIGNATURE-----
-
---X5TyPcbBzOzOErrT--
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-b4-s4-vdec=
+-upstream-v5-0-33bc817f93f4@amlogic.com?part=3D2
