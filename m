@@ -1,87 +1,126 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B86C3D3492
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:18:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98BFF33F5AB;
+	Tue, 26 May 2026 09:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779787088; cv=none; b=GLGiiHUjFPYtFySXzIsgMXOya3VX3w1RnxQ65qzm+qtjcIkdZGuKLAhD/JpkTtVOJZWL3jFGPYPhug72l2dr3+eg3tMXiQOLmY6PPd8V+fcbiMD6gtJnIQ91mzqo2oNCeByw0+XtrjY+jN+ZNttClJoFCMTsatq1wztJpb8HOt8=
+	t=1779787132; cv=none; b=T6gOVF1zeuHQ/hVu3L2ESlWKs0FB2lkMpXZTO38HzyTNyREz3ADTIgLNbMkBoPm9furHlUl5jQ2GfYXQbS0/+/k+9uK7YaNxH7SZzpu8/Rceab4lXp3/YP3uQoAg4lg5bTCs3fMp30nsYeJ6HNwkCyGGhsoYRh7WRxgQbUr8+Zg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779787088; c=relaxed/simple;
-	bh=HaCHpZ8Jvr+yhV/3zlly2KZcPGlzsNeDwNvZeKaEb9A=;
+	s=arc-20240116; t=1779787132; c=relaxed/simple;
+	bh=0ETd1Jt6YxKzgm3EOdK5RT2ztbo4n7tcmqn7nISRKYE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bsXOSvigc72rJORD+pBnA2QJYx0MW1/tmO8rlKjQ+9BO4K0+dWj+72nGQs7rnj6+J4Jw/yXBbkFHaLREWZT/nHHTeNAIzOT/P3BY1zqjkh6LCk/WPuw0LIDrpH003yI6gsRPWtm/n79EYbs3DSfrHk9NoeCwP+jx6LKuOBUW/9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNCZwn6v; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=p19mjgf1Spf5nnkohLvn4LgaRhTmuh6I4as4q+CTehgFcuIpT9E0mYieAbeZ5tIWpdgBFl1Bdb+VqA0kPPh+dPatQUl8+5ZT4VdBOpo3q8DnbehrrXI3YyqpzcNcZApd7GTPP9BlUaeY9PA0KPBnCJeBHfg96Nj7LxYfZwueLiA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BW+vivDS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNCZwn6v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 974891F000E9;
-	Tue, 26 May 2026 09:18:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BW+vivDS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFCB31F000E9;
+	Tue, 26 May 2026 09:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779787084;
-	bh=Idn2QWCE2Hph4NT9PLQI+/aoKLgElIcn1Ab2J3XR5Kg=;
+	s=k20260515; t=1779787128;
+	bh=4fAwYv5601n3Mn8rVOFXUhflbHhd3iilupoPAXjNfrg=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BNCZwn6vYArXG7TxPEc1kSoVK1EHVQxcK2NDpfVMRDzoosdHX/RJ9BC2Aq5N5VS9T
-	 lheP3Qc2NcyLWfudNRUjdZZRRI4MqnHEMHw1EMZ5s+q9hD4OllTKC/Nw2ZrIdA9iV2
-	 slWmbHSWOxU9H3tJfSqFjiEGEE5S9Kyu6s4UEs38Aa7PMqvmOCfVebAalQXxxKF8Iw
-	 fkfsuuyZlcFRY31SbdzByvGaFURRXASH+LC3O90CWqqbRZVE6bbe575IFJFDnwLcZN
-	 x7u1M4PGcRqIxTuzuB4J34/euopvvFJFfBYTDnoIm+w1vUGiz1cLam6/UiwANEWauo
-	 BHFB9oDgCac7g==
+	b=BW+vivDSCXqf4FWX8WiL4PmSVf+3tI57BUi0PQqh9x8+FiXAMxoIM9tYm3DpchR9r
+	 9SK+v9AdBN7VyM05ed7i0Tac43YvXteCnANhGiQSwCoMA6oQOcZIkpbZ2Nkxbl1tLN
+	 fbAChDyQicwOYM8xzAPbr9kRUcFOVl4/3p9EafE8uikUoX/aQe17ZgtwgxjihiNhay
+	 yyTjPtvaQHP/zThlRH5InKvoX+7GZ9JLiQxE7xcnuNVkjn20aLXMK2BslOxH2hkvHu
+	 kjV4t21sQlznCHOq7uC/4R21CGBa4tL0Qc/wY6u6Y1H6WRVMQaMflkQkfz5zYR1oZq
+	 8pkqgwDvN6/iA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC RESEND v5 2/6] firmware: meson: sm: video firmware
- loading via secure monitor
+Subject: Re: [PATCH v9 2/3] media: dt-bindings: Add CSI Pixel Formatter DT
+ bindings
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Zhentao Guo via B4 Relay" <devnull+zhentao.guo.amlogic.com@kernel.org>
-Cc: devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, robh@kernel.org, linux-amlogic@lists.infradead.org
-In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-2-33bc817f93f4@amlogic.com>
-References: <20260526-b4-s4-vdec-upstream-v5-2-33bc817f93f4@amlogic.com>
+To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260526-csi_formatter-v9-2-ca3d8c334c39@oss.nxp.com>
+References: <20260526-csi_formatter-v9-2-ca3d8c334c39@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 09:18:04 +0000
-Message-Id: <20260526091804.974891F000E9@smtp.kernel.org>
+Date: Tue, 26 May 2026 09:18:47 +0000
+Message-Id: <20260526091847.CFCB31F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] The patch series is incorrectly ordered, separating the enum declar=
-ation of `SM_LOAD_VIDEO_FW` from its usage, which breaks `git bisect` due t=
-o a build failure.
+- [Low] Unit address mismatch in the example's syscon parent node.
+- [Low] Missing 'ranges' property in the parent syscon node in the example.
+- [Low] Poor formatting in the device tree example block.
 --
 
-commit 7da77dd38d2ea56fe7b57e246847b5cd118fd85e
-Author: Zhentao Guo <zhentao.guo@amlogic.com>
+commit 1b3ddadbdea2fb3bc19aa036199bd1e0ef56413b
+Author: Guoniu Zhou <guoniu.zhou@nxp.com>
 
-firmware: meson: sm: video firmware loading via secure monitor
+media: dt-bindings: Add CSI Pixel Formatter DT bindings
 
-This commit adds the SM_LOAD_VIDEO_FW command to the secure monitor
-command enum. This enables decoder drivers to load firmware through
-the meson_sm interface.
+This commit adds the device tree binding schema for the i.MX95 CSI pixel
+formatter module. It defines the constraints and ports required to interface
+the CSI-2 host controller with the Pixel Link definition.
 
-> diff --git a/include/linux/firmware/meson/meson_sm.h b/include/linux/firm=
-ware/meson/meson_sm.h
-> index 8eaf8922ab020..f40867a000f10 100644
-> --- a/include/linux/firmware/meson/meson_sm.h
-> +++ b/include/linux/firmware/meson/meson_sm.h
-> @@ -14,6 +14,7 @@ enum {
->  	SM_GET_CHIP_ID,
->  	SM_A1_PWRC_SET,
->  	SM_A1_PWRC_GET,
-> +	SM_LOAD_VIDEO_FW,
+> diff --git a/Documentation/devicetree/bindings/media/fsl,imx95-csi-format=
+ter.yaml b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.=
+yaml
+> new file mode 100644
+> index 0000000000000..61068ea0a69a0
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/media/fsl,imx95-csi-formatter.yaml
+[ ... ]
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
+> +
+> +    syscon@4c100000 {
+> +        compatible =3D "nxp,imx95-camera-csr", "syscon";
+> +        reg =3D <0x4ac10000 0x10000>;
 
 [Severity: Low]
-Could this patch series ordering break git bisect?
+This isn't a bug, but the unit address in the node name (4c100000) does not
+match the base address specified in the reg property (0x4ac10000). Should t=
+he
+node be named syscon@4ac10000 to match the reg property and avoid unit_addr=
+ess
+validation warnings?
 
-The previous commit 087141e411e53 ("firmware: meson: sm: Add video firmware
-loading SMC call") uses the SM_LOAD_VIDEO_FW command, but the enum value is
-not declared until this subsequent commit. Checking out the previous commit
-would result in an undeclared identifier compilation error. Should this
-declaration be moved before its usage to maintain bisectability?
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <1>;
+> +        #clock-cells =3D <1>;
+> +        clocks =3D <&scmi_clk 62>;
+> +        power-domains =3D <&scmi_devpd 3>;
 
->  };
+[Severity: Low]
+Does this syscon parent node need a ranges property?
+
+Because it specifies address and size cells and contains a memory-mapped
+child node (formatter@20), omitting the ranges property prevents correct
+address translation for the child node and typically results in dtc warning=
+s.
+
+> +
+> +        formatter@20{
+
+[Severity: Low]
+This isn't a bug, but there is a missing space before the opening brace.
+
+> +            compatible =3D "fsl,imx95-csi-formatter";
+> +            reg =3D <0x20 0x100>;
+[ ... ]
+> +                port@0 {
+> +                    reg =3D <0>;
+> +
+> +                    endpoint {
+> +                        remote-endpoint =3D <&mipi_csi_0_out>;
+> +                    };
+> +
+> +               };
+
+[Severity: Low]
+This isn't a bug, but the closing brace here is indented incorrectly compar=
+ed
+to the rest of the block.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-b4-s4-vdec=
--upstream-v5-0-33bc817f93f4@amlogic.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-csi_format=
+ter-v9-0-ca3d8c334c39@oss.nxp.com?part=3D2
