@@ -1,239 +1,142 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f50.google.com (mail-ua1-f50.google.com [209.85.222.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37123409639;
-	Tue, 26 May 2026 17:22:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779816129; cv=none; b=EnqgJBSoQuknaUpGRxjTOpgOGE1a8UOXPp94dI9vhed1HYjmPlMc7hSvfHtSvl0caTU4/Rh1rRTl1rbocp9/bDAZzVRORWUO4CDWYqmhdJYWF1a4hhAa8L25g3+R+ugfPShS0JEkBmhhg/lWisZquH3lHCg2y0x6WEbglaLnzvI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779816129; c=relaxed/simple;
-	bh=cftIROrufN5KTHvbTf1Hh1vHNPzf4GvBCrZkNiIfiWg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YWe/tCNzc2QgMZUSRgktVElCdU73pgqtJx5Eq9HPJEjdLZwGRprH6GiCJEVirsMjygZiMOHkAGu0X9aoRbqRKxTaGCe01Q6MRfjPm/dy4/LLpAGKzWoydN3P6J4yYWNPoQjdAgdUujWK4/aF0lxwI+t3VbK8o2SbIGmYPGMJpHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JbQe3kXp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5147C407593
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 17:40:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779817241; cv=pass; b=EhImvNsgUpDCv9q5fF7jwyFPIpl/VZC0hoNK3PwNVUdzslNPPc4MafUmw9devMwYCWNklEHWLQsVZONYc2eVAp5m3ZZvivImd5hqhMOE6CVVSxyA6ITlLw5Zx+WoxlOFKDbfxY0BuvlVJGEiGhczEo5ktVv7Q/+TA46Ls+XksDQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779817241; c=relaxed/simple;
+	bh=K+HL82sdn8WpJwBs+rWv0fMtNuA2tpi9GtQEa2+Vvik=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BjaGPtfH527N7c72VUD0NCUJAYu5R2EFJWw7OPj4APhAXHrBmzqfDUtavQCQqYA6ASSBrw198iXvdJAG1m9UOmDj6LhHbA43Q2dZle4SGcC0hY4qgTb6GQEAYtrVr80zj/Q/LU2qAR9JGiBj2M9snlgTORg82gF+A9K+4pXbvL0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=egJ1lzeo; arc=pass smtp.client-ip=209.85.222.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JbQe3kXp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B63D1F000E9;
-	Tue, 26 May 2026 17:22:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779816127;
-	bh=+pb9u8md+1jJKMPsMcJZxTXZuOwvAJj4vCNPcj+GWUg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JbQe3kXpvxApoj8V8CpfZ1VWs6W+t+k6ze/7V6QHC8Fytr0K5ZVkSuQRHowIBxVGV
-	 40SW0kokfKaCNPMho1OpTV0GrDjtyvy/zyCr9plmUuZADserdo111MRPQUMVmTuinu
-	 SFxa0f+/NAT0A1G7ajbUGTR6V3TmBJeJGk4d4EEaUbnWOvifzcQ2ZPvzF8isDBKt9V
-	 gd1jvl9mb64pFX3nSUDfRwD4NS/PW9TcN/W3QNfrMuAt3XOjMUgJe5WcYWzMzVMl+8
-	 84X9Mgl1ICmhyuw/MceHHMgR8p5dBPUox/3rMsnCqF4hePiQBQ07KhipPFi0rbQ6BY
-	 4DkkH/kFp4UhQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/2] perf: marvell: Add CN20K DDR PMU support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Geetha sowjanya" <gakula@marvell.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-perf-users@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526164330.23878-3-gakula@marvell.com>
-References: <20260526164330.23878-3-gakula@marvell.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 17:22:07 +0000
-Message-Id: <20260526172207.8B63D1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="egJ1lzeo"
+Received: by mail-ua1-f50.google.com with SMTP id a1e0cc1a2514c-9617940274bso1502449241.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:40:40 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779817239; cv=none;
+        d=google.com; s=arc-20240605;
+        b=HhyGxQPTP41g3QzSnelEfNs0NUQH1Qm+msS7BWgqUvxx6mtWMsgkrs1JTklkgaFqPL
+         L7BwS9u/uA9KY/9GjkeNpezzqBiaYBlxAcsn1dZio5X7KJC/PkjOEmqC8w/X5x2R9D+g
+         /0hHAjboB9WUbZtWWAbEsn2YXJHsIw33QBM8e0ACOnBLlEUtcuVu/aPAMEUN/Rhua+6H
+         oRUahwAoQusJHfuyJQaeKxVFXv//5lANQlji9e7JbjPJOHuPa+Z9Icu9mflsfcfyUr/v
+         hpQw5f/epUBzry2NbiYEz+pAEyVS1km8YDlDl57g5eV9W18B0efEG7zWILAElsOaYiYF
+         1w1w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=sB+mjSu/pqVnN5kPDqiN9QaioGX3lZ6RIksWWTXTj0o=;
+        fh=2DD+KyTisSEP9+X4QhKLQtXDUlz7JEuynFK/G/FSe3s=;
+        b=CXII8ndFIJwTPGhm3XBZQDGS7H2Jy8Vp8otI7oS2hi+wDeElvSEwV5spZMTVH04Kmb
+         RLHmWaR6lFJjmWyEPs5ubKF2UWYPCQu3v+PtG7P1qgmI42jigGnQHcYe3lwc1Qi8kIl5
+         SezvG72KqJZkwzC9OzNAnkpV8hQj8eszmG/OoqHaCyNNuPHOFddqkrGIyM5YhYFj1sp6
+         T/vQPnX15IzadXk1luc6U6yi7nj9QUh8jKOWz7+lC9cTAZYV45oG+y5aJW8DOM+eh22v
+         9aqTScBYxxj6JJ7mwtcEkBGrehslT6ju9Qwv8tyS0MsqNAhdN9amhP6gZbKGZGuUIEyC
+         ShEw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779817239; x=1780422039; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=sB+mjSu/pqVnN5kPDqiN9QaioGX3lZ6RIksWWTXTj0o=;
+        b=egJ1lzeoNWvx94uz2pPQUlvgZCVM8BuzuhO+mpRzrcyOsvtFCk6NF/wDV00pS0SkWU
+         n9y7ZptvmqSC+43bkhqnMDwTEkyiuugVX6X4H5hYrHJ799WnMG4dC2tcRvl8eg3vCpa3
+         7hjpJPmnjasmZGRPcWUy73RFT/Md66Hoitdn36PRc87hcsEstW9pKcFKG3h+aY0xdPb8
+         FHP9vsflbF70+nsV6l6ekPof6kx3nuGYU+drdbicZWcs9a/+TSYtO18xrDg6EpnXEL7/
+         liEdr1W8nmi29PgkvY9BPWb0XrSObXhHGtzanYgvZr6Z4N36a0139YzfunFqH1khi54C
+         /90Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779817239; x=1780422039;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sB+mjSu/pqVnN5kPDqiN9QaioGX3lZ6RIksWWTXTj0o=;
+        b=o0TDcdSZQmLZ+tgj2bwcr5jcyDjtyoZNdilbYS+cnXkQXNY6GiZ9AfClYNxm8VmjVm
+         MRBGl83B4vLAXUZjd1DrwdJS8q6A1jeNUBwgOTyxyPYWNj5VbYEVcumdRd0cAwbDbQtc
+         rFJ4l6fE1zicVBihS+wWdBgxtsTa+UhnU7wPjKp2ACG06+9BXOcMm0kST+mi/aQ+U6zR
+         RjKfEoBwP+FXjHT3K5A4D296ptp6MQC/lFrQl1KUqeZyWRoP4TYVPplMUHK7IlMLUKty
+         xcmEiH5Ntg9aMs45EgIy+2q8LouVeelvecbQ41inH53MgBGfmxCsYa4bnoqq2/JrVzPZ
+         2WgQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9QYvXI2yDm3WpR9IHXNEYROhok+ZE8ER2DtvFjL7ikJf/pXxH137/LHZ25OgRYxyixxag9WhlEFCie@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy9SRYbnPEl5+Upoqv06iqOpNN9OIN3Nngr/wEKZVeX0tySio/D
+	LyUu2UIe/Q/iE4x1ee9edMIPmZmFAyESia/OqeNGZOputtBa+oqyyrAEC/n/W+mVYGip0Qx6slX
+	Tsx7JgZNbbavRTkgS/ywFvTuRjQqkU6o=
+X-Gm-Gg: Acq92OFN5MsIpSBBNd+lj4LPA0qp6IemJoLYs7MBP5D8yNdfTE6igAbT47udxwFPO/C
+	QQrTUtCGuQXTweJmpI1ow9A3n6ApgbKC3hfN6SWvpCYPcrr+7XItpjrrbARIynikM6Luv6lXRPk
+	VuzGYr5zn3VmEPcPshqcF4JXfyOBZ4SJPCzgw0ENn8XAblcNGc2vKztHsgMtrkdk2PKXKVHX340
+	9s9AVBsZQFzmoHsA6zkWx+DiGJhDSyeQ8qZ48kkcfSbLyNdVm4HXMvrsrhVxSyULUTKMxuK4KhI
+	p7fF3i8=
+X-Received: by 2002:a05:6102:3f86:b0:602:8c16:b24c with SMTP id
+ ada2fe7eead31-67c7c0765aemr9185857137.19.1779817239074; Tue, 26 May 2026
+ 10:40:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260314-panel-patches-v4-0-1ecbb2c0c3c8@gmail.com>
+ <177818605997.73000.9692910497119100760.b4-ty@kernel.org> <CAHuF_Zr0Z+rP72fLts5Ar56XyY8VMROzE0wQ_S5iyO+A4YoMSw@mail.gmail.com>
+In-Reply-To: <CAHuF_Zr0Z+rP72fLts5Ar56XyY8VMROzE0wQ_S5iyO+A4YoMSw@mail.gmail.com>
+From: Yedaya Katsman <yedaya.ka@gmail.com>
+Date: Tue, 26 May 2026 20:40:27 +0300
+X-Gm-Features: AVHnY4K0YHv_VhlqTQcjH1BYoi9vYxYTC8vhg9AZJCVfVLC71VCaUv3jbXuBfa8
+Message-ID: <CAHuF_ZoirJ7PdLxQcY2NC-Gay6wv=m=eVZBDLFXrRYnszo8Wew@mail.gmail.com>
+Subject: Re: (subset) [PATCH v4 0/3] Add support for the Samsung S6E8FCO DSI
+ and M1906F9 display panel
+To: Bjorn Andersson <andersson@kernel.org>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	=?UTF-8?B?S2FtaWwgR2/FgmRh?= <kamil.golda@protonmail.com>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Kaustabh Chakraborty <kauschluss@disroot.org>, 
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Hello Bjorn, just a reminder about this, I don't want the wrong
+compatible getting into a release
 
-New issues:
-- [High] Overlapping switch case ranges cause a compilation error, and brok=
-en fallthrough logic prevents Odyssey DFI events from being handled.
-- [Medium] New CAS events are exported via sysfs but unhandled in the drive=
-r, rendering them unusable.
-- [Medium] Incomplete configuration of CN20K ZQ events causes hardware stat=
-e leakage and potential enablement failures.
-
-Pre-existing issues:
-- [Critical] The error path in `cn10k_ddr_perf_event_add()` leaks a counter=
- allocation and leaves a dangling pointer, leading to a Use-After-Free.
---
-
-commit d7ca37a605c64e38783da21352c22989b06d59ba
-Author: Geetha sowjanya <gakula@marvell.com>
-
-perf: marvell: Add CN20K DDR PMU support
-
-This patch adds support for the CN20K DRAM Subsystem PMU, which monitors DDR
-traffic. It introduces new events, sysfs attributes, and device match data
-for the CN20K variant. The PMU logic is also updated to handle
-CN20K-specific event mappings and register offsets.
-
-> diff --git a/drivers/perf/marvell_cn10k_ddr_pmu.c b/drivers/perf/marvell_=
-cn10k_ddr_pmu.c
-> index 72ac17efd846a..4d8bdd9233bd9 100644
-> --- a/drivers/perf/marvell_cn10k_ddr_pmu.c
-> +++ b/drivers/perf/marvell_cn10k_ddr_pmu.c
-
-[ ... ]
-
-> @@ -87,6 +117,9 @@
->  #define EVENT_OP_IS_SPEC_REF			41
->  #define EVENT_OP_IS_CRIT_REF			40
->  #define EVENT_OP_IS_REFRESH			39
-> +#define EVENT_OP_IS_CAS_WCK_SUS			38
-> +#define EVENT_OP_IS_CAS_WS_OFF			37
-> +#define EVENT_OP_IS_CAS_WS			36
->  #define EVENT_OP_IS_ENTER_MPSM			35
-
-[ ... ]
-
-> @@ -336,6 +369,80 @@ static struct attribute *odyssey_ddr_perf_events_att=
-rs[] =3D {
-
-[ ... ]
-
-> +	CN10K_DDR_PMU_EVENT_ATTR(ddr_cas_ws, EVENT_OP_IS_CAS_WS),
-> +	CN10K_DDR_PMU_EVENT_ATTR(ddr_cas_ws_off, EVENT_OP_IS_CAS_WS_OFF),
-> +	CN10K_DDR_PMU_EVENT_ATTR(ddr_cas_wck_sus, EVENT_OP_IS_CAS_WCK_SUS),
-
-[Severity: Medium]
-Will these new CAS events return -EINVAL when configured?
-
-The IDs for these events (36, 37, and 38) fall into the gap between
-EVENT_WAW_HAZARD (26) and EVENT_OP_IS_REFRESH (39).
-
-Because ddr_perf_get_event_bitmap() was not updated to handle this range:
-
-    case EVENT_HIF_RD_OR_WR ... EVENT_WAW_HAZARD:
-    case EVENT_OP_IS_REFRESH ... EVENT_OP_IS_ZQLATCH:
-        *event_bitmap =3D (1ULL << (eventid - 1));
-        break;
-
-it seems userspace attempts to use these attributes will fall to the default
-case and fail.
-
-> +	CN10K_DDR_PMU_EVENT_ATTR(ddr_refresh, EVENT_OP_IS_REFRESH),
-
-[ ... ]
-
-> @@ -411,8 +525,22 @@ static int ddr_perf_get_event_bitmap(int eventid, u6=
-4 *event_bitmap,
->  	int err =3D 0;
-> =20
->  	switch (eventid) {
-> +	case EVENT_PERF_OP_IS_WR32 ... EVENT_PERF_OP_IS_RD16:
-
-[Severity: High]
-Does this code introduce overlapping switch case ranges?
-
-EVENT_PERF_OP_IS_WR32 is 58 and EVENT_PERF_OP_IS_RD16 is 61, so this covers
-values 58 to 61.
-
-However, the existing code already handles EVENT_DFI_PARITY_POISON to
-EVENT_DFI_CMD_IS_RETRY:
-
-    case EVENT_DFI_PARITY_POISON ...EVENT_DFI_CMD_IS_RETRY:
-
-If EVENT_DFI_PARITY_POISON is 56 and EVENT_DFI_CMD_IS_RETRY is 61, these
-ranges overlap, which will cause a compiler error.
-
-> +		if (ddr_pmu->p_data->silicon_flags & IS_CN20K) {
-> +			*event_bitmap =3D (1ULL << (eventid - 1));
-> +			break;
-> +		}
-> +		/* Same numeric IDs as Odyssey DFI events 58..61 */
-> +		fallthrough;
-
-[Severity: High]
-Does the fallthrough correctly handle non-CN20K silicon events here?
-
-It falls into the ZQLATCH/ZQSTART block below, which performs an explicit
-check for IS_CN20K:
-
-> +	case EVENT_CN20K_OP_IS_ZQLATCH ... EVENT_CN20K_OP_IS_ZQSTART:
-> +		if (ddr_pmu->p_data->silicon_flags & IS_CN20K) {
-> +			*event_bitmap =3D (1ULL << (eventid - 42));
-> +			break;
-> +		}
-> +		err =3D -EINVAL;
-> +		break;
-
-If an Odyssey device processes an event between 58 and 61, it will fail the
-IS_CN20K check, hit err =3D -EINVAL, and break. This rejects all valid Odys=
-sey
-events in this range instead of falling through to the DFI block below.
-
->  	case EVENT_DFI_PARITY_POISON ...EVENT_DFI_CMD_IS_RETRY:
-> -		if (!ddr_pmu->p_data->is_ody) {
-> +		if (!(ddr_pmu->p_data->silicon_flags & IS_ODY)) {
->  			err =3D -EINVAL;
->  			break;
->  		}
-
-[ ... ]
-
-> @@ -642,10 +771,15 @@ static int cn10k_ddr_perf_event_add(struct perf_eve=
-nt *event, int flags)
->  	if (counter < DDRC_PERF_NUM_GEN_COUNTERS) {
->  		/* Generic counters, configure event id */
->  		reg_offset =3D DDRC_PERF_CFG(p_data->cfg_base, counter);
-> +
->  		ret =3D ddr_perf_get_event_bitmap(config, &val, pmu);
->  		if (ret)
->  			return ret;
-
-[Severity: Critical]
-This is a pre-existing issue, but does this error path lead to a
-Use-After-Free?
-
-Earlier in cn10k_ddr_perf_event_add(), the driver calls
-cn10k_ddr_perf_alloc_counter() which stores the event pointer in pmu->events
-via pmu->events[counter] =3D event.
-
-If ddr_perf_get_event_bitmap() fails here and returns early, the counter is
-not freed, active_events is not decremented, and the pointer remains in
-pmu->events.
-
-When the perf core eventually frees the event, pmu->events[counter] is left
-dangling.
-
-The background hrtimer then triggers an overflow, calls
-cn10k_ddr_perf_event_update_all(), and dereferences the freed event pointer.
-
-> -
-> +		if (silicon_flags & IS_CN20K) {
-> +			if (config =3D=3D EVENT_CN20K_OP_IS_ZQSTART ||
-> +			    config =3D=3D EVENT_CN20K_OP_IS_ZQLATCH)
-> +				reg_offset =3D DDRC_PERF_CFG(p_data->cfg1_base, counter);
-
-[Severity: Medium]
-Will this leave hardware state behind and cause enablement failures?
-
-When configuring a CN20K ZQ event, the code writes the event configuration =
-to
-cfg1_base, but fails to clear the primary configuration register at cfg_bas=
-e.
-
-Later, cn10k_ddr_perf_counter_enable() unconditionally uses cfg_base to ena=
-ble
-the event:
-
-    reg =3D DDRC_PERF_CFG(p_data->cfg_base, counter);
-    val =3D readq_relaxed(pmu->base + reg);
-    if (enable)
-        val |=3D EVENT_ENABLE;
-
-Because PMU counters do not clear cfg_base on event deletion, enabling a new
-ZQ event might inadvertently enable a stale event still left over in cfg_ba=
-se,
-leading to corrupted performance counts.
-
-> +		}
->  		writeq_relaxed(val, pmu->base + reg_offset);
->  	} else {
->  		/* fixed event counter, clear counter value */
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526164330.2387=
-8-1-gakula@marvell.com?part=3D2
+On Wed, 13 May 2026 at 15:09, Yedaya Katsman <yedaya.ka@gmail.com> wrote:
+>
+> On Thu, 7 May 2026 at 23:35, Bjorn Andersson <andersson@kernel.org> wrote:
+> >
+> >
+> > On Sat, 14 Mar 2026 23:46:20 +0200, Yedaya Katsman wrote:
+> > > This adds a driver to support the Samsung S6E8FCO DSI controller with the
+> > > M1906F9 display panel found in Xiaomi Mi A3 (xiaomi-laurel). The driver is
+> > > generated using linux-mdss-dsi-panel-driver-generator[0].
+> > >
+> > > The mdss reset dependency makes the screen work more reliably.
+> > >
+> > > [0]: https://github.com/msm8916-mainline/linux-mdss-dsi-panel-driver-generator
+> > > Original tree with patches: https://gitlab.postmarketos.org/SzczurekYT/linux/-/tree/laurel
+> > >
+> > > [...]
+> >
+> > Applied, thanks!
+> >
+> > [3/3] arm64: dts: qcom: sm6125-xiaomi-laurel-sprout: Enable MDSS and add panel
+> >       commit: 493cb869874cd301c370adf9a3f9577942c4f0f1
+>
+> Thanks for applying, but notice that this is an old version, the last
+> version is v7:
+> https://lore.kernel.org/all/20260320-panel-patches-v7-3-3eaefc4b3878@gmail.com/
+> The compatible string was fixed in v5, and other patches in the series
+> were applied with the new version.
+>
+> The difference is in the compatible, 's6e8fc0' with a zero instead of an O.
+>
+> > Best regards,
+> > --
+> > Bjorn Andersson <andersson@kernel.org>
