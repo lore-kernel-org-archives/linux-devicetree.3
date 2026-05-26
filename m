@@ -1,144 +1,149 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CD93DB655
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789778; cv=none; b=dvBZj90kAhWPQmszZosDrs5qXUVFZmlVHB0oFq7L3mJ6WpP4MXQjD5hQ4J7//bMr57EilqVG8l+Hc3VHEE66uuTE3rQ4OzPkNSazJGkBXOwRwljDFqhJoio7GEepcQzLbM9HBDnZGK3Y9yI5CapmQi66L3fdM98+bqoZhMf8lO0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789778; c=relaxed/simple;
-	bh=PixFcFKLBiuLHlO5uvwBEdux7Cjb3/Hbl5Bl9rV/+xs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mqnFMCM8VszeUyaJTnWWNHwuAUVatYzGHwfBUdeX6fp+jF8c/8GGtZGuQkNGjCJ/D7X/aZwfPTA86iRMZXpfRyGZJMFR1/SZeep9LHRz+LEbQRT/UKacn52qC8DLPp18GVfjCICt6FP1Z9limR7VZwMd5EBxF9xX2oMafSb0kC4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUwt3JAV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55480388E5A
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:04:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779789854; cv=pass; b=Gq41xIc1ZgiVNQ/bdNSvxBjITFQ2w3XDvOksLYz+gztiRa8Q6g0/f+648AnOT2PAfNG25Z8rWBhe0ANZNIIzxvawxd/p8RjyJbYPxrTy1mLknuyFw0guYMfc8aHoDah0VEIRU8JUMMkxzeWfHWkEevLvH4qOT8H7jVAYW7p+Vqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779789854; c=relaxed/simple;
+	bh=6JdPCZF7Dk+LCK/fQNMCvQ7TciVuLce0qtseH2AlqEM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=L7DjapCezv1DP5YOcBrcBeXIysDZpDHiepeLt8hLb/u2WiLTyoLshXDOC3Ud8loZLdHNw1ARES9tQ7cVMzzjKR9KjZTOeMMlC/vnxDC17+mZMbYfEEAbCGDV/ibBRc4SmcCi+bFc/DAH3LRnAk6lLFjAReF07PhGvLBd2HGdPMI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V8kZupkx; arc=pass smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUwt3JAV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1BC1F000E9;
-	Tue, 26 May 2026 10:02:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779789775;
-	bh=xDZWQhbtSIJ/t1BgVUxCNNTdkuOLBAeDeVenBa2bTDE=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RUwt3JAVnFM+j8Bk4hzF9EHs8SNyOX4gwepuQvWHT3LixCUxuN12Um1rmzBmvm7FA
-	 mBXvIjWOvhyZ8l31+hA2Io+xr2Q5UIPS/xz2duP7sAl8/HuJKiAG9ZEFHaPI3V68+P
-	 5VJ2S2tCsoKsslSCe74II18T3FKCLdyvAeBcWnVPNa6LgA5avDCPtuJbRu34YPFuaR
-	 Tw8gFQ/XxMXPS0YJD6RJpYvNfLgxA5OhsTe4hctmU9pVLxVBq9hExYmYCKWYPrncAq
-	 gssHapQokxRWWVe9bcesf0PzP+HHJr75oNdMGT+VniuwkfQMLpF1Pl2FUvUHE8eqwh
-	 DCq7VVETCE3zQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
-Reply-To: sashiko-reviews@lists.linux.dev
-To: palash.kambar@oss.qualcomm.com
-Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260526090956.2340262-4-palash.kambar@oss.qualcomm.com>
-References: <20260526090956.2340262-4-palash.kambar@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 10:02:54 +0000
-Message-Id: <20260526100255.0D1BC1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V8kZupkx"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-304997cdb21so1661549eec.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:04:13 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779789852; cv=none;
+        d=google.com; s=arc-20240605;
+        b=kdMwZTlSwk79JWRkoPlvpntzWkr/IRPj33vSSrbSlOU2jEWbNSZMN8vlEvZLe9eyMa
+         3Chg2kVXgT8GqxiBbVtp5GVZKGtlAT1aytatpMh9O5XaAjYiZKD9/L/kcA1vtLbKggAX
+         OWFo+Xo8PrXeKxXqQYddOkaQY02gWwsJLfQ1w7t1Bpi6Fg/nT4XNIJVkB6veKiuPenSK
+         vZoVTbcKzCicwnuq+71hnKEVGoQi1rLpoo7XoMO/7RGSvAFinXBRZm3LCSa155UEXKXI
+         YrQfrQJnFtk+La3zkFievRjoed7jEkXJUhUie/KPWh/hdj4u/OP/pNrR04PKTLeSU+yx
+         xhkQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=is3W8B8GsxatajI5hJo1ERga8VuNN1wrfiQOz6wOJ7A=;
+        fh=3lk0kjozRsnVMl8ErvJMjclzvGP0B76e9ynPPIecupY=;
+        b=IN2ZmqaotiME0KPbjaVVIA6F6amFacMQKt44eS921zsGapcohvuuEOXmApYQuVRUHy
+         Y8ezGndcDKs//ALpQZB36yaXzZ5E+8McsrtL/6RcvIlOgiK5Wpb0+L1LEo/1Qp931khD
+         E2zUsKl0dtIDMRfMdp6/6Pz7rzhQolRIV9C/eOpU8mKFwoJuiaordCWbc2g3QuuaIMxJ
+         ltbFFLDnqnsf7TysBXK2/8GNyrkNGGUeVNT6gm4MnHtgaEC9+fjPi3OEGYYkGu5wCVzP
+         p7e44k9CRJ4FlAXnCPCLVCAU5cwcalnt6gMHxaep/Lx8SATSKvgXGq4B+/oKL3MjRk2D
+         AqXg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779789852; x=1780394652; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=is3W8B8GsxatajI5hJo1ERga8VuNN1wrfiQOz6wOJ7A=;
+        b=V8kZupkxI/vE6LNmfw+m5id719UJZN+8pHBqJQfq9WNiMxBM28M1L7LMN9KFuHxigy
+         hwvP1ysr5IjDocyqcfOCI9p8kgJF0t2/fdewG+AOwI5Z0tNbBpgpBNnDOHr5uOjkZZlu
+         Qt1aoJGckN/eQsU6r5aosRy2wcH0JcEqtqXI5CjB3IDioRlu7+tUNbAxaOsdw4aMtyIV
+         V3c9WaTcDvHh04DcVh+PoD7Uu6orfCRys22cihxrkoDkzQVQdTMAMWYaj2J4rNRFihtb
+         lp8qaHB43eNJXbpzW3yQXZRNR0NKdnSbi2gD8RQES9F9NrD/MZKwPRSAotMOASG9YTVs
+         2qvg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779789852; x=1780394652;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=is3W8B8GsxatajI5hJo1ERga8VuNN1wrfiQOz6wOJ7A=;
+        b=V6sdgfNqzuuoMfU84bcPniWb+qb88cwqEJaCv3UoWVNO+6so9vQJcExkar/rNYiH+c
+         41+rZqMVUM4JlkXoT52r4FcsCKonWbcGflLG58S/g8P2TUV6WjhF2mkSr5Yf30ERXltK
+         uTYlL0s7i7027SrydLLaCEq1z+Ubc7ZE0mewFlmOKzZm1fgPg61tabUDRlbSQw/qqtk3
+         P49eW4Xg9ZTRZ83jz2jcM7rWuNNH+4fbzEyEHqsX5E8UI8gDfxNqfjyvUkHjvYN4IJmQ
+         25tSrlWQ5/iTwhZF1phvd8Cbyh0y4LJAJA2XI5qE/JBYEmbYzPKnOqJUBJmkn1D0ACN0
+         74Hw==
+X-Forwarded-Encrypted: i=1; AFNElJ8RwJ/SIphdQJCLTxEA80yIwbe54uv4xyazophhjq2k9OpF8U01uEfHgBGw0xvvbwtcSydoGkNVeOC0@vger.kernel.org
+X-Gm-Message-State: AOJu0YzxzPylFxoi+WHUqxKNuOn7AXb0Yv+e9IInCmsUJGxT/VJ4WiF/
+	3XT2fIJp4tURfVxbDRuOmvt4qe3ybkiUd//87plb3t7FnJKiYYb+P9tT/Ky7v9U/ssfVt5IJA+u
+	eXxHu2daiSmnFtoA8o4QmNTOYOoENirg=
+X-Gm-Gg: Acq92OEzdqbS0JL9Eat/HJz7dYJkRzTnuqxh/YdZV7IKuos9h4QN9/XMIciPHNgRKIZ
+	GgcDlDwanAsHc/e595G8o640UyLVIjMhgMsSWTpOTplSa4XyjWxdQWAYMWHfat1MU4/Yr5E9C4M
+	bRfkc0GVzkp00Ug6WSpkeMCwqoQngma41ecvb/OKU4/wiI5NIzK8HZgWNwI/Khdif/FHRyOgQEN
+	zKXSoijlY0Qnk0TWXzD8oCrq7FBoNILkp1Px8Fkgs8+fylier0j4c0iRsO+e+m91X7WKBim8Wcx
+	oq4Ggwb87QCYZPDuJ/c=
+X-Received: by 2002:a05:7300:e826:b0:304:8881:b82 with SMTP id
+ 5a478bee46e88-30488810bd7mr2815420eec.1.1779789852421; Tue, 26 May 2026
+ 03:04:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260523085102.51000-1-clamor95@gmail.com> <20260523085102.51000-2-clamor95@gmail.com>
+ <CAMRc=MfXVwD2u0e115RapnyLzf5JRjWMs=2PSNzMnm0GDd7aaQ@mail.gmail.com>
+In-Reply-To: <CAMRc=MfXVwD2u0e115RapnyLzf5JRjWMs=2PSNzMnm0GDd7aaQ@mail.gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 26 May 2026 13:03:59 +0300
+X-Gm-Features: AVHnY4JzVg_O8P7k26t8Ze2LsHov-mbPzQTfo6cA9NaMmsFopTOCr3ZbuuFWfFQ
+Message-ID: <CAPVz0n1G5Yu2X5f+=q90RAbnsWi9psMq-L5tWDMM4JRC4R_mPg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
+ modem pwrseq
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The Hawi UFS PHY configuration (`hawi_ufsphy_cfg`) lacks a fallbac=
-k overlay for `UFS_HS_G4`, preventing proper initialization for UFS 3.1 or =
-lower devices.
-- [High] Incorrect HSGEAR_CAPABILITY value configured for the UFS HS Gear 5=
- overlay.
---
+=D0=B2=D1=82, 26 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:5=
+1 Bartosz Golaszewski <brgl@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Sat, May 23, 2026 at 10:51=E2=80=AFAM Svyatoslav Ryhel <clamor95@gmail=
+.com> wrote:
+> >
+> > Document the Tegra modem pwseq used by various devices based on the Nvi=
+dia
+> > Tegra SoC, describing its usage. The power sequence provides interactio=
+n
+> > between the modem and SoC-specific interface configurations.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > ---
+>
+> ...
+>
+> > +
+> > +examples:
+> > +  - |
+> > +    #include <dt-bindings/gpio/gpio.h>
+> > +
+> > +    pwrseq-modem {
+> > +        compatible =3D "nvidia,tegra-modem-pwrseq";
+> > +
+> > +        enable-gpios =3D <&gpio 165 GPIO_ACTIVE_HIGH>;
+> > +        power-supply =3D <&vdd_3v3_vbat>;
+> > +
+> > +        nvidia,usb-bus =3D <&usb2>;
+> > +    };
+> > --
+> > 2.51.0
+> >
+>
+> I assume there's no such component as the tegra modem *pwrseq*?
 
-commit 1174a7d9d404cf84ecf6ba8228fcab24e26ef4df
-Author: Palash Kambar <palash.kambar@oss.qualcomm.com>
+Hardware component, I assume no.
 
-phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
+> What is the relationship between this node and the "infineon,xmm6260"
+> compatible node?
+>
 
-This commit adds the initialization sequence tables and configuration
-for the UFS QMP PHY found in the Hawi SoC.
+The xmm6260 has a phandle reference to it. Since there is consumer
+matching logic in the pwrseq driver I am leaning towards removing this
+node entirely. This patches is still in non-final stage and I would
+like to hear any opinions on the way to improving it.
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualco=
-mm/phy-qcom-qmp-ufs.c
-> index 771bc7c2ab505..2fac3a7eb8201 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
-
-[ ... ]
-
-> @@ -1844,6 +1867,119 @@ static const struct qmp_phy_cfg sm8750_ufsphy_cfg=
- =3D {
-> =20
->  };
-> =20
-
-[ ... ]
-
-> +static const struct qmp_phy_init_tbl hawi_ufsphy_g5_pcs[] =3D {
-> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_PLL_CNTL, 0x3b),
-> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_TX_HSGEAR_CAPABILITY, 0x06),
-> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_RX_HSGEAR_CAPABILITY, 0x06),
-
-[Severity: High]
-Does this code advertise an incorrect gear capability?
-
-The overlay is named g5_pcs and the maximum supported gear is UFS_HS_G5, but
-these capability registers are being programmed with 0x06. This typically m=
-aps
-to a Gear 6 capability, which could cause link training failures or mismatc=
-hes
-during UFS negotiation if the value should actually be 0x05.
-
-> +};
-> +
-> +static const struct qmp_phy_cfg hawi_ufsphy_cfg =3D {
-> +	.lanes			=3D 2,
-> +
-> +	.offsets		=3D &qmp_ufs_offsets_v7,
-> +	.max_supported_gear	=3D UFS_HS_G5,
-> +
-> +	.tbls =3D {
-> +		.serdes		=3D hawi_ufsphy_serdes,
-> +		.serdes_num	=3D ARRAY_SIZE(hawi_ufsphy_serdes),
-> +		.tx		=3D hawi_ufsphy_tx,
-> +		.tx_num		=3D ARRAY_SIZE(hawi_ufsphy_tx),
-> +		.rx		=3D hawi_ufsphy_rx,
-> +		.rx_num		=3D ARRAY_SIZE(hawi_ufsphy_rx),
-> +		.pcs		=3D hawi_ufsphy_pcs,
-> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_pcs),
-> +	},
-> +
-> +	.tbls_hs_overlay[0] =3D {
-> +		.pcs		=3D hawi_ufsphy_g5_pcs,
-> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_g5_pcs),
-> +		.max_gear	=3D UFS_HS_G5,
-> +	},
-
-[Severity: High]
-Does this configuration lack a fallback overlay for UFS_HS_G4?
-
-If the UFS host controller negotiates Gear 4 (for a UFS 3.1 device) or lowe=
-r,
-qmp_ufs_get_gear_overlay() will attempt to find the closest higher supported
-gear overlay. Because floor_max_gear is initialized to cfg->max_supported_g=
-ear
-(5), the fallback condition max_gear < floor_max_gear evaluates to 5 < 5 (f=
-alse)
-for this single available overlay.
-
-This results in qmp_ufs_get_gear_overlay() returning -EINVAL with no overlay
-applied, leaving critical PCS registers uninitialized and causing link
-establishment to fail. Should a G4 overlay be added here similar to other
-G5-capable PHYs like sm8750_ufsphy_cfg?
-
-> +
-> +	.vreg_list		=3D hawi_ufsphy_vreg_l,
-> +	.num_vregs		=3D ARRAY_SIZE(hawi_ufsphy_vreg_l),
-> +	.regs			=3D ufsphy_v7_regs_layout,
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526090956.2340=
-262-1-palash.kambar@oss.qualcomm.com?part=3D3
+> Bart
