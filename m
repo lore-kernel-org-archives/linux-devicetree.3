@@ -1,379 +1,110 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6EFA1C862F
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 02:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6DB7D37AA72;
+	Tue, 26 May 2026 03:11:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779763618; cv=none; b=LsUWTOHoMrpeMToq9J5o0T5h5LNms/keqS8lKT5q/i0v83obB/fQQ8Xiaxr20eCQUkUPsdMWE3m32ZQNcvHIIZs/hAsVfssSwhvekJUvBE6cBAPr9ps1uUJwsd3NF5I1kpudqjcS6X7Flgcl53SV3L/nRSxpxuug008dxFc0YmA=
+	t=1779765098; cv=none; b=K0f6+BAVPb2p7+aPkxQzooTl5CVpNyRzDUvZWgJZBp5iPD1u6+94gvfs///6ZLm4tGqsZBsIUocGZ9H2/B99pRCARIUABNGDxpjA41an1CG4p147mGIseUWcbigQYU2l6jsjuJ+jm4YWajAqqvMIKa2rJrrCEJXSWy++tH3TzO4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779763618; c=relaxed/simple;
-	bh=sFZ4fjp5CJzxlLoFWVlKcpos81Wk8YyrubQWE8+l3aU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uEX5hwN2hmIBMegV/43LhTcWvQdJOfbEZH2SJ5w71+FTQnOdKzgXOirYDDjqYcKxTFas3FtTTz7Clwx6IEJn9ozS/NxHUBWBaef1yV8usQJuLF6mKJEU7lOXiq8V49us8NTkZ4OG+ejZZP+hfS2Lr0ByjMCOHVINtn1hhkxxA2k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kNmHP0Ui; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kNmHP0Ui"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DB481F000E9;
-	Tue, 26 May 2026 02:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779763616;
-	bh=fHqAdRBg8eOVf5d/Bh/FZuwnlIgDLe0H/IAJaJVaXDc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kNmHP0UiAaZBEiEABPbdpWTJUwSggsZl+AZUGrUGA8Wf1VXqgBuWrcS3S7qFqz+fW
-	 XOnhdRU0pQWTbQZh9IzZW0QHE9+0a4yj6VovovTMrXXCmh5cn4VZzHeqdixkSWgFIl
-	 AbHkl7FtyIs6XuyjrGaKo3e/53rWkM0OKDHywHPM4quqUzHnKNlie0MwoMsRXwo4rP
-	 4rCDlT2CzWIzEx9c9G5uJ7BmSkNNhVwydtBkb3potqN5ostZz8nWbLXB4tkPw7hbFp
-	 48C5KkltKDqhttyCHsgrBAz2aalQD1RsG8xt62CWpAgSrZStBow5WgY/GZpec3yjMK
-	 w3h9IXjZ6RGOQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neo Chang" <YLCHANG2@nuvoton.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526015826.440769-3-YLCHANG2@nuvoton.com>
-References: <20260526015826.440769-3-YLCHANG2@nuvoton.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 02:46:55 +0000
-Message-Id: <20260526024656.4DB481F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779765098; c=relaxed/simple;
+	bh=HwAYAkN5q4a4hxZ5KpRyQeoqoAo/+cGXM8lMBdq26pc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OidD6vRa/F2YpprtPnD4z8q/pr+KwVzoWVC9sx+9laPiBv9TS9ICAm4ayG0XoxUapOt+2tNjxnXkJ6BJSpATBKgMoEdzcMX5IlfsT86EH2iPevTkmEf+ODqvQA0mXwFgsJx9EFM+AnAbw9/kinic5mmzb8fsMhdn7xfln+P58ZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
+Received: from loongson.cn (unknown [10.20.42.101])
+	by gateway (Coremail) with SMTP id _____8CxRXheDxVq10ENAA--.13528S3;
+	Tue, 26 May 2026 11:11:26 +0800 (CST)
+Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
+	by front1 (Coremail) with SMTP id qMiowJAxXcJaDxVq10SRAA--.10437S2;
+	Tue, 26 May 2026 11:11:23 +0800 (CST)
+From: Hongliang Wang <wanghongliang@loongson.cn>
+To: Binbin Zhou <zhoubinbin@loongson.cn>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Hongliang Wang <wanghongliang@loongson.cn>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	loongarch@lists.linux.dev
+Subject: [PATCH v4 0/2] i2c: ls2x: Add clock- related properties and parsing
+Date: Tue, 26 May 2026 11:10:19 +0800
+Message-Id: <20260526031021.32662-1-wanghongliang@loongson.cn>
+X-Mailer: git-send-email 2.20.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qMiowJAxXcJaDxVq10SRAA--.10437S2
+X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
+X-Coremail-Antispam: 1Uk129KBj93XoW7Cw4UKw1fZr1Dury7Ar47Awc_yoW8Cr1DpF
+	s8CFZ8Gr1Yk3W0grsIq3yI9FyFqws8XrZ7JFyxXw15Zw43Jr1DZF1SkrZ09ryDGrZ2kayU
+	Wws8WFnrKF9xZFXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUvYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
+	Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l57IF6xkI12xvs2x26I8E6xACxx1l5I
+	8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17McIj6I8E87Iv67AK
+	xVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lc7CjxVAaw2AFwI
+	0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
+	W8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07jnSdgU
+	UUUU=
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [Critical] The regmap configuration forces 16-bit truncation on 32-bit DS=
-P registers.
-- [High] Dynamic creation of DAPM widgets and routes within an ALSA kcontro=
-l `put` handler without instantiation.
-- [High] Using atomic polling with a 1000us delay on a sleepable I2C regmap.
-- [High] TDM TX is permanently disabled after the first capture stream stop=
-s.
-- [High] Concurrent ALSA kcontrol callbacks race on shared hardware state, =
-causing corrupted PEQ memory accesses.
-- [High] Synchronous `request_firmware` in a kcontrol `put` handler and `re=
-sume` path causes deadlocks.
-- [High] PEQ coefficients are silently lost during suspend/resume due to mi=
-ssing hardware memory access bit.
-- [High] Stack-allocated memory buffers are passed directly to I2C transfer=
- functions.
-- [Medium] `nau8360_vbat_level()` uses uninitialized stack memory if `regma=
-p_read()` fails.
-- [Medium] Unhandled failure in `nau8360_dsp_init` causes duplicated DAPM w=
-idgets to be leaked.
-- [Medium] Uninitialized stack variable `status` is used to verify DSP stat=
-e if the DSP returns a 0-length or trailing-only reply.
-- [Medium] TOCTOU race when checking DAPM bias level and unprotected state =
-modification of `dsp_enable`.
-- [Medium] Unprotected concurrent access to shared TDM slot caching arrays.
---
+From: wanghongliang <wanghongliang@loongson.cn>
 
-commit ecf4fed8f174ef2256d85d18a781234a1012265b
-Author: Neo Chang <YLCHANG2@nuvoton.com>
-Subject: ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
+Hi all:
 
-This commit adds support for the Nuvoton NAU83G60 audio codec. The NAU83G60
-is a stereo 30W+30W smart amplifier with an integrated low-latency Advanced
-Audio DSP.
+This patch set adds clock related properties and parsing in dts and acpi.
 
-> diff --git a/sound/soc/codecs/nau8360-dsp.c b/sound/soc/codecs/nau8360-ds=
-p.c
-> --- a/sound/soc/codecs/nau8360-dsp.c
-> +++ b/sound/soc/codecs/nau8360-dsp.c
+I'm sorry that the PATCH v3 I previously submitted was incomplete, and
+missing changelog and previous patch link. So I resubmit the PATCH v4
+instead of v3 for review.
 
-[ ... ]
+Thanks.
 
-> +/* checking for DSP IDLE pattern */
-> +static int nau8360_dsp_idle(struct snd_soc_component *component, unsigne=
-d short dsp_addr)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int idle_pattern, timeout =3D NAU8360_DSP_IDLE_RETRY * USEC_PE=
-R_MSEC;
-> +	int ret;
-> +
-> +	ret =3D regmap_read_poll_timeout_atomic(nau8360->regmap, dsp_addr, idle=
-_pattern,
-> +		idle_pattern =3D=3D NAU8360_DSP_COMM_IDLE_WORD, USEC_PER_MSEC, timeout=
-);
+======
+V4:
+- Add Acked-by tag from Conor Dooley, thanks.
+Patch (2/2):
+ - Adjust the position of #include <linux/clk.h>;
+ - Remove struct ls2x_i2c_chip_data and use macro to describe div;
+ - Use div instead of factor in ls2x_i2c_adjust_bus_speed;
+ - Reverse the "if & else" code logic in ls2x_i2c_adjust_bus_speed;
 
-[Severity: High]
-Does using the atomic variant of regmap poll timeout with a 1000 microsecond
-delay cause soft lockups due to prolonged busy-waiting? Since the underlying
-I2C transfer sleeps anyway, should this use the non-atomic
-regmap_read_poll_timeout instead?
+Link to V2:
+The PATCH v3 is incomplete, v4 is the replacement of v3, so the previous patch link is v2.
 
-[ ... ]
+[PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+https://lore.kernel.org/all/20260507081010.12810-1-wanghongliang@loongson.cn/
+[PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+https://lore.kernel.org/all/20260507081010.12810-2-wanghongliang@loongson.cn/
 
-> +static int nau8360_dsp_chan_kcs_setup(struct snd_soc_component *cp,
-> +	const char *fw_name, int dsp_addr)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
-> +	const struct firmware *fw;
-> +	int ret, status, buf_off, buf_len;
-> +
-> +	ret =3D nau8360_dsp_get_cmd_put(cp, dsp_addr,
-> +			NAU8360_DSP_CMD_GET_FRAME_STATUS, &status);
-> +	if (ret || !(status & NAU8360_DSP_ALGO_OK)) {
+V2:
+[PATCH v2] dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+- Remove the custom properties clock-input and clock-div, use clock framework;
+[PATCH v2] i2c: ls2x: Add clocks property parsing and adjust bus speed
+- Use clock framework to obtain the i2c reference clock in dts.
 
-[Severity: Medium]
-If the DSP returns a reply containing only a trailing fragment, does the
-payload read loop in nau8360_reply_from_dsp get skipped, leaving the status
-variable unmodified? Can this cause this uninitialized stack variable to be
-evaluated here, leading to unpredictable behavior?
+Link to V1:
+https://lore.kernel.org/all/20260325011852.19079-1-wanghongliang@loongson.cn/
 
-> +		dev_err(cp->dev, "DSP %x is not ready", dsp_addr);
-> +		ret =3D -EIO;
-> +		goto err;
-> +	}
-> +
-> +	dev_info(cp->dev, "DSP %x is ready to load firmware %s, status %x",
-> +		dsp_addr, fw_name, status);
-> +
-> +	ret =3D request_firmware(&fw, fw_name, cp->dev);
+wanghongliang (2):
+  dt-bindings: i2c: ls2x-i2c: Add clocks and clock-frequency properties
+  i2c: ls2x: Add clocks property parsing and adjust bus speed
 
-[Severity: High]
-Can calling request_firmware synchronously from a kcontrol put handler
-(via nau8360_dac_mux_put_enum) or during the resume path risk blocking the
-ALSA controls rwsem or deadlocking the resume thread?
+ .../bindings/i2c/loongson,ls2x-i2c.yaml       |  3 ++
+ drivers/i2c/busses/i2c-ls2x.c                 | 35 +++++++++++++++++--
+ 2 files changed, 35 insertions(+), 3 deletions(-)
 
-[ ... ]
+-- 
+2.47.2
 
-> +int nau8360_dsp_init(struct snd_soc_component *component)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct snd_soc_dapm_context *dapm =3D nau8360->dapm;
-> +	int ret;
-> +
-> +	dev_info(component->dev, "DSP initializing...");
-> +	ret =3D nau8360_dsp_set_kcs_setup(component);
-> +	if (ret)
-> +		goto err;
-> +
-> +	ret =3D snd_soc_dapm_new_controls(dapm, nau8360_dsp_dapm_widgets,
-> +			ARRAY_SIZE(nau8360_dsp_dapm_widgets));
-> +	if (ret) {
-> +		dev_err(component->dev, "add DSP widget fail (%d)", ret);
-> +		goto err;
-> +	}
-> +	ret =3D snd_soc_dapm_add_routes(dapm, nau8360_dsp_dapm_routes,
-> +			ARRAY_SIZE(nau8360_dsp_dapm_routes));
-
-[Severity: High]
-Does adding DAPM widgets and routes dynamically from a kcontrol put handler
-leave the new widgets uninstantiated without a subsequent call to
-snd_soc_dapm_new_widgets()? Could this cause the DSP Clock supply to fail to
-power up?
-
-[Severity: Medium]
-If snd_soc_dapm_add_routes fails here, does this return an error without
-freeing the widgets created by snd_soc_dapm_new_controls? Since dsp_created
-remains false, will subsequent attempts to enable the DSP allocate duplicate
-widgets and leak memory?
-
-> diff --git a/sound/soc/codecs/nau8360.c b/sound/soc/codecs/nau8360.c
-> --- a/sound/soc/codecs/nau8360.c
-> +++ b/sound/soc/codecs/nau8360.c
-
-[ ... ]
-
-> +static int nau8360_tdm_rx_slot_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp =3D snd_kcontrol_chip(kcontrol);
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item =3D ucontrol->value.enumerated.item;
-> +	unsigned int mask =3D e->mask << e->shift_l;
-> +	int ret, func_idx, val_to_cache;
-> +	bool changed =3D false;
-> +	bool is_none =3D (item[0] =3D=3D NAU8360_TDM_RXN);
-> +
-> +	func_idx =3D nau8360_get_tdm_rx_func_idx(e);
-> +	if (item[0] >=3D e->items || func_idx < 0)
-> +		return -EINVAL;
-> +
-> +	val_to_cache =3D is_none ? TDM_SLOT_NONE : item[0];
-> +	if (nau8360->tdm_rx_func_slot[func_idx] =3D=3D val_to_cache) {
-> +		dev_dbg(cp->dev, "RX func %s: Slot no change (%d)",
-> +			nau8360_rx_func_names[func_idx], val_to_cache);
-> +		goto done;
-> +	}
-> +
-> +	nau8360->tdm_rx_func_slot[func_idx] =3D val_to_cache;
-
-[Severity: Medium]
-Are the arrays tdm_rx_func_slot and tdm_tx_func_slot updated without any
-locking? Can concurrent ALSA put callbacks or overlapping hw_params calls
-result in data races and inconsistent slot validation logic?
-
-[ ... ]
-
-> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_component *cp =3D snd_kcontrol_chip(kcontrol);
-> +	struct soc_bytes_ext *params =3D (void *)kcontrol->private_value;
-> +	int i, ret, reg =3D nau8360_peq_regaddr(kcontrol->id.name);
-> +	__be16 *data;
-> +	bool changed =3D false;
-> +
-> +	if (reg < 0) {
-> +		ret =3D -EIO;
-> +		goto err;
-> +	}
-> +	data =3D kmemdup(ucontrol->value.bytes.data, params->max, GFP_KERNEL);
-> +	if (!data) {
-> +		ret =3D -ENOMEM;
-> +		goto err;
-> +	}
-> +
-> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
-TEST,
-> +		NAU8360_HW1_MEM_TEST);
-
-[Severity: High]
-Can concurrent execution of the PEQ get and put kcontrol callbacks race on
-the NAU8360_HW1_MEM_TEST bit modification? Could one thread clear the bit
-while another is reading or writing, leading to corrupted PEQ memory access=
-es?
-
-[ ... ]
-
-> +static void nau8360_shutdown(struct snd_pcm_substream *substream,
-> +	struct snd_soc_dai *dai)
-> +{
-> +	struct snd_soc_component *component =3D dai->component;
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	unsigned int tdm_mask;
-> +
-> +	tdm_mask =3D (substream->stream =3D=3D SNDRV_PCM_STREAM_PLAYBACK) ?
-> +		NAU8360_EN_TDM_RX : NAU8360_EN_TDM_TX;
-> +	regmap_update_bits(nau8360->regmap, NAU8360_R0B_I2S_PCM_CTRL1,
-> +		tdm_mask, 0);
-
-[Severity: High]
-Does explicitly clearing the NAU8360_EN_TDM_TX bit during shutdown without
-re-enabling it during startup or hw_params cause subsequent capture streams
-to fail and yield silence?
-
-[ ... ]
-
-> +static int nau8360_dac_mux_put_enum(struct snd_kcontrol *kcontrol,
-> +	struct snd_ctl_elem_value *ucontrol)
-> +{
-> +	struct snd_soc_dapm_context *dapm =3D snd_soc_dapm_kcontrol_to_dapm(kco=
-ntrol);
-> +	struct snd_soc_component *component =3D snd_soc_dapm_to_component(dapm);
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct soc_enum *e =3D (struct soc_enum *)kcontrol->private_value;
-> +	unsigned int *item =3D ucontrol->value.enumerated.item;
-> +	bool dsp_en =3D snd_soc_enum_item_to_val(e, item[0]);
-> +	int ret =3D 0;
-> +
-> +	if (nau8360->dsp_enable =3D=3D dsp_en)
-> +		goto done;
-> +
-> +	if (snd_soc_dapm_get_bias_level(dapm) > SND_SOC_BIAS_STANDBY) {
-
-[Severity: Medium]
-Is this check for the DAPM bias level vulnerable to a time-of-check to
-time-of-use race since it happens outside the DAPM card mutex? Could a
-concurrent stream start immediately after the check, leading to DSP path
-switching while playback is active? Also, is nau8360->dsp_enable being
-accessed and modified without locking here?
-
-[ ... ]
-
-> +static inline int nau8360_vbat_level(struct regmap *regmap)
-> +{
-> +	int value;
-> +
-> +	regmap_read(regmap, NAU8360_R21_VBAT_READOUT, &value);
-> +	/* multiple 100 on value scale */
-> +	return (value * 100 + NAU8360_VBAT_BASE) / NAU8360_VBAT_STEP;
-> +}
-
-[Severity: Medium]
-If the I2C read fails, does this function use an uninitialized stack
-variable to calculate the VBAT level? Could this lead to configuring
-critical sawtooth parameters based on corrupted data if the garbage value
-happens to fall within the valid range?
-
-[ ... ]
-
-> +static int __maybe_unused nau8360_resume(struct snd_soc_component *compo=
-nent)
-> +{
-> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(component);
-> +	struct regmap *regmap =3D nau8360->regmap;
-> +	int ret;
-> +
-> +	regcache_cache_only(regmap, false);
-> +	regcache_sync(regmap);
-
-[Severity: High]
-Since regcache_sync restores registers in numerical order, will it write the
-PEQ coefficients starting at 0x100 before the HW1_MEM_TEST bit is set at
-0x9D, causing the hardware to silently reject the writes and lose custom
-equalizer settings across suspend and resume cycles?
-
-[ ... ]
-
-> +static int nau8360_reg_write(void *context, unsigned int reg, unsigned i=
-nt value)
-> +{
-> +	struct i2c_client *client =3D context;
-> +	int ret, count =3D 0;
-> +	u8 buf[6];
-> +
-> +	buf[count++] =3D reg >> 8;
-> +	buf[count++] =3D reg & 0xff;
-> +	if (reg !=3D NAU8360_RF000_DSP_COMM && reg !=3D NAU8360_RF002_DSP_COMM)=
- {
-> +		/* format for Codec, 2 bytes value and endian big */
-> +		buf[count++] =3D value >> 8;
-> +		buf[count++] =3D value & 0xff;
-> +		dev_dbg(&client->dev, " %x <=3D %x", reg, value);
-> +	} else {
-> +		/* format for DSP, 4 bytes value and native */
-> +		buf[count++] =3D value & 0xff;
-> +		buf[count++] =3D (value >> 8) & 0xff;
-> +		buf[count++] =3D (value >> 16) & 0xff;
-> +		buf[count++] =3D (value >> 24) & 0xff;
-> +	}
-> +
-> +	ret =3D i2c_master_send(client, buf, count);
-
-[Severity: High]
-Are stack-allocated arrays being passed directly to i2c_master_send and
-i2c_transfer? If the I2C adapter utilizes DMA, does mapping stack memory
-violate architecture rules and risk memory corruption?
-
-[ ... ]
-
-> +static const struct regmap_config nau8360_regmap_config =3D {
-> +	.reg_bits =3D NAU8360_REG_ADDR_LEN,
-> +	.val_bits =3D NAU8360_REG_DATA_LEN,
-> +
-> +	.max_register =3D NAU8360_REG_MAX,
-> +	.readable_reg =3D nau8360_readable_reg,
-> +	.writeable_reg =3D nau8360_writeable_reg,
-> +	.volatile_reg =3D nau8360_volatile_reg,
-> +	.reg_read =3D nau8360_reg_read,
-> +	.reg_write =3D nau8360_reg_write,
-
-[Severity: Critical]
-Since nau8360_regmap_config sets val_bits to 16, does the regmap core silen=
-tly
-apply a 0xFFFF mask to all read values? When reading 32-bit DSP registers
-via the custom nau8360_reg_read, does this cause the upper 16 bits to be
-discarded, breaking DSP firmware loading and communication?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526015826.4407=
-69-1-YLCHANG2@nuvoton.com?part=3D2
