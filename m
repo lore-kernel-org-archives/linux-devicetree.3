@@ -1,98 +1,141 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9727E3D3CF0
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:10:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C077C34F27B;
+	Tue, 26 May 2026 09:11:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779786639; cv=none; b=QhQy3gGbCBsJwHZro9MaWmGZcwC8WIkZBc5PRp7OQSNlDBWDglkf2mdHducf+WFyQ3eO4YQV0vM/eLpRd6MM29vcK7M+eI66YgL/OOrjgG8nkNFg+0I7sD05OM7i5JivLC5s26mxogXE0Woy3KnWeAaLR0ZAP+S2LtqVLGG6nUU=
+	t=1779786697; cv=none; b=Dv3BD7asIYgNsK0ImAYV+zGy9YjCLZW7Wt3QvjgjkasxRFs8prA7WH/tyc/Tc+sRfr54qJET/R+y6Z6J66tKvltxjHrXrQTa1kdaWHImA+tsS9cCVuwq2mHMfPy3H5zje4Vv/mTMlrI5cXdadj3uYloAZlVABIQy9oM1bVvOIm4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779786639; c=relaxed/simple;
-	bh=CDdXageqFFnS1lt5ITJVCOsjjz8dlepjGjcjcaqiSHo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ouUrmB8ulx2VqzpcsEWx+pbpe7svWvIpPAGv5ZTxI+qUMnx6Ac97nrSWNagtkWyUEi1BShTD2Y9S2YIWpxiEkcb8hpLa3uIirE4aP/eqkFDvrCFQGXmwZ3hZNNBEtFVrR24rfEgSGYNwB7fRMzQjAfqhHzUK1d2tc7a7DqZQg2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ly5quGx2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779786697; c=relaxed/simple;
+	bh=SW7KeJNiQusFQ/pQgB/dBi5RWho0Zrrl8+GM6+8Z7mM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=RoOhad+M81Udqt3KFBmS4T5FQwvfSFoW+FVCr9lJzWVhjQNmmsqVrIjUBqZAwIFP/4c3GcUNTJgCcc2S6GL1xQ8zrOHqXoJR/QADG+w6VdF2kWm0frgyQu3Dpbg2ZctQaT3inlfXe+6txua8X7UomiT81WA6dW1hvOj+fOgcHI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iaYCo0Dq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ly5quGx2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621271F0156B
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:10:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iaYCo0Dq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C4161F000E9;
+	Tue, 26 May 2026 09:11:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779786637;
-	bh=CDdXageqFFnS1lt5ITJVCOsjjz8dlepjGjcjcaqiSHo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ly5quGx2+ckHTMiGFoEyXLa6kpNtlQybVxrA48joySieh7gI6Kt2iwbvjzpv2MKHw
-	 ILQCB8npQo/yjF3LTlfXSR8YLf6/JMGO791rsbn+hKZsit1mxo2IdDqYSaaogvFzUx
-	 vFiRWXoVxuih0ZZTPC6clq0A95lEghtsrfqPnZyBxXJG+dppw39nL04tSqTCu67kpq
-	 ysKrPJTp+Ea2bsychtkA0p/HqGOe8v/cT4h2ewLOtLnAo6zEkJjg/plof7dP6ruVoi
-	 bE6McKMcAq/lCJEsKmtaeTLOLNPoyv7G1PrtxhFgYy85K0JdN3ay1peRWDeOS7kJLI
-	 mL7C4TR7c3xxQ==
-Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-3939d2bd739so80365171fa.0
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 02:10:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8zZ4bcOIk2GTLI1Kxk8FsW91WPfpuMdqDQ3oPBaV21yIcwoUlJc0F9dLUvv7Sfzu9AFS1xUJb5vBvV@vger.kernel.org
-X-Gm-Message-State: AOJu0YzUsTVD0mdckfRIIHQ8KT/++Vy6oOHSycOhcPS/LIoHt2l9Buou
-	mcOyOo91sRHPZqQu11k+bhoLdriQPubQqKW4X0RAenEXqWKPR5g11wM1DRkUOaTkBWP5/mQlgoX
-	ft1PNh3tY2YBoifwkYbkyYW6ywUsqoI8=
-X-Received: by 2002:a2e:9b97:0:b0:38e:a883:6303 with SMTP id
- 38308e7fff4ca-395d8c1a2ddmr38195081fa.9.1779786635862; Tue, 26 May 2026
- 02:10:35 -0700 (PDT)
+	s=k20260515; t=1779786696;
+	bh=ayM4bBwu39VrJ1etxfyHUOCYJiIzN3g4ARE+wvaIF6E=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iaYCo0DqYyYvN9oQVCsiq0MRZw6sBaA41tuMeduNRZ727T3LpdVSxZpxGMcRstRxz
+	 is9zpkUbpgyOpcI/A0hswGRHPVBuyFy4l8TKjx7khnjXd6OwqYjUlFKB1p09br+QLT
+	 aRGvdcfkUIX/EW8wHmmYvp8oOgEzeNGyYhtZSvr6JiA6tiagyvg9L5akgjPINTgeqX
+	 A9cPoI3B62IBxd8vWXy2DvcFBBM/AqaJaHSqFrKYDMdXRICJb7y0IQVZek6r42tpNg
+	 YNfeVD4my7Oh1hCKfDGp4r2bH+o/ztqtad9Hwyh1gaEB4pUwqJmVapu3z7VzpTfAO+
+	 ZT5ea6iex4EQw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v9 1/3] dt-bindings: clock: imx95-blk-ctl: Allow child
+ nodes
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, robh@kernel.org
+In-Reply-To: <20260526-csi_formatter-v9-1-ca3d8c334c39@oss.nxp.com>
+References: <20260526-csi_formatter-v9-1-ca3d8c334c39@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 09:11:35 +0000
+Message-Id: <20260526091136.2C4161F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260522-strict-provenance-redux-v1-1-0880b65fc17c@kernel.org> <CANiq72kwRam1yk_w+B2n2osXLEVdofDbisBs+FYoukZ7GYNcog@mail.gmail.com>
-In-Reply-To: <CANiq72kwRam1yk_w+B2n2osXLEVdofDbisBs+FYoukZ7GYNcog@mail.gmail.com>
-From: Tamir Duberstein <tamird@kernel.org>
-Date: Tue, 26 May 2026 11:09:59 +0200
-X-Gmail-Original-Message-ID: <CAJ-ks9=XDsBMuNCX5UQn7OytrDbM8ZnnX0Nci3Zrb37fa_maCg@mail.gmail.com>
-X-Gm-Features: AVHnY4KT-C0ZHAIvDzjLKDNNdT3OK_8WcJCT2ljZF23KYVsYFyqdDO1mFxY4Yss
-Message-ID: <CAJ-ks9=XDsBMuNCX5UQn7OytrDbM8ZnnX0Nci3Zrb37fa_maCg@mail.gmail.com>
-Subject: Re: [PATCH] rust: kernel: use strict provenance APIs
-To: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>
-Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
-	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
-	Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
-	=?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
-	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
-	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-	Daniel Almeida <daniel.almeida@collabora.com>, Rob Herring <robh@kernel.org>, 
-	Saravana Kannan <saravanak@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-pci@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 25, 2026 at 9:48=E2=80=AFAM Miguel Ojeda
-<miguel.ojeda.sandonis@gmail.com> wrote:
->
-> On Fri, May 22, 2026 at 7:19=E2=80=AFPM Tamir Duberstein <tamird@kernel.o=
-rg> wrote:
-> >
-> > Suggested-by: Benno Lossin <benno.lossin@proton.me>
-> > Link: https://lore.kernel.org/all/D8EIXDMRXMJP.36TFCGWZBRS3Y@proton.me/
->
-> The linked suggestion seems to be about enabling the lints, not using
-> the provenance APIs (which we have been discussing for a long time).
-> Do we want to enable the lints after this? Or what am I missing?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-You're right; I carried over the tag from the previous iteration
-thinking it addressed usage when it actually suggested the lints. The
-lints can't be enabled yet because they are not stable (not just in
-our MSRV).
+New issues:
+- [Medium] The dt-binding fails to allow the `ranges` (and potentially `dma=
+-ranges`) property, causing schema validation to reject valid device tree n=
+odes that map child device registers.
+- [Low] Child node `patternProperties` definition lacks the required `addit=
+ionalProperties` or `unevaluatedProperties` directive.
 
-> In any case, some of these are not equivalent to the `as` casts, so
-> they are not a mechanical change. Could we have, at least for those,
-> the reason why it is OK to perform the change? (perhaps as separate
-> commits?)
+Pre-existing issues:
+- [Critical] The imx95_bc driver completely lacks a `.remove` callback and =
+fails to clean up non-managed resources, leading to critical resource leaks=
+, use-after-free bugs on unbind, and an APB clock leak.
+--
 
-Correct. There are both behavior-preserving exposed-provenance
-spellings and cases that deliberately avoid exposing provenance. I
-will split those as you suggest.
+commit 726604ca3bd356c1af7395b3121524ccf63624b9
+Author: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
 
-> Thanks for cleaning this up!
+dt-bindings: clock: imx95-blk-ctl: Allow child nodes
 
-Thanks for reviewing!
+This commit adds #address-cells, #size-cells, and a patternProperties block
+to the imx95-blk-ctl binding. This allows child device nodes to have their
+own bindings, matching the driver's use of devm_of_platform_populate().
+
+> Add support for child nodes in the imx95-blk-ctl binding to match
+> the driver implementation which calls devm_of_platform_populate().
+
+[Severity: Critical]
+This is a pre-existing issue, but does the imx95_bc driver completely lack a
+.remove callback?
+
+While looking at the driver implementation mentioned here, it appears it
+relies on non-managed APIs (clk_hw_register_mux, clk_hw_register_divider,
+of_clk_add_hw_provider) to register clocks but lacks a way to unregister th=
+em
+on unbind.
+
+Since the clk_hw_data and associated strings are allocated via devm_kzalloc=
+(),
+they would be freed on unbind, potentially leaving the clock framework with
+pointers to freed structures. Can this result in a use-after-free?
+
+Additionally, when !bc->pdata is true, the probe function leaves bc->clk_apb
+enabled without any cleanup mechanism. Does this cause a clock leak on unbi=
+nd?
+
+> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.ya=
+ml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> index 27403b4c52d62..33ad1c15cc9c8 100644
+> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> @@ -39,6 +39,17 @@ properties:
+>        ID in its "clocks" phandle cell. See
+>        include/dt-bindings/clock/nxp,imx95-clock.h
+> =20
+> +  '#address-cells':
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 1
+
+[Severity: Medium]
+Since this binding now allows child nodes with #address-cells and #size-cel=
+ls,
+does the parent node also need to allow the ranges property?
+
+Without ranges: true in the properties block, device trees that correctly
+define ranges to translate memory-mapped child registers into the CPU addre=
+ss
+space might be rejected by dt_binding_check due to the top-level
+additionalProperties: false restriction.
+
+> +
+> +patternProperties:
+> +  "^.*@[0-9a-f]+$":
+> +    type: object
+> +    description: Child nodes with their own bindings
+
+[Severity: Low]
+Does this child node definition need an additionalProperties or
+unevaluatedProperties directive?
+
+Device tree schema guidelines typically require all type: object nodes to
+explicitly declare one of these. Omitting it might trigger meta-schema
+warnings during make dt_binding_check.
+
+> +
+>  required:
+>    - compatible
+>    - reg
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-csi_format=
+ter-v9-0-ca3d8c334c39@oss.nxp.com?part=3D1
