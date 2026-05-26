@@ -1,99 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3BFB3CCA13
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:03:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A648937CD45;
+	Tue, 26 May 2026 08:06:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779782624; cv=none; b=TXTXWiFkPQUZ3w9ZLahgkOKYgw6zz7EPp+DG+H2T5bDtGLw+pBeJRtQl4FwmpbrEwjb1UZNbhD0xJs4pPaflpzOUOljIW20CH42RydbnCzPeH220VTUtfzNnjOyxq8TKZasSjBThGTY7Jq2Xy3hYtfmgcmCruSk1+jhfGH/DHjk=
+	t=1779782776; cv=none; b=UcvjDK9VRa4H3cIcp3ySfoNIlltartyRoVw6kW/hVCW9eQp3LtM9XazRn5J49PVorjxBfYBFYE5oklCgPds9Fs8wNKfNqDPxd0JMRCAx7/J7uOpWqTyoKJKnqzp0K7236qmCQHzYdKSRbg53eNSyRx+dmc6JC2QxWL9R+odCDTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779782624; c=relaxed/simple;
-	bh=RZyFV4TYOkeTzWyuEJMljFmY7cUilYs9Dw78RjDEFGA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X9VgAwqyEzR6kMsAEXVFXwtpAgSXPGrIaFRWmmNGTYR+qGHPXu7LTB0VDVDoMtINc0yMIkniFdHl9ytVELocxM9bmXRHIUeJd3v0ueHZfxW31zZ5wcwd0egdDPW/7BujfEu4nmeYZibl5G4v1ROJpBfAnpRaMqFSHvhxjz2s2Nk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AO196/DK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779782776; c=relaxed/simple;
+	bh=HGapA52ayerj7Adm/fitF7ubF4fZQQHvIgBK9Lzu5Yk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a3xcGKXtFlYP/dUalyML4C8UyjH+WpsvJ+oPz8e1HAS0YkQBt+pFF3eSaE4vtNBlgg+DAXGQuNU4pKflDZAj4PPobvhsseQJpnx2nsJPdo975esu9dMSJiddfUEU3yt117gUBzjWJ31k8dUYH7y9X75Xmvs6IkwBCBoIUzzYrBY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GjjrCFpc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AO196/DK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0971F00A3A;
-	Tue, 26 May 2026 08:03:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GjjrCFpc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9651F000E9;
+	Tue, 26 May 2026 08:06:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779782622;
-	bh=I191zetXLOqY+FsNjawvzTiou9/ENSs/6VzCewKYCOk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AO196/DKBVhXI1+NTVKGn4CeDCBTS+3wxDkjOK1L00usyo5zhjR6iY7l7Wa7mPCg9
-	 XfHKkJglVkZQhClC9Ekmm0XZGR4x0XtaVR5VPTr6WTUPiEzbS4CnP6WEM6VH2jN1Pr
-	 djr27Xa4cHQwovJrtoWCkWmaQD4ZvVirJpRlFjJKx3CSrPHtDFAv+iMo/ZW9UdTQdQ
-	 MKDYSRiN2cK29K+3KbO7wRKqy4JmZ8Z9UlJggwByVP8ByaqbW0OKhoG5E/H113HgG/
-	 d/McnEhi1cO+YsCiu+U3N74Efe7EKOEwqggfBBTyJ2NN8gzVUWI5DgkJHQSo7/xu92
-	 +KrrzvuuzM5Pg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: display: bridge: Document Renesas
- RZ/G3L LVDS encoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Biju <biju.das.au@gmail.com>
-Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260526074746.20371-2-biju.das.jz@bp.renesas.com>
-References: <20260526074746.20371-2-biju.das.jz@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 08:03:41 +0000
-Message-Id: <20260526080342.5A0971F00A3A@smtp.kernel.org>
+	s=k20260515; t=1779782775;
+	bh=g6XMMZUVsPZY3zr1bCsuHRKX53Xlum27v7L+XlSyf60=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GjjrCFpc7W/uWJBxjHgFnxkFPVfFFFVq+t9oz2m0MynTPoKSQD1tJcaO8PtZUPk3I
+	 uTcq4jba6ubS0GK5hI0943sfDtwBQVcE8Z4WF4OZvxllIIy3M2EQvj+c34Lo5ZVLj4
+	 b3rfB4k0S8JaWUHAKrebtPBjKNP3AwC+HgCaPLfXU8amyec9wo+EdGh5yVlN0I2gMw
+	 9rwPKA0vAFYqKSmpdkHNAw6fI4znsSfArIe503zTeTYvKLIYDQjFNhB+7J8+0JBagJ
+	 8YPJiVHIfxXZ8UzNlx8bW/yEO1ohwBwLq4KG4T9x8uUUsdiSDqSYKJZp2KI3U45AgX
+	 WNX6SXE33xZcA==
+Date: Tue, 26 May 2026 09:06:06 +0100
+From: Sudeep Holla <sudeep.holla@kernel.org>
+To: Marc Zyngier <maz@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Sudeep Holla <sudeep.holla@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
+	Jernej Skrabec <jernej.skrabec@gmail.com>,
+	Samuel Holland <samuel@sholland.org>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+	Ge Gordon <gordon.ge@bst.ai>,
+	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
+	Jesper Nilsson <jesper.nilsson@axis.com>,
+	Lars Persson <lars.persson@axis.com>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
+	Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Shawn Lin <shawn.lin@rock-chips.com>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Michal Simek <michal.simek@amd.com>
+Subject: Re: [PATCH v3 01/17] ACPI: GTDT: Account for GTDTv3 size when
+ walking the platform timer descriptors
+Message-ID: <20260526-logical-ape-of-courage-c1ccbf@sudeepholla>
+References: <20260523140242.586031-1-maz@kernel.org>
+ <20260523140242.586031-2-maz@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260523140242.586031-2-maz@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The devicetree binding example uses an undocumented compatible stri=
-ng 'renesas,r9a08g046-lvds-cmn'.
---
+On Sat, May 23, 2026 at 03:02:26PM +0100, Marc Zyngier wrote:
+> Since ARMv8.1, the architecture has grown an EL2-private virtual
+> timer. This has been described in ACPI since ACPI v6.3 and revision
+> 3 of the GTDT table.
+> 
+> An aditional structure was added in ACPICA, though in a rather
+> bizarre way, and merged in v5.1 as 8f5a14d053100 ("ACPICA: ACPI 6.3:
+> add GTDT Revision 3 support").
+> 
+> Finally plug the table parsing in GTDT, and correct the parsing of
+> the platform timer subtables to account for the expanded size of
+> the base table. This also comes with some extra sanitisation of
+> the table, in the unlikely case someone got it wrong...
+> 
+> Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
 
-commit 9397f35a0f79e0fc93866629c771e20b121306e2
-Author: Biju Das <biju.das.jz@bp.renesas.com>
+Reviewed-by:  Sudeep Holla <sudeep.holla@kernel.org>
 
-dt-bindings: display: bridge: Document Renesas RZ/G3L LVDS encoder
-
-This commit adds the device tree binding documentation for the Renesas RZ/G=
-3L
-LVDS encoder IP. It defines the required properties, clocks, resets, ports,
-and provides a usage example.
-
-> diff --git a/Documentation/devicetree/bindings/display/bridge/renesas,r9a=
-08g046-lvds.yaml b/Documentation/devicetree/bindings/display/bridge/renesas=
-,r9a08g046-lvds.yaml
-> new file mode 100644
-> index 0000000000000..b1f6d020ae7b1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/display/bridge/renesas,r9a08g046-=
-lvds.yaml
-
-[ ... ]
-
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/clock/renesas,r9a08g046-cpg.h>
-> +
-> +    lvds-cmn@108a0000 {
-> +        compatible =3D "renesas,r9a08g046-lvds-cmn",
-> +                     "simple-mfd", "syscon";
-
-[Severity: Low]
-Is the renesas,r9a08g046-lvds-cmn compatible string documented elsewhere?
-
-It appears this string is not defined in any schema file or added to the
-mfd/syscon bindings in this series. Will this missing definition cause a
-schema validation failure during make dt_binding_check?
-
-> +        reg =3D <0x108a0000 0x10000>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <1>;
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526074746.2037=
-1-1-biju.das.jz@bp.renesas.com?part=3D1
+-- 
+Regards,
+Sudeep
