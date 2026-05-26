@@ -1,96 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com [209.85.214.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99116372B3D
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:22:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 545403B5319
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:23:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779780125; cv=none; b=YzyBrBbIqFRHvQqi24dk0rvbBTXhuOJm7ia59uZw6qf0RbIYOt3F2oFVrYwGnQeJkk5GNydIlPsbscvFK3NrRFrgOmtV6Wwp2vMWEvIqvpnfmhIFYGT1WewHh8785QaxivQAXEW2PuNegDmcnf+knSSpDe5zFK42DWqyR8nMIwg=
+	t=1779780217; cv=none; b=LVuudDXzkYrVOrHs5z5BqQS0hWRiIltino+89zqUEitOkE+fmbF5ybKQN3xO6PCWxVjSiWP/zq0JCZI6SjFjJOHFTPzU21RXko0f8+dQOQxVNNHZi3QY3g9PKsolpJpHRRIf6gA7HBNHEXbMtTy5B2TdfDIW/4XEjke6Yjd8tpU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779780125; c=relaxed/simple;
-	bh=IY9Q1nC63JTkDQ3s6GzbQs/euNAExrtLPmdM3a/zaVE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D5XDMr4GbyLcQwxT/fecZS1rgOvfVGm/6kDe/gtAM20fuyIczp8iDKM/PXgHWXz4WHEoSNwJFVz5rFpYerzPJ4gDQzv3s4GJMZy+O7y0BAL4UlTBaIjsVZdIIyQyIOWVQqL3Is7bcbz89mV9H/l3rfWLtVAkHMGuOhMERnWuYGY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hZcuL5zr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779780217; c=relaxed/simple;
+	bh=AcRMVTLXj/mukKWgGjOXcht9MzRyV0pMqnBZFRrSKFA=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=MIBcH8D/803w16Xl3i+z0unryGuQf3biw5an7YaUXhTKGXifV1jsfxRZb4GbmAfzN4OcGZ7o4JjYewWs6iDMav3PhYStOdZXV+1Se/i/M/VBdtww+eWAFsAGQ0HrgypAZ1/KlJFnoyWEcRRcFm44QvNHeBMFpAaSTsHyA7UdHnQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=khK44me7; arc=none smtp.client-ip=209.85.214.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hZcuL5zr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1A5881F000E9;
-	Tue, 26 May 2026 07:22:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779780124;
-	bh=mR7gRbkaNjbft5VYMef78ku/C7p+0ikNMZF2/IIzCpw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hZcuL5zrXHvLiQMovADNsjoFxH1ttMfGnJbZHY/Bg8sl8QC9ocJxtozgeHLpd32NS
-	 thf31lBzTphpgOwT1ssgF8jJ7G8fm1nXBc4+TlEUh+FtTTDfucW+Ib29GGvGpdCqUW
-	 ZvtcC5tNgAj985LRslLglnuMgDdwPw2SOOn3GE3PG/Fzppwus8obb+YEGqgEbgOUtm
-	 vyWPAxHcf6gZ9b+cRFMOJZ/pM7ScKwllF8lsRQZOQb1WD6B5Cl6fW3aYOaZ66avuyg
-	 O0GBhDAbPhGiJbjDLEd76m/X5x1f1jQvAg1ZBR8KVZDz1VMoIWyEudc8M+92zfYVI6
-	 czdOecP8QkwKw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: socfpga: agilex5: enable i3c0 and i3c1
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Adrian Ng Ho Yin" <adrian.ho.yin.ng@altera.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <219d67474c90843f4768cba2598e79cfafcc1ac2.1779778817.git.adrian.ho.yin.ng@altera.com>
-References: <219d67474c90843f4768cba2598e79cfafcc1ac2.1779778817.git.adrian.ho.yin.ng@altera.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 07:22:03 +0000
-Message-Id: <20260526072204.1A5881F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="khK44me7"
+Received: by mail-pl1-f182.google.com with SMTP id d9443c01a7336-2b9ea536877so67053345ad.1
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 00:23:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1779780216; x=1780385016; darn=vger.kernel.org;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kaTzZIrRiwO1RCeM2bN6zyMtDl6KOzXc9TYKEU25JF4=;
+        b=khK44me7fF8tTHa2d2k45DBategxv4BVaRklv4DX8mRUc6cIHvG6S1nk9oOoGaizuI
+         6PlYT7DiSCcFb9AR8Kah0P4ALYYRbtYk9CRX/hHaFolcSRCwNbz2GH9El4HE7bidy8A1
+         KCtKWXXzu9ZKl8453tXPA4wqpRB3ernzih4q6ikaLUxu/S4VbYecylf65VMtARUqwc5J
+         wq4eHKbF6xEhV/r2jWdhjckR32Dgs1OXWxBvOgN00pfyCPERuqD59V2GzovgcCsPrmBI
+         pvFxrPlWgS2IRjbmlW6oKKWWV3QGE9DEusN3h6oAn1JUujPEGrNq767UoFZ51GtVSUB1
+         r7gA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779780216; x=1780385016;
+        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
+         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kaTzZIrRiwO1RCeM2bN6zyMtDl6KOzXc9TYKEU25JF4=;
+        b=EJT9aWbkMORx97nh6yaCwN3Aw7odcAFj03SQwYpqkaqmug2bLEwOS/agX9b4ThkYG6
+         yG59bcvGEX4L5f3h4JuoNreGLs+4f8wcfz81Zto+6DpZQSoXBNuSKj0JfOTXRYU9Hr7h
+         NAkKoC6qZ9TUzzg7ev367wXQYq6yPbKetDGl/12IqIKnaTQsAz5VpQXk9bldCXDItSFV
+         x/GhJpDkzcF3P/Fdfofm+yZKl8TecT2dd4ogDqIDaG0Su5191PSBJI6c3193uRVPUsMq
+         qLl2IIjk2ex3KMBVTLvjgMIvdBrg5nGK3xWslUoJofC1UkUydqi1PyQ6CczU6BTLgP8g
+         GhXA==
+X-Gm-Message-State: AOJu0YzXgTEqez8iInmDnrCgDRbgmOsxz/wQiOmSefKfiBldpbNLu0wz
+	3EGYCO2NpZQ7nnD1HRxdgk94ZhiWhHTh6ktbEql1aRlShHSKJqP731FsH063uDG9urk=
+X-Gm-Gg: Acq92OHNZPsc1+tt/4v5jwJizAVR6HW/40Sch75IdWAzNwh1kQzU8yn0GOaiJUc5oGi
+	VuvjO5LlsP2q0o/4xteb+fFBprgHWaUzJ8yS54f5G5vJDbdnjePmle3Flc6iT/NLw+m7VB1eAdR
+	TV/7lzRidni/+m/UXc71dsASaejpjYQs6CTvWMsXzEcXl0/IxU1TKiQrlGue16XY7L/zOah0Ifo
+	NQMjZm6+4wEMLgWOjhYRn04ZU8S+cAIf7pEFV6FrGvnidLF+P2ZWBGjBJmEG6v7+4CIOwoedqdb
+	OFzglTDZudJERAUcXmsQbd/Kiydc8FDQ0S/qpchuqkoyiVx1wV/nX3+4y/TSvLckREh3aZvpvr+
+	8uXyLPQi6GhxTl5ROygTQWLtpVAo0pvS7r0bmL1WMRAp5oGg2k423PaNlC0d03jW8hlP3xJxR+A
+	X/xg9EEF3CcCBBB0uxdWbPnwXTHENxcw5bYqmsttxgFK8=
+X-Received: by 2002:a17:903:1a0d:b0:2b0:91e6:bc18 with SMTP id d9443c01a7336-2beb0878549mr150966255ad.14.1779780215657;
+        Tue, 26 May 2026 00:23:35 -0700 (PDT)
+Received: from [127.0.1.1] ([2a12:a305:4::40e2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb591f63dsm148893365ad.83.2026.05.26.00.23.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 00:23:35 -0700 (PDT)
+From: Guodong Xu <guodong@riscstar.com>
+Date: Tue, 26 May 2026 15:22:58 -0400
+Subject: [PATCH] riscv: dts: spacemit: k3: Add Ziccrse extension for X100
+ cores
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260526-k3-ziccrse-v1-1-c759792ca3a3@riscstar.com>
+X-B4-Tracking: v=1; b=H4sIABHzFWoC/yWMQQrCMBAAvxL27EK6KYr9ivSQJqsu0lQ3qRRL/
+ 25ojzMws0JmFc7QmRWUv5JlShWak4Hw9OnBKLEykKWzJXvBl8OfhKCZcXBMsY2t8xygBm/luyz
+ 77NYfrPyZ67McEgZfszCNo5TOJF4K7t+GrtBv2x/hkXa4jQAAAA==
+X-Change-ID: 20260207-k3-ziccrse-b3e2d4d43aec
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Yixun Lan <dlan@kernel.org>, 
+ Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>
+Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ Guodong Xu <docularxu@outlook.com>, Guodong Xu <guodong@riscstar.com>
+X-Mailer: b4 0.15.1
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Add the Ziccrse ISA extension to all eight X100 cores. Ziccrse
+provides a forward progress guarantee on LR/SC sequences in main
+memory regions with cacheability and coherence PMAs.
 
-Pre-existing issues:
-- [High] The i3c0 and i3c1 nodes are enabled but lack the required `resets`=
- and `reset-names` properties, structurally exposing the system to initiali=
-zation failures or kernel panics.
---
+The SpacemiT X100 core supports it per the SpacemiT K3 hardware
+specification.
 
-commit f5368d005c11d976c73173b7cd6fde413ccc26cb
-Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+Signed-off-by: Guodong Xu <guodong@riscstar.com>
+---
+ arch/riscv/boot/dts/spacemit/k3.dtsi | 16 ++++++++--------
+ 1 file changed, 8 insertions(+), 8 deletions(-)
 
-arm64: dts: socfpga: agilex5: enable i3c0 and i3c1
+diff --git a/arch/riscv/boot/dts/spacemit/k3.dtsi b/arch/riscv/boot/dts/spacemit/k3.dtsi
+index d4be8de8fc6cc..ccb483b439c5f 100644
+--- a/arch/riscv/boot/dts/spacemit/k3.dtsi
++++ b/arch/riscv/boot/dts/spacemit/k3.dtsi
+@@ -36,7 +36,7 @@ cpu_0: cpu@0 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -77,7 +77,7 @@ cpu_1: cpu@1 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -118,7 +118,7 @@ cpu_2: cpu@2 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -159,7 +159,7 @@ cpu_3: cpu@3 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -200,7 +200,7 @@ cpu_4: cpu@4 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -241,7 +241,7 @@ cpu_5: cpu@5 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -282,7 +282,7 @@ cpu_6: cpu@6 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
+@@ -323,7 +323,7 @@ cpu_7: cpu@7 {
+ 					       "zawrs", "zba", "zbb", "zbc", "zbs", "zca",
+ 					       "zcb", "zcd", "zcmop", "zfa", "zfbfmin",
+ 					       "zfh", "zfhmin", "zicbom", "zicbop", "zicboz",
+-					       "ziccamoa", "ziccif", "zicclsm", "zicntr",
++					       "ziccamoa", "ziccif", "zicclsm", "ziccrse", "zicntr",
+ 					       "zicond", "zicsr", "zifencei", "zihintntl",
+ 					       "zihintpause", "zihpm", "zimop", "zkt", "zvbb",
+ 					       "zvbc", "zvfbfmin", "zvfbfwma", "zvfh",
 
-This commit enables the i3c0 and i3c1 nodes for the Agilex5 development kit
-by setting their status to okay.
+---
+base-commit: 5d67b1f204472df70f7c7189c01fa405f3ccb503
+change-id: 20260207-k3-ziccrse-b3e2d4d43aec
 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts b/arch/a=
-rm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-> index 262bb3e8e5c72..7f6fab5068676 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk.dts
-[ ... ]
-> @@ -61,6 +61,14 @@ &gpio1 {
->  	status =3D "okay";
->  };
-> =20
-> +&i3c0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&i3c1 {
-> +	status =3D "okay";
-> +};
+Best regards,
+--  
+Guodong Xu <guodong@riscstar.com>
 
-[Severity: High]
-This is a pre-existing issue, but the i3c0 and i3c1 nodes defined in the
-base socfpga_agilex5.dtsi file lack the resets and reset-names properties.
-
-By enabling the nodes here, does this expose the system to initialization
-failures or a bus hang during probe?
-
-The Synopsys DesignWare I3C driver requests an optional reset control named
-core_rst via devm_reset_control_get_optional_exclusive_deasserted(). If the
-bootloader leaves these peripherals in reset, the driver will receive NULL
-for the reset control and proceed without deasserting the reset line, which
-can cause an AXI bus hang when accessing registers.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/219d67474c90843f476=
-8cba2598e79cfafcc1ac2.1779778817.git.adrian.ho.yin.ng@altera.com?part=3D1
