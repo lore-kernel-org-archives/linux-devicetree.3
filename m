@@ -1,126 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B41E3DA5D3
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:02:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8873D25DD
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789753; cv=none; b=Vz2xanjOZ5SgMxBI0lb3nR7b4BQmYu/FEKDWtaRkwEqerca5b0nv0fefO8OOKdK8IWaIo2s8dGtZHF1oiCz4eQbBijYe6Md4ye7qheTNKuNxoEbjywVGT6JFgIQlIz50RfMx2b6YLMO6tSwLg8ZGLpjiyGwi6CC0aVjp5/BVKEE=
+	t=1779789763; cv=none; b=G7zCnlQbnqSZgiNVivCifrPZq+kIO4oDBtV9RZAA57MAF4H3vJyxmUNnxNBqPl/GLbsIKjKN1TUjGD19ZGKRK2YI7lCVFhI1K87KBXDcvdAu8jZhScCZg02B+dkdNtqSTS+FdCV+661hbWbPsyD6WdK8ArSfWSnBdftFxyDUaM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789753; c=relaxed/simple;
-	bh=H6O4YDob5cn5LSPmOt/tcMOqij9kp/NbYfq2XuWvjDE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=X6c1T43kgLM3bV/asO3+6bfhWbnk2BKg0ZAWe6/G8YKC/cTwMlLQxKbLltCZaC0EaMhSdocOw+pL4CDJekAikV8V7+eFnR2Y0JjianOnTU1fOkJg9ee5TtiyGZtqKof5qNa96lQgOhW+8eTcETi8AP3Vj32/I4G0BjSepbw+DTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMNkBhmW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779789763; c=relaxed/simple;
+	bh=1WOWMSyv5ijDMTi+z3FvC6gxEI1E0lxP5EF3SlyMUHI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kz/fcGkz4qYz+8wGaUIflI0gjREP/k/fy6+SSKneASZqBuHf3ZSjQxaTKH0EJwQJqgi8rGXA5V9ysjF1RRUqNvVAhK6BaXYxdTne5VbFx/Awjbqj7B8vMOj3Cbc8f1l78RPXyjMRa6iJsSDRkS/5hoVvuVfwAs7YeVKohfeCCU8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ROfVy8PP; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMNkBhmW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395191F000E9;
-	Tue, 26 May 2026 10:02:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779789751;
-	bh=rnuiCJm8g7LmGJsQDxXrCJn2cbwnjb2OI4G7md3G1Yg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LMNkBhmW6kSVkzzuir4JQ3BYBHVUJplZSXirKL7/hQfEnt2s7mCDSCAG5HKC87GEe
-	 FZwHCSobKL2PZGbPi6Lf43ZWJzjSpgKIkeATYAq56wBQinc8K0op9ANu61H9sjujnM
-	 TlcMjps+3K78KW4Wri+1ifLLsiD1sV5rYay+iOK6dXcibKnzwhXTqgI+gB0iR8s128
-	 p/ev7Fy0EII2EWQDGUV1in1KlsW1ljFQYEEu2e0Up4ucCTiDyQlgFnone1xLOLTnww
-	 gjSNY/1MX8xqAVR7VhEm/F1AK0wPy4wFcFvCHCh0QahdwWheqm0FZq8xNaE/uVjalp
-	 zaKwKPHpEapgQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 3/7] ARM: dts: stm32: Add boot phase tags for
- STMicroelectronics h7 boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260526-upstream_uboot_properties-v7-3-e17cd424d5db@foss.st.com>
-References: <20260526-upstream_uboot_properties-v7-3-e17cd424d5db@foss.st.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 10:02:30 +0000
-Message-Id: <20260526100231.395191F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ROfVy8PP"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4903974854dso42133875e9.3
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:02:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779789761; x=1780394561; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sR54CF7mjFzC0QGjIQLTwB3SyWd+B75zHF817dW71tk=;
+        b=ROfVy8PPsGSxCTRTWGg48mRZRJHHKPLF1v22dWOveFLRntgM3RX9ToHnUdIP/hc7El
+         PhczOaGb0UhU/eMENNYm92/qJlyCJR6MEy3zGWyrOMkUSmkf1AuDp2SoUj/mO0YIIZ2F
+         ryzSDAPMQFvaWzhbPCogy6lzS/qjqoiRNVUjmOUotj8t3aNKjtDEkh5j4dKOdF5IA7pP
+         E+BOlqAKl0//DMFjMLJqW1/ML5n0maqEh8778K68vtIsmnPYFH2fHaAV/rvirbkO34vC
+         Pj+7PA0eUEsrHWUnp2oWQSYTlgt8GkHsG8t1onIrH8A/YhaeUqg9X6n8LfavmTNaZbJ0
+         Jnaw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779789761; x=1780394561;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sR54CF7mjFzC0QGjIQLTwB3SyWd+B75zHF817dW71tk=;
+        b=fT/hExs1b99QxRQ8MqgL6yKm0VEO94rZm3EsQm5jpRJTyhcr8Xi4KU87p+LABDtAOE
+         xLNE/tCMyItm8i5SI5a4URNZXmecYUe+KdLRck/507dyXszsUwIbwTT3z4gHlATWptGA
+         lGl+/y1+E8HkoL5xIdJuN+Dte92pHbaW33mN/dU+OGtYUwyokZ7N04lDvPewBLFkHLTi
+         y+Gfhi4mqLtj0T7Xq/q+NFp1XtGzWbjvYnC7WAS6El8zYmwCO+6YYzxaJtTM76JO76ab
+         V8teH7CF2pV0LZx8DZ/d65grBBryaPNkrmKK3Wc0LVZnWOL184GyV6oiBg1aKt6LurCs
+         IZ5A==
+X-Forwarded-Encrypted: i=1; AFNElJ/2MFTN8XhVWvZ++Gkwv7ywiAkXXNJKNcgnouUUC7HhjD4LT4w9jYXMWz4ud3V2aSQ/DCZXh5mWNi6a@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyjpqCotsQH5lR5vLDj+kq07eka2mviOL2ps4PiNJ72MVgfOJn
+	tXZrX4U/D3scdCIpfdTvQN/uwQFE99BO8zk/NIivR8woWx8OqttzuJdWatFO4amdjGU=
+X-Gm-Gg: Acq92OEEDhPbmBetzi6RzlLDrdLpTyLYys5AhmkWq24Zc6OtaJfTQxeBUrpe0mNzPuc
+	EHSw0XR+nlPBO+z87P5tyL3i+uGC8aTmK5tffEz8TBkrbybp2JKlTlzWkPsY1uL5jH4d5/soHTE
+	v3kKMMTq1P9V+hoT+rvaP2NLpMPLyXLea6P0fYeUbCx6BndtjA9iyu9GBTK1Xlqa0/iIQqA5/Ug
+	dpsjZQNJdI7Dnp4yehDJMdeMoGmMhYphNCG/BiLR7/7LFTdXlJvsCEhf6oaHrL0FNldr0M1Nm/e
+	NlAje0Zucs2zLFyv5b+oKC3KRowIqCn4gzsesDDZS8Q5vdoMi+b8GZD3TQ/ure67TrWXhTM55Mr
+	Rwo6Hhy1oCSe31ZOQOLMGo5R1Om3IKpPpcHRtQd4IJjTB2qhip7Lx0NryH57pHoafzEq/lEA6fK
+	UV/CwxTL5I4+LJYb5CXffEBaZcahIayn4=
+X-Received: by 2002:a05:600c:4ecc:b0:490:389:7644 with SMTP id 5b1f17b1804b1-490426d4d7fmr296727545e9.17.1779789760577;
+        Tue, 26 May 2026 03:02:40 -0700 (PDT)
+Received: from [10.11.12.110] ([82.76.215.73])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d71688sm36206969f8f.33.2026.05.26.03.02.39
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 26 May 2026 03:02:40 -0700 (PDT)
+Message-ID: <08eba1cf-2df8-4f2f-a527-ee03ee792920@linaro.org>
+Date: Tue, 26 May 2026 13:02:37 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 1/5] dt-bindings: thermal: Add Google GS101 TMU
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
+ devicetree@vger.kernel.org
+References: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
+ <20260525125455.AF31A1F000E9@smtp.kernel.org>
+ <4832a220-ace5-40ba-b85b-7c69b3aed869@linaro.org>
+ <20260526-uptight-bustard-from-jupiter-291e59@quoll>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <20260526-uptight-bustard-from-jupiter-291e59@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The patch fails to add the `bootph-all` property to UART and `sysc=
-fg` nodes, contradicting the commit message, and modifies unmentioned nodes.
-- [Low] Incorrect double-tab indentation for the `bootph-all` property insi=
-de the `&timer5` node.
---
 
-commit 46ae77600efc54228af475f90f412a5aaa703ea3
-Author: Patrice Chotard <patrice.chotard@foss.st.com>
 
-ARM: dts: stm32: Add boot phase tags for STMicroelectronics h7 boards
+On 5/26/26 12:39 PM, Krzysztof Kozlowski wrote:
+> On Mon, May 25, 2026 at 04:06:40PM +0300, Tudor Ambarus wrote:
+>>>
+>>> [Severity: Medium]
+>>> Since the commit message and binding description indicate that the
+>>> Application Processor relies entirely on the ACPM firmware for all
+>>> functional TMU tasks, shouldn't samsung,acpm-ipc be included in this
+>>> required list?
+>>>
+>>
+>> I disagree. The property remains optional because the ACPM firmware
+>> can be bypassed entirely. The TMU IP is capable of handling thermal
+>> management directly without IPC intervention, so the phandle is not
+>> a strict hardware requirement.
+> 
+> I see your driver will fail probe without it, so something is not
+> matching here.
+> 
 
-The bootph-all flag was introduced to define node usage across different
-boot phases. This commit adds the bootph-all phase flag to several nodes
-to ensure SD boot is supported across all boot stages.
 
-> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-> present in all boot stages, so add missing bootph-all phase flag
-> to these nodes to support SD boot.
+Yes, that's because plain TMU register access, without the ACPM, is not
+currently implemented in the driver. The ACPM can be bypassed in theory,
+which is why I left the phandle optional in the binding to reflect the
+hardware.
 
-[Severity: High]
-The commit message states that syscfg and uart nodes are modified to support
-SD boot, but the patch doesn't appear to add the bootph-all flag to them.
+I will amend the commit message to clarify this. Sashiko identified a
+few other things in the driver as well, so I'll need to send a v2
+anyway. If you still prefer I make the phandle required for now, just
+let me know.
 
-Since the pinctrl node depends on syscfg, if syscfg is missing from the ear=
-ly
-boot device tree, could pinctrl fail to probe in SPL? Would this prevent
-SDMMC from functioning and break the early serial console if the UART nodes
-are also missing?
-
-> diff --git a/arch/arm/boot/dts/st/stm32h743i-disco.dts b/arch/arm/boot/dt=
-s/st/stm32h743i-disco.dts
-> index 78d55b77db7ce..1b4b9bc5c72dd 100644
-> --- a/arch/arm/boot/dts/st/stm32h743i-disco.dts
-> +++ b/arch/arm/boot/dts/st/stm32h743i-disco.dts
-[ ... ]
-> +&pinctrl {
-> +	bootph-all;
-> +};
-> +
-> +&pwrcfg {
-> +	bootph-all;
-> +};
-
-[Severity: High]
-Was pwrcfg added here by mistake instead of the syscfg node mentioned in
-the commit message?
-
-[ ... ]
-> +&timer5 {
-> +	bootph-all;
-> +};
-> +
->  &usart2 {
->  	pinctrl-0 =3D <&usart2_pins_a>;
->  	pinctrl-names =3D "default";
-
-[Severity: High]
-Did this usart node also need the bootph-all property added to support
-the early serial console, as mentioned in the commit message?
-
-> diff --git a/arch/arm/boot/dts/st/stm32h743i-eval.dts b/arch/arm/boot/dts=
-/st/stm32h743i-eval.dts
-> index e5e10b0758eea..55674fe054311 100644
-> --- a/arch/arm/boot/dts/st/stm32h743i-eval.dts
-> +++ b/arch/arm/boot/dts/st/stm32h743i-eval.dts
-[ ... ]
-> +&timer5 {
-> +		bootph-all;
-> +};
-
-[Severity: Low]
-This isn't a bug, but there appears to be an extra tab used for indentation
-here. The same extra tab is also present in stm32h747i-disco.dts and
-stm32h750i-art-pi.dts.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-upstream_u=
-boot_properties-v7-0-e17cd424d5db@foss.st.com?part=3D3
+Cheers,
+ta
