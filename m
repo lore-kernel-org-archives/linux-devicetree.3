@@ -1,90 +1,126 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BE223DB332
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:00:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B41E3DA5D3
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:02:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789618; cv=none; b=Vw/EPKAApnCaV8wcNCz+y7O8mpikYuyilfHdHwp7M+ZwjTmjqUielD1R1x8jYIrSZeCJuB6cbU1Fb2jcAutqosUCKgq8tnhR318HjBOLHdLpGG4CO0O+vu+XNm29++lBukQXp6shaTO+fFO8jDm8b2rsmYcvQpS5Av0nOOSFj4A=
+	t=1779789753; cv=none; b=Vz2xanjOZ5SgMxBI0lb3nR7b4BQmYu/FEKDWtaRkwEqerca5b0nv0fefO8OOKdK8IWaIo2s8dGtZHF1oiCz4eQbBijYe6Md4ye7qheTNKuNxoEbjywVGT6JFgIQlIz50RfMx2b6YLMO6tSwLg8ZGLpjiyGwi6CC0aVjp5/BVKEE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789618; c=relaxed/simple;
-	bh=53oS0HoMXN71cfEfBWsGmGMf1p53/OTWbjv/KCX5QcQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=poG9ME9vnerwHIURXVi4LYE/spk0aHiJCDXHHfnVLJwHtSdNw0hIl2G3QECUDMeFqXPj8+IWbIYsBqDF3d85jke5QweS6m1ldR/wThjMWfMroq2an1YAqxvqq1Uu5Af/XVuQCusZm3QrYuZdSZlkh04ZWKr/K+dqiX7L/zqZ3pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=SGLXMpP6; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1779789753; c=relaxed/simple;
+	bh=H6O4YDob5cn5LSPmOt/tcMOqij9kp/NbYfq2XuWvjDE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=X6c1T43kgLM3bV/asO3+6bfhWbnk2BKg0ZAWe6/G8YKC/cTwMlLQxKbLltCZaC0EaMhSdocOw+pL4CDJekAikV8V7+eFnR2Y0JjianOnTU1fOkJg9ee5TtiyGZtqKof5qNa96lQgOhW+8eTcETi8AP3Vj32/I4G0BjSepbw+DTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LMNkBhmW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="SGLXMpP6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=53oS
-	0HoMXN71cfEfBWsGmGMf1p53/OTWbjv/KCX5QcQ=; b=SGLXMpP67cpswj0Znz4R
-	3n7p+lKq+Ly/+iIVPYZ7O8tQXObxJPkr2GRW9elaKR/TIaxYxsmXFiE+MjKI3BdD
-	aEdb/hYccMuzuMwL9PJZiSnT62UYcpkDmYV+3cVNdVK2EfMwRO09WEGoaKnbG1Mi
-	iKFAgljnP+gEhsQ0ATQqk3BJ+XatZKAEDjtwMRzSujYmUAphOG1lPZ4wS23lqpZi
-	FzwaD7k8TK81Ml4a+X9KUrLXVKKbYwOB4paTQWD0/W59/itoYZ8t3jHUV0Fh6K4O
-	vVLouNMFmhGvlqJUqep9uKm8W2GVcARJFLPWJdm/r+os6XezWPMWlk1W54BQSqFw
-	xg==
-Received: (qmail 223124 invoked from network); 26 May 2026 12:00:07 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 26 May 2026 12:00:07 +0200
-X-UD-Smtp-Session: l3s3148p1@7otHj7VSDXVtKXCf
-Date: Tue, 26 May 2026 12:00:06 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
-	claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
-Message-ID: <ahVvJmsUuhINA58Y@shikoro>
-References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
- <20260522102251.1723392-10-claudiu.beznea@kernel.org>
- <ahBMKWrKQDko3cG8@shikoro>
- <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LMNkBhmW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 395191F000E9;
+	Tue, 26 May 2026 10:02:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779789751;
+	bh=rnuiCJm8g7LmGJsQDxXrCJn2cbwnjb2OI4G7md3G1Yg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LMNkBhmW6kSVkzzuir4JQ3BYBHVUJplZSXirKL7/hQfEnt2s7mCDSCAG5HKC87GEe
+	 FZwHCSobKL2PZGbPi6Lf43ZWJzjSpgKIkeATYAq56wBQinc8K0op9ANu61H9sjujnM
+	 TlcMjps+3K78KW4Wri+1ifLLsiD1sV5rYay+iOK6dXcibKnzwhXTqgI+gB0iR8s128
+	 p/ev7Fy0EII2EWQDGUV1in1KlsW1ljFQYEEu2e0Up4ucCTiDyQlgFnone1xLOLTnww
+	 gjSNY/1MX8xqAVR7VhEm/F1AK0wPy4wFcFvCHCh0QahdwWheqm0FZq8xNaE/uVjalp
+	 zaKwKPHpEapgQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 3/7] ARM: dts: stm32: Add boot phase tags for
+ STMicroelectronics h7 boards
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Patrice Chotard" <patrice.chotard@foss.st.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260526-upstream_uboot_properties-v7-3-e17cd424d5db@foss.st.com>
+References: <20260526-upstream_uboot_properties-v7-3-e17cd424d5db@foss.st.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 10:02:30 +0000
+Message-Id: <20260526100231.395191F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="YB4F818Z5KMz1Xnb"
-Content-Disposition: inline
-In-Reply-To: <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The patch fails to add the `bootph-all` property to UART and `sysc=
+fg` nodes, contradicting the commit message, and modifies unmentioned nodes.
+- [Low] Incorrect double-tab indentation for the `bootph-all` property insi=
+de the `&timer5` node.
+--
 
---YB4F818Z5KMz1Xnb
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 46ae77600efc54228af475f90f412a5aaa703ea3
+Author: Patrice Chotard <patrice.chotard@foss.st.com>
 
+ARM: dts: stm32: Add boot phase tags for STMicroelectronics h7 boards
 
-> > The driver should
-> > know what to do, or? Am I missing something?
+The bootph-all flag was introduced to define node usage across different
+boot phases. This commit adds the bootph-all phase flag to several nodes
+to ensure SD boot is supported across all boot stages.
 
-I have it on my agenda. Travelling today. Hope I can squeeze it in.
+> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
+> present in all boot stages, so add missing bootph-all phase flag
+> to these nodes to support SD boot.
 
+[Severity: High]
+The commit message states that syscfg and uart nodes are modified to support
+SD boot, but the patch doesn't appear to add the bootph-all flag to them.
 
---YB4F818Z5KMz1Xnb
-Content-Type: application/pgp-signature; name="signature.asc"
+Since the pinctrl node depends on syscfg, if syscfg is missing from the ear=
+ly
+boot device tree, could pinctrl fail to probe in SPL? Would this prevent
+SDMMC from functioning and break the early serial console if the UART nodes
+are also missing?
 
------BEGIN PGP SIGNATURE-----
+> diff --git a/arch/arm/boot/dts/st/stm32h743i-disco.dts b/arch/arm/boot/dt=
+s/st/stm32h743i-disco.dts
+> index 78d55b77db7ce..1b4b9bc5c72dd 100644
+> --- a/arch/arm/boot/dts/st/stm32h743i-disco.dts
+> +++ b/arch/arm/boot/dts/st/stm32h743i-disco.dts
+[ ... ]
+> +&pinctrl {
+> +	bootph-all;
+> +};
+> +
+> +&pwrcfg {
+> +	bootph-all;
+> +};
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoVbyIACgkQFA3kzBSg
-KbY98A/9FKZ3Q0ih0Em1cDJ1nizb1S+3PfQYwRc8phE+m9uDW41njIjH/Ut9E+4d
-V7fW2pgwNIu0RmQ3jECYUVXyYwLQSumGevAPTxalGx1sHh+ZzO4qo0Mv9XJmE2dl
-YEmWRjPm1toI+/YTRd+ylGrUKKKdnA9NU66Mj9VL1FraVFxf7RMFyX/pwwJAUFW3
-6T4olHIg8mSt0qnEnQmpcdEXwL1E4gLeb5/tVxW5ulEShoiDUF7xoBL600TaHLU8
-ixnEtmMR/iKMc8SLcVwpZWsw3fn5NLYExtmtLmbkYbkF/t7hK3D9uPr8buSBdi9h
-YglkafT37Iu60AgpfyQSuzVu3jWZkvAdjk/hcSKy4YachWnPpL1F2Km52NNFZ/L8
-WkdbuwgjnUnACwZpmlOi3pPN6WAR2s6Jnw2lv2meU873+uuM0dEIOJS3xWM4urIS
-6exkbXqkht6XOgH9DByHYXorFMjww2v6OnUVyE0ijz0CyL7lQvFB6btbxfBrIuGl
-cZMYbGbZKOoOqz8KiIXu6yRaaqZp0jqLhb+lnUXR6BwYvicB52ScStR5+CSw8Dh1
-YETuY7sAsAgU5j4GVIBpdqiIOR+O+bEdarfPb9FzoN6sn7wZqFY1h5WCJSZUIbra
-5EEE9tgHU7a+gx5rTxnaDniu0C31bMLoG6iWEXty6J0LKeR9boM=
-=7Vg5
------END PGP SIGNATURE-----
+[Severity: High]
+Was pwrcfg added here by mistake instead of the syscfg node mentioned in
+the commit message?
 
---YB4F818Z5KMz1Xnb--
+[ ... ]
+> +&timer5 {
+> +	bootph-all;
+> +};
+> +
+>  &usart2 {
+>  	pinctrl-0 =3D <&usart2_pins_a>;
+>  	pinctrl-names =3D "default";
+
+[Severity: High]
+Did this usart node also need the bootph-all property added to support
+the early serial console, as mentioned in the commit message?
+
+> diff --git a/arch/arm/boot/dts/st/stm32h743i-eval.dts b/arch/arm/boot/dts=
+/st/stm32h743i-eval.dts
+> index e5e10b0758eea..55674fe054311 100644
+> --- a/arch/arm/boot/dts/st/stm32h743i-eval.dts
+> +++ b/arch/arm/boot/dts/st/stm32h743i-eval.dts
+[ ... ]
+> +&timer5 {
+> +		bootph-all;
+> +};
+
+[Severity: Low]
+This isn't a bug, but there appears to be an extra tab used for indentation
+here. The same extra tab is also present in stm32h747i-disco.dts and
+stm32h750i-art-pi.dts.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-upstream_u=
+boot_properties-v7-0-e17cd424d5db@foss.st.com?part=3D3
