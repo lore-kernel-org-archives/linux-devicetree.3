@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D72E3D9DDB
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:38:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C70A03A0B3F
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:52:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779791901; cv=none; b=fhWwg2njgw3nmcjJNKZ3O83eMs35M0gxI78pbw1lhkfV1QjPWFfg0ZkiSD4YBJmStaGR9cmGttwQsLCxzJBSW7zJMqyyvrCR76mHAqqx6NtXPVJXk30uaIf+rLczI1Ku0qGazwenDIPyvzmMaFgk/VBGxxaUsj1XH+HlWBtIYKk=
+	t=1779792767; cv=none; b=rUrPO9TieNi69BQYMzFrmD/NLerwKiqWnJG6jTeq0riamhvYVnBpCpqTGPNtIf+fQFJIKjBcMqLlpZFfCGdOU2BrRAF/jBqpxPhWUWVGum1MD0JBcgPm2T57mYP12+NyX2aZePKztoOz/+JkbH+qpTjrU0SBehL/oDdDdCTqN6o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779791901; c=relaxed/simple;
-	bh=3AsWJ4Svz8UeRuAJNdgmKfdmyzwau44PDmzkRSLizyo=;
+	s=arc-20240116; t=1779792767; c=relaxed/simple;
+	bh=8DOkPIis1AYTSzeHeH+nYHRkjPZcAuQxTTXQ8M7jcP4=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sP+ghdbh3L0ArUnn245iy6EgCaN+fGHQphBz8JzB2ZGSTOu5w8aYF3vbxZCkAIjZNAHHbWNLfdC76X7FWo5JMCnuMi/iN6zS/qC1zOvGGv9P0OYvqZnXQ+nSf4wlpHq3VdHMhfqBUJAWVYBXW7dJkIDPGziMyNIYkU+e6M4eC/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnAY+GbD; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=C2h7UKhPrfTFJ3Vemfnl3fK12rPsfi+8nuYIlrf3BsE1FtXKG10hvd83USsUCEHmQXzjCU7HL+g3zZnk+SdMppyVfSilER1ZMVU+A+CHrweSjt1c+uN2Brl9p06cF8NhmAkMRn7QRyCaoGa371chhcbE1Azl+EKC5oXVJqPoQT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KGo9aFEH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnAY+GbD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEA71F00A3A;
-	Tue, 26 May 2026 10:38:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KGo9aFEH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585C01F000E9;
+	Tue, 26 May 2026 10:52:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779791900;
-	bh=Yza9zM3aDrCy7bLpPrLiqHCCyGSJ9g8w8AOAUQlByvE=;
+	s=k20260515; t=1779792765;
+	bh=Gayi9SUsTHaaljxmB0CXDW0V4QlqAg6SFnjFuwGj9ow=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dnAY+GbD+fYlTFjkOkQi4lix5ikxau3eKrpQnys/xnUs34w/1jKAUER5UYIepwwxZ
-	 y34RMhe8Ha8UCO8vEaR4Q1gB+U/XVeewhHPcILAX6q1otGw8/5GB2DHMDWDrtKVwyT
-	 7oH29E/43or/XaGaazJuVfsOBsskmC+QojXU30xEr+ZXMdBan5Qod8NPfRiRV94Z6O
-	 p4hih63/F3ds0qCedB+emrLfYDZcmLhDZN8pdJomEVVsg0bpflYRiF4/NXR/F5dsug
-	 Le0AtCMcqW4DmP8YXKi4UFLCpTv64SyhyYB48kV4xEZGZbf0O3+TMIBfL7vbEE3jky
-	 fBPApUvfH6x1Q==
+	b=KGo9aFEH/0oVDZm929buzHRtft77VXgPlo5o6gcRnubaGeCSOhPOPJTFVQWf/d9Jq
+	 rJJOnLYGNqnWNbXAmQmxMFiV5wtclQWk7/oLkp4LokxrVmzmLJQvcChQ10R2rp4S4E
+	 7R+klGoSYtrq9L6kkBfVNcJgf0n/sO9uPn/n4Fp0ljaY5IfCrkdy6HxKImu20BwV23
+	 VocvUrtqU4mHw4PHUngvDlRZUfS4nhR/NrjL7OO3aCmqIXUcjyQGLePVSA/DdiUY4h
+	 vkytVQS4cWyY99ES+75MTFf7i0kmeD1zDZ+MPbbN8Tx8airHky4tAkXLa7baXogGgS
+	 wuasw6KK+xv0g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC RESEND v5 5/6] arm64: dts: amlogic: Add video
- decoder driver support for S4 SOCs
+Subject: Re: [PATCH RFC RESEND v5 6/6] arm64: defconfig: Enable
+ CONFIG_VIDEO_AMLOGIC_VDEC
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Zhentao Guo via B4 Relay" <devnull+zhentao.guo.amlogic.com@kernel.org>
-Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-5-33bc817f93f4@amlogic.com>
-References: <20260526-b4-s4-vdec-upstream-v5-5-33bc817f93f4@amlogic.com>
+Cc: linux-amlogic@lists.infradead.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-6-33bc817f93f4@amlogic.com>
+References: <20260526-b4-s4-vdec-upstream-v5-6-33bc817f93f4@amlogic.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 10:38:19 +0000
-Message-Id: <20260526103819.AFEA71F00A3A@smtp.kernel.org>
+Date: Tue, 26 May 2026 10:52:44 +0000
+Message-Id: <20260526105245.585C01F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,75 +46,63 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [Medium] The patch silently introduces an `optee` node which is not menti=
-oned in the commit message, and places it incorrectly at the root of the de=
-vice tree.
-- [Low] The newly added `canvas` and `video-codec` nodes break the expected=
- unit-address sorting within the `soc` simple-bus node.
+- [Low] CONFIG_VIDEO_AMLOGIC_VDEC selects MESON_SM without satisfying its A=
+RM64_4K_PAGES dependency, causing Kconfig warnings under COMPILE_TEST or wh=
+en using 16K/64K pages.
+- [Low] CONFIG_VIDEO_AMLOGIC_VDEC is inserted manually out of order in arm6=
+4 defconfig.
 --
 
-commit 9f1bc8bd76d58f7598508700fcc37888ae1dbf0f
+commit 482a11927128f3e0aa6ba1ce2517d29726af8f3b
 Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-arm64: dts: amlogic: Add video decoder driver support for S4 SOCs
+arm64: defconfig: Enable CONFIG_VIDEO_AMLOGIC_VDEC
 
-This commit adds the vdec node to enable Amlogic V4L2 stateless video
-decoder support for S4 SOCs. It also introduces an optee node and a canvas
-node required for the decoder.
+This commit enables the Amlogic V4L2 stateless video decoder driver as a
+module in the arm64 defconfig.
 
-> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
-dts/amlogic/meson-s4.dtsi
-> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
-> @@ -96,6 +96,11 @@ saradc: adc@fe026000 {
->  		status =3D "disabled";
->  	};
-> =20
-> +	optee {
-> +		compatible =3D "linaro,optee-tz";
-> +		method =3D "smc";
-> +	};
-
-[Severity: Medium]
-Should this optee node addition be explicitly mentioned in the commit
-message? The commit description currently only mentions adding the vdec
-node.
-
-Also, should this node be placed under a firmware node instead of at the ro=
-ot
-level of the device tree?
-
->  	soc {
->  		compatible =3D "simple-bus";
->  		#address-cells =3D <2>;
-
-[ ... ]
-
-> @@ -907,5 +912,34 @@ emmc: mmc@fe08c000 {
->  			assigned-clocks =3D <&clkc_periphs CLKID_SD_EMMC_C>;
->  			assigned-clock-rates =3D <24000000>;
->  		};
-> +
-> +		canvas: video-lut@fe036048 {
-> +			compatible =3D "amlogic,canvas";
-> +			reg =3D <0x0 0xfe036048 0x0 0x14>;
-> +		};
-> +
-> +		video-codec@fe320000 {
+> diff --git a/arch/arm64/configs/defconfig b/arch/arm64/configs/defconfig
+> index 4567f4b34f293..14caac24d2009 100644
+> --- a/arch/arm64/configs/defconfig
+> +++ b/arch/arm64/configs/defconfig
+> @@ -913,6 +913,7 @@ CONFIG_V4L_PLATFORM_DRIVERS=3Dy
+>  CONFIG_SDR_PLATFORM_DRIVERS=3Dy
+>  CONFIG_V4L_MEM2MEM_DRIVERS=3Dy
+>  CONFIG_VIDEO_AMPHION_VPU=3Dm
+> +CONFIG_VIDEO_AMLOGIC_VDEC=3Dm
 
 [Severity: Low]
-Does appending these nodes break the expected unit-address sorting within t=
-he
-soc simple-bus node? The canvas node at fe036048 and the video-codec node at
-fe320000 appear to be placed at the end of the block, after mmc@fe08c000,
-rather than being ordered sequentially.
+Does enabling this configuration expose a dependency issue in the driver's
+Kconfig?
 
-> +			compatible =3D "amlogic,s4-vdec";
-> +			reg =3D <0x0 0xfe320000 0x0 0x10000>,
-> +			      <0x0 0xfe036000 0x0 0x20>;
+In the Kconfig definition for VIDEO_AMLOGIC_VDEC introduced earlier in this
+patchset, it unconditionally uses select MESON_SM. However, MESON_SM has a
+strict dependency on ARM64_4K_PAGES.
 
-[ ... ]
+Selecting a symbol without meeting its dependencies forces it on, which can
+trigger unmet direct dependency warnings during builds on architectures or
+configurations where ARM64_4K_PAGES is not met. This can happen on non-ARM64
+COMPILE_TEST builds or ARM64 builds configured with 16K or 64K pages.
+
+Could the driver use depends on MESON_SM instead of select to avoid
+breaking automated Kconfig build testing?
+
+[Severity: Low]
+This isn't a bug, but was this defconfig change generated using make
+savedefconfig?
+
+In the media platform Kconfig hierarchy, the Amlogic platform Kconfig is
+included before the Amphion platform Kconfig. Running make savedefconfig
+would naturally place CONFIG_VIDEO_AMLOGIC_VDEC before
+CONFIG_VIDEO_AMPHION_VPU.
+
+Manually inserting it after Amphion will cause unnecessary churn the next
+time make savedefconfig is executed.
+
+>  CONFIG_VIDEO_CADENCE_CSI2RX=3Dm
+>  CONFIG_VIDEO_WAVE_VPU=3Dm
+>  CONFIG_VIDEO_E5010_JPEG_ENC=3Dm
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-b4-s4-vdec=
--upstream-v5-0-33bc817f93f4@amlogic.com?part=3D5
+-upstream-v5-0-33bc817f93f4@amlogic.com?part=3D6
