@@ -1,160 +1,216 @@
-Received: from canpmsgout07.his.huawei.com (canpmsgout07.his.huawei.com [113.46.200.222])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB4AA2ECD3A;
-	Tue, 26 May 2026 02:14:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.222
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202051991CB;
+	Tue, 26 May 2026 02:39:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779761678; cv=none; b=A5jShNnWP9vriucewES69FIckPilErJVqrgY1ApUfKjzlz0vB074KWjGcLZcxELehE4n8t6zi9Q14IJKmDSjJFCuLiHi/8p0DSUtT48xevESplxWx4SzCZVj9Ws7smiNU3W0dmdmhxht59+31QccO4xFMFSb1Kuwvep/6SXsOKs=
+	t=1779763189; cv=none; b=Je1nV2AX8n0IiOQ0dyXju1SZs1koRMx84oecHKXaJsN3uHrOpgGimj/wygLGrpSSGqFVE4t+2AwmQ7YDBF83OaOzlkoTB1CkSXklzHOkOtcItzzRq21DGW1luWGaa8DKC3zg72EzpTEv5UgnY7t15uQhUatFavI9bFXh55F8swQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779761678; c=relaxed/simple;
-	bh=ulb5AzSxdx7KgOOPQ6BMJaYzUf1wZCN79EcIJcw7NqA=;
-	h=Subject:To:CC:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=UR8TAsTrbB25nnm0Xxk+SIjzB5RRbjUouUYaFmSvgP85aeLUfOvg0v4fz7KOhdoMAVzdbMF3H0SGs2Ex0hCwiXhhB6rrcDsS1jI3CbP/Uw70fyJCmXKL5destzkLaboXf21zFuIrKLCNwQKlUcKNq0pfHqSx6bN0rcrN8N4N92g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=qg3va+tJ; arc=none smtp.client-ip=113.46.200.222
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1779763189; c=relaxed/simple;
+	bh=6dfm7iYsP3WeHjhVLTmHyzmJ7F1FazC4kbkpPSNmrFk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ZI4siSPA4vd2zPlADMnwLPd28tZci/KopRmIxRp9UQ6Kja9kexyss1Ys10C/IIbJBjCDInPFEcGe81UhyUIMiMJLbatIT/+oF/eAqw5FyKpGUPap7HUmk/O0cHo8rT9NqoONFgx5UlwYeImY5bN6529RShfyM3qzoSdVkJlB5Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AmKBJ0MN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="qg3va+tJ"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=iqoFEqRrz+VITnn7JX0KLSm23oivmL3aruRn9IsfzBM=;
-	b=qg3va+tJlYSUbutvQ+T8srTjCVODQHoKmiJesdJbTqzhOOJYzMN684gmdFepLcNeL++Kd2OeB
-	I3751WyoTMMPTJRT5tKbtx1juWHKwApCX4kKE0ZKgoPbghVrkjIq1P+PNl3iN4cSWuAMgy094ue
-	CLB9cumxvInQKIiU5vKvXYs=
-Received: from mail.maildlp.com (unknown [172.19.163.127])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4gPbj22TlDzLlTj;
-	Tue, 26 May 2026 10:06:46 +0800 (CST)
-Received: from dggpemf500002.china.huawei.com (unknown [7.185.36.57])
-	by mail.maildlp.com (Postfix) with ESMTPS id C9763402AB;
-	Tue, 26 May 2026 10:14:30 +0800 (CST)
-Received: from [10.174.179.24] (10.174.179.24) by
- dggpemf500002.china.huawei.com (7.185.36.57) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 26 May 2026 10:14:27 +0800
-Subject: Re: [PATCH v3 02/17] ACPI: GTDT: Parse information related to the EL2
- virtual timer
-To: Marc Zyngier <maz@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-acpi@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<devicetree@vger.kernel.org>
-CC: Lorenzo Pieralisi <lpieralisi@kernel.org>, Sudeep Holla
-	<sudeep.holla@kernel.org>, Catalin Marinas <catalin.marinas@arm.com>, Will
- Deacon <will@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, Mark
- Rutland <mark.rutland@arm.com>, Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Chen-Yu
- Tsai <wens@kernel.org>, Jernej Skrabec <jernej.skrabec@gmail.com>, Samuel
- Holland <samuel@sholland.org>, Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Ge Gordon
-	<gordon.ge@bst.ai>, BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Jesper Nilsson <jesper.nilsson@axis.com>, Lars Persson
-	<lars.persson@axis.com>, Alim Akhtar <alim.akhtar@samsung.com>, Ivaylo Ivanov
-	<ivo.ivanov.ivanov1@gmail.com>, Frank Li <Frank.Li@nxp.com>, Sascha Hauer
-	<s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Thierry Reding
-	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, Bjorn
- Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
-	=?UTF-8?Q?Andreas_F=c3=a4rber?= <afaerber@suse.de>,
-	=?UTF-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>, Heiko
- Stuebner <heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, Orson Zhai
-	<orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, Michal
- Simek <michal.simek@amd.com>
-References: <20260523140242.586031-1-maz@kernel.org>
- <20260523140242.586031-3-maz@kernel.org>
-From: Hanjun Guo <guohanjun@huawei.com>
-Message-ID: <ed3d35f7-a9db-98d4-de99-313587b15ed1@huawei.com>
-Date: Tue, 26 May 2026 10:14:26 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
- Thunderbird/68.6.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AmKBJ0MN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A3071F000E9;
+	Tue, 26 May 2026 02:39:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779763187;
+	bh=SVx3n8jijEwHwQnlzIPCrnIHYDEfWf7NE5IKvAA6/EU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=AmKBJ0MNwYy31ipCXQWPvdxo/546zfX3okmDK5YBXKu+jaatRs/YKf2o/UKyaNWzR
+	 PUBvoG+0hx6ruIp/9YBq2B1KpM9YY5Pbi8PEPtQWXv/HvRi64dKPgKBSzgILcKoitc
+	 pcddrSzLxbaZ00hCwehR65CCZVn7B58WfdBPrh8cwWRDxTDyE72zjpRLemwcbkfSN5
+	 IdHRwQmfSZeLHGEZabs++jZOxXr8gM2fcLdlK/3AXr3jbHAIPd+w2o61JZMDkgvCvd
+	 FRD5nlWD/8FDEAupArrqKukO+gnfFc2paNaDfEpJQ0vi6xytJYFeRJ4NWXdKoEeZnt
+	 TNNXdQI+4WhuA==
+Message-ID: <d295b574-a66b-4388-be46-e770844d5ad4@kernel.org>
+Date: Mon, 25 May 2026 21:39:46 -0500
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260523140242.586031-3-maz@kernel.org>
-Content-Type: text/plain; charset="utf-8"; format=flowed
-Content-Language: en-GB
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] arm64: dts: agilex5: add support for debug
+ daughter card
+Content-Language: en-US
+To: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: Niravkumar L Rabara <nirav.rabara@altera.com>
+References: <cover.1779438754.git.adrian.ho.yin.ng@altera.com>
+ <770778e3e66aab0ccb24c9197f5e63050a7f73cd.1779438754.git.adrian.ho.yin.ng@altera.com>
+From: Dinh Nguyen <dinguyen@kernel.org>
+In-Reply-To: <770778e3e66aab0ccb24c9197f5e63050a7f73cd.1779438754.git.adrian.ho.yin.ng@altera.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100001.china.huawei.com (7.221.188.238) To
- dggpemf500002.china.huawei.com (7.185.36.57)
 
-On 2026/5/23 22:02, Marc Zyngier wrote:
-> Now that we have a way to identify GTDTv3, allow the information
-> related to the EL2 virtual timer to be retrieved by the interface
-> used by the architected timer driver.
+ From sashiko gemini-3.1-pro-review:
+
+On 5/22/26 03:34, Adrian Ng Ho Yin wrote:
+> The debug daughter card replaces gmac2 with gmac0 for Ethernet, leaves
+> gpio0 unrouted, and adds a Microchip 25AA128 16 KByte SPI EEPROM on spi0.
 > 
-> Reviewed-by: Sudeep Holla <sudeep.holla@kernel.org>
-> Signed-off-by: Marc Zyngier <maz@kernel.org>
+> Remove the dmas/dma-names properties from spi0: CONFIG_DW_AXI_DMAC is
+> not enabled in the platform defconfig, so retaining them would stall the
+> SPI driver in probe deferral.  Set spi-max-frequency to 500 kHz to match
+> the signal integrity constraints of this board.
+> 
+> Signed-off-by: Niravkumar L Rabara <nirav.rabara@altera.com>
+> Signed-off-by: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
 > ---
->   drivers/acpi/arm64/gtdt.c | 20 ++++++++++++++++++++
->   1 file changed, 20 insertions(+)
+>   arch/arm64/boot/dts/intel/Makefile            |   1 +
+>   .../dts/intel/socfpga_agilex5_socdk_debug.dts | 123 ++++++++++++++++++
+>   2 files changed, 124 insertions(+)
+>   create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts
 > 
-> diff --git a/drivers/acpi/arm64/gtdt.c b/drivers/acpi/arm64/gtdt.c
-> index 950d5efdf85ea..00158c8aa6d90 100644
-> --- a/drivers/acpi/arm64/gtdt.c
-> +++ b/drivers/acpi/arm64/gtdt.c
-> @@ -41,6 +41,14 @@ struct gtdt_v3 {
->   
->   static struct acpi_gtdt_descriptor acpi_gtdt_desc __initdata;
->   
-> +static __init struct acpi_gtdt_el2 *gtdt_to_el2_vtimer(struct acpi_table_gtdt *gtdt)
-> +{
-> +	if (gtdt->header.revision < 3)
-> +		return NULL;
+> diff --git a/arch/arm64/boot/dts/intel/Makefile b/arch/arm64/boot/dts/intel/Makefile
+> index 088a03b89c99..84982bf13ee5 100644
+> --- a/arch/arm64/boot/dts/intel/Makefile
+> +++ b/arch/arm64/boot/dts/intel/Makefile
+> @@ -6,6 +6,7 @@ dtb-$(CONFIG_ARCH_INTEL_SOCFPGA) += socfpga_agilex_n6000.dtb \
+>   				socfpga_agilex3_socdk.dtb \
+>   				socfpga_agilex5_socdk.dtb \
+>   				socfpga_agilex5_socdk_013b.dtb \
+> +				socfpga_agilex5_socdk_debug.dtb \
+>   				socfpga_agilex5_socdk_modular.dtb \
+>   				socfpga_agilex5_socdk_nand.dtb \
+>   				socfpga_agilex7m_socdk.dtb \
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts
+> new file mode 100644
+> index 000000000000..e3fd2bf11688
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5_socdk_debug.dts
+> @@ -0,0 +1,123 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +/*
+> + * Copyright (C) 2023, Intel Corporation
+> + */
+> +#include "socfpga_agilex5.dtsi"
 > +
-> +	return &container_of(gtdt, struct gtdt_v3, gtdt_v2)->el2_vtimer;
-> +}
+> +/ {
+> +	model = "SoCFPGA Agilex5 SoCDK - debug daughter card";
+> +	compatible = "intel,socfpga-agilex5-socdk-debug", "intel,socfpga-agilex5";
 > +
->   static __init bool platform_timer_valid(void *platform_timer)
->   {
->   	struct acpi_gtdt_header *gh = platform_timer;
-> @@ -112,6 +120,7 @@ static int __init map_gt_gsi(u32 interrupt, u32 flags)
->   int __init acpi_gtdt_map_ppi(int type)
->   {
->   	struct acpi_table_gtdt *gtdt = acpi_gtdt_desc.gtdt;
-> +	struct acpi_gtdt_el2 *el2_vtimer = gtdt_to_el2_vtimer(gtdt);
->   
->   	switch (type) {
->   	case ARCH_TIMER_PHYS_NONSECURE_PPI:
-> @@ -124,6 +133,12 @@ int __init acpi_gtdt_map_ppi(int type)
->   	case ARCH_TIMER_HYP_PPI:
->   		return map_gt_gsi(gtdt->non_secure_el2_interrupt,
->   				  gtdt->non_secure_el2_flags);
-> +	case ARCH_TIMER_HYP_VIRT_PPI:
-> +		if (el2_vtimer && el2_vtimer->virtual_el2_timer_gsiv)
-> +			return map_gt_gsi(el2_vtimer->virtual_el2_timer_gsiv,
-> +					  el2_vtimer->virtual_el2_timer_flags);
+> +	aliases {
+> +		serial0 = &uart0;
+> +		ethernet0 = &gmac0;
+> +		ethernet1 = &gmac1;
+> +		ethernet2 = &gmac2;
+> +		i3c0 = &i3c0;
+> +		i3c1 = &i3c1;
+> +	};
 > +
-> +		return 0;
->   	default:
->   		pr_err("Failed to map timer interrupt: invalid type.\n");
->   	}
-> @@ -141,6 +156,7 @@ int __init acpi_gtdt_map_ppi(int type)
->   bool __init acpi_gtdt_c3stop(int type)
->   {
->   	struct acpi_table_gtdt *gtdt = acpi_gtdt_desc.gtdt;
-> +	struct acpi_gtdt_el2 *el2_vtimer = gtdt_to_el2_vtimer(gtdt);
->   
->   	switch (type) {
->   	case ARCH_TIMER_PHYS_NONSECURE_PPI:
-> @@ -152,6 +168,10 @@ bool __init acpi_gtdt_c3stop(int type)
->   	case ARCH_TIMER_HYP_PPI:
->   		return !(gtdt->non_secure_el2_flags & ACPI_GTDT_ALWAYS_ON);
->   
-> +	case ARCH_TIMER_HYP_VIRT_PPI:
-> +		return el2_vtimer && el2_vtimer->virtual_el2_timer_gsiv &&
-> +		       !(el2_vtimer->virtual_el2_timer_flags & ACPI_GTDT_ALWAYS_ON);
+> +	chosen {
+> +		stdout-path = "serial0:115200n8";
+> +	};
 > +
->   	default:
->   		pr_err("Failed to get c3stop info: invalid type.\n");
->   	}
+> +	leds {
+> +		compatible = "gpio-leds";
+> +
+> +		led-0 {
+> +			label = "hps_led0";
+> +			gpios = <&porta 11 GPIO_ACTIVE_HIGH>;
 
-Reviewed-by: Hanjun Guo <guohanjun@huawei.com>
+Isn't this in GPIO0? And since you're not enabling gpio0, wouldn't this 
+lead to a infinite probe deferral?
 
-Thanks
-Hanjun
+> +		};
+> +
+> +	};
+> +
+> +	memory@80000000 {
+> +		device_type = "memory";
+> +		/* We expect the bootloader to fill in the reg */
+> +		reg = <0x0 0x80000000 0x0 0x0>;
+> +	};
+> +};
+> +
+> +&gmac0 {
+> +	status = "okay";
+> +	phy-mode = "rgmii"; /* TX/RX clock delays provided by Agilex5 I/O hardware */
+> +	phy-handle = <&emac0_phy0>;
+> +	max-frame-size = <9000>;
+> +	mdio0 {
+> +		#address-cells = <1>;
+> +		#size-cells = <0>;
+> +		compatible = "snps,dwmac-mdio";
+> +		emac0_phy0: ethernet-phy@0 {
+> +			reg = <0>;
+> +		};
+> +	};
+> +};
+> +
+> +&gpio1 {
+> +	status = "okay";
+> +};
+> +
+> +&osc1 {
+> +	clock-frequency = <25000000>;
+> +};
+> +
+> +&qspi {
+> +	status = "okay";
+> +	flash@0 {
+> +		compatible = "micron,mt25qu02g", "jedec,spi-nor";
+> +		reg = <0>;
+> +		spi-max-frequency = <100000000>;
+> +		m25p,fast-read;
+> +		cdns,read-delay = <2>;
+> +		cdns,tshsl-ns = <50>;
+> +		cdns,tsd2d-ns = <50>;
+> +		cdns,tchsh-ns = <4>;
+> +		cdns,tslch-ns = <4>;
+> +		spi-tx-bus-width = <4>;
+> +		spi-rx-bus-width = <4>;
+> +
+> +		partitions {
+> +			compatible = "fixed-partitions";
+> +			#address-cells = <1>;
+> +			#size-cells = <1>;
+> +
+> +			qspi_boot: partition@0 {
+> +				label = "u-boot";
+> +				reg = <0x0 0x04200000>;
+> +			};
+> +
+> +			root: partition@4200000 {
+> +				label = "root";
+> +				reg = <0x04200000 0x0be00000>;
+> +			};
+> +		};
+> +	};
+> +};
+> +
+> +&spi0 {
+> +	status = "okay";
+> +	/delete-property/ dmas;
+> +	/delete-property/ dma-names;
+
+I don't think it's correct to modify a hardware description to work 
+around a software configuration issue. The Device Tree should describe 
+the physical hardware. If the physical DMA lines exist, deleting these 
+properties to bypass the CONFIG_DW_AXI_DMAC Linux defconfig issue 
+violates that principle.
+
+Would it be better to retain the DMA properties and resolve the issue by 
+either enabling the required DMA driver in the defconfig or ensuring the 
+SPI driver gracefully falls back to PIO mode?
+
+> +	eeprom@0 {
+> +		compatible = "atmel,at25";
+
+Since the commit message specifies the chip is a Microchip 25AA128, 
+should this include the vendor-specific compatible string as the primary 
+match (e.g., "microchip,25aa128", "atmel,at25")? The generic 
+"atmel,at25" string without a specific model is deprecated for new 
+device trees according to the at25 bindings.
+
+
+Dinh
+
