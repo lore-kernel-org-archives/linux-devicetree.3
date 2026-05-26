@@ -1,85 +1,34 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12A503CEBBD
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:53:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C564235C1AD;
+	Tue, 26 May 2026 08:53:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779785592; cv=none; b=i+DZZKPTWil5tk/8RdVad6A0/FjmrE+AsWrXJ1FWRdPhMo3iVXikS4dRvMO7287SdhpBcb52sKndWDvp9RtAAQXirNwWM2B8Y9B2tnAco2xw2uUXROwbJPpziZ0hksE57MA8PrX4R8/WM75WE7cJgOMI52Sh5jFRA7O3t4zBj58=
+	t=1779785607; cv=none; b=oai0lD+15uCSgMffoIuup+uJPwWUVERauw5UCP0bJ6QgzlG08ACgpaCZekHYgzttCNAS5T2pckpk1hJ7+qettx7iE5j8lnsQpnnENm6Hrle12cJj3CHMGn6q8cUhZrWiD3Cf9ZPpn9HIVlSSVoCVWJJJenrlBCAkdJZtLB5JuQY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779785592; c=relaxed/simple;
-	bh=6dwjKXpdQIOHdZ4McKq+nYOl6X4s0oJJFQKmLJGEN0U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=n/qdxOu20kZFpDfm/xtYhqhyfVy6IfSVPLLibao0R/4jnDs+IdQy/58vph8yE551sHHxHe0vqw7ZUPIYng2IufsLaCCQFHLiYPc/cRKMcKTjINaLtvJx7+BkqFQkqIhrpBFgSJIz6IStIpTnmvn9yA7UmY1kqN1qSn9XO9Obbh4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=XeNbgbB8; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=asVwiRYZ; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779785607; c=relaxed/simple;
+	bh=wJLfF2BZVe+uXfktz9Da0Q6EG/mzRSCgVR+2/5DdZo8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=nNi6P5srrYpBcq/vBj4LeBKuQkxF22HNfhrFEuf/DfUb+mpb7uLGWfC7Tcs/y7/ige7je1JD/zMT1v9kMuwAKsisdbPV8d5oBEdcDWC2ASnfc44oUqMXm0O2CAeM5SjxX146CGc+JMFYDZawAyRSmmkesM3N4rmiRyLbPZy3XI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qc+qJLV4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="XeNbgbB8";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="asVwiRYZ"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64Q83JOt3603971
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:53:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=RVoZcULGEjGW1rN/Iq0DEm
-	0850ecwTybL4jJLvdoIhA=; b=XeNbgbB84sKaW4B8kXqO2iF3LVKRw3jyfqKboB
-	VMOm6KqM0D8uxdlyN0zla4BXusRvmOBSJfl5Jomuem1ozjcyxvT5L+fgNxzK5KOQ
-	7Toy2KJBhGFzE9bI+drC271a1aRwEwQ5Au+7IcQMCTXK0kMpvv274PcT3vOk+qb0
-	y9J2c39v7g1vC+suDwvj/FSfKZmcUyp+ywfKHpjk9uJTZIhVFLt4A9uaQ14g2YAH
-	uMnU+uJvz5v1/Gau5WLrObWI3F2TEK8s2QiSa+eS6k47B2DYymnHjGOhZVFj3U6F
-	aJgX0wr9uOXuGvIZ6mb6bbL5h0KQsNFBR/oui1hoKHGAW7bQ==
-Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecpyqk674-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:53:10 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-304627c66ddso1995836eec.0
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 01:53:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779785589; x=1780390389; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=RVoZcULGEjGW1rN/Iq0DEm0850ecwTybL4jJLvdoIhA=;
-        b=asVwiRYZIfh+4tIAveEDnaG6E8HsX8BqE/ZOEJWzGHQfcASM9j1iWLqw/ueh74CXln
-         6ixUH6knJP5wMzW76bl5aCuo1FJ9GIrwLJt/k5EyTuM4djeW1tyd0AUvCxF8KwCwMWDv
-         RucAY8vOPHMXjbGk35ruJO5CAK/8ouhaWDrRX5n1KPuWcmE4Z0VuIuF8bPQo6RAR8vWV
-         LxMsTktTJjJaqLiYpqJOmYdrQlKQ2I8gK6kP1eqfBDsCAlIkGV3VBDxQdP4+bQhZJvDF
-         x2YDAJUfPE0JWn1DxBq08a+lk4/pDKofnWmloLqXe34olKL9P4k5w0/qMbArQKoQaJfJ
-         Jb6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779785589; x=1780390389;
-        h=cc:to:message-id:content-transfer-encoding:mime-version:subject
-         :date:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=RVoZcULGEjGW1rN/Iq0DEm0850ecwTybL4jJLvdoIhA=;
-        b=hcnVAvw8jvyyw31JTVcNAB54Y4rLs9JiUOLYBk1GQ/14RSEUZFM+zLHu4k73oc7eG9
-         BwdmxjfWLuas5h6LZlNAnoa4mlv/+/Vexhvj8/BmrT8yD0KhMkZ8bQrpGOBpEbnkOqJo
-         PRJ63tWuDfP48nae4UX0wx9KfWXTad7V++JsUBba1c5m/JH1INDJSkwsbVuhXMIMmRsm
-         KR6/64/8ZUr46AuW7Ugordmv6w5hfd7Vk4xF361BMPqrD/6D9MpDc2NbKyXvVY35Vb+d
-         FnSV154KNpIbRVL876EWo6tVWYbxFZ91BTPA/ncoc2UQnZ9g8F6w6EElxV2DH6qzyfL3
-         dX4A==
-X-Forwarded-Encrypted: i=1; AFNElJ+BdJnCFdvcgU/JS1JaACUJIKH1uJXCHyvr4eNaoWNh2W+buTs5pTttiNLxmeXU5fEETlYaVpuCjZ76@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXrKzQ/vgqJV3KQu/5cKf2y5BbxdtX3WCECmfAIwfbzBQQqkdI
-	mU8scxKMk1h0v5q45fBkZz4hMFSc8j7uF+PxF3wja36poMseXRJgZ/7trJjCyp5yXoNCe2QQtnm
-	FjKpYSC2BzD7hNnfznxQh9aPS8/kVOhYCSBH7SF2q6nJ7SJwKxEN3BjXcbA6qzoTNuBeK+Eiw
-X-Gm-Gg: Acq92OE/e0zfkd6rNsg3Q1ZoWvZlSiTZek8bf5ngkO06X3ZSgdHlMwHTGkcoGpgzA9+
-	Hyr+jkix3pf/+qip/Z+YhPIvkATlzu2DHnj2n2FZj+E+GY6hHH4XNkwT41XXubgYQjBHHnjHGpJ
-	onKSp0WaHGlyJxDJi00qDFbQNkoRe7mnCi+Ct/WIgf6DsJFXcU8AZVleoWY4SY+HIAdbrSFY9BL
-	wPk/3GuNDwP0lIg8WPKhZ48FpwnSnxxKCJ32XbJB7VH2K/Fko56TE6yjOmcXZOLwQMz8IeEkK8R
-	BoLhsOaiGeF14cXcUxW6ZqwgugxHexFQVIweYgyUM75b3pZWocfOS3xzv/UdImejUVedXZPCxDo
-	kWDfA7n37DEa269C3wTvaFD5Oi/7nFyW4sEGeX0+u8XJBGq4pFWbXcJdCMHZu54WIr2Wbe/nVli
-	zcQVoFATLu6Q==
-X-Received: by 2002:a05:7300:cd86:b0:2f5:3641:f110 with SMTP id 5a478bee46e88-304491f39cfmr7245236eec.31.1779785589477;
-        Tue, 26 May 2026 01:53:09 -0700 (PDT)
-X-Received: by 2002:a05:7300:cd86:b0:2f5:3641:f110 with SMTP id 5a478bee46e88-304491f39cfmr7245228eec.31.1779785588963;
-        Tue, 26 May 2026 01:53:08 -0700 (PDT)
-Received: from hu-ggarmidi-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30451ef4719sm9921260eec.1.2026.05.26.01.53.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 01:53:08 -0700 (PDT)
-From: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-Date: Tue, 26 May 2026 01:52:57 -0700
-Subject: [PATCH] arm64: dts: qcom: glymur-crd: merge duplicate
- &pmh0101_gpios node extensions
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qc+qJLV4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 293951F000E9;
+	Tue, 26 May 2026 08:53:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779785606;
+	bh=l7VErk4ZLg+3sShapVbVsbipSoUmWfTkdEOMvIvFw88=;
+	h=From:Subject:Date:To:Cc;
+	b=Qc+qJLV4TQnlbrXiSVrsaWs9YQ6i9pOr4RvMYLRM9ECCYB5xtGFh1DRF0Bvp7j7XE
+	 KmKrSkclv3jx5q53le12XFJEhdNY6bYMARgbgOmsV4uajKpFraXFqK1eI6giTNSk0q
+	 KP5zLJHRdTa6wdF/KATud1w3ywizhGBYA86otZClQxF3AuANIPK68vLYrVhtpNou9I
+	 NCUt5MgNqajJW27dRJPssJBiFI2frAnk3H6lVKcPuVtNWESUjINZpbhKHK8ZHN+g8c
+	 fp824153oEh7r2dywAKxoatPm6L5QfkU8fsywpEIDhwBLQtc9ezVZKf4lAsBj6qEyK
+	 AAAJv1U8M/FVQ==
+From: Thierry Reding <thierry.reding@kernel.org>
+Subject: [PATCH v5 0/4] PCI: tegra: Add Tegra264 support
+Date: Tue, 26 May 2026 10:53:09 +0200
+Message-Id: <20260526-tegra264-pcie-v5-0-84a813b979d7@nvidia.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,110 +37,121 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260526-merge-duplicate-pmh0101-gpios-node-v1-1-c4ab4983f8be@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAGhfFWoC/x2NQQqDMBQFryJ/3Q9JaES9inQRzIt+0CQkthTEu
- zd0ObOYuaiiCCpN3UUFH6mSYgP96GjZXFzB4huTUaZX1vR8oDTp33mXxZ3gfGxKK81rllQ5Jg+
- 2Bi6MYxieg6UWygVBvv/J/LrvH8OCC7Z0AAAA
-X-Change-ID: 20260526-merge-duplicate-pmh0101-gpios-node-52eaf99f8485
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Rajendra Nayak <rajendra.nayak@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779785588; l=1650;
- i=gopikrishna.garmidi@oss.qualcomm.com; s=20260102;
- h=from:subject:message-id; bh=6dwjKXpdQIOHdZ4McKq+nYOl6X4s0oJJFQKmLJGEN0U=;
- b=JDdIB1pKcxiRZbw6FwkdfKXENqU+pAJtDMtFuCnoTJgTVZFuj19YBuIGFbfiZ1rxhvEUyiI76
- qBjurF7bri4Adl2pr9Xsq3K75Gqkh3Q7MlBTOE4Cn4aWi07TU/cBZl1
-X-Developer-Key: i=gopikrishna.garmidi@oss.qualcomm.com; a=ed25519;
- pk=TkSjNEhrfsj90i3wkABTZtAjLNr2cfYsujaTvyOIDsE=
-X-Authority-Analysis: v=2.4 cv=dtfrzVg4 c=1 sm=1 tr=0 ts=6a155f76 cx=c_pps
- a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=EoTlI1rpe4zGgeXVSq8A:9 a=QEXdDO2ut3YA:10
- a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-GUID: xm0paOayQ_XOugho5g8bdIxZujgrUjw7
-X-Proofpoint-ORIG-GUID: xm0paOayQ_XOugho5g8bdIxZujgrUjw7
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA3NyBTYWx0ZWRfXwwv3ecQ9f4kD
- 9d6BkqZJN+VjHvTYtzf0J4ja0/M0LXsiQHnwDq+snY07L1d37bYm7QeFCh8NMeXZxn1+rhJ1Tl8
- izJfrQmMhvF0WJZI+4mTSeXqcWd3afKkvXVbQIfmNA6tBErvPQwbqzOXBJXoGG6YoIljG/7MF4H
- oo0L3lVaHehfB1jxkarMd866ys4x8XjZVNOoXok6ECdereD54POfye0lKsyGaqbyeFdnHh9aRTE
- XRwsOY3nPVP081QF39p4kKo4lKLtmuXSp76tzQi0tZWD4UjxYKr6dlWbfvYMw02NyyzeHkMnSwt
- FMZ4x19y+Fl2k7ZD6v5B8C4DIwTC/fiVuzhadsaeSCGQX/esl86AtZigMCK8hzdM21z2eHMksZk
- f+eSzpoqtATDz0E+berHGYr2CsgyLSlUVo9FpM03p99nXsh2WHG4v2etW1WcXGVeMQrmxRZ2dLx
- +TpedJ2Nw67lyCiqWEw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
- definitions=2026-05-26_02,2026-05-18_01,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 suspectscore=0 bulkscore=0 phishscore=0
- adultscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605260077
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/4WQwW7DIAyGX6XiPBA2kISd+h5TDzTxEm8rqSBDq
+ 6q8+0h7WKUderH8S//3WfJVZEpMWbzuriJR4cxzrMG97EQ/hTiS5KFmgRobbTXKhcYUsLHy3DN
+ JMjocCc0QdCsqc070zj8339vhnvP38YP6ZZNsjYnzMqfL7WCBrXd3G/DQaACtEOrurAS5TEwpX
+ VSigeO4/6QU6UvNaRSbu+ADXSc6a41C14JH/Zw2j3QDxnXOKWy9A+uf0/aP/v+VYqWWCIQE3nc
+ tdftYeOCg+vkkDuu6/gIoNvEwdwEAAA==
+X-Change-ID: 20260402-tegra264-pcie-e30abe23da07
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+ Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+ =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+ Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Thierry Reding <thierry.reding@gmail.com>, 
+ Jonathan Hunter <jonathanh@nvidia.com>, 
+ Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
+ Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>, 
+ Michal Simek <michal.simek@amd.com>, Kevin Xie <kevin.xie@starfivetech.com>, 
+ Thierry Reding <thierry.reding@kernel.org>, Aksh Garg <a-garg7@ti.com>
+Cc: linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
+ Manikanta Maddireddy <mmaddireddy@nvidia.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3046; i=treding@nvidia.com;
+ h=from:subject:message-id; bh=wJLfF2BZVe+uXfktz9Da0Q6EG/mzRSCgVR+2/5DdZo8=;
+ b=owEBbQKS/ZANAwAKAd0jrNd/PrOhAcsmYgBqFV+DGK/1Dej/huYhz95sX4UhRpjd24UsF9ExP
+ 7grwHuRsCyJAjMEAAEKAB0WIQSI6sMIAUnM98CNyJ/dI6zXfz6zoQUCahVfgwAKCRDdI6zXfz6z
+ ocHBD/4odEjmVuVeubUzJUhPR2J9AzYRayD+8uc0uqyxofWuu7adt17WH1rssHDf1NDlCp1sKiV
+ RSDepxfB3NJiJuc//ArZHMWq/JlgHTx5gmyYZaKbgehEWfr/QXldeg49kF/oEekm6X6StEWK5n5
+ SKPKQ/uSfOzCWS1c2G1pQkw4a4gIpIKLaTon+/ElDb5ynibUjvkHvYBc/F/W0pPlIBcmYVXxyiZ
+ TrmXCVL18QNvf4FWVfORTryW/pL0//gE8u32Axz2OSEU61h6EsPS+BzYC65Tn+ggflnr5jAF1AL
+ 4vhk2Zf06dJJEHEHr6J29hIcFWiu3cb9yj5XKCc6TnxmG6fRYxT6AWmIVcyHtVRZzAsAiOTLfEk
+ qUduT8LY8StYKTVNNigpuuo58+wu6z3pP2Opcq+KbKjO9LpkEFdATT/DEowxHaM6guBKB5lMmO0
+ vG8uq2bCxfyeaTKeQDbfcYZiP4PN5FVzYOT+MHZtIwOPyOk+hh/yZgvKloyv4aCheydsBjvmmQs
+ Ejt2PVm9jJXA+QsoJxQt2qk4qltWUwlhSZZukZStSZrohKgWL5Sl/LDAswvqbkYNN8gL/7dKkfP
+ CipATu3+T+MdxH32cgz6eQYepNvtOCfVdwd7R95Y+5niIHcK/BnSmHolJHjvOiZINrjGmfl8KGc
+ HzT9mHAmNMA6qFg==
+X-Developer-Key: i=treding@nvidia.com; a=openpgp;
+ fpr=88EAC3080149CCF7C08DC89FDD23ACD77F3EB3A1
 
-The &pmh0101_gpios node is extended twice in glymur-crd.dtsi. The first
-extension defines the nvme_reg_en pinctrl state for the NVMe regulator
-enable GPIO (gpio14), and the second adds key_vol_up_default for the
-volume-up key (gpio6).
+Hi,
 
-Merge both pinctrl states into a single &pmh0101_gpios block to avoid
-the duplicate node extension.
+this series adds support for the PCIe controllers found on the Tegra264
+SoC. There are six instances, one of which is for internal purposes only
+and the other five are general purpose.
 
-No functional change intended.
+The first patch tweaks the DT bindings slightly to avoid new DT compiler
+warnings that slipped through because they are now disabled by default
+(-Wno-unit_address_vs_reg).
 
-Fixes: a5ad8a8e473c ("arm64: dts: qcom: Commonize Glymur CRD DTSI")
-Signed-off-by: Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/glymur-crd.dtsi | 16 +++++++---------
- 1 file changed, 7 insertions(+), 9 deletions(-)
+Before adding the driver in patch 3, patch 2 introduces some new common
+wait times for PCIe and unifies the way that drivers use them. Finally,
+patch 4 reorders the reg and reg-names property entries to match the
+bindings changes from patch 1.
 
-diff --git a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-index e784b538f42e..faa149b02c69 100644
---- a/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-+++ b/arch/arm64/boot/dts/qcom/glymur-crd.dtsi
-@@ -543,6 +543,13 @@ nvme_reg_en: nvme-reg-en-state {
- 		function = "normal";
- 		bias-disable;
- 	};
-+
-+	key_vol_up_default: key-vol-up-default-state {
-+		pins = "gpio6";
-+		function = "normal";
-+		output-disable;
-+		bias-pull-up;
-+	};
- };
- 
- &pmh0110_f_e1_gpios {
-@@ -553,15 +560,6 @@ nvme_sec_reg_en: nvme-reg-en-state {
- 	};
- };
- 
--&pmh0101_gpios {
--	key_vol_up_default: key-vol-up-default-state {
--		pins = "gpio6";
--		function = "normal";
--		output-disable;
--		bias-pull-up;
--	};
--};
--
- &pmk8850_rtc {
- 	qcom,no-alarm;
- };
+All of the prerequisites were merged in v7.1-rc1, so this can be applied
+to the PCI tree directly. Optionally I can also pick up patch 4 into the
+Tegra tree, but there should be no conflicts, so feel free to pick this
+up with the rest.
+
+Thanks,
+Thierry
+
+Changes in v5:
+- address review comments for the PCI driver patch
+- Link to v4: https://patch.msgid.link/20260402-tegra264-pcie-v4-0-21e2e19987e8@nvidia.com
+
+Changes in v4:
+- strip out dependencies that are going in through the ARM SoC tree
+- revert bindings to oneOf construct so that we don't produce new DTC
+  warnings
+- Link to v3: https://patch.msgid.link/20260326135855.2795149-1-thierry.reding@kernel.org
+
+Changes in v3:
+- integrate PCI standard wait times patch into the series to maintain
+  bisectability
+- fix review comments from Mikko
+- Link to v2: https://patch.msgid.link/20260320225443.2571920-1-thierry.reding@kernel.org
+
+Changes in v2:
+- fix an issue with sanity-checking disabled BARs
+- address review comments
+- Link to v1: https://patch.msgid.link/20260319160110.2131954-1-thierry.reding@kernel.org
+
+Thanks,
+Thierry
 
 ---
-base-commit: d387b06f7c15b4639244ad66b4b0900c6a02b430
-change-id: 20260526-merge-duplicate-pmh0101-gpios-node-52eaf99f8485
+Thierry Reding (4):
+      dt-bindings: pci: Strictly distinguish C0 from C1-C5
+      PCI: Use standard wait times for PCIe link monitoring
+      PCI: tegra: Add Tegra264 support
+      arm64: tegra: Reorder reg and reg-names to match bindings
+
+ .../bindings/pci/nvidia,tegra264-pcie.yaml         |  75 ++-
+ arch/arm64/boot/dts/nvidia/tegra264.dtsi           |  48 +-
+ drivers/pci/controller/Kconfig                     |   9 +-
+ drivers/pci/controller/Makefile                    |   1 +
+ .../controller/cadence/pcie-cadence-host-common.c  |   6 +-
+ .../pci/controller/cadence/pcie-cadence-lga-regs.h |   5 -
+ drivers/pci/controller/mobiveil/pcie-mobiveil.c    |   4 +-
+ drivers/pci/controller/mobiveil/pcie-mobiveil.h    |   5 -
+ drivers/pci/controller/pci-aardvark.c              |   7 +-
+ drivers/pci/controller/pcie-tegra264.c             | 544 +++++++++++++++++++++
+ drivers/pci/controller/pcie-xilinx-nwl.c           |   9 +-
+ drivers/pci/controller/plda/pcie-starfive.c        |   9 +-
+ drivers/pci/pci.h                                  |   2 +
+ 13 files changed, 641 insertions(+), 83 deletions(-)
+---
+base-commit: 550604d6c9b9efc8d068aff94dc301694a7afdee
+change-id: 20260402-tegra264-pcie-e30abe23da07
 
 Best regards,
--- 
-Gopikrishna Garmidi <gopikrishna.garmidi@oss.qualcomm.com>
+--  
+Thierry Reding <treding@nvidia.com>
 
