@@ -1,180 +1,151 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 081673AC0ED;
-	Tue, 26 May 2026 03:11:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF1C73A873B
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:14:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779765099; cv=none; b=ct8MQo2Uhu4UPgLHEntrEkHstQohQ1yZeto3a+qy6EfWGeS6TFBP9ys9pgo3428nhXE8zMCVf2Vfv4V6S6F/CIPtteKmT0w2pP6Gjwn7wrD6xX49PRAGkrlG2vPezrG+AWwHiZfqI0AAi6T2VpN9wdOTp+CpmiVlSQoU5V80BJ8=
+	t=1779765258; cv=none; b=C7ZdV+Z4dPlFAh2Q3B3cFK3JCqfVJJIGolPxzz6V82L9x9iLX/z/EzD0xgcg7FyPLlY+aOEcRGm4xS7dFhNfnNtf7VxiHh3aPgNL/sPK+5Tx0UZSDhN5g9pVBWALB9NV/IbIncr1U61abL3aKx++dgjfhBG6ZuYMkCFam/ikaHQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779765099; c=relaxed/simple;
-	bh=z3o91oPJZWzKTXniebv/fBIDyQhyV8YOnNOxrAqvJ3g=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=haVB3I45Yu2xsjaizY5/8zbLAjSiDRVBTeCA2xw5qTN7EDJGJdXHaTXELBwSYRycjs0i2Fh1E3EuuOFXvF84pKIFHtULKXoy2rRAQgrfURC+SqxM9GLJI0HclT/E00lDV0DI94eUBfLprup65Xw8IzcWe2A7JEL1w/e6GSPIJPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8BxzeliDxVq30ENAA--.36332S3;
-	Tue, 26 May 2026 11:11:30 +0800 (CST)
-Received: from loongson-pc.loongson.cn (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJAxXcJaDxVq10SRAA--.10437S4;
-	Tue, 26 May 2026 11:11:29 +0800 (CST)
-From: Hongliang Wang <wanghongliang@loongson.cn>
-To: Binbin Zhou <zhoubinbin@loongson.cn>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	Hongliang Wang <wanghongliang@loongson.cn>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	loongarch@lists.linux.dev
-Subject: [PATCH v4 2/2] i2c: ls2x: Add clocks property parsing and adjust bus speed
-Date: Tue, 26 May 2026 11:10:21 +0800
-Message-Id: <20260526031021.32662-3-wanghongliang@loongson.cn>
-X-Mailer: git-send-email 2.20.1
-In-Reply-To: <20260526031021.32662-1-wanghongliang@loongson.cn>
-References: <20260526031021.32662-1-wanghongliang@loongson.cn>
+	s=arc-20240116; t=1779765258; c=relaxed/simple;
+	bh=cMlv+4VHyG5s4OZ4/qiNCB6VWeXg2yMgS3kZXC2V0L0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=oZQGEUragvOd5eQA/ZYyPZFIwiP9yBP3THEVuh5SGVnardoI0Kl/GqmAy+TjgB2EEsFAQOHsH9vSmEygffa0y3pw9AKtIEz/jNhPRwPUycluiHBLQnPtSdsy/aag4pgnIQ9lekMY+GmUfz0DAohqPzi49I+8SJAxvCRVCVJyzl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=e4nKcL1R; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="e4nKcL1R"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=I3AI5WWwz/t22n83hZQ/Ox4+zJeIKBNhES3I39cuV9Q=;
+	b=e4nKcL1RmKiaFSvmcvjt23Dxp4EfYfvnMR/cNZ/L6bHKupwamdreV0ONgPUG4iTedzPZh2AS2
+	kllshWJso5W8N3OfQIsCGlh/ld30qcyut4Y3PPPqDZldWEKPmtmTpBLv1uyixrmmGtDbPeMH4JJ
+	TPKFI4nfSZJ1qdEa4ZbI1U8=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4gPd2H70RGzpTN6;
+	Tue, 26 May 2026 11:06:47 +0800 (CST)
+Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
+	by mail.maildlp.com (Postfix) with ESMTPS id D8DC8202E6;
+	Tue, 26 May 2026 11:14:11 +0800 (CST)
+Received: from [10.67.109.254] (10.67.109.254) by
+ dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1544.11; Tue, 26 May 2026 11:14:11 +0800
+Message-ID: <1c1e497b-1e41-43ba-a117-6f128857309f@huawei.com>
+Date: Tue, 26 May 2026 11:14:10 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qMiowJAxXcJaDxVq10SRAA--.10437S4
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxJFW8Ar4Duw1xJry5Wry3trc_yoWrXry7pF
-	WUCFZ5Gr4qqF42grsIq3W7ZFyayws5Jay8CFy7tw1xW3Z3Xr98Za4ftFn0kF4kWF97uayU
-	XayDGr45uFyUZrcCm3ZEXasCq-sJn29KB7ZKAUJUUUUr529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUBYb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_
-	Gr0_Gr1UM2kKe7AKxVWUXVWUAwAS0I0E0xvYzxvE52x082IY62kv0487Mc804VCY07AIYI
-	kI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUtVWr
-	XwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
-	8JMxkF7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j
-	6r4UMxCIbckI1I0E14v26r1Y6r17MI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwV
-	AFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv2
-	0xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4
-	v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AK
-	xVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU0epB3UUUUU==
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v14 02/17] powerpc/crash: Fix possible memory leak in
+ update_crash_elfcorehdr()
+To: <sashiko-reviews@lists.linux.dev>, <sourabhjain@linux.ibm.com>,
+	<hbathini@linux.ibm.com>, <mpe@ellerman.id.au>
+CC: <conor+dt@kernel.org>, <devicetree@vger.kernel.org>, <robh@kernel.org>
+References: <20260525084932.934910-3-ruanjinjie@huawei.com>
+ <20260525092207.96B9D1F000E9@smtp.kernel.org>
+From: Jinjie Ruan <ruanjinjie@huawei.com>
+In-Reply-To: <20260525092207.96B9D1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: kwepems200002.china.huawei.com (7.221.188.68) To
+ dggpemf500011.china.huawei.com (7.185.36.131)
 
-From: wanghongliang <wanghongliang@loongson.cn>
++cc Sourabh Jain, Hari Bathini and Michael Ellerman
 
-The i2c-ls2x driver supports dts and acpi parameter passing.
-
-In dts, uses clock framework, by parsing clocks property to
-get i2c bus reference clock, and define the div of reference
-clock by device data.
-
-In acpi, by passing clocks property to describe i2c bus reference
-clock and clock-div property to describe the div of reference clock.
-
-Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-and div, calculate the prcescale of i2c divider register. The
-calculation formula is
-
-prcescale = (clock_a*10)/(div*clock_s)-1
-
-Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
----
- drivers/i2c/busses/i2c-ls2x.c | 35 ++++++++++++++++++++++++++++++++---
- 1 file changed, 32 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.c
-index b475dd27b7af..6d332e59452d 100644
---- a/drivers/i2c/busses/i2c-ls2x.c
-+++ b/drivers/i2c/busses/i2c-ls2x.c
-@@ -12,6 +12,7 @@
- 
- #include <linux/bitfield.h>
- #include <linux/bits.h>
-+#include <linux/clk.h>
- #include <linux/completion.h>
- #include <linux/device.h>
- #include <linux/iopoll.h>
-@@ -63,11 +64,18 @@
- /* The default bus frequency, which is an empirical value */
- #define LS2X_I2C_FREQ_STD	(33 * HZ_PER_KHZ)
- 
-+/* The div of i2c reference clock on 2K0500/2K1000/2K2000 */
-+#define LS2X_I2C_2K_CLOCK_DIV	40
-+
-+/* The div of i2c reference clock on 7A1000/7A2000 */
-+#define LS2X_I2C_7A_CLOCK_DIV	50
-+
- struct ls2x_i2c_priv {
- 	struct i2c_adapter	adapter;
- 	void __iomem		*base;
- 	struct i2c_timings	i2c_t;
- 	struct completion	cmd_complete;
-+	unsigned int		div;
- };
- 
- /*
-@@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
- static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- {
- 	u16 val;
-+	u32 pclk, div;
-+	struct clk *clk;
- 	struct i2c_timings *t = &priv->i2c_t;
- 	struct device *dev = priv->adapter.dev.parent;
- 	u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
-@@ -107,12 +117,29 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
- 	else
- 		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
- 
-+	if (dev_of_node(dev)) {
-+		clk = devm_clk_get_optional_enabled(dev, NULL);
-+		if (clk && !IS_ERR(clk))
-+			pclk = clk_get_rate(clk);
-+		else
-+			pclk = LS2X_I2C_PCLK_FREQ;
-+
-+		div = priv->div;
-+
-+		val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
-+	} else {
-+		if (!device_property_read_u32(dev, "clocks", &pclk) &&
-+		    !device_property_read_u32(dev, "clock-div", &div))
-+			val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
-+		else
-+			val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
-+	}
-+
- 	/*
- 	 * According to the chip manual, we can only access the registers as bytes,
- 	 * otherwise the high bits will be truncated.
- 	 * So set the I2C frequency with a sequential writeb() instead of writew().
- 	 */
--	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
- 	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
- 	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
- }
-@@ -295,6 +322,8 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
- 	if (!priv)
- 		return -ENOMEM;
- 
-+	priv->div = (unsigned int)(unsigned long)device_get_match_data(dev);
-+
- 	/* Map hardware registers */
- 	priv->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(priv->base))
-@@ -349,8 +378,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
- 				 ls2x_i2c_suspend, ls2x_i2c_resume, NULL);
- 
- static const struct of_device_id ls2x_i2c_id_table[] = {
--	{ .compatible = "loongson,ls2k-i2c" },
--	{ .compatible = "loongson,ls7a-i2c" },
-+	{ .compatible = "loongson,ls2k-i2c", .data = (void *)LS2X_I2C_2K_CLOCK_DIV, },
-+	{ .compatible = "loongson,ls7a-i2c", .data = (void *)LS2X_I2C_7A_CLOCK_DIV, },
- 	{ /* sentinel */ }
- };
- MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
--- 
-2.47.2
+On 5/25/2026 5:22 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> 
+> Pre-existing issues:
+> - [Critical] Missing NULL check on `rmem` before accessing `rmem->nr_ranges` causes a NULL pointer dereference in `kexec_extra_fdt_size_ppc64()`.
+> - [Critical] `__merge_memory_ranges()` incorrectly shrinks overlapping memory ranges, causing critical memory regions to be lost.
+> --
+> 
+> commit 4efbfe4b6923f71ffba2342131a0178fa07349c0
+> Author: Jinjie Ruan <ruanjinjie@huawei.com>
+> 
+> powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
+> 
+> This commit fixes a memory leak in update_crash_elfcorehdr() by ensuring
+> allocated memory from get_crash_memory_ranges() is freed if an error occurs.
+> It updates the code to jump to the out label to properly free the memory.
+> 
+>> diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
+>> index e6539f213b3d1..a520f851c3a6b 100644
+>> --- a/arch/powerpc/kexec/crash.c
+>> +++ b/arch/powerpc/kexec/crash.c
+>> @@ -502,7 +502,7 @@ static void update_crash_elfcorehdr(struct kimage *image, struct memory_notify *
+>>  	ret = get_crash_memory_ranges(&cmem);
+>>  	if (ret) {
+>>  		pr_err("Failed to get crash mem range\n");
+>> -		return;
+>> +		goto out;
+>>  	}
+>>  
+>>  	/*
+> 
+> [Severity: Critical]
+> This is a pre-existing issue, but does kexec_extra_fdt_size_ppc64()
+> dereference a NULL pointer if rmem is NULL?
+> 
+> If get_reserved_memory_ranges(&rmem) returns 0 without allocating memory for
+> rmem (e.g., when there are no matching device tree nodes), rmem remains NULL
+> when passed to kexec_extra_fdt_size_ppc64():
+> 
+> arch/powerpc/kexec/elf_64.c:elf64_load() {
+> 	...
+> 	ret = get_reserved_memory_ranges(&rmem);
+> 	if (ret)
+> 		goto out;
+> 
+> 	fdt = of_kexec_alloc_and_setup_fdt(image, initrd_load_addr,
+> 					   initrd_len, cmdline,
+> 					   kexec_extra_fdt_size_ppc64(image, rmem));
+> 	...
+> }
+> 
+> Inside kexec_extra_fdt_size_ppc64(), there is no check before accessing
+> rmem->nr_ranges:
+> 
+> arch/powerpc/kexec/file_load_64.c:kexec_extra_fdt_size_ppc64() {
+> 	...
+> 	/* Consider extra space for reserved memory ranges if any */
+> 	if (rmem->nr_ranges > 0)
+> 		extra_size += (unsigned int)(rmem->nr_ranges * sizeof(u64));
+> 	...
+> }
+> 
+> Could this lead to a NULL pointer dereference and a kernel panic during
+> the kexec device tree preparation?
+> 
+> 
+> [Severity: Critical]
+> This isn't a bug introduced by this patch, but does __merge_memory_ranges()
+> incorrectly shrink overlapping memory ranges?
+> 
+> When merging memory ranges, the code unconditionally assigns ranges[i].end
+> to ranges[idx].end without using max(), and compares the start against
+> ranges[i-1].end rather than ranges[idx].end:
+> 
+> arch/powerpc/kexec/ranges.c:__merge_memory_ranges() {
+> 	...
+> 	for (i = 1; i < mem_rngs->nr_ranges; i++) {
+> 		if (ranges[i].start <= (ranges[i-1].end + 1))
+> 			ranges[idx].end = ranges[i].end;
+> 		else {
+> 	...
+> }
+> 
+> If a smaller memory range is completely subsumed by a larger one, could this
+> assignment shrink the end boundary of the merged range?
+> 
+> Would this truncate valid memory blocks from the kexec exclude lists,
+> potentially allowing the new kernel to overwrite the running kernel's memory
+> and causing data corruption or crashes?
+> 
 
