@@ -1,150 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EBF53DD841
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:38:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D72E3D9DDB
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:38:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779791885; cv=none; b=VyA1eSSJEcqZcGZGaLHtB0HFJ2oX8zacTxkbBL6+HFeqYp9lqoEIEHWaAqEwusnCX+EQgd0UkYbYWEgGeQx/jUFJ/2MLV+qI6WgW5kWrPbmIS9+oB+Sx7r2aGrDs4aUi8Ep1L5XSIWu9vDvMf8XXPgeqO7hugJkzZyVX9A23m/U=
+	t=1779791901; cv=none; b=fhWwg2njgw3nmcjJNKZ3O83eMs35M0gxI78pbw1lhkfV1QjPWFfg0ZkiSD4YBJmStaGR9cmGttwQsLCxzJBSW7zJMqyyvrCR76mHAqqx6NtXPVJXk30uaIf+rLczI1Ku0qGazwenDIPyvzmMaFgk/VBGxxaUsj1XH+HlWBtIYKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779791885; c=relaxed/simple;
-	bh=9eh6XUU2ndfYyUo62dvqnlzK6TG0k3ObehKlBXsD98A=;
+	s=arc-20240116; t=1779791901; c=relaxed/simple;
+	bh=3AsWJ4Svz8UeRuAJNdgmKfdmyzwau44PDmzkRSLizyo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Lzka3TkJb0IFbik1flUo3/VgPen9sAKI/HbF27bVB+oRTNSYfFZHn1Wl4qgt5l+7z+FXJj/qxs6zqRoprZLAp0plZs85+MjuN03ZcV7MPEOduzH2wskbE0aMcIxCMnb8+/e7F7HRcXevZYAfhGsAdYFkjV7ONURUYcH1mAOCsbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gODtcKjN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=sP+ghdbh3L0ArUnn245iy6EgCaN+fGHQphBz8JzB2ZGSTOu5w8aYF3vbxZCkAIjZNAHHbWNLfdC76X7FWo5JMCnuMi/iN6zS/qC1zOvGGv9P0OYvqZnXQ+nSf4wlpHq3VdHMhfqBUJAWVYBXW7dJkIDPGziMyNIYkU+e6M4eC/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dnAY+GbD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gODtcKjN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64A6A1F000E9;
-	Tue, 26 May 2026 10:38:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dnAY+GbD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFEA71F00A3A;
+	Tue, 26 May 2026 10:38:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779791883;
-	bh=aSzjaTvhA46HjYX/MaMaPQvfxxyuTLVAEIxF62v/HVI=;
+	s=k20260515; t=1779791900;
+	bh=Yza9zM3aDrCy7bLpPrLiqHCCyGSJ9g8w8AOAUQlByvE=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gODtcKjNYtyFAoPF9qWF66nFTFikQyC+cDRwlgq5Ex9V7+dVtjTb8NPBKqDDhgLC2
-	 6Zk35oZQ/tdCmx5GWbUZ8hspGMZhIewdlVJPCTb4V/nfkuFR2k6CXselTojZzcXfSC
-	 1QgqaLDbHylVDRsktCsPSf0bTSH0OqwYkM6EcNknpqMPouDM2PsI7Hxdw8WAgqbhKG
-	 L+C+ml1Ks1DKJSdl2xraHJo9Abf8E9EDt93h2gQuHKbara/bj35cIcPeH9epYrsg2W
-	 T/Hhd3md5Ga+I8gBf0aeJ19OUlc7OFnUfJDhUmRjmFkb2X90G1SQ4wEW0H20cZfUAm
-	 PbrCE6Ak75DVw==
+	b=dnAY+GbD+fYlTFjkOkQi4lix5ikxau3eKrpQnys/xnUs34w/1jKAUER5UYIepwwxZ
+	 y34RMhe8Ha8UCO8vEaR4Q1gB+U/XVeewhHPcILAX6q1otGw8/5GB2DHMDWDrtKVwyT
+	 7oH29E/43or/XaGaazJuVfsOBsskmC+QojXU30xEr+ZXMdBan5Qod8NPfRiRV94Z6O
+	 p4hih63/F3ds0qCedB+emrLfYDZcmLhDZN8pdJomEVVsg0bpflYRiF4/NXR/F5dsug
+	 Le0AtCMcqW4DmP8YXKi4UFLCpTv64SyhyYB48kV4xEZGZbf0O3+TMIBfL7vbEE3jky
+	 fBPApUvfH6x1Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 7/7] arm64: dts: st: Add boot phase tags for
- STMicroelectronics mp2 boards
+Subject: Re: [PATCH RFC RESEND v5 5/6] arm64: dts: amlogic: Add video
+ decoder driver support for S4 SOCs
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526-upstream_uboot_properties-v7-7-e17cd424d5db@foss.st.com>
-References: <20260526-upstream_uboot_properties-v7-7-e17cd424d5db@foss.st.com>
+To: "Zhentao Guo via B4 Relay" <devnull+zhentao.guo.amlogic.com@kernel.org>
+Cc: linux-amlogic@lists.infradead.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260526-b4-s4-vdec-upstream-v5-5-33bc817f93f4@amlogic.com>
+References: <20260526-b4-s4-vdec-upstream-v5-5-33bc817f93f4@amlogic.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 10:38:02 +0000
-Message-Id: <20260526103803.64A6A1F000E9@smtp.kernel.org>
+Date: Tue, 26 May 2026 10:38:19 +0000
+Message-Id: <20260526103819.AFEA71F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The patch aims to support SD boot by adding `bootph-all` tags to n=
-ecessary nodes, but it fails to add them to the SDMMC node (`&sdmmc1`), its=
- pinctrl configurations (e.g., `sdmmc1_b4_pins_a`), and its required regula=
-tors (e.g., `scmi_vdd_sdcard`).
-- [High] The commit message explicitly claims to add the `bootph-all` tag t=
-o timer nodes, but the patch completely omits them.
-- [Medium] Display controller nodes (`&ltdc` and `&lvds`) in `stm32mp257f-e=
-v1.dts` are inappropriately tagged with `bootph-all`.
+- [Medium] The patch silently introduces an `optee` node which is not menti=
+oned in the commit message, and places it incorrectly at the root of the de=
+vice tree.
+- [Low] The newly added `canvas` and `video-codec` nodes break the expected=
+ unit-address sorting within the `soc` simple-bus node.
 --
 
-commit ece19a3ebae334de3035a4297c45927575316f46
-Author: Patrice Chotard <patrice.chotard@foss.st.com>
+commit 9f1bc8bd76d58f7598508700fcc37888ae1dbf0f
+Author: Zhentao Guo <zhentao.guo@amlogic.com>
 
-arm64: dts: st: Add boot phase tags for STMicroelectronics mp2 boards
+arm64: dts: amlogic: Add video decoder driver support for S4 SOCs
 
-This commit introduces bootph-all tags to multiple device tree nodes across
-STMicroelectronics mp2 boards. The stated goal is to preserve essential nod=
-es
-like timer, gpio, syscfg, clock, and uart across all boot phases to ensure
-SD boot works.
+This commit adds the vdec node to enable Amlogic V4L2 stateless video
+decoder support for S4 SOCs. It also introduces an optee node and a canvas
+node required for the decoder.
 
-> To ensure SD boot, timer, gpio, syscfg, clock and uart nodes need to be
-> present in all boot stages, so add missing bootph-all phase flag
-> to these nodes to support SD boot.
-
-[Severity: High]
-Does this patch actually add the bootph-all property to the timer nodes?
-Looking through the diff, the base arm architected timer and other timer
-nodes don't appear to be updated. If the early boot stages rely on the
-device tree for timer initialization, will this omission prevent SD boot
-from working properly?
-
-> diff --git a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts b/arch/arm64/boot/=
-dts/st/stm32mp235f-dk.dts
-> index dd4efbe5a46e8..0608b978cbe5a 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-> +++ b/arch/arm64/boot/dts/st/stm32mp235f-dk.dts
-[ ... ]
-> @@ -258,6 +334,10 @@ scmi_vdd_sdcard: regulator@23 {
+> diff --git a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi b/arch/arm64/boot/=
+dts/amlogic/meson-s4.dtsi
+> --- a/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> +++ b/arch/arm64/boot/dts/amlogic/meson-s4.dtsi
+> @@ -96,6 +96,11 @@ saradc: adc@fe026000 {
+>  		status =3D "disabled";
 >  	};
->  };
 > =20
-> +&scmi_reset {
-> +	bootph-all;
-> +};
+> +	optee {
+> +		compatible =3D "linaro,optee-tz";
+> +		method =3D "smc";
+> +	};
+
+[Severity: Medium]
+Should this optee node addition be explicitly mentioned in the commit
+message? The commit description currently only mentions adding the vdec
+node.
+
+Also, should this node be placed under a firmware node instead of at the ro=
+ot
+level of the device tree?
+
+>  	soc {
+>  		compatible =3D "simple-bus";
+>  		#address-cells =3D <2>;
+
+[ ... ]
+
+> @@ -907,5 +912,34 @@ emmc: mmc@fe08c000 {
+>  			assigned-clocks =3D <&clkc_periphs CLKID_SD_EMMC_C>;
+>  			assigned-clock-rates =3D <24000000>;
+>  		};
 > +
->  &sdmmc1 {
->  	pinctrl-names =3D "default", "opendrain", "sleep";
->  	pinctrl-0 =3D <&sdmmc1_b4_pins_a>;
-> @@ -272,12 +352,27 @@ &sdmmc1 {
->  	status =3D "okay";
->  };
+> +		canvas: video-lut@fe036048 {
+> +			compatible =3D "amlogic,canvas";
+> +			reg =3D <0x0 0xfe036048 0x0 0x14>;
+> +		};
+> +
+> +		video-codec@fe320000 {
 
-[Severity: High]
-Should the &sdmmc1 node, along with its required regulators (like
-scmi_vdd_sdcard) and pin configurations (like sdmmc1_b4_pins_a), also
-receive the bootph-all tag?
+[Severity: Low]
+Does appending these nodes break the expected unit-address sorting within t=
+he
+soc simple-bus node? The canvas node at fe036048 and the video-codec node at
+fe320000 appear to be placed at the end of the block, after mmc@fe08c000,
+rather than being ordered sequentially.
 
-Since the boot loader will remove device tree nodes without early boot tags,
-it seems the SD controller itself might be missing from the early device
-tree, which would break the SD boot support.
+> +			compatible =3D "amlogic,s4-vdec";
+> +			reg =3D <0x0 0xfe320000 0x0 0x10000>,
+> +			      <0x0 0xfe036000 0x0 0x20>;
 
 [ ... ]
-> diff --git a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts b/arch/arm64/boot=
-/dts/st/stm32mp257f-ev1.dts
-> index 14e033f365e39..dab54742e01c1 100644
-> --- a/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-> +++ b/arch/arm64/boot/dts/st/stm32mp257f-ev1.dts
-[ ... ]
-> @@ -344,6 +396,7 @@ timer {
->  };
-> =20
->  &ltdc {
-> +	bootph-all;
->  	status =3D "okay";
->  	port {
->  		ltdc_ep0_out: endpoint {
-
-[Severity: Medium]
-Are display controller nodes like &ltdc required during the early SD boot
-stages?
-
-Including these nodes in the heavily memory-constrained early device tree
-might cause unnecessary binary bloat. Could this safely be left out if it
-isn't strictly needed for early boot?
-
-> @@ -353,6 +406,7 @@ ltdc_ep0_out: endpoint {
->  };
-> =20
->  &lvds {
-> +	bootph-all;
->  	status =3D "okay";
->  	ports {
->  		#address-cells =3D <1>;
-
-[Severity: Medium]
-Similar to the &ltdc node above, does the &lvds node need to be present
-in all boot stages?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-upstream_u=
-boot_properties-v7-0-e17cd424d5db@foss.st.com?part=3D7
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-b4-s4-vdec=
+-upstream-v5-0-33bc817f93f4@amlogic.com?part=3D5
