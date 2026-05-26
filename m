@@ -1,141 +1,386 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8ED2426ED3
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 17:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 516764218B8;
+	Tue, 26 May 2026 17:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779818375; cv=none; b=IJ7lkIFmHcDMiNjt4htLxc2B9/M6zvnHWd5SqvGS0G+zBZDctHoGzYaKbNVtgCCE4mQ4a1a/XEyAQaZfrFJFXNoA8Yyuw5chRuuhuTLye53Ck06Wq+oYwrkuUI3U38tWluNjVbpv2SKIQTtzODUJusloTNS4NZrV9aywto2l8nE=
+	t=1779818385; cv=none; b=twdSb+SRwTAqJdqWz/hrg+CgNUV9DxS7QHLCE/Wgvf4ytUTZVAIkmSQp6dmyMWgKFjmmZIW1bOHH3KW/vQWeTOmpFY9yKJ9cLWciUz5q5cgxf5Ywvrw6MgAz47qvOUyXgu6SLMPrfJBhw2WOGcRUoyNQWGozMCxJL71WEHL5S6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779818375; c=relaxed/simple;
-	bh=S02hdHNrlyNXo+DoiglBQ0OphGNn6axHScvr0PU8oCU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=REj7Y6wCXyjCJEExVtEj68IERcoxo0WZEzTeECaKMwEBwwuUVff95nW4DQATrFal/FgjChFR0F/N5y93lpp8FKUHxWUsX0vYO9rm4yPJ5GCTcYiK8NMkrRXBND7MpH6VKbyYJgwCT13lYaJ99jL9hRbq5fNRPZsx3BJwAP9xGLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VBP/XVmP; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=pv/MlFTj; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1779818385; c=relaxed/simple;
+	bh=Bn2KmXeW4OxPMlPq4CD+TF8/I6iECDWC6ZCB/mEefsk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S5N5OjAxS28p74egMAfaJVXTMWnSkWT+wTOvXCCRsXwLGxz9bxyZoKFJBPMupwyVlsD16f714jSkvO3ZUcW0Fl+AAj6sBlp2hqQJTxcgBnIbeNFoMx9QaQ7FXq+BzLNVdrdxeJtPuE8GQfA9ujAIb4mFHn9RouCBD4P9l4S4y+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oRNkTt9r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VBP/XVmP";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="pv/MlFTj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1779818372;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=J0WlLC0Nh1azJwNxju4dNnGV/Z/3xMSajCPbgT1W2wo=;
-	b=VBP/XVmP+SaxyFbVBWkbkQSNQsiCdVXNv5glUvgNgQQwqaUXOQYj+nHTHBgbVjOHFaSeoN
-	ADzYyYyFCmhSMwFmDjdkBnNj2k5VndlDB2iShW+mEQC4G7Erx8HGEI89LyXpVKJQk1vvXu
-	YUb6mWQalEiBKs8i3ZFbIG1Eze3jJSw=
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
- [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-424-h0-IwLFjN56yM52IPxoBAg-1; Tue, 26 May 2026 13:59:29 -0400
-X-MC-Unique: h0-IwLFjN56yM52IPxoBAg-1
-X-Mimecast-MFC-AGG-ID: h0-IwLFjN56yM52IPxoBAg_1779818369
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8b49260e3d5so8952206d6.2
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:59:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1779818369; x=1780423169; darn=vger.kernel.org;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=J0WlLC0Nh1azJwNxju4dNnGV/Z/3xMSajCPbgT1W2wo=;
-        b=pv/MlFTjdDnmu0LUbzE3W3hn9NPfpVVGjo+Qx1XL0TkjsY5n1q/ndOSvxhHL1WVABC
-         iHVgaZXxaU19Ow/tbou4Vk8SMGjHginFkJvvbp9vHU7470h5xH49iB8Iv9sU2PcwfoH4
-         JfIjOYhMOx/jjmHqMFKt/qp+T32azeFkAfZo07OLjyQPR2BKN8Hwqo+Q8q6PrRb/9gR6
-         dEyhPn07iWAmULChaMHCL19D8UlLrWwLpqHPHzPaLbvMOKU2q6kMRJW5D5bze/c9xbUN
-         qzeX6s92O6Ed3+6mD7cIihn7QpnDNQfqhrIilLv0X3K+0F4shgI3/mnnUHMx92qfPLiT
-         7Thw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779818369; x=1780423169;
-        h=user-agent:in-reply-to:content-transfer-encoding
-         :content-disposition:mime-version:references:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=J0WlLC0Nh1azJwNxju4dNnGV/Z/3xMSajCPbgT1W2wo=;
-        b=A5Zt+oM7jYR6S09GsYnlssn7gMvUOy26rUH3R5gZYyjFkSopcmqXBhPUVRU910hFix
-         Pzuy2aKCoebzmocNYhn1K0wYteUKGhYMJxzx8aT9SW/ZMfxlsZIgpnbCh9BL2Gs6o4jL
-         CpBDlUljS5VKZW10teeva+KG0v/eejtLDGdjAE1BiMUv6PbyAhS3dSrxa3bNzJ6eIb1P
-         w5uMf/fMkWm5WmqjF6q5tosmjB8XvWj1agVdzTHj/L8kwk9qR7LZp1I1eSOUdNPIOF1v
-         Yje9z5ldjzBuCfsmtPboa582wXexzJEoo+HxfhCLi/G9wMp1vdvQVuKgYntPRPRTpv9P
-         TWUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Q1DQkVpD8OaTcirsghwwpWt0eTjVRvm1R6//ndExwKiuv0cAPqVFH4FwJmMdgQDg8FbnoXMY9R6OD@vger.kernel.org
-X-Gm-Message-State: AOJu0YyWcyU0kysdrAXmNDTvSZTUKRQNXVieVqs25Hi5J5vCRoIEe0zx
-	FFCRCtgfPMPQZwXViXyAorxTCE3NVyUCAe7e5FiG3y2W1jYzcHe9PPwoFI8lQ6WTOi4igDaXSOv
-	j7LovGcjMjXfod+CNwOxuxDE8eT1Cc0ORrpVTXNa2/EJ6SWKuUq437X5aWdeCe08=
-X-Gm-Gg: Acq92OEODc3pW5Q9KViyhX8Bm9TMaMjIsOx7vNzHl4jusMIZOYP50Zk+Ha4No77hAZc
-	P8KFZ6WapNVY06mrlAu2W0Kw3W9Exv5C975QsZveqx8ils39ROLEpuzm0P6Uvqa876EkcmYQPBE
-	8Typ2lWowaK/UfrYkheYuEUW+IfKVYbBCthlOC6bs2DS/cYzdzgCRhPVkmrUDwF5+mhXRaFzFkS
-	1mx34IOufYTLvJFX74QNBXRMOnD4tDYhgJD6c86TA26QlOcg7G9e7+4p1IB1UQ5IOGmI03NrURO
-	uk1PAPXwFbzAnILThLwHH/nONtzpUn+6Qrx0GufjR9/E5mrEEY9cYHW0r+jLJrdiHyAV4XZBEu0
-	GKzmoPKYZtzznhw9ugZr0RDkTGynie3IQYPA4q9KVfRhOz/dDImiMqIgf
-X-Received: by 2002:a05:6214:450b:b0:8ac:7627:8a71 with SMTP id 6a1803df08f44-8cc7b645335mr322548636d6.49.1779818369325;
-        Tue, 26 May 2026 10:59:29 -0700 (PDT)
-X-Received: by 2002:a05:6214:450b:b0:8ac:7627:8a71 with SMTP id 6a1803df08f44-8cc7b645335mr322547986d6.49.1779818368684;
-        Tue, 26 May 2026 10:59:28 -0700 (PDT)
-Received: from redhat.com (c-73-183-52-120.hsd1.pa.comcast.net. [73.183.52.120])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-8cc80decd3csm147576726d6.12.2026.05.26.10.59.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 10:59:28 -0700 (PDT)
-Date: Tue, 26 May 2026 13:59:26 -0400
-From: Brian Masney <bmasney@redhat.com>
-To: =?iso-8859-1?Q?Beno=EEt?= Monin <benoit.monin@bootlin.com>
-Cc: Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>,
-	Gregory CLEMENT <gregory.clement@bootlin.com>,
-	=?iso-8859-1?Q?Th=E9o?= Lebrun <theo.lebrun@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Stephen Boyd <sboyd@kernel.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
-	linux-mips@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org
-Subject: Re: [PATCH v7 3/9] clk: fixed-factor: Rework initialization with
- parent clocks
-Message-ID: <ahXfftxBTE_5LzEU@redhat.com>
-References: <20260522-clk-eyeq7-v7-0-14ad6c2c5213@bootlin.com>
- <20260522-clk-eyeq7-v7-3-14ad6c2c5213@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oRNkTt9r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 691E31F0156E;
+	Tue, 26 May 2026 17:59:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779818384;
+	bh=r0rsNPFHUc4QovVcKCemrS5n2zS75nSR7UFfzirLv9E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=oRNkTt9rO7mkrZHKpOufe/KCo+kQvkmN3i+zso6sjMShYyx1XDGSQ4HMSeqbkgOVl
+	 pmJsvOjWUCHxcEzLD8TdySIAxJDCODokRsJcgdpaqZqdx/eo6EDvjBPflp3F4vnRKf
+	 9TZLbZJpNi8MBP+aBIBEIsOVnFgnsyuHWJUPxv73OochcUC8mFk2iSctAbXQU1bnZQ
+	 yWSqQRSaw64v8J+rjid3kj6FtbV+qMM0R0LrnG5C1V+SsMPEgJdE7US9Kjm4hLgZTY
+	 L7drBen8cKBf0MDS6+JDyAqppghFd+DzU2qlBOoJc/M2XJ+m50r+ciLoP9KAwHJBor
+	 RO0DIJPyvD3ww==
+Date: Tue, 26 May 2026 18:59:33 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Matti Vaittinen <mazziesaccount@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Message-ID: <20260526185933.0084679f@jic23-huawei>
+In-Reply-To: <20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
+References: <20260524-veml6031x00-v3-0-29165609b2b5@gmail.com>
+	<20260524-veml6031x00-v3-2-29165609b2b5@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260522-clk-eyeq7-v7-3-14ad6c2c5213@bootlin.com>
-User-Agent: Mutt/2.3.1 (2026-03-20)
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 22, 2026 at 02:31:12PM +0200, Benoît Monin wrote:
-> Use the same sequence as clk-divider, clk-gate and other to set the
-> parent_names, parent_hws and parent_data in the init struct when
-> registering a fixed-factor clock. The number of parent clocks is now
-> only set to one if a parent clock is provided.
-> 
-> Previously the number of parent clocks was always one, forcing callers
-> of __clk_hw_register_fixed_factor() to provide a dummy parent_data
-> struct with an invalid clock index in case they were not provided with
-> a non-NULL parent_name or parent_hw. Drop this dummy parent_data as is
-> not necessary anymore.
-> 
-> This change only has a small impact on mis-configured fixed-factor. Now a
-> call to clk_hw_register_fixed_factor() with a NULL parent will register
-> a fixed-factor with zero parent while previously it was registered with
-> one invalid parent. In both cases the rate of the fixed-factor is 0Hz
-> but it is no longer shown as orphaned.
-> 
-> This has no impact on properly configured fixed-factors clocks which
-> have a valid parent set.
-> 
-> In clk_factor_determine_rate(), make sure the parent clock is valid
-> before accessing it because the mis-configured fixed-factor now have a
-> NULL parent.
-> 
-> Signed-off-by: Benoît Monin <benoit.monin@bootlin.com>
+On Sun, 24 May 2026 23:53:56 +0200
+Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
 
-Reviewed-by: Brian Masney <bmasney@redhat.com>
+> These sensors provide two light channels (ALS and IR), I2C communication
+> and a multiplexed interrupt line to signal data ready and configurable
+> threshold alarms.
+> 
+> This first implementation provides basic functionality (measurement
+> configuration, raw reads and ID validation) and defines the different
+> register regions in preparation for extended features in the subsequent
+> patches of the series.
+> 
+> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+
+A few things inline.  Biggest one is that device driver specific state needs
+local well documented locking. Here the whole complex gain handling means there
+are a bunch of register field where the accesses to each set of them need
+to appear atomic.
+
+> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031x00.c
+> new file mode 100644
+> index 000000000000..50979d239230
+> --- /dev/null
+> +++ b/drivers/iio/light/veml6031x00.c
+> @@ -0,0 +1,657 @@
+> +// SPDX-License-Identifier: GPL-2.0+
+> +/*
+> + * VEML6031X00 Ambient Light Sensor
+> + *
+> + * Copyright (c) 2026, Javier Carrasco <javier.carrasco.cruz@gmail.com>
+> + */
+> +
+> +#include <linux/bitfield.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
+
+mod_devicetable.h is missing. Please check again for others.
+
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/units.h>
+> +#include <linux/iio/iio.h>
+> +#include <linux/iio/sysfs.h>
+This isn't needed yet - bring it in when it is.
+
+> +#include <linux/iio/iio-gts-helper.h>
+
+> +static int veml6031x00_set_scale(struct iio_dev *iio, int val, int val2)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	int gain_sel, it_sel, ret;
+> +
+> +	ret = iio_gts_find_gain_time_sel_for_scale(&data->gts, val, val2,
+> +						   &gain_sel, &it_sel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_field_write(data->rf.it, it_sel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_field_write(data->rf.pd_div4, gain_sel >> 2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return regmap_field_write(data->rf.gain, gain_sel & 0x03);
+> +}
+> +
+> +static int veml6031x00_get_scale(struct veml6031x00_data *data, int *val,
+
+One of the few thing sashiko raised on this patch that seems reasonable is
+this is doing a bunch of accesses to fields that are updated via other
+paths. It may make sense to ensure we get a consistent set and don't manage
+to hit the middle of a write elsewhere - such as in set_scale()
+
+Given that this is a driver specific thing rather than a state transition
+matter, a local mutex should be used to ensure these are serialized.
+Using the direct mode claim is relying on an internal implementation detail
+(that there is a serializing lock in there).
+
+
+> +				 int *val2)
+> +{
+> +	int gain, it, gain_reg, pd_div4, it_reg, ret, sel;
+> +
+> +	ret = regmap_field_read(data->rf.gain, &gain_reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_field_read(data->rf.pd_div4, &pd_div4);
+> +	if (ret)
+> +		return ret;
+> +
+> +	sel = (pd_div4 << 2) | gain_reg;
+> +	gain = iio_gts_find_gain_by_sel(&data->gts, sel);
+> +	if (gain < 0)
+> +		return gain;
+> +
+> +	ret = regmap_field_read(data->rf.it, &it_reg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	it = iio_gts_find_int_time_by_sel(&data->gts, it_reg);
+> +	if (it < 0)
+> +		return it;
+> +
+> +	ret = iio_gts_get_scale(&data->gts, gain, it, val, val2);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return IIO_VAL_INT_PLUS_NANO;
+> +}
+> +
+> +static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_type type,
+> +				   int *val)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	int addr, it_usec, ret;
+> +	__le16 reg;
+> +
+> +	switch (type) {
+> +	case IIO_LIGHT:
+> +		addr = VEML6031X00_REG_ALS_L;
+> +		break;
+> +	case IIO_INTENSITY:
+> +		addr = VEML6031X00_REG_IR_L;
+> +		break;
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
+Doing this before you have added any means to get into any other mode
+is premature. This claim belongs in the next patch.
+
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(data->dev, pm);
+> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = veml6031x00_get_it(data, &it_usec);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	/* integration time + 10 % to ensure completion */
+> +	fsleep(it_usec + (it_usec / 10));
+> +
+> +	ret = regmap_bulk_read(data->regmap, addr, &reg, sizeof(reg));
+> +	if (ret)
+> +		return ret;
+> +
+> +	*val = le16_to_cpu(reg);
+> +	return IIO_VAL_INT;
+> +}
+> +
+> +static int veml6031x00_read_raw(struct iio_dev *iio,
+> +				struct iio_chan_spec const *chan, int *val,
+> +				int *val2, long mask)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_RAW:
+> +		return veml6031x00_single_read(iio, chan->type, val);
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		*val = 0;
+> +		return veml6031x00_get_it(data, val2);
+> +	case IIO_CHAN_INFO_SCALE:
+> +		return veml6031x00_get_scale(data, val, val2);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int veml6031x00_write_raw(struct iio_dev *iio,
+> +				 struct iio_chan_spec const *chan,
+> +				 int val, int val2, long mask)
+> +{
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(iio, claim);
+As above. 
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_INT_TIME:
+> +		return veml6031x00_set_it(iio, val, val2);
+> +	case IIO_CHAN_INFO_SCALE:
+> +		return veml6031x00_set_scale(iio, val, val2);
+> +	default:
+> +		return -EINVAL;
+> +	}
+> +}
+
+> +
+> +static int veml6031x00_probe(struct i2c_client *i2c)
+> +{
+> +	struct device *dev = &i2c->dev;
+> +	struct veml6031x00_data *data;
+> +	struct iio_dev *iio;
+> +	struct regmap *regmap;
+> +	int ret;
+> +
+> +	regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
+> +	if (IS_ERR(regmap))
+> +		return dev_err_probe(dev, PTR_ERR(regmap),
+> +				     "Failed to set regmap\n");
+> +
+> +	iio = devm_iio_device_alloc(dev, sizeof(*data));
+> +	if (!iio)
+> +		return -ENOMEM;
+> +
+> +	data = iio_priv(iio);
+> +	i2c_set_clientdata(i2c, iio);
+> +	data->dev = dev;
+> +	data->regmap = regmap;
+> +
+> +	ret = veml6031x00_regfield_init(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to init regfield\n");
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
+> +
+> +	data->chip = i2c_get_match_data(i2c);
+> +	if (!data->chip)
+> +		return dev_err_probe(dev, -EINVAL, "Failed to get chip data\n");
+> +
+> +	ret = devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action, data);
+
+Why is shutdown cleanup registered before the power_on?  If that has to happen
+then add a comment on why here. Otherwise move it down a few lines.
+
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
+> +
+> +	/* The device starts in power down mode by default */
+> +	ret = veml6031x00_als_power_on(data);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to power on the device\n");
+> +
+> +	pm_runtime_set_autosuspend_delay(dev, 2000);
+> +	pm_runtime_use_autosuspend(dev);
+> +	ret = devm_pm_runtime_set_active_enabled(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+> +
+> +	ret = devm_pm_runtime_get_noresume(dev);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to get runtime PM\n");
+> +
+> +	ret = veml6031x00_validate_part_id(data);
+> +	if (ret)
+> +		return ret;
+> +
+> +	iio->name = data->chip->name;
+> +	iio->channels = veml6031x00_channels;
+> +	iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
+> +	iio->modes = INDIO_DIRECT_MODE;
+> +	iio->info = &veml6031x00_info;
+> +
+> +	ret = veml6031x00_hw_init(iio);
+> +	if (ret)
+> +		return ret;
+> +
+> +	pm_runtime_put_autosuspend(dev);
+> +
+> +	ret = devm_iio_device_register(dev, iio);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "Failed to register iio device\n");
+> +
+> +	return 0;
+> +}
+
+> +
+> +static const struct of_device_id veml6031x00_of_match[] = {
+> +	{
+> +		.compatible = "vishay,veml6031x00",
+> +		.data = &veml6031x00_chip,
+> +	},
+> +	{
+> +		.compatible = "vishay,veml6031x01",
+> +		.data = &veml6031x01_chip,
+> +	},
+> +	{
+> +		.compatible = "vishay,veml60311x00",
+> +		.data = &veml60311x00_chip,
+> +	},
+> +	{
+> +		.compatible = "vishay,veml60311x01",
+> +		.data = &veml60311x01_chip,
+
+These would actually end up shorter than the i2c_device_id ones below
+if they were on one line.  Pick a style and use it for both tables.
+I prefer this one a little.
+
+
+> +	},
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(of, veml6031x00_of_match);
+> +
+> +static const struct i2c_device_id veml6031x00_id[] = {
+> +	{ .name = "veml6031x00", .driver_data = (kernel_ulong_t)&veml6031x00_chip },
+> +	{ .name = "veml6031x01", .driver_data = (kernel_ulong_t)&veml6031x01_chip },
+> +	{ .name = "veml60311x00", .driver_data = (kernel_ulong_t)&veml60311x00_chip },
+> +	{ .name = "veml60311x01", .driver_data = (kernel_ulong_t)&veml60311x01_chip },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, veml6031x00_id);
+> +
+> +static struct i2c_driver veml6031x00_driver = {
+> +	.driver = {
+> +		.name = "veml6031x00",
+> +		.of_match_table = veml6031x00_of_match,
+> +		.pm = pm_ptr(&veml6031x00_pm_ops),
+> +	},
+> +	.probe = veml6031x00_probe,
+> +	.id_table = veml6031x00_id,
+> +};
+> +module_i2c_driver(veml6031x00_driver);
+> +
+> +MODULE_AUTHOR("Javier Carrasco <javier.carrasco.cruz@gmail.com>");
+> +MODULE_DESCRIPTION("VEML6031X00 Ambient Light Sensor");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_GTS_HELPER");
+> 
 
