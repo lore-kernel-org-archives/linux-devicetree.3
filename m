@@ -1,121 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 241FA3AB5B7
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 21:00:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F8092264D6;
+	Tue, 26 May 2026 21:03:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779829258; cv=none; b=ombPWCOK9ilebG6F8fR9/WfogCZsWHsEOLQM1xypYDqan74sHn0naWZTJYVgYUE6p++IdItya6JH/lhLwopaWvFNKBWMuT5VwG94D5+Z5sWuToijhD1Iw8OYSoyQfOa68S1HlXHFiFaCsElL1axTOBkpS2xrjpmH1X8MlAlszEA=
+	t=1779829437; cv=none; b=CZjivNn9FIovnELP4n+iEvdG1747kvUgwIKy05y1OU1eELMw6lj5Xf60FwCiY8sZEh2gIssyRr8Z6DQzbQrjnVLROGUUanumJnlITj7IEvmNmK8gR+KcsRqX+efCzr4+QDjhnp7oFcq2lZBFrmDnieG1ZXATxJtJhj27X8FfXzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779829258; c=relaxed/simple;
-	bh=PACiooJabi8lsjM1OapSXL9WYHqncVa4GXQLBuufkiY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=friU++MqH8uvRguucA/GY2uHhhXEnykYCl8Ci5rJTFJHtY4J1R4/a+bGI+Bd3rJuB6xqO388vTl2uiL7YoG9od9T4yap+KaYYOex696qDKPa1zVUR6snoFVLy75REtRhBdLAr4lDbNU0rQEuUOWHNCtSnZ5faCN2c5/jX5Y+G+E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jj7dicaa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779829437; c=relaxed/simple;
+	bh=CaidAtYNQcEH1CXuDGvEduKnKl3V3spNZfnRwJa5y9s=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=QqxdmCGERI+Fi+6/eOdj2L/E7QH9imX04uLdlvq3ZsRC9Ki4cAFMHpM/MVCtTTetN70/wDjfc8AzUWAow4RwjTtjmq3Fc7U6874cXAwmi/lgCYR2NIEfCkvb0cVFof7EEXf2hM3KWMtzWTPpTaa7rsAXNHSo0rlAGxq8jGvDNUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=khW8M70m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jj7dicaa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ADE551F000E9;
-	Tue, 26 May 2026 21:00:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="khW8M70m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E6E1F000E9;
+	Tue, 26 May 2026 21:03:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779829257;
-	bh=GQtTdXjjRGDXBU+L40MXovfCW8nB+smL+rcIj3vDK8A=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Jj7dicaa73BrGyJVcnh1IGHtYpiWdQhiKKC2/5pAcz2MJnMURIgjbbAiWsFVCgMZP
-	 JhCEQld5BRCCBKZjibLDGc+DTRx+2djOWfZngOGZ7PjnrhkGIuesurStUYmm7UtIoJ
-	 h90pPymqG+MTzrE1ljTOyxB0SbID1qWzfxRTKIbi8z3DBQLHkbcnnukONgZpKP4win
-	 A4SnyGtEy2Bz8lZtojZI0oNkpcQxejUMo+cnZMjupagJvoTAIVor0ES5bCM6Nqfy11
-	 2WE6lpnWikG0kqJGj0gzPS11LOLzyKfgl3/JVWMdTpC/2x3leRaKtd7Uxe1G58z5La
-	 UaBkGNtcW668A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] arm64: dts: renesas: r9a09g077: Add xSPI nodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com
-In-Reply-To: <20260526204045.3481604-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: <20260526204045.3481604-2-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 21:00:56 +0000
-Message-Id: <20260526210056.ADE551F000E9@smtp.kernel.org>
+	s=k20260515; t=1779829436;
+	bh=UGJ2Q9JB0wXH8lsSmU4R701MU/I7n0vwE4S/DLdljlA=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=khW8M70mzbCKVstjEn6QvJ7mB4lSo13MmbyJg3UYQ1lIjSTpbYppUIu/Zmyuk0xMo
+	 ZsT1qiidOmJK0/hlPy8H74EK63CNjwcNPMTQl5FfgOhZXwA8BUso7L0sE/k7AFhIC1
+	 zn3mHqruQ8JWVqqbu7DLPX3VKfTaenHmozdhkyw8NgblyYo1mkpPWt34CGq9C6jyGs
+	 WxzZ+ESfthrDmabvknVoh/3p5EFpIytdkjWyNK1/y4P5JFBfrhEXjX+tEeI4liOJMt
+	 9+Dz1xBy6lcONzFYzKQg0QRISpkQQ2LzvzM3dM19YM7pKnnfP38lQXKQM3iuTLxN3z
+	 kzKlHZoOMp7OQ==
+From: Mark Brown <broonie@kernel.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, sadre Alam <quic_mdalam@quicinc.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, 
+ Varadarajan Narayanan <varadarajan.narayanan@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, linux-spi@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260514-ipq5210-nand-v1-0-cbdd7492e826@oss.qualcomm.com>
+References: <20260514-ipq5210-nand-v1-0-cbdd7492e826@oss.qualcomm.com>
+Subject: Re: (subset) [PATCH 0/2] Enable QPIC-SPI-NAND controller for
+ ipq5210
+Message-Id: <177982073388.88748.17750336143894340854.b4-ty@b4>
+Date: Tue, 26 May 2026 19:38:53 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1289; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=CaidAtYNQcEH1CXuDGvEduKnKl3V3spNZfnRwJa5y9s=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqFgq5s/18gNuvVj+i73QPnM/XyBcFbIWP+RfvO
+ /Igs1FfqlSJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCahYKuQAKCRAk1otyXVSH
+ 0O+nB/9d1fAkz8S0ej8IJKx8AnFtN6fqBzRQJRhdorDUmBLQGzxv2PlVDHTq6gP6VH5Q3XqVHqa
+ WzgSrQs9J7d4v+ZGxaYHerVUj8Fj+iXYZx44hpkalQbLl9M3Pzi/qvP3fV7xVwdOr5PM0hc4yGY
+ MguCkHdpU+ljOwb3xdnNcU6VxwW9yJbQneL+FkUFVAp6dIETh/uFcCcPYnHVYHQ5WOFjTyWsYoj
+ srijKmAxvDIA/bc2nwYmCtH7gxPh/Qq1yXpTX3J3HVK15sdAAh/CxwQfgAPReuOkPTXarYThXBf
+ +mTfkPjR0ogVpSEkM4GOm/Q23De/iXz8UYN7ooYqhUdRO1Fk
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The xSPI nodes provide fewer clocks and resets than strictly req=
-uired by the fallback compatible string 'renesas,r9a09g047-xspi', causing d=
-tbs_check validation failures and breaking the hardware compatibility contr=
-act.
-- [Low] Inconsistent numeric formatting in the 'resets' property between xs=
-pi0 and xspi1.
---
+On Thu, 14 May 2026 12:15:30 +0530, Varadarajan Narayanan wrote:
+> Enable QPIC-SPI-NAND controller for ipq5210
+> 
+> Document the NAND controller binding and add the DT nodes to
+> enable the QPIC-SPI-NAND controller in ipq5210.
+> 
+> Functionally depends on [1]
+> 
+> [...]
 
-commit 5e178072e3e48c6e7ba03bbaf8ea699cb37031c4
-Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Applied to
 
-arm64: dts: renesas: r9a09g077: Add xSPI nodes
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.1
 
-This commit adds device tree nodes for the two xSPI (Expanded SPI)
-controllers integrated into the RZ/T2H (R9A09G077) SoC.
+Thanks!
 
-> diff --git a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi b/arch/arm64/boot=
-/dts/renesas/r9a09g077.dtsi
-> --- a/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a09g077.dtsi
-[ ... ]
-> +		xspi0: spi@801c0000 {
-> +			compatible =3D "renesas,r9a09g077-xspi", "renesas,r9a09g047-xspi";
-> +			reg =3D <0 0x801c0000 0 0x1000>,
-> +			      <0 0x40000000 0 0x10000000>;
-> +			reg-names =3D "regs", "dirmap";
-> +			interrupts =3D <GIC_SPI 654 IRQ_TYPE_LEVEL_HIGH>,
-> +				     <GIC_SPI 655 IRQ_TYPE_LEVEL_HIGH>;
-> +			interrupt-names =3D "pulse", "err_pulse";
-> +			clocks =3D <&cpg CPG_MOD 4>,
-> +				 <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
-> +			clock-names =3D "ahb", "spi";
-> +			resets =3D <&cpg 0x4>;
+[1/2] spi: dt-bindings: spi-qpic-snand: Add ipq5210 compatible
+      https://git.kernel.org/broonie/spi/c/60474437af5f
 
-[Severity: Medium]
-Will this trigger validation errors during make dtbs_check?
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-The fallback compatible string renesas,r9a09g047-xspi typically requires
-exactly 4 clocks (ahb, axi, spi, spix2) and 2 resets (hresetn, aresetn) in
-its bindings schema. Since these nodes only provide 2 clocks and 1 reset,
-does this break the hardware compatibility contract expected by older
-software?
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
 
-Should there be a corresponding dt-bindings schema update to document the
-new compatible string and relax these resource constraints?
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
 
-> +			reset-names =3D "hresetn";
-> +			power-domains =3D <&cpg>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			status =3D "disabled";
-> +		};
-> +
-> +		xspi1: spi@801c1000 {
-[ ... ]
-> +			clock-names =3D "ahb", "spi";
-> +			resets =3D <&cpg 5>;
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
-[Severity: Low]
-This isn't a bug, but the reset index is formatted as a decimal here,
-whereas the xspi0 node above uses hexadecimal (0x4). Would it be better
-to use consistent numeric formatting across adjacent, identical hardware
-block definitions?
+Thanks,
+Mark
 
-> +			reset-names =3D "hresetn";
-> +			power-domains =3D <&cpg>;
-> +			#address-cells =3D <1>;
-> +			#size-cells =3D <0>;
-> +			status =3D "disabled";
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526204045.3481=
-604-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D1
