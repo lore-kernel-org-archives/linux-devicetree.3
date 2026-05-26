@@ -1,192 +1,165 @@
-Received: from mail-m32101.qiye.163.com (mail-m32101.qiye.163.com [220.197.32.101])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11012040.outbound.protection.outlook.com [52.101.126.40])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1A92853F8;
-	Tue, 26 May 2026 01:00:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.101
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779757213; cv=none; b=biytY6HMzUp0uyagqzRWZblmhx8HpZ4SRChJZsVz02pXvT26h+n/0rXf4tXeqJ28LW8FWJd2wNe+Yi/Sditku2HPaRkSNkTT/ywED/dj/4MKO0pKOedXPdryS9Ip01m66lDPiixueAq//s71ugbf+EVhfgZzKgyRQqdCuznjE8k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779757213; c=relaxed/simple;
-	bh=mORIleNCmcJ6hRLZ7yTJzJ8P/6yHuusjP2okvc6yMPw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=vGX14xCqpV4JxCcqpz/GrUL3rJmq00b8tjeth/UXUIg0sFzBALS838C4F5oxPqEHq5KYlu0gtOov8bwqtFhvr05WBtpfiYPi6dLoKbnCgz+G3YpKKY5i48ey2uSqKcl+UHdLE2LPErzlHFMdP/PzKf1rbE8SjdD7rilBtSHfj58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=PA/SyP4K; arc=none smtp.client-ip=220.197.32.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DA02C21F1;
+	Tue, 26 May 2026 01:58:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.40
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779760736; cv=fail; b=G/Mvu0aAK2LsQeF9MjIO2g5rNLzquRL9mJheF9CPttKQD67G2hLtAVRg4it+BfDpaZ07UvziP1f+8F7e5Z+D6fzsCfSRyOc1E8Ufvda68KphNbSCRe9BGpXLff/tBuBQE8qWBNW3gc+J3KW4eIhXOKNdMNsWb/6TfsSf77CM8Ck=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779760736; c=relaxed/simple;
+	bh=TMdtmVrPze5v80uf5JpknVLKFE7rMBsK3lXJvf8nxmg=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=qXacSe6I0FdvHs8IDtqJKhCVFSFkahTY6AA4GuYSIWhMV8RVPKUQ0kgcl6KnAyXFYgwn+j29CcszKyrg6JxtD1SvIA4a10Pu6qN5JdrB4QiQ7HgCRGW3Ms9Ietoxe0o2dEm8LUOCS1kqhm0KpQdUfBxtr/6u3Gn+jhdv/nAFBnQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com; spf=pass smtp.mailfrom=nuvoton.com; dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b=Wloz3vmA; arc=fail smtp.client-ip=52.101.126.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nuvoton.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nuvoton.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="PA/SyP4K"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 3fc9780e3;
-	Tue, 26 May 2026 08:54:53 +0800 (GMT+08:00)
-Message-ID: <f6c2f07b-52b8-4181-aa1d-a7d8dcda245c@rock-chips.com>
-Date: Tue, 26 May 2026 08:54:52 +0800
+	dkim=pass (2048-bit key) header.d=nuvoton.com header.i=@nuvoton.com header.b="Wloz3vmA"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cEgAfCMGmJK0vzjGPUbOit8B5OOoPzZj3jh6SGzohAOLra/G5KQ4uXIT5+FnoHGCEeBoWsdpJhjEimOm6O3SWJoItoSCUv+BfdcRll5MaSH8nbTFXJF2+O/xQSROIZD1FR8e73PSHJ2z3+vfuNq6XLdHYXLpsA3Sf1lGg8c2pi1v7uS4Q8onPzgd5hveCTSGmWyHg2m6X1W8t/zGCGXNzll44vNh2FOK1rzaxPKTB3oOzfJrEutQkGKrfxxtzkLE2O08TQxF01/8ITCS/1RpOh9N+IIwcZRdA90zwv+M2eZB5yeiDLf3I+INp72yKCfd7fKKC3n9COjcmUUM7gx0zg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=D8ijlKxMTEzADqJFMf+JZ2YCmRnyTT0MQ7Mwm93P5UY=;
+ b=czhNIvvoYjyw5ztkO4G1SWk/UfJTPFLquI92Lga45AsDL5rjEslxxgsdzz6m7bDOv6OI5csP47cm3/hiTdJfVDSjpIuwj35BU/PCyqjqC55iAXKBBIBRBuzb+LLSX2ORPDAp2ytUGHblfVD3jrUlnW4POLjSDbttTVHRp2qRFtGniQeX1WJpeGm2BdkZiBzNNLu8xPrbKdiACIcDF68Ja7TxrzQAhSMZYfHPAyu8k+hmSTNjeq/VC7KHWkAPPlwW36+2Vskg/RRx/b+5ttD5LsQ5fSGMO20JX7YYif4RTlgtf0XyngmS2s77ROzHHzsEKAWnFb/Jruxov/lMdy5tjQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 175.98.123.7) smtp.rcpttodomain=kernel.org smtp.mailfrom=nuvoton.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=nuvoton.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nuvoton.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=D8ijlKxMTEzADqJFMf+JZ2YCmRnyTT0MQ7Mwm93P5UY=;
+ b=Wloz3vmA+VXYRK8S4SCrAPCZNdWzaJ93axSjrHaB+Sv4wshgHpP+X8Cr0bar+o9vEOPlhO2oRu8Jyp+M4cSrMt10/JkeVM9C6Sgzz1+wkDlr6kAODrvoF7GwLWsFZmozZDmEu5wFbJ6jVK9wgjMyE985fLwvXh6iGwhQDkXQzaclj9fVZYArPdq3VhBqilF4QJN8feS+BU7oJ4EQeEye8NWleI5kKBqvueMe2jZ+/Fklw1jjVbZeLyiBD855z9K1Rc1MiF3KsRgFrXYelDKaPFMFnqVPdph3tlej6a9VeDG0ziN5DbITSdYVy1f4Opip90rT/tTt+z+BGSHfhdJ82g==
+Received: from PS2PR02CA0078.apcprd02.prod.outlook.com (2603:1096:300:5c::18)
+ by KL1PR03MB8824.apcprd03.prod.outlook.com (2603:1096:820:140::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.11; Tue, 26 May
+ 2026 01:58:46 +0000
+Received: from OSA0EPF000000C7.apcprd02.prod.outlook.com
+ (2603:1096:300:5c:cafe::7d) by PS2PR02CA0078.outlook.office365.com
+ (2603:1096:300:5c::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.48.20 via Frontend Transport; Tue, 26
+ May 2026 01:58:45 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 175.98.123.7)
+ smtp.mailfrom=nuvoton.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nuvoton.com;
+Received-SPF: Pass (protection.outlook.com: domain of nuvoton.com designates
+ 175.98.123.7 as permitted sender) receiver=protection.outlook.com;
+ client-ip=175.98.123.7; helo=NTHCCAS02.nuvoton.com; pr=C
+Received: from NTHCCAS02.nuvoton.com (175.98.123.7) by
+ OSA0EPF000000C7.mail.protection.outlook.com (10.167.240.53) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Tue, 26 May 2026 01:58:45 +0000
+Received: from NTHCML01A.nuvoton.com (10.1.8.177) by NTHCCAS02.nuvoton.com
+ (10.1.9.121) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Tue, 26 May
+ 2026 09:58:43 +0800
+Received: from NTHCCAS01.nuvoton.com (10.1.8.28) by NTHCML01A.nuvoton.com
+ (10.1.8.177) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.1.2507.61; Tue, 26 May
+ 2026 09:58:43 +0800
+Received: from localhost.localdomain (10.11.36.27) by NTHCCAS01.nuvoton.com
+ (10.1.8.28) with Microsoft SMTP Server id 15.1.2507.61 via Frontend
+ Transport; Tue, 26 May 2026 09:58:43 +0800
+From: Neo Chang <YLCHANG2@nuvoton.com>
+To: <broonie@kernel.org>
+CC: <lgirdwood@gmail.com>, <perex@perex.cz>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <linux-sound@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <alsa-devel@alsa-project.org>,
+	<neo.chang70@gmail.com>, <kchsu0@nuvoton.com>, <sjlin0@nuvoton.com>, "Neo
+ Chang" <YLCHANG2@nuvoton.com>
+Subject: [PATCH v3 0/2] ASoC: codecs: Add Nuvoton NAU83G60 audio codec driver
+Date: Tue, 26 May 2026 09:58:24 +0800
+Message-ID: <20260526015826.440769-1-YLCHANG2@nuvoton.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 01/10] dt-bindings: display: rockchip: analogix-dp: Fix
- hclk as third clock for RK3588
-To: Conor Dooley <conor@kernel.org>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com,
- dianders@chromium.org, m.szyprowski@samsung.com,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- linux-kernel@vger.kernel.org
-References: <20260525125331.140059-1-damon.ding@rock-chips.com>
- <20260525125331.140059-2-damon.ding@rock-chips.com>
- <20260525-ominous-hurling-c24874030f5a@spud>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <20260525-ominous-hurling-c24874030f5a@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e61c7054903a8kunme36fcba8b2de2a
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQklPVhkaQk9IQ04eGUNLHVYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=PA/SyP4K+3grpZhgwmugkGiLt2pakSPtQ7es0kjAWOvTdXRwXKV6BimEu7C/BasjL1kJAzUkHcfN+YefohHLGhWK3aWZuc+8/cQIc8VD48Pmx6uXYVz0FJe6YDtfBPb5WFxdAy3Rqu3i+m/PXKguBe7PZbxwk9+lyuvkogi6ec4=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=97IIq8lVfoxPcx9z1ZIELY50Kibd7E9gbr5EXk5ek/k=;
-	h=date:mime-version:subject:message-id:from;
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-NotSetDelaration: True
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OSA0EPF000000C7:EE_|KL1PR03MB8824:EE_
+X-MS-Office365-Filtering-Correlation-Id: e0620bda-afcf-4c4e-03c2-08debaca5221
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|376014|18002099003|56012099003|3023799007|6133799003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	aQ7RTfWGkd2hwQllv2IiP3u3hKWvQGIMjKrSrKkFgIc1D4twDxIZVQZResCtUfRT8MQjPF5NkyA95z5aqUhw8/zNK4z0YUPpErXcu/U2SEF4nSbq3P+AKzST8jlpDdzMPwKA4j1keDXiWIeLvbX0E5X5BCtZclu66dKCsyBDcnpbonTNUnCgVPryXF7SJr0/gDHKN51s3B+ppQV14eTesMyRTuxHZtPlgAuNlXUScUeYmFsjnWVPrwy1+cLJcliphEjam9tynuvQ7HoDhG9vWGLdGUnMzhQ6TzvyxWhG/K14k+XQxce403aToQXY1OZDh4hbUDGCfNhCEhcOc1b7eW1kuNNoQUxbyWNdnRL3TPNkZUvRlS55mJl8AWdFQiQ0t3k+gMPXved1n3m0uSHg1is3ENh5vt/t1q3Eld+IVcw/RDd7BHZ6nYk3iIVk/a68QMeoU5xVlSbuAQjP0kPUplZAmtv6j/dFvyGC72N0boXrCxl2ydQDpxn2226so0hyRFv7uKygcx7p4sTZ/J+mMfdiyoqur9CqkLF57cTjmUFZll25LYp8n35LIfWYjuS79rNMrM3GdcJq7gmDo2c6ZtS7K1++GowlIOkCtzZ9YL+s0fKsbCyixxg9doldSjnVrUWHtGPrBLPVw1RPZi/CbBxvHxDAcBwe7ERJKd7G3fk6lzTOeAIM7Xtdafx5EVITE3GTtL0bAUOcnvwJMjG+uQdpa69fON3a4cU7Ksbqh4M=
+X-Forefront-Antispam-Report:
+	CIP:175.98.123.7;CTRY:TW;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:NTHCCAS02.nuvoton.com;PTR:175-98-123-7.static.tfn.net.tw;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(376014)(18002099003)(56012099003)(3023799007)(6133799003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	OOQuiqo/Rmp2G/1w9M6jK/66+4r88M7XMt/wMLeqXFFBSVBG8BDgrhD9LYC2HO6Nj9bibLXbw4lqUxTWB44vFR5XL7XlLawi3t9th6+HifqOD0fhjC8kF/sh5uJWRzfzlrat/mvusfbG9ab2A0wa7T7iVNCdzojJKK4evHvv6x01LnTOxZ4qdA/kuHVa7/XJf43pu/albqg3CO3EJbxYwobiIsjDiwfy4S4XBocrojtq9/NDNdi+M2ui2Gb90Zn63hfloOEnWKooAcEriWPB/9SmLabuJfe4CcgEuvOxDiRGLnR5ERyPPVNVrJaN1meiAHRDFHGrex7x4yY6NLo/wwhW8YEUlv6/fBu31cOyuMPCZpeHm8D4hEaDN9RoHcn2daIFU1ElPB9Z534sOGpA8gP+w+jg9KPYEtCafmrJDKc2Bd2nMb+y22wnHlvaINfG
+X-OriginatorOrg: nuvoton.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 May 2026 01:58:45.6292
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e0620bda-afcf-4c4e-03c2-08debaca5221
+X-MS-Exchange-CrossTenant-Id: a3f24931-d403-4b4a-94f1-7d83ac638e07
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=a3f24931-d403-4b4a-94f1-7d83ac638e07;Ip=[175.98.123.7];Helo=[NTHCCAS02.nuvoton.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	OSA0EPF000000C7.apcprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8824
 
-Hi Conor,
+This patch series adds support for the Nuvoton NAU83G60 audio codec.
 
-On 5/26/2026 12:54 AM, Conor Dooley wrote:
-> On Mon, May 25, 2026 at 08:53:22PM +0800, Damon Ding wrote:
->> RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
->> registers and enable the video datapath.
->>
->> Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
->> phandle reference, which allowed the eDP to work without explicitly
->> managing the hclk_vo1 clock. However, this is not safe or explicit.
->>
->> To make the clock dependency explicit, enforce per-SoC clock-names
->> requirements:
->>   - RK3288: 2 clocks (dp, pclk)
->>   - RK3399: 3 clocks (dp, pclk, grf)
->>   - RK3588: 3 clocks (dp, pclk, hclk)
->>
->> Do not reuse the 'grf' clock name for RK3588 because it represents
->> a different clock with distinct control logic:
->> - The 'grf' clock is only for GRF register access and is toggled
->>    dynamically during register access.
->> - The 'hclk' clock controls both GRF access and video datapath
->>    gating, and must remain enabled during probe.
->>
->> Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
->> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->>
->> ---
->>
->> Changes in v4:
->> - Modify the commit msg.
->>
->> Changes in v5:
->> - Enforce the correct third clock name on a per-compatible basis.
->> - Modify the commit msg simultaneously.
->>
->> Changes in v6:
->> - Expand more detail commit msg about using hclk instead of grf clock.
->>
->> Changes in v7:
->> - List all valid clock names at the top level, and constrain the clock
->>    count for each platform with minItems/maxItems in allOf.
->>
->> Changes in v8:
->> - Fix indentation to 10 for enum in clock-names property.
->> ---
->>   .../rockchip/rockchip,analogix-dp.yaml        | 34 ++++++++++++++++++-
->>   1 file changed, 33 insertions(+), 1 deletion(-)
->>
->> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> index d99b23b88cc5..a1ab7a77bdd3 100644
->> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
->> @@ -26,7 +26,9 @@ properties:
->>       items:
->>         - const: dp
->>         - const: pclk
->> -      - const: grf
->> +      - enum:
->> +          - grf
->> +          - hclk
->>   
->>     power-domains:
->>       maxItems: 1
->> @@ -60,6 +62,32 @@ required:
->>   allOf:
->>     - $ref: /schemas/display/bridge/analogix,dp.yaml#
->>   
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - rockchip,rk3288-dp
->> +    then:
->> +      properties:
->> +        clocks:
->> +          maxItems: 2
->> +        clock-names:
->> +          maxItems: 2
->> +
->> +  - if:
->> +      properties:
->> +        compatible:
->> +          contains:
->> +            enum:
->> +              - rockchip,rk3399-edp
->> +    then:
->> +      properties:
->> +        clocks:
->> +          minItems: 3
->> +        clock-names:
->> +          minItems: 3
-> 
-> If you go back to v6, you'll see that I never asked you to remove the
-> explict clock-names from here or below. Only the one from the 3288
-> section. The minItems was an addition, not a replacement.
-> 
-> pw-bot: changes-requested
-> 
+The NAU83G60 is a stereo Class-D amplifier with an integrated DSP and
+I/V-sense capabilities. The driver supports I2C register access through
+regmap, DAPM widgets and routes, TDM interface configuration, and DSP
+firmware loading.
 
-Sorry for the misunderstanding. I will restore the explicit clock-names 
-definitions and fix this in next version.
+The series is structured as follows:
+- Patch 1: Adds the YAML device tree bindings documentation.
+- Patch 2: Adds the ASoC codec driver implementation.
 
-Best regards,
-Damon
+Changes in v3:
 
-> 
->> +
->>     - if:
->>         properties:
->>           compatible:
->> @@ -68,6 +96,10 @@ allOf:
->>                 - rockchip,rk3588-edp
->>       then:
->>         properties:
->> +        clocks:
->> +          minItems: 3
->> +        clock-names:
->> +          minItems: 3
->>           resets:
->>             minItems: 2
->>           reset-names:
->> -- 
->> 2.34.1
->>
->>
+[dt-bindings]
+ - Remove colon to resolve YAML build warnings.
+ - Fix 'firmware-name' property definition to comply with binding schemas
+
+[codec driver]
+ - Add Kconfig and Makefile entries for the building system.
+ - Change block comments to C++ style.
+ - Add initialization for 'data_count' before usage.
+ - Fix a potential stack buffer overflow in DSP reply parsing by adding a strict 'data_count <= 0' check.
+ - Replace magic numbers with descriptive macros.
+ - Return -EBUSY in `nau8360_dac_mux_put_enum()` to prevent playback disruption.
+ - Remove the 'GFP_DMA' flag as DMA memory is not strictly required here.
+ - Convert multiple 'if' statements to 'switch' statements.
+ - Remove internal hardware debugging code for GPIO1 to GPIO3.
+ - Initialize TDM slot arrays to resolve `nau8360_set_tdm_slot()` setup failures.
+ - Fix event_missing and event_spurious in TDM/PEQ put functions.
+ - Fix uninitialized variable usage in TDM slot put.
+ - Add "Slot None" mapping with custom _get functions, and optimize I2C reads for this state.
+ - Refactor TDM slot validation into nau8360_validate_tdm_slots().
+
+Neo Chang (2):
+  ASoC: dt-bindings: nuvoton,nau8360: Add NAU83G60
+  ASoC: codecs: nau8360: Add support for NAU83G60 amplifier
+
+ .../bindings/sound/nuvoton,nau8360.yaml       |   86 +
+ sound/soc/codecs/Kconfig                      |   10 +
+ sound/soc/codecs/Makefile                     |    2 +
+ sound/soc/codecs/nau8360-dsp.c                |  704 +++++
+ sound/soc/codecs/nau8360-dsp.h                |  116 +
+ sound/soc/codecs/nau8360.c                    | 2454 +++++++++++++++++
+ sound/soc/codecs/nau8360.h                    |  904 ++++++
+ 7 files changed, 4276 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/sound/nuvoton,nau8360.yaml
+ create mode 100644 sound/soc/codecs/nau8360-dsp.c
+ create mode 100644 sound/soc/codecs/nau8360-dsp.h
+ create mode 100644 sound/soc/codecs/nau8360.c
+ create mode 100644 sound/soc/codecs/nau8360.h
+
+-- 
+2.25.1
 
