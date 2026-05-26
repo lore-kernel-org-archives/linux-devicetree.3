@@ -1,214 +1,238 @@
-Received: from mail-yx1-f50.google.com (mail-yx1-f50.google.com [74.125.224.50])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AD133D891A
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:05:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789910; cv=pass; b=VQ9Pn1/ynrhiZXTFjUdAzyi61eOd0zVgF2Y7EgtCWw64kDrTU59hs6sOFyzhPq0518VL8RLYJ8vTjRChfYgBicJ1aVq3zlVrfjEqzYCtW+qlJbfeBKQsUoEAuDO2sREFfVKnRcOxyZVdgatdmltWK4f+Nn4YPd/8KH9/pQplSxU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789910; c=relaxed/simple;
-	bh=X3cm2efKY/Zhxh28wLxbsEMQLe29t+d8ccezL5bJqtw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=gA4jOyzoarV8jFMkmatxWDfQXa70cyg+SQ6uDA9u9P2TctIBYgYwjICbO3VTmw3pcSbE1c71wORNugxcy2UyTwv5idsZ49oEOcTivAEUH26IvYs4KxYYCK8JjZxiYHBImtLPortwwnoi+iwFuT2Y+TQTbd1PPskAA5O8eN6QFp4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DcxGy1rP; arc=pass smtp.client-ip=74.125.224.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D9D3D891A
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:07:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779790039; cv=none; b=CKhrVYr2TAvYBPRLTmDP15Imid/0wABPLOvLO/NQsKpnvUD8bJvbArTHmlintyoPpQkffRPAlXaElM5vvNe8D1jZfIJAdZEkAHgKE4OQgiI6mmyCcaiANx1qAmUUJS4PZU23YSQmYQBLqWJRqO4ZLDlS0rlzWZi2+b+ZrkAfRMY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779790039; c=relaxed/simple;
+	bh=Ublks9CuT5syiY4dPX5P5VSog6DvqLq29kO6wrUNPns=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AHOLJ4VRq9WJlHo9ASNGBPMqxbN2sBzC+Hzrb6V3wawCyuoP/5hT33wmLLvUtZtVd2MELb5LOmEhLb2NXQkM6fp9YFcTDHidRM6qZepvuqVT4UnwQqcYp0c+EGuN65Ah9VyH0E0Z532gdMpSarcBsDEkeNP/OrmwUU+76vHZvBs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oFSN00XS; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DcxGy1rP"
-Received: by mail-yx1-f50.google.com with SMTP id 956f58d0204a3-651bc83e74aso10602878d50.2
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:05:08 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779789907; cv=none;
-        d=google.com; s=arc-20240605;
-        b=PsXSzWC2OEyEDkIs6LltHfvhkejMJtnkmkp+xh8OlTvhLDP+xTlSjc2q6uQ4UAuo/P
-         XmaWDSahcd9GfAgjnrZggLoMj0XfMeYckj3V2YmRioe4A4cNpMaZw3Z+qkWOm7wxerAS
-         jiAtFwvHxoSL2tHGPypKZ84Z88v+qaBaYFfnR7pKkyvIcTMsKoeM9Ux9amp3r5pL+nRF
-         Slt07SLxvJHIUfbfUG4TaDeZOk9ESv/s59jPYuVvv2n3dplEk1GrwpBvY+L4ZtCaCvn/
-         xQ23qD98P7WhM/EkRuswtLJHzPwp5ADi7iCNpeVRS8KoOkEfrogW+ASp+mOQheLR/Ug/
-         ubqQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=X3cm2efKY/Zhxh28wLxbsEMQLe29t+d8ccezL5bJqtw=;
-        fh=rw3FQNcrbAB65C/hBh3prr24k0iJNJZUcZMRbuu6Uvw=;
-        b=iJsiX8At2iE0ycA0ujrDRD0KZACJ3Y0Qj2EdhthkXADOFFU4ZItUfi2TzHsHpj4d4v
-         Xb/CDuQPGyhDwJhqqEm/yGotJzTVtCJK4em+wpLZaldDZis+HwYrBIHvbdiS43OGuUYS
-         x8ctycVHXYOgwyAhs3rvmgQbJKcCbs8/uJOt5mw9XOppa4i1TWsaRrKalJeZad62lOdt
-         6sfjglumlXvK5GgZX8LDoe9a0rpVKizzfemYcWWBkrEC28YwzPzx6eNKJF7xnC8WkpUA
-         8+PL0Iya0v0wiZ7UCenZDNZRhyPp3Fm2pL299d3V5T6ZuhNFdfkzYMxV6G0Nc9qNkxo7
-         qSfA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oFSN00XS"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-48a3e9862f0so54919705e9.1
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:07:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779789907; x=1780394707; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=X3cm2efKY/Zhxh28wLxbsEMQLe29t+d8ccezL5bJqtw=;
-        b=DcxGy1rP/N3fAuH5v+M2SY9kXUz9RxajECSpDOQ3lX4UJFi3LhF1qnN1BUfo+hflR3
-         //GpI0BdBAalDiZeZIowruBzXxzZ/+Zd1LCiw6DaO77MKoInjWj6IWfixgDTxvNpk32v
-         HbC8hN/Pnya96PCC6MtQfDjmYiDGdQ5ZARGLO9AMhoTq4nGKT1MAioQwCfgSmrA1/Am5
-         lnPrCYjjMsE25DHe5BtqLgA619m03lUvoB9OH8HIdzLn4cXGEiwkNGwl9qK/FEh8Jdjs
-         obhxNGPAq7+2BlZmvkSKxJ60qIk6aKw+6OcjMIUqUmnCsfGYLJGsmqEuuK55IPdXqAS4
-         slrA==
+        d=gmail.com; s=20251104; t=1779790036; x=1780394836; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=UBWVkdlUBppiUm4CnKZtDjFMlGPeTrCwu/oPgCeq608=;
+        b=oFSN00XS8JSvgHKTtHxo9tD84tNW1qVETBMBCrdtp2ANYbKYzy55a6Bkm+wvs43f8I
+         cPnEkwoT3LMw1fHJlL5qqBJUfAbQEauY3Zccz7pAuekrLJt+P6iXBiBmMznl2fIwKw1p
+         TZdzFLUGihTaLYkMLrofz+mYEA0DipPVylgFh+PZ3pPat5EpBZ8F5WmGmqXCLblJZaNx
+         XsTPMvCirVmpN7JVz8hNsNTO+GFdwit/u0ZB0KBQRBrJRGQSLmA6YTGCetcfzJ3T18Ii
+         8G3YM/yxCpu65q8IJD4M3yWJzemSUilaKHPvIfSfEManmI4LE1QYOAIEPGKXNZwwKGLQ
+         Z4ug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779789907; x=1780394707;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=X3cm2efKY/Zhxh28wLxbsEMQLe29t+d8ccezL5bJqtw=;
-        b=szynmnlYjXFEqHlkp5FsjIEffkwNLrMeoBOtO9EVw8Xxe6Lio1SVhHwYR9AuhmkVUZ
-         e2EEVwp8dvpSq4yyOfLE8KmXvi0JlevgWHcPV/UClLVr8/rjKsSjVx1l/+8TjkPVGTA0
-         XvXqS8aVeZAy6xd+0Ij6oQBunAA+8cXu14qFZoAKazstD8A9m+ZBoH9Hk8i7xLSeYtUT
-         DtZgJJFdxqF2P7WbnabfncOSE/zrAmi+1N7wyw+ycwXsx7McNyV4WMQ8oJVqECyoYIDF
-         pZ47csdD7MHrdUDh3BesaataYudZp8Rmkt6ESB+LnUiNaXR3N7Xnm0hUyQJlRvrJmyPN
-         O/2g==
-X-Forwarded-Encrypted: i=1; AFNElJ/ZXSc5spm6I5NszZG6OwhzWupaPRqH1HrqyK4fxXC+i/Oh1PM5HM9l6kHhs5N5u48AeJSYG0rBf7I9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7IGlFdGGdAIBgspnmUXD4uAOAbP0V2NW/lgRm0iAARQpn09aH
-	zJq3bz4izyBjLYT+6fHrJTDqrRlySI6jb/Dl0ysblWu7XpnyYqfm6M6hJbjog7OJbzmmp+WGrAI
-	R8ARPbV//ekhvkGix1yo2bvWryyx/oX0=
-X-Gm-Gg: Acq92OFoySPxdFPuG038Z1GtQ82enghB9NpdSViILxyKcz2As68UwOVZ2khludpjKuP
-	Lp7alfdZUPJ/udib5QSy3dOowLHiLC4+vdUngOvgosx67rxXiDe1zxdEogIrfVSFJrgGh0HgxG9
-	lNHmapOoMLQSiO6NPy7sXv+CWtF1XLmwZR28sAWR9GUyb6UplKwRlNCZbFp2x1bdlQZBSI3p+5c
-	8JeXgCcdRIm1jbIYwb1klmjKQQvxbpihnQ4GllrtgpTAJQAdct5ouUMSCb8uibSy3QLlgf1CvsG
-	8GYeLic=
-X-Received: by 2002:a05:690e:25d0:b0:65c:747b:485b with SMTP id
- 956f58d0204a3-65ec99ce8eamr13546771d50.58.1779789907432; Tue, 26 May 2026
- 03:05:07 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779790036; x=1780394836;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UBWVkdlUBppiUm4CnKZtDjFMlGPeTrCwu/oPgCeq608=;
+        b=lp+t7T6PAycFPxNph2tydUpUf0fRdezROB6q5ccN+ZQUaAHyGiD9I1F9Zz5FVfcDCF
+         YVAMmicl8yagbCaj1zUzP156El+UhtKl2hx7C7jAkwVZeAOrUQg9VrBz6sdVGtmUhTb4
+         bPkHZC9BA8Z8uRm7bI212Iwwb+nzrhnG6TBOy3GmfHxohdF7+aW8BKlGcuieXS3FbZzm
+         dqFw6d4U6EtBQiw/UMpjac9vfKXEIqBPj2vLQCp/cB0AWOMj7sXpxo5+BLQXzUFANZSy
+         uVjS+T0i5/SaeYVyvBRRt6dtMGc2tTjw7L+za7rTvbj77o6bCvkz2cqiFYB6Db5ov4x2
+         TGkw==
+X-Forwarded-Encrypted: i=1; AFNElJ9eM01xUIrx7iCpxmNTMyYaGRQhK+/GEwLPkkVtH4UjS9OHiGz11lx1PksdcV+YSe4le7eTh1yUo5hb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxp7JKlQ7K9MD7COwjy0DlGaAfxwG+UdALZmavuD3Ur6b/Ry+EN
+	SgSV6vfJ1eQfIUbIgn3+Nx95n5vyyzygpwoZptXmMXrjlf6m42tD+aRl
+X-Gm-Gg: Acq92OHWFtHf1037XxV6O5kpmGzLGQRDBHBJmLqRprPlx/fPYaBAdegzlSmX/i5UITT
+	+Dkv6yRZY7fz7fqb0+qMkeQFKLDzAu0DewwGoNq6fFKlXZK3cJr5jG3VSHNa4gXXi2KpmhsZ1Ex
+	VrMlwqZKPfl2oLVkr3tYH5cE7eD6eKQU4RxGUbvc1TBtQbcQZe1HkyaMb/5Lr+HowqsT4PcOHNI
+	YC7/nZ8PMtwjEK1jU/Livgss+PsegSlrZklYNLfdbxO1sYvo52ltcuuU6q3O+urdJ2cI1yiwGi9
+	8p0UHcKgEvqMlH5RawIVo+yhujtZ6WQtvRddcTakAHo+NJP4HOt73ZRnu4eV1G8S8ncXTw2KRm6
+	q+H2gCwIupjA9nGU9PR/JnJCu1Jkn+QeK6cbGgtARfw1k0XrWOW4mrxMq2P0Z4KOCBjvz1LABPz
+	vPgi6AqRl2Z9tl+Dr6KcTDBQnwtYAEvtXhk4Sp82olhxpaUT/eiEFfvkpF+Hyzqnxc6ER5owAnJ
+	O2/bHXBrOba3O8POid4MLen/15zSfFx6EMjfOVF/1al7GDPMw==
+X-Received: by 2002:a05:600d:4448:20b0:48f:d620:c27f with SMTP id 5b1f17b1804b1-490422687c3mr181089135e9.4.1779790035539;
+        Tue, 26 May 2026 03:07:15 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490454c5eb0sm337780505e9.2.2026.05.26.03.07.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 03:07:14 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Tue, 26 May 2026 11:07:09 +0100
+To: rodrigo.alencar@analog.com, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org, 
+	linux-hardening@vger.kernel.org
+Cc: Lars-Peter Clausen <lars@metafoo.de>, 
+	Michael Hennerich <Michael.Hennerich@analog.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, 
+	Shuah Khan <skhan@linuxfoundation.org>, Kees Cook <kees@kernel.org>, 
+	"Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH v5 12/13] Documentation: ABI: testing: add docs for
+ ad9910 sysfs entries
+Message-ID: <wyxgririrncvg67bisazndqtlj6ylrzkqfgsi7tptjfv7qopwa@rjmtb2aohbay>
+References: <20260517-ad9910-iio-driver-v5-0-31599c88314a@analog.com>
+ <20260517-ad9910-iio-driver-v5-12-31599c88314a@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-orangepi-sd-card-uhs-v10-0-094af27e310d@gmail.com>
- <177889984452.2298656.1074391459031404894.b4-ty@b4> <7e68e745-0d70-46db-9475-38d3dd5b9cf4@baylibre.com>
- <6b945153-5a7b-415e-904a-1c350b7d52ee@gmail.com> <86ac46cd-b7bc-42cc-8c29-996ae21f3654@baylibre.com>
- <CABdCQ=M_E1uHU5WTXCn2mXaxf3-+7M9gXCL=tp1qBW50jf7d5Q@mail.gmail.com> <8b9c613c-df1a-4f44-b15d-cdcc21905bc5@gmail.com>
-In-Reply-To: <8b9c613c-df1a-4f44-b15d-cdcc21905bc5@gmail.com>
-From: Iker Pedrosa <ikerpedrosam@gmail.com>
-Date: Tue, 26 May 2026 12:04:56 +0200
-X-Gm-Features: AVHnY4IxXGGNE6MCQzRPM_4hQIgOZYw7rJR2PEvw9EaDz3r-wxcgt_U1xXrcwuc
-Message-ID: <CABdCQ=NOvzmzqS5WJG0CQ35Nd+Mh-Px5Z7ELqC_eDSqob0Jbdg@mail.gmail.com>
-Subject: Re: (subset) [PATCH v10 0/4] riscv: spacemit: enable SD card support
- with UHS modes for OrangePi RV2
-To: Andre Heider <a.heider@gmail.com>
-Cc: Trevor Gamblin <tgamblin@baylibre.com>, Yixun Lan <dlan@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Adrian Hunter <adrian.hunter@intel.com>, Paul Walmsley <pjw@kernel.org>, 
-	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
-	Alexandre Ghiti <alex@ghiti.fr>, Ulf Hansson <ulfh@kernel.org>, Troy Mitchell <troy.mitchell@linux.dev>, 
-	Michael Opdenacker <michael.opdenacker@rootcommit.com>, 
-	Javier Martinez Canillas <javierm@redhat.com>, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev, 
-	linux-kernel@vger.kernel.org, Anand Moon <linux.amoon@gmail.com>, 
-	Vincent Legoll <legoll@online.fr>, 
-	Margherita Milani <margherita.milani@amarulasolutions.com>, 
-	Aurelien Jarno <aurelien@aurel32.net>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260517-ad9910-iio-driver-v5-12-31599c88314a@analog.com>
 
-El lun, 25 may 2026 a las 18:45, Andre Heider (<a.heider@gmail.com>) escrib=
-i=C3=B3:
->
-> Hi Iker,
->
-> On 25.05.26 11:36 AM, Iker Pedrosa wrote:
-> > Hi,
-> >
-> > Sorry, I've been on vacation and I haven't checked my emails.
-> >
-> > El mi=C3=A9, 20 may 2026 a las 13:11, Trevor Gamblin
-> > (<tgamblin@baylibre.com>) escribi=C3=B3:
-> >>
-> >>
-> >> On 2026-05-20 03:53, Andre Heider wrote:
-> >>> Hi Trevor,
-> >>>
-> >>> On 16.05.26 2:35 PM, Trevor Gamblin wrote:
-> >>>>
-> >>>> On 2026-05-15 22:57, Yixun Lan wrote:
-> >>>>> On Fri, 15 May 2026 12:48:58 +0200, Iker Pedrosa wrote:
-> >>>>>> This series enables complete SD card support for the Spacemit K1-b=
-ased
-> >>>>>> OrangePi RV2 board, including UHS (Ultra High Speed) modes for
-> >>>>>> high-performance SD card operation.
-> >>>>>>
-> >>>>>> Background
-> >>>>>>
-> >>>>>> The Spacemit K1 SoC includes an SDHCI controller capable of suppor=
-ting
-> >>>>>> SD cards up to UHS-I speeds (SDR104 at 208MHz). However, mainline
-> >>>>>> currently lacks basic SD controller configuration, SDHCI driver
-> >>>>>> enhancements for voltage switching and tuning, and power managemen=
-t
-> >>>>>> infrastructure.
-> >>>>>>
-> >>>>>> [...]
-> >>>>> Hi Iker,
-> >>>>> I've picked patch 1-3, for [4/4] I think it should be merged after
-> >>>>> https://lore.kernel.org/all/20260513071958.29574-1-a.heider@gmail.c=
-om/
-> >>>>
-> >>>> Hi Yixun,
-> >>>>
-> >>>> That makes sense. In response to your earlier feedback I had drafted
-> >>>> a more
-> >>>> complete dts after another schematic comparison, but Iker and I
-> >>>> discussed it
-> >>>> and opted to avoid changing scope too much. Andre's series includes
-> >>>> the bits I
-> >>>> wanted to add and more, so that works out.
-> >>>
-> >>> I have 4/4 rebased on my series anyway, do you want me to send it?
-> >>
-> >> If you have an update to make, please do!
-> >
-> > So, how has this turned out in the end? Andre, will you take care of
-> > sending the latest version for the MUSE Pi Pro?
->
-> Yes, in fact I already sent it last week:
-> https://lore.kernel.org/spacemit/20260520130624.1763487-1-a.heider@gmail.=
-com/T/#u
->
-> You should have received that (unless I messed something up) ;)
+On 26/05/17 07:37PM, Rodrigo Alencar via B4 Relay wrote:
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Add custom ABI documentation file for the DDS AD9910 with sysfs entries to
+> control Parallel Port, Digital Ramp Generator and OSK parameters.
 
-It's there, it's just that I wasn't looking for it. Thank you!
+...
 
->
-> Thanks!
-> Andre
->
-> >
-> >>
-> >> Trevor
-> >>
-> >>>
-> >>> Thanks,
-> >>> Andre
-> >>>
-> >>>>
-> >>>> Thanks!
-> >>>>
-> >>>> Trevor
-> >>>>
-> >>>>>
-> >>>>> Applied, thanks!
-> >>>>>
-> >>>>> [1/4] riscv: dts: spacemit: k1: add SD card controller and pinctrl
-> >>>>> support
-> >>>>> https://github.com/spacemit-com/linux/commit/2d77e577109967ef65f269=
-c1fc1d6a659d4260fb
-> >>>>> [2/4] riscv: dts: spacemit: k1-orangepi-rv2: add SD card support
-> >>>>> with UHS modes
-> >>>>> https://github.com/spacemit-com/linux/commit/2585c60ce2f977b13f14a6=
-7d1e3ed9c73fd7f381
-> >>>>> [3/4] riscv: dts: spacemit: k1-bananapi-f3: add SD card support wit=
-h
-> >>>>> UHS modes
-> >>>>> https://github.com/spacemit-com/linux/commit/c76e2f058cbcab84e4a703=
-f26857a58bdf6a0042
-> >>>>>
-> >>>>> Best regards,
-> >>>
->
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_dwell_en
+> +KernelVersion:
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		For a channel that produces parametric sweeps, this attribute controls
+> +		the sweep behavior at the configured limits. It enables dwell mode at a
+> +		sweep limit when set to 1. Otherwise, the sweep may stop at the initial
+> +		position or restart from that initial position or continue by reversing
+> +		its direction.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_roc
+> +KernelVersion:
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		Frequency rate of change in Hz/s for channels that produce linear
+> +		frequency sweeps. This value may be influenced by the channel's
+> +		sampling_frequency setting.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_phase_roc
+> +KernelVersion:
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		Phase rate of change in rad/s for channels that produce linear
+> +		phase sweeps. This value may be influenced by the channel's
+> +		sampling_frequency setting.
+> +
+> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_scale_roc
+> +KernelVersion:
+> +Contact:	linux-iio@vger.kernel.org
+> +Description:
+> +		Amplitude scale rate of change in 1/s for channels that ramp
+> +		amplitude. This value may be influenced by the channel's
+> +		sampling_frequency setting.
+
+I am thinking about adopting IIO_FREQUENCY and IIO_PHASE to the DRG control
+(It is considered for the Parallel port at this point).
+That would make the destination configuration a bit more clearer:
+
+* out_frequencyY_en
+* out_phaseY_en
+* out_altcurrentY_en
+
+which would enable DRG for a given destination.
+
+I would not want to have 6 channels (3 for ramp up and 3 for ramp down),
+so I would develop the idea here with that in mind. Otherwise, it may
+be ok to have the 6 channels for that.
+
+The DRG have this output pin called DROVER, which indicates when the ramp reaches
+a limit (upper or lower), then I was thinking on bring that to be an iio event.
+At least initially, to treat the configuration as threshold event control, and not
+necessarily having to processs the DROVER interrupt. Mostly because that interrupt
+might be to frequent and would be better handled in hardware (by an FPGA IP).
+In fact, for certain configurations (slower ramps), CPU would be able to handle
+it just fine, specially if user is not very much concerned about deterministic
+timing when handling the event.
+
+DROVER indicates both threshold rising and falling events, so I would have something
+like:
+
+* events/out_frequencyY_thresh_rising_value
+* events/out_frequencyY_thresh_falling_value
+* events/out_phaseY_thresh_rising_value
+* events/out_phaseY_thresh_falling_value
+* events/out_altcurrentY_thresh_rising_value
+* events/out_altcurrentY_thresh_falling_value
+
+to configure the DRG limits (upper and lower), which fits well with the idea that
+DROVER is the event we are interested in.
+
+Now, we are missing two things: step rate (sampling_frequency) and step (configured with roc).
+The problem here is that both of those configuration are applicable to rising (ramp up) and
+falling (ramp down) cases.
+
+There is no RoC threshold event, so I am not sure it would make sense to create an
+event spec to configure the step with:
+
+* events/out_frequencyY_roc_rising_value
+* events/out_frequencyY_roc_falling_value
+* events/out_phaseY_roc_rising_value
+* events/out_phaseY_roc_falling_value
+* events/out_altcurrentY_roc_rising_value
+* events/out_altcurrentY_roc_falling_value
+
+But that would allow to reuse that existing iio core/event code to configure the
+ramp up/down step with new ABI.
+Otherwise, trying to get both ramp up/down configs into a single channel we would
+need:
+
+* directly to the device channel attr group:
+	* out_frequencyY_rising_roc and out_frequencyY_falling_roc
+	* out_phaseY_rising_roc and out_phaseY_falling_roc
+	* out_altcurrentY_rising_roc and out_altcurrentY_falling_roc
+* or, under the event group with a new event info: IIO_EV_INFO_ROC 
+	* events/out_frequencyY_thresh_rising_roc
+	* events/out_frequencyY_thresh_falling_roc
+	* events/out_phaseY_thresh_rising_roc
+	* events/out_phaseY_thresh_falling_roc
+	* events/out_altcurrentY_thresh_rising_roc
+	* events/out_altcurrentY_thresh_falling_roc 
+
+For the sampling_frequency configuration, which would also require new
+ABI to fit both ramp up/down in a single channel:
+
+* directly to the device channel attr group:
+        * out_frequencyY_rising_sampling_frequency and out_frequencyY_falling_sampling_frequency
+        * out_phaseY_rising_sampling_frequency and out_phaseY_falling_sampling_frequency
+        * out_altcurrentY_rising_sampling_frequency and out_altcurrentY_falling_sampling_frequency
+* or, under the event group with a new event info: IIO_EV_INFO_SAMP_FREQ   
+        * events/out_frequencyY_thresh_rising_sampling_frequency
+        * events/out_frequencyY_thresh_falling_sampling_frequency
+        * events/out_phaseY_thresh_rising_sampling_frequency
+        * events/out_phaseY_thresh_falling_sampling_frequency
+        * events/out_altcurrentY_thresh_rising_sampling_frequency
+        * events/out_altcurrentY_thresh_falling_sampling_frequency
+
+Lastly, we also have the dwell enable config:
+
+* directly to the device channel attr group:
+        * out_frequencyY_rising_dwell_en and out_frequencyY_falling_dwell_en
+        * out_phaseY_rising_dwell_en and out_phaseY_falling_dwell_en
+        * out_altcurrentY_rising_dwell_en and out_altcurrentY_falling_dwell_en
+* or, under the event group with a new event info: IIO_EV_INFO_DWELL_EN
+        * events/out_frequencyY_thresh_rising_dwell_en
+        * events/out_frequencyY_thresh_falling_dwell_en
+        * events/out_phaseY_thresh_rising_dwell_en
+        * events/out_phaseY_thresh_falling_dwell_en
+        * events/out_altcurrentY_thresh_rising_dwell_en
+        * events/out_altcurrentY_thresh_falling_dwell_en
+
+For custom event attributes, maybe iio_info.event_attrs can be used instead
+of new event info (or a mix of both).
+Another thing we may consider if going for the 6 channel case, would be having
+new modifiers: IIO_MOD_FALLING and IIO_MOD_RISING, which might simplify things
+a bit.
+
+Let me know about your thoughts on this.
+
+-- 
+Kind regards,
+
+Rodrigo Alencar
