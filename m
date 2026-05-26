@@ -1,1003 +1,245 @@
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com [209.85.214.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE8B3DA7EE
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:57:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B2A3CAE74;
+	Tue, 26 May 2026 09:58:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789474; cv=none; b=Yr7ow0NCeypMg5BdWkzhSq9AMjGp3brzRMTj7qozWvkRuy9hlRZrkMGLU7WVVGamlSo3m/GkqIsgCQ56uXVm7+sliSMKuCti1XhwCa+g3C1m3apylU0OJIz7X4Rrj6cMJ5Ukh0TWytOeEhM2V3B/G6XAS2tEcaWhMajj4gJcudg=
+	t=1779789498; cv=none; b=X+EHioG6WNhc+IhfDSnE5N9A7pR+bOG+OJ91AQ5kYlJswRkz8pEEliH5k7jhtqE/iqNvu6OEyCGMHIDShLJg7j8PUX9cginJdXCHzlUn+idCMtf3ZSYb9V3/S67kkPeIiSq+pWbOmrrWG7wd8ES6e7stmneSdk2k2WQWiIItNSc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789474; c=relaxed/simple;
-	bh=X9R9Ftvs8HDapxq/LssaT0rOEz53olNG6A0ZZe4zFuc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=FP3Qwp8ozkVJ0u+rgD8TPOBXazMr092cmHT4bbUZmb7uw1csbczDJ+EUSJ7K78Eq4TVxEKyE3ZykijJPlzimXysezMWYtmSG9dt9ChBVKnTgzAc4YMHXXoZk0paBYy848EOPzZyY+l8oVm0MKNlGY/KJK6WWuq3Bl1uRlAd9/58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g9n9Bmch; arc=none smtp.client-ip=209.85.214.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779789498; c=relaxed/simple;
+	bh=KT5kWMKmVPL6w0rKVQ1vm8hOH1tc1nglBRT5f5U8y9k=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=unl4dt7zbwl21K7zp5LyhTUAGP5lOojSEEkpZe4wyhwS95JYCRBoLRzHCW1/0YeXqNIhRG25EYx14W3IDLEDxbzuPSMcB4Xzk2DYf2JyXbDmUu8vKQAlYz03YTl82Q8IePHv9yShlAOllKcPz/ABkEtfdeeH1Gbua6j8OwGUGxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cqQN5jBF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g9n9Bmch"
-Received: by mail-pl1-f178.google.com with SMTP id d9443c01a7336-2ba1e9d3687so69114785ad.3
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 02:57:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779789471; x=1780394271; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=qdCfZvIpAc3UwzOXa3d73fscC26/BA3Xy8iKGDeVRvk=;
-        b=g9n9BmchScZtvQS88+Fgzay9p9C29/pR54HGe2WuzraJhTPo9LMQW0APZ2KfHlSUcR
-         Uguqrx5wbXMGCRCqnVgy8qVlNvZGz2+jqLZs2p3DRGJRqWs+qcBNScKL5M9uAjUbp2V7
-         XiygVYViX8FzB9/tySxQsipS3IRab5TE9kuiVhVlqMC/vAU4CAX6mieH31O969G7YWwL
-         KboshqcMPN6Wm2SpBAKtFsJhyBgaE/VgGMCJjy1p90vlAkbLsqZ1623UmVMll+Q2LgaT
-         152nrwg2AI3qVTZj59kwRsKido7kIZ2y1adgkRb7IZybBaUTU/pdWmzb/jdotOD81Pqe
-         o2IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779789471; x=1780394271;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=qdCfZvIpAc3UwzOXa3d73fscC26/BA3Xy8iKGDeVRvk=;
-        b=gWeyawG0JOvBJmSP+XLFBlsiZFU6msSpefrw52Yyx290I6YBwm+j5O8CHHEcFDNXxE
-         H4zkTE4fEMrEm5sAe6nI6fgmcQQPQntv5Jb4GEVdYavNWjT79k5o2Fc1v+dfzgXVeBjc
-         SJjUcaSLxUf2HpmE7L7kHbzeLoa+FJmOm4jA+0yrAycRRKgL+03vlfd5mToAGj/KcR09
-         JsNdTI5XTNFPckfm9aGuwgSoj5/Aa0qW5pR4cSEPSpi1zd9wbBkeaUdDvyBuWA3R7juw
-         acWklIIjUBAbP4q1pCTkngeXLEaGo6+6grtUTZ//1Y9sWdTpqrMEiC5yipsfAGW+olLO
-         X3ZA==
-X-Forwarded-Encrypted: i=1; AFNElJ9nKN7ioL82LPmKcAwx+TdH7b5ham6LTJ9hg40dmnkJlEATLAAcDDnFeXCLlG3EAdBkfkAglQ3jh7Eg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzSyjYBjBih2hLmVYLvu7nZuGJATtYlOHH966EUjbCr8tMqWcqG
-	to/HnYzmh2Am8UM1WOXNUDoOMLgIjfmL7sLAJG58WOzIA4+eBVDddyq/
-X-Gm-Gg: Acq92OGsC+dAkgI8JLx05aglHjq8fB+687GF514XGw9Acku+IXAByA8+mR9ucdpNMvA
-	N/9ztjuZc+mUfZvW2z5kasZG8GiMd5EddzI4f1yPAKiRZRn6tl3/jWIUYvpyYGENFmumv2qCPiN
-	iYuSnxRXpa/7BaVPTblDktF7DdZCWb2aqxVL6xL9iBDdFGhWPPs0awRa8W2EGoaSlzFSvd1FRN/
-	w0cimEmVviMBSYq0O2/QDXYQQp48GhOHQqvfilTrhGq7yLuXXGLokYM4OuQSPX9q7Zg3QBJklBJ
-	rCvWKgKjn/myflfUJb20HeeDZEGDIeClG2vAAAOSsv2oYEIDeN1W4qCsXy/1itcngf/eIJSiuiS
-	7qUNoQx491qmN2vyFZspb8WvqMYyYXXQnDoettG2p6+veGRne58yXMfP/KV52N4oPyNYyeqF5nF
-	9kBZXFOkhN4OMuIpNgJjD2W9iiJV0rR5DV3t//TqkZnzFY5aYTl4hPLkMUam4aeh2fp6VxQWRC5
-	86bNrVzjTNEclwtd64Kgw==
-X-Received: by 2002:a17:902:d4c3:b0:2b0:4fb6:85ce with SMTP id d9443c01a7336-2beb065ba47mr190016995ad.21.1779789471220;
-        Tue, 26 May 2026 02:57:51 -0700 (PDT)
-Received: from [127.0.1.1] (211-23-39-77.hinet-ip.hinet.net. [211.23.39.77])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb58b2d47sm147055165ad.45.2026.05.26.02.57.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 26 May 2026 02:57:50 -0700 (PDT)
-From: LiangCheng Wang <zaq14760@gmail.com>
-Date: Tue, 26 May 2026 17:57:17 +0800
-Subject: [PATCH v2 2/2] drm/tiny: add support for PIXPAPER 4.26 monochrome
- e-ink panel
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cqQN5jBF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 783061F000E9;
+	Tue, 26 May 2026 09:58:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779789497;
+	bh=uA5NhkbDkIgEGwM2hOxFD456ASr++z1K/LIMVB2rLqE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cqQN5jBFY+rg0VteIrEadzA0DYhaNw84W84EHZj7A+2/yRUCAeG3kaiaf5haaZV0e
+	 MsoAE+PCjPigIlQD30qw96mhph3yPoFrUP1E6q3iY7WGCZF9W4TVfRcnw2SyqIWBnO
+	 FG9R+x2e0H00qNaTWuPf43Br+IRul/d4hZhReahsOVRQPhXNzyJks+xiAjOedfHaBd
+	 55hLT6PD5UBDTJTrKft5PcrKqlh3LkJscVa09eGQt1FqdtJ1JIe3ETVa5XRWUQf2DE
+	 aOEjtH3s5HJz0M0hJ1SYrrbjcj4UeUISHLPqiiSdQGBul/ziAlD1oh9CjtJ1hrqxdQ
+	 TCg9zPtLfqFbg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 3/4] PCI: tegra: Add Tegra264 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Thierry Reding" <thierry.reding@kernel.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260526-tegra264-pcie-v5-3-84a813b979d7@nvidia.com>
+References: <20260526-tegra264-pcie-v5-3-84a813b979d7@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 09:58:15 +0000
+Message-Id: <20260526095815.783061F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260526-bar-v2-2-c66df9a840c4@gmail.com>
-References: <20260526-bar-v2-0-c66df9a840c4@gmail.com>
-In-Reply-To: <20260526-bar-v2-0-c66df9a840c4@gmail.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Wig Cheng <onlywig@gmail.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, LiangCheng Wang <zaq14760@gmail.com>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779789463; l=27824;
- i=zaq14760@gmail.com; h=from:subject:message-id;
- bh=X9R9Ftvs8HDapxq/LssaT0rOEz53olNG6A0ZZe4zFuc=;
- b=NlMujuRiGh27QmPphGe0DpLmg6kOjaOPVYJGUA4P666deocrHqynrsrWorP/8gqEdj43z87DI
- 4D7hVkUXJiuBiOEU1Elgb/N3+Xl0q6hVKJHnIrc4N1af4S/kmF5OlKj
-X-Developer-Key: i=zaq14760@gmail.com; a=ed25519;
- pk=5IaLhzvMqasgGPT47dsa8HEpfb0/Dv2BZC0TzSLj6E0=
 
-Introduce a DRM driver for the Mayqueen Pixpaper 4.26
-monochrome e-ink display panel, which is controlled via SPI.
-The driver supports an 800x480 display with XRGB8888
-framebuffer input.
+Thank you for your contribution! Sashiko AI review found 12 potential issue=
+(s) to consider:
+- [High] Missing `err` argument in `dev_err_probe()` call.
+- [High] Passing `ERR_PTR(err)` to the integer `err` argument of `dev_err_p=
+robe()`.
+- [High] Call to undefined function `tegra_pcie_deinit()` in the suspend ca=
+llback.
+- [High] The probe function returns success when the link is down but frees=
+ resources, causing a kernel crash on removal.
+- [High] The driver calls a non-existent runtime PM API `devm_pm_runtime_ac=
+tive_enabled()`.
+- [High] The PCIe bandwidth request calculation always evaluates to 0 MBps.
+- [High] Calling sleeping functions inside a noirq PM callback.
+- [High] Ignoring the return value of `pm_runtime_get_sync()` leads to unsa=
+fe hardware access and kernel crashes.
+- [Medium] Leaking the BPMP reference if runtime PM initialization fails.
+- [Medium] Unbalanced `pm_runtime_disable()` call during driver removal.
+- [Medium] Wake IRQ is mapped and enabled for wakeup but never actually req=
+uested.
+- [Low] Missing `pm_ptr()` wrapper for the PM operations structure pointer.
+--
 
-Also, add Kconfig and Makefile entries for the driver and
-update MAINTAINERS for the Pixpaper DRM drivers and binding.
+commit f706a8f756af69546e040928eae0b5849025ac5c
+Author: Thierry Reding <treding@nvidia.com>
+Subject: PCI: tegra: Add Tegra264 support
 
-Signed-off-by: LiangCheng Wang <zaq14760@gmail.com>
----
- MAINTAINERS                          |   3 +-
- drivers/gpu/drm/tiny/Kconfig         |  16 +
- drivers/gpu/drm/tiny/Makefile        |   1 +
- drivers/gpu/drm/tiny/pixpaper-426m.c | 828 +++++++++++++++++++++++++++++++++++
- 4 files changed, 847 insertions(+), 1 deletion(-)
+This patch adds a driver for the PCIe controller found on NVIDIA Tegra264 S=
+oCs,
+setting up address translation registers and creating a standard PCI host
+using ECAM.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 882214b0e7db53bb8cc8e75b5d2269ee0591ea20..eebd73ee1f531d3785ec963da03fbab265c2d188 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8234,11 +8234,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/repaper.txt
- F:	drivers/gpu/drm/tiny/repaper.c
- 
--DRM DRIVER FOR PIXPAPER E-INK PANEL
-+DRM DRIVER FOR PIXPAPER E-INK PANELS
- M:	LiangCheng Wang <zaq14760@gmail.com>
- L:	dri-devel@lists.freedesktop.org
- S:	Maintained
- F:	Documentation/devicetree/bindings/display/mayqueen,pixpaper.yaml
-+F:	drivers/gpu/drm/tiny/pixpaper-426m.c
- F:	drivers/gpu/drm/tiny/pixpaper.c
- 
- DRM DRIVER FOR QEMU'S CIRRUS DEVICE
-diff --git a/drivers/gpu/drm/tiny/Kconfig b/drivers/gpu/drm/tiny/Kconfig
-index f0e72d4b6a4709564e63c758e857bdb4a320dbe7..028c4314106ac31dfa717f6433c28e58b34c21e8 100644
---- a/drivers/gpu/drm/tiny/Kconfig
-+++ b/drivers/gpu/drm/tiny/Kconfig
-@@ -98,6 +98,22 @@ config DRM_PIXPAPER
- 
- 	  If M is selected, the module will be built as pixpaper.ko.
- 
-+config DRM_PIXPAPER_426M
-+	tristate "DRM support for PIXPAPER 4.26 monochrome display panel"
-+	depends on DRM && SPI
-+	depends on MMU
-+	select DRM_CLIENT_SELECTION
-+	select DRM_GEM_SHMEM_HELPER
-+	select DRM_KMS_HELPER
-+	help
-+	  DRM driver for the Mayqueen Pixpaper 4.26 monochrome e-ink
-+	  display panel.
-+
-+	  This driver supports SPI-connected 800x480 monochrome panels
-+	  with an XRGB8888 framebuffer input format.
-+
-+	  If M is selected, the module will be built as pixpaper-426m.ko.
-+
- config TINYDRM_HX8357D
- 	tristate "DRM support for HX8357D display panels"
- 	depends on DRM && SPI
-diff --git a/drivers/gpu/drm/tiny/Makefile b/drivers/gpu/drm/tiny/Makefile
-index 48d30bf6152f979404ac1004174587823a30109e..037b751a1a851cc2f86f701ff71008bcb9c59f29 100644
---- a/drivers/gpu/drm/tiny/Makefile
-+++ b/drivers/gpu/drm/tiny/Makefile
-@@ -7,6 +7,7 @@ obj-$(CONFIG_DRM_CIRRUS_QEMU)		+= cirrus-qemu.o
- obj-$(CONFIG_DRM_GM12U320)		+= gm12u320.o
- obj-$(CONFIG_DRM_PANEL_MIPI_DBI)	+= panel-mipi-dbi.o
- obj-$(CONFIG_DRM_PIXPAPER)              += pixpaper.o
-+obj-$(CONFIG_DRM_PIXPAPER_426M)         += pixpaper-426m.o
- obj-$(CONFIG_TINYDRM_HX8357D)		+= hx8357d.o
- obj-$(CONFIG_TINYDRM_ILI9163)		+= ili9163.o
- obj-$(CONFIG_TINYDRM_ILI9225)		+= ili9225.o
-diff --git a/drivers/gpu/drm/tiny/pixpaper-426m.c b/drivers/gpu/drm/tiny/pixpaper-426m.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..159dcc246092fc583cf4f352fe5c41b1e1fae84c
---- /dev/null
-+++ b/drivers/gpu/drm/tiny/pixpaper-426m.c
-@@ -0,0 +1,828 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * DRM driver for PIXPAPER 4.26 monochrome e-ink panel
-+ *
-+ * Author: LiangCheng Wang <zaq14760@gmail.com>,
-+ */
-+
-+#include <linux/delay.h>
-+#include <linux/module.h>
-+#include <linux/spi/spi.h>
-+
-+#include <drm/clients/drm_client_setup.h>
-+#include <drm/drm_atomic.h>
-+#include <drm/drm_atomic_helper.h>
-+#include <drm/drm_drv.h>
-+#include <drm/drm_fbdev_shmem.h>
-+#include <drm/drm_framebuffer.h>
-+#include <drm/drm_gem_atomic_helper.h>
-+#include <drm/drm_gem_shmem_helper.h>
-+#include <drm/drm_gem_framebuffer_helper.h>
-+#include <drm/drm_print.h>
-+#include <drm/drm_probe_helper.h>
-+
-+MODULE_IMPORT_NS("DMA_BUF");
-+
-+/* Panel visible resolution */
-+#define PIXPAPER_WIDTH    800
-+#define PIXPAPER_HEIGHT   480
-+
-+/*
-+ * The panel datasheet specifies an active area of 92.8 mm x 55.68 mm.
-+ * Round to whole millimeters for drm_display_info.
-+ */
-+#define PIXPAPER_WIDTH_MM   93
-+#define PIXPAPER_HEIGHT_MM  56
-+
-+/*
-+ * According to the panel datasheet, no RGB-style timing parameters
-+ * (porches, sync widths, or a dot clock) are provided. Define a minimal
-+ * fixed mode only to satisfy the DRM mode API for this SPI-driven
-+ * e-paper panel.
-+ */
-+#define PIXPAPER_HSYNC_LEN     1
-+#define PIXPAPER_HFRONT_PORCH  1
-+#define PIXPAPER_HBACK_PORCH   1
-+#define PIXPAPER_VSYNC_LEN     1
-+#define PIXPAPER_VFRONT_PORCH  1
-+#define PIXPAPER_VBACK_PORCH   1
-+#define PIXPAPER_MODE_REFRESH_HZ 1
-+#define PIXPAPER_MODE_CLOCK_KHZ \
-+	(((PIXPAPER_WIDTH + PIXPAPER_HFRONT_PORCH + PIXPAPER_HSYNC_LEN + \
-+	   PIXPAPER_HBACK_PORCH) * \
-+	  (PIXPAPER_HEIGHT + PIXPAPER_VFRONT_PORCH + PIXPAPER_VSYNC_LEN + \
-+	   PIXPAPER_VBACK_PORCH) * \
-+	  PIXPAPER_MODE_REFRESH_HZ) / 1000)
-+
-+#define PIXPAPER_SPI_BITS_PER_WORD 8
-+#define PIXPAPER_SPI_SPEED_DEFAULT 1000000
-+
-+#define PIXPAPER_PIXEL_THRESHOLD 128
-+
-+#define PIXPAPER_BUSY_TIMEOUT_MS 10000
-+#define PIXPAPER_BUSY_POLL_INITIAL_US_MIN 1000
-+#define PIXPAPER_BUSY_POLL_INITIAL_US_MAX 1500
-+#define PIXPAPER_BUSY_POLL_US_MIN 100
-+#define PIXPAPER_BUSY_POLL_US_MAX 200
-+
-+#define PIXPAPER_RAM_START_ADDR 0x00
-+
-+#define PIXPAPER_LUMA_R_WEIGHT 299
-+#define PIXPAPER_LUMA_G_WEIGHT 587
-+#define PIXPAPER_LUMA_B_WEIGHT 114
-+#define PIXPAPER_LUMA_DIVISOR 1000
-+#define PIXPAPER_LUMA_ROUNDING_BIAS 500
-+
-+#define PIXPAPER_CMD_DRIVER_OUTPUT_CTRL      0x01
-+#define PIXPAPER_CMD_BOOSTER_SOFT_START_CTRL 0x0C
-+#define PIXPAPER_CMD_TEMP_SENSOR_CONTROL     0x18
-+#define PIXPAPER_CMD_MASTER_ACTIVATION       0x20
-+#define PIXPAPER_CMD_DISPLAY_UPDATE_CTRL2    0x22
-+#define PIXPAPER_CMD_WRITE_RAM_BW            0x24
-+#define PIXPAPER_CMD_BORDER_WAVEFORM_CONTROL 0x3C
-+#define PIXPAPER_CMD_SET_RAM_X_START_END     0x44
-+#define PIXPAPER_CMD_SET_RAM_Y_START_END     0x45
-+#define PIXPAPER_CMD_SET_RAM_X_ADDR_COUNTER  0x4E
-+#define PIXPAPER_CMD_SET_RAM_Y_ADDR_COUNTER  0x4F
-+
-+#define PIXPAPER_DRIVER_OUTPUT_SM                BIT(1)
-+
-+#define PIXPAPER_BORDER_WAVEFORM_GS_TRANSITION   (0x0 << 6)
-+#define PIXPAPER_BORDER_WAVEFORM_LUT1_SEL        0x1
-+
-+#define PIXPAPER_UPDATE_CTRL2_ENABLE_CLK         BIT(7)
-+#define PIXPAPER_UPDATE_CTRL2_ENABLE_ANALOG      BIT(6)
-+#define PIXPAPER_UPDATE_CTRL2_LOAD_TEMP          BIT(5)
-+#define PIXPAPER_UPDATE_CTRL2_LOAD_LUT           BIT(4)
-+#define PIXPAPER_UPDATE_CTRL2_PATTERN_DISPLAY    BIT(2)
-+
-+#define PIXPAPER_TEMP_SENSOR_INTERNAL           0x80
-+#define PIXPAPER_SOFTSTART_A                    0xAE
-+#define PIXPAPER_SOFTSTART_B                    0xC7
-+#define PIXPAPER_SOFTSTART_C                    0xC3
-+#define PIXPAPER_SOFTSTART_D                    0xC0
-+#define PIXPAPER_SOFTSTART_E                    0x80
-+#define PIXPAPER_DRIVER_OUTPUT_GD_SM_TB         PIXPAPER_DRIVER_OUTPUT_SM
-+#define PIXPAPER_BORDER_LUT1                    \
-+	(PIXPAPER_BORDER_WAVEFORM_GS_TRANSITION | \
-+	 PIXPAPER_BORDER_WAVEFORM_LUT1_SEL)
-+#define PIXPAPER_UPDATE_INITIAL                 \
-+	(PIXPAPER_UPDATE_CTRL2_ENABLE_CLK | \
-+	PIXPAPER_UPDATE_CTRL2_ENABLE_ANALOG | \
-+	PIXPAPER_UPDATE_CTRL2_LOAD_TEMP | \
-+	PIXPAPER_UPDATE_CTRL2_LOAD_LUT | \
-+	PIXPAPER_UPDATE_CTRL2_PATTERN_DISPLAY)
-+struct pixpaper_error_ctx {
-+	int errno_code;
-+};
-+
-+struct pixpaper_init_seq {
-+	u8 cmd;
-+	const u8 *data;
-+	u8 len;
-+};
-+
-+struct pixpaper_panel {
-+	struct drm_device drm;
-+	struct drm_plane plane;
-+	struct drm_crtc crtc;
-+	struct drm_encoder encoder;
-+	struct drm_connector connector;
-+
-+	struct spi_device *spi;
-+	struct gpio_desc *reset;
-+	struct gpio_desc *busy;
-+	struct gpio_desc *dc;
-+};
-+
-+static const uint32_t pixpaper_formats[] = {
-+	DRM_FORMAT_XRGB8888,
-+};
-+
-+static void pixpaper_xrgb8888_to_bw(const void *src, void *dst, u32 height,
-+				    u32 width, u32 src_pitch, u32 dst_pitch);
-+
-+static const u8 pixpaper_init_temp_sensor[] = {
-+	PIXPAPER_TEMP_SENSOR_INTERNAL,
-+};
-+
-+static const u8 pixpaper_init_softstart[] = {
-+	PIXPAPER_SOFTSTART_A,
-+	PIXPAPER_SOFTSTART_B,
-+	PIXPAPER_SOFTSTART_C,
-+	PIXPAPER_SOFTSTART_D,
-+	PIXPAPER_SOFTSTART_E,
-+};
-+
-+static const u8 pixpaper_init_driver_output[] = {
-+	(PIXPAPER_HEIGHT - 1) & 0xff,
-+	(PIXPAPER_HEIGHT - 1) >> 8,
-+	PIXPAPER_DRIVER_OUTPUT_GD_SM_TB,
-+};
-+
-+static const u8 pixpaper_init_border[] = {
-+	PIXPAPER_BORDER_LUT1,
-+};
-+
-+static const u8 pixpaper_init_ram_x_window[] = {
-+	PIXPAPER_RAM_START_ADDR,
-+	PIXPAPER_RAM_START_ADDR,
-+	(PIXPAPER_WIDTH - 1) & 0xff,
-+	(PIXPAPER_WIDTH - 1) >> 8,
-+};
-+
-+static const u8 pixpaper_init_ram_y_window[] = {
-+	PIXPAPER_RAM_START_ADDR,
-+	PIXPAPER_RAM_START_ADDR,
-+	(PIXPAPER_HEIGHT - 1) & 0xff,
-+	(PIXPAPER_HEIGHT - 1) >> 8,
-+};
-+
-+static const u8 pixpaper_init_ram_x_counter[] = {
-+	PIXPAPER_RAM_START_ADDR,
-+	PIXPAPER_RAM_START_ADDR,
-+};
-+
-+static const u8 pixpaper_init_ram_y_counter[] = {
-+	PIXPAPER_RAM_START_ADDR,
-+	PIXPAPER_RAM_START_ADDR,
-+};
-+
-+static const struct pixpaper_init_seq pixpaper_init_seqs[] = {
-+	{
-+		.cmd = PIXPAPER_CMD_TEMP_SENSOR_CONTROL,
-+		.data = pixpaper_init_temp_sensor,
-+		.len = ARRAY_SIZE(pixpaper_init_temp_sensor),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_BOOSTER_SOFT_START_CTRL,
-+		.data = pixpaper_init_softstart,
-+		.len = ARRAY_SIZE(pixpaper_init_softstart),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_DRIVER_OUTPUT_CTRL,
-+		.data = pixpaper_init_driver_output,
-+		.len = ARRAY_SIZE(pixpaper_init_driver_output),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_BORDER_WAVEFORM_CONTROL,
-+		.data = pixpaper_init_border,
-+		.len = ARRAY_SIZE(pixpaper_init_border),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_SET_RAM_X_START_END,
-+		.data = pixpaper_init_ram_x_window,
-+		.len = ARRAY_SIZE(pixpaper_init_ram_x_window),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_SET_RAM_Y_START_END,
-+		.data = pixpaper_init_ram_y_window,
-+		.len = ARRAY_SIZE(pixpaper_init_ram_y_window),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_SET_RAM_X_ADDR_COUNTER,
-+		.data = pixpaper_init_ram_x_counter,
-+		.len = ARRAY_SIZE(pixpaper_init_ram_x_counter),
-+	},
-+	{
-+		.cmd = PIXPAPER_CMD_SET_RAM_Y_ADDR_COUNTER,
-+		.data = pixpaper_init_ram_y_counter,
-+		.len = ARRAY_SIZE(pixpaper_init_ram_y_counter),
-+	},
-+};
-+
-+static inline struct pixpaper_panel *to_pixpaper_panel(struct drm_device *drm)
-+{
-+	return container_of(drm, struct pixpaper_panel, drm);
-+}
-+
-+static void pixpaper_wait_busy(struct pixpaper_panel *panel)
-+{
-+	unsigned int timeout_ms = PIXPAPER_BUSY_TIMEOUT_MS;
-+	unsigned long timeout_jiffies = jiffies + msecs_to_jiffies(timeout_ms);
-+
-+	usleep_range(PIXPAPER_BUSY_POLL_INITIAL_US_MIN,
-+		     PIXPAPER_BUSY_POLL_INITIAL_US_MAX);
-+	while (gpiod_get_value_cansleep(panel->busy) != 0) {
-+		if (time_after(jiffies, timeout_jiffies)) {
-+			drm_warn(&panel->drm, "Busy wait timed out\n");
-+			return;
-+		}
-+		usleep_range(PIXPAPER_BUSY_POLL_US_MIN,
-+			     PIXPAPER_BUSY_POLL_US_MAX);
-+	}
-+}
-+
-+static void pixpaper_spi_write(struct pixpaper_panel *panel, int dc,
-+			       const void *buf, size_t len,
-+			       struct pixpaper_error_ctx *err)
-+{
-+	int ret;
-+
-+	if (err->errno_code || !len)
-+		return;
-+
-+	gpiod_set_value_cansleep(panel->dc, dc);
-+	usleep_range(1, 5);
-+
-+	ret = spi_write(panel->spi, buf, len);
-+	if (ret < 0)
-+		err->errno_code = ret;
-+}
-+
-+static void pixpaper_send_cmd(struct pixpaper_panel *panel, u8 cmd,
-+			      struct pixpaper_error_ctx *err)
-+{
-+	pixpaper_spi_write(panel, 0, &cmd, sizeof(cmd), err);
-+}
-+
-+static void pixpaper_send_data(struct pixpaper_panel *panel, u8 data,
-+			       struct pixpaper_error_ctx *err)
-+{
-+	pixpaper_spi_write(panel, 1, &data, sizeof(data), err);
-+}
-+
-+static void pixpaper_reset_ram_counters(struct pixpaper_panel *panel,
-+					struct pixpaper_error_ctx *err)
-+{
-+	if (err->errno_code)
-+		return;
-+
-+	pixpaper_send_cmd(panel, PIXPAPER_CMD_SET_RAM_X_ADDR_COUNTER, err);
-+	pixpaper_send_data(panel, PIXPAPER_RAM_START_ADDR, err);
-+	pixpaper_send_data(panel, PIXPAPER_RAM_START_ADDR, err);
-+
-+	pixpaper_send_cmd(panel, PIXPAPER_CMD_SET_RAM_Y_ADDR_COUNTER, err);
-+	pixpaper_send_data(panel, PIXPAPER_RAM_START_ADDR, err);
-+	pixpaper_send_data(panel, PIXPAPER_RAM_START_ADDR, err);
-+}
-+
-+static void pixpaper_write_ram(struct pixpaper_panel *panel, u8 cmd,
-+			       const u8 *buf, u32 len,
-+			       struct pixpaper_error_ctx *err)
-+{
-+	if (err->errno_code || !buf || !len)
-+		return;
-+
-+	pixpaper_reset_ram_counters(panel, err);
-+
-+	pixpaper_send_cmd(panel, cmd, err);
-+	pixpaper_spi_write(panel, 1, buf, len, err);
-+}
-+
-+static void pixpaper_send_init_seq(struct pixpaper_panel *panel,
-+				   const struct pixpaper_init_seq *seq,
-+				   struct pixpaper_error_ctx *err)
-+{
-+	if (err->errno_code || !seq->data || !seq->len)
-+		return;
-+
-+	pixpaper_send_cmd(panel, seq->cmd, err);
-+	pixpaper_spi_write(panel, 1, seq->data, seq->len, err);
-+}
-+
-+static void pixpaper_trigger_update(struct pixpaper_panel *panel,
-+				    struct pixpaper_error_ctx *err)
-+{
-+	if (err->errno_code)
-+		return;
-+
-+	pixpaper_send_cmd(panel, PIXPAPER_CMD_DISPLAY_UPDATE_CTRL2, err);
-+	pixpaper_send_data(panel, PIXPAPER_UPDATE_INITIAL, err);
-+	pixpaper_send_cmd(panel, PIXPAPER_CMD_MASTER_ACTIVATION, err);
-+	pixpaper_wait_busy(panel);
-+}
-+
-+static void *pixpaper_prepare_buffer(const void *vaddr,
-+				     const struct drm_framebuffer *fb,
-+				     u32 *dst_pitch,
-+				     struct pixpaper_error_ctx *err)
-+{
-+	void *dst;
-+
-+	if (err->errno_code)
-+		return NULL;
-+
-+	*dst_pitch = DIV_ROUND_UP(fb->width, 8);
-+	dst = kzalloc(*dst_pitch * fb->height, GFP_KERNEL);
-+	if (!dst) {
-+		err->errno_code = -ENOMEM;
-+		return NULL;
-+	}
-+
-+	pixpaper_xrgb8888_to_bw(vaddr, dst, fb->height, fb->width,
-+				fb->pitches[0], *dst_pitch);
-+
-+	return dst;
-+}
-+
-+static void pixpaper_write_image(struct pixpaper_panel *panel,
-+				 const u8 *buf, u32 len,
-+				 struct pixpaper_error_ctx *err)
-+{
-+	if (err->errno_code)
-+		return;
-+
-+	pixpaper_write_ram(panel, PIXPAPER_CMD_WRITE_RAM_BW, buf, len, err);
-+}
-+
-+static int pixpaper_panel_hw_init(struct pixpaper_panel *panel)
-+{
-+	struct pixpaper_error_ctx err = { .errno_code = 0 };
-+	u8 i;
-+
-+	gpiod_set_value_cansleep(panel->reset, 0);
-+	msleep(50);
-+	gpiod_set_value_cansleep(panel->reset, 1);
-+	msleep(50);
-+
-+	pixpaper_wait_busy(panel);
-+
-+	for (i = 0; i < ARRAY_SIZE(pixpaper_init_seqs); i++) {
-+		pixpaper_send_init_seq(panel, &pixpaper_init_seqs[i], &err);
-+		if (err.errno_code)
-+			goto init_fail;
-+	}
-+
-+	return 0;
-+
-+init_fail:
-+	drm_err(&panel->drm, "Hardware initialization failed (err=%d)\n",
-+		err.errno_code);
-+	return err.errno_code;
-+}
-+
-+static void pixpaper_xrgb8888_to_bw(const void *src, void *dst, u32 height,
-+				    u32 width, u32 src_pitch, u32 dst_pitch)
-+{
-+	const uint8_t *src_base = src;
-+	uint8_t *dst_pixels = dst;
-+
-+	if (dst == NULL || src == NULL)
-+		return;
-+
-+	for (u32 y = 0; y < height; y++) {
-+		uint8_t *dst_row = dst_pixels + y * dst_pitch;
-+		const uint8_t *src_row = src_base + y * src_pitch;
-+		const uint32_t *src_pixels = (const uint32_t *)src_row;
-+
-+		for (u32 x = 0; x < width; x++) {
-+			u32 src_x = width - 1 - x;
-+			uint8_t r, g, b;
-+			u8 bit;
-+			u32 bit_pos = x % 8;
-+			u32 byte_pos = x / 8;
-+			uint32_t gray_val;
-+			uint32_t pixel;
-+
-+			pixel = src_pixels[src_x];
-+			r = (pixel >> 16) & 0xFF;
-+			g = (pixel >> 8) & 0xFF;
-+			b = pixel & 0xFF;
-+
-+			gray_val = (r * PIXPAPER_LUMA_R_WEIGHT +
-+				    g * PIXPAPER_LUMA_G_WEIGHT +
-+				    b * PIXPAPER_LUMA_B_WEIGHT +
-+				    PIXPAPER_LUMA_ROUNDING_BIAS) /
-+				   PIXPAPER_LUMA_DIVISOR;
-+			bit = gray_val >= PIXPAPER_PIXEL_THRESHOLD;
-+
-+			if (bit)
-+				dst_row[byte_pos] |= BIT(7 - bit_pos);
-+			else
-+				dst_row[byte_pos] &= ~BIT(7 - bit_pos);
-+		}
-+	}
-+}
-+
-+static int pixpaper_plane_helper_atomic_check(struct drm_plane *plane,
-+					      struct drm_atomic_state *state)
-+{
-+	struct drm_plane_state *new_plane_state =
-+		drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_crtc *new_crtc = new_plane_state->crtc;
-+	struct drm_crtc_state *new_crtc_state = NULL;
-+	int ret;
-+
-+	if (new_crtc)
-+		new_crtc_state = drm_atomic_get_new_crtc_state(state, new_crtc);
-+
-+	ret = drm_atomic_helper_check_plane_state(new_plane_state,
-+						  new_crtc_state, DRM_PLANE_NO_SCALING,
-+						  DRM_PLANE_NO_SCALING, false, false);
-+	if (ret)
-+		return ret;
-+
-+	return 0;
-+}
-+
-+static int pixpaper_crtc_helper_atomic_check(struct drm_crtc *crtc,
-+					     struct drm_atomic_state *state)
-+{
-+	struct drm_crtc_state *crtc_state =
-+		drm_atomic_get_new_crtc_state(state, crtc);
-+
-+	if (!crtc_state->enable)
-+		return 0;
-+
-+	return drm_atomic_helper_check_crtc_primary_plane(crtc_state);
-+}
-+
-+static void pixpaper_crtc_atomic_enable(struct drm_crtc *crtc,
-+					struct drm_atomic_state *state)
-+{
-+	struct pixpaper_panel *panel = to_pixpaper_panel(crtc->dev);
-+	struct drm_device *drm = &panel->drm;
-+	int idx;
-+
-+	if (!drm_dev_enter(drm, &idx))
-+		return;
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static void pixpaper_crtc_atomic_disable(struct drm_crtc *crtc,
-+					 struct drm_atomic_state *state)
-+{
-+	struct pixpaper_panel *panel = to_pixpaper_panel(crtc->dev);
-+	struct drm_device *drm = &panel->drm;
-+	int idx;
-+
-+	if (!drm_dev_enter(drm, &idx))
-+		return;
-+
-+	drm_dev_exit(idx);
-+}
-+
-+static void pixpaper_plane_atomic_update(struct drm_plane *plane,
-+					 struct drm_atomic_state *state)
-+{
-+	struct drm_plane_state *plane_state =
-+		drm_atomic_get_new_plane_state(state, plane);
-+	struct drm_shadow_plane_state *shadow_plane_state =
-+		to_drm_shadow_plane_state(plane_state);
-+	struct pixpaper_panel *panel = to_pixpaper_panel(plane->dev);
-+
-+	if (!plane_state->crtc || !plane_state->fb || !plane_state->visible)
-+		return;
-+
-+	{
-+		struct drm_device *drm = &panel->drm;
-+		struct drm_framebuffer *fb = plane_state->fb;
-+		struct iosys_map map = shadow_plane_state->data[0];
-+		const void *vaddr = map.vaddr;
-+		int idx;
-+		struct pixpaper_error_ctx err = { .errno_code = 0 };
-+		uint32_t dst_pitch;
-+		void *dst = NULL;
-+		u32 dst_len;
-+
-+		if (!drm_dev_enter(drm, &idx))
-+			return;
-+
-+		if (fb->format->format != DRM_FORMAT_XRGB8888) {
-+			err.errno_code = -EINVAL;
-+			drm_err(drm, "Unsupported framebuffer format: 0x%08x\n",
-+				fb->format->format);
-+			goto update_cleanup;
-+		}
-+
-+		dst = pixpaper_prepare_buffer(vaddr, fb, &dst_pitch, &err);
-+		if (err.errno_code) {
-+			drm_err(drm, "Failed to allocate temporary buffer\n");
-+			goto update_cleanup;
-+		}
-+
-+		dst_len = dst_pitch * fb->height;
-+		pixpaper_write_image(panel, dst, dst_len, &err);
-+		if (err.errno_code)
-+			goto update_cleanup;
-+
-+		pixpaper_trigger_update(panel, &err);
-+		if (err.errno_code)
-+			goto update_cleanup;
-+update_cleanup:
-+		if (err.errno_code && err.errno_code != -ETIMEDOUT)
-+			drm_err(drm, "Frame update failed: %d\n",
-+				err.errno_code);
-+
-+		kfree(dst);
-+		drm_dev_exit(idx);
-+	}
-+}
-+
-+static int pixpaper_connector_get_modes(struct drm_connector *connector)
-+{
-+	struct drm_display_mode *mode;
-+
-+	mode = drm_mode_create(connector->dev);
-+	if (!mode) {
-+		drm_err(connector->dev,
-+			"Failed to create mode for connector %s\n",
-+			connector->name);
-+		return 0;
-+	}
-+
-+	mode->hdisplay    = PIXPAPER_WIDTH;
-+	mode->hsync_start = PIXPAPER_WIDTH + PIXPAPER_HFRONT_PORCH;
-+	mode->hsync_end   = mode->hsync_start + PIXPAPER_HSYNC_LEN;
-+	mode->htotal      = mode->hsync_end + PIXPAPER_HBACK_PORCH;
-+
-+	mode->vdisplay    = PIXPAPER_HEIGHT;
-+	mode->vsync_start = PIXPAPER_HEIGHT + PIXPAPER_VFRONT_PORCH;
-+	mode->vsync_end   = mode->vsync_start + PIXPAPER_VSYNC_LEN;
-+	mode->vtotal      = mode->vsync_end + PIXPAPER_VBACK_PORCH;
-+
-+	mode->clock       = PIXPAPER_MODE_CLOCK_KHZ;
-+
-+	mode->type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED;
-+	drm_mode_set_name(mode);
-+
-+	if (drm_mode_validate_size(mode, connector->dev->mode_config.max_width,
-+				   connector->dev->mode_config.max_height) != MODE_OK) {
-+		drm_warn(connector->dev,
-+			 "Mode %s (%dx%d) failed size validation against max %dx%d\n",
-+			 mode->name, mode->hdisplay, mode->vdisplay,
-+			 connector->dev->mode_config.max_width,
-+			 connector->dev->mode_config.max_height);
-+		drm_mode_destroy(connector->dev, mode);
-+		return 0;
-+		}
-+
-+		drm_mode_probed_add(connector, mode);
-+
-+		connector->display_info.width_mm  = PIXPAPER_WIDTH_MM;
-+		connector->display_info.height_mm = PIXPAPER_HEIGHT_MM;
-+
-+	return 1;
-+}
-+
-+static enum drm_mode_status pixpaper_mode_valid(const struct drm_display_mode *mode)
-+{
-+	if (mode->hdisplay == PIXPAPER_WIDTH &&
-+	    mode->vdisplay == PIXPAPER_HEIGHT)
-+		return MODE_OK;
-+
-+	return MODE_BAD;
-+}
-+
-+static enum drm_mode_status pixpaper_crtc_mode_valid(struct drm_crtc *crtc,
-+						     const struct drm_display_mode *mode)
-+{
-+	return pixpaper_mode_valid(mode);
-+}
-+
-+static const struct drm_plane_funcs pixpaper_plane_funcs = {
-+	.update_plane = drm_atomic_helper_update_plane,
-+	.disable_plane = drm_atomic_helper_disable_plane,
-+	.destroy = drm_plane_cleanup,
-+	DRM_GEM_SHADOW_PLANE_FUNCS,
-+};
-+
-+static const struct drm_plane_helper_funcs pixpaper_plane_helper_funcs = {
-+	DRM_GEM_SHADOW_PLANE_HELPER_FUNCS,
-+	.atomic_check = pixpaper_plane_helper_atomic_check,
-+	.atomic_update = pixpaper_plane_atomic_update,
-+};
-+
-+static const struct drm_crtc_funcs pixpaper_crtc_funcs = {
-+	.set_config = drm_atomic_helper_set_config,
-+	.page_flip = drm_atomic_helper_page_flip,
-+	.reset = drm_atomic_helper_crtc_reset,
-+	.destroy = drm_crtc_cleanup,
-+	.atomic_duplicate_state = drm_atomic_helper_crtc_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_crtc_destroy_state,
-+};
-+
-+static const struct drm_crtc_helper_funcs pixpaper_crtc_helper_funcs = {
-+	.mode_valid = pixpaper_crtc_mode_valid,
-+	.atomic_check = pixpaper_crtc_helper_atomic_check,
-+	.atomic_enable = pixpaper_crtc_atomic_enable,
-+	.atomic_disable = pixpaper_crtc_atomic_disable,
-+};
-+
-+static const struct drm_encoder_funcs pixpaper_encoder_funcs = {
-+	.destroy = drm_encoder_cleanup,
-+};
-+
-+static const struct drm_connector_funcs pixpaper_connector_funcs = {
-+	.reset = drm_atomic_helper_connector_reset,
-+	.fill_modes = drm_helper_probe_single_connector_modes,
-+	.destroy = drm_connector_cleanup,
-+	.atomic_duplicate_state = drm_atomic_helper_connector_duplicate_state,
-+	.atomic_destroy_state = drm_atomic_helper_connector_destroy_state,
-+};
-+
-+static const struct drm_connector_helper_funcs pixpaper_connector_helper_funcs = {
-+	.get_modes = pixpaper_connector_get_modes,
-+};
-+
-+DEFINE_DRM_GEM_FOPS(pixpaper_fops);
-+
-+static struct drm_driver pixpaper_drm_driver = {
-+	.driver_features = DRIVER_GEM | DRIVER_MODESET | DRIVER_ATOMIC,
-+	.fops = &pixpaper_fops,
-+	.name = "pixpaper-426m",
-+	.desc = "DRM driver for PIXPAPER 4.26 monochrome e-ink panel",
-+	.major = 1,
-+	.minor = 0,
-+	DRM_GEM_SHMEM_DRIVER_OPS,
-+	DRM_FBDEV_SHMEM_DRIVER_OPS,
-+};
-+
-+static int pixpaper_mode_config_valid(struct drm_device *dev,
-+				      const struct drm_display_mode *mode)
-+{
-+	return pixpaper_mode_valid(mode);
-+}
-+
-+static const struct drm_mode_config_funcs pixpaper_mode_config_funcs = {
-+	.fb_create = drm_gem_fb_create_with_dirty,
-+	.mode_valid = pixpaper_mode_config_valid,
-+	.atomic_check = drm_atomic_helper_check,
-+	.atomic_commit = drm_atomic_helper_commit,
-+};
-+
-+static int pixpaper_probe(struct spi_device *spi)
-+{
-+	struct device *dev = &spi->dev;
-+	struct pixpaper_panel *panel;
-+	struct drm_device *drm;
-+	int ret;
-+
-+	panel = devm_drm_dev_alloc(dev, &pixpaper_drm_driver,
-+				   struct pixpaper_panel, drm);
-+	if (IS_ERR(panel))
-+		return PTR_ERR(panel);
-+
-+	drm = &panel->drm;
-+	panel->spi = spi;
-+	spi_set_drvdata(spi, panel);
-+
-+	ret = drmm_mode_config_init(drm);
-+	if (ret)
-+		return ret;
-+
-+	spi->mode = SPI_MODE_0;
-+	spi->bits_per_word = PIXPAPER_SPI_BITS_PER_WORD;
-+
-+	if (!spi->max_speed_hz) {
-+		drm_warn(drm,
-+			 "spi-max-frequency not specified in DT, using default %u Hz\n",
-+			 PIXPAPER_SPI_SPEED_DEFAULT);
-+		spi->max_speed_hz = PIXPAPER_SPI_SPEED_DEFAULT;
-+	}
-+
-+	ret = spi_setup(spi);
-+	if (ret < 0) {
-+		drm_err(drm, "SPI setup failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	if (!dev->dma_mask)
-+		dev->dma_mask = &dev->coherent_dma_mask;
-+	ret = dma_set_mask_and_coherent(dev, DMA_BIT_MASK(32));
-+	if (ret) {
-+		drm_err(drm, "Failed to set DMA mask: %d\n", ret);
-+		return ret;
-+	}
-+
-+	panel->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(panel->reset))
-+		return PTR_ERR(panel->reset);
-+
-+	panel->busy = devm_gpiod_get(dev, "busy", GPIOD_IN);
-+	if (IS_ERR(panel->busy))
-+		return PTR_ERR(panel->busy);
-+
-+	panel->dc = devm_gpiod_get(dev, "dc", GPIOD_OUT_HIGH);
-+	if (IS_ERR(panel->dc))
-+		return PTR_ERR(panel->dc);
-+
-+	ret = pixpaper_panel_hw_init(panel);
-+	if (ret) {
-+		drm_err(drm, "Panel hardware initialization failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	drm->mode_config.funcs = &pixpaper_mode_config_funcs;
-+	drm->mode_config.min_width = PIXPAPER_WIDTH;
-+	drm->mode_config.max_width = PIXPAPER_WIDTH;
-+	drm->mode_config.min_height = PIXPAPER_HEIGHT;
-+	drm->mode_config.max_height = PIXPAPER_HEIGHT;
-+
-+	ret = drm_universal_plane_init(drm, &panel->plane, 1, &pixpaper_plane_funcs,
-+				       pixpaper_formats, ARRAY_SIZE(pixpaper_formats), NULL,
-+				       DRM_PLANE_TYPE_PRIMARY, NULL);
-+	if (ret)
-+		return ret;
-+	drm_plane_helper_add(&panel->plane, &pixpaper_plane_helper_funcs);
-+
-+	ret = drm_crtc_init_with_planes(drm, &panel->crtc, &panel->plane, NULL,
-+					&pixpaper_crtc_funcs, NULL);
-+	if (ret)
-+		return ret;
-+	drm_crtc_helper_add(&panel->crtc, &pixpaper_crtc_helper_funcs);
-+
-+	ret = drm_encoder_init(drm, &panel->encoder, &pixpaper_encoder_funcs,
-+			       DRM_MODE_ENCODER_NONE, NULL);
-+	if (ret)
-+		return ret;
-+
-+	ret = drm_connector_init(drm, &panel->connector,
-+				 &pixpaper_connector_funcs,
-+				 DRM_MODE_CONNECTOR_SPI);
-+	if (ret)
-+		return ret;
-+
-+	drm_connector_helper_add(&panel->connector,
-+				 &pixpaper_connector_helper_funcs);
-+	drm_connector_attach_encoder(&panel->connector, &panel->encoder);
-+	panel->encoder.possible_crtcs = drm_crtc_mask(&panel->crtc);
-+
-+	drm_mode_config_reset(drm);
-+
-+	ret = drm_dev_register(drm, 0);
-+	if (ret)
-+		return ret;
-+
-+	drm_client_setup(drm, NULL);
-+
-+	return 0;
-+}
-+
-+static void pixpaper_remove(struct spi_device *spi)
-+{
-+	struct pixpaper_panel *panel = spi_get_drvdata(spi);
-+
-+	if (!panel)
-+		return;
-+
-+	drm_dev_unplug(&panel->drm);
-+	drm_atomic_helper_shutdown(&panel->drm);
-+}
-+
-+static const struct spi_device_id pixpaper_ids[] = { { "pixpaper-426m", 0 }, {} };
-+MODULE_DEVICE_TABLE(spi, pixpaper_ids);
-+
-+static const struct of_device_id pixpaper_dt_ids[] = {
-+	{ .compatible = "mayqueen,pixpaper-426m" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, pixpaper_dt_ids);
-+
-+static struct spi_driver pixpaper_spi_driver = {
-+	.driver = {
-+		.name = "pixpaper-426m",
-+		.of_match_table = pixpaper_dt_ids,
-+	},
-+	.id_table = pixpaper_ids,
-+	.probe = pixpaper_probe,
-+	.remove = pixpaper_remove,
-+};
-+
-+module_spi_driver(pixpaper_spi_driver);
-+
-+MODULE_AUTHOR("LiangCheng Wang");
-+MODULE_DESCRIPTION("DRM SPI driver for PIXPAPER 4.26 monochrome e-ink panel");
-+MODULE_LICENSE("GPL");
+> diff --git a/drivers/pci/controller/pcie-tegra264.c b/drivers/pci/control=
+ler/pcie-tegra264.c
+> new file mode 100644
+> index 0000000000000..0b8e0f724e251
+> --- /dev/null
+> +++ b/drivers/pci/controller/pcie-tegra264.c
+[ ... ]
+> +static void tegra264_pcie_icc_set(struct tegra264_pcie *pcie)
+> +{
+> +	u32 value, speed, width;
+> +	int err;
+> +
+> +	value =3D readw(pcie->ecam + XTL_RC_PCIE_CFG_LINK_STATUS);
+> +	speed =3D FIELD_GET(PCI_EXP_LNKSTA_CLS, value);
+> +	width =3D FIELD_GET(PCI_EXP_LNKSTA_NLW, value);
+> +
+> +	value =3D Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(speed));
 
--- 
-2.34.1
+[Severity: High]
+Does this calculation evaluate to 0 MBps? The speed variable is populated
+with the raw hardware CLS value, but PCIE_SPEED2MBS_ENC() expects a mapped
+enum pci_bus_speed constant. If the raw values do not match the expected
+constants, the macro evaluates to 0, which would heavily throttle performan=
+ce.
 
+[ ... ]
+> +static int tegra264_pcie_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	if (tegra_is_silicon()) {
+> +		pcie->bpmp =3D tegra_bpmp_get_with_id(dev, &pcie->ctl_id);
+> +		if (IS_ERR(pcie->bpmp))
+> +			return dev_err_probe(dev, PTR_ERR(pcie->bpmp),
+> +					     "failed to get BPMP\n");
+> +	}
+> +
+> +	err =3D devm_pm_runtime_active_enabled(dev);
+
+[Severity: High]
+Does devm_pm_runtime_active_enabled() exist in the kernel tree? It appears
+this might be a typo for devm_pm_runtime_enable() or a similar helper, which
+would cause a compilation error due to an unresolved symbol.
+
+[Severity: Medium]
+If the devm_pm_runtime_active_enabled() call fails and the function returns
+early, does this leak the BPMP reference? It looks like tegra_bpmp_put()
+is not called on this error path.
+
+> +	if (err < 0)
+> +		return dev_err_probe(dev, "failed to enable runtime PM\n");
+
+[Severity: High]
+Does this dev_err_probe() call have the correct number of arguments? It see=
+ms
+the integer error code argument is missing. This will cause the format stri=
+ng
+to be cast to the integer err parameter, leading to an uninitialized format
+string and a likely crash or compilation error.
+
+> +
+> +	pm_runtime_get_sync(dev);
+
+[Severity: High]
+Should the return value of pm_runtime_get_sync() be checked here? If poweri=
+ng
+on the device fails, the driver proceeds to read MMIO registers during the
+subsequent tegra264_pcie_check_ranges() call. Accessing unpowered hardware
+registers can trigger a synchronous external abort and kernel panic.
+
+[ ... ]
+> +	tegra264_pcie_init(pcie);
+> +
+> +	if (!pcie->link_up)
+> +		goto free_ecam;
+
+[Severity: High]
+If the link is not up, does this branch cause probe() to return success
+while freeing the ECAM resources? The err variable is not set to a negative
+error code before the goto. This would cause the driver to bind successfull=
+y,
+but pcie->bridge->bus would remain uninitialized, leading to a NULL pointer
+dereference during unbind in tegra264_pcie_remove().
+
+> +
+> +	err =3D pci_host_probe(bridge);
+> +	if (err < 0) {
+> +		dev_err_probe(dev, ERR_PTR(err), "failed to register host\n");
+
+[Severity: High]
+Is ERR_PTR(err) the correct argument to pass here? dev_err_probe() expects =
+an
+integer as its second parameter. Passing a pointer could cause a build
+breakage or result in incorrect error logging.
+
+[ ... ]
+> +static void tegra264_pcie_remove(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	pm_runtime_put_sync(&pdev->dev);
+> +	pm_runtime_disable(&pdev->dev);
+
+[Severity: Medium]
+Since a devres helper is used in probe to enable runtime PM, it will
+automatically queue a pm_runtime_disable() call on removal. Does calling it
+explicitly here cause an unbalanced disable_depth counter? If the driver is
+unbound and rebound, the counter might remain greater than 0, breaking
+runtime PM for this device permanently.
+
+[ ... ]
+> +static int tegra264_pcie_suspend_noirq(struct device *dev)
+> +{
+> +	struct tegra264_pcie *pcie =3D dev_get_drvdata(dev);
+> +	int err;
+> +
+> +	tegra_pcie_deinit(pcie);
+
+[Severity: High]
+Is tegra_pcie_deinit() a typo? The driver defines the deinitialization
+function as tegra264_pcie_deinit(pcie). Calling an undefined function will
+cause a build failure.
+
+> +
+> +	if (pcie->wake_gpio && device_may_wakeup(dev)) {
+> +		err =3D enable_irq_wake(pcie->wake_irq);
+
+[Severity: Medium]
+Is there a registered interrupt handler for this wake IRQ? The IRQ is mapped
+and enabled for wakeup, but it does not seem to be requested anywhere via
+request_irq() or dev_pm_set_wake_irq(). When the IRQ triggers, the kernel
+will likely find no action handler, log a spurious interrupt error, and
+permanently mask the IRQ, breaking subsequent wakeups.
+
+[ ... ]
+> +static int tegra264_pcie_resume_noirq(struct device *dev)
+> +{
+[ ... ]
+> +	if (pcie->link_up =3D=3D false)
+> +		return 0;
+> +
+> +	tegra264_pcie_init(pcie);
+
+[Severity: High]
+Can tegra264_pcie_init() safely run in a noirq callback? The callback execu=
+tes
+with hardware interrupts disabled, but tegra264_pcie_init() invokes sleeping
+functions like usleep_range() and msleep(). Calling sleeping functions in an
+atomic or noirq context will trigger a system hang or kernel bug.
+
+[ ... ]
+> +static struct platform_driver tegra264_pcie_driver =3D {
+> +	.probe =3D tegra264_pcie_probe,
+> +	.remove =3D tegra264_pcie_remove,
+> +	.driver =3D {
+> +		.name =3D "tegra264-pcie",
+> +		.pm =3D &tegra264_pcie_pm_ops,
+
+[Severity: Low]
+Should the pm operations pointer be wrapped with pm_ptr()? Directly assigni=
+ng
+it without the wrapper prevents the compiler from eliminating the dev_pm_ops
+structure as dead code when PM support is disabled.
+
+> +		.of_match_table =3D tegra264_pcie_of_match,
+> +	},
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-tegra264-p=
+cie-v5-0-84a813b979d7@nvidia.com?part=3D3
