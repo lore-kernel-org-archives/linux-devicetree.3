@@ -1,109 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A648937CD45;
-	Tue, 26 May 2026 08:06:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C92172D5C7A;
+	Tue, 26 May 2026 08:24:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779782776; cv=none; b=UcvjDK9VRa4H3cIcp3ySfoNIlltartyRoVw6kW/hVCW9eQp3LtM9XazRn5J49PVorjxBfYBFYE5oklCgPds9Fs8wNKfNqDPxd0JMRCAx7/J7uOpWqTyoKJKnqzp0K7236qmCQHzYdKSRbg53eNSyRx+dmc6JC2QxWL9R+odCDTU=
+	t=1779783844; cv=none; b=A+cM0MVfs+xz8BoP3JoU264kb10KnFGu8f13eQWiw3o0jyczYCfbEiE//g4qWEQF1e7cnmZNTgUTjOVBjde6o+m2ICQK0d9QpobDcT5gF4Yvdd6e4P0tjzC2b5BBnx/7yoXSEYOUh9lfpD7Idh0u4aFGFVSJR3ankAJLTmU2z1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779782776; c=relaxed/simple;
-	bh=HGapA52ayerj7Adm/fitF7ubF4fZQQHvIgBK9Lzu5Yk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a3xcGKXtFlYP/dUalyML4C8UyjH+WpsvJ+oPz8e1HAS0YkQBt+pFF3eSaE4vtNBlgg+DAXGQuNU4pKflDZAj4PPobvhsseQJpnx2nsJPdo975esu9dMSJiddfUEU3yt117gUBzjWJ31k8dUYH7y9X75Xmvs6IkwBCBoIUzzYrBY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GjjrCFpc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779783844; c=relaxed/simple;
+	bh=jzPDUrYU5YUBI5VtcpGXBZDnsZJiBGb7cYlhvsOTwB0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u7ok/vJhZ04RqvePX2WloXSxLtY5BCyCGOBgZmZNilwsy0t+L64udfg2R5Fh+ki3FfPvwMw8pOXYr8b4ai49YrUYQ41Rdu3gVDmf5pFYnvWDYs9GPgzjguEEdjnd7EfpqULCS25FH9s/u69XMwjWpqLzIqxl/MBb9lCWfbCg6LU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=ZyGQyVQT; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GjjrCFpc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9651F000E9;
-	Tue, 26 May 2026 08:06:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779782775;
-	bh=g6XMMZUVsPZY3zr1bCsuHRKX53Xlum27v7L+XlSyf60=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=GjjrCFpc7W/uWJBxjHgFnxkFPVfFFFVq+t9oz2m0MynTPoKSQD1tJcaO8PtZUPk3I
-	 uTcq4jba6ubS0GK5hI0943sfDtwBQVcE8Z4WF4OZvxllIIy3M2EQvj+c34Lo5ZVLj4
-	 b3rfB4k0S8JaWUHAKrebtPBjKNP3AwC+HgCaPLfXU8amyec9wo+EdGh5yVlN0I2gMw
-	 9rwPKA0vAFYqKSmpdkHNAw6fI4znsSfArIe503zTeTYvKLIYDQjFNhB+7J8+0JBagJ
-	 8YPJiVHIfxXZ8UzNlx8bW/yEO1ohwBwLq4KG4T9x8uUUsdiSDqSYKJZp2KI3U45AgX
-	 WNX6SXE33xZcA==
-Date: Tue, 26 May 2026 09:06:06 +0100
-From: Sudeep Holla <sudeep.holla@kernel.org>
-To: Marc Zyngier <maz@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Sudeep Holla <sudeep.holla@kernel.org>,
-	Hanjun Guo <guohanjun@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Mark Rutland <mark.rutland@arm.com>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej.skrabec@gmail.com>,
-	Samuel Holland <samuel@sholland.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Ge Gordon <gordon.ge@bst.ai>,
-	BST Linux Kernel Upstream Group <bst-upstream@bstai.top>,
-	Jesper Nilsson <jesper.nilsson@axis.com>,
-	Lars Persson <lars.persson@axis.com>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Andreas =?iso-8859-1?Q?F=E4rber?= <afaerber@suse.de>,
-	Yu-Chun Lin =?utf-8?B?W+ael+elkOWQm10=?= <eleanor.lin@realtek.com>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Shawn Lin <shawn.lin@rock-chips.com>,
-	Orson Zhai <orsonzhai@gmail.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Michal Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v3 01/17] ACPI: GTDT: Account for GTDTv3 size when
- walking the platform timer descriptors
-Message-ID: <20260526-logical-ape-of-courage-c1ccbf@sudeepholla>
-References: <20260523140242.586031-1-maz@kernel.org>
- <20260523140242.586031-2-maz@kernel.org>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="ZyGQyVQT"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
+	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
+	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
+	bh=Jz2YYHrj1dgz9D267IoLZDXvPm7YaDuL+I5moOpvFWE=; b=ZyGQyVQTYvZazDTz43A4s9V6U6
+	RiYJ8cZTKGcPRbAVpyh2CSvaWNEwsxidxgPIBNUAcx2T+XJbHyGSh7Ih9laSNIh/hejE1Bn/XmX4F
+	EabNmK8K64bIMz1tbBAZwGmuOXTF3253BwT8B9oRH+U/pUbRy1CGF1w6LeA3iltvR2/sySAiJNtvv
+	NfbsJyltzrEARriRgXsdJTXJ1TCWCcl6jCTYJDkrrbOKQTjFGQZWzDrNKTKazDNoqe3s1AxTCekA2
+	rl15FCUNp35Ws01m4aDnpvFn6vGyy8XfmGEuDE0zDnN3GuIqCeQbFrRSaEJg/H4vRPrY5nJHJJWbo
+	oyc6dRhQ==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wRn4y-00078m-0z;
+	Tue, 26 May 2026 10:24:00 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wRn4x-000EHC-11;
+	Tue, 26 May 2026 10:23:59 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Shawn Guo <shawnguo@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux@ew.tq-group.com,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Nora Schiffer <nora.schiffer@ew.tq-group.com>
+Subject: Re: [PATCH 0/7] TQMLX2160A-MBLS2160A DT fixes/updates
+Date: Tue, 26 May 2026 10:23:58 +0200
+Message-ID: <2834667.mvXUDI8C0e@steina-w>
+Organization: TQ-Systems GmbH
+In-Reply-To: <20260331141915.2918927-1-alexander.stein@ew.tq-group.com>
+References: <20260331141915.2918927-1-alexander.stein@ew.tq-group.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260523140242.586031-2-maz@kernel.org>
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="iso-8859-1"
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28012/Tue May 26 08:24:34 2026)
 
-On Sat, May 23, 2026 at 03:02:26PM +0100, Marc Zyngier wrote:
-> Since ARMv8.1, the architecture has grown an EL2-private virtual
-> timer. This has been described in ACPI since ACPI v6.3 and revision
-> 3 of the GTDT table.
-> 
-> An aditional structure was added in ACPICA, though in a rather
-> bizarre way, and merged in v5.1 as 8f5a14d053100 ("ACPICA: ACPI 6.3:
-> add GTDT Revision 3 support").
-> 
-> Finally plug the table parsing in GTDT, and correct the parsing of
-> the platform timer subtables to account for the expanded size of
-> the base table. This also comes with some extra sanitisation of
-> the table, in the unlikely case someone got it wrong...
-> 
-> Suggested-by: Sudeep Holla <sudeep.holla@kernel.org>
+Hi Frank,
 
-Reviewed-by:  Sudeep Holla <sudeep.holla@kernel.org>
+Am Dienstag, 31. M=E4rz 2026, 16:19:01 CEST schrieb Alexander Stein:
+> Hi,
+>=20
+> this series adds small fixes and improvements for TQMLX2160A DTs.
+> The DT overlays address specific hardware behaviour when serdes is config=
+ured
+> differently.
 
--- 
-Regards,
-Sudeep
+Any feedback here?
+
+Thank and best regards,
+Alexander
+
+>=20
+> Best regards,
+> Alexander
+>=20
+> Alexander Stein (1):
+>   arm64: dts: fsl-lx2160a-tqmlx2160a: Remove deprecated properties
+>=20
+> Nora Schiffer (6):
+>   arm64: dts: fsl-lx2160a-tqmlx2160a: fix LED polarity
+>   arm64: dts: fsl-lx2160a-tqmlx2160a-mblx2160a: use DPMAC 17 and 18 for
+>     SGMII in SERDES2 configs 7 and 11
+>   arm64: dts: fsl-lx2160a-tqmlx2160a: add aliases for all 18 DPMAC
+>     instances
+>   arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: add various GPIO hogs
+>   arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: enable pcs_mdio17 and
+>     pcs_mdio18 in appropriate overlays
+>   arm64: dts: fsl-lx2160a-tqmlx2160a-mbls2160a: specify Ethernet PHY
+>     reset GPIOs
+>=20
+>  .../fsl-lx2160a-tqmlx2160a-mblx2160a.dts      | 306 +++++++++++++++++-
+>  ...l-lx2160a-tqmlx2160a-mblx2160a_x_11_x.dtso |  20 ++
+>  ...sl-lx2160a-tqmlx2160a-mblx2160a_x_7_x.dtso |  20 ++
+>  .../dts/freescale/fsl-lx2160a-tqmlx2160a.dtsi |  23 +-
+>  4 files changed, 357 insertions(+), 12 deletions(-)
+>=20
+>=20
+
+
+=2D-=20
+TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
+Amtsgericht M=FCnchen, HRB 105018
+Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
+http://www.tq-group.com/
+
+
