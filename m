@@ -1,86 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E7F379981
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:49:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9465937418A
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:49:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779781765; cv=none; b=B4R5gB729eJHelDf9A9svWWeIvoeMu/ZAeur5buemLxZ/4jiy0rTVC2/HgZo7VJiqOUFuVgOwy3r3/j0wy6FhKgXJQqckQ4bc3WnJ8SazNVKjhvCVtLVmTJYPe3SMJy2JMjCa9DknRbYO2xBu8ItakosJFwTS0LUniCJmcWRzms=
+	t=1779781794; cv=none; b=tiRKcmBh8wFq8sFcJwzpmPtzB1IVivs1WCtUzrfWz6VwnbL/QdRDOFChZ97+yRiQVWEO7lt5c6i0jbIFlTnAnr6obujcHlSG2BkR4DA898uX00BBge1qPyomRVovC8AMsfkD5PmYhOtGJa8QcMx1M2BLBzKtEzAf3E3IpNplpTc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779781765; c=relaxed/simple;
-	bh=dgyik6Nac5Zyj4S60k8sYpqDxz8bAfLXVWeCZ5FZtuM=;
+	s=arc-20240116; t=1779781794; c=relaxed/simple;
+	bh=zYDcoWtKvxNaOxBHLQ7d+N4DN0rtNNf1t6/JMX1tQpE=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kn5UlEkKUVRHu/6/dlgAgUwOwbyz36SBYsvTlDITvmUMDRNCMZmrbXU7R2SC0/MeYU9SRK4pS6LNoU6/tkQKylKR6WiWlg81f9B4mWyT2NUf2KhixgkTCsgn/4PpAVqpBF1BZyPv6oH96swLedcwU2a2/vyjPgdXXyNpS5XuLVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Z+EDbxL3; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EtVPzkVd; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:Content-Type; b=Bxq/a66frdP75llNl721LCsHrOaYEi12aD+9wJP7ctUAoPF+D4ichSizkhSh7luKy36Kgi6i84cIFlPtdbazZOg1i19rgkTqots6HfqmgrovieAvl4ufscUqwl0pQMOx91AeqfQLK+78hWRiNb030QTG59TpJguJLwpC1tHhUXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZSS6P5cv; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=YMRU/YS1; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Z+EDbxL3";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EtVPzkVd"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64Q7eXAX692844
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:49:23 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZSS6P5cv";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="YMRU/YS1"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64Q2lnSQ3658101
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:49:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	kT6gUPSm5gmyxHVjKc8NRVnk6e5Qpk1xp4p4yJsGQls=; b=Z+EDbxL3/aqPqMSH
-	cOWTz8l6A/WYDW2/T5LOyzOondOOUAkySONvwI/TyrTf1c+Qu4eumtKRAv2BnnNl
-	qn/rRGdSHrDVTbOtrFBBD/l81xj93bvhvSoU5/Syjo/3fFp1kzYn7Zhp6MKiysWZ
-	Wvc0+1YBpYzNQR9US1OoEfkOFyZalm/Va+aqnq0P2hMV8QiPVTyytvNah12DOZLq
-	53ydDWwVZhgTwu6kH8Nx8GTk+2CHpi4gNNdk/kxwFl3Kdc0wLZxDYcCigqQMlno8
-	NWLAqyHaTCmLJN57iXcFZtUgDW+tFqktDx7BL8iMMV2XaC0DXbCCi8A6tyfgFltG
-	IoCBHQ==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecpy2jys7-1
+	iDdMCPAN6y+N741ZL26u6GKshLsbUTyy6PlMeEsOE9w=; b=ZSS6P5cvT74FyYP3
+	pNoJ5twoaqZRHB3nNkhG6qY83Gox/QQNUB/ALo1kqH+wVkgxusY8c5oqqUWg3NWb
+	dNn/uGyYc4HlcRROuiqATmh/RSAdO+pethAFmaULe6RbsbvabbK8R0Et7W4AFHUJ
+	bJuYY9wttvYq/QqWQVcEoi+VT4arvvma+nirONn/JuYI6p8pWynRIGmg/CeZONUG
+	FRyiX0YfHJ97lfBmR2tyGS7eMzMdxZmgxRDi5JpzFv07Dc1M9awmGt0TEijkv3yY
+	R+VDA7liGxL0j+bDNPG2NqX/35rJk43AMTLNcU/vDTtJU7REsxhK8HP9whxVGInh
+	aHo4eg==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ecqynapej-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:49:22 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c827c880e39so5090222a12.0
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 00:49:22 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 07:49:51 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2ba224c3ffdso237596145ad.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 00:49:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779781762; x=1780386562; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1779781790; x=1780386590; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=kT6gUPSm5gmyxHVjKc8NRVnk6e5Qpk1xp4p4yJsGQls=;
-        b=EtVPzkVdkjHqJZcL9bbF28omAGA53HbhNP0yPnkA/zmHd6Eb3LdPt1cxaWyO9slGBz
-         2uPSrcyFWle29P+SLOnFzp24+IO9Lirvniu0VC19NoFmGRExzuU5y8FXYU/ew3b8S9uh
-         gt9HhVT1Ws14jlNRjAeZyK+WNSoDSI1Z+j7B5TEjAhDXpX3H03631l0V2s3YXxm1Z7KP
-         GyBRr0MZVhNVEbz+Uge8swf0U4IdKVpJ9SDN0NX1Y05JGhTBs8U8Dg+kTLAyG+ZHuXbB
-         GmZ7DPGihbEep6pZqgJJvRXagv3zGQDpQefmbz7Qx5psskKeYd9vTAslvEjgigShi/ui
-         xZzg==
+        bh=iDdMCPAN6y+N741ZL26u6GKshLsbUTyy6PlMeEsOE9w=;
+        b=YMRU/YS1b2R1uYaNpgghkN9sWjj21rEgwcykMXr06k1wzvsL2qpPi1KRigww+YvQ/a
+         4fvOyxhYdd8PhUTeheo/Bc4yExtdos/BPnqWZLH5MZV3aJJd3K9qcpHMBrTH+H4XW9e8
+         FDJengMHMC0QAfdzXQPu/w9qa4wR3np4X1TWeWcKtgHSd89fxPq9ZDlQscHlqU4Y/v3U
+         VvPpsn8ZtPTe0qjq8wv1rKUNPNXUKJ8T2Fyi0G2KtDTMzwtIrTD8pJf+AkMnD1jhOaWP
+         V491klSQWvoccnGxAZmFPB6Km7VYvalGTMQ8tWgIjkKpIvG2SHcJBi9jQfYa9/8+1N71
+         6KPQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779781762; x=1780386562;
+        d=1e100.net; s=20251104; t=1779781790; x=1780386590;
         h=content-transfer-encoding:in-reply-to:from:content-language
          :references:cc:to:subject:user-agent:mime-version:date:message-id
          :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=kT6gUPSm5gmyxHVjKc8NRVnk6e5Qpk1xp4p4yJsGQls=;
-        b=gYmOgWDHGL1GKWmKOzFLwpR0Wf3vyslx2ZujmI42hBD0qJMbmuF/EyHUqmKj82lB+F
-         w20w9qg/fO0r501Zm5VAVzwG++5huP7o8VCWoRkxA1RMANfWOwk3r7DlKCqTfxjBnd3b
-         dBBJEOctkU9V8obV8Ad3qb7/o+/+TT+6EP5nAF86WhmWeO85/VXeq+om4yTJNCoMkED5
-         9oHoux4Fsej46xtrbpLN3A10Ou1T+QJMcP0tZgH8eXAUVvsgkXwKpRxDAEtYlLKAOKUf
-         QmtdCl1NmecZ/GROPbZUIJ1IMmH0si7sjvHnaXNlYRRAECThJu7y00v57eIg7v1AYOFn
-         5MEg==
-X-Forwarded-Encrypted: i=1; AFNElJ9vaQGjU65NDspXjt2arSbrIIwHvqqfW0Hv6u/7/P5IWqIFkmGSCOBDOiX8ZHNQdSVZY1s8UpT3fJkb@vger.kernel.org
-X-Gm-Message-State: AOJu0YwD7wB0Mb1pVxG4SAIoHCsj8a1hcPd7fZ3cI7mTm6pMdn5Rv4EA
-	Lmo7/pxUeyAXIYYFF/fzwGON6NEHahJlUWaMWUFJARjqR5mT95on/2lYch7OJhgtseR7JX/qSVS
-	hqJfJL3hwGcGCd2kvQgD1ZJMot6FYGQb8LFgByaOBoF0y7Egzg7dyfNxLuISVyyff
-X-Gm-Gg: Acq92OGrXZNIa9WkB9Au+C0Sr7NRHVm+CyUK103mrLAcSiihe49iFLikw3jkb97RAl4
-	rRGMvkOMeJT7tSqjFVW3mgtVbCWSTBzkmhjsSIZTvBuA62Npp6JTC9Y14RbzbbwZvQwrPvuzJE3
-	Pbk1JDCEUUiRHQWCgZyEm18LE3TqVI3wxUGPVaA+zdud/C8XN+y74wH6IHN7UaVHEedQo3WFt08
-	Z4bKj0AA3lzibmLfxI+eM2wKUKDrdqPCS7mMPV7piW5Nr4Z5SFA+AmYKMmGSnX5A0hnjz5/P52C
-	t7D+h9sXt3H6K/E7vSMn/hldWH8/MJ3MtGU0k4lefwSxnSBtjSxuO8/tIIDe9Ai0MWbtCT/fqyP
-	C70tJiWObTiWQgMnd2gw5BgcKU3cCblCgqZUi9YGKhSXgTsriFxN0CeIX4oRROWwVyFe5BQ==
-X-Received: by 2002:a05:6a00:6c8e:b0:82f:5576:2853 with SMTP id d2e1a72fcca58-8415f5a63f9mr17116177b3a.30.1779781762247;
-        Tue, 26 May 2026 00:49:22 -0700 (PDT)
-X-Received: by 2002:a05:6a00:6c8e:b0:82f:5576:2853 with SMTP id d2e1a72fcca58-8415f5a63f9mr17116150b3a.30.1779781761773;
-        Tue, 26 May 2026 00:49:21 -0700 (PDT)
+        bh=iDdMCPAN6y+N741ZL26u6GKshLsbUTyy6PlMeEsOE9w=;
+        b=NFBZtW1vT2DYRmEgZ7YExMLudL6oRhdbBuFOA/BBSNdS/wE93SOCjQk+0Qtb9pe1dP
+         00nStriWeC7/TNeeuzM+KTm0NFTwoiCdhn9aboPkr2Uk7zB/Uh8tNzWZgso4fkG2gGVR
+         nQhRn4cu6xTkTorLbyOMrF7ESjh0bu54Y0q36ThZOUlTTfHYeGqtT5uFV5Yfsf3qE9kn
+         sHfbfY8HY7sw04TynB8FtiIGf0hVFyN8sH0ncdMCgDnVMk3WTHX4a6+o48vu0edamq9S
+         gfvFriekCwJbJgrWRNDy4RSXGRV+ts1FhC72wK6NzumZ1fbyr9i7mY6BDJilpkqxxEvj
+         gs3g==
+X-Forwarded-Encrypted: i=1; AFNElJ8X55HzTWOjqxXWhlFxOepyuNjGMKPa8vi7z2VckCH4JguFFysPsyDNrVpAnDcgSOwYzE6NRp0lzVeI@vger.kernel.org
+X-Gm-Message-State: AOJu0YxBuA9H8hQrBv9Mvt67XA9Z5YKnW+q/pwVn815Hp6oRkgXfiC60
+	UcKSJJY7pvEbiwqKt/9dVvg0bvJqb6vKp05dTMMaajCNfbG8chvRZ2vnL/g+pO0JbSSEKt85r6p
+	u8n0wd9aeKBi6TMHmFoWOBEaGV9yS2aOI9RpgE3nwyu0E85K1Kf0SMlFpxt/POt9j
+X-Gm-Gg: Acq92OE2QTKF1oRZFoLNB5x07B/fO2eJBlcIXmyOtuFzkfofzlCqF7MLuz4OFvHlbm7
+	1k+G6E2kXmmzPUsmEDYh9Go3rcyGJEb3UfKuW/JzwKPU7AZhMzM3UELkZ8CWDzhr2TRZB8xEvRE
+	pSy5sMBMg4j9R8k8gVWTtDALs0at2Gr2d+0PYQWwqR41WdNx8+dxQqRmDM+o1yBKlKCi9ndX275
+	1H4eBXdCRDtLrxpPC+6IsOyagQxc6hdAyOyU37X+hZ9/T3b0lZjixf+gOkd+cPemCAVuwAkNx6p
+	hgy4xrMm3YPNc+Wrpqi5yRQl3VKuJeGNlD78omKfPlRzYoETAMb32qt8slHpVi5M320FBIARlmP
+	YXQSaDLZ19c+Ka64fF3eTRZ7Ib4wJTMvK6CrkTBZzrwqxdL8kgNY/i3Z/BjI=
+X-Received: by 2002:a17:903:24c:b0:2b9:fb0b:b727 with SMTP id d9443c01a7336-2beb0675f69mr185476515ad.39.1779781790383;
+        Tue, 26 May 2026 00:49:50 -0700 (PDT)
+X-Received: by 2002:a17:903:24c:b0:2b9:fb0b:b727 with SMTP id d9443c01a7336-2beb0675f69mr185476195ad.39.1779781789881;
+        Tue, 26 May 2026 00:49:49 -0700 (PDT)
 Received: from [10.151.36.45] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84164fb28d5sm11934235b3a.41.2026.05.26.00.49.17
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56d750asm114864315ad.33.2026.05.26.00.49.45
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 May 2026 00:49:21 -0700 (PDT)
-Message-ID: <75a9fec5-20b2-496f-a365-2b1201fcbd60@oss.qualcomm.com>
-Date: Tue, 26 May 2026 13:19:15 +0530
+        Tue, 26 May 2026 00:49:49 -0700 (PDT)
+Message-ID: <ea236655-2683-43b0-987f-2726233087a8@oss.qualcomm.com>
+Date: Tue, 26 May 2026 13:19:44 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,7 +88,7 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] Add CDSP Power Manangement Driver
+Subject: Re: [PATCH 2/2] soc: qcom: Add CDSP power management driver
 To: Krzysztof Kozlowski <krzk@kernel.org>
 Cc: Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -101,86 +101,239 @@ Cc: Bjorn Andersson <andersson@kernel.org>,
         Praveenkumar I <praveenkumar.i@oss.qualcomm.com>,
         Manikanta Mylavarapu <manikanta.mylavarapu@oss.qualcomm.com>
 References: <20260520-cdsp-power-v1-0-85eb9501a1cd@oss.qualcomm.com>
- <20260520-precious-notorious-hyena-7ba95b@quoll>
+ <20260520-cdsp-power-v1-2-85eb9501a1cd@oss.qualcomm.com>
+ <20260520-mottled-space-pony-ac82ac@quoll>
 Content-Language: en-US
 From: Vignesh Viswanathan <vignesh.viswanathan@oss.qualcomm.com>
-In-Reply-To: <20260520-precious-notorious-hyena-7ba95b@quoll>
+In-Reply-To: <20260520-mottled-space-pony-ac82ac@quoll>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: YueWXF396KM_sHzT7aOKIqKKwRFTo3nI
-X-Authority-Analysis: v=2.4 cv=ML5QXsZl c=1 sm=1 tr=0 ts=6a155083 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+X-Authority-Analysis: v=2.4 cv=Wpwb99fv c=1 sm=1 tr=0 ts=6a15509f cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=uzc-zwSIlv-cvvK2V8IA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22
-X-Proofpoint-ORIG-GUID: YueWXF396KM_sHzT7aOKIqKKwRFTo3nI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA2NyBTYWx0ZWRfXzpJF+Xso43bI
- Mj66Y2ulzjEsW6nmJ5gh1zJjtx4aRiRbYYs8YBXB3aa+0HN+wIzRlSJe+aGMRol8Hv0H9a9KPTK
- stQD0MG5Ce9ZSCGoFTs7QzFulBIsSnYUTMZ4zleXZcApRwSRNyHUxi2buTh2/0We3A00m+7y03I
- 3JGNZnV82FrWxz1jPWzCKOgfXrCynbDQnielOb9wndj1kn5aoGOGK+Qp8lvth15p+OptqqKhI7H
- FsvmJy2Oi2vaSg98wzOWwyrlGh7ogEumYdSTkm+m8jC4c78p3oDwcXjj6dF2JyC3RD5FkA+EYXs
- 01K6tqFapwU2tEhte4hUDbNr0JDtIuf6eV0kFGum9T0nKRWzU3MTnuyB59eEdtQm7PKSWVT52sr
- 1r1O9ggMzKJH0EgNaTlc7g281HYeCBTEqzkV/rQiVWcWbGAGlC8G9qUa0FSADuoy/ttSPIbM0zG
- GWbsiXCnghBFy+vNqsg==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=crtforWdF1l5ZpXxUA4A:9 a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22
+X-Proofpoint-GUID: Dq_7hBKhKwZP3cSRZL2yXoQvCwGo-iR6
+X-Proofpoint-ORIG-GUID: Dq_7hBKhKwZP3cSRZL2yXoQvCwGo-iR6
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI2MDA2NyBTYWx0ZWRfX9SkRhAjzhKmf
+ 4qD/9bVhxkpCweXI4GriEvz+HsVmfd1OjjFwaWl3wFhcjMmMvx6Dsb7L/uB+zNNFoNcFsj1aFl1
+ aqzYmMLfsLOsD++srJ8Jkdz18vPfsh/bESK4SfDgJWMs4AGZ0kboBD75zGSffpmpPJ9Xg4fzfZ0
+ hFqpg+sDwwkOupZYFCoFMVS8BEwbb7JQCeMePJjkgN7xJtt8TakJ8nhCr1j0TbKjfILjSyaBkwG
+ c/onigEg7XRo8wGCdmsde4dXKRt52iAbTfiXM9GSqP1CB2ChNJTGkfSAFR5n/NHUNBze1UFWEFk
+ WKBc5sT0GMlaufU6ICya/z1LvNk2XW3kBHfWQRrK2niC9IONyghuThUnCLN8qw5czGUaxeOSFkJ
+ fqSFG+tiaw5J3lie+AB+BvaYskS+gKwyN88pYfWj2sxvYcQ8wwUk75bfhi9hsz3qDM+kvyNCKqX
+ 2MP990yDsEebaVtzFhg==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.51,FMLib:17.12.100.49
  definitions=2026-05-26_01,2026-05-18_01,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 suspectscore=0 spamscore=0 adultscore=0 clxscore=1015
- lowpriorityscore=0 impostorscore=0 phishscore=0 priorityscore=1501
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605260067
+ priorityscore=1501 clxscore=1015 suspectscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 malwarescore=0 spamscore=0 bulkscore=0 phishscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605260067
 
 
 
-On 5/20/2026 4:14 PM, Krzysztof Kozlowski wrote:
-> On Wed, May 20, 2026 at 12:35:08AM +0530, Vignesh Viswanathan wrote:
->> On platforms like IPQ9650, the CDSP subsystem cannot manage its own power
->> rails and requires the APSS to handle power management on its behalf. Add a
->> platform driver to fulfill this role.
->>
->> Handle LPM (Low Power Mode) by executing hardware isolation and restoration
->> sequences via MPM register programming, coordinated with the NSP Q6 through
->> a handshake protocol. Support both FULL_PC (CX+MX collapse) and LONG_APCR
->> (CX-only) modes, detected dynamically at runtime.
->>
->> Handle DCVS (Dynamic Clock and Voltage Scaling) requests from the NSP Q6
->> received via a shared SMEM channel. Apply voltages via the regulator
->> framework and write responses back to SMEM.
->>
->> Expose virtual cdsp-vdd-cx and cdsp-vdd-mx regulators so that the PAS
->> remoteproc driver can control the NSP power rails through the standard
->> regulator framework.
->>
->> This driver functionally depends on [1] for bringing up the CDSP on
->> IPQ9650, but there is no compile time dependency.
->>
->> [1] https://lore.kernel.org/linux-arm-msm/20260519-mp8899-regulator-driver-v1-0-30d14421b7f1@oss.qualcomm.com/T/#t
->>
->> ---
->> Praveenkumar I (1):
->>       soc: qcom: Add CDSP power management driver
+On 5/20/2026 4:20 PM, Krzysztof Kozlowski wrote:
+> On Wed, May 20, 2026 at 12:35:10AM +0530, Vignesh Viswanathan wrote:
+>> +/**
+>> + * cdsp_power_probe() - Probe the CDSP power management driver
+>> + * @pdev: Platform device
+>> + *
+>> + * Acquires the PMIC regulator consumer handles, registers the virtual
+>> + * cdsp-vdd-cx (and optionally cdsp-vdd-mx) regulator providers, maps the
+>> + * MPM and RSCC register regions, and registers the DCVS and LPM interrupt
+>> + * handlers.
+>> + *
+>> + * Return: 0 on success, negative error code on failure
+>> + */
+>> +static int cdsp_power_probe(struct platform_device *pdev)
+>> +{
+>> +	struct regulator_config virt_cfg = {};
+>> +	struct cdsp_power_driver *drv;
+>> +	struct regulator_dev *rdev;
+>> +	void __iomem *rscc_base;
+>> +	void __iomem *mpm_base;
+>> +	size_t smem_size;
+>> +	u32 smem_id;
+>> +	int ret;
+>> +
+>> +	/* Allocate driver context */
+>> +	drv = devm_kzalloc(&pdev->dev, sizeof(*drv), GFP_KERNEL);
+>> +	if (!drv)
+>> +		return -ENOMEM;
+>> +
+>> +	drv->dev = &pdev->dev;
+>> +	mutex_init(&drv->lock);
+>> +	atomic_set(&drv->power_state, CDSP_POWER_ON);
+>> +
+>> +	/* Get SMEM item ID from device tree */
+>> +	ret = of_property_read_u32(pdev->dev.of_node, "qcom,smem-item", &smem_id);
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret, "Failed to get SMEM item ID\n");
+>> +
+>> +	/* Create SMEM entry for DCVS */
+>> +	ret = qcom_smem_alloc(CDSP_SMEM_NSP_HOST_ID, smem_id, CDSP_SMEM_SIZE);
+>> +	if (ret && ret != -EEXIST)
+>> +		return dev_err_probe(&pdev->dev, ret, "Failed to allocate SMEM\n");
+>> +
+>> +	/* Get SMEM pointer and validate size */
+>> +	drv->smem = qcom_smem_get(CDSP_SMEM_NSP_HOST_ID, smem_id, &smem_size);
+>> +	if (IS_ERR(drv->smem))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(drv->smem),
+>> +				     "Failed to get SMEM\n");
+>> +
+>> +	if (smem_size < CDSP_SMEM_SIZE)
+>> +		return dev_err_probe(&pdev->dev, -EINVAL,
+>> +				     "SMEM region too small: got %zu, expected %u\n",
+>> +				     smem_size, CDSP_SMEM_SIZE);
+>> +
+>> +	/*
+>> +	 * Initialise the SMEM channel header.
+>> +	 * Zero the entire region first so all padding and reserved fields
+>> +	 * are clean, then fill in the fixed protocol fields.
+>> +	 * apss_state is set to 1 last (after wmb) so NSP Q6 only sees a
+>> +	 * fully-populated header once APSS is ready.
+>> +	 */
+>> +	memset(drv->smem, 0, sizeof(*drv->smem));
+>> +	drv->smem->hdr.magic           = CDSP_SMEM_MAGIC;
+>> +	drv->smem->hdr.version         = CDSP_SMEM_VERSION;
+>> +	drv->smem->hdr.request_offset  = CDSP_SMEM_REQUEST_OFFSET;
+>> +	drv->smem->hdr.request_size    = CDSP_SMEM_REQUEST_SIZE;
+>> +	drv->smem->hdr.response_offset = CDSP_SMEM_RESPONSE_OFFSET;
+>> +	drv->smem->hdr.response_size   = CDSP_SMEM_RESPONSE_SIZE;
+>> +	/* Signal APSS readiness to NSP Q6 */
+>> +	WRITE_ONCE(drv->smem->hdr.apss_state, 1);
+>> +	/* Ensure SMEM header is fully written before NSP Q6 reads it */
+>> +	wmb();
+>> +
+>> +	/*
+>> +	 * Get voltage regulator consumer handles.
+>> +	 * These are the actual NSP_CX and NSP_MX voltage rails.
+>> +	 * The virtual regulator ops pass through to these handles.
+>> +	 */
+>> +	drv->vdd_cx = devm_regulator_get(&pdev->dev, "vdd-cx");
+>> +	if (IS_ERR(drv->vdd_cx))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(drv->vdd_cx),
+>> +				     "Failed to get vdd-cx regulator\n");
+>> +
+>> +	drv->vdd_mx = devm_regulator_get_optional(&pdev->dev, "vdd-mx");
+>> +	if (IS_ERR(drv->vdd_mx)) {
+>> +		if (PTR_ERR(drv->vdd_mx) != -ENODEV)
+>> +			return dev_err_probe(&pdev->dev, PTR_ERR(drv->vdd_mx),
+>> +					     "Failed to get vdd-mx regulator\n");
+>> +		drv->vdd_mx = NULL;
+>> +		dev_dbg(&pdev->dev, "No vdd-mx regulator, MX rail absent on this board\n");
+>> +	}
+>> +
+>> +	/*
+>> +	 * Register virtual regulator provider.
+>> +	 *
+>> +	 * Expose vdd-cx and vdd-mx virtual regulators so that PAS remoteproc
+>> +	 * can consume them via cx-supply / mx-supply DTS properties.
+>> +	 * The enable/disable ops pass through to vdd_cx / vdd_mx above,
+>> +	 * making CDSP the sole hardware power manager for the NSP subsystem.
+>> +	 */
+>> +	virt_cfg.dev         = &pdev->dev;
+>> +	virt_cfg.driver_data = drv;
+>> +	virt_cfg.of_node     = pdev->dev.of_node;
+>> +
+>> +	INIT_WORK(&drv->dcvs_work, cdsp_dcvs_work_fn);
+>> +	INIT_WORK(&drv->lpm_work, cdsp_lpm_work_fn);
+>> +
+>> +	drv->lpm_wq = alloc_ordered_workqueue("cdsp_lpm_wq", 0);
+>> +	if (!drv->lpm_wq) {
+>> +		mbox_free_channel(drv->dcvs_mbox_chan);
+>> +		return dev_err_probe(&pdev->dev,
+>> +				     -ENOMEM,
+>> +				     "failed to allocate cdsp lpm workqueue\n");
+>> +	}
+>> +
+>> +	rdev = devm_regulator_register(&pdev->dev,
+>> +				       &cdsp_virt_reg_descs[CDSP_VIRT_NSP_CX],
+>> +				       &virt_cfg);
+>> +	if (IS_ERR(rdev))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(rdev),
+>> +				     "Failed to register cdsp-vdd-cx virtual regulator\n");
+>> +
+>> +	if (drv->vdd_mx) {
+>> +		rdev = devm_regulator_register(&pdev->dev,
+>> +					       &cdsp_virt_reg_descs[CDSP_VIRT_NSP_MX],
+>> +					       &virt_cfg);
+>> +		if (IS_ERR(rdev))
+>> +			return dev_err_probe(&pdev->dev, PTR_ERR(rdev),
+>> +					     "Failed to register cdsp-vdd-mx virtual regulator\n");
+>> +	}
+>> +
+>> +	/* Register DCVS interrupt */
+>> +	drv->dcvs_irq = platform_get_irq_byname(pdev, "dcvs");
+>> +	if (drv->dcvs_irq < 0)
+>> +		return dev_err_probe(&pdev->dev, drv->dcvs_irq,
+>> +				     "Failed to get DCVS IRQ\n");
+>> +
+>> +	ret = devm_request_threaded_irq(&pdev->dev, drv->dcvs_irq,
+>> +					NULL, cdsp_dcvs_irq_handler,
+>> +					IRQF_ONESHOT, "cdsp-dcvs", drv);
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret,
+>> +				     "Failed to request DCVS IRQ\n");
+>> +
+>> +	/* Setup MPM for LPM */
+>> +	mpm_base = devm_platform_ioremap_resource_byname(pdev, "mpm");
+>> +	if (IS_ERR(mpm_base))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(mpm_base),
+>> +				     "Failed to map MPM registers\n");
+>> +
+>> +	drv->mpm_regmap = devm_regmap_init_mmio(&pdev->dev, mpm_base, &cdsp_regmap_config);
+>> +	if (IS_ERR(drv->mpm_regmap))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(drv->mpm_regmap),
+>> +				     "Failed to init MPM regmap\n");
+>> +
+>> +	/* Setup RSCC for power mode detection */
+>> +	rscc_base = devm_platform_ioremap_resource_byname(pdev, "rscc");
+>> +	if (IS_ERR(rscc_base))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(rscc_base),
+>> +				     "Failed to map RSCC registers\n");
+>> +
+>> +	drv->rscc_regmap = devm_regmap_init_mmio(&pdev->dev, rscc_base, &cdsp_rscc_regmap_config);
+>> +	if (IS_ERR(drv->rscc_regmap))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(drv->rscc_regmap),
+>> +				     "Failed to init RSCC regmap\n");
+>> +
+>> +	drv->lpm_irq = platform_get_irq_byname(pdev, "lpm");
+>> +	if (drv->lpm_irq < 0)
+>> +		return dev_err_probe(&pdev->dev, drv->lpm_irq,
+>> +				     "Failed to get LPM IRQ\n");
+>> +
+>> +	ret = devm_request_threaded_irq(&pdev->dev, drv->lpm_irq,
+>> +					NULL, cdsp_lpm_irq_handler,
+>> +					IRQF_ONESHOT, "cdsp-lpm", drv);
+>> +	if (ret)
+>> +		return dev_err_probe(&pdev->dev, ret,
+>> +				     "Failed to request LPM IRQ\n");
+>> +
+>> +	/* Setup mbox for DCVS response */
+>> +	drv->dcvs_mbox_client.dev = &pdev->dev;
+>> +	drv->dcvs_mbox_client.knows_txdone = true;
+>> +	drv->dcvs_mbox_chan = mbox_request_channel(&drv->dcvs_mbox_client, 0);
+>> +	if (IS_ERR(drv->dcvs_mbox_chan))
+>> +		return dev_err_probe(&pdev->dev, PTR_ERR(drv->dcvs_mbox_chan),
+>> +				     "Failed to get dcvs mbox channel\n");
+>> +
+>> +	platform_set_drvdata(pdev, drv);
+>> +
+>> +	dev_dbg(&pdev->dev, "CDSP power driver initialized\n");
 > 
-> Power management drivers CANNOT go to drivers/soc.
+> Drop. All my comments from your regulator driver apply.
 
-Ack.
-
-> 
->>
->> Vignesh Viswanathan (1):
->>       dt-bindings: soc: qcom: Document CDSP Power Management
-> 
-> Neither to bindings soc.
-
-Ack, As per Bjorn's review, this CDSP power management driver + standard PAS
-driver will be a non-standard implementation and I'm looking at moving this
-into a new remoteproc driver. Will address in next version.
+Ack, will address.
 
 Thanks,
 Vignesh
-
+> 
+>> +
+>> +	return 0;
+>> +}
 > 
 > Best regards,
 > Krzysztof
