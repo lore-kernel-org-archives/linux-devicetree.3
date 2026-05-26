@@ -1,126 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 476563C0A01
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 19:13:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D10D34E761
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 19:15:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779822832; cv=none; b=ZmuR24zbV++euu9kzoe99ImOo4LSgvc3V/zGb+1FTvnRhjEdZubQZXaZuYcd2jqGJnTidD1xVFlh9kzdCJc+j5CQPbNv0CFd505aflnm9FFq2lALAG6xAKu2u/KlRSLgNKH6yNjNzQLU9x0X4gmu5JaZjibeaKmL3KlZVrDY/GM=
+	t=1779822919; cv=none; b=aAldcqcdKDsDXpOlyCQq/lZoQ1VjtBF6A2Lqjp4YR7tf5nZrEl9J0B31nl5+9JE3YKO6U+VV42pjzhc/mJ91kIQCzeye4HIL2BKfDd0etuDF0kKw2zHAzqWCc0vgbMHZwJ73OKJ/PECZYqMNOM4h2AjAzhyQeKnKX7k8EuWmuFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779822832; c=relaxed/simple;
-	bh=sSyoCWQ0EaIIf7hejZnMYRdUelmYD/hDF+x+xIRmbVY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kphskcwI8LOfhfiT46L+JECwe9TuhAw6ph7IXtNys2Wr0IheEUuB0LqnfsUAgmQTVH3lVCpKT0lvqeIX200Wp5fMIa4+GWCkJ2GXAvcsjYM1e3kn5ujQycRnot8fTdfkeCxcbTr1lsOh9YPCRAf8vGbU2VRCQxVPeLicjFn92XE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jPh/4jRb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779822919; c=relaxed/simple;
+	bh=eoCJgcYM1yujDL9U1kzpU4aIjm2NQbARQG1YumkHmzM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Kp85NURsk+cf464hfMHdS3rjsEJXNbouYhwCzQMNldwl6LTN4LHDJgS3oV8pDOBMUTxESz/lqrcEAJsk9lc22cNTekILbMZ/ihwTBs/SUZIe5wxSuDz1jI6iNWVCkA0sUFq0yDR2ARVvNWxVeD5styBzdSfuTKCIXJi2MVd207w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bf7kF/00; arc=none smtp.client-ip=209.85.221.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jPh/4jRb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 709FB1F00A3A;
-	Tue, 26 May 2026 19:13:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779822830;
-	bh=psuZW7mOZXB94hHb3PYUph3EZuHUiZ4GMJ9FsR1t+Qg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jPh/4jRb5Rr0QH8sMnIXI59hBUiGTVYaokvlAOe8Kggsj5TTtjIkVtPhNMjtKItU6
-	 fczzxsZAuRb96nqpY7dLzbuJVeRE2IwEZPghBpU7j9PNzGjeizTyu21DgfNw11JBf3
-	 hPQfpKj8CAKT6dKPdBeJaZZ4nd/kt4FRv/zcveISfLSLorgcQrbEGl/Pz97uWTfkem
-	 VAzwyxwabqU8P2DhX5M230+zxVyCqdJnmE7hgg0f3qaX1WTzfEDnq961EObiKcqMJA
-	 s0J8gnyc0VK096o1bWIlxvuBecfe/xXzvEfd2Gajj6vyqicc+vZhzTKCzd4zZr+SQg
-	 Ci2LK5TivBkzg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/4] dt-bindings: phy: qcom,qcs615-qmp-usb3-dp-phy:
- Add support for Shikra
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Pratham Pratap" <pratham.pratap@oss.qualcomm.com>
-Cc: linux-phy@lists.infradead.org, vkoul@kernel.org, conor+dt@kernel.org, olteanv@gmail.com, robh@kernel.org, devicetree@vger.kernel.org, neil.armstrong@linaro.org
-In-Reply-To: <20260526184401.3959717-3-pratham.pratap@oss.qualcomm.com>
-References: <20260526184401.3959717-3-pratham.pratap@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 19:13:49 +0000
-Message-Id: <20260526191350.709FB1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bf7kF/00"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-45ed18d8a1bso1108064f8f.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 12:15:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779822916; x=1780427716; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=Jy19ecE8GioixiZIbwDMok7h01mlgdh+LSZaXHeNwwI=;
+        b=bf7kF/00tbpn0W1CuonAS4C6E4azX+0yO7FTrPh3DqIGOyHxIS5VUKYkt9disXDbuV
+         itU0aZlZQ7TpBnrMRIbYgg7n1hOnu2mMvO96cfRyvegjpXTBgGyLnSRG2UJJF+wJTcuJ
+         r3tNZprTaYXJnrpGu/SSwB8ArpL+7t7zoWaMogGYWx2S0973S45GjJNPiU/UU3XlrfD+
+         LIJuE97vXWGrP/froCnhb6Z/gaY13W0uBOjLmPcLo/mQJJD4itGzlwAmbranbquhCK8b
+         ncE2cpPEs7j/DVEB7/Jgmu8yZ7WgtZvikw6erNxQBg0BQjKgrGYTffxUVCLgSPI6IP7e
+         BaWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779822916; x=1780427716;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jy19ecE8GioixiZIbwDMok7h01mlgdh+LSZaXHeNwwI=;
+        b=F+ay2f6ap6qXIZdRJtyg2/xUUvZ0axgX7sIw+r5hq7554C9Z0c/T1e5phhgiAq+FKT
+         8KOR+AKeItgtPqYUeDA3b2880Q9/lqs4k84AIRqd9tKIRl+BHNi4FXl/Tft9ZnaqUMKE
+         IovRjW+CB0mJZYm7EdUT1YZET1Hh4y1sVweuimtunkHCgdkl3i9lNUVNi/aqvMZ/mnsa
+         ukQ5S3aFraUGnuCNUV8xzsB8JTNt57GsS9bUWOMNu7mpKyZUOynMCfid1cAEkLQ/JPbc
+         yL59wBj1XGOda1i1SqaWLkxXt6r+YdgibWxqAt1JlzekK5ztqT1tt7yNzyJLJvIN8mg3
+         8V/g==
+X-Gm-Message-State: AOJu0Ywxztt0bpGcIal4b0CaZJxATvHapPmv9JovY75/qtpNzvdYeFUF
+	3bkrEA7CaGRQtk9pD8XjO063G8WRPzLf9PFxrA8ghvSoz+B5Okf/+jkMqZCze8LG
+X-Gm-Gg: Acq92OGmSrBhSpYURemVoUsjOgFzV8QUlwmRsspwm1QXqCqLYQVsb93KOMEJcbAnOOG
+	9JUTe9xRe6GambFuBUMGoJBXrR0WorMFD35Ro8L/S/M+Jkl8+7/s+Aa907jBGxiCEo3EpEBmc6o
+	RRHNhHsAWd3vDK8H+FSRpLptwZaoHCvdvFq7CO0TLOISdGcOxLXCLhdKadTo+B+O8GeMWhN/IAp
+	RWlTLgo8Yv7Sm36A/rPjDrzt0m7YZChjsrU/wXJ1O9etva/tT0XQhgW42vJzSh4wwAC/vd5vmQ+
+	32+BKTgnkZkYqTTcCGgd4xts/jBSmZgUhxin1QUUKdyQOdiGSxZJLdAxuLmIcbvN8IvwUCWH6ov
+	TmDAz51wKW9xuCF37qXOJo+BmuaQDovFekqxKMKI/YlYXprLWJdcfSxxn5CrzB5eCFwbgH6YUL3
+	z6PwNrDD6Gep1nW/WhG/gCuxpvYxSyZqyGbJcNBScVPWnLlRpZoGVFm+WLYmIZ6hybxzwru4RmK
+	+NuKxAhDuHZop40MRrxy5qHXc5mQW0=
+X-Received: by 2002:a05:6000:4b06:b0:45e:73eb:1ff7 with SMTP id ffacd0b85a97d-45eb3688819mr31060150f8f.3.1779822916508;
+        Tue, 26 May 2026 12:15:16 -0700 (PDT)
+Received: from [127.0.1.1] (93-143-222-3.adsl.net.t-com.hr. [93.143.222.3])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5b1c7bsm261529f8f.29.2026.05.26.12.15.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 12:15:15 -0700 (PDT)
+From: =?utf-8?q?Duje_Mihanovi=C4=87?= <dujemihanovic32@gmail.com>
+Subject: [PATCH 0/3] 88PM886 Vbus regulator support
+Date: Tue, 26 May 2026 21:14:46 +0200
+Message-Id: <20260526-88pm886-vbus-v1-0-f2bd1fd3c19e@dujemihanovic.xyz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMyw5AMBBA0V+RWWviEU35FbEw7WAkHukgEvHvi
+ uVZ3HuBkGcSqKILPB0svMwBaRyBHdq5J8UuGLIk00mRamXMOhmj1YG7qIJyxM6VFlsHIVk9dXx
+ +u7r5LTuOZLf3Aff9ANLE/L1wAAAA
+X-Change-ID: 20260516-88pm886-vbus-5e3bbfd9cbad
+To: Karel Balej <balejk@matfyz.cz>, Lee Jones <lee@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Liam Girdwood <lgirdwood@gmail.com>, 
+ Mark Brown <broonie@kernel.org>
+Cc: devicetree@vger.kernel.org, phone-devel@vger.kernel.org, 
+ ~postmarketos/upstreaming@lists.sr.ht, linux-kernel@vger.kernel.org, 
+ =?utf-8?q?Duje_Mihanovi=C4=87?= <duje@dujemihanovic.xyz>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=910; i=duje@dujemihanovic.xyz;
+ s=20260328; h=from:subject:message-id;
+ bh=eoCJgcYM1yujDL9U1kzpU4aIjm2NQbARQG1YumkHmzM=;
+ b=owGbwMvMwCW2z0j3+uHIyKOMp9WSGLJEPzpu7TvO57zKSugER8e1FNHNE95+Xm/ccr1vVb6Zd
+ C9DtJxiRykLgxgXg6yYIgvzUrlLfKnhEx2KbJNg5rAygQxh4OIUgIlMWcvw3zlDy0OP471badAF
+ MSmdLUf4tgQHl9YVFHF3rYtmv+M0jeG/73LPXyEXBZZa7Hx53mDXdaGfvQpP1Nb/dZqs8eWHk84
+ pNgA=
+X-Developer-Key: i=duje@dujemihanovic.xyz; a=openpgp;
+ fpr=9BD463017690089DAA8DC266275F544B3B1B4792
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] QCS615 is an invalid fallback for Shikra due to differing hardware=
- reset requirements and removed DisplayPort functionality.
-- [Medium] Missing `allOf` conditional blocks to enforce correct reset coun=
-ts for each SoC variant.
---
+Hello,
 
-commit fb0664de6e00aa81793b7c92908a732069771e68
-Author: Krishna Kurapati <krishna.kurapati@oss.qualcomm.com>
+This series adds support for the USB Vbus regulator found on Marvell's
+88PM886 PMIC. The regulator enables USB role switching on boards using
+the PMIC.
 
-dt-bindings: phy: qcom,qcs615-qmp-usb3-dp-phy: Add support for Shikra
+Signed-off-by: Duje Mihanović <duje@dujemihanovic.xyz>
+---
+Duje Mihanović (3):
+      dt-bindings: mfd: 88pm886: Allow vbus regulator
+      mfd: 88pm886: Initialize battery page
+      regulator: 88pm886: Add Vbus regulator
 
-This commit extends the QCS615 QMP USB3/DP PHY bindings to add support for
-the Shikra SoC. It introduces a new compatible string with QCS615 as a
-fallback, and increases the maximum number of resets to accommodate Shikra.
+ .../bindings/mfd/marvell,88pm886-a1.yaml           |  2 +-
+ drivers/mfd/88pm886.c                              | 21 ++++++++++++++++-
+ drivers/regulator/88pm886-regulator.c              | 27 ++++++++++++++++++++++
+ include/linux/mfd/88pm886.h                        | 12 ++++++++++
+ 4 files changed, 60 insertions(+), 2 deletions(-)
+---
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+change-id: 20260516-88pm886-vbus-5e3bbfd9cbad
 
-> Declare the USB QMP Phy present on Shikra SoC. On this SoC, although
-> there are DP registers, the required internal pins have been removed
-> and hence DP wouldn't be operational.
->=20
-> Shikra needs 3 resets (dp/ phy/ phy_phy) to be asserted and de-asserted
-> as per hardware recommendation. Extend the bindings to accommodate the
-> additional reset.
->=20
-> Use QCS615 as a fallback since the software interface is compatible with
-> Shikra.
+Best regards,
+--  
+Duje Mihanović <duje@dujemihanovic.xyz>
 
-[Severity: High]
-Is QCS615 a valid fallback for the Shikra SoC here?
-
-The commit message notes that Shikra requires an additional third reset
-(phy) per hardware recommendations, and that DisplayPort functionality is
-non-operational. If an older kernel matches the Shikra device using the
-QCS615 fallback driver, it will fail to assert the required third reset and
-will erroneously attempt to initialize the physically disconnected DP
-functionality.
-
-Could this lead to incomplete hardware initialization and potential
-subsystem timeouts?
-
-> diff --git a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp=
--phy.yaml b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-ph=
-y.yaml
-> index efb465c71c1b5..65ae4c6e09db0 100644
-> --- a/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.ya=
-ml
-> +++ b/Documentation/devicetree/bindings/phy/qcom,qcs615-qmp-usb3dp-phy.ya=
-ml
-[ ... ]
-> @@ -33,12 +37,15 @@ properties:
->        - const: pipe
-> =20
->    resets:
-> -    maxItems: 2
-> +    minItems: 2
-> +    maxItems: 3
-> =20
->    reset-names:
-> +    minItems: 2
->      items:
->        - const: phy_phy
->        - const: dp_phy
-> +      - const: phy
-
-[Severity: Medium]
-Will this allow invalid device tree configurations to silently pass schema
-validation?
-
-By relaxing the global constraints to allow up to 3 resets, a QCS615 node
-could incorrectly specify 3 resets, or a Shikra node could incorrectly
-specify only 2.
-
-Should we add an allOf section with if-then conditional blocks to enforce
-the exact required counts for each SoC variant (exactly 2 for QCS615, and
-exactly 3 for Shikra)?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526184401.3959=
-717-1-pratham.pratap@oss.qualcomm.com?part=3D2
