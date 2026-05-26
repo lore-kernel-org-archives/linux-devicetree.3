@@ -1,184 +1,444 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A8FE3BB11A
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 09:41:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BD2103D3328;
+	Tue, 26 May 2026 09:42:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779788482; cv=none; b=BYR4EZmSTjWLC3LUGr3Lbzr2yKvMUMM27ZkOMesLEdlncP/8zljD9mtm0kYf7uRBpLqPLQct12PbfAkyg0wd8Kz1b/2sLPD4a0jKcmwpnHNkr+tQ6wMzXWvig0LpuApdfqgGpg17b9sDnO2a0oYOk2upa8HZUun7EIIqqZQUbRU=
+	t=1779788549; cv=none; b=ItNcbzyEu9uq2XUSIiaE6NqQExTfGG4B68KMvBcYo4anSNs2YyvxknEY0hXYOjz7EAgKRbrAZA9GPxMo6+DY6g6yAmDiy0Cz5p2n116SwdrQC/joht8rBX3+6r3UyQlGHbkv7sbsUiNte5jDtLnxbjIc6eA2kMXEqT9Wbpi9Sx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779788482; c=relaxed/simple;
-	bh=u64tOcTr+8uUyNps3K7w7wfojmRfgFJziXw4H5f+xBw=;
+	s=arc-20240116; t=1779788549; c=relaxed/simple;
+	bh=n5WEwkqtz0PInZAw/RpqBhg6rTw7+94ju4U+kclYmvU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tcQ5LsDO8ORbCXvoagGCabeWp5Stl1Hgs5e0fETmGwPauB/Fa3GW6JhQNwPW46H+ro3AWqh7suB+iTDmxTJ3hdhNskh3cu54EfwFwti5MEhm0bsFFhPJ19iTNLJSTq8YaK7vWaxqnTZQ9iHVz7qKra40UXqQ/KcpkaYfJv2UvU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RuZQOuW2; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=GCFj5cTjyIsDVByeFJWso0hGu5bakcpAdRPl1hZcUWrBSMmL+olShNOOXDLMyYjtN6Kqx0BS/lOu6fsKpSdP3fSm55ZvmQdk9XmgsBWuSi05AIuEFetfCDHKJ7RBb54OtsyArwlJSZKvjp95OGuLNfMvR3y6qn7geAPFhCR42hw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4do0/4Y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RuZQOuW2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B86E11F000E9;
-	Tue, 26 May 2026 09:41:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4do0/4Y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C6521F000E9;
+	Tue, 26 May 2026 09:42:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779788481;
-	bh=NicyDQ0j27nz6Xf0FG9e7NvFWyBfV217bnLefxf0H+c=;
+	s=k20260515; t=1779788547;
+	bh=/o2YNusDTaZE+3YMEt0fcjMHNNFhApfxFiUjSqpOI+Y=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RuZQOuW2sYnkv/mdE0Sj/R7Cmq9hdFeb7W6DGfeE6vpyhBr66FXRDMKyWPsvqxLT7
-	 5zkcANDBJYDiyrVD+0IuQfqWzJfcD7NW7qqvutRXpIKDwevaT4rLxsiaoWKb0y3Dqm
-	 kT/OWBleREwnVelV4wWgRb+P+pFAuhVflYcKw6hr55goxx25kmCsClEuWoeKQMxTp7
-	 G5KoukyOXC3w5MG+OrRDc2pQ+EzUWouDPO5RCLNKAg33evEKGcW3rvh7jX2x53tdi6
-	 tJV57u7aCol0LIkDuBsqcedCzZjakcyRtXo+e5r9Tv329JPqkDXVbk0XwTi1UuJoE6
-	 pM3pTQDlNywCw==
+	b=K4do0/4Y3LTwjhJw9+7+kR9CXcRLV/1zp2YkB7+nmM893lQgyULtioN2zlMs7OO3Z
+	 EIsX/iRYHnV0ceC7xT2Q/RXKMZO9DPxmS1QyWyeirNUYQcrL9UkdF3ooarYXcWJIyW
+	 xGBT9WhvPBk3Vnu7hkHWyNs6EHZRhYwv0300/iXI04GwgB7+2PbfJQtLwQBgkNcJV5
+	 /qLGToCAYg5SXuPTySF32SDoPLd4gvRdPBDJjTsV1vgGL9GC0bS6hTdQFIvM+EgED+
+	 DYgOFr0ItaOjZ+o5aqagG71aVpMRhztvFa9LEX20A4eU0ML/vSdVEZgugKIYF2rtQy
+	 FPXNjPGPrFZZw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/7] ARM: dts: stm32: Add boot phase tags for
- STMicroelectronics f4 boards
+Subject: Re: [PATCH v9 3/3] media: nxp: Add i.MX95 CSI pixel formatter v4l2
+ driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Patrice Chotard" <patrice.chotard@foss.st.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260526-upstream_uboot_properties-v7-1-e17cd424d5db@foss.st.com>
-References: <20260526-upstream_uboot_properties-v7-1-e17cd424d5db@foss.st.com>
+To: "Guoniu Zhou" <guoniu.zhou@oss.nxp.com>
+Cc: robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260526-csi_formatter-v9-3-ca3d8c334c39@oss.nxp.com>
+References: <20260526-csi_formatter-v9-3-ca3d8c334c39@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 26 May 2026 09:41:19 +0000
-Message-Id: <20260526094120.B86E11F000E9@smtp.kernel.org>
+Date: Tue, 26 May 2026 09:42:26 +0000
+Message-Id: <20260526094227.1C6521F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 8 potential issue(=
 s) to consider:
-- [High] The `&sdio` controller nodes are missing the `bootph-all` property=
-, contradicting the stated goal of supporting SD boot.
-- [Medium] The `bootph-all` flag is missing for the clock nodes (e.g., `&cl=
-k_hse`) in `stm32f469-disco.dts`.
-- [Medium] UART controller nodes are omitted from `bootph-all` tagging desp=
-ite the commit message claiming otherwise.
-- [Low] The `bootph-all` property is incorrectly added to the LCD-TFT displ=
-ay controller (`&ltdc`) in `stm32f469-disco.dts`.
-- [Low] A duplicate `&rcc` node reference is created in `stm32f469-disco.dt=
-s`.
+- [High] Unchecked pointer from `v4l2_subdev_state_get_format()` is derefer=
+enced due to missing stream ID validation.
+- [High] The driver incorrectly passes and iterates over the source stream =
+mask to query sink-side formats and frame descriptors.
+- [High] `csi_formatter_stop_stream()` clears the wrong hardware register b=
+y using the stream index instead of the Virtual Channel (VC) ID.
+- [High] The driver leaks the PM runtime usage counter and fails to clean u=
+p hardware state if removed while streams are active.
+- [High] Error handling in `csi_formatter_subdev_disable_streams()` desynch=
+ronizes state with the V4L2 core, causing PM usage counter underflows.
+- [Medium] Mixing scope-based cleanup helpers (`__free()` and `guard()`) wi=
+th `goto` error handling.
+- [Medium] Stream start and stop routines inappropriately limit V4L2 stream=
+ ID iterations to `CSI_FORMATTER_VC_NUM` (8).
+- [Medium] The driver inappropriately returns `-EINVAL` when setting a form=
+at on an unrouted sink stream.
 --
 
-commit 7a940b6d4b0cb2432e629736b8cac85e1dd3638f
-Author: Patrice Chotard <patrice.chotard@foss.st.com>
+commit 519af3c273f2310baca55e801417774f1157eba3
+Author: Guoniu Zhou <guoniu.zhou@nxp.com>
+Date:   Tue May 26 08:57:22 2026 +0000
 
-ARM: dts: stm32: Add boot phase tags for STMicroelectronics f4 boards
+    media: nxp: Add i.MX95 CSI pixel formatter v4l2 driver
+   =20
+    The CSI pixel formatter is a module found on i.MX95 used to reformat
+    packet info, pixel and non-pixel data from CSI-2 host controller to
+    match Pixel Link(PL) definition.
 
-This commit introduces the bootph-all flag to several device tree nodes acr=
-oss
-STM32 f4 boards. It targets nodes like timer, gpio, syscfg, clock, and uart
-to ensure they are present during all boot stages for SD boot support.
+> diff --git a/drivers/media/platform/nxp/imx95-csi-formatter.c b/drivers/m=
+edia/platform/nxp/imx95-csi-formatter.c
+> new file mode 100644
+> index 0000000000000..9dee38d85839c
+> --- /dev/null
+> +++ b/drivers/media/platform/nxp/imx95-csi-formatter.c
 
-> diff --git a/arch/arm/boot/dts/st/stm32429i-eval.dts b/arch/arm/boot/dts/=
-st/stm32429i-eval.dts
-> index f4b1c4eb64f28..8a08b9f6b8371 100644
-> --- a/arch/arm/boot/dts/st/stm32429i-eval.dts
-> +++ b/arch/arm/boot/dts/st/stm32429i-eval.dts
 [ ... ]
-> @@ -293,6 +358,10 @@ &sdio {
->  	max-frequency =3D <12500000>;
->  };
+
+> +static int csi_formatter_subdev_enum_mbus_code(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *sd_state,
+> +					       struct v4l2_subdev_mbus_code_enum *code)
+> +{
+> +	if (code->pad =3D=3D CSI_FORMATTER_PAD_SOURCE) {
+> +		struct v4l2_mbus_framefmt *fmt;
+> +
+> +		if (code->index > 0)
+> +			return -EINVAL;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(sd_state, code->pad,
+> +						   code->stream);
+> +		code->code =3D fmt->code;
 
 [Severity: High]
-The commit message states the goal is to ensure SD boot, but the &sdio node
-does not receive the bootph-all tag here. Will this cause the SDIO controll=
-er
-to be stripped from the SPL device tree and break early SD boot capabilitie=
-s?
+Is there a missing check for fmt being NULL here?=20
 
-> =20
-> +&syscfg {
-> +	bootph-all;
-> +};
+If userspace provides an invalid or non-existent stream ID,
+v4l2_subdev_state_get_format() will return NULL, which appears to be
+unconditionally dereferenced here.
+
+> +		return 0;
+> +	}
 > +
->  &timers1 {
->  	status =3D "okay";
-[ ... ]
-> @@ -339,6 +409,16 @@ &usart1 {
->  	status =3D "okay";
->  };
+> +	if (code->index >=3D ARRAY_SIZE(formats))
+> +		return -EINVAL;
+> +
+> +	code->code =3D formats[code->index].code;
+> +
+> +	return 0;
+> +}
+> +
+> +static int csi_formatter_subdev_set_fmt(struct v4l2_subdev *sd,
+> +					struct v4l2_subdev_state *sd_state,
+> +					struct v4l2_subdev_format *sdformat)
+> +{
+> +	struct csi_formatter_pix_format const *format;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +
+> +	if (sdformat->pad =3D=3D CSI_FORMATTER_PAD_SOURCE)
+> +		return v4l2_subdev_get_fmt(sd, sd_state, sdformat);
+> +
+> +	format =3D csi_formatter_find_format(sdformat->format.code);
+> +	if (!format)
+> +		format =3D &formats[0];
+> +
+> +	v4l_bound_align_image(&sdformat->format.width, 1, 0xffff, 2,
+> +			      &sdformat->format.height, 1, 0xffff, 0, 0);
+> +
+> +	fmt =3D v4l2_subdev_state_get_format(sd_state, sdformat->pad,
+> +					   sdformat->stream);
+> +	*fmt =3D sdformat->format;
+
+[Severity: High]
+Could fmt be NULL here as well if an invalid stream ID is provided?
+
+> +
+> +	/* Set default code if user set an invalid value */
+> +	fmt->code =3D format->code;
+> +
+> +	/* Propagate the format from sink stream to source stream */
+> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(sd_state, sdformat=
+->pad,
+> +							   sdformat->stream);
+> +	if (!fmt)
+> +		return -EINVAL;
 
 [Severity: Medium]
-The commit message mentions adding the tag to uart nodes. While the pinctrl
-configuration for the UART receives the tag below, the core &usart1 node do=
-es
-not. Could this result in the UART controller being omitted during early bo=
-ot
-stages, breaking early console initialization?
+Should this return -EINVAL if the stream is unrouted?=20
 
-> =20
-> +&usart1_pins_a {
-> +	bootph-all;
-> +	pins1 {
-> +		bootph-all;
-> +	};
+The V4L2 specification requires format changes on unrouted streams to succe=
+ed
+(they just shouldn't propagate), so returning an error here might break
+compliant userspace applications configuring unrouted pad formats.
+
+> +
+> +	*fmt =3D sdformat->format;
+> +
+> +	return 0;
+> +}
+
 [ ... ]
-> diff --git a/arch/arm/boot/dts/st/stm32f469-disco.dts b/arch/arm/boot/dts=
-/st/stm32f469-disco.dts
-> index 943afba06b5fe..ecd33d6003b34 100644
-> --- a/arch/arm/boot/dts/st/stm32f469-disco.dts
-> +++ b/arch/arm/boot/dts/st/stm32f469-disco.dts
+
+> +static void csi_formatter_stop_stream(struct csi_formatter *formatter,
+> +				      u64 stream_mask)
+> +{
+> +	unsigned int i;
+> +
+> +	for (i =3D 0; i < CSI_FORMATTER_VC_NUM; ++i) {
 
 [Severity: Medium]
-The commit message states the bootph-all flag is added to clock nodes, and
-other boards in this patch update their &clk_hse nodes. Is it missing for
-the &clk_hse node in stm32f469-disco.dts, and might this cause the clock to=
- be
-stripped out during early boot?
+Is it safe to limit V4L2 stream ID iterations to CSI_FORMATTER_VC_NUM (8)?
 
-> @@ -181,7 +181,52 @@ dsi_panel_in: endpoint {
-[ ... ]
->  &ltdc {
-> +	bootph-all;
->  	status =3D "okay";
-> =20
->  	port {
+V4L2 stream IDs are arbitrary and can range from 0 to 63, so any
+configured stream with an ID >=3D 8 would be silently ignored. Could
+this use for_each_set_bit() to iterate over the entire mask instead?
 
-[Severity: Low]
-Does the LCD-TFT display controller need to be present in early boot phases
-like SPL or TPL? Including it might needlessly inflate the device tree size
-in SRAM, as display initialization isn't typically required for SD boot.
-
-> @@ -191,10 +236,26 @@ ltdc_out_dsi: endpoint {
->  	};
->  };
-> =20
-> +&pinctrl {
-> +	bootph-all;
-> +};
+> +		if (!(stream_mask & BIT(i)))
+> +			continue;
 > +
-> +&pwrcfg {
-> +	bootph-all;
-> +};
-> +
-> +&rcc {
-> +	bootph-all;
-> +};
+> +		csi_formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(i), 0);
 
-[Severity: Low]
-Does appending this new &rcc block create a duplicate node reference? Since
-an &rcc block already exists earlier in the file, would it be better to add
-this property to the existing block to keep related properties grouped
-together?
+[Severity: High]
+Does this write to the correct hardware register?
+
+csi_formatter_start_stream() correctly resolves the hardware Virtual
+Channel (VC) from the remote frame descriptor, but here we seem to be
+writing 0 to CSI_VC_PIXEL_DATA_TYPE(i) where i is the V4L2 stream index.
+
+If the stream index and VC ID differ, could this clear the wrong register
+and corrupt another running VC's state?
+
+> +	}
+> +}
+> +
+> +static int csi_formatter_start_stream(struct csi_formatter *formatter,
+> +				      struct v4l2_subdev_state *state,
+> +				      u64 stream_mask)
+> +{
+> +	const struct csi_formatter_pix_format *pix_fmt;
+> +	struct v4l2_mbus_framefmt *fmt;
+> +	struct v4l2_mbus_frame_desc fd =3D {};
+> +	u64 configured_streams =3D 0;
+> +	unsigned int i;
+> +	u32 val;
+> +	int vc;
+> +	int ret;
+> +
+> +	ret =3D v4l2_subdev_call(formatter->csi_sd, pad, get_frame_desc,
+> +			       formatter->remote_pad, &fd);
+> +	if (ret < 0 && ret !=3D -ENOIOCTLCMD) {
+> +		dev_err(formatter->dev, "Failed to get frame desc: %d\n", ret);
+> +		return ret;
+> +	}
+> +
+> +	for (i =3D 0; i < CSI_FORMATTER_VC_NUM; ++i) {
+> +		if (!(stream_mask & BIT(i)))
+> +			continue;
+> +
+> +		fmt =3D v4l2_subdev_state_get_format(state,
+> +						   CSI_FORMATTER_PAD_SINK, i);
+> +
+> +		pix_fmt =3D csi_formatter_find_format(fmt->code);
+
+[Severity: High]
+In csi_formatter_subdev_enable_streams(), stream_mask originates from the
+source pad, but it is passed here and used as the stream index (i) to fetch
+the sink-side format.
+
+If the routing maps a different sink stream ID to this source stream ID,
+will v4l2_subdev_state_get_format() return NULL for the non-existent sink
+stream i and cause a NULL pointer dereference when accessing fmt->code?
 
 > +
->  &rtc {
->  	status =3D "okay";
->  };
-[ ... ]
-> @@ -252,6 +314,16 @@ &usart3 {
->  	status =3D "okay";
->  };
+> +		val =3D BIT(csi_formatter_get_index_by_dt(pix_fmt->data_type));
+> +
+> +		if (ret =3D=3D -ENOIOCTLCMD) {
+> +			/*
+> +			 * Source doesn't implement get_frame_desc, use
+> +			 * default VC 0
+> +			 */
+> +			vc =3D 0;
+> +		} else {
+> +			vc =3D csi_formatter_get_vc(formatter, &fd, i);
+> +			if (vc < 0) {
+> +				ret =3D vc;
+> +				goto err_cleanup;
+> +			}
+> +		}
+> +
+> +		csi_formatter_write(formatter, CSI_VC_PIXEL_DATA_TYPE(vc), val);
+> +		configured_streams |=3D BIT(i);
+> +	}
+> +
+> +	return 0;
+> +
+> +err_cleanup:
+> +	csi_formatter_stop_stream(formatter, configured_streams);
+> +	return ret;
+> +}
+> +
+> +static int csi_formatter_subdev_enable_streams(struct v4l2_subdev *sd,
+> +					       struct v4l2_subdev_state *state,
+> +					       u32 pad, u64 streams_mask)
+> +{
+> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
+> +	struct device *dev =3D formatter->dev;
+> +	u64 sink_streams;
+> +	int ret;
+> +
+> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&formatter->lock);
 
 [Severity: Medium]
-Similar to the &usart1 node in stm32429i-eval.dts, the core &usart3 node he=
-re
-is missing the bootph-all tag, even though the pins below receive it. Should
-the uart node itself be tagged to ensure it is preserved during early boot?
+Is it intended to mix scope-based cleanup helpers (guard) with goto error
+handling here?=20
 
-> =20
-> +&usart3_pins_a	{
-> +	bootph-all;
+The kernel cleanup subsystem guidelines mandate that goto-based error handl=
+ing
+and scope-based cleanups should never be mixed within the same function.
+
+> +
+> +	if (!formatter->enabled_streams) {
+> +		ret =3D pm_runtime_resume_and_get(formatter->dev);
+> +		if (ret < 0) {
+> +			dev_err(dev, "Failed to resume runtime PM: %d\n", ret);
+> +			return ret;
+> +		}
+> +	}
+> +
+> +	ret =3D csi_formatter_start_stream(formatter, state, streams_mask);
+> +	if (ret)
+> +		goto err_runtime_put;
+> +
+> +	ret =3D v4l2_subdev_enable_streams(formatter->csi_sd,
+> +					 formatter->remote_pad,
+> +					 sink_streams);
+> +	if (ret)
+> +		goto err_stop_stream;
+> +
+> +	formatter->enabled_streams |=3D streams_mask;
+> +
+> +	return 0;
+> +
+> +err_stop_stream:
+> +	csi_formatter_stop_stream(formatter, streams_mask);
+> +err_runtime_put:
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+> +	return ret;
+> +}
+> +
+> +static int csi_formatter_subdev_disable_streams(struct v4l2_subdev *sd,
+> +						struct v4l2_subdev_state *state,
+> +						u32 pad, u64 streams_mask)
+> +{
+> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
+> +	u64 sink_streams;
+> +	int ret;
+> +
+> +	sink_streams =3D v4l2_subdev_state_xlate_streams(state,
+> +						       CSI_FORMATTER_PAD_SOURCE,
+> +						       CSI_FORMATTER_PAD_SINK,
+> +						       &streams_mask);
+> +	if (!sink_streams || !streams_mask)
+> +		return -EINVAL;
+> +
+> +	guard(mutex)(&formatter->lock);
+> +
+> +	ret =3D v4l2_subdev_disable_streams(formatter->csi_sd, formatter->remot=
+e_pad,
+> +					  sink_streams);
+> +	if (ret)
+> +		dev_err(formatter->dev, "Failed to disable streams: %d\n", ret);
+> +
+> +	csi_formatter_stop_stream(formatter, streams_mask);
+> +
+> +	formatter->enabled_streams &=3D ~streams_mask;
+> +
+> +	if (!formatter->enabled_streams)
+> +		pm_runtime_put(formatter->dev);
+
+[Severity: High]
+If v4l2_subdev_disable_streams() fails and returns an error, the V4L2 core =
+keeps
+its internal stream state as "enabled", but this function proceeds to clear
+formatter->enabled_streams and calls pm_runtime_put().
+
+If the V4L2 core later retries disabling the stream, will it trigger an
+unbalanced, secondary pm_runtime_put() call resulting in a PM usage counter
+underflow since enabled_streams is already 0?
+
+> +
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static int csi_formatter_async_register(struct csi_formatter *formatter)
+> +{
+> +	struct device *dev =3D formatter->dev;
+> +	struct v4l2_async_connection *asc;
+> +	int ret;
+> +
+> +	struct fwnode_handle *ep __free(fwnode_handle) =3D
+> +		fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0,
+> +						FWNODE_GRAPH_ENDPOINT_NEXT);
+
+[Severity: Medium]
+Does this mix __free(fwnode_handle) with goto error handling below?
+
+Similar to csi_formatter_subdev_enable_streams(), kernel guidelines state t=
+hat
+scope-based cleanup helpers and goto should not be used in the same functio=
+n.
+
+> +	if (!ep)
+> +		return -ENOTCONN;
+> +
+> +	v4l2_async_subdev_nf_init(&formatter->notifier, &formatter->sd);
+> +
+> +	asc =3D v4l2_async_nf_add_fwnode_remote(&formatter->notifier, ep,
+> +					      struct v4l2_async_connection);
+> +	if (IS_ERR(asc)) {
+> +		ret =3D PTR_ERR(asc);
+> +		goto err_cleanup_notifier;
+> +	}
+> +
+> +	formatter->notifier.ops =3D &formatter_notify_ops;
+> +
+> +	ret =3D v4l2_async_nf_register(&formatter->notifier);
+> +	if (ret)
+> +		goto err_cleanup_notifier;
+> +
+> +	ret =3D v4l2_async_register_subdev(&formatter->sd);
+> +	if (ret)
+> +		goto err_unregister_notifier;
+> +
+> +	return 0;
+> +
+> +err_unregister_notifier:
+> +	v4l2_async_nf_unregister(&formatter->notifier);
+> +err_cleanup_notifier:
+> +	v4l2_async_nf_cleanup(&formatter->notifier);
+> +	return ret;
+> +}
+
+[ ... ]
+
+> +static void csi_formatter_remove(struct platform_device *pdev)
+> +{
+> +	struct v4l2_subdev *sd =3D platform_get_drvdata(pdev);
+> +	struct csi_formatter *formatter =3D sd_to_formatter(sd);
+> +
+> +	csi_formatter_async_unregister(formatter);
+> +
+> +	v4l2_subdev_cleanup(&formatter->sd);
+> +	media_entity_cleanup(&formatter->sd.entity);
+> +}
+
+[Severity: High]
+If the subdevice is unbound via sysfs while streams are active, will this l=
+eak
+the PM usage counter and leave the hardware in an active state?
+
+It looks like csi_formatter_remove() unconditionally unregisters the subdev=
+ice
+but doesn't check if hardware streams need to be stopped or if the PM usage
+counter needs to be dropped.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-upstream_u=
-boot_properties-v7-0-e17cd424d5db@foss.st.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-csi_format=
+ter-v9-0-ca3d8c334c39@oss.nxp.com?part=3D3
