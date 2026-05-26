@@ -1,157 +1,203 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089503B19C1;
-	Tue, 26 May 2026 16:19:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36EB73B19B6
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 16:21:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779812384; cv=none; b=IkpZ49XB/VP7Blf9M0thRQJXLWxKdKxXECeq7ZO8s51X/xSy35Tiu2HkV/QngNq8hhZQcaxt1TuSQdoiHlzt0vDFRKsxPbNi75z8MaX4VBlhXToVGP4pNSRKt6fYHWhQaWh7On/1aUOH5EhGMG+uaiwXNDPuslWw4lM2VynzHGQ=
+	t=1779812512; cv=none; b=izur9fUnYaaK4TZqpL+GjMHAkjTqXyjLl6+HqTDvEP6DlT1uVIGI0jjoDOPOQEpAtQcECgCgAnVyCYLApZQR52OPAGiWBsbAcU/i2eUpxvS1Op7zvu5NMQ6dMfNTW9zFz4aGqQIQjrF3czXiwCawU/bZf2LKk0uA5Tgq3Y5cS7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779812384; c=relaxed/simple;
-	bh=wX2T5ahvstsTUsFSPRjOm+/tVg+aRKBtV87CTIy5V6I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZPGB0kum2T+1EECbL+wI3rfMRtbUSsxux4z8JXkNOFOM+f64hw5NwIWMMjUYLPB789wUKBOvqPoRmZkb/Qd7XGG+4zIxsZo/wHbtPdURTyLf5Lf/Ob11jkq5K3scxfxIEWLAz+HYvqHpK4kkMW/iIkt0+AQI1xzZAXKfNSDJ//w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yo9UtqCi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779812512; c=relaxed/simple;
+	bh=MQdkSaAl+BwrjhiObv7Ijtd/wZj/Lz0C2s4LgYNdztw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XFTh54Z7UN7Obgoilq4LBQEfyDRuxZqVHxrtN/QXma5yf8PTg+dn8az9Ql+htgeZ396syTCL7S/7xmNlHrkWRDSz42wpK1QrDg8u2H8m9CL3T5c3Y1q8Bd/vY+IBmextWQ6Jkj5PWxWR5jcb5oMBCm5OOsWkd110b2XXrIZtGro=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQD/pHX9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yo9UtqCi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70FF1F000E9;
-	Tue, 26 May 2026 16:19:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQD/pHX9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF6541F00A3A;
+	Tue, 26 May 2026 16:21:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779812379;
-	bh=lAMKO1kZvGxwn34y0wDp/WK+Var13mYqDq3n4y67LBY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Yo9UtqCiNUuq5j6nr2HFIkBedT5GTtHZ0fgXtXtGkTPRaVvdrBfNGGH2cLbaRU0Jg
-	 cbZXrea07Hz2DOfNAjLt4dNwDLBDSrRw4jKKWH6nBSEBVA8juuqa+mAeTC1FtVQX2R
-	 PAplWQUCIxhuTeBTdevFiCz9MEr8wjLNJW2G0/v+bgu83BbkFGc6ywyg94WTnaI+EP
-	 Wu9ShXGnfEYQXtpFqLdby9l8lXOk+tarSoQ4r0Ms392EhilO44LG3IBXdAFLpzsyhG
-	 bxou3+fHdzBORci9n5CB2ECi6eOSgBnY34vp/IAjEswaefCwYlS8WQ45FYWAxn1Z0e
-	 Z/fPVy25Nz58A==
-Date: Tue, 26 May 2026 17:19:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: lars@metafoo.de, dlechner@baylibre.com, nuno.sa@analog.com,
- andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux@roeck-us.net, jdelvare@suse.com, ak@it-klinger.de,
- linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1 2/4] dt-bindings: iio: flow: add Sensirion SLF3x
- liquid flow sensor
-Message-ID: <20260526171930.0db4125e@jic23-huawei>
-In-Reply-To: <20260524205112.26638-3-wafgo01@gmail.com>
-References: <20260524205112.26638-1-wafgo01@gmail.com>
-	<20260524205112.26638-3-wafgo01@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779812511;
+	bh=3uCwvRDAIKTL9h7uHE1dGJBmSxXs8lfILFtB9uwIb+k=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=oQD/pHX9s0JWZ3y+uMrVDwXw/lEb6nmQIRqdXCyPeHq42NvM5U+etyXoz3dG8OAJ0
+	 gf4/bG6bOVvfc5mt+nSPykWgHKXhiSkmqctQPPGZHh5IgzPk21rboPfSBXqKcj0bBj
+	 cIEck/+kaslRGN173CDYiaOfc9yOkPUFzQJZfLJIpYFB+59RTPF5WUQDthN7Djpi4n
+	 rMLNPEHbajFqUg1TqhSxe+6L1wbK4RG6gV6yTScNALjAQmTGa6IufZEB6h5W+F5rQm
+	 GQOJbX/QxvFqHiakzCnLhnwNLMibUTJqCrklER6a8q1vVxrOF/qkHtwBGvZjSY8s1d
+	 Bu3p2OLKMFD0Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/6] iommu/arm-smmu: Add interconnect bandwidth
+ voting support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Bibek Kumar Patro" <bibek.patro@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260526-smmu_interconnect_addition-v2-2-2a6d8ca30d63@oss.qualcomm.com>
+References: <20260526-smmu_interconnect_addition-v2-2-2a6d8ca30d63@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 16:21:50 +0000
+Message-Id: <20260526162150.DF6541F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, 24 May 2026 22:49:37 +0200
-Wadim Mueller <wafgo01@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
 
-> From: Wadim Mueller <wadim.mueller@cmblu.de>
->=20
-> Add a DT binding for the Sensirion SLF3x family of I2C liquid-flow
-> sensors.  A single 'sensirion,slf3s' compatible is exposed because
-> the sub-types share the same register map and are detected at
-> runtime via the product-information register.
->=20
-> Signed-off-by: Wadim Mueller <wadim.mueller@cmblu.de>
-Hi Wadim.
+New issues:
+- [High] Missing cleanup of clock and interconnect resources on probe error=
+ paths.
+- [High] Failures to enable the interconnect bandwidth vote are ignored, ri=
+sking a system crash.
+- [Medium] Interconnect bandwidth is voted after clocks are enabled during =
+probe, contradicting architectural requirements and resume ordering.
 
-A few things inline.
+Pre-existing issues:
+- [High] Shared interrupt handlers access hardware registers without verify=
+ing if the device is active, violating PM guidelines and causing crashes.
+- [High] The IOMMU device is exposed to the system before Runtime PM is ful=
+ly initialized, creating a race condition that can lead to a PM usage count=
+er underflow.
+--
 
-Thanks,
+commit a35c4344b83f53cca1914e7921a505dbdaa63eb5
+Author: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Subject: iommu/arm-smmu: Add interconnect bandwidth voting support
 
-Jonathan
+This commit adds support for an optional interconnect path to the arm-smmu
+driver. It votes for bandwidth while the SMMU is active to prevent
+intermittent register access failures during sleep/wakeup transitions.
 
-> ---
->  .../bindings/iio/flow/sensirion,slf3s.yaml    | 49 +++++++++++++++++++
->  1 file changed, 49 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/flow/sensirion,=
-slf3s.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.y=
-aml b/Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
-> new file mode 100644
-> index 000000000..5ef62435f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/flow/sensirion,slf3s.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu.c b/drivers/iommu/arm/ar=
+m-smmu/arm-smmu.c
+> index 0bd21d206eb3e..07c7e44ec6a5b 100644
+> --- a/drivers/iommu/arm/arm-smmu/arm-smmu.c
+> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu.c
+[ ... ]
+> @@ -86,6 +91,36 @@ static inline void arm_smmu_rpm_put(struct arm_smmu_de=
+vice *smmu)
+[ ... ]
+> +static void arm_smmu_icc_enable(struct arm_smmu_device *smmu)
+> +{
+> +	if (smmu->icc_path)
+> +		WARN_ON(icc_set_bw(smmu->icc_path, ARM_SMMU_ICC_AVG_BW,
+> +				   ARM_SMMU_ICC_PEAK_BW_HIGH));
+> +}
+
+[Severity: High]
+Does this code need to propagate the return value of icc_set_bw() instead of
+ignoring it?
+
+If the bandwidth vote fails due to aggregation failures or invalid constrai=
+nts,
+the hardware might lack the vote required for register access.
+
+Proceeding to access SMMU registers in arm_smmu_device_probe() or
+arm_smmu_runtime_resume() without the required bandwidth vote could result =
+in
+an unrecoverable bus fault.
+
+Could we handle the error and propagate it to fail the probe or resume
+sequence gracefully?
+
+[ ... ]
+> @@ -2189,6 +2224,17 @@ static int arm_smmu_device_probe(struct platform_d=
+evice *pdev)
+>  	if (err)
+>  		return err;
+> =20
+> +	/*
+> +	 * Acquire and vote the interconnect path before accessing any SMMU
+> +	 * registers (including ARM_SMMU_GR0_ID0 in arm_smmu_device_cfg_probe).
+> +	 */
+> +	err =3D arm_smmu_icc_get(smmu);
+
+[Severity: Medium]
+Could this ordering cause an architectural violation?
+
+The commit message notes that the interconnect must have an active vote
+whenever the adreno_smmu block is powered on. In arm_smmu_runtime_resume(),
+this is handled correctly by calling arm_smmu_icc_enable() before
+clk_bulk_enable().
+
+However, in arm_smmu_device_probe(), clk_bulk_prepare_enable() is called
+just before this code, before arm_smmu_icc_get() and arm_smmu_icc_enable().
+
+Would it be better to match the resume path ordering to ensure the SMMU clo=
+cks
+are not powered on without the required interconnect bandwidth vote?
+
+> +	if (err) {
+> +		clk_bulk_disable_unprepare(smmu->num_clks, smmu->clks);
+> +		return err;
+> +	}
+> +	arm_smmu_icc_enable(smmu);
 > +
-> +title: Sensirion SLF3x liquid flow sensor
-> +
-> +maintainers:
-> +  - Wadim Mueller <wadim.mueller@cmblu.de>
-> +
-> +description: |
-> +  Family of digital liquid-flow sensors from Sensirion with I2C interfac=
-e.
-> +  The same register map is shared by all family members; sub-types differ
-> +  only in the flow scale factor exposed by the device and are detected at
-> +  probe time via the product-information register.
+>  	err =3D arm_smmu_device_cfg_probe(smmu);
+>  	if (err)
+>  		return err;
 
-Because that doesn't work for fallback compatibles, we often give devices
-their own compatibles anyway. Fine to also detect in driver but if we get
-something that falls back to an SLF3S-0600F I don't think there is any reas=
-on
-to think the subtype will match, so we have to trust DT to have given us
-all the necessary info.
+[Severity: High]
+Are we leaking the clock references and interconnect vote on subsequent err=
+or
+paths?
 
-> +
-> +  Supported sub-types:
-> +    - SLF3S-0600F (calibrated range =C2=B12 ml/min)
-> +    - SLF3S-4000B (calibrated range =C2=B180 ml/min)
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - sensirion,slf3s
+If arm_smmu_device_cfg_probe() or other subsequent initialization steps fai=
+l,
+the function returns directly without calling clk_bulk_disable_unprepare() =
+or
+arm_smmu_icc_disable().
 
-If you don't expect to add  more sensors this in near future would be fine
-as a const rather than an enum.
+Should there be a cleanup path that properly releases these resources when
+probe fails?
 
-> +
-> +  reg:
-> +    maxItems: 1
+[Severity: High]
+This is a pre-existing issue, but does arm_smmu_device_probe() expose the
+IOMMU device to the system before Runtime PM is fully initialized?
 
-There seems to be an irq. Given bindings should be complete that should
-be here even if the driver doesn't use it.
+Later in arm_smmu_device_probe(), iommu_device_register() is called before
+pm_runtime_enable(). Registering the IOMMU makes it visible to the system,
+allowing concurrent device probes to attach to it and trigger mapping
+operations, which call arm_smmu_rpm_get().
 
-> +
-> +  vdd-supply: true
-> +
-> +required:
-> +  - compatible
-> +  - reg
+Since pm_runtime_enable() hasn't run yet, pm_runtime_enabled() evaluates to
+false, and arm_smmu_rpm_get() returns 0 without incrementing the usage coun=
+ter.
 
-vdd-supply presumably needed for device to function so should be here.
-=46rom dt-binding point of view we don't care about the kernel providing
-stub regulators etc.  The supply documentation should reflect what must
-actually be supplied.
+If the probe thread subsequently executes pm_runtime_enable(), the concurre=
+nt
+thread's matching arm_smmu_rpm_put() will see pm_runtime_enabled() as true =
+and
+decrement the counter, causing a structural underflow.
 
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells =3D <1>;
-> +      #size-cells =3D <0>;
-> +
-> +      flow-sensor@8 {
-> +        compatible =3D "sensirion,slf3s";
-> +        reg =3D <0x08>;
-> +        vdd-supply =3D <&reg_3v3>;
-> +      };
-> +    };
+[ ... ]
+> @@ -2308,6 +2360,7 @@ static int __maybe_unused arm_smmu_runtime_suspend(=
+struct device *dev)
+>  	struct arm_smmu_device *smmu =3D dev_get_drvdata(dev);
+> =20
+>  	clk_bulk_disable(smmu->num_clks, smmu->clks);
+> +	arm_smmu_icc_disable(smmu);
+> =20
+>  	return 0;
+>  }
 
+[Severity: High]
+This is a pre-existing issue, but does disabling the interconnect vote and
+clocks here expose a crash in the shared interrupt handler?
+
+The driver requests its IRQs (such as arm_smmu_global_fault) using the
+IRQF_SHARED flag, and arm_smmu_global_fault() reads hardware registers
+directly without checking the power state.
+
+Since the handler doesn't use pm_runtime_get_if_active() to verify the devi=
+ce
+is active, if another device on the shared IRQ line triggers an interrupt
+while the SMMU is suspended, won't the SMMU's handler access unclocked and
+unvoted hardware, leading to a synchronous bus abort?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526-smmu_inter=
+connect_addition-v2-0-2a6d8ca30d63@oss.qualcomm.com?part=3D2
