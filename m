@@ -1,118 +1,144 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D8873D25DD
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:02:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CD93DB655
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 10:02:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779789763; cv=none; b=G7zCnlQbnqSZgiNVivCifrPZq+kIO4oDBtV9RZAA57MAF4H3vJyxmUNnxNBqPl/GLbsIKjKN1TUjGD19ZGKRK2YI7lCVFhI1K87KBXDcvdAu8jZhScCZg02B+dkdNtqSTS+FdCV+661hbWbPsyD6WdK8ArSfWSnBdftFxyDUaM8=
+	t=1779789778; cv=none; b=dvBZj90kAhWPQmszZosDrs5qXUVFZmlVHB0oFq7L3mJ6WpP4MXQjD5hQ4J7//bMr57EilqVG8l+Hc3VHEE66uuTE3rQ4OzPkNSazJGkBXOwRwljDFqhJoio7GEepcQzLbM9HBDnZGK3Y9yI5CapmQi66L3fdM98+bqoZhMf8lO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779789763; c=relaxed/simple;
-	bh=1WOWMSyv5ijDMTi+z3FvC6gxEI1E0lxP5EF3SlyMUHI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kz/fcGkz4qYz+8wGaUIflI0gjREP/k/fy6+SSKneASZqBuHf3ZSjQxaTKH0EJwQJqgi8rGXA5V9ysjF1RRUqNvVAhK6BaXYxdTne5VbFx/Awjbqj7B8vMOj3Cbc8f1l78RPXyjMRa6iJsSDRkS/5hoVvuVfwAs7YeVKohfeCCU8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ROfVy8PP; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1779789778; c=relaxed/simple;
+	bh=PixFcFKLBiuLHlO5uvwBEdux7Cjb3/Hbl5Bl9rV/+xs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mqnFMCM8VszeUyaJTnWWNHwuAUVatYzGHwfBUdeX6fp+jF8c/8GGtZGuQkNGjCJ/D7X/aZwfPTA86iRMZXpfRyGZJMFR1/SZeep9LHRz+LEbQRT/UKacn52qC8DLPp18GVfjCICt6FP1Z9limR7VZwMd5EBxF9xX2oMafSb0kC4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RUwt3JAV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ROfVy8PP"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4903974854dso42133875e9.3
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 03:02:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779789761; x=1780394561; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sR54CF7mjFzC0QGjIQLTwB3SyWd+B75zHF817dW71tk=;
-        b=ROfVy8PPsGSxCTRTWGg48mRZRJHHKPLF1v22dWOveFLRntgM3RX9ToHnUdIP/hc7El
-         PhczOaGb0UhU/eMENNYm92/qJlyCJR6MEy3zGWyrOMkUSmkf1AuDp2SoUj/mO0YIIZ2F
-         ryzSDAPMQFvaWzhbPCogy6lzS/qjqoiRNVUjmOUotj8t3aNKjtDEkh5j4dKOdF5IA7pP
-         E+BOlqAKl0//DMFjMLJqW1/ML5n0maqEh8778K68vtIsmnPYFH2fHaAV/rvirbkO34vC
-         Pj+7PA0eUEsrHWUnp2oWQSYTlgt8GkHsG8t1onIrH8A/YhaeUqg9X6n8LfavmTNaZbJ0
-         Jnaw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779789761; x=1780394561;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sR54CF7mjFzC0QGjIQLTwB3SyWd+B75zHF817dW71tk=;
-        b=fT/hExs1b99QxRQ8MqgL6yKm0VEO94rZm3EsQm5jpRJTyhcr8Xi4KU87p+LABDtAOE
-         xLNE/tCMyItm8i5SI5a4URNZXmecYUe+KdLRck/507dyXszsUwIbwTT3z4gHlATWptGA
-         lGl+/y1+E8HkoL5xIdJuN+Dte92pHbaW33mN/dU+OGtYUwyokZ7N04lDvPewBLFkHLTi
-         y+Gfhi4mqLtj0T7Xq/q+NFp1XtGzWbjvYnC7WAS6El8zYmwCO+6YYzxaJtTM76JO76ab
-         V8teH7CF2pV0LZx8DZ/d65grBBryaPNkrmKK3Wc0LVZnWOL184GyV6oiBg1aKt6LurCs
-         IZ5A==
-X-Forwarded-Encrypted: i=1; AFNElJ/2MFTN8XhVWvZ++Gkwv7ywiAkXXNJKNcgnouUUC7HhjD4LT4w9jYXMWz4ud3V2aSQ/DCZXh5mWNi6a@vger.kernel.org
-X-Gm-Message-State: AOJu0YwyjpqCotsQH5lR5vLDj+kq07eka2mviOL2ps4PiNJ72MVgfOJn
-	tXZrX4U/D3scdCIpfdTvQN/uwQFE99BO8zk/NIivR8woWx8OqttzuJdWatFO4amdjGU=
-X-Gm-Gg: Acq92OEEDhPbmBetzi6RzlLDrdLpTyLYys5AhmkWq24Zc6OtaJfTQxeBUrpe0mNzPuc
-	EHSw0XR+nlPBO+z87P5tyL3i+uGC8aTmK5tffEz8TBkrbybp2JKlTlzWkPsY1uL5jH4d5/soHTE
-	v3kKMMTq1P9V+hoT+rvaP2NLpMPLyXLea6P0fYeUbCx6BndtjA9iyu9GBTK1Xlqa0/iIQqA5/Ug
-	dpsjZQNJdI7Dnp4yehDJMdeMoGmMhYphNCG/BiLR7/7LFTdXlJvsCEhf6oaHrL0FNldr0M1Nm/e
-	NlAje0Zucs2zLFyv5b+oKC3KRowIqCn4gzsesDDZS8Q5vdoMi+b8GZD3TQ/ure67TrWXhTM55Mr
-	Rwo6Hhy1oCSe31ZOQOLMGo5R1Om3IKpPpcHRtQd4IJjTB2qhip7Lx0NryH57pHoafzEq/lEA6fK
-	UV/CwxTL5I4+LJYb5CXffEBaZcahIayn4=
-X-Received: by 2002:a05:600c:4ecc:b0:490:389:7644 with SMTP id 5b1f17b1804b1-490426d4d7fmr296727545e9.17.1779789760577;
-        Tue, 26 May 2026 03:02:40 -0700 (PDT)
-Received: from [10.11.12.110] ([82.76.215.73])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45eb6d71688sm36206969f8f.33.2026.05.26.03.02.39
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 26 May 2026 03:02:40 -0700 (PDT)
-Message-ID: <08eba1cf-2df8-4f2f-a527-ee03ee792920@linaro.org>
-Date: Tue, 26 May 2026 13:02:37 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RUwt3JAV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D1BC1F000E9;
+	Tue, 26 May 2026 10:02:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779789775;
+	bh=xDZWQhbtSIJ/t1BgVUxCNNTdkuOLBAeDeVenBa2bTDE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RUwt3JAVnFM+j8Bk4hzF9EHs8SNyOX4gwepuQvWHT3LixCUxuN12Um1rmzBmvm7FA
+	 mBXvIjWOvhyZ8l31+hA2Io+xr2Q5UIPS/xz2duP7sAl8/HuJKiAG9ZEFHaPI3V68+P
+	 5VJ2S2tCsoKsslSCe74II18T3FKCLdyvAeBcWnVPNa6LgA5avDCPtuJbRu34YPFuaR
+	 Tw8gFQ/XxMXPS0YJD6RJpYvNfLgxA5OhsTe4hctmU9pVLxVBq9hExYmYCKWYPrncAq
+	 gssHapQokxRWWVe9bcesf0PzP+HHJr75oNdMGT+VniuwkfQMLpF1Pl2FUvUHE8eqwh
+	 DCq7VVETCE3zQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 3/3] phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
+Reply-To: sashiko-reviews@lists.linux.dev
+To: palash.kambar@oss.qualcomm.com
+Cc: olteanv@gmail.com, linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org
+In-Reply-To: <20260526090956.2340262-4-palash.kambar@oss.qualcomm.com>
+References: <20260526090956.2340262-4-palash.kambar@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 26 May 2026 10:02:54 +0000
+Message-Id: <20260526100255.0D1BC1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 1/5] dt-bindings: thermal: Add Google GS101 TMU
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org,
- devicetree@vger.kernel.org
-References: <20260525-acpm-tmu-v5-1-85fde739752e@linaro.org>
- <20260525125455.AF31A1F000E9@smtp.kernel.org>
- <4832a220-ace5-40ba-b85b-7c69b3aed869@linaro.org>
- <20260526-uptight-bustard-from-jupiter-291e59@quoll>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <20260526-uptight-bustard-from-jupiter-291e59@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The Hawi UFS PHY configuration (`hawi_ufsphy_cfg`) lacks a fallbac=
+k overlay for `UFS_HS_G4`, preventing proper initialization for UFS 3.1 or =
+lower devices.
+- [High] Incorrect HSGEAR_CAPABILITY value configured for the UFS HS Gear 5=
+ overlay.
+--
 
+commit 1174a7d9d404cf84ecf6ba8228fcab24e26ef4df
+Author: Palash Kambar <palash.kambar@oss.qualcomm.com>
 
-On 5/26/26 12:39 PM, Krzysztof Kozlowski wrote:
-> On Mon, May 25, 2026 at 04:06:40PM +0300, Tudor Ambarus wrote:
->>>
->>> [Severity: Medium]
->>> Since the commit message and binding description indicate that the
->>> Application Processor relies entirely on the ACPM firmware for all
->>> functional TMU tasks, shouldn't samsung,acpm-ipc be included in this
->>> required list?
->>>
->>
->> I disagree. The property remains optional because the ACPM firmware
->> can be bypassed entirely. The TMU IP is capable of handling thermal
->> management directly without IPC intervention, so the phandle is not
->> a strict hardware requirement.
-> 
-> I see your driver will fail probe without it, so something is not
-> matching here.
-> 
+phy: qcom-qmp-ufs: Add UFS PHY support on Hawi
 
+This commit adds the initialization sequence tables and configuration
+for the UFS QMP PHY found in the Hawi SoC.
 
-Yes, that's because plain TMU register access, without the ACPM, is not
-currently implemented in the driver. The ACPM can be bypassed in theory,
-which is why I left the phandle optional in the binding to reflect the
-hardware.
+> diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c b/drivers/phy/qualco=
+mm/phy-qcom-qmp-ufs.c
+> index 771bc7c2ab505..2fac3a7eb8201 100644
+> --- a/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
+> +++ b/drivers/phy/qualcomm/phy-qcom-qmp-ufs.c
 
-I will amend the commit message to clarify this. Sashiko identified a
-few other things in the driver as well, so I'll need to send a v2
-anyway. If you still prefer I make the phandle required for now, just
-let me know.
+[ ... ]
 
-Cheers,
-ta
+> @@ -1844,6 +1867,119 @@ static const struct qmp_phy_cfg sm8750_ufsphy_cfg=
+ =3D {
+> =20
+>  };
+> =20
+
+[ ... ]
+
+> +static const struct qmp_phy_init_tbl hawi_ufsphy_g5_pcs[] =3D {
+> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_PLL_CNTL, 0x3b),
+> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_TX_HSGEAR_CAPABILITY, 0x06),
+> +	QMP_PHY_INIT_CFG(QPHY_V7_PCS_UFS_RX_HSGEAR_CAPABILITY, 0x06),
+
+[Severity: High]
+Does this code advertise an incorrect gear capability?
+
+The overlay is named g5_pcs and the maximum supported gear is UFS_HS_G5, but
+these capability registers are being programmed with 0x06. This typically m=
+aps
+to a Gear 6 capability, which could cause link training failures or mismatc=
+hes
+during UFS negotiation if the value should actually be 0x05.
+
+> +};
+> +
+> +static const struct qmp_phy_cfg hawi_ufsphy_cfg =3D {
+> +	.lanes			=3D 2,
+> +
+> +	.offsets		=3D &qmp_ufs_offsets_v7,
+> +	.max_supported_gear	=3D UFS_HS_G5,
+> +
+> +	.tbls =3D {
+> +		.serdes		=3D hawi_ufsphy_serdes,
+> +		.serdes_num	=3D ARRAY_SIZE(hawi_ufsphy_serdes),
+> +		.tx		=3D hawi_ufsphy_tx,
+> +		.tx_num		=3D ARRAY_SIZE(hawi_ufsphy_tx),
+> +		.rx		=3D hawi_ufsphy_rx,
+> +		.rx_num		=3D ARRAY_SIZE(hawi_ufsphy_rx),
+> +		.pcs		=3D hawi_ufsphy_pcs,
+> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_pcs),
+> +	},
+> +
+> +	.tbls_hs_overlay[0] =3D {
+> +		.pcs		=3D hawi_ufsphy_g5_pcs,
+> +		.pcs_num	=3D ARRAY_SIZE(hawi_ufsphy_g5_pcs),
+> +		.max_gear	=3D UFS_HS_G5,
+> +	},
+
+[Severity: High]
+Does this configuration lack a fallback overlay for UFS_HS_G4?
+
+If the UFS host controller negotiates Gear 4 (for a UFS 3.1 device) or lowe=
+r,
+qmp_ufs_get_gear_overlay() will attempt to find the closest higher supported
+gear overlay. Because floor_max_gear is initialized to cfg->max_supported_g=
+ear
+(5), the fallback condition max_gear < floor_max_gear evaluates to 5 < 5 (f=
+alse)
+for this single available overlay.
+
+This results in qmp_ufs_get_gear_overlay() returning -EINVAL with no overlay
+applied, leaving critical PCS registers uninitialized and causing link
+establishment to fail. Should a G4 overlay be added here similar to other
+G5-capable PHYs like sm8750_ufsphy_cfg?
+
+> +
+> +	.vreg_list		=3D hawi_ufsphy_vreg_l,
+> +	.num_vregs		=3D ARRAY_SIZE(hawi_ufsphy_vreg_l),
+> +	.regs			=3D ufsphy_v7_regs_layout,
+> +};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260526090956.2340=
+262-1-palash.kambar@oss.qualcomm.com?part=3D3
