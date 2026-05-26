@@ -1,119 +1,286 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A03613CCA05
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:40:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A203CCA12
+	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:42:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779784837; cv=none; b=lwMYsVIU1mT7/Cp6oN5AHSZG2Ya37YtV5e28z0sBEQXiDVt6tPoVnR7dy370vYNE6AApVGpFfCVwJDYT2lIQsK10Yr56wXgfvrBJvLClD2Qn2UhCiTII0jBxcWjrtZIXZpB1Bo+BWlHVQMnsjLw97kLFlkNFKdYNiX/kwdJUvMI=
+	t=1779784980; cv=none; b=a7Ju9Jnf5bhDl+7PtkfsOKtE2dTO3pu/ejvW5upmkayBL5zn7urFvGx+jOXnUXWBlgk3a4cWXL+y7Zh2dLr9mZyFNBToDV4fY/So09xb6XDxR31pX/Lef8V/N9EqX6zcUDokRMLwKjBJOYlrjB/tssRwAT3sqEeikMPeMXixmqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779784837; c=relaxed/simple;
-	bh=3+HEPoC6UyIO+L+4nX2r3N4eZ9yqqs+hKK4o/nUL4hI=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=sXCpatngkb1kBy0+1Wf61SVPmrScLCTpzonWUKHS775fKAQkrnFQ7tc/cisXMUhFZNPo3nAuLtdFJHvfTkivasNduIhzwzxY7ovlHEl980aSAvnlWmHfGq4EkvLwAgjUB4oma4tSVIYtEVYRvNMu7kv1auL8I/b16l2IVV/Conc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DWeYAlqg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779784980; c=relaxed/simple;
+	bh=Zqw766Jy60K1FM3PKpdg2gxD770lA/4084JUd2Hz3RY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=g4kAS0SfgPc/ycZemZ8uMh1GzKU+v6ETwVRyhMd2sAMebolp+S85QCCoDuhWxT3hQAbSHg32MbFLeceZBScol2L2ErJxM4TnYwmerCXap4aMeZ0dHsm3fDiKGXBQSXvwYG0jDN0/m09wRcAbQGdSSg+tVIK8/8dbAkIRf1PeKaI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kwBOf9kr; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DWeYAlqg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 693821F0155F
-	for <devicetree@vger.kernel.org>; Tue, 26 May 2026 08:40:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779784835;
-	bh=+Ki6uWxNT/B00QDkxwb3Oci7j2KyejSG6wxzHzrChn8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=DWeYAlqgj5FLsoLgUmVUDmDgShJarvffGYWpmR91ZUTQiAeyLz2Mv9mhOcRT9b6zi
-	 fycwcOlT3oge6cR04gYvbiTFzt+KDEMmTDcaA3Fs4n3lZtB1P6BDmWN9bnLBRCdfsf
-	 91sM2wZYlcLkLL0MV4Q0TkjhRJF01tzmZ08Jvu09WpD2Znol67paALt3ciRB3Mut0K
-	 Bst7gBCEtjiD4R96HXqLbVTbLSXGL/n/DFBtdEknjjj79Qy6HPIVYQ49JE0Vg7LKVo
-	 7zDv2UnHXMmb+BhwniyQmHWidYQtATWSj0J8mpAEy298bvlsUuDdFtpHGAAsmJQlrn
-	 RrDLAy/2BOWIA==
-Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5aa2691db86so9770269e87.3
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 01:40:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8jkNsWON/X1DNrhvv28ahM6QQ5EVF5wgUFiwTaUrgn9GjCK7iLcyJhqvMDVxk2qhojLrUwhf7k4UC+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8QqK9C8wPJ0LFCFVzDgG6kI6PtERqagmByYiUJtYlOsBo1AM8
-	Ob9cakirzSv3hMQlgJZX34KqePSeqI7ED8Dfp5CQSHU0/DfzdpS30z/DgeX3XdZsxpoZwzybOym
-	uM4dbe4jRGPx/NbAdv8Vo026CUupRsb7zMbmQG1ceEg==
-X-Received: by 2002:a05:6512:694:b0:5a8:63e0:cd92 with SMTP id
- 2adb3069b0e04-5aa323b29f9mr5504025e87.33.1779784834004; Tue, 26 May 2026
- 01:40:34 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 26 May 2026 04:40:32 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 26 May 2026 04:40:32 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260525144629.498630-4-jerrysteve1101@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kwBOf9kr"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-4905e190c71so21273685e9.3
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 01:42:58 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779784977; x=1780389777; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=ydnICT1XC8Vp9E9v1sQrxCC0lGHYdxwXITHGPqNpjR0=;
+        b=kwBOf9krSVXECfjqJCIWISd3Xz0g9Oaj4ezQJklNLVbNSPJgcuarOV5b9G1xJWRh2q
+         R3aSSlu7ENtvSIoo+9VDesAofNMr1Qxq3yDjvuz6cjejynzAWTU+WyJc0C8Yi0C/IZEd
+         aFd1rC0o6y0VtGuOV8KNxSQp50woWmIouoXLpJyikRhGqGK6eXuQ7RU/FC+XOymODAka
+         M2PAUuzHtSp08U+q7TsFikHvNgGW9nP/1J1LWaRFl/0/nEd7kkihqChCvibtFulFfgSK
+         n7BRccAG0rBwkKBRfEWxE90wkGff9wiwbHobydzl3Pj19i+6ShMrSsW2km/ekYaIQeim
+         HIkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779784977; x=1780389777;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=ydnICT1XC8Vp9E9v1sQrxCC0lGHYdxwXITHGPqNpjR0=;
+        b=So4/O0uDfMiH5Hj4IpaeYFZQLmg8Wo8kGaz7p+MHvbWnSM2bQO69iDTnWvvTmt1GTB
+         6MVAlSVBOLDb/1YbbOSysu1jXtbFHY4I69O8RcXO96xGdWrAUhP/L3HSOITdY0VQRhFJ
+         LN6LIffjS5VeRDbtwJCLQulnAZLu0yK3mjzins12BXm7wsvHseoZHr8ufHv6o67gvKng
+         EggvFaUY6pFanaLotfJzDAhkJMtqGW4Jd2SNRCnI4trTBfRzj7WvRrgHA+c6H7SnvQ0M
+         8XPkp+1bsBReDtH0eQD2lMNbfYhVi/FPB3D947S6yoyuL5ixRfbQIq8cJf2y0Gc9geXe
+         9qaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/sTw4vvW0yCH4COa4Jd3QNCQDNmq8tXu3XBlXEGG4vi0OwXanmp36s+/LSMihQjZWxy79qmfnCqTHy@vger.kernel.org
+X-Gm-Message-State: AOJu0YyXLOuKJzch+OuQ09WmCniHk95eMS3yuBrmUxxv4YxQ6yNCV0fu
+	aBVgruoJgDXuEp2DmUrPGr+OyO0vhYT1CkVMcn2vIIzeBiDpPqO0g1OJ
+X-Gm-Gg: Acq92OGN3QdfA6+gA/+ND/0uFXF2r7k6CQXWiRJIj17aLLcv3qi9fJxQrhCbctj+4Hz
+	WjUl8RYXkUJXakuLt1uNUybL6lvvxSyt6CAQd6XnnepKhTNxqcm1qYn2oCSVERZFSGCFZvoQ0JZ
+	7pD/m7gwvAeCG/rBWEtVtLrbirnCLTM8J1qNWSRSOTMsnJDrB3C45JfR92bKm0NZGCVsM40g6ES
+	b7qOi0IcgIjBKkbEXomVbmEyPoBnizGRknPQ+M5f2Pq6sTI1wVq8VzWz/McSENIuqQTTmhN4Xmg
+	h5B7MRG3ZQdPrtN47UWT0b4BPq9Qq1phxwuDNYFlX9tDWvZVtNyG8osLAmHiuILlipo9Jc2wr3T
+	jEL0j5idtlQgWzFQZAvqHqvMX6G1Wsdb5O7XslzPHHIkh3NU+unGYgbq1MtZY2TUvRvAHk8dRi1
+	6v0HrDvArNamb7m/8nA2VTDxn92WYUVbv6J++5Hnoabq1sm07WEM+yxPIMy1zTkN8X2it/XR0ep
+	fMpf18ZyY43Pw==
+X-Received: by 2002:a05:600c:6303:b0:488:904b:f31 with SMTP id 5b1f17b1804b1-490426d7025mr293058365e9.22.1779784976851;
+        Tue, 26 May 2026 01:42:56 -0700 (PDT)
+Received: from orome (p200300e41f291e00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f29:1e00:f22f:74ff:fe1f:3a53])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490454a0b82sm325360665e9.9.2026.05.26.01.42.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 01:42:54 -0700 (PDT)
+Date: Tue, 26 May 2026 10:42:52 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Hunter <jonathanh@nvidia.com>, Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
+	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Michal Simek <michal.simek@amd.com>, 
+	Kevin Xie <kevin.xie@starfivetech.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
+	Manikanta Maddireddy <mmaddireddy@nvidia.com>
+Subject: Re: [PATCH v4 3/4] PCI: tegra: Add Tegra264 support
+Message-ID: <ahVbq96MYmhIngcP@orome>
+References: <20260402-tegra264-pcie-v4-0-21e2e19987e8@nvidia.com>
+ <20260402-tegra264-pcie-v4-3-21e2e19987e8@nvidia.com>
+ <iaoee5r5e2w52fap7ex23wdikbuvpjpesinedgjkehsedszhzo@64yoo2avmxle>
+ <adTAVYEzfD9FQl8N@orome>
+ <ukeelrtmjgxxwlkkzsojygzo6us5ijshis66a4x2a44hg4bw25@hggglahvrajy>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260525144629.498630-1-jerrysteve1101@gmail.com> <20260525144629.498630-4-jerrysteve1101@gmail.com>
-Date: Tue, 26 May 2026 04:40:32 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mearb0F8CSNUqo-J8Zp2bbR6ti1aE4UO1A0v+pfZ9dtUg@mail.gmail.com>
-X-Gm-Features: AVHnY4Kv0sUH774IV01K5ycsVeEWPf8Q4-jYLuoJnpteIVsc5mnJpzvEPaA9BR0
-Message-ID: <CAMRc=Mearb0F8CSNUqo-J8Zp2bbR6ti1aE4UO1A0v+pfZ9dtUg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/6] gpiolib: of: add quirk for IS31FL319X shutdown line
-To: Jun Yan <jerrysteve1101@gmail.com>
-Cc: Pavel Machek <pavel@ucw.cz>, Krzysztof Kozlowski <krzk@kernel.org>, Wei Xu <xuwei5@hisilicon.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Peter Rosin <peda@axentia.se>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org, linusw@kernel.org, 
-	dmitry.baryshkov@oss.qualcomm.com, Lee Jones <lee@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Vincent Knecht <vincent.knecht@mailoo.org>, Grant Feng <von81@163.com>, 
-	Andre Przywara <andre.przywara@arm.com>, Tony Lindgren <tony@atomide.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Romain Perier <romain.perier@gmail.com>, 
-	Jesper Nilsson <jesper.nilsson@axis.com>, Robert Marko <robert.marko@sartura.hr>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="zyj365btmhllqxkn"
+Content-Disposition: inline
+In-Reply-To: <ukeelrtmjgxxwlkkzsojygzo6us5ijshis66a4x2a44hg4bw25@hggglahvrajy>
+
+
+--zyj365btmhllqxkn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 3/4] PCI: tegra: Add Tegra264 support
+MIME-Version: 1.0
 
-On Mon, 25 May 2026 16:46:09 +0200, Jun Yan <jerrysteve1101@gmail.com> said=
-:
-> According to the IS31FL319x datasheet[1], the SDB pin is active=E2=80=91l=
-ow.
-> However, existing device tree incorrectly configure it as active=E2=80=91=
-high.
->
-> Add a fixup to force the consumer active low for legacy device trees.
->
-> [1] https://lumissil.com/assets/pdf/core/IS31FL3196_DS.pdf
->
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
-> ---
->  drivers/gpio/gpiolib-of.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/drivers/gpio/gpiolib-of.c b/drivers/gpio/gpiolib-of.c
-> index ef1ac68b94b7..8a79aaadc9ea 100644
-> --- a/drivers/gpio/gpiolib-of.c
-> +++ b/drivers/gpio/gpiolib-of.c
-> @@ -194,6 +194,16 @@ static void of_gpio_try_fixup_polarity(const struct =
-device_node *np,
->  		{ "himax,hx8357",	"gpios-reset",	false },
->  		{ "himax,hx8369",	"gpios-reset",	false },
->  #endif
-> +#if IS_ENABLED(CONFIG_LEDS_IS31FL319X)
-> +		/*
-> +		 * According to the IS31FL319x datasheet, the SDB pin is active=E2=80=
-=91low.
-> +		 * However, existing device tree incorrectly configure it
-> +		 * as active=E2=80=91high.
-> +		 */
-> +		{ "issi,is31fl3199",	"shutdown-gpios",	false },
-> +		{ "si-en,sn3190",	"shutdown-gpios",	false },
-> +		{ "si-en,sn3193",	"shutdown-gpios",	false },
-> +#endif
->  #if IS_ENABLED(CONFIG_MTD_NAND_JZ4780)
->  		/*
->  		 * The rb-gpios semantics was undocumented and qi,lb60 (along with
-> --
-> 2.54.0
->
->
+On Fri, Apr 10, 2026 at 10:04:20PM +0530, Manivannan Sadhasivam wrote:
+> On Tue, Apr 07, 2026 at 11:38:28AM +0200, Thierry Reding wrote:
+> > On Thu, Apr 02, 2026 at 11:02:02PM +0530, Manivannan Sadhasivam wrote:
+> > > On Thu, Apr 02, 2026 at 04:27:37PM +0200, Thierry Reding wrote:
+[...]
+> > > > +	depends on ARCH_TEGRA || COMPILE_TEST
+> > > > +	depends on PCI_MSI
+> > >=20
+> > > Why?
+> >=20
+> > I suppose it's not necessary in the sense of it being a build
+> > dependency. At runtime, however, the root complex is not useful if PCI
+> > MSI is not enabled. We can drop this dependency and rely on .config to
+> > have it enabled as needed.
+> >=20
+>=20
+> Yes. I think the rationale is to depend on the symbols that the driver ne=
+eds for
+> build dependency.
 
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Done.
+
+[...]
+> > > > +						  GPIOD_IN);
+> > > > +	if (IS_ERR(pcie->wake_gpio))
+> > > > +		return PTR_ERR(pcie->wake_gpio);
+> > > > +
+> > > > +	if (pcie->wake_gpio) {
+> > >=20
+> > > Since you are bailing out above, you don't need this check.
+> >=20
+> > I think we still want to have this check to handle the case of optional
+> > wake GPIOs. Not all controllers may have this wired up and
+> > devm_gpiod_get_optional() will return NULL (not an ERR_PTR()-encoded
+> > error) if the wake-gpios property is missing.
+> >=20
+>=20
+> Ok. In that case you can just bail out:
+> 	if (!pcie->wake_gpio)
+> 		return 0;
+
+Done.
+
+[...]
+> > > > +	bw =3D width * (PCIE_SPEED2MBS_ENC(speed) / BITS_PER_BYTE);
+> > > > +	value =3D MBps_to_icc(bw);
+> > >=20
+> > > So this becomes, 'width * (PCIE_SPEED2MBS_ENC(speed) / 8) * 1000 / 8'=
+=2E But don't
+> > > you want, 'width * (PCIE_SPEED2MBS_ENC(speed)) * 1000 / 8'?
+> >=20
+> > This is M*B*ps_to_icc(), not M*b*ps_to_icc(), so we do in fact get the
+> > latter. I almost fell for this as well because I got confused by some of
+> > these macros being all-caps and other times the case actually mattering.
+> >=20
+>=20
+> Oops, I was misleaded too. But you can simply do:
+> 	bw =3D Mbps_to_icc(width * PCIE_SPEED2MBS_ENC(speed));
+>=20
+> > > > +	err =3D icc_set_bw(pcie->icc_path, bw, bw);
+>=20
+> And here you were setting the MBps, not Kbps.
+
+Done.
+
+> > > > +	if (err < 0)
+> > > > +		dev_err(pcie->dev,
+> > > > +			"failed to request bandwidth (%u MBps): %pe\n",
+> > > > +			bw, ERR_PTR(err));
+> > >=20
+> > > So you don't want to error out if this fails?
+> >=20
+> > No. This is not a fatal error and the system will continue to work,
+> > albeit perhaps at suboptimal performance. Given that Ethernet and mass
+> > storage are connected to these, a failure to set the bandwidth and
+> > erroring out here may leave the system unusable, but continuing on would
+> > let the system boot and update firmware, kernel or whatever to recover.
+> >=20
+> > I'll add a comment explaining this.
+> >=20
+>=20
+> Yeah, that'll help.
+
+Done.
+
+[...]
+> > > s/link/controller or endpoint?
+> >=20
+> > This controls the PERST# signal, so I guess "endpoint" would be more
+> > correct.
+> >=20
+>=20
+> Yes!
+
+Done.
+
+[...]
+> > > > +	if (!pcie->link_up)
+> > > > +		goto free;
+> > >=20
+> > > goto free_ecam;
+> >=20
+> > It's not clear to me, but are you suggesting to rename the existing
+> > "free" label to "free_ecam"? I can do that.
+> >=20
+>=20
+> Yeah, I was just asking for a rename.
+
+Done.
+
+[...]
+> > > > +static int tegra264_pcie_resume_noirq(struct device *dev)
+> > > > +{
+> > > > +	struct tegra264_pcie *pcie =3D dev_get_drvdata(dev);
+> > > > +	int err;
+> > > > +
+> > > > +	if (pcie->wake_gpio && device_may_wakeup(dev)) {
+> > > > +		err =3D disable_irq_wake(pcie->wake_irq);
+> > > > +		if (err < 0)
+> > > > +			dev_err(dev, "failed to disable wake IRQ: %pe\n",
+> > > > +				ERR_PTR(err));
+> > > > +	}
+> > > > +
+> > > > +	if (pcie->link_up =3D=3D false)
+> > > > +		return 0;
+> > > > +
+> > > > +	tegra264_pcie_init(pcie);
+> > > > +
+> > >=20
+> > > Why do you need init() here without deinit() in tegra264_pcie_suspend=
+_noirq()?
+> >=20
+> > That's because when we come out of suspend the link may have gone down
+> > again, so we need to take the endpoint out of reset to retrigger the
+> > link training. I think we could possibly explicitly clear that PERST_O_N
+> > bit in the PERST_CONTROL register in a new tegra264_pcie_deinit() to
+> > mirror what tegra264_pcie_init() does, but it's automatically done by
+> > firmware anyway, so not needed.
+> >=20
+>=20
+> Hmm, so firmware asserts PERST# at the end of suspend? It is not clear to=
+ me why
+> it is doing so. But for symmetry I'd like to do it in tegra264_pcie_deini=
+t().
+
+Done.
+
+> Also, I'm not certain about the 'pcie->link_up' check here. If it is 'fal=
+se',
+> then probe() should've failed. So why do you need the check here anyway?
+>=20
+> Maybe you should get rid of this check and return the link status from
+> tegra264_pcie_init() directly?
+
+We specifically don't want to fail the probe for this when the link is
+not there because we want to tighly control the power mode when the link
+is not up. We also need to keep the link alive for the case where it can
+be hotplug capable.
+
+I've added a new tegra264_pcie_deinit() function to clear that PERST_O_N
+bit explicitly, but I've kept the link_up flag.
+
+Thanks,
+Thierry
+
+--zyj365btmhllqxkn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoVXQgACgkQ3SOs138+
+s6GQqA/+KSnsckn3+QROPSYwl6WFhBwH/d766AWMTz1MGrQhNGuXXph5WZDZlNHq
+qDbOjvCc0NtpXT5MDRWoBJYWiuzqHwgqOrsWprV2Vyb1omZHV8pWgJwDVDFOez0J
+FKTX96dA+6vwIyFfUb+7H4Uv2F6yeG11pBHMmZD/EWmXWDGUMp5u9jSCvh1sHenC
+c4hLaL4SozZnTnvtZlxTE+hw8OQ48YU912lY3SzAbLKy/f4wtgYJMwFv8rkrT19s
+n8tZsOaqjCJaLl4/ugYCSusB29JlMwFdW0tn5pvX3zivBELigovK+3IX6a45TKHE
+cPfWT7tk2AxpDyGBpV6U7OCwQKvIcsybni3ezlk6uEThZMbUyyEmA3tQ7lbMj6gA
+kr6VLCSiYZmKUIVHtSw3Lj1v3XsuTomcSn4hgsb2sFFQwWiIAO2B+JCbexeY1Ljs
+mwaM9we7rAAFXR15OELuuqFxobE/SlcWvLKUI99wfumNaKnQskBtnVYnIIxGmhgj
+bPQCesXH3pb08C8XZcFDF/2aqD4myzgldJcz09pu+6y0pqREz91HQ/YsUpRjZgKp
+i7OYSOyo8nb2kN9GDrIUWTf7wOXIWppJrAuWqyiwOjnm/dV7L9si4iPbV57Z2its
+YS3B1Stbq3LJJABBKpFp04HTbOnxCk2Mg80CNLAnuV/JqdPCfrY=
+=WV2r
+-----END PGP SIGNATURE-----
+
+--zyj365btmhllqxkn--
