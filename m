@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF90026B08F
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:37:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B9AB24677B
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:53:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779853037; cv=none; b=HGPPkzD/u5POuaKE3l/soaHpiiwmMebAOL3BQS9O/BRb56vQHuneos10Ih7KmSYDzAFoXjweSuQCWE6HCQZ4nSddZaVv0HHfyzp/C6hy3bEpOSOM/9AEvXywqMP+O/nq53Vq7YGW7o089BbKtBsWIqU1EwhZK5oKeyzB9ToLQzU=
+	t=1779853989; cv=none; b=ETtlT+GOVducgf5z+ESrXMgjbFbmavx4UOND0Bbg2XaPgRsV+0M7w4DpYFxr2kNsi7viOZms/o0hOdsdD/1baihlj0ah9lTA3rQRdk/Vc1jTnecch2vog4o6u0zzHi9/q1E7O20nn32WhOTpNFVB5LQtt6WoUiiPNwiR0q6algg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779853037; c=relaxed/simple;
-	bh=mXtz+pBLtDz/9LacSh8wdtt0OU+Gy1t9jH5gFboVUXI=;
+	s=arc-20240116; t=1779853989; c=relaxed/simple;
+	bh=E/KybydKZB29FSzO5qgQizYoNcf8NDnywL5dC1V4EcQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ap3x3aBV93N8XZZMa4AeMhD6HmmK6YC5JDaGHwxbe9xaadyUuNaPike6TsIHb6Dj1jFSbZXOutbbhvwxJRJwLe6nAS0EoHr+UXGW5mdYOo+o8H73ExQ7mkpRa9FCeB4GrdfzQYO/HF6WDzmOj+ty8nI3jcLDZLAITw5lBWD30TE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jRMw+na/; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=p0MyU4sgSF/DD0hjPyMqKCgsYNTWLI4lcCs0CEVgTuU0b2CtXR1xxFklF47GtI/55C1mDePAE2Geq6Fky/cL2SKsLsGFwoiwuD0NYKG+LyYTClB1UZWn6SAZEeXDN5WfU1br52KW/akoQ6ZsVmWcPdZGbxUknK63L6qkDNaC8cg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TCXIXO4J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jRMw+na/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 549091F000E9;
-	Wed, 27 May 2026 03:37:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TCXIXO4J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2131F000E9;
+	Wed, 27 May 2026 03:53:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779853036;
-	bh=gFQzta5gBtK2IvR5JRxTjbYdFIJ4YkZyDLWzx0n4GUo=;
+	s=k20260515; t=1779853987;
+	bh=VG3rolkG8ZpQwQmZtTkNpWE18eJYRObE+EMHzjbte2s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jRMw+na/Rbu0jHB3oARVH5KI25ia+CqYCXvfMd1usNID3yRqYsN6KMnLPgmF3AXqd
-	 a0yN02OfG6hZy6XNJrTJu5pov5V3kN2L5MG6SlSRfZ/IuSnK5XvKuu1Mv/4NPbHXpy
-	 kvjr8j2wGGILKVKYFj1U53JsHtlNaTyyraokznlDRKWLn52O3+LvmtkK6Zmem++oua
-	 F7VNPGQs7qPlEV1QWExOTK6Oi64E4BKcjYYTi8XHqAU/JTa/5OvHm30FeGlnGTA8Yj
-	 tz5WRvD19MdTLMt01R1Z6oZk+5ukADzqZKTJissAGmL1VT8ivwrKblVUMP4KtOYz/k
-	 hizKaYR3rMHVw==
+	b=TCXIXO4JJjsUU5AkR6Z3rmDfjH46vWlM+VijcTnOwK1o+yToczS4u8efZ2X0O/yBD
+	 8mBJ8SrsSM1ELd8j7rVyO1izSj78oZRyNpX58bAgIRIGn/EoI978mcbNk8yexwR4XY
+	 Xe4ipFZqyhtFP1NkSQ2vu58row7L3mt7SE9cU8vUWAdHez+nTb9ghjPDrYpGsG8WWH
+	 mqWgrppv0stT++mVSoU8FQ764OrKH/F4xF9+13X7eDOVyaIi7XOp//v4Hok8djGx/x
+	 62TeLkyQP3JAhnkvMe9P6ExZKxqlGVj2hsGFse1tJeb7TFtM4bLqKL/eG7nUr30wLm
+	 lJ77RK5PvHvKw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 10/10] drm/rockchip: analogix_dp: Add support for
- RK3576
+Subject: Re: [PATCH v3 04/11] of: reserved_mem: zero total_reserved_mem_cnt
+ if no valid /reserved-memory entry
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260527024336.191433-11-damon.ding@rock-chips.com>
-References: <20260527024336.191433-11-damon.ding@rock-chips.com>
+To: "Wandun Chen" <chenwandun1@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260527032917.3385849-5-chenwandun1@gmail.com>
+References: <20260527032917.3385849-5-chenwandun1@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 03:37:15 +0000
-Message-Id: <20260527033716.549091F000E9@smtp.kernel.org>
+Date: Wed, 27 May 2026 03:53:06 +0000
+Message-Id: <20260527035307.1E2131F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,54 +46,66 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Incomplete hardware configuration or mandatory syscon lookup failu=
-re for RK3576 eDP.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the `dynamic_nod=
+es` stack array in `fdt_scan_reserved_mem()` has a fixed size of `MAX_RESER=
+VED_REGIONS` and lacks a bounds check when storing dynamically-placed reser=
+ved memory regions, leading to a potential stack buffer overflow.
 --
 
-commit dba937ab560aacd4dd5f156770d047256a5462b7
-Author: Damon Ding <damon.ding@rock-chips.com>
+commit d26e031d55dfe0dd2c4b24bada22d27eff019795
+Author: Wandun Chen <chenwandun@lixiang.com>
 
-drm/rockchip: analogix_dp: Add support for RK3576
+of: reserved_mem: zero total_reserved_mem_cnt if no valid /reserved-memory =
+entry
 
-This commit adds Analogix eDP support for the RK3576 platform.
-It introduces a new chip data table and device tree matching entry
-for basic eDP functionality.
+Prepare for storing /memreserve/ entries in the reserved_mem array.
+Zero total_reserved_mem_cnt if no valid /reserved-memory entry exists,
+instead of keeping its initial value. This allows accounting for
+/memreserve entries in follow-up patches.
 
-> diff --git a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c b/drivers/gp=
-u/drm/rockchip/analogix_dp-rockchip.c
-> index d2af5eb29dbb5..d4c5dd61e95bb 100644
-> --- a/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-> +++ b/drivers/gpu/drm/rockchip/analogix_dp-rockchip.c
-[ ... ]
-> @@ -522,6 +522,14 @@ static const struct rockchip_dp_chip_data rk3288_dp[=
-] =3D {
->  	{ /* sentinel */ }
->  };
+> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+> index 6d479381ff1fd..05defc91e9015 100644
+> --- a/drivers/of/of_reserved_mem.c
+> +++ b/drivers/of/of_reserved_mem.c
+> @@ -329,11 +329,14 @@ int __init fdt_scan_reserved_mem(void)
+>  	const void *fdt =3D initial_boot_params;
 > =20
-> +static const struct rockchip_dp_chip_data rk3576_edp[] =3D {
-> +	{
-> +		.chip_type =3D RK3576_EDP,
-> +		.reg =3D 0x27dc0000,
+>  	node =3D fdt_path_offset(fdt, "/reserved-memory");
+> -	if (node < 0)
+> +	if (node < 0) {
+> +		total_reserved_mem_cnt =3D 0;
+>  		return -ENODEV;
+> +	}
+> =20
+>  	if (__reserved_mem_check_root(node) !=3D 0) {
+>  		pr_err("Reserved memory: unsupported node format, ignoring\n");
+> +		total_reserved_mem_cnt =3D 0;
+>  		return -EINVAL;
+>  	}
 
 [Severity: High]
-The commit message states RK3576 fully matches the RK3588 design. RK3588 us=
-es
-the .edp_mode GRF field to switch the combo PHY into eDP mode during
-rockchip_dp_poweron(). Is the .edp_mode field intentionally omitted here? If
-RK3576 requires this bit like RK3588, will the hardware fail to power on
-correctly without it?
+This is a pre-existing issue, but does this code overflow the dynamic_nodes=
+[]
+array?
 
-Additionally, if RK3576 genuinely does not use the GRF for this and it is
-intentionally omitted, does rockchip_dp_of_probe() still unconditionally ca=
-ll
-syscon_regmap_lookup_by_phandle(np, "rockchip,grf")? If so, will omitting t=
-he
-property from the device tree cause an immediate probe failure?
+Looking further down in the fdt_for_each_subnode() loop in
+fdt_scan_reserved_mem():
 
-> +	},
-> +	{ /* sentinel */ }
-> +};
+		if (err =3D=3D -ENOENT && of_get_flat_dt_prop(child, "size", NULL)) {
+			dynamic_nodes[dynamic_nodes_cnt] =3D child;
+			dynamic_nodes_cnt++;
+		}
+
+The dynamic_nodes array is allocated on the stack with a fixed size of
+MAX_RESERVED_REGIONS, but there doesn't appear to be a bounds check on
+dynamic_nodes_cnt before saving dynamically-placed regions.
+
+Could a misconfigured or malicious device tree with more than
+MAX_RESERVED_REGIONS dynamically-placed regions cause an out-of-bounds
+write on the stack during the device tree scan?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527024336.1914=
-33-1-damon.ding@rock-chips.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527032917.3385=
+849-1-chenwandun1@gmail.com?part=3D4
