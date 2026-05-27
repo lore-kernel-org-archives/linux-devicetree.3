@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CD34E761;
-	Wed, 27 May 2026 08:23:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58CFA3DDDD8;
+	Wed, 27 May 2026 08:26:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779870214; cv=none; b=lS/9BYPquOOwnfV1Ewsrb/ZcCy2MVMh3YBA1+a3MKBXoU9OWy5e0W/hiR8oiY3JkE9whiSs+qMF/24fu53EuAwa6b5dzRn+rBsPxc/bsQn1gAKBs1T3mrK/NtdxWhoMHi8Qf+VLxPp26h77eZ0MDwQvYKAiDtxYSZDOe87/169A=
+	t=1779870379; cv=none; b=TMPWUt4Y5Wo/h1atNLEw5BQJ0J7oQjXTfUnkIx9SDxtUS5anBieCc/wc2IUrx9ab+vt7zmcD3k7awNwSp55wGeeUX3ZZdAMXz7Vun9C369XYVNv/6VesGm3ESR/8Ff6q8yeHwScbIkbCL1zFiOqb1A3+vIOodZShKkhGrejB6Lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779870214; c=relaxed/simple;
-	bh=AUKu8TWzzkfhrmcQV6WdssenQq8R37XNInpoGGV+6mM=;
+	s=arc-20240116; t=1779870379; c=relaxed/simple;
+	bh=wELmMqQMKPQVnQoyqxhvIKJj+l+KjZk34ipwEWiKUZY=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GVONelYfhiCC9o72vveSuz/Pul7ycQjEjXkv6YBp6qwpl3eV2LGbOiPsTuE5rp003Kg36c1ZfMJYYNP6oyZ7sHLiasqZYCufGvmSbf3XICSnxBnRRRP8Yjwrcnvynq3XbFIjodwV2HrjUFBaX1hd1T0685D5/YnWH1s+JR2oEww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLCoPiCH; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ohfOQOa6PoF9gljYicRz83KlbIaVCVpzdZhBjrGH4Hj4YBami/6SJVjYiJNcvFpfZfH1Zt1lsAdzFvRhdgY9EdDTedqCcDM7o31LWF57EgDX6hV9I5KMG76766HwfpJ0owPBrayPUD+mMrO9pEnLptv8ELvfl32MPKFCEMTNcZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hMdiLjrA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLCoPiCH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F031A1F00A3A;
-	Wed, 27 May 2026 08:23:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hMdiLjrA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEFE61F000E9;
+	Wed, 27 May 2026 08:26:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779870213;
-	bh=VtiWFCSy71bp7b5C9JKMSk9KiuU1PpHCj+5HbMdjiuk=;
+	s=k20260515; t=1779870378;
+	bh=QbbI6LJ8D/oqI9AUNN1vA+4MeQPnFFzVFq9SdF3C0yw=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PLCoPiCHgu6F1zlSDe4XP4xDG9LVS4TibIiLsjz0YxV3HhJaImApMVs2ORMgqyGE6
-	 svEueqC0uv/UEOsg0VqkaM+OD6AuniPgEA86EbWsrEJDN3u6zrDl6GYQd+QqZTBE+C
-	 gPoRx2VynO5aG86fMS6SNzK0PEl30ITxGSv0TvbQ7G/Z4Tf38InlX4fj6Jf8YtOf+7
-	 6NZ3YrJ2qefuPpxGnSybrpVMOtQN4UbH7Y2FlubL75FS1bv6JJ5mBuLB5zVImC45mQ
-	 JAi4aMZSat0aAGp88g29WgspgxIi7Yygaz5sVX+GnLOhg14VWTTVmSX4ceZt7KWbD7
-	 dQK4ZPWt7bpeQ==
-Message-ID: <d28799ba-a4af-49b8-a437-3e7b54ed06b8@kernel.org>
-Date: Wed, 27 May 2026 10:23:25 +0200
+	b=hMdiLjrAANXVG9odb/GrV6dfxu/BoflQZOULRmsvCN6Wv2UU7A9LcyuDRrgCt4MLq
+	 gvSjZH9Lsy8H5/iUBtgPui8cy0KUagMyfSq49tz2h1NJvW0s0coN7oSugSKS9DjKEM
+	 bLtrOTiOcexr4W87DD87PclAZ1LrZByrfKnH8Nku+engY7X11mQoCUUoE+nRX6Yp9/
+	 ZXubdI5PongGSKLiOg5QI2XhEAXd8+4y+l+gDy8nCxMD3ibOWCyxDe7kjGeTk1nf8H
+	 4hJUzmBrhEL22sW6WKWBf+WsdQC7xkiqDogRNIIw3XDPQlbZVSpXJ6S1SQwn/vrm1Z
+	 3UKVH2B2zdSsg==
+Message-ID: <80e102be-04c3-4591-8e75-ddf859d3a877@kernel.org>
+Date: Wed, 27 May 2026 10:26:12 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,17 +35,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: net: Document Infineon/Intel XMM6260
- modem
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Andrew Lunn
- <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
-References: <20260523084408.50346-1-clamor95@gmail.com>
- <20260523084408.50346-2-clamor95@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
+ modem pwrseq
+To: Bartosz Golaszewski <brgl@kernel.org>,
+ Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Thierry Reding <thierry.reding@kernel.org>,
+ Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org,
+ linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-pm@vger.kernel.org
+References: <20260523085102.51000-1-clamor95@gmail.com>
+ <20260523085102.51000-2-clamor95@gmail.com>
+ <CAMRc=MfXVwD2u0e115RapnyLzf5JRjWMs=2PSNzMnm0GDd7aaQ@mail.gmail.com>
+ <CAPVz0n1G5Yu2X5f+=q90RAbnsWi9psMq-L5tWDMM4JRC4R_mPg@mail.gmail.com>
+ <CAMRc=Me4G-YqKoFan3epofXk2OWzxY1iPE1mP=uwEjs9wgA6Cw@mail.gmail.com>
+ <CAPVz0n2P-zB1_uetZN9pVcQChK+FkdQowbF4Z0YZOBQBsB76WQ@mail.gmail.com>
+ <CAMRc=MfAAE4UtnW4S1=pY+2yvS6Hsd-U9+uveUFtPGoJPrv6aA@mail.gmail.com>
+ <CAPVz0n2COsDL+fNBAuKr1ty_AVe9sK5yNJithkXex6GNa1T_Tw@mail.gmail.com>
+ <CAMRc=Mc9g=yezRtAtRMzh7t-pSoyoKQEtxrb5U0oeFAbcjb6Ew@mail.gmail.com>
+ <CAPVz0n3X8Gw2Yo9VgwhV0uAqvArGXbvmzw=cZVJw=4BEH_E7_w@mail.gmail.com>
+ <CAMRc=Mf4W9hoP7FAbxQTNLaG3M9W+GmvQSMECbzzdQLU_+5D4A@mail.gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,27 +101,98 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260523084408.50346-2-clamor95@gmail.com>
+In-Reply-To: <CAMRc=Mf4W9hoP7FAbxQTNLaG3M9W+GmvQSMECbzzdQLU_+5D4A@mail.gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 23/05/2026 10:44, Svyatoslav Ryhel wrote:
-> Describe the Infineon/Intel XMM6260, a 3G-focused, slim modem platform
-> designed for smartphones, data cards, and Machine-to-Machine (M2M)
-> applications.
+On 27/05/2026 09:55, Bartosz Golaszewski wrote:
+> On Tue, 26 May 2026 15:41:58 +0200, Svyatoslav Ryhel <clamor95@gmail.com> said:
+>> вт, 26 трав. 2026 р. о 16:14 Bartosz Golaszewski <brgl@kernel.org> пише:
+>>>
+>>> On Tue, May 26, 2026 at 2:55 PM Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>>>>
+>>>>>>>
+>>>>>>> The node attached to the pwrseq provider device should represent a real
+>>>>>>> hardware component. Are the enable-gpios and power-supply lines connected
+>>>>>>> to the modem package?
+>>>>>>
+>>>>>> Yes, enable-gpio is connected to the modem and signals that USB is set
+>>>>>> and ready to work with the modem, while power-supply is an optional
+>>>>>> supply connected to the modem's vbus input.
+>>>>>>
+>>>>>
+>>>>> The modem is a hard-wired USB device? Do you implement it as a
+>>>>> platform driver or a USB driver?
+>>>>>
+>>>>
+>>>> It is not a traditional USB device. XMM6260 is an embedded modem used
+>>>> in the Tegra phones, it is linked with the AP using USB line in HSIC
+>>>> mode. The driver is implemented as a platform device since it does not
+>>>> interacts with the exposed USB device directly, it just ensures that
+>>>> USB device is properly configured and is ready for IPC.
+>>>>
+>>>>> Is there a connector of any kind that could be used as the HW
+>>>>> component represented by the pwrseq device?
+>>>>
+>>>> I assume control over USB line is the HW base, but as I have said, I
+>>>> can integrate binding in the modem node itself, and pwrseq can get all
+>>>> it needs from the match. Pwrseq framework states "This framework is
+>>>> designed to abstract complex power-up sequences that are shared
+>>>> between multiple logical devices in the Linux kernel." it does not say
+>>>> that it must represent some specific hardware.
+>>>>
+>>>
+>>> No, not at all. We just can't make up any imaginary, logical "pwrseq"
+>>> devices and describe them in DT bindings.
+>>>
+>>
+>> Ye, ye, sure, pwrseq framework is quite flexible and I am not stating
+>> this bindings is mandatory.
+>>
+>>>> Using pwrseq allows modem driver to be SoC independent since USB line
+>>>> handling is moved into SoC specific power sequence, and this modem is
+>>>> used in Exynos and OMAP too with similar setup but they all have
+>>>> different USB controllers. Maybe you can point me where SoC specific
+>>>> USB controller handling can be implemented?
+>>>>
+>>>
+>>> I'm not sure I'm following. Can you atrephrase or point me where OMAP
+>>> and Samsung implement it?
+>>>
+>>
+>> They did not.
+>>
+>> The XMM6260 modem is used not only in the Tegra phones but in the OMAP
+>> and Exynos based too. Replicant tried to implement support locally
+>> with midas devices and they had some progress. From what I have seen
+>> generic implementation I am proposing will work with any of those 3
+>> SoCs maybe with some slight tweaks, only part that is totally
+>> different and SoC specific is how USB controller used by the modem is
+>> handled (well and IPC but that is out of scope of this patchset
+>> anyway).
+>>
+>> Obviously, non of the 3 vendors have submitted any mainline patches,
+>> everything is in the downstream forks. I have investigated a bit how
+>> this modem works on my Tegra phone and re-implemented it to work with
+>> mainline kernel (I don't have Exynos and OMAP devices to play with). I
+>> have come up with generic platform driver which handles modem
+>> configuration and a SoC specific part which performs USB controller
+>> bind/probe when modem is ready to handle the USB. ATM this SoC
+>> specific part is available and tested only for Tegra devices.
+>>
 > 
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  .../bindings/net/infineon,xmm6260.yaml        | 74 +++++++++++++++++++
->  1 file changed, 74 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/net/infineon,xmm6260.yaml
+> Are you familiar with the PCI pwrctrl code that lives under
+> drivers/pci/pwrctrl/? It seems to be solving a somewhat similar issue for
+> PCI devices that are hardwired and powered externally. Maybe you could use
+> some of that code for your USB use-case?
 
-Considering that you just sent "power sequencing" device completely
-independent of this, I think my review tag should be dropped because
-this is incomplete. Basically you will be changing this and maybe even
-in backwards incompatible way, thus this should not be accepted in
-current form.
+
+I pointed to PCI already:
+https://lore.kernel.org/lkml/20260518-mustard-rabbit-of-ecstasy-eed3b6@quoll/
+
+And emphasized to describe hardware, not drivers. This binding AGAIN
+describes drivers, so we did not move forward at all.
+
 
 Best regards,
 Krzysztof
