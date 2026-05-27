@@ -1,189 +1,126 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f181.google.com (mail-dy1-f181.google.com [74.125.82.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C03E2768
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779871873; cv=none; b=gsdc9TssPgV7QX+tpKJ3Hirhak6drtTRKkmdddtUU3X9YSwBIAo/aD9eta4QtdqEkE1neuQ2fXjKoess+YEVAW3h7Z/XQRK+S96bGZTTJRAiOTTa9oabb3VZzJJQ9B5J94UGwtwFYoroWK8YGfy3wal1TraPn+6WAtVD/JHLYs8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779871873; c=relaxed/simple;
-	bh=DFJoUVD3KvyymoOkoSNQAVLhRnYQDEGBHGGZx7nO70o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=loQ1tk6oWyYjH/DnHYiFwTtD05TGenv96ib+4wi+oZ+yF5rhA8ADNZajaaDQ6DnhINBU2mMxBSEdQUa/lWA78pqYvrpTAcafce7kBdlBcjnUoVIMPFCmUuDPRlk6NH90MEJZ6Jl7pKnvdKsVjLN5nEEXp0EVbBwwlCYE+GJ4CVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iS6p1WY/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JDirJV3R; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEC5435E1DA
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:55:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.181
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779872107; cv=pass; b=q2vjjdKl3rrs+tSdpcQzlVkqK5RwXKUmhzcGdDDUMXihhqLGYsZlyoEL6ngr9mYyc3dyxK3V/X/blF7UxPnV9h38ZAc5Y5gWNr45XyvG9iKb2fcR6tvYNkPFMTVsd3ExurbX0eGNj4EsVfF2zy4lTC1n/XmEMrVP2MN6EDQs+7o=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779872107; c=relaxed/simple;
+	bh=k/rf0sprghjpMIgMuOwadzixiyngqMOQ9ESziPobPSw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G4h6dLD9Xbslg++VXBIwyyo0r1jQeDRHh1CVae+rrpPUAFGKFFxXEQFvkX6tvT7R4vxOJTymeZqx7SJhZw7E0hH6gmMxSNAGwcLiZ66f6BkKvrOfubAqbCRxbP9n7WHaeZihij/edeiwk7+WBx245zeNokQdBg1scP9xwX/rHyA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=abSVkwtP; arc=pass smtp.client-ip=74.125.82.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iS6p1WY/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JDirJV3R"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mTTl2152267
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:51:11 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	/6hNas6apydJkTdrJtwj+iHqEC9GL8SPaeohHHAAp3w=; b=iS6p1WY/yLTgswAO
-	8kWHVQSv0t9Roku2LWMl/84BJ5Sqv5pfrfrBSh+ovc3y19nLMBaTKCexsYkGCcAy
-	YOs7bN9t6X9zclCEJ3ZW6Jn6Quqb+U+84cZM88yvSG70/1UIXF6cVF3PKg43PigB
-	/NjSKa9zqzEsYIZ/jbhl7Sa2axDwlsVZ1EapXYwKtLvxivHIa6qYgoKbYiPJFR7s
-	zfRIp+FuuOoIFcL3VSTJVtSU+ub4xsPa3dC4Cje77AkRU9/lWD+3AKpM7aT0T35F
-	F7KHP1SUBtuMelQkAAuPgIoKr68znGMcwWYhbe7t7Zo9+OBbGLc8sQeqkdatBNXx
-	JyASLA==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edu6rgkax-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:51:11 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8353fbc7ad5so5771563b3a.3
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 01:51:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="abSVkwtP"
+Received: by mail-dy1-f181.google.com with SMTP id 5a478bee46e88-2f30a4601bbso11719225eec.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 01:55:03 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779872102; cv=none;
+        d=google.com; s=arc-20240605;
+        b=V5yrYRsr9i7CXRkp9yBSTnz0sjICE5HkOuJAbsgwVD6vuMae3T3+ZRq+Ga5etMsiuA
+         iEBsWDOfgIYCeGx9dtHGeezxuWdyoR11J74oxb8+Ys40QNDGeWOKijiO6o5BNjy/ArmP
+         snnYLJVVBkDDGbXRCzfcOWwCBPGeZxP04oHpdR/MKtJkW+6rx56RjnDahaMZjHx3LL5c
+         6UrAv5cQz17SD0br9NLhrzxlzWCOd+6g6nPk6awpogs8Xf7V/Xj0wLjBjgo17wVzg00e
+         y7GeIs+wlNCfTsm2Y4JB+9wAcASf8aMrmO+/2omvw5AIjSkAgfI8Ffq1NfEgp6w/PfcU
+         iO1A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=6QWsDCHfCMtM5YM23243b0CJRuPJzWBKJSsV9LUzw/c=;
+        fh=6t9Ww1uB2X+GApSP9YV8l78dp/BMWa5sbquj9kip+Qg=;
+        b=f3851GtnAoePIvdr/hrSD0ezy/vIUPGlAoVeBxQ6Accgf+C/x+l2OskIZVV2oqapdN
+         ALxjz9lX5QA6A43PvwXj1PA6qwpCXnba71HG5M2cfps7XBEXL5E5uHLgIH1rRRzNvWKt
+         LS37hQnjgZEl1WcDU0cIpDKofQIApiVuAVAU+MPsXf1Onijuo/4RJmwHb67lHfD8h2OP
+         4ZpflzFibgcIBk2JyKCYF1EArqg2bzTl2OGIa3dWr+w+8YfIyfoyTmUADQfT16VqbGDY
+         nM7CFR9o+YjJ/22ttLaFoJUdoh51cvz5vSWkFuRClnMGcq+0uwfbGj8sWus41FUhZEMv
+         PcwA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779871871; x=1780476671; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/6hNas6apydJkTdrJtwj+iHqEC9GL8SPaeohHHAAp3w=;
-        b=JDirJV3RAK++piRvBQUBCBaaHoo/fAE7s+2YqNGXKtMiLpi7lfYfclWVIYWisTX6fN
-         mFSVn5g5+KMYsMY45wV5mSxepHSRwRz1uTdTuhpgoGs/itz5EtgahH+0lesuwWuvlfbJ
-         EMBFfOr89keS+YyLCf8p1IT86swh0ICmXkcFAk66a88p3OLj7++kzvBOzUlsX7tzLMva
-         jHLkldax5F3HJjl2za4dbZz9xVY6OoRXgGStshtuy5ghFf06l8qro+96jSkuqXqsEHsL
-         /9NPunbhX5c+RcLwFqMFgCedcEii6n+xSMxgeS80pIN7B1RI47doZwklDfQ57sj34yCp
-         JiBw==
+        d=gmail.com; s=20251104; t=1779872102; x=1780476902; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6QWsDCHfCMtM5YM23243b0CJRuPJzWBKJSsV9LUzw/c=;
+        b=abSVkwtP9wfSyoCEFQTaTLLXaJuBuxo0YqIZ8bg78Xkb/MSaQ3RvlSj/uG4OmLNnBp
+         1qtrzlAhk7T6vrl5F4KBnooy3QUt5VzMaTPn7wEKWcxgyIw2kinnlSxSek7cmZhCHa5d
+         M5Ut2V121RytsTy/joiG6E2tyE732AwsyMaR8C/l/M9OukLXesPNd//ANFOCZxjOsybf
+         VMyi0pVgtiMPaPjoAITpYYcQbWOYVShdWAs0Fzm0/rbErKpPDQrw6udpgBBTqOD345RR
+         H0zZ9Og3dKHUZJji49HqMo4xPF3+G/r0ONojOvpaNWqtDTmpjipGrDGskJdx9swiDoUq
+         y9NQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779871871; x=1780476671;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/6hNas6apydJkTdrJtwj+iHqEC9GL8SPaeohHHAAp3w=;
-        b=JDXtwc3gALWIfXzybq40ipIcCgCiwVFB9SaAqjQb62l76Mrg/WDq4zXj9PjWfEOq1X
-         ha1BzIJNM7iydA4TPCyaCpjnBVV6ZYVnWgFpZzWtCIIJBSqj+OE9CkNIxeN1EJW7gIM0
-         K1cs8YIR9yK5bkxR2ML+0DkDYZIIV7ukqB2R5+vXv1VodBbCBrEveD79BbBtRwxbI5LI
-         BJgOvWGtxQDssYoAz1jtci6rqotNN2pPUTSdP1hsMSv6CJHw1dcE4ksRwncpMU8SN/xW
-         kiDviU8H/e7Doi6vXffmwKn0NtJWewaOEX0V+lOKJcZuXIBUMAqKhApanX7xJ9KCxrC8
-         ulRg==
-X-Forwarded-Encrypted: i=1; AFNElJ8g/myuQPGlfrycUirEDDClvLnEE9xFT9DFoW5xKSCYmARosXqFMy+3L/vIp56i7xa7nS3b2G/HwK3d@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEhi73/wpuslyl2qaiYEY3/ZP1SqsI9G8VSDEiO8V8zGs/UMsW
-	W8tDjThoUCIDyolATd9G7dAWen2o658rdc4utRkO2wdz+kiS5l7w3XM3t9bQjLNAt2p0X8LslDN
-	eT9732Ey8zj4i+qMAUQNzXqOZgC6jE3Lz0FjodvTS6wivZyw2wpJPm8UR4BlaowfH
-X-Gm-Gg: Acq92OF02+ArDeRrzJtai4Q5oNxwFVohY+0CobZyL+WrATV3eYQsUNDXTp5STqFSEgA
-	itmi6irnK+5UBmaMPfnW0TMqMw7If7Rqq/nt8W96xmnsb/W7KPHAK7TSbPz3qpAJS0eKpT5v4Ti
-	zGZ49J4msmfG/NUKJivm5VDlwi3Dmm6ox3A7B36FzD4egJhX352VsUd3yOAYOenl+oghsqzwmbY
-	z2TEnD0VybHEH+v4wXozBLxy+ZrsQ6PEBY7cxW7/WhzDI+AQmbZ3xJAQK2F/FQyHd6ndi+CatIn
-	NJEADVbVoKohUOiOpH/i6hDNLnhRAD5F+1mypQCWIpJtEnt0kmwNkDWAF/SxKaOuJRpCqMbYov/
-	ZgD3+FLJau6hvOeBKvX3/U96HUCq+LAeCJtlS6t3SjjThHid1ZlqdTETlUwCO9xP9GGB0T7D0Tf
-	iDPq6hziGAP/23qlEoSudraQ==
-X-Received: by 2002:a05:6a00:8c04:b0:835:cc47:6fe3 with SMTP id d2e1a72fcca58-8415f3b0825mr23559359b3a.45.1779871870742;
-        Wed, 27 May 2026 01:51:10 -0700 (PDT)
-X-Received: by 2002:a05:6a00:8c04:b0:835:cc47:6fe3 with SMTP id d2e1a72fcca58-8415f3b0825mr23559329b3a.45.1779871870245;
-        Wed, 27 May 2026 01:51:10 -0700 (PDT)
-Received: from [10.133.33.247] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d6ebb97bsm1659411b3a.23.2026.05.27.01.51.06
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 01:51:09 -0700 (PDT)
-Message-ID: <96962564-ff25-4d81-a605-3d9c05fa000a@oss.qualcomm.com>
-Date: Wed, 27 May 2026 16:51:04 +0800
+        d=1e100.net; s=20251104; t=1779872102; x=1780476902;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6QWsDCHfCMtM5YM23243b0CJRuPJzWBKJSsV9LUzw/c=;
+        b=JCpX3pMbgRroJl93FmJn40PX0eqHHISEEAMsC81pHs6e5fvG964bJGZ2oQsZtw61gS
+         bt606728f938kaoY2WoY8pGRQIn5HczA4XZjGj689w+Rdq00zhZyFla0jULUwN5C5m9y
+         sAdKiG1Z7YLFlxDVg7gwk31ZKIIA7umk4Knp/C5/Ev/fBKuEjHOuNSYY4RI9rehm/Kjk
+         HA4+hOSGSFtFctLnH5GIjLG5w8NTf4OaL72bPUTuJrHWM9asnlF0JfOMaBVrGBknxg5g
+         haHlvU+viPnjDQRkxijX7t3DYOmnQyd3uUv2ANE0QMBHfo6apxYacP2iI1pMzw3csXkB
+         9hvQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/6JmQNB69n4HtV2wTKYIJIeKLmLRIcbhpPUjxnEzaxg80e/rnMkxBp/BmPQSHhHTp1PgM71vdDhmo/@vger.kernel.org
+X-Gm-Message-State: AOJu0YyDimq1oh2M3tXKj6yrPvuhouVvoW9y0oSrVetpQxxM4zcRySXA
+	w2cwJSuZQyocuvMkt76ZdCqkWYeekv73+vRm+EDwmmfA0s6/gDakFF7+NvHpcxt/ss4F9PfeoUY
+	PL1LWGAk1s4O+YPugj008Vzi0zeL5Dus=
+X-Gm-Gg: Acq92OHcDqHtfN9Fc+Bwdhph6ouwy+11mGB0IzCwZLsCQ52qz1mhR0F1eK1cQ/S2hXr
+	0YGhob8vZhxTaWw7XA7EHd3bXxfWZI06fY21YEg6eJ4UyQVV6TcHLaj8WUTlKLmCKb4QOE3bRVM
+	Uhsd6YRnsnbe/w4xFYj8w8gCfeqIsVETNIrFDgAle/grXCi5GJ8hhuIL/CZSvnisZiKcJp6ecwC
+	rJJkD/u5QOermJ7yePHGszpmEZ7IU+kDUJKWsmXHoMfKGndgv6rxD9VNae4XH5DUvxpkGV6Sjwn
+	mFErY7tqb3BaNECKuU4=
+X-Received: by 2002:a05:7301:d0f:b0:2ea:ed70:3ea8 with SMTP id
+ 5a478bee46e88-304490f574fmr9265322eec.29.1779872102437; Wed, 27 May 2026
+ 01:55:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: ufs: Document static TX Equalization
- settings properties
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
-        martin.petersen@oracle.com, linux-scsi@vger.kernel.org,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
-        Zhaoming Luo
- <zhml@posteo.com>,
-        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
-        open list <linux-kernel@vger.kernel.org>
-References: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
- <20260523134711.323425-2-can.guo@oss.qualcomm.com>
- <m6qq3kxgfs73jve2pjmmszymgxb7aizdfo2rwg72o66n2rvov2@xkcvifciwu3z>
-Content-Language: en-US
-From: Can Guo <can.guo@oss.qualcomm.com>
-In-Reply-To: <m6qq3kxgfs73jve2pjmmszymgxb7aizdfo2rwg72o66n2rvov2@xkcvifciwu3z>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=MoJiLWae c=1 sm=1 tr=0 ts=6a16b07f cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=YG64nluAAAAA:20 a=eDkNqlp1enX9kxdETvUA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22 a=bA3UWDv6hWIuX7UZL3qL:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA4NSBTYWx0ZWRfX0Q/O36hLAdPg
- On5naUe7KSxDAUZ7YtouhJEq5XPlDXQd7x2GWrQgPBgy+5y2wLFqkUJRbp4V8d0i02nZ6ws3iBn
- qcyLmykoXUOjdcieBb2WuNCqnUEUX7jR6Z7Rau+93t4PfFZ4BEbUluxey162zlkmk4bAfOhKjjB
- s3Ppdxt+z9GqcywmgLY+YAaIkc7kgY5MllmQWhqTIj2QLutq9yGzZ7+JyNoTQVjeLPGVmrZ8lvG
- lct2JJfVRQ5+gAJICh7dKSoXbSJuJN6/c3vLHIDl4/Z4BvOStE46RByFvXi+JyI6I+Z3bN29KQr
- M6iU+CMvEmZKPddsStSIfwOCjaQRg8V4QmjvrDXpAVWetCXsMC0m2s31CfXPGCzHFYAynapk+t+
- N4Zte8jGvllZPlrbdpVHWdnIuA7QEqrIJI4K9vg6UPrxemUkBLBqQw5p3MZQCC244LGoqNE5nm2
- /PJtIlHY4UivEmM69kg==
-X-Proofpoint-GUID: 0t0YJ0sziiSoMXuWVBQbAFkQ_4Tuoo0o
-X-Proofpoint-ORIG-GUID: 0t0YJ0sziiSoMXuWVBQbAFkQ_4Tuoo0o
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
- clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605270085
+References: <20260523084408.50346-1-clamor95@gmail.com> <20260523084408.50346-2-clamor95@gmail.com>
+ <d28799ba-a4af-49b8-a437-3e7b54ed06b8@kernel.org>
+In-Reply-To: <d28799ba-a4af-49b8-a437-3e7b54ed06b8@kernel.org>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 27 May 2026 11:54:51 +0300
+X-Gm-Features: AVHnY4JaYaiHwPLUWc19UBdX6yuMZEQ5-2cdxAvjMlSZR4fbv5UKlVc_P1AsxYk
+Message-ID: <CAPVz0n0wzSkMjbkgy3nveYobruuDnV_Dm1A4gRQ6XOm6dTOrNg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: net: Document Infineon/Intel XMM6260 modem
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, 
+	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Mani,
+=D1=81=D1=80, 27 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:2=
+3 Krzysztof Kozlowski <krzk@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On 23/05/2026 10:44, Svyatoslav Ryhel wrote:
+> > Describe the Infineon/Intel XMM6260, a 3G-focused, slim modem platform
+> > designed for smartphones, data cards, and Machine-to-Machine (M2M)
+> > applications.
+> >
+> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > ---
+> >  .../bindings/net/infineon,xmm6260.yaml        | 74 +++++++++++++++++++
+> >  1 file changed, 74 insertions(+)
+> >  create mode 100644 Documentation/devicetree/bindings/net/infineon,xmm6=
+260.yaml
+>
+> Considering that you just sent "power sequencing" device completely
+> independent of this, I think my review tag should be dropped because
+> this is incomplete. Basically you will be changing this and maybe even
+> in backwards incompatible way, thus this should not be accepted in
+> current form.
+>
+> Best regards,
+> Krzysztof
 
-On 5/23/2026 10:14 PM, Manivannan Sadhasivam wrote:
-> On Sat, May 23, 2026 at 06:47:10AM -0700, Can Guo wrote:
->> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
->> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
->> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
->> integrity at high speed operation.
->>
->> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
->> required depending on channel characteristics.
->>
->> Add vendor-neutral DT patternProperties:
->> txeq-settings-g[1-6]
->>
->> Each property is a uint32 array of per-lane tuples:
->> (PreShoot, DeEmphasis, PrecodeEn)
->>
-> I don't think combining all EQ settings (PreShoot, DeEmphasis, PrecodeEn) in a
-> single property as opaque tuples is the right approach. These are three
-> semantically distinct parameters with independent value ranges. So packing
-> them into a uint32 array makes validation impossible in the schema.
->
-> AFACIS, PrecodeEn is applicable only to HS-G6 (PAM4), but the proposed
-> patternProperties forces it into G1-G5 tuples as well, which is semantically
-> wrong.
-Point taken for the PrecodeEn.
->
-> PCIe binding defines one property per data rate for EQ presets:
-> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-bus-common.yaml#L193
->
-> Similarly, UFS should define one property per gear per (like, txeq-preshoot-g6,
-> txeq-deemphasis-g6, txeq-precode-enable-g6,...) rather than clubbing everything
-> into opaque tuples.
-Thanks for the suggestion. I will go with below approach:
-
-txeq-preshoot-g6 = <Host Lane 0 PreShoot, Device Lane 0 PreShoot, Host 
-Lane 1 PreShoot, Device Lane 1 PreShoot>;
-txeq-deemphasis-g6 = <Host Lane 0 DeEmphasis, Device Lane 0 DeEmphasis, 
-Host Lane 1 DeEmphasis, Device Lane 1 DeEmphasis>;
-txeq-precode-en-g6 = <Host Lane 0 PrecodeEn, Device Lane 0 PrecodeEn, 
-Host Lane 1 PrecodeEn, Device Lane 1 PrecodeEn>;
-
-Thanks,
-Can Guo.
->
-> - Mani
->
-
+Noted
