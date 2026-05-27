@@ -1,81 +1,48 @@
-Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B59843D0BF9
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:13:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 314743D0939
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:14:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779869586; cv=none; b=XFwTYHlnBAP8ETLlCpZi9513JrkFKp6ZmFrTs4hU6e9Y2u2KUSeTWrcsPjqIQ1EA8r3gC5lT6jsDtcVnaeUpXGvMOum4HSqcVkqw67P8H1G9+t3nErjXqS6nC2yxHUdFlK0tdqlLZkTEOTQrL+VHYRmiqDvkGom3KR83qAkxWUk=
+	t=1779869649; cv=none; b=i45ACmw5nOaOlBIUzAtZGJ5M1BDMmaRVFzyVKGXcDZHeVSEwK4tTiWrRogbdsZ7dy16wlTZuOnTvxg1n6/RKeR66GvOxVQDetiYuBR9tzcQag5WcejpOJLCl2y3ep1vkdFT16S7XImPS5WnsBtxtdH6A2C4uh2GYNiqsOHBYnMk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779869586; c=relaxed/simple;
-	bh=hqVAzjRWLywE76QH/sAxIUiZu1GDDxkUq7lLM2EwSek=;
+	s=arc-20240116; t=1779869649; c=relaxed/simple;
+	bh=LpZinqaxRBgapJHrDySRzd7UgsiHFapmnqcwd2PgiBY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qGkH/Upj58V3EpUO24YLSUAwGStaaNsAuYIjrPPjVgcUnkhm8EMVAzELrEOAtT4W/Vj+ChDFane6uhzoUWVT4mjn4dw2UOg0GwnhHxpvj9ULahj+sXM/JYk064ZO9KmmL9MSey124bjsZq9CK5kSs7r9x1Lz0o+sIrjdNRjw1Pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=btZ8xiUG; arc=none smtp.client-ip=209.85.128.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=d6si51+AV1r5ZbzGapovcj1dFabwJ4Xcc+EGxkgUe49cbV2D2HRi6ZS6o3hbViOEE7t41YRFK+/VFmi4kkILDl52P/koEtdNHCNUy/iiOhDfQY/+xi7mmUywY9WdJcCQ+dX42v7IJGEwybYfN1aVD/UULOWwnAQTU0eHBVvqn+E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=NojF0/IL; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="btZ8xiUG"
-Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-4891b0786beso76431725e9.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 01:13:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779869583; x=1780474383; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=4bslgN8YyByc2uPPwR9aK15Zw85YMgKncjFfuOQiZI0=;
-        b=btZ8xiUGU7q3KpajQGROH6qWw2sHTQ+dm7NdYxrpLbcNk7em01K1Lj3E0wlXc2F9sN
-         P9zSfEs4u5/T2QmEJ9ec6msKgw1J77/LdVD+Xiz+nEjEC1p4haRffCBzEj1Q7UnVsMxD
-         +1ghZhftrKYM2MU5BeUNGq1F0GjYlqHNU85/zdU3bCrNEPcTZozXnuEp7VQ+FaZChlYH
-         Fg+lhTzkgntvdCq4UB0khoLgn06xVvVO3YHpQ1MVZjqkG/L2l+ZfAxHUkDdxpdgY1b0M
-         BNdQIWArYoIvttNWgVeRhEez0t6ntrOhOD8LtepTGyw7WV+VoJWs+/UrVjWAdc28Hno9
-         cuvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779869583; x=1780474383;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=4bslgN8YyByc2uPPwR9aK15Zw85YMgKncjFfuOQiZI0=;
-        b=IhWeNqOHbw1AM92HoD3gbinHA0t5s5UUhqnZxatpzkm/SsnI//ML1Jg3XGj3iElKgr
-         KkPubPoeLTKDJJe89kT1oJESMSvJpQ8wJN8IXKGHKoiOs6u69cLcxrAsXOO3lCMnSLsR
-         HUY5Irh7SYTmDS4crAGpuF3LNIfO921QPAp/9NPzDshMewXNNz5FGhPnNIhqHmF7IuCK
-         HACVSBAaQR4yRB1eVFmLHCF3065GpmDY+8u4nmgXzAtxDX0XDM7/t63/ZdCAo2B1vqks
-         hhscmEWeui5dNA3P6rP24kKhcjYG+8pJ5eSlVeH9Xb1bxIRZBLV4/5gljEGXoEeeuhGe
-         7hGQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8VpaX/TzxZW6scDfG9EJNqntuOeOcGuxscjq+iV5A0C2POjMetEkKGzQsoOTccLHIRJu+yylKWwrtz@vger.kernel.org
-X-Gm-Message-State: AOJu0YwiWpmtwA5agwxeVtwSKrQT/S8cGNxRoCOYYINjn11iFfGoVEl6
-	C39sBRBXV28bz+2tKKjuJORqBzxwf//wcidNHY9YBlyjBew7aBx1vZTL
-X-Gm-Gg: Acq92OEq0TCxiw16UsnrCZKhk9VO+U+vV5+i1kJefllbcKzvBOLxTWz5aTSfOfO6hgM
-	ZE8KCO1eE1HM2n33aO55wtI1QKNdH98WPo8tQQEgDeSa7nPtX810mW6exW3syZNLoP2LAqaUqlF
-	wiBf7vlL0NT/Yjsf2GI2yBqJarwkTzHeeUWMjmSpOJi0A0jIHsyeU/afrYxRBwTnv7DR4huWIa2
-	5eSC7DZGDX0KsZGjyKwHSirEOJcZC20LICdQJyrpsKdXaC5RwT1XCulpYDzKgVKypJ6pdHmAVaN
-	WZ26mUu9BorVXQsfq1EefactOYxze+/ZD3CsnkqYFoqJR+GnGwrBpZ8p1fDLIYsVPaZWcce3osv
-	HFZAwYgrCMd5lBrYJ+ICmudFRRFVesuTz8fxqfJfL9cvQuGrCVy0LZ+QC5DAfxc8MZEyTfWoh21
-	4xj64mxmF5luUlU6Cq2vXClY6hIDrW4wWkvpDxr1gO3nDVm0X0mik+iADVhqpjC7XmGF53p1ZnC
-	BbX93DQpNS1xLuMUwHXSAQF
-X-Received: by 2002:a05:600c:3581:b0:490:482c:4391 with SMTP id 5b1f17b1804b1-490482c4586mr387652955e9.23.1779869582774;
-        Wed, 27 May 2026 01:13:02 -0700 (PDT)
-Received: from orome (p200300e41f1bda00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f1b:da00:f22f:74ff:fe1f:3a53])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49059fb42dasm270978095e9.7.2026.05.27.01.13.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 01:13:00 -0700 (PDT)
-Date: Wed, 27 May 2026 10:12:58 +0200
-From: Thierry Reding <thierry.reding@gmail.com>
-To: Thierry Reding <thierry.reding@kernel.org>
-Cc: Bjorn Helgaas <bhelgaas@google.com>, 
-	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
-	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
-	Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, Michal Simek <michal.simek@amd.com>, 
-	Kevin Xie <kevin.xie@starfivetech.com>, Aksh Garg <a-garg7@ti.com>, linux-pci@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>, 
-	Manikanta Maddireddy <mmaddireddy@nvidia.com>
-Subject: Re: [PATCH v5 3/4] PCI: tegra: Add Tegra264 support
-Message-ID: <ahanW-6XndunYC-S@orome>
-References: <20260526-tegra264-pcie-v5-0-84a813b979d7@nvidia.com>
- <20260526-tegra264-pcie-v5-3-84a813b979d7@nvidia.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="NojF0/IL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=Olu1
+	Pa/qJFrNawTP+d273Gft+z8FMKh5wec3w+tn3U8=; b=NojF0/ILPi6fVKb/vbp6
+	zWhDIwuSq2ds9Kd3VKfUzD9BxDY2XqoJu+kPxJIxqU9uX/urkBHAvf8fb5zwwLfG
+	d8kb55XLCqpNKezbxHsKStUhdAy6cT9GaQrRGF394Kf6dOjRgWxlEpCm9uYbAMut
+	wrI2tmh2U9DcbU0h5iR2BOi00c0GF9OV2ybv0A5m4Jfdp4hhBnQkC6jpT4CS8RhL
+	oesP0f5BqXAGofmNJEZEgdxP+N0asIH0BpOJ/M0RJh6BfEH8B3EbEQQtZx6NAz0Z
+	EhEn25EFCorQmqeZAQ4SPNnIdbLmPAzyV8eo9Yk3XhZKz8iJwCdneJ3ZEdQpZPny
+	bg==
+Received: (qmail 566481 invoked from network); 27 May 2026 10:14:02 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 27 May 2026 10:14:02 +0200
+X-UD-Smtp-Session: l3s3148p1@MpC4MchS9rFtKDBr
+Date: Wed, 27 May 2026 10:14:01 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Geert Uytterhoeven <geert@linux-m68k.org>
+Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] arm64: renesas: r8a78000-ironhide: enable to use
+ SCMI
+Message-ID: <ahanyVCJoqk9Hl8x@shikoro>
+References: <20260519074702.3308-4-wsa+renesas@sang-engineering.com>
+ <20260519074702.3308-6-wsa+renesas@sang-engineering.com>
+ <CAMuHMdXpGLYrSMNgkqUGhhBJPuQKt-KZGGsXsbchAixbYRvD9w@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -83,94 +50,56 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="j4qm33uwbiswsuek"
+	protocol="application/pgp-signature"; boundary="z35F0N8OyaZ4TlDh"
 Content-Disposition: inline
-In-Reply-To: <20260526-tegra264-pcie-v5-3-84a813b979d7@nvidia.com>
+In-Reply-To: <CAMuHMdXpGLYrSMNgkqUGhhBJPuQKt-KZGGsXsbchAixbYRvD9w@mail.gmail.com>
 
 
---j4qm33uwbiswsuek
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--z35F0N8OyaZ4TlDh
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v5 3/4] PCI: tegra: Add Tegra264 support
-MIME-Version: 1.0
 
-On Tue, May 26, 2026 at 10:53:12AM +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
+Hi Geert,
+
+we are missing you here! :)
+
+> > +                       scmi_clk: protocol@14 {
+> > +                               reg =3D <0x14>;
+> > +                               #clock-cells =3D <1>;
+> > +                       };
 >=20
-> Add a driver for the PCIe controller found on NVIDIA Tegra264 SoCs. The
-> driver is very small, with its main purpose being to set up the address
-> translation registers and then creating a standard PCI host using ECAM.
->=20
-> Signed-off-by: Manikanta Maddireddy <mmaddireddy@nvidia.com>
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
-> Changes in v5:
-> - make PCIE_TEGRA264 symbol tristate
-> - drop dependency on PCI_MSI
-> - reorganize tegra264_pcie struct
-> - use standard wake-gpios property
-> - rename tegra264_pcie_bpmp_set_rp_state() to tegra264_pcie_power_off()
-> - use dev_err() instead of dev_info() for some error messages
-> - add clarifying comment as to why bandwidth requests aren't fatal
-> - address some compiler warnings on 32-bit physical address platforms
-> - drop needless comments
-> - explicitly deinitialize controller on suspend
-> - use devm_pm_runtime_active_enabled()
-> - rename "free" label to "free_ecam"
-> - use dev_err_probe() in more places
-> - reselect default pin state during resume, not probe
-> - return early on absence of wake GPIO
-> - simplify BW value calculation
->=20
-> Changes in v2:
-> - specify generations applicable for PCI_TEGRA driver to avoid confusion
-> - drop SPDX-FileCopyrightText tag
-> - rename link_state to link_up to clarify meaning
-> - replace memset() by an empty initializer
-> - sanity-check only enable BAR regions
-> - bring PCI link out of reset in case firmware didn't
-> - use common wait times instead of defining our own
-> - use core helpers to parse and print PCI link speed
-> - fix multi-line comment
-> - use dev_err_probe() more ubiquitously
-> - fix probe sequence and error cleanup
-> - use DEFINE_NOIRQ_DEV_PM_OPS() to avoid warnings for !PM_SUSPEND
-> - reuse more standard registers and remove unused register definitions
-> - use %pe and ERR_PTR() to print symbolic errors
-> - add signed-off-by from Manikanta as the original author
-> - add myself as author after significantly modifying the driver
-> ---
->  drivers/pci/controller/Kconfig         |   9 +-
->  drivers/pci/controller/Makefile        |   1 +
->  drivers/pci/controller/pcie-tegra264.c | 544 +++++++++++++++++++++++++++=
-++++++
->  3 files changed, 553 insertions(+), 1 deletion(-)
+> I am a bit reluctant to apply this patch: with all current firmware
+> versions, the system will lock up after "clk: Disabling unused clocks",
+> unless "clk_ignore_unused" is used, or unless out-of-tree SCMI
+> quirk handling patches are applied.
 
-Ignore this one. I messed up and fixups for this ended up in an
-unrelated patch. I'll send an updated version shortly.
+Yeah, I understand. Maybe we leave out only the scmi_clk hunk and
+send it separately once it works upstream?
 
-Sorry for the noise,
-Thierry
+All the best,
 
---j4qm33uwbiswsuek
+   Wolfram
+
+
+--z35F0N8OyaZ4TlDh
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoWp4cACgkQ3SOs138+
-s6HJ9BAAp5sb8ml3mtyJAtl6FMSPiAYlmRM+Rln/kTddrHpNfNe7Ps7RkRrnzhIK
-GxGgDwX+8fkfF7jdWfdo+we+uYdJY+5qdblwFtd0Am1Ek2lo+CVv4LIWpoIGWVx7
-qCM5CGjH+B+5mq+a5qZO3Jkp0ItV3qPR9ICa7dBZR0Hf+d+tmmtCG0L9frIi+red
-D4jhLX7ZSwJwY0HkqMNWPJsk3BjRBiwinut+CRpdpbH5WKDHUs//knQjikdMpCyt
-js2IfnMuMUG/MMmnE/L/4Mw/cN+mVqeOVnLCZ2jhqcW4PD870E5mDWcbQGJTtBOa
-aYM+jYUzyRF6FRUDa+8LDMFT4kLJSCG8UsTNkYZuM2BTpcpcobb9SHELVsHzBMca
-iboEKEW2ivHSL0SrzWwiwfo3mUjVEs+2zicFCjFomzlieY2/nEKJDxX0qz7vl2YI
-pggUPMtCQt+HWjJBm4qPp7E7gHbEl42K6WwgMLjpaaqFj9dyscZkgvYP1fxWubEa
-9Gomsf9BYzPf+PEQQ1V5TC9pIAkBI67+aB9xP+eZe2CPlHjC+7cI191jmjTYiAGJ
-VP0QGnFjXm0mBowPZ8bEW9gIAtUNIMaeUyxbXbk1AtmSIPE1BytX9+MZqW3LZB1g
-+D2Ukq9lvn/GNQVDr0ZsH+G1hGubr+5xcP5gy1mCV8S82ocUvrk=
-=a2y4
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoWp8QACgkQFA3kzBSg
+KbYTHA/+IDgRW3Dn9MHZd3V2Y1k0X0Rj4PMzFbmWvb5I+8gpcyhCyTwQVBstgo9+
+dpo8dPlFs+ut7krQ9sPYd9+zakrVxT+v/k5tSrYFcK1v09TiP54ROP+E0SBQKnw6
+aCASY895psarfDe4OYy8L83XGh2iL0oKdWL0vNU2te7WikSrjWs7QZH3iEDSjyUx
+uSkPo8AsLT1RU87i0sRfYODpW4Uvl9gM/eqbXpA9tA0oXEHrsUdunwM/VaOFDPv8
+Tlx0nKP/vPLDA8McLC69SRj/mVts3uK028wiZjXr7uEcjv+/EP8UDxX+R1vqA8HD
+OD3w7PcFURqvVuox153QaxKePPW7QExLMCf6l9Hlv5PcGvaX2DFmY2AZPK8hqQjv
+ppSfXn1e4jxCFPbR+SWPmw5rj74aJGFTiqBqn7cSO/DTDTJ5oKsREecE0QEtxTXd
+Kssf/D+aO5bhUTkKAunLjrPG76KBE8weeUwTc0MVnVwOHdr+hZ632S2Ht9Rh6JK1
+HoDVQzTQD39qIb+RaYZY71358sAHQeB+xZVaq1ieM1w6MyWOEzgsi6FTHeIuIjVj
+L0Ci4dTU7qHnFkrWKEDQ+6TTHuh7m19+/LsPUvsfcBIdKy+8G9miZ5fhV1Wl64iS
+B2AyoYDgvF/paPXF3zNkOuaNMbASurNr6ok1ZN1TyNRtYQR8vPQ=
+=suCz
 -----END PGP SIGNATURE-----
 
---j4qm33uwbiswsuek--
+--z35F0N8OyaZ4TlDh--
