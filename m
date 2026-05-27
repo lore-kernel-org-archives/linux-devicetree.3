@@ -1,357 +1,182 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 395C63815F0
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 15:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F733806C0;
+	Wed, 27 May 2026 16:00:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779897354; cv=none; b=ajXpgSKOGAjRoJvQOzwcVLTk9ut6jxneJyFA5m6Jbct7lIFZKo+DYayUaoQZWEQ//Qq02yHvVDGoZd3yEaGCKA/bT2pbum5zUyiwixww8hF9KwbP9Iv222FdcLg2R1jcrUJHtzXagshRGMNf/b2c6JflavpPkubajwAzqVL7GVA=
+	t=1779897604; cv=none; b=SHsLe6CycTZMSy/a4v2/btM+58wlm0wuSfMb+8oiiKNczLEzFxf6lS8Ojs524W9smdGfj6kbpbTtzWy4rus6UYiPTf2EbLDK61YwH/Em+v12pFLtKH3OHmqo0D+ZcNq8mKc6PIC8Izu+KgBDK/SgSUlIStajM/JNsE6PVucOIvo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779897354; c=relaxed/simple;
-	bh=HvHWQtODvdkbR5OShoXL2Hw/tCjBTmKQUX2DDJxZoEw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oEMI/o2jz6YLg+Q9nr5tkuTIGQL8i/iOF6vAY+3H60AGhFuHtufr9UsFHq9njxoXdZBCqOmI8yWi1dk31XGlSUNTPpc1EV22B+ixVvNQRIpUZYFTLHcKxgidNh69KV5jLAlj73R04wV3cr1fHyF2Sccq98klSp0YmoM4Bq8whL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AZtKcxlE; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=dXbUQ0h2; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779897604; c=relaxed/simple;
+	bh=CWU9+TVZMvKFmzx4keG9MJCrmNF/g3ac6eJWxBfwG1Q=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dNMkaMJ7M+BvSRbe18l3yc32OdeiRTh9HzI+/foShShdRwTwwKSg0kQ0fK/Kj1tnwSsg5/Mtn6ghgP9mNm3s0bS/7trQSbwXcgmv8mP5IJm79LMicUuw/6I4lSeR50OT2nfnK0S5RFnSdQmtrPJMV6VjL4mYspL3rk1wZMmvoH4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=UiMIzM7o; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AZtKcxlE";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="dXbUQ0h2"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64RFjXRn1176638
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 15:55:52 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	A4kQsxb/SwdSnGsDD4VNnccmJf5zbiuW9tHo31lzG8o=; b=AZtKcxlEuoJwI5wd
-	jms0730lfxqaT4+HB3j+oIaNOcZAGFDI2v7aWXU/sHDypmHp8MaSLou958mdrEOu
-	PewFGxBArtWcyrGCXafUwIx86gXqqe/claY9Do0GqHqMfYFx8FgZBQ4mrwX+8SNT
-	JyZ6aOm0vPBo0+V0UlBAL1I3AkSAb4RGF5Kv0CBIVgb/T5tm3EpXnJ7WCmt3SUih
-	GCo3Cw6+K6cP1VRTFQgdscAsGnGIRcX+G7MvWwc5GYWM3ikREKoC/h5IPFDER55p
-	6pKSsHtLEAFhYyCxFAucr/MsbRhffLO4OuGP/5+fk+8/S0/hsAe2LutPKQG/HZu3
-	jKRJpg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edndnka3g-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 15:55:52 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2ba054e0304so103290855ad.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:55:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779897351; x=1780502151; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=A4kQsxb/SwdSnGsDD4VNnccmJf5zbiuW9tHo31lzG8o=;
-        b=dXbUQ0h2MJ1mPCoBNlcdt7yqSWTtLjVw2xpplj3qZoruT1bBsUNK+cicqT6U3Igy36
-         0J47ykp0kjMDSgNZP/KWoT83km6SSvMa8pk7a1PPPe6tYO6DnkRJmSEoDwvJuSetZ/8U
-         l5vhl/F3aN1g3j8aYgNCANtgSPT0mz517xx58DnXl7yQ6scp844P2Wy6tnI0dqZ0F5do
-         GufV1RUaSvk2jJolv5Lk76ngzBLxpKFzrGzss7oxp/JHvzjKhN1lBGZcyaMthi9FobIu
-         w1cZCSSw2/SY4xkL/cL7g1Z9jJBe4GIMvR6LgCKD2m5m18DV5fYGGttIcKYL022kDhzF
-         R5Yw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779897351; x=1780502151;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=A4kQsxb/SwdSnGsDD4VNnccmJf5zbiuW9tHo31lzG8o=;
-        b=M3/vMZ2S6kewdSdFXdN8zRg19D2lIFPGWtJbf2fSAMLzQet0NOSrIcK1dTkEwJwowv
-         i8Y2reclgzIhxaSetkehV7aKjuMvBL5migoP/61cxKVk+A51dkCIIilqfVvYONIfYL1y
-         vQmSs4GXBzle6iUDtUmoc/oJ1A0yGWZVQWciFqaV0ypGOC+8hFlBHdTQN9Z/XmnsMAqM
-         nJZPzsb657DSf+zC5NmSH3/DM/H4O/V6KgkDnMJ2VdeX6dnJHZBJac6FQxK0cUzqqIjM
-         sLSPu5OesocKINZZ2t65OlFm5W/YqAzMdIWqjaECjBcwNr97IJ/UfcXKWXtnchM5CrsW
-         lkjQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/iqgSrSPDmNXMdbQW+McUTufVm3906MjRfBJsvzJqMPrK88yyrjByAIk6jO/FOeHf1s3olOl65B/RW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+2qHTEziK0NqP9tjdwq0M3W/PcIyH/jrzL8E5j2Ku0hARz1l3
-	6WGWV+6k1TA0l3NAvAHmeTbex5IPQDTb+Ft0nXzDeZvH13XzliOXcRjKCxxcpeuh5BDg+asqY2l
-	NfmVFeF9fMY0Xvp8o35fPz7oWz0GepyWluqRX0VrYAGxta1m7twPeBdzmjloSzaM8
-X-Gm-Gg: Acq92OH22mrhLezXcl3Ai8NulVCKwRSJhhqwmACsXJJMgO5FxLhZSwTQNpA90x7fd8g
-	iaOE8O8OpRJhOapptKljyodmmMXZ1tdwZCUEEleT50zR45EYCcCYj6Gy7WyKiH0SzO7e89hhCr6
-	77JAtLgab/HumtEqia4IN7SKLkJ97VvK83uzXBPuUXLRS2lhPS5k3qnu9omDgcrjwVaYQbevZ/H
-	iGaVwZUneTSJI8tjLz78/mSZWkWO/bJsi15YCEAVMVE402l5gqX4zcVoF+PM7A3RH0wk3rIqv7D
-	fA15aHOETq1vx4gp2s3cL7Rwmk7i9Fbm90JsBAr1dO/1H0e2sePjsKrMvFlJiE2U3d11kAOiwrY
-	/U3fVA0E3fYEPWqLJpURhHKQ7YLM3zqOFwoBewkSBcyuVihM=
-X-Received: by 2002:a17:902:cecc:b0:2b4:5bf8:a7e1 with SMTP id d9443c01a7336-2beb07db515mr213933065ad.6.1779897350944;
-        Wed, 27 May 2026 08:55:50 -0700 (PDT)
-X-Received: by 2002:a17:902:cecc:b0:2b4:5bf8:a7e1 with SMTP id d9443c01a7336-2beb07db515mr213932705ad.6.1779897350399;
-        Wed, 27 May 2026 08:55:50 -0700 (PDT)
-Received: from [10.213.101.118] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beff36894dsm1264135ad.37.2026.05.27.08.55.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 08:55:49 -0700 (PDT)
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Date: Wed, 27 May 2026 21:23:55 +0530
-Subject: [PATCH v4 5/5] arm64: dts: qcom: Add Shikra EVK boards
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="UiMIzM7o"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64RCDWkG1245420;
+	Wed, 27 May 2026 11:59:44 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=lm9yM
+	bnRaV8OEEW5Jlctc8JhJAC0mk8dIN9cy9AGNdU=; b=UiMIzM7oXp9TLbR7jx1zn
+	RJkUKV/3VKcwZHNhhdfpih8lS9EnKtuBjeCPwSrjYr69vbtlHgc/CLusYtcN7PR+
+	ZLV5Dld0zoYW41XAdq9W8fgxcifSTaqBC8Rc73yyrpr8zy647wqmj+aoqZ2HA7NF
+	peGKnt+amLWQ8qUWUcBEc/RAuOxfuGFXi2WTtDLZjP6xUVil+gXIH8O44elYTKU7
+	DLo7OiJeqhV5yb80/jcoUXiRdf1Scovtk7n/zebD+OA/IqkfUqiGoU9Xn8lC8HV9
+	lP2l5/Ox2PcwE/3fzgozS0QrrPF5/xthnxkCugRq/i3a71ak05YS9cxzzZMSvsXZ
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4ed83e57hr-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 27 May 2026 11:59:43 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64RFxgK6024743
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 27 May 2026 11:59:42 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 27 May 2026 11:59:42 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Wed, 27 May 2026 11:59:42 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Wed, 27 May 2026 11:59:42 -0400
+Received: from HYB-MkYHBcJRSnh.ad.analog.com ([10.32.226.85])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64RFxScq024516;
+	Wed, 27 May 2026 11:59:31 -0400
+From: Liviu Stan <liviu.stan@analog.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Liviu Stan <liviu.stan@analog.com>, Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>,
+        Nuno =?iso-8859-1?Q?S=E1?=
+	<nuno.sa@analog.com>,
+        Andy Shevchenko <andy@kernel.org>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Rob Herring <robh@kernel.org>,
+        "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "Antoniu
+ Miclaus" <antoniu.miclaus@analog.com>,
+        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
+        <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v4 8/9] dt-bindings: iio: temperature: Add ADT7604 support to adi,ltc2983
+Date: Wed, 27 May 2026 18:59:07 +0300
+Message-ID: <20260527155908.402341-1-liviu.stan@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260526-overexert-mollusk-72b080546d5f@spud>
+References:
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260527-shikra-dt-v4-5-b5ca1fa0b392@oss.qualcomm.com>
-References: <20260527-shikra-dt-v4-0-b5ca1fa0b392@oss.qualcomm.com>
-In-Reply-To: <20260527-shikra-dt-v4-0-b5ca1fa0b392@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-mmc@vger.kernel.org, monish.chunara@oss.qualcomm.com,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>,
-        Monish Chunara <quic_mchunara@quicinc.com>,
-        Rakesh Kota <rakesh.kota@oss.qualcomm.com>,
-        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
-        Sneh Mankad <sneh.mankad@oss.qualcomm.com>,
-        Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>,
-        Xueyao An <xueyao.an@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779897312; l=6252;
- i=komal.bajaj@oss.qualcomm.com; s=20250710; h=from:subject:message-id;
- bh=HvHWQtODvdkbR5OShoXL2Hw/tCjBTmKQUX2DDJxZoEw=;
- b=9aVwEfhHsc3GCcWm2nE5kJZ9zjUyeZFFN7qlfys63SIT/1ta8//sEJXOY5+Id1QTyy1QHiQhr
- b3fH5CI16OMAEfviUkShkfmILVkrnbqq9R2n4vMNGn8K840Wlo0CMwR
-X-Developer-Key: i=komal.bajaj@oss.qualcomm.com; a=ed25519;
- pk=wKh8mgDh+ePUZ4IIvpBhQOqf16/KvuQHvSvHK20LXNU=
-X-Authority-Analysis: v=2.4 cv=PpSjqQM3 c=1 sm=1 tr=0 ts=6a171408 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=EUspDBNiAAAA:8 a=COk6AnOGAAAA:8 a=TizygBHPM-tQ0bhc_XQA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22 a=TjNXssC_j7lpFel5tvFf:22
-X-Proofpoint-ORIG-GUID: bw6IcBMxvrrzUnejySngU0UAD2TcNPlL
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDE1OSBTYWx0ZWRfX9Wj7CHDbPiKp
- 0Uez0uSYGVKjezgcygAWo6Q32zeQD8ogNVBVQF0znD1ZzukmHc+8Nfp54cjkg5W+SUk44z4K7vL
- FviS9O/I3y0MKwGpwFfHzAAZsQjo6VG2X69kRTON5x2H5HUeRcxQwJkcVeJMKTA8pJ0S3GZTztG
- 0Wqn6qw1SoYcgcn6Mo1d13wSGo9UjzNBUVlpvKnDXSGG4h4bLvY/dCg+H2Y7sjH9Pvpbwqg0hb9
- r/BkNyvMI1LjRJgJwv8sbP1gmASBLZvxvQ6p6wZFhurduRMKyi3MVH9E6xjmBYTzPeqJCftJ0Es
- S1yXzQ5nTdUYoK7ksJnl9LRiAqR9EHqP9nEuqTGxgZqxwKZaK6M0WuuhtlbYw5FT76htIuopeD9
- cThtBsn/1kq2IV2LwLnW+PIeLlyg+6E+DvDCGFJxOMBEvdJSb82fGDQQF9CWxZQ8YRRLJY0GDfy
- ChtCP89P8GuPVJfsBQg==
-X-Proofpoint-GUID: bw6IcBMxvrrzUnejySngU0UAD2TcNPlL
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDE2MSBTYWx0ZWRfX3V5d/gamzGuo
+ XA1PFB9eg+fhfp5w2RyqOaHYIhLvkFldjcom6Ba80sPkSvCGUnJAP15Gn0b28UZo4lApuYfjU0g
+ LaZLIy5rVYiWOTuRzauwfg01fAkLPo4EkYvLa7ESmPh+spg2/NnDNE8AjkAiteZWDYl7uw2Ovsi
+ aisAqc2Hg/mZ4W4okOoR/AAK9sKDQQrH+TV72Gm32TlS1caH1b+2UxrAAso8NevpJjeyoGGjrFW
+ uXs/1DHzmd2i0dBBEu5zeafz/asGVHRXa0ArPOJstslxRdqSpdm5rgANJoCNSOYT17c6AFhJ6H+
+ Hy1JuoWlCRhrRPtG5GNeSz/GKe/B2h2mXUbfw00+Lz3Ztk4I9RdIu71r608EVTqiK9yyrthMkwK
+ RkfzLvSk0O8st8uUvNzs6B5HYl4HTrpaIqUJMLDF9f6Mc37rSBeMv6pbvxJfMnCthrLkxoe62EN
+ mpkpg++34mSkrFcXs/w==
+X-Proofpoint-ORIG-GUID: 70MzinQvcDMp71bXbK6_1rKa59IA_JoL
+X-Authority-Analysis: v=2.4 cv=es3vCIpX c=1 sm=1 tr=0 ts=6a1714f0 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8
+ a=LB8o0jXiuc9rKahuU8wA:9 a=E8ToXWR_bxluHZ7gmE-Z:22
+X-Proofpoint-GUID: 70MzinQvcDMp71bXbK6_1rKa59IA_JoL
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-05-27_02,2026-05-26_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015
- adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270159
+ bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0
+ adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605270161
 
-Add device trees for the Shikra EVK platform, which combines each
-of Shikra SoM variant with a common carrier board.
+On Tue, 26 May 2026 17:55:49 +0100 Conor Dooley <conor@kernel.org> wrote:
 
-Three EVK boards are introduced:
-  - shikra-cqm-evk.dts: pairs with CQ2390M SoM (retail, with modem)
-  - shikra-cqs-evk.dts: pairs with CQ2390S SoM (retail, without modem)
-  - shikra-iqs-evk.dts: pairs with IQ2390S SoM (industrial, without modem)
+> On Mon, May 25, 2026 at 07:39:35PM +0300, Liviu Stan wrote:
+> > The ADT7604 shares the same die as the LTC2984. It repurposes the
+> > custom RTD sensor type (18) as a copper trace resistance sensor
+> > and the custom thermistor type (27) as a leak detector, and
+> > removes thermocouple, diode and direct ADC sensor types.
+> > 
+> > Add adi,adt7604 to the compatible list and introduce two new
+> > sensor node types specific to this device:
+> > 
+> > - copper-trace@: maps to the custom RTD sensor type (18). Two
+> > variants: sub-ohm (< 1 ohm, adi,copper-trace-sub-ohm boolean,
+> > no custom table and excitation current) and standard (> 1 ohm,
+> > required adi,custom-copper-trace table, optional excitation current
+> > defaulting to the datasheet recommended value). Primary output
+> > is resistance in ohms. For > 1 ohm copper traces with a custom table,
+> > the chip also outputs temperature in millidegrees Celsius.
+> > 
+> > - leak-detector@: maps to the custom thermistor sensor type (27).
+> > Takes a required adi,custom-leak-detector lookup table encoding
+> > resistance (uOhm) against coverage data (%). Two outputs:
+> > resistance in ohms and coverage in percent.
+> > 
+> > Separate node types are used rather than extending the existing
+> > rtd@ and thermistor@ nodes because adi,custom-rtd is required
+> > for sensor type 18, and several properties (adi,number-of-wires,
+> > adi,rtd-curve, adi,rsense-share, adi,single-ended,
+> > adi,current-rotate) have no meaning for the new sensor types, since
+> > the configuration is hardcoded, and would need to be explicitly
+> > forbidden or ignored in the driver.
+> > 
+> > allOf conditions are added to restrict thermocouple, diode, direct
+> > ADC and active temperature nodes to non-ADT7604 devices, and to
+> > restrict copper-trace and leak-detector nodes to the ADT7604
+> > (some parts only).
+> > 
+> > Signed-off-by: Liviu Stan <liviu.stan@analog.com>
+> 
+> If this approach is acceptable to Jonathan, it is acceptable to me.
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> pw-bot: not-applicable
+> 
 
-Also add shikra-evk.dtsi, it represents the common carrier-board and
-daughter-card configuration shared across all Shikra EVK variants.
+Thank you!
 
-Co-developed-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Co-developed-by: Monish Chunara <quic_mchunara@quicinc.com>
-Signed-off-by: Monish Chunara <quic_mchunara@quicinc.com>
-Co-developed-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-Co-developed-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
-Co-developed-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Signed-off-by: Sneh Mankad <sneh.mankad@oss.qualcomm.com>
-Co-developed-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Signed-off-by: Vishnu Santhosh <vishnu.santhosh@oss.qualcomm.com>
-Co-developed-by: Xueyao An <xueyao.an@oss.qualcomm.com>
-Signed-off-by: Xueyao An <xueyao.an@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile           |  3 +++
- arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 40 +++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 40 +++++++++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/shikra-evk.dtsi    | 15 +++++++++++
- arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 40 +++++++++++++++++++++++++++++
- 5 files changed, 138 insertions(+)
+> > +            leak-detector@14 {
+> > +                reg = <14>;
+> > +                adi,sensor-type = <33>;
+> > +                adi,rsense-handle = <&r_sense>;
+> > +                adi,excitation-current-nanoamp = <10000>;
+> > +                adi,custom-leak-detector =
+> > +                    /bits/ 64 <          0 100>,
+> > +                    /bits/ 64 <  202020000  99>,
+> > +                    /bits/ 64 <  285710000  70>,
+> > +                    /bits/ 64 <  333330000  60>,
+> > +                    /bits/ 64 <  400000000  50>,
+> > +                    /bits/ 64 <  500000000  40>,
+> > +                    /bits/ 64 <  666670000  30>,
+> > +                    /bits/ 64 < 1000000000  20>,
+> > +                    /bits/ 64 < 2000000000  10>,
+> > +                    /bits/ 64 <1000000000000 0>;
+> 
+> My OCD hates that you have gone to some effort with alignment here, only
+> for this last line's first cell to scupper it completely.
+> 
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 795cee4757ab..3801f280c8cc 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -333,6 +333,9 @@ dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-huawei-matebook-e-2019.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-lenovo-yoga-c630.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdm850-samsung-w737.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sdx75-idp.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-new file mode 100644
-index 000000000000..0a52ab9b7a4c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "shikra-cqm-som.dtsi"
-+#include "shikra-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Shikra CQM EVK";
-+	compatible = "qcom,shikra-cqm-evk", "qcom,shikra-cqm-som", "qcom,shikra";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm4125_l20>;
-+	vqmmc-supply = <&pm4125_l14>;
-+
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	non-removable;
-+	supports-cqe;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-new file mode 100644
-index 000000000000..b3f19a64d7ae
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "shikra-cqm-som.dtsi"
-+#include "shikra-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Shikra CQS EVK";
-+	compatible = "qcom,shikra-cqs-evk", "qcom,shikra-cqs-som", "qcom,shikra";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm4125_l20>;
-+	vqmmc-supply = <&pm4125_l14>;
-+
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	non-removable;
-+	supports-cqe;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/qcom/shikra-evk.dtsi b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-new file mode 100644
-index 000000000000..d0c48bad704c
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-evk.dtsi
-@@ -0,0 +1,15 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+&qupv3_0 {
-+	firmware-name = "qcom/shikra/qupv3fw.elf";
-+
-+	status = "okay";
-+};
-+
-+&uart0 {
-+	status = "okay";
-+};
-+
-diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-new file mode 100644
-index 000000000000..3003a47bd759
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
-@@ -0,0 +1,40 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-+ */
-+
-+/dts-v1/;
-+
-+#include "shikra-iqs-som.dtsi"
-+#include "shikra-evk.dtsi"
-+
-+/ {
-+	model = "Qualcomm Technologies, Inc. Shikra IQS EVK";
-+	compatible = "qcom,shikra-iqs-evk", "qcom,shikra-iqs-som", "qcom,shikra";
-+	chassis-type = "embedded";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		serial0 = &uart0;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+	};
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8150_l17>;
-+	vqmmc-supply = <&pm8150_s4>;
-+
-+	pinctrl-0 = <&sdc1_state_on>;
-+	pinctrl-1 = <&sdc1_state_off>;
-+	pinctrl-names = "default", "sleep";
-+
-+	non-removable;
-+	supports-cqe;
-+	no-sdio;
-+	no-sd;
-+
-+	status = "okay";
-+};
+Sorry for this, I can fix it if necessary.
 
--- 
-2.34.1
-
+Thanks,
+Liviu
