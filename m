@@ -1,761 +1,427 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2124.outbound.protection.partner.outlook.cn [139.219.17.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E17A73EB802
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779873820; cv=none; b=M4latmSj4huQW70wyowUeHru0FDHoTOKFBIJtrHsTcHKou8QDoqMpFCSOAbLbD3c6IEcdDydGJGHOIbI3pubJvtmmLSiShoS4zJ3mBc7us/8Gp7jBr4e+rgiJdsNj2FMqy7pOtSQLTM0DMg2Z2ZnG+NKnoVY/kNHHgYAbOKSU7A=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779873820; c=relaxed/simple;
-	bh=ZdtgHup1CUiT58+uan9Y1EBaEiejMTxrDIuTQRNxeIQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fP06JlPTWiYHz+AHO9pFMYt4Z+SLLSUiuFjZSSAsc87q4mx1ROP7KQt369zaxneDRzIg/uNVBXJreSE00VrNgWzulmsPGwQs5VfEsg9BfyvPvKKD8n1xEZD3SEd43DEieelbpJGdr966ELoElpbhVJJU+zNEUcH/JCfewv/hWN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Iuc6UWJR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Xl6Z6tfC; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Iuc6UWJR";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Xl6Z6tfC"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mb8I1350829
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:31 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	9ZueFuGp2FKhjaGfq3McD2gtxTN4Aa6zWUr9wxcF8pI=; b=Iuc6UWJRqOJKJ1Ld
-	JKyZ0qU8q/ypMqinJnIWaARCjiC4G7E/qG5DrpHnheyqa3Wu13khIdj3Tz4UqeQj
-	M2sBUnyAUEYJP2LktJ5s4NKJQ7i7OrawJv93r1gDZXKOfMN0q0pVQHDMehKUMoH/
-	XPynrBNUQ/+1srqvUyTxqIFTxWAkeI0agqYcQZscwZOh6YH80xqTJ1v2Qj3JvqVk
-	vmQctJLoaRtRfjVX4NXs/OOQXmkG/SixBe8XYUrmGwonyV8uVu7rUewo5muQhEJq
-	jNBA2EOo1hHSwQXRcBxZI6RCcgUuv9xcNLMlrnooN+nCLE8OkemYG7L3RHKsO+iT
-	f0rdfw==
-Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edentkayd-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:31 +0000 (GMT)
-Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-304b8d0ee63so889751eec.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:23:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779873810; x=1780478610; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=9ZueFuGp2FKhjaGfq3McD2gtxTN4Aa6zWUr9wxcF8pI=;
-        b=Xl6Z6tfCvlm/SkR46f1XslBGEGYRCnTJ1u9Kn+OCDugmUc6qJLJnzbSP+Ppo4GSenF
-         s9HvVjnV0QdFlNXF7kDyY+V3xRMaCSjjP42Bo3wFX++xtKPFTxZElGiy/fAtZRQB6eqr
-         z86BJ3TQol5cBeifgzM37D9BcnzkKH3AeuKHVGsWPcmdJJO0gh84eLgjQ74p4Wq3m2za
-         H5rsFZAjvwJPZ0nO1fMW/1pOr3Hfpbf7HOMnqYKMcc9EzfC4hGxDhIABfZsTAjJ2qPkm
-         NSRyXmLPczgQmDEYrMxwukN3aIa4j3CiHOiIard409ZCrOI7ZQy2jvhexpVcpVJpihhb
-         475A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779873810; x=1780478610;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=9ZueFuGp2FKhjaGfq3McD2gtxTN4Aa6zWUr9wxcF8pI=;
-        b=anrBM2Epir7iWw1nYKioBOmUwlYYiD24PgXy82GFK0pOBURNysfPhmGX7RY6Wjc7iA
-         WweAp10/f41emddw0HzoeTx8JYxSwyK3TWwEPA7UbmzgND8HbNc6GgOZ9n07TgIHWwhi
-         ONX5naMzu/Ae/chRiKjPfHcwYeY9wbkKEnNCoikelbk42MsOyDSRag0u3A3thixrpLXQ
-         ZJl+Z4GUC6Xsw4GHKuccHvwvtJBpCa/a9jwWgD4wvhDl5P+0KvjtG8TAcgJItkBKMG2u
-         gdTdLWDAx0JLaua76v6u1jKedBryc7ZBHkYCxC2anysRx/vEHGzoYz7IwTwDHH+MxJuZ
-         PXVA==
-X-Forwarded-Encrypted: i=1; AFNElJ+CqJIUOXeN/onBABf9tIRQzJ6dUyGZeXs1UF2fVVchE+icRD/KHV1gxdEB0zC3BmNOfta+CFKdRBgb@vger.kernel.org
-X-Gm-Message-State: AOJu0YwMVNo8q6P4q40HD8zA/kZG9YTDZaipLQ30qozKnMH9ju0viklO
-	ot5ylxuwW+3VHuvAN9Pu25bfTn9vcHqMcjcUqNSAtGShcMq6YC9F5xm2kJuIPz2o70FCe1IFThh
-	GC/BObsgWtxqkuP3Br4GzBahON2oCyEBT3qObVuSoKCSVPpnkhqKXZ7adtdAlfNDR
-X-Gm-Gg: Acq92OHsS39e4LD6ucXlG/zq1bFaVzWf2w0mxNcu3hy+nREh/g9DS6zOZx69SaUjD2w
-	vMzsNdOnpFowCyInVCp7eUO4uVelPojJdSRXuDSP2S+8G69/is5dRP8cRvtN/KZtyvnZxN1LMmI
-	7G3lBAp2/WkpBuHgAbZUTGBiW5OzkodzmmznoGtFCKBwkH5OQcJZFDNcHjl+v6jxuTaun2XYtWk
-	J8CLPtjv9Szw2ZXbQ+/tKzdQTRG07RWN7Bxam1Eum0fNBHz8m1GjrVcz39Q0MdBXXu6lFaYvwOS
-	08ro1bT3NgpYgiVfw0B/hI/g6IRls4sVXjm/o3n9+2NFLGm4+PkwHRgXi/Cj+2lKKqBCKhCGucJ
-	Z55IXSNGelk7JT6g4pmoHhVClmgyMHWuYDdch/QV/08UnqicLOakoZwpZuFRY6jJGxAo+wNAhvA
-	==
-X-Received: by 2002:a05:7300:ec11:b0:2e6:fe90:27ad with SMTP id 5a478bee46e88-30448fd59d4mr8680569eec.7.1779873809713;
-        Wed, 27 May 2026 02:23:29 -0700 (PDT)
-X-Received: by 2002:a05:7300:ec11:b0:2e6:fe90:27ad with SMTP id 5a478bee46e88-30448fd59d4mr8680542eec.7.1779873808993;
-        Wed, 27 May 2026 02:23:28 -0700 (PDT)
-Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30451ef4afdsm12598732eec.5.2026.05.27.02.23.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 02:23:28 -0700 (PDT)
-From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Date: Wed, 27 May 2026 02:22:47 -0700
-Subject: [PATCH 4/4] pinctrl: qcom: spmi-gpio: Add level-shifter function
- support
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC25391E7F;
+	Wed, 27 May 2026 09:24:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.124
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779873868; cv=fail; b=QSlsym5+Cqsrbrh6CBuv49XvHLEOGTKN2ktymzOZ6+Bm4mZgWpo1CbVx0dNUkcgoBJ9oheus8/gLaqiZ8QbCQa2ihvBqu8e6RKfh4tIn1hUZ30uQRE9n4ZNvYZ+3a7nZ3VFajPh6+w/wzLj6ZdesbZGSLs3hSU+M10YOAJEocHE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779873868; c=relaxed/simple;
+	bh=lf2/8C+dRM8QAiPKfGuh8ep5AUYteUz0ju53SdlHZiI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=TYo80LLLKEQo+O1t4NASEvHtg8k0r0/oeTJSvFgWB6c8e8e7oJ3rLNQsBGg4BE7IAoaUcfNrOYawvgu3xYtqs05RgHbK9BGsnKtSUyoU1ry1RZMsvsuQsR1RFeo2jcFRWxaHiLVha/nj6mJoVbjcS0UBObCVzWaSQYMhnWRUp+U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=hAioFP0QQLVAtuQdsgl82dlYGn0jZZn0nwV8lshYtSnVr2VuHHbp3D+2z+qeUSjCREDU+Q5ccHEBkVGQi+NB8qqtUIK9kgp9XkNgH3dnIBuzDZYb+JHOIVygQ/3p261o1eZg5Qckl/42xzUSVe6Eak9Yyyyv0s6Nmf/M+6IJ7c9DlHds4bojFK5WXYiovG9qH42pi57Hv3igzTCBObjGPeUG8HF6ObCtLSoSbJ60Ls431LVElhqav5kqBePR+X6aVkGBcIh1jaq+t1+pRUgvDL2CDmDzt1/9b4WCzvAYWr/D8xIvrEfV9FvqfZTntcGFQU5hRj5T0yVZ6VE0dkTezg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=G9EefLSlYbJJhWOh6JWSB3Yqd8HYyXnD23ar4amjzWo=;
+ b=cgXi2eTP8WUrJCqOJHImZZKDbUPB9iduu+N6bFkkbHPu+9s6yGzF5XFmpxaxTS/fdkS07EJzy2kHRKXZo0Zb42MHKWT5yQjb1mdpO6EFzAxhtvZroN8DgY1IHdmBW+T91VlJFNy2soGaB/z5frUZ7RTmrncyvGfoV6lA2kP7XhflILyb/T+4bO6A6rjGOMey7/sWfDdSCa82la/b6aVAMG80SkeFNGh/qQNc+0vOO+7BbhFelp69wa9BvwzVpVkhiVE0qfFujn8P7esEQCJBiJsVLqPRSvpymJijbZWEpDKYrS7CdVdXDDcJG7Mzg3jAIqM5fjDyWDdeaDqw+uAjEw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6) by ZQ0PR01MB1301.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:1a::6) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
+ 2026 08:50:48 +0000
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570%6]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 08:50:48 +0000
+From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
+To: Andi Shyti <andi.shyti@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: linux-i2c@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: [PATCH v2 2/3] i2c: designware: Export symbols and add __weak for Starfive I2C driver
+Date: Wed, 27 May 2026 16:50:38 +0800
+Message-Id: <20260527085039.44435-3-lianfeng.ouyang@starfivetech.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
+References: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: NT0PR01CA0020.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c510:c::16) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Message-Id: <20260527-pinctrl-level-shifter-v1-4-1965461d0a7c@oss.qualcomm.com>
-References: <20260527-pinctrl-level-shifter-v1-0-1965461d0a7c@oss.qualcomm.com>
-In-Reply-To: <20260527-pinctrl-level-shifter-v1-0-1965461d0a7c@oss.qualcomm.com>
-To: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>
-Cc: David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org, Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779873802; l=26417;
- i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=ZdtgHup1CUiT58+uan9Y1EBaEiejMTxrDIuTQRNxeIQ=;
- b=LMHt9Yo2Bdyl7dw0KyDYRWE5wfwgvr2Dz625+7q+Ht9CQJ6EBx64kV/HkQiKQzA7GmrK9kWUM
- HOu88nmn6uMBRMx4DFh+iyo7xfFoKEENyPcIWboS7MoJe6DoQdrqPqj
-X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
- pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
-X-Authority-Analysis: v=2.4 cv=Ja+Ma0KV c=1 sm=1 tr=0 ts=6a16b813 cx=c_pps
- a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=EUspDBNiAAAA:8 a=O479GCAEFUW8rv5zZysA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=O8hF6Hzn-FEA:10 a=bBxd6f-gb0O0v-kibOvt:22
-X-Proofpoint-ORIG-GUID: DJIZj-0jCvm9DJ9W1ptq0CgBK5gjowtI
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA5MCBTYWx0ZWRfXy7j89dp4skY3
- to6hH8P+9+66hge+DN7FXimY6Te7pizSR+q6c8TVN/5Vh+H6q8ObffIjPMyGYo1m+vikID8GR1u
- 2Hd41HLQKHmow+YWNJJuyByWwSXog6V6+E7ndpvFYv5kAR4tooJAucwe4/1DX8iYsjF7rTOcsVr
- 6BcDI9uWyltyJ9eG6VwCgwxmxofLrJfQntjQzBTT2i5VUfU5qLB7PzncDN3TK+Sc3L1hXl1dRpe
- G151yfSpn8w5vTyqe4rq4SMB5mZ9B8b0XileIcFx4E/+PgTCZKP/8n/ZUky/5acGQmrIvnVpNud
- YBsx89mXw0omy4t5USktEdJcA4CEr3aVllP1UbfNxl9ehSo4znr1uB9a8Z51yoweBxQ2kx54ypK
- tXIEDjDWwtqmlLDsq2ZyyjO+3qxlKp7MuOfqhtpRPJW/yPd2uAGQoa16t9wbM9nP9f+CZanKpZQ
- zckKoP1AfVi1BqzWztQ==
-X-Proofpoint-GUID: DJIZj-0jCvm9DJ9W1ptq0CgBK5gjowtI
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 lowpriorityscore=0
- malwarescore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270090
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1301:EE_
+X-MS-Office365-Filtering-Correlation-Id: b40edd8e-cdf1-4e51-7bf3-08debbcd0c55
+X-MS-Exchange-SenderADCheck: 1
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|52116014|376014|366016|38350700014|3023799007|56012099006|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	UZkZ5c7c7sr+zz8/dMkTAWSd0Kc8kuCYe4NJNHo4Lhp83GWMAACYv4olqX0VNoqb31HGAgzK6+ywXNnmHQ82nHWNVkxAp3clvXaKja1xi5XV0G0UAo/z3uyfrtU79RxiwDhAIkuIBO85s2PCpCDO9uT6bXqx7/gvEleb2X8o8qX5uid3f6+uRLr7MMokh4jMsdh+Q12UVFqv5/q7mbW1AHHwWm0RBNFW8PynDbsanqCpjZPlUumAJFZe+gIObH5flb9GlpyvaZ8bJd66C5NOxq2hrikskcO8RxmFsnGIllqZRQfBPfQKyejnpcGkDEIPZ3h5M0WgmRjAuFiSS7GvfSfvZhIBPXxeF6ml2VZ7u/vX6zbHGoBbBiS+iGMIo6ahsIeag8Ia2C6UvfPdbXIQ0/KxqsIRa3GUZYps58jaBNLHYq5SVZX7VZ2v8t3gk6eLR5lRE6DaMQHrkDvdxNySWp2X2Fa55fy+pLRbb40LOfpal4cpw35Bhyr9A2TGInrt3FLmrIIjNtqEefT0Wfrq3rGQxin807OKB5DLNN/+iaZoM46IpHAoIdATdxsv9WbP
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(376014)(366016)(38350700014)(3023799007)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?nMYXMERqrIA40Oex0IHyLZsbreQohFVrvYND6XOL+xMfWb4yzmCwGwL4qonc?=
+ =?us-ascii?Q?99LgJ1isRzGjPTU7bvoqxsAcaBNJ2k6FlQhfBSGnMHYguObyfJ2ocbK9aZEg?=
+ =?us-ascii?Q?fXXMCAq0c5wQ/58cqbYeltntMBxVAfeB6AkMyUJPQ7xSacc3CeeCH1hHmPVB?=
+ =?us-ascii?Q?bGr0pT8qdNVeg+luPnZfW7DBYDBq2f2e++uJvVOx/Mj0XJ+hrUuTnuKQR0Dv?=
+ =?us-ascii?Q?fvzbtZqy9sWzTcqSWB3oYhrrHMYjcL4SLPSfczM5Z637q/7rK9Ks/LEPCxi3?=
+ =?us-ascii?Q?tAxsXGIEZhqaSr1YklvqOqh3wd7NnOsMkync/toc/idwjoGGp3N0ztAq0qBa?=
+ =?us-ascii?Q?cxACfWgo+nLHAZBAM4t01vesrZg0vdFBp9sC/hsXL5dYtnxFtRuos0CQGUZw?=
+ =?us-ascii?Q?R9myCY8LVUUu+wcgYyZwZimP4lcc3ro+ALW5b2K4vJwY5X3mFSsO/Ad5PrXf?=
+ =?us-ascii?Q?gtE9WPcRbURYyVKzUvQ5cabO4/BFPsr/JdzJe9dZ4CyjtIksVLL+K1ao2m/0?=
+ =?us-ascii?Q?t+vQZMn7LDosCXzFk8bgNbk3OSfh5rBe/FaYAJLWUNB6W4ntMXvn00iqi+dm?=
+ =?us-ascii?Q?M97dd318a8x1QZ9vhwnrI7aa54IMTU4E82QE4u2FOzTVSgtHGBvok4K82az1?=
+ =?us-ascii?Q?i8lSRfFadfzmovGuol7m+w1mPk5ZHVKkreWP+rWfWvkO8pUO4kTpe2L82LGM?=
+ =?us-ascii?Q?lEpAWyAvpUDiLIn3pvitc0nuvlxLSgChuYS5gC7Oi0LIzv1s8K0ZgkFMACQl?=
+ =?us-ascii?Q?/887taH+T3XNXHdxY9aMuXk7345ewU1V6BQ5NSAaze10K4y2973el6GiHj97?=
+ =?us-ascii?Q?9wDh2v6iZipnZ91eetUPXsFvuM9TLBd6LOZs1enxrmQozTByHGAmqftAKdAF?=
+ =?us-ascii?Q?56Yk5vfaJz8KyfXwC1BUX512PZumeQA/+NRDNWyDuNOsCpTF+649AJyANKzF?=
+ =?us-ascii?Q?1n0VcXTXwjTZazmfcnRFjUBi0E75wpCQ1S9YDFu/ziNH9CthE+wtSVtEn7Je?=
+ =?us-ascii?Q?XTJpFt7C+HhpeqV4C+dddeoTHXZ+5nDBrjQmm7vh/avxUxaUV+XFLWm37TH2?=
+ =?us-ascii?Q?3NtHPdYYWu+bLOynee9PbTG+IxZekARm157G1FIRmK0kHPRv68VLFpa2LWam?=
+ =?us-ascii?Q?sh4Pw4E+/qBHTIhsxZayiTZp7aAmixpGU5MgKeqxzZUh6MNsSWsF0qzKBngg?=
+ =?us-ascii?Q?uKVlmkKVda+MdcOws4fLXvHOO2Qj504FOkLy5PDMASHw45LDAKwp7FrOA8fO?=
+ =?us-ascii?Q?PxkWuGWxLParvBWmrBD7f16e+YpN/avYAKQFNTq+HhW3IIsJ5IJAuLgWiqwS?=
+ =?us-ascii?Q?Hv4hgjYmE/jBfOqFCOcEJkEIE0qfmypOr8yaBP8sCzbgNCG1i1/m3twPvIw8?=
+ =?us-ascii?Q?+AgMWylnb7cXq69xr5+8hV3639k9Vzl10cwOQTqJS6ANceY29Rd4dySO0Rkj?=
+ =?us-ascii?Q?2FAtKRb/tHpShpephdlZI+Mzaic7MaNCi7aU8TCB8Dt479ArSZY36PfPxZIb?=
+ =?us-ascii?Q?6CO1rpNwq6kfLdb9wJBhNLprV5neSe5Rop5oXIVzzCaVdra4bKpR3c/xFaO1?=
+ =?us-ascii?Q?rRMRGP0rWEE8/y4ry/HUUZDQQbXYLlETC76SzCW2HdI2s7pouzjQnIo/hRFd?=
+ =?us-ascii?Q?gPb63IA4fknoGaa4oBYJx1BTWRYl7tiunYNQYEtxfvqzC2TUnGqWHqbY6IJ9?=
+ =?us-ascii?Q?UhvHDcG/TyCCl6Yf/9wuwItPUXZGy/DOK8tHKSXDGkAJZjMKXU8P7rr39xg0?=
+ =?us-ascii?Q?vZYwJV1AO0/d/1otWJ0lOOf9M5DE/24lBnpiiDZfTso77yMhXKJx?=
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b40edd8e-cdf1-4e51-7bf3-08debbcd0c55
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 08:50:48.3936
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: n4qm0eUGFXbLD+KXG+CWngGcvlcApVsempMiMxbS+zN/K/85RGaZVyLRD2TLDlWYGl+jTupuxaUvPDCKsQxSwEOTkIb85Uhi56ZDLlkBJ63MF/JuSOJLxsrjsXEEZ1mz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1301
 
-PMH0101 introduces bidirectional level shifter (BIDIR_LVL_SHIFTER)
-modules that provide voltage translation between 1.2 V and 1.8 V power
-domains for open-drain signals, such as connecting a camera sensor with
-1.8 V I2C IO to a SoC I2C bus operating at 1.2 V IO.
+From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-Each BIDIR_LVL_SHIFTER shares its two physical pins with a corresponding
-pair of GPIO modules. When used, the associated GPIOs need to keep
-disabled, with no GPIO function or configuration enabled. The
-BIDIR_LVL_SHIFTER then operates as a bidirectional open-drain voltage
-translator, using fixed 1.2 V and 1.8 V reference voltages on each side
-and relying on external board-level pull-up resistors for open-drain
-drive control.
+Export several key functions (i2c_dw_probe_master, i2c_dw_init,
+i2c_dw_xfer_init, i2c_dw_read_clear_intrbits, etc.) and mark them as
+__weak. This allows the i2c starfive driver to reuse the common
+infrastructure while overriding the implementations where needed.
 
-From a system perspective, a BIDIR_LVL_SHIFTER may be used on a serial
-bus shared by multiple clients managed by different subsystems. As a
-result, its enable control is shared and centrally managed by AOP,
-with each subsystem voting for the enable state via an RPMh “XOB”
-resource.
+Additionally, extend the register map configuration and introduce the
+MODEL_STARFIVE flag to accommodate the starfive i2c  IP's different
+register space.
 
-Add a new "level-shifter" function to the SPMI GPIO driver to support
-BIDIR_LVL_SHIFTER operation considering that BIDIR_LVL_SHIFTER shares
-physical pins with GPIOs, it must be mutually exclusive with all
-existing functions and configurations. Additionally, limit the
-"level-shifter" function to specific GPIO pairs that share physical
-pins with the BIDIR_LVL_SHIFTER module by creating pingroups and
-linking them to the "level-shifter" function.
-
-With this change, the BIDIR_LVL_SHIFTER could be controlled with
-following dtsi nodes:
-
-    pmh0101-ls1-en {
-    	groups = "gpio11, gpio12";
-    	function = "level-shifter";
-    	qcom,1p2v-1p8v-ls-en = <1>;
-    };
-
-    pmh0101-ls1-dis {
-    	groups = "gpio11, gpio12";
-    	function = "level-shifter";
-    	qcom,1p2v-1p8v-ls-en = <0>;
-    };
-
-Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 ---
- drivers/pinctrl/qcom/pinctrl-spmi-gpio.c | 410 +++++++++++++++++++++++++------
- 1 file changed, 335 insertions(+), 75 deletions(-)
+ drivers/i2c/busses/i2c-designware-common.c  | 72 ++++++++++++++++-----
+ drivers/i2c/busses/i2c-designware-core.h    | 20 ++++++
+ drivers/i2c/busses/i2c-designware-master.c  |  4 +-
+ drivers/i2c/busses/i2c-designware-platdrv.c |  6 ++
+ drivers/i2c/busses/i2c-designware-slave.c   |  2 +-
+ 5 files changed, 84 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-index f159c56784b4..d0144dbb7cfc 100644
---- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-+++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
-@@ -23,6 +23,9 @@
- 
- #include <dt-bindings/pinctrl/qcom,pmic-gpio.h>
- 
-+#include <soc/qcom/cmd-db.h>
-+#include <soc/qcom/rpmh.h>
-+
- #include "../core.h"
- #include "../pinmux.h"
- #include "../pinctrl-utils.h"
-@@ -118,12 +121,16 @@
- /* PMIC_GPIO_REG_LV_MV_ANA_PASS_THRU_SEL */
- #define PMIC_GPIO_LV_MV_ANA_MUX_SEL_MASK		0x3
- 
-+/* Level shifter register offset */
-+#define REG_LS_ENABLE_OFFSET			4
-+
- /* Qualcomm specific pin configurations */
- #define PMIC_GPIO_CONF_PULL_UP			(PIN_CONFIG_END + 1)
- #define PMIC_GPIO_CONF_STRENGTH			(PIN_CONFIG_END + 2)
- #define PMIC_GPIO_CONF_ATEST			(PIN_CONFIG_END + 3)
- #define PMIC_GPIO_CONF_ANALOG_PASS		(PIN_CONFIG_END + 4)
- #define PMIC_GPIO_CONF_DTEST_BUFFER		(PIN_CONFIG_END + 5)
-+#define PMIC_GPIO_CONF_LS_ENABLE		(PIN_CONFIG_END + 6)
- 
- /* The index of each function in pmic_gpio_functions[] array */
- enum pmic_gpio_func_index {
-@@ -137,6 +144,7 @@ enum pmic_gpio_func_index {
- 	PMIC_GPIO_FUNC_INDEX_DTEST2,
- 	PMIC_GPIO_FUNC_INDEX_DTEST3,
- 	PMIC_GPIO_FUNC_INDEX_DTEST4,
-+	PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER,
+diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
+index 4dc57fd56170..034f6a446ab6 100644
+--- a/drivers/i2c/busses/i2c-designware-common.c
++++ b/drivers/i2c/busses/i2c-designware-common.c
+@@ -70,6 +70,7 @@ static const char *const abort_sources[] = {
+ 		"incorrect slave-transmitter mode configuration",
  };
  
- /**
-@@ -183,25 +191,86 @@ struct pmic_gpio_state {
- 	struct regmap	*map;
- 	struct pinctrl_dev *ctrl;
- 	struct gpio_chip chip;
-+	struct device	*rpmh_dev;
-+	const char	*pmic_id;
- 	u8 usid;
- 	u8 pid_base;
- };
- 
-+/**
-+ * struct ls_config - Level shifter configuration
-+ * @name: Pinctrl group name (e.g., "gpio11, gpio12")
-+ * @rpmh_prefix: RPMh resource name prefix (e.g., "LS1")
-+ * @pins: Array of pin numbers for this level shifter pair
-+ */
-+struct ls_config {
-+	const char *name;
-+	const char *rpmh_prefix;
-+	const unsigned int *pins;
-+};
-+
-+/**
-+ * struct ls_pingroup_data - Level shifter pin group data
-+ * @config: Pointer to level shifter configuration
-+ * @level_shifter_addr: RPMh address for level shifter control
-+ * @ls_enabled: Shadowed enable state, updated on each successful RPMh write
-+ */
-+struct ls_pingroup_data {
-+	struct ls_config *config;
-+	u32 level_shifter_addr;
-+	bool ls_enabled;
-+};
-+
-+/**
-+ * struct pmic_gpio_hw_data - Hardware-specific data
-+ * @npins: Number of GPIO pins
-+ * @ls_config: Array of level shifter configurations
-+ * @num_ls: Number of level shifters
-+ */
-+struct pmic_gpio_hw_data {
-+	u32 npins;
-+	struct ls_config *ls_config;
-+	u32 num_ls;
-+};
-+
-+/* Macro to create hardware data inline */
-+#define PMIC_GPIO_HW_DATA(n, ls, num) \
-+	(&(const struct pmic_gpio_hw_data) { \
-+		.npins = n, \
-+		.ls_config = ls, \
-+		.num_ls = num, \
-+	})
-+
-+/* Level shifter pin groups for PMH0101 */
-+static const unsigned int ls1_pins[] = { 10, 11 }; /* GPIO11, GPIO12 */
-+static const unsigned int ls2_pins[] = { 12, 13 }; /* GPIO13, GPIO14 */
-+static const unsigned int ls3_pins[] = { 14, 15 }; /* GPIO15, GPIO16 */
-+static const unsigned int ls4_pins[] = { 16, 17 }; /* GPIO17, GPIO18 */
-+
-+static struct ls_config pmh0101_ls_configs[] = {
-+	{ "gpio11, gpio12", "LS1", ls1_pins },
-+	{ "gpio13, gpio14", "LS2", ls2_pins },
-+	{ "gpio15, gpio16", "LS3", ls3_pins },
-+	{ "gpio17, gpio18", "LS4", ls4_pins },
-+};
-+
- static const struct pinconf_generic_params pmic_gpio_bindings[] = {
- 	{"qcom,pull-up-strength",	PMIC_GPIO_CONF_PULL_UP,		0},
- 	{"qcom,drive-strength",		PMIC_GPIO_CONF_STRENGTH,	0},
- 	{"qcom,atest",			PMIC_GPIO_CONF_ATEST,		0},
- 	{"qcom,analog-pass",		PMIC_GPIO_CONF_ANALOG_PASS,	0},
--	{"qcom,dtest-buffer",           PMIC_GPIO_CONF_DTEST_BUFFER,    0},
-+	{"qcom,dtest-buffer",		PMIC_GPIO_CONF_DTEST_BUFFER,	0},
-+	{"qcom,1p2v-1p8v-ls-en",	PMIC_GPIO_CONF_LS_ENABLE,	0},
- };
- 
- #ifdef CONFIG_DEBUG_FS
- static const struct pin_config_item pmic_conf_items[ARRAY_SIZE(pmic_gpio_bindings)] = {
--	PCONFDUMP(PMIC_GPIO_CONF_PULL_UP,  "pull up strength", NULL, true),
--	PCONFDUMP(PMIC_GPIO_CONF_STRENGTH, "drive-strength", NULL, true),
--	PCONFDUMP(PMIC_GPIO_CONF_ATEST, "atest", NULL, true),
--	PCONFDUMP(PMIC_GPIO_CONF_ANALOG_PASS, "analog-pass", NULL, true),
--	PCONFDUMP(PMIC_GPIO_CONF_DTEST_BUFFER, "dtest-buffer", NULL, true),
-+	PCONFDUMP(PMIC_GPIO_CONF_PULL_UP,      "pull up strength", NULL, true),
-+	PCONFDUMP(PMIC_GPIO_CONF_STRENGTH,     "drive-strength",   NULL, true),
-+	PCONFDUMP(PMIC_GPIO_CONF_ATEST,        "atest",            NULL, true),
-+	PCONFDUMP(PMIC_GPIO_CONF_ANALOG_PASS,  "analog-pass",      NULL, true),
-+	PCONFDUMP(PMIC_GPIO_CONF_DTEST_BUFFER, "dtest-buffer",     NULL, true),
-+	PCONFDUMP(PMIC_GPIO_CONF_LS_ENABLE,    "ls-enable",        NULL, true),
- };
- #endif
- 
-@@ -262,6 +331,41 @@ static const struct pinctrl_ops pmic_gpio_pinctrl_ops = {
- 	.dt_free_map		= pinctrl_utils_free_map,
- };
- 
-+/**
-+ * pmic_gpio_set_ls_rpmh() - Send RPMh XOB vote for a level shifter
-+ * @state: PMIC GPIO state
-+ * @ls_data: Level shifter pin group data
-+ * @enable: true to enable, false to disable
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+static int pmic_gpio_set_ls_rpmh(struct pmic_gpio_state *state,
-+				  struct ls_pingroup_data *ls_data,
-+				  bool enable)
-+{
-+	struct tcs_cmd cmd = { };
-+	int ret;
-+
-+	if (!ls_data->level_shifter_addr) {
-+		dev_err(state->dev, "Level shifter address not configured\n");
-+		return -EINVAL;
-+	}
-+
-+	if (!state->rpmh_dev) {
-+		dev_err(state->dev, "RPMh device not available\n");
-+		return -ENODEV;
-+	}
-+
-+	cmd.addr = ls_data->level_shifter_addr + REG_LS_ENABLE_OFFSET;
-+	cmd.data = enable ? 1 : 0;
-+
-+	ret = rpmh_write_ctrlr(state->rpmh_dev, RPMH_ACTIVE_ONLY_STATE, &cmd, 1);
-+	if (!ret)
-+		ls_data->ls_enabled = enable;
-+
-+	return ret;
-+}
-+
- static int pmic_gpio_set_mux(struct pinctrl_dev *pctldev, unsigned int function,
- 				unsigned int selector)
++#if !IS_ENABLED(CONFIG_I2C_STARFIVE)
+ static int dw_reg_read(void *context, unsigned int reg, unsigned int *val)
  {
-@@ -271,7 +375,7 @@ static int pmic_gpio_set_mux(struct pinctrl_dev *pctldev, unsigned int function,
- 	unsigned int val, pin, func;
- 	int ret, i;
+ 	struct dw_i2c_dev *dev = context;
+@@ -87,6 +88,7 @@ static int dw_reg_write(void *context, unsigned int reg, unsigned int val)
  
--	if (function > PMIC_GPIO_FUNC_INDEX_DTEST4) {
-+	if (function > PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER) {
- 		pr_err("function: %d is not defined\n", function);
- 		return -EINVAL;
- 	}
-@@ -280,6 +384,28 @@ static int pmic_gpio_set_mux(struct pinctrl_dev *pctldev, unsigned int function,
- 	if (!group)
- 		return -EINVAL;
+ 	return 0;
+ }
++#endif
  
-+	if (function == PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER) {
-+		if (!group->data)
-+			return -EINVAL;
-+
-+		/*
-+		 * Disable both GPIO pads in the pair. The RPMh XOB vote is
-+		 * sent separately via the qcom,1p2v-1p8v-ls-en pinconf parameter.
-+		 */
-+		for (i = 0; i < group->grp.npins; i++) {
-+			pin = group->grp.pins[i];
-+			pad = pctldev->desc->pins[pin].drv_data;
-+
-+			ret = pmic_gpio_write(state, pad, PMIC_GPIO_REG_EN_CTL, 0);
-+			if (ret < 0)
-+				return ret;
-+
-+			pad->is_enabled = false;
-+			pad->function = PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER;
-+		}
-+		return 0;
-+	}
-+
- 	/* For standard functions, iterate over all pins in the group */
- 	for (i = 0; i < group->grp.npins; i++) {
- 		pin = group->grp.pins[i];
-@@ -597,6 +723,9 @@ static int pmic_gpio_pinconf_pin_set(struct pinctrl_dev *pctldev,
- 				return -EINVAL;
- 			pad->dtest_buffer = arg;
- 			break;
-+		case PMIC_GPIO_CONF_LS_ENABLE:
-+			/* Group-level only; handled in pmic_gpio_pinconf_group_set */
-+			break;
- 		default:
- 			return -EINVAL;
- 		}
-@@ -690,13 +819,14 @@ static int pmic_gpio_pinconf_pin_set(struct pinctrl_dev *pctldev,
-  * @configs: Array of configuration parameters
-  * @nconfs: Number of configurations
-  *
-- * Iterates over all pins in the group and applies config to each.
-+ * Handles group-level parameters (e.g., LS enable) before iterating per-pin.
-  */
- static int pmic_gpio_pinconf_group_set(struct pinctrl_dev *pctldev,
- 				       unsigned int selector,
- 				       unsigned long *configs,
- 				       unsigned int nconfs)
+ static int dw_reg_read_swab(void *context, unsigned int reg, unsigned int *val)
  {
-+	struct pmic_gpio_state *state = pinctrl_dev_get_drvdata(pctldev);
- 	const struct group_desc *group;
- 	unsigned int pin;
- 	int i, ret;
-@@ -705,7 +835,25 @@ static int pmic_gpio_pinconf_group_set(struct pinctrl_dev *pctldev,
- 	if (!group)
- 		return -EINVAL;
- 
--	/* Iterate over all pins in the group and apply config to each */
-+	/* Handle group-level LS_ENABLE before iterating per-pin configs */
-+	for (i = 0; i < nconfs; i++) {
-+		if (pinconf_to_config_param(configs[i]) != PMIC_GPIO_CONF_LS_ENABLE)
-+			continue;
-+
-+		if (!group->data) {
-+			dev_err(state->dev,
-+				"qcom,1p2v-1p8v-ls-en is only valid for level-shifter groups\n");
-+			return -EINVAL;
-+		}
-+
-+		ret = pmic_gpio_set_ls_rpmh(state,
-+					    (struct ls_pingroup_data *)group->data,
-+					    !!pinconf_to_config_argument(configs[i]));
-+		if (ret < 0)
-+			return ret;
-+	}
-+
-+	/* Apply per-pin configs to each pin in the group */
- 	for (i = 0; i < group->grp.npins; i++) {
- 		pin = group->grp.pins[i];
- 
-@@ -794,8 +942,8 @@ static void pmic_gpio_pinconf_pin_dbg_show(struct pinctrl_dev *pctldev,
-  * @s: seq_file for output
-  * @selector: Group selector
-  *
-- * Shows the configuration for all pins in a group.
-- * Used by the pinconf-groups debugfs interface.
-+ * Shows the configuration for all pins in a group. For level-shifter groups,
-+ * also prints the RPMh address as a preamble.
-  */
- static void pmic_gpio_pinconf_group_dbg_show(struct pinctrl_dev *pctldev,
- 					     struct seq_file *s,
-@@ -809,6 +957,14 @@ static void pmic_gpio_pinconf_group_dbg_show(struct pinctrl_dev *pctldev,
- 	if (!group)
- 		return;
- 
-+	/* For level-shifter groups, print the enable status as preamble */
-+	if (group->data) {
-+		const struct ls_pingroup_data *ls_data = group->data;
-+
-+		seq_printf(s, ", level-shifter (%s)\n       ",
-+			   ls_data->ls_enabled ? "enabled" : "disabled");
-+	}
-+
- 	/* Iterate over all pins in the group and show status for each */
- 	for (i = 0; i < group->grp.npins; i++) {
- 		pin = group->grp.pins[i];
-@@ -1177,6 +1333,96 @@ static const struct irq_chip spmi_gpio_irq_chip = {
- 	GPIOCHIP_IRQ_RESOURCE_HELPERS,
- };
- 
-+/**
-+ * pmic_gpio_register_level_shifters() - Register level-shifter groups and function
-+ * @state: PMIC GPIO state
-+ * @hw_data: Hardware-specific data containing level-shifter configurations
-+ *
-+ * This function registers level-shifter support by:
-+ * 1. Getting RPMh device reference and PMIC ID from device tree
-+ * 2. Registering each level-shifter pair as a multi-pin group
-+ * 3. Getting RPMh addresses from cmd_db for each level-shifter
-+ * 4. Registering the level-shifter function once with all valid groups
-+ *
-+ * Return: 0 on success, negative error code on failure
-+ */
-+static int pmic_gpio_register_level_shifters(struct pmic_gpio_state *state,
-+					     const struct pmic_gpio_hw_data *hw_data)
-+{
-+	struct device *dev = state->dev;
-+	const char **ls_group_names;
-+	int ret, i;
-+
-+	/* Get RPMh device reference for level shifter control */
-+	state->rpmh_dev = rpmh_get_ctrlr_dev(dev);
-+	if (IS_ERR(state->rpmh_dev))
-+		return dev_err_probe(dev, PTR_ERR(state->rpmh_dev),
-+				     "Level shifter needs rpmh device\n");
-+
-+	/* Get PMIC ID from device tree for RPMh resource name composition */
-+	ret = of_property_read_string(dev->of_node, "qcom,pmic-id",
-+				       &state->pmic_id);
-+	if (ret)
-+		return dev_err_probe(dev, ret,
-+				     "get qcom,pmic-id failed for rpmh resource\n");
-+
-+	/* Allocate array to hold all level-shifter group names */
-+	ls_group_names = devm_kcalloc(dev, hw_data->num_ls,
-+				      sizeof(*ls_group_names), GFP_KERNEL);
-+	if (!ls_group_names)
-+		return -ENOMEM;
-+
-+	/* Register each level-shifter pair as a multi-pin group */
-+	for (i = 0; i < hw_data->num_ls; i++) {
-+		struct ls_config *ls = &hw_data->ls_config[i];
-+		struct ls_pingroup_data *ls_group_data;
-+		char rpmh_resource_name[32];
-+
-+		/* Allocate ls_pingroup_data for this level shifter */
-+		ls_group_data = devm_kzalloc(dev, sizeof(*ls_group_data),
-+					     GFP_KERNEL);
-+		if (!ls_group_data)
-+			return -ENOMEM;
-+
-+		ls_group_data->config = ls;
-+
-+		/* Compose RPMh resource name and get address from cmd_db */
-+		if (state->pmic_id && ls->rpmh_prefix) {
-+			snprintf(rpmh_resource_name,
-+				 sizeof(rpmh_resource_name),
-+				 "%s%s", ls->rpmh_prefix, state->pmic_id);
-+			ls_group_data->level_shifter_addr =
-+				cmd_db_read_addr(rpmh_resource_name);
-+			if (!ls_group_data->level_shifter_addr)
-+				return dev_err_probe(dev, -ENODEV,
-+						     "RPMh resource %s not found in cmd_db\n",
-+						     rpmh_resource_name);
-+		}
-+
-+		/* Store group name for function registration */
-+		ls_group_names[i] = ls->name;
-+
-+		/* Register the multi-pin group using the level-shifter name */
-+		ret = pinctrl_generic_add_group(state->ctrl, ls->name,
-+						ls->pins, 2, ls_group_data);
-+		if (ret < 0)
-+			return dev_err_probe(dev, ret,
-+					     "Failed to register level-shifter group %s\n",
-+					     ls->name);
-+	}
-+
-+	/* Register level-shifter function once with all valid groups */
-+	ret = pinmux_generic_add_function(state->ctrl,
-+					  PMIC_GPIO_FUNC_LEVEL_SHIFTER,
-+					  ls_group_names, hw_data->num_ls,
-+					  NULL);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret,
-+				     "Failed to register level-shifter function\n");
-+
-+	return 0;
-+}
-+
- static int pmic_gpio_probe(struct platform_device *pdev)
- {
- 	struct irq_domain *parent_domain;
-@@ -1188,6 +1434,7 @@ static int pmic_gpio_probe(struct platform_device *pdev)
- 	struct pmic_gpio_state *state;
- 	struct gpio_irq_chip *girq;
- 	const struct spmi_device *parent_spmi_dev;
-+	const struct pmic_gpio_hw_data *hw_data;
- 	int ret, npins, i;
+@@ -143,9 +145,15 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
+ 		.val_bits = 32,
+ 		.reg_stride = 4,
+ 		.disable_locking = true,
++#if IS_ENABLED(CONFIG_I2C_STARFIVE)
++		.reg_read = sf_reg_read,
++		.reg_write = sf_reg_write,
++		.max_register = SF_IC_SMBUS_INTR_CLR,
++#else
+ 		.reg_read = dw_reg_read,
+ 		.reg_write = dw_reg_write,
+ 		.max_register = DW_IC_COMP_TYPE,
++#endif
+ 	};
  	u32 reg;
- 
-@@ -1197,7 +1444,13 @@ static int pmic_gpio_probe(struct platform_device *pdev)
+ 	int ret;
+@@ -162,6 +170,10 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
  		return ret;
- 	}
  
--	npins = (uintptr_t) device_get_match_data(&pdev->dev);
-+	hw_data = device_get_match_data(&pdev->dev);
-+	if (!hw_data) {
-+		dev_err(dev, "no match data found\n");
-+		return -EINVAL;
-+	}
+ 	reg = readl(dev->base + DW_IC_COMP_TYPE);
 +
-+	npins = hw_data->npins;
- 
- 	state = devm_kzalloc(dev, sizeof(*state), GFP_KERNEL);
- 	if (!state)
-@@ -1285,6 +1538,13 @@ static int pmic_gpio_probe(struct platform_device *pdev)
- 		}
- 	}
- 
-+	/* Register level-shifter groups and function if supported */
-+	if (hw_data->ls_config && hw_data->num_ls) {
-+		ret = pmic_gpio_register_level_shifters(state, hw_data);
-+		if (ret < 0)
-+			return ret;
-+	}
++	if ((dev->flags & MODEL_MASK) == MODEL_STARFIVE)
++		reg = readl(dev->base + (SF_IC_COMP_TYPE & (~SF_REG_FLAG)));
 +
- 	parent_node = of_irq_find_parent(state->dev->of_node);
- 	if (!parent_node)
- 		return -ENXIO;
-@@ -1345,80 +1605,80 @@ static void pmic_gpio_remove(struct platform_device *pdev)
+ 	i2c_dw_release_lock(dev);
+ 
+ 	if ((dev->flags & MODEL_MASK) == MODEL_AMD_NAVI_GPU)
+@@ -359,7 +371,7 @@ static inline u32 i2c_dw_acpi_round_bus_speed(struct device *device) { return 0;
+ 
+ #endif	/* CONFIG_ACPI */
+ 
+-static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
++__weak void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
+ {
+ 	switch (mode) {
+ 	case DW_IC_MASTER:
+@@ -382,7 +394,7 @@ static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
+ 	}
  }
  
- static const struct of_device_id pmic_gpio_of_match[] = {
--	{ .compatible = "qcom,pm2250-gpio", .data = (void *) 10 },
-+	{ .compatible = "qcom,pm2250-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
- 	/* pm660 has 13 GPIOs with holes on 1, 5, 6, 7, 8 and 10 */
--	{ .compatible = "qcom,pm660-gpio", .data = (void *) 13 },
-+	{ .compatible = "qcom,pm660-gpio", .data = PMIC_GPIO_HW_DATA(13, NULL, 0) },
- 	/* pm660l has 12 GPIOs with holes on 1, 2, 10, 11 and 12 */
--	{ .compatible = "qcom,pm660l-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm6125-gpio", .data = (void *) 9 },
--	{ .compatible = "qcom,pm6150-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pm6150l-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm6350-gpio", .data = (void *) 9 },
--	{ .compatible = "qcom,pm6450-gpio", .data = (void *) 9 },
--	{ .compatible = "qcom,pm7250b-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm7325-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pm7550-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm7550ba-gpio", .data = (void *) 8},
--	{ .compatible = "qcom,pm8005-gpio", .data = (void *) 4 },
--	{ .compatible = "qcom,pm8010-gpio", .data = (void *) 2 },
--	{ .compatible = "qcom,pm8019-gpio", .data = (void *) 6 },
-+	{ .compatible = "qcom,pm660l-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm6125-gpio", .data = PMIC_GPIO_HW_DATA(9, NULL, 0) },
-+	{ .compatible = "qcom,pm6150-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pm6150l-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm6350-gpio", .data = PMIC_GPIO_HW_DATA(9, NULL, 0) },
-+	{ .compatible = "qcom,pm6450-gpio", .data = PMIC_GPIO_HW_DATA(9, NULL, 0) },
-+	{ .compatible = "qcom,pm7250b-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm7325-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pm7550-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm7550ba-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pm8005-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
-+	{ .compatible = "qcom,pm8010-gpio", .data = PMIC_GPIO_HW_DATA(2, NULL, 0) },
-+	{ .compatible = "qcom,pm8019-gpio", .data = PMIC_GPIO_HW_DATA(6, NULL, 0) },
- 	/* pm8150 has 10 GPIOs with holes on 2, 5, 7 and 8 */
--	{ .compatible = "qcom,pm8150-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pmc8180-gpio", .data = (void *) 10 },
-+	{ .compatible = "qcom,pm8150-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pmc8180-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
- 	/* pm8150b has 12 GPIOs with holes on 3, r and 7 */
--	{ .compatible = "qcom,pm8150b-gpio", .data = (void *) 12 },
-+	{ .compatible = "qcom,pm8150b-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
- 	/* pm8150l has 12 GPIOs with holes on 7 */
--	{ .compatible = "qcom,pm8150l-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pmc8180c-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm8226-gpio", .data = (void *) 8 },
--	{ .compatible = "qcom,pm8350-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pm8350b-gpio", .data = (void *) 8 },
--	{ .compatible = "qcom,pm8350c-gpio", .data = (void *) 9 },
--	{ .compatible = "qcom,pm8450-gpio", .data = (void *) 4 },
--	{ .compatible = "qcom,pm8550-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm8550b-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pm8550ve-gpio", .data = (void *) 8 },
--	{ .compatible = "qcom,pm8550vs-gpio", .data = (void *) 6 },
--	{ .compatible = "qcom,pm8916-gpio", .data = (void *) 4 },
-+	{ .compatible = "qcom,pm8150l-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pmc8180c-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm8226-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pm8350-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pm8350b-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pm8350c-gpio", .data = PMIC_GPIO_HW_DATA(9, NULL, 0) },
-+	{ .compatible = "qcom,pm8450-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
-+	{ .compatible = "qcom,pm8550-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm8550b-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pm8550ve-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pm8550vs-gpio", .data = PMIC_GPIO_HW_DATA(6, NULL, 0) },
-+	{ .compatible = "qcom,pm8916-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
- 	/* pm8937 has 8 GPIOs with holes on 3, 4 and 6 */
--	{ .compatible = "qcom,pm8937-gpio", .data = (void *) 8 },
--	{ .compatible = "qcom,pm8941-gpio", .data = (void *) 36 },
-+	{ .compatible = "qcom,pm8937-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pm8941-gpio", .data = PMIC_GPIO_HW_DATA(36, NULL, 0) },
- 	/* pm8950 has 8 GPIOs with holes on 3 */
--	{ .compatible = "qcom,pm8950-gpio", .data = (void *) 8 },
-+	{ .compatible = "qcom,pm8950-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
- 	/* pm8953 has 8 GPIOs with holes on 3 and 6 */
--	{ .compatible = "qcom,pm8953-gpio", .data = (void *) 8 },
--	{ .compatible = "qcom,pm8994-gpio", .data = (void *) 22 },
--	{ .compatible = "qcom,pm8998-gpio", .data = (void *) 26 },
--	{ .compatible = "qcom,pma8084-gpio", .data = (void *) 22 },
--	{ .compatible = "qcom,pmc8380-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pmcx0102-gpio", .data = (void *)14 },
--	{ .compatible = "qcom,pmd8028-gpio", .data = (void *) 4 },
--	{ .compatible = "qcom,pmh0101-gpio", .data = (void *)18 },
--	{ .compatible = "qcom,pmh0104-gpio", .data = (void *)8 },
--	{ .compatible = "qcom,pmh0110-gpio", .data = (void *)14 },
--	{ .compatible = "qcom,pmi632-gpio", .data = (void *) 8 },
--	{ .compatible = "qcom,pmi8950-gpio", .data = (void *) 2 },
--	{ .compatible = "qcom,pmi8994-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pmi8998-gpio", .data = (void *) 14 },
--	{ .compatible = "qcom,pmih0108-gpio", .data = (void *) 18 },
--	{ .compatible = "qcom,pmiv0104-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pmk8350-gpio", .data = (void *) 4 },
--	{ .compatible = "qcom,pmk8550-gpio", .data = (void *) 6 },
--	{ .compatible = "qcom,pmk8850-gpio", .data = (void *)8 },
--	{ .compatible = "qcom,pmm8155au-gpio", .data = (void *) 10 },
--	{ .compatible = "qcom,pmm8654au-gpio", .data = (void *) 12 },
-+	{ .compatible = "qcom,pm8953-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pm8994-gpio", .data = PMIC_GPIO_HW_DATA(22, NULL, 0) },
-+	{ .compatible = "qcom,pm8998-gpio", .data = PMIC_GPIO_HW_DATA(26, NULL, 0) },
-+	{ .compatible = "qcom,pma8084-gpio", .data = PMIC_GPIO_HW_DATA(22, NULL, 0) },
-+	{ .compatible = "qcom,pmc8380-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pmcx0102-gpio", .data = PMIC_GPIO_HW_DATA(14, NULL, 0) },
-+	{ .compatible = "qcom,pmd8028-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
-+	{ .compatible = "qcom,pmh0101-gpio", .data = PMIC_GPIO_HW_DATA(18, pmh0101_ls_configs, 4) },
-+	{ .compatible = "qcom,pmh0104-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pmh0110-gpio", .data = PMIC_GPIO_HW_DATA(14, NULL, 0) },
-+	{ .compatible = "qcom,pmi632-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pmi8950-gpio", .data = PMIC_GPIO_HW_DATA(2, NULL, 0) },
-+	{ .compatible = "qcom,pmi8994-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pmi8998-gpio", .data = PMIC_GPIO_HW_DATA(14, NULL, 0) },
-+	{ .compatible = "qcom,pmih0108-gpio", .data = PMIC_GPIO_HW_DATA(18, NULL, 0) },
-+	{ .compatible = "qcom,pmiv0104-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pmk8350-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
-+	{ .compatible = "qcom,pmk8550-gpio", .data = PMIC_GPIO_HW_DATA(6, NULL, 0) },
-+	{ .compatible = "qcom,pmk8850-gpio", .data = PMIC_GPIO_HW_DATA(8, NULL, 0) },
-+	{ .compatible = "qcom,pmm8155au-gpio", .data = PMIC_GPIO_HW_DATA(10, NULL, 0) },
-+	{ .compatible = "qcom,pmm8654au-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
- 	/* pmp8074 has 12 GPIOs with holes on 1 and 12 */
--	{ .compatible = "qcom,pmp8074-gpio", .data = (void *) 12 },
--	{ .compatible = "qcom,pmr735a-gpio", .data = (void *) 4 },
--	{ .compatible = "qcom,pmr735b-gpio", .data = (void *) 4 },
--	{ .compatible = "qcom,pmr735d-gpio", .data = (void *) 2 },
-+	{ .compatible = "qcom,pmp8074-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
-+	{ .compatible = "qcom,pmr735a-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
-+	{ .compatible = "qcom,pmr735b-gpio", .data = PMIC_GPIO_HW_DATA(4, NULL, 0) },
-+	{ .compatible = "qcom,pmr735d-gpio", .data = PMIC_GPIO_HW_DATA(2, NULL, 0) },
- 	/* pms405 has 12 GPIOs with holes on 1, 9, and 10 */
--	{ .compatible = "qcom,pms405-gpio", .data = (void *) 12 },
-+	{ .compatible = "qcom,pms405-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
- 	/* pmx55 has 11 GPIOs with holes on 3, 7, 10, 11 */
--	{ .compatible = "qcom,pmx55-gpio", .data = (void *) 11 },
--	{ .compatible = "qcom,pmx65-gpio", .data = (void *) 16 },
--	{ .compatible = "qcom,pmx75-gpio", .data = (void *) 16 },
--	{ .compatible = "qcom,pmxr2230-gpio", .data = (void *) 12 },
-+	{ .compatible = "qcom,pmx55-gpio", .data = PMIC_GPIO_HW_DATA(11, NULL, 0) },
-+	{ .compatible = "qcom,pmx65-gpio", .data = PMIC_GPIO_HW_DATA(16, NULL, 0) },
-+	{ .compatible = "qcom,pmx75-gpio", .data = PMIC_GPIO_HW_DATA(16, NULL, 0) },
-+	{ .compatible = "qcom,pmxr2230-gpio", .data = PMIC_GPIO_HW_DATA(12, NULL, 0) },
- 	{ },
+-static void i2c_dw_write_timings(struct dw_i2c_dev *dev)
++__weak void i2c_dw_write_timings(struct dw_i2c_dev *dev)
+ {
+ 	/* Write standard speed timing parameters */
+ 	regmap_write(dev->map, DW_IC_SS_SCL_HCNT, dev->ss_hcnt);
+@@ -411,7 +423,7 @@ static void i2c_dw_write_timings(struct dw_i2c_dev *dev)
+  *
+  * The controller must be disabled before this function is called.
+  */
+-void i2c_dw_set_mode(struct dw_i2c_dev *dev, int mode)
++__weak void i2c_dw_set_mode(struct dw_i2c_dev *dev, int mode)
+ {
+ 	if (mode == DW_IC_SLAVE && !dev->slave)
+ 		mode = DW_IC_MASTER;
+@@ -806,10 +818,25 @@ static int i2c_dw_set_fifo_size(struct dw_i2c_dev *dev)
+ 	if (ret)
+ 		return ret;
+ 
++#if IS_ENABLED(CONFIG_I2C_STARFIVE)
++	u32 tx_fifo_cfg = 8, rx_fifo_cfg = 8;
++
++#ifdef CONFIG_OF
++	ret = of_property_read_u32(dev->dev->of_node, "starfive,i2c-tx-fifo-depth", &tx_fifo_cfg);
++	if (!ret && (tx_fifo_cfg < 2 || tx_fifo_cfg > 256))
++		tx_fifo_cfg = 8;
++
++	ret = of_property_read_u32(dev->dev->of_node, "starfive,i2c-rx-fifo-depth", &rx_fifo_cfg);
++	if (!ret && (rx_fifo_cfg < 2 || rx_fifo_cfg > 256))
++		rx_fifo_cfg = 8;
++#endif
++	param = rx_fifo_cfg << 8 | tx_fifo_cfg << 16;
++#else
+ 	ret = regmap_read(dev->map, DW_IC_COMP_PARAM_1, &param);
+ 	i2c_dw_release_lock(dev);
+ 	if (ret)
+ 		return ret;
++#endif
+ 
+ 	tx_fifo_depth = FIELD_GET(DW_IC_FIFO_TX_FIELD, param) + 1;
+ 	rx_fifo_depth = FIELD_GET(DW_IC_FIFO_RX_FIELD, param) + 1;
+@@ -896,20 +923,29 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = i2c_dw_probe_master(dev);
+-	if (ret)
+-		return ret;
++	if (dev->mode == DW_IC_SLAVE) {
++		ret = i2c_sf_probe_slave(dev);
++	} else {
++		ret = i2c_dw_probe_master(dev);
++		if (ret)
++			return ret;
+ 
+-	ret = i2c_dw_init(dev);
+-	if (ret)
+-		return ret;
++		ret = i2c_dw_init(dev);
++		if (ret)
++			return ret;
+ 
+-	if (!adap->name[0])
+-		strscpy(adap->name, "Synopsys DesignWare I2C adapter");
++		if (!adap->name[0])
++			strscpy(adap->name, "Synopsys DesignWare I2C adapter");
++	}
+ 
+ 	adap->retries = 3;
+ 	adap->algo = &i2c_dw_algo;
++#if IS_ENABLED(CONFIG_I2C_STARFIVE_SLAVE)
++	if (dev->mode == DW_IC_SLAVE)
++		adap->algo = &i2c_dw_slave_algo;
++#else
+ 	adap->quirks = &i2c_dw_quirks;
++#endif
+ 	adap->dev.parent = dev->dev;
+ 	i2c_set_adapdata(adap, dev);
+ 
+@@ -938,16 +974,18 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
+ 	if (!dev->emptyfifo_hold_master)
+ 		irq_flags |= IRQF_NO_THREAD;
+ 
+-	ret = i2c_dw_acquire_lock(dev);
+-	if (ret)
+-		return ret;
++	if (!IS_ENABLED(CONFIG_I2C_STARFIVE) || dev->mode == DW_IC_MASTER) {
++		ret = i2c_dw_acquire_lock(dev);
++		if (ret)
++			return ret;
+ 
+-	__i2c_dw_write_intr_mask(dev, 0);
+-	i2c_dw_release_lock(dev);
++		__i2c_dw_write_intr_mask(dev, 0);
++		i2c_dw_release_lock(dev);
++	}
+ 
+ 	if (!(dev->flags & ACCESS_POLLING)) {
+ 		ret = devm_request_irq(dev->dev, dev->irq, i2c_dw_isr,
+-				       irq_flags, dev_name(dev->dev), dev);
++				irq_flags, dev_name(dev->dev), dev);
+ 		if (ret)
+ 			return ret;
+ 	}
+diff --git a/drivers/i2c/busses/i2c-designware-core.h b/drivers/i2c/busses/i2c-designware-core.h
+index 9d8d104cc391..87223f7e28aa 100644
+--- a/drivers/i2c/busses/i2c-designware-core.h
++++ b/drivers/i2c/busses/i2c-designware-core.h
+@@ -321,6 +321,11 @@ struct dw_i2c_dev {
+ 	u32			bus_capacitance_pF;
+ 	bool			clk_freq_optimized;
+ 	bool			emptyfifo_hold_master;
++#if IS_ENABLED(CONFIG_I2C_STARFIVE)
++	u16			scl_hcnt;
++	u16			scl_lcnt;
++	struct i2c_adapter	*ms_adapter; /* Bind another I2C master controller */
++#endif
  };
  
-
+ #define ACCESS_INTR_MASK			BIT(0)
+@@ -328,6 +333,7 @@ struct dw_i2c_dev {
+ #define ARBITRATION_SEMAPHORE			BIT(2)
+ #define ACCESS_POLLING				BIT(3)
+ 
++#define MODEL_STARFIVE				BIT(9)
+ #define MODEL_AMD_NAVI_GPU			BIT(10)
+ #define MODEL_WANGXUN_SP			BIT(11)
+ #define MODEL_MASK				GENMASK(11, 8)
+@@ -359,8 +365,14 @@ int i2c_dw_handle_tx_abort(struct dw_i2c_dev *dev);
+ u32 i2c_dw_func(struct i2c_adapter *adap);
+ irqreturn_t i2c_dw_isr_master(struct dw_i2c_dev *dev);
+ 
++u32 i2c_dw_read_clear_intrbits(struct dw_i2c_dev *dev);
++u32 i2c_dw_read_clear_intrbits_slave(struct dw_i2c_dev *dev);
++
+ extern const struct dev_pm_ops i2c_dw_dev_pm_ops;
+ 
++#if IS_ENABLED(CONFIG_I2C_STARFIVE)
++#include "i2c-starfive-core.h"
++#else
+ static inline void __i2c_dw_enable(struct dw_i2c_dev *dev)
+ {
+ 	dev->status |= STATUS_ACTIVE;
+@@ -372,6 +384,7 @@ static inline void __i2c_dw_disable_nowait(struct dw_i2c_dev *dev)
+ 	regmap_write(dev->map, DW_IC_ENABLE, 0);
+ 	dev->status &= ~STATUS_ACTIVE;
+ }
++#endif
+ 
+ static inline void __i2c_dw_write_intr_mask(struct dw_i2c_dev *dev,
+ 					    unsigned int intr_mask)
+@@ -411,8 +424,15 @@ static inline irqreturn_t i2c_dw_isr_slave(struct dw_i2c_dev *dev) { return IRQ_
+ 
+ static inline void i2c_dw_configure(struct dw_i2c_dev *dev)
+ {
++#if IS_ENABLED(CONFIG_I2C_STARFIVE)
++	if (device_is_compatible(dev->dev, "starfive,jhb100-i2c-slave"))
++		i2c_sf_configure_slave(dev);
++	else
++		i2c_sf_configure_master(dev);
++#else
+ 	i2c_dw_configure_slave(dev);
+ 	i2c_dw_configure_master(dev);
++#endif
+ }
+ 
+ int i2c_dw_probe(struct dw_i2c_dev *dev);
+diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
+index de929b91d5ea..f27c0fc761da 100644
+--- a/drivers/i2c/busses/i2c-designware-master.c
++++ b/drivers/i2c/busses/i2c-designware-master.c
+@@ -31,7 +31,7 @@
+ #define AMD_TIMEOUT_MAX_US	250
+ #define AMD_MASTERCFG_MASK	GENMASK(15, 0)
+ 
+-static int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
++__weak int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
+ {
+ 	unsigned int comp_param1;
+ 	u32 sda_falling_time, scl_falling_time;
+@@ -570,7 +570,7 @@ i2c_dw_read(struct dw_i2c_dev *dev)
+ 	}
+ }
+ 
+-static u32 i2c_dw_read_clear_intrbits(struct dw_i2c_dev *dev)
++__weak u32 i2c_dw_read_clear_intrbits(struct dw_i2c_dev *dev)
+ {
+ 	unsigned int stat, dummy;
+ 
+diff --git a/drivers/i2c/busses/i2c-designware-platdrv.c b/drivers/i2c/busses/i2c-designware-platdrv.c
+index 426ffec06e22..8c0f5c39e4ff 100644
+--- a/drivers/i2c/busses/i2c-designware-platdrv.c
++++ b/drivers/i2c/busses/i2c-designware-platdrv.c
+@@ -151,6 +151,10 @@ static int dw_i2c_plat_probe(struct platform_device *pdev)
+ 	if (device_property_present(device, "wx,i2c-snps-model"))
+ 		flags = MODEL_WANGXUN_SP | ACCESS_POLLING;
+ 
++	if (device_is_compatible(device, "starfive,jhb100-i2c-master") ||
++	    device_is_compatible(device, "starfive,jhb100-i2c-slave"))
++		flags |= MODEL_STARFIVE;
++
+ 	dev->dev = device;
+ 	dev->irq = irq;
+ 	dev->flags = flags;
+@@ -255,6 +259,8 @@ static const struct of_device_id dw_i2c_of_match[] = {
+ 	{ .compatible = "mobileye,eyeq6lplus-i2c" },
+ 	{ .compatible = "mscc,ocelot-i2c" },
+ 	{ .compatible = "snps,designware-i2c" },
++	{ .compatible = "starfive,jhb100-i2c-master" },
++	{ .compatible = "starfive,jhb100-i2c-slave" },
+ 	{}
+ };
+ MODULE_DEVICE_TABLE(of, dw_i2c_of_match);
+diff --git a/drivers/i2c/busses/i2c-designware-slave.c b/drivers/i2c/busses/i2c-designware-slave.c
+index ad0d5fbfa6d5..1b94e4fbaad1 100644
+--- a/drivers/i2c/busses/i2c-designware-slave.c
++++ b/drivers/i2c/busses/i2c-designware-slave.c
+@@ -61,7 +61,7 @@ int i2c_dw_unreg_slave(struct i2c_client *slave)
+ 	return 0;
+ }
+ 
+-static u32 i2c_dw_read_clear_intrbits_slave(struct dw_i2c_dev *dev)
++__weak u32 i2c_dw_read_clear_intrbits_slave(struct dw_i2c_dev *dev)
+ {
+ 	unsigned int stat, dummy;
+ 
 -- 
 2.43.0
 
