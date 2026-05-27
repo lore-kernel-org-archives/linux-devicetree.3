@@ -1,93 +1,90 @@
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com [209.85.160.51])
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com [209.85.222.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A217C261B92
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 12:51:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FF89283FF5
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 12:52:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779886275; cv=none; b=TW2AnuhTJK4wrwuyLX0AxeyUAhzlWPMJgAVgmxbIVeA2jY5BHghmOsQDLzffnwMiXMZosIvYUl6GfjbJOCGlXMxNeIlos9NidkgMbt9buaydzyhp342RTavO1OBhkZ1eARU06s/W9Af1KT+ytRiZ7ZdaAzVsNFm6ax+DORWbTEg=
+	t=1779886322; cv=none; b=N1vLAsz2KdlXHqvbrNEKyRil9s0VLOxnF3/zIB2E66Ghx7OTYOSKJ+nk+eZar8tsxodkV38B+UdfkJsSaapqGJuLZL+rmHPi2pD67iSf7W/mRGkd6M4Jqrqqmamw0OQQbI1Lx9OdgtBaALFKyvE/aBauoIMBQKY1Byf9C9TIpK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779886275; c=relaxed/simple;
-	bh=kqktGqpqwvczwM0VR2SPhNu80C/+HjpMr/FFlTiSoeI=;
+	s=arc-20240116; t=1779886322; c=relaxed/simple;
+	bh=V9RAf1GqqHMJtgbWs5i0yM5MgVagBGD839DyGgc8I5Q=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Yby0agzG7e0rjedpQSZJV9gzH9AR4lUYY64MENGzmD/T+6Au8M9hoNiP4QxuufSasq76Ha3bxC9JTEIwyt8zoWEK6j+7P3AGwHjtahzokL0JWMbju1LPsn4SYrwF2ZisVI5y4JrXGMLDMY/kX9liv9bqfFh/vw/NoBXQVsSyuYE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.51
+	 To:Cc:Content-Type; b=ibSO5fXChWlgqb2ZERl1cErPialWEzMMkLK8RtIfL9xBhpuTn7PRmsICwknieNogFI9n8rNKaeTObSgXIxSIvQdbo3YSsrypkVAS+1awxVvcSQgi3Ef7T1VMa1OkFghtTeQ0GQTGgONcLkHDinAVm5Bm2YfG3+GogIat5NJxH5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-oa1-f51.google.com with SMTP id 586e51a60fabf-43b8a96ff5eso2904931fac.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:51:13 -0700 (PDT)
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9568159ee07so8300578241.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:52:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779886273; x=1780491073;
+        d=1e100.net; s=20251104; t=1779886320; x=1780491120;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vxoZNqOSzYfBwMiwQrf9ojD/Y5NqNn7W22JpIB2VCXQ=;
-        b=ca2/efZItSHKZB2DHWoNdvC8l1WVIVCekFV/bS4Wz9GrhCQuUVIsCP+LB0zBbAx6oI
-         A6IxQC8P2e1RxN2y9fSAGVw/qlG34K+xkS7AmLVu+1HNETxeRSajiEjyEZJlB1RXHebV
-         xByVO40728cS/3WFVIXoIztJtMt5b79C+ncv8ge1+mkuDVQ5Li7CdoiiQ9n6jwfCoQe6
-         gKC42o5BAIJJCQqbRQViegccahTHlyvkMTnduqA7Rh3eeTQRtlspEkZzVKXO+EggSH1N
-         OA2XW2/uoURBqE3gvgsu0iDENkn8AiuTLHSJZOujV7tVlKmzpMNB29SZ8spHSZlizBTf
-         mZgw==
-X-Forwarded-Encrypted: i=1; AFNElJ//lseqU9H++v5y9SVfjr+t6GPPWMe577ZOH4dGLCo8KzBg3rU6+Azdfjmx9ZGpMxcOoVbWQWVAQlAm@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMlaeDHlvbzneOgsjNm6NG/iNVl8cUhDeqP4ReNsl9/2F+MKJo
-	DIqd3EtKPCMiSNGH/bQIIMSehcpfMX2fTfESBDmnAX+H+WCGyKEDAzq/TILG74I1BkE=
-X-Gm-Gg: Acq92OGze2eQg7CbfeoTGuLo9xNixIjZ9/E7Cr5NvC5KhrvGHDwrLxgaHU8xDW14P55
-	l5HA8gnMpxOhnqgEPRex+g2Vl59dWRkATVPEvfEtLIX4qUTLLecg7vN4D4bcc0Jvu77qZyl4x7V
-	ig061sCmZtUfzlVSlA0lr3H7XvledvVghR4pMhDaBPLK7JI00j2RXYpFV8lxZcw2YgcxotmHvv6
-	cZUgMnEB/iYvqxDbq6Q8p0gU89TMia5AS74NiDlORc8Er0iQAi/yJRvJuAVjvsekM3wkaRkxaEe
-	d5xixIspo3sXDghlRQ9B/JwlHCsO/FeNDtnVeFAAf/L/RAXWeq+HWLlW+f9tU/AOIxRuetVWHHj
-	arx9AbhjlU3cHBwCXNTaTnDSBYuDB+FZL5C/hciYC6vf5QnHrx9GvggSERWVV97CpAoy+hou+4b
-	La7H3HYWS73MRqLzwp82SRH46chR/8pbWbkJkrPsV5Fd1Ty9JZjhYsKbhGA1dvc24MMxvTCbc=
-X-Received: by 2002:a05:6871:2b1e:b0:43b:c9bb:c2a2 with SMTP id 586e51a60fabf-43bc9bbcbb8mr8584254fac.11.1779886272602;
-        Wed, 27 May 2026 05:51:12 -0700 (PDT)
-Received: from mail-oo1-f45.google.com (mail-oo1-f45.google.com. [209.85.161.45])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-43b635e373fsm16369228fac.8.2026.05.27.05.51.11
+        bh=F1s/jtnq+BOH84dbnuPCtGCz4Kb51mjTjZ/fcs+3yeQ=;
+        b=BiTXtcI7mQHJEMQi8+3UZfTEcU0LCQyl1zp4VDdV3EBllPbk+bdskze1A3REORQ/Vz
+         nVP6D1/8Wnr2Qhnujz7M6MQX4hck9Vz5Uq/OdajGMFGKV5bPSXjs4zi7bIiCKx7SU3NY
+         25lLuF5tu56+Jhg6OANfzF4/5KnnNp1ZUUHcezpbJdrUvi7ThVaVICOGr7ZwvwV8gmxa
+         vpKcs7Bup2r8P6IqF3mpBSuyqqOMQF1dcYDkHpO3HkboGjSmo/+sndG2IThzSwyTsSM9
+         L4U9RRaOXPIDO1FiMUeviHQGV2x6Hn4neTrJBf0TK7JnmdZj5Gj/AXS8zeTpB9tb3E3l
+         liwQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+OVnl0bVjrG09hpUUa50DyKp1OOcd4faGjRUNTr/MncvdklQujORYThHL6yJPiQLszTj73f3fAhb3v@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3dvAzcNhRwnmRWjBhPOe/uEpjo3GfyBVKgPpNUULQMLq1Vwj7
+	hCQOPYcZp3J/Uy/3q5j0wNaPJD6NcHUttm9wsEOkPjK9cgKjLWfoqYqwQeCKCOs16SA=
+X-Gm-Gg: Acq92OGTJfIP65IydKu5/gB/eCXxIaMKbxCLckZK3VANU1CMx6W2Nyib9I4AUROwsLw
+	9T9nNMlVKVM71I9Xwv6BtWsaAE/TFA42ey8+GhkcKfB0YgUxZxvpZq3ytquLb56DKPOO6XfCa3+
+	7VqR/x5UHmnBHCsDAmVCAZljPQ67hkB3C0d/uammXk3AjFlMvVbhI7lDxeHRJCdgUqEWv3MtA3a
+	PodKwthSsagWCBnYCANjfFDUM9QtrtIbHuJwcXU35FU8y2aQLvHWTRJfvBenukF/55W1S5ngxYn
+	AB2OFmkKxv7EMDGThivwknq3X15gUPXXqruvUW3Ip2rcpzP4AI6hW+Wi4aRoIScUaSk2tzUmfBs
+	N2oy+DQvPe/ElRi95W2wcnKwFPNsXGJR5MooGVd6g6rDxnAAhnLLV2Htnt73xOcz1po8h3AzmqW
+	ZNmMo1rw+Ugf+O5zPu2ljEapjByqvq2huspSgS2FuEs2d0gO0CHSS4S4uC7HYWkD8Ap9tS4/8=
+X-Received: by 2002:a05:6102:4b87:b0:632:d8d5:291b with SMTP id ada2fe7eead31-67c8451a9fdmr12869972137.30.1779886320042;
+        Wed, 27 May 2026 05:52:00 -0700 (PDT)
+Received: from mail-ua1-f41.google.com (mail-ua1-f41.google.com. [209.85.222.41])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-961d388f339sm2393384241.12.2026.05.27.05.51.59
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 05:51:12 -0700 (PDT)
-Received: by mail-oo1-f45.google.com with SMTP id 006d021491bc7-69d7aa0ac18so3531560eaf.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:51:11 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9iAxig7Ter0JOVDHXpmb+sJS6X6nrMuAbx/JuCW0+uMfcIUWvpj8KKF0FDlizgvithU4KTKQ+rjTne@vger.kernel.org
-X-Received: by 2002:a05:6122:2203:b0:56e:e80c:bb25 with SMTP id
- 71dfb90a1353d-586649efacfmr12944471e0c.13.1779885965769; Wed, 27 May 2026
- 05:46:05 -0700 (PDT)
+        Wed, 27 May 2026 05:51:59 -0700 (PDT)
+Received: by mail-ua1-f41.google.com with SMTP id a1e0cc1a2514c-95d04f205beso8235858241.3
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:51:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+vIColflpGAlU00sKhRHebeyNK4QdDzRZaJHLUB2Pif5E33r3hVU2v56vRBKSUbvmNwiqm+GmGJDTt@vger.kernel.org
+X-Received: by 2002:a05:6102:4b1c:b0:650:94b2:b209 with SMTP id
+ ada2fe7eead31-67c70e65631mr13755724137.4.1779886318786; Wed, 27 May 2026
+ 05:51:58 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com> <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
-In-Reply-To: <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
+References: <20260524092016.46346-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260524092016.46346-1-biju.das.jz@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 14:45:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUqiHE06_pw3dJ00f30ohSuT_Hv_k7SoK9bACeDqE6i0A@mail.gmail.com>
-X-Gm-Features: AVHnY4LUPp8GTEwUz2koHfZTdHXj-kQ8ZH0SWOlUn5c1woQCDpOdaxSIe2lwISM
-Message-ID: <CAMuHMdUqiHE06_pw3dJ00f30ohSuT_Hv_k7SoK9bACeDqE6i0A@mail.gmail.com>
-Subject: Re: [PATCH v4 1/8] dt-bindings: clock: renesas: Add audio clock
- inputs for RZ/V2H family
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
-	bmasney@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
-	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+Date: Wed, 27 May 2026 14:51:47 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUbnK9LXKgaEpWCosUHLMGQzpe32VxaT4xT5P1FU43NLA@mail.gmail.com>
+X-Gm-Features: AVHnY4K7PEhqL7l-y4HCxD8YtnX5gQi3Kk8WMoT27R9AZcbDgLwF3FI-H1Ufsec
+Message-ID: <CAMuHMdUbnK9LXKgaEpWCosUHLMGQzpe32VxaT4xT5P1FU43NLA@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: rzg3e-smarc-som: Sort pinmux entries
+ and fix blank line
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	biju.das.jz@bp.renesas.com, john.madieu@gmail.com
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
 
-On Mon, 25 May 2026 at 13:07, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
-> RZ/V2H, RZ/V2N, and RZ/G3E support two optional external audio clock
-> inputs (AUDIO_CLKB and AUDIO_CLKC) that can be used by the Audio Clock
-> Generator (ADG) to derive internal audio clocks. The third ADG input
-> (AUDIO_CLKA) is fed internally by the AUDIO_EXTAL pin and does not need
-> a separate binding entry.
+On Sun, 24 May 2026 at 11:20, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >
-> Update the bindings to allow these optional clocks for all RZ/V2H family
-> SoCs.
+> Sort the pinmux entries for both GMAC ctrl nodes in port order (A/B/C and
+> D/E/F respectively) and remove the extra blank line before the second
+> pinmux assignment.
 >
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
 Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-pinctrl for v7.2.
 
 Gr{oetje,eeting}s,
 
