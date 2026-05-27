@@ -1,178 +1,134 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 980623839A5
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:44:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66B7233EAF3
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:59:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779907446; cv=none; b=P7q06ksOFmBUEgXWp0X4GTn4zM2+rXTDKeXOBcynXE7WLtl7Ed29T41T5LCFXRAI3j3ARvV7xk2cFoNitixozo166otClcLJ+knxBslxNgTnwsONQeihvYX5oh2rPPGlw99GyxRy9BeWfogvYccQulNDbT86wfLZVUfUwQz9csM=
+	t=1779908377; cv=none; b=gAPUcvUxKlnc/BSa5MQ5xBbesTJWtfzX8zBmgUFhEM/rtcnZb6iwaqVLRkuQEqgtKSBggz1Ue6kyXspWClpB9+9Yp9ek8I2rOnZUdHo3o/+sJamgZ89PAs4vhy3T4IMw+rhFqDvupRmoiPb4g4/sDmFQnldjBRr4XWoDYI0ZyRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779907446; c=relaxed/simple;
-	bh=/eYVn105xxXHmCVnp4QqCYXsLcyuq+l+x7SNX0NrfPo=;
+	s=arc-20240116; t=1779908377; c=relaxed/simple;
+	bh=4zuyREOC5lgNYrra6Fz8g1kPV4iWaLfUYtpE31MFce0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C/emdPBSP1drjh9tSG1nWQ8Afiexx0gX39CKGBUqjlOydUJelPbQXhzSvyR5zf4rs9kFjLMqgM+/inMIscSOPGP+UgKlFLqV8WAGzalAtHUPZs7nNdL3bzjnUxEA9uVjIORR+J9DCyQDvvuXTefwUghYgWb4alzlxlUBomY9oo8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JoS7nOiN; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=PSMC+rPRnKI/s+9PG+OojfNXQ6YurgoER+tJHIZauBqQIsuamMidHK06E6q9WT8Sngy4gsUs/ZCI6eOrDGsZjq8pdab8vUnpjKaNP/JTaDgd/F6OGOqGFNmwg5G/IzBFQn/yBQ/Hnh7jfRd5n3Xd0rMBjQWHLg0sn9pZkRxQt0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LgLcanAt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JoS7nOiN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E9741F000E9;
-	Wed, 27 May 2026 18:44:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LgLcanAt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5221F000E9;
+	Wed, 27 May 2026 18:59:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779907445;
-	bh=zCAXf3PX7P90zqMDZISog+CGg/my0mCXIld1Phy/Mqw=;
+	s=k20260515; t=1779908376;
+	bh=tHRJSLkrOAz4FvGXxpzbFy8Fq+Q4G/iqZA7z/IhfG+s=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JoS7nOiNCFvhSAyNx4sdYusmkOsJIXtg7Dmbe54jLDgywafRFUkBNUelEeQ9Lv5U8
-	 Ov8dSVGgdsY6xAMdpWCnCgcMdmdNJ0f5qHa8VcTY2dt17wU/cw4GMDugJ68QcfxRUW
-	 N5O9LECYzif3uzml2q7r0/EeBUrr/eHM4tpL8OUKs9CEAcwjADCN8P1BvsqE3pxnp1
-	 7M1pug3//Ab+Cpu88agJUZ81gIShod0iiqv+qiRPKWdQRQpurH1mn+N1W+v9Vl4Lo3
-	 CkMoNqEoRNlPPDYsIso+UcjAy0FGsQqh3Ng6di2Ykg/x/8zEQEHjdE4jh/sRpgv5TM
-	 HiXN3VmDpd0iQ==
+	b=LgLcanAtPggLy4Wk3jaWgW67I4GCc8cSMmH+DzvviGCZ9VV5qx3nGVV1Wnz3BIBan
+	 7pRRMl6aCJK/IysHjlAv/xqioVcCxS1a7mKK7NJ/ZeJbLaZUPL3+e5vILNKG/Soh7V
+	 gcbfuZw3f9RHFJ1BFgS/L9T1RRG6uOhjcNyxPUX+Zl39vjR0TY0fibiPPJB+DADshT
+	 KznMWyiLAAiFrIyTcRYzS//LzsUNVFaSNjJTv5M/jyh+E6hceiNOY1wDqeY7TEfFsM
+	 VacBZOqgzkwo7/kOVtrVK4ZninFuz+zTPZpIUkMin/1jG4in95QmYqbrLi+Aneo5tw
+	 vz3GSaTOK47xA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 08/13] spi: cadence-quadspi: add PHY tuning support
+Subject: Re: [PATCH v3 13/13] mtd: spi-nor: run PHY tuning after init and
+ update dirmap frequency
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260527175527.2247679-9-s-k6@ti.com>
-References: <20260527175527.2247679-9-s-k6@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260527175527.2247679-14-s-k6@ti.com>
+References: <20260527175527.2247679-14-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 18:44:04 +0000
-Message-Id: <20260527184405.3E9741F000E9@smtp.kernel.org>
+Date: Wed, 27 May 2026 18:59:35 +0000
+Message-Id: <20260527185935.CA5221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The final search point calculation for dual-region DDR tuning lack=
-s bounds clamping, causing integer underflow/overflow on u8 types.
-- [High] Outer TX sweep loops unconditionally apply an extra step increment=
- after a successful pattern check, corrupting the discovered TX coordinate.
-- [High] The execute_tuning callback performs unlocked read-modify-write op=
-erations on shared controller registers, risking race conditions with concu=
-rrent SPI transfers.
-- [High] cqspi_find_rx_high_sdr() incorrectly returns -ENOENT and aborts tu=
-ning if the valid RX window is exactly one tap wide.
+- [High] Tuning is executed after dirmap creation and patches the dirmap st=
+ructure directly, bypassing the controller's hardware configuration phase.
+- [High] Tuning failure bypasses the base frequency cap for fallback dirmap=
+s due to conditional patching.
 --
 
-commit 58d61a0f7bbd617a13de461da80be17236414b26
+commit ad67f29c6fb3475170cb4cfded7c7f162b82e81d
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: add PHY tuning support
+mtd: spi-nor: run PHY tuning after init and update dirmap frequency
 
-This commit adds an execute_tuning callback to perform delay-line PHY
-calibration using a known data pattern. It performs either a 2D sweep for
-DDR protocols or a 1D sweep for SDR protocols to find optimal delay points.
+This commit introduces a persistent max_read_op field, populates it with
+the read op layout, and runs spi_mem_execute_tuning() after dirmap
+creation. It then updates the dirmap's op template with the validated
+frequency so subsequent reads use the tuned speed.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index f4efb92c9446a..013fd50e416bd 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
-
+> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+> index 2c9859fb07949..207e0679549ec 100644
+> --- a/drivers/mtd/spi-nor/core.c
+> +++ b/drivers/mtd/spi-nor/core.c
 [ ... ]
-
-> @@ -1559,10 +1641,1687 @@ static bool cqspi_supports_mem_op(struct spi_me=
-m *mem,
->  	return spi_mem_default_supports_op(mem, op);
->  }
-
-[ ... ]
-
-> +static int cqspi_find_rx_high_sdr(struct cqspi_flash_pdata *f_pdata,
-> +				  struct spi_mem *mem, struct phy_setting *phy,
-> +				  u8 lowerbound)
-> +{
-> +	struct device *dev =3D &f_pdata->cqspi->pdev->dev;
-> +	int ret;
+> @@ -3773,6 +3776,9 @@ static int spi_nor_probe(struct spi_mem *spimem)
+>  			return -ENOMEM;
+>  	}
+> =20
+> +	/* Populate the persistent template with the correct op layout for tuni=
+ng. */
+> +	nor->max_read_op =3D spi_nor_spimem_get_read_op(nor);
 > +
-> +	phy->rx =3D CQSPI_PHY_MAX_DELAY;
-> +	do {
-> +		ret =3D cqspi_phy_apply_setting(f_pdata, phy);
-> +		if (!ret) {
-> +			ret =3D cqspi_phy_check_pattern(f_pdata, mem);
-> +			if (!ret)
-> +				return 0;
-> +		}
-> +		phy->rx--;
-> +	} while (phy->rx > lowerbound);
+>  	ret =3D spi_nor_create_read_dirmap(nor);
+>  	if (ret)
+>  		return ret;
+> @@ -3781,6 +3787,19 @@ static int spi_nor_probe(struct spi_mem *spimem)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	/* Tuning failure is non-fatal; the device operates at base speed. */
+> +	ret =3D spi_mem_execute_tuning(spimem, &nor->max_read_op, NULL);
+> +	if (ret && ret !=3D -EOPNOTSUPP)
+> +		dev_warn(dev, "Failed to execute PHY tuning: %d\n", ret);
 > +
-> +	dev_dbg(dev, "Unable to find RX high\n");
-> +	return -ENOENT;
-> +}
+> +	/*
+> +	 * The dirmap was created before tuning ran; update its op template
+> +	 * to use the validated frequency.
+> +	 */
+> +	if (!ret && nor->dirmap.rdesc)
+> +		nor->dirmap.rdesc->info.primary_op_tmpl.max_freq =3D
+> +			nor->max_read_op.max_freq;
 
 [Severity: High]
-If the valid passing window is exactly 1 tap wide, no value strictly greater
-than lowerbound will pass the pattern check. Would this loop decrement
-phy->rx down to lowerbound and then exit returning -ENOENT? Since lowerbound
-is already known to be a passing value, should this function instead
-successfully return lowerbound to avoid aborting the SDR PHY tuning process?
+Does patching the dirmap template directly bypass the hardware configuration
+phase?
 
-[ ... ]
+During dirmap creation via spi_nor_create_read_dirmap(), the SPI core calls
+the controller's dirmap_create callback to configure hardware registers,
+clocks, and memory mappings based on the operation template provided at that
+time.
 
-> +	/* Primary rxlow: Sweep TX window to find valid RX lower bound */
-> +
-> +	rxlow.tx =3D CQSPI_PHY_TX_LOOKUP_LOW_START;
-> +	do {
-> +		dev_dbg(dev, "Searching for Golden Primary rxlow on TX =3D %d\n",
-> +			rxlow.tx);
-> +		rxlow.read_delay =3D CQSPI_PHY_INIT_RD;
-> +		ret =3D cqspi_find_rx_low_ddr(f_pdata, mem, &rxlow);
-> +		rxlow.tx +=3D CQSPI_PHY_DDR_SEARCH_STEP;
-> +	} while (ret && rxlow.tx <=3D CQSPI_PHY_TX_LOOKUP_LOW_END);
+Since the template has a frequency of 0 before tuning, does mutating the
+frequency inside the descriptor post-creation leave the hardware controller
+unaware of the validated clock rate? If so, native dirmap reads might
+permanently execute using the unvalidated hardware configuration.
+
+Would it be safer to run spi_mem_execute_tuning() before creating the
+dirmaps to ensure the controller sees the correct frequency?
 
 [Severity: High]
-Does this unconditionally add CQSPI_PHY_DDR_SEARCH_STEP even if
-cqspi_find_rx_low_ddr() returns success? If ret =3D=3D 0, rxlow.tx gets
-incremented right before the loop exits, which might shift the recorded tx
-coordinate away from the actual successful coordinate.
+Can a tuning failure leave the fallback dirmap operating at the maximum
+unvalidated speed?
 
-[ ... ]
+During spi_nor_create_read_dirmap(), if native dirmaps are unsupported, the
+SPI core uses a fallback path that passes the op template to
+spi_mem_supports_op(). This eventually calls spi_mem_adjust_op_freq(),
+which can mutate the template's max_freq from 0 to max_speed_hz.
 
-> +		/* Compare Manhattan distances: choose corner furthest from gap */
-> +		if ((abs(gaplow.tx - bottomleft.tx) +
-> +		     abs(gaplow.rx - bottomleft.rx)) <
-> +		    (abs(gaphigh.tx - topright.tx) +
-> +		     abs(gaphigh.rx - topright.rx))) {
-> +			/* Topright further: Use Region 2, 16 taps inward */
-> +			searchpoint =3D topright;
-> +			searchpoint.tx -=3D 16;
-> +			searchpoint.rx -=3D (16 * (topright.rx - bottomleft.rx)) /
-> +					  (topright.tx - bottomleft.tx);
-> +		} else {
-> +			/* Bottomleft further: Use Region 1, 16 taps inward */
-> +			searchpoint =3D bottomleft;
-> +			searchpoint.tx +=3D 16;
-> +			searchpoint.rx +=3D (16 * (topright.rx - bottomleft.rx)) /
-> +					  (topright.tx - bottomleft.tx);
-> +		}
+If tuning fails, the conditional block here skips synchronizing the
+template back to 0. When fallback dirmap reads are later executed, the
+spi_mem_apply_base_freq_cap() logic will see the op explicitly set to
+max_speed_hz.
 
-[Severity: High]
-Since searchpoint.tx and searchpoint.rx are u8 types, could subtracting 16
-cause an underflow if topright.tx or topright.rx is less than 16? This
-might result in wrapping around to a large positive value. Should these
-calculations be clamped to ensure they stay within valid bounds?
-
-[ ... ]
-
-> +static int cqspi_am654_ospi_execute_tuning(struct spi_mem *mem,
-> +					   struct spi_mem_op *read_op,
-> +					   struct spi_mem_op *write_op)
-> +{
-> +	struct cqspi_st *cqspi =3D
-> +		spi_controller_get_devdata(mem->spi->controller);
-> +	struct cqspi_flash_pdata *f_pdata;
-
-[Severity: High]
-Does execute_tuning() run without holding the SPI controller's bus lock
-mutex? If so, could this race with concurrent SPI transfers from other devi=
-ces
-on the same controller, potentially causing issues when tuning functions li=
-ke
-cqspi_resync_dll() perform unlocked read-modify-write operations on shared
-global registers like CQSPI_REG_CONFIG?
+Could this cause an untuned device to bypass the conservative base frequency
+cap and incorrectly operate at maximum speed, risking data corruption?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527175527.2247=
-679-1-s-k6@ti.com?part=3D8
+679-1-s-k6@ti.com?part=3D13
