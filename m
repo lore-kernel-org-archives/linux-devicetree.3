@@ -1,118 +1,152 @@
-Received: from mail-ua1-f52.google.com (mail-ua1-f52.google.com [209.85.222.52])
+Received: from mail-vs1-f52.google.com (mail-vs1-f52.google.com [209.85.217.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B26E3D9DB2
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 15:42:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF5937FF49
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 15:45:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779896551; cv=none; b=j4jatQyPyq47Nzb0PdGRrz4dbCk3RKq6FhJmusz34ikSkSAENnIzqKfV2O1rnFTagDILJEmfbmtQPa62jSC01evjcMrXYZzOBT/NcheBkRTNoR+/8IsQlp9HhMtsrrjL8tTFNphrXFUtfm40lQBnwWT/bxvHdtB6uzSNOTIw/5s=
+	t=1779896727; cv=none; b=DQuhNhlw48TSzpXASm1auOAVprhVY6MJnS3wEkV7RFMKzoxE02/UDmE22GuC1iVPoRMR4G9eSz/0tL284wHY60lttzSIq3bF/zcozreRyn1EDbVrBrOGc/VCvcbLpJZR/ttpUo4zCSyASes1n0TnNLy27oOi5XRAspryoGYt+BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779896551; c=relaxed/simple;
-	bh=QxEzYqywlw03gV5MPfwql/Vh7CF7FMFvawQxXbUcQXw=;
+	s=arc-20240116; t=1779896727; c=relaxed/simple;
+	bh=64AjsCM32ow8eV6+udUpdB2v5Y+cSGnnihxYiV2n9E8=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rrojJtgqwbog2ffVDl6R1lxgjjMYdEifZIbecNQLUh+5FzxLa3pzzWeDrCyyA+dkYV5TULsmBRc6yn3fM3e8GHrzlKzBvdpyVrojI533uX+fLnoJGJLozwwAw6Zbo3Mz1itxGaQJdoG4Yh8RfB2o7PiNZG5WYYcoS79/77kIhQo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.52
+	 To:Cc:Content-Type; b=YNhdt61Fy49NYJVKcYKXVQx1/DDfGWmR/tSrs/oAOT0ngvEbI2u0QwMtpRKgQmU+oVfGVJhCf7IrnUh3phPX564QBDLF87n4c34TLhX1Wch9bqXyhvfTVC6RZNQlufKN2a+yVmqVnC7uIFJCjCykosmU1EU15r0JKZcySSHkLSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f52.google.com with SMTP id a1e0cc1a2514c-96387efc30aso223789241.3
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:42:30 -0700 (PDT)
+Received: by mail-vs1-f52.google.com with SMTP id ada2fe7eead31-63124ac76f5so3798633137.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:45:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779896549; x=1780501349;
+        d=1e100.net; s=20251104; t=1779896725; x=1780501525;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=xUVMYERSCtXTEyD30ce/R5zh2i/ldE4ZPLr0V8MwRIw=;
-        b=gLRvWQ6D9YaQF0CUtZo48ENemn1w+RDKcoad9MrUmwrYLRyGk92qny5l/4MPPadktU
-         dJNJEMTCjRphFcxCK/zZA6nQXkP0dGU6gBvIDCZz6SabTGtOHFSCUe7z9pJkBSar8dQ5
-         tEHOs1BLKjNeFoftZ2RvX55xFtQm0R+3OGmmwrcafudJhbWl4OzBQ5XozPbP/JPWSJ0d
-         DoxmsYMuVtbm0a1rpfjRYx8p+SPMEGvC6MsYtxXmu9Br3kVphQuLNhSA1bBBqRvi4I/w
-         boCwDqlhq/QMYW9L5VMf9IvFWfkJJ5EuDgtafLehkUznpDOl6F+knSmpxDAk0PKhzJ20
-         ICrQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9qQCeCMifm3P/kx1Y2Joqos0rq3fQUr590tJscpSI9sKPJJ/y43NOiK4YB64MkQaKGpsP4KHcvzjLx@vger.kernel.org
-X-Gm-Message-State: AOJu0YzMR0KJtX3Q9WQxhC3AWZGp+qiEQ4ZI0db7J675EEP15SRhGO4Y
-	hVE/GaedqkB1o/8/8oWnL7ZZJ0mEgTTrxHRJ2I0CUtbO1bo1yI45dAUIexFrdaHBa10=
-X-Gm-Gg: Acq92OHjbaJPuxaOgURB1gyDTnah3w2MXadvCzclPo3iC8/gWntqTWpnxSZRIRBRIX2
-	fa2ippEjR9M52QgHTyMYadx6b28DWreXG2ooGjrgfTg0ktS53DQin7nJJHwMFXjfklbqZAVcEaE
-	sO+0YRtzTkR1/4i+hvpsrYgT1Eld/wsIiS/C1rZ9+UVPCLVPHyFjzs9cbaUX21tTCqWUI/oSIFa
-	TB7a3OEtcKIDhC2kpbURkjZ0CXue3YZICTD2O1D302W61GCayArmk3grbnUT3TwL3H7YWgiSyQW
-	fWQR5Jt5sqKJYWiKyy2T+e+bV945aY27BFGN67kVUDYlSTJKZ0shLdGX2ehJ4b0ztf4yPCPNFXY
-	umFT8omV3nSVuaukm6wXN8vdtLUyez4SDWwmwNBzk8rX5wjh8J2JniZXT3lLEhef2gVGc/6MkBU
-	U1U+R9bOUqdrL3HMMCdzAZBV30sP21FmIKzO8BE/PBTGbkHRpi+VZij9Qpl/sU
-X-Received: by 2002:a05:6102:504f:b0:632:d8d5:2908 with SMTP id ada2fe7eead31-67c8b3aa864mr11423912137.26.1779896549473;
-        Wed, 27 May 2026 08:42:29 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173afb1ecsm17506485241.9.2026.05.27.08.42.29
+        bh=KfOoR/aqXQDsThFuP1OYYuQj5JnMHoQiHq+9j/hSjtk=;
+        b=smaXjZH4AqBJEMW2uVUMfDFI/eS5Ts0Wo0uuHThrZrguP+w+JnYpnnMbL5aRb75p4C
+         UPKgyRmjoen2rib6hPGVQK/x00s8Z9c/sQgZYLOsavfh/+ItkLRkkuaHhmWXF5PW/vNz
+         GpDkCXKIBtYY/f2vqAviaPjp49OgS++5Liwy268loIOQpwkEjywqjIHeBmwUS9D2CDgw
+         81JRy6LmcntBThdL4xbZeZuDn63ZNxLSdRKBWJU0pgFKSkhCBPxz1ozMdovARLst8c5u
+         VESWQc2gheT27pSfjDyCXywzQIR74V+N8yq7vHoXiHPIqqHO1+4qPrjso5VLGm6je5xk
+         fjNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8JEr3qV6xci/bXkDKmBaQ/C8vC1zsDm4aeIZHIgZ2abN5LNLwscCebhtTwARRDzoib1wM2PjlA7FPT@vger.kernel.org
+X-Gm-Message-State: AOJu0YykVvPqoz5izfN/joAg+cT2HiHmI3Q4A87KIqyrBi2TmVkXb6Ts
+	j1ni+dxdegve64amVh5+CFtXRfaYDWRrIe1Y4/L/maFFEHum6kQO8LbYSd2wwzWHWZQ=
+X-Gm-Gg: Acq92OH4u9H67vr/6ScPPTj1bkL0uwWB1BqEKOeLNJ5G8MgpyJPRUZsn/GBEQnwdzqg
+	hkjAQ7PQfikz32bCRl/sOjF3NglzJZHcW4W9honz4MJHjwV6wjWw0j57+qVecy1anDAu9jp78rB
+	/nUU9uBuHfs1T4QJ0Ff78ggSA8UWvfD2gkCaIfSckdB8jN6uuIdorDgTXopayzfQ1hkBugJtvJk
+	0PxE0mFPeYf7PtcwCu0bxOcYbKkzhHHCID+unCm3R+tuSWxAzOOrxFJX1NLjAOjC+BVWAzAytxq
+	Kvto3VBDUplWQNn16pp8apNCS7kP8mRFGDT3Rpzj7+VjebOg/uaIhgPWuuHsIq0oLxPvX7hZaDq
+	kaR6u4iIBw1ldtfqUutMIMRa9ik/dvKxNFgVoZrrGyWREkmXczAhlm3VB3DgiCSVsRDmXgFQrTz
+	J1EWpjwsfm4PLMiuyBUElyJnTNVEqnS4F7ZJYtmYHPKYKBFcibSppIpn5tW7wg
+X-Received: by 2002:a05:6102:15da:b0:6a2:cf9a:a18a with SMTP id ada2fe7eead31-6a2cfe71d7dmr2928783137.15.1779896724769;
+        Wed, 27 May 2026 08:45:24 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-9617383b1a2sm17546322241.4.2026.05.27.08.45.24
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 08:42:29 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-6314c3818baso9177425137.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:42:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8g3Vqh/x8SxOuBa+dokxHyVXeiSAw/9fQqdYMWJWPuNXVQJCOYHAljziHNcvFQ3BOdPvQ6Q7S2ktlf@vger.kernel.org
-X-Received: by 2002:a05:6102:3747:b0:631:2973:5c2c with SMTP id
- ada2fe7eead31-67c890222e7mr11190059137.21.1779896548782; Wed, 27 May 2026
- 08:42:28 -0700 (PDT)
+        Wed, 27 May 2026 08:45:24 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-63124ac76f5so3798626137.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:45:24 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8jutabF4KhDzpPt04OAVgTaKFUk3uu5CCuZSeZyrM7alLZ06g2mAa+bgc0XtEsTUx10YuZM+KkVD5t@vger.kernel.org
+X-Received: by 2002:a05:6102:6a88:b0:6a2:b2a1:f16a with SMTP id
+ ada2fe7eead31-6a2b2eee043mr2865434137.2.1779896724115; Wed, 27 May 2026
+ 08:45:24 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505070206.7932-1-biju.das.jz@bp.renesas.com> <20260505070206.7932-5-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260505070206.7932-5-biju.das.jz@bp.renesas.com>
+References: <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
+ <20260525111920.15F771F000E9@smtp.kernel.org> <20260525-gaining-unaired-c96367a78c9b@spud>
+ <CAMuHMdWUeExOnKm1=kRSr0=HVJhgyLDBAK3VqTP-LK1q0-f9gA@mail.gmail.com> <20260527-prankish-causing-4139d0dd0b51@spud>
+In-Reply-To: <20260527-prankish-causing-4139d0dd0b51@spud>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 17:42:17 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdURzXkiXdaPZp1mie8zFDSQMP=_8EOe0dEAKEW3nWo6RA@mail.gmail.com>
-X-Gm-Features: AVHnY4Jt_LVptrM_xgMBw8SP-oke7VXnd5tR0FGiwVcc6M8XHiNnKr4PGqFaaSM
-Message-ID: <CAMuHMdURzXkiXdaPZp1mie8zFDSQMP=_8EOe0dEAKEW3nWo6RA@mail.gmail.com>
-Subject: Re: [PATCH 4/4] arm64: dts: renesas: r9a08g046l48-smarc: Enable
- I2C{2,3} devices
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Date: Wed, 27 May 2026 17:45:12 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVtLorK+Hjc-ZWCAn273ZN6yUEdyjxpJ5ynZ09sWqcBdg@mail.gmail.com>
+X-Gm-Features: AVHnY4JYQCCMZ23A5R3RVcLGsHx5LrnGPL_lIUR8tDNP9RgCHgiKXFedQjj7oJw
+Message-ID: <CAMuHMdVtLorK+Hjc-ZWCAn273ZN6yUEdyjxpJ5ynZ09sWqcBdg@mail.gmail.com>
+Subject: Re: [PATCH v4 1/8] dt-bindings: clock: renesas: Add audio clock
+ inputs for RZ/V2H family
+To: Conor Dooley <conor@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, 
+	John Madieu <john.madieu.xa@bp.renesas.com>, conor+dt@kernel.org, 
+	wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-Hi Biju,
+Hi Conor,
 
-On Tue, 5 May 2026 at 09:02, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
+On Wed, 27 May 2026 at 16:54, Conor Dooley <conor@kernel.org> wrote:
+> On Wed, May 27, 2026 at 02:44:51PM +0200, Geert Uytterhoeven wrote:
+> > On Mon, 25 May 2026 at 18:57, Conor Dooley <conor@kernel.org> wrote:
+> > > On Mon, May 25, 2026 at 11:19:19AM +0000, sashiko-bot@kernel.org wrote:
+> > > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > > - [Medium] Strict array ordering prevents the independent use of newly added optional clocks.
+> > > > --
+> > > >
+> > > > commit 3723d06ba80fe72a3e7492af52e5e54aa0f36b03
+> > > > Author: John Madieu <john.madieu.xa@bp.renesas.com>
+> > > >
+> > > > dt-bindings: clock: renesas: Add audio clock inputs for RZ/V2H family
+> > > >
+> > > > This commit updates the clock bindings for the RZ/V2H family SoCs to include
+> > > > the optional external audio clock inputs AUDIO_CLKB and AUDIO_CLKC. The
+> > > > AUDIO_CLKA input is fed internally and thus does not require a binding entry.
+> > > >
+> > > > > diff --git a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> > > > > --- a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> > > > > +++ b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> > > > > @@ -26,16 +26,22 @@ properties:
+> > > > >      maxItems: 1
+> > > > >
+> > > > >    clocks:
+> > > > > +    minItems: 3
+> > > > >      items:
+> > > > >        - description: AUDIO_EXTAL clock input
+> > > > >        - description: RTXIN clock input
+> > > > >        - description: QEXTAL clock input
+> > > > > +      - description: AUDIO_CLKB clock input
+> > > > > +      - description: AUDIO_CLKC clock input
+> > > > >
+> > > > >    clock-names:
+> > > > > +    minItems: 3
+> > > > >      items:
+> > > > >        - const: audio_extal
+> > > > >        - const: rtxin
+> > > > >        - const: qextal
+> > > > > +      - const: audio_clkb
+> > > > > +      - const: audio_clkc
+> > > >
+> > > > [Severity: Medium]
+> > > > Will this strict array ordering prevent the independent use of the newly
+> > > > added optional clocks?
+> > > >
+> > > > Because JSON schema validates arrays strictly by position based on the items
+> > > > list, if a hardware board connects AUDIO_CLKC but does not connect AUDIO_CLKB,
+> > > > the device tree node would provide an array of 4 clocks where the 4th name
+> > > > is audio_clkc.
+> > > >
+> > > > When dt_binding_check evaluates this, won't it check the 4th element against
+> > > > the schema's expectation of audio_clkb and fail, incorrectly rejecting a valid
+> > > > hardware configuration?
+> > > >
+> > > > Should this use an anyOf block enumerating the valid permutations of optional
+> > > > clocks to avoid forcing users to write incorrect device trees to pass
+> > > > validation?
+> > >
+> > > Seems like a valid question to me. Can be solved by making the second
+> > > last clock an enum.
+> >
+> > Calling them optional may be a misnomer: these pins are present.
+> > Typically we provide zero rate fixed clocks for such clocks in the
+> > SoC .dtsi, to be filled in or replaced by the board .dts.
 >
-> Enable I2C{2,3} on RZ/G3L SMARC EVK board. The I2C3 is enabled by
-> setting SW SYS.2 to OFF position.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> IOW, either both clocks will be provided or none will be?
 
-Thanks for your patch!
+Exactly, see the first hunk of "[PATCH v4 3/8] arm64: dts: renesas:
+rzv2h: Add audio clock inputs" later in this series.
+https://lore.kernel.org/20260525110603.4018170-4-john.madieu.xa@bp.renesas.com
 
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> @@ -11,6 +11,7 @@
->  #define RZ_BOOT_MODE3          0
->  #define SW_DPI_EN              0
->  #define SW_GPIO4               0
-> +#define SW_I3C_EN              0
-
-FTR, this macro is active-high, like SW_DPI_EN, good.
-
->  #define PMOD_GPIO4             0
->  #define PMOD_GPIO6             0
-
-> --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-> @@ -9,6 +9,10 @@
->   * Please set the below switch position on the SoM and the corresponding macro
->   * on the board DTS:
->   *
-> + * Switch position SYS.2, Macro SW_I3C_EN:
-> + *      0 - SMARC_I2C_GP is enabled
-> + *      1 - I3C is enabled
-
-while the SW_I3C_EN# is active-low, so setting the switch ON pulls
-the signal low, and enables I3C, good.
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
 Gr{oetje,eeting}s,
 
