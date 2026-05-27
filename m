@@ -1,173 +1,114 @@
-Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9D32F5491
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779859789; cv=pass; b=RaS1kfFyBmqYKdhoDjR+wwb0qksU4Npk+T5k1DbHPcI1OKzO9BPpJd4J3snyhL2IT+1B3OsvWBonMVhxDmmTj+5V6ecDM5O4DC+ORCDG8KxJMPsJottK6kterV35AGrum/vYUlsOzNWf9jDt7Q4y1drHiOOtn+vulGpqymeXlZE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779859789; c=relaxed/simple;
-	bh=rijSLO8wERJrlBkKmldP6GoWjVWR6dDNxw0bhl7eoSA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=iiMPqISPvkalvVfuFHwgXK/Ygf6L11nUN4xSSj0U9kg1ip+5YF8/3eotH6BM72mGwQ0f5b4thQU6LLfUjz6+qIB+0I/bxsgL7kkPdGRJAZ4H0LauFUF79bXxDm5WkPjhTsJPE2M/F2Ut6HZHzTieNrPuOCu+bZt64ta4lvvD2mw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=MV6AECKh; arc=pass smtp.client-ip=209.85.208.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F035F8F7D;
+	Wed, 27 May 2026 05:30:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779859829; cv=none; b=GJCHGyoox5SUBXh+ktQO5TYSQKJylcecC14HjJWC0ZT0OEv1QsqzZvxEy3tDxMSO2eeCtpd12e/IMUcx5U7HUH30BE5vTz3FeMBe3x4Hqkk3VINGu67jsQenGur4w6qk9DxYIsw9Cl9shAM3KfG6PalrvSWEFxr7A2RLFsqy16g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779859829; c=relaxed/simple;
+	bh=gWRR3lFZteuSwPaDP846U+sIYk+e5paPuqAtxCkrqTM=;
+	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hN+8gMI63FaD6tv5ZMekYxqZZOf4o4y7qHyMoezb7NSqWA+tr9PLTEqAfO6/x94lGbj2Sg5AWqpyU5gDDX1RFExJfLUK/82wF7PR8x6KVLb+ImrCnCDg/yuXAsHNyQ+pm8p51M7K2M9JizNYY1wpPQtpipcXbz2cWaBTbq7N0/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QSRyF5WU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="MV6AECKh"
-Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3922b35e69cso90274251fa.0
-        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 22:29:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779859786; cv=none;
-        d=google.com; s=arc-20240605;
-        b=YMgs/Kwy8BTgOHpQqY8CoudEUtzRaR0ufzl9SeHANuahKqG5+j9Bdj8s+wVwHVrvVI
-         PVcZXEL5h0kEXe+WwVf9B1Uns8ne91kRqRR7KXXEnto0lePa0BBNxfOdfQLkyNT4iZd5
-         g/hE41BpancWRRzQ+kBz8Eeg7c8fiH0zlThMyzJAxj6cthVgf+7VzTHbrfe/be+5hxQN
-         lxA1Oa+opBUcsMy6aHmedK5LiILOJXH6xgeR/Sope+srruEL4wf34IE7bm1JW4l94hf0
-         igKqCmxHhcbHYpvzWDBb2Ob10/eQ5Qo96px7QSNMLMkBO9HtbneXbcva3fa2vPMm7xCD
-         wg4A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=sWU01JGA+KO3onhm4zSW7+7G6c0/a5rCe2jY0OsegKE=;
-        fh=1uz7DZWZcmn+iBRwGHDFluwVPqDCT92Ua+bjE1rpDZk=;
-        b=JI1SV3EooKh02EWgez8X0J5n0+Qbd/3D/mPISL4MhJFin0o2uVQY3u7e9Zfx2jCfIh
-         PXFCclIwPAbCI7CiH+sJYD/oLC0FSFtKwzRSuTCu/F6wqw3iPqu8E0pxY1JwDoABUEf3
-         EUxanIRc3jOlENdjfkNZVcKciTO4pW5iHjs9nDObAW8nVhyPn9mAbZE4/tKb9s4uXjzf
-         XNUshgZWlfT7MquN05pEr1d3T/CyhMdJ6TzdIszXFQS595b9CQ3cdg/nTfJErw2XDpWI
-         1pvHdNtMR0ZEf2Knvd6rI49JCyUSkFFbpb7hSJvmqRA9qbaFjEXTceqgGBZQ0Ljq4Xlf
-         0qww==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=baylibre.com; s=google; t=1779859786; x=1780464586; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=sWU01JGA+KO3onhm4zSW7+7G6c0/a5rCe2jY0OsegKE=;
-        b=MV6AECKhggZoGg9XhcycCH5RW1A+Mg5EQ1yE1J97E9fev6TY1PyD+rXxj0XOnnSDYx
-         FzKrImGkzKg9ZKIfRb9+s+EgIB+V9OX+PU6mQdpWThDlf/3gMAC55TEgJItxkSLhG/iD
-         SWRG34edcY3ziNK6Qp/0/iofT1Llvl5Ykn5KJT6GXU12aYy487xhC0uVWb56EsmnAoKK
-         cDe22baOf/s7jsn8DnY/7MZtCcfES82o6/nWR/nlqe8zEDz15RpNFcuqRERZ+EgOPRXw
-         IdmDFcauN/f6jovIOPtGyNA3WyV5VY7pcg9eRzilRjN5PRHqhLMj0XmWsCXoVIyK0L7S
-         4Gjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779859786; x=1780464586;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=sWU01JGA+KO3onhm4zSW7+7G6c0/a5rCe2jY0OsegKE=;
-        b=GP8jk4jeoTqFqnta8ixQ0sNYeaPeATyCrrhzWgknPA+DBawYhoqEzMOzQ22BvkkuOI
-         nmwQBE6dbc/16U90B07TGe6LsJy7wk9vyBEm7QfA3JImeBpCV55QVcbIC56H01Hj++Ob
-         svvbevrDCz1UFQweZBfRZnamVnaLLVV0WSPh1qYW/MBgpitiOEcEQ5wG3PPxgK1PGg0t
-         qaJBMNAau6rfidu0/zb2KJNvkiD4ls8nlwyCs4HVbaFKBc8l6BUfmj5rtL4QPNe89mfD
-         pA7j8GP3CU8j2RQ9cQNStfp5gG2AY1qoDKOynp6wiB3iSyDwxCOY4Qjld7z7e8MGArfx
-         w8nQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8GI8GZl6WcKKDVNLhllp1Bt78PBf3pxY4pJj87SCqObCD6jSSLvMAGuMB5bv5Uzw0kKciTfQVY/EGj@vger.kernel.org
-X-Gm-Message-State: AOJu0YzoqdQ4z31zoMTGDESxJ6S37s34L9O8BaOunI+/25uGOFTitwG7
-	6y9Oc509nOozJzXia4gug+4LQaDczX+h0FV451nvYvge7VG9cKWdYm4nFodbMNEfHarMBL5ThUo
-	CAnMnjyGYn9ZEbkR/ldhb6PYJhlI8gMDoX+c/D343Vg==
-X-Gm-Gg: Acq92OF9MkVGv6kULsikMI80MD4MONdtiLU/e43u93u9cdIZCSfwMyiYo4b+QGxrImQ
-	awJ1MJ818Pr7qdxUk0CDXrO4r/D2pupqxhh+u1M0pkfXttycePPbAAzjtKnsooTqFk4TgjdgM/M
-	66cCIv4kgTg7PtdHsCmk443bwjrqCiM38+4voZrA5/Z0Ttpp5Kx1Lgie2l4a9+B6NI1+OWRfnAn
-	0SKj08Tf0L2KqgKCDE8nbVgSvTA/uMc/Xm3IMtSLmAoAEW39Q56QbzQ4F/0c9orUGU6ubaS6IRH
-	OqL149f7V2f8f82SQOx2FtP9oJ+qPEIVi/+xNFViAI+nn4CBDg==
-X-Received: by 2002:a2e:8090:0:b0:393:e50b:6b2a with SMTP id
- 38308e7fff4ca-395d8c935d7mr49951611fa.11.1779859786057; Tue, 26 May 2026
- 22:29:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QSRyF5WU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B171F000E9;
+	Wed, 27 May 2026 05:30:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779859827;
+	bh=N12PznAmzQFrxom6G627P217T68RYNRBF6GT196WR7U=;
+	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
+	b=QSRyF5WURdNug8+a3+6Ph35MPTO18iSyOBcF2IESvxd46akOJWqRiY0iHfQTlwWtt
+	 9JobSMm38p+3p0/v+D3YXj9+MQWukHiV5mmiIcQqE70DNUY0aZKbtmSOKbOzIPrcB1
+	 qNIBRH9YlY0oag5ZGIedWvG71N9fKd4NgNnJHbNHUCXnYC6/8bXJLDIEm3IPCoAaZd
+	 QtSeft+A9CVu6dcwe03j+5tKkd1tKAyszDAWU4NJUDbVQ40YDw+aC15xXqilqMb4rd
+	 AyKpHVDFHlN4u6QFqJfO3lYj0roMs/gR/NwEqwMNYt3rvH4e7RxZTWUCasHSJry2j4
+	 TsJiuJyzWgj1Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/2] hwmon: (pmbus/max20860a) Add driver for Analog
+ Devices MAX20860A
+Reply-To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260527045409.9092-3-sanman.pradhan@hpe.com>
+References: <20260527045409.9092-3-sanman.pradhan@hpe.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 27 May 2026 05:30:27 +0000
+Message-Id: <20260527053027.86B171F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <af0EGv172ZMl/6N5@JSANTO12-L01.ad.analog.com> <af2gJyG3rDjsjFmo@nsa>
- <agdKRhtywsThg/gT@JSANTO12-L01.ad.analog.com> <20260516113738.4103f388@jic23-huawei>
- <fe766c2a-3662-4896-b7ec-b569791630cd@baylibre.com> <ahXle0pZjpldxASF@JSANTO12-L01.ad.analog.com>
-In-Reply-To: <ahXle0pZjpldxASF@JSANTO12-L01.ad.analog.com>
-From: David Lechner <dlechner@baylibre.com>
-Date: Wed, 27 May 2026 07:29:34 +0200
-X-Gm-Features: AVHnY4KPeRFOt6loq4mrCx4OstUgML83TNvRyVA8kmSgRMQGC6K9ziPReSIphZ4
-Message-ID: <CAMknhBHe4vyS=5vbDwonxzr67Z9=bRm6TW_n=yowBN1My4jA=A@mail.gmail.com>
-Subject: Re: [RFC] iio: adc: support for multi-device aggregation
-To: Jonathan Santos <jonath4nns@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <noname.nuno@gmail.com>, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com, 
-	nuno.sa@analog.com, andy@kernel.org, marcelo.schmitt1@gmail.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 27, 2026 at 3:50=E2=80=AFAM Jonathan Santos <jonath4nns@gmail.c=
-om> wrote:
->
-...
-> We had a 'hack' in the HDL where we tied the CS pins to activate them at
-> the same time, but since we are aiming to handle each device indually it
-> would be nice to at least enable all CS defined in the devicetree. It is
-> strange that we can define up to 8 CS for one device, but the spi-engine
-> only selects the first one.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Writing 0x20 to PMBUS_WRITE_PROTECT causes the PMBus core to lock =
+sysfs configuration attributes as read-only.
+--
 
-When I did the multi-data-lane SPI work, it was only for the multi-SDI
-case, not multi-SDO, so that didn't get implemented yet. We would need
-to extend the core SPI API to handle this new case and then implement
-that in the AXI SPI Engine driver.
+commit 6a162d6f1757daa1f8dd5d77f833404928b847be
+Author: Sanman Pradhan <psanman@juniper.net>
 
->
-> > For this type of SPI controller where it can read multiple data
-> > channels at the same time, the .dts should look like this:
-> >
-> > spi {
-> >     #address-cells =3D <1>;
-> >     #size-cells =3D <0>;
-> >
-> >     adc@0 {
-> >       compatible =3D "adi,adaq7768-1";
-> >       reg =3D <0>, <1>, <2>, <3>;
-> >
-> >         spi-rx-bus-width =3D <1>, <1>, <1>, <1>;
-> >
-> >       /* other properties */
-> >     };
-> > };
-> >
-> > The reg property is the 4 CS lines and spi-rx-bus-width having 4 items =
-means
-> > that the controller has four SDI lines (the value <1> could be differen=
-t if
-> > each data channel/device was dual or quad SPI).
-> >
-> > This goes along with what jic23 suggested about making it similar to
-> > what we do with daisy-chaining.
-> >
->
-> Since last week I have been testing  the approach you and jonathan sugges=
-ted,
-> handling the multiple device support within the driver and using the mult=
-iple
-> data lane. Additionally, I have included the ancillary device to manage
-> the devices individually when required (and to make it easier to write
-> and read using regmap), but some other problems came up:
->
-> * When addressing the devices/channels individually, I would like to
-> select only the respective SDI lane on each transfer, but with the
-> ancillary interface there's no way to define a rx lane mapping.
->
-> e.g: If we want to read a register from the device 2 (index 1), the
-> ideal scenario is to activate only the SDI1, so the controller writes
-> the right value into the read buffer. Without this mapping, we get
-> the trash from the lane SDI0.
->
-> can we add some new parameter to set the rx/tx lane mapping in the
-> devm_spi_new_ancillary_device()?
+hwmon: (pmbus/max20860a) Add driver for Analog Devices MAX20860A
 
-I don't think we should be using devm_spi_new_ancillary_device() here,
-but rather add more to struct spi_transfer to allow selecting a
-specific CS line in the multi-data-lane case.
+This commit adds a PMBus client driver for the Analog Devices MAX20860A
+step-down DC-DC switching regulator. It registers the device with the PMBus
+core and configures write protection during probe to enable configuration
+access.
 
->
-> * This driver registers a regulator and a GPIO provider associated with
-> the main SPI device. Can we register them for each ancillary device too
-> or this is not allowed? I am still confused on how to handle this kind
-> of situation.
->
+> diff --git a/drivers/hwmon/pmbus/max20860a.c b/drivers/hwmon/pmbus/max208=
+60a.c
+> new file mode 100644
+> index 0000000000000..9af6888ed07e1
+> --- /dev/null
+> +++ b/drivers/hwmon/pmbus/max20860a.c
+[ ... ]
+> +/*
+> + * Writing 0x20 to WRITE_PROTECT disables all write protection except
+> + * for the WRITE_PROTECT command itself, enabling configuration access.
+> + */
+> +#define MAX20860A_WRITE_ENABLE	0x20
+[ ... ]
+> +static int max20860a_probe(struct i2c_client *client)
+> +{
+> +	int ret;
+> +
+> +	ret =3D i2c_smbus_write_byte_data(client, PMBUS_WRITE_PROTECT,
+> +					MAX20860A_WRITE_ENABLE);
+> +	if (ret < 0)
+> +		return dev_err_probe(&client->dev, ret,
+> +				     "failed to configure write protection\n");
+> +
+> +	return pmbus_do_probe(client, &max20860a_info);
+
+[Severity: High]
+Does this write to PMBUS_WRITE_PROTECT actually cause the PMBus core to lock
+the sysfs configuration attributes as read-only?
+
+The driver intentionally writes 0x20 to PMBUS_WRITE_PROTECT to allow runtime
+configuration access. However, per the PMBus specification, 0x20 corresponds
+to PB_WP_VOUT (BIT 5).
+
+When pmbus_do_probe() is subsequently called, the PMBus core (in
+pmbus_init_wp()) reads this register back. Seeing the 0x20 (PB_WP_VOUT) val=
+ue,
+the core sets the PMBUS_WRITE_PROTECTED flag in the driver's state. This
+causes the PMBus core to unconditionally export all hardware monitoring lim=
+it
+attributes as read-only (0444) in sysfs, which seems to defeat the intent of
+enabling runtime configuration.
+
+If 0x20 is indeed a device-specific value that enables writes, should the
+driver either set PMBUS_NO_WRITE_PROTECT via platform data before calling
+pmbus_do_probe(), or implement a read_byte_data hook to mask the read? Or if
+the device complies with the standard PMBus specification, should 0x00 be
+written instead to enable all writes?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527045409.9092=
+-1-sanman.pradhan@hpe.com?part=3D2
