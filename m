@@ -1,63 +1,63 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 528E6426D09
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C43A1427A03
 	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:35:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779892525; cv=none; b=rDUycPwtZqbXJQaQvbgFA2i7EdwCXz5JvrPPBBo0CMDW7Cu+Rxyoesf3TGtf0+d5YRjeDuaUgY2djtJeBIo7OPxHOJ/Y/y5cD7bgqAVZGhKYEBvRO9TE/VoBgU5Qg9FbRAJ5F4f028hBPxXeLjygQmeRL7WqxsrAChpiX4QgGSw=
+	t=1779892526; cv=none; b=S5/H1TnCgxEWEUb6nUHTgou/pmex1AxLmCuNKjMRHrd7Jl5VCogg/GbowEddjZoApnwQebKboW+bKogjepS0qtGJnCFtdyOiyOYV5bu3nOhsUaQzHcRIlp+E1KM8N5utml1WfcpMzejDKSRiHBM71b65FT+Sve9kpqgnIlx03UQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779892525; c=relaxed/simple;
-	bh=Sg2dysRu4arnhharl9K85XjeLUmzUHS/CAFhi2sXB/Q=;
+	s=arc-20240116; t=1779892526; c=relaxed/simple;
+	bh=oDWKqtDhTF1qyHxIbD15S5vg4OO35WpqEhsWVqAUDSQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ef2QVLjl3H+yUg1hkk2ptscx1ForEP3wGj95pz1zMO6z6Qg/Z/kXBJgpty7azaoB2F70ip3csrigAYWFv1xxtsHphNRU4DWHkrIYyojvVcYx0bvxICg58VbQHlBQm4fG5sMmf+PTA7yOOTRDfs8pmZ+YhFL9rgWDjkG8S2URX3I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PMvTZX7F; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=u2zMznVyip2KbxWqsDJ8PNO0FKBhXtIH2YaYTNB7tso2pQibtMidQTKL15VR5/Z68KSgmrYCUWvsA7bH7fo64bfUCUYWvuRAcEXXErTlMcpcvYKNeg92wHH8IxMqt5uBNGtS/GitbqfpKBE6x7ZMgLfUxlF3b4CoY1yQAlfnhc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoG+FgdL; arc=none smtp.client-ip=209.85.128.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PMvTZX7F"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4906869f0cbso34456075e9.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoG+FgdL"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-49039a8851fso62667635e9.2
         for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:35:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=gmail.com; s=20251104; t=1779892522; x=1780497322; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=FkNcbsQeAXbT5DQ68OCTzTS3XT0QLF4nJ4lJuUAvyTQ=;
-        b=PMvTZX7F9Koh2kBY+1ZI8l6ls00q5VBlXxoEGROk9BA55FMxzCUdeS0Kfuiyx24nDu
-         FYYkBwTxGaRCtxlvX95tTY403wnUz82wgOhJpoJOElwWdEZmsaG5WTD0gH1LyNEIHNt3
-         3CEcXsn/utBzXmGWOu67h0tfr2U4SM0tH8xBrLDWmyYQsFlFSfVkd6srb6vEQXqRlv7s
-         HvB+fRzlL7OWT7gZGBwTgGfPxVR+GD8xc1KOdel8L8J1TucXgQdq16F4SOxHKeG09yHY
-         403DN+wjq5/FdO4y5wI1bGKWNzWDMjJv9M9Dd8sZHbZrBkIG3YtdGFv7NgzxdQZqT3TE
-         cedw==
+        bh=vn57LpZx1VKSH9/vRJzOE7/6rh8rI01XjeBWgZUoy7c=;
+        b=RoG+FgdLKrtK1jTsy5RAddq13AfKNprgBuI9MLyAeKup5P5xmw8HJ3YjW9zCahlmAx
+         GWjkNW4/5rdOmwYPTFC4UDU3FzPbPxjmxyo7tPBX8QHl/yew3iLA7bkhp9kTrJ6I+qZU
+         PPPyaJ90JBbEV9LgaSdCW7bvY8ZgfRIAoS9JWxXQiODESVLXX8J15XQb70q1q3wR49lV
+         OqxWjNmnuhdQ4kDkp+siSkkZlFZhFSebWys4u7EyzAzrlTdVLMBLmYH7su//GfLshYOU
+         tsiFwZqvNLbFxubfPUXUhIgH0tO7IfPdtWK6PTQRzP1qtxPUfZrc1y9alpEPzjfgf7kk
+         nh+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
         d=1e100.net; s=20251104; t=1779892522; x=1780497322;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=FkNcbsQeAXbT5DQ68OCTzTS3XT0QLF4nJ4lJuUAvyTQ=;
-        b=cgMuSZgm5b88+u9b1oSNR8zDw1uU3kNo7EWxlW3XLOYSstGJf0qQpjHIv4yLXoXz5L
-         zSuRwzdUmHvscoZTMd4DI+2K2DxYbIK/jQLTy2345v7QfNi1fpmjpQ31uD5NTVvgFwPn
-         tLx3KOS8n/pgBxxqp4PcS2HFMLi+nw/FEQ1euytQqM+uAYnNuLq/ZFk3z5xEgJ6FTWoA
-         RysFVckUD7mRw7DgXRr4NTx3OB7hCaSU+fi5kNTBhdIpk9v4nZ7EzIJqtXnm2Mv/vhPf
-         goixb055w/iswOhA5sk+O77HLYFsFGOlFXuPWmbRgofxxxWjZsws2qI1a/8+k6HfGiuI
-         ZStg==
-X-Forwarded-Encrypted: i=1; AFNElJ/rA/R5odR73zsiEtQDIgf5HgKSpSgOTYE4K4jtqBzdogL45xjPbfkVabICWJZiOTu9D1pw//teG3pI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz6CxgvF/DBk/8HVAS8654rYZQgS5nhsEnzEqGlCssfIqeu7geU
-	+yDj9gzl2OSpVOBsMJFelbht6fdH4BC2J4BDDRjr3V3BpZCAGPPwMqho
-X-Gm-Gg: Acq92OEva7q1etSl9w0dDJvqI/OGNERNPVEOpZNbyyxXOollk65LoasRRHRZhI3uVvt
-	Vs7lbps7leoRsKCSCrxC8wDzbwwMjiYPWiktE9oBBwWEHX4hoTkW4iMexITSIOEPiFiKVWPNJHW
-	3TqKtXj28gxnCP0xAUv0N21DkdVBxOF1Xp/ab0fmFngUy3BIi+ERyqQLifdyw+a/2w2WZoZDrva
-	vZqKsbys6/aakyDy/4pGSKM/cZG9+5VBRf152pPJtNN4udD8bnjG1TNMjTOpQq2Ky/aArYcaW9D
-	BGeHsDT6+gYPaXPNCSAzu0/Xp90cP8wYkQ+ZGG4Jvt3AKFTOj1e5kf8gphB0MQyHdg5cF0txCG5
-	8iydeiWRr+S3Bl4pAyIlhqIifckVgaxebhwXrLxnRl92amFeMZCV6TuJChloA3V5EXlv7HnxD7S
-	Al3KDgl+8ATSUGmsM=
-X-Received: by 2002:a05:6000:184d:b0:43d:1bf6:927 with SMTP id ffacd0b85a97d-45eb369cf5cmr37265125f8f.14.1779892520738;
-        Wed, 27 May 2026 07:35:20 -0700 (PDT)
+        bh=vn57LpZx1VKSH9/vRJzOE7/6rh8rI01XjeBWgZUoy7c=;
+        b=ABTPvzYvsTteM21aefEviO9yWchDKqxYUw7caBgtv1EoHJRbcQQBkqgL4FyTL+vusf
+         U1ieBcIartMePPT8zzkOFlBKLFJze6DNrK74P7Am0ytDckUyws28Bq08j8XEzQXEAhga
+         Ry4DBoUHRMeYJEVV0h/OvE4SIXXzZ2CQl2eizkU1X1ou9BZBOo1bCCuW1fp3CG2jYfov
+         jPim4pJnfkURkHKTctcGuua3GTcxQ9+BdKNsq/j1xHIStFncHdj7ZDb7hUdBe8UpeMzU
+         GfAsDOubGjexcQgVVd8lM1Ekotox91FKfn4SXXa+PRU30AAfwqJgeTxrVVns4O5DMWoa
+         kELg==
+X-Forwarded-Encrypted: i=1; AFNElJ/zI4RRG9sc41mVXuwxME8AgLzM3iM0QBbrqabF8MmvHJ8d0ijfISRPTv5Mt4JtjjylG/8JkLEZjNgX@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy64foqvkQBPKFprfmG8tJVc8uVvkxEszCDvpvn7ckbPuPh0Mjk
+	9dfjVfXNw6uUM0KjODysJMfU9oS09s9jOFdkKm5yFYzhteT8/RDDFpVB
+X-Gm-Gg: Acq92OGH/XXOYpTgZweB/rFulmQd+4Txj8hWJ77LMZqi3C2jV9Y/A+GT6AHhQbZ+pE5
+	F537FwEIL6JInV6XnfkJaVUAde6blztrNnrLERl+DLwACyu/0gEl53cEydufc7iM8HeLi6UTOec
+	zJsz7qFWOnAiVS9uWxF28injL+wmcVplXOEvRL1U1Vrpf3HZgwqViOpce/l5yUn17xEZ8oQJNX0
+	S3VCaU+lcA0Tu+VFLFs5KZ/qPl+FESE09eL0sZjgYZkBz610a6MzfTs6jGg4L/VXMcbjAYsRLLj
+	HIFCOpvcDEX3l2Ji2wVNn2uQZu3Zv2VryPNw7ndGZ3VBfgODWDywAy8wowOcXJV5GkQyBBh/Vz1
+	CzDTcoHNsmhw1vPrkt83f+OehXkAiYH0KZLSZbmb/HK4YCPwzSK1Pf+6n3iWjZceiQA+tyohuQx
+	16wVE6
+X-Received: by 2002:a05:600c:458b:b0:490:47e3:929a with SMTP id 5b1f17b1804b1-49047e394a6mr366016045e9.6.1779892521796;
+        Wed, 27 May 2026 07:35:21 -0700 (PDT)
 Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5584b8sm6239763f8f.11.2026.05.27.07.35.19
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5584b8sm6239763f8f.11.2026.05.27.07.35.20
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 07:35:20 -0700 (PDT)
+        Wed, 27 May 2026 07:35:21 -0700 (PDT)
 From: Wadim Mueller <wafgo01@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: lars@metafoo.de,
@@ -74,12 +74,12 @@ Cc: lars@metafoo.de,
 	linux-hwmon@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1 3/4] iio: flow: add Sensirion SLF3x liquid flow sensor driver
-Date: Wed, 27 May 2026 16:35:01 +0200
-Message-ID: <20260527143515.102794-4-wafgo01@gmail.com>
+Subject: Re: [RFC PATCH v1 2/4] dt-bindings: iio: flow: add Sensirion SLF3x liquid flow sensor
+Date: Wed, 27 May 2026 16:35:02 +0200
+Message-ID: <20260527143515.102794-5-wafgo01@gmail.com>
 X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260526173531.4422ae40@jic23-huawei>
-References: <20260524205112.26638-1-wafgo01@gmail.com> <20260524205112.26638-4-wafgo01@gmail.com> <20260526173531.4422ae40@jic23-huawei>
+In-Reply-To: <20260526171930.0db4125e@jic23-huawei>
+References: <20260524205112.26638-1-wafgo01@gmail.com> <20260524205112.26638-3-wafgo01@gmail.com> <20260526171930.0db4125e@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,113 +88,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-On Tue, 26 May 2026 17:35:31 +0100
+On Tue, 26 May 2026 17:19:30 +0100
 Jonathan Cameron <jic23@kernel.org> wrote:
 
-> Hopefully I haven't overlapped too much with the review Guenter did.
-
-No overlap problem - replying to all the inline points below.
-
-> > +	  Say yes here to build support for the Sensirion SLF3S family of
-> > +	  digital liquid-flow sensors (SLF3S-0600F, SLF3S-4000B, ...).  
+> > +description: |
+> > +  Family of digital liquid-flow sensors from Sensirion with I2C interface.
+> > +  The same register map is shared by all family members; sub-types differ
+> > +  only in the flow scale factor exposed by the device and are detected at
+> > +  probe time via the product-information register.  
 > 
-> We try to have full listings of supported parts in the help text as it
-> gets searched by folk looking for a driver. To minimize the churn consider
-> a bulleted list with one per line.
+> Because that doesn't work for fallback compatibles, we often give devices
+> their own compatibles anyway. Fine to also detect in driver but if we get
+> something that falls back to an SLF3S-0600F I don't think there is any reason
+> to think the subtype will match, so we have to trust DT to have given us
+> all the necessary info.
 
-Done in v2 - bulleted list with all currently supported parts
-(SLF3S-0600F, SLF3S-1300F, SLF3S-4000B).
+Done in v2.  Per-variant compatibles (sensirion,slf3s-0600f,
+sensirion,slf3s-1300f, sensirion,slf3s-4000b) plus a generic
+"sensirion,slf3s" fallback.  The driver picks the variant from
+compatible / id_table .data and uses the product-info sub-type
+only as a sanity hint - unknown sub-type on a recognised
+compatible is dev_dbg() now, which makes the fallback story
+work for future SLF3S parts.
 
-> > +#include <linux/unaligned.h>  
-> The gap before this header and others in other drivers is an historical oddity ...
-> No need to separate it.
-
-Done in v2.
-
-> > +static const struct slf3x_variant slf3x_variants[] = {
-> > +	{ .sub_type = 0x03, .name = "slf3s-0600f",
-> > +	  .scale_num = 1, .scale_den = 6000000 },
-> > +	{ .sub_type = 0x05, .name = "slf3s-4000b",
-> > +	  .scale_num = 1, .scale_den = 1666680000 },  
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - sensirion,slf3s  
 > 
-> Maybe format this as one per line.
+> If you don't expect to add  more sensors this in near future would be fine
+> as a const rather than an enum.
 
-Done in v2.  One variant entry per line; the list grew by
-SLF3S-1300F as Guenter asked.
+The enum stays (per-variant + fallback now), expressed as
+`oneOf:` of `const:` and a list.
 
-> > +static int slf3x_write_cmd(struct i2c_client *client, const u8 *cmd)  
+> > +  reg:
+> > +    maxItems: 1  
 > 
-> Might be good to use
-> const u8 cmd[at_least 2])
-> to let the compiler know the constraints.
+> There seems to be an irq. Given bindings should be complete that should
+> be here even if the driver doesn't use it.
 
-Done in v2 - declared as `const u8 cmd[static 2]`.
+Done in v2.  Optional `interrupts:` (maxItems: 1) - active-low
+data-ready signal.  Driver doesn't use it yet, but the binding
+now matches the hardware.
 
-> > +	for (i = 0; i < SLF3X_PRODUCT_ID_LEN; i += 3) {
-> > +		if (slf3x_verify_crc(&buf[i])) {
-> > +			dev_err(&client->dev,
-> > +				"product-info CRC mismatch at byte %d\n", i);
-> > +			return -EIO;  
-> For all returns in stuff only called from probe() use dev_err_probe().
-
-Done in v2.  All probe-path log+return pairs use dev_err_probe()
-now; the remaining dev_err() calls are in the runtime read_raw
-path.
-
-> > +	for (i = 0; i < SLF3X_MEAS_LEN; i += 3) {  
-> Fine to do
-> 	for (unsigned int i = 0; i < ..
-
-Done in v2.
-
-> > +	*flow = (s16)get_unaligned_be16(&buf[0]);  
+> > +required:
+> > +  - compatible
+> > +  - reg  
 > 
-> Prefer to make this a little more self documenting as
-> 
-> 	*flow = sign_extend32(get_unaligned_be16(&buf[0]), 15);
+> vdd-supply presumably needed for device to function so should be here.
+> From dt-binding point of view we don't care about the kernel providing
+> stub regulators etc.  The supply documentation should reflect what must
+> actually be supplied.
 
-Done in v2 for both flow and temp.
-
-> > +	ret = devm_regulator_get_enable_optional(dev, "vdd");  
-> 
-> No need to turn this on until we are somewhere nearer ready to chat
-> to the device.  Normally we do it just before first access.
-> I'd move it down a little. It's also not optional unless
-> there is some other way of powering the device.
-> Just let the regulator framework provide a stub regulator if it's not
-> in the firmware description.
-
-Done in v2.  Switched to devm_regulator_get_enable() and moved it
-down so it runs just before the first I2C access (the product-info
-read).
-
-> > +	ret = slf3x_read_product_info(sf);
-> > +	if (ret)
-> > +		return dev_err_probe(dev, ret, "product info read failed\n");  
-> As in the other review thread, this shouldn't be an error a we want
-> those fallback compatibles to work in future.
-
-Done in v2.  Unknown sub-type is dev_dbg() now and falls back to
-the variant from the DT compatible (or the of_device_id .data for
-the generic fallback).  CRC/family mismatches stay real errors.
-
-> > +	usleep_range(SLF3X_MEAS_DELAY_US, SLF3X_MEAS_DELAY_US + 1000);  
-> 
-> fsleep() for fuzzy sleeps like this - it applies a standard amount of 'slack' time
-> and means we don't need to reason about whether that is a good value or not.
-
-Done in v2.
-
-> > +static const struct i2c_device_id slf3x_id[] = {
-> > +	{ "slf3s" },  
-> 
-> Please use a named initializer here like you do for the of_device_id.
-> Uwe is working on making sure all drivers do this and I just took a patch
-> that updated most of the IIO ones to do so.
-
-Done in v2 - `{ .name = "slf3s-0600f" }` etc.  The i2c id table
-mirrors the of_device_id list, with .driver_data pointing at the
-matching slf3s_variant.
+Done in v2.  vdd-supply is in `required:`, paired with
+devm_regulator_get_enable() (no _optional) on the driver side.
 
 Thanks,
 Wadim
