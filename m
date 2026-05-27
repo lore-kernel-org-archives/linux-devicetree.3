@@ -1,107 +1,139 @@
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC00F429831
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:57:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55DF5428462;
+	Wed, 27 May 2026 14:58:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779893837; cv=none; b=RgFLI6xsGf8+RA1nwLVrXkYquyZGB8HQWzU5kkTwe6aVG1XEMaSB8VVurRDbgJBMNjN5+o4mQtL9AmO/C+S1OoTbxeQJ+MQBWE+2OYoDS84nGrkvCPVP5kuViYZ8If4MLIGQeUyjWXzb5PvC3SaY9w+VozpClnf1Wqk1Fhe5R0U=
+	t=1779893906; cv=none; b=NGfrfdgZm2oUhiYoaHPfa+bjXfNZVX+wdUktN53j+6QXhI1U36ufrDR38qHXL1wDM5SP21uGaC63UqSM4auuysmE9t9HpnyBTlJHBtRn/bjpBXZpxtwI2OyFMeJPbOCS8IgakOTEE61oF0aTVPnlBZtq9hWq4hksL9u/e1qCi3M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779893837; c=relaxed/simple;
-	bh=DcaIkOnu2qFiNVWG8uKRptjS0gHzV/XmFDChIo3exKA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KpJbjBkNAE49aMYkSN5oH6EJNWEK6eq2VORUCbZUzYsNG3VNuQigW6tllrHLAh7nGLWCGJ6MIDQczCtr535325KA4zkLucgQ+OfHBRpy5XChRe868qgruqnrvSWL3ZiKH+mSrLpZ51VCTa2otFgqiYWt7VjBRhXNr8wHgCKxgRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-63a3977145fso3847877137.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:57:15 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779893835; x=1780498635;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=NSha8LAAaJOu6KHbf0LfPH49giEnF7hSPozKiiNNtTA=;
-        b=XolwXn54nwiIXtcRYoCuySEDBb65Ye1lnCJWJBNPzGC8J8HH09zcfVyhsnmZAq9yx6
-         JRRnBiy/EhT/LDwLMBY3mJ4cJMy0/cYYnILy4zIwWJ5jw8DgGxR+tZjhAKjFbdJU0jVt
-         j9+0b1foTwYfOGqpUIeBPg4bosHdWpc1HvdMKvQZsbGrRdcxX3ic/XISI68Ibmjs23Qc
-         4kuIKGRD1rxJOiMjk6RGz/MTnN00KPOx+1NjZ2Ok3ZEHD2XghlCJylndgDn+pLTSeS2n
-         7mEEpbhg7l26PJpOw+jX7+SPztN2H4x991J6kzl43xuo5hPFMiffoI2HYeOuijZdSjT6
-         N8eQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/XDgGDZFxo2LP0JUC7uitg6YiM5I56i5ahAuY7TnkxWgVX8vAPedZGd0RukxRoH7MqjybzRNNDoV/b@vger.kernel.org
-X-Gm-Message-State: AOJu0YwZpwDozrxyi2h0zr0Lhx2UHEHc61L1D//FRsY/FqgLr1FTPev/
-	ictZqafI+0sRNUHrTYmS/GDySMSDsd+KW8Zep3VZJh1kJzgW2wOxDzDkmrMoXlJVoEI=
-X-Gm-Gg: Acq92OE06b9vsqLRb3rGSU9hknIq6lgfd+qrwNOE4PhQqCWRkTVu/jPywkInkgFBMSE
-	wtN1gnNeKtFJko3EcgNDWFuz21TqzHU75MEMLrixBUnG/+aRANzQ5uKJ6yAqzYVASr58aFvY2Cp
-	ZNAQatCE2tU/3NPmsA9KIsdaBdYhZ/bySEWCsw20k9Y+uUu8X0g+JvomwEuKCK/9F6mKO8Zhd66
-	j7+VelHRDL2jLusAOlhlB56t9r+i0RRBBXnWiW2QnJqWdyw0VdfWFVFwIH60mppkijgi2PrOnJh
-	ytMtteZiY1ScBQyIlSQ5HCbKpCo9+n9P8I4qNWls9kq9dGARw+1CRCv5NW+TlpYQm7OQdL1c8vl
-	LTUMXhEJCABYCMunaScG3VIIUJaWg5lvPpP2umeg3rNpR4zTTao67jrmUuMdp+xUl1oU2PhgvRS
-	SzKpVN6KM1llroc86sIsWR95n760NAShYfprOLNuFlQfT97p3PLBOzOLi25lvK
-X-Received: by 2002:a05:6102:3f9f:b0:631:ab8b:c34e with SMTP id ada2fe7eead31-67c7300bc83mr11202535137.11.1779893834694;
-        Wed, 27 May 2026 07:57:14 -0700 (PDT)
-Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173baf56bsm17263232241.13.2026.05.27.07.57.14
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 07:57:14 -0700 (PDT)
-Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-63319183a49so4519326137.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:57:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+PbTiyZWocHu2FtPYe8ntcDrLf6cyEtBPcokpFI/fB55XNLZP7rbvES6NSlZbVjJVd+mCLH1KC4hsT@vger.kernel.org
-X-Received: by 2002:a05:6102:1621:b0:608:9a34:c8ea with SMTP id
- ada2fe7eead31-67c7300bc13mr11464897137.10.1779893833833; Wed, 27 May 2026
- 07:57:13 -0700 (PDT)
+	s=arc-20240116; t=1779893906; c=relaxed/simple;
+	bh=MRLICiZ+rjJsed3vguC9Zgv35Sc8atS94GZHY7uBqqg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Jqwwd+6vq7yT9uKrzXylHDpXEvIX+PaBnWFz5se3S25AtJ/Hg5q488VNARqv/yNpnd3Qhb2rssJ5nB8RYVYXbnaPu59AA3g4i4eUFlyaJ5H6N6QCveokXPJiKNzErIxs1Cxgxz5UNZIGSpCVdAwOXplDrfnU8RvThZVHoJ4b9yQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=av2//UI8; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="av2//UI8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72AF81F000E9;
+	Wed, 27 May 2026 14:58:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779893904;
+	bh=DHo3mmxyjC2BUGhmNPlIkKerVXLTLbx5FTRg7KoVcyk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=av2//UI8EGTCsbZTUGHUlnE0Z/GwLivyUm0f8dAiq5HnFkRLuFoWMEwX36j6CLIm4
+	 rL00g5qKGdf6zTfLg42uSKXet6AAvDhD1PXtocJqBR8Us6EyZCncdQC3ZvkvIDvbbC
+	 O/7rpY4GDCIbqpvPgRlmWTH9Q0vX7QgiZXYxs/hXBmZaPJRiM0/nERMbAJY+YKxGle
+	 j7hYyyBz89zB9IGadqSvaLiYMgq0zQK2J++nJPJ7BLgEbj5h5vsQEwJ/epyrmna86B
+	 HgrO0feq7RMiBDWDBz+SOAgrYwQsCPTZSSNEnlkPCTapeCvw6SSo5MvP0wUA3p2Uje
+	 Ylx4IiftvnZEw==
+Date: Wed, 27 May 2026 15:58:20 +0100
+From: Conor Dooley <conor@kernel.org>
+To: CL Wang <cl634@andestech.com>
+Cc: vkoul@kernel.org, Frank.Li@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, kees@kernel.org,
+	gustavoars@kernel.org, dmaengine@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-hardening@vger.kernel.org, tim609@andestech.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: dmaengine: Add support for
+ ATCDMAC300 DMA engine
+Message-ID: <20260527-lazy-rimless-eb6e8f159aa9@spud>
+References: <20260527132815.1211195-1-cl634@andestech.com>
+ <20260527132815.1211195-2-cl634@andestech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505070206.7932-1-biju.das.jz@bp.renesas.com> <20260505070206.7932-2-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260505070206.7932-2-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 16:57:01 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdUMroQsJpmuA2zD75t88PJkEyc0w1azKjVaK-PsCkiapw@mail.gmail.com>
-X-Gm-Features: AVHnY4JP3NMEceEVoPKwkUHHjX1lg1TgZYFfh8s8DtDqG0A0XFH35vzd-hfGd2o
-Message-ID: <CAMuHMdUMroQsJpmuA2zD75t88PJkEyc0w1azKjVaK-PsCkiapw@mail.gmail.com>
-Subject: Re: [PATCH 1/4] arm64: dts: renesas: r9a08g046: Add scif{1..5} device nodes
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="XtUveJaYn/QeRoGU"
+Content-Disposition: inline
+In-Reply-To: <20260527132815.1211195-2-cl634@andestech.com>
 
-Hi Biju,
 
-On Tue, 5 May 2026 at 09:02, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add scif{1..5} device nodes to RZ/G3L ("R9A08G046") SoC DTSI.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+--XtUveJaYn/QeRoGU
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Thanks for your patch!
+On Wed, May 27, 2026 at 09:28:13PM +0800, CL Wang wrote:
+> Document devicetree bindings for Andes ATCDMAC300 DMA engine
+>=20
+> ATCDMAC300 is the IP name, which is embedded in AndesCore-based
+> platforms or SoCs such as AE350 and Qilai.
+>=20
+> Signed-off-by: CL Wang <cl634@andestech.com>
+>=20
+> ---
+>   Changes for v3:
+>     - Rename DT binding file from andestech,qilai-dma.yaml to
+>       andestech,ae350-dma.yaml
+>     - Deprecate IP-core-based compatible usage and align with
+>       SoC/platform-based
+>     - Dropped Acked-by tag from Conor Dooley due to the above change.
+> ---
+>  .../bindings/dma/andestech,ae350-dma.yaml     | 68 +++++++++++++++++++
+>  1 file changed, 68 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae350=
+-dma.yaml
+>=20
+> diff --git a/Documentation/devicetree/bindings/dma/andestech,ae350-dma.ya=
+ml b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+> new file mode 100644
+> index 000000000000..0f5ffdf1d160
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+> @@ -0,0 +1,68 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/dma/andestech,ae350-dma.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Andes ATCDMAC300 DMA Controller
+> +
+> +maintainers:
+> +  - CL Wang <cl634@andestech.com>
+> +
+> +allOf:
+> +  - $ref: dma-controller.yaml#
+> +
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - andestech,qilai-dma
+> +          - const: andestech,ae350-dma
+> +      - const: andestech,ae350-dma
+> +
+> +  reg:
+> +    minItems: 1
+> +    maxItems: 2
+> +    description:
+> +      First entry is the DMA controller register range (required).
+> +      Second entry is the cache control in IOCP controller (optional).
 
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+This can be an items list FYI. Syntax is
+reg:
+  minItems: 1
+  items:
+    - description: foo
+    - description: bar
 
-> +               scif5: serial@1004e000 {
-> +                       compatible = "renesas,scif-r9a08g045", "renesas,scif-r9a07g044";
+Fix that and you can re-add my ack
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: changes-requested
 
-renesas,scif-r9a08g046
+--XtUveJaYn/QeRoGU
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2 with the above fixed.
+-----BEGIN PGP SIGNATURE-----
 
-Gr{oetje,eeting}s,
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahcGjAAKCRB4tDGHoIJi
+0sIbAQC97jy6WNEB4GXyd9hiuJ2x13THdVio1JcQ5/ZcvUN/OAD/Z69K8zj2+32t
+ZFKkk2MhZP/biASRh38BsVR0Adl/mAA=
+=9boa
+-----END PGP SIGNATURE-----
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--XtUveJaYn/QeRoGU--
