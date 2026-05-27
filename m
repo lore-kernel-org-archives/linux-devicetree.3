@@ -1,136 +1,197 @@
-Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451393B19A5
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 19:49:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9DC1632E7
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 20:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779911348; cv=none; b=M1SEL4me6A7aPFRV56/oxQclVbskh0r87GmF0Ih9yoipyh+YRuCMmMmBjrcBLJM1IziOb6wVH1pPzSEf5tEtuR8yLihRKWVnbPKc9fBU89p5aQiN8a18LuT4axvhfa5TJVpVJd729ZTDIm7bpAksD/yybVFseBubKVCFTbC+TYw=
+	t=1779912440; cv=none; b=nxc1BdD/lfmZ4SYacin6xZVhzyV7q0GCBCFtqk+GJgRXwo11nfnS+L/esUXE+Z6ZTr+cdD6MwILM+2A+fLqRFwPqpE1k1/a1BVYX0cpWE52YDDIgEN6ufT4DLLonkBYv9r76HQZQUfP7CVwg1nAZX3HC0Be/iQeiTG+tGewaJME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779911348; c=relaxed/simple;
-	bh=mU6uiEFyPQxOXBAxbhYv5dtc/nadaxFqcLbIz1QvS0c=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=olT0/z0eX9T5Wfj1JXfzowLfA0cum5u0lrUEeMBJPIzMNG/YHqbyP+58Mmq8lY+ZBKWXSglEdmNSzUmq/nM+YP0POyMEFgvwZssAMJeVBw/6U3WBBzPX0kyh8FTBSyPmAfYh+cg7EtJv69M/8Ic8FblbvH9ORTPOXBlrIqEG3Hc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pinefeat.co.uk; spf=pass smtp.mailfrom=pinefeat.co.uk; dkim=pass (2048-bit key) header.d=pinefeat.co.uk header.i=@pinefeat.co.uk header.b=FhkYpkI5; arc=none smtp.client-ip=209.85.221.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pinefeat.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinefeat.co.uk
+	s=arc-20240116; t=1779912440; c=relaxed/simple;
+	bh=fjrpGqBSBTKl1ijnWOQCxINJXrqtw7GaycdDQkmpm8E=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BB6ncN7zyVxNN+TnNZlEWE6ek+0zywCS6inHc9NT9XaRJuqbpSQzj7I4M7r5SyN3xANYWepdbdZm63DtQFbocGUWjMkwJt2U2KixIfSOFEt67wGTtnoY6ytPJgiDbwuYMwXvwq+4DLXvDPdwY1cpxWC9jBBkrjVWaxwxwGOx7YA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Ldz+jpSO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DoktqbaI; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pinefeat.co.uk header.i=@pinefeat.co.uk header.b="FhkYpkI5"
-Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-44dd5cb0f81so8540994f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 12:49:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Ldz+jpSO";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DoktqbaI"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64RFG9U52282571
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 20:07:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	NYNjxQcCSvYU6+1FueqgSrFzwpQgaet5EeASApuehzI=; b=Ldz+jpSOyS1wu2Bc
+	ueaZniAnFBvtHLlYfTZnUavp9F7iUfpZma3GFIItIaC5tWH1hGzZcyFCnk5FVM/v
+	wTbvhcDtRfmC59Ed6w5sxw4onlcHcyK9qXS8xYYhQ0OG88rCmHiUyWhbjXBP6H1w
+	2skDJG1miRbjPWosmBT68MDryGa+KTGDeivqN3qcm1hM+h2XwFk8VjUbqOd+vEXC
+	Bjn6Gfbso4QE6+lyC3T1sWOu4k+IWtzJdHfkWUlKiNjerLYno6BkZdHaFDt+StLI
+	M4tMOi9mQZ41BF8fcU6QotU73dJlojN3l2XoBV9+hyRwPJYdp4RsIm45eEsKo5E7
+	1UhhtQ==
+Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edtvcu8xh-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 20:07:18 +0000 (GMT)
+Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2bc6899bfb1so128657915ad.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:07:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=pinefeat.co.uk; s=google; t=1779911344; x=1780516144; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=murMYzJhHVgqoW77Z7JBip36jBDIzldhTLKY2xEPP0E=;
-        b=FhkYpkI5qfvwmmaNIr4LIRp2DeO4vsRbO9D2EOgPoUiwjX6oQYcZVOsrHS1ClDDr/+
-         bTLGJMyqEpe4eTZjIjubty2JGcD9kpCT/gTQ7++JU/d43yszH/F5cLm6Kuc9vYOC78CP
-         B4EhU4mEX2v4TACRiyQXZhfg68Av8tM4R5Ft95KwlDaX5RqAAppieRV20tNGsEeC5CiL
-         vgEnDqCeEF7XDoRrVddSsy4nuql+TLxbPPvxNspIIZGSEIiFoUiT8tftaSMhZBfyqH3z
-         blRko5mHcA+lP+aaDq1TeIwqwlkovDe1R/oCCpKXUU81RJQkyEXLTlN+S0grrkC1iFN2
-         PDbA==
+        d=oss.qualcomm.com; s=google; t=1779912437; x=1780517237; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=NYNjxQcCSvYU6+1FueqgSrFzwpQgaet5EeASApuehzI=;
+        b=DoktqbaIYm8WMzeMmiMQJ9kkIOZOgPuvqwQ5Bo3fmKEgWP5XnM6wLJKm+Yst2zW0fy
+         7ncppeAn72MVBxQgb4LTufAw5lde56GNnleT6Abm1yAzwzi9FTOl0no/YjSKjgga0Rlr
+         3wXIa6j5mvGirg3epXC+/rKaDhwNfxSc18OsrAixZg+hwqbpf9EPxleHDpsmA3Lz4CG+
+         LfbYN7OttDE3hf17+YV6SCLJVZncrZogB1CYtkrHp7Ryl/ROf3xNWaQtQgkPktg1yNJn
+         ex1/UwaG/rWhYOYMPp+C/XPHbokz6uRK059k/eWAb/8dGLr0SuE3vJM39hjhinuXS5Z6
+         L1Vg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779911344; x=1780516144;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=murMYzJhHVgqoW77Z7JBip36jBDIzldhTLKY2xEPP0E=;
-        b=NCHXzG3GWczyBO6HgyqxbI+2/QRaVG5fyn4ulZRbiUhvAp6COoW3czATCvCtCWtkTL
-         aCeYDLWtTu9L3JLJ+VrpEc7AK3mmHaAL+6wUFE9cElOhYqD2reMvVAp+lMW9uqdrjYHr
-         601EKtyqQ0rA3BHo9DGA/V2fAnrYiL4gMDrJT0OffG226I0CGXdI7/21dtdbvblO6I4T
-         rHVEGZrQkat2aPjhx1OVaUk7B++lko31+YG/rRQJO0vRXIuxLRfa+hsRqDmOGO8UCY/M
-         xnkGr3CawZjuETKQZuhFQQeSfLW9wi1JcBY9OajlCHuGZZdZ6FjjjG+tq9FRPJ1zIcak
-         +iUA==
-X-Forwarded-Encrypted: i=1; AFNElJ+66/OXfMatlMPdTAzWtUUQBlG7jnx7Ha9v8CajDLbdX594OrmuFIN50oKl1zkfm8zRmEv8mkE5V4O/@vger.kernel.org
-X-Gm-Message-State: AOJu0YyorZC97Fqy2/NLP/Ili3UeqoKLp+yF4ZNCYzdjpp228w0LCG2a
-	+qTOiytJOIW5U8i0lOkgDRUSXNnVpZds/Z/etjQHjUmGYY3t1bQz5njY8Bwc4TX3bBU=
-X-Gm-Gg: Acq92OFwQGYc0+zADzhavTpqISyrF+r4wwsJySjabPaZ/oU2cVoySfxdFuvpeXm7pha
-	6bAneDxOMwNq+PQfRU6VGrXPJzu1mLy7PA++bGgG6mBIQkIUL+HwbDyeo9g02exqEjP8WnZO2xn
-	7HH3w4JZ3lgclXt6Bpp4/gVuJ9aoj6xeygWuLxAj2W0wb+qmP/KBC3imnUlAo+1mjA1xwhuzHKl
-	pb5iBVwepy2qsTmMHf+rC5vEvJFDyloKkSdB+HaYzm+tl82SmQQdTztcA6EeCrDkpYyRUqfGmwi
-	7vDULdD0CkRGV9in7SDkDlI+3c+8nvIt1btDv9h3Snr8lAHqmo3QU49QkI9xWGvn4ms8ftlBlCH
-	haY0gg4HaeIO+affRlIqBasqkLCD5CPfFqJyJF3fFzvuhEIrfNqsqA9uWBoh7z4hlGFvylI/PKH
-	kd949mCaRk8oeEs1SeWN/JSFmeotdQDMFNemq4b1zrLvrFjj04Dzcs
-X-Received: by 2002:a05:6000:25c8:b0:45e:b9b4:c68d with SMTP id ffacd0b85a97d-45eb9b4c854mr35834119f8f.4.1779911344513;
-        Wed, 27 May 2026 12:49:04 -0700 (PDT)
-Received: from asmirnov-G751JM.Home ([2a02:c7c:b28c:1f00:bf97:2b98:8a4a:b714])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5a2a73sm8011158f8f.22.2026.05.27.12.49.03
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 12:49:04 -0700 (PDT)
-From: Aliaksandr Smirnou <asmirnou@pinefeat.co.uk>
-To: alen.karnil@ideasonboard.com
-Cc: asmirnou@pinefeat.co.uk,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	hverkuil@xs4all.nl,
-	jacopo.mondi@ideasonboard.com,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	mchehab@kernel.org,
-	robh@kernel.org
-Subject: Re: [PATCH v6 0/2] Pinefeat cef168 lens control board driver
-Date: Wed, 27 May 2026 20:49:03 +0100
-Message-Id: <20260527194903.10296-1-asmirnou@pinefeat.co.uk>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <cb202484-3a53-4821-b1bd-5f910e0cd953@ideasonboard.com>
-References: <cb202484-3a53-4821-b1bd-5f910e0cd953@ideasonboard.com>
+        d=1e100.net; s=20251104; t=1779912437; x=1780517237;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=NYNjxQcCSvYU6+1FueqgSrFzwpQgaet5EeASApuehzI=;
+        b=l/hBKJRCA/jwnvPxhpyHjh6haEhWjYsq+CWLH/GfHZ0wgGIrqw+8VXY4F4oTQg26Ic
+         rvdT2blmoP0CzrhCU7My+mhb79KA4eEsElbuKtkJscXB5Npf2p8VA72nEI1jl2u2mqUf
+         VOpsqi9jdjKTOe0uAsx4Z6nROWvuF4cdpukiHQ3s3CwYSeu16RiuZ2ED1+Hw2XswoG4L
+         DADc75B0oXHDryY4ibqXB0ZaxMVuDKncyCGgJCH4MwywbxmL6Wyo14IFikm5gL9LUOYj
+         eko6t4g2WzzDg0BTigBrq+35duOV78Frkhmw2yI6IAHlGVBMWUZ2XLWlydVjwv5iU7QI
+         yx+Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+QbgH68OkvyzUNKxhYTDX9MSw1F9Ee1o03RKIFub3fwsxsw6T01hpE1frU1tZhXGZRncMoMGoXlEte@vger.kernel.org
+X-Gm-Message-State: AOJu0YzNgNWzHujnx5vibs5O5OW92WDpPGvNqG/AWavlzJ+P4gIZlshG
+	/ClJvth84/OEsT3hdB2vb1u4avrQmfJnSEY3zwmQ18BuOvIQEy/t2m7grf1QpoEiFHX7V8BMSHj
+	OAYYzc+f9qMQ/mt6q7pS4TAl306jbA2RgfOb4wQV7r/TA2P1IxF6DqHtcwp4201lW
+X-Gm-Gg: Acq92OHV6ZHYcCQWg01nDjN0s3yXaj00ef0GJ5QtpPJCip6gob+3H9vJwlG1bz5gu2K
+	fE5m+JEGghs09r9F/J0Mfj5gPgrpF1atHojQvoNEnRbOojvSiivh0/2rEClKAp7Ks22awsARz2B
+	9rUBFzvqgyXZn1dbzRjxCcLyDqrfTLW0yFyxnHKkkjn0nltGA1YTIgdjxjixMR6os/wUq0vnRR3
+	F1ik+JKaWA342o5wk5jhea5i+OIxv01iyTopWrPfl0ZZBkxlwIsWfPcJcNOSVCl6Q+3EOYfHY+F
+	XxGHSutUEz7RMq2PtceShv72LNFBshGKsRvt8uOfx2kDK1Ycs+u5k/gZVamq2QFovMK1tHkLS/Z
+	cHkI3HrWFaLrkc9FI2p+6Xjxj0BtKClfh6IhAMwFOtZAWzY6YIRTS
+X-Received: by 2002:a17:903:46cb:b0:2bc:f3c5:ff0a with SMTP id d9443c01a7336-2beb060dda9mr261786885ad.30.1779912437389;
+        Wed, 27 May 2026 13:07:17 -0700 (PDT)
+X-Received: by 2002:a17:903:46cb:b0:2bc:f3c5:ff0a with SMTP id d9443c01a7336-2beb060dda9mr261786325ad.30.1779912436658;
+        Wed, 27 May 2026 13:07:16 -0700 (PDT)
+Received: from [192.168.1.5] ([59.94.127.41])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb5900b8bsm158088605ad.76.2026.05.27.13.07.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 13:07:16 -0700 (PDT)
+Message-ID: <25812e14-d691-4e15-8fd9-82cacc203eee@oss.qualcomm.com>
+Date: Thu, 28 May 2026 01:37:06 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH RFC v6 0/7] Add support for Adreno 810 GPU
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Alexander Koskovich <akoskovich@pm.me>,
+        Rob Clark <robin.clark@oss.qualcomm.com>,
+        Dmitry Baryshkov
+ <lumag@kernel.org>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>,
+        Marijn Suijten <marijn.suijten@somainline.org>,
+        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+        Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+        Maxime Ripard <mripard@kernel.org>,
+        Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Luca Weiss
+ <luca.weiss@fairphone.com>, linux-arm-msm@vger.kernel.org,
+        dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260515-adreno-810-v6-0-fbe04c7203e1@pm.me>
+ <3dc009dc-8f36-4735-b849-d952fb626cf4@oss.qualcomm.com>
+ <3vzdlxnee4w6mur5qiyk2rhewlugswxarhevv7l4zo47qnnqah@45oxl7rjqawv>
+ <01b424f6-6617-442a-a77f-9b7a8472c447@oss.qualcomm.com>
+ <191d66ef-7d36-41e0-b29f-1ddd47812b75@oss.qualcomm.com>
+ <9a999b51-8131-4032-82c3-72d7eccbd222@oss.qualcomm.com>
+From: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+Content-Language: en-US
+In-Reply-To: <9a999b51-8131-4032-82c3-72d7eccbd222@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: ZOtnEmmBUU-NZA0FWJIKUS5dChHZxfvA
+X-Authority-Analysis: v=2.4 cv=CY84Irrl c=1 sm=1 tr=0 ts=6a174ef6 cx=c_pps
+ a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=WNRV5uGD5AkuWIfm3QAnlQ==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=6H0WHjuAAAAA:8 a=U9EV9gB3usZ6apLK0C4A:9
+ a=QEXdDO2ut3YA:10 a=GvdueXVYPmCkWapjIL-Q:22 a=Soq9LBFxuPC4vsCAQt-j:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDIwMSBTYWx0ZWRfX/3F6DOkceGXE
+ oYlom7O5fSl5wQaOEGUwdM/ftuPICUFAFoNLBucxBEZOHEAxhot+Cu+/DNydy/X490z1zJQekKj
+ f5yDwHveaGhbVs2ACubo5AqI6CPRLQbhY6xAhhf6CtmMu3ULbsZEr23aGxLHiV+6gbwg4JyjBml
+ 1KiHeI+A6eKm06Y9pbvnG5NrKSHdQ2NVC6zRtcYFZdh3cr1plNPWDPhM21mhhUmsoSTE1tIZtgW
+ EE4ts+tTSA+FvW96mg8GhvgM0YnHrA66xSvF9GbtpMYan9kwSb6eJkL8cC0HS+I8SaQOXtP+gPE
+ uY1sQx0VRVaVGAOde6S3CZfj9MBNzFXUkx42pOG+iC+kKlxSPcElS9e+JqPy2nvkECj1uB3vw+6
+ +K2Hrm39QJAfw2FaoXYKb33h2bDmG1atZIEVc32jStOqeqlXVnNAnwF5DSM3Og9CyC3U1Hkcpp7
+ QlqUarfpGVEttRhjSYA==
+X-Proofpoint-ORIG-GUID: ZOtnEmmBUU-NZA0FWJIKUS5dChHZxfvA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_04,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0 priorityscore=1501
+ impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270201
 
-On Wed, 27 May 2026 12:45:26 +0100, Alen Karnil wrote:
-
-> > Could you provide the build error logs and the overlay files generated
-> > by the tool before you modified them?
-> using the configure.sh tool with imx477
-> imx477_378-overlay.dtsi
-> ...
-
-The files generated after running the configure.sh tool look correct and
-match mine exactly.
-
-> If put these into my kernel build I get:
+On 5/22/2026 3:11 PM, Konrad Dybcio wrote:
+> On 5/22/26 11:39 AM, Konrad Dybcio wrote:
+>> On 5/20/26 9:38 PM, Akhil P Oommen wrote:
+>>> On 5/17/2026 11:54 PM, Dmitry Baryshkov wrote:
+>>>> On Sat, May 16, 2026 at 03:52:08AM +0530, Akhil P Oommen wrote:
+>>>>> On 5/15/2026 10:38 AM, Alexander Koskovich wrote:
+>>>>>> Adreno 810 is present in the Milos SoC and is the first GPU to be released in
+>>>>>> the A8x family.
+>>>>>>
+>>>>>> This series is marked as RFC because it depends on a few other in review
+>>>>>> series, GPU GX GDSC handling [1], QFPROM efuse for Milos [2], and devicetree
+>>>>>> support for Glymur [3] (for a8xx RSCC offset fix and X2-185 bindings change).
+>>>>>>
+>>>>>> Also depends on the GXCLKCTL block for Milos [4], but this is no longer in
+>>>>>> review and has been applied.
+>>>>>>
+>>>>>> [1]: https://lore.kernel.org/linux-arm-msm/20260427-gfx-clk-fixes-v2-0-797e54b3d464@oss.qualcomm.com
+>>>>>> [2]: https://lore.kernel.org/linux-arm-msm/20260331-milos-qfprom-v1-0-36017cc642db@pm.me
+>>>>>> [3]: https://lore.kernel.org/linux-arm-msm/20260513-glymur-gpu-dt-v4-0-f83832c3bc9a@oss.qualcomm.com
+>>>>>> [4]: https://lore.kernel.org/linux-arm-msm/20260417-milos-gxclkctl-v3-0-08f5988c43a2@fairphone.com
+>>>>>>
+>>>>>> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+>>>>>
+>>>>> Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
+>>>>>
+>>>>> For the rest of the patches that doesn't have my R-b tag in this series.
+>>>>
+>>>> Unfortunately patchwork doesn't capture tags from the responses to the
+>>>> cover letter. I'd kindly ask to spam the list with individual r-b's.
+>>>>
+>>>>
+>>>
+>>> There will be another rev to remove the RFC tag which will hopefully
+>>> have my R-b tag. ;)
+>>
+>> Do we have a resolution on whether the proposed fuse values
+>> are OK for this platform?
 > 
-> $ make dtbs
->    DTCO     arch/arm64/boot/dts/overlays/camera-mux-2port.dtbo
-> arch/arm64/boot/dts/overlays/imx477_378.dtsi:26.20-31.3: ERROR 
-> (duplicate_label): /fragment@200/__overlay__/pca@70/i2c@1/cef168@d: 
-> Duplicate label 'vcm_node' on 
-> /fragment@200/__overlay__/pca@70/i2c@1/cef168@d and 
-> /fragment@200/__overlay__/pca@70/i2c@0/cef168@d
-> ERROR: Input tree has errors, aborting (use -f to force output)
-> make[3]: *** [scripts/Makefile.dtbs:142: 
-> arch/arm64/boot/dts/overlays/camera-mux-2port.dtbo] Error 2
-> make[2]: *** [scripts/Makefile.build:544: arch/arm64/boot/dts/overlays] 
-> Error 2
-> make[1]: *** [/home/admin/linux/Makefile:1498: dtbs] Error 2
-> make: *** [Makefile:248: __sub-make] Error 2
-
-It looks like a different Makefile is being used. In the cef168
-repository's Makefile, there is no dtbs target. Also, our Makefile is
-only 27 lines long, while the log output indicates the error occurs at
-line 1498.
-
-Could you please ensure you are using the Makefile provided in the cef168
-repository?
-
-> >> there needs to be some further discussions on how we could
-> >> improve the user experience when it comes to enabling the vcm with
-> >> camera sensors.
-> > 
-> > I agree. I started the discussion on the Raspberry Pi forum, but the
-> > driver needs to be merged first before moving forward with that.
-> Sure that makes sense, lets focus on the driver for now.
-> > 
-> > https://forums.raspberrypi.com/viewtopic.php?p=2318070#p2318070
+> Ref:
 > 
-> Also you will most likely need to update the patch since the line 
-> offsets have moved to work 6.18
+> https://lore.kernel.org/all/oka0Q911ixJLZzAbfWBx54dOmxbQAre36QqHUX4iDZoH3TE5jD-IqTAHspti6B8kfpLQ-OTnuWjFdXtsqJM-CUC8G9R3x_9vFI--LnpppiA=@pm.me/
+> 
+> Konrad
 
-Will do. Should I update the patch before or after your review?
+Yeah. this looks fine to me.
+
+-Akhil.
+
