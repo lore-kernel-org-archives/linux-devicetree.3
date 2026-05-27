@@ -1,103 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m3288.qiye.163.com (mail-m3288.qiye.163.com [220.197.32.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF88B262FD0
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:54:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867932FF657;
+	Wed, 27 May 2026 03:00:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779850458; cv=none; b=Y7BJCfx3P7O+NkWFxd0sxIRkuOSY20SINOcjwWZvNr3GzCzmqvD/XFlLYWg8VAOW1v/fZzJWKPnQyUSao0qpjuATCCtLQwXn4k8o97rdjvSn1QI+PIHt0ceA3juyAKGhaF/xRpKugX3TBdNaP7UPaVBPCFvN1/+BnV16gfSNZqI=
+	t=1779850808; cv=none; b=ZoR97m70F96gbU31TfWBAJPxI5E3vmMa+6f6wcIzJ7t0lq/273W/rNQ6ICEKr7YD3QZYof2gwlUuswhig7CBni58F+nRPVUat+LwPBxtYA6PEKHhuoBeIq7DMCcUq9/2yy4LhxA+6cuXaY8iWWymQwsmGp4m2BHMh4IYD/QQcRE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779850458; c=relaxed/simple;
-	bh=3A8jzEMleLvlSedt6Eeo5dZKBnk+Qs74JuKiDZ7AXOA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EXCXIztNhL9kpsdBS/s3IUXKYf6FCnqybijHD7SNR29Ip/jVdoQaBCfp2rHDD5hNs//nooFT9kK2nRwcKh93ghFkpK14dhuwahAKI0xzEHHO9EzAI1kJpyxDgVMa/ofSq19rP0AgWZDLrCyX0RHi1y1CpXvFkRTCztT2sASjv6Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBk1yDvd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779850808; c=relaxed/simple;
+	bh=yntiNHkuywyx2b9C6p8W5/vqocfDIG+OonI/dNtwDqo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=heigieb4ZAoCwvchk/FIDt+sEpF0LVMFApXOvfJfV7v5qkdnlo2JUTTJe1Khth6B62pr5Yq4O4LUph3fDcYJwnTFmnyWF5THju6RNhDtcp7X+QB0q3RAtuKT3cLeROkoV8n8AkLqNK8KfBkJkaDnrctjDa8dUuhidVuirbGcLAM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=GByMq+ar; arc=none smtp.client-ip=220.197.32.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBk1yDvd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 277AA1F000E9;
-	Wed, 27 May 2026 02:54:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779850457;
-	bh=ZNFTOOyKY4woHqdwyFUp2yKhm7hMgvuGG2mqRz4+PAI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jBk1yDvdmC68lpN3CWAsCP3J0JsUbn7sseAU7NrC182ri/W7I+dcgdRIRrefEq1LF
-	 CwmcmZ4TfOQMUE7u6Tj4xs9XIJeoyWRkAJTP6G6kPcEdpVWS4Qena7f3pN9jPgadau
-	 E8nn2eK367ZokoK9Coszr2hzoNAS+SatMBapdgAZEqosubEBFAeE59E94xNnsqUVhy
-	 MPMEP2cZXuPkZkLZ0RZwO9G4GD5SZDqCAodKN6DFP5wNTrKCXYFXUSsUOIrsJNSuL/
-	 C9DI2jqoarhWJHM2Zp0WywW/LtSIRrMtFC6inn57/ySelbJ2XVA8EtzUR2XNm0/v/p
-	 ioCuMOHjb8zJA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 08/10] drm/bridge: analogix_dp: Rename and simplify
- is_rockchip()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Damon Ding" <damon.ding@rock-chips.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260527024336.191433-9-damon.ding@rock-chips.com>
-References: <20260527024336.191433-9-damon.ding@rock-chips.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 02:54:16 +0000
-Message-Id: <20260527025417.277AA1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="GByMq+ar"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 3ff559a9b;
+	Wed, 27 May 2026 10:44:29 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v9 01/10] dt-bindings: display: rockchip: analogix-dp: Fix hclk as third clock for RK3588
+Date: Wed, 27 May 2026 10:43:27 +0800
+Message-Id: <20260527024336.191433-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260527024336.191433-1-damon.ding@rock-chips.com>
+References: <20260527024336.191433-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e6751b89003a8kunm8053ce91bced78
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTk9JVhhDThhKSkNNTRlIS1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=GByMq+arN60KX6irjgY72psVjPeW2E2q5n8VjeDiBp9fMfXfRQGTFCCoFpeznGzpeqeMxq5y3xxXHqJD06y5kVP8tqwvE8do3fh5U9TMleiucP4AN83aJKkSMXPJYdck150NH+FNFUrQcMvYtZ+K77FSi1hgbIqKG5HZGUjvYHc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=JCOiC5xHahz6m4GJmafwimWE7DoGsWs8/hxxzpCEUwk=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+RK3588 eDP controller requires HCLK_VO1 to access the VO1 GRF
+registers and enable the video datapath.
 
-Pre-existing issues:
-- [High] The atomic_check callback modifies the global connector->display_i=
-nfo state, which violates the DRM atomic API contract. This problem wasn't =
-introduced by this patch, but modifying persistent objects in atomic_check =
-causes test-only commits to have side effects.
---
+Previously, the clock was enabled implicitly via the 'rockchip,vo-grf'
+phandle reference, which allowed the eDP to work without explicitly
+managing the hclk_vo1 clock. However, this is not safe or explicit.
 
-commit 644453a6e6cb6a36d4d9248a4a519cc2c40ae524
-Author: Damon Ding <damon.ding@rock-chips.com>
+To make the clock dependency explicit, enforce per-SoC clock-names
+requirements:
+ - RK3288: 2 clocks (dp, pclk)
+ - RK3399: 3 clocks (dp, pclk, grf)
+ - RK3588: 3 clocks (dp, pclk, hclk)
 
-drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+Do not reuse the 'grf' clock name for RK3588 because it represents
+a different clock with distinct control logic:
+- The 'grf' clock is only for GRF register access and is toggled
+  dynamically during register access.
+- The 'hclk' clock controls both GRF access and video datapath
+  gating, and must remain enabled during probe.
 
-This commit renames the inline helper is_rockchip() to
-analogix_dp_is_rockchip() to follow driver namespace conventions. It also
-replaces chained equality comparisons with a switch-case layout for better
-readability.
+Fixes: f855146263b1 ("dt-bindings: display: rockchip: analogix-dp: Add support for RK3588")
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
-/gpu/drm/bridge/analogix/analogix_dp_core.c
-> index 8cf6b73bceac0..116de3bd83a30 100644
-> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-> @@ -870,7 +870,7 @@ static int analogix_dp_bridge_atomic_check(struct drm=
-_bridge *bridge,
->  	struct drm_display_info *di =3D &conn_state->connector->display_info;
->  	u32 mask =3D BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) | BIT(DRM_OUTPUT_COL=
-OR_FORMAT_YCBCR422);
-> =20
-> -	if (is_rockchip(dp->plat_data->dev_type)) {
-> +	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
->  		if ((di->color_formats & mask)) {
->  			DRM_DEBUG_KMS("Swapping display color format from YUV to RGB\n");
->  			di->color_formats &=3D ~mask;
->  			di->color_formats |=3D BIT(DRM_OUTPUT_COLOR_FORMAT_RGB444);
->  			di->bpc =3D 8;
+---
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does modifying di->color_for=
-mats
-and di->bpc violate the DRM atomic API contract?
+Changes in v4:
+- Modify the commit msg.
 
-The atomic_check callbacks can be executed for both real and test-only
-commits. By modifying conn_state->connector->display_info directly, aren't =
-we
-altering the persistent connector state rather than the duplicated atomic
-state?
+Changes in v5:
+- Enforce the correct third clock name on a per-compatible basis.
+- Modify the commit msg simultaneously.
 
-This could cause test-only commits from userspace to incorrectly mutate glo=
-bal
-state and potentially break subsequent real commits or format negotiations.
+Changes in v6:
+- Expand more detail commit msg about using hclk instead of grf clock.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527024336.1914=
-33-1-damon.ding@rock-chips.com?part=3D8
+Changes in v7:
+- List all valid clock names at the top level, and constrain the clock
+  count for each platform with minItems/maxItems in allOf.
+
+Changes in v8:
+- Fix indentation to 10 for enum in clock-names property.
+
+Changes in v9:
+- Restore the explicit clock-names for RK3399 and RK3588.
+---
+ .../rockchip/rockchip,analogix-dp.yaml        | 40 ++++++++++++++++++-
+ 1 file changed, 39 insertions(+), 1 deletion(-)
+
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index d99b23b88cc5..6643889f2a9c 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -26,7 +26,9 @@ properties:
+     items:
+       - const: dp
+       - const: pclk
+-      - const: grf
++      - enum:
++          - grf
++          - hclk
+ 
+   power-domains:
+     maxItems: 1
+@@ -60,6 +62,35 @@ required:
+ allOf:
+   - $ref: /schemas/display/bridge/analogix,dp.yaml#
+ 
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3288-dp
++    then:
++      properties:
++        clocks:
++          maxItems: 2
++        clock-names:
++          maxItems: 2
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - rockchip,rk3399-edp
++    then:
++      properties:
++        clocks:
++          minItems: 3
++        clock-names:
++          items:
++            - const: dp
++            - const: pclk
++            - const: grf
++
+   - if:
+       properties:
+         compatible:
+@@ -68,6 +99,13 @@ allOf:
+               - rockchip,rk3588-edp
+     then:
+       properties:
++        clocks:
++          minItems: 3
++        clock-names:
++          items:
++            - const: dp
++            - const: pclk
++            - const: hclk
+         resets:
+           minItems: 2
+         reset-names:
+-- 
+2.34.1
+
