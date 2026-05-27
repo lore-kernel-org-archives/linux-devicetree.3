@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731E13BBA0F;
-	Wed, 27 May 2026 08:20:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 945CD34E761;
+	Wed, 27 May 2026 08:23:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779870005; cv=none; b=o2r0C1aa8kMF/k5cphTKwCgZsfy5nl1X5MjMxoie5Loe9drPBdk3P/rA24/q2pHIKx/DLJACTkaVeUqZ1McVmzjSHTViEjobD39wu+v39dtLOCTKfkLKCYZuqxG+ycfUXx1GQ+p6xjsUIWNVk3naV0NU5oVDwgDKJD28mlngwA0=
+	t=1779870214; cv=none; b=lS/9BYPquOOwnfV1Ewsrb/ZcCy2MVMh3YBA1+a3MKBXoU9OWy5e0W/hiR8oiY3JkE9whiSs+qMF/24fu53EuAwa6b5dzRn+rBsPxc/bsQn1gAKBs1T3mrK/NtdxWhoMHi8Qf+VLxPp26h77eZ0MDwQvYKAiDtxYSZDOe87/169A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779870005; c=relaxed/simple;
-	bh=4p7YpYossY5Comsbr6Wibqr/JBpZn0fw44LDYX4vkJc=;
+	s=arc-20240116; t=1779870214; c=relaxed/simple;
+	bh=AUKu8TWzzkfhrmcQV6WdssenQq8R37XNInpoGGV+6mM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=phLo774zjWsMOHaLGloYzWXoDSPK9oPyk4E6XCkqEQArVCPO81+x4kDKWPKE0CSs/Caj7SjvQTCNyDUzslWWQQU8AMKGhtHhptNOEfZWJAmcxp3oBGU54sFaM1OcZNnroFniP7cL/DeJcceW/ay3hNVnZCUUHZe24RURgJfcDp8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M+RqU6A7; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=GVONelYfhiCC9o72vveSuz/Pul7ycQjEjXkv6YBp6qwpl3eV2LGbOiPsTuE5rp003Kg36c1ZfMJYYNP6oyZ7sHLiasqZYCufGvmSbf3XICSnxBnRRRP8Yjwrcnvynq3XbFIjodwV2HrjUFBaX1hd1T0685D5/YnWH1s+JR2oEww=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PLCoPiCH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M+RqU6A7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B51EE1F00A3A;
-	Wed, 27 May 2026 08:20:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PLCoPiCH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F031A1F00A3A;
+	Wed, 27 May 2026 08:23:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779870004;
-	bh=UCIfKr4cuPHJ/po9NuSBRY9bQ9XvG3G9bUam9Jge12E=;
+	s=k20260515; t=1779870213;
+	bh=VtiWFCSy71bp7b5C9JKMSk9KiuU1PpHCj+5HbMdjiuk=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=M+RqU6A7gxlGQMmbCYAS5BjhmbpHnS8Py8Ox6zvSugGyGkZRLFHt7IgOuWKZKEHFP
-	 3HLqWEkU3abX6co0E9/2D17/8vF5xJIzxf6GC7jTVa/9uP4i/K3bvTV0YI1eTo/dM+
-	 yhWTU4vUIINl93jQh+FDFiNwWZTrcypuTTtrFBsUuCmG4uQad5XwyUTRk4NlZCgiSc
-	 su7A9vRzgqmV2L3mTOwFErGixdqbaOH9uoD4TQ94JS1uUdBEvt+8ypwoaDmHQmo/6n
-	 dK3fRudg62nPks4crtudDCfzchnWoe9ibzUY4lxTEp7r+1T5UNwkLnxqYQkdVasIBA
-	 s8oqBKFXkrBJw==
-Message-ID: <c97af94f-f2cb-4ea9-b477-33b6893c9461@kernel.org>
-Date: Wed, 27 May 2026 10:19:58 +0200
+	b=PLCoPiCHgu6F1zlSDe4XP4xDG9LVS4TibIiLsjz0YxV3HhJaImApMVs2ORMgqyGE6
+	 svEueqC0uv/UEOsg0VqkaM+OD6AuniPgEA86EbWsrEJDN3u6zrDl6GYQd+QqZTBE+C
+	 gPoRx2VynO5aG86fMS6SNzK0PEl30ITxGSv0TvbQ7G/Z4Tf38InlX4fj6Jf8YtOf+7
+	 6NZ3YrJ2qefuPpxGnSybrpVMOtQN4UbH7Y2FlubL75FS1bv6JJ5mBuLB5zVImC45mQ
+	 JAi4aMZSat0aAGp88g29WgspgxIi7Yygaz5sVX+GnLOhg14VWTTVmSX4ceZt7KWbD7
+	 dQK4ZPWt7bpeQ==
+Message-ID: <d28799ba-a4af-49b8-a437-3e7b54ed06b8@kernel.org>
+Date: Wed, 27 May 2026 10:23:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,16 +35,17 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
- modem pwrseq
-To: Svyatoslav Ryhel <clamor95@gmail.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>,
- Jonathan Hunter <jonathanh@nvidia.com>, Bartosz Golaszewski <brgl@kernel.org>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-References: <20260523085102.51000-1-clamor95@gmail.com>
- <20260523085102.51000-2-clamor95@gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: net: Document Infineon/Intel XMM6260
+ modem
+To: Svyatoslav Ryhel <clamor95@gmail.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>,
+ Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-usb@vger.kernel.org
+References: <20260523084408.50346-1-clamor95@gmail.com>
+ <20260523084408.50346-2-clamor95@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -90,49 +91,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260523085102.51000-2-clamor95@gmail.com>
+In-Reply-To: <20260523084408.50346-2-clamor95@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 23/05/2026 10:51, Svyatoslav Ryhel wrote:
-> Document the Tegra modem pwseq used by various devices based on the Nvidia
-> Tegra SoC, describing its usage. The power sequence provides interaction
-> between the modem and SoC-specific interface configurations.
+On 23/05/2026 10:44, Svyatoslav Ryhel wrote:
+> Describe the Infineon/Intel XMM6260, a 3G-focused, slim modem platform
+> designed for smartphones, data cards, and Machine-to-Machine (M2M)
+> applications.
 > 
 > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 > ---
->  .../soc/tegra/nvidia,tegra-modem-pwrseq.yaml  | 49 +++++++++++++++++++
->  1 file changed, 49 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-modem-pwrseq.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-modem-pwrseq.yaml b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-modem-pwrseq.yaml
-> new file mode 100644
-> index 000000000000..3770fd6dc2cf
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/soc/tegra/nvidia,tegra-modem-pwrseq.yaml
-> @@ -0,0 +1,49 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/soc/tegra/nvidia,tegra-modem-pwrseq.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nvidia Tegra modem power sequence
-> +
-> +description:
-> +  A configuration sequence used in Tegra SoCs to provide proper interaction
-> +  between the application processor and the modem, as well as control over
-> +  one of the SoC's USB lines for the modem.
-> +
-> +maintainers:
-> +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> +
-> +properties:
-> +  compatible:
-> +    const: nvidia,tegra-modem-pwrseq
+>  .../bindings/net/infineon,xmm6260.yaml        | 74 +++++++++++++++++++
+>  1 file changed, 74 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/net/infineon,xmm6260.yaml
 
-There is no such thing as pwrseq. I pointed you to existing code showing
-how to do it - PCI or USB. Fake devices won't be accepted.
+Considering that you just sent "power sequencing" device completely
+independent of this, I think my review tag should be dropped because
+this is incomplete. Basically you will be changing this and maybe even
+in backwards incompatible way, thus this should not be accepted in
+current form.
 
 Best regards,
 Krzysztof
