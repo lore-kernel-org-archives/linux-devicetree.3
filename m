@@ -1,86 +1,88 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EB3C3E8695
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF2F3EA947
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779873808; cv=none; b=OjirbbNx6t9lBilK9zoKXb7OllsLadrkWVOvVOC0GU9Fi1yf/WLrckt5IIeMjqBf/rwJGqQrMC9oXjAjEywOWmBxW9d+anb1FZO75/eTmxQA0bqnEXQup+gCmBfrYyVhNLa1lK1F9BexkIczz4teLyHv8DQ7cUZBgWZpN81k4O8=
+	t=1779873812; cv=none; b=NHaJzMX4S0lW8X//o27ABB6j1Z6azbaWiqnouzl83gJCxDoaBUY8dK9+Bmq2E7jVmhl8wrvHw2NSd+RXtwK1085mUvcAFmQ6iV4L/wEaA7OOS4uODm5doN89S0mVVN/R5SEMTQx5zb4FXKeNwumAEEGaagEg2+cElzByxK7xo5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779873808; c=relaxed/simple;
-	bh=55zDl1RqEdf1LDqyjgSTUL88hcXhwARXJo2D7BdF7aw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Kv+5FGlmtBPd2Vc27QCyHsBmYwdJUtHOQ1XFDGvW9fSzd54iFlwtr6eDk03cAIEDpSL2UVJum6dXTJEj8cLxZ2ukmU9vinrf3F1n6GLPjOjf22A29vWulXDYtL6f7FB0WE45sgnrvAFClfwAUfoBOxwhqw11ucxezThbGJE8ilg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pGW6M3Iq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BoStaqFw; arc=none smtp.client-ip=205.220.168.131
+	s=arc-20240116; t=1779873812; c=relaxed/simple;
+	bh=zzUV0jy6gFznLS/8IxgTuw9hcE+Kof+0IvFnyhhZ+74=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=deGA55xoWC5lLC+sw4KvyGw4SK+YXnB/YEEHwGygHGbtWA4DUkWPm0fg9pDXpIifK0bh5x1c5y+YHAwThOQvy9UI8rNAhbj7odF//+a9HVQXjaFCbCp33Q1J2oVETBvGIkDK/ICchcbWtAJlpW8W6/WG4aiW/P5FKDpTxrCje/o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=D/Ezx8zy; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jm9nNa+u; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pGW6M3Iq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BoStaqFw"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mRSt2282518
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:25 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="D/Ezx8zy";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jm9nNa+u"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mZEt1168079
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:27 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=KbsId46GxyFscdPMn9ZM7f
-	s7JJ+p7BFjW4bO5GIjQcs=; b=pGW6M3IqJopjKZGnxydJzv/kFKXrvJrl9grW6Q
-	UY/CBFhLWTWE223VTWSki/kdGs+ACKcBabzr2B3/j5Wz89iDA6W3KfDBpgUqXA5e
-	Ner89c2g67wt8vJRYWDIPPtBJY7amSoZy+lgEiLZhbX3pcIZ0S3I3Qqmh16DSYEn
-	+AG92PvohGBRCFbLWNl/TZDy61JJNxS+tGEEIPiGZnvofFUARpWaCLLMC88G44xm
-	mtHn6A9tuMY6IENqvcsxs07xcHUZ7MdQ7OI85Hjy3Zj+tWsV/vrpxqp42nYVzbAa
-	9qjxPy5riU2nhkiQphU1dUgsBYmP+WdgLUIwjzKpqWTAntcw==
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	yH718uLubEk87H++cFbixr/BktM2LwHrJfhtUjmE6/Y=; b=D/Ezx8zyQksA+gAz
+	V8Ghh6KCdjVozZVAN8nR4wKjP7ynwuEAUWRCw8lTrWhCA++qdRZCzxPGyOrNzyPW
+	H2GwoTasnHFGkVInV1MUJTUOAwpGKuaD3ayVXVWLXFgz7yxM6CiU2KOmKaaId4yQ
+	zlqEhr9mRvDkVzq+UwRDxX87aEhebzW/1KNLbMWJ4by+4Zu0Yaj8Do0odgq4g3AR
+	EQqv+k1LkQWgtCMBN9I5QeyCRT3GEzL1LF2JmAe328EIdsoBp4Fif3eBvyhCh6C0
+	rgv58GlpSrRpPAvnNedCugxZLdde9MXaehsWxVvXJYK8UQ0Can0w03T9GafbDI3F
+	thumVw==
 Received: from mail-dy1-f200.google.com (mail-dy1-f200.google.com [74.125.82.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edtvcrs4r-1
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edfqk30fj-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:24 +0000 (GMT)
-Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-2f3eb8f3419so6769013eec.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:23:24 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:23:26 +0000 (GMT)
+Received: by mail-dy1-f200.google.com with SMTP id 5a478bee46e88-304950e5901so1581277eec.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:23:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779873804; x=1780478604; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=KbsId46GxyFscdPMn9ZM7fs7JJ+p7BFjW4bO5GIjQcs=;
-        b=BoStaqFwt6EDDeS1E1LKuPcp66zLSsx2QkjfFOfdyJc4K2q4y5TbapknCB9XiAA7Mg
-         GuHXfZ3zRU1e6yjBzfAp/kg7SOw3+fKURZcO727H8ShaSlbgnDBtRn4pUpYGBHm4uJO5
-         8mJqMBH4YRcO7YO2kLEnwjesJNitrH6PRiHtT8wKnbR4zvVVmWlcFloMOXEv7F6DWJqN
-         YFydYxA+S+deVCl19Bia8lgkk2SAyZX9pvLukqSp7h0c+atTudsjnNQpPauLAFsIvUDI
-         aVc7oAfhWCzJyMtRq2nmoGIfqVGdzuUocNo9zPLopYFfLKWwc1IcbJQTVgXdtLidlIV7
-         oiew==
+        d=oss.qualcomm.com; s=google; t=1779873806; x=1780478606; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=yH718uLubEk87H++cFbixr/BktM2LwHrJfhtUjmE6/Y=;
+        b=jm9nNa+uoi09vnPfbB5njnsdwVzqraimNxpglIb4fCWqDM+Jx9hG/yogvFD4mU+n8r
+         5nxYv4bPlAHU6Q93JxcBeN3wSuSQHuP4DYNzaXxBF3m+VewhGbMX2tFvC1Eyt5WLKeIg
+         4rzzH2/PoKb5uHyZON8v6NYAX6tHxJOERGhw900a1moHsBzfDVgMBtobAcbsKhA0FUVv
+         qDMAHedMY2U6NwPRLU/2jF4MoOUPrGcd7+qlXu4ZJi0NgzAVb+cU1Uh5kXBxXHwbsopX
+         2iAH1V7ecbMjtTgeEA+OlHWESPCksfP7Ivp5N4DKjoeiqXMTigEWi3ItQHW2596fF4km
+         W2hw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779873804; x=1780478604;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KbsId46GxyFscdPMn9ZM7fs7JJ+p7BFjW4bO5GIjQcs=;
-        b=JS40hbfHudRTd9VJycQiIrFbDTwBMGCBvB62YYzgpkCTR8vLYxyFD8ZfXwBR+sw5A9
-         zCtghUVHTBgl0rZFIc9b4ykM7UdbqNkbV+c3KEQGE4hnyc18ciB/JeBIIBMJPx7YHWnc
-         UPiZyMFUOHRj2rYUb4a+IfU18wG7i9FYRa02QQR701cBuWn/B3Vp3OJvKdnIDwdWIjkh
-         sQaWULUx3x5WkPYo2pnRyy2mw/HRpjENys1z9nwMNPF7wS7nUkvRFlRkyeorukkg5AJL
-         NJVOARVCsZETaH1L2iCEsVgznu2pLdqIZzk+4WuJqE3AX+DLbsRG1O6dDu1wpsc1ctl8
-         Awpw==
-X-Forwarded-Encrypted: i=1; AFNElJ+5SZmS9Q+JSD8xDHi0v+r6OBV2B/A7F6G/wycyQjJcMCYf1ZS3tRwuhF4O1kUcl84U05j0V5DIjOv7@vger.kernel.org
-X-Gm-Message-State: AOJu0YzeL/5uGBj/CwSOT6z/ysX65ehfQUcuY3nb8/7osGJMRf5z29r/
-	4hSBdYvJiQPqsLNGgO1FM/E0BnpjMXmStBqL7KV0A6CJr8o1k6OnhA+jVmSLR5T7d4zeBiL6n70
-	q3uZtLhaMm3OYdLeG3RcOXpIhThmWAm4iXAgLSLgPtBv7QHeKjYrkW4gy5cTN7whM
-X-Gm-Gg: Acq92OH2qJEXQMYEB24p46PY38NMAQfyo+x3c32a93UNSf//HKKMVv0HehQwI05LIoS
-	Jt/zSVikzQh5zctonyHCLyXyDQ8y4j/Wg/+kHyN0noxWUSvTJtHDtlqIeYb+v0Ep/BMp+A0Gvek
-	1l91B9EI9xSSIFhfBjFCLjm9P3ZWI9U6JADZA7IioKlyR51iTS7ul5ivi+Y6SLp+/+jCepvCfO9
-	jFb40fBzDzVbOmtKSARc+idnSHgZxPznodIl5YjdhE2pP2pBoXEc6LsOMkPdGRl5xJgW3nsyRyF
-	KTjuLb4IDhQtzAMpFxGLRI/l4uE0mTOumZ2NquKJrPOi1YWud3ojEkK9H7483E8bwoQGsG8md/h
-	ezwP62rGVfgIIDB5KYwuhBrZ9TrIfk49VGVKdf9Txrw7kuAWDu1cpRqTZUyhEsRxFP79GsrvfMQ
-	==
-X-Received: by 2002:a05:7300:e781:b0:2be:2cfe:68b7 with SMTP id 5a478bee46e88-30448ffb8a1mr10150155eec.11.1779873804164;
-        Wed, 27 May 2026 02:23:24 -0700 (PDT)
-X-Received: by 2002:a05:7300:e781:b0:2be:2cfe:68b7 with SMTP id 5a478bee46e88-30448ffb8a1mr10150139eec.11.1779873803608;
-        Wed, 27 May 2026 02:23:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1779873806; x=1780478606;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yH718uLubEk87H++cFbixr/BktM2LwHrJfhtUjmE6/Y=;
+        b=ncjlhQjWPw5vGy1ufTS3PXYMFpXkQJCuR4U3aNlTi1QE1x8Q2qUAEbw+r7utCRablm
+         cr9J2m0TIGtu8+RB6dhmUAeNZ6AS72gqhfnmMm2L8kO3JOF9B/UdhuROUjlCc0nYwJ17
+         VkfvA9kb8T/cPlI8n/ZmCHSW1kkDW9Pr12i/WJ3LtPVPyU376+IsuZTO4jzMMxk+GESF
+         c+LumnSQeBAia5UnHux6V0BX8YuaQVI8eaqV0sK11Q5G1LvnY7cLsmppRSTPefJ9MVju
+         RM4pekcvLcrWdj4j+RW+NhiPGnjbBmtOrvFYWMqep0GPgByngY58WeNPrhh0Cc6yYAgE
+         lKrw==
+X-Forwarded-Encrypted: i=1; AFNElJ/UBm24cICnJ2uIehi9wirOHtYjtz7tg8UWcrHvxbGfH0ZpsRjbYTg+88Er6Ucdcv5TmG51eoeJrmW1@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9cRWXnSuVZdF12ISKeanAdTzn9PzxpMyravndRh9y6XkcTX2l
+	5HQGChZl5Zxd+YWzHnRX9e8lZel/cgq3KlUVXvz2mpPvx9LdlLjOFt+O8CKV8FaVWfJZnyuorDG
+	w7WqjIk9KxY6bZ287Z8glpyh0nmMcDuD1HEKUMBHMRYa1tdzRQItdUYf4Uxckgr74
+X-Gm-Gg: Acq92OFLvQm+rWl+gBB11zDJaHK5R7gbPz3SKnVrEbQmHTtRPuM6dE6i4Y+UqqIbGBC
+	hl7GqRhXg+KrcKh+kgYdUw+1OILSnRJdMNpl4fFNOlBvEBvUOtSs8duIJnHe8RAOIYJRiIVv9ya
+	SlX8Q8sQtp5YqSjfwVXXvPZOQ63Uz1xqWykdW2EsaVbddywLHt7PDKDzowUWa38RMXNjpO+Af7X
+	+qU7GWqO3FVSLGP2dOU2EuSOMBHu+7tJdrAXqXHXYipdiAaq25k4R1XrARBYiEgBieOmB+EImKD
+	JUH9hAYI2AA6/akJCkgtYftePb7EuUbOExZmaBrK4hdg6Ux4/dXeVpJaudl/AOZVqfBeVfuFeRY
+	IUtrkLO/gebmoLV4Xxaqi6MIWmeJA4X2xB5N7GQPNV/IYkypk0D6Y0cr7T4mrX/vWyRQLY0C1Lw
+	9cf8te5Hwf
+X-Received: by 2002:a05:693c:3103:b0:2c1:67e1:61a9 with SMTP id 5a478bee46e88-3044a5ed1abmr8284048eec.13.1779873806038;
+        Wed, 27 May 2026 02:23:26 -0700 (PDT)
+X-Received: by 2002:a05:693c:3103:b0:2c1:67e1:61a9 with SMTP id 5a478bee46e88-3044a5ed1abmr8284028eec.13.1779873805481;
+        Wed, 27 May 2026 02:23:25 -0700 (PDT)
 Received: from hu-fenglinw-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30451ef4afdsm12598732eec.5.2026.05.27.02.23.22
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-30451ef4afdsm12598732eec.5.2026.05.27.02.23.24
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 02:23:22 -0700 (PDT)
+        Wed, 27 May 2026 02:23:25 -0700 (PDT)
 From: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Subject: [PATCH 0/4] pinctrl: qcom: spmi-gpio: Add bidirectional
- level-shifter function support
-Date: Wed, 27 May 2026 02:22:43 -0700
-Message-Id: <20260527-pinctrl-level-shifter-v1-0-1965461d0a7c@oss.qualcomm.com>
+Date: Wed, 27 May 2026 02:22:45 -0700
+Subject: [PATCH 2/4] dt-bindings: pinctrl: qcom,pmic-gpio: Add
+ level-shifter function
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -88,11 +90,10 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAOO3FmoC/yXMTQ6CQAxA4auQrm2CNfx5FcMChg7UTEbSDsSEc
- HdHXX6L9w4wVmGDe3GA8i4mr5hxvRTgliHOjDJlA5VUlxU1uEp0SQMG3jmgLeITK3bUjdTWvmp
- vE+R2Vfby/n0f/d+2jU926TuD8/wAJzfHUnkAAAA=
-X-Change-ID: 20260527-pinctrl-level-shifter-929b286f583d
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260527-pinctrl-level-shifter-v1-2-1965461d0a7c@oss.qualcomm.com>
+References: <20260527-pinctrl-level-shifter-v1-0-1965461d0a7c@oss.qualcomm.com>
+In-Reply-To: <20260527-pinctrl-level-shifter-v1-0-1965461d0a7c@oss.qualcomm.com>
 To: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
         Konrad Dybcio <konradybcio@kernel.org>,
         Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
@@ -106,115 +107,174 @@ Cc: David Collins <david.collins@oss.qualcomm.com>,
         linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
         devicetree@vger.kernel.org, Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 X-Mailer: b4 0.16-dev-17187
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779873801; l=3702;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779873802; l=4717;
  i=fenglin.wu@oss.qualcomm.com; s=20260324; h=from:subject:message-id;
- bh=55zDl1RqEdf1LDqyjgSTUL88hcXhwARXJo2D7BdF7aw=;
- b=J+oFdg0TE/pZpbBm7+CJJiuwJi4MmArlTP/JNX6w5suMAbGT19VKvseczYgPEMEZn73Fix00e
- V7LXM4QXrQuC7Vwbk3lHAnuPUumYG92bILiEGcmv3mYxTx4z+EkuUjP
+ bh=zzUV0jy6gFznLS/8IxgTuw9hcE+Kof+0IvFnyhhZ+74=;
+ b=fm6Vm71vjQ/cT5mcOuidqAMfp7wRPDLJX12JtwvLLlUkIMDa+aqpgsCT6K1PffhADWwuRzWOq
+ QOnugF/WWqJAPhXlAfXePWogIlHMVFVoluKtfYDyHJodt7otBTACn4E
 X-Developer-Key: i=fenglin.wu@oss.qualcomm.com; a=ed25519;
  pk=hJdt3E7o54lql+miD2GaxwF74cDyhgNwMbmFOZ46bRU=
-X-Proofpoint-GUID: J4LeDlFadCI1FrrKcV-GiO9-j4gPxEsr
-X-Authority-Analysis: v=2.4 cv=CY84Irrl c=1 sm=1 tr=0 ts=6a16b80c cx=c_pps
+X-Authority-Analysis: v=2.4 cv=fqPsol4f c=1 sm=1 tr=0 ts=6a16b80e cx=c_pps
  a=PfFC4Oe2JQzmKTvty2cRDw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=AixRjNP4famACS7lB1sA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22
+ a=EUspDBNiAAAA:8 a=oPYuZtxd-o3nixQqOr8A:9 a=QEXdDO2ut3YA:10
  a=6Ab_bkdmUrQuMsNx7PHu:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA5MCBTYWx0ZWRfXxbqC5E6qwhx/
- k3x20ax+QZxNTCu6F3uFyL8W7appZhjuO+k8odnpPcZJusGbFZzjKVhE7AHWbexpHvHoX1TLslx
- s5VyXPxs4g88R9bXp115MbOvwRnkjE+dwPHUxXszF7/IN6GMJ9H6fvjBhV6UUvRvl2AEsU8XgdO
- B2MWJu3X1p+cr89H44OE4gec3GyuLXX4br9F/ELTkDkX1efcPh7VHYUOLGXjAYlKQUILj11wi1Q
- Dwt66XGTFb6Eo5/7ZOr2nxX98GAUrVym/9HGLB7QYb8WCGCt+j9C9pNXgtprqxRaB+GkshAQtR4
- T9RT4U4woGEY0+cMuX2TskQW39k/we+K2q/TbP4DVW3huUcX3wof48g9CkbuYYePmXfO4oYMyoU
- 2XVH33SyXGQhFKfxJvltB/DQ67nlgJA94jHapZuF99GJRZC8EybnNQvz5yJTBCVZiuAp7iEsZ0J
- 1S8dItS5ia+3tU2GvwQ==
-X-Proofpoint-ORIG-GUID: J4LeDlFadCI1FrrKcV-GiO9-j4gPxEsr
+X-Proofpoint-ORIG-GUID: 5oW3lCafQLQ_dSu8rbbNnnb7YLgaLQVr
+X-Proofpoint-GUID: 5oW3lCafQLQ_dSu8rbbNnnb7YLgaLQVr
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA5MCBTYWx0ZWRfX36kmIbpvmRfW
+ 3fYPxxHtcbLaGUv7AF266Rq4yBosdwqKaCoto7zd7ZFty1kLfVn5k0uEZgWIcw7y1RB8z9YED/L
+ Ujw0chvNbVRW5jJJPWG3NwYzEnxSsDmuoYJB4rSUJnL0QX2KuCssAolIX2+SGlZ6JUurtYzd3L+
+ I6xtxD08xEWIGXWAxyX5vOgJl2zQH4ktmMe5Rc3StgpdmjGLkW+/gYuwUGPvURQvPsv2+a6fH1R
+ T6TnOrdGCYT/zdCcaz2JYuLg3x+9favcr38Y/3cTvb6GR88QmjNisVjpkqOHCfKZ703gwdA/s88
+ okmlj3VUqPQ37V5USFkC6xfgvs3/h2VO1CN470QVvtHfUHvLjByKjSuu8JvUt826s/dLFxBieTF
+ bVsBszZ4uZ3P2yPMphlkPpNlpBZr2dnA9MbBIcobYcKmFFJUl1gAAKwtYaFyMrU4KXD3vLYQbFV
+ zMnoxFnEylJQVtsgBQw==
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270090
+ clxscore=1015 malwarescore=0 lowpriorityscore=0 suspectscore=0
+ priorityscore=1501 phishscore=0 spamscore=0 adultscore=0 impostorscore=0
+ bulkscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
+ adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605270090
 
-The PMH0101 PMIC introduces BIDIR_LVL_SHIFTER modules that provide
-bidirectional voltage translation between 1.2 V and 1.8 V power
-domains, targeting open-drain signal buses such as I2C. Each level
-shifter shares its two physical pins with a corresponding pair of GPIO
-modules, and its enable state is centrally managed by AOP firmware as
-a shared RPMh "XOB" resource.
+Add the "level-shifter" function and add the required DT properties to
+allow RPMh firmware to control the level-shifter. Introduce a custom
+parameter "qcom,1p2v-1p8v-ls-en" for enabling or disabling the
+level-shifter function.
 
-This series adds kernel support for controlling these level shifters
-through the pinctrl subsystem. Patches are ordered from infrastructure
-to driver to bindings:
-
-Patch 1 (soc: qcom: rpmh) extends the RPMh driver to accept write
-commands from devices that are not children of the RPMh controller.
-The existing write path assumes the caller is a child of the RSC device;
-however, the SPMI GPIO driver sits under the SPMI controller bus. Two
-new APIs are introduced — rpmh_get_ctrlr_dev() for resolving the
-controller from a "qcom,rpmh" DT phandle, and rpmh_write_ctrlr() /
-rpmh_write_async_ctrlr() which accept the controller device pointer
-directly rather than deriving it through the device parent chain.
-
-Patch 2 (dt-bindings) documents the new "level-shifter" function, the
-qcom,1p2v-1p8v-ls-en property, the qcom,rpmh phandle, and the
-qcom,pmic-id string required on pmh0101 nodes. The pmh0101 conditional
-block is split out from pmih0108 and given its own required properties.
-
-Patch 3 (pinctrl: qcom: spmi-gpio, rearchitect) refactors the driver's
-group and function registration to use the generic pinctrl group and
-function APIs (pinctrl_generic_add_group, pinmux_generic_add_function).
-The previous design treated every pin as its own group with access to
-all functions. The new design allows multi-pin groups with restricted
-function sets, which is a prerequisite for exposing the level-shifter
-function that is tied to specific GPIO pairs only.
-
-Patch 4 (pinctrl: qcom: spmi-gpio, level-shifter) builds on the above
-to introduce the "level-shifter" function. When selected, both GPIO
-pads in the pair are disabled (high-impedance), and the RPMh XOB vote
-for the level shifter is controlled separately via the new
-qcom,1p2v-1p8v-ls-en pinconf parameter, allowing enable and disable
-to be represented as distinct pinctrl states with the same function and
-group.
-
-With all these changes, the BIDIR_LVL_SHIFTER in PMH0101 could be
-controlled with following settings:
-
-    &pmh0101_gpios {
-        pmh0101-ls1-en {
-                groups = "gpio11, gpio12";
-                function = "level-shifter";
-                qcom,1p2v-1p8v-ls-en = <1>;
-        };
-
-        pmh0101-ls1-dis {
-                groups = "gpio11, gpio12";
-                function = "level-shifter";
-                qcom,1p2v-1p8v-ls-en = <0>;
-        };
-    };
+Additionally, add the "groups" property with the allowed group names
+that can be used to control the level-shifter function on pmh0101.
 
 Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 ---
-Fenglin Wu (4):
-      soc: qcom: rpmh: Allow non-child devices to issue write commands
-      dt-bindings: pinctrl: qcom,pmic-gpio: Add level-shifter function
-      pinctrl: qcom: spmi-gpio: Rearchitect for flexible group support
-      pinctrl: qcom: spmi-gpio: Add level-shifter function support
+ .../bindings/pinctrl/qcom,pmic-gpio.yaml           | 69 +++++++++++++++++++++-
+ include/dt-bindings/pinctrl/qcom,pmic-gpio.h       |  1 +
+ 2 files changed, 67 insertions(+), 3 deletions(-)
 
- .../bindings/pinctrl/qcom,pmic-gpio.yaml           |  69 +-
- drivers/pinctrl/qcom/pinctrl-spmi-gpio.c           | 755 ++++++++++++++++-----
- drivers/soc/qcom/rpmh.c                            | 161 ++++-
- include/dt-bindings/pinctrl/qcom,pmic-gpio.h       |   1 +
- include/soc/qcom/rpmh.h                            |  21 +
- 5 files changed, 807 insertions(+), 200 deletions(-)
----
-base-commit: b8f192cec7dcb2e4f04ee57ab78d51777b0a5729
-change-id: 20260527-pinctrl-level-shifter-929b286f583d
+diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+index b8109e6c2a10..016f4ad75033 100644
+--- a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+@@ -119,6 +119,21 @@ properties:
+       The first cell will be used to define gpio number and the
+       second denotes the flags for this gpio
+ 
++  qcom,rpmh:
++    description:
++      Phandle to the RPMh controller device. Required for PMICs that support
++      bidirectional level shifters (e.g., pmh0101) to enable communication
++      with RPMh firmware for level shifter control.
++    $ref: /schemas/types.yaml#/definitions/phandle
++
++  qcom,pmic-id:
++    description:
++      The ID of the PMIC which supports bidirectional level shifter function.
++      It is used as the RPMh resource name suffix to request control of the
++      level shifter to the RPMh firmware.
++    $ref: /schemas/types.yaml#/definitions/string
++    pattern: "^[A-N]_E[0-3]+$"
++
+ additionalProperties: false
+ 
+ required:
+@@ -330,6 +345,25 @@ allOf:
+           contains:
+             enum:
+               - qcom,pmh0101-gpio
++    then:
++      properties:
++        gpio-line-names:
++          minItems: 18
++          maxItems: 18
++        gpio-reserved-ranges:
++          minItems: 1
++          maxItems: 9
++        qcom,rpmh: true
++        qcom,pmic-id: true
++      required:
++        - qcom,rpmh
++        - qcom,pmic-id
++
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
+               - qcom,pmih0108-gpio
+     then:
+       properties:
+@@ -523,6 +557,19 @@ $defs:
+         items:
+           pattern: '^gpio([0-9]+)$'
+ 
++      groups:
++        $ref: /schemas/types.yaml#/definitions/string-array
++        description:
++          List of GPIO groups to apply properties to. Only valid for
++          function "level-shifter" on pmh0101. Valid groups are
++          gpio11, gpio12; gpio13, gpio14; gpio15, gpio16; gpio17, gpio18.
++        items:
++          enum:
++            - gpio11, gpio12
++            - gpio13, gpio14
++            - gpio15, gpio16
++            - gpio17, gpio18
++
+       function:
+         items:
+           - enum:
+@@ -536,6 +583,7 @@ $defs:
+               - dtest4
+               - func3  # supported by LV/MV GPIO subtypes
+               - func4  # supported by LV/MV GPIO subtypes
++              - level-shifter  # supported only by pmh0101
+ 
+       bias-disable: true
+       bias-pull-down: true
+@@ -592,9 +640,24 @@ $defs:
+           configured as digital input.
+         enum: [1, 2, 3, 4]
+ 
+-    required:
+-      - pins
+-      - function
++      qcom,1p2v-1p8v-ls-en:
++        $ref: /schemas/types.yaml#/definitions/uint32
++        description:
++          Enable or disable the bidirectional 1.2V/1.8V level shifter
++          associated with the specified GPIO group. When set to 1, an RPMh
++          vote is sent to AOP to enable the level shifter. When set to 0,
++          the vote is withdrawn. Only valid when function is "level-shifter"
++          and groups is a level-shifter GPIO pair (e.g., "gpio11, gpio12"
++          on pmh0101).
++        enum: [0, 1]
++
++    oneOf:
++      - required:
++          - pins
++          - function
++      - required:
++          - groups
++          - function
+ 
+     additionalProperties: false
+ 
+diff --git a/include/dt-bindings/pinctrl/qcom,pmic-gpio.h b/include/dt-bindings/pinctrl/qcom,pmic-gpio.h
+index e5df5ce45a0f..b0824d5eb056 100644
+--- a/include/dt-bindings/pinctrl/qcom,pmic-gpio.h
++++ b/include/dt-bindings/pinctrl/qcom,pmic-gpio.h
+@@ -105,6 +105,7 @@
+ #define PMIC_GPIO_FUNC_DTEST2		"dtest2"
+ #define PMIC_GPIO_FUNC_DTEST3		"dtest3"
+ #define PMIC_GPIO_FUNC_DTEST4		"dtest4"
++#define PMIC_GPIO_FUNC_LEVEL_SHIFTER	"level-shifter"
+ 
+ #define PM8038_GPIO1_2_LPG_DRV		PMIC_GPIO_FUNC_FUNC1
+ #define PM8038_GPIO3_5V_BOOST_EN	PMIC_GPIO_FUNC_FUNC1
 
-Best regards,
---  
-Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+-- 
+2.43.0
 
