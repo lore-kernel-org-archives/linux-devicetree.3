@@ -1,132 +1,106 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com [209.85.216.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AF73E5EC7;
-	Wed, 27 May 2026 09:06:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FBEA3E3D8D
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779872820; cv=none; b=UupQck3CZ+9DFq7pD3tViekgF6+iIKXqYLzQC1NuTBpr6T/ZerHG4QkRqooSXaXmfUMjgCUSEOkcL/O54z+AR7Rg0KKuRdsIzRcHOqPCQBo8n1vmEl+SdtPYT8VnZ04uc7tkdCJaMJIUWHr/gf3aYVdBPnnSYeo/V8mpqPA0jA4=
+	t=1779872951; cv=none; b=coTfk34FVAq6EI2M8H+p4dQgIoM1RIm5CSkF5/opqdo27nGM+7iBrvW2/KNDEkTE6rcQZaN2G7DlzresfdeFZ3C5PKkuPmLXsYqbS71nl9QDhUSG9GnqG83mfMlGFiSeBIF2xUQ3W9HGi47clARgPwu01UhyDp84dvcEiZvAbhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779872820; c=relaxed/simple;
-	bh=OQVJZfwHpXN0n/v7h29x/cHNl444YSA1UCol0sqqDpM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PDc61mwv2X2632KVqmvLoMYffwx2w4vgfnecJQC+CAIurc/3UKk6LALNfVnYEqDtrOhhNMJVuXJ/6/gBZLp1+oQnJ5+rsc7A2Q5l89CzcDqym/ocMExC5Svso/GxbjX4nO2ddHnkHcB8wZq7Uc7TVxIAD8IHMUklVJ0G7lC6ItQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nkMAgueW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779872951; c=relaxed/simple;
+	bh=xYy1/j4PQat72RkJ2qs58ZdiYDbBTsDsaIkP/Qz8WmY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fr5RFUFhN2WziFUerP3tlzOeYOJg1UJR2sl8vw/YyMcqDWC8oEiXmChha6o+k3IcXRWN9dPQC32cIfucEFuXOrrEZjGHHpW/ENE5Pm6DoL+LgI/CIUdg3xPw4Ie8bD1SGo56PB+teuROuDo2KB7dGpDgjuqrm9RT2vNY0ramAWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com; dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b=I/J5WfVR; arc=none smtp.client-ip=209.85.216.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=synaptics.corp-partner.google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=synaptics.corp-partner.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nkMAgueW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE9A1F000E9;
-	Wed, 27 May 2026 09:06:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779872818;
-	bh=Ka6yC3QrHcEkiDk7alcfHWrv6N92oBkr2LoopdWzh7Q=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nkMAgueWuwGVRv0HOVp+lcKpTELX8upnzcUnPp3tNS1p4S4x3iB0NS5KSyHXzMvnZ
-	 aU5hGJKwUyxUBQw9g7fSNZ5y5tcrYKNLK3B6/rwV6+3HeuuxhcBz2ZX/F9pUWTbYEs
-	 YBXBgRwY6uB7lRQlxxo4kXrb8nMhy0IW616dPfsdF77zbHaCcp8btD4JhIBUMknHW5
-	 d4MeuIJM7GJ6F9oDQ4lwUHJ54+SaJ0awD7/Q+RHUMGNY2hz/iqIRk0dcT6pWDCChqm
-	 s7UovzhkqzWyRU6o+5nu0ShMvqjiHijzNY+q6XTIE8y5xkfFep41mW8bJMOwb8w2ql
-	 lnOkwlcwQq+JQ==
-Message-ID: <a35b5300-c5f4-4af7-b566-194724451d37@kernel.org>
-Date: Wed, 27 May 2026 12:06:52 +0300
+	dkim=pass (2048-bit key) header.d=synaptics-corp-partner-google-com.20251104.gappssmtp.com header.i=@synaptics-corp-partner-google-com.20251104.gappssmtp.com header.b="I/J5WfVR"
+Received: by mail-pj1-f43.google.com with SMTP id 98e67ed59e1d1-36a8ee1e28cso3850250a91.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:09:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=synaptics-corp-partner-google-com.20251104.gappssmtp.com; s=20251104; t=1779872950; x=1780477750; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=YzP4nn3r/gwn1is3A2tYi+9xfNYB+0iqmEG+7KOfkLY=;
+        b=I/J5WfVRfzjhf5qjwyUsAHvbOe3VTsw/jzfUkEHs2iYR6+JsaK5DIeKteNMKUQQQyQ
+         MRu1uSc/PsnxCSMz5HlgcpjlVdRRroJDuEbTF2rbbVtDoM5P8bbkc9F7Ir/TGzmhX862
+         CQeNu+p1UBX/hvI6kg9Hy77yhz8dzm1w/bptybDywsv5ghbteQEeBsyKyD5j+oGYzXrP
+         bUXsxeaTz6AZiZRofWWzthR5QnRsYM+NCJ42zkd0D1Kgok0exEsF7KwC6mjGal+lZ0sw
+         MJI3q7oSRAfdx+MowNxL58MuG0zQDGc7P7FNszz/NOR2qqmuGD+LGCqmdU01W74vz0yc
+         uR2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779872950; x=1780477750;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=YzP4nn3r/gwn1is3A2tYi+9xfNYB+0iqmEG+7KOfkLY=;
+        b=lzzrgQj9huOig1M5ieurfFwj22V/iZtUIHkFzrQgS0BjLFKC1T/LdhDBIciS7xWWnq
+         4++dmlDWwlGCzm9ccO0PJqSoO50O4OeA8v/0xBa45+H6r1nMRID0WTip9SIVo0QE14iR
+         pXZXtcXDGyeY+Wq0u3HkniLONZ0v3IYY1nAj7QIffmlKN6r564ShvIkQ4tKNKbdg62IE
+         EQz6wCefQ98yvq57MyrBXd3MG4v/bnaUkjKlhATlyI0sDzaLg9GRG82ADcPHjPzFvjEq
+         g6IPqaamhyMd3RAeO4kPzVhpajd267ZhQTWliM1py2CC8ed4c9YwssNevXjzd5COdoGS
+         Tg3A==
+X-Forwarded-Encrypted: i=1; AFNElJ8IAP1DDqvwVvThifmIZq/o2AfYqRtr0VUOVnrPZwR4XgiGppq/fKbTDA0SI6nP9V/nJAXfAl+x6C1T@vger.kernel.org
+X-Gm-Message-State: AOJu0YzS4S78M7a1GYNQUNTd51sWHJTdWw6rGUDQ5vTgG8tDlUaArmJY
+	Axf48Sf9VWGA80ew/6+DcsWv+VppYsx+HpNIdIFlm9sRrXg225R754mRxDDiWE5ScA==
+X-Gm-Gg: Acq92OE7PL+ybIjHZ2Trqddh9kfFoXZToPrZ1xyedwxz7lxRnG8XjhQlT7LbCB/4HDu
+	/pBVRytNRSfrqz9oOKfXcGnmvSac1tJ2smuoQ2kJPZekCVeZANnCYwfNYoRkEx+gVoO61zmqvMs
+	vU6bHOvQtiRFSi/sARrHNs0vY27UAzGveHwocbu5AWvlL5gcw9cp8MOtSYFqsGAmo4cpuTZAY3k
+	vYtLoe4AQ677J/pOL4HIhiGiJ1p7hXKutr2dsYuclssoHlQ67RnXlqgBR8CC5N2Ue0CM3JZXliH
+	p0CTQrA32pdYmezsLwDHoLMSTbADt4CkyxrfIbsJFN8JoMvcH22+kZdNL21ELQBi1qAf6bXT5Pz
+	HtJwxWT3VK6D0CzspKvABl3H2KduOF8kixeHi5gz0cu5XkwuenXfeTc3PqkKYfD/DtISzI+M1G3
+	an+y2MIFFqY5GCNcVZ14lWBTdtm1Lc9bpnY6kn+OoxUrmUr48L7ofS7DbwCMB8FV8FlEqKznPc3
+	Ld0+Qcrce/t7AAYkr8P/z7+jW1iDgS7CL5qAL0=
+X-Received: by 2002:a17:903:1247:b0:2bd:c5f8:504f with SMTP id d9443c01a7336-2beb0702144mr236239085ad.40.1779872949672;
+        Wed, 27 May 2026 02:09:09 -0700 (PDT)
+Received: from TPE-build-server-2.synaptics-inc.local (59-124-75-166.hinet-ip.hinet.net. [59.124.75.166])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bed2061c59sm92430365ad.2.2026.05.27.02.09.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 27 May 2026 02:09:09 -0700 (PDT)
+From: kaihsin Chung <kaihsin.chung@synaptics.corp-partner.google.com>
+X-Google-Original-From: kaihsin Chung <kaihsin.chung@synaptics.com>
+To: linux-bluetooth@vger.kernel.org
+Cc: marcel@holtmann.org,
+	luiz.dentz@gmail.com,
+	devicetree@vger.kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	Kaihsin Chung <kaihsin.chung@synaptics.com>
+Subject: [PATCH v7 0/2] Add Synaptics BCM4384 Bluetooth support
+Date: Wed, 27 May 2026 17:08:47 +0800
+Message-ID: <20260527090849.3647601-1-kaihsin.chung@synaptics.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260408083217.1915419-1-kaihsin.chung@synaptics.com>
+References: <20260408083217.1915419-1-kaihsin.chung@synaptics.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
- krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
- claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
- <20260522102251.1723392-10-claudiu.beznea@kernel.org>
- <ahBMKWrKQDko3cG8@shikoro> <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
- <ahXQnt4MTVoBB9bF@shikoro>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <ahXQnt4MTVoBB9bF@shikoro>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Hi, Wolfram,
+From: Kaihsin Chung <kaihsin.chung@synaptics.com>
 
-On 5/26/26 19:55, Wolfram Sang wrote:
-> Hi Claudiu,
-> 
->> Could you please let me know what do you consider we should do here? Do you
->> think we could drop these pin controller setting and do some particular I3C
->> controller settings instead?
-> 
-> My original thought was: If it was a boolean state which is active when
-> suspending and disabled when resuming, then we wouldn't need a customer
-> specific binding for it and just do this in the suspend/resume functions
-> of the pin-controller...
-> 
-> ... BUT ...
-> 
-> reading more about this in the manual, just raises more questions for
-> me.
-> 
->> The output is fixed at Hi-Z and no data is transmitted to the inside even if
->> data is input from outside. “Standby mode” is available when using I2C mode
->> only. (Not available when using I3C mode).
->>
->> The current driver proposal don't take into account the IP mode when setting
->> STBN though
->> pinctrl_pm_select_sleep_state()/pinctrl_pm_select_default_state() to keep
->> the code simpler, relying on the "Not available when using I3C mode" part of
->> the note, and considering setting it when the IP is in I3C mode is harmless.
-> 
-> This is one question I also had: What does "not available" actually
-> mean? Did you confirm with HW guys that it is really harmles?
+This series adds support for the Synaptics BCM4384
+Bluetooth controller.
 
-I asked this yesterday, but I don't have an answer to it.
+Patch 1 adds the DT compatible string.
+Patch 2 adds Bluetooth driver support.
 
-In my testing I haven't noticed any issues with it.
+kaihsin Chung (2):
+  dt-bindings: net: bluetooth: Add brcm,bcm4383-bt
+  Bluetooth: btbcm: Add Synaptics 4384 chip support
 
-> 
-> I also wonder about the intended use-case of this mode. "no data is
-> transmitted to the inside even if data is input from outside" doesn't
-> really sound like a mode intended when the whole SoC goes to sleep.
-
-Indeed, that's why I chose in the driver to touch it though the runtime PM APIs, 
-so it can be configured after the I3C IP is no longer used.
-
-> Why
-> or how would input be even transmitted to the inside if everything is in
-> a deep-sleep state? I could also imagine that this mode is rather used
-> to hide from the bus for a while for some corner-case reason.
-> 
-> And finally: does this really save energy? 
-
-I don't expect. I'm not sure I can measure it. I also asked to the HW team.
-
-> Could you measure a benefit?
-> Maybe there is nothing driven at all in the sleep state? Then, nothing
-> is gained? Not clear from the datasheet.
-> 
-> Because the datasheet is so sparse with information and because it
-> doesn't say how STBN is intended to be used, I would argue we should
-> skip it until we know what it is for and how it is used. If we know this
-> somewhen, we can still add this in a second step.
-
-OK for me.
-
-> 
-> But for now, enabling I3C realiably is the first step, and for that we
-> surley need the POC bit to select the voltage. This is easily
-> understandable and straightforward to do. So, my suggestion is to pick
-> this low-hanging fruit now and reach for the other one once we have more
-> information about it.
-
-OK, I'll re-spin this dropping the STBN feature until further clarification.
+ .../devicetree/bindings/net/broadcom-bluetooth.yaml         | 1 +
+ drivers/bluetooth/btbcm.c                                   | 6 +++++-
+ drivers/bluetooth/hci_bcm.c                                 | 1 +
+ 3 files changed, 7 insertions(+), 1 deletion(-)
 
 -- 
-Thank you,
-Claudiu
+2.43.0
 
