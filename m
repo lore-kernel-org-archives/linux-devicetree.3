@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB64F351C17
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:01:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89A043EEAEE
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:03:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779904896; cv=none; b=KJSHGpov9/BKmeDrVxDVqf7J4k5EsXTR25OPY24lKNz5OQavsNtLWyerq6K7/UWoaTf2e6rnv0HpdNl6rhIUDZKIbzD/vrQieWzopeMqRmlnTavutpK2sBvZM0YktjWuE0KD2fJylYxyUz/ST22xDKw6puNg5Cyzrfjw66AqXzA=
+	t=1779904988; cv=none; b=OAq5Un3arjLSO1mKhJdvBUYCePUi8wSUKB4GZ7wGiTrmXJLZnx5Y6ffOhi8ee/r6BM86eRv5xEmp0XR3oePshOvFC8pJ2Nonnsk6Hzs7MEFsJW4RExYS/Kj/0risIh4v5zjeF4s6WHeVa0qGI35u3Iu4EBcWC55pUGo5fO3qhDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779904896; c=relaxed/simple;
-	bh=9sAdQbsi78gK9jd+7WVzeDOTHQgstzKR4dSBRX+Uhw0=;
+	s=arc-20240116; t=1779904988; c=relaxed/simple;
+	bh=rmlflpsB7TBVCjKoH2Ms8fBAdiKcVnENMI8HINKPn7w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=LRIlij/kfZHE6JzfQXyGsWutEKZJCOvbifmVvFEhwdiHVcFeLLYl7Rc2qD89VLp8RsXsebxj/SSmpefBTrzxD2YD8ap8K831Kwe77MgQZtynALhlb9abndGzECItn5Tuzdd56//XtE39RIEfUss6LM6FcfAJ3Da4tc+fShyoSlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCroghmF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=O77VcRWHQkr8LZ6edBMZl2GxlWjpFQ4xGnahAJ+FPA1Zq79X65DC+NEuLFxOUE2TVk8Ylyy7T7Xs6LqK4wMy7e6lz9p1sDpjWjZDSEZginBwZ9US/FUXev9FLHSpyW3iIh+5qmaWI/eAZYi/2QHi9Ay3lM1b/dhVGzirEVGwxtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dDYDHHO3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCroghmF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F6F61F000E9;
-	Wed, 27 May 2026 18:01:35 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dDYDHHO3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAEE71F000E9;
+	Wed, 27 May 2026 18:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779904895;
-	bh=DcuiF5bYjHdi705xGINbBzeUEIpz/wuJMOa1ED35xS0=;
+	s=k20260515; t=1779904987;
+	bh=KudxRillJJqvLe79wDH6TfjnmRIm+3RWZuMj9Q3xJao=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZCroghmFyQffQGsL05reBe7HJq2rwX0FGs1Da63TXlMcNNWpW9Ytsp05welj1K240
-	 YWs53ZJG5yb+uuDhRI9xqlKZqlODpJynMUerHWAz/W5AydkX7w+sgbAqV9hS0F72sl
-	 ELOQ81FuPfnd/G/yaIuC63f+z0g46gYE62VPMxTmvclNloHLvBTlE1gZUGcJrdFEaD
-	 nxRcp7V7vzhg9s9QkrRet7gdmyAWMrtkBpOkL3yLF5AGHMJ1NpdXoNn6zmqbt1oTZO
-	 WuIHwAmqxLdRFF5HYoAmygb9+1WFVTPADIwKWhq3d9RbdlOPNl94z7VmRu/lTBBA+Y
-	 +hZEhF1qneWyg==
+	b=dDYDHHO3DfHSEhyt/ZO2vNNHSXTh3w6fz8yb+JeO+2K1dnkSGKJSgkFO1OoFSCADt
+	 mIsqLg1424NIKzv0NOCFDkFuUkyTPnJbl3+07AJfXUHDE9AF/GOUBpzDcuevI97sqc
+	 trNHDXAc4SDlE1Vv++SyTDdR4VMifmn7roIeZ7PI6lgi6qTis+q3L5ZlFHjvCH65Ns
+	 r32J5tBN6zgb2cZpFegramc2fk/emNjcC8kOWEmZ+d7YDak2HmJ4jP9SiS+902f5HD
+	 NnYj5QjTvrI3ODlk4PkzfTpMsvlCycYMXSKQwgMl7RLTI6r8N3IGUvMKqK9L54h658
+	 lfa08/Zduy40A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCHv2 2/2] arm64: dts: socfpga: agilex5: popuplate reset
- properties for I3C
+Subject: Re: [PATCHv2 1/2] dt-bindings: i3c: dw: add resets and reset-names
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Dinh Nguyen" <dinguyen@kernel.org>
 Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260527174221.79259-2-dinguyen@kernel.org>
-References: <20260527174221.79259-2-dinguyen@kernel.org>
+In-Reply-To: <20260527174221.79259-1-dinguyen@kernel.org>
+References: <20260527174221.79259-1-dinguyen@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 18:01:34 +0000
-Message-Id: <20260527180135.2F6F61F000E9@smtp.kernel.org>
+Date: Wed, 27 May 2026 18:03:06 +0000
+Message-Id: <20260527180306.BAEE71F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,48 +45,60 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Undocumented 'resets' and 'reset-names' properties added to the I3C=
- nodes without corresponding YAML binding schema update.
+
+Pre-existing issues:
+- [High] The commit documents `reset-names` for a single-entry reset, which=
+ violates DT binding guidelines and codifies a brittle pattern in the drive=
+r that causes silent hardware failures if the name is omitted in the DTS.
 --
 
-commit ebac99bb72bcfe3b4b8a0fa7c960df7984ddf40d
+commit 5db0a7d3c21cf60d537f37725a5d5312d88c8c4f
 Author: Dinh Nguyen <dinguyen@kernel.org>
 
-arm64: dts: socfpga: agilex5: popuplate reset properties for I3C
+dt-bindings: i3c: dw: add resets and reset-names
 
-This commit adds resets and reset-names properties to the I3C nodes in the=
-=20
-Agilex5 device tree to bring the IP out of reset.
+This commit updates the snps,dw-i3c-master binding to document the core
+reset signal. It adds both the resets and reset-names properties to match
+what the driver currently expects.
 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/=
-boot/dts/intel/socfpga_agilex5.dtsi
-> index 02e62d954e949..55313d45c90ed 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -244,6 +244,8 @@ i3c0: i3c@10da0000 {
->  			reg =3D <0x10da0000 0x1000>;
->  			#address-cells =3D <3>;
->  			#size-cells =3D <0>;
-> +			resets =3D <&rst I3C0_RESET>;
-> +			reset-names =3D "core_rst";
+> diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yam=
+l b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> index e803457d3f554..7a39fe62bbbc0 100644
+> --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> @@ -35,6 +35,14 @@ properties:
+>        - const: core
+>        - const: apb
+> =20
+> +  resets:
+> +    items:
+> +      - description: Core reset signal
+> +
+> +  reset-names:
+> +    items:
+> +      - const: core_rst
+> +
 
-[Severity: Low]
-Will adding these properties without an accompanying binding update cause=20
-dtbs_check to fail?=20
+[Severity: High]
+This is a pre-existing issue, but documenting reset-names for a single-entry
+reset codifies a brittle pattern in the driver that can cause silent hardwa=
+re
+failures.
 
-It looks like the bindings for these nodes validate against=20
-Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml, which=20
-enforces unevaluatedProperties: false. However, neither that schema nor=20
-the schemas it includes appear to declare the resets or reset-names=20
-properties.=20
+DT binding guidelines recommend skipping *-names for single-entry lists.
+Because reset-names is not marked as required, a DTS author could provide
+a valid resets property without reset-names.
 
-Should the YAML binding schema be updated to document these capabilities=20
-and prevent validation errors?
+If this happens, the driver's call to request "core_rst" will fail to find
+the name. Since the request is optional, it returns a NULL reset handle
+instead of an error. The driver will silently proceed, but calls to assert =
+the
+reset will be no-ops, potentially leading to hardware lockups.
 
->  			interrupts =3D <GIC_SPI 164 IRQ_TYPE_LEVEL_HIGH>;
->  			clocks =3D <&clkmgr AGILEX5_L4_MP_CLK>;
->  			status =3D "disabled";
+Should we drop reset-names from this binding and instead update the driver =
+to
+request the single reset by passing NULL instead of "core_rst"?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527174221.7925=
-9-2-dinguyen@kernel.org?part=3D1
+9-1-dinguyen@kernel.org?part=3D1
