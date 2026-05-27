@@ -1,114 +1,170 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F035F8F7D;
-	Wed, 27 May 2026 05:30:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A1482D9EED
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779859829; cv=none; b=GJCHGyoox5SUBXh+ktQO5TYSQKJylcecC14HjJWC0ZT0OEv1QsqzZvxEy3tDxMSO2eeCtpd12e/IMUcx5U7HUH30BE5vTz3FeMBe3x4Hqkk3VINGu67jsQenGur4w6qk9DxYIsw9Cl9shAM3KfG6PalrvSWEFxr7A2RLFsqy16g=
+	t=1779860239; cv=none; b=gMb1YH7WCXkRlIpbrVNm+Q+esPywSRIv+pgMuwBB4rKot/3rT9QxclXqtgPCQvH2HBlcZIhe6nlreSc4GFxu96YWFRXEomq8NNv2H100dlqKRjy+KWxQH5bN+vE/lgilI4aiy+xNrKKC6INm5GJTq9H8SOgeXUb8KyfiF2kp8cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779859829; c=relaxed/simple;
-	bh=gWRR3lFZteuSwPaDP846U+sIYk+e5paPuqAtxCkrqTM=;
-	h=From:Subject:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hN+8gMI63FaD6tv5ZMekYxqZZOf4o4y7qHyMoezb7NSqWA+tr9PLTEqAfO6/x94lGbj2Sg5AWqpyU5gDDX1RFExJfLUK/82wF7PR8x6KVLb+ImrCnCDg/yuXAsHNyQ+pm8p51M7K2M9JizNYY1wpPQtpipcXbz2cWaBTbq7N0/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QSRyF5WU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779860239; c=relaxed/simple;
+	bh=36ClACXUF+S93hV99kFRclkoIYp0sJpJ4LbEPDHyAYU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=fUG18eVxbnMhYdXrWcrB5ZuxLMsVF2PLB1MsGXtXF5aELGHkNf6lYC5nvQO2NA8jaNkWxc3A3DIUrK6LRTK1Fs9AvxFpluicVCBn2CCPRTASb8CP8gNAMx4UgdZWr5TdXwGjgTKUV9Inn/SmMAYnIl3UQ+Ru/KQZ+GH67yHALYY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=lOrQbIfF; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=As3Sc9/J; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QSRyF5WU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86B171F000E9;
-	Wed, 27 May 2026 05:30:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779859827;
-	bh=N12PznAmzQFrxom6G627P217T68RYNRBF6GT196WR7U=;
-	h=From:Subject:Reply-To:Cc:In-Reply-To:References:Date;
-	b=QSRyF5WURdNug8+a3+6Ph35MPTO18iSyOBcF2IESvxd46akOJWqRiY0iHfQTlwWtt
-	 9JobSMm38p+3p0/v+D3YXj9+MQWukHiV5mmiIcQqE70DNUY0aZKbtmSOKbOzIPrcB1
-	 qNIBRH9YlY0oag5ZGIedWvG71N9fKd4NgNnJHbNHUCXnYC6/8bXJLDIEm3IPCoAaZd
-	 QtSeft+A9CVu6dcwe03j+5tKkd1tKAyszDAWU4NJUDbVQ40YDw+aC15xXqilqMb4rd
-	 AyKpHVDFHlN4u6QFqJfO3lYj0roMs/gR/NwEqwMNYt3rvH4e7RxZTWUCasHSJry2j4
-	 TsJiuJyzWgj1Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] hwmon: (pmbus/max20860a) Add driver for Analog
- Devices MAX20860A
-Reply-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260527045409.9092-3-sanman.pradhan@hpe.com>
-References: <20260527045409.9092-3-sanman.pradhan@hpe.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 05:30:27 +0000
-Message-Id: <20260527053027.86B171F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="lOrQbIfF";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="As3Sc9/J"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R2WUsA326945
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:37:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=X49bnoWpugg91pnqIUZxny
+	eQ9LEoq+2gyaH12CEWKSo=; b=lOrQbIfFgeyAJ4Fvk21pxdV+JQKtkxxnTyFj+k
+	D5OkA5gOXXTbzyP81gWjcXhu286h8L/JQ+xyFdgARZM+qaJsVWi/K1mFfqdqoSNs
+	p+Drt3gJyo3XJJDczbplj7xNxwoLRl5OExkDSs56sU+qnxihzJFCMvPOMole7uPV
+	3FesfUqIA0nN9CMus3Qs0xXYHPv2bZgomN6RCC8xFzACj2AOcyaM8zAZYKhTsvIe
+	XuWLWakKB2rIzI/GhL47NOLPWDmiNXnPajqN/FJBGSXgr4lfpKCRuYcqohHnGZSH
+	gGvSMh/Xx6NF1ACsldHThhmpQlNgxDS4ir9pg8ILQ7hb/Ovw==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edndngykj-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:37:16 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2be9e0905a9so78887255ad.3
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 22:37:16 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779860235; x=1780465035; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=X49bnoWpugg91pnqIUZxnyeQ9LEoq+2gyaH12CEWKSo=;
+        b=As3Sc9/JzHF9tzmOsS74Rm8/j/X5Ihb+4pj7lWZbbiCeTSZi97ZPmJG0xmjaq9fIkg
+         lQ7jZyazoX4KvLDegpKrF4Q42hh9Ql60568i231AaoR98BDCeogGg8Mkb9I1QG3O78H8
+         imeXnLsFaIM4QYmPx5+PLFvTReyeL5o11HCV09nTdJgi/W7EpfcYBYIAQXj0adepLsDF
+         7e9AJ1LZh+80aoXXVTc26RV4ky02zJLLlG+Pjhshnvt768Y+5KkcVMN0FzO8OsB6vpgb
+         SKsg02yOM7kVHa4nfq8TfhsttEfN9OJzXsJeBMmMeFpPwUY9LlH9OD77vvUWWnuGM9h4
+         PuDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779860235; x=1780465035;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=X49bnoWpugg91pnqIUZxnyeQ9LEoq+2gyaH12CEWKSo=;
+        b=Ytyk2Oixv4o1FUNh0Z5wOKk2GQheyW7S6llj6OYlhlmAfvotXkRkmN+Yaz8aT0JfM7
+         5i1mNF5YSMXIawTQLkW401pQjoKDiAPHEVYXKNhrMXXlrWW5Iwe9aCwljTWKWSnio3Uu
+         9EILYt4OkMvYpG+HvRJOgyEbgusleZFxTImQF0Hw4WW/d3rcMSJeslOxZw2oyhcFDMsO
+         oXjtVHGX7b6Rw8QW7FIybrHjRuMff8ihrONc5yJkbQdymxBogHR725RFgZ9fq7bJ8RnP
+         CWO7Bocp4deTbjrQ3LPSJOaDC37Fsgumu7vtVNfvCYuBOZVbKZaJTeht8sFvI+7NsVWb
+         viEg==
+X-Forwarded-Encrypted: i=1; AFNElJ/SbSNrm6DupaGKZTKmPXM4emdLk4aal1lnbTiB720ErqWAYFn/AQRpklOLQyrym4SzJz24JHjc64ul@vger.kernel.org
+X-Gm-Message-State: AOJu0YxP/7oTEw9C8/16LzIUSiPtG84IGtMucyMEcYhsLYGv3b740MKp
+	6o5gQgkFC93zLLpfKu9ZofBr3QFH7KgxdRVDwywpNrfPO8yT+tdBS2fVRBMtkijEjx3wB3g8ls8
+	lGQCvxjRHdM+BfLPcLK7FNZD9iA3fNVNlzyAYIlKs9m6JHmryLVkA4Y/M02huzYJY
+X-Gm-Gg: Acq92OGIrtZ9/gU/6QCuU7IDqjOpyMJGDzPIiagPRZCimZjzVS87dku9Wm/Fthwgo7c
+	jn+lbXJ5GeW4SJtx/UnPhW7nfN9ap9KwSySKiBlqFf6ln17OVR1G4G9dp29hVa0+fo1POIAQRN4
+	LXQyLcFg1LbBtSoUHwtAZFPEWCXzgmXWXgnjjNoTxTM8vkCiaRjCtX3Sq7JvBT8/fsz4T4SqpO2
+	VQgmbjjodU2NuvZlGSHbJj88EAWuySfzqbL4iJmt38OCsDSdgex78FoGZF5jzgb7PncKepAUOzR
+	GeBg2Kpb29Qe4X73o/7W4kKrlE5argi64I92xi8FJHqxV9hmTFcCCAP76d57gZ7fcB0pBhlQnoQ
+	zLdg7a4oodsAm5lPB/Oo8gPufnHPPN6IzMTFux0BJFpnfbCzGciuf730=
+X-Received: by 2002:a17:903:1b70:b0:2bc:cf06:6835 with SMTP id d9443c01a7336-2beb0346047mr230299245ad.8.1779860235534;
+        Tue, 26 May 2026 22:37:15 -0700 (PDT)
+X-Received: by 2002:a17:903:1b70:b0:2bc:cf06:6835 with SMTP id d9443c01a7336-2beb0346047mr230298895ad.8.1779860235068;
+        Tue, 26 May 2026 22:37:15 -0700 (PDT)
+Received: from [169.254.0.3] ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb569592dsm136338585ad.16.2026.05.26.22.37.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 22:37:14 -0700 (PDT)
+From: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Subject: [PATCH v2 0/3] Enable QoS configuration on X1E80100
+Date: Wed, 27 May 2026 05:37:08 +0000
+Message-Id: <20260527-x1e80100_qos-v2-0-305c6539e6d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAASDFmoC/1WNwQ6CMBBEf4Xs2ZK2aQA9+R+GGLosUiNWukAwh
+ H+3oBcvk7xk5s0CTMERwylZINDk2PlnBH1IANvqeSPh6sigpc6kUUbMigqppLz2nkVeHzMsrMl
+ t3UCcvAI1bt51l/LLPNo74bA5tkbrePDhvf9Nauv91Fr/qyclpLCIumrIIObF2TOn/Vg90HddG
+ gPKdV0/8/2FHsEAAAA=
+X-Change-ID: 20260414-x1e80100_qos-7d96c8b47bdf
+To: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Rajendra Nayak <quic_rjendra@quicinc.com>,
+        Abel Vesa <abelvesa@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+X-Mailer: b4 0.15.0
+X-Authority-Analysis: v=2.4 cv=PpSjqQM3 c=1 sm=1 tr=0 ts=6a16830c cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=bC-a23v3AAAA:8 a=EUspDBNiAAAA:8 a=sTjs9E8jwIvs1E9oOeMA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-ORIG-GUID: wRaIiAOjX70utYe4leaW1eGcn2l8fm4-
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA1MSBTYWx0ZWRfX4O04xIOs2sGX
+ sr3Wc55Edmy9oep0f91Sv7HDRbbjFjGlp3psu4tPKQlqY6eVdFZpqOY3fn/CrsNNHKCNwgYXqHW
+ zD+gpYooAonRzYBqr5UeBqgvXx+Yorgpw5ds7K2z+gonbQk9jrspUKogXXaLSUQ+9tK7kqo+/gF
+ Hkry6aEy/zyr9Os4XPjA/4UtZR2MYvabSB298apFQVJpRrwMgo+lFQsXvl88w8PzUTH14wPKloq
+ ZHhVn4+8IcGL1mbBKbkGHluCTaHxtXq6dBb9Wu8Y2AyEcDDAYNOtYHbkZgYVJr79me4emQLXFay
+ 817sxUMil6gAaUT3dxJAwCITWpumj3fjhkkRrzou8Q+QIlOtpsqczShGKxoPH2KchDMaDVemY93
+ lkl1AzUt8sntrK8ekmWk4ZGJ13KqkigDfJuGV6H+EaDlUBtVcji2RJXy7FYolRvnPDBTtL5ZUhy
+ dvbATMWiO6yaN1kEJrg==
+X-Proofpoint-GUID: wRaIiAOjX70utYe4leaW1eGcn2l8fm4-
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-26_05,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015
+ adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270051
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Writing 0x20 to PMBUS_WRITE_PROTECT causes the PMBus core to lock =
-sysfs configuration attributes as read-only.
---
+This series enables QoS configuration for QNOC type device which
+can be found on X1E80100 platform. It enables QoS configuration
+for master ports with predefined priority and urgency forwarding.
+This helps in prioritizing the traffic originating from different
+interconnect masters at NOC (Network On Chip).
 
-commit 6a162d6f1757daa1f8dd5d77f833404928b847be
-Author: Sanman Pradhan <psanman@juniper.net>
+The system may function normally without this feature. However,
+enabling QoS helps optimize latency and bandwidth across subsystems
+like CPU, GPU, and multimedia engines, which becomes important in
+high-throughput scenarios. This is a feature aimed at performance
+enhancement to improve system performance under concurrent workloads.
 
-hwmon: (pmbus/max20860a) Add driver for Analog Devices MAX20860A
+Signed-off-by: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+---
+Changes in v2:
+ - Update the dt-bindings to make the clock property optional, since the
+   device can operate without QoS, preserving the backward compatibility.
+   [Krzysztof]
+ - Link to v1: https://patch.msgid.link/20260422-x1e80100_qos-v1-0-bcc2afe4cc78@oss.qualcomm.com
 
-This commit adds a PMBus client driver for the Analog Devices MAX20860A
-step-down DC-DC switching regulator. It registers the device with the PMBus
-core and configures write protection during probe to enable configuration
-access.
+---
+Raviteja Laggyshetty (3):
+      dt-bindings: interconnect: qcom,x1e80100-rpmh: add clocks property to enable QoS
+      interconnect: qcom: x1e80100: enable QoS configuration
+      arm64: dts: qcom: x1e80100: Add clocks for QoS configuration
 
-> diff --git a/drivers/hwmon/pmbus/max20860a.c b/drivers/hwmon/pmbus/max208=
-60a.c
-> new file mode 100644
-> index 0000000000000..9af6888ed07e1
-> --- /dev/null
-> +++ b/drivers/hwmon/pmbus/max20860a.c
-[ ... ]
-> +/*
-> + * Writing 0x20 to WRITE_PROTECT disables all write protection except
-> + * for the WRITE_PROTECT command itself, enabling configuration access.
-> + */
-> +#define MAX20860A_WRITE_ENABLE	0x20
-[ ... ]
-> +static int max20860a_probe(struct i2c_client *client)
-> +{
-> +	int ret;
-> +
-> +	ret =3D i2c_smbus_write_byte_data(client, PMBUS_WRITE_PROTECT,
-> +					MAX20860A_WRITE_ENABLE);
-> +	if (ret < 0)
-> +		return dev_err_probe(&client->dev, ret,
-> +				     "failed to configure write protection\n");
-> +
-> +	return pmbus_do_probe(client, &max20860a_info);
+ .../bindings/interconnect/qcom,x1e80100-rpmh.yaml  |  72 +++
+ arch/arm64/boot/dts/qcom/hamoa.dtsi                |   9 +
+ drivers/interconnect/qcom/x1e80100.c               | 485 +++++++++++++++++++++
+ 3 files changed, 566 insertions(+)
+---
+base-commit: e7e28506af98ce4e1059e5ec59334b335c00a246
+change-id: 20260414-x1e80100_qos-7d96c8b47bdf
 
-[Severity: High]
-Does this write to PMBUS_WRITE_PROTECT actually cause the PMBus core to lock
-the sysfs configuration attributes as read-only?
+Best regards,
+--  
+Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
 
-The driver intentionally writes 0x20 to PMBUS_WRITE_PROTECT to allow runtime
-configuration access. However, per the PMBus specification, 0x20 corresponds
-to PB_WP_VOUT (BIT 5).
-
-When pmbus_do_probe() is subsequently called, the PMBus core (in
-pmbus_init_wp()) reads this register back. Seeing the 0x20 (PB_WP_VOUT) val=
-ue,
-the core sets the PMBUS_WRITE_PROTECTED flag in the driver's state. This
-causes the PMBus core to unconditionally export all hardware monitoring lim=
-it
-attributes as read-only (0444) in sysfs, which seems to defeat the intent of
-enabling runtime configuration.
-
-If 0x20 is indeed a device-specific value that enables writes, should the
-driver either set PMBUS_NO_WRITE_PROTECT via platform data before calling
-pmbus_do_probe(), or implement a read_byte_data hook to mask the read? Or if
-the device complies with the standard PMBus specification, should 0x00 be
-written instead to enable all writes?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527045409.9092=
--1-sanman.pradhan@hpe.com?part=3D2
