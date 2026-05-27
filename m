@@ -1,115 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 944AE1C695
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 04:21:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D70A45039
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 04:37:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779855712; cv=none; b=peX0N20eB0LlSZXHtksv4d5TMjmuDIxl/AznLbsv216jXIDlk6S/Mu9ALhbCPp5vftAQSwaqGbpcXk9ZcybvcyrCbMZ3tEeUwFrEWsEe+6k4pcGbqhZEwHPa9fT8bhT0UuvzTi9vQpyMnRa9axFee/TC6efNDkw0Je19Vsrt2uo=
+	t=1779856660; cv=none; b=JPT/zGbY2U0oU2Pk1ti5BMG56oLeGXR96dIrsQQqoo5LQ/6OImzyus5yxehFEuQjkgvztq9W70TZVRo+qlQSVo/bUwtI4F5RF9olC54j59VYn+q+8Y74iffn7kOtIVDu4DXhb5jB6t4dwgXUv1PH6auw+jX3Av6URI4nwA3/73g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779855712; c=relaxed/simple;
-	bh=jjoKgBIPcMbNiOJrUarnzKAca+HELRTM80mQKy0KkHU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y5LY3SuPj83O/NKWGuPIesz5m7FDW9F4ZqE2l0BQKxO7IXNYJDLsIz4BPjljtLLAM6XrWh+qdz5PfGbjCmJggAZMS4WADP6tFXLQyx//u3D2lS+5jFrz1RI8f7ypNN9Dt+nRfOV6XqzZz25uIzr7KH7qkgECh2ApRf5lWQjAnRo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jL7Rwmor; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779856660; c=relaxed/simple;
+	bh=Ofz6j4kdsI0OjxffZBIjOCZQ6L9smnC2J8ExqeLz/vE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Rb0RK3nM1hIN9y5rNn1IJ3sHZGxzeS5oD1HeGteMqP4c7izMlFevfJhfP1cncM4i1xVsMd33yV0q1wJwg2wocFcV55UdR3rnPjCvhx1FfVofbAf2iNimYi1xQSwnjpBSw52tLctTl09HnlsyLP/nv/FBF4BMNuewKbKYtY1Gc/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HuRHcydv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jL7Rwmor"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B53E1F000E9;
-	Wed, 27 May 2026 04:21:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HuRHcydv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2CF31F000E9;
+	Wed, 27 May 2026 04:37:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779855710;
-	bh=IwnA42LSSq0RCS6L/8X7Y9p2QnaC8EZGVwrdU05hLtw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jL7Rwmor9HyJvcno5jjINNRW910QskJ+wOYhsXaQbPNFu4Idv2QemCwXevxHcm2x2
-	 ChvGchWw3clez3SEJO4Dec/x7dEcnwbkzh5zo16iKfIVqNhR8ZP+4af5sHefirjq3F
-	 rmbGHXkQgEqc+C8B1pIxVAglQHkY0iKHfOyT5i+97ac5G+QQfNsgHt0nP/Kfvbsgok
-	 D0Okca4LIcqfQJTkI1st14lkCJAa2mJS9hxT5kMsA8ofVjDFPnb4cOf7CZjqp+As0o
-	 8l98NZg4WWu4qFki06ILVgTH3tKUijcRRIIBiXqwNe8HXJLXf2v9EITDsi/PUcglDZ
-	 J8HbFStecDNIg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/11] of: reserved_mem: split
- alloc_reserved_mem_array() from fdt_scan_reserved_mem_late()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wandun Chen" <chenwandun1@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260527032917.3385849-6-chenwandun1@gmail.com>
-References: <20260527032917.3385849-6-chenwandun1@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 04:21:49 +0000
-Message-Id: <20260527042150.0B53E1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779856658;
+	bh=94I3uy159Xi2uviJPaEP/Gc02nuOjrjAABNvfWtdOrY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HuRHcydv3VGwebg2FGarjkL8BLTyRNZySOoHttfhdL4maXiWRKbN9trKxRzREe3gN
+	 pyy3/1/iFaz2o5oGAf14emQOuxnJ0I6hFtjozl0Mz+wWXDeFvHXnSy/khVWMO/47RO
+	 rFy1T8VDanuBRQ6MokhqT3KWm+9nyaU48YIFaLc7piMhjCmZaYVGFgx8d5iMVLMAvu
+	 hvQlMbws5SxtCu7r/0t7Th2EBhRWKTNa6UTJM/avtlgg+/FYuQRO5kLhao8N83SBhh
+	 iGaVYThWMArC7O5aQ53DmafNJlIX0YlKiByd2LikmdrDHP/UCxifTKcl7xw7hUf/0G
+	 uhkAP9kaHnqMg==
+Date: Wed, 27 May 2026 12:18:31 +0800
+From: Jisheng Zhang <jszhang@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
+Message-ID: <ahZwl3uXjyOZRvGW@xhacker>
+References: <20260525140018.19598-1-jszhang@kernel.org>
+ <20260525140018.19598-3-jszhang@kernel.org>
+ <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Mon, May 25, 2026 at 05:25:45PM +0200, Krzysztof Kozlowski wrote:
+> On 25/05/2026 16:00, Jisheng Zhang wrote:
+> > Add dt-binding for support of apb reset which is to reset the APB
+> > interface.
+> 
+> And this is ABI break, so you must explain WHY breaking ABI is worth
 
-Pre-existing issues:
-- [Critical] Stack buffer overflow in fdt_scan_reserved_mem() due to unchec=
-ked dynamic_nodes array indexing.
---
+This just adds an optional apb reset, it doesn't break any exisiting
+ABI. Kindly let me know whether adding new optional binding is also
+an ABI break.
 
-commit 6c1b6f45075047e4a90f8ee8101ddc1537a9969a
-Author: Wandun Chen <chenwandun@lixiang.com>
+> doing that or what is the impact. Additionally you should explain which
+> devices have it. Does Altera have it? You really lack explanation WHY
+> you are doing it and which hardware you exactly describe.
 
-of: reserved_mem: split alloc_reserved_mem_array() from fdt_scan_reserved_m=
-em_late()
+I'm preparing one of synaptics SoCs support to uptream, it needs this
+apb reset signal for i3c. So you mean I delay this series until the SoC
+upstream series come, right?
 
-This patch separates alloc_reserved_mem_array() from
-fdt_scan_reserved_mem_late() so that dynamic allocation of the reserved_mem
-array happens regardless of whether the device tree contains a
-/reserved-memory node. This prepares the subsystem to safely store
-/memreserve/ entries.
-
-[ ... ]
-
-> diff --git a/drivers/of/of_private.h b/drivers/of/of_private.h
-> index 0ae16da066e2c..50e5a533e0591 100644
-> --- a/drivers/of/of_private.h
-> +++ b/drivers/of/of_private.h
-> @@ -187,6 +187,7 @@ static inline struct device_node *__of_get_dma_parent=
-(const struct device_node *
-> =20
->  int fdt_scan_reserved_mem(void);
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but while looking at the reserved
-memory code, I noticed a pre-existing issue in fdt_scan_reserved_mem().
-
-Can this code overflow the dynamic_nodes[] array?
-
-drivers/of/of_reserved_mem.c:fdt_scan_reserved_mem() {
-    ...
-	int dynamic_nodes_cnt =3D 0, count =3D 0;
-	int dynamic_nodes[MAX_RESERVED_REGIONS];
-    ...
-	fdt_for_each_subnode(child, fdt, node) {
-        ...
-		if (err =3D=3D -ENOENT && of_get_flat_dt_prop(child, "size", NULL)) {
-			dynamic_nodes[dynamic_nodes_cnt] =3D child;
-			dynamic_nodes_cnt++;
-		}
-	}
-    ...
-}
-
-If a device tree provided by a bootloader or via kexec contains more than
-MAX_RESERVED_REGIONS (64) dynamic reserved memory regions, would the unchec=
-ked
-increment of dynamic_nodes_cnt overflow this stack buffer and potentially
-lead to memory corruption during early boot?
-
->  void __init fdt_scan_reserved_mem_late(void);
-> +bool __init alloc_reserved_mem_array(void);
-> =20
->  bool of_fdt_device_is_available(const void *blob, unsigned long node);
-> =20
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527032917.3385=
-849-1-chenwandun1@gmail.com?part=3D5
+> 
+> > 
+> > Signed-off-by: Jisheng Zhang <jszhang@kernel.org>
+> > ---
+> >  Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml | 2 ++
+> >  1 file changed, 2 insertions(+)
+> > 
+> > diff --git a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> > index 613dce7757bc..2575442b28ff 100644
+> > --- a/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> > +++ b/Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+> > @@ -38,10 +38,12 @@ properties:
+> >    resets:
+> >      items:
+> >        - description: Reset signal
+> > +      - description: APB interface reset signal
+> >  
+> >    reset-names:
+> >      items:
+> >        - const: core_rst
+> > +      - const: apb_rst
+> 
+> apb
+> 
+> >  
+> >    interrupts:
+> >      maxItems: 1
+> 
+> 
+> Best regards,
+> Krzysztof
