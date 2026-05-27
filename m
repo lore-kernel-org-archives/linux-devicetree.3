@@ -1,156 +1,351 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from pidgin.makrotopia.org (pidgin.makrotopia.org [185.142.180.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97F5C3655DA;
-	Wed, 27 May 2026 19:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8FE0279903;
+	Wed, 27 May 2026 19:32:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.142.180.65
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779909118; cv=none; b=VmlMcRsKlMqvZ5sKQYRPP8OBwxxxPPG/HbWQLvtfdYWsEwWDIb9vIvxLzudUrSP2cWSfL/JdYUllofF2PSqf6AFFwfxjHVYAWUdxwTAAs2L+nrfUiMQO4bLPu0Zu0Jn9tNNvTv9RiAZZyyVEtsRCdxlk/nIKyAQQr7XWuVCutnI=
+	t=1779910351; cv=none; b=uvmQgNsHtA5kZ5pStSI5jPgRZjunnHSkcZPyALJ5oFIZdxKeQquO3HYqQimdX1c2bLph9wl3Y+9njBK9LOveF4IJFifMrwAOc6uAlMAXIlEP4aecIVqAf+APE3kcD5cgJytdlsvsfJf0aGYqjrviSMw2zP1cj5DM/rYCjNnIjdQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779909118; c=relaxed/simple;
-	bh=C2KJwgh2oDWlpeuEvaNMx7QgYqsxxx8EDEhfgij/+Yg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IphVr9mjYCWvRUwDXno/osz2jvjfDyhxFxgq9JInn6bvbzNwlx/ayWL5dGeHXOYkYtYeJ4VrKgQ5yy4WeRKmP2AABAzyu0T/gjPl+E0gz5Dyt2/4ZFvD5s6Pbh/qU8MO4BJ6UZ+mzgo4CZmoasrIeK3ehtBolcAVer4T0CeOX0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PD8UdKLb; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PD8UdKLb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00EB21F000E9;
-	Wed, 27 May 2026 19:11:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779909117;
-	bh=aDihwv5OppegrdNUb8LS7osx87EwyS6+T+kSRAFn5Hw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PD8UdKLbP5FkDKEtbUyvdhRLzvBUDehJBbAqToeCRc9MmbFXAwQ1KpiMn/+hUO5Mo
-	 hjWzc/TMt0f2aQfJjTo2XC7aFn8dwYQovENL65t9rr/EjbDQWY5MMCAIuIi7HoJrKO
-	 RR9xwlEqCeXMnB8Vig19GQgTtaeJlXXZQD35k6C0Nbo6Xr2IxeAulgA+3YpVeBJn0N
-	 4ONkaKKN1iSQSwBmRKIY6Ox/yAfmbajwzMbO+qP+k7hNyU4nnp8tk/kackwLVssRBA
-	 GMEnWVAdE1aiRFYAdQCK82Kd1sMdlGGTeQiHcetA58XQmmb+sosnSSkxRuajH6tyo4
-	 n/6EIl5T6Qosg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: iio: flow: add Sensirion SLF3S
- liquid flow sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wadim Mueller" <wafgo01@gmail.com>
-Cc: conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260527184257.141635-3-wafgo01@gmail.com>
-References: <20260527184257.141635-3-wafgo01@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 19:11:56 +0000
-Message-Id: <20260527191157.00EB21F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779910351; c=relaxed/simple;
+	bh=fNXa6HUKvfW3gJbYetVlLiXJC+0jslklWoFtiIPSv1U=;
+	h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=HKeGgb8uHux3KTHDsFTdrDxoXGpFzsXqzHrN9dyLaEkaUveSxqqDzyRWrOyc3GZLi8jLFsKfFNQGqNVIRHjcxj6lEu5VgwT7Z8UXRi72fuOHqKiDCugOCc/rnAIdMoz9CRTrsioLejXH9UryH9sorUQn+ZmqX0Zz6TxmPYbwYlk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org; spf=pass smtp.mailfrom=makrotopia.org; arc=none smtp.client-ip=185.142.180.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=makrotopia.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=makrotopia.org
+Received: from local
+	by pidgin.makrotopia.org with esmtpsa (TLS1.3:TLS_AES_256_GCM_SHA384:256)
+	 (Exim 4.99)
+	(envelope-from <daniel@makrotopia.org>)
+	id 1wSJz0-000000003gr-426j;
+	Wed, 27 May 2026 19:32:03 +0000
+Date: Wed, 27 May 2026 20:31:59 +0100
+From: Daniel Golle <daniel@makrotopia.org>
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nathan Chancellor <nathan@kernel.org>,
+	Nicolas Schier <nsc@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	David Sterba <dsterba@suse.com>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Hariharan Basuthkar <quic_hbasuthk@quicinc.com>,
+	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	Bitterblue Smith <rtl8821cerfe2@gmail.com>,
+	Wei Yang <richard.weiyang@gmail.com>, Takashi Iwai <tiwai@suse.de>,
+	Aurabindo Pillai <aurabindo.pillai@amd.com>,
+	Chih-Kang Chang <gary.chang@realtek.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Miguel Ojeda <ojeda@kernel.org>, Gary Guo <gary@garyguo.net>,
+	Tamir Duberstein <tamird@kernel.org>,
+	Thomas =?iso-8859-1?Q?Wei=DFschuh?= <linux@weissschuh.net>,
+	Pagadala Yesu Anjaneyulu <pagadala.yesu.anjaneyulu@intel.com>,
+	Bartosz Golaszewski <brgl@kernel.org>,
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+	Masahiro Yamada <masahiroy@kernel.org>,
+	Guenter Roeck <linux@roeck-us.net>,
+	Aleksander Jan Bajkowski <olek2@wp.pl>, Boris Burkov <boris@bur.io>,
+	Blake Jones <blakejones@google.com>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-kbuild@vger.kernel.org
+Subject: [PATCH v5 0/4] dt-bindings: automated coding style check for DTS
+ examples
+Message-ID: <cover.1779908995.git.daniel@makrotopia.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The MAINTAINERS entry for the 'SENSIRION SLF3S LIQUID FLOW SENSO=
-R DRIVER' broadly claims the entire 'drivers/iio/flow/' directory instead o=
-f just its specific driver files.
-- [Medium] The `sensirion,medium` property encodes software configuration i=
-nstead of hardware description.
-- [Medium] The `compatible` schema allows the generic fallback string `sens=
-irion,slf3s` to be used by itself.
---
+Documentation/devicetree/bindings/dts-coding-style.rst documents
+the style expected of DT examples and source files, but nothing
+existing actually enforces it. dtc tolerates arbitrary whitespace,
+yamllint only sees the YAML envelope and not the DTS content
+inside literal block scalars, and so reviewers spend cycles
+flagging issues that tooling could catch.
 
-commit 40e1aaa676db52ce37dbf148be41d0cd96f854a7
-Author: Wadim Mueller <wafgo01@gmail.com>
+Add scripts/dtc/dt-check-style, a Python tool that checks DTS
+coding style on YAML binding examples and on .dts/.dtsi/.dtso
+source files. Rules live in a small declarative registry; each
+rule is tagged 'relaxed' (default) or 'strict' (opt-in for new
+submissions). Promoting a rule from strict to relaxed is a
+one-line edit once the tree catches up.
 
-dt-bindings: iio: flow: add Sensirion SLF3S liquid flow sensor
+Relaxed mode covers trailing whitespace, tab characters in YAML
+examples, mixed tab+space indents, unclosed /* block comments,
+and the per-input-type indent character (1 tab for
+.dts/.dtsi/.dtso). It is zero-violation on the current tree and
+runs as part of dt_binding_check_one, so no new warnings appear
+in `make dt_binding_check`.
 
-This commit documents the device tree bindings for the Sensirion SLF3S fami=
-ly
-of digital liquid-flow sensors. It includes the compatible strings, required
-properties, and a custom property for selecting the calibration medium. It =
-also
-adds the corresponding MAINTAINERS entry for the driver.
+Strict mode adds indent unit and depth consistency; blank-line
+policy (no consecutive blanks or blanks at body edges; required
+blank line before each child node and before "status"); property
+ordering by canonical bucket (compatible, reg/reg-names, ranges,
+standard, vendor, status) with declarative within-bucket pairing
+rules (<x>-names follows <x>, pinctrl-names follows the last
+pinctrl-N) and natural-sort fallback; sibling node ordering by
+unit address or natural-sort name; line length (80 columns);
+continuation alignment of multi-line property values under the
+first '<' or '"' after the '='; lowercase hex literals and unit
+addresses; no whitespace padding inside <...>; closing-brace
+placement; and unused-label detection (skipped for .dtsi/.dtso
+since labels there are exported to includers/applies-to).
+Together these constrain a DT structure to a single canonical
+rendering modulo the author's choice of when to wrap properties
+for readability. Comments are intentionally out of scope. Strict
+mode is opt-in, intended for use by checkpatch.pl in a follow-up
+series.
 
-> diff --git a/Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.y=
-aml b/Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
-> new file mode 100644
-> index 0000000000000..f58cf199ac3a8
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
+The tool reads file paths from @argfile and parallelises across
+CPUs via -j N. With no -j given it picks up $PARALLELISM (set by
+scripts/jobserver-exec from the GNU make jobserver) and falls
+back to os.cpu_count() otherwise. Running as one Python
+invocation amortises the ruamel.yaml import across the whole
+tree -- ~2s on a 32-CPU host vs ~28s sequential. ruamel.yaml is
+the only non-stdlib dependency, already required by dtschema.
 
-[ ... ]
+A selftest under scripts/dtc/dt-style-selftest/ pairs good/ and
+bad/ fixtures with expected output so rule behaviour can be
+exercised independently of the full tree via the
+dt_style_selftest top-level make target.
+---
+v1: https://lore.kernel.org/all/cover.1776700167.git.daniel@makrotopia.org/
+v2: https://lore.kernel.org/all/cover.1777471439.git.daniel@makrotopia.org/
+v3: https://lore.kernel.org/all/cover.1778454442.git.daniel@makrotopia.org/
+v4: https://lore.kernel.org/all/cover.1779472837.git.daniel@makrotopia.org/
 
-> +properties:
-> +  compatible:
-> +    oneOf:
-> +      - items:
-> +          - enum:
-> +              - sensirion,slf3s-0600f
-> +              - sensirion,slf3s-1300f
-> +              - sensirion,slf3s-4000b
-> +          - const: sensirion,slf3s
-> +      - const: sensirion,slf3s
+Changes since v4:
+ - dt-check-style: parser robustness fixes from a sashiko.dev
+   AI review (multi-line CPP macros, "/* ... */ code" on one
+   line, "}; };" depth tracking, malformed unit addresses,
+   labels inside strings and on digit-leading node names,
+   unclosed /* on PROPERTY lines)
+ - dt-check-style: new relaxed-mode rule unclosed-block-comment
+ - new patch: scripts/jobserver-exec propagates child exit
+   status (prereq so chk_style errors stay reported)
+ - selftest: add fixtures covering the parser fixes
+ - selftest: move SPDX header to "// SPDX-..." on line 1 in
+   the three .dts fixtures (checkpatch)
 
-[Severity: Medium]
-Does this schema allow the generic fallback string sensirion,slf3s to be us=
-ed
-by itself?
+Changes since v3:
+ - dt-check-style: accept node and property names that begin
+   with a digit (the DT spec permits names like 1wire@10)
+ - dt-check-style: strip trailing // and /* */ comments before
+   line classification, so a trailing comment on a node-open or
+   property line no longer causes misclassification
+ - dt-check-style: continuation-alignment compares display
+   columns (tabs expanded to 8) instead of raw string length,
+   removing many false positives on tab-indented .dts files
+ - dt-check-style: value-whitespace flags only whitespace directly
+   inside the brackets (after '<', before '>'), on single- and
+   multi-line cell lists; it no longer flags inter-value spacing,
+   which is often deliberate column alignment
+ - Makefile: build the @argfile with mktemp and remove it, so no
+   stale .tmp_.dt-style.checked is left in the build tree
+ - run.sh: drop bash-only process substitution (POSIX sh now)
+   and check the checker's exit status
+ - selftest: add fixtures for the above (digit-leading nodes,
+   trailing comments, multi-line cell arrays, tab+space aligned
+   continuations) and update yaml-value-ws for the reworked
+   value-whitespace rule
 
-Device tree best practices generally mandate that nodes include a hardware
-specific compatible string to uniquely identify the device, even when a
-generic fallback is present. Allowing the generic string alone could prevent
-the OS from identifying exact hardware variations or applying variant-speci=
-fic
-quirks.
+Changes since v2:
+ - route findings to stderr so a quiet dt_binding_check produces
+   no output (Rob)
+ - switch the Makefile recipe from mktemp to Kbuild's
+   $(tmp-target) so build output stays inside the build folder
+   (Nathan)
+ - collapse the recipe's exit-handling tail into the familiar
+   "&& touch $@ || true" pattern, matching cmd_chk_bindings;
+   keeps future warnings non-fatal (Rob, Nathan)
+ - explain in patch 3/4 why the recipe uses an explicit
+   $(PYTHON3) prefix where the neighbouring recipes call their
+   scripts directly (Rob)
+ - append a trailing newline to every expected/*.txt selftest
+   fixture (Rob)
+ - restore the trailing whitespace inside yaml-trailing-ws.yaml
+   that had been silently stripped during re-application, so the
+   selftest actually exercises the trailing-whitespace rule
 
-Should the standalone - const: sensirion,slf3s option be removed?
+Changes since v1:
+ - rules declared in a registry tagged relaxed/strict; default
+   relaxed mode is zero-violation on the current tree
+ - tool now also accepts .dts/.dtsi/.dtso files directly (with a
+   tab-indent variant); unused-labels skipped for .dtsi/.dtso
+   where labels are exported to includers/applies-to
+ - renamed dt-check-example-style -> dt-check-style
+ - added -j N with $PARALLELISM (jobserver) awareness
+ - dropped node-name [a-z0-9-] check (Rob: better as a meta-schema)
+ - property-order rebuilt around buckets + declarative pairing
+   rules plus natural-sort fallback
+ - added child-name-order, required-blank-lines, hex-case,
+   unit-address-format, value-whitespace, node-close-alone,
+   line-length and continuation-alignment to strict mode
+ - new selftest patch (Krzysztof: "would be happy to see at
+   least a few test cases for it")
 
-[ ... ]
+Default relaxed mode is zero-violation on the current tree.
 
-> +  sensirion,medium:
-> +    $ref: /schemas/types.yaml#/definitions/string
-> +    enum: [ water, ipa ]
-> +    default: water
-> +    description:
-> +      Calibration medium the sensor is configured for at probe time.
-> +      SLF3S sensors are factory-calibrated for both water and
-> +      isopropyl alcohol (IPA); this property selects which calibration
-> +      to activate.  Defaults to water when omitted.
+Strict-mode violation counts on a current tree (5506 YAML
+bindings, 6530 in-tree .dts/.dtsi/.dtso under arch/):
 
-[Severity: Medium]
-Does the sensirion,medium property encode software configuration instead of
-hardware description?
+  rule                     yaml      dts
+  property-order          14554   245000
+  continuation-alignment   1857    93536
+  indent-consistent        1562    48720
+  required-blank-lines     1876    48563
+  line-length               105    26322
+  child-name-order          667    16821
+  mixed-indent-chars          0    13294
+  unused-labels            3611    11628
+  child-address-order        63     4076
+  blank-lines                82     1866
+  node-close-alone           38      774
+  value-whitespace           38      715
+  hex-case                   78      669
+  indent-unit-dts            --      190
+  unit-address-format         5       39
+  trailing-whitespace         0       10
+  indent-unit-strict       1492       --
+  indent-unit               179       --
 
-Since device tree bindings are meant to strictly describe hardware structure
-and integration, usage policies like the target fluid medium might be better
-suited for user-space control.
+(YAML and DTS columns reflect the rules that apply to each input
+type; e.g. indent-unit-strict is YAML-only since .dts files use
+tabs, indent-unit-dts is the equivalent DTS-only check.
+unused-labels is skipped for .dtsi/.dtso since labels there are
+exported to includers/applies-to.)
 
-Could this calibration setting be exposed via an IIO sysfs attribute instead
-of being hardcoded in the device tree?
+The script was written with generous help from Claude Opus 4.7,
+since my Python is even worse than my DTS coding style.
 
-[ ... ]
+Daniel Golle (4):
+  dt-bindings: add DTS style checker
+  scripts/jobserver-exec: propagate child exit status
+  dt-bindings: wire style checker into dt_binding_check
+  dt-bindings: add self-test fixtures for style checker
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 6aa3fe2ee1bbf..7eeabe22fcdd5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
+ Documentation/devicetree/bindings/Makefile    |   19 +-
+ Makefile                                      |    6 +
+ scripts/dtc/dt-check-style                    | 1192 +++++++++++++++++
+ .../dtc/dt-style-selftest/bad/dts-spaces.dts  |   12 +
+ .../bad/yaml-child-addr-order.yaml            |   41 +
+ .../bad/yaml-child-name-order.yaml            |   37 +
+ .../bad/yaml-cont-align.yaml                  |   30 +
+ .../bad/yaml-digit-node-order.yaml            |   37 +
+ .../dt-style-selftest/bad/yaml-hex-case.yaml  |   29 +
+ .../bad/yaml-indent-strict.yaml               |   29 +
+ .../bad/yaml-label-in-string.yaml             |   30 +
+ .../bad/yaml-line-length.yaml                 |   29 +
+ .../bad/yaml-mixed-indent.yaml                |   29 +
+ .../bad/yaml-multi-close.yaml                 |   35 +
+ .../bad/yaml-node-close.yaml                  |   31 +
+ .../bad/yaml-prop-order.yaml                  |   29 +
+ .../bad/yaml-prop-pairing.yaml                |   33 +
+ .../bad/yaml-required-blank.yaml              |   33 +
+ .../dtc/dt-style-selftest/bad/yaml-tab.yaml   |   29 +
+ .../bad/yaml-trailing-comment.yaml            |   26 +
+ .../bad/yaml-trailing-ws.yaml                 |   29 +
+ .../bad/yaml-unclosed-comment.yaml            |   30 +
+ .../bad/yaml-unit-addr-prefix.yaml            |   29 +
+ .../dt-style-selftest/bad/yaml-unit-addr.yaml |   29 +
+ .../bad/yaml-unused-label.yaml                |   29 +
+ .../bad/yaml-value-ws-multiline.yaml          |   27 +
+ .../dt-style-selftest/bad/yaml-value-ws.yaml  |   29 +
+ .../expected/dts-spaces.dts.txt               |    2 +
+ .../expected/yaml-child-addr-order.yaml.txt   |    2 +
+ .../expected/yaml-child-name-order.yaml.txt   |    2 +
+ .../expected/yaml-cont-align.yaml.txt         |    2 +
+ .../expected/yaml-digit-node-order.yaml.txt   |    2 +
+ .../expected/yaml-hex-case.yaml.txt           |    2 +
+ .../expected/yaml-indent-strict.yaml.txt      |    2 +
+ .../expected/yaml-label-in-string.yaml.txt    |    2 +
+ .../expected/yaml-line-length.yaml.txt        |    2 +
+ .../expected/yaml-mixed-indent.yaml.txt       |    3 +
+ .../expected/yaml-multi-close.yaml.txt        |    3 +
+ .../expected/yaml-node-close.yaml.txt         |    2 +
+ .../expected/yaml-prop-order.yaml.txt         |    2 +
+ .../expected/yaml-prop-pairing.yaml.txt       |    3 +
+ .../expected/yaml-required-blank.yaml.txt     |    3 +
+ .../expected/yaml-tab.yaml.txt                |    2 +
+ .../expected/yaml-trailing-comment.yaml.txt   |    2 +
+ .../expected/yaml-trailing-ws.yaml.txt        |    2 +
+ .../expected/yaml-unclosed-comment.yaml.txt   |    2 +
+ .../expected/yaml-unit-addr-prefix.yaml.txt   |    2 +
+ .../expected/yaml-unit-addr.yaml.txt          |    2 +
+ .../expected/yaml-unused-label.yaml.txt       |    2 +
+ .../expected/yaml-value-ws-multiline.yaml.txt |    2 +
+ .../expected/yaml-value-ws.yaml.txt           |    2 +
+ .../dt-style-selftest/good/dts-cont-align.dts |   26 +
+ .../dtc/dt-style-selftest/good/dts-tab.dts    |   29 +
+ .../dt-style-selftest/good/yaml-4space.yaml   |   41 +
+ .../good/yaml-tricky-parsing.yaml             |   57 +
+ scripts/dtc/dt-style-selftest/run.sh          |   71 +
+ scripts/jobserver-exec                        |    4 +-
+ 57 files changed, 2214 insertions(+), 4 deletions(-)
+ create mode 100755 scripts/dtc/dt-check-style
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/dts-spaces.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-child-addr-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-child-name-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-cont-align.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-digit-node-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-hex-case.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-indent-strict.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-label-in-string.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-line-length.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-mixed-indent.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-multi-close.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-node-close.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-prop-order.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-prop-pairing.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-required-blank.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-tab.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-trailing-comment.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-trailing-ws.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unclosed-comment.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unit-addr-prefix.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unit-addr.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-unused-label.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-value-ws-multiline.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/bad/yaml-value-ws.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/dts-spaces.dts.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-child-addr-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-child-name-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-cont-align.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-digit-node-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-hex-case.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-indent-strict.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-label-in-string.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-line-length.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-mixed-indent.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-multi-close.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-node-close.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-prop-order.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-prop-pairing.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-required-blank.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-tab.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-trailing-comment.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-trailing-ws.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unclosed-comment.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unit-addr-prefix.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unit-addr.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-unused-label.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-value-ws-multiline.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/expected/yaml-value-ws.yaml.txt
+ create mode 100644 scripts/dtc/dt-style-selftest/good/dts-cont-align.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/good/dts-tab.dts
+ create mode 100644 scripts/dtc/dt-style-selftest/good/yaml-4space.yaml
+ create mode 100644 scripts/dtc/dt-style-selftest/good/yaml-tricky-parsing.yaml
+ create mode 100755 scripts/dtc/dt-style-selftest/run.sh
 
-[ ... ]
-
-> +SENSIRION SLF3S LIQUID FLOW SENSOR DRIVER
-> +M:	Wadim Mueller <wafgo01@gmail.com>
-> +R:	Maxwell Doose <m32285159@gmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
-> +F:	drivers/iio/flow/
-
-[Severity: Medium]
-Will this broad directory pattern cause get_maintainer.pl to assign
-maintainership of all future IIO flow sensors to this driver's authors?
-
-Since F: drivers/iio/flow/ encompasses the entire subsystem-level directory,
-it will match any future flow sensors added by other vendors.
-
-Could this be scoped to the specific driver files, such as
-F: drivers/iio/flow/slf3s* ?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527184257.1416=
-35-1-wafgo01@gmail.com?part=3D2
+-- 
+2.54.0
