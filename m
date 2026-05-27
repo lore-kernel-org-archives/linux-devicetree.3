@@ -1,176 +1,238 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A529A31E850
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:09:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C20540F8F4
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:28:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779890964; cv=none; b=KLiRNMMfg/3W6D3FBjaH0JgYjy+9gffXODWORFMEZTY6iC9uvbe+CIegXtypFxyPQpzc3+Wvpay6TakO/z6nphObYodBIfl3LZDlHKHDjIjzyjeoeq578k1Eh3o12LHwgyf1qQ1EkXIK2Kx0xJfK4SwmQTQ9+6b98g74YOfsNbc=
+	t=1779892098; cv=none; b=RF6WMCSEWH9V/xxZHcPFIIhUwPakqKkoWjBwFCejkfFaso+39ltUjujbRZzQyBafjm3amWWLxJ+S6g7WHMJTf1L3l6E6+CfKBjTe7eOOXQzRhQ2lO9CxkEqUEyISSfdjgtxp3GeSHZ7ZJ7d2J1UWoB3zgMEoNTj0WH9Z1n1bV80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779890964; c=relaxed/simple;
-	bh=qxF8y/suOhwQz9Jk3eY6ZF+c4CydHTqv7zgHv66xlJQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=iMXQInsND96oWDVLMecn/4mU5uN1n8uL2N8mRPQrjB3rheKLvKACnPcAZ7Zh76WKc9maCzsrM9kXU2iT98C4AsBWr/iGgSgEXiGWlsmdbFQR+54UBHuIT+l+uqBDR4TaApfHKKA/9xbKhka0MLcr/qZteEZq2Sdzne0AnHfEarY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hUcQ2FsT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=h8lvAuG7; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hUcQ2FsT";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="h8lvAuG7"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mYXE1176654
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:09:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	yom6/hlovSThP+6ieHUcTcbi8Vc1PPJ9H/N3E1WloIY=; b=hUcQ2FsT8aEnmGFT
-	Ib5VtSROx9S2uK2Huo8XrRgAbKSL+wTT2idMZhYV4TMz7vn/jVNzeOWtsvEP0Eh7
-	hyOjnDRkT4QpppR/aDCjqEhljlXp3BftqIvgNifO2pUCfEaOFenYDJVTiCBL7e/g
-	wUySfm48jr8N6Wy/vi4ppReUnPknmnVGIdvHduWWW5GsBme0/3SDmIK70gbAcCT5
-	6TiBi+VET7aWIel+5Il6Tmm422GM/eBVGk9xTXzAj2xq8HSY7LMKZnyho4ZXK2Ub
-	6zOHlLTbKhtMkuZ7Ys+lFix2JTmKCVrFymYZTEJQRK6uBnfyVqOQp6Su+2fxoIPv
-	QuKjgw==
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com [209.85.215.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edndnjtt1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:09:21 +0000 (GMT)
-Received: by mail-pg1-f197.google.com with SMTP id 41be03b00d2f7-c828f0f5c23so5793163a12.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:09:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779890960; x=1780495760; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=yom6/hlovSThP+6ieHUcTcbi8Vc1PPJ9H/N3E1WloIY=;
-        b=h8lvAuG7vPnUF3hb1p/eFeGDGpwPYAmKqfmCFeiW2Gfynj6uSujVEf/b2fSga2PYBh
-         JlN9JwvKobEixoTejr1mkvl7uhMuyRjNGVSu5vplWvjxwf5vIidrKXMQSC1jkUoazNJg
-         KUl0webTIzc5I9UNw7OVdlvVlw6+j/LTfjoPbuxtAZvHv+fTrZr0AceenY8sRViX8dQ8
-         OJqk5ABT4IKzYkGoWKJUu/zUXvdsiIN7ZF4EyCJWpgYzVNXIRr3DjN3X6EHg1OOyMJ93
-         grjAqu9ZH+32d+rkWYCByo5TmQW+LaW+trZPZHUDjz2hJn3qhSgEojUkf5aw3MHALkB8
-         vy/Q==
+	s=arc-20240116; t=1779892098; c=relaxed/simple;
+	bh=+3l+6y9ewRC4AXsaL+0Jmm/WnR4XE92YiTVGpA0ishE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=YM/rZx6rDWLbb6Pa8jSywOexmbeBr2bNHdx7Yh4G6KnaNqiai8GMTkOFOLXtCBxpBrAxOO2kFLHKLHcgbIvGXUiwGcvC5Z5QJP3jxvyh3H+SuknXaAUpco03CqcEWvxEWgH66kxKRiTMSpUjCPMse39LfRvMQKB0cX7snepJsMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.208.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6870a365c77so14143123a12.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:28:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779890960; x=1780495760;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=yom6/hlovSThP+6ieHUcTcbi8Vc1PPJ9H/N3E1WloIY=;
-        b=TOj2Z2fXfVS4swTSGDRicX/x1zXboGmvTJv9DqseUKRFw9rVvcoFFBa2cAIoWyNHW/
-         h/U7bkEuuHdc2cimssw/Ab9mu5PyS1O8yO4EYm9thdIuKRftViMEjXnmuZmo1yWzV3Bt
-         hDVTyJ+tdYujfA/r5SoPzTsP68q6m6Ye7A0QaoLcmu3LhCWcyx0hO0IIYHvwEimUaVXV
-         YtiVYjKFWyegLJy+5FqiE2c3VLUhHfqSM8E/03+eNKJ+HoZ1inHcOYQdR8HSSaQ3n0xZ
-         tbq8g1mtvCGW/bfG2cdvo0DC/rqxeaFAelwZyR7/th2vf2hL2J8C6J3iYv3SqOk0k1cX
-         w3KQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/4TEd9QizhdZiXZobCowA4XtktcXVMEdbminwXgpxi+tOrTCVMfnw/HJ3zOYbfL9qUJ7hH/svxZGaK@vger.kernel.org
-X-Gm-Message-State: AOJu0YzIA5evl3P/2q6aNz7akbmYZEvsyppo0+RNSY3XulHfm9uSInoI
-	Ce+WICk1wIVJpd96G4mT+U50iXUNrg5TLA12s7F+YP70Ku2mr1gBvcFMYrx7UeHXbutF3x4Rv1C
-	EjynnXEs5XZfZfuAtg7KkYljjlKw2QZpYlih2bisx95LaGqWTosphXSgVuVi0h+1m
-X-Gm-Gg: Acq92OFDGWnrbRSJCKcw39MWJUb3UCzNiy88grvVeXTVGqt6HoJwNMmwQs+IjcPTeWk
-	WJUrJC2xfhwEJFHf3KoxEPpA+uKGlQZOzdFuJwIWZQdPd0wYufPZGD06KnIcNq7xfg/gEXJCe+c
-	+NgbUr1qQ298GiBf0sRoFxsw+KQMJfe6gD7ezfz7Yn0MFHBhlRxQmAknMUisDcNI6gVKC9w9Xvc
-	WPQezZIQp29Pj0mGqpRFKrMphisXalQmoZ+VgZCBaWtY7ROTZzhjeKH26CQRY6KZQZUxBN4Twlf
-	4nz+cEk2LeP6KA1Nsc92qt3utCjVido74MxDeMykczFXZFhTaW2Uzbgmq1iHaju/ROXZz+/GxxC
-	rOT688uGkSnq8OyfQ+CjmxPox76CbNQg8fE5nWGJbQGoCEsXY
-X-Received: by 2002:a05:6a00:10c9:b0:82f:70a7:4a25 with SMTP id d2e1a72fcca58-8415f3640d3mr21841847b3a.35.1779890960398;
-        Wed, 27 May 2026 07:09:20 -0700 (PDT)
-X-Received: by 2002:a05:6a00:10c9:b0:82f:70a7:4a25 with SMTP id d2e1a72fcca58-8415f3640d3mr21841821b3a.35.1779890959919;
-        Wed, 27 May 2026 07:09:19 -0700 (PDT)
-Received: from [10.219.57.29] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d6eb0587sm2484301b3a.21.2026.05.27.07.09.15
+        d=1e100.net; s=20251104; t=1779892092; x=1780496892;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=c3prSOuZ3fI29cRYCO/JPEKU1fRK4LWYePkpcpuj9ak=;
+        b=Gp4Pq47skLv0ZdIJZIakml6z5DjT96xVUtoJYO2fH8uLoR3hUDKHE36OOe8AUvS8HK
+         4DRy5Aakiy0t88dOLWakbG6qxPoS3YWcQKFUKWRucEN9+G+oop/9KvDrSv5j5a/mTCji
+         JbPVgIuXIOi3HsF2+Cvw8RrUI7YjQxYdP6phJ4Jln9M7GCwAWMMVBkKS0n/hERtp1jUb
+         tpE76sq34c0Jor9UDQTj6k1Xdzu1+OPBXrhB7fWJWbVc1cCEGygUBRTmWYu+Un9DvwJQ
+         ZsBHoCIzELLsJAqBg/OLmwaRNQiae+Qz3QTwbr4wzNu5OCo8WrwSccG0TEY2R78G6OZi
+         0Mww==
+X-Forwarded-Encrypted: i=1; AFNElJ/404bxj/fk5oH4lSokbTpZYSr2Ogx/ozZGo/hkzbhlLVs9LdwNtE0jeyUuy8rIIv2T9a1vA4KOAKWf@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyv0cIg9AesstXq/gU9VE8CM5FqY7tOm00fry75DLEsVlOQzvo6
+	vNgmIU77VP7r2Ag5Q1meGWXup0XQuOYLn+4MW5rUSq3Qj8KbGJZzw1pAcW4iDkODRME=
+X-Gm-Gg: Acq92OH011aIXpoCxu38MHn2J+J+eg7w+48U22OEXmC0vb4AmGoRvw2H6V2PHi4R+x6
+	LccKdeMOcHGcsljjsOwcj7mrlio6m/8YoWD4d9fjnHgZzukLTra5w/3Xk1Di29lTn8rRyuxrxoc
+	MTv/stJ/mrb5Qv5qCk41I9IHT2zzIlfH8PuZhf4ZXIyIWihvURNukoniYUhj3Xoel8bdNsxTHZ+
+	yGOulshVeYDCmJnDYPhUeQLR2ZLNIP9gzD7TSJG5xZwuXP+M3/vlVlD5bt7fZHUdS1/iBhfW5jz
+	YIFSNkzqsa7nqn69YMmONKVn5r5Ji2jPEKl91HlWq7VUmHJcdv5LDL/MVOfgMaTvG/6b6fuFR5k
+	/0uxWoAYmO0zqvptMh9lhIGbrqmnUJOp0gBVn/jeOgwgbx8WZXiwclP3vX3fT8txbzySedgtcGo
+	g2UDtgrueSKmm/jmXC8ulJBz42Dsg53b4gEywFjr9SBIrQwQReUaKcP73QeBYf
+X-Received: by 2002:a17:907:9d17:b0:be3:9977:e1c7 with SMTP id a640c23a62f3a-be39977e94bmr417779666b.19.1779892092349;
+        Wed, 27 May 2026 07:28:12 -0700 (PDT)
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com. [209.85.218.45])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc5eced0asm625421266b.39.2026.05.27.07.28.12
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 07:09:19 -0700 (PDT)
-Message-ID: <28b62311-d3ce-422a-a3b6-79d098731ddd@oss.qualcomm.com>
-Date: Wed, 27 May 2026 19:39:13 +0530
+        Wed, 27 May 2026 07:28:12 -0700 (PDT)
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-bdbac72ac1fso1233535666b.3
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:28:12 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/7IlS0hvs9oYBcLDXoaU7A03XjHdfHsWFRk9FSxTt5ucY9Xv/ifmIHZ7XZ3Pp1l1WCqt256GXjVt1a@vger.kernel.org
+X-Received: by 2002:a17:906:9c9:b0:bcb:d9c7:c6f with SMTP id
+ a640c23a62f3a-bdd22a454a7mr999392966b.7.1779891783475; Wed, 27 May 2026
+ 07:23:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] dt-bindings: arm: qcom: Document Shikra and its
- EVK boards
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-mmc@vger.kernel.org, monish.chunara@oss.qualcomm.com
-References: <20260522-shikra-dt-v3-0-80ffde8a3dc4@oss.qualcomm.com>
- <20260522-shikra-dt-v3-1-80ffde8a3dc4@oss.qualcomm.com>
- <20260526-quantum-funny-gorilla-cfc983@quoll>
- <951c9b8f-4513-47ca-afb6-481dedd3eff9@oss.qualcomm.com>
- <20260527-pastel-fuzzy-mastodon-a4d9cd@quoll>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20260527-pastel-fuzzy-mastodon-a4d9cd@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=PpSjqQM3 c=1 sm=1 tr=0 ts=6a16fb11 cx=c_pps
- a=rz3CxIlbcmazkYymdCej/Q==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=P-IC7800AAAA:8 a=bBPcOljkSGlYhA-67uEA:9 a=QEXdDO2ut3YA:10
- a=bFCP_H2QrGi7Okbo017w:22 a=d3PnA9EDa4IxuAV0gXij:22
-X-Proofpoint-ORIG-GUID: SUNMwu7twwuvgJNQR_KDUdbKzLOBnpcJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEzNyBTYWx0ZWRfX1p5fmMItF6cU
- 4AFsRFeeFPduWJsI38ZcuTqd47cdXfO9Gl88yGZoPFopvsdWkhtfSQ9ZvgckQZlARF+i/jSutuL
- PaA3z62aWCDqJPjF4550f1JUc9Ycq092UNMlKlRhVB+nYRSaDvtsWFyxfyc/VfsO99E62OEraLo
- +OjymVJrjOVCOAvlyyHuNpdn7hxK0Zb8T4NrvZSOUTCSyLaVTB0mImO51pjR+zt1caRcPkcx9k8
- EgaPtjKsF5EUrJ4HKN1kLZYRBgk6ME47LfiW3c0aMwHWqsmrrPAcbaS3DsXUwRxrYR10BX7xt5W
- ogmW7kiCBTVDcxF3qxomuLJbw1am/LD2wc6rP8YYKOrfO8sBhDRgddn4+68rAkc71IenahNjEZn
- Llvdvyo5MeCke+uwGDw90CTN6iica0l1eIoaE30AKO68m/qV4PRM5+1JOBFzzy4c3xax+SKXPqQ
- bS9s4L4c7J68lrv3NhQ==
-X-Proofpoint-GUID: SUNMwu7twwuvgJNQR_KDUdbKzLOBnpcJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_02,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 malwarescore=0 suspectscore=0 clxscore=1015
- adultscore=0 phishscore=0 impostorscore=0 lowpriorityscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270137
+References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com> <20260525110603.4018170-5-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260525110603.4018170-5-john.madieu.xa@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 16:22:50 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXj8o+K5M+t_D-G_CGRGYgc1jBz0z21ye6UhAzWs0iJ8g@mail.gmail.com>
+X-Gm-Features: AVHnY4KJG1smVEhyqmGQ6O4ZxxblTfhIdfIGaVVy0daiVThaQXAOe2q8bvr14ho
+Message-ID: <CAMuHMdXj8o+K5M+t_D-G_CGRGYgc1jBz0z21ye6UhAzWs0iJ8g@mail.gmail.com>
+Subject: Re: [PATCH v4 4/8] arm64: dts: renesas: r9a09g047: Add RZ/G3E Sound support
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	bmasney@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, john.madieu@gmail.com
+Content-Type: text/plain; charset="UTF-8"
 
-On 5/27/2026 2:25 PM, Krzysztof Kozlowski wrote:
-> On Wed, May 27, 2026 at 12:42:20PM +0530, Komal Bajaj wrote:
->> On 5/26/2026 9:15 PM, Krzysztof Kozlowski wrote:
->>> On Fri, May 22, 2026 at 11:32:24PM +0530, Komal Bajaj wrote:
->>>> Shikra is a Qualcomm IoT SoC available in a System-on-Module (SoM)
->>>> form factor. The SoM integrates the Shikra SoC, PMICs, and essential
->>>> passives, and is designed to be mounted on carrier boards.
->>>>
->>>> Three eSoM variant are introduced:
->>>>     - CQM: retail variant with integrated modem
->>>>     - CQS: retail variant without modem
->>>>     - IQS: industrial-grade variant without modem
->>> Industrial/consumer variants differ often only with thermal, so how is
->>> it here? Thermal difference does not make them incompatible. Honestly,
->>> usually industrial one does not even receive dedicated compatibles.
->> The IQS variant uses a PM8150 PMIC, while CQS/CQM use PM4125 + PM8005. These
+Hi John,
+
+On Mon, 25 May 2026 at 13:07, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
+> Add the snd_rzg3e node for the RZ/G3E SoC with all sub-components:
 >
-> This should be part of commit msg. You explained WHAT you did, not WHY.
-> We see the diff and we see you added cqm, cqs and iqs...
-
-Sure, I will add PMIC details in commit message.
-
+> - SSI (Serial Sound Interface) units 0-9
+> - SSIU (Serial Sound Interface Unit) units 0-27
+> - SRC (Sample Rate Converter) units 0-9
+> - CTU (Channel Transfer Unit) units 0-7
+> - DVC (Digital Volume Control) units 0-1
+> - MIX (Mixer) units 0-1
 >
-> Also:
-> Please wrap commit message according to Linux coding style / submission
-> process (neither too early nor over the limit):
-> https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
-
-Will take care in next revision.
-
-Thanks
-Komal
-
+> Sub-node names follow the new RZ/G3E sound binding: unprefixed
+> 'ssi', 'ssiu', 'src', 'dvc', 'mix', 'ctu' wrapper nodes instead of
+> the legacy 'rcar_sound,xxx' R-Car prefix.
 >
-> Best regards,
-> Krzysztof
+> Wire up all 5 DMA controllers (dmac0-dmac4) for each audio sub-node
+> with repeated channel names, so that the DMA core can pick the first
+> available controller.
 >
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
+>
+> Changes:
+>
+> v4:
+>  - Rename the indexed clock-names and reset-names from the dotted
+>    form (ssi.N, src.N, adg.ssi.N, clk_a, clk_b, clk_c, clk_i) to the
+>    hyphenated form (ssi-N, src-N, adg-ssi-N, audio-clka, audio-clkb,
+>    audio-clkc, audio-clki), matching the new RZ/G3E sound binding.
+>  - Rename the sub-nodes from the legacy rcar_sound,{ctu,dvc,mix,src,
+>    ssi,ssiu} prefix to the unprefixed ctu/dvc/mix/src/ssi/ssiu names
+>    used by the new RZ/G3E sound binding.
+>  - Reorder the clocks and resets phandle lists into ascending index
+>    order and annotate each entry with a per-line comment naming the
+>    clock / reset.
+>  - Drop the #sound-dai-cells and #clock-cells explanatory comment
+>    blocks from the node.
+>  - Align the continuation lines of the dmas property.
+>  - Fix the commit message: the node label is snd_rzg3e (v3 referred
+>    to it as rzg3e_sound), and add a paragraph noting the unprefixed
+>    sub-node names.
 
+Thanks for the update!
+
+> --- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
+> @@ -912,6 +912,482 @@ rsci9: serial@12803000 {
+>                         status = "disabled";
+>                 };
+>
+> +               snd_rzg3e: sound@13c00000 {
+> +                       compatible = "renesas,r9a09g047-sound";
+> +                       reg = <0 0x13c00000 0 0x10000>, /* SCU */
+> +                             <0 0x13c20000 0 0x10000>, /* ADG */
+> +                             <0 0x13c30000 0 0x1000>,  /* SSIU */
+> +                             <0 0x13c31000 0 0x1F000>, /* SSI */
+> +                             <0 0x13c50000 0 0x10000>; /* Audio DMAC peri peri */
+> +                       reg-names = "scu", "adg", "ssiu", "ssi", "audmapp";
+> +                       clocks = <&cpg CPG_MOD 245>,    /* ssi-all */
+> +                                <&cpg CPG_MOD 385>,    /* ssi-0 */
+> +                                <&cpg CPG_MOD 386>,    /* ssi-1 */
+> +                                <&cpg CPG_MOD 387>,    /* ssi-2 */
+> +                                <&cpg CPG_MOD 388>,    /* ssi-3 */
+> +                                <&cpg CPG_MOD 389>,    /* ssi-4 */
+> +                                <&cpg CPG_MOD 390>,    /* ssi-5 */
+> +                                <&cpg CPG_MOD 391>,    /* ssi-6 */
+> +                                <&cpg CPG_MOD 392>,    /* ssi-7 */
+> +                                <&cpg CPG_MOD 393>,    /* ssi-8 */
+> +                                <&cpg CPG_MOD 394>,    /* ssi-9 */
+> +                                <&cpg CPG_MOD 372>,    /* src-0 */
+> +                                <&cpg CPG_MOD 373>,    /* src-1 */
+> +                                <&cpg CPG_MOD 374>,    /* src-2 */
+> +                                <&cpg CPG_MOD 375>,    /* src-3 */
+> +                                <&cpg CPG_MOD 376>,    /* src-4 */
+> +                                <&cpg CPG_MOD 377>,    /* src-5 */
+> +                                <&cpg CPG_MOD 378>,    /* src-6 */
+> +                                <&cpg CPG_MOD 379>,    /* src-7 */
+> +                                <&cpg CPG_MOD 380>,    /* src-8 */
+> +                                <&cpg CPG_MOD 381>,    /* src-9 */
+> +                                <&cpg CPG_MOD 370>,    /* mix-0 */
+> +                                <&cpg CPG_MOD 371>,    /* mix-1 */
+> +                                <&cpg CPG_MOD 370>,    /* ctu-0 */
+> +                                <&cpg CPG_MOD 371>,    /* ctu-1 */
+> +                                <&cpg CPG_MOD 368>,    /* dvc-0 */
+> +                                <&cpg CPG_MOD 369>,    /* dvc-1 */
+> +                                <&cpg CPG_MOD 251>,    /* audio-clka */
+> +                                <&cpg CPG_MOD 252>,    /* audio-clkb */
+> +                                <&cpg CPG_MOD 253>,    /* audio-clkc */
+> +                                <&cpg CPG_MOD 250>,    /* audio-clki */
+> +                                <&cpg CPG_MOD 384>,    /* ssif_supply */
+> +                                <&cpg CPG_MOD 246>,    /* scu */
+> +                                <&cpg CPG_MOD 247>,    /* scu_x2 */
+> +                                <&cpg CPG_MOD 382>,    /* scu_supply */
+> +                                <&cpg CPG_MOD 352>,    /* adg-ssi-0 */
+> +                                <&cpg CPG_MOD 353>,    /* adg-ssi-1 */
+> +                                <&cpg CPG_MOD 354>,    /* adg-ssi-2 */
+> +                                <&cpg CPG_MOD 355>,    /* adg-ssi-3 */
+> +                                <&cpg CPG_MOD 356>,    /* adg-ssi-4 */
+> +                                <&cpg CPG_MOD 357>,    /* adg-ssi-5 */
+> +                                <&cpg CPG_MOD 358>,    /* adg-ssi-6 */
+> +                                <&cpg CPG_MOD 359>,    /* adg-ssi-7 */
+> +                                <&cpg CPG_MOD 360>,    /* adg-ssi-8 */
+> +                                <&cpg CPG_MOD 361>,    /* adg-ssi-9 */
+> +                                <&cpg CPG_MOD 248>,    /* audmapp */
+> +                                <&cpg CPG_MOD 249>;    /* adg */
+
+Please drop these comments...
+
+> +                       clock-names = "ssi-all",
+> +                                     "ssi-0", "ssi-1", "ssi-2",
+> +                                     "ssi-3", "ssi-4", "ssi-5",
+> +                                     "ssi-6", "ssi-7", "ssi-8", "ssi-9",
+> +                                     "src-0", "src-1", "src-2",
+> +                                     "src-3", "src-4", "src-5",
+> +                                     "src-6", "src-7", "src-8", "src-9",
+> +                                     "mix-0", "mix-1",
+> +                                     "ctu-0", "ctu-1",
+> +                                     "dvc-0", "dvc-1",
+> +                                     "audio-clka", "audio-clkb",
+> +                                     "audio-clkc", "audio-clki",
+> +                                     "ssif_supply",
+> +                                     "scu", "scu_x2", "scu_supply",
+> +                                     "adg-ssi-0", "adg-ssi-1",
+> +                                     "adg-ssi-2", "adg-ssi-3",
+> +                                     "adg-ssi-4", "adg-ssi-5",
+> +                                     "adg-ssi-6", "adg-ssi-7",
+> +                                     "adg-ssi-8", "adg-ssi-9",
+> +                                     "audmapp", "adg";
+
+... as clock-names already serves this purpose.
+
+
+> +                       power-domains = <&cpg>;
+> +                       resets = <&cpg 225>,    /* ssi-all */
+> +                                <&cpg 226>, <&cpg 227>, <&cpg 228>,
+> +                                <&cpg 229>, <&cpg 230>, <&cpg 231>,
+> +                                <&cpg 232>, <&cpg 233>, <&cpg 234>,
+> +                                <&cpg 235>,
+> +                                <&cpg 236>,    /* scu */
+> +                                <&cpg 238>,    /* adg */
+> +                                <&cpg 237>;    /* audmapp */
+> +                       reset-names = "ssi-all",
+> +                                     "ssi-0", "ssi-1", "ssi-2",
+> +                                     "ssi-3", "ssi-4", "ssi-5",
+> +                                     "ssi-6", "ssi-7", "ssi-8", "ssi-9",
+> +                                     "scu", "adg", "audmapp";
+
+Same for resets and reset-names.
+
+> +                       status = "disabled";
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
