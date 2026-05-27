@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 596B5391E7F;
-	Wed, 27 May 2026 15:04:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94A44426EDE;
+	Wed, 27 May 2026 15:05:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779894262; cv=none; b=KYq3IAXKqJaipYG1Mvot5KGWOH5KGVT+sgeLIZKnHqDTjyjjPn7fM2omYwYLZobE//TG6s9CVAtlYwwsSND6oCWFQgCXJdbhRTlTBK13k56WbpCXguvlP4+WQZYIzHDUD1XBTCmtcDwoEkm9LaqoD2fLyAfMPbn6kt+yi2I5QuQ=
+	t=1779894331; cv=none; b=h6tk1S4XVhpMRl8AHWdRNr1iIw1n5LBS4hnTFPE1NFddcf+akFBEnS+NKL41JAxbKKyLBTGfpGAv7bVn53G1ut63jrSemz6i+3HUP0Rji4kz+BnqomAJJsWlO6J2/1xygl/c1Zvkgp4Ra1gcuinewY1C1Kr9Pe78GKUdmUHix2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779894262; c=relaxed/simple;
-	bh=w6HEAKDEa/0wh0FF4gSgd6z4Oa58mB2ADj+cSP4aDco=;
+	s=arc-20240116; t=1779894331; c=relaxed/simple;
+	bh=MGmR6CcGiBOmQNZpPysg402T4JmKxS2ge0rBNZi4C40=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=a25OxqW1rloD/1eAauRbkZbQ8W6uBp+m+hi4Y609JvngFIXLSWuNZ6fxqq/Smq/gZLajBvgADc4ZtnlHfE/3ObVICjFDJ4QTQs4dvsRgG9Uvw+IjQrDGlYwXdi2VKs5oBpheJivp+8IPfOkLoq0rPefOybWF2Ti8zw7pDX1BCCU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PpXGPHSR; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=NmZzjm8be9rWwq1ZowJxbsIz8NrgPM/qutt0R6KOs4vrwrAUTkXZCWqh8pA8Au20HfMVE6Y2zdfUf+y1YXuxrs5Iwlri0odxBqimjIUPN74fxyr3TTrM6jGfvS3cqUcb/78BYLkYGQNQgqsRnOMWNrKYwE+KJnPhjDYqwFHicLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XPiXoF0h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PpXGPHSR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4009E1F000E9;
-	Wed, 27 May 2026 15:04:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XPiXoF0h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63A5F1F000E9;
+	Wed, 27 May 2026 15:05:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779894261;
-	bh=a46lvhu6W/RpCNjdFT7r/z68fKZ90kPPzD8qS3/JgWw=;
+	s=k20260515; t=1779894326;
+	bh=MGmR6CcGiBOmQNZpPysg402T4JmKxS2ge0rBNZi4C40=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PpXGPHSRypEOdaf6ZIyJEwZ49vb53BHCzIcFQMZ3cnohZ1eePvtKzm/lWcnFETZRp
-	 Sw+AgW7Pc6ulkKTbnyXQsRu3/yu9FwbQPX+HU9tvp5r9ef1+HM632t3r7kumToKdxI
-	 28Pr1FQC6DKDuA5GQ1+OeQOz+sWHvHiVj9sOpqAPjFfqqj+aLKZcG4i2tKYAjdiVrS
-	 mcJOM+0SjZzTpEHUbjGiF26/GmTKTOpLTkXO9Iik0LzFkftWI3TgyKkQbea44/3MHn
-	 lLJGUoWo9nsakTSty7dAKmg0l81Bm0MUUNPgc0uBQWuwLBLvp8T+rwk6YCU6IjJn+F
-	 2pJmRUTZXcutQ==
-Date: Wed, 27 May 2026 16:04:16 +0100
+	b=XPiXoF0h6f0mUiURqQTIsK69SVa2icT9vazhZC5YvKavoLC2mQuyyoJw2uHKNKbIe
+	 mQ2pAHz4LWL/PzmKg/DKJqncps/lvADLp15XGEWrXilGApyoPDJQ+8j54JrPVKARZt
+	 CYVHYmCpfCqhN0auJDLq83ATCYOwl9dWJ9/gs0cc4F08Nh5gr4Oh1cR7BUejiEkMcF
+	 9aQaMTt2K0vJd1rNz7OytmzPHwHjNbex7P2gqzsgt2YnJQEBrBuTZ/voi/lrkB4hvr
+	 TFJu28YRFfA6Yt/wxCgpHDrSZlwEmycGQbd4y0TlM7zD+B/k9PYjWDwvLh5m4GWxJK
+	 7gPgsITCfBSBA==
+Date: Wed, 27 May 2026 16:05:22 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Luke Howard <lukeh@padl.com>
-Cc: netdev@vger.kernel.org, Kieran Tyrrell <kieran@sienda.com>,
-	Max Hunter <max@huntershome.org>,
-	Cedric Jehasse <cedric.jehasse@luminex.be>,
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+To: Duje =?utf-8?Q?Mihanovi=C4=87?= <dujemihanovic32@gmail.com>
+Cc: Karel Balej <balejk@matfyz.cz>, Lee Jones <lee@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net-next 6/6] dt-bindings: net: dsa: mv88e6xxx: add
- mv88e6xxx-avb-mode property
-Message-ID: <20260527-supplier-lively-a2b353dbd9ec@spud>
-References: <cover.1779841530.git.lukeh@padl.com>
- <f0a4fc5e6918040b2c9a72da46a8cdcb43ed5049.1779841530.git.lukeh@padl.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Mark Brown <broonie@kernel.org>, devicetree@vger.kernel.org,
+	phone-devel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
+	linux-kernel@vger.kernel.org,
+	Duje =?utf-8?Q?Mihanovi=C4=87?= <duje@dujemihanovic.xyz>
+Subject: Re: [PATCH 1/3] dt-bindings: mfd: 88pm886: Allow vbus regulator
+Message-ID: <20260527-private-deity-f6f1c12ade6f@spud>
+References: <20260526-88pm886-vbus-v1-0-f2bd1fd3c19e@dujemihanovic.xyz>
+ <20260526-88pm886-vbus-v1-1-f2bd1fd3c19e@dujemihanovic.xyz>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,94 +49,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="xYHcgdxXuADpqvpC"
+	protocol="application/pgp-signature"; boundary="OqxlURgg5Xue9OFE"
 Content-Disposition: inline
-In-Reply-To: <f0a4fc5e6918040b2c9a72da46a8cdcb43ed5049.1779841530.git.lukeh@padl.com>
+In-Reply-To: <20260526-88pm886-vbus-v1-1-f2bd1fd3c19e@dujemihanovic.xyz>
 
 
---xYHcgdxXuADpqvpC
+--OqxlURgg5Xue9OFE
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 27, 2026 at 10:42:52AM +1000, Luke Howard wrote:
-> Add the vendor-specific marvell,mv88e6xxx-avb-mode property for adding
-> stricter handling of frames with non-AVB frame priorities and destination
-> addresses.
->=20
-> Signed-off-by: Luke Howard <lukeh@padl.com>
-> ---
->  .../bindings/net/dsa/marvell,mv88e6xxx.yaml   | 26 +++++++++++++++++++
->  1 file changed, 26 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/dsa/marvell,mv88e6xxx.=
-yaml b/Documentation/devicetree/bindings/net/dsa/marvell,mv88e6xxx.yaml
-> index 19ae600e93394..1a01810e7682c 100644
-> --- a/Documentation/devicetree/bindings/net/dsa/marvell,mv88e6xxx.yaml
-> +++ b/Documentation/devicetree/bindings/net/dsa/marvell,mv88e6xxx.yaml
-> @@ -97,6 +97,32 @@ properties:
->      required:
->        - compatible
-> =20
-> +  marvell,mv88e6xxx-avb-mode:
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-"marvell,avb-mode" should be sufficient here.
-
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description:
-> +      Marvell MV88E6xxx switches that support Audio Video Bridging /
-> +      Time-Sensitive Networking (AVB/TSN) traffic prioritization can have
-> +      ports configured in one of several modes. These modes control the
-> +      handling of frames with non-AVB frame priorities and destination
-> +      addresses.
-
-I've got no idea if this is a valid thing to make a property for, but I
-really don't like this things being integers when there's some pretty
-clear strings you could use instead: standard, enhanced and secure.
-
-Also, you're missing a default, which is required for optional
-properties.
-
-Cheers,
-Conor.
-
-pw-bot: changes-requested
-
-> +    oneOf:
-> +      - description:
-> +          Standard Mode. Frames whose priority is mapped to an AVB
-> +          traffic class (TC) are considered AVB frames; other frames are
-> +          considered legacy (non-AVB).
-> +        const: 0
-> +      - description:
-> +          Enhanced Mode. Frames whose priority is mapped to an AVB TC
-> +          and for which a static FDB or MDB entry exists are considered
-> +          AVB frames. Frames with an AVB TC but no matching FDB or MDB
-> +          entry are dropped. AVB MDB entries can be added using the
-> +          MDB_FLAGS_STREAM_RESERVED netlink flag.
-> +        const: 1
-> +      - description:
-> +          Secure Mode. As Enhanced Mode, but the matching FDB or MDB
-> +          entry must also have the source port's bit set.
-> +        const: 2
-> +
->  allOf:
->    - $ref: dsa.yaml#/$defs/ethernet-ports
-> =20
-> --=20
-> 2.43.0
->=20
->=20
-
---xYHcgdxXuADpqvpC
+--OqxlURgg5Xue9OFE
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahcH8AAKCRB4tDGHoIJi
-0tpmAQCdbyrMQr253jKZGFi9LjCh/XGHHrnhQW7fWQ0zZYZHHAEAm+XYmWHHJo7D
-jFIQa8rcebfVk6MTevQ8GF8oeQeQdwI=
-=myjT
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahcIMgAKCRB4tDGHoIJi
+0j2xAP9PjsDeNxovrLfTuinnvZ0k7nOVtSj4an62wC4eGC2SpAEA3uury4d5vMKe
+EENU5kb0ulnU2THl5pHfmpi3GOUJpgA=
+=FDsI
 -----END PGP SIGNATURE-----
 
---xYHcgdxXuADpqvpC--
+--OqxlURgg5Xue9OFE--
