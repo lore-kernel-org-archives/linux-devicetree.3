@@ -1,49 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A4241EEA3C;
-	Wed, 27 May 2026 08:36:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A5933E1720;
+	Wed, 27 May 2026 08:45:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779870991; cv=none; b=tLxuJYDa3V/8YZizPuf1PG8d1tKmy8R9glaeLsNm9jV71EBwBB9h3XHNqXvVbnVOVAteYBXJmOkKDdA6VbgUM6EUcFw/dvyv3YXxrxcPGvSEskvGDATDtpN1E1R1/mkGjmW/xI/V3tpISWee0JIKVlUbNMp5L9QUicm1eHhfc9U=
+	t=1779871522; cv=none; b=FdR/BSlgw5tJbVEgA1FluaSxXS4BJxX+rsx5ESmdkQAjHxr3jm84mZiH0xPwqD3c+D8MX4CLJuPyXGwKMq+Y7Af3XK+WxzY6YMfMk+rzHp7UGZqqtQVbnoh9GNBzYRkUcKzdlR5zgjq5d4Vr2kyCtrLWYFXrGr/E7OFvPM3H2YQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779870991; c=relaxed/simple;
-	bh=5Z6/f1KXDDMffTQYOYjEqa4SegMwUt7JfYz8IYOpQik=;
+	s=arc-20240116; t=1779871522; c=relaxed/simple;
+	bh=w+DLE+GeSHpDuq4ZaFpzrPwbfVNn/738OqZhq1TDZNU=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h9epIEG5cgy95CVXuUvyMI7BhhuUNGTgM33XmK+XJsuk4mHLxBTKXQIDVZgUiveEBkXkNf2ryeba7MQE+TbqFfmyeh1Ws8zc7EUdb9nPn7Xnx8o5+G6BXVNuw14TIjRJx+wXNqnHTIbzMztewVRldQkPT4Zcf+XYnz8QWkKKbpw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YE1Ll8ai; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WIAVzC3fq5DdZhRJATMCN9KLu1gkF/Vs7ItezDchJymPnPohd1dJCRdzdQIqhKO1OpLgbKH00zQdvHQmy3XsFfUFOq3tU6WdSSekOrqyo7qJ9ycemykHK+sd66HGEZyvjZ6Dcd+HItE+2WWbCoa3Vs92nbHJ/C6OcAwsvMI/I94=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HQOC9cFu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YE1Ll8ai"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE3DF1F000E9;
-	Wed, 27 May 2026 08:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HQOC9cFu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 546901F00ADE;
+	Wed, 27 May 2026 08:45:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779870989;
-	bh=DQICb37b6tJT8rYSfInWzIjWd8QW9Ba0rxbOLrI9sgo=;
+	s=k20260515; t=1779871520;
+	bh=4fwiisoH+O10cDKs9SXUnzu9+RWmKRkE9L4Uzj4ctHI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YE1Ll8aizXG+NDFKOUhO70NmB09uLw22F/DTRGfs1YBqLtO3htyRGs4huui151bIv
-	 onOTDIrY9EroYIJwik7pYf7ug4r0m3NOd3hxjSINAKASrSLn9uv482tM3YdwPuiNho
-	 AdqUU+mQtZ/GbYpbCf5sh9i6jm3FVUaPPuMeyuqy53XMwAIqL8xd5kOmAf8YN89l4O
-	 KcU0tYcFLFZ7KuG3Bo69XA+RzdG2KpFNdJuIMkaft2Mfwfl/csPMTCQCKAEDl8qmFf
-	 PVuHSVR1ralI0ovVAIvtOK80ALsZzDqQMAvggc2nlHqG4KmxcEQcn2jzdJmwQ9wVpe
-	 9TQUhJIEaJkDw==
-Date: Wed, 27 May 2026 10:36:26 +0200
+	b=HQOC9cFuUcgCMXNBo6VkwORPXpnIugUKP/csgboHOPNzfgseAadNARfktDGu04yVj
+	 DYV2JlKt5GvM3gS5zbgt0O2Xo+UAcgDgsrQLtG9MUWQSo+S6yzmhrCuzD0N44HWq89
+	 fdcJaHjeFGnnzZChGdZxBjy0Umt0KZ56DJUN9coeOVUag+xs/pSXi0DP4/4G/1qqod
+	 DiA0jN2ZepWFKzBDhTBIWRezNqSorYSnjSiQMs246enKuPcIW0s4uUoVQfRZWiVSzd
+	 Z9SIADgHxI18lB64dN++7w9iWu0xtTG1GHO0ky6122YxD6ZG+ZeV5UbvpUcI+XrVUM
+	 tRj/44c1eMJXw==
+Date: Wed, 27 May 2026 10:45:16 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Frank Li <frank.li@nxp.com>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev, 
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v9 2/3] media: dt-bindings: Add CSI Pixel Formatter DT
- bindings
-Message-ID: <20260527-cheerful-academic-oyster-cebb2d@quoll>
-References: <20260526-csi_formatter-v9-0-ca3d8c334c39@oss.nxp.com>
- <20260526-csi_formatter-v9-2-ca3d8c334c39@oss.nxp.com>
+To: Geetha sowjanya <gakula@marvell.com>
+Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, mark.rutland@arm.com, 
+	will@kernel.org, krzk+dt@kernel.org
+Subject: Re: [PATCH v6 1/2] dt-bindings: perf: marvell: Extend CN10K DDR PMU
+ binding for CN20K
+Message-ID: <20260527-wise-cobra-of-feminism-2720a6@quoll>
+References: <20260526164330.23878-1-gakula@marvell.com>
+ <20260526164330.23878-2-gakula@marvell.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,21 +45,72 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260526-csi_formatter-v9-2-ca3d8c334c39@oss.nxp.com>
+In-Reply-To: <20260526164330.23878-2-gakula@marvell.com>
 
-On Tue, May 26, 2026 at 04:57:21PM +0800, Guoniu Zhou wrote:
-> From: Guoniu Zhou <guoniu.zhou@nxp.com>
+On Tue, May 26, 2026 at 10:13:29PM +0530, Geetha sowjanya wrote:
+> Marvell CN20K SoCs integrate a DDR Performance Monitoring Unit (PMU)
+> associated with the DDR controller. The block provides hardware counters
+> to monitor DDR traffic and performance events and is accessed via a
+> dedicated MMIO region.
 > 
-> The i.MX95 CSI pixel formatting module uses packet info, pixel and
-> non-pixel data from the CSI-2 host controller and reformat them to
-> match Pixel Link(PL) definition.
+> The CN20K DDR PMU is functionally equivalent to the CN10K DDR PMU, with
+> minor register offset differences.
 > 
-> Reviewed-by: Frank Li <Frank.Li@nxp.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Changes in v6:
+> - dt-bindings: Document CN20K in the existing marvell-cn10k-ddr.yaml;
+>   add maintainer, description, compatible enum entry, and a CN20K example
+>   with unit-address aligned to reg.
 
-NAK
+Changelog is not part of commit msg, but changelog area, so after ---.
 
-Implement previous feedback.
+> 
+> Signed-off-by: Geetha sowjanya <gakula@marvell.com>
+> ---
+>  .../bindings/perf/marvell-cn10k-ddr.yaml       | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/perf/marvell-cn10k-ddr.yaml b/Documentation/devicetree/bindings/perf/marvell-cn10k-ddr.yaml
+> index a18dd0a8c43a..79fae9fdb6f1 100644
+> --- a/Documentation/devicetree/bindings/perf/marvell-cn10k-ddr.yaml
+> +++ b/Documentation/devicetree/bindings/perf/marvell-cn10k-ddr.yaml
+> @@ -4,16 +4,22 @@
+>  $id: http://devicetree.org/schemas/perf/marvell-cn10k-ddr.yaml#
+>  $schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+> -title: Marvell CN10K DDR performance monitor
+> +title: Marvell CN10K / CN20K DDR performance monitor
+> +
+> +description:
+> +  Performance Monitoring Unit (PMU) for the DDR controller on Marvell
+> +  CN10K and CN20K SoCs. The block is accessed via a dedicated MMIO region.
+>  
+>  maintainers:
+>    - Bharat Bhushan <bbhushan2@marvell.com>
+> +  - Geetha sowjanya <gakula@marvell.com>
+>  
+>  properties:
+>    compatible:
+>      items:
+>        - enum:
+>            - marvell,cn10k-ddr-pmu
+> +          - marvell,cn20k-ddr-pmu
+>  
+>    reg:
+>      maxItems: 1
+> @@ -35,3 +41,13 @@ examples:
+>              reg = <0x87e1 0xc0000000 0x0 0x10000>;
+>          };
+>      };
+> +  - |
+> +    bus {
+> +        #address-cells = <2>;
+> +        #size-cells = <2>;
+> +
+> +        pmu@c20000000000 {
+> +            compatible = "marvell,cn20k-ddr-pmu";
+> +            reg = <0xc200 0x00000000 0x0 0x100000>;
+
+No need for a new example.
 
 Best regards,
 Krzysztof
