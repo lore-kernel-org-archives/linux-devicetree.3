@@ -1,532 +1,303 @@
-Received: from mail-yw1-f181.google.com (mail-yw1-f181.google.com [209.85.128.181])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81B143B6379
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 20:08:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603863C09E4
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 20:24:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779912498; cv=none; b=HAo11EX8hyXYHJFaR10ZcaNtyoHiDkGNJ8dPD3dMo7tI21uW3CtkR1lm38jNz0x0G0P7fXLTIKKg+rMyPPAjIoVHWH1YHpWUdyt3i8BC2gwHQR6b3VaXGJm80mCiL3AU9HZJ0ayCYsd+lSPU/gjronAoUh0DpJXgM7AOBx2YXx4=
+	t=1779913485; cv=none; b=e/jGs5sOZltUE7j2FTxih94+nI81LeDJNQ6wsN3h8CE7cYJNNDib7XXRWAMp7z3RX8oINk+Tocg0/5k4aS7eRrreT8WWmaorAJ6biuuDMXvEdbo2Kucj/nLHi1wadW6UyslliWNbIjb808C//KBy3QlEnBumiYmOBkPtW3D3rJY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779912498; c=relaxed/simple;
-	bh=lXRYxV8BCeM1Ig1y7stIz4NtSN2B115lw5iyl627e18=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=j2BJODdWdrfzwgyCmY6cDE47z57D8KGYhaDJ3zlR1jhjLGE0B/O1qbYrYdvZ2HN9TamsNlhz4UIvZTTBU6Wj1HUYOVlRdq1yovWn/r6aNkEM60h84Tqz9zZYC9Cn6ZGshKI7emdZ5aQJ0O9UyKhlURjlXYnuiIwfTLgUxPvijYM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rwGgBdLX; arc=none smtp.client-ip=209.85.128.181
+	s=arc-20240116; t=1779913485; c=relaxed/simple;
+	bh=yfuIjwTgJQwfvZEGN0tBwIXrlnZvk9sDrd6F4ppSMOw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F5q4vLlFbleBeCUVij8WsbFu+xxucOaJwiv2bzYLz+PgY/1NxJ8N+HbsHHcH3DVmMCGHnLy3J0V0wFnNZMY0oUIHz81mGS0EQnJjbYWH57lLAYqYkXuwpU0DrD4P9K5TjkWdyftB53G78wy9pW8IXi+IGkdEkbEWTE/WVMP7woc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LakB3ZDe; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rwGgBdLX"
-Received: by mail-yw1-f181.google.com with SMTP id 00721157ae682-7bdec52f48dso112117627b3.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:08:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LakB3ZDe"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4904127c32cso37324645e9.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:24:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779912495; x=1780517295; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KBNDk3pJptpsPFzFd9QbD4p87S9pxZvqzSFC06CbzCE=;
-        b=rwGgBdLXHFp7zebT/erRii3FsvQLhRaRFqwvIqUReMM5BZvwo8B87qfwLa8JCOjvkJ
-         ERqY93oSpRRZ9sByy6IJwIFSFKmulV4N88yGqWAO3IgemNr3W0S5Mg+pRDEdKYogdpVh
-         zrEzG9svV2BV7FwB7/lmFh956Ddni0Aq4UzwUlu2N76Jaok1kXw0Wrn79KUhau5B6VVy
-         9VJRkn9Vf8sT/HMVKQ9Ag4vlwvqKe3e8GaHfCSwdCWE3EDtfyGfc9kX6sGb5t5Q3xj8c
-         /06jcCeLJWceR58nCp2FaQ45y/XU2OvZSx6hjBIthxBBx4JktZ2IHmYwe3W7RcOUBQvd
-         v99Q==
+        d=gmail.com; s=20251104; t=1779913477; x=1780518277; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=L8LWQHTdq/ho5Vz5WdWTx5ETAym+yqkek8n+lrIJOUw=;
+        b=LakB3ZDec4EUDf3ZlNXrjUneeBIWR42mVc8umlqI/GsecE4h3OHmyuXZZrBSXFMvWM
+         UB0lnFNAMgfaU5fgMGqHMqJpcSASwqL8+4JbQQMSvKvDaXAEm3J1ogp47SljXCXZtKwX
+         SopxY/u/YN2oRASLDzrWWUndGr43AyDA5FBkPvbLko3+EkCM09FIpNqLVgOP/CbBTGaP
+         1dF2SOb7Kp/eGKLG1yC7W1mqQKxzqiTiKgga5zYG70DzRdESPJ3kaH4IBD8diepP01W0
+         xjGYZKINSVfjbllTR16KvXSQcBfljnO8RTDLS/Th+LYuvfxNVE6uscnmQZa6AYde+4IJ
+         lSVg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779912495; x=1780517295;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=KBNDk3pJptpsPFzFd9QbD4p87S9pxZvqzSFC06CbzCE=;
-        b=iIDWjomE9JbEUq3i3fJpXH4rvxJc3arMkPj0CbDW7hcd0hU5pCzW94Zok8DPes7CaG
-         Ru5JZ6YPiRMbca+kB3vgOBAuqz8CAb3TCaAOUljfLa4hXqZJnMDa2drUIjQekn0ltcLF
-         ExaXq3W5VnNi082/7WjlAb1/Aiq0qJ6y/nhOlv+BHl6Pf0RA3SAMIhHW2hvh5veaDo79
-         UVUJRn363twn/zCQY70tcYE4w+QZ5Tjrnzj9QcAkQSKlDSmRpj+bNsLxsQskj1ssPyox
-         9pUC6Z1oJ8t8QjEFOp7kmHUgnENupVFE+EgVVwTzYmx6XukPbb1UXzAwwx/q3y3k2k4n
-         wQ5w==
-X-Forwarded-Encrypted: i=1; AFNElJ9BW9cz2QQoNJQaHPtR7Bi/DvR1jtvwKXCktqT8Ha5167qT76hwvW+qWmY1fJ62baq4Feiv8uDxsjn2@vger.kernel.org
-X-Gm-Message-State: AOJu0YzQQLgRu+jJQn9VqBdh8kmRCyeuCuZSn13gwFmENV7JLgOW6sBp
-	4ZsCm3aUlv/RhjgIXQXr6yY7ofG6tvKQO86iCCZCRv5lNIkfWvTvSvI3
-X-Gm-Gg: Acq92OF8S1khsUdbtBscsglltMtnlNVSf1Q2lnacBMFa9hB4vH71fMw/I2ida5qVkkf
-	2HPJS2gfZfYX+sXnjfHebQNjLk2R39Hy+Mz56a4LZ3qSB4f7K70+Gnq1elYfsSB87SUYT1Vh3so
-	uvSDPb7EJEFY+YllDFvV2178jzStOMzJogR5qA9T1OHuxBz1AmuZHLLvgsjBMAM3Q5CstERwUNN
-	PZdQXSOvXB133hr45W+ue4sEIL/TtviYBWhbob2e54XSK9ADqfaAnJ9Dn2ENY4Mn4iFRnU4HNI1
-	yltgxVuSxm52naRnA2tnrSzJwVne0qHmzVRbZUPNFM6Nw1LcZFhe6befhA3PQwqIUrjsa8LUJZR
-	0Fb4l1dYuaiTgXkTZsU0y9MJnO3pNDpCfNSLkh1r4TNxY+L/lHJWFk+AfP/A1rH6K3qOapjuizv
-	fRgBgVaMoCx8XPCR+3EpzyNewoEaUCn5+aIQWUO173y28BuhU=
-X-Received: by 2002:a05:690c:dc7:b0:7bf:eadc:c13d with SMTP id 00721157ae682-7d20e5dd83cmr235702787b3.31.1779912495505;
-        Wed, 27 May 2026 13:08:15 -0700 (PDT)
-Received: from [192.168.0.39] ([79.133.247.80])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7d38be36898sm79065497b3.27.2026.05.27.13.08.12
+        d=1e100.net; s=20251104; t=1779913477; x=1780518277;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=L8LWQHTdq/ho5Vz5WdWTx5ETAym+yqkek8n+lrIJOUw=;
+        b=npWie3gCC7K0eSlvr+a8L8zkPVJJx/zp5Fa7cpRNpAm83L/1DrZD8qvRz60xcewoAZ
+         4m1oV0Xrv0aFs9YpiJo2OVzKlPPvhoUzNnuUm9bmBHv6izcFp8cimW6UBb+DtZKLh0I3
+         qQvX0Xv30qFb0MnXxxVlytwF2O0Klc0XRYa+b2RSvfJw2GZualIxixea6m00tmvVd46i
+         v4JF83rVg9jDNFd0fpxHeH7ke5qkXcuiF3Xm+TJkASLLh0yaKOIdtYTBORqLKM9ebidw
+         /jqRnvY3NG7ZGbrO2xF+y1/VUC7ym6uQqSKOY+s29npMLbGGQANQ2WOxdaKJDCYKKqCK
+         dgsQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8+m+7TDTN4NSb95h67AhOtBHnLBakq4bV+X9Tc+h1qztBG5L/pHg++t2H0KbjIfTXNeuP0DluyyAX0@vger.kernel.org
+X-Gm-Message-State: AOJu0YyapCnF506gDptDmAuUF1Tvo9vXCvgUuRNZDT2L941Un5VPBuLO
+	gerwIFx8EExbwEBrnG0qhKI65q5RWbTCCowbDFcAwum7w8e2+hgWvsnV
+X-Gm-Gg: Acq92OG4Sjd0Qtm7T/4bS5IyTxaujjhNAnizlcA6UN/lAh0d4zeXqStoOBhGNXdMzlO
+	k6pmL2IDEcKwd0JXujVxmSCnBiRxD5Dsiqbk9fc3J7FB4V7ypYgbhlIUvAI+9M/tRPKQTjPkIdd
+	J5tm1ADDae+tcLoP7IqeTFGS+kI+hD6k/XeRdVnGYX23JxIMk6SBHvEUvic7ykdk3/bTvQ3fZX/
+	QB9CFaWbM4C5Qu4Iwp737YaaPi/TzKHVJxsDDCAdNTjt1tUAhFJ1RpsP1jwKCEzkd8z29AY5edK
+	z5ybLSmJHnD/k4jak/59VUAMWoAGZOKOdjD/s9wD/ruok2zt9hUf1bIxE+lxidprOKRwRv4beA+
+	UKllmOEcLZM+4TXZVYZDvN7ddIeCjp7A6baKkAoywLXTQBCV3/GVGSGqyDP3/SWJpK4KuK6pZtC
+	Rq3qqTluTToXLljDr5NAp7XzpikKBiO8u1fd7YWpCGVMyu7RzxhaKWX/AHtp3CvmI3IaBH9NYoF
+	f5oT3FxkCL3O/MXKclwB6qLq4mt+IsrNayPrTibpu3hEUmB
+X-Received: by 2002:a05:600c:34d5:b0:490:52c0:744c with SMTP id 5b1f17b1804b1-49052c07701mr359810975e9.20.1779913476816;
+        Wed, 27 May 2026 13:24:36 -0700 (PDT)
+Received: from iku.Home ([2a06:5906:61b:2d00:1c3e:1134:26fb:2a51])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490454a0cd5sm514992175e9.10.2026.05.27.13.24.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 13:08:15 -0700 (PDT)
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Wed, 27 May 2026 23:08:02 +0300
-Subject: [PATCH 2/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle: add
- initial device tree
+        Wed, 27 May 2026 13:24:36 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v2] arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI nodes
+Date: Wed, 27 May 2026 21:24:30 +0100
+Message-ID: <20260527202430.606341-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260527-yukon-eagle-v1-2-98119d64a71b@gmail.com>
-References: <20260527-yukon-eagle-v1-0-98119d64a71b@gmail.com>
-In-Reply-To: <20260527-yukon-eagle-v1-0-98119d64a71b@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Transfer-Encoding: 8bit
 
-Add device tree for Sony Xperia M2 (sony-eagle) smartphone
-based on the Qualcomm MSM8926 SoC.
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-Initial features:
-- Framebuffer
-- Regulators
-- Internal storage
-- SD card
-- Accelerometer
-- Magnetometer
-- Ambient Light/Proximity sensor
-- NFC
-- USB/Charger
+Enable the xSPI0 and xSPI1 controllers on the RZ/T2H N2H EVK board.
 
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+Configure the xSPI0 controller interface to 1-bit (x1) mode, even though
+the connected MX25LW51245 octal flash device supports octal mode. Add a
+corresponding inline hardware comment detailing this restriction;
+operating in octal mode causes the BootROM to fail loading the first-stage
+bootloader following a Watchdog Timer (WDT) reset.
+
+Configure the xSPI1 controller interface connected to the AT25SF128A
+flash device for 4-bit (x4) mode to utilize all available data lines.
+
+Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 ---
- arch/arm/boot/dts/qcom/Makefile                    |   1 +
- .../dts/qcom/msm8926-sony-xperia-yukon-eagle.dts   | 406 +++++++++++++++++++++
- 2 files changed, 407 insertions(+)
+v1->v2:
+- Dropped CKN pin
+- Added ECS pin configuration for T2H EVK
+- Added Switch settings for both T2H and N2H EVKs
+- Fixed partition address for xSPI0 flash device
+- Added spi-max-frequency property for both xSPI controllers
+- Dropped grouping the pinctrl into subnodes for XSPI1 and
+  for XSPI0 merged the ctrl and data pins into a single group
 
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index 32a44b02d2fa..6b471a346d82 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_QCOM) += \
- 	msm8226-motorola-falcon.dtb \
-+	msm8926-sony-xperia-yukon-eagle.dtb \
- 	qcom-apq8016-sbc.dtb \
- 	qcom-apq8026-asus-sparrow.dtb \
- 	qcom-apq8026-huawei-sturgeon.dtb \
-diff --git a/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
-new file mode 100644
-index 000000000000..a203f97aa86c
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
-@@ -0,0 +1,406 @@
-+// SPDX-License-Identifier: BSD-3-Clause
+v1: https://lore.kernel.org/all/20260526204045.3481604-1-prabhakar.mahadev-lad.rj@bp.renesas.com/
+
+Note,
+- Ive reabased the patch on top of patch [0].
+- Sending just this single patch as SoC DTSI patches have been reviwed
+  and are queued for merging.
+[0] https://lore.kernel.org/all/20260514210220.7616-1-fabrizio.castro.jz@renesas.com/
+---
+ .../dts/renesas/r9a09g077m44-rzt2h-evk.dts    |  15 +++
+ .../dts/renesas/rzt2h-n2h-evk-common.dtsi     | 127 ++++++++++++++++++
+ 2 files changed, 142 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts b/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts
+index 4c0e52850ca9..e9ed2de128f6 100644
+--- a/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts
++++ b/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts
+@@ -345,3 +345,18 @@ usb_pins: usb-pins {
+ 	};
+ };
+ 
 +/*
-+ * Copyright (c) 2026 Erikas Bitovtas <xerikasxx@gmail.com>
++ * XSPI0 Pin Configuration:
++ * ------------------------
++ * Signal     | Pin     | SW5
++ * -----------|---------|---------------
++ * XSPI0_ECS  | P07_5   | 5: OFF, 6: ON
 + */
-+
-+/dts-v1/;
-+
-+#include "msm8926.dtsi"
-+#include "pm8226.dtsi"
-+
-+/delete-node/ &adsp_region;
-+/delete-node/ &mba_region;
-+/delete-node/ &mpss_region;
-+/delete-node/ &smem_region;
-+
-+/ {
-+	model = "Sony Xperia M2";
-+	compatible = "sony,eagle", "qcom,msm8926", "qcom,msm8226";
-+	chassis = "handset";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		mmc1 = &sdhc_2;
-+		display0 = &framebuffer0;
-+	};
-+
-+	chosen {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		stdout-path = "display0";
-+
-+		framebuffer0: framebuffer@3201000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x03201000 0x800000>;
-+			width = <540>;
-+			height = <960>;
-+			stride = <(540 * 3)>;
-+			format = "r8g8b8";
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_BYTE0_CLK>,
-+				 <&mmcc MDSS_MDP_CLK>,
-+				 <&mmcc MDSS_PCLK0_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			power-domains = <&mmcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		button-camera-focus {
-+			label = "Camera Focus";
-+			gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_CAMERA_FOCUS>;
-+			debounce-interval = <15>;
-+		};
-+
-+		button-camera-snapshot {
-+			label = "Camera Snapshot";
-+			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_CAMERA>;
-+			debounce-interval = <15>;
-+		};
-+
-+		button-volume-down {
-+			label = "Volume Down";
-+			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	reserved-memory {
-+		framebuffer@3201000 {
-+			reg = <0x03201000 0x800000>;
-+			no-map;
-+		};
-+
-+		mpss_region: mpss@8000000 {
-+			reg = <0x08000000 0x4d00000>;
-+			no-map;
-+		};
-+
-+		reserved@cd00000 {
-+			reg = <0x0cd00000 0x200000>;
-+			no-map;
-+		};
-+
-+		mba_region: mba@d100000 {
-+			reg = <0x0d100000 0x3a000>;
-+			no-map;
-+		};
-+
-+		reserved@d13a000 {
-+			reg = <0x0d13a000 0xc6000>;
-+			no-map;
-+		};
-+
-+		wcnss_region: wcnss@d200000 {
-+			reg = <0x0d200000 0x5ae000>;
-+			no-map;
-+		};
-+
-+		reserved@d850000 {
-+			reg = <0x0d850000 0x3b0000>;
-+			no-map;
-+		};
-+
-+		adsp_region: adsp@dc00000 {
-+			reg = <0x0dc00000 0x1400000>;
-+			no-map;
-+		};
-+
-+		reserved@f000000 {
-+			reg = <0x0f000000 0x500000>;
-+			no-map;
-+		};
-+
-+		venus_region: venus@f500000 {
-+			reg = <0x0f500000 0x500000>;
-+			no-map;
-+		};
-+
-+		smem_region: smem@fa00000 {
-+			reg = <0x0fa00000 0x100000>;
-+			no-map;
-+		};
-+
-+		reserved@fb00000 {
-+			reg = <0x0fb00000 0x280000>;
-+			no-map;
-+		};
-+
-+		rmtfs@fd80000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0x0fd80000 0x180000>;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+		};
++&xspi0_pins {
++	ecs-pins {
++		pinmux = <RZT2H_PORT_PINMUX(7, 5, 0x1c)>; /* XSPI0_ECS0 */
++		drive-strength-microamp = <2500>;
++		input-schmitt-disable;
++		slew-rate = <0>;
 +	};
 +};
+diff --git a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+index 46f4aaac0478..cdb5096a71b3 100644
+--- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
++++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+@@ -5,6 +5,7 @@
+  * Copyright (C) 2025 Renesas Electronics Corp.
+  */
+ 
++#include <dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h>
+ #include <dt-bindings/gpio/gpio.h>
+ #include <dt-bindings/leds/common.h>
+ #include <dt-bindings/net/mscc-phy-vsc8531.h>
+@@ -20,6 +21,8 @@ aliases {
+ 		mmc0 = &sdhi0;
+ 		mmc1 = &sdhi1;
+ 		serial0 = &sci0;
++		spi0 = &xspi0;
++		spi1 = &xspi1;
+ 	};
+ 
+ 	chosen {
+@@ -456,6 +459,45 @@ ctrl-pins {
+ 			input-schmitt-disable;
+ 		};
+ 	};
 +
-+&blsp1_i2c2 {
++	xspi0_pins: xspi0-group {
++		ctrl-data-pins {
++			pinmux = <RZT2H_PORT_PINMUX(5, 1, 0x1c)>, /* XSPI0_CKP */
++				 <RZT2H_PORT_PINMUX(5, 3, 0x1c)>, /* XSPI0_CS0 */
++				 <RZT2H_PORT_PINMUX(5, 5, 0x1c)>, /* XSPI0_DS */
++				 <RZT2H_PORT_PINMUX(5, 6, 0x1c)>, /* XSPI0_IO0 */
++				 <RZT2H_PORT_PINMUX(5, 7, 0x1c)>, /* XSPI0_IO1 */
++				 <RZT2H_PORT_PINMUX(6, 0, 0x1c)>, /* XSPI0_IO2 */
++				 <RZT2H_PORT_PINMUX(6, 1, 0x1c)>, /* XSPI0_IO3 */
++				 <RZT2H_PORT_PINMUX(6, 2, 0x1c)>, /* XSPI0_IO4 */
++				 <RZT2H_PORT_PINMUX(6, 3, 0x1c)>, /* XSPI0_IO5 */
++				 <RZT2H_PORT_PINMUX(6, 4, 0x1c)>, /* XSPI0_IO6 */
++				 <RZT2H_PORT_PINMUX(6, 5, 0x1c)>, /* XSPI0_IO7 */
++				 <RZT2H_PORT_PINMUX(6, 6, 0x1c)>; /* XSPI0_RESET0 */
++			drive-strength-microamp = <9000>;
++			input-schmitt-disable;
++			slew-rate = <1>;
++		};
++	};
++
++	/*
++	 * XSPI1 Pin Configuration:
++	 * ------------------------
++	 * Signal     | Pin      | RZ/T2H (SW1)  | RZ/N2H (DSW2)
++	 * -----------|----------|---------------|---------------
++	 * ALL        | Multiple | 6: ON         | 6: ON
++	 */
++	xspi1_pins: xspi1-pins {
++		pinmux = <RZT2H_PORT_PINMUX(1, 0, 0x1c)>, /* XSPI1_CKP */
++			 <RZT2H_PORT_PINMUX(1, 1, 0x1c)>, /* XSPI1_CS0 */
++			 <RZT2H_PORT_PINMUX(1, 4, 0x1c)>, /* XSPI1_IO0 */
++			 <RZT2H_PORT_PINMUX(1, 5, 0x1c)>, /* XSPI1_IO1 */
++			 <RZT2H_PORT_PINMUX(1, 6, 0x1c)>, /* XSPI1_IO2 */
++			 <RZT2H_PORT_PINMUX(1, 7, 0x1c)>; /* XSPI1_IO3 */
++		drive-strength-microamp = <9000>;
++		input-schmitt-enable;
++		slew-rate = <1>;
++	};
+ };
+ 
+ &sci0 {
+@@ -520,3 +562,88 @@ &wdt2 {
+ 	timeout-sec = <60>;
+ };
+ 
++&xspi0 {
++	pinctrl-0 = <&xspi0_pins>;
++	pinctrl-names = "default";
 +	status = "okay";
 +
-+	accelerometer@f {
-+		compatible = "kionix,kxtj21009";
-+		reg = <0x0f>;
++	assigned-clocks = <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
++	assigned-clock-rates = <50000000>;
 +
-+		interrupts-extended = <&tlmm 49 IRQ_TYPE_EDGE_RISING>;
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		vcc-supply = <&reg_3p3v>;
++		m25p,fast-read;
++		/*
++		 * Configure for 1-bit mode to prevent the BootROM from failing
++		 * to load the first-stage bootloader following a watchdog reset.
++		 */
++		spi-tx-bus-width = <1>;
++		spi-rx-bus-width = <1>;
++		spi-max-frequency = <50000000>;
 +
-+		vdd-supply = <&pm8226_l19>;
-+		vddio-supply = <&pm8226_lvs1>;
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
 +
-+		mount-matrix = "0", "1", "0",
-+			      "-1", "0", "0",
-+			      "0", "0", "1";
-+	};
++			partition@0 {
++				label = "bl2-0";
++				reg = <0x00000000 0x00060000>;
++				read-only;
++			};
 +
-+	magnetometer@2e {
-+		compatible = "yamaha,yas532";
-+		reg = <0x2e>;
++			partition@60000 {
++				label = "fip-0";
++				reg = <0x00060000 0x007a0000>;
++				read-only;
++			};
 +
-+		vdd-supply = <&pm8226_l19>;
-+		iovdd-supply = <&pm8226_lvs1>;
-+	};
-+
-+	light-sensor@48 {
-+		compatible = "sensortek,stk3310";
-+		reg = <0x48>;
-+
-+		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
-+
-+		proximity-near-level = <1700>;
-+	};
-+};
-+
-+&blsp1_i2c3 {
-+	status = "okay";
-+
-+	nfc@28 {
-+		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
-+		reg = <0x28>;
-+
-+		interrupts-extended = <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
-+
-+		enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
-+		firmware-gpios = <&tlmm 22 GPIO_ACTIVE_HIGH>;
++			partition@800000 {
++				label = "user-0";
++				reg = <0x800000 0x003800000>;
++			};
++		};
 +	};
 +};
 +
-+&pm8226_resin {
-+	linux,code = <KEY_VOLUMEUP>;
-+
++&xspi1 {
++	pinctrl-0 = <&xspi1_pins>;
++	pinctrl-names = "default";
 +	status = "okay";
-+};
 +
-+&pm8226_vib {
-+	status = "okay";
-+};
++	assigned-clocks = <&cpg CPG_CORE R9A09G077_XSPI_CLK1>;
++	assigned-clock-rates = <50000000>;
 +
-+&rpm_requests {
-+	regulators {
-+		compatible = "qcom,rpm-pm8226-regulators";
++	flash@0 {
++		compatible = "jedec,spi-nor";
++		reg = <0>;
++		vcc-supply = <&reg_3p3v>;
++		m25p,fast-read;
++		spi-tx-bus-width = <4>;
++		spi-rx-bus-width = <4>;
++		spi-max-frequency = <50000000>;
 +
-+		pm8226_s3: s3 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1300000>;
++		partitions {
++			compatible = "fixed-partitions";
++			#address-cells = <1>;
++			#size-cells = <1>;
++
++			partition@0 {
++				label = "bl2-1";
++				reg = <0x00000000 0x00060000>;
++			};
++
++			partition@60000 {
++				label = "fip-1";
++				reg = <0x00060000 0x007a0000>;
++			};
++
++			partition@800000 {
++				label = "user-1";
++				reg = <0x800000 0x800000>;
++			};
 +		};
-+
-+		pm8226_s4: s4 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2200000>;
-+		};
-+
-+		pm8226_s5: s5 {
-+			regulator-min-microvolt = <1150000>;
-+			regulator-max-microvolt = <1150000>;
-+		};
-+
-+		pm8226_l1: l1 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l3: l3 {
-+			regulator-min-microvolt = <750000>;
-+			regulator-max-microvolt = <1287500>;
-+			regulator-always-on;
-+		};
-+
-+		pm8226_l4: l4 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l5: l5 {
-+			regulator-min-microvolt = <1050000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l6: l6 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-always-on;
-+		};
-+
-+		pm8226_l7: l7 {
-+			regulator-min-microvolt = <1850000>;
-+			regulator-max-microvolt = <1850000>;
-+		};
-+
-+		pm8226_l8: l8 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+			regulator-always-on;
-+		};
-+
-+		pm8226_l9: l9 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l10: l10 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l12: l12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l14: l14 {
-+			regulator-min-microvolt = <2750000>;
-+			regulator-max-microvolt = <2750000>;
-+		};
-+
-+		pm8226_l15: l15 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8226_l16: l16 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3350000>;
-+		};
-+
-+		pm8226_l17: l17 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l18: l18 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+
-+			regulator-system-load = <200000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l19: l19 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+		};
-+
-+		pm8226_l20: l20 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3075000>;
-+		};
-+
-+		pm8226_l21: l21 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l22: l22 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l23: l23 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l24: l24 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1350000>;
-+		};
-+
-+		pm8226_l25: l25 {
-+			regulator-min-microvolt = <1775000>;
-+			regulator-max-microvolt = <2125000>;
-+		};
-+
-+		pm8226_l26: l26 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l27: l27 {
-+			regulator-min-microvolt = <2100000>;
-+			regulator-max-microvolt = <2100000>;
-+		};
-+
-+		pm8226_l28: l28 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_lvs1: lvs1 {};
 +	};
 +};
-+
-+&smbb {
-+	qcom,fast-charge-current-limit = <1500000>;
-+	qcom,fast-charge-safe-voltage = <4250000>;
-+	qcom,minimum-input-voltage = <4200000>;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8226_l17>;
-+	vqmmc-supply = <&pm8226_l6>;
-+
-+	bus-width = <8>;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_2 {
-+	vmmc-supply = <&pm8226_l18>;
-+	vqmmc-supply = <&pm8226_l21>;
-+
-+	bus-width = <4>;
-+	cd-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+
-+	status = "okay";
-+};
-+
-+&usb {
-+	extcon = <&smbb>;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	extcon = <&smbb>;
-+	v1p8-supply = <&pm8226_l10>;
-+	v3p3-supply = <&pm8226_l20>;
-+};
-
 -- 
 2.54.0
 
