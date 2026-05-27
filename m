@@ -1,257 +1,91 @@
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD72B3542F8
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 10:43:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 981AE3E9C20;
+	Wed, 27 May 2026 10:46:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779878613; cv=none; b=X70dOnpK+Zm3+XQ0q0+ozaOkVXZG4ZeqI4Toilo85e+j/b9DRKHjfQAd+CORJTvIMVUeWMC/WtP7fIjVkgp46SAa2GOHT6gNtYCZapJwCdCj7N/3iZSYoww3ArbDrgxxT+BQh3ncdILcMzkv3nDZ0PCz4o0KWnmiBrHRh3TfeCw=
+	t=1779878805; cv=none; b=AwmkgnCnoP7SEgRdz2P42IFM0wsIvswgYnzcN8DBcO1WyN6HLH4KYyeV2HTm1A6FKsF32KqzMgN1lZxDAIjHqEtbtwwIVIPeaOBrbLseZ02wlBJSJ7ZkgAmxS471ddosduHyKacaY3ZHPZv2PgPDiLJbTabHGqqcqeCcgrEEcUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779878613; c=relaxed/simple;
-	bh=6ZfjJyjHo1+6wXNY0VH4t1SbCnQeqbO2bVIcxpATc68=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gplst0Kt5PLn2uT951o/wDF6bai99m80EjKdn4IpxbZI6pOOkTXr3WWh7Ic8rvVKEUddyp+gsFoQWQkR/XuyopMoOK2pLrvnNUIMX81GVlhy05gJ691vdajoEihsmfSps3dUaThiTDqjl7fBn4buZBJCIBx9uMsvMd5bpEYLHao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-577500ac0e4so3658332e0c.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:43:31 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779878611; x=1780483411;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=u1fZpK3wjr4pqcWYWlRG5eHG529oVQ3i8sQvLS13gr0=;
-        b=P6E+uScr+EpwqpbUaTWQHgShyy+VlMuq2c8bjmUch6sGVfvR8oWAXGHjo9ajuvleRN
-         d4HvbH6OkvO9iwD9ZAJbEx8AVwOpID/fTNocYTBpLmyA05pt/chqBZ5gPnlvOXWW/lxf
-         t8XrjZ81R/XzkDxWIFGNee2RWf7cgLZ1nobhmMLEzcwC+AdwPnQvMMQa5Eluk3vyyxk1
-         ZBp8NKtmAscEdgyd0AFCKOZFstfL2l8YeeDtdOxCpTJFZLppc8UB+7Sw1DNa3CqooWoO
-         3hcwkqae1ynQc6RFEpIDxiuzoq7lYf8Qh2g0OUN0jgmGb8v5V0x56u8oGsr43Y7gFlVp
-         ftNg==
-X-Forwarded-Encrypted: i=1; AFNElJ8RTxM4ryAt0vpzTHjRBO8687B7wBS73QW4hIuoXsZtrW+djua8w12gI+z/8/6LgsUrjObprjO4cY6g@vger.kernel.org
-X-Gm-Message-State: AOJu0YzrdVQWCTn18/41lfdL6iz9kKvFI7e3zVw1KegLci9CM39vqKF+
-	9lKroTTr7NBkUg5qpU4kwMKNK8/nC/h1NGfyiIfEpolLBsWgXw3EA8kz+hO4L1hrcOI=
-X-Gm-Gg: Acq92OFoL82cXMl8ui7+zwUa6b9Eq6a0iWEK1QUBA0Wa4aJu5kUOe97/D4WR7yUAP13
-	Z6I8y7gtIh4vcZg3rTQ/3AjQugoFXQeDXkdTPEykHN952ltF36cW3pJ4jGy/YObgh9jgYvooXIg
-	S/l1Nd0di/bKYO89J1HUH21PtMKBeY3Q6r9LaXb0famfgFcaUn4LWRZn8j6mTJg44tTZy0mmgYt
-	8+sJh8g/Luow7jN/CMzk2QMzupoP0qJXgV92Zq0c//UMTcnkOS/PThjdd4UYoCzfL0VcL35bh4i
-	o7ZXXdXC3NxbCHrOal6hgBAayqUuTbNIIUPiEXm46W3iPgQ4VJK6bLApi60OowSddp830hl8l6m
-	IYk/Ss+S2sRrSlWUbaTnxGu+PoUzlNDK/3KPZQGLUuBtlzfsriO4YBCpcil5Qozug133m+mX2Db
-	yqvpw8rTLCmAmvWm2bX+PQSuWCnJGql409ktO+xNPtFnfhDXv7HxNinMpAVII7v2+uSVtKbiA=
-X-Received: by 2002:a05:6122:f07:b0:575:38d3:7c8a with SMTP id 71dfb90a1353d-5865d70cb74mr12837579e0c.2.1779878610705;
-        Wed, 27 May 2026 03:43:30 -0700 (PDT)
-Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f2f79814sm20247093e0c.6.2026.05.27.03.43.30
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 03:43:30 -0700 (PDT)
-Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-6314cc192a4so3532633137.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:43:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/lABrvObwZZW8qRom6pFTzlbJCB9gW/0gXNLLObmqN/4lj4VodS7nBOEdgWf0a4+jQtnCvHiaNyEHX@vger.kernel.org
-X-Received: by 2002:a05:6102:4bcb:b0:632:73ad:6c4 with SMTP id
- ada2fe7eead31-67c7294dbbamr10996229137.8.1779878610039; Wed, 27 May 2026
- 03:43:30 -0700 (PDT)
+	s=arc-20240116; t=1779878805; c=relaxed/simple;
+	bh=d6F/PFmCcpF5rkOI3FY7y9BcT9wcYqUk7qh2bk32KEw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=C6kks2oKxukKEBfo8TGSs+KuBWOBlZ1bYrRTfjNme66kLbYZIsKpsf8C6Nf5yJPFIwpHXxw4zH9Nfv4UImoho6jVvMgLiu43xxKDsLeusK24W0qZoUlSugTj3UaB6TYNQAtpUIi2zZT57VvBaBaDhW2Mi8IujTnAGiAVXtF/pLw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ufIdeOKB; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ufIdeOKB"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=N+eyeYWDj7Jk/z76utxzNR9wXCHzRmse/hMsH5lp/hw=; b=ufIdeOKBXO2UAgKnFHGKZVZOce
+	BJHUtPuyGZfXt6aUnuQy1ssUjgXdJa2ckiwKiN58DiKNvp8gDD0JOcmqq5+Gs4Aie0QdeOf137K3+
+	KnY62JZM4bgs/dyxOeCiGnsoAtnFr8n/FWF8Y+tqH+JmFzzgocUi7+LhjBduBpGp9fxcLo9YgJvpU
+	Uxzlz+NnYEBpRANaRal/kDq2mBRPaAafFK0VP1hSejkItP/2fvOe10jE5gE6RindxPRDuTiFIRDL0
+	SnbGVwynBOV197K9D2tXyHCNkN5birrETu23YUhMOi1qsAk0QTqFt6a5eiSyrESdtPqlN0bxh5p5W
+	l9QIjzBA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Vinod Koul <vkoul@kernel.org>
+Cc: neil.armstrong@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ jonas@kwiboo.se
+Subject:
+ Re: [PATCH v2 4/5] phy: rockchip: inno-usb2: Add clkout_ctl_phy support
+Date: Wed, 27 May 2026 12:46:29 +0200
+Message-ID: <4449069.vzjCzTo3RI@phil>
+In-Reply-To: <agX1obJdYdNhnvnN@vaman>
+References:
+ <20260505170410.3265305-1-heiko@sntech.de>
+ <20260505170410.3265305-5-heiko@sntech.de> <agX1obJdYdNhnvnN@vaman>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505120153.680979-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260505120153.680979-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-In-Reply-To: <20260505120153.680979-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 12:43:18 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdV+6qVRJGUVe9noYWRnG1nEeq9SPJYnwsbOEpG1osaBVw@mail.gmail.com>
-X-Gm-Features: AVHnY4I078iHs0rk4IwqVKZLKVIlEqIe2R4RXj6eXob3wzbESQW-hndXolsiWAA
-Message-ID: <CAMuHMdV+6qVRJGUVe9noYWRnG1nEeq9SPJYnwsbOEpG1osaBVw@mail.gmail.com>
-Subject: Re: [PATCH 3/3] arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI nodes
-To: Prabhakar <prabhakar.csengg@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Biju Das <biju.das.jz@bp.renesas.com>, 
-	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Hi Prabhakar,
+Hi Vinod,
 
-On Tue, 5 May 2026 at 14:02, Prabhakar <prabhakar.csengg@gmail.com> wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->
-> Enable the xSPI0 and xSPI1 controllers on the RZ/T2H N2H EVK board.
->
-> The xSPI0 controller is connected to an MX25LW51245 octal flash device.
-> Although the hardware supports octal mode, configure the bus width to
-> 1-bit (x1) mode. Enabling octal mode causes the BootROM to fail loading
-> the first-stage bootloader following a Watchdog Timer (WDT) reset.
->
-> The xSPI1 controller is connected to an AT25SF128A flash device.
-> Configure this interface for 4-bit (x4) mode to utilize the available
-> data lines.
->
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Am Donnerstag, 14. Mai 2026, 18:17:37 Mitteleurop=C3=A4ische Sommerzeit sch=
+rieb Vinod Koul:
+> On 05-05-26, 19:04, Heiko Stuebner wrote:
+> > From: Jonas Karlman <jonas@kwiboo.se>
+> >=20
+> > The 480m clk is controlled using regs in the PHY address space and not
+> > in the USB GRF address space on e.g. RK3528 and RK3506.
+> >=20
+> > Add a clkout_ctl_phy usb2phy_reg to handle enable/disable of the 480m
+> > clk on these SoCs.
+> >=20
+> > Signed-off-by: Jonas Karlman <jonas@kwiboo.se>
+> > Signed-off-by: Heiko Stuebner <heiko@sntech.de>
+> > ---
+> >  drivers/phy/rockchip/phy-rockchip-inno-usb2.c | 47 +++++++++++++++----
+> >  1 file changed, 38 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c b/drivers/ph=
+y/rockchip/phy-rockchip-inno-usb2.c
+> > index 7cec45192393..d8879fcd4291 100644
+> > --- a/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+> > +++ b/drivers/phy/rockchip/phy-rockchip-inno-usb2.c
+> > @@ -179,6 +179,7 @@ struct rockchip_usb2phy_cfg {
+> >  	unsigned int	num_ports;
+> >  	int (*phy_tuning)(struct rockchip_usb2phy *rphy);
+> >  	struct usb2phy_reg	clkout_ctl;
+> > +	struct usb2phy_reg	clkout_ctl_phy;
+>=20
+> This gives a kernel-doc warning. I have applied please send fix for this
 
-Thanks for your patch!
+Just if someone reads that in the future, I sent a fix for that last week i=
+n:
+https://lore.kernel.org/lkml/20260520102859.1357411-1-heiko@sntech.de/
 
-> --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
-> @@ -5,6 +5,7 @@
->   * Copyright (C) 2025 Renesas Electronics Corp.
->   */
->
-> +#include <dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h>
->  #include <dt-bindings/gpio/gpio.h>
->  #include <dt-bindings/leds/common.h>
->  #include <dt-bindings/net/mscc-phy-vsc8531.h>
-> @@ -20,6 +21,8 @@ aliases {
->                 mmc0 = &sdhi0;
->                 mmc1 = &sdhi1;
->                 serial0 = &sci0;
-> +               spi0 = &xspi0;
-> +               spi1 = &xspi1;
->         };
->
->         chosen {
-> @@ -331,6 +334,59 @@ ctrl-pins {
->                                  <RZT2H_PORT_PINMUX(17, 4, 0x29)>; /* SD1_CD */
->                 };
->         };
-> +
-> +       xspi0_pins: xspi0-group {
-> +               clk-pins {
-> +                       pinmux = <RZT2H_PORT_PINMUX(5, 1, 0x1c)>, /* XSPI0_CKP */
-> +                                <RZT2H_PORT_PINMUX(5, 2, 0x1c)>; /* XSPI0_CKN */
-
-XSPI0_CKN is not connected to the OSPI FLASH (zero-ohm "DNF" resistor!),
-only to the HyperRAM.
-
-> +                       input-schmitt-disable;
-> +                       slew-rate = <1>;
-> +                       drive-strength-microamp = <9000>;
-> +               };
-> +
-> +               data-pins {
-> +                       pinmux = <RZT2H_PORT_PINMUX(5, 6, 0x1c)>, /* XSPI0_IO0 */
-> +                                <RZT2H_PORT_PINMUX(5, 7, 0x1c)>, /* XSPI0_IO1 */
-> +                                <RZT2H_PORT_PINMUX(6, 0, 0x1c)>, /* XSPI0_IO2 */
-> +                                <RZT2H_PORT_PINMUX(6, 1, 0x1c)>, /* XSPI0_IO3 */
-> +                                <RZT2H_PORT_PINMUX(6, 2, 0x1c)>, /* XSPI0_IO4 */
-> +                                <RZT2H_PORT_PINMUX(6, 3, 0x1c)>, /* XSPI0_IO5 */
-> +                                <RZT2H_PORT_PINMUX(6, 4, 0x1c)>, /* XSPI0_IO6 */
-> +                                <RZT2H_PORT_PINMUX(6, 5, 0x1c)>; /* XSPI0_IO7 */
-> +                       input-schmitt-disable;
-> +                       slew-rate = <1>;
-> +                       drive-strength-microamp = <9000>;
-> +               };
-> +
-> +               ctrl-pins {
-> +                       pinmux = <RZT2H_PORT_PINMUX(5, 3, 0x1c)>, /* XSPI0_CS0 */
-> +                                <RZT2H_PORT_PINMUX(6, 6, 0x1c)>, /* XSPI0_RESET0 */
-> +                                <RZT2H_PORT_PINMUX(5, 5, 0x1c)>; /* XSPI0_DS */
-> +                       input-schmitt-disable;
-> +                       slew-rate = <1>;
-> +                       drive-strength-microamp = <9000>;
-> +               };
-
-As the three subnodes define the same parameters, you can do without
-the subnodes, and keep all pins together?
-
-Don't you also need P7_5 for XSPI0_ES, and SW5-6 closed?
-
-> +       };
-> +
-> +       xspi1_pins: xspi1-group {
-> +               ctrl-pins {
-> +                       pinmux = <RZT2H_PORT_PINMUX(1, 0, 0x1c)>, /* XSPI1_CKP */
-> +                                <RZT2H_PORT_PINMUX(1, 1, 0x1c)>; /* XSPI1_CS0 */
-> +                       input-schmitt-enable;
-> +                       slew-rate = <1>;
-> +                       drive-strength-microamp = <9000>;
-> +               };
-> +
-> +               data-pins {
-> +                       pinmux = <RZT2H_PORT_PINMUX(1, 4, 0x1c)>, /* XSPI1_IO0 */
-> +                                <RZT2H_PORT_PINMUX(1, 5, 0x1c)>, /* XSPI1_IO1 */
-> +                                <RZT2H_PORT_PINMUX(1, 6, 0x1c)>, /* XSPI1_IO2 */
-> +                                <RZT2H_PORT_PINMUX(1, 7, 0x1c)>; /* XSPI1_IO3 */
-> +                       input-schmitt-enable;
-> +                       slew-rate = <1>;
-> +                       drive-strength-microamp = <9000>;
-> +               };
-
-As the two subnodes define the same parameters, you can do without
-the subnodes, and keep all pins together?
-
-And SW1-6 must be closed?
-
-> +       };
->  };
->
->  &sci0 {
-> @@ -395,3 +451,82 @@ &wdt2 {
->         timeout-sec = <60>;
->  };
->
-> +&xspi0 {
-> +       pinctrl-0 = <&xspi0_pins>;
-> +       pinctrl-names = "default";
-> +       status = "okay";
-> +
-> +       assigned-clocks = <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
-> +       assigned-clock-rates = <50000000>;
-> +
-> +       flash@0 {
-> +               compatible = "jedec,spi-nor";
-> +               reg = <0>;
-> +               m25p,fast-read;
-> +               spi-tx-bus-width = <1>;
-> +               spi-rx-bus-width = <1>;
-> +               vcc-supply = <&reg_3p3v>;
-> +
-> +               partitions {
-> +                       compatible = "fixed-partitions";
-> +                       #address-cells = <1>;
-> +                       #size-cells = <1>;
-> +
-> +                       partition@0 {
-> +                               label = "bl2-0";
-> +                               reg = <0x00000000 0x00060000>;
-> +                               read-only;
-> +                       };
-> +
-> +                       partition@1fb000 {
-
-60000?
-
-> +                               label = "fip-0";
-> +                               reg = <0x00060000 0x007a0000>;
-> +                               read-only;
-> +                       };
-> +
-> +                       partition@300000 {
-
-800000?
-
-> +                               label = "user-0";
-> +                               reg = <0x800000 0x003800000>;
-> +                       };
-
-Given this is a 64 MiB part, I assume the reg entries are correct,
-and the unit-addresses are not?
-
-> +               };
-> +       };
-> +};
+Heiko
 
 
-Gr{oetje,eeting}s,
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
