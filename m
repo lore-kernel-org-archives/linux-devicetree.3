@@ -1,286 +1,75 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51521405C49
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:23:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0BD40B6DF
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:24:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779888237; cv=none; b=IXBQ6sO+9B+19U9/Th7Usf1HiLgStyrcC7rGqKf45ESLkjHOQ1zXCNe+iA3lHm/K4lKk8N5vFHUmjDX259GntUUH9PlYLEpDkbWiYBZZE29VMYF3onOrO2TzahjTKVTTvBXpyRE1X8VpRLrPkF/3+jaQSnvx47g1klDbzF/ZiDQ=
+	t=1779888252; cv=none; b=Hxshkl9Pw7aROTWqpltHMj1sBdPVTxp5uzVDB3cszyBqVLLisq3VUImyri9WJjH7j12MteaVNeo26+rUo4vRr+kXY8lAFBtIxuWL1oLopvamGPzkCBXZZmGeC7PPqbMCyRh9f5PhET4TM2Pv6dsZGBu7sllXsyKMKJ22dvihfcQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779888237; c=relaxed/simple;
-	bh=fZEirdPhsiXXXgzeCpAJ/Yl+U0Bn3pFVopZz2C1bxzU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WyPqKnUdTUAWFdQG5oJh0oOmcM5+Fk8cyvW/eZRDV7PoFhIFphexruDxWhF/foC5EF3HJS5tPB01nXU79+X5WodeyN7PFueW4v+bN2vi0L0a8uaJTfv2HV0LvIUJBGw5Rdp20J1vMdZFWzY6eI0xyEmvzhbpCHgWsKBduVl82WA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Wt6ZH/uI; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MKACRtdU; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779888252; c=relaxed/simple;
+	bh=ynx0YVdRpScOcVOUl3nY0Y9gWTKj9Ts8mNFO+WkHlNc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=pu0vDn6X16vb7vDzT1QLUHIlm3E4nTePPA93JVKSHsF+rmfRbjGVztujP+souA4SZHnfR3o/pELR0/mf7l9ZFuNgbnAd06qhItP7G1sEXyDRB5Y10XSJU4aCqHxRPfgSocG6ThnxPcSyC5A32QAXOPH/lQ6ta/ne5h+lJki0z1M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4ZoD6+J; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Wt6ZH/uI";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MKACRtdU"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mR4Z2282518
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:23:54 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	U/gnMR6HFXrUp4eDo7X8GSCD7DZCtPox7sItISbE2X4=; b=Wt6ZH/uImYVEEPcG
-	Ip6vnNXu9AsxYJG9KYAe1Y3hvhVVk2+u9tO1pofDCEobgLXyrPNaox5XcmDQ8P00
-	nn+d1kTmbcCqPo2vqKymZTtlzxybHVBMh6tq/ymwP646AIGHvDFEKa4iwMWcm095
-	iChib0AoEqsDk+GFOD3ZkWeXnZFd47KmMjE9nKkxzbohtZe387Lqql4VMekdownc
-	6OxemKIzy7qBMxJ/85wKxY1mNhRoAate3tsArGbRB/vcYvjjltXSMD2U2qVVh2Gb
-	unm4EMQZaecDHkc/Bv3V9cVwtebidNuQbPByR1v9XUtlYgMqCriMujGrBJKmaUGJ
-	yLoB1g==
-Received: from mail-pf1-f197.google.com (mail-pf1-f197.google.com [209.85.210.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edtvcskmq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:23:54 +0000 (GMT)
-Received: by mail-pf1-f197.google.com with SMTP id d2e1a72fcca58-83544d05c5aso5993528b3a.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:23:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779888234; x=1780493034; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=U/gnMR6HFXrUp4eDo7X8GSCD7DZCtPox7sItISbE2X4=;
-        b=MKACRtdUWE/spmo/p2MBYBD1gebfF0XEjj5GJJuuQ88aquT8HorKi4JuJW4pZj4fYB
-         2G4D9G59zWAzkbZe11QGbBHSh2nK3ZmvC2gDz8P62dGsMyEskkcbrM950ubY164h6mgU
-         ZmrdHp8GzFBLoW/zEad4pAz35lSTyehQLNL3RrEzBAE3KhCrekvEY/bcIHDAhOvz8yje
-         G10yu1GDSbabG0ZvMbrUgD//DqW6o11zaGEdlN31WoK4/LXWx4GI5WM5UHp4E3XlRCUP
-         Fzv5ERNqWj2YdC3YrAuKjIKUnhFfPKUT5NMt5A5hWqqtzOXRofoccWKLEETyfFzfjIK5
-         bskg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779888234; x=1780493034;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=U/gnMR6HFXrUp4eDo7X8GSCD7DZCtPox7sItISbE2X4=;
-        b=l7E4p7Z2pfNmTvltmTm5uU+QhSUY0PUS2ZNdwyaXo5UOw7aisifuz38n8vzX13zUP3
-         MvYL2wZE57j+/Iqa4PruWXFrwemkpk+UbVSRzBEbxgTNRv8BGGaSOFAUwp44ftRJgQaQ
-         O9XAr0QVG5wARDb1wHzeEU2MbLYvzOGXXpEOzaTn9ChSZHWRn9vrOJGH50m55TZH50qj
-         o2LvVCRSCOEUvxcEEM4/sc13w70QRR7eHqQ4K8EXHEnT7WCzMblLxoQ0aFwcLHlrTdzy
-         Uzj5J2TBBFiceWKsU+E1ARI+gkqxrxhixwK8FtvNcTR0EeTd3a4lsHqRIZ77zgS59SSo
-         /uIg==
-X-Forwarded-Encrypted: i=1; AFNElJ88MgrkxMsIO5x5+YWoPeXQE+eGc2V87rdDqb2oceMGBluayHgmYiJoCma0U1Halya1ghVpcxUcZZpd@vger.kernel.org
-X-Gm-Message-State: AOJu0YzXTp9d60okgdFX/haTMNQVx+ZFHuv7gcQK7Z2QoZz+//DCwE3c
-	3c/hdHVaFifmhR/W32xqwaEJgc3G5pjp6+jSuUjSw6rlTMy2DRpY0McXBlBKktLZ8o8CttsgcBb
-	27avHCg6FOnhRNWPpy1Mjf7FmRdmFMcb+dB7cWorPbgM+K/I0VLRZ5v+iOaRHPYnO
-X-Gm-Gg: Acq92OH2Py+c1QtOnAfRbqsBZxSx+vD4a2pOyvR2su4cXOn3N0CWX4azhaoWKcnk7kO
-	r8WdL6UhxOoSAdwf0vwTeWcy994uoQ/lNv836+NMaXzWzQS5NTDWZMaP6ENhl7P7olJovzmgwHQ
-	3h3IQuoRhDNCqEPHkEjRbW+SqhGJl43AiBY+4MP9omiH9feJwK3uM5nXKCdgdYs0hqsS8aCKA7D
-	x426FIsOpIHr65cydXpgXY8YM9ks44Tpk8W8GoJ+tY7A5FKQd2/9QmLtqunzm/4yd5PxdqbUAHi
-	Gl5v5yrrjEflFRfS9QHozBH7WhJKLt79bRiyimgauBEjOE+L+4xHI6WLQmPMZFV4UBbbciS1P11
-	EM/Id9VnMttFJUqA9MnEbQu+eNR6KUK4jgAb8ajFnK1ZlDBfo/CfLSdgtPvO3
-X-Received: by 2002:a05:6a00:194f:b0:82a:f02:7355 with SMTP id d2e1a72fcca58-8415f307755mr21996057b3a.32.1779888233815;
-        Wed, 27 May 2026 06:23:53 -0700 (PDT)
-X-Received: by 2002:a05:6a00:194f:b0:82a:f02:7355 with SMTP id d2e1a72fcca58-8415f307755mr21996009b3a.32.1779888233257;
-        Wed, 27 May 2026 06:23:53 -0700 (PDT)
-Received: from [10.219.1.106] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d6eb0313sm3374638b3a.13.2026.05.27.06.23.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 06:23:52 -0700 (PDT)
-Message-ID: <30a33da1-6424-47f3-9e7e-a09ca61a1234@oss.qualcomm.com>
-Date: Wed, 27 May 2026 18:53:30 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4ZoD6+J"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DE31F0155B
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:24:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779888250;
+	bh=ynx0YVdRpScOcVOUl3nY0Y9gWTKj9Ts8mNFO+WkHlNc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=M4ZoD6+JXZamGLbvvzX/8mFPVFodp59z3BYZHOJ1maZT37ITWJ1ws8ONO9jIbUftd
+	 LhBznDJJWgJ/U3q/e786ivP8rwVQtbr3RJRmy6qBsz0ICUZOKF6QS/jIpX3pL85Hki
+	 SBmpqnhbtAvifobPfoWvZGlHFvxvtwHbn014qxWtP3eC7ft5ucRqNyM7sDgcHxJLzZ
+	 CjuHGcMnd1dOC7Ya72IC7X4enemClLRXmDi8GBQi7DjBa5i3d4hQ/BgtcnHmfcskwr
+	 iSmD9SSLkwPopili/8IrKg0QYxQQW1DIGqW3wIH4gZu6D00pC5ZOrV7RLY/I77dU83
+	 JWF0LkIvryJTQ==
+Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a8f9841616so9626207e87.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:24:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ81uwYArg0RukUiW7pxialuoK4N7CExnpzkVbIdMy6nv7yy54h9NuiQJQc6gBTPVnRnueoB5m1IP3i5@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy0j5/7Im5QRZa5u9HjqD3YH8mb/BBIPrX4ooyv5i+kY28zsvK9
+	65GO01MhjXwYln6YBSj7q0N2aZFTHQuIhijLuribCuwmmi1k52NtGYgiTF7DWecDx/KTbDCcfzo
+	sX8iq21rXNco7GfIiZ2eKgq0NW/LLMkc=
+X-Received: by 2002:a05:6512:31c4:b0:5a8:7317:5417 with SMTP id
+ 2adb3069b0e04-5aa32369f4amr7061708e87.9.1779888249425; Wed, 27 May 2026
+ 06:24:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 14/16] arm64: dts: qcom: shikra: Enable BT support on EVK
- boards
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Yepuri Siddu <ysiddu@qti.qualcomm.com>, hbandi@qti.qualcomm.com,
-        rahul.samana@oss.qualcomm.com
-References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
- <20260525-shikra-dt-m1-v1-14-f51a9838dbaa@oss.qualcomm.com>
- <rbu5oub4uc4rubdlfth7undrirlyfwbnst5clgyvm63fde3tcw@fulet3k3a4sf>
-Content-Language: en-US
-From: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-In-Reply-To: <rbu5oub4uc4rubdlfth7undrirlyfwbnst5clgyvm63fde3tcw@fulet3k3a4sf>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: fFc_BOnFjirb8qWrpMzJ-_uSPjFPGi2J
-X-Authority-Analysis: v=2.4 cv=CY84Irrl c=1 sm=1 tr=0 ts=6a16f06a cx=c_pps
- a=rEQLjTOiSrHUhVqRoksmgQ==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=GjFf7XSWKEao_LXfqQMA:9 a=QEXdDO2ut3YA:10
- a=2VI0MkxyNR6bbpdq8BZq:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDEzMCBTYWx0ZWRfXx7vzhDxqITJg
- k/55IJjExGQKGBhrVat506ly00Ep9KH1/hqCKuo+opPatyZfhO5RmXC8NztBFS8rzXvYmrJGmvk
- IyPQP3Fi6fWODOtp5CQFnuRiM7wMQhfBgmHZ9xfEgCywPiEC0aKiWlUrE352Jf97A6w0nnN/7nQ
- eCTZxioIlNkMbmbtER+uHzJyyvuflbKue5an60zCewuJp5uhywH9lJgusm9pTwuurgLLzSgr4ci
- WLsRf//u9N9+EGCdCvoVYMx1JkwuqGdhVSjhtEJV+Jy4sH0k1Bg16Cjtz34gPCleVIwStij2W2c
- m7LR+TfuNQFoyZzcjx9X2wlkJqA9g5DErRexxfSWV67S/HcBOWF42+WPcAr6uzDfHVVyoakr2/3
- BonEgqb+5bukfR/8WPtXefOqExREFY4Q+hHnwDK9hhpLVGkgaIAc06pByLDdksn8KlPQILtUC6F
- Wux4AIXeObpGRrs6sxA==
-X-Proofpoint-ORIG-GUID: fFc_BOnFjirb8qWrpMzJ-_uSPjFPGi2J
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_02,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 clxscore=1011 lowpriorityscore=0 bulkscore=0 priorityscore=1501
- impostorscore=0 spamscore=0 malwarescore=0 suspectscore=0 adultscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270130
+References: <20260508184626.15938-1-manishbaing2789@gmail.com>
+In-Reply-To: <20260508184626.15938-1-manishbaing2789@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 27 May 2026 15:23:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLk0QWoTCXEqZbm_ECV2YQdL6PBZp2+EMSVH6DrmPx=dKw@mail.gmail.com>
+X-Gm-Features: AVHnY4LJ4ZgmIO12q-22xaSmmAdfwCpy1pxkuhOelzvqfy6Ynt81zGPLoHbXLKo
+Message-ID: <CAD++jLk0QWoTCXEqZbm_ECV2YQdL6PBZp2+EMSVH6DrmPx=dKw@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: pwm: stmpe: drop legacy binding
+To: Manish Baing <manishbaing2789@gmail.com>
+Cc: ukleinek@kernel.org, thierry.reding@gmail.com, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com, 
+	alexandre.torgue@foss.st.com, linux-pwm@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+On Fri, May 8, 2026 at 8:46=E2=80=AFPM Manish Baing <manishbaing2789@gmail.=
+com> wrote:
 
+> The st,stmpe-pwm binding is already covered by the MFD schema
+> Documentation/devicetree/bindings/mfd/st,stmpe.yaml. Remove the
+> obsolete and redundant text binding file.
+>
+> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
 
-On 5/25/2026 3:01 PM, Dmitry Baryshkov wrote:
-> On Mon, May 25, 2026 at 01:19:18AM +0530, Komal Bajaj wrote:
->> From: Yepuri Siddu <ysiddu@qti.qualcomm.com>
->>
->> Enable uart8 and add WCN3988 Bluetooth node with board-specific regulator
->> supplies across CQM, CQS and IQS Shikra EVK boards.
->>
->> Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
->> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 12 ++++++++++++
->>   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 12 ++++++++++++
->>   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 20 ++++++++++++++++++++
->>   arch/arm64/boot/dts/qcom/shikra.dtsi        |  7 +++++++
->>   4 files changed, 51 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
->> index b112b21b1d79..259032bd20af 100644
->> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
->> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
->> @@ -16,6 +16,7 @@ / {
->>   	aliases {
->>   		mmc0 = &sdhc_1;
->>   		serial0 = &uart0;
->> +		serial1 = &uart8;
->>   	};
->>   
->>   	chosen {
->> @@ -57,3 +58,14 @@ &sdhc_1 {
->>   
->>   	status = "okay";
->>   };
->> +
->> +&uart8 {
->> +	status = "okay";
->> +
->> +	bluetooth {
->> +		vddio-supply = <&pm4125_l7>;
->> +		vddxo-supply = <&pm4125_l13>;
->> +		vddrf-supply = <&pm4125_l10>;
->> +		vddch0-supply = <&pm4125_l22>;
-> 
-> Use the modern (PMU) bindings. Also please add WiFi.
-The modern PMU support for the WCN39xx family is currently not available 
-in hci qca driver, that is why we have defined the regulators directly 
-within the Bluetooth node.
-> 
->> +	};
->> +};
->> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
->> index e62ba5aef71f..142cc8da53ce 100644
->> --- a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
->> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
->> @@ -16,6 +16,7 @@ / {
->>   	aliases {
->>   		mmc0 = &sdhc_1;
->>   		serial0 = &uart0;
->> +		serial1 = &uart8;
->>   	};
->>   
->>   	chosen {
->> @@ -57,3 +58,14 @@ &sdhc_1 {
->>   
->>   	status = "okay";
->>   };
->> +
->> +&uart8 {
->> +	status = "okay";
->> +
->> +	bluetooth {
->> +		vddio-supply = <&pm4125_l7>;
->> +		vddxo-supply = <&pm4125_l13>;
->> +		vddrf-supply = <&pm4125_l10>;
->> +		vddch0-supply = <&pm4125_l22>;
->> +	};
->> +};
->> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
->> index 727809430fd1..9bf52030bcc5 100644
->> --- a/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
->> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts
->> @@ -16,11 +16,20 @@ / {
->>   	aliases {
->>   		mmc0 = &sdhc_1;
->>   		serial0 = &uart0;
->> +		serial1 = &uart8;
->>   	};
->>   
->>   	chosen {
->>   		stdout-path = "serial0:115200n8";
->>   	};
->> +
->> +	vreg_bt_3p3_dummy: regulator-bt-3p3-dummy {
->> +		compatible = "regulator-fixed";
->> +		regulator-name = "bt_3p3_dummy";
->> +		regulator-min-microvolt = <3300000>;
->> +		regulator-max-microvolt = <3300000>;
->> +		regulator-always-on;
->> +	};
->>   };
->>   
->>   &remoteproc_cdsp {
->> @@ -57,3 +66,14 @@ &sdhc_1 {
->>   
->>   	status = "okay";
->>   };
->> +
->> +&uart8 {
->> +	status = "okay";
->> +
->> +	bluetooth {
->> +		vddio-supply = <&pm8150_s4>;
->> +		vddxo-supply = <&pm8150_l12>;
->> +		vddrf-supply = <&pm8150_l8>;
->> +		vddch0-supply = <&vreg_bt_3p3_dummy>;
->> +	};
->> +};
->> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
->> index 124d0f05538d..73681bf0e3ea 100644
->> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
->> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
->> @@ -1753,6 +1753,13 @@ &clk_virt SLAVE_QUP_CORE_0 RPM_ALWAYS_TAG>,
->>   				pinctrl-names = "default";
->>   
->>   				status = "disabled";
->> +
->> +				bluetooth {
->> +					compatible = "qcom,wcn3988-bt";
-> 
-> No, it's not a part of the SoC. Move it to the board files.
-I will move the node from the SoC DTSI to the board-specific files in 
-the next revision.
-> 
->> +					enable-gpios = <&tlmm 88 GPIO_ACTIVE_HIGH>;
->> +					max-speed = <3200000>;
->> +				};
->> +
->>   			};
->>   
->>   			i2c9: i2c@4aa4000 {
->>
->> -- 
->> 2.34.1
->>
-> 
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
+If the PWM maintainer is busy maybe Rob can queue this patch?
+
+Yours,
+Linus Walleij
