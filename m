@@ -1,75 +1,92 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from Atcsqr.andestech.com (exmail.andestech.com [60.248.187.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C0BD40B6DF
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:24:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88B95332EAE;
+	Wed, 27 May 2026 13:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.248.187.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779888252; cv=none; b=Hxshkl9Pw7aROTWqpltHMj1sBdPVTxp5uzVDB3cszyBqVLLisq3VUImyri9WJjH7j12MteaVNeo26+rUo4vRr+kXY8lAFBtIxuWL1oLopvamGPzkCBXZZmGeC7PPqbMCyRh9f5PhET4TM2Pv6dsZGBu7sllXsyKMKJ22dvihfcQ=
+	t=1779888532; cv=none; b=PojQCuuR9S/4rLQEXMk1kZA/4T2VhfOsYQbFUgaoasPGNMPtVFIIQEoZHuoMEy7e6WD4uWAHsLo4qJ8+ug0aHp2u5u20XMBLsV0inbhr6vzjh47k7LXGvEJrbfPOruC45GI99i3uOR7XRuixcmVPcJgSlZ7ZZZFiiHu6POZOEx4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779888252; c=relaxed/simple;
-	bh=ynx0YVdRpScOcVOUl3nY0Y9gWTKj9Ts8mNFO+WkHlNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=pu0vDn6X16vb7vDzT1QLUHIlm3E4nTePPA93JVKSHsF+rmfRbjGVztujP+souA4SZHnfR3o/pELR0/mf7l9ZFuNgbnAd06qhItP7G1sEXyDRB5Y10XSJU4aCqHxRPfgSocG6ThnxPcSyC5A32QAXOPH/lQ6ta/ne5h+lJki0z1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4ZoD6+J; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4ZoD6+J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0DE31F0155B
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:24:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779888250;
-	bh=ynx0YVdRpScOcVOUl3nY0Y9gWTKj9Ts8mNFO+WkHlNc=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=M4ZoD6+JXZamGLbvvzX/8mFPVFodp59z3BYZHOJ1maZT37ITWJ1ws8ONO9jIbUftd
-	 LhBznDJJWgJ/U3q/e786ivP8rwVQtbr3RJRmy6qBsz0ICUZOKF6QS/jIpX3pL85Hki
-	 SBmpqnhbtAvifobPfoWvZGlHFvxvtwHbn014qxWtP3eC7ft5ucRqNyM7sDgcHxJLzZ
-	 CjuHGcMnd1dOC7Ya72IC7X4enemClLRXmDi8GBQi7DjBa5i3d4hQ/BgtcnHmfcskwr
-	 iSmD9SSLkwPopili/8IrKg0QYxQQW1DIGqW3wIH4gZu6D00pC5ZOrV7RLY/I77dU83
-	 JWF0LkIvryJTQ==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5a8f9841616so9626207e87.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:24:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ81uwYArg0RukUiW7pxialuoK4N7CExnpzkVbIdMy6nv7yy54h9NuiQJQc6gBTPVnRnueoB5m1IP3i5@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0j5/7Im5QRZa5u9HjqD3YH8mb/BBIPrX4ooyv5i+kY28zsvK9
-	65GO01MhjXwYln6YBSj7q0N2aZFTHQuIhijLuribCuwmmi1k52NtGYgiTF7DWecDx/KTbDCcfzo
-	sX8iq21rXNco7GfIiZ2eKgq0NW/LLMkc=
-X-Received: by 2002:a05:6512:31c4:b0:5a8:7317:5417 with SMTP id
- 2adb3069b0e04-5aa32369f4amr7061708e87.9.1779888249425; Wed, 27 May 2026
- 06:24:09 -0700 (PDT)
+	s=arc-20240116; t=1779888532; c=relaxed/simple;
+	bh=i3ueMIiht6vtEnDeWTQlI+Ed5qdjYFMLh7I9aXdJ+cc=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=p3V7zj1nC/4O8KEXi9uwJJwXhTfMwu8/u2gvbpTFgsDJgDdd8od+80veDILZ3VMUZ6f5QOztBF6icGHFcdTUUAj+VZyJg0EHt7tlSedX7bHvPLar8GMy6bFz0YRnnJrpMmN6dZE849MN4uMoxGSORQF4/9KqSB8Gis3j+EjlrxA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=60.248.187.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (ATCPCS34.andestech.com [10.0.1.134])
+	by Atcsqr.andestech.com with ESMTPS id 64RDSO8s095410
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
+	Wed, 27 May 2026 21:28:24 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Wed, 27 May
+ 2026 21:28:24 +0800
+From: CL Wang <cl634@andestech.com>
+To: <vkoul@kernel.org>
+CC: <Frank.Li@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+        <conor+dt@kernel.org>, <kees@kernel.org>, <gustavoars@kernel.org>,
+        <dmaengine@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+        <cl634@andestech.com>, <tim609@andestech.com>
+Subject: [PATCH v3 0/3] dmaengine: atcdmac300: Add Andes ATCDMAC300 DMA driver
+Date: Wed, 27 May 2026 21:28:12 +0800
+Message-ID: <20260527132815.1211195-1-cl634@andestech.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260508184626.15938-1-manishbaing2789@gmail.com>
-In-Reply-To: <20260508184626.15938-1-manishbaing2789@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 27 May 2026 15:23:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk0QWoTCXEqZbm_ECV2YQdL6PBZp2+EMSVH6DrmPx=dKw@mail.gmail.com>
-X-Gm-Features: AVHnY4LJ4ZgmIO12q-22xaSmmAdfwCpy1pxkuhOelzvqfy6Ynt81zGPLoHbXLKo
-Message-ID: <CAD++jLk0QWoTCXEqZbm_ECV2YQdL6PBZp2+EMSVH6DrmPx=dKw@mail.gmail.com>
-Subject: Re: [PATCH v2] dt-bindings: pwm: stmpe: drop legacy binding
-To: Manish Baing <manishbaing2789@gmail.com>
-Cc: ukleinek@kernel.org, thierry.reding@gmail.com, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, mcoquelin.stm32@gmail.com, 
-	alexandre.torgue@foss.st.com, linux-pwm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs34.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 64RDSO8s095410
 
-On Fri, May 8, 2026 at 8:46=E2=80=AFPM Manish Baing <manishbaing2789@gmail.=
-com> wrote:
+This patch series adds support for the Andes ATCDMAC300 DMA controller,
+a memory-to-memory and peripheral DMA controller that provides
+scatter-gather, cyclic, and slave transfer capabilities.
 
-> The st,stmpe-pwm binding is already covered by the MFD schema
-> Documentation/devicetree/bindings/mfd/st,stmpe.yaml. Remove the
-> obsolete and redundant text binding file.
->
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
+The ATCDMAC300 IP is embedded in AndesCore-based platforms or SoCs
+such as AE350 and Qilai.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Changes in v3:
+  - Rename DT binding file from andestech,qilai-dma.yaml to
+    andestech,ae350-dma.yaml
+  - Deprecate IP-core-based compatible and align with SoC/platform-based
+    compatible strings
+  - Dropped Acked-by from Conor Dooley due to the above binding change
+  - Remove "andestech,atcdmac300" from of_device_id table
+  - Replace deprecated tasklet with threaded IRQ using
+    devm_request_threaded_irq() and IRQF_ONESHOT
+  - Update locking from spin_lock_bh() to spin_lock_irqsave()
+  - Use builtin_platform_driver() instead of module_platform_driver()
+  - Remove "select DMATEST" from Kconfig
+  - Add separate MAINTAINERS patch (patch 3/3)
 
-If the PWM maintainer is busy maybe Rob can queue this patch?
+Please kindly review.
 
-Yours,
-Linus Walleij
+CL Wang (3):
+  dt-bindings: dmaengine: Add support for ATCDMAC300 DMA engine
+  dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+  MAINTAINERS: Add entry for Andes ATCDMAC300
+
+ .../bindings/dma/andestech,ae350-dma.yaml     |   68 +
+ MAINTAINERS                                   |    6 +
+ drivers/dma/Kconfig                           |   11 +
+ drivers/dma/Makefile                          |    1 +
+ drivers/dma/atcdmac300.c                      | 1505 +++++++++++++++++
+ drivers/dma/atcdmac300.h                      |  296 ++++
+ 6 files changed, 1887 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+ create mode 100644 drivers/dma/atcdmac300.c
+ create mode 100644 drivers/dma/atcdmac300.h
+
+-- 
+2.34.1
+
