@@ -1,203 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 318C93B7B76
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:05:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B155E3B5847;
+	Wed, 27 May 2026 07:05:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779865526; cv=none; b=Xt4Hxz8CZV6gWVjYEMr/SBCmyh2QNpFRIo3o3RuSeGjof8QDgUKgCGBkoioyJyPp984yq2CuoKigrrUBtTKzrKU785glg/Bw1cLWKROEEY11ATX7axhuPnbJo+5aWfvbZkxsCFJi0hJrK2kLgFwtd+n6QIZvz3WMgaSwZd2Vk3s=
+	t=1779865551; cv=none; b=S3ky3GgbBepybKPR3iEgtkNinBWBHgn6rcU6nLmqOofqFbyecc64TrhzJ8TQPaWpZ1HvwrIbU8nORqPkkaYS1HqOSDCypHEq1vJDbtIsR2+7F9E1R3xrnxC4pTTyhKypiYPi3G4NsioeZwzVVibHoB176bxJxFBi9ooTo7j8GOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779865526; c=relaxed/simple;
-	bh=0pCwy/RguArIW+sW86JSSX5fHL1H3WwZncOI/Pose9Y=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gb7dSWx+sRnUkVkTWq4sVvbG6OYTb8vVwunENCJfG7wW5k5yq4vXinDhX9TjWe1QHtBkUtSY385wWMo+hyFrXAZpK3cFwLJWX+v/zn0Fp2qyWrSrGc1AYGmINZiqeZkzioAFTKTdNZVmR2S8REjhTy6GbVPcmBBcgcjT9ZeUtqA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HPrhw3jh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779865551; c=relaxed/simple;
+	bh=3ttHPNyVPUXisL9InocA5CVFySlyMeRG6gV4SdFU9kg=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Be3oAXroQ6TJF98TfEvBRhYN8rraC+TYLP+9oXhLkR++tToZSxIXctLgRxm/TVTu0sr5tX5J2dhPjXIBGsVZeoRSzhsm/L55JLAjIbgjjtZGTumsKz1eBujJbw9zP0iLama5cUfQdOlDKgGuzg1dUDVKs61ze76PGrxQnZrKvGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YVqCMYTj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HPrhw3jh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D56911F00A3A
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:05:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YVqCMYTj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 884AE1F000E9;
+	Wed, 27 May 2026 07:05:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779865523;
-	bh=MO6v4HCZ6LZWxyBV36xbPHRbeaRHshh+uR5yRAgk3F0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=HPrhw3jh2FtxROfboMzJYh9Kj2UykOEtzTjBaCnE4WEk0PKxbjgEGk3ub7zZMBt2o
-	 xWZ+J07axkvfAKmPuXXEP1koIWXBQ1zhvyB8AX8vf9yHPgQlKAaHIaM6hD2YgD3tSe
-	 9gfTcP8MLqycJ7vw+T7+mX57XmlmNW7+772/w40H+8PMXmqB+f2hZV5bsOZXZDPqCq
-	 nAs5o+5GFjRgGswc0gH4JBWNGNSHt317ArSxeygLf3gPWbbrE/oaIThS2k2rn91xc8
-	 W60xI/T4aL0tCxg07WWJfkHv/K1x7VUXrxcWXaSIxKS8BgqomsPoF7gBrgDyPMdhSY
-	 w0KQ1sgJrVnbA==
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-bd85ebb368fso1677320866b.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:05:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+hgIAFAcxBmMoH+nps51l9Cq7fZ//P5aJwNLW/ECvXD+BevyAwPNgD+1y3tB2N76orAJf6Ccvce8F2@vger.kernel.org
-X-Gm-Message-State: AOJu0YxUo9/x9F08yGQ9OCQShsQBoXgLggqvfxTskFwojBGHP5Rfy2J7
-	7Q4XHDs7aTcZ00ZLK//zOYU538R4YLWZ91Jol51/5tYtuxx47AUZ9a2fhqzUNhvljSuO+BupXZQ
-	7imNjgMkS0G9aHPV8rjCALZc3hwLCt38=
-X-Received: by 2002:a17:907:c706:b0:bdc:bb32:2ea9 with SMTP id
- a640c23a62f3a-bdd263cb23emr1287027566b.35.1779865522506; Wed, 27 May 2026
- 00:05:22 -0700 (PDT)
+	s=k20260515; t=1779865550;
+	bh=oRExL8R0TDTPZxJJpPqHUXVby4f6YAO2qb7hjquP+p8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YVqCMYTjN4Kox1nNd46c71wRvFF8zrujxrCB8TVd3N+Eziybit+gOrLgjrkps811s
+	 mQq2yh4z5MmvoM0jSyYYXe17MJM7Oieu5HQquF6K4RdlZQMkLs1OmJ0i4JMAKHhTIQ
+	 4ouLpKjNBpRzju2+FmEHCxKQi/50WGOr3T8xYa3K1ax3OQLtYrPf4keaXrGuSV3HIL
+	 1bARg1krjZ542hrl0dznJwrFSFzKIcKBdrbxBrypYQdHOlaqMSZairU758KsOUC0ay
+	 clGsEG6pzeyVyrhI8q7wAG/2QC6F8xbvqjX85BF1w9l501TyZEmP54YtDaiI8RrFiz
+	 I0m3LXNfWbgmA==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wS8Kp-00000006Z4t-3NSY;
+	Wed, 27 May 2026 07:05:47 +0000
+Date: Wed, 27 May 2026 08:05:46 +0100
+Message-ID: <86tsrtuyb9.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: =?UTF-8?B?Ill1LUNodW4gTGluIFvmnpfnpZDlkJtdIg==?=
+ <eleanor.lin@realtek.com>
+Cc: "linux-arm-kernel@lists.infradead.org"
+ <linux-arm-kernel@lists.infradead.org>,	"linux-acpi@vger.kernel.org"
+ <linux-acpi@vger.kernel.org>,	"linux-kernel@vger.kernel.org"
+ <linux-kernel@vger.kernel.org>,	"devicetree@vger.kernel.org"
+ <devicetree@vger.kernel.org>,	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Hanjun Guo <guohanjun@huawei.com>,	Sudeep Holla <sudeep.holla@kernel.org>,
+	"Catalin\ Marinas" <catalin.marinas@arm.com>,	Will Deacon
+ <will@kernel.org>,	"Rafael J.\ Wysocki" <rafael@kernel.org>,	Mark Rutland
+ <mark.rutland@arm.com>,	"Daniel\ Lezcano" <daniel.lezcano@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>,	"Rob\ Herring" <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,	"Conor\ Dooley"
+ <conor+dt@kernel.org>,	Chen-Yu Tsai <wens@kernel.org>,	Jernej Skrabec
+ <jernej.skrabec@gmail.com>,	Samuel Holland <samuel@sholland.org>,
+	"Neil\ Armstrong" <neil.armstrong@linaro.org>,	Kevin Hilman
+ <khilman@baylibre.com>,	Jerome Brunet <jbrunet@baylibre.com>,	Martin
+ Blumenstingl <martin.blumenstingl@googlemail.com>,	Ge Gordon
+ <gordon.ge@bst.ai>,	"BST\ Linux Kernel Upstream Group"
+ <bst-upstream@bstai.top>,	Jesper Nilsson <jesper.nilsson@axis.com>,	Lars
+ Persson <lars.persson@axis.com>,	Alim Akhtar <alim.akhtar@samsung.com>,
+	Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,	Pengutronix Kernel Team
+ <kernel@pengutronix.de>,	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen
+ <dinguyen@kernel.org>,	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Thierry Reding <thierry.reding@kernel.org>,	Jonathan Hunter
+ <jonathanh@nvidia.com>,	"Bjorn\ Andersson" <andersson@kernel.org>,	Konrad
+ Dybcio <konradybcio@kernel.org>,	Andreas =?UTF-8?B?RsOkcmJlcg==?=
+ <afaerber@suse.de>,	Heiko Stuebner <heiko@sntech.de>,	Shawn Lin
+ <shawn.lin@rock-chips.com>,	Orson Zhai <orsonzhai@gmail.com>,	Baolin Wang
+ <baolin.wang@linux.alibaba.com>,	"Michal\ Simek" <michal.simek@amd.com>
+Subject: Re: [PATCH v3 14/17] arm64: dts: realtek: Add EL2 virtual timer interrupt
+In-Reply-To: <6fe3e828f8724424bc6aef818ae0aa0f@realtek.com>
+References: <20260523140242.586031-1-maz@kernel.org>
+	<20260523140242.586031-15-maz@kernel.org>
+	<6fe3e828f8724424bc6aef818ae0aa0f@realtek.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260526031021.32662-1-wanghongliang@loongson.cn> <20260526031021.32662-3-wanghongliang@loongson.cn>
-In-Reply-To: <20260526031021.32662-3-wanghongliang@loongson.cn>
-From: Huacai Chen <chenhuacai@kernel.org>
-Date: Wed, 27 May 2026 15:05:43 +0800
-X-Gmail-Original-Message-ID: <CAAhV-H71ZiakZaLVKYg2Qvp8ZJiT7hr9P9bAmXCrjWkHg+-vGg@mail.gmail.com>
-X-Gm-Features: AVHnY4KXhbotlQbkE83Q64EiG9DjibgCY4KcfZdbq6nZO0CioN0A_51bEtuDJvs
-Message-ID: <CAAhV-H71ZiakZaLVKYg2Qvp8ZJiT7hr9P9bAmXCrjWkHg+-vGg@mail.gmail.com>
-Subject: Re: [PATCH v4 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-To: Hongliang Wang <wanghongliang@loongson.cn>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org, 
-	devicetree@vger.kernel.org, loongarch@lists.linux.dev
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: quoted-printable
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: eleanor.lin@realtek.com, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, daniel.lezcano@kernel.org, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kerne
+ l.org, afaerber@suse.de, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
-Hi, Hongliang,
+On Wed, 27 May 2026 07:36:18 +0100,
+"Yu-Chun Lin [=E6=9E=97=E7=A5=90=E5=90=9B]" <eleanor.lin@realtek.com> wrote:
+>=20
+> > Subject: [PATCH v3 14/17] arm64: dts: realtek: Add EL2 virtual timer in=
+terrupt
+> >=20
+> > The ARMv8.2 based CPUs used in a number of Realtek SoCs are missing the
+> > EL2 virtual timer interrupt. Add it.
+> >=20
+> > Furthermore, the "kent" platform appears to assign PPI9 to both the
+> > EL2 virtual timer and the GIC Maintenance Interrupt, which can't be rig=
+ht.
+> > Attempt a fix by setting the former to PPI12, as PPI9 is traditionally =
+wired to
+> > the GIC itself.
+> >=20
+> > Signed-off-by: Marc Zyngier <maz@kernel.org>
+> > ---
+> >  arch/arm64/boot/dts/realtek/kent.dtsi    | 2 +-
+> >  arch/arm64/boot/dts/realtek/rtd16xx.dtsi | 3 ++-
+> >  2 files changed, 3 insertions(+), 2 deletions(-)
+> >=20
+> > diff --git a/arch/arm64/boot/dts/realtek/kent.dtsi
+> > b/arch/arm64/boot/dts/realtek/kent.dtsi
+> > index ae006ce244205..4147e4269247a 100644
+> > --- a/arch/arm64/boot/dts/realtek/kent.dtsi
+> > +++ b/arch/arm64/boot/dts/realtek/kent.dtsi
+> > @@ -23,7 +23,7 @@ timer {
+> >                              <GIC_PPI 14 IRQ_TYPE_LEVEL_LOW>,
+> >                              <GIC_PPI 11 IRQ_TYPE_LEVEL_LOW>,
+> >                              <GIC_PPI 10 IRQ_TYPE_LEVEL_LOW>,
+> > -                            <GIC_PPI  9 IRQ_TYPE_LEVEL_HIGH>;
+> > +                            <GIC_PPI 12 IRQ_TYPE_LEVEL_HIGH>;
+>=20
+> Thanks for this patch. However, the 5th interrupt should be
+>=20
+> <GIC_PPI 12 IRQ_TYPE_LEVEL_LOW>;
 
-On Tue, May 26, 2026 at 11:11=E2=80=AFAM Hongliang Wang
-<wanghongliang@loongson.cn> wrote:
->
-> From: wanghongliang <wanghongliang@loongson.cn>
->
-> The i2c-ls2x driver supports dts and acpi parameter passing.
->
-> In dts, uses clock framework, by parsing clocks property to
-> get i2c bus reference clock, and define the div of reference
-> clock by device data.
->
-> In acpi, by passing clocks property to describe i2c bus reference
-> clock and clock-div property to describe the div of reference clock.
->
-> Based on i2c bus reference clock(clock_a), i2c bus speed(clock_s)
-> and div, calculate the prcescale of i2c divider register. The
-> calculation formula is
->
-> prcescale =3D (clock_a*10)/(div*clock_s)-1
->
-> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
-> ---
->  drivers/i2c/busses/i2c-ls2x.c | 35 ++++++++++++++++++++++++++++++++---
->  1 file changed, 32 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/i2c/busses/i2c-ls2x.c b/drivers/i2c/busses/i2c-ls2x.=
-c
-> index b475dd27b7af..6d332e59452d 100644
-> --- a/drivers/i2c/busses/i2c-ls2x.c
-> +++ b/drivers/i2c/busses/i2c-ls2x.c
-> @@ -12,6 +12,7 @@
->
->  #include <linux/bitfield.h>
->  #include <linux/bits.h>
-> +#include <linux/clk.h>
->  #include <linux/completion.h>
->  #include <linux/device.h>
->  #include <linux/iopoll.h>
-> @@ -63,11 +64,18 @@
->  /* The default bus frequency, which is an empirical value */
->  #define LS2X_I2C_FREQ_STD      (33 * HZ_PER_KHZ)
->
-> +/* The div of i2c reference clock on 2K0500/2K1000/2K2000 */
-Please use "LS2K0500/2K1000/2K2000".
+I suspected as much, but it was hard to know exactly how wrong the
+original descriptor was, so I decided to change as little as
+possible. It has no material impact on the interrupt, as the GIC has
+no way to distinguish LEVEL_HIGH from LEVEL_LOW (it only distinguishes
+between LEVEL and EDGE). So this only serves as documentation.
 
-> +#define LS2X_I2C_2K_CLOCK_DIV  40
-> +
-> +/* The div of i2c reference clock on 7A1000/7A2000 */
-And "LS7A1000/7A2000".
+>=20
+> If you are ok with it, I will amend it when applying.
 
-BTW, I think this series should be CC stable.
+Please go ahead.
 
-Huacai
+Thanks,
 
-> +#define LS2X_I2C_7A_CLOCK_DIV  50
-> +
->  struct ls2x_i2c_priv {
->         struct i2c_adapter      adapter;
->         void __iomem            *base;
->         struct i2c_timings      i2c_t;
->         struct completion       cmd_complete;
-> +       unsigned int            div;
->  };
->
->  /*
-> @@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *de=
-v_id)
->  static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->  {
->         u16 val;
-> +       u32 pclk, div;
-> +       struct clk *clk;
->         struct i2c_timings *t =3D &priv->i2c_t;
->         struct device *dev =3D priv->adapter.dev.parent;
->         u32 acpi_speed =3D i2c_acpi_find_bus_speed(dev);
-> @@ -107,12 +117,29 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i=
-2c_priv *priv)
->         else
->                 t->bus_freq_hz =3D LS2X_I2C_FREQ_STD;
->
-> +       if (dev_of_node(dev)) {
-> +               clk =3D devm_clk_get_optional_enabled(dev, NULL);
-> +               if (clk && !IS_ERR(clk))
-> +                       pclk =3D clk_get_rate(clk);
-> +               else
-> +                       pclk =3D LS2X_I2C_PCLK_FREQ;
-> +
-> +               div =3D priv->div;
-> +
-> +               val =3D (pclk * 10) / (div * t->bus_freq_hz) - 1;
-> +       } else {
-> +               if (!device_property_read_u32(dev, "clocks", &pclk) &&
-> +                   !device_property_read_u32(dev, "clock-div", &div))
-> +                       val =3D (pclk * 10) / (div * t->bus_freq_hz) - 1;
-> +               else
-> +                       val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz)=
- - 1;
-> +       }
-> +
->         /*
->          * According to the chip manual, we can only access the registers=
- as bytes,
->          * otherwise the high bits will be truncated.
->          * So set the I2C frequency with a sequential writeb() instead of=
- writew().
->          */
-> -       val =3D LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
->         writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_=
-LO);
->         writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER=
-_HI);
->  }
-> @@ -295,6 +322,8 @@ static int ls2x_i2c_probe(struct platform_device *pde=
-v)
->         if (!priv)
->                 return -ENOMEM;
->
-> +       priv->div =3D (unsigned int)(unsigned long)device_get_match_data(=
-dev);
-> +
->         /* Map hardware registers */
->         priv->base =3D devm_platform_ioremap_resource(pdev, 0);
->         if (IS_ERR(priv->base))
-> @@ -349,8 +378,8 @@ static DEFINE_RUNTIME_DEV_PM_OPS(ls2x_i2c_pm_ops,
->                                  ls2x_i2c_suspend, ls2x_i2c_resume, NULL)=
-;
->
->  static const struct of_device_id ls2x_i2c_id_table[] =3D {
-> -       { .compatible =3D "loongson,ls2k-i2c" },
-> -       { .compatible =3D "loongson,ls7a-i2c" },
-> +       { .compatible =3D "loongson,ls2k-i2c", .data =3D (void *)LS2X_I2C=
-_2K_CLOCK_DIV, },
-> +       { .compatible =3D "loongson,ls7a-i2c", .data =3D (void *)LS2X_I2C=
-_7A_CLOCK_DIV, },
->         { /* sentinel */ }
->  };
->  MODULE_DEVICE_TABLE(of, ls2x_i2c_id_table);
-> --
-> 2.47.2
->
->
+	M.
+
+--=20
+Without deviation from the norm, progress is not possible.
