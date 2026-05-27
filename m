@@ -1,131 +1,140 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5FBD339B48D;
-	Wed, 27 May 2026 06:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6852230569E
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:50:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779863994; cv=none; b=hZK1ClSP3k1qFoeitxcu31ksbvnR5RntwUnEA64iWRA5VaYzpcUtTJqODpwP10c1aJMpNI1IliIIXViCMKYVHFduTNyhyO8S/gp3ruuSQeuQiG9mhPulfcnoNjEmoqOGMke4ed5T6wmi6KGYuf6oItI3bFk62cHYPWWXILlXA2g=
+	t=1779864650; cv=none; b=IJI1Lare+FLXtH7akn5wlaKjdFXZ6TauhNlkaziCtgNrGc5qe2mSrP4zBg52L+MpxLLBMHXJ1ZvGEC5/jWjyXsyodux91BLha87dGcv+vy+qGy+DFDwDmkBMS7XnMQ1N8Lq91d4AXa2U+xeVWCYlcWJdoGjMY+4a9qm5vg0MNYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779863994; c=relaxed/simple;
-	bh=UAZ+U+B/rXjDOCV9A2itjO5ZJ83QoPpuhidEhyjII+c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=GuxnyjaBQe28JBWMqWVkZ0AWCTDxkBe5IZD97gjNm1UeK4ceKxLZ8QbXj9H7aBDwXwjWO/s89lf1m1MiZ3CGaYc6UbOvWb3yAotmwV13N4IlkN70cJJKMa87dKSfy4Za7I+XmDk23Kg4yGI5D4qpfA7+vv4loWUMPg1Ife+VrrA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=ra6XKr8T; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1779864650; c=relaxed/simple;
+	bh=n+HDfqvN8xB9O1HmQfuDq5j0YVBXfkNB41XBVjroJQo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CsGTj6QPqTFOT76GHZ6jSLspn/Ks9jz7z6NbWehCQzDAzuqGVj3MMTsc0Qm3BwLsJtJmiZm6BjhXyig1KyKRExy0DhLz51jEiLVNB9mFaaKfFAjdtzQOxAcOYvC/pazzauxsgQK3rwA7b0SzKPZom8DiyCZSa5zZiIXgl3lKjXs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K0rrRXFc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="ra6XKr8T"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 64R6aIUO12251887, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1779863778; bh=UAZ+U+B/rXjDOCV9A2itjO5ZJ83QoPpuhidEhyjII+c=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:Content-Transfer-Encoding:MIME-Version;
-	b=ra6XKr8TYsUZuidTGpQ/j1/jXu3c1qT8saLXkvqjAOirYIRdiWHQjbPzpp0uPGsJ7
-	 yE3vc9xYLzU/uAWmqz7O1FN/6zPmizqM007SqquLBlfZHmBRmYJKRJPxnWS4TL8Y8G
-	 gVh3nmvLbxT7vSrjXeX8kEw4oMwdVjAi9mULcUwBNyDCxvnG8ZLrGAXZi9g9tELdKY
-	 iu/lCGcZt6YdPYjwito53E/uK8VnyIgayD6LAUjaY6jcgO+llH3LWMdpyX66Eh+83x
-	 1Z+oWf9jGwSKrUOIvQqjBL7qyfsnh+HzVACSgr+Cn6+rwkgIL7klS1P+64CTyb2FAe
-	 mKQJnPhiMnWgg==
-Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
-	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 64R6aIUO12251887
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 27 May 2026 14:36:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Wed, 27 May 2026 14:36:18 +0800
-Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
- RTKEXHMBS06.realtek.com.tw ([fe80::e6fd:5a3f:8946:92c4%10]) with mapi id
- 15.02.2562.017; Wed, 27 May 2026 14:36:18 +0800
-From: =?utf-8?B?WXUtQ2h1biBMaW4gW+ael+elkOWQm10=?= <eleanor.lin@realtek.com>
-To: Marc Zyngier <maz@kernel.org>, "linux-arm-kernel@lists.infradead.org"
-	<linux-arm-kernel@lists.infradead.org>, "linux-acpi@vger.kernel.org"
-	<linux-acpi@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-CC: Lorenzo Pieralisi <lpieralisi@kernel.org>, Hanjun Guo
-	<guohanjun@huawei.com>, Sudeep Holla <sudeep.holla@kernel.org>, "Catalin
- Marinas" <catalin.marinas@arm.com>, Will Deacon <will@kernel.org>, "Rafael J.
- Wysocki" <rafael@kernel.org>, Mark Rutland <mark.rutland@arm.com>, "Daniel
- Lezcano" <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>, "Rob
- Herring" <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, "Conor
- Dooley" <conor+dt@kernel.org>, Chen-Yu Tsai <wens@kernel.org>, Jernej Skrabec
-	<jernej.skrabec@gmail.com>, Samuel Holland <samuel@sholland.org>, "Neil
- Armstrong" <neil.armstrong@linaro.org>, Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>, Martin Blumenstingl
-	<martin.blumenstingl@googlemail.com>, Ge Gordon <gordon.ge@bst.ai>, "BST
- Linux Kernel Upstream Group" <bst-upstream@bstai.top>, Jesper Nilsson
-	<jesper.nilsson@axis.com>, Lars Persson <lars.persson@axis.com>, Alim Akhtar
-	<alim.akhtar@samsung.com>, Ivaylo Ivanov <ivo.ivanov.ivanov1@gmail.com>,
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam
-	<festevam@gmail.com>, Dinh Nguyen <dinguyen@kernel.org>, Matthias Brugger
-	<matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Thierry Reding
-	<thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, "Bjorn
- Andersson" <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>,
-	=?utf-8?B?QW5kcmVhcyBGw6RyYmVy?= <afaerber@suse.de>, Heiko Stuebner
-	<heiko@sntech.de>, Shawn Lin <shawn.lin@rock-chips.com>, Orson Zhai
-	<orsonzhai@gmail.com>, Baolin Wang <baolin.wang@linux.alibaba.com>, "Michal
- Simek" <michal.simek@amd.com>
-Subject: RE: [PATCH v3 14/17] arm64: dts: realtek: Add EL2 virtual timer
- interrupt
-Thread-Topic: [PATCH v3 14/17] arm64: dts: realtek: Add EL2 virtual timer
- interrupt
-Thread-Index: AQHc6rzgHarUxBjaREiSomlba5RzH7Yhb6AQ
-Date: Wed, 27 May 2026 06:36:18 +0000
-Message-ID: <6fe3e828f8724424bc6aef818ae0aa0f@realtek.com>
-References: <20260523140242.586031-1-maz@kernel.org>
- <20260523140242.586031-15-maz@kernel.org>
-In-Reply-To: <20260523140242.586031-15-maz@kernel.org>
-Accept-Language: zh-TW, en-US
-Content-Language: zh-TW
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K0rrRXFc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DE021F000E9;
+	Wed, 27 May 2026 06:50:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779864648;
+	bh=g08b8Y+O04yg+AM9FtoNiEnuUv9zDvlV1CfNZGZTjTs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K0rrRXFcLbH2AdbnzwuT0yOLp34M6G5h740qJ3Ql7ttWvB962Wz1lrb5LFjs+mSlX
+	 rXLsYAOddHFARB7jTGs+x1lmfPLGBeTmCZkztQ/+PRPoVnDzf3rSCKM4JlsnE+g7we
+	 iDWwkKmerZvfNq2XVTMiyKTYKnoI7BqulCAygEBxDl2DkKNI+Vazn7MOC2HC1LvbOD
+	 C4GuSspSGS/vlnwNP97uSw53Ro6GnGeeba0dQrellTIa11kHXWdt4jPFsC4De75+oZ
+	 5Th723lw6qMOhV6ms+fhWaa/+B2TQMt9supXET5igePxrX/q9we+FDLlOAadskTmg+
+	 QjbbF1GjzRbUw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/2] drm/panel: Add Ilitek ILI9488 controller driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Igor Reznichenko" <igor@reznichenko.net>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260527062300.88928-3-igor@reznichenko.net>
+References: <20260527062300.88928-3-igor@reznichenko.net>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 27 May 2026 06:50:47 +0000
+Message-Id: <20260527065048.7DE021F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-PiBTdWJqZWN0OiBbUEFUQ0ggdjMgMTQvMTddIGFybTY0OiBkdHM6IHJlYWx0ZWs6IEFkZCBFTDIg
-dmlydHVhbCB0aW1lciBpbnRlcnJ1cHQNCj4gDQo+IFRoZSBBUk12OC4yIGJhc2VkIENQVXMgdXNl
-ZCBpbiBhIG51bWJlciBvZiBSZWFsdGVrIFNvQ3MgYXJlIG1pc3NpbmcgdGhlDQo+IEVMMiB2aXJ0
-dWFsIHRpbWVyIGludGVycnVwdC4gQWRkIGl0Lg0KPiANCj4gRnVydGhlcm1vcmUsIHRoZSAia2Vu
-dCIgcGxhdGZvcm0gYXBwZWFycyB0byBhc3NpZ24gUFBJOSB0byBib3RoIHRoZQ0KPiBFTDIgdmly
-dHVhbCB0aW1lciBhbmQgdGhlIEdJQyBNYWludGVuYW5jZSBJbnRlcnJ1cHQsIHdoaWNoIGNhbid0
-IGJlIHJpZ2h0Lg0KPiBBdHRlbXB0IGEgZml4IGJ5IHNldHRpbmcgdGhlIGZvcm1lciB0byBQUEkx
-MiwgYXMgUFBJOSBpcyB0cmFkaXRpb25hbGx5IHdpcmVkIHRvDQo+IHRoZSBHSUMgaXRzZWxmLg0K
-PiANCj4gU2lnbmVkLW9mZi1ieTogTWFyYyBaeW5naWVyIDxtYXpAa2VybmVsLm9yZz4NCj4gLS0t
-DQo+ICBhcmNoL2FybTY0L2Jvb3QvZHRzL3JlYWx0ZWsva2VudC5kdHNpICAgIHwgMiArLQ0KPiAg
-YXJjaC9hcm02NC9ib290L2R0cy9yZWFsdGVrL3J0ZDE2eHguZHRzaSB8IDMgKystDQo+ICAyIGZp
-bGVzIGNoYW5nZWQsIDMgaW5zZXJ0aW9ucygrKSwgMiBkZWxldGlvbnMoLSkNCj4gDQo+IGRpZmYg
-LS1naXQgYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3JlYWx0ZWsva2VudC5kdHNpDQo+IGIvYXJjaC9h
-cm02NC9ib290L2R0cy9yZWFsdGVrL2tlbnQuZHRzaQ0KPiBpbmRleCBhZTAwNmNlMjQ0MjA1Li40
-MTQ3ZTQyNjkyNDdhIDEwMDY0NA0KPiAtLS0gYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3JlYWx0ZWsv
-a2VudC5kdHNpDQo+ICsrKyBiL2FyY2gvYXJtNjQvYm9vdC9kdHMvcmVhbHRlay9rZW50LmR0c2kN
-Cj4gQEAgLTIzLDcgKzIzLDcgQEAgdGltZXIgew0KPiAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgIDxHSUNfUFBJIDE0IElSUV9UWVBFX0xFVkVMX0xPVz4sDQo+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgPEdJQ19QUEkgMTEgSVJRX1RZUEVfTEVWRUxfTE9XPiwNCj4gICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICA8R0lDX1BQSSAxMCBJUlFfVFlQRV9MRVZFTF9MT1c+LA0KPiAt
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxHSUNfUFBJICA5IElSUV9UWVBFX0xFVkVMX0hJ
-R0g+Ow0KPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxHSUNfUFBJIDEyIElSUV9UWVBF
-X0xFVkVMX0hJR0g+Ow0KDQpUaGFua3MgZm9yIHRoaXMgcGF0Y2guIEhvd2V2ZXIsIHRoZSA1dGgg
-aW50ZXJydXB0IHNob3VsZCBiZQ0KDQo8R0lDX1BQSSAxMiBJUlFfVFlQRV9MRVZFTF9MT1c+Ow0K
-DQpJZiB5b3UgYXJlIG9rIHdpdGggaXQsIEkgd2lsbCBhbWVuZCBpdCB3aGVuIGFwcGx5aW5nLg0K
-DQpCZXN0IHJlZ2FyZHMsDQpZdS1DaHVuDQo+ICAgICAgICAgfTsNCj4gDQo+ICAgICAgICAgY3B1
-cyB7DQo+IGRpZmYgLS1naXQgYS9hcmNoL2FybTY0L2Jvb3QvZHRzL3JlYWx0ZWsvcnRkMTZ4eC5k
-dHNpDQo+IGIvYXJjaC9hcm02NC9ib290L2R0cy9yZWFsdGVrL3J0ZDE2eHguZHRzaQ0KPiBpbmRl
-eCAzYTdmNmUzNWI3Zjc0Li40M2IxM2QxMzNjMzI0IDEwMDY0NA0KPiAtLS0gYS9hcmNoL2FybTY0
-L2Jvb3QvZHRzL3JlYWx0ZWsvcnRkMTZ4eC5kdHNpDQo+ICsrKyBiL2FyY2gvYXJtNjQvYm9vdC9k
-dHMvcmVhbHRlay9ydGQxNnh4LmR0c2kNCj4gQEAgLTEwNSw3ICsxMDUsOCBAQCB0aW1lciB7DQo+
-ICAgICAgICAgICAgICAgICBpbnRlcnJ1cHRzID0gPEdJQ19QUEkgMTMgSVJRX1RZUEVfTEVWRUxf
-TE9XPiwNCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8R0lDX1BQSSAxNCBJUlFfVFlQ
-RV9MRVZFTF9MT1c+LA0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDxHSUNfUFBJIDEx
-IElSUV9UWVBFX0xFVkVMX0xPVz4sDQo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgPEdJ
-Q19QUEkgMTAgSVJRX1RZUEVfTEVWRUxfTE9XPjsNCj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICA8R0lDX1BQSSAxMCBJUlFfVFlQRV9MRVZFTF9MT1c+LA0KPiArICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgIDxHSUNfUFBJIDEyIElSUV9UWVBFX0xFVkVMX0xPVz47DQo+ICAgICAgICAg
-fTsNCj4gDQo+ICAgICAgICAgYXJtX3BtdTogcG11IHsNCj4gLS0NCj4gMi40Ny4zDQoNCg==
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing NULL check for the return value of `device_get_match_data(=
+)`, leading to a potential NULL pointer dereference.
+- [Medium] Missing color depth (bpc) assignment in connector display_info.
+- [Low] The MIPI DCS command `MIPI_DCS_ENTER_INVERT_MODE` (0x21) is incorre=
+ctly sent with a superfluous parameter.
+--
+
+commit 8971cceb8f9149b896a3175bdf0f536b85a67eda
+Author: Igor Reznichenko <igor@reznichenko.net>
+
+drm/panel: Add Ilitek ILI9488 controller driver
+
+This commit adds support for the Ilitek ILI9488 DSI controller used in
+the FocusLCDs E35GH-I-MW800-CB panel. It includes the initialization
+sequence and mode timings adjusted after STM32MP157 testing.
+
+> diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c b/drivers/gpu/d=
+rm/panel/panel-ilitek-ili9488.c
+> new file mode 100644
+> index 0000000000000..b2145cbe8c303
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+
+[ ... ]
+
+> +static void e35gh_i_mw800cb_init(struct mipi_dsi_multi_context *ctx)
+> +{
+
+[ ... ]
+
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xE9, 0x00);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0xF7, 0xA9, 0x51, 0x2C, 0x82);
+> +	mipi_dsi_dcs_write_seq_multi(ctx, 0x21, 0x00);
+
+[Severity: Low]
+Is the extra parameter intended here? The 0x21 command corresponds to the
+standard MIPI DCS enter invert mode command, which typically takes 0
+parameters. Providing 0x00 creates a DCS short write with 1 parameter, which
+might be rejected by strictly compliant hardware.
+
+> +}
+
+[ ... ]
+
+> +static int ili9488_get_modes(struct drm_panel *panel, struct drm_connect=
+or *connector)
+> +{
+> +	struct ili9488 *ili =3D panel_to_ili9488(panel);
+> +	const struct drm_display_mode *mode =3D ili->desc->display_mode;
+> +
+
+[Severity: Medium]
+Should this function also set connector->display_info.bpc? The panel
+is configured for the 18-bit RGB666 pixel format (MIPI_DSI_FMT_RGB666_PACKE=
+D),
+but the bpc isn't explicitly assigned to 6. Without this, the DRM core might
+assume a default 8 bpc color depth and cause upstream controllers to output
+the wrong format.
+
+> +	return drm_connector_helper_get_modes_fixed(connector, mode);
+> +}
+
+[ ... ]
+
+> +static int ili9488_dsi_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+> +	struct ili9488 *ili;
+> +	int i, ret;
+> +
+> +	ili =3D devm_drm_panel_alloc(dev, struct ili9488, panel, &ili9488_funcs,
+> +				   DRM_MODE_CONNECTOR_DSI);
+> +	if (IS_ERR(ili))
+> +		return PTR_ERR(ili);
+> +
+> +	ili->desc =3D device_get_match_data(dev);
+> +	mipi_dsi_set_drvdata(dsi, ili);
+> +	ili->dsi =3D dsi;
+> +
+> +	dsi->mode_flags =3D ili->desc->mode_flags;
+
+[Severity: High]
+Can device_get_match_data() return a null pointer here if the driver is
+bound manually via sysfs? If it does, dereferencing ili->desc for
+dsi->mode_flags will cause a null pointer dereference. Is a check needed
+before accessing ili->desc?
+
+> +	dsi->format =3D ili->desc->format;
+> +	dsi->lanes =3D ili->desc->lanes;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527062300.8892=
+8-1-igor@reznichenko.net?part=3D2
