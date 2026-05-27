@@ -1,96 +1,136 @@
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F5538237B
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:03:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6417437DE83
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779897790; cv=none; b=U/zG9lbd8+je+hKFLpfBSbRzeX4zyjEFYOmX739Ux5PUVi9/1Ae9U+yaNtpcxQb26r/RYnoj2GXdiMytsQrZs3qISeCLRBuA90JbCr3wv5sX6i2KEsYWJu+byQUF6p/plN0n+/ZsbUF+Dk4oiJHAhsoDkF9AdGSBp9jzZRkQdU0=
+	t=1779897799; cv=none; b=Bd13XKTYsOjyKdcFqVlcDmdlwm8igxgj/AzP1dW0hbpbO984OQjTtiDp9qK4sr7st109WMrrLfjWXSarXnsZ6oLNtCWvyaN86GU8X97gFXD0bgiv3xRUA7nHYCl7yVyf9QQqRG4PDcICZV+3Q2+VeBWN2VFLq+eqfGLoAbFJPD8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779897790; c=relaxed/simple;
-	bh=PdnwddvyWIarHDQaUbeQPvHrwPNXjHSw1fY7F092KIk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Gsp+aKH9vLe0yxn2XiEiaYq1EewVX37HrClDhyHMzo9xPmhGop/DZVrTPqHl/OKVeBTJdFnmGucm2IkkLGK+OyBA7y6+3eHbUgecbsPbXm3jWJqTP8sotAP/vz/mWAugiXIz9ec9yS0l3byXh6D0wUWFvW6OHGuLUraWIsEwylM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-95699e8e26aso3969746241.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:03:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779897788; x=1780502588;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dAaNLENh575JywEtLAJ71L7KgO/CYiuJ4uJtK5tYZkU=;
-        b=d1bcfI7y1mfGKc0QZjLCFOZ4T1NW9tQIepjpNW1iYrk1P7OgCwflIKokLsyVKQkCMN
-         oCas9Cyyphr+/zWPzzmvUFzrmutGXSkWPuFUvf2PViw85yqGRRwBk17wKfAidXGddMSM
-         /iw8OwWBqggWARIBhMkgyz55dexu4b9QAqvEqQMFR0s7KBjLyYKH053E42W53atWcUFZ
-         rUM4teETPirgolLO4/93nG1MV5iRFFSJp+Pz84XRgfi/8mU5dVhdqd+/v0duNiDDKy+E
-         E5UjRxh5GtL3OGPW8A5jV9kjHPqDXEnrro9UvZcGJLb8RgvCRqnXjH4IHIokjMaQ03uQ
-         FXrg==
-X-Forwarded-Encrypted: i=1; AFNElJ+jTZEdKXJ4uIaDpjYARPBu2EwMnKH0n5JGsaiqqcxickVl5WQAMCKxXBU6T0AgpbAFUYM5ZF9CbcXi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy1YvWmdjXtawZAiIFKSxblJrSYk9Pl9Q6HCyJTOgyn9uMFtpuI
-	g8NSQI5JZ5gBzqdve608N0ZosetHK7zIgpWDvvc++x/2EXW2a7miFAPdbwPxfsU/DCs=
-X-Gm-Gg: Acq92OF3kKkFZK4VZdMhuegtzF46fDTe/Zb6jSjygJPRwx0JI0Wp/+qW+cPIrmd6ABA
-	1kPlzBBv8HtQZklQfnGHF1rtnbr4wGUSGx9yT0tgUvz+CZPGrKSNFhOToAGda5NX7SIlB9PsbcQ
-	ZGVVN1bjXPUHizP+yIRnukqaAKBlSu4Q3PqXcp+iU9h7swNPKMlUMFWmfRNgdoWMKqiov/mfd41
-	ljsxEzd85MKBLmw0YMgfQ9gjSojzba4gRM99ikfx0aXDtRq4sRJAj7cr67jG546Z1i1yn/wxsmY
-	Bh7sdLn5mPZ4OHFB0hG9zBuliIteBC7Psjr2bpoSs4K9Y+mBJGAAWfyUIMyTiNUsiZ+YybjagPj
-	gKPCokB93KF9bciru+t5/priSxsWQyH93xlozgB7ugQcDMBNWHqLrN2xWLFqIzhfbNPzakccNqz
-	A97+34HN+FRmEsbvI37QEfsXu3wCtfb9HhozIL6PuFvwyv0W5zdNfi24MJJvEpM+B9iRRc6WsRh
-	1o=
-X-Received: by 2002:a05:6122:c88:b0:56c:d34e:bb1a with SMTP id 71dfb90a1353d-5865ef6636emr12013344e0c.4.1779897787953;
-        Wed, 27 May 2026 09:03:07 -0700 (PDT)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f37281e7sm20735404e0c.7.2026.05.27.09.03.05
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 09:03:06 -0700 (PDT)
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5753a289955so4127225e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:03:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/XcSoJ7TpjOFjoqvfy5lSpqPG6wZb1RC9QrPUzqTXj5JF+JVeuHSjIe5nyHWyppYrBbCTZxDtOmBbG@vger.kernel.org
-X-Received: by 2002:a05:6123:64:b0:56e:f876:5626 with SMTP id
- 71dfb90a1353d-5865fc02fc9mr11570394e0c.5.1779897785220; Wed, 27 May 2026
- 09:03:05 -0700 (PDT)
+	s=arc-20240116; t=1779897799; c=relaxed/simple;
+	bh=U8a/4AjcgUUEbnLVXvOrDSZheBCAWWxCfaXjMpnSpLI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=YAgQ/jVYsLI5qqoI50KpJVTSA0PB7qNp0/xVst16hkbZpC57lQgc6IWviu7sHZqR5vNrhMsZ4+30aOShATxcGmaLHwtpnO6xHflJV1wpFQbGSFCsC7XE/FfzYRKk1Uf6IC3F4t7Ut95WW9pUKx194RWomAWRsIIzZCeDL6eb1OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3b8UrCT; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3b8UrCT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1075E1F000E9;
+	Wed, 27 May 2026 16:03:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779897798;
+	bh=Hc/E+mFaCWmSZ6TNBGt3lnXd5BiqwA16BeqXQpBZSwc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=b3b8UrCTFw73N5v9MNS5fNO14oVBEx5ATu/cymk66iw3Rd9lJL4L1IHBEJGhfHA3v
+	 o6WoneKLbHsMngGuMOAkFaJuCeOc1gNNL69vfVaK8UJ8+0zUyN29N0jKWQW77i3pLJ
+	 s1PJgSV6yiXdc/c4+rYXuIXRB5nX+1DNxfTqt9FgzsWEG/Vls6czOPHUPeB3nOvywE
+	 FHwSvXIaDX6OvjOwOhIAV4yUR92s9IIKrjnb1unuEjjmx5yYO7OGT2bOjmtZlXU/ee
+	 eGew8uTgUbO8X3w01F8ppnZR4/VUdEh+3jvjFBnJxMaP6d50SBUyuOE5TnocUop6yQ
+	 g4RggvdMq+vtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: socfpga: agilex5: popuplate reset property
+ for I3C and NAND
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dinh Nguyen" <dinguyen@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260527151239.55650-1-dinguyen@kernel.org>
+References: <20260527151239.55650-1-dinguyen@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 27 May 2026 16:03:17 +0000
+Message-Id: <20260527160318.1075E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260505123708.134069-1-biju.das.jz@bp.renesas.com> <20260505123708.134069-3-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260505123708.134069-3-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 18:02:54 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXsMqVd2qt43hTD0Umt_dp50-yx-kH3126599eNwzfbmw@mail.gmail.com>
-X-Gm-Features: AVHnY4KZgFHip0uxha3AkuoFhevCBIRNlRrLf8N0236y4Jx9cgWcXOHqi2SlBso
-Message-ID: <CAMuHMdXsMqVd2qt43hTD0Umt_dp50-yx-kH3126599eNwzfbmw@mail.gmail.com>
-Subject: Re: [PATCH 2/5] arm64: dts: renesas: r9a08g046: Add SSI support
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 5 May 2026 at 14:37, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add SSI{0,1,2,3} nodes to RZ/G3L SoC DTSI.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Missing `reset-names` property causes the `dw-i3c-master` driver t=
+o silently fail to deassert the I3C resets.
+- [Medium] The Cadence NAND driver lacks reset subsystem integration, rende=
+ring the new `resets` property ineffective.
+- [Medium] Adding the `resets` property violates the `snps,dw-i3c-master` a=
+nd `cdns,hp-nfc` DT bindings, causing `dtbs_check` validation errors.
+--
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+commit 8dcedebea5fbdeab502fe0008a7be9fe724b28a3
+Author: Dinh Nguyen <dinguyen@kernel.org>
 
-Gr{oetje,eeting}s,
+arm64: dts: socfpga: agilex5: popuplate reset property for I3C and NAND
 
-                        Geert
+This commit adds the resets property to the I3C and NAND nodes for Agilex5.
+The goal is to provide the necessary properties to bring the IP blocks out
+of reset.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/=
+boot/dts/intel/socfpga_agilex5.dtsi
+> index 02e62d954e949..7fc75b439925c 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -244,6 +244,7 @@ i3c0: i3c@10da0000 {
+>  			reg =3D <0x10da0000 0x1000>;
+>  			#address-cells =3D <3>;
+>  			#size-cells =3D <0>;
+> +			resets =3D <&rst I3C0_RESET>;
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+[Severity: Medium]
+Will this cause dtbs_check validation errors?
+
+The resets property is currently undefined in the dt-binding schema for the
+Synopsys DesignWare I3C master:
+
+Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
+
+Since the schema enforces unevaluatedProperties: false, adding this property
+without updating the YAML binding will result in compilation warnings.
+
+[Severity: High]
+Does the dw-i3c-master driver require a corresponding reset-names property
+to function correctly?
+
+Looking at the driver implementation, it explicitly requests the reset line
+by name:
+
+drivers/i3c/master/dw-i3c-master.c:
+    devm_reset_control_get_optional_exclusive_deasserted(&pdev->dev,
+                                                         "core_rst");
+
+If reset-names =3D "core_rst" is missing from the device tree node, the loo=
+kup
+fails. Because the driver uses the optional API variant, it silently returns
+NULL, and the IP block will not be brought out of reset.
+
+[ ... ]
+
+> @@ -313,6 +315,7 @@ nand: nand-controller@10b80000 {
+>  			cdns,board-delay-ps =3D <4830>;
+>  			iommus =3D <&smmu 4>;
+>  			dma-coherent;
+> +			resets =3D <&rst NAND_RESET>;
+
+[Severity: Medium]
+Is this property supported by the Cadence NAND dt-bindings?
+
+Similar to the I3C master, the cdns,hp-nfc YAML schema enforces
+unevaluatedProperties: false but does not define a resets property.
+
+Documentation/devicetree/bindings/mtd/cdns,hp-nfc.yaml
+
+[Severity: Medium]
+Does the Cadence NAND driver actually consume this reset property?
+
+The driver code does not currently appear to contain any logic to acquire
+or deassert a reset control:
+
+drivers/mtd/nand/raw/cadence-nand-controller.c
+
+Since it never calls a function like devm_reset_control_get(), the NAND IP
+will remain in reset until the driver implementation is updated.
+
+>  			status =3D "disabled";
+>  		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527151239.5565=
+0-1-dinguyen@kernel.org?part=3D1
