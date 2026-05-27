@@ -1,83 +1,136 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0AB9410D0E;
-	Wed, 27 May 2026 13:35:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F7340F8DA
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:38:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779888913; cv=none; b=SarwKRBVVSVkmyNefG9WyQCIC+R73CyRC0KFFGGeLFSpuGpU0im7ehH+LcVu6mNk1cDV4ANqkeQkJTIoN9pWp1thWJagDbnO3dfTj+kALjrU8ySZFP8fzIPNi0PzoVn2a7/s3pl38KKqqxmcdG+NUeKVKrer32o79RjQ6dY0fys=
+	t=1779889139; cv=none; b=VyQbODhxlow6tatvGIMyC+G8zzpoKp4CYMYeiP3pmdHLH7lqireO5YcHbDf7u9ZyKe16lHARoX6kxLU+dRcQoS1Kn3IbUVeOar43FcYS9YvQBYFANq8VaOUUJQuULYMenJYlwu5dRmKRF1Co3WtzldfVCwZJZtelUVH4OHnKzuo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779888913; c=relaxed/simple;
-	bh=Wl8lAwidPCYqHIaLZHmsXTWoVdT/fZTz6VWTHkX6pWk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kRyuBpuZomKj8I9DoWzkoLCT6ct1vb8S/h17JNptSmtRJSeS63W6NB4UfHGCx2zoYWBFtZfTSo8QGy2t1AEJVLCA+qUQG3SdAXWTqdW3V66JNnKv3WuHufSjTK0ZW9hXHyFePJJ/Wy3UhjBn0kIZCggNT7l8wnWaKdfOeetekOY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=Q0uEJmSC; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1779889139; c=relaxed/simple;
+	bh=cCQTpQ4V9iF2hZnK7U8grd1nkoa9AA1qYWqA/7+ThL4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mUZ2z0B/NWGmSxMUX/SUku9wREZ5uvXcZaQLcKcfLvbFClW9iCBrE8Aau07UoWS4LkGC0Aze3VQ352Kw0nTejfdOiv0RuRlnYcBpmhoyDgVoHAPAPiVgzI8KzZ/GjcwbtWgB/zCtIi3abMI3QLiwZIve2yTtfgSZ6if+GxV0Jxo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4eJyQo+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="Q0uEJmSC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=7bbLd/ReiMVal7BI3TQK6EkG9qzsmUQTFJ7L4iRvVGQ=; b=Q0uEJmSC2jorPw/8uLKDtgqIft
-	zOgIaT7DfctgL3B+ol+wNUa8zWAEcEOn5hhJqktN64wvxF4qgG3Ns9PylFEd7sN71wq4MgZJfMPyJ
-	lpbu8lfei6JrSi7lVJn3R1M6b7HrRs2HU/ZMfabpTSqDyygO2NUhzjyVzztiY5K/8yC/5HMue/2Ej
-	N8GUNcyGSmQmgvGlkmabT2y8T/NBIt1H5yOLjXPxFGerCwhwfuv3Uyi3yk7YXsktvmP9zJ/kXFcOc
-	HPzqJdpulAQYuFzulBcEWHwTD1Q0VeoVG1OfPLf8h7YWbRpYCiNaJ+rBTF4MIwFZo1sBWK0xx9I/C
-	N9iP95xA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Jacob Chen <jacob-chen@iotwrt.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	=?UTF-8?q?Sven=20P=C3=BCschel?= <s.pueschel@pengutronix.de>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	kernel@pengutronix.de,
-	nicolas@ndufresne.ca,
-	sebastian.reichel@collabora.com,
-	m.tretter@pengutronix.de,
-	p.zabel@pengutronix.de,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Michael Olbrich <m.olbrich@pengutronix.de>
-Subject: Re: (subset) [PATCH v7 00/28] media: platform: rga: Add RGA3 support
-Date: Wed, 27 May 2026 15:34:55 +0200
-Message-ID: <177988888078.3803653.9229622993223830333.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
-References: <20260521-spu-rga3-v7-0-3f33e8c7145f@pengutronix.de>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4eJyQo+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A031F000E9;
+	Wed, 27 May 2026 13:38:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779889135;
+	bh=+JadgpGdQHus+W9nuQHoGupRihc55wmjeGTt8KnpKe8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=i4eJyQo+bkkUTUEWK/1xHQfKP2PIRfaGCTtTSZvrFrSf6QWgUBqBGQdmdOTbHKkr8
+	 BHAHXjw2kxmz0e8bErMtC/w/uxyPczLCunkuziRdiTsm3gy90qpQvCZeDYcpekRljJ
+	 ah/B/2WUpI7vszPwlCp+xZwlv9GvrFjXDmK4HH0aV+XL2ONsqB/RpeZ9VTqK5QZEqK
+	 GnJys1agWzGD9YINnR0xJBNlqafMBkg+JmSIZ8FmiDmiZ5jhsD5lFbMaqlx2GF9gjw
+	 +3L2fvGI2GOx6ZuSR5Kqf8V9P/BAJDwl/Tj96yYlbBny0lqkCGdzEbEuICs92soPHK
+	 2jYandUOxlJGA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 2/2] mfd: arizona: Convert GPIO IRQ handling to
+ descriptors
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Linus Walleij" <linusw@kernel.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260527-mfd-arizona-irq-v5-2-ebeda2e925da@kernel.org>
+References: <20260527-mfd-arizona-irq-v5-2-ebeda2e925da@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 27 May 2026 13:38:55 +0000
+Message-Id: <20260527133855.94A031F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On Thu, 21 May 2026 00:44:05 +0200, Sven Püschel wrote:
-> This series adds support for the Raster Graphic Acceleration 3 (RGA3)
-> peripheral, which is included in the RK3588 SoC. The RK3588
-> contains one RGA2-Enhanced core (which is already implemented by the
-> rockchip rga driver) and two independent RGA3 cores. They feature
-> a similar functionality of scaling, cropping and rotating of up to two input
-> images into one output image. Key differences of the RGA3 are:
-> 
-> [...]
+New issues:
+- [High] Migration from legacy gpio to gpiod incorrectly replaces physical =
+line reads with logical value reads, breaking IRQ polling logic for active-=
+low GPIOs.
 
-Applied, thanks!
+Pre-existing issues:
+- [High] Negative error codes from GPIO reads are implicitly treated as boo=
+lean true, causing an infinite loop in the IRQ thread on read failure.
+--
 
-[28/28] arm64: dts: rockchip: add rga3 dt nodes
-        commit: 25ee898961a2c661e4cd72bc98f0060f1cd11222
+commit 2b527ef2c7b9b60397ceb6125cd15341ac4e28ff
+Author: Linus Walleij <linusw@kernel.org>
 
-Best regards,
--- 
-Heiko Stuebner <heiko@sntech.de>
+mfd: arizona: Convert GPIO IRQ handling to descriptors
+
+This commit converts the arizona polling GPIO handling to use a GPIO descri=
+ptor
+instead of passing a global GPIO number as platform data.
+
+> diff --git a/drivers/mfd/arizona-irq.c b/drivers/mfd/arizona-irq.c
+> index 544016d420fe2..cf8e42662585a 100644
+> --- a/drivers/mfd/arizona-irq.c
+> +++ b/drivers/mfd/arizona-irq.c
+> @@ -136,21 +136,19 @@ static irqreturn_t arizona_irq_thread(int irq, void=
+ *data)
+[ ... ]
+>  		if (!arizona->irq_gpiod) {
+>  			break;
+>  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_RISING &&
+> -			   gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
+> +			   gpiod_get_value_cansleep(arizona->irq_gpiod)) {
+
+[Severity: High]
+Does this incorrectly check the logical value of the GPIO instead of the raw
+physical state?
+
+The legacy gpio_get_value_cansleep() returned the raw physical state of the
+pin. The new gpiod_get_value_cansleep() returns the logical state, which
+incorporates the ACTIVE_LOW flag from the devicetree or software node.
+
+Because the IRQ trigger flags describe physical voltage transitions, compar=
+ing
+these physical flags against a logical value might be incorrect. For exampl=
+e,
+if a user defines irq-gpios with GPIO_ACTIVE_LOW for a falling edge interru=
+pt,
+a physically low line becomes logically 1, causing the polling condition
+!gpiod_get_value_cansleep() to evaluate to 0, which fails to poll when the
+interrupt is active.
+
+Conversely, when the line is idle, it evaluates to 1, causing the IRQ handl=
+er
+to poll infinitely.
+
+Should this use gpiod_get_raw_value_cansleep() to preserve the original
+physical semantics?
+
+[Severity: High]
+This is a pre-existing issue, but can this loop forever if the GPIO read
+returns a negative error code?
+
+gpiod_get_value_cansleep() (and its legacy predecessor) can return a negati=
+ve
+error code (e.g., -EIO) if reading the GPIO state fails over the bus. Since
+negative values are non-zero, this evaluates to true for IRQF_TRIGGER_RISIN=
+G,
+setting poll =3D true and causing an infinite loop in the IRQ handler threa=
+d if
+the read continues to fail.
+
+Conversely, for IRQF_TRIGGER_FALLING, !(-EIO) evaluates to false, which
+immediately aborts the poll.
+
+Could the return value be stored in an integer and explicitly checked for
+negative errors before evaluating it as a boolean?
+
+>  			poll =3D true;
+>  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_FALLING &&
+> -			   !gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
+> +			   !gpiod_get_value_cansleep(arizona->irq_gpiod)) {
+>  			poll =3D true;
+>  		}
+>  	} while (poll);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-mfd-arizon=
+a-irq-v5-0-ebeda2e925da@kernel.org?part=3D2
