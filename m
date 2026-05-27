@@ -1,186 +1,189 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2115.outbound.protection.partner.outlook.cn [139.219.17.115])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E56092F6560;
-	Wed, 27 May 2026 08:50:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.115
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779871861; cv=fail; b=T9eiYZjcAgWLERTmqxkj27Td7hNBZMeC87THERPXIGNfXAx1caTzTl1F84GQvbcpQqFh+D1kofept/QO74R/tAsuwmC0lNuHz4yjAUhNHzQ3eSzvmr3yxN6aop92eNNsnEsnWpbHYZGpf9pKNqesU3qtVsGbOGXkEM8iPmoq2CE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779871861; c=relaxed/simple;
-	bh=oXv4jxfkVoTggzeqeDyhnYCxhrcPRbmdnCmBTxWUn68=;
-	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=KfXmOJnAWovZrwN+5Egqra2zxUNht1TsD36T0IIn1yG7htDd7EK60fBrlDmc3JT52k/DwS4yROWaIb4YVlRe02SGAQ1uWre9rNbG5rATI9JiC/i7MhwqBdUp/T+l9OdHfD9SE1lJO2Me0o1SvsSPYCGOji/sM56esoMbfj3XnPQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.115
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MR9CDQmTs2u+iJ1dU+Qvv2iHvyjEZmJkoZKh3Fd2PGPudx868V+Kr1EBsLGpZX1GxPqEa4bFRfJWcXRk9MTtkltAoQeCuDvhPG8wsulyckxGDmEVy0jYwuIvyIAH+iUmf3HFgeGTwoWUsOxvIcwbbeysIi2JTiVQcuSZGGdD+m4BEX4rlEa8HciPuIOxyI4bU2l3BaCiTht+z5y+5kaqjteRzumFCjjeW97R4rxQvJcA1fk+1C89oh/aYmuM5LHK7GWFbvoWamk7afnHQ4ZRXa5IDKeMVpo9Ei6Y41K8wsAxOcyzIx4tNjLmBv6SHCpr22v8xvz+P0sK4XSziRwT5A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G4zH7gvgcVzUiEF6rMuXcCvUdgMyX5ebGAhvEoLTKSA=;
- b=N9o6OYAJImgV5zeffQJTqI1w3ozRhO/n2YWwEcy9ekAiKHsT65euRHU9jUHPC+rKlVjtRoxPsZCFg5acHlX6lLI2wQlqoXdwyQkwN/DEIIRasaQ0AyQb19dTQSk9z+XsudKUm5APbi572JQAKl1nVXYcwYGjgQUlYKaVgiQ2NVinjwFBNeeQqQrGsNERf+shFFBhUEUxOGpG3dYumd4OAgEM459AR+BdFgKV7S5NGH3DIZGibPsWld8TQ+vSWHMpdzaxhlBzDxvAF5D0MEStp2pY7osk5oXOnjX97wwM/xVwIwLJ9sMWzFKfaOL5uqMRp/ZrlkhtiIYaoKslKn/cIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1285.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1a::8) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
- 2026 08:50:46 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%6]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 08:50:46 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: [PATCH v2 0/3] i2c: Add Starfive JHB100 I2C master/slave support
-Date: Wed, 27 May 2026 16:50:36 +0800
-Message-Id: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0020.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::16) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 741C03E2768
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:51:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779871873; cv=none; b=gsdc9TssPgV7QX+tpKJ3Hirhak6drtTRKkmdddtUU3X9YSwBIAo/aD9eta4QtdqEkE1neuQ2fXjKoess+YEVAW3h7Z/XQRK+S96bGZTTJRAiOTTa9oabb3VZzJJQ9B5J94UGwtwFYoroWK8YGfy3wal1TraPn+6WAtVD/JHLYs8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779871873; c=relaxed/simple;
+	bh=DFJoUVD3KvyymoOkoSNQAVLhRnYQDEGBHGGZx7nO70o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=loQ1tk6oWyYjH/DnHYiFwTtD05TGenv96ib+4wi+oZ+yF5rhA8ADNZajaaDQ6DnhINBU2mMxBSEdQUa/lWA78pqYvrpTAcafce7kBdlBcjnUoVIMPFCmUuDPRlk6NH90MEJZ6Jl7pKnvdKsVjLN5nEEXp0EVbBwwlCYE+GJ4CVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=iS6p1WY/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=JDirJV3R; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="iS6p1WY/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="JDirJV3R"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mTTl2152267
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:51:11 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	/6hNas6apydJkTdrJtwj+iHqEC9GL8SPaeohHHAAp3w=; b=iS6p1WY/yLTgswAO
+	8kWHVQSv0t9Roku2LWMl/84BJ5Sqv5pfrfrBSh+ovc3y19nLMBaTKCexsYkGCcAy
+	YOs7bN9t6X9zclCEJ3ZW6Jn6Quqb+U+84cZM88yvSG70/1UIXF6cVF3PKg43PigB
+	/NjSKa9zqzEsYIZ/jbhl7Sa2axDwlsVZ1EapXYwKtLvxivHIa6qYgoKbYiPJFR7s
+	zfRIp+FuuOoIFcL3VSTJVtSU+ub4xsPa3dC4Cje77AkRU9/lWD+3AKpM7aT0T35F
+	F7KHP1SUBtuMelQkAAuPgIoKr68znGMcwWYhbe7t7Zo9+OBbGLc8sQeqkdatBNXx
+	JyASLA==
+Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edu6rgkax-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:51:11 +0000 (GMT)
+Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8353fbc7ad5so5771563b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 01:51:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779871871; x=1780476671; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/6hNas6apydJkTdrJtwj+iHqEC9GL8SPaeohHHAAp3w=;
+        b=JDirJV3RAK++piRvBQUBCBaaHoo/fAE7s+2YqNGXKtMiLpi7lfYfclWVIYWisTX6fN
+         mFSVn5g5+KMYsMY45wV5mSxepHSRwRz1uTdTuhpgoGs/itz5EtgahH+0lesuwWuvlfbJ
+         EMBFfOr89keS+YyLCf8p1IT86swh0ICmXkcFAk66a88p3OLj7++kzvBOzUlsX7tzLMva
+         jHLkldax5F3HJjl2za4dbZz9xVY6OoRXgGStshtuy5ghFf06l8qro+96jSkuqXqsEHsL
+         /9NPunbhX5c+RcLwFqMFgCedcEii6n+xSMxgeS80pIN7B1RI47doZwklDfQ57sj34yCp
+         JiBw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779871871; x=1780476671;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=/6hNas6apydJkTdrJtwj+iHqEC9GL8SPaeohHHAAp3w=;
+        b=JDXtwc3gALWIfXzybq40ipIcCgCiwVFB9SaAqjQb62l76Mrg/WDq4zXj9PjWfEOq1X
+         ha1BzIJNM7iydA4TPCyaCpjnBVV6ZYVnWgFpZzWtCIIJBSqj+OE9CkNIxeN1EJW7gIM0
+         K1cs8YIR9yK5bkxR2ML+0DkDYZIIV7ukqB2R5+vXv1VodBbCBrEveD79BbBtRwxbI5LI
+         BJgOvWGtxQDssYoAz1jtci6rqotNN2pPUTSdP1hsMSv6CJHw1dcE4ksRwncpMU8SN/xW
+         kiDviU8H/e7Doi6vXffmwKn0NtJWewaOEX0V+lOKJcZuXIBUMAqKhApanX7xJ9KCxrC8
+         ulRg==
+X-Forwarded-Encrypted: i=1; AFNElJ8g/myuQPGlfrycUirEDDClvLnEE9xFT9DFoW5xKSCYmARosXqFMy+3L/vIp56i7xa7nS3b2G/HwK3d@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEhi73/wpuslyl2qaiYEY3/ZP1SqsI9G8VSDEiO8V8zGs/UMsW
+	W8tDjThoUCIDyolATd9G7dAWen2o658rdc4utRkO2wdz+kiS5l7w3XM3t9bQjLNAt2p0X8LslDN
+	eT9732Ey8zj4i+qMAUQNzXqOZgC6jE3Lz0FjodvTS6wivZyw2wpJPm8UR4BlaowfH
+X-Gm-Gg: Acq92OF02+ArDeRrzJtai4Q5oNxwFVohY+0CobZyL+WrATV3eYQsUNDXTp5STqFSEgA
+	itmi6irnK+5UBmaMPfnW0TMqMw7If7Rqq/nt8W96xmnsb/W7KPHAK7TSbPz3qpAJS0eKpT5v4Ti
+	zGZ49J4msmfG/NUKJivm5VDlwi3Dmm6ox3A7B36FzD4egJhX352VsUd3yOAYOenl+oghsqzwmbY
+	z2TEnD0VybHEH+v4wXozBLxy+ZrsQ6PEBY7cxW7/WhzDI+AQmbZ3xJAQK2F/FQyHd6ndi+CatIn
+	NJEADVbVoKohUOiOpH/i6hDNLnhRAD5F+1mypQCWIpJtEnt0kmwNkDWAF/SxKaOuJRpCqMbYov/
+	ZgD3+FLJau6hvOeBKvX3/U96HUCq+LAeCJtlS6t3SjjThHid1ZlqdTETlUwCO9xP9GGB0T7D0Tf
+	iDPq6hziGAP/23qlEoSudraQ==
+X-Received: by 2002:a05:6a00:8c04:b0:835:cc47:6fe3 with SMTP id d2e1a72fcca58-8415f3b0825mr23559359b3a.45.1779871870742;
+        Wed, 27 May 2026 01:51:10 -0700 (PDT)
+X-Received: by 2002:a05:6a00:8c04:b0:835:cc47:6fe3 with SMTP id d2e1a72fcca58-8415f3b0825mr23559329b3a.45.1779871870245;
+        Wed, 27 May 2026 01:51:10 -0700 (PDT)
+Received: from [10.133.33.247] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d6ebb97bsm1659411b3a.23.2026.05.27.01.51.06
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 01:51:09 -0700 (PDT)
+Message-ID: <96962564-ff25-4d81-a605-3d9c05fa000a@oss.qualcomm.com>
+Date: Wed, 27 May 2026 16:51:04 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1285:EE_
-X-MS-Office365-Filtering-Correlation-Id: b04053c3-20b4-4068-b238-08debbcd0b52
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|52116014|366016|1800799024|18002099003|38350700014|6133799003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	WenFDlBDfiedwzL6/0ORb1/VBZbLk9xgG90E4qa924CHN3DMwrrFOIiXrUv0hxJW9XfOx7GUnaL4F7Reu921nb8WeWrS2NVxLQPSH6M8Edqeof6z2bRxkZf/owNoiMEmWy2QkwMP8UGJuW5jzTsaSX7pckJwED15PvlgAMvSXPJ8Wg9PeR/4+YxVqXAOa998NYld9zcB59PBnARmM3E7US4SwD55x1r3ao+oWyC70ARR4S//sNPxMcw2KiyD3zqmesgwUnTHx3IdokungOMaaQviqnYWAfg3EWZqkvR1z2exZxj8lrW40YOvcAAFJpsJaygJPPI3Z8Rl0PfUusw6SMQkRgnZjMT7UMBDuF1RhbsW8XjmSxZ/XlB4lyeZTYraYH6q23OKEOXDOwjx5vuuopoxnjSM9f/wLwcQ5YjbfXQRscyrQWmS0mgheMQJfQ25HPiU5RqwM7HYixbqrDDnc6neAHLvYR8zOa/MyEpyZsgD+akJMQ1e7KMfNCk1tR9qZLLw9W5rgHF9J7eZTJj1e92KiyaGkLsPB8ilUEqLuMtWZo3bvZxIiwc8Vyy2tmFY
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(1800799024)(18002099003)(38350700014)(6133799003)(56012099006);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?3v2tAbGfXy+dxtq//kyTJ81quegIo1qL68faz2QwBURWRjNSaZzDQPmV2+7j?=
- =?us-ascii?Q?MRIwJl9es1tBZ+VxsyjYKnwwESR3kBDLopSPljzr90reQXnJwAmQVbE83GIo?=
- =?us-ascii?Q?zJV2v9LFvGHRXvHQmNsvmbuLWL2Ne1wG2HXDR7GohVEfCbmiMrjx6eKcgtHa?=
- =?us-ascii?Q?9Knsha9gMomhjaTjFnAZ1TnQYdUCizyQWK+XgsdPNOgufmapCogoV/3S8Y5N?=
- =?us-ascii?Q?SQXdGCEqU6Vjj9sjMWHRbdC5OEU2vOubuSlRqViSivbmbBNC0OSR77Tpe7Pj?=
- =?us-ascii?Q?IefUzfMsvk1oRU+4wa7aLImjjUfvi4I1tcCBSHTxDW2PgB2qbTCPOr88p5y+?=
- =?us-ascii?Q?eRNvh3ODFOCIQgnyGX/MZ9wCZgR1XnNVlVabneXzyHuWS5cyYg7edK1dhP3e?=
- =?us-ascii?Q?wV9M+HhwF9ZsS1d1NyoGU2RHyV4mb7eNjlsI2mcKX4Kuh9BsAfWiF3lHJGEa?=
- =?us-ascii?Q?3/xw7j1MSiGGU5Q4kMt+kt5iTK5I/7Hjji4PLZUbVWwQ+iR1l+WtWadMYtAC?=
- =?us-ascii?Q?YaKMfpgVMCs30Sfl5hq7eAkabF4Ebu2xZM2h3wwXWZmxLn8Aard/8jRIuUPr?=
- =?us-ascii?Q?qK6Xkq/bohcHnEdXZn2eXc749lquObbGw97hAxs7mbkbzDE/EyUmupRcDg5F?=
- =?us-ascii?Q?Iymut16epiowhFNFXmEgM47gOoh2QQ2Q47CYyXskPWcDsawJhDutehM93iQK?=
- =?us-ascii?Q?ypsr81KYVYzBJ39Ssus8UCwZceyOccFC4X7YwMfIb4Klheh0CaNpn/wtD/ZJ?=
- =?us-ascii?Q?Ohkp6fRktdaF7loFvC7aA1746IeO5ja8Y5EIdwfJe2/+MX1kWFfJCTyD/Pb/?=
- =?us-ascii?Q?o2BWzinNs/92U2Rl2jE+I1HTc7PoVaJFUWgsvNJLizojh3q7vgWkjDLT5J+/?=
- =?us-ascii?Q?YhDHN68Ib/RjyMEnl84inY26Y1zZgeiDq44Sb2lKBrO0mXBQeVc8KPoY+h4X?=
- =?us-ascii?Q?ONHjQlgkLMqPez2BLzkVdcEGN08E93j5j4VMzVufDR97v94e8eV05NqzesLN?=
- =?us-ascii?Q?QYT+gn6EJxJAtAfjoiFLb0jYlAsaBPQIKxtvIVZAkrDynG8y643wWylKO1vo?=
- =?us-ascii?Q?x5qZRQbOKgmNDLDweQ0Tw8XWMRSmKWWrsccjX9DRqfWL6oABoNXLhDRaQnTc?=
- =?us-ascii?Q?K1g4tj0gin523p8xCHGHEa7UIYewxzceOi7tlVIFOXCbY2Qr5bndxqNDBEMQ?=
- =?us-ascii?Q?Kzfk7FF6SzNcwHMKel919reoSUpTfj6oqO8Dt63pbItLnf0ewgVPsW+zwrHK?=
- =?us-ascii?Q?MBHXscWJa5TG6dd+8Wnoq3T9CgC4tnhGYvKTfDLuCdZnBJDGaV3kLQg4JXbv?=
- =?us-ascii?Q?2ArCeWovmMhJldIOu2l4QUN6XxiiIK4Z8IppzLH+QgIEJX1GhILcWeCMTIZ/?=
- =?us-ascii?Q?URDjqsVCrniUrg4zK9aKhfm+LogjG5zxUnnrJtMHw0PZNMbMQElz58eDQc68?=
- =?us-ascii?Q?uQP+hiVz13ijltB3+ZvWexx0xmESv2Y+VlC61JmqS6JM2Qe+veHW5JSwU+Bf?=
- =?us-ascii?Q?RvpjGXxjQN/dyfAYzHu09cks0/TL5cxfWizbgPOmxug8hILV0oDWlHhQUtxJ?=
- =?us-ascii?Q?/1zGqpu/VJXqZ2tq7/slgcuNkuqwtPjFB6DAUsTGPnvUxmkJmpfdiOQRnMIP?=
- =?us-ascii?Q?IkioNZVjKVFBf4NM5ef0kHRkGzhvYD6+hyFICveRLCevw8JWsh85ARoY5dV0?=
- =?us-ascii?Q?pbWafBTP+wrPO0Yv9L325jFmTPtV6T7Oli7ZC9S+VoQ/Qxubg9Sku+mcvRve?=
- =?us-ascii?Q?YlYlg5W5tEBg//9xIO5i4/y89bzZd2adOjMC+72/D3Z5d5K4t7Z7?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b04053c3-20b4-4068-b238-08debbcd0b52
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 08:50:46.6703
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: tfPuwX1srCSR5BdCgRG5vXSPPs2b8kusBZYGw/HAjvDuQ9hyabxkXNvHG0XL1GB6ySfNXORd+FOy9+5DHcIFO2DtI8GlAGJV3cWQr957oP82imiPDOQtVCCtfLsegOOB
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1285
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
+        martin.petersen@oracle.com, linux-scsi@vger.kernel.org,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+        Zhaoming Luo
+ <zhml@posteo.com>,
+        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
+ <20260523134711.323425-2-can.guo@oss.qualcomm.com>
+ <m6qq3kxgfs73jve2pjmmszymgxb7aizdfo2rwg72o66n2rvov2@xkcvifciwu3z>
+Content-Language: en-US
+From: Can Guo <can.guo@oss.qualcomm.com>
+In-Reply-To: <m6qq3kxgfs73jve2pjmmszymgxb7aizdfo2rwg72o66n2rvov2@xkcvifciwu3z>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=MoJiLWae c=1 sm=1 tr=0 ts=6a16b07f cx=c_pps
+ a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=YG64nluAAAAA:20 a=eDkNqlp1enX9kxdETvUA:9 a=QEXdDO2ut3YA:10
+ a=zc0IvFSfCIW2DFIPzwfm:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA4NSBTYWx0ZWRfX0Q/O36hLAdPg
+ On5naUe7KSxDAUZ7YtouhJEq5XPlDXQd7x2GWrQgPBgy+5y2wLFqkUJRbp4V8d0i02nZ6ws3iBn
+ qcyLmykoXUOjdcieBb2WuNCqnUEUX7jR6Z7Rau+93t4PfFZ4BEbUluxey162zlkmk4bAfOhKjjB
+ s3Ppdxt+z9GqcywmgLY+YAaIkc7kgY5MllmQWhqTIj2QLutq9yGzZ7+JyNoTQVjeLPGVmrZ8lvG
+ lct2JJfVRQ5+gAJICh7dKSoXbSJuJN6/c3vLHIDl4/Z4BvOStE46RByFvXi+JyI6I+Z3bN29KQr
+ M6iU+CMvEmZKPddsStSIfwOCjaQRg8V4QmjvrDXpAVWetCXsMC0m2s31CfXPGCzHFYAynapk+t+
+ N4Zte8jGvllZPlrbdpVHWdnIuA7QEqrIJI4K9vg6UPrxemUkBLBqQw5p3MZQCC244LGoqNE5nm2
+ /PJtIlHY4UivEmM69kg==
+X-Proofpoint-GUID: 0t0YJ0sziiSoMXuWVBQbAFkQ_4Tuoo0o
+X-Proofpoint-ORIG-GUID: 0t0YJ0sziiSoMXuWVBQbAFkQ_4Tuoo0o
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 impostorscore=0 priorityscore=1501
+ clxscore=1015 bulkscore=0 adultscore=0 suspectscore=0 phishscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
+ definitions=main-2605270085
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Hi Mani,
 
-The Starfive JHB100 I2C controller is a variant of the widely-used
-DesignWare I2C IP, with a distinct register layout and enhanced features
-such as SMBus Alert and programmable FIFO depths.
+On 5/23/2026 10:14 PM, Manivannan Sadhasivam wrote:
+> On Sat, May 23, 2026 at 06:47:10AM -0700, Can Guo wrote:
+>> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+>> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+>> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+>> integrity at high speed operation.
+>>
+>> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+>> required depending on channel characteristics.
+>>
+>> Add vendor-neutral DT patternProperties:
+>> txeq-settings-g[1-6]
+>>
+>> Each property is a uint32 array of per-lane tuples:
+>> (PreShoot, DeEmphasis, PrecodeEn)
+>>
+> I don't think combining all EQ settings (PreShoot, DeEmphasis, PrecodeEn) in a
+> single property as opaque tuples is the right approach. These are three
+> semantically distinct parameters with independent value ranges. So packing
+> them into a uint32 array makes validation impossible in the schema.
+>
+> AFACIS, PrecodeEn is applicable only to HS-G6 (PAM4), but the proposed
+> patternProperties forces it into G1-G5 tuples as well, which is semantically
+> wrong.
+Point taken for the PrecodeEn.
+>
+> PCIe binding defines one property per data rate for EQ presets:
+> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-bus-common.yaml#L193
+>
+> Similarly, UFS should define one property per gear per (like, txeq-preshoot-g6,
+> txeq-deemphasis-g6, txeq-precode-enable-g6,...) rather than clubbing everything
+> into opaque tuples.
+Thanks for the suggestion. I will go with below approach:
 
-The series is structured as follows:
-1.  Adds the device tree binding document for the starfive,jhb100-i2c
-        compatible.
-2.  Prepares the existing i2c-designware-core by exporting and making
-        certain key functions overridable, allowing code reuse.
-3.  Introduces the new i2c-starfive-* driver, with separate modules for
-        master and slave functionality, based on the 2023-07 revision of
-	the Synopsys IP manual.
+txeq-preshoot-g6 = <Host Lane 0 PreShoot, Device Lane 0 PreShoot, Host 
+Lane 1 PreShoot, Device Lane 1 PreShoot>;
+txeq-deemphasis-g6 = <Host Lane 0 DeEmphasis, Device Lane 0 DeEmphasis, 
+Host Lane 1 DeEmphasis, Device Lane 1 DeEmphasis>;
+txeq-precode-en-g6 = <Host Lane 0 PrecodeEn, Device Lane 0 PrecodeEn, 
+Host Lane 1 PrecodeEn, Device Lane 1 PrecodeEn>;
 
-Currently, due to the following differences, i2c designware cannot be
-fully reused
-1.  For high and low level counting settings at different rates, i2c
-        starfive can use IC_SCL-H/LCNT to set SS, FM, FM+, UFM
-2.  Interrupt clearing is achieved by writing 1 to the corresponding
-        bit of INTR_CLR, while designware reads different clearing
-	registers
-3.  Master and slave require separate probe callbacks and cannot rely
-        solely on the runtime mode switching provided by i2c_dw_set_mode()
-4.  The value of FIFO depth is not obtained through registers, but
-        written through DTS
-
-I have written some poorly styled code to reduce changes to i2c designware
-and reuse its functions by keeping aa always true, for example
-1.  the implementation of i2c-d w_probe_master() differs only for the two
-        IPs in i2c_dw_set_timits_master(). In order to reuse
-	i2c_dw_probe_master(), i2c_dw_set_timits_master is declared as
-	__weak. A better approach is to use a callback function, but using
-	a callback function requires changing more i2c designware files.
-	I don't know what the attitude of the community is
-2.  For the operation of clearing interrupt flags, i2c designware reads
-        and i2c starfive writes. Therefore, in order not to modify the
-	relevant logic of i2c designware, I added a write operation to
-	sf_reg_read()
-So I think this version of the code is not allowed to merge, but I don't
-know how to handle this situation because if i2c designware is not changed
- at all, we will have to write code that is similar to i2c designware.
- Will this type of IP not be allowed to merge?
-
-Lianfeng Ouyang (3):
-  dt-bindings: i2c: Add StarFive JHB100 I2C
-  i2c: designware: Export symbols and add __weak for Starfive I2C driver
-  i2c: starfive: Add StarFive JHB100 I2C master/slave support
-
- .../bindings/i2c/starfive,jhb100-i2c.yaml     | 128 +++++
- MAINTAINERS                                   |   7 +
- drivers/i2c/busses/Kconfig                    |  24 +
- drivers/i2c/busses/Makefile                   |   3 +
- drivers/i2c/busses/i2c-designware-common.c    |  72 ++-
- drivers/i2c/busses/i2c-designware-core.h      |  20 +
- drivers/i2c/busses/i2c-designware-master.c    |   4 +-
- drivers/i2c/busses/i2c-designware-platdrv.c   |   6 +
- drivers/i2c/busses/i2c-designware-slave.c     |   2 +-
- drivers/i2c/busses/i2c-starfive-core.h        | 164 ++++++
- drivers/i2c/busses/i2c-starfive-master.c      | 470 ++++++++++++++++++
- drivers/i2c/busses/i2c-starfive-slave.c       | 180 +++++++
- 12 files changed, 1060 insertions(+), 20 deletions(-)
- create mode 100644 Documentation/devicetree/bindings/i2c/starfive,jhb100-i2c.yaml
- create mode 100644 drivers/i2c/busses/i2c-starfive-core.h
- create mode 100644 drivers/i2c/busses/i2c-starfive-master.c
- create mode 100644 drivers/i2c/busses/i2c-starfive-slave.c
-
---
-2.43.0
+Thanks,
+Can Guo.
+>
+> - Mani
+>
 
