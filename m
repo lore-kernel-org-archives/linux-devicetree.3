@@ -1,144 +1,171 @@
-Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4678E28D8DB
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:18:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59624390998;
+	Wed, 27 May 2026 07:29:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779866299; cv=none; b=jvIRoxsUBPavriBVp/HQUfz61RYyWEgxvgdjF1f15c8yRW+zhKGAch/xJmZBgsttRHSe0HFkMs1GyWV/V6Lk7oUyeoQpDSXBxyZtGWn3lJbx6PnhozLQ8oJT7E2PGmUyuyl1PSQoU20u2Uyvsg2qfwb6ox/Qnss+EumwzkhxfZ8=
+	t=1779866946; cv=none; b=qR3/99WkKmM1X2htlaBFcjX8a5chkKsB+bbE8nWO8/gBDgcFPIStFOfRIYi2FArq2HwrK0amZvSoOaBHaQRGrg0rNzC0o987iMHM9M9O80nzqIoe0x8exYnWdKmORV+aR9B2GdkDkpM6tx46WdgU+y+HrJwnaC+SJqfMerD6B20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779866299; c=relaxed/simple;
-	bh=Dao9kdOrtlJ45gmh2RbDmGbQQTZZO+n/rTm5/im873w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GL2Tw/cjM2P0+VdaytAAl8mMKF0VgQSkOnhOyjynps1n+V1gr2YxHN+y5CAwqgJal/7ZD3gQ3D4eXHhXyhVv6/1yvLis/hscV/QlFFN1A+d2PIDeYudbJBt1iOguMgPSyW08uIhWEwU1TxT2J5XfWQJdvlrK9QU2Mjsn9vRrdC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-575602688deso4061025e0c.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:18:18 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779866297; x=1780471097;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=sy2hrrBG21BdHck1YdIk1SaSJwWCDlg+jpuiQs79vfM=;
-        b=g+lJymsN1DW6kBYEizbZawy4k6gzfO1OpAeiMPSJztDSAI6P5ss1BehfR/LTVZTp6c
-         37mfYMwe/dU3XFpTzYaoXWrn77RFljBbxx2Lyyplv5j3pLQyhxwt9q3zBsqRkwiCa+Lo
-         HU4wKT1TA5KXmQQJysB77dYSili9D/H2qmX8xIQk0SZQHpBN01VRXcqVQCC9T58xjsW2
-         NBkhArn3LuRvFUQDJol4rCb8pJVJPYQWQfK49tcD5BqhpEmaREcmyxDAJmvEAThPzd9y
-         LhJIMm4n/Qh1rkivQ98A/peiumyn759YsIbh2XVb5Y1pFjEnqtLDPyJcNUKUVTwT3q4W
-         gHUw==
-X-Forwarded-Encrypted: i=1; AFNElJ99spW/AVBcSkBKhFPhfGseyRZkLU9NzIQt5EQWQs+zspm319FNDjURbXZk9Exl6snJ+QviIbuL1/FO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7cQcNoTG5rxYFqJuRDblqZje8ZUjUXDbIm4Y6O5q1G+tE7Bk7
-	GTtWf0Wt2cfHc8ur+rvGTqA9poyS7QvbMJegQHmwaG4UZ1XXtOMYbBmVLMGIn9tkgds=
-X-Gm-Gg: Acq92OGkZYWTqYRnb9hKy9dkB1lu5N3UJTVClJ2KdhVnIkP3BaosbsmgHl8VE4jnZiV
-	JeNJdE5Y1V6u4cXXNAtabdb+zafnX0CQX1PobA2BQcO8/XOse3m0/mJE08Cycwm1sr0kHQP1Wab
-	5lJXLCy7lugkbJ3czjcwyuAXIjoKHr8aDWLknizSdn5fi06IbD2dbOb104exdMBWu1avBFk+ie3
-	Olu4vh13LuIAqiEVrbcLzeOKzCF7Qh+VVNd6MrbHO9xvxHKsvHxKE4BKRpJiWjQEwyQSegQD4I/
-	GOMujC8S8oCskroYEwo0G1N4u/Ggs391jhhLwL9M1t3M4QMIsSD8UyCZ8nL8KqCLEr/2E8/3jfp
-	jJpTjpPuCvl3gUNqdZvXzbkcxYVsxQj80Kj7POHA59lUUkiIBNtfIY+CFuMhErnVufxEDXOd7Gz
-	FdvNwW0uwRat1aMlAIgC8Pp1zZZdOpHk3c78yIEdOT4zy3dkZ3UVgg6relyRJzx8acvg7v67lpO
-	Dg=
-X-Received: by 2002:a05:6122:32c5:b0:575:3433:bb34 with SMTP id 71dfb90a1353d-586607b6fdemr9326377e0c.7.1779866297288;
-        Wed, 27 May 2026 00:18:17 -0700 (PDT)
-Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173baf56bsm16126933241.13.2026.05.27.00.18.16
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 00:18:16 -0700 (PDT)
-Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5752b279662so4077067e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:18:16 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+x5Wd5zUV1v+k3rUKLndTfkfM95zL57XFws4XU7cfesIZGpfZ9pOzwWsKYxdhXIvHB7a5Gqp7RDSM+@vger.kernel.org
-X-Received: by 2002:a05:6122:4581:b0:575:a5b5:3233 with SMTP id
- 71dfb90a1353d-5865f154435mr10929054e0c.4.1779866296537; Wed, 27 May 2026
- 00:18:16 -0700 (PDT)
+	s=arc-20240116; t=1779866946; c=relaxed/simple;
+	bh=vcwwQUyK9n27QlQwBaK17jTaA1swwbBF2mQ7+rIB5eo=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=pBSJ3TqkGdgEAV0TihOUn/RWbQ8FFqF8ZAnFtvEoc99QH5nJl9c6AQmRjdBGAM5JtVI3r55Bluk6f79UgzSZfp696agHusJnyChor9ee1RAIhVwt0jEtdJ+92S5DSzXCo1F0awXaVrs5mAX5RO3q/tmq0mlCxF+SMw6SkRGi4xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=c/epkeuX; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="c/epkeuX"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=aTzgD1xNBOFZmHe9UcKPBDuGQHLwp2lyF
+	LdiyP2gw48=; b=c/epkeuXoLiWYazhe49qYVy8LTpavjCL4MR44L3Dfo0GA7yFL
+	4N0fEWq6njm3gMAfrSKKj9I5h/VWhHsiz1sa5AFeDs2D7PDouNHL9JiTyObYS3qT
+	ao7YfkGbi4WiD5hoajwrvucgftk2qUGTNP/QbOuSUQ9tP1rfhX1KLNdOf8=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkNInRZq+lYGAA--.7935S2;
+	Wed, 27 May 2026 15:29:12 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260514125328.20954-1-marek.vasut+renesas@mailbox.org>
-In-Reply-To: <20260514125328.20954-1-marek.vasut+renesas@mailbox.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 09:18:04 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXhk2rf9+1mvdoUbd2T=vNC0L5UXeiEzwDPvfMOT==+mA@mail.gmail.com>
-X-Gm-Features: AVHnY4IRt8fLyNfU8YOCQpYkCYZ9ntliUcjglmYbKUGrrnuUFeY-Av16LJkvBmg
-Message-ID: <CAMuHMdXhk2rf9+1mvdoUbd2T=vNC0L5UXeiEzwDPvfMOT==+mA@mail.gmail.com>
-Subject: Re: [PATCH v2] arm64: dts: renesas: r8a78000: Fix GIC-720AE View 1
- Redistributor description
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, Marc Zyngier <maz@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
-	linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 6/9] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
+ driver
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Linus Walleij <linusw@kernel.org>
+Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+In-Reply-To: <CAD++jLn=RX2rZ33kD427wR1KBo=YPzCqFaaSot22nJL4Emn_=A@mail.gmail.com>
+References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
+ <20260515-ultrarisc-pinctrl-v1-6-bf559589ea8a@ultrarisc.com>
+ <CAD++jLn=RX2rZ33kD427wR1KBo=YPzCqFaaSot22nJL4Emn_=A@mail.gmail.com>
+Date: Wed, 27 May 2026 15:28:33 +0800
+Message-Id: <177986691307.2389245.7536116830945296316.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779866913; l=3376;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=vcwwQUyK9n27QlQwBaK17jTaA1swwbBF2mQ7+rIB5eo=;
+ b=3s2aR7VhNFkucLVDqg8lLUBYxLlcbU2SHYxTq/poolqPMDfRhsy3KLEMkdqiPufl7/86MvS2n
+ u9fuk/K+NjoDLLXyPmoFu6DGxuFxU3XjRNNUBMJNc+EnlhOfHjvM6CQ
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwAnEkNInRZq+lYGAA--.7935S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxGF45KF4fXryruF18Wr18uFg_yoW5GFyrpF
+	WrKa1ayFW5GF4a9Fyj93yDAFyfGFn7G347try5K3yrtrn5Aas3uFyrWrW5CFn8Cr95Wr1a
+	va15ury3uay5JFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
+	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
+	wI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
+	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
+	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
+	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRidbbtUUUUU==
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgABsH
 
-On Thu, 14 May 2026 at 14:53, Marek Vasut
-<marek.vasut+renesas@mailbox.org> wrote:
-> The Renesas R-Car X5H (R8A78000) SoC contains Arm CoreLink GIC-720AE
-> Generic Interrupt Controller with Multi View capability. Firmware has
-> access to configuration View 0, Linux kernel has access to View 1.
+On 2026-05-25 11:28 +0200, Linus Walleij wrote:
+> Hi Jia,
+> 
+> thanks for your patch!
+> 
+> On Fri, May 15, 2026 at 3:18 AM Jia Wang via B4 Relay
+> <devnull+wangjia.ultrarisc.com@kernel.org> wrote:
+> 
+> > From: Jia Wang <wangjia@ultrarisc.com>
+> >
+> > Add pinctrl driver for UltraRISC DP1000 pinctrl controller.
+> >
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> 
+> Please write an elaborate commit message with some details about
+> the hardware and it's history etc.
 >
-> The Arm CoreLink GIC-720AE Generic Interrupt Controller Technical
-> Reference Manual, currently latest r2p1 [1], chapter "5. Programmers
-> model for GIC-720AE", subchapter "5.4 Redistributor registers
-> for control and physical LPIs summary", part "5.4.3 GICR_TYPER,
-> Redistributor Type Register", "Table 5-50: GICR_TYPER bit descriptions"
-> on page 200, clarifies register "GICR_TYPER" bit 4 "Last" behavior
-> in Multi View setup as follows:
->
-> "
-> Last
-> Last Redistributor:
->
-> 0 ... This Redistributor is not the last Redistributor on the chip.
-> 1 ... This Redistributor is the last Redistributor on the chip.
->       When GICD_CFGID.VIEW =3D=3D 1, for views 1, 2, or 3 this bit
->       always returns 1.
-> "
->
-> On this SoC, GICD_CFGID.VIEW is 1 and the Linux kernel has access to
-> View 1, therefore Linux kernel GICv3 driver will interpret register
-> "GICR_TYPER" bit 4 "Last" =3D 1 in the first Redistributor in continuous
-> Redistributor page as that first Redistributor being the one and only
-> Redistributor and will stop processing the continuous Redistributor
-> page further. This will prevent the other Redistributors from being
-> recognized by the system and used for other PEs.
->
-> Because the hardware indicates that the continuous Redistributor page
-> is not continuous for View 1, 2, or 3, describe every Redistributor
-> separately in the DT. This makes all Redistributors for all cores
-> accessible in Linux.
->
-> [1] https://documentation-service.arm.com/static/69ef3c1cd35efd294e335c43
->     Arm=C2=AE CoreLink=E2=84=A2 GIC-720AE Generic Interrupt Controller
->     Revision: r2p1 / Issue 12 / 102666_0201_12_en
->
-> Fixes: 63500d12cf76 ("arm64: dts: renesas: Add R8A78000 SoC support")
-> Acked-by: Marc Zyngier <maz@kernel.org>
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-> V2: - Update GIC-700AE documentation link to generated PDF
->     - Update commit message to match the PDF
->     - Add AB from Marc
+Thanks, will expand the commit message with more hardware details in v2.
 
-LGTM, so
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+> (...)
+> 
+> > +struct ur_legacy_prop_data {
+> > +       struct ur_pin_val *pin_vals;
+> > +       unsigned int *group_pins;
+> > +       unsigned int num_pins;
+> > +};
+> 
+> > +static int ur_legacy_parse_prop(struct pinctrl_dev *pctldev,
+> > +                               struct device_node *np,
+> > +                               const char *propname,
+> > +                               struct ur_legacy_prop_data *prop)
+> > +static const char *ur_legacy_get_function_name(const struct ur_pinctrl_match_data *match_data,
+> > +                                              u32 mode)
+> > +static int ur_legacy_conf_to_configs(struct pinctrl_dev *pctldev, u32 conf,
+> > +                                    unsigned long **configs,
+> > +                                    unsigned int *num_configs)
+> > +static int ur_legacy_add_pinconf_maps(struct pinctrl_dev *pctldev,
+> > +                                     struct pinctrl_map **map,
+> > +                                     unsigned int *reserved_maps,
+> > +                                     unsigned int *num_maps,
+> > +                                     const struct ur_legacy_prop_data *prop)
+> > +static int ur_legacy_dt_node_to_map(struct pinctrl_dev *pctldev,
+> > +                                   struct device_node *np,
+> > +                                   struct pinctrl_map **map,
+> > +                                   unsigned int *num_maps)
+> 
+> What's up with all this legacy stuff?
+> 
+> What is this a legacy of?
+> 
+> I thought this was a *new* driver so how can it be "legacy"?
+> 
 
-Gr{oetje,eeting}s,
+The legacy parts will be dropped in v2.
 
-                        Geert
+> > +static int ur_generic_dt_node_to_map(struct pinctrl_dev *pctldev,
+> > +                                    struct device_node *np_config,
+> > +                                    struct pinctrl_map **map,
+> > +                                    unsigned int *num_maps)
+> > +{
+> > +       return pinconf_generic_dt_node_to_map(pctldev, np_config, map, num_maps,
+> > +                                             PIN_MAP_TYPE_INVALID);
+> > +}
+> 
+> Hm I think Conor has new helpers for this so you don't need to wrap
+> it like this.
+> 
+> > +static void ur_dt_free_map(struct pinctrl_dev *pctldev,
+> > +                          struct pinctrl_map *map,
+> > +                          unsigned int num_maps)
+> > +{
+> > +       pinctrl_utils_free_map(pctldev, map, num_maps);
+> > +}
+> 
+> Can't you just assign pinctrl_utils_free_map directly to ur_pinctrl_ops?
+> 
 
---=20
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
-.org
+Agreed. I've removed both wrappers and switched the driver to use the
+generic pinconf DT helpers directly: pinconf_generic_dt_node_to_map_all
+for mapping and pinconf_generic_dt_free_map for freeing the maps.
 
-In personal conversations with technical people, I call myself a hacker. Bu=
-t
-when I'm talking to journalists I just say "programmer" or something like t=
-hat.
-                                -- Linus Torvalds
+> Yours,
+> Linus Walleij
+> 
+
+Best regards,
+Jia Wang
+
+
