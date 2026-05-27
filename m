@@ -1,114 +1,193 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11020101.outbound.protection.outlook.com [52.101.193.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 961BA3EF66D
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:35:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779892533; cv=none; b=jqO+eBxeOaEEpBLYmq81EjH31w5DHUAZwUcHjEyiTE3D9r8Fgt9QiTsPR90dZiiWVqJQOfROowrP5ZUWjlP4lNNQpEMG/cCUe8Pi/yMm731Z8J/lf498gUJU98ZwC21jJXuLIklZLLhf1JB54GmAfkR1dGgIleDHktqaQEAm0YA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779892533; c=relaxed/simple;
-	bh=P4wkV9mEDD23BeKG4vbE2EM7CHolhjJ2JRjQJMeo9kM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TOQbDN9HTpipW6O7smeoEzvjNnEFD7Av+eISE2W8XRjuMmYmX3U987I+CHObnhpPOjUy9cv6CzSttP455EhnJpJ7ApY0Tp3h14CFDsXvtBBvmWmanDyA9fPPkqWQv51G5DbZ7EkknMtJVAokBZblNw3XUb/WNnMsIjjGcZWQJ2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mqcVKvfO; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28D1E3EE1DD;
+	Wed, 27 May 2026 14:39:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.101
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779892792; cv=fail; b=iID8TCZku/FbahBfpAnTCmgYQ+qMDBQfOYPeEQzpvOWoHP/cT/zYJYJGIz7cq1/9Z//074EaAPSnvhyaupVCh6AucsJmre6QNEd74YFsFkBDz+A4cot/EB0bumSXg7nT3G/ubGMcIjOwg5kHaZzXdKA8VfTvpJqZ4BXMIxMoN/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779892792; c=relaxed/simple;
+	bh=6i/PNMC3mrLCKPbOVI6nSsfKPg8VfVcbLOD/Gs3tVxw=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=luOyDR+nsjzTtc/3yclARKRbAk/PAiDHIKDFfw45Nl6Ew2lh/bR6bxibsRvsXt4La7uMucM7eYUOZqYCCAZshQ4IYYeytsmzSEbInzkoZKMek1tPHygYMqU1qRcsmbkw4tSO9R5Mec/m5NLT8DbMHFjxxBfqYCVf4FMaunEplSk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com; spf=pass smtp.mailfrom=axiado.com; dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b=oYYPgCf+; arc=fail smtp.client-ip=52.101.193.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=axiado.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=axiado.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mqcVKvfO"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-49068493267so24348495e9.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:35:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779892525; x=1780497325; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vua8WCuJgrLlWDfrDB827XHjkp+v2MUAOu7XMIUMLuo=;
-        b=mqcVKvfOYp+DM15QeRBAI9Zm4J7Pvam+Az4FOSTiezQonnOybXs8VhnUkeLkTUWcNr
-         xghQa++Kq20M3BHpXk2chPFVwSuQE+YgFqzROMKWjEfSP3v4lwDB+FRrcR9TFXSySGLz
-         alUuw/pmgrcMd4V98cOXlMzZXQPTpChQa7cpH0QbTs9jFawEVq1uwo+FOrQAmyvu6G0P
-         IxXAAJPiIbmxjw6LuDRr1Cy9qOgPhjJeZr+2rPlCyPkfzit2SEWs3MuqxO4XPJqrhC+u
-         8ULbfFoTASPIP9Hmm6ITF5G/4zv4UI2aFV0mGz7jKZl9dYTAckpamhbTmOEHl3e6gcpd
-         F1sQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779892525; x=1780497325;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=vua8WCuJgrLlWDfrDB827XHjkp+v2MUAOu7XMIUMLuo=;
-        b=hTv2sEfggS2zM9H3QakMirmSuBNIeL/zLQNEtkU4+Y5Kji/T6pTMfjSz9oFnKLt4xe
-         AFLT3r4o1s8bCO9Bboe3awKF8EuuN8MOY5mZXRFrLFCvtmmXEACPkJADtZungMQhbbvl
-         J9kM/tKvgMpGsT5o2bnibUs+mSGcTjKXcuo3mxH3/+N4qP3Iw/Zl4hYE0JWk9u/rPXTP
-         m8c4zX3/O+KByEzpxSQkOIUxJoRmgAHpgPHmpNAETZTQWbJ9CuVuumKJzktnV4rtppBm
-         OjOge8UiZNh0i6NZDs1zukf370N9e6b/+uGhZna/UEEE2Chd85mdJKODi48EtfqLtvPg
-         tE8Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9k6Q/g8u6c7GL0BWm13CvTE3zkXvdW+b6j01G4/tefKWvdqnYKrRbEvO0RUhBs5NwZZg5F921L/3zP@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzupld8yzd8DGTYWnYyzZ6VuVftHOBPeulbr91lKsTYRq/0Tn8u
-	RTm95ykh+TNSfKJQkLes7RnmjgMxUjA7HR9fFf0HfNb/CMNuWDlMo+0q
-X-Gm-Gg: Acq92OHoXl8XYQr74sjJQUgOKy9KDy5NLWdo2SV6Fc3ZLLWVr8FLq+lriZLv7eenZ1k
-	hTEHk5QD3jCVHHfjA7kua5tw9hVN8uXYX3D5bcsHGMgtTykg/CuZPzlT9DXf2kewj7C5nztwFSr
-	adkVc2uU3PGt1PLnVlDvQ7y3afYtExAS6QpHH2mJGEnOYqBIjPqOVdDy+wsOkZ4cxhIyJINvdSP
-	HfzMV/724h7hfUgBR7ichKtOvc1yPg1+07KBI01QSJeSj5n6h3aWjcWtI7jnH2GrEHCPDQUGN0V
-	oEyx70UMJzFErYz5UEtD0hcgx9P1xqjs5EaMGjB2RtD/ZaL74cBVTIF852pwn9aw+zx1KiGzNsS
-	feKDCXMq2siE6YoFsck4kZDHdb+qVAK73eTiH17nuyZvTru/pWsqkRauzMIDCxHhoT4UumkInEG
-	8CgOvJwPjJj6vFs09Yuj3tWpj3GQ==
-X-Received: by 2002:a05:600c:c4a3:b0:488:ac01:72b6 with SMTP id 5b1f17b1804b1-490426ceed2mr394337305e9.21.1779892525073;
-        Wed, 27 May 2026 07:35:25 -0700 (PDT)
-Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5584b8sm6239763f8f.11.2026.05.27.07.35.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 07:35:24 -0700 (PDT)
-From: Wadim Mueller <wafgo01@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Guenter Roeck <linux@roeck-us.net>,
-	lars@metafoo.de,
-	dlechner@baylibre.com,
-	nuno.sa@analog.com,
-	andy@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	jdelvare@suse.com,
-	ak@it-klinger.de,
-	linux-iio@vger.kernel.org,
-	linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [RFC PATCH v1 1/4] iio: types: add IIO_VOLUMEFLOW channel type
-Date: Wed, 27 May 2026 16:35:05 +0200
-Message-ID: <20260527143515.102794-8-wafgo01@gmail.com>
-X-Mailer: git-send-email 2.52.0
-In-Reply-To: <20260526165950.6ebbf673@jic23-huawei>
-References: <20260524205112.26638-1-wafgo01@gmail.com> <20260524205112.26638-2-wafgo01@gmail.com> <95f0914a-cb25-44ea-9cef-d203c624f74d@roeck-us.net> <20260526165950.6ebbf673@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=axiado.com header.i=@axiado.com header.b="oYYPgCf+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Y4fdAuJc9zTs6oUQqu3vt9BxeKbaIXvMKNW0kdgFQm4erlTJoz78spi5R7SE1VEhRou3/pGdDs3WHeCuAJ/jUFZuvZ5uAug0mb5Bzb+dpIg03l12ZLhHol3kRXlxu9IyzfpaMpgzA2vu7FlPBn/gh4PoHr+wkF0OHfPlX2/VsL5nV6A/MvB3dDX8T3a8bz3hzEZ5uwEeaaulriCUXGiBHFZoSVMa/UexJpdDiazZWx9QpV9PueySgHERtMSkJtKZrhH+044IpoE+EkhqDOjQjDVdTmAcBEa5pp8RzyzPAcgfidNpIJAuKWYKnmCO6MStOMW9s8vmu7aYP6VLd/AGmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9RLUTTsaZAnX5l+marMsgs4mEHG763Qh//huNcgH3C4=;
+ b=x7XlojM5EqX6J12KvDrCTdOTvENHtmnLM+Ddhif1uTKPtDYg66XW59L197no10pNHNtVTFRIW5K9DzpNa611xkVyl+lE5k0Jx9YSwhGYjypSV0Q4T4gNDm9/9wDDO/PeUa6NNZlifYBNRziZgVFeWIwkehW+ufh9P7ozDO3YvGh9osAeY3zkDizqdxbUV9Xm9X+hVlq8PLFIRk4wds51VU7a0yozu7se6GoROtaZR+5p435kdZdmbi+gouoTPem8G6OZgMNAHdYonXw4bZjhZi+3Y2PW0gT6rlCSx1J0EaaMMdLtQaQe7Gi30voodHyK+xvgeqc+uW7XKTf93Aqlvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=axiado.com; dmarc=pass action=none header.from=axiado.com;
+ dkim=pass header.d=axiado.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=axiado.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=9RLUTTsaZAnX5l+marMsgs4mEHG763Qh//huNcgH3C4=;
+ b=oYYPgCf+hKyJmyt+A51WvacNFmkUWcCluCGgTgUcYvj0myiYE8vFkNk9qATqAFkhrt8u+kEMf32ZxKhxKHs4iY7eeyk1h8/Uz0PvfJ+1nWSBHtGCPg/zvqXfb54jbkPScotrrdL8t5e6HQXm9Vkit6cPZC75XWZDsZ3ADfgGogwgjkuK8QMErMi8KPBzIVXiVrPYcc3YtWiP0hn4H/Wp1KfDG067SCndX0uqVOTzRhyTvQtTQ8Bi6v5DX+afKm4UQZFuNGYj3jaJ/xsbMwDb9o4IdydUtdmIlvP3vb5VEm6ABn6EaFejHdCLZpM2wqSXBpehQ2/qqXVshL3vAAZSgw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=axiado.com;
+Received: from PH0PR18MB4558.namprd18.prod.outlook.com (2603:10b6:510:ac::13)
+ by SA1PR18MB6018.namprd18.prod.outlook.com (2603:10b6:806:3ea::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
+ 2026 14:39:47 +0000
+Received: from PH0PR18MB4558.namprd18.prod.outlook.com
+ ([fe80::ba9:422:da8:b963]) by PH0PR18MB4558.namprd18.prod.outlook.com
+ ([fe80::ba9:422:da8:b963%6]) with mapi id 15.20.9870.023; Wed, 27 May 2026
+ 14:39:46 +0000
+Message-ID: <efdd84e3-98b8-459d-90be-0ac2c107403f@axiado.com>
+Date: Wed, 27 May 2026 22:39:40 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6] MAINTAINERS: Add Axiado reviewer and Maintainers
+To: Karthikeyan Mitran <kmitran@axiado.com>, Arnd Bergmann <arnd@arndb.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Prasad Bolisetty <pbolisetty@axiado.com>
+Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Drew Fustini <fustini@kernel.org>, Linus Walleij <linusw@kernel.org>,
+ Harshit Shah <hshah@axiado.com>
+References: <20260527-maintainers-addition-and-axiado-ax3000_dtsi-update-v6-1-bdfdad4fed91@axiado.com>
+Content-Language: en-US
+From: Tzu-Hao Wei <twei@axiado.com>
+In-Reply-To: <20260527-maintainers-addition-and-axiado-ax3000_dtsi-update-v6-1-bdfdad4fed91@axiado.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: TP0P295CA0008.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:910:2::20) To PH0PR18MB4558.namprd18.prod.outlook.com
+ (2603:10b6:510:ac::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR18MB4558:EE_|SA1PR18MB6018:EE_
+X-MS-Office365-Filtering-Correlation-Id: af734f06-f470-47ec-8251-08debbfdcc96
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|42112799006|1800799024|366016|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	S0VMxWP3LymBdiTzEP917uEwO92vFkuwkGjKF2CLc4pZb02QFB9LUCIozp1NAHpqgX7f1sBly068z4uy8y/eBLeH8ZrXCuQRvf4lRfIBDVdh8fu4xwM65kPLszkxNoKyQbHWYVgxypKnwhNn/IgaJdWEUe564LzZTOAbw3QodUcqvojRTf52AwGbS3g2735MFYaQoxfvM7O/O4IuMo7SYwiQz53i4+E+wkeg7DZ6LqbSPKoLOMyiFka8DCO/SjLsJTSpjdX5mkjaFJxkCmtXK7r3U8cIEUqM/4YfL1IL4axhNMeHxWAnipFOHGrQZxlSFoaN95zY7G0vmymCOFtJk3abXistF4uW9NCGewfD6XpTSmambU7HPtfeN4H0gHplnm6as0v4Tf1TnM+MLiFi4ChkzG88Rt3bVdyY2TpCawzu/Ct3381lyhrnKn3ZpV8Ncqy/XChuyTPNGTAqt7VrmsC79AMTeAZSemJf0wIpVW4HYSO4j8QF0UQpyRcZ6TIwjQ7UN7wRLznsTX90+N0WUIYPgI+rKgg6PAYylaU9p09Bvv68C0WRurVUK8/LInhbjOsrpYajYPtr627U9NQchbDY0G8wSLjBdDLnCRih5Z4aKKPv8kev/duLCmlU3zTdASrq6e7VrYNYN4hqZdHKAacDhELF7EPdaayH7gwZO5u/0t4kXJqy711h3TCWJkIX8xWWbPr2+Abbv9/4Y+peeg==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR18MB4558.namprd18.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(42112799006)(1800799024)(366016)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?T2lINGoxc0s0S1dXQnVPNG5lSVpIemlFOG0zZVJtTVB6YnFiNXp6WmIyOFV3?=
+ =?utf-8?B?dHJZaWZ0WjEvY2s1dEZSSWlIajE4ZTF3WE5NNmNIaUVJZUpCQWZvb2xnVjVo?=
+ =?utf-8?B?NWtLMnd3SHlkVkpzT0IzYW5wLys5OWt6MUlPNWltZURPRjVxSXNYNDZNNGFn?=
+ =?utf-8?B?d0dRTTVDakhIY1ljZGFaZ0I1MEJiZkU2a1Y0WTQveHlBWEFBUHQ1UzBjOXRN?=
+ =?utf-8?B?L2NWRVFna09YNjdhczFWNlkrRThPMWJvazdod1RBVzZTVDY3RjBJaUpraTZS?=
+ =?utf-8?B?SHJmZWhSczVaOVNyYVdLOHAvL2V2WndMR2RNRXZGbTlwMm1ZNzhBdEViNXB0?=
+ =?utf-8?B?dm1MZFpUSmhKZ1dORzZmK2NEcVl2WGtuVjVNalRJaFc5V25tTi92TDVPcXU1?=
+ =?utf-8?B?WjZiRVdTckRsN2lJRkdBbHMyYWRESUZYVHQwdWV4RWlkTjZFOVh2QW5UUE9y?=
+ =?utf-8?B?c0RYTGUxeGh2VkpROC91WjhTUGlrZldXYVlUazFMZm5PVXNqb25oS1cweFNX?=
+ =?utf-8?B?UWVrUW9ISmJFeVBxWmNhM21aZGp4dkpvZjdnbGlrYVlCOWUwNStKTUllVTlS?=
+ =?utf-8?B?akV6SlA4SEZ2WGdiSWhvaXRFQnVmQlpzSERPOXdkWVdjK05nTjBGN0pRRFUx?=
+ =?utf-8?B?NC84clRPYy9XZGRnNWVsQTVENW80V2JVSG1rWWIrTEFKcmF4UG5MUjFnQm1n?=
+ =?utf-8?B?dmV2bHgxZi9Nc29WU1lEeFhEb0tjNlN4R3d0ekI2TWM5ZWdneUExYjFkSDF1?=
+ =?utf-8?B?UHhpUTQwZUNLamJwZ3F3WnhLRWVYbFRPSzdHNTMzRllzbnkxNzh4dThEQXBt?=
+ =?utf-8?B?ck54OEtGUHFVN0UzTnBMNy9JVWQ3K0RZVlNEWDBJd3I0djFpTVRLcVhhK2tR?=
+ =?utf-8?B?WGFiNmJCTXloS01QUERnV2xuQU12ZklNTXdUMTA2b3p0YWJ2aytZRVRuNCtr?=
+ =?utf-8?B?OXk1ekN3MWFYbUJTMGlxY1hBSlRhL0cyUk9ZZHk1N2k1TXp2NGl5a2kxZUs4?=
+ =?utf-8?B?UlB1aGpETW8zS3hNTTVkN2hZRmpncEYwRE9sOW5vVmp0b0E0bGhvQ2NEdWhH?=
+ =?utf-8?B?S0JRS25WS2Z0TFRoZ1h3VldPZnVNT2ZFdERuL2NFdktVTXppN0dkLzNVUC9S?=
+ =?utf-8?B?WEZpMWN5MUdoZkIzcW92cktmajExRkg3Z1dGZWlNcjdta3JhZEk1OVpRS01K?=
+ =?utf-8?B?c2JPeExCOFA2b2FlRHlhejRKVmJaM2l0QlBkQk0ydGt1eVB0UXF3UmQyQ1py?=
+ =?utf-8?B?YTBQWXpYZTVNUnlXMnZUMVI3MmNuSGFRZ3F6WEpmTmVtb0RDNWtoQmo1VjVF?=
+ =?utf-8?B?amxmckhtTkpIczlVZVpLZWdHVVA5Sk5SWjYvOE5teElVUEVob0U3RHd5Qzh4?=
+ =?utf-8?B?S3VTZnUrWHVvRk1vQlJzL0JHS09lMzBtYXRFeFMwMjFXU3lBamVaZHFaK1lU?=
+ =?utf-8?B?S1ZZalNJWndLWlRxMVNYaXdHRlRKNHgyalV1M1hrMnZodmZVWFZsMy9wZGVM?=
+ =?utf-8?B?aHdEckVzUnUySHJsT2oxUFR3TDV1TG9BaGl6TFlsaUsxSXMwM2EycFRkb1Rr?=
+ =?utf-8?B?NnFxVVZxanBua1BDMUdhR2tlYld0Yk00Q21hNDdhSzFMY1N0c1k2TG5NOGph?=
+ =?utf-8?B?Y3VHWW1OZU04MUZnSm1mdFdVNm5UZVBJNjZabGFPSjdLRkpHWVFyTkZtZGxI?=
+ =?utf-8?B?RWdWZnpMTGNJc05RUE1tM3dsN09WR2RjZ3BuUzVTdlpXNHcxTVNXY1pMUExE?=
+ =?utf-8?B?bDJpcG54VXZUY0xqdjJhL0s1YVdJOWppZUE2d01zSDNJeWs3bTBzYzJvbjha?=
+ =?utf-8?B?RnZ6Q3pwdk1DNVBmOWExQnAwTlpsT3NNc2t4TUdDcUtUc3pSL09PQkE1WjFr?=
+ =?utf-8?B?enJpb3BXOTIrMm9GMk9zN0wvcDk4aE9WQmQ0ckg5WjgrNmZ3Rm9QWHJCRzNw?=
+ =?utf-8?B?K2J4QmR3R1Q3TitEem5oZmtadUdaZytuNng0aGtIaVYxOWtRdmJaM1J5ck5B?=
+ =?utf-8?B?VElIMm9uYmIrMVhjMUxITWlubkswd1lNeFpZVDRiUWxyVTFwRjFMVXphVytw?=
+ =?utf-8?B?L05Ob1loZjd0OFJFUktTUnRTZnZJOWJoNm1nSm5nR0FnWUJuZkVMY1oyMVBO?=
+ =?utf-8?B?NUVvWFhieDk0SEVETzlSRTduUnBEeEJVRDEzSkdqK1VJNHpRRjYxdE1HQ2NH?=
+ =?utf-8?B?ZE92ZkZOR1JjZm0xY2lBSi9zRVZnTUNlUkxsMGZlOGVCNW5GTlAzVmRqUFZ2?=
+ =?utf-8?B?NFFwOGFTQjNJMGQyRmt1TDVYWFBpTk5BMitTMEx5UGd2WlFSeWtYNDNadE1S?=
+ =?utf-8?B?ejJrcTd1WkdZMHBuY2xPbkdQcU4vWVp1ajlyUUNvdjI1MkhHZVBXUT09?=
+X-OriginatorOrg: axiado.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: af734f06-f470-47ec-8251-08debbfdcc96
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR18MB4558.namprd18.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 14:39:46.8021
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: ff2db17c-4338-408e-9036-2dee8e3e17d7
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: DEJLQJbLGgXo9RYlxzs1diylJ4uOsUjkM9YnrDNcuaQtBujhZRh0VZVcpxaRTJMk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR18MB6018
 
-On Tue, 26 May 2026 16:59:50 +0100
-Jonathan Cameron <jic23@kernel.org> wrote:
-
-> > Two questions: Why restricting to liquid (there are also gas flow sensors),
-> > and why litres/second and not per minute which seems to be a more common
-> > unit ?  
+On 5/27/2026 9:56 PM, Karthikeyan Mitran wrote:
+> From: Prasad Bolisetty <pbolisetty@axiado.com>
 > 
-> I'd rather we went to the SI units where possible.
+> Adding 3 new maintainers Prasad,Tzu-Hao, and Karthikeyan
+> Removed previous maintainer as the previous maintainer moved from project
+> 
+> Signed-off-by: Prasad Bolisetty <pbolisetty@axiado.com>
+> Acked-by: Harshit Shah <hshah@axiado.com>
+> Signed-off-by: Tzu-Hao Wei <twei@axiado.com>
+> Signed-off-by: Karthikeyan Mitran <kmitran@axiado.com>
+> ---
+> ----
+> This patch removes a Axiado SoC maintainer and adds 3 more.
+> 
+> A maintainer has moved on from the project, so we are adding three new maintainers (Prasad, Tzu-Hao, and Karthikeyan). also commit message amended to have the same.
+> 
+> Patch 1: Removed one and added 3 new maintainers
+> 
+> Changes since v5:
+> - Removed review mail-list R:Axiado Reviewers <linux-maintainer@axiado.com>
+> - Link to v5: https://lore.kernel.org/r/20260326-maintainers-addition-and-axiado-ax3000_dtsi-update-v5-1-648dfe9bff29@axiado.com
+> 
+> Changes in v4:
+> - Updated commit message to clarify maintainer removal and additions
+> - v4: https://lore.kernel.org/linux-devicetree/20260302-maintainers-addition-and-axiado-ax3000_dtsi-update-v4-0-84a5c9df6689@axiado.com/
+> 
+> Changes in v3:
+> - Updated commit message
+> - v3: https://lore.kernel.org/linux-devicetree/20260226-maintainers-addition-and-axiado-ax3000_dtsi-update-v3-0-a3b095989823@axiado.com/
+> ---
+> 
+> ---
+>  MAINTAINERS | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 55af015174a5..b1349bd178cf 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -2605,7 +2605,9 @@ F:	arch/arm/mach-aspeed/
+>  N:	aspeed
+>  
+>  ARM/AXIADO ARCHITECTURE
+> -M:	Harshit Shah <hshah@axiado.com>
+> +M:	Prasad Bolisetty <pbolisetty@axiado.com>
+> +M:	Tzu-Hao Wei <twei@axiado.com>
+> +M:	Karthikeyan Mitran <kmitran@axiado.com>
+>  L:	linux-arm-kernel@lists.infradead.org (moderated for non-subscribers)
+>  S:	Maintained
+>  F:	Documentation/devicetree/bindings/arm/axiado.yaml
+> 
+> ---
+> base-commit: 6de23f81a5e08be8fbf5e8d7e9febc72a5b5f27f
+> change-id: 20260226-maintainers-addition-and-axiado-ax3000_dtsi-update-2f37e16b9053
+> 
+> Best regards,
 
-Agreed - SI in v2.  in_volumeflow_raw / _scale stays in l/s
-(rescaled SI m^3/s, matching the rest of IIO's "kept-small-for-
-userspace" convention).  The ABI doc and a driver comment call
-that out.
-
-On the gas-flow question: rather than adding IIO_MASSFLOW now
-without a driver, I dropped the "liquid" wording from the channel
-type doc.  The SLF3S driver is liquid-only, but the channel type
-itself just means "volumetric flow rate" and could describe a gas
-sensor reporting actual volume rate just as well.  IIO_MASSFLOW
-for standard-volume / mass-equivalent gas flow can come later
-when a driver shows up.
-
-Thanks,
-Wadim
+Acked-by: Tzu-Hao Wei <twei@axiado.com>
