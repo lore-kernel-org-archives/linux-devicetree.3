@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6E147DFAA
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:17:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80949453498
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:17:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779905830; cv=none; b=D3L8WYZhGX8IJlk5NkocsLSiQsb0zu5quvT6ZdgZQN/87wwCjoI/kTfJ1OOaRr71aL8IqLxkiDRy/07M5pVoGJrlfDMyN55bmBd9B/8oFLWhmv/z72Wh/nLX+efLgwjPEydZXXYKxiMzrdYtJOMqTKdmGhiWuI7SQOwMpmv3TnI=
+	t=1779905878; cv=none; b=IvWqpqH5cKimS2C+er9Pn+x4gBmLXIdiqNzLyeM8/i3OEfwBsz6r0+bZ4hCJN6/5/Xj/Zou+ymtuqZrIN8G87bUL0xfadjFxL0XalGpm9QiUKqWgdIWKaBrxRXiycBA/S0IeaqLsMi+szRfCsPSwoyU5FZ6KJWKwiFMiNDf8Ouk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779905830; c=relaxed/simple;
-	bh=3XqTHUN12lMP4GNKQm5fyb5aE70+5gy4KrliWFVf48E=;
+	s=arc-20240116; t=1779905878; c=relaxed/simple;
+	bh=fDNYIemZZTPVpfMZeZyOHlHoMgOD4SLL5LbNFCun2Hc=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=s2cnVcsD0AeEb+Qyo3L8vthuuTs4rFCFt3nCc8wLQ7DsGtRUM38dLC6Q2T7UWnF4lSYBDl/ivaSM00A/x3o792N5E6lEua4RIzT21H/YkcPgt1ZC84lTXl6spKxqcco02eDLEM41FfcB+Mq6xk5j9c5uIJSILi6748iBjr/18ME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yl2PBn8c; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=mTlGaXRGN9My4yTEUHeMy2+tybH3S8HAXDmbOT7MmGrLw+Scnk1oARrSBFJcutwv6CW+0zpmRbjdiHhQmIvxaOiP9QiKzY1Gg/RSNUMcb+FbcklSUzjxwMQsB/iyn6JUMKP+MxCbMPXFGIDrukm5pyQEoCtzmo9WYukxLYPb6MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TMwwZPjF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yl2PBn8c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C6E1F000E9;
-	Wed, 27 May 2026 18:17:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TMwwZPjF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C59A1F00A3D;
+	Wed, 27 May 2026 18:17:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779905829;
-	bh=3wqNqXziVz14bBFTH19HXNwNHqyU96gKjQ8c31km+e0=;
+	s=k20260515; t=1779905876;
+	bh=UVGrwWWFJSsEojo4q8v6xqxssfvfBavXJ5XhgvnFN70=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yl2PBn8coou2WIoJLB1gTy5ZSAtZzQNlnRkynw6646fq0xaqPscCdtkWN8ECfmaGj
-	 jjDjPviQ+ZRWSKqQ/vGedEFjJoYrNprOIIHOmzhto091hO3VaubnkI0i2kOfxrfHKj
-	 HoQ298uJfVUvCw8XgGW/gsftslCtaE/fQWSRfWDSxiqYKpQ0SbNcGXOglTzp2MzOb8
-	 3AHae4EnysNGRwiJrVtXaXdhPgjrNXDnAkpYzlBDfxtXaP8C0FlkDyaabyC516L1/9
-	 YWmApJ0Akw6BqJVmWzB7HCWieB3xTaX62IljvoNT5rlWJriFWJ2NWNwloTaEwa2T4n
-	 QQtQEhYIMmn+Q==
+	b=TMwwZPjFSQXmVs9THlk4zmfgTTJ3qbh6PciZIMBhOv9X9RY3okH9PWkUkjO8zA1UH
+	 XHK1yo5SEFX+cIWpcbQOwPZ4kWWKWS2dLIQM7I6mKq+A03pepzYOgmfAcdpPZ2p9i8
+	 rDEyQZSXL0HiwPs8/oHYA3QGvcFJOrXJQmwLeg6fAKrHzsPJQiU6hT42zP4lX4KPd5
+	 Ly/v5t7z0vh+F5t0Tat7kyl8jEGj6NGghmBdvXozQmsKItwwZUsr81sd2brajTzZhN
+	 nv5FwM8qCfWxQ6TnQ6ZvsbQqlvmEDeAd4AjlmNzW2DtqT65cVQKRq+cvwlhq1ZdmIZ
+	 LHcuYmHC9wmdg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 07/13] spi: cadence-quadspi: add DQS support to read
- data capture
+Subject: Re: [PATCH v3 01/13] spi: dt-bindings: allow spi-max-frequency to
+ specify a frequency pair
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260527175527.2247679-8-s-k6@ti.com>
-References: <20260527175527.2247679-8-s-k6@ti.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260527175527.2247679-2-s-k6@ti.com>
+References: <20260527175527.2247679-2-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 18:17:08 +0000
-Message-Id: <20260527181709.50C6E1F000E9@smtp.kernel.org>
+Date: Wed, 27 May 2026 18:17:55 +0000
+Message-Id: <20260527181756.3C59A1F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,70 +46,51 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The patch unconditionally clears the DQS (Data Strobe) bit, introd=
-ucing a hardware regression for platforms relying on bootloader configurati=
-on.
+- [High] Schema Validation Regression: Changing `spi-max-frequency` global =
+type to `uint32-array` silently disables bounds checking on existing periph=
+eral bindings.
 --
 
-commit d5c6dc375c1d0a353b769715e376a353d659f290
+commit 165130603fd7c72c188dc391a534397b6c57dbd4
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: cadence-quadspi: add DQS support to read data capture
+spi: dt-bindings: allow spi-max-frequency to specify a frequency pair
 
-This commit introduces a DQS (Data Strobe) parameter to the
-cqspi_readdata_capture() function. It updates the register configuration
-to explicitly set or clear the DQS bit based on the provided boolean flag.
+This commit extends the spi-max-frequency property to accept either a single
+maximum frequency or a two-element array. The array format allows specifying
+a conservative base frequency alongside a higher speed that is supported
+after controller-side configurations.
 
-> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
-quadspi.c
-> index 0cc0d648d78db..f4efb92c9446a 100644
-> --- a/drivers/spi/spi-cadence-quadspi.c
-> +++ b/drivers/spi/spi-cadence-quadspi.c
-
+> diff --git a/Documentation/devicetree/bindings/spi/spi-peripheral-props.y=
+aml b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> --- a/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
+> +++ b/Documentation/devicetree/bindings/spi/spi-peripheral-props.yaml
 [ ... ]
-
-> @@ -472,6 +473,11 @@ static void cqspi_readdata_capture(struct cqspi_st *=
-cqspi, const bool bypass,
->  	reg |=3D (delay & CQSPI_REG_READCAPTURE_DELAY_MASK)
->  	       << CQSPI_REG_READCAPTURE_DELAY_LSB;
-> =20
-> +	if (dqs)
-> +		reg |=3D BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
-> +	else
-> +		reg &=3D ~BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+>    spi-max-frequency:
+> -    $ref: /schemas/types.yaml#/definitions/uint32
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
 
 [Severity: High]
-Could this cause a regression for platforms that rely on the bootloader to
-configure the DQS setup? Prior to this change, the read-modify-write
-operation implicitly preserved this bit.
-
-Because the caller below is updated to pass false unconditionally, explicit=
-ly
-clearing the bit here might lead to a loss of timing margins or immediate
-read failures on platforms depending on the inherited hardware state for
-high-speed DTR modes.
-
-> +
->  	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
->  }
-> =20
-> @@ -1313,7 +1319,7 @@ static void cqspi_configure(struct cqspi_flash_pdat=
-a *f_pdata,
->  		cqspi->sclk =3D sclk;
->  		cqspi_config_baudrate_div(cqspi);
->  		cqspi_delay(f_pdata);
-> -		cqspi_readdata_capture(cqspi, !cqspi->rclk_en,
-> +		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
-
-[Severity: High]
-Does hardcoding this argument to false break bisectability? Platforms lacki=
+Does changing the global definition to uint32-array cause issues for existi=
 ng
-a device tree reset line that need DQS might fail here until subsequent
-patches in the series restore proper tuning configurations.
+peripheral schemas that constrain this property using the maximum keyword?
 
->  				       f_pdata->read_delay);
->  	}
+According to the JSON schema specifications, the maximum keyword applies on=
+ly
+to numeric instances. When the instance is changed to an array, the maximum
+constraint is silently ignored.=20
+
+If existing device bindings constrain this directly using maximum (for
+example, maximum: 10000000 without wrapping it in an items object), will
+they silently fail to validate bounds and allow out-of-spec device tree
+values to pass validation?
+
+> +    minItems: 1
+> +    maxItems: 2
+>      description:
+> -      Maximum SPI clocking speed of the device in Hz.
+> +      SPI clocking speed of the device in Hz. Either a single maximum
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527175527.2247=
-679-1-s-k6@ti.com?part=3D7
+679-1-s-k6@ti.com?part=3D1
