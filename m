@@ -1,163 +1,144 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B132A385506
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:12:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4678E28D8DB
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:18:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779865950; cv=none; b=Q0IMyxQIrtLdcxF5b3Zm8c3UKVNvlJw5yVHzO5CniG11nOOyR4fsZxp9nKvVfbL0BKzj2AD//UQCMIfGKwF+TdV/RoNoM2xM+6oiKq4weoXc/SnYx9Jia5II9WDBepmaBjBR5ay/tbqkX3HHHvZCc2gNeyvmFne1an5012wyRcY=
+	t=1779866299; cv=none; b=jvIRoxsUBPavriBVp/HQUfz61RYyWEgxvgdjF1f15c8yRW+zhKGAch/xJmZBgsttRHSe0HFkMs1GyWV/V6Lk7oUyeoQpDSXBxyZtGWn3lJbx6PnhozLQ8oJT7E2PGmUyuyl1PSQoU20u2Uyvsg2qfwb6ox/Qnss+EumwzkhxfZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779865950; c=relaxed/simple;
-	bh=9UBpA1DlKaw0Ic22nYrKTCD1TparHCSI0WO2XRA1lYE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ROSy3PW5J3Dh0wjBoeNwWf7mpzAzhUeaG075izpUvf0FaaPM0ZAhdMm7YCKZ666yfu4ZKsDo5NMMINYY5Cf4dteO8g1iXgNi1Qm8uhVUdoVe0WzjDq8FLB/9qZqDDjIKg0dw9uTYYCNmjXpnxHjfQEdB1aP1x1lQcGAlG3jZAmM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kdjzTCAj; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BZxkWs1D; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kdjzTCAj";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BZxkWs1D"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R2WuVh3258523
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:12:28 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	sFqDIrJjKC2IJFbPzvKdfW/q7cLOEJE24hhamOrvPj0=; b=kdjzTCAj4p7g6NBv
-	6dhNZ8mo6TNx4IxOtjBmPyr6UHpoXl3t9pwDzBtzVU8abDJDEQZvPQlNRaixvcqW
-	NNMW9hZDVWlIpipChxJkLQyakIJbm4BJsEJK4cZoQpCsFHHqhO8BHiHGBP+bkUgo
-	jsFF39Q9Rg8msD3ACKNWkeNfEFwgqgBiA7Oq6TD9MQ59pl1cR3K1trjNTaoKbRvY
-	tw4y5S+R7pdibCy+25RinBAJcR+/BLgmsAQN7ywDPFS9Bkq5MpJ87qxc57KCJ1uI
-	GJWeRs3jl4aLOL23fJwvgoqqLnYS+jsIoI8h/N6dPZx6kH+/2YDekOKh8NR3tvYN
-	XMK7CQ==
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edefujycr-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:12:27 +0000 (GMT)
-Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2baf7748d0aso116724665ad.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:12:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779865947; x=1780470747; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=sFqDIrJjKC2IJFbPzvKdfW/q7cLOEJE24hhamOrvPj0=;
-        b=BZxkWs1DM64B0VnenPPV7IOQxIdnjTl6wlWMtKmDvug09FW/8mSxkJZJpCblOc5/ij
-         EF0ygFhhK/hUzkEpFRgl0QusPvgwGU0lF0MKD+jeuTodJyeP+JrMdrP6m9G1ggzZjwm5
-         PQw/OUXejOXkk7XNiKDsrN6UH0HnSf7FEXFUjybfj/Ds8j5GfOBBRqlnDos9Pg8KbipR
-         f0VeF5xuv8ovU2pjPRvRJKUYmx7g/wX4UdtrnhEWKgpEOS7hgzBUDntsVbqefALYfajK
-         boxKsgAJadtxEk2vAye7XGvb4OdlPT8+B4iXVKXK3zgtiSDi274IlnPO3mJQEZmm2Dxc
-         nG4A==
+	s=arc-20240116; t=1779866299; c=relaxed/simple;
+	bh=Dao9kdOrtlJ45gmh2RbDmGbQQTZZO+n/rTm5/im873w=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=GL2Tw/cjM2P0+VdaytAAl8mMKF0VgQSkOnhOyjynps1n+V1gr2YxHN+y5CAwqgJal/7ZD3gQ3D4eXHhXyhVv6/1yvLis/hscV/QlFFN1A+d2PIDeYudbJBt1iOguMgPSyW08uIhWEwU1TxT2J5XfWQJdvlrK9QU2Mjsn9vRrdC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-575602688deso4061025e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:18:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779865947; x=1780470747;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=sFqDIrJjKC2IJFbPzvKdfW/q7cLOEJE24hhamOrvPj0=;
-        b=Rt3axBZPa5GvJX+RV/ziJtyc2y8PzR8Bjy+a8sRykmu4HW9IrIVMTDOXIJ8vDT/Phm
-         nwfmmF1BYDbf200s0m3LPsjBFlQBo60Q5L8kr56KCm9Zqj94mIaBzeOBMaUIvVMCGxLz
-         uTCNytIaBXsbBy8q6j+1B8sBDKG4icxIugAeGKJBUx7SszODx8NN9cZRvMQzYGqGEpp5
-         hkZxvd6aGmvGOsItNfDspSYFuxOTnHbfX5kkMFOgkcyXks7jcDjP1qZkURd+rgioDGuv
-         ozYydV3IKJJUYwO9YRIkOK4dTS4UDhpPILRXUs3qVrLbDIR2EgHV5b/3X8hc1/iU9qjf
-         8Peg==
-X-Forwarded-Encrypted: i=1; AFNElJ9A2Spoph6JirF7qZnm3AXKKD+b7SN78rlDDipP0oZBBoYPWo7o3Edja46RSZ+IDhj6wdWihGLUBXyM@vger.kernel.org
-X-Gm-Message-State: AOJu0YyIo2t/rXNRnDTxlGCgDxc1JDKE+FSAyZFh3dljcxHtOxrHIXuk
-	gO+y9ey7eEOlMu5fe5NPd8OVHK/k9Kz3afxD+q5wfz/nFDcSASGnWImsY7M521qOU4cboxgJn/i
-	LqzlnRsoFoC/2UJPSH8+XR1XqiRjicoo5B3tkP86RylvU+DFrILJRmf9n+qiw3/nt
-X-Gm-Gg: Acq92OGe6M5WSQ/Q2PLzMo0Koj4xKGigj3CGqfqaAsxMPcLWU3FFxFj3CdHxi0qEf8q
-	xcHXZBR6RDmh9YIV+5+U0864nF08NK6uctoSyVhdfQFyzRYWZuFIw2r0cRgS5iTXu93/5ok7yWx
-	k8ZAGaXVxMVSF8lU/sOx7tc/d+Fey42y/Bg1ldHDBZ7mVV2x/349VtQVpXpU6xu93Q0+q90chjL
-	7u7OYzcNXJXrPRnaw/eQuCVNSTBz7WlMcdNEC9QZnCqo39l1cbANSP+/zadQjTVn14l0UYrZhmu
-	USmmVw0YMAFHu2FBCS974D3rU4VDMH+SjVpBS3+VjXbS+MFltaf9Hp0nllOlTD6ywPmB+PEdYpl
-	C8CylFLkyD6OCi0Qpm2wNXNzLVPRFGZlk0OCxOPLI6ihiPLe6
-X-Received: by 2002:a17:902:ceca:b0:2b4:604c:ec6f with SMTP id d9443c01a7336-2beb069853bmr239368655ad.32.1779865947225;
-        Wed, 27 May 2026 00:12:27 -0700 (PDT)
-X-Received: by 2002:a17:902:ceca:b0:2b4:604c:ec6f with SMTP id d9443c01a7336-2beb069853bmr239368465ad.32.1779865946736;
-        Wed, 27 May 2026 00:12:26 -0700 (PDT)
-Received: from [10.219.57.29] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb56ce4easm134672025ad.30.2026.05.27.00.12.21
+        d=1e100.net; s=20251104; t=1779866297; x=1780471097;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=sy2hrrBG21BdHck1YdIk1SaSJwWCDlg+jpuiQs79vfM=;
+        b=g+lJymsN1DW6kBYEizbZawy4k6gzfO1OpAeiMPSJztDSAI6P5ss1BehfR/LTVZTp6c
+         37mfYMwe/dU3XFpTzYaoXWrn77RFljBbxx2Lyyplv5j3pLQyhxwt9q3zBsqRkwiCa+Lo
+         HU4wKT1TA5KXmQQJysB77dYSili9D/H2qmX8xIQk0SZQHpBN01VRXcqVQCC9T58xjsW2
+         NBkhArn3LuRvFUQDJol4rCb8pJVJPYQWQfK49tcD5BqhpEmaREcmyxDAJmvEAThPzd9y
+         LhJIMm4n/Qh1rkivQ98A/peiumyn759YsIbh2XVb5Y1pFjEnqtLDPyJcNUKUVTwT3q4W
+         gHUw==
+X-Forwarded-Encrypted: i=1; AFNElJ99spW/AVBcSkBKhFPhfGseyRZkLU9NzIQt5EQWQs+zspm319FNDjURbXZk9Exl6snJ+QviIbuL1/FO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw7cQcNoTG5rxYFqJuRDblqZje8ZUjUXDbIm4Y6O5q1G+tE7Bk7
+	GTtWf0Wt2cfHc8ur+rvGTqA9poyS7QvbMJegQHmwaG4UZ1XXtOMYbBmVLMGIn9tkgds=
+X-Gm-Gg: Acq92OGkZYWTqYRnb9hKy9dkB1lu5N3UJTVClJ2KdhVnIkP3BaosbsmgHl8VE4jnZiV
+	JeNJdE5Y1V6u4cXXNAtabdb+zafnX0CQX1PobA2BQcO8/XOse3m0/mJE08Cycwm1sr0kHQP1Wab
+	5lJXLCy7lugkbJ3czjcwyuAXIjoKHr8aDWLknizSdn5fi06IbD2dbOb104exdMBWu1avBFk+ie3
+	Olu4vh13LuIAqiEVrbcLzeOKzCF7Qh+VVNd6MrbHO9xvxHKsvHxKE4BKRpJiWjQEwyQSegQD4I/
+	GOMujC8S8oCskroYEwo0G1N4u/Ggs391jhhLwL9M1t3M4QMIsSD8UyCZ8nL8KqCLEr/2E8/3jfp
+	jJpTjpPuCvl3gUNqdZvXzbkcxYVsxQj80Kj7POHA59lUUkiIBNtfIY+CFuMhErnVufxEDXOd7Gz
+	FdvNwW0uwRat1aMlAIgC8Pp1zZZdOpHk3c78yIEdOT4zy3dkZ3UVgg6relyRJzx8acvg7v67lpO
+	Dg=
+X-Received: by 2002:a05:6122:32c5:b0:575:3433:bb34 with SMTP id 71dfb90a1353d-586607b6fdemr9326377e0c.7.1779866297288;
+        Wed, 27 May 2026 00:18:17 -0700 (PDT)
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com. [209.85.221.181])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173baf56bsm16126933241.13.2026.05.27.00.18.16
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 00:12:26 -0700 (PDT)
-Message-ID: <951c9b8f-4513-47ca-afb6-481dedd3eff9@oss.qualcomm.com>
-Date: Wed, 27 May 2026 12:42:20 +0530
+        Wed, 27 May 2026 00:18:16 -0700 (PDT)
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-5752b279662so4077067e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:18:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+x5Wd5zUV1v+k3rUKLndTfkfM95zL57XFws4XU7cfesIZGpfZ9pOzwWsKYxdhXIvHB7a5Gqp7RDSM+@vger.kernel.org
+X-Received: by 2002:a05:6122:4581:b0:575:a5b5:3233 with SMTP id
+ 71dfb90a1353d-5865f154435mr10929054e0c.4.1779866296537; Wed, 27 May 2026
+ 00:18:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/5] dt-bindings: arm: qcom: Document Shikra and its
- EVK boards
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Wesley Cheng <quic_wcheng@quicinc.com>, Ulf Hansson <ulfh@kernel.org>,
-        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-mmc@vger.kernel.org, monish.chunara@oss.qualcomm.com
-References: <20260522-shikra-dt-v3-0-80ffde8a3dc4@oss.qualcomm.com>
- <20260522-shikra-dt-v3-1-80ffde8a3dc4@oss.qualcomm.com>
- <20260526-quantum-funny-gorilla-cfc983@quoll>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <20260526-quantum-funny-gorilla-cfc983@quoll>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA2OCBTYWx0ZWRfX0eKViDKYjCNT
- KbAySXL8Qs+hMClvrGioCweMdvCudunQMnY6p/JgvayUroORfxXXzczowVYZmQvh5qaAlov02aH
- LFs/PlrE3idVR6+9GsQbi9lRuf+gBYSCL5oAdcp82v0X9i/fmOSkjd8JP5+tLiMpdX6nHfJAdbc
- JmMAv1/7tQ8UWUkGnp9MdbyMk8kQyC5CG7mKFCSw3uyFzWj31pvQ85qs0VtJmgcaGK79ofKkzrw
- VStxj6bzhTIt1w6fLDYV35XteZoYOvywrou3QkG822Joej9rp0DUn2Zmk6LlMd4t6rLxScmwrBz
- 37dzkrmAKx6N3FmQi11gGWJnHHRCYBxgJ7cmf48yAP4S/4uQbuGWluXzVenZrp8ZsWqM8kf5TKX
- U3EIxthVKQMfZEPNVB6vzDE0hdyx8kLuWKEPxaYMUkpKCrP3RjcwPIBRCYhyzKBV+6bE9ZbNG4S
- VF0+20FHL8M+n1HeC8Q==
-X-Proofpoint-GUID: 6EFBj3j3Dtt3_XH3wZYvln_kCXxleEkT
-X-Proofpoint-ORIG-GUID: 6EFBj3j3Dtt3_XH3wZYvln_kCXxleEkT
-X-Authority-Analysis: v=2.4 cv=cPnQdFeN c=1 sm=1 tr=0 ts=6a16995b cx=c_pps
- a=cmESyDAEBpBGqyK7t0alAg==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=kjqM9UcslzgJvOEO4JEA:9 a=QEXdDO2ut3YA:10 a=1OuFwYUASf3TG4hYMiVC:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-26_05,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 malwarescore=0 spamscore=0 adultscore=0 phishscore=0
- impostorscore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605270068
+References: <20260514125328.20954-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260514125328.20954-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 09:18:04 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXhk2rf9+1mvdoUbd2T=vNC0L5UXeiEzwDPvfMOT==+mA@mail.gmail.com>
+X-Gm-Features: AVHnY4IRt8fLyNfU8YOCQpYkCYZ9ntliUcjglmYbKUGrrnuUFeY-Av16LJkvBmg
+Message-ID: <CAMuHMdXhk2rf9+1mvdoUbd2T=vNC0L5UXeiEzwDPvfMOT==+mA@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: renesas: r8a78000: Fix GIC-720AE View 1
+ Redistributor description
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Marc Zyngier <maz@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/26/2026 9:15 PM, Krzysztof Kozlowski wrote:
-> On Fri, May 22, 2026 at 11:32:24PM +0530, Komal Bajaj wrote:
->> Shikra is a Qualcomm IoT SoC available in a System-on-Module (SoM)
->> form factor. The SoM integrates the Shikra SoC, PMICs, and essential
->> passives, and is designed to be mounted on carrier boards.
->>
->> Three eSoM variant are introduced:
->>    - CQM: retail variant with integrated modem
->>    - CQS: retail variant without modem
->>    - IQS: industrial-grade variant without modem
-> Industrial/consumer variants differ often only with thermal, so how is
-> it here? Thermal difference does not make them incompatible. Honestly,
-> usually industrial one does not even receive dedicated compatibles.
-
-The IQS variant uses a PM8150 PMIC, while CQS/CQM use PM4125 + PM8005. 
-These have different regulator topologies and RPM regulator bindings, 
-making the DTBs genuinely incompatible, IQS SoM cannot boot with CQS 
-DTB. Thus, a separate compatible is required and not merely a thermal 
-distinction.
-
-Thanks
-Komal
-
-> Best regards,
-> Krzysztof
+On Thu, 14 May 2026 at 14:53, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> The Renesas R-Car X5H (R8A78000) SoC contains Arm CoreLink GIC-720AE
+> Generic Interrupt Controller with Multi View capability. Firmware has
+> access to configuration View 0, Linux kernel has access to View 1.
 >
+> The Arm CoreLink GIC-720AE Generic Interrupt Controller Technical
+> Reference Manual, currently latest r2p1 [1], chapter "5. Programmers
+> model for GIC-720AE", subchapter "5.4 Redistributor registers
+> for control and physical LPIs summary", part "5.4.3 GICR_TYPER,
+> Redistributor Type Register", "Table 5-50: GICR_TYPER bit descriptions"
+> on page 200, clarifies register "GICR_TYPER" bit 4 "Last" behavior
+> in Multi View setup as follows:
+>
+> "
+> Last
+> Last Redistributor:
+>
+> 0 ... This Redistributor is not the last Redistributor on the chip.
+> 1 ... This Redistributor is the last Redistributor on the chip.
+>       When GICD_CFGID.VIEW =3D=3D 1, for views 1, 2, or 3 this bit
+>       always returns 1.
+> "
+>
+> On this SoC, GICD_CFGID.VIEW is 1 and the Linux kernel has access to
+> View 1, therefore Linux kernel GICv3 driver will interpret register
+> "GICR_TYPER" bit 4 "Last" =3D 1 in the first Redistributor in continuous
+> Redistributor page as that first Redistributor being the one and only
+> Redistributor and will stop processing the continuous Redistributor
+> page further. This will prevent the other Redistributors from being
+> recognized by the system and used for other PEs.
+>
+> Because the hardware indicates that the continuous Redistributor page
+> is not continuous for View 1, 2, or 3, describe every Redistributor
+> separately in the DT. This makes all Redistributors for all cores
+> accessible in Linux.
+>
+> [1] https://documentation-service.arm.com/static/69ef3c1cd35efd294e335c43
+>     Arm=C2=AE CoreLink=E2=84=A2 GIC-720AE Generic Interrupt Controller
+>     Revision: r2p1 / Issue 12 / 102666_0201_12_en
+>
+> Fixes: 63500d12cf76 ("arm64: dts: renesas: Add R8A78000 SoC support")
+> Acked-by: Marc Zyngier <maz@kernel.org>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
+> V2: - Update GIC-700AE documentation link to generated PDF
+>     - Update commit message to match the PDF
+>     - Add AB from Marc
+
+LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+--=20
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k=
+.org
+
+In personal conversations with technical people, I call myself a hacker. Bu=
+t
+when I'm talking to journalists I just say "programmer" or something like t=
+hat.
+                                -- Linus Torvalds
