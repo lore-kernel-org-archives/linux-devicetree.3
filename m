@@ -1,118 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailout2.hostsharing.net (mailout2.hostsharing.net [83.223.78.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444292F1FFE
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 17:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB2A175A77;
+	Wed, 27 May 2026 17:23:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.223.78.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779902189; cv=none; b=muVME379tUQThEuNKxOTZGO+jzDYDyt1OZJIj3OY5scFu25dcU24GcGEFvzw1SZKwySs13i73g9W9nPtVP9aEUIAIk98Ew9FCTdzMIlz1vorink6mDaH9ZU8j0wUVNN+/8Qt+k+/F6O1dmSmxn0LVnLMrFB94UdrY50cq71Jvvo=
+	t=1779902588; cv=none; b=gUrC1yjwHe6fA5138Bs/OsowmtPsR1wLuKviN5qMtDv0oX3JeURg4BLdB671k5mTPcUDV2ECfTkRY6eYCewBd8IsbOaREyqB6scn2tvGZI2YnkDMjsHnNXvOcgOSRTflAnUL189ykZpsZJMfR1kS7uytvN5Gi3ja6EOgs1matXU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779902189; c=relaxed/simple;
-	bh=//1LxycPeCX6jeH92g9kW1QzJjslxlBqF5kGMQohPBQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=AVVtNKa0RkZXT3ZF9g6bFg3VZRK4+XiIqoRBDDkaix9+UAKhCl6TzfoDlHjGo0aAlFUMqXtAER59C06o1fJf4aPrr5H+EnmE2f5v6rFwX1drv2v194mnXf77xd/ktnofOv0JZFUqSTyJVtdABP1roKUDAk8Gn0QgZFcfjPZ5DlE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f1sSPOjO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f1sSPOjO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE671F000E9;
-	Wed, 27 May 2026 17:16:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779902187;
-	bh=fVo3w1d55s41ASEpphnmuEEtqOCEUseak1yesK6LZrw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f1sSPOjOkDiAdrooohwGe4INXtrl9DFcRzTIUH+FQqUQIgivQez2vFWC2ez0v5Mfa
-	 Th4AfZx8elNUvjPoB4TJyB1rarhaPdgCFSrHKiUUVN/eh38c+kdw68nStJBOXUhmX1
-	 buzAElG5Pia50B9DldoCx4oWNjiIYtGzWyEShm7SmVxqZwhZXqnjtJ+hu1QnbQyA7f
-	 NwP0z2XaEmXFGbQebEUBXOQRUyU2c/iGIRXkwPA+rthx86RpMLcNKkuR8CVQM98G2r
-	 W/RPmIzZsqiJwl+1y6lv8M4nE/4uegZ0CEwtoq9EwEGNDJsi2pK+1tzHIrH+LnPJTd
-	 AByrNbsVsbYMQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 5/5] arm64: dts: qcom: Add Shikra EVK boards
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Komal Bajaj" <komal.bajaj@oss.qualcomm.com>
-Cc: neil.armstrong@linaro.org, devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260527-shikra-dt-v4-5-b5ca1fa0b392@oss.qualcomm.com>
-References: <20260527-shikra-dt-v4-5-b5ca1fa0b392@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 17:16:26 +0000
-Message-Id: <20260527171627.8FE671F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779902588; c=relaxed/simple;
+	bh=EG+edTsXg11LXb/S00DjCVoO4co/7ZDo+mROtcbOsIM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YHkBQoRM+8dNT56Nh/XHLvGtX751PgHjCBKs5ClkmweizALjw1+bMovqx1OlFRqN82r1b1Zhx9R/UufJuT7fMtoXhPr2/w8GX2i0ANKaHzyKL6L3HBHgbRaaPHK7R0YKywD686DRwnCl6NcVi4DGigm1RrzNhx3Lwxg2FIDgBus=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de; spf=pass smtp.mailfrom=wunner.de; arc=none smtp.client-ip=83.223.78.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=wunner.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=wunner.de
+Received: from h08.hostsharing.net (h08.hostsharing.net [IPv6:2a01:37:1000::53df:5f1c:0])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (secp384r1) server-digest SHA384
+	 client-signature ECDSA (secp384r1) client-digest SHA384)
+	(Client CN "*.hostsharing.net", Issuer "GlobalSign GCC R6 AlphaSSL CA 2025" (verified OK))
+	by mailout2.hostsharing.net (Postfix) with ESMTPS id 0D13B10DF9;
+	Wed, 27 May 2026 19:22:56 +0200 (CEST)
+Received: by h08.hostsharing.net (Postfix, from userid 100393)
+	id F2D18610672A; Wed, 27 May 2026 19:22:55 +0200 (CEST)
+Date: Wed, 27 May 2026 19:22:55 +0200
+From: Lukas Wunner <lukas@wunner.de>
+To: Thierry Reding <thierry.reding@gmail.com>
+Cc: Thierry Reding <thierry.reding@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Krzysztof Wilczy??ski <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>,
+	Hou Zhiqiang <Zhiqiang.Hou@nxp.com>,
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Pali =?iso-8859-1?Q?Roh=E1r?= <pali@kernel.org>,
+	Michal Simek <michal.simek@amd.com>,
+	Kevin Xie <kevin.xie@starfivetech.com>, Aksh Garg <a-garg7@ti.com>,
+	linux-pci@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v5 2/4] PCI: Use standard wait times for PCIe link
+ monitoring
+Message-ID: <ahcob7HMbyGvFgxc@wunner.de>
+References: <20260526-tegra264-pcie-v5-0-84a813b979d7@nvidia.com>
+ <20260526-tegra264-pcie-v5-2-84a813b979d7@nvidia.com>
+ <ahV_r6NJWnmJptT2@wunner.de>
+ <ahanoZgDwq3v6x8M@orome>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahanoZgDwq3v6x8M@orome>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] shikra-cqs-evk.dts incorrectly includes shikra-cqm-som.dtsi and is=
- missing its dedicated shikra-cqs-som.dtsi file.
-- [Low] eMMC (`sdhc_1`) configuration is erroneously placed in EVK carrier =
-board `.dts` files instead of the SoM `.dtsi` files.
---
+On Wed, May 27, 2026 at 10:28:51AM +0200, Thierry Reding wrote:
+> On Tue, May 26, 2026 at 01:10:39PM +0200, Lukas Wunner wrote:
+> > On Tue, May 26, 2026 at 10:53:11AM +0200, Thierry Reding wrote:
+> > > Instead of defining the wait values for each driver, use common values
+> > > defined in the core pci.h header file. Note that most drivers don't use
+> > > the millisecond waits, but rather usleep_range(), so add these commonly
+> > > used values to the header so that all drivers can use them.
+> > 
+> > Hm, why not just replace usleep_range() with msleep() and use the existing
+> > macro instead of defining new ones?
+> 
+> I'm trying to somewhat unify the implementations across drivers without
+> changing behaviour. I don't have a way of testing any of these drivers,
+> so keeping the existing implementation and just switching out the symbol
+> seemed like a good compromise.
 
-commit 16ca8db4fa36b37efe1548399766a7dfdca794da
-Author: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-arm64: dts: qcom: Add Shikra EVK boards
+It looks like the code was copy-pasted from one driver to the next
+and I applaud every effort to deduplicate, unify and simplify things.
 
-This patch introduces device trees for the Shikra EVK platform, supporting=
-=20
-the CQM, CQS, and IQS SoM variants. It combines each of these modules with=
-=20
-a common carrier board definition to enable the respective EVK hardware.
+I don't quite see how using msleep() instead of usleep_range()
+should result in breakage.  The drivers are just polling for
+link up for an amount of time and as long as you're not decreasing
+that amount, everything ought to be fine.  Moving to msleep()
+should never decrease the amount.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-cqm-evk.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-[ ... ]
-> +&sdhc_1 {
-> +	vmmc-supply =3D <&pm4125_l20>;
-> +	vqmmc-supply =3D <&pm4125_l14>;
-> +
-> +	pinctrl-0 =3D <&sdc1_state_on>;
-> +	pinctrl-1 =3D <&sdc1_state_off>;
-> +	pinctrl-names =3D "default", "sleep";
-> +
-> +	non-removable;
-> +	supports-cqe;
-> +	no-sdio;
-> +	no-sd;
-> +
-> +	status =3D "okay";
-> +};
+> Then again, I count 2 drivers (in linux-next) that use the existing
+> PCIE_LINK_WAIT_SLEEP_MS, one of which multiplies by MILLI to get at the
+> US version (so it could easily be converted to the US_MIN version). Only
+> pcie-designware.c uses msleep() with PCIE_LINK_WAIT_SLEEP_MS, so it is
+> clearly the outlier.
 
-[Severity: Low]
-Should this eMMC configuration be moved into the respective SoM dtsi files?
-Since the configuration is duplicated across the EVK files and differs only=
-=20
-by the power supplies tied to the PMIC on each module, it suggests the eMMC=
-=20
-hardware physically resides on the SoM rather than the carrier board.
+Konrad Dybcio went ahead and replaced usleep_range() with msleep()
+in that driver, kudos to him.  Cf. b262518262f5 ("PCI: dwc: Use msleep()
+in dw_pcie_wait_for_link()").  If you could just carry over that change
+to the other drivers that would be great.
 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts b/arch/arm64/boo=
-t/dts/qcom/shikra-cqs-evk.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts
-[ ... ]
-> +/dts-v1/;
-> +
-> +#include "shikra-cqm-som.dtsi"
-> +#include "shikra-evk.dtsi"
-> +
-> +/ {
-> +	model =3D "Qualcomm Technologies, Inc. Shikra CQS EVK";
-> +	compatible =3D "qcom,shikra-cqs-evk", "qcom,shikra-cqs-som", "qcom,shik=
-ra";
+Thanks,
 
-[Severity: High]
-Does this board include the incorrect SoM file? The commit message notes
-that CQS pairs with the CQ2390S SoM, but this include pulls in=20
-shikra-cqm-som.dtsi instead. Additionally, it appears the required=20
-shikra-cqs-som.dtsi file is entirely missing from this patch.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-shikra-dt-=
-v4-0-b5ca1fa0b392@oss.qualcomm.com?part=3D5
+Lukas
