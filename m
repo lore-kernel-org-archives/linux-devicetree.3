@@ -1,182 +1,96 @@
-Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com [209.85.222.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83F733806C0;
-	Wed, 27 May 2026 16:00:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F5538237B
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:03:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779897604; cv=none; b=SHsLe6CycTZMSy/a4v2/btM+58wlm0wuSfMb+8oiiKNczLEzFxf6lS8Ojs524W9smdGfj6kbpbTtzWy4rus6UYiPTf2EbLDK61YwH/Em+v12pFLtKH3OHmqo0D+ZcNq8mKc6PIC8Izu+KgBDK/SgSUlIStajM/JNsE6PVucOIvo=
+	t=1779897790; cv=none; b=U/zG9lbd8+je+hKFLpfBSbRzeX4zyjEFYOmX739Ux5PUVi9/1Ae9U+yaNtpcxQb26r/RYnoj2GXdiMytsQrZs3qISeCLRBuA90JbCr3wv5sX6i2KEsYWJu+byQUF6p/plN0n+/ZsbUF+Dk4oiJHAhsoDkF9AdGSBp9jzZRkQdU0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779897604; c=relaxed/simple;
-	bh=CWU9+TVZMvKFmzx4keG9MJCrmNF/g3ac6eJWxBfwG1Q=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=dNMkaMJ7M+BvSRbe18l3yc32OdeiRTh9HzI+/foShShdRwTwwKSg0kQ0fK/Kj1tnwSsg5/Mtn6ghgP9mNm3s0bS/7trQSbwXcgmv8mP5IJm79LMicUuw/6I4lSeR50OT2nfnK0S5RFnSdQmtrPJMV6VjL4mYspL3rk1wZMmvoH4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=UiMIzM7o; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="UiMIzM7o"
-Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
-	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64RCDWkG1245420;
-	Wed, 27 May 2026 11:59:44 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=lm9yM
-	bnRaV8OEEW5Jlctc8JhJAC0mk8dIN9cy9AGNdU=; b=UiMIzM7oXp9TLbR7jx1zn
-	RJkUKV/3VKcwZHNhhdfpih8lS9EnKtuBjeCPwSrjYr69vbtlHgc/CLusYtcN7PR+
-	ZLV5Dld0zoYW41XAdq9W8fgxcifSTaqBC8Rc73yyrpr8zy647wqmj+aoqZ2HA7NF
-	peGKnt+amLWQ8qUWUcBEc/RAuOxfuGFXi2WTtDLZjP6xUVil+gXIH8O44elYTKU7
-	DLo7OiJeqhV5yb80/jcoUXiRdf1Scovtk7n/zebD+OA/IqkfUqiGoU9Xn8lC8HV9
-	lP2l5/Ox2PcwE/3fzgozS0QrrPF5/xthnxkCugRq/i3a71ak05YS9cxzzZMSvsXZ
-	g==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4ed83e57hr-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 27 May 2026 11:59:43 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64RFxgK6024743
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Wed, 27 May 2026 11:59:42 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Wed, 27 May 2026 11:59:42 -0400
-Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Wed, 27 May 2026 11:59:42 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Wed, 27 May 2026 11:59:42 -0400
-Received: from HYB-MkYHBcJRSnh.ad.analog.com ([10.32.226.85])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64RFxScq024516;
-	Wed, 27 May 2026 11:59:31 -0400
-From: Liviu Stan <liviu.stan@analog.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Liviu Stan <liviu.stan@analog.com>, Jonathan Cameron <jic23@kernel.org>,
-        David Lechner <dlechner@baylibre.com>,
-        Nuno =?iso-8859-1?Q?S=E1?=
-	<nuno.sa@analog.com>,
-        Andy Shevchenko <andy@kernel.org>,
-        Michael Hennerich
-	<Michael.Hennerich@analog.com>,
-        Rob Herring <robh@kernel.org>,
-        "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        "Antoniu
- Miclaus" <antoniu.miclaus@analog.com>,
-        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
-        <devicetree@vger.kernel.org>
-Subject: Re: [PATCH v4 8/9] dt-bindings: iio: temperature: Add ADT7604 support to adi,ltc2983
-Date: Wed, 27 May 2026 18:59:07 +0300
-Message-ID: <20260527155908.402341-1-liviu.stan@analog.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260526-overexert-mollusk-72b080546d5f@spud>
-References:
+	s=arc-20240116; t=1779897790; c=relaxed/simple;
+	bh=PdnwddvyWIarHDQaUbeQPvHrwPNXjHSw1fY7F092KIk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gsp+aKH9vLe0yxn2XiEiaYq1EewVX37HrClDhyHMzo9xPmhGop/DZVrTPqHl/OKVeBTJdFnmGucm2IkkLGK+OyBA7y6+3eHbUgecbsPbXm3jWJqTP8sotAP/vz/mWAugiXIz9ec9yS0l3byXh6D0wUWFvW6OHGuLUraWIsEwylM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-95699e8e26aso3969746241.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:03:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779897788; x=1780502588;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=dAaNLENh575JywEtLAJ71L7KgO/CYiuJ4uJtK5tYZkU=;
+        b=d1bcfI7y1mfGKc0QZjLCFOZ4T1NW9tQIepjpNW1iYrk1P7OgCwflIKokLsyVKQkCMN
+         oCas9Cyyphr+/zWPzzmvUFzrmutGXSkWPuFUvf2PViw85yqGRRwBk17wKfAidXGddMSM
+         /iw8OwWBqggWARIBhMkgyz55dexu4b9QAqvEqQMFR0s7KBjLyYKH053E42W53atWcUFZ
+         rUM4teETPirgolLO4/93nG1MV5iRFFSJp+Pz84XRgfi/8mU5dVhdqd+/v0duNiDDKy+E
+         E5UjRxh5GtL3OGPW8A5jV9kjHPqDXEnrro9UvZcGJLb8RgvCRqnXjH4IHIokjMaQ03uQ
+         FXrg==
+X-Forwarded-Encrypted: i=1; AFNElJ+jTZEdKXJ4uIaDpjYARPBu2EwMnKH0n5JGsaiqqcxickVl5WQAMCKxXBU6T0AgpbAFUYM5ZF9CbcXi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1YvWmdjXtawZAiIFKSxblJrSYk9Pl9Q6HCyJTOgyn9uMFtpuI
+	g8NSQI5JZ5gBzqdve608N0ZosetHK7zIgpWDvvc++x/2EXW2a7miFAPdbwPxfsU/DCs=
+X-Gm-Gg: Acq92OF3kKkFZK4VZdMhuegtzF46fDTe/Zb6jSjygJPRwx0JI0Wp/+qW+cPIrmd6ABA
+	1kPlzBBv8HtQZklQfnGHF1rtnbr4wGUSGx9yT0tgUvz+CZPGrKSNFhOToAGda5NX7SIlB9PsbcQ
+	ZGVVN1bjXPUHizP+yIRnukqaAKBlSu4Q3PqXcp+iU9h7swNPKMlUMFWmfRNgdoWMKqiov/mfd41
+	ljsxEzd85MKBLmw0YMgfQ9gjSojzba4gRM99ikfx0aXDtRq4sRJAj7cr67jG546Z1i1yn/wxsmY
+	Bh7sdLn5mPZ4OHFB0hG9zBuliIteBC7Psjr2bpoSs4K9Y+mBJGAAWfyUIMyTiNUsiZ+YybjagPj
+	gKPCokB93KF9bciru+t5/priSxsWQyH93xlozgB7ugQcDMBNWHqLrN2xWLFqIzhfbNPzakccNqz
+	A97+34HN+FRmEsbvI37QEfsXu3wCtfb9HhozIL6PuFvwyv0W5zdNfi24MJJvEpM+B9iRRc6WsRh
+	1o=
+X-Received: by 2002:a05:6122:c88:b0:56c:d34e:bb1a with SMTP id 71dfb90a1353d-5865ef6636emr12013344e0c.4.1779897787953;
+        Wed, 27 May 2026 09:03:07 -0700 (PDT)
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f37281e7sm20735404e0c.7.2026.05.27.09.03.05
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 09:03:06 -0700 (PDT)
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5753a289955so4127225e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:03:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/XcSoJ7TpjOFjoqvfy5lSpqPG6wZb1RC9QrPUzqTXj5JF+JVeuHSjIe5nyHWyppYrBbCTZxDtOmBbG@vger.kernel.org
+X-Received: by 2002:a05:6123:64:b0:56e:f876:5626 with SMTP id
+ 71dfb90a1353d-5865fc02fc9mr11570394e0c.5.1779897785220; Wed, 27 May 2026
+ 09:03:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDE2MSBTYWx0ZWRfX3V5d/gamzGuo
- XA1PFB9eg+fhfp5w2RyqOaHYIhLvkFldjcom6Ba80sPkSvCGUnJAP15Gn0b28UZo4lApuYfjU0g
- LaZLIy5rVYiWOTuRzauwfg01fAkLPo4EkYvLa7ESmPh+spg2/NnDNE8AjkAiteZWDYl7uw2Ovsi
- aisAqc2Hg/mZ4W4okOoR/AAK9sKDQQrH+TV72Gm32TlS1caH1b+2UxrAAso8NevpJjeyoGGjrFW
- uXs/1DHzmd2i0dBBEu5zeafz/asGVHRXa0ArPOJstslxRdqSpdm5rgANJoCNSOYT17c6AFhJ6H+
- Hy1JuoWlCRhrRPtG5GNeSz/GKe/B2h2mXUbfw00+Lz3Ztk4I9RdIu71r608EVTqiK9yyrthMkwK
- RkfzLvSk0O8st8uUvNzs6B5HYl4HTrpaIqUJMLDF9f6Mc37rSBeMv6pbvxJfMnCthrLkxoe62EN
- mpkpg++34mSkrFcXs/w==
-X-Proofpoint-ORIG-GUID: 70MzinQvcDMp71bXbK6_1rKa59IA_JoL
-X-Authority-Analysis: v=2.4 cv=es3vCIpX c=1 sm=1 tr=0 ts=6a1714f0 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
- a=N--XFCr6TIEc_64PeIT2:22 a=VwQbUJbxAAAA:8 a=gAnH3GRIAAAA:8 a=XYAwZIGsAAAA:8
- a=LB8o0jXiuc9rKahuU8wA:9 a=E8ToXWR_bxluHZ7gmE-Z:22
-X-Proofpoint-GUID: 70MzinQvcDMp71bXbK6_1rKa59IA_JoL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-27_02,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 malwarescore=0 clxscore=1015 spamscore=0
- adultscore=0 priorityscore=1501 lowpriorityscore=0 phishscore=0
- suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605130000
- definitions=main-2605270161
+References: <20260505123708.134069-1-biju.das.jz@bp.renesas.com> <20260505123708.134069-3-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260505123708.134069-3-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 18:02:54 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXsMqVd2qt43hTD0Umt_dp50-yx-kH3126599eNwzfbmw@mail.gmail.com>
+X-Gm-Features: AVHnY4KZgFHip0uxha3AkuoFhevCBIRNlRrLf8N0236y4Jx9cgWcXOHqi2SlBso
+Message-ID: <CAMuHMdXsMqVd2qt43hTD0Umt_dp50-yx-kH3126599eNwzfbmw@mail.gmail.com>
+Subject: Re: [PATCH 2/5] arm64: dts: renesas: r9a08g046: Add SSI support
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 26 May 2026 17:55:49 +0100 Conor Dooley <conor@kernel.org> wrote:
+On Tue, 5 May 2026 at 14:37, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add SSI{0,1,2,3} nodes to RZ/G3L SoC DTSI.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-> On Mon, May 25, 2026 at 07:39:35PM +0300, Liviu Stan wrote:
-> > The ADT7604 shares the same die as the LTC2984. It repurposes the
-> > custom RTD sensor type (18) as a copper trace resistance sensor
-> > and the custom thermistor type (27) as a leak detector, and
-> > removes thermocouple, diode and direct ADC sensor types.
-> > 
-> > Add adi,adt7604 to the compatible list and introduce two new
-> > sensor node types specific to this device:
-> > 
-> > - copper-trace@: maps to the custom RTD sensor type (18). Two
-> > variants: sub-ohm (< 1 ohm, adi,copper-trace-sub-ohm boolean,
-> > no custom table and excitation current) and standard (> 1 ohm,
-> > required adi,custom-copper-trace table, optional excitation current
-> > defaulting to the datasheet recommended value). Primary output
-> > is resistance in ohms. For > 1 ohm copper traces with a custom table,
-> > the chip also outputs temperature in millidegrees Celsius.
-> > 
-> > - leak-detector@: maps to the custom thermistor sensor type (27).
-> > Takes a required adi,custom-leak-detector lookup table encoding
-> > resistance (uOhm) against coverage data (%). Two outputs:
-> > resistance in ohms and coverage in percent.
-> > 
-> > Separate node types are used rather than extending the existing
-> > rtd@ and thermistor@ nodes because adi,custom-rtd is required
-> > for sensor type 18, and several properties (adi,number-of-wires,
-> > adi,rtd-curve, adi,rsense-share, adi,single-ended,
-> > adi,current-rotate) have no meaning for the new sensor types, since
-> > the configuration is hardcoded, and would need to be explicitly
-> > forbidden or ignored in the driver.
-> > 
-> > allOf conditions are added to restrict thermocouple, diode, direct
-> > ADC and active temperature nodes to non-ADT7604 devices, and to
-> > restrict copper-trace and leak-detector nodes to the ADT7604
-> > (some parts only).
-> > 
-> > Signed-off-by: Liviu Stan <liviu.stan@analog.com>
-> 
-> If this approach is acceptable to Jonathan, it is acceptable to me.
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> pw-bot: not-applicable
-> 
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-Thank you!
+Gr{oetje,eeting}s,
 
-> > +            leak-detector@14 {
-> > +                reg = <14>;
-> > +                adi,sensor-type = <33>;
-> > +                adi,rsense-handle = <&r_sense>;
-> > +                adi,excitation-current-nanoamp = <10000>;
-> > +                adi,custom-leak-detector =
-> > +                    /bits/ 64 <          0 100>,
-> > +                    /bits/ 64 <  202020000  99>,
-> > +                    /bits/ 64 <  285710000  70>,
-> > +                    /bits/ 64 <  333330000  60>,
-> > +                    /bits/ 64 <  400000000  50>,
-> > +                    /bits/ 64 <  500000000  40>,
-> > +                    /bits/ 64 <  666670000  30>,
-> > +                    /bits/ 64 < 1000000000  20>,
-> > +                    /bits/ 64 < 2000000000  10>,
-> > +                    /bits/ 64 <1000000000000 0>;
-> 
-> My OCD hates that you have gone to some effort with alignment here, only
-> for this last line's first cell to scupper it completely.
-> 
+                        Geert
 
-Sorry for this, I can fix it if necessary.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Thanks,
-Liviu
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
