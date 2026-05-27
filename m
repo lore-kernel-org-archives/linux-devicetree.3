@@ -1,107 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C28818460;
-	Wed, 27 May 2026 13:12:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA90A405C3E
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779887562; cv=none; b=TCBy+rT09qYQEvijGA+J3eaEhqNMCG3ax1SnQOocxgzibc57cviXctDJkcAtrEoEB/CdOjme55EeXpGc2jxntaYH/9ATA8tjNOlwIKPVVPBo/prsgS3ZqLVndzEZ1cO9Rw8HsLjq3IxJTEtc/JOhNRRT/WLxlKTP3excny8px4I=
+	t=1779887617; cv=none; b=GN9IevQ5m6TdxEnCD17M5P5MsQ25Gs9janc8mghYk9o+lsxQwIJmFeWLxchgmRTjANw348wWLGKejpnG4fZguv2XZtzWNdC35povP357xhuEg2alJjPcIseuUGdnuRCESB8YQqEZCHKy49e07HADtMlo+2sNzkG63BJOpEg3obg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779887562; c=relaxed/simple;
-	bh=NJ97lqNuq7JfZOqYauOT3tZNm3oV4Czm4yKscTm5Ruw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=FGnP1ydMMxkTBFFXKUzrE3J3mbBdCTa+Vejymbp6yr/j8ECsU86txvBGc/xJ3Z1DY8vGa9BJHyW8kNboCUCK57LJ94QCr5aYDG/9jgeU2wo6iVknUQHKeGUGWUC7G8S7im5aVITjOaOqopTcAWwLH/XadxHFOZui0TXSmk89Lc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k3oWFk+s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779887617; c=relaxed/simple;
+	bh=agHr2sBhIjxK3Ormo5y5nfaxM4jTXpBnQzURrcUDSe4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Va3PuY6dXPS8ac1BjeE+mPrbMkutVxUjiytUH/yPlRj4PnUTjqy6Iv9l8rJ2U7NVfs4q7moL7F/zAYfOIvxJ9Gx2PO2Ny0eo2SvcM/pGnod9HFG1ujJvjq2Wj5pPTdzV+UhFzUeKyvcw+YGRiu2BFZrhf/kgx/3N00Cw0yIALgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bz673UA9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k3oWFk+s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6705D1F000E9;
-	Wed, 27 May 2026 13:12:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bz673UA9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DB211F01558
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:13:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779887561;
-	bh=cLbYJykxxmiNbVFJWXlDk39IdYaVW6JQ33vfoP0sgFk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k3oWFk+ss9eNssB4ePhHoLCJ31SA54KKwbbrawtRt+q+eqJIEDSss7iKqYzNkk0rm
-	 RLbZ/yTsTFexYUZjQspQNOb9llN9oFmmZ9vujUQMDoYhV3rH+Qm8mJ2a/eXwVn52wF
-	 qVOUu1P1ptEtA6igigLuzZTky90WuOdfxB8hHfmFtk1yp8zDbBkLclknBrm+QXsgqx
-	 MXKiR7Uu7vD+gehc7z0JEQNi3BNavfo3zJ0qecduUecwioyAMGjBxdmYJrkKraM6UN
-	 Ds3pw0bA0RYjR6AfBLif3sIlazf1kcuDRH3vurv2SaUEQ8WoHmDo7AJYXpOpGCzFSx
-	 IFrTRW7eSZqiQ==
-Message-ID: <0aeeed5c-062c-4914-8d69-8af90af94683@kernel.org>
-Date: Wed, 27 May 2026 15:12:35 +0200
+	s=k20260515; t=1779887615;
+	bh=IWzal5f7ADTgKqW+mTx8TdSHtfH1pO86e+7eGi1WMeI=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=bz673UA9o2dxwJ/yJ5c+fGYoFTBtdtulF/u89jD9mV6VYz8OwCV8YusiNfGxmm+Fn
+	 PyHDOvIq/+J7q5q0kRR5a0ZniEWro7x+W+dbgVyyfV4fYSSmBwxf4iX0fX6v7oPhht
+	 hX81W2p4Q8aZSqjN99wCclmzfx8khZOQz9Lei0HXfpINo/zl1QDutw/MJdKTOvbANW
+	 oBtol/P61IYMpSnEQ7gLNDpl6WRspFWOW9b0qq+aIQ80QZeJBtGVz63KzavOG/rhf4
+	 WXcOS3R1X1rP4YrkM+oqt+KkEmbcx7Ku8XzznatKo9qOdJO/63Cin34bsltsXuD5lJ
+	 76Yqut6UoeznQ==
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-393c93a01abso51677291fa.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:13:35 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/EszTvPwcghePlG0i5oetqIfx63Vr+drkUFB6VTM7BKLg8q64aSbS6vVUi2U5NH3CHKw5ESGvV4dS8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw9HoGktFXackjVjlAEm/bQ3ERLji6nXS63eE/hy2IvGo0TUSAf
+	SGttgO59fvnr06qnaQ3qgY1APTcxhoUDKwq6bjozOAi8fuZ6X/PHmrjsYj50XEbBm+7JqOBZLNR
+	2lLcdE9JtbcWkhQxg3bop42dwRxg0aqU=
+X-Received: by 2002:a05:651c:1991:b0:396:297a:8a7d with SMTP id
+ 38308e7fff4ca-396297a8abbmr13747761fa.0.1779887614270; Wed, 27 May 2026
+ 06:13:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 1/2] dt-bindings: net: bluetooth: Add brcm,bcm4384-bt
-To: kaihsin Chung <kaihsin.chung@synaptics.corp-partner.google.com>,
- linux-bluetooth@vger.kernel.org
-Cc: marcel@holtmann.org, luiz.dentz@gmail.com, devicetree@vger.kernel.org,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- linux-kernel@vger.kernel.org, kaihsin Chung <kaihsin.chung@synaptics.com>
-References: <20260408083217.1915419-1-kaihsin.chung@synaptics.com>
- <20260527090849.3647601-1-kaihsin.chung@synaptics.com>
- <20260527090849.3647601-2-kaihsin.chung@synaptics.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <20260527090849.3647601-2-kaihsin.chung@synaptics.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+References: <20260522-strict-provenance-redux-v1-1-0880b65fc17c@kernel.org> <DITEXRBFOZLD.V7Z5AFF3JXBO@garyguo.net>
+In-Reply-To: <DITEXRBFOZLD.V7Z5AFF3JXBO@garyguo.net>
+From: Tamir Duberstein <tamird@kernel.org>
+Date: Wed, 27 May 2026 15:12:57 +0200
+X-Gmail-Original-Message-ID: <CAJ-ks9mQhe6o4tir2PFiJBD=iddSz1iKs7uPtkBTq8uMzsWOjQ@mail.gmail.com>
+X-Gm-Features: AVHnY4Ia2k-DUjFNwjaSz1hg3z4LUmJRBmj7rL7yD8RllH3cRhYgJr7B3uG4fEM
+Message-ID: <CAJ-ks9mQhe6o4tir2PFiJBD=iddSz1iKs7uPtkBTq8uMzsWOjQ@mail.gmail.com>
+Subject: Re: [PATCH] rust: kernel: use strict provenance APIs
+To: Gary Guo <gary@garyguo.net>
+Cc: Danilo Krummrich <dakr@kernel.org>, Lorenzo Stoakes <ljs@kernel.org>, Vlastimil Babka <vbabka@kernel.org>, 
+	"Liam R. Howlett" <liam@infradead.org>, Uladzislau Rezki <urezki@gmail.com>, Miguel Ojeda <ojeda@kernel.org>, 
+	Boqun Feng <boqun@kernel.org>, =?UTF-8?Q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+	Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+	Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
+	Daniel Almeida <daniel.almeida@collabora.com>, Rob Herring <robh@kernel.org>, 
+	Saravana Kannan <saravanak@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
+	=?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	rust-for-linux@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-pci@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 27/05/2026 11:08, kaihsin Chung wrote:
-> Add the compatible string for the Broadcom BCM4384
-> Bluetooth controller.
-> 
-> Signed-off-by: Kaihsin Chung <kaihsin.chung@synaptics.com>
-> ---
+On Wed, May 27, 2026 at 7:13=E2=80=AFAM Gary Guo <gary@garyguo.net> wrote:
+>
+> On Fri May 22, 2026 at 6:19 PM BST, Tamir Duberstein wrote:
+> > Replace existing pointer-to-integer and integer-to-pointer conversions
+> > with calls to the strict provenance APIs.
+> >
+> > The strict provenance APIs were stabilized in Rust 1.84.0 [1]. Since
+> > commit f32fb9c58a5b ("rust: bump Rust minimum supported version to
+> > 1.85.0 (Debian Trixie)"), the minimum supported Rust version is 1.85.0,
+> > so no polyfills are needed.
+> >
+> > Link: https://blog.rust-lang.org/2025/01/09/Rust-1.84.0.html#strict-pro=
+venance-apis [1]
+> > Suggested-by: Benno Lossin <benno.lossin@proton.me>
+> > Link: https://lore.kernel.org/all/D8EIXDMRXMJP.36TFCGWZBRS3Y@proton.me/
+> > Signed-off-by: Tamir Duberstein <tamird@kernel.org>
+> > ---
+> >  rust/kernel/alloc.rs           |  2 +-
+> >  rust/kernel/alloc/allocator.rs |  2 +-
+> >  rust/kernel/devres.rs          |  4 ++--
+> >  rust/kernel/error.rs           |  2 +-
+> >  rust/kernel/io.rs              | 10 ++++++----
+> >  rust/kernel/io/mem.rs          |  4 ++--
+> >  rust/kernel/of.rs              |  2 +-
+> >  rust/kernel/pci/io.rs          |  4 ++--
+> >  rust/kernel/str.rs             | 16 ++++++----------
+> >  rust/kernel/uaccess.rs         |  2 +-
+>
+> This touches many subsystems, so you'd need to break this up.
 
-You ignored most of my comments and did the same mistakes. Go back to
-previous version and implement the comments.
+Ack.
 
-Best regards,
-Krzysztof
+> I'm also refactoring in my I/O projection series which I've already
+> converted most stuff that I touched to strict provenance:
+> https://lore.kernel.org/rust-for-linux/20260421-io_projection-v2-0-4c251c=
+692ef4@garyguo.net/
+
+Will wait until this lands to re-spin.
