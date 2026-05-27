@@ -1,427 +1,201 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2124.outbound.protection.partner.outlook.cn [139.219.17.124])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BC25391E7F;
-	Wed, 27 May 2026 09:24:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779873868; cv=fail; b=QSlsym5+Cqsrbrh6CBuv49XvHLEOGTKN2ktymzOZ6+Bm4mZgWpo1CbVx0dNUkcgoBJ9oheus8/gLaqiZ8QbCQa2ihvBqu8e6RKfh4tIn1hUZ30uQRE9n4ZNvYZ+3a7nZ3VFajPh6+w/wzLj6ZdesbZGSLs3hSU+M10YOAJEocHE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779873868; c=relaxed/simple;
-	bh=lf2/8C+dRM8QAiPKfGuh8ep5AUYteUz0ju53SdlHZiI=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=TYo80LLLKEQo+O1t4NASEvHtg8k0r0/oeTJSvFgWB6c8e8e7oJ3rLNQsBGg4BE7IAoaUcfNrOYawvgu3xYtqs05RgHbK9BGsnKtSUyoU1ry1RZMsvsuQsR1RFeo2jcFRWxaHiLVha/nj6mJoVbjcS0UBObCVzWaSQYMhnWRUp+U=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=hAioFP0QQLVAtuQdsgl82dlYGn0jZZn0nwV8lshYtSnVr2VuHHbp3D+2z+qeUSjCREDU+Q5ccHEBkVGQi+NB8qqtUIK9kgp9XkNgH3dnIBuzDZYb+JHOIVygQ/3p261o1eZg5Qckl/42xzUSVe6Eak9Yyyyv0s6Nmf/M+6IJ7c9DlHds4bojFK5WXYiovG9qH42pi57Hv3igzTCBObjGPeUG8HF6ObCtLSoSbJ60Ls431LVElhqav5kqBePR+X6aVkGBcIh1jaq+t1+pRUgvDL2CDmDzt1/9b4WCzvAYWr/D8xIvrEfV9FvqfZTntcGFQU5hRj5T0yVZ6VE0dkTezg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=G9EefLSlYbJJhWOh6JWSB3Yqd8HYyXnD23ar4amjzWo=;
- b=cgXi2eTP8WUrJCqOJHImZZKDbUPB9iduu+N6bFkkbHPu+9s6yGzF5XFmpxaxTS/fdkS07EJzy2kHRKXZo0Zb42MHKWT5yQjb1mdpO6EFzAxhtvZroN8DgY1IHdmBW+T91VlJFNy2soGaB/z5frUZ7RTmrncyvGfoV6lA2kP7XhflILyb/T+4bO6A6rjGOMey7/sWfDdSCa82la/b6aVAMG80SkeFNGh/qQNc+0vOO+7BbhFelp69wa9BvwzVpVkhiVE0qfFujn8P7esEQCJBiJsVLqPRSvpymJijbZWEpDKYrS7CdVdXDDcJG7Mzg3jAIqM5fjDyWDdeaDqw+uAjEw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6) by ZQ0PR01MB1301.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:1a::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 27 May
- 2026 08:50:48 +0000
-Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- ([fe80::973:272c:ab11:7570%6]) with mapi id 15.21.0071.011; Wed, 27 May 2026
- 08:50:48 +0000
-From: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-To: Andi Shyti <andi.shyti@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Cc: linux-i2c@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: [PATCH v2 2/3] i2c: designware: Export symbols and add __weak for Starfive I2C driver
-Date: Wed, 27 May 2026 16:50:38 +0800
-Message-Id: <20260527085039.44435-3-lianfeng.ouyang@starfivetech.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
-References: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: NT0PR01CA0020.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c510:c::16) To ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:18::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64FAC3EAC80
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779873904; cv=none; b=C6C/pCfedEJuH2U6tlq0toAk7iyqFEfyqXPHBFgdYQy25ZYiMe08PZ/+novk5p2lLhjfQKNIAvmBlWEDm1vAXPMj/CGykSCRTC4UiNxegLLwQpuBysc3eJ0bgkubRYC4/ygeEuXUL9tONY5IWbdtOfAq+70vVV6Up6MlOvShAXo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779873904; c=relaxed/simple;
+	bh=/7Jd4VOaB4qlsCgaarV6w4lXmvP9bq/K6BBHhhAFItE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kmtOpLU6CvttocO+ehMjsCKRGFFedJQyNLsDFhcHBFV7tt4ebgsIWUHQpTAQ2LOha3JQxnh15FuAaDilNgd69AqPP2axZTHy1LfPeioYCbBUj/HFLyLXjvxEmPoDYhbT7dWvJsWKYPUmkQ6Kvd6kUqvF36M3AGAG454u2WZAoIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RKyriFtH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=CJuyQYND; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RKyriFtH";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="CJuyQYND"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64R8mhVQ1351102
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:24:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	mlUOP6drrP/Dby3+Bii3q+jW3qXxSn5Z01xfOp7PAWA=; b=RKyriFtHRaOYrUiH
+	ERR4WurqZBpACyHWQCNs4uxEs69xEw0Hwg7OOwAatalui54oF4JAz8dKtF8Y/6as
+	v5yC6J1t3Vcx+agl//atIjxHtBAmNbSApWa0GZ3K1I/1awQgJp69HmmSsEoLjD+A
+	1ostcquQJAi5JBI5EQgOOMkbbq8r9IMmA0cmuuTxtG+2WPp7KIcnda5JjLJfzW2D
+	mBd/KabdgjJ8ugUQLria7ItyiJAtPhZZGhOJ82d5eNor9s3EpOCdc4eauasEG4Wo
+	t2ruff28PXv4CDTWeEM0C66zE/rWcX9dDxbQ6l+pCNwdssWPLJLSW1hoeZKLNZvf
+	YKqy2w==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4edentkb7h-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:24:57 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-36865d109dcso10619932a91.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:24:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779873897; x=1780478697; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mlUOP6drrP/Dby3+Bii3q+jW3qXxSn5Z01xfOp7PAWA=;
+        b=CJuyQYND5rNAyz6lhWrppDP7K/KQll3m9gy0Aiz3NfvGYC8GRA+LfFLkYWKCggvDAm
+         OLV1j38yjrAmzjKPK/E8TXCUMg0TuJ4aqdHYKaqtfiJmF0dId0jd2M7DS7poJsBGuIGz
+         nUZEi9P1Id3Zq+dwjMfRInn0c5j5CrYmJ60rtyc84KZzX77ZFdI8z4EX742pz/1VDNc2
+         1URxEF3Mn7gFnVLQ9wASohbPKdQsK/esOAFxgEcgQBAFcMXRHVNyYwH9By4CQq4YCOW/
+         jrRTPsIG5FNuKX7NfEae+6iiFYk30Hia/T+guqDF7s1gG8AzfJqRXb8Lq6BYH84+Wa8X
+         6SLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779873897; x=1780478697;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=mlUOP6drrP/Dby3+Bii3q+jW3qXxSn5Z01xfOp7PAWA=;
+        b=ViGzlesUPaVNwiCMWSvauovEu3djSHUZXA1xz7xhCnYd8Ve4TblFtE5JvO2+eknmvz
+         siwF6B2zqznDNWuWsF08ZgTOLOyv/Dnqxzd9k7Cqos7+yqWYkfO6CiCQAVo6O8vsWdB+
+         RIxjHIOcr+/8LDZUi0MsDM/CDiY4aT84yjkycZygWHqu8NfGWkFPqKaEO+EELOaoGXIV
+         H4hRqNZsXEq8xkZfEEHJE4Kesfo+N7mw4ZA7bcLSm6vxqw9AyTzH2cl915uumz3sIroO
+         kp78vB2NlstcTo7+WkpxWjLDHwt7T3l4PKw83W37K4nzual0SR6qyyKARqwcfrLWrRz+
+         Hd2A==
+X-Forwarded-Encrypted: i=1; AFNElJ/UFCOHrt6sbhxblTkikVPsamnhtIjhHcJN49QctiPEsszkQqiH/SeJq13O92oIYWIH0LluLcIQxvoG@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBdSnVSUGlI6/10jt5gTMdu08lfgXB3nLiYJW8h7emQUEIzPa3
+	kJbADCm0IdnQPtBPHuILun7oczYETBiqCALEYucjqZJg1ul/9Tuq3nMM3qtmPOO9lfa9YNiByuk
+	VcJz5IwI2bAVEdRGFxqNO1AThRajkfIp6TbGfOCzqA0RiXEPuU1eREavUh3B6uw/P
+X-Gm-Gg: Acq92OHt7mQdC3/cMc1uYB5c5gI6xMA9Sr3e0gnKDkItW6u1sDvN9GKRLDQl/xUspb7
+	VwXS08vh4mlASlVPCoHOa0HsdjHhzaBVDF9a1jVhAGd89pUlWS4FLEGZgjDltrvYNXiaFvPkI6C
+	918qrPjMEuoL2qzeeAvHHiBViXscAYUR6saSkm6gADywh0c5ysp1h+pPw+0la7aPndr/VHT9E/I
+	eV+tFl8eDEKEcBtXJPcTeiM9U5vlVfmvIzO7EFk8AUWMVs6dx78Si6308QB6LrqW+yD4Z/NgfLP
+	6JCo7EgSEcTzt/IBuD8ZkrSdW8P3r13uxyMruu9ZvTMjug3OqemaKjB7s2PdPyXzUAF9mLStEfX
+	6KPxizWmnTpfWNwNPU6pntPS73/PgOBIT4eNtUyM+EPH+lu1X+Wus5szbcKACUeCmJ5MURxWAnP
+	B803IWtKq1a5E=
+X-Received: by 2002:a17:90b:3bcc:b0:367:e244:4c40 with SMTP id 98e67ed59e1d1-36a67893102mr21805524a91.26.1779873896544;
+        Wed, 27 May 2026 02:24:56 -0700 (PDT)
+X-Received: by 2002:a17:90b:3bcc:b0:367:e244:4c40 with SMTP id 98e67ed59e1d1-36a67893102mr21805494a91.26.1779873896072;
+        Wed, 27 May 2026 02:24:56 -0700 (PDT)
+Received: from [10.133.33.247] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36ac1fe6df3sm9243334a91.2.2026.05.27.02.24.52
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 02:24:55 -0700 (PDT)
+Message-ID: <1cd587f0-d571-4bd8-a8c0-97248e732cec@oss.qualcomm.com>
+Date: Wed, 27 May 2026 17:24:51 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1301:EE_
-X-MS-Office365-Filtering-Correlation-Id: b40edd8e-cdf1-4e51-7bf3-08debbcd0c55
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|52116014|376014|366016|38350700014|3023799007|56012099006|6133799003|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	UZkZ5c7c7sr+zz8/dMkTAWSd0Kc8kuCYe4NJNHo4Lhp83GWMAACYv4olqX0VNoqb31HGAgzK6+ywXNnmHQ82nHWNVkxAp3clvXaKja1xi5XV0G0UAo/z3uyfrtU79RxiwDhAIkuIBO85s2PCpCDO9uT6bXqx7/gvEleb2X8o8qX5uid3f6+uRLr7MMokh4jMsdh+Q12UVFqv5/q7mbW1AHHwWm0RBNFW8PynDbsanqCpjZPlUumAJFZe+gIObH5flb9GlpyvaZ8bJd66C5NOxq2hrikskcO8RxmFsnGIllqZRQfBPfQKyejnpcGkDEIPZ3h5M0WgmRjAuFiSS7GvfSfvZhIBPXxeF6ml2VZ7u/vX6zbHGoBbBiS+iGMIo6ahsIeag8Ia2C6UvfPdbXIQ0/KxqsIRa3GUZYps58jaBNLHYq5SVZX7VZ2v8t3gk6eLR5lRE6DaMQHrkDvdxNySWp2X2Fa55fy+pLRbb40LOfpal4cpw35Bhyr9A2TGInrt3FLmrIIjNtqEefT0Wfrq3rGQxin807OKB5DLNN/+iaZoM46IpHAoIdATdxsv9WbP
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(52116014)(376014)(366016)(38350700014)(3023799007)(56012099006)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?nMYXMERqrIA40Oex0IHyLZsbreQohFVrvYND6XOL+xMfWb4yzmCwGwL4qonc?=
- =?us-ascii?Q?99LgJ1isRzGjPTU7bvoqxsAcaBNJ2k6FlQhfBSGnMHYguObyfJ2ocbK9aZEg?=
- =?us-ascii?Q?fXXMCAq0c5wQ/58cqbYeltntMBxVAfeB6AkMyUJPQ7xSacc3CeeCH1hHmPVB?=
- =?us-ascii?Q?bGr0pT8qdNVeg+luPnZfW7DBYDBq2f2e++uJvVOx/Mj0XJ+hrUuTnuKQR0Dv?=
- =?us-ascii?Q?fvzbtZqy9sWzTcqSWB3oYhrrHMYjcL4SLPSfczM5Z637q/7rK9Ks/LEPCxi3?=
- =?us-ascii?Q?tAxsXGIEZhqaSr1YklvqOqh3wd7NnOsMkync/toc/idwjoGGp3N0ztAq0qBa?=
- =?us-ascii?Q?cxACfWgo+nLHAZBAM4t01vesrZg0vdFBp9sC/hsXL5dYtnxFtRuos0CQGUZw?=
- =?us-ascii?Q?R9myCY8LVUUu+wcgYyZwZimP4lcc3ro+ALW5b2K4vJwY5X3mFSsO/Ad5PrXf?=
- =?us-ascii?Q?gtE9WPcRbURYyVKzUvQ5cabO4/BFPsr/JdzJe9dZ4CyjtIksVLL+K1ao2m/0?=
- =?us-ascii?Q?t+vQZMn7LDosCXzFk8bgNbk3OSfh5rBe/FaYAJLWUNB6W4ntMXvn00iqi+dm?=
- =?us-ascii?Q?M97dd318a8x1QZ9vhwnrI7aa54IMTU4E82QE4u2FOzTVSgtHGBvok4K82az1?=
- =?us-ascii?Q?i8lSRfFadfzmovGuol7m+w1mPk5ZHVKkreWP+rWfWvkO8pUO4kTpe2L82LGM?=
- =?us-ascii?Q?lEpAWyAvpUDiLIn3pvitc0nuvlxLSgChuYS5gC7Oi0LIzv1s8K0ZgkFMACQl?=
- =?us-ascii?Q?/887taH+T3XNXHdxY9aMuXk7345ewU1V6BQ5NSAaze10K4y2973el6GiHj97?=
- =?us-ascii?Q?9wDh2v6iZipnZ91eetUPXsFvuM9TLBd6LOZs1enxrmQozTByHGAmqftAKdAF?=
- =?us-ascii?Q?56Yk5vfaJz8KyfXwC1BUX512PZumeQA/+NRDNWyDuNOsCpTF+649AJyANKzF?=
- =?us-ascii?Q?1n0VcXTXwjTZazmfcnRFjUBi0E75wpCQ1S9YDFu/ziNH9CthE+wtSVtEn7Je?=
- =?us-ascii?Q?XTJpFt7C+HhpeqV4C+dddeoTHXZ+5nDBrjQmm7vh/avxUxaUV+XFLWm37TH2?=
- =?us-ascii?Q?3NtHPdYYWu+bLOynee9PbTG+IxZekARm157G1FIRmK0kHPRv68VLFpa2LWam?=
- =?us-ascii?Q?sh4Pw4E+/qBHTIhsxZayiTZp7aAmixpGU5MgKeqxzZUh6MNsSWsF0qzKBngg?=
- =?us-ascii?Q?uKVlmkKVda+MdcOws4fLXvHOO2Qj504FOkLy5PDMASHw45LDAKwp7FrOA8fO?=
- =?us-ascii?Q?PxkWuGWxLParvBWmrBD7f16e+YpN/avYAKQFNTq+HhW3IIsJ5IJAuLgWiqwS?=
- =?us-ascii?Q?Hv4hgjYmE/jBfOqFCOcEJkEIE0qfmypOr8yaBP8sCzbgNCG1i1/m3twPvIw8?=
- =?us-ascii?Q?+AgMWylnb7cXq69xr5+8hV3639k9Vzl10cwOQTqJS6ANceY29Rd4dySO0Rkj?=
- =?us-ascii?Q?2FAtKRb/tHpShpephdlZI+Mzaic7MaNCi7aU8TCB8Dt479ArSZY36PfPxZIb?=
- =?us-ascii?Q?6CO1rpNwq6kfLdb9wJBhNLprV5neSe5Rop5oXIVzzCaVdra4bKpR3c/xFaO1?=
- =?us-ascii?Q?rRMRGP0rWEE8/y4ry/HUUZDQQbXYLlETC76SzCW2HdI2s7pouzjQnIo/hRFd?=
- =?us-ascii?Q?gPb63IA4fknoGaa4oBYJx1BTWRYl7tiunYNQYEtxfvqzC2TUnGqWHqbY6IJ9?=
- =?us-ascii?Q?UhvHDcG/TyCCl6Yf/9wuwItPUXZGy/DOK8tHKSXDGkAJZjMKXU8P7rr39xg0?=
- =?us-ascii?Q?vZYwJV1AO0/d/1otWJ0lOOf9M5DE/24lBnpiiDZfTso77yMhXKJx?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b40edd8e-cdf1-4e51-7bf3-08debbcd0c55
-X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 08:50:48.3936
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: n4qm0eUGFXbLD+KXG+CWngGcvlcApVsempMiMxbS+zN/K/85RGaZVyLRD2TLDlWYGl+jTupuxaUvPDCKsQxSwEOTkIb85Uhi56ZDLlkBJ63MF/JuSOJLxsrjsXEEZ1mz
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1301
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
+        martin.petersen@oracle.com, linux-scsi@vger.kernel.org,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+        Zhaoming Luo
+ <zhml@posteo.com>,
+        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>
+References: <20260523134711.323425-1-can.guo@oss.qualcomm.com>
+ <20260523134711.323425-2-can.guo@oss.qualcomm.com>
+ <m6qq3kxgfs73jve2pjmmszymgxb7aizdfo2rwg72o66n2rvov2@xkcvifciwu3z>
+ <96962564-ff25-4d81-a605-3d9c05fa000a@oss.qualcomm.com>
+ <qrqggwpuigevauuzjcvggcmbzkphutemlpsvuymy7qn5yblnsd@djbgzgyeekre>
+Content-Language: en-US
+From: Can Guo <can.guo@oss.qualcomm.com>
+In-Reply-To: <qrqggwpuigevauuzjcvggcmbzkphutemlpsvuymy7qn5yblnsd@djbgzgyeekre>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Authority-Analysis: v=2.4 cv=Ja+Ma0KV c=1 sm=1 tr=0 ts=6a16b869 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=YG64nluAAAAA:20 a=7UmM63-barXJ9Uf7px8A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22 a=bA3UWDv6hWIuX7UZL3qL:22
+X-Proofpoint-ORIG-GUID: W6pmi2szgma92oINwIgK4v7xppornrsv
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI3MDA5MCBTYWx0ZWRfX8xR2BYND2LUC
+ Wj2W5pH6OkNzk0R6IckNXid6UKKK5Dd6M2zOqpCImbuY/9ujR+jlqQuL/wgGZERg6FcxgOCV52H
+ y5SA2VuQSiocGp4IVKvJnmRwWGePEEXDRBzEdgaUkHWkX23bBDVwsgtd1B2qnWjmCjSUKMAWlrg
+ u67hRCzyKVOTyoBa7s17AwQAfm2jKYN6LCQTUvVler7sqQVau0ZMBzCNRjoASmlvCfrIjlG88fI
+ TcBcK7xBiepMtWPk5H/CKNRGCHG7jr1QkP/bhwvV8tO/JaxTrf5P6aifMzdKt2PYMKKNZZim+79
+ nNNFxK8yPnKxk+psa2vTS5W+WTNwBVDzD/gpxuhA8/JjL1mkIQtF9Iy2bLoFU4XEPvfuo4X6wcP
+ lmPyIrWXEFXsgE59QBw+HmC3/FvAk0LtFgPDcCdqFmI3RR3G5f/sWfjRInmGW7g4GafpGQp9eWn
+ oh6W8Dj5K+nD432LLqw==
+X-Proofpoint-GUID: W6pmi2szgma92oINwIgK4v7xppornrsv
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-27_01,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 lowpriorityscore=0
+ malwarescore=0 phishscore=0 impostorscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605130000 definitions=main-2605270090
 
-From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
 
-Export several key functions (i2c_dw_probe_master, i2c_dw_init,
-i2c_dw_xfer_init, i2c_dw_read_clear_intrbits, etc.) and mark them as
-__weak. This allows the i2c starfive driver to reuse the common
-infrastructure while overriding the implementations where needed.
 
-Additionally, extend the register map configuration and introduce the
-MODEL_STARFIVE flag to accommodate the starfive i2c  IP's different
-register space.
+On 5/27/2026 5:15 PM, Manivannan Sadhasivam wrote:
+> On Wed, May 27, 2026 at 04:51:04PM +0800, Can Guo wrote:
+>> Hi Mani,
+>>
+>> On 5/23/2026 10:14 PM, Manivannan Sadhasivam wrote:
+>>> On Sat, May 23, 2026 at 06:47:10AM -0700, Can Guo wrote:
+>>>> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+>>>> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+>>>> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+>>>> integrity at high speed operation.
+>>>>
+>>>> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+>>>> required depending on channel characteristics.
+>>>>
+>>>> Add vendor-neutral DT patternProperties:
+>>>> txeq-settings-g[1-6]
+>>>>
+>>>> Each property is a uint32 array of per-lane tuples:
+>>>> (PreShoot, DeEmphasis, PrecodeEn)
+>>>>
+>>> I don't think combining all EQ settings (PreShoot, DeEmphasis, PrecodeEn) in a
+>>> single property as opaque tuples is the right approach. These are three
+>>> semantically distinct parameters with independent value ranges. So packing
+>>> them into a uint32 array makes validation impossible in the schema.
+>>>
+>>> AFACIS, PrecodeEn is applicable only to HS-G6 (PAM4), but the proposed
+>>> patternProperties forces it into G1-G5 tuples as well, which is semantically
+>>> wrong.
+>> Point taken for the PrecodeEn.
+>>> PCIe binding defines one property per data rate for EQ presets:
+>>> https://github.com/devicetree-org/dt-schema/blob/main/dtschema/schemas/pci/pci-bus-common.yaml#L193
+>>>
+>>> Similarly, UFS should define one property per gear per (like, txeq-preshoot-g6,
+>>> txeq-deemphasis-g6, txeq-precode-enable-g6,...) rather than clubbing everything
+>>> into opaque tuples.
+>> Thanks for the suggestion. I will go with below approach:
+>>
+>> txeq-preshoot-g6 = <Host Lane 0 PreShoot, Device Lane 0 PreShoot, Host Lane
+>> 1 PreShoot, Device Lane 1 PreShoot>;
+>> txeq-deemphasis-g6 = <Host Lane 0 DeEmphasis, Device Lane 0 DeEmphasis, Host
+>> Lane 1 DeEmphasis, Device Lane 1 DeEmphasis>;
+>> txeq-precode-en-g6 = <Host Lane 0 PrecodeEn, Device Lane 0 PrecodeEn, Host
+>> Lane 1 PrecodeEn, Device Lane 1 PrecodeEn>;
+>>
+> How about encoding Host and Device values in a single tuple. Like,
+>
+> 	txeq-preshoot-g6 = <Lane_0 Host_PreShoot Device_PreShoot>, <Lane 1...>,
+Man, I don't like that way to be honest, it took me a few minutes to 
+understand it on the PCIe side...
 
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
----
- drivers/i2c/busses/i2c-designware-common.c  | 72 ++++++++++++++++-----
- drivers/i2c/busses/i2c-designware-core.h    | 20 ++++++
- drivers/i2c/busses/i2c-designware-master.c  |  4 +-
- drivers/i2c/busses/i2c-designware-platdrv.c |  6 ++
- drivers/i2c/busses/i2c-designware-slave.c   |  2 +-
- 5 files changed, 84 insertions(+), 20 deletions(-)
+Let's go with my approach please...
 
-diff --git a/drivers/i2c/busses/i2c-designware-common.c b/drivers/i2c/busses/i2c-designware-common.c
-index 4dc57fd56170..034f6a446ab6 100644
---- a/drivers/i2c/busses/i2c-designware-common.c
-+++ b/drivers/i2c/busses/i2c-designware-common.c
-@@ -70,6 +70,7 @@ static const char *const abort_sources[] = {
- 		"incorrect slave-transmitter mode configuration",
- };
- 
-+#if !IS_ENABLED(CONFIG_I2C_STARFIVE)
- static int dw_reg_read(void *context, unsigned int reg, unsigned int *val)
- {
- 	struct dw_i2c_dev *dev = context;
-@@ -87,6 +88,7 @@ static int dw_reg_write(void *context, unsigned int reg, unsigned int val)
- 
- 	return 0;
- }
-+#endif
- 
- static int dw_reg_read_swab(void *context, unsigned int reg, unsigned int *val)
- {
-@@ -143,9 +145,15 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
- 		.val_bits = 32,
- 		.reg_stride = 4,
- 		.disable_locking = true,
-+#if IS_ENABLED(CONFIG_I2C_STARFIVE)
-+		.reg_read = sf_reg_read,
-+		.reg_write = sf_reg_write,
-+		.max_register = SF_IC_SMBUS_INTR_CLR,
-+#else
- 		.reg_read = dw_reg_read,
- 		.reg_write = dw_reg_write,
- 		.max_register = DW_IC_COMP_TYPE,
-+#endif
- 	};
- 	u32 reg;
- 	int ret;
-@@ -162,6 +170,10 @@ static int i2c_dw_init_regmap(struct dw_i2c_dev *dev)
- 		return ret;
- 
- 	reg = readl(dev->base + DW_IC_COMP_TYPE);
-+
-+	if ((dev->flags & MODEL_MASK) == MODEL_STARFIVE)
-+		reg = readl(dev->base + (SF_IC_COMP_TYPE & (~SF_REG_FLAG)));
-+
- 	i2c_dw_release_lock(dev);
- 
- 	if ((dev->flags & MODEL_MASK) == MODEL_AMD_NAVI_GPU)
-@@ -359,7 +371,7 @@ static inline u32 i2c_dw_acpi_round_bus_speed(struct device *device) { return 0;
- 
- #endif	/* CONFIG_ACPI */
- 
--static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
-+__weak void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
- {
- 	switch (mode) {
- 	case DW_IC_MASTER:
-@@ -382,7 +394,7 @@ static void i2c_dw_configure_mode(struct dw_i2c_dev *dev, int mode)
- 	}
- }
- 
--static void i2c_dw_write_timings(struct dw_i2c_dev *dev)
-+__weak void i2c_dw_write_timings(struct dw_i2c_dev *dev)
- {
- 	/* Write standard speed timing parameters */
- 	regmap_write(dev->map, DW_IC_SS_SCL_HCNT, dev->ss_hcnt);
-@@ -411,7 +423,7 @@ static void i2c_dw_write_timings(struct dw_i2c_dev *dev)
-  *
-  * The controller must be disabled before this function is called.
-  */
--void i2c_dw_set_mode(struct dw_i2c_dev *dev, int mode)
-+__weak void i2c_dw_set_mode(struct dw_i2c_dev *dev, int mode)
- {
- 	if (mode == DW_IC_SLAVE && !dev->slave)
- 		mode = DW_IC_MASTER;
-@@ -806,10 +818,25 @@ static int i2c_dw_set_fifo_size(struct dw_i2c_dev *dev)
- 	if (ret)
- 		return ret;
- 
-+#if IS_ENABLED(CONFIG_I2C_STARFIVE)
-+	u32 tx_fifo_cfg = 8, rx_fifo_cfg = 8;
-+
-+#ifdef CONFIG_OF
-+	ret = of_property_read_u32(dev->dev->of_node, "starfive,i2c-tx-fifo-depth", &tx_fifo_cfg);
-+	if (!ret && (tx_fifo_cfg < 2 || tx_fifo_cfg > 256))
-+		tx_fifo_cfg = 8;
-+
-+	ret = of_property_read_u32(dev->dev->of_node, "starfive,i2c-rx-fifo-depth", &rx_fifo_cfg);
-+	if (!ret && (rx_fifo_cfg < 2 || rx_fifo_cfg > 256))
-+		rx_fifo_cfg = 8;
-+#endif
-+	param = rx_fifo_cfg << 8 | tx_fifo_cfg << 16;
-+#else
- 	ret = regmap_read(dev->map, DW_IC_COMP_PARAM_1, &param);
- 	i2c_dw_release_lock(dev);
- 	if (ret)
- 		return ret;
-+#endif
- 
- 	tx_fifo_depth = FIELD_GET(DW_IC_FIFO_TX_FIELD, param) + 1;
- 	rx_fifo_depth = FIELD_GET(DW_IC_FIFO_RX_FIELD, param) + 1;
-@@ -896,20 +923,29 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
- 	if (ret)
- 		return ret;
- 
--	ret = i2c_dw_probe_master(dev);
--	if (ret)
--		return ret;
-+	if (dev->mode == DW_IC_SLAVE) {
-+		ret = i2c_sf_probe_slave(dev);
-+	} else {
-+		ret = i2c_dw_probe_master(dev);
-+		if (ret)
-+			return ret;
- 
--	ret = i2c_dw_init(dev);
--	if (ret)
--		return ret;
-+		ret = i2c_dw_init(dev);
-+		if (ret)
-+			return ret;
- 
--	if (!adap->name[0])
--		strscpy(adap->name, "Synopsys DesignWare I2C adapter");
-+		if (!adap->name[0])
-+			strscpy(adap->name, "Synopsys DesignWare I2C adapter");
-+	}
- 
- 	adap->retries = 3;
- 	adap->algo = &i2c_dw_algo;
-+#if IS_ENABLED(CONFIG_I2C_STARFIVE_SLAVE)
-+	if (dev->mode == DW_IC_SLAVE)
-+		adap->algo = &i2c_dw_slave_algo;
-+#else
- 	adap->quirks = &i2c_dw_quirks;
-+#endif
- 	adap->dev.parent = dev->dev;
- 	i2c_set_adapdata(adap, dev);
- 
-@@ -938,16 +974,18 @@ int i2c_dw_probe(struct dw_i2c_dev *dev)
- 	if (!dev->emptyfifo_hold_master)
- 		irq_flags |= IRQF_NO_THREAD;
- 
--	ret = i2c_dw_acquire_lock(dev);
--	if (ret)
--		return ret;
-+	if (!IS_ENABLED(CONFIG_I2C_STARFIVE) || dev->mode == DW_IC_MASTER) {
-+		ret = i2c_dw_acquire_lock(dev);
-+		if (ret)
-+			return ret;
- 
--	__i2c_dw_write_intr_mask(dev, 0);
--	i2c_dw_release_lock(dev);
-+		__i2c_dw_write_intr_mask(dev, 0);
-+		i2c_dw_release_lock(dev);
-+	}
- 
- 	if (!(dev->flags & ACCESS_POLLING)) {
- 		ret = devm_request_irq(dev->dev, dev->irq, i2c_dw_isr,
--				       irq_flags, dev_name(dev->dev), dev);
-+				irq_flags, dev_name(dev->dev), dev);
- 		if (ret)
- 			return ret;
- 	}
-diff --git a/drivers/i2c/busses/i2c-designware-core.h b/drivers/i2c/busses/i2c-designware-core.h
-index 9d8d104cc391..87223f7e28aa 100644
---- a/drivers/i2c/busses/i2c-designware-core.h
-+++ b/drivers/i2c/busses/i2c-designware-core.h
-@@ -321,6 +321,11 @@ struct dw_i2c_dev {
- 	u32			bus_capacitance_pF;
- 	bool			clk_freq_optimized;
- 	bool			emptyfifo_hold_master;
-+#if IS_ENABLED(CONFIG_I2C_STARFIVE)
-+	u16			scl_hcnt;
-+	u16			scl_lcnt;
-+	struct i2c_adapter	*ms_adapter; /* Bind another I2C master controller */
-+#endif
- };
- 
- #define ACCESS_INTR_MASK			BIT(0)
-@@ -328,6 +333,7 @@ struct dw_i2c_dev {
- #define ARBITRATION_SEMAPHORE			BIT(2)
- #define ACCESS_POLLING				BIT(3)
- 
-+#define MODEL_STARFIVE				BIT(9)
- #define MODEL_AMD_NAVI_GPU			BIT(10)
- #define MODEL_WANGXUN_SP			BIT(11)
- #define MODEL_MASK				GENMASK(11, 8)
-@@ -359,8 +365,14 @@ int i2c_dw_handle_tx_abort(struct dw_i2c_dev *dev);
- u32 i2c_dw_func(struct i2c_adapter *adap);
- irqreturn_t i2c_dw_isr_master(struct dw_i2c_dev *dev);
- 
-+u32 i2c_dw_read_clear_intrbits(struct dw_i2c_dev *dev);
-+u32 i2c_dw_read_clear_intrbits_slave(struct dw_i2c_dev *dev);
-+
- extern const struct dev_pm_ops i2c_dw_dev_pm_ops;
- 
-+#if IS_ENABLED(CONFIG_I2C_STARFIVE)
-+#include "i2c-starfive-core.h"
-+#else
- static inline void __i2c_dw_enable(struct dw_i2c_dev *dev)
- {
- 	dev->status |= STATUS_ACTIVE;
-@@ -372,6 +384,7 @@ static inline void __i2c_dw_disable_nowait(struct dw_i2c_dev *dev)
- 	regmap_write(dev->map, DW_IC_ENABLE, 0);
- 	dev->status &= ~STATUS_ACTIVE;
- }
-+#endif
- 
- static inline void __i2c_dw_write_intr_mask(struct dw_i2c_dev *dev,
- 					    unsigned int intr_mask)
-@@ -411,8 +424,15 @@ static inline irqreturn_t i2c_dw_isr_slave(struct dw_i2c_dev *dev) { return IRQ_
- 
- static inline void i2c_dw_configure(struct dw_i2c_dev *dev)
- {
-+#if IS_ENABLED(CONFIG_I2C_STARFIVE)
-+	if (device_is_compatible(dev->dev, "starfive,jhb100-i2c-slave"))
-+		i2c_sf_configure_slave(dev);
-+	else
-+		i2c_sf_configure_master(dev);
-+#else
- 	i2c_dw_configure_slave(dev);
- 	i2c_dw_configure_master(dev);
-+#endif
- }
- 
- int i2c_dw_probe(struct dw_i2c_dev *dev);
-diff --git a/drivers/i2c/busses/i2c-designware-master.c b/drivers/i2c/busses/i2c-designware-master.c
-index de929b91d5ea..f27c0fc761da 100644
---- a/drivers/i2c/busses/i2c-designware-master.c
-+++ b/drivers/i2c/busses/i2c-designware-master.c
-@@ -31,7 +31,7 @@
- #define AMD_TIMEOUT_MAX_US	250
- #define AMD_MASTERCFG_MASK	GENMASK(15, 0)
- 
--static int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
-+__weak int i2c_dw_set_timings_master(struct dw_i2c_dev *dev)
- {
- 	unsigned int comp_param1;
- 	u32 sda_falling_time, scl_falling_time;
-@@ -570,7 +570,7 @@ i2c_dw_read(struct dw_i2c_dev *dev)
- 	}
- }
- 
--static u32 i2c_dw_read_clear_intrbits(struct dw_i2c_dev *dev)
-+__weak u32 i2c_dw_read_clear_intrbits(struct dw_i2c_dev *dev)
- {
- 	unsigned int stat, dummy;
- 
-diff --git a/drivers/i2c/busses/i2c-designware-platdrv.c b/drivers/i2c/busses/i2c-designware-platdrv.c
-index 426ffec06e22..8c0f5c39e4ff 100644
---- a/drivers/i2c/busses/i2c-designware-platdrv.c
-+++ b/drivers/i2c/busses/i2c-designware-platdrv.c
-@@ -151,6 +151,10 @@ static int dw_i2c_plat_probe(struct platform_device *pdev)
- 	if (device_property_present(device, "wx,i2c-snps-model"))
- 		flags = MODEL_WANGXUN_SP | ACCESS_POLLING;
- 
-+	if (device_is_compatible(device, "starfive,jhb100-i2c-master") ||
-+	    device_is_compatible(device, "starfive,jhb100-i2c-slave"))
-+		flags |= MODEL_STARFIVE;
-+
- 	dev->dev = device;
- 	dev->irq = irq;
- 	dev->flags = flags;
-@@ -255,6 +259,8 @@ static const struct of_device_id dw_i2c_of_match[] = {
- 	{ .compatible = "mobileye,eyeq6lplus-i2c" },
- 	{ .compatible = "mscc,ocelot-i2c" },
- 	{ .compatible = "snps,designware-i2c" },
-+	{ .compatible = "starfive,jhb100-i2c-master" },
-+	{ .compatible = "starfive,jhb100-i2c-slave" },
- 	{}
- };
- MODULE_DEVICE_TABLE(of, dw_i2c_of_match);
-diff --git a/drivers/i2c/busses/i2c-designware-slave.c b/drivers/i2c/busses/i2c-designware-slave.c
-index ad0d5fbfa6d5..1b94e4fbaad1 100644
---- a/drivers/i2c/busses/i2c-designware-slave.c
-+++ b/drivers/i2c/busses/i2c-designware-slave.c
-@@ -61,7 +61,7 @@ int i2c_dw_unreg_slave(struct i2c_client *slave)
- 	return 0;
- }
- 
--static u32 i2c_dw_read_clear_intrbits_slave(struct dw_i2c_dev *dev)
-+__weak u32 i2c_dw_read_clear_intrbits_slave(struct dw_i2c_dev *dev)
- {
- 	unsigned int stat, dummy;
- 
--- 
-2.43.0
+Thanks,
+Can Guo.
+>
+> - Mani
+>
 
