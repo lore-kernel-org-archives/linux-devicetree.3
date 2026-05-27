@@ -1,190 +1,95 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 119ED305675;
-	Wed, 27 May 2026 07:08:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DAF822370A
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:09:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779865688; cv=none; b=QAJ43dBcKzagLSPAKutKbOtEldexwldS899A29o1DF+FsJkcme/n7XEv9Ui8DxfSmZinkZ2h9jWjDvTOK+9/qr+hGiTIJutai3KLfMwNyhUxfzGlAeSJyLaNJqQtoKz2s8hwSGchLQO92R3sEn12XPZdqyaKGIDFCMtyePKHqGQ=
+	t=1779865755; cv=none; b=h3j0ZzQh6f18DbjD9A4DxvzQDAuMJyHLU3WG/LBvI3PeIrMoPbIeiTxtX7T+GRuN4IYoKD6U5/PgAd7Icpsfq+u8HLewr0HsHueBooinwiCr9MaAc872PmpFv/jSaLN6Q23kwJjVa/2YKsYJ/Beye5zdtBzGlLk9p8Y8tVdlUF0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779865688; c=relaxed/simple;
-	bh=Gs8J/HTrooh7vlCoNCD99YT0nkQfL16PdFAdpCjFrF4=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=QVQBsg3iAVGnxsYB7WdqyRkVVE69sgkAwwXDx6fcnwBp2gh/bYn2XUjf20NS+DJZgj2myWKRUHeuK85o1iNicSRn2YFk6L9I/6Hw7qthAHe9efOEHlch0wv9daPH4tV0FzDBRBYDFCspU9jE76UJC4Hqhybr9t8l0XgdzuqoNLM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=f6y0p/it; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="f6y0p/it"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=GrkdnLxxHv8YIvPubjc6p6My4VJbmJABi
-	hnyu1kLnF4=; b=f6y0p/itMSBnWyOeyv0+MbYR+y9LGfe+kROBtiSD3kcVZuYJx
-	A0tdOps83EJ7su1HcwX2nnphw22UtHjcmel82j10czaBFhep7ZsCLgEkyaO69tpE
-	QsvVLr6l01xFjrIZNSb+A1b+D7YTQf9arye15iZgkOFTX4xPhh+oi66PrA=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwA3cUJtmBZq3lUGAA--.7992S2;
-	Wed, 27 May 2026 15:08:29 +0800 (CST)
+	s=arc-20240116; t=1779865755; c=relaxed/simple;
+	bh=ngrbmOnXC5lBjdRyD4GqxUFWufQt4vLkSjmsYEIayIg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=G8dOq7Gz1BE7FkN3QL5SL6lP8y/4k5TyqREYL2C6wbWHIhlnlKxO0ZSbNLgeQVNvYQ/nMaUWHUyVi4scRKgi6d86B7NITvILHNrtfzK1Bd9N+CuECowqlFDaMIe8tjIZQeckEJCJy/sFmp5SAuf81+RbLeCV24OvMxwlwfeifZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-95cc96eac66so7864573241.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:09:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779865753; x=1780470553;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=BOmm8R3Cq+WYMZhLsp0nlZk+GIal/aJfbZcGuqrg9gM=;
+        b=axwI14B0/BvOuGVIOdc9rj96TPOT0bZPp0ToMOC+y1ScCTHou7GNolu4Rj6FBAAiC/
+         ET9TAJ0N18UX/dDqdwR3qSQ3uy4k39wzkD3R3nrRVLrwzMZ7msxwhvj2m46IUJrTRQRh
+         bsuGOYhx6AtTuet6o0n83Nl+5QV58CteA64miLLE/8cikpmBjD5a3xW127plhmC3IZCM
+         ckGawCyT2TLxjxfDfY7bMHV8joS+E6jtm8PEpkHLEhLk2UrsOAlYVUfrtRc5+NSZMTHd
+         tcgZjUF+YfSGAt504N/4Uv8wq0b8huqx9AI8toaeUZqYP7sVvXd/a58AnqWeIJ7Jke02
+         j7RA==
+X-Forwarded-Encrypted: i=1; AFNElJ9Igk8WCJclrn+FWdEdf9LOd4V5OLbcsyVBSPfPTEzqAnaqTlfin4zEP5olIv7bVW4oJ1looT2rSI0d@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrfMkPqP+k0sTTXB0EQsmTuqeMdbEvGNXe+ZIKgTc7E0dTZc/J
+	fRlqN+gsnpmPBh8t/BVBfrv3DeUqPXf0vVMMxoBUF7BLaxcSHvYZUhGnSdDvyzjBcK4=
+X-Gm-Gg: Acq92OESp2vampSJ+Or1brlUAXZPdjP0Or00/aAxXcCTzmT5zIevt6RfMnqH++ECS8d
+	GzNH5ElbhYoIn4drvS9iTiZU5Kt2K1yK09RgD4fyAlBFLOPq1qxDWR2EPLpLGFGU7wEgO+bL2wL
+	QUmLZBQtuzRYKmlocssRVc3YrlBpvNsrdjYhxNotqBdMbS35NdqUdwMiVxKyy2TxwfiwS1/h19f
+	/9Xv00NYU0DUoLA/miib33CdU2zWQAT9sRIyJjZfYR+I8Z4LgiN2yGEW7tahTweXskpT/9v7dne
+	oZIeUywGy4b983vonZZM70UavCO1DjEtQSUHQiTRr9hKaojhQ7IVSsV0XEFE56iClrojglE4njt
+	14ulVu5mbb0ps1h8l8Mf59ufujEpyyOetovkrL7tB5YKjpHwWABh8Hg6T97LYO/Il+W4QPsR3Qy
+	XlJs6b7R62mLb3rKLsK13ulJ0+1OYtk8RAdl6Jaq4q4Mq3YNJjmYps9G22bajI9NZF336c1UQ=
+X-Received: by 2002:a05:6122:32c5:b0:575:2ac3:4166 with SMTP id 71dfb90a1353d-5865fdf6488mr11390557e0c.6.1779865753331;
+        Wed, 27 May 2026 00:09:13 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com. [209.85.222.46])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f23ee48esm19066189e0c.3.2026.05.27.00.09.13
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 00:09:13 -0700 (PDT)
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-95cc96eac66so7864567241.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:09:13 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8o+aD+Yt/RyAzc+9WlH8+TitXWhlfrmpx6G09fZQQAslqtqvlMWAuNaJ2Yiep4cXLQPGHbLezXapaX@vger.kernel.org
+X-Received: by 2002:a05:6102:8009:b0:632:137d:3ab with SMTP id
+ ada2fe7eead31-67c8e2c996emr10450851137.31.1779865752913; Wed, 27 May 2026
+ 00:09:12 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 6/9] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
- driver
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, 
- Bartosz Golaszewski <brgl@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-In-Reply-To: <e3e5768d-f1b4-4fe6-a182-0210c9b7f784@kernel.org>
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
- <20260515-ultrarisc-pinctrl-v1-6-bf559589ea8a@ultrarisc.com>
- <e3e5768d-f1b4-4fe6-a182-0210c9b7f784@kernel.org>
-Date: Wed, 27 May 2026 15:07:49 +0800
-Message-Id: <177986566963.2389245.12578653384241891971.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779865669; l=3472;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=Gs8J/HTrooh7vlCoNCD99YT0nkQfL16PdFAdpCjFrF4=;
- b=EHl/iBcvMVss/1speuDjpJmuTe8+T95MLa0mG+LEqxIo7mG21AivhtwS+kRLVbhsyuVPVT5J0
- dR1jbaFWbbqBMwPpfJGhigxC+xKOYHCnXJvDOvoEHa7j/+DBwZ9oemc
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwA3cUJtmBZq3lUGAA--.7992S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxCFyfuFWrKry5uF1kCr48Zwb_yoW5uryxpF
-	WfGFW3AFy3JF47K3yfta45uFy3J3WIyryY93WUt34qqFW5ZFyDAr98K3yrXF4qkr4UCrW5
-	tFn8Ca47Ca15Xa7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
-	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
-	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
-	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
-	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
-	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
-	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
-	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRRBT5DUUUU
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoVGMYADgAJs2
+References: <20260513225037.49803-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260513225037.49803-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 09:09:01 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWy4HDUDCT=UeKLJt5S6gYW4Mgtkx13zpyQgSych7ByZg@mail.gmail.com>
+X-Gm-Features: AVHnY4I0JbQSZqWOxsG_K3k-o_DCUSP-T9m5VNAB8LF4AI_MR_0R3ag34vx9oc8
+Message-ID: <CAMuHMdWy4HDUDCT=UeKLJt5S6gYW4Mgtkx13zpyQgSych7ByZg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a78000: Add PSCI node
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-05-21 23:09 +0200, Krzysztof Kozlowski wrote:
-> On 15/05/2026 03:18, Jia Wang via B4 Relay wrote:
-> > From: Jia Wang <wangjia@ultrarisc.com>
-> > 
-> > Add pinctrl driver for UltraRISC DP1000 pinctrl controller.
-> > 
-> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> > ---
-> >  MAINTAINERS                                   |   1 +
-> >  drivers/pinctrl/Kconfig                       |   1 +
-> >  drivers/pinctrl/Makefile                      |   1 +
-> >  drivers/pinctrl/ultrarisc/Kconfig             |  23 +
-> >  drivers/pinctrl/ultrarisc/Makefile            |   4 +
-> >  drivers/pinctrl/ultrarisc/pinctrl-dp1000.c    | 112 ++++
-> >  drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.c | 746 ++++++++++++++++++++++++++
-> >  drivers/pinctrl/ultrarisc/pinctrl-ultrarisc.h |  71 +++
-> >  8 files changed, 959 insertions(+)
-> 
-> Organize your patchset correctly. Such style:
-> DTS
-> pinctrl
-> DTS
-> 
-> is very confusing and discouraged. See submitting patches in DT directory.
-> 
+On Thu, 14 May 2026 at 00:50, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Describe SMC based PSCI access in SoC DT. The system can interact
+> with TFA BL31 PSCI provider running on the Cortex-A cores via SMC
+> calls.
 >
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Got it. I will reorganize the patchset in v2.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-> > 
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 832e01898ae5..ecd87d58f28c 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -27364,6 +27364,7 @@ M:	Jia Wang <wangjia@ultrarisc.com>
-> >  L:	linux-gpio@vger.kernel.org
-> >  S:	Maintained
-> >  F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml
-> > +F:	drivers/pinctrl/ultrarisc/*
-> >  F:	include/dt-bindings/pinctrl/ultrarisc,dp1000-pinctrl.h
-> >  
-> >  ULTRATRONIK BOARD SUPPORT
-> > diff --git a/drivers/pinctrl/Kconfig b/drivers/pinctrl/Kconfig
-> > index 03f2e3ee065f..76105be8b395 100644
-> > --- a/drivers/pinctrl/Kconfig
-> > +++ b/drivers/pinctrl/Kconfig
-> > @@ -711,5 +711,6 @@ source "drivers/pinctrl/ti/Kconfig"
-> >  source "drivers/pinctrl/uniphier/Kconfig"
-> >  source "drivers/pinctrl/visconti/Kconfig"
-> >  source "drivers/pinctrl/vt8500/Kconfig"
-> > +source "drivers/pinctrl/ultrarisc/Kconfig"
-> 
-> u < v
-> 
-> Do not add to the end of files. You are messing how this file is sorted.
->
+Gr{oetje,eeting}s,
 
-Thanks, will fix the ordering.
+                        Geert
 
-> >  
-> >  endif
-> > diff --git a/drivers/pinctrl/Makefile b/drivers/pinctrl/Makefile
-> > index f7d5d5f76d0c..4df3e52518ea 100644
-> > --- a/drivers/pinctrl/Makefile
-> > +++ b/drivers/pinctrl/Makefile
-> > @@ -98,3 +98,4 @@ obj-y				+= ti/
-> >  obj-$(CONFIG_PINCTRL_UNIPHIER)	+= uniphier/
-> >  obj-$(CONFIG_PINCTRL_VISCONTI)	+= visconti/
-> >  obj-$(CONFIG_ARCH_VT8500)	+= vt8500/
-> > +obj-$(CONFIG_ARCH_ULTRARISC)	+= ultrarisc/
-> 
-> Missing compile test. Don't use that style. See other decent SoC vendors
-> how they solved that problem.
-> 
-> Also, do not add to the end of the files. Keep things sorted, more or less.
-> 
->
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Will fix the ordering and follow the recommended SoC build style in v2.
- 
-> > diff --git a/drivers/pinctrl/ultrarisc/Kconfig b/drivers/pinctrl/ultrarisc/Kconfig
-> > new file mode 100644
-> > index 000000000000..ba8747b90127
-> > --- /dev/null
-> > +++ b/drivers/pinctrl/ultrarisc/Kconfig
-> > @@ -0,0 +1,23 @@
-> > +# SPDX-License-Identifier: GPL-2.0-only
-> > +
-> > +config PINCTRL_ULTRARISC
-> > +	tristate
-> > +	depends on OF
-> > +	select PINMUX
-> > +	select GENERIC_PINCTRL_GROUPS
-> > +	select GENERIC_PINCONF
-> > +	select GENERIC_PINMUX_FUNCTIONS
-> > +	select GPIOLIB
-> > +	select IRQ_DOMAIN_HIERARCHY
-> > +	select MFD_SYSCON
-> > +
-> 
-> 
-> Best regards,
-> Krzysztof
-> 
-
-Best regards,
-Jia Wang
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
