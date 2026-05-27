@@ -1,103 +1,168 @@
-Received: from codeconstruct.com.au (pi.codeconstruct.com.au [203.29.241.158])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB7C128640B;
-	Wed, 27 May 2026 03:21:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.29.241.158
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D18B437EFFB
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:29:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779852109; cv=none; b=JI2edCfAiCAKj3oq6Ae1ytTW/wzg+72YJZx6oer7pY89n6zZ+q88jcCYbWrEc4Njgo0bWqF48dAmbLBaxlviH/WlWK0Izyh98uths8iEt0QiWrnBFQDN4yIdTzT6BaD1AOyo5s+IUbxhZTnrkE4WoSjDswELfhrg8GOZ2dakYL8=
+	t=1779852577; cv=none; b=b7bcPvzHPjAL1gTFTMPZPxVOCUzVw5tkny+l4rrOu7NXZr0uP1LhGBtMhefmF9sOgDuolY8e1gnFZPnDYYuVRaLdcH4w3ljZrgIpG0h0iMfDT7ZFSRQxifCcJLOos475J9DtU8ZLaRy9jf/ibeh1vqpkC9qfLdM6dEX3xeldU5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779852109; c=relaxed/simple;
-	bh=HfKaIVx+SJ3ya7hGqlOYadnXidhdIYNpRb6IwVfHins=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=IzlO4WXEuu78jurGKF81RvwrGwx06WupuQo+2X/uiTH02s2VWXHeWy53wHv5nHF+IRC6REgs/o+v+Ywif5fiaDP/beSbP1L+kkxUquTrcJerDDspAZawx+M7o89eP/IfSXIv1MfeyVKCOqLBAKGx+7g99oTEuiKRM0011CSHXRs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au; spf=pass smtp.mailfrom=codeconstruct.com.au; dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b=Pz8x7EVm; arc=none smtp.client-ip=203.29.241.158
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=codeconstruct.com.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=codeconstruct.com.au
+	s=arc-20240116; t=1779852577; c=relaxed/simple;
+	bh=NbPPm51uUAHAnIIFUegQN+gxWwVGNmdlYb+vntB/5X8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Fgw/vh/hIcYnboYimfwGqU/KMysPvfp/tnziUMxcTc0S88DtmJqU+0WMo8VVwBQpv+fpwD62EH6IIvVoE9fCGPC3n1UC+12vPzPiCiDyf0UWhnG7jfCkls+qrx1nw7MlN2y1Ik03nvV2qtK/a0j6mg4PEvIBaDEL2jo7coNnCjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y7IlvtWc; arc=none smtp.client-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=codeconstruct.com.au header.i=@codeconstruct.com.au header.b="Pz8x7EVm"
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y7IlvtWc"
+Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-83538fbd0b2so4588170b3a.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 20:29:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=codeconstruct.com.au; s=2022a; t=1779852105;
-	bh=Xzua1hygqM8RuAqAAV48+yyYvIAPfnUqYZRu2TfQ+q8=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Pz8x7EVmIcrBA2iTj1Djxy+Fbwc0BvS+azjCJJSL0HLnUGZMgut3ibADjcHzAPjMP
-	 WTdYKnCv3Bp1sMmMl9mUZ5yoYR9JuvNETEyzGfRE578L1VhH2O2Zuq53V+eZ5npK7K
-	 8oMoNDRqp9BmRhvZQtvVzIGRri9cWOa9YBiaKzgme/4wQVw86KsvSoVOx/i8qSs6ja
-	 7LrQkvjn1sob4m0XV8aSkE3Qw8BbExXl5U9rscxvM22uE4RbcBVOpBgBMmcDCje8E/
-	 NWmXoFHfA1OE/aHYJHVqgL9j4T6j8N3+tUaXCNjhk3UPTYmQl/5ic4KVFY2GcoLyjr
-	 vx34ADFD5+E3g==
-Received: from [192.168.68.117] (unknown [180.150.112.11])
-	by mail.codeconstruct.com.au (Postfix) with ESMTPSA id 140216001B;
-	Wed, 27 May 2026 11:21:45 +0800 (AWST)
-Message-ID: <a25ff66bee5a2047296eb239c10a7ccafc6d0b30.camel@codeconstruct.com.au>
-Subject: Re: [PATCH 2/2] ARM: dts: aspeed: sanmiguel: Fix the CPU_CHIPTHROT
- linename
-From: Andrew Jeffery <andrew@codeconstruct.com.au>
-To: Potin Lai <potin.lai.pt@gmail.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Joel Stanley
-	 <joel@jms.id.au>, Patrick Williams <patrick@stwcx.xyz>
-Cc: devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-aspeed@lists.ozlabs.org, linux-kernel@vger.kernel.org, Cosmo Chou
-	 <cosmo.chou@quantatw.com>, Mike Hsieh <Mike_Hsieh@quantatw.com>, Potin Lai
-	 <potin.lai@quantatw.com>
-Date: Wed, 27 May 2026 12:51:44 +0930
-In-Reply-To: <20260523-potin-update-sanmiguel-dts-20260522-v1-2-169f5fceb5f9@quantatw.com>
-References: 
-	<20260523-potin-update-sanmiguel-dts-20260522-v1-0-169f5fceb5f9@quantatw.com>
-	 <20260523-potin-update-sanmiguel-dts-20260522-v1-2-169f5fceb5f9@quantatw.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+        d=gmail.com; s=20251104; t=1779852571; x=1780457371; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NK9+MAufae3OUHglq3BxF1m5jq3s3djB2nPaLW09hjI=;
+        b=Y7IlvtWcAvy9uiZ3DAQlPNmn55dGBpwP6bSacQTbLsy1jQU4ZdC+32tVLcXFDitjKY
+         ifet8fRQjhbfdrMyVIWvO511Dn+ta6ZB4jJSijXD9hDWeQD8qtFmuM3FjPHNAd2AZfOG
+         NUMQ09aDlY6GxPz74KGibk99PV6YbNIJ0U4qmL2HBOlHvsJndfQfQVL+YAa+BKi7D/FM
+         a/LEALmbn6uUcyNNBO9ipF4cTlN7ILtI4G51cucvx0AQ9qajoouZezNwlBn/rbTiL7Zg
+         v39aSB61XlQPTpSD/WzO0Lsfy8DBC9rWy0OGXObv+93oj+O7UvhwfvKguIsMe/ezeTUt
+         j+ng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779852571; x=1780457371;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NK9+MAufae3OUHglq3BxF1m5jq3s3djB2nPaLW09hjI=;
+        b=Oy18LTKtez6qp5W0egHRm8N6mw6BOMnm499PlukLXDmc0IVQETxYmXjqIs8oXQmeov
+         2W2E4UvucZf7BFuCzc3ZqD9btAeN0GdP7g0e8hCNUcrZDt7x5tr5r85kr2zofx/LIKfQ
+         FG2SN3bsxaGQEZ4i4SN4KCokAqqAgAWOg+zzYzzO4uGiodidFnpYhHEGu2pbtIny+Rcp
+         wgSdKoaKQIy0ums8+ukffd9oOf8BlvpN8DGfY6k9emLF39Zf7PZvXXC3/IjvMrMvJ5tB
+         Yad4uIG3UvPOUFwJC/K/qTb3ar4pZb54EuvI2dvODcU2l8mD1aCR96ltzD0jLnd/24ms
+         ki1A==
+X-Forwarded-Encrypted: i=1; AFNElJ/UdrQhHzPg6AgiIPq7C9IZnI95k8XBPBsQmJBWohObwL8/m0K3l9M5r8/4axM9+l9a4OQwquXVyJ42@vger.kernel.org
+X-Gm-Message-State: AOJu0YxlLM3CV6i+4avXXpSSBf/VCLtwLqbckLDpCEqgEc9x4hfl6zlL
+	X+bV2jPz/CACOqcsXU5G2QpTK3PUZlZnXEnc6g5SNuz3fgjVTOo8cfm5
+X-Gm-Gg: Acq92OGDq9lkqVPUUbZH9KFhR/mC9y3keJigwJ2Be47/5vVBXgVo2J9ypS8b4+A1RCR
+	5adM9w4doOtFy8dyEiDdM8KrFTCthHwLGzweigDbnAaBs9lqHdvSoFjbJVu8H1ftHAPi6Gi+Bwm
+	XRHC17kbBT3SBx2wMfW2RA/AEdstjZV/A2jiyUfdfnTEee5YLXY5wXooeOxK1NeG8AYME2pMh3R
+	cpzddInlDwhajuxwCfk64A75zbdA9NtULdbrwIyJyTZR9IyHW3hQZvcsAERinOkpD9xEoYHnn/c
+	26Qc4z3zgQIxU3QyWHs9vb7rQbMRXmQI46iGJrFi6M9+R4dqxPvCdHzl1Wt8wEleEQPVyUSaaK3
+	RXvV+32kWdus/hGUVMm9s1geKz+mH/bJzyrw1jmouLXoidwKT3MKer/SWqh3l1KrxC+u1m48ag+
+	IIHgYR4FoeNcrJYO5NKo/Jq9d5C4+ogQ4AifZk3P8BFGaQqtM=
+X-Received: by 2002:a05:6a00:4f94:b0:82c:6da7:2d3d with SMTP id d2e1a72fcca58-8415f3d0e36mr19286959b3a.11.1779852571354;
+        Tue, 26 May 2026 20:29:31 -0700 (PDT)
+Received: from intel.company.local ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d7307596sm749688b3a.59.2026.05.26.20.29.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 26 May 2026 20:29:30 -0700 (PDT)
+From: Wandun Chen <chenwandun1@gmail.com>
+To: linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	kexec@lists.infradead.org,
+	iommu@lists.linux.dev,
+	zhaomeijing@lixiang.com
+Cc: catalin.marinas@arm.com,
+	will@kernel.org,
+	chenhuacai@kernel.org,
+	kernel@xen0n.name,
+	pjw@kernel.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	akpm@linux-foundation.org,
+	bhe@redhat.com,
+	rppt@kernel.org,
+	pasha.tatashin@soleen.com,
+	pratyush@kernel.org,
+	ruirui.yang@linux.dev,
+	m.szyprowski@samsung.com,
+	robin.murphy@arm.com,
+	quic_obabatun@quicinc.com
+Subject: [PATCH v3 00/11] kdump: reduce vmcore size and capture time
+Date: Wed, 27 May 2026 11:29:06 +0800
+Message-ID: <20260527032917.3385849-1-chenwandun1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Hi Potin,
+From: Wandun Chen <chenwandun@lixiang.com>
 
-On Sat, 2026-05-23 at 10:28 +0800, Potin Lai wrote:
-> Fix the GPIO linenames for CPU_CHIPTHROT signals.
->=20
-> The signals were incorrectly marked as output ("-O") while they are
-> actually input signals ("-I").
->=20
-> - B0_M0_CPU_CHIPTHROT_L-O -> B0_M0_CPU_CHIPTHROT_L-I
-> - B1_M0_CPU_CHIPTHROT_L-O -> B1_M0_CPU_CHIPTHROT_L-I
+On SoCs that carve out large firmware-owned reserved memory (GPU
+firmware, DSP, modem, camera ISP, NPU, ...), kdump currently dumps
+those carveouts as part of system RAM even though their contents are
+firmware state that is not useful for kernel crash analysis.
 
-I dropped this list when applying the patch because it's evident from
-the diff.
+This series introduces an opt-in 'dumpable' flag [1] on struct
+reserved_mem and uses it to filter the elfcorehdr PT_LOAD ranges on
+DT-based architectures (arm64, riscv, loongarch). By default reserved
+regions are treated as non-dumpable; CMA regions are explicitly opted
+in because their pages are returned to the buddy allocator and may
+carry key crash-analysis data.
 
-Andrew
+The series is organized as follows:
+Patches 1-3: Pre-existing fixes and a small prep change.
+Patches 4-5: Restructure to allow appending /memreserve/ entries.
+Patches 6-7: Add a dumpable flag and append /memreserve/ entries.
+Patch 8: Add generic kdump helpers.
+Patches 9-11: Wire the helpers into arm64, riscv and loongarch kdump
+              elfcorehdr preparation.
 
->=20
-> Signed-off-by: Potin Lai <potin.lai@quantatw.com>
-> ---
-> =C2=A0arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts | 4 ++--
-> =C2=A01 file changed, 2 insertions(+), 2 deletions(-)
->=20
-> diff --git a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts b=
-/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
-> index 61dbef45f8b0..d7ed497d7227 100644
-> --- a/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
-> +++ b/arch/arm/boot/dts/aspeed/aspeed-bmc-facebook-sanmiguel.dts
-> @@ -224,7 +224,7 @@ hpm0_ioexp_20: gpio@20 {
-> =C2=A0			"B0_M0_LEAK_DETECT_ALERT_L-I",
-> =C2=A0			"B0_M0_RUN_POWER_EN-O",
-> =C2=A0			"B0_M0_RUN_POWER_PG-I",
-> -			"B0_M0_CPU_CHIPTHROT_L-O",
-> +			"B0_M0_CPU_CHIPTHROT_L-I",
-> =C2=A0			"B0_M0_SHDN_REQ_L-O",
-> =C2=A0			"B0_M0_CPU_SHDN_OK_L-I",
-> =C2=A0			"B0_M0_CPLD_READY-I",
-> @@ -398,7 +398,7 @@ hpm1_ioexp_20: gpio@20 {
-> =C2=A0			"B1_M0_LEAK_DETECT_ALERT_L-I",
-> =C2=A0			"B1_M0_RUN_POWER_EN-O",
-> =C2=A0			"B1_M0_RUN_POWER_PG-I",
-> -			"B1_M0_CPU_CHIPTHROT_L-O",
-> +			"B1_M0_CPU_CHIPTHROT_L-I",
-> =C2=A0			"B1_M0_SHDN_REQ_L-O",
-> =C2=A0			"B1_M0_CPU_SHDN_OK_L-I",
-> =C2=A0			"B1_M0_CPLD_READY-I",
+v2 --> v3:
+1. Fix out-of-bounds issue if device tree lacks /reserved-memory node.[2]
+2. Fix UAF issue when alloc_reserved_mem_array() fails.
+3. Add some prepare patches.
+
+v1 --> v2:
+1. v1 added an opt-out DT property ('linux,no-dump'). Per Rob's
+   feedback [1], v2 drop that property and exclude reserve memory
+   by default.
+2. Split some prepared patches from the original patches.
+3. Address coding-style comments on patch 5 from Rob.
+
+[1] https://lore.kernel.org/lkml/20260506144542.GA2072596-robh@kernel.org/
+[2] https://sashiko.dev/#/patchset/20260520091844.592753-1-chenwandun%40lixiang.com?part=4
+
+Wandun Chen (11):
+  of: reserved_mem: handle NULL name in of_reserved_mem_lookup()
+  kexec/crash: provide crash_exclude_mem_range() stub when
+    CONFIG_CRASH_DUMP=n
+  of: reserved_mem: avoid post-init UAF when alloc_reserved_mem_array()
+    fails
+  of: reserved_mem: zero total_reserved_mem_cnt if no valid
+    /reserved-memory entry
+  of: reserved_mem: split alloc_reserved_mem_array() from
+    fdt_scan_reserved_mem_late()
+  of: reserved_mem: add dumpable flag to opt-in vmcore
+  of: reserved_mem: save /memreserve/ entries into the reserved_mem
+    array
+  of: reserved_mem: add kdump helpers to exclude non-dumpable regions
+  arm64: kdump: exclude non-dumpable reserved memory regions from vmcore
+  riscv: kdump: exclude non-dumpable reserved memory regions from vmcore
+  loongarch: kdump: exclude non-dumpable reserved memory regions from
+    vmcore
+
+ arch/arm64/kernel/machine_kexec_file.c     |   6 ++
+ arch/loongarch/kernel/machine_kexec_file.c |   6 ++
+ arch/riscv/kernel/machine_kexec_file.c     |   4 +
+ drivers/of/fdt.c                           |  11 +-
+ drivers/of/of_private.h                    |   3 +
+ drivers/of/of_reserved_mem.c               | 117 +++++++++++++++++++--
+ include/linux/crash_core.h                 |   6 ++
+ include/linux/of_reserved_mem.h            |  15 +++
+ kernel/dma/contiguous.c                    |   1 +
+ 9 files changed, 157 insertions(+), 12 deletions(-)
+
+-- 
+2.43.0
+
