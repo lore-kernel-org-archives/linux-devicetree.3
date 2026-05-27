@@ -1,136 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F7340F8DA
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5370540C5C5
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:41:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779889139; cv=none; b=VyQbODhxlow6tatvGIMyC+G8zzpoKp4CYMYeiP3pmdHLH7lqireO5YcHbDf7u9ZyKe16lHARoX6kxLU+dRcQoS1Kn3IbUVeOar43FcYS9YvQBYFANq8VaOUUJQuULYMenJYlwu5dRmKRF1Co3WtzldfVCwZJZtelUVH4OHnKzuo=
+	t=1779889267; cv=none; b=mgd0lQD4L8ZFjYa6jHULrLj6dvpW5et6dltNj87tE6Rmcj23W8OVCY4vID4qJxsP1JXJzBZV7mlwv3zX/Ba/ipz1mh7VsSfPmctZzR9wgNpDDzEohoQCuenIRnf4262Ql7F3Xa3bAm3RW7FskQ82JlUTKdNnUQkxe6t8+BTB5sk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779889139; c=relaxed/simple;
-	bh=cCQTpQ4V9iF2hZnK7U8grd1nkoa9AA1qYWqA/7+ThL4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mUZ2z0B/NWGmSxMUX/SUku9wREZ5uvXcZaQLcKcfLvbFClW9iCBrE8Aau07UoWS4LkGC0Aze3VQ352Kw0nTejfdOiv0RuRlnYcBpmhoyDgVoHAPAPiVgzI8KzZ/GjcwbtWgB/zCtIi3abMI3QLiwZIve2yTtfgSZ6if+GxV0Jxo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i4eJyQo+; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i4eJyQo+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 94A031F000E9;
-	Wed, 27 May 2026 13:38:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779889135;
-	bh=+JadgpGdQHus+W9nuQHoGupRihc55wmjeGTt8KnpKe8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=i4eJyQo+bkkUTUEWK/1xHQfKP2PIRfaGCTtTSZvrFrSf6QWgUBqBGQdmdOTbHKkr8
-	 BHAHXjw2kxmz0e8bErMtC/w/uxyPczLCunkuziRdiTsm3gy90qpQvCZeDYcpekRljJ
-	 ah/B/2WUpI7vszPwlCp+xZwlv9GvrFjXDmK4HH0aV+XL2ONsqB/RpeZ9VTqK5QZEqK
-	 GnJys1agWzGD9YINnR0xJBNlqafMBkg+JmSIZ8FmiDmiZ5jhsD5lFbMaqlx2GF9gjw
-	 +3L2fvGI2GOx6ZuSR5Kqf8V9P/BAJDwl/Tj96yYlbBny0lqkCGdzEbEuICs92soPHK
-	 2jYandUOxlJGA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] mfd: arizona: Convert GPIO IRQ handling to
- descriptors
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Linus Walleij" <linusw@kernel.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260527-mfd-arizona-irq-v5-2-ebeda2e925da@kernel.org>
-References: <20260527-mfd-arizona-irq-v5-2-ebeda2e925da@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 13:38:55 +0000
-Message-Id: <20260527133855.94A031F000E9@smtp.kernel.org>
+	s=arc-20240116; t=1779889267; c=relaxed/simple;
+	bh=mEcrfUMvusxTikKtH8K1dnfTNnQJfa+aFYGiWe/y/NM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=RFDd+4Cz7iWY/11JYlOoFy7ekLD093SzKIlGHjyLI/rSvje88hvqslcSxZ2BHNZkD04tq1aanAVl5s9EMiax4yDfBnzn/1OguBNVfw2VIrkVO8prqknhv/oixMTfbw+XAhkZSSwCfzk8ooqteJYoJywLJlXGQZgzs1p7s+GNPUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-57746408b3eso7170891e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:41:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779889260; x=1780494060;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bNs9y+loQ3B7k+4+DTGFYd+r0HnydJFAxPOIKSPX9Cg=;
+        b=KhUW/10NNkDLUi4GxPDlOJsCuIEmduu/g4w1t5AocCtS73T6lVMh9HB3dHB6MuR4rt
+         TnXBzLBrKff8tQ1glo7OFyRn10pefyBXadfUmRGo79uAsrrE+uvUOoH+zmSpt0e/ibbh
+         FAcREVDQ+jG479TIUWEHA1JH514X/IHYAeBbLCNndtcXS4A2TlBOVyQY4lyA7rCNTxWs
+         bbL1FnKGYVdy3ot/Jukpo4c3pFNefa0lJ1pqW6oI3LZN7bnh7jbWSPeyG1F32DrrfM+1
+         ZDRRJSwy3Ojm7Hv8mNm1w7vbtfuaeqCxfI8Q3yjIiQK+MpJZNX3bYq64Fc37OFla+oCF
+         7dJw==
+X-Forwarded-Encrypted: i=1; AFNElJ/I0uBoftQwKTy3IqbDCrn5mgzhQziO+M23qMyqCjF61fXtqwkwdEWIBU3yXt4XONuY4NzaFswQHqLT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyVUK2ZY7eiPLE+CYU6hAr7XFrw6szQewxj/23mw2wI1nF36WGP
+	JvKnbtVfUGw6Hih6gdRXZxKLr3bVw7BZN7+oafDoklORQIP22VbNPl8QpgEeCSIUM4w=
+X-Gm-Gg: Acq92OENs+SQCrzNrhEZ/NajAStk/W5dfvEJhVoH7piLwXriG6XDngSumCuJFlGaWfW
+	JX0TCU3guuYmreP+Cw+utMDWAELTqaQG715wc4NmgO+D+nH34hQodrvwcd3qhkVy0RVjdgL8Xeu
+	QmXPajmuoXqzLw2k7EVDMaE4ZgFKmXLGv4DhUPF6qx1WAQ39WHS9fDJYo5a0gRjyiLPjbo1fBW/
+	BcDiNe+T7SvfaaQBS8KaY3vJ+YfhbGu2m0LFqO4SxF7dwFghTpTYb9hUblExeeB5+XtU4qzsZA2
+	3MCZ8xlNim6Xa1C/xmdUnFJBw1M3lPe0mwpbz8g94m2CZeLky10GyWQSqoIE5/gj5x9hEL1sxWL
+	hHl813EaSUtWwX1Xi7IH79e5iXnuq/+UfvXB/XKakVU4HimNAAXFD04SybuXPPXPeCAzSnIJkHo
+	thfx84xUFkBVELZfbF3HMaOdPdyUGE7WO97sbPEZm0foeWI0/OzxtT0bvSPmiW
+X-Received: by 2002:a05:6122:32c5:b0:575:2ac3:4166 with SMTP id 71dfb90a1353d-5865fdf6488mr12004584e0c.6.1779889259778;
+        Wed, 27 May 2026 06:40:59 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f23ee48esm20065695e0c.3.2026.05.27.06.40.59
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 06:40:59 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-63145ce291bso9078446137.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:40:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/HBm8rtJUt6cMqzKF18ToSMpW4R5rWHPhW0zOBhuBeeFQqszzBqodAW83ALN3pdOaVFGkoWPYru3ge@vger.kernel.org
+X-Received: by 2002:a05:6122:32c5:b0:575:2ac3:4166 with SMTP id
+ 71dfb90a1353d-5865fdf6488mr11991906e0c.6.1779888899429; Wed, 27 May 2026
+ 06:34:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com> <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
+In-Reply-To: <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 15:34:48 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXQ5TDEx1Qj+3_LAGLrgNkiYxADkDox70pApZUtbam9Jw@mail.gmail.com>
+X-Gm-Features: AVHnY4JU-pRdfRlPcY6GhkzF7rJsa1sewBAKfT1mHVG-dL_G2g5Q1LYyK6-SKY8
+Message-ID: <CAMuHMdXQ5TDEx1Qj+3_LAGLrgNkiYxADkDox70pApZUtbam9Jw@mail.gmail.com>
+Subject: Re: [PATCH v3 1/7] clk: renesas: r8a779g0: Add DSC clock
+To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
+Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
+	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
+	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
+	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
+	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
+	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Fri, 15 May 2026 at 11:10, Tomi Valkeinen
+<tomi.valkeinen+renesas@ideasonboard.com> wrote:
+> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+>
+> Add the DSC module clock for Renesas R-Car V4H (R8A779G0) SoC.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-New issues:
-- [High] Migration from legacy gpio to gpiod incorrectly replaces physical =
-line reads with logical value reads, breaking IRQ polling logic for active-=
-low GPIOs.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-clk for v7.2.
 
-Pre-existing issues:
-- [High] Negative error codes from GPIO reads are implicitly treated as boo=
-lean true, causing an infinite loop in the IRQ thread on read failure.
---
+Gr{oetje,eeting}s,
 
-commit 2b527ef2c7b9b60397ceb6125cd15341ac4e28ff
-Author: Linus Walleij <linusw@kernel.org>
+                        Geert
 
-mfd: arizona: Convert GPIO IRQ handling to descriptors
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-This commit converts the arizona polling GPIO handling to use a GPIO descri=
-ptor
-instead of passing a global GPIO number as platform data.
-
-> diff --git a/drivers/mfd/arizona-irq.c b/drivers/mfd/arizona-irq.c
-> index 544016d420fe2..cf8e42662585a 100644
-> --- a/drivers/mfd/arizona-irq.c
-> +++ b/drivers/mfd/arizona-irq.c
-> @@ -136,21 +136,19 @@ static irqreturn_t arizona_irq_thread(int irq, void=
- *data)
-[ ... ]
->  		if (!arizona->irq_gpiod) {
->  			break;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_RISING &&
-> -			   gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   gpiod_get_value_cansleep(arizona->irq_gpiod)) {
-
-[Severity: High]
-Does this incorrectly check the logical value of the GPIO instead of the raw
-physical state?
-
-The legacy gpio_get_value_cansleep() returned the raw physical state of the
-pin. The new gpiod_get_value_cansleep() returns the logical state, which
-incorporates the ACTIVE_LOW flag from the devicetree or software node.
-
-Because the IRQ trigger flags describe physical voltage transitions, compar=
-ing
-these physical flags against a logical value might be incorrect. For exampl=
-e,
-if a user defines irq-gpios with GPIO_ACTIVE_LOW for a falling edge interru=
-pt,
-a physically low line becomes logically 1, causing the polling condition
-!gpiod_get_value_cansleep() to evaluate to 0, which fails to poll when the
-interrupt is active.
-
-Conversely, when the line is idle, it evaluates to 1, causing the IRQ handl=
-er
-to poll infinitely.
-
-Should this use gpiod_get_raw_value_cansleep() to preserve the original
-physical semantics?
-
-[Severity: High]
-This is a pre-existing issue, but can this loop forever if the GPIO read
-returns a negative error code?
-
-gpiod_get_value_cansleep() (and its legacy predecessor) can return a negati=
-ve
-error code (e.g., -EIO) if reading the GPIO state fails over the bus. Since
-negative values are non-zero, this evaluates to true for IRQF_TRIGGER_RISIN=
-G,
-setting poll =3D true and causing an infinite loop in the IRQ handler threa=
-d if
-the read continues to fail.
-
-Conversely, for IRQF_TRIGGER_FALLING, !(-EIO) evaluates to false, which
-immediately aborts the poll.
-
-Could the return value be stored in an integer and explicitly checked for
-negative errors before evaluating it as a boolean?
-
->  			poll =3D true;
->  		} else if (arizona->pdata.irq_flags & IRQF_TRIGGER_FALLING &&
-> -			   !gpio_get_value_cansleep(arizona->pdata.irq_gpio)) {
-> +			   !gpiod_get_value_cansleep(arizona->irq_gpiod)) {
->  			poll =3D true;
->  		}
->  	} while (poll);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-mfd-arizon=
-a-irq-v5-0-ebeda2e925da@kernel.org?part=3D2
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
