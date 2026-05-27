@@ -1,150 +1,170 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8D8843DDDBD;
-	Wed, 27 May 2026 08:27:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1DE53D8106
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779870443; cv=none; b=X5WzUJ//K+c6XVMPCAwkeCIGFVcPNnaCoFVOg8rk0uLbFXZkK9j0jF7sP5GoFrl3UgP/VDk0UV7lSHesL5yJtpSPWHpBayJbVKDmNpDVbES45DoYa2y74tjj3Bk2JzlGRvBi9x2SJ9XiyXQFWevVnskoJ9PWHyT6nIZzUXWDJCc=
+	t=1779870540; cv=none; b=gSpfaRZPaAOp1SWoDzcPaUEmrBnIWmHsFUe1oiVRCDPEy9U9kvp+lT5+inPCNPjdI6vReFwDeAKjO4kufhXrkMWg7C6YO7GOsPyX6H92NGNiTOoysWzuwm9+B+eGwVlq805LU4yBc6nRUUwBj+VNitfGjK10mJVNRCbodDeNcH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779870443; c=relaxed/simple;
-	bh=L+gMP82+Sbsl8A+5Kq/jrXlWor806MvYZ5SThD/h7Ew=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=sHAoV6JKtqTLjVYlPEOXtDnS2koTFY9kaTyXXdlBZEgweUxmVFMnllB3o72wrHfPFJxijH9/9isHUhiJ3m91/pxRT3rKKbyrmVI1KFcqwk2i7zVxks0S3XSG6onQp3YkPoihhHSvDaHP/M9HMU7aNNa1fxfqZqw4SLJkgdTbg9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8DxRenfqhZqOrQNAA--.32837S3;
-	Wed, 27 May 2026 16:27:11 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJAxWcHbqhZqs5OSAA--.3185S3;
-	Wed, 27 May 2026 16:27:10 +0800 (CST)
-Subject: Re: [PATCH v4 2/2] i2c: ls2x: Add clocks property parsing and adjust
- bus speed
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, loongarch@lists.linux.dev
-References: <20260526031021.32662-1-wanghongliang@loongson.cn>
- <20260526031021.32662-3-wanghongliang@loongson.cn>
- <20260526-pompous-gopher-of-serendipity-d72f1f@quoll>
-From: Hongliang Wang <wanghongliang@loongson.cn>
-Message-ID: <46f2c75e-3066-3f27-039b-2372e4f5fb9b@loongson.cn>
-Date: Wed, 27 May 2026 16:26:07 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1779870540; c=relaxed/simple;
+	bh=dnKKV4k9imrwOYYrkrG7utWup+ZEdJNlE4/zhl36kBI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lKIFUrMTrOXdwTRqxlIJUpXej2tV20uLpAbM3C+Pdut6cwNPrmklSoszjg/NJcMauKw3t+PtB4wwvbrvbsPfcxRZQxNszZ4+/B1dhg/O8NmvHY2IFyc/znC56zg/iBaAZ+xtQvvRf32/A5jQZ+Xgym1PuVVd8naykHDNjo73lYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Hq698nOU; arc=none smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Hq698nOU"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-44a14580111so8453961f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 01:28:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779870536; x=1780475336; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=RXP90BLkmwM022fcUvwY7xPlmUwoYsB+/2erQUJ8WqM=;
+        b=Hq698nOUn4wUZTU18JpCC2UeibTPT3RxLM11uHaERs5WIG4PXnTt7IFoKvxGKOfO2s
+         rUIBjxBYd8QjS18JjHhqBAZ9cohwcCNPxgF7tare23DAQX1t8OoVZ21lyFkNBUgbanK1
+         DDHx+Zs5vNTHU+KwTKWgjUXittWyo//W64HFduvlrUMr1OZeFNadh7Wpnz95NLYxKJMy
+         zXGdMkzOhsbzRUZA+W5fmYl5izkAFj7ywlGylCy6e8DqLf2vTcy3crbNN3zlwdsY3pb4
+         1GyadCEIQbENK7HaZjyrj+XxRtLprmxbcePVkAkQE03rml9oT+HvVcKtHXPrZE9SARBX
+         wr4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779870536; x=1780475336;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RXP90BLkmwM022fcUvwY7xPlmUwoYsB+/2erQUJ8WqM=;
+        b=MmOqo7Kc41xg2xc8+oXbpiBPscbTN6ZgOE2uLRm1GE54Sm3BtjQg/ls2rYFpa24gQ/
+         U6ZzgiyZZ1/3PmKK+svU8ngAB8xI+Po+6y9fN+GoOAswdy0lFWcghh0b+BeVwJ4fCYV4
+         MDFY+Ulua7sUIM+9Gy77m15XkKsPqP2k7jM6ecPOM1hVme51jYm3DqcgHR1UjXl8Oe6v
+         jSDufQ7k/3vCfxukwPVVuEeBTH7GALYmAdHsPWcRo6/I6MZC2XoYpgX+5fxGixepyLYd
+         Gdfsfx6bFP+ZnUkThS5VixAqWS1JU67hHpq7N5x7U9cLn2j2faFn1Mx12Q9Ea3yCw0Gs
+         xvNg==
+X-Forwarded-Encrypted: i=1; AFNElJ8jehYgCbLU9HPYWYfsDNFv4s09uiiTbilonVXxaRetmlCyyMNxjBG8KYW2IFDLWNZ65qQ531tf31Je@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy1X7ksqttiHmhk5Ow9C2LSioHdLHCnNDnesGlOB4N6C3me7Bsq
+	tm95mNAOaKagEtsURr6Bu2n6Qtp4oQ9Ba5LTESt7v3QvmrT+qWOl9036
+X-Gm-Gg: Acq92OG+7hLYeIJr2P0zvbX2IhflYCwA4zIEADtQRIBmYmRr4zuDedeXEtIUIwrLcda
+	OhZS17UPl6+1rqs5Q9xRqSNYmUwDOu3hH1DAV01vIrlkCw8kGUSC/RbiTvZZ2r2a8NUeww6VOtx
+	T4R5EtPtvlhN7XzDyhJUPLrpctcm2t6zN9pCDzccZSDotF3EAFrrCBMSHBPCz/u3YYJJG/SV8WZ
+	kWbjOH9I5MQjyshLBtz1GHeJdEd/bPUjMEwtFdu0fVuzzNzpJg92oW8Jm+DY5oWCzPcoZL1rJoa
+	54ST8SXjzUEv72GJoBDcLeJEX2scNm/uUrfh+ocQ+hcK/0PHWua+ZY5MqNl/sK4R+Gc4pM6COTY
+	LbyVZXoLFkFTwnfWj98n53eFc9For2SrjLT+7wBLE7ySsqJgpeZGe+3opIOZQMh3Mllh8VEcwtz
+	q7b8MJL1Tgq3Buo8QVTPKbPpmxiT3cNWydKQJMQ3ZWdXc1WZnf8cHURWcGYj37qxq4lpKMgay5n
+	DT5clRLgBRqqA==
+X-Received: by 2002:a05:6000:4b07:b0:43c:cf25:f29a with SMTP id ffacd0b85a97d-45eb3689049mr34779824f8f.8.1779870536122;
+        Wed, 27 May 2026 01:28:56 -0700 (PDT)
+Received: from orome (p200300e41f1bda00f22f74fffe1f3a53.dip0.t-ipconnect.de. [2003:e4:1f1b:da00:f22f:74ff:fe1f:3a53])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5c27e7sm4474850f8f.35.2026.05.27.01.28.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 27 May 2026 01:28:54 -0700 (PDT)
+Date: Wed, 27 May 2026 10:28:51 +0200
+From: Thierry Reding <thierry.reding@gmail.com>
+To: Lukas Wunner <lukas@wunner.de>
+Cc: Thierry Reding <thierry.reding@kernel.org>, 
+	Bjorn Helgaas <bhelgaas@google.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, 
+	Krzysztof Wilczy??ski <kwilczynski@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, 
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, Pali =?utf-8?B?Um9ow6Fy?= <pali@kernel.org>, 
+	Michal Simek <michal.simek@amd.com>, Kevin Xie <kevin.xie@starfivetech.com>, 
+	Aksh Garg <a-garg7@ti.com>, linux-pci@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, Thierry Reding <treding@nvidia.com>
+Subject: Re: [PATCH v5 2/4] PCI: Use standard wait times for PCIe link
+ monitoring
+Message-ID: <ahanoZgDwq3v6x8M@orome>
+References: <20260526-tegra264-pcie-v5-0-84a813b979d7@nvidia.com>
+ <20260526-tegra264-pcie-v5-2-84a813b979d7@nvidia.com>
+ <ahV_r6NJWnmJptT2@wunner.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260526-pompous-gopher-of-serendipity-d72f1f@quoll>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CM-TRANSID:qMiowJAxWcHbqhZqs5OSAA--.3185S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoWxur15Jr17Xr1DCF13Xr4xAFc_yoW5Ar1UpF
-	y8AF45Gryjqr1xKr1kXr1UXFy0yw45JayUGw1rJ3WxXrnrXr1FqFyYgryj93WkuF48uayU
-	Zw4UWr1DurWUZrXCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
-	14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
-	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr
-	0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8zw
-	Z7UUUUU==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="y57fabq4zbjqmwuy"
+Content-Disposition: inline
+In-Reply-To: <ahV_r6NJWnmJptT2@wunner.de>
 
-Hi, Krzysztof,
 
-On 2026/5/26 下午11:08, Krzysztof Kozlowski wrote:
-> On Tue, May 26, 2026 at 11:10:21AM +0800, Hongliang Wang wrote:
->>   };
->>   
->>   /*
->> @@ -96,6 +104,8 @@ static irqreturn_t ls2x_i2c_isr(int this_irq, void *dev_id)
->>   static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->>   {
->>   	u16 val;
->> +	u32 pclk, div;
->> +	struct clk *clk;
->>   	struct i2c_timings *t = &priv->i2c_t;
->>   	struct device *dev = priv->adapter.dev.parent;
->>   	u32 acpi_speed = i2c_acpi_find_bus_speed(dev);
->> @@ -107,12 +117,29 @@ static void ls2x_i2c_adjust_bus_speed(struct ls2x_i2c_priv *priv)
->>   	else
->>   		t->bus_freq_hz = LS2X_I2C_FREQ_STD;
->>   
->> +	if (dev_of_node(dev)) {
->> +		clk = devm_clk_get_optional_enabled(dev, NULL);
->> +		if (clk && !IS_ERR(clk))
-> So IS_ERR_OR_NULL?
+--y57fabq4zbjqmwuy
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v5 2/4] PCI: Use standard wait times for PCIe link
+ monitoring
+MIME-Version: 1.0
 
-Yes,  IS_ERR_OR_NULL is better, I will fix it like this below:
+On Tue, May 26, 2026 at 01:10:39PM +0200, Lukas Wunner wrote:
+> On Tue, May 26, 2026 at 10:53:11AM +0200, Thierry Reding wrote:
+> > Instead of defining the wait values for each driver, use common values
+> > defined in the core pci.h header file. Note that most drivers don't use
+> > the millisecond waits, but rather usleep_range(), so add these commonly
+> > used values to the header so that all drivers can use them.
+>=20
+> Hm, why not just replace usleep_range() with msleep() and use the existing
+> macro instead of defining new ones?
 
-         if (dev_of_node(dev)) {
-                 clk = devm_clk_get_optional_enabled(dev, NULL);
--               if (clk && !IS_ERR(clk))
-+               if (!IS_ERR_OR_NULL(clk))
-                         pclk = clk_get_rate(clk);
+I'm trying to somewhat unify the implementations across drivers without
+changing behaviour. I don't have a way of testing any of these drivers,
+so keeping the existing implementation and just switching out the symbol
+seemed like a good compromise.
 
->> +			pclk = clk_get_rate(clk);
->> +		else
->> +			pclk = LS2X_I2C_PCLK_FREQ;
->> +
->> +		div = priv->div;
->> +
->> +		val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
->> +	} else {
->> +		if (!device_property_read_u32(dev, "clocks", &pclk) &&
-> Please document here that these are *only* ACPI properties.
+> > +++ b/drivers/pci/pci.h
+> > @@ -63,6 +63,8 @@ struct pcie_tlp_log;
+> >  /* Parameters for the waiting for link up routine */
+> >  #define PCIE_LINK_WAIT_MAX_RETRIES	10
+> >  #define PCIE_LINK_WAIT_SLEEP_MS		90
+> > +#define PCIE_LINK_WAIT_US_MIN		90000
+> > +#define PCIE_LINK_WAIT_US_MAX		100000
+>=20
+> If you absolutely positively want to add a new macro, consider
+> 90 * USEC_PER_MSEC instead of 90000.
 
-OK, I will document here. like this below:
+That seems rather useless to me. We have a _US infix in those symbolic
+names, so it's obvious what the unit is, so nobody should be confused as
+to the purpose of these. I suppose if you want to make sure it
+correlates to the SLEEP_MS variant we could maybe do:
 
-         } else {
-+               /* clocks and clock-div are only ACPI properties. */
-                 if (!device_property_read_u32(dev, "clocks", &pclk) &&
-                     !device_property_read_u32(dev, "clock-div", &div))
+  #define PCIE_LINK_WAIT_US_MIN (PCIE_LINK_WAIT_SLEEP_MS * USEC_PER_MSEC)
 
->> +		    !device_property_read_u32(dev, "clock-div", &div))
->> +			val = (pclk * 10) / (div * t->bus_freq_hz) - 1;
->> +		else
->> +			val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
->> +	}
->> +
->>   	/*
->>   	 * According to the chip manual, we can only access the registers as bytes,
->>   	 * otherwise the high bits will be truncated.
->>   	 * So set the I2C frequency with a sequential writeb() instead of writew().
->>   	 */
->> -	val = LS2X_I2C_PCLK_FREQ / (5 * t->bus_freq_hz) - 1;
->>   	writeb(FIELD_GET(GENMASK(7, 0), val), priv->base + I2C_LS2X_PRER_LO);
->>   	writeb(FIELD_GET(GENMASK(15, 8), val), priv->base + I2C_LS2X_PRER_HI);
->>   }
->> @@ -295,6 +322,8 @@ static int ls2x_i2c_probe(struct platform_device *pdev)
->>   	if (!priv)
->>   		return -ENOMEM;
->>   
->> +	priv->div = (unsigned int)(unsigned long)device_get_match_data(dev);
-> unsigned int cast should not be necessary, right?
+Then again, I count 2 drivers (in linux-next) that use the existing
+PCIE_LINK_WAIT_SLEEP_MS, one of which multiplies by MILLI to get at the
+US version (so it could easily be converted to the US_MIN version). Only
+pcie-designware.c uses msleep() with PCIE_LINK_WAIT_SLEEP_MS, so it is
+clearly the outlier.
 
-Remove unsigned int cast without check and functional issues. So it is 
-not necessary.
+Maybe I should just go all the way and drop the SLEEP_MS symbol and
+replace usage by the US versions?
 
-Would it be better to remove it?
+> Moreover, consider using fsleep() instead of adding an additional MAX
+> macro.
 
-> Best regards,
-> Krzysztof
+This would then be changing behaviour again for all the drivers.
 
-Best regards,
-Hongliang Wang
+Thierry
 
+--y57fabq4zbjqmwuy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoWq0EACgkQ3SOs138+
+s6HatRAAg8da90RqnHjyUFhXOqP7Cjo9/fYMdwG9qKAW71wcGfZM2pK1xmC/LV0g
+MIyhmSbMyevnALrOnbkobpjgl5QbrSNXE2CqxEKR49UlV0o2lATFB+EJlmtPiSN3
+7Q464BWjHaibyl6UU5/FV9VDV0pJK5JQfH/x6I+G27E+XQqzMerQeYuq/Gl3ZLQf
+1VZqhztZQ7U/GQBX2g+8FO06udWT0JDk5eNXwrqjg11zIG1C5rXkam1kmgXKYB4w
+YDg5TN7DAqnWeSyE0j6DYVXNImRv3X+MvVW5fH09eJ5yE5m8KXdr26kDKTQ+n931
+TTuyEB+mDL+FjI8JRMSU7nHPs3T16m4CtADOSx5UItd3EnHi/gIJMkmsbdo7P5yq
+LNYGdCameYwMq2r7NO65c9R6H7ARCA81z8frzhj8cT9LyNmwwpLwPnc77oBArl/o
+DsdZknA8CG5mHmZOvtcQkTfrdKTJQVolANFj8ARi1pg5p30uGNORSnDrsHSyCygR
+8oZSWZr5pKs+aYMYk5c2HgNUQ2IHgEaFkTjdBVpOCTzTXX665DNQH+vANxV91jmx
+oM5yyVFbEhPq2SdXpSuXAhDqjqLFWckgdB2NFdQ+A0qvjkUzyHqNsYBirxrtU4Cn
+DGjDBzWzYCnn4KcL8eLVcYxybJBsBD+JwfOUv/k3QCFRDwtoqt8=
+=BbZl
+-----END PGP SIGNATURE-----
+
+--y57fabq4zbjqmwuy--
