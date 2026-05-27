@@ -1,266 +1,173 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010042.outbound.protection.outlook.com [52.101.61.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f173.google.com (mail-lj1-f173.google.com [209.85.208.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BCF72C11F9;
-	Wed, 27 May 2026 05:16:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC9D32F5491
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:29:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779858993; cv=fail; b=Ev/sFXOqC4rnDHpu1P1ix5M+T6aRw8A/1joVTxsn2SjzRRVaUNb7XCxqzKzZIcdeEpaacG+yXnDXwzzCfWUNTXfxeHao4ipaut4q63u3LBWKma82bIFRLx46yQYNsPllrLtplJBWUP8+ihlLOrzWQTgNy10Oyu1vt8Rwhm9/jN8=
+	t=1779859789; cv=pass; b=RaS1kfFyBmqYKdhoDjR+wwb0qksU4Npk+T5k1DbHPcI1OKzO9BPpJd4J3snyhL2IT+1B3OsvWBonMVhxDmmTj+5V6ecDM5O4DC+ORCDG8KxJMPsJottK6kterV35AGrum/vYUlsOzNWf9jDt7Q4y1drHiOOtn+vulGpqymeXlZE=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779858993; c=relaxed/simple;
-	bh=GbrtKALcGUD8l2E94CiGgBp6+MAjUb/v9l6ku950Bd8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Kd9VYt/p/Ji8OxyntL+zXTMZQdlTAB4TUA+EsOkojQutBQ0dGZCWPap1jMJVwOCUY6/gDPq4TAqtq0P+t5THmE5nEi3ETTmC/hoUnx0f1UJhcfPsvXELmTp9lNeFretGTm7Wox+YrgGL//GWM0h21vUK4lxadefKgXXWO4HMBA0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=vgTjq6Dg; arc=fail smtp.client-ip=52.101.61.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1779859789; c=relaxed/simple;
+	bh=rijSLO8wERJrlBkKmldP6GoWjVWR6dDNxw0bhl7eoSA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=iiMPqISPvkalvVfuFHwgXK/Ygf6L11nUN4xSSj0U9kg1ip+5YF8/3eotH6BM72mGwQ0f5b4thQU6LLfUjz6+qIB+0I/bxsgL7kkPdGRJAZ4H0LauFUF79bXxDm5WkPjhTsJPE2M/F2Ut6HZHzTieNrPuOCu+bZt64ta4lvvD2mw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com; spf=pass smtp.mailfrom=baylibre.com; dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b=MV6AECKh; arc=pass smtp.client-ip=209.85.208.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=baylibre.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=baylibre.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="vgTjq6Dg"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=aqyf80RGHATn5k+mkVycN6hxH2dp2hgRVd9jvuoDVMrIB14pf25Xfpdf9uAEzqPWk/muhsfGaTznpOYgRgFF3oHPuxlliS9FuPB2GIZFX39FQ1Xqsl6K13uNkS2rU9jp2Lc2enGzVFmGMyO7T7FX2p2Axv2PVBPLZW7d3chstkmXJ37yS0+SsiLnBLbozGgai88/bqW8REqqErl54zoYRiwPFsLvMhVdqosw5tOrAREWjGtPtn+coyQjaYUa+kzey5x/siy9vuG11K3ddbZfefZf/rxnfWhRRHq67bAI4ruhRhEAyIEYmFNutGHwRQNDTg+376JJZhHHwlwqnpdPXg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=BqGZjCsy69BlzaLw5VHyXBuuZ3S4tQVZBgAlVTRCmx8=;
- b=FVuP9kG9d9nOIduxy/thNREgMoqQqivCNKCwtM8UmtkiMLM10j4ibQDgcwRTGI0ymcFwscPmBdLPSX/zRceavyPj6VvUWIImhZfLoQ+xf5swLY4oAQRJsAedhzIofUc2dKHFmRb00VydQ4eyW1wXo2Qeyuo5qN5CwUbSG/4FgH7xzMtAE5a71t+WiPdxq7hk07zEg9JY6T5lFpvBsSUK8bCHEbpbB2d5t+nbxhmNMtrOBtfWV8rIH8eCwO41Mv/JpxkyBLfBh9giURoTVEz5/eiYcYJz7tDzUqZdIG8Z2LDgMNLh3Hh3BpUKq7Y467hGRTzz6SgHEh2mIJ6+mD2cOQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
- (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=BqGZjCsy69BlzaLw5VHyXBuuZ3S4tQVZBgAlVTRCmx8=;
- b=vgTjq6DglbsuJf56etkHErkeLo/yCLX7MqsyLWOXaWVQslCUNhzRPQ1BqSvBwJe9tz+HGLgfUul1A3X7YB20pjhAia8vYdfe/lsYYxqt32CzCmsS6Uc/cRWKA1Ce3WWkRve1PU8ngsxQqXe5UFA81fb3yg9/I7RaD/yWCAn8gsc=
-Received: from MW4PR04CA0315.namprd04.prod.outlook.com (2603:10b6:303:82::20)
- by MW5PR12MB5621.namprd12.prod.outlook.com (2603:10b6:303:193::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Wed, 27 May
- 2026 05:16:26 +0000
-Received: from CO1PEPF00012E7D.namprd03.prod.outlook.com
- (2603:10b6:303:82:cafe::24) by MW4PR04CA0315.outlook.office365.com
- (2603:10b6:303:82::20) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.12 via Frontend Transport; Wed, 27
- May 2026 05:16:26 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- CO1PEPF00012E7D.mail.protection.outlook.com (10.167.249.52) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Wed, 27 May 2026 05:16:26 +0000
-Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 27 May
- 2026 00:16:25 -0500
-Received: from satlexmb08.amd.com (10.181.42.217) by satlexmb10.amd.com
- (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 27 May
- 2026 00:16:25 -0500
-Received: from xsjtanmays50.xilinx.com (10.180.168.240) by satlexmb08.amd.com
- (10.181.42.217) with Microsoft SMTP Server id 15.2.2562.41 via Frontend
- Transport; Wed, 27 May 2026 00:16:24 -0500
-From: Tanmay Shah <tanmay.shah@amd.com>
-To: <andersson@kernel.org>, <mathieu.poirier@linaro.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <michal.simek@amd.com>,
-	<ben.levinsky@amd.com>, <tanmay.shah@amd.com>
-CC: <linux-remoteproc@vger.kernel.org>, <devicetree@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-Subject: [PATCH v3 2/2] remoteproc: xlnx: enable auto boot feature
-Date: Tue, 26 May 2026 22:16:11 -0700
-Message-ID: <20260527051611.194844-3-tanmay.shah@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260527051611.194844-1-tanmay.shah@amd.com>
-References: <20260527051611.194844-1-tanmay.shah@amd.com>
+	dkim=pass (2048-bit key) header.d=baylibre.com header.i=@baylibre.com header.b="MV6AECKh"
+Received: by mail-lj1-f173.google.com with SMTP id 38308e7fff4ca-3922b35e69cso90274251fa.0
+        for <devicetree@vger.kernel.org>; Tue, 26 May 2026 22:29:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779859786; cv=none;
+        d=google.com; s=arc-20240605;
+        b=YMgs/Kwy8BTgOHpQqY8CoudEUtzRaR0ufzl9SeHANuahKqG5+j9Bdj8s+wVwHVrvVI
+         PVcZXEL5h0kEXe+WwVf9B1Uns8ne91kRqRR7KXXEnto0lePa0BBNxfOdfQLkyNT4iZd5
+         g/hE41BpancWRRzQ+kBz8Eeg7c8fiH0zlThMyzJAxj6cthVgf+7VzTHbrfe/be+5hxQN
+         lxA1Oa+opBUcsMy6aHmedK5LiILOJXH6xgeR/Sope+srruEL4wf34IE7bm1JW4l94hf0
+         igKqCmxHhcbHYpvzWDBb2Ob10/eQ5Qo96px7QSNMLMkBO9HtbneXbcva3fa2vPMm7xCD
+         wg4A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=sWU01JGA+KO3onhm4zSW7+7G6c0/a5rCe2jY0OsegKE=;
+        fh=1uz7DZWZcmn+iBRwGHDFluwVPqDCT92Ua+bjE1rpDZk=;
+        b=JI1SV3EooKh02EWgez8X0J5n0+Qbd/3D/mPISL4MhJFin0o2uVQY3u7e9Zfx2jCfIh
+         PXFCclIwPAbCI7CiH+sJYD/oLC0FSFtKwzRSuTCu/F6wqw3iPqu8E0pxY1JwDoABUEf3
+         EUxanIRc3jOlENdjfkNZVcKciTO4pW5iHjs9nDObAW8nVhyPn9mAbZE4/tKb9s4uXjzf
+         XNUshgZWlfT7MquN05pEr1d3T/CyhMdJ6TzdIszXFQS595b9CQ3cdg/nTfJErw2XDpWI
+         1pvHdNtMR0ZEf2Knvd6rI49JCyUSkFFbpb7hSJvmqRA9qbaFjEXTceqgGBZQ0Ljq4Xlf
+         0qww==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=baylibre.com; s=google; t=1779859786; x=1780464586; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=sWU01JGA+KO3onhm4zSW7+7G6c0/a5rCe2jY0OsegKE=;
+        b=MV6AECKhggZoGg9XhcycCH5RW1A+Mg5EQ1yE1J97E9fev6TY1PyD+rXxj0XOnnSDYx
+         FzKrImGkzKg9ZKIfRb9+s+EgIB+V9OX+PU6mQdpWThDlf/3gMAC55TEgJItxkSLhG/iD
+         SWRG34edcY3ziNK6Qp/0/iofT1Llvl5Ykn5KJT6GXU12aYy487xhC0uVWb56EsmnAoKK
+         cDe22baOf/s7jsn8DnY/7MZtCcfES82o6/nWR/nlqe8zEDz15RpNFcuqRERZ+EgOPRXw
+         IdmDFcauN/f6jovIOPtGyNA3WyV5VY7pcg9eRzilRjN5PRHqhLMj0XmWsCXoVIyK0L7S
+         4Gjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779859786; x=1780464586;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=sWU01JGA+KO3onhm4zSW7+7G6c0/a5rCe2jY0OsegKE=;
+        b=GP8jk4jeoTqFqnta8ixQ0sNYeaPeATyCrrhzWgknPA+DBawYhoqEzMOzQ22BvkkuOI
+         nmwQBE6dbc/16U90B07TGe6LsJy7wk9vyBEm7QfA3JImeBpCV55QVcbIC56H01Hj++Ob
+         svvbevrDCz1UFQweZBfRZnamVnaLLVV0WSPh1qYW/MBgpitiOEcEQ5wG3PPxgK1PGg0t
+         qaJBMNAau6rfidu0/zb2KJNvkiD4ls8nlwyCs4HVbaFKBc8l6BUfmj5rtL4QPNe89mfD
+         pA7j8GP3CU8j2RQ9cQNStfp5gG2AY1qoDKOynp6wiB3iSyDwxCOY4Qjld7z7e8MGArfx
+         w8nQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8GI8GZl6WcKKDVNLhllp1Bt78PBf3pxY4pJj87SCqObCD6jSSLvMAGuMB5bv5Uzw0kKciTfQVY/EGj@vger.kernel.org
+X-Gm-Message-State: AOJu0YzoqdQ4z31zoMTGDESxJ6S37s34L9O8BaOunI+/25uGOFTitwG7
+	6y9Oc509nOozJzXia4gug+4LQaDczX+h0FV451nvYvge7VG9cKWdYm4nFodbMNEfHarMBL5ThUo
+	CAnMnjyGYn9ZEbkR/ldhb6PYJhlI8gMDoX+c/D343Vg==
+X-Gm-Gg: Acq92OF9MkVGv6kULsikMI80MD4MONdtiLU/e43u93u9cdIZCSfwMyiYo4b+QGxrImQ
+	awJ1MJ818Pr7qdxUk0CDXrO4r/D2pupqxhh+u1M0pkfXttycePPbAAzjtKnsooTqFk4TgjdgM/M
+	66cCIv4kgTg7PtdHsCmk443bwjrqCiM38+4voZrA5/Z0Ttpp5Kx1Lgie2l4a9+B6NI1+OWRfnAn
+	0SKj08Tf0L2KqgKCDE8nbVgSvTA/uMc/Xm3IMtSLmAoAEW39Q56QbzQ4F/0c9orUGU6ubaS6IRH
+	OqL149f7V2f8f82SQOx2FtP9oJ+qPEIVi/+xNFViAI+nn4CBDg==
+X-Received: by 2002:a2e:8090:0:b0:393:e50b:6b2a with SMTP id
+ 38308e7fff4ca-395d8c935d7mr49951611fa.11.1779859786057; Tue, 26 May 2026
+ 22:29:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CO1PEPF00012E7D:EE_|MW5PR12MB5621:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9af457d8-8010-44cc-3ff2-08debbaf1a3f
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|376014|1800799024|11063799006|6133799003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	QAgRZKbFgq0AA/LHwb7S9MlAkQhfEaHr1mJV2xmq9/tWYu+ORDMSy9mDNm4gA8do5eNJ1Fe7WtjiCTJRD052XgSGkzag1V/IZXbT0njC+7m/Mbq1vWHvAC9+oUWxnsszJQK8mRhzfrL0Ol4Lzm5mgqqGfMaUd0Mtx/+YOliq5RF+vuPF2Hq4x5BhREIqHH+ZeyuufqVBpZyAGNK2YTD7QvPU84AFgyc3WCDgsnmc3z53M+rE4vPmUaIyOAlfd3TQpQKKfNh4kYq2nyZ7apZQCKGQSKxx12SSuelTDO7Bm+TMV+JLF2R1NPVBIT6OkO+ghxO8DILDDvMBS9XkZiY8yBgCI0VLFOJe2RtvWXQ2OK8IEngbxjonffLuVF5tSBL65MnGn4PL9/k+zknkZcAOnbrIYYClAGcSrgU+4eH+UiVFlikX0N9LaDYiSkXB07UUXlMlVamg5Mku8QNruDy6odAUsJvvmhewauDj+Q5YVXCb+B50GlyPTe8T1618BQC3H68UlgaztfHJMvj20rPg+zJ6HVEe+s91jt5TmgeYoyfO7nMlC7PwtrEzQ7o09WcgW+aGBGxtSMnl1eqWKveP/d8LeaZnh2Xh68gpEGZeZUYbprpaLiFPPqyo8zxGcruYc9RZz0x7tEmIIcSZaTbkZq3TvfsXUlNjH/HPijGLFkxSxrWQ1DDlJoJkvH5NX9VuCnSf+EgGHg94QqP6w3UFSkT3duh89sECCyPLNKdDAQ4=
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(1800799024)(11063799006)(6133799003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Fdx2eIM34+PE8hFPYOyl+XOCxiwbTp93rIhwolXWMpEqyNCS0I9U3NrQdECYCO6K/1z/ss5SsNDQO100ZFtyA4KuT7LOzun+l9uMmZN+TIGve+UCvsE4kKEmA3TTHFqSOu+mXdZ+kBLy1iK0RGgZfZO/SlEhZuDffjxOEpDScsZc1OcvhfN4v0mW/7luF4Jv7VUji9roA436p8Pi5nPcaHRZYkamWXeHoTsF+cB/U5K9tq4SbHhgKAqRr/kCifiBRsXpu2CIU0s9oqWpXqK36YwkX92jZFNwcf+AmYMyr9+VeRrPin0rcA9/CCA0v/Q7lYzfwXK8eCATLIg3tX0Y8w0r4stZvLA6TE1IqK7zhv8Zs7YgsvnGKYqs34gu1rrTmAsUe1J5MqydOBBBonAade4HeZsZ/0Cszr63+wLO7eCxV9oQjkad05pe+RGuoDem
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 27 May 2026 05:16:26.5877
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9af457d8-8010-44cc-3ff2-08debbaf1a3f
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CO1PEPF00012E7D.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR12MB5621
+References: <af0EGv172ZMl/6N5@JSANTO12-L01.ad.analog.com> <af2gJyG3rDjsjFmo@nsa>
+ <agdKRhtywsThg/gT@JSANTO12-L01.ad.analog.com> <20260516113738.4103f388@jic23-huawei>
+ <fe766c2a-3662-4896-b7ec-b569791630cd@baylibre.com> <ahXle0pZjpldxASF@JSANTO12-L01.ad.analog.com>
+In-Reply-To: <ahXle0pZjpldxASF@JSANTO12-L01.ad.analog.com>
+From: David Lechner <dlechner@baylibre.com>
+Date: Wed, 27 May 2026 07:29:34 +0200
+X-Gm-Features: AVHnY4KPeRFOt6loq4mrCx4OstUgML83TNvRyVA8kmSgRMQGC6K9ziPReSIphZ4
+Message-ID: <CAMknhBHe4vyS=5vbDwonxzr67Z9=bRm6TW_n=yowBN1My4jA=A@mail.gmail.com>
+Subject: Re: [RFC] iio: adc: support for multi-device aggregation
+To: Jonathan Santos <jonath4nns@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, =?UTF-8?B?TnVubyBTw6E=?= <noname.nuno@gmail.com>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, lars@metafoo.de, Michael.Hennerich@analog.com, 
+	nuno.sa@analog.com, andy@kernel.org, marcelo.schmitt1@gmail.com
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The remoteproc framework has capability to start (or attach to) the remote
-processor automatically if auto boot flag is set by the driver during
-probe. If the 'firmware-name' property is available for the remoteproc
-node, then that firmware will be loaded and started during auto boot. If
-the remote core is started by the bootloader then during auto-boot
-remoteproc framework will try to attach to the remote processor.
+On Wed, May 27, 2026 at 3:50=E2=80=AFAM Jonathan Santos <jonath4nns@gmail.c=
+om> wrote:
+>
+...
+> We had a 'hack' in the HDL where we tied the CS pins to activate them at
+> the same time, but since we are aiming to handle each device indually it
+> would be nice to at least enable all CS defined in the devicetree. It is
+> strange that we can define up to 8 CS for one device, but the spi-engine
+> only selects the first one.
 
-The current architecture allocates and adds the remoteproc instance before
-all the hardware such as sram, mbox, TCM is initialized. This design has
-to be changed for auto boot to work. So, rename zynqmp_r5_rproc_add()
-function to zynqmp_r5_rproc_alloc() and move adding the remoteproc
-instance at the end of cluster initialization. This makes sure that all
-the required hardware is initialized before starting the remote
-processor.
+When I did the multi-data-lane SPI work, it was only for the multi-SDI
+case, not multi-SDO, so that didn't get implemented yet. We would need
+to extend the core SPI API to handle this new case and then implement
+that in the AXI SPI Engine driver.
 
-Signed-off-by: Tanmay Shah <tanmay.shah@amd.com>
----
+>
+> > For this type of SPI controller where it can read multiple data
+> > channels at the same time, the .dts should look like this:
+> >
+> > spi {
+> >     #address-cells =3D <1>;
+> >     #size-cells =3D <0>;
+> >
+> >     adc@0 {
+> >       compatible =3D "adi,adaq7768-1";
+> >       reg =3D <0>, <1>, <2>, <3>;
+> >
+> >         spi-rx-bus-width =3D <1>, <1>, <1>, <1>;
+> >
+> >       /* other properties */
+> >     };
+> > };
+> >
+> > The reg property is the 4 CS lines and spi-rx-bus-width having 4 items =
+means
+> > that the controller has four SDI lines (the value <1> could be differen=
+t if
+> > each data channel/device was dual or quad SPI).
+> >
+> > This goes along with what jic23 suggested about making it similar to
+> > what we do with daisy-chaining.
+> >
+>
+> Since last week I have been testing  the approach you and jonathan sugges=
+ted,
+> handling the multiple device support within the driver and using the mult=
+iple
+> data lane. Additionally, I have included the ancillary device to manage
+> the devices individually when required (and to make it easier to write
+> and read using regmap), but some other problems came up:
+>
+> * When addressing the devices/channels individually, I would like to
+> select only the respective SDI lane on each transfer, but with the
+> ancillary interface there's no way to define a rx lane mapping.
+>
+> e.g: If we want to read a register from the device 2 (index 1), the
+> ideal scenario is to activate only the SDI1, so the controller writes
+> the right value into the read buffer. Without this mapping, we get
+> the trash from the lane SDI0.
+>
+> can we add some new parameter to set the rx/tx lane mapping in the
+> devm_spi_new_ancillary_device()?
 
-Changes in v3:
-  - add more descriptive commit message
+I don't think we should be using devm_spi_new_ancillary_device() here,
+but rather add more to struct spi_transfer to allow selecting a
+specific CS line in the multi-data-lane case.
 
- drivers/remoteproc/xlnx_r5_remoteproc.c | 48 +++++++++++++++++--------
- 1 file changed, 34 insertions(+), 14 deletions(-)
-
-diff --git a/drivers/remoteproc/xlnx_r5_remoteproc.c b/drivers/remoteproc/xlnx_r5_remoteproc.c
-index 45a62cb98072..652030f9cea2 100644
---- a/drivers/remoteproc/xlnx_r5_remoteproc.c
-+++ b/drivers/remoteproc/xlnx_r5_remoteproc.c
-@@ -899,17 +899,18 @@ static const struct rproc_ops zynqmp_r5_rproc_ops = {
- };
- 
- /**
-- * zynqmp_r5_add_rproc_core() - Add core data to framework.
-- * Allocate and add struct rproc object for each r5f core
-+ * zynqmp_r5_alloc_rproc_core() - alloc rproc core data structure
-+ * Allocate struct rproc object for each r5f core
-  * This is called for each individual r5f core
-  *
-  * @cdev: Device node of each r5 core
-  *
-  * Return: zynqmp_r5_core object for success else error code pointer
-  */
--static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
-+static struct zynqmp_r5_core *zynqmp_r5_alloc_rproc_core(struct device *cdev)
- {
- 	struct zynqmp_r5_core *r5_core;
-+	const char *fw_name = NULL;
- 	struct rproc *r5_rproc;
- 	int ret;
- 
-@@ -918,10 +919,15 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
- 	if (ret)
- 		return ERR_PTR(ret);
- 
-+	ret = rproc_of_parse_firmware(cdev, 0, &fw_name);
-+	if (ret < 0 && ret != -EINVAL)
-+		return ERR_PTR(dev_err_probe(cdev, ret,
-+					     "failed to parse firmware-name\n"));
-+
- 	/* Allocate remoteproc instance */
- 	r5_rproc = rproc_alloc(cdev, dev_name(cdev),
- 			       &zynqmp_r5_rproc_ops,
--			       NULL, sizeof(struct zynqmp_r5_core));
-+			       fw_name, sizeof(struct zynqmp_r5_core));
- 	if (!r5_rproc) {
- 		dev_err(cdev, "failed to allocate memory for rproc instance\n");
- 		return ERR_PTR(-ENOMEM);
-@@ -932,6 +938,11 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
- 	r5_rproc->recovery_disabled = true;
- 	r5_rproc->has_iommu = false;
- 	r5_rproc->auto_boot = false;
-+
-+	/* attempt to boot automatically if the firmware-name is provided */
-+	if (fw_name)
-+		r5_rproc->auto_boot = true;
-+
- 	r5_core = r5_rproc->priv;
- 	r5_core->dev = cdev;
- 	r5_core->np = dev_of_node(cdev);
-@@ -941,13 +952,6 @@ static struct zynqmp_r5_core *zynqmp_r5_add_rproc_core(struct device *cdev)
- 		goto free_rproc;
- 	}
- 
--	/* Add R5 remoteproc core */
--	ret = rproc_add(r5_rproc);
--	if (ret) {
--		dev_err(cdev, "failed to add r5 remoteproc\n");
--		goto free_rproc;
--	}
--
- 	r5_core->rproc = r5_rproc;
- 	return r5_core;
- 
-@@ -1280,6 +1284,7 @@ static int zynqmp_r5_core_init(struct zynqmp_r5_cluster *cluster,
- 			if (zynqmp_r5_get_rsc_table_va(r5_core))
- 				dev_dbg(r5_core->dev, "rsc tbl not found\n");
- 			r5_core->rproc->state = RPROC_DETACHED;
-+			r5_core->rproc->auto_boot = true;
- 		}
- 	}
- 
-@@ -1304,7 +1309,7 @@ static int zynqmp_r5_cluster_init(struct zynqmp_r5_cluster *cluster)
- 	enum rpu_oper_mode fw_reg_val;
- 	struct device **child_devs;
- 	enum rpu_tcm_comb tcm_mode;
--	int core_count, ret, i;
-+	int core_count, ret, i, j;
- 	struct mbox_info *ipi;
- 
- 	ret = of_property_read_u32(dev_node, "xlnx,cluster-mode", &cluster_mode);
-@@ -1390,7 +1395,7 @@ static int zynqmp_r5_cluster_init(struct zynqmp_r5_cluster *cluster)
- 		child_devs[i] = &child_pdev->dev;
- 
- 		/* create and add remoteproc instance of type struct rproc */
--		r5_cores[i] = zynqmp_r5_add_rproc_core(&child_pdev->dev);
-+		r5_cores[i] = zynqmp_r5_alloc_rproc_core(&child_pdev->dev);
- 		if (IS_ERR(r5_cores[i])) {
- 			ret = PTR_ERR(r5_cores[i]);
- 			r5_cores[i] = NULL;
-@@ -1435,16 +1440,31 @@ static int zynqmp_r5_cluster_init(struct zynqmp_r5_cluster *cluster)
- 		goto release_r5_cores;
- 	}
- 
-+	for (j = 0; j < cluster->core_count; j++) {
-+		/* Add R5 remoteproc core */
-+		ret = rproc_add(r5_cores[j]->rproc);
-+		if (ret) {
-+			dev_err_probe(r5_cores[j]->dev, ret,
-+				      "failed to add remoteproc\n");
-+			goto delete_r5_cores;
-+		}
-+	}
-+
- 	kfree(child_devs);
- 	return 0;
- 
-+delete_r5_cores:
-+	i = core_count - 1;
-+	/* delete previous added rproc */
-+	while (--j >= 0)
-+		rproc_del(r5_cores[j]->rproc);
-+
- release_r5_cores:
- 	while (i >= 0) {
- 		put_device(child_devs[i]);
- 		if (r5_cores[i]) {
- 			zynqmp_r5_free_mbox(r5_cores[i]->ipi);
- 			of_reserved_mem_device_release(r5_cores[i]->dev);
--			rproc_del(r5_cores[i]->rproc);
- 			rproc_free(r5_cores[i]->rproc);
- 		}
- 		i--;
--- 
-2.34.1
-
+>
+> * This driver registers a regulator and a GPIO provider associated with
+> the main SPI device. Can we register them for each ancillary device too
+> or this is not allowed? I am still confused on how to handle this kind
+> of situation.
+>
