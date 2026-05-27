@@ -1,82 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21BB426EDA
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5AC4381B15
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:26:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779898914; cv=none; b=ROr/Oo7YqFOUarNArZWC0Veehp3DbJI8zzj1ab7b4is4rJCvyrqlApukiq4X5PspT6aslyX4Ed9HIpbbRdU8jBVKsZSZ0MOKPjfx9Do0X/7T5WaDAadztktMG3fDcQQjtrEpWH4riTACHayaXsKJRFevn70rjCrtn8+lCCk/L8w=
+	t=1779899163; cv=none; b=nuuSRPxgIDZkT3jC3TjrQbR17rhdC78wFGhrd0RHULbidcSQbkzWglQq0FDyQh0PlGJAu2sRV5Bcr4JSgUYgMVWNOIvQB886VOvISYp/BOdxjv5p3z0B2i8AXI2CSLEGNhDYhKizLEvKEx4uHTD25KcS/k0VkA79AmRKqJ7VeyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779898914; c=relaxed/simple;
-	bh=zc/BrRX6BDzOZ1YxVqm6B33Dd86tu453/aG5x7by2Ek=;
+	s=arc-20240116; t=1779899163; c=relaxed/simple;
+	bh=SnjR+18E/woBqLFJeFD+ah4X3sbuE63zcqqLF6ObtTQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kmarE4cKtbZ1v+S1Vmwu9pSfu1vOzx8QQtx2iUYbq5OiWlpwrJ0vbbUZF96VAd0L/tHGjqcYZ9X4yNA95jHy4dr1/rx8Mgp2e9uEgHt0YczKrRAG1G1MKRWIIDUeoMCuixnqjzLtlrZC3s1Avxwg4KajTmcVT/I3X7pl6WCl2ss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P41/TPXz; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P41/TPXz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 591191F00ADF
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779898913;
-	bh=zc/BrRX6BDzOZ1YxVqm6B33Dd86tu453/aG5x7by2Ek=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P41/TPXzjKCimocX2l+68xKVYLMQD2YFpgRnY8N95Jn9yNOi1yXTdaams4CJab49O
-	 bX2ZaZys0qJ+rca4L6XTxpTwg2SW1F51yFoZOHDInvjFUOAaS2KPfgFRA1UvoLQgVX
-	 On6byVttJQ3khgpcDI5UnvlOIls7rPsFiOc821kso1A1SJ+Wl0pHSqBjaVtn4Wl3tl
-	 g8ySCprcy41UoQjBQYm0+IEky/9tU0P/cALgnmFxvT1zYK927Dk9PGxRd/B1Gt0W/n
-	 zSn35gq7XfCyNMBEBmJOyVU1WPljsJ8qfpisHiRIHdJ0c+cLfQAGBnQgty7dyXDTwX
-	 RUaLFUHeSe3jQ==
-Received: by mail-lf1-f45.google.com with SMTP id 2adb3069b0e04-5aa4b50e054so1083441e87.1
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:21:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/l7VluynxuUeDbJDafHs5RfNenKhaIymXwnEsbMtoC+OvzW742EP3ZCXmm2NZPXVH+B+y/py7AQ7NG@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsoXu8e5DpcS+f4AELYtH5msrXr3k4BEXOrEeokD5s5iTFLf0y
-	tnCYIfKw4neYkAg+vUQ6sLA+L/SqD/Jf1mg6WmhWx0fItGW6NY2bWHFpi5sdxMLUU+KPwuWG3IH
-	ECQSrWW0k1yOkqZ0jCJUPJlAyViMYcV0=
-X-Received: by 2002:a05:6512:2201:b0:5a8:86a6:c476 with SMTP id
- 2adb3069b0e04-5aa323843dcmr6639602e87.37.1779898912083; Wed, 27 May 2026
- 09:21:52 -0700 (PDT)
+	 To:Cc:Content-Type; b=TOxzioAZF0zVTN6gIRkebYR3a2fA8tS8VGQpFbptkTnk5EkejMBGvdR9fCP0w893LeqQi8Ic39xP074VL+6L5E9aJFukOxQtKPDoOPoxQILx/YjmBGTKVR+wsrKtY6uRCCRYcZX2M67zYRthLVMFXTNnimRYqRVDK0xrvstpgcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-5945b781ddfso732915e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:26:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779899160; x=1780503960;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GnuiomlN+3bt21g7lET2lZDG8m6jvnNl0Hl3T4tvwkM=;
+        b=sijRWwpKA2qqikxqkHpwPefrbYmLDu6HY8t2X1j99pWAWRpE1GAg0VX1bgQyOVbMW7
+         hNfb4IzvYVNUiNBowA1wuWQKQiqBKG5D2NUcbtuCoYm/yb+gVjxnJk+kM3xU2lCxRqcs
+         akaiIvVHmcu6U91SoJh2BlQoB81UB7/6vJXyXJWsK9YIo0HvRYThMxnx17R01WwJgQyC
+         fsA8I+T4B1QKuDX3KPHlncqTjSKA2vpGzjmF4lk9JZdEFRvK/mLwzx7yD2NIDsRJ2ODA
+         y4/mZNN4YwT/MCFw4Xw+E+5d2n+F6RmgdcitLryOHWyx/w1rdLCVJQaYFTO6YDL4zK52
+         LDow==
+X-Forwarded-Encrypted: i=1; AFNElJ8g3BiEev46ffpFCcqv2+whWgQvQzSvkfcps6vIWJr4/jDwxgZ3oAKKo3s1EpC+Hp4bmmSd4R6he45j@vger.kernel.org
+X-Gm-Message-State: AOJu0YyK2JPBuAV+nX+6Sn3ntc6uvgPyAjOWCROi/ykRZim/HbTu0Dje
+	rjc0FbdOivFhk5jaalvpgBZsm9rtw3d2GuxYi3AK8l0iZ3H7LE/VF4corF2rakaGReI=
+X-Gm-Gg: Acq92OGKQop6z6imV2AWeQlxKpsgr5xMkL4l3dWEhvuyuBT+lJYwdzPVClbnSBjnyR3
+	GcJNZdq4ZjKGUfNU3d+oNGgB2bTjIuXODQbuLgv5p4zmkualF7qsz6J9CfO8mpBOYJcJN/XDIZH
+	JuXRWeQeF9T6p+8Yzz5KZRiGzurafWV1mFYgJNn1GDIYW6hlw0pn3v5YWN2llGBzQP7IlP9suEW
+	CSHOu3nndydRe1ab1JHqihL3acXHC0P2flRnxpH3raN6qfIJBb7zh5PwSdljAsG/yUh2lxX9f8Y
+	na/j8bUh0z202ZLp4BZEECTG9JCp+XM8ZJivlvnBCyQeGGgbezx+vc9fPWAOuFRAUh4BfpQF1y2
+	sboFdSmBjUSBg7o2CqnAPU0AeBWCsQM4froorOqR1uJWeNkbpI9dm80lxXv4sXukW9iPdOEAQ0l
+	iqmcexPtGfqfhQ0/7vDCUcdL39ak0wc7vQVFEFGnRA26m8jfboLs5J5t7KalIz4vzM7ydaB1k=
+X-Received: by 2002:a05:6122:e26d:b0:56f:7e8a:a395 with SMTP id 71dfb90a1353d-586890d0b09mr6755356e0c.1.1779899160499;
+        Wed, 27 May 2026 09:26:00 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f8f6cd40sm21977932e0c.16.2026.05.27.09.25.59
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 09:26:00 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-63201e0d6b8so9791817137.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:25:59 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9vLut0ZdjOz2hjYxDqbtJHWO6AfbBAsv4i5gu6dz83kxL48MaQ981nHrU5p+vUFwpjLcAUycYNDnj2@vger.kernel.org
+X-Received: by 2002:a05:6102:6208:10b0:64e:3424:cd45 with SMTP id
+ ada2fe7eead31-673c3721467mr4815172137.9.1779899159467; Wed, 27 May 2026
+ 09:25:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260523173251.72540-1-manishbaing2789@gmail.com> <20260523173251.72540-2-manishbaing2789@gmail.com>
-In-Reply-To: <20260523173251.72540-2-manishbaing2789@gmail.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 27 May 2026 18:21:39 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=5GoXqgRCmH=f1btY3eToi3_wMBJEarohJuZhyKxowJg@mail.gmail.com>
-X-Gm-Features: AVHnY4JfnnRkXYHTThwWUKLSwG3QzP6v1BK1Sk1xyc9ylqzeUPifpk0-WhZKh-8
-Message-ID: <CAD++jL=5GoXqgRCmH=f1btY3eToi3_wMBJEarohJuZhyKxowJg@mail.gmail.com>
-Subject: Re: [PATCH v4 1/2] dt-bindings: mfd: st,stmpe: Add missing properties
- for PWM subnode
-To: Manish Baing <manishbaing2789@gmail.com>
-Cc: lee@kernel.org, ukleinek@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com, 
-	linux-pwm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-stm32@st-md-mailman.stormreply.com, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Conor Dooley <conor.dooley@microchip.com>
+References: <20260505123708.134069-1-biju.das.jz@bp.renesas.com> <20260505123708.134069-6-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260505123708.134069-6-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 18:25:48 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXtSJ3U=MrjzxHtpgO-Ft=kTboVWxAJH6kz0hK-KU1rSg@mail.gmail.com>
+X-Gm-Features: AVHnY4ICQLP0jO2jEFhcBh5XmFSnxbx19hs7FwLBMbR98i6jT5eSMp8jWc6rv10
+Message-ID: <CAMuHMdXtSJ3U=MrjzxHtpgO-Ft=kTboVWxAJH6kz0hK-KU1rSg@mail.gmail.com>
+Subject: Re: [PATCH 5/5] arm64: dts: renesas: r9a08g046l48-smarc: Enable audio
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
 Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, May 23, 2026 at 7:33=E2=80=AFPM Manish Baing <manishbaing2789@gmail=
-.com> wrote:
+Hi Biju,
 
-> The st,stmpe-pwm binding is already covered by the MFD schema in
-> Documentation/devicetree/bindings/mfd/st,stmpe.yaml. However, the
-> PWM subnode was missing a 'required' properties block. This allowed
-> Device Tree nodes to pass validation even if the 'compatible'
-> string was omitted. This omission could lead to probe failures
-> at runtime.
+On Tue, 5 May 2026 at 14:37, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
 >
-> Fix the schema by adding the missing 'required' block.
+> Enable audio on RZ/G3L SMARC EVK by linking SSI0 with DA7212 audio CODEC.
+> The SSI0 signals are multiplexed with SD2 and are selected by a switch
+> SW_SD2_EN#. Add regulator nodes regulator-{1p8v,3p3v} to SoM DTSI for
+> reuse with eMMC.
 >
-> Signed-off-by: Manish Baing <manishbaing2789@gmail.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> Acked-by: Uwe Kleine-K=C3=B6nig <ukleinek@kernel.org>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Thanks for your patch!
 
-Yours,
-Linus Walleij
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+> @@ -9,6 +9,7 @@
+>
+>  /* Switch selection settings */
+>  #define RZ_BOOT_MODE3          0
+> +#define SW_SD2_EN              0
+>  #define SW_DPI_EN              0
+>  #define SW_GPIO4               0
+>  #define SW_I3C_EN              0
+> @@ -38,6 +39,32 @@ aliases {
+>                 i2c3 = &i2c3;
+>                 serial3 = &scif0;
+>         };
+> +
+> +#if !SW_SD2_EN
+
+"&& !SW_I3C_EN"...
+
+> +       snd_rzg3l: sound {
+> +               compatible = "simple-audio-card";
+> +               simple-audio-card,name = "snd_rzg3l";
+> +               #address-cells = <1>;
+> +               #size-cells = <0>;
+> +
+> +               ssi_link_play: simple-audio-card,dai-link@0 {
+> +                       reg = <0>;
+> +                       format = "i2s";
+> +                       bitclock-master = <&cpu_dai>;
+> +                       frame-master = <&cpu_dai>;
+> +                       mclk-fs = <256>;
+> +
+> +                       cpu_dai: cpu {
+> +                               sound-dai = <&ssi0>;
+> +                       };
+> +
+> +                       codec_dai: codec {
+> +                               sound-dai = <&da7212>;
+
+... as i2c3 where da7212 resides is protected by !SW_I3C_EN.
+
+> +                               clocks = <&versa3 1>;
+> +                       };
+> +               };
+> +       };
+> +#endif
+>  };
+>
+>  &i2c2 {
+> @@ -53,6 +80,27 @@ &i2c3 {
+>         pinctrl-names = "default";
+>
+>         status = "okay";
+> +
+> +       da7212: codec@1a {
+> +               compatible = "dlg,da7212";
+> +               reg = <0x1a>;
+> +
+> +               clocks = <&versa3 1>;
+> +               clock-names = "mclk";
+> +
+> +               #sound-dai-cells = <0>;
+> +
+> +               dlg,micbias1-lvl = <2500>;
+> +               dlg,micbias2-lvl = <2500>;
+> +               dlg,dmic-data-sel = "lrise_rfall";
+> +               dlg,dmic-samplephase = "between_clkedge";
+> +               dlg,dmic-clkrate = <3000000>;
+> +
+> +               VDDA-supply = <&reg_1p8v>;
+> +               VDDSP-supply = <&reg_3p3v>;
+> +               VDDMIC-supply = <&reg_3p3v>;
+> +               VDDIO-supply = <&reg_1p8v>;
+> +       };
+>  };
+>  #endif
+
+> @@ -85,9 +138,28 @@ scif0_pins: scif0 {
+>                 pins = "SCIF0_TXD", "SCIF0_RXD";
+>                 power-source = <1800>;
+>         };
+> +
+> +       ssi0_pins: ssi0 {
+> +               pinmux = <RZG3L_PORT_PINMUX(H, 1, 9)>, /* SSIF0_BCK */
+> +                        <RZG3L_PORT_PINMUX(H, 2, 9)>, /* SSIF0_RCK */
+> +                        <RZG3L_PORT_PINMUX(H, 3, 9)>, /* SSIF0_TXD */
+> +                        <RZG3L_PORT_PINMUX(H, 0, 9)>; /* SSIF0_RXD */
+
+Please sort by pin.
+
+> +       };
+>  };
+>
+>  &scif0 {
+>         pinctrl-0 = <&scif0_pins>;
+>         pinctrl-names = "default";
+>  };
+
+The rest LGTM.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
