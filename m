@@ -1,105 +1,139 @@
-Received: from mail-vk1-f176.google.com (mail-vk1-f176.google.com [209.85.221.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5370540C5C5
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 13:41:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2A193AE1BD;
+	Wed, 27 May 2026 13:44:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779889267; cv=none; b=mgd0lQD4L8ZFjYa6jHULrLj6dvpW5et6dltNj87tE6Rmcj23W8OVCY4vID4qJxsP1JXJzBZV7mlwv3zX/Ba/ipz1mh7VsSfPmctZzR9wgNpDDzEohoQCuenIRnf4262Ql7F3Xa3bAm3RW7FskQ82JlUTKdNnUQkxe6t8+BTB5sk=
+	t=1779889446; cv=none; b=WMJEVKWQp0YeqcsGXVeYqXtCOdq63O5FQ99Kxh40hzIYxdJXbANPA0CTQd3EVPeD8buoCJ5HXeOlpRHC2kY+5NWlOHOqGzqYtVQOcvSQUtnj1CviNbewSoa/c5fN0/SV/fJ4MLHF4fMMVUvYxt1fJzDfuxMepiiDWl6ts3SyEoU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779889267; c=relaxed/simple;
-	bh=mEcrfUMvusxTikKtH8K1dnfTNnQJfa+aFYGiWe/y/NM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RFDd+4Cz7iWY/11JYlOoFy7ekLD093SzKIlGHjyLI/rSvje88hvqslcSxZ2BHNZkD04tq1aanAVl5s9EMiax4yDfBnzn/1OguBNVfw2VIrkVO8prqknhv/oixMTfbw+XAhkZSSwCfzk8ooqteJYoJywLJlXGQZgzs1p7s+GNPUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f176.google.com with SMTP id 71dfb90a1353d-57746408b3eso7170891e0c.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:41:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779889260; x=1780494060;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bNs9y+loQ3B7k+4+DTGFYd+r0HnydJFAxPOIKSPX9Cg=;
-        b=KhUW/10NNkDLUi4GxPDlOJsCuIEmduu/g4w1t5AocCtS73T6lVMh9HB3dHB6MuR4rt
-         TnXBzLBrKff8tQ1glo7OFyRn10pefyBXadfUmRGo79uAsrrE+uvUOoH+zmSpt0e/ibbh
-         FAcREVDQ+jG479TIUWEHA1JH514X/IHYAeBbLCNndtcXS4A2TlBOVyQY4lyA7rCNTxWs
-         bbL1FnKGYVdy3ot/Jukpo4c3pFNefa0lJ1pqW6oI3LZN7bnh7jbWSPeyG1F32DrrfM+1
-         ZDRRJSwy3Ojm7Hv8mNm1w7vbtfuaeqCxfI8Q3yjIiQK+MpJZNX3bYq64Fc37OFla+oCF
-         7dJw==
-X-Forwarded-Encrypted: i=1; AFNElJ/I0uBoftQwKTy3IqbDCrn5mgzhQziO+M23qMyqCjF61fXtqwkwdEWIBU3yXt4XONuY4NzaFswQHqLT@vger.kernel.org
-X-Gm-Message-State: AOJu0YyVUK2ZY7eiPLE+CYU6hAr7XFrw6szQewxj/23mw2wI1nF36WGP
-	JvKnbtVfUGw6Hih6gdRXZxKLr3bVw7BZN7+oafDoklORQIP22VbNPl8QpgEeCSIUM4w=
-X-Gm-Gg: Acq92OENs+SQCrzNrhEZ/NajAStk/W5dfvEJhVoH7piLwXriG6XDngSumCuJFlGaWfW
-	JX0TCU3guuYmreP+Cw+utMDWAELTqaQG715wc4NmgO+D+nH34hQodrvwcd3qhkVy0RVjdgL8Xeu
-	QmXPajmuoXqzLw2k7EVDMaE4ZgFKmXLGv4DhUPF6qx1WAQ39WHS9fDJYo5a0gRjyiLPjbo1fBW/
-	BcDiNe+T7SvfaaQBS8KaY3vJ+YfhbGu2m0LFqO4SxF7dwFghTpTYb9hUblExeeB5+XtU4qzsZA2
-	3MCZ8xlNim6Xa1C/xmdUnFJBw1M3lPe0mwpbz8g94m2CZeLky10GyWQSqoIE5/gj5x9hEL1sxWL
-	hHl813EaSUtWwX1Xi7IH79e5iXnuq/+UfvXB/XKakVU4HimNAAXFD04SybuXPPXPeCAzSnIJkHo
-	thfx84xUFkBVELZfbF3HMaOdPdyUGE7WO97sbPEZm0foeWI0/OzxtT0bvSPmiW
-X-Received: by 2002:a05:6122:32c5:b0:575:2ac3:4166 with SMTP id 71dfb90a1353d-5865fdf6488mr12004584e0c.6.1779889259778;
-        Wed, 27 May 2026 06:40:59 -0700 (PDT)
-Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f23ee48esm20065695e0c.3.2026.05.27.06.40.59
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 06:40:59 -0700 (PDT)
-Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-63145ce291bso9078446137.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 06:40:59 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/HBm8rtJUt6cMqzKF18ToSMpW4R5rWHPhW0zOBhuBeeFQqszzBqodAW83ALN3pdOaVFGkoWPYru3ge@vger.kernel.org
-X-Received: by 2002:a05:6122:32c5:b0:575:2ac3:4166 with SMTP id
- 71dfb90a1353d-5865fdf6488mr11991906e0c.6.1779888899429; Wed, 27 May 2026
- 06:34:59 -0700 (PDT)
+	s=arc-20240116; t=1779889446; c=relaxed/simple;
+	bh=B9uKDCmuE+HIELsxBmZ3MrYYA+QztaM8DICspZlqOKE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cFR8fqqU+RZAShy3SxJ8n4EINIPaM3kMXwETLnISxhz+QWmEkJGSRfREVPnAdMa4re0OBF8rDlWGsKI4E6LCezM+e6cXlziRU1q+q4SKkvLtzE9QF3K6wQ94v85VfcdMr2j1CcRfIMOIzo6ZtJBKYhd91jO1btFpZEysZUnWCHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ys+Ks2OR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ys+Ks2OR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E34E1F000E9;
+	Wed, 27 May 2026 13:43:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779889438;
+	bh=ManTLR8cnSqPRzXSHvGGL9dszH+Gg40OZ2hHPnTSUFw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Ys+Ks2OREIDkyVb/ydbR35kFybCJlsdSwM5yTaq8bGwg26wBLGRsnay09YHYNqcVs
+	 trcDxvICwyrtJ36NdlKlfZls3xBp0Dcxo8h4TkD32zQbSI4b0v8tLEtc9Bdx6WAUEn
+	 PrMFymT9kF+3D5rtPw/4oOKZ05YvaSV6UtDahcs+nhllzC9I7fijiENsfC5Vkd2JKi
+	 If0ghTVjA9gvk61zq2ghhxZpgtr+7QXh5FELs0SyvQJ075rhK0j5EPr3qibRS8Zknl
+	 j+3Rv+hZeYqJVMzFc70wa3QiaOFapfAxC8TUdEAJ3M1f7z68ZvAC/i651bxg8ElIuW
+	 9EgPq5K9OQvJw==
+Date: Wed, 27 May 2026 14:43:53 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Neo Chang <YLCHANG2@nuvoton.com>
+Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org,
+	krzk+dt@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+	neo.chang70@gmail.com, kchsu0@nuvoton.com, sjlin0@nuvoton.com
+Subject: Re: [PATCH v3 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
+ amplifier
+Message-ID: <d4cf4ad9-82fb-4beb-be5b-b3687f822fcf@sirena.org.uk>
+References: <20260526015826.440769-1-YLCHANG2@nuvoton.com>
+ <20260526015826.440769-3-YLCHANG2@nuvoton.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-rcar-du-dsc-v3-0-164157820498@ideasonboard.com> <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
-In-Reply-To: <20260515-rcar-du-dsc-v3-1-164157820498@ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 15:34:48 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXQ5TDEx1Qj+3_LAGLrgNkiYxADkDox70pApZUtbam9Jw@mail.gmail.com>
-X-Gm-Features: AVHnY4JU-pRdfRlPcY6GhkzF7rJsa1sewBAKfT1mHVG-dL_G2g5Q1LYyK6-SKY8
-Message-ID: <CAMuHMdXQ5TDEx1Qj+3_LAGLrgNkiYxADkDox70pApZUtbam9Jw@mail.gmail.com>
-Subject: Re: [PATCH v3 1/7] clk: renesas: r8a779g0: Add DSC clock
-To: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
-Cc: Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Andrzej Hajda <andrzej.hajda@intel.com>, Neil Armstrong <neil.armstrong@linaro.org>, 
-	Robert Foss <rfoss@kernel.org>, Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, 
-	Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Magnus Damm <magnus.damm@gmail.com>, Marek Vasut <marek.vasut+renesas@mailbox.org>, 
-	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>, 
-	Kieran Bingham <kieran.bingham+renesas@ideasonboard.com>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, linux-renesas-soc@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="VqmZj1l8twwgh5fH"
+Content-Disposition: inline
+In-Reply-To: <20260526015826.440769-3-YLCHANG2@nuvoton.com>
+X-Cookie: You are fairminded, just and loving.
 
-On Fri, 15 May 2026 at 11:10, Tomi Valkeinen
-<tomi.valkeinen+renesas@ideasonboard.com> wrote:
-> From: Marek Vasut <marek.vasut+renesas@mailbox.org>
->
-> Add the DSC module clock for Renesas R-Car V4H (R8A779G0) SoC.
->
-> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen+renesas@ideasonboard.com>
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-clk for v7.2.
+--VqmZj1l8twwgh5fH
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Gr{oetje,eeting}s,
+On Tue, May 26, 2026 at 09:58:26AM +0800, Neo Chang wrote:
+> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
+> stereo 30W+30W smart amplifier with an integrated low-latency
+> Advanced Audio DSP.
 
-                        Geert
+A few things below, you also have a bunch of what look like legitimate
+issues picked up by sashiko (some of which overlap with what I've got
+below):
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+   https://sashiko.dev/#/patchset/20260526015826.440769-1-YLCHANG2%40nuvoto=
+n.com
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> +static int nau8360_peq_coeff_get(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+
+=2E..
+
+> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
+TEST,
+> +		NAU8360_HW1_MEM_TEST);
+> +	for (i =3D 0; i < params->max / sizeof(u16); i++) {
+> +		value =3D snd_soc_component_read(cp, reg + i);
+> +		*(val + i) =3D cpu_to_be16(value);
+> +	}
+> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
+TEST, 0);
+> +
+> +	return 0;
+> +}
+
+
+> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
+> +	struct snd_ctl_elem_value *ucontrol)
+> +{
+
+> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
+TEST,
+> +		NAU8360_HW1_MEM_TEST);
+
+=2E..
+
+> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_=
+TEST, 0);
+
+We use an rwsem to protect the controls from userspace so we could get
+more than one caller in these, you need some driver local locking.
+
+> +static int nau8360_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx=
+_mask,
+> +	unsigned int rx_mask, int slots, int slot_width)
+> +{
+> +	struct snd_soc_component *cp =3D dai->component;
+> +	struct nau8360 *nau8360 =3D snd_soc_component_get_drvdata(cp);
+> +	unsigned int tx_slot_used =3D 0, rx_slot_used =3D 0;
+> +	int ret =3D 0;
+> +
+> +	if (slot_width !=3D 16 && slot_width !=3D 24 && slot_width !=3D 32) {
+> +		dev_err(cp->dev, "Invalid TDM channel length: %d", slot_width);
+> +		return -EINVAL;
+> +	}
+
+This stops the support for disabling TDM from working, a slot_width is
+required here. =20
+
+--VqmZj1l8twwgh5fH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoW9RkACgkQJNaLcl1U
+h9AOAwf/XCpGenqAsg5VdLiNBYcT/3lty5A1czozWimgLpuXdu6a8xLeqFCYlOfQ
+ECzRk/arz8HxuonhicRhMQ45lzA3O56D67Y1X1ajLIQLkaiqlmSILTesbQ9xFRyQ
+y3LSIqCcZA15FWDEHjFI9y9OpkIiht5PSSzoxEl27991Do8FkGrcizSgU/DTlfiD
+Y5D7Wp5Zbx4BIxwWsxtkG54n207YmMUBETfsaLbmn6rijv9OISrfXFAAdP4YNMmM
+aCF3r7e+lpamW5PAaiUdQp8cKntSu36zHGeY0SmkhAhMU/ClR6TB0ZdnI6YT+DPT
+2axvsMhw+oCPaBVr3+Pb4eQFgzyX+w==
+=IE9q
+-----END PGP SIGNATURE-----
+
+--VqmZj1l8twwgh5fH--
