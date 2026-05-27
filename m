@@ -1,112 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5FE4779B9;
-	Wed, 27 May 2026 18:17:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A6E147DFAA
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:17:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779905828; cv=none; b=UpsAFQ1AYvwRhsxidUm8lpBrMbgwDDSlLZiYLZ79cKeg49E0Nlg4Ol3QuJmcqzwKe1fRWuSkL3xcUdKtaqzi7Kwo9LHBATT1FgvWwSl+TLMwE2vmk9hEQUrZMZh4t0lc6/sUq8OZoPUF4lUZdBhZyzxirVGuyounaW434lYTjbo=
+	t=1779905830; cv=none; b=D3L8WYZhGX8IJlk5NkocsLSiQsb0zu5quvT6ZdgZQN/87wwCjoI/kTfJ1OOaRr71aL8IqLxkiDRy/07M5pVoGJrlfDMyN55bmBd9B/8oFLWhmv/z72Wh/nLX+efLgwjPEydZXXYKxiMzrdYtJOMqTKdmGhiWuI7SQOwMpmv3TnI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779905828; c=relaxed/simple;
-	bh=Nsk+GVLQ3mIBG4ZEiIFRLZZ3GB9aWQKBr/9/euxOoow=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cweaISweUPPXDLiYCTXXclAkLpGuD899RABEz6yIO+2U1WU/kNnUbW1u/rvop+PGVE+sQtBPXWnALTfflCX7GyCiZVFbxFUA95ZWmbUPf7lX67xwZD3AY4H03OUh7eslNG1k4vFW+QyLtKuaxIUKK7JOvpBwJCw9x1grZ4jli/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JovogSyJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779905830; c=relaxed/simple;
+	bh=3XqTHUN12lMP4GNKQm5fyb5aE70+5gy4KrliWFVf48E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=s2cnVcsD0AeEb+Qyo3L8vthuuTs4rFCFt3nCc8wLQ7DsGtRUM38dLC6Q2T7UWnF4lSYBDl/ivaSM00A/x3o792N5E6lEua4RIzT21H/YkcPgt1ZC84lTXl6spKxqcco02eDLEM41FfcB+Mq6xk5j9c5uIJSILi6748iBjr/18ME=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yl2PBn8c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JovogSyJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2B981F000E9;
-	Wed, 27 May 2026 18:16:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yl2PBn8c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50C6E1F000E9;
+	Wed, 27 May 2026 18:17:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779905826;
-	bh=CjilvsEVVaEMT/HbkP0oG5Yhwf69K/WazrffahsS7BE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=JovogSyJMi3D37m9DdgkgJ8rKdkQNYDj9Jbh4B/JIb6vLvbrdoYuTEmdYQB4C5bCj
-	 JQxBklvTeAZTFeLUbDvDvTHx2MXO4xBiCtCtt8LeoZ1smfdCZGJYsS1tBAxfhttGl4
-	 xkYGHyrMvEMUCPIkSlRPDZYt1QGzYqQPy1x3hvAqqSQFT9Vycp58rLE7r6xp4+l8GD
-	 kYuruqSezkS+X5E10na5EBup9ZL/3T2VgJaOfZ7LNfrMZVlfeuV1DDQW76lp2H888U
-	 FCL/VDRySZniT/LnunznTRV/d3zkBcTwvCH3kCcWJaO3uYfMfSlM3FZXj/stKsBOhH
-	 /SUWIEX+Ggt+A==
-Date: Wed, 27 May 2026 19:16:52 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org>
-Cc: radu.sabau@analog.com, Lars-Peter Clausen <lars@metafoo.de>, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Uwe
- =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?= <ukleinek@kernel.org>, Liam Girdwood
- <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Bartosz Golaszewski <brgl@kernel.org>, Philipp Zabel
- <p.zabel@pengutronix.de>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-gpio@vger.kernel.org,
- linux-doc@vger.kernel.org
-Subject: Re: [PATCH v13 5/6] iio: adc: ad4691: add oversampling support
-Message-ID: <20260527191652.33041b88@jic23-huawei>
-In-Reply-To: <20260525-ad4692-multichannel-sar-adc-driver-v13-5-1b7626d3b35c@analog.com>
-References: <20260525-ad4692-multichannel-sar-adc-driver-v13-0-1b7626d3b35c@analog.com>
-	<20260525-ad4692-multichannel-sar-adc-driver-v13-5-1b7626d3b35c@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1779905829;
+	bh=3wqNqXziVz14bBFTH19HXNwNHqyU96gKjQ8c31km+e0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Yl2PBn8coou2WIoJLB1gTy5ZSAtZzQNlnRkynw6646fq0xaqPscCdtkWN8ECfmaGj
+	 jjDjPviQ+ZRWSKqQ/vGedEFjJoYrNprOIIHOmzhto091hO3VaubnkI0i2kOfxrfHKj
+	 HoQ298uJfVUvCw8XgGW/gsftslCtaE/fQWSRfWDSxiqYKpQ0SbNcGXOglTzp2MzOb8
+	 3AHae4EnysNGRwiJrVtXaXdhPgjrNXDnAkpYzlBDfxtXaP8C0FlkDyaabyC516L1/9
+	 YWmApJ0Akw6BqJVmWzB7HCWieB3xTaX62IljvoNT5rlWJriFWJ2NWNwloTaEwa2T4n
+	 QQtQEhYIMmn+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 07/13] spi: cadence-quadspi: add DQS support to read
+ data capture
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Santhosh Kumar K" <s-k6@ti.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260527175527.2247679-8-s-k6@ti.com>
+References: <20260527175527.2247679-8-s-k6@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 27 May 2026 18:17:08 +0000
+Message-Id: <20260527181709.50C6E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Mon, 25 May 2026 13:10:14 +0300
-Radu Sabau via B4 Relay <devnull+radu.sabau.analog.com@kernel.org> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The patch unconditionally clears the DQS (Data Strobe) bit, introd=
+ucing a hardware regression for platforms relying on bootloader configurati=
+on.
+--
 
-> From: Radu Sabau <radu.sabau@analog.com>
-> 
-> Add per-channel oversampling ratio (OSR) support for CNV burst mode.
-> The accumulator depth register (ACC_DEPTH_IN) is programmed with the
-> selected OSR at buffer enable time and before each single-shot read.
-> 
-> Supported OSR values: 1, 2, 4, 8, 16, 32.
-> 
-> Introduce AD4691_MANUAL_CHANNEL() for manual mode channels, which do
-> not expose the oversampling_ratio attribute since OSR is not applicable
-> in that mode. A separate manual_channels array is added to
-> struct ad4691_channel_info and selected at probe time.
-> 
-> in_voltageN_sampling_frequency represents the effective output rate for
-> channel N, defined as osc_freq / osr[N]. The chip has one internal
-> oscillator shared by all channels; each channel independently
-> accumulates osr[N] oscillator cycles before producing a result.
+commit d5c6dc375c1d0a353b769715e376a353d659f290
+Author: Santhosh Kumar K <s-k6@ti.com>
 
-Sashiko notes this probably needs updating for moving to single osr.
+spi: cadence-quadspi: add DQS support to read data capture
 
-> 
-> Writing sampling_frequency computes needed_osc = freq * osr[N] and
-> snaps down to the largest oscillator table entry that satisfies both
-> osc <= needed_osc and osc % osr[N] == 0, guaranteeing an exact integer
-> read-back. The result is stored in target_osc_freq_Hz and written to
-> OSC_FREQ_REG at buffer enable and single-shot time, so sampling_frequency
-> and oversampling_ratio can be set in any order.
-> 
-> in_voltageN_sampling_frequency_available is precomputed at probe for
-> each OSR value, listing only oscillator table entries that divide
-> evenly by that OSR, expressed as effective rates (osc_freq / osr[N]).
-> The list becomes sparser as OSR increases, capping at max_rate / osr[N].
-> read_avail picks the precomputed list for the channel's current OSR,
-> making the returned pointer stable and race-free.
-> 
-> Writing oversampling_ratio stores the new OSR for that channel and snaps
-> target_osc_freq_Hz to the largest oscillator table entry that is both
-> <= old_effective_rate * new_osr and evenly divisible by new_osr. This
-> preserves an integer read-back of in_voltageN_sampling_frequency after
-> the OSR change while keeping the oscillator as close as possible to the
-> previous effective rate.
-> 
-> OSR defaults to 1 (no accumulation) for all channels.
-> 
-> Signed-off-by: Radu Sabau <radu.sabau@analog.com>
-I didn't find anything else to comment on. LGTM
+This commit introduces a DQS (Data Strobe) parameter to the
+cqspi_readdata_capture() function. It updates the register configuration
+to explicitly set or clear the DQS bit based on the provided boolean flag.
 
-Thanks,
+> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-=
+quadspi.c
+> index 0cc0d648d78db..f4efb92c9446a 100644
+> --- a/drivers/spi/spi-cadence-quadspi.c
+> +++ b/drivers/spi/spi-cadence-quadspi.c
 
-Jonathan
+[ ... ]
+
+> @@ -472,6 +473,11 @@ static void cqspi_readdata_capture(struct cqspi_st *=
+cqspi, const bool bypass,
+>  	reg |=3D (delay & CQSPI_REG_READCAPTURE_DELAY_MASK)
+>  	       << CQSPI_REG_READCAPTURE_DELAY_LSB;
+> =20
+> +	if (dqs)
+> +		reg |=3D BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+> +	else
+> +		reg &=3D ~BIT(CQSPI_REG_READCAPTURE_DQS_LSB);
+
+[Severity: High]
+Could this cause a regression for platforms that rely on the bootloader to
+configure the DQS setup? Prior to this change, the read-modify-write
+operation implicitly preserved this bit.
+
+Because the caller below is updated to pass false unconditionally, explicit=
+ly
+clearing the bit here might lead to a loss of timing margins or immediate
+read failures on platforms depending on the inherited hardware state for
+high-speed DTR modes.
+
+> +
+>  	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
+>  }
+> =20
+> @@ -1313,7 +1319,7 @@ static void cqspi_configure(struct cqspi_flash_pdat=
+a *f_pdata,
+>  		cqspi->sclk =3D sclk;
+>  		cqspi_config_baudrate_div(cqspi);
+>  		cqspi_delay(f_pdata);
+> -		cqspi_readdata_capture(cqspi, !cqspi->rclk_en,
+> +		cqspi_readdata_capture(cqspi, !cqspi->rclk_en, false,
+
+[Severity: High]
+Does hardcoding this argument to false break bisectability? Platforms lacki=
+ng
+a device tree reset line that need DQS might fail here until subsequent
+patches in the series restore proper tuning configurations.
+
+>  				       f_pdata->read_delay);
+>  	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527175527.2247=
+679-1-s-k6@ti.com?part=3D7
