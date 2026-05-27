@@ -1,154 +1,136 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E40FE30CD82
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 19:46:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 451393B19A5
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 19:49:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779911190; cv=none; b=Q6vF0Q7ee7Xm1ZvGcLpNXbyvn2MNlNBaAPLrjwW+vSRDT/DoqxZMGQSFuzMDPIkp3tQLa9A6JFWvU3D7GwlhNp5ZGsAR/iZkSkVSHNLdJU4CWuO2U8YmppVeez1+FnQJkN2eNcwyuQqzeyaQV2/WBZaeGlyF8893FGnUIW/z2cg=
+	t=1779911348; cv=none; b=M1SEL4me6A7aPFRV56/oxQclVbskh0r87GmF0Ih9yoipyh+YRuCMmMmBjrcBLJM1IziOb6wVH1pPzSEf5tEtuR8yLihRKWVnbPKc9fBU89p5aQiN8a18LuT4axvhfa5TJVpVJd729ZTDIm7bpAksD/yybVFseBubKVCFTbC+TYw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779911190; c=relaxed/simple;
-	bh=HdZimIKWXWvncSjt6Zwvpg+4WERJ0n4kv+jMho6uUJo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WB+Rdrm1/NqfQjQ35fbk7DRaOTY/F89arMK0+ABQHL34f+qj6LKg/cC9RPpXFN/nY6By7uVzys+EAjz34n5X6MLQNEZjhhzPsyzufaq8QQhYDODORsLVgzCLbfsG6MQAZxnpwKe+VSBgXtcUoXSNyns6uWSZYttf8UJDzRRrp0M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cn5xLRlv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779911348; c=relaxed/simple;
+	bh=mU6uiEFyPQxOXBAxbhYv5dtc/nadaxFqcLbIz1QvS0c=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=olT0/z0eX9T5Wfj1JXfzowLfA0cum5u0lrUEeMBJPIzMNG/YHqbyP+58Mmq8lY+ZBKWXSglEdmNSzUmq/nM+YP0POyMEFgvwZssAMJeVBw/6U3WBBzPX0kyh8FTBSyPmAfYh+cg7EtJv69M/8Ic8FblbvH9ORTPOXBlrIqEG3Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pinefeat.co.uk; spf=pass smtp.mailfrom=pinefeat.co.uk; dkim=pass (2048-bit key) header.d=pinefeat.co.uk header.i=@pinefeat.co.uk header.b=FhkYpkI5; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pinefeat.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pinefeat.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cn5xLRlv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A3CB41F000E9;
-	Wed, 27 May 2026 19:46:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779911188;
-	bh=a+77pgrAZ/27MigbYpEvE9l61NKznartvvSkwQTgH/k=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Cn5xLRlvjs5H2Eu9yAK9zb8PeWRqXLeF9FQgMmd2CftHqyBZBGimUI24rq4qA5G5g
-	 FIwkgfNgIGYJ6RXdVqw62sKFRiomm9jb795UZmBJEHFt7dr5p5YNeCfTrtnkJSo2xr
-	 RZAr9PMYvhg2Izm8eqX3FOLbPcFCFBS8rffbRh924iAQGJdmLX2bDztv1rf79vCWnb
-	 4srlbUmuEeCVVEycx0WFcp9fyPldf7s4mfXAKzzFMH0zuVCzlefOunfBlaSTO6lB7S
-	 fXRZ55gnYoksvmED6nsHCuxBXXCmefYterRmD1++oI1xWKF5I0h2qpb9GVLf1U6is9
-	 I0TxNtZj/GN9g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/4] dt-bindings: add DTS style checker
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Daniel Golle" <daniel@makrotopia.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <224923f3d1c73ff55cebb3e0796f119e32c1bb43.1779908995.git.daniel@makrotopia.org>
-References: <224923f3d1c73ff55cebb3e0796f119e32c1bb43.1779908995.git.daniel@makrotopia.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 19:46:28 +0000
-Message-Id: <20260527194628.A3CB41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=pinefeat.co.uk header.i=@pinefeat.co.uk header.b="FhkYpkI5"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-44dd5cb0f81so8540994f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 12:49:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=pinefeat.co.uk; s=google; t=1779911344; x=1780516144; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=murMYzJhHVgqoW77Z7JBip36jBDIzldhTLKY2xEPP0E=;
+        b=FhkYpkI5qfvwmmaNIr4LIRp2DeO4vsRbO9D2EOgPoUiwjX6oQYcZVOsrHS1ClDDr/+
+         bTLGJMyqEpe4eTZjIjubty2JGcD9kpCT/gTQ7++JU/d43yszH/F5cLm6Kuc9vYOC78CP
+         B4EhU4mEX2v4TACRiyQXZhfg68Av8tM4R5Ft95KwlDaX5RqAAppieRV20tNGsEeC5CiL
+         vgEnDqCeEF7XDoRrVddSsy4nuql+TLxbPPvxNspIIZGSEIiFoUiT8tftaSMhZBfyqH3z
+         blRko5mHcA+lP+aaDq1TeIwqwlkovDe1R/oCCpKXUU81RJQkyEXLTlN+S0grrkC1iFN2
+         PDbA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779911344; x=1780516144;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=murMYzJhHVgqoW77Z7JBip36jBDIzldhTLKY2xEPP0E=;
+        b=NCHXzG3GWczyBO6HgyqxbI+2/QRaVG5fyn4ulZRbiUhvAp6COoW3czATCvCtCWtkTL
+         aCeYDLWtTu9L3JLJ+VrpEc7AK3mmHaAL+6wUFE9cElOhYqD2reMvVAp+lMW9uqdrjYHr
+         601EKtyqQ0rA3BHo9DGA/V2fAnrYiL4gMDrJT0OffG226I0CGXdI7/21dtdbvblO6I4T
+         rHVEGZrQkat2aPjhx1OVaUk7B++lko31+YG/rRQJO0vRXIuxLRfa+hsRqDmOGO8UCY/M
+         xnkGr3CawZjuETKQZuhFQQeSfLW9wi1JcBY9OajlCHuGZZdZ6FjjjG+tq9FRPJ1zIcak
+         +iUA==
+X-Forwarded-Encrypted: i=1; AFNElJ+66/OXfMatlMPdTAzWtUUQBlG7jnx7Ha9v8CajDLbdX594OrmuFIN50oKl1zkfm8zRmEv8mkE5V4O/@vger.kernel.org
+X-Gm-Message-State: AOJu0YyorZC97Fqy2/NLP/Ili3UeqoKLp+yF4ZNCYzdjpp228w0LCG2a
+	+qTOiytJOIW5U8i0lOkgDRUSXNnVpZds/Z/etjQHjUmGYY3t1bQz5njY8Bwc4TX3bBU=
+X-Gm-Gg: Acq92OFwQGYc0+zADzhavTpqISyrF+r4wwsJySjabPaZ/oU2cVoySfxdFuvpeXm7pha
+	6bAneDxOMwNq+PQfRU6VGrXPJzu1mLy7PA++bGgG6mBIQkIUL+HwbDyeo9g02exqEjP8WnZO2xn
+	7HH3w4JZ3lgclXt6Bpp4/gVuJ9aoj6xeygWuLxAj2W0wb+qmP/KBC3imnUlAo+1mjA1xwhuzHKl
+	pb5iBVwepy2qsTmMHf+rC5vEvJFDyloKkSdB+HaYzm+tl82SmQQdTztcA6EeCrDkpYyRUqfGmwi
+	7vDULdD0CkRGV9in7SDkDlI+3c+8nvIt1btDv9h3Snr8lAHqmo3QU49QkI9xWGvn4ms8ftlBlCH
+	haY0gg4HaeIO+affRlIqBasqkLCD5CPfFqJyJF3fFzvuhEIrfNqsqA9uWBoh7z4hlGFvylI/PKH
+	kd949mCaRk8oeEs1SeWN/JSFmeotdQDMFNemq4b1zrLvrFjj04Dzcs
+X-Received: by 2002:a05:6000:25c8:b0:45e:b9b4:c68d with SMTP id ffacd0b85a97d-45eb9b4c854mr35834119f8f.4.1779911344513;
+        Wed, 27 May 2026 12:49:04 -0700 (PDT)
+Received: from asmirnov-G751JM.Home ([2a02:c7c:b28c:1f00:bf97:2b98:8a4a:b714])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5a2a73sm8011158f8f.22.2026.05.27.12.49.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 27 May 2026 12:49:04 -0700 (PDT)
+From: Aliaksandr Smirnou <asmirnou@pinefeat.co.uk>
+To: alen.karnil@ideasonboard.com
+Cc: asmirnou@pinefeat.co.uk,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	hverkuil@xs4all.nl,
+	jacopo.mondi@ideasonboard.com,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-media@vger.kernel.org,
+	mchehab@kernel.org,
+	robh@kernel.org
+Subject: Re: [PATCH v6 0/2] Pinefeat cef168 lens control board driver
+Date: Wed, 27 May 2026 20:49:03 +0100
+Message-Id: <20260527194903.10296-1-asmirnou@pinefeat.co.uk>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <cb202484-3a53-4821-b1bd-5f910e0cd953@ideasonboard.com>
+References: <cb202484-3a53-4821-b1bd-5f910e0cd953@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] `check_mixed_indent_chars` incorrectly flags property continuati=
-ons and block comments as mixed indent violations, causing widespread false=
- positives.
-- [Medium] Multi-closure lines (`}; };`) break tree traversal in structural=
- checks.
-- [Medium] Regex ordering in `collect_labels_and_refs` corrupts label detec=
-tion when strings contain comment sequences.
---
+On Wed, 27 May 2026 12:45:26 +0100, Alen Karnil wrote:
 
-commit d397a00edbe5f6dcccc252ff4744ba16b6e2e91d
-Author: Daniel Golle <daniel@makrotopia.org>
+> > Could you provide the build error logs and the overlay files generated
+> > by the tool before you modified them?
+> using the configure.sh tool with imx477
+> imx477_378-overlay.dtsi
+> ...
 
-dt-bindings: add DTS style checker
+The files generated after running the configure.sh tool look correct and
+match mine exactly.
 
-This patch adds a Python tool that checks DTS coding style on examples in
-YAML binding files and on DTS source files. It introduces rules defined in
-a declarative registry for relaxed and strict mode checking.
+> If put these into my kernel build I get:
+> 
+> $ make dtbs
+>    DTCO     arch/arm64/boot/dts/overlays/camera-mux-2port.dtbo
+> arch/arm64/boot/dts/overlays/imx477_378.dtsi:26.20-31.3: ERROR 
+> (duplicate_label): /fragment@200/__overlay__/pca@70/i2c@1/cef168@d: 
+> Duplicate label 'vcm_node' on 
+> /fragment@200/__overlay__/pca@70/i2c@1/cef168@d and 
+> /fragment@200/__overlay__/pca@70/i2c@0/cef168@d
+> ERROR: Input tree has errors, aborting (use -f to force output)
+> make[3]: *** [scripts/Makefile.dtbs:142: 
+> arch/arm64/boot/dts/overlays/camera-mux-2port.dtbo] Error 2
+> make[2]: *** [scripts/Makefile.build:544: arch/arm64/boot/dts/overlays] 
+> Error 2
+> make[1]: *** [/home/admin/linux/Makefile:1498: dtbs] Error 2
+> make: *** [Makefile:248: __sub-make] Error 2
 
-> diff --git a/scripts/dtc/dt-check-style b/scripts/dtc/dt-check-style
-> new file mode 100755
-> index 0000000000000..2d5723d41ea39
-> --- /dev/null
-> +++ b/scripts/dtc/dt-check-style
-[ ... ]
-> +        if re_only_closures.match(code):
-> +            closures =3D code.count('}')
-> +            depth =3D max(depth - closures, 0)
-> +            dl =3D DtsLine(i, raw, LineType.NODE_CLOSE, indent_str, code)
-> +            dl.depth =3D depth
-> +            dl.closures =3D closures
-> +            out.append(dl)
-> +            prev_complete =3D True
-> +            continue
-[ ... ]
-> +def check_property_order(ctx):
-> +    """Properties within a node body must appear in canonical order:
-[ ... ]
-> +    for i, dl in enumerate(lines):
-> +        if dl.linetype !=3D LineType.NODE_OPEN:
-> +            continue
-> +        body_depth =3D dl.depth + 1
-> +        props =3D []
-> +        for j in range(i + 1, len(lines)):
-> +            d =3D lines[j]
-> +            if d.linetype =3D=3D LineType.NODE_CLOSE and \
-> +                    d.depth =3D=3D body_depth - 1:
-> +                break
+It looks like a different Makefile is being used. In the cef168
+repository's Makefile, there is no dtbs target. Also, our Makefile is
+only 27 lines long, while the log output indicates the error occurs at
+line 1498.
 
-[Severity: Medium]
-When a line contains multiple closures like "}; };", classify_lines()
-decrements the depth by the number of closures.
+Could you please ensure you are using the Makefile provided in the cef168
+repository?
 
-Will this cause the depth to drop by 2 or more, skipping the exact
-termination condition of d.depth =3D=3D body_depth - 1?
+> >> there needs to be some further discussions on how we could
+> >> improve the user experience when it comes to enabling the vcm with
+> >> camera sensors.
+> > 
+> > I agree. I started the discussion on the Raspberry Pi forum, but the
+> > driver needs to be merged first before moving forward with that.
+> Sure that makes sense, lets focus on the driver for now.
+> > 
+> > https://forums.raspberrypi.com/viewtopic.php?p=2318070#p2318070
+> 
+> Also you will most likely need to update the patch since the line 
+> offsets have moved to work 6.18
 
-It looks like tree traversal in structural checks like check_property_order=
-()
-or _walk_bodies() might miss the end of the node body and improperly mix
-properties from different siblings.
-
-[ ... ]
-> +def collect_labels_and_refs(text):
-> +    """Return (defined_labels, referenced_labels) found anywhere outside
-> +    /* */ comments and string literals. Labels named fake_intc* (injected
-> +    by dt-extract-example) are skipped."""
-> +    # Strip block comments first so labels inside them don't count
-> +    stripped =3D re.sub(r'/\*.*?\*/', '', text, flags=3Dre.DOTALL)
-> +    # Strip line comments
-> +    stripped =3D re.sub(r'//[^\n]*', '', stripped)
-> +    # Strip string literals so words inside quotes (e.g. "Error: foo")
-> +    # are not picked up as label definitions or &-references.
-> +    stripped =3D re.sub(r'"(?:[^"\\]|\\.)*"', '""', stripped)
-
-[Severity: Medium]
-Since comments are stripped before string literals, does this break if a
-string literal contains sequences like // or /*?
-
-If a string contains a URL like "http://..." or a /* sequence without a
-closing */, the comment regex might activate inside the string and consume
-valid source code and labels up to the next */ somewhere else in the file,
-causing false positives for the unused-labels check.
-
-[ ... ]
-> +def check_mixed_indent_chars(ctx):
-> +    """Indent must be all-spaces or all-tabs, never mixed on one line."""
-> +    for dl in ctx.lines:
-> +        if not dl.indent_str:
-> +            continue
-> +        if dl.linetype =3D=3D LineType.PREPROCESSOR:
-> +            continue
-> +        if ' ' in dl.indent_str and '\t' in dl.indent_str:
-> +            yield (dl.lineno, 'mixed tabs and spaces in indent')
-
-[Severity: Medium]
-Does this code flag legitimate property continuations or block comments as
-mixed indent violations?
-
-Multi-line property continuations in DTS typically use tabs for base
-indentation and spaces for visual alignment under a specific character,
-which is an alignment pattern expected by check_continuation_alignment().
-
-If check_mixed_indent_chars() flags these, it might cause widespread false
-positives in the default relaxed mode.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779908995.gi=
-t.daniel@makrotopia.org?part=3D1
+Will do. Should I update the patch before or after your review?
