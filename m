@@ -1,93 +1,132 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54B183DEAFC
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:06:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03AF73E5EC7;
+	Wed, 27 May 2026 09:06:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779872818; cv=none; b=ifWa0wpAIDG1A2jXRix9TSg8nJjgRy8E386Hum4F6rbTZLfnqBH+OFG2ALC+8VxAOpIFn+K3TwSbicqmSCoDmRSQIfmMkSSfZUHvfoICaVh6SFvYy4GnnW/z+oLs9EGf6BgOZvJbQz7nlWreXHjOAjQuHbEGfAKvXgxjPYyALjw=
+	t=1779872820; cv=none; b=UupQck3CZ+9DFq7pD3tViekgF6+iIKXqYLzQC1NuTBpr6T/ZerHG4QkRqooSXaXmfUMjgCUSEOkcL/O54z+AR7Rg0KKuRdsIzRcHOqPCQBo8n1vmEl+SdtPYT8VnZ04uc7tkdCJaMJIUWHr/gf3aYVdBPnnSYeo/V8mpqPA0jA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779872818; c=relaxed/simple;
-	bh=R+L9rApsUvM114JxMJcVGi9mkkcwmIrklypO215KDrA=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=GKYf396xKKLjYo02Z3u5/zKExh11E50YfAYlReQGcSBebVaRDCRuZuE5MWbvZBbDAXW7NAPsCTpdcf5iwuqpa5vpqkj18VDf/BL7TUl/Zj95qj+shRbzqQd8tQXdW2JZ6jdy5XCUEBFDSXrXrajITaTOyBbOSW76qpZ/udTzyD4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=qhPldFNd; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1779872820; c=relaxed/simple;
+	bh=OQVJZfwHpXN0n/v7h29x/cHNl444YSA1UCol0sqqDpM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=PDc61mwv2X2632KVqmvLoMYffwx2w4vgfnecJQC+CAIurc/3UKk6LALNfVnYEqDtrOhhNMJVuXJ/6/gBZLp1+oQnJ5+rsc7A2Q5l89CzcDqym/ocMExC5Svso/GxbjX4nO2ddHnkHcB8wZq7Uc7TVxIAD8IHMUklVJ0G7lC6ItQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nkMAgueW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="qhPldFNd"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 91738C2C643;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nkMAgueW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AE9A1F000E9;
 	Wed, 27 May 2026 09:06:54 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CAA7B601A1;
-	Wed, 27 May 2026 09:06:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EFCD81088845E;
-	Wed, 27 May 2026 11:06:50 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1779872814; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=0a/+PfGMT4nGVYJzfWGP+b1yQsfSh6fdeD4bxph3NkY=;
-	b=qhPldFNdc/avpvYFSkY+2yo8oNUvjDEcwBrLPde6M8Wn+S3m8zWI0l+6kBMV3YoeQsXVds
-	KwZjcX8vWzXBa2paW9j/ZfQB55SKs2Ez/0jkXLU6I+u+Xo5aAeS4RazfcQ/YFCwokxsW64
-	KtclivLVwIzYV3qoOF+22xFixwLc9wU1DEnQyopq7nxAP+FCtx5Z4cjYAQ15M19gpJv9we
-	5W6x/mhcaliPJA3LnXzpvBT/cXdtEBK8+oq9fEISa1x5P45bRUMBFVSc4BFp1s9ob+o2xV
-	LU7x87JCskJJDvbboB/slcPeC7YFccZk03yEUvDfB4QfYl4rBg6SbctpPN65Xg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: richard@nod.at, vigneshr@ti.com, robh@kernel.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, Cheng Ming Lin <linchengming884@gmail.com>
-Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, alvinzhou@mxic.com.tw, 
- Cheng Ming Lin <chengminglin@mxic.com.tw>
-In-Reply-To: <20260505013453.980249-1-linchengming884@gmail.com>
-References: <20260505013453.980249-1-linchengming884@gmail.com>
-Subject: Re: [PATCH v10 0/3] mtd: spi-nand: Add support for randomizer
- feature
-Message-Id: <177987281081.3978880.9593755261770176193.b4-ty@bootlin.com>
-Date: Wed, 27 May 2026 11:06:50 +0200
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779872818;
+	bh=Ka6yC3QrHcEkiDk7alcfHWrv6N92oBkr2LoopdWzh7Q=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=nkMAgueWuwGVRv0HOVp+lcKpTELX8upnzcUnPp3tNS1p4S4x3iB0NS5KSyHXzMvnZ
+	 aU5hGJKwUyxUBQw9g7fSNZ5y5tcrYKNLK3B6/rwV6+3HeuuxhcBz2ZX/F9pUWTbYEs
+	 YBXBgRwY6uB7lRQlxxo4kXrb8nMhy0IW616dPfsdF77zbHaCcp8btD4JhIBUMknHW5
+	 d4MeuIJM7GJ6F9oDQ4lwUHJ54+SaJ0awD7/Q+RHUMGNY2hz/iqIRk0dcT6pWDCChqm
+	 s7UovzhkqzWyRU6o+5nu0ShMvqjiHijzNY+q6XTIE8y5xkfFep41mW8bJMOwb8w2ql
+	 lnOkwlcwQq+JQ==
+Message-ID: <a35b5300-c5f4-4af7-b566-194724451d37@kernel.org>
+Date: Wed, 27 May 2026 12:06:52 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 9/9] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+ claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260522102251.1723392-1-claudiu.beznea@kernel.org>
+ <20260522102251.1723392-10-claudiu.beznea@kernel.org>
+ <ahBMKWrKQDko3cG8@shikoro> <fb892151-33e5-4bb2-9a01-9abebe0f3b39@kernel.org>
+ <ahXQnt4MTVoBB9bF@shikoro>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <ahXQnt4MTVoBB9bF@shikoro>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Mailer: b4 0.14.3
-X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 05 May 2026 09:34:50 +0800, Cheng Ming Lin wrote:
-> From: Cheng Ming Lin <chengminglin@mxic.com.tw>
+Hi, Wolfram,
+
+On 5/26/26 19:55, Wolfram Sang wrote:
+> Hi Claudiu,
 > 
-> This patch series introduces randomizer support for SPI NAND devices.
+>> Could you please let me know what do you consider we should do here? Do you
+>> think we could drop these pin controller setting and do some particular I3C
+>> controller settings instead?
 > 
-> - Patch 1: add the nand-randomizer property to the generic nand-chip.yaml
->            bindings. Instead of using boolean properties, it introduces a
->            uint32 enum (0 or 1). If the property is omitted, the driver
->            will not interfere and will leave the randomizer in its current
->            state.
-> - Patch 2: add the initialization logic and the set_randomizer callback
->            to the core framework. The core will now parse the device tree
->            properties and enable or disable the randomizer accordingly
->            during spinand_init.
-> - Patch 3: implement the set_randomizer callback specifically for Macronix
->            chips (MX35LF/UF series) to handle the vendor-specific register
->            operations.
+> My original thought was: If it was a boolean state which is active when
+> suspending and disabled when resuming, then we wouldn't need a customer
+> specific binding for it and just do this in the suspend/resume functions
+> of the pin-controller...
 > 
-> [...]
+> ... BUT ...
+> 
+> reading more about this in the manual, just raises more questions for
+> me.
+> 
+>> The output is fixed at Hi-Z and no data is transmitted to the inside even if
+>> data is input from outside. “Standby mode” is available when using I2C mode
+>> only. (Not available when using I3C mode).
+>>
+>> The current driver proposal don't take into account the IP mode when setting
+>> STBN though
+>> pinctrl_pm_select_sleep_state()/pinctrl_pm_select_default_state() to keep
+>> the code simpler, relying on the "Not available when using I3C mode" part of
+>> the note, and considering setting it when the IP is in I3C mode is harmless.
+> 
+> This is one question I also had: What does "not available" actually
+> mean? Did you confirm with HW guys that it is really harmles?
 
-Applied to nand/next, thanks!
+I asked this yesterday, but I don't have an answer to it.
 
-[1/3] dt-bindings: mtd: nand: Add nand-randomizer property
-      commit: cf496ebf1380bde700c5d1790c31919eea2f4851
-[2/3] mtd: spi-nand: Add support for randomizer
-      commit: 874aa8e4b8307cd922979c20dc78df26c05f3c28
-[3/3] mtd: spi-nand: macronix: Enable randomizer support
-      commit: 474ef6c5196a2d923c75cb318aa83ba790bd381f
+In my testing I haven't noticed any issues with it.
 
-Patche(s) should be available on mtd/linux.git and will be
-part of the next PR (provided that no robot complains by then).
+> 
+> I also wonder about the intended use-case of this mode. "no data is
+> transmitted to the inside even if data is input from outside" doesn't
+> really sound like a mode intended when the whole SoC goes to sleep.
 
-Kind regards,
-Miquèl
+Indeed, that's why I chose in the driver to touch it though the runtime PM APIs, 
+so it can be configured after the I3C IP is no longer used.
+
+> Why
+> or how would input be even transmitted to the inside if everything is in
+> a deep-sleep state? I could also imagine that this mode is rather used
+> to hide from the bus for a while for some corner-case reason.
+> 
+> And finally: does this really save energy? 
+
+I don't expect. I'm not sure I can measure it. I also asked to the HW team.
+
+> Could you measure a benefit?
+> Maybe there is nothing driven at all in the sleep state? Then, nothing
+> is gained? Not clear from the datasheet.
+> 
+> Because the datasheet is so sparse with information and because it
+> doesn't say how STBN is intended to be used, I would argue we should
+> skip it until we know what it is for and how it is used. If we know this
+> somewhen, we can still add this in a second step.
+
+OK for me.
+
+> 
+> But for now, enabling I3C realiably is the first step, and for that we
+> surley need the POC bit to select the voltage. This is easily
+> understandable and straightforward to do. So, my suggestion is to pick
+> this low-hanging fruit now and reach for the other one once we have more
+> information about it.
+
+OK, I'll re-spin this dropping the STBN feature until further clarification.
+
+-- 
+Thank you,
+Claudiu
 
