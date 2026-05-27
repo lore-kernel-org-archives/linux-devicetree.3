@@ -1,87 +1,104 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.154.123])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA993D6674;
-	Wed, 27 May 2026 08:31:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.154.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BA6E3D25CD;
+	Wed, 27 May 2026 08:35:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779870677; cv=none; b=C6YrBUN3sq5I0GYBuhlL38pd1Pc1W7VKzXyD53+c0kcz+J6hmlVGaG7a7it4Z3IylZ0kRxnn4bE3A7a1HCEJdS3cU72mgHjp/ge1OkSeLE30XqA/9RZn01e27hcpJunqc5tdQPqqYcDx+atUxeXcZkY6ayv9ocUhMl+MVRCzQfk=
+	t=1779870918; cv=none; b=JCCFhK0Vvm3Q6qcYG0YIcWMP/v2EbnWFK7P4BN/GD2M8e2WRxF0D90O7+KkC9/wWTSapf9fsNqdLH0kWIvMys9TgX5RqYPxt8yYbZH8P7ziVHhRGpHcT+Ar2zV7qrVMPcUBIohi1h+Fc2s1RfcJiLTLTViihscy7HePFSAx20Yg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779870677; c=relaxed/simple;
-	bh=09TXuC5fKbZdFp+f9xtXwp5BwX+bYf+Ug39FqgbJPnc=;
-	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=GoxOqYeJJ9pSI0UdsWzRJ4v0JU+CAMX7w4TLnH+YX7Rn+8QjRqI/pOV4y+6dkVVs8EC9wYwVfKAcGCP9bl9OG3wXNfU+Vobrhi4z7xLArKzSzqKeZqIBFBdYGnaDVGLA1rp4knIn3xk61fHhs/AumeMdrKWjmQyY6ZF9Iyd1w0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=TWKROYsT; arc=none smtp.client-ip=68.232.154.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1779870918; c=relaxed/simple;
+	bh=Vx8cnE7qi8aFnqifDne0YAAqBpcVn3CaVw9INMTnLpc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OQbjAiSl+t9Stzbwwq+qtRY9YR6nZGHEHE0pSGNT8gbitROt7DX+6hCGEtgD3j9uGPz9fHarANwQZnWv8jQUVhpkOsJjwdLrZfwdtdTXkKOf+Cx9kFm3vu6uohhNBVgcFemyuNnhR2vf+rdv6saZT5fe7Ya3Wnrtd0tDQU0Jv9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgQaaD4T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="TWKROYsT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1779870676; x=1811406676;
-  h=message-id:subject:from:to:cc:date:in-reply-to:
-   references:content-transfer-encoding:mime-version;
-  bh=09TXuC5fKbZdFp+f9xtXwp5BwX+bYf+Ug39FqgbJPnc=;
-  b=TWKROYsTFp4TiG9p8oFlZ8/bJz7W/cVYsPxKmli/DLSNVBmClIDplKMW
-   dEnQKuhW1fBmxSpE5NZcrPYNEfnEaADQpO0Rx2317gteR99lD3Frhj9ou
-   FwIR0ThAPxVkRTGXulyQmazZ6eeHowX9paAT7hn0qlAXwq4XHTcq7rFTh
-   9lbkWuiMAxf6NOOMo1B42JNrb9Y3TGZMPCuo0zaDO7gkd3bONy+jQXbWX
-   FqmmuVN4oErW8Il2DIMnB+rw/0+pFsqr0I/QWAIjoschthozHnm+9upYT
-   IYCT/zDKATY9L8rCNpqSgDxETP4ewmrallH0WPZxvAuYW4inSU7MObT0+
-   g==;
-X-CSE-ConnectionGUID: KfDAldWzTjKG4xEpgldQ/g==
-X-CSE-MsgGUID: B6JMc4m3Re2W/jD1ei5olg==
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; 
-   d="scan'208";a="57323780"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa4.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 May 2026 01:31:15 -0700
-Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
- chn-vm-ex3.mchp-main.com (10.10.87.32) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.41; Wed, 27 May 2026 01:31:14 -0700
-Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
- chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
- 15.1.2507.58 via Frontend Transport; Wed, 27 May 2026 01:31:11 -0700
-Message-ID: <9966d2140f0bd8b73d771da89b8b64cda925e4a3.camel@microchip.com>
-Subject: Re: [PATCH net-next v5 0/9] net: dsa: add DSA support for the
- LAN9645x switch chip family
-From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
-To: Jakub Kicinski <kuba@kernel.org>
-CC: <UNGLinuxDriver@microchip.com>, Andrew Lunn <andrew@lunn.ch>, "Vladimir
- Oltean" <olteanv@gmail.com>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>, "Simon
- Horman" <horms@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, "Woojung
- Huh" <woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>,
-	"Steen Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
-	<daniel.machon@microchip.com>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <devicetree@vger.kernel.org>
-Date: Wed, 27 May 2026 10:31:10 +0200
-In-Reply-To: <20260522190417.53ab9cc4@kernel.org>
-References: <20260518-dsa_lan9645x_switch_driver_base-v5-0-968fbf34ffa3@microchip.com>
-	 <20260522190417.53ab9cc4@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.44.4-0ubuntu2.1 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgQaaD4T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5EC1F000E9;
+	Wed, 27 May 2026 08:35:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779870916;
+	bh=M06HIPdd2IUezENrjzGwyWPgmEB4K4h1Br8XdiToDDk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=dgQaaD4TJmo17ETVT65PojO6wY0EUG/abrhQ4Xvi9TA5ZVx/NSC2gr5iSuhMsGm9q
+	 vW6tQHRnkTYGJHNeQe7A4iJNzr6rQQnA94UTMequsmN8qsPzTupHX5wbM/naO81/w6
+	 gh8uDAA2V7Luz4Y9mpjhPr5YJLOtRC0aIaOVpf5xdIZamc7av7JeEZta6SZyZymx/n
+	 MHXnkAfbEB46domYvF2B4pW3uM30q4mel4wk6UHjmFzvjEvOdM1NMIEeXP+TFB7l7Q
+	 dXWFoTEdjD+wJXFow0Pi8qqjf8MP1X2U3HJk3hAxDeiEzqJd8PwhiX1bA17ql93bFx
+	 11Z6RSE9SGHZA==
+Date: Wed, 27 May 2026 10:35:13 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
+	Fabio Estevam <festevam@gmail.com>, Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Frank Li <frank.li@nxp.com>, Abel Vesa <abelvesa@kernel.org>, Peng Fan <peng.fan@nxp.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, imx@lists.linux.dev, 
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, linux-clk@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>
+Subject: Re: [PATCH v9 1/3] dt-bindings: clock: imx95-blk-ctl: Allow child
+ nodes
+Message-ID: <20260527-simple-nice-mole-99c909@quoll>
+References: <20260526-csi_formatter-v9-0-ca3d8c334c39@oss.nxp.com>
+ <20260526-csi_formatter-v9-1-ca3d8c334c39@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260526-csi_formatter-v9-1-ca3d8c334c39@oss.nxp.com>
 
-On Fri, 2026-05-22 at 19:04 -0700, Jakub Kicinski wrote:
-> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
-e content is safe
->=20
-> On Mon, 18 May 2026 14:24:55 +0200 Jens Emil Schulz =C3=98stergaard wrote=
-:
-> > This series provides the Microchip LAN9645X Switch driver.
->=20
-> Looks like this needs a rebase.
+On Tue, May 26, 2026 at 04:57:20PM +0800, Guoniu Zhou wrote:
+> Add support for child nodes in the imx95-blk-ctl binding to match
+> the driver implementation which calls devm_of_platform_populate().
 
-I will rebase, and post v6.
+This is a new device, not a legacy, so you do not have exception to
+document things post factum.
 
-Thanks,
-Emil
+> 
+> Add #address-cells, #size-cells properties and patternProperties
+> to allow child device nodes with their own bindings.
+> 
+> Signed-off-by: Guoniu Zhou <guoniu.zhou@oss.nxp.com>
+> ---
+> Changes in v9:
+> - New patch to address the issue of formatter acting as a child node of syscon
+> ---
+>  .../devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml          | 11 +++++++++++
+>  1 file changed, 11 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> index 27403b4c52d6..33ad1c15cc9c 100644
+> --- a/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> +++ b/Documentation/devicetree/bindings/clock/nxp,imx95-blk-ctl.yaml
+> @@ -39,6 +39,17 @@ properties:
+>        ID in its "clocks" phandle cell. See
+>        include/dt-bindings/clock/nxp,imx95-clock.h
+>  
+> +  '#address-cells':
+
+Use consistent quotes, either ' or "
+
+> +    const: 1
+> +
+> +  '#size-cells':
+> +    const: 1
+> +
+> +patternProperties:
+> +  "^.*@[0-9a-f]+$":
+> +    type: object
+> +    description: Child nodes with their own bindings
+
+No, you need SPECIFIC children listed here.
+
+Also, description is completely redundant. You did not say anything
+useful here.
+
+Best regards,
+Krzysztof
+
