@@ -1,196 +1,128 @@
-Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com [209.85.222.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34E4E366557
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 15:31:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B7425D215;
+	Wed, 27 May 2026 15:32:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779895909; cv=none; b=IHZvoxgHK76Pfp+0neb/VOwpo/UfnBGP+lmv4EeqlpEpMDA6w7IMvl8BhO4SXgMSclC9bII+V8ewqn/DapzRJBktk1W4ul+Iw8LBv1xEBpBC1Y01udeMm+vPB3FYwB4VRrg7D8BoigdegOMp4joCeomVmm5MtlG+GnHoGT6dbBE=
+	t=1779895925; cv=none; b=mZhEbgAQDQDY0QDKF0ShnfUZx6UoAKUH2ZYgcRA3lSgy0ACZbjyIV2xxWJhsUKkLQRq+00nrp95IktWmbueJ2Yma7qtRDtdlSH6+lVbRxULrRfS2Aqel1UMZMrVZwvODTrggkXC8KrpdrsRZlXRDQc2Uoh9bDYo9H03WMs8JZSM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779895909; c=relaxed/simple;
-	bh=Ai8Gc0M9Ll15iapnKmt/9wTra1TFQlAJ8XHoXUJSQ/4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fhkoskdOSziOeWaRXhG0mrvdWkG+Tgyv30BuTy9DMXrViPgNtI629z3FSOd4wWHI2klj5vU7jtQ10BS4Nvt38KHCvuNxaHmI+OX4qc1IHON6B4MJQsDBbX7TQ7uuQp3JRl5DdlOuXYv3DA2I5je2upJ3yEHSm+ttBdl2pBRyvTw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-96358d0a024so302948241.3
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:31:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779895906; x=1780500706;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=cIlRZgCVpGMi8akEWxP8kXEJKnwQumISGZeYfvbOEPY=;
-        b=F41VCph2TPtpXdOfJXi4H1bObWQ3jYKtsAcKr+LxUoGmbi2hQp2KdPSlb4zeBISExU
-         hG7yyN13OH7EeAcIaKd3a7kqvTExiylWOR5LJoz5KavvAAx/mHsYBB9kylnEVl8j19lP
-         QF+vs7I69pfXPi17XsajkMMLwJ2+3E8VY2LzZIvlTxWImynTT2W6l353AyfozeV2kz1N
-         KtTPuDxPD5pxesin79syXcENzONi5M6VYK6SQmN5xCBZql53YeyIrhE96Pp/OoGCCN5A
-         D1KB2LfEAcLOieYZ9IV66gvXwv16nprFT+A2ta503rgUZyLZZkidu7p0pdrEBUQF8fGe
-         2Q7Q==
-X-Forwarded-Encrypted: i=1; AFNElJ/3WnY4JHU22mHmKskiAA4YFmmPog1kgY5KqXL0TMdq84JhlIUpUp95O4hIYNrb2itm8C0zxB0jVp2A@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMQy62LoAm88e5mY/cRtxXw9F3mKO1d26x/pj+4NHJrFHFC/Vn
-	NFwgVDG9f5WTCZsaf4TD+4NqTOHcbJtGDJjLd/Xm9DKG+5T/96FvSXdyIRMCDpm9aCE=
-X-Gm-Gg: Acq92OHRcKsSid4KEr7GP54PuqedGsVUB5pcocyw0k1VYGlYdhqsBb4BP8tJ67uSphq
-	3nZmXlfHGPw/1c8XuwBDrw64L9MjFJgiM8wcdYEFue+0lBJRWYlJheBTYpOUXCmcAtNCwLd0nr2
-	3NPsZWXC7/SnWZUamQF6O62veOKpKGO7Raq/zFIN3sbDJq7F0379Fzq2zJRiPebZQy0/nTeMszb
-	O+iL6y8DtZeg+VIFp/uf9yEKIB9soSZbmafJD/LK2VdSx5x4HOV8VXWZTldC1QPM8U15EMeZM3l
-	f3+GOL5Pkv5rPME/wVe7ecotrxf0NssegjjQg8mykUe8pUugzMjbZQx7tGKH0cDZOzt0UR4nIcq
-	+Q9tVUEWjS4eCyYlcoKuWv/wsi3vj3tpMfi1eWJPJgQn68aj0ZLim3XfLSkW4/ewOJVB7RCBRcM
-	QSLoWlILTnHXNwoG4KBvajyW4g/YGaFYQNrlHHrhP6cu1BGX2f+HzluZFR+9S+hJd2
-X-Received: by 2002:a05:6122:ca3:b0:575:33d4:d101 with SMTP id 71dfb90a1353d-5865e69bf5bmr12883364e0c.2.1779895906380;
-        Wed, 27 May 2026 08:31:46 -0700 (PDT)
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com. [209.85.221.171])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f2f79814sm21245268e0c.6.2026.05.27.08.31.41
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 08:31:41 -0700 (PDT)
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-5873983d19eso5102066e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 08:31:41 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+UedNd5ZxOQxPUTgTefwqywmB9ojTFC6AsUsVGB9iIZ+XwuzJaH3gYoc8IwjJPplQeeVD8nZFYymOU@vger.kernel.org
-X-Received: by 2002:a05:6122:390c:b0:575:19a7:ae16 with SMTP id
- 71dfb90a1353d-58662da22a6mr12763319e0c.11.1779895900700; Wed, 27 May 2026
- 08:31:40 -0700 (PDT)
+	s=arc-20240116; t=1779895925; c=relaxed/simple;
+	bh=5nHLKp+sy0tnxXWnqkXfQhkOAjPNcQzLML8Vz6khoVA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XTXi5UEmta7yuvfXdOqKEMut5g7yAR7Pp3JbAEERZGaWzEc4YNYMkSoBLQrEFzbDwVw+V8a5M29LFjRmCu9MpCumuLi2G+aQ3gTMUO+dJYsMHa3CkUbRtjj0ptW3xVhsHVyI8711u4KXO4t1lvyIYV7vGkeh6L30O/jZ1n+JnjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FaGGD42N; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FaGGD42N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4D1B1F000E9;
+	Wed, 27 May 2026 15:31:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779895922;
+	bh=sPB3GQXOChiJjIRbQ0GadVrki7VxeBUCGhJ+IYPxXck=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FaGGD42Nqlqm9Nyx82W2AqDxkvBm80X77FAB3xKsnB+oVYWMGraAhP/mSIhzds8aU
+	 rAdVdkgfpXi0zfoMtLHCnzHMYI8h4wVrNIJvZi0GpukC0Z2xP0WEMx4b6piMpwuxwu
+	 Swrth+betjV7a3t+m6opjKJfj7sE8+8RGsReZVZp3AKobeajhKzNfp8QFh5rFW28c0
+	 6QJjLJdtNa7ndhmgSLFzIHNshPz7tSIbDpSsmNU/Vu7pBO4OR3fw6ioR4bUcHlyQgG
+	 vC11omiC6aVPZvCoxV6Ww88fHKvZdxYEjcPgf6jrBhhFmPTd09gPa3EsJdTZ6SrZ8h
+	 oy6tsLFZtmWSw==
+Date: Wed, 27 May 2026 16:31:48 +0100
+From: Lee Jones <lee@kernel.org>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Mark Brown <broonie@opensource.wolfsonmicro.com>,
+	Thierry Reding <thierry.reding@avionic-design.de>,
+	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>,
+	Saravana Kannan <saravanak@kernel.org>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>,
+	Michael Ellerman <mpe@ellerman.id.au>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	"Christophe Leroy (CS GROUP)" <chleroy@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
+	Robin Murphy <robin.murphy@arm.com>,
+	Doug Berger <opendmb@gmail.com>,
+	Florian Fainelli <florian.fainelli@broadcom.com>,
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Thomas =?iso-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Peter Chen <peter.chen@kernel.org>,
+	Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Maximilian Luz <luzmaximilian@gmail.com>,
+	Hans de Goede <hansg@kernel.org>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org,
+	linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+	iommu@lists.linux.dev, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	intel-xe@lists.freedesktop.org, dri-devel@lists.freedesktop.org,
+	linux-usb@vger.kernel.org, linux-mips@vger.kernel.org,
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH 15/23] mfd: tps6586: use platform_device_set_of_node()
+Message-ID: <20260527153148.GC712405@google.com>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+ <20260521-pdev-fwnode-ref-v1-15-88c324a1b8d2@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260505070206.7932-1-biju.das.jz@bp.renesas.com> <20260505070206.7932-4-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260505070206.7932-4-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 17:31:28 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXQxaiGKV+M2fZFnrL0cn6HZnm8KMU_FrpuLOOr23JEXg@mail.gmail.com>
-X-Gm-Features: AVHnY4Lz-MCYK5IOf1GJVId8mM5byVTdsE82uuKVoBZTNLn4QsNmoS3qjRzNJzE
-Message-ID: <CAMuHMdXQxaiGKV+M2fZFnrL0cn6HZnm8KMU_FrpuLOOr23JEXg@mail.gmail.com>
-Subject: Re: [PATCH 3/4] arm64: dts: renesas: r9a08g046l48-smarc: Add gpio keys
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-15-88c324a1b8d2@oss.qualcomm.com>
 
-Hi Biju,
+On Thu, 21 May 2026, Bartosz Golaszewski wrote:
 
-On Tue, 5 May 2026 at 09:02, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> RZ/G3L SMARC EVK  has 3 user buttons called USER_SW1, USER_SW2 and
-> USER_SW3. Instantiate the gpio-keys driver for these buttons by
-> removing place holders and replacing proper pins for the buttons.
->
-> The USER_SW{1,2,3} configured as wakeup-source, so it can wakeup the
-> system during s2idle.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+> Ahead of reworking the reference counting logic for platform devices,
+> encapsulate the assignment of the OF node for dynamically allocated
+> platform devices with the provided helper.
+> 
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-Thanks for the update!
+Acked-by: Lee Jones <lee@kernel.org>
 
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> @@ -7,10 +7,18 @@
->
->  /dts-v1/;
->
-> -/* Add place holder to avoid compilation error with renesas-smarc2.dtsi */
-> -#define KEY_1_GPIO             1
-> -#define KEY_2_GPIO             2
-> -#define KEY_3_GPIO             3
-> +/* Switch selection settings */
-> +#define RZ_BOOT_MODE3          0
-> +#define SW_DPI_EN              0
-
-The macro SW_DPI_EN is active-high...
-
-> +#define SW_GPIO4               0
-
-... but the macro SW_GPIO is active-low?
-
-> +
-> +#define PMOD_GPIO4             0
-> +#define PMOD_GPIO6             0
-> +#define PMOD_GPIO7             0
-> +
-> +#define KEY_1_GPIO             RZG3L_GPIO(J, 3)
-> +#define KEY_2_GPIO             RZG3L_GPIO(6, 4)
-> +#define KEY_3_GPIO             RZG3L_GPIO(6, 5)
->
->  #include <dt-bindings/gpio/gpio.h>
->  #include <dt-bindings/input/input.h>
-> @@ -30,11 +38,17 @@ aliases {
->  };
->
->  &keys {
-> -       status = "disabled";
-> -
-> +#if RZ_BOOT_MODE3 || SW_GPIO4 || PMOD_GPIO4
->         /delete-node/ key-1;
-> +#endif
-> +
-> +#if SW_DPI_EN || PMOD_GPIO6
->         /delete-node/ key-2;
-> +#endif
-> +
-> +#if SW_DPI_EN || PMOD_GPIO7
->         /delete-node/ key-3;
-> +#endif
->  };
->
->  &pinctrl {
-> diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-> index 6d86b88ce104..bc1178c7484a 100644
-> --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-> @@ -5,6 +5,23 @@
->   * Copyright (C) 2026 Renesas Electronics Corp.
->   */
->
-> +/*
-> + * Please set the below switch position on the SoM and the corresponding macro
-> + * on the board DTS:
-> + *
-> + * Switch position SYS.5, Macro SW_DPI_EN:
-> + *      0 - Select multiple SMARC signals active
-> + *      1 - Select LCD
-
-While the SW_DPI_EN macro is active-high, the signal SW_DPI_EN#
-is active-low, so setting the switch ON pulls SW_DPI_EN# low, which
-is OK...
-
-> + *
-> + * Switch position BOOT.1, Macro RZ_BOOT_MODE3:
-> + *      0 - Select SDIO {CD,IOVS,PWEN} and GPIO4 Active
-> + *      1 - Select JTAG enabled
-
-Setting the switch on pulls RZ_BOOT_MODE3 low, hence disables JTAG!
-So this is inverted compared to SW_DPI_EN above?
-
-> + *
-> + * Switch position SW_GPIO4, Macro SW_GPIO4:
-> + *      0 - Select GPIO4
-> + *      1 - Select RZ_VBAT_TAMPER
-
-This is a single pole double throw switch, so please document the
-which position corresponds to 0 and 1:
-
-    *      0 - Select GPIO4 (position 2-3)
-    *      1 - Select RZ_VBAT_TAMPER (position 2-1)
-
-However, I think it would be more logical if SW_GPIO4 == 1 would mean
-that GPIO4 is enabled.
-
-> + */
-
-Gr{oetje,eeting}s,
-
-                        Geert
+> ---
+>  drivers/mfd/tps6586x.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/mfd/tps6586x.c b/drivers/mfd/tps6586x.c
+> index f5f805446603315ba76ce1fc501c908f1cec0d16..3cfd2f02b62f3cc370e0d970ec2643b638fd0fec 100644
+> --- a/drivers/mfd/tps6586x.c
+> +++ b/drivers/mfd/tps6586x.c
+> @@ -397,7 +397,7 @@ static int tps6586x_add_subdevs(struct tps6586x *tps6586x,
+>  
+>  		pdev->dev.parent = tps6586x->dev;
+>  		pdev->dev.platform_data = subdev->platform_data;
+> -		pdev->dev.of_node = of_node_get(subdev->of_node);
+> +		platform_device_set_of_node(pdev, subdev->of_node);
+>  
+>  		ret = platform_device_add(pdev);
+>  		if (ret) {
+> 
+> -- 
+> 2.47.3
+> 
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Lee Jones
