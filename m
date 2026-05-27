@@ -1,154 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD18147DD45
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:19:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47E5637EFE2
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 18:21:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779905987; cv=none; b=kqkjd5Kt9pXpRM7LZPKWomlqDUCE/6KlGCzW9qRvf3cjPBP0Y8VlCm5to4vTxZ0g2n2NTzjNWVix6I15D+pps9sbWk1dssf9o1C4PJOMksyARs9q823MuSM5NCt/MSZGEFupSfz4vgDpF+LAjwPe8E6J2eaCPo+VENcyR7ZPb88=
+	t=1779906110; cv=none; b=DSGby27oJX13iBwBvTJSbAjmylFYJzGblpFrNrYG9Jssa0DDd3hf2XX3EkyyYpbsKx+YKxI+qGBndPkHg8/NZ6Z+6eZJqtxYvj0Fjn+4NxWabNOZxbZ/QRN1CDZUveijv6buR7B+QJFqUbJZkc7wiSRWgrRefROM04sLkfzUeiI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779905987; c=relaxed/simple;
-	bh=g8nxRtBva3kBrpgvkFBPd2n8+4qHQQCXAFLbivxEKzA=;
+	s=arc-20240116; t=1779906110; c=relaxed/simple;
+	bh=R6LBYXLP9FtU+kKnyp2OIHmCYqNG0Sshcjm+LD0dhtA=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K4b1TCTfCeT3eIt4FMrJELab4G5nsPzUDomx1c/ob73uXlI+DpqLzehyaD2oh4gIYIuaUtIQwmrgoMZC4bu2zIVSeRCh8qIH5ESNK2I8IazPn7WR77uzkREwHqo5BJwRUBycnFIiEwDcybDzTSDpPGbXDFzUS9MjZqMOMM3dfbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDnJYjh5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=CRfbnMJnsc4ZhY3p6KmocVAB8zsCKv1suCIjs7U12YnnYqTED/2vr8pmRnM7HGxFuEj0AzzlVUTdGIPoAUtuRxLBoq3HJw77oz5hC8Vc6gTlFcnaz2zF7faXCjjim3SyDEEBF3dRyQvxZh4cx5KG+PDGC/oBqRiGpQ82LinokwQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TrgVDzlW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDnJYjh5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6EE811F000E9;
-	Wed, 27 May 2026 18:19:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TrgVDzlW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B04B61F000E9;
+	Wed, 27 May 2026 18:21:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779905986;
-	bh=kZ/9j61kkwzW4nLmed1GE6aKLEh2WYVA7xx+dqhYf2M=;
+	s=k20260515; t=1779906108;
+	bh=T2FHLdua62TyY6oO57rXl5eRVOwtH2YqAStv3OO/a5Q=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=bDnJYjh5SPoyJICSYyi6UFIGAG4sts1jNd5taQZiAZZJ6aYv1iTJhf+70Ux09uXqo
-	 fnzwYOW0WPp9Q09Vubedh9yVhDFVC48pVYgvkCWip5k8jZ2DVm1E3OQBxvSh1lg7WO
-	 iGManxd7us8o5fE1nisVUHo1Kijj9tqUIgsssa6Gjl6+tWQCVE0pZtDznArlcr31BU
-	 nEJhjO3Yg1pONVh0hmPNy5VJ+hauN8lUuv2TIGAhTbqmyYHXP1s3TF+Gupe3sNK2u1
-	 hYeZjbH3leCShwJ4z2uthJOKxbBUtWV7+CANT5HWujAnTe99Yl4K2Kb/EBLLAOpZz/
-	 l63KnPPpBXFZg==
+	b=TrgVDzlW0LMZYkSd7/ODD9iVlSgTRG5IZZxM2/y5QAbfp4/+B35TsLwTLCxJcAX/I
+	 FxXyzqG5cA5F8mAWpIjGaDIlgjA3GWgxWqoXPnhxBn4n1sNI3VFV0aLVoHOm6w70fj
+	 EavlZ1L8lq/FLDvtVaHSlA8JwMUhIJjIBkZq6mR3B9vOJno3J13pFV19T8p83oerYz
+	 70f540gnXlQTxokvWgsmHsrgwtafKuqLkjQtUqgUF/DMxogtCuZtPVBRleHOarV+Nh
+	 kGbwpl8IUGUQHm8hfkwD7qXOm0N55kkHr10aAnK2IJiR7hexhf1focrI+CJWunAW8I
+	 LDy7NvG68TjkA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 03/13] spi: parse two-element spi-max-frequency
- property
+Subject: Re: [PATCH v3 05/13] spi: spi-mem: add execute_tuning callback and
+ spi_mem_execute_tuning()
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Santhosh Kumar K" <s-k6@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260527175527.2247679-4-s-k6@ti.com>
-References: <20260527175527.2247679-4-s-k6@ti.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260527175527.2247679-6-s-k6@ti.com>
+References: <20260527175527.2247679-6-s-k6@ti.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 18:19:45 +0000
-Message-Id: <20260527181946.6EE811F000E9@smtp.kernel.org>
+Date: Wed, 27 May 2026 18:21:48 +0000
+Message-Id: <20260527182148.B04B61F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Backwards compatibility breakage for unmodified drivers on updated=
- device trees.
-- [Low] Inconsistent fallback for malformed device trees with more than two=
- elements in `spi-max-frequency`.
-- [Low] The `base_speed_hz` field is missing from `struct spi_board_info` a=
-nd is not propagated in `spi_new_device()`.
+- [High] spi_mem_execute_tuning() invokes the controller's execute_tuning c=
+allback without acquiring the SPI bus locks or waking the controller via Ru=
+ntime PM.
 --
 
-commit 60222d0f7864f9f6bf9e85bd6b2a082b000222bb
+commit 28d3375f6987174df306c004335ad6005919c344
 Author: Santhosh Kumar K <s-k6@ti.com>
 
-spi: parse two-element spi-max-frequency property
+spi: spi-mem: add execute_tuning callback and spi_mem_execute_tuning()
 
-Some SPI controllers support high-speed operating modes that require
-controller-side configuration before the device can be driven at its
-rated maximum. Extend struct spi_device with a base_speed_hz field and upda=
-te
-of_spi_parse_dt() to parse a two-element spi-max-frequency property.
+This commit adds a new execute_tuning callback to spi_controller_mem_ops
+and a corresponding spi_mem_execute_tuning() wrapper to allow drivers to
+trigger tuning procedures for high-speed SPI memory operations.
 
-> diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-> index 104279858f567..cdd864a5c136b 100644
-> --- a/drivers/spi/spi.c
-> +++ b/drivers/spi/spi.c
+> diff --git a/drivers/spi/spi-mem.c b/drivers/spi/spi-mem.c
+> index 37d10c4e614b2..98339ac8dafa2 100644
+> --- a/drivers/spi/spi-mem.c
+> +++ b/drivers/spi/spi-mem.c
 
 [ ... ]
 
-> @@ -2598,9 +2598,20 @@ static int of_spi_parse_dt(struct spi_controller *=
-ctlr, struct spi_device *spi,
->  	 */
->  	spi->cs_index_mask =3D BIT(0);
-> =20
-> -	/* Device speed */
-> -	if (!of_property_read_u32(nc, "spi-max-frequency", &value))
-> +	/*
-> +	 * Device speed: a single value sets max_speed_hz; two values set
-> +	 * base_speed_hz (conservative) and max_speed_hz (maximum after
-> +	 * controller-side configuration).
-> +	 */
-> +	nfreq =3D of_property_count_u32_elems(nc, "spi-max-frequency");
-> +	if (nfreq =3D=3D 2) {
-> +		of_property_read_u32_index(nc, "spi-max-frequency", 0,
-> +					   &spi->base_speed_hz);
-> +		of_property_read_u32_index(nc, "spi-max-frequency", 1,
-> +					   &spi->max_speed_hz);
+> +int spi_mem_execute_tuning(struct spi_mem *mem, struct spi_mem_op *read_=
+op,
+> +			   struct spi_mem_op *write_op)
+> +{
+> +	struct spi_controller *ctlr;
+> +
+> +	if (!mem || !read_op)
+> +		return -EINVAL;
+> +
+> +	ctlr =3D mem->spi->controller;
+> +	if (!ctlr->mem_ops || !ctlr->mem_ops->execute_tuning)
+> +		return -EOPNOTSUPP;
+> +
+> +	return ctlr->mem_ops->execute_tuning(mem, read_op, write_op);
 
 [Severity: High]
-Will this break backward compatibility for unmodified drivers on updated de=
-vice
-trees?
+Does this code safely access the controller hardware without holding the SPI
+bus locks or waking the controller via Runtime PM?
 
-If a two-element property is provided, spi->max_speed_hz receives the higher
-speed from the second element. Unmodified drivers often leave xfer->speed_hz
-as 0 for default transfers, which the SPI core __spi_validate() defaults to
-spi->max_speed_hz.
+In the spi-mem subsystem, operations that interact directly with controller
+hardware via ctlr->mem_ops typically must be wrapped with
+spi_mem_access_start() and spi_mem_access_end(). These wrappers ensure
+mutual exclusion by acquiring bus_lock_mutex and io_mutex, and power on the
+controller via pm_runtime_resume_and_get().
 
-Would this cause the default transfer to be attempted at the high speed bef=
-ore
-the device is actually configured via PHY tuning, breaking communication?
+Since spi_mem_execute_tuning() bypasses these wrappers, could the
+controller's execute_tuning callback perform direct register accesses
+without holding the bus locks? This might allow concurrent SPI operations to
+other devices on the same bus to interfere.=20
 
-> +	} else if (!of_property_read_u32(nc, "spi-max-frequency", &value)) {
+Additionally, if tuning is executed outside of the initial device probe
+context, could the controller be runtime-suspended, causing external aborts
+or crashes when its registers are accessed?
 
-[Severity: Low]
-Does this create an inconsistent fallback for malformed device trees?
+It appears there might be a deeper architectural conflict here. If
+spi_mem_execute_tuning() were to correctly acquire the locks, and a
+controller's execute_tuning implementation called spi_mem_exec_op()
+internally, wouldn't that attempt to acquire the same non-recursive mutexes
+and cause a deadlock?
 
-If spi-max-frequency has 3 or more elements, the check for nfreq =3D=3D 2 f=
-ails
-and the code falls through to of_property_read_u32(). This reads the first
-element (index 0) into the value variable, which then gets assigned to
-spi->max_speed_hz.
-
-This means if nfreq =3D=3D 2, max_speed_hz gets index 1, but if nfreq > 2, =
-it gets
-index 0 instead.
-
->  		spi->max_speed_hz =3D value;
-> +	}
-> =20
->  	/* Device CS delays */
->  	of_spi_parse_dt_cs_delay(nc, &spi->cs_setup, "spi-cs-setup-delay-ns");
-
-> diff --git a/include/linux/spi/spi.h b/include/linux/spi/spi.h
-> index 79513f5941cca..14a0b4c9b2281 100644
-> --- a/include/linux/spi/spi.h
-> +++ b/include/linux/spi/spi.h
-
-[ ... ]
-
-> @@ -191,6 +192,7 @@ struct spi_device {
->  	struct device		dev;
->  	struct spi_controller	*controller;
->  	u32			max_speed_hz;
-> +	u32			base_speed_hz;
-
-[Severity: Low]
-Should base_speed_hz also be added to struct spi_board_info and propagated =
-in
-spi_new_device()?
-
-Currently, board files and other programmatic (non-Device Tree) instantiati=
-on
-methods cannot configure or utilize this new PHY tuning baseline feature
-because the template structure was not updated to include this field.
+> +}
+> +EXPORT_SYMBOL_GPL(spi_mem_execute_tuning);
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527175527.2247=
-679-1-s-k6@ti.com?part=3D3
+679-1-s-k6@ti.com?part=3D5
