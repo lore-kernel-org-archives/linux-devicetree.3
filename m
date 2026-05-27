@@ -1,157 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com [209.85.217.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF23327A916;
-	Wed, 27 May 2026 14:54:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC00F429831
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 14:57:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779893672; cv=none; b=tgcvxYx3Hkn00WhDq3TkGsxbveWTE7vwlZLlwkPL9QLMWuYQ+12nYGSXBPZ0HUafdRoVbJEVLjYpCQVmu5rOstImK2l1hSddP+SiBSzoJe1b9FFMjPmFLN2XJX9b/eamSSEqFiSggLOrfPl22W2CFh7FJIKzvsz4hHKzKhxIsNQ=
+	t=1779893837; cv=none; b=RgFLI6xsGf8+RA1nwLVrXkYquyZGB8HQWzU5kkTwe6aVG1XEMaSB8VVurRDbgJBMNjN5+o4mQtL9AmO/C+S1OoTbxeQJ+MQBWE+2OYoDS84nGrkvCPVP5kuViYZ8If4MLIGQeUyjWXzb5PvC3SaY9w+VozpClnf1Wqk1Fhe5R0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779893672; c=relaxed/simple;
-	bh=sxqDiryLoBnJ6NFyrS/FmQ8pTRjJ4rHNr4I1qRjbgSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZpXBZXT/2v+1beW+IEnpZUk+2fyCpRNUlOhn8YiTuFPA6Zn+okXi5GvwWdjYAUqx5ZHMLFwTDZzgYNjwE/1YQIFalZKVHfqhDcqReAVUD0DdzPjReJRkdxOE3dNRbogpln5azXaq8AcyLvbueUr3cc47EHDbBF70ngbfZKbIpIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HsfaJKEq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HsfaJKEq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 304871F000E9;
-	Wed, 27 May 2026 14:54:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779893670;
-	bh=E6Q8XCy0zXe1xOArUqxZeTNT47K+djAyAvzM5weh5ag=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HsfaJKEqK2zij9eVrAg/H0mCdwW7f+jPa6VPlEi/OgY18/ICbhaP0TvYh02P8723q
-	 d05/6fhwusJiiPJCqgehDfzasMA+Enbu3dco5olHjA4LRWS0ScqZg6ScRCEOg6NfSX
-	 wlkVeTSJTa6r40HbORDCamwiQ3gsl3jYZvDbcmQCXGETQosWLBuASMMaEvuVjRTWZR
-	 K9syJsgAM43De46p3pd5dp4mgwVBVihbXgRbLDFLuc4PtLOFmk6MuouWeBcjK2A8V+
-	 /QNs9aec1herrWcN95kTc3CezqNwxaCA/ZvmxtZF7NrGEv2brgIxuqmW6Hzttnlm2A
-	 VLP/U1zlNDH7Q==
-Date: Wed, 27 May 2026 15:54:23 +0100
-From: Lee Jones <lee@kernel.org>
-To: linux-kernel-dev@aliel.fr
-Cc: Neil Armstrong <neil.armstrong@linaro.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Beniamino Galvani <b.galvani@gmail.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Mark Brown <broonie@kernel.org>, linux-amlogic@lists.infradead.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-i2c@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-pm@vger.kernel.org
-Subject: Re: [PATCH v6 3/8] mfd: khadas-mcu: Add per-variant configuration
- infrastructure and VIM4 support
-Message-ID: <20260527145423.GC671544@google.com>
-References: <20260516-add-mcu-fan-khadas-vim4-v6-0-cccc9b61f465@aliel.fr>
- <20260516-add-mcu-fan-khadas-vim4-v6-3-cccc9b61f465@aliel.fr>
+	s=arc-20240116; t=1779893837; c=relaxed/simple;
+	bh=DcaIkOnu2qFiNVWG8uKRptjS0gHzV/XmFDChIo3exKA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=KpJbjBkNAE49aMYkSN5oH6EJNWEK6eq2VORUCbZUzYsNG3VNuQigW6tllrHLAh7nGLWCGJ6MIDQczCtr535325KA4zkLucgQ+OfHBRpy5XChRe868qgruqnrvSWL3ZiKH+mSrLpZ51VCTa2otFgqiYWt7VjBRhXNr8wHgCKxgRU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-63a3977145fso3847877137.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:57:15 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779893835; x=1780498635;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NSha8LAAaJOu6KHbf0LfPH49giEnF7hSPozKiiNNtTA=;
+        b=XolwXn54nwiIXtcRYoCuySEDBb65Ye1lnCJWJBNPzGC8J8HH09zcfVyhsnmZAq9yx6
+         JRRnBiy/EhT/LDwLMBY3mJ4cJMy0/cYYnILy4zIwWJ5jw8DgGxR+tZjhAKjFbdJU0jVt
+         j9+0b1foTwYfOGqpUIeBPg4bosHdWpc1HvdMKvQZsbGrRdcxX3ic/XISI68Ibmjs23Qc
+         4kuIKGRD1rxJOiMjk6RGz/MTnN00KPOx+1NjZ2Ok3ZEHD2XghlCJylndgDn+pLTSeS2n
+         7mEEpbhg7l26PJpOw+jX7+SPztN2H4x991J6kzl43xuo5hPFMiffoI2HYeOuijZdSjT6
+         N8eQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/XDgGDZFxo2LP0JUC7uitg6YiM5I56i5ahAuY7TnkxWgVX8vAPedZGd0RukxRoH7MqjybzRNNDoV/b@vger.kernel.org
+X-Gm-Message-State: AOJu0YwZpwDozrxyi2h0zr0Lhx2UHEHc61L1D//FRsY/FqgLr1FTPev/
+	ictZqafI+0sRNUHrTYmS/GDySMSDsd+KW8Zep3VZJh1kJzgW2wOxDzDkmrMoXlJVoEI=
+X-Gm-Gg: Acq92OE06b9vsqLRb3rGSU9hknIq6lgfd+qrwNOE4PhQqCWRkTVu/jPywkInkgFBMSE
+	wtN1gnNeKtFJko3EcgNDWFuz21TqzHU75MEMLrixBUnG/+aRANzQ5uKJ6yAqzYVASr58aFvY2Cp
+	ZNAQatCE2tU/3NPmsA9KIsdaBdYhZ/bySEWCsw20k9Y+uUu8X0g+JvomwEuKCK/9F6mKO8Zhd66
+	j7+VelHRDL2jLusAOlhlB56t9r+i0RRBBXnWiW2QnJqWdyw0VdfWFVFwIH60mppkijgi2PrOnJh
+	ytMtteZiY1ScBQyIlSQ5HCbKpCo9+n9P8I4qNWls9kq9dGARw+1CRCv5NW+TlpYQm7OQdL1c8vl
+	LTUMXhEJCABYCMunaScG3VIIUJaWg5lvPpP2umeg3rNpR4zTTao67jrmUuMdp+xUl1oU2PhgvRS
+	SzKpVN6KM1llroc86sIsWR95n760NAShYfprOLNuFlQfT97p3PLBOzOLi25lvK
+X-Received: by 2002:a05:6102:3f9f:b0:631:ab8b:c34e with SMTP id ada2fe7eead31-67c7300bc83mr11202535137.11.1779893834694;
+        Wed, 27 May 2026 07:57:14 -0700 (PDT)
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-96173baf56bsm17263232241.13.2026.05.27.07.57.14
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 07:57:14 -0700 (PDT)
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-63319183a49so4519326137.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:57:14 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+PbTiyZWocHu2FtPYe8ntcDrLf6cyEtBPcokpFI/fB55XNLZP7rbvES6NSlZbVjJVd+mCLH1KC4hsT@vger.kernel.org
+X-Received: by 2002:a05:6102:1621:b0:608:9a34:c8ea with SMTP id
+ ada2fe7eead31-67c7300bc13mr11464897137.10.1779893833833; Wed, 27 May 2026
+ 07:57:13 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260516-add-mcu-fan-khadas-vim4-v6-3-cccc9b61f465@aliel.fr>
+References: <20260505070206.7932-1-biju.das.jz@bp.renesas.com> <20260505070206.7932-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260505070206.7932-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 16:57:01 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUMroQsJpmuA2zD75t88PJkEyc0w1azKjVaK-PsCkiapw@mail.gmail.com>
+X-Gm-Features: AVHnY4JP3NMEceEVoPKwkUHHjX1lg1TgZYFfh8s8DtDqG0A0XFH35vzd-hfGd2o
+Message-ID: <CAMuHMdUMroQsJpmuA2zD75t88PJkEyc0w1azKjVaK-PsCkiapw@mail.gmail.com>
+Subject: Re: [PATCH 1/4] arm64: dts: renesas: r9a08g046: Add scif{1..5} device nodes
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On Sat, 16 May 2026, Ronald Claveau via B4 Relay wrote:
+Hi Biju,
 
-> From: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> 
-> Introduce a per-variant configuration structure (khadas_mcu_data)
-> holding the regmap config and MFD cells,
-> selected at probe time via the of_device_id match data.
-> This makes adding other variants straightforward.
-> 
-> Add an enum khadas_mcu_type used as value to match.
-> 
-> Also introduce khadas_mcu_fan_pdata to pass fan register address and
-> maximum level to the fan sub-driver, removing the hardcoded constants.
-> 
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> Signed-off-by: Ronald Claveau <linux-kernel-dev@aliel.fr>
-> ---
->  include/linux/mfd/khadas-mcu.h | 44 ++++++++++++++++++++++++++++++++++++++++--
->  1 file changed, 42 insertions(+), 2 deletions(-)
-> 
-> diff --git a/include/linux/mfd/khadas-mcu.h b/include/linux/mfd/khadas-mcu.h
-> index a99ba2ed0e4e0..88de49b78f5e6 100644
-> --- a/include/linux/mfd/khadas-mcu.h
-> +++ b/include/linux/mfd/khadas-mcu.h
-> @@ -70,6 +70,13 @@
->  #define KHADAS_MCU_WOL_INIT_START_REG		0x87 /* WO */
->  #define KHADAS_MCU_CMD_FAN_STATUS_CTRL_REG	0x88 /* WO */
->  
-> +/* VIM4 specific registers */
-> +#define KHADAS_MCU_VIM4_REST_CONF_REG		0x2c /* WO - reset EEPROM */
-> +#define KHADAS_MCU_VIM4_LED_ON_RAM_REG		0x89 /* WO - LED volatile */
-> +#define KHADAS_MCU_VIM4_FAN_CTRL_REG		0x8a /* WO */
-> +#define KHADAS_MCU_VIM4_WDT_EN_REG		0x8b /* WO */
-> +#define KHADAS_MCU_VIM4_SYS_RST_REG		0x91 /* WO */
-> +
->  enum {
->  	KHADAS_BOARD_VIM1 = 0x1,
->  	KHADAS_BOARD_VIM2,
-> @@ -82,10 +89,43 @@ enum {
->   * struct khadas_mcu - Khadas MCU structure
->   * @device:		device reference used for logs
->   * @regmap:		register map
-> + * @data:		pointer to variant-specific config
->   */
->  struct khadas_mcu {
-> -	struct device *dev;
-> -	struct regmap *regmap;
-> +	struct device			*dev;
-> +	struct regmap			*regmap;
-> +	const struct khadas_mcu_data	*data;
-> +};
-> +
-> +/**
-> + * struct khadas_mcu_data - per-variant configuration
-> + * @regmap_config:	regmap configuration
-> + * @cells:		MFD sub-devices
-> + * @ncells:		number of sub-devices
-> + * @fan_cells:		MFD fan sub-devices
-> + * @nfan_cells:		number of fan sub-devices
-> + */
-> +struct khadas_mcu_data {
-> +	const struct regmap_config	*regmap_config;
-> +	const struct mfd_cell		*cells;
-> +	int				ncells;
-> +	const struct mfd_cell		*fan_cells;
-> +	int				nfan_cells;
-> +};
+On Tue, 5 May 2026 at 09:02, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add scif{1..5} device nodes to RZ/G3L ("R9A08G046") SoC DTSI.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-My alarm bells started ringing as soon as I saw this!
+Thanks for your patch!
 
-> +/**
-> + * struct khadas_mcu_fan_pdata - fan sub-driver configuration
-> + * @fan_reg: register address to write the fan level
-> + * @max_level: maximum fan level
-> + */
-> +struct khadas_mcu_fan_pdata {
-> +	unsigned int fan_reg;
-> +	unsigned int max_level;
-> +};
-> +
-> +enum khadas_mcu_type {
-> +	KHADAS_MCU_GENERIC, /* VIM1/2/3, Edge, Edge-V */
-> +	KHADAS_MCU_VIM4,
->  };
->  
->  #endif /* MFD_KHADAS_MCU_H */
-> 
-> -- 
-> 2.49.0
-> 
-> 
+> --- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
+
+> +               scif5: serial@1004e000 {
+> +                       compatible = "renesas,scif-r9a08g045", "renesas,scif-r9a07g044";
+
+renesas,scif-r9a08g046
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2 with the above fixed.
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 -- 
-Lee Jones
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
