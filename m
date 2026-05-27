@@ -1,120 +1,257 @@
-Received: from mail-pl1-f194.google.com (mail-pl1-f194.google.com [209.85.214.194])
+Received: from mail-vk1-f181.google.com (mail-vk1-f181.google.com [209.85.221.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A2963542F8
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 10:42:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.194
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD72B3542F8
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 10:43:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779878556; cv=none; b=rj1N2WTJhVa10I6bEpwjd5t5CDQgu9rrzpzGtoRJx/cpRX5Xaxtr9bn/tWv58U2o/e8VtmB8pxJFYzR0j9xSUzLaM3Cq+3XfT3Dsfgfv1lmaIt5UxA/nk2E5py9a4NexHZjpTDZ1dznKudnwhmm7mPk8eqSONhxg9DWYfrSQjfY=
+	t=1779878613; cv=none; b=X70dOnpK+Zm3+XQ0q0+ozaOkVXZG4ZeqI4Toilo85e+j/b9DRKHjfQAd+CORJTvIMVUeWMC/WtP7fIjVkgp46SAa2GOHT6gNtYCZapJwCdCj7N/3iZSYoww3ArbDrgxxT+BQh3ncdILcMzkv3nDZ0PCz4o0KWnmiBrHRh3TfeCw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779878556; c=relaxed/simple;
-	bh=P3rw9sfkHkYJwvBawwd58N86GGWr7b1WNyNnVrQV4qo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bWFQxwCJoP5ZCSNyYHrP8XB0BUzbH31yB3ulYPzAGnc9CnzIkE7BsMSJ5wsTvT6KQY8vGuDbVg1G9F3Thhyu107jgg7lQXO8+/Z+my4/LoPk0CHoP0Tt47EqU6cQIgvsiCpolihutdXuEU6Vn8RfuOhNwn4O/mFSyczw9RnFIg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CzUlChwj; arc=none smtp.client-ip=209.85.214.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1779878613; c=relaxed/simple;
+	bh=6ZfjJyjHo1+6wXNY0VH4t1SbCnQeqbO2bVIcxpATc68=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Gplst0Kt5PLn2uT951o/wDF6bai99m80EjKdn4IpxbZI6pOOkTXr3WWh7Ic8rvVKEUddyp+gsFoQWQkR/XuyopMoOK2pLrvnNUIMX81GVlhy05gJ691vdajoEihsmfSps3dUaThiTDqjl7fBn4buZBJCIBx9uMsvMd5bpEYLHao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CzUlChwj"
-Received: by mail-pl1-f194.google.com with SMTP id d9443c01a7336-2b788a98557so74477715ad.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:42:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779878555; x=1780483355; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=UHUfn8CsP06uZW2KYcWPd/uEBbB2UBx7qyNJnvj6SOA=;
-        b=CzUlChwjfiZbchV5m1XbeNpnmcw6yCz+IjtNonv5I/ACYq4sCd6bbOC5a8QQXsdp76
-         m2ok8bv4BcQzJS4wZNGtiR0YQgcluLUC7cCMk4sFJ40khuYbhXmtzjnJKY0OAFjKnXuK
-         +tHiTO/x+LpbRQOC7fZ5BFez1FMe92Q0IhAslpglazhwrf9AlDjXiaPwGT2S2jITUlS6
-         hxmAMGjkf1utEh3T29DsK7tMmQnppd6u0sOSkQYqqC9z5NhZJ71EYWLfBcN64+OVmhvy
-         8+8O8foCxnkDx7FliqpfbrLHqX3DjUEmOa7HrR3CIlDL2GF1We+xIgLuPCO9DvLXb/12
-         akzQ==
+Received: by mail-vk1-f181.google.com with SMTP id 71dfb90a1353d-577500ac0e4so3658332e0c.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:43:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779878555; x=1780483355;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1779878611; x=1780483411;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=UHUfn8CsP06uZW2KYcWPd/uEBbB2UBx7qyNJnvj6SOA=;
-        b=L7uQYUyKs2j/eHUnjLE5W0+u9jAxD+oD2EOoZw+KrUOuDAE8iJjxuoQlwbARK27wiy
-         OobrSXFkz/0XY2HFfKDyL20V5zq9LGAUDL38fagRDXFxNnNVHyKQx7L6j/9BvRW/PKWl
-         MLIr84jRwTG7oNEP5XmIwUdD15qJBZ1AWQKNbEujm3qoF8OxPAsr2zD/WPwGFCSQ3zkg
-         MvjnfTpGoEWsFKmE/vT3+p+XFBGGXjR3y1sZYRYtKbs04+2oJF8tuTCo4ZaVIVadtjC/
-         zk+57g6L3MY4JieieP0Ky5ApFge+5ldcfe8XEqsnbrp1xh+wcmhDmjiPm4RJA5ChQfQq
-         XbIg==
-X-Forwarded-Encrypted: i=1; AFNElJ9xbR5ornJeeCO41TLm1RCPZsouf2p4t+F8bB05DMFHNfSrpqmVUDHprqIwucz4fqAffHHH+6guJJz+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8nabIULLuLkSEH4sdHMXDilulfdM0TACbN08gHHaejRuwHbaE
-	mhV+yIYWslyn1I/qVdJIf0vderO9QkZPzZvDhigNM8WbN9NMx8W+oN3M7My0pXuTMw==
-X-Gm-Gg: Acq92OHK/Pz5rErpxjDQs/Dty6npEdAJaeWhikmks7Nj4tQYt2FHNfGi81zh4nNeUyU
-	S2cjWLO4wBe9ZeLB/RImyAFGN97SXyuxexst/gyml1stRQqOFceiqdC1A/OJmU9azue8lw5RShH
-	D6JDbXk/v7n3gqCwpC5t4+Cwe5LkFlro4oU/jdOKAmoaL0ljcgIKw4ZS5K90tBBLzzf4+X/UGgE
-	Hl8IA+I8g1v7vWJyfdUO8mYGQ/lmWRUI24vMBOD8A8iOfrjxMvcTijdykuKDfcGhBJc/8llkdAs
-	rcUSANLHkWk8CHh+RlVPhBJJL3clLGS9pZH4lVFjfMhDJlTDFpzV8o9/fVvuKdpW93raZSsQpAQ
-	zsr6fk5bA+31BsxIDVqp4be10YAa5gsp+QL2Q+5oT4OB1ub6QBK/TNB/GcEvABM8ekCp8LVsXby
-	kvTFL9Nks4ChmzJUwXsKju1eHyqhAAFZbnV9H0ko2vZtkJ
-X-Received: by 2002:a17:902:d48e:b0:2ba:5a20:1d94 with SMTP id d9443c01a7336-2beb059944cmr252757165ad.13.1779878554858;
-        Wed, 27 May 2026 03:42:34 -0700 (PDT)
-Received: from localhost.localdomain ([211.196.223.197])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2beb58ff106sm141099865ad.74.2026.05.27.03.42.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 03:42:34 -0700 (PDT)
-From: Jinseok Kim <always.starving0@gmail.com>
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	florian.fainelli@broadcom.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2] arm: dts: bcm2711: Fix typo in gpio-line-names
-Date: Wed, 27 May 2026 19:39:26 +0900
-Message-ID: <20260527103930.2973-1-always.starving0@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        bh=u1fZpK3wjr4pqcWYWlRG5eHG529oVQ3i8sQvLS13gr0=;
+        b=P6E+uScr+EpwqpbUaTWQHgShyy+VlMuq2c8bjmUch6sGVfvR8oWAXGHjo9ajuvleRN
+         d4HvbH6OkvO9iwD9ZAJbEx8AVwOpID/fTNocYTBpLmyA05pt/chqBZ5gPnlvOXWW/lxf
+         t8XrjZ81R/XzkDxWIFGNee2RWf7cgLZ1nobhmMLEzcwC+AdwPnQvMMQa5Eluk3vyyxk1
+         ZBp8NKtmAscEdgyd0AFCKOZFstfL2l8YeeDtdOxCpTJFZLppc8UB+7Sw1DNa3CqooWoO
+         3hcwkqae1ynQc6RFEpIDxiuzoq7lYf8Qh2g0OUN0jgmGb8v5V0x56u8oGsr43Y7gFlVp
+         ftNg==
+X-Forwarded-Encrypted: i=1; AFNElJ8RTxM4ryAt0vpzTHjRBO8687B7wBS73QW4hIuoXsZtrW+djua8w12gI+z/8/6LgsUrjObprjO4cY6g@vger.kernel.org
+X-Gm-Message-State: AOJu0YzrdVQWCTn18/41lfdL6iz9kKvFI7e3zVw1KegLci9CM39vqKF+
+	9lKroTTr7NBkUg5qpU4kwMKNK8/nC/h1NGfyiIfEpolLBsWgXw3EA8kz+hO4L1hrcOI=
+X-Gm-Gg: Acq92OFoL82cXMl8ui7+zwUa6b9Eq6a0iWEK1QUBA0Wa4aJu5kUOe97/D4WR7yUAP13
+	Z6I8y7gtIh4vcZg3rTQ/3AjQugoFXQeDXkdTPEykHN952ltF36cW3pJ4jGy/YObgh9jgYvooXIg
+	S/l1Nd0di/bKYO89J1HUH21PtMKBeY3Q6r9LaXb0famfgFcaUn4LWRZn8j6mTJg44tTZy0mmgYt
+	8+sJh8g/Luow7jN/CMzk2QMzupoP0qJXgV92Zq0c//UMTcnkOS/PThjdd4UYoCzfL0VcL35bh4i
+	o7ZXXdXC3NxbCHrOal6hgBAayqUuTbNIIUPiEXm46W3iPgQ4VJK6bLApi60OowSddp830hl8l6m
+	IYk/Ss+S2sRrSlWUbaTnxGu+PoUzlNDK/3KPZQGLUuBtlzfsriO4YBCpcil5Qozug133m+mX2Db
+	yqvpw8rTLCmAmvWm2bX+PQSuWCnJGql409ktO+xNPtFnfhDXv7HxNinMpAVII7v2+uSVtKbiA=
+X-Received: by 2002:a05:6122:f07:b0:575:38d3:7c8a with SMTP id 71dfb90a1353d-5865d70cb74mr12837579e0c.2.1779878610705;
+        Wed, 27 May 2026 03:43:30 -0700 (PDT)
+Received: from mail-vs1-f41.google.com (mail-vs1-f41.google.com. [209.85.217.41])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f2f79814sm20247093e0c.6.2026.05.27.03.43.30
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 03:43:30 -0700 (PDT)
+Received: by mail-vs1-f41.google.com with SMTP id ada2fe7eead31-6314cc192a4so3532633137.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 03:43:30 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/lABrvObwZZW8qRom6pFTzlbJCB9gW/0gXNLLObmqN/4lj4VodS7nBOEdgWf0a4+jQtnCvHiaNyEHX@vger.kernel.org
+X-Received: by 2002:a05:6102:4bcb:b0:632:73ad:6c4 with SMTP id
+ ada2fe7eead31-67c7294dbbamr10996229137.8.1779878610039; Wed, 27 May 2026
+ 03:43:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260505120153.680979-1-prabhakar.mahadev-lad.rj@bp.renesas.com> <20260505120153.680979-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260505120153.680979-4-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 12:43:18 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdV+6qVRJGUVe9noYWRnG1nEeq9SPJYnwsbOEpG1osaBVw@mail.gmail.com>
+X-Gm-Features: AVHnY4I078iHs0rk4IwqVKZLKVIlEqIe2R4RXj6eXob3wzbESQW-hndXolsiWAA
+Message-ID: <CAMuHMdV+6qVRJGUVe9noYWRnG1nEeq9SPJYnwsbOEpG1osaBVw@mail.gmail.com>
+Subject: Re: [PATCH 3/3] arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI nodes
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Replace "RGMIO_MDC" with "RGMII_MDC" in gpio-line-names.
+Hi Prabhakar,
 
-Signed-off-by: Jinseok Kim <always.starving0@gmail.com>
----
-Changes in v2:
-- Fix the same typo in bcm2711-rpi-cm4-io.dts
-- Link to v1: https://lore.kernel.org/all/20260527100439.2507-1-always.starving0@gmail.com
----
- arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts    | 2 +-
- arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-io.dts | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+On Tue, 5 May 2026 at 14:02, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Enable the xSPI0 and xSPI1 controllers on the RZ/T2H N2H EVK board.
+>
+> The xSPI0 controller is connected to an MX25LW51245 octal flash device.
+> Although the hardware supports octal mode, configure the bus width to
+> 1-bit (x1) mode. Enabling octal mode causes the BootROM to fail loading
+> the first-stage bootloader following a Watchdog Timer (WDT) reset.
+>
+> The xSPI1 controller is connected to an AT25SF128A flash device.
+> Configure this interface for 4-bit (x4) mode to utilize the available
+> data lines.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
-index 353bb50ce542..5469fa663526 100644
---- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-4-b.dts
-@@ -110,7 +110,7 @@ &gpio {
- 			  "GPIO26",
- 			  "GPIO27",
- 			  "RGMII_MDIO",
--			  "RGMIO_MDC",
-+			  "RGMII_MDC",
- 			  /* Used by BT module */
- 			  "CTS0",		/* 30 */
- 			  "RTS0",
-diff --git a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-io.dts b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-io.dts
-index 6bc77dd48c0d..1f4ebec68370 100644
---- a/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-io.dts
-+++ b/arch/arm/boot/dts/broadcom/bcm2711-rpi-cm4-io.dts
-@@ -56,7 +56,7 @@ &gpio {
- 			  "GPIO26",
- 			  "GPIO27",
- 			  "RGMII_MDIO",
--			  "RGMIO_MDC",
-+			  "RGMII_MDC",
- 			  /* Used by BT module */
- 			  "CTS0",
- 			  "RTS0",
---
-2.43.0
+Thanks for your patch!
+
+> --- a/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/rzt2h-n2h-evk-common.dtsi
+> @@ -5,6 +5,7 @@
+>   * Copyright (C) 2025 Renesas Electronics Corp.
+>   */
+>
+> +#include <dt-bindings/clock/renesas,r9a09g077-cpg-mssr.h>
+>  #include <dt-bindings/gpio/gpio.h>
+>  #include <dt-bindings/leds/common.h>
+>  #include <dt-bindings/net/mscc-phy-vsc8531.h>
+> @@ -20,6 +21,8 @@ aliases {
+>                 mmc0 = &sdhi0;
+>                 mmc1 = &sdhi1;
+>                 serial0 = &sci0;
+> +               spi0 = &xspi0;
+> +               spi1 = &xspi1;
+>         };
+>
+>         chosen {
+> @@ -331,6 +334,59 @@ ctrl-pins {
+>                                  <RZT2H_PORT_PINMUX(17, 4, 0x29)>; /* SD1_CD */
+>                 };
+>         };
+> +
+> +       xspi0_pins: xspi0-group {
+> +               clk-pins {
+> +                       pinmux = <RZT2H_PORT_PINMUX(5, 1, 0x1c)>, /* XSPI0_CKP */
+> +                                <RZT2H_PORT_PINMUX(5, 2, 0x1c)>; /* XSPI0_CKN */
+
+XSPI0_CKN is not connected to the OSPI FLASH (zero-ohm "DNF" resistor!),
+only to the HyperRAM.
+
+> +                       input-schmitt-disable;
+> +                       slew-rate = <1>;
+> +                       drive-strength-microamp = <9000>;
+> +               };
+> +
+> +               data-pins {
+> +                       pinmux = <RZT2H_PORT_PINMUX(5, 6, 0x1c)>, /* XSPI0_IO0 */
+> +                                <RZT2H_PORT_PINMUX(5, 7, 0x1c)>, /* XSPI0_IO1 */
+> +                                <RZT2H_PORT_PINMUX(6, 0, 0x1c)>, /* XSPI0_IO2 */
+> +                                <RZT2H_PORT_PINMUX(6, 1, 0x1c)>, /* XSPI0_IO3 */
+> +                                <RZT2H_PORT_PINMUX(6, 2, 0x1c)>, /* XSPI0_IO4 */
+> +                                <RZT2H_PORT_PINMUX(6, 3, 0x1c)>, /* XSPI0_IO5 */
+> +                                <RZT2H_PORT_PINMUX(6, 4, 0x1c)>, /* XSPI0_IO6 */
+> +                                <RZT2H_PORT_PINMUX(6, 5, 0x1c)>; /* XSPI0_IO7 */
+> +                       input-schmitt-disable;
+> +                       slew-rate = <1>;
+> +                       drive-strength-microamp = <9000>;
+> +               };
+> +
+> +               ctrl-pins {
+> +                       pinmux = <RZT2H_PORT_PINMUX(5, 3, 0x1c)>, /* XSPI0_CS0 */
+> +                                <RZT2H_PORT_PINMUX(6, 6, 0x1c)>, /* XSPI0_RESET0 */
+> +                                <RZT2H_PORT_PINMUX(5, 5, 0x1c)>; /* XSPI0_DS */
+> +                       input-schmitt-disable;
+> +                       slew-rate = <1>;
+> +                       drive-strength-microamp = <9000>;
+> +               };
+
+As the three subnodes define the same parameters, you can do without
+the subnodes, and keep all pins together?
+
+Don't you also need P7_5 for XSPI0_ES, and SW5-6 closed?
+
+> +       };
+> +
+> +       xspi1_pins: xspi1-group {
+> +               ctrl-pins {
+> +                       pinmux = <RZT2H_PORT_PINMUX(1, 0, 0x1c)>, /* XSPI1_CKP */
+> +                                <RZT2H_PORT_PINMUX(1, 1, 0x1c)>; /* XSPI1_CS0 */
+> +                       input-schmitt-enable;
+> +                       slew-rate = <1>;
+> +                       drive-strength-microamp = <9000>;
+> +               };
+> +
+> +               data-pins {
+> +                       pinmux = <RZT2H_PORT_PINMUX(1, 4, 0x1c)>, /* XSPI1_IO0 */
+> +                                <RZT2H_PORT_PINMUX(1, 5, 0x1c)>, /* XSPI1_IO1 */
+> +                                <RZT2H_PORT_PINMUX(1, 6, 0x1c)>, /* XSPI1_IO2 */
+> +                                <RZT2H_PORT_PINMUX(1, 7, 0x1c)>; /* XSPI1_IO3 */
+> +                       input-schmitt-enable;
+> +                       slew-rate = <1>;
+> +                       drive-strength-microamp = <9000>;
+> +               };
+
+As the two subnodes define the same parameters, you can do without
+the subnodes, and keep all pins together?
+
+And SW1-6 must be closed?
+
+> +       };
+>  };
+>
+>  &sci0 {
+> @@ -395,3 +451,82 @@ &wdt2 {
+>         timeout-sec = <60>;
+>  };
+>
+> +&xspi0 {
+> +       pinctrl-0 = <&xspi0_pins>;
+> +       pinctrl-names = "default";
+> +       status = "okay";
+> +
+> +       assigned-clocks = <&cpg CPG_CORE R9A09G077_XSPI_CLK0>;
+> +       assigned-clock-rates = <50000000>;
+> +
+> +       flash@0 {
+> +               compatible = "jedec,spi-nor";
+> +               reg = <0>;
+> +               m25p,fast-read;
+> +               spi-tx-bus-width = <1>;
+> +               spi-rx-bus-width = <1>;
+> +               vcc-supply = <&reg_3p3v>;
+> +
+> +               partitions {
+> +                       compatible = "fixed-partitions";
+> +                       #address-cells = <1>;
+> +                       #size-cells = <1>;
+> +
+> +                       partition@0 {
+> +                               label = "bl2-0";
+> +                               reg = <0x00000000 0x00060000>;
+> +                               read-only;
+> +                       };
+> +
+> +                       partition@1fb000 {
+
+60000?
+
+> +                               label = "fip-0";
+> +                               reg = <0x00060000 0x007a0000>;
+> +                               read-only;
+> +                       };
+> +
+> +                       partition@300000 {
+
+800000?
+
+> +                               label = "user-0";
+> +                               reg = <0x800000 0x003800000>;
+> +                       };
+
+Given this is a 64 MiB part, I assume the reg entries are correct,
+and the unit-addresses are not?
+
+> +               };
+> +       };
+> +};
+
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
