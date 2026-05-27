@@ -1,96 +1,132 @@
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FB5F3ECBE4
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 09:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7053E3C7D;
+	Wed, 27 May 2026 09:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779874600; cv=none; b=mmWETrviORCCE2TpsbEBZXwp1PLsaGcnUTMjoTWD99QeMoq9qqICT1KuEA3cNO5pPp/y9BUD6P1VQ7SRuyD3jb2FPNYm5CtCdx1Tl2ExtlHVIjHA03fbaYLLsTfn0tqvMIN3Ch7a37jvaCj8mM/FCagQQ56UhjADWINu8iPSWjA=
+	t=1779874664; cv=none; b=bKsDmdaq87RNKBvW1xC4p5NJP0yMWL1Pw7ZNp355ulB0gkETDl2drkh06kdCfK1Yc4fBPq8uDVfRLO2NJMezRgYC7GdINSCnd4ambDeL43r9ZJ/WxyVCTz9CamimNpCYRwlsJq7ktCqmsXConJKv4lkKrfq0I68bZhkXk9Tenws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779874600; c=relaxed/simple;
-	bh=LfCe4LNPMVUu5fOQZ/DhPw5AXt+DrtW/uZ2vlE+ITCY=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dPJmdgEJeD9CbnzB18RcB0lUgoXVRJ3I1HMOe83T+rLNxE9T7/CAkr6dHvCaZzlwTIqZ+/6eDaTaWbh8fHnjU8kguIMcml0TuOU/rzdHl50INCrM3oC9qdt61/XczbM40s/CEqoEH9cYq1ynfosOpO/kw9ZgRRq1UD6vFXfEliE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-5751770a178so3753789e0c.3
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:36:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779874597; x=1780479397;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uLue29P8rf5xvQmGeNSTeRRA/wr2HEJIYgSnfhWuBRc=;
-        b=J5BrKjwzesfJS39fEWCZlnzDfhYepFSMfVKPVYmNXcdJSOcuxIq5avpR87DVaLNtnE
-         J1hgOw0I765QENGICdqGDgZ1B3nULA9VTSxRjVJmbuZo9hTyQhpN4q8LxelNHjOXAM0e
-         OvdPwJMNTdOY5X9W8N1oy2l2tI8ZXLLB/uOBBNOc4sja6SnC1BsuRa/qyhVJCN9nn1LI
-         2Cti+C7jk7lfyLrhtuOQ78grzLrqunotxse5+N8fDEzx39e4UrjU5oWsWxSARM1KJi9R
-         UykI2TBLgrkb5fUEJmvopPBcbHrkiZY/Z/Qqvih0yaCa3GbMW6Kvb4fIOhKu9QGTJvg9
-         se1w==
-X-Forwarded-Encrypted: i=1; AFNElJ9LhFxi2E1usF3XUTSgaHyJ0YKRlnq6qrzTPZwPi4v3tUGoLINj97TjUIweGqd0xYF4jP/yIxlUs2Br@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+FvLY9mwdv01oY6OvrwsHYsxcPn6qoAJixXhMi70UNWn31vPF
-	W6zgYDNoGvs1e/GI4KOmHsiitvGm/TTckVQDYz7jg5G0MFVHAcuQoXgunR+8rsjIT2Y=
-X-Gm-Gg: Acq92OGm9/6pqpL40kkPJhHGNQebhXQybwBlkbBDX044OHAizg6SwuO00iBP3S/MZE5
-	1HEVCqJqu1BDmJ+BRyN5zpucJn6HDNUNZbX4QsfKnsJNcf4Fs+B+t5V7kc68BfQSjzcRvhkkjjq
-	RIVBryEsdPMiaoqLHAmLSrdXGI7A0PiG/qeFFjfaG1pQt2TR3ykC8I184u+N6150XZF0WF+V4Fy
-	5DLehE0tDGV/S9x/6ih5o00JuCu3wjRdrVq1B0hPUmt46lMEycQAY7qMZHc36HCgwuNQvmsZhYp
-	3PQHT8xpRs8vLja/kbRU0CzLspkuKVsHvb0DPoktuG1oQk3l53wBw9yX2i58Iqfktxts7pEFnJY
-	p8oIkIo+NMh2xkTrBP/36pAZ0D4JwcwvXknJxloKtKU0MJjRi9aqmGoboHdtfUFM8LhU1ftxZn/
-	CGhEi6YHQSMK9KwloIFuJMV7xH7R156zxbsR6CAAYErD26XCh+NFNRf/KcUWp0LsKx
-X-Received: by 2002:a05:6122:2407:b0:575:e9eb:d879 with SMTP id 71dfb90a1353d-58659010a93mr10843084e0c.0.1779874596593;
-        Wed, 27 May 2026 02:36:36 -0700 (PDT)
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com. [209.85.221.182])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f85bde2fsm19478757e0c.13.2026.05.27.02.36.35
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 02:36:35 -0700 (PDT)
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5751b7d147aso4201148e0c.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 02:36:35 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/6aZSSn1VGa9Je5/N7ViuVLvoSStjGBgZIJwUSJFXRc4fZLbahIA+PX0gpTZHeHpZtQH8a05OEEzMI@vger.kernel.org
-X-Received: by 2002:a05:6122:ca1:b0:575:3b34:28b6 with SMTP id
- 71dfb90a1353d-586624cee61mr10718336e0c.11.1779874595383; Wed, 27 May 2026
- 02:36:35 -0700 (PDT)
+	s=arc-20240116; t=1779874664; c=relaxed/simple;
+	bh=Tm29kT/cFKO8DQo7+k5lCiyUVWdF9IPhbFvMRFqmUjo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=eWALu8GxDbqMKEFXgQLbhd7SNB2CzEWYZ0BnFx2g07Dr0IxWV1BQOOupRWa796qlVgddNlT9icht3XgavZ268sV366W0VjE/Hri5+DglJwaGqOXixxMABmvVXaNCQYwj5Exy7T+S6LKdJ0PV2Wlpe08LGd5Yd94DNKKW1LntI30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iSzpnAk2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iSzpnAk2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB1151F000E9;
+	Wed, 27 May 2026 09:37:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779874662;
+	bh=KZ7Yr6n6RZHNl4q4BRl4qJ7txUMkOLIA+bAyPZbb2RM=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=iSzpnAk2pa1g9c5snXfAUA2zdi/c2MEztNtyf54EqxcGck9nN5RCgNSRZAErNyZaG
+	 aSgsDT8ehMl1D7xN4KniqJGftEIgSJOh1yiAdhJVzhksQqF0sYZ0yze0ZU3Oud2gkD
+	 Ly4mTj2Z+OLWakchbCPx2H6+4yBFy2plvJqi26a7xD0GddMWK+RMZXaQf4ADAgmL1o
+	 WWlod+vWO8PZhwHtf83PnkIKoGBfd2C9+twYY5iJMYBfWowZ+vQSMaNtgTEH9yuWLw
+	 wouXGGQMlPygutAVTEULUm226i64fgqxt04acd/IMtwQ2BpJ1LQzU0cIfObfhJg/2J
+	 wFA1GH/cbD9BQ==
+Message-ID: <14f9923e-ae0a-4e69-b3b9-a7353b84b9f8@kernel.org>
+Date: Wed, 27 May 2026 11:37:34 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260522102251.1723392-1-claudiu.beznea@kernel.org> <20260522102251.1723392-5-claudiu.beznea@kernel.org>
-In-Reply-To: <20260522102251.1723392-5-claudiu.beznea@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Wed, 27 May 2026 11:36:24 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWqe4JK9TibiaXO9m1k2YHqS0fYtN4O-GkYszSfMt1OOQ@mail.gmail.com>
-X-Gm-Features: AVHnY4KKBDZVJSxF14oLw6h140lrQziFwBUZAfBfWP_NxcAjjTCmNb4Q9eatVi0
-Message-ID: <CAMuHMdWqe4JK9TibiaXO9m1k2YHqS0fYtN4O-GkYszSfMt1OOQ@mail.gmail.com>
-Subject: Re: [PATCH 4/9] pinctrl: renesas: rzg2l: Use tab instead of spaces
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, magnus.damm@gmail.com, wsa+renesas@sang-engineering.com, 
-	claudiu.beznea@tuxon.dev, linux-renesas-soc@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, 
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] media: dt-bindings: Add CSI Pixel Formatter DT
+ bindings
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Guoniu Zhou <guoniu.zhou@oss.nxp.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Shawn Guo <shawnguo@kernel.org>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, Frank Li <frank.li@nxp.com>,
+ imx@lists.linux.dev, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Guoniu Zhou <guoniu.zhou@nxp.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260525-csi_formatter-v8-0-6b646231224b@oss.nxp.com>
+ <20260525-csi_formatter-v8-1-6b646231224b@oss.nxp.com>
+ <20260526-towering-essential-civet-19a5ad@quoll>
+ <20260526094438.GE228394@killaraus.ideasonboard.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260526094438.GE228394@killaraus.ideasonboard.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, 22 May 2026 at 12:23, Claudiu Beznea <claudiu.beznea@kernel.org> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> Use tab instead of spaces to follow the same coding style.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+On 26/05/2026 11:44, Laurent Pinchart wrote:
+>>> +  - |
+>>> +    #include <dt-bindings/clock/nxp,imx95-clock.h>
+>>> +
+>>> +    syscon@4ac10000 {
+>>> +        compatible = "nxp,imx95-camera-csr", "syscon";
+>>
+>> Drop entire node, not relevant. Or actually this example could be in the
+>> parent binding example.
+> 
+> I asked for this in the review of a previous version. The example only
+> stated "formatter@20" and it was not mentioned anywhere that the device
+> was supposed to be a child node of a syscon. The driver reads the reg
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-pinctrl for v7.2.
+Binding does not have to state that. Parent's device binding will state
+that.
 
-Gr{oetje,eeting}s,
+> property and uses it as an offset to the regmap of the syscon, I wanted
+> to see where/how the node was meant to be integrated in DT.
 
-                        Geert
+Sure, parent's device schema should have complete example. But we never
+add the parent compatibles to the child schema - that's leading to
+additional work later with no real benefits (that's only example, so no
+real code except maintenance effort).
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Best regards,
+Krzysztof
