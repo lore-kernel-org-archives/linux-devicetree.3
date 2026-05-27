@@ -1,160 +1,89 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 530843CD8C9
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:55:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B06CB3CD8AA;
+	Wed, 27 May 2026 07:55:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779868506; cv=none; b=cqeK2DwIPT1RgwE3thRuKAYeFAJzY73q1Z9TLVRTpsPjdT5J9mR7eo/Mn7yW8YCYIcdhS3EVi6s8kwPJK7Tp+N6Q/6t/AIIWSeTcOcl7dNdMlZptLeewAGXrS356Tq9VdMOgUcLIE0C6hsHV1GZeb9UKyPF4OpyvzJbkIKkJroQ=
+	t=1779868524; cv=none; b=kaUdklQewsi3B5mu4q65FxGUwGZ7h8DCUvUxe8OQEe2RPXVEtCob7FyLeD4Ywhs4UXGuvpIYNVpwbhrUUfOSbotfwHQGR9IjfOABHu+r02aDRpPn6OA3262rtXur+06wNzIp2eOQy9+3Mzji3mWbeBgYz1hiQzdQgYjqPwb6D1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779868506; c=relaxed/simple;
-	bh=TinoBZ5FTOzSVqA4vf8A548fMG5R5EFZFN4mybwiaj8=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Msg7Bd84GoNLpK4jZBxDlOMslR2g+E/e+JMQWAV6ILiVMUhJqpvfYGW6QP6pyj6UlhvqczEoeP45xRP5UroYGWNteaP2h96FB6ypZLdvpPZIJQc9YN9GTydgpHD4EFN6m4Yd90RtpbRjL1OpufyJuPxpqU4vaKVINtzRf6Gc5rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IBpZwvnt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779868524; c=relaxed/simple;
+	bh=zDN3dQE0pZCHm/EWjUiAZII+WWQDvvks2kEWRXa7SX8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FgtRW1MRj0m8ut0k42WuvN7vhMsUOGc1hLZT/gB8hYZywvv/vIUorNRW7WxGD6uMML8Fd6DfLKd6K8M6luUBtwkO4xmII1nAbegxTV+JxgX7Q/XLliSW/7xmlrWnnXNJ/pz6LXbj9cbJgOXCyWpAoZUaxXOBD830k9S2cFccr7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UNUWQFCm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IBpZwvnt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EAE61F00A3C
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:55:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UNUWQFCm"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id BF5EA1F000E9;
+	Wed, 27 May 2026 07:55:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779868505;
-	bh=TinoBZ5FTOzSVqA4vf8A548fMG5R5EFZFN4mybwiaj8=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=IBpZwvntlzDZda5S4ksMbHKk2oECsb3PmTK1002SfoskyX2IaGDrlwyNicf7twiy/
-	 TK+M3L+mk9MRFC/Cuom5GYjinqb9hF7vzwHDWDPXU4HhqxF3FBy5d+t3tgxL4Ws+Bl
-	 NXbDjk7BhkBXWWpJkMUU1d4tj6GG6jDrnh5Bdr9W97j7izkMSc/gPRA5Hgu4aNAK4/
-	 eC9AoIQjuCs+or2mtlGky4+0qkUpch6bFzIO81ugnf/cnLShR5ioHlxF7kC/OqE7V/
-	 4xEG31dRTE1jsqZKoJXanDzEnGM9wjvoXL9chy/WD5h5ZeWVIC5bCZjONx5DNo6TK3
-	 q0VS622CGc7BA==
-Received: by mail-lf1-f46.google.com with SMTP id 2adb3069b0e04-5a40d02b58bso7725700e87.3
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:55:05 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/DdT+nq9VMnUtOL3Yn0AVF5jyH18ygxwZFXEWKQmPxUafRmQvZYLTu4ygmR75cY/7UXR/AB+VLkC/O@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw8s7mIK+ZUs3Sm46AjG0n7dAF7mgaZP6YIMICZ81So1qsK3HB4
-	/wJyCrj+X3xCx8qgi+NAe1O20AF1/O993eo5+mXxNkHxb/Q/pm2QXuGRN1FIapkZyYTuKusog5Z
-	Xq8PypHu/MgvXcJqpSLi4/CGENOJnpaQD991GMRsHuw==
-X-Received: by 2002:a05:6512:1595:b0:5aa:116d:ae0b with SMTP id
- 2adb3069b0e04-5aa3232a168mr6419026e87.16.1779868503859; Wed, 27 May 2026
- 00:55:03 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 27 May 2026 03:55:02 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Wed, 27 May 2026 03:55:01 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <CAPVz0n3X8Gw2Yo9VgwhV0uAqvArGXbvmzw=cZVJw=4BEH_E7_w@mail.gmail.com>
+	s=k20260515; t=1779868523;
+	bh=zDN3dQE0pZCHm/EWjUiAZII+WWQDvvks2kEWRXa7SX8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UNUWQFCmi5dD4PUWIDlyhsoLTrAw7u+EKnCD83Dl+FeOFH21yTR9qoQlpzrn0/Asg
+	 6wl8Q6DA44YlPXZSP+ETUeUeheClz+nXVCCl7KjTpq56EwcM7loZnLuI38m2pxQXMj
+	 YrRey8SH8BzJndKiuWTn4biBT6Pjl76uuNSDFZ96ohRRa1CeYvbe7I8r2wqcpKVhmu
+	 JvffroaCsnKqINBkmXgbdooRNXVnDveZE0T/b7W4RaWPZSgfG0NVd2Zq92xgKHkywN
+	 8sUmQ3MDSorxiyemIS30cwyTZNsG1umaNJ77bc+GBttpjmZntE0XacWoYYx1ebJ9iu
+	 FJWRKHV/WOIxA==
+Date: Wed, 27 May 2026 09:55:20 +0200
+From: Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
+To: Florian Fainelli <florian.fainelli@broadcom.com>
+Cc: Andrea della Porta <andrea.porta@suse.com>, linux-pwm@vger.kernel.org, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, 
+	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, devicetree@vger.kernel.org, linux-rpi-kernel@lists.infradead.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	Naushir Patuck <naush@raspberrypi.com>, Stanimir Varbanov <svarbanov@suse.de>, mbrugger@suse.com
+Subject: Re: [PATCH v3 0/3] Add RP1 PWM controller support
+Message-ID: <ahajNRmYNa5SNQnS@monoceros>
+References: <cover.1776932336.git.andrea.porta@suse.com>
+ <af2bsEdAhYY9c4rb@apocalypse>
+ <394b5e02-1aa6-4efe-a5f7-4468d1f82172@broadcom.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260523085102.51000-1-clamor95@gmail.com> <20260523085102.51000-2-clamor95@gmail.com>
- <CAMRc=MfXVwD2u0e115RapnyLzf5JRjWMs=2PSNzMnm0GDd7aaQ@mail.gmail.com>
- <CAPVz0n1G5Yu2X5f+=q90RAbnsWi9psMq-L5tWDMM4JRC4R_mPg@mail.gmail.com>
- <CAMRc=Me4G-YqKoFan3epofXk2OWzxY1iPE1mP=uwEjs9wgA6Cw@mail.gmail.com>
- <CAPVz0n2P-zB1_uetZN9pVcQChK+FkdQowbF4Z0YZOBQBsB76WQ@mail.gmail.com>
- <CAMRc=MfAAE4UtnW4S1=pY+2yvS6Hsd-U9+uveUFtPGoJPrv6aA@mail.gmail.com>
- <CAPVz0n2COsDL+fNBAuKr1ty_AVe9sK5yNJithkXex6GNa1T_Tw@mail.gmail.com>
- <CAMRc=Mc9g=yezRtAtRMzh7t-pSoyoKQEtxrb5U0oeFAbcjb6Ew@mail.gmail.com> <CAPVz0n3X8Gw2Yo9VgwhV0uAqvArGXbvmzw=cZVJw=4BEH_E7_w@mail.gmail.com>
-Date: Wed, 27 May 2026 03:55:01 -0400
-X-Gmail-Original-Message-ID: <CAMRc=Mf4W9hoP7FAbxQTNLaG3M9W+GmvQSMECbzzdQLU_+5D4A@mail.gmail.com>
-X-Gm-Features: AVHnY4Lt6npNCIf-HQwre2EThWE1lIb8ewUMXlF5zYGKxytOXdvRZmQqD1cgohY
-Message-ID: <CAMRc=Mf4W9hoP7FAbxQTNLaG3M9W+GmvQSMECbzzdQLU_+5D4A@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: tegra: Document Nvidia Tegra
- modem pwrseq
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-pm@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="euzjwg2lalycyeq4"
+Content-Disposition: inline
+In-Reply-To: <394b5e02-1aa6-4efe-a5f7-4468d1f82172@broadcom.com>
 
-On Tue, 26 May 2026 15:41:58 +0200, Svyatoslav Ryhel <clamor95@gmail.com> s=
-aid:
-> =D0=B2=D1=82, 26 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 16=
-:14 Bartosz Golaszewski <brgl@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->>
->> On Tue, May 26, 2026 at 2:55=E2=80=AFPM Svyatoslav Ryhel <clamor95@gmail=
-.com> wrote:
->> >
->> > > > >
->> > > > > The node attached to the pwrseq provider device should represent=
- a real
->> > > > > hardware component. Are the enable-gpios and power-supply lines =
-connected
->> > > > > to the modem package?
->> > > >
->> > > > Yes, enable-gpio is connected to the modem and signals that USB is=
- set
->> > > > and ready to work with the modem, while power-supply is an optiona=
-l
->> > > > supply connected to the modem's vbus input.
->> > > >
->> > >
->> > > The modem is a hard-wired USB device? Do you implement it as a
->> > > platform driver or a USB driver?
->> > >
->> >
->> > It is not a traditional USB device. XMM6260 is an embedded modem used
->> > in the Tegra phones, it is linked with the AP using USB line in HSIC
->> > mode. The driver is implemented as a platform device since it does not
->> > interacts with the exposed USB device directly, it just ensures that
->> > USB device is properly configured and is ready for IPC.
->> >
->> > > Is there a connector of any kind that could be used as the HW
->> > > component represented by the pwrseq device?
->> >
->> > I assume control over USB line is the HW base, but as I have said, I
->> > can integrate binding in the modem node itself, and pwrseq can get all
->> > it needs from the match. Pwrseq framework states "This framework is
->> > designed to abstract complex power-up sequences that are shared
->> > between multiple logical devices in the Linux kernel." it does not say
->> > that it must represent some specific hardware.
->> >
->>
->> No, not at all. We just can't make up any imaginary, logical "pwrseq"
->> devices and describe them in DT bindings.
->>
->
-> Ye, ye, sure, pwrseq framework is quite flexible and I am not stating
-> this bindings is mandatory.
->
->> > Using pwrseq allows modem driver to be SoC independent since USB line
->> > handling is moved into SoC specific power sequence, and this modem is
->> > used in Exynos and OMAP too with similar setup but they all have
->> > different USB controllers. Maybe you can point me where SoC specific
->> > USB controller handling can be implemented?
->> >
->>
->> I'm not sure I'm following. Can you rephrase or point me where OMAP
->> and Samsung implement it?
->>
->
-> They did not.
->
-> The XMM6260 modem is used not only in the Tegra phones but in the OMAP
-> and Exynos based too. Replicant tried to implement support locally
-> with midas devices and they had some progress. From what I have seen
-> generic implementation I am proposing will work with any of those 3
-> SoCs maybe with some slight tweaks, only part that is totally
-> different and SoC specific is how USB controller used by the modem is
-> handled (well and IPC but that is out of scope of this patchset
-> anyway).
->
-> Obviously, non of the 3 vendors have submitted any mainline patches,
-> everything is in the downstream forks. I have investigated a bit how
-> this modem works on my Tegra phone and re-implemented it to work with
-> mainline kernel (I don't have Exynos and OMAP devices to play with). I
-> have come up with generic platform driver which handles modem
-> configuration and a SoC specific part which performs USB controller
-> bind/probe when modem is ready to handle the USB. ATM this SoC
-> specific part is available and tested only for Tegra devices.
->
 
-Are you familiar with the PCI pwrctrl code that lives under
-drivers/pci/pwrctrl/? It seems to be solving a somewhat similar issue for
-PCI devices that are hardwired and powered externally. Maybe you could use
-some of that code for your USB use-case?
+--euzjwg2lalycyeq4
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Subject: Re: [PATCH v3 0/3] Add RP1 PWM controller support
+MIME-Version: 1.0
 
-Bartosz
+Hello,
+
+On Wed, May 20, 2026 at 04:31:42PM -0700, Florian Fainelli wrote:
+> I would prefer to take the DTS changes through the Broadcom ARM SoC tree to
+> minimize conflicts on my end, are you going to take the PWM patches for 7.2?
+
+I didn't find the time yet to look in detail, but skimming
+https://sashiko.dev/#/patchset/cover.1776932336.git.andrea.porta%40suse.com
+suggests that there is still something to do for Andrea.
+
+Best regards
+Uwe
+
+--euzjwg2lalycyeq4
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEP4GsaTp6HlmJrf7Tj4D7WH0S/k4FAmoWo2QACgkQj4D7WH0S
+/k72hwf/eJOLdTqx9awA8YMjMpmRLgfAPn2nkdaDbwV6esNNZT0ofvsM+CvjBPXh
+pJjAAuufZwcSsQjEEd6kB41yTDhIBsR8ZLves3J7ocg1SwKGdmVucyKw9mnCR2ce
+AWsrfAD0AZLrdlxEG1L5N0d95SUPLlFMSJcr9kyol3NsL4i3oerEsMhJC1mkhq8Y
+NZRB86OK1cnc70jWKEUjGvfuHP+G9rn0gOuax2znEwcVxq4Hytm/HCsHoheP119q
+Cq9GRHBRvmt5fl4BsgFxTcpTSOce1quz54tJh2ln0cGEorxO02RfVXipYGXel5xv
+WMPklMj+QVkPq6qK3uqLvmcVkRkZAQ==
+=4Fzh
+-----END PGP SIGNATURE-----
+
+--euzjwg2lalycyeq4--
