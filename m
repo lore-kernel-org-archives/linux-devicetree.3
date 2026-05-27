@@ -1,136 +1,167 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010029.outbound.protection.outlook.com [52.101.228.29])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6417437DE83
-	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 16:03:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779897799; cv=none; b=Bd13XKTYsOjyKdcFqVlcDmdlwm8igxgj/AzP1dW0hbpbO984OQjTtiDp9qK4sr7st109WMrrLfjWXSarXnsZ6oLNtCWvyaN86GU8X97gFXD0bgiv3xRUA7nHYCl7yVyf9QQqRG4PDcICZV+3Q2+VeBWN2VFLq+eqfGLoAbFJPD8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779897799; c=relaxed/simple;
-	bh=U8a/4AjcgUUEbnLVXvOrDSZheBCAWWxCfaXjMpnSpLI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=YAgQ/jVYsLI5qqoI50KpJVTSA0PB7qNp0/xVst16hkbZpC57lQgc6IWviu7sHZqR5vNrhMsZ4+30aOShATxcGmaLHwtpnO6xHflJV1wpFQbGSFCsC7XE/FfzYRKk1Uf6IC3F4t7Ut95WW9pUKx194RWomAWRsIIzZCeDL6eb1OA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3b8UrCT; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56FD23DFC78;
+	Wed, 27 May 2026 16:03:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.29
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779897829; cv=fail; b=EJ6JbOqxFdYsIz9Zr+nJ33c5R1MvyINCuM4fYCmuehQaOoDcu9A874X5+gGxuqH+W+hodJMWzrTsGpIBTPE5iHjOnATgMtu1Ywz8WwrA94GDEmErx8PuozWWdf8sj7K6UcgygcUj1Bf5Qx1tvN0BFoPAFHPR6cytrs4NNxK/RNU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779897829; c=relaxed/simple;
+	bh=cWIOUefoiOepyKLvEC+sAXHTn7xm/Sgf6A6FiwNlCEc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=C8klzaDfzVI1mRvfVzhNIXqBzWzfFCLYshUen316KzbMKhJxphvqRA+Nsybl/8zWeGdEgyQSiQ1rZiNuEw2QvENuKjD1GBwTlCdVI/fpmcUM57QZA+oMBOHvgTuWq7FmWKtR9x4KmL3idbQtJxgqmvWkJNyKvU5Y//qbt6l/B2g=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=H90eB2cY; arc=fail smtp.client-ip=52.101.228.29
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3b8UrCT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1075E1F000E9;
-	Wed, 27 May 2026 16:03:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779897798;
-	bh=Hc/E+mFaCWmSZ6TNBGt3lnXd5BiqwA16BeqXQpBZSwc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=b3b8UrCTFw73N5v9MNS5fNO14oVBEx5ATu/cymk66iw3Rd9lJL4L1IHBEJGhfHA3v
-	 o6WoneKLbHsMngGuMOAkFaJuCeOc1gNNL69vfVaK8UJ8+0zUyN29N0jKWQW77i3pLJ
-	 s1PJgSV6yiXdc/c4+rYXuIXRB5nX+1DNxfTqt9FgzsWEG/Vls6czOPHUPeB3nOvywE
-	 FHwSvXIaDX6OvjOwOhIAV4yUR92s9IIKrjnb1unuEjjmx5yYO7OGT2bOjmtZlXU/ee
-	 eGew8uTgUbO8X3w01F8ppnZR4/VUdEh+3jvjFBnJxMaP6d50SBUyuOE5TnocUop6yQ
-	 g4RggvdMq+vtQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: socfpga: agilex5: popuplate reset property
- for I3C and NAND
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dinh Nguyen" <dinguyen@kernel.org>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260527151239.55650-1-dinguyen@kernel.org>
-References: <20260527151239.55650-1-dinguyen@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 27 May 2026 16:03:17 +0000
-Message-Id: <20260527160318.1075E1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="H90eB2cY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SwM403vnzgXRhkfzZ2jSkKeZ5bwICmgZ7gBP4gnRq/RxtDHxKAixkkKGKUy9usD4pd+09QrZParOz5sq38LZvsXMrmFwvkq4ZTln5S7Lv3oSaHGfN4Q25bwUkjKDDggzhHALpaDbXQDkxLsWXZYisG7MHJXo9VztOLeSXMvZu1LqpFZ+MNksggHcEIEOn80Bwe7IMPcOVKZyHEbtKRSm+YmJRhRi/QbqXmQW/Xr9LQYUF3trkAtRPeOoPqT4Vdo1mwH0yvDaC3XemvdKLEmUuFBMpUYymKBCgd8NRUFQawn+CDl52slFwffAcDrrYm1HPXH/aS5bn7Ip39rnr5nN7g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=cWIOUefoiOepyKLvEC+sAXHTn7xm/Sgf6A6FiwNlCEc=;
+ b=Fc/MNSdvjSKyZm6vviW7LJmXfbdk8L1n78zMSf8NdNlYEPgE4zd2iDiItRFxUVM2xddBATQZ+J8TELkXpL/7fwMYkFCYBwfEObYvng22v0RYtOTjQUa8dbMp3ugSAjl7pz206j87KTdZF0GaCCnNJ/EW3y1oT4HtDPvN8/vOFMS5EPmCbFTz/KkxRQsyn0LoAMIDGqIdlWvbDliXbqjk3C2AogQcQxQ12DmGk84I5Jn45P66dy244lwLjrbArr7+E6qPfmwU5+/PgUQwDr/TG48mQmcRvLWozHBsTXfdPQwUI3lbcJplWy6dGoD04DwnRwlihd7WlBdt4+MgZPgOHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=cWIOUefoiOepyKLvEC+sAXHTn7xm/Sgf6A6FiwNlCEc=;
+ b=H90eB2cYfyx5ahzz8v8M3UiktLNgwKCewF4bo4kxFZ9KAxWsN6feBWDbN2s2bykjXo7GZISTJLAHOv2lWkFIJw44xrHtV/Vl02qCXJ160rojLSCakIW9CWfVbecKAQeOD6zH98o2r6cZLYIRCVYNJElqv+NxUbv9vetunWmh1Ek=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYCPR01MB8471.jpnprd01.prod.outlook.com (2603:1096:400:15d::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.48.17; Wed, 27 May
+ 2026 16:03:45 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0071.011; Wed, 27 May 2026
+ 16:03:44 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: geert <geert@linux-m68k.org>, biju.das.au <biju.das.au@gmail.com>
+CC: magnus.damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 1/4] arm64: dts: renesas: r9a08g046: Add scif{1..5} device
+ nodes
+Thread-Topic: [PATCH 1/4] arm64: dts: renesas: r9a08g046: Add scif{1..5}
+ device nodes
+Thread-Index: AQHc3F0bZpooccbmgk+2oil5b7LirrYiGWuAgAASPGA=
+Date: Wed, 27 May 2026 16:03:44 +0000
+Message-ID:
+ <TY3PR01MB113463838FC120A929F4144C686082@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260505070206.7932-1-biju.das.jz@bp.renesas.com>
+ <20260505070206.7932-2-biju.das.jz@bp.renesas.com>
+ <CAMuHMdUMroQsJpmuA2zD75t88PJkEyc0w1azKjVaK-PsCkiapw@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdUMroQsJpmuA2zD75t88PJkEyc0w1azKjVaK-PsCkiapw@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYCPR01MB8471:EE_
+x-ms-office365-filtering-correlation-id: c78cd6f5-c54e-4fa3-a881-08debc09878c
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|1800799024|376014|22082099003|18002099003|38070700021|56012099006|4143699003|11063799006;
+x-microsoft-antispam-message-info:
+ v29xXtgbFf61sjPnKC+rbWttWE/I5JGRvwavseGkHzvq0+6TgGgDk3EpNwGfBGIhYhnw/t9bF8Iom44EXvOLzbL5iNeUSZqnuRJqFei2AN9nh7tuRz7N/x4Puj4sj8b2q148/7Nj7HYkpZh3BzyLCD0xMfDa4Afd1qAJQZYSk7uwrXaWrC5PE0N88vpO7my1tJhNksMLlHc9SreVO8hqgzxWYFDUJdUfs/mYA84q97RYQz6dxZbgypJLJg/6RjnxzhG8BzR91jAx69CFWdniVAz/w426YXghTPYRwvYlXGm+l+WMbT8+Q6Er4ftQylWWcF5qOfFO6HNw6apI0rbhsv4dSuePSz+SSztAV4ECAQDH96Qrs6CXT1wc7JN1Ml+ZScL7PK/cHQ8wuLqPeTGw6wLTuC02Br9JIAdL6gjpruXkXgjWBwRwBRd6jMfegf7B79NThBSyhO5SogClpTtcvy10ue1e2d/ma0645HYeKEK0+7Q9WAcIGl6n6Gw36+zAKr2PoR++0EB3+625NEJJ+FPLLABfe82MKKDalTg7d4rfGb9uk3WvV9+ZdC0uAoZTwOlsoQklBh2g3mblNgmj06RmlZyOPWNopdSbhPS9mgPmYpF+UPKaGXEaqo1bXsXl17orTOQeqHDv6ld499zyIaalPDGOmBjw+htbAQFZIFynNFmNdLAV5RQJJ9Sgk8QeFD0j0ZxV2FrLSlIZw+g71xu1QbKRmu71BUW+GmYEuiHzkuXbbpERBwYYk45SWjap
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(22082099003)(18002099003)(38070700021)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?RS9wT3gxMmpab2Z5UE01SXkrRlErSHhQbVFMTFB3NlZremc0eUFndlFFN2E3?=
+ =?utf-8?B?RWJHVkcrQ2RlekNlMlZoU2JOWnYwNmJ1b0ZONDMxYlJhbjRFSkZtQ2RTamdj?=
+ =?utf-8?B?dTlXT21xR0c3OU8xbFFDT1RIQTlQVVRUTkNMTHdRM3Vkb0pCV3Y3L3M1QkFj?=
+ =?utf-8?B?UllxTXRNSlFCSHJhSkVTaUdTZTcxenpwRVgrVHA2dFVmWTAvRFJlcFJVSjRM?=
+ =?utf-8?B?enFzbXNLUnBrakVMSnQ3bHVta0ZBa0VmV1h3S2dUSkY3dGdZd2VGeG4vZ0Ex?=
+ =?utf-8?B?OVNpNUVkZ2FidC92azR4VForVlFsZFVMWDhxcXp4emwxNjFheHFuZ0ZHa0lp?=
+ =?utf-8?B?VkpWc0FpOVZkMWhlcnV1MWRYcWVxYjhkM1B5a2pwc1hnV0hJSnZjdmlqRjV2?=
+ =?utf-8?B?VzdVTDMyTjZ0Sm5Ya0dCVXY0WHFYaElEbGtSWlZobWQzNlB6dDYwU01XRit3?=
+ =?utf-8?B?dTdJTXkwTWVya3N4bnBsRHdYVk1CL1pCUzdmVTNWQkU5dnBsTUJoNlE0aGVS?=
+ =?utf-8?B?VTBHR1UxdVluMGJUZkllenQzVnU2c1lFQXRBSDBDTHVkWlQyaVp5M3BEYjhp?=
+ =?utf-8?B?R0JycjN6NFM0ejFQQWVYbDdvK3BzZ3VHN29yMm5JaHVMNHAzZGxpRlFSa0ds?=
+ =?utf-8?B?QTgrdk80ZFRiSzVTYkdxK2g0Rk9sTUF0VW5RQ1ltZW9DTXRyZlhOU3B0MkIr?=
+ =?utf-8?B?SVA0Yi9qdFRYZnkwUUVuRzI2Qy9sbEt0cUU2RGFOUHpSa0NtckFNbXRHRFo1?=
+ =?utf-8?B?TW83R0sxaWVjS1lMeWpTS1RrNVpSbGJEZXY1RzA0UE5wcUFPN015MFV1NWd4?=
+ =?utf-8?B?ZFdDcUF5Z1A4S3pBUlp2ZFhsOU1ybms3bXo1UzB1a1ltS2xvZnNueUp2aWkz?=
+ =?utf-8?B?eWtOYmVXYlMrUWg5VUJTOHdGd25ieFdGL3dsN2lXSk5GSUVHWHk5YzhiOEto?=
+ =?utf-8?B?OUVhMVhuZ3Z6dGlFZXJ6L0piamlJbzB3S3FOazF5dklGd2E5UEowdy9vY0U5?=
+ =?utf-8?B?VzY5TDcwSEVrY3pJZERIZkRNSTVxSnZ5ZW9XZnB1d1MrdFFBZ01DTTJvb3J1?=
+ =?utf-8?B?a1hFazlZb0FObzlaY0krSXd1UXcvOTNNL1JkQUZOMVh1ajZXZ2JIekd3MHk0?=
+ =?utf-8?B?SHRtcEZIakNvN3lPUkRvUEtrMzVkRWZrSE9ZTGt6WDI5Q2szZlRnZHdOZitN?=
+ =?utf-8?B?aXRTOCt1RWc2Vm9kc0R3YkRVR3pXQ2tvMFgvWlFrSXJaK1hQZzJuMjZxcnZB?=
+ =?utf-8?B?L1plVDU0VGtFQjdrUTRJcTN6Q0tmdkU4WWY0UGFUbEY5REVvVW01SzdzT0Jv?=
+ =?utf-8?B?RGEzRnFYbjdNMHRaWUIxRDQ2TXUyWUI4K1gyV2hhK1IyMk1rQUgrOEhadGZB?=
+ =?utf-8?B?ajJZUXVYcG5iSlUvUC9ycFdNYUMzQWIyZjBEdjNNaWxRUkoxd29jR2dLWFFF?=
+ =?utf-8?B?UUhsOGpHZ3NBNHNkVkJVZjdZaW9mak92aEdYT0ZDcUJ5bm4zZnI0T2sxUm16?=
+ =?utf-8?B?ZGJyZUVYRER6K05sNjdGYmhycUZSc0Jzb0ZKWXhUd1hQQ2p1VTFpMjZjTjBq?=
+ =?utf-8?B?a0hNbllaK0VOYXRvSVR4U3kzV3B4TWpmenl6RlFFSzVVMTJ3cUc2bnRjQ1lN?=
+ =?utf-8?B?RVFTb0QxWU1sam9VYnQyT3RNYlY4TVVhRGpqQ3FYN0FVZmFnZlNtQUNHL3M2?=
+ =?utf-8?B?c2xmNU5RY3RrVHdmVENhT1BBT3lVTVUxRThqTEFhRElIaUJoUmVKcS9BTHNk?=
+ =?utf-8?B?bHlFeHoxaTNoVVZpcURNVWJ4cHdrbDA1dWZOR3RLVjdxL2hDWHMybW9aRFF2?=
+ =?utf-8?B?N1RQczc3eWkvY0NQdXlSZUZCNDJqYVd6R0JsbjFsdUF3RlZsWm4vVXpYbHlY?=
+ =?utf-8?B?UUZyWWtZRjkrR1IrQVZINWk1U1l5MW80V1h5bVdFUVRHMlA1WGJOTjk5dlF1?=
+ =?utf-8?B?b25nVEN4aDc3bkdQUktEZUcwUkNyRmdneS9HcFRnQ3BYZVhqOS9zUm5GTjh4?=
+ =?utf-8?B?RXVBSFB1WDZwMFNrZ1lkUXArdDNmRGcyanU0aCtISkgyOEJhdFJUakQvVVJT?=
+ =?utf-8?B?L2xiZmU5eE5sNjJHcW1LTUxwaU93OUg5WS85WDBrZFBRaGlXaklUVW9OQ3pz?=
+ =?utf-8?B?clJEczgyM0E2NnZSMEdTa2dYd2RmdjRnbXd5bS9PSnhUU0h6RTVkaFhtY0tu?=
+ =?utf-8?B?aEozUVppYzZNdFprd3BnNFUwYmh2R0FWSGZ6c1ZrWVlBOXhWeW1YU1pTdWFV?=
+ =?utf-8?B?SXowQmVFa0NGd2VaeHl6dDBNOWVFWW9sVy82ck1DYTlBV3FCS211aHVjb0lD?=
+ =?utf-8?B?MGI5OUFYbkZNR2lvczlGQVlKNlRIcDhBREY1TzlGM0diQWszaW5XUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c78cd6f5-c54e-4fa3-a881-08debc09878c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 27 May 2026 16:03:44.7574
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: pSd9txOUJ51WXufJuls6pxuBb0PkVhxN5yfnyNN9wdrOMry73ZNGa/vc7loBh6RDrm9n58ccXpSW8ftcYhZyJWY9Qdx+7uYikUg4h+8ClWw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYCPR01MB8471
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing `reset-names` property causes the `dw-i3c-master` driver t=
-o silently fail to deassert the I3C resets.
-- [Medium] The Cadence NAND driver lacks reset subsystem integration, rende=
-ring the new `resets` property ineffective.
-- [Medium] Adding the `resets` property violates the `snps,dw-i3c-master` a=
-nd `cdns,hp-nfc` DT bindings, causing `dtbs_check` validation errors.
---
-
-commit 8dcedebea5fbdeab502fe0008a7be9fe724b28a3
-Author: Dinh Nguyen <dinguyen@kernel.org>
-
-arm64: dts: socfpga: agilex5: popuplate reset property for I3C and NAND
-
-This commit adds the resets property to the I3C and NAND nodes for Agilex5.
-The goal is to provide the necessary properties to bring the IP blocks out
-of reset.
-
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/=
-boot/dts/intel/socfpga_agilex5.dtsi
-> index 02e62d954e949..7fc75b439925c 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -244,6 +244,7 @@ i3c0: i3c@10da0000 {
->  			reg =3D <0x10da0000 0x1000>;
->  			#address-cells =3D <3>;
->  			#size-cells =3D <0>;
-> +			resets =3D <&rst I3C0_RESET>;
-
-[Severity: Medium]
-Will this cause dtbs_check validation errors?
-
-The resets property is currently undefined in the dt-binding schema for the
-Synopsys DesignWare I3C master:
-
-Documentation/devicetree/bindings/i3c/snps,dw-i3c-master.yaml
-
-Since the schema enforces unevaluatedProperties: false, adding this property
-without updating the YAML binding will result in compilation warnings.
-
-[Severity: High]
-Does the dw-i3c-master driver require a corresponding reset-names property
-to function correctly?
-
-Looking at the driver implementation, it explicitly requests the reset line
-by name:
-
-drivers/i3c/master/dw-i3c-master.c:
-    devm_reset_control_get_optional_exclusive_deasserted(&pdev->dev,
-                                                         "core_rst");
-
-If reset-names =3D "core_rst" is missing from the device tree node, the loo=
-kup
-fails. Because the driver uses the optional API variant, it silently returns
-NULL, and the IP block will not be brought out of reset.
-
-[ ... ]
-
-> @@ -313,6 +315,7 @@ nand: nand-controller@10b80000 {
->  			cdns,board-delay-ps =3D <4830>;
->  			iommus =3D <&smmu 4>;
->  			dma-coherent;
-> +			resets =3D <&rst NAND_RESET>;
-
-[Severity: Medium]
-Is this property supported by the Cadence NAND dt-bindings?
-
-Similar to the I3C master, the cdns,hp-nfc YAML schema enforces
-unevaluatedProperties: false but does not define a resets property.
-
-Documentation/devicetree/bindings/mtd/cdns,hp-nfc.yaml
-
-[Severity: Medium]
-Does the Cadence NAND driver actually consume this reset property?
-
-The driver code does not currently appear to contain any logic to acquire
-or deassert a reset control:
-
-drivers/mtd/nand/raw/cadence-nand-controller.c
-
-Since it never calls a function like devm_reset_control_get(), the NAND IP
-will remain in reset until the driver implementation is updated.
-
->  			status =3D "disabled";
->  		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527151239.5565=
-0-1-dinguyen@kernel.org?part=3D1
+SGkgR2VlcnQsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogR2VlcnQg
+VXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4NCj4gU2VudDogMjcgTWF5IDIwMjYg
+MTU6NTcNCj4gU3ViamVjdDogUmU6IFtQQVRDSCAxLzRdIGFybTY0OiBkdHM6IHJlbmVzYXM6IHI5
+YTA4ZzA0NjogQWRkIHNjaWZ7MS4uNX0gZGV2aWNlIG5vZGVzDQo+IA0KPiBIaSBCaWp1LA0KPiAN
+Cj4gT24gVHVlLCA1IE1heSAyMDI2IGF0IDA5OjAyLCBCaWp1IDxiaWp1LmRhcy5hdUBnbWFpbC5j
+b20+IHdyb3RlOg0KPiA+IEZyb206IEJpanUgRGFzIDxiaWp1LmRhcy5qekBicC5yZW5lc2FzLmNv
+bT4NCj4gPg0KPiA+IEFkZCBzY2lmezEuLjV9IGRldmljZSBub2RlcyB0byBSWi9HM0wgKCJSOUEw
+OEcwNDYiKSBTb0MgRFRTSS4NCj4gPg0KPiA+IFNpZ25lZC1vZmYtYnk6IEJpanUgRGFzIDxiaWp1
+LmRhcy5qekBicC5yZW5lc2FzLmNvbT4NCj4gDQo+IFRoYW5rcyBmb3IgeW91ciBwYXRjaCENCj4g
+DQo+ID4gLS0tIGEvYXJjaC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3I5YTA4ZzA0Ni5kdHNpDQo+
+ID4gKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9yZW5lc2FzL3I5YTA4ZzA0Ni5kdHNpDQo+IA0K
+PiA+ICsgICAgICAgICAgICAgICBzY2lmNTogc2VyaWFsQDEwMDRlMDAwIHsNCj4gPiArICAgICAg
+ICAgICAgICAgICAgICAgICBjb21wYXRpYmxlID0gInJlbmVzYXMsc2NpZi1yOWEwOGcwNDUiLA0K
+PiA+ICsgInJlbmVzYXMsc2NpZi1yOWEwN2cwNDQiOw0KPiANCj4gcmVuZXNhcyxzY2lmLXI5YTA4
+ZzA0Ng0KDQpPb3BzLg0KDQo+IA0KPiBSZXZpZXdlZC1ieTogR2VlcnQgVXl0dGVyaG9ldmVuIDxn
+ZWVydCtyZW5lc2FzQGdsaWRlci5iZT4gaS5lLiB3aWxsIHF1ZXVlIGluIHJlbmVzYXMtZGV2ZWwg
+Zm9yIHY3LjINCj4gd2l0aCB0aGUgYWJvdmUgZml4ZWQuDQoNClRoYW5rcyBmb3IgdGFraW5nIGNh
+cmUgdGhpcyBtaXN0YWtlLg0KDQpDaGVlcnMsDQpCaWp1DQoNCj4gDQo+IEdye29ldGplLGVldGlu
+Z31zLA0KPiANCj4gICAgICAgICAgICAgICAgICAgICAgICAgR2VlcnQNCj4gDQo+IC0tDQo+IEdl
+ZXJ0IFV5dHRlcmhvZXZlbiAtLSBUaGVyZSdzIGxvdHMgb2YgTGludXggYmV5b25kIGlhMzIgLS0g
+Z2VlcnRAbGludXgtbTY4ay5vcmcNCj4gDQo+IEluIHBlcnNvbmFsIGNvbnZlcnNhdGlvbnMgd2l0
+aCB0ZWNobmljYWwgcGVvcGxlLCBJIGNhbGwgbXlzZWxmIGEgaGFja2VyLiBCdXQgd2hlbiBJJ20g
+dGFsa2luZyB0bw0KPiBqb3VybmFsaXN0cyBJIGp1c3Qgc2F5ICJwcm9ncmFtbWVyIiBvciBzb21l
+dGhpbmcgbGlrZSB0aGF0Lg0KPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC0tIExp
+bnVzIFRvcnZhbGRzDQo=
