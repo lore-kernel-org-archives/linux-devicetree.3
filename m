@@ -1,171 +1,107 @@
-Received: from ultrarisc.com (unknown [218.76.62.146])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 59624390998;
-	Wed, 27 May 2026 07:29:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
+Received: from mail-vk1-f180.google.com (mail-vk1-f180.google.com [209.85.221.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B3213C8C7C
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 07:43:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779866946; cv=none; b=qR3/99WkKmM1X2htlaBFcjX8a5chkKsB+bbE8nWO8/gBDgcFPIStFOfRIYi2FArq2HwrK0amZvSoOaBHaQRGrg0rNzC0o987iMHM9M9O80nzqIoe0x8exYnWdKmORV+aR9B2GdkDkpM6tx46WdgU+y+HrJwnaC+SJqfMerD6B20=
+	t=1779867787; cv=none; b=dbxByEMBn3KYYlwUrMJ/rVcNNoB/xoGAKZKBJFYvdATfeMPzjtagtvtZeF9ddDoWLElT65rXMiFSrNsj3WwU9aSE+Vh1+TAi4ZX1mi/6V1bkBn/3+ixUZsMfqoZtuv+3hOq9ffERl2XtVYZqE/bS39OCgcAXFYXFemkpmMRNBVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779866946; c=relaxed/simple;
-	bh=vcwwQUyK9n27QlQwBaK17jTaA1swwbBF2mQ7+rIB5eo=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=pBSJ3TqkGdgEAV0TihOUn/RWbQ8FFqF8ZAnFtvEoc99QH5nJl9c6AQmRjdBGAM5JtVI3r55Bluk6f79UgzSZfp696agHusJnyChor9ee1RAIhVwt0jEtdJ+92S5DSzXCo1F0awXaVrs5mAX5RO3q/tmq0mlCxF+SMw6SkRGi4xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=c/epkeuX; arc=none smtp.client-ip=218.76.62.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="c/epkeuX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
-	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
-	References:Date:Message-Id; bh=aTzgD1xNBOFZmHe9UcKPBDuGQHLwp2lyF
-	LdiyP2gw48=; b=c/epkeuXoLiWYazhe49qYVy8LTpavjCL4MR44L3Dfo0GA7yFL
-	4N0fEWq6njm3gMAfrSKKj9I5h/VWhHsiz1sa5AFeDs2D7PDouNHL9JiTyObYS3qT
-	ao7YfkGbi4WiD5hoajwrvucgftk2qUGTNP/QbOuSUQ9tP1rfhX1KLNdOf8=
-Received: from [127.0.0.1] (unknown [192.168.100.1])
-	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkNInRZq+lYGAA--.7935S2;
-	Wed, 27 May 2026 15:29:12 +0800 (CST)
+	s=arc-20240116; t=1779867787; c=relaxed/simple;
+	bh=JwgSYIJee9nbOlXvju6QWKDMz2Smf422DMhM+XMAwDs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WgAnWUTNLh6o+7yCCDQK0ycexo/q3oeG3EpoGCvirsvgc01ywbEcL/tawVoRcWEtLFmCQMELYSAChUW84+HTzJMp8Au8wFe7OoOAYiRW1p7p91MgsFUgKOfCEM/ftaf9/B6Qo4l2jjFXrR2VrdaWm5CXYJVKzPEwO2Pz2fKF4+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f180.google.com with SMTP id 71dfb90a1353d-57513a91514so3829957e0c.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:43:06 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779867785; x=1780472585;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=zaz04lQzyGk1Skxwlpp5bPiKiAek9aybHx2v/yLROzU=;
+        b=QMm6UN3w6czLAfSFHZnE9Bg0TcR7cvqIZlP22+jCv7R1tlQrZN4GZSW01xv8Er8Cdt
+         6AGW5poMmq/SaK8Cpu+spxr7vWIdwFOzgJpWarh16SCalNA4xgBcMLj4dQmy+43nQEUX
+         w6UYx4WFbtI7rd4DryyNRWE/GlpjZjyL5S4Fru3nGlwgrjk3tPW971JTiFGRBMNd9XCI
+         GX0+uZoF/4MuLDY4HItw7JJLtV+eLrtRCJH4NUDMRmOOOzM9zop6CB0vD133KkTMlwg/
+         yfyES+U88VJIFeyqVSr+idG8Xe+iVtfRfT4AcvO6CKeqxSkNjShWxNecAECz/S4jfzDa
+         h0og==
+X-Forwarded-Encrypted: i=1; AFNElJ8W3AAanqWbiWQtNdDpVAg21hafviYMgRKK801ndjOUGPSmpcWLmAVsTDex/X0X1oYllggO3shRhpLe@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz2y8Q0WUTomUjBShwJTrPqPcLVgRkT3+MIWslT5PeIgjy4O9vW
+	hIPfuLipc6yxnI9qzx2rg/oKeMUlbleUJCJneKPfyttCpKen2C5Fw2uAHnwKuNOsS+A=
+X-Gm-Gg: Acq92OFZMeBvUFYKwRlvVURnPAt6qtPzjBj5C6BME/rROze2CPlbOHn8rhelCK1oXIL
+	2LyTmJYZMUIudaeYh9rfZogtlu8XA/JRxljv94v+Fk123Ju0QyW2tFr8ErsxctrwGr8pCCYSTJg
+	o0eCGQu6wIksHYTKakshRmhNv9z1VIDPZMJ5TOm9yyJ16QJ5euICKyHjEo8gSacLKvSQlvIrPDJ
+	d0YH02k9KjhG/gfnan6M8ItLvXAQy2VgVD6oDBMTRJ1MRI/aqkLWD7R22fR7gK1mnHllHqkGOdm
+	uv2UOmBN/yFHdgOK5CpKmPOQjpW5gVsdAugyvC08Nnu3Hk1sqf2Dn+Ls/OLb9u8ytN2StELqhwF
+	cDm5MdyMn000ug8XRbLMeV9awtzKfxwoAy6QfnqxmveKQarxGKyQGwYhSIy16LWOu7AbwjB8Amo
+	ust3BmnDP8QWT0LnzHhCMLW5qjbiV7GjbxeFkSq67cyaEKqpPlc3BPeJtLepKQ
+X-Received: by 2002:a05:6122:4fa4:b0:56c:d623:896e with SMTP id 71dfb90a1353d-58663a5c2bdmr11390052e0c.14.1779867785596;
+        Wed, 27 May 2026 00:43:05 -0700 (PDT)
+Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com. [209.85.217.51])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-586f23ee48esm19129568e0c.3.2026.05.27.00.43.05
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 00:43:05 -0700 (PDT)
+Received: by mail-vs1-f51.google.com with SMTP id ada2fe7eead31-632a055fa9fso4199148137.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 00:43:05 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+8bJpRVkzyBDMvI9GMN044VrDfRNZRK/rw1+J7uWkKOlzxr9lJ+yXYCD+eq4KPjFQHbUSb9AW2Wym0@vger.kernel.org
+X-Received: by 2002:a05:6102:2910:b0:607:798d:8083 with SMTP id
+ ada2fe7eead31-67c7ffeba62mr10523147137.15.1779867784961; Wed, 27 May 2026
+ 00:43:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 6/9] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
- driver
-From: Jia Wang <wangjia@ultrarisc.com>
-To: Linus Walleij <linusw@kernel.org>
-Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
- Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
- Alexandre Ghiti <alex@ghiti.fr>, Bartosz Golaszewski <brgl@kernel.org>, 
- Samuel Holland <samuel.holland@sifive.com>, 
- Paul Walmsley <paul.walmsley@sifive.com>, 
- Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
- devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
-In-Reply-To: <CAD++jLn=RX2rZ33kD427wR1KBo=YPzCqFaaSot22nJL4Emn_=A@mail.gmail.com>
-References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
- <20260515-ultrarisc-pinctrl-v1-6-bf559589ea8a@ultrarisc.com>
- <CAD++jLn=RX2rZ33kD427wR1KBo=YPzCqFaaSot22nJL4Emn_=A@mail.gmail.com>
-Date: Wed, 27 May 2026 15:28:33 +0800
-Message-Id: <177986691307.2389245.7536116830945296316.b4-reply@b4>
-X-Mailer: b4 0.15-dev
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779866913; l=3376;
- i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
- bh=vcwwQUyK9n27QlQwBaK17jTaA1swwbBF2mQ7+rIB5eo=;
- b=3s2aR7VhNFkucLVDqg8lLUBYxLlcbU2SHYxTq/poolqPMDfRhsy3KLEMkdqiPufl7/86MvS2n
- u9fuk/K+NjoDLLXyPmoFu6DGxuFxU3XjRNNUBMJNc+EnlhOfHjvM6CQ
-X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
- pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
-X-CM-TRANSID:AQAAfwAnEkNInRZq+lYGAA--.7935S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxGF45KF4fXryruF18Wr18uFg_yoW5GFyrpF
-	WrKa1ayFW5GF4a9Fyj93yDAFyfGFn7G347try5K3yrtrn5Aas3uFyrWrW5CFn8Cr95Wr1a
-	va15ury3uay5JFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9G14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJV
-	WxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_GFv_Wrylc2xSY4AK6svPMxAIw28IcxkI7VAKI48JMx
-	C20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAF
-	wI0_JrI_JrWlx4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20x
-	vE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v2
-	0xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxV
-	W8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7sRidbbtUUUUU==
-X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgABsH
+References: <20260519074702.3308-4-wsa+renesas@sang-engineering.com> <20260519074702.3308-5-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260519074702.3308-5-wsa+renesas@sang-engineering.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 09:42:54 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWOgpsakC_C_uUhPttfvK44j8aRuAQxG-BWWdDdioQfzA@mail.gmail.com>
+X-Gm-Features: AVHnY4Iup01oc5_MZvrm0JVzZZt-FPjPltbZPQJVVUpHhN-Mvj_g0SQttnrdTgM
+Message-ID: <CAMuHMdWOgpsakC_C_uUhPttfvK44j8aRuAQxG-BWWdDdioQfzA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] arm64: renesas: r8a78000: add MFIS, MFIS SCP and
+ transport nodes
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, 
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Vinh Nguyen <vinh.nguyen.xz@renesas.com>, 
+	Hai Pham <hai.pham.ud@renesas.com>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 2026-05-25 11:28 +0200, Linus Walleij wrote:
-> Hi Jia,
-> 
-> thanks for your patch!
-> 
-> On Fri, May 15, 2026 at 3:18 AM Jia Wang via B4 Relay
-> <devnull+wangjia.ultrarisc.com@kernel.org> wrote:
-> 
-> > From: Jia Wang <wangjia@ultrarisc.com>
-> >
-> > Add pinctrl driver for UltraRISC DP1000 pinctrl controller.
-> >
-> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> 
-> Please write an elaborate commit message with some details about
-> the hardware and it's history etc.
+On Tue, 19 May 2026 at 09:47, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
 >
+> Describe the MFIS and MFIS SCP instances which are used for various
+> tasks including inter-processor communication. Remove the PRR node
+> because it is part of MFIS on R-Car X5H and should be handled using the
+> MFIS compatible. Also, describe the STCM transport area used for shared
 
-Thanks, will expand the commit message with more hardware details in v2.
+S-TCM
 
-> (...)
-> 
-> > +struct ur_legacy_prop_data {
-> > +       struct ur_pin_val *pin_vals;
-> > +       unsigned int *group_pins;
-> > +       unsigned int num_pins;
-> > +};
-> 
-> > +static int ur_legacy_parse_prop(struct pinctrl_dev *pctldev,
-> > +                               struct device_node *np,
-> > +                               const char *propname,
-> > +                               struct ur_legacy_prop_data *prop)
-> > +static const char *ur_legacy_get_function_name(const struct ur_pinctrl_match_data *match_data,
-> > +                                              u32 mode)
-> > +static int ur_legacy_conf_to_configs(struct pinctrl_dev *pctldev, u32 conf,
-> > +                                    unsigned long **configs,
-> > +                                    unsigned int *num_configs)
-> > +static int ur_legacy_add_pinconf_maps(struct pinctrl_dev *pctldev,
-> > +                                     struct pinctrl_map **map,
-> > +                                     unsigned int *reserved_maps,
-> > +                                     unsigned int *num_maps,
-> > +                                     const struct ur_legacy_prop_data *prop)
-> > +static int ur_legacy_dt_node_to_map(struct pinctrl_dev *pctldev,
-> > +                                   struct device_node *np,
-> > +                                   struct pinctrl_map **map,
-> > +                                   unsigned int *num_maps)
-> 
-> What's up with all this legacy stuff?
-> 
-> What is this a legacy of?
-> 
-> I thought this was a *new* driver so how can it be "legacy"?
-> 
+> memory mailboxing.
+>
+> Signed-off-by: Vinh Nguyen <vinh.nguyen.xz@renesas.com>
+> Signed-off-by: Hai Pham <hai.pham.ud@renesas.com>
+> Signed-off-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-The legacy parts will be dropped in v2.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-> > +static int ur_generic_dt_node_to_map(struct pinctrl_dev *pctldev,
-> > +                                    struct device_node *np_config,
-> > +                                    struct pinctrl_map **map,
-> > +                                    unsigned int *num_maps)
-> > +{
-> > +       return pinconf_generic_dt_node_to_map(pctldev, np_config, map, num_maps,
-> > +                                             PIN_MAP_TYPE_INVALID);
-> > +}
-> 
-> Hm I think Conor has new helpers for this so you don't need to wrap
-> it like this.
-> 
-> > +static void ur_dt_free_map(struct pinctrl_dev *pctldev,
-> > +                          struct pinctrl_map *map,
-> > +                          unsigned int num_maps)
-> > +{
-> > +       pinctrl_utils_free_map(pctldev, map, num_maps);
-> > +}
-> 
-> Can't you just assign pinctrl_utils_free_map directly to ur_pinctrl_ops?
-> 
+Gr{oetje,eeting}s,
 
-Agreed. I've removed both wrappers and switched the driver to use the
-generic pinconf DT helpers directly: pinconf_generic_dt_node_to_map_all
-for mapping and pinconf_generic_dt_free_map for freeing the maps.
+                        Geert
 
-> Yours,
-> Linus Walleij
-> 
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-Best regards,
-Jia Wang
-
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
