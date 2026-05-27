@@ -1,120 +1,97 @@
-Received: from mail.loongson.cn (mail.loongson.cn [114.242.206.163])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D23533E2AAC;
-	Wed, 27 May 2026 08:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=114.242.206.163
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410DD3D0BE5;
+	Wed, 27 May 2026 08:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779871540; cv=none; b=rAkAKM6i0wPPUj93LVhbmR0dA8XNhXkSAyE/92PHvcOW+yc4bAWYzx1D+plt+cREvmp1Jp2x0zconemUF3l3spu+rLOLbwVUM0OoNvKvHyG7pmvdXSO5dR1rIKBr9okWtMOHNn5Bl0eFP589tNz1Zht6TbddNvVmRmzZ3ntbHfQ=
+	t=1779871754; cv=none; b=GjEVuUVAqP/xn1GZg6IXn7cPCCPgTBEiK3jx0Qcw/nSFIVNRmhREndl1tRc7IeK1Ps9cYx3MyGcDH9uOLA7OYFoUJrFpiJhkIYP7W3y66s2BLCJY4yAPBTgbazHGSl2AB4fsDGQnqTz3sdyNgDHg5WFypH+pVFLdElaVUytxE9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779871540; c=relaxed/simple;
-	bh=luBDYDl/M9tvtAc4l//r61bCPTtBRzinp1VAQmY6maQ=;
-	h=Subject:To:Cc:References:From:Message-ID:Date:MIME-Version:
-	 In-Reply-To:Content-Type; b=JrlrwDny8a0P7lDGnzh3N1BFyFUSXRZ2wBksmdZsxL3Pnqik+ZshHP/9ITW37GYN7jGH9ip1cZkAnA5FiR92yg2Z0jdi9Br3P40GjxGwuSh/5OZGDQD7OOqo7x5tesxUvEmB26mRfIRwRGDNfMynq8hiq7BMPb8A2b6HJ4l/pL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn; spf=pass smtp.mailfrom=loongson.cn; arc=none smtp.client-ip=114.242.206.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=loongson.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loongson.cn
-Received: from loongson.cn (unknown [10.20.42.101])
-	by gateway (Coremail) with SMTP id _____8DxrOkvrxZqqrUNAA--.37198S3;
-	Wed, 27 May 2026 16:45:35 +0800 (CST)
-Received: from [10.20.42.101] (unknown [10.20.42.101])
-	by front1 (Coremail) with SMTP id qMiowJDxB8EsrxZqSJiSAA--.2445S3;
-	Wed, 27 May 2026 16:45:34 +0800 (CST)
-Subject: Re: [PATCH v4 1/2] dt-bindings: i2c: ls2x-i2c: Add clocks and
- clock-frequency properties
-To: Huacai Chen <chenhuacai@kernel.org>
-Cc: Binbin Zhou <zhoubinbin@loongson.cn>, Andi Shyti <andi.shyti@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>, linux-i2c@vger.kernel.org,
- devicetree@vger.kernel.org, loongarch@lists.linux.dev
-References: <20260526031021.32662-1-wanghongliang@loongson.cn>
- <20260526031021.32662-2-wanghongliang@loongson.cn>
- <CAAhV-H5eromO_QWNhus5XJdXrhB7RXf4UgdYU_WMWMnzpgUOeA@mail.gmail.com>
-From: Hongliang Wang <wanghongliang@loongson.cn>
-Message-ID: <36d205b2-c1cf-d9fc-e83c-1401c4bfdb9e@loongson.cn>
-Date: Wed, 27 May 2026 16:44:32 +0800
-User-Agent: Mozilla/5.0 (X11; Linux loongarch64; rv:68.0) Gecko/20100101
- Thunderbird/68.7.0
+	s=arc-20240116; t=1779871754; c=relaxed/simple;
+	bh=vnMFODbc+LljT7eUBEEQawLt47/OgLwD8JHdSRnnDAI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rikojWph9hcDHbX5GmlmzIRfVvuRLivwmdmWMQ3U/adhuAksC9LpjJgxtkmhdZMXwl2Au8wluCRWMpwYRZGP+LAUxDje1FKykZwDZ+mm/avWQHhOBgXz6p/w4OvVUq0HRdzZnB1cvkZlFJF7cR5lwNjmPYZMstP3vDzEr8npaDc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aS/Y3c/2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aS/Y3c/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BEDC1F000E9;
+	Wed, 27 May 2026 08:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779871753;
+	bh=vnMFODbc+LljT7eUBEEQawLt47/OgLwD8JHdSRnnDAI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aS/Y3c/2krAHC8mOb1Mcxes6m5FDVlOQc6VRTrd4yb0jWg0E+fTAIr9V8KuSqacM9
+	 SIbKkCn1wvlJlDFUj5AU0W7QFUSMx4r5jxxVIDwcmTK4z/7y4ySTtfMkftCqbjjQ/R
+	 iw6WbgDW39eVcstSBGH1axuFDeW8urSBPHp7PEsHFNeQ4DS8kRG8UsGyG5+Vbzxlp1
+	 1NHOkope50m9rEbE1J86KoQu0JBkgf8WCTF9fIc0fUbBpCcY6vApcQEIEUFpJRxlYZ
+	 OSBSZxMHdKZTsy62UXtsvYlY+tmvCEULoPU9XtGMu8zXdEQf0IS+WN28HliJ/U7RQx
+	 OhrLGfwNO4nQw==
+Date: Wed, 27 May 2026 09:49:06 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michael Riesch <michael.riesch@collabora.com>
+Cc: Mehdi Djait <mehdi.djait@linux.intel.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Heiko Stuebner <heiko@sntech.de>,
+	Kever Yang <kever.yang@rock-chips.com>,
+	Jagan Teki <jagan@amarulasolutions.com>,
+	=?utf-8?B?0JrRg9C30L3QtdGG0L7QsiDQnNC40YXQsNC40Ls=?= <mai.kuznetsov.misha@gmail.com>,
+	Charalampos Mitrodimas <charmitro@posteo.net>,
+	Sebastian Reichel <sebastian.reichel@collabora.com>,
+	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
+	Collabora Kernel Team <kernel@collabora.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: Re: [PATCH v5 2/8] media: dt-bindings: add rockchip rk3588 vicap
+Message-ID: <20260527-grimace-plausibly-c620ea58f197@spud>
+References: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
+ <20260522-rk3588-vicap-v5-2-d1d1f5265c56@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <CAAhV-H5eromO_QWNhus5XJdXrhB7RXf4UgdYU_WMWMnzpgUOeA@mail.gmail.com>
-Content-Type: text/plain; charset=utf-8; format=flowed
-Content-Transfer-Encoding: 8bit
-Content-Language: en-US
-X-CM-TRANSID:qMiowJDxB8EsrxZqSJiSAA--.2445S3
-X-CM-SenderInfo: pzdqwxxrqjzxhdqjqz5rrqw2lrqou0/
-X-Coremail-Antispam: 1Uk129KBj93XoW7tF4rKr1DGF4xJF1xtw13Awc_yoW8Aw1rpa
-	nrC3W8GF4FvF17u3yDt34xKF1Fvr98AFs2gFZrAFy7GasxWwnavr1akr1DuFyruFWxZayj
-	gFWIgw4F9asxAabCm3ZEXasCq-sJn29KB7ZKAUJUUUU5529EdanIXcx71UUUUU7KY7ZEXa
-	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
-	0xBIdaVrnRJUUUv2b4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2
-	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1Y6r17M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
-	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_JFI_Gr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
-	0_Jr0_Gr1l84ACjcxK6I8E87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v2
-	6r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqjxCEc2xF0cIa020Ex4CE44I27w
-	Aqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE
-	14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCYjI0SjxkI62AI1c
-	AE67vIY487MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU8vA
-	pUUUUUU==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="mp0q5jdAdl2wMqsR"
+Content-Disposition: inline
+In-Reply-To: <20260522-rk3588-vicap-v5-2-d1d1f5265c56@collabora.com>
 
-Hi, Huacai
 
-On 2026/5/27 下午3:03, Huacai Chen wrote:
-> Hi, Hongliang,
->
-> On Tue, May 26, 2026 at 11:11 AM Hongliang Wang
-> <wanghongliang@loongson.cn> wrote:
->> From: wanghongliang <wanghongliang@loongson.cn>
->>
->> clocks property describes the i2c bus reference clock from APB clock.
->> clock-frequency property describes i2c bus speed.
->>
->> Signed-off-by: wanghongliang <wanghongliang@loongson.cn>
->> ---
->>   Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
->> index ee09c6d9c5f0..4bf89bb97e7d 100644
->> --- a/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
->> +++ b/Documentation/devicetree/bindings/i2c/loongson,ls2x-i2c.yaml
->> @@ -38,10 +38,13 @@ unevaluatedProperties: false
->>   examples:
->>     - |
->>       #include <dt-bindings/interrupt-controller/irq.h>
->> +    #include <dt-bindings/clock/loongson,ls2k-clk.h>
-> I don't know whether dt-bindings require alpha-betical order, if
-> needed, this line should before #include
-> <dt-bindings/interrupt-controller/irq.h>.
+--mp0q5jdAdl2wMqsR
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-I have checked other dt-bindings files, some in alpha-betical order and
+On Fri, May 22, 2026 at 11:23:08PM +0200, Michael Riesch wrote:
+> Add documentation for the Rockchip RK3588 Video Capture (VICAP) unit. To
+> that end, make the existing rockchip,rk3568-vicap documentation more
+> general and introduce variant specific constraints.
+>=20
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Signed-off-by: Michael Riesch <michael.riesch@collabora.com>
 
-some not in alpha-betical order.
+Ah right I remember what Rob wanted changed now.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 
-I think alpha-betical order is better, I will adjust the order.
+Cheers,
+Conor.
 
-> Huacai
->
->>       i2c0: i2c@1fe21000 {
->>           compatible = "loongson,ls2k-i2c";
->>           reg = <0x1fe21000 0x8>;
->> +        clock-frequency = <100000>;
->> +        clocks = <&clk LOONGSON2_APB_CLK>;
->>           interrupt-parent = <&extioiic>;
->>           interrupts = <22 IRQ_TYPE_LEVEL_LOW>;
->>           #address-cells = <1>;
->> --
->> 2.47.2
->>
->>
+--mp0q5jdAdl2wMqsR
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Best regards,
-Hongliang Wang
+-----BEGIN PGP SIGNATURE-----
 
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahawAgAKCRB4tDGHoIJi
+0oypAQDd8ds975P1XLz5OPsVbwIIl4FFnLtrrNNKezd22scM1wEA0cwWA/v8lM9Y
+tspAlrkx0Tv3bx0mhY4ZOay8xpcbbgY=
+=8xBO
+-----END PGP SIGNATURE-----
+
+--mp0q5jdAdl2wMqsR--
