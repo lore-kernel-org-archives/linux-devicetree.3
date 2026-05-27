@@ -1,125 +1,150 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.11])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17785354AE3;
-	Wed, 27 May 2026 12:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 868CF3D5258
+	for <devicetree@vger.kernel.org>; Wed, 27 May 2026 12:45:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779885385; cv=none; b=fLRpQIZoTXuusdGAs2r1e75ghbYRpb7LSeltQVVr2qemJ9UNfs1l69TWD/dR4kntUjf+C7dVJafGygOtCi0qfE9yS0TbkpqzqX13D9R2UgeAF/Tn9HlUsCCDTjmnLGwLRhHi8qokeUlbD9ZAL0U9PwcNoS9LTPpQ74mOg4EHMWo=
+	t=1779885907; cv=none; b=szfy82JsLqyltUFy2seilhESBGdE61O5o7yWd7/oBXf89KNnriSDvxDvpy7xp2zIrZSnXPZM99BR49mp00y0OVp/0aUVOG73USLnSTYYKFtSb31YNsYWfhtI/zXaP15WxLy0DWGBg4GDLKIoz3S0tZeQKeXL77JqoYj/NXSt448=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779885385; c=relaxed/simple;
-	bh=pnVCDz07x9Vth109X5vAaSuDKks11Pzst/9ZQ1IoMYQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TyqZAxi/Jtza57rr8VTZi6ORv+V9hMse81gBsU3IEmrfriT4YM3Pg60fjR4OJGPGhNYOzU1y8ujvkDdpcxsFQK46duX5zGoAs4drr0CuxDAASLyC7kPFFAY+/2sgOFKcaalrdVpEn5m/DnGIN7/VcegO1wuF+z1V7mYSC5qNK+Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UZ/ZIBlV; arc=none smtp.client-ip=192.198.163.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UZ/ZIBlV"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779885384; x=1811421384;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=pnVCDz07x9Vth109X5vAaSuDKks11Pzst/9ZQ1IoMYQ=;
-  b=UZ/ZIBlVvZWDUMcEN7BT+RiHCUZHjOUqwd2WXm3dVL5kA/3x3VOzBJRZ
-   4kDCYTmp/1ljnJDSd4+2O+79qcpAWD7MNbjQXeoN8AUTLDiRgNCnk5VbQ
-   zHiBIDDaV9iIC0k2cKYZ0owUWx47wNIl4C7ao73jjOOS9iSSh4FR1wmpS
-   VylCmcCYx3MqzxYsxcQ/1VUWpz1nARMVfjcDtrtuxjQ9+v/Cf3tS+Ykos
-   FGWHCrByW2pQN9MqzEcUKXij+fZ+w5ZdH50y6dRrEv3N79N795ftsnkxV
-   1C/5kp9EvU/QUW3/fhyCuNqfKqxUFxDILsOFlQalP5kABUJMJRcSCGhzX
-   Q==;
-X-CSE-ConnectionGUID: iun0HzcPRweGl6idLfiu2w==
-X-CSE-MsgGUID: IjBQbFcFSSK3gsQ446VbGA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="91284899"
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; 
-   d="scan'208";a="91284899"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by fmvoesa105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 27 May 2026 05:36:23 -0700
-X-CSE-ConnectionGUID: R5AEwubTQDuxgeEghe/lfg==
-X-CSE-MsgGUID: GJlFilVaRzOq6xR6MBEldQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,171,1774335600"; 
-   d="scan'208";a="235851340"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa009.fm.intel.com with ESMTP; 27 May 2026 05:36:21 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1001)
-	id 97D1295; Wed, 27 May 2026 14:36:20 +0200 (CEST)
-Date: Wed, 27 May 2026 14:36:20 +0200
-From: Mika Westerberg <mika.westerberg@linux.intel.com>
-To: "lianfeng.ouyang" <lianfeng.ouyang@starfivetech.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	linux-i2c@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 0/3] i2c: Add Starfive JHB100 I2C master/slave support
-Message-ID: <20260527123620.GD3102@black.igk.intel.com>
-References: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
+	s=arc-20240116; t=1779885907; c=relaxed/simple;
+	bh=CHmi2tzKRp9iEkWNt7hiYl4WAuhMTowdb6VPQfNs0nc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=CIbyae5qMOG5c3AgUdssEDSKOGwz3MmM39dqL+nTGJhvAFwxr48/mN5+ijvysQfiPPit9m0Ac+EaOatHVZexy+SzA1HhHXIKkOuIyqwfBJAT4AobU5sreZiYLDOvG+PCnyVs2IOvRx40LvGY+Uqw2TEufGEXaQuU6W1L5ceemIM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-95fa7cd1392so8880677241.2
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:45:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779885904; x=1780490704;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=QfMIenARBAqpHOVTmcafwSvjzdDvSTCw5oC80BE5U+Y=;
+        b=Q/FYmVvSItKh+jFIMEGW4Nv2vUMVPFZHuNxGlYTZ+wd/CSa7RMACTkqedjKx9KTujo
+         /Pe2GbcH96PlGDdjNSAclrctIsrKMWiHBOS3ysx56ZnhCwfPRzwd2otS3NJXTkeUpkpt
+         qHzHG42Jq/FaRnAMbZzALylNojn/rGzc2K2fq3E/GeCgMIMHHjbS6ogahVBMwWgXYcrD
+         T69xtFjJjitJlyf2NtWfVz4udj306V1cj1SOsHsYxHpa89w7xp3uZzr8iZ4CcmAvuhL9
+         9ux3tu6ceTkkL7U9u0yQpBQVcAuXxflxKYG8xsFZivZShwTEM84Ld5zg03Jkw7aH8Ddb
+         5lbg==
+X-Forwarded-Encrypted: i=1; AFNElJ/cDlmZXmacr6Mb4DnmRu5Uj2kz42RupyuXrJe3RnaPI6XAQITfBzgPBJGCgZigcm4IZr3PEj8XcKNJ@vger.kernel.org
+X-Gm-Message-State: AOJu0Yydyr8X1XrI9S2FW/SQ1/rYKy7wZTVK1dlvEgjlGnAa6ubHCLFc
+	Nr/He2Kt1zgwRi38AJ+XsqCSEeCVql0OzWRRYF/hFZjrL89YowNfh4DN21cCuFQ7Y1E=
+X-Gm-Gg: Acq92OETB5V4WeSg06/rH9xYd7INok2XyBwCTbJgiDQV9YL1/WfqUdEIGsHOGsyySUT
+	nnx/2lMsA0bui4LQ3OzfUlTp+LGOB/WWmrPeyLitTUvfl0e49KhHL3i4R/LmjQ/So54/MJsbfSF
+	3sI7vEMQE+5se7eu6IRFQ/sjSl/+5ek8yu6OWeM0nZXjZrpQ5Sj1gbaA/0+FEi/qlp9N+5eIz/h
+	7XUkEz0lOxe1hlwayZgue/jW4gxChIxWP6mFKj79ZcKJm+jpEi1C4aXh/FLnaKZtLwEBLgGsN7+
+	nJRYFHHNz3dnB1TYkFWgB1fPkzK322F0emXMWAibzBewuJXZyWa2PrHoN9xIUaaJc9XeukFUIWQ
+	JzyiybIkbaWvPT8w0AwRrh1lG1q0Zfu54w89kPDXVS/+xzemZO0qXzD0hU3jaqKySkbYdnT9ljM
+	c+5LH8yuXGS5IYb5Ve8WNvjk4g5xlepHMvxy2sufI22CUJENaj/xWXIykdbrsyUiIGm6FA7lE=
+X-Received: by 2002:a05:6102:334e:b0:633:d7ec:153c with SMTP id ada2fe7eead31-67c7cee3d39mr12530704137.3.1779885904479;
+        Wed, 27 May 2026 05:45:04 -0700 (PDT)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-67ff3e499bbsm16651737137.7.2026.05.27.05.45.03
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 27 May 2026 05:45:04 -0700 (PDT)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-95fb6411e01so5102208241.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 05:45:03 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/MVJrb++Wkoz9mADx4TzQ3cffOVdBfav9Tt+Ex2SDzcaWO7yNMBLHv0Co9v87WJQB7auSx37EJEHs3@vger.kernel.org
+X-Received: by 2002:a05:6102:5a89:b0:631:5ef5:8324 with SMTP id
+ ada2fe7eead31-67c8d07131cmr12162490137.23.1779885903418; Wed, 27 May 2026
+ 05:45:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
+References: <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
+ <20260525111920.15F771F000E9@smtp.kernel.org> <20260525-gaining-unaired-c96367a78c9b@spud>
+In-Reply-To: <20260525-gaining-unaired-c96367a78c9b@spud>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 27 May 2026 14:44:51 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdWUeExOnKm1=kRSr0=HVJhgyLDBAK3VqTP-LK1q0-f9gA@mail.gmail.com>
+X-Gm-Features: AVHnY4JCGT6L93dKt-0-T45Be15psMBpt17wMGNiRfpFy-lZ2xPXFXW2IFtgjsk
+Message-ID: <CAMuHMdWUeExOnKm1=kRSr0=HVJhgyLDBAK3VqTP-LK1q0-f9gA@mail.gmail.com>
+Subject: Re: [PATCH v4 1/8] dt-bindings: clock: renesas: Add audio clock
+ inputs for RZ/V2H family
+To: Conor Dooley <conor@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev, 
+	John Madieu <john.madieu.xa@bp.renesas.com>, conor+dt@kernel.org, 
+	wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+Hi Conor,
 
-On Wed, May 27, 2026 at 04:50:36PM +0800, lianfeng.ouyang wrote:
-> From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-> 
-> The Starfive JHB100 I2C controller is a variant of the widely-used
-> DesignWare I2C IP, with a distinct register layout and enhanced features
-> such as SMBus Alert and programmable FIFO depths.
-> 
-> The series is structured as follows:
-> 1.  Adds the device tree binding document for the starfive,jhb100-i2c
->         compatible.
-> 2.  Prepares the existing i2c-designware-core by exporting and making
->         certain key functions overridable, allowing code reuse.
-> 3.  Introduces the new i2c-starfive-* driver, with separate modules for
->         master and slave functionality, based on the 2023-07 revision of
-> 	the Synopsys IP manual.
-> 
-> Currently, due to the following differences, i2c designware cannot be
-> fully reused
-> 1.  For high and low level counting settings at different rates, i2c
->         starfive can use IC_SCL-H/LCNT to set SS, FM, FM+, UFM
-> 2.  Interrupt clearing is achieved by writing 1 to the corresponding
->         bit of INTR_CLR, while designware reads different clearing
-> 	registers
-> 3.  Master and slave require separate probe callbacks and cannot rely
->         solely on the runtime mode switching provided by i2c_dw_set_mode()
-> 4.  The value of FIFO depth is not obtained through registers, but
->         written through DTS
-> 
-> I have written some poorly styled code to reduce changes to i2c designware
-> and reuse its functions by keeping aa always true, for example
-> 1.  the implementation of i2c-d w_probe_master() differs only for the two
->         IPs in i2c_dw_set_timits_master(). In order to reuse
-> 	i2c_dw_probe_master(), i2c_dw_set_timits_master is declared as
-> 	__weak. A better approach is to use a callback function, but using
-> 	a callback function requires changing more i2c designware files.
-> 	I don't know what the attitude of the community is
-> 2.  For the operation of clearing interrupt flags, i2c designware reads
->         and i2c starfive writes. Therefore, in order not to modify the
-> 	relevant logic of i2c designware, I added a write operation to
-> 	sf_reg_read()
-> So I think this version of the code is not allowed to merge, but I don't
-> know how to handle this situation because if i2c designware is not changed
->  at all, we will have to write code that is similar to i2c designware.
->  Will this type of IP not be allowed to merge?
+On Mon, 25 May 2026 at 18:57, Conor Dooley <conor@kernel.org> wrote:
+> On Mon, May 25, 2026 at 11:19:19AM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > - [Medium] Strict array ordering prevents the independent use of newly added optional clocks.
+> > --
+> >
+> > commit 3723d06ba80fe72a3e7492af52e5e54aa0f36b03
+> > Author: John Madieu <john.madieu.xa@bp.renesas.com>
+> >
+> > dt-bindings: clock: renesas: Add audio clock inputs for RZ/V2H family
+> >
+> > This commit updates the clock bindings for the RZ/V2H family SoCs to include
+> > the optional external audio clock inputs AUDIO_CLKB and AUDIO_CLKC. The
+> > AUDIO_CLKA input is fed internally and thus does not require a binding entry.
+> >
+> > > diff --git a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> > > --- a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> > > +++ b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
+> > > @@ -26,16 +26,22 @@ properties:
+> > >      maxItems: 1
+> > >
+> > >    clocks:
+> > > +    minItems: 3
+> > >      items:
+> > >        - description: AUDIO_EXTAL clock input
+> > >        - description: RTXIN clock input
+> > >        - description: QEXTAL clock input
+> > > +      - description: AUDIO_CLKB clock input
+> > > +      - description: AUDIO_CLKC clock input
+> > >
+> > >    clock-names:
+> > > +    minItems: 3
+> > >      items:
+> > >        - const: audio_extal
+> > >        - const: rtxin
+> > >        - const: qextal
+> > > +      - const: audio_clkb
+> > > +      - const: audio_clkc
+> >
+> > [Severity: Medium]
+> > Will this strict array ordering prevent the independent use of the newly
+> > added optional clocks?
+> >
+> > Because JSON schema validates arrays strictly by position based on the items
+> > list, if a hardware board connects AUDIO_CLKC but does not connect AUDIO_CLKB,
+> > the device tree node would provide an array of 4 clocks where the 4th name
+> > is audio_clkc.
+> >
+> > When dt_binding_check evaluates this, won't it check the 4th element against
+> > the schema's expectation of audio_clkb and fail, incorrectly rejecting a valid
+> > hardware configuration?
+> >
+> > Should this use an anyOf block enumerating the valid permutations of optional
+> > clocks to avoid forcing users to write incorrect device trees to pass
+> > validation?
+>
+> Seems like a valid question to me. Can be solved by making the second
+> last clock an enum.
 
-It's not that you are not allowed to change the existing driver. It is
-definitely encouraged to avoid unnecessary duplication. If possible think
-of the core parts as library that your glue driver can call and if
-something is missing you can always add (or modify).
+Calling them optional may be a misnomer: these pins are present.
+Typically we provide zero rate fixed clocks for such clocks in the
+SoC .dtsi, to be filled in or replaced by the board .dts.
 
-Also while there, let's start by adding support for the master operations
-first and then later on you can add the slave bits.
+Gr{oetje,eeting}s,
 
-Hope this helps.
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
