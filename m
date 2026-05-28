@@ -1,103 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC0D82DAFA9;
-	Thu, 28 May 2026 03:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B65D3009D6
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:40:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779939572; cv=none; b=PV2k0CkBK/VYmEmg39n6AZ7ngaaOhQP8qXW4IP8WSwagQPuJZLTQWXkYBGpEZHdX4DcxIKk48NLpaMfkoPhHgc8Vu+FfMA/66TD8WDPLQVZNBH9JB/YJtF9uvr4d8KCMXtgPBOPESk/E1rtp78DLm7c+ZWzxeS3VYx7YyJpl/C0=
+	t=1779939646; cv=none; b=C1WcS6Mk8A+m6WHdD2Y8ylShYsVwNqRSoTdX+zqlx1LrKWwZQEj6DRJqyqZGhJGIf+cMW01vuiprT/QHktgpK/ntG8IDWUqudypiEyVxJVt3m2rVKZWCG3rrd+FBd4fG9Ic3XKak70hg7UmEWQR7qBpZPFdxhuZvm64Piet3W8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779939572; c=relaxed/simple;
-	bh=0HNKn9uJOrUj5fdAKjFadUhpFBPIo0H4vtoICGI+Ris=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=PExukWjh3SfH622kRKMUZx091WwVMNiikctFPWN6xOaJwFa4WCe7r4k7qm8qEvWoOD4yC2papiCYPZ5W9tuphVqjsf4IEgy9ne2u2qAik6g+lTcnS6bcszp7ZrZbib9i8gFEpzBtpVhjewFxTJvUesmcIRV/iDUp+MFR6LG+Vk8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SRQrhWCB; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1779939646; c=relaxed/simple;
+	bh=iW/Uh+SSAf3kuL/wzfm0TRokgSsIZm0CbzZaCtfiSBg=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=o20N3g8/UK3T66PTy4DsXl4drnX2PmLl9OFUndzsfQN1+vV4kavaFh41RdyibsAmI/J/e0XCBttaSJwzb/PVt7HHo24WlBCrBqA9+g+a8FL4Ai4Ir/zLE8rZBOCCUueI6NMhxiRw+ZTJc3PkDfTMKfWMSitXQvCKmV+0VVs3rgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XAKsT3hJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SRQrhWCB"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 7AA0FC2BCB4;
-	Thu, 28 May 2026 03:39:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1779939570;
-	bh=0HNKn9uJOrUj5fdAKjFadUhpFBPIo0H4vtoICGI+Ris=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=SRQrhWCB5i0DZpAw1PMB1w3us7LsL87HiCzxtSmZjRpq8ZxNQQ03HcxjimwdUiQLW
-	 pe9Vn8MNegALu7pN47E6vOyshKlCqvvIq27xq/OZnAvmWO8H5ckFAfkTMTOMSMcFVU
-	 Ugc1HiEktmkkCBZ1q4UkQrg99O63eHeh7I0vl/BzQDKrXSAJ1HInmHkAdhw3gpy6L4
-	 FOqeVioAydHOzhbukwatvtBYk0UBWtn7YYYT0HYDRhLt74PktiSZz6SLasCI9PBRaP
-	 Sq13hbkUDhph6E9WqJSSUgy3aN7TRC9IvR0Y+Uf2+ikTYSsHtspGjFawgOK6w+ea4+
-	 tT2vUoKvABmLg==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 71C76CD6E43;
-	Thu, 28 May 2026 03:39:30 +0000 (UTC)
-From: Rudraksha Gupta via B4 Relay <devnull+guptarud.gmail.com@kernel.org>
-Date: Wed, 27 May 2026 20:39:28 -0700
-Subject: [PATCH v2 1/3] dt-bindings: opp: Allow optional -vN suffix in
- opp-microvolt property name
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XAKsT3hJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D5EA1F00A3A;
+	Thu, 28 May 2026 03:40:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779939645;
+	bh=1grl156ENExPNZW+Y79YyQI5u6HNOxRjQtfDrqBcN6Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XAKsT3hJVeNAB+EKwhIYhALKVr2XY822/ASNmKMonHfLxvyXHEzbJd3lbrz4aeJK9
+	 RnlEGjkvTd68bIXjcQJemPA7Qbs8TCeQsjVxrI1BfYr/JOfX0+D4Pp2xxf2CROoMS8
+	 TDr6gOBBWYuRmPNZA8C/kjrlSASxaYeW6z5vuVPtaGRPfyYyWzI5AYQfoajW2PODYO
+	 Cu+6qSDUfiPuLi7hTgJOailEtPNGVQ3Wto5jdbT0v+i1PkEAh+hjGwirxjRY0l1oRh
+	 TvzIwG70KrD/ylKuCKujy+hYLPoZ61x5ORliGhr2s9LLv8FgYjuGukf2GFNTaLjJA2
+	 E2MDd7d3VKdLQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 3/7] clk: qcom: tcsrcc-glymur: Migrate
+ tcsr_pcie_N_clkref_en to clk_ref common helper
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260527-tcsr_qref_0527-v4-3-ded83866c9d9@oss.qualcomm.com>
+References: <20260527-tcsr_qref_0527-v4-3-ded83866c9d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 03:40:43 +0000
+Message-Id: <20260528034044.8D5EA1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260527-expressatt_cpufreq-v2-1-b9b7726ccb6d@gmail.com>
-References: <20260527-expressatt_cpufreq-v2-0-b9b7726ccb6d@gmail.com>
-In-Reply-To: <20260527-expressatt_cpufreq-v2-0-b9b7726ccb6d@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>, 
- Ilia Lin <ilia.lin@kernel.org>, Viresh Kumar <vireshk@kernel.org>, 
- Nishanth Menon <nm@ti.com>, Stephen Boyd <sboyd@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
- Rudraksha Gupta <guptarud@gmail.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779939570; l=1182;
- i=guptarud@gmail.com; s=20240916; h=from:subject:message-id;
- bh=z/WcStOsVzdMFWp8uRFOe40/ecbf/NOss5Qfrb51yd8=;
- b=jftSPMYmys0+D6DQdiGgQPXjZmjbpCJ43RowmEacOFhKVXHINvYiKqyXVmVPmpdys0oFWSFLG
- KZ/LWB0W1CoAA7kuvyh7URIahwHeLXLrxfS7i0m1crvJLgfYUv0pfF/
-X-Developer-Key: i=guptarud@gmail.com; a=ed25519;
- pk=ETrudRugWAtOpr0OhRiheQ1lXM4Kk4KGFnBySlKDi2I=
-X-Endpoint-Received: by B4 Relay for guptarud@gmail.com/20240916 with
- auth_id=211
-X-Original-From: Rudraksha Gupta <guptarud@gmail.com>
-Reply-To: guptarud@gmail.com
 
-From: Rudraksha Gupta <guptarud@gmail.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] TCSR_PCIE_4_CLKREF_EN incorrectly reuses the regulator mapping for=
+ PCIe 2, leaving its actual PHY unpowered.
+--
 
-The qcom-cpufreq-nvmem driver generates prop_name as
-"speed%d-pvs%d-v%d" for Krait SoCs, resulting in property names like
-opp-microvolt-speed0-pvs0-v0. The existing schema regex only allows
-opp-microvolt-speed[0-9]+-pvs[0-9]+ without the trailing version
-suffix.
+commit d13bf7559fc4e2e26b752b7696e31f42885ef946
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
-Extend the regex to optionally match a -v[0-9]+ suffix so that
-devicetrees using the full prop_name pass schema validation.
+clk: qcom: tcsrcc-glymur: Migrate tcsr_pcie_N_clkref_en to clk_ref common h=
+elper
 
-Assisted-by: Claude:claude-opus-4.6
-Signed-off-by: Rudraksha Gupta <guptarud@gmail.com>
----
- Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+This commit replaces local clk_branch-based clkref definitions with
+descriptor-based registration via qcom_clk_ref_probe(). It keeps the driver
+focused on clock metadata and reuses common runtime logic.
 
-diff --git a/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml b/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml
-index fd04d060c1de..846f49a99484 100644
---- a/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml
-+++ b/Documentation/devicetree/bindings/opp/opp-v2-kryo-cpu.yaml
-@@ -81,7 +81,7 @@ patternProperties:
-       required-opps: true
- 
-     patternProperties:
--      '^opp-microvolt-speed[0-9]+-pvs[0-9]+$': true
-+      '^opp-microvolt-speed[0-9]+-pvs[0-9]+(-v[0-9]+)?$': true
- 
-     required:
-       - opp-hz
+> diff --git a/drivers/clk/qcom/tcsrcc-glymur.c b/drivers/clk/qcom/tcsrcc-g=
+lymur.c
+> index 9c0edebcdbb12..e317003398d16 100644
+> --- a/drivers/clk/qcom/tcsrcc-glymur.c
+> +++ b/drivers/clk/qcom/tcsrcc-glymur.c
+[ ... ]
+> @@ -4,277 +4,111 @@
+[ ... ]
+> +static const struct qcom_clk_ref_desc tcsr_cc_glymur_clk_descs[] =3D {
+[ ... ]
+> +	[TCSR_PCIE_4_CLKREF_EN] =3D {
+> +		.name =3D "tcsr_pcie_4_clkref_en",
+> +		.offset =3D 0x58,
+> +		.regulator_names =3D glymur_tcsr_tx1_rpt012_rx2_regulators,
+> +		.num_regulators =3D ARRAY_SIZE(glymur_tcsr_tx1_rpt012_rx2_regulators),
+>  	},
 
--- 
-2.54.0
+[Severity: High]
+Does TCSR_PCIE_4_CLKREF_EN incorrectly reuse the regulator mapping for PCIe=
+ 2?
 
+This array powers the rx2 and rpt2 regulators, which belong to the PCIe 2 P=
+HY,
+leaving the actual PCIe 4 PHY unpowered.
 
+The device tree binding requires vdda-qrefrpt3-0p9-supply,
+vdda-qrefrpt4-0p9-supply, and vdda-qrefrx4-0p9-supply for Glymur.=20
+
+Since these supplies are absent from the driver's defined arrays, should a
+dedicated array be defined for the RX4 and RPT3/4 blocks instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-tcsr_qref_=
+0527-v4-0-ded83866c9d9@oss.qualcomm.com?part=3D3
