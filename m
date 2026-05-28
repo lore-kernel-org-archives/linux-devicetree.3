@@ -1,121 +1,105 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8753211A14;
-	Thu, 28 May 2026 08:35:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41CCC370D7D
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:36:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779957303; cv=none; b=SI2mbgnS9xhi2/DWznOYXmPH4YIMk9TTSFEuK/ZdjCRrjRSb3/KChgnveKrgj8l/42BcQ+iW1u/zXGdHVqxWqjUu5Pjtze5U+Ag6TB9b/KZksLoPnciBiEUOp5dIOKdd+thFur6gXbdy4InX9XAg020hC9gSURKVUd9CkxXkCnw=
+	t=1779957371; cv=none; b=pMf0QJDpMXctA8LI6zZqiWTZ34RPaVqM0wLjfojDsdNXuxxINOao5UPsyRvni6VTkjGGi0tcsMVak6a5JXomd4Bejwu0i/trqU1Cqu7ATlJ1tBIAZiRcbJPqKBb/Rzl/RrNkROdyko0MsUkmnQcG92bghZtUF7PKOGUNQQGmM3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779957303; c=relaxed/simple;
-	bh=UA50EaJkn/M+baib7en4Ja04922HFuQSGb68SuS6usI=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=DI1w1FgY1FvKOTv2WqC2fTJsC3UNPMGRH0sptmO3cKBKGi18Jr4V5ZNoswJN+hUZ95OClWJJLv2ORvfz/F764Qn5b9HOFT6EZVAn2LrxvdM9xDp2op39gv+Qa1Aq2WWbgYJXx6o4ZegExfiwXxLBG0CIJRtG9mu8dfxjxAqYAXE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=cnpE5h7M; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1779957371; c=relaxed/simple;
+	bh=9UNntRspjFE8WX/VC4OD1Dp4xpuokktTA18B+ogWTro=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=B2OJoU37RERh/GNDkT9qXRHRKuKKviP5Dsdjg4NNQwiZ0ox8yQCvjmhl4WJatBGco2ncEf8pzAz0BdPPTQxFMpcJGFePjUrz7FnwKWHmz5FRdbKVScordD2VyTRSYQDUFAtZU91oVNx9titSzo0wVr2QOr2yB6fzX7R05KkkOe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VFNaXUBJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="cnpE5h7M"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 5C239C62447;
-	Thu, 28 May 2026 08:35:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 2947060495;
-	Thu, 28 May 2026 08:35:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D59CB1088877F;
-	Thu, 28 May 2026 10:34:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1779957299; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=M56eRJSkoeZGYpGwZOTyQ5aXY21sscvasyo7WERYLoU=;
-	b=cnpE5h7MRH8sI7n622w/jjPJPNGinPbr7SiiFVDEFKXLeNtHiLl4SAxNmVTDEhK9sLql7R
-	mxGKrjO3w40kqbIJTC/zZTsTROdrql3wbwQV2gqG8TbH7UTLUZ4CLNxOYyuD2ld/hdHekc
-	HTzKvx7EcdVdWfY/rg7a17VIByb0nwthLx94vAHNnhWKXzYzSwflch4C0UnKlB/h+UvtX8
-	zardFwSAcEyD7F0/d8fmO+ZAmoGD4Sl97I8OFysY7P6zcdKeQDl2liZ01to/2Q6238acrP
-	v3SXi59qm7DE/sstUFgY6EwNK3VAvxFo4cE9O6Aj9cKCOZFt8tVAiCZWRrHc/Q==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
-  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
-  <pratyush@kernel.org>,  <mwalle@kernel.org>,
-  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
-  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
-  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
-  <a-dutta@ti.com>
-Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY
- tuning pattern partition property
-In-Reply-To: <20260527175527.2247679-3-s-k6@ti.com> (Santhosh Kumar K.'s
-	message of "Wed, 27 May 2026 23:25:16 +0530")
-References: <20260527175527.2247679-1-s-k6@ti.com>
-	<20260527175527.2247679-3-s-k6@ti.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Thu, 28 May 2026 10:34:55 +0200
-Message-ID: <87qzmwgceo.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VFNaXUBJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EEDA81F00A3E
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:36:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779957370;
+	bh=Jhtv5gfHMhMDDRGWAxzr1d+I0IvsgpMKf5TSuP9K5us=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=VFNaXUBJ0I6dWCgSi4X6uquLZRc6uD2cheJlY0GPnVygZId6+xB41Jc+WheBTpwfT
+	 ByQ1uFkmt4r8QayZ8u+4l84wV5bp6DbqYpOpMHH3h4jjOfIvCOK3brITCXf+AxvEPw
+	 CwGUI5gCmYoo5ZP5M0bHShcZgFHl7vf49cJFu2gvgR9ue+tN6HYCyuFxuB3trWkwT+
+	 5634ej4meY9PsxqpyYp+mR1bqoPFCjKOm84BcbbdIpiqJ2gTzpNU69XoJst80a0gJa
+	 xILfdwI/KQcs2o5Cn2rcRGxaxLwvPsb54G8RGaFrXSpquyDgjc839sns123iuSaO/x
+	 WcgiGwK6ozdmg==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5a8ee4b703fso11549062e87.0
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 01:36:09 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9kvjxlmHTagN3hGqqn1N2o1VF+RljDfTmTalUylQfmT2GhCGDwB2jsDqCA7vwSJdBC3zlW4tnOEq6Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YyChavtNQez0WFiXDBafydxptXWBlEUIKOWhWWGKhUM3FByDHcr
+	JY50HKslSZ3SvoPYgXTjrV4w6ONEzpIM+PZ70AzyWiz18n+2W28vF1UppW4oRdPxvybVHfAx1DI
+	9XK9v+AmGIbLDUMzWmPlLo1WvRzZzvTT1rdaLVkwhOw==
+X-Received: by 2002:a05:6512:682:b0:5a4:301:b92 with SMTP id
+ 2adb3069b0e04-5aa323daee7mr6994841e87.33.1779957368708; Thu, 28 May 2026
+ 01:36:08 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 28 May 2026 04:36:07 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 28 May 2026 04:36:07 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <2026052710-flagship-unsmooth-ce82@gregkh>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+References: <20260515090149.3169406-1-wenst@chromium.org> <CAMRc=MdnjRRMVzxPkkrPhQ4dz7rsK8-HKUp9cQ0z11apL3escQ@mail.gmail.com>
+ <CAGXv+5HC3dqgcE3KnKzakHHWFHB6m_X42orOkNUvZvp=SL_O8g@mail.gmail.com>
+ <CAMRc=Med-_0GSYzoFBRiwFzBCK0DZqJD8_SEBxi+zwR20GS-HA@mail.gmail.com>
+ <CAGXv+5GbW0bx3nKdZt2+tHuHyQ-J-1-Z79nMzHAwjmEPGKT02A@mail.gmail.com> <2026052710-flagship-unsmooth-ce82@gregkh>
+Date: Thu, 28 May 2026 04:36:07 -0400
+X-Gmail-Original-Message-ID: <CAMRc=Me=ujnscSOKhHDLz+ccMDyLyCfZnpqobF2BJ4YowgXB5A@mail.gmail.com>
+X-Gm-Features: AVHnY4LBp1nsLqjfLxLqbZp_YoBQEjH0FEHfrkmt_Ac8CfZjzB49fTtbI51YibQ
+Message-ID: <CAMRc=Me=ujnscSOKhHDLz+ccMDyLyCfZnpqobF2BJ4YowgXB5A@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/12] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Chen-Yu Tsai <wenst@chromium.org>
+Content-Type: text/plain; charset="UTF-8"
 
-On 27/05/2026 at 23:25:16 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
+On Wed, 27 May 2026 19:41:30 +0200, Greg Kroah-Hartman
+<gregkh@linuxfoundation.org> said:
+> On Wed, May 27, 2026 at 06:21:00PM +0200, Chen-Yu Tsai wrote:
 
-> PHY tuning requires a known data pattern to be readable from flash.
-> When no partition is explicitly identified, the controller must search
-> all available partitions to locate the pattern by label, which adds
-> overhead and relies on label naming conventions outside the
-> controller's control.
+...
+
+>>
+>> However this seems to completely decouple the power sequencing from the
+>> USB core. Take the USB A connector for example, it was recently added to
+>> the onboard USB devices driver. However the connector has a device node
+>> that is not a child node of any USB host controller or hub; it is connected
+>> through OF graph. At the same time, since it typically sits at the top
+>> level of the device tree, a platform device is directly created and the
+>> driver subsequently binds to that device. This is totally different from
+>> how the hub and other directly connected onboard USB devices work. In
+>> the onboard device case, the device node is a child node of the USB hub
+>> or controller, and the corresponding platform device only gets created
+>> when the USB hub driver probes, thereby sort of tying it into the USB
+>> device topology.
 >
-> Add cdns,phy-pattern-partition, a phandle property that allows the DT
-> author to directly reference the flash partition holding the PHY tuning
-> pattern. The controller uses this partition during calibration, avoiding
-> the partition search entirely.
-
-I would remove the "avoiding the partition search entirely". While
-thruthful, this is related to the history of the feature (how it was
-implemented before) but doesn't give any useful hint to the reader of
-the Linux kernel mainline repository. I would just drop that mention,
-and same below.
-
-> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
-> ---
->  .../bindings/spi/cdns,qspi-nor-peripheral-props.yaml      | 8 ++++++++
->  1 file changed, 8 insertions(+)
+> Hm, did we mess this up?  If so, we can always change it if you think
+> this should be done differently.
 >
-> diff --git a/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripher=
-al-props.yaml b/Documentation/devicetree/bindings/spi/cdns,qspi-nor-periphe=
-ral-props.yaml
-> index 510b82c177c0..0ffcdf5b00d0 100644
-> --- a/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-prop=
-s.yaml
-> +++ b/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-prop=
-s.yaml
-> @@ -39,4 +39,12 @@ properties:
->        Delay in nanoseconds between setting qspi_n_ss_out low and
->        first bit transfer.
->=20=20
-> +  cdns,phy-pattern-partition:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description:
-> +      Phandle to the flash partition containing the PHY tuning pattern.
-> +      When present, the controller uses this partition to locate the
-> +      pattern data during PHY tuning
+> Hubs should be dealing with the power issues for their ports, so maybe
+> rethinking this might be wise.  I'm just loath to add hardware-specific
+> hacks to the hub common code for obvious reasons.  Anything we can do to
+> pull it out to a separate driver is best so it doesn't affect the 99% of
+> the users that don't have that crazy hardware :)
+>
 
-Period                                 ^
+IIUC what we discussed with Chen-Yu yesterday, the only thing that needs to be
+done in the USB hub driver is attaching the port firmware nodes (if present) to
+the port devices we instantiate. The rest can be handled elsewhere.
 
-> +      instead of searching all partitions by label.
+Chen-Yu: correct me if I'm wrong.
 
-This sentence can be dropped.
-
-> +
->  additionalProperties: true
-
-With these comments addressed, you can add my
-
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-
-Thanks,
-Miqu=C3=A8l
+Bartosz
