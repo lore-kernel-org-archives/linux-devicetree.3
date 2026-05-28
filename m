@@ -1,48 +1,52 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3948F19CD0A;
-	Thu, 28 May 2026 17:13:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DA5C3F8891;
+	Thu, 28 May 2026 17:16:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779988401; cv=none; b=Zh6eH/yVjSIcjOwgcVAO/eqUYEie2Tn6JTvQG9Sfc5u3eNRlByyo0GdGJwuqrvFuJYnWS5qQ2/0ynVBDC1t3zeSoJyg3t4XLnDBL8Y03vZDEY59rsdDq5j1usN18l6K9rowGMibE13X/HmmQmDdNKBH8ibsPoDei4ygqE0J+rS8=
+	t=1779988591; cv=none; b=l6zAM9m0zJ+4F+jdEN9OHQq0QNN0Dgh2lS28fg/e/ELGv6u4aNj0zIHJzN/eS6iELcUVZ2qLYD2UBujAFz9TwLwU+868RslGerMWJl86YvAkGiaZmlav4zibRpVwbZRMvbNbaLJpvlNnM0RnT1dRMMyQBauTqiwogsv7K32a5d4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779988401; c=relaxed/simple;
-	bh=JFPo/lJS7WGgejVGo43zPUriEvsRZR1XHMcyK9q+sCg=;
+	s=arc-20240116; t=1779988591; c=relaxed/simple;
+	bh=7P/Zyncn/N4WbTLSy5ck0qrUmHyJh1WbKNdtnPduHew=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QmN4WeCMIFL2RlHTEsVJRA0EWJfBwZs5r+JlO0AH59HuOZgql6o5+HNm4HEOY/Vl+09TRLgx56UwRiDwHtQhPKGpPKx1yNHLAW5p2oj0AGcMhT6U4sgrgHp4aEEiJLNmG98XPvUoHxOWPgM4DwItAX49A3pCXBT4xoSs9015G44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XT2xQqiM; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oAIrzgCcBSBV2yE5h4qzZHFfi6MB4yQOBNdQL2IChFhSGqLYB7Kepsh8WbNjrnHzNTaqA4wlv+q9CDmEKDh1q1d9mLNpKksHnKQxJIDlA1AkfkAWEv2gFzpuzVe15CW1co2/nt0dDBF+xSASBc/dU0ZWMvsh52W+UJUpC1E6t9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QU4JZiZO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XT2xQqiM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD941F000E9;
-	Thu, 28 May 2026 17:13:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QU4JZiZO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D17281F000E9;
+	Thu, 28 May 2026 17:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779988399;
-	bh=DmoXDah3jQ5Ng6Yl64alLuZTaHi/bH6kVvRmL4WSci4=;
+	s=k20260515; t=1779988590;
+	bh=7P/Zyncn/N4WbTLSy5ck0qrUmHyJh1WbKNdtnPduHew=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XT2xQqiM794hRpZH3R37eidRSs2hUFcz2AGrGhnknWAeNsuKxBKl6TnwI4suQ3Gyn
-	 qQi1sKK8lATJ0FkPkZxxyeneVNzzVf1/NPCk0K+wjrUyzG9U3p37UgQc0qNhn/eB6S
-	 DmdnmrRUV1wNPSRssdqG7PRoIl6rOtaRwy8KhxJqEyI2JHYULk60Uj/y93hLndKSol
-	 KSnGNCjibIMSaYo4gY547F5+b54lszhondeuuEqo52sOzD3sDVByUtBocHd05oTzkd
-	 sKyXRivPy4CR3qXYBqYNFqwW1trgMyzrET2dXFDm2tqKR7TCOEKnzmdW/+RObzSggZ
-	 Z23FXmVkKAR8Q==
-Date: Thu, 28 May 2026 18:13:14 +0100
+	b=QU4JZiZOeiBuRZygvfTgtgr2HdO1yC8byaz40OcCZ6vl5lHfEJNj+EFBZhTyPUYgo
+	 xaG3TaWt2n6W1k8cH4y61LSHemaf+EbJ1eUi1brC3Uspbtwif7969FlLQmrX7ibdlX
+	 AY+74qxZUXHVR9gjl1HG7vzvu7xy6AY2ATDxz39wan7qu1wkAKsgjPFHwAr6nFrem6
+	 x3P71KOPYT1g1VoSgdo6mBqJSUG1hDz8tsnls/p7ustDxFjxsUhk1tSPqcFqfjJygh
+	 qOBiBxiyhlPSNFLMqblbwQQJ/cEiScf5kzHCAiCsbScL82vkDA7agpyUjDSc+LLys2
+	 9WzlKaOGxg9Kg==
+Date: Thu, 28 May 2026 18:16:25 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
-	Paolo Abeni <pabeni@redhat.com>, Guodong Xu <guodong@riscstar.com>,
-	Yangyu Chen <cyy@cyyself.name>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] riscv: dts: spacemit: k1: Split gmac_clk_ref into
- independent pinctrl groups
-Message-ID: <20260528-mushily-suffrage-5162d4ffdaf2@spud>
-References: <20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech>
- <20260528-bpi-cm6-v2-2-d0eb3f236cea@pigmoral.tech>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"linux@roeck-us.net" <linux@roeck-us.net>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"corbet@lwn.net" <corbet@lwn.net>,
+	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Sanman Pradhan <psanman@juniper.net>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
+ MAX20860A
+Message-ID: <20260528-resupply-sympathy-f590eb8616ce@spud>
+References: <20260527045409.9092-1-sanman.pradhan@hpe.com>
+ <20260527045409.9092-2-sanman.pradhan@hpe.com>
+ <20260527-exuberant-broadband-052c3526847f@spud>
+ <20260528170618.85027-1-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,99 +54,39 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="yHMIcsRoTx1oZIkR"
+	protocol="application/pgp-signature"; boundary="sDdp0RPSGRHMxjWg"
 Content-Disposition: inline
-In-Reply-To: <20260528-bpi-cm6-v2-2-d0eb3f236cea@pigmoral.tech>
+In-Reply-To: <20260528170618.85027-1-sanman.pradhan@hpe.com>
 
 
---yHMIcsRoTx1oZIkR
+--sDdp0RPSGRHMxjWg
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 28, 2026 at 01:22:48PM +0800, Junhui Liu wrote:
-> The gmac_clk_ref signal is optional for the GMAC controller and is not
-> strictly required for all hardware designs. The pins for gmac0_clk_ref
-> (GPIO 45) and gmac1_clk_ref (GPIO 46) may also be used as GPIOs for
-> other functions even when the Ethernet controller is active.
+On Thu, May 28, 2026 at 05:06:30PM +0000, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
 >=20
-> Split the refclk pins into independent pinctrl groups so boards can
-> request them only when the reference clock path is actually needed.
->=20
-> Among the already mainlined boards, BPI-F3, Jupiter and MusePi Pro have
-> optional hardware paths for the GMAC refclk pins. BPI-F3 and Jupiter
-> route both GMAC refclk pins to the PHYs through NC/0R option resistors,
-> while MusePi Pro only does so for GMAC0. Keep referencing the new
-> clk-ref pinctrl groups on these boards so the optional hardware paths
-> remain usable if the option resistors are populated.
->=20
-> OrangePi R2S has no publicly available schematic, so also keep the
-> clk-ref groups there to preserve the previous pinmux behavior.
->=20
-> Fixes: 60775f28cfb7 ("riscv: dts: spacemit: Add Ethernet support for K1")
-> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
+> Thanks Conor for the review. Will fix in v2, will add an allOf reference
+> to regulator.yaml and switch to unevaluatedProperties: false, will follow
+> the same pattern as adi,max20830.yaml, if that's ok.
 
-> diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv/bo=
-ot/dts/spacemit/k1-pinctrl.dtsi
-> index 4e9a62d0e85b..8c57ca05dabd 100644
-> --- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-> +++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-> @@ -27,8 +27,16 @@ gmac0-pins {
->  				 <K1_PADCONF(11, 1)>,	/* gmac0_tx_en */
->  				 <K1_PADCONF(12, 1)>,	/* gmac0_mdc */
->  				 <K1_PADCONF(13, 1)>,	/* gmac0_mdio */
-> -				 <K1_PADCONF(14, 1)>,	/* gmac0_int_n */
-> -				 <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
+Okay. Please don't remove quoted text when you reply, so that I don't
+have to look on lore.kernel.org to figure out what it is that I am
+commenting on.
 
-The point sashiko made here seems valid, odd that these aren't added to
-another group.
+Thanks,
+Conor.
 
-> +				 <K1_PADCONF(14, 1)>;	/* gmac0_int_n */
-> +
-> +			bias-pull-up =3D <0>;
-> +			drive-strength =3D <21>;
-> +		};
-> +	};
-> +
-> +	gmac0_clk_ref_cfg: gmac0-clk-ref-cfg {
-> +		gmac0-clk-ref-pins {
-> +			pinmux =3D <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
-> =20
->  			bias-pull-up =3D <0>;
->  			drive-strength =3D <21>;
-> @@ -51,8 +59,16 @@ gmac1-pins {
->  				 <K1_PADCONF(40, 1)>,	/* gmac1_tx_en */
->  				 <K1_PADCONF(41, 1)>,	/* gmac1_mdc */
->  				 <K1_PADCONF(42, 1)>,	/* gmac1_mdio */
-> -				 <K1_PADCONF(43, 1)>,	/* gmac1_int_n */
-> -				 <K1_PADCONF(46, 1)>;	/* gmac1_clk_ref */
-> +				 <K1_PADCONF(43, 1)>;	/* gmac1_int_n */
-> +
-> +			bias-pull-up =3D <0>;
-> +			drive-strength =3D <21>;
-> +		};
-> +	};
-> +
-> +	gmac1_clk_ref_cfg: gmac1-clk-ref-cfg {
-> +		gmac1-clk-ref-pins {
-> +			pinmux =3D <K1_PADCONF(46, 1)>;	/* gmac1_clk_ref */
-> =20
->  			bias-pull-up =3D <0>;
->  			drive-strength =3D <21>;
->=20
-> --=20
-> 2.54.0
->=20
-
---yHMIcsRoTx1oZIkR
+--sDdp0RPSGRHMxjWg
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahh3qgAKCRB4tDGHoIJi
-0ighAQCCYCHn/Z8Nx1S8V5gzBhLAaraiQ7AmOK+smylXr8jDiwEAp3sY1yAA84Wh
-XOHUcBadiG0vpUZHYLRkhwjSFZEjHgk=
-=FbJc
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahh4aQAKCRB4tDGHoIJi
+0pmcAQCh309j0Hnjg+J0BQ9waOumbyLg7zZfWUm4jH5mo+VsXAD+MD2uqYuagWD7
+D1QyoDj8lbQGOt93pJYD+dC/girqswY=
+=PW0h
 -----END PGP SIGNATURE-----
 
---yHMIcsRoTx1oZIkR--
+--sDdp0RPSGRHMxjWg--
