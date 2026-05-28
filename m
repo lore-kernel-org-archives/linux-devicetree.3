@@ -1,119 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E13278156;
-	Thu, 28 May 2026 14:09:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B622E2852
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:10:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779977395; cv=none; b=LlszQGxyGZ+T4dGfQWQ93dr+vPbOmOaxfqd106zyu16ys6mJ7UZU3BJbqWqynyPcxfAwukrAkx5t8Ro1WXKNwXxQbeAWemT/YONYrNcPTxZw86AD2P65WgRPHTojhXA2sijGHcqf/w9bJSlj+Z1kbC0oZn1V0sM0azu4AFWBG1A=
+	t=1779977403; cv=none; b=kDewC203gTVero30dlFv+JRllN2UosoEBkS5z57fF2lFQrWP3cHx/UAXC41gelBxuRZqJZ1RLscaEGQuG1vvq4xjFeTP0l+9AxA3uAMC9+qssCb7dLr5bb4Eiwmc+0HgqcKdkafnSIb64BVwCuJgt6JxBLLMIhUX4eLehqVNmLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779977395; c=relaxed/simple;
-	bh=Pr+jxz7BY35FXsRBBvKHNemKJtlVjF9l/QZ3A0n1eQI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WmEvegKv/BT8zuwSn3KvFc6H/St2UdUi8TLAwZIWhfnHwXGLyVd+77LlFq694d9bz4jPRBy60kmD6eUzFQF5X8tW6kna+KiY8gv+wJjrB/o721cZPW9svVAg+4ZblGUyt7XT/MgJggZ03zri1uiUyvxDPdr6ParYyL/qsUiexhM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TsX3XjVH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779977403; c=relaxed/simple;
+	bh=cb0Alao0wAK5p6LLUs61tjGHocPnOv+RtVo2xgCeFJs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mz99b5f6O1LSZUoUxSuSYCN7VIO+FRjIbsEeSc3iA6wbKxKHwDZu+1yc6FTm+fGGrIkQu2EG8Wu/r20vUNxCfsg+BeyCrUJDIz6zIjCWN5ylB3l2pzsD8VidfCYKDBxnLDGM2ttXgzecVR4g97iPRLx+PwrjHXxWkLSoLU5/RNU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BUd0wK7r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TsX3XjVH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EAE1F000E9;
-	Thu, 28 May 2026 14:09:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BUd0wK7r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7FCA1F000E9;
+	Thu, 28 May 2026 14:10:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779977393;
-	bh=u0uUf3f7uBNsnWsY36gNTsll6Uy0Yo12v5M+z1iDSco=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TsX3XjVHE3tZoc6dR0sgaRdfEbz7ZgrS0yZg+pf6s7YMtCo5YuEutctv7p4JLdKdu
-	 2zlp0kDxNJV2q4QVz3idkm7DS68YyyUzIfSAKsm9hSXM9R7WJYnZeKc/zyYIXMpZLv
-	 XIJxEJP7Ixc3zisnBMBCVoIUprUdXqRwu2ownwXWs1d2XmRMurwQtDq5JB8JN0sryF
-	 kl01OEU12npK50xn27fqachkvBUsZnrw6+4l+hV7YfJNrLppGR5oz1MYRga6EZR9hO
-	 wgFJaN/acT4Xzz1fHUuoTVytYIRNbgmRWxVFCXxIoxHLrnPbNXIwyML1FzyJTJNgEq
-	 L5U5LYgItd9gg==
-Date: Thu, 28 May 2026 15:09:50 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev,
-	Piyush Patle <piyushpatle228@gmail.com>, robh@kernel.org,
-	conor+dt@kernel.org, devicetree@vger.kernel.org,
-	linux-iio@vger.kernel.org
-Subject: Re: [PATCH v10 04/11] dt-bindings: iio: adc: hx711: add HX710B
- support
-Message-ID: <20260528-ample-ointment-3d90520304f9@spud>
-References: <20260525105127.180156-5-piyushpatle228@gmail.com>
- <20260525111144.CA7E71F000E9@smtp.kernel.org>
- <20260525-clanking-possum-4ba58b466854@spud>
- <20260527184128.2f5f02e5@jic23-huawei>
- <20260528-payphone-alto-870198753d50@spud>
- <20260528140838.180844cd@jic23-huawei>
+	s=k20260515; t=1779977401;
+	bh=zH1drErvPJ4USPncQUIgcblMweYzwjL5oQOj4wvJb44=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BUd0wK7rDGpxollzLfFcNEds9LxJTFIKbEW/9qMuYED+uNMG+vWJaUUp0efNL2m5j
+	 q5JhurxAQAG4MTWqiWIDCAOrmQiFFzo1Lr9oTDmXQfe6/CNd9hPiVIU7Q2OalrZzkg
+	 oDqh52KHRGW/FCWTsVOxK14mvzIlHFfYwQKXhe0K94aysckB1P4hMP2Aab9Ug0NC1s
+	 CLYnk3rq5Pa9uFGMQAjT5M9nxZGnEsL0A5AiZ8tZUzyT6UfsrgbImAnoeGR+y+Po/G
+	 7O1/5Ns17wEtaz4NtzA7yIXEak/ogys0/Gj6a6PEU4ObHJl1H1GCTK4r8hZdqxyQR1
+	 Ua9R2LCqMUpNQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] arm64: dts: renesas: rzt2h-n2h-evk: Configure ETH
+ pins
+Reply-To: sashiko-reviews@lists.linux.dev
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: devicetree@vger.kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260528134752.79813-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+References: <20260528134752.79813-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 14:10:01 +0000
+Message-Id: <20260528141001.A7FCA1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="2TlNsjHs/AwiJhpQ"
-Content-Disposition: inline
-In-Reply-To: <20260528140838.180844cd@jic23-huawei>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Output electrical properties are incorrectly applied to IRQ inpu=
+t pins.
+--
 
---2TlNsjHs/AwiJhpQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit d84bccabc10cd7f1872ff319101c5c8c4a5f39c8
+Author: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-On Thu, May 28, 2026 at 02:08:38PM +0100, Jonathan Cameron wrote:
-> On Thu, 28 May 2026 09:54:39 +0100
-> Conor Dooley <conor@kernel.org> wrote:
->=20
-> > On Wed, May 27, 2026 at 06:41:28PM +0100, Jonathan Cameron wrote:
-> > > On Mon, 25 May 2026 18:01:41 +0100
-> > > Conor Dooley <conor@kernel.org> wrote:
-> > >  =20
-> > > > Jonathan,
-> > > >=20
-> > > > Here's an example of the sort of stuff it complains about on every
-> > > > iteration.
-> > > >  =20
-> > > Thanks. +cc linux-iio@vger.kernel.org
-> > >  =20
-> > > > On Mon, May 25, 2026 at 11:11:44AM +0000, sashiko-bot@kernel.org wr=
-ote: =20
-> > > > > Thank you for your contribution! Sashiko AI review found 2 potent=
-ial issue(s) to consider:
-> > > > > - [Medium] The `dvdd-supply` property is utilized by the HX710B a=
-nd mentioned in the commit message, but it is not enforced as a required pr=
-operty for the new compatible or included in the example. =20
-> > > Yup. This stuff needs fixing.
-> > >  =20
-> > > > > - [Low] The `if` condition for the `avia,hx710b` compatible incor=
-rectly uses `const` instead of `contains: const`, causing schema validation=
- to always fail for HX710B nodes. =20
-> > >=20
-> > > This one I'm not sure on. Is it right?  I tested by hacking
-> > > the example to have a supply it shouldn't and the schema validation f=
-ailed
-> > > as expected making me think this is a false positive.
-> > > I have zero natural feel for yaml so no idea :) =20
-> >=20
-> > It's not the common pattern, but it does work.
-> > IIRC the difference between it and "contains: const: ..." is that it do=
-esn't
-> > apply the condition when the compatible is used as a fallback.
-> >=20
-> Makes sense. Given we may have fallbacks in future, it would be
-> good to use contains version.
+arm64: dts: renesas: rzt2h-n2h-evk: Configure ETH pins
 
-Or change it in the future when the user of the fallback arrives, since
-the binding will need to be modified anyway at that point. That's why
-I didn't ask for the change to be made.
+This commit updates the gmac1 and gmac2 pin configurations for the RZ/T2H
+and RZ/N2H EVK boards to match electrical specifications. It restructures
+the nodes into pin groups and fixes a comment typo.
 
---2TlNsjHs/AwiJhpQ
-Content-Type: application/pgp-signature; name="signature.asc"
+> diff --git a/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts b/arc=
+h/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts
+> index dd0556b0a4f59..060f65a23b78b 100644
+> --- a/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts
+> +++ b/arch/arm64/boot/dts/renesas/r9a09g077m44-rzt2h-evk.dts
+> @@ -258,23 +258,54 @@ can0_pins: can0-pins {
 
------BEGIN PGP SIGNATURE-----
+[ ... ]
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahhMqgAKCRB4tDGHoIJi
-0sXvAP92zvcRaUiEZg0HoRTjaMrwDAi1Y8ujeXAeOozyoBzanwD+JaUUoJPDMi8d
-7Y2GUDUXWWHmBFGcFVqTtFXqKAfPzwY=
-=pFhj
------END PGP SIGNATURE-----
+> +		md-pins {
+> +			pinmux =3D <RZT2H_PORT_PINMUX(26, 1, 0x10)>, /* GMAC1_MDC */
+> +				 <RZT2H_PORT_PINMUX(26, 2, 0x10)>; /* GMAC1_MDIO */
+> +			drive-strength-microamp =3D <5000>;
+> +			slew-rate =3D <0>;
+> +			input-schmitt-disable;
+> +		};
 
---2TlNsjHs/AwiJhpQ--
+[ ... ]
+
+> +		irq-pins {
+> +			pinmux =3D <RZT2H_PORT_PINMUX(27, 2, 0x0)>; /* IRQ3 */
+> +			drive-strength-microamp =3D <5000>;
+> +			slew-rate =3D <0>;
+> +			input-schmitt-disable;
+> +		};
+
+[Severity: Medium]
+Are these output properties (drive-strength-microamp and slew-rate)
+appropriate for an interrupt input pin? It looks like this might be a
+copy-paste from the md-pins group.
+
+Also, does disabling the Schmitt trigger on this asynchronous external
+interrupt line make it susceptible to noise and slow-rising edges? I am
+curious if this could potentially lead to spurious interrupt triggers. This
+same pattern appears to apply to the other irq-pins groups in this patch
+for IRQ13, IRQ14, and IRQ15.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528134752.7981=
+3-1-prabhakar.mahadev-lad.rj@bp.renesas.com?part=3D2
