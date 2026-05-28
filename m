@@ -1,193 +1,257 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D849A367F23;
-	Thu, 28 May 2026 22:30:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33CC23563F6
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 22:41:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780007450; cv=none; b=NTR7JM8LaLFuPNvqOrXSgfOadsp2DpP+xM6C/+blHWKwID1pwO+TAGed6EksCkQN7bPYmen2yTtItGiFTVfsjN12zq09ymgMS7CA/yCHddLzAOX9iG9BKv+P4dlD0xt7JngzBSNTubX0y0k3LzqoBLScrFP3JT3ZAlpWG9NmzNI=
+	t=1780008089; cv=none; b=GVPA1VEgJJFHL2RvSsUUB/pZxOC6toUlRm7YumFEzj3ORQsjo9QXvlYL8kQkvgMFabdudUbH8gb+jaJ4GdP9/8OJ6D2c6eMAluEHNIHmQIzro1rZiXg3P2bfMnL1ekxdfy/X4rI4aWkXQHgEoeDpj+l298bFDvMq1fYTdkdpW7M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780007450; c=relaxed/simple;
-	bh=6gM00ZsipIMswoFFkvvLiDGFT+x/pe9LSDNPgHmgU2c=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=bZeRtmmC7hcH1OvHk45VUwRkHs1pZXRgJgi0hF0WbZcyWw2Woh+RsN2xMiBDSx4pxPqpOpEct/IIt85s8PGH2meAknGuuRDhw2NcjbHquTjK4o29I6+VsudRANBtxRkePuaYBUgyDyLL8JCnS421GcQYgKOpEfkwmgeNh267S8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dtDxQHxo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780008089; c=relaxed/simple;
+	bh=DUuDAx/OiYCkhbGfBlTdDDBjfV/R439zUDmaZ/huDR0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=beoJlD828QcJXs791wRxCwe2VfUxV5HDeO9x7vRDL7XiZjb8MmCzN6zygZkbnQxYDO5bEbXoTv5z6q84IU1zVzgiecxDlN4wSbXOZCoYGpNoduhndyFTBzWDzEgyjsA6bnmemgefC2J0qjaYqEDfcbZ6Cd4kuIkWNA7oDUPDOT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jwhvbjFG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dtDxQHxo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7BF01F00A3A;
-	Thu, 28 May 2026 22:30:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jwhvbjFG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 435421F000E9;
+	Thu, 28 May 2026 22:41:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780007449;
-	bh=JTC78I7HyeSyWieBpRlXgLzYRKV0E9nhA+7nPJZHDPI=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=dtDxQHxo989x4MuYetEl28FjQ+wkepDGzLoqkJwRAQzuZQh2FxcsXRnfmzt8rD8tn
-	 XXIia42Bj97lDQJuC9NjQuOdqrRNVNOrxzTexKFb7QpUjPakgO+jqn6sxmszM/CL1b
-	 Q1XNmjnOpWC6xYrdvXn6/1GUWQPZLnh024tARvmHoEb8yqeiwepMqfjPkqv+h1dm7s
-	 GoRdMWEaPaaCIAsaXExuYaQNCfoGJRyCnzr0Oy7HU6511k4SETnuMcSRFz/oBCWY2X
-	 eN4E8GE3qBOOLLd7vEv8Am5A+hxpKoIIGyVh3ekRN4dXt/6mDC13sLpFGS1biyGtcG
-	 8ZqlO6zILGQiQ==
+	s=k20260515; t=1780008087;
+	bh=C51zQ7piqtCStePpCIS7xvJ62l6MMZSGPEQEeNHyyIo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=jwhvbjFG+DKbWfiwtbLVH5rqHNQeMv3mTUC9EqVBnrsLhoAqRbbBZ/tvSwD/aWtHb
+	 poSbbMyTPicidaYGl4ZxgfGLUPZEHw7agumiFYLpYEqM8KAb5gQRI+NmfMU83OW8PS
+	 GwrrFMedndOwaytk3BY5MToPpxMkfAao9dbMwSn4pDgZncwRHWea4ZULQ3cBIwY3ex
+	 mwB+zGSfLg8AJLz1r6U8lIY54VN3qi71WLTiDBRjttS2CXyvH0Cz5eHNPW3uVQ1eJk
+	 V4LtCS3UfDWcouCTOvKDZvXFi0kCJQrih8PrMeVvOQXK0Z7r8i9w3OJSS8QNp312wD
+	 kJHhfqG303QCQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v3 3/5] clk: zte: Introduce a driver for zx297520v3
+ top clocks and resets.
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260529-zx29clk-v3-3-c7fe54ea388f@gmail.com>
+References: <20260529-zx29clk-v3-3-c7fe54ea388f@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 22:41:26 +0000
+Message-Id: <20260528224127.435421F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Subject: Re: [PATCH 8/8] arm64: dts: qcom: shikra-iqs-evk-imx577-camera:
- Add DT overlay
-From: bod@kernel.org
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
- Loic Poulain <loic.poulain@oss.qualcomm.com>, 
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, 
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
- Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org, 
- linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
- Suresh Vankadara <quic_svankada@quicinc.com>, 
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-In-Reply-To: <20260526-shikra-camss-review-v1-8-645d2c8c75a7@qti.qualcomm.com>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-8-645d2c8c75a7@qti.qualcomm.com>
-Date: Thu, 28 May 2026 23:30:41 +0100
-Message-Id: <178000744162.4557.14613962845288279527.b4-reply@b4>
-X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3500; i=bod@kernel.org;
- h=from:subject:message-id; bh=6gM00ZsipIMswoFFkvvLiDGFT+x/pe9LSDNPgHmgU2c=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqGMITaf4YGJtKzrCQ5wNkqoquixtxXfW2tchE6
- X4fB6QIxOKJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCahjCEwAKCRAicTuzoY3I
- OkS1EACm6OJhIyJkwiAawBePKRoqc8eWD/J4E3aODc4QgOgbkar0E21yOB9gGj7xJTwOwW+lNCQ
- xAL5+Q8UtIHM826BJMKEsHA72AIy4R5irN6DVtdsnngIRO39KVU/vIb+lLMNDdGnKu3qHK/809x
- dQ+N4+ATOnjKDWQiIBHo59Edx0iADyX56xMAMcBrQ37FrKVm8we00ASoLPXyOLFv+IO3rtP2WA4
- Xfsd/JcrAJ/PCi0rsyaBA+Uiypmqzgmt33F+o2CLCgn6QG6TLjTfrdiq0C19yl7eXiS0dw4HEwq
- 4sU6DzdABm98IILZgm9IijQ76uvjVC4Yz5AKSgaPES4/jdKolWNAt7eT3qKQPMY/N1NnycwF9+v
- nW95dgttRlGzIVlZVFxoIQk1TNPeI+7DhEpJW/Q0zX1Y3elcx/0BuchWvss4zI+1KiPWWguGm+N
- bPFJB0K/HQdVem3TjvG5CcnnATFiYmUDDb5fV/v9IxE75Nj6i6griTeuTz7P8aU2sgKyw+rFC4q
- AiPzlPETx0XY8S2QWxkYal9L4TrAr11o4V/oFAf8XMs1IEY/KDYU8TZB5S2GhVEUc8xOi+MaWIL
- X6aCK/nFKdzce6vB9qW4EdlDUKJIJeKBGkhuU/ojUlxp98vupO/B2G8uJ9VtnF/eJ4VSNy4gj5r
- GLHQDN+91MUGNdQ==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On 2026-05-26 22:42 +0530, Nihal Kumar Gupta wrote:
-> Shikra IQS is an industrial-grade variant using PM8150 PMIC, requiring
-> different CSIPHY and sensor supply rails compared to the retail boards
-> (CQM and CQS) which use PM4125.
-> 
-> Add a dedicated overlay for optional IMX577 integration via CSIPHY1.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->  arch/arm64/boot/dts/qcom/Makefile                  |  2 +
->  .../dts/qcom/shikra-iqs-evk-imx577-camera.dtso     | 63 ++++++++++++++++++++++
->  2 files changed, 65 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-> index df41830e18edff82893ca24ca84d7e03065d0ef7..2a728c975a38f700360e317307036efb0968a00f 100644
-> --- a/arch/arm64/boot/dts/qcom/Makefile
-> +++ b/arch/arm64/boot/dts/qcom/Makefile
-> @@ -340,9 +340,11 @@ dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk.dtb
->  
->  shikra-cqm-evk-imx577-camera-dtbs	:= shikra-cqm-evk.dtb shikra-cqm-evk-imx577-camera.dtbo
->  shikra-cqs-evk-imx577-camera-dtbs	:= shikra-cqs-evk.dtb shikra-cqm-evk-imx577-camera.dtbo
-> +shikra-iqs-evk-imx577-camera-dtbs	:= shikra-iqs-evk.dtb shikra-iqs-evk-imx577-camera.dtbo
->  
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqm-evk-imx577-camera.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= shikra-cqs-evk-imx577-camera.dtb
-> +dtb-$(CONFIG_ARCH_QCOM)	+= shikra-iqs-evk-imx577-camera.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm4250-oneplus-billie2.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm4450-qrd.dtb
->  dtb-$(CONFIG_ARCH_QCOM)	+= sm6115-fxtec-pro1x.dtb
-> diff --git a/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-> new file mode 100644
-> index 0000000000000000000000000000000000000000..f0423f1ab4e93abdcc7cad8977b39e31b2437e8e
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Calling a sleeping function `readl_poll_timeout` while holding a s=
+pinlock with interrupts disabled.
+- [High] `determine_rate` callback fails to update `req->rate`, breaking cl=
+ock rate negotiation.
+- [High] Missing spinlock protection for shared PLL registers leads to conc=
+urrent read-modify-write corruption.
+- [High] Inverted logic in the reset controller `.status` callback.
+- [High] Multiple paths lead to a division by zero kernel panic during PLL =
+rate calculations.
+- [Medium] Holding a spinlock with interrupts disabled across a 100us delay.
+- [Low] Makefile dependency prevents COMPILE_TEST builds on non-ZTE archite=
+ctures.
+--
+
+commit 762483ab5f3f25d2d8b51f77a303caa010237fbd
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+
+clk: zte: Introduce a driver for zx297520v3 top clocks and resets.
+
+This patch introduces a clock and reset controller driver for the
+ZTE zx297520v3 SoC, handling core devices like PLLs, timers, and USB.
+
+> --- a/drivers/clk/Makefile
+> +++ b/drivers/clk/Makefile
+> [ ... ]
+> @@ -167,5 +167,6 @@ ifeq ($(CONFIG_COMMON_CLK), y)
+>  obj-$(CONFIG_X86)			+=3D x86/
+>  endif
+>  obj-y					+=3D xilinx/
+> +obj-$(CONFIG_ARCH_ZTE)			+=3D zte/
+
+[Severity: Low]
+Will this obj-$(CONFIG_ARCH_ZTE) prevent COMPILE_TEST builds from
+traversing into the zte/ directory when CONFIG_ARCH_ZTE is not set?
+
 > --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/shikra-iqs-evk-imx577-camera.dtso
-> @@ -0,0 +1,63 @@
-> +// SPDX-License-Identifier: BSD-3-Clause
-> +/*
-> + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-> + */
+> +++ b/drivers/clk/zte/clk-zx297520v3.c
+> @@ -0,0 +1,775 @@
+> [ ... ]
+> +static int __zx297520v3_rst_deassert(struct reset_controller_dev *rcdev,=
+ unsigned long id)
+> +{
+> +	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_cl=
+k_controller,
+> +							    rcdev);
+> +	u32 val;
 > +
-> +/dts-v1/;
-> +/plugin/;
+> +	val =3D readl(data->resets[id].reg);
+> +	val |=3D data->resets[id].mask;
+> +	writel(val, data->resets[id].reg);
 > +
-> +#include <dt-bindings/clock/qcom,shikra-gcc.h>
-> +#include <dt-bindings/gpio/gpio.h>
+> +	/* This is a special case used only by USB reset */
+> +	if (data->resets[id].wait_mask) {
+> +		return readl_poll_timeout(data->resets[id].reg + 4, val,
+> +					  val & data->resets[id].wait_mask, 1, 100);
+> +	}
 > +
-> +&camss {
-> +	vdd-csiphy-1p2-supply = <&pm8150_l11>;
-> +	vdd-csiphy-1p8-supply = <&pm8150_l12>;
-> +
-> +	status = "okay";
-> +
-> +	ports {
-> +		#address-cells = <1>;
-> +		#size-cells = <0>;
-> +
-> +		port@1 {
-> +			reg = <1>;
-> +
-> +			csiphy1_ep: endpoint {
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&imx577_ep1>;
-> +			};
-> +		};
-> +	};
-> +};
-> +
-> +&cci {
-> +	status = "okay";
-> +};
-> +
-> +&cci_i2c1 {
-> +	#address-cells = <1>;
-> +	#size-cells = <0>;
-> +
-> +	camera@1a {
-> +		compatible = "sony,imx577";
-> +		reg = <0x1a>;
-> +
-> +		reset-gpios = <&tlmm 33 GPIO_ACTIVE_LOW>;
-> +		pinctrl-0 = <&mclk1_default>;
-> +		pinctrl-names = "default";
-> +
-> +		clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		assigned-clocks = <&gcc GCC_CAMSS_MCLK1_CLK>;
-> +		assigned-clock-rates = <24000000>;
-> +
-> +		dovdd-supply = <&pm8150_l15>;
+> +	return 0;
+> +}
 
-I don't have your schematic BUT where are the rest of the regulators.
+[Severity: High]
+Is it safe to call readl_poll_timeout() here? Since it is called from
+zx297520v3_rst_deassert() and zx297520v3_rst_reset() while holding the
+reg_lock spinlock with interrupts disabled, the usleep_range() inside
+readx_poll_timeout() might sleep in an atomic context.
 
-If they are absent or powered by the daughter board, a comment in the patch
-would be warranted.
+Should readl_poll_timeout_atomic() be used instead?
 
-Same comment for previous patch.
+> [ ... ]
+> +static int zx297520v3_rst_reset(struct reset_controller_dev *rcdev, unsi=
+gned long id)
+> +{
+> +	unsigned long flags;
+> +	int res;
+> +
+> +	spin_lock_irqsave(&reg_lock, flags);
+> +
+> +	res =3D __zx297520v3_rst_assert(rcdev, id);
+> +	if (res)
+> +		goto unlock;
+> +	udelay(100);
 
-> +		port {
-> +			imx577_ep1: endpoint {
-> +				link-frequencies = /bits/ 64 <600000000>;
-> +				data-lanes = <0 1 2 3>;
-> +				remote-endpoint = <&csiphy1_ep>;
-> +			};
-> +		};
-> +	};
-> +};
-> 
-> -- 
-> 2.34.1
-> 
-> 
+[Severity: Medium]
+Does holding a spinlock with local IRQs disabled across a 100-microsecond
+delay risk causing severe scheduling latency spikes or triggering
+soft-lockup detectors? Could the lock be dropped during the delay?
 
+> +	res =3D __zx297520v3_rst_deassert(rcdev, id);
+> +
+> +unlock:
+> +	spin_unlock_irqrestore(&reg_lock, flags);
+> +	return res;
+> +}
+> +
+> +static int zx297520v3_rst_status(struct reset_controller_dev *rcdev,
+> +			       unsigned long id)
+> +{
+> +	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_cl=
+k_controller,
+> +							    rcdev);
+> +	u32 val;
+> +
+> +	val =3D readl(data->resets[id].reg);
+> +
+> +	return val & data->resets[id].mask;
+> +}
 
+[Severity: High]
+Does this return value invert the reset controller framework's semantics?
+
+Since __zx297520v3_rst_assert() clears the bit and
+__zx297520v3_rst_deassert() sets the bit, the reset appears to be active-lo=
+w.
+Returning val & mask produces a non-zero value when the line is
+deasserted, but the framework expects .status to return non-zero when
+asserted.
+
+> --- /dev/null
+> +++ b/drivers/clk/zte/pll.c
+> @@ -0,0 +1,450 @@
+> [ ... ]
+> +static int zx29_pll_enable(struct clk_hw *hw)
+> +{
+> +	struct zx29_clk_pll *pll =3D to_zx29_clk_pll(hw);
+> +	u32 val;
+> +
+> +	val =3D readl(pll->base);
+> +	val &=3D ~ZX29_PLL_BYPASS;
+> +	writel(val, pll->base);
+> +
+> +	val =3D readl(pll->base + ZX29_PLL_REG2_OFFSET);
+> +	val &=3D ~ZX29_PLL_POSTDIV_OUT_DISABLE;
+> +	writel(val, pll->base + ZX29_PLL_REG2_OFFSET);
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Are these read-modify-write sequences safe against concurrent
+modifications?
+
+The Common Clock Framework protects .enable/.disable with
+a global spinlock and .prepare/.set_rate with a mutex. Since callbacks
+like zx29_pll_enable() and zx29_pll_set_rate() can run concurrently on the
+same hardware register, is a driver-specific spinlock needed here?
+
+> [ ... ]
+> +static unsigned long zx29_pll_get_rate(const struct zx29_clk_pll *pll, u=
+nsigned long parent_rate,
+> +				       u32 setting)
+> +{
+> +	unsigned long refdiv, fbdiv, postdiv1, postdiv2, freq;
+> +	const char *name =3D clk_hw_get_name(&pll->hw);
+> +	u64 vco;
+> +
+> +	refdiv =3D (setting & ZX29_PLL_REFDIV_MASK) >> ZX29_PLL_REFDIV_SHIFT;
+> +	fbdiv =3D (setting & ZX29_PLL_FBDIV_MASK) >> ZX29_PLL_FBDIV_SHIFT;
+> +	postdiv1 =3D (setting & ZX29_PLL_POSTDIV1_MASK) >> ZX29_PLL_POSTDIV1_SH=
+IFT;
+> +	postdiv2 =3D (setting & ZX29_PLL_POSTDIV2_MASK) >> ZX29_PLL_POSTDIV2_SH=
+IFT;
+> +	dev_dbg(pll->dev, "%s: reference clock %lu HZ, PLL setting 0x%08x\n",
+> +		name, parent_rate, setting);
+> +
+> +	vco =3D div_u64((u64)parent_rate * fbdiv, refdiv);
+> +	freq =3D div_u64(div_u64(vco, postdiv1), postdiv2);
+
+[Severity: High]
+Can this sequence cause a divide-by-zero kernel panic?
+
+If the hardware register initially contains 0, or if zx29_pll_calc_values()
+returns 0, refdiv, postdiv1, and postdiv2 could evaluate to 0, which would =
+be
+passed as divisors to div_u64().
+
+> [ ... ]
+> +static int zx29_pll_determine_rate(struct clk_hw *hw, struct clk_rate_re=
+quest *req)
+> +{
+> +	struct zx29_clk_pll *pll =3D to_zx29_clk_pll(hw);
+> +	unsigned long new_rate, parent_rate =3D clk_hw_get_rate(clk_hw_get_pare=
+nt(&pll->hw));
+> +	u32 setting;
+> +
+> +	setting =3D zx29_pll_calc_values(pll, parent_rate, req->rate);
+> +	if (!setting)
+> +		return -EINVAL;
+> +
+> +	new_rate =3D zx29_pll_get_rate(pll, parent_rate, setting);
+> +	if (new_rate !=3D req->rate) {
+> +		dev_warn(pll->dev, "Did not find an exact match. Want %lu, got %lu\n",
+> +			 req->rate, new_rate);
+> +	}
+> +
+> +	return 0;
+> +}
+
+[Severity: High]
+Does this callback need to assign the negotiated new_rate back to
+req->rate?
+
+The Common Clock Framework uses the rate updated in req->rate
+when executing .set_rate. Without this assignment, the framework might
+request the exact original rate, which zx29_pll_set_rate() strictly
+validates against and could reject with -EINVAL.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-zx29clk-v3=
+-0-c7fe54ea388f@gmail.com?part=3D3
