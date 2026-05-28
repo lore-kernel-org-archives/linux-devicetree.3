@@ -1,427 +1,265 @@
-Received: from mail-08.mail-europe.com (mail-08.mail-europe.com [57.129.93.249])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010067.outbound.protection.outlook.com [52.101.229.67])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6471A3B2D17;
-	Thu, 28 May 2026 09:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.129.93.249
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779961776; cv=none; b=HjK3vcjD+mETwpklmgSpYcqs+bq5d/jiNBtZBl+/qt57xir5yZI4AiWM5J+gr65ui36G55M6vNcdL5vW+l0HOw3JxTQj+HNrwS3x4JuWvE2d/AGFtuWXyYNXJ2ER/sVKvVQgM7SEYCyFRcR6QF0kRTP0qGOjPWce7EubAi6MhSw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779961776; c=relaxed/simple;
-	bh=MzuhaxepM5/KRPM7wBao0X2LSDQ3ffQ/74C94fXIQ8w=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Scp2M60t4IDRyAObPv+N6keqn2iexh+bcsuR8A11a4IuHHYPFqNT2eWYzuITcX40rk8luIqNXU2l60WBANOuxy+qIsEe6d/ukPYcmKuMuDd82QynGOUtxr9VBlTlFW55R29vglf9SJrKOvKkm6Stj6IH9sH5OOYa2mH9zwlGdRk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me; spf=pass smtp.mailfrom=pm.me; dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b=DLr3gyKx; arc=none smtp.client-ip=57.129.93.249
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=pm.me
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pm.me
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D5FA3B38BC;
+	Thu, 28 May 2026 09:54:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.67
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779962087; cv=fail; b=WElv4X5+R/pa98CA/vF4WvH42eSk0De8t9ENnUKJ/nBAONc37Sgu0sYutniAKfQ8+ZgCq92jMvBUQhJDXCTxFcmUXu+/1XEZ3RTMCqF64grChCN/79jZ+ieM/X4FxNgholC+2NcdrY/WFK1bdyRUTpXx32x8xjLaLdAQMHxBIp8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779962087; c=relaxed/simple;
+	bh=uPinZYKoLU48C6SCDzj970C/Dk/CnMbBhHgNPdgOoFw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=vA8kpnoTIi2F/dWm7BVRtlzZAf66JYD6b6kXxZBTWWXzXcqXxwNdwzI6pd1tTgsHIBrzsWGTu8zCCkxQ0lpbzNQz+ErszIgYCrmfN4M9LEFxjqODe7CDrH3ExVRXZzuHphFlJxqOmHYFAFDu4Tb9M9YzEO2vxeFpkaJdX7mncEY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=Jpclq+3t; arc=fail smtp.client-ip=52.101.229.67
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pm.me header.i=@pm.me header.b="DLr3gyKx"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pm.me;
-	s=protonmail3; t=1779961764; x=1780220964;
-	bh=pzmm1qBq9/agtzNc7qO0Y6QV4Q4byLeGlVb8xvZTcgk=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=DLr3gyKxSd4YGac9JG4ZDugDhb4e03MYTsDr1l0F08AhHumTaBW+S/d3CEogv5Oop
-	 ykj9mCGlkmqzOTeFXnaiASjDnPzK16iYQzf7QiuOqk1IS8+glsijw82m5PtOy/BEfQ
-	 S1a0rBvK+fpZEljvobOjud9ijDj2nbPujYWf8KbTRt+HbL9TbzfReJDusOGrYjg0BO
-	 +YjFPeOPV1lJLrlFcf0gG3Z/LyLXjBoc6BCV3849lbHYODFCq9jNbymsh6RA8GlDVM
-	 ryTYhPVHY1sNQQH/bwlocS5pSY01q/04DdSS/KsSKBYwPne+EwzxUUvitskqTADTjF
-	 cW4BpTnVKX9bA==
-Date: Thu, 28 May 2026 09:49:16 +0000
-To: Rob Clark <robin.clark@oss.qualcomm.com>, Dmitry Baryshkov <lumag@kernel.org>, Abhinav Kumar <abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Sean Paul <sean@poorly.run>, Marijn Suijten <marijn.suijten@somainline.org>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>, Bjorn Andersson <andersson@kernel.org>
-From: Alexander Koskovich <akoskovich@pm.me>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, freedreno@lists.freedesktop.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Alexander Koskovich <akoskovich@pm.me>, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: [PATCH v7 6/6] drm/msm/adreno: add Adreno 810 GPU support
-Message-ID: <20260528-adreno-810-v7-6-7fe7fdd97fc2@pm.me>
-In-Reply-To: <20260528-adreno-810-v7-0-7fe7fdd97fc2@pm.me>
-References: <20260528-adreno-810-v7-0-7fe7fdd97fc2@pm.me>
-Feedback-ID: 37836894:user:proton
-X-Pm-Message-ID: 968e0fa4248611ac9bff57573ec8890570a447e8
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="Jpclq+3t"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=DtKUIZh5YmYo8IhKt2odZleTrB0HQfHyaYFTn80t/H0enzkt7lahAkJKz/a5R6M8CvnWbU6AiT+bm2nCdwjIKMVjiDKQ4tZC1Q5IoEfrC+ltQKHpFxmAJ6UrlDj/wdbHGzrimMVG3ffvtZBhTXaS2fYxeW/RufOPDxaWHA2Ygzm9s0kewbQf0Si8rMTUSnsiE11U38tLumNX8d+/crMuu8RW2A6AZVP64SGyOmL0I8/C/jvV9jQKRTGMbKc6vHvI0S3SeL5kgohaakX4QlNd7SPeScO4YPJMKxGTNYVuB0Lyt8kl+mhX0DtbIOnSs6to8iyUOQX+XIIayuHiKxvV4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=uPinZYKoLU48C6SCDzj970C/Dk/CnMbBhHgNPdgOoFw=;
+ b=pWdQU4LqRzQ+00rd2DD9ff3onp2JxkXztXP47NQTPEiqYym4nCFrZBaSQJ8DXVMOizXkZcXQZL7eDGqiUzcPziOZ7HzE4vp+weVQd+9AJxWuiaWF09ooPaby5G+5GBBKLYoFr06dAcjYgMj6+fZtY5TTupWoVguWeYxZeEJVyM7KKDqs7UlyNxvJ/xBOnaLjjkx6Nnb8ZXvNvrP1RF4ckyeR8x2cGQ1C6QUlZsK9hapa42+fGjb0tOsQXJFjmWJWYBRfz45skwQ/tfBKfsdIhMXYaH/TMSJgDJc/BoysSe8A3nteSJH1jSUbQN6pk/fVWrLtPjFTF9qII+XQtC9oqg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=uPinZYKoLU48C6SCDzj970C/Dk/CnMbBhHgNPdgOoFw=;
+ b=Jpclq+3tUJ57nZ/WlmVlAVJkBkvwUNybEGF5FCxAKS4NMnwgYuyqyk6eO/6SnehxxnoB4eD3HA0kvfm5olUtkpFHr5SBLxZZnDxSEHchC8V0zwCMVc6SmQg/sRImajuvyges/xhvbKpr2PCQzkgz1KtlVHLKY7YndlVfO/bMGDs=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by TYYPR01MB16244.jpnprd01.prod.outlook.com (2603:1096:405:2da::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
+ 2026 09:54:43 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 09:54:43 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: geert <geert@linux-m68k.org>
+CC: "mturquette@baylibre.com" <mturquette@baylibre.com>, "sboyd@kernel.org"
+	<sboyd@kernel.org>, "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	magnus.damm <magnus.damm@gmail.com>, "bmasney@redhat.com"
+	<bmasney@redhat.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-clk@vger.kernel.org" <linux-clk@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Biju Das
+	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com" <john.madieu@gmail.com>
+Subject: RE: [PATCH v4 4/8] arm64: dts: renesas: r9a09g047: Add RZ/G3E Sound
+ support
+Thread-Topic: [PATCH v4 4/8] arm64: dts: renesas: r9a09g047: Add RZ/G3E Sound
+ support
+Thread-Index: AQHc7DaopsqIc1GQl0SxgKmNzvuK77Yh8CoAgAFHCvA=
+Date: Thu, 28 May 2026 09:54:42 +0000
+Message-ID:
+ <TY6PR01MB17377B0D207AC5EF3A77605C9FF092@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com>
+ <20260525110603.4018170-5-john.madieu.xa@bp.renesas.com>
+ <CAMuHMdXj8o+K5M+t_D-G_CGRGYgc1jBz0z21ye6UhAzWs0iJ8g@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdXj8o+K5M+t_D-G_CGRGYgc1jBz0z21ye6UhAzWs0iJ8g@mail.gmail.com>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|TYYPR01MB16244:EE_
+x-ms-office365-filtering-correlation-id: 3b68a8a8-0170-4dad-0e2e-08debc9f246b
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|7416014|376014|366016|4143699003|56012099006|11063799006|22082099003|18002099003|38070700021;
+x-microsoft-antispam-message-info:
+ mua7l3sEly0uE3Y091kt8Ifs+mVUVsdd5u62AhXEd7rkgOexevxw2QHp/uB/uQIk2F+B2LnpsHfjP2RK5V2x0OCDXcxwQPyNQZUP7aGNgvmBTVqVYYQjO5Z0FvH/huR4UaIew4GbAeXiqRks5bw/EJFU7C7g7T0DNp2sY8DLafEser1PkTZ46yqLWV1rzaj+EbAXsW1PztxgGWGIspcI3oqNspIbUReeNpf97VR4DmPpC1XC7L1EnorKZAbEHlB2OHhkkbjBm7Xx8sG0mFedMldAgVdfyXDgek91Kml8jLvXTS2yeHLP38UpKIMRyXWLsJ0NjdsIvkdISDyIWffqWcOEYeD0BWk+eS2WXU0IbDWjtY6eALGUkU/uhDkksON5/jI1NUKPQfWuW4xJxPlswUkxkYYHn57CEgYqf4IpT6YzZiOSekaFoqg1V4E7La7C1FsT9pV3dZjK1AYnGmItNCBZizObyVLrTdG64GaLYLXTcHnYPVWgsVzY55Ua5wh+g9BdJ5OHILptk2wXC2ziPdJy8eY+eZOczOsGCxmEvw1OJBQPeanCfeKQf+8Si+nHaXX0ugJQAiPTFJibuJwoKU90qyVdklEAgtyc58Woemw9B7xi3vvnMRMy2h8LVcWzSSis9cFQiYgdvUgjZ6MoH3nOesgxJiTQqjolgGRk1gBZG2hO40B1v3RPfPyaQ0FejOkf8uy2vuTp/VODyIBTIeHdsQP/2pvHqEMg8GTD3YyKeq5tF7BlFnt9ZoxN+SE3
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?dGRrQ2tkdFRQUHE1bTJoVGJnU2hpYWVscXh0RkQ1MktTcjlaME5Ga3VYQkhO?=
+ =?utf-8?B?cHMzSEVKVWZlVnVoTnRWZithWTFaUERlekRvaXFGYjhKMFY0TzFTaFM5akU4?=
+ =?utf-8?B?alpVWjRGQlRVbjVIZjdZNFRKZU4rV25IN1pLU083eGhtSFRhR01FdHZnWGRQ?=
+ =?utf-8?B?b1JUd0ZFQTNSOXpkaTBvZGZ5NkRkZDU5T2tCeFg2NGVkQmJrRDZpWTZ1eEk3?=
+ =?utf-8?B?N0o2czVYM2kwN21rYWVla2RXV3hKQ2M3YjVBbmFvbVVyd2RHWHJVamVzN2VZ?=
+ =?utf-8?B?TVhFRnFod0NORnJIZzVtUTIzMUMvTTVqNEFCb0FCWERITFNlVjVqS09LTitF?=
+ =?utf-8?B?MzhndmFhVUQ2MEpPOEVycVF2K3FaWVF3UWN4Ri9NRmVHTkgvWHVVYWZESVR0?=
+ =?utf-8?B?ZjdFQktSNm80Q2tiMmZURnFlWiszUHRwREpUeXVlZ1UxS0hBQXNYZk14Rzkx?=
+ =?utf-8?B?TXdTUlMvZmQrNkpRV1JJK29RNDdML0lHbUtMeFVHU2dyOGNVNzRvakQra0hL?=
+ =?utf-8?B?RmNrWU1OUW14aTFUODlTbzNyeDVPR3F2Ui9xMmJDODJ4NnQ3RmdxUmYrUkdS?=
+ =?utf-8?B?T3NrUWtqS3VVR3hrRWxoSVBSTzNPWmtEK1NRSmlmU3ExRXlROTc1d1Ayb21H?=
+ =?utf-8?B?QU9DWmdub1paOVgwakpTZlNVK3ZBL0JGSEpyTEhsTXpFTXRUNEpnZFcybjgw?=
+ =?utf-8?B?STJvd0hFOHVLSGNlS2pTN2NCZ3ZIQ1g3NHRzblMrMjgwMVVKQzNuT1I2SFhO?=
+ =?utf-8?B?UXB6eXJtQWcranVjQ1RjcFFpcEs2SmVXYU4xYm96NGNXUTFyOFRxY0JwOHgw?=
+ =?utf-8?B?bS9rR2NScFk5ZHR2WFFnZU4yaTRiZk1ueGRnTUVBUHdWY3Ivcm44ZjFHWVQ4?=
+ =?utf-8?B?aTlxNkJ6M2w0eXpGdTgrb3JwSFk1WlNIMVlpS3dldnZISXlWQ2xpaGwwQTRP?=
+ =?utf-8?B?bXJncEpDVUlObzNqdk1ZUkZNQXNDcXp2S2M0M1BocnR3MW9tVTJ1RXdXcE5W?=
+ =?utf-8?B?MGhKRnRrelZ1TkVKVTUyYlMwYzJXbVJlUzlDaVI2Q2VuaG51K1ZQR0F4Vk8v?=
+ =?utf-8?B?ZFRZQjRJOGlURHdDRlBSMW16anB5dGpYOWt3ODN1MmxqWno0ellSSU1VN2RF?=
+ =?utf-8?B?SExmYXNyeTFneW5EbE12WE5VRlFvdnR1R1RlN3B3N21GZW1CR0FvR1I1Q2Fy?=
+ =?utf-8?B?WnVIbnU5c0FBbCtMQ1Z6S3VoY1RMK0dJSkNkL21oT0ZGUnJYejR6aUwydEJ6?=
+ =?utf-8?B?SlBkUlNYU1R6aWNnc1p5dkJ3cmI0Vk9LeG5mWkVMMjg4ZW85YjgybHpIa1Zr?=
+ =?utf-8?B?Y2VmR1VVa053SWpaMnJsOTUzcG05azFmcVErcGlHamgxMTV4SmtkVy9ObmJS?=
+ =?utf-8?B?MFZQQ1hHNCsrWGdaMUpERndIaXdkN2R4cVgzU1YrYklRZ25ONjZKeG1CTVdq?=
+ =?utf-8?B?NGtrOXF4TmxtcEtJdHdNUnZ4QUMvYURaWU9vN24yQjY1M3k0Rm5RbGJ1SkN0?=
+ =?utf-8?B?MnRGSmdjOXRJOFdCMkgyUDZPanpWWVl2NFVmdmtRSTZTb2V6aFRDWEIwNnBN?=
+ =?utf-8?B?Mi9KNE9SSXpZdUxWeTRsZ242R0h4cTQ2akk1K1g2NGxWNjFiZU12R0FLWldE?=
+ =?utf-8?B?ZFVHMHFDSEZFOEEzSytGVE5SQzJCN2hyalJrRWpMOHZuZmJIalRvQ2QzekEv?=
+ =?utf-8?B?SmNEUkw1ckIzYkF3UEpkakVXd0FrVDMzWVRaTnphK2ZOZWdiWlZVdGQxbGpB?=
+ =?utf-8?B?czlOeXJMMjZLcmZWUTZHcDJleGR2N01xNUR1aDhwbWxPaTJQR0hVNDd3eHBS?=
+ =?utf-8?B?d2hodE11VkxwZzNkTUJVRHNxc3VMR291ME1TSXhqM3RjTy9aTHFFaU8xemVM?=
+ =?utf-8?B?TXJFTnNUQmZWaXJscVoxd2QvdjJTNXlLL3Y3TWkvSDlDZ1VJQmJLeG1mRFBz?=
+ =?utf-8?B?dzQrVVZTWGtMdlo0d2tLM1ptSk51MzMzcElEbW54LzRUNjljM3NCQ05XakUw?=
+ =?utf-8?B?bU9aVEhwSE42aVdWclZwc3B6aDBaQ2xvMDlFZElXNFRlQlVMWjk3eE5TNUtV?=
+ =?utf-8?B?T1dOZXlubllZN2hkdUJKL2Y2RjdEUWU3Um56REJVTmNlM3IxblVNTEZ6a3hU?=
+ =?utf-8?B?YzJYaFhFNTA2L2Rzc21FZ3RTTGRqR2RDcG5mNWh0OGRha0kybENabkJESm9J?=
+ =?utf-8?B?bVozK2dBdUtjczQwNGdndHc0THhhQWRIRVpCL011TE5WKzhJOStQc0c3ZEZr?=
+ =?utf-8?B?QzJjd1NrU0lzOEEyZzZIOTduUjNsckErK0VEN2k1dmlqc3FEZWYwall5ejIv?=
+ =?utf-8?B?eDUxcW5qTVJtRkNsNTI0YVprRlJXWWZBQUhGN2Y3TXFPVWpKOUQ3K3BieTlF?=
+ =?utf-8?Q?s6nj5BfVLSGWxcd4=3D?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3b68a8a8-0170-4dad-0e2e-08debc9f246b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2026 09:54:42.9392
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: KTk609S48j3hsvH7oo2AVqh/XnRz+TMyUSb2/fMbMrikn/ZZgSkYWbNwabu6o3OGC0UWuUf8m3mH+/id1BuBqunxVLXh1LZifbiViqinDBs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB16244
 
-Add catalog entry and register configuration for the Adreno 810
-found in Qualcomm SM7635 (Milos) based devices.
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Akhil P Oommen <akhilpo@oss.qualcomm.com>
-Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
----
- drivers/gpu/drm/msm/adreno/a6xx_catalog.c | 298 ++++++++++++++++++++++++++=
-++++
- drivers/gpu/drm/msm/adreno/adreno_gpu.h   |   5 +
- 2 files changed, 303 insertions(+)
-
-diff --git a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c b/drivers/gpu/drm/ms=
-m/adreno/a6xx_catalog.c
-index 550ff3a9b82e..3e6f409d13a2 100644
---- a/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-+++ b/drivers/gpu/drm/msm/adreno/a6xx_catalog.c
-@@ -1799,6 +1799,261 @@ static const struct adreno_reglist_pipe x285_dyn_pw=
-rup_reglist_regs[] =3D {
- };
- DECLARE_ADRENO_REGLIST_PIPE_LIST(x285_dyn_pwrup_reglist);
-=20
-+static const struct adreno_reglist_pipe a810_nonctxt_regs[] =3D {
-+=09{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00f80800, BIT(PIPE_BV) | BIT(PIPE_BR) }=
-,
-+=09{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0x00000001, BIT(PIPE_BV) | BIT(PIPE_B=
-R) },
-+=09{ REG_A8XX_PC_VIS_STREAM_CNTL, 0x10010000, BIT(PIPE_BV) | BIT(PIPE_BR) =
-},
-+=09{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0x00000002, BIT(PIPE_BV)=
- | BIT(PIPE_BR) },
-+=09{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000003, BIT(PIPE_BR) },
-+=09{ REG_A8XX_PC_CHICKEN_BITS_1, 0x00000023, BIT(PIPE_BV) }, /* Avoid part=
-ial waves at VFD */
-+=09{ REG_A8XX_PC_CHICKEN_BITS_2, 0x00000200, BIT(PIPE_BV) | BIT(PIPE_BR) }=
-,
-+=09{ REG_A8XX_PC_CHICKEN_BITS_3, 0x00500000, BIT(PIPE_BV) | BIT(PIPE_BR) }=
-,
-+=09{ REG_A8XX_PC_CHICKEN_BITS_4, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR) }=
-,
-+=09{ REG_A7XX_RB_CCU_CNTL, 0x00000068, BIT(PIPE_BR) },
-+=09/* Partially enable perf clear, Disable DINT to c/z be data forwarding =
-*/
-+=09{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0x00002200, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0x00000007, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0x00004000, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RBBM_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_RBBM_SLICE_NC_MODE_CNTL, 0x00000001, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL, 0x00000030, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_RBBM_WAIT_IDLE_CLOCKS_CNTL2, 0x00000030, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_UCHE_GBIF_GX_CONFIG, 0x010240e0, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_RBBM_GBIF_CLIENT_QOS_CNTL, 0x22122212, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_RBBM_CGC_P2S_CNTL, 0x00000040, BIT(PIPE_NONE) },
-+=09/*
-+=09 * BIT(22): Disable PS out of order retire
-+=09 * BIT(23): Enable half wave mode and MM instruction src&dst is half pr=
-ecision
-+=09 */
-+=09{ REG_A7XX_SP_CHICKEN_BITS_2, BIT(22) | BIT(23), BIT(PIPE_NONE) },
-+=09{ REG_A7XX_SP_CHICKEN_BITS_3, 0x00300000, BIT(PIPE_NONE) },
-+=09{ REG_A6XX_SP_PERFCTR_SHADER_MASK, 0x0000003f, BIT(PIPE_NONE) },
-+=09{ REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP, 0x00000080, BIT(PIPE_NONE) },
-+=09{ REG_A6XX_TPL1_DBG_ECO_CNTL, 0x10100000, BIT(PIPE_NONE) },
-+=09{ REG_A6XX_TPL1_DBG_ECO_CNTL1, 0x04000724, BIT(PIPE_NONE) },
-+=09{ REG_A6XX_UCHE_MODE_CNTL, 0x00020000, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_UCHE_CCHE_MODE_CNTL, 0x00001000, BIT(PIPE_NONE) },
-+=09{ REG_A8XX_UCHE_CCHE_CACHE_WAYS, 0x00000800, BIT(PIPE_NONE) },
-+=09/* Disable write slow pointer in data phase queue */
-+=09{ REG_A8XX_UCHE_HW_DBG_CNTL, BIT(8), BIT(PIPE_NONE) },
-+=09{ REG_A8XX_UCHE_VARB_IDLE_TIMEOUT, 0x00000020, BIT(PIPE_NONE) },
-+=09{ REG_A7XX_VFD_DBG_ECO_CNTL, 0x00008000, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0x00500050, BIT(PIPE_BV) | BIT(PIPE_BR)=
- },
-+=09{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0x00600060, BIT(PIPE_BV) | BIT(PIPE_BR)=
- },
-+=09{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0x00200020, BIT(PIPE_BV) | BIT(PIPE_BR)=
- },
-+=09{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0x00100020, BIT(PIPE_BV) | BIT(PIPE_BR) }=
-,
-+=09{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0x00000001, BIT(PIPE_BV) | BIT(PIPE=
-_BR) },
-+=09{ REG_A8XX_RB_GC_GMEM_PROTECT, 0x00900000, BIT(PIPE_BR) },
-+=09{ },
-+};
-+
-+static const u32 a810_protect_regs[] =3D {
-+=09A6XX_PROTECT_RDONLY(0x00000, 0x03a3),
-+=09A6XX_PROTECT_RDONLY(0x003b4, 0x008b),
-+=09A6XX_PROTECT_NORDWR(0x00440, 0x001f),
-+=09A6XX_PROTECT_RDONLY(0x00580, 0x005f),
-+=09A6XX_PROTECT_NORDWR(0x005e0, 0x011f),
-+=09A6XX_PROTECT_RDONLY(0x0074a, 0x0005),
-+=09A6XX_PROTECT_RDONLY(0x00759, 0x0026),
-+=09A6XX_PROTECT_RDONLY(0x00789, 0x0000),
-+=09A6XX_PROTECT_RDONLY(0x0078c, 0x0013),
-+=09A6XX_PROTECT_NORDWR(0x00800, 0x0029),
-+=09A6XX_PROTECT_NORDWR(0x00837, 0x00af),
-+=09A6XX_PROTECT_RDONLY(0x008e7, 0x00c9),
-+=09A6XX_PROTECT_NORDWR(0x008ec, 0x00c3),
-+=09A6XX_PROTECT_NORDWR(0x009b1, 0x0250),
-+=09A6XX_PROTECT_RDONLY(0x00ce0, 0x0001),
-+=09A6XX_PROTECT_RDONLY(0x00df0, 0x0000),
-+=09A6XX_PROTECT_NORDWR(0x00df1, 0x0000),
-+=09A6XX_PROTECT_NORDWR(0x00e01, 0x0000),
-+=09A6XX_PROTECT_NORDWR(0x00e03, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x03c00, 0x00c5),
-+=09A6XX_PROTECT_RDONLY(0x03cc6, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x08600, 0x01ff),
-+=09A6XX_PROTECT_NORDWR(0x08e00, 0x00ff),
-+=09A6XX_PROTECT_RDONLY(0x08f00, 0x0000),
-+=09A6XX_PROTECT_NORDWR(0x08f01, 0x01be),
-+=09A6XX_PROTECT_NORDWR(0x09600, 0x01ff),
-+=09A6XX_PROTECT_RDONLY(0x0981a, 0x02e5),
-+=09A6XX_PROTECT_NORDWR(0x09e00, 0x01ff),
-+=09A6XX_PROTECT_NORDWR(0x0a600, 0x01ff),
-+=09A6XX_PROTECT_NORDWR(0x0ae00, 0x0006),
-+=09A6XX_PROTECT_NORDWR(0x0ae08, 0x0006),
-+=09A6XX_PROTECT_NORDWR(0x0ae10, 0x036f),
-+=09A6XX_PROTECT_NORDWR(0x0b600, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x0dc00, 0x1fff),
-+=09A6XX_PROTECT_RDONLY(0x0fc00, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x18400, 0x003f),
-+=09A6XX_PROTECT_RDONLY(0x18440, 0x013f),
-+=09A6XX_PROTECT_NORDWR(0x18580, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x1b400, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x1f400, 0x0477),
-+=09A6XX_PROTECT_RDONLY(0x1f878, 0x0787),
-+=09A6XX_PROTECT_NORDWR(0x1f930, 0x0329),
-+=09A6XX_PROTECT_NORDWR(0x20000, 0x1fff),
-+=09A6XX_PROTECT_NORDWR(0x27800, 0x007f),
-+=09A6XX_PROTECT_RDONLY(0x27880, 0x0381),
-+=09A6XX_PROTECT_NORDWR(0x27882, 0x0001),
-+=09A6XX_PROTECT_NORDWR(0x27c02, 0x0000),
-+};
-+DECLARE_ADRENO_PROTECT(a810_protect, 64);
-+
-+static const uint32_t a810_pwrup_reglist_regs[] =3D {
-+=09REG_A6XX_UCHE_MODE_CNTL,
-+=09REG_A8XX_UCHE_VARB_IDLE_TIMEOUT,
-+=09REG_A8XX_UCHE_GBIF_GX_CONFIG,
-+=09REG_A8XX_UCHE_CACHE_WAYS,
-+=09REG_A8XX_UCHE_CCHE_MODE_CNTL,
-+=09REG_A8XX_UCHE_CCHE_CACHE_WAYS,
-+=09REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN,
-+=09REG_A8XX_UCHE_CCHE_GC_GMEM_RANGE_MIN + 1,
-+=09REG_A8XX_UCHE_CCHE_TRAP_BASE,
-+=09REG_A8XX_UCHE_CCHE_TRAP_BASE + 1,
-+=09REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE,
-+=09REG_A8XX_UCHE_CCHE_WRITE_THRU_BASE + 1,
-+=09REG_A8XX_UCHE_HW_DBG_CNTL,
-+=09REG_A8XX_UCHE_WRITE_THRU_BASE,
-+=09REG_A8XX_UCHE_WRITE_THRU_BASE + 1,
-+=09REG_A8XX_UCHE_TRAP_BASE,
-+=09REG_A8XX_UCHE_TRAP_BASE + 1,
-+=09REG_A8XX_UCHE_CLIENT_PF,
-+=09REG_A8XX_RB_CMP_NC_MODE_CNTL,
-+=09REG_A7XX_SP_HLSQ_TIMEOUT_THRESHOLD_DP,
-+=09REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN,
-+=09REG_A8XX_SP_HLSQ_GC_GMEM_RANGE_MIN + 1,
-+=09REG_A7XX_SP_READ_SEL,
-+=09REG_A6XX_TPL1_NC_MODE_CNTL,
-+=09REG_A6XX_TPL1_DBG_ECO_CNTL,
-+=09REG_A6XX_TPL1_DBG_ECO_CNTL1,
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(1),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(2),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(3),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(4),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(5),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(6),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(7),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(8),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(9),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(10),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(11),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(12),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(13),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(14),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(15),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(16),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(17),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(18),
-+=09REG_A8XX_TPL1_BICUBIC_WEIGHTS_TABLE(19),
-+};
-+DECLARE_ADRENO_REGLIST_LIST(a810_pwrup_reglist);
-+
-+static const u32 a810_ifpc_reglist_regs[] =3D {
-+=09REG_A8XX_RBBM_NC_MODE_CNTL,
-+=09REG_A8XX_RBBM_PERFCTR_CNTL,
-+=09REG_A8XX_RBBM_SLICE_INTERFACE_HANG_INT_CNTL,
-+=09REG_A8XX_RBBM_SLICE_NC_MODE_CNTL,
-+=09REG_A6XX_SP_NC_MODE_CNTL,
-+=09REG_A7XX_SP_CHICKEN_BITS_2,
-+=09REG_A7XX_SP_CHICKEN_BITS_3,
-+=09REG_A6XX_SP_PERFCTR_SHADER_MASK,
-+=09REG_A8XX_CP_PROTECT_GLOBAL(0),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(1),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(2),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(3),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(4),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(5),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(6),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(7),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(8),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(9),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(10),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(11),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(12),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(13),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(14),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(15),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(16),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(17),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(18),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(19),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(20),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(21),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(22),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(23),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(24),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(25),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(26),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(27),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(28),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(29),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(30),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(31),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(32),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(33),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(34),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(35),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(36),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(37),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(38),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(39),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(40),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(41),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(42),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(43),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(44),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(45),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(46),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(47),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(48),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(49),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(50),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(51),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(52),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(53),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(54),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(55),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(56),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(57),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(58),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(59),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(60),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(61),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(62),
-+=09REG_A8XX_CP_PROTECT_GLOBAL(63),
-+};
-+DECLARE_ADRENO_REGLIST_LIST(a810_ifpc_reglist);
-+
-+static const struct adreno_reglist_pipe a810_dyn_pwrup_reglist_regs[] =3D =
-{
-+=09{ REG_A8XX_CP_PROTECT_CNTL_PIPE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-+=09{ REG_A8XX_CP_PROTECT_PIPE(15), 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-+=09{ REG_A8XX_GRAS_TSEFE_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_GRAS_NC_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A7XX_RB_CCU_CNTL, 0, BIT(PIPE_BR) },
-+=09{ REG_A7XX_RB_CCU_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_CCU_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_CMP_NC_MODE_CNTL, 0, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_RESOLVE_PREFETCH_CNTL, 0, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_CMP_DBG_ECO_CNTL, 0, BIT(PIPE_BR) },
-+=09{ REG_A8XX_RB_GC_GMEM_PROTECT, 0, BIT(PIPE_BR) },
-+=09{ REG_A6XX_RB_CONTEXT_SWITCH_GMEM_SAVE_RESTORE_ENABLE, 0, BIT(PIPE_BR) =
-},
-+=09{ REG_A8XX_VPC_FLATSHADE_MODE_CNTL, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_PC_CHICKEN_BITS_1, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_PC_CHICKEN_BITS_2, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_PC_CHICKEN_BITS_3, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_PC_CHICKEN_BITS_4, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A6XX_PC_AUTO_VERTEX_STRIDE, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-+=09{ REG_A8XX_PC_VIS_STREAM_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-+=09{ REG_A8XX_PC_CONTEXT_SWITCH_STABILIZE_CNTL_1, 0, BIT(PIPE_BR) | BIT(PI=
-PE_BV) },
-+=09{ REG_A8XX_VFD_CB_BV_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_VFD_CB_BR_THRESHOLD, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_VFD_CB_BUSY_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A8XX_VFD_CB_LP_REQ_CNT, 0, BIT(PIPE_BV) | BIT(PIPE_BR) },
-+=09{ REG_A7XX_VFD_DBG_ECO_CNTL, 0, BIT(PIPE_BR) | BIT(PIPE_BV) },
-+};
-+DECLARE_ADRENO_REGLIST_PIPE_LIST(a810_dyn_pwrup_reglist);
-+
- static const struct adreno_reglist_pipe a840_nonctxt_regs[] =3D {
- =09{ REG_A8XX_CP_SMMU_STREAM_ID_LPAC, 0x00000101, BIT(PIPE_NONE) },
- =09{ REG_A8XX_GRAS_DBG_ECO_CNTL, 0x00000800, BIT(PIPE_BV) | BIT(PIPE_BR) }=
-,
-@@ -2193,6 +2448,48 @@ static const struct adreno_info a8xx_gpus[] =3D {
- =09=09=09{ 252, 2 },
- =09=09=09{ 221, 3 },
- =09=09),
-+=09}, {
-+=09=09.chip_ids =3D ADRENO_CHIP_IDS(0x44010000),
-+=09=09.family =3D ADRENO_8XX_GEN1,
-+=09=09.fw =3D {
-+=09=09=09[ADRENO_FW_SQE] =3D "gen80300_sqe.fw",
-+=09=09=09[ADRENO_FW_GMU] =3D "gen80300_gmu.bin",
-+=09=09},
-+=09=09.gmem =3D SZ_512K + SZ_64K,
-+=09=09.inactive_period =3D DRM_MSM_INACTIVE_PERIOD,
-+=09=09.quirks =3D ADRENO_QUIRK_HAS_CACHED_COHERENT |
-+=09=09=09  ADRENO_QUIRK_HAS_HW_APRIV |
-+=09=09=09  ADRENO_QUIRK_PREEMPTION |
-+=09=09=09  ADRENO_QUIRK_IFPC,
-+=09=09.funcs =3D &a8xx_gpu_funcs,
-+=09=09.zapfw =3D "gen80300_zap.mbn",
-+=09=09.a6xx =3D &(const struct a6xx_info) {
-+=09=09=09.protect =3D &a810_protect,
-+=09=09=09.nonctxt_reglist =3D a810_nonctxt_regs,
-+=09=09=09.pwrup_reglist =3D &a810_pwrup_reglist,
-+=09=09=09.dyn_pwrup_reglist =3D &a810_dyn_pwrup_reglist,
-+=09=09=09.ifpc_reglist =3D &a810_ifpc_reglist,
-+=09=09=09.gbif_cx =3D a840_gbif,
-+=09=09=09.max_slices =3D 1,
-+=09=09=09.gmu_chipid =3D 0x8030000,
-+=09=09=09.bcms =3D (const struct a6xx_bcm[]) {
-+=09=09=09=09{ .name =3D "SH0", .buswidth =3D 16 },
-+=09=09=09=09{ .name =3D "MC0", .buswidth =3D 4 },
-+=09=09=09=09{
-+=09=09=09=09=09.name =3D "ACV",
-+=09=09=09=09=09.fixed =3D true,
-+=09=09=09=09=09.perfmode =3D BIT(2),
-+=09=09=09=09=09.perfmode_bw =3D 10687500,
-+=09=09=09=09},
-+=09=09=09=09{ /* sentinel */ },
-+=09=09=09},
-+=09=09},
-+=09=09.preempt_record_size =3D 4558 * SZ_1K,
-+=09=09.speedbins =3D ADRENO_SPEEDBINS(
-+=09=09=09{ 0,   0 },
-+=09=09=09{ 242, 1 },
-+=09=09=09{ 221, 2 },
-+=09=09),
- =09}
- };
-=20
-@@ -2205,4 +2502,5 @@ static inline __always_unused void __build_asserts(vo=
-id)
- =09BUILD_BUG_ON(a660_protect.count > a660_protect.count_max);
- =09BUILD_BUG_ON(a690_protect.count > a690_protect.count_max);
- =09BUILD_BUG_ON(a730_protect.count > a730_protect.count_max);
-+=09BUILD_BUG_ON(a810_protect.count > a810_protect.count_max);
- }
-diff --git a/drivers/gpu/drm/msm/adreno/adreno_gpu.h b/drivers/gpu/drm/msm/=
-adreno/adreno_gpu.h
-index ec643b84646b..d88eb8ecf417 100644
---- a/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-+++ b/drivers/gpu/drm/msm/adreno/adreno_gpu.h
-@@ -592,6 +592,11 @@ static inline int adreno_is_a8xx(struct adreno_gpu *gp=
-u)
- =09return gpu->info->family >=3D ADRENO_8XX_GEN1;
- }
-=20
-+static inline int adreno_is_a810(struct adreno_gpu *gpu)
-+{
-+=09return gpu->info->chip_ids[0] =3D=3D 0x44010000;
-+}
-+
- static inline int adreno_is_x285(struct adreno_gpu *gpu)
- {
- =09return gpu->info->chip_ids[0] =3D=3D 0x44070001;
-
---=20
-2.53.0
-
-
+SGkgR2VlcnQsDQoNClRoYW5rcyBmb3IgeW91ciByZXZpZXcuDQoNCj4gLS0tLS1PcmlnaW5hbCBN
+ZXNzYWdlLS0tLS0NCj4gRnJvbTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhr
+Lm9yZz4NCj4gU2VudDogTWl0dHdvY2gsIDI3LiBNYWkgMjAyNiAxNjoyMw0KPiBUbzogSm9obiBN
+YWRpZXUgPGpvaG4ubWFkaWV1LnhhQGJwLnJlbmVzYXMuY29tPg0KPiBTdWJqZWN0OiBSZTogW1BB
+VENIIHY0IDQvOF0gYXJtNjQ6IGR0czogcmVuZXNhczogcjlhMDlnMDQ3OiBBZGQgUlovRzNFDQo+
+IFNvdW5kIHN1cHBvcnQNCj4gDQo+IEhpIEpvaG4sDQo+IA0KPiBPbiBNb24sIDI1IE1heSAyMDI2
+IGF0IDEzOjA3LCBKb2huIE1hZGlldSA8am9obi5tYWRpZXUueGFAYnAucmVuZXNhcy5jb20+DQo+
+IHdyb3RlOg0KPiA+IEFkZCB0aGUgc25kX3J6ZzNlIG5vZGUgZm9yIHRoZSBSWi9HM0UgU29DIHdp
+dGggYWxsIHN1Yi1jb21wb25lbnRzOg0KPiA+DQo+ID4gLSBTU0kgKFNlcmlhbCBTb3VuZCBJbnRl
+cmZhY2UpIHVuaXRzIDAtOQ0KPiA+IC0gU1NJVSAoU2VyaWFsIFNvdW5kIEludGVyZmFjZSBVbml0
+KSB1bml0cyAwLTI3DQo+ID4gLSBTUkMgKFNhbXBsZSBSYXRlIENvbnZlcnRlcikgdW5pdHMgMC05
+DQo+ID4gLSBDVFUgKENoYW5uZWwgVHJhbnNmZXIgVW5pdCkgdW5pdHMgMC03DQo+ID4gLSBEVkMg
+KERpZ2l0YWwgVm9sdW1lIENvbnRyb2wpIHVuaXRzIDAtMQ0KPiA+IC0gTUlYIChNaXhlcikgdW5p
+dHMgMC0xDQo+ID4NCj4gPiBTdWItbm9kZSBuYW1lcyBmb2xsb3cgdGhlIG5ldyBSWi9HM0Ugc291
+bmQgYmluZGluZzogdW5wcmVmaXhlZCAnc3NpJywNCj4gPiAnc3NpdScsICdzcmMnLCAnZHZjJywg
+J21peCcsICdjdHUnIHdyYXBwZXIgbm9kZXMgaW5zdGVhZCBvZiB0aGUgbGVnYWN5DQo+ID4gJ3Jj
+YXJfc291bmQseHh4JyBSLUNhciBwcmVmaXguDQo+ID4NCj4gPiBXaXJlIHVwIGFsbCA1IERNQSBj
+b250cm9sbGVycyAoZG1hYzAtZG1hYzQpIGZvciBlYWNoIGF1ZGlvIHN1Yi1ub2RlDQo+ID4gd2l0
+aCByZXBlYXRlZCBjaGFubmVsIG5hbWVzLCBzbyB0aGF0IHRoZSBETUEgY29yZSBjYW4gcGljayB0
+aGUgZmlyc3QNCj4gPiBhdmFpbGFibGUgY29udHJvbGxlci4NCj4gPg0KPiA+IFNpZ25lZC1vZmYt
+Ynk6IEpvaG4gTWFkaWV1IDxqb2huLm1hZGlldS54YUBicC5yZW5lc2FzLmNvbT4NCj4gPiAtLS0N
+Cj4gPg0KPiA+IENoYW5nZXM6DQo+ID4NCj4gPiB2NDoNCj4gPiAgLSBSZW5hbWUgdGhlIGluZGV4
+ZWQgY2xvY2stbmFtZXMgYW5kIHJlc2V0LW5hbWVzIGZyb20gdGhlIGRvdHRlZA0KPiA+ICAgIGZv
+cm0gKHNzaS5OLCBzcmMuTiwgYWRnLnNzaS5OLCBjbGtfYSwgY2xrX2IsIGNsa19jLCBjbGtfaSkg
+dG8gdGhlDQo+ID4gICAgaHlwaGVuYXRlZCBmb3JtIChzc2ktTiwgc3JjLU4sIGFkZy1zc2ktTiwg
+YXVkaW8tY2xrYSwgYXVkaW8tY2xrYiwNCj4gPiAgICBhdWRpby1jbGtjLCBhdWRpby1jbGtpKSwg
+bWF0Y2hpbmcgdGhlIG5ldyBSWi9HM0Ugc291bmQgYmluZGluZy4NCj4gPiAgLSBSZW5hbWUgdGhl
+IHN1Yi1ub2RlcyBmcm9tIHRoZSBsZWdhY3kgcmNhcl9zb3VuZCx7Y3R1LGR2YyxtaXgsc3JjLA0K
+PiA+ICAgIHNzaSxzc2l1fSBwcmVmaXggdG8gdGhlIHVucHJlZml4ZWQgY3R1L2R2Yy9taXgvc3Jj
+L3NzaS9zc2l1IG5hbWVzDQo+ID4gICAgdXNlZCBieSB0aGUgbmV3IFJaL0czRSBzb3VuZCBiaW5k
+aW5nLg0KPiA+ICAtIFJlb3JkZXIgdGhlIGNsb2NrcyBhbmQgcmVzZXRzIHBoYW5kbGUgbGlzdHMg
+aW50byBhc2NlbmRpbmcgaW5kZXgNCj4gPiAgICBvcmRlciBhbmQgYW5ub3RhdGUgZWFjaCBlbnRy
+eSB3aXRoIGEgcGVyLWxpbmUgY29tbWVudCBuYW1pbmcgdGhlDQo+ID4gICAgY2xvY2sgLyByZXNl
+dC4NCj4gPiAgLSBEcm9wIHRoZSAjc291bmQtZGFpLWNlbGxzIGFuZCAjY2xvY2stY2VsbHMgZXhw
+bGFuYXRvcnkgY29tbWVudA0KPiA+ICAgIGJsb2NrcyBmcm9tIHRoZSBub2RlLg0KPiA+ICAtIEFs
+aWduIHRoZSBjb250aW51YXRpb24gbGluZXMgb2YgdGhlIGRtYXMgcHJvcGVydHkuDQo+ID4gIC0g
+Rml4IHRoZSBjb21taXQgbWVzc2FnZTogdGhlIG5vZGUgbGFiZWwgaXMgc25kX3J6ZzNlICh2MyBy
+ZWZlcnJlZA0KPiA+ICAgIHRvIGl0IGFzIHJ6ZzNlX3NvdW5kKSwgYW5kIGFkZCBhIHBhcmFncmFw
+aCBub3RpbmcgdGhlIHVucHJlZml4ZWQNCj4gPiAgICBzdWItbm9kZSBuYW1lcy4NCj4gDQo+IFRo
+YW5rcyBmb3IgdGhlIHVwZGF0ZSENCj4gDQo+ID4gLS0tIGEvYXJjaC9hcm02NC9ib290L2R0cy9y
+ZW5lc2FzL3I5YTA5ZzA0Ny5kdHNpDQo+ID4gKysrIGIvYXJjaC9hcm02NC9ib290L2R0cy9yZW5l
+c2FzL3I5YTA5ZzA0Ny5kdHNpDQo+ID4gQEAgLTkxMiw2ICs5MTIsNDgyIEBAIHJzY2k5OiBzZXJp
+YWxAMTI4MDMwMDAgew0KPiA+ICAgICAgICAgICAgICAgICAgICAgICAgIHN0YXR1cyA9ICJkaXNh
+YmxlZCI7DQo+ID4gICAgICAgICAgICAgICAgIH07DQo+ID4NCj4gPiArICAgICAgICAgICAgICAg
+c25kX3J6ZzNlOiBzb3VuZEAxM2MwMDAwMCB7DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+Y29tcGF0aWJsZSA9ICJyZW5lc2FzLHI5YTA5ZzA0Ny1zb3VuZCI7DQo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgcmVnID0gPDAgMHgxM2MwMDAwMCAwIDB4MTAwMDA+LCAvKiBTQ1UgKi8NCj4g
+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8MCAweDEzYzIwMDAwIDAgMHgxMDAwMD4s
+IC8qIEFERyAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwwIDB4MTNjMzAw
+MDAgMCAweDEwMDA+LCAgLyogU1NJVSAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgIDwwIDB4MTNjMzEwMDAgMCAweDFGMDAwPiwgLyogU1NJICovDQo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgPDAgMHgxM2M1MDAwMCAwIDB4MTAwMDA+OyAvKiBBdWRpbyBETUFD
+DQo+IHBlcmkgcGVyaSAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIHJlZy1uYW1lcyA9
+ICJzY3UiLCAiYWRnIiwgInNzaXUiLCAic3NpIiwNCj4gImF1ZG1hcHAiOw0KPiA+ICsgICAgICAg
+ICAgICAgICAgICAgICAgIGNsb2NrcyA9IDwmY3BnIENQR19NT0QgMjQ1PiwgICAgLyogc3NpLWFs
+bCAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0Qg
+Mzg1PiwgICAgLyogc3NpLTAgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICA8JmNwZyBDUEdfTU9EIDM4Nj4sICAgIC8qIHNzaS0xICovDQo+ID4gKyAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzODc+LCAgICAvKiBzc2ktMiAqLw0KPiA+
+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzg4PiwgICAg
+Lyogc3NpLTMgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBD
+UEdfTU9EIDM4OT4sICAgIC8qIHNzaS00ICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgPCZjcGcgQ1BHX01PRCAzOTA+LCAgICAvKiBzc2ktNSAqLw0KPiA+ICsgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzkxPiwgICAgLyogc3NpLTYg
+Ki8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBDUEdfTU9EIDM5
+Mj4sICAgIC8qIHNzaS03ICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+PCZjcGcgQ1BHX01PRCAzOTM+LCAgICAvKiBzc2ktOCAqLw0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzk0PiwgICAgLyogc3NpLTkgKi8NCj4gPiAr
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBDUEdfTU9EIDM3Mj4sICAgIC8q
+IHNyYy0wICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BH
+X01PRCAzNzM+LCAgICAvKiBzcmMtMSAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgIDwmY3BnIENQR19NT0QgMzc0PiwgICAgLyogc3JjLTIgKi8NCj4gPiArICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBDUEdfTU9EIDM3NT4sICAgIC8qIHNyYy0zICov
+DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNzY+
+LCAgICAvKiBzcmMtNCAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwm
+Y3BnIENQR19NT0QgMzc3PiwgICAgLyogc3JjLTUgKi8NCj4gPiArICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICA8JmNwZyBDUEdfTU9EIDM3OD4sICAgIC8qIHNyYy02ICovDQo+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNzk+LCAgICAvKiBz
+cmMtNyAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19N
+T0QgMzgwPiwgICAgLyogc3JjLTggKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICA8JmNwZyBDUEdfTU9EIDM4MT4sICAgIC8qIHNyYy05ICovDQo+ID4gKyAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNzA+LCAgICAvKiBtaXgtMCAqLw0K
+PiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzcxPiwg
+ICAgLyogbWl4LTEgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNw
+ZyBDUEdfTU9EIDM3MD4sICAgIC8qIGN0dS0wICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNzE+LCAgICAvKiBjdHUtMSAqLw0KPiA+ICsgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzY4PiwgICAgLyogZHZj
+LTAgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBDUEdfTU9E
+IDM2OT4sICAgIC8qIGR2Yy0xICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgPCZjcGcgQ1BHX01PRCAyNTE+LCAgICAvKiBhdWRpby1jbGthICovDQo+ID4gKyAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAyNTI+LCAgICAvKiBhdWRpby1j
+bGtiICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01P
+RCAyNTM+LCAgICAvKiBhdWRpby1jbGtjICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgPCZjcGcgQ1BHX01PRCAyNTA+LCAgICAvKiBhdWRpby1jbGtpICovDQo+ID4gKyAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzODQ+LCAgICAvKiBz
+c2lmX3N1cHBseQ0KPiAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwm
+Y3BnIENQR19NT0QgMjQ2PiwgICAgLyogc2N1ICovDQo+ID4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAyNDc+LCAgICAvKiBzY3VfeDIgKi8NCj4gPiArICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBDUEdfTU9EIDM4Mj4sICAgIC8qIHNj
+dV9zdXBwbHkgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNwZyBD
+UEdfTU9EIDM1Mj4sICAgIC8qIGFkZy1zc2ktMCAqLw0KPiA+ICsgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzUzPiwgICAgLyogYWRnLXNzaS0xICovDQo+ID4g
+KyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNTQ+LCAgICAv
+KiBhZGctc3NpLTIgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8JmNw
+ZyBDUEdfTU9EIDM1NT4sICAgIC8qIGFkZy1zc2ktMyAqLw0KPiA+ICsgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzU2PiwgICAgLyogYWRnLXNzaS00ICovDQo+
+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNTc+LCAg
+ICAvKiBhZGctc3NpLTUgKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8
+JmNwZyBDUEdfTU9EIDM1OD4sICAgIC8qIGFkZy1zc2ktNiAqLw0KPiA+ICsgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMzU5PiwgICAgLyogYWRnLXNzaS03ICov
+DQo+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPCZjcGcgQ1BHX01PRCAzNjA+
+LCAgICAvKiBhZGctc3NpLTggKi8NCj4gPiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICA8JmNwZyBDUEdfTU9EIDM2MT4sICAgIC8qIGFkZy1zc2ktOSAqLw0KPiA+ICsgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMjQ4PiwgICAgLyogYXVkbWFwcCAq
+Lw0KPiA+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIDwmY3BnIENQR19NT0QgMjQ5
+PjsgICAgLyogYWRnICovDQo+IA0KPiBQbGVhc2UgZHJvcCB0aGVzZSBjb21tZW50cy4uLg0KDQpX
+aWxsIGRvIGluIG5leHQgdmVyc2lvbi4NCg0KUmVnYXJkcywNCkpvaG4uDQoNCg==
