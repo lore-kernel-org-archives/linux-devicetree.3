@@ -1,190 +1,189 @@
-Received: from DM1PR04CU001.outbound.protection.outlook.com (mail-centralusazon11010037.outbound.protection.outlook.com [52.101.61.37])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC00525D530;
-	Thu, 28 May 2026 22:59:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.61.37
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780009181; cv=fail; b=Zfyek+iG3P4A4TYgTyHzR+KD8g86wuAQMYt5RX42WMVDbQtO94KJLqckEJqZMB+4OejD25RE+8Y+KUB8T/rjrlj3oSeHh2U0IMFlCbrY8V+fccMEFgdxd6JaITAIcAQhEeK2NLh5NvjCkaMY84AlgHoK0emIn6mSlhSs/Ny8j/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780009181; c=relaxed/simple;
-	bh=OyibcY4Fhp3Paw6Z53w8cT/3SozA6mW5/0CisBaKFho=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=UFDTxGY9zuXMY6BGJ4OVH/y3RbJ50qXZac9J6DkDjn4oU0VLDq230K6JrutY0AY6VwevDj5Ui2BYNwEaw7NsA7mtHoOhsLnnDte6lb5sobyVfr9XIZA0ra46vBb8/maLsv/LSv/aHUYSnnOR9yvwbJIDVoXZLd7v5hOQ7S8NRkE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=QAsSEgf9; arc=fail smtp.client-ip=52.101.61.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F68F319857
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 23:08:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780009695; cv=none; b=CIIiFOMK26ycozCDqpQ9J87wONpKKg4/q1J+eGT8WGMlHglFQYlYIaICCYVlhlissJfgvjyXMHK9DDz5Ds8DOGcjjcvIbSPUrOvdyIh8e0p1wf9cP8uW7hvDdwDdrHe/JlEoRwaIYvUKuvpTeu+Fd9S2sSsNK/5UmwB1o7i8rhM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780009695; c=relaxed/simple;
+	bh=igAYccafVUZm80q6GjuxEnrNJJg3iS4+Jc9OnW9Q8CI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=uuQMnc1jnFKXcvIqTrDHF1doJS3CCwq2cuyC8Xh3Kn7JuBjfxRRMVZk923hmT/EPpl2U6Wpdr3EWdzTmiRnfyqauvtd5iKv3nd0WgK8eUYetGk79EFTJz/dxLnNASE0cJn2P6IYoof/fimff1vgga1Hyist6IDcm2Czn+oWvTIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WQCaulm7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QAsSEgf9"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=gboZDGrSkCMt1+3Gvesi3d6EnbMgIVWLbx0I+pO/ly1+7GnaynTema3dt9Du41j9M+IsYuYgL5r2Na+SZ+omA90RXNw0x7Ko/zgdxyY3hWRJD9qdiMWskddCSDjRZ+Bo8fFUXrPAnXem2E+NvugIYRdRS0m3nixDgHp6Fp2HK8aRM0XqZypFxhuxsgzwNb8jL86m3U2l+NmChH6tC7hhHznWqjcx/MMuutbxqva6wIs1AKbeKISLb0akyEhkiliPceAjqOctGcrN7uxLbf+lOzQ1zqyNd5B5x4z3tO5nuCIh4hnUzeJLTt56gSVYKPDs3Kvh+FqI+tfVAw3qoIHP9Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=pl4ZuR/uAzULRR6ywozuD/ZT47QzI8yCZ2q+kPawkCE=;
- b=AnGWvIfqNrHzV0MzmxQkMZw1RJLYX7Nyq/uDzZVaHbNvIyUTb/syrgHiQKBGHQWNeUuR5o5JWN07DQTUJ0Y2m3ITzcGAjy2UE82s1p618JISgc1Za8SRBBxlDABi/uyLy4EcCRXk1ipAb+CobWf1BAlJtMxlxZvXDTvtzdQQjF2yhq+O3HhFocP3j2QklaU38GaBArV2MYd0qiYicKH3tdn6iWLmaKGPvZzvOfQeNeQ7AZRP1ipanwJROiuHfuaiHQa8ZndWukQ3resRBQCaiZGvWpRwg+rGj3KQQ81i2s2A0ifns5y6X6nK1UE4W5oRkyE6hyrtyKM98qLyAHrvJw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=pl4ZuR/uAzULRR6ywozuD/ZT47QzI8yCZ2q+kPawkCE=;
- b=QAsSEgf9SAbCJCiice99hJ67bIL+/x7Muk+Dmb+mfPmMmy3aK5ZUOCtYOXVlZACxUvQOtimJo8znwcAjNP94Q89HAm3CWWNnN/ZsP59S5MJ3lqT4/LLK73Q3rWEbCfGvai+hHHJxLCpuU82bPZVy4MQXvixyUsl1zZ10Ei+WLRU=
-Received: from DM6PR02CA0110.namprd02.prod.outlook.com (2603:10b6:5:1b4::12)
- by MW4PR10MB5810.namprd10.prod.outlook.com (2603:10b6:303:186::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
- 2026 22:59:36 +0000
-Received: from DS2PEPF000061C6.namprd02.prod.outlook.com
- (2603:10b6:5:1b4:cafe::92) by DM6PR02CA0110.outlook.office365.com
- (2603:10b6:5:1b4::12) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Thu, 28
- May 2026 22:59:35 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- DS2PEPF000061C6.mail.protection.outlook.com (10.167.23.73) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 28 May 2026 22:59:35 +0000
-Received: from DLEE206.ent.ti.com (157.170.170.90) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 17:59:35 -0500
-Received: from DLEE205.ent.ti.com (157.170.170.85) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 17:59:35 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE205.ent.ti.com
- (157.170.170.85) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 28 May 2026 17:59:35 -0500
-Received: from [10.249.42.149] ([10.249.42.149])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64SMxYgV2429021;
-	Thu, 28 May 2026 17:59:34 -0500
-Message-ID: <29c9bd27-df32-4c56-8df2-987722d02b9a@ti.com>
-Date: Thu, 28 May 2026 17:59:34 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WQCaulm7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 270971F00A3A;
+	Thu, 28 May 2026 23:08:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780009693;
+	bh=/PeBcC808Ob1l1QX1qE1qwmuu0nGHBf5uJpCB9XStdk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=WQCaulm7dUazLi1k++0GRG9Je5wZhHaexQiKNplAJLyV28yhy5vxswtueeiaY0MBJ
+	 ZtyVa8Wfw98H9FiPzTKrGyVa/vrfYIMWcxhxp//8TMDHVvCAJ+Es9PJAgQbnvAvWyp
+	 OfzEluZmpJ4naaejhvwbBjP6WQXJ5bihuZKWK0fhD7+Mbmw+DEBqvrXZTq6MCC4Gbz
+	 5BIlkkOuUBE0ejZ+A4LvlKBhVli0HWN7hNcidhz2MIAfFijChqCMouQV0wlRejO8Us
+	 OrbLIKWcaVoyQywgZv3BAi3RK874/Y5BvKxDk05AkLxs/hm+zgGdMIPDlMfWcsPUbA
+	 cisaL92ULM04Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v3 4/5] clk: zte: Introduce a driver for zx297520v3
+ LSP clocks and resets.
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?U3RlZmFuIETDtnNpbmdlcg==?= <stefandoesinger@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529-zx29clk-v3-4-c7fe54ea388f@gmail.com>
+References: <20260529-zx29clk-v3-4-c7fe54ea388f@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 23:08:12 +0000
+Message-Id: <20260528230813.270971F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: ti: Use syscon for the Control Module
-To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Nishanth Menon
-	<nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo
-	<kristo@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Abraham I
-	<kishon@kernel.org>, Roger Quadros <rogerq@kernel.org>, Devarsh Thakkar
-	<devarsht@ti.com>, Swamil Jain <s-jain1@ti.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>
-References: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
-Content-Language: en-US
-From: Andrew Davis <afd@ti.com>
-In-Reply-To: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C6:EE_|MW4PR10MB5810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cc2ae6d-ec6d-451c-c5a7-08debd0cc9f7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|376014|1800799024|921020|22082099003|56012099006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	XxXrqc+IPFRb4I9BQtS3lj8paAwSwaVmifcpfkVKZfLaJ3zJP+TRrIneuexVTQx+em3q7u8YxR0Tb5hg4sdiKRW+c68KJ0qxTG9/vMVjo/MpnNepgrhM1HatterRptayEq4NayZZxYFjDq+8zdhmC648tDzCFpbEWdVJK2/pejOZJ8kMLEzXWgSFX4rfI3qNKT5wAVkWBG5RhuL3HsKZtvwgyCzBLQRLadhYc4KM+PYJPYzy3ZRtiQTDDnsjIIX8vRpifN3V2Mp9JfYMwghBhKfgPGnygra8qkZfQv32qG6xeJpvEKERNKq8iLknd/r725F7bqTRH7KQqnp/xCjOYxQgjGXtQHDUrJuvsd3D8mucSwKKV4/N5zN5Gs4jcWqSq8ABQjbc0A75GrMendoA8xYIVMtP6QctMdrbTyb3UIDWimfBjRzmfyS6IyabaHGnqTGSnLNkpjXcCYyfe3dVibcMV8qSovmmoBhCG3/esOzTnSe0DsvY10Kc6kck973tUxVpCEvNpoVL0wlwS+cfmnbyKzeIVXxPNnuqNKcKtRqanQ3er1k7aaXIlVo/b7aqZTBSvc5k/qKalHTzFpdgXvTgv/OoEjgNpYnYxYM7kXR+wfY6ANIRhYhE/Q3Qp/yI2QPUkiCTI9RP4N6ceQNd9fs91tOT0yua+92DSUxVfAev2PXCNAdQcbCJMInRKM2kyfxtnDdkFLLLPw/KOQq+e5cr/yJJ4TmGay4DTCiimDKqDk6UYJ2Ky/mL9Tp8XLJ/ZjNVDxcT7dSwjfrsyGoENA==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(376014)(1800799024)(921020)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	JpWOVXQmS4xmm4iVDvCVEsazLx6UGkH+ZWVykQ8MFNWakkjiLuAHF+QnL7At0OjESx9wBlLuhcxfJ/ntaWJOFjiIxSGgGnzwCSPzgdM6tG3vvGkol/VL0DrxH3pPWtXUi5ZFmf6e0/mq5tGlhdqJyxo3XHoamJboB8NIyAS4CxPP1Nb/BHf3DgOAXsjYC4LJC1iW/pZ+JZrzEwGPWddznXhpn5dtHC3ca+FVOQUwIi+SMKxzpNeGwd5N998WJ28A1CbXuKuotZnJYrbAojsAo7LveTf1BpHpTgr79LzlgZtcBCUMQzpq1RoOIt5cbjR+nOe1BahqC2uiC4UyH5ehCcnQOIJlYFfUnmE2gAIN+wE6M5r7ufwqHGVi05LhV+cVvPFaH0fJUbeSs3+p5mhQ9xUh7+2BflJVZvrMdVw4R12Ile2bk7qmtiTb+byQURei
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 22:59:35.7816
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cc2ae6d-ec6d-451c-c5a7-08debd0cc9f7
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C6.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB5810
 
-On 5/28/26 7:53 AM, Tomi Valkeinen wrote:
-> I have been trying to get BeagleY-AI display support to upstream:
-> 
-> 20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com
-> 
-> One difficulty has been the handling of the Control Module region, as
-> we need access to a single in that region, surrounded by registers for
-> other subsystems. In my series I made the related node a syscon, thus
-> allowing versatile access to the registers:
-> 
-> https://lore.kernel.org/all/20260513-beagley-ai-display-v2-14-9e9bcefde6bc@ideasonboard.com/
-> 
-> However, that's not a correct way to handle it. I realized we already
-> have ti,j721e-system-controller.yaml binding for older SoCs, which has
-> syscon but it's not used for the newer TI SoCs. This series takes the
-> same binding into use for the newer SoCs.
-> 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] The `LSP_CLOCK` macro swaps the PCLK and WCLK gate bit offsets com=
+pared to the documentation block.
+- [High] Timers and Watchdogs are missing divisor configurations despite be=
+ing documented to have them.
+- [Medium] Missing use of `dev_err_probe` when handling potential probe def=
+errals from clock lookups.
+- [Medium] The 'pclk' clock is requested redundantly twice during the probe=
+ function.
+- [Medium] The TDM clock divisor configuration differs from other blocks sh=
+aring the exact same hardware ID.
+- [Low] Usage of `offsetof()` instead of `struct_size()` to calculate memor=
+y allocation bounds for a struct with a flexible array member.
+--
 
-We moved away from this system-controller thing because it was always
-a hack to allow us to poke into random control registers from nodes
-throughout the DT. This was a mess and also caused issues with multiple
-mappings to the same registers (some sub nodes inside the control space
-also make their own mappings). If you need access to registers then make
-a node with those registers in the `reg` property.
+commit 6fe6d621ba374fdf4c496c8baf190e122aa53ca3
+Author: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
 
-The only reason we didn't get rid of `ti,j721e-system-controller.yaml`
-completely from the older SoCs was we were told it would be an ABI
-break to correct those DT files. Let's not spread that problem to
-new SoCs.
+clk: zte: Introduce a driver for zx297520v3 LSP clocks and resets.
 
-Andrew
+This patch introduces the driver for ZTE zx297520v3 LSP clocks and resets.
+It defines the clock mapping, composite clock parameters, and probe routine.
 
-> I think this is an ABI change, but I also think this is not an ABI
-> break. I hope people with more expertise in this area can confirm my
-> thoughts.
-> 
-> I believe we could drop the renaming patches, and just adjust the
-> ti,j721e-system-controller.yaml a bit more to accommodate the "wrong"
-> node names. But if there's no downside to the renames, I think it's nice
-> to have a more consistent naming.
-> 
->   Tomi
-> 
-> Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> ---
-> Tomi Valkeinen (6):
->        arm64: dts: ti: j784s4/j742s2: Rename pcieN-ctrl nodes to pcie-ctrl
->        arm64: dts: ti: k3-am62*: Rename 'clock-controller' to 'clock'
->        arm64: dts: ti: k3-am62-main: Rename 'oldi-io-controller' to 'dss-oldi-io-ctrl'
->        dt-bindings: soc: ti: ti,j721e-system-controller: Relax the bindings
->        dt-bindings: soc: ti: ti,j721e-system-controller: Add more compatibles
->        arm64: dts: ti: Use syscon and simple-mfd for the main conf region
-> 
->   .../devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml | 10 ++++++----
->   arch/arm64/boot/dts/ti/k3-am62-main.dtsi                       |  9 +++++----
->   arch/arm64/boot/dts/ti/k3-am62a-main.dtsi                      |  7 ++++---
->   arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi         |  6 +++---
->   arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi       |  6 +++---
->   arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi                     |  4 ++--
->   6 files changed, 23 insertions(+), 19 deletions(-)
-> ---
-> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
-> change-id: 20260528-ti-main-conf-d75aea5e5c2b
-> 
-> Best regards,
-> --
-> Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-> 
-> 
+> diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx297=
+520v3.c
+> index 986042dd4caf9..a67b7fe332f31 100644
+> --- a/drivers/clk/zte/clk-zx297520v3.c
+> +++ b/drivers/clk/zte/clk-zx297520v3.c
+> @@ -755,6 +755,191 @@ static int zx297520_topclk_probe(struct platform_de=
+vice *pdev)
+> +/* LSP clock entries have a common pattern: Bit 0 for PCLK, Bit 1 for WC=
+LK. Bit 4 (and sometimes
+> + * more) for WCLK mux.
 
+[ ... ]
+
+> + * Timer reg	function	div	dev offset(lsp + xxxx)	ID
+> + * 0x0: Read-only, probably device identifier			0x00752100
+> + * 0x4:		timer_l1	Y	0x1000			0x02020000
+> + * 0x8:		watchdog_l2	Y	0x2000			0x02020000
+> + * 0xc:		watchdog_l3	Y	0x3000			0x02020000
+
+[ ... ]
+
+> +#define LSP_CLOCK(offset, name, mux, div_shift, div_size) {\
+> +		ZX297520V3_##name##_RESET, ZX297520V3_##name##_WCLK, ZX297520V3_##name=
+##_PCLK,\
+> +		#name, offset, 8, offset, 0, 1, "lsp_pclk", offset, 4, 4, mux, ARRAY_S=
+IZE(mux),\
+> +		offset, div_shift, div_size, 0}
+
+[Severity: High]
+Does this mapping reverse the PCLK and WCLK gate shifts?
+
+The struct definition expects wclk_gate_shift then pclk_gate_shift, which
+maps 0 to wclk and 1 to pclk in this macro. The documentation block at the
+top notes Bit 0 for PCLK and Bit 1 for WCLK.
+
+> +static const struct zx297520v3_composite lsp_clocks[] =3D  {
+> +	LSP_CLOCK(0x4,	TIMER_L1,	timer_lsp_sel,	0,	0),
+> +	LSP_CLOCK(0x8,	WDT_L2,		timer_lsp_sel,	0,	0),
+> +	LSP_CLOCK(0xc,	WDT_L3,		timer_lsp_sel,	0,	0),
+
+[Severity: High]
+The documentation block indicates that these timers and watchdogs have a
+divisor (indicated by 'Y'), but the divisor size parameter is set to 0 here.
+Are these missing their divisor configurations?
+
+[ ... ]
+
+> +	LSP_CLOCK(0x30,	SPI0,		spi_lsp_sel,	12,	4),
+
+[ ... ]
+
+> +	LSP_CLOCK(0x48,	SPI1,		spi_lsp_sel,	12,	4),
+> +	LSP_CLOCK(0x4c,	TIMER_L11,	timer_lsp_sel,	12,	4),
+> +	LSP_CLOCK(0x50,	TDM,		tdm_lsp_sel,	16,	4),
+
+[Severity: Medium]
+TDM uses a divisor shift of 16 here, but other components sharing the same
+0x01040000 device ID (like SPI0 and SPI1) use a divisor shift of 12. Is 16
+the correct divisor shift for this block?
+
+> +};
+> +
+> +#undef LSP_CLOCK
+> +
+> +static int zx297520_lspclk_probe(struct platform_device *pdev)
+> +{
+> +	static const char * const parent_names[] =3D { "mpll_d5", "mpll_d4", "m=
+pll_d6", "mpll_d8",
+> +						     "mpll_d12", "osc26m", "osc32k", "pclk",
+> +						     "tdm_wclk", "dpll_d4",
+> +	};
+> +
+> +	struct zx29_clk_controller *lsp;
+> +	struct device *dev =3D &pdev->dev;
+> +	void __iomem *base;
+> +	struct clk *parent;
+> +	unsigned int i;
+> +	int res;
+> +
+> +	lsp =3D devm_kzalloc(dev, offsetof(struct zx29_clk_controller,
+> +					 resets[ZX297520V3_LSPRST_END]), GFP_KERNEL);
+
+[Severity: Low]
+Is it preferable to use struct_size() for this flexible array allocation
+instead of offsetof() to ensure proper bounds checking?
+
+> +	if (!lsp)
+> +		return -ENOMEM;
+
+[ ... ]
+
+> +	parent =3D devm_clk_get_enabled(dev, "pclk");
+> +	if (IS_ERR(parent)) {
+> +		dev_err(dev, "failed to find lsp pclk\n");
+> +		return PTR_ERR(parent);
+> +	}
+> +
+> +	for (i =3D 0; i < ARRAY_SIZE(parent_names); ++i) {
+> +		parent =3D devm_clk_get(dev, parent_names[i]);
+
+[Severity: Medium]
+The parent_names array includes pclk, which causes it to be requested
+again in this loop after already being fetched with devm_clk_get_enabled().
+Should pclk be removed from the parent_names array?
+
+> +		if (IS_ERR(parent)) {
+> +			dev_err(dev, "failed to find lsp %s clock\n", parent_names[i]);
+> +			return PTR_ERR(parent);
+> +		}
+
+[Severity: Medium]
+Can devm_clk_get() return -EPROBE_DEFER here? If so, using dev_err_probe()
+might be better to avoid spamming the logs during probe deferral.
+
+> +	}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-zx29clk-v3=
+-0-c7fe54ea388f@gmail.com?part=3D4
