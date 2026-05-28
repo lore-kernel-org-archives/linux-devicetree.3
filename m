@@ -1,238 +1,177 @@
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com [209.85.221.43])
+Received: from mail-dl1-f51.google.com (mail-dl1-f51.google.com [74.125.82.51])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676CD3DE442
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 11:05:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.43
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779966323; cv=none; b=fzi4zGqgJDJUIPrbQ9xp06xGyEmKeTA9hdPUI0NLrv4lXV3BaALa/hMt39SBbNR9d5nsgntESDMaSfkxAjkMNx62M5qdVTa2SF9T4GjtsXk1SYZtprKW0n0X0k58hTsPXY6OLYHINNLgGN84inX6c+n8U1y63EnuzaFKeAobHLk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779966323; c=relaxed/simple;
-	bh=/WxIwY/XkoRLLlx2TkO+oBdM9YRRcgTtohziHjgeml4=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=kvWsLvFLG463t1f3k7QHQg1f270y61Vtl4MWWHhuXPvUrLSfmNdxIJKYHH3LDUzRBbfO0WoGfhBqvrcf1S+/VbLETdREiXM3oWoNy4oiRBUkqc71WAMljG/k9Qy2xBGxbl7JK2Kr22rf86ITxxoY62Wg3KsB27B94zvzhzv6rYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=XHO9Pm3o; arc=none smtp.client-ip=209.85.221.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5411E38D41E
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 11:13:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779966782; cv=pass; b=oPu6bFUEgkDXlgv2d2yXd8EajLKFEKVYs01Y9s+ozIajIxscvvjguGeTAMLVL/GkFiy03bDf87Xg+QRwzWimvKGEYIMithpeMlrLhakD2EC5QDNzoDulXCWDOH+nsT2HMHhrEjPdn7biTFhQCY3eK25q+Fzoao4Zk3L0NlrJHUg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779966782; c=relaxed/simple;
+	bh=8xs8o7d5xVd5v5gOiZojxwL5cP8epJ07iWJ6BZxR0Tk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WejkJ21gGOvAyD2KlJEzaULyfMeiyp8sYdGIY9+fBX1GRQmWmsRQT9E44yhmGlZBywB6ZwysZ5MG+mWPspPHRCyfp33NbNAND2aQDhElk94ehZR7/QB4vFkFBFLWzy4weWEe0ojdZHk+3kIsTtNeiw4rPq/oK6RorK2YJlTS2Fg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fttSM5E5; arc=pass smtp.client-ip=74.125.82.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="XHO9Pm3o"
-Received: by mail-wr1-f43.google.com with SMTP id ffacd0b85a97d-45ee6d32402so297596f8f.1
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 04:05:20 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fttSM5E5"
+Received: by mail-dl1-f51.google.com with SMTP id a92af1059eb24-133466cf955so33417588c88.0
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 04:13:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779966780; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Mjdejp7566Npp1XjaPJr0pjOIXkNk908dwagFMQATVaCfpKlzFvKrq8f86gsjOPQRw
+         ktLolSy4S6nhHMDoUWmHzV3FppusU2dTXaDqWAfQo8e1DBWtuEuQt4lSGq9eefMbGFJ+
+         Oj5YglJOoyr4KOp4Ls3DQNkyKjEKWmQ26Pe0QJFF/xISkbs/6PyYrETEVg5KNhC7UOZK
+         4VCbs0X7qUiIOxrl1L8lUMhEGMMN7rYr2kIRE0owIRtEyAjUMc4110Gb/Dz7TIoUCy3U
+         OVVIqy6wqE86dFeJ3VtLBIXVHWNCnnBl+l1drEJFovLjdHbsAAuo75QHSBHE5aBVbUoI
+         2DPA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=1ZLlaza02i6od9UOBE2Q8vK6W//FnjYjw79bpWQOWZo=;
+        fh=mlfe9Z4M6PGiJTJ9d2MuROYFxJEeDKM/ym47H7z+xKQ=;
+        b=PrlNtefSEKvkcFiEDDegdkHF6o9BUhcE2mNMDVJDgasNWF0R66DnGN2pzFb9+hwQBa
+         mGbHRTyjbx97KpW2HmEGT6p37vtXuYxzPwOoswuC6D+eh9TgCp0GJMCf0V7kP3RguKGY
+         u0McZSBauyWNx4y2CpmlQNW5YyMp+r/ngEDE8j6o9C9uWARK2E9IDqdaRMtihh4Bs4Xr
+         WUV3CgGWLGWegTWA5KgzpGBWYlm50r1qDzr26QkibmhXkdEWuT/y69dvS4+y+LiXOAj4
+         aGftPbAxvNH15Y6agj8rUCb/Pd6vdd263JGiNLBW67QodEJ4OIsr2o52zSelfp5zX0lR
+         HHAg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1779966319; x=1780571119; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=/WBV2stTi+BoMvjTn+6Wdm0ar2Vhc8k/vzOLTV4C0Ts=;
-        b=XHO9Pm3oF4xM9wdP4a4ht+t6j3WWsN3wBkc0HFptC0KwFyRG5bjoQKX+YNpcV/SlNn
-         L+Azpxrj4YJX2jpiSDLzpS6r/MrnOzgl6UjudW3OZXP3/ZHJ5lj1aflbUf279OFs8Z6v
-         BrR5QgDfuNjUM/SuZLKzme0Ba3DoAIxHJ7ig7dOj6HbHMJlZ6CokTCisjflr7oW28rIG
-         2eGfNsYnS8gLfYeQRkCU5cYDUSoJKEZsk3L5DcSzd9t3/sbf1BsMaqScmLrGJIFlfqgW
-         BIxi6sdgxRK53XMVlsauk5xlfkDS5mSzq+yyJvsOsHGZGyJ8NRRW+dMAxG+FJaWu0Uol
-         vCmw==
+        d=gmail.com; s=20251104; t=1779966780; x=1780571580; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1ZLlaza02i6od9UOBE2Q8vK6W//FnjYjw79bpWQOWZo=;
+        b=fttSM5E5JYMQfhm1yM/48MKeV8frkXmOHnGH2GjIOFFkyMfQeRfHv8SBgmzzjId1fV
+         rK6a+01NFfjfQyiF8Kpa8ltI3c2KQZ9uGtUy6rTdA8fHIbULZQJ/4KtRBcmmknlqrEXL
+         y4y8ay09klgIjvoupBatEnlQZxnFN83AolhKrqHkfBK8KYynUOcn2vDzTgWkq1SUAe58
+         Wqc7c9G7tiBNEN7Ia4xEcAajaJt65ivqbBuZ6uREioSet2qwOA6/BqQoAmbUGb7Jb2V1
+         nQt+T2gOF3dO25T3edsjP9PS+Q27sifwVUxKc3n+tBFqszjEdB3YClg5CmYQ27jnyeWS
+         L1wQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779966319; x=1780571119;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=/WBV2stTi+BoMvjTn+6Wdm0ar2Vhc8k/vzOLTV4C0Ts=;
-        b=ox0ITTl0UWt03CWaeEReu4ezPlj/60bqT5JHF6F+H5Z4voixH5dZoX6EkKuThp8JFX
-         oAGfBI4GtCG2eJDE2ynIYyYmV06FqifX60dwepFj5BarIuPABbJOUwLhhY9AGQLZx1om
-         lXpdZPh1rU5CUbhhTBaulFSiKKdJ/3wN/NemW0fyqYw0oPAl93WFcrPNqSnZ2phO5kSh
-         14fP21N06F1fon0R4Iw0Iw6tUSncOcejOvIl5EVicIihKNUSFYBzAaym/ysaKVo4Mgp8
-         cAqmmX8UW4zdZ/B4hrx9aEswV2mlhYj0stRne8eNq+2+5YRBFZHXyRjDUI16qTXkk2Tn
-         NUJA==
-X-Forwarded-Encrypted: i=1; AFNElJ/pvdkFw793DHYWApF6OHjxiBkjBYHnIauu5C2rTghNuP1NnW2LzcbYY3xBSF4b8euB/6SWA3hFiv5s@vger.kernel.org
-X-Gm-Message-State: AOJu0YxXQ4M+zKBf+8KvDT1pDptW2TNZ16IliWdjRJDRdXatU2zjao/t
-	7wYKy55dKWG491gfIzmc5iB1mpioP6UUVykoy39PQ37M7LqiBwc6AjPC7XijNr5Ntks=
-X-Gm-Gg: Acq92OHHG3yJjeEeteK4aEyZY59UhTqy9FLR3qQZ1zmVC5mv/v9O0ddOxHUIjq6o/s1
-	m4Qd/IvUtI96vxJ3vT1/3pkI64diWsdDLhOcUJpzad6YZda6Rb55Bqac83aNy/C801suglrCIRn
-	2Uff3dG761GiHBLAOOBHISMJ3cCcECYyNoENDKBO8in37ScFXrVut0rqes5FGvCQ2WgkxehPftw
-	dDkVL543S7smdNYaBlfWEuvniR/+Tl4XHTcZgC55nRPuVhNDGyQZeLGXR3hU0weCSg0eRgdtqSG
-	Uh1AVRU5NqARIJfrOUSt3yGzN3UHHX9k1hj7wM8PJpvdGTEd53dFZ69ncEdpeE+DWcBOfSf46hE
-	ILrI0MF1TMz0NsVHoC8osqtCDlFa0hznJ/25FK3kN0BKxDszyODCc1xQ4SdB+XbnDsukHSv+/LW
-	SIhho85+ivNf+Gn1WNrb/WfX6saYnuOKfCK9flec6ekLo=
-X-Received: by 2002:a05:600c:4f52:b0:490:4f91:5519 with SMTP id 5b1f17b1804b1-4904f91568dmr456980265e9.18.1779966318522;
-        Thu, 28 May 2026 04:05:18 -0700 (PDT)
-Received: from [172.20.10.2] ([37.167.60.147])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5584b8sm12243364f8f.11.2026.05.28.04.05.16
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 28 May 2026 04:05:18 -0700 (PDT)
-Message-ID: <e8526e33-d34b-4900-81f1-f0a16edca388@linaro.org>
-Date: Thu, 28 May 2026 13:05:14 +0200
+        d=1e100.net; s=20251104; t=1779966780; x=1780571580;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=1ZLlaza02i6od9UOBE2Q8vK6W//FnjYjw79bpWQOWZo=;
+        b=KN+6AgWiIdkyRB2mKzYdxP7KFI+vn/TlAjvZt+Ae53H4sUDPgALJ3Kwzsr1Oajyn32
+         c0num1y8j5fxg31IJDmBNim9WLqMS5sDUr1KdhMQc+2N8+1vjG0x2bhxQ+Gk8YrHNXV+
+         WSgfN9pUL7k/FTnAdfVGFQUiVkX+an9igRB1D71DHFt9yBFWkceBTE2wK5A+FSMckth8
+         t3lt7fUzfVVRjystMLZ7FqPwd0acHrfFaJcsmBsMCtbLkU2nqFozdtrHQT6r7CyzBJ71
+         8MvcxcPq5NxLPYysvXWuoAttZK4mwxsPMj8tMtPBFPOaWnPou6kHV1EizDHisqkYTq7R
+         u05g==
+X-Forwarded-Encrypted: i=1; AFNElJ8JFfJIj3l7AhqHioIP5+Z7+/8AwMUK9lQWyiAHSXVsT005JmKzIe7dG6R29pkntRtHUnvyNHT7H6Oi@vger.kernel.org
+X-Gm-Message-State: AOJu0YzEK8KRWIc2BuovD4XzOsUz/7KOSDXRaTePZ8VG2R7phLC233LR
+	j6UcuwOp9XxfPGsDrYF2mSjWJEzS+/+Nk2LwV2430emwKzrWb4c9l5qMt1VauSKPJtZEv0NXrwH
+	Ur6Xb1Zo0FVEWXi6Jeml2/wZq4pruLig=
+X-Gm-Gg: Acq92OHmE2uAG3qKjdp7sI6Od0RWkdZn1kM33mPwdIbRXaVZbmVOUQo3O+eN1gx3gkZ
+	ijTijG0NhXcIEbKdj05zQPYxU03AGDw/dSG39zNRqHEIt4MriuvQF4nHUhtDuvSmV3qLcHCw4aS
+	SmaHwYncouXfiJB4S5i7RLvlRL2Uf6kWdeJNxkeYfekF8i5uMBA8cOvkA+/yWXo9/Z7cLuoNfxE
+	VAxeWwDZw7KDFywyiVOSEvJgimy+XepTRqz0TZ2ipJ8+ZNsLB6soV5ofhwThAi/PuWM5vkhuEwJ
+	13OcEFQhLlb4Q8gNhVzk1FFrOh/ftA==
+X-Received: by 2002:a05:7300:6919:b0:2dd:6937:79b8 with SMTP id
+ 5a478bee46e88-30449035bf9mr14390183eec.5.1779966780131; Thu, 28 May 2026
+ 04:13:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v4 2/2] drm/panel: Add Ilitek ILI9488 controller driver
-To: Igor Reznichenko <igor@reznichenko.net>,
- Jessica Zhang <jesszhan0024@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>,
- Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
- Manivannan Sadhasivam <mani@kernel.org>, Kael D'Alcamo <dev@kael-k.io>,
- Kever Yang <kever.yang@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260527062300.88928-1-igor@reznichenko.net>
- <20260527062300.88928-3-igor@reznichenko.net>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <20260527062300.88928-3-igor@reznichenko.net>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260523083013.46372-1-clamor95@gmail.com> <20260523083013.46372-4-clamor95@gmail.com>
+ <CAPVz0n0jpnPFh0f=CWHufzZ+e24xsem5DFTKdFu6sczCLk08Fg@mail.gmail.com> <ahfte9D4TsbgzFQx@nchen-desktop>
+In-Reply-To: <ahfte9D4TsbgzFQx@nchen-desktop>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 28 May 2026 14:12:48 +0300
+X-Gm-Features: AVHnY4I6ZYIo6G4qxQVAoz1DWMNlxLUEPsCkVjwlCGPGnzxU6KzdrmxGygvJbpA
+Message-ID: <CAPVz0n0UO=cJXnSA3hzXy5ye2TTb5UXGdVnqiTKAdaUYUfr5YQ@mail.gmail.com>
+Subject: Re: [PATCH v2 3/4] usb: chipidea: tegra: Avoid controller/PHY init if
+ bus is externally controlled
+To: "Peter Chen (CIX)" <peter.chen@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Xu Yang <xu.yang_2@nxp.com>, Peng Fan <peng.fan@nxp.com>, linux-usb@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi,
+=D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 10:2=
+3 Peter Chen (CIX) <peter.chen@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On 26-05-25 17:43:42, Svyatoslav Ryhel wrote:
+> > =D1=81=D0=B1, 23 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+11:30 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > If the USB controller and PHY are externally controlled, then the
+> > > registration of the controller and the PHY initialization should be
+> > > skipped, since these configurations must be done by the device that
+> > > controls the bus to work correctly.
+> > >
+> > > Since USB PHY in Tegra controls clock gates required by the controlle=
+r
+> > > itself, Chipidea core PHY management is not suitable for Tegra.
+> > >
+> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > > ---
+> > >  drivers/usb/chipidea/ci_hdrc_tegra.c | 32 ++++++++++++++++++--------=
+--
+> > >  1 file changed, 21 insertions(+), 11 deletions(-)
+> > >
+> >
+> > Hello there!
+> >
+> > This patch is required because I could not find an acceptable way to
+> > manually remove and add a platform device. I will explain the details
+> > below and hope that someone can give me some suggestions on how to
+> > handle this situation.
+> >
+> > The Tegra USB controller is the root node, and it is bound and probed
+> > automatically. This is perfectly fine for ordinary use cases. On the
+> > other hand, the modem used in Tegra 3 devices requires the USB
+> > controller to be registered at the exact moment when the modem is
+> > ready to handle USB. If this window is not respected, the modem will
+> > not expose the USB device, and all you get is a cascade of enumeration
+> > failures.
+>
+> Could you add USB controller device node as the child node for modem,
+> and dynamic creating USB controller device during modem probe?
+>
+> Peter
+>
 
-On 5/27/26 08:23, Igor Reznichenko wrote:
-> Add support for Ilitek ILI9488 DSI controller which is used in
-> FocusLCDs E35GH-I-MW800-CB 320x480 MIPI DSI panel. The mode timing
-> was adjusted after STM32MP157 testing. The previous 14.256 MHz mode
-> worked on AM62P, but was awkward for STM32 DSI/LTDC clock synthesis.
-> 
-> Signed-off-by: Igor Reznichenko <igor@reznichenko.net>
-> ---
->   MAINTAINERS                                  |   6 +
->   drivers/gpu/drm/panel/Kconfig                |   9 +
->   drivers/gpu/drm/panel/Makefile               |   1 +
->   drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 299 +++++++++++++++++++
->   4 files changed, 315 insertions(+)
->   create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+That might be an option, thank you! I have to tinker a bit this this.
 
-<snip>
+Patch 1 of this sequence can be applied as it is.
 
-> +
-> +static int ili9488_dsi_probe(struct mipi_dsi_device *dsi)
-> +{
-> +	struct device *dev = &dsi->dev;
-> +	struct ili9488 *ili;
-> +	int i, ret;
-> +
-> +	ili = devm_drm_panel_alloc(dev, struct ili9488, panel, &ili9488_funcs,
-> +				   DRM_MODE_CONNECTOR_DSI);
-> +	if (IS_ERR(ili))
-> +		return PTR_ERR(ili);
-> +
-> +	ili->desc = device_get_match_data(dev);
-> +	mipi_dsi_set_drvdata(dsi, ili);
-> +	ili->dsi = dsi;
-> +
-> +	dsi->mode_flags = ili->desc->mode_flags;
-> +	dsi->format = ili->desc->format;
-> +	dsi->lanes = ili->desc->lanes;
-> +
-> +	ili->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-> +	if (IS_ERR(ili->reset))
-> +		return dev_err_probe(dev, PTR_ERR(ili->reset),
-> +				     "failed to get reset-gpios\n");
-> +
-> +	for (i = 0; i < ARRAY_SIZE(ili->supplies); i++)
-> +		ili->supplies[i].supply = regulator_names[i];
-> +
-> +	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ili->supplies),
-> +				      ili->supplies);
-> +	if (ret < 0)
-> +		return dev_err_probe(dev, ret, "failed to get regulators\n");
-> +
-> +	ret = of_drm_get_panel_orientation(dev->of_node, &ili->orientation);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get orientation\n");
-> +
-> +	ret = drm_panel_of_backlight(&ili->panel);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get backlight\n");
-> +
-> +	ili->panel.prepare_prev_first = true;
-> +	drm_panel_add(&ili->panel);
-> +
-> +	ret = mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		dev_err_probe(dev, ret, "failed to attach to DSI host\n");
-> +		drm_panel_remove(&ili->panel);
-> +		return ret;
-> +	}
+Patches 2 and 3 should be dropped for now. There may be no need in them at =
+all.
 
-Please switch to devm_drm_panel_add() and devm_mipi_dsi_attach() and drop the remove callback.
+Patch 4 would be needed by modem, if it is appropriate to be applied,
+I can resend patch 1 and 4 and that would be it.
 
-> +
-> +	return 0;
-> +}
-> +
-> +static void ili9488_dsi_remove(struct mipi_dsi_device *dsi)
-> +{
-> +	struct ili9488 *ili = mipi_dsi_get_drvdata(dsi);
-> +	int ret;
-> +
-> +	ret = mipi_dsi_detach(dsi);
-> +	if (ret < 0)
-> +		dev_err(&dsi->dev, "failed to detach from DSI host: %d\n", ret);
-> +
-> +	drm_panel_remove(&ili->panel);
-> +}
-> +
-> +static const struct ili9488_desc e35gh_i_mw800cb_desc = {
-> +	.init_sequence = e35gh_i_mw800cb_init,
-> +	.display_mode = &e35gh_i_mw800cb_display_mode,
-> +	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-> +		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-> +	.format = MIPI_DSI_FMT_RGB666_PACKED,
-> +	.lanes = 1,
-> +};
-> +
-> +static const struct of_device_id ili9488_of_match[] = {
-> +	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
-> +	{ }
-> +};
-> +
-> +MODULE_DEVICE_TABLE(of, ili9488_of_match);
-> +
-> +static struct mipi_dsi_driver ili9488_dsi_driver = {
-> +	.probe	= ili9488_dsi_probe,
-> +	.remove	= ili9488_dsi_remove,
-> +	.driver = {
-> +		.name		= "ili9488-dsi",
-> +		.of_match_table	= ili9488_of_match,
-> +	},
-> +};
-> +module_mipi_dsi_driver(ili9488_dsi_driver);
-> +
-> +MODULE_AUTHOR("Igor Reznichenko <igor@reznichenko.net>");
-> +MODULE_DESCRIPTION("Ilitek ILI9488 Controller Driver");
-> +MODULE_LICENSE("GPL");
-
-Thanks,
-Neil
+> >
+> > The solution as I see it right now: The modem has a power sequencing
+> > driver, and the USB controller can either be autoprobed and
+> > unregistered in the pseq probe and then registered/unregistered in the
+> > on/off sequences, or it can have a status =3D "reserved" set in the USB
+> > node and manually register/unregister it during the pseq on/off
+> > sequences. This would eliminate the need for this patch.
+> >
+> > The problem I have faced is that I cannot properly and manually
+> > control the USB controller driver to bind -> probe it and remove ->
+> > unbind it from within powerseq.
+> >
+> > Help is appreciated. Thanks!
+> >
+> > Best regards,
+> > Svyatoslav R.
+>
+> --
+>
+> Best regards,
+> Peter
