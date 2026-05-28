@@ -1,97 +1,256 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164F622652D
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 07:57:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782E5367F5E
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779955041; cv=none; b=UaolGsqc0vlNSF5qrmkAHmB1MmPrdccGA7GCYWSHUtffu0bRqvpbD+M7sOvboRZa4B4hhd49YXJAn6qoMEd+lME8PWFtKmNdzkKSRnQj3gJ4+0OYhMbKfq7pUh9K5xKtWZ10g2S8ciC0ZrNdEXD1tlq5EFJ3xQESaLvAuPgoQC0=
+	t=1779955232; cv=none; b=U3te3cbheTqn4bCMajJbi+V0Fe/x/gGVRRBD6+kDx2in5p+tdIwj+HRM+KNPfnRPbrCLFDSgvVqn0BN0NlmRTc8dp6ydtVcb94NC1dMiSTty4iAxq9iJ914uJvuwb3feDKKH75AxJis03eJWvbYpXwAukrWJjCnkWSXqTXRgQiU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779955041; c=relaxed/simple;
-	bh=OPRWrj+CtsKDlA2IjJBvPDOZUyNFzLn+xW7LOOh2D+c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mfOqwGaiA469WaGdTflS/1MBWve6Hd0+1kDFF3o8BXbRNDXG6DV5Fm3xLYLXzcI5ur4KTcr/WB6S+uXqknCVyafzQMGYKpgJDaxwrV40Wu80AIFGG2inkIRadVpF7T9BSW8CEdMIhadQI1OREZcv7kVNtB3uwSrSzUcnXXKM3rI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MhUbkGL/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779955232; c=relaxed/simple;
+	bh=hB9rWWdziNFSDSCFK0MEsE6r1p8y3/lPTZryWO7j3LY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n8jK4D2sDxm/MfBF5rTmro9P9Xtqmo8HzvljutJ/405gbxm1giVSx5I3mkJPqME8+L4rQsnSS0O8z36NuLUYv+toQCWodnrNLrOosSFSwVSk09MoGxk/jl3WOY5oFE4r+4ilxaeJnFgeW+Hc4DKX2B6FjDiV+5JWiN+Pm6fgAT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hQb0SGSr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iHqSJrYR; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MhUbkGL/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC961F000E9;
-	Thu, 28 May 2026 07:57:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779955039;
-	bh=oUPE4DueYjOojqonznuzyBBrcFl1hFO5zRJiaseLkSw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MhUbkGL/jqiZlnBoGxp43b2kbk15HK3bZXQMY7vCYf7sFSwide4Monv1kXMzx4Gk5
-	 yK1EYZBmVQgdAk2lKJzGR4KsR91zJ0aJIZzdba8ewjaveb+S9Tpf87jgG3/ZjBjwFJ
-	 ShWjOIDdq9XR9sXdwNa4JHoUayVCkHdzpPAGqdHX4rvS2wbUMO/Lb0jsVI04DLT1bc
-	 fnlwSvsm7FISxm/YdWCRhRo8MWidtm1yiKYoIXBn5AE38KooqR60RyDG1yFeRuTj/k
-	 Ara/s7ykoP4CZezNxZfArp1EHixJAeMsdflTqzgWeKuEX69UqwJcz+LW2HnVTv8FVD
-	 JNqcaTqOt+zOw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v30 1/5] dt-bindings: i2c: Split AST2600 binding into a
- new YAML
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528-upstream_i2c-v30-1-5d4f9adc3530@aspeedtech.com>
-References: <20260528-upstream_i2c-v30-1-5d4f9adc3530@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 07:57:19 +0000
-Message-Id: <20260528075719.BDC961F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hQb0SGSr";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iHqSJrYR"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S75LgT2754302
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:00:29 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=N7iMbetrrOwn6wQkhuxIddok
+	2tB1wY35g7JsfGtZdak=; b=hQb0SGSr6d5nOnQPbsCqqc0XyBMozQI1cGgGMDJ0
+	HuBvifkSNS56xU43f9j1SX8TrPK4gDXm6jFX69BIj4SUUSnvdgv5RSpQcBULEcdu
+	EJiccDSiu0yzGLi4bofFOPIMoQtsTrCiQFjfYqRND9u9SA7uP/jo2540P9eLycXD
+	r8UPzbVXdybVReSAvPvOjYz4ESqP2+DOGL5CVSSamw4GAM8OulD50DfF9z3FXBoJ
+	h2orbLsRexGINodAogEXinEUSVsiMCBgtyg0An13pUczxVyvjsnem5WJ41FkxlbT
+	Bftp6/7r+U4kEQZ12WyIexaxQSg73IKrXFT8Jl6oBBVFcA==
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7yc9vv0-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:00:29 +0000 (GMT)
+Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-516cdd89225so136308861cf.0
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 01:00:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779955229; x=1780560029; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=N7iMbetrrOwn6wQkhuxIddok2tB1wY35g7JsfGtZdak=;
+        b=iHqSJrYRGRED0ftPYZl//0UxIHI7BhtjvkZZXL4viB+NL4IeKJft55tbhAV6CJ1rxe
+         0CvruGzU8v+UkqKw7barjhCNZnXqoYe1r/5LL1QsS+39yTNW0mIWCEoIGGZaoAKr6q/y
+         /8ldEQnNLjfWrcGGtESApPdVhLcJaN23MR1s5y1rkB1AZte18uzqiTfmiKOeWFYC/OeM
+         um5aPURc7ojGHjYjRuUJZHss3CU4F4Ayw0mnXiGTlAGUYg9LdU9ZbM/EQYOz2PJkXbOY
+         EQ9yuNt3zqCH9ja0GoDG+emmwJ+sC1bbOENAwBxrKWH/nk7FTArlozthAkK4Q8A35CiX
+         GVFw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779955229; x=1780560029;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=N7iMbetrrOwn6wQkhuxIddok2tB1wY35g7JsfGtZdak=;
+        b=hXXmXoVqXvvnvmdWb8L63LdSiq9x/KL3qyMD9s7aVa8qxy8dAuSXha8+rNJNfjmrKW
+         zxXBi1D9V6azobmqk1n4VbBB7K8T4tgYPDwacCjD8f09Gz+HLyc1YtLTqKQy8gxMI5AK
+         GUanaBb4qhGbm6cRxzedfPPAY5VkNwaq6iJnSNn6gxPvduKJ9F99617M4laxg1VGkupl
+         whYKQfjVbWVIlWsQsZ7I8sSUHKKBpniaz0lMlkgD9qmZPuCrDaaIs9jjLB1bT8utmD54
+         IEzcBDCdj4UrqEnB5K2PqafD09Bn1ncOJJHJp1t95GXUd7JrkYhFRpAmxLPAy4lgRgNw
+         FIaA==
+X-Forwarded-Encrypted: i=1; AFNElJ9EweNiZoQIcrY0qx9YgHuAzNaYm6Bf4bVppC+LsP2NLrXVrX9UfNu6K+wZKqVjLSPSWAh2yvZG6vcL@vger.kernel.org
+X-Gm-Message-State: AOJu0YzU91aB8qLaY8YbHTdQZ3OeaU7wY+KWbeHnbWIRlm1/63qXG+Fw
+	j3e6f+4/HrSXJTFX7eY6BLBI7qZgldGEAzlNfFegi+K3j3t5pM4riM1DTc8bECNcmvkgOyN883f
+	H6oCgq/kGF3B5baVK4ZrliHIrI6dunfPV35E5f1zk9rmYHCdpiKqcuNmFCP8b+sQC
+X-Gm-Gg: Acq92OHaPtpDtWXMzAbrc1xuo8wumCyb2JsiOH0PZ2ku6F1uLzxgj7508OMlyGB2uFY
+	57c9me6Qqm97XD1PQy89SZ3JhK5PIBTGF4M3HBn1tGUU+JatkjbzBK2fke/GDD0/DnVPYIJ5Q9V
+	OMcEoFHwDqIsBXkQU3vQ3ZbdzlT/Jh+LiR9nMI2JDcE5pMAON4/vnNasav/m3wPxOXnGzhjGrUq
+	US/llROTKMYzdQG5mdoPnqavOH0WU19eGZElkAJ7kQqWuQmuciPhZOsiXA8Bu08wINoZZUguoJi
+	OPM9ApRAA2nQtvNKXfj0zDq1D/k+Yk33gAVRrRoAyRrUGhc5a9/3+SOUvEmGsxhDR9dVXgLKb1p
+	bvjkbFs7rzmKp37e9U9GfWOq3CnZ0WFpY0DHf/SmIrXNJR5UofKGcURiNkN2Jcv9Q8pbQQz/oN3
+	2brUgwU/kSEScyRVXmnTUmWdCV10tAgY1aCxLXqi06K53Byw==
+X-Received: by 2002:a05:622a:8589:b0:516:daff:7f71 with SMTP id d75a77b69052e-516daff8005mr277691211cf.56.1779955228569;
+        Thu, 28 May 2026 01:00:28 -0700 (PDT)
+X-Received: by 2002:a05:622a:8589:b0:516:daff:7f71 with SMTP id d75a77b69052e-516daff8005mr277690111cf.56.1779955227789;
+        Thu, 28 May 2026 01:00:27 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa462cf284sm1739113e87.7.2026.05.28.01.00.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2026 01:00:26 -0700 (PDT)
+Date: Thu, 28 May 2026 11:00:23 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
+        linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
+        Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
+        Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>
+Subject: Re: [PATCH 3/5] phy: qualcomm: qmp-combo: Add preliminary USB4
+ support
+Message-ID: <zzs4wgr37wfptzqwgttxdubqnyudyh3am2r6i7b56kd3lwuo2e@bjcyelaxtlq3>
+References: <20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com>
+ <20260518-topic-usb4phy-v1-3-71d827c49dca@oss.qualcomm.com>
+ <4nqlpu7qfptekyn77sd7sdn446stgn3v3lw2356bvizrnvjgnr@czqgivemigt5>
+ <9aad8e45-b0a5-4c59-8793-8c0747d8fafa@oss.qualcomm.com>
+ <uc2l2mbobmik5workhcbtry5spe2gyamx2x4yj4rjly4t3dbrh@n34fo74rctnk>
+ <6fb112ae-5919-4c8f-a915-4538d14284da@oss.qualcomm.com>
+ <iws2snsi3yfddich3rqqurhwt6mvi2boushkog5t5gvo2ahwmp@l2m6ays2kicf>
+ <72b140a7-e95e-491d-8bae-f98a593bdbfb@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <72b140a7-e95e-491d-8bae-f98a593bdbfb@oss.qualcomm.com>
+X-Authority-Analysis: v=2.4 cv=VOntWdPX c=1 sm=1 tr=0 ts=6a17f61d cx=c_pps
+ a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=PDx2_Kj2Eo2xtKM_tVQA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
+X-Proofpoint-GUID: bgZLzKEXIr5QnbRSdSsRLj54gVVTK6aO
+X-Proofpoint-ORIG-GUID: bgZLzKEXIr5QnbRSdSsRLj54gVVTK6aO
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDA3OSBTYWx0ZWRfX42m64wGzkZPf
+ Umvh6yychbN5WgI+0/hbpyNFa6zxNZ0Vlt575HbnTtt4+8kDDeEjXuD6BLqV/O8ZBw9+LX1yNzB
+ uZcvTmV5310gFREfzwqW4wl07XoSe9UwsMducDOWyQZL5ZhSnokrc5Hh+7Mcc/elibB9xoZwMGS
+ GPhpKsTZBoJT8jDR7zoVxnDvP5uH0geSkWEwd8avP7QczdaXNzM1D+6kuwajFjHWEwrmtbNVwaA
+ ON1gg4/Rv0HwcfTonbv2g0F60v8ec85h5DHQVldElgEBHHdLacHyv8naSB8IhHObI/7av24gzFm
+ sWteqM9OxIOHrWmsDRMhXb65FHMEE+UZqdxY3KHVcxu0J7g0iWduOCoxlMyxOtG7ndJr5lQ1Xv6
+ //+57oVb8gK3fCGr1ip2LG+jIwo9mpNGdZ9hPvYxHbvDnxKoc73vG/qnjRTz+S6bDRMrKzO3O2m
+ puBidxiIWBGiJhUH8TA==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_02,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280079
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit message claims the binding requires two `reg` regions=
-, but the schema specifies `minItems: 1`, making the second region optional.
---
+On Fri, May 22, 2026 at 02:05:14PM +0200, Konrad Dybcio wrote:
+> On 5/20/26 5:06 PM, Dmitry Baryshkov wrote:
+> > On Tue, May 19, 2026 at 10:12:06AM +0200, Konrad Dybcio wrote:
+> >> On 5/18/26 5:38 PM, Dmitry Baryshkov wrote:
+> >>> On Mon, May 18, 2026 at 04:15:16PM +0200, Konrad Dybcio wrote:
+> >>>> On 5/18/26 3:57 PM, Dmitry Baryshkov wrote:
+> >>>>> On Mon, May 18, 2026 at 12:29:50PM +0200, Konrad Dybcio wrote:
+> >>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>>>
+> >>>>>> Some Combo PHYs (so far only on SC8280XP, X1E80100 and Glymur), come in
+> >>>>>> a flavor called USB43DP, which as the name implies, features USB4, USB3
+> >>>>>> and DP signal processing capabilities. In that architecture, USB3 and
+> >>>>>> USB4 PHYs share the same USB_PLL while featuring separate logic spaces.
+> >>>>>> The DP part is roughly the same as on the instances without USB4.
+> >>>>>>
+> >>>>>> The USB4 and USB3/DP operation modes of the PHY are mutually exclusive.
+> >>>>>> Only one USB protocol (and flavor of pipe clock) can be active at a
+> >>>>>> given moment (not to be confused with USB3 not being able to be
+> >>>>>> tunneled as USB4 packets - that of course remains possible).
+> >>>>>> The DP PLL is still used for clocking tunneled DP links. It may be
+> >>>>>> turned off to save power when no tunnels are active, but that's left as
+> >>>>>> a TODO item for now.
+> >>>>>>
+> >>>>>> Due to the nature of USB4, the Type-C handling happens entirely inside
+> >>>>>> the Host Router, and as such the QMPPHY's mux_set() function is
+> >>>>>> nullified for the period when USB4 PHY remains active. This is strictly
+> >>>>>> necessary, as the Host Router driver is going to excercise manual
+> >>>>>> control over the USB4 PHY's power state, which is needed by the suspend
+> >>>>>> and resume flows. Failure to control that synchronously with other
+> >>>>>> parts of the code results in a SoC crash by unlocked access.
+> >>>>>>
+> >>>>>> Because of that, a new struct phy is spawned to expose the USB4 mode,
+> >>>>>> along with a .set_mode callback to allow toggling between USB4 and TBT3
+> >>>>>> submodes.
+> >>>>>>
+> >>>>>> Thunderbolt 3, having a number of differences vs USB4, requires a
+> >>>>>> couple specific overrides, pertaining to electrical characteristics,
+> >>>>>> which are easily accommodated for.
+> >>>>>>
+> >>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> >>>>>> ---
+> >>>>>>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 392 ++++++++++++++++++++++++------
+> >>>>>>  1 file changed, 322 insertions(+), 70 deletions(-)
+> >>>>>>
+> >>>>>
+> >>>>> Overall it looks good. The major question (after looking at TODOs), do
+> >>>>> we need a separate submode for USB+DP / TBT+DP?
+> >>>>
+> >>>> The problem space is as follows:
+> >>>>
+> >>>> After a TBT (collectively TBT3+ and USB4) link has been established and
+> >>>> we have a link partner, we may (based on the HW capabilities and user
+> >>>> config, such as kernel params but not only) start or stop a DP tunnel at
+> >>>> runtime. On Qualcomm hardware, the PHY is kept in USB4 mode and its DP
+> >>>> AUX lines are not used (instead, the encapsulated DP AUX packets are r/w
+> >>>> entirely within the USB4 subsystem via a pair of FIFOs that Linux sees
+> >>>> as a separate DP AUX host)
+> >>>
+> >>> So far so good. But I still don't grok if having a DP-over-USB4 is a
+> >>> separate submode or not. I.e. I see code (and TODOs) to detect and
+> >>> handle DP going on and off. Would it be better if we specify that
+> >>> explicitly?
+> >>
+> >> I really don't want to end up in a situation like we have with:
+> >>
+> >> $ rg _USB include/linux/phy/phy.h
+> >> 29:     PHY_MODE_USB_HOST,
+> >> 30:     PHY_MODE_USB_HOST_LS,
+> >> 31:     PHY_MODE_USB_HOST_FS,
+> >> 32:     PHY_MODE_USB_HOST_HS,
+> >> 33:     PHY_MODE_USB_HOST_SS,
+> >> 34:     PHY_MODE_USB_DEVICE,
+> >> 35:     PHY_MODE_USB_DEVICE_LS,
+> >> 36:     PHY_MODE_USB_DEVICE_FS,
+> >> 37:     PHY_MODE_USB_DEVICE_HS,
+> >> 38:     PHY_MODE_USB_DEVICE_SS,
+> >> 39:     PHY_MODE_USB_OTG,
+> >>
+> >>>> Then, on hamoa/glymur specifically, any of the 3 USB4-capable DP hosts
+> >>>> can be muxed to either of the 2 DPIN ports on any of the 3 USB4 routers
+> >>>> (and each of these routers is hardwired to one of the PHYs).
+> >>>>
+> >>>> To underline, we have 3 DP producers and 6 consumers. If there's e.g. a
+> >>>> super high-res display at one of the physical ports, or a long
+> >>>> daisy-chain, we may need to use 2 DPTXes to service 1 receptacle. Then,
+> >>>> we would only need one of the PHYs (associated with the router that's
+> >>>> wired to that port) to provide a DP clock.
+> >>>>
+> >>>> This, along with the normal (logical or physical) present/absent status
+> >>>> can change at runtime. My plan is to use phy_set_opts(dp_tunelling=true)
+> >>>> or something along those lines to toggle that bit as necessary
+> >>>
+> >>> I don't see phy_set_opts(). So maybe a submode then...
+> >>
+> >> Sorry, I misremembered the name. The function is phy_configure(), and it
+> >> takes a union phy_configure_opts, hence the confusion
+> > 
+> > So, phy_configure() will be called for the DP PHY to set the DP opts,
+> > but how do you plan to determine if DP is on or not? Or do you plan to
+> > add phy_tbt_configure_opts ?
+> > 
+> > Another obvious option would be to set the flag if DP PHY is being tuned
+> > on / off. I don't know if that fulfills your needs.
+> 
+> Either this or tbt_configure_opts. We still have the muxing question to
+> chew through.
+> 
+> The bottom line is that all AUX traffic happens between the "AUX adapters"
+> within USB4SS, talking over thunderbolt to other AUX adapters on the LTTPRs
+> and the far-end device (and anything inbetween in a chained topology) meaning
+> we only need to engage the DP host itself (and therefore the PHY) after we've
+> already performed the capability negotiations
 
-commit 1bb6224b110a8990b3c95cd44d683d1ba249d994
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
+I hope you mean USB link capabilities. DP host still needs to ping LTTPRs
+and read all the DP properties on its own. I don't think we want to leak
+that to the other layers.
 
-dt-bindings: i2c: Split AST2600 binding into a new YAML
-
-This commit separates the AST2600 I2C controller bindings from the older
-AST2400/AST2500 schemas into a dedicated file. It also updates the schema
-to enforce AST2600-specific constraints like interrupts, clock frequencies,
-and register regions.
-
-> diff --git a/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yam=
-l b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
-> new file mode 100644
-> index 0000000000000..abc614315dffb
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - aspeed,ast2600-i2c-bus
-> +
-> +  reg:
-> +    minItems: 1
-
-[Severity: Medium]
-The commit message states that this binding adjusts AST2600-specific
-requirements to "require two reg regions (controller register block + buffer
-block)".
-
-Should minItems be set to 2 here to enforce that requirement? Setting it
-to 1 makes the second region optional, which allows device tree nodes with
-only a single reg region to silently pass schema validation.
-
-> +    items:
-> +      - description: controller registers
-> +      - description: controller buffer space
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-upstream_i=
-2c-v30-0-5d4f9adc3530@aspeedtech.com?part=3D1
+-- 
+With best wishes
+Dmitry
