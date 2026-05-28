@@ -1,88 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C859D3EFD02
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBB33EF665;
+	Thu, 28 May 2026 12:36:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779971817; cv=none; b=XWGKiZQj3ZCoAyvUIcfp6bp6yJIefL7Gkq5Kzqtigv83otRCHJyYqd/c+FTVQZe4IJE2Etv00BcPnXck1hhEm5/+K2WmVI8KSOV9hBd5IChJO9bMJdJAAE9OnpLjfPsq3W+wDDU8j8OrOBEIk2qtJUi7oLpA2MUgLjuufwb4Qew=
+	t=1779971818; cv=none; b=oTA3YlSJcHiugucdeAN9YsTIY2C+KHVdSaO6qrJhkmIl3/8UtvhLcHhkXGktqbH6t+MoRmmKJzxzzhmWj5Seai+dZj4pD/rI5PehCzRr9QLkxy3yOwGR7WMXVnzvb/8/2hnNUf77sTa/h32u00HfIXFo1Lf707BgwjOtbTinFRs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779971817; c=relaxed/simple;
-	bh=4Bw5PQSNIb+4cHUyfspc5hYuIAlRiJlq+FeHPVBWUuM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bIZbXpf31fog+b9iQHJnyZT4uVApSuw81ODdoTgzJ/F23mbGRYsR1ROYMjMrdZq5Mn2akvwdrfeLC+tpzRmaAaY9lXuKDa1c4tXD9qEzdsE9bluoVDDAtGicl30+mw3CIPw3BOmJ4kMM9NCEuyy8DgkgAsGcZICTeAG41Wk8NvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UwPMPVQT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779971818; c=relaxed/simple;
+	bh=xNNQnAfxSC6VbRuuv0oOGpuEZSuAtvchydBtcTDF8lg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rlkuCkOiHOJ8UR/gWqzS+NkeuHjxW5rM7pvMJVeiqE2KDi3+yCMaekuc8O8vnZBqMSmbkk0CBFbHxvXD2SCkTANRUhccDiFOqKePWpQOCZPd+CS9vG9BuGRlrwvLBn2fdvxVPs5lyHXU8vu0o1Lwtp9njjQFzMpa57FdBY/o8bQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=NN56Us8x; arc=none smtp.client-ip=31.3.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UwPMPVQT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F44F1F00A3A;
-	Thu, 28 May 2026 12:36:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779971816;
-	bh=4Bw5PQSNIb+4cHUyfspc5hYuIAlRiJlq+FeHPVBWUuM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UwPMPVQTBprFrBRPCoPiJ7cJKSY/5Cc3DAw8Yoo9lkLiMl2Bbu99t7gjTA6sqo9WU
-	 rAKOvL1yKAWp8Ed3AOIea+8pNFCsvVqsIkAA1/nNAuGPvqA+PZ32dEVop5i8rkemQd
-	 5ebdrIVJPM8yjvtTabsewbwxteA2Cok2GDrkadHSdjB5myGw770K13JgbIXzzNl/ss
-	 XQgv5yYFxI2TctlNfDVfROofQUY57Rsx0KPgmesktDbo2P0ZsSyfOv+Mcfo9uLgc/w
-	 M94XLakRayzm6y8QJaKS539P7bQP3w7x0SGvLZrITOj+q2EpwbSUQXtZCHgzyg4bTy
-	 7KcAcKLSOFTuQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/5] dt-bindings: clock: qcom: Add Qualcomm Shikra
- Display clock controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528-shikra-dispcc-gpucc-v2-2-953f246a0fbb@oss.qualcomm.com>
-References: <20260528-shikra-dispcc-gpucc-v2-2-953f246a0fbb@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 12:36:55 +0000
-Message-Id: <20260528123656.4F44F1F00A3A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="NN56Us8x"
+From: Martino Dell'Ambrogio <tillo@tillo.ch>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
+	t=1779971807;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=itbZjZRKXln7cACQXBgUCNHsIa9fw9ikb73wmLlO620=;
+	b=NN56Us8xnHzAZPWEEB/c/QPp1KHoU3luSk5dCZ+iiqunpn/TpiUTsfAE5v1EIQms8o0wMD
+	pw0lZSGg/XthICwelE03poHumGQwxloDRYiYngQjAOYFoMofQi0n6DJQrpIWJeB6ynsJOq
+	k71jLbq4daNyr5oiqetbO8FXk4lB04wdAIwSchH+jjFJI692Y3xMGcj4gLjJjLuF4Hp0lY
+	M7XOf1QCVkmYkRXSU0Njt2XiLb5wqSdLl9KvGv14yLlkJhT0SLjEf8NYf2zXlVl1twFE5+
+	Zrxajb2B2oYCuhCBu2N492Saw1AeIdsweTEYTuI64L4TpNvonqqSDwB0oxvvWA==
+To: matthias.bgg@gmail.com,
+	angelogioacchino.delregno@collabora.com
+Cc: kees@kernel.org,
+	tony.luck@intel.com,
+	gpiccoli@igalia.com,
+	linux-mediatek@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Martino Dell'Ambrogio <tillo@tillo.ch>
+Subject: [PATCH v2] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
+Date: Thu, 28 May 2026 14:36:44 +0200
+Message-ID: <20260528123645.2650085-1-tillo@tillo.ch>
+In-Reply-To: <20260528093038.1945245-1-tillo@tillo.ch>
+References: <20260528093038.1945245-1-tillo@tillo.ch>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The conditional schema for 'qcom,shikra-dispcc' fails to enforce=
- the presence of its 3 newly required input clocks because `minItems` is no=
-t overridden in the `then` block.
+Reserve 1 MiB of RAM just below the ARM Trusted Firmware secmon region
+(0x42f00000-0x43000000) for persistent kernel log storage via pstore/ramoops,
+allowing post-panic console output and oops dumps to be recovered after a
+reboot. Without it, kernel crash logs on this board are lost when the SoC
+warm-resets and the on-chip console buffer is reinitialised.
+
+With record-size=128 KiB, console-size=256 KiB, ftrace-size=64 KiB and
+pmsg-size=64 KiB, ramoops_probe() carves the post-console remainder
+(640 KiB) into five 128 KiB kmsg records, with the requested ecc-size=16
+reserving a small Reed-Solomon parity block from each zone's own
+allocation (per persistent_ram_new()). The ECC lets pstore recover dumps
+even when the panic path truncates writes mid-record.
+
+The no-map property is required so the reserved region is kept out of the
+kernel linear map. ramoops remaps the carve-out write-combine via
+ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
+the linear map at the same time is an attribute-mismatch and risks losing
+panic data to dirty cache evictions from the linear alias.
+
+The carve-out sits immediately below the ATF region already declared at
+0x43000000 in mt7988a.dtsi, so no other reserved-memory child is moved or
+resized. BPI-R4 ships with at least 4 GiB of DRAM starting at 0x40000000,
+so the region is well within installed memory on every variant.
+
+For the carve-out to actually preserve content across a reset, the boot
+loader must also avoid touching this region on warm reset; on standard
+BPI-R4 boards with the stock OpenWrt U-Boot fork this already holds.
+
+Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
+---
+Changes in v2:
+ - Add no-map; to keep the carve-out out of the kernel linear map and
+   avoid the cacheable/write-combine attribute mismatch on arm64.
+   (sashiko-bot, gemini-3.1-pro)
+ - Rewrite the ECC paragraph in the commit log: ramoops carves ecc-size
+   from each zone's own allocation in persistent_ram_new() and the
+   post-console remainder is split into record-size'd kmsg records, not
+   one record plus a separate ECC pool. (sashiko-bot, gemini-3.1-pro)
+
+v1: https://lore.kernel.org/all/20260528093038.1945245-1-tillo@tillo.ch/
+
+ .../boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi   | 13 +++++++++++++
+ 1 file changed, 13 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+index 0ff69da..f7d4944 100644
+--- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
++++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
+@@ -80,6 +80,19 @@ sfp1: sfp1 {
+ 	};
+ };
+
++&{/reserved-memory} {
++	ramoops@42f00000 {
++		compatible = "ramoops";
++		reg = <0 0x42f00000 0 0x100000>;
++		no-map;
++		record-size = <0x20000>;
++		console-size = <0x40000>;
++		ftrace-size = <0x10000>;
++		pmsg-size = <0x10000>;
++		ecc-size = <16>;
++	};
++};
++
+ &cci {
+ 	proc-supply = <&rt5190_buck3>;
+ };
 --
-
-Note: Due to system recitation restrictions, this review does not use the
-standard inline diff quoting format. Instead, a free-form summary of the
-findings is provided below.
-
-commit 6ba505cef231c7d845e3f3af3b33919e232b9b05
-Author: Imran Shaik <imran.shaik@oss.qualcomm.com>
-
-dt-bindings: clock: qcom: Add Qualcomm Shikra Display clock controller
-
-This commit adds the Shikra Display clock controller by updating the
-existing QCM2290 DISPCC bindings. It uses a conditional schema to support
-the additional clocks required for Shikra while preserving QCM2290
-constraints.
-
-[Severity: Medium]
-In the conditional block added to differentiate qcom,shikra-dispcc from
-qcom,qcm2290-dispcc, does this introduce a regression in schema validation
-by missing explicit minItems constraints for the clocks and clock-names
-arrays?
-
-The top-level schema defines minItems: 6 and maxItems: 9. In json-schema,
-providing an items list in a conditional block validates the elements at
-those indices but does not implicitly enforce the overall array length.
-Could a device tree node for qcom,shikra-dispcc that provides only 6 clocks
-silently pass validation because it satisfies the top-level minItems
-constraint?
-
-To properly enforce the 9 required clocks for Shikra, should minItems: 9 be
-explicitly added to both clocks and clock-names inside the then block?
-Similarly, could maxItems: 6 be added to the else block to ensure
-qcom,qcm2290-dispcc remains restricted to exactly 6 clocks?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-shikra-dis=
-pcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com?part=3D2
+2.47.3
