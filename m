@@ -1,268 +1,123 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 223CB2EBB9E;
-	Thu, 28 May 2026 15:38:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779982700; cv=pass; b=b2nEiAS0zONc2b2/iKT70DezN/ps/uu2LqFTCU0FyDqQAhkaEQMeyPigjF0DFHo/ozUiY4YlwyCf2J6M+uX5vHxRSyo6nyRZacWU303he/RUhHoYrUPqrdUast6m3OSdIsuHRLjfzbmajQeb4VCtiBdC0dIVARDqWCPjc1nXebo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779982700; c=relaxed/simple;
-	bh=61/ijVewiKf3w7vgF/KrUdtuG2oBcmlFlPpRG0y5IEs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=orF7bA16qH6p6/G2gEdoXaWsS9EQOEGsvVMmgnE/RAsOJf/7CLtNzP0WVJi2CUMa9qp7PTjMXCiZdtVZ/CDPFjrsMz2Dnf2pvQRI6FUjMcs7bMYmQJqTJYgSbaa4DXTU0nDSuJ+Q1WOzfXt0VcF+JZ4ls5KicXikm1mAXDFmg94=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=Gv+tohvh; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 809D8481249
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:46:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779983191; cv=none; b=YMOhmCKGwjRc1AlX8SrN9e5JSgaa4mZjX0034wIjD1ojaTdhKqMSahwogItVyFjgbAsjs0BYsQ5HS/VnFW04GzNlBrmUWTO2Rm7pEFKUb5iIH6sBxklG369rHbmBwQ4NwO5OPhM7vp2WQWVYiy0CxiaFX9W/sBGnEnNJFBji30Q=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779983191; c=relaxed/simple;
+	bh=ZcxEwXE1OB6A4lNBsg0j+Ck+Wn3pDWCw2b/gZ2ylMXM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dV5qWqtgV7ThymRVTiKvl1trQ4fcIXD7/sMGlkCKpxfvWCRWr6c1AfhPqW9iZtN2uhQwoCy8gU+1AI8TRLA8sNF/sM616g1Ehekbd8cCLNlQqbQVjsJHaPjwYqAItg5nI2XiejwwoplhclpIgjWejRInWuqquVXoY6PAy8wfU+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=t8m3C54g; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="Gv+tohvh"
-ARC-Seal: i=1; a=rsa-sha256; t=1779982643; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=UmekvXYN7RRSnHTCLJ9nmNGs86iZ9e9cQ/O+BAx9wNHc7Rf2nDJ1pbe+O+WB7u4hfl8CrX1IcE7UhWWdqTV2PvlYIX+fVS4VqW2wa++vgK9bgyVwTECevZ0liE7xYX8bfXvuXYYM/fXbM98eXNxP+oA4Ifc9518B9Vvv86haNhY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779982643; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=hx6IngChPzu8wVFfFvPOU9rvJKQ/Ut7ytcKKn5x2rGo=; 
-	b=Yztq4r7PXpI/bsIIkuyyunCgThBDvC8hO44keh1DfewMNqOrW9KJ/qcikqsRMTUjXnv4vy6JSdcOTUfqjE6eiPxM+zOLkq4njm2IGn0WIpmUjSIFnzMMz3pOhVgaDqUYOMk1mFsPb7NgiscAh1rT01aqadQEENOeecYntiuoLEo=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779982643;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=hx6IngChPzu8wVFfFvPOU9rvJKQ/Ut7ytcKKn5x2rGo=;
-	b=Gv+tohvhN+Q91PScXFZSx7Yqg3dd2TPLxKiFsIK9A7Qx4du0tJ3PLa19oqdrMlG/
-	J8zxhIsPW3tBY5qn1bHUw5Iot5mzRvPkRA3IR4fnluUtb+DvGo6Z/SJdcHgtH3hrQWK
-	LtrRp0QQyYArHz1vZJNxzlzeTk13hX0E1izuf6BM=
-Received: by mx.zohomail.com with SMTPS id 1779982641704569.2331869375547;
-	Thu, 28 May 2026 08:37:21 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <kernel@airkyi.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject:
- Re: [PATCH v15 1/9] drm/bridge: Implement generic USB Type-C DP HPD bridge
-Date: Thu, 28 May 2026 17:37:10 +0200
-Message-ID: <q6ufdWF5QJ60i9KlIiE_AA@collabora.com>
-In-Reply-To: <20260304094152.92-2-kernel@airkyi.com>
-References:
- <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-2-kernel@airkyi.com>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="t8m3C54g"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 2E7174B9409;
+	Thu, 28 May 2026 17:46:25 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1779983187; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=Lig/Y3jjno2s3ssT2q87EUHF7rWx9/04UKQMvVpIUBw=;
+	b=t8m3C54gKW9W7JpxCSv30JiXzivv60u8SoMRRMCicGUYQkedL7v7+1m9FVelyXL3E7WCTo
+	XnfMpht0eFKrB1WzHaZTe6WDbcDl3/mGmaHrHt/l9Thr5QBtScMAoucGLxKiIKvmYlEjAA
+	KP9LFmAg4rTLk74yLNjXsRAxVwzz4JE62GFCFIpoUENdEnTwy1NT9+KnyNIZaizLjxDKp8
+	aoplKkmrJ0RENTc/SlStN70si/BlDPUzIM5MJ1iEiF7joWwLXQgwo79/c7UtOS8EL28rRD
+	tHGuSPMWaRkFPjkgG6sc4n8zGapnpRXfwaPli0MeTLZTs5OIOIamow8JyZ5Tfw==
+Message-ID: <8542ce1e-4e6b-4393-87f7-b4270f43be65@cjdns.fr>
+Date: Thu, 28 May 2026 17:46:25 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
-
-On Wednesday, 4 March 2026 10:41:44 Central European Summer Time Chaoyi Chen wrote:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> 
-> The HPD function of Type-C DP is implemented through
-> drm_connector_oob_hotplug_event(). For embedded DP, it is required
-> that the DRM connector fwnode corresponds to the Type-C port fwnode.
-> 
-> To describe the relationship between the DP controller and the Type-C
-> port device, we usually using drm_bridge to build a bridge chain.
-> 
-> Now several USB-C controller drivers have already implemented the DP
-> HPD bridge function provided by aux-hpd-bridge.c, it will build a DP
-> HPD bridge on USB-C connector port device.
-> 
-> But this requires the USB-C controller driver to manually register the
-> HPD bridge. If the driver does not implement this feature, the bridge
-> will not be create.
-> 
-> So this patch implements a generic DP HPD bridge based on
-> aux-hpd-bridge.c. It will monitor Type-C bus events, and when a
-> Type-C port device containing the DP svid is registered, it will
-> create an HPD bridge for it without the need for the USB-C controller
-> driver to implement it.
-> 
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-> ---
-> 
-> (no changes since v14)
-> 
-> Changes in v13:
-> - Only register drm dp hpd bridge for typec port altmode device.
-> 
-> (no changes since v12)
-> 
-> Changes in v11:
-> - Switch to using typec bus notifiers.
-> 
-> (no changes since v10)
-> 
-> Changes in v9:
-> - Remove the exposed DRM_AUX_HPD_BRIDGE option, and select
-> DRM_AUX_HPD_TYPEC_BRIDGE when it is available.
-> - Add more commit comment about problem background.
-> 
-> Changes in v8:
-> - Merge generic DP HPD bridge into one module.
-> ---
-> 
->  drivers/gpu/drm/bridge/Kconfig                | 10 ++++
->  drivers/gpu/drm/bridge/Makefile               |  1 +
->  .../gpu/drm/bridge/aux-hpd-typec-dp-bridge.c  | 49 +++++++++++++++++++
->  3 files changed, 60 insertions(+)
->  create mode 100644 drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-> 
-> diff --git a/drivers/gpu/drm/bridge/Kconfig b/drivers/gpu/drm/bridge/Kconfig
-> index a250afd8d662..559487aa09a9 100644
-> --- a/drivers/gpu/drm/bridge/Kconfig
-> +++ b/drivers/gpu/drm/bridge/Kconfig
-> @@ -30,6 +30,16 @@ config DRM_AUX_HPD_BRIDGE
->  	  Simple bridge that terminates the bridge chain and provides HPD
->  	  support.
->  
-> +if DRM_AUX_HPD_BRIDGE
-> +config DRM_AUX_HPD_TYPEC_BRIDGE
-> +	tristate
-> +	depends on TYPEC || !TYPEC
-> +	default TYPEC
-> +	help
-> +	  Simple bridge that terminates the bridge chain and provides HPD
-> +	  support. It build bridge on each USB-C connector device node.
-> +endif
-> +
->  menu "Display Interface Bridges"
->  	depends on DRM && DRM_BRIDGE
->  
-> diff --git a/drivers/gpu/drm/bridge/Makefile b/drivers/gpu/drm/bridge/Makefile
-> index c7dc03182e59..a3a0393d2e72 100644
-> --- a/drivers/gpu/drm/bridge/Makefile
-> +++ b/drivers/gpu/drm/bridge/Makefile
-> @@ -1,6 +1,7 @@
->  # SPDX-License-Identifier: GPL-2.0
->  obj-$(CONFIG_DRM_AUX_BRIDGE) += aux-bridge.o
->  obj-$(CONFIG_DRM_AUX_HPD_BRIDGE) += aux-hpd-bridge.o
-> +obj-$(CONFIG_DRM_AUX_HPD_TYPEC_BRIDGE) += aux-hpd-typec-dp-bridge.o
->  obj-$(CONFIG_DRM_CHIPONE_ICN6211) += chipone-icn6211.o
->  obj-$(CONFIG_DRM_CHRONTEL_CH7033) += chrontel-ch7033.o
->  obj-$(CONFIG_DRM_CROS_EC_ANX7688) += cros-ec-anx7688.o
-> diff --git a/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-> new file mode 100644
-> index 000000000000..d915e0fb0668
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/aux-hpd-typec-dp-bridge.c
-> @@ -0,0 +1,49 @@
-> +// SPDX-License-Identifier: GPL-2.0+
-
-Having a copyright statement added here is likely required.
-Something like
-
-/*
- * Copyright (C) 2026 Rockchip Electronics Co., Ltd.
- *
- * Author: Chaoyi Chen <chaoyi.chen@rock-chips.com>
- */
-
-will suffice. While I hope it's never relevant for a driver this
-small, explicit copyright statements in this form have a legal
-effect in some jurisdictions like the US, where by law it
-automatically dismisses the defense that the copyright holder
-wasn't known.
-
-> +#include <linux/of.h>
-> +#include <linux/usb/typec_altmode.h>
-> +#include <linux/usb/typec_dp.h>
-> +
-> +#include <drm/bridge/aux-bridge.h>
-> +
-> +static int drm_typec_bus_event(struct notifier_block *nb,
-> +			       unsigned long action, void *data)
-> +{
-> +	struct device *dev = (struct device *)data;
-
-Small nitpick: The explicit (struct device *) cast of data isn't
-needed here. Just
-
-    struct device *dev = data;
-
-will work fine. The benefit is that if the type of "data" ever changes
-(e.g. from void *data to const void *data) then we're not silencing
-a warning/error through an explicit cast.
-
-> +	struct typec_altmode *alt = to_typec_altmode(dev);
-> +
-> +	if (action != BUS_NOTIFY_ADD_DEVICE)
-> +		goto done;
-> +
-> +	/*
-> +	 * alt->dev.parent->parent : USB-C controller device
-> +	 * alt->dev.parent         : USB-C connector device
-> +	 */
-> +	if (is_typec_port_altmode(&alt->dev) && alt->svid == USB_TYPEC_DP_SID)
-> +		drm_dp_hpd_bridge_register(alt->dev.parent->parent,
-> +					   to_of_node(alt->dev.parent->fwnode));
-> +
-> +done:
-> +	return NOTIFY_OK;
-> +}
-
-Nitpicking: the "done" label and "goto done" here is redundant.
-You could remove the label and replace the goto with another
-"return NOTIFY_OK;". There's no functional change here though.
-
-> +
-> +static struct notifier_block drm_typec_event_nb = {
-> +	.notifier_call = drm_typec_bus_event,
-> +};
-> +
-> +static void drm_aux_hpd_typec_dp_bridge_module_exit(void)
-> +{
-> +	bus_unregister_notifier(&typec_bus, &drm_typec_event_nb);
-> +}
-> +
-> +static int __init drm_aux_hpd_typec_dp_bridge_module_init(void)
-> +{
-> +	bus_register_notifier(&typec_bus, &drm_typec_event_nb);
-> +
-> +	return 0;
-> +}
-> +
-> +module_init(drm_aux_hpd_typec_dp_bridge_module_init);
-> +module_exit(drm_aux_hpd_typec_dp_bridge_module_exit);
-> +
-> +MODULE_DESCRIPTION("DRM TYPEC DP HPD BRIDGE");
-> +MODULE_LICENSE("GPL");
-> 
-
-Feel free to add yourself as MODULE_AUTHOR here. :)
-
-With those things changed:
-
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-
-Kind regards,
-Nicolas Frattaroli
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v6 3/5] clocksource/timer-econet-en751221: Init teardown
+ on error if possible
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260528140046.2897674-4-cjd@cjdns.fr>
+ <20260528152337.DD6D41F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260528152337.DD6D41F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
 
+On 28/05/2026 17:23, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Critical] The newly added error path for `cpuhp_setup_state()` failure creates a fatal use-after-unmap vulnerability by freeing IRQs and unmapping I/O memory without unregistering the active clockevent devices.
+
+I'm considering this not-a-bug because at the time the timer comes 
+online, there is only one CPU, and if cevt_init_cpu errors out it 
+requires no tear-down. I can silence this warning by not erroring on 
+failed cpuhp_setup_state call, but I didn't consider "make Sashiko 
+happy" a good enough reason to do it.
+
+Thanks,
+
+Caleb
+
+> --
+>
+> commit e1e0b36b8164978eb079f38d9547d743cebd0a97
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> clocksource/timer-econet-en751221: Init teardown on error if possible
+>
+> This commit reorganizes the initialization process of the econet timer by
+> separating it into two phases. It adds teardown logic to safely roll back
+> resource allocations like memory mappings and IRQ requests if an error occurs
+> before the point of no return.
+>
+>> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+>> --- a/drivers/clocksource/timer-econet-en751221.c
+>> +++ b/drivers/clocksource/timer-econet-en751221.c
+> [ ... ]
+>> @@ -187,22 +166,45 @@ static int __init timer_init(struct device_node *np)
+> [ ... ]
+>> +	ret = cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
+>> +				"clockevents/econet/timer:starting",
+>> +				cevt_init_cpu, NULL);
+>> +	if (ret < 0) {
+>> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
+>> +		goto out_irq_free;
+>> +	}
+> [Severity: Critical]
+> When cpuhp_setup_state() executes the startup callback across online CPUs,
+> it registers the clockevent devices. If this fails on a subsequent CPU,
+> cpuhp_setup_state() aborts. Because a NULL teardown callback was provided,
+> the CPU hotplug core skips rollback and leaves the successfully registered
+> clockevent devices active on the earlier CPUs.
+>
+> The error path here then frees the IRQs and unmaps the I/O memory. If the
+> timekeeping core attempts to handle a timer interrupt or program the next
+> event on the still-registered clockevent devices, will it dereference the
+> unmapped memory?
+>
+> Should the active clockevent devices be unregistered, or a teardown callback
+> provided to cpuhp_setup_state(), before freeing these resources?
+>
+>> +
+>> +	/* Point of no return, do not attempt to tear down after this. */
+> [ ... ]
+>> +out_irq_free:
+>> +	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
+>> +out_irq_mapping:
+>> +	irq_dispose_mapping(econet_timer.irq);
+>> +out_membase:
+>> +	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
+>> +		if (econet_timer.membase[i]) {
+>> +			iounmap(econet_timer.membase[i]);
+>> +			econet_timer.membase[i] = NULL;
+>> +		}
+>> +	}
+>> +
+>> +	return ret;
+>>   }
