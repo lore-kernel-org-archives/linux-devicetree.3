@@ -1,114 +1,117 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EE603438B9
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 04:43:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779943399; cv=none; b=Uf0TM2mdA8TegClyx0rhS1w5PQZTF8rjSmgi7TeKz7ckM3A/nOFBEJInZU0gacmCKtAVo7S+PKtcqxBijuT0kaMO2UMgUB9qJEdwa4JPsJVmsNt2VVkFfrs8ml7tr8GuOaOxyOU2LXgXBPh7nJRIOGFxafaMWz/VidHeGm7GHxw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779943399; c=relaxed/simple;
-	bh=Irmwfl6vGWSwobgNYVUm7RbHr3ryO3FbPAgt+l+Y6Ns=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JUOQt0/+jskmOkJxJ6OWAGL8S6QAcX9kPB2AokFKFtnaG+wZ9cqQzRb68UHYtLo+UnpEtpRfxtDj5uXx7ikjjCZ5CfWKDpmzZJ2S11nxzR7dWwQ3qfywLkpvR61mQ+iuB9PuyZOOXozPmBzRc70PUW0zWS654epVUbEG3VshHX4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gA/kXnR2; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501C7301472
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:10:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779945048; cv=pass; b=iDaZW+gylKPv6tYVhsfQows7WPh5TI3LUbFS8MAXQz006Lw4E2o12osAa8hIETYCcydWrRRHklrvxjs5u5x07C5MUIdWZaBXFXWUJYIZM4HqfaCxwk7kyXFPi76lR9x3kx2aokmJ+gnf7vawPr1Q/7yjnPgvahRk602Q0x0I1Tc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779945048; c=relaxed/simple;
+	bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PmkJVww8HivjhKa/CHZnUZnoB8czXGONJhx9sM07naEML4nzl5ZCR0974/oye/5UQvEj77Lswniv1KE1HvNn1N2zzJMQVPclOchKO7rcWzxf0dhFqWsUa6kAoYMv8GDSXaXJ4MnlDLuikcNH1EDAA2/0gxhXw7JiQhgMu5b6K/Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FIyPntya; arc=pass smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gA/kXnR2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6273E1F000E9;
-	Thu, 28 May 2026 04:43:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779943397;
-	bh=dfi7hopzJTBajODwpuyvWs7vKGjkWFKxdPS6oKapgBU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gA/kXnR2bYeYo+s8vXnMya0EoR5nE81ArModxFYYI4nvjXQd68GA/3NkjUOXEEgYo
-	 QGDZM1YqY/s4M0NJ+2pORRRJRhPuvduK1OdaYUtCZn+Fo54TdEwz85cojx1qk59RmY
-	 dyF6wTx3UfDyJ26A9sepxgdIgy+9HdSusqqNMQP/HJsBxPb/ywNynZSQMWBadns6Vr
-	 9MTjXZ6WOSzEvC/N7tMsNcEXCRogKnYd48Ux5+HZuxlQKpviQH+5HOKeukvkeeJZCc
-	 FHqhDCd7oqUvb+ueKH2LVGCb1g8ie2F1jHmmUaWMXRR3lc8rszcphcjPtP/3dn2WbR
-	 B8te0lo/WHPLw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] ARM: dts: qcom: msm8960: Add CPU frequency
- scaling support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Rudraksha Gupta via B4 Relay" <devnull+guptarud.gmail.com@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260527-expressatt_cpufreq-v2-3-b9b7726ccb6d@gmail.com>
-References: <20260527-expressatt_cpufreq-v2-3-b9b7726ccb6d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 04:43:17 +0000
-Message-Id: <20260528044317.6273E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FIyPntya"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-304d555293aso693079eec.0
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 22:10:47 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779945046; cv=none;
+        d=google.com; s=arc-20240605;
+        b=URGq9c8Kvth0qPPBklmMyYtzNJSqJgjlYV7Z2u6vsbt9SGCwxNZ1NBaCgqCv+UNH3j
+         SqySSI9B2VLXU5HZ1pGrH+D+gYE49XQ/zLv1DEmIga+IvynFU7kAhCYsv8a0HmK51BWH
+         SxZjxOPnL3x/jR1j1LaUhHIXUSS5QYcDtdsslm7T9NzTvjYdMVatLDesfCLhC1LSaHsA
+         NCNfY1x4zhFSl6HVRxGiStrwpkSKwRdzKe2eIgyATPv4WR5Us24cXM2OEsQsvAuw2sU8
+         /nqoWUOEt3/DX7W6lEIn8ZJYuyzC2LK/XAQSYZQbIr8RCC6rOAD5B5x2h07iM73e6vIj
+         6RZQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
+        fh=tLrGCd65b1UOQkUQYjdSr0JMwazl5matEaaTrAaw9P0=;
+        b=BVKWrNkKNdvsn4OMgoy80z8jf36mWZsywOjvmOsOWPjobEgpankGXO8TZaaYSIWTHY
+         /YWeDpc9KbINi8fYYusBkUF+os6EvdsfAEh+bQhIeTHc0515loGh/kBrJQax5T5LC96+
+         e2M4Ed/jBKZvVu5xurpUdn45yDAfO+qZbtfgPeKWObohumnBU5oTLZAWU+fC7JdFvl05
+         QE4NdF7jAKthc9lJBXkI+liNnqLiSQ1fVwOqztLlDl3j9HYm2enlrTEp6yjOf4ppiAP5
+         k44PB+XIysVWj2Msf678fvSi8OFVZ8g1oHebXLq4rqKiY42STaU6DqA2etA2alukvrVG
+         e4vw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779945046; x=1780549846; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
+        b=FIyPntyaQci7Gow3k5Tv9c+eiSQuvMqAIg8GauSmePGIb2DAXnmUuFcEBNNEbMKY7l
+         z5IfrSIUcto7gnwcIRtowu4GcOZdDKVYTCu3Z8TiCfbVGGBS4ikhaknmg3LDgf41mCkD
+         wMmKMcuvP0uX7NjK90oK2N0Z1AGDJRgSPGa0tVqwM7pOVpGcKGmSZMD7jbQtpLxd4iyK
+         mpH8+HdDfH9pwkhFQWl/HZob7rD6I5NUQybbLojqgUOmMYMfNp4BIRUVQBZKD8XHDera
+         yballBJqN+9CsqGtlZUeZWioS3jB9XMzBjtpeUofLYCM+sdyX/BhMpUIy4DiWf4zEh5X
+         OOnA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779945046; x=1780549846;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
+        b=Il8uRgBJJJDo8VqFuWoVkqrIjaFOS1eGIJCNeTifjavi6CsF/IA7dsJuJyu5Es1rwQ
+         M+FRd/3yifxYcFbP4e+XoK2OZmScS0v4Ia2kpEOdgm4188x4Z8iGNTkYUFPwPKntXgZ5
+         +JAJvExxURx3yNKfiXAMWFLxPpnnpyt+xnZXItnAPHKg3YrUVf/s+wbnMI1bTa0fsnpr
+         IqJhC2W/TFhW/ErKYOzDw6YoMBCdSTcoxaI2zn6nPvRWwXkfjtiq3Y5uIKVzgv77iI8U
+         7u2kn9OUAIVNkvotRJtRkKPQOUrFmSZX0oWZqRTnqSGVHx38COzcYy2A/lDeLtk3hGRQ
+         4Zdw==
+X-Forwarded-Encrypted: i=1; AFNElJ/htX+IYCNLn3i8CIPwUuaX2ApMZy8rHrI5NskMPCwSEe8KNPlSxSYWq9+IDlWGMrYYrJt48vhsSRXL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+AHQEoeMRE1k2HjvgiYdJvdk8iveUTkC4YkNnfobR0O0jp6M4
+	hFliFmeLr897LyL2vTishw/m0Op+6L1uHRuKmECRk4QCA7VuAk0vKFyPyE2w94mRS78hD4yUym2
+	5YrzgvUHUdmPPTwVPFAiHiW6iT6kLoqo=
+X-Gm-Gg: Acq92OFtwjKE1gzdueKxP3oAuLdJMELYQZV07L+T64JP7XNakCv3hobI0ETxutH1W9l
+	kH08kh5Bws6oK5GsXKp/csOU0Xm1d6Nlhy9kDsHQcfvTS823mS6IBl136S/pTE98+zgSadgMfGs
+	MT3yt/NGfA7Pqxo15jz9FFnSB2ggu1Js8/ZU2SMp8hmr9oPWoNImzo4e3nMN/oKFxpCRW4LGe4q
+	EeqnQwxK0xzHaxn7fxeAZcpaF78gBs9E14OYD5mo2vjryGk+iKIXiNutZW8o7yqtA+t4Keerx4P
+	BDc2tSXQMkumNUkM1U0=
+X-Received: by 2002:a05:7301:fa8b:b0:2ea:3370:6e51 with SMTP id
+ 5a478bee46e88-30448ffc5a9mr11709293eec.4.1779945046369; Wed, 27 May 2026
+ 22:10:46 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260518095907.36158-1-clamor95@gmail.com> <20260527144619.GA671544@google.com>
+In-Reply-To: <20260527144619.GA671544@google.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Thu, 28 May 2026 08:10:34 +0300
+X-Gm-Features: AVHnY4Lq5d5JMdXBzoz6BtIZMrqkYtiGSsaMXY6hInghOFfRu3LWOak5AA72Ac8
+Message-ID: <CAPVz0n285opk=xwzEs28aitTZt-m_OtrvHRx0RenJrmV9rbPqA@mail.gmail.com>
+Subject: Re: [PATCH v7 0/7] mfd: Add support for Asus Transformer embedded controller
+To: Lee Jones <lee@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
+	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
+	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
+	linux-pm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+=D1=81=D1=80, 27 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17:4=
+6 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, 18 May 2026, Svyatoslav Ryhel wrote:
+>
+> > Add support for embedded controller used in Asus Transformers for
+> > managing power and input functions.
+>
+> Once you have your Input Acks, I'll merge everything through MFD.
+>
 
-Pre-existing issues:
-- [High] The Krait CPU frequency nvmem parsing functions incorrectly cast a=
- `u8 *` buffer directly to a `u32 *` to read the efuse registers, leading t=
-o endianness issues on big-endian systems.
---
+That is awesome news! I have a few minor adjustments to add including
+input adjustments Dmitry might require.
 
-commit dde749d736e7e3301796875cc37f978b7980ba69
-Author: Rudraksha Gupta <guptarud@gmail.com>
-
-ARM: dts: qcom: msm8960: Add CPU frequency scaling support
-
-Enable Krait DVFS on MSM8960 by adding the required device tree nodes for
-the OPP table, Krait clock controller, PVS efuse nvmem cell, and CPU idle
-state.
-
-Link: https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b5=
-6847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/acpuclock-8960.c#L120-L=
-235
-
-> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts=
-/qcom/qcom-msm8960.dtsi
-> index fd28401cebb5e..d4f4681974c5a 100644
-> --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-
-[ ... ]
-
-> @@ -74,6 +82,123 @@ l2: l2-cache {
->  			cache-level =3D <2>;
->  			cache-unified;
->  		};
-> +
-> +		idle-states {
-> +			cpu_spc: cpu-spc {
-> +				compatible =3D "qcom,idle-state-spc", "arm,idle-state";
-> +				entry-latency-us =3D <400>;
-> +				exit-latency-us =3D <900>;
-> +				min-residency-us =3D <3000>;
-> +			};
-> +		};
-> +	};
-> +
-> +	cpu_opp_table: opp-table-cpu {
-> +		compatible =3D "operating-points-v2-krait-cpu";
-> +		nvmem-cells =3D <&pvs_efuse>;
-
-[Severity: High]
-This is a pre-existing issue, but does reading this efuse have an endianness
-problem in the driver?
-
-Looking at get_krait_bin_format_a() and get_krait_bin_format_b() in
-drivers/cpufreq/qcom-cpufreq-nvmem.c, the code casts the u8 * buffer direct=
-ly
-to a u32 * to read the efuse registers, rather than using endian-safe
-accessors like get_unaligned_le32().
-
-On big-endian systems, would this read the nvmem data in reversed byte orde=
-r,
-resulting in incorrect speed and PVS bins being extracted and potentially
-causing over or under-voltage issues by selecting the wrong operating point=
-s?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-expressatt=
-_cpufreq-v2-0-b9b7726ccb6d@gmail.com?part=3D3
+> --
+> Lee Jones
