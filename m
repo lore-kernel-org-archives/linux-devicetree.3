@@ -1,165 +1,249 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7373279336
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 015F627FD75;
+	Thu, 28 May 2026 13:58:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976430; cv=none; b=PJQnFQltABgt7XPwpFF5GtbzHd9B2h+7RBdjVYIMo3Itur+5iZavOL1tEhRwRvsaAoRA8WCcrsqYY0RyCpXUm5ZmEA1LYIU8SEa0sBskcDftkQpjZm/dPw1WJDfvpSDqJD7hQhFwlB9xXpFlaYjseLdm14NMoeg+Ln7zGCUOAgE=
+	t=1779976729; cv=none; b=XEAIXbX1+VwBvNXUktlsRim0FPXISZn/Z53fQnXdDMhhY+EUWFTIgWIBHlBe7rDbFg7+fK/W5/Uq4u7oivaBOY8k58WBS1KCppwlGvQsCW5+cxzGYggyZM61fwNx50xb82ikj0JJHaCLSMfmqkPJw+2H/GdGCQOE/tNDKx9U0AM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976430; c=relaxed/simple;
-	bh=Z5jHEKYlnHq9blygIp04x8kPJ+G9+sAPZfircpJPTSc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F6JnzOt6HyjexqnesVP2gv0VFXa5m/IVoqONQITDqSIpgRikLwIo+7BdKiOkTQE5VHr3xVrBtMUjJEuTP56A/kBNLyNh40AJFl7LyWFE9XKU3Kp70WWAh+kC2IFT74iJpb4nY41/REAdODWZNptnPzf2Av8NYKoimTrxF5c1p88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nmE7Zc6n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hSn1tAHL; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779976729; c=relaxed/simple;
+	bh=s2zaJYjA8Fab+S3yJ81RhP+40MvXt9tOYFIR4j0SiI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gvWboEKG5G1wcNFdBkdAKrGkgSP4KR2rCxSw4/iw9DCn9hCrNFkOzqStbY4VWbrFJOP0b+N51FaVGchvCMN1WIuHBfB3NXptDXaqaGApQrL7zS1nezFE1uFjRU9gDxA7Ahr5WMQKZhy3IgfxoQVahbSgTjxwkA99vApygkqKEnM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlrD3vm7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nmE7Zc6n";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hSn1tAHL"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8w4DA124976
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:53:47 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=r8C5tBkc9P5qygIlEDIPmRkW+nBFHz9T0Fu
-	3Uy/u1xU=; b=nmE7Zc6n5LkB847ukuW91Sj8tY1YA20FbeSXts3BqwN6Hkl9o3d
-	zdRwbo4cHkFPkD1zb8WlOGsG4BiC1riH7jZ9D/ev6arhbw6pCPTBap9oZdVXcEGI
-	zGVGYomrhe8xoO3LJFLL0JDN4cZJ5H8ZnCOxHeG05/cRi3uYHd3CVWkNZaDr0Amq
-	Nzte8qzrkh3bw+xndkwcmQzJ/CQvupNW/tdPD0aNresZIIY7OACM/S0tjL8CcStw
-	5Ckmr6VOc0LwP4C5lpr9aLL1qvPLRyzJTY/hhk6Os+vRkSCEOmdbEZg3GH6Sxh4m
-	V99bWcdN/FD5lIWISyvwCQBVFdwTY4b+AEg==
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7ycaycv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:53:47 +0000 (GMT)
-Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-517288c4ed0so3726171cf.3
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:53:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779976427; x=1780581227; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=r8C5tBkc9P5qygIlEDIPmRkW+nBFHz9T0Fu3Uy/u1xU=;
-        b=hSn1tAHL3ZUFEIiipJXcYRVDQ56BwnSkanXztbkb7u7/8lUxTw880GcCKbENsbQTj5
-         caIAGm5w03N6IXah+bHq/EtmrBpic7R1MkT2elnauPhG8+z89uA88kmH0fHQhpMUFBS7
-         LmsxCYf4h/iNMDw9gJtKQtzW3qY6NkfoUKcFbqPsblU557ba6caLnT+s5xBdnr2r0esB
-         UR36lRNotOyPXKBLEPd4diZ/XMqd0u+7B/iwzGjzVGR7QCh9Dz8N9CnHJQ1ogIKzIDOX
-         IAT5AXph/XHTo8/2VgWVR47ppXS6d/erRGF7ObNzqjXboD5NZ7SR74NybNdv/Qdx4T/s
-         JsKg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779976427; x=1780581227;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=r8C5tBkc9P5qygIlEDIPmRkW+nBFHz9T0Fu3Uy/u1xU=;
-        b=hb5OIlJrr4nvfu5irEOTXCpsjz6t8xopv7mONGBNFVJg9S2aHtWX1yhtTCjAE8DCbl
-         JbvRveVEWKsDS9iF3H2LSdrnGzGECDXcpj0k9E6LD3bADxWNIjyWywoYN8B5clWGGEYa
-         0Ghy3m+SFbPBvX+mi7QLn8lk5oY3d1LvBDxHAzEaOO6nekkkUtXnOMFNNBLPNKEQhHMf
-         PyCQhVdWdIHi4iRejnbal7pbGUEclU/xK+Wn0DsSAmilVwq6NIKsSYFuRnE2oThquxew
-         s4Tq/j297WIaXpMy9JPLWCMFrUsKfHe0EVCIy2wx6jF8470bERfgPRwQKpObsCA+jVYp
-         W/Fg==
-X-Forwarded-Encrypted: i=1; AFNElJ+yO0bASONdRTFdnbNaGpsDTfofg+gYF6B/5gBeXmVvs35OiJvEtL2e4gA5bGNBl+Sbv2VdwtcXsGoi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy5KnYJ/D1zGrZboKtQ97KXE/tJWCJUv6aQyWu8ueCKtK6OqoHn
-	c9QCNK9OtXkhDi6/50uhknXpaaOi/2zFCU31xUkDyGnoo5489sKSjOdrTzrp4TKoqAbgUPhYVLQ
-	YK8i+Nf0Aw8Akp+XUaBs7+cnu7UZn3Hgnzp/ydxY1lkg4/T0eo3GgILHNSw7uaIPA
-X-Gm-Gg: Acq92OF0vWIj/YjUjNd8ZAcaYcNsp5WyOiZEnmL093CqyuFUIXrratVIuwa+1yOIbJf
-	5ZZYBE3mKFBMJEGxoxGJVDqPwENgRRSf7EROzKz5b69Yk7bT4/pwSQyBCwlQ3efKHlsvX2fQ7PU
-	gYwoOiKqRRl36jsAratIRSgyN9DY4+D8yICDa0Zv6xtAZ476AtvMISfi6MyzkKr7EP2FPwDQ9MK
-	OgnDDkO7zQAcmAFTeiye2U9AqhPaJuMMWno2Bev2I8rZPuHUXnccm/uNzDW0IBAaK6LnLUUoQKl
-	tuPchtz129TSnn0itsLRK0jSJ9o1ZjDJmHApfaLc5FWo2nfKSxvJzy9tzbb2ICRVsXymmtkdXYs
-	z80+Lx4zDEv9bNuUenn/VBlbt2oPny2O0EIWLO6WSXq0KNAuTnv8ywbnoca/MpqXXGao1TA/ukt
-	92WnNJ/dd4MJv/yatHSBvqdw==
-X-Received: by 2002:ac8:6f0a:0:b0:516:e5d4:f86b with SMTP id d75a77b69052e-516e5d525e1mr299338101cf.49.1779976427016;
-        Thu, 28 May 2026 06:53:47 -0700 (PDT)
-X-Received: by 2002:ac8:6f0a:0:b0:516:e5d4:f86b with SMTP id d75a77b69052e-516e5d525e1mr299337581cf.49.1779976426446;
-        Thu, 28 May 2026 06:53:46 -0700 (PDT)
-Received: from work.wifi.ville-nice.fr (62-193-63-110.as16211.net. [62.193.63.110])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4908b5a618dsm17225435e9.8.2026.05.28.06.53.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 06:53:45 -0700 (PDT)
-From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
-To: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-        andersson@kernel.org, konradybcio@kernel.org
-Cc: linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Subject: [PATCH] dt-bindings: mmc: sdhci-msm: Rename the binding to include 'qcom' prefix
-Date: Thu, 28 May 2026 15:53:42 +0200
-Message-ID: <20260528135342.11678-1-manivannan.sadhasivam@oss.qualcomm.com>
-X-Mailer: git-send-email 2.51.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlrD3vm7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6694E1F000E9;
+	Thu, 28 May 2026 13:58:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779976727;
+	bh=NI9Ul55Unla6xze6UzfujDwhIzNsj/9R8m7oU0vkEqE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AlrD3vm73LXaQxkbDGWLrm9uhnXlkke35/X3PdlK1t/eeQNyskZHApdnvfSS9ImHL
+	 xKW0fkZdgSfExKBGCJGMHCc5fjTwjgD/Vc7kTd/q7MnceaMHDl31B+19B3ii4+ei76
+	 O+IwsQTlymkK5JQDCuerw2RGap8GVx5DzWorD1/+mUozmVFOrY2kmZlsN22yvu+X+a
+	 7ftMA/ZYwFSqWundIlhBo+BtPqZY77lWN3dfjFcMP+gCNXZxsDhROdMVTeUXJvgTJE
+	 nGCICy85NMqt7x6jKQZru6YUENkikvplaIpRsplvOMzcFyIOYMt/gshcm8yr596wjV
+	 8INT2h0vdGu9w==
+Date: Thu, 28 May 2026 14:58:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 4/7] iio: osf: add stream parser
+Message-ID: <20260528145840.0329992c@jic23-huawei>
+In-Reply-To: <20260524085312.15369-5-kimjinseob88@gmail.com>
+References: <20260524085312.15369-1-kimjinseob88@gmail.com>
+	<20260524085312.15369-5-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=VOntWdPX c=1 sm=1 tr=0 ts=6a1848eb cx=c_pps
- a=WeENfcodrlLV9YRTxbY/uA==:117 a=xizqlaZpAqmNt8UN1ov9oQ==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=gEfo2CItAAAA:8 a=doSvXZN1fV365kk4ip4A:9
- a=kacYvNCVWA4VmyqE58fU:22 a=sptkURWiP4Gy88Gu7hUp:22
-X-Proofpoint-GUID: vIEs_lyUiLVbuM0wmNfEGT552g9XHFS0
-X-Proofpoint-ORIG-GUID: vIEs_lyUiLVbuM0wmNfEGT552g9XHFS0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDE0MCBTYWx0ZWRfX8JnqkGG5TYal
- X/+o+k679o3lzWz/Ap18j5iP9uy5KRBwB/RGkdIsYdD5ETFGEKhl6SPNvOSNqWQAZz6XE1IH5sT
- vvGTYp7pQxon6JlZ4pQMJvwtr+RMfmo47h7PqAttS7upxZIP2fb+5QIANUJocw6TxNawybyFiCv
- vAQ7K7fUMqLvKcy5MxqdEgpS6u7Ty2G6VABgPM9Q3KG8WcYl8Wm347p1reLUkju+1eZ4p4M7n2q
- sdErVOxNZ16+jLPb0OH7gjS1RFQWuiTIX1Ty8iY8nIGzh99IhOimvJy4IZoBLzpIpS5JeHI4odG
- vA7IiJpmR9Baax5prVKdUtTTkmumDB0NNP5ZSDg5XgfiiGdjq4AywM8OXriTveAUZMB9B9Iqq57
- kvJ565tvv7gv/7qc7agfsImGtN581qONIRS0IvSBIQqpsUm9u7evjOMW1cZu0marZ9qixiMEMrZ
- ebWS/RIiAFD1RdgzjWQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_03,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280140
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-This is the only Qcom binding that doesn't have 'qcom' prefix in the
-bindings name. This doesn't match with the regex in MAINTAINERS file and
-the 'get_maintainer.pl' script fails to list the 'linux-arm-msm' list:
+On Sun, 24 May 2026 17:53:09 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-Ulf Hansson <ulfh@kernel.org> (maintainer:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND...)
-Rob Herring <robh@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Krzysztof Kozlowski <krzk+dt@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Conor Dooley <conor+dt@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-Bjorn Andersson <andersson@kernel.org> (in file)
-Konrad Dybcio <konradybcio@kernel.org> (in file)
-linux-mmc@vger.kernel.org (open list:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND...)
-devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
-linux-kernel@vger.kernel.org (open list)
+> Add byte stream assembly and resync for OSF0 frames.
+Various minor things inline.
 
-Hence, rename the binding to include 'qcom' prefix so that the regex
-matches correctly.
+> 
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+> ---
+>  drivers/iio/opensensorfusion/osf_stream.c | 207 ++++++++++++++++++++++
+>  drivers/iio/opensensorfusion/osf_stream.h |  31 ++++
+>  2 files changed, 238 insertions(+)
+>  create mode 100644 drivers/iio/opensensorfusion/osf_stream.c
+>  create mode 100644 drivers/iio/opensensorfusion/osf_stream.h
+> 
+> diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/opensensorfusion/osf_stream.c
+> new file mode 100644
+> index 000000000..a2739c987
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_stream.c
+> @@ -0,0 +1,207 @@
 
-Reported-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-Closes: https://lore.kernel.org/all/20260526151003.p4kn2vek3hpv4gzv@hu-mojha-hyd.qualcomm.com
-Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
----
- .../bindings/mmc/{sdhci-msm.yaml => qcom,sdhci-msm.yaml}        | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
- rename Documentation/devicetree/bindings/mmc/{sdhci-msm.yaml => qcom,sdhci-msm.yaml} (99%)
+> +
+> +static size_t osf_stream_discard_to_magic(struct osf_stream *stream)
+> +{
+> +	size_t old_len = stream->len;
+> +	size_t match_len;
+> +	size_t i;
+> +
+> +	for (i = 0; i < stream->len; i++) {
 
-diff --git a/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-similarity index 99%
-rename from Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
-rename to Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-index 695a95e8f35d..cb16c08d22cc 100644
---- a/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
-+++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
-@@ -1,7 +1,7 @@
- # SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
- %YAML 1.2
- ---
--$id: http://devicetree.org/schemas/mmc/sdhci-msm.yaml#
-+$id: http://devicetree.org/schemas/mmc/qcom,sdhci-msm.yaml#
- $schema: http://devicetree.org/meta-schemas/core.yaml#
- 
- title: Qualcomm SDHCI controller (sdhci-msm)
--- 
-2.51.0
+	for (size_t i = 0; i < stream->len; i++)
 
+> +		match_len = stream->len - i;
+> +		if (match_len > OSF_STREAM_MAGIC_LEN)
+> +			match_len = OSF_STREAM_MAGIC_LEN;
+
+		match_len = min(stream->len - i, OSF_STREAM_MAGIC_LEN);
+
+> +
+> +		if (osf_stream_magic_match(stream->buf + i, match_len)) {
+> +			if (i)
+> +				osf_stream_discard(stream, i);
+> +			return i;
+> +		}
+> +	}
+> +
+> +	stream->len = 0;
+> +	return old_len;
+> +}
+> +
+> +static int osf_stream_process(struct osf_stream *stream)
+> +{
+> +	struct osf_frame frame;
+> +	size_t decoded_len;
+> +	size_t discarded;
+> +	size_t frame_len;
+> +	u32 payload_len;
+> +	int first_err = 0;
+> +	int ret;
+> +
+> +	while (stream->len) {
+> +		discarded = osf_stream_discard_to_magic(stream);
+> +		if (discarded) {
+> +			stream->stats.bad_magic_resyncs++;
+> +			stream->stats.dropped_bytes += discarded;
+> +			if (!first_err)
+> +				first_err = -EPROTO;
+> +		}
+> +
+> +		if (!stream->len)
+> +			break;
+> +
+> +		if (stream->len < OSF_FRAME_HEADER_LEN) {
+> +			stream->stats.partial_frames++;
+> +			break;
+> +		}
+> +
+> +		if (get_unaligned_le16(stream->buf + 6) !=
+> +		    OSF_FRAME_HEADER_LEN) {
+
+		if (get_unaligned_le16(stream->buf + 6) != OSF_FRAME_HEADER_LEN) {
+
+is fine. We are a bit flexible on line length when it helps readability.
+
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err = -EPROTO;
+> +			continue;
+> +		}
+> +
+> +		payload_len = get_unaligned_le32(stream->buf + 10);
+> +		if (payload_len > OSF_STREAM_MAX_PAYLOAD_LEN) {
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err = -EMSGSIZE;
+> +			continue;
+> +		}
+> +
+> +		frame_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
+> +		if (stream->len < frame_len) {
+> +			stream->stats.partial_frames++;
+> +			break;
+> +		}
+> +
+> +		ret = osf_protocol_decode_frame(stream->buf, frame_len, &frame,
+> +						&decoded_len);
+> +		if (ret) {
+> +			if (ret == -EBADMSG)
+> +				stream->stats.bad_crc_frames++;
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err = ret;
+> +			continue;
+> +		}
+> +
+> +		if (decoded_len != frame_len) {
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err = -EMSGSIZE;
+> +			continue;
+> +		}
+> +
+> +		ret = osf_core_receive_frame(stream->osf, stream->buf, frame_len);
+> +		if (ret) {
+> +			osf_stream_discard(stream, frame_len);
+> +			if (!first_err)
+> +				first_err = ret;
+> +			continue;
+> +		}
+> +
+> +		stream->stats.valid_frames++;
+> +		osf_stream_discard(stream, frame_len);
+> +	}
+> +
+> +	return first_err;
+> +}
+
+> +int osf_stream_receive_bytes(struct osf_stream *stream, const u8 *buf,
+> +			     size_t len)
+> +{
+> +	size_t copy_len;
+> +	size_t space;
+> +	int first_err = 0;
+> +	int ret;
+> +
+> +	if (!stream || !stream->osf || (!buf && len))
+
+As in previous patch, how do we get here with any of those being possible?
+The last one might make sense as it's about coupling between parameters, but
+I'm not seeing the first two as useful unless you clear stream->osf in remove
+path or similar.  If you do maybe a comment.
+
+> +		return -EINVAL;
+> +
+> +	if (!len) {
+> +		ret = osf_stream_process(stream);
+> +		if (ret && !first_err)
+No way for first erro to be set, so same as:
+		return osf_stream_process(stream);
+
+If this changes later in this patch series then fine to keep it like this.
+
+> +			first_err = ret;
+> +		return first_err;
+> +	}
+> +
+> +	while (len) {
+> +		space = OSF_STREAM_MAX_FRAME_LEN - stream->len;
+> +		if (!space) {
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_discard(stream, 1);
+> +			if (!first_err)
+> +				first_err = -EMSGSIZE;
+> +			continue;
+> +		}
+> +
+> +		copy_len = len < space ? len : space;
+
+		copy_len = min(len, space);
+
+> +		memcpy(stream->buf + stream->len, buf, copy_len);
+> +		stream->len += copy_len;
+> +		buf += copy_len;
+> +		len -= copy_len;
+> +
+> +		ret = osf_stream_process(stream);
+> +		if (ret && !first_err)
+> +			first_err = ret;
+> +	}
+> +
+> +	return first_err;
+> +}
+>
