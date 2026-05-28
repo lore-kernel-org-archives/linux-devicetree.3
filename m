@@ -1,74 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.fris.de (mail.fris.de [116.203.77.234])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB687262B;
-	Thu, 28 May 2026 10:14:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4817D30C632;
+	Thu, 28 May 2026 10:35:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779963266; cv=none; b=CXMfwGdNsxbK1WLCWuLPpuKRKmYeo8eF1wu109oPYcrKFCNP01ZOrMh1kNv4cWVUimJLkY3AbpIup2Iqz9wiHWPJVYedKXYNINaQbiOKFEo6RCxWq+BS/JkRLK8EKXssoP2bJW4hoBTKrMtBqwz+gj9xWfWnMJD8Dyf6DhGXt/I=
+	t=1779964554; cv=none; b=ULqSUySlMQl4gYKlbE+beEaTe7/xMJk/6WwNhv+zMtg4fr4E/73UNii7OY0UGrD79R9pGfiTa77DY2ga30SOYe1HHCYFFtQVYfCgZgWon6BGMO5A78wdVcVZ0OPCFmpH8sXz5HplC1k+RbCLiwie8K8oaxGvNjL9pcOne2qGgek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779963266; c=relaxed/simple;
-	bh=4Byrmud2yM3VWfh68fAwsWNf+5I0o5F2UNErPPBmaCg=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=cjQsXi4Wyi7zV5aSGDYya46T3KFx3s6FRRcDu0GLtSLo/gWrl3eXyCwHUIZIYmqKQtZxvvPofko1UFPIGvLTC8DdXsuYykf8ckz0bcvStrLlZeQ9eYYdEnYapJCQSw3P9E4S3UZwBoe6I77Q/rUwJ+h8Gia/mSQYKsGhBZvH+sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VT0C50l0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779964554; c=relaxed/simple;
+	bh=8P3lY1/gQp25fWNrD/onc426D6RvDG3yh7pYQHTEHyA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DNMlB6TrX23ouUzsAi9FKBl3YcCH5C0r/o7F9ALKFsCJZxid0PO3i2gDaqzHnyBq10t5NtwVAl8jsi9RTw3ZRDa1i0TsqWW2Y9rR0woJly5AgHzTnWnvufRZO7ypkxvW1sck5IjptkACciIzZBBWHNgi6e9WWF9Z0syw6Ti+NT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=sVs8wgSw; arc=none smtp.client-ip=116.203.77.234
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VT0C50l0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49AE1F000E9;
-	Thu, 28 May 2026 10:14:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779963265;
-	bh=zySNcV6IIq6WZcRelixQSMN0kNWC11wboInm5MNdLXM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=VT0C50l0Td/WeSZBrvJjWSpbrmHtBl1blfRX9BK+KmkPOlYOhdFzA35WAn8dN7wvr
-	 iNj4x5jzYmZ07CucxQzB/yII/pW0ibyjJmlj/7/c257hKfnSjXpUobwaYo3JEms+El
-	 dl7+ZKQIsjKq3fIsYUglAwKy5Kw63zTgRAOcQEOgVRz77ubXoViBGx2IbZjzyTSZ5D
-	 ZgqiR0hoBRAqyz4bpBfpC9W+f6WfIGKf1CT0poIZEt/vS2TIDMVRbHPyu3yQ9TjyoX
-	 emhakkMa59ZvYkF2DmbEaB0C6aUEAOyq2Ct35ezZtW0DlZspugrwV3udUda4df573o
-	 TPn7Fr0tiXYGA==
-Date: Thu, 28 May 2026 11:14:14 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, Jean Delvare
- <jdelvare@suse.com>, Andreas Klinger <ak@it-klinger.de>, Lars-Peter Clausen
- <lars@metafoo.de>, linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Maxwell Doose
- <m32285159@gmail.com>
-Subject: Re: [PATCH v2 0/3] iio: flow: Sensirion SLF3S liquid flow sensor
-Message-ID: <20260528111414.5866b0e4@jic23-huawei>
-In-Reply-To: <20260527184257.141635-1-wafgo01@gmail.com>
-References: <20260524205112.26638-1-wafgo01@gmail.com>
-	<20260527184257.141635-1-wafgo01@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="sVs8wgSw"
+From: Frieder Schrempf <frieder@fris.de>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
+	t=1779964044;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=7xCLVbh1sBBSOmagGE/x9KMj2LGr4xyccPuWMFIUyF8=;
+	b=sVs8wgSwuXagVcjaN4bUG8ffMt9SC3SKS7fi/IvtdN2Kjx1bAGOxYocRmpi1oZAgiSpa2b
+	XhfjagBznFWm5GX3fpTUEIkvsGvPuNVj2EZHrB4GnNwXnuhGo2fBOtGKCLo9OwP73jN2D2
+	Gy6WtVvcNSPqUH2mRSgv5njAsMuR0JMy14ab7T225xdxUcmVj1i8JMi47BWxI8I6O1Smja
+	01DcRNx7R25p5NOa7w0L2hWHotSQrwZ3VNw2qeyaOqCVWiilbk+E3xfHpQ10xVFayVK/x7
+	w6NNkps3L78GNo7y3sr/9RNdqC5FXoW3qTiBUDPolijNgkocvPYjSGqn48xpWw==
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Frieder Schrempf <frieder.schrempf@kontron.de>,
+	imx@lists.linux.dev,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: Annette Kobou <annette.kobou@kontron.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>
+Subject: [PATCH] arm64: dts: imx8mp-kontron: Fix GPIO for display power switch
+Date: Thu, 28 May 2026 12:15:56 +0200
+Message-ID: <20260528101556.75926-1-frieder@fris.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On Wed, 27 May 2026 20:42:51 +0200
-Wadim Mueller <wafgo01@gmail.com> wrote:
+From: Frieder Schrempf <frieder.schrempf@kontron.de>
 
-> Hi all,
-> 
-> v2 addresses the inline review feedback from Jonathan and Guenter on v1
-> (see https://lore.kernel.org/linux-iio/20260524205112.26638-1-wafgo01@gmail.com/).
-> Per-patch replies have been sent in the v1 thread.
+The GPIO that controls the power supply for the LVDS display
+connector has changed between early prototypes and the current
+production design of the hardware. Reflect this change in the
+devicetree to properly switch on the panel supply.
 
-Hi Wadim
+This was working before even with the wrong GPIO due to the
+bidirectional level shifter used on the board which drives the EN
+signal high even when the input has a (weak) pull down configured as
+reset condition of the SoC pad. As a result the display was working
+but the supply was always on.
 
-Please don't send a v2 in reply to the v1 thread. That's a good
-way to reduce the number of folk who read it plus end up with a complex
-email thread. New thread for each version.
+Tested on BL i.MX8MP to show the correct voltage level on the level
+shifter input.
 
-I only noticed this because I was looking at patchwork.
+Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
+Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
+---
+ .../boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts   | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Thanks,
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
+index 75ae46642782..29ce863403b8 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
+@@ -49,7 +49,9 @@ pwm-beeper {
+ 
+ 	reg_vcc_panel: regulator-vcc-panel {
+ 		compatible = "regulator-fixed";
+-		gpio = <&gpio4 3 GPIO_ACTIVE_HIGH>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_reg_vcc_panel>;
++		gpio = <&gpio5 3 GPIO_ACTIVE_HIGH>;
+ 		enable-active-high;
+ 		regulator-max-microvolt = <3300000>;
+ 		regulator-min-microvolt = <3300000>;
+@@ -172,7 +174,7 @@ &gpio4 {
+ &gpio5 {
+ 	pinctrl-names = "default";
+ 	pinctrl-0 = <&pinctrl_gpio5>;
+-	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "PWM_2",
++	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "VCC_PANEL_EN",
+ 			  "PWM_1", "PWM_0", "SPI_A_SCK", "CAN_ADDR1",
+ 			  "CAN_ADDR0", "SPI_A_CS0", "SPI_B_SCK", "SPI_B_SDO",
+ 			  "SPI_B_SDI", "SPI_B_CS0", "I2C_A_SCL", "I2C_A_SDA",
+@@ -329,4 +331,10 @@ MX8MP_IOMUXC_ECSPI1_MOSI__GPIO5_IO07		0x46 /* CAN_ADR0 */
+ 			MX8MP_IOMUXC_ECSPI1_MISO__GPIO5_IO08		0x46 /* CAN_ADR1 */
+ 		>;
+ 	};
++
++	pinctrl_reg_vcc_panel: regvccpanelgrp {
++		fsl,pins = <
++			MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03		0x46
++		>;
++	};
+ };
+-- 
+2.54.0
 
-Jonathan
