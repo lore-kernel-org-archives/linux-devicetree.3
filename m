@@ -1,126 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C05C0376A0D
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:13:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECB687262B;
+	Thu, 28 May 2026 10:14:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779963203; cv=none; b=feSjJiZS8uTAfsrVTqBXlVZkyvbKMGjgOWwZ7FMQ5ULWUuIQtvjRp6MMJJRvmmR+1qZ2IJGyOucoVxZ4XssFAcue7oP75mzAdMWfPi4AWOnOU1CiBAwQkUkBArMWrE75y/eATSZ+z1DCP/qx4uRJJ13xhJTDU31U2HzDx4J7yqk=
+	t=1779963266; cv=none; b=CXMfwGdNsxbK1WLCWuLPpuKRKmYeo8eF1wu109oPYcrKFCNP01ZOrMh1kNv4cWVUimJLkY3AbpIup2Iqz9wiHWPJVYedKXYNINaQbiOKFEo6RCxWq+BS/JkRLK8EKXssoP2bJW4hoBTKrMtBqwz+gj9xWfWnMJD8Dyf6DhGXt/I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779963203; c=relaxed/simple;
-	bh=Wq4LKcjXbWVb03Alobz8at0kmkxMPFq/pqpfvKV1TdI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cOZAZvifHFXNx1G5K0LJRJsktFdRva3M9d8g3mtQ/bkvdNF6w5PZwSs+KezQIKuHZ8splrUCSKUtZ+FWEQYipK0TXWJPyzv+uKBcDyY8dhfASvHgp5AOEzX7uZLtqFRuVkHSdLeOTl3jU1eM0zAmJ03i8Kk4pVfDona/2K3rf0Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RxvK0ZZL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779963266; c=relaxed/simple;
+	bh=4Byrmud2yM3VWfh68fAwsWNf+5I0o5F2UNErPPBmaCg=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=cjQsXi4Wyi7zV5aSGDYya46T3KFx3s6FRRcDu0GLtSLo/gWrl3eXyCwHUIZIYmqKQtZxvvPofko1UFPIGvLTC8DdXsuYykf8ckz0bcvStrLlZeQ9eYYdEnYapJCQSw3P9E4S3UZwBoe6I77Q/rUwJ+h8Gia/mSQYKsGhBZvH+sY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VT0C50l0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RxvK0ZZL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D8821F000E9;
-	Thu, 28 May 2026 10:13:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VT0C50l0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D49AE1F000E9;
+	Thu, 28 May 2026 10:14:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779963201;
-	bh=431mO+1IUnOxJUKp+ViKNR+9hOLqxx7HEGeI3l9pb04=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=RxvK0ZZL0Bvooz8ZBKILZGYPHxLpITry0fAMrsYppplwzml6H+TJUEEXUROsqv+pp
-	 UMbSn8OBhH02cVnXLjUc9Mig+m6S/kL1Av0ybcj9mZiOM0iHaKmuWvlzeTVWOzXdJ8
-	 P7foAzF95HFzlsdcp7ONcczxanrX5D3Nps9vJDLy+x2Xk398nGkI+DW/oMkwyOtAic
-	 /dwRu8aQaib68SphvOIHlULyz8zxnje8gpmMqxvD38QinnItesbM9mg75HdRwrZ768
-	 P5E3urttJDJcPDt6kImUHjyEPniB3URQ4wBXrV2sltzIZK9NkpWtcBlMQ6fHy817Qa
-	 9f43V8e50240A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add
- ramoops region
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWFydGlubyBEZWxsJ0FtYnJvZ2lv?= <tillo@tillo.ch>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260528092807.1936177-1-tillo@tillo.ch>
-References: <20260528092807.1936177-1-tillo@tillo.ch>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 10:13:20 +0000
-Message-Id: <20260528101321.0D8821F000E9@smtp.kernel.org>
+	s=k20260515; t=1779963265;
+	bh=zySNcV6IIq6WZcRelixQSMN0kNWC11wboInm5MNdLXM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VT0C50l0Td/WeSZBrvJjWSpbrmHtBl1blfRX9BK+KmkPOlYOhdFzA35WAn8dN7wvr
+	 iNj4x5jzYmZ07CucxQzB/yII/pW0ibyjJmlj/7/c257hKfnSjXpUobwaYo3JEms+El
+	 dl7+ZKQIsjKq3fIsYUglAwKy5Kw63zTgRAOcQEOgVRz77ubXoViBGx2IbZjzyTSZ5D
+	 ZgqiR0hoBRAqyz4bpBfpC9W+f6WfIGKf1CT0poIZEt/vS2TIDMVRbHPyu3yQ9TjyoX
+	 emhakkMa59ZvYkF2DmbEaB0C6aUEAOyq2Ct35ezZtW0DlZspugrwV3udUda4df573o
+	 TPn7Fr0tiXYGA==
+Date: Thu, 28 May 2026 11:14:14 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Guenter Roeck <linux@roeck-us.net>, Jean Delvare
+ <jdelvare@suse.com>, Andreas Klinger <ak@it-klinger.de>, Lars-Peter Clausen
+ <lars@metafoo.de>, linux-iio@vger.kernel.org, linux-hwmon@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, Maxwell Doose
+ <m32285159@gmail.com>
+Subject: Re: [PATCH v2 0/3] iio: flow: Sensirion SLF3S liquid flow sensor
+Message-ID: <20260528111414.5866b0e4@jic23-huawei>
+In-Reply-To: <20260527184257.141635-1-wafgo01@gmail.com>
+References: <20260524205112.26638-1-wafgo01@gmail.com>
+	<20260527184257.141635-1-wafgo01@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `ramoops` reserved-memory node is missing the `no-map` propert=
-y, which causes an architecture violation on arm64 due to mismatched memory=
- attributes.
-- [High] The `ramoops` memory partitioning and ECC configuration severely m=
-isinterpret the subsystem bindings, contradicting the commit message's clai=
-ms and failing to provide the intended ECC protection.
---
+On Wed, 27 May 2026 20:42:51 +0200
+Wadim Mueller <wafgo01@gmail.com> wrote:
 
-commit 9de1ef047c96e12c7b888c596f5eb04dcab13d7d
-Author: Martino Dell'Ambrogio <tillo@tillo.ch>
+> Hi all,
+> 
+> v2 addresses the inline review feedback from Jonathan and Guenter on v1
+> (see https://lore.kernel.org/linux-iio/20260524205112.26638-1-wafgo01@gmail.com/).
+> Per-patch replies have been sent in the v1 thread.
 
-arm64: dts: mediatek: mt7988a-bananapi-bpi-r4: add ramoops region
+Hi Wadim
 
-Reserve 1 MiB of RAM for persistent kernel log storage via pstore/ramoops.
-This preserves console output and oops dumps across warm resets. The carve-=
-out
-is placed just below the ARM Trusted Firmware secmon region.
+Please don't send a v2 in reply to the v1 thread. That's a good
+way to reduce the number of folk who read it plus end up with a complex
+email thread. New thread for each version.
 
-> The record sizes (128 KiB kmsg records, 256 KiB rolling console, 64 KiB
-> ftrace, 64 KiB pmsg) sum to 512 KiB; the remainder of the 1 MiB carve-out
-> is used for the ECC parity blocks (ecc-size=3D16, one Reed-Solomon block =
-per
-> record) which significantly improves dump readability when the panic path
-> truncates writes mid-record.
+I only noticed this because I was looking at patchwork.
 
-[Severity: High]
-Does the ramoops driver allocate ECC memory from the remaining space in the
-carve-out as described here?
+Thanks,
 
-Looking at ramoops_probe() in fs/pstore/ram.c, the remaining space for oops
-records is calculated as the total size minus the console, ftrace, and pmsg
-sizes (1024 - 256 - 64 - 64 =3D 640 KiB). The subsystem then divides this
-remaining space by the record-size (128 KiB) to create 5 separate kmsg
-records, rather than a single record.
-
-Furthermore, persistent_ram_new() carves the ECC parity blocks from within
-the allocated size of each individual record. This amounts to roughly 14 KiB
-of ECC per record, instead of the 512 KiB of dedicated ECC parity blocks
-mentioned above.
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi b/=
-arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-> --- a/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-> +++ b/arch/arm64/boot/dts/mediatek/mt7988a-bananapi-bpi-r4.dtsi
-
-[ ... ]
-
-> +&{/reserved-memory} {
-> +	ramoops@42f00000 {
-> +		compatible =3D "ramoops";
-
-[Severity: High]
-Does this node need the no-map property?
-
-Without no-map, this 1 MiB carve-out remains in the kernel's linear mapping
-where it is mapped as Normal Cacheable memory. The ramoops driver remaps th=
-is
-region using vmap() with a default mem-type of 0 (Write-Combine, translating
-to Normal Non-Cacheable on arm64).
-
-Mapping the same physical memory with conflicting cache attributes is an
-architectural violation on arm64 and can lead to cache incoherency. Dirty
-cache lines from the linear map could evict and overwrite the panic logs
-written via the non-cacheable mapping.
-
-> +		reg =3D <0 0x42f00000 0 0x100000>;
-> +		record-size =3D <0x20000>;
-> +		console-size =3D <0x40000>;
-> +		ftrace-size =3D <0x10000>;
-> +		pmsg-size =3D <0x10000>;
-> +		ecc-size =3D <16>;
-> +	};
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528092807.1936=
-177-1-tillo@tillo.ch?part=3D1
+Jonathan
