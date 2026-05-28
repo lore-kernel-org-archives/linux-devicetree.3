@@ -1,163 +1,282 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F32383F39F8;
-	Thu, 28 May 2026 12:54:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59AD3EBF37
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:55:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779972864; cv=none; b=K2sXEIW6rfC00lbACYHDVJvHlme1O6SrwLsradwcGoLw7uXRUCi8Re8iHm94VHzZ4zDdn0zMp5ujngW4JNeSfys+syBghOohafnaMLWkqdWhYZB3FkwPV7AUit8FVI/v1ymbInMzqvr1riOqXYB+jQ++K1yt5ZjfcyYjIRBTpu0=
+	t=1779972923; cv=none; b=F/qKyvSuaXEM0tbCmkT+1o5uavcq27CqH35UEGNsUZ8pLcVyJWUkVPnFNRIw7EhTkcvVmvDgoQSoQ8cGWlESAEPXpODxfZicUeLNpx3fsM8pJbVDZRWn3BXh/xOTUJc2I3CoVidj9k0MW4paVW9vnvCDigyEBPXh1yohrBIwE9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779972864; c=relaxed/simple;
-	bh=cXTxhQvbkhNHIuITv/zqHC1dhGaHaPn+/IP+fceB4pk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=U225ybfLdx+qPtKc9pRgLoT7OcwS3zR4KedDRAFcSzgaF+YGV/M1EZbS5Q8m6BCgdtYK9mP7NQxwwxKzuohQFzpBmJ0s2niKHd8VlprH9TfOIkHjcgtn90FZEB54R1ZWXRslON3rUsywik3iPqRCo00S/OVZzmS2jarLyUY8aZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Mk/IpA6D; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1779972923; c=relaxed/simple;
+	bh=f/CUg013T1EP0sWmSQDXL8N0/FozcRSk7zEjdCog5uE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HDQkHKX1KeQV+/yT20W0Xi/RztLxkQRCYR8bkhtfU1bKT3+3dEox/LuVz2wQhQQxMlvgMPoUNzvGC1Nv+/qijhQSQ3pE4J5w8lZoQ5hZ6r4Xxu0Jo8By/tkAbT3PgOFKl/PUc71s6MytpFLxepw3SL4vwks4HBX6xD9pjg+QFkc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwhnEXCD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Mk/IpA6D"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id D166A19C5;
-	Thu, 28 May 2026 14:53:56 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779972837;
-	bh=cXTxhQvbkhNHIuITv/zqHC1dhGaHaPn+/IP+fceB4pk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Mk/IpA6Daw8ESYdr6AONFalUBmnrqsvVBlWHIcx1t94DF6ra4HgOAMcJYGmKR1VPM
-	 FIIatUCPuwDWw47IS0hCUX3Ev1cvMnxgpVDwiNhESQGH64959rQ/hg8pdEDJc5NRGl
-	 a3LXGWKj41seQs2PtxsLIKk4/bMmnT+9p6HXTcuA=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 28 May 2026 15:53:47 +0300
-Subject: [PATCH 6/6] arm64: dts: ti: Use syscon and simple-mfd for the main
- conf region
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwhnEXCD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 335221F000E9;
+	Thu, 28 May 2026 12:55:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779972921;
+	bh=uOBcBfqvPIX2yIU9XbE6+p8WvPIoCD5tVUkOWVMHxRg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hwhnEXCDHg+wksHkqowv7ruHYyb+7yeWKjGo8vpfQVrfTsQJooZQ5LRzZxkg6Yk1V
+	 A1LLgFH1IDP/cedD1uIikY4AtBVIKquAwQZTGL9cV/uxCutaVXZnTEHMtr4Hcvt+9q
+	 RF7X/gpPMFqNKqSj81RwBCfRL4AwUIGoqAtvMW4BXxdBIVFSRZ7j6tnlD3dkdzu91S
+	 4+0g8s9pg5cZvuX3KZsWkmo4ZksSFkHPdRxTFiMh0NQFiRRqgMFzwqor5M5ynNuvuU
+	 jDrtKRoH813UOOGsJcSYi2ix2apsBcG9EJfr4BJXP3pLu+ZZu7Cn/Dh/0ZL0nv8Yc4
+	 BmZmu5oWlA/0A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 2/5] thermal: samsung: Add Exynos ACPM TMU driver
+ GS101
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260528-acpm-tmu-v6-2-b4d7ce57594b@linaro.org>
+References: <20260528-acpm-tmu-v6-2-b4d7ce57594b@linaro.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 12:55:20 +0000
+Message-Id: <20260528125521.335221F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260528-ti-main-conf-v1-6-a54ac5c8d081@ideasonboard.com>
-References: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
-In-Reply-To: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Abraham I <kishon@kernel.org>, 
- Roger Quadros <rogerq@kernel.org>, Devarsh Thakkar <devarsht@ti.com>, 
- Swamil Jain <s-jain1@ti.com>
-Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=4100;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=cXTxhQvbkhNHIuITv/zqHC1dhGaHaPn+/IP+fceB4pk=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGDryOjwwVGeZaCSX9groidyKtWqkmUmNWzicj
- NFjsz3exZmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahg68gAKCRD6PaqMvJYe
- 9YjWD/9OpX/j5BFmJmjNaV5+xjkyicyuqO2d/itjr3K8PFMtLYy1mq60XiS4yvBTkb0aan+dKT9
- qzyNncpQCk4lx3ljwYk4SyJavbsDzV9eSfWWEiMmr5x65NMEqPxGYjGxs9is861ynfFqxOZ04Vs
- ITHoiB5gmlOoquqjp/ude0UvaYLzDpRivAYN7kEiaHMtLPVq3I22Nsio3Ce7ggsxdoZltd6W1NP
- Uq6Z7+m15SVZJUsOmV8b7jbp6uv244BK1k3VJ8bCCRTqQZQVJW9An+LoxT2lvMqVUTX3Pw17CvE
- mXqIphJZkptt6S9E8lFjIuH4+ostIf0A1UTySsxaO+CB2m0gH0foWSmzMEW/KRXAs2rrnL1AQp5
- x+QNaGl+fAFymQ3RNQbKXly8ybndSHbs7QAPHRw1Xrb8D6zS+74HUudMrW0MF67szeeVWcxV9V1
- Yhng0xM+Ho/DXlbv0toXYBSbzlNEkxE1IO9IYlmxZw5stg7/bMVUhV7gXv4uHd7EAuBb84KEt0J
- eNF+3m8kNsjMWfytGYdnDF4hEovOkez2jejuJf9H7UBqVhnzKDMcl/k51b19DI5jKb1FBXuJoL/
- B9QqP45LcJ8keUSiMVf1p9b1KcTEUaYjA1nwLQYPCPiR12Hai+ZwHcqjoXMUK9M2LgFgdKP/11L
- 8h7mww1uA9HtJcQ==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-We already had a common binding (ti,j721e-system-controller.yaml) for
-the Control Module region for multiple TI SoCs. This was not used for
-more recent SoCs. These more recent SoCs just have a "simple-bus"
-representing the Control Module. In a few cases the
-simple-bus node also had "reg" property, which is not correct for a
-simple-bus, but we make use of it in this patch.
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
+- [High] Thermal zone thresholds are never initialized because sensors are =
+enabled too late during probe.
+- [High] Missed thermal interrupts due to clearing the interrupt pending fl=
+ag after updating the thermal zone.
+- [High] A failure during system suspend permanently disables thermal mitig=
+ation.
+- [Medium] Mixing goto-based error handling with guard() cleanup in the sam=
+e function.
+- [Medium] Failure to roll back partially enabled sensors if acpm_tmu_contr=
+ol(true) fails.
+- [Medium] Race condition in acpm_tmu_get_temp() reading sensor->enabled ou=
+tside of sensor->lock.
+- [Medium] Asynchronous runtime PM suspend queued by acpm_tmu_set_trips can=
+ be cancelled by devm_pm_runtime_disable during driver removal.
+--
 
-With the adjustments done in previous commits to the dtsi files and the
-bindings, we can now use the TI system-controller bindings in am62,
-am62a, am62p-j722s and j784s4-j742s2 dtsi files. This means that the
-node for the Control Module (labeled 'main_conf' or 'scm_conf') changes
-from "simple-bus" to, e.g., "ti,am62p-system-controller", "syscon",
-"simple-mfd".
+commit 90afa895cf46b40d05a7597e89b586da2a473318
+Author: Tudor Ambarus <tudor.ambarus@linaro.org>
 
-While, as far as I understand, this is an ABI change, I believe this
-does not cause any breakages: the old dtbs with "simple-bus" will
-continue booting fine, with the child nodes getting instantiated, and
-the new dtbs with "simple-mfd" behave exactly the same way.
+thermal: samsung: Add Exynos ACPM TMU driver GS101
 
-With this change, we can use the Control Module as a syscon from the
-drivers. E.g. on some SoCs we have a single register in the Control
-Module related to DSS DPI output control, surrounded by registers for
-totally different subsystems. Instead of having to create a new syscon
-child node for this single register the DSS node can now just point to
-the register with 'ti,dpi-io-ctrl = <&main_conf 0x8300>'.
+Add driver for the Thermal Management Unit (TMU) managed via the Alive
+Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
+Google GS101 (and Exynos850, autov920, etc.).
 
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- arch/arm64/boot/dts/ti/k3-am62-main.dtsi                 | 3 ++-
- arch/arm64/boot/dts/ti/k3-am62a-main.dtsi                | 3 ++-
- arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi   | 2 +-
- arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi | 2 +-
- 4 files changed, 6 insertions(+), 4 deletions(-)
+> diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung=
+/acpm-tmu.c
+> new file mode 100644
+> index 0000000000000..b56869c9fc3b1
+> --- /dev/null
+> +++ b/drivers/thermal/samsung/acpm-tmu.c
+[ ... ]
+> +static int acpm_tmu_control(struct acpm_tmu_priv *priv, bool on)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < priv->num_sensors; i++) {
+> +		struct acpm_tmu_sensor *sensor =3D &priv->sensors[i];
+> +
+> +		/* Skip sensors that weren't found in DT */
+> +		if (!sensor->tzd)
+> +			continue;
+> +
+> +		mutex_lock(&sensor->lock);
+> +		ret =3D acpm_tmu_op_tz_control(sensor, on);
+> +		mutex_unlock(&sensor->lock);
+> +		if (ret) {
+> +			if (!err)
+> +				err =3D ret;
+> +
+> +			/* On enable, stop on first error. On disable, keep going */
+> +			if (on)
+> +				break;
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62-main.dtsi
-index ffc71ab623e0..3f61f2a9b2bb 100644
---- a/arch/arm64/boot/dts/ti/k3-am62-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62-main.dtsi
-@@ -42,7 +42,8 @@ gic_its: msi-controller@1820000 {
- 	};
- 
- 	main_conf: bus@100000 {
--		compatible = "simple-bus";
-+		compatible = "ti,am62-system-controller", "syscon", "simple-mfd";
-+		reg = <0 0x00100000 0 0x20000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 		ranges = <0x0 0x00 0x00100000 0x20000>;
-diff --git a/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi
-index 9287d7be7cc8..2a5cadbc11fa 100644
---- a/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi
-@@ -42,7 +42,8 @@ gic_its: msi-controller@1820000 {
- 	};
- 
- 	main_conf: bus@100000 {
--		compatible = "simple-bus";
-+		compatible = "ti,am62a-system-controller", "syscon", "simple-mfd";
-+		reg = <0 0x00100000 0 0x20000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
- 		ranges = <0x00 0x00 0x00100000 0x20000>;
-diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-index 7c2f03780885..58805e287496 100644
---- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
-@@ -40,7 +40,7 @@ gic_its: msi-controller@1820000 {
- 	};
- 
- 	main_conf: bus@100000 {
--		compatible = "simple-bus";
-+		compatible = "ti,am62p-system-controller", "syscon", "simple-mfd";
- 		reg = <0x00 0x00100000 0x00 0x20000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
-diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-index 2570723efa4f..cccd90d43446 100644
---- a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-@@ -46,7 +46,7 @@ l3cache-sram@200000 {
- 	};
- 
- 	scm_conf: bus@100000 {
--		compatible = "simple-bus";
-+		compatible = "ti,j784s4-system-controller", "syscon", "simple-mfd";
- 		reg = <0x00 0x00100000 0x00 0x1c000>;
- 		#address-cells = <1>;
- 		#size-cells = <1>;
+[Severity: Medium]
+If an error occurs when `on` is true, the loop breaks immediately. Does this
+leave the previously enabled sensors active in the ACPM firmware?
 
--- 
-2.43.0
+If this happens during probe, will the lack of hardware state rollback
+result in unhandled spurious interrupts?
 
+> +		}
+> +	}
+> +
+> +	pm_runtime_put_sync(dev);
+> +	return err;
+> +}
+> +
+> +static int acpm_tmu_get_temp(struct thermal_zone_device *tz, int *temp)
+> +{
+> +	struct acpm_tmu_sensor *sensor =3D thermal_zone_device_priv(tz);
+> +	struct acpm_tmu_priv *priv =3D sensor->priv;
+> +	struct acpm_handle *handle =3D priv->handle;
+> +	const struct acpm_tmu_ops *ops =3D &handle->ops->tmu;
+> +	struct device *dev =3D priv->dev;
+> +	int acpm_temp =3D 0, ret;
+> +
+> +	if (!sensor->enabled)
+
+[Severity: Medium]
+Is there a race condition here since `sensor->enabled` is checked before
+acquiring `sensor->lock`?
+
+If `acpm_tmu_control(priv, false)` runs concurrently (e.g., via system
+suspend), it could set `sensor->enabled =3D false` just before the lock is
+acquired here. Could this result in calling `ops->read_temp()` on a disabled
+sensor?
+
+> +		return -EAGAIN;
+> +
+> +	ret =3D pm_runtime_resume_and_get(dev);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	scoped_guard(mutex, &sensor->lock) {
+> +		ret =3D ops->read_temp(handle, priv->mbox_chan_id,
+> +				     sensor->group->id, &acpm_temp);
+> +	}
+[ ... ]
+> +static int acpm_tmu_update_thresholds(struct acpm_tmu_sensor *sensor,
+> +				      u8 thresholds[2], u8 inten)
+> +{
+> +	struct acpm_tmu_priv *priv =3D sensor->priv;
+> +	struct acpm_handle *handle =3D priv->handle;
+> +	const struct acpm_tmu_ops *ops =3D &handle->ops->tmu;
+> +	unsigned int mbox_chan_id =3D priv->mbox_chan_id;
+> +	u8 acpm_sensor_id =3D sensor->group->id;
+> +	bool was_enabled;
+> +	int ret, restore_ret;
+> +
+> +	guard(mutex)(&sensor->lock);
+
+[Severity: Medium]
+Is it ok to mix `guard()` with `goto`-based error handling in this function?
+According to the cleanup guidelines, functions should either convert all
+resources to scope-based cleanup or convert none of them.
+
+> +
+> +	was_enabled =3D sensor->enabled;
+> +
+> +	if (was_enabled) {
+> +		ret =3D acpm_tmu_op_tz_control(sensor, false);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	ret =3D ops->set_threshold(handle, mbox_chan_id, acpm_sensor_id,
+> +				 thresholds, 2);
+> +	if (ret)
+> +		goto err_restore;
+[ ... ]
+> +static irqreturn_t acpm_tmu_thread_fn(int irq, void *id)
+> +{
+[ ... ]
+> +		handled =3D true;
+> +
+> +		thermal_zone_device_update(sensor->tzd,
+> +					   THERMAL_EVENT_UNSPECIFIED);
+> +
+> +		scoped_guard(mutex, &sensor->lock) {
+> +			ret =3D ops->clear_tz_irq(handle, priv->mbox_chan_id,
+> +						sensor->group->id);
+
+[Severity: High]
+Could clearing the interrupt after updating the thermal zone cause missed
+events?
+
+If the temperature crosses a newly programmed threshold during
+`thermal_zone_device_update()`, the hardware could assert a new interrupt.
+Calling `clear_tz_irq()` afterwards would clear this new interrupt,
+potentially missing critical thermal events.
+
+> +			if (ret)
+> +				dev_err(priv->dev, "Sensor %d: failed to clear IRQ (%d)\n",
+> +					i, ret);
+> +		}
+> +	}
+[ ... ]
+> +static int acpm_tmu_probe(struct platform_device *pdev)
+> +{
+[ ... ]
+> +	for (i =3D 0; i < priv->num_sensors; i++) {
+> +		struct acpm_tmu_sensor *sensor =3D &priv->sensors[i];
+> +
+> +		mutex_init(&sensor->lock);
+> +		sensor->group =3D &data->sensor_groups[i];
+> +		sensor->priv =3D priv;
+> +
+> +		sensor->tzd =3D devm_thermal_of_zone_register(dev, i, sensor,
+> +							    &acpm_tmu_sensor_ops);
+
+[Severity: High]
+Are the thermal zones registered before the sensors are fully enabled?
+
+During `devm_thermal_of_zone_register()`, the thermal core attempts to
+initialize thresholds, but since `sensor->enabled` is false,
+`acpm_tmu_get_temp()` returns `-EAGAIN` and the update aborts.
+
+Since `acpm_tmu_control()` below does not trigger a thermal zone update,
+will the initial thresholds remain uninitialized in the hardware?
+
+> +		if (IS_ERR(sensor->tzd)) {
+[ ... ]
+> +	ret =3D acpm_tmu_control(priv, true);
+> +	if (ret) {
+> +		ret =3D dev_err_probe(dev, ret, "Failed to enable TMU\n");
+> +		goto err_pm_put;
+> +	}
+[ ... ]
+> +static void acpm_tmu_remove(struct platform_device *pdev)
+> +{
+> +	struct acpm_tmu_priv *priv =3D platform_get_drvdata(pdev);
+> +
+> +	/* Stop IRQ first to prevent race with thread_fn */
+> +	disable_irq(priv->irq);
+> +
+> +	acpm_tmu_control(priv, false);
+
+[Severity: Medium]
+If `acpm_tmu_set_trips()` queues an asynchronous suspend via
+`pm_runtime_put_autosuspend()` shortly before driver removal, could the
+implicit `pm_runtime_disable()` from `devm_pm_runtime_enable()` cleanup
+cancel it?
+
+Would this cause the hardware to remain powered on since the usage count
+drops but the actual suspend is never executed? Should this use a
+synchronous suspend before removal?
+
+> +}
+> +
+> +static int acpm_tmu_suspend(struct device *dev)
+> +{
+> +	struct acpm_tmu_priv *priv =3D dev_get_drvdata(dev);
+> +	struct acpm_handle *handle =3D priv->handle;
+> +	const struct acpm_tmu_ops *ops =3D &handle->ops->tmu;
+> +	int ret;
+> +
+> +	ret =3D acpm_tmu_control(priv, false);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* APB clock not required for this specific msg */
+> +	return ops->suspend(handle, priv->mbox_chan_id);
+
+[Severity: High]
+If `ops->suspend()` returns an error, the system suspend is aborted. Since
+the PM core won't invoke the resume callback on failure, and there is no
+rollback here, will the TMU sensors remain permanently disabled while the
+system continues running?
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-acpm-tmu-v=
+6-0-b4d7ce57594b@linaro.org?part=3D2
