@@ -1,345 +1,94 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011008.outbound.protection.outlook.com [40.93.194.8])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5784F3D16F7;
-	Thu, 28 May 2026 11:13:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.8
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779966812; cv=fail; b=fAJi25F2q2VY3k+E3FAgDBZk/7/ns1lbS5pkx6goYYDGaZ0hgLfL2CoudP66nY77Trrb0QZTQFHzWWSqbAbPS08e67eiiSvfx9br3GPC07OGFlVLokI79+Ea06kpdCVikIbKC3p9HLocU0CIFiSPPbAjbond6IL72jipa/O6wpM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779966812; c=relaxed/simple;
-	bh=PfUj6mRSzXnoSVPEQQdgYvFNZNSPFXJjLD3TBL86Kkg=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EkX9sdOWlSeJHtKqRt70wDf0IeZ3risyN1gFc/AuO3TY10aggPuXes055QDYeXLNpW4Yr8WnBNzIiHc7wABAUnb1gHw3R74GiFMtdwtrqBmiQktwh09IK4JJBhbXgnq1/a1h/yNu75Z0kD5zgKgU8EGHTabmpSsCXfNGgjocxx8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=wRCAek2K; arc=fail smtp.client-ip=40.93.194.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B018F3D3CEA
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 11:20:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779967263; cv=none; b=r2djuT3G1XnmfvMuiXDhLX1+RD95K4X3vhNtbi36maXFRZjdKYhHEWpMh4EENACePMqwBPI9mFUQk6FvwAFP0oFfhupe3znpb0a3N7gr+UZc6cEyZYJ0ICJ8ZI2jcwnf+5XMIndUXxgOuUcFDp5kIiPGkh14DtZCtfJRBCKsEdw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779967263; c=relaxed/simple;
+	bh=R9wm1vrTcP1SZg2rq0PIfzXxTOvb+iBbcNLM6hemEDY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cJ4X8z6reQujkTfTt1KMoBxbs58JVAv7iXurDkVo2Aqn96emQq8Ys3QksaxqmfDFizHW4UEmVuDNsQ1WXZimr+OLpoBc5MpIW2pDJsuI9BlOMEfO+wgwv6ClUOudoBqL5II32MI2QwSeiinNug/AHZZ7Uy+LZbtjaHPru73Hbxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Ys0VAzBZ; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="wRCAek2K"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=vua25k0UhBfP1smO5GwJapLvAzzM37tU1mMdd5ImP/HHc/MGmnMGegOKxelF6T3+s2B0z7BTx7w/VKSSt4Or8q8ZIZeSw1cFMfE11YBWmzNzTd4439VgYDHUzaPiR4u0fuxgf7GSyvoKiIoTBGssiwPYjkNLbd23QfK8Hv1bw0bFGRHss0tn2p9to91rsz3P45JEHReEDyYPsTbKUrMm7UYh8FtCupaWXWCpYMsFYXKR4P4fRFP2HXoYW2ZIWULs5eRnIEPqIBJo+jHQ/M3pRfhLOaVNiwkYXN3QeudVzhehIe9acHvnYEttNAAvwVs5ugsQZ/o9DsGvzA4GHDJjfw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=lopLWkJC9CWft3b+a1/W5NTqZhGkRVq+wmUIf/6pQ0o=;
- b=K3OUtDvP48DL5Yt9h1un9NWBpOh8eO++uYOfdBTKAeBwMnZSfsEAnyq856DfARC9dOL54VdMMurOxr9C9/MZ/KrbL9FUtG1Co8WWveUWgjbuGfjqvhGGFgL8jbshDYj6qCfFUP1qEwziHmR/4mtnjhnsW42mNlRd/P5dJeKEGyhDQ0T0cWdQGAtQqAVQkonUH/2ppb4V59afcUKO4Kof27uNx+cNd7QqWQHKSyX9hAboY/L3kvNyWaNNecdlhEQCiDcaG3JYAlf0fDiJCfJ36XdvULgbztu/+94K4ftUwN3vNscDqiuFo/Iu5DSKAAAmjv4CRyIpUDPk3foxvp6TWQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=lopLWkJC9CWft3b+a1/W5NTqZhGkRVq+wmUIf/6pQ0o=;
- b=wRCAek2KqRKvrgG2btxp6N6JTdvLgNk2jn8Z3/cd7PLq0GThoRwuYD6WIWYkwn4tuiTPGQlEyQeRhJxCLiGJNPn4YSXD1d/owNr/J9u+B12cPlbMt4fICAAvmxGvd4C4l/OisQ5+1k63eDzFZPttigaNwiN1j9X6NaUhesQ70cs=
-Received: from BN9PR03CA0760.namprd03.prod.outlook.com (2603:10b6:408:13a::15)
- by IA1PR10MB7538.namprd10.prod.outlook.com (2603:10b6:208:44b::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Thu, 28 May
- 2026 11:13:25 +0000
-Received: from MN1PEPF0000F0E0.namprd04.prod.outlook.com
- (2603:10b6:408:13a:cafe::24) by BN9PR03CA0760.outlook.office365.com
- (2603:10b6:408:13a::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Thu, 28
- May 2026 11:13:25 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- MN1PEPF0000F0E0.mail.protection.outlook.com (10.167.242.38) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.71.7 via Frontend Transport; Thu, 28 May 2026 11:13:25 +0000
-Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 06:13:24 -0500
-Received: from DLEE200.ent.ti.com (157.170.170.75) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 06:13:24 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 28 May 2026 06:13:24 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64SBDKnf1932799;
-	Thu, 28 May 2026 06:13:20 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<tomi.valkeinen@ideasonboard.com>
-CC: <r-sharma3@ti.com>, <devarsht@ti.com>, <praneeth@ti.com>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
-Subject: [PATCH v3] arm64: dts: ti: Add LincolnTech OLDI LCD-185 Overlay for AM625-BeaglePlay
-Date: Thu, 28 May 2026 16:43:19 +0530
-Message-ID: <20260528111319.3262698-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Ys0VAzBZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=R9wm
+	1vrTcP1SZg2rq0PIfzXxTOvb+iBbcNLM6hemEDY=; b=Ys0VAzBZwuab20BPgXW8
+	8aa2t8tT4u5YvSbtwBI4s0CwIS1mbb1iOF3RIsseD1cigjDL07XF59lgsU3d+sQ6
+	R3Ec1KxDgVevV3tsY96lqYLUu/mVYzFh4rRjfjwBr47EQ0zBrbtW/NhhCFoufiD1
+	zfCrsz+jya9pfVaRCLhLAgKViJpwngFRM80OHHUvSBF/sPClxKwXz7yOGAIE2gXN
+	YQERy28QgXRgCelBVqZAUcSnjNbMh4EiXSQqpT3nL9a+8cBlKvQH2HttIeqhmGot
+	+RSrMwh/h5MJyV9daG0tL9xMiiZwQCbyuvz/PGKKWsAuMWFKIgAF9T7lgpCu+KBL
+	Lg==
+Received: (qmail 1009500 invoked from network); 28 May 2026 13:20:51 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 28 May 2026 13:20:51 +0200
+X-UD-Smtp-Session: l3s3148p1@CNGu695SRMFtKLEa
+Date: Thu, 28 May 2026 13:20:50 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in
+ struct rzg2l_hwcfg
+Message-ID: <ahglErzmYlUtVc9m@shikoro>
+References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
+ <20260528080439.615958-3-claudiu.beznea@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MN1PEPF0000F0E0:EE_|IA1PR10MB7538:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03ed7be6-1670-4b53-4df3-08debcaa2330
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|56012099006|6133799003|18002099003|3023799007|13003099007;
-X-Microsoft-Antispam-Message-Info:
-	iZ2NkVZ865dYVsHAbvFo1TLZgWvs6ruWlx9s/l4ny0Y84IxvQv2Dm1Iugz6uGl1DwL+TFARwAoOgnGV/jJaZq9dlm8bru0+v1534LRpFTgZdjJDf2Pkez9/ZWq+5CjlUR2DQfFNz84YGfJFpbYDMXCMXIFFscLNIoOmCbl5jVOLoUtjoAEN3+eiRKrfdKYR+vX5S5zLVkhuVHUMWRfILgAdq0s8Pn79a+afM3ICFDH7kGczCB5b6wX1ftLfZqX2xhqRosjzdr7Phb8tGkuupXufKcJXvD2RBuo+AgnUFDgChRqbq7qSbCEjk5pViaIANqEAmEMAxd62GLKFMhC8HvU/NOGPlnZfX4VFGTyP014yL/bjEEHwuYWhrY7DKIv2iOvA4vz3d+q8ex/CIwds0wWU/+CKCK1GrZY6zmBDbeQI7r6QJuSPi3ZNd9osYb87MKeYPxMDTEF8uVsks22L6FKZrTz4V4fhlNr+IkHrjkhj/pTKLXcVXFE+MIr+v7q2xmk+JE5c3127xr59X8hsbTfiOBnXuu/Nm267RnE8qIfPI16rXtJ8j6QDWqZI+rZQWd+u6p5ttvuZ+eQy+icWSpN+d/26sVcFKRx75V6ZSVZSwi8QCFftNE1phLBCrQtPMDArum0+J81PK6pXwZVZQtsAR2rfP7MynCafxcq6MBTo=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099006)(6133799003)(18002099003)(3023799007)(13003099007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	yWZQ36XPOUgVSWYO3huFhvD+fIwQQcuRREBNivhv/M7F2la0oS6yRNxNO31EZeoXoSNhErdziRXqPNM2vHN2Lc+pzRPs5JVvXdwA1V6nz0FM/wvsFtQaQ6H9mA6aEdBwA2w+LCuX/3M9b1fkwSN8o9U4fAkwTY2uzu7Z8dck3rEZ/s7LGstPWE8KjWHfk46Av02J97IBkn3fOUuXoGqGVwwu3J1IqFIirGWB7RE5d/hjyue6fCQRxh6FeirmEsPZhAqFHDG2gQsIB6HxGNkMBXPZ0IZsK7akmBuhtLkhqitMrVvVk71wqO5ZNDFXIdneES6P+v9j78AEGc71FnZLp8goFwsPXpRZy1Hq+GfT8EEX1jxYrjUHZxhDE0+WcegX4vQM0gWXApV77B1A4j1yS4z1LVgHPXWFtwlL/kv90aWLrG7boGt2HFdxzw7uyUs9
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 11:13:25.2872
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03ed7be6-1670-4b53-4df3-08debcaa2330
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MN1PEPF0000F0E0.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA1PR10MB7538
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="4WRD9ApdtsB84Zo1"
+Content-Disposition: inline
+In-Reply-To: <20260528080439.615958-3-claudiu.beznea@kernel.org>
 
-From: Aradhya Bhatia <a-bhatia1@ti.com>
 
-The panel is Lincoln Technology Solutions LCD185-101CT[0]. It is a
-Dual-Link LVDS panel and supports WUXGA resolution (1920x1200).
-Furthermore, it has an i2c based touch controller: Goodix-GT928.
+--4WRD9ApdtsB84Zo1
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Add DT overlay for the OLDI panel to connect with BeaglePlay platform.
+On Thu, May 28, 2026 at 11:04:34AM +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+>=20
+> Drop the QSPI and OTHER_POC register defines, which are SoC specific and
+> accessible through struct rzg2l_hwcfg::{qspi, other_poc}.
+>=20
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-[0]: https://lincolntechsolutions.com/wp-content/uploads/2024/09/LCD185-101CTL1ARNTT_DS_R1.3.pdf
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Signed-off-by: Aradhya Bhatia <a-bhatia1@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Changelog:
 
-v2->v3:
-Use tab inplace of spaces for indentation.
+--4WRD9ApdtsB84Zo1
+Content-Type: application/pgp-signature; name="signature.asc"
 
-link to v2: https://lore.kernel.org/all/20260521020630.816220-1-s-jain1@ti.com/
+-----BEGIN PGP SIGNATURE-----
 
-v1->v2:
-Move overlay-specific pinmux configurations from base device tree to
-k3-am625-beagleplay-lincolntech-lcd185-panel.dtso file.
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoYJRIACgkQFA3kzBSg
+KbacDQ/+IBviGnFMI8BR5derxvWcmdygIQ/PQrhwqLg+H+bpODCQu/TZYVEmbxfE
+wum/t3noLYMuUy4OWTLsFc7S/XhR43iEtMz310/Xw+/k75cM2UedT2/nQNEz0R6q
+ScLrvxNFYS0/k/0B51mWE8UGcO2R1v40pP0mV37C3Uc0FE3bxaboe79pyJ7RN3zc
+Z9CcigLeE7szD6FJlV5VJ4Ap+03JwFCgH/X/zly2rdFmXJuJ+vyOl2GUKD/toNq4
+9YoSasOpIzE7CBpJTXxvFiSzMoYbiS99yCbi4640p8Nt8h4qzApDdaQpU/Ehs1eN
+iRlEznB5hQp3KjcwfWMk1iAztx6PnhKEnK4AIkMMNaXnHmexvBagzLHKlmuy8wxF
+EUPsSepw3Rol7nkdaP3c4e0owhYeU/W9IUVRt2NoDd6mBwHtGoWeE8gvH7a76EYN
+N4iEb6+BRdYzBP5gHOFxqucmEd8n6X70yn6JpU6vsgvvHc5poNNe0gZUS0OfQGgy
+wAhZ5R0Ip+xv3u9/ohz/HWn2HwBME6RITF8c/NyTChmKwUX4rEXldZF7eqdEr559
+USmCD1HW1SIuutmUPVSqdcWlZkvcoEeoXlsKRzuRMSPHj5oHn8XMkF0d9H+mEyu7
+bqZyqsdeXhB6HPcKwOBVo0eWvCPhqFgFaQCvdLKLfFAPBMY/lNU=
+=1msF
+-----END PGP SIGNATURE-----
 
-link to v1: https://lore.kernel.org/all/20260514225502.2327771-1-s-jain1@ti.com/
----
- arch/arm64/boot/dts/ti/Makefile               |   4 +
- ...5-beagleplay-lincolntech-lcd185-panel.dtso | 165 ++++++++++++++++++
- 2 files changed, 169 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 21db60cd19de..dd24fbe0c342 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -20,6 +20,7 @@ k3-am625-verdin-wifi-dev-dsi-to-hdmi-dtbs := k3-am625-verdin-wifi-dev.dtb \
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am625-beagleplay-lincolntech-lcd185-panel.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am625-phyboard-lyra-rdk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am625-tqma62xx-mba62xx.dtb
-@@ -190,6 +191,8 @@ k3-am625-beagleplay-csi2-ov5640-dtbs := k3-am625-beagleplay.dtb \
- 	k3-am625-beagleplay-csi2-ov5640.dtbo
- k3-am625-beagleplay-csi2-tevi-ov5640-dtbs := k3-am625-beagleplay.dtb \
- 	k3-am625-beagleplay-csi2-tevi-ov5640.dtbo
-+k3-am625-beagleplay-lincolntech-lcd185-panel-dtbs := k3-am625-beagleplay.dtb \
-+	k3-am625-beagleplay-lincolntech-lcd185-panel.dtbo
- k3-am625-phyboard-lyra-disable-eth-phy-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
- 	k3-am6xx-phycore-disable-eth-phy.dtbo
- k3-am625-phyboard-lyra-disable-rtc-dtbs := k3-am625-phyboard-lyra-rdk.dtb \
-@@ -300,6 +303,7 @@ k3-j784s4-evm-usxgmii-exp1-exp2-dtbs := k3-j784s4-evm.dtb \
- 	k3-j784s4-evm-usxgmii-exp1-exp2.dtbo
- dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am625-beagleplay-csi2-tevi-ov5640.dtb \
-+	k3-am625-beagleplay-lincolntech-lcd185-panel.dtb \
- 	k3-am625-phyboard-lyra-disable-eth-phy.dtb \
- 	k3-am625-phyboard-lyra-disable-rtc.dtb \
- 	k3-am625-phyboard-lyra-disable-spi-nor.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso b/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
-new file mode 100644
-index 000000000000..156bd2c7d82e
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
-@@ -0,0 +1,165 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/**
-+ * Lincoln tech Solutions OLDI panel (LCD185-101CT) and touch DT overlay for AM625-BeaglePlay
-+ *
-+ * AM625-BeaglePlay: https://www.beagleboard.org/boards/beagleplay
-+ * Panel datasheet: https://lincolntechsolutions.com/wp-content/uploads/2024/09/LCD185-101CTL1ARNTT_DS_R1.3.pdf
-+ *
-+ * Copyright (C) 2026 Texas Instruments Incorporated - http://www.ti.com/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/interrupt-controller/irq.h>
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&backlight_pins_default>;
-+		brightness-levels = <0 4 8 16 32 64 128 255>;
-+		default-brightness-level = <6>;
-+		enable-gpios = <&main_gpio0 0 GPIO_ACTIVE_HIGH>;
-+		pwms = <&epwm0 1 20000 0>;
-+	};
-+
-+	lcd {
-+		compatible = "lincolntech,lcd185-101ct";
-+		backlight = <&backlight>;
-+		/*
-+		* Note that the OLDI TX 0 transmits the odd set of pixels
-+		* while the OLDI TX 1 transmits the even set. This is a
-+		* fixed configuration in the IP integration and is not
-+		* changeable. The properties, "dual-lvds-odd-pixels" and
-+		* "dual-lvds-even-pixels" have been used to merely
-+		* identify if a Dual Link configuration is required.
-+		* Swapping them will cause an error in the dss oldi driver.
-+		*/
-+		power-supply = <&vsys_5v0>;
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+				dual-lvds-odd-pixels;
-+				lcd_in0: endpoint {
-+					remote-endpoint = <&oldi_0_out>;
-+				};
-+			};
-+			port@1 {
-+				reg = <1>;
-+				dual-lvds-even-pixels;
-+				lcd_in1: endpoint {
-+					remote-endpoint = <&oldi_1_out>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&main_pmx0 {
-+	touchscreen_pins_default: touchscreen-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x01b4, PIN_OUTPUT, 7) /* (A13) SPI0_CS0.GPIO1_15 */
-+			AM62X_IOPAD(0x00a0, PIN_INPUT, 7) /* (K25) GPMC0_WPn.GPIO0_39 */
-+		>;
-+	};
-+
-+	backlight_pins_default: bl-default-pins {
-+		pinctrl-single,pins = <
-+			AM62X_IOPAD(0x0000, PIN_OUTPUT, 7) /* (H24) OSPI0_CLK.GPIO0_0 */
-+			AM62X_IOPAD(0x01b8, PIN_OUTPUT, 2) /* (C13) SPI0_CS1.EHRPWM0_B */
-+		>;
-+	};
-+};
-+
-+&dss {
-+	status = "okay";
-+};
-+
-+&oldi0 {
-+	status = "okay";
-+	ti,companion-oldi = <&oldi1>;
-+};
-+
-+&oldi1 {
-+	status = "okay";
-+	ti,secondary-oldi;
-+	ti,companion-oldi = <&oldi0>;
-+};
-+
-+&oldi0_port0 {
-+	oldi_0_in: endpoint {
-+		remote-endpoint = <&dpi0_out0>;
-+	};
-+};
-+
-+&oldi0_port1 {
-+	oldi_0_out: endpoint {
-+		remote-endpoint = <&lcd_in0>;
-+	};
-+};
-+
-+&oldi1_port0 {
-+	oldi_1_in: endpoint {
-+		remote-endpoint = <&dpi0_out1>;
-+	};
-+};
-+
-+&oldi1_port1 {
-+	oldi_1_out: endpoint {
-+		remote-endpoint = <&lcd_in1>;
-+	};
-+};
-+
-+&dss_ports {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	/* VP1: Output to OLDI */
-+	port@0 {
-+		reg = <0>;
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		dpi0_out0: endpoint@0 {
-+			reg = <0>;
-+			remote-endpoint = <&oldi_0_in>;
-+		};
-+		dpi0_out1: endpoint@1 {
-+			reg = <1>;
-+			remote-endpoint = <&oldi_1_in>;
-+		};
-+	};
-+};
-+
-+&main_i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	eeprom@57 {
-+		compatible = "atmel,24c256";
-+		reg = <0x57>;
-+	};
-+
-+	touchscreen@5d {
-+		compatible = "goodix,gt928";
-+		reg = <0x5d>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&touchscreen_pins_default>;
-+		interrupt-parent = <&main_gpio0>;
-+		interrupts = <39 IRQ_TYPE_EDGE_FALLING>;
-+		irq-gpios = <&main_gpio0 39 GPIO_ACTIVE_HIGH>;
-+		reset-gpios = <&main_gpio1 15 GPIO_ACTIVE_HIGH>;
-+		touchscreen-size-x = <1920>;
-+		touchscreen-size-y = <1200>;
-+	};
-+};
-+
-+&epwm0 {
-+	status = "okay";
-+};
+--4WRD9ApdtsB84Zo1--
