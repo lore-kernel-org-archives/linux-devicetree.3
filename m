@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53DF13E3DA5;
-	Thu, 28 May 2026 12:54:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EEF33F0A86;
+	Thu, 28 May 2026 12:54:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779972855; cv=none; b=grImpByKNVhX/mFbdpKKaiBoyizS31QBjB1iRgAXfsGqqOcHngviEMGcAR7kt+rBmvk+TwzUgitmYdosOVWdshboLQOuRmxX1NwR26kftK1WLTw9dLvc4gJtIUPZ/pURc2W302gwqjIBKGbwQmG1f4knLhsEBiMMZ7DlTTZsazM=
+	t=1779972858; cv=none; b=IV9bqD3mx+gfRw1RB/EmBOiSoq2Whk0bVegQPW46yQPe8GiCbLQIQJiSavJllDo3xMgw3J2iNiAJLNJo62nLYxLipfnRV7wr8/1PAE1pXs5D15qrAeprrPfvkZBY9lcGQMxBJcnaAS/+lQzV6GKl5uNEP46ePmfebAmnCox4mV0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779972855; c=relaxed/simple;
-	bh=1TCwjAjAkJY79phktGDqLGQ7n0NM7vNYxsbdOtcnWuU=;
+	s=arc-20240116; t=1779972858; c=relaxed/simple;
+	bh=N8Ms7YOn2QGbjugFPA+v2r5GXvn1LfJmcXoB+uWICwg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=tXVad1aVJ188/+lmtcrof7gVzWa+BQewbpPLkTcPdCvzs0ZW5mZHOR5F5LkV5W3rL+i/IRH1l1GpBB1LQQUWEIMw9lzgfyIfDn5NJ77hZOhj3K6OPhOaLHkFaMp91sr8U9WIevwpirHMgM3ssa8uyzK9xB8s4kEUwVagyKlPFAs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=Zq2f1oe1; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=H0bewh+4FlOadlrHLxqsx0XnwRuBnIqpQ2dA92ov1Y560C/oiBWZdazsvF2JPw8f/cjvOcuIfi/aLr0iYaXsYxxukMTQ0dbenh52zjtB5S9rWBBzaNCLH7VZhK6vBP7JGHcmw4PPr1xGVX6imzLk52c9O0Pny+ebRpFUvE2Wfy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=iF7PR6ZQ; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="Zq2f1oe1"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="iF7PR6ZQ"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 998A682A;
-	Thu, 28 May 2026 14:53:52 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 741918E0;
+	Thu, 28 May 2026 14:53:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1779972833;
-	bh=1TCwjAjAkJY79phktGDqLGQ7n0NM7vNYxsbdOtcnWuU=;
+	s=mail; t=1779972834;
+	bh=N8Ms7YOn2QGbjugFPA+v2r5GXvn1LfJmcXoB+uWICwg=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=Zq2f1oe1/UGa91tHaLMmHjANuCTDa8RXL62WXWzXCPIpEWjjE2iNjABvOufaj2jhF
-	 4AOSIQQXHeQE+hkB/ADNtEOaQI05AIcXcecVtc5kSk9JUqLS7vD9ANqjT9Od6HZXdz
-	 jDKRS6UBXKCliAHV3J4nQ+FVnmV/9P1fpHU9+Cxs=
+	b=iF7PR6ZQ8QJn8Hu3ZZAWmfFaFjSCLiL6APBTb7cwWTlmYORcvTeUwwxT5Erg7CHj8
+	 mNa9t3qXgJqlyt8/iQD11ubJD7mJ30nKmSG1HOIzjTE+tMCIpHtpHm2dv11UONWanm
+	 4enypFlR3vS0BhYMxjAn8S18iITTOvcIMOD/k7Ps=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Thu, 28 May 2026 15:53:42 +0300
-Subject: [PATCH 1/6] arm64: dts: ti: j784s4/j742s2: Rename pcieN-ctrl nodes
- to pcie-ctrl
+Date: Thu, 28 May 2026 15:53:43 +0300
+Subject: [PATCH 2/6] arm64: dts: ti: k3-am62*: Rename 'clock-controller' to
+ 'clock'
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260528-ti-main-conf-v1-1-a54ac5c8d081@ideasonboard.com>
+Message-Id: <20260528-ti-main-conf-v1-2-a54ac5c8d081@ideasonboard.com>
 References: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
 In-Reply-To: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
 To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
@@ -51,72 +51,101 @@ Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1778;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2881;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=1TCwjAjAkJY79phktGDqLGQ7n0NM7vNYxsbdOtcnWuU=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGDrwNKdZgwSHzDNuA+pBv16YHNJjhN7nG4FoG
- i3jbhjgasyJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahg68AAKCRD6PaqMvJYe
- 9YXMD/0enQlx2L1983874U0NfvmdgZWcYoaifqJmRH79rqSuqn+jIQj7fjbxzPYjtpvOgq2/Zgy
- atfsnoH47LdOXOgE13QGv6by+Y6hJYsle6EpGp4H/OktyWZfdbh+xvQxpaOe150GntXwsJkjnhp
- nSPideEVFAnvYk9i//iWjc5P3CFI6osKJzMdHSC2XHG0EOFHL/qEY6x4K97wX8yDHs9RxBilWt/
- e4ZodOOph45Pn5xksiyHGlYiRbx3tn558DvOqIuVE7VVNeI4tCq1yujOALwn5B55QhHZIkpG0TS
- 7+LALtT0vfEKlGkPgnUnrxzcJX75gDUeJ2tAsZWpOUQvqurVS3yLUMnJbqVfemS1ZyZhxT4nNoT
- yUcJW10vQYG+4Le3ds3JH1NCxYsuowEKzYxnCF6kVOgALLaSmFGol4gITZlVNvxdq/IQxp3LucN
- gyq8uAtsXFiGMQj4ynTPrA5zZnUfsim5mjvC5nHmWTWyzNUE2aVoAH3wmallCKJFlnRo3q5L8fp
- cVg8U2kWYuXCNfGz+TKgTnmzys5l2xebZXfNXuLFH2A/fnvZckIbW5cgfoBgvJ8GBxzyqcQd0t5
- CIyK58+nZz7EHUal3u8/Q8pEBDWoSANpIc+K2BfrdEu8LA4qSLCSlH/ZSaQk1/CYIq3IOB2LMOY
- Rkuw1Qq3SJdJX/Q==
+ bh=N8Ms7YOn2QGbjugFPA+v2r5GXvn1LfJmcXoB+uWICwg=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGDrxycB6BmSQ73NfGywRkMJaWPk95dIft+pl0
+ pC3j6SSW3CJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahg68QAKCRD6PaqMvJYe
+ 9S57D/41uTXC6qUiMePqkwVikrfRbAWayLx4/hlL1jjsnHqPWf5jtuFBB7RGmpb67dfu9eNrowO
+ JQVZ0M8Ru6vcwdmggb3Kzc3saLgWRUmfwwUoqfxGwSusXp55BwUs87h8LQybFE3der5/RmD5Ekg
+ l/hNikkF5Q/VaWtWWjmcwVFqby3gv16fWwfcJOLzQppsJ08ZegKgwFkrm2pfdc9BlvtPXhqCUd5
+ kJQkBuN8SDfJ1fsFPOLAEcZZiovQ3sO8XoPCVfb89KhYwHzU8R3uXpSaihqw6OJWgmMhbxIDT8b
+ 2tiWKvUq4m1vZ5qje38Y0bVTBcrGIUKHpINvQFw+vPtbohPEHJpQ2R+t3tGaHQloimVLyBWFKQZ
+ eOTXwUJUWEZJKCVpuq3qLLnRrOB+kozfzA+B/AB8Ikd4yvuG3MJ+x0TJcFnTHh5NO4720+iA8v2
+ v1gplCnM9t3WRqBgUHpFPSBetPc/stl5WDGHu3PXu1Mo81pVxJojFolgFc05deC8OKeK7NnIFeq
+ aWyNOR6OT52eDzN6h3AnYXAUAqDVo8RgZnPlSh4WkjyIdVqhNqNqUTjrAghRIWj6S410M+i1fUa
+ bp3qJNHuR36cGy/icGjPLttMb4eelGV0mrYIayPsQTvZAhiIt7EW/A92pN7K789wr0ao8VH7gxL
+ bX65LPwyI3ib8Eg==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-For some reason the pcie control node names were numbered
-(e.g. 'pcie1-ctrl'). Fix the names to 'pcie-ctrl' so that we can, in a
-later patch, more easily use a common system controller binding.
+Multiple dtsi files have clock nodes with 'clock-controller' names.
+Rename them to 'clock' to be more in line with the fact that it's just a
+single clock.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi | 4 ++--
- arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi               | 4 ++--
- 2 files changed, 4 insertions(+), 4 deletions(-)
+ arch/arm64/boot/dts/ti/k3-am62-main.dtsi               | 4 ++--
+ arch/arm64/boot/dts/ti/k3-am62a-main.dtsi              | 4 ++--
+ arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi | 4 ++--
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-index c2636e624f18..2570723efa4f 100644
---- a/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi
-@@ -65,12 +65,12 @@ cpsw0_phy_gmii_sel: phy@4044 {
- 			ti,qsgmii-main-ports = <7>, <7>;
+diff --git a/arch/arm64/boot/dts/ti/k3-am62-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62-main.dtsi
+index c5ee263d34a6..228f8c3e8bf6 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62-main.dtsi
+@@ -59,7 +59,7 @@ epwm_tbclk: clock-controller@4130 {
+ 			#clock-cells = <1>;
  		};
  
--		pcie0_ctrl: pcie0-ctrl@4070 {
-+		pcie0_ctrl: pcie-ctrl@4070 {
- 			compatible = "ti,j784s4-pcie-ctrl", "syscon";
- 			reg = <0x4070 0x4>;
+-		audio_refclk0: clock-controller@82e0 {
++		audio_refclk0: clock@82e0 {
+ 			compatible = "ti,am62-audio-refclk";
+ 			reg = <0x82e0 0x4>;
+ 			clocks = <&k3_clks 157 0>;
+@@ -68,7 +68,7 @@ audio_refclk0: clock-controller@82e0 {
+ 			#clock-cells = <0>;
  		};
  
--		pcie1_ctrl: pcie1-ctrl@4074 {
-+		pcie1_ctrl: pcie-ctrl@4074 {
- 			compatible = "ti,j784s4-pcie-ctrl", "syscon";
- 			reg = <0x4074 0x4>;
+-		audio_refclk1: clock-controller@82e4 {
++		audio_refclk1: clock@82e4 {
+ 			compatible = "ti,am62-audio-refclk";
+ 			reg = <0x82e4 0x4>;
+ 			clocks = <&k3_clks 157 10>;
+diff --git a/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi
+index 9e5b75a4e88e..9287d7be7cc8 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62a-main.dtsi
+@@ -60,7 +60,7 @@ epwm_tbclk: clock-controller@4130 {
+ 			#clock-cells = <1>;
  		};
-diff --git a/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi b/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi
-index 78fcd0c40abc..336bb9b99201 100644
---- a/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi
-@@ -152,12 +152,12 @@ c71_3: dsp@67800000 {
- };
  
- &scm_conf {
--	pcie2_ctrl: pcie2-ctrl@4078 {
-+	pcie2_ctrl: pcie-ctrl@4078 {
- 		compatible = "ti,j784s4-pcie-ctrl", "syscon";
- 		reg = <0x4078 0x4>;
- 	};
+-		audio_refclk0: clock-controller@82e0 {
++		audio_refclk0: clock@82e0 {
+ 			compatible = "ti,am62-audio-refclk";
+ 			reg = <0x82e0 0x4>;
+ 			clocks = <&k3_clks 157 0>;
+@@ -69,7 +69,7 @@ audio_refclk0: clock-controller@82e0 {
+ 			#clock-cells = <0>;
+ 		};
  
--	pcie3_ctrl: pcie3-ctrl@407c {
-+	pcie3_ctrl: pcie-ctrl@407c {
- 		compatible = "ti,j784s4-pcie-ctrl", "syscon";
- 		reg = <0x407c 0x4>;
- 	};
+-		audio_refclk1: clock-controller@82e4 {
++		audio_refclk1: clock@82e4 {
+ 			compatible = "ti,am62-audio-refclk";
+ 			reg = <0x82e4 0x4>;
+ 			clocks = <&k3_clks 157 10>;
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+index f130c7cb998d..7c2f03780885 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+@@ -46,7 +46,7 @@ main_conf: bus@100000 {
+ 		#size-cells = <1>;
+ 		ranges = <0x00 0x00 0x00100000 0x20000>;
+ 
+-		audio_refclk0: clock-controller@82e0 {
++		audio_refclk0: clock@82e0 {
+ 			compatible = "ti,am62-audio-refclk";
+ 			reg = <0x82e0 0x4>;
+ 			clocks = <&k3_clks 157 0>;
+@@ -55,7 +55,7 @@ audio_refclk0: clock-controller@82e0 {
+ 			#clock-cells = <0>;
+ 		};
+ 
+-		audio_refclk1: clock-controller@82e4 {
++		audio_refclk1: clock@82e4 {
+ 			compatible = "ti,am62-audio-refclk";
+ 			reg = <0x82e4 0x4>;
+ 			clocks = <&k3_clks 157 18>;
 
 -- 
 2.43.0
