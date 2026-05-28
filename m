@@ -1,621 +1,164 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010021.outbound.protection.outlook.com [52.101.228.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F02638AC7E;
-	Thu, 28 May 2026 08:51:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779958267; cv=none; b=lI91ry/qpuP4Z+4A4XfLsI1x1PoQZ4GSi7jjGJd5VhpkD6bqG05X2JgwcUYqrkAvBadPOyF7Uav3AQoEHkQ/exqZgVOtH8N/qtewA/g+wvgjXZ9d5FEa1I2LCroGATprk/x4t1hRV/2u7von1ZI9uripPD8rzqRNJ2grWHples4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779958267; c=relaxed/simple;
-	bh=GF4ucHXDeEuulJMnRIadUl2fOSASsw1JQ1/U3HALZWc=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=XtCP2jT44+3xsK0EIyc0+Ba6oIN/hYCfx0zRG9yo1c5dbjuzbeVb+GfeqLIKiT34JBJOQOS+o8u7cUeOEjtMIlhNCyWwiXBiOpw55vzsLk+DoMRHOOMJnxGZSVlWUyJrNPnVEn9aG10rny9MKTySzEDX5BftSOwrNlrIFUgNwdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=lTy0CHto; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A24EF38D3FF;
+	Thu, 28 May 2026 08:54:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779958448; cv=fail; b=cDDlhnktug8JWvLDBK+E0vVL6ESMy5p7oEqvgqdbHgRm1MFrQ+ZZxfN52vf0ey+cZnLmcaLgwa2N6pPNnYDR6IDRi+nYBmA+4dAZ03kIUEEVLBFltIxWMi3e2o6LnuNxouUVhTk6ikxuYAeparBNQrjt2hiqidBrE2clRoLg4BY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779958448; c=relaxed/simple;
+	bh=W3uXJujFE7hdRssWdksnJmvMm1rH0xSCPHJiGKqyY9k=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=oJFVprTS+F3pABCOri3ta8ltWaIW8RK67yPMFo83x6gbwJWOlnQ009Qzt8Rj9BKVNFsDDayA5F0FLHVWtc66lE9eb10dQLs5YG/vb0TSuWgr6xv7Vda5v+0RS0htxNcPmDMDrhsPfD26noAv+kP1VJp0H++kOSvzouw+SvdymIU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=eOAV+YGQ; arc=fail smtp.client-ip=52.101.228.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="lTy0CHto"
-Received: from pps.filterd (m0167089.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8TH6V3916569;
-	Thu, 28 May 2026 04:51:03 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=CpR19
-	tLnwE64jsIbMLTXCYKizHjkEANkPInwWVF/4/8=; b=lTy0CHtoemSxIzCgKwJL3
-	nYTVYPYFY+Gzv5Vs0UP0Gj63K9eQ+1neVs8g/nN5tCYW+Gr4nrp1c+6UUmVCJm6k
-	d+rJE7Z4s+hO1LvmPrMZB3suAcRvCcQsil0lwmHzXnUl+ikeMWS92/tvLnkhBD3B
-	MHlLa2DS6VxiCv+cC9TtW1ORBWRq4/EHHQlEhtpdsZmCGd0KkBJH/eOvZG8SDaw5
-	ZQMYnHInCVdlIED9NJViNXLFmmPz0lOjKkNxwiSmkiT2TeoeR5rmC/yM2Y6IMZrm
-	Rump3T9KkjgZyCR7CP8pV82Y9qQ5ie64qupfkB21WotDhP3QS6UtqAgOzMy+QiBz
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ee7xdj45a-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 28 May 2026 04:51:02 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64S8p1kt037642
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 28 May 2026 04:51:01 -0400
-Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
- ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 28 May 2026 04:51:01 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
- ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1748.37; Thu, 28 May 2026 04:51:01 -0400
-Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
- (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
- Transport; Thu, 28 May 2026 04:51:01 -0400
-Received: from HYB-7P5GeKnsiiX.ad.analog.com (HYB-7P5GeKnsiiX.ad.analog.com [10.118.4.71])
-	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64S8ohpi017193;
-	Thu, 28 May 2026 04:50:54 -0400
-From: Edelweise Escala <edelweise.escala@analog.com>
-Date: Thu, 28 May 2026 16:49:41 +0800
-Subject: [PATCH v9 2/2] leds: ltc3220: Add Support for LTC3220 18 channel
- LED Driver
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="eOAV+YGQ"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jmh4u6LVVz9UR1t8eVotsgezMArxkbKrSFSZLF+aOnSxWmd4UrsnuJSyeAsk2KdqzsSAVozsKVU6rBD+/Ct79Nq9mhscw0jz4hRxFqKfcPvubKDKpSCNoUJJHQ6yE4jPa4dCGnrNWhom7JzyTF3s2N871gbIfWv7rgMNUCGzOMqpURimnhT8k0InsffzTXjexkWp/gUOPSN12EsJ/A3/47tLzCvWdm7C86e9Zr4lYUd4A3nUBsIYKdcLVPhyKm21oFNPkQ71VOiHrmDu/RcD8QjdPvvJoLJ64ub5gGzqna0XHo9tMUy/GMYtPZfyketcw8GNnMhseaiaF57pC2GIdA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=W3uXJujFE7hdRssWdksnJmvMm1rH0xSCPHJiGKqyY9k=;
+ b=vQCXGYA15fUiRRAUMFizifEShyoIsycfNo/DFXL9uXn1JcBPwAqQMieDz4MJG9egV9Es8I8bqfiIYRG9cll9EmsgE8tWsctRXVvFnUF6H5HuFqw2nYDkF+892JQPrr41VGx+sbTo+sA7J+2j/o9w/QnU0ZqJvnm6XQnS3lJhwVRZUo9grGXfjrm+//DSAxR+5TesjGma4LrV9MWjCebDK8XN0ZhgUI+7gF+kClBLG8YhGBy29rhNrZSjAq+2XN2E588axft2XzvsROunC/8VhG21LjpwsL/oAfgEKjrE7Lm3qQF0AD1NKFvyK331LG0OTQ0HqgLnM0q3A2SFX3r8FA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=W3uXJujFE7hdRssWdksnJmvMm1rH0xSCPHJiGKqyY9k=;
+ b=eOAV+YGQ5MSBd0wU0x6Qs4lfplzBEPvzF7vQk0l6UsBankiaoF7sqzrAWBzSbhkLZY9tELwfCMfiZvU0BoYeAnMbICBwL6f94rX2hLcLb8g6Qs9eY6NIY+4RQTiSRw3igwAgDFkVJbwctFtv6ymrH2ulJIO9SkWc7AGeL45f/MI=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TY4PR01MB13800.jpnprd01.prod.outlook.com (2603:1096:405:1fa::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
+ 2026 08:54:00 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 08:54:00 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>, "geert+renesas@glider.be"
+	<geert+renesas@glider.be>, "linusw@kernel.org" <linusw@kernel.org>,
+	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+	magnus.damm <magnus.damm@gmail.com>, Prabhakar Mahadev Lad
+	<prabhakar.mahadev-lad.rj@bp.renesas.com>
+CC: Claudiu.Beznea <claudiu.beznea@tuxon.dev>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Claudiu Beznea
+	<claudiu.beznea.uj@bp.renesas.com>
+Subject: RE: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in
+ struct rzg2l_hwcfg
+Thread-Topic: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in
+ struct rzg2l_hwcfg
+Thread-Index: AQHc7njDSOFJlV923USesFQzr0mwDbYjFqgwgAAJRICAAABywA==
+Date: Thu, 28 May 2026 08:54:00 +0000
+Message-ID:
+ <TY3PR01MB11346FFB9B66C033546B11C3E86092@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
+ <20260528080439.615958-3-claudiu.beznea@kernel.org>
+ <TY3PR01MB113461A5FC6EEB722B947671586092@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+ <8df8e9dd-3d84-44af-899f-b46496506a19@kernel.org>
+In-Reply-To: <8df8e9dd-3d84-44af-899f-b46496506a19@kernel.org>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TY4PR01MB13800:EE_
+x-ms-office365-filtering-correlation-id: 8aa6b4a5-7b21-4a8b-de5a-08debc96a928
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|7416014|366016|376014|1800799024|18002099003|22082099003|38070700021|11063799006|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ sMVf84TP3YXZ8RGh0kdNR1AtrD6uqRPWnPhVAOmbpWrpDd3Q7Q4lMWpkV/Jhqkn2USDY0+KKHc6s37Vr3X9XbUL4axPPtB/1JVWT9rheOvgXPfIIX8/HOBaLJJpG8XE5eRvwJBc/UFIu/5l+h/ErkjsIdVvdyhZqPwn/tUNjnhp/DhLkvM19+NkS1mBJDgYMYhpQYBIQMI2D/LvxCUA+Zc99A5A8sLGQTOtJ/AJZW+PUCQLUlyqmGv6k+cDT7uAmaT5GcayeRn6Sf4dCgtd6pRs3ve4xnV2uVq6VVdGuRlwnOR/Bfw2xmYDQx4N2+1TQYaRw2iyFMsgyIY26NVUawuWOTwTXy18+34hhL8drexMaVSIbR3W0lv1lyt+kGuEkT5eyrWtSnrcPYHirbxRKjzsccoMng9tN7gjFg+kBL/d5EIcE6QMMIvyBVroT/szrApxxukCFYPVJu8WyfGni4SbN1cZWr08cowPQWAr8sjN4Asu4P0HR1GU49ZMNSNsqXm7vlmhEDT5ZM06wo8wgvjhjJfedcWg9jb2zcts/X2NDdULLsCjp0kb0e7mf0C/yZMeaZfBS/22Wsl8lpSAXOF1JjJ2uw/+N16pdbd56ZZJ5xsyU6ubFdr+DxVCXu1UmPO2ftXuwzxwH+jOi46qWPtY4WM8Yd56f2/vexfQlL0LCvMxktibZSZxqpznbJTr93SudebA3MH/2PJPDtslPeUpwPp10AKFTAWmv9AjSi1uwFIAqaqjvU6rMy+6UdpuD
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(366016)(376014)(1800799024)(18002099003)(22082099003)(38070700021)(11063799006)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?WHFiRXVJNnB5SlFDMkp6bTIwd3hLalVlVmFzMjBaSXkwUW91N1pOWC9UandB?=
+ =?utf-8?B?MmxST3Y2T3UvZDNrdko3Y1NSN3paaUtJeVJwV3J2NTI5VEpRc2M2V0J6QjRG?=
+ =?utf-8?B?ZTZOYkg1azNzeC8wZHJTL1dHVnZ2Ly9zdTdud2M3U2FSckhvbWJTcEpCa2Nr?=
+ =?utf-8?B?dGNKQmNHKzRHTHdpRlZoaUlvTE12Ung0OFYzM2hDWm1aMHFROVZIRzBVb2E3?=
+ =?utf-8?B?cjdMMUxCdlZOUEZUVUJRYlpZUlcrNEd4d0pKeHlpNUJobnRtbXR2MEd2RUVH?=
+ =?utf-8?B?dDJLWTNzWVRXeTc5OEhyMnRKYTB5MDh4cEZkeGovMzlyVDNPL29zc3loMHhF?=
+ =?utf-8?B?NGU4ZE4wWnVGY3NET0l5VUJtVFIybnpSeXhXWXA4ZFY4Y1RxbDZ4d3M2YlNO?=
+ =?utf-8?B?V1p2eUl6aGlFTk4vMzVnZ3d5dXE0OVk5MVhrL0xsei9iVkdPeGNoMGtGVjNQ?=
+ =?utf-8?B?SGZpQ1Vwck1GdXE4aWkwQXB6R0VmN3B2U0drSXBLaGRsRkNaTm5qcnFhdWZw?=
+ =?utf-8?B?NmNoVjdjQm9ySytyUy8rSGQvVS90d1hOcGJxV3FsYVZ3MSsxaHNiSUZEWWhX?=
+ =?utf-8?B?T1ZHYUprM1dzL1RrZjF0NThkc1RJSGNHM09qY3dvYW5Eb3RDL1VQMjZidytk?=
+ =?utf-8?B?aEdPMmtBak5RR2l1eURFZU5Db0dWUmFRd3I5Wi9qaGxLNHMzTTZud0lZU3Q4?=
+ =?utf-8?B?M2hFQ3NvaE9obGtMWGpUdncyVTZpVXg3WXk0R2w5TWt2b1ZxanR0QXRHZFVT?=
+ =?utf-8?B?WnhXTXpIS0xwSTR4dktEL1M0QmdhYTFzQy9kNXNEUDVBcHpxWFZQNkVQTk1H?=
+ =?utf-8?B?VTJkVjR4VU9SZEQxRTNiaGFVRWNvaFRORUUyd1E5Um9lK20vK0c2L1MwQ1ZQ?=
+ =?utf-8?B?ZWRBeHRLdjViVXpWMUpTZGhaZlBIZk95ZjJubGlhZi95ZUd6cVdqN0trVjJs?=
+ =?utf-8?B?R2R0T0U5VzFjY3VsODd0UnRIR045bXNpb2ZZM1MwUlcxT0hKNHdMUytKd0Rj?=
+ =?utf-8?B?ai9BYWVDYkFFMHZHbkh5TnlwVTBZeVNDTS9IRm1wMHg2bjdtRXBXc2dXOHNm?=
+ =?utf-8?B?M0kzUmcwc1ZnSUgwT3k1MHFjOVIzVWF2V0QrWXNRcm5XenNQVlVIamo0eTVG?=
+ =?utf-8?B?NEpFUG1vRzNUNUloMDdJcXdmVTNWZWZ4eVl0SWJteG1QTVp6dVFGRGpGd0tm?=
+ =?utf-8?B?R0p4M0pEbmxQb1ZUTUhPM1FUSW85dnhpR2VtWUpDanI1cTlXY3V4bEVwUFB6?=
+ =?utf-8?B?anE2U3owckZqQXFNU2w1Zit0bjFHZW5hWGFJU3lDbU56N1Z2cVE0VDhXdHZw?=
+ =?utf-8?B?Y0JlcEhwUW81VkZEU2xRSjhvcUdscSsrUDc4OFZ2YWR3a2VMbUNGQlAyOGQ1?=
+ =?utf-8?B?cmpvZWx6TFRmdkppeFc1QnpaOXZ2VkhaZUxPUFJOOFgrMWRmTTU5djFZMHVB?=
+ =?utf-8?B?b0NNeXRrbE9mRVpIbnNFZ2EwbklrcGdYZDFkNW4vUXVTZGV6alE1MlhNbjRw?=
+ =?utf-8?B?ZkZTdkQ0aWJISURZZzZtSWdwdDNZckk3M0EzNk5PZnNGWFg3Q29Wa3pINGw2?=
+ =?utf-8?B?QVpUWExnZ0s5UDZpTlZYQmFoWUdGdDNSMkFramdDUmRRaDkwSW8zaTBuN245?=
+ =?utf-8?B?cGVKOFhyT1NUbDN4aG4wYjhCa0xjU0NOQ2d3QnoxYjRORnU1UlhXREVzTnpl?=
+ =?utf-8?B?THJGMExLK0JrT29CSDVpK1IyTTIra2h5SW5zaGJIdW80S0tBOHlNM2h4S1dz?=
+ =?utf-8?B?Q25sN3VGL3o2S2RaUmZnK1FhRXovdUNTcElzQlQ4cTNuREZDNHR2UmFWLzZ6?=
+ =?utf-8?B?WDZaMUdqNVBRU0hkZlROemdXZkZ5OTFEeStJSE1aclJpQVNnSjBHcHNPRHV0?=
+ =?utf-8?B?ZGVGaWJiMVl6WHRieHFQNTAybE5xTFdrTElGVGVRNGlvemNiT3VwQ3lVUzBr?=
+ =?utf-8?B?RnNtL0d5Q1h4ckxlSTAwcGlwMzRMMEQxYlVWaDV1WStPUnM2dnN1eVEzZ2N6?=
+ =?utf-8?B?VWQrNTlIY1c2UW1Lc3RNVlRSaDFjTUtUVEhwTDh0dTV5TUlZa0xjcGRqSWZE?=
+ =?utf-8?B?ZWZJSlU2L2YyUEtJVERQWlNKa2N6dVNqYjE2czluWTI3MnF2aHMxV0htRkM2?=
+ =?utf-8?B?ZzE1NzhWc256dWM5WVVYZktoU0lUS3pJa0k4TFhRbGwxdUlkQ1V0bFNPbGJH?=
+ =?utf-8?B?U2M1QjBjZVBmUmpLZWgvRnNNUXB0eDZzd3pkcVVEd25xTDU1MlBuc05qS2pr?=
+ =?utf-8?B?SjBoMktTYzBqdWRYcjFIRVJYY0VFWHd6N0RWV2ZvUFM5Nnp1NE5EaHFURlQw?=
+ =?utf-8?B?ckxJSW02czYxa1A3UjlNNWxSZXl6WXUzVFVUY1BkUlV1bWJaNlc1QT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260528-ltc3220-driver-v9-2-69450fc213cb@analog.com>
-References: <20260528-ltc3220-driver-v9-0-69450fc213cb@analog.com>
-In-Reply-To: <20260528-ltc3220-driver-v9-0-69450fc213cb@analog.com>
-To: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
-        Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>
-CC: <linux-leds@vger.kernel.org>, <devicetree@vger.kernel.org>,
-        <linux-kernel@vger.kernel.org>,
-        Edelweise Escala
-	<edelweise.escala@analog.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779958243; l=16483;
- i=edelweise.escala@analog.com; s=20260106; h=from:subject:message-id;
- bh=GF4ucHXDeEuulJMnRIadUl2fOSASsw1JQ1/U3HALZWc=;
- b=J5K/iHw5KR/AWTxkomr0qTIDAoTB6LdUU/Tgc8Nb7DgInuPBqQK0OMdOS/vy0oTvkWcs9SnUb
- 2QlKlNv5CNRDA6nBEIoHgNFpaA93k126bJSE0qWnZo2QyBxZO2FhXXc
-X-Developer-Key: i=edelweise.escala@analog.com; a=ed25519;
- pk=lf5HLFe8ZeQjXZgkBkFMK+u9qH5/tqZhCIushTKduNQ=
-X-ADIRuleOP-NewSCL: Rule Triggered
-X-Authority-Analysis: v=2.4 cv=VMPtWdPX c=1 sm=1 tr=0 ts=6a1801f6 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=0sLvza09kfJOxVLZPwjg:22 a=Z0pTeXoby7EwIRygza74:22 a=gAnH3GRIAAAA:8
- a=VwQbUJbxAAAA:8 a=hYaNXiyfE8bdEU5phHsA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDA4OCBTYWx0ZWRfX4ocwdjYjtVom
- p9fY8D6GfggpJIMDwtIbauy1WJ1xUIMM84nVD5UlfhoEOnXwm+opmEd8Hheq0Tv/8Zcq4TRFWVs
- qr/vND0KPUNPkrPhe6f61WU/ALV+Dfjg/u+xalDLvg+UiF+J3gsDvWsaSz9Y3Nh3qM9XVh+HMJc
- 4YCvbfDZbP0fmLkoxI9ZCcvRENi0jX+vlPewsvGCXuomZWP8QkCXaoQ3/+Q7MfrDlhOY2saItfq
- 9ICKMWID+KjD1soyE6zFccRJwLua8jddpi9Xj9bQD/pcPhRgkF5peQ8Mp0ZGDMkjufu9fv5J9Dm
- Ufzhwt2Wi0fbOWV/j9xEdtx/2Gwgonm2H7MqFJT8RxR6IyeYZIr+fU7LwCRG0G0+1x4XXeH6YYH
- vJp6b0NWVYlO/6lj24X3A5UhULv27/6WTzkTjaIsR8gcxuRYy/TcwmHdx3acF/sOlWptFmbLEX3
- yIB3y/+v0oyn7dJrFdA==
-X-Proofpoint-GUID: JzO0jqFyp9vCk-qaHAh2J5fRlEnydEpT
-X-Proofpoint-ORIG-GUID: JzO0jqFyp9vCk-qaHAh2J5fRlEnydEpT
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_02,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 suspectscore=0 adultscore=0 priorityscore=1501 impostorscore=0
- malwarescore=0 phishscore=0 lowpriorityscore=0 bulkscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280088
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8aa6b4a5-7b21-4a8b-de5a-08debc96a928
+X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2026 08:54:00.2057
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2LXCZ26K0YeLAtYkcwgoSN0bwQo+wIY7JQpTtKrz+LIYNsRFwuJ4jw3guWYCECFwxOL8ayTInnyp1XEbcd/IEI0AkWV41b0SAnwhxS6jzb4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TY4PR01MB13800
 
-Add driver for the LTC3220 18-channel LED driver
-with I2C interface, individual brightness control, and hardware-assisted
-blink/gradation features.
-
-Signed-off-by: Edelweise Escala <edelweise.escala@analog.com>
----
- MAINTAINERS                 |   1 +
- drivers/leds/Kconfig        |  13 ++
- drivers/leds/Makefile       |   1 +
- drivers/leds/leds-ltc3220.c | 440 ++++++++++++++++++++++++++++++++++++++++++++
- 4 files changed, 455 insertions(+)
-
-diff --git a/MAINTAINERS b/MAINTAINERS
-index c8a242577d2f..0f553ada61d9 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -15229,6 +15229,7 @@ L:	linux-leds@vger.kernel.org
- S:	Maintained
- W:	https://ez.analog.com/linux-software-drivers
- F:	Documentation/devicetree/bindings/leds/adi,ltc3220.yaml
-+F:	drivers/leds/leds-ltc3220.c
- 
- LTC4282 HARDWARE MONITOR DRIVER
- M:	Nuno Sa <nuno.sa@analog.com>
-diff --git a/drivers/leds/Kconfig b/drivers/leds/Kconfig
-index f4a0a3c8c870..31b1e3ff094c 100644
---- a/drivers/leds/Kconfig
-+++ b/drivers/leds/Kconfig
-@@ -1000,6 +1000,19 @@ config LEDS_ST1202
- 	  Say Y to enable support for LEDs connected to LED1202
- 	  LED driver chips accessed via the I2C bus.
- 
-+config LEDS_LTC3220
-+	tristate "LED Driver for Analog Devices Inc. LTC3220"
-+	depends on I2C && LEDS_CLASS
-+	select REGMAP_I2C
-+	help
-+	  Say Y to enable support for the Analog Devices LTC3220
-+	  18-channel LED controller with I2C interface.
-+	  The driver supports individual LED brightness control (64 steps),
-+	  hardware-assisted blinking and gradation effects.
-+
-+	  To compile this driver as a module, choose M here: the module will
-+	  be called leds-ltc3220.
-+
- config LEDS_TPS6105X
- 	tristate "LED support for TI TPS6105X"
- 	depends on LEDS_CLASS
-diff --git a/drivers/leds/Makefile b/drivers/leds/Makefile
-index 7db3768912ca..a68244bd50fb 100644
---- a/drivers/leds/Makefile
-+++ b/drivers/leds/Makefile
-@@ -61,6 +61,7 @@ obj-$(CONFIG_LEDS_LP8788)		+= leds-lp8788.o
- obj-$(CONFIG_LEDS_LP8860)		+= leds-lp8860.o
- obj-$(CONFIG_LEDS_LP8864)		+= leds-lp8864.o
- obj-$(CONFIG_LEDS_LT3593)		+= leds-lt3593.o
-+obj-$(CONFIG_LEDS_LTC3220)		+= leds-ltc3220.o
- obj-$(CONFIG_LEDS_MAX5970)		+= leds-max5970.o
- obj-$(CONFIG_LEDS_MAX77650)		+= leds-max77650.o
- obj-$(CONFIG_LEDS_MAX77705)		+= leds-max77705.o
-diff --git a/drivers/leds/leds-ltc3220.c b/drivers/leds/leds-ltc3220.c
-new file mode 100644
-index 000000000000..a633ac5ca6ae
---- /dev/null
-+++ b/drivers/leds/leds-ltc3220.c
-@@ -0,0 +1,440 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * LTC3220 18-Channel LED Driver
-+ *
-+ * Copyright 2026 Analog Devices Inc.
-+ *
-+ * Author: Edelweise Escala <edelweise.escala@analog.com>
-+ */
-+
-+#include <linux/bitfield.h>
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/gpio/consumer.h>
-+#include <linux/i2c.h>
-+#include <linux/leds.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+#include <linux/types.h>
-+
-+/* LTC3220 Registers */
-+#define LTC3220_COMMAND_REG				0x00
-+#define   LTC3220_QUICK_WRITE_MASK			BIT(0)
-+#define   LTC3220_SHUTDOWN_MASK				BIT(3)
-+
-+#define LTC3220_ULED_REG(x)				(0x01 + (x))
-+#define   LTC3220_LED_CURRENT_MASK			GENMASK(5, 0)
-+#define   LTC3220_LED_MODE_MASK				GENMASK(7, 6)
-+
-+#define LTC3220_GRAD_BLINK_REG				0x13
-+#define   LTC3220_GRADATION_MASK			GENMASK(2, 0)
-+#define   LTC3220_GRADATION_DIRECTION_MASK		BIT(0)
-+#define   LTC3220_GRADATION_PERIOD_MASK			GENMASK(2, 1)
-+#define   LTC3220_BLINK_MASK				GENMASK(4, 3)
-+
-+#define LTC3220_NUM_LEDS				18
-+
-+#define LTC3220_GRADATION_START_VALUE			128
-+#define LTC3220_GRADATION_RAMP_TIME_240MS		240
-+#define LTC3220_GRADATION_RAMP_TIME_480MS		480
-+
-+#define LTC3220_BLINK_ON_156MS				156
-+#define LTC3220_BLINK_ON_625MS				625
-+#define LTC3220_BLINK_PERIOD_1250MS			1250
-+#define LTC3220_BLINK_PERIOD_2500MS			2500
-+
-+#define LTC3220_BLINK_SHORT_ON_TIME			BIT(0)
-+#define LTC3220_BLINK_LONG_PERIOD			BIT(1)
-+
-+enum ltc3220_led_mode {
-+	LTC3220_NORMAL_MODE,
-+	LTC3220_BLINK_MODE,
-+	LTC3220_GRADATION_MODE,
-+};
-+
-+enum ltc3220_blink_mode {
-+	LTC3220_BLINK_MODE_625MS_1250MS,
-+	LTC3220_BLINK_MODE_156MS_1250MS,
-+	LTC3220_BLINK_MODE_625MS_2500MS,
-+	LTC3220_BLINK_MODE_156MS_2500MS
-+};
-+
-+enum ltc3220_gradation_mode {
-+	LTC3220_GRADATION_MODE_DISABLED,
-+	LTC3220_GRADATION_MODE_240MS_RAMP_TIME,
-+	LTC3220_GRADATION_MODE_480MS_RAMP_TIME,
-+	LTC3220_GRADATION_MODE_960MS_RAMP_TIME
-+};
-+
-+static bool ltc3220_volatile_reg(struct device *dev, unsigned int reg)
-+{
-+	return reg == LTC3220_GRAD_BLINK_REG;
-+}
-+
-+static const struct regmap_config ltc3220_regmap_config = {
-+	.reg_bits = 8,
-+	.val_bits = 8,
-+	.max_register = LTC3220_GRAD_BLINK_REG,
-+	.cache_type = REGCACHE_FLAT_S,
-+	.volatile_reg = ltc3220_volatile_reg,
-+};
-+
-+struct ltc3220_uled_cfg {
-+	struct led_classdev led_cdev;
-+	u8 reg_value;
-+	u8 led_index;
-+};
-+
-+struct ltc3220 {
-+	struct ltc3220_uled_cfg uled_cfg[LTC3220_NUM_LEDS];
-+	struct regmap *regmap;
-+	bool is_aggregated;
-+};
-+
-+/*
-+ * Set LED brightness. Hardware supports 0-63 brightness levels.
-+ * Mode switching (blink/gradation) is handled through dedicated callbacks.
-+ */
-+static int ltc3220_set_led_data(struct led_classdev *led_cdev,
-+				enum led_brightness brightness)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
-+					       uled_cfg[uled_cfg->led_index]);
-+	int ret;
-+
-+	ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+			   brightness);
-+	if (ret)
-+		return ret;
-+
-+	uled_cfg->reg_value = brightness;
-+
-+	/*
-+	 * When aggregated LED mode is enabled, writing to LED 1 updates all
-+	 * LEDs simultaneously via quick-write mode. Update cached values for
-+	 * all LEDs to reflect the synchronized state.
-+	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for how
-+	 * to configure aggregated LED mode.
-+	 */
-+	if (ltc3220->is_aggregated && uled_cfg->led_index == 0) {
-+		for (int i = 0; i < LTC3220_NUM_LEDS; i++)
-+			ltc3220->uled_cfg[i].reg_value = brightness;
-+	}
-+
-+	return 0;
-+}
-+
-+static enum led_brightness ltc3220_get_led_data(struct led_classdev *led_cdev)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+
-+	return uled_cfg->reg_value;
-+}
-+
-+/*
-+ * LTC3220 pattern support for hardware-assisted breathing/gradation.
-+ * The hardware supports 3 gradation ramp time 240ms, 480ms, 960ms)
-+ * and can ramp up or down.
-+ *
-+ * Pattern array interpretation:
-+ *   pattern[0].brightness = start brightness (0-63)
-+ *   pattern[0].delta_t = ramp time in milliseconds
-+ *   pattern[1].brightness = end brightness (0-63)
-+ *   pattern[1].delta_t = (optional, can be 0 or same as pattern[0].delta_t)
-+ */
-+static int ltc3220_pattern_set(struct led_classdev *led_cdev,
-+			       struct led_pattern *pattern,
-+			       u32 len, int repeat)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
-+					       uled_cfg[uled_cfg->led_index]);
-+	u8 gradation_period;
-+	u8 start_brightness;
-+	u8 end_brightness;
-+	u8 gradation_val;
-+	bool is_increasing;
-+	int ret;
-+
-+	if (len != 2)
-+		return -EINVAL;
-+
-+	start_brightness = pattern[0].brightness & LTC3220_LED_CURRENT_MASK;
-+	end_brightness = pattern[1].brightness & LTC3220_LED_CURRENT_MASK;
-+
-+	is_increasing = end_brightness > start_brightness;
-+
-+	if (pattern[0].delta_t == 0)
-+		gradation_period = LTC3220_GRADATION_MODE_DISABLED;
-+	else if (pattern[0].delta_t <= LTC3220_GRADATION_RAMP_TIME_240MS)
-+		gradation_period = LTC3220_GRADATION_MODE_240MS_RAMP_TIME;
-+	else if (pattern[0].delta_t <= LTC3220_GRADATION_RAMP_TIME_480MS)
-+		gradation_period = LTC3220_GRADATION_MODE_480MS_RAMP_TIME;
-+	else
-+		gradation_period = LTC3220_GRADATION_MODE_960MS_RAMP_TIME;
-+
-+	gradation_val = FIELD_PREP(LTC3220_GRADATION_PERIOD_MASK, gradation_period);
-+	gradation_val |= FIELD_PREP(LTC3220_GRADATION_DIRECTION_MASK, is_increasing);
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
-+				 LTC3220_GRADATION_MASK, gradation_val);
-+	if (ret)
-+		return ret;
-+
-+	ret = ltc3220_set_led_data(led_cdev, start_brightness);
-+	if (ret)
-+		return ret;
-+
-+	ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+			   FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_GRADATION_MODE) |
-+			   end_brightness);
-+	if (ret)
-+		return ret;
-+
-+	uled_cfg->reg_value = end_brightness;
-+
-+	return 0;
-+}
-+
-+static int ltc3220_pattern_clear(struct led_classdev *led_cdev)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
-+					       uled_cfg[uled_cfg->led_index]);
-+	int ret;
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+				 LTC3220_LED_MODE_MASK, LTC3220_NORMAL_MODE);
-+	if (ret)
-+		return ret;
-+
-+	return ltc3220_set_led_data(led_cdev, LED_OFF);
-+}
-+
-+/*
-+ * LTC3220 has a global blink configuration that affects all LEDs.
-+ * This implementation allows per-LED blink requests, but the blink timing
-+ * will be shared across all LEDs. The delay values are mapped to the
-+ * hardware's discrete blink rates.
-+ */
-+static int ltc3220_blink_set(struct led_classdev *led_cdev,
-+			     unsigned long *delay_on,
-+			     unsigned long *delay_off)
-+{
-+	struct ltc3220_uled_cfg *uled_cfg = container_of(led_cdev, struct ltc3220_uled_cfg,
-+							 led_cdev);
-+	struct ltc3220 *ltc3220 = container_of(uled_cfg, struct ltc3220,
-+					       uled_cfg[uled_cfg->led_index]);
-+	u8 blink_mode = 0;
-+	int ret;
-+
-+	if (*delay_on <= LTC3220_BLINK_ON_156MS)
-+		blink_mode = LTC3220_BLINK_SHORT_ON_TIME;
-+
-+	if (*delay_on + *delay_off > LTC3220_BLINK_PERIOD_1250MS)
-+		blink_mode |= LTC3220_BLINK_LONG_PERIOD;
-+
-+	switch (blink_mode) {
-+	case LTC3220_BLINK_MODE_625MS_1250MS:
-+		*delay_on = LTC3220_BLINK_ON_625MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_1250MS - LTC3220_BLINK_ON_625MS;
-+		break;
-+	case LTC3220_BLINK_MODE_156MS_1250MS:
-+		*delay_on = LTC3220_BLINK_ON_156MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_1250MS - LTC3220_BLINK_ON_156MS;
-+		break;
-+	case LTC3220_BLINK_MODE_625MS_2500MS:
-+		*delay_on = LTC3220_BLINK_ON_625MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_2500MS - LTC3220_BLINK_ON_625MS;
-+		break;
-+	case LTC3220_BLINK_MODE_156MS_2500MS:
-+		*delay_on = LTC3220_BLINK_ON_156MS;
-+		*delay_off = LTC3220_BLINK_PERIOD_2500MS - LTC3220_BLINK_ON_156MS;
-+		break;
-+	}
-+
-+	ret = regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
-+				 LTC3220_BLINK_MASK, FIELD_PREP(LTC3220_BLINK_MASK, blink_mode));
-+	if (ret)
-+		return ret;
-+
-+	return regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->led_index),
-+				  LTC3220_LED_MODE_MASK,
-+				  FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_BLINK_MODE));
-+}
-+
-+static void ltc3220_reset_gpio_action(void *data)
-+{
-+	struct gpio_desc *reset_gpio = data;
-+
-+	gpiod_set_value_cansleep(reset_gpio, 1);
-+}
-+
-+static int ltc3220_reset(struct ltc3220 *ltc3220, struct i2c_client *client)
-+{
-+	struct gpio_desc *reset_gpio;
-+	int ret;
-+
-+	reset_gpio = devm_gpiod_get_optional(&client->dev, "reset", GPIOD_OUT_HIGH);
-+	if (IS_ERR(reset_gpio))
-+		return dev_err_probe(&client->dev, PTR_ERR(reset_gpio), "Failed on reset GPIO\n");
-+
-+	if (reset_gpio) {
-+		gpiod_set_value_cansleep(reset_gpio, 0);
-+
-+		return devm_add_action_or_reset(&client->dev, ltc3220_reset_gpio_action,
-+						reset_gpio);
-+	}
-+
-+	ret = regmap_write(ltc3220->regmap, LTC3220_COMMAND_REG, 0);
-+	if (ret)
-+		return ret;
-+
-+	for (int i = 0; i < LTC3220_NUM_LEDS; i++) {
-+		ret = regmap_write(ltc3220->regmap, LTC3220_ULED_REG(i), 0);
-+		if (ret)
-+			return ret;
-+	}
-+
-+	return regmap_write(ltc3220->regmap, LTC3220_GRAD_BLINK_REG, 0);
-+}
-+
-+static int ltc3220_suspend(struct device *dev)
-+{
-+	struct ltc3220 *ltc3220 = i2c_get_clientdata(to_i2c_client(dev));
-+
-+	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
-+				  LTC3220_SHUTDOWN_MASK, LTC3220_SHUTDOWN_MASK);
-+}
-+
-+static int ltc3220_resume(struct device *dev)
-+{
-+	struct ltc3220 *ltc3220 = i2c_get_clientdata(to_i2c_client(dev));
-+
-+	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
-+				  LTC3220_SHUTDOWN_MASK, 0);
-+}
-+
-+static DEFINE_SIMPLE_DEV_PM_OPS(ltc3220_pm_ops, ltc3220_suspend, ltc3220_resume);
-+
-+static int ltc3220_probe(struct i2c_client *client)
-+{
-+	struct ltc3220 *ltc3220;
-+	bool aggregated_led_found = false;
-+	int num_leds = 0;
-+	u8 led_index = 0;
-+	int ret;
-+
-+	ltc3220 = devm_kzalloc(&client->dev, sizeof(*ltc3220), GFP_KERNEL);
-+	if (!ltc3220)
-+		return -ENOMEM;
-+
-+	ltc3220->regmap = devm_regmap_init_i2c(client, &ltc3220_regmap_config);
-+	if (IS_ERR(ltc3220->regmap))
-+		return dev_err_probe(&client->dev, PTR_ERR(ltc3220->regmap),
-+				     "Failed to initialize regmap\n");
-+
-+	i2c_set_clientdata(client, ltc3220);
-+
-+	ret = ltc3220_reset(ltc3220, client);
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret, "Failed to reset device\n");
-+
-+	device_for_each_child_node_scoped(&client->dev, child) {
-+		struct led_init_data init_data = {};
-+		struct ltc3220_uled_cfg *led;
-+		u32 source;
-+
-+		ret = fwnode_property_read_u32(child, "reg", &source);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret, "Couldn't read LED address\n");
-+
-+		if (!source || source > LTC3220_NUM_LEDS)
-+			return dev_err_probe(&client->dev, -EINVAL, "LED address out of range\n");
-+
-+		init_data.fwnode = child;
-+		init_data.devicename = "ltc3220";
-+
-+		if (fwnode_property_present(child, "led-sources")) {
-+			if (source != 1)
-+				return dev_err_probe(&client->dev, -EINVAL,
-+						     "Aggregated LED out of range\n");
-+
-+			if (aggregated_led_found)
-+				return dev_err_probe(&client->dev, -EINVAL,
-+						     "One Aggregated LED only\n");
-+
-+			aggregated_led_found = true;
-+			ltc3220->is_aggregated = true;
-+
-+			ret = regmap_update_bits(ltc3220->regmap,
-+						 LTC3220_COMMAND_REG,
-+						 LTC3220_QUICK_WRITE_MASK,
-+						 LTC3220_QUICK_WRITE_MASK);
-+			if (ret)
-+				return dev_err_probe(&client->dev, ret,
-+						     "Failed to set quick write mode\n");
-+		}
-+
-+		num_leds++;
-+
-+		/* LED node reg/index/address goes from 1 to 18 */
-+		led_index = source - 1;
-+		led = &ltc3220->uled_cfg[led_index];
-+
-+		if (led->led_cdev.dev)
-+			return dev_err_probe(&client->dev, -EINVAL,
-+					     "Duplicate LED reg %u found", source);
-+
-+		led->led_index = led_index;
-+		led->reg_value = 0;
-+		led->led_cdev.brightness_set_blocking = ltc3220_set_led_data;
-+		led->led_cdev.brightness_get = ltc3220_get_led_data;
-+		led->led_cdev.max_brightness = 63;
-+		led->led_cdev.blink_set = ltc3220_blink_set;
-+		led->led_cdev.pattern_set = ltc3220_pattern_set;
-+		led->led_cdev.pattern_clear = ltc3220_pattern_clear;
-+
-+		ret = devm_led_classdev_register_ext(&client->dev, &led->led_cdev, &init_data);
-+		if (ret)
-+			return dev_err_probe(&client->dev, ret, "Failed to register LED class\n");
-+	}
-+
-+	/*
-+	 * Aggregated LED mode uses hardware quick-write to control all 18 LEDs
-+	 * simultaneously. This is mutually exclusive with individual LED control.
-+	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for details
-+	 * on how to configure aggregated LED mode.
-+	 */
-+	if (aggregated_led_found && num_leds > 1)
-+		return dev_err_probe(&client->dev, -EINVAL,
-+				     "Aggregated LED must be the only LED node\n");
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id ltc3220_of_match[] = {
-+	{ .compatible = "adi,ltc3220" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, ltc3220_of_match);
-+
-+static struct i2c_driver ltc3220_led_driver = {
-+	.driver = {
-+		.name = "ltc3220",
-+		.of_match_table = ltc3220_of_match,
-+		.pm = pm_sleep_ptr(&ltc3220_pm_ops),
-+	},
-+	.probe = ltc3220_probe,
-+};
-+module_i2c_driver(ltc3220_led_driver);
-+
-+MODULE_AUTHOR("Edelweise Escala <edelweise.escala@analog.com>");
-+MODULE_DESCRIPTION("LED driver for LTC3220 controllers");
-+MODULE_LICENSE("GPL");
-
--- 
-2.43.0
-
+DQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogQ2xhdWRpdSBCZXpuZWEg
+PGNsYXVkaXUuYmV6bmVhQGtlcm5lbC5vcmc+DQo+IFNlbnQ6IDI4IE1heSAyMDI2IDA5OjQ2DQo+
+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggdjIgMi83XSBwaW5jdHJsOiByZW5lc2FzOiByemcybDogRHJv
+cCBkZWZpbmVzIHByZXNlbnQgaW4gc3RydWN0IHJ6ZzJsX2h3Y2ZnDQo+IA0KPiBIaSwgQmlqdSwN
+Cj4gDQo+IE9uIDUvMjgvMjYgMTE6MTYsIEJpanUgRGFzIHdyb3RlOg0KPiA+PiBAQCAtMzgxNiw5
+ICszODE0LDkgQEAgc3RhdGljIGNvbnN0IHN0cnVjdCByemcybF9od2NmZyByemcybF9od2NmZyA9
+IHsNCj4gPj4gICAJLnJlZ3MgPSB7DQo+ID4+ICAgCQkucHdwciA9IDB4MzAxNCwNCj4gPj4gICAJ
+CS5zZF9jaCA9IDB4MzAwMCwNCj4gPj4gKwkJLnFzcGkgPSAweDMwMDgsDQo+ID4+ICAgCQkuZXRo
+X3BvYyA9IDB4MzAwYywNCj4gPj4gICAJCS5vZW4gPSAweDMwMTgsDQo+ID4+IC0JCS5xc3BpID0g
+UVNQSSwNCj4gPiBBbnkgcmVhc29uIGZvciBtb3ZpbmcgdGhlIGFzc2lnbm1lbnQ/DQo+IA0KPiBJ
+IHRyaWVkIHRvIGtlZXAgaXQgc29ydGVkIGJ5IHRoZSByZWdpc3RlciBvZmZzZXRzIGJ1dCBpdCBz
+ZWVtcyB0aGUgcHdwciBpcyBub3QgaW4gdGhlIHJpZ2h0IHBsYWNlDQo+IGVpdGhlciBmb3IgdGhp
+cy4NCg0KT2suDQoNCkNoZWVycywNCkJpanUNCg0KPiA+DQo+ID4gc3RydWN0IHJ6ZzJsX3JlZ2lz
+dGVyX29mZnNldHMgew0KPiA+IAl1MTYgcHdwcjsNCj4gPiAJdTE2IHNkX2NoOw0KPiA+IAl1MTYg
+ZXRoX3BvYzsNCj4gPiAJdTE2IG9lbjsNCj4gPiAJdTE2IHFzcGk7DQo+ID4gCXUxNiBvdGhlcl9w
+b2M7DQo+ID4gfTsNCj4gPg0KPiA+IENoZWVycywNCj4gPiBCaWp1DQo+IA0KPiAtLQ0KPiBUaGFu
+ayB5b3UsDQo+IENsYXVkaXUNCg0K
