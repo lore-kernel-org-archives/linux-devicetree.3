@@ -1,190 +1,207 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE7E2E6CB8
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3151B3438A1
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:32:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779946273; cv=none; b=QbKPxKYYqf3YRnGVKmXQUb0kswrQGR6n/qK6T97MsZZC8mo4NSmCFJegpypb1LbzbpgaDAwNNgKsmiLslQHi35yPb5petkjp9vs94hJ8988goINWRDhf6U1EX2LHx4dZO6wM4y4vmungVClehXRU9hsq+Y1VGjkYTCiX8RbvQEQ=
+	t=1779946351; cv=none; b=QG2UmL/kYtxKdq+opNYbf66l7S4RJ1wxH+BA5QgvaFW6QxkTN096XjJRQ7fAhKb2M5bgRAWQL/JyzLfyWtOnrKfsUuvJgGRLYEDw5/jwLBbyO5PaSiMWNDtj6WUnQrOal00MTWxzg4mV8leTizz3WHMqi58kEBr6IHpIZlCPuss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779946273; c=relaxed/simple;
-	bh=PqyQv5lR4CSDal3C1K6XS5brllo/mkSEyVrmaA2Skw8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Uo6U3DsCmor3sQ8Y5n/UuHHo9oX3pYfihSEfy0jtt1Iz7+yifR4pmMG5okNUPo9FkanrVGuWSN7rg6to0BIzxPmMFfcdu/Mm+LbwvR+kA1m2aRLqIjPKw3mTlWrv2/PrGyFustVB4Tcu8glBKJ7CQccBRC5DlydWUnArbHFu7nU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=CMKNz5kP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EH3Ramm4; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779946351; c=relaxed/simple;
+	bh=clNVtbBfViwKLpG9zmkSUgXMyGZnR+a/g79EpBF+4us=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Ee+yBQuXVVBMQ3NRtey8+i/ZPustJN0ckVYRbvSwYdaSaX8Yqca2MTIhIExvTuhudKZjzDfXz/ysCCe+m2d6y8zas3p9bcrDfgw5qGBWbZfiq84hI1VIWymGDwm9fSgiiW0nmewyebq7FoiNMrCfUT2l32OfQ6mghOC1urz8NtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S6VkT+s4; arc=none smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="CMKNz5kP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EH3Ramm4"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64RKl78s1225021
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:31:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=bheMS1C3LAWE/VCtZ8G7QH4E
-	3JfFT6z3QwuAGkiTibI=; b=CMKNz5kPSHCyOAQChseFIsRvkUlRhLTWbyB4gjyY
-	Fd1oQz/kojOhEa/3/cLsGU6eGeOzd7nXsotl5FerwwFscC2WTOeEcnEalFH1SEFo
-	Nu57TKntYQ96H9/KR3Rx4RZTBtcMXpEtJ9BPrWJcYmZBbXcvYLMGibUdJD27OLsx
-	/bTzPBtWMem+WalwOI0M+KT/Q5JOcjkK1+M617SNAfrl6bPvZ23sss7Pr29zKZ7Z
-	Fy7Lo3XPJ+BwPewD/1hFMyVeEocw3/GeAr4Y6MfBXNtfiwyIOkruNHWt1yZeRN2g
-	NoAQYF6C3SYVI6MIm3d18U/8uQyR0YZyPNXt0Hhl0Ila3w==
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com [209.85.219.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y1sf7r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:31:10 +0000 (GMT)
-Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-8ccc2cd49cfso24566866d6.2
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 22:31:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S6VkT+s4"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-bd4f8260e4eso2196749266b.1
+        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 22:32:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779946269; x=1780551069; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=bheMS1C3LAWE/VCtZ8G7QH4E3JfFT6z3QwuAGkiTibI=;
-        b=EH3Ramm4pqDy3kFtzHExrOK6gN7HoisG9vrPjobJVu6vg+FJ8Fokua4hA2iddGl8T/
-         47U9BWlKMi6zUg5TiMb6FUhtMdjAihweH8uglnSVFAnSfdU+rj22P9FFa9x0FWBdzgi0
-         PnKPo0kWMk0GqBcoJWzkP00TRBmoQ0AGqJMncPq99Szglc+bgwt28p0r+7w+3oZM2Gtv
-         A2vnT5U/fqk3riTq5UJ80XCF0XKBmhw8a4OF4s2y8xstFmZj9UR+WCXl3QanFu+OmdKP
-         U2tbAGkJex+tT+daTPy1/Bu2bGTl7jXWzMmqMo+8EFkmhBLUhYT2ep/fyls3ueweYGvy
-         O/xg==
+        d=gmail.com; s=20251104; t=1779946349; x=1780551149; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=uNrRcVw+e7yAa5bCgioJSE1tWr6W5F6AeUGiymutBGA=;
+        b=S6VkT+s4l1ummC6oJfUbk5TpYcCSrESxn0p30cNrsMOeL13oUu4fXPUNfm0Nyuc6PB
+         OmR15ON4PuNbFJnQNeNUoj/W9sLJg6ST1n1ZUfwea676yqZM9tPS55ww3EKlJeM63l7N
+         nnBzaJXemYw6gbF/IGHf/S8nrjogKhow0gNRPLjOJpbegEDit6Fp1H3ef9ugrCQ/HSG7
+         d0BpJ/ptQ1dYG7aNXOoXpZsRxIVdlnjIU+/BcyQONZOzLB0nTc0uAIPvpN9Lio/VXhL+
+         3uRBCMY+BcBieUbEXEJVuHyB2bmkNNkh7ynyzN1naSa4IgV09DWaqo6pS/dwRVj9+SAW
+         d1yg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779946269; x=1780551069;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=bheMS1C3LAWE/VCtZ8G7QH4E3JfFT6z3QwuAGkiTibI=;
-        b=hpTHFIG0uCOZVszkJEx1JT7VSGBUKOY3glJjed+uRNenqbu6RaLT2X3B2MnjcqB59j
-         EcgRqVndV6hPkDr3dh8FaMzCwWiy2TkKlB0GHORsnArEC1N9KmFid3LAAvZ4KqUZ7dGL
-         kRfFLQViPhMIykPax4joavr/uzQ7AqaR6kOq8qOatP+eYDEGEs7+v9XOIOqDWyzh1eG0
-         hIauS34+BAM+NynFyYM4ibVfnuVpPtHdoVQq5oGHTtWQ1uvxbDIm43xZJlaiQjkQ+puR
-         QTAFHKF+NeUavZCRcvPiI28juMTKz3AZ45C89B7xpKblIbxXLJTH8EI5EXP2n/0gnmLV
-         44Ow==
-X-Forwarded-Encrypted: i=1; AFNElJ8CBVmPPwaYKXVY8LYLiZ1mUfalpoooRq9mbpWltVL2JQbEteuO/AviFo+ECBaSr0TLP5/ZQnKmhAU7@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywj5EN/bGMMtD7mwaVWfpTy9uJ/eLjbl9cezlZhqRCRabGRzdrn
-	s381e3v1AGeYDesbbSphHDNnJXjzWphfWwlOyZKu55y/P7zAzhGe+Lk7bKI4J7Bj08ubbG/tDSf
-	0E+rjDYe/VRhBGB1tPibEZ6GI2UIFccMy0eL/+wTje/DqXcyT4LSvtLeO1cEMkHUS
-X-Gm-Gg: Acq92OEQgE/F26HNcuRYPOQH9IOE9JiuK1Ratjm3x72eAwCr2hmEt57t7YenQMfcftj
-	4PdbZpGRQa9NpFjCvWlsAqYZNPTS6cUlUpiNkDZr9pAAs3MCQCjW1sWiMN1krKs2SqAMDFQ/nVb
-	+ufP0ZH2sYtuxtB9FEZKCvus/hfbMVnRKfKI5+cuWf4gh41UY9iJLFBP07J2eiKSM1D7yCWtC3v
-	kp4PTwzjL/aD/TuNMnbvGudQRR2IrmX+vOPUaq/8fb4rc1s+aLiDufXe3QKi8GPwp2Vwb0LWJnN
-	ffg0zp9Hx3WomC3yhWbFxmkmrDRHtZ/hkzmEK9kCa4g7QN95nsmK9pIAc/kFXYAHoceMBuMiXSm
-	8JYnAZEJ1GX9zmvOFMP0Fu5XkiNVTIX4/vsZwPMePmtqrNj64Oep9ovvCV9DF1VplUku2xQn2pz
-	p5ejpFqY5CRQQnoCdRgQybAdTyTeigQYnGCvHdHl9VtRw04Q==
-X-Received: by 2002:a05:620a:4111:b0:8f8:cdd0:df82 with SMTP id af79cd13be357-914b4a3daddmr3603195085a.58.1779946269560;
-        Wed, 27 May 2026 22:31:09 -0700 (PDT)
-X-Received: by 2002:a05:620a:4111:b0:8f8:cdd0:df82 with SMTP id af79cd13be357-914b4a3daddmr3603191885a.58.1779946269115;
-        Wed, 27 May 2026 22:31:09 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa4632236asm1671483e87.47.2026.05.27.22.31.07
+        d=1e100.net; s=20251104; t=1779946349; x=1780551149;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uNrRcVw+e7yAa5bCgioJSE1tWr6W5F6AeUGiymutBGA=;
+        b=P5JvxN/G4G6F1niGdZIZx6UV4/Dfj/vH8uUOFbF3IXVC3drQo+aizltutNPXX09uru
+         X0dioVRJftStrnLIWs/iSz/g1S+hqJQtLr8iAavV97XrrPqo09Db8fxrfdpElqf9CcI/
+         mw9tXCNAYvpIn8B4yFLqIZ8kiwbXIrqO6UuzIrcTjvhiOQMmEa9SS6cBbjKTcPIr+KKT
+         xUtM/7uls3LVsPZfWL6DPE/wkGJa4brrP4NyUxdECpB/wwwXNulUqoXqaAx9Pewhlri5
+         UP7A04Ah+meQGc0Z6DmuuxJJzG/vX8Gkwz/QflgPjrJgX77wlZVzCgVuXRcHMmyQyisE
+         d9oA==
+X-Gm-Message-State: AOJu0YwPWkLrywiLojzv9+9LgqF6+37Gn/quXn1LfR2MeRylKxbxB9Yo
+	4VoyH31HKErcHb95JbLugYqwHbRofS1DJS44DJw0CQAnHYr4tYb0U0X9
+X-Gm-Gg: Acq92OHcwdcIMEgS48mP7VAPgt0oMOt/fqKldQRvC0xY13W7uETgC9/UvtqrAB9ScTw
+	me/gIFlsz6nRY9usm0s2JxbasqnQK+7dC70DfMP/aAjmbfzpiF2grAoVwFK1QJ82zEECIDNOzO3
+	1I3Hz0/SxGPd5UCkUpINZlwHa7LgaRxMbV8yj1g/N5jIbuM868467FYmulw0NM0v6Dt2mKU7h7B
+	wGf3i00AwDaxJLKisXCKFa+V6fQur8IW9mvff2Y1T62lh2DPhTinsKZrjGgWm6WAFnM1QpmB3MM
+	/LS3eERo2kwaWAHeKyRuiV/1wxHHH4ej9s5ta+XvjnH3jWnkvfzS8MnYlzzUivEmylu9AqPFRCK
+	rL1Kt5aZJ8oS8fmzwdjXA3p6YMcedev2XuLmr2MiINVVCobicUT3piTbgkVCNCwwdLKVQ2XvfWh
+	dcFjiYgFds/lDS06HqxHJazyA=
+X-Received: by 2002:a17:907:1dee:b0:bda:5265:423 with SMTP id a640c23a62f3a-bdd269b7370mr1175915966b.44.1779946348345;
+        Wed, 27 May 2026 22:32:28 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc5eca616sm693427966b.30.2026.05.27.22.32.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 27 May 2026 22:31:07 -0700 (PDT)
-Date: Thu, 28 May 2026 08:31:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-Cc: Komal Bajaj <komal.bajaj@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
-        Frank Li <Frank.Li@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Yepuri Siddu <ysiddu@qti.qualcomm.com>, hbandi@qti.qualcomm.com,
-        rahul.samana@oss.qualcomm.com
-Subject: Re: [PATCH 14/16] arm64: dts: qcom: shikra: Enable BT support on EVK
- boards
-Message-ID: <6lkpmjtpozsfrk6ljnzwek7q3kgj7t6cjzre7k5vijx4ta6apu@bdotfbblxpu3>
-References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
- <20260525-shikra-dt-m1-v1-14-f51a9838dbaa@oss.qualcomm.com>
- <rbu5oub4uc4rubdlfth7undrirlyfwbnst5clgyvm63fde3tcw@fulet3k3a4sf>
- <30a33da1-6424-47f3-9e7e-a09ca61a1234@oss.qualcomm.com>
+        Wed, 27 May 2026 22:32:26 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sebastian Reichel <sre@kernel.org>,
+	Svyatoslav Ryhel <clamor95@gmail.com>,
+	Ion Agorria <ion@agorria.com>,
+	=?UTF-8?q?Micha=C5=82=20Miros=C5=82aw?= <mirq-linux@rere.qmqm.pl>
+Cc: devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	linux-pm@vger.kernel.org
+Subject: [PATCH v8 0/7] mfd: Add support for Asus Transformer embedded controller
+Date: Thu, 28 May 2026 08:31:56 +0300
+Message-ID: <20260528053203.9339-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30a33da1-6424-47f3-9e7e-a09ca61a1234@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=DsNmPm/+ c=1 sm=1 tr=0 ts=6a17d31e cx=c_pps
- a=UgVkIMxJMSkC9lv97toC5g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=EUspDBNiAAAA:8
- a=o6hecVIOLF8SStibk4YA:9 a=CjuIK1q_8ugA:10 a=1HOtulTD9v-eNWfpl4qZ:22
-X-Proofpoint-ORIG-GUID: nvNh4vVdYGQ1EPbMBPNFRO415EKTl4pv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDA1MSBTYWx0ZWRfXzHTZRbksL8+V
- fClaqnRAc4CoYZTiVr7Pr9fzoO+qIlbUH2DUk9KE3WsJziacpS8/xBq51hxn585XETR0xVFi8SJ
- fLAHlL6MBUI62cskwPIvuGJHeZvVgZk4bn0h9v9uptzuw2nMAE+SeDw/rOaqdXx5mT3iQ3095Tu
- NVmLEdIn/IlINo0zR86GlfY08xPTsd9FQGdHsPtY4eNHmxoru7atPbmms4dS2f4jO3wZ7AcKFGW
- CdukBCyoPaHR0/7XQui0k+QT+oCY5J5jGb/GvDd/EfGAWOdYh0ygBlow068EBYCoyWw/c4NApWm
- tyEVBxonDQl3Jo6nTYKjgtzTCnVVepjH4qPGoXkoHM3bwM2cRdWumRaYPTLZxuv97MxAqg3PLZe
- dLIe/zoQtiPTF1gbY4eh5JM53cfaQEkGNy5kxnuT/ZeD7aAsGrGHx3WOtx+/doq/FElduo3dJq0
- NQmx3lxl05JKHNIQTIQ==
-X-Proofpoint-GUID: nvNh4vVdYGQ1EPbMBPNFRO415EKTl4pv
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_01,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 phishscore=0 suspectscore=0 adultscore=0 clxscore=1015
- priorityscore=1501 malwarescore=0 impostorscore=0 bulkscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2605280051
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, May 27, 2026 at 06:53:30PM +0530, Yepuri Siddu wrote:
-> 
-> 
-> On 5/25/2026 3:01 PM, Dmitry Baryshkov wrote:
-> > On Mon, May 25, 2026 at 01:19:18AM +0530, Komal Bajaj wrote:
-> > > From: Yepuri Siddu <ysiddu@qti.qualcomm.com>
-> > > 
-> > > Enable uart8 and add WCN3988 Bluetooth node with board-specific regulator
-> > > supplies across CQM, CQS and IQS Shikra EVK boards.
-> > > 
-> > > Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-> > > Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-> > > ---
-> > >   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 12 ++++++++++++
-> > >   arch/arm64/boot/dts/qcom/shikra-cqs-evk.dts | 12 ++++++++++++
-> > >   arch/arm64/boot/dts/qcom/shikra-iqs-evk.dts | 20 ++++++++++++++++++++
-> > >   arch/arm64/boot/dts/qcom/shikra.dtsi        |  7 +++++++
-> > >   4 files changed, 51 insertions(+)
-> > > 
-> > > diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> > > index b112b21b1d79..259032bd20af 100644
-> > > --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> > > +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
-> > > @@ -16,6 +16,7 @@ / {
-> > >   	aliases {
-> > >   		mmc0 = &sdhc_1;
-> > >   		serial0 = &uart0;
-> > > +		serial1 = &uart8;
-> > >   	};
-> > >   	chosen {
-> > > @@ -57,3 +58,14 @@ &sdhc_1 {
-> > >   	status = "okay";
-> > >   };
-> > > +
-> > > +&uart8 {
-> > > +	status = "okay";
-> > > +
-> > > +	bluetooth {
-> > > +		vddio-supply = <&pm4125_l7>;
-> > > +		vddxo-supply = <&pm4125_l13>;
-> > > +		vddrf-supply = <&pm4125_l10>;
-> > > +		vddch0-supply = <&pm4125_l22>;
-> > 
-> > Use the modern (PMU) bindings. Also please add WiFi.
-> The modern PMU support for the WCN39xx family is currently not available in
-> hci qca driver, that is why we have defined the regulators directly within
-> the Bluetooth node.
+Add support for embedded controller used in Asus Transformers for
+managing power and input functions.
 
-Of course it is, see commit 9f168e4de5fd ("Bluetooth: qca: enable pwrseq
-support for WCN39xx devices").
+---
+Changes in v2:
+- converted sysfs debug exports into debugfs
+- added kernel-doc comments for exposed functions
+- fixed minor typos and inconsistencies
 
+Changes in v3:
+- dropped DockRAM commits (both schema and driver)
+- integrated DockRAM functionality directly into the controller driver
+- EC schema moved to embedded controllers folder
+- removed all cell descriptions from the schema
+- removed all compatibles from the cell drivers
+- adjusted naming conventions to better align with the ASUS Transformers
+- defined EC variant sets to provide coverage for all known devices
+
+Changes in v4:
+- grouped known programming models of EC chronologically (both schema
+  and driver)
+- call debugfs init only if CONFIG_DEBUG_FS is enabled
+
+Changes in v5:
+- added asus,tf600t-ec-dock compatible to schema
+- rebased on top of v7.0
+- kzalloc > kzalloc_obj in keys and kbc
+
+Changes in v6:
+- removed asus_ec_handle_smi casting
+- asus_dockram_access_ctl > asus_ec_get_ctl in control_reg_*
+- fixed battery Kconfig description
+
+Changes in v7:
+- added status check of devm_kasprintf where missing
+- devm_asus_ec_register_notifier dropped, added .remove where it was used
+- removed cell_to_ec, asus_dockram_read, asus_dockram_write, asus_ec_* public API
+  asus_ec_i2c_command, devm_asus_ec_register_notifier, asus_ec_read, asus_ec_write
+- renamed asusec_info > asusec_core
+- ec-kbc: added packed size check
+	  ret > error
+	  improved key remap logic
+- ec-keys: improve formatting and comments 
+	   ret > error
+	   switched to dev_err_probe
+- ec-leds: reworked to register both leds via loop
+- ec-mfd: adjusted Kconfig description
+	  fixed smbus operation sizes
+	  fixed saving of EC fw model
+	  adjusted IRQ flags
+	  converted to use definer for set cell composition
+	  added factory mode states enum and handling
+	  defined some "magic" values
+	  self > client, info > ec, ecreq > ecreq_gpio, priv > ddata
+	  asus_ec_chip_data data > asus_ec_chip_info info
+	  ec_data > ec_buf, ctl_data > ctl_buf
+	  added and improved comments, added structure descriptions
+	  asus_ec_magic_debug > asus_ec_susb_on_status
+	  removed all dev_dbg and most of dev_info
+	  pronts with model, fw behavior, factory and susb state preserved
+	  switched to MFD_CELL_* macros
+	  removed debugfs
+- ec-battery: swithced to BIT macro
+	      lock usage moved to asus_ec_battery_get_value
+	      in asus_ec_battery_poll_work fixed possible rescheduling fail
+	      in asus_ec_battery_poll_work fixed missing not charging
+- ec-charger: POWER_SUPPLY_PROP_MODEL_NAME set as the first check
+
+Changes in v8:
+- added MODULE_ALIAS
+- renamed DOCKRAM_* to ASUSEC_*
+- ec-keys: input_handler moved into private structure
+- ec-leds: added brightness_get
+- ec-mdf:  fixed i2c_smbus_* return checks ()
+	   improved model storing
+- ec-batt: added status check of devm_kasprintf
+---
+
+Michał Mirosław (6):
+  mfd: Add driver for ASUS Transformer embedded controller
+  input: serio: Add driver for ASUS Transformer dock keyboard and
+    touchpad
+  input: keyboard: Add driver for ASUS Transformer dock multimedia keys
+  leds: Add driver for ASUS Transformer LEDs
+  power: supply: Add driver for ASUS Transformer battery
+  power: supply: Add charger driver for Asus Transformers
+
+Svyatoslav Ryhel (1):
+  dt-bindings: embedded-controller: document ASUS Transformer EC
+
+ .../asus,tf201-ec-pad.yaml                    | 119 ++++
+ drivers/input/keyboard/Kconfig                |  10 +
+ drivers/input/keyboard/Makefile               |   1 +
+ .../input/keyboard/asus-transformer-ec-keys.c | 286 +++++++++
+ drivers/input/serio/Kconfig                   |  15 +
+ drivers/input/serio/Makefile                  |   1 +
+ drivers/input/serio/asus-transformer-ec-kbc.c | 158 +++++
+ drivers/leds/Kconfig                          |  11 +
+ drivers/leds/Makefile                         |   1 +
+ drivers/leds/leds-asus-transformer-ec.c       | 125 ++++
+ drivers/mfd/Kconfig                           |  16 +
+ drivers/mfd/Makefile                          |   1 +
+ drivers/mfd/asus-transformer-ec.c             | 542 ++++++++++++++++++
+ drivers/power/supply/Kconfig                  |  22 +
+ drivers/power/supply/Makefile                 |   2 +
+ .../supply/asus-transformer-ec-battery.c      | 289 ++++++++++
+ .../supply/asus-transformer-ec-charger.c      | 208 +++++++
+ include/linux/mfd/asus-transformer-ec.h       |  92 +++
+ 18 files changed, 1899 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/embedded-controller/asus,tf201-ec-pad.yaml
+ create mode 100644 drivers/input/keyboard/asus-transformer-ec-keys.c
+ create mode 100644 drivers/input/serio/asus-transformer-ec-kbc.c
+ create mode 100644 drivers/leds/leds-asus-transformer-ec.c
+ create mode 100644 drivers/mfd/asus-transformer-ec.c
+ create mode 100644 drivers/power/supply/asus-transformer-ec-battery.c
+ create mode 100644 drivers/power/supply/asus-transformer-ec-charger.c
+ create mode 100644 include/linux/mfd/asus-transformer-ec.h
 
 -- 
-With best wishes
-Dmitry
+2.51.0
+
