@@ -1,133 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A3C3BE621
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:41:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A99FC3F7882;
+	Thu, 28 May 2026 16:47:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779986522; cv=none; b=pA/Nk2IW5BtsrwDwxjGC9JHoDBB8sIMrDzO1aKfi58WlfVC05l6Ygp7Qo46MOVGI58hTFcg2n0ffOXRF4clDNFi6JOcVyQK17iUFhI8bjZF32lAAoKPJG4SdbjywhtFMGxC4AbFCev4zuSa5E7tgizFapZhWc76dcBfLSs1iA2s=
+	t=1779986847; cv=none; b=MbbDhoBJWIvH307IFkkVzpyfbGyNthpXaci06jfOm5RTqGcY42B+9cxlVfd1SD87XoMEOVyV7LIYXfwm49eL/lKlxdi+0anhpchqwX6tJ+Y5dDjVF3bHoWXtR2Y3anzresPL+jYRvynqA/D5CFTx8msNrHAu4KB/UoqCBYQrzOg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779986522; c=relaxed/simple;
-	bh=xkaMEIup11ASgNPLM8UjylQoEes05caBm+bEPTNxN2E=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cHbAt/ppQVuZ5ZgefJutO/zB0wc0E8HGC8MhaqhMNKD+fIXPsUCXws9lppB+QS3Yb7rbWSn6r1JBUZhKTP+G3uDUPIK83GIQOobQzXJyz4nm0kp5q0beinFimNzvGZVjMsK52QHNfoZdvukaSg5X0kYx1aBgwHUz0pXt9Zk5Tsg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uo4DQ9d+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779986847; c=relaxed/simple;
+	bh=wj8hahdPjkjzs0jnbz5LUaTyOITT60B/vUVZ99xZNdU=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=gZeYmNqjgXgVWZRPzm46v1HPYPjiTVbURsAMqse0pjGvNiFl/JTZPhWHAGCEUMlt/BTMNaQe7K6/xc72J9XiMRiCC9aecvSsu3l3gqERY7fBfYgLTMZOqCDQQkut5cEXTkJziWv9md76wtipTYUOdxj2wN+SedpYF0XxJ+575QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=xaqIWKXT; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uo4DQ9d+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE151F00A3A;
-	Thu, 28 May 2026 16:41:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779986519;
-	bh=pMhxaFwmBCBVWhI5jTrGaYjvLpRtMIma3CLQ3E8r2CU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Uo4DQ9d+bMDnJSNAwW0F9r31WbRYBu4lFk0gEcxmm65FQKMOys497KJVHVqnxKTV1
-	 +2bK1HxmfhfsJCKkNxV3ylyUY0AsuBVWUj4MgfHOvDhonTL2EgUd77OG0cPuxQaAiH
-	 IDl1wOWtzxq7kW/fUPaBYBGa36qt2//UuuScyGiKUDhJLcrbAy7N0dk2aNfB/cRJwz
-	 v6CuQl3v2/ovbe4wWLV2Ai4hN4WafZjayhvBIcEb0SArFw+iEhPZwWg8ELW2V6xKwC
-	 fHjFu52tYEbrA6ANc3rutWYvNh1ydvy99gpckZbWPjx+7vHAO9ybtp4H//nQ4uomt4
-	 TP/v60y0XCC8Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 5/5] clocksource/timer-econet-en751221: Support
- EN751627 without percpu IRQ
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528140046.2897674-6-cjd@cjdns.fr>
-References: <20260528140046.2897674-6-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="xaqIWKXT"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64SFD0xR651297;
+	Thu, 28 May 2026 12:46:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=kdmrn
+	48MzzK6aj62vBc2tYZtNhaJS0IKAmCJl9WJqDY=; b=xaqIWKXTWYtKTHImJ37pG
+	qMf/rTHDC5VMZjHHNTYcee31OR7RUS2YyVnG/PEpaA4MeoOmD50FkoiS8rYfj8GH
+	fVsPReYVfk9+v5dsg/EBq0glSbyP9m3ZUhqZzhC5GuZwN8XZULXDkdy5yHvFj1ui
+	stpQWkV5FE3wjeTruL7gTxwHFtvVftGeoGK9ckLVYtKMjxlYzWXOIWPlpC4OGT0V
+	EhIjRPoTWsUZyelemtOxFKrq5srA0b6S9AvugTsZGSFnFLHCS9+ImA4bqmg+2+zP
+	kahYy2GbLuw/kZMkKzg2cx03llQ2c/CrrFG/1yZTsvqdQl8ZHKUFKUFqk6S4k85N
+	A==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4ee7x43mh6-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 28 May 2026 12:46:56 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64SGks4A018582
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Thu, 28 May 2026 12:46:54 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 28 May
+ 2026 12:46:54 -0400
+Received: from ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912]) by
+ ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912%20]) with mapi id
+ 15.02.1748.037; Thu, 28 May 2026 12:46:54 -0400
+From: "Regus, Ciprian" <Ciprian.Regus@analog.com>
+To: Conor Dooley <conor@kernel.org>
+CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+        Andrew Lunn
+	<andrew+netdev@lunn.ch>,
+        "David S. Miller" <davem@davemloft.net>,
+        "Eric
+ Dumazet" <edumazet@google.com>,
+        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+	<pabeni@redhat.com>,
+        Simon Horman <horms@kernel.org>, Jonathan Corbet
+	<corbet@lwn.net>,
+        Shuah Khan <skhan@linuxfoundation.org>, Andrew Lunn
+	<andrew@lunn.ch>,
+        Heiner Kallweit <hkallweit1@gmail.com>,
+        Russell King
+	<linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski
+	<krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: RE: [PATCH net-next v2 01/10] dt-bindings: net: Add ADIN1140
+Thread-Topic: [PATCH net-next v2 01/10] dt-bindings: net: Add ADIN1140
+Thread-Index: AQHc7Vny63pu2ZCi3kqLvdxOu2lQULYiPpIAgAFdMXA=
+Date: Thu, 28 May 2026 16:46:54 +0000
+Message-ID: <925d1903a01a44d8ac61b1302a820e6a@analog.com>
+References: <20260527-adin1140-driver-v2-0-37e5c8d4e0a0@analog.com>
+ <20260527-adin1140-driver-v2-1-37e5c8d4e0a0@analog.com>
+ <20260527-nearness-antacid-9f94a3f43abc@spud>
+In-Reply-To: <20260527-nearness-antacid-9f94a3f43abc@spud>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-adiruleop-newscl: Rule Triggered
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 16:41:58 +0000
-Message-Id: <20260528164158.CDE151F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Authority-Analysis: v=2.4 cv=X8pi7mTe c=1 sm=1 tr=0 ts=6a187180 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=xqWC_Br6kY4A:10 a=SuJlEMG_fVsA:10 a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22
+ a=gAnH3GRIAAAA:8 a=sIgrHmZHMssAOK1AOucA:9 a=CjuIK1q_8ugA:10
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDE2OSBTYWx0ZWRfXz0PddYfaVPdM
+ dMPUnjnf7uhONk7kvCKdSTwP+xQdvWkrDrn4H9LpR1mMv8jxdOeL3X0o5CZ0Wbzyiy0pIrAWynr
+ 7DuUlAr1jxHDdWAJD0wxqYbT5CbifgGTL4NzEvUcMxH1mbwY05pDvCJq5rXWujgafAsx3Jr6Ukp
+ /+ma6iLTh2XDkYY6qR++SQN8/HMA8geTVv/Pitj4hXfgkKd0SVUimSJFv8TSX7G9GDI4o81lW/y
+ d+2Ttp1Ty9ehBaSwLVLwuD2eQVpBdrSN2PdXVgU9pHwoGxM7gMePOyZKymetB8NejqW0FFpxhAi
+ w8akKbOEyjmuU3PWJ3c3Mv1Y+VA6QRaIVvRPpdDxW4qZXtd19XW+kF4QvkzptfGA/77T9savigG
+ mVUsvFvOC/D9Bgas9SF4xK7OaAkp2hQ/I69p8ruybJst4zKNDIqKBcd5fRKTMqn/2XndNCM+M9Q
+ oTzgvhhx5a0uEIJmjFw==
+X-Proofpoint-ORIG-GUID: BEBfjRElMlo2w4rmdkKDmR3t-kiiuZlj
+X-Proofpoint-GUID: BEBfjRElMlo2w4rmdkKDmR3t-kiiuZlj
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_05,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 spamscore=0 bulkscore=0 malwarescore=0 clxscore=1011
+ priorityscore=1501 suspectscore=0 impostorscore=0 adultscore=0
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2605280169
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The interrupt handler incorrectly relies on `this_cpu_ptr` for sta=
-ndard IRQs, causing an interrupt storm if the IRQ executes on a different C=
-PU.
-- [Medium] Missing CPU hotplug teardown callback causes an unbalanced `enab=
-le_irq()` kernel warning when a CPU is offlined and then onlined again.
---
+> > +title: ADI ADIN1140 10BASE-T1S MAC-PHY
+> > +
+> > +maintainers:
+> > +  - Ciprian Regus <ciprian.regus@analog.com>
+> > +
+> > +description: |
+> > +  The ADIN1140 (also called AD3306) is a low power single port
+>=20
+> Can you explain what is going on here please?
+> Is "adin1140" (which I can find no information easily online for) the
+> exact same device as the ad3306 (which has an entry on your site)?
 
-commit 0de42286a034bc944e765e97434f913831bc2960
-Author: Caleb James DeLisle <cjd@cjdns.fr>
-Subject: clocksource/timer-econet-en751221: Support EN751627 without percpu=
- IRQ
+The adin1140 is an upcoming version of ad3306 that lacks some
+(stress test) qualifications, but otherwise they are the exact same die.
 
-This commit adds support for the EN751627 timer, which uses a different
-interrupt number for each CPU timer instead of a single percpu interrupt.
+>=20
+> > +  10BASE-T1S MAC-PHY. It integrates an Ethernet PHY with a MAC
+> > +  and all the associated analog circuitry.
+> > +  The device tries to implement the Open Alliance TC6 10BASE-T1x MAC-
+> PHY
+> > +  Serial Interface specification and is compliant with the
+> > +  IEEE 802.3cg-2019 Ethernet standard for 10 Mbps single pair
+> > +  Ethernet (SPE). The device has a 4-wire SPI interface for
+> > +  communication between the MAC and host processor.
+> > +
+> > +allOf:
+> > +  - $ref: /schemas/net/ethernet-controller.yaml#
+> > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
+> > +
+> > +properties:
+> > +  compatible:
+> > +    enum:
+> > +      - adi,ad3306
+> > +      - adi,adin1140
+>=20
+> Because if they are really two names for the same part, this compatible
+> setup makes no sense, as it means they have a different programming
+> models.
 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> index f2c4c1ee0a56b..040386ded132a 100644
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
->  	clockevents_config_and_register(cd, econet_timer.freq_hz,
->  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
-> =20
-> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	if (econet_timer.is_percpu)
-> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-> +	else
-> +		enable_irq(cd->irq);
+Since they have the same programming model, should I just keep the adi,adin=
+1140
+entry?
 
-[Severity: Medium]
-Will this cause an unbalanced enable_irq() warning if a CPU is offlined
-and onlined again?
+>=20
+> Thanks,
+> Conor.
+>=20
 
-The driver registers a dynamic CPU hotplug state via cpuhp_setup_state()
-with cevt_init_cpu() as the starting callback, but passes NULL for the
-teardown callback.
-
-Because there is no teardown callback to call disable_irq() when a CPU is
-offlined, the IRQ descriptor's enable depth remains 0. When the CPU is
-brought back online, cevt_init_cpu() will execute again and call
-enable_irq() a second time.
-
-While this missing teardown existed before this patch, it was hidden
-because enable_percpu_irq() does not track descriptor depth. The warning
-appears to be newly exposed by the introduction of enable_irq().
-
-[ ... ]
-
-> @@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
-
-[ ... ]
-
-> +	for (i =3D 0; i < num_irqs; i++) {
-> +		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
-> +
-> +		if (econet_timer.is_percpu)
-> +			ret =3D request_percpu_irq(econet_timer.irqs[i],
-> +						 cevt_interrupt, np->name,
-> +						 &econet_timer_pcpu);
-> +		else
-> +			ret =3D request_irq(econet_timer.irqs[i], cevt_interrupt,
-> +					  IRQF_TIMER | IRQF_NOBALANCING,
-> +					  np->name, NULL);
-
-[Severity: High]
-Could passing NULL for dev_id lead to an interrupt storm if the IRQ
-executes on a different CPU?
-
-For standard (non-percpu) IRQs, cevt_interrupt() currently calculates the
-timer device using this_cpu_ptr(). If the interrupt fires on a different
-CPU (e.g., due to CPU hotplug migrating the IRQ, or a spurious interrupt),
-this_cpu_ptr() will return the timer for the currently executing CPU, not
-the CPU for which the interrupt was intended.
-
-The handler would then check the wrong CPU's status, find it not pending,
-and return IRQ_NONE. The actual pending interrupt would be left
-unacknowledged.
-
-Would it be better to pass the specific CPU's timer pointer as dev_id here
-and update cevt_interrupt() to use it instead of this_cpu_ptr()?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528140046.2897=
-674-1-cjd@cjdns.fr?part=3D5
