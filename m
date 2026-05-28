@@ -1,182 +1,123 @@
-Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3DD337B007;
-	Thu, 28 May 2026 12:44:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EF11D130E;
+	Thu, 28 May 2026 12:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779972249; cv=none; b=Yu1g20jHG48EDA+5CVUbx10hfDWx7/iMNBDoykxPjqxqh6eECGztmYjDQx5XdyDJfeirCk7OIbAVcY8ufg2d9tHrSuL3NRkEI1z2ZgWY8AeCyKjbJmADYu1hyQTEyQdHD+DsM/SHKUdrw/dqZIrhsIn9ctrujhF75o9ftCD18cM=
+	t=1779972855; cv=none; b=lga9P7Xukn0p9f3WxGjww+A4P+DNEQr4XQz++6U+QrCic9qXZUgNq0GpDTq6RLGy8nhUE9DA5T80avWmW9QairfGRTV4UiR1pTWtJ+jsfo3GbLi+y9rP1qV6XK34RSwCObuQtvRjfT37Le86fc8c5gHssCU15Y+rUjjirrQDmFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779972249; c=relaxed/simple;
-	bh=ktdHJTteuENZjygmIKdnyIPbq0G53A7TQmehHpc8RQE=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=khgSuOvpE/LWm/2ed+7ZYHHNw/BhWyxgkhFRHvmbyl7TSv7Jmsl4lgjYPPhPe+aQ/LlUHre1F0jrV2qVGpZ6DkzPufPNd57v+U1kb5JxxAbghLxw/FD6bY8iBzvKXy5CVVtZIazM10L+auJ8m+4jORCEjGhdbRWIRfsodnfetyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=FWlKmQPN; arc=none smtp.client-ip=148.163.135.77
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
+	s=arc-20240116; t=1779972855; c=relaxed/simple;
+	bh=YGqYq1zCs6c65Z17EJux0XY2xXKRUPj6sgfWNswnMB4=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=TJN0x338xuvMUCU6q62Q4ZDUEs6TdsFd4AwrH1Mn6ruXkn5P2RQgva4B61CvWyqdNGUKd68bg5y5+a3co6RmArmeVzxj6/q/5W5OZUwbM3CITQ4rVHp+YQaE1Re7AoljxWU6GhQAuWyGxyJOC45fbOdzsjJqdva3NM5DmGeOJAw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DbnOc5cZ; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="FWlKmQPN"
-Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
-	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8lf0K400653;
-	Thu, 28 May 2026 08:43:53 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=DKIM; bh=yPs0+
-	Ut+Mmj//US/eKG2HDyCXseT9Sv3IAvitcOiSrM=; b=FWlKmQPNlqE94ymYzCxVL
-	2SCR5eP73++NKJu4yN7j+qWlkCTN14Lr8vRJU4XvPCDexREgEvql+PhC1X5pmW2H
-	GhvDXofyfMucaVTnqpU9lPdAoAkd8sG3cLJDFENkP3S/jfc6EnhvhNaDT40VJQ26
-	a5YgQEuqnLqHjLTWuWqs4Ty/Ksm6lQequ1TV4Artbd1LkBexPMJbCZZVqKa9r5Rt
-	eKMOtjTTslHDTAOo8jd+x/hbt7hiK6FxqNLwMycRvpRgaUgfXmK5FVTlFOTLqNgJ
-	DLDrtI4nZOSck33gCrzAXkVc1RMlmaGFiaNe1NIETeDMlbSmnpjzxFyEZk0t8p/y
-	Q==
-Received: from nwd2mta4.analog.com ([137.71.173.58])
-	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ee7x1tsut-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 28 May 2026 08:43:53 -0400 (EDT)
-Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
-	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64SChpI2059440
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 28 May 2026 08:43:51 -0400
-Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by ASHBMBX8.ad.analog.com
- (10.64.17.5) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1748.37; Thu, 28 May
- 2026 08:43:51 -0400
-Received: from ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912]) by
- ASHBMBX9.ad.analog.com ([fe80::a11:40fc:1a6f:d912%20]) with mapi id
- 15.02.1748.037; Thu, 28 May 2026 08:43:51 -0400
-From: "Regus, Ciprian" <Ciprian.Regus@analog.com>
-To: Andrew Lunn <andrew@lunn.ch>
-CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-        Andrew Lunn
-	<andrew+netdev@lunn.ch>,
-        "David S. Miller" <davem@davemloft.net>,
-        "Eric
- Dumazet" <edumazet@google.com>,
-        Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>,
-        Simon Horman <horms@kernel.org>, Jonathan Corbet
-	<corbet@lwn.net>,
-        Shuah Khan <skhan@linuxfoundation.org>,
-        Heiner Kallweit
-	<hkallweit1@gmail.com>,
-        Russell King <linux@armlinux.org.uk>, Rob Herring
-	<robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
-	<conor+dt@kernel.org>,
-        "netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-        "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-        "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-        "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: RE: [PATCH net-next v2 10/10] net: ethernet: adi: Add a driver for
- the ADIN1140 MACPHY
-Thread-Topic: [PATCH net-next v2 10/10] net: ethernet: adi: Add a driver for
- the ADIN1140 MACPHY
-Thread-Index: AQHc7Vnx3WPSKydSxEKkqCDJmkm377YjB1eAgABVdZA=
-Date: Thu, 28 May 2026 12:43:51 +0000
-Message-ID: <72c3a9a8040e4b8990f217d4072872de@analog.com>
-References: <20260527-adin1140-driver-v2-0-37e5c8d4e0a0@analog.com>
- <20260527-adin1140-driver-v2-10-37e5c8d4e0a0@analog.com>
- <0aaa9a58-fac1-4de7-90f0-443db37228c8@lunn.ch>
-In-Reply-To: <0aaa9a58-fac1-4de7-90f0-443db37228c8@lunn.ch>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-x-adiruleop-newscl: Rule Triggered
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DbnOc5cZ"
+Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id BBCA6219;
+	Thu, 28 May 2026 14:53:51 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1779972832;
+	bh=YGqYq1zCs6c65Z17EJux0XY2xXKRUPj6sgfWNswnMB4=;
+	h=From:Subject:Date:To:Cc:From;
+	b=DbnOc5cZ/Z3yKpSROKqQfNrD4JQR9q+4GG005OxesxgXlfcz+Eis9m6yEOA+ZPCnx
+	 fQ/ocrwkfi8cyzjiLEB4C0xZIY/3LTgP74mVMrgZc8PFZE5H1scSIVD4oQuqHK9hGW
+	 OXzOx60RkdnXOSk9od+Vm+FyJ32kKJNCuEr60J8I=
+From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Subject: [PATCH 0/6] arm64: ti: Use syscon for the Control Module
+Date: Thu, 28 May 2026 15:53:41 +0300
+Message-Id: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEyOCBTYWx0ZWRfX3jaCi4H+1LRQ
- xa9q0vDugr/WMheo4sR4yiG+cj5Nz4MtFFiEjlAFgXZAEWWZIW0+70jpp1uu+y3MNdyAfQXAMYb
- TW0RIiWa+XUEWR6AncIRaVrkl2zA2GiVmjE9vM/sERpoqaCI0jy1g5lZtzqOMWjYlskOu3jNZaK
- P6nGTs5l8VxUTUv9Bbj7Ky6aRF5MBOwF3auqvaERkz9Z1hfD9/spL4kgoSCkgtmGHhOTm93gtcP
- eH+x/rtDGEEGj4XSmvfYiQhSNIWsFSaLlAhbcnR6Y80ayBMHu2uJ3kDghBt2cXfi/Act3OX7u/n
- SXEVZ5UzRansTzC5utlYJsG1R27/5kQu+p6gLudEbBpXwO+sJgKI39W/WtL7tqQfxCpY+pQDkk1
- nOyO1v67hIbojXpYFytgInnjez7BtvmsvJYhsALGCxJ7dLkeBsX+oZeUThjRtG6lXL2z4fMo9er
- bYrqp9f0fyn/AgDPqsw==
-X-Authority-Analysis: v=2.4 cv=HMbz0Itv c=1 sm=1 tr=0 ts=6a183889 cx=c_pps
- a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
- a=xqWC_Br6kY4A:10 a=SuJlEMG_fVsA:10 a=kj9zAlcOel0A:10 a=NGcC8JguVDcA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22 a=OmVn7CZJonkx5R5zMQLL:22
- a=JMH861CndGJDf_HG_EAA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-GUID: UdXCBUC07EaeEhCwrxRNCeeWA5SM8oEx
-X-Proofpoint-ORIG-GUID: UdXCBUC07EaeEhCwrxRNCeeWA5SM8oEx
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_03,2026-05-28_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0
- adultscore=0 malwarescore=0 priorityscore=1501 clxscore=1015 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280128
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIANY6GGoC/yXMQQ5AMBBA0avIrE1STYq4ili0NRiJkhaRSO+uW
+ L7F/zcE8kwBmuwGTycHXl1CkWdgJ+1GQu6TQQpZCiVr3BkXzQ7t6gbsK6VJK1JWGkjJ5mng69u
+ 13e9wmJns/j4gxgfT7yzScAAAAA==
+X-Change-ID: 20260528-ti-main-conf-d75aea5e5c2b
+To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+ Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Abraham I <kishon@kernel.org>, 
+ Roger Quadros <rogerq@kernel.org>, Devarsh Thakkar <devarsht@ti.com>, 
+ Swamil Jain <s-jain1@ti.com>
+Cc: linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2414;
+ i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
+ bh=YGqYq1zCs6c65Z17EJux0XY2xXKRUPj6sgfWNswnMB4=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGDrtzgSORPitjGkgu/5SekfDB5+pVvwmodPx0
+ pGGk2HxtlmJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahg67QAKCRD6PaqMvJYe
+ 9YG3D/9zAR8fKE3k7TinXOe9fczZ6+1Wru4FurrjQqJZEOnwgON0dnxn2yLl720nBP/rzwIUHIy
+ 7rmlfaOi1dtYRURDBfIFSndgdgtJY+OIkIabSZ1VEXCjS4jrmEFkhjwdz9CIYXPHVVbYyD/aL76
+ obrrq+ECikG3rVQvpuzDotsultdKGff37gtjpQGbTcdQgJgFlclp/IFzjMV3qr8y1kaDeuChZfF
+ ByuUAPDkVb5C/0M2N14l1SlSjQi8nknX3LGnlMuKkqDgAN9DDnHNY18zg69PoKjJkiSMCxGB5YP
+ eNINTsE/cmvyMq5UFy7BtDpnRq/5qGe2sl7/yL/2Q8zHoZa32wvUEROf/hYwgrYgyzxQZu8lHhq
+ ABloqGfoxLp7LvvxDTo2Qw5BiVBM9dQOXOyOAP4jWHtknpPTLpTVTA2tJVnQxAoGw220LPbmUwS
+ ktCLDmpBhpXl3lGLxi+Q/0lzhBgveOvwUby/wHEwDAuCaGuyJZIdlDoYdjdS7t61J4WEVT6u6Gd
+ 3GPnz4mujGx/+gIe5IUlEsV8ErruOzFWUgvezX/RhB6/biBis/FczOj3kOXXq8rP1W4c5TC89Hv
+ ZoX8ZzHptdXjsJHzmfpY7uk7DjxVqaQpxM3PEKfur/I+6WVLOUiDks/WUQI/P08Caxtda7fzp6E
+ 7q+B4DoSih0EHaw==
+X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
+ fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-> > +static netdev_tx_t adin1140_start_xmit(struct sk_buff *skb,
-> > +				       struct net_device *netdev)
-> > +{
-> > +	struct adin1140_priv *priv =3D netdev_priv(netdev);
-> > +
-> > +	/* Pad frames to minimum Ethernet frame size (60 bytes without
-> FCS).
-> > +	 * The MAC will append the FCS, but we need to ensure the frame is
-> > +	 * at least ETH_ZLEN bytes.
-> > +	 */
-> > +	if (skb_put_padto(skb, ETH_ZLEN))
-> > +		return NETDEV_TX_OK;
->=20
-> Does the standard say anything about this? It seems like something
-> which could be moved into the core.
+I have been trying to get BeagleY-AI display support to upstream:
 
-The comment is a mistake on my part, as it doesn't clearly describe why we
-have to pad the skb. It's a case of a MAC device which doesn't pad a frame =
-to
-a minimum size when the host wants to transmit less than 64 bytes. I'll upd=
-ate
-it in v3 to say:
+20260513-beagley-ai-display-v2-0-9e9bcefde6bc@ideasonboard.com
 
-/* The MAC doesn't automatically pad the frame to a 64 byte minimum size in
- * case the host sent a shorter skb, so we have to do it in the driver. The=
- FCS
- * will be added by the MAC.
- */
+One difficulty has been the handling of the Control Module region, as
+we need access to a single in that region, surrounded by registers for
+other subsystems. In my series I made the related node a syscon, thus
+allowing versatile access to the registers:
 
-As for what the OA TC6 standard says, this is the relevant section
-(7.3 - Data Transaction Protocol for Ethernet Frames)
+https://lore.kernel.org/all/20260513-beagley-ai-display-v2-14-9e9bcefde6bc@ideasonboard.com/
 
-"Ethernet frames are typically transferred from the SPI host to the MAC-PHY=
- without
-any padding or frame check sequence (FCS). The MAC will automatically pad t=
-he Ethernet
-frame to the minimum frame size of 64 bytes and append a computed FCS. Howe=
-ver, the
-Ethernet specification allows for the SPI host to optionally perform the fr=
-ame padding and
-FCS computation prior to transfer to the MAC-PHY. Similarly, the MAC-PHY wi=
-ll typically
-strip the FCS from received Ethernet frames prior to transfer to the SPI ho=
-st. However,
-the Ethernet specification allows the option for the Ethernet frame to be t=
-ransferred to the
-MAC client with the FCS.
+However, that's not a correct way to handle it. I realized we already
+have ti,j721e-system-controller.yaml binding for older SoCs, which has
+syscon but it's not used for the newer TI SoCs. This series takes the
+same binding into use for the newer SoCs.
 
-The IEEE Ethernet standard [2] defines the behavior of the MAC and therefor=
-e is beyond
-the scope of this specification. As a result, support for allowing the SPI =
-host to perform frame
-padding and FCS computation, or passing the FCS to the SPI host is optional=
-. When supported,
-the method for configuring the MAC-PHY to enable these modes of frame trans=
-fer is
-implementation specific."
+I think this is an ABI change, but I also think this is not an ABI
+break. I hope people with more expertise in this area can confirm my
+thoughts.
 
-As I understand, from the TC6 standard point of view, the padding and FCS o=
-ffload is optional.
-So, I think this shouldn't go into the core.=20
+I believe we could drop the renaming patches, and just adjust the
+ti,j721e-system-controller.yaml a bit more to accommodate the "wrong"
+node names. But if there's no downside to the renames, I think it's nice
+to have a more consistent naming.
 
->=20
-> 	Andrew
+ Tomi
+
+Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+---
+Tomi Valkeinen (6):
+      arm64: dts: ti: j784s4/j742s2: Rename pcieN-ctrl nodes to pcie-ctrl
+      arm64: dts: ti: k3-am62*: Rename 'clock-controller' to 'clock'
+      arm64: dts: ti: k3-am62-main: Rename 'oldi-io-controller' to 'dss-oldi-io-ctrl'
+      dt-bindings: soc: ti: ti,j721e-system-controller: Relax the bindings
+      dt-bindings: soc: ti: ti,j721e-system-controller: Add more compatibles
+      arm64: dts: ti: Use syscon and simple-mfd for the main conf region
+
+ .../devicetree/bindings/soc/ti/ti,j721e-system-controller.yaml | 10 ++++++----
+ arch/arm64/boot/dts/ti/k3-am62-main.dtsi                       |  9 +++++----
+ arch/arm64/boot/dts/ti/k3-am62a-main.dtsi                      |  7 ++++---
+ arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi         |  6 +++---
+ arch/arm64/boot/dts/ti/k3-j784s4-j742s2-main-common.dtsi       |  6 +++---
+ arch/arm64/boot/dts/ti/k3-j784s4-main.dtsi                     |  4 ++--
+ 6 files changed, 23 insertions(+), 19 deletions(-)
+---
+base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+change-id: 20260528-ti-main-conf-d75aea5e5c2b
+
+Best regards,
+--  
+Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+
