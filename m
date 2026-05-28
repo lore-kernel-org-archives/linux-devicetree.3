@@ -1,214 +1,671 @@
-Received: from OS0P286CU010.outbound.protection.outlook.com (mail-japanwestazon11011013.outbound.protection.outlook.com [40.107.74.13])
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7738372691;
-	Thu, 28 May 2026 08:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.74.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779956203; cv=fail; b=lay96IOOntUROpRvKwCF0ZTjIuhnV1g2l7Gp7yxATpGNq8k/WVLYxRCY4pPsn6d80/wERBAQmAaPaKpaiaJbZhbvB3/GAslCNndj2oL92CVdXE8wzWVQ8SEVRfJF1WievdJeZ9U9eJitJPA+Wx/3ZftsyNFDTf0GWlnVM6y9Wl4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779956203; c=relaxed/simple;
-	bh=EC0KHzGMRk5NcmFTLxN3m9nwcm9tM0CTJ9u8Y3mUgmU=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=RY3tbVZYnhVajkJHtLEE5Y+++9XWGD6xEQSH9zOJe1CSY4qcQpD9b+/JPU7bqeKtb5DEgl4/8xnDroisvtswy87JjFrTVgTiqC1gYM6lqoCaiN1a64mM6LmBQQWURFOu8WUsr5LOpGR2ZRGS5M4bh+YUZiFf+wbxHUQtu6BHTKY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=AHbupVNC; arc=fail smtp.client-ip=40.107.74.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 902423783AC;
+	Thu, 28 May 2026 08:18:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.17.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779956321; cv=none; b=Ui1PUPnQMwV8bvo8b/y4YkY9JQEAM3htIjB4HnO2QXEuHvUZnvEQq1jOlgCV26Txhtu0rQPChO5f7xiSD3T69SoUNIrQVNu1rESZkpsyGlAO6JruJ7+mR7gzD6oHC8wdoelvF2DNw5REzUBBKNy95Y2AR4QlhScj4UTkdvYvzUE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779956321; c=relaxed/simple;
+	bh=llHQ6LojbtDzB7scSmSvCQ8x2i5DpieuznXZItl/mmE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=AA0PsRjJb/1/17s/fhrhwoBh4cXWAiPBe6a4RQPCTIAXN4o62zO98O4QtmNZOHc2www7kaAg4qJpbnD8VF44zeYaqBuxLeRkPQyK9o5mmzGS/wtUNNbt/cs0N/4Xkck03G/6jhobro2hqb/EVvwA5Wfa5vsXz1eMSul68zCqxP0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de; spf=pass smtp.mailfrom=gmx.de; dkim=pass (2048-bit key) header.d=gmx.de header.i=hendrik-noack@gmx.de header.b=lR60RXUK; arc=none smtp.client-ip=212.227.17.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gmx.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmx.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="AHbupVNC"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=XNtzFJjmb1GNqVKJcnLmd1r6Ayvw/HWp8c0WzPB/gU+FocoxSQF7c6yn1MTyyjd0wzaU9erj9mYXN4ikMJi0jQmo2zNpq6j7lntoxMdiJrU1SWoLRaxP5DLdn0HCsXJGgnjVcgiz4yMzNxQme33BQVSdU+zcVJ44DFMUTFY+/7sdvR07ryBiNo0jTSMTNz269GIa6+0Ex+1gZFFQ8dlhO5uR4QVLVxGMyIT4cMirx9QTtzo3lqiKVUOrocXbrX96alCMwm+cKuV0KVxBzpGmXPsHjhUHWx3m7TQXR1+FemFNCHd+XVy6LfPQrVCwfJ/f2g1OSnj6y69DqBLAUvKbRQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=amF1V68n/KIndDxDZaEz0kIWHe+qcGCfAydIH+8bfi0=;
- b=TqmmSThvnh06JQsMT5NxhJ2ixC2D1dcY6l98AHk34DGPqAydn5noDjc9gHQ6s+CXa/MMC0nY0p0BktdIjbE/cJa+pe4tpLi6y16WeLjrg5D8NEViB8AF19rDnFPMIwVvpv1BsMT2esuW8TnXwzuxfjUyWKdqMP8TWU0c4bZLv7Ttgpr+4A1AFzz9JeLI36Y0JEqp2nPJGAfMKQMYw6dchib0uy0+x21RSKpBECxaGu6Ncbw9FF/GZp/hZC3GlgeIVcpX82lr6Okav+vN8bhKYEj9nglwY9TxNU3Ze1qJmi9+AuQvcjcVETqavhGYmlruXOCg0iBNDxyPDuBh2h9tsw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=amF1V68n/KIndDxDZaEz0kIWHe+qcGCfAydIH+8bfi0=;
- b=AHbupVNCdawgZcJBgAMvciwmteHIQX3bTS1C9n2xnc/AcKi8PLOPOIcDJ+YDI/GLbfNfQ5U5gQtNyQAS4Jk6vjrRC6EPY38F6OzRaPZukxBJQCUEt7zr3YRiZ/IpgAPZJYSNj3E0DPWd8rFjlFYvUpkMfCvcLdWMIH5tqfrQE2M=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYYPR01MB13497.jpnprd01.prod.outlook.com (2603:1096:405:1c0::6) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
- 2026 08:16:36 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0071.011; Thu, 28 May 2026
- 08:16:36 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: Claudiu Beznea <claudiu.beznea@kernel.org>, "geert+renesas@glider.be"
-	<geert+renesas@glider.be>, "linusw@kernel.org" <linusw@kernel.org>,
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
-	<krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
-	magnus.damm <magnus.damm@gmail.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-CC: Claudiu.Beznea <claudiu.beznea@tuxon.dev>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Claudiu Beznea
-	<claudiu.beznea.uj@bp.renesas.com>
-Subject: RE: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in
- struct rzg2l_hwcfg
-Thread-Topic: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in
- struct rzg2l_hwcfg
-Thread-Index: AQHc7njDSOFJlV923USesFQzr0mwDbYjFqgw
-Date: Thu, 28 May 2026 08:16:36 +0000
-Message-ID:
- <TY3PR01MB113461A5FC6EEB722B947671586092@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
- <20260528080439.615958-3-claudiu.beznea@kernel.org>
-In-Reply-To: <20260528080439.615958-3-claudiu.beznea@kernel.org>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYYPR01MB13497:EE_
-x-ms-office365-filtering-correlation-id: f25ef6c3-f422-4177-e001-08debc916fcf
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|376014|7416014|22082099003|18002099003|38070700021|4143699003|11063799006|56012099006;
-x-microsoft-antispam-message-info:
- IhYwfjAbfIfFlC5xFJdf5uRXNSIFbpyRDosxh9XXBskCn7/+ZBjLkbwS+jtB6VInVFJVSGrrlMzADeVGCTV96nD4MvJG7TIMoiNLIaSsxQZeKpa0mMyqBlM2QbN6V2UkEa4eKUEpnYxMrBi1YGuO60dQZ+xPNfP1edEDpKXa3WLL6NfW0bz63mo3nVTLTCPGIOqCYJ0LKZR0BHDtPaUvjx8sH6Dx8ggLbK44azrYfC5EnNl5rUQBWkZ1q/nGUuK9CeVir4PxJ2bny4PG4qAYD8+4qkpqs5ng/uGGVks1fpn9hDilfz9mbRTxHP6xFh9bOrqIl49W5FgQfdIqxb3gvL6czamIpGx/q1M1k4fPEoErsNgX5/y4P2HfPZm/qoqGR2kk+1nvjH2nXjzOuoqG4atbLgYXdT+NNtRdu6ZEkJAw5NAAkBTVLZAlEd9b9xY4Pu6xFsdpynqsl84zyZUfgLXjGkGgR98xlSTTvhM7A1PA50wP3WVDo9q+EUi70BDEdFoh8AZL3a+gz48ezHd8jNkW9Ra8v8X6a08zYtNWHLK/ZNiC8f5pEXv4+kugln9Ofp2XU/O2g7z3GYpMuy1hos56yau2YRr+nOlHdHwIIS6NpyE6/3IN5vm42kT9+VzP/cJzq8a0rhpoYw9lfxXzZ6lHdv++4kLiu8fwch6RF/jW55EdQE+uIJ/xa70HfZxMWg10v7YCfizW1V1h9v6PnP0j0WMYoVBaWWRMPjFAdSgoiR7O02RhlUG8zS/qSdfC
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(22082099003)(18002099003)(38070700021)(4143699003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?AHoEQ7YOpz3hANyz/6P+0a0ulTNAk9nB8X3dUhN3psbPtfCuQTMtMfcvWSJ/?=
- =?us-ascii?Q?tSTHpUZo1BOkG6UfiozVxo6Uk6D0qyfgKqUK2iVojZ1RJKkZuqzcOxo+3Ser?=
- =?us-ascii?Q?iXV2WhW3k0aYBZ5qXXv150u96uJX+6FX5YgYrDC0aQVXG5sajUBbs11Pe1He?=
- =?us-ascii?Q?DU+8/h5ZwoGsogbvKW8weFP8wgoFeR+f/RZEUToEbyQucj3shwCqaMi8iwUH?=
- =?us-ascii?Q?pFYkhOh5/XbvBRIiJgBeN8GXevwZeJEqlslqo6PXUgBWlgPGOpUwMg8dBai+?=
- =?us-ascii?Q?aYYGJ6dHOvysPEQ2BEL2836YJSpaPyeOB+EoAt3T5Ccaxma0fGvk4xJcMFFp?=
- =?us-ascii?Q?CRG1GmUg7mQfGbY6SMimrPgOKeC+qtkc+GQ1wP43WMyXQN4CgCI4xTrlLv2l?=
- =?us-ascii?Q?2YGDaQWC+wpWKPNdxaumRWTG42pLixpkfFj+AC2dixcmv+3B4+3jC1kE3AsB?=
- =?us-ascii?Q?2dYFZSFi0yeGEIib39HOv0U9LFM63e2NHB8e1/Rcsfc+RLEx2i58nthvg4v3?=
- =?us-ascii?Q?MBCtUJ2O4YUdy9DHGsGSFbvF612/TBuE+zCA2p1GgR2gqI4nlI3nEUDAn6dX?=
- =?us-ascii?Q?whNAy8qtPrp69sX1Q/jbo2Hxr8zWDFtPvXSHOpCTMCKO4uBODnbAZlzuiHgg?=
- =?us-ascii?Q?oPkBzz2oVHkL7Kd4LlW2X/2Bs/Vdg9zVqHof3qUY4NgGR17dpq/XF/Pd4tPE?=
- =?us-ascii?Q?v7GPHGo8AGqMW5y53qgyfh3pXrJ227L2SdCOQYsTwsQuXL8uYT+ZZJtSaxmQ?=
- =?us-ascii?Q?vBEMoDO79x2snfwwMQMh9/GEU2F0UokWweWvhVgdeRGfnaSoXhlyBjnamhFu?=
- =?us-ascii?Q?/99HXQeb/YvwTbC8k33QdPlMdPdc+/cSNgYWGBuVqbXZxTiAr87bCmyicFmK?=
- =?us-ascii?Q?pETCOHlKIMkuByZ1WVSpVQZPXiP+u83iohCnsdHMdhezV0NyeSzeQi/F5Dqq?=
- =?us-ascii?Q?DSCCyY8UXFc2O22Ob2x7FIATAkARHjODpq1CQ47XvwxnDkjSFdspd+G307tb?=
- =?us-ascii?Q?5eQsq09Bu4pw2jg/wHR30XzFKuFDiSb/TenfFLEHrWvE1VQctoYUqdDBINJ3?=
- =?us-ascii?Q?t6vU+9pqHFCbhxdrpbTE6dVGiEkf0ERVU/tIJF8YUR/ouX+6w8dhSp5qiBCq?=
- =?us-ascii?Q?upCtfElef3NnWIzLNUBsJ+moXup0y8jJyC3N3kzML3aA2/w5fMCjoQut/m9E?=
- =?us-ascii?Q?0En3pJdBv2hJMYlzBiKXYIyoG4z6e1TOz39igM4WlVN8K/Y//Xcb70gWBRVM?=
- =?us-ascii?Q?WtKsa+IoKitB3PECnGiApcrASJZzSr0Lq3WQCLNryWLF+GXlwhyOkr+pDwbx?=
- =?us-ascii?Q?sLFeL6aPBbHFGFJR8J3g1LjMOvqu8IMa/5N9jwngaL1+QN3Diaz80kyI+cLe?=
- =?us-ascii?Q?6C0MBiI3E6yoiJWsfY/3G6IJflbsM4BLVQhLYy/NywQiTWR9xljp2Tl/Lma1?=
- =?us-ascii?Q?lvdPXYu9vbKDSelAhaPOBcRYu77Br9ebaL7Y0LMiigGS2RF1MImALwhGtIs1?=
- =?us-ascii?Q?J4P3BnXNIrBNQP5zPtWGZhnJ1JTCTQYiIYSZUwLo4y/I3q9GQhHMpfH9TR68?=
- =?us-ascii?Q?OBrKpWhI+NI8xzuDdOi8ARPBd2KEXpeH1ddwaP4G3uRD3t7+a8AqYbnY8kfO?=
- =?us-ascii?Q?+iArqtutJVbsvN0M/GZxWc/SHXKs20Ec2bdzrSjs5yZ+plf9VnMutEuHVOSu?=
- =?us-ascii?Q?+w4LTv1IbEmMhNmmjsj7fKWAdk8XTZF6mFG7iq4QCJgPPJXx0eAKj4G+3v6z?=
- =?us-ascii?Q?/tuhFTNbyw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (2048-bit key) header.d=gmx.de header.i=hendrik-noack@gmx.de header.b="lR60RXUK"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmx.de;
+	s=s31663417; t=1779956309; x=1780561109; i=hendrik-noack@gmx.de;
+	bh=meYeXazmAyVAHkNStvQFIdxUOOp+N9hS5tWe4KtRJVY=;
+	h=X-UI-Sender-Class:From:To:Cc:Subject:Date:Message-ID:In-Reply-To:
+	 References:MIME-Version:Content-Transfer-Encoding:cc:
+	 content-transfer-encoding:content-type:date:from:message-id:
+	 mime-version:reply-to:subject:to;
+	b=lR60RXUKaI1XBpyP6y+FHXIROuPXrcPZeOv36AnyX48piT6vnycqq3dVy61Ahm3T
+	 /BWl59KHd3xHV6j37c3AfHAsB7xwo/18tzJo4Hvh5W0S2rOaVuMUJLsas1KWqiYvr
+	 YXL5AeBSz+BN2nhVJttJ69Boss18ImxjZQjcS3F61xiRXF8Ggqs+jRjuPkkDWEQHy
+	 KQm+8A5TGbrs20+QQd9YZzib3PQE0UC2V5pr35Dtl1hqZ/lH85SPENGybBzMSpo1p
+	 VryO9qckUcAqp5fjBXXVbznK/CJN52F9KbaAfOW3Q+PlBbREvwEdxvUrafy7c2luc
+	 XmvGndAu374QtiqzZg==
+X-UI-Sender-Class: 724b4f7f-cbec-4199-ad4e-598c01a50d3a
+Received: from client.hidden.invalid by mail.gmx.net (mrgmx104
+ [212.227.17.168]) with ESMTPSA (Nemesis) id 1MFsYx-1wX8Fn2WFj-006hW1; Thu, 28
+ May 2026 10:18:28 +0200
+From: Hendrik Noack <hendrik-noack@gmx.de>
+To: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Hendrik Noack <hendrik-noack@gmx.de>,
+	Ferass El Hafidi <funderscore@postmarketos.org>,
+	linux-input@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v8 2/2] Input: Add support for Wacom W9000-series penabled touchscreens
+Date: Thu, 28 May 2026 09:48:18 +0200
+Message-ID: <20260528074818.12151-3-hendrik-noack@gmx.de>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260528074818.12151-1-hendrik-noack@gmx.de>
+References: <20260528074818.12151-1-hendrik-noack@gmx.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f25ef6c3-f422-4177-e001-08debc916fcf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 28 May 2026 08:16:36.5173
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: B8Btx9whkmSDqiTlCL3K7PzgiRQK9v1ROI7esMGMxpJhfVapubJOdfBLv8uX+a9OiSCD6feoCVlW8q+aOLyCNRYQhTX8FY4gXC9VSN9JXw4=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYYPR01MB13497
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:5T8xOgjchCtm+fG/6UEgHnHga0BvvjAgJL5MSp9CQUp4MGBYAkA
+ 1oU3cAAuZbxZFl0wbUyQbtdkYvOCjXF+kcm8xqWeQqpl3J7MLNn20MB8VrfIIfN3u6zEcnI
+ EMWQLEoJhDfdSU/n8Mji0hdu79CJfR82n+u2lAWDtb5VHlja5oUTMHuu2PGjutUtDHpI2ty
+ bHpjEd0dT794lSAP8+Wbg==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:mxFIsTzht8w=;n/MT9Jf/vbtqCP8bd6yenPHUUOZ
+ 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
+ cpjsGiNUhCxXV0JyhKNYcvR434HVwl
 
-Hi Claudiu Beznea,
+Add driver for Wacom W9002 and two Wacom W9007A variants. These are
+penabled touchscreens supporting passive Wacom Pens and use I2C.
 
-Thanks for the patch.
+Co-developed-by: Ferass El Hafidi <funderscore@postmarketos.org>
+Signed-off-by: Ferass El Hafidi <funderscore@postmarketos.org>
+Signed-off-by: Hendrik Noack <hendrik-noack@gmx.de>
+=2D--
+ drivers/input/touchscreen/Kconfig       |  12 +
+ drivers/input/touchscreen/Makefile      |   1 +
+ drivers/input/touchscreen/wacom_w9000.c | 448 ++++++++++++++++++++++++
+ 3 files changed, 461 insertions(+)
+ create mode 100644 drivers/input/touchscreen/wacom_w9000.c
 
-> -----Original Message-----
-> From: Claudiu Beznea <claudiu.beznea@kernel.org>
-> Sent: 28 May 2026 09:05
-> Subject: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in =
-struct rzg2l_hwcfg
->=20
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->=20
-> Drop the QSPI and OTHER_POC register defines, which are SoC specific and =
-accessible through struct
-> rzg2l_hwcfg::{qspi, other_poc}.
->=20
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
->=20
-> Changes in v2:
-> - none
->=20
->  drivers/pinctrl/renesas/pinctrl-rzg2l.c | 6 ++----
->  1 file changed, 2 insertions(+), 4 deletions(-)
->=20
-> diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/re=
-nesas/pinctrl-rzg2l.c
-> index a648d75a2bd2..77443cf1f431 100644
-> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
-> @@ -180,8 +180,6 @@
->  #define SMT(off)		(0x3400 + (off) * 8)
->  #define SD_CH(off, ch)		((off) + (ch) * 4)
->  #define ETH_POC(off, ch)	((off) + (ch) * 4)
-> -#define QSPI			(0x3008) /* known on RZ/{G2L,G2LC,G2UL,Five} only */
-> -#define OTHER_POC		(0x3028) /* known on RZ/G3L only */
->=20
->  #define PVDD_2500		2	/* I/O domain voltage 2.5V */
->  #define PVDD_1800		1	/* I/O domain voltage <=3D 1.8V */
-> @@ -3816,9 +3814,9 @@ static const struct rzg2l_hwcfg rzg2l_hwcfg =3D {
->  	.regs =3D {
->  		.pwpr =3D 0x3014,
->  		.sd_ch =3D 0x3000,
-> +		.qspi =3D 0x3008,
->  		.eth_poc =3D 0x300c,
->  		.oen =3D 0x3018,
-> -		.qspi =3D QSPI,
-
-Any reason for moving the assignment?
-
-struct rzg2l_register_offsets {
-	u16 pwpr;
-	u16 sd_ch;
-	u16 eth_poc;
-	u16 oen;
-	u16 qspi;
-	u16 other_poc;
-};
-
-Cheers,
-Biju
-
->  	},
->  	.iolh_groupa_ua =3D {
->  		/* 3v3 power source */
-> @@ -3835,7 +3833,7 @@ static const struct rzg2l_hwcfg rzg3l_hwcfg =3D {
->  		.sd_ch =3D 0x3004,
->  		.eth_poc =3D 0x3010,
->  		.oen =3D 0x3018,
-> -		.other_poc =3D OTHER_POC,
-> +		.other_poc =3D 0x3028,
->  	},
->  	.masks =3D {
->  		.other_poc_pvdd1833_oth_awo_poc =3D BIT(0),
-> --
-> 2.43.0
->=20
+diff --git a/drivers/input/touchscreen/Kconfig b/drivers/input/touchscreen=
+/Kconfig
+index 484522d8d675..9b9ae8ac3f7f 100644
+=2D-- a/drivers/input/touchscreen/Kconfig
++++ b/drivers/input/touchscreen/Kconfig
+@@ -610,6 +610,18 @@ config TOUCHSCREEN_WACOM_I2C
+ 	  To compile this driver as a module, choose M here: the module
+ 	  will be called wacom_i2c.
+=20
++config TOUCHSCREEN_WACOM_W9000
++	tristate "Wacom W9000-series penabled touchscreen (I2C)"
++	depends on I2C
++	help
++	  Say Y here if you have a Wacom W9000-series penabled I2C touchscreen.
++	  This driver supports models W9002 and W9007A.
++
++	  If unsure, say N.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called wacom_w9000.
++
+ config TOUCHSCREEN_LPC32XX
+ 	tristate "LPC32XX touchscreen controller"
+ 	depends on ARCH_LPC32XX
+diff --git a/drivers/input/touchscreen/Makefile b/drivers/input/touchscree=
+n/Makefile
+index 6d397268d2e3..bfd9de83389d 100644
+=2D-- a/drivers/input/touchscreen/Makefile
++++ b/drivers/input/touchscreen/Makefile
+@@ -100,6 +100,7 @@ tsc2007-$(CONFIG_TOUCHSCREEN_TSC2007_IIO)	+=3D tsc2007=
+_iio.o
+ obj-$(CONFIG_TOUCHSCREEN_TSC2007)	+=3D tsc2007.o
+ obj-$(CONFIG_TOUCHSCREEN_WACOM_W8001)	+=3D wacom_w8001.o
+ obj-$(CONFIG_TOUCHSCREEN_WACOM_I2C)	+=3D wacom_i2c.o
++obj-$(CONFIG_TOUCHSCREEN_WACOM_W9000)	+=3D wacom_w9000.o
+ obj-$(CONFIG_TOUCHSCREEN_WDT87XX_I2C)	+=3D wdt87xx_i2c.o
+ obj-$(CONFIG_TOUCHSCREEN_WM831X)	+=3D wm831x-ts.o
+ obj-$(CONFIG_TOUCHSCREEN_WM97XX)	+=3D wm97xx-ts.o
+diff --git a/drivers/input/touchscreen/wacom_w9000.c b/drivers/input/touch=
+screen/wacom_w9000.c
+new file mode 100644
+index 000000000000..7795508f93b2
+=2D-- /dev/null
++++ b/drivers/input/touchscreen/wacom_w9000.c
+@@ -0,0 +1,448 @@
++// SPDX-License-Identifier: GPL-2.0-or-later
++/*
++ * Wacom W9000-series penabled I2C touchscreen driver
++ *
++ * Copyright (c) 2026 Hendrik Noack <hendrik-noack@gmx.de>
++ *
++ * Partially based on vendor driver:
++ *	Copyright (C) 2012, Samsung Electronics Co. Ltd.
++ */
++
++#include <linux/delay.h>
++#include <linux/gpio/consumer.h>
++#include <linux/i2c.h>
++#include <linux/input.h>
++#include <linux/input/touchscreen.h>
++#include <linux/interrupt.h>
++#include <linux/regulator/consumer.h>
++#include <linux/unaligned.h>
++
++/* Some chips have flaky firmware that requires many retries before respo=
+nding. */
++#define CMD_QUERY_RETRIES	8
++
++/* Message length */
++#define CMD_QUERY_NUM_MAX	9
++#define MSG_COORD_NUM_MAX	12
++
++/* Commands */
++#define CMD_QUERY		0x2a
++
++struct wacom_w9000_variant {
++	const u8 cmd_query_num;
++	const u8 msg_coord_num;
++	const char *name;
++};
++
++struct wacom_w9000_data {
++	struct i2c_client *client;
++	struct input_dev *input_dev;
++	const struct wacom_w9000_variant *variant;
++	u16 fw_version;
++
++	struct touchscreen_properties prop;
++	u16 max_pressure;
++
++	struct regulator *regulator;
++	bool powered;
++
++	struct gpio_desc *flash_mode_gpio;
++	struct gpio_desc *reset_gpio;
++
++	unsigned int irq;
++
++	bool pen_proximity;
++};
++
++static int wacom_w9000_read(struct i2c_client *client, u8 command, u8 len=
+, u8 *data)
++{
++	int error, res;
++	struct i2c_msg msg[] =3D {
++		{
++			.addr =3D client->addr,
++			.flags =3D 0,
++			.buf =3D &command,
++			.len =3D sizeof(command),
++		}, {
++			.addr =3D client->addr,
++			.flags =3D I2C_M_RD,
++			.buf =3D data,
++			.len =3D len,
++		}
++	};
++
++	res =3D i2c_transfer(client->adapter, msg, ARRAY_SIZE(msg));
++	if (res !=3D ARRAY_SIZE(msg)) {
++		error =3D res < 0 ? res : -EIO;
++		dev_err(&client->dev, "%s: i2c transfer failed: %d (%d)\n", __func__, e=
+rror, res);
++		return error;
++	}
++
++	return 0;
++}
++
++static int wacom_w9000_query(struct wacom_w9000_data *wacom_data)
++{
++	struct i2c_client *client =3D wacom_data->client;
++	struct device *dev =3D &wacom_data->client->dev;
++	int error;
++	int retry =3D 0;
++	u8 data[CMD_QUERY_NUM_MAX];
++
++	for (; retry < CMD_QUERY_RETRIES; retry++) {
++		error =3D wacom_w9000_read(client, CMD_QUERY, wacom_data->variant->cmd_=
+query_num,
++					 data);
++
++		if (!error && (data[0] =3D=3D 0x0f))
++			break;
++	}
++
++	if (error || (data[0] !=3D 0x0f))
++		return error ? error : -EIO;
++
++	dev_dbg(dev, "query: %*ph, %d\n", wacom_data->variant->cmd_query_num, da=
+ta, retry);
++
++	wacom_data->prop.max_x =3D get_unaligned_be16(&data[1]);
++	wacom_data->prop.max_y =3D get_unaligned_be16(&data[3]);
++	wacom_data->max_pressure =3D get_unaligned_be16(&data[5]);
++	wacom_data->fw_version =3D get_unaligned_be16(&data[7]);
++
++	dev_dbg(dev, "max_x:%d, max_y:%d, max_pressure:%d, fw:%#x", wacom_data->=
+prop.max_x,
++		wacom_data->prop.max_y, wacom_data->max_pressure,
++		wacom_data->fw_version);
++
++	return 0;
++}
++
++/* Must be called with wacom_data->input_dev->mutex held */
++static int wacom_w9000_power_on(struct wacom_w9000_data *wacom_data)
++{
++	int error;
++
++	if (wacom_data->powered)
++		return 0;
++
++	error =3D regulator_enable(wacom_data->regulator);
++	if (error) {
++		dev_err(&wacom_data->client->dev, "Failed to enable regulators: %d\n", =
+error);
++		return error;
++	}
++
++	msleep(200);
++
++	gpiod_set_value_cansleep(wacom_data->reset_gpio, 0);
++	enable_irq(wacom_data->irq);
++
++	wacom_data->powered =3D true;
++
++	return error;
++}
++
++/* Must be called with wacom_data->input_dev->mutex held */
++static int wacom_w9000_power_off(struct wacom_w9000_data *wacom_data)
++{
++	if (!wacom_data->powered)
++		return 0;
++
++	disable_irq(wacom_data->irq);
++	gpiod_set_value_cansleep(wacom_data->reset_gpio, 1);
++	regulator_disable(wacom_data->regulator);
++
++	wacom_data->powered =3D false;
++
++	return 0;
++}
++
++static void wacom_w9000_coord(struct wacom_w9000_data *wacom_data)
++{
++	struct i2c_client *client =3D wacom_data->client;
++	struct device *dev =3D &wacom_data->client->dev;
++	int error;
++	u8 data[MSG_COORD_NUM_MAX];
++	bool touch, rubber, side_button;
++	u16 x, y, pressure;
++	u8 distance =3D 0;
++
++	error =3D i2c_master_recv(client, data, wacom_data->variant->msg_coord_n=
+um);
++	if (error !=3D wacom_data->variant->msg_coord_num) {
++		if (error >=3D 0)
++			error =3D -EIO;
++		dev_err_ratelimited(dev, "%s: i2c receive failed (%d)\n", __func__, err=
+or);
++		return;
++	}
++
++	dev_dbg(dev, "data: %*ph", wacom_data->variant->msg_coord_num, data);
++
++	if (data[0] & BIT(7)) {
++		wacom_data->pen_proximity =3D true;
++
++		touch =3D !!(data[0] & BIT(4));
++		side_button =3D !!(data[0] & BIT(5));
++		rubber =3D !!(data[0] & BIT(6));
++
++		x =3D get_unaligned_be16(&data[1]);
++		y =3D get_unaligned_be16(&data[3]);
++		pressure =3D get_unaligned_be16(&data[5]);
++
++		if (wacom_data->variant->msg_coord_num > 7)
++			distance =3D data[7];
++
++		if (x > wacom_data->prop.max_x || y > wacom_data->prop.max_y) {
++			dev_warn_ratelimited(dev, "Coordinates out of range x=3D%d, y=3D%d", x=
+, y);
++			return;
++		}
++
++		if (pressure > wacom_data->max_pressure) {
++			dev_warn_ratelimited(dev, "Pressure out of range %d", pressure);
++			return;
++		}
++
++		touchscreen_report_pos(wacom_data->input_dev, &wacom_data->prop, x, y, =
+false);
++		input_report_abs(wacom_data->input_dev, ABS_PRESSURE, pressure);
++
++		if (wacom_data->variant->msg_coord_num > 7)
++			input_report_abs(wacom_data->input_dev, ABS_DISTANCE, distance);
++
++		input_report_key(wacom_data->input_dev, BTN_STYLUS, side_button);
++		input_report_key(wacom_data->input_dev, BTN_TOUCH, touch);
++		input_report_key(wacom_data->input_dev, BTN_TOOL_PEN, !rubber);
++		input_report_key(wacom_data->input_dev, BTN_TOOL_RUBBER, rubber);
++		input_sync(wacom_data->input_dev);
++	} else if (wacom_data->pen_proximity) {
++		input_report_abs(wacom_data->input_dev, ABS_PRESSURE, 0);
++
++		if (wacom_data->variant->msg_coord_num > 7)
++			input_report_abs(wacom_data->input_dev, ABS_DISTANCE, 255);
++
++		input_report_key(wacom_data->input_dev, BTN_STYLUS, 0);
++		input_report_key(wacom_data->input_dev, BTN_TOUCH, 0);
++		input_report_key(wacom_data->input_dev, BTN_TOOL_PEN, 0);
++		input_report_key(wacom_data->input_dev, BTN_TOOL_RUBBER, 0);
++		input_sync(wacom_data->input_dev);
++
++		wacom_data->pen_proximity =3D false;
++	}
++}
++
++static irqreturn_t wacom_w9000_interrupt(int irq, void *dev_id)
++{
++	struct wacom_w9000_data *wacom_data =3D dev_id;
++
++	wacom_w9000_coord(wacom_data);
++
++	return IRQ_HANDLED;
++}
++
++static int wacom_w9000_open(struct input_dev *dev)
++{
++	struct wacom_w9000_data *wacom_data =3D input_get_drvdata(dev);
++
++	return wacom_w9000_power_on(wacom_data);
++}
++
++static void wacom_w9000_close(struct input_dev *dev)
++{
++	struct wacom_w9000_data *wacom_data =3D input_get_drvdata(dev);
++
++	wacom_w9000_power_off(wacom_data);
++}
++
++static int wacom_w9000_probe(struct i2c_client *client)
++{
++	struct device *dev =3D &client->dev;
++	struct wacom_w9000_data *wacom_data;
++	struct input_dev *input_dev;
++	int error;
++	u32 val;
++
++	if (!i2c_check_functionality(client->adapter, I2C_FUNC_I2C)) {
++		dev_err(dev, "i2c_check_functionality error\n");
++		return -EIO;
++	}
++
++	wacom_data =3D devm_kzalloc(dev, sizeof(*wacom_data), GFP_KERNEL);
++	if (!wacom_data)
++		return -ENOMEM;
++
++	wacom_data->variant =3D i2c_get_match_data(client);
++	if (!wacom_data->variant) {
++		dev_err(dev, "No i2c match_data available\n");
++		return -EINVAL;
++	}
++
++	if (wacom_data->variant->cmd_query_num > CMD_QUERY_NUM_MAX ||
++	    wacom_data->variant->msg_coord_num > MSG_COORD_NUM_MAX) {
++		dev_err(dev, "Length of message for %s exceeds the maximum\n",
++			wacom_data->variant->name);
++		return -EINVAL;
++	}
++
++	if (wacom_data->variant->msg_coord_num < 7) {
++		dev_err(dev, "Length of coordinates message for %s too short\n",
++			wacom_data->variant->name);
++		return -EINVAL;
++	}
++
++	wacom_data->client =3D client;
++	wacom_data->irq =3D client->irq;
++	i2c_set_clientdata(client, wacom_data);
++
++	wacom_data->regulator =3D devm_regulator_get(dev, "vdd");
++	if (IS_ERR(wacom_data->regulator))
++		return dev_err_probe(dev, PTR_ERR(wacom_data->regulator),
++				     "Failed to get regulators\n");
++
++	wacom_data->flash_mode_gpio =3D devm_gpiod_get_optional(dev, "flash-mode=
+", GPIOD_OUT_LOW);
++	if (IS_ERR(wacom_data->flash_mode_gpio))
++		return dev_err_probe(dev, PTR_ERR(wacom_data->flash_mode_gpio),
++				     "Failed to get flash-mode gpio\n");
++
++	wacom_data->reset_gpio =3D devm_gpiod_get_optional(dev, "reset", GPIOD_O=
+UT_HIGH);
++	if (IS_ERR(wacom_data->reset_gpio))
++		return dev_err_probe(dev, PTR_ERR(wacom_data->reset_gpio),
++				     "Failed to get reset gpio\n");
++
++	error =3D regulator_enable(wacom_data->regulator);
++	if (error)
++		return dev_err_probe(dev, error, "Failed to enable regulators\n");
++
++	msleep(200);
++
++	gpiod_set_value_cansleep(wacom_data->reset_gpio, 0);
++
++	error =3D wacom_w9000_query(wacom_data);
++
++	gpiod_set_value_cansleep(wacom_data->reset_gpio, 1);
++	regulator_disable(wacom_data->regulator);
++
++	wacom_data->powered =3D false;
++
++	if (error)
++		return dev_err_probe(dev, error, "Failed to query\n");
++
++	error =3D devm_request_threaded_irq(dev, wacom_data->irq, NULL, wacom_w9=
+000_interrupt,
++					  IRQF_ONESHOT | IRQF_NO_AUTOEN, client->name, wacom_data);
++	if (error)
++		return dev_err_probe(dev, error, "Failed to register interrupt\n");
++
++	input_dev =3D devm_input_allocate_device(dev);
++	if (!input_dev)
++		return -ENOMEM;
++
++	wacom_data->input_dev =3D input_dev;
++	input_set_drvdata(input_dev, wacom_data);
++
++	input_dev->name =3D wacom_data->variant->name;
++	input_dev->id.bustype =3D BUS_I2C;
++	input_dev->dev.parent =3D dev;
++	input_dev->id.vendor =3D 0x56a;
++	input_dev->id.version =3D wacom_data->fw_version;
++	input_dev->open =3D wacom_w9000_open;
++	input_dev->close =3D wacom_w9000_close;
++
++	input_set_capability(input_dev, EV_KEY, BTN_TOUCH);
++	input_set_capability(input_dev, EV_KEY, BTN_TOOL_PEN);
++	input_set_capability(input_dev, EV_KEY, BTN_TOOL_RUBBER);
++	input_set_capability(input_dev, EV_KEY, BTN_STYLUS);
++
++	input_set_abs_params(input_dev, ABS_X, 0, wacom_data->prop.max_x, 4, 0);
++	input_set_abs_params(input_dev, ABS_Y, 0, wacom_data->prop.max_y, 4, 0);
++	input_set_abs_params(input_dev, ABS_PRESSURE, 0, wacom_data->max_pressur=
+e, 0, 0);
++
++	if (wacom_data->variant->msg_coord_num > 7)
++		input_set_abs_params(input_dev, ABS_DISTANCE, 0, 255, 0, 0);
++
++	touchscreen_parse_properties(input_dev, false, &wacom_data->prop);
++
++	dev_info(dev, "%s size X%uY%u\n", wacom_data->variant->name,
++		 wacom_data->prop.max_x, wacom_data->prop.max_y);
++
++	error =3D device_property_read_u32(dev, "touchscreen-x-mm", &val);
++	if (!error && val)
++		input_abs_set_res(input_dev, wacom_data->prop.swap_x_y ? ABS_Y : ABS_X,
++				  wacom_data->prop.max_x / val);
++	error =3D device_property_read_u32(dev, "touchscreen-y-mm", &val);
++	if (!error && val)
++		input_abs_set_res(input_dev, wacom_data->prop.swap_x_y ? ABS_X : ABS_Y,
++				  wacom_data->prop.max_y / val);
++
++	error =3D input_register_device(wacom_data->input_dev);
++	if (error)
++		return dev_err_probe(dev, error, "Failed to register input device\n");
++
++	return 0;
++}
++
++static int wacom_w9000_suspend(struct device *dev)
++{
++	struct i2c_client *client =3D to_i2c_client(dev);
++	struct wacom_w9000_data *wacom_data =3D i2c_get_clientdata(client);
++
++	guard(mutex)(&wacom_data->input_dev->mutex);
++
++	return wacom_w9000_power_off(wacom_data);
++}
++
++static int wacom_w9000_resume(struct device *dev)
++{
++	struct i2c_client *client =3D to_i2c_client(dev);
++	struct wacom_w9000_data *wacom_data =3D i2c_get_clientdata(client);
++
++	guard(mutex)(&wacom_data->input_dev->mutex);
++
++	if (input_device_enabled(wacom_data->input_dev))
++		return wacom_w9000_power_on(wacom_data);
++	else
++		return 0;
++}
++
++static DEFINE_SIMPLE_DEV_PM_OPS(wacom_w9000_pm, wacom_w9000_suspend, waco=
+m_w9000_resume);
++
++static const struct wacom_w9000_variant w9002 =3D {
++	.cmd_query_num  =3D 9,
++	.msg_coord_num  =3D 7,
++	.name =3D "Wacom W9002 Digitizer",
++};
++
++static const struct wacom_w9000_variant w9007a_lt03 =3D {
++	.cmd_query_num	=3D 9,
++	.msg_coord_num	=3D 8,
++	.name =3D "Wacom W9007A LT03 Digitizer",
++};
++
++static const struct wacom_w9000_variant w9007a_v1 =3D {
++	.cmd_query_num	=3D 9,
++	.msg_coord_num	=3D 12,
++	.name =3D "Wacom W9007A V1 Digitizer",
++};
++
++static const struct of_device_id wacom_w9000_of_match[] =3D {
++	{ .compatible =3D "wacom,w9002", .data =3D &w9002 },
++	{ .compatible =3D "wacom,w9007a-lt03", .data =3D &w9007a_lt03, },
++	{ .compatible =3D "wacom,w9007a-v1", .data =3D &w9007a_v1, },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, wacom_w9000_of_match);
++
++static const struct i2c_device_id wacom_w9000_id[] =3D {
++	{ .name =3D "w9002", .driver_data =3D (kernel_ulong_t)&w9002 },
++	{ .name =3D "w9007a-lt03", .driver_data =3D (kernel_ulong_t)&w9007a_lt03=
+ },
++	{ .name =3D "w9007a-v1", .driver_data =3D (kernel_ulong_t)&w9007a_v1 },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, wacom_w9000_id);
++
++static struct i2c_driver wacom_w9000_driver =3D {
++	.driver =3D {
++		.name	=3D "wacom_w9000",
++		.of_match_table =3D wacom_w9000_of_match,
++		.pm	=3D pm_sleep_ptr(&wacom_w9000_pm),
++	},
++	.probe		=3D wacom_w9000_probe,
++	.id_table	=3D wacom_w9000_id,
++};
++module_i2c_driver(wacom_w9000_driver);
++
++/* Module information */
++MODULE_AUTHOR("Hendrik Noack <hendrik-noack@gmx.de>");
++MODULE_DESCRIPTION("Wacom W9000-series penabled touchscreen driver");
++MODULE_LICENSE("GPL");
+=2D-=20
+2.43.0
 
