@@ -1,136 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5962E3368A4
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 19:10:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A9004028E6
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 19:29:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779995424; cv=none; b=DC8mZoXFcXJJ1OxbjZoTfiTZLzd1vJUqpzIxIwrzuRU2baet6EKnDIu8NQAACGfNGHepNYmtAFPxWMu3gqIOSWiwMcaYAGh/xNdpMiR5HR4+lDJrVPDNeAAwzCTARE8Ehy8UfB23951gw/WUbSjP8TtBclUDnm0bYPBcYnhjpsw=
+	t=1779996574; cv=none; b=Ada93aDZ9RpWcaFZTO2+TgzfqtzW/26KAaz69TVwfX22xoo/wbeLOPGbfVaNd0s8A46T+NnbssMAlqnEWryRMCG4/NiwxL8XEwU6nLN8qte46eXLgchm9Wq6mGKhW0xEYHMieqqhlVTLXFo1z/CIily9HSA25nVMOFtd5OZ0kro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779995424; c=relaxed/simple;
-	bh=fma1e7KGExuinaDKv023SCXg8nNbi6NYwN2Ay1JkPYI=;
+	s=arc-20240116; t=1779996574; c=relaxed/simple;
+	bh=eZt6eZFEZZU3baT4PYHYZqNsnWIHStqn9OgZpG7HdjE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aYR3IKYjUI7+sWMOSQFCKUyiKy4Tg97R3Gna39AhGvCM/qbB12OV6oH1iQhnDGFHQy4U1gTWVC0YWevZc3d8xiPn/V+tgRqRdLI2Yj2LQ+fNw4Eky9Qvtie4N5K8OJXcUDD+/tnTOrZFJDs7MXSBHkJ0oqddVpMkMzwuiSYzQFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLxw4un6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=P24lbWpqBtoYQkjweHu6T4SWYR0X4OcQ1rhV5PYcT94KbJgZiYUtm2NEZAa03lzdSa/aHQtobLHmlDqH5GEcK/09DCioVtTjt1676QbGsJnaCdXfIRYV6kVgWsrshEiJcXWJutKompWCuAi7ag8wWh8TPiZBda3qipFeGAF0Ufg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oewhIzIX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLxw4un6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B15641F000E9;
-	Thu, 28 May 2026 19:10:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oewhIzIX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB81D1F00A3A;
+	Thu, 28 May 2026 19:29:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779995423;
-	bh=H/xgvEtUxV2bSyYOWtiS9uHemgyhU4w2HbWrqAnGZPQ=;
+	s=k20260515; t=1779996573;
+	bh=AxT52/kB0AnBbEIKurbtHJ9Vc3gUiydaWgj7XuWaZBU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dLxw4un66YphEzEv51+urR2onliLhfF7550E6TjVsFYETGDOhQJISD+wwtpTZGrLo
-	 squ9AqEP4QH4DemB27a2d3grhr1xSFQGNJf2x6PIokyxtJuVqF72vL4qZX7yFESM37
-	 4EkJLKre8kdXIYjnrY3hgucDVJwwpc94CLiecQIc+2tkix8egI1p8wbsFWglORiOl7
-	 4ps9BeBY+FZLQu+QPRBEtbMAW5ljTX/MXOkMRtFyCG5S+uJTmc8DdVhDYV18ufzdET
-	 QwVZkO/RVIE9El0bw4Q6zAC1CbPZSHcxErNOSEygYn/oKp4Cn0bG3OfwNy0dbOccC0
-	 hODKJw7xgFiZw==
+	b=oewhIzIXkNMBrPc3zyVVC4SrQ2Vsvd2pw0CJl8rROeCVnsV57e1nfZ75jjhsqaFA8
+	 ja9lYnVERKXdBHph+tpo0Kd89v6wJaf/fJki36mNJ4VWud6BQTtAzFsNCTSvOGt0b3
+	 ygGKMpTQ6q7UDas3EvKEoToVY4VpYYAlyA8hBV13Df0zsO3UF3BCE9C/zDrmPHy61o
+	 btsrBaZ1fDVnP53HhgLKaOCGLSeL1Qhdv+bP5xGfjj84oQYr65QUJrXpBbdiehK0lB
+	 iGmhLRe56jvg90FXntRExRyqM0ewL9+pdyuEvgCLb9s40IoRv/rJxYhvpqDkbQLxUe
+	 KwlG0bMOjjFTw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 1/3] dt-bindings: clock: airoha: Document support for
- AN7583 clock
+Subject: Re: [PATCH v5 2/3] clk: en7523: generalize register clocks function
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Christian Marangi" <ansuelsmth@gmail.com>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528190000.9164-2-ansuelsmth@gmail.com>
-References: <20260528190000.9164-2-ansuelsmth@gmail.com>
+In-Reply-To: <20260528190000.9164-3-ansuelsmth@gmail.com>
+References: <20260528190000.9164-3-ansuelsmth@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 19:10:22 +0000
-Message-Id: <20260528191022.B15641F000E9@smtp.kernel.org>
+Date: Thu, 28 May 2026 19:29:32 +0000
+Message-Id: <20260528192932.DB81D1F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The new compatible string 'airoha,an7583-scu' is missing from th=
-e conditional `if-then` blocks defining `reg` constraints.
-- [Low] Inconsistent naming and formatting for the MDIO reset definitions.
+
+Pre-existing issues:
+- [High] The PCIe clock backing structure is allocated with `devm_kzalloc()=
+` but registered with non-managed `clk_hw_register()`, leading to a UAF if =
+probe fails.
 --
 
-commit 9e967d083029b29362d6e7b62c4a330c47bee22b
+commit 8b129b6c8b9f7c7f67a06021102b7f5673eead5f
 Author: Christian Marangi <ansuelsmth@gmail.com>
 
-dt-bindings: clock: airoha: Document support for AN7583 clock
+clk: en7523: generalize register clocks function
 
-This commit documents support for the Airoha AN7583 clock based on the
-EN7523 clock schema, adding the "airoha,chip-scu" requirement. It also
-adds an additional binding for extra clock and reset lines.
+This commit generalizes the clock registration logic used by the Airoha
+EN7581 SoC to also support the AN7583 SoC. It updates the implementation
+to register clocks defined in the new soc_data structures.
 
-> diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.ya=
-ml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> index eb24a5687639e..6c3c887985153 100644
-> --- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
-> +++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+> diff --git a/drivers/clk/clk-en7523.c b/drivers/clk/clk-en7523.c
+> index 1ab0e2eca5d32..087ff4568124f 100644
+> --- a/drivers/clk/clk-en7523.c
+> +++ b/drivers/clk/clk-en7523.c
 [ ... ]
-> @@ -50,12 +51,29 @@ properties:
->      description: ID of the controller reset line
->      const: 1
+> @@ -711,12 +712,15 @@ static int en7523_clk_hw_init(struct platform_devic=
+e *pdev,
+>  static void en7581_register_clocks(struct device *dev, struct clk_hw_one=
+cell_data *clk_data,
+>  				   struct regmap *map, void __iomem *base)
+>  {
+
+[Severity: High]
+This isn't a bug introduced by this patch, but looking at=20
+en7523_register_pcie_clk() which is called at the end of this function, it=
+=20
+appears the clock backing structure is allocated with devm_kzalloc() but=20
+registered with the non-managed clk_hw_register().
+
+If probe fails later, the driver core will automatically unwind devm resour=
+ces=20
+and free the structure. However, because the clock was not registered with=
+=20
+devm_clk_hw_register(), CCF is never notified to unregister the clock and=20
+retains dangling pointers to it.
+
+Could this lead to a use-after-free if the CCF is subsequently accessed, fo=
+r=20
+example by reading clk_summary? Should en7523_register_pcie_clk() be update=
+d=20
+to use devm_clk_hw_register() instead?
+
+> +	const struct en_clk_soc_data *soc_data;
+>  	struct clk_hw *hw;
+>  	u32 rate;
+>  	int i;
 > =20
-> +  airoha,chip-scu:
-> +    $ref: /schemas/types.yaml#/definitions/phandle
-> +    description: phandle to Chip SCU
+> -	for (i =3D 0; i < ARRAY_SIZE(en7581_base_clks); i++) {
+> -		const struct en_clk_desc *desc =3D &en7581_base_clks[i];
+> +	soc_data =3D device_get_match_data(dev);
 > +
->  required:
->    - compatible
->    - reg
->    - '#clock-cells'
-> =20
->  allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          const: airoha,an7583-scu
-> +
-> +    then:
-> +      required:
-> +        - airoha,chip-scu
-> +
-> +    else:
-> +      properties:
-> +        airoha,chip-scu: false
-> +
->    - if:
->        properties:
->          compatible:
-
-[Severity: Medium]
-Since the AN7583 shares the same register layout as the EN7581, shouldn't
-"airoha,an7583-scu" also be added to the if-then conditional block further
-down that enforces maxItems: 1 for the reg property?
-
-Omitting it leaves the reg property unconstrained for this new hardware
-generation, which bypasses validation constraints.
-
-> diff --git a/include/dt-bindings/reset/airoha,an7583-reset.h b/include/dt=
--bindings/reset/airoha,an7583-reset.h
-> new file mode 100644
-> index 0000000000000..7ff07986f8ba2
-> --- /dev/null
-> +++ b/include/dt-bindings/reset/airoha,an7583-reset.h
-> @@ -0,0 +1,62 @@
-[ ... ]
-> +#define AN7583_TDMA_RST			19
-> +#define AN7583_EMMC_RST			20
-> +#define AN7583_SOE_RST			21
-> +#define AN7583_XFP_MAC_RST		22
-> +#define AN7583_MDIO0                    23
-> +#define AN7583_MDIO1                    24
-
-[Severity: Low]
-Are the _RST suffixes intentionally omitted from AN7583_MDIO0 and
-AN7583_MDIO1?
-
-They seem to be missing the suffix used by all other reset constants in this
-file, which might cause ambiguity with the matching clock macros.
-
-Could these also be updated to use tabs instead of spaces for value alignme=
-nt
-to match the rest of the file?
+> +	for (i =3D 0; i < soc_data->num_clocks - 1; i++) {
+> +		const struct en_clk_desc *desc =3D &soc_data->base_clks[i];
+>  		u32 val, reg =3D desc->div_reg ? desc->div_reg : desc->base_reg;
+>  		int err;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528190000.9164=
--1-ansuelsmth@gmail.com?part=3D1
+-1-ansuelsmth@gmail.com?part=3D2
