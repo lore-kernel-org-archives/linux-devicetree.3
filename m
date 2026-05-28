@@ -1,168 +1,220 @@
-Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from BL2PR02CU003.outbound.protection.outlook.com (mail-eastusazon11011000.outbound.protection.outlook.com [52.101.52.0])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541D43630A0
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 21:45:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780004722; cv=none; b=RuKR0Xbv8NxsX8IUotTUudTn5+HdnhklST89ocxxFmpj6EDE74RmxqPXsUU1gcJtoQTABn3OoWigtfE9DNtmG3PVtgcwHbDudXWA6zBFmMY1YAnUPRsXnHs5+GL/iuNVAUJM6vIcCTREIACor4MHhYUdMdXSTgTSuCZM54gWiHU=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780004722; c=relaxed/simple;
-	bh=Mtr9YlkZZQx6kxkUpIGHK1Oy+GluifVySrjlvfh1knE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=BVJsj153DnejTUM13EfMQZoO7ktF5fH5qHR4Y1uJegBioMM1E4u+jU/SqOPWF+xP2j46gyeI0D+T9zxMA9HByR/n6VvnTkN7oHkyG7nre0FT5fNkcf0FWBb/NYnuiAzJKz5+w2XyYjI/NstCtfJLZcDQ54cN38yDONc2GKXtoX8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=X7Qe9N0J; arc=none smtp.client-ip=209.85.222.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CFE933B6D3;
+	Thu, 28 May 2026 21:47:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.52.0
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780004826; cv=fail; b=qjHqpke4ANcFL0Q2uUGrNzOxAWs6MYCAwg/DrEYp8dvJAkrMFjP+0kvnmYRKnkm8YDhNsEWmqKfYhD9l24w9qnXfkyeP28rcW2hDgY1vaovKZTrR8OmoOCjAN/FdwkdJoXEDM5YpZ2g1QVeGzLJ1jLL5Kvx/+G3FBXZH6LFIbd8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780004826; c=relaxed/simple;
+	bh=D5BGIISri6H0dWJ7kufiJx8QWv5UYxD/zsdygBNC0UY=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=fbNAw+xEfH6ZzNL0VC9DyxrIk2KM7Dv4uL0It2YG0rhM8Im4+HFaNiQ7Lj6jBuKIr/b9F6Pqzv2Sz9uLjPpthODd9Hvayf6KZ31uQljTn/hdlfuOQ/AzfIcOOkxERyYEvUmrbJFvZ1nIN2hE/94aGYlrkjhUyY6R0I+M9FWDWV4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=oC8BuA3S; arc=fail smtp.client-ip=52.101.52.0
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="X7Qe9N0J"
-Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-912475287a5so1472464985a.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:45:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780004720; x=1780609520;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=jFtFebur4e89Yp2GhL1rRJfGJOlb0c6RszvUZdfId9Y=;
-        b=MRWLork5ni8uQGNHUYQoaJy5v1u/+cajQBGU+UJU5j3J/lLxYTEvwMu0AyK+ssRzBb
-         kETbn6hzMjgrsBeyJgEdR5Gg6EkELA/db9zz7nNujCOXtjDC2axFM8XrxBwc0V8rHcM1
-         +xdNNT221xVT5smD22kHvzvZKdt6Ru8G/Y7XHfp57G8Mq8g4TUzd8vkn9gaZnZKzu09F
-         1iev4RfrokMV6wA27X2RrW/J+VAZHN33+xK1oaLKHb6c9ISHy7jjzCWAhG1GnymgaM/q
-         9pV5FuIN6ku0o5c1Koi+9o0lyqfL8EN4guxawN1VnBsMbeYf8CTMZDLHvvgWtWFw3x4m
-         Rt6Q==
-X-Forwarded-Encrypted: i=1; AFNElJ9gUtjeINGFygHT5dELIexS4SaTKdU9wwM41bqbPJT09zPLPjTQV/Hsxyy33dyOMsm7QEQ24mzviGj4@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQcp/jxfN+tNifxqy/X8rNwE8nRbgrMbCMCAk/pNMVGVDTL0Dp
-	lxLxIOSWCz/dNCQnwjGdjWDurs7tTjH1nC+qgQ3zbckKPXqoh7egxm7VmQ49aNt8yjlS8qJKfNl
-	22Mpyt4vmmmOePkaSF+GjPYcqX4xTd3ijiYz9BCLsP02wV17ej4JfLT1Oxp7vmBc1iUo+UdO7uQ
-	K822YcVesJHzMOUq3WDZVuzngMTlqbXGVEkU4irZaGY+pRHrCwp6EBzKgA1QudKRS8gjy44BhJf
-	lZGTdMdOqJpYfQGAdg=
-X-Gm-Gg: Acq92OGvfLObELELqWgtEdVZ1hlBF7ZRYURuwUIxqwvlWBwqLUQl+R1U0jdZbn+f3FD
-	D43C5Qc47l3JzMW+5QwkE4UI4IFxDIOsCyqHotPH+LZAdpyNfemNoUUcwLOcp0Tasm1sGLjA3DH
-	GGr4yJkBkQhpClDVfyGS+WewfNp03hq5nOYeO0E0ypThPMtS6ynnFHEeRd3IJmIKme1bn8E+9TU
-	3yRBjvETNEHH0aOSiNIOWr5V9ffFsAUI55AIGOH4l9/jaZA9h4axYSTxPv6tpMkZY4dVBJeu0ze
-	ZczVycqZ40pKjwc4iTzVaJVeA9GUHu+QTLHKm6i2qBpbixuK1VGrLj6UlTO0KB2QHDv03uo47Gd
-	EQ3neiiOGN18VZNs9kuoa4c2/xFJLPEsHKDSKfaVrsVr1nfApqZAZU79WiNOSqyo1BhdrEogR7Z
-	hDMc2uJIJUZnBiQBPeKi9pv6hQbXSYOU0c1a3U622YRh7Rfn7WdjfYU62nc230Pv9p/XM=
-X-Received: by 2002:a05:622a:228e:b0:516:e0eb:d7d with SMTP id d75a77b69052e-5172dca040cmr3891711cf.27.1780004720113;
-        Thu, 28 May 2026 14:45:20 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
-        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-5172ebc47bcsm2331cf.29.2026.05.28.14.45.19
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 28 May 2026 14:45:20 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-bd86cf9d900so943229966b.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:45:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1780004718; x=1780609518; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=jFtFebur4e89Yp2GhL1rRJfGJOlb0c6RszvUZdfId9Y=;
-        b=X7Qe9N0Jxv8f7AUpHBwzIqmHM3ZLpoDAfNIRzYhDTEzARmt47MO20uasg9AGY2Np/m
-         qtkP8e4d1NAP/Y77yOzBaYn/E2bVEHVHUAYmNKd062FJJ1QYIHO1GeXklwy6D/n4yuco
-         HtEFIrhV5msRXDRaY51DLfq98C8sre2iyZD+8=
-X-Forwarded-Encrypted: i=1; AFNElJ8ONHX6SpJZ71EgLtQYKF2+KkLQ59LptMejf0ZdgJpdw1Z1GFlle8nw9dRxqPriwamMynSZfv8vlwyY@vger.kernel.org
-X-Received: by 2002:a17:907:9307:b0:bce:804f:f199 with SMTP id a640c23a62f3a-be973e21a03mr53468366b.40.1780004717688;
-        Thu, 28 May 2026 14:45:17 -0700 (PDT)
-X-Received: by 2002:a17:907:9307:b0:bce:804f:f199 with SMTP id
- a640c23a62f3a-be973e21a03mr53466366b.40.1780004717186; Thu, 28 May 2026
- 14:45:17 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="oC8BuA3S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=cOaAAlRXeZa4UA+h7JyZD6I/cmnwTsioNjNI+xOxxbp5kWVmTp2BaETxqMfOEObDdiAWiiD5t6rnO4SNbFpPeTF2/iPhoQAUBoGtlAAnsgy63BXeLx+SXl4kG7tCnD588cMFqrj1Eycdu2PHvMSbCVwzUUMmRNaANROl6tKCBbeRjPh/4zRjBp38ZdXQAAl24JXM/cldP9WCWLh+KdZhHFAlsGDIV35/HeYfRvSDxVA6ZhPlUQaGGvlIwG3b3CUEta1kpUyGuoRK66dDpQ1kw2Uo4NB67b74jImb3Lyiy5/ra3gLHpihh1ZjOw431+rYCGCWv6oTj0xshLnpxu5JmA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=OsrmZcU2JW8lgOhz2nwCLv71aiVBW17Fo1YycLWpwHU=;
+ b=BiUl1Js1SKBGCEzsGo6GfaFe1saGkMhXSE77GIBcy2IjsHre+PweGPWppvAZD8OO9gY/yJXq7Bc79/L/SwdCEYY4XoYP/0u6T+CuyXd8mqxS6TyqfOvc+0x16sLANyV+2UkXkTXygTUctt5rvP6d/nnOA4/4P3/gv0JfudAlfMZZsawHRXbTMyvrBZxy6LKwW5i0FWF3ao4l9meoPeS9LfQ7R1xZFzF/yYhb4so81+QgqTiBKRVvWAn6Q9x/lFBDXJefpQJS1PRi9gsjH9XPoyCStZB+9GOpB+Cl9JTf0TXgBeJSzkuwPcyMtst/jfrtZ8sYHAcyAvzHiY9eI6sKSA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
+ header.d=amd.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=OsrmZcU2JW8lgOhz2nwCLv71aiVBW17Fo1YycLWpwHU=;
+ b=oC8BuA3Sayp1rT8CTmTZZAji4rbzTFoK7hJqiP4BRjVKKf7ERilncr+vZUQVW5ljvfWyZc7HPdw45BTgzZqbsImKmKRyZ6QHVpgfmir/rOr4VKaNDKRSm62WrbiZFxpd21fVbH2uh4IYqLouGbsoXIDFBSMO4Gncago6m8034Lc=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=amd.com;
+Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
+ by DS7PR12MB8420.namprd12.prod.outlook.com (2603:10b6:8:e9::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
+ 2026 21:47:01 +0000
+Received: from IA1PR12MB7736.namprd12.prod.outlook.com
+ ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
+ ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 21:47:00 +0000
+Message-ID: <d579623e-b799-4caa-aeec-7d070a972aae@amd.com>
+Date: Thu, 28 May 2026 22:46:58 +0100
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/5] iio: adc: add AMD/Xilinx Versal SysMon driver
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Conall O'Griofa
+ <conall.ogriofa@amd.com>, Michal Simek <michal.simek@amd.com>,
+ Guenter Roeck <linux@roeck-us.net>, Salih Erim <erimsalih@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260527114211.174288-1-salih.erim@amd.com>
+ <20260528130600.25e401a7@jic23-huawei>
+Content-Language: en-US
+From: "Erim, Salih" <salih.erim@amd.com>
+In-Reply-To: <20260528130600.25e401a7@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: LO4P123CA0116.GBRP123.PROD.OUTLOOK.COM
+ (2603:10a6:600:192::13) To IA1PR12MB7736.namprd12.prod.outlook.com
+ (2603:10b6:208:420::15)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20231205184741.3092376-1-mmayer@broadcom.com> <20231205184741.3092376-4-mmayer@broadcom.com>
- <e63906cf-9f76-4fed-91b0-1a9168b179bd@linaro.org> <12f3c515-71cf-46a5-ad92-15bf6c4c2f2c@broadcom.com>
- <c483e962-a565-45b0-91e2-41f47e2cf4bb@linaro.org> <CAGt4E5smwohGsPkvFOY8o270mNQnTkSWz8UKh3un2=XtEibzAg@mail.gmail.com>
-In-Reply-To: <CAGt4E5smwohGsPkvFOY8o270mNQnTkSWz8UKh3un2=XtEibzAg@mail.gmail.com>
-From: Markus Mayer <mmayer@broadcom.com>
-Date: Thu, 28 May 2026 14:45:04 -0700
-X-Gm-Features: AVHnY4LsuN8khH5Ub8nJHTjQ2-duCpid8nsrQhdGRehtA94tVmwnGX7LA3VIKfY
-Message-ID: <CAGt4E5tGHJFXswic6vTx-ThN2K9xBtO8oA4ybrXg+q5cA6GYCA@mail.gmail.com>
-Subject: Re: [PATCH 3/4] memory: brcmstb_dpfe: support DPFE API v4
-To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
-Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Rob Herring <robh+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, 
-	Linux ARM Kernel List <linux-arm-kernel@lists.infradead.org>, 
-	Device Tree Mailing List <devicetree@vger.kernel.org>, 
-	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
-Content-Type: text/plain; charset="UTF-8"
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|DS7PR12MB8420:EE_
+X-MS-Office365-Filtering-Correlation-Id: f19340ec-f5f1-4950-c57a-08debd02a5d6
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|366016|56012099006|11063799006|4143699003|22082099003|18002099003|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	i3kI1ASRlfvwcaZAyo4Ujn+ZuzBd5Cs5+nT8hYmkwi0ZPDcDp3P4WWKIYUEijVQI1GADRiee48aSO5xvYoKW2OaYb0wAOIRilCFHYfuHyunLoMm9ntYRTMgWI+2meu732VvL+VRRR2W3C1NrugsC3lxhtQR3HcezYQKHa/F3ltZbvdDiDToiNcJPYfp/NmiH0P0sER83NTHeHawQS+GRHSBFDvwCw1xpjeYgD5DNZE+LKL18Z2KYTRme3oRUhG9Ngaxjesfi/TY6UoqTZNVicx7CCs/g7VMe77IcbMxjSXZ5uPtZb8hSA9cWblC7/vWVRjf5Pc96ogCN9H27mDwkauuxxqmxCGd8RqUJZi4FrEiPcihts0SPeqbp6tt3eeGpQy0CzHwKtHIUnqa8Fe7xdlNF3R3TXh8sgkLSy9bUQF1e/Ru6f3a6wu04p7uo3Kf4xHg/bVVlZCUW/6GnXFmntQc/FCkjxZc9fm32Q6oRIg2dJ2DYDtVcwAIvAmb0Plj+UzJg9T+PLQJJSQpnu4qHa2yjX+SacEVEQ3ceDI/8eJL0/pYy9w6OiuYPZO7JyPuUan+xwbQVPE2JiIfMtkgCX/gdD/pqX+5BcGcq8VRBJd+nIqSRgiHMBUqkAjp4HNyM+VfMIfDaXlQrTmWZSFNR9A==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(56012099006)(11063799006)(4143699003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?TGRaT1ZqaGRCcHdJSmFlVmNRUWxJbEhtcjdjUUZSN0ZybXRsdlVWVVN6YzE0?=
+ =?utf-8?B?cDA1VW5ZaS95aEJqeXRpZDFua1Q3bjEyUVhBT2FWNzNlWU8zK0huamdCakdK?=
+ =?utf-8?B?UVYxUjAxNnRESFU3aHpFMVRTWEVzN0NDZnI5bThLZXRYNjdMTVRoSDhWZTNS?=
+ =?utf-8?B?MnhlL0FpOTBPU3lZZ3dGbzZPclVBNDhMZTFldEJ1UFNOdDEzZmhzSjdRWDBt?=
+ =?utf-8?B?bC9IWHEyVXprUHdOM0IvZVFvQ3pmY1ZXTkI5ZXRKNlRveWtWbkxQbGlIbm9L?=
+ =?utf-8?B?Z004eVVnOWpZR2d0UWUzeXBNdkFBbkpSM3hXUUswTVFhZGhFZDh5UDNEdWl3?=
+ =?utf-8?B?MmJmUDl6MFpmNUNwRTlPbm5GREoyNi9QVHZwWkxIalRONWtGZGxad0pNOWxt?=
+ =?utf-8?B?WEhIckNDQlFXOUhMZXVqSXZqaHlkRU9VVENlWEUvY0YwNFlMcVhaeFE3bkgv?=
+ =?utf-8?B?WXZodVdqd0FQWVBTZmFJNyswT0daM2NjbUtPL2tFY0kzQ095MDM5dWhuZElZ?=
+ =?utf-8?B?dGlwc1V5L1Z0akp5US80NmdsN09VWjZFSlc0TzlVakk1Um9PRjFNcGd3b1kr?=
+ =?utf-8?B?c2c5ellyZ3Q3c1NIWDJTZnFaUzZGN3h4Zzc3dTIySXpTRzgrWG1jRkIxOTl5?=
+ =?utf-8?B?WU1zcCtvT0lrRFRmMWpleGQ2VkoxaVovcHRmVTdjWkllRjN4OTFHT1dpZnl6?=
+ =?utf-8?B?R2taVldLYWk2QUt0bjZKT21jMVJiL0NZaCtNQUM5eXl3ME9TVFVPdGhsaGJ3?=
+ =?utf-8?B?WldCVFY2MkxtNXBkYStUcVVZVXhFRGNoYXBsT1NJWXg2SDJENkhBWmc4S3Bu?=
+ =?utf-8?B?VTF3aTgvRTZJYndiclg0V0lTMnZMR1ZMelIzQkYwUDFCZkdJVjZVNnFBTlhG?=
+ =?utf-8?B?eGVMM2toS0grVDZFTTgrb2VGMVBJOEg1NW85eXRQQi9LbURRU2psRVpJeXFu?=
+ =?utf-8?B?dThqVmpaczhpRUo2WE9FeFBFSm1QTlVtZ2hDZ2VGcWZkRWx6M1M0RGlqMnA2?=
+ =?utf-8?B?QUlXeTJ4VjVPTUtjcHI3OWFEQ2RXbEFrampKWllJcXY0bThEOHpRRUpLODJB?=
+ =?utf-8?B?UldjTFhLOEo3WWtLWWdnODY1RXVwbktJemdhRW5BN0orR0JWa3lHc0U5bkxj?=
+ =?utf-8?B?L3NVSjVEd29rUzIzOHZFQzRPUmdlbXBLWW9SZGM2c2g2L1p6VjhHZ3FmNHJE?=
+ =?utf-8?B?THU4SlR5R0xuTE5QYjJkRXh1TmJqRzIyYmZMcXRpSFd2Z0NpSzZEYjRCdmJ4?=
+ =?utf-8?B?TW4rTTUzZTVLYThiU2JXalp0aHY3WGpvWExmY0dVMmNwTURSYi9sN0JXTGpv?=
+ =?utf-8?B?MEpHTXFUZjV5NDQyYXJrZ1l1NExyTXZEUzVnOTE0VUkvUFpocGVMRXBnNkY3?=
+ =?utf-8?B?YnlqdEdXZjRCa21RMVFzbkZwVndiY0hxVDhUV05rZmU3S2dxZldCdm1UNHk1?=
+ =?utf-8?B?MDI2eTlaOTVMMjZOVWxvUWlWQzZHcHBxdXdCNGZpeHZTUUlMZjl0aVJyZitz?=
+ =?utf-8?B?aE4wU2E1YjF3dTNaUVRaY3B2aWdzU0I5ei9NYU1peG1iYStHSk1XRnJYSEJl?=
+ =?utf-8?B?SDZ1dGVrRk12RDBvcGZBRVZPWlNHd2F2Q1ByajZNL2dpdUQ5VlVxTkVWNkZP?=
+ =?utf-8?B?ODNSYVRuR3h5cDRCZzMrZzFod05Ud0FYN2kxVll4Zm9IaTQzN1NwblFGbGFR?=
+ =?utf-8?B?dG9zV0ZiNUZaS0ZyK2h3eTJaVHU5ZEtmZHZZL2IyUFBqQ0hEcDJINWZ0Vi9Y?=
+ =?utf-8?B?b21qL3lUK2dWVERuQnVCWDRhbEtoZkJ1QzhQMVBHRzdVYnNYb2pYM0xaeWZ6?=
+ =?utf-8?B?TTk4N1NQV29CamxlMk5KejJFcDZBWjIyNW5mL1A0WTI1bmsxdWlFSHYzSmIw?=
+ =?utf-8?B?TTFoQStaeXJKYWFSbGtyVDlzMmFCcjNTVnNQS0NEenJveElodEhESDNNRDdq?=
+ =?utf-8?B?Q0dFYldhTW5yK0poUUVuUGdSdlp5cUtJK2hCZEZUVXo3cEV3VGF6eHJsQmJQ?=
+ =?utf-8?B?ZytRTUNkY2ZvcTBIbzJrcUd5NXNycWdEUjNORWMxUEZxSGxRM1ZYMEVVeCtm?=
+ =?utf-8?B?UGtjZjJuY1gzMlJBZXhqSkFiR3ZwazRNa2pydEc1RTBJNFBJUXB1VVYvQWV3?=
+ =?utf-8?B?dkp2b1IyWHZWMlZ0RzZIN3hONjA4bWpjSjlJRGxNSThZNVM4akNDbmZORWxR?=
+ =?utf-8?B?NXpyOW01d2p4blFzU0Nsc3dnUndrVExYczkzMXB1RGpLTkoyWk5rQzFvM2h4?=
+ =?utf-8?B?elVFVUM2SURyRFF4eVlpc1k5R1VTaGpETkY5QTZ3NUM2T3hKMUhxNzVpVU1o?=
+ =?utf-8?Q?EJUin7+z5nlNNUw7L5?=
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f19340ec-f5f1-4950-c57a-08debd02a5d6
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 21:47:00.4869
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: oWXX5BhzvZUdFrfWKVAOztCq01RzCDCmIOm9K/q78sNtZ/dEd5F9G5sgbAOwBB84
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR12MB8420
 
-On Wed, 6 Dec 2023 at 10:48, Markus Mayer <mmayer@broadcom.com> wrote:
->
-> On Wed, 6 Dec 2023 at 09:32, Krzysztof Kozlowski
-> <krzysztof.kozlowski@linaro.org> wrote:
-> >
-> > On 06/12/2023 17:18, Florian Fainelli wrote:
-> > >
-> > >
-> > > On 12/6/2023 3:10 AM, Krzysztof Kozlowski wrote:
-> > >> On 05/12/2023 19:47, Markus Mayer wrote:
-> > >>> Add support for version 4 of the DPFE API. This new version is largely
-> > >>> identical to version 3. The main difference is that all commands now
-> > >>> take the MHS version number as the first argument. Any other arguments
-> > >>> have been pushed down by one (i.e. what used to be arg0 in v3 is arg1 in
-> > >>> v4).
-> > >>>
-> > >>> Signed-off-by: Markus Mayer <mmayer@broadcom.com>
-> > >>
-> > >> ...
-> > >>
-> > >>> +
-> > >>>   static const char *get_error_text(unsigned int i)
-> > >>>   {
-> > >>>     static const char * const error_text[] = {
-> > >>> @@ -929,8 +954,12 @@ static const struct of_device_id brcmstb_dpfe_of_match[] = {
-> > >>>     { .compatible = "brcm,dpfe-cpu-v1", .data = &dpfe_api_old_v2 },
-> > >>>     { .compatible = "brcm,dpfe-cpu-v2", .data = &dpfe_api_new_v2 },
-> > >>>     { .compatible = "brcm,dpfe-cpu-v3", .data = &dpfe_api_v3 },
-> > >>> +   { .compatible = "brcm,dpfe-cpu-v4", .data = &dpfe_api_v4 },
-> > >>>
-> > >>
-> > >> No, use SoC specific compatible.
-> > >
-> > > This is not that simple because for a given SoC, the API implemented by
-> > > the firmware can change, in fact it has changed over the lifetime of a
-> > > given SoC as firmware updates get rolled out. Arguably the dialect
-> > > spoken by the firmware should not have changed and we told the firmware
-> > > team about that but it basically went nowhere and here we are.
-> > >
-> > > The Device Tree gets populated by the boot loader which figures out
-> > > which API is spoken and places one of those compatible strings
-> > > accordingly for the kernel to avoid having to do any sort of run-time
-> > > detection which is slow and completely unnecessary when we can simply
-> > > tell it ahead of time what to use.
-> >
-> > Thanks for providing justification, quite reasonable. A pity that none
-> > of the commit msgs answered this way.
->
-> The real pity is how this API was designed, making all of this
-> necessary in the first place.
->
-> We can definitely spell out more clearly in the commit messages what
-> is going on and why all of this is needed. I'll pull all the pieces
-> together from the various responses. As long as there's a way we can
-> reasonably implement what we need, we'll be happy.
+Hi Jonathan,
 
-It has been a minute, but we'd like to resume this effort[1] to
-upstream these changes or some variation thereof.
+On 28/05/2026 13:06, Jonathan Cameron wrote:
+> 
+> 
+> On Wed, 27 May 2026 12:42:06 +0100
+> Salih Erim <salih.erim@amd.com> wrote:
+> 
+>> This series adds a new IIO driver for the AMD/Xilinx Versal System
+>> Monitor (SysMon), providing on-chip voltage and temperature monitoring.
+>>
+>> The Versal SysMon measures up to 160 supply voltages and reads up to
+>> 64 temperature satellites distributed across the SoC. The hardware
+>> also provides aggregated device temperature registers: the current
+>> max and min across all active satellites, and peak/trough values
+>> recorded since last hardware reset. The device can be accessed via
+>> memory-mapped I/O or via an I2C interface.
+>>
+>> The driver is split into a bus-agnostic core module using the regmap
+>> API, an MMIO platform driver, and an I2C driver. This allows the
+>> same IIO logic to be shared across different bus transports.
+>>
+>> Previous submissions:
+>>    v2: https://lore.kernel.org/all/cover.1746182670.git.salih.erim@amd.com/
+>>    v1: https://lore.kernel.org/all/cover.1757061697.git.michal.simek@amd.com/
+>>
+> https://sashiko.dev/#/patchset/20260527114211.174288-1-salih.erim%40amd.com
+> Quite a bit of feedback.  Some of which is clearly garbage, like the
+> ARCH_VERSAL suggestion, but take a close look as it does tend to pick up on
+> stuff that humans miss.
 
-What are the best steps to resume this undertaking? There are still a
-few topics where I am not entirely clear on how to better explain
-things or how to address the feedback provided. My apologies for that.
-I will do my best to address whatever concerns there are.
+Thanks Jonathan. I've gone through all the Sashiko findings.
 
-Should I put together a new pull request that contains improved commit
-messages and addresses some of the feedback and we hash out whatever
-questions remain on the new thread? Or would it be better for me to
-reply to the old thread with some of the questions that remain before
-sending a revised series?
+False positives:
+- ARCH_VERSAL: doesn't exist in mainline; all Versal drivers use
+   ARCH_ZYNQMP (EDAC_VERSAL, Versal TRNG, etc.)
+- I2C bus atomicity: the SysMon I2C slave protocol requires a
+   STOP between command and response; the vendor driver uses the
+   same send/recv sequence
+- Hardirq on I2C: IRQ handler is never registered on the I2C
+   path (has_irq is false when fwnode_irq_get returns negative)
+- Voltage threshold clobbering format bits: threshold registers
+   only use the mantissa (bits 15:0); vendor driver does the same
+- IRQ storm on regmap error: ISR is cleared before handle_events
+   is called, so the interrupt won't re-fire
+- VERSAL_SYSMON_I2C missing ARCH: no I2C ADC driver in the
+   kernel has an ARCH dependency; I2C clients are bus-agnostic
+
+Reviewed but keeping as-is:
+- Left-shift of negative in millicelsius_to_q8p7: GCC defines
+   this behavior and it's consistent with the read direction
+   (right-shift); Andy asked for this symmetry in v2
+- Oversampling read without mutex: reading a single int is
+   atomic on arm64; adding contention for no practical benefit
+- Voltage alarms one-shot: follows the IIO event model where
+   userspace re-arms via write_event_config
+- Event config reads 0 during masked alarm: standard behavior,
+   xilinx-ams does the same
+- TOCTOU on masked_temp after spinlock drop: benign; worst case
+   the worker reschedules one extra cycle
+- Interrupts not disabled on teardown: devm_request_irq frees
+   the IRQ handler; probe already disables all interrupts via
+   IDR at init, and LIFO devm ordering is correct
+- Oversampling shared_by_type for all temp: this is a per-type
+   HW setting; static channels report the aggregate result
+- val*scale overflow in processedtoraw: realistic voltages
+   (< 3.3V) are well within int32 range; overflow requires
+   > 32V input which is beyond the ADC range
+- sysmon_update_temp_lower underflow: hysteresis is validated
+   as non-negative and realistic thresholds keep the subtraction
+   well within Q8.7 range
+
+Will address in v4:
+- scan_type: dropping entirely (no buffered support), which
+   also resolves the realbits question
+- RAW + PROCESSED: dropping RAW for voltage (PROCESSED only),
+   and using RAW + SCALE for temperature (linear Q8.7)
+- temp_mask: take irq_lock in write_event_config to
+   synchronize with the unmask worker
+
+Happy to fold these into v4 along with your review feedback.
 
 Thanks,
--Markus
-
-[1] https://lore.kernel.org/all/20231205184741.3092376-1-mmayer@broadcom.com/
+Salih
