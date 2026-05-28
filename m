@@ -1,172 +1,163 @@
-Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010001.outbound.protection.outlook.com [52.101.84.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CAC23394A;
-	Thu, 28 May 2026 01:57:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779933434; cv=none; b=smu3o7bBu3fkEarL3/IEbBTZwT86LKs+be6j7sFGIMzdHtK50y0HvQ3D+HrqyrlfNTXlMXNz7V9ssM0jFkHwFV8NEY28bD6oXuvVL2HGx/t0kdCj7UnNltVh46768W6DrNqAaDhFO1CkNM6l/CE7nqF6/UicPJgADKnOJc606CE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779933434; c=relaxed/simple;
-	bh=KBlLgF6gRJ1Qn56J9PT2IuLK4PeEsqW8yyXjeblENb8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VA7U4Evzphp1Sr/I9i5N7Ym6rYtEGU4FlGFygexnXLoUFJROKGq9GpafTb5yc3Ihox7xEbIMvBopFiJY+5b1oVJ3xocX1DMFIiqwG7sOgwJzkX+ti0Uk7DlZ//wrYnJqQDAkxiknOdZPIpnRpcKsHNyccyx2WcbyeQoxNcAAU6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
-X-QQ-mid: zesmtpsz3t1779933411t051b27aa
-X-QQ-Originating-IP: Xo+WVLqeetR6zv4ASWWCm/TADq7Vz3fao/NqAUF+c7w=
-Received: from [127.0.0.1] ( [116.234.26.110])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Thu, 28 May 2026 09:56:48 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3255798331960100904
-Message-ID: <755BEADC478F92B8+16dd5a2a-9a6f-44c2-a84a-af36675a3346@radxa.com>
-Date: Thu, 28 May 2026 09:56:47 +0800
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E1281C860A;
+	Thu, 28 May 2026 02:08:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.1
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779934098; cv=fail; b=W6c7LLkyZjJgwhPLpLe3czfuu7noXJpAcG2ZMaN+obDVww0q/UKjI3fa4fpxI+IkHUUC8TKyH3wuIe3woo70SdJqRrnr0RvnnBnhzhtnjDXNmVETmsxgZ5+dM7Awnvm5la6WXnfQaWuZRSRRXmGylYFvvYpYEleiSQ4Czax1O60=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779934098; c=relaxed/simple;
+	bh=Hd7iSa6G5tQ+UpY6+fF/uEKZL2g6Y3OZLwryhvskuXo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SXFpsbJ6BUDsY0c8DD5F1EN1QgTbErFRx3Pr3Ghai8HtU2RdI7BDkiKvLJPv9aBhdRG0tfrhr2X7d6YwkaIBzOqbcPrIBYs2oNk+Oeccqvw4PKanPa7zAjp+5tXpE5afb/4Om05XbAB7wCfhlaA7n+dVc9sPyMsbo54Bp0jx7Y0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=Eb5XcXe+; arc=fail smtp.client-ip=52.101.84.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="Eb5XcXe+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yc3LKEytzuWTbvBKSX9ycaLo0ZHXRGArOnTaFhrKTJpfx+cOt2o6awfXjQy5wNZu4l65byMoie0XzeQh10GMFmkkyK2DV1+MDeHIuOtOi3zzsrN6DhDWV2QuquwxOPNH/m3fW09sZkhiHn3joFLpCXuirh6cDESnMa26Lu4IutXuJXr1t9HGl6cd+4YBnpsnFxDH4WaEzVcaKyMaKH/yFqsF+6XUekwtaBEdqeRDDh4Apks76tq6+xhLa7fARydWD4INuQ4quSDODIqMjSheMhib/8GI4ivpNLJj8s3X6sK6Ua0d3d5CUpms0CFWoHsSk1THAk1zz/ZsJgiB9PC20g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=rmPi0NXDPyCh0gbUdtQhtJiuBmL/Syko2ed8wKZTqYk=;
+ b=oDtEigb33fWbMqqyarmttPN2Z+GsGTHcmBMZZVJCeXDGTy4gjrhrUTsAEOd9/qWQdWJKb2m53+yhjkvSFLHHwc0Vw+uQQeFG/GIDUHZNQV9g+8Abims0AcvsdcZLjw0FPUGyHynKqJNXUDsZq8cUKxsIb7zdI+1XcDcxU2S5v+tVxiTg23GHNHrVIctODYVjYXxOMuSel6PA3oFY4iNxSh0pBWt3tx3v2cb9A8JdQD9OUB8i0nAhrZv2cjGN8SP/Am0RgV5ZTCLNFRW9Y0PyIT8ltjm88JZL4dBVfO9yDE7JNkTUhiqkNfSiNlBeYMNwsj7xWIw5vNSlhiNAPIIeNg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=rmPi0NXDPyCh0gbUdtQhtJiuBmL/Syko2ed8wKZTqYk=;
+ b=Eb5XcXe+xO6pCJ2KyZ7ow6HpubNqn78CoUF9VNDMibBG0DysIRMumz5i3mcfiUxKhjGHvvDQPHFqZKXCyVNzyynF78Xwk2ashuQqSLDTSK2DhvR1E5Ke1V6SfoUgSHB0yi0KMO7G+RwSKtXqE1UMD0Ps61Lgw2ThmjjGyIilspkEunKHwL51mP9LIjU2lZxWoYONYIxcJEENFIJ3Xks0gJjZELOZ4k6odU/P9OYdmGYkr+cM6XM/HYqBCsPeuWrCwtxZ7E+l4Q+sAtbURwALYeQk33TGgkPLfUx8wueU9KSQHBI7xKCT+TEPEMJdV4Fb0Yj1RQX1fVvchbiiiTDGmA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com (2603:10a6:20b:3ef::22)
+ by PA1PR04MB10985.eurprd04.prod.outlook.com (2603:10a6:102:48a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Thu, 28 May
+ 2026 02:08:14 +0000
+Received: from AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc]) by AM9PR04MB8353.eurprd04.prod.outlook.com
+ ([fe80::46ae:f774:f04c:a1bc%5]) with mapi id 15.20.9870.023; Thu, 28 May 2026
+ 02:08:14 +0000
+From: Chancel Liu <chancel.liu@nxp.com>
+To: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org
+Cc: shengjiu.wang@nxp.com,
+	shengjiu.wang@gmail.com,
+	Xiubo.Lee@gmail.com,
+	festevam@gmail.com,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	tiwai@suse.com,
+	Frank.Li@nxp.com,
+	s.hauer@pengutronix.de,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 0/3] ASoC: imx-rpmsg: Add headphone jack detection and driver_name support
+Date: Thu, 28 May 2026 11:07:22 +0900
+Message-ID: <20260528020725.2265321-1-chancel.liu@nxp.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260526053815.140008-1-chancel.liu@nxp.com>
+References: <20260526053815.140008-1-chancel.liu@nxp.com>
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SE2P216CA0122.KORP216.PROD.OUTLOOK.COM
+ (2603:1096:101:2c9::9) To AM9PR04MB8353.eurprd04.prod.outlook.com
+ (2603:10a6:20b:3ef::22)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
- Dragon Q6A
-To: Gekko <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
-Cc: andersson@kernel.org, konradybcio@kernel.org,
- robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
- robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
-References: <20260522060645.4399-1-graham.oconnor@gmail.com>
- <20260522101323.31911-1-graham.oconnor@gmail.com>
- <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
- <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
-Content-Language: en-US
-From: Xilin Wu <sophon@radxa.com>
-In-Reply-To: <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
-X-QQ-XMAILINFO: N+4N2KiqbZESIbKj7VNt9rs5Mnx/p51JwKlMwucRmj8jNA2dTiFYqcOE
-	mC24iYw+JFVK2O67Pvntmtb9eil1I9ma0ANnwmGLN8cOCsXHAmJVuNVrpOB8NIbB79gb/FX
-	WJrqpY6SacedYJRiuPYBVM29K+i328Qvks12iOBTYv3U7eT8o+SThCGQBueCW920Jdy34AA
-	T3WgKjujHTKimTfLqj0J4lNnWhdblPJSPBp3dRzwNtU13lGlRNkXFDl1lU4MFWJEaWS+/PU
-	EICyTYv4k1Zpgn7bhC6Mnl66RPX4RuAzfme95QxeMrJuDnn1Wdia1yWveo62njDARtJGFEv
-	8QH2khW4nOypHnsBDrnHe4pmxDgCyQI0heizJP//R0UQrMA7DZBYJJZeBGub/h8VzAcd39M
-	iOtC8fjHSFjxM9X95KoqC9szY6ibCSZPcf65jL0ZU02Cy6UX4ajwfL89iAputzCiuSerf1p
-	t20IOBPDY73BeN2pmhsmzsfNAZVExAUPYeXgeMdtDbZ1fTks8mf1R03AXBCSWWgLmnEYmcN
-	0u0OGDYGlFkbRxXMMmSeDYNqtbrvhSW+t0/ITIY6TLL0nUi8FajEMWNWw/50NPZWXirDT2S
-	6q6M8LgHwacwI3zF1Kn8ZRgRvET293NIVG0r9kxwRQCsIONX9I/KsPvPNw30WWrzmXS1YU4
-	ehyKFC/Sss4WxM5ZrSo1+y1hZVX0S/sFyEO+lP815DtD+NA9UrrdrsAzr2JitXWf0w1Fakq
-	8wG5uv/CWYo+ccAKeRJMEfqxeBso1y81LDkl0CqP3XS5n4M8Lk13K01Zwm0u/parb46MMUi
-	xLNPWRsOLSRrKb+anuEzeneg2S/xhqIYd2JwiCU75400svUaR8XdkwCWqei91IWdOSoqjIu
-	MxJidqUcfo7WwtGfboTmyuekUpSTGrqxElv9hANtDDjyU/RxdBS1sbXX3qURbntIJ2R0oAp
-	w1jMcaEIZI941KkSM4NN/y/KzvVB+xa9uuipFYuL5xyhQPeoZalij2aZII/Qby9RO+R+gb5
-	dURtuceBUXC+V14iGYu22+YHVJ9jP1qTPu+LVQTHz5C/gRngy1G61HT41sV9qVecDqNYbac
-	FK8r/HsinOR
-X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
-X-QQ-RECHKSPAM: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM9PR04MB8353:EE_|PA1PR04MB10985:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3173e7e9-61b6-4a79-16f1-08debc5df96e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|7416014|376014|19092799006|52116014|11063799006|6133799003|18002099003|22082099003|38350700014|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	3BX2tpxTtV+I+dsuUktTkMC8lRDEMWgDWtlpyGQFXiezkiS3H5GwaDSK9NpjUBGma377s/Fg/yrM8Mc+GPKSO9skvTJmG4Bs0nlIKbdDLmIobqlwLKULk6n9kH/RQRVq8ApJGa+KPzdOlliJF5+oFbVocB2ho5ZwhxnIKkjYs2V5o1e5PjMnsFHKCzgFar/3T/Fub+eGFZytrLh0TTgBpfUPA6wlKhDrUKkE3sYpu2jV1NywnRsAB/foe/DLRZQ7ruH+AFZRgqqJAMR5Xk7gA9h5VKgWL/YfDGKyTDCJVFjiu2e7dJ2jc9ln030MLAfPnImKXYOcBqRsMy2yIT6oOn/hi+akfpkwdj+vWhW8qV4BUZYmb5e3rUc+bIGnN7xIFArAZ4GI/p3kiBDLy6PKDwodYgX9VbGlmMLRE0GRLHgqWBUXu6KnTBzY2cxUTbDSTFhoHIEgQnV60MgFwXGbQilHFoeugkFaTmJuM8aE+uE5hLBDp/eERlppyYlqpvxRbnhR7ucY0F6UGUgLHFn5EMAlqm8/ovrHEVsVOFUXuTcdCMOC79G+d6Fzx1Ts77kRzvOqsmfRcesVW0eMS0UjxuNl24vmgEDYjqyavtL0qlaHpxr62CeszRb2rpojUd+O91K+0PQjCWmbYeCYlaDwSYfrcOaJv/RyekBRwhQlQN6+7nHrMBBXcyCiwdhlxA0BStFR9j2PR5StfxxMSDZRoOweBLevIp5PNeaKdhOdw5qJLwszJ3eaG13gHzhAMwKH
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM9PR04MB8353.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(19092799006)(52116014)(11063799006)(6133799003)(18002099003)(22082099003)(38350700014)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?CUe07MSbLx2qU7SzQ8d1yEFHFjhqZ5jf4j7zG3g/Gq0uYGj2/bGjJhuMozLY?=
+ =?us-ascii?Q?rXkephbJGRYRgswlJVFdeGSBJj1sIIED9acelQJsN2GxKcemgRp8AuxHYk28?=
+ =?us-ascii?Q?Z/EHosf0RUmviBDrAT91SgJq+Ch3VEz/eooB4sAKFfzoTZJYafEsDY4/LCav?=
+ =?us-ascii?Q?BhWqWVZ51l0LwG/zvhKnysg+JUKpJdREMuLUOOud66HWWVSyBk2GpYKrbFvG?=
+ =?us-ascii?Q?k5dsfN7MPfgMfcgqOeSEtVZnYHBKgGS5laYLLgufLX6Zf2xvFsjWL/sk3lQk?=
+ =?us-ascii?Q?5BPB3g3EbFUoQiGlhUTFnOUoK6m3XCDf8XCe/FYRmU1WxGrpRfrDGd9u8/8B?=
+ =?us-ascii?Q?ZR0vrNNNzp0hsGFzhjS4M3kwfQj+ehtdCFHQoUI3CK4YndVV8FFiDjDqs/9I?=
+ =?us-ascii?Q?y81G5rmaI0abzsAiu8X799ZDc6vWUoAyReDmDjJ5hEjr4RhMvS/wqd2aOZHU?=
+ =?us-ascii?Q?6+ftHMa+DNedJq0iarWoNx2pmalEfAIzwJ/90zUqCAmm2I7ZiXVxmrnZKjr/?=
+ =?us-ascii?Q?INCY/lRjo+8BTd19HtYUH12E7w1UN9XgDv++xzV5c6qfB7f32EdmcSQB/Xij?=
+ =?us-ascii?Q?keeYSyLaTw/Vup11wkAyjxQBilHLjx517DqL6Vs/yTZYoAZd8ocL+hyd1u8X?=
+ =?us-ascii?Q?cAaw1RiZIg4B72uh1h6C2KYMmlxmGmTFB+HeAEYhI2Up3m92MAclBV0kcRJk?=
+ =?us-ascii?Q?ScXvGSLUitroCtzKL41kuHuSuRWmZ8emLYgKVisfbvlgkKcXzh+KIf62jiEF?=
+ =?us-ascii?Q?YAO/WC2r3g9AUg9aYiQaRxqP0AK9giklVXjNTujwS/PP/7nLc5PmXbBZAG1l?=
+ =?us-ascii?Q?/TeglpiMADQVkVj8e+6XBM1/4ujbCVzFP8bONB2Wooy5NNvbUqCBJRmCyabN?=
+ =?us-ascii?Q?SwPb6RwXSC/sqQ+eBMDn7pnoru3Bm/PcZ5q+JasdEbXZqP9eUVjmHuONCVqg?=
+ =?us-ascii?Q?7ooF3Sv2k3ojKZtVTjl8OBNW2oq9kdGoNTHJ49fdXH4PWME++I9MHQ9lv4KP?=
+ =?us-ascii?Q?Tt7uZlB3/YoA9nQ1fdQ4zlNVyva0pe10wok5DsR5/0FCQ8Ek0l1jDAQmaHtZ?=
+ =?us-ascii?Q?bwn9qDMPecMLpcflbslis379SWJuX/d/tGFVIY3PyUIPmxwGLDMrUzpt1v+4?=
+ =?us-ascii?Q?gAGl1I39e4GbdGpGrZDzmAj4O8wQnfuvFHM8lalMoxZcxXRxG2P9799+6TaF?=
+ =?us-ascii?Q?KTznBGsUBKdOMQwagMmzJK/mUnXzdxENZpIH/hRxSj67Yde68t2NkkI6Suhs?=
+ =?us-ascii?Q?vaFHUkZOhcOn1tAeAgYFC3Igv3KedwSPtQtPui/QnEFQ+hBm5ixNxal9rUDQ?=
+ =?us-ascii?Q?OuO+CNM6aFHwOBS/3kgHpegxxI8C+GjTvT90SHl/46X1/rTWbuTatiEaiavP?=
+ =?us-ascii?Q?eWhdAoq3e42irHvSY1NHhg5gU00NO8F+UxxraPlvxx+y3PC5iLe3C2xM8o9T?=
+ =?us-ascii?Q?WcHMuH0EcDrQ0jt93ebuohjR2BBMQgohn9J3aNbY9V0jCtkTXFaemnUXaSId?=
+ =?us-ascii?Q?eZCmhHTdO+LhyQfHlsXVrPEJrDMEHN9FtQO7GHgKA+Fz9oSPhwrCr3qg9R7J?=
+ =?us-ascii?Q?wTKDAPp9gbG3M0FSnLyFejS9qkRlcWsPEqcl58orqki/HIevQuSA6pFO00m5?=
+ =?us-ascii?Q?kE73p17H3bZJUDlyooNYxMiUYI1AC+zfZOCBXh2SiwmseCUbVz3osLrtebSX?=
+ =?us-ascii?Q?IwUAb7hGQ8bNjfbD85umyd8fOheMuYsBicdUOU3m6qnquVL07Axd5GEdVJIM?=
+ =?us-ascii?Q?820GsvlD4A=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3173e7e9-61b6-4a79-16f1-08debc5df96e
+X-MS-Exchange-CrossTenant-AuthSource: AM9PR04MB8353.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 02:08:14.0590
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 41vg2gYUNhkkkr0alXBA2kpGwdb7L1JdzgdCc9s5ER2Wz5g+zqLzM08VGnth7G1e8XtWfwk30puGoR2N6cObGQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB10985
 
-On 5/28/2026 4:43 AM, Gekko wrote:
-> Hi Xilin,
-> 
-> Thank you for the response.
-> 
-> I appreciate the offer to take over your patch set to move things 
-> forward. However, I feel I must respectfully decline. This is mainly due 
-> to my lack of experience with both upstream kernel development on this 
-> hardware and the patch management process itself. It would be 
-> irresponsible of me to take on something that I'm not knowledgeable 
-> enough to ensure successful completion.
-> 
-> I'm happy to work with you to help in any other way that I can such as 
-> testing patches, but I think you should maintain ownership of the patch- 
-> set and submission process, at least for now.
-> 
-> One of the reasons I withdrew my own patch-set is that from what I can 
-> see your series covers everything I was trying to achieve, and does it 
-> correctly :-)
-> 
-> The only one that isn't covered is the patch for early TCS 
-> initialisation that I'm discussing with Konrad which may be unnecessary 
-> anyway.
-> 
-> Graham
-> 
+This series adds two features to the i.MX RPMSG ASoC card:
+1. Headphone jack detection via GPIO: Introduce the "hp-det-gpios"
+   device tree property and use simple_util_init_jack() to
+   register a headphone jack with GPIO-based insertion detection.
 
-Hi Graham,
+2. driver_name assignment: Set driver_name on the snd_soc_card to
+   "imx-audio-rpmsg", enabling userspace tools such as UCM to reliably
+   identify the card by driver name regardless of the board-specific
+   card name.
 
-Thanks, I understand your point.
+Changes in v2:
+- Add Kconfig dependency on SND_SOC_SIMPLE_CARD_UTILS
+- Moved headphone jack initialization from probe() to late_probe()
+to avoid interaction issues with deferred probe
 
-I appreciate your offer to help with testing. I will do my best to move 
-this series forward once I get the current work off my plate.
+Chancel Liu (3):
+  ASoC: dt-bindings: fsl,rpmsg: Add hp-det-gpios property
+  ASoC: imx-rpmsg: Support headphone jack detection
+  ASoC: imx-rpmsg: Set driver_name for snd_soc_card
 
-Thanks again for your help.
+ .../devicetree/bindings/sound/fsl,rpmsg.yaml         |  4 ++++
+ sound/soc/fsl/Kconfig                                |  1 +
+ sound/soc/fsl/imx-rpmsg.c                            | 12 ++++++++++++
+ 3 files changed, 17 insertions(+)
 
-> On 24/05/2026 13:58, Xilin Wu wrote:
->> On 5/22/2026 6:13 PM, Graham O'Connor wrote:
->>> Thank you to Konrad, Neil, and others for the very prompt and helpful 
->>> reviews.
->>>
->>> Based on the feedback received, I think it best to withdraw this 
->>> series to
->>> address the issues raised, most notobly:
->>>
->>> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
->>>     devices using the Qualcomm MSM DP driver rather than being 
->>> specific to
->>>     the RA620 bridge. A proper fix should be implemented at the bridge
->>>     level. This is going to take more investigation.
->>>
->>> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
->>>     string per the existing Radxa upstream series from Xilin Wu, and the
->>>     lane ordering needs correcting.
->>>
->>> 3. The rpmh-rsc early return (patch 1) needs further review regarding
->>>     the implications of returning before full driver initialization.
->>>
->>> 4. DTS patch label dependency issue (sorry)
->>>
->>> I'll integrate with the Radxa upstream effort, re-evaluate the other 
->>> areas
->>> and resubmit corrected patches addressing these concerns at a later 
->>> date.
->>>
->>> Thanks for the feedback.
->>>
->>> Cheers
->>>
->>> Graham
->>
->> Hi Graham,
->>
->> Thanks for working on the additional hardware bring-up for Q6A 
->> upstream support. I'm really glad to see someone pushing this forward.
->>
->> I actually posted a patch series [1] last month, and it is generally 
->> in good shape. Unfortunately, I got busy with other work and haven't 
->> had a chance to send v2 yet.
->>
->> If it helps, please feel free to take over that series and fold your 
->> additional patches into it. I think that would be a good way to move 
->> things forward.
->>
->> Also, I believe patches 10-12 in my series are no longer needed and 
->> can be dropped.
->>
->> Thank you again for the work you have done.
->>
->> [1] https://patchwork.kernel.org/project/linux-arm-msm/list/? 
->> series=1078242&state=%2A&archive=both
->>
-> 
-> 
-
-
--- 
-Best regards,
-Xilin Wu <sophon@radxa.com>
+--
+2.50.1
 
