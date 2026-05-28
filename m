@@ -1,252 +1,133 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB782E7384
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:39:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5A3C3BE621
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:41:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779986378; cv=none; b=oertUQ3cy3qiqZrVRGifQvaoHyS9EHi9oatswwd/LcxB+X6+iX1saVWfAepX3dsrrsu6/OcR9+i0T8CdXDSzUCTGXb1gCs8S5pEB8BjjL/caX/8PEma69xWrzadg/Aes09qrKDJK6LQGWRYBeXZgYtnPRz0aJ/zchc+1l3umjTo=
+	t=1779986522; cv=none; b=pA/Nk2IW5BtsrwDwxjGC9JHoDBB8sIMrDzO1aKfi58WlfVC05l6Ygp7Qo46MOVGI58hTFcg2n0ffOXRF4clDNFi6JOcVyQK17iUFhI8bjZF32lAAoKPJG4SdbjywhtFMGxC4AbFCev4zuSa5E7tgizFapZhWc76dcBfLSs1iA2s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779986378; c=relaxed/simple;
-	bh=wPfgmyfnxCqzZqXVJB/ihPD6Kcs++eLR/boCZ97KaII=;
+	s=arc-20240116; t=1779986522; c=relaxed/simple;
+	bh=xkaMEIup11ASgNPLM8UjylQoEes05caBm+bEPTNxN2E=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aD33jm9swO2CCSjeNFJz4rOoH0Erl6g8BhYrbNhx6u+d7ClD1GU7lW8G/t9nehQVpAZcPMtdQDDHhqVjVEHdJXvhUodQq+vOP/UdAuz7q2TC12+4CFhd1RRcjupG8durQtgJlaeEsVYSxP7EQaR9QDjgCDG9+HyaoQnMvmiJnuM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xl2K+8zi; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cHbAt/ppQVuZ5ZgefJutO/zB0wc0E8HGC8MhaqhMNKD+fIXPsUCXws9lppB+QS3Yb7rbWSn6r1JBUZhKTP+G3uDUPIK83GIQOobQzXJyz4nm0kp5q0beinFimNzvGZVjMsK52QHNfoZdvukaSg5X0kYx1aBgwHUz0pXt9Zk5Tsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uo4DQ9d+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xl2K+8zi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66BA11F000E9;
-	Thu, 28 May 2026 16:39:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uo4DQ9d+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDE151F00A3A;
+	Thu, 28 May 2026 16:41:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779986376;
-	bh=2rqTkiVrGviNYMCTBlQR+gyj27fzBQGB2daSSF8JrOU=;
+	s=k20260515; t=1779986519;
+	bh=pMhxaFwmBCBVWhI5jTrGaYjvLpRtMIma3CLQ3E8r2CU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xl2K+8zitkdWEjPsZtEohAWuOpxjYaKV0sZVQKluGvG+Lc/3bEfy/LxdLwID2tInf
-	 e3b9dVngfSCI3pbdWZ4dqaigShftqIXCwYZu3JJYqSGenTOhspRgFQ+0cU/BULqCKl
-	 BK86v6mDirro3jLNKPkBjFK6RZ0HhAqyKOpWYaOUsjfilwoMHKR+wCXk4Cw6oFb5eu
-	 xIN2EnhFXuqtxhAhNk3yCUCJsF/Kx/Wv9ywRYM+39YLbWuqPzzbzrCdSDY699yKnVr
-	 230vwG1w5C6BonKEqOSneV6tKIHv4/aNsQzI7t1a6mQzqIiQUDbMCpO/ot7FRerbnF
-	 OPKvb7WSigOJg==
+	b=Uo4DQ9d+bMDnJSNAwW0F9r31WbRYBu4lFk0gEcxmm65FQKMOys497KJVHVqnxKTV1
+	 +2bK1HxmfhfsJCKkNxV3ylyUY0AsuBVWUj4MgfHOvDhonTL2EgUd77OG0cPuxQaAiH
+	 IDl1wOWtzxq7kW/fUPaBYBGa36qt2//UuuScyGiKUDhJLcrbAy7N0dk2aNfB/cRJwz
+	 v6CuQl3v2/ovbe4wWLV2Ai4hN4WafZjayhvBIcEb0SArFw+iEhPZwWg8ELW2V6xKwC
+	 fHjFu52tYEbrA6ANc3rutWYvNh1ydvy99gpckZbWPjx+7vHAO9ybtp4H//nQ4uomt4
+	 TP/v60y0XCC8Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] iio: adc: ltc2378: Enable high-speed data
- capture
+Subject: Re: [PATCH v6 5/5] clocksource/timer-econet-en751221: Support
+ EN751627 without percpu IRQ
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <e04a432efb6536f93bbe7f410964aa877370de36.1779976379.git.marcelo.schmitt@analog.com>
-References: <e04a432efb6536f93bbe7f410964aa877370de36.1779976379.git.marcelo.schmitt@analog.com>
+In-Reply-To: <20260528140046.2897674-6-cjd@cjdns.fr>
+References: <20260528140046.2897674-6-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 16:39:36 +0000
-Message-Id: <20260528163936.66BA11F000E9@smtp.kernel.org>
+Date: Thu, 28 May 2026 16:41:58 +0000
+Message-Id: <20260528164158.CDE151F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] LTC2378_OFFLOAD_BUFFER incorrectly forces tristate dependencies to=
- be built-in and fails to propagate constraints, causing Kconfig warnings a=
-nd linker errors.
-- [High] Incorrect continuation conditions in hardware configuration loops =
-cause infinite loops or unconditional failures at high sample rates.
-- [High] Fallback stub functions in the header contain syntax errors and la=
-ck static inline specifiers.
-- [High] Direct read SPI transfers execute unintended 32-bit transactions f=
-or 16-bit ADCs when offload is supported.
-- [High] Uninitialized kernel stack memory is leaked to user-space via the =
-IIO sysfs interface.
-- [High] `ltc2378_read_avail` fails to populate the `length` parameter for =
-`IIO_AVAIL_RANGE`, leading to undefined behavior.
-- [Medium] dev_err_probe is used to log an error when an optional SPI offlo=
-ad resource is unavailable, polluting kernel logs with false positives.
+- [High] The interrupt handler incorrectly relies on `this_cpu_ptr` for sta=
+ndard IRQs, causing an interrupt storm if the IRQ executes on a different C=
+PU.
+- [Medium] Missing CPU hotplug teardown callback causes an unbalanced `enab=
+le_irq()` kernel warning when a CPU is offlined and then onlined again.
 --
 
-commit 1c9aa766f95e380ea9e11f4b2b8e9cbf0718b8f9
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
-Subject: iio: adc: ltc2378: Enable high-speed data capture
+commit 0de42286a034bc944e765e97434f913831bc2960
+Author: Caleb James DeLisle <cjd@cjdns.fr>
+Subject: clocksource/timer-econet-en751221: Support EN751627 without percpu=
+ IRQ
 
-Make use of SPI transfer offloading to speed up data capture, enabling data
-acquisition at faster sample rates (up to 2 MSPS).
+This commit adds support for the EN751627 timer, which uses a different
+interrupt number for each CPU timer instead of a single percpu interrupt.
 
-diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
---- a/drivers/iio/adc/Kconfig
-+++ b/drivers/iio/adc/Kconfig
-[ ... ]
-> +
-> +config LTC2378_OFFLOAD_BUFFER
-> +	bool
-> +	select SPI_OFFLOAD_TRIGGER_PWM
-> +	select IIO_BUFFER_DMA
-> +	select IIO_BUFFER_DMAENGINE
-> +	help
-> +	  Say yes here to build support for high speed data capture with LTC2378
-
-[Severity: High]
-Should LTC2378_OFFLOAD_BUFFER be a tristate or use depends on instead of
-select? Since it is a bool, unconditionally selecting tristate options like
-IIO_BUFFER_DMA can force them to be compiled as built-in even when the pare=
-nt
-module is built as a module. Selecting them without inheriting their
-dependencies can also cause Kconfig warnings.
-
-diff --git a/drivers/iio/adc/ltc2378-offload-buffer.c b/drivers/iio/adc/ltc=
-2378-offload-buffer.c
---- /dev/null
-+++ b/drivers/iio/adc/ltc2378-offload-buffer.c
-[ ... ]
-> +static int ltc2378_update_conversion_rate(struct ltc2378_state *st, int =
-freq_Hz)
-> +{
-[ ... ]
-> +	do {
-> +		cnv_wf.duty_length_ns =3D target;
-> +		ret =3D pwm_round_waveform_might_sleep(st->cnv_trigger, &cnv_wf);
-> +		if (ret)
-> +			return ret;
-> +		target +=3D 10;  /* Increment by PWM duty cycle period */
-> +	} while (cnv_wf.duty_length_ns < LTC2378_TCNV_HIGH_NS || count++ < 100);
-
-[Severity: High]
-Does this loop condition evaluate correctly? Due to short-circuit evaluation
-in C, if the left side of the || is true, count++ is never executed, which
-might lead to an infinite loop if the PWM hardware caps the value. If the l=
-eft
-side is false, the loop will run exactly 100 more times, artificially
-inflating the target.
-
-[ ... ]
-> +	do {
-> +		config->periodic.offset_ns =3D offload_offset_ns;
-> +		ret =3D spi_offload_trigger_validate(st->offload_trigger, config);
-> +		if (ret)
-> +			return ret;
-> +		offload_offset_ns +=3D 10;
-> +	} while (config->periodic.offset_ns < min_read_offset || count++ < 100);
-
-[Severity: High]
-This loop condition has the same short-circuit evaluation issue as above.
-
-[ ... ]
-> +int ltc2378_read_avail(struct iio_dev *indio_dev, struct iio_chan_spec c=
-onst *chan,
-> +		       const int **vals, int *type, int *length, long mask)
-> +{
-> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SAMP_FREQ:
-> +		*vals =3D st->sample_freq_range;
-> +		*type =3D IIO_VAL_INT;
-> +		return IIO_AVAIL_RANGE;
-
-[Severity: High]
-Does ltc2378_read_avail need to set the *length pointer here? The IIO core
-expects the driver to populate it with the number of elements in the return=
-ed
-array. Leaving it unset might lead to out-of-bounds memory accesses when the
-core processes the range.
-
-[ ... ]
-> +int ltc2378_offload_buffer_setup(struct iio_dev *indio_dev, struct spi_d=
-evice *spi)
-> +{
-> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
-> +	struct device *dev =3D &spi->dev;
-> +	int ret;
-> +
-> +	st->offload =3D devm_spi_offload_get(dev, spi, &ltc2378_offload_config);
-> +	ret =3D PTR_ERR_OR_ZERO(st->offload);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get offload\n");
+> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
+ource/timer-econet-en751221.c
+> index f2c4c1ee0a56b..040386ded132a 100644
+> --- a/drivers/clocksource/timer-econet-en751221.c
+> +++ b/drivers/clocksource/timer-econet-en751221.c
+> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
+>  	clockevents_config_and_register(cd, econet_timer.freq_hz,
+>  					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
+> =20
+> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+> +	if (econet_timer.is_percpu)
+> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+> +	else
+> +		enable_irq(cd->irq);
 
 [Severity: Medium]
-Since SPI offload is an optional feature, if devm_spi_offload_get() returns
--ENODEV, will dev_err_probe() log a false positive error message to the
-system log?
+Will this cause an unbalanced enable_irq() warning if a CPU is offlined
+and onlined again?
 
-diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
---- a/drivers/iio/adc/ltc2378.c
-+++ b/drivers/iio/adc/ltc2378.c
-[ ... ]
-> @@ -261,10 +314,35 @@ static int ltc2378_probe(struct spi_device *spi)
->  	st->chans[0].type =3D IIO_VOLTAGE;
->  	st->chans[0].info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
->  					  BIT(IIO_CHAN_INFO_SCALE);
-> -	st->chans[0].scan_type.format =3D st->info->twos_comp ? IIO_SCAN_FORMAT=
-_SIGNED_INT :
-> -							      IIO_SCAN_FORMAT_UNSIGNED_INT;
-> -	st->chans[0].scan_type.realbits =3D st->info->resolution;
-> -	st->chans[0].scan_type.storagebits =3D st->info->resolution > 16 ? 32 :=
- 16;
-> +
-> +	struct iio_scan_type ltc2378_scan;
-> +
-> +	ret =3D ltc2378_offload_buffer_setup(indio_dev, spi);
+The driver registers a dynamic CPU hotplug state via cpuhp_setup_state()
+with cevt_init_cpu() as the starting callback, but passes NULL for the
+teardown callback.
 
-[Severity: High]
-Could this leak uninitialized stack memory to user-space? The ltc2378_scan
-structure is allocated on the stack and only partially initialized before
-being assigned to the IIO channel. Uninitialized fields and padding might
-retain garbage data that gets exposed via sysfs attributes.
+Because there is no teardown callback to call disable_irq() when a CPU is
+offlined, the IRQ descriptor's enable depth remains 0. When the CPU is
+brought back online, cevt_init_cpu() will execute again and call
+enable_irq() a second time.
+
+While this missing teardown existed before this patch, it was hidden
+because enable_percpu_irq() does not track descriptor depth. The warning
+appears to be newly exposed by the introduction of enable_irq().
 
 [ ... ]
-> +	st->chans[0].scan_type =3D ltc2378_scan;
-> =20
->  	st->xfer.rx_buf =3D &st->scan.data;
->  	st->xfer.len =3D BITS_TO_BYTES(st->chans[0].scan_type.storagebits);
->  	st->xfer.bits_per_word =3D st->info->resolution > 16 ? 32 : 16;
 
-[Severity: High]
-When SPI offload is available, storagebits is forced to 32, meaning
-st->xfer.len is set to 4 bytes. Since xfer.bits_per_word remains 16 for a
-16-bit ADC, could this cause non-offloaded direct reads to execute two
-16-bit word reads per transaction, violating the SPI hardware protocol?
+> @@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
 
-diff --git a/drivers/iio/adc/ltc2378.h b/drivers/iio/adc/ltc2378.h
---- a/drivers/iio/adc/ltc2378.h
-+++ b/drivers/iio/adc/ltc2378.h
 [ ... ]
-> +#else /* CONFIG_IIO_LTC2378_LIB_OFFLOAD_BUFFER */
+
+> +	for (i =3D 0; i < num_irqs; i++) {
+> +		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
 > +
-> +#define LTC2378_WRITE_RAW_PTR (NULL)
-> +
-> +#define LTC2378_READ_AVAIL_PTR (NULL)
-> +
-> +static inline int ltc2378_offload_buffer_setup(struct iio_dev *indio_dev,
-> +					       struct spi_device *spi)
-> +{
-> +	return -ENODEV;
-> +}
-> +
-> +int ltc2378_get_sampling_frequency(struct ltc2378_state *st, int *val)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +int ltc2378_set_sampling_frequency(struct ltc2378_state *st, int freq_Hz=
-);
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +int ltc2378_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec co=
-nst *chan,
-> +		      int val, int val2, long mask)
-> +{
-> +	return -EOPNOTSUPP;
-> +}
-> +
-> +#endif
+> +		if (econet_timer.is_percpu)
+> +			ret =3D request_percpu_irq(econet_timer.irqs[i],
+> +						 cevt_interrupt, np->name,
+> +						 &econet_timer_pcpu);
+> +		else
+> +			ret =3D request_irq(econet_timer.irqs[i], cevt_interrupt,
+> +					  IRQF_TIMER | IRQF_NOBALANCING,
+> +					  np->name, NULL);
 
 [Severity: High]
-Are there build issues with these fallback functions? The function
-ltc2378_set_sampling_frequency has a trailing semicolon after its parameter
-list. Additionally, these functions lack the static inline qualifier, which
-might cause multiple definition linker errors if the header is included in
-multiple files.
+Could passing NULL for dev_id lead to an interrupt storm if the IRQ
+executes on a different CPU?
+
+For standard (non-percpu) IRQs, cevt_interrupt() currently calculates the
+timer device using this_cpu_ptr(). If the interrupt fires on a different
+CPU (e.g., due to CPU hotplug migrating the IRQ, or a spurious interrupt),
+this_cpu_ptr() will return the timer for the currently executing CPU, not
+the CPU for which the interrupt was intended.
+
+The handler would then check the wrong CPU's status, find it not pending,
+and return IRQ_NONE. The actual pending interrupt would be left
+unacknowledged.
+
+Would it be better to pass the specific CPU's timer pointer as dev_id here
+and update cevt_interrupt() to use it instead of this_cpu_ptr()?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779976379.gi=
-t.marcelo.schmitt@analog.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528140046.2897=
+674-1-cjd@cjdns.fr?part=3D5
