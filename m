@@ -1,137 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6021E285CB4
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B29726ED33;
+	Thu, 28 May 2026 14:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976750; cv=none; b=jdyx3YiPEPUh5d3yyU/hMM5NFWNSsdDfbujQOvlv1tdJp+NUobm2G4j64qCIUKcIxr0FGmY05HOKtJz3kbX9M8irSC0QrVV4BLBWkCPG9kETOKh4M6H8yF5X6E5BN9Fai/kbeC9fU7/Wtq0ehaYqTxTrMAguATMDbLyMlDaVR98=
+	t=1779976866; cv=none; b=MqraaWROQ0AegY9weSdbRpQy03gUWAt3ifnO2ie5EHbp3a+Y0fV2WfuYdHmWshb7bCYoo0j9dtISRQOeMTJ99hMbVyPaTP76oX7OmK8kdYRQKbtQ88eRloRwk2XEh6k2c/cBm/lHXGB/aLeOhCj/fAuxv8Q6s67Id2mopmN4ip4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976750; c=relaxed/simple;
-	bh=lNm08rhB0P37zDKY3MHl8O/5ILyJpI3S/X8/gA7eptY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=uP/VIZMfS+TPw2pbNp054py0x0mn0yXUdhyDeRoB8kF/100dNX1Cr7avAa5RsdJap/FJ5+P7zGw8+SI8xqspFymqVPtNurRRTJBa5OK0YHmTfoUXc/0qayMvZ4Fme3n5gxLg2IWddKrefLkb4GQHAApE3/2ptHVywTsPy2A7Khs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DSTgD5sm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779976866; c=relaxed/simple;
+	bh=Ze4Nv8y680E6FSf/un9hYJUthpJ2COzdxd+LB34Yb2I=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=hWPk5uCobDs9W5Kg4G/c0/LB71GldI5kF+jZxSk4uy8odAOwlr6lsAvsobjyT40qEYXNobnva6IaLttbhVkGN+AEAZyHlg26l7FiC+VGMuUT+FXH3WZpEKYo+gcZQnnbhA028BQpEgPz0FAvKcF5tuY6+vVxcDyebHm3h+eokKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=e1mM2XZo; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DSTgD5sm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF7BA1F000E9;
-	Thu, 28 May 2026 13:59:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779976749;
-	bh=pprix7YZvjrDODTkNGexqYZmlOFIi9eG7FSx12U8XaA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DSTgD5smVnAL70srcKIhEjPiTxcT1NzT8S5pMh+FWtcF4vucJcefPpXhmGdK46AE7
-	 dg8y9qkYhsLbZsjzrwRgMRqaL3qUtguawC4+LT22X2WTTwzIf1yxhBeCyAa7nLcyi/
-	 1ge+BR+A3So+x2jrVktJQebw8arx4me50LHh4M9cdOE6hFLQ805UlMWo81nsDrP1ET
-	 6/6Zz5dXyQcF51iEHCjDTlpMjEiHC48ZmXxQYgF+W2P1bd/3PWCe0OzbSUofxcHVpk
-	 TOxBC+U/F32xQL5E8JpxPWWq+0mxrrzqaZ7Yi67wN5eBg40B31MArWKaV8G6vkqZY3
-	 yIO1E8WnId+7g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-am62l: Add HDMI & DSI support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Swamil Jain" <s-jain1@ti.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260528133529.3476499-1-s-jain1@ti.com>
-References: <20260528133529.3476499-1-s-jain1@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 13:59:08 +0000
-Message-Id: <20260528135908.DF7BA1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="e1mM2XZo"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 123B94B5F04;
+	Thu, 28 May 2026 16:00:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1779976858; h=from:subject:date:message-id:to:cc:mime-version:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=X5WYmjC+W1XLRGqsI2xwQZ9HsjRo/iUHSgzYnXKRgcw=;
+	b=e1mM2XZop/xN+xoBJNW8OLgj37CZ/8LBCs+sl0Jm7YHWqYuw6RGeXmQ9FmCw34Xab4S5jW
+	mTtgsRV6THcAObIKLfUGYEY1dpDl1FNMERTlRbGHe1VOR+VAv3VfI6vH5nMe51j6qGIrSO
+	Wxhnc5enEX+W1tGf7TQKSbU237cYIxC2c3IzzG9g9dA7BqXUX9RxZf4u/C15qiQH0lQJKQ
+	NjnYuDFAqnLKJCY/5cLQhFR04fX/VhG+46xng4cC/3UtJhmXe+D8bvpTkylGn52dJSJdqb
+	OCXztsUtF85le/TIQmUq3jI3UXlqKLIJG85MGu/5xB9KsIFqM2zuOVcrizxbsA==
+From: Caleb James DeLisle <cjd@cjdns.fr>
+To: linux-mips@vger.kernel.org
+Cc: conor+dt@kernel.org,
+	daniel.lezcano@kernel.org,
+	devicetree@vger.kernel.org,
+	krzk+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	naseefkm@gmail.com,
+	robh@kernel.org,
+	tglx@kernel.org,
+	grandmaster@al2klimov.de,
+	Caleb James DeLisle <cjd@cjdns.fr>,
+	Conor Dooley <conor.dooley@microchip.com>
+Subject: [PATCH v6 2/5] dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+Date: Thu, 28 May 2026 14:00:43 +0000
+Message-Id: <20260528140046.2897674-3-cjd@cjdns.fr>
+In-Reply-To: <20260528140046.2897674-1-cjd@cjdns.fr>
+References: <20260528140046.2897674-1-cjd@cjdns.fr>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `dpi_pins_default` pinctrl is incorrectly assigned to the ex=
-ternal `sii9022` I2C bridge node instead of the SoC's `dss` node.
-- [Low] The `dsi0` node is missing the required `ports` subnode, which will=
- cause a device tree schema validation failure.
---
+This hardware is found in the EN751221 SoC family as well as the
+EN751627. The former uses a percpu IRQ for all timers while the
+latter uses an individual IRQ number per timer.
 
-commit 205ed087663eaf8418e9736e84ff4238caf076de
-Author: Devarsh Thakkar <devarsht@ti.com>
+Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+---
+ .../bindings/timer/econet,en751221-timer.yaml | 31 ++++++++++++-------
+ 1 file changed, 20 insertions(+), 11 deletions(-)
 
-arm64: dts: ti: k3-am62l: Add HDMI & DSI support
+diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+index c1e7c2b6afde..ac25785ecfdf 100644
+--- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
++++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+@@ -12,24 +12,23 @@ maintainers:
+ description:
+   The EcoNet High Precision Timer (HPT) is a timer peripheral found in various
+   EcoNet SoCs, including the EN751221 and EN751627 families. It provides per-VPE
+-  count/compare registers and a per-CPU control register, with a single interrupt
+-  line using a percpu-devid interrupt mechanism.
++  count/compare registers and a per-CPU control register. On EN751221 it uses a
++  single interrupt line using a percpu-devid interrupt mechanism, and on
++  EN751627 it uses an interrupt per VPE.
+ 
+ properties:
+   compatible:
+-    oneOf:
+-      - const: econet,en751221-timer
+-      - items:
+-          - const: econet,en751627-timer
+-          - const: econet,en751221-timer
++    enum:
++      - econet,en751221-timer
++      - econet,en751627-timer
+ 
+   reg:
+     minItems: 1
+     maxItems: 2
+ 
+   interrupts:
+-    maxItems: 1
+-    description: A percpu-devid timer interrupt shared across CPUs.
++    minItems: 1
++    maxItems: 4
+ 
+   clocks:
+     maxItems: 1
+@@ -52,21 +51,31 @@ allOf:
+           items:
+             - description: VPE timers 0 and 1
+             - description: VPE timers 2 and 3
++        interrupts:
++          description: An interrupt for each timer (one per VPE)
++          minItems: 4
+     else:
+       properties:
+         reg:
+           items:
+             - description: VPE timers 0 and 1
++        interrupts:
++          description: A percpu-devid timer interrupt shared across timers
++          maxItems: 1
+ 
+ additionalProperties: false
+ 
+ examples:
+   - |
++    #include <dt-bindings/interrupt-controller/mips-gic.h>
+     timer@1fbf0400 {
+-        compatible = "econet,en751627-timer", "econet,en751221-timer";
++        compatible = "econet,en751627-timer";
+         reg = <0x1fbf0400 0x100>, <0x1fbe0000 0x100>;
+         interrupt-parent = <&intc>;
+-        interrupts = <30>;
++        interrupts = <GIC_SHARED 30 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 29 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 37 IRQ_TYPE_LEVEL_HIGH>,
++                     <GIC_SHARED 36 IRQ_TYPE_LEVEL_HIGH>;
+         clocks = <&hpt_clock>;
+     };
+   - |
+-- 
+2.39.5
 
-Adds DSS, DSI, DPHY, and HDMI bridge nodes to enable DPI-to-HDMI output on
-AM62L. The DSI functionality is added but kept disabled, as it shares a
-video port with DPI output.
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/=
-dts/ti/k3-am62l-main.dtsi
-> index 80615ca1e01a2..1d255c9138db9 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-
-[ ... ]
-
-> @@ -584,4 +584,51 @@ scmi_shmem: sram@0 {
-> +	dsi0: dsi@30500000 {
-> +		compatible =3D "ti,j721e-dsi";
-> +		reg =3D <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
-> +		clocks =3D <&scmi_clk 155>, <&scmi_clk 158>;
-> +		clock-names =3D "dsi_p_clk", "dsi_sys_clk";
-> +		power-domains =3D <&scmi_pds 38>;
-> +		interrupt-parent =3D <&gic500>;
-> +		interrupts =3D <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> +		phys =3D <&dphy_tx0>;
-> +		phy-names =3D "dphy";
-> +		status =3D "disabled";
-> +	};
-
-[Severity: Low]
-Does this node need a ports subnode to comply with the device tree schema?
-
-The ti,j721e-dsi compatible string binds to the Cadence DSI schema which
-strictly requires the ports property and its port@1 subnode for the DPI
-input. Even though status is disabled, omitting the required properties in
-the skeleton dtsi might cause dtbs_check to report schema validation errors
-during compilation.
-
->  };
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/d=
-ts/ti/k3-am62l3-evm.dts
-> index a1af4571a815d..9b04fa6d2cba6 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-
-[ ... ]
-
-> @@ -192,6 +204,38 @@ exp2: gpio@23 {
->  		bootph-all;
->  	};
-> =20
-> +	sii9022: bridge-hdmi@3b {
-> +		compatible =3D "sil,sii9022";
-> +		reg =3D <0x3b>;
-> +		interrupt-parent =3D <&exp1>;
-> +		interrupts =3D <20 IRQ_TYPE_EDGE_FALLING>;
-> +		#sound-dai-cells =3D <0>;
-> +		sil,i2s-data-lanes =3D < 0 >;
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&dpi_pins_default>;
-
-[Severity: Medium]
-Should these pinctrl properties be placed in the dss node instead of here?
-
-The dpi_pins_default node configures VOUT0 pins which are driven by the
-AM62L internal Display Subsystem (DSS). Placing this pinmux in the external
-sii9022 bridge node seems to create a dependency where the SoC's video
-output pins are only multiplexed when the external I2C device driver loads.
-
-If the bridge driver fails to probe or is unbound, the pins might remain
-unconfigured or floating, even if the DSS attempts to use them.
-
-> +		bootph-all;
-> +
-> +		ports {
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528133529.3476=
-499-1-s-jain1@ti.com?part=3D1
