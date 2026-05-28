@@ -1,344 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05CBE377009
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:37:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C810926B973;
+	Thu, 28 May 2026 14:42:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779979028; cv=none; b=rayE1q7i8rXfYhL5w14vpil142nSYeEU3rq0ex1dgRvkP/bsTQNtNYd2e7oqjivOleOSIutFeVj312CIUYpJnu1iuKxOoy/z0TTa9PhIBv7wA60fCvvt9Pz9EFUnQ40JWNfdEDP9Yt8oFFdfUxC+9n7HBU2fsGUU5uGGUS+DsfM=
+	t=1779979322; cv=none; b=gCutEtlYcyinNe5/pLu29wGHYi8xhDbJsGanZwhfmLnOaiSCOnvTLQ47zybZehPD9XZEFmWmhLyBI2leR36kI8GD9DcMa3vLYnMh6PSGVLL8eGiXME4rDa3PFP7JiWscc26GBxbDp+0plU46Q733uqACFu/j6JBpmjkRgKkgs1I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779979028; c=relaxed/simple;
-	bh=2soEwC9yzvB+hND13pcAXokirjLo8pIgD06Ugugy4/Y=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gjzEoQyehixRkhuHdgjsf/tZLDwCTFXKZjAXcfosfWUDRxRI7y8jQZP6OTaQEjR5hgBqXXp2290w5Yg3XCBjoRE0VFA9GEpdaWTmdHwo3w11Gxf2yfBmeEkbtyKuBUp3ipanv4Cgne6DbDFlu77KGo9glZERXAu7NF5Yr1DOBc8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NIfmJw2+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779979322; c=relaxed/simple;
+	bh=vu2PNBr6LzpDJ55bg12L3a5JmRwoCs0fCXThSdrtq7Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jxmLEKjsf9Jir6I9QmS9acOITG5g0eTWqz+MQFO5/Y9jy3b10uOQlUq9Upz671BybyyLU+8t55pjUWPSf17Fwf9rdSIlz+b5azvJgFeZHR1Znyc4px2f9GvOeo8zuISPwOWkoWj+B9vJqHBCZ86g5EyQO1Zsmn7NJfL1GfJHzT0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=V+DexVSx; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NIfmJw2+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AF0F1F000E9;
-	Thu, 28 May 2026 14:37:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779979026;
-	bh=cg2C6F+nIVcW9DB0tIL2/7fzTfqXYri089Xo14V2TI0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NIfmJw2+pYDMashP9L3hg3rNX1WdA0KvTdsLbTUrNsXIDXFI+1aSieLhLBz2zq3x+
-	 zo2dCSNAwyA2gh9sTdVQ+3aa9Rf2W81w8LzGbUX+TELVo8cTVXf3nS0AZTFxOZsYrX
-	 vZT3q7r3wXPo1fRgEmyZSKeVHCofTLr+oXgn7kzgvKl9AQT/vlybFW+NUYy13N5hxC
-	 JBjLLSQ2hrwCKdxZGUawCQRuy8T+KDgDMdbLfS6W8Kp1ochJrJwWiWgxDHPsTpgp9H
-	 PDtvByuQkEvKyxr7cv2aV8DbQcWYmeBpwJpMZRDAjGXUO+olQN0jopyR722CCVQFzl
-	 VMB3cOFvT9FMQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528135123.103745-3-clamor95@gmail.com>
-References: <20260528135123.103745-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 14:37:05 +0000
-Message-Id: <20260528143706.6AF0F1F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="V+DexVSx"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=DMSgQFDN59OnpjSybTfSdSUQ8w7FM10W/DqXpKQK7Fs=; b=V+DexVSxdBVP2L4GwlIiZvG3/k
+	IhZpDotv5a20dhf6BumLCEKwhQN43ZSG8w7xG134ZfI0H0iO+UDIaMWluVI46OZXf85m+/WWg6jh7
+	jdUea2eFAD13fxJiCWFim+ZJrWv7KARaZeDqX+5x8WP+XhbO4dHgeXYXiShKO8sR+o8A=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wSbvl-004uk4-98; Thu, 28 May 2026 16:41:53 +0200
+Date: Thu, 28 May 2026 16:41:53 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Mark Brown <broonie@kernel.org>
+Cc: Chancel Liu <chancel.liu@nxp.com>, lgirdwood@gmail.com, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, shengjiu.wang@nxp.com,
+	shengjiu.wang@gmail.com, Xiubo.Lee@gmail.com, festevam@gmail.com,
+	nicoleotsuka@gmail.com, perex@perex.cz, tiwai@suse.com,
+	Frank.Li@nxp.com, s.hauer@pengutronix.de,
+	linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/3] ASoC: imx-rpmsg: Add headphone jack detection and
+ driver_name support
+Message-ID: <04994ebd-fb13-4d5e-8e1b-f93c504c88ae@lunn.ch>
+References: <20260526053815.140008-1-chancel.liu@nxp.com>
+ <20260528020725.2265321-1-chancel.liu@nxp.com>
+ <37324dcf-5214-432f-9aea-90bcff5fec32@lunn.ch>
+ <5314b232-9688-4f59-a57f-4cca044c9e44@sirena.org.uk>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <5314b232-9688-4f59-a57f-4cca044c9e44@sirena.org.uk>
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The `lm3533_cells` array is allocated on the stack but never zero-=
-initialized, causing it to contain random garbage data.
-- [High] The cell iterator logic increments the `count` variable for every =
-child node unconditionally, even if the node does not match any expected co=
-mpatible strings.
-- [Medium] The ALS driver attempts to free an invalid IRQ number on error p=
-aths and during device removal when no IRQ is present.
-- [Medium] Uninitialized stack memory is printed to the kernel log if `fwno=
-de_property_read_u32()` fails to read the "reg" property.
-- [Low] The patch introduces basic syntax and scoping errors in `lm3533_als=
-_setup()` that completely prevent compilation.
-- [Low] The backlight device tree `reg` property is validated against the w=
-rong maximum limit in the MFD core.
-- [Low] Passing an `int *` to a function expecting a `u32 *` causes compile=
-r warnings/errors and breaks the build.
---
+On Thu, May 28, 2026 at 03:18:05PM +0100, Mark Brown wrote:
+> On Thu, May 28, 2026 at 04:12:58PM +0200, Andrew Lunn wrote:
+> > On Thu, May 28, 2026 at 11:07:22AM +0900, Chancel Liu wrote:
+> 
+> > > This series adds two features to the i.MX RPMSG ASoC card:
+> > > 1. Headphone jack detection via GPIO: Introduce the "hp-det-gpios"
+> > >    device tree property and use simple_util_init_jack() to
+> > >    register a headphone jack with GPIO-based insertion detection.
+> 
+> > I'm not familiar with ASoC, but have been in a long discussion about
+> > RPMSG and GPIO....
+> 
+> > I just want to confirm the GPIO you are talking about is a local GPIO?
+> > You are not tunnelling the GPIO over RPMSG using some vendor protocol?
+> 
+> This is a GPIO accessed via gpiolib, the driver is for an audio
+> subsystem accessed via rpmsg.
 
-commit 9af50d17aae60cc268d70b24e00ddaa3a0500388
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Great, thanks.
 
-mfd: lm3533: Convert to use OF bindings
+When we eventually get GPIO over RPMSG, it should also just look like
+a standard gpiolib GPIO. But we are not there yet, defining the one
+protocol that all vendors must use, rather than each vendor doing
+their own thing.
 
-Since there are no users of this driver via platform data, remove the
-platform data support and switch to using Device Tree bindings.
-Additionally, optimize functions used only by platform data.
+  Andrew
 
-> diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-al=
-s.c
-> index 99f0b903018cf..cbd337b73bd9f 100644
-> --- a/drivers/iio/light/lm3533-als.c
-> +++ b/drivers/iio/light/lm3533-als.c
-
-[ ... ]
-
-> @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_als_attr=
-ibute_group =3D {
->  	.attrs =3D lm3533_als_attributes
->  };
-> =20
-> -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pwm_mo=
-de)
-> +static int lm3533_als_setup(struct lm3533_als *als)
->  {
-> -	u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
-> -	u8 val;
-> +	struct device *dev =3D &als->pdev.dev;
-
-[Severity: Low]
-Does this syntax cause a build error? The pointer als->pdev requires
-the -> operator to access dev, like &als->pdev->dev.
-
->  	int ret;
-> =20
-> -	if (pwm_mode)
-> -		val =3D mask;	/* pwm input */
-> -	else
-> -		val =3D 0;	/* analog input */
-> -
-> -	ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask);
-> -	if (ret) {
-> -		dev_err(&als->pdev->dev, "failed to set input mode %d\n",
-> -								pwm_mode);
-> -		return ret;
-> -	}
-> -
-> -	return 0;
-> -}
-> -
-> -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
-> -{
-> -	int ret;
-> -
-> -	if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_MAX) {
-> -		dev_err(&als->pdev->dev, "invalid resistor value\n");
-> -		return -EINVAL;
-> -	}
-> -
-> -	ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELECT, val);
-> -	if (ret) {
-> -		dev_err(&als->pdev->dev, "failed to set resistor\n");
-> -		return ret;
-> -	}
-> +	device_property_read_u32(dev, "ti,resistor-value-ohm",
-> +				 &als->r_select);
-> =20
-> -	return 0;
-> -}
-> +	als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
-> +			      LM3533_ALS_RESISTOR_MAX);
-> +	als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
-> =20
-> -static int lm3533_als_setup(struct lm3533_als *als,
-> -			    const struct lm3533_als_platform_data *pdata)
-> -{
-> -	int ret;
-> +	als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode");
-> =20
-> -	ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> +	ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_mode ?
-
-[Severity: Low]
-Will this fail to compile since lm3533 is undeclared in this scope? It
-appears this should use als->lm3533 instead.
-
-[ ... ]
-
-> @@ -838,12 +817,6 @@ static int lm3533_als_probe(struct platform_device *=
-pdev)
->  	if (!lm3533)
->  		return -EINVAL;
-> =20
-> -	pdata =3D dev_get_platdata(&pdev->dev);
-> -	if (!pdata) {
-> -		dev_err(&pdev->dev, "no platform data\n");
-> -		return -EINVAL;
-> -	}
-> -
->  	indio_dev =3D devm_iio_device_alloc(&pdev->dev, sizeof(*als));
->  	if (!indio_dev)
->  		return -ENOMEM;
-> @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_device =
-*pdev)
->  	indio_dev->channels =3D lm3533_als_channels;
->  	indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
->  	indio_dev->name =3D dev_name(&pdev->dev);
-> -	iio_device_set_parent(indio_dev, pdev->dev.parent);
->  	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> =20
->  	als =3D iio_priv(indio_dev);
->  	als->lm3533 =3D lm3533;
->  	als->pdev =3D pdev;
-> -	als->irq =3D lm3533->irq;
-> +	als->irq =3D platform_get_irq_optional(pdev, 0);
-
-[Severity: Medium]
-Will this cause problems during error handling or device removal?
-platform_get_irq_optional() returns negative error codes when no IRQ
-is present. The existing cleanup paths check if (als->irq) which evaluates
-to true for negative numbers, causing it to call free_irq() with an
-invalid IRQ number. Should the cleanup checks be updated to
-if (als->irq > 0)?
-
-[ ... ]
-
-> diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-> index 0a2409d00b2e0..8495e91198711 100644
-> --- a/drivers/mfd/lm3533-core.c
-> +++ b/drivers/mfd/lm3533-core.c
-
-[ ... ]
-
-> -static int lm3533_device_init(struct lm3533 *lm3533)
-> +static int lm3533_device_init(struct lm3533 *lm3533)
->  {
-> -	struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->dev);
-> +	struct device *dev =3D lm3533->dev;
-> +	struct mfd_cell lm3533_cells[LM3533_CELLS_MAX];
-
-[Severity: High]
-Does this array need to be zero-initialized? Because it's allocated on
-the stack, fields like num_resources and resources will contain garbage
-memory. When mfd_add_devices() processes it, could this lead to wild
-pointer dereferences?
-
-> +	u32 count =3D 0, reg;
->  	int ret;
-> =20
-> -	dev_dbg(lm3533->dev, "%s\n", __func__);
-> -
-> -	if (!pdata) {
-> -		dev_err(lm3533->dev, "no platform data\n");
-> -		return -EINVAL;
-> +	lm3533_enable(lm3533);
-> =20
-> -	lm3533->hwen =3D devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
-> -	if (IS_ERR(lm3533->hwen))
-> -		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to re=
-quest HWEN GPIO\n");
-> -	gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
-> -
-> -	lm3533_enable(lm3533);
-> -
-> -	ret =3D lm3533_device_setup(lm3533, pdata);
-> -	if (ret)
-> +	device_for_each_child_node_scoped(lm3533->dev, child) {
-> +		if (!fwnode_device_is_available(child))
-> +			continue;
-> =20
-> -	lm3533_device_als_init(lm3533);
-> -	lm3533_device_bl_init(lm3533);
-> -	lm3533_device_led_init(lm3533);
-> -
-> -	ret =3D sysfs_create_group(&lm3533->dev->kobj, &lm3533_attribute_group);
-> -	if (ret < 0) {
-> -		dev_err(lm3533->dev, "failed to create sysfs attributes\n");
-> -		goto err_unregister;
-> +		if (count >=3D LM3533_CELLS_MAX)
-> +			break;
-> =20
-> +		if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
-> +			lm3533_cells[count].name =3D "lm3533-als";
-> +			lm3533_cells[count].id =3D PLATFORM_DEVID_NONE;
-> +			lm3533_cells[count].of_compatible =3D "ti,lm3533-als";
-> =20
-> +			lm3533->have_als =3D true;
-> +		}
-> =20
-> +		if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
-> +			ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret || reg > LM3533_HVLED_ID_MAX) {
-
-[Severity: Low]
-Is LM3533_HVLED_ID_MAX the correct boundary to check here? The backlight IDs
-should typically be validated against LM3533_BL_ID_MAX. Since
-LM3533_HVLED_ID_MAX is 2, it would allow invalid backlight IDs to bypass
-this check.
-
-> +				dev_err(dev, "invalid backlight reg %d\n", reg);
-
-[Severity: Medium]
-If fwnode_property_read_u32() returns an error, reg remains uninitialized.
-Could this print stack garbage memory to the kernel log?
-
-> +				continue;
-> +			}
-> =20
-> +			lm3533_cells[count].name =3D "lm3533-backlight";
-> +			lm3533_cells[count].id =3D reg;
-> +			lm3533_cells[count].of_compatible =3D "ti,lm3533-backlight";
-> =20
-> +			lm3533->have_backlights =3D true;
-> +		}
-> =20
-> +		if (fwnode_device_is_compatible(child, "ti,lm3533-leds")) {
-> +			ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret || reg < LM3533_HVLED_ID_MAX ||
-> +			    reg > LM3533_LVLED_ID_MAX) {
-> +				dev_err(dev, "invalid LED reg %d\n", reg);
-> +				continue;
-> +			}
-> =20
-> +			lm3533_cells[count].name =3D "lm3533-leds";
-> +			lm3533_cells[count].id =3D reg - LM3533_HVLED_ID_MAX;
-> +			lm3533_cells[count].of_compatible =3D "ti,lm3533-leds";
-> =20
-> +			lm3533->have_leds =3D true;
-> +		}
-> =20
-> +		count++;
-
-[Severity: High]
-Does count increment unconditionally even if the child node didn't match
-any of the compatible strings? If an unrelated child node is present, it
-would increment count while leaving the lm3533_cells[count] entirely
-unpopulated. When mfd_add_devices() is called, this could result in a NULL
-pointer dereference on the .name field.
-
-[ ... ]
-
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index babfd3ceec866..42da652df58d9 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-
-[ ... ]
-
-> @@ -295,13 +293,20 @@ static int lm3533_bl_probe(struct platform_device *=
-pdev)
->  	bl->cb.id =3D lm3533_bl_get_ctrlbank_id(bl);
->  	bl->cb.dev =3D NULL;			/* until registered */
-> =20
-> +	name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d",
-> +			      pdev->name, pdev->id);
-> +	if (!name)
-> +		return -ENOMEM;
-> +
->  	memset(&props, 0, sizeof(props));
->  	props.type =3D BACKLIGHT_RAW;
->  	props.max_brightness =3D LM3533_BL_MAX_BRIGHTNESS;
-> -	props.brightness =3D pdata->default_brightness;
-> -	bd =3D devm_backlight_device_register(&pdev->dev, pdata->name,
-> -					pdev->dev.parent, bl, &lm3533_bl_ops,
-> -					&props);
-> +	props.brightness =3D LM3533_BL_MAX_BRIGHTNESS;
-> +	device_property_read_u32(&pdev->dev, "default-brightness",
-> +				 &props.brightness);
-
-[Severity: Low]
-Will this pass an incompatible pointer type? props.brightness is defined as
-an int in struct backlight_properties, but device_property_read_u32() expec=
-ts
-a u32 pointer. This could cause compiler warnings or errors.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528135123.1037=
-45-1-clamor95@gmail.com?part=3D2
