@@ -1,282 +1,431 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59AD3EBF37
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:55:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DEC7D37B007;
+	Thu, 28 May 2026 13:02:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779972923; cv=none; b=F/qKyvSuaXEM0tbCmkT+1o5uavcq27CqH35UEGNsUZ8pLcVyJWUkVPnFNRIw7EhTkcvVmvDgoQSoQ8cGWlESAEPXpODxfZicUeLNpx3fsM8pJbVDZRWn3BXh/xOTUJc2I3CoVidj9k0MW4paVW9vnvCDigyEBPXh1yohrBIwE9c=
+	t=1779973329; cv=none; b=VX2Sq082a5EvYdGsrSGLINJr9Tm92AW13RQebJUa6LBFZHZOH7fG8Wps8GFIJAXdhDi+Na9m+rCVHbYJyDD07wA/1wZrPnCY2Cn03vvyL9x+QUFtSTmi+/TbvtwnWpptjZKCCtX3WtLfbV+otZQkaCXEsRzqKKZ18UcDddFEDlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779972923; c=relaxed/simple;
-	bh=f/CUg013T1EP0sWmSQDXL8N0/FozcRSk7zEjdCog5uE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HDQkHKX1KeQV+/yT20W0Xi/RztLxkQRCYR8bkhtfU1bKT3+3dEox/LuVz2wQhQQxMlvgMPoUNzvGC1Nv+/qijhQSQ3pE4J5w8lZoQ5hZ6r4Xxu0Jo8By/tkAbT3PgOFKl/PUc71s6MytpFLxepw3SL4vwks4HBX6xD9pjg+QFkc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hwhnEXCD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779973329; c=relaxed/simple;
+	bh=+RH3A9wqjc/9H5xLRNcWcgS6ZkQf9QdB4m8rdA2EMos=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BTQM4E5Ruqz22K1MtC6gFxDAfi+Xri+frQIVtXD/BzfDWeY1Rrc2yh4u/OOVWyFUFJPLxCBjoyZhBkglRaVB5vrQvx3iktlUIFbfDbSYPYWQAnIh2kEWAYYFNFeJN80lgA49EFEhWbleabRkQ4FlBLtZME8aByXYvuXWT0wD9dw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rm6wy+D/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hwhnEXCD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 335221F000E9;
-	Thu, 28 May 2026 12:55:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rm6wy+D/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 364911F000E9;
+	Thu, 28 May 2026 13:02:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779972921;
-	bh=uOBcBfqvPIX2yIU9XbE6+p8WvPIoCD5tVUkOWVMHxRg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hwhnEXCDHg+wksHkqowv7ruHYyb+7yeWKjGo8vpfQVrfTsQJooZQ5LRzZxkg6Yk1V
-	 A1LLgFH1IDP/cedD1uIikY4AtBVIKquAwQZTGL9cV/uxCutaVXZnTEHMtr4Hcvt+9q
-	 RF7X/gpPMFqNKqSj81RwBCfRL4AwUIGoqAtvMW4BXxdBIVFSRZ7j6tnlD3dkdzu91S
-	 4+0g8s9pg5cZvuX3KZsWkmo4ZksSFkHPdRxTFiMh0NQFiRRqgMFzwqor5M5ynNuvuU
-	 jDrtKRoH813UOOGsJcSYi2ix2apsBcG9EJfr4BJXP3pLu+ZZu7Cn/Dh/0ZL0nv8Yc4
-	 BmZmu5oWlA/0A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 2/5] thermal: samsung: Add Exynos ACPM TMU driver
- GS101
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tudor Ambarus" <tudor.ambarus@linaro.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528-acpm-tmu-v6-2-b4d7ce57594b@linaro.org>
-References: <20260528-acpm-tmu-v6-2-b4d7ce57594b@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 12:55:20 +0000
-Message-Id: <20260528125521.335221F000E9@smtp.kernel.org>
+	s=k20260515; t=1779973327;
+	bh=gOdAyu4BiynnFgp0hqE62o5px9tgrY0YIgkHhd5BYWw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Rm6wy+D/xQxlwVQ+odw5kdVEtu6wMTK63/O3MHee7e8btAyMM7f65ezkQwwOM4nH/
+	 oNX4hLON+OBEJuzwuT7cmlNH60bvv02ZtE+BqAWrF56RJqnHWGawmcjGCpQgeCB3PJ
+	 JxOKE66lt38vPWa+t9q3dramP/Rt1DIC0MBHqWo11AE9swDTvkVlOZI/SeThlZ6nGV
+	 qleiugwjQ0tiU6sPggpcI0RuDNNSEP3w8jvGwlODlRXN6j3x0k6Am2CEcm2rAfh1qS
+	 MQaSFNNFDRRZfU5Xbz3xAPnE17EqFtduVnFX6d0Hiil0wpLCcUoiVmxGNod2UrTABK
+	 AoLMD/xSJW41w==
+Date: Thu, 28 May 2026 14:01:56 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Salih Erim <salih.erim@amd.com>
+Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Conall O'Griofa <conall.ogriofa@amd.com>,
+ Michal Simek <michal.simek@amd.com>, Guenter Roeck <linux@roeck-us.net>,
+ Salih Erim <erimsalih@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3 4/5] iio: adc: versal-sysmon: add threshold event
+ support
+Message-ID: <20260528140156.5cab0eda@jic23-huawei>
+In-Reply-To: <20260527114211.174288-5-salih.erim@amd.com>
+References: <20260527114211.174288-1-salih.erim@amd.com>
+	<20260527114211.174288-5-salih.erim@amd.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Thermal zone thresholds are never initialized because sensors are =
-enabled too late during probe.
-- [High] Missed thermal interrupts due to clearing the interrupt pending fl=
-ag after updating the thermal zone.
-- [High] A failure during system suspend permanently disables thermal mitig=
-ation.
-- [Medium] Mixing goto-based error handling with guard() cleanup in the sam=
-e function.
-- [Medium] Failure to roll back partially enabled sensors if acpm_tmu_contr=
-ol(true) fails.
-- [Medium] Race condition in acpm_tmu_get_temp() reading sensor->enabled ou=
-tside of sensor->lock.
-- [Medium] Asynchronous runtime PM suspend queued by acpm_tmu_set_trips can=
- be cancelled by devm_pm_runtime_disable during driver removal.
---
+On Wed, 27 May 2026 12:42:10 +0100
+Salih Erim <salih.erim@amd.com> wrote:
 
-commit 90afa895cf46b40d05a7597e89b586da2a473318
-Author: Tudor Ambarus <tudor.ambarus@linaro.org>
+> Add threshold event support for temperature and supply voltage
+> channels.
+> 
+> Temperature events:
+>   - Rising threshold with configurable value
+>   - Over-temperature (OT) alarm with separate threshold
+>   - Per-channel hysteresis as a millicelsius value
+>   - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
+> 
+> Supply voltage events:
+>   - Rising/falling threshold per supply channel
+>   - Per-channel alarm enable via alarm configuration registers
+> 
+> The hardware supports both window and hysteresis alarm modes for
+> temperature. This driver uses hysteresis mode, where the upper
+> threshold triggers the alarm and the lower threshold clears it
+> (re-arm point). The hardware has a single ISR bit per temperature
+> channel with no indication of which threshold was crossed, so
+> hysteresis mode is the natural fit. The lower threshold register
+> is computed internally as (upper - hysteresis).
+> 
+> Hysteresis is stored in the driver as a millicelsius value,
+> initialized from the hardware registers at probe. Writing the
+> rising threshold or hysteresis recomputes the lower register.
+> ALARM_CONFIG is hard-coded to hysteresis mode during init.
+> 
+> The interrupt handler masks active threshold interrupts (which are
+> level-sensitive) and schedules a delayed worker to poll for condition
+> clear before unmasking. When no hardware IRQ is available, event
+> channels are not created and interrupt init is skipped, since the
+> I2C regmap backend cannot be called from atomic context.
+> 
+> When disabling a supply channel alarm, the group interrupt remains
+> active if any other channel in the same alarm group still has an
+> alarm enabled.
+> 
+> Signed-off-by: Salih Erim <salih.erim@amd.com>
+Hi Salih
 
-thermal: samsung: Add Exynos ACPM TMU driver GS101
+Main thing in here is related to earlier question on _PROCESSED + _RAW.
+I can't see a reason to have _RAW.
 
-Add driver for the Thermal Management Unit (TMU) managed via the Alive
-Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
-Google GS101 (and Exynos850, autov920, etc.).
+Various minor things inline. In many case they apply in other places I haven't
+called out so look for repeats
 
-> diff --git a/drivers/thermal/samsung/acpm-tmu.c b/drivers/thermal/samsung=
-/acpm-tmu.c
-> new file mode 100644
-> index 0000000000000..b56869c9fc3b1
-> --- /dev/null
-> +++ b/drivers/thermal/samsung/acpm-tmu.c
-[ ... ]
-> +static int acpm_tmu_control(struct acpm_tmu_priv *priv, bool on)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < priv->num_sensors; i++) {
-> +		struct acpm_tmu_sensor *sensor =3D &priv->sensors[i];
+Jonathan
+
+>  drivers/iio/adc/versal-sysmon-core.c | 655 ++++++++++++++++++++++++++-
+>  drivers/iio/adc/versal-sysmon.h      |  48 +-
+>  2 files changed, 697 insertions(+), 6 deletions(-)
+> 
+> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
+> index ebe052f6982..04977c9c887 100644
+> --- a/drivers/iio/adc/versal-sysmon-core.c
+> +++ b/drivers/iio/adc/versal-sysmon-core.c
+> @@ -11,6 +11,8 @@
+>  #include <linux/bitops.h>
+>  #include <linux/cleanup.h>
+>  #include <linux/device.h>
+> +#include <linux/devm-helpers.h>
+> +#include <linux/interrupt.h>
+>  #include <linux/module.h>
+>  #include <linux/property.h>
+>  #include <linux/regmap.h>
+> @@ -18,10 +20,19 @@
+>  #include <linux/sysfs.h>
+>  #include <linux/units.h>
+>  
+> +#include <linux/iio/events.h>
+>  #include <linux/iio/iio.h>
+>  
+>  #include "versal-sysmon.h"
+>  
+> +/* OT and TEMP hysteresis mode bits in SYSMON_TEMP_EV_CFG */
+> +#define SYSMON_OT_HYST_MASK		BIT(0)
+> +#define SYSMON_TEMP_HYST_MASK		BIT(1)
 > +
-> +		/* Skip sensors that weren't found in DT */
-> +		if (!sensor->tzd)
-> +			continue;
+> +/* Compute alarm register offset from a channel address */
+> +#define SYSMON_ALARM_OFFSET(addr) \
+> +	(SYSMON_ALARM_REG + ((addr) / SYSMON_ALARM_BITS_PER_REG) * SYSMON_REG_STRIDE)
 > +
-> +		mutex_lock(&sensor->lock);
-> +		ret =3D acpm_tmu_op_tz_control(sensor, on);
-> +		mutex_unlock(&sensor->lock);
-> +		if (ret) {
-> +			if (!err)
-> +				err =3D ret;
-> +
-> +			/* On enable, stop on first error. On disable, keep going */
-> +			if (on)
-> +				break;
+>  /*
+>   * Both RAW and PROCESSED are exposed: RAW is needed for event thresholds
+>   * (which operate in hardware register format), PROCESSED gives userspace
+> @@ -44,6 +55,62 @@
+>  	.datasheet_name = _name,				\
+>  }
+>  
+> +#define SYSMON_CHAN_TEMP_EVENT(_chan, _address, _name, _events) {\
+> +	.type = IIO_TEMP,					\
+> +	.indexed = 1,						\
 
-[Severity: Medium]
-If an error occurs when `on` is true, the loop breaks immediately. Does this
-leave the previously enabled sensors active in the ACPM firmware?
+Why do you needs separate channel for events?  Can't we add the event
+spec to existing channels? For the constant ones you may need to
+have two arrays to pick between depending on whether the irq is available or not.
 
-If this happens during probe, will the lack of hardware state rollback
-result in unhandled spurious interrupts?
 
-> +		}
-> +	}
-> +
-> +	pm_runtime_put_sync(dev);
-> +	return err;
+> +	.address = _address,					\
+> +	.channel = _chan,					\
+> +	.event_spec = _events,					\
+> +	.num_event_specs = ARRAY_SIZE(_events),			\
+> +	.scan_type = {						\
+> +		.sign = 's',					\
+> +		.realbits = 15,					\
+> +		.storagebits = 16,				\
+> +		.endianness = IIO_CPU,				\
+> +	},							\
+> +	.datasheet_name = _name,				\
 > +}
 > +
-> +static int acpm_tmu_get_temp(struct thermal_zone_device *tz, int *temp)
+	*raw_data = (u16)tmp;
+> +}
+
+> +
+> +/*
+> + * Recompute the lower threshold register from upper threshold and
+> + * cached hysteresis. Called when either upper threshold or hysteresis
+> + * is written.
+> + */
+> +static int sysmon_update_temp_lower(struct sysmon *sysmon, int address)
 > +{
-> +	struct acpm_tmu_sensor *sensor =3D thermal_zone_device_priv(tz);
-> +	struct acpm_tmu_priv *priv =3D sensor->priv;
-> +	struct acpm_handle *handle =3D priv->handle;
-> +	const struct acpm_tmu_ops *ops =3D &handle->ops->tmu;
-> +	struct device *dev =3D priv->dev;
-> +	int acpm_temp =3D 0, ret;
+> +	unsigned int upper_reg;
+> +	int upper_mc, lower_mc, hysteresis;
+> +	u32 raw_val;
+> +	int upper_off, lower_off, ret;
 > +
-> +	if (!sensor->enabled)
-
-[Severity: Medium]
-Is there a race condition here since `sensor->enabled` is checked before
-acquiring `sensor->lock`?
-
-If `acpm_tmu_control(priv, false)` runs concurrently (e.g., via system
-suspend), it could set `sensor->enabled =3D false` just before the lock is
-acquired here. Could this result in calling `ops->read_temp()` on a disabled
-sensor?
-
-> +		return -EAGAIN;
+> +	upper_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_RISING);
+> +	if (upper_off < 0)
+> +		return upper_off;
+> +	lower_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_FALLING);
+> +	if (lower_off < 0)
+> +		return lower_off;
 > +
-> +	ret =3D pm_runtime_resume_and_get(dev);
-> +	if (ret < 0)
-> +		return ret;
+> +	if (address == SYSMON_ADDR_OT_EVENT)
+> +		hysteresis = sysmon->ot_hysteresis;
+> +	else
+> +		hysteresis = sysmon->temp_hysteresis;
 > +
-> +	scoped_guard(mutex, &sensor->lock) {
-> +		ret =3D ops->read_temp(handle, priv->mbox_chan_id,
-> +				     sensor->group->id, &acpm_temp);
-> +	}
-[ ... ]
-> +static int acpm_tmu_update_thresholds(struct acpm_tmu_sensor *sensor,
-> +				      u8 thresholds[2], u8 inten)
-> +{
-> +	struct acpm_tmu_priv *priv =3D sensor->priv;
-> +	struct acpm_handle *handle =3D priv->handle;
-> +	const struct acpm_tmu_ops *ops =3D &handle->ops->tmu;
-> +	unsigned int mbox_chan_id =3D priv->mbox_chan_id;
-> +	u8 acpm_sensor_id =3D sensor->group->id;
-> +	bool was_enabled;
-> +	int ret, restore_ret;
-> +
-> +	guard(mutex)(&sensor->lock);
-
-[Severity: Medium]
-Is it ok to mix `guard()` with `goto`-based error handling in this function?
-According to the cleanup guidelines, functions should either convert all
-resources to scope-based cleanup or convert none of them.
-
-> +
-> +	was_enabled =3D sensor->enabled;
-> +
-> +	if (was_enabled) {
-> +		ret =3D acpm_tmu_op_tz_control(sensor, false);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret =3D ops->set_threshold(handle, mbox_chan_id, acpm_sensor_id,
-> +				 thresholds, 2);
+> +	ret = regmap_read(sysmon->regmap, upper_off, &upper_reg);
 > +	if (ret)
-> +		goto err_restore;
-[ ... ]
-> +static irqreturn_t acpm_tmu_thread_fn(int irq, void *id)
-> +{
-[ ... ]
-> +		handled =3D true;
+> +		return ret;
+> +	sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
 > +
-> +		thermal_zone_device_update(sensor->tzd,
-> +					   THERMAL_EVENT_UNSPECIFIED);
+> +	lower_mc = upper_mc - hysteresis;
+> +	sysmon_millicelsius_to_q8p7(&raw_val, lower_mc);
+
+So all the manipulation is in the units of _PROCESSED. Hence
+I'd drop _RAW.
+
 > +
-> +		scoped_guard(mutex, &sensor->lock) {
-> +			ret =3D ops->clear_tz_irq(handle, priv->mbox_chan_id,
-> +						sensor->group->id);
-
-[Severity: High]
-Could clearing the interrupt after updating the thermal zone cause missed
-events?
-
-If the temperature crosses a newly programmed threshold during
-`thermal_zone_device_update()`, the hardware could assert a new interrupt.
-Calling `clear_tz_irq()` afterwards would clear this new interrupt,
-potentially missing critical thermal events.
-
-> +			if (ret)
-> +				dev_err(priv->dev, "Sensor %d: failed to clear IRQ (%d)\n",
-> +					i, ret);
-> +		}
-> +	}
-[ ... ]
-> +static int acpm_tmu_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < priv->num_sensors; i++) {
-> +		struct acpm_tmu_sensor *sensor =3D &priv->sensors[i];
-> +
-> +		mutex_init(&sensor->lock);
-> +		sensor->group =3D &data->sensor_groups[i];
-> +		sensor->priv =3D priv;
-> +
-> +		sensor->tzd =3D devm_thermal_of_zone_register(dev, i, sensor,
-> +							    &acpm_tmu_sensor_ops);
-
-[Severity: High]
-Are the thermal zones registered before the sensors are fully enabled?
-
-During `devm_thermal_of_zone_register()`, the thermal core attempts to
-initialize thresholds, but since `sensor->enabled` is false,
-`acpm_tmu_get_temp()` returns `-EAGAIN` and the update aborts.
-
-Since `acpm_tmu_control()` below does not trigger a thermal zone update,
-will the initial thresholds remain uninitialized in the hardware?
-
-> +		if (IS_ERR(sensor->tzd)) {
-[ ... ]
-> +	ret =3D acpm_tmu_control(priv, true);
-> +	if (ret) {
-> +		ret =3D dev_err_probe(dev, ret, "Failed to enable TMU\n");
-> +		goto err_pm_put;
-> +	}
-[ ... ]
-> +static void acpm_tmu_remove(struct platform_device *pdev)
-> +{
-> +	struct acpm_tmu_priv *priv =3D platform_get_drvdata(pdev);
-> +
-> +	/* Stop IRQ first to prevent race with thread_fn */
-> +	disable_irq(priv->irq);
-> +
-> +	acpm_tmu_control(priv, false);
-
-[Severity: Medium]
-If `acpm_tmu_set_trips()` queues an asynchronous suspend via
-`pm_runtime_put_autosuspend()` shortly before driver removal, could the
-implicit `pm_runtime_disable()` from `devm_pm_runtime_enable()` cleanup
-cancel it?
-
-Would this cause the hardware to remain powered on since the usage count
-drops but the actual suspend is never executed? Should this use a
-synchronous suspend before removal?
-
+> +	return regmap_write(sysmon->regmap, lower_off, raw_val);
 > +}
 > +
-> +static int acpm_tmu_suspend(struct device *dev)
+> +static int sysmon_read_event_value(struct iio_dev *indio_dev,
+> +				   const struct iio_chan_spec *chan,
+> +				   enum iio_event_type type,
+> +				   enum iio_event_direction dir,
+> +				   enum iio_event_info info,
+> +				   int *val, int *val2)
 > +{
-> +	struct acpm_tmu_priv *priv =3D dev_get_drvdata(dev);
-> +	struct acpm_handle *handle =3D priv->handle;
-> +	const struct acpm_tmu_ops *ops =3D &handle->ops->tmu;
+> +	struct sysmon *sysmon = iio_priv(indio_dev);
+> +	unsigned int reg_val;
+> +	int offset;
 > +	int ret;
 > +
-> +	ret =3D acpm_tmu_control(priv, false);
-> +	if (ret)
-> +		return ret;
+> +	guard(mutex)(&sysmon->lock);
 > +
-> +	/* APB clock not required for this specific msg */
-> +	return ops->suspend(handle, priv->mbox_chan_id);
+> +	if (chan->type == IIO_TEMP) {
+> +		if (info == IIO_EV_INFO_VALUE) {
+> +			/* Only rising threshold is exposed */
+> +			offset = sysmon_temp_thresh_offset(chan->address,
+> +							   IIO_EV_DIR_RISING);
+> +			if (offset < 0)
+> +				return offset;
+I'd add a blank line here.
+> +			ret = regmap_read(sysmon->regmap, offset, &reg_val);
+> +			if (ret)
+> +				return ret;
+here
+> +			sysmon_q8p7_to_millicelsius(reg_val, val);
+and here
 
-[Severity: High]
-If `ops->suspend()` returns an error, the system suspend is aborted. Since
-the PM core won't invoke the resume callback on failure, and there is no
-rollback here, will the TMU sensors remain permanently disabled while the
-system continues running?
+Generally keep block of call + error check for one thing separate from code
+before and after.  Slightly nicer to read.
 
+Lots of other places this applies but it's a very minor thing.
+
+> +			return IIO_VAL_INT;
+> +		}
+> +		if (info == IIO_EV_INFO_HYSTERESIS) {
+> +			if (chan->address == SYSMON_ADDR_OT_EVENT)
+> +				*val = sysmon->ot_hysteresis;
+> +			else
+> +				*val = sysmon->temp_hysteresis;
+> +			return IIO_VAL_INT;
+> +		}
+> +	}
+> +
+> +	if (chan->type == IIO_VOLTAGE) {
+> +		offset = sysmon_supply_thresh_offset(chan->address, dir);
+> +		if (offset < 0)
+> +			return offset;
+> +		ret = regmap_read(sysmon->regmap, offset, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +		sysmon_supply_rawtoprocessed(reg_val, val);
+> +		return IIO_VAL_INT;
+> +	}
+> +
+> +	return -EINVAL;
+> +}
+> +
+> +static int sysmon_write_event_value(struct iio_dev *indio_dev,
+> +				    const struct iio_chan_spec *chan,
+> +				    enum iio_event_type type,
+> +				    enum iio_event_direction dir,
+> +				    enum iio_event_info info,
+> +				    int val, int val2)
+> +{
+> +	struct sysmon *sysmon = iio_priv(indio_dev);
+> +	unsigned int reg_val;
+> +	u32 raw_val;
+> +	int offset;
+> +	int ret;
+> +
+> +	guard(mutex)(&sysmon->lock);
+
+> +
+> +	if (chan->type == IIO_TEMP) {
+> +		if (info == IIO_EV_INFO_VALUE) {
+> +			/* Only rising threshold is exposed */
+> +			offset = sysmon_temp_thresh_offset(chan->address,
+> +							   IIO_EV_DIR_RISING);
+> +			if (offset < 0)
+> +				return offset;
+> +			sysmon_millicelsius_to_q8p7(&raw_val, val);
+> +			ret = regmap_write(sysmon->regmap, offset, raw_val);
+> +			if (ret)
+> +				return ret;
+> +			/* Recompute lower = upper - hysteresis */
+> +			return sysmon_update_temp_lower(sysmon,
+> +							chan->address);
+
+Under 80 chars on one line.  Check for cases of this and feel free to go a bit
+over if it helps readability.
+
+> +			return sysmon_update_temp_lower(sysmon, chan->address);
+
+> +		}
+> +		if (info == IIO_EV_INFO_HYSTERESIS) {
+> +			if (val < 0)
+> +				return -EINVAL;
+> +			if (chan->address == SYSMON_ADDR_OT_EVENT)
+> +				sysmon->ot_hysteresis = val;
+> +			else
+> +				sysmon->temp_hysteresis = val;
+> +			return sysmon_update_temp_lower(sysmon,
+> +							chan->address);
+
+As above.
+
+> +		}
+> +	}
+> +
+> +	if (chan->type == IIO_VOLTAGE) {
+> +		offset = sysmon_supply_thresh_offset(chan->address, dir);
+> +		if (offset < 0)
+> +			return offset;
+> +		ret = regmap_read(sysmon->regmap, offset, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +		sysmon_supply_processedtoraw(val, reg_val, &raw_val);
+> +		return regmap_write(sysmon->regmap, offset, raw_val);
+> +	}
+> +
+> +	return -EINVAL;
 > +}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-acpm-tmu-v=
-6-0-b4d7ce57594b@linaro.org?part=3D2
+> +static int sysmon_handle_event(struct iio_dev *indio_dev, u32 event)
+> +{
+> +	u32 alarm_flag_offset = SYSMON_ALARM_FLAG + (event * SYSMON_REG_STRIDE);
+> +	u32 alarm_reg_offset = SYSMON_ALARM_REG + (event * SYSMON_REG_STRIDE);
+> +	struct sysmon *sysmon = iio_priv(indio_dev);
+> +	unsigned long alarm_flag_reg;
+> +	unsigned int reg_val;
+> +	u32 address, bit;
+> +	int ret;
+> +
+> +	switch (event) {
+> +	case SYSMON_BIT_TEMP:
+> +		sysmon_push_event(indio_dev, SYSMON_ADDR_TEMP_EVENT);
+> +		ret = regmap_write(sysmon->regmap, SYSMON_IDR,
+> +				   BIT(SYSMON_BIT_TEMP));
+> +		if (ret)
+> +			return ret;
+> +		sysmon->masked_temp |= BIT(SYSMON_BIT_TEMP);
+> +		break;
+> +
+> +	case SYSMON_BIT_OT:
+> +		sysmon_push_event(indio_dev, SYSMON_ADDR_OT_EVENT);
+> +		ret = regmap_write(sysmon->regmap, SYSMON_IDR,
+> +				   BIT(SYSMON_BIT_OT));
+> +		if (ret)
+> +			return ret;
+> +		sysmon->masked_temp |= BIT(SYSMON_BIT_OT);
+> +		break;
+> +
+> +	case SYSMON_BIT_ALARM0:
+> +	case SYSMON_BIT_ALARM1:
+> +	case SYSMON_BIT_ALARM2:
+> +	case SYSMON_BIT_ALARM3:
+> +	case SYSMON_BIT_ALARM4:
+> +		ret = regmap_read(sysmon->regmap, alarm_flag_offset, &reg_val);
+> +		if (ret)
+> +			return ret;
+> +		alarm_flag_reg = reg_val;
+> +
+> +		for_each_set_bit(bit, &alarm_flag_reg,
+> +				 SYSMON_ALARM_BITS_PER_REG) {
+> +			address = bit + (SYSMON_ALARM_BITS_PER_REG * event);
+> +			sysmon_push_event(indio_dev, address);
+> +			ret = regmap_update_bits(sysmon->regmap,
+> +						 alarm_reg_offset,
+> +						 BIT(bit), 0);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +		ret = regmap_write(sysmon->regmap, alarm_flag_offset,
+> +				   alarm_flag_reg);
+> +		if (ret)
+> +			return ret;
+> +		break;
+		return regmap_write();
+> +
+> +	default:
+> +		break;
+
+Why is this not an error?
+
+> +	}
+> +
+> +	return 0;
+Might as well return early in the various paths.
+> +}
+...
+
+> +static irqreturn_t sysmon_iio_irq(int irq, void *data)
+> +{
+> +	struct iio_dev *indio_dev = data;
+> +	struct sysmon *sysmon;
+> +	unsigned int isr, imr;
+> +
+> +	sysmon = iio_priv(indio_dev);
+> +	spin_lock(&sysmon->irq_lock);
+
+guard() here would eman you can just return if (!isr)
+
+> +
+> +	regmap_read(sysmon->regmap, SYSMON_ISR, &isr);
+> +	regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
+> +
+> +	isr &= ~imr;
+> +	regmap_write(sysmon->regmap, SYSMON_ISR, isr);
+> +
+> +	if (isr) {
+> +		sysmon_handle_events(indio_dev, isr);
+> +		schedule_delayed_work(&sysmon->sysmon_unmask_work,
+> +				      msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
+> +	}
+> +
+> +	spin_unlock(&sysmon->irq_lock);
+> +
+> +	return IRQ_RETVAL(isr);
+> +}
