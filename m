@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 620243B5310
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9AF3B27FE
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779962867; cv=none; b=aZGMgKEg/Crhtv/Fp+5bClyMQTNc+asBZ3aFRWBeFu9OIUxfzbgKb4nDzAEgpKYXRsWCmoHEDmUOtT3NbGI1uUxqdLncp0yJA5YXvCkyFaL99+ZGAKOM5rfi9H/ELieejji6FMz7EeWnGeecoux9ItPoQMesnHcG4ZSg0JmQaQA=
+	t=1779962874; cv=none; b=Q3g2JAuIvjgvJ2MFKuW2lBsDVzCPvIIyiU46keyDgqaEhjlaALBcG4U55U2MvjMKl0IOGfm4X+oMdMtz2/kbG3wZgQWIUKOvvRrfYijhEsJpLlAW10ZErcLLxDs4Oyh3AWF1EYDgtTnhGsrgGixgTMZUw1IoioFx1FYxEbfRD7s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779962867; c=relaxed/simple;
-	bh=s+tAFQWynP4FEurcpkqp4lvBgWrs0E8Ljg1RJ4bZBmU=;
+	s=arc-20240116; t=1779962874; c=relaxed/simple;
+	bh=0bpujqBXj8ybvFop9bYyotPQK8jlJ2ekGPANR3iA7ac=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=aQOf/U+7OdVH7r6ut/xdm3KDD8IMN5POFanypZ+IUnopO+SkX5ks3bUKZr2XmaHHKvOz3STUHa/xsHgs03diJgR7CsxRYT6MDP/SJ5R7V7FKZD5eiZLlJsR43lwIMqKLGSxvHhYdpijtd8WllBTH3w1m44eV1e9Jd42lRiwHMXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pHYxw5GC; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=VZvxKZsM; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=UGThQQ2QEL/WncEyMMqrRe0Bv9bnJNTXKtWQf6dXVDQO5Kly03HGIeePa3+xXLMyazVl5fWkCU+3iU4a20YzZ0qJ03ayH+ZV9IIOt3j1GZWxmwX2IatZhIoRlUrFeg3bAPoAndCkZOJ2eoyDCMvC73BckTjWqCdsitGSJ+zJ648=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VgNfazAL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zfp2DRtS; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pHYxw5GC";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="VZvxKZsM"
-Received: from pps.filterd (m0279866.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vNxL3545335
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:45 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VgNfazAL";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zfp2DRtS"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vMKq1562617
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:51 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	8WvFekrIRFFLcAxHpLyvBVm8/1Vp7yHnSBk/lA+7KQA=; b=pHYxw5GC4RZgy/eN
-	Quo54oSfMLuXWfR8+2eohjw/vDVMv0uPsuRksctEluC7V64nmvxuCTH1Jii3d56l
-	orLlcyJNwGH3v7epf1uF2ea0BdZLctDAtJpTGMctgDPFEOVa0hTXnVs5R/HkPd2V
-	Guib1TkbE+4h2Sgf5kJNZaULGlvmRQ/99w1SEiLl1u3Zqmg26ORYwZ+yXx0wqrn+
-	nkFxOd1dP+qB+nae2yknuCG75j09rJrvxl3E6rD/JJm0O26K9nT8GMnU2qWZTKJO
-	5lcWUbDN6ExW46GW5dmiZaV0wvW83GNNzFOLHMajZvoaKjAaMO1RZYyHVE3VkD+n
-	oyYSxQ==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y3tacf-1
+	3RwriUHLcTIRS+XdQpTMw9i8MGJ5W63QMAIYPHkoS/4=; b=VgNfazAL9a6dxoEP
+	Fx/f1rsvXchmkI9lIEaBLYbFRrljnbAR1WP14dJXYeSaX/6c5wSKiS3mhjO2MG2l
+	pMPK0RAhC7G+Ie3Vc9assFs1P8adNqUhBQGdy89DxJMWq0ezhPJjPTkatgWRKO2l
+	zOWoenMt4FVDoKpxpFDA5WKJl1m742F4Mx3rWmjvt9xrSwzSBioKTiapEHCi5uEE
+	BN/yRZ/cVa4CFqg1QpeSlGUobG4wPlU5/nQcEivDKVl5kiuI8nHsua/hSez5DxSg
+	UW6Z9EwLIwE8XuJzvQDBccBr6Mlf+aYCXbF4GiQtweFO4nAmvYmYzk2Su786OOmi
+	Dx4kLg==
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y2tadb-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:45 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-3663cbff31cso7008589a91.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:07:45 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:51 +0000 (GMT)
+Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3692f395339so13018043a91.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:07:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779962865; x=1780567665; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1779962871; x=1780567671; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=8WvFekrIRFFLcAxHpLyvBVm8/1Vp7yHnSBk/lA+7KQA=;
-        b=VZvxKZsMqUliI5jDTaFWJVTbGNUYBsWmcaPOorhyNRWuNS9rhYMnr//zCpYomaFkEa
-         Jr5q/0EkDGtzZgLJPHgBviRC1y2BzlMQ1L2oL8EVtFD4VS6kIDDlMGep/UxP2IoQvmml
-         DRJfYW7+8QTQ6osr0uUdMLvfSZy58cKVWxlbi8WFCDI1EXCzBSBcCUdWU3ydYByDFtNt
-         yCCrQhOeTSbAsk3rGHbT8bYrCPU5YG9s560I6ncEuFB7C9bmnuhfmdloVN3bjfzkICfQ
-         gS04atK5PPA+hmG9lOZEUBhFVvLCVWIwxBVilQaFlTV3auwIywbHiHTroKbfHs4yBOYC
-         6gHw==
+        bh=3RwriUHLcTIRS+XdQpTMw9i8MGJ5W63QMAIYPHkoS/4=;
+        b=Zfp2DRtS0R+ajY8J51pQiJTxLaINyz0NhVlL3+ERh4FUMg+RDN/otOFbAxfE7Y8Wsw
+         ptHOTVtbso6fIUJMj/6r6MPBViIKIESSmjb0q4Zi/zMaT+MGSocrSjrgHRxydEN3eobK
+         SwQLuNuM/QdrGdGLF657rDc/V88anJMGJURla8R+1dSiFmY6fLOUr7N5ElO3LafkpbIb
+         yvuz0UsAOaydM2eNzDAaDq2SJzzOwO6VkWceaDb8mE2VuUT91S3SEmgnxCHe0pbjDsB0
+         YRxaK3uVcptOzPHqEoGjCFILSGNMmNflYNQwAy/c1pM09cefrteiqv/Mxr3kcAo7Q6cc
+         QNzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779962865; x=1780567665;
+        d=1e100.net; s=20251104; t=1779962871; x=1780567671;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=8WvFekrIRFFLcAxHpLyvBVm8/1Vp7yHnSBk/lA+7KQA=;
-        b=HsVZdyoZ5eiW7zqPgKTEVuRtZXijqZUlu2VQMIZ8SWJ6QzdtBlAEuP2QjxHDux8Mmo
-         O/EzsIv7048OI2JuCnM3uIE4VxZcQRNI7y7DxP2n944uJ4yblalHOU7WkNVBfOc7R9Mv
-         ZYICAVEXod+2fYPwG/NqYi3YYUr5JHjOsy3Fd3DnXjQyKQ0g1kDqZCetRqVYODgxMk/i
-         lTONYZ3F+QguKUL6enPdve3VoTIU+xLxqclervgonxOCef10KYCvu6Hf7NKgplixi5/e
-         Q+tzSQ/AJfpE/uetlGx6tVPHaX6x6u5kyvmIlay4bjTM6U83NSFkthHL6U/IlCigFLl3
-         T1vg==
-X-Forwarded-Encrypted: i=1; AFNElJ/iB77XMf86lXphV6xLXwALdp/vu1x7OO6EtDpsWcmFC50h9yBB0PTMt2h6JCzIho9nRUfF8Yv6jJw1@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEVD40UKhEnPmgyO7VHxC/ZUJoY1TWoFsDd7gRj/lQTPJnWQ27
-	FmcsSk+NFaSbB4fVzp9lymbewCZPWIZOxVzKsbiUdFMnKhTwmos6Dviy1+5+qWLhD4oyvila/i0
-	d0gYNLqioeVsnFxmZCGyzso5cODsgXVFTrtYkUan83OVAvpZbbEMYXQPTy1LIotl8
-X-Gm-Gg: Acq92OHfX8iPKCi29FaaMsLtg69o5sw2cF8sswl/FrtCF0ynPlbcn4aipNbaxbjxK8S
-	KApI3EG3+b+FezizlzXyIQgkxPdrX3M2NAXRbRevmFEbM3Saghx+teW9XoRtw6ZpF+bZp6Y/ZP+
-	YsevyZ7GNMgRmyfgo9vNS6hAw+Vo8605PVAYTbpOuCbJCqFmlp/PrJausrqHNYjbjlpiaZpXucA
-	6HvEzUbMZFsSxF/sgW8sHQu7z3nGEegpRwia+FH2rs8QwTSNsKQ5U6/vFsUdLnwFL+4sKZ2IFeI
-	v/7EOMbBT2j8xpaPG/QEJZx9a4NKddVxSlhXs0kJNUMcyQS4rB/63zNtj7/csFu90u7d4fgzKA0
-	QI/zxW8t4MVLNp8ax35Z7lR8XvHpFbDzgA3AG3xX50XrQmpBZ1COvvS6hBtheTtc=
-X-Received: by 2002:a17:90b:3d09:b0:367:cb53:7435 with SMTP id 98e67ed59e1d1-36a678478c0mr26699328a91.24.1779962864880;
-        Thu, 28 May 2026 03:07:44 -0700 (PDT)
-X-Received: by 2002:a17:90b:3d09:b0:367:cb53:7435 with SMTP id 98e67ed59e1d1-36a678478c0mr26699284a91.24.1779962864454;
-        Thu, 28 May 2026 03:07:44 -0700 (PDT)
+        bh=3RwriUHLcTIRS+XdQpTMw9i8MGJ5W63QMAIYPHkoS/4=;
+        b=F7BgPrKBEjEhRh1KrrqZD3OIxHMiRNJNZsVyr6L1/746xRDY6759r2QHEqcjh0U8uM
+         qmlE9lvAW3Ki2LScq7iy8kn+JFIwtqVXW9klmzRdKRNJTe0L9+0s/nWzlNU8weRcNM7I
+         u+2NFx2T8wYI7qX9qErb3sooUxpHssJJ4oXoJiXweCBFcVZekO3U/7VtElaFx6Lm0MEW
+         KJI2ZnWKI2U4YgnQaGLqWrnQN9PCabqauS37h+10K/blNN8VDbXjbvwldOtQYi7Z7IVc
+         /kbVbkjbrLciJy8SmOsMF5ucVUJpRn6OTeWdTR4tHdTRYKf6n0gm8I5RQ4sQ8noQfB5h
+         oFGw==
+X-Forwarded-Encrypted: i=1; AFNElJ8oKT7UoCHSAn1qgVHH8wXh4HyDL2j3/rEjMKNl17elJzEDHf/3x/0lVXBLipJY59NrB9mz5PFNhvSN@vger.kernel.org
+X-Gm-Message-State: AOJu0YyEGbB2dHBfHhCaWuXzy/uUcrzsgGfhIYSgWZer19L1rC6w1Kfy
+	oBkybBn3viYbiuF2fTaB72RtcC4CyKoACwPO4kLRbLwA7quO3e5jeQmNhhhf03dZtJmUS17fCmO
+	op/NDb7S42cQKaMbzk0NgPBlppYhLHG1iyu3f62A5g7l66xcL6ePtg4M8SRoOydMI
+X-Gm-Gg: Acq92OHSgK5uIV6m+KOKOO2Wy2sgSU+Whtcgr1dVy4ZCpg7QAahLVkZPnWWcIL5i3pI
+	81xfQORYLIFFLlSEzUl/XdI1vwdLIqutAvnhq8+7kwi9FsVpaYPjVWin9oBxvGFGn565O/OpNdA
+	81SWmm3aXga6RNxkw2OHd5yKuZz4sMbv72C7QLCNDaiMDRdkR5r0WAxpzM3KrQ5YsEdF2xsQhQP
+	w/kh5NdZ4NOkTXViNx8gO/pXzyi3c/UHePBRFeZUy7ffsx8F/nJvgRicD9dZcbh3zUDdoRBQH8w
+	95X32MvVxfwanLoqtIvDd0k02qtStlvHLugJWpG+VVVRWctbxxuZA4hu3hEpYnzh3L8ULUfUUn+
+	ufAAFgsRfUe9efhpOA/gPnWu2Ppy5anMMYUUyEEEHxa/rosgjSjeOr0nzNl6WO+M=
+X-Received: by 2002:a17:90b:2f84:b0:35f:b714:e516 with SMTP id 98e67ed59e1d1-36a674f4399mr26552778a91.16.1779962870764;
+        Thu, 28 May 2026 03:07:50 -0700 (PDT)
+X-Received: by 2002:a17:90b:2f84:b0:35f:b714:e516 with SMTP id 98e67ed59e1d1-36a674f4399mr26552726a91.16.1779962870174;
+        Thu, 28 May 2026 03:07:50 -0700 (PDT)
 Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36b7e38af60sm575296a91.1.2026.05.28.03.07.39
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36b7e38af60sm575296a91.1.2026.05.28.03.07.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 03:07:44 -0700 (PDT)
+        Thu, 28 May 2026 03:07:49 -0700 (PDT)
 From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Date: Thu, 28 May 2026 15:37:05 +0530
-Subject: [PATCH v2 4/5] clk: qcom: dispcc-qcm2290: Add support for Qualcomm
- Shikra DISPCC
+Date: Thu, 28 May 2026 15:37:06 +0530
+Subject: [PATCH v2 5/5] clk: qcom: Add support for Qualcomm GPU Clock
+ Controller on Shikra
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260528-shikra-dispcc-gpucc-v2-4-953f246a0fbb@oss.qualcomm.com>
+Message-Id: <20260528-shikra-dispcc-gpucc-v2-5-953f246a0fbb@oss.qualcomm.com>
 References: <20260528-shikra-dispcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com>
 In-Reply-To: <20260528-shikra-dispcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -107,120 +107,418 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Imran Shaik <imran.shaik@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Proofpoint-ORIG-GUID: 4DueM_qzv7ktM3_R6g-tLz9JLErxRKhe
-X-Authority-Analysis: v=2.4 cv=JMYLdcKb c=1 sm=1 tr=0 ts=6a1813f1 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=VeXH+lp9 c=1 sm=1 tr=0 ts=6a1813f7 cx=c_pps
+ a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=YMgV9FUhrdKAYTUUvYB2:22
- a=EUspDBNiAAAA:8 a=c-iP70gTdw2rVZxswl4A:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: 4DueM_qzv7ktM3_R6g-tLz9JLErxRKhe
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMiBTYWx0ZWRfX0ILY9dbLSFee
- +LIMSKq9+X3z6R7F19G4azFUiBrcFkp2WR2JLPWK8JiurppdIl4ZUG5VuqT0QgOjXtlGvnF5sD7
- KGB+gKHoDCHw8YEJ+bLao2IKgFlh8OxF4gBuHScoWh8Qz4OWirgxC7P1Ikp60HlDeMJ6vMSCN35
- Qad5LsBaaqflpaUCe967HhQ9wKYqtnyRfc+jj+KlFii1URW9lE901Uoe4EHqI/jAbfIDY8euhbZ
- cycEz/aum3uW+xayz4JqK3gm3+LJ/5ys4MYG+pqLyzlUX0uLfNS8tL2Rs42fI5DYCCc0B/98nwM
- LSnCgIqapJzziWuUlnNy24llkYkUgc82vVMX0rGr9evYgKhURz3p2JgxKJFB/+wo/3dP2bdINZz
- x6desoC9Vj//cYgiwbE4LiGM49MIO1wQPU/0S8dREmObTARLqsKW8rjJz52emsqetQOXtQ0uevq
- 5IvmLg00987ngc4t8ug==
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=h4tiyZWTG5MJAiqrTW8A:9 a=QEXdDO2ut3YA:10
+ a=mQ_c8vxmzFEMiUWkPHU9:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMiBTYWx0ZWRfXyBL4I80mSTiZ
+ msCyfHYaGjkTMMVk0QCCntVPZoG9HG+vuRZSUM3etmsfkx1ZZEJr3jSK6tPOCc1TXgIpjYjFqsC
+ b/batB25e5Gyer+8DWRz4wkoNCJMnSwzKAEhUjHXOpcwG6szovQclRSIoynsgma2ML9DkBJ3W02
+ xCRcEgSyj8C83MvzNjnzYTYeyotW9vhkIwn6oj+ie7nu8qTrwwoJYtxQxzXN2aJ1BteT2jWRWHw
+ RNPlPGwrv1qUD3tJQP5f5Juv+9lj7EmpT28il+Gr9sDvj5SWSYgLkXWsAtNHIM34sGNc8dzcCJG
+ msceUfPULuMBtXxs0u9bXK9rDYy6AVWR9i2iVX3CO69Yu0+T1IuKrY7NBscOv3pilX463Qi419m
+ 64acu+akmdjsA0kITCww0T91w3plKliInXw4MMcUsKX/77EdWdffe1ZJQTdCmR7SYSuBRk3mrbx
+ aRCPVS/X0rxDNAmhHAQ==
+X-Proofpoint-GUID: FbB8X7FCjfIPEzrRjsK67v50IIR11mPu
+X-Proofpoint-ORIG-GUID: FbB8X7FCjfIPEzrRjsK67v50IIR11mPu
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-05-28_03,2026-05-26_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- clxscore=1015 spamscore=0 malwarescore=0 suspectscore=0 priorityscore=1501
- adultscore=0 phishscore=0 bulkscore=0 impostorscore=0 lowpriorityscore=0
+ spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0 malwarescore=0
+ impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 phishscore=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280102
 
-The Qualcomm Shikra Display clock controller reuses the QCM2290 DISPCC,
-but has minor differences. Update the parent data of mdss ahb/mdp clocks
-accordingly to the hardware clock plan and correct the GDSC *_wait_val and
-flags which are applicable for both QCM2290 and Shikra SoC, and add the
-support for DSI1 PHY source.
+The Qualcomm Shikra GPU clock controller is similar to QCM2290 GPUCC
+hardware block, with minor differences. Drop modelling of critical
+clocks and keep them enabled at probe time, update the QCM2290 GPUCC
+driver to align with the latest common qcom_cc_probe() model. Update the
+GDSC *_wait_val and flags which are applicable for both QCM2290 and Shikra.
 
 Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
 ---
- drivers/clk/qcom/dispcc-qcm2290.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ drivers/clk/qcom/gpucc-qcm2290.c | 174 +++++++++++++++++----------------------
+ 1 file changed, 74 insertions(+), 100 deletions(-)
 
-diff --git a/drivers/clk/qcom/dispcc-qcm2290.c b/drivers/clk/qcom/dispcc-qcm2290.c
-index 6d88d067337fa132114b0d8666931b449f86de17..19c997f3fe9f197d2c252a9dd1e8169947200f5f 100644
---- a/drivers/clk/qcom/dispcc-qcm2290.c
-+++ b/drivers/clk/qcom/dispcc-qcm2290.c
-@@ -2,6 +2,7 @@
+diff --git a/drivers/clk/qcom/gpucc-qcm2290.c b/drivers/clk/qcom/gpucc-qcm2290.c
+index dc369dff882e69a8c0acd260953d5fcae9453120..296afcbfe0c9e4e147dcbd8bca807e8e4c50e185 100644
+--- a/drivers/clk/qcom/gpucc-qcm2290.c
++++ b/drivers/clk/qcom/gpucc-qcm2290.c
+@@ -2,14 +2,13 @@
  /*
   * Copyright (c) 2020, The Linux Foundation. All rights reserved.
-  * Copyright (c) 2021, Linaro Ltd.
+  * Copyright (c) 2024, Linaro Limited
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
   */
  
  #include <linux/clk-provider.h>
-@@ -32,6 +33,8 @@ enum {
- 	P_GPLL0_OUT_DIV,
- 	P_GPLL0_OUT_MAIN,
- 	P_SLEEP_CLK,
-+	P_DSI1_PHY_PLL_OUT_BYTECLK,
-+	P_DSI1_PHY_PLL_OUT_DSICLK,
+ #include <linux/mod_devicetable.h>
+ #include <linux/module.h>
+ #include <linux/platform_device.h>
+-#include <linux/pm_clock.h>
+-#include <linux/pm_runtime.h>
+ #include <linux/regmap.h>
+ 
+ #include <dt-bindings/clock/qcom,qcm2290-gpucc.h>
+@@ -20,7 +19,7 @@
+ #include "clk-regmap.h"
+ #include "clk-regmap-divider.h"
+ #include "clk-regmap-mux.h"
+-#include "clk-regmap-phy-mux.h"
++#include "common.h"
+ #include "gdsc.h"
+ #include "reset.h"
+ 
+@@ -46,6 +45,7 @@ static const struct pll_vco huayra_vco[] = {
+ 	{ 600000000, 2200000000, 1 },
  };
  
- static const struct pll_vco spark_vco[] = {
-@@ -84,7 +87,7 @@ static const struct clk_parent_data disp_cc_parent_data_1[] = {
++/* 710.4 MHz Configuration */
+ static const struct alpha_pll_config gpu_cc_pll0_config = {
+ 	.l = 0x25,
+ 	.config_ctl_val = 0x200d4828,
+@@ -57,11 +57,12 @@ static const struct alpha_pll_config gpu_cc_pll0_config = {
  
- static const struct parent_map disp_cc_parent_map_2[] = {
- 	{ P_BI_TCXO_AO, 0 },
--	{ P_GPLL0_OUT_DIV, 4 },
-+	{ P_GPLL0_OUT_MAIN, 4 },
+ static struct clk_alpha_pll gpu_cc_pll0 = {
+ 	.offset = 0x0,
++	.config = &gpu_cc_pll0_config,
+ 	.vco_table = huayra_vco,
+ 	.num_vco = ARRAY_SIZE(huayra_vco),
+ 	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_HUAYRA_2290],
+ 	.clkr = {
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_pll0",
+ 			.parent_data = &(const struct clk_parent_data) {
+ 				.index = DT_BI_TCXO,
+@@ -80,10 +81,10 @@ static const struct parent_map gpu_cc_parent_map_0[] = {
  };
  
- static const struct clk_parent_data disp_cc_parent_data_2[] = {
-@@ -101,17 +104,19 @@ static const struct parent_map disp_cc_parent_map_3[] = {
- static const struct clk_parent_data disp_cc_parent_data_3[] = {
- 	{ .fw_name = "bi_tcxo" },
- 	{ .hw = &disp_cc_pll0.clkr.hw },
--	{ .fw_name = "gcc_disp_gpll0_clk_src" },
-+	{ .fw_name = "gcc_disp_gpll0_div_clk_src" },
+ static const struct clk_parent_data gpu_cc_parent_data_0[] = {
+-	{ .index = DT_BI_TCXO, },
+-	{ .hw = &gpu_cc_pll0.clkr.hw, },
+-	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC, },
+-	{ .index = DT_GCC_GPU_GPLL0_DIV_CLK_SRC, },
++	{ .index = DT_BI_TCXO },
++	{ .hw = &gpu_cc_pll0.clkr.hw },
++	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC },
++	{ .index = DT_GCC_GPU_GPLL0_DIV_CLK_SRC },
  };
  
- static const struct parent_map disp_cc_parent_map_4[] = {
- 	{ P_BI_TCXO, 0 },
- 	{ P_DSI0_PHY_PLL_OUT_DSICLK, 1 },
-+	{ P_DSI1_PHY_PLL_OUT_DSICLK, 2 },
+ static const struct parent_map gpu_cc_parent_map_1[] = {
+@@ -95,11 +96,11 @@ static const struct parent_map gpu_cc_parent_map_1[] = {
  };
  
- static const struct clk_parent_data disp_cc_parent_data_4[] = {
- 	{ .fw_name = "bi_tcxo" },
- 	{ .fw_name = "dsi0_phy_pll_out_dsiclk" },
-+	{ .fw_name = "dsi1_phy_pll_out_dsiclk" },
+ static const struct clk_parent_data gpu_cc_parent_data_1[] = {
+-	{ .index = DT_BI_TCXO, },
+-	{ .hw = &gpu_cc_pll0.clkr.hw, },
+-	{ .hw = &gpu_cc_pll0.clkr.hw, },
+-	{ .hw = &gpu_cc_pll0.clkr.hw, },
+-	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC, },
++	{ .index = DT_BI_TCXO },
++	{ .hw = &gpu_cc_pll0.clkr.hw },
++	{ .hw = &gpu_cc_pll0.clkr.hw },
++	{ .hw = &gpu_cc_pll0.clkr.hw },
++	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC },
  };
  
- static const struct parent_map disp_cc_parent_map_5[] = {
-@@ -153,8 +158,8 @@ static struct clk_regmap_div disp_cc_mdss_byte0_div_clk_src = {
- 
- static const struct freq_tbl ftbl_disp_cc_mdss_ahb_clk_src[] = {
- 	F(19200000, P_BI_TCXO_AO, 1, 0, 0),
--	F(37500000, P_GPLL0_OUT_DIV, 8, 0, 0),
--	F(75000000, P_GPLL0_OUT_DIV, 4, 0, 0),
-+	F(37500000, P_GPLL0_OUT_MAIN, 8, 0, 0),
-+	F(75000000, P_GPLL0_OUT_MAIN, 4, 0, 0),
+ static const struct freq_tbl ftbl_gpu_cc_gmu_clk_src[] = {
+@@ -113,7 +114,8 @@ static struct clk_rcg2 gpu_cc_gmu_clk_src = {
+ 	.hid_width = 5,
+ 	.parent_map = gpu_cc_parent_map_0,
+ 	.freq_tbl = ftbl_gpu_cc_gmu_clk_src,
+-	.clkr.hw.init = &(struct clk_init_data){
++	.hw_clk_ctrl = true,
++	.clkr.hw.init = &(const struct clk_init_data) {
+ 		.name = "gpu_cc_gmu_clk_src",
+ 		.parent_data = gpu_cc_parent_data_0,
+ 		.num_parents = ARRAY_SIZE(gpu_cc_parent_data_0),
+@@ -133,32 +135,30 @@ static const struct freq_tbl ftbl_gpu_cc_gx_gfx3d_clk_src[] = {
  	{ }
  };
  
-@@ -450,11 +455,14 @@ static const struct qcom_reset_map disp_cc_qcm2290_resets[] = {
- 
- static struct gdsc mdss_gdsc = {
- 	.gdscr = 0x3000,
-+	.en_rest_wait_val = 0x2,
-+	.en_few_wait_val = 0x2,
-+	.clk_dis_wait_val = 0xf,
- 	.pd = {
- 		.name = "mdss_gdsc",
++static const struct freq_tbl ftbl_gpu_cc_gx_gfx3d_clk_src_shikra[] = {
++	F(355200000, P_GPU_CC_PLL0_OUT_AUX, 2, 0, 0),
++	F(537600000, P_GPU_CC_PLL0_OUT_AUX, 2, 0, 0),
++	F(672000000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
++	F(844800000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
++	F(921600000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
++	F(1017600000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
++	F(1142400000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
++	{ }
++};
++
+ static struct clk_rcg2 gpu_cc_gx_gfx3d_clk_src = {
+ 	.cmd_rcgr = 0x101c,
+ 	.mnd_width = 0,
+ 	.hid_width = 5,
+ 	.parent_map = gpu_cc_parent_map_1,
+ 	.freq_tbl = ftbl_gpu_cc_gx_gfx3d_clk_src,
+-	.clkr.hw.init = &(struct clk_init_data){
++	.hw_clk_ctrl = true,
++	.clkr.hw.init = &(const struct clk_init_data) {
+ 		.name = "gpu_cc_gx_gfx3d_clk_src",
+ 		.parent_data = gpu_cc_parent_data_1,
+ 		.num_parents = ARRAY_SIZE(gpu_cc_parent_data_1),
+ 		.flags = CLK_SET_RATE_PARENT,
+-		.ops = &clk_rcg2_ops,
+-	},
+-};
+-
+-static struct clk_branch gpu_cc_ahb_clk = {
+-	.halt_reg = 0x1078,
+-	.halt_check = BRANCH_HALT_DELAY,
+-	.clkr = {
+-		.enable_reg = 0x1078,
+-		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
+-			.name = "gpu_cc_ahb_clk",
+-			.flags = CLK_IS_CRITICAL,
+-			.ops = &clk_branch2_ops,
+-		},
++		.ops = &clk_rcg2_shared_ops,
  	},
- 	.pwrsts = PWRSTS_OFF_ON,
--	.flags = HW_CTRL,
-+	.flags = HW_CTRL_TRIGGER | POLL_CFG_GDSCR | RETAIN_FF_ENABLE,
  };
  
- static struct gdsc *disp_cc_qcm2290_gdscs[] = {
+@@ -168,7 +168,7 @@ static struct clk_branch gpu_cc_crc_ahb_clk = {
+ 	.clkr = {
+ 		.enable_reg = 0x107c,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_crc_ahb_clk",
+ 			.ops = &clk_branch2_ops,
+ 		},
+@@ -181,10 +181,10 @@ static struct clk_branch gpu_cc_cx_gfx3d_clk = {
+ 	.clkr = {
+ 		.enable_reg = 0x10a4,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_cx_gfx3d_clk",
+-			.parent_data = &(const struct clk_parent_data){
+-				.hw = &gpu_cc_gx_gfx3d_clk_src.clkr.hw,
++			.parent_hws = (const struct clk_hw*[]) {
++				&gpu_cc_gx_gfx3d_clk_src.clkr.hw,
+ 			},
+ 			.num_parents = 1,
+ 			.flags = CLK_SET_RATE_PARENT,
+@@ -199,10 +199,10 @@ static struct clk_branch gpu_cc_cx_gmu_clk = {
+ 	.clkr = {
+ 		.enable_reg = 0x1098,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_cx_gmu_clk",
+-			.parent_data = &(const struct clk_parent_data){
+-				.hw = &gpu_cc_gmu_clk_src.clkr.hw,
++			.parent_hws = (const struct clk_hw*[]) {
++				&gpu_cc_gmu_clk_src.clkr.hw,
+ 			},
+ 			.num_parents = 1,
+ 			.flags = CLK_SET_RATE_PARENT,
+@@ -217,33 +217,20 @@ static struct clk_branch gpu_cc_cx_snoc_dvm_clk = {
+ 	.clkr = {
+ 		.enable_reg = 0x108c,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_cx_snoc_dvm_clk",
+ 			.ops = &clk_branch2_ops,
+ 		},
+ 	},
+ };
+ 
+-static struct clk_branch gpu_cc_cxo_aon_clk = {
+-	.halt_reg = 0x1004,
+-	.halt_check = BRANCH_HALT_DELAY,
+-	.clkr = {
+-		.enable_reg = 0x1004,
+-		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
+-			.name = "gpu_cc_cxo_aon_clk",
+-			.ops = &clk_branch2_ops,
+-		},
+-	},
+-};
+-
+ static struct clk_branch gpu_cc_cxo_clk = {
+ 	.halt_reg = 0x109c,
+ 	.halt_check = BRANCH_HALT,
+ 	.clkr = {
+ 		.enable_reg = 0x109c,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_cxo_clk",
+ 			.ops = &clk_branch2_ops,
+ 		},
+@@ -256,10 +243,10 @@ static struct clk_branch gpu_cc_gx_gfx3d_clk = {
+ 	.clkr = {
+ 		.enable_reg = 0x1054,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_gx_gfx3d_clk",
+-			.parent_data = &(const struct clk_parent_data){
+-				.hw = &gpu_cc_gx_gfx3d_clk_src.clkr.hw,
++			.parent_hws = (const struct clk_hw*[]) {
++				&gpu_cc_gx_gfx3d_clk_src.clkr.hw,
+ 			},
+ 			.num_parents = 1,
+ 			.flags = CLK_SET_RATE_PARENT,
+@@ -270,11 +257,11 @@ static struct clk_branch gpu_cc_gx_gfx3d_clk = {
+ 
+ static struct clk_branch gpu_cc_sleep_clk = {
+ 	.halt_reg = 0x1090,
+-	.halt_check = BRANCH_VOTED,
++	.halt_check = BRANCH_HALT_VOTED,
+ 	.clkr = {
+ 		.enable_reg = 0x1090,
+ 		.enable_mask = BIT(0),
+-		.hw.init = &(struct clk_init_data){
++		.hw.init = &(const struct clk_init_data) {
+ 			.name = "gpu_cc_sleep_clk",
+ 			.ops = &clk_branch2_ops,
+ 		},
+@@ -297,11 +284,14 @@ static struct clk_branch gpu_cc_hlos1_vote_gpu_smmu_clk = {
+ static struct gdsc gpu_cx_gdsc = {
+ 	.gdscr = 0x106c,
+ 	.gds_hw_ctrl = 0x1540,
++	.en_rest_wait_val = 0x2,
++	.en_few_wait_val = 0x2,
++	.clk_dis_wait_val = 0x2,
+ 	.pd = {
+ 		.name = "gpu_cx_gdsc",
+ 	},
+ 	.pwrsts = PWRSTS_OFF_ON,
+-	.flags = VOTABLE,
++	.flags = RETAIN_FF_ENABLE | VOTABLE,
+ };
+ 
+ static struct gdsc gpu_gx_gdsc = {
+@@ -309,21 +299,22 @@ static struct gdsc gpu_gx_gdsc = {
+ 	.clamp_io_ctrl = 0x1508,
+ 	.resets = (unsigned int []){ GPU_GX_BCR },
+ 	.reset_count = 1,
++	.en_rest_wait_val = 0x2,
++	.en_few_wait_val = 0x2,
++	.clk_dis_wait_val = 0x2,
+ 	.pd = {
+ 		.name = "gpu_gx_gdsc",
+ 	},
+ 	.parent = &gpu_cx_gdsc.pd,
+ 	.pwrsts = PWRSTS_OFF_ON,
+-	.flags = CLAMP_IO | AON_RESET | SW_RESET,
++	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE | SW_RESET | CLAMP_IO | AON_RESET,
+ };
+ 
+ static struct clk_regmap *gpu_cc_qcm2290_clocks[] = {
+-	[GPU_CC_AHB_CLK] = &gpu_cc_ahb_clk.clkr,
+ 	[GPU_CC_CRC_AHB_CLK] = &gpu_cc_crc_ahb_clk.clkr,
+ 	[GPU_CC_CX_GFX3D_CLK] = &gpu_cc_cx_gfx3d_clk.clkr,
+ 	[GPU_CC_CX_GMU_CLK] = &gpu_cc_cx_gmu_clk.clkr,
+ 	[GPU_CC_CX_SNOC_DVM_CLK] = &gpu_cc_cx_snoc_dvm_clk.clkr,
+-	[GPU_CC_CXO_AON_CLK] = &gpu_cc_cxo_aon_clk.clkr,
+ 	[GPU_CC_CXO_CLK] = &gpu_cc_cxo_clk.clkr,
+ 	[GPU_CC_GMU_CLK_SRC] = &gpu_cc_gmu_clk_src.clkr,
+ 	[GPU_CC_GX_GFX3D_CLK] = &gpu_cc_gx_gfx3d_clk.clkr,
+@@ -342,14 +333,30 @@ static struct gdsc *gpu_cc_qcm2290_gdscs[] = {
+ 	[GPU_GX_GDSC] = &gpu_gx_gdsc,
+ };
+ 
++static struct clk_alpha_pll *gpu_cc_qcm2290_plls[] = {
++	&gpu_cc_pll0,
++};
++
++static const u32 gpu_cc_qcm2290_critical_cbcrs[] = {
++	0x1078, /* GPU_CC_AHB_CLK */
++	0x1004, /* GPU_CC_CXO_AON_CLK */
++	0x1060, /* GPU_CC_GX_CXO_CLK */
++};
++
+ static const struct regmap_config gpu_cc_qcm2290_regmap_config = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+ 	.val_bits = 32,
+-	.max_register = 0x9000,
++	.max_register = 0x7008,
+ 	.fast_io = true,
+ };
+ 
++static const struct qcom_cc_driver_data gpu_cc_qcm2290_driver_data = {
++	.alpha_plls = gpu_cc_qcm2290_plls,
++	.num_alpha_plls = ARRAY_SIZE(gpu_cc_qcm2290_plls),
++	.clk_cbcrs = gpu_cc_qcm2290_critical_cbcrs,
++	.num_clk_cbcrs = ARRAY_SIZE(gpu_cc_qcm2290_critical_cbcrs),
++};
+ 
+ static const struct qcom_cc_desc gpu_cc_qcm2290_desc = {
+ 	.config = &gpu_cc_qcm2290_regmap_config,
+@@ -359,55 +366,22 @@ static const struct qcom_cc_desc gpu_cc_qcm2290_desc = {
+ 	.num_resets = ARRAY_SIZE(gpu_cc_qcm2290_resets),
+ 	.gdscs = gpu_cc_qcm2290_gdscs,
+ 	.num_gdscs = ARRAY_SIZE(gpu_cc_qcm2290_gdscs),
++	.driver_data = &gpu_cc_qcm2290_driver_data,
+ };
+ 
+ static const struct of_device_id gpu_cc_qcm2290_match_table[] = {
+ 	{ .compatible = "qcom,qcm2290-gpucc" },
++	{ .compatible = "qcom,shikra-gpucc" },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, gpu_cc_qcm2290_match_table);
+ 
+ static int gpu_cc_qcm2290_probe(struct platform_device *pdev)
+ {
+-	struct regmap *regmap;
+-	int ret;
+-
+-	regmap = qcom_cc_map(pdev, &gpu_cc_qcm2290_desc);
+-	if (IS_ERR(regmap))
+-		return PTR_ERR(regmap);
+-
+-	ret = devm_pm_runtime_enable(&pdev->dev);
+-	if (ret)
+-		return ret;
+-
+-	ret = devm_pm_clk_create(&pdev->dev);
+-	if (ret)
+-		return ret;
+-
+-	ret = pm_clk_add(&pdev->dev, NULL);
+-	if (ret < 0) {
+-		dev_err(&pdev->dev, "failed to acquire ahb clock\n");
+-		return ret;
+-	}
+-
+-	ret = pm_runtime_resume_and_get(&pdev->dev);
+-	if (ret)
+-		return ret;
+-
+-	clk_huayra_2290_pll_configure(&gpu_cc_pll0, regmap, &gpu_cc_pll0_config);
+-
+-	regmap_update_bits(regmap, 0x1060, BIT(0), BIT(0)); /* GPU_CC_GX_CXO_CLK */
+-
+-	ret = qcom_cc_really_probe(&pdev->dev, &gpu_cc_qcm2290_desc, regmap);
+-	if (ret) {
+-		dev_err(&pdev->dev, "Failed to register display clock controller\n");
+-		goto out_pm_runtime_put;
+-	}
+-
+-out_pm_runtime_put:
+-	pm_runtime_put_sync(&pdev->dev);
++	if (device_is_compatible(&pdev->dev, "qcom,shikra-gpucc"))
++		gpu_cc_gx_gfx3d_clk_src.freq_tbl = ftbl_gpu_cc_gx_gfx3d_clk_src_shikra;
+ 
+-	return 0;
++	return qcom_cc_probe(pdev, &gpu_cc_qcm2290_desc);
+ }
+ 
+ static struct platform_driver gpu_cc_qcm2290_driver = {
 
 -- 
 2.34.1
