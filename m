@@ -1,325 +1,372 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013004.outbound.protection.outlook.com [40.107.201.4])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7B63E8330;
-	Thu, 28 May 2026 13:36:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA2FB3F7ABE
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:37:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.129.124
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779975385; cv=fail; b=ltNee75e9l8vZ4OatmaLeOn8UAczhuHNHPjur2oDr/5ub0gw4otjvlAjIHOS3Wb5k6iGmvh266NBZ05M1Tnz3Hs0S0kO6rigjJWUALxIoA8tZfBRCTqzboIjmrGjTy7HT2Hk8PpnW/qwx8x1SmaEq7At/nNojS0h2a1CEbqBAmk=
+	t=1779975423; cv=pass; b=b3KJJqMcMr10QBVYR/Ioqp9VsOF9hDzhjFkY2kmBRFGsZzlQ7hmQ55xX0Xn+T1uVFwvPljHBg49H6s5Xj3hy6rhG7ex+15w9EgJSpWcD4N7xl5zIg8UqMKt1/XJNuh9n/50zYzdu3vbjbBEaSR1GIglfqe5pnG4MdGElwdV0pVA=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779975385; c=relaxed/simple;
-	bh=i0E9BLRlFyC5modi5gFm6bbDQDJT+YEYBnCla2Sm3OQ=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KHlLr3nBxFq0tkBjAYKVgcQYxpGdVjDU3GYbUwGo5H+BFV+2rO+bOpqCBj/o+yB05S1TlWzcI1YIu/k0LMYFMZ+jCuFHf9JEag6fikbsu1Wkv+w2u5DGw1asQpPyL7ZfL1atNschMW7CaWQVqEXuj1FxRoXtIDOw7qj7QHNB3Is=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=And2Y2AH; arc=fail smtp.client-ip=40.107.201.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	s=arc-20240116; t=1779975423; c=relaxed/simple;
+	bh=vurN08ldMD5PGiITwUyxIe/EslL+gOu64WFiyfSA5jg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Y/51jFQAWftEJDMklTe8Kl2BrEvnWU/ZjkmpZWA8H55lysdyiLk8jjjZ151qXdZEM2tQG4v+8tpFp3bo6XwDfhMXe5NAXgAcCUP9h90c9uVn/iOU6nhbJl41MhH0up+/12eZi6PPuZznUHBwRAmzfbhkAw2msPUZ6pxBDL/UWJc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=D6nDT2RS; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=awZlM7PM; arc=pass smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="And2Y2AH"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=MU2kRnoWQvB1cqiZ6GEphO512ENIhZpaBO6kZAOjFpiZWC4UvfQHrzbjepZDC7jQ1Cv8TodIk8ycko1+uIuzDoZp7OOo3OgyPAZ+kTMhInTfwQY6LdGfvEdNhStk7CuSHQfaokU9FCo5b70FREyrjYujs8pUGAIwlgJ2Lr9htxgeJ115G/dw06t/aWbodwALCc5SdZYt5u8bTzGOTMUTA0np17N6RXoU/Dn/HE0nwolizqytJjwE3rqBZHVj9YALuMqDiaUdM2KO1XTeutbFiiwyz4hdE3nWxIoc8waLSzSUHNlipIJ9DN7ZhRFPKpFZgvksNJJdqVCpzT9v0xxGrg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gP+9y4O2Lp7kB94SDvbkc0LR8U1mMdvxqlvOXr8TuNU=;
- b=CqQOXuihTCVZb7XLsFLPlbiLuDTp/O++tEuG4q+yif9isdd3pGMHugEfiPs9SXYQa4/nHgn1DXvb7PlK0jK6tOazhNLYIawGp69VV0FDc3FfbMZy2iFxvE3HyDcX3g/9coEFvIDW9N3Sd32GE+Aed1fntKhRvXxCR6b2WUqN5/WHmsYGunhXqu1qoP1tu5F2yDq96NcUnZQAORQuKZQHUTBp457wv3jOGORraXQtqEqzvyS9GCLTW+Gaq1pnmrVLNjIhqDCM9nEawbL3N4Bh38Fu0Ioy4dZMuIEFri2WOJxxPZ+sE4Uhlsen31E3+Pl7KUmR9OfevT0TQA/umAXj6A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gP+9y4O2Lp7kB94SDvbkc0LR8U1mMdvxqlvOXr8TuNU=;
- b=And2Y2AHVoIu1iEJ04MANW6HAsxxWOTw/ssLEIhA46bOlcVJkEBK0YUIJVeUZuHbICPacQc8SFkzKdCBk+dwfH7OYMlo99P6oU1kBufXIw4oi7G85xkAU7wUo+8pMuHLbxaGHeQ8ukLXq7U3MqQNWbuIyOux0Soa6RlHkSRqXHw=
-Received: from DS7P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25b::10) by
- MW5PR10MB5875.namprd10.prod.outlook.com (2603:10b6:303:191::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
- 2026 13:36:16 +0000
-Received: from DS2PEPF000061C3.namprd02.prod.outlook.com
- (2603:10b6:8:25b:cafe::4b) by DS7P221CA0003.outlook.office365.com
- (2603:10b6:8:25b::10) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Thu, 28
- May 2026 13:36:16 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- DS2PEPF000061C3.mail.protection.outlook.com (10.167.23.70) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Thu, 28 May 2026 13:36:15 +0000
-Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 08:35:35 -0500
-Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE204.ent.ti.com
- (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 08:35:34 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE201.ent.ti.com
- (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 28 May 2026 08:35:34 -0500
-Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64SDZUbt1602642;
-	Thu, 28 May 2026 08:35:31 -0500
-From: Swamil Jain <s-jain1@ti.com>
-To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<tomi.valkeinen@ideasonboard.com>
-CC: <r-sharma3@ti.com>, <devarsht@ti.com>, <praneeth@ti.com>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
-Subject: [PATCH v2] arm64: dts: ti: k3-am62l: Add HDMI & DSI support
-Date: Thu, 28 May 2026 19:05:29 +0530
-Message-ID: <20260528133529.3476499-1-s-jain1@ti.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="D6nDT2RS";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="awZlM7PM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1779975421;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/lfVZp7HWqHjRqZVVhy7Ez9cx3BFg0k+dK3nLg7M60A=;
+	b=D6nDT2RSiIcjllQUb/LjFaCyeQ1os3intL9y+N5nbasvR4/cmMefy33Yo1sKG20FW6dbg4
+	4KmlB5VcmrWDrpBqZlm6ezjHTa669T+jCz9pMFqUzzzBmBDcooe6MfV56yj7UnUKJgTxTm
+	hVoPo0VAy9wfVFWvnfooRbU2kZcTiLM=
+Received: from mail-lf1-f69.google.com (mail-lf1-f69.google.com
+ [209.85.167.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-619-Tg6dbk9cO4GwufcmCoTggA-1; Thu, 28 May 2026 09:36:58 -0400
+X-MC-Unique: Tg6dbk9cO4GwufcmCoTggA-1
+X-Mimecast-MFC-AGG-ID: Tg6dbk9cO4GwufcmCoTggA_1779975417
+Received: by mail-lf1-f69.google.com with SMTP id 2adb3069b0e04-5a870f93c99so1065223e87.0
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:36:58 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779975417; cv=none;
+        d=google.com; s=arc-20240605;
+        b=XgiV6EyV1MtAE/tOcJJlQgEpCIpz2DLKdIV0mUzdPMLZNloSl8fIJMV87Kj/fnIone
+         mX+0ndK+/nzNk9+9s3IVGL0i3sk0bQz3DzEAH2Pdez4XqhAMNJjvyaICxvI6ZpiMfbaP
+         2pDjR73DIXtZVHbfAdvLeZ7Cyfd+66evVjwuyqvCWzFBHajFE3g/rzc9BG02h6DqrN9C
+         vb3dpyd1xp7lPBa41ONgHrTJ5vFtjavyUS8aoDbF5AUE5GR6BkVUv5y69phoRMPT05El
+         Mc7W0ZX7nEd46z5P0cho+uHqoEuI2Ev5oWCSR74mgpB/kDPfCKHV88YkITiKzqAfUgLt
+         T1UQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=/lfVZp7HWqHjRqZVVhy7Ez9cx3BFg0k+dK3nLg7M60A=;
+        fh=NWSdyqUj4Kwa62LcSkazlO3iHYhwnwOjvXYzA+Ev0Wk=;
+        b=JqLBqTi+TASe0TjR/JN6EIbZw3sSI6vzNuyMVGD8HqtI9p+VywfYUAy6lttU0xcwax
+         Uqd0+GYULXPmuMyQKk8zorqEeOh9leoKbolPlvvkBuG41rGFcQclo2EM2dY3/QsCmenQ
+         LJMWWGLCjuQcwW6HhP/BWAm3MMxcEJMwFHqg2ScP8gCoGHP0Iswqaiom5IW4zWGzI20z
+         m/u9P+B65f19T5eZPUG3PUGOxsqchjsU+ZBeIScTU99qNK0bsynA/wMbLobs7ezVV/lx
+         bnPeN9uNn7mcUNrceitg1P5sH7iC3f/ID3DSzXQZK9R03pQ/SBxuWbgpRksotW0dHfqW
+         KVDA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1779975417; x=1780580217; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/lfVZp7HWqHjRqZVVhy7Ez9cx3BFg0k+dK3nLg7M60A=;
+        b=awZlM7PMJ3Z7qZ5Gc+9Os7atY24tQatdK6vPgtB0GuKjVZNf0JcWRBE16mc3BrP8KS
+         I5pQcdQ9NwP9xodQpanE8sZWX7kooWERAB3MEjxA5Drkglo02FscN9z7isx23tclXxJ7
+         JXOIH7/3W+XLZD2PGMDWt+cB1xE0iGP2cLQO/vImAfg+hxO1buhHGh/XAvW+8p5uXxs1
+         gLboNdVRvb5vQr7e1HPTk+gE3oR7qNGGeaqOeQR13UNCjqD5i7f3FTNxZxHyOj4AbRY7
+         9kSMCuQIG0RBoYoWUIqDM/TJBtNs7RjucuAIVey2zCezdWWB/hWVGRvexQ4KY4oQtWpK
+         EACQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779975417; x=1780580217;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/lfVZp7HWqHjRqZVVhy7Ez9cx3BFg0k+dK3nLg7M60A=;
+        b=gTwJL+1kuLg6KTUaYM/eaesH0XSXhMKGZJFqut1w8mWDLP7MnY71DVVBUq6o+8rIXE
+         E8u2iMLHnBPHuAKY9oam0b+DmqFP7/aTF5guZrSRHqjvMPq3pbehasHS6pU5KNHiMscP
+         umQmgKpxajUVCGF/aSF41ERXnqdM++y9mzLvArktgmk/PhyHKbXU/si8t47JtCGEkH94
+         nXs6H11eb0e4+SgqGaU4OB3bltQ68OtnebxQfnR8l1//8LHCkIGxBBGJE+Dtki+ZgSaO
+         HUmo/DuRkBA6HD0Jc6Wk9jaebcHRwVVTIPiCtOXCN9t24Hy863tY3HwPQLcwdEiyjMcH
+         JX6w==
+X-Forwarded-Encrypted: i=1; AFNElJ+1M0sabqheNxtCetwTjTDJYwgPXi/ctmHPdNarNw5n0I9pS5Y/xaSAMZDn68RfnTlLmrZ0J86tE0nq@vger.kernel.org
+X-Gm-Message-State: AOJu0YwRCu6su+IcfINzJUadGyR6u25henXbi8Nuakd1CjrDDOFq6YYX
+	pgaSzgb6n+HN0H52QRT1LH77Ky1IrUYgVUylV4YjsWvU1Y3dJe3HEJhLO+kN7LJN1uGiNQdaq2w
+	RlKmEGbqqB/rzkRp/FDdIZOu3DN9sYb4tkdf0Ajz7ORLJLfebkxW0C1r5R5v44N5RTseIXD4iMc
+	LMa84Nl4kv/HCdvMHJMnG+3KqzEF0yIxxPfFqfSw==
+X-Gm-Gg: Acq92OGgVCUzjSdbbcksq1/SzNEbL7ia+Pzm+xhuQpF40xkftdR1WE60oLqGA6/TpLu
+	UeI75nzwpEj5u3zLjdx/DGp/wN6LxmwSFdvfgdx8Fka028AQ1kxDvlmV/aVcvqP2ZjLVGktQrbo
+	8K74BrXj5sVggc/R1D3GhDdEJCLs5AB0tQFHBdu6YEr+uhChADsDkzZ5scckTsAldWBmGCU6ZJN
+	QQy6e5nNKbZ8go5
+X-Received: by 2002:a05:651c:210b:b0:393:5904:7411 with SMTP id 38308e7fff4ca-3963aeeaf73mr5032851fa.3.1779975416769;
+        Thu, 28 May 2026 06:36:56 -0700 (PDT)
+X-Received: by 2002:a05:651c:210b:b0:393:5904:7411 with SMTP id
+ 38308e7fff4ca-3963aeeaf73mr5032791fa.3.1779975416222; Thu, 28 May 2026
+ 06:36:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DS2PEPF000061C3:EE_|MW5PR10MB5875:EE_
-X-MS-Office365-Filtering-Correlation-Id: a67da298-d654-446a-05e9-08debcbe1721
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|3023799007|56012099006|6133799003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	m4UNdNDdEzWllYMlgcFUiuhME06Ji8bgp3Ol5zghyxZmOff7VTE/YsbmZk42dDMuKKCvGfOeYp7NnSkDT4LNEUfpm2kUavcWghOfY3yV9fe7hYduW4KjpR+qEsM1xhNo7PCFrWYWB7npuBptcbuNkMMDDfoQDCVDYu/xkH7LzqXyuY4wK3CIDG63iwzhSAtHLUJNIRuEGhZ2bUnf5unKZ71h/JHkZcPBCCta/j5LjjiB1QIdUxN2Ky0b/0TXVDwCFuUKoWB7BBaUBoAGVxQC+TuYYnjZM1PNe6sGbL1GswOg4HdfDXjXuAsiZpRbkh0zjiCxTppuKrPA2SRPjU30VkclwUvHQuPM7jU1z///Jetdo82kCbTsm4tmcBgaNOQEMguHFE5jggWTKlbGBSY0umpkS4F7JcZNzLBX8ERH4BgZrC9ysjWLSLUpuC+yV9fvgOu+NE45kOtZQEFvwQXSF7p7bxRoV2iHmI9xG7zgMB2hmxDotPyTs6OOIs4OymBe5sLB4pr29H5Ch1iKdS/Wkf7swyJVAyrO8BDE9I6ekLh7e2gF0qjmYfQIdesBRD9274aB1/Fh05au+wwf1OD4LQ2TYmz6Bkl6iDOiOfpDJaYrP+4NDirle72aGWMGjip761o7uzCPrlLhzz2vHBGKJSe6tC1yAIvDIJgwKbCqo24P83Cr3k/2ycqMh7ZtE2SiGzV660/bfUnD7aYv3DJksMZsFOI7Xk3U6ff6i/Xrbpg=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(3023799007)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	0UrHemd3J8KttwqUQPxNaSvJWgG7TLv9MVt5sQoLfhMw4NvsuenWSG6dE6JrbfL9DgZLIoqOdQvaVsMclbVWDvgSgJXOwjlyp5W3lUAVCJcX+y+03dQov17a1nmZeiSx7jRIguWL2yx7KoceWn2wLFflWcQlbo+Y7VP2TtGHn9ZlurnqgNmAHsIlgaWcEQIGyB6P8kYKngKieDbilc17MKMSclnfMv/rLI35d87zKmYZYRFUXGFe48TZaHaIte1EDz306N1LBAHJeJyoH7UBe0dvI9gcHHjfOBURJBuCr3KKLh2164UaWDvrHv+Me6MriClJ07fF74P/s4kBhXd8+vM6uqtc8kyo++BevyX4QKzmJZJa6Qvz7EFrX5tgk6FCThOQ3HppqC7gBnRU9Lap9TKtN3WXdFjO3ktcLXTayU8SKjsbvEdEzgi9M0WgkxXP
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 13:36:15.0105
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: a67da298-d654-446a-05e9-08debcbe1721
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	DS2PEPF000061C3.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5875
+References: <20260528083213.1399401-1-khristineandreea.barbulescu@oss.nxp.com> <20260528083213.1399401-2-khristineandreea.barbulescu@oss.nxp.com>
+In-Reply-To: <20260528083213.1399401-2-khristineandreea.barbulescu@oss.nxp.com>
+From: Enric Balletbo i Serra <eballetb@redhat.com>
+Date: Thu, 28 May 2026 15:36:43 +0200
+X-Gm-Features: AVHnY4JWVlWlJ0EWffurf2OBWBeheI9s2tuuUOn2kqYHXaCLBerPUHpYRJVoR8U
+Message-ID: <CALE0LRs_8oT+sagUm95uXhfdf28iHO+f-Wwo0DrBp8DK_PaiJA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/1] arm64: dts: s32g: add PWM support for s32g2 and s32g3
+To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Chester Lin <chester62515@gmail.com>, Matthias Brugger <mbrugger@suse.com>, 
+	Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-arm-kernel@lists.infradead.org, 
+	imx@lists.linux.dev, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	NXP S32 Linux <s32@nxp.com>, Christophe Lizzi <clizzi@redhat.com>, Alberto Ruiz <aruizrui@redhat.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Devarsh Thakkar <devarsht@ti.com>
+Hi Khristine,
 
-Add DSS, DSI, DPHY, and HDMI bridge nodes to enable DPI-to-HDMI output
-on AM62L[1]. The DSS uses parallel DPI interface with pinctrl
-configuration to drive an external SiI9022 HDMI bridge.
+Thank you for the patch.
 
-DSI and DPHY nodes are added but remain disabled, as the AM62L shares a
-single video port for DPI and DSI output.
+On Thu, May 28, 2026 at 10:32=E2=80=AFAM Khristine Andreea Barbulescu
+<khristineandreea.barbulescu@oss.nxp.com> wrote:
+>
+> Add PWM0 and PWM1 for S32G2 and S32G3 SoCs
+>
+> Issue: ALBSP-1959
 
-DSI functionality can be enabled via overlays when required.
+You must remove the vendor-internal issue tracker reference before
+submitting upstream.
 
-[1]: https://www.ti.com/product/AM62L
+> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@=
+oss.nxp.com>
+> ---
+>  arch/arm64/boot/dts/freescale/s32g2.dtsi      | 28 ++++++-
+>  arch/arm64/boot/dts/freescale/s32g3.dtsi      | 30 ++++++-
+>  .../boot/dts/freescale/s32gxxxa-evb.dtsi      | 78 ++++++++++++++++++-
+>  3 files changed, 133 insertions(+), 3 deletions(-)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/s32g2.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g2.dtsi
+> index 51d00dac12de..907cf74e61f3 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g2.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g2.dtsi
+> @@ -3,7 +3,7 @@
+>   * NXP S32G2 SoC family
+>   *
+>   * Copyright (c) 2021 SUSE LLC
+> - * Copyright 2017-2021, 2024-2025 NXP
+> + * Copyright 2017-2021, 2024-2026 NXP
 
-Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
----
-Changelog:
-v1->v2:
-- Update the commit message to elaborate more about the patch.
-- Add dpi-pinctrl configuration.
-- Update the interrupt routing index for HDMI interrupt line
+I see this is updated on every patch you recently submitted. While
+this trivial conflict is easy to fix, it can be annoying. I suggest
+creating a series with all the recent device-tree changes submitted
+lately to facilitate the maintainers' work.
 
-Link to v1: https://lore.kernel.org/all/20260513210942.692269-1-s-jain1@ti.com/
----
- arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 47 +++++++++++
- arch/arm64/boot/dts/ti/k3-am62l3-evm.dts  | 95 +++++++++++++++++++++++
- 2 files changed, 142 insertions(+)
+Other than the first comment I made, once that's fixed, you can add my:
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-index 80615ca1e01a..1d255c9138db 100644
---- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-+++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-@@ -584,4 +584,51 @@ scmi_shmem: sram@0 {
- 			bootph-all;
- 		};
- 	};
-+
-+	dss: dss@30200000 {
-+		compatible = "ti,am62l-dss";
-+		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
-+		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
-+		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
-+		      <0x00 0x3020a000 0x00 0x1000>, /* vp1 */
-+		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
-+		reg-names = "common", "vidl1", "ovr1", "vp1", "common1";
-+		power-domains = <&scmi_pds 39>;
-+		clocks = <&scmi_clk 162>,
-+			 <&scmi_clk 161>;
-+		clock-names = "fck", "vp1";
-+		interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-+		status = "disabled";
-+
-+		dss_ports: ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+		};
-+	};
-+
-+	dphy_tx0: phy@301c0000 {
-+		compatible = "ti,j721e-dphy";
-+		reg = <0x0 0x301c0000 0x0 0x1000>;
-+		clocks = <&scmi_clk 348>, <&scmi_clk 343>;
-+		clock-names = "psm", "pll_ref";
-+		#phy-cells = <0>;
-+		power-domains = <&scmi_pds 86>;
-+		assigned-clocks = <&scmi_clk 343>;
-+		assigned-clock-parents = <&scmi_clk 341>;
-+		assigned-clock-rates = <25000000>;
-+		status = "disabled";
-+	};
-+
-+	dsi0: dsi@30500000 {
-+		compatible = "ti,j721e-dsi";
-+		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
-+		clocks = <&scmi_clk 155>, <&scmi_clk 158>;
-+		clock-names = "dsi_p_clk", "dsi_sys_clk";
-+		power-domains = <&scmi_pds 38>;
-+		interrupt-parent = <&gic500>;
-+		interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-+		phys = <&dphy_tx0>;
-+		phy-names = "dphy";
-+		status = "disabled";
-+	};
- };
-diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-index a1af4571a815..9b04fa6d2cba 100644
---- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-@@ -119,6 +119,18 @@ vcc_1v8: regulator-3 {
- 		regulator-always-on;
- 		regulator-boot-on;
- 	};
-+
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "a";
-+
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&sii9022_out>;
-+			};
-+		};
-+	};
- };
- 
- &gpio0 {
-@@ -192,6 +204,38 @@ exp2: gpio@23 {
- 		bootph-all;
- 	};
- 
-+	sii9022: bridge-hdmi@3b {
-+		compatible = "sil,sii9022";
-+		reg = <0x3b>;
-+		interrupt-parent = <&exp1>;
-+		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
-+		#sound-dai-cells = <0>;
-+		sil,i2s-data-lanes = < 0 >;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&dpi_pins_default>;
-+		bootph-all;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			port@0 {
-+				reg = <0>;
-+
-+				sii9022_in: endpoint {
-+					remote-endpoint = <&dpi_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				sii9022_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
- };
- 
- &i2c2 {
-@@ -221,6 +265,41 @@ usb_con_hs: endpoint {
- };
- 
- &pmx0 {
-+	dpi_pins_default: dpi-default-pins {
-+		pinctrl-single,pins = <
-+			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
-+			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
-+			AM62LX_IOPAD(0x00e8, PIN_OUTPUT, 1) /* (L19) GPMC0_CSn1.VOUT0_PCLK */
-+			AM62LX_IOPAD(0x00e0, PIN_OUTPUT, 1) /* (M21) GPMC0_DIR.VOUT0_DE */
-+			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 1) /* (L22) GPMC0_AD0.VOUT0_DATA0 */
-+			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 1) /* (L23) GPMC0_AD1.VOUT0_DATA1 */
-+			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 1) /* (K22) GPMC0_AD2.VOUT0_DATA2 */
-+			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 1) /* (J23) GPMC0_AD3.VOUT0_DATA3 */
-+			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 1) /* (K23) GPMC0_AD4.VOUT0_DATA4 */
-+			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 1) /* (H22) GPMC0_AD5.VOUT0_DATA5 */
-+			AM62LX_IOPAD(0x0090, PIN_OUTPUT, 1) /* (H23) GPMC0_AD6.VOUT0_DATA6 */
-+			AM62LX_IOPAD(0x0094, PIN_OUTPUT, 1) /* (J22) GPMC0_AD7.VOUT0_DATA7 */
-+			AM62LX_IOPAD(0x0098, PIN_OUTPUT, 1) /* (H19) GPMC0_AD8.VOUT0_DATA8 */
-+			AM62LX_IOPAD(0x009c, PIN_OUTPUT, 1) /* (H20) GPMC0_AD9.VOUT0_DATA9 */
-+			AM62LX_IOPAD(0x00a0, PIN_OUTPUT, 1) /* (H21) GPMC0_AD10.VOUT0_DATA10 */
-+			AM62LX_IOPAD(0x00a4, PIN_OUTPUT, 1) /* (H18) GPMC0_AD11.VOUT0_DATA11 */
-+			AM62LX_IOPAD(0x00a8, PIN_OUTPUT, 1) /* (G23) GPMC0_AD12.VOUT0_DATA12 */
-+			AM62LX_IOPAD(0x00ac, PIN_OUTPUT, 1) /* (G22) GPMC0_AD13.VOUT0_DATA13 */
-+			AM62LX_IOPAD(0x00b0, PIN_OUTPUT, 1) /* (F22) GPMC0_AD14.VOUT0_DATA14 */
-+			AM62LX_IOPAD(0x00b4, PIN_OUTPUT, 1) /* (F23) GPMC0_AD15.VOUT0_DATA15 */
-+			AM62LX_IOPAD(0x00b8, PIN_OUTPUT, 1) /* (L21) GPMC0_CLK.VOUT0_DATA16 */
-+			AM62LX_IOPAD(0x00c0, PIN_OUTPUT, 1) /* (N19) GPMC0_ADVn_ALE.VOUT0_DATA17 */
-+			AM62LX_IOPAD(0x00c4, PIN_OUTPUT, 1) /* (N20) GPMC0_OEn_REn.VOUT0_DATA18 */
-+			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 1) /* (M19) GPMC0_WEn.VOUT0_DATA19 */
-+			AM62LX_IOPAD(0x00cc, PIN_OUTPUT, 1) /* (P23) GPMC0_BE0n_CLE.VOUT0_DATA20 */
-+			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 */
-+			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22 */
-+			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23 */
-+			AM62LX_IOPAD(0x00ec, PIN_OUTPUT, 5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLKIN */
-+		>;
-+		bootph-all;
-+	};
-+
- 	gpio0_ioexp_intr_pins_default: gpio0-ioexp-intr-default-pins {
- 		pinctrl-single,pins = <
- 			AM62LX_IOPAD(0x01b0, PIN_INPUT, 7) /* (B12) SPI0_D1.GPIO0_91 */
-@@ -375,6 +454,22 @@ &usb1 {
- 	pinctrl-0 = <&usb1_default_pins>;
- };
- 
-+&dss {
-+	status = "okay";
-+	bootph-all;
-+};
-+
-+&dss_ports {
-+	/* VP1: DPI Output */
-+	port@0 {
-+		reg = <0>;
-+
-+		dpi_out: endpoint {
-+			remote-endpoint = <&sii9022_in>;
-+		};
-+	};
-+};
-+
- &wkup_uart0 {
- 	pinctrl-0 = <&wkup_uart0_pins_default>;
- 	pinctrl-names = "default";
+Reviewed-by: Enric Balletbo i Serra <eballetb@redhat.com>
+
+Thanks,
+  Enric
+
+
+>   */
+>
+>  #include <dt-bindings/interrupt-controller/arm-gic.h>
+> @@ -554,6 +554,19 @@ i2c2: i2c@401ec000 {
+>                         status =3D "disabled";
+>                 };
+>
+> +               pwm0: pwm@401f4000 {
+> +                       compatible =3D "nxp,s32g2-ftm-pwm";
+> +                       reg =3D <0x401f4000 0x1000>;
+> +                       #pwm-cells =3D <3>;
+> +                       clocks =3D <&clks 5>,
+> +                                <&clks 6>,
+> +                                <&clks 5>,
+> +                                <&clks 5>;
+> +                       clock-names =3D "ftm_sys", "ftm_ext",
+> +                                     "ftm_fix", "ftm_cnt_clk_en";
+> +                       status =3D "disabled";
+> +               };
+> +
+>                 swt4: watchdog@40200000 {
+>                         compatible =3D "nxp,s32g2-swt";
+>                         reg =3D <0x40200000 0x1000>;
+> @@ -717,6 +730,19 @@ i2c4: i2c@402dc000 {
+>                         status =3D "disabled";
+>                 };
+>
+> +               pwm1: pwm@402e4000 {
+> +                       compatible =3D "nxp,s32g2-ftm-pwm";
+> +                       reg =3D <0x402e4000 0x1000>;
+> +                       #pwm-cells =3D <3>;
+> +                       clocks =3D <&clks 7>,
+> +                                <&clks 8>,
+> +                                <&clks 7>,
+> +                                <&clks 7>;
+> +                       clock-names =3D "ftm_sys", "ftm_ext",
+> +                                     "ftm_fix", "ftm_cnt_clk_en";
+> +                       status =3D "disabled";
+> +               };
+> +
+>                 usdhc0: mmc@402f0000 {
+>                         compatible =3D "nxp,s32g2-usdhc";
+>                         reg =3D <0x402f0000 0x1000>;
+> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g3.dtsi
+> index e314f3c7d61d..a4a9e21d1361 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> @@ -1,6 +1,6 @@
+>  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+>  /*
+> - * Copyright 2021-2025 NXP
+> + * Copyright 2021-2026 NXP
+>   *
+>   * Authors: Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>
+>   *          Ciprian Costea <ciprianmarian.costea@nxp.com>
+> @@ -617,6 +617,20 @@ i2c2: i2c@401ec000 {
+>                         status =3D "disabled";
+>                 };
+>
+> +               pwm0: pwm@401f4000 {
+> +                       compatible =3D "nxp,s32g3-ftm-pwm",
+> +                                    "nxp,s32g2-ftm-pwm";
+> +                       reg =3D <0x401f4000 0x1000>;
+> +                       #pwm-cells =3D <3>;
+> +                       clocks =3D <&clks 5>,
+> +                                <&clks 6>,
+> +                                <&clks 5>,
+> +                                <&clks 5>;
+> +                       clock-names =3D "ftm_sys", "ftm_ext",
+> +                                     "ftm_fix", "ftm_cnt_clk_en";
+> +                       status =3D "disabled";
+> +               };
+> +
+>                 swt4: watchdog@40200000 {
+>                         compatible =3D "nxp,s32g3-swt", "nxp,s32g2-swt";
+>                         reg =3D <0x40200000 0x1000>;
+> @@ -792,6 +806,20 @@ i2c4: i2c@402dc000 {
+>                         status =3D "disabled";
+>                 };
+>
+> +               pwm1: pwm@402e4000 {
+> +                       compatible =3D "nxp,s32g3-ftm-pwm",
+> +                                    "nxp,s32g2-ftm-pwm";
+> +                       reg =3D <0x402e4000 0x1000>;
+> +                       #pwm-cells =3D <3>;
+> +                       clocks =3D <&clks 7>,
+> +                                <&clks 8>,
+> +                                <&clks 7>,
+> +                                <&clks 7>;
+> +                       clock-names =3D "ftm_sys", "ftm_ext",
+> +                                     "ftm_fix", "ftm_cnt_clk_en";
+> +                       status =3D "disabled";
+> +               };
+> +
+>                 usdhc0: mmc@402f0000 {
+>                         compatible =3D "nxp,s32g3-usdhc",
+>                                      "nxp,s32g2-usdhc";
+> diff --git a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi b/arch/arm64=
+/boot/dts/freescale/s32gxxxa-evb.dtsi
+> index 803ff4531077..be7b645afa2d 100644
+> --- a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
+> @@ -1,6 +1,6 @@
+>  // SPDX-License-Identifier: (GPL-2.0+ OR BSD-3-Clause)
+>  /*
+> - * Copyright 2024 NXP
+> + * Copyright 2024, 2026 NXP
+>   *
+>   * Authors: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+>   *          Ghennadi Procopciuc <ghennadi.procopciuc@oss.nxp.com>
+> @@ -245,6 +245,70 @@ dspi5-grp4 {
+>                         bias-pull-up;
+>                 };
+>         };
+> +
+> +       ftm0_pins: ftm0-pins {
+> +               ftm0-grp0 {
+> +                       pinmux =3D <0x2912>;
+> +               };
+> +
+> +               ftm0-grp1 {
+> +                       pinmux =3D <0x122>,
+> +                                <0xb42>;
+> +                       output-enable;
+> +                       input-enable;
+> +               };
+> +
+> +               ftm0-grp2 {
+> +                       pinmux =3D <0xb13>,
+> +                                <0xb53>;
+> +                       output-enable;
+> +                       input-enable;
+> +               };
+> +
+> +               ftm0-grp3 {
+> +                       pinmux =3D <0x2904>;
+> +               };
+> +
+> +               ftm0-grp4 {
+> +                       pinmux =3D <0x2925>;
+> +               };
+> +
+> +               ftm0-grp5 {
+> +                       pinmux =3D <0x2936>;
+> +               };
+> +       };
+> +
+> +       ftm1_pins: ftm1-pins {
+> +               ftm1-grp0 {
+> +                       pinmux =3D <0x1d3>;
+> +                       output-enable;
+> +                       input-enable;
+> +               };
+> +
+> +               ftm1-grp1 {
+> +                       pinmux =3D <0x29b4>;
+> +               };
+> +
+> +               ftm1-grp2 {
+> +                       pinmux =3D <0x29c3>;
+> +               };
+> +
+> +               ftm1-grp3 {
+> +                       pinmux =3D <0x1f4>;
+> +                       output-enable;
+> +                       input-enable;
+> +               };
+> +
+> +               ftm1-grp4 {
+> +                       pinmux =3D <0x202>;
+> +                       output-enable;
+> +                       input-enable;
+> +               };
+> +
+> +               ftm1-grp5 {
+> +                       pinmux =3D <0x29d2>;
+> +               };
+> +       };
+>  };
+>
+>  &can0 {
+> @@ -293,6 +357,18 @@ &i2c4 {
+>         status =3D "okay";
+>  };
+>
+> +&pwm0 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&ftm0_pins>;
+> +       status =3D "okay";
+> +};
+> +
+> +&pwm1 {
+> +       pinctrl-names =3D "default";
+> +       pinctrl-0 =3D <&ftm1_pins>;
+> +       status =3D "okay";
+> +};
+> +
+>  &spi1 {
+>         pinctrl-0 =3D <&dspi1_pins>;
+>         pinctrl-names =3D "default";
+> --
+> 2.34.1
+>
+
