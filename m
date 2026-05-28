@@ -1,193 +1,407 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15AF228000F
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:48:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F75A246774;
+	Thu, 28 May 2026 13:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976112; cv=none; b=pz6nQmLs7wkcW4HBsxIPRVPkqEqtfkiiwjpNUt0uimp7Y41J5NpRjefAskJKJhoCCvSYh6vLSdcgcVxL2yxQElzjRD3tYGYhNRWIrqv3TZdTOEF4xaHPokb5WbuYtCbFWlJlTehP8Q1Osqem2upu1xwk5wGvjcLwHDAxPnDdKOI=
+	t=1779976143; cv=none; b=c/AzXU2f8UeTC91waBE5j2l/7bQfFO6McQijHdTMlylV0YKrNrFOVQF7JCnV9C7F5S7a66+yrkbHEqI/vrA5mNqxnetTWF/zCoKdvWROBEM90NLPaiBWUC53H62x4cye6ZjTGPAmqarePhfXug1hDidCKw6JjOsOFHJ1a7TnS1k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976112; c=relaxed/simple;
-	bh=1mrQeSDY7M52xMizn3zLiOiZIdVP73XWHHsBy6AGIWY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nn84+mroLCD5VtNFa30w0uIsIAJkRUdcFc+4N6O2NXD8fBG1bxk5uH/ym/CxKFkW1HUpnXxUxeGGauUtm9dNam42UbXVHzqIVrSOhg9mzZRwYw+JUygbxlyjfBCVJMKkYl6Wimw9kO+mtCuAgwkMBZP4WgHOZnoiJgD0Bwd9LKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=gQxNZqnK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=F5T9FZ5n; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779976143; c=relaxed/simple;
+	bh=nVNozDGu+Ic7UXeRJGBNG+sC8TNpp5s6fCRnuM0XBfM=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=lNzUNLWPf2I67scXroOqoJeR1LP4a8D851PThiOFY2xkUHO/f7SwcV1a8IIBNKR5lbSG9hWbOCLubpjgksDOWm9Ba8t9e6wxBaZDdpdrXh+NdE/w0VoHSSsu+cINX4GHQmGe5c2tFjfSSGlfDJuazWQzEKJV0kwoTGO3XM4R8Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8YcOipu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="gQxNZqnK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="F5T9FZ5n"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vUhu3203255
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:48:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	C6JbapJaoSx0s4QBRzJFchDoSiCIzMDHmw52CsCUV+A=; b=gQxNZqnK7BaTQudT
-	WSTiuRAz1aS08ICsz/5kcvm6HVWBoh8lHaf9WKokpxhZGVOjQxi4FCQWdgLCOt7g
-	1XlntH49YpsN4kgd9fZzknsBYBgK/8cqzHEoPqlGhfdiEEfgCmUHmWJ/Q98m++l0
-	XVPAIQn+Uhgdvj3scTevfwr0qgcw0PP3wvN2LILAqH2JuXQ/iW7/CyRevy3xpSa4
-	5LEXEn+UWQYs6QyzHDGZXMmiTllE3Z4HrNoA76rsjOjO/HnSwa87O/vldWdzDgKO
-	hKNVkE7/rRJ15SjCP8HkuFXvlOITxgqfdv0f9psx1ulFNHOOKFx6WPLqk7yJuzHk
-	OQqAbQ==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7ynjy5x-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:48:28 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-50fb3403e99so88384931cf.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:48:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779976108; x=1780580908; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=C6JbapJaoSx0s4QBRzJFchDoSiCIzMDHmw52CsCUV+A=;
-        b=F5T9FZ5nr9aZLAAa5DWoyrrCoME3Nii0Mj5CiCAw5fcIRN6e/plS1YR59IpEhYQjFa
-         AuiN42MvgF98+fJujBYIBjjgd7nnyASqYYlshrCYp7txcUsEyIto745b9SGz5tUNt4FK
-         WN11Zzy2pKEVymjGHigyUSrNpHo9cNLMyZ6VeOgJF1oX9kG62KD8PN1h3KfLVTeC0tHC
-         E69wzEJ/hmOwtplhv4yZuj9xIXJxKskF+QAW/2CjZ3CDiy0hrVfSd6S7RJLF2Un2wMsV
-         DeRu/ZoBQJhQtOztZhhDDB0H9DkO/F/L9IdebdDooIxjJXFYHsXia06Sz5TTDZ6sqIS8
-         pQVA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779976108; x=1780580908;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=C6JbapJaoSx0s4QBRzJFchDoSiCIzMDHmw52CsCUV+A=;
-        b=f9JqWLJvEkHjN9rWSGJplXV35efIwH2lDdmN+I8gl/2CAhSDN3NPbtwpOVLHKO/MYY
-         vGyruXrYamsq54Rl0NNRAWTBl6Qe9qi5A8nTTaVsM4iLBKJ+9gOkgYIemPby8sijOy6J
-         yf9XUzzXEyc4FUcXIcaz8ggEEPvx4uq5u4r0FrHuivd0rxmmKibXEaM8YSst2YGQeIXA
-         nw0l28RVgPWt1JvlU5b/qSD8pFVoUyX0daaE+MhN186mb8TgBEtJ6fvIdLd/6QVnoJtc
-         lB0jWwHyyyrB8XdGU0mlI5VjFxfRnRwvPjOUP0HldIReVUlWb1hAyHxNWlf4ELDbIY+p
-         FdhQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/szV2WY2LP8Va4HuCF4JDMfu+xAmISZzlm6hj9EtHR+Z+V7WvMZntvs6lucb8JJoF7bi5pjcw5czcU@vger.kernel.org
-X-Gm-Message-State: AOJu0YxbuhHUBsnNal8aRodP1o9/0zNBAEXzOMyfKpYIzDaDIGMEG4BT
-	jNB3+map1670tENxPEKYpaUt+v4leset5i91yU9reslhxccO/u3vpjQPJDFcFN3hPBSMbjDpFgt
-	eFO5OxEqZzztCwgiYGnnEgSHOjuDCUPxvvwfzPa0K8Ogo4DeWmrmF3S7MmD5VEGXn
-X-Gm-Gg: Acq92OFeP/uViV/h7RO8auxcPBfyto4B96QvdbUJS4v3XzJSuxnY9tk4x1fSaW4CFcg
-	VtLmA41ervh0OAeWAnL/lW+HYDbswTh6V9PWZt6fCEfA5TIl2UmoTo+l4ncqrzAIgp0DES6kpWM
-	MBlcElLD7ciJmekpsMSaRqbDznNkuNmX4fLsP2oD1iEM1WYRpat3j+pjAIx2kaFHlM0IZE/0/dS
-	EhVH+LjsRl3X3e8XXV9D7XxEJxgNtwAxhLDYDADHKg9w6u2AkuE7aIC99LgyLsHYH/iXnf+ikY6
-	jKKyX0TgBEqokC0dWl9s8b2h0VsmRo5jyUi7EctacFRZfEXoRFt7zUAqnxypP1F+/S/h4Xc96aL
-	a9xhuKDDUK9dNpUayB0jlyt1SUsipCFB96rn9u+PaFtBXZG5qHpbwZfAEEudH6bwtG5AhVRHkj3
-	R15kl5yyNNOsTtaeIseDbyMa0AKHjJa9KMuz3O2yUvPqz0yg==
-X-Received: by 2002:a05:622a:134f:b0:50f:ad91:8912 with SMTP id d75a77b69052e-516d445981cmr388784231cf.13.1779976107826;
-        Thu, 28 May 2026 06:48:27 -0700 (PDT)
-X-Received: by 2002:a05:622a:134f:b0:50f:ad91:8912 with SMTP id d75a77b69052e-516d445981cmr388783831cf.13.1779976107344;
-        Thu, 28 May 2026 06:48:27 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa463220b5sm1920287e87.52.2026.05.28.06.48.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 06:48:26 -0700 (PDT)
-Date: Thu, 28 May 2026 16:48:24 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Qiang Yu <qiang.yu@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Philipp Zabel <p.zabel@pengutronix.de>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v4 5/9] phy: qcom: qmp-pcie: Refactor pipe clk
- register and parse_dt helpers
-Message-ID: <ol436i3oqgdns74dliw72qns22gqfgygm6qkz7mo4g7oiywlsg@johrhdyv4rqx>
-References: <20260518-link_mode_0519-v4-0-269cd73cc5d1@oss.qualcomm.com>
- <20260518-link_mode_0519-v4-5-269cd73cc5d1@oss.qualcomm.com>
- <ipzncrxi3x45fc6tz5xb7frxt62zmg4gwr25xmvzghlbt5miio@7eavln3cydfa>
- <fkcidw46hdsrrufxhhkk66mmitxnswmghpypyvtmax3x6vmnlp@2er6xgymxdf2>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8YcOipu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596181F000E9;
+	Thu, 28 May 2026 13:48:58 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779976142;
+	bh=TQTeLG7rjvOKaMyonlPT84liZ0ukm0y4g11eMMIItMg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=A8YcOipun0RLiGzoRV29pgQHbWe6LjwBwN3YTH0RdPZNgMnS++dVY9DhrtHNIreLM
+	 v37UKRfhNqqZn/4tEf8sTrjDwpQsXpnmm1UYYwOh4qSlS10EUazF7VM0U6ukObscZK
+	 fibTiizMH6XIkl27eFQ7ZikGxNznnZ9CLVBNUYXMXdJbws2GiFZDrmPQNrPvL61Kvl
+	 tYgm3F6V/QAXyNdTb2f/L97PIs8IKS18u0Vb69XXcEPVrqwlCBWGwbn4MwvhnYhd4O
+	 8J8V9XE//t2mTiYOHCXhsfmfSIhC3yU3WxXEhZPyPWmJXE0BfuzM7G/MZ8NB7tYdLA
+	 RVb/S4SeUL4qA==
+Date: Thu, 28 May 2026 14:48:53 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 3/7] iio: osf: add protocol v0 decoding
+Message-ID: <20260528144853.354a71e7@jic23-huawei>
+In-Reply-To: <20260524085312.15369-4-kimjinseob88@gmail.com>
+References: <20260524085312.15369-1-kimjinseob88@gmail.com>
+	<20260524085312.15369-4-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <fkcidw46hdsrrufxhhkk66mmitxnswmghpypyvtmax3x6vmnlp@2er6xgymxdf2>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEzOCBTYWx0ZWRfXy/ncSq5cLP71
- zDqBFaeLYFzare11dHpq2bu7VYIzm8pWxXDCN7M7aVzXyuJzxC7Bqz7RblN5za7sQw+oiHcwzb+
- GfhHA9iW0SfsJur65b733dl91QKQ8p7uBlzN8EOcYvZDQY3mh3GdChDIUXyTjPrDjke8xZ6m5TZ
- aruWCJAte8pOr6AZdX/9nam4Vhlq/9kvc+RksS2GM+az5+STah93aAwVaIo48tKg+llW1WNyHdm
- d/ertxVTgE9986H5tk17gSMxMkz6d/jtGHLjl+jATBDC7xZdUpDwyda1M5CMA6flCDTo8HGXVZe
- eNHK7/dWDRdcrXHXS81XtPty6+3jBMOZZNtjXhsbTc3Zu4XwkVOL6u0JNdulGi3eopwVQuH5OZH
- 6y5pPoRxEto430wQaDefwEqUAaEICJ/TJTKAXQoBJ55AqokxqV7LlAW3WAkGMmLgMZ+roeqFXZ4
- xZHiWVGDwt0MddVD9zQ==
-X-Proofpoint-ORIG-GUID: k9kwMw9Yjw3rGx8DuZISyP8a03eAD-zT
-X-Proofpoint-GUID: k9kwMw9Yjw3rGx8DuZISyP8a03eAD-zT
-X-Authority-Analysis: v=2.4 cv=EdL4hvmC c=1 sm=1 tr=0 ts=6a1847ac cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=JfrnYn6hAAAA:8
- a=EUspDBNiAAAA:8 a=HkNMFyVr_tcJnp_woqUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uxP6HrT_eTzRwkO_Te1X:22 a=1CNFftbPRP8L7MoqJWF3:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_03,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 phishscore=0 clxscore=1015 bulkscore=0
- spamscore=0 adultscore=0 malwarescore=0 impostorscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280138
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 22, 2026 at 04:27:35PM +0530, Manivannan Sadhasivam wrote:
-> On Wed, May 20, 2026 at 07:25:01PM +0300, Dmitry Baryshkov wrote:
-> > On Mon, May 18, 2026 at 10:47:16PM -0700, Qiang Yu wrote:
-> > > Some QMP PCIe PHY hardware blocks can be split into multiple sub-PHYs
-> > > under a single DT node, each requiring its own pipe clock registration and
-> > > DT resource mapping. The current helpers are tightly coupled to a single
-> > > qmp_pcie instance, which prevents reuse across sub-PHY instances.
-> > > 
-> > > Refactor __phy_pipe_clk_register() as a generic helper and reduce
-> > > phy_pipe_clk_register() to a thin wrapper around it. Similarly, extract
-> > > qmp_pcie_parse_dt_common() from qmp_pcie_parse_dt() to hold the register-
-> > > mapping and pipe-clock setup that will be shared between sub-PHY instances,
-> > > with pipe clock names parameterised per instance.
-> > > 
-> > > This is a preparatory step before adding multi-PHY support. No functional
-> > > change for existing platforms.
-> > > 
-> > > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
-> > > ---
-> > >  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 76 ++++++++++++++++++--------------
-> > >  1 file changed, 44 insertions(+), 32 deletions(-)
-> > 
-> > I'd suggest splitting the Glymur PHY to a separate driver. Otherwise we
-> > end up having too many single-platform, single-device specifics which
-> > don't apply to other platforms.
-> > 
-> 
-> I don't think that's really needed. This shared PHY concept is going to be
-> applicable to upcoming SoCs as well. And moreover, the split won't be clean
-> either. We still need to reuse a lot of common logic in the 'phy-qcom-qmp-pcie'
-> driver and may only end up keeping very minimal code in
-> 'phy-qcom-qmp-pcie-glymur'.
+On Sun, 24 May 2026 17:53:08 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-Then splitting makes even more sense. Let's not clutter the existing
-driver with too many conditions and options.
+> Add OSF0 frame and payload decoders for device-to-host messages.
+
+https://sashiko.dev/#/patchset/20260524085312.15369-1-kimjinseob88%40gmail.com
+Has some perhaps useful feedback. Please make sure to either exclude
+them as false positives or address for next version.
+
+Quite a bit of the feedback in here is about which checks are actually
+useful. Normal kernel practice is assume we didn't shoot outselves in the
+foot but hardware and userspace may have done. So we defend only against
+things in their control.
+
+Jonathan
 
 > 
-> If you are concerned about the file size of 'phy-qcom-qmp-pcie', then we should
-> move the SoC specific 'cfg' structs into a separate file as that's what
-> occupying majority of the space.
-
-No, it's really the 'shared' part.
-
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+> ---
+>  drivers/iio/opensensorfusion/osf_protocol.c | 220 ++++++++++++++++++++
+>  drivers/iio/opensensorfusion/osf_protocol.h | 100 +++++++++
+>  2 files changed, 320 insertions(+)
+>  create mode 100644 drivers/iio/opensensorfusion/osf_protocol.c
+>  create mode 100644 drivers/iio/opensensorfusion/osf_protocol.h
 > 
-> - Mani
-> 
-> -- 
-> மணிவண்ணன் சதாசிவம்
-> 
-> -- 
-> linux-phy mailing list
-> linux-phy@lists.infradead.org
-> https://lists.infradead.org/mailman/listinfo/linux-phy
+> diff --git a/drivers/iio/opensensorfusion/osf_protocol.c b/drivers/iio/opensensorfusion/osf_protocol.c
+> new file mode 100644
+> index 000000000..ac3c37ae2
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_protocol.c
+> @@ -0,0 +1,220 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +#include <linux/crc32.h>
+> +#include <linux/errno.h>
+> +#include <linux/bits.h>
+> +#include <linux/types.h>
+> +#include <linux/unaligned.h>
+> +
+> +#include "osf_protocol.h"
+> +
+> +#define OSF_CRC32_INIT		GENMASK(31, 0)
+> +#define OSF_CRC32_XOROUT	GENMASK(31, 0)
+> +
+> +static bool osf_sensor_type_valid(u16 sensor_type)
+> +{
+> +	return sensor_type >= OSF_SENSOR_ACCELEROMETER &&
+> +	       sensor_type <= OSF_SENSOR_PROXIMITY;
 
--- 
-With best wishes
-Dmitry
+ah. I talk about sanity checking this below for purposes of ensuring
+we can use the ennum type.  Looks like you have it all done already :)
+
+> +}
+> +
+> +static u32 osf_crc32_ieee(const u8 *buf, size_t len)
+> +{
+> +	return crc32_le(OSF_CRC32_INIT, buf, len) ^ OSF_CRC32_XOROUT;
+> +}
+> +
+> +int osf_protocol_decode_frame(const u8 *buf, size_t len,
+> +			      struct osf_frame *frame, size_t *frame_len)
+> +{
+> +	u32 expected_crc;
+> +	u32 actual_crc;
+> +	u32 payload_len;
+> +	size_t total_len;
+> +	u8 major;
+> +
+> +	if (!buf || !frame || !frame_len)
+> +		return -EINVAL;
+> +
+> +	if (len < OSF_FRAME_MIN_LEN)
+> +		return -EMSGSIZE;
+> +
+> +	if (buf[0] != 'O' || buf[1] != 'S' || buf[2] != 'F' || buf[3] != '0')
+> +		return -EPROTO;
+> +
+> +	major = buf[4];
+> +	if (major != OSF_PROTOCOL_MAJOR)
+> +		return -EPROTO;
+> +
+> +	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
+> +		return -EPROTO;
+> +
+> +	payload_len = get_unaligned_le32(buf + 10);
+> +	if (payload_len > len - OSF_FRAME_MIN_LEN)
+> +		return -EMSGSIZE;
+> +
+> +	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
+> +	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
+> +	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
+> +
+> +	if (actual_crc != expected_crc)
+> +		return -EBADMSG;
+> +
+> +	frame->protocol_minor = buf[5];
+> +	frame->message_type = get_unaligned_le16(buf + 8);
+> +	frame->payload_len = payload_len;
+> +	frame->sequence = get_unaligned_le64(buf + 14);
+> +	frame->timestamp_us = get_unaligned_le64(buf + 22);
+> +	frame->flags = get_unaligned_le32(buf + 30);
+> +	frame->reserved = get_unaligned_le32(buf + 34);
+
+Seems little point in storing reserved.  If you want to check it is spec
+compliant do it here.
+
+> +	frame->payload = buf + OSF_FRAME_HEADER_LEN;
+> +	frame->crc = actual_crc;
+> +	*frame_len = total_len;
+> +
+> +	return 0;
+> +}
+
+> +
+> +int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
+> +				     unsigned int index, s32 *value)
+> +{
+> +	if (!sample || !sample->samples || !value)
+> +		return -EINVAL;
+Similar on whether this defensive code makes sense (see below and note I review
+upwards in drivers as they make sense to me better that way!)
+
+
+> +
+> +	if (index >= sample->channel_count)
+> +		return -ERANGE;
+> +
+> +	*value = (s32)get_unaligned_le32(sample->samples + index * sizeof(s32));
+
+I guess it might change in future, but for now why not make samples an s32 *
+
+> +
+> +	return 0;
+> +}
+
+> +int osf_protocol_decode_capability_report(const struct osf_frame *frame,
+> +					  struct osf_capability_report *report)
+> +{
+> +	u16 capability_count;
+> +	u32 expected_len;
+> +	const u8 *payload;
+> +
+> +	if (!frame || !report || !frame->payload)
+> +		return -EINVAL;
+
+Similar sanity check questions.
+
+> +
+> +	if (frame->message_type != OSF_MSG_CAPABILITY_REPORT)
+> +		return -EPROTO;
+
+If that happens seems like something went very wrong elsewhere so
+seems unlikely defense makes sense here.
+
+
+> +
+> +	if (frame->payload_len < OSF_CAP_REPORT_BASE_LEN)
+> +		return -EMSGSIZE;
+This one does belong in here.
+> +
+> +	payload = frame->payload;
+> +	capability_count = get_unaligned_le16(payload);
+> +	expected_len = OSF_CAP_REPORT_BASE_LEN +
+> +		       capability_count * OSF_CAP_SENSOR_ENTRY_LEN;
+> +
+> +	if (frame->payload_len != expected_len)
+> +		return -EMSGSIZE;
+> +
+> +	report->capability_count = capability_count;
+> +	report->reserved = get_unaligned_le16(payload + 2);
+> +	if (report->reserved)
+> +		return -EPROTO;
+This check is fine as picks up on bad hardware, but why keep
+the value of reserved?
+> +
+> +	report->entries = payload + OSF_CAP_REPORT_BASE_LEN;
+> +
+> +	return 0;
+> +}
+> +
+> +int osf_protocol_decode_capability_entry(const struct osf_capability_report *report,
+> +					 unsigned int index,
+> +					 struct osf_capability_entry *entry)
+> +{
+> +	const u8 *payload;
+> +
+> +	if (!report || !report->entries || !entry)
+> +		return -EINVAL;
+
+I'm not sure if there is a way to get here with any of those failing.
+Generally for kernel code we defend against this sort of thing at higher levels.
+
+Same applies to all this parser. 
+> +
+> +	if (index >= report->capability_count)
+
+Likewise, I'd expect this to only be called on one that exists. This
+defensive stuff costs us in complexity so only do it if needed. Do however
+defend against values that are coming from the device where possible to 
+ensure they are consistent.
+
+> +		return -ERANGE;
+> +
+> +	payload = report->entries + index * OSF_CAP_SENSOR_ENTRY_LEN;
+
+As below - if entries had the right type this would be a simple + index
+I think.
+
+> +	entry->sensor_type = get_unaligned_le16(payload);
+
+I mention this below - nicer to use the enum type if possible.
+
+> +	entry->sensor_index = get_unaligned_le16(payload + 2);
+> +	entry->channel_count = get_unaligned_le16(payload + 4);
+> +	entry->sample_format = get_unaligned_le16(payload + 6);
+> +	entry->scale_nano = get_unaligned_le32(payload + 8);
+> +	entry->flags = get_unaligned_le32(payload + 12);
+> +	entry->reserved = get_unaligned_le32(payload + 16);
+Why keep it?
+
+I think you are setting them all, so would be neater as a designated
+inializer:
+	*entry = (struct osf_capbility_entry) {
+		.sensor_type = get_unaligned_le16(payload),
+		.sensor_index = get_unaligned_le16(payload + 2),
+	};
+
+Same applies to some of the other structures filled in here.
+
+> +
+> +	if (!osf_sensor_type_valid(entry->sensor_type))
+> +		return -EPROTO;
+> +
+> +	if (entry->sample_format != OSF_SAMPLE_FORMAT_S32)
+> +		return -EPROTO;
+> +
+> +	if (entry->flags & ~OSF_CAPABILITY_FLAGS_MASK)
+> +		return -EPROTO;
+> +
+> +	if (entry->reserved)
+> +		return -EPROTO;
+> +
+> +	return 0;
+> +}
+> diff --git a/drivers/iio/opensensorfusion/osf_protocol.h b/drivers/iio/opensensorfusion/osf_protocol.h
+> new file mode 100644
+> index 000000000..fd6e9581f
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_protocol.h
+> @@ -0,0 +1,100 @@
+> +/* SPDX-License-Identifier: GPL-2.0-only */
+> +#ifndef _OSF_PROTOCOL_H
+> +#define _OSF_PROTOCOL_H
+> +
+> +#include <linux/types.h>
+> +
+> +#define OSF_PROTOCOL_MAJOR		0
+> +#define OSF_PROTOCOL_MINOR		0
+> +#define OSF_FRAME_HEADER_LEN		38
+> +#define OSF_FRAME_CRC_LEN		4
+> +#define OSF_FRAME_MIN_LEN		(OSF_FRAME_HEADER_LEN + OSF_FRAME_CRC_LEN)
+> +
+> +#define OSF_SENSOR_SAMPLE_BASE_LEN	16
+> +#define OSF_DEVICE_STATUS_LEN		20
+> +#define OSF_CAP_REPORT_BASE_LEN		4
+> +#define OSF_CAP_SENSOR_ENTRY_LEN		20
+> +#define OSF_CAPABILITY_FLAGS_MASK	0x00000003U
+> +
+> +enum osf_message_type {
+> +	OSF_MSG_SENSOR_SAMPLE		= 0x0001,
+> +	OSF_MSG_DEVICE_STATUS		= 0x0002,
+> +	OSF_MSG_CAPABILITY_REPORT	= 0x0003,
+> +};
+> +
+> +enum osf_sensor_type {
+> +	OSF_SENSOR_ACCELEROMETER		= 0x0001,
+> +	OSF_SENSOR_GYROSCOPE		= 0x0002,
+> +	OSF_SENSOR_MAGNETOMETER		= 0x0003,
+> +	OSF_SENSOR_BAROMETER		= 0x0004,
+> +	OSF_SENSOR_TEMPERATURE		= 0x0005,
+> +	OSF_SENSOR_HUMIDITY		= 0x0006,
+> +	OSF_SENSOR_AMBIENT_LIGHT		= 0x0007,
+> +	OSF_SENSOR_PROXIMITY		= 0x0008,
+> +};
+> +
+> +enum osf_sample_format {
+> +	OSF_SAMPLE_FORMAT_S32		= 0x0001,
+> +};
+> +
+> +struct osf_frame {
+> +	u8 protocol_minor;
+> +	u16 message_type;
+> +	u32 payload_len;
+> +	u64 sequence;
+> +	u64 timestamp_us;
+> +	u32 flags;
+> +	u32 reserved;
+Not obvious why to keep this.
+
+> +	const u8 *payload;
+> +	u32 crc;
+> +};
+> +
+> +struct osf_sensor_sample {
+> +	u16 sensor_type;
+> +	u16 sensor_index;
+> +	u16 channel_count;
+> +	u16 sample_format;
+
+We don't need to match types with original data so
+nice to use the named enums if possible.  Will need
+to check limits though when decoding.
+
+> +	u32 scale_nano;
+> +	u32 reserved;
+why store reserved in these?
+> +	const u8 *samples;
+
+Compared to capabilities this one seems trickier for
+types given it's variable size. Still nice to use something
+that indicates the type if we can.
+
+> +};
+> +
+> +struct osf_device_status {
+> +	u32 uptime_s;
+> +	u32 status_flags;
+> +	u32 error_flags;
+> +	u32 dropped_frames;
+> +	u32 reserved;
+> +};
+> +
+> +struct osf_capability_report {
+> +	u16 capability_count;
+> +	u16 reserved;
+> +	const u8 *entries;
+Are these not struct osf_capability_entry?
+If they are then use that not a u8.
+
+I'd not bother with a const marking.
+With that type fixed you should be able to use
+__counted_by_ptr(capability_count)  to make that relationship
+clear.
+
+> +};
+> +
+> +struct osf_capability_entry {
+> +	u16 sensor_type;
+> +	u16 sensor_index;
+> +	u16 channel_count;
+> +	u16 sample_format;
+> +	u32 scale_nano;
+> +	u32 flags;
+> +	u32 reserved;
+> +};
+
