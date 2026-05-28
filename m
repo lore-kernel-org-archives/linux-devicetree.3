@@ -1,42 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F3FB3FBB5E;
-	Thu, 28 May 2026 17:10:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3948F19CD0A;
+	Thu, 28 May 2026 17:13:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779988258; cv=none; b=LQxxeSR5WFgUg+9nYqd9++Epg+t3ARhoK36t6yrfIKBtT76YqGYfxD85XkvMkfjCR7WPZeo2NReGIAfpACkChXTa2Q4DBoJ69knmUumse6zzNXSt4OVzJS+Zz7IlBpL4Hb1B2mY8am5gzA4fedn/RlckQQ63z0pSk6gMFebnja8=
+	t=1779988401; cv=none; b=Zh6eH/yVjSIcjOwgcVAO/eqUYEie2Tn6JTvQG9Sfc5u3eNRlByyo0GdGJwuqrvFuJYnWS5qQ2/0ynVBDC1t3zeSoJyg3t4XLnDBL8Y03vZDEY59rsdDq5j1usN18l6K9rowGMibE13X/HmmQmDdNKBH8ibsPoDei4ygqE0J+rS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779988258; c=relaxed/simple;
-	bh=n2wcEO8s+12BK1f4VZTLjS4luMFSh0CYw+5s5vBvACM=;
+	s=arc-20240116; t=1779988401; c=relaxed/simple;
+	bh=JFPo/lJS7WGgejVGo43zPUriEvsRZR1XHMcyK9q+sCg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oW34bEfijQ+xBPg9iRcr9I6YM06USGj1mfU6ysmk1hDm47kvPd7kF3Hz3DK9jUI70Ss464wBac2oMSdX3zbF8YgU/GDgKM06o5i5n8VThz6LdCX2DLGaqPhKrvfjZrkDO3sNt/kvGPw+GS/lC7duW8zHSK0KGS5rqdXHo600Yjc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oBgmaJ3W; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=QmN4WeCMIFL2RlHTEsVJRA0EWJfBwZs5r+JlO0AH59HuOZgql6o5+HNm4HEOY/Vl+09TRLgx56UwRiDwHtQhPKGpPKx1yNHLAW5p2oj0AGcMhT6U4sgrgHp4aEEiJLNmG98XPvUoHxOWPgM4DwItAX49A3pCXBT4xoSs9015G44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XT2xQqiM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oBgmaJ3W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC6AF1F000E9;
-	Thu, 28 May 2026 17:10:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XT2xQqiM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD941F000E9;
+	Thu, 28 May 2026 17:13:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779988255;
-	bh=gyVo4423o0iPXgoRjXkG1h68nIJ2qeXNY9VfLrcU0ls=;
+	s=k20260515; t=1779988399;
+	bh=DmoXDah3jQ5Ng6Yl64alLuZTaHi/bH6kVvRmL4WSci4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oBgmaJ3WgDBMaEu2rb6NR+1bCPe1YrPufqq8iH0Bcn3+pIYQD5Sinje/WOy4IOM6I
-	 MJGAV5lbPUPxDAFhE96LgVUc0zesYKoiiIB7Gtq1KTfuE9+5KGAzS0SZOuJNAqcjAM
-	 uk3W2kYGE77vl9fSMBZLfzwEeuql86L+KP6MKEI/aJVkcTObcawNfsUwhvAe7KwVdo
-	 qR/YebVpmCN/Y/LIXu539a4O9iHnlQZXh41tGHSEGtNW7XbD7gm3rueQXSztA1Gw2m
-	 K0FUT5VoCM29v15wz8uiid4kKxep92z3KE1IaBGDnKoeAGd7s+UXnTmaR2vgkqnsOi
-	 StjdDy+kMyEsw==
-Date: Thu, 28 May 2026 18:10:51 +0100
+	b=XT2xQqiM794hRpZH3R37eidRSs2hUFcz2AGrGhnknWAeNsuKxBKl6TnwI4suQ3Gyn
+	 qQi1sKK8lATJ0FkPkZxxyeneVNzzVf1/NPCk0K+wjrUyzG9U3p37UgQc0qNhn/eB6S
+	 DmdnmrRUV1wNPSRssdqG7PRoIl6rOtaRwy8KhxJqEyI2JHYULk60Uj/y93hLndKSol
+	 KSnGNCjibIMSaYo4gY547F5+b54lszhondeuuEqo52sOzD3sDVByUtBocHd05oTzkd
+	 sKyXRivPy4CR3qXYBqYNFqwW1trgMyzrET2dXFDm2tqKR7TCOEKnzmdW/+RObzSggZ
+	 Z23FXmVkKAR8Q==
+Date: Thu, 28 May 2026 18:13:14 +0100
 From: Conor Dooley <conor@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Hendrik Noack <hendrik-noack@gmx.de>, robh@kernel.org,
-	dmitry.torokhov@gmail.com, conor+dt@kernel.org,
-	devicetree@vger.kernel.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v8 1/2] dt-bindings: Input: Add Wacom W9000-series
- penabled touchscreens
-Message-ID: <20260528-dislodge-richly-38e28466f494@spud>
-References: <20260528074818.12151-2-hendrik-noack@gmx.de>
- <20260528083225.3A5101F00A3A@smtp.kernel.org>
+To: Junhui Liu <junhui.liu@pigmoral.tech>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
+	Yixun Lan <dlan@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
+	Paolo Abeni <pabeni@redhat.com>, Guodong Xu <guodong@riscstar.com>,
+	Yangyu Chen <cyy@cyyself.name>, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 2/3] riscv: dts: spacemit: k1: Split gmac_clk_ref into
+ independent pinctrl groups
+Message-ID: <20260528-mushily-suffrage-5162d4ffdaf2@spud>
+References: <20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech>
+ <20260528-bpi-cm6-v2-2-d0eb3f236cea@pigmoral.tech>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -44,103 +50,99 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="uZvB6Cc0nt5hAy5K"
+	protocol="application/pgp-signature"; boundary="yHMIcsRoTx1oZIkR"
 Content-Disposition: inline
-In-Reply-To: <20260528083225.3A5101F00A3A@smtp.kernel.org>
+In-Reply-To: <20260528-bpi-cm6-v2-2-d0eb3f236cea@pigmoral.tech>
 
 
---uZvB6Cc0nt5hAy5K
-Content-Type: text/plain; charset=iso-8859-1
+--yHMIcsRoTx1oZIkR
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 28, 2026 at 08:32:24AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issu=
-e(s) to consider:
-> - [Low] Vendor-specific property 'flash-mode-gpios' is missing the vendor=
- prefix.
-> - [Low] Node name 'digitizer@56' in the example should be a standard gene=
-ric name such as 'touchscreen@56'.
-> - [Low] The binding file is named after a specific variant ('wacom,w9007a=
--lt03.yaml') rather than the first compatible string ('wacom,w9002.yaml').
-> --
+On Thu, May 28, 2026 at 01:22:48PM +0800, Junhui Liu wrote:
+> The gmac_clk_ref signal is optional for the GMAC controller and is not
+> strictly required for all hardware designs. The pins for gmac0_clk_ref
+> (GPIO 45) and gmac1_clk_ref (GPIO 46) may also be used as GPIOs for
+> other functions even when the Ethernet controller is active.
 >=20
-> commit d38ecd0efb12cc8efc9000f9c78e8a14387d40c6
-> Author: Hendrik Noack <hendrik-noack@gmx.de>
-> Subject: dt-bindings: Input: Add Wacom W9000-series penabled touchscreens
+> Split the refclk pins into independent pinctrl groups so boards can
+> request them only when the reference clock path is actually needed.
 >=20
-> This commit adds bindings for the Wacom W9002, W9007A LT03, and W9007A V1
-> touchscreen controllers. These controllers differ slightly in their return
-> message formats.
+> Among the already mainlined boards, BPI-F3, Jupiter and MusePi Pro have
+> optional hardware paths for the GMAC refclk pins. BPI-F3 and Jupiter
+> route both GMAC refclk pins to the PHYs through NC/0R option resistors,
+> while MusePi Pro only does so for GMAC0. Keep referencing the new
+> clk-ref pinctrl groups on these boards so the optional hardware paths
+> remain usable if the option resistors are populated.
 >=20
-> > diff --git a/Documentation/devicetree/bindings/input/touchscreen/wacom,=
-w9007a-lt03.yaml b/Documentation/devicetree/bindings/input/touchscreen/waco=
-m,w9007a-lt03.yaml
-> > new file mode 100644
-> > index 0000000000000..6d1da6a435d39
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/input/touchscreen/wacom,w9007a-=
-lt03.yaml
+> OrangePi R2S has no publicly available schematic, so also keep the
+> clk-ref groups there to preserve the previous pinmux behavior.
 >=20
-> [Severity: Low]
-> Should this file be named wacom,w9002.yaml after the first compatible str=
-ing,
-> rather than being named after a specific variant?
+> Fixes: 60775f28cfb7 ("riscv: dts: spacemit: Add Ethernet support for K1")
+> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 
-This doesn't matter, w9002 is as much of a "variant" as the others.
+> diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv/bo=
+ot/dts/spacemit/k1-pinctrl.dtsi
+> index 4e9a62d0e85b..8c57ca05dabd 100644
+> --- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
+> +++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
+> @@ -27,8 +27,16 @@ gmac0-pins {
+>  				 <K1_PADCONF(11, 1)>,	/* gmac0_tx_en */
+>  				 <K1_PADCONF(12, 1)>,	/* gmac0_mdc */
+>  				 <K1_PADCONF(13, 1)>,	/* gmac0_mdio */
+> -				 <K1_PADCONF(14, 1)>,	/* gmac0_int_n */
+> -				 <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
 
->=20
-> > @@ -0,0 +1,73 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
->=20
-> [ ... ]
->=20
-> > +  vdd-supply: true
-> > +
-> > +  flash-mode-gpios:
-> > +    maxItems: 1
->=20
-> [Severity: Low]
-> Does this property need a vendor prefix (wacom,flash-mode-gpios) since it=
- is
-> hardware-specific?
+The point sashiko made here seems valid, odd that these aren't added to
+another group.
 
-No, cos it is a gpios property. Just like how supplies don't have
-prefixes.
-
->=20
-> [ ... ]
->=20
-> > +        #address-cells =3D <1>;
-> > +        #size-cells =3D <0>;
-> > +
-> > +        digitizer@56 {
->=20
-> [Severity: Low]
-> Should this node name be changed to a generic class name such as
-> touchscreen@56?
-
-"digitiser" is generic enough for this not to matter IMO.
-
->=20
-> > +            compatible =3D "wacom,w9007a-lt03";
-> > +            reg =3D <0x56>;
+> +				 <K1_PADCONF(14, 1)>;	/* gmac0_int_n */
+> +
+> +			bias-pull-up =3D <0>;
+> +			drive-strength =3D <21>;
+> +		};
+> +	};
+> +
+> +	gmac0_clk_ref_cfg: gmac0-clk-ref-cfg {
+> +		gmac0-clk-ref-pins {
+> +			pinmux =3D <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
+> =20
+>  			bias-pull-up =3D <0>;
+>  			drive-strength =3D <21>;
+> @@ -51,8 +59,16 @@ gmac1-pins {
+>  				 <K1_PADCONF(40, 1)>,	/* gmac1_tx_en */
+>  				 <K1_PADCONF(41, 1)>,	/* gmac1_mdc */
+>  				 <K1_PADCONF(42, 1)>,	/* gmac1_mdio */
+> -				 <K1_PADCONF(43, 1)>,	/* gmac1_int_n */
+> -				 <K1_PADCONF(46, 1)>;	/* gmac1_clk_ref */
+> +				 <K1_PADCONF(43, 1)>;	/* gmac1_int_n */
+> +
+> +			bias-pull-up =3D <0>;
+> +			drive-strength =3D <21>;
+> +		};
+> +	};
+> +
+> +	gmac1_clk_ref_cfg: gmac1-clk-ref-cfg {
+> +		gmac1-clk-ref-pins {
+> +			pinmux =3D <K1_PADCONF(46, 1)>;	/* gmac1_clk_ref */
+> =20
+>  			bias-pull-up =3D <0>;
+>  			drive-strength =3D <21>;
 >=20
 > --=20
-> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260528074818.12151=
--1-hendrik-noack@gmx.de?part=3D1
+> 2.54.0
+>=20
 
---uZvB6Cc0nt5hAy5K
+--yHMIcsRoTx1oZIkR
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahh3GwAKCRB4tDGHoIJi
-0oQlAQDODchRV9feUSQp8Ot9KfEQ2LZZqLgihLmcEh8k89nlqgD+OX+/F6QEnTc/
-z4mPkYvezV1g7ukf7QqIWFzN/8PXvwc=
-=fheY
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahh3qgAKCRB4tDGHoIJi
+0ighAQCCYCHn/Z8Nx1S8V5gzBhLAaraiQ7AmOK+smylXr8jDiwEAp3sY1yAA84Wh
+XOHUcBadiG0vpUZHYLRkhwjSFZEjHgk=
+=FbJc
 -----END PGP SIGNATURE-----
 
---uZvB6Cc0nt5hAy5K--
+--yHMIcsRoTx1oZIkR--
