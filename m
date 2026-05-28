@@ -1,256 +1,256 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 782E5367F5E
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8BA7830E0F8;
+	Thu, 28 May 2026 08:02:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779955232; cv=none; b=U3te3cbheTqn4bCMajJbi+V0Fe/x/gGVRRBD6+kDx2in5p+tdIwj+HRM+KNPfnRPbrCLFDSgvVqn0BN0NlmRTc8dp6ydtVcb94NC1dMiSTty4iAxq9iJ914uJvuwb3feDKKH75AxJis03eJWvbYpXwAukrWJjCnkWSXqTXRgQiU=
+	t=1779955371; cv=none; b=CEfrEsF9yFtzib6F3h3pAu7+5fbXZZes4TV6Ct5/BnZfeaWodMRT63xoIjpN0GHRLfwCl7LTroqLYpvB/YoX2To1gLN8hsqteJAVDUgBdD+UYbcL93b+/T9YEqZd5T+lkof3hu4OjXl+NUmvHUEu8/fsscgy1QyVHVIk292P6O4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779955232; c=relaxed/simple;
-	bh=hB9rWWdziNFSDSCFK0MEsE6r1p8y3/lPTZryWO7j3LY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=n8jK4D2sDxm/MfBF5rTmro9P9Xtqmo8HzvljutJ/405gbxm1giVSx5I3mkJPqME8+L4rQsnSS0O8z36NuLUYv+toQCWodnrNLrOosSFSwVSk09MoGxk/jl3WOY5oFE4r+4ilxaeJnFgeW+Hc4DKX2B6FjDiV+5JWiN+Pm6fgAT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=hQb0SGSr; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iHqSJrYR; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1779955371; c=relaxed/simple;
+	bh=QW9gXVGW6LlKeGowDKXk0ycOCa1aUIqKcc9+r0dKpFY=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=eQ9Q3cgdvHUdpufrybOsM7j1Y1O22X0dqqqlaVitCnJ7n7zA7wpcD1nb/yPcm6pTcxMOhC8Gawc5QsNQ3R5olhwgfLSZ0idjAZ+lA2/gpDNCSpjkOtM7iH/htj5QW11cigfChLWg1tvgdOtZabOloyf/u+byXj8OSW5EZLg1c9s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=K0pJTyW1; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="hQb0SGSr";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iHqSJrYR"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S75LgT2754302
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:00:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=N7iMbetrrOwn6wQkhuxIddok
-	2tB1wY35g7JsfGtZdak=; b=hQb0SGSr6d5nOnQPbsCqqc0XyBMozQI1cGgGMDJ0
-	HuBvifkSNS56xU43f9j1SX8TrPK4gDXm6jFX69BIj4SUUSnvdgv5RSpQcBULEcdu
-	EJiccDSiu0yzGLi4bofFOPIMoQtsTrCiQFjfYqRND9u9SA7uP/jo2540P9eLycXD
-	r8UPzbVXdybVReSAvPvOjYz4ESqP2+DOGL5CVSSamw4GAM8OulD50DfF9z3FXBoJ
-	h2orbLsRexGINodAogEXinEUSVsiMCBgtyg0An13pUczxVyvjsnem5WJ41FkxlbT
-	Bftp6/7r+U4kEQZ12WyIexaxQSg73IKrXFT8Jl6oBBVFcA==
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com [209.85.160.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7yc9vv0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:00:29 +0000 (GMT)
-Received: by mail-qt1-f198.google.com with SMTP id d75a77b69052e-516cdd89225so136308861cf.0
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 01:00:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="K0pJTyW1"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779955229; x=1780560029; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=N7iMbetrrOwn6wQkhuxIddok2tB1wY35g7JsfGtZdak=;
-        b=iHqSJrYRGRED0ftPYZl//0UxIHI7BhtjvkZZXL4viB+NL4IeKJft55tbhAV6CJ1rxe
-         0CvruGzU8v+UkqKw7barjhCNZnXqoYe1r/5LL1QsS+39yTNW0mIWCEoIGGZaoAKr6q/y
-         /8ldEQnNLjfWrcGGtESApPdVhLcJaN23MR1s5y1rkB1AZte18uzqiTfmiKOeWFYC/OeM
-         um5aPURc7ojGHjYjRuUJZHss3CU4F4Ayw0mnXiGTlAGUYg9LdU9ZbM/EQYOz2PJkXbOY
-         EQ9yuNt3zqCH9ja0GoDG+emmwJ+sC1bbOENAwBxrKWH/nk7FTArlozthAkK4Q8A35CiX
-         GVFw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779955229; x=1780560029;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=N7iMbetrrOwn6wQkhuxIddok2tB1wY35g7JsfGtZdak=;
-        b=hXXmXoVqXvvnvmdWb8L63LdSiq9x/KL3qyMD9s7aVa8qxy8dAuSXha8+rNJNfjmrKW
-         zxXBi1D9V6azobmqk1n4VbBB7K8T4tgYPDwacCjD8f09Gz+HLyc1YtLTqKQy8gxMI5AK
-         GUanaBb4qhGbm6cRxzedfPPAY5VkNwaq6iJnSNn6gxPvduKJ9F99617M4laxg1VGkupl
-         whYKQfjVbWVIlWsQsZ7I8sSUHKKBpniaz0lMlkgD9qmZPuCrDaaIs9jjLB1bT8utmD54
-         IEzcBDCdj4UrqEnB5K2PqafD09Bn1ncOJJHJp1t95GXUd7JrkYhFRpAmxLPAy4lgRgNw
-         FIaA==
-X-Forwarded-Encrypted: i=1; AFNElJ9EweNiZoQIcrY0qx9YgHuAzNaYm6Bf4bVppC+LsP2NLrXVrX9UfNu6K+wZKqVjLSPSWAh2yvZG6vcL@vger.kernel.org
-X-Gm-Message-State: AOJu0YzU91aB8qLaY8YbHTdQZ3OeaU7wY+KWbeHnbWIRlm1/63qXG+Fw
-	j3e6f+4/HrSXJTFX7eY6BLBI7qZgldGEAzlNfFegi+K3j3t5pM4riM1DTc8bECNcmvkgOyN883f
-	H6oCgq/kGF3B5baVK4ZrliHIrI6dunfPV35E5f1zk9rmYHCdpiKqcuNmFCP8b+sQC
-X-Gm-Gg: Acq92OHaPtpDtWXMzAbrc1xuo8wumCyb2JsiOH0PZ2ku6F1uLzxgj7508OMlyGB2uFY
-	57c9me6Qqm97XD1PQy89SZ3JhK5PIBTGF4M3HBn1tGUU+JatkjbzBK2fke/GDD0/DnVPYIJ5Q9V
-	OMcEoFHwDqIsBXkQU3vQ3ZbdzlT/Jh+LiR9nMI2JDcE5pMAON4/vnNasav/m3wPxOXnGzhjGrUq
-	US/llROTKMYzdQG5mdoPnqavOH0WU19eGZElkAJ7kQqWuQmuciPhZOsiXA8Bu08wINoZZUguoJi
-	OPM9ApRAA2nQtvNKXfj0zDq1D/k+Yk33gAVRrRoAyRrUGhc5a9/3+SOUvEmGsxhDR9dVXgLKb1p
-	bvjkbFs7rzmKp37e9U9GfWOq3CnZ0WFpY0DHf/SmIrXNJR5UofKGcURiNkN2Jcv9Q8pbQQz/oN3
-	2brUgwU/kSEScyRVXmnTUmWdCV10tAgY1aCxLXqi06K53Byw==
-X-Received: by 2002:a05:622a:8589:b0:516:daff:7f71 with SMTP id d75a77b69052e-516daff8005mr277691211cf.56.1779955228569;
-        Thu, 28 May 2026 01:00:28 -0700 (PDT)
-X-Received: by 2002:a05:622a:8589:b0:516:daff:7f71 with SMTP id d75a77b69052e-516daff8005mr277690111cf.56.1779955227789;
-        Thu, 28 May 2026 01:00:27 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa462cf284sm1739113e87.7.2026.05.28.01.00.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 01:00:26 -0700 (PDT)
-Date: Thu, 28 May 2026 11:00:23 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Cc: Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, linux-kernel@vger.kernel.org,
-        linux-phy@lists.infradead.org, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, usb4-upstream@oss.qualcomm.com,
-        Raghavendra Thoorpu <rthoorpu@qti.qualcomm.com>,
-        Mika Westerberg <westeri@kernel.org>, Sven Peter <sven@kernel.org>
-Subject: Re: [PATCH 3/5] phy: qualcomm: qmp-combo: Add preliminary USB4
- support
-Message-ID: <zzs4wgr37wfptzqwgttxdubqnyudyh3am2r6i7b56kd3lwuo2e@bjcyelaxtlq3>
-References: <20260518-topic-usb4phy-v1-0-71d827c49dca@oss.qualcomm.com>
- <20260518-topic-usb4phy-v1-3-71d827c49dca@oss.qualcomm.com>
- <4nqlpu7qfptekyn77sd7sdn446stgn3v3lw2356bvizrnvjgnr@czqgivemigt5>
- <9aad8e45-b0a5-4c59-8793-8c0747d8fafa@oss.qualcomm.com>
- <uc2l2mbobmik5workhcbtry5spe2gyamx2x4yj4rjly4t3dbrh@n34fo74rctnk>
- <6fb112ae-5919-4c8f-a915-4538d14284da@oss.qualcomm.com>
- <iws2snsi3yfddich3rqqurhwt6mvi2boushkog5t5gvo2ahwmp@l2m6ays2kicf>
- <72b140a7-e95e-491d-8bae-f98a593bdbfb@oss.qualcomm.com>
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=qTyBdHXdVTvD5p7mBh3Y3ebiYH14OcrNA
+	ZjgSGACkUE=; b=K0pJTyW1jpEVqB6hu5Z+gfurAFWl+hqy28OzKtTt6jJaomtA2
+	L83VGQCadGGfiW79QmCrDFhMLRviM/tyE3NOY7SjndjYzRNbMjXqk//zSClPF/oP
+	D6fp2M7dr3BVzWtUPhivUJaAJdJh3UyuE0fKRiwHbmuqnshbkNTelIkGd0=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnEkPC9hdqkqcGAA--.7964S2;
+	Thu, 28 May 2026 16:03:14 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <72b140a7-e95e-491d-8bae-f98a593bdbfb@oss.qualcomm.com>
-X-Authority-Analysis: v=2.4 cv=VOntWdPX c=1 sm=1 tr=0 ts=6a17f61d cx=c_pps
- a=mPf7EqFMSY9/WdsSgAYMbA==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
- a=PDx2_Kj2Eo2xtKM_tVQA:9 a=CjuIK1q_8ugA:10 a=dawVfQjAaf238kedN5IG:22
-X-Proofpoint-GUID: bgZLzKEXIr5QnbRSdSsRLj54gVVTK6aO
-X-Proofpoint-ORIG-GUID: bgZLzKEXIr5QnbRSdSsRLj54gVVTK6aO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDA3OSBTYWx0ZWRfX42m64wGzkZPf
- Umvh6yychbN5WgI+0/hbpyNFa6zxNZ0Vlt575HbnTtt4+8kDDeEjXuD6BLqV/O8ZBw9+LX1yNzB
- uZcvTmV5310gFREfzwqW4wl07XoSe9UwsMducDOWyQZL5ZhSnokrc5Hh+7Mcc/elibB9xoZwMGS
- GPhpKsTZBoJT8jDR7zoVxnDvP5uH0geSkWEwd8avP7QczdaXNzM1D+6kuwajFjHWEwrmtbNVwaA
- ON1gg4/Rv0HwcfTonbv2g0F60v8ec85h5DHQVldElgEBHHdLacHyv8naSB8IhHObI/7av24gzFm
- sWteqM9OxIOHrWmsDRMhXb65FHMEE+UZqdxY3KHVcxu0J7g0iWduOCoxlMyxOtG7ndJr5lQ1Xv6
- //+57oVb8gK3fCGr1ip2LG+jIwo9mpNGdZ9hPvYxHbvDnxKoc73vG/qnjRTz+S6bDRMrKzO3O2m
- puBidxiIWBGiJhUH8TA==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_02,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 suspectscore=0
- lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280079
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 7/9] riscv: dts: ultrarisc: add Rongda M0 board device
+ tree
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: wangjia@ultrarisc.com, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Linus Walleij <linusw@kernel.org>, 
+ Bartosz Golaszewski <brgl@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, Conor Dooley <conor@kernel.org>, 
+ devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org
+In-Reply-To: <1a4a54bc-1013-4ab0-85e9-7ad5cf7146cd@kernel.org>
+References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
+ <20260515-ultrarisc-pinctrl-v1-7-bf559589ea8a@ultrarisc.com>
+ <1a4a54bc-1013-4ab0-85e9-7ad5cf7146cd@kernel.org>
+Date: Thu, 28 May 2026 16:02:34 +0800
+Message-Id: <177995535495.929162.14360417218918332099.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779955355; l=4993;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=QW9gXVGW6LlKeGowDKXk0ycOCa1aUIqKcc9+r0dKpFY=;
+ b=78XIM9TKCYrIwTTdVasxyRqtRZrTHxEkM6mLN/IjmBDW8NQhk69ZA64gHbrvbpxqCSI6HixEe
+ Cw7xbF1LDK2CEZbeeJ/2UA93kAQTqeXkQ5ZuqFuFRBVVikC9qbPlCDI
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwAnEkPC9hdqkqcGAA--.7964S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxXryrAF1fJF47urykAw1fWFg_yoWrtrWDpa
+	nrCrs8ua9ruw12934Iv345JFnxJr48Wa4ru3W7tFyIyrs8Zr48CrZaq3s0gFn3Xrn8J348
+	Cr15uFyIkFnakaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgAKsM
 
-On Fri, May 22, 2026 at 02:05:14PM +0200, Konrad Dybcio wrote:
-> On 5/20/26 5:06 PM, Dmitry Baryshkov wrote:
-> > On Tue, May 19, 2026 at 10:12:06AM +0200, Konrad Dybcio wrote:
-> >> On 5/18/26 5:38 PM, Dmitry Baryshkov wrote:
-> >>> On Mon, May 18, 2026 at 04:15:16PM +0200, Konrad Dybcio wrote:
-> >>>> On 5/18/26 3:57 PM, Dmitry Baryshkov wrote:
-> >>>>> On Mon, May 18, 2026 at 12:29:50PM +0200, Konrad Dybcio wrote:
-> >>>>>> From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>>>>>
-> >>>>>> Some Combo PHYs (so far only on SC8280XP, X1E80100 and Glymur), come in
-> >>>>>> a flavor called USB43DP, which as the name implies, features USB4, USB3
-> >>>>>> and DP signal processing capabilities. In that architecture, USB3 and
-> >>>>>> USB4 PHYs share the same USB_PLL while featuring separate logic spaces.
-> >>>>>> The DP part is roughly the same as on the instances without USB4.
-> >>>>>>
-> >>>>>> The USB4 and USB3/DP operation modes of the PHY are mutually exclusive.
-> >>>>>> Only one USB protocol (and flavor of pipe clock) can be active at a
-> >>>>>> given moment (not to be confused with USB3 not being able to be
-> >>>>>> tunneled as USB4 packets - that of course remains possible).
-> >>>>>> The DP PLL is still used for clocking tunneled DP links. It may be
-> >>>>>> turned off to save power when no tunnels are active, but that's left as
-> >>>>>> a TODO item for now.
-> >>>>>>
-> >>>>>> Due to the nature of USB4, the Type-C handling happens entirely inside
-> >>>>>> the Host Router, and as such the QMPPHY's mux_set() function is
-> >>>>>> nullified for the period when USB4 PHY remains active. This is strictly
-> >>>>>> necessary, as the Host Router driver is going to excercise manual
-> >>>>>> control over the USB4 PHY's power state, which is needed by the suspend
-> >>>>>> and resume flows. Failure to control that synchronously with other
-> >>>>>> parts of the code results in a SoC crash by unlocked access.
-> >>>>>>
-> >>>>>> Because of that, a new struct phy is spawned to expose the USB4 mode,
-> >>>>>> along with a .set_mode callback to allow toggling between USB4 and TBT3
-> >>>>>> submodes.
-> >>>>>>
-> >>>>>> Thunderbolt 3, having a number of differences vs USB4, requires a
-> >>>>>> couple specific overrides, pertaining to electrical characteristics,
-> >>>>>> which are easily accommodated for.
-> >>>>>>
-> >>>>>> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-> >>>>>> ---
-> >>>>>>  drivers/phy/qualcomm/phy-qcom-qmp-combo.c | 392 ++++++++++++++++++++++++------
-> >>>>>>  1 file changed, 322 insertions(+), 70 deletions(-)
-> >>>>>>
-> >>>>>
-> >>>>> Overall it looks good. The major question (after looking at TODOs), do
-> >>>>> we need a separate submode for USB+DP / TBT+DP?
-> >>>>
-> >>>> The problem space is as follows:
-> >>>>
-> >>>> After a TBT (collectively TBT3+ and USB4) link has been established and
-> >>>> we have a link partner, we may (based on the HW capabilities and user
-> >>>> config, such as kernel params but not only) start or stop a DP tunnel at
-> >>>> runtime. On Qualcomm hardware, the PHY is kept in USB4 mode and its DP
-> >>>> AUX lines are not used (instead, the encapsulated DP AUX packets are r/w
-> >>>> entirely within the USB4 subsystem via a pair of FIFOs that Linux sees
-> >>>> as a separate DP AUX host)
-> >>>
-> >>> So far so good. But I still don't grok if having a DP-over-USB4 is a
-> >>> separate submode or not. I.e. I see code (and TODOs) to detect and
-> >>> handle DP going on and off. Would it be better if we specify that
-> >>> explicitly?
-> >>
-> >> I really don't want to end up in a situation like we have with:
-> >>
-> >> $ rg _USB include/linux/phy/phy.h
-> >> 29:     PHY_MODE_USB_HOST,
-> >> 30:     PHY_MODE_USB_HOST_LS,
-> >> 31:     PHY_MODE_USB_HOST_FS,
-> >> 32:     PHY_MODE_USB_HOST_HS,
-> >> 33:     PHY_MODE_USB_HOST_SS,
-> >> 34:     PHY_MODE_USB_DEVICE,
-> >> 35:     PHY_MODE_USB_DEVICE_LS,
-> >> 36:     PHY_MODE_USB_DEVICE_FS,
-> >> 37:     PHY_MODE_USB_DEVICE_HS,
-> >> 38:     PHY_MODE_USB_DEVICE_SS,
-> >> 39:     PHY_MODE_USB_OTG,
-> >>
-> >>>> Then, on hamoa/glymur specifically, any of the 3 USB4-capable DP hosts
-> >>>> can be muxed to either of the 2 DPIN ports on any of the 3 USB4 routers
-> >>>> (and each of these routers is hardwired to one of the PHYs).
-> >>>>
-> >>>> To underline, we have 3 DP producers and 6 consumers. If there's e.g. a
-> >>>> super high-res display at one of the physical ports, or a long
-> >>>> daisy-chain, we may need to use 2 DPTXes to service 1 receptacle. Then,
-> >>>> we would only need one of the PHYs (associated with the router that's
-> >>>> wired to that port) to provide a DP clock.
-> >>>>
-> >>>> This, along with the normal (logical or physical) present/absent status
-> >>>> can change at runtime. My plan is to use phy_set_opts(dp_tunelling=true)
-> >>>> or something along those lines to toggle that bit as necessary
-> >>>
-> >>> I don't see phy_set_opts(). So maybe a submode then...
-> >>
-> >> Sorry, I misremembered the name. The function is phy_configure(), and it
-> >> takes a union phy_configure_opts, hence the confusion
+On 2026-05-21 22:59 +0200, Krzysztof Kozlowski wrote:
+> On 15/05/2026 03:18, Jia Wang via B4 Relay wrote:
+> > From: Jia Wang <wangjia@ultrarisc.com>
 > > 
-> > So, phy_configure() will be called for the DP PHY to set the DP opts,
-> > but how do you plan to determine if DP is on or not? Or do you plan to
-> > add phy_tbt_configure_opts ?
+> > Rongda M0 is an mATX motherboard based on the UltraRISC DP1000 SoC.
 > > 
-> > Another obvious option would be to set the flag if DP PHY is being tuned
-> > on / off. I don't know if that fulfills your needs.
+> > Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> > ---
+> >  arch/riscv/boot/dts/Makefile                       |   1 +
+> >  arch/riscv/boot/dts/ultrarisc/Makefile             |   2 +
+> >  .../dts/ultrarisc/dp1000-rongda-m0-pinctrl.dtsi    |  85 ++++++++++++++++
+> >  arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0.dts | 111 +++++++++++++++++++++
+> >  4 files changed, 199 insertions(+)
+> > 
+> > diff --git a/arch/riscv/boot/dts/Makefile b/arch/riscv/boot/dts/Makefile
+> > index 69d8751fb17c..702882974251 100644
+> > --- a/arch/riscv/boot/dts/Makefile
+> > +++ b/arch/riscv/boot/dts/Makefile
+> > @@ -12,3 +12,4 @@ subdir-y += spacemit
+> >  subdir-y += starfive
+> >  subdir-y += tenstorrent
+> >  subdir-y += thead
+> > +subdir-y += ultrarisc
+> > diff --git a/arch/riscv/boot/dts/ultrarisc/Makefile b/arch/riscv/boot/dts/ultrarisc/Makefile
+> > new file mode 100644
+> > index 000000000000..d01a770d3cba
+> > --- /dev/null
+> > +++ b/arch/riscv/boot/dts/ultrarisc/Makefile
+> > @@ -0,0 +1,2 @@
+> > +# SPDX-License-Identifier: GPL-2.0
+> > +dtb-$(CONFIG_ARCH_ULTRARISC) += dp1000-rongda-m0.dtb
+> > diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0-pinctrl.dtsi b/arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0-pinctrl.dtsi
+> > new file mode 100644
+> > index 000000000000..101b416b1079
+> > --- /dev/null
+> > +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0-pinctrl.dtsi
+> > @@ -0,0 +1,85 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
+> > + */
+> > +
+> > +#include "dp1000.dtsi"
+> > +
+> > +&pmx0 {
+> > +	i2c0_pins: i2c0-pins {
+> > +		pins = "PA12", "PA13";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	i2c1_pins: i2c1-pins {
+> > +		pins = "PB6", "PB7";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	i2c2_pins: i2c2-pins {
+> > +		pins = "PC0", "PC1";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	i2c3_pins: i2c3-pins {
+> > +		pins = "PC2", "PC3";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	pciex4a_link_pins: pciex4a-link-pins {
+> > +		pins = "PC0";
+> > +		function = "func1";
+> > +		bias-pull-down;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	pciex4b_link_pins: pciex4b-link-pins {
+> > +		pins = "PC1";
+> > +		function = "func1";
+> > +		bias-pull-down;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	spi0_pins: spi0-pins {
+> > +		pins = "PD0", "PD1", "PD2", "PD3", "PD4", "PD5", "PD6", "PD7";
+> > +		function = "func1";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	spi1_pins: spi1-pins {
+> > +		pins = "PA0", "PA1", "PA2", "PA3";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	uart0_pins: uart0-pins {
+> > +		pins = "PA8", "PA9";
+> > +		function = "func1";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	uart1_pins: uart1-pins {
+> > +		pins = "PB4", "PB5";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +
+> > +	uart2_pins: uart2-pins {
+> > +		pins = "PC4", "PC5";
+> > +		function = "func0";
+> > +		bias-pull-up;
+> > +		drive-strength = <33>;
+> > +	};
+> > +};
+> > diff --git a/arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0.dts b/arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0.dts
+> > new file mode 100644
+> > index 000000000000..6f72d60ad55e
+> > --- /dev/null
+> > +++ b/arch/riscv/boot/dts/ultrarisc/dp1000-rongda-m0.dts
+> > @@ -0,0 +1,111 @@
+> > +// SPDX-License-Identifier: GPL-2.0
+> > +/*
+> > + * Copyright(C) 2026 UltraRISC Technology (Shanghai) Co., Ltd.
+> > + */
+> > +
+> > +#include "dp1000-rongda-m0-pinctrl.dtsi"
+> > +#include <dt-bindings/gpio/gpio.h>
+> > +
+> > +/ {
+> > +	model = "Rongda M0 Board";
+> > +	compatible = "rongda,m0", "ultrarisc,dp1000";
+> > +
+> > +	aliases {
+> > +		serial0 = &uart0;
+> > +		serial1 = &uart1;
+> > +		serial2 = &uart2;
+> > +		serial3 = &uart3;
+> > +	};
+> > +
+> > +	chosen {
+> > +		stdout-path = "serial0:115200n8";
+> > +	};
+> > +
+> > +	gpio-poweroff {
+> > +		compatible = "gpio-poweroff";
+> > +		gpios = <&gpio_b 0 GPIO_ACTIVE_HIGH>;
+> > +		active-delay-ms = <100>;
+> > +
+> > +		status = "disabled";
 > 
-> Either this or tbt_configure_opts. We still have the muxing question to
-> chew through.
+> Why is this disabled? You just added final board, so it cannot have any
+> nodes disabled. Disabled at this point means you add dead code without
+> explanation.
 > 
-> The bottom line is that all AUX traffic happens between the "AUX adapters"
-> within USB4SS, talking over thunderbolt to other AUX adapters on the LTTPRs
-> and the far-end device (and anything inbetween in a chained topology) meaning
-> we only need to engage the DP host itself (and therefore the PHY) after we've
-> already performed the capability negotiations
 
-I hope you mean USB link capabilities. DP host still needs to ping LTTPRs
-and read all the DP properties on its own. I don't think we want to leak
-that to the other layers.
+Will drop them, reset/poweroff is handled via OpenSBI SRST. Thanks!
 
--- 
-With best wishes
-Dmitry
+> 
+> Best regards,
+> Krzysztof
+> 
+
+Best regards,
+Jia Wang
+
+
