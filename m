@@ -1,123 +1,325 @@
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013004.outbound.protection.outlook.com [40.107.201.4])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474333E0758
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:34:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779975295; cv=none; b=GJYrmWLe28lNz0K68nemi1KwbRW6jtLtftQKe6yP+YyRcQU6zquE6wtwwkLC1flPDCKDuXubUSXt2kJlMYKLhZCePLcGNUZp9lT5x6zI6eaaB9NwbhpWoYHW/A+S/bq4TxMLGPTk79VYYvCeoCu6PpvZaY07pJ1dcExTbzg6Nqs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779975295; c=relaxed/simple;
-	bh=D0k/9kMT/cL2pMsnIms6KyZ1W0wrvG21b+rTr48iBns=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=CIctExKGFIZYmKX08P6p/eHvHkA/fY/5u4Ie0Qpo6UORQHhh1qrik23liHlofWnFZB7tqcpYb/wMLfpbbaLrh5yZvy4PtVVYVXz9nOvJL+85fDXlKlrVSDTR7CYovrvd1gSOLku9D+PkE18l/H2NPKzNMIpznjO1qCzQ7cHeoBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPmNREmI; arc=none smtp.client-ip=209.85.210.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A7B63E8330;
+	Thu, 28 May 2026 13:36:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.4
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779975385; cv=fail; b=ltNee75e9l8vZ4OatmaLeOn8UAczhuHNHPjur2oDr/5ub0gw4otjvlAjIHOS3Wb5k6iGmvh266NBZ05M1Tnz3Hs0S0kO6rigjJWUALxIoA8tZfBRCTqzboIjmrGjTy7HT2Hk8PpnW/qwx8x1SmaEq7At/nNojS0h2a1CEbqBAmk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779975385; c=relaxed/simple;
+	bh=i0E9BLRlFyC5modi5gFm6bbDQDJT+YEYBnCla2Sm3OQ=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=KHlLr3nBxFq0tkBjAYKVgcQYxpGdVjDU3GYbUwGo5H+BFV+2rO+bOpqCBj/o+yB05S1TlWzcI1YIu/k0LMYFMZ+jCuFHf9JEag6fikbsu1Wkv+w2u5DGw1asQpPyL7ZfL1atNschMW7CaWQVqEXuj1FxRoXtIDOw7qj7QHNB3Is=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=And2Y2AH; arc=fail smtp.client-ip=40.107.201.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPmNREmI"
-Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82f9fdfc965so5835520b3a.1
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:34:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779975293; x=1780580093; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Yzn0YhLzTvt6pUfo05dJeo7r83ZFgX9EtU8J8f4Da+I=;
-        b=BPmNREmIJR4XU8LQFxJunZZryQJ7DLcvzCwJ9h32wQtRvtmZefV1bDr7I2YJDbehDT
-         xkhEbIzXVLCH8I0Wf+0r/YJw+pkx/lhMD1fM5ol7fzPHmCUeF9jdoC3zvSFFE7+IwxS5
-         kDfC0G1YNl1rOUfFmKeMp+j03Z86mlCQyolnAPQYXCDMUL1tEl9wQ4LiOLZtlJQLdHxw
-         BiPyf73ldvZdr7Jqzu4JuYKY4AWO1CMjcFASIYpISEpfzv0jk3rwvR5jITL4Z18Plf/O
-         hnYLxaTtV697O/nhCt8+v7xVNZAINNYUXjNKgUG8c9gONwgT+LT6KFx+vl+bKnkI4mIB
-         AgEg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779975293; x=1780580093;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Yzn0YhLzTvt6pUfo05dJeo7r83ZFgX9EtU8J8f4Da+I=;
-        b=XXMVpXIlW7KkrL9rjCtcuYo7QHxcFEv/ZMSUuVfcNRFLLp3b6eEzn0/Nbpb33M3qEr
-         sGP4ieiBrHaIeOVM+qYUeHBWr9PELY/sRwnV/JJyCbKUVan8MmEnAi6pVWM7jMbORM9M
-         19HXPw8cOIs8tLiLnNvibmC+TjpljSF0YKdmV903XDA5Li4xZa0r6n2AOIfYEp8DKl+d
-         LGf0FQYuk+vI3xfuLPLrvTmCUQd64/9dosJZ+0IT7M1G8Dt1RAqaIGTmBmP80dOOq2n/
-         mBwUXkQJ/4PgWSsSWnZCd/MNHhGb1epanSU/qxkisgcy6GL6ubNN/LN7ostTvIejxhwI
-         vWsQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9aEOWJYw+y9VxfmI9NGd3OYZUFnVHi3z7Vrt5NHFp2Cii+ioc4aUTgExP9IouRzGQ76EWkYrXaSmgB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEi++0uCn78ECJaPzWdFco/jqTo46RjaKi0hQwNK01/RS1xeFN
-	TklxA6PixMfqxWABlpGfn7F3/OkfsrAB92j20J8+kh83mtiJ/KMjuZlf
-X-Gm-Gg: Acq92OEWPKz12KMg1TrSDMLyoPg9BlgfGokSqKDKhUAwwf6NCR4GVFlevtxYGi1RneC
-	3V1I1hcNOv2zNNwskm4J8ekG8iG7ve1pqVShdQhOEJ9V9a4J0HflkYj3mNkeHhFCDxKPP7A5XHu
-	Z5Qroj4Oa2KnJ6fAKNXPyvtrbPGEY2nD1Y2e27i4eUedj+LTezpoJpunETjsQsfrAm4aXKx1YrM
-	idMTdxNeXY+M9UhtckV6uM3geDt3Yc8cVRTr11PIDtdF/YFnQlzHChaVjjNakCgFF5jY9FinW4w
-	bk+52N5a4awRpZr5aNws+MwfnzOgfUtEddeUirqkl2ah4u6weF68cod58ZtndwBO1QpWphcwXWK
-	W7bFVG0sfaL/2Dxxf6u5WhWDFMV2auDrAYhcCmKm4yXz9YECEcn8JbzvH5pC3OiJsV+gHd2FDnx
-	VzYc7AyUvxqOJpkrYpOiQ0NeXgMsqh7B9B8NYHAUsCO6ds/KaBzpJl32uyPkeINDCPiGKn7ozNJ
-	Lgc96z0hhtLC3S4fp+5VfeG
-X-Received: by 2002:a05:6a00:3910:b0:82a:5ef0:210b with SMTP id d2e1a72fcca58-8415f15a77bmr25792188b3a.15.1779975293490;
-        Thu, 28 May 2026 06:34:53 -0700 (PDT)
-Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.lan ([58.164.4.185])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d6e82323sm5195429b3a.2.2026.05.28.06.34.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 06:34:52 -0700 (PDT)
-From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
-To: ilpo.jarvinen@linux.intel.com
-Cc: airlied@gmail.com,
-	andersson@kernel.org,
-	bentiss@kernel.org,
-	conor+dt@kernel.org,
-	davem@davemloft.net,
-	devicetree@vger.kernel.org,
-	dianders@chromium.org,
-	dri-devel@lists.freedesktop.org,
-	hansg@kernel.org,
-	herbert@gondor.apana.org.au,
-	jesszhan0024@gmail.com,
-	jikos@kernel.org,
-	konradybcio@kernel.org,
-	krzk+dt@kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	linux-crypto@vger.kernel.org,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	luzmaximilian@gmail.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	platform-driver-x86@vger.kernel.org,
-	robh@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de
-Subject: Re: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface Pro 12in
-Date: Thu, 28 May 2026 23:33:47 +1000
-Message-ID: <20260528133353.33312-1-harrison.vanderbyl@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
-References: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="And2Y2AH"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=MU2kRnoWQvB1cqiZ6GEphO512ENIhZpaBO6kZAOjFpiZWC4UvfQHrzbjepZDC7jQ1Cv8TodIk8ycko1+uIuzDoZp7OOo3OgyPAZ+kTMhInTfwQY6LdGfvEdNhStk7CuSHQfaokU9FCo5b70FREyrjYujs8pUGAIwlgJ2Lr9htxgeJ115G/dw06t/aWbodwALCc5SdZYt5u8bTzGOTMUTA0np17N6RXoU/Dn/HE0nwolizqytJjwE3rqBZHVj9YALuMqDiaUdM2KO1XTeutbFiiwyz4hdE3nWxIoc8waLSzSUHNlipIJ9DN7ZhRFPKpFZgvksNJJdqVCpzT9v0xxGrg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gP+9y4O2Lp7kB94SDvbkc0LR8U1mMdvxqlvOXr8TuNU=;
+ b=CqQOXuihTCVZb7XLsFLPlbiLuDTp/O++tEuG4q+yif9isdd3pGMHugEfiPs9SXYQa4/nHgn1DXvb7PlK0jK6tOazhNLYIawGp69VV0FDc3FfbMZy2iFxvE3HyDcX3g/9coEFvIDW9N3Sd32GE+Aed1fntKhRvXxCR6b2WUqN5/WHmsYGunhXqu1qoP1tu5F2yDq96NcUnZQAORQuKZQHUTBp457wv3jOGORraXQtqEqzvyS9GCLTW+Gaq1pnmrVLNjIhqDCM9nEawbL3N4Bh38Fu0Ioy4dZMuIEFri2WOJxxPZ+sE4Uhlsen31E3+Pl7KUmR9OfevT0TQA/umAXj6A==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gP+9y4O2Lp7kB94SDvbkc0LR8U1mMdvxqlvOXr8TuNU=;
+ b=And2Y2AHVoIu1iEJ04MANW6HAsxxWOTw/ssLEIhA46bOlcVJkEBK0YUIJVeUZuHbICPacQc8SFkzKdCBk+dwfH7OYMlo99P6oU1kBufXIw4oi7G85xkAU7wUo+8pMuHLbxaGHeQ8ukLXq7U3MqQNWbuIyOux0Soa6RlHkSRqXHw=
+Received: from DS7P221CA0003.NAMP221.PROD.OUTLOOK.COM (2603:10b6:8:25b::10) by
+ MW5PR10MB5875.namprd10.prod.outlook.com (2603:10b6:303:191::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Thu, 28 May
+ 2026 13:36:16 +0000
+Received: from DS2PEPF000061C3.namprd02.prod.outlook.com
+ (2603:10b6:8:25b:cafe::4b) by DS7P221CA0003.outlook.office365.com
+ (2603:10b6:8:25b::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Thu, 28
+ May 2026 13:36:16 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ DS2PEPF000061C3.mail.protection.outlook.com (10.167.23.70) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Thu, 28 May 2026 13:36:15 +0000
+Received: from DFLE204.ent.ti.com (10.64.6.62) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
+ 2026 08:35:35 -0500
+Received: from DFLE201.ent.ti.com (10.64.6.59) by DFLE204.ent.ti.com
+ (10.64.6.62) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
+ 2026 08:35:34 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE201.ent.ti.com
+ (10.64.6.59) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 28 May 2026 08:35:34 -0500
+Received: from a0512632.dhcp.ti.com (a0512632.dhcp.ti.com [172.24.233.20])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64SDZUbt1602642;
+	Thu, 28 May 2026 08:35:31 -0500
+From: Swamil Jain <s-jain1@ti.com>
+To: <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<tomi.valkeinen@ideasonboard.com>
+CC: <r-sharma3@ti.com>, <devarsht@ti.com>, <praneeth@ti.com>,
+	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <s-jain1@ti.com>
+Subject: [PATCH v2] arm64: dts: ti: k3-am62l: Add HDMI & DSI support
+Date: Thu, 28 May 2026 19:05:29 +0530
+Message-ID: <20260528133529.3476499-1-s-jain1@ti.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DS2PEPF000061C3:EE_|MW5PR10MB5875:EE_
+X-MS-Office365-Filtering-Correlation-Id: a67da298-d654-446a-05e9-08debcbe1721
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|376014|36860700016|3023799007|56012099006|6133799003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	m4UNdNDdEzWllYMlgcFUiuhME06Ji8bgp3Ol5zghyxZmOff7VTE/YsbmZk42dDMuKKCvGfOeYp7NnSkDT4LNEUfpm2kUavcWghOfY3yV9fe7hYduW4KjpR+qEsM1xhNo7PCFrWYWB7npuBptcbuNkMMDDfoQDCVDYu/xkH7LzqXyuY4wK3CIDG63iwzhSAtHLUJNIRuEGhZ2bUnf5unKZ71h/JHkZcPBCCta/j5LjjiB1QIdUxN2Ky0b/0TXVDwCFuUKoWB7BBaUBoAGVxQC+TuYYnjZM1PNe6sGbL1GswOg4HdfDXjXuAsiZpRbkh0zjiCxTppuKrPA2SRPjU30VkclwUvHQuPM7jU1z///Jetdo82kCbTsm4tmcBgaNOQEMguHFE5jggWTKlbGBSY0umpkS4F7JcZNzLBX8ERH4BgZrC9ysjWLSLUpuC+yV9fvgOu+NE45kOtZQEFvwQXSF7p7bxRoV2iHmI9xG7zgMB2hmxDotPyTs6OOIs4OymBe5sLB4pr29H5Ch1iKdS/Wkf7swyJVAyrO8BDE9I6ekLh7e2gF0qjmYfQIdesBRD9274aB1/Fh05au+wwf1OD4LQ2TYmz6Bkl6iDOiOfpDJaYrP+4NDirle72aGWMGjip761o7uzCPrlLhzz2vHBGKJSe6tC1yAIvDIJgwKbCqo24P83Cr3k/2ycqMh7ZtE2SiGzV660/bfUnD7aYv3DJksMZsFOI7Xk3U6ff6i/Xrbpg=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(376014)(36860700016)(3023799007)(56012099006)(6133799003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	0UrHemd3J8KttwqUQPxNaSvJWgG7TLv9MVt5sQoLfhMw4NvsuenWSG6dE6JrbfL9DgZLIoqOdQvaVsMclbVWDvgSgJXOwjlyp5W3lUAVCJcX+y+03dQov17a1nmZeiSx7jRIguWL2yx7KoceWn2wLFflWcQlbo+Y7VP2TtGHn9ZlurnqgNmAHsIlgaWcEQIGyB6P8kYKngKieDbilc17MKMSclnfMv/rLI35d87zKmYZYRFUXGFe48TZaHaIte1EDz306N1LBAHJeJyoH7UBe0dvI9gcHHjfOBURJBuCr3KKLh2164UaWDvrHv+Me6MriClJ07fF74P/s4kBhXd8+vM6uqtc8kyo++BevyX4QKzmJZJa6Qvz7EFrX5tgk6FCThOQ3HppqC7gBnRU9Lap9TKtN3WXdFjO3ktcLXTayU8SKjsbvEdEzgi9M0WgkxXP
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 13:36:15.0105
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a67da298-d654-446a-05e9-08debcbe1721
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DS2PEPF000061C3.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5875
 
-On Thu, 28 May 2026, Ilpo Järvinen wrote:
-> Could you please confirm this penstash is correct (sam vs kip)?
->
-> Sashiko suggested it might be wrong but take it's report with a grain of
-> salt, it's AI after all and sometimes seems to extrapolate about HW to a
-> sibling HW without any real knowledge:
+From: Devarsh Thakkar <devarsht@ti.com>
 
-Sam is correct here, unlike the surface pro 11, 
-The pen stash is on the reverse of the screen,
-not on the detachable keyboard.
+Add DSS, DSI, DPHY, and HDMI bridge nodes to enable DPI-to-HDMI output
+on AM62L[1]. The DSS uses parallel DPI interface with pinctrl
+configuration to drive an external SiI9022 HDMI bridge.
 
-An image of the pen stash in use is available here:
-https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/B04-Surface-Pro-12-inch-1Ed-Family-Rear?wid=1200&hei=900&qlt=90&bgc=F2F2F2F2&fmt=jpg
+DSI and DPHY nodes are added but remain disabled, as the AM62L shares a
+single video port for DPI and DSI output.
 
-When using the above config,
-pen stash events can be seen with evtest.
+DSI functionality can be enabled via overlays when required.
 
-Thanks,
-Harrison
+[1]: https://www.ti.com/product/AM62L
+
+Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
+Signed-off-by: Swamil Jain <s-jain1@ti.com>
+---
+Changelog:
+v1->v2:
+- Update the commit message to elaborate more about the patch.
+- Add dpi-pinctrl configuration.
+- Update the interrupt routing index for HDMI interrupt line
+
+Link to v1: https://lore.kernel.org/all/20260513210942.692269-1-s-jain1@ti.com/
+---
+ arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 47 +++++++++++
+ arch/arm64/boot/dts/ti/k3-am62l3-evm.dts  | 95 +++++++++++++++++++++++
+ 2 files changed, 142 insertions(+)
+
+diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
+index 80615ca1e01a..1d255c9138db 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
++++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
+@@ -584,4 +584,51 @@ scmi_shmem: sram@0 {
+ 			bootph-all;
+ 		};
+ 	};
++
++	dss: dss@30200000 {
++		compatible = "ti,am62l-dss";
++		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
++		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
++		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
++		      <0x00 0x3020a000 0x00 0x1000>, /* vp1 */
++		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
++		reg-names = "common", "vidl1", "ovr1", "vp1", "common1";
++		power-domains = <&scmi_pds 39>;
++		clocks = <&scmi_clk 162>,
++			 <&scmi_clk 161>;
++		clock-names = "fck", "vp1";
++		interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
++		status = "disabled";
++
++		dss_ports: ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++		};
++	};
++
++	dphy_tx0: phy@301c0000 {
++		compatible = "ti,j721e-dphy";
++		reg = <0x0 0x301c0000 0x0 0x1000>;
++		clocks = <&scmi_clk 348>, <&scmi_clk 343>;
++		clock-names = "psm", "pll_ref";
++		#phy-cells = <0>;
++		power-domains = <&scmi_pds 86>;
++		assigned-clocks = <&scmi_clk 343>;
++		assigned-clock-parents = <&scmi_clk 341>;
++		assigned-clock-rates = <25000000>;
++		status = "disabled";
++	};
++
++	dsi0: dsi@30500000 {
++		compatible = "ti,j721e-dsi";
++		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
++		clocks = <&scmi_clk 155>, <&scmi_clk 158>;
++		clock-names = "dsi_p_clk", "dsi_sys_clk";
++		power-domains = <&scmi_pds 38>;
++		interrupt-parent = <&gic500>;
++		interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
++		phys = <&dphy_tx0>;
++		phy-names = "dphy";
++		status = "disabled";
++	};
+ };
+diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+index a1af4571a815..9b04fa6d2cba 100644
+--- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
++++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
+@@ -119,6 +119,18 @@ vcc_1v8: regulator-3 {
+ 		regulator-always-on;
+ 		regulator-boot-on;
+ 	};
++
++	hdmi0: connector-hdmi {
++		compatible = "hdmi-connector";
++		label = "hdmi";
++		type = "a";
++
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&sii9022_out>;
++			};
++		};
++	};
+ };
+ 
+ &gpio0 {
+@@ -192,6 +204,38 @@ exp2: gpio@23 {
+ 		bootph-all;
+ 	};
+ 
++	sii9022: bridge-hdmi@3b {
++		compatible = "sil,sii9022";
++		reg = <0x3b>;
++		interrupt-parent = <&exp1>;
++		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
++		#sound-dai-cells = <0>;
++		sil,i2s-data-lanes = < 0 >;
++		pinctrl-names = "default";
++		pinctrl-0 = <&dpi_pins_default>;
++		bootph-all;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				sii9022_in: endpoint {
++					remote-endpoint = <&dpi_out>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				sii9022_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
++		};
++	};
+ };
+ 
+ &i2c2 {
+@@ -221,6 +265,41 @@ usb_con_hs: endpoint {
+ };
+ 
+ &pmx0 {
++	dpi_pins_default: dpi-default-pins {
++		pinctrl-single,pins = <
++			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
++			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
++			AM62LX_IOPAD(0x00e8, PIN_OUTPUT, 1) /* (L19) GPMC0_CSn1.VOUT0_PCLK */
++			AM62LX_IOPAD(0x00e0, PIN_OUTPUT, 1) /* (M21) GPMC0_DIR.VOUT0_DE */
++			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 1) /* (L22) GPMC0_AD0.VOUT0_DATA0 */
++			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 1) /* (L23) GPMC0_AD1.VOUT0_DATA1 */
++			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 1) /* (K22) GPMC0_AD2.VOUT0_DATA2 */
++			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 1) /* (J23) GPMC0_AD3.VOUT0_DATA3 */
++			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 1) /* (K23) GPMC0_AD4.VOUT0_DATA4 */
++			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 1) /* (H22) GPMC0_AD5.VOUT0_DATA5 */
++			AM62LX_IOPAD(0x0090, PIN_OUTPUT, 1) /* (H23) GPMC0_AD6.VOUT0_DATA6 */
++			AM62LX_IOPAD(0x0094, PIN_OUTPUT, 1) /* (J22) GPMC0_AD7.VOUT0_DATA7 */
++			AM62LX_IOPAD(0x0098, PIN_OUTPUT, 1) /* (H19) GPMC0_AD8.VOUT0_DATA8 */
++			AM62LX_IOPAD(0x009c, PIN_OUTPUT, 1) /* (H20) GPMC0_AD9.VOUT0_DATA9 */
++			AM62LX_IOPAD(0x00a0, PIN_OUTPUT, 1) /* (H21) GPMC0_AD10.VOUT0_DATA10 */
++			AM62LX_IOPAD(0x00a4, PIN_OUTPUT, 1) /* (H18) GPMC0_AD11.VOUT0_DATA11 */
++			AM62LX_IOPAD(0x00a8, PIN_OUTPUT, 1) /* (G23) GPMC0_AD12.VOUT0_DATA12 */
++			AM62LX_IOPAD(0x00ac, PIN_OUTPUT, 1) /* (G22) GPMC0_AD13.VOUT0_DATA13 */
++			AM62LX_IOPAD(0x00b0, PIN_OUTPUT, 1) /* (F22) GPMC0_AD14.VOUT0_DATA14 */
++			AM62LX_IOPAD(0x00b4, PIN_OUTPUT, 1) /* (F23) GPMC0_AD15.VOUT0_DATA15 */
++			AM62LX_IOPAD(0x00b8, PIN_OUTPUT, 1) /* (L21) GPMC0_CLK.VOUT0_DATA16 */
++			AM62LX_IOPAD(0x00c0, PIN_OUTPUT, 1) /* (N19) GPMC0_ADVn_ALE.VOUT0_DATA17 */
++			AM62LX_IOPAD(0x00c4, PIN_OUTPUT, 1) /* (N20) GPMC0_OEn_REn.VOUT0_DATA18 */
++			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 1) /* (M19) GPMC0_WEn.VOUT0_DATA19 */
++			AM62LX_IOPAD(0x00cc, PIN_OUTPUT, 1) /* (P23) GPMC0_BE0n_CLE.VOUT0_DATA20 */
++			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 */
++			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22 */
++			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23 */
++			AM62LX_IOPAD(0x00ec, PIN_OUTPUT, 5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLKIN */
++		>;
++		bootph-all;
++	};
++
+ 	gpio0_ioexp_intr_pins_default: gpio0-ioexp-intr-default-pins {
+ 		pinctrl-single,pins = <
+ 			AM62LX_IOPAD(0x01b0, PIN_INPUT, 7) /* (B12) SPI0_D1.GPIO0_91 */
+@@ -375,6 +454,22 @@ &usb1 {
+ 	pinctrl-0 = <&usb1_default_pins>;
+ };
+ 
++&dss {
++	status = "okay";
++	bootph-all;
++};
++
++&dss_ports {
++	/* VP1: DPI Output */
++	port@0 {
++		reg = <0>;
++
++		dpi_out: endpoint {
++			remote-endpoint = <&sii9022_in>;
++		};
++	};
++};
++
+ &wkup_uart0 {
+ 	pinctrl-0 = <&wkup_uart0_pins_default>;
+ 	pinctrl-names = "default";
