@@ -1,143 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4552EA172
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:05:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC1FA7E0FF;
+	Thu, 28 May 2026 03:10:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779937541; cv=none; b=YyuvE01lURYbDlr77T+Mh1g472eZR/zCTfVBOMyPKZV7eeTPg6QnqFbb+Yct5h9BP7Nbrsuxr1Bq1CG0K+k95pKXVWbf7WDkyd9ifBtVGKXnzLDv66zBVCr48WTP6EXctBMwaVs3LjDwhXiQPTvWPMyJa3q3EbXW0C886trb5DU=
+	t=1779937825; cv=none; b=CjDhcy9bBj/oivl5eRRgWWBh3vQa12CPyeMG1mP85Qy9McptM/l6/zvmndXTZeRVoLzcpAqLULG1RDOKxWZqobbz3Ka0Nvc2aVnvUu2SNJkgymB9/PWP8dT5kPLR1DVot6S5/B9onwPAm8AHRjPrsVKH2qdowluzt5qYFVDAOwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779937541; c=relaxed/simple;
-	bh=wUAgDcA79XpaI7TfoBSVJfV6vpqvmzDxXtJ2DwcAbEs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HfdAYUM+fZFuDYLbr+xm1hs3TFWlD423XI0pbx3kdTSM9sANskuDM8aHaTgK76OZ17qVsWM9m4YABese8AbU8BqjEZEY3MwuTGuNDRB9G4iAhI8LBSZAjMQ7c2zCvlSIuQP/dZ8bT0JzE6iiAtR0Xf9vOIBpYd6SAoJVyp8bQjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIo/GmTn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779937825; c=relaxed/simple;
+	bh=JKPT2uOitDGMc9hKsCeI1Ib7wNX2r4iiEK8ueiYERgA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=sNlFo1aKcUPFWPtXrnuqjE656vecp7llqu8S0n0cfEDdqBK8yYKc+sb2OgfemM39Q2OF9hasxl4Y4A1ARPN7On0rO7sQIYfSf0Os9OHG2sLLbjbUFXdrYCtzZYGVlOf79SANBJMQngjD6HVfhVmRSzz19oGfIVygUzHa+1Bu99g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZQrKHCc1; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIo/GmTn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0FB31F00A3D;
-	Thu, 28 May 2026 03:05:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779937539;
-	bh=rj4qDmMCYpszHHeRg8aGd5/W+DuhRJarQpl7lAITGVY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=EIo/GmTnwwOfG/QGIUXUZ9wSsqnjpTixnGwPUgkIT+byR9/QaL+glr6GqCMwEOGDE
-	 lj35smxEM8jy7GDbziqaHW6Qy7s2NTa5bkBdAd6t93RdUHwPBZg0/TmWLB4f6WqobK
-	 xQo/TxqYAGgZs7apogn7n4cdguGItHSBSaqO2NcliCI8tox6dTtcJnKHdPy3rvqOQ6
-	 49en/5WGJg3B6gqDdEc8OAZkwIcUYkqNWLpu78mk7qV8tODLGIbkPtRbfyw50DK+4U
-	 qbcE2Hg/6hpfj6vfClScmm+7rEztUYeMQO+PjirarLI8sMG5C2+j5RIdbMz229KOmP
-	 sQWquJucPadiw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/7] clk: qcom: Add generic clkref_en support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
-References: <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 03:05:38 +0000
-Message-Id: <20260528030538.F0FB31F00A3D@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZQrKHCc1"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=b/EifuVIGghQo+9boHyYh61kG7BnRjT0tZEcVKkgI5c=; b=ZQrKHCc1mUHR3viQts8Dk7qHU1
+	esGBTSsJijbExowQrmjQI4oIFgayx2ry9r7O9vWZXYQ+wkPqaWVt8QIwIdIQN/nBd19IXHeNod/Jh
+	U7/pDewdZhggcCg462mjJkvWzk/EYgCw52NGdSSe52MoOHMOUdZQhEH0+n29l+i0SU08=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wSR8N-004qh5-4w; Thu, 28 May 2026 05:10:11 +0200
+Date: Thu, 28 May 2026 05:10:11 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: ciprian.regus@analog.com
+Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v2 10/10] net: ethernet: adi: Add a driver for
+ the ADIN1140 MACPHY
+Message-ID: <0aaa9a58-fac1-4de7-90f0-443db37228c8@lunn.ch>
+References: <20260527-adin1140-driver-v2-0-37e5c8d4e0a0@analog.com>
+ <20260527-adin1140-driver-v2-10-37e5c8d4e0a0@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260527-adin1140-driver-v2-10-37e5c8d4e0a0@analog.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Unbalanced regulator disable during late init for clocks left enab=
-led by the bootloader.
-- [Medium] Hardcoded resource mapping and OF provider registration prevent =
-API reuse in multi-functional drivers.
-- [Medium] `qcom_clk_ref_is_enabled` returns a negative error code on failu=
-re, which CCF interprets as true.
---
-
-commit 958034c0adafc3f72b4d7e46df81935d74404f7a
-Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
-
-clk: qcom: Add generic clkref_en support
-
-This commit introduces a new clk_ref clock type with custom clk_ops for
-QREF blocks. It provides a common registration and probe API intended to
-be reused across different placements like TCSR and TLMM.
-
-> diff --git a/drivers/clk/qcom/clk-ref.c b/drivers/clk/qcom/clk-ref.c
-> new file mode 100644
-> index 0000000000000..213c0f58bb36e
-> --- /dev/null
-> +++ b/drivers/clk/qcom/clk-ref.c
-
-[ ... ]
-
-> +static void qcom_clk_ref_unprepare(struct clk_hw *hw)
+> +static netdev_tx_t adin1140_start_xmit(struct sk_buff *skb,
+> +				       struct net_device *netdev)
 > +{
-> +	struct qcom_clk_ref *rclk =3D to_qcom_clk_ref(hw);
+> +	struct adin1140_priv *priv = netdev_priv(netdev);
 > +
-> +	if (rclk->desc.num_regulators)
-> +		regulator_bulk_disable(rclk->desc.num_regulators, rclk->regulators);
-> +}
+> +	/* Pad frames to minimum Ethernet frame size (60 bytes without FCS).
+> +	 * The MAC will append the FCS, but we need to ensure the frame is
+> +	 * at least ETH_ZLEN bytes.
+> +	 */
+> +	if (skb_put_padto(skb, ETH_ZLEN))
+> +		return NETDEV_TX_OK;
 
-[Severity: High]
-If the bootloader leaves this clock enabled, the common clock framework
-will call unprepare() during late init to turn off unused clocks. Since
-prepare() was never called by the kernel, won't this
-regulator_bulk_disable() call trigger an unbalanced disable warning and
-permanently leak power?
+Does the standard say anything about this? It seems like something
+which could be moved into the core.
 
-Does the driver need to sync the hardware state during probe by enabling
-the regulators if the clock is already on?
-
-[ ... ]
-
-> +static int qcom_clk_ref_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct qcom_clk_ref *rclk =3D to_qcom_clk_ref(hw);
-> +	u32 val;
-> +	int ret;
-> +
-> +	ret =3D regmap_read(rclk->regmap, rclk->desc.offset, &val);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-If regmap_read() fails, this returns a negative error code (e.g., -EINVAL).
-Since the common clock framework evaluates the is_enabled callback as a
-boolean, won't it treat this negative error code as true and incorrectly
-assume the clock is enabled?
-
-> +
-> +	return !!(val & QCOM_CLK_REF_EN_MASK);
-> +}
-
-[ ... ]
-
-> +int qcom_clk_ref_probe(struct platform_device *pdev,
-> +		       const struct regmap_config *config,
-> +		       const struct qcom_clk_ref_desc *descs,
-> +		       size_t num_clk_refs)
-> +{
-> +	struct qcom_clk_ref_provider *provider;
-> +	struct device *dev =3D &pdev->dev;
-> +	struct regmap *regmap;
-> +	void __iomem *base;
-> +	int ret;
-> +
-> +	base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(base))
-> +		return PTR_ERR(base);
-
-[Severity: Medium]
-The commit message mentions reusing this model for blocks like TLMM on SM87=
-50.
-If a multi-functional driver like TLMM tries to use this helper, won't
-devm_platform_ioremap_resource() fail with -EBUSY because the parent driver
-already maps the register region?
-
-Since qcom_clk_ref_register() is static and callers are forced to use
-qcom_clk_ref_probe(), does this hardcoded resource mapping prevent the
-intended integration with multi-functional drivers?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-tcsr_qref_=
-0527-v4-0-ded83866c9d9@oss.qualcomm.com?part=3D2
+	Andrew
