@@ -1,122 +1,141 @@
-Received: from mail.mdapi.ch (mail.mdapi.ch [31.3.128.54])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1282A3EFD36;
-	Thu, 28 May 2026 12:36:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=31.3.128.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF3F3E833F;
+	Thu, 28 May 2026 12:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779971820; cv=none; b=ufsj86Usb7V1MVtKk7boYOQ+czg+X+hbZPt1s7kQN9zPd0EZ/eJMjBJh6YayFCbCcKtCn4J/fs02AG2sJ33DsnMoZQOQISbLNBbotu633asQRxuChtdYkAyS4ax5Shtni0GVuSAmIo0AJW8LjkUmJE8wr1d9LNzum4DKM8vjrRE=
+	t=1779972139; cv=none; b=cjEC8C3JgZUy+98D1TO3oeqL/PyKv3JGqAA8Km3/kr+4xUnEuHuv6NBFAzQgcB8coowuhu++cm6fWKurcQte0nkPHhm7hAauymKcKiq4v13sVWcgYEdth2pYLO1++U8sjkQHEbjB2sssJHTQ7RkGWk4UtWDkHF4UvBG8qSKVYWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779971820; c=relaxed/simple;
-	bh=p8tomRSojBvE+Bcp+PeBssyccW4HtusXaltsB4bVtuU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ErqN9mDqtQkVUBrv05p8x77dP7QvxCQW5rG4QnzsMdgl4vKyO5AQUYDwa6Z3dMTa4Zd1GQqCIXYTTGF5IWn4a3LrHJWXftLwcBCCMC32gxRhtPt1oKGua88LFueAlaNyut1YoVPJIqrLp6oI9aYdsyBf2paHYGUeW+pgJJ29ieE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch; spf=pass smtp.mailfrom=tillo.ch; dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b=Hf7Z2VYz; arc=none smtp.client-ip=31.3.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=tillo.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tillo.ch
+	s=arc-20240116; t=1779972139; c=relaxed/simple;
+	bh=KJ4bXx5Jhw4lK4DMTDthJ7vwOLfI0qyGPlE0N0k3tkE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=Ov5BPTr5OruqaY+tJkcUhvn4s311X90n7RXyo66NGkmjKOzJY6tLaTH7HQDNvRA94//waZz6DxF7Cemfhu6Bc46tYvZvnPXp2j4WuKPlILC8qM5m6EaSsMNVs0/wUPKAiTVDFtpHvQCsk4ZCmie8qBFcpl3qgXH6q/kx67xlsMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nnusktYs; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tillo.ch header.i=@tillo.ch header.b="Hf7Z2VYz"
-From: Martino Dell'Ambrogio <tillo@tillo.ch>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tillo.ch; s=mail202603;
-	t=1779971815;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=C1AnpU5tCNCN0keTZRLfXKZG8L7AjxclRX0YRBV/OKI=;
-	b=Hf7Z2VYzkcO0mgTeEd9DS25v46P+Y57N0ItMWINIwmhMPatmdk2vgsTUGR2et/Z4DJXOxM
-	MQICIC177p0OA//vp38igJioa7JKBQsoCs3GIWhUQe+cI09K0sChTAEySB8menaekr0Sqd
-	gIwN5XAZxOzSpvQL9bfD8/YrWGnyrjy1Oj0jld22TCwQHSXSMfimZDtPaclZObvhWiHibV
-	w7vdREiEno4f09orQFfeAN/ltQLvVp+WhPRgVGisS1TI130z6ucjIbQu5Q/hYFMp3UA2PD
-	P7OQ66WCBIpOl+YI9SauguTBOaT4hlsJ4qRUmtyQ/YMk0NTqwXkZpmbwu0VfLA==
-To: matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com
-Cc: kees@kernel.org,
-	tony.luck@intel.com,
-	gpiccoli@igalia.com,
-	linux-mediatek@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Martino Dell'Ambrogio <tillo@tillo.ch>
-Subject: [PATCH v2] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add ramoops region
-Date: Thu, 28 May 2026 14:36:55 +0200
-Message-ID: <20260528123655.2650868-1-tillo@tillo.ch>
-In-Reply-To: <20260528092807.1936177-1-tillo@tillo.ch>
-References: <20260528092807.1936177-1-tillo@tillo.ch>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nnusktYs"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1779972138; x=1811508138;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=KJ4bXx5Jhw4lK4DMTDthJ7vwOLfI0qyGPlE0N0k3tkE=;
+  b=nnusktYshzMQ94YAo/WY9vYTMd1a8k73O/tWynnaZr80teMuvPzRd58g
+   Y0FWXio5DsattbKR3+6k0K5RAz7uTNvSFl/dnqOvAdN9t7jidR8r+VmnB
+   FFMqn/McRxIgmiCl9NH8ygWSfRgiROpCdB5Rhv3rGT+gSkvcRUL+GtzyE
+   lLXliu2qniesiJcpVjGg9rJhn3G2ulhs08cjR2tj1/G+tJKE+ZnsgnlrR
+   6aJoygkIH2vbdwAcQgaQTWd21pxddfL68QQWNUniNv+7BFm3mB1oRsRSD
+   tv6ccbycFvP1MzwIRqNn0oyUun0mXTvoQ74kpe/ZdlmuIoB7M0BG/whvS
+   Q==;
+X-CSE-ConnectionGUID: bE5lkuKcTpCYnxi4BdCaDw==
+X-CSE-MsgGUID: xyShKGAGTe+iVfYRdvflWQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="79960828"
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; 
+   d="scan'208";a="79960828"
+Received: from orviesa009.jf.intel.com ([10.64.159.149])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 May 2026 05:42:17 -0700
+X-CSE-ConnectionGUID: Zgvm9re8QNyOT84HzR7Xsg==
+X-CSE-MsgGUID: VOwf1bD0QlSg9PmMEtsr2w==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; 
+   d="scan'208";a="242634568"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.187])
+  by orviesa009-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 May 2026 05:42:08 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Thu, 28 May 2026 15:42:04 +0300 (EEST)
+To: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+cc: andersson@kernel.org, konradybcio@kernel.org, robh@kernel.org, 
+    krzk+dt@kernel.org, conor+dt@kernel.org, 
+    Herbert Xu <herbert@gondor.apana.org.au>, davem@davemloft.net, 
+    neil.armstrong@linaro.org, maarten.lankhorst@linux.intel.com, 
+    mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
+    simona@ffwll.ch, jikos@kernel.org, bentiss@kernel.org, 
+    luzmaximilian@gmail.com, Hans de Goede <hansg@kernel.org>, 
+    Douglas Anderson <dianders@chromium.org>, 
+    Jessica Zhang <jesszhan0024@gmail.com>, linux-arm-msm@vger.kernel.org, 
+    devicetree@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
+    linux-crypto@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+    linux-input@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface
+ Pro 12in
+In-Reply-To: <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
+Message-ID: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
+References: <cover.1778822464.git.harrison.vanderbyl@gmail.com> <ab458aadea651396d9ea7629419a32dc7510c593.1778822464.git.harrison.vanderbyl@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
 
-Reserve 64 KiB of RAM just below the ARM Trusted Firmware secmon region
-(0x42ff0000-0x43000000) for persistent kernel log storage via pstore/ramoops,
-allowing post-panic console output and oops dumps to be recovered after a
-warm reset. Without it, kernel crash logs on this board are lost when the
-SoC reboots.
+On Fri, 15 May 2026, Harrison Vanderbyl wrote:
 
-The zone sizes (record-size=8 KiB, console-size=32 KiB, ftrace-size=8 KiB,
-pmsg-size=8 KiB) consume the full 64 KiB carve-out. The requested ecc-size=16
-reserves a small Reed-Solomon parity block from each zone's own allocation
-in persistent_ram_new(), which lets pstore recover dumps even when the panic
-path truncates writes mid-record.
+> Add a SAM client device node group and registry entry for the
+> Microsoft Surface Pro, 12-inch with Snapdragon.
+> 
+> This set enables the use of the following devices.
+> 1: cover keyboard
+> 2: cover touchpad
+> 3: pen stash events.
+> 
+> The battery info and charger info devices have been
+> purposefully omitted as they are also reported by
+> other drivers and cause conflicts.
+> 
+> Signed-off-by: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+> ---
+>  .../surface/surface_aggregator_registry.c         | 15 +++++++++++++++
+>  1 file changed, 15 insertions(+)
+> 
+> diff --git a/drivers/platform/surface/surface_aggregator_registry.c b/drivers/platform/surface/surface_aggregator_registry.c
+> index 0599d5adf02e..884049961415 100644
+> --- a/drivers/platform/surface/surface_aggregator_registry.c
+> +++ b/drivers/platform/surface/surface_aggregator_registry.c
+> @@ -422,6 +422,19 @@ static const struct software_node *ssam_node_group_sp11[] = {
+>  	NULL,
+>  };
+>  
+> +/* Devices for Surface Pro 12" first edition (ARM/QCOM) */
+> +static const struct software_node *ssam_node_group_sp12in[] = {
+> +	&ssam_node_root,
+> +	&ssam_node_hub_kip,
+> +	&ssam_node_tmp_sensors,
+> +	&ssam_node_hid_kip_keyboard,
+> +	&ssam_node_hid_sam_penstash,
 
-The no-map property is required so the reserved region is kept out of the
-kernel linear map. ramoops remaps the carve-out write-combine via
-ioremap_wc(); on arm64, leaving the same physical RAM mapped cacheable in
-the linear map at the same time is an attribute-mismatch and risks losing
-panic data to dirty cache evictions from the linear alias.
+Hi,
 
-The region sits immediately below the ATF block already declared at
-0x43000000 in mt7986a.dtsi, so no other reserved-memory child is moved or
-resized. BPI-R3 ships with 2 GiB of DRAM starting at 0x40000000, well above
-0x43000000, so the region is always within installed memory.
+Could you please confirm this penstash is correct (sam vs kip)?
 
-For the carve-out to actually preserve content across a reset, the boot
-loader must avoid touching this region on warm reset; on standard BPI-R3
-boards with the stock OpenWrt U-Boot fork this already holds.
+Sashiko suggested it might be wrong but take it's report with a grain of 
+salt, it's AI after all and sometimes seems to extrapolate about HW to a 
+sibling HW without any real knowledge:
 
-Signed-off-by: Martino Dell'Ambrogio <tillo@tillo.ch>
----
-Changes in v2:
- - Add no-map; to keep the carve-out out of the kernel linear map and
-   avoid the cacheable/write-combine attribute mismatch on arm64.
-   (sashiko-bot, gemini-3.1-pro)
- - Rewrite the ECC paragraph in the commit log: the zone sizes already
-   fill the 64 KiB region, so there is no remainder; ecc-size is carved
-   from each zone in persistent_ram_new(). (sashiko-bot, gemini-3.1-pro)
+https://sashiko.dev/#/patchset/cover.1778822464.git.harrison.vanderbyl%40gmail.com
 
-v1: https://lore.kernel.org/all/20260528092807.1936177-1-tillo@tillo.ch/
+-- 
+ i.
 
- .../boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts    | 13 +++++++++++++
- 1 file changed, 13 insertions(+)
+> +	&ssam_node_hid_kip_touchpad,
+> +	&ssam_node_hid_kip_fwupd,
+> +	&ssam_node_pos_tablet_switch,
+> +	NULL,
+> +};
+> +
+>  /* -- SSAM platform/meta-hub driver. ---------------------------------------- */
+>  
+>  static const struct acpi_device_id ssam_platform_hub_acpi_match[] = {
+> @@ -500,6 +513,8 @@ static const struct of_device_id ssam_platform_hub_of_match[] __maybe_unused = {
+>  	{ .compatible = "microsoft,arcata", (void *)ssam_node_group_sp9_5g },
+>  	/* Surface Pro 11 (ARM/QCOM) */
+>  	{ .compatible = "microsoft,denali", (void *)ssam_node_group_sp11 },
+> +	/* Surface Pro 12in First Edition (ARM/QCOM) */
+> +	{ .compatible = "microsoft,surface-pro-12in", (void *)ssam_node_group_sp12in },
+>  	/* Surface Laptop 7 */
+>  	{ .compatible = "microsoft,romulus13", (void *)ssam_node_group_sl7 },
+>  	{ .compatible = "microsoft,romulus15", (void *)ssam_node_group_sl7 },
 
-diff --git a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-index 19f538d..31ee189 100644
---- a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-+++ b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-@@ -140,6 +140,19 @@ sfp2: sfp-2 {
- 	};
- };
 
-+&{/reserved-memory} {
-+	ramoops@42ff0000 {
-+		compatible = "ramoops";
-+		reg = <0 0x42ff0000 0 0x10000>;
-+		no-map;
-+		record-size = <0x2000>;
-+		console-size = <0x8000>;
-+		ftrace-size = <0x2000>;
-+		pmsg-size = <0x2000>;
-+		ecc-size = <16>;
-+	};
-+};
-+
- &cpu_thermal {
- 	cooling-maps {
- 		map-cpu-active-high {
---
-2.47.3
