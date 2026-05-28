@@ -1,134 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02D9C407599
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:00:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 773582E7392
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:03:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779984047; cv=none; b=r2SxXv7oKPRZNlQZ5iLUElxF6vuYWwpe/40H3pNIa3I0igpKRPjqX0/9K84BEMu3mYzQwCGmD16R1CEH/i80yS8s3DZ7fMpe48kgwUMayBdIj8JFzcWbuaLqg7e0fMx2fRfEiStkgFFnugVymBai27sPA00B3jWnCGzE6CStbqE=
+	t=1779984187; cv=none; b=IrXpCDMH26LhKqZQkyDf+kIwzT9CvwNUCSfYFcP46srU5M+YGIhE7r6On4xHzk9sdZ0FYRmCKGFtEYYKU0tF/jsIdrlUcnP5oJjEPys+DckTLQx/u7LKrgykfZQ4wj4dLY/Qhsugj4cTON3SoLwWnjpbxYUiSiek2Q9lMh9oq+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779984047; c=relaxed/simple;
-	bh=WVcijDl2vQRo6jm6MJQMt+yOuY3b/dMOUjWFVsIdgZk=;
+	s=arc-20240116; t=1779984187; c=relaxed/simple;
+	bh=wuGvKBFVS9O4yVAaPv8QsiDIoISFobhZgwDM2UWlI08=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K78u+B0myY3GtCsxDrP4yVsi9V3dagpc+LEnAFXWfY4PEVOj8X2dJoIJNR9AN6cbVSaIzAfqoyC6MX2VS0NeyG2hHU035NLQfmD/RsdQQp4mEOhImmpPuNjRiPL0E4WDtfq7QNeOeDe4s7wURZP1FPFtaAtqzGROjBg9X85goZQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hvebq2uR; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=RkZ2Qu9sztpzdVKM5NbmfBAyXaPaMMzc3sHvVzQt+u1zMjzhF2gzhz0j3HW5mkI/+aLQd6b/c5PaNUmETkIRjRgg5txkJxEXspb1bq82YMFuJ+cp/Xr0/dBoJArtV9YjeMdseFScH6QfS0v98tJF+5xF9PsvAp048Sc+rB4x5Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DrUZR3Jl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hvebq2uR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 592AE1F000E9;
-	Thu, 28 May 2026 16:00:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DrUZR3Jl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2176E1F000E9;
+	Thu, 28 May 2026 16:03:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779984045;
-	bh=Oq+zsNl9QL8uaBDVKXsZ/ZDbmSvNBgFfFDXyLVR4i34=;
+	s=k20260515; t=1779984186;
+	bh=WcqffU9wMzhqk6W2asuUnuZguD/YdqgO5360F1rWtow=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Hvebq2uR8zJ3ctkBC3mMTbRcHZNNMO1K2X1OqeA1FU5wW+jM6KN3n4zeC/N9bh02a
-	 2tFDg6k1zFSL9F5oAvxwb+t6gmG0OALL0wJilfqyG6FHvO72tp5s1iWPQUNYT6hmKB
-	 bRBFu+tIOS+P/BIhG2cae0tTaolGgpr23w/j89juhYc87iztTbVJYmNUqYuBjEqzIv
-	 RT3HmR2t/mS39LO86CcQ8DOn60kN79lwkvYg/audJLMaqrhYibTP6mKXrhuq8ot6mg
-	 BMQKnFLd6uQ7krYDk0frr2J0gDvjR6P4p9BN6jQtiYlQWw0wH7QJuuqHw7NnM+teX6
-	 jLuT7KWt3QqcA==
+	b=DrUZR3Jl0hlPXBmLXzmLqfoO6Nb88EXCU2cY1FQ+mjKmHYSeQ1S8tE3GFs6sCUUCk
+	 vWtKRVS24HIy5MM6YnNvVOH7dHtKflLuCzGSZQXkvqwSxl1nexQpc8ynnC7Fz5k6P4
+	 eU7Yzbx0fzE4IEfYsAFSUQwdS7K9J5w7Kg5YeRR2zla0sdth71D2/IQJpRE/YdJB48
+	 7a4ay3n7SY5rugJdJdHyVovHRHIkx98RYu6LoOB5SaLtkHQXPxEdxRtCGfzqYXTZON
+	 8RuqKlIyJf3DYqqzzxYMn6MdcfN8B81cvXi3OvmKbmRFmRACDiHlNC31UtDMN6jqDr
+	 wk7WYPGM8JOPQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/6] video: backlight: lm3533_bl: Set initial mapping
- mode from DT
+Subject: Re: [PATCH v6 4/5] clocksource/timer-econet-en751221: Disable IRQ
+ until cevt registered
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+To: "Caleb James DeLisle" <cjd@cjdns.fr>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528135123.103745-6-clamor95@gmail.com>
-References: <20260528135123.103745-6-clamor95@gmail.com>
+In-Reply-To: <20260528140046.2897674-5-cjd@cjdns.fr>
+References: <20260528140046.2897674-5-cjd@cjdns.fr>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 16:00:44 +0000
-Message-Id: <20260528160045.592AE1F000E9@smtp.kernel.org>
+Date: Thu, 28 May 2026 16:03:05 +0000
+Message-Id: <20260528160306.2176E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] The backlight device is exposed to userspace before its hardware i=
-nitialization is complete.
+- [Medium] Incorrect assumption that clockevents_config_and_register() can =
+fail.
+- [Low] Unnecessary manual setting of IRQ_NOAUTOEN flag.
 --
 
-commit 106cefce156b039f4639eecee3b1a98c82987da6
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit f75e71c2c11de4c792309a75e268796b0c4679bf
+Author: Caleb James DeLisle <cjd@cjdns.fr>
+clocksource/timer-econet-en751221: Disable IRQ until cevt registered
 
-video: backlight: lm3533_bl: Set initial mapping mode from DT
+This commit addresses a race condition where the timer interrupt may
+trigger before clockevents_config_and_register() sets up the event
+handler. It resolves this by enabling the per-CPU IRQ only after the
+clockevent device is fully registered and adds a NULL check for the
+event handler.
 
-This commit adds support to obtain the initial mapping mode from DT instead
-of leaving it unconfigured. It also updates the linear sysfs code.
+> Eliminate a race condition where cevt_interrupt may trigger before
+> clockevents_config_and_register has been called, and dev->event_handler
+> is at that point NULL. Additionally, NULL check dev->event_handler in
+> interrupt callback just in case clockevents_config_and_register failed.
 
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index 42da652df58d9..c03d0d1667e42 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
+[Severity: Medium]
+Is the reasoning about clockevents_config_and_register() failing accurate
+here?=20
+
+Looking at the implementation of clockevents_config_and_register(), it
+returns void and does not have a failure path.
+
+> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
+ource/timer-econet-en751221.c
+> --- a/drivers/clocksource/timer-econet-en751221.c
+> +++ b/drivers/clocksource/timer-econet-en751221.c
+> @@ -75,7 +75,10 @@ static irqreturn_t cevt_interrupt(int irq, void *dev_i=
+d)
+>  		return IRQ_NONE;
+> =20
+>  	iowrite32(ioread32(reg_count(cpu)), reg_compare(cpu));
+> -	dev->event_handler(dev);
+> +
+> +	if (dev->event_handler)
+> +		dev->event_handler(dev);
+> +
+>  	return IRQ_HANDLED;
+>  }
+
+[Severity: Medium]
+Is this NULL check necessary?=20
+
+Because clockevents_register_device() unconditionally initializes the event
+handler to a valid function (such as clockevents_handle_noop),
+dev->event_handler should never be NULL once registration is complete.
 
 [ ... ]
 
-> @@ -317,14 +318,6 @@ static int lm3533_bl_probe(struct platform_device *p=
-dev)
+> @@ -178,6 +180,8 @@ static int __init timer_init(struct device_node *np)
+>  		goto out_membase;
+>  	}
 > =20
->  	platform_set_drvdata(pdev, bl);
-> =20
-> -	ret =3D sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
-> -	if (ret < 0) {
-> -		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
-> -		return ret;
-> -	}
-> -
-> -	backlight_update_status(bd);
-> -
->  	device_property_read_u32(&pdev->dev, "led-max-microamp",
->  				 &bl->max_current);
->  	bl->max_current =3D clamp(bl->max_current, LM3533_LED_MAX_CURRENT_MIN,
-> @@ -333,9 +326,20 @@ static int lm3533_bl_probe(struct platform_device *p=
-dev)
->  	bl->pwm =3D 0;
->  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
-> =20
-> +	bl->linear =3D device_property_read_bool(&pdev->dev,
-> +					       "ti,linear-mapping-mode");
+> +	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
 > +
->  	ret =3D lm3533_bl_setup(bl);
+>  	ret =3D request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
+>  				 &econet_timer_pcpu);
 
-[Severity: High]
-This is a pre-existing issue, but I noticed a potential race condition here
-with devm_backlight_device_register() being called earlier in this function.
+[Severity: Low]
+Is this manual status flag update needed?=20
 
-When devm_backlight_device_register() is called, it creates the device in
-sysfs, exposes standard attributes like brightness, and immediately fires a
-KOBJ_ADD uevent.
-
-Could a userspace daemon like systemd-backlight react to this uevent and
-write a saved brightness value concurrently with the rest of this probe
-function?
-
-If that happens, it would trigger lm3533_bl_ops.update_status, which calls
-lm3533_ctrlbank_set_brightness() to configure the hardware to drive the LED=
-s.
-
-Because the driver has not yet read device tree limits like led-max-microamp
-and applied them via lm3533_bl_setup() and lm3533_ctrlbank_set_max_current(=
-),
-could driving the LEDs before configuring the hardware's maximum safe curre=
-nt
-limit result in physical hardware damage?
-
->  	if (ret)
-> -		goto err_sysfs_remove;
-> +		return ret;
-> +
-> +	ret =3D sysfs_create_group(&bd->dev.kobj, &lm3533_bl_attribute_group);
-> +	if (ret < 0) {
-> +		dev_err(&pdev->dev, "failed to create sysfs attributes\n");
-> +		return ret;
-> +	}
-> +
-> +	backlight_update_status(bd);
+When an IRQ is configured as a per-CPU devid interrupt by the irqchip driver
+via irq_set_percpu_devid(), the IRQ_NOAUTOEN flag is inherently applied
+alongside IRQ_PER_CPU and IRQ_NOTHREAD. Setting it manually here appears
+redundant.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528135123.1037=
-45-1-clamor95@gmail.com?part=3D5
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528140046.2897=
+674-1-cjd@cjdns.fr?part=3D4
