@@ -1,146 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78333ACA65;
-	Thu, 28 May 2026 09:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3071A3AB282
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 09:27:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779960050; cv=none; b=AxIAN9CoSmHI5IUGFKKYrwJiKqLPnz0V3eXSFQ9Ve65Rjqqic+NFUEIqilGHEuVWpTj01Cq2uCYmGOnO0rhdU9ZDEeToFhh9ZhAAPc1HQpRcdGIsFqzoKl/XTy4QCmNvKPHNgc128reqDLIr9cJ7CPc34R3VbrM4s2Ozl07YOV0=
+	t=1779960442; cv=none; b=iNdPnGzGrvmPbp9K/PXSUx/ihFK5LvKj38y0CpreLu0B4Bz3kNt/CgSvvEsnhusUOJoaoKSUp0e9wdaUsBZNmUJd/bD9fDWXluaoJriumiU9SJl1prs7tf5PUodZ6Rm38WYkKNpVhqqLf25CEXR4PnJcYsDRSVAWtiQN9QC07ig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779960050; c=relaxed/simple;
-	bh=S9VJxhPYHS2OZ9gn5S8iwI0JSzVdLtsnoZulqXMRRv4=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=g0jZG68k9257WVSG2cCNVs/BPFLGB4Me5i6HYnD9Rp+SC5NXlFjOGku8umDyVBAEVLepZqbtuonEpyMy6vlYrpwq3ZzNJLIE65rhHz48FpATonS09W5UJ70vgPhCi/MiJdIPmLuKZ8Ic59hvAwoXA2iScCeJZfynbn9LuUdoXLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fHMa1GKg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779960442; c=relaxed/simple;
+	bh=6MaINiaW9woTpfXqx4l+TlOHzXhBSQQdF1YgxoOLHSQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=LQibloS7+xdc2952cP4Uce27MNddIcg2CtpZYvuoFyhaFNU4xIsfVf7qsxQyGvoEUHaRLX9N3NnBiEopDi6sCy2XduuyIv0Gz1Ktloc3gpwEMxm0h6/147FBrRz3osuWbSBobitVMIVUOrHdHnW7g5tbypq8zdT62UI+ZTyHCOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=v7zUT13w; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fHMa1GKg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7001F000E9;
-	Thu, 28 May 2026 09:20:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779960049;
-	bh=Z7KAwZZAJhZtKzXaCCO25+o/tdhyNQUizD1vsw7HVAs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=fHMa1GKgJEMPvnD+F81GppZwBFXbouiOAa2LjDVlpYg3ZXDvliqKxVl4vAFQIiW3w
-	 g/qkUqHna0cp11dJMK/FZM/N9DJdT7YyR3DZenv9jarg1sgsaFpewCljU/qF3KsTWV
-	 a/Th/beKx6gZ0scg9hupueVAXki/ZapDamHtQACnDNap7KWVbGnEbLoj+ORT7nMxJl
-	 0mNg3h/pxcJ+rrOz7dAqjWfAVFUBMbvYb3RWMZ6dywpa51/csFPi7RVyCfwkNQfhAU
-	 GKOBOh89EMmrSKMGvvQUutiVTCnVsKk+7JuzEkyrRxP+DoE6SRE7Z6jv5Hdy1sN+pe
-	 jUpzwNkvjCTlg==
-Date: Thu, 28 May 2026 10:20:40 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Petar Stepanovic <pstepanovic@axiado.com>
-Cc: Akhila Kavi <akavi@axiado.com>, Prasad Bolisetty
- <pbolisetty@axiado.com>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Harshit Shah <hshah@axiado.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: iio: adc: add Axiado AX3000/AX3005
- SARADC
-Message-ID: <20260528102034.58fc2486@jic23-huawei>
-In-Reply-To: <20260528-axiado-ax3000-ax3005-saradc-v1-1-345dd5f6608a@axiado.com>
-References: <20260528-axiado-ax3000-ax3005-saradc-v1-0-345dd5f6608a@axiado.com>
-	<20260528-axiado-ax3000-ax3005-saradc-v1-1-345dd5f6608a@axiado.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="v7zUT13w"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id BD8E74E42D78;
+	Thu, 28 May 2026 09:27:18 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 8669460495;
+	Thu, 28 May 2026 09:27:18 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4677110888C99;
+	Thu, 28 May 2026 11:27:13 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1779960437; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=aFcPPmXLQabQsc1ycX/dsgPewGocQDCIFeeqSEgvr2A=;
+	b=v7zUT13wBSF/FrDCrr/gSdvw1loLx4i9gR0SQTM1OV/1Re88co7SVpzbcDesEmczBWYGOm
+	35VUfoUIGWVuqRWMNj07kQeYbKoop4ZL19mN4WUZCf1Xun3s5qpJ5mgxoSX13WIfPP+FkN
+	KnBgQ3zi46Mw1jTRbvbeHx4uzrUEJV71e4UmowGcbsoRZPba2SAzIvNp52YnpJdHqdYQ6t
+	dQqeJxLOgsFazm6351UmFSjRMiW0xgeR+lR39rnuGDbPUTgNgAD/wSpe7YtjKX0Q50wl9d
+	/hefaXRUgr2UOro2MFwYNvcFQK5nv0KrwQ05j9Vw96cnU26nuMKZ7wtbwlD/dQ==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
+  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
+  <a-dutta@ti.com>
+Subject: Re: [PATCH v3 11/13] mtd: spinand: run PHY tuning after init and
+ update dirmap frequencies
+In-Reply-To: <20260527175527.2247679-12-s-k6@ti.com> (Santhosh Kumar K.'s
+	message of "Wed, 27 May 2026 23:25:25 +0530")
+References: <20260527175527.2247679-1-s-k6@ti.com>
+	<20260527175527.2247679-12-s-k6@ti.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Thu, 28 May 2026 11:27:13 +0200
+Message-ID: <87mrxjg9zi.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Thu, 28 May 2026 01:10:23 -0700
-Petar Stepanovic <pstepanovic@axiado.com> wrote:
+Hi Santhosh,
 
-> The Axiado AX3000 and AX3005 SoCs include a 10-bit SAR ADC controller.
-> AX3000 supports 16 input channels, while AX3005 supports 8 input
-> channels.
-> 
-> Document the compatible strings, register region, clock, reference
-> voltage supply, and IIO channel cells.
-> 
-> Signed-off-by: Petar Stepanovic <pstepanovic@axiado.com>
-Hi Petar,
+On 27/05/2026 at 23:25:25 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
 
-One minor thing inline. Otherwise looks good to me.
+> Run spi_mem_execute_tuning() in spinand_probe() after spinand_init()
+> completes. The read and write op templates are copied into persistent
+> fields in spinand_device so the controller can write the validated
+> frequency directly back into them. On success, propagate that frequency
+> to every dirmap's primary and secondary op templates. Updating the
+> secondary template ensures continuous-read dirmaps also benefit from
+> the validated speed, not just the primary read path.
+>
+> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+> ---
+>  drivers/mtd/nand/spi/core.c | 35 +++++++++++++++++++++++++++++++++++
+>  include/linux/mtd/spinand.h |  4 ++++
+>  2 files changed, 39 insertions(+)
+>
+> diff --git a/drivers/mtd/nand/spi/core.c b/drivers/mtd/nand/spi/core.c
+> index f1084d5e04b9..9b54e4607cfe 100644
+> --- a/drivers/mtd/nand/spi/core.c
+> +++ b/drivers/mtd/nand/spi/core.c
+> @@ -2030,6 +2030,41 @@ static int spinand_probe(struct spi_mem *mem)
+>  	if (ret)
+>  		return ret;
+>=20=20
+> +	/*
+> +	 * Copy the read and write op templates into persistent fields so
+> +	 * execute_tuning can write the validated frequency back into them.
+> +	 * Tuning failure is non-fatal; the device operates at base speed.
+> +	 */
+> +	spinand->max_read_op =3D *spinand->op_templates->read_cache;
+> +	spinand->max_write_op =3D *spinand->op_templates->write_cache;
+> +
+> +	ret =3D spi_mem_execute_tuning(mem, &spinand->max_read_op,
+> +				     &spinand->max_write_op);
+> +	if (ret && ret !=3D -EOPNOTSUPP)
+> +		dev_warn(&mem->spi->dev, "Failed to execute PHY tuning: %d\n",
+> +			 ret);
+> +
+> +	/*
+> +	 * Dirmaps were set up in spinand_init() before tuning ran; update
+> +	 * their op templates to use the validated frequency.
+> +	 */
+> +	if (!ret) {
+> +		struct nand_device *nand =3D spinand_to_nand(spinand);
+> +		int i;
+> +
+> +		for (i =3D 0; i < nand->memorg.planes_per_lun; i++) {
+> +			if (spinand->dirmaps[i].rdesc) {
+> +				spinand->dirmaps[i].rdesc->info.primary_op_tmpl.max_freq =3D
+> +					spinand->max_read_op.max_freq;
+> +				spinand->dirmaps[i].rdesc->info.secondary_op_tmpl.max_freq =3D
+> +					spinand->max_read_op.max_freq;
+> +			}
+> +			if (spinand->dirmaps[i].wdesc)
+> +				spinand->dirmaps[i].wdesc->info.primary_op_tmpl.max_freq =3D
+> +					spinand->max_write_op.max_freq;
+> +		}
+> +	}
+
+Unfortunately, hot fixing the dirmaps is invalid. When we take the best
+variant, we select a maximum speed that may be lower than the tuned PHY
+speed. We cannot just overwrite that value without consequence, because
+depending on the boundaries we cross, extra dummy cycles may be
+required.
+
+I believe spinand_select_op_variant() shall be aware of the different
+possible speeds. It should look for the max_speed_hz capability and not
+for the base_speed_hz, and fallback to base_speed_hz in case of
+issue.
+
+Or otherwise, maybe we could go through the whole I/O variant
+selection again after tuning, with the actual maximum speed set.
+
 
 Thanks,
-
-Jonathan
-
-> ---
->  .../bindings/iio/adc/axiado,ax3000-saradc.yaml     | 58 ++++++++++++++++++++++
->  1 file changed, 58 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml b/Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
-> new file mode 100644
-> index 000000000000..54592353a7b2
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/axiado,ax3000-saradc.yaml
-> @@ -0,0 +1,58 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/axiado,ax3000-saradc.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Axiado AX3000/AX3005 Successive Approximation Register ADC
-> +
-> +description:
-> +  The Axiado AX3000/AX3005 SAR ADC is a 10-bit ADC with sixteen input
-> +  channels on AX3000 and eight input channels on AX3005.
-> +
-> +maintainers:
-> +  - Petar Stepanovic <pstepanovic@axiado.com>
-> +  - Akhila Kavi <akavi@axiado.com>
-> +  - Prasad Bolisetty <pbolisetty@axiado.com>
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - axiado,ax3000-saradc
-> +      - axiado,ax3005-saradc
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  '#io-channel-cells':
-> +    const: 1
-> +
-> +  vref-supply:
-> +    description: Reference voltage regulator supplying the ADC
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +  - '#io-channel-cells'
-> +  - vref-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +      #address-cells = <2>;
-> +      #size-cells = <2>;
-> +
-> +      saradc@806a0000 {
-
-Generic names for nodes in DT. So just adc@806a0000
-
-> +        compatible = "axiado,ax3000-saradc";
-> +        reg = <0x0 0x806a0000 0x0 0x400>;
-> +        clocks = <&pclk>;
-> +        vref-supply = <&vref_reg>;
-> +        #io-channel-cells = <1>;
-> +      };
-> +    };
-> 
-
+Miqu=C3=A8l
