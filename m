@@ -1,123 +1,143 @@
-Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D4A2E2DDD
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:05:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE4552EA172
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:05:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779937533; cv=none; b=Rwbslwck3OU1mE93CK+7n8oN1AfiRLP4DQawTa6nqRVmnp9kxD7PdMQlMRBgh4aM0PbyuRU/O0B573RGSeKgih5HXsrK11ga/n+dwyPgGe3+gWsbzR51Es9oX87YgEPSIr42LwVoOKdRbZI4xxNTLfWlv5NkGQPewxb1SD9yi/w=
+	t=1779937541; cv=none; b=YyuvE01lURYbDlr77T+Mh1g472eZR/zCTfVBOMyPKZV7eeTPg6QnqFbb+Yct5h9BP7Nbrsuxr1Bq1CG0K+k95pKXVWbf7WDkyd9ifBtVGKXnzLDv66zBVCr48WTP6EXctBMwaVs3LjDwhXiQPTvWPMyJa3q3EbXW0C886trb5DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779937533; c=relaxed/simple;
-	bh=A3f4Q2Sld0W2xjtP4UNC1GwvsA1zuj4TCDEiKmnl92A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jeethMykKVchf84rRv9mc3H7iH01SScI0gUb/wHiEK4z4X4WRX+dVz2WT5xeuFFxn4vaDE5+vbFgcYR1Y1/pNZX2Opi9PFGVjO02bY3dqXP3mwRuzhg/q+7bApYIgtjuwipuMgMTCGfPK6dw7P1rTTV2K0vMksvbZdir/FZOFDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h4DITR6J; arc=none smtp.client-ip=74.125.82.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779937541; c=relaxed/simple;
+	bh=wUAgDcA79XpaI7TfoBSVJfV6vpqvmzDxXtJ2DwcAbEs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HfdAYUM+fZFuDYLbr+xm1hs3TFWlD423XI0pbx3kdTSM9sANskuDM8aHaTgK76OZ17qVsWM9m4YABese8AbU8BqjEZEY3MwuTGuNDRB9G4iAhI8LBSZAjMQ7c2zCvlSIuQP/dZ8bT0JzE6iiAtR0Xf9vOIBpYd6SAoJVyp8bQjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EIo/GmTn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h4DITR6J"
-Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-304997cdb21so4796384eec.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 20:05:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779937531; x=1780542331; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=q7M+KKNYPRc5CJ7Ei7/rAcbZC79wITZmeumvXSLTz6w=;
-        b=h4DITR6JOjFcLRlOozshnletkobldGYmXbmQGiMNFzQTxn25hm1yyhpqjbDLphDmpj
-         MuZdv6JFJWJMAWKnWWtkqMcJVff7x0kgWkLu5loMP7XDgFi5IbZ3l/xh/R6ioTueRW5n
-         CxkN1lQ0v9h+dwO1C6NZ9alGDFCaKdw3H8JEXX0o6p6UuQoZpViJeSD9Gt7yW2rAqBVz
-         qktcSd0yssuG7D9QEIE+Uc9+0Mgzyma/2DQpcdDXo0TZahb9CIFW4KN+ak45v3waHNFh
-         C9uCFxjeOvBVvaRTbnuT/3TkesendNNKEqRJp3PQ8Spp3nqe1gHmXmHJm0+7G9vrT7+e
-         kVvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779937531; x=1780542331;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=q7M+KKNYPRc5CJ7Ei7/rAcbZC79wITZmeumvXSLTz6w=;
-        b=EFHzVKOk3XHX9CFEFWoUzNLOFqf5ASut7vGfAVUhX76dd7uoJOwsHx3ZVNAlUR8n3L
-         8XRDpTuZtc8jaJLqmBWAHv6RrN40qrCzppCiiz8BMrr2jiDxjo2wWy+7YVchUhMARhRU
-         4z7m6XQL4eRK0B1T38S8ypEZfKP7B3WwGQHep6Z87RWCNr8VVCSnvxG+5A0T6OsdC+a3
-         fbmWpeCsQJ8t5yUHJV/QJdlJ1vbrNBR9IXwqI4DMJ2ynhSmKO9DRxMjDwoY/2+vKCDWA
-         H8T7BMfKvxkmgz9QuWNoC1jFHwtMmr2e+wNvqUxlMTUIkJ6dFcFtXseRyxkZ08Q7LSRs
-         FQfw==
-X-Forwarded-Encrypted: i=1; AFNElJ+kq23BvKanWKip97Vz7jQVtb6s+Bdfyv2vECDdRj/efaXP1bbe5PAKBZdmVqpM16/ko/jvI4m5sdL4@vger.kernel.org
-X-Gm-Message-State: AOJu0YzZPQYmtP3mDuiFwK+7H3Idy+n/+f0WHnk3yJNi8ResP8x00tmy
-	oiza9rMzTC0KrWVuNvjWBnCdMrCDIkbpQbF/2TMpTh2WyTet3ZWRiZOU
-X-Gm-Gg: Acq92OGZTw4jmk1Rfkuzt3yMPCBrq6MzdHH3pyD2S1B6Hff4hTxeq+yEAUvjMQfdM1x
-	aQK9s6950sf6fHVUqy3krpgbetl9jBHwFifSMPVfO+OsUHohYz7b83WCJ+hjGH8mixPHxS/z80E
-	lr17p5mcSUp1Z8uiGf6kX4Znk+laf8MqvYgMRvTzZKh4FFup/w/5wtIBroqMqO1vj0Y/h9f/zJm
-	9q2ckWygcqd8O3TXO1tue/qzd8Wb/qExkRiUptCALLBZG8vAMkyFOLHpFIyhc5uJB2tCg1XowQK
-	Z4slAaltaKlTveswo7CtXejIMKS9LxViSoLHDqE5Qj48wrIc8fWj+iTpScQ4XF35ImOwy8P79Oh
-	Yp8HqnPzYpEy6n8faDuhpP097qtl7n20k7l/JlTETlD7yS6bKUO5I+a0O1tLnZBCzoGn09hXe48
-	3PfQ1TlHnxSw1VKulGUE03YapAMU8IhJ3rubbSLLuJ3T44PlKjmjRGdvotXrmDnUJ0uVWA8qyeK
-	cc9dFLMmn/moHtmIbzRDERnYvw=
-X-Received: by 2002:a05:7300:134a:b0:2cf:28e8:d784 with SMTP id 5a478bee46e88-30449184a7amr11069090eec.19.1779937530712;
-        Wed, 27 May 2026 20:05:30 -0700 (PDT)
-Received: from [192.168.68.65] (104-12-136-65.lightspeed.irvnca.sbcglobal.net. [104.12.136.65])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3045225b7b6sm19413264eec.25.2026.05.27.20.05.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 27 May 2026 20:05:30 -0700 (PDT)
-Message-ID: <6e3b1279-61c8-4bc5-9f66-e437140d3074@gmail.com>
-Date: Wed, 27 May 2026 20:05:29 -0700
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EIo/GmTn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0FB31F00A3D;
+	Thu, 28 May 2026 03:05:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779937539;
+	bh=rj4qDmMCYpszHHeRg8aGd5/W+DuhRJarQpl7lAITGVY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EIo/GmTnwwOfG/QGIUXUZ9wSsqnjpTixnGwPUgkIT+byR9/QaL+glr6GqCMwEOGDE
+	 lj35smxEM8jy7GDbziqaHW6Qy7s2NTa5bkBdAd6t93RdUHwPBZg0/TmWLB4f6WqobK
+	 xQo/TxqYAGgZs7apogn7n4cdguGItHSBSaqO2NcliCI8tox6dTtcJnKHdPy3rvqOQ6
+	 49en/5WGJg3B6gqDdEc8OAZkwIcUYkqNWLpu78mk7qV8tODLGIbkPtRbfyw50DK+4U
+	 qbcE2Hg/6hpfj6vfClScmm+7rEztUYeMQO+PjirarLI8sMG5C2+j5RIdbMz229KOmP
+	 sQWquJucPadiw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/7] clk: qcom: Add generic clkref_en support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Qiang Yu" <qiang.yu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
+References: <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 03:05:38 +0000
+Message-Id: <20260528030538.F0FB31F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/3] soc: qcom: spm: Add MSM8960 SAW2 CPU support
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Andy Gross <agross@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260514-expressatt_cpufreq-v1-0-487fd2d78859@gmail.com>
- <20260514-expressatt_cpufreq-v1-2-487fd2d78859@gmail.com>
- <1bf1558f-19b8-4052-9609-52039f820bbb@oss.qualcomm.com>
-Content-Language: en-US
-From: Rudraksha Gupta <guptarud@gmail.com>
-In-Reply-To: <1bf1558f-19b8-4052-9609-52039f820bbb@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
->> +	.seq = { 0x03, 0x0F, 0x00, 0x24, 0x54, 0x10, 0x09, 0x03, 0x01,
->> +		0x10, 0x54, 0x30, 0x0C, 0x24, 0x30, 0x0F },
-> I can't see these values anywhere downstream
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Unbalanced regulator disable during late init for clocks left enab=
+led by the bootloader.
+- [Medium] Hardcoded resource mapping and OF provider registration prevent =
+API reuse in multi-functional drivers.
+- [Medium] `qcom_clk_ref_is_enabled` returns a negative error code on failu=
+re, which CCF interprets as true.
+--
 
-Hello Konrad,
+commit 958034c0adafc3f72b4d7e46df81935d74404f7a
+Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
 
+clk: qcom: Add generic clkref_en support
 
-The .seq values concatenate spm_wfi_cmd_sequence + 
-spm_power_collapse_without_rpm:
-https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b56847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/board-express.c#L3265-L3285
+This commit introduces a new clk_ref clock type with custom clk_ops for
+QREF blocks. It provides a common registration and probe API intended to
+be reused across different placements like TCSR and TLMM.
 
-These are passed via msm_spm_boot_cpu_seq_list into msm_spm_data[].modes:
-https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b56847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/board-express.c#L3303-L3369
+> diff --git a/drivers/clk/qcom/clk-ref.c b/drivers/clk/qcom/clk-ref.c
+> new file mode 100644
+> index 0000000000000..213c0f58bb36e
+> --- /dev/null
+> +++ b/drivers/clk/qcom/clk-ref.c
 
-msm_spm_data is passed to msm_spm_init():
-https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b56847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/board-express.c#L5510
+[ ... ]
 
-Which calls msm_spm_dev_init() per CPU:
-https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b56847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/spm_devices.c#L221-L239
+> +static void qcom_clk_ref_unprepare(struct clk_hw *hw)
+> +{
+> +	struct qcom_clk_ref *rclk =3D to_qcom_clk_ref(hw);
+> +
+> +	if (rclk->desc.num_regulators)
+> +		regulator_bulk_disable(rclk->desc.num_regulators, rclk->regulators);
+> +}
 
-That writes each mode's .cmd sequentially into SAW2 memory, bumping offset:
-https://github.com/CyanogenMod/android_kernel_samsung_d2/blob/0dbe2b56847b304d30b809dfd08ba3b4a61d9af8/arch/arm/mach-msm/spm_devices.c#L148-L162
+[Severity: High]
+If the bootloader leaves this clock enabled, the common clock framework
+will call unprepare() during late init to turn off unused clocks. Since
+prepare() was never called by the kernel, won't this
+regulator_bulk_disable() call trigger an unbalanced disable warning and
+permanently leak power?
 
-The upstream .seq is the same thing pre-concatenated. 
-spm_retention_cmd_sequence and spm_power_collapse_with_rpm are omitted 
-because no upstream platform uses PM_SLEEP_MODE_RET or PM_SLEEP_MODE_PC:
-https://github.com/torvalds/linux/blob/v7.0/drivers/soc/qcom/spm.c#L134-L249
+Does the driver need to sync the hardware state during probe by enabling
+the regulators if the clock is already on?
 
+[ ... ]
 
-Thanks,
+> +static int qcom_clk_ref_is_enabled(struct clk_hw *hw)
+> +{
+> +	struct qcom_clk_ref *rclk =3D to_qcom_clk_ref(hw);
+> +	u32 val;
+> +	int ret;
+> +
+> +	ret =3D regmap_read(rclk->regmap, rclk->desc.offset, &val);
+> +	if (ret)
+> +		return ret;
 
-Rudraksha
+[Severity: Medium]
+If regmap_read() fails, this returns a negative error code (e.g., -EINVAL).
+Since the common clock framework evaluates the is_enabled callback as a
+boolean, won't it treat this negative error code as true and incorrectly
+assume the clock is enabled?
 
->
-> Konrad
+> +
+> +	return !!(val & QCOM_CLK_REF_EN_MASK);
+> +}
+
+[ ... ]
+
+> +int qcom_clk_ref_probe(struct platform_device *pdev,
+> +		       const struct regmap_config *config,
+> +		       const struct qcom_clk_ref_desc *descs,
+> +		       size_t num_clk_refs)
+> +{
+> +	struct qcom_clk_ref_provider *provider;
+> +	struct device *dev =3D &pdev->dev;
+> +	struct regmap *regmap;
+> +	void __iomem *base;
+> +	int ret;
+> +
+> +	base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(base))
+> +		return PTR_ERR(base);
+
+[Severity: Medium]
+The commit message mentions reusing this model for blocks like TLMM on SM87=
+50.
+If a multi-functional driver like TLMM tries to use this helper, won't
+devm_platform_ioremap_resource() fail with -EBUSY because the parent driver
+already maps the register region?
+
+Since qcom_clk_ref_register() is static and callers are forced to use
+qcom_clk_ref_probe(), does this hardcoded resource mapping prevent the
+intended integration with multi-functional drivers?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-tcsr_qref_=
+0527-v4-0-ded83866c9d9@oss.qualcomm.com?part=3D2
