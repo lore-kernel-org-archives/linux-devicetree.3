@@ -1,145 +1,95 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28583D3491;
-	Thu, 28 May 2026 11:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DD6C3E1227
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 11:21:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779967297; cv=none; b=CZ4nGyfyZ2NTyAMr1p/vAtyRgYMIRfGJzoQx/szoxpOzs4khnvEHUhb3gqaYIFn7zeO/HIEfCZnJODbrmaNjsoW1wl02+so3s/uWF/8X5EM/aWS3GgWxVBfHn8hLZd5VkKeuxntft+svktB6lNWj7447hsBD3GAcgQiUXW0IOww=
+	t=1779967310; cv=none; b=pYdNsv8G9h+f+9FdpbuhKgnS8rCHNjJqldKEk3LdeR33clXYMDxCaVu+t3DWGSLUeHzNH+qeIRnTpaYtMJLBYSu2bQb/6p+egPwH1zXZhsuwFZD/n5ZIqFQP2npir7nvZeCdk2f1Jn0bUQmYls1hVejsttg045etImlP1xHCXTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779967297; c=relaxed/simple;
-	bh=f/lIC4TgmEzyiBDPh2iBCW6oUeY6y5+TmWqzleJFfvY=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=bTpRNi9xWi6NAZ9hg0k+E60lA2+4Htrx5oLqKfFJkL0Twj/PB0sg+4xXfYuOEmoHbkcJkie44RshfQQQIQQ0BMlOWdsmbVFcS/WcdIDrcqJ7gdHOwwEKjiK50eD40H/1qf53cbw0kYcCsHBKqRF2xK7IM7S8De1GClnT2ZFE7D8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=jVJ+Ngzp; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1779967310; c=relaxed/simple;
+	bh=s1GmZm5g4BdhWCf1hwDPuK4Zr11N1yzUL/N479kJohU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=XRsPxDkA9AK++AqJN30dYanxNhfIG9sB9vjjUdWyFIBmrZmiem/atqyC7SRTjs4OTTDwsTls2q3356qkN+pCS4DsQrMvD0YvIczqofXRaejJac5En7W1GhHVRS2ixKjcYAirUC2Dz+vQ2t7Nron4OmVdcK6GDJAbPBzUQfQQE9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=c+yVdGFA; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="jVJ+Ngzp"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1779967296; x=1811503296;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=f/lIC4TgmEzyiBDPh2iBCW6oUeY6y5+TmWqzleJFfvY=;
-  b=jVJ+NgzpXSONr+RHbU6qtCCrztJa5bqPUWbPogVG670ahHdbLpztMlD2
-   LcExizHgnYSr5uusg/B++Rlg6iY3ewekxdkYBUusP2p7rfcVFPo11YkpY
-   +VPfeJRP2cxwEuYP9iJLhpTG/sB5AoyHqXNf9jJf/vAIxkdRz21sV/edC
-   S4SvSeeFKau7+FmX0jBDqNtAI+YBLoD+aJwH00RMhKjG2olrfHw7UVCXw
-   /K0rmUWzZ/RA5FHPZMUUHeyW6fnweYNoVRYL4PkZQznYCNLx+/O2zcC+6
-   bnY4ieUaHTgOJfFSZDlxPvBgnxsB6LKEZq69H+JmWQLRMLwJYD/qQfdsk
-   A==;
-X-CSE-ConnectionGUID: 81EPxlcyToqpjP3cFLSHKw==
-X-CSE-MsgGUID: sRzTGLwxS6OY/9ZIJEHWLg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11799"; a="103480346"
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; 
-   d="scan'208";a="103480346"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 May 2026 04:21:34 -0700
-X-CSE-ConnectionGUID: NhorkxbETOO3yaxAYXvTkQ==
-X-CSE-MsgGUID: vXFsgfpXQNSWfwq2pTGuRg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; 
-   d="scan'208";a="238337774"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.187])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 May 2026 04:21:15 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Thu, 28 May 2026 14:21:11 +0300 (EEST)
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-cc: Lee Jones <lee@kernel.org>, 
-    Mark Brown <broonie@opensource.wolfsonmicro.com>, 
-    Thierry Reding <thierry.reding@avionic-design.de>, 
-    Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
-    Andrew Lunn <andrew+netdev@lunn.ch>, 
-    "David S. Miller" <davem@davemloft.net>, 
-    Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, 
-    Paolo Abeni <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>, 
-    Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-    Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
-    Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
-    Saravana Kannan <saravanak@kernel.org>, 
-    Madhavan Srinivasan <maddy@linux.ibm.com>, 
-    Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
-    "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
-    Andi Shyti <andi.shyti@kernel.org>, 
-    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
-    Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
-    Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>, 
-    Florian Fainelli <florian.fainelli@broadcom.com>, 
-    Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
-    Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-    Sascha Hauer <s.hauer@pengutronix.de>, 
-    Pengutronix Kernel Team <kernel@pengutronix.de>, 
-    Fabio Estevam <festevam@gmail.com>, 
-    Matthew Brost <matthew.brost@intel.com>, 
-    =?ISO-8859-15?Q?Thomas_Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>, 
-    Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
-    Simona Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, 
-    Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, 
-    Philipp Zabel <p.zabel@pengutronix.de>, 
-    Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, 
-    Krzysztof Kozlowski <krzk@kernel.org>, 
-    Benjamin Herrenschmidt <benh@kernel.crashing.org>, brgl@kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, Netdev <netdev@vger.kernel.org>, 
-    linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
-    driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
-    linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org, 
-    iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev, 
-    linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
-    dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
-    linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Subject: Re: [PATCH 19/23] platform/surface: gpe: use
- platform_device_set_fwnode()
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-19-88c324a1b8d2@oss.qualcomm.com>
-Message-ID: <bfdbc026-b3f9-971b-aaf0-0485434b8411@linux.intel.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com> <20260521-pdev-fwnode-ref-v1-19-88c324a1b8d2@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="c+yVdGFA"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=s1Gm
+	Zm5g4BdhWCf1hwDPuK4Zr11N1yzUL/N479kJohU=; b=c+yVdGFAjFX2KPg8D50z
+	wPL4DTj84OreKbGY/qXQi1SV5qsGoBYzvnlw+42CWTUZWQu6+Rj7fW5IL2ZZGwtQ
+	+9iAzjF0DAUaml+dOnVQCIuTp3cxGr48VJJECauX2OwnTZPX6hN3Y4VRwioOZW9R
+	0KgSaIYHhxDCTt9/RtnHYHVEQzn22v6LAY7axTahwLTm+cQkhcByWI6ORzVtMsl7
+	3USowEAtnYr9u/NB9RTU59cTYhHZL7SEs478LWg9+t6ccXCK+G6c8bqMTPo7o5ff
+	FOujZwipmI79xdNtbl5ZqW897Do9iBs6lmI+jAWceQihOLfiSibFnz5kJuNhPyH6
+	Mw==
+Received: (qmail 1009909 invoked from network); 28 May 2026 13:21:46 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 28 May 2026 13:21:46 +0200
+X-UD-Smtp-Session: l3s3148p1@ppr57t5SmtFtKLEa
+Date: Thu, 28 May 2026 13:21:45 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Claudiu Beznea <claudiu.beznea@kernel.org>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+	prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
+	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Subject: Re: [PATCH v2 3/7] pinctrl: renesas: rzg2l: Keep member
+ documentation aligned
+Message-ID: <ahglSZbOA7hgnuCK@shikoro>
+References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
+ <20260528080439.615958-4-claudiu.beznea@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-947565217-1779967271=:1291"
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="n9pDofZDCfNvdWxQ"
+Content-Disposition: inline
+In-Reply-To: <20260528080439.615958-4-claudiu.beznea@kernel.org>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
 
---8323328-947565217-1779967271=:1291
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+--n9pDofZDCfNvdWxQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, 21 May 2026, Bartosz Golaszewski wrote:
-
-> Ahead of reworking the reference counting logic for platform devices,
-> encapsulate the assignment of the firmware node for dynamically allocated
-> platform devices with the provided helper.
+On Thu, May 28, 2026 at 11:04:35AM +0300, Claudiu Beznea wrote:
+> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >=20
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/platform/surface/surface_gpe.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+> Keep the documentation for struct rzg2l_pinctrl_reg_cache members aligned
+> with the struct member order.
 >=20
-> diff --git a/drivers/platform/surface/surface_gpe.c b/drivers/platform/su=
-rface/surface_gpe.c
-> index b359413903b13c4f8e8b284ef7ae6f6db3f47d72..40896a8544b0a4da4261ea881=
-b1eaed62d93b32b 100644
-> --- a/drivers/platform/surface/surface_gpe.c
-> +++ b/drivers/platform/surface/surface_gpe.c
-> @@ -317,7 +317,7 @@ static int __init surface_gpe_init(void)
->  =09=09goto err_alloc;
->  =09}
-> =20
-> -=09pdev->dev.fwnode =3D fwnode;
-> +=09platform_device_set_fwnode(pdev, fwnode);
-> =20
->  =09status =3D platform_device_add(pdev);
->  =09if (status)
->=20
->=20
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
-Acked-by: Ilpo J=C3=A4rvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
---=20
- i.
 
---8323328-947565217-1779967271=:1291--
+--n9pDofZDCfNvdWxQ
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoYJUkACgkQFA3kzBSg
+Kbb++hAAkdEyQNamKLwRwJSNYF5yxTgYjq+oNSGyIakRnWZAmkw8VUp+glG8vpjH
+XTW1xidjiwsAphkSo0pEv+3rHkLql29wA6176cbJBcz/5IzJxhCOguOzWXVl13OZ
+PGXT2gtEbtrgCfeHeyvhQN3eGcuJo2/Ohvqgb07ROLk+CX0VOLacwM3mXsYlH5Sx
+ckKB5kWwF1Dvabt2aVGDCYFI3HX2I9toCjWxUvLAa/hijspaPbd6ph3O78UEQJYo
+CSN3IKPFh5yRwCoCMDkejPxgUYCZs3jwgs3FaFEk6oAvbHak+jLxjq4kJBIQZ34X
+KRCr1CWa7uGvAvBRYICUu9Vy/7BZcIms8HEfeEbGNtukh5yKhEUt2jefKZiguIPL
+Hvc7ATOuTNMphG0gY/xX5QWY3BJJCQBNRitbSD3e4vPDDF64gWIQ1fYZNrm9Gzs9
+T2sQz+Af8/gJLQrFUIkSCV35F+AqWXBuhLBDaxX6/cKALXhIx4RNQRWavpBdpNAh
+o6INLKyWrPKOcUDJbLLlC110LLfvQ+dE5o1X5+6WQc5+I+ly5xzwTmmHzrzpwGva
+5Qh2N7zBUExuVwfQ+jrzkLliOO9V15UXNa4eiZT6JtAGX2tHgRzc+yHmw6S+mHT5
+rmQeidePK+xoQ5PBOeNkNNMD+XmyAJeDD0RHdJU01wGmJAqZ9i4=
+=X7ux
+-----END PGP SIGNATURE-----
+
+--n9pDofZDCfNvdWxQ--
