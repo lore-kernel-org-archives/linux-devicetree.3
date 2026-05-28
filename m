@@ -1,106 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C87FA2DFF04
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:08:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16E13278156;
+	Thu, 28 May 2026 14:09:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779977299; cv=none; b=djRN/6+vQkORgxn/DfYcrIeM2sgNxtk6egG5pKt8OYwXZdXZ9ZfNxG/SBtaLB7eBYUmb6YuXOWHa+L0yMMhm/jkD4B3K4FP7bziYcptUbgtX/dL22fKfhWbxFQd8Cu+QWpYFaxx5VvI4IKBUF66jnuERFQf2o3qaYdOEd+LaRAQ=
+	t=1779977395; cv=none; b=LlszQGxyGZ+T4dGfQWQ93dr+vPbOmOaxfqd106zyu16ys6mJ7UZU3BJbqWqynyPcxfAwukrAkx5t8Ro1WXKNwXxQbeAWemT/YONYrNcPTxZw86AD2P65WgRPHTojhXA2sijGHcqf/w9bJSlj+Z1kbC0oZn1V0sM0azu4AFWBG1A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779977299; c=relaxed/simple;
-	bh=S8iyudqOv6JcpMnVzlrB80GyO1KvtIqWPWPDnwz/lik=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QYqVW1sQQMpmyDrrjyJBSRKWIHD0755pQ1CgqDXvMxigKQ2oNPnHMJ845dGW9DPdNdfpElMZA/O7WBPoFhbFr0P0cghSUnKtpJQjdiOwSIL+Y4O1r3V02vJrlHQquEBjSkXPtbCF23zIfvogLTlqsNRLAe83C3G9pmj++gXOjas=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MCePkFYk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779977395; c=relaxed/simple;
+	bh=Pr+jxz7BY35FXsRBBvKHNemKJtlVjF9l/QZ3A0n1eQI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WmEvegKv/BT8zuwSn3KvFc6H/St2UdUi8TLAwZIWhfnHwXGLyVd+77LlFq694d9bz4jPRBy60kmD6eUzFQF5X8tW6kna+KiY8gv+wJjrB/o721cZPW9svVAg+4ZblGUyt7XT/MgJggZ03zri1uiUyvxDPdr6ParYyL/qsUiexhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TsX3XjVH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MCePkFYk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4676F1F000E9;
-	Thu, 28 May 2026 14:08:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TsX3XjVH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 44EAE1F000E9;
+	Thu, 28 May 2026 14:09:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779977298;
-	bh=NYhlbEnr/j86eTtWnVydiHokNs1OtiqtJhFPUqvCKiQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MCePkFYkoPaxqmrMb2BiiGtAjGcyyY2sq4LsA2emVkqRm8SWjckFjC8BjE0bSgBHL
-	 ZXMWzvlo/sbq4/ngyjVaOtURQ68QRVDQJI/JurETzYr86uzv29pT8w1Gp41BQ+gFtR
-	 DT+l9LNkUtGLX7P+o3CBD/+Of8RGS8ZukeUM414vY8m8qys6emPLmQBo8ULR6aSYuH
-	 WMyqrdIo67jwZjQPnxjTseSuEO4mG0uZbfjdwnnw+VQT6ucS43n6rzSW2EISEryocU
-	 CuspktADEwXcPt6RkFVyL/Es7CKUCV9JbpsRhZ4YW6+nfu4nRglHrJtCrUOxSdFo0V
-	 l6qS3o7OAHsXQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: leds: Document TI LM3533 LED
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528135123.103745-2-clamor95@gmail.com>
-References: <20260528135123.103745-2-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 14:08:17 +0000
-Message-Id: <20260528140818.4676F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779977393;
+	bh=u0uUf3f7uBNsnWsY36gNTsll6Uy0Yo12v5M+z1iDSco=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TsX3XjVHE3tZoc6dR0sgaRdfEbz7ZgrS0yZg+pf6s7YMtCo5YuEutctv7p4JLdKdu
+	 2zlp0kDxNJV2q4QVz3idkm7DS68YyyUzIfSAKsm9hSXM9R7WJYnZeKc/zyYIXMpZLv
+	 XIJxEJP7Ixc3zisnBMBCVoIUprUdXqRwu2ownwXWs1d2XmRMurwQtDq5JB8JN0sryF
+	 kl01OEU12npK50xn27fqachkvBUsZnrw6+4l+hV7YfJNrLppGR5oz1MYRga6EZR9hO
+	 wgFJaN/acT4Xzz1fHUuoTVytYIRNbgmRWxVFCXxIoxHLrnPbNXIwyML1FzyJTJNgEq
+	 L5U5LYgItd9gg==
+Date: Thu, 28 May 2026 15:09:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: sashiko-reviews@lists.linux.dev,
+	Piyush Patle <piyushpatle228@gmail.com>, robh@kernel.org,
+	conor+dt@kernel.org, devicetree@vger.kernel.org,
+	linux-iio@vger.kernel.org
+Subject: Re: [PATCH v10 04/11] dt-bindings: iio: adc: hx711: add HX710B
+ support
+Message-ID: <20260528-ample-ointment-3d90520304f9@spud>
+References: <20260525105127.180156-5-piyushpatle228@gmail.com>
+ <20260525111144.CA7E71F000E9@smtp.kernel.org>
+ <20260525-clanking-possum-4ba58b466854@spud>
+ <20260527184128.2f5f02e5@jic23-huawei>
+ <20260528-payphone-alto-870198753d50@spud>
+ <20260528140838.180844cd@jic23-huawei>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="2TlNsjHs/AwiJhpQ"
+Content-Disposition: inline
+In-Reply-To: <20260528140838.180844cd@jic23-huawei>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The property `ti,resistor-ohm` does not use the standard DT schema =
-unit suffix (`-ohms`), and its description contains a typo ('resister').
---
 
-commit 3710ffb632b560bb2fb8a924f794c4e747f0362b
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+--2TlNsjHs/AwiJhpQ
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-dt-bindings: leds: Document TI LM3533 LED controller
+On Thu, May 28, 2026 at 02:08:38PM +0100, Jonathan Cameron wrote:
+> On Thu, 28 May 2026 09:54:39 +0100
+> Conor Dooley <conor@kernel.org> wrote:
+>=20
+> > On Wed, May 27, 2026 at 06:41:28PM +0100, Jonathan Cameron wrote:
+> > > On Mon, 25 May 2026 18:01:41 +0100
+> > > Conor Dooley <conor@kernel.org> wrote:
+> > >  =20
+> > > > Jonathan,
+> > > >=20
+> > > > Here's an example of the sort of stuff it complains about on every
+> > > > iteration.
+> > > >  =20
+> > > Thanks. +cc linux-iio@vger.kernel.org
+> > >  =20
+> > > > On Mon, May 25, 2026 at 11:11:44AM +0000, sashiko-bot@kernel.org wr=
+ote: =20
+> > > > > Thank you for your contribution! Sashiko AI review found 2 potent=
+ial issue(s) to consider:
+> > > > > - [Medium] The `dvdd-supply` property is utilized by the HX710B a=
+nd mentioned in the commit message, but it is not enforced as a required pr=
+operty for the new compatible or included in the example. =20
+> > > Yup. This stuff needs fixing.
+> > >  =20
+> > > > > - [Low] The `if` condition for the `avia,hx710b` compatible incor=
+rectly uses `const` instead of `contains: const`, causing schema validation=
+ to always fail for HX710B nodes. =20
+> > >=20
+> > > This one I'm not sure on. Is it right?  I tested by hacking
+> > > the example to have a supply it shouldn't and the schema validation f=
+ailed
+> > > as expected making me think this is a false positive.
+> > > I have zero natural feel for yaml so no idea :) =20
+> >=20
+> > It's not the common pattern, but it does work.
+> > IIRC the difference between it and "contains: const: ..." is that it do=
+esn't
+> > apply the condition when the compatible is used as a fallback.
+> >=20
+> Makes sense. Given we may have fallbacks in future, it would be
+> good to use contains version.
 
-This commit documents the LM3533, a complete power source for backlight, ke=
-ypad,
-and indicator LEDs in smartphone handsets. The high-voltage inductive boost
-converter provides power for two series LED strings for the display backlig=
-ht
-and keypad functions.
+Or change it in the future when the user of the fallback arrives, since
+the binding will need to be modified anyway at that point. That's why
+I didn't ask for the change to be made.
 
-> diff --git a/Documentation/devicetree/bindings/leds/ti,lm3533.yaml b/Docu=
-mentation/devicetree/bindings/leds/ti,lm3533.yaml
-> new file mode 100644
-> index 0000000000000..6e12e12be08e5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/ti,lm3533.yaml
-> @@ -0,0 +1,170 @@
-[ ... ]
-> +  light-sensor:
-> +    type: object
-> +    additionalProperties: false
-> +
-> +    properties:
-> +      compatible:
-> +        const: ti,lm3533-als
-> +
-> +      interrupts:
-> +        maxItems: 1
-> +
-> +      ti,resistor-ohm:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        description:
-> +          Internal configuration resister value when light sensor is in
+--2TlNsjHs/AwiJhpQ
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: Low]
-This isn't a bug, but should this property use the standard dt-schema unit
-suffix -ohms instead of -ohm? Standardizing the unit suffix allows
-dt-schema to automatically infer the property type without needing an
-explicit reference.
+-----BEGIN PGP SIGNATURE-----
 
-Additionally, is there a typo in the description where it says resister
-instead of resistor?
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahhMqgAKCRB4tDGHoIJi
+0sXvAP92zvcRaUiEZg0HoRTjaMrwDAi1Y8ujeXAeOozyoBzanwD+JaUUoJPDMi8d
+7Y2GUDUXWWHmBFGcFVqTtFXqKAfPzwY=
+=pFhj
+-----END PGP SIGNATURE-----
 
-> +          Analog Sensor mode and PWM mode is disabled. The expectation is
-> +          the input is a current from the external analog light sensor a=
-nd
-> +          this is used to convert it to a voltage within the target rang=
-e.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528135123.1037=
-45-1-clamor95@gmail.com?part=3D1
+--2TlNsjHs/AwiJhpQ--
