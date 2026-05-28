@@ -1,525 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from PH8PR06CU001.outbound.protection.outlook.com (mail-westus3azon11012035.outbound.protection.outlook.com [40.107.209.35])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A9AF3B27FE
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779962874; cv=none; b=Q3g2JAuIvjgvJ2MFKuW2lBsDVzCPvIIyiU46keyDgqaEhjlaALBcG4U55U2MvjMKl0IOGfm4X+oMdMtz2/kbG3wZgQWIUKOvvRrfYijhEsJpLlAW10ZErcLLxDs4Oyh3AWF1EYDgtTnhGsrgGixgTMZUw1IoioFx1FYxEbfRD7s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779962874; c=relaxed/simple;
-	bh=0bpujqBXj8ybvFop9bYyotPQK8jlJ2ekGPANR3iA7ac=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=UGThQQ2QEL/WncEyMMqrRe0Bv9bnJNTXKtWQf6dXVDQO5Kly03HGIeePa3+xXLMyazVl5fWkCU+3iU4a20YzZ0qJ03ayH+ZV9IIOt3j1GZWxmwX2IatZhIoRlUrFeg3bAPoAndCkZOJ2eoyDCMvC73BckTjWqCdsitGSJ+zJ648=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=VgNfazAL; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Zfp2DRtS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7BE3ADB9A
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:09:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.209.35
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779963001; cv=fail; b=gJbkJA9KEKtjZaQOgH7pIOqqvu6adb3gOjeJtuCHql1O5f2YBtmMdOGEHkNMPMxyXHv9QllMn6PbSyHO1dy7kOCZA+cVcSKhVGf//FVn8CTmFCDUP7VQ7XLHdji+MZEUf4/AbMbRXAsfFs4KqDuBOkionvfexet1ShOSxJfImFs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779963001; c=relaxed/simple;
+	bh=Bhciiip6/64CM2CSgvaY2leOR5Pjq7SEb1iUrGJoU70=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Zbn/uvNq8aB0Q5LSmHHroO+jjXDENLNDL4Cz6vQlEb1fJXgHbLgVFrKHVbDPpqgog3FEOVUTw7TClwx5Fiua04MH9eAowq3H0DSacvZx1za7UH+yZoLeCNXuAyvUw6nX5JH6gmuWnnsomKlCGSAglO3ZAkkvdCjCP9RdsKpMENQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Nqog3BMC; arc=fail smtp.client-ip=40.107.209.35
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="VgNfazAL";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Zfp2DRtS"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vMKq1562617
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:51 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	3RwriUHLcTIRS+XdQpTMw9i8MGJ5W63QMAIYPHkoS/4=; b=VgNfazAL9a6dxoEP
-	Fx/f1rsvXchmkI9lIEaBLYbFRrljnbAR1WP14dJXYeSaX/6c5wSKiS3mhjO2MG2l
-	pMPK0RAhC7G+Ie3Vc9assFs1P8adNqUhBQGdy89DxJMWq0ezhPJjPTkatgWRKO2l
-	zOWoenMt4FVDoKpxpFDA5WKJl1m742F4Mx3rWmjvt9xrSwzSBioKTiapEHCi5uEE
-	BN/yRZ/cVa4CFqg1QpeSlGUobG4wPlU5/nQcEivDKVl5kiuI8nHsua/hSez5DxSg
-	UW6Z9EwLIwE8XuJzvQDBccBr6Mlf+aYCXbF4GiQtweFO4nAmvYmYzk2Su786OOmi
-	Dx4kLg==
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y2tadb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 10:07:51 +0000 (GMT)
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-3692f395339so13018043a91.1
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 03:07:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1779962871; x=1780567671; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=3RwriUHLcTIRS+XdQpTMw9i8MGJ5W63QMAIYPHkoS/4=;
-        b=Zfp2DRtS0R+ajY8J51pQiJTxLaINyz0NhVlL3+ERh4FUMg+RDN/otOFbAxfE7Y8Wsw
-         ptHOTVtbso6fIUJMj/6r6MPBViIKIESSmjb0q4Zi/zMaT+MGSocrSjrgHRxydEN3eobK
-         SwQLuNuM/QdrGdGLF657rDc/V88anJMGJURla8R+1dSiFmY6fLOUr7N5ElO3LafkpbIb
-         yvuz0UsAOaydM2eNzDAaDq2SJzzOwO6VkWceaDb8mE2VuUT91S3SEmgnxCHe0pbjDsB0
-         YRxaK3uVcptOzPHqEoGjCFILSGNMmNflYNQwAy/c1pM09cefrteiqv/Mxr3kcAo7Q6cc
-         QNzw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779962871; x=1780567671;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=3RwriUHLcTIRS+XdQpTMw9i8MGJ5W63QMAIYPHkoS/4=;
-        b=F7BgPrKBEjEhRh1KrrqZD3OIxHMiRNJNZsVyr6L1/746xRDY6759r2QHEqcjh0U8uM
-         qmlE9lvAW3Ki2LScq7iy8kn+JFIwtqVXW9klmzRdKRNJTe0L9+0s/nWzlNU8weRcNM7I
-         u+2NFx2T8wYI7qX9qErb3sooUxpHssJJ4oXoJiXweCBFcVZekO3U/7VtElaFx6Lm0MEW
-         KJI2ZnWKI2U4YgnQaGLqWrnQN9PCabqauS37h+10K/blNN8VDbXjbvwldOtQYi7Z7IVc
-         /kbVbkjbrLciJy8SmOsMF5ucVUJpRn6OTeWdTR4tHdTRYKf6n0gm8I5RQ4sQ8noQfB5h
-         oFGw==
-X-Forwarded-Encrypted: i=1; AFNElJ8oKT7UoCHSAn1qgVHH8wXh4HyDL2j3/rEjMKNl17elJzEDHf/3x/0lVXBLipJY59NrB9mz5PFNhvSN@vger.kernel.org
-X-Gm-Message-State: AOJu0YyEGbB2dHBfHhCaWuXzy/uUcrzsgGfhIYSgWZer19L1rC6w1Kfy
-	oBkybBn3viYbiuF2fTaB72RtcC4CyKoACwPO4kLRbLwA7quO3e5jeQmNhhhf03dZtJmUS17fCmO
-	op/NDb7S42cQKaMbzk0NgPBlppYhLHG1iyu3f62A5g7l66xcL6ePtg4M8SRoOydMI
-X-Gm-Gg: Acq92OHSgK5uIV6m+KOKOO2Wy2sgSU+Whtcgr1dVy4ZCpg7QAahLVkZPnWWcIL5i3pI
-	81xfQORYLIFFLlSEzUl/XdI1vwdLIqutAvnhq8+7kwi9FsVpaYPjVWin9oBxvGFGn565O/OpNdA
-	81SWmm3aXga6RNxkw2OHd5yKuZz4sMbv72C7QLCNDaiMDRdkR5r0WAxpzM3KrQ5YsEdF2xsQhQP
-	w/kh5NdZ4NOkTXViNx8gO/pXzyi3c/UHePBRFeZUy7ffsx8F/nJvgRicD9dZcbh3zUDdoRBQH8w
-	95X32MvVxfwanLoqtIvDd0k02qtStlvHLugJWpG+VVVRWctbxxuZA4hu3hEpYnzh3L8ULUfUUn+
-	ufAAFgsRfUe9efhpOA/gPnWu2Ppy5anMMYUUyEEEHxa/rosgjSjeOr0nzNl6WO+M=
-X-Received: by 2002:a17:90b:2f84:b0:35f:b714:e516 with SMTP id 98e67ed59e1d1-36a674f4399mr26552778a91.16.1779962870764;
-        Thu, 28 May 2026 03:07:50 -0700 (PDT)
-X-Received: by 2002:a17:90b:2f84:b0:35f:b714:e516 with SMTP id 98e67ed59e1d1-36a674f4399mr26552726a91.16.1779962870174;
-        Thu, 28 May 2026 03:07:50 -0700 (PDT)
-Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36b7e38af60sm575296a91.1.2026.05.28.03.07.44
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 03:07:49 -0700 (PDT)
-From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Date: Thu, 28 May 2026 15:37:06 +0530
-Subject: [PATCH v2 5/5] clk: qcom: Add support for Qualcomm GPU Clock
- Controller on Shikra
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Nqog3BMC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=LWX7pnVPOn6iEvjyVXvJm+Q/7A/LMAPwms99RvbWmalBHw+9tBm55jO1zyWIdFq6SAlAyFKWEI9u/5i6Tugds8YapSH4VJBCbYjW7R2sabdUIDRZl4/CuwcnZCse6R2E+6plBCBgM9M3yC0CL2AEu0fXMTw0B/Co9pcpCJl0si8RqaWYPuFBhND5ftHS7ej2faXOSCt+4T2bBBswbFvEGOj8svvycOF/mq0PyA8at+LxQjMP0wPPNWE0ijQ5uIx0ODg5+BA3eI/rs1eja8GFuvyPxpyzbRei6SVV6WnGjy+KxuMEkYxIpFDo+FLCVEc+bofEbNKeSSU5xU6d2Uns4g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=koWWVe7Tou4yDDkFyn/Cd6ryk+3y/aR1aDDEojrLToI=;
+ b=IJgY5H0krxkv6s3gVlZGtf7kCfxyEVA5rF1A8pcod/jQFM7BHckX65AcnTJV++EY3QSKGb4gEkSoaMeh9o0AvMbIQd1yCg5EO1M4FHF0XzXKoaTmEYf6kwdtU4PhVxgGD8agiyJ1i9Ba4AYAb5jHvBgQHUGRq4coa59kxRUkBfnyR5R6kjr7/xJezE55ouu6S/QVL3RiX4U/GWCQLqQ0GP/HvmFADduyU0B+FuxGplczh239vgTQ8QOglfyM8wr2LSVC+iLZcidIVsaI0Dx19St+7IaRKyPob1qM68zvpefrFsmJx/v7Rbic3GyvljsdlILKXJOHckcrfLud90Ee6Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=koWWVe7Tou4yDDkFyn/Cd6ryk+3y/aR1aDDEojrLToI=;
+ b=Nqog3BMCSlMeU6RjNzyeiBCGzUL5V6Y3UQTah/RA9pCE2wXK4+B1ggj5Rc3HLVC+Bm9Um9Z3KoeTCbdOvgaDa33AFS5ov6ssrD70ktiV5zRsGu8XwdykWr0AumPU+3dROU0qjs2bBq5FdI/pLn0vC/O56xtcF96VUNYIp5kNjqY=
+Received: from SJ0PR05CA0013.namprd05.prod.outlook.com (2603:10b6:a03:33b::18)
+ by SJ1PR10MB5931.namprd10.prod.outlook.com (2603:10b6:a03:48a::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Thu, 28 May
+ 2026 10:09:56 +0000
+Received: from MWH0EPF000A6735.namprd04.prod.outlook.com
+ (2603:10b6:a03:33b:cafe::6) by SJ0PR05CA0013.outlook.office365.com
+ (2603:10b6:a03:33b::18) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.4 via Frontend Transport; Thu, 28
+ May 2026 10:09:56 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ MWH0EPF000A6735.mail.protection.outlook.com (10.167.249.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.71.7 via Frontend Transport; Thu, 28 May 2026 10:09:54 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
+ 2026 05:09:20 -0500
+Received: from DFLE202.ent.ti.com (10.64.6.60) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
+ 2026 05:09:20 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE202.ent.ti.com
+ (10.64.6.60) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Thu, 28 May 2026 05:09:20 -0500
+Received: from [172.24.233.20] (a0512632.dhcp.ti.com [172.24.233.20])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64SA9H7S1837049;
+	Thu, 28 May 2026 05:09:18 -0500
+Message-ID: <44b3408a-22f4-4714-b047-3492bf1cb2d7@ti.com>
+Date: Thu, 28 May 2026 15:39:17 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] arm64: dts: ti: Add LincolnTech OLDI LCD-185 Overlay
+ for AM625-BeaglePlay
+To: <sashiko-reviews@lists.linux.dev>
+CC: <conor+dt@kernel.org>, <robh@kernel.org>, <devicetree@vger.kernel.org>
+References: <20260521020630.816220-1-s-jain1@ti.com>
+ <20260521023423.6B8031F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Swamil Jain <s-jain1@ti.com>
+In-Reply-To: <20260521023423.6B8031F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260528-shikra-dispcc-gpucc-v2-5-953f246a0fbb@oss.qualcomm.com>
-References: <20260528-shikra-dispcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com>
-In-Reply-To: <20260528-shikra-dispcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
-        Taniya Das <taniya.das@oss.qualcomm.com>,
-        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
-        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Imran Shaik <imran.shaik@oss.qualcomm.com>
-X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=VeXH+lp9 c=1 sm=1 tr=0 ts=6a1813f7 cx=c_pps
- a=0uOsjrqzRL749jD1oC5vDA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=h4tiyZWTG5MJAiqrTW8A:9 a=QEXdDO2ut3YA:10
- a=mQ_c8vxmzFEMiUWkPHU9:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMiBTYWx0ZWRfXyBL4I80mSTiZ
- msCyfHYaGjkTMMVk0QCCntVPZoG9HG+vuRZSUM3etmsfkx1ZZEJr3jSK6tPOCc1TXgIpjYjFqsC
- b/batB25e5Gyer+8DWRz4wkoNCJMnSwzKAEhUjHXOpcwG6szovQclRSIoynsgma2ML9DkBJ3W02
- xCRcEgSyj8C83MvzNjnzYTYeyotW9vhkIwn6oj+ie7nu8qTrwwoJYtxQxzXN2aJ1BteT2jWRWHw
- RNPlPGwrv1qUD3tJQP5f5Juv+9lj7EmpT28il+Gr9sDvj5SWSYgLkXWsAtNHIM34sGNc8dzcCJG
- msceUfPULuMBtXxs0u9bXK9rDYy6AVWR9i2iVX3CO69Yu0+T1IuKrY7NBscOv3pilX463Qi419m
- 64acu+akmdjsA0kITCww0T91w3plKliInXw4MMcUsKX/77EdWdffe1ZJQTdCmR7SYSuBRk3mrbx
- aRCPVS/X0rxDNAmhHAQ==
-X-Proofpoint-GUID: FbB8X7FCjfIPEzrRjsK67v50IIR11mPu
-X-Proofpoint-ORIG-GUID: FbB8X7FCjfIPEzrRjsK67v50IIR11mPu
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_03,2026-05-26_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 priorityscore=1501 adultscore=0 lowpriorityscore=0 malwarescore=0
- impostorscore=0 bulkscore=0 suspectscore=0 clxscore=1015 phishscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280102
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MWH0EPF000A6735:EE_|SJ1PR10MB5931:EE_
+X-MS-Office365-Filtering-Correlation-Id: a7e15406-31d8-4790-7220-08debca14415
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|36860700016|1800799024|82310400026|18002099003|22082099003|4143699003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	3hQVt4vtQ0cyGF4vIkppYvF301s1HfDd3oPAzunJG/0g1o645s7RkGtEp4UUV5gFRRYJvSjRhkeSZOt0mpO7Ora6Gi9IquvepsSEFsoTk1RQkmnMlAtqjxyGYZx7W5bxIG07ITIBSSn4i4W8oSqt23icBMYX5v8kvoXqXKFxp8FXjsQfLNGib20qMm3aNooZOKGw2+GwvczFpLaG2W+NmTtjs6iirzp5Ig2xvZOJeTyVLWvicau9vJHeLZ6u0LoKGeN0qvTIzWu5NPfaCfGqgccyysffQSnlWCan0ealSwXYcdbYL+Rr0+yp7qLBdqDfPsCGcnX64qW4BhOs8v6A2eNXnXWKjqyFM0hp/qT5WbgvKRyg00Et+zdeSuuvJQFI/Ta1q7W7evH5/Djtmtz9AU6gzafv84rSzu8n0B+3d3GEN2civR0TkbjFEUeSnSMiCsqpVMXqlJLLcTjhbDsr+Tb8lryo1Yrdw5RbmcEgQLGyCUqBP9xSjK7JrFS36GSXw17lSxmDHYS09ZiINoOMZ2TqANmb4Z43NDMoTBjm3I5+5c24BVuFBqq3Bv8ro90m4eBjx+eyreuekV2YWS2kgPxL2uhxAcTS5uj7rfP2PJeNwe8WJHEyP+ndqgJn/n0PT315QWtzIK6ILUngjTF1zlPOTTLJa867DRO4JnYsjcDmuiAyGUcwcs7v+DtbLLIsHvXwMsNhYH5N4kh8Bm9cye5rea/Wcv4IwbRHWCugus0=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(376014)(36860700016)(1800799024)(82310400026)(18002099003)(22082099003)(4143699003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	bnvKyMiwZ1oe6iUfNfs9/2WawCC2s2ko896mmV1AUxpj2xwLPUDX4LJNdDEalnk95KGsK6noIZaztqCQOMyOkPBfWKo+VCHcs1mBqynzgVrv13arhettP+KbFl0z3+ZksJKLlhdGJ9EHFhFNTl+rHADkYOpXxYHY3knsVLKn/BEu/BKgst8ce5tQd0E+AqscBP0Uxzc32v49EWqTAf/9N6DR1NDBCj8xHyzjjQUa3/vvOQfojRDDIrVRfe3/G7TdNRrQXVFk5sVS9Oh+xpof/bTI3nSMjFiTqeR9OoauBHkOrta8xjIwbLL4Jz/tv8/apT+vZyYpskgWNS3LmKD36TyQtYqq7Q/NHHf4D6lTaMCRoKZ3NC+0qVXItJNiVX8LScNLShTjdiFF09PA1Ut0dtKenCKkFZgER1hOHBb0OR5b26QNXphfgapOqH+N/eqL
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 10:09:54.9923
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a7e15406-31d8-4790-7220-08debca14415
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MWH0EPF000A6735.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ1PR10MB5931
 
-The Qualcomm Shikra GPU clock controller is similar to QCM2290 GPUCC
-hardware block, with minor differences. Drop modelling of critical
-clocks and keep them enabled at probe time, update the QCM2290 GPUCC
-driver to align with the latest common qcom_cc_probe() model. Update the
-GDSC *_wait_val and flags which are applicable for both QCM2290 and Shikra.
 
-Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
----
- drivers/clk/qcom/gpucc-qcm2290.c | 174 +++++++++++++++++----------------------
- 1 file changed, 74 insertions(+), 100 deletions(-)
 
-diff --git a/drivers/clk/qcom/gpucc-qcm2290.c b/drivers/clk/qcom/gpucc-qcm2290.c
-index dc369dff882e69a8c0acd260953d5fcae9453120..296afcbfe0c9e4e147dcbd8bca807e8e4c50e185 100644
---- a/drivers/clk/qcom/gpucc-qcm2290.c
-+++ b/drivers/clk/qcom/gpucc-qcm2290.c
-@@ -2,14 +2,13 @@
- /*
-  * Copyright (c) 2020, The Linux Foundation. All rights reserved.
-  * Copyright (c) 2024, Linaro Limited
-+ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
-  */
- 
- #include <linux/clk-provider.h>
- #include <linux/mod_devicetable.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
--#include <linux/pm_clock.h>
--#include <linux/pm_runtime.h>
- #include <linux/regmap.h>
- 
- #include <dt-bindings/clock/qcom,qcm2290-gpucc.h>
-@@ -20,7 +19,7 @@
- #include "clk-regmap.h"
- #include "clk-regmap-divider.h"
- #include "clk-regmap-mux.h"
--#include "clk-regmap-phy-mux.h"
-+#include "common.h"
- #include "gdsc.h"
- #include "reset.h"
- 
-@@ -46,6 +45,7 @@ static const struct pll_vco huayra_vco[] = {
- 	{ 600000000, 2200000000, 1 },
- };
- 
-+/* 710.4 MHz Configuration */
- static const struct alpha_pll_config gpu_cc_pll0_config = {
- 	.l = 0x25,
- 	.config_ctl_val = 0x200d4828,
-@@ -57,11 +57,12 @@ static const struct alpha_pll_config gpu_cc_pll0_config = {
- 
- static struct clk_alpha_pll gpu_cc_pll0 = {
- 	.offset = 0x0,
-+	.config = &gpu_cc_pll0_config,
- 	.vco_table = huayra_vco,
- 	.num_vco = ARRAY_SIZE(huayra_vco),
- 	.regs = clk_alpha_pll_regs[CLK_ALPHA_PLL_TYPE_HUAYRA_2290],
- 	.clkr = {
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_pll0",
- 			.parent_data = &(const struct clk_parent_data) {
- 				.index = DT_BI_TCXO,
-@@ -80,10 +81,10 @@ static const struct parent_map gpu_cc_parent_map_0[] = {
- };
- 
- static const struct clk_parent_data gpu_cc_parent_data_0[] = {
--	{ .index = DT_BI_TCXO, },
--	{ .hw = &gpu_cc_pll0.clkr.hw, },
--	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC, },
--	{ .index = DT_GCC_GPU_GPLL0_DIV_CLK_SRC, },
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &gpu_cc_pll0.clkr.hw },
-+	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC },
-+	{ .index = DT_GCC_GPU_GPLL0_DIV_CLK_SRC },
- };
- 
- static const struct parent_map gpu_cc_parent_map_1[] = {
-@@ -95,11 +96,11 @@ static const struct parent_map gpu_cc_parent_map_1[] = {
- };
- 
- static const struct clk_parent_data gpu_cc_parent_data_1[] = {
--	{ .index = DT_BI_TCXO, },
--	{ .hw = &gpu_cc_pll0.clkr.hw, },
--	{ .hw = &gpu_cc_pll0.clkr.hw, },
--	{ .hw = &gpu_cc_pll0.clkr.hw, },
--	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC, },
-+	{ .index = DT_BI_TCXO },
-+	{ .hw = &gpu_cc_pll0.clkr.hw },
-+	{ .hw = &gpu_cc_pll0.clkr.hw },
-+	{ .hw = &gpu_cc_pll0.clkr.hw },
-+	{ .index = DT_GCC_GPU_GPLL0_CLK_SRC },
- };
- 
- static const struct freq_tbl ftbl_gpu_cc_gmu_clk_src[] = {
-@@ -113,7 +114,8 @@ static struct clk_rcg2 gpu_cc_gmu_clk_src = {
- 	.hid_width = 5,
- 	.parent_map = gpu_cc_parent_map_0,
- 	.freq_tbl = ftbl_gpu_cc_gmu_clk_src,
--	.clkr.hw.init = &(struct clk_init_data){
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
- 		.name = "gpu_cc_gmu_clk_src",
- 		.parent_data = gpu_cc_parent_data_0,
- 		.num_parents = ARRAY_SIZE(gpu_cc_parent_data_0),
-@@ -133,32 +135,30 @@ static const struct freq_tbl ftbl_gpu_cc_gx_gfx3d_clk_src[] = {
- 	{ }
- };
- 
-+static const struct freq_tbl ftbl_gpu_cc_gx_gfx3d_clk_src_shikra[] = {
-+	F(355200000, P_GPU_CC_PLL0_OUT_AUX, 2, 0, 0),
-+	F(537600000, P_GPU_CC_PLL0_OUT_AUX, 2, 0, 0),
-+	F(672000000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
-+	F(844800000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
-+	F(921600000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
-+	F(1017600000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
-+	F(1142400000, P_GPU_CC_PLL0_OUT_AUX2, 2, 0, 0),
-+	{ }
-+};
-+
- static struct clk_rcg2 gpu_cc_gx_gfx3d_clk_src = {
- 	.cmd_rcgr = 0x101c,
- 	.mnd_width = 0,
- 	.hid_width = 5,
- 	.parent_map = gpu_cc_parent_map_1,
- 	.freq_tbl = ftbl_gpu_cc_gx_gfx3d_clk_src,
--	.clkr.hw.init = &(struct clk_init_data){
-+	.hw_clk_ctrl = true,
-+	.clkr.hw.init = &(const struct clk_init_data) {
- 		.name = "gpu_cc_gx_gfx3d_clk_src",
- 		.parent_data = gpu_cc_parent_data_1,
- 		.num_parents = ARRAY_SIZE(gpu_cc_parent_data_1),
- 		.flags = CLK_SET_RATE_PARENT,
--		.ops = &clk_rcg2_ops,
--	},
--};
--
--static struct clk_branch gpu_cc_ahb_clk = {
--	.halt_reg = 0x1078,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x1078,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "gpu_cc_ahb_clk",
--			.flags = CLK_IS_CRITICAL,
--			.ops = &clk_branch2_ops,
--		},
-+		.ops = &clk_rcg2_shared_ops,
- 	},
- };
- 
-@@ -168,7 +168,7 @@ static struct clk_branch gpu_cc_crc_ahb_clk = {
- 	.clkr = {
- 		.enable_reg = 0x107c,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_crc_ahb_clk",
- 			.ops = &clk_branch2_ops,
- 		},
-@@ -181,10 +181,10 @@ static struct clk_branch gpu_cc_cx_gfx3d_clk = {
- 	.clkr = {
- 		.enable_reg = 0x10a4,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_cx_gfx3d_clk",
--			.parent_data = &(const struct clk_parent_data){
--				.hw = &gpu_cc_gx_gfx3d_clk_src.clkr.hw,
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&gpu_cc_gx_gfx3d_clk_src.clkr.hw,
- 			},
- 			.num_parents = 1,
- 			.flags = CLK_SET_RATE_PARENT,
-@@ -199,10 +199,10 @@ static struct clk_branch gpu_cc_cx_gmu_clk = {
- 	.clkr = {
- 		.enable_reg = 0x1098,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_cx_gmu_clk",
--			.parent_data = &(const struct clk_parent_data){
--				.hw = &gpu_cc_gmu_clk_src.clkr.hw,
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&gpu_cc_gmu_clk_src.clkr.hw,
- 			},
- 			.num_parents = 1,
- 			.flags = CLK_SET_RATE_PARENT,
-@@ -217,33 +217,20 @@ static struct clk_branch gpu_cc_cx_snoc_dvm_clk = {
- 	.clkr = {
- 		.enable_reg = 0x108c,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_cx_snoc_dvm_clk",
- 			.ops = &clk_branch2_ops,
- 		},
- 	},
- };
- 
--static struct clk_branch gpu_cc_cxo_aon_clk = {
--	.halt_reg = 0x1004,
--	.halt_check = BRANCH_HALT_DELAY,
--	.clkr = {
--		.enable_reg = 0x1004,
--		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
--			.name = "gpu_cc_cxo_aon_clk",
--			.ops = &clk_branch2_ops,
--		},
--	},
--};
--
- static struct clk_branch gpu_cc_cxo_clk = {
- 	.halt_reg = 0x109c,
- 	.halt_check = BRANCH_HALT,
- 	.clkr = {
- 		.enable_reg = 0x109c,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_cxo_clk",
- 			.ops = &clk_branch2_ops,
- 		},
-@@ -256,10 +243,10 @@ static struct clk_branch gpu_cc_gx_gfx3d_clk = {
- 	.clkr = {
- 		.enable_reg = 0x1054,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_gx_gfx3d_clk",
--			.parent_data = &(const struct clk_parent_data){
--				.hw = &gpu_cc_gx_gfx3d_clk_src.clkr.hw,
-+			.parent_hws = (const struct clk_hw*[]) {
-+				&gpu_cc_gx_gfx3d_clk_src.clkr.hw,
- 			},
- 			.num_parents = 1,
- 			.flags = CLK_SET_RATE_PARENT,
-@@ -270,11 +257,11 @@ static struct clk_branch gpu_cc_gx_gfx3d_clk = {
- 
- static struct clk_branch gpu_cc_sleep_clk = {
- 	.halt_reg = 0x1090,
--	.halt_check = BRANCH_VOTED,
-+	.halt_check = BRANCH_HALT_VOTED,
- 	.clkr = {
- 		.enable_reg = 0x1090,
- 		.enable_mask = BIT(0),
--		.hw.init = &(struct clk_init_data){
-+		.hw.init = &(const struct clk_init_data) {
- 			.name = "gpu_cc_sleep_clk",
- 			.ops = &clk_branch2_ops,
- 		},
-@@ -297,11 +284,14 @@ static struct clk_branch gpu_cc_hlos1_vote_gpu_smmu_clk = {
- static struct gdsc gpu_cx_gdsc = {
- 	.gdscr = 0x106c,
- 	.gds_hw_ctrl = 0x1540,
-+	.en_rest_wait_val = 0x2,
-+	.en_few_wait_val = 0x2,
-+	.clk_dis_wait_val = 0x2,
- 	.pd = {
- 		.name = "gpu_cx_gdsc",
- 	},
- 	.pwrsts = PWRSTS_OFF_ON,
--	.flags = VOTABLE,
-+	.flags = RETAIN_FF_ENABLE | VOTABLE,
- };
- 
- static struct gdsc gpu_gx_gdsc = {
-@@ -309,21 +299,22 @@ static struct gdsc gpu_gx_gdsc = {
- 	.clamp_io_ctrl = 0x1508,
- 	.resets = (unsigned int []){ GPU_GX_BCR },
- 	.reset_count = 1,
-+	.en_rest_wait_val = 0x2,
-+	.en_few_wait_val = 0x2,
-+	.clk_dis_wait_val = 0x2,
- 	.pd = {
- 		.name = "gpu_gx_gdsc",
- 	},
- 	.parent = &gpu_cx_gdsc.pd,
- 	.pwrsts = PWRSTS_OFF_ON,
--	.flags = CLAMP_IO | AON_RESET | SW_RESET,
-+	.flags = POLL_CFG_GDSCR | RETAIN_FF_ENABLE | SW_RESET | CLAMP_IO | AON_RESET,
- };
- 
- static struct clk_regmap *gpu_cc_qcm2290_clocks[] = {
--	[GPU_CC_AHB_CLK] = &gpu_cc_ahb_clk.clkr,
- 	[GPU_CC_CRC_AHB_CLK] = &gpu_cc_crc_ahb_clk.clkr,
- 	[GPU_CC_CX_GFX3D_CLK] = &gpu_cc_cx_gfx3d_clk.clkr,
- 	[GPU_CC_CX_GMU_CLK] = &gpu_cc_cx_gmu_clk.clkr,
- 	[GPU_CC_CX_SNOC_DVM_CLK] = &gpu_cc_cx_snoc_dvm_clk.clkr,
--	[GPU_CC_CXO_AON_CLK] = &gpu_cc_cxo_aon_clk.clkr,
- 	[GPU_CC_CXO_CLK] = &gpu_cc_cxo_clk.clkr,
- 	[GPU_CC_GMU_CLK_SRC] = &gpu_cc_gmu_clk_src.clkr,
- 	[GPU_CC_GX_GFX3D_CLK] = &gpu_cc_gx_gfx3d_clk.clkr,
-@@ -342,14 +333,30 @@ static struct gdsc *gpu_cc_qcm2290_gdscs[] = {
- 	[GPU_GX_GDSC] = &gpu_gx_gdsc,
- };
- 
-+static struct clk_alpha_pll *gpu_cc_qcm2290_plls[] = {
-+	&gpu_cc_pll0,
-+};
-+
-+static const u32 gpu_cc_qcm2290_critical_cbcrs[] = {
-+	0x1078, /* GPU_CC_AHB_CLK */
-+	0x1004, /* GPU_CC_CXO_AON_CLK */
-+	0x1060, /* GPU_CC_GX_CXO_CLK */
-+};
-+
- static const struct regmap_config gpu_cc_qcm2290_regmap_config = {
- 	.reg_bits = 32,
- 	.reg_stride = 4,
- 	.val_bits = 32,
--	.max_register = 0x9000,
-+	.max_register = 0x7008,
- 	.fast_io = true,
- };
- 
-+static const struct qcom_cc_driver_data gpu_cc_qcm2290_driver_data = {
-+	.alpha_plls = gpu_cc_qcm2290_plls,
-+	.num_alpha_plls = ARRAY_SIZE(gpu_cc_qcm2290_plls),
-+	.clk_cbcrs = gpu_cc_qcm2290_critical_cbcrs,
-+	.num_clk_cbcrs = ARRAY_SIZE(gpu_cc_qcm2290_critical_cbcrs),
-+};
- 
- static const struct qcom_cc_desc gpu_cc_qcm2290_desc = {
- 	.config = &gpu_cc_qcm2290_regmap_config,
-@@ -359,55 +366,22 @@ static const struct qcom_cc_desc gpu_cc_qcm2290_desc = {
- 	.num_resets = ARRAY_SIZE(gpu_cc_qcm2290_resets),
- 	.gdscs = gpu_cc_qcm2290_gdscs,
- 	.num_gdscs = ARRAY_SIZE(gpu_cc_qcm2290_gdscs),
-+	.driver_data = &gpu_cc_qcm2290_driver_data,
- };
- 
- static const struct of_device_id gpu_cc_qcm2290_match_table[] = {
- 	{ .compatible = "qcom,qcm2290-gpucc" },
-+	{ .compatible = "qcom,shikra-gpucc" },
- 	{ }
- };
- MODULE_DEVICE_TABLE(of, gpu_cc_qcm2290_match_table);
- 
- static int gpu_cc_qcm2290_probe(struct platform_device *pdev)
- {
--	struct regmap *regmap;
--	int ret;
--
--	regmap = qcom_cc_map(pdev, &gpu_cc_qcm2290_desc);
--	if (IS_ERR(regmap))
--		return PTR_ERR(regmap);
--
--	ret = devm_pm_runtime_enable(&pdev->dev);
--	if (ret)
--		return ret;
--
--	ret = devm_pm_clk_create(&pdev->dev);
--	if (ret)
--		return ret;
--
--	ret = pm_clk_add(&pdev->dev, NULL);
--	if (ret < 0) {
--		dev_err(&pdev->dev, "failed to acquire ahb clock\n");
--		return ret;
--	}
--
--	ret = pm_runtime_resume_and_get(&pdev->dev);
--	if (ret)
--		return ret;
--
--	clk_huayra_2290_pll_configure(&gpu_cc_pll0, regmap, &gpu_cc_pll0_config);
--
--	regmap_update_bits(regmap, 0x1060, BIT(0), BIT(0)); /* GPU_CC_GX_CXO_CLK */
--
--	ret = qcom_cc_really_probe(&pdev->dev, &gpu_cc_qcm2290_desc, regmap);
--	if (ret) {
--		dev_err(&pdev->dev, "Failed to register display clock controller\n");
--		goto out_pm_runtime_put;
--	}
--
--out_pm_runtime_put:
--	pm_runtime_put_sync(&pdev->dev);
-+	if (device_is_compatible(&pdev->dev, "qcom,shikra-gpucc"))
-+		gpu_cc_gx_gfx3d_clk_src.freq_tbl = ftbl_gpu_cc_gx_gfx3d_clk_src_shikra;
- 
--	return 0;
-+	return qcom_cc_probe(pdev, &gpu_cc_qcm2290_desc);
- }
- 
- static struct platform_driver gpu_cc_qcm2290_driver = {
+On 5/21/26 08:04, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] Missing pin multiplexing configuration for the OLDI interface, causing display signals to not reach the physical pads.
+> - [Low] Incorrect indentation (spaces instead of tabs) for `pinctrl-0` assignment in the `touchscreen@5d` node.
+> --
+> 
+> commit e2feb337dbf24067c54227c036db263d92a14b0a
+> Author: Aradhya Bhatia <a-bhatia1@ti.com>
+> 
+> arm64: dts: ti: Add LincolnTech OLDI LCD-185 Overlay for AM625-BeaglePlay
+> 
+> This commit adds a device tree overlay for the Lincoln Technology Solutions
+> LCD185-101CT panel on the AM625-BeaglePlay platform. The panel is a dual-link
+> LVDS display supporting WUXGA resolution with a Goodix i2c touch controller.
+> 
+>> diff --git a/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso b/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
+>> new file mode 100644
+>> index 0000000000000..e7cadd48d4391
+>> --- /dev/null
+>> +++ b/arch/arm64/boot/dts/ti/k3-am625-beagleplay-lincolntech-lcd185-panel.dtso
+> [ ... ]
+>> +&oldi0 {
+>> +	status = "okay";
+>> +	ti,companion-oldi = <&oldi1>;
+>> +};
+>> +
+>> +&oldi1 {
+>> +	status = "okay";
+>> +	ti,secondary-oldi;
+>> +	ti,companion-oldi = <&oldi0>;
+>> +};
+> 
+> [Severity: High]
+> The overlay enables the dual-link OLDI interface but does not define or assign
+> any pinctrl properties for the OLDI data and clock pins.
+> 
+> Since the base k3-am625-beagleplay.dts does not configure these pins, won't
+> they remain in their default reset state?
+> 
+> Relying on the bootloader for kernel device tree pin multiplexing can lead
+> to the display signals failing to reach the physical pads if the bootloader
+> does not configure them.
 
--- 
-2.34.1
+OLDI does not require pinmux configuration explicitly.
+
+> 
+> [ ... ]
+>> +	touchscreen@5d {
+>> +		compatible = "goodix,gt928";
+>> +		reg = <0x5d>;
+>> +		pinctrl-names = "default";
+>> +	        pinctrl-0 = <&touchscreen_pins_default>;
+> 
+> [Severity: Low]
+> This isn't a bug, but this line uses spaces for indentation instead of tabs.
+
+Ahh, sorry I missed it, will send a v3.
+
+Regards,
+Swamil.
+
+> 
+>> +		interrupt-parent = <&main_gpio0>;
+>> +		interrupts = <39 IRQ_TYPE_EDGE_FALLING>;
+> [ ... ]
+> 
 
