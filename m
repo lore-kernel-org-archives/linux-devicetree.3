@@ -1,198 +1,128 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADC4B3F4DE6;
-	Thu, 28 May 2026 15:47:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779983231; cv=pass; b=eCn5M+VLtAOYy8ZkPcHYCCfTM98DmUCLNRyjAQCFOFd9OhHrZCIxIAZmouXdSsmMY89gnAO6IUJUrJagx8TuL117K691ONa8eZBO8ZJre4ZMdOveHcVx8QkzUkwFUB/yPjxa0lJBltRZeR2oK2PJtI7w9+AtpdOZKzHibBQKQko=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779983231; c=relaxed/simple;
-	bh=YrIFYnNwK75hqr+l1VVedPTBsTSrKgJulBagzMf3kdQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iA3A1YTZ5tMG5P/xkiEGCH4fhtrj8jcm59uY8eEeRu5+TuyzznppNzZppa9/DVmcrQxG9Z12kn+Ayuxr64KlXCf2X5VUf/oUGpQCF1scDnOO5ArMlzOsqYMVNLJSG+3ITTfynglswKMjp3mnK8Lsy1CG4hmxVvDltcPuvD3jRAs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b=R0mlm6TV; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A26B3F9A1E
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:48:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779983281; cv=none; b=TJLJqxD19nosLuiSnumphMCZDHEBo73GpQjXBetoJs2nvydwp/mkxe8Tkj5fosvNu3kMHYUWdgWGLfkXIptawpH8hlLj44EVEPNeOhc/G351ozbCaet+EWc14cdLnV6DA6Vx6KPlQVy9c9z2eNdMRfKoTLnRAXFETmKYcfoKFhE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779983281; c=relaxed/simple;
+	bh=de0bry3cXGJVOruuWc3dTMfb4lYvAjTe8+QJ30AQI3s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y6Yh1HedvD88BH0y25SZEFSoG/Qa/K71obXcm2Gw0/K4bFtrP2SqiSHQ539L5o/Wl50rdRySJNSDA5MBc4NPu+0WFggX/s8pUCX5xGLhrq1lEI9xjh/MwLmbnflgqnR4Ut8ZaYUSFC6nK/guCoGViA2en3c8kqp3tqpT4L926TY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZCAL3hNq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=nicolas.frattaroli@collabora.com header.b="R0mlm6TV"
-ARC-Seal: i=1; a=rsa-sha256; t=1779983187; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=GHWMHdoWNcU15l0hvRveP46RyYdqPgCNIeJOJbgJI9JBobYiofMCMQDP9tkyRw47bS6196r8P9gujSO6cNJ9Ac5kv/bPGASHU7fkljblkRp5xGqhzxVFEPJvBplRIblIb4HnGhMU1zkIXRKyOlTy8syLsNSciYqlZYJrNnrZGdg=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779983187; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=TdX9/bZga6Qg6ao7lAnopeSLFZmhgNqsCFRMGQo40M0=; 
-	b=hnRAzfqXviyjhZIjxpBSmwxqGkCfShiXtPnNYqedxGvcMfnf2fvfm9L00qulOPvmRbankDXGxKrmhNds05DPIqHJVOPhitigUxdoObfdeZRi2AXap80Tcxqq4s4Jgja7nsUTW8KIao9gayS/yaqATsbLz2nRRej1dIwvOkRhUcc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=nicolas.frattaroli@collabora.com;
-	dmarc=pass header.from=<nicolas.frattaroli@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779983187;
-	s=zohomail; d=collabora.com; i=nicolas.frattaroli@collabora.com;
-	h=From:From:To:To:Cc:Cc:Subject:Subject:Date:Date:Message-ID:In-Reply-To:References:MIME-Version:Content-Transfer-Encoding:Content-Type:Message-Id:Reply-To;
-	bh=TdX9/bZga6Qg6ao7lAnopeSLFZmhgNqsCFRMGQo40M0=;
-	b=R0mlm6TVO+9eUKq9MnKnKU3dLEa/hEkLVmVw68chR+YqDd8tvgRJEpMlFBM5I/5b
-	c6+TcHKMz7YIBp1eqtoYItnX8cbubTExtEOZ+GY+weuPi7GZAMLommCqfp7gb4Fd1hy
-	09jBTk09vbl4tp4nh1BvU45oHlAvHghEBJXyExbE=
-Received: by mx.zohomail.com with SMTPS id 1779983186292414.93444418879574;
-	Thu, 28 May 2026 08:46:26 -0700 (PDT)
-From: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Peter Chen <hzpeterchen@gmail.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Heiko Stuebner <heiko@sntech.de>, Sandy Huang <hjc@rock-chips.com>,
- Andy Yan <andy.yan@rock-chips.com>,
- Yubing Zhang <yubing.zhang@rock-chips.com>,
- Frank Wang <frank.wang@rock-chips.com>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Amit Sunil Dhamne <amitsd@google.com>, Dragan Simic <dsimic@manjaro.org>,
- Johan Jonker <jbx6244@gmail.com>, Diederik de Haas <didi.debian@cknow.org>,
- Peter Robinson <pbrobinson@gmail.com>, Hugh Cole-Baker <sigmaris@gmail.com>,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <kernel@airkyi.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
- dri-devel@lists.freedesktop.org, Chaoyi Chen <chaoyi.chen@rock-chips.com>
-Subject:
- Re: [PATCH v15 2/9] drm/bridge: aux: Add drm_aux_bridge_register_from_node()
-Date: Thu, 28 May 2026 17:46:15 +0200
-Message-ID: <zQEH3WYtRMCn07SWaZMzgQ@collabora.com>
-In-Reply-To: <20260304094152.92-3-kernel@airkyi.com>
-References:
- <20260304094152.92-1-kernel@airkyi.com>
- <20260304094152.92-3-kernel@airkyi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZCAL3hNq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC7B41F000E9;
+	Thu, 28 May 2026 15:47:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779983280;
+	bh=/JD9m/MyrWCB/NwXNyEHVX73S1HmYsH+4yW1CuJm9bw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZCAL3hNqBwW58cakKA0mEjldnw645C+ExELxQI1Kf5NX12VHzFaPiHo0hmtiWGiVx
+	 Tjde1XMXjGZ7o1MLFfQuzcSz6e6PAHSc5ORRj/pceeVOcESX6iyBOaBn5wlJVzbkjD
+	 iZD4LUfc9HqeAVzUxY1DKhrEeYEMQqMpKs5ESEl0siUhfnlW0XM+Y3VoATFxlRH7Nq
+	 Capr56MgA8PYfokyqlVmUtpI2czsYoRXQO2+bFBwUHwdVu8IJWXpI4Vshy2201lA9W
+	 KVPYgl69gN/DaGQGt0telGrv/mDFxgUSWxIdn0tD6Nnotq+OMF3+i0nD/JpEpmu36J
+	 yNHR2Ov7zCwHw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
+ DTS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Stanislav Zaikin" <zstaseg@gmail.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260528152011.376711-3-zstaseg@gmail.com>
+References: <20260528152011.376711-3-zstaseg@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 15:47:59 +0000
+Message-Id: <20260528154759.CC7B41F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7Bit
-Content-Type: text/plain; charset="utf-8"
 
-On Wednesday, 4 March 2026 10:41:45 Central European Summer Time Chaoyi Chen wrote:
-> From: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> 
-> The drm_aux_bridge_register() uses the device->of_node as the
-> bridge->of_node.
-> 
-> This patch adds drm_aux_bridge_register_from_node() to allow
-> specifying the of_node corresponding to the bridge.
-> 
-> Signed-off-by: Chaoyi Chen <chaoyi.chen@rock-chips.com>
-> Reviewed-by: Neil Armstrong <neil.armstrong@linaro.org>
-> ---
-> 
-> (no changes since v11)
-> ---
-> 
->  drivers/gpu/drm/bridge/aux-bridge.c | 24 ++++++++++++++++++++++--
->  include/drm/bridge/aux-bridge.h     |  6 ++++++
->  2 files changed, 28 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/gpu/drm/bridge/aux-bridge.c b/drivers/gpu/drm/bridge/aux-bridge.c
-> index b3e4cdff61d6..52dff4601c2d 100644
-> --- a/drivers/gpu/drm/bridge/aux-bridge.c
-> +++ b/drivers/gpu/drm/bridge/aux-bridge.c
-> @@ -35,6 +35,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
->  /**
->   * drm_aux_bridge_register - Create a simple bridge device to link the chain
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The Type-C SBU endpoint in the `pmic-glink` connector node is incor=
+rectly assigned to `port@1` instead of `port@2`.
+--
 
-Function name needs to be changed here as well. You can validate
-kernel doc strings for a single file with:
+commit 9a9b64540450daa489edb83d1eb2b8d095f07b3b
+Author: Stanislav Zaikin <zstaseg@gmail.com>
 
-  ./tools/docs/kernel-doc -v -none drivers/gpu/drm/bridge/aux-bridge.c
+arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao) DTS
 
-With that fixed:
+This commit adds device tree support for the Xiaomi 12 Lite 5G (taoyao),
+a handset released in 2022. It enables features like display, touchscreen,
+UFS, pinctrl, regulators, remoteprocs, and USB device mode.
 
-Reviewed-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+> diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm=
+64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
+> new file mode 100644
+> index 0000000000000..ae38484cdaa0e
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
 
-Kind regards,
-Nicolas Frattaroli
+[ ... ]
 
->   * @parent: device instance providing this bridge
-> + * @np: device node pointer corresponding to this bridge instance
->   *
->   * Creates a simple DRM bridge that doesn't implement any drm_bridge
->   * operations. Such bridges merely fill a place in the bridge chain linking
-> @@ -42,7 +43,7 @@ static void drm_aux_bridge_unregister_adev(void *_adev)
->   *
->   * Return: zero on success, negative error code on failure
->   */
-> -int drm_aux_bridge_register(struct device *parent)
-> +int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
->  {
->  	struct auxiliary_device *adev;
->  	int ret;
-> @@ -62,7 +63,10 @@ int drm_aux_bridge_register(struct device *parent)
->  	adev->dev.parent = parent;
->  	adev->dev.release = drm_aux_bridge_release;
->  
-> -	device_set_of_node_from_dev(&adev->dev, parent);
-> +	if (np)
-> +		device_set_node(&adev->dev, of_fwnode_handle(np));
-> +	else
-> +		device_set_of_node_from_dev(&adev->dev, parent);
->  
->  	ret = auxiliary_device_init(adev);
->  	if (ret) {
-> @@ -80,6 +84,22 @@ int drm_aux_bridge_register(struct device *parent)
->  
->  	return devm_add_action_or_reset(parent, drm_aux_bridge_unregister_adev, adev);
->  }
-> +EXPORT_SYMBOL_GPL(drm_aux_bridge_register_from_node);
+> +	pmic-glink {
+> +		compatible =3D "qcom,sm7325-pmic-glink",
+> +			     "qcom,qcm6490-pmic-glink",
+> +			     "qcom,pmic-glink";
 > +
-> +/**
-> + * drm_aux_bridge_register - Create a simple bridge device to link the chain
-> + * @parent: device instance providing this bridge
-> + *
-> + * Creates a simple DRM bridge that doesn't implement any drm_bridge
-> + * operations. Such bridges merely fill a place in the bridge chain linking
-> + * surrounding DRM bridges.
-> + *
-> + * Return: zero on success, negative error code on failure
-> + */
-> +int drm_aux_bridge_register(struct device *parent)
-> +{
-> +	return drm_aux_bridge_register_from_node(parent, NULL);
-> +}
->  EXPORT_SYMBOL_GPL(drm_aux_bridge_register);
->  
->  struct drm_aux_bridge_data {
-> diff --git a/include/drm/bridge/aux-bridge.h b/include/drm/bridge/aux-bridge.h
-> index c2f5a855512f..7dd1f17a1354 100644
-> --- a/include/drm/bridge/aux-bridge.h
-> +++ b/include/drm/bridge/aux-bridge.h
-> @@ -13,11 +13,17 @@ struct auxiliary_device;
->  
->  #if IS_ENABLED(CONFIG_DRM_AUX_BRIDGE)
->  int drm_aux_bridge_register(struct device *parent);
-> +int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np);
->  #else
->  static inline int drm_aux_bridge_register(struct device *parent)
->  {
->  	return 0;
->  }
+> +		#address-cells =3D <1>;
+> +		#size-cells =3D <0>;
 > +
-> +static inline int drm_aux_bridge_register_from_node(struct device *parent, struct device_node *np)
-> +{
-> +	return 0;
-> +}
->  #endif
->  
->  #if IS_ENABLED(CONFIG_DRM_AUX_HPD_BRIDGE)
-> 
+> +		orientation-gpios =3D <&tlmm 140 GPIO_ACTIVE_HIGH>;
+> +
+> +		connector@0 {
+> +			compatible =3D "usb-c-connector";
+> +			reg =3D <0>;
+> +			power-role =3D "dual";
+> +			data-role =3D "dual";
+> +
+> +			ports {
+> +				#address-cells =3D <1>;
+> +				#size-cells =3D <0>;
+> +
+> +				port@0 {
+> +					reg =3D <0>;
+> +
+> +					pmic_glink_hs_in: endpoint {
+> +						remote-endpoint =3D <&usb_1_dwc3_hs>;
+> +					};
+> +				};
+> +
+> +				port@1 {
+> +					reg =3D <1>;
+> +
+> +					pmic_glink_sbu: endpoint {
+> +						remote-endpoint =3D <&fsa4480_sbu_mux>;
+> +					};
+> +				};
 
+[Severity: Low]
+Does this incorrectly assign the Type-C SBU endpoint to port@1 instead of
+port@2?
 
+According to the standard usb-connector.yaml device tree bindings, port@0
+is reserved for High Speed (HS) data lines, port@1 for Super Speed (SS) data
+lines, and port@2 for Sideband Use (SBU) lines.
 
+Assigning the SBU endpoint to port@1 violates the device tree schema, even =
+if
+Super Speed lines are not implemented on the device, and could potentially
+confuse USB Type-C drivers that rely on standard port indices for SBU routi=
+ng
+and Alternate Modes.
 
+> +			};
+> +		};
+> +	};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528152011.3767=
+11-1-zstaseg@gmail.com?part=3D2
