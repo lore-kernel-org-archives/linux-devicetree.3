@@ -1,501 +1,278 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCDB3EBF37;
-	Thu, 28 May 2026 12:24:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779971062; cv=none; b=F+9S1d87d9SpVhoGyxWLbjCNXTSZzFYVj9x6esA0FnIpbKsyI4q2TuVi+3INPrlhDKnRPk9CA/I58rgsiBnN0IzrMnXFzvqdLzS26FosM8fNzLXEAYZq6CN/XhgVkDhaRRtsHx8ulhwgL5JNSdYMe99KnvdFWKJsrID6XUjjEmE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779971062; c=relaxed/simple;
-	bh=6dXR0QbE9J3kIudryjQtGinb6wxFZprB9NRkTUj770k=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Ea9+6538zwWb5rJelM90KPLhAX7XR8P8spjB5h7/S9cPOM7C5ihRUQXZ1+YrhdqZZEG66z+93CYHYoHmjqpHfKyUicQmhk2q6+Vu5IQtjcNhZGWs8Pa12FMTluNPcJA65MRihe0yoDDx3Acj2eyVu3eyn1aKbwWvmgQ+m0uCJlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1+dtboI; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5A8F3ECBFC
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:25:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.180.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779971121; cv=pass; b=iWOHWH5I8OfYpP2AiwXUVUGP0i7kHAtCROuT2cAblcWjTsJkNvv/a3x3mWWqCLv6Rw6icJrrSD2ct5rFL4/UGLTWc0kYlDuSeOBflYSasty/I7SidprdAaTMLOObiRAS7WQVklNh/dfwwDr3qYg/yz+NORs0guVH3viDcRc1Bqs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779971121; c=relaxed/simple;
+	bh=rjGKcaiPzzE9XfowjPUEZRn6zT+jUKQFamebPp3qZ4s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mTodzpdi7/0aeHSx3RKknmS0qFCWi8l+hB5MOyroe06pj4dz/ShMkV+QbR6+SGxLCNdsdRBFvtarEduF4sKqQeTNvOwNQsFFx6JBNdL3vzP5sWBs3+5p59aN6q7K7XBXqICS6D8AuA0pwK00aUpfaBRt5B16qTx+wdOolH7BWxk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=prEfC2i4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=QZMuzG8B; arc=pass smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1+dtboI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C92991F00A3C;
-	Thu, 28 May 2026 12:24:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779971060;
-	bh=2KHy8m224WdDKulHXNmfuVWu+2wQiKPiPlKgouY4BME=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=C1+dtboIi0rTYHBpYS85SmBrLOdayx0vZTx1F4mEtbnMRtD6wnaiXhdZ03Qf9NhGu
-	 seHwlqHkVsQu8lZVk87by/FHntSRbeor1zX5Ve6mT3dGPJQhHngO5gtLeqOeR/+EwD
-	 iwJU1IbA3ehdymBLnfYhyR+qu6zLus5n6hAe3vGKHDLfGDm+HPlZr9Vorbm2uKL+qa
-	 S78iu+2vwxWL0L4dfxRqkQ51HiDNELETFNaU7Ef7B9UW+e/09Jayv6IGewQvd/ikm7
-	 LGjshZ3d61+B+sBA40EeIjxzDeNIRz3nQ+KqZ6aLFU/+7mzU8CruOV5lwJ4J2KFq1Z
-	 n9N36m5jSDdCA==
-Date: Thu, 28 May 2026 13:24:10 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Salih Erim <salih.erim@amd.com>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Conall O'Griofa <conall.ogriofa@amd.com>,
- Michal Simek <michal.simek@amd.com>, Guenter Roeck <linux@roeck-us.net>,
- Salih Erim <erimsalih@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 2/5] iio: adc: add Versal SysMon driver
-Message-ID: <20260528132410.0e03cfb1@jic23-huawei>
-In-Reply-To: <20260527114211.174288-3-salih.erim@amd.com>
-References: <20260527114211.174288-1-salih.erim@amd.com>
-	<20260527114211.174288-3-salih.erim@amd.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="prEfC2i4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="QZMuzG8B"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vkuo298205
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:25:18 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	d3417W+FQetIJ6t9E35gaP1Wyhl0UtZ7U9jN1sdRzUY=; b=prEfC2i4IyXES7BC
+	cmHulPI14uPbrVtMetN2T5yu4ICQO00WgaK+A6eXmgJI1v7hE9fii++rwodl+CgJ
+	mST0ZvEIHGyhietuMO6fYzSAJNAzRD8ppMDX5EdMynHhNRkTmvNeu5bXYvzPcKdB
+	rA6oIBqgnEmljP1Z0rxr7yVDRlNHKXT0pivyyFO5kR7FlVfxbwaHpqz5Ta0WTbp9
+	6BnOI1vOHCLXZDz//RqETpdeYe9/zaf6TLaJHqlz7Bdkrx1h3kD3pMG95XEDk2MC
+	DvpNyX4lbx3Im5Mx5bc6unNLyEB6lrMTHPd+XBXSQFjT+C1Wg9a7joPe0d9r3EBz
+	WzGJmQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7yajp21-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:25:17 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-9112b2755abso2841397685a.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:25:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779971117; cv=none;
+        d=google.com; s=arc-20240605;
+        b=Et6D2IICF+ygdfUAej8y6YbN7kx41jHDY+zmYjlnhrNgu7gayuOvhMedj2dtWmFlmA
+         cxk+pTBvkuUimAsgpTIDwK897othMJlTsQdigLal+hWJed30To2D4dSb2OGPCkzaSN6b
+         eRtgV9ZLR7FL16LK4w3wqNzdz6yaw6xLNfPxxLbKeYSs6A78yWtzcTuIH2AXHI1Y+jpS
+         86zU80+fm56ratUQSZ8LxW83DCzHHhMM+jiSYln4mQftsFwIHqYWe5t60QeuC7gjBIoV
+         u+12Jd269OoW5mnvRaPsCnde15VzAlaSVB37+/9nl8D9TiqxbsIrIF/ZPIkybiFHkv4x
+         cT0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=d3417W+FQetIJ6t9E35gaP1Wyhl0UtZ7U9jN1sdRzUY=;
+        fh=qhsjxM3H06VkCibwuExej9TaNnmQ26fZa7AchW0z45o=;
+        b=LGtSALPHg9zz+hca4MbsqG9KAq/zIFn57xL2N5hnSylEHMggAW81yvF6ykl6t8Dixm
+         4e/LeCdluGNAITWmyOnWDJdXmu7JF0JmEoor439LWd+hcFezhfW+rXdKnNcZvwKKW1h0
+         zy8hucCf28BzFg8bDPZ6ZDblJUcVQrbcJmaphsQ/UR12uByx0U0cT/YeJgiSuoLbw8IQ
+         aSxfXcMwRUxkXBguPhkJ2MuG/1ZKOcaioh2xSHzK/NeOGs72RNNtLdsvJDUf9Zb3adn9
+         9ihKoSuv9TxkUhwU2gjiT5E9WlMjRgf3Jm824bDoQgULfmZbSuxadDTny1BV5mac7hfN
+         7uRA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779971117; x=1780575917; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=d3417W+FQetIJ6t9E35gaP1Wyhl0UtZ7U9jN1sdRzUY=;
+        b=QZMuzG8BzyeJWyVaeoG1d3GykAoRlxajPSwjX1kPY3Q94GZF0NUbZhCiZhhQg07QcO
+         AOtQ0IraRos0+dASszySCYdA2jDXAURWgr91VRnbBrOYxS4iKPppD9E3ykQR0vUZeG43
+         L1a58Gnd+Xs4j6B4A3mIjiyttHz97UJi7Ammp/9y1lTP94gd0x3q1zq1dHjTkf46U2Zn
+         DtAe6PgsygUCYa/7ByQvom2IZ/lyRM+SrADua4O9b7tMP3iJVnZw0TD59eda9SpB/1tK
+         m/y6y1tAPlfvFLUsfyFMb/UuYy3ijLxNIDFGUKoB/1nTuy9dDPnkfoECypOZLkMPJoC/
+         mU4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779971117; x=1780575917;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=d3417W+FQetIJ6t9E35gaP1Wyhl0UtZ7U9jN1sdRzUY=;
+        b=ZLYYiMXXdaqKGiJ0HjLrYkoV3pexvqENVrXgXAsdBzkY2V5PeTNw5O55wgtwoMhexs
+         DmDG2VkaHXl7l5NUkL7IzOFQqE+WVw7rneUOMatKf2G+UMXZc5+euSRI7athyzDP+tmE
+         CF+UFozd3Swpo7shzUfp5aj0gkWYj3El4L3pi/jO+rD+iuFhX/YJCtRNjt+4qBPmqAzU
+         94FzhiF/tF63ONs8laydxZW+3Z5QrvCWqqTQkJJ3lywf7/hPfAQ0TugTjQXr7POPlKrU
+         jszHIEZoUwvl4wrt4xkhCIy9hgPeMoLZ3Ycj7vRLU0D9xR/wqFJDdCwdWi/bD0uM+sM+
+         9CYg==
+X-Forwarded-Encrypted: i=1; AFNElJ/QzWbyp2MnszYOeY0UWGz+PZGuj8f9gNYtGCHv5xCnEp4zQIDO9TXHYMpinjMkqNIGvgb0SF+gRubc@vger.kernel.org
+X-Gm-Message-State: AOJu0YyCwLhYFK2HQnuMiIrsRqMpGu6CaFWXSim8xcixLVEXzRNhKCG3
+	kFihZE9HDY6EJU9h2+o7UNzsh5Qb14f0lsgFZNayI9IJXSEqTlgcOV0r7C7fj8D7yUh9QxhfOJU
+	Tdk3FZwbKNumw/GR3KdgARA+Np6cyxFYfcETVhMARwPGdb+9Ca3mkLYlBAIaN9GDOa7QG45NlD9
+	MLptD8iVQhfspgdnh4eKSFYo+U5ChUbX7pTeIzlZE=
+X-Gm-Gg: Acq92OGej5Fw4POQzEfTKbqurpqFmI1p4J/q764BH32S+uTByigQXBEVudcNbuss4rC
+	4mDuqvVcC/c/uVC9WlowhHc/VTrqXQlJMybuw7ZAY0Lsir7IAZGgVhrJ14tTdVcPBd4D3zhPhMg
+	SNAqSlQ+LzT5+P2b7EG5ZlPUIPPFmCGGIpl/Lsnqyf8cWdDkTP6nXdYgytkpIAcqcprWRp/cmQk
+	X9Dgi2B+RhBH01MbS62UZ1lmnYMCerIn121o2xcd9YnD7AU
+X-Received: by 2002:a05:620a:84c4:b0:914:c0bc:a7cd with SMTP id af79cd13be357-914c0bcaf11mr3886831385a.48.1779971117110;
+        Thu, 28 May 2026 05:25:17 -0700 (PDT)
+X-Received: by 2002:a05:620a:84c4:b0:914:c0bc:a7cd with SMTP id
+ af79cd13be357-914c0bcaf11mr3886823885a.48.1779971116654; Thu, 28 May 2026
+ 05:25:16 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com> <20260526-shikra-camss-review-v1-3-645d2c8c75a7@qti.qualcomm.com>
+In-Reply-To: <20260526-shikra-camss-review-v1-3-645d2c8c75a7@qti.qualcomm.com>
+From: Loic Poulain <loic.poulain@oss.qualcomm.com>
+Date: Thu, 28 May 2026 14:25:04 +0200
+X-Gm-Features: AVHnY4JO8P8GLceB0VuUyA9tvcNmn11LuhgjLHguxnzI4BEUk6ZkF0V4tx2XITE
+Message-ID: <CAFEp6-1VAW-S2d3q3uN2n1weMOoSPXtX_k_6msQ-K_5A5mZVLQ@mail.gmail.com>
+Subject: Re: [PATCH 3/8] media: qcom: camss: add support for QCM2390 camss
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: "Bryan O'Donoghue" <bod@kernel.org>,
+        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+        Andi Shyti <andi.shyti@kernel.org>,
+        "Bryan O'Donoghue" <bryan.odonoghue@linaro.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+        Sascha Hauer <s.hauer@pengutronix.de>,
+        Pengutronix Kernel Team <kernel@pengutronix.de>,
+        Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+        imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+        Suresh Vankadara <quic_svankada@quicinc.com>,
+        Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+        Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-GUID: pR5EoaaKOziodeSWYGgR6zc1EF0o74Vo
+X-Proofpoint-ORIG-GUID: pR5EoaaKOziodeSWYGgR6zc1EF0o74Vo
+X-Authority-Analysis: v=2.4 cv=CaE4Irrl c=1 sm=1 tr=0 ts=6a18342d cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8 a=8qkcLw8Gk86Nxc3JiHYA:9
+ a=QEXdDO2ut3YA:10 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEyNSBTYWx0ZWRfX5rcZaI7tagpk
+ Hxd98sCZ98RmsGCAUhUw2iAJunL1GTkEo3RMCuQmBdeQl8X/BeJdtr8RR+GGH00bybduMP22mXO
+ +lom0ZAuICX8MiLEjNVf7wob4EhGgORlrvLQ8Ma5cF59dE8+Z/4eKI3rwPLugdCQTFV+9YyuQK2
+ YQ/4OSzvYQzEmN7S4GmCetdZz8JYG86Ej9Xq7D06wAT5CRvSbdlc4T4QsgzWVZx9DDYF4j4LL5A
+ Yp2rMgYQ3xx2uCY3AhN9TODD0zt/isKdM0x5uNv7j8ISEBGuJhpHSBetGYSJGmvuaPSNKnJZss2
+ f1ZB9K0xJ/ntmNUZW9V5lOusgyIhwpL0vAqvqL+82BUBLMhhi8sUnwcuoK8/3GvvloF6wqHIePC
+ OuA3Wtpbecs1ZY7oZ5pQ3shd0pQv96Xq1rcqLHKZR938uD8LWvX04fw29tVO9AiJvUQwzVQmA2m
+ h54NxVa9dEUk2+R8iSQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280125
 
-On Wed, 27 May 2026 12:42:08 +0100
-Salih Erim <salih.erim@amd.com> wrote:
-
-> Add the core driver and MMIO platform driver for the AMD/Xilinx Versal
-> System Monitor (SysMon) block.
->=20
-> The SysMon block resides in the platform management controller (PMC) and
-> provides on-chip voltage and temperature monitoring through a 10-bit,
-> 200 kSPS ADC. It can monitor up to 160 voltage channels and 64
-> temperature satellites distributed across the SoC, with a consistent
-> sample rate of 8 kSPS per channel regardless of how many channels are
-> enabled.
->=20
-> The driver is split into three compilation units:
->   - versal-sysmon-core: Channel parsing, IIO registration, read_raw
->   - versal-sysmon: MMIO platform driver with custom regmap accessors
->=20
-> Voltage results are stored in a 19-bit modified floating-point format
-> and converted to millivolts. Temperature results are stored in Q8.7
-> signed fixed-point Celsius format and converted to millicelsius.
->=20
-> The MMIO regmap backend uses a custom reg_write accessor that
-> automatically unlocks the NPI (NoC programming interface) lock
-> register before each write, as required by the hardware. The regmap
-> is configured with fast_io since the underlying MMIO accessors are
-> safe to call from atomic context.
->=20
-> Co-developed-by: Michal Simek <michal.simek@amd.com>
-> Signed-off-by: Michal Simek <michal.simek@amd.com>
-> Signed-off-by: Salih Erim <salih.erim@amd.com>
-
-Various comments inline.
-
-
+On Tue, May 26, 2026 at 7:13=E2=80=AFPM Nihal Kumar Gupta
+<nihal.gupta@oss.qualcomm.com> wrote:
+>
+> From: Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+>
+> Add CAMSS driver support for Shikra SoC. Add high level
+> resource definitions for 2 CSIPHY, 2 CSID and 2 VFE instances along
+> with the interconnect bandwidth votes for AHB, HF and SF MNOC paths.
+>
+> Signed-off-by: Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
 > ---
-> Changes in v3:
->   - IWYU: add array_size.h, string.h, types.h to core; audit and
->     fix header and MMIO driver includes (Andy)
->   - Rename _ext to _name in SYSMON_CHAN_TEMP macro parameter (Andy,
->     Jonathan)
->   - Use .info_mask_separate =3D BIT() style in SYSMON_CHAN_TEMP (Andy)
->   - Use s16 parameter in sysmon_q8p7_to_millicelsius (Andy)
->   - Use sign_extend32() in sysmon_supply_rawtoprocessed (Andy)
->   - Split sysmon_read_raw parameters logically across lines (Andy)
->   - Remove redundant (int) casts on regval (Andy)
->   - Split num_supply/num_temp initialization (Andy)
->   - Use __free(fwnode_handle) cleanup, remove goto err_put (Andy)
->   - Use size_add() for overflow-safe allocation (Andy)
->   - Use dev_err_probe() in sysmon_parse_fw error paths (Jonathan)
->   - Move fwnode_irq_get() to core_probe, remove irq parameter
->     from bus driver interfaces (Jonathan)
->   - Use (int)MILLI at call sites, drop SYSMON_MILLI define (Andy,
->     Jonathan)
->   - Remove sysmon->dev, sysmon->indio_dev, sysmon->irq from struct;
->     pass as local variables or use regmap_get_device() (Jonathan)
->   - Use struct device *dev local in sysmon_platform_probe (Andy)
->   - Describe protected data in lock comment (Jonathan)
->   - Add comment explaining RAW+PROCESSED co-exposure (Jonathan)
+>  drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c |  2 ++
+>  drivers/media/platform/qcom/camss/camss-vfe.c            |  1 +
+>  drivers/media/platform/qcom/camss/camss.c                | 13 ++++++++++=
++++
+>  drivers/media/platform/qcom/camss/camss.h                |  1 +
+>  4 files changed, 17 insertions(+)
+>
+> diff --git a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c b/d=
+rivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> index dac8d2ecf79957dc05c5524dc439791ce097c785..62208f5c4f17bd6c9a8fe5613=
+649920e6ee1a1f2 100644
+> --- a/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> +++ b/drivers/media/platform/qcom/camss/camss-csiphy-3ph-1-0.c
+> @@ -1130,6 +1130,7 @@ static bool csiphy_is_gen2(u32 version)
+>
+>         switch (version) {
+>         case CAMSS_2290:
+> +       case CAMSS_2390:
+>         case CAMSS_6150:
+>         case CAMSS_6350:
+>         case CAMSS_7280:
+> @@ -1222,6 +1223,7 @@ static int csiphy_init(struct csiphy_device *csiphy=
+)
+>                 regs->lane_array_size =3D ARRAY_SIZE(lane_regs_sdm845);
+>                 break;
+>         case CAMSS_2290:
+> +       case CAMSS_2390:
+>         case CAMSS_6150:
+>                 regs->lane_regs =3D &lane_regs_qcm2290[0];
+>                 regs->lane_array_size =3D ARRAY_SIZE(lane_regs_qcm2290);
+> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
+a/platform/qcom/camss/camss-vfe.c
+> index 319d191589884777bced456867e5a2a4211a2770..b152f8d48e003d8eeb0cf19ad=
+57419b25cdec087 100644
+> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
+> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
+> @@ -342,6 +342,7 @@ static u32 vfe_src_pad_code(struct vfe_line *line, u3=
+2 sink_code,
+>                 break;
+>         case CAMSS_660:
+>         case CAMSS_2290:
+> +       case CAMSS_2390:
+>         case CAMSS_6150:
+>         case CAMSS_6350:
+>         case CAMSS_7280:
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> index 2123f6388e3d7eafe669efd6b033e22d8eb5cf79..f67ecff53f15bd213dc7736d4=
+e5fe880007d1ee7 100644
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -5565,6 +5565,18 @@ static const struct camss_resources qcm2290_resour=
+ces =3D {
+>         .vfe_num =3D ARRAY_SIZE(vfe_res_2290),
+>  };
+>
+> +static const struct camss_resources qcm2390_resources =3D {
+> +       .version =3D CAMSS_2390,
+> +       .csiphy_res =3D csiphy_res_2290,
+> +       .csid_res =3D csid_res_2290,
+> +       .vfe_res =3D vfe_res_2290,
+> +       .icc_res =3D icc_res_2290,
+> +       .icc_path_num =3D ARRAY_SIZE(icc_res_2290),
+> +       .csiphy_num =3D ARRAY_SIZE(csiphy_res_2290),
+> +       .csid_num =3D ARRAY_SIZE(csid_res_2290),
+> +       .vfe_num =3D ARRAY_SIZE(vfe_res_2290),
 
-Looking at this again, I'm thinking we don't need them both.
-In particular it makes it ambiguous for what scaling of events is
-so best to use one or the other.
+So isn't it exactly the same as 2290? wouldn't it be easier to have
+the shikra simply fallback to qcm220 (via compatible string)?
 
->=20
-> Changes in v2:
->   - Split into core (versal-sysmon-core.c) + MMIO platform driver
->     (versal-sysmon.c) + shared header (versal-sysmon.h)
->   - Uses regmap API instead of direct readl/writel
->   - MMIO regmap uses custom callbacks with NPI unlock in write path
->   - Reverse Christmas Tree variable ordering throughout
->   - Header include order fixed
->   - MAINTAINERS entry folded in with wildcard F: pattern
->   - Kconfig: hidden VERSAL_SYSMON_CORE + VERSAL_SYSMON selects it
->   - Kconfig/Makefile: alphabetical ordering (VERSAL before VF610)
->   - Bounds validation on DT reg values
->   - Named constants replace magic numbers (SYSMON_REG_STRIDE,
->     SYSMON_SUPPLY_MANTISSA_BITS, SYSMON_MILLI)
->   - kernel-doc for exported sysmon_core_probe() and sysmon_parse_fw()
->   - Supply voltage conversion uses proper two's complement sign
->     extension (s16 cast) matching the hardware specification
->   - Register offsets sorted by address in header
->   - Each patch introduces only the defines, fields, and includes
->     it uses (no dead code in any commit)
->   - Removed unused linux/limits.h and linux/units.h includes
->   - Renamed iio_dev_info to sysmon_iio_info
->   - regmap_write return values checked in probe init path
 
-> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versa=
-l-sysmon-core.c
-> new file mode 100644
-> index 00000000000..ebe052f6982
-> --- /dev/null
-> +++ b/drivers/iio/adc/versal-sysmon-core.c
-> @@ -0,0 +1,311 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * AMD Versal SysMon core driver
-> + *
-> + * Copyright (C) 2019 - 2022, Xilinx, Inc.
-> + * Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include <linux/array_size.h>
-> +#include <linux/bitfield.h>
-> +#include <linux/bitops.h>
-> +#include <linux/cleanup.h>
-> +#include <linux/device.h>
-> +#include <linux/module.h>
-> +#include <linux/property.h>
-> +#include <linux/regmap.h>
-> +#include <linux/string.h>
-> +#include <linux/sysfs.h>
-> +#include <linux/units.h>
-> +
-> +#include <linux/iio/iio.h>
-> +
-> +#include "versal-sysmon.h"
-> +
-> +/*
-> + * Both RAW and PROCESSED are exposed: RAW is needed for event thresholds
-> + * (which operate in hardware register format), PROCESSED gives userspace
-> + * the converted millivolt or millicelsius value.
-The conversion seems to be linear.  So you should be providing _SCALE and
-maybe _OFFSET to let the users work out any necessary conversion.
-
-I don't yet see a reason to provide PROCESSED for this channel type.
-
-> + */
-> +#define SYSMON_CHAN_TEMP(_chan, _address, _name) {		\
-> +	.type =3D IIO_TEMP,					\
-> +	.indexed =3D 1,						\
-> +	.address =3D _address,					\
-> +	.channel =3D _chan,					\
-> +	.info_mask_separate =3D					\
-> +		BIT(IIO_CHAN_INFO_RAW) |				\
-> +		BIT(IIO_CHAN_INFO_PROCESSED),			\
-> +	.scan_type =3D {						\
-
-This is mainly there for buffered interfaces (chardev) but I don't think
-you yet support that so drop it.
-
-> +		.sign =3D 's',					\
-> +		.realbits =3D 15,					\
-> +		.storagebits =3D 16,				\
-> +		.endianness =3D IIO_CPU,				\
-> +	},							\
-> +	.datasheet_name =3D _name,				\
-> +}
-> +
-> +/* Static temperature channels (always present) */
-> +static const struct iio_chan_spec temp_channels[] =3D {
-> +	SYSMON_CHAN_TEMP(0, SYSMON_TEMP_MAX, "temp"),
-> +	SYSMON_CHAN_TEMP(1, SYSMON_TEMP_MIN, "min"),
-> +	SYSMON_CHAN_TEMP(2, SYSMON_TEMP_MAX_MAX, "max_max"),
-> +	SYSMON_CHAN_TEMP(3, SYSMON_TEMP_MIN_MIN, "min_min"),
 > +};
 > +
-> +static void sysmon_q8p7_to_millicelsius(s16 raw_data, int *val)
-> +{
-> +	*val =3D (raw_data * (int)MILLI) >> SYSMON_FRACTIONAL_SHIFT;
-
-That's a very simple linear scaling so provide _RAW and get rid of this.
-
-> +}
-> +
-> +static void sysmon_supply_rawtoprocessed(int raw_data, int *val)
-> +{
-> +	int mantissa, format, exponent;
-> +
-> +	mantissa =3D FIELD_GET(SYSMON_MANTISSA_MASK, raw_data);
-> +	exponent =3D SYSMON_SUPPLY_MANTISSA_BITS - FIELD_GET(SYSMON_MODE_MASK, =
-raw_data);
-> +	format =3D FIELD_GET(SYSMON_FMT_MASK, raw_data);
-> +	/*
-> +	 * When format bit is set the mantissa is two's complement
-> +	 * (per hardware spec); sign-extend to int for correct arithmetic.
-> +	 */
-> +	if (format)
-> +		mantissa =3D sign_extend32(mantissa, 15);
-> +
-> +	*val =3D (mantissa * (int)MILLI) >> exponent;
-> +}
-
-
-> +
-> +/**
-> + * sysmon_parse_fw() - Parse firmware nodes and configure IIO channels.
-> + * @indio_dev: IIO device instance
-> + * @dev: Parent device
-> + *
-> + * Reads voltage-channels and temperature-channels container nodes from
-> + * firmware and builds the IIO channel array. Static temperature channels
-> + * are prepended, followed by supply and satellite channels from DT.
-> + *
-> + * Return: 0 on success, negative errno on failure.
-> + */
-> +static int sysmon_parse_fw(struct iio_dev *indio_dev, struct device *dev)
-> +{
-> +	struct fwnode_handle *supply_node __free(fwnode_handle) =3D
-> +		device_get_named_child_node(dev, "voltage-channels");
-> +	struct fwnode_handle *temp_node __free(fwnode_handle) =3D
-> +		device_get_named_child_node(dev, "temperature-channels");
-
-Move these down to just above each check. Note that when using __free()
-it is fine not to have all declarations at the top.
-
-> +	unsigned int num_supply =3D 0, num_temp =3D 0;
-> +	unsigned int idx, temp_chan_idx, volt_chan_idx;
-> +	struct iio_chan_spec *sysmon_channels;
-> +	const char *label;
-> +	u32 reg;
-> +	int ret;
-> +
-	struct fwnode_handle *supply_node __free(fwnode_handle) =3D
-		device_get_named_child_node(dev, "voltage-channels");
-	if (supply_node)
-> +	if (supply_node)
-> +		num_supply =3D fwnode_get_child_node_count(supply_node);
-	struct fwnode_handle *temp_node __free(fwnode_handle) =3D
-		device_get_named_child_node(dev, "temperature-channels");
-	if (temp_node)
-
-> +	if (temp_node)
-> +		num_temp =3D fwnode_get_child_node_count(temp_node);
-> +
-> +	sysmon_channels =3D devm_kcalloc(dev,
-> +				       size_add(ARRAY_SIZE(temp_channels),
-> +						num_supply + num_temp),
-> +				       sizeof(*sysmon_channels), GFP_KERNEL);
-> +	if (!sysmon_channels)
-> +		return -ENOMEM;
-> +
-> +	/* Static temperature channels first (fixed indices) */
-> +	idx =3D 0;
-> +	memcpy(sysmon_channels, temp_channels, sizeof(temp_channels));
-> +	idx +=3D ARRAY_SIZE(temp_channels);
-> +
-> +	/* Supply channels from DT */
-> +	fwnode_for_each_child_node_scoped(supply_node, child) {
-> +		ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing reg for supply channel\n");
-> +
-> +		if (reg > SYSMON_SUPPLY_IDX_MAX)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "supply reg %u exceeds max %u\n",
-> +					     reg, SYSMON_SUPPLY_IDX_MAX);
-> +
-> +		ret =3D fwnode_property_read_string(child, "label", &label);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing label for supply channel\n");
-> +
-> +		sysmon_channels[idx++] =3D (struct iio_chan_spec) {
-> +			.type =3D IIO_VOLTAGE,
-> +			.indexed =3D 1,
-> +			.address =3D reg,
-> +			.info_mask_separate =3D
-> +				BIT(IIO_CHAN_INFO_RAW) |
-> +				BIT(IIO_CHAN_INFO_PROCESSED),
-Add a similar comment to the one you have for temperature channels here.
-This is tricky because I have no idea how a user would set a floating point
-threshold via raw.  Their expectation is that is simple and linear.
-
-How hard is it to take a _PROCESSED event value and convert it back to
-a format that can be used for setting the register values? To me that
-seems like a much more intuitive interface
-
-=46rom a quick look at the event patch it seems you are doing that? In which =
-case drop raw.
-
-> +			.scan_type =3D {
-> +				.realbits =3D 19,
-> +				.storagebits =3D 32,
-> +				.endianness =3D IIO_CPU,
-> +				.sign =3D fwnode_property_read_bool(child,
-> +					"bipolar") ? 's' : 'u',
-
-As above, this only gets exposed when buffered interfaces are added, so for
-now don't set it unless you are using them for some internal purposes.
-Also .sign is being replace with .format.
-
-> +			},
-> +			.datasheet_name =3D label,
-> +		};
-> +	}
-> +
-> +	/* Temperature satellite channels from DT */
-> +	fwnode_for_each_child_node_scoped(temp_node, child) {
-> +		ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing reg for temp channel\n");
-> +
-> +		if (reg < 1 || reg > SYSMON_TEMP_SAT_MAX)
-> +			return dev_err_probe(dev, -EINVAL,
-> +					     "temp reg %u out of range [1..%u]\n",
-> +					     reg, SYSMON_TEMP_SAT_MAX);
-> +
-> +		ret =3D fwnode_property_read_string(child, "label", &label);
-> +		if (ret < 0)
-> +			return dev_err_probe(dev, ret,
-> +					     "missing label for temp channel\n");
-> +
-> +		sysmon_channels[idx++] =3D (struct iio_chan_spec) {
-> +			.type =3D IIO_TEMP,
-> +			.indexed =3D 1,
-> +			.address =3D SYSMON_TEMP_SAT_BASE +
-> +				   ((reg - 1) * SYSMON_REG_STRIDE),
-> +			.info_mask_separate =3D
-> +				BIT(IIO_CHAN_INFO_RAW) |
-> +				BIT(IIO_CHAN_INFO_PROCESSED),
-
-As above, add a comment on why both (or drop one of them)
-
-> +			.scan_type =3D {
-> +				.sign =3D 's',
-> +				.realbits =3D 15,
-> +				.storagebits =3D 16,
-> +				.endianness =3D IIO_CPU,
-> +			},
-> +			.datasheet_name =3D label,
-> +		};
-> +	}
-> +
-> +	indio_dev->num_channels =3D idx;
-> +	indio_dev->info =3D &sysmon_iio_info;
-> +
-> +	/*
-> +	 * Assign per-type sequential channel numbers.
-> +	 * IIO sysfs uses type prefix (in_tempN, in_voltageN)
-> +	 * so numbers only need to be unique within each type.
-> +	 */
-> +	temp_chan_idx =3D 0;
-> +	volt_chan_idx =3D 0;
-> +	for (idx =3D 0; idx < indio_dev->num_channels; idx++) {
-> +		if (sysmon_channels[idx].type =3D=3D IIO_TEMP)
-> +			sysmon_channels[idx].channel =3D temp_chan_idx++;
-> +		else
-> +			sysmon_channels[idx].channel =3D volt_chan_idx++;
-> +	}
-> +
-> +	indio_dev->channels =3D sysmon_channels;
-> +
-> +	return 0;
-> +}
-
-> diff --git a/drivers/iio/adc/versal-sysmon.c b/drivers/iio/adc/versal-sys=
-mon.c
-> new file mode 100644
-> index 00000000000..8473288e7db
-> --- /dev/null
-> +++ b/drivers/iio/adc/versal-sysmon.c
-> @@ -0,0 +1,92 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * AMD Versal SysMon MMIO platform driver
-> + *
-> + * Copyright (C) 2019 - 2022, Xilinx, Inc.
-> + * Copyright (C) 2022 - 2026, Advanced Micro Devices, Inc.
-> + */
-> +
-> +#include <linux/io.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/platform_device.h>
-> +#include <linux/regmap.h>
-> +
-> +#include "versal-sysmon.h"
-> +
-> +struct sysmon_mmio {
-> +	void __iomem *base;
-> +};
-> +
-> +static int sysmon_mmio_reg_read(void *context, unsigned int reg,
-> +				unsigned int *val)
-> +{
-> +	struct sysmon_mmio *mmio =3D context;
-> +
-> +	*val =3D readl(mmio->base + reg);
-
-Blank line before simple returns slightly helps readabilty.
-
-> +	return 0;
-> +}
-
-> +static int sysmon_platform_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct sysmon_mmio *mmio;
-> +	struct regmap *regmap;
-> +
-> +	mmio =3D devm_kzalloc(dev, sizeof(*mmio), GFP_KERNEL);
-> +	if (!mmio)
-> +		return -ENOMEM;
-> +
-> +	mmio->base =3D devm_platform_ioremap_resource(pdev, 0);
-> +	if (IS_ERR(mmio->base))
-> +		return PTR_ERR(mmio->base);
-> +
-> +	regmap =3D devm_regmap_init(dev, NULL, mmio,
-> +				  &sysmon_mmio_regmap_config);
-
-Fits on one line I think even with a strict 80 char limit (which we relax
-when readabilty is hurt)
-
-> +	if (IS_ERR(regmap))
-> +		return PTR_ERR(regmap);
-> +
-> +	return sysmon_core_probe(dev, regmap);
-> +}
-
-> diff --git a/drivers/iio/adc/versal-sysmon.h b/drivers/iio/adc/versal-sys=
-mon.h
-> new file mode 100644
-> index 00000000000..d24d2481915
-> --- /dev/null
-> +++ b/drivers/iio/adc/versal-sysmon.h
-
-...
-
-> +
-> +/* Q8.7 fractional shift */
-> +#define SYSMON_FRACTIONAL_SHIFT		7U
-
-This should perhaps be a mask then use FIELD_GET() to extract the value.
-
-> +#define SYSMON_SUPPLY_MANTISSA_BITS	16
-> +
-> +/**
-> + * struct sysmon - Driver data for Versal SysMon
-> + * @regmap: register map for hardware access
-> + * @lock: protects regmap access
-> + */
-> +struct sysmon {
-> +	struct regmap *regmap;
-> +	/* Protects regmap access */
-
-regmap has it's own internal locks. So this comment needs to explain
-in more detail what is being protected.  I assume read modify write
-or long related sequences that must not be interrupted and aren't encapsula=
-ted
-in single regmap calls?
-
-> +	struct mutex lock;
-> +};
-
+>  static const struct camss_resources qcs8300_resources =3D {
+>         .version =3D CAMSS_8300,
+>         .pd_name =3D "top",
+> @@ -5752,6 +5764,7 @@ static const struct of_device_id camss_dt_match[] =
+=3D {
+>         { .compatible =3D "qcom,sdm660-camss", .data =3D &sdm660_resource=
+s },
+>         { .compatible =3D "qcom,sdm670-camss", .data =3D &sdm670_resource=
+s },
+>         { .compatible =3D "qcom,sdm845-camss", .data =3D &sdm845_resource=
+s },
+> +       { .compatible =3D "qcom,shikra-camss", .data =3D &qcm2390_resourc=
+es },
+>         { .compatible =3D "qcom,sm6150-camss", .data =3D &sm6150_resource=
+s },
+>         { .compatible =3D "qcom,sm6350-camss", .data =3D &sm6350_resource=
+s },
+>         { .compatible =3D "qcom,sm8250-camss", .data =3D &sm8250_resource=
+s },
+> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/pl=
+atform/qcom/camss/camss.h
+> index 93d691c8ac63b2a47dbb234856b627d8911a1851..8ba8a38113dfc15849fa333d0=
+5b2c3853f3a7714 100644
+> --- a/drivers/media/platform/qcom/camss/camss.h
+> +++ b/drivers/media/platform/qcom/camss/camss.h
+> @@ -82,6 +82,7 @@ enum pm_domain {
+>  enum camss_version {
+>         CAMSS_660,
+>         CAMSS_2290,
+> +       CAMSS_2390,
+>         CAMSS_6150,
+>         CAMSS_6350,
+>         CAMSS_7280,
+>
+> --
+> 2.34.1
+>
