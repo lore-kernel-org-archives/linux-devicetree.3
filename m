@@ -1,130 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540FB260580;
-	Thu, 28 May 2026 06:16:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1112A31F996;
+	Thu, 28 May 2026 06:18:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779949019; cv=none; b=pw41pUZQm8aX5y6yGLTs71FlAoFpBVJzALQcMZGGz8HyiH9P/9MAx9lVgrP1Z3YINm62bJzRbEy5Zogz6snZmk1VH4+TVszlqa4o5EJwatVkGgwcpLhfxKfjOHW/mvBQa1r7LJ6eb4TBokyKEdR21OkHbWXL7THrmby4hkiDX4U=
+	t=1779949115; cv=none; b=NVBne+LbrO04pAxVrNi5xDzCP2aw8fXzMXQpYysoBRM5QxlkDrqrOna6hH6Eg2cg2ZVY6Koj/hJvuPx66ovdJWaazI02vTIaQzvsUWIdO7qtPacKZC6a9zh7RXa5OOv2Z+iSUaqSJZx6xfBTrO8NxE5RhDFgiwTedafkQZL2rFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779949019; c=relaxed/simple;
-	bh=M/275JbtxKv3PMzBOnYBjC6WcWBjJqtUTErStfpPelY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gaGpuDAA2jnssSNjoAOqCw4IW/f2xlJJtvskeep4YYHiR695mRXTr+qyg+dhMSxhOdIN7DW26nTU32R6RJcbrIzq2uwWJee1mlfmH3fwBs3+hKCdhZKz+YNZ7Rw7t7mhlNjQbU44fG4Ny9U2/0i8IA47Y5IWxej7sRmzsKBWTik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AvGW7eRF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779949115; c=relaxed/simple;
+	bh=7ciCZN5IfMz5aQGJlfd42F0W3rK6Cp+4phe5xibEMtw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YscHhQV6YIJN8BcaNh2hjcTYz2nKBk324ErxzjG4A0mOjYsLqyHL59ISWADvsxDcXS5a6lKPgQ2a+6oXwwylyj4hd5W9061xw5H9NCugHKCT7FkpYgcCyZbYJeYU/SeJ+imKDXl72Q2Ltp0gRPcX0GgL0IlolHnmdM1pZsdGdlw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lqw8pJoC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AvGW7eRF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6E6F1F000E9;
-	Thu, 28 May 2026 06:16:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lqw8pJoC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE1EF1F000E9;
+	Thu, 28 May 2026 06:18:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779949017;
-	bh=wHR9TwehavIPVk4XEUhyV+PhdyIjq9pAtyQh9/9EsNk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AvGW7eRFaxVT27QIk3oPc7SHQ3PEeYCVgr8EsMz1TTqHeiC9EvtUOFwa2kANeRYBF
-	 ZlXLUrStnhyF5Vy+WHB0mr3NBtOKcEh/DvBDEHED3Wa7EsMOaOaMIR8gmSNuh4JnWg
-	 euBLjxBYiJ5jK5DAZfb3M77iLTdpPPtcXXnNdUYq5fWwLaULojBZr2BKf2QlHgl/Vh
-	 5KDZo22Cz86Z1BwC7zv0gCBeFGX4ztUwNo4EKNzaFoJEdOjro0IV4QYfRBZGDg2BTc
-	 FR0gQZxVO5KLOHbcjVke8hJd1vhuo22Dfz1gzHAHsBsR/6+TCqvYbHANPNaq8sevxj
-	 r2IlU9iFRDsDw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/7] mfd: Add driver for ASUS Transformer embedded
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: robh@kernel.org, linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com
-In-Reply-To: <20260528053203.9339-3-clamor95@gmail.com>
-References: <20260528053203.9339-3-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 06:16:57 +0000
-Message-Id: <20260528061657.A6E6F1F000E9@smtp.kernel.org>
+	s=k20260515; t=1779949113;
+	bh=MZ7pZ/2XKPOWhii6SzPPYF1kcQIPQDSqyREzR7kB8AI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lqw8pJoC5Ibe1xcEM0S7QyF8NZqXDC22RZqzGS2kh1bIkzMnQ2o02ZtKqSXTtMIog
+	 wyE/fgs5v+Bf4XspGBHQuYFRgGar9i7xyTKfVdB9us+a05ffqQMC0qkpeRNE6U8Wzv
+	 bhTn88gAqBxnaBn473TlHepC+VVfz75xIgHDn6ZFIb0WboInnBu79NSCFpzDMFfgGS
+	 qfO1LKJcDHqEwJd5cJmUM3uNxUDN8uY4oA3J1vtLxj1fQqpaJIxNKFvG+KASOWZEtQ
+	 4CVq1wnPiR54+NIvS76Ack65yWQPwY7fQsmJHWq6B/d+W5S/T77L/jdIWGKRnu4D/Y
+	 FzYUIv38EmQlA==
+Date: Thu, 28 May 2026 08:18:27 +0200
+From: Manivannan Sadhasivam <mani@kernel.org>
+To: Can Guo <can.guo@oss.qualcomm.com>
+Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com, 
+	martin.petersen@oracle.com, linux-scsi@vger.kernel.org, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Zhaoming Luo <zhml@posteo.com>, Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+Message-ID: <oq27n7qkpj2kzyacy7puk5jii76pyjt6fjbugxzs2mu3h64uzq@vwdtejgevm2z>
+References: <20260527144055.2758170-1-can.guo@oss.qualcomm.com>
+ <20260527144055.2758170-2-can.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260527144055.2758170-2-can.guo@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Short I2C block reads return positive values or zero, violating AP=
-I contract and causing false probe success or uninitialized variable usage.
---
+On Wed, May 27, 2026 at 07:40:54AM -0700, Can Guo wrote:
+> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+> integrity at high speed operation.
+> 
+> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+> required depending on channel characteristics.
+> 
+> Add vendor-neutral DT properties:
+> 
+> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
+> - fixed property tx-precode-enable-g6
+> 
+> Each property is a uint32 array of per-lane tuples:
+> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
+> 
+> Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
+> are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
+> 
+> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
 
-commit 66708f4a4bcbbc5908e6fc11660dc174e28d7ee4
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+Acked-by: Manivannan Sadhasivam <mani@kernel.org>
 
-mfd: Add driver for ASUS Transformer embedded controller
+- Mani
 
-Support Nuvoton NPCE795-based ECs as used in Asus Transformer TF201,
-TF300T, TF300TG, TF300TL and TF700T pad and dock, as well as TF101 dock
-and TF600T, P1801-T and TF701T pad. This is a glue driver handling
-detection and common operations for EC's functions.
-
-> --- /dev/null
-> +++ b/drivers/mfd/asus-transformer-ec.c
-
-[ ... ]
-
-> +int asus_dockram_access_ctl(struct i2c_client *client, u64 *out, u64 mas=
-k,
-> +			    u64 xor)
-> +{
-> +	struct dockram_ec_data *ddata =3D i2c_get_clientdata(client);
-> +	u8 *buf =3D ddata->ctl_buf;
-> +	u64 val;
-> +	int ret =3D 0;
+> ---
+>  .../devicetree/bindings/ufs/ufs-common.yaml   | 45 +++++++++++++++++++
+>  1 file changed, 45 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+> index ed97f5682509..d90cf25adfa5 100644
+> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+> @@ -105,6 +105,51 @@ properties:
+>        Restricts the UFS controller to rate-a or rate-b for both TX and
+>        RX directions.
+>  
+> +  tx-precode-enable-g6:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    oneOf:
+> +      - minItems: 2
+> +        maxItems: 2
+> +      - minItems: 4
+> +        maxItems: 4
+> +    items:
+> +      enum: [0, 1]
+> +    description: |
+> +      Static TX Precode enable values for HS-G6 only.
+> +      Values are specified as per-lane tuples:
+> +      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
 > +
-> +	guard(mutex)(&ddata->ctl_lock);
+> +patternProperties:
+> +  "^txeq-preshoot-g[1-6]$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    oneOf:
+> +      - minItems: 2
+> +        maxItems: 2
+> +      - minItems: 4
+> +        maxItems: 4
+> +    items:
+> +      minimum: 0
+> +      maximum: 7
+> +    description: |
+> +      Static TX Equalization PreShoot values for High Speed Gears.
+> +      Values are specified as per-lane tuples:
+> +      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
 > +
-> +	memset(buf, 0, ASUSEC_ENTRY_BUFSIZE);
-> +	ret =3D i2c_smbus_read_i2c_block_data(client, ASUSEC_DOCKRAM_CONTROL,
-> +					    ASUSEC_ENTRY_SIZE, buf);
-> +	if (ret < ASUSEC_ENTRY_SIZE) {
-> +		dev_err(&client->dev, "failed to access control buffer: %d\n",
-> +			ret);
-> +		return ret;
-
-[Severity: High]
-If i2c_smbus_read_i2c_block_data() returns a positive short read, will this
-return a positive error code?
-
-This positive value could propagate up to asus_ec_probe(). Returning a
-positive value from probe causes __device_attach_driver() to interpret it
-as a successful match and probe, leaving the device in an unbound, broken
-state without a proper failure log.
-
-Additionally, if it returns 0, the function will return success (0) without
-populating output variables, potentially leading to uninitialized memory
-usage in callers like asus_ec_susb_on_status().
-
-> +	}
+> +  "^txeq-deemphasis-g[1-6]$":
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    oneOf:
+> +      - minItems: 2
+> +        maxItems: 2
+> +      - minItems: 4
+> +        maxItems: 4
+> +    items:
+> +      minimum: 0
+> +      maximum: 7
+> +    description: |
+> +      Static TX Equalization DeEmphasis values for High Speed Gears.
+> +      Values are specified as per-lane tuples:
+> +      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
 > +
-> +	if (buf[0] !=3D ASUSEC_CTL_SIZE) {
+>  dependencies:
+>    freq-table-hz: [ clocks ]
+>    operating-points-v2: [ clocks, clock-names ]
+> -- 
+> 2.34.1
 
-[ ... ]
-
-> +static int asus_ec_log_info(struct asus_ec_data *ddata, unsigned int reg,
-> +			    const char *name, const char **out)
-> +{
-> +	struct device *dev =3D &ddata->client->dev;
-> +	u8 buf[ASUSEC_ENTRY_BUFSIZE];
-> +	int ret;
-> +
-> +	memset(buf, 0, ASUSEC_ENTRY_BUFSIZE);
-> +	ret =3D i2c_smbus_read_i2c_block_data(ddata->ec.dockram, reg,
-> +					    ASUSEC_ENTRY_SIZE, buf);
-> +	if (ret < ASUSEC_ENTRY_SIZE)
-> +		return ret;
-
-[Severity: High]
-Could this also return a positive short read or 0 to the caller?
-
-Similar to asus_dockram_access_ctl(), this might propagate positive values
-to the probe function or mask zero-byte read failures.
-
-> +
-> +	if (buf[0] > ASUSEC_ENTRY_SIZE) {
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528053203.9339=
--1-clamor95@gmail.com?part=3D2
+-- 
+மணிவண்ணன் சதாசிவம்
