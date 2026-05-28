@@ -1,137 +1,156 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAC1F37BE6D;
-	Thu, 28 May 2026 08:32:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2E54380FDD
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:33:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779957166; cv=none; b=Z7M/fs9TtfFuiY93aS4z0ohGkNet/AW08dS+hupcctUTKPUfAT9as3FIQjzKyx77LAyzFODDsSukDWGTKMJU6SOZlXwVCmFpe+/7NFaGbkkhqgkAiLjZJ613YNDmC75uPA/iTmRBTd3YTQhk4gVFOqNheoZjOXD8UxtisAQKDEA=
+	t=1779957229; cv=none; b=jOU1ZbrlGjFPDkbczPtfh6m2u4rCJAX+SB3521ZjInY7cPhIg/yFe+wJgGKYh8NJpLjTDWrNSu3vkus/yWXD+t/Zqm6GUJcmaeXOxjOSogDj/vqbLDUAoPLTMgnizfGJJw9Ltz8JaDfKYtI5VgQaLymm1Tg5sqg0DIlbHC38Wko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779957166; c=relaxed/simple;
-	bh=YU9a5uWZs3eNFJ5sWl6WN23NYFgASuOeSnSAi8aCZK8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=vFHH9Q/iNSivifCPqAkmLMhJkE8E9FUoN1ieXIIslgJa9Psu/IZQr0Sis181KDJbp6pwIC+xTMpsjIRRSVDrqYNIhXAWg1AI9Q4cARtBvbkdQn+oZKp3F+tJmMm21lHyjBZ5HTxc19rHa1zQW2zm7hI9KHT2n/qyly8eWUyl3wA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9iWdr8T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779957229; c=relaxed/simple;
+	bh=3UE1ukep6rVlGvZk5YzSNt1eDdxkKrWNxxGuKxbk0mA=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=enCUm6Wxgg+7ksZOmi7JnWTgX+yIu/YQ73vKUkyWv3jaAVeq8PV5tF8eedvCaD2jrI4+G5Xms4vBzyV6qHrwkk+YEJg0ciTqma1ew6sG+EHfy2OOgSp1RFBHJrYlper35iwStqtKoCtE8DS+74VLnHo8y2lIBfhSkEHYIzgrMx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BTt3A5I5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9iWdr8T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41EC31F000E9;
-	Thu, 28 May 2026 08:32:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BTt3A5I5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8BC41F00ACA
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:33:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779957165;
-	bh=xUFfceI4yOAGxlsuowFlWzIGqaexCjSF5g4S1Pq6I28=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l9iWdr8TyYe1cZALV9+EJt4/bOc3DrW20/FJ4SsxXumYweReAyNBsX7twppvs2FuG
-	 VYEcU83Ebj/v9JZHePjITCqmNKfZQOzZlObXqIrKn/4VTigGaTGVQiKgcv1R5hTGAd
-	 uDjjgXu/bk4QWV5j08dRqT8mSb5KVWsbxL5J+ofAlIQnZJt6NJq3CoiKbX9nE190nK
-	 N0ughHnRWIMLZ6ZxSvcB3PrTnC5oOT4DROB4TRXc/RphWo92HrFdB3qFHzuyzauwit
-	 Ny1/028+lPBXS4CGsWB+kp9gL3rrYQ9GxxYwD7CeV9m2wWkn7RVonIOrYyq64by/rs
-	 QjwhBuq3UjUQQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 6/7] power: supply: Add driver for ASUS Transformer
- battery
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: linux-input@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, dmitry.torokhov@gmail.com, robh@kernel.org
-In-Reply-To: <20260528053203.9339-7-clamor95@gmail.com>
-References: <20260528053203.9339-7-clamor95@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 08:32:30 +0000
-Message-Id: <20260528083231.41EC31F000E9@smtp.kernel.org>
+	s=k20260515; t=1779957227;
+	bh=3UE1ukep6rVlGvZk5YzSNt1eDdxkKrWNxxGuKxbk0mA=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=BTt3A5I5n0ay2ZpJFPy9zqNZYf0SojnpzrK4eah8mJc1JrtcSKBdyXfYnZKqB7v+1
+	 cJLNn4UDEiXORzdYWVSkX4eeLYPzPhaNMqjEvax1BVzK7L1cz0DqXz/UOa8EV+Z6rN
+	 yTdE4+WdcYo+gaOQOmxVVacAmQ5q9Gp+5uix2RG02SVi7+pp6OgsiNhZA1+rK74r33
+	 JTqMlW5PU0iF2M+895YI9bhzwpqDxkIHY+ZUpczOuSVAnAER159bipf1NKIRzHLe0y
+	 fdJJU2LIm6esC8gOEkfQ5MEqX3JovcoLJRyklBoj+9Gg3BWdgsJaGszzzrB4YZ2s97
+	 5Ha7lPil6GKPw==
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-393da8f389bso105987721fa.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 01:33:47 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/IgXPuLc/kR3GombFH2kUPJjb88cJZMlNDtDP33DXWEMZkTaUrZgLjDgJAn7uXpUtpudzGrtMmDAxx@vger.kernel.org
+X-Gm-Message-State: AOJu0YyJu0Kan+eplnHEP+Qkn0Z9C7OZKpsjDoM2zTYdwX80G/M4Smox
+	4SJCnrBuBmF1fxU50MPJ2pKmF/LrEjyDSZnF5EEByJdIs6ezsF5kT3Wx+0jrFGXAbScPGPjb/WH
+	lwAYzLUrF7y7sIrzMB823rrwkHZwu5pJdE9v0nU47Kg==
+X-Received: by 2002:a2e:8957:0:b0:38d:e220:8dc2 with SMTP id
+ 38308e7fff4ca-395d8cef4abmr68081351fa.20.1779957226354; Thu, 28 May 2026
+ 01:33:46 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 28 May 2026 04:33:44 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Thu, 28 May 2026 04:33:44 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <CAGXv+5GbW0bx3nKdZt2+tHuHyQ-J-1-Z79nMzHAwjmEPGKT02A@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260515090149.3169406-1-wenst@chromium.org> <CAMRc=MdnjRRMVzxPkkrPhQ4dz7rsK8-HKUp9cQ0z11apL3escQ@mail.gmail.com>
+ <CAGXv+5HC3dqgcE3KnKzakHHWFHB6m_X42orOkNUvZvp=SL_O8g@mail.gmail.com>
+ <CAMRc=Med-_0GSYzoFBRiwFzBCK0DZqJD8_SEBxi+zwR20GS-HA@mail.gmail.com> <CAGXv+5GbW0bx3nKdZt2+tHuHyQ-J-1-Z79nMzHAwjmEPGKT02A@mail.gmail.com>
+Date: Thu, 28 May 2026 04:33:44 -0400
+X-Gmail-Original-Message-ID: <CAMRc=McADm0F4bwhj5qoigfUT-AV6CVpo+FAaqoBnZ3PrjBc7Q@mail.gmail.com>
+X-Gm-Features: AVHnY4JaLBmctUhYgIAJpJojKGEMDv_BBPh6vAfJvyQAFJsp1fEnomeZ5fRkbMM
+Message-ID: <CAMRc=McADm0F4bwhj5qoigfUT-AV6CVpo+FAaqoBnZ3PrjBc7Q@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/12] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+To: Chen-Yu Tsai <wenst@chromium.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, Bartosz Golaszewski <brgl@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Manivannan Sadhasivam <mani@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Short I2C reads return a positive value that bypasses the caller=
-'s error check, leading to uninitialized data access and cache bypass.
-- [Medium] Off-by-one error in length bounds check allows reading outside t=
-he valid EC payload.
---
+On Wed, 27 May 2026 18:21:00 +0200, Chen-Yu Tsai <wenst@chromium.org> said:
+> On Tue, May 26, 2026 at 11:48=E2=80=AFAM Bartosz Golaszewski <brgl@kernel=
+.org> wrote:
+>>
+>> On Sun, May 24, 2026 at 10:06=E2=80=AFAM Chen-Yu Tsai <wenst@chromium.or=
+g> wrote:
+>> >
+>> > > >
+>> > > > I expect some discussion on this patch, because a) it adds some
+>> > > > OF-specific code into an otherwise generic (core) driver, and
+>> > > > b) it doesn't yet handle USB 2.0 / 3.x shared ports; it ends up po=
+wering
+>> > > > on the port twice, which negates the port reset part.
+>> > > >
+>> > >
+>> > > I understand that you do this because the port device has no OF node
+>> > > assigned. If we wanted to call pwrseq_get() for the port device, is
+>> > > there really no other way to associate it with the correct pwrseq
+>> > > provider?
+>> >
+>> > I suppose we could tie the "port@X" node to the usb port device, but
+>> > AFAIK no other subsystem does this so we would be introducing a new
+>> > pattern.
+>> >
+>> > In the M.2 pwrseq driver, we would have to match by port node instead
+>> > of its parent device node. We may end up with different behavior for
+>> > the USB target vs the other targets.
+>> >
+>>
+>> I imagine, we can check the bus type of the parent device to know if
+>> this is USB?
+>
+> The "bus type" type is probably not exported. However since the DT bindin=
+g
+> explicitly says which port on the M.2 slot is for which connection type,
+> I think the matching can do a special case check for the USB port.
+> The next obstacle is that the target string is not given to the provider
+> match function.
+>
+>> > Also, the "port@X" nodes only exist for the OF graph connections to
+>> > connectors and/or muxes (this series doesn't deal with the latter).
+>> > For directly connected devices, there is a "device@X" child node
+>> > directly under the USB hub node. That node is what gets tied to the
+>> > the USB device.
+>> >
+>>
+>> Is this a problem? I don't think I understand what you're saying here.
+>
+> It shouldn't be. I'm just saying there would be different behavior on
+> the USB side for connectors vs onboard devices (like hubs) device nodes.
+>
+> I talked to Greg earlier, and he said not to touch the hub driver; the
+> hub driver should only deal with features from the USB spec. The
+> "onboard USB devices" driver is what should be used. And this would
+> be a proper case of adding an auxiliary device to the M.2 slot driver.
+>
 
-commit 04954fc98984d98f0039fee1c123ecdf16dc2ff7
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+The onboard USB device is what initially inspired the PCI pwrctl code so it
+doesn't surprise me we circle back to it.
 
-power: supply: Add driver for ASUS Transformer battery
+> However this seems to completely decouple the power sequencing from the
+> USB core. Take the USB A connector for example, it was recently added to
+> the onboard USB devices driver. However the connector has a device node
+> that is not a child node of any USB host controller or hub; it is connect=
+ed
+> through OF graph. At the same time, since it typically sits at the top
+> level of the device tree, a platform device is directly created and the
+> driver subsequently binds to that device. This is totally different from
+> how the hub and other directly connected onboard USB devices work. In
+> the onboard device case, the device node is a child node of the USB hub
+> or controller, and the corresponding platform device only gets created
+> when the USB hub driver probes, thereby sort of tying it into the USB
+> device topology.
+>
 
-This commit adds a new driver for ASUS Transformer batteries, which impleme=
-nts
-one battery cell per EC controller and supports reading battery status for =
-the
-pad and mobile dock.
+Which is precisely what we do for PCI pwrctl. Though I'm not sure how we co=
+uld
+replicate this behavior without touching the hub driver.
 
-> diff --git a/drivers/power/supply/asus-transformer-ec-battery.c b/drivers=
-/power/supply/asus-transformer-ec-battery.c
-> new file mode 100644
-> index 0000000000000..db6331352f7d4
-> --- /dev/null
-> +++ b/drivers/power/supply/asus-transformer-ec-battery.c
-[ ... ]
-> +static int asus_ec_battery_refresh(struct asus_ec_battery_data *priv)
-> +{
-> +	struct i2c_client *client =3D priv->ec->dockram;
-> +	struct device *dev =3D &client->dev;
-> +	int ret =3D 0;
-> +
-> +	if (time_before(jiffies, priv->batt_data_ts))
-> +		return ret;
-> +
-> +	memset(priv->batt_data, 0, ASUSEC_ENTRY_BUFSIZE);
-> +	ret =3D i2c_smbus_read_i2c_block_data(client, ASUSEC_DOCKRAM_BATT_CTL,
-> +					    ASUSEC_ENTRY_SIZE, priv->batt_data);
-> +	if (ret < ASUSEC_ENTRY_SIZE)
-> +		return ret;
+> If the power sequencing ends up not connected to the USB subsystem, then
+> maybe the M.2 slot driver could just check if the USB port (port@3) was
+> used, and just enable the USB / BT pwrseq target at probe time? That
+> would mean less changes needed.
+>
 
-[Severity: Medium]
-Since i2c_smbus_read_i2c_block_data() returns the number of bytes read on
-success, could this return a positive value on a short read?
+That sounds sane to me.
 
-If this returns a positive value less than ASUSEC_ENTRY_SIZE, it bypasses
-updating the batt_data_ts timestamp, which breaks the 5-second caching
-mechanism and triggers an I2C transaction on every subsequent property read.
-
-Additionally, asus_ec_battery_get_value() below only checks for errors with
-if (ret < 0), which would fail to catch this positive short read value as
-an error, potentially leading to the use of uninitialized data.
-
-[ ... ]
-> +static int asus_ec_battery_get_value(struct asus_ec_battery_data *priv,
-> +				     enum power_supply_property psp)
-> +{
-> +	int ret, offs;
-> +
-> +	guard(mutex)(&priv->battery_lock);
-> +
-> +	if (psp >=3D ARRAY_SIZE(asus_ec_battery_prop_offs))
-> +		return -EINVAL;
-> +
-> +	offs =3D asus_ec_battery_prop_offs[psp];
-> +	if (!offs)
-> +		return -EINVAL;
-> +
-> +	ret =3D asus_ec_battery_refresh(priv);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (offs >=3D priv->batt_data[0])
-> +		return -ENODATA;
-> +
-> +	return get_unaligned_le16(priv->batt_data + offs);
-> +}
-
-[Severity: Medium]
-Does this bounds check properly account for the 16-bit read?
-
-Since get_unaligned_le16() reads two bytes, if offs exactly equals
-priv->batt_data[0] - 1, the bounds check passes. However, the second byte
-read (offs + 1) would fall outside the valid payload length.
-
-Could this silently combine one byte of valid data with a zero-padded byte
-from the buffer, returning a corrupted value?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528053203.9339=
--1-clamor95@gmail.com?part=3D6
+Bartosz
