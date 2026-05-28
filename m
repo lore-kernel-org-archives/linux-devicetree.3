@@ -1,45 +1,45 @@
-Received: from sender4-op-o15.zoho.com (sender4-op-o15.zoho.com [136.143.188.15])
+Received: from sender4-op-o12.zoho.com (sender4-op-o12.zoho.com [136.143.188.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C88F231716D;
-	Thu, 28 May 2026 05:24:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788172DEA9D;
+	Thu, 28 May 2026 05:24:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.12
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779945880; cv=pass; b=M6PsHiiN8bptFfh9dyB3Xmxc4PmkJlvGKKrxbHkp4hHuc2gTFk0B/CxC/2lvnS/jJRQ/JvyhYIGnsiRHcXD1kVtFhW5myiLiE2mUih36Sr/OwOpnRCx9B73OvtIA9v7em/9dmufi6juRy+ajX25nBVyBKC6aDJP2F30k9A+oayM=
+	t=1779945885; cv=pass; b=N/jzk4zAOpUkPRoAuypceGZ6GXkGiWDcugmeN8mvExHDqC7xgUxCP0FqCPtutMsAVYeGcv9dgncMe6kiSO8sBB+DP5NlnzhnvqF6a5CJ8ZucDV5iCPy8iXOapgS/SYjJQ47/vo3QCGvinaDGa6HBaBLlFDEk3w5VpYaahFtomqs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779945880; c=relaxed/simple;
-	bh=J7f2wQORWMO7HgLfF+c02eIZh8ngHo2O6iOfc1N+TAY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lBzqz0LStO+wCSHdPLtnjJku9Ob+imTSP1HUSlG4judOI4jCFotv4op9FsylqECtJcJXkODantIJhJ+Mp5Ne8JKDguUS3JyerTclUVfBhaKyI4UNm73VT/fYJiQ2H+5QyZXQSsUYT1XX4ywGwizojwOPLq7hWWcbjDGpJyO7qZ8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=hjYKjbxP; arc=pass smtp.client-ip=136.143.188.15
+	s=arc-20240116; t=1779945885; c=relaxed/simple;
+	bh=ImaB2JWrg33Dniu6feVCqgtEyOGIW/e1dFOZ+mc6LVc=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bFLEYcpKvpK2sY8AeVVJ+55RZPzRFAT4K+BNgK44vdzp27LP+ajOIfUb+6SEbhzoD8EnMyjyDgEn5i0DZBHnDH7ebgIgn7R7Npa2Goz0P7kpPFp2WV8BcdlKCue8AozmpsKGqHoZS24NJknTZBf8TQDV/g4l0d6C7AVIn/2HeJQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech; spf=pass smtp.mailfrom=pigmoral.tech; dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b=i8ev4/Ob; arc=pass smtp.client-ip=136.143.188.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pigmoral.tech
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="hjYKjbxP"
-ARC-Seal: i=1; a=rsa-sha256; t=1779945837; cv=none; 
+	dkim=pass (1024-bit key) header.d=pigmoral.tech header.i=junhui.liu@pigmoral.tech header.b="i8ev4/Ob"
+ARC-Seal: i=1; a=rsa-sha256; t=1779945849; cv=none; 
 	d=zohomail.com; s=zohoarc; 
-	b=Lewwv/E5GzToO6cwJ6qFAQjwPR3Tepy8489G9ze+/TW3pwkSZXhaf3JngsOo56ETKwhOfj808rpAm0+jaeW+rbKgKs/06uP3Guy0TKyTGXGaDXvlJeMbRnW7MVKYI6U0nvbWfA4kc1UTf8jhS8ti3mScww+tpHisJrr06wvtFpU=
+	b=f8YKTaqC1kvke/STjLydsO3a4CcRunHG3e4ETUypLPjJ4Q1Y/t8JbMnZguoRbnMx3ikVNNPCy+QFQ37Z6PtilavZv9hieaP2qRQwJM8FZRCMaPp0KzSLfZqdrlgdqphGQUskVQa04wbHEq8JTrripd86ugHxTexbQHf4fAmJLJI=
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1779945837; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Lzm3YWrKP2JFz/K4efBOj3ww3Vn5sEbCNURK4uiazgU=; 
-	b=GoHFDTkwXTxbYptD6is3LgwfxmPJZ40ilAZ28sgmDxlARpPWkJKe4iliTrTlbuq81K8gbjRkxQcFng8ECf8Ap1XtI4F8C81byfQ+Mx3uIXUud24WFeLvbvY6NJz3+230SnwJ5gYZf7gw6HAenYZXsQIvO5svdwUPHJBDyVJQfoQ=
+	t=1779945849; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=UvjTRA8xfkxxljRes0fA/LWYD4fR4TwEvH3UGlFAtO4=; 
+	b=HP6VSWJV+fHtWeYoSjT7rGtBENU6euv27SCC6Hw8CACfYTg1Tn6QyMojuMwhYA9OlhlQrToWQkxPW/cWSYPqpPACaMvohzl6iab0Wb9PPzjAM+ZYC9RxAQDDxGFTSPiymrjHiJmorxhGUy15WPTtLQqYctelIIXV9yCj8StONTc=
 ARC-Authentication-Results: i=1; mx.zohomail.com;
 	dkim=pass  header.i=pigmoral.tech;
 	spf=pass  smtp.mailfrom=junhui.liu@pigmoral.tech;
 	dmarc=pass header.from=<junhui.liu@pigmoral.tech>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779945837;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1779945849;
 	s=zmail; d=pigmoral.tech; i=junhui.liu@pigmoral.tech;
-	h=From:From:Subject:Subject:Date:Date:Message-Id:Message-Id:MIME-Version:Content-Type:Content-Transfer-Encoding:To:To:Cc:Cc:Reply-To;
-	bh=Lzm3YWrKP2JFz/K4efBOj3ww3Vn5sEbCNURK4uiazgU=;
-	b=hjYKjbxPTSUqcPo4vIfxLEctXjILEQ6WGd4CbtyaD9eJBpOhe2yuXwtQ8BQzaKjG
-	f1oFYmj4THMHW2BcZqjq99wqTIcPDPAO4jfnVzjocP4jVpz2XYtuPAvP862UTpaDVkj
-	esWKTQEi9Wt8IqbplrEYZaSm9SJn2D0neOliHNVc=
-Received: by mx.zohomail.com with SMTPS id 1779945833882509.0231225374149;
-	Wed, 27 May 2026 22:23:53 -0700 (PDT)
+	h=From:From:Date:Date:Subject:Subject:MIME-Version:Content-Type:Content-Transfer-Encoding:Message-Id:Message-Id:References:In-Reply-To:To:To:Cc:Cc:Reply-To;
+	bh=UvjTRA8xfkxxljRes0fA/LWYD4fR4TwEvH3UGlFAtO4=;
+	b=i8ev4/ObvNcHZsnmi+aCXDIvjUr9Ghg/Q+W43MSLHeInOt8x++//CpQq6jj5onKA
+	Fgd3I/9+onVLGi3vwcisIq/8AEvkJPJUpBJFEtGDdi1oWH6nbs1Ih1MXnNFgSCZjm4K
+	hSIPT3eT8allVcwKgRTYpJCwOUSjv8d9jTSiIh5U=
+Received: by mx.zohomail.com with SMTPS id 1779945847005535.3101057500668;
+	Wed, 27 May 2026 22:24:07 -0700 (PDT)
 From: Junhui Liu <junhui.liu@pigmoral.tech>
-Subject: [PATCH v2 0/3] spacemit: k1: Add support for Banana Pi BPI-CM6 IO
- board
-Date: Thu, 28 May 2026 13:22:46 +0800
-Message-Id: <20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech>
+Date: Thu, 28 May 2026 13:22:47 +0800
+Subject: [PATCH v2 1/3] dt-bindings: riscv: spacemit: Add Banana Pi BPI-CM6
+ compatible
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,11 +48,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2WOyw6CMBBFf4XM2po+hCIr/8OwKGUKk1jAFomG8
- O9WWLo8N/e1QsRAGKHKVgi4UKRxSCBPGdjeDB0yahOD5LLguZSsmYhZX7DWqtJdBSqHFpJ7Cuj
- ovTfd64MDPl+pcD5EaExEZkfvaa6yMseLzbVSttXw8/cU5zF89iOL2AN/m4tgnGmu0Ymr0Ebx2
- 0SdH4N5nGe0PdTbtn0BQUHBKdIAAAA=
-X-Change-ID: 20260522-bpi-cm6-dc38f91e3fec
+Message-Id: <20260528-bpi-cm6-v2-1-d0eb3f236cea@pigmoral.tech>
+References: <20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech>
+In-Reply-To: <20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech>
 To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
  Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
  Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
@@ -62,64 +60,49 @@ To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
 Cc: devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
  spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
  Junhui Liu <junhui.liu@pigmoral.tech>, 
- Conor Dooley <conor.dooley@microchip.com>, 
- Michael Opdenacker <michael.opdenacker@rootcommit.com>
+ Conor Dooley <conor.dooley@microchip.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1779945818; l=2323;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1779945818; l=1249;
  i=junhui.liu@pigmoral.tech; s=20251228; h=from:subject:message-id;
- bh=J7f2wQORWMO7HgLfF+c02eIZh8ngHo2O6iOfc1N+TAY=;
- b=1SnXTx7VIrfVrpucpNpMyxNBnAH1+6J0bVAg83wpH/aXVz7mSfyftCijL0pgzTJJnHp2oCvPd
- D7VDck2e2iVB6fXVeCcYQpjgT06vVrK8Vwdsow8LcshIYBQmC6KLbMB
+ bh=ImaB2JWrg33Dniu6feVCqgtEyOGIW/e1dFOZ+mc6LVc=;
+ b=QsO2j5hlPX7w0nZYJgUThKPZPZkKQcnemcgMwpGpULbrk/OSx07adKK7zkJQI7ZztZB8zJjnY
+ pc1kUjYaKxHAJAdZJOoURYbFhj4cwf/Kz+q/pKDhNhPVtjWQUiEYmdz
 X-Developer-Key: i=junhui.liu@pigmoral.tech; a=ed25519;
  pk=3vU0qIPJAH8blXmLyqBhKx+nLOjcLwwYhZXelEpw7h4=
 X-ZohoMailClient: External
 
-This adds initial support for the Banana Pi BPI-CM6 IO board. The
-BPI-CM6 is an industrial-grade RISC-V compute module powered by the
-SpacemiT K1 SoC, featuring board-to-board connectors similar to the
-Raspberry Pi CM4 form factor. For evaluation and development, the module
-is paired with a companion IO carrier board.
+The Banana Pi BPI-CM6 IO board consists of the BPI-CM6 compute module
+plugged into an IO carrier board, which is used for evaluation and
+development.
 
-During the board bring-up, GPIO45 and GPIO46 were found to be used by
-the BPI-CM6 hardware as Ethernet PHY reset GPIOs, while the common K1
-GMAC pinctrl groups currently mux them as optional GMAC reference clock
-pins. Since the reference clock pins are not required on all K1 boards,
-the second patch separates them into independent pinctrl groups so board
-DTS files can select them only when the signal is actually wired.
+The core CM6 module is based on the SpacemiT K1 SoC and provides PMIC,
+DDR, the eth0 PHY and wireless connectivity. The carrier board extends
+this by adding the eth1 PHY and external interfaces including Ethernet,
+PCIe M.2, USB, MicroSD, QSPI, and serial console connectivity.
 
-This is based on the "dt-for-next" branch of the spacemit-com/linux.
-
-Link: https://docs.banana-pi.org/en/BPI-CM6/BananaPi_BPI-CM6
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
 ---
-Changes in v2:
-- Keep gmac_clk_ref pinctrl groups referenced on existing boards where
-  the pins are routed to optional PHY refclk paths
-- Remove duplicate vpcie3v3-supply property from pcie1 and pcie2 nodes
-- Collect tags
-- Link to v1: https://lore.kernel.org/r/20260522-bpi-cm6-v1-0-707ef1917a30@pigmoral.tech
+ Documentation/devicetree/bindings/riscv/spacemit.yaml | 5 +++++
+ 1 file changed, 5 insertions(+)
 
----
-Junhui Liu (3):
-      dt-bindings: riscv: spacemit: Add Banana Pi BPI-CM6 compatible
-      riscv: dts: spacemit: k1: Split gmac_clk_ref into independent pinctrl groups
-      riscv: dts: spacemit: k1: Add Banana Pi BPI-CM6 IO board
+diff --git a/Documentation/devicetree/bindings/riscv/spacemit.yaml b/Documentation/devicetree/bindings/riscv/spacemit.yaml
+index af8030242bdc..3e868383eb4a 100644
+--- a/Documentation/devicetree/bindings/riscv/spacemit.yaml
++++ b/Documentation/devicetree/bindings/riscv/spacemit.yaml
+@@ -19,6 +19,11 @@ properties:
+     const: '/'
+   compatible:
+     oneOf:
++      - items:
++          - enum:
++              - bananapi,bpi-cm6-io
++          - const: bananapi,bpi-cm6
++          - const: spacemit,k1
+       - items:
+           - enum:
+               - bananapi,bpi-f3
 
- .../devicetree/bindings/riscv/spacemit.yaml        |   5 +
- arch/riscv/boot/dts/spacemit/Makefile              |   1 +
- .../riscv/boot/dts/spacemit/k1-bananapi-cm6-io.dts | 213 +++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-cm6.dtsi  | 227 +++++++++++++++++++++
- arch/riscv/boot/dts/spacemit/k1-bananapi-f3.dts    |   4 +-
- arch/riscv/boot/dts/spacemit/k1-milkv-jupiter.dts  |   4 +-
- arch/riscv/boot/dts/spacemit/k1-musepi-pro.dts     |   2 +-
- arch/riscv/boot/dts/spacemit/k1-orangepi-r2s.dts   |   4 +-
- arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi       |  24 ++-
- 9 files changed, 473 insertions(+), 11 deletions(-)
----
-base-commit: 85e4c5733cd7efa39f10d7200095c016ce4a2815
-change-id: 20260522-bpi-cm6-dc38f91e3fec
-
-Best regards,
 -- 
-Junhui Liu <junhui.liu@pigmoral.tech>
+2.54.0
 
