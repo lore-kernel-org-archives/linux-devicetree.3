@@ -1,552 +1,200 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011058.outbound.protection.outlook.com [40.107.208.58])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E371F1891A9;
-	Thu, 28 May 2026 22:19:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.58
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780006746; cv=fail; b=P2znIdIBxOhWrIMRFJhcBkPcV6DQ9ui9sCu9lrr7XiTn2tuPdznYSyXgyXmbLTM/VMN3WJfQfvlue9B7cZa61zkYy7RFwsyKHTcv7PTiC62KY0EPhRDmCVYTSLoXoomUW2b5L3HR2lRNH0lhBj53Du5S1eMzgOac+DwuVf2p8jo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780006746; c=relaxed/simple;
-	bh=jk4dUUv28693syezCH8aGb6Ex+5kQnGzhy3hmzXXd2E=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=ZEHYUNqQLLCBNE0xC3hdOzHUEVs7NQlp3z/MQ+BMafolzbpWU5uOSrb7B0mawjU3kjtVFErpU9Om15eKYENgtqQ/vWntQD41Sh2NjBBOr70Yg70ZAUsO+ER+YqL5KC+4nu9eHWjCzSttS5YzxXymd1ifhNV3V+nPUskv0PEADhE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=ap2lCPtz; arc=fail smtp.client-ip=40.107.208.58
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D968935E1B6;
+	Thu, 28 May 2026 22:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780006901; cv=none; b=oU/Q7iPqWAWVD2V+/Iy05pXrEwYqSIRPD5XK7ZBB/erLnPwaCAphoNSye4Jk5ALaNv+NoqJ9QuePV5uoOe5dDlAqCVFofZcUpCVvded8eo6nkUOV2DOZHjxCIptN9rmmbO2XtPHFdofQ3uMMyLiFFUjYTUi0YJkvMQGJApsU47w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780006901; c=relaxed/simple;
+	bh=Mz63/CkyFYep9DnMMJtYFqQR/TTuUo9JhtPAEXop1E4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=JJKhoxkOqOFDGoqScy03WvruT1mgk/KwEXxiuRFfGKwGh2wc0rIT06Oj5pDNZZynQAqnXgvU5SSfNz3ylEIZhna4N8KeoVJFMZeeBWFCPmlkbl3p//u/AJjCozjAOwLjAm7iH2AggkyT2M8UrO5QxKiVTy3mXBAMANMY/qA01js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oVDCIb11; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="ap2lCPtz"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=YN6I2vFH+3eDK3UhPya2Xi/CGo11u3km9qhD7s6bcOSHz7n7jybWKyZVK/rPSBA4rDZXi953RmqgTl2ZgoTiaHjOrCSv9L3O9CIT6/N2E0sFtuncTYcImnILpJI2NSXYmUOGGLbnqWkXyye7634qjoK48upauP69zfT/0v9V8tUywWjZDrw7W2bAE4zKTPXMRWCmDZzXUPB0CjyF7UP0ajHQYiZuBvgDpNhaR0z1E1m5FukGR75Oa1TfEXI5AIishKAEmw3DfCJ3tYutlLJnD/RqHYfTnWWREZtpXVi3sQvfpE8sqursEh+2g1roX5oaJ1fbxUoE1ueGPlWizHCiwg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=xBM/N5l8Rrn9sUueq1AlmksHVETDPKqgwFoBZrDwdsU=;
- b=v4ddibhAfyjm5x2anJy4p/5AZteG9HgyZxtaNgI060CBdaGo2SXuK5QZUB/U++uSGd0rXNTMa4InygMbnvYkTUM0Zu8eJKrhlq5FvwXN/2PNlijFgfpTrDtCRp0GCZN1klf0rTr5+Vw0p7KT8yKqrDHwlSpv3+99duoon/RzvqmRrax+y34BnmgWIHHG8H1UJqy9ndC2VQCCbpuB21b+Q2lgSYlTPQfUPiRGgUbwdFyU8RMAQnq3QIls74ggpB5QQe6swhPQ2L6CHrEZa9TJAPemgK36MRZs9lb24u0KxiYdYZKmpaWbR3lS8PGy11AixwdUfs2e20d92wyBPf7YoQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=amd.com; dmarc=pass action=none header.from=amd.com; dkim=pass
- header.d=amd.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=xBM/N5l8Rrn9sUueq1AlmksHVETDPKqgwFoBZrDwdsU=;
- b=ap2lCPtzHZlnzJ/mII9DRHdOOUJ147LfM7gpBaq1BpREJUJ7gDV/wkMN3j9DesnEoGwna9vgASgs8JLWJuNgMrs83SGe+dALbCjCE4M0H2Aoev6ogzrcKSoy6OgnRl6KGAiKN4BBroIX9be7IfWnsoVlmGqILK/Sjc1lyAd3+uw=
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=amd.com;
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com (2603:10b6:208:420::15)
- by CY8PR12MB7492.namprd12.prod.outlook.com (2603:10b6:930:93::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
- 2026 22:19:01 +0000
-Received: from IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550]) by IA1PR12MB7736.namprd12.prod.outlook.com
- ([fe80::2274:9fed:8f3:8550%6]) with mapi id 15.21.0071.011; Thu, 28 May 2026
- 22:19:01 +0000
-Message-ID: <95c462c5-eb71-43ef-9c44-e3d8b07886e0@amd.com>
-Date: Thu, 28 May 2026 23:18:59 +0100
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 4/5] iio: adc: versal-sysmon: add threshold event
- support
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Andy Shevchenko <andy@kernel.org>, David Lechner <dlechner@baylibre.com>,
- =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Conall O'Griofa
- <conall.ogriofa@amd.com>, Michal Simek <michal.simek@amd.com>,
- Guenter Roeck <linux@roeck-us.net>, Salih Erim <erimsalih@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260527114211.174288-1-salih.erim@amd.com>
- <20260527114211.174288-5-salih.erim@amd.com>
- <20260528140156.5cab0eda@jic23-huawei>
-Content-Language: en-US
-From: "Erim, Salih" <salih.erim@amd.com>
-In-Reply-To: <20260528140156.5cab0eda@jic23-huawei>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: PR3P191CA0053.EURP191.PROD.OUTLOOK.COM
- (2603:10a6:102:55::28) To IA1PR12MB7736.namprd12.prod.outlook.com
- (2603:10b6:208:420::15)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oVDCIb11"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA3F11F000E9;
+	Thu, 28 May 2026 22:21:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780006899;
+	bh=mZmARthFPXCAyxYUsxgldu6mzFwjs58vao40Hr/sGrU=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=oVDCIb11pBEckiH0eMeGLTs3Ia2XRJ32VOv1TFeRIohYt3LQ3Xkn6cxTjZx4U3Qfk
+	 Bysq1aE3ULxHL1IY4wF5QFO9cL9MgS/M2CYzXue08ySxGlvLRIY0wktVq6KvUupWoU
+	 kUoctmhG4iqqYx2HQkLfMM6dk2AOCv5iODIqDnT9IzT7LL+da1Qk3PKsKgMvFqGGzA
+	 24NF90JvYx5xGhJO2gTXfASez5fMbhbPANqKbuaeF5upRAfLoVJPj7zBTcdjHz5Cbu
+	 Silfhy48If6qmd/1Pg6GTRB88rPkbJYy5C3OER/R2GeHNaCZnjIOiwYnNQkV/z17Ey
+	 nNRauk22KuAVg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: IA1PR12MB7736:EE_|CY8PR12MB7492:EE_
-X-MS-Office365-Filtering-Correlation-Id: 8fc1b499-73c6-4938-7bc0-08debd071ea2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|4143699003|11063799006|6133799003|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	lcgpGQLo9i5XsAWZtwWOjqeugkdf7I234pP7kmzuaIrXIz2efd5QDiE61lYP/LHl4n9EBf5Xf6Mfp6GXYXx3s9HSVnFOv0iBMvNczKrC778dkT00sr/0Q6c3CpfNf/74J1Iu3Z/7XbriBjlYUREbrAygVl7WtRarky2c+gH6Ms0dU0f9KJqcYbRWrqquXnFPo/kSvI5Ga3gNH+lz+20PVrorFMoTPJ0tng+xpgOG6cOV3ace2q7/ZhyJkMKxNHK67J+cPwj6c321w0UWuiZM9rWj7OqUX0WSDehXe9yNKAfGYA7/WpZhFKHV2RDo1FooyhkgpKaUIHyq9uV3j7J5L8cOxqrpeeALw0jt6Y3kTSxO/DujJVkW/1bZzexsISCRQlTbZnk32+dyyygIMBoMAcSpGOgwI5RfX9ziui62Y52oh0eeqUaJTqz4l322AksY8iBgsrzXhuBcn9KiqipGVtu/ZpzrJUxV3C49ocajEjB8MEYsm4cNg1wC+OGkTkgMJs36qsSM+341j2J1L4/Aexx6vzwbNKM2ILJWLlMudm9qcUbuaEdRT6BKidkwf8h700yWYPwqFmykO76aKLPQKWGtmcDa76ngT+PKjL/f4QZJKWTtN7QdL4PT99nLSSPe+Ej9WvXYBGfEtCeSdd9QqWQVmzOA6l/Y2MzqZ6SKiQdPLGRvUBCsu6zAg69gIiiq
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA1PR12MB7736.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(4143699003)(11063799006)(6133799003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?NmpKZElBcmhYRnBNaUZKSTk2RXZKNERvdGo1YmpKT2hPQlJDVE9NS29JaUpT?=
- =?utf-8?B?VXdPcHdUYkpVMGdSUHZTczgyaVRhTkxBYmZzOEZDdHE3dk5mbGU0QWJlcEZX?=
- =?utf-8?B?TnNGdkNHb2ErQ3l5Q1h4ancyOFBGMTdHdUdqbUdxNi9aUHNJa2I5ZnMvS05Z?=
- =?utf-8?B?WjVKSmhQVDNSWVE2a243YkZqWU11bFhET1dqZ0VyVEI4ZmVmV2dZWGxTVlZV?=
- =?utf-8?B?TjZjbjluaTNJNDhkMnRERlFSR2JGSHJpRDQ3YWQ2Q0tjQklxWkNiZ2IwQWU4?=
- =?utf-8?B?WnNQSzBhUWZadW9HTS9BVFVtMWNWZ0lxcGk5MFlWc09lMDlHblRHdDRxWDRM?=
- =?utf-8?B?cWZXakNNa2xCbVNVcjVKY1RvL0hqK0pGZFZxb1l0eVkzWUMyaGtLd1kxSnZX?=
- =?utf-8?B?K0dsR0d3ME1Yb2R3SGNoSnd1YVNucXBpL3R0eDJDOVhXbEU3aHZZRHJiMmE5?=
- =?utf-8?B?RTVRTTNnNktTdWpHVDlCYmE3eThzTGVIRTQwVVBaSmpQRWg1UDVWb1gwSnND?=
- =?utf-8?B?d0pIUkJCYVkzS1hYN3E0alFmY3dKck9zdTVWY01WU3hBSkVzTnc1OTdtUUdt?=
- =?utf-8?B?bGxWZkhvVVhsTGpqM2drNWlJYlZzbWorWFdFb05zQVVudXk1RklUUjNPNUsr?=
- =?utf-8?B?eGU5Q3Y4cTNTbmgrVXgyUTZxVWc1dkJsMDQxdEZMeTFmRkxsWitkL3FDcHZp?=
- =?utf-8?B?TzhwQSttalJlNW5GbktYM0I4RldQMC83RzgwS2UwRVlnZUJYaVh0S3lDTWdJ?=
- =?utf-8?B?bTVZalBQOFU5eVFIUlh2cXRGT2ZnamFkL0VCNUlnektqeWY5NXQxM0c0Wis1?=
- =?utf-8?B?RCtaTGcyK2VpNmc1NWFlV3dFL1hXZmNjSFJQZ0tJWDdhUXRDeG9TUk9ZM0ti?=
- =?utf-8?B?Ylh1MzlIUXl0WkFCdEdZMUxoNDk4U1dyWW5HajdqN2Z2UC9aU3ZzR0ZFV2tD?=
- =?utf-8?B?R0hOdDhzaDRhakxPVndVbndESmR2V3lYeDVVUVpQREVrQ1FCK0hjWGgvRlJH?=
- =?utf-8?B?d2pRRXNiTVhOejg3VnNsT3dMakdMM2Vqejc3RncwRG5sS2lWTFEwaFpnejJV?=
- =?utf-8?B?L1Z1R2dzai85YS9BWEdHd2d5VEFDK0FERVk0SEVaK3BXbDNVaHdOaG1FSkR5?=
- =?utf-8?B?SEh6N2RMNzdFMkxXanRQRTJhL0dQcXMyUVpoSUl2STE5OGl4U0pudXM1R2tR?=
- =?utf-8?B?RGg0czJpdlFoM3ZsNnoybDVpdUEwZ3JzU3BaNVZCMkVyN1doaGY5VDU5eFdr?=
- =?utf-8?B?ZUk1eGk0RlNOWFdyQ20zVjVFRjZHSCtPMFM0cTFLdUN2YU4xWEV2VDRMaUJG?=
- =?utf-8?B?RFp1UU9iK0Y0SS9xTFNCRnlnQlN4VlhFQW5KMmZUWUtqd0JkMk9ydDJHWGZO?=
- =?utf-8?B?TFdPMVNaS0FNS1JuSnlDVzlNUXFUL1l2NnVLZWFoK1NReExjVGJ3aVdoRFFD?=
- =?utf-8?B?ajRHYWNORFJOZ1h2Si9ZTUpOSGRIYmt0SDJFMktQWm4vMFJ4aFpEOE1mazRV?=
- =?utf-8?B?Snd5b2ZQdDAwTlRYdmNXZ1FhT3NGQUVBNjZPU0ZiUi9YTzVjOHlMLzcyb21W?=
- =?utf-8?B?WGd0bXlJeE5Ib1lXNkVhWGp0SDNjZDRmQUhQSjh1ZEpiK0NiRlJsL3U0WGVN?=
- =?utf-8?B?NllDZlcwZ3RZS2Z6SjhYbjI1Nit0YkRXeXhEZDFoeDNUL0k4S3dRMSsxY1FB?=
- =?utf-8?B?cGlWK1VEN3g0ZGJ6REZuMjNxY2V5Ni92RmpwNzliQllKRVdvM3ZrdXNXL2wy?=
- =?utf-8?B?ZGFvbEdwSWxKM1FJMzd6MzlSUUFTWU5JTVBPVjkrMWpKRVJSdEdMN0lMK1Rw?=
- =?utf-8?B?aGxHbzQ0UmduRnN0SlhjRUVIL2k4eUdaZkkyclF0cGZBNlRYWWVrMDlibFpY?=
- =?utf-8?B?TFNYME5DNHdSamtJbFd1VDl3ZkxpZnJ2MGV3WU9WYW5lRk44MjhlVkxhT3NJ?=
- =?utf-8?B?aWtoL1Q4OE9IaGlvcXVhU3hJUVRMNlFhcnp1UDFURVFoZkZQY0RKMzMzYzVQ?=
- =?utf-8?B?aFp0SVR0NGloVWxFRmZwSjBpYmNQbFhqL0ZFVzNvUWtoMDM5RWhheHcvRmtN?=
- =?utf-8?B?N3dtRzRDMjZ1L3hiSjB5dXZQd0FQUVMwNjJNcU9ENUluWDYxcTd2b0xXZDk0?=
- =?utf-8?B?SG8yczZWb1FRMTVxSDBsS01MWW1TQUhXaXlpZW0vV080dUlwM2Jpblk4MlZt?=
- =?utf-8?B?dFZ6eU1IYWUvektDeERsdE5PQU9nanFrTk81c1pvV0ZCNXhVclJPLzJzSTQw?=
- =?utf-8?B?dGlyTjBULzRScisxcERaTW1oUG5HQURnTFpuQzhBb1MvYlhZdWprdDZyNzAv?=
- =?utf-8?Q?U64vtVRS+xvcIYcLfX?=
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8fc1b499-73c6-4938-7bc0-08debd071ea2
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR12MB7736.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 22:19:01.1589
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: B95eJa3AHozlvQZZugIqAD9GSFBgT9fLwDDJyXjQ7gZj9ZjevHJWMtYDh9IZ7jO2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR12MB7492
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH 4/8] arm64: dts: qcom: shikra: Add CAMSS node
+From: bod@kernel.org
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Loic Poulain <loic.poulain@oss.qualcomm.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>, 
+ Andi Shyti <andi.shyti@kernel.org>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+ Sascha Hauer <s.hauer@pengutronix.de>, 
+ Pengutronix Kernel Team <kernel@pengutronix.de>, 
+ Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org, 
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+ Suresh Vankadara <quic_svankada@quicinc.com>, 
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+In-Reply-To: <20260526-shikra-camss-review-v1-4-645d2c8c75a7@qti.qualcomm.com>
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
+ <20260526-shikra-camss-review-v1-4-645d2c8c75a7@qti.qualcomm.com>
+Date: Thu, 28 May 2026 23:21:31 +0100
+Message-Id: <178000689150.4557.11759359941436928903.b4-reply@b4>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4068; i=bod@kernel.org;
+ h=from:subject:message-id; bh=Mz63/CkyFYep9DnMMJtYFqQR/TTuUo9JhtPAEXop1E4=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqGL/tatFRK0PAVLSvVheUTY08eMxxcBtAGbDsh
+ plxVRE24JuJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCahi/7QAKCRAicTuzoY3I
+ OkdaEACdNsKvRUMFoJhIfD/HZ1qJRzzcz/1y5eumxiCBhWLQJR/21fZt4iBCqN27QjZ42TXDbmj
+ EmtJw43/xp84I6xI9Xv8wRlii/0LJVOr8r5JxhFc/BqPzNxfT77cNqCXLuQCBgkWXAnEo4YvBsq
+ AKOeYCX7rUZ25HWKg6l6PxkP/Ghda9xPtT2/s0rDN4o+JEtD/AGhw219HeGBY/zN279/xUTnIWL
+ 4v3sChtOCKesNWldKfKc3aF9z3SLR6cUdrEMWNbMxids93dlpay+8ef84wPmqg9zZMQn+JyGuKf
+ HzwYg0kKg1uxw4QwDLvhvL9SRNeQWC5yjaxWrJbrN8X+HihUm5jA/uEksIZ5S8RCYmx29CbY3N8
+ OR/oVNjc6jMNVx8CN2oAdLfPUhFsxexBwya1zrrUnpNcZbxsVdVEZKyvo1mwwpB02sAHszgX8A0
+ 5km82psvANdxR+mD1/+J7Qitsvk8o7mZp5DksWMQEmNfUiqOKMKlrJZQqnhVfG5+QCyecDHUfrF
+ O1PmQs/LAoHcpssGfS3JXrV8S6zuecwtsifKUnfWJ0Dz3j23kzzITEaqzK0325dVqxylpxlNgB9
+ slGz78LUm1mgePoZxZYiuI42TydUKEsiUjC7qOS8Kc7rnkMxJehdPgRSvA2EsR2nfn/wjfSpQT7
+ 9mJcIikSqxLOzgQ==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-Hi Jonathan,
+On 2026-05-26 22:42 +0530, Nihal Kumar Gupta wrote:
+> Add node for the Shikra camera subsystem.
+> 
+> Co-developed-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> ---
+>  arch/arm64/boot/dts/qcom/shikra.dtsi | 99 ++++++++++++++++++++++++++++++++++++
+>  1 file changed, 99 insertions(+)
+> 
+> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> index a4334d99c1f35ee851ca8266ec37d4a200a07ee5..6c47cf2a7ef26b4bb7d7f642a240b435cf5208d8 100644
+> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
+> @@ -604,6 +604,105 @@ opp-384000000 {
+>  			};
+>  		};
+>  
+> +		camss: camss@5c11000 {
+> +			compatible = "qcom,shikra-camss";
+> +
+> +			reg = <0x0 0x05c11000 0x0 0x1000>,
+> +			      <0x0 0x05c6e000 0x0 0x1000>,
+> +			      <0x0 0x05c75000 0x0 0x1000>,
+> +			      <0x0 0x05c52000 0x0 0x1000>,
+> +			      <0x0 0x05c53000 0x0 0x1000>,
+> +			      <0x0 0x05c66000 0x0 0x400>,
+> +			      <0x0 0x05c68000 0x0 0x400>,
+> +			      <0x0 0x05c6f000 0x0 0x4000>,
+> +			      <0x0 0x05c76000 0x0 0x4000>;
+> +			reg-names = "top",
+> +				    "csid0",
+> +				    "csid1",
+> +				    "csiphy0",
+> +				    "csiphy1",
+> +				    "csitpg0",
+> +				    "csitpg1",
+> +				    "vfe0",
+> +				    "vfe1";
+> +
+> +			clocks = <&gcc GCC_CAMERA_AHB_CLK>,
+> +				 <&gcc GCC_CAMSS_AXI_CLK>,
+> +				 <&gcc GCC_CAMSS_NRT_AXI_CLK>,
+> +				 <&gcc GCC_CAMSS_RT_AXI_CLK>,
+> +				 <&gcc GCC_CAMSS_TFE_0_CSID_CLK>,
+> +				 <&gcc GCC_CAMSS_TFE_1_CSID_CLK>,
+> +				 <&gcc GCC_CAMSS_CPHY_0_CLK>,
+> +				 <&gcc GCC_CAMSS_CSI0PHYTIMER_CLK>,
+> +				 <&gcc GCC_CAMSS_CPHY_1_CLK>,
+> +				 <&gcc GCC_CAMSS_CSI1PHYTIMER_CLK>,
+> +				 <&gcc GCC_CAMSS_TOP_AHB_CLK>,
+> +				 <&gcc GCC_CAMSS_TFE_0_CLK>,
+> +				 <&gcc GCC_CAMSS_TFE_0_CPHY_RX_CLK>,
+> +				 <&gcc GCC_CAMSS_TFE_1_CLK>,
+> +				 <&gcc GCC_CAMSS_TFE_1_CPHY_RX_CLK>;
+> +			clock-names = "ahb",
+> +				      "axi",
+> +				      "camnoc_nrt_axi",
+> +				      "camnoc_rt_axi",
+> +				      "csi0",
+> +				      "csi1",
+> +				      "csiphy0",
+> +				      "csiphy0_timer",
+> +				      "csiphy1",
+> +				      "csiphy1_timer",
+> +				      "top_ahb",
+> +				      "vfe0",
+> +				      "vfe0_cphy_rx",
+> +				      "vfe1",
+> +				      "vfe1_cphy_rx";
+> +
+> +			interrupts = <GIC_SPI 210 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 212 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 72 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 73 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 309 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 310 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 211 IRQ_TYPE_EDGE_RISING 0>,
+> +				     <GIC_SPI 213 IRQ_TYPE_EDGE_RISING 0>;
+> +			interrupt-names = "csid0",
+> +					  "csid1",
+> +					  "csiphy0",
+> +					  "csiphy1",
+> +					  "csitpg0",
+> +					  "csitpg1",
+> +					  "vfe0",
+> +					  "vfe1";
+> +
+> +			interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ACTIVE_TAG
+> +					 &config_noc SLAVE_CAMERA_CFG RPM_ACTIVE_TAG>,
+> +					<&mmrt_virt MASTER_CAMNOC_HF RPM_ALWAYS_TAG
+> +					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>,
+> +					<&mmnrt_virt MASTER_CAMNOC_SF RPM_ALWAYS_TAG
+> +					 &mc_virt SLAVE_EBI_CH0 RPM_ALWAYS_TAG>;
+> +			interconnect-names = "ahb",
+> +					     "hf_mnoc",
+> +					     "sf_mnoc";
+> +
+> +			iommus = <&apps_smmu 0x400 0x0>;
 
-On 28/05/2026 14:01, Jonathan Cameron wrote:
-> 
-> 
-> On Wed, 27 May 2026 12:42:10 +0100
-> Salih Erim <salih.erim@amd.com> wrote:
-> 
->> Add threshold event support for temperature and supply voltage
->> channels.
->>
->> Temperature events:
->>    - Rising threshold with configurable value
->>    - Over-temperature (OT) alarm with separate threshold
->>    - Per-channel hysteresis as a millicelsius value
->>    - Event direction is IIO_EV_DIR_RISING (hysteresis mode)
->>
->> Supply voltage events:
->>    - Rising/falling threshold per supply channel
->>    - Per-channel alarm enable via alarm configuration registers
->>
->> The hardware supports both window and hysteresis alarm modes for
->> temperature. This driver uses hysteresis mode, where the upper
->> threshold triggers the alarm and the lower threshold clears it
->> (re-arm point). The hardware has a single ISR bit per temperature
->> channel with no indication of which threshold was crossed, so
->> hysteresis mode is the natural fit. The lower threshold register
->> is computed internally as (upper - hysteresis).
->>
->> Hysteresis is stored in the driver as a millicelsius value,
->> initialized from the hardware registers at probe. Writing the
->> rising threshold or hysteresis recomputes the lower register.
->> ALARM_CONFIG is hard-coded to hysteresis mode during init.
->>
->> The interrupt handler masks active threshold interrupts (which are
->> level-sensitive) and schedules a delayed worker to poll for condition
->> clear before unmasking. When no hardware IRQ is available, event
->> channels are not created and interrupt init is skipped, since the
->> I2C regmap backend cannot be called from atomic context.
->>
->> When disabling a supply channel alarm, the group interrupt remains
->> active if any other channel in the same alarm group still has an
->> alarm enabled.
->>
->> Signed-off-by: Salih Erim <salih.erim@amd.com>
-> Hi Salih
-> 
-> Main thing in here is related to earlier question on _PROCESSED + _RAW.
-> I can't see a reason to have _RAW.
+So I'm suspicious of this IOMMU.
 
-Agreed. Will drop RAW, keep PROCESSED only.
+We should list the full range of IFE SIDs here not a subset. Since we are
+register compatible with Agatti that implies to me we should also be IOMMU
+compatible.
 
-> 
-> Various minor things inline. In many case they apply in other places I haven't
-> called out so look for repeats
-> 
-> Jonathan
-> 
->>   drivers/iio/adc/versal-sysmon-core.c | 655 ++++++++++++++++++++++++++-
->>   drivers/iio/adc/versal-sysmon.h      |  48 +-
->>   2 files changed, 697 insertions(+), 6 deletions(-)
->>
->> diff --git a/drivers/iio/adc/versal-sysmon-core.c b/drivers/iio/adc/versal-sysmon-core.c
->> index ebe052f6982..04977c9c887 100644
->> --- a/drivers/iio/adc/versal-sysmon-core.c
->> +++ b/drivers/iio/adc/versal-sysmon-core.c
->> @@ -11,6 +11,8 @@
->>   #include <linux/bitops.h>
->>   #include <linux/cleanup.h>
->>   #include <linux/device.h>
->> +#include <linux/devm-helpers.h>
->> +#include <linux/interrupt.h>
->>   #include <linux/module.h>
->>   #include <linux/property.h>
->>   #include <linux/regmap.h>
->> @@ -18,10 +20,19 @@
->>   #include <linux/sysfs.h>
->>   #include <linux/units.h>
->>
->> +#include <linux/iio/events.h>
->>   #include <linux/iio/iio.h>
->>
->>   #include "versal-sysmon.h"
->>
->> +/* OT and TEMP hysteresis mode bits in SYSMON_TEMP_EV_CFG */
->> +#define SYSMON_OT_HYST_MASK          BIT(0)
->> +#define SYSMON_TEMP_HYST_MASK                BIT(1)
->> +
->> +/* Compute alarm register offset from a channel address */
->> +#define SYSMON_ALARM_OFFSET(addr) \
->> +     (SYSMON_ALARM_REG + ((addr) / SYSMON_ALARM_BITS_PER_REG) * SYSMON_REG_STRIDE)
->> +
->>   /*
->>    * Both RAW and PROCESSED are exposed: RAW is needed for event thresholds
->>    * (which operate in hardware register format), PROCESSED gives userspace
->> @@ -44,6 +55,62 @@
->>        .datasheet_name = _name,                                \
->>   }
->>
->> +#define SYSMON_CHAN_TEMP_EVENT(_chan, _address, _name, _events) {\
->> +     .type = IIO_TEMP,                                       \
->> +     .indexed = 1,                                           \
-> 
-> Why do you needs separate channel for events?  Can't we add the event
-> spec to existing channels? For the constant ones you may need to
-> have two arrays to pick between depending on whether the irq is available or not.
+Please list in your next submission commit log the IOMMU SIDs - comment in
+the DTS is fine too.
 
-Accepted. Will merge event specs into the static temp channels
-and use two arrays (with/without events) based on has_irq.
+Ideally list the IOMMus for Agatti/2290 and then explain why the singleton
+you have enumerated here is the only required one.
 
-> 
-> 
->> +     .address = _address,                                    \
->> +     .channel = _chan,                                       \
->> +     .event_spec = _events,                                  \
->> +     .num_event_specs = ARRAY_SIZE(_events),                 \
->> +     .scan_type = {                                          \
->> +             .sign = 's',                                    \
->> +             .realbits = 15,                                 \
->> +             .storagebits = 16,                              \
->> +             .endianness = IIO_CPU,                          \
->> +     },                                                      \
->> +     .datasheet_name = _name,                                \
->> +}
->> +
->          *raw_data = (u16)tmp;
->> +}
-> 
->> +
->> +/*
->> + * Recompute the lower threshold register from upper threshold and
->> + * cached hysteresis. Called when either upper threshold or hysteresis
->> + * is written.
->> + */
->> +static int sysmon_update_temp_lower(struct sysmon *sysmon, int address)
->> +{
->> +     unsigned int upper_reg;
->> +     int upper_mc, lower_mc, hysteresis;
->> +     u32 raw_val;
->> +     int upper_off, lower_off, ret;
->> +
->> +     upper_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_RISING);
->> +     if (upper_off < 0)
->> +             return upper_off;
->> +     lower_off = sysmon_temp_thresh_offset(address, IIO_EV_DIR_FALLING);
->> +     if (lower_off < 0)
->> +             return lower_off;
->> +
->> +     if (address == SYSMON_ADDR_OT_EVENT)
->> +             hysteresis = sysmon->ot_hysteresis;
->> +     else
->> +             hysteresis = sysmon->temp_hysteresis;
->> +
->> +     ret = regmap_read(sysmon->regmap, upper_off, &upper_reg);
->> +     if (ret)
->> +             return ret;
->> +     sysmon_q8p7_to_millicelsius(upper_reg, &upper_mc);
->> +
->> +     lower_mc = upper_mc - hysteresis;
->> +     sysmon_millicelsius_to_q8p7(&raw_val, lower_mc);
-> 
-> So all the manipulation is in the units of _PROCESSED. Hence
-> I'd drop _RAW.
+Right now my suspicion radar is high that either the Agatti binding is
+wrong or the Shikra binding is.
 
-Accepted.
-> 
->> +
->> +     return regmap_write(sysmon->regmap, lower_off, raw_val);
->> +}
->> +
->> +static int sysmon_read_event_value(struct iio_dev *indio_dev,
->> +                                const struct iio_chan_spec *chan,
->> +                                enum iio_event_type type,
->> +                                enum iio_event_direction dir,
->> +                                enum iio_event_info info,
->> +                                int *val, int *val2)
->> +{
->> +     struct sysmon *sysmon = iio_priv(indio_dev);
->> +     unsigned int reg_val;
->> +     int offset;
->> +     int ret;
->> +
->> +     guard(mutex)(&sysmon->lock);
->> +
->> +     if (chan->type == IIO_TEMP) {
->> +             if (info == IIO_EV_INFO_VALUE) {
->> +                     /* Only rising threshold is exposed */
->> +                     offset = sysmon_temp_thresh_offset(chan->address,
->> +                                                        IIO_EV_DIR_RISING);
->> +                     if (offset < 0)
->> +                             return offset;
-> I'd add a blank line here.
->> +                     ret = regmap_read(sysmon->regmap, offset, &reg_val);
->> +                     if (ret)
->> +                             return ret;
-> here
->> +                     sysmon_q8p7_to_millicelsius(reg_val, val);
-> and here
-> 
-> Generally keep block of call + error check for one thing separate from code
-> before and after.  Slightly nicer to read.
-> 
-> Lots of other places this applies but it's a very minor thing.
+Possibly both.
 
-Accepted. Will add blank lines throughout between call+error-check
-blocks.
-> 
->> +                     return IIO_VAL_INT;
->> +             }
->> +             if (info == IIO_EV_INFO_HYSTERESIS) {
->> +                     if (chan->address == SYSMON_ADDR_OT_EVENT)
->> +                             *val = sysmon->ot_hysteresis;
->> +                     else
->> +                             *val = sysmon->temp_hysteresis;
->> +                     return IIO_VAL_INT;
->> +             }
->> +     }
->> +
->> +     if (chan->type == IIO_VOLTAGE) {
->> +             offset = sysmon_supply_thresh_offset(chan->address, dir);
->> +             if (offset < 0)
->> +                     return offset;
->> +             ret = regmap_read(sysmon->regmap, offset, &reg_val);
->> +             if (ret)
->> +                     return ret;
->> +             sysmon_supply_rawtoprocessed(reg_val, val);
->> +             return IIO_VAL_INT;
->> +     }
->> +
->> +     return -EINVAL;
->> +}
->> +
->> +static int sysmon_write_event_value(struct iio_dev *indio_dev,
->> +                                 const struct iio_chan_spec *chan,
->> +                                 enum iio_event_type type,
->> +                                 enum iio_event_direction dir,
->> +                                 enum iio_event_info info,
->> +                                 int val, int val2)
->> +{
->> +     struct sysmon *sysmon = iio_priv(indio_dev);
->> +     unsigned int reg_val;
->> +     u32 raw_val;
->> +     int offset;
->> +     int ret;
->> +
->> +     guard(mutex)(&sysmon->lock);
-> 
->> +
->> +     if (chan->type == IIO_TEMP) {
->> +             if (info == IIO_EV_INFO_VALUE) {
->> +                     /* Only rising threshold is exposed */
->> +                     offset = sysmon_temp_thresh_offset(chan->address,
->> +                                                        IIO_EV_DIR_RISING);
->> +                     if (offset < 0)
->> +                             return offset;
->> +                     sysmon_millicelsius_to_q8p7(&raw_val, val);
->> +                     ret = regmap_write(sysmon->regmap, offset, raw_val);
->> +                     if (ret)
->> +                             return ret;
->> +                     /* Recompute lower = upper - hysteresis */
->> +                     return sysmon_update_temp_lower(sysmon,
->> +                                                     chan->address);
-> 
-> Under 80 chars on one line.  Check for cases of this and feel free to go a bit
-> over if it helps readability.
-
-Accepted.
-
-> 
->> +                     return sysmon_update_temp_lower(sysmon, chan->address);
-> 
->> +             }
->> +             if (info == IIO_EV_INFO_HYSTERESIS) {
->> +                     if (val < 0)
->> +                             return -EINVAL;
->> +                     if (chan->address == SYSMON_ADDR_OT_EVENT)
->> +                             sysmon->ot_hysteresis = val;
->> +                     else
->> +                             sysmon->temp_hysteresis = val;
->> +                     return sysmon_update_temp_lower(sysmon,
->> +                                                     chan->address);
-> 
-> As above.
-
-Accepted.
-
-> 
->> +             }
->> +     }
->> +
->> +     if (chan->type == IIO_VOLTAGE) {
->> +             offset = sysmon_supply_thresh_offset(chan->address, dir);
->> +             if (offset < 0)
->> +                     return offset;
->> +             ret = regmap_read(sysmon->regmap, offset, &reg_val);
->> +             if (ret)
->> +                     return ret;
->> +             sysmon_supply_processedtoraw(val, reg_val, &raw_val);
->> +             return regmap_write(sysmon->regmap, offset, raw_val);
->> +     }
->> +
->> +     return -EINVAL;
->> +}
-> 
->> +static int sysmon_handle_event(struct iio_dev *indio_dev, u32 event)
->> +{
->> +     u32 alarm_flag_offset = SYSMON_ALARM_FLAG + (event * SYSMON_REG_STRIDE);
->> +     u32 alarm_reg_offset = SYSMON_ALARM_REG + (event * SYSMON_REG_STRIDE);
->> +     struct sysmon *sysmon = iio_priv(indio_dev);
->> +     unsigned long alarm_flag_reg;
->> +     unsigned int reg_val;
->> +     u32 address, bit;
->> +     int ret;
->> +
->> +     switch (event) {
->> +     case SYSMON_BIT_TEMP:
->> +             sysmon_push_event(indio_dev, SYSMON_ADDR_TEMP_EVENT);
->> +             ret = regmap_write(sysmon->regmap, SYSMON_IDR,
->> +                                BIT(SYSMON_BIT_TEMP));
->> +             if (ret)
->> +                     return ret;
->> +             sysmon->masked_temp |= BIT(SYSMON_BIT_TEMP);
->> +             break;
->> +
->> +     case SYSMON_BIT_OT:
->> +             sysmon_push_event(indio_dev, SYSMON_ADDR_OT_EVENT);
->> +             ret = regmap_write(sysmon->regmap, SYSMON_IDR,
->> +                                BIT(SYSMON_BIT_OT));
->> +             if (ret)
->> +                     return ret;
->> +             sysmon->masked_temp |= BIT(SYSMON_BIT_OT);
->> +             break;
->> +
->> +     case SYSMON_BIT_ALARM0:
->> +     case SYSMON_BIT_ALARM1:
->> +     case SYSMON_BIT_ALARM2:
->> +     case SYSMON_BIT_ALARM3:
->> +     case SYSMON_BIT_ALARM4:
->> +             ret = regmap_read(sysmon->regmap, alarm_flag_offset, &reg_val);
->> +             if (ret)
->> +                     return ret;
->> +             alarm_flag_reg = reg_val;
->> +
->> +             for_each_set_bit(bit, &alarm_flag_reg,
->> +                              SYSMON_ALARM_BITS_PER_REG) {
->> +                     address = bit + (SYSMON_ALARM_BITS_PER_REG * event);
->> +                     sysmon_push_event(indio_dev, address);
->> +                     ret = regmap_update_bits(sysmon->regmap,
->> +                                              alarm_reg_offset,
->> +                                              BIT(bit), 0);
->> +                     if (ret)
->> +                             return ret;
->> +             }
->> +             ret = regmap_write(sysmon->regmap, alarm_flag_offset,
->> +                                alarm_flag_reg);
->> +             if (ret)
->> +                     return ret;
->> +             break;
->                  return regmap_write();
->> +
->> +     default:
->> +             break;
-> 
-> Why is this not an error?
-
-Good point. Will return -EINVAL from the default case.
-
-> 
->> +     }
->> +
->> +     return 0;
-> Might as well return early in the various paths.
-
-Accepted. Will restructure to return from each case directly.
-
->> +}
-> ...
-> 
->> +static irqreturn_t sysmon_iio_irq(int irq, void *data)
->> +{
->> +     struct iio_dev *indio_dev = data;
->> +     struct sysmon *sysmon;
->> +     unsigned int isr, imr;
->> +
->> +     sysmon = iio_priv(indio_dev);
->> +     spin_lock(&sysmon->irq_lock);
-> 
-> guard() here would eman you can just return if (!isr)
-
-Accepted.
-
-All items will be addressed in v4.
-
-Salih
-
-> 
->> +
->> +     regmap_read(sysmon->regmap, SYSMON_ISR, &isr);
->> +     regmap_read(sysmon->regmap, SYSMON_IMR, &imr);
->> +
->> +     isr &= ~imr;
->> +     regmap_write(sysmon->regmap, SYSMON_ISR, isr);
->> +
->> +     if (isr) {
->> +             sysmon_handle_events(indio_dev, isr);
->> +             schedule_delayed_work(&sysmon->sysmon_unmask_work,
->> +                                   msecs_to_jiffies(SYSMON_UNMASK_WORK_DELAY_MS));
->> +     }
->> +
->> +     spin_unlock(&sysmon->irq_lock);
->> +
->> +     return IRQ_RETVAL(isr);
->> +}
+---
+bod
 
