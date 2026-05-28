@@ -1,113 +1,233 @@
-Received: from mail.fris.de (mail.fris.de [116.203.77.234])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4817D30C632;
-	Thu, 28 May 2026 10:35:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=116.203.77.234
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0053BE621;
+	Thu, 28 May 2026 10:45:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779964554; cv=none; b=ULqSUySlMQl4gYKlbE+beEaTe7/xMJk/6WwNhv+zMtg4fr4E/73UNii7OY0UGrD79R9pGfiTa77DY2ga30SOYe1HHCYFFtQVYfCgZgWon6BGMO5A78wdVcVZ0OPCFmpH8sXz5HplC1k+RbCLiwie8K8oaxGvNjL9pcOne2qGgek=
+	t=1779965112; cv=none; b=EIVlTAIqlUPynWC0HVVWMU/qkg6fboFe0+iF7Sfma0u7fdzaaMMSkYRJvN6+prIU8MQjI1dL36Bw5sZG0yewnD3M76ptHa19puSKPGxeTdDJEyThcYhHUmIOFdcgR4IDaJf9gU02iJucnLyZMlbNQ7vETcjGwiDyYamOX3IIxv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779964554; c=relaxed/simple;
-	bh=8P3lY1/gQp25fWNrD/onc426D6RvDG3yh7pYQHTEHyA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DNMlB6TrX23ouUzsAi9FKBl3YcCH5C0r/o7F9ALKFsCJZxid0PO3i2gDaqzHnyBq10t5NtwVAl8jsi9RTw3ZRDa1i0TsqWW2Y9rR0woJly5AgHzTnWnvufRZO7ypkxvW1sck5IjptkACciIzZBBWHNgi6e9WWF9Z0syw6Ti+NT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de; spf=pass smtp.mailfrom=fris.de; dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b=sVs8wgSw; arc=none smtp.client-ip=116.203.77.234
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=fris.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fris.de
+	s=arc-20240116; t=1779965112; c=relaxed/simple;
+	bh=xCvcxBoi6sSQp5l96sULqTiUk6uS/yJkDVs5eSxOPjA=;
+	h=Message-ID:Subject:From:To:CC:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=HjIzFgKT5W8kS2kAvgGmadfV7+LtScXDh/kPRQTLzulo2Pni1RsBZAtE+SFV9JvADp7MQmcGLj9POhflDhxtSSq1Yu2E7AdO9kV3j90Zpz1bw8u19OI69KEGO/R9rTwX2lUpwZ/wkCDW4+8UankokPZW6DtlEAvxGCTulhAAfI8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=UDa0q30J; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=fris.de header.i=@fris.de header.b="sVs8wgSw"
-From: Frieder Schrempf <frieder@fris.de>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=fris.de; s=mail;
-	t=1779964044;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=7xCLVbh1sBBSOmagGE/x9KMj2LGr4xyccPuWMFIUyF8=;
-	b=sVs8wgSwuXagVcjaN4bUG8ffMt9SC3SKS7fi/IvtdN2Kjx1bAGOxYocRmpi1oZAgiSpa2b
-	XhfjagBznFWm5GX3fpTUEIkvsGvPuNVj2EZHrB4GnNwXnuhGo2fBOtGKCLo9OwP73jN2D2
-	Gy6WtVvcNSPqUH2mRSgv5njAsMuR0JMy14ab7T225xdxUcmVj1i8JMi47BWxI8I6O1Smja
-	01DcRNx7R25p5NOa7w0L2hWHotSQrwZ3VNw2qeyaOqCVWiilbk+E3xfHpQ10xVFayVK/x7
-	w6NNkps3L78GNo7y3sr/9RNdqC5FXoW3qTiBUDPolijNgkocvPYjSGqn48xpWw==
-To: Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Frieder Schrempf <frieder.schrempf@kontron.de>,
-	imx@lists.linux.dev,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: Annette Kobou <annette.kobou@kontron.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>
-Subject: [PATCH] arm64: dts: imx8mp-kontron: Fix GPIO for display power switch
-Date: Thu, 28 May 2026 12:15:56 +0200
-Message-ID: <20260528101556.75926-1-frieder@fris.de>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="UDa0q30J"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1779965110; x=1811501110;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=xCvcxBoi6sSQp5l96sULqTiUk6uS/yJkDVs5eSxOPjA=;
+  b=UDa0q30JC21MX9eQGEsefiX3D85CII8XDTCW8I6qM7ALBM1ftZUAC+OG
+   yhO5tcpWAey2H/00IhGot3IJy9H28rsK7wTFF6/ome0TyYy4bvt+6A8aH
+   1U4h0LM+/SdaU0lgQ1q6IDKTEOCoT7EKUe5FJnNeV7quH1fkKpPmnM/gC
+   MyQVMZ43697NAPI23bSjn9iZRCcDcdcuDYl7AdNp83s0h0f+y31X6hzmm
+   TIzXBskS5y2pLl1UBhW/P452jU+pz3PgYsprnpYdnz/SMiw0rGLzuZC0u
+   4UfJfPdDQbdSZ7wrCD/ggdSHGv+t657ADZrMS5bLto7YsAQGTpzsx08X4
+   A==;
+X-CSE-ConnectionGUID: gNyFdhNbTf+LTQLa/3jT3g==
+X-CSE-MsgGUID: K/c9KGiKRO2P0+D5lkFyzQ==
+X-IronPort-AV: E=Sophos;i="6.24,173,1774335600"; 
+   d="scan'208";a="289564143"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa5.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 May 2026 03:45:06 -0700
+Received: from chn-vm-ex01.mchp-main.com (10.10.87.71) by
+ chn-vm-ex4.mchp-main.com (10.10.87.33) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.41; Thu, 28 May 2026 03:45:05 -0700
+Received: from DEN-DL-M77643.microsemi.net (10.10.85.11) by
+ chn-vm-ex01.mchp-main.com (10.10.85.143) with Microsoft SMTP Server id
+ 15.1.2507.58 via Frontend Transport; Thu, 28 May 2026 03:45:02 -0700
+Message-ID: <58b1f1e49e97e8cba6611440419c3a9412991ced.camel@microchip.com>
+Subject: Re: [PATCH net-next v6 1/9] net: dsa: add tag driver for LAN9645X
+From: Jens Emil Schulz Ostergaard <jensemil.schulzostergaard@microchip.com>
+To: Jonas Gorski <jonas.gorski@gmail.com>, <UNGLinuxDriver@microchip.com>,
+	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman
+	<horms@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Woojung Huh
+	<woojung.huh@microchip.com>, Russell King <linux@armlinux.org.uk>, "Steen
+ Hegelund" <Steen.Hegelund@microchip.com>, Daniel Machon
+	<daniel.machon@microchip.com>
+CC: <linux-kernel@vger.kernel.org>, <netdev@vger.kernel.org>,
+	<devicetree@vger.kernel.org>
+Date: Thu, 28 May 2026 12:45:01 +0200
+In-Reply-To: <2bcddaf2-e3b4-4f72-ae2d-1ac22c2e7553@gmail.com>
+References: <20260527-dsa_lan9645x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com>
+	 <20260527-dsa_lan9645x_switch_driver_base-v6-1-4d409ae64f3c@microchip.com>
+	 <2bcddaf2-e3b4-4f72-ae2d-1ac22c2e7553@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.44.4-0ubuntu2.1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Frieder Schrempf <frieder.schrempf@kontron.de>
+On Wed, 2026-05-27 at 17:39 +0200, Jonas Gorski wrote:
+> EXTERNAL EMAIL: Do not click links or open attachments unless you know th=
+e content is safe
+>=20
+> Hi,
+>=20
+> On 27/05/2026 16:49, Jens Emil Schulz =C3=83stergaard wrote:
+> > Add tag driver for LAN9645x using a front port as CPU port. This mode
+> > is called an NPI port in the datasheet.
+> > Use long prefix on extraction (RX) and no prefix on injection (TX). A
+> > long prefix on extraction helps get through the conduit port on host
+> > side, since it will see a broadcast MAC.
+> >=20
+> > The LAN9645x chip is in the same design architecture family as ocelot
+> > and lan966x. The tagging protocol has the same structure as these chips=
+,
+> > but the particular fields are different or have different sizes.
+> > Therefore, this tag driver is similar to tag_ocelot.c, but the
+> > differences in fields makes it hard to reuse.
+> >=20
+> > LAN9645x supports 3 different tag formats for extraction/injection of
+> > frames from a CPU port: long prefix, short prefix and no prefix.
+> >=20
+> > The tag is prepended to the frame. The critical data for the chip is
+> > contained in an internal frame header (IFH) which is 28 bytes. The
+> > prefix formats look like this:
+> >=20
+> > Long prefix (16 bytes) + IFH:
+> > - DMAC    =3D 0xffffffffffff on extraction.
+> > - SMAC    =3D 0xfeffffffffff on extraction.
+> > - ETYPE   =3D 0x8880
+> > - payload =3D 0x0011
+> > - IFH
+> >=20
+> > Short prefix (4 bytes) + IFH:
+> > - 0x8880
+> > - 0x0011
+> > - IFH
+> >=20
+> > No prefix:
+> > - IFH
+> >=20
+> > The format can be configured asymmetrically on RX and TX.
+> >=20
+> > The IFH get/set functions are declared as inline. All the field
+> > constants are compile-time known, so when these calls are inlined
+> > efficient code is generated with branches pruned and loops unrolled.
+> > During testing it was observed that without explicit inlining GCC would
+> > have trouble inlining the functions, which hurt performance.
+> >=20
+> > Reviewed-by: Steen Hegelund <Steen.Hegelund@microchip.com>
+> > Signed-off-by: Jens Emil Schulz =C3=98stergaard <jensemil.schulzosterga=
+ard@microchip.com>
+>=20
+>=20
+> (snip)
+>=20
+> > +static struct sk_buff *lan9645x_rcv(struct sk_buff *skb,
+> > +                                 struct net_device *ndev)
+> > +{
+> > +     u32 src_port, qos_class, vlan_tci, tag_type, popcnt, etype_ofs;
+> > +     struct dsa_port *dp;
+> > +     u32 ifh_gap_len =3D 0;
+> > +     u16 vlan_tpid;
+> > +     u8 *ifh;
+> > +
+> > +     /* DSA master already consumed DMAC,SMAC,ETYPE from long prefix. =
+Go back
+> > +      * to beginning of frame.
+> > +      */
+> > +     skb_push(skb, ETH_HLEN);
+> > +
+> > +     if (unlikely(!pskb_may_pull(skb, LAN9645X_TOTAL_TAG_LEN)))
+> > +             return NULL;
+> > +
+> > +     /* IFH starts after our long prefix */
+> > +     ifh =3D skb_pull(skb, LAN9645X_LONG_PREFIX_LEN);
+> > +
+> > +     popcnt =3D lan9645x_ifh_get(ifh, IFH_POP_CNT, IFH_POP_CNT_SZ);
+> > +     etype_ofs =3D lan9645x_ifh_get(ifh, IFH_ETYPE_OFS, IFH_ETYPE_OFS_=
+SZ);
+> > +     src_port =3D lan9645x_ifh_get(ifh, IFH_SRCPORT, IFH_SRCPORT_SZ);
+> > +     tag_type =3D lan9645x_ifh_get(ifh, IFH_TAG_TYPE, IFH_TAG_TYPE_SZ)=
+;
+> > +     vlan_tci =3D lan9645x_ifh_get(ifh, IFH_TCI, IFH_TCI_SZ);
+> > +     qos_class =3D lan9645x_ifh_get(ifh, IFH_QOS_CLASS, IFH_QOS_CLASS_=
+SZ);
+> > +
+> > +     /* Set skb->data at start of real header
+> > +      *
+> > +      * Since REW_PORT_NO_REWRITE=3D0 is required on the NPI port, we =
+need to
+> > +      * account for any tags popped by the hardware, as that will leav=
+e a gap
+> > +      * between the IFH and DMAC.
+> > +      */
+> > +     if (popcnt =3D=3D 0 && etype_ofs =3D=3D 0)
+> > +             ifh_gap_len =3D 2 * VLAN_HLEN;
+> > +     else if (popcnt =3D=3D 3)
+> > +             ifh_gap_len =3D VLAN_HLEN;
+> > +
+> > +     skb_pull(skb, LAN9645X_IFH_LEN);
+> > +
+> > +     if (unlikely(!pskb_may_pull(skb, ifh_gap_len + ETH_HLEN)))
+> > +             return NULL;
+> > +
+> > +     skb_pull(skb, ifh_gap_len);
+> > +     skb_reset_mac_header(skb);
+> > +     skb_set_network_header(skb, ETH_HLEN);
+> > +     skb_reset_mac_len(skb);
+> > +
+> > +     /* Reset skb->data past the actual ethernet header. */
+> > +     skb_pull(skb, ETH_HLEN);
+> > +
+> > +     /* We must deliver the skb so skb->csum only covers the data beyo=
+nd the
+> > +      * real ethernet header. The fake ethernet header in the prefix i=
+s
+> > +      * not part of skb->csum already. We must subtract what remains o=
+f the
+> > +      * prefix, the ifh and the gap.
+> > +      */
+> > +     skb_postpull_rcsum(skb,
+> > +                        skb->data - LAN9645X_TOTAL_TAG_LEN - ifh_gap_l=
+en,
+> > +                        LAN9645X_TOTAL_TAG_LEN + ifh_gap_len);
+> > +
+> > +     skb->dev =3D dsa_conduit_find_user(ndev, 0, src_port);
+> > +     if (WARN_ON_ONCE(!skb->dev)) {
+> > +             /* This should never happen since we have disabled reflec=
+tion
+> > +              * back to CPU_PORT.
+> > +              */
+> > +             return NULL;
+> > +     }
+> > +
+> > +     dsa_default_offload_fwd_mark(skb);
+>=20
+> Does the switch (by default) also flood link local traffic (e.g. STP, LAC=
+P,
+> etc)? If not, you should not mark these as fwd offloaded so that the kern=
+el
+> knows that it needs to do that in software if requested.
+>=20
+> Is there is a bit in the header that says whether a packet was flooded or
+> trapped to CPU that you can check?
+>=20
+> Best regards,
+> Jonas
 
-The GPIO that controls the power supply for the LVDS display
-connector has changed between early prototypes and the current
-production design of the hardware. Reflect this change in the
-devicetree to properly switch on the panel supply.
+No the chip is configured to trap these frames, so I think you are right th=
+at
+at the moment we do not honor BR_NO_STP nor group_fwd_mask. I will fix this=
+ in the
+next version. I plan to just use is_link_local_ether_addr.
 
-This was working before even with the wrong GPIO due to the
-bidirectional level shifter used on the board which drives the EN
-signal high even when the input has a (weak) pull down configured as
-reset condition of the SoC pad. As a result the display was working
-but the supply was always on.
-
-Tested on BL i.MX8MP to show the correct voltage level on the level
-shifter input.
-
-Fixes: 946ab10e3f40 ("arm64: dts: Add support for Kontron OSM-S i.MX8MP SoM and BL carrier board")
-Signed-off-by: Frieder Schrempf <frieder.schrempf@kontron.de>
----
- .../boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts   | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-index 75ae46642782..29ce863403b8 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-kontron-bl-osm-s.dts
-@@ -49,7 +49,9 @@ pwm-beeper {
- 
- 	reg_vcc_panel: regulator-vcc-panel {
- 		compatible = "regulator-fixed";
--		gpio = <&gpio4 3 GPIO_ACTIVE_HIGH>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_reg_vcc_panel>;
-+		gpio = <&gpio5 3 GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
- 		regulator-max-microvolt = <3300000>;
- 		regulator-min-microvolt = <3300000>;
-@@ -172,7 +174,7 @@ &gpio4 {
- &gpio5 {
- 	pinctrl-names = "default";
- 	pinctrl-0 = <&pinctrl_gpio5>;
--	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "PWM_2",
-+	gpio-line-names = "I2S_BITCLK", "I2S_A_DATA_OUT", "I2S_MCLK", "VCC_PANEL_EN",
- 			  "PWM_1", "PWM_0", "SPI_A_SCK", "CAN_ADDR1",
- 			  "CAN_ADDR0", "SPI_A_CS0", "SPI_B_SCK", "SPI_B_SDO",
- 			  "SPI_B_SDI", "SPI_B_CS0", "I2C_A_SCL", "I2C_A_SDA",
-@@ -329,4 +331,10 @@ MX8MP_IOMUXC_ECSPI1_MOSI__GPIO5_IO07		0x46 /* CAN_ADR0 */
- 			MX8MP_IOMUXC_ECSPI1_MISO__GPIO5_IO08		0x46 /* CAN_ADR1 */
- 		>;
- 	};
-+
-+	pinctrl_reg_vcc_panel: regvccpanelgrp {
-+		fsl,pins = <
-+			MX8MP_IOMUXC_SPDIF_TX__GPIO5_IO03		0x46
-+		>;
-+	};
- };
--- 
-2.54.0
+Thanks,
+Emil
 
