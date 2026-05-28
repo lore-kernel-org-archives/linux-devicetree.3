@@ -1,407 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F75A246774;
-	Thu, 28 May 2026 13:49:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A910D2750ED
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:50:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976143; cv=none; b=c/AzXU2f8UeTC91waBE5j2l/7bQfFO6McQijHdTMlylV0YKrNrFOVQF7JCnV9C7F5S7a66+yrkbHEqI/vrA5mNqxnetTWF/zCoKdvWROBEM90NLPaiBWUC53H62x4cye6ZjTGPAmqarePhfXug1hDidCKw6JjOsOFHJ1a7TnS1k=
+	t=1779976218; cv=none; b=ppMaYJFh5/8oHXCg9p1P+PU0Ff5yCdqK0nlCN7Z4dk6ygEen/8Zrz1167lgahNBqq7z4hIoTyy27Mk6RU9sKOSFtq/y/HC6ForPrjw2skmRHJE/6BWT2eiDGswNjQwSI46gWiJxwVpJr9cpkiAGhNKT3K+P9b/5AJhtajHEGPRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976143; c=relaxed/simple;
-	bh=nVNozDGu+Ic7UXeRJGBNG+sC8TNpp5s6fCRnuM0XBfM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lNzUNLWPf2I67scXroOqoJeR1LP4a8D851PThiOFY2xkUHO/f7SwcV1a8IIBNKR5lbSG9hWbOCLubpjgksDOWm9Ba8t9e6wxBaZDdpdrXh+NdE/w0VoHSSsu+cINX4GHQmGe5c2tFjfSSGlfDJuazWQzEKJV0kwoTGO3XM4R8Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A8YcOipu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779976218; c=relaxed/simple;
+	bh=vd/rQRJQWLIg+xDuYcY88Qbbo0c1bTx1+oaoNovwGyA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uAPr7Izw93gmxYBOt+LuKwWBmNJdPOH+m4obPbz46lA13aGvXYdaCMgXjT6gLIJ7M1rnnw6SO7TDgsIfUsTGPGevZ0pQUDtuQ1xK0ChGv6EAtDIU3gYH8xxEQ0IagXnIWSLwUcrUY3BDzfaVfO5DvR3Q3qdcjlcHK40tA28pdv8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=NgX2AMwD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fdvJp/K5; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A8YcOipu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 596181F000E9;
-	Thu, 28 May 2026 13:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779976142;
-	bh=TQTeLG7rjvOKaMyonlPT84liZ0ukm0y4g11eMMIItMg=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=A8YcOipun0RLiGzoRV29pgQHbWe6LjwBwN3YTH0RdPZNgMnS++dVY9DhrtHNIreLM
-	 v37UKRfhNqqZn/4tEf8sTrjDwpQsXpnmm1UYYwOh4qSlS10EUazF7VM0U6ukObscZK
-	 fibTiizMH6XIkl27eFQ7ZikGxNznnZ9CLVBNUYXMXdJbws2GiFZDrmPQNrPvL61Kvl
-	 tYgm3F6V/QAXyNdTb2f/L97PIs8IKS18u0Vb69XXcEPVrqwlCBWGwbn4MwvhnYhd4O
-	 8J8V9XE//t2mTiYOHCXhsfmfSIhC3yU3WxXEhZPyPWmJXE0BfuzM7G/MZ8NB7tYdLA
-	 RVb/S4SeUL4qA==
-Date: Thu, 28 May 2026 14:48:53 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v2 3/7] iio: osf: add protocol v0 decoding
-Message-ID: <20260528144853.354a71e7@jic23-huawei>
-In-Reply-To: <20260524085312.15369-4-kimjinseob88@gmail.com>
-References: <20260524085312.15369-1-kimjinseob88@gmail.com>
-	<20260524085312.15369-4-kimjinseob88@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="NgX2AMwD";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fdvJp/K5"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vq9b124489
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:50:15 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=V1s8jKskQG0bDSH4tCE3i2dJ
+	j/wDsiGH0s/CmPfjVgE=; b=NgX2AMwDdKD5hgnZ/aYfhZ8QKTSbIG1dhVGw28oC
+	JE9VZ9pHC7Q9lp0qBxKGwnbXDagxOHrxzUaHpAS7hXdptOXPGCF4f8m6NQPyW6Z2
+	KMjfUFxVH1jCEkCXkKVUaj4KEssFUt1vVfIiUJl2DNaN8YEQT7sFqEuD088Kv8Ft
+	uJDIsZXU/ho+KkQKf2lx8e3lO5DUexyPcYZWGsH72h/Aa2tACM2fu8thXVZQYecv
+	WE1IY48F8aA9vkYcxFlfa3PFRdXFvyjyO8YLJMueXqkInfP/Xbd6Hgptmp00SJUY
+	zda8ERh+f/Z5TjiAA+dduUqaTkg5oqXjdYALwFWwdC1s+Q==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7ycay0t-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:50:15 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-63309595daeso18198019137.2
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:50:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779976215; x=1780581015; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=V1s8jKskQG0bDSH4tCE3i2dJj/wDsiGH0s/CmPfjVgE=;
+        b=fdvJp/K5Q9X3GiJZCj+oDun76mibiFVvphFV8V7wH/f8dvY4BlIxrzIwgRC31A/Omu
+         nhVRXT6LZMoz24Bqt3kzkOoUOdIH2oy44dw3bYxFmvOOmPRJM2LiR1gZPw9oezawVzA/
+         g1B0Ovo+yyhP0hMTpa+TCHoUR6+Co18tlwHmtncIFgLtLq0SOOsp0lb20fYMD9PiqW4/
+         +iJz7dAUEJ7tbusRiRZaLm1p6cWl715j+c/Gu1gubVLhwih2fVKH8QVkK0HZbANvsOH3
+         mfoYH608D8boPTdhksT1p941dyivWSHI+StYMHqTxZm8f0wMdfYYjGQgeMnXnN9YUA5I
+         w+0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779976215; x=1780581015;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=V1s8jKskQG0bDSH4tCE3i2dJj/wDsiGH0s/CmPfjVgE=;
+        b=oM7dblMtIhr0FuwvBmelNpwmiaP/RdvAmyWt78XzWthrqrZXWI3AlqqNbY1CtG/68t
+         G1dXAdH3U6fhocxsHJgiGQEjKVB7KkK6APxRtKgq1N0y3nRHUx3s0f6QGuzAu779x+qO
+         +Q1x+XjPHz7pE7QXVO0k0nv/TdwDkyRN2v93+Dw5cTJj3d+9AfA1vWtrxfZvAn77AIaW
+         ZaRuDldEnNQoiXYflPhKEaYwFWrYjVPoLNiwkN0WBY5f9aC5390ARZ2SblgBhxLEKGyY
+         UqRYR1l8hbAVvICaa2AQtmpJoVcbVSymL4hYhr8xqN06o92CJr5fyLNpjqy01p2FJJz+
+         kYVQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8eyNe1n+CozotKOgfn4RVcGwDp+3lVrW9OwPDpzNrUGxCWgGrjeswPYm86Kf+ty/3T8cpa2LRewJX8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy6RAxoFt/ULG5iva4/bhTmSFNpJomThp56fwNRBevTIKF30SSx
+	O3dorHhIDvTsuOCK7u8ZTRF1/d+XIZkKh9Buh9pTLAkD6zxigbXwAMY5+d073q0wL1wRkPXobE0
+	CxnZO0axccZwOWF0/z7V3PCjJdAdbK4acIYSYz+b5KJRe+nP/XMMXob0pETSvbt4c
+X-Gm-Gg: Acq92OH22CFR7zmRFjZTLRsk0ytfUPomXH16CcSj8VW4ERMOMzmImO++XhaDgeWbUJc
+	te4u05DdjD99znqyv5ouayfqff7WnISk3/6JtkywLdFcq6BbxAB4r5AdIn8fBt22T1CYca9LvsA
+	qJVmk34e5gcTu8QzWLcAHVRsH2xlyikmvEkylkY8SRrst8AcU6sX5GjZTrRq8m1SEuYTAqy+OUF
+	O6JR6Iru1XbaBlTO/p34lkWDdOA1uBcg/YoqJepiQG+tAdiq1EEFP3UqZek6lbkbup0m2idglwq
+	ceX19Z1JdsAqLb5Pmg+Fz8Q4eiS/8U6NFVI0D3i4vMvOymZY02la1ffuLM4eIUrmu6wBx9AAsXP
+	ASbGhnYPD622UbhRlmVIwWwc7WAqSWDh2hiCp0D9A1R694JnDyrgI3d5f5jAze9E9qiFfHVOQOa
+	HNBgR6zTMpllSJ+rcvg3ILWDudUNm/3EP7FXQH/6mF4KiQGg==
+X-Received: by 2002:a05:6102:5ccb:b0:632:73ad:6c8 with SMTP id ada2fe7eead31-67c7f273532mr15881160137.7.1779976214951;
+        Thu, 28 May 2026 06:50:14 -0700 (PDT)
+X-Received: by 2002:a05:6102:5ccb:b0:632:73ad:6c8 with SMTP id ada2fe7eead31-67c7f273532mr15881139137.7.1779976214562;
+        Thu, 28 May 2026 06:50:14 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-395dcc45b19sm39183511fa.40.2026.05.28.06.50.11
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2026 06:50:12 -0700 (PDT)
+Date: Thu, 28 May 2026 16:50:10 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Vinod Koul <vkoul@kernel.org>,
+        Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>,
+        linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        dmaengine@vger.kernel.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>,
+        Neeraj Soni <neeraj.soni@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>
+Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
+Message-ID: <lj7geczhthury476ilkjym2k5fblo5pqroefsbdfgh5jcf7zy2@qrss5xc7umn3>
+References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
+ <20260514194735.GA1939213@google.com>
+ <d4d35e17-84fa-4c95-9bfb-abfd25ea7f4a@oss.qualcomm.com>
+ <20260522024912.GC5937@quark>
+ <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
+ <20260525142843.GA2018@quark>
+ <e49c4a45-6455-47f3-a91f-c32c1a0b99be@oss.qualcomm.com>
+ <CAMRc=MfC6CEwOXYttsav3mwqyJ2F4sburBj+zNJ25qMoweyL-Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <CAMRc=MfC6CEwOXYttsav3mwqyJ2F4sburBj+zNJ25qMoweyL-Q@mail.gmail.com>
+X-Authority-Analysis: v=2.4 cv=VOntWdPX c=1 sm=1 tr=0 ts=6a184817 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=EUspDBNiAAAA:8
+ a=7wDE0xjjevibnHHXysgA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: vvx_OnASo4Q2ZGNpMbzthgoLbsoSAZkT
+X-Proofpoint-ORIG-GUID: vvx_OnASo4Q2ZGNpMbzthgoLbsoSAZkT
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEzOCBTYWx0ZWRfX8vpYsjZbZK4Z
+ kI/tqs+O2ZR0oCL29pqL8xnQ0w1hzndIYXSjClcVsqkcZL6vJCXWG3irByWQc6MuOreeiQbHsAz
+ yedk297BAHesvBTH9hGq96meg1n3BOesubF7hBp6SUZU5VtNs+MJTWH6b2W/aoLoAOA5nAj0AvT
+ P0u6Wfy0+AZ5Cog/R8IfGBXHUUAo6zY56TVFM1zLej/DPJdxJloYJCuYLe1VF9a6TWv7GzTNgj4
+ TDSr/oyd9HH4lvKWSsZaa4DBA0q9kVtxXfMaavBEg25RtSUUEsoD4LVodDBnC57qDxUx8Wfl0g4
+ GJ2I+7BQHOSFZfvcnCvmvvbbsK9YbcAnc1KwwuOYrZ+zY4ngCWwqIrYYYwY4K48O0t79lfLw9H9
+ J/9JxpR2Bk8+wZQRa1cpw5Fo2KTDGGsipkYdorkNUYXYkqaLJEKNiKDShGttVoXu60VS4wIAzuQ
+ khqS+5Xv3svoSeZaq6Q==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280138
 
-On Sun, 24 May 2026 17:53:08 +0900
-Jinseob Kim <kimjinseob88@gmail.com> wrote:
-
-> Add OSF0 frame and payload decoders for device-to-host messages.
-
-https://sashiko.dev/#/patchset/20260524085312.15369-1-kimjinseob88%40gmail.com
-Has some perhaps useful feedback. Please make sure to either exclude
-them as false positives or address for next version.
-
-Quite a bit of the feedback in here is about which checks are actually
-useful. Normal kernel practice is assume we didn't shoot outselves in the
-foot but hardware and userspace may have done. So we defend only against
-things in their control.
-
-Jonathan
-
+On Thu, May 28, 2026 at 09:13:23AM -0400, Bartosz Golaszewski wrote:
+> On Thu, 28 May 2026 13:54:51 +0200, Kuldeep Singh
+> <kuldeep.singh@oss.qualcomm.com> said:
+> >>> +Bartosz, Gaurav, Neeraj
 > 
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
-> ---
->  drivers/iio/opensensorfusion/osf_protocol.c | 220 ++++++++++++++++++++
->  drivers/iio/opensensorfusion/osf_protocol.h | 100 +++++++++
->  2 files changed, 320 insertions(+)
->  create mode 100644 drivers/iio/opensensorfusion/osf_protocol.c
->  create mode 100644 drivers/iio/opensensorfusion/osf_protocol.h
-> 
-> diff --git a/drivers/iio/opensensorfusion/osf_protocol.c b/drivers/iio/opensensorfusion/osf_protocol.c
-> new file mode 100644
-> index 000000000..ac3c37ae2
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_protocol.c
-> @@ -0,0 +1,220 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +
-> +#include <linux/crc32.h>
-> +#include <linux/errno.h>
-> +#include <linux/bits.h>
-> +#include <linux/types.h>
-> +#include <linux/unaligned.h>
-> +
-> +#include "osf_protocol.h"
-> +
-> +#define OSF_CRC32_INIT		GENMASK(31, 0)
-> +#define OSF_CRC32_XOROUT	GENMASK(31, 0)
-> +
-> +static bool osf_sensor_type_valid(u16 sensor_type)
-> +{
-> +	return sensor_type >= OSF_SENSOR_ACCELEROMETER &&
-> +	       sensor_type <= OSF_SENSOR_PROXIMITY;
+> I know about the self-tests etc., I will address them next.
 
-ah. I talk about sanity checking this below for purposes of ensuring
-we can use the ennum type.  Looks like you have it all done already :)
+My 2c, the self-tests would be more important, as they are fixes. Doing
+the crypto in a wrong way is a bad idea...
 
-> +}
-> +
-> +static u32 osf_crc32_ieee(const u8 *buf, size_t len)
-> +{
-> +	return crc32_le(OSF_CRC32_INIT, buf, len) ^ OSF_CRC32_XOROUT;
-> +}
-> +
-> +int osf_protocol_decode_frame(const u8 *buf, size_t len,
-> +			      struct osf_frame *frame, size_t *frame_len)
-> +{
-> +	u32 expected_crc;
-> +	u32 actual_crc;
-> +	u32 payload_len;
-> +	size_t total_len;
-> +	u8 major;
-> +
-> +	if (!buf || !frame || !frame_len)
-> +		return -EINVAL;
-> +
-> +	if (len < OSF_FRAME_MIN_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	if (buf[0] != 'O' || buf[1] != 'S' || buf[2] != 'F' || buf[3] != '0')
-> +		return -EPROTO;
-> +
-> +	major = buf[4];
-> +	if (major != OSF_PROTOCOL_MAJOR)
-> +		return -EPROTO;
-> +
-> +	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
-> +		return -EPROTO;
-> +
-> +	payload_len = get_unaligned_le32(buf + 10);
-> +	if (payload_len > len - OSF_FRAME_MIN_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
-> +	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
-> +	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
-> +
-> +	if (actual_crc != expected_crc)
-> +		return -EBADMSG;
-> +
-> +	frame->protocol_minor = buf[5];
-> +	frame->message_type = get_unaligned_le16(buf + 8);
-> +	frame->payload_len = payload_len;
-> +	frame->sequence = get_unaligned_le64(buf + 14);
-> +	frame->timestamp_us = get_unaligned_le64(buf + 22);
-> +	frame->flags = get_unaligned_le32(buf + 30);
-> +	frame->reserved = get_unaligned_le32(buf + 34);
-
-Seems little point in storing reserved.  If you want to check it is spec
-compliant do it here.
-
-> +	frame->payload = buf + OSF_FRAME_HEADER_LEN;
-> +	frame->crc = actual_crc;
-> +	*frame_len = total_len;
-> +
-> +	return 0;
-> +}
-
-> +
-> +int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
-> +				     unsigned int index, s32 *value)
-> +{
-> +	if (!sample || !sample->samples || !value)
-> +		return -EINVAL;
-Similar on whether this defensive code makes sense (see below and note I review
-upwards in drivers as they make sense to me better that way!)
-
-
-> +
-> +	if (index >= sample->channel_count)
-> +		return -ERANGE;
-> +
-> +	*value = (s32)get_unaligned_le32(sample->samples + index * sizeof(s32));
-
-I guess it might change in future, but for now why not make samples an s32 *
-
-> +
-> +	return 0;
-> +}
-
-> +int osf_protocol_decode_capability_report(const struct osf_frame *frame,
-> +					  struct osf_capability_report *report)
-> +{
-> +	u16 capability_count;
-> +	u32 expected_len;
-> +	const u8 *payload;
-> +
-> +	if (!frame || !report || !frame->payload)
-> +		return -EINVAL;
-
-Similar sanity check questions.
-
-> +
-> +	if (frame->message_type != OSF_MSG_CAPABILITY_REPORT)
-> +		return -EPROTO;
-
-If that happens seems like something went very wrong elsewhere so
-seems unlikely defense makes sense here.
-
-
-> +
-> +	if (frame->payload_len < OSF_CAP_REPORT_BASE_LEN)
-> +		return -EMSGSIZE;
-This one does belong in here.
-> +
-> +	payload = frame->payload;
-> +	capability_count = get_unaligned_le16(payload);
-> +	expected_len = OSF_CAP_REPORT_BASE_LEN +
-> +		       capability_count * OSF_CAP_SENSOR_ENTRY_LEN;
-> +
-> +	if (frame->payload_len != expected_len)
-> +		return -EMSGSIZE;
-> +
-> +	report->capability_count = capability_count;
-> +	report->reserved = get_unaligned_le16(payload + 2);
-> +	if (report->reserved)
-> +		return -EPROTO;
-This check is fine as picks up on bad hardware, but why keep
-the value of reserved?
-> +
-> +	report->entries = payload + OSF_CAP_REPORT_BASE_LEN;
-> +
-> +	return 0;
-> +}
-> +
-> +int osf_protocol_decode_capability_entry(const struct osf_capability_report *report,
-> +					 unsigned int index,
-> +					 struct osf_capability_entry *entry)
-> +{
-> +	const u8 *payload;
-> +
-> +	if (!report || !report->entries || !entry)
-> +		return -EINVAL;
-
-I'm not sure if there is a way to get here with any of those failing.
-Generally for kernel code we defend against this sort of thing at higher levels.
-
-Same applies to all this parser. 
-> +
-> +	if (index >= report->capability_count)
-
-Likewise, I'd expect this to only be called on one that exists. This
-defensive stuff costs us in complexity so only do it if needed. Do however
-defend against values that are coming from the device where possible to 
-ensure they are consistent.
-
-> +		return -ERANGE;
-> +
-> +	payload = report->entries + index * OSF_CAP_SENSOR_ENTRY_LEN;
-
-As below - if entries had the right type this would be a simple + index
-I think.
-
-> +	entry->sensor_type = get_unaligned_le16(payload);
-
-I mention this below - nicer to use the enum type if possible.
-
-> +	entry->sensor_index = get_unaligned_le16(payload + 2);
-> +	entry->channel_count = get_unaligned_le16(payload + 4);
-> +	entry->sample_format = get_unaligned_le16(payload + 6);
-> +	entry->scale_nano = get_unaligned_le32(payload + 8);
-> +	entry->flags = get_unaligned_le32(payload + 12);
-> +	entry->reserved = get_unaligned_le32(payload + 16);
-Why keep it?
-
-I think you are setting them all, so would be neater as a designated
-inializer:
-	*entry = (struct osf_capbility_entry) {
-		.sensor_type = get_unaligned_le16(payload),
-		.sensor_index = get_unaligned_le16(payload + 2),
-	};
-
-Same applies to some of the other structures filled in here.
-
-> +
-> +	if (!osf_sensor_type_valid(entry->sensor_type))
-> +		return -EPROTO;
-> +
-> +	if (entry->sample_format != OSF_SAMPLE_FORMAT_S32)
-> +		return -EPROTO;
-> +
-> +	if (entry->flags & ~OSF_CAPABILITY_FLAGS_MASK)
-> +		return -EPROTO;
-> +
-> +	if (entry->reserved)
-> +		return -EPROTO;
-> +
-> +	return 0;
-> +}
-> diff --git a/drivers/iio/opensensorfusion/osf_protocol.h b/drivers/iio/opensensorfusion/osf_protocol.h
-> new file mode 100644
-> index 000000000..fd6e9581f
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_protocol.h
-> @@ -0,0 +1,100 @@
-> +/* SPDX-License-Identifier: GPL-2.0-only */
-> +#ifndef _OSF_PROTOCOL_H
-> +#define _OSF_PROTOCOL_H
-> +
-> +#include <linux/types.h>
-> +
-> +#define OSF_PROTOCOL_MAJOR		0
-> +#define OSF_PROTOCOL_MINOR		0
-> +#define OSF_FRAME_HEADER_LEN		38
-> +#define OSF_FRAME_CRC_LEN		4
-> +#define OSF_FRAME_MIN_LEN		(OSF_FRAME_HEADER_LEN + OSF_FRAME_CRC_LEN)
-> +
-> +#define OSF_SENSOR_SAMPLE_BASE_LEN	16
-> +#define OSF_DEVICE_STATUS_LEN		20
-> +#define OSF_CAP_REPORT_BASE_LEN		4
-> +#define OSF_CAP_SENSOR_ENTRY_LEN		20
-> +#define OSF_CAPABILITY_FLAGS_MASK	0x00000003U
-> +
-> +enum osf_message_type {
-> +	OSF_MSG_SENSOR_SAMPLE		= 0x0001,
-> +	OSF_MSG_DEVICE_STATUS		= 0x0002,
-> +	OSF_MSG_CAPABILITY_REPORT	= 0x0003,
-> +};
-> +
-> +enum osf_sensor_type {
-> +	OSF_SENSOR_ACCELEROMETER		= 0x0001,
-> +	OSF_SENSOR_GYROSCOPE		= 0x0002,
-> +	OSF_SENSOR_MAGNETOMETER		= 0x0003,
-> +	OSF_SENSOR_BAROMETER		= 0x0004,
-> +	OSF_SENSOR_TEMPERATURE		= 0x0005,
-> +	OSF_SENSOR_HUMIDITY		= 0x0006,
-> +	OSF_SENSOR_AMBIENT_LIGHT		= 0x0007,
-> +	OSF_SENSOR_PROXIMITY		= 0x0008,
-> +};
-> +
-> +enum osf_sample_format {
-> +	OSF_SAMPLE_FORMAT_S32		= 0x0001,
-> +};
-> +
-> +struct osf_frame {
-> +	u8 protocol_minor;
-> +	u16 message_type;
-> +	u32 payload_len;
-> +	u64 sequence;
-> +	u64 timestamp_us;
-> +	u32 flags;
-> +	u32 reserved;
-Not obvious why to keep this.
-
-> +	const u8 *payload;
-> +	u32 crc;
-> +};
-> +
-> +struct osf_sensor_sample {
-> +	u16 sensor_type;
-> +	u16 sensor_index;
-> +	u16 channel_count;
-> +	u16 sample_format;
-
-We don't need to match types with original data so
-nice to use the named enums if possible.  Will need
-to check limits though when decoding.
-
-> +	u32 scale_nano;
-> +	u32 reserved;
-why store reserved in these?
-> +	const u8 *samples;
-
-Compared to capabilities this one seems trickier for
-types given it's variable size. Still nice to use something
-that indicates the type if we can.
-
-> +};
-> +
-> +struct osf_device_status {
-> +	u32 uptime_s;
-> +	u32 status_flags;
-> +	u32 error_flags;
-> +	u32 dropped_frames;
-> +	u32 reserved;
-> +};
-> +
-> +struct osf_capability_report {
-> +	u16 capability_count;
-> +	u16 reserved;
-> +	const u8 *entries;
-Are these not struct osf_capability_entry?
-If they are then use that not a u8.
-
-I'd not bother with a const marking.
-With that type fixed you should be able to use
-__counted_by_ptr(capability_count)  to make that relationship
-clear.
-
-> +};
-> +
-> +struct osf_capability_entry {
-> +	u16 sensor_type;
-> +	u16 sensor_index;
-> +	u16 channel_count;
-> +	u16 sample_format;
-> +	u32 scale_nano;
-> +	u32 flags;
-> +	u32 reserved;
-> +};
-
+-- 
+With best wishes
+Dmitry
