@@ -1,190 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF8C63F7ABB
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:51:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E4EE3F7ABE;
+	Thu, 28 May 2026 15:52:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779983504; cv=none; b=BpS51hsO8RJqQFckUYjinZP3qlBzfsGXwCakor/sMLOmV5NttJDgBuwaPh6vUKAm1zU9T8tieh53jZFaGN8ynRL9HcMHeGqNOBftpOUPY0BD+SOZRdFv2PQU3E+7zFKUbmYyUPu/dxu+a6nHapV8i1mC5Uxhf7dRngcSI9wbX6c=
+	t=1779983553; cv=none; b=VpGHDDmk3F2STnaNQRTj/Mit2dS0RQqss7UmlLBrohqQ5A2rtEmm/N6AnFk41RRBSwlQmI4HB3VBCH/oHsr+91Qugd97mfLWOpHPelZYVaFqQNTWZK6S3/zAg7nIb4v3djRHz2zNfP7g7sm/F0LdNiJdPZdRJyk4BnhnjWVip+8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779983504; c=relaxed/simple;
-	bh=hFwiJp2hZpeuk5//kWZ0Y83ZhY+bx3M1WEQ6VMevoIk=;
+	s=arc-20240116; t=1779983553; c=relaxed/simple;
+	bh=1A5sQQm5yPZlD4k43B44WY8eUObkS+y7s5behHVPZcg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mOlYK6MweCC8JmhDWb3kOcs14yulquZud+r0wvhe2GJ1fU9FKvLdGSxFUJTby1lKFyQGkiR+pxdUf+wXLzHO5QTXxrmXCz8HPuSv54k6MUGuab/kotIjdBRJEayf27fa5MtXAB71H3z79ED8VW4jDfrs9XvN9AkdN6a/jKB7A1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZUU6x38l; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=rOp3tsIXMEPvYB7SfOQrpTzGDmUZnWqBvbTDyxWdmQist8GSist50tUZkGmbdJDANFwSKM9Ib1Z/xfkuZFW1bFae+cUl/oJ5CQVbpksnEmeB/4gWrRVMSuYUntdWLycC0RIEZ4lTBVmog67Vn7amJAoOYehAUzZVf//DrLKmUeI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ArfZPjK+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZUU6x38l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2BFFC1F000E9;
-	Thu, 28 May 2026 15:51:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ArfZPjK+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02E911F000E9;
+	Thu, 28 May 2026 15:52:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779983502;
-	bh=Kou+6q2WjjVs4dn10kIWTgoA1lv01BkQLQNw+moCWnA=;
+	s=k20260515; t=1779983552;
+	bh=ha+hQbUqX3NVhcDutcMGgJqcDxKUfTWgk2F+7Ar4kwI=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZUU6x38lUKTmUweIH+lcEeK/4p+xaI8ju+NS/htr0bVJbCkPy6cXHO9Gqn9E9X7p2
-	 XHvidIH+zWFzIROqJ6HFjNES0J8Idh4BFPVhy5/D13g6QJSxLdfiHUHqt25M+E02bV
-	 rKng4ktciwOR3LnJpvCvJ3kR0P2buqs1iorpxMkVngnJmrCFsBUHUfd76yLLJGTTSw
-	 EZ4Qsm+h76V5jKdVS0mYSd28oYwQ7TZOsudyRhLbhPI4XFF2qsD/N2zeUmp75VsheW
-	 Bu5ZGAl+HgN6IZKvKrscC/H6bg9Z+QypBQp2ee4Alk2ihVSiNhOF/952KBxNomp8MX
-	 3+DVQJsPGTvTA==
+	b=ArfZPjK+JUJtK4B7Q+fdBrgQbhMoalfBaoLlSAcmu9/GX1RPuCMKkkyiObRxEwKzT
+	 V9wanZHni2z6cXKb7aGAhzBXpX9xo84r7uA/iZ0K9YKSmIGtRSsiE+w4qO3POMHX+S
+	 NlQ8BvfE0BE7XriqLqgcADECjE/TguEYR8viJ3SodZsDkA3EFsUFf7Sb6O/xUTvaup
+	 ywZHVbZDY1zJVzqdG3gHyvaPsxydiTVi/9Rer/xdxT7JlaIlFoxYcmquePYe0f3gsz
+	 siXYUKK2S8tHZ7O/viS3fxfqs7pON1nCsiVmxB+aGpCBgNQe+bOQXde/cMHN3wwiTD
+	 eCkj8vCu8P45Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/4] iio: adc: ltc2378: Add support for LTC2378-20
- and similar ADCs
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx95-var-dart-sonata: add CAN
+ controller
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <40e1108bc9eaeba486705b54c4c94004f0e7f369.1779976379.git.marcelo.schmitt@analog.com>
-References: <40e1108bc9eaeba486705b54c4c94004f0e7f369.1779976379.git.marcelo.schmitt@analog.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: imx@lists.linux.dev, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260528152948.15209-1-stefano.r@variscite.com>
+References: <20260528152948.15209-1-stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 15:51:41 +0000
-Message-Id: <20260528155142.2BFFC1F000E9@smtp.kernel.org>
+Date: Thu, 28 May 2026 15:52:31 +0000
+Message-Id: <20260528155232.02E911F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] The driver fails to right-shift >16-bit ADC data read via SPI into=
- a 32-bit word, corrupting both the raw value and its sign extension.
-- [Medium] The Kconfig specifies a spurious dependency on `PWM`, which allo=
-ws the driver to compile without `GPIOLIB` and silently fail to trigger ADC=
- conversions in direct mode.
-- [Medium] The driver explicitly forces `bits_per_word` to 32 or 16, which =
-arbitrarily restricts compatibility with many SPI controllers.
-- [Low] Using the `IIO_DEV_ACQUIRE_DIRECT_MODE` cleanup macro inside a `swi=
-tch` case without a block scope causes a compiler error.
+- [High] Usage of `gpio1` for SPI chip select may cause a system hang due t=
+o hardware firewall (TRDC) constraints.
+- [Medium] Unused GPIO pin configuration in `pinctrl_can` due to missing `m=
+icrochip,rx-int-gpios` property.
 --
 
-commit ffe34f72dbe517b28d007ae50c98ce8f89d8b64c
-Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+commit e57666610a0736f42a6e5698658a6a90dad0dada
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-iio: adc: ltc2378: Add support for LTC2378-20 and similar ADCs
+arm64: dts: imx95-var-dart-sonata: add CAN controller
 
-This commit adds support for the Analog Devices LTC2378-20 and similar
-analog-to-digital converters to the IIO subsystem.
+This commit adds the MCP251xFD CAN controller to the Sonata carrier board
+device tree. It updates the LPSPI7 chip selects and configures the
+necessary pins and interrupts for the CAN node.
 
-> diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
-> --- a/drivers/iio/adc/Kconfig
-> +++ b/drivers/iio/adc/Kconfig
-> @@ -939,6 +939,18 @@ config LTC2309
-> =20
-> +config LTC2378
-> +	tristate "Analog Devices LTC2378 ADC driver"
-> +	depends on SPI
-> +	depends on GPIOLIB || PWM
-
-[Severity: Medium]
-Does this spurious dependency on PWM allow the driver to compile without
-GPIOLIB?=20
-
-If GPIOLIB is disabled, devm_gpiod_get_optional() will return NULL. When=20
-ltc2378_convert_and_acquire() subsequently calls gpiod_set_value_cansleep(),
-it will silently do nothing.
-
-Will this prevent the ADC conversions from being initiated in direct mode,=
-=20
-causing the SPI transfer to silently read stale data or zeroes?
-
-[ ... ]
-> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
-> --- /dev/null
-> +++ b/drivers/iio/adc/ltc2378.c
-[ ... ]
-> +static int ltc2378_channel_single_read(const struct iio_chan_spec *chan,
-> +				       struct ltc2378_state *st, int *val)
-> +{
-> +	const struct iio_scan_type *scan_type =3D &chan->scan_type;
-> +	u32 sample;
-> +	int ret;
-> +
-> +	ret =3D ltc2378_convert_and_acquire(st);
-> +	if (ret)
-> +		return ret;
-> +
-> +	if (scan_type->realbits > 16)
-> +		sample =3D st->scan.data.sample_buf32;
-> +	else
-> +		sample =3D st->scan.data.sample_buf16;
-> +
-> +	if (scan_type->format =3D=3D IIO_SCAN_FORMAT_SIGNED_INT)
-> +		*val =3D sign_extend32(sample, scan_type->realbits - 1);
+> diff --git a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts b/ar=
+ch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> index 0f3d2e488f4a9..62133b40d64b2 100644
+> --- a/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx95-var-dart-sonata.dts
+> @@ -280,7 +280,8 @@ st33ktpm2xi2c: tpm@2e {
+>  &lpspi7 {
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&pinctrl_lpspi7>;
+> -	cs-gpios =3D <&gpio2 4 GPIO_ACTIVE_LOW>;
+> +	cs-gpios =3D <&gpio2 4 GPIO_ACTIVE_LOW>,
+> +		   <&gpio1 7 GPIO_ACTIVE_LOW>;
 
 [Severity: High]
-Are we missing a right-shift for >16-bit ADCs?=20
+Does this direct gpio1 access risk triggering a hardware firewall violation?
 
-When bits_per_word is set to 32, the SPI controller clocks in 32 bits
-MSB-first and stores them in CPU native endianness. The valid 18 or 20 bits
-will occupy the upper bits of the 32-bit word, leaving trailing zeroes.
+On i.MX95, gpio1 is located in the AONMIX domain. The device tree include
+arch/arm64/boot/dts/freescale/imx95.dtsi documents that gpio1 is under
+the exclusive control of the System Manager.
 
-Doesn't passing this unshifted sample directly to sign_extend32() evaluate
-the wrong bit for the sign extension, and also magnify the returned value
-by a factor of 2^14?
+Referencing it in cs-gpios causes the SPI core to use the standard MMIO-bas=
+ed
+gpio-mxc driver to access the controller directly. If the firewall
+configuration isn't relaxed for the Non-Secure Linux domain on this board,
+toggling this pin may result in an SError and kernel panic during boot.
 
-Should we also populate scan_type.shift in the probe function so userspace
-buffer consumers don't end up reading unshifted garbage?
-
-> +	else
-> +		*val =3D sample;
-> +
-> +	return 0;
-> +}
-> +
-> +static int ltc2378_read_raw(struct iio_dev *indio_dev,
-> +			    const struct iio_chan_spec *chan,
-> +			int *val, int *val2, long info)
-> +{
-> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
-> +	int ret;
-> +
-> +	switch (info) {
-> +	case IIO_CHAN_INFO_RAW:
-> +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-
-[Severity: Low]
-Does this missing block scope cause a compiler error?=20
-
-The IIO_DEV_ACQUIRE_DIRECT_MODE macro expands to a cleanup variable
-declaration. Because the switch case lacks an enclosing block, jumping to
-case IIO_CHAN_INFO_SCALE skips the variable's initialization, which compile=
-rs
-like GCC reject.
-
-While I noticed this is fixed in a later patch in the series, doesn't this
-break git bisectability by causing this specific commit to fail compilation?
-
-> +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +			return -EBUSY;
-> +
-> +		ret =3D ltc2378_channel_single_read(chan, st, val);
 [ ... ]
-> +static int ltc2378_probe(struct spi_device *spi)
-> +{
-[ ... ]
-> +	st->chans[0].scan_type.realbits =3D st->info->resolution;
-> +	st->chans[0].scan_type.storagebits =3D st->info->resolution > 16 ? 32 :=
- 16;
+
+> @@ -306,6 +307,18 @@ ads7846: touchscreen@0 {
+>  		ti,settle-delay-usec =3D /bits/ 16 <150>;
+>  		ti,keep-vref-on;
+>  	};
 > +
-> +	st->xfer.rx_buf =3D &st->scan.data;
-> +	st->xfer.len =3D BITS_TO_BYTES(st->chans[0].scan_type.storagebits);
-> +	st->xfer.bits_per_word =3D st->info->resolution > 16 ? 32 : 16;
+> +	/* CAN controller */
+> +	can0: can@1 {
+> +		compatible =3D "microchip,mcp251xfd";
+> +		reg =3D <1>;
+> +		clocks =3D <&clk_osc_can0>;
+> +		interrupt-parent =3D <&gpio5>;
+> +		interrupts =3D <15 IRQ_TYPE_LEVEL_LOW>;
+> +		pinctrl-names =3D "default";
+> +		pinctrl-0 =3D <&pinctrl_can>;
+> +		spi-max-frequency =3D <12000000>;
+> +	};
+>  };
+
+[ ... ]
+
+> @@ -442,6 +455,13 @@ IMX95_PAD_GPIO_IO37__GPIO5_IO_BIT17				0x31e
+>  		>;
+>  	};
+> =20
+> +	pinctrl_can: cangrp {
+> +		fsl,pins =3D <
+> +			IMX95_PAD_GPIO_IO35__GPIO5_IO_BIT15				0x31e
+> +			IMX95_PAD_GPIO_IO22__GPIO2_IO_BIT22				0x31e
 
 [Severity: Medium]
-Does forcing bits_per_word to 32 or 16 arbitrarily restrict compatibility
-with standard SPI controllers?
+Is IMX95_PAD_GPIO_IO22__GPIO2_IO_BIT22 intended to be used as a secondary
+RX interrupt for the CAN controller?
 
-Some standard SPI controllers (like the bcm2835 SPI) only support 8-bit
-transfers. When 32-bit or 16-bit words are requested, the SPI core's
-__spi_validate() checks the controller capabilities and fails the transfer
-with -EINVAL.
+It is configured here as an input, identical to the primary interrupt on
+gpio5. However, the can0 node does not reference it.
 
-Would it be safer to use standard 8-bit transfers and reconstruct the word
-using get_unaligned_be32()?
+If this pin is meant to act as the dedicated INT1 interrupt for the
+MCP251xFD, the can0 node might be missing the microchip,rx-int-gpios
+property. Without it, the driver falls back to single-interrupt mode,
+which requires extra register reads to determine the interrupt source, and
+leaves this pin's state unmanaged.
 
+> +		>;
+> +	};
 > +
-> +	indio_dev->channels =3D st->chans;
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779976379.gi=
-t.marcelo.schmitt@analog.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528152948.1520=
+9-1-stefano.r@variscite.com?part=3D1
