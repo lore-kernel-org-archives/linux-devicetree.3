@@ -1,261 +1,110 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F153B3EFFDD;
-	Thu, 28 May 2026 14:01:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7C4262D0B;
+	Thu, 28 May 2026 14:05:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976879; cv=none; b=IaK/HDXl5ko7hHhviBK+FFUnEGW1RFVuiueTL0irL7DUlsKPw7tcbciZxIfwl5BTenJrEFcQx4i2437VzZHAXJGkLYyybX8v2DkD0Tm1iigNo2pSpwLBLYAo4FEQ1L5X7L/ifJpMld7znJvKS0NCdMHYxKfyMMyT56USRfgxENA=
+	t=1779977153; cv=none; b=exYLaSd841dx9G60wv8DmfQXLLDAlB76HRdspgEwLw+3C4iNv/0RbFYvpbGnBZ/K9QHyH3wO3Gui3UmngGrsWvVeIc0iTwKQ//HQgOdNJy4ucRpYeYRooyh4BJ+mHdNphTRHYz8u//KheA+MiEUeVUFk23xYJAQBiKpUu92KWx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976879; c=relaxed/simple;
-	bh=DU59HSNaB9phG8rCZl4dDJTjeDMq0KTL47w2Dyh4SlU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=swRFdrIUlNEUCbx6lWn/6A7DDfmONEbRtgr8P+ss9cfvjzHVd5gY9U6KMPBhNV13L5qqKELykX2FZdWisGx2tU15M0d0rfgIXKmeN4BZHl2Aki/rqaWb5QPPGm/2ovdb7WR4v+CTWlgKFCi53z4rX7pra4NF4vGW7ZEnmCKEdCs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=b4bRE5bM; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1779977153; c=relaxed/simple;
+	bh=2B+LiktD1pa0YGhkxFn2PP8pHb5/sG7H1Di7+KweH+U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mkAWARCuusOO9Gsj2Uj8J+g0mQy1G73xZirGnGWR1uGRLZaeGw6DcTjG4sNjin5XzO17iZdj19rXiTNrMY64cb4MqLH4qT1UFtl0FHMWyxViDo31I+7ORhhRTawwGUOP8yhJ0kVrFtTDdbbs/ydMihB+zF/EclcVZOotK8h0r1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=KSo4J3xP; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="b4bRE5bM"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 904B34B454A;
-	Thu, 28 May 2026 16:01:12 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1779976874; h=from:subject:date:message-id:to:cc:mime-version:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=4og5/uHZUOe1X8csZf1Cd0lBdViJnSG21+7PRelLts0=;
-	b=b4bRE5bMkFlWolN9fWMOj+xjN3/sFc1dd0pKK2Cllghh7Fru1DHJM/POSIw8kl4SAb+3Fm
-	2YaKfnGlFR4D14vIZKnIGNRGo7Mk4i+QdCrFnHp0/0sHIN+uMV1Gmi8Q8iyfUDQFaS73E6
-	OgenM3gm120iG/s2FnsAyhxod89969duIpMwbrDG1GgZQ7vCm9obKnmZloJPIl2RFob/LZ
-	WtKMXQK5MsrzND050UvQiVepwp8QyfCtGJSltzQZbnSZCc6srVR6WPxscyT82wFV7lS+2W
-	s2em7s+c/Gqcdh7yY7TQ39tk5XqG/JV+e22k0b0drYZ8TO2KrdCFILiMGdiBKA==
-From: Caleb James DeLisle <cjd@cjdns.fr>
-To: linux-mips@vger.kernel.org
-Cc: conor+dt@kernel.org,
-	daniel.lezcano@kernel.org,
-	devicetree@vger.kernel.org,
-	krzk+dt@kernel.org,
-	linux-kernel@vger.kernel.org,
-	naseefkm@gmail.com,
-	robh@kernel.org,
-	tglx@kernel.org,
-	grandmaster@al2klimov.de,
-	Caleb James DeLisle <cjd@cjdns.fr>
-Subject: [PATCH v6 5/5] clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
-Date: Thu, 28 May 2026 14:00:46 +0000
-Message-Id: <20260528140046.2897674-6-cjd@cjdns.fr>
-In-Reply-To: <20260528140046.2897674-1-cjd@cjdns.fr>
-References: <20260528140046.2897674-1-cjd@cjdns.fr>
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="KSo4J3xP"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=iKxZKPqxsH5uo4pqIkZVW6G4qdRbJWxX6X8Pa63Xnvo=; b=KSo4J3xP9z2BKQp2YtD8YreOy7
+	JeSCicIOC7tMqDe2DyJ3gZuNqZ+BYMq7UwyFX1esBs4k+0kK0zYAYY/CvIi+v9yk6nIIZnpLJvaHo
+	ubs6YYSQlYKT8rFh1GgejQPf1VML8a4GuDCXZGIBDFf3OYYn12/cSaMYmzMqTXOA7Uk0=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wSbMc-004uKm-0g; Thu, 28 May 2026 16:05:34 +0200
+Date: Thu, 28 May 2026 16:05:33 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: "Regus, Ciprian" <Ciprian.Regus@analog.com>
+Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
+Subject: Re: [PATCH net-next v2 10/10] net: ethernet: adi: Add a driver for
+ the ADIN1140 MACPHY
+Message-ID: <91ff1b03-d5db-473a-9292-335022a646c5@lunn.ch>
+References: <20260527-adin1140-driver-v2-0-37e5c8d4e0a0@analog.com>
+ <20260527-adin1140-driver-v2-10-37e5c8d4e0a0@analog.com>
+ <0aaa9a58-fac1-4de7-90f0-443db37228c8@lunn.ch>
+ <72c3a9a8040e4b8990f217d4072872de@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <72c3a9a8040e4b8990f217d4072872de@analog.com>
 
-EN751627 is based on the 1004Kc which uses a different interrupt number
-for each CPU timer. Support both this and the EN751221 which uses a
-single percpu interrupt.
+> > Does the standard say anything about this? It seems like something
+> > which could be moved into the core.
+> 
+> The comment is a mistake on my part, as it doesn't clearly describe why we
+> have to pad the skb. It's a case of a MAC device which doesn't pad a frame to
+> a minimum size when the host wants to transmit less than 64 bytes. I'll update
+> it in v3 to say:
+> 
+> /* The MAC doesn't automatically pad the frame to a 64 byte minimum size in
+>  * case the host sent a shorter skb, so we have to do it in the driver. The FCS
+>  * will be added by the MAC.
+>  */
 
-Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
----
- drivers/clocksource/timer-econet-en751221.c | 122 ++++++++++++++++----
- 1 file changed, 99 insertions(+), 23 deletions(-)
+Just an FYI: the 64 bytes includes the FCS. So if the MAC is adding
+the FCS, you should pad to 60, not 64.
 
-diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
-index f2c4c1ee0a56..040386ded132 100644
---- a/drivers/clocksource/timer-econet-en751221.c
-+++ b/drivers/clocksource/timer-econet-en751221.c
-@@ -21,10 +21,12 @@
- #define ECONET_MAX_DELTA		GENMASK(ECONET_BITS - 2, 0)
- /* 34Kc hardware has 1 block and 1004Kc has 2. */
- #define ECONET_NUM_BLOCKS		DIV_ROUND_UP(NR_CPUS, 2)
-+#define ECONET_NUM_IRQS			NR_CPUS
- 
- static struct {
- 	void __iomem	*membase[ECONET_NUM_BLOCKS];
--	int		irq;
-+	int		irqs[ECONET_NUM_IRQS];
-+	bool		is_percpu;
- 	u32		freq_hz;
- } econet_timer __ro_after_init;
- 
-@@ -102,6 +104,25 @@ static int cevt_init_cpu(uint cpu)
- 	struct clock_event_device *cd = &per_cpu(econet_timer_pcpu, cpu);
- 	u32 reg;
- 
-+	if (!reg_ctl(cpu)) {
-+		pr_err("%s: missing address resource for CPU %d\n", cd->name,
-+		       cpu);
-+		return -EINVAL;
-+	}
-+	if (cd->irq <= 0) {
-+		pr_err("%s: missing IRQ for CPU %d\n", cd->name, cpu);
-+		return -EINVAL;
-+	}
-+	if (!econet_timer.is_percpu) {
-+		int ret = irq_force_affinity(cd->irq, cpumask_of(cpu));
-+
-+		if (ret) {
-+			pr_err("%s: failed to set IRQ affinity to CPU %d: %pe\n",
-+			       cd->name, cpu, ERR_PTR(ret));
-+			return ret;
-+		}
-+	}
-+
- 	pr_debug("%s: Setting up clockevent for CPU %d\n", cd->name, cpu);
- 
- 	reg = ioread32(reg_ctl(cpu)) | ctl_bit_enabled(cpu);
-@@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
- 	clockevents_config_and_register(cd, econet_timer.freq_hz,
- 					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
- 
--	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	if (econet_timer.is_percpu)
-+		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
-+	else
-+		enable_irq(cd->irq);
- 
- 	return 0;
- }
-@@ -141,19 +165,52 @@ static void __init cevt_init(struct device_node *np)
- 					  CLOCK_EVT_FEAT_C3STOP |
- 					  CLOCK_EVT_FEAT_PERCPU;
- 		cd->set_next_event	= cevt_set_next_event;
--		cd->irq			= econet_timer.irq;
-+
-+		if (econet_timer.is_percpu)
-+			cd->irq = econet_timer.irqs[0];
-+		else
-+			cd->irq = econet_timer.irqs[i];
-+
- 		cd->cpumask		= cpumask_of(i);
- 		cd->name		= np->name;
- 
--		cevt_dev_init(i);
-+		/*
-+		 * Tolerate CPUs that could exist but don't.
-+		 * Fail in cevt_init_cpu when they try to start.
-+		 */
-+		if (reg_ctl(i))
-+			cevt_dev_init(i);
- 	}
- }
- 
- static int __init timer_init(struct device_node *np)
- {
--	int num_blocks = DIV_ROUND_UP(num_possible_cpus(), 2);
-+	int num_blocks = of_address_count(np);
-+	int num_irqs = of_irq_count(np);
- 	struct clk *clk;
--	int ret;
-+	int ret, i;
-+
-+	econet_timer.is_percpu = of_device_is_compatible(np, "econet,en751221-timer");
-+
-+	if (econet_timer.is_percpu && num_irqs != 1) {
-+		pr_err("%pOFn: EN751221 clock must have 1 IRQ not %d\n", np,
-+		       num_irqs);
-+		return -EINVAL;
-+	}
-+	if (num_irqs > ARRAY_SIZE(econet_timer.irqs)) {
-+		pr_err("%pOFn: Too many IRQs max %d got %d\n", np,
-+		       ARRAY_SIZE(econet_timer.irqs), num_irqs);
-+		return -EINVAL;
-+	}
-+	if (num_blocks > ARRAY_SIZE(econet_timer.membase)) {
-+		pr_err("%pOFn: Too many regs: max %d got %d\n", np,
-+		       ARRAY_SIZE(econet_timer.membase), num_blocks);
-+		return -EINVAL;
-+	}
-+	if (num_blocks == 0) {
-+		pr_err("%pOFn: At least one reg block must be provided\n", np);
-+		return -EINVAL;
-+	}
- 
- 	clk = of_clk_get(np, 0);
- 	if (IS_ERR(clk)) {
-@@ -164,7 +221,7 @@ static int __init timer_init(struct device_node *np)
- 	econet_timer.freq_hz = clk_get_rate(clk);
- 	clk_put(clk);
- 
--	for (int i = 0; i < num_blocks; i++) {
-+	for (i = 0; i < num_blocks; i++) {
- 		econet_timer.membase[i] = of_iomap(np, i);
- 		if (!econet_timer.membase[i]) {
- 			pr_err("%pOFn: failed to map register [%d]\n", np, i);
-@@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
- 		}
- 	}
- 
--	econet_timer.irq = irq_of_parse_and_map(np, 0);
--	if (econet_timer.irq <= 0) {
--		pr_err("%pOFn: irq_of_parse_and_map failed\n", np);
--		ret = -EINVAL;
--		goto out_membase;
-+	for (i = 0; i < num_irqs; i++) {
-+		econet_timer.irqs[i] = irq_of_parse_and_map(np, i);
-+		if (econet_timer.irqs[i] <= 0) {
-+			pr_err("%pOFn: failed mapping irq %d\n", np, i);
-+			ret = -EINVAL;
-+			goto out_irq_mapping;
-+		}
- 	}
- 
--	irq_set_status_flags(econet_timer.irq, IRQ_NOAUTOEN);
--
--	ret = request_percpu_irq(econet_timer.irq, cevt_interrupt, np->name,
--				 &econet_timer_pcpu);
--
--	if (ret < 0) {
--		pr_err("%pOFn: IRQ %d setup failed (%d)\n", np,
--		       econet_timer.irq, ret);
--		goto out_irq_mapping;
-+	for (i = 0; i < num_irqs; i++) {
-+		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
-+
-+		if (econet_timer.is_percpu)
-+			ret = request_percpu_irq(econet_timer.irqs[i],
-+						 cevt_interrupt, np->name,
-+						 &econet_timer_pcpu);
-+		else
-+			ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
-+					  IRQF_TIMER | IRQF_NOBALANCING,
-+					  np->name, NULL);
-+
-+		if (ret < 0) {
-+			pr_err("%pOFn: IRQ %d setup failed: %pe\n", np,
-+			       i, ERR_PTR(ret));
-+			goto out_irq_free;
-+		}
- 	}
- 
- 	cevt_init(np);
-@@ -220,9 +287,17 @@ static int __init timer_init(struct device_node *np)
- 	return 0;
- 
- out_irq_free:
--	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-+	while (--i >= 0) {
-+		if (econet_timer.is_percpu)
-+			free_percpu_irq(econet_timer.irqs[i], &econet_timer_pcpu);
-+		else
-+			free_irq(econet_timer.irqs[i], NULL);
-+	}
- out_irq_mapping:
--	irq_dispose_mapping(econet_timer.irq);
-+	for (i = 0; i < num_irqs; i++) {
-+		if (econet_timer.irqs[i] > 0)
-+			irq_dispose_mapping(econet_timer.irqs[i]);
-+	}
- out_membase:
- 	for (int i = 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
- 		if (econet_timer.membase[i]) {
-@@ -235,3 +310,4 @@ static int __init timer_init(struct device_node *np)
- }
- 
- TIMER_OF_DECLARE(econet_timer_hpt, "econet,en751221-timer", timer_init);
-+TIMER_OF_DECLARE(econet_timer_en751627, "econet,en751627-timer", timer_init);
--- 
-2.39.5
+> As for what the OA TC6 standard says, this is the relevant section
+> (7.3 - Data Transaction Protocol for Ethernet Frames)
+> 
+> "Ethernet frames are typically transferred from the SPI host to the MAC-PHY without
+> any padding or frame check sequence (FCS). The MAC will automatically pad the Ethernet
+> frame to the minimum frame size of 64 bytes and append a computed FCS. However, the
+> Ethernet specification allows for the SPI host to optionally perform the frame padding and
+> FCS computation prior to transfer to the MAC-PHY. Similarly, the MAC-PHY will typically
+> strip the FCS from received Ethernet frames prior to transfer to the SPI host. However,
+> the Ethernet specification allows the option for the Ethernet frame to be transferred to the
+> MAC client with the FCS.
+> 
+> The IEEE Ethernet standard [2] defines the behavior of the MAC and therefore is beyond
+> the scope of this specification. As a result, support for allowing the SPI host to perform frame
+> padding and FCS computation, or passing the FCS to the SPI host is optional. When supported,
+> the method for configuring the MAC-PHY to enable these modes of frame transfer is
+> implementation specific."
+> 
+> As I understand, from the TC6 standard point of view, the padding and FCS offload is optional.
+> So, I think this shouldn't go into the core. 
 
+Thanks for the quotes from the standard. I personally think this was a
+bad decision by the authors of the standard, leaving it ambiguous.
+
+In the end, putting it in the driver seems like a good first
+approach. Maybe as we get more devices following the standard, we see
+it is common to need padding, and we move it into the core controlled
+by a quirk. But that can come later.
+
+   Andrew
