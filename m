@@ -1,76 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0355F22652D;
-	Thu, 28 May 2026 07:57:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 164F622652D
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 07:57:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779955035; cv=none; b=KiuWRSkiRU96PJ8iiLtlERxjele4DtgEXDsqFIf5pwRzp+HAqPe0zLHEtewDh+0MxOq0W3giUPLo+3VKQFpX9lzitHeWTFcWkhOuYhawqJqGI7zYo3opngLqcYlMtBejm6Oe0FKOJNoavCnQ/XHcqLQrfRZ54iM6RJEACEz6bG4=
+	t=1779955041; cv=none; b=UaolGsqc0vlNSF5qrmkAHmB1MmPrdccGA7GCYWSHUtffu0bRqvpbD+M7sOvboRZa4B4hhd49YXJAn6qoMEd+lME8PWFtKmNdzkKSRnQj3gJ4+0OYhMbKfq7pUh9K5xKtWZ10g2S8ciC0ZrNdEXD1tlq5EFJ3xQESaLvAuPgoQC0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779955035; c=relaxed/simple;
-	bh=U1RHqMRDjzUS5zZwipAFDX+TFRrqrpe1xt1cVFzG1qo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kca8CX1JUY+whs9evjWE3jSo7+xV/2tFbhY5fgsBgQGsYpTb2TPai7SpX59wcnUCZrcA1Yz4rFnocdHpMl7cGFAAmH5CZAEgJwPiukBk5MkqDhgx9tMMv5EpzlXgtRNlm+QKi5iwoPgHFwcBnetEW14i4GHysI1qRWZH9NDgmgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IxvO0Jqz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779955041; c=relaxed/simple;
+	bh=OPRWrj+CtsKDlA2IjJBvPDOZUyNFzLn+xW7LOOh2D+c=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mfOqwGaiA469WaGdTflS/1MBWve6Hd0+1kDFF3o8BXbRNDXG6DV5Fm3xLYLXzcI5ur4KTcr/WB6S+uXqknCVyafzQMGYKpgJDaxwrV40Wu80AIFGG2inkIRadVpF7T9BSW8CEdMIhadQI1OREZcv7kVNtB3uwSrSzUcnXXKM3rI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MhUbkGL/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IxvO0Jqz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02D631F00A3A;
-	Thu, 28 May 2026 07:57:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MhUbkGL/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDC961F000E9;
+	Thu, 28 May 2026 07:57:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779955033;
-	bh=2NenSz+8qqiVua08LkRcCJE8ZQw1iJEuszNxr7x4gMg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=IxvO0JqzVezhHNaGLaRK2nsAhyWp4T2IPOwRSWcrLuut8FYkCrGLCdkwQ4YU9CwCy
-	 3fKHuoxUNbGOK20FY61jOfOITXXlmOPXMxugTICEGCQWX1cHJ5eUBRxPqLrM7RBUPM
-	 f+53iygGND+MLJoqPOqCsjYl86gm1ERLrg3cgB5D2+fKtnKQTIAypJzpO9iVOwm1XU
-	 HoRqbDFBQfMVUX/ROzhV7+48Hixf+amBUz5oqyfzODZIvyZFj85lkeGrcW0+L2nfgl
-	 CWYStdkE+RA+6pAtIEtQ0RGEXL48H268W2yvVQhOIGTq3OuLFVTpU+HkCmdxsceTVB
-	 56UQxHwCbQx4w==
-Date: Thu, 28 May 2026 09:57:10 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Qiang Yu <qiang.yu@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Taniya Das <taniya.das@oss.qualcomm.com>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, krishna.chundru@oss.qualcomm.com
-Subject: Re: [PATCH v4 1/7] dt-bindings: clock: qcom,sm8550-tcsr: Add
- QREF/REFGEN supply properties for glymur and mahua
-Message-ID: <20260528-adamant-termite-of-drizzle-0c39de@quoll>
-References: <20260527-tcsr_qref_0527-v4-0-ded83866c9d9@oss.qualcomm.com>
- <20260527-tcsr_qref_0527-v4-1-ded83866c9d9@oss.qualcomm.com>
+	s=k20260515; t=1779955039;
+	bh=oUPE4DueYjOojqonznuzyBBrcFl1hFO5zRJiaseLkSw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MhUbkGL/jqiZlnBoGxp43b2kbk15HK3bZXQMY7vCYf7sFSwide4Monv1kXMzx4Gk5
+	 yK1EYZBmVQgdAk2lKJzGR4KsR91zJ0aJIZzdba8ewjaveb+S9Tpf87jgG3/ZjBjwFJ
+	 ShWjOIDdq9XR9sXdwNa4JHoUayVCkHdzpPAGqdHX4rvS2wbUMO/Lb0jsVI04DLT1bc
+	 fnlwSvsm7FISxm/YdWCRhRo8MWidtm1yiKYoIXBn5AE38KooqR60RyDG1yFeRuTj/k
+	 Ara/s7ykoP4CZezNxZfArp1EHixJAeMsdflTqzgWeKuEX69UqwJcz+LW2HnVTv8FVD
+	 JNqcaTqOt+zOw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v30 1/5] dt-bindings: i2c: Split AST2600 binding into a
+ new YAML
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260528-upstream_i2c-v30-1-5d4f9adc3530@aspeedtech.com>
+References: <20260528-upstream_i2c-v30-1-5d4f9adc3530@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 07:57:19 +0000
+Message-Id: <20260528075719.BDC961F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260527-tcsr_qref_0527-v4-1-ded83866c9d9@oss.qualcomm.com>
 
-On Wed, May 27, 2026 at 07:29:12PM -0700, Qiang Yu wrote:
-> The QREF block supplies reference clocks to PCIe PHYs and requires
-> dedicated LDO supplies to operate. The digital control interface for
-> QREF (clkref_en registers) resides in TCSR on glymur and mahua. Since
-> QREF has no dedicated DT node of its own, these supply properties are
-> placed in the TCSR node which acts as the control interface for QREF.
-> 
-> Document the supply properties for qcom,glymur-tcsr and qcom,mahua-tcsr.
-> Both SoCs share the same QREF TX/RPT/RX component naming, but differ in
-> topology:
-> 
-> Glymur has two independent QREF blocks fed by REFGEN3 and REFGEN4. Mahua
-> has a single QREF block fed by REFGEN3 only.
-> 
-> Mark the relevant supplies as required per compatible using allOf/if/then
-> conditionals.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit message claims the binding requires two `reg` regions=
+, but the schema specifies `minItems: 1`, making the second region optional.
+--
 
-I don't think you implemented my last comments. You need own binding
-file.
+commit 1bb6224b110a8990b3c95cd44d683d1ba249d994
+Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
-Best regards,
-Krzysztof
+dt-bindings: i2c: Split AST2600 binding into a new YAML
 
+This commit separates the AST2600 I2C controller bindings from the older
+AST2400/AST2500 schemas into a dedicated file. It also updates the schema
+to enforce AST2600-specific constraints like interrupts, clock frequencies,
+and register regions.
+
+> diff --git a/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yam=
+l b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> new file mode 100644
+> index 0000000000000..abc614315dffb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    enum:
+> +      - aspeed,ast2600-i2c-bus
+> +
+> +  reg:
+> +    minItems: 1
+
+[Severity: Medium]
+The commit message states that this binding adjusts AST2600-specific
+requirements to "require two reg regions (controller register block + buffer
+block)".
+
+Should minItems be set to 2 here to enforce that requirement? Setting it
+to 1 makes the second region optional, which allows device tree nodes with
+only a single reg region to silently pass schema validation.
+
+> +    items:
+> +      - description: controller registers
+> +      - description: controller buffer space
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-upstream_i=
+2c-v30-0-5d4f9adc3530@aspeedtech.com?part=3D1
