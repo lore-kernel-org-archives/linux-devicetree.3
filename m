@@ -1,117 +1,188 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010022.outbound.protection.outlook.com [52.101.193.22])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 501C7301472
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:10:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263FB343888
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 05:11:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.22
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779945048; cv=pass; b=iDaZW+gylKPv6tYVhsfQows7WPh5TI3LUbFS8MAXQz006Lw4E2o12osAa8hIETYCcydWrRRHklrvxjs5u5x07C5MUIdWZaBXFXWUJYIZM4HqfaCxwk7kyXFPi76lR9x3kx2aokmJ+gnf7vawPr1Q/7yjnPgvahRk602Q0x0I1Tc=
+	t=1779945085; cv=fail; b=o72M/aL3tz5agcOQAeHHIlWFpFjjSKxS86v0oN20FbwQxr+0XsEJM25+D9JRF4szGX1z2r+gPXbYniMwRopL2fwx0YlIP1Fweys+HOS6D2dWbqtY/e7ba5rD5Klrt2asQcntm4qUZGa76EfGQ7QNfH9DVKI6PMyO3sm+SktTq2s=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779945048; c=relaxed/simple;
-	bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PmkJVww8HivjhKa/CHZnUZnoB8czXGONJhx9sM07naEML4nzl5ZCR0974/oye/5UQvEj77Lswniv1KE1HvNn1N2zzJMQVPclOchKO7rcWzxf0dhFqWsUa6kAoYMv8GDSXaXJ4MnlDLuikcNH1EDAA2/0gxhXw7JiQhgMu5b6K/Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FIyPntya; arc=pass smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779945085; c=relaxed/simple;
+	bh=G/iKClLMQ2zG9K9KQKj+5UIV3uTRYVC6Om3TWu0YHNE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=KbQatJKSGOqTs/rboJ3OFuV7+4Nc9OOzSGEGX4MOX+DFFasEQ+cCgFbl6DQXKTlpRYMcnS1swXe2lhgWtRSfgqlSoFf20i4J9QBNZ+teqT6ahiLgwrRMORAB44SGoWvTeRPoiCa+buKRTTkFxSrxo8JSeY2t1EiLj0qdmkSgvBA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com; spf=pass smtp.mailfrom=altera.com; dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b=vKHT2oRx; arc=fail smtp.client-ip=52.101.193.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=altera.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=altera.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FIyPntya"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-304d555293aso693079eec.0
-        for <devicetree@vger.kernel.org>; Wed, 27 May 2026 22:10:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1779945046; cv=none;
-        d=google.com; s=arc-20240605;
-        b=URGq9c8Kvth0qPPBklmMyYtzNJSqJgjlYV7Z2u6vsbt9SGCwxNZ1NBaCgqCv+UNH3j
-         SqySSI9B2VLXU5HZ1pGrH+D+gYE49XQ/zLv1DEmIga+IvynFU7kAhCYsv8a0HmK51BWH
-         SxZjxOPnL3x/jR1j1LaUhHIXUSS5QYcDtdsslm7T9NzTvjYdMVatLDesfCLhC1LSaHsA
-         NCNfY1x4zhFSl6HVRxGiStrwpkSKwRdzKe2eIgyATPv4WR5Us24cXM2OEsQsvAuw2sU8
-         /nqoWUOEt3/DX7W6lEIn8ZJYuyzC2LK/XAQSYZQbIr8RCC6rOAD5B5x2h07iM73e6vIj
-         6RZQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
-        fh=tLrGCd65b1UOQkUQYjdSr0JMwazl5matEaaTrAaw9P0=;
-        b=BVKWrNkKNdvsn4OMgoy80z8jf36mWZsywOjvmOsOWPjobEgpankGXO8TZaaYSIWTHY
-         /YWeDpc9KbINi8fYYusBkUF+os6EvdsfAEh+bQhIeTHc0515loGh/kBrJQax5T5LC96+
-         e2M4Ed/jBKZvVu5xurpUdn45yDAfO+qZbtfgPeKWObohumnBU5oTLZAWU+fC7JdFvl05
-         QE4NdF7jAKthc9lJBXkI+liNnqLiSQ1fVwOqztLlDl3j9HYm2enlrTEp6yjOf4ppiAP5
-         k44PB+XIysVWj2Msf678fvSi8OFVZ8g1oHebXLq4rqKiY42STaU6DqA2etA2alukvrVG
-         e4vw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779945046; x=1780549846; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
-        b=FIyPntyaQci7Gow3k5Tv9c+eiSQuvMqAIg8GauSmePGIb2DAXnmUuFcEBNNEbMKY7l
-         z5IfrSIUcto7gnwcIRtowu4GcOZdDKVYTCu3Z8TiCfbVGGBS4ikhaknmg3LDgf41mCkD
-         wMmKMcuvP0uX7NjK90oK2N0Z1AGDJRgSPGa0tVqwM7pOVpGcKGmSZMD7jbQtpLxd4iyK
-         mpH8+HdDfH9pwkhFQWl/HZob7rD6I5NUQybbLojqgUOmMYMfNp4BIRUVQBZKD8XHDera
-         yballBJqN+9CsqGtlZUeZWioS3jB9XMzBjtpeUofLYCM+sdyX/BhMpUIy4DiWf4zEh5X
-         OOnA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779945046; x=1780549846;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=MfH+OfqUIqkC1sWKkiJm/aqSYamFeEbiXsfH5VRilGc=;
-        b=Il8uRgBJJJDo8VqFuWoVkqrIjaFOS1eGIJCNeTifjavi6CsF/IA7dsJuJyu5Es1rwQ
-         M+FRd/3yifxYcFbP4e+XoK2OZmScS0v4Ia2kpEOdgm4188x4Z8iGNTkYUFPwPKntXgZ5
-         +JAJvExxURx3yNKfiXAMWFLxPpnnpyt+xnZXItnAPHKg3YrUVf/s+wbnMI1bTa0fsnpr
-         IqJhC2W/TFhW/ErKYOzDw6YoMBCdSTcoxaI2zn6nPvRWwXkfjtiq3Y5uIKVzgv77iI8U
-         7u2kn9OUAIVNkvotRJtRkKPQOUrFmSZX0oWZqRTnqSGVHx38COzcYy2A/lDeLtk3hGRQ
-         4Zdw==
-X-Forwarded-Encrypted: i=1; AFNElJ/htX+IYCNLn3i8CIPwUuaX2ApMZy8rHrI5NskMPCwSEe8KNPlSxSYWq9+IDlWGMrYYrJt48vhsSRXL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx+AHQEoeMRE1k2HjvgiYdJvdk8iveUTkC4YkNnfobR0O0jp6M4
-	hFliFmeLr897LyL2vTishw/m0Op+6L1uHRuKmECRk4QCA7VuAk0vKFyPyE2w94mRS78hD4yUym2
-	5YrzgvUHUdmPPTwVPFAiHiW6iT6kLoqo=
-X-Gm-Gg: Acq92OFtwjKE1gzdueKxP3oAuLdJMELYQZV07L+T64JP7XNakCv3hobI0ETxutH1W9l
-	kH08kh5Bws6oK5GsXKp/csOU0Xm1d6Nlhy9kDsHQcfvTS823mS6IBl136S/pTE98+zgSadgMfGs
-	MT3yt/NGfA7Pqxo15jz9FFnSB2ggu1Js8/ZU2SMp8hmr9oPWoNImzo4e3nMN/oKFxpCRW4LGe4q
-	EeqnQwxK0xzHaxn7fxeAZcpaF78gBs9E14OYD5mo2vjryGk+iKIXiNutZW8o7yqtA+t4Keerx4P
-	BDc2tSXQMkumNUkM1U0=
-X-Received: by 2002:a05:7301:fa8b:b0:2ea:3370:6e51 with SMTP id
- 5a478bee46e88-30448ffc5a9mr11709293eec.4.1779945046369; Wed, 27 May 2026
- 22:10:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=altera.com header.i=@altera.com header.b="vKHT2oRx"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=rNsxY5gnNDzXhK0DAKYSXV0hRngkj7qvaQSt0eq1ObSwxC3dEj9krNirx1nVvDk0HyGKrwfB3rh5lWeKHNT4qXzbi/GKKvG1uH2jFfG/u+PkB8wEBY7ozPZAfrvEapbzT4kPpFS4w9ecDfbSFVDIJmokdF7MT02TaDmK6KA+JjXeGFxGonq14zz4fryI8c9U+C4cYrvp6u5BvTrHh25gm+WhIKvEXA7fQ7EjIqBITmD6ktUTABIGxLNtu4aVUwXG8EqeLKvMpB45xifYGYgq4UoYN9nPSNcf5LYj1iPKK3oJ01pSfK6ArV+zY/5thNudSsO+zabD3Ts2YL+ZQwSd6Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qVktPPNuTYuIembm+AIsoeIA/HVDM7JulsfMFAxLy98=;
+ b=uiLY5KOkx1AWq2XnmKkXAQ8EKL3GdO5tTgIdl25PYhP9u0vD4nqcaElFIkpWvlCOrKVmypcIOYenZD+ytYE7CzBl7gKkmrm+8H4peSKjUn+yBCeiDv8b9+OjjKeEetyFmoywqvpxMbOqszgr4FxraN3B0ijQiVps0pgcVZc7DBOe9FLVztPGiR/Z3gP+xGJwB9jQdjabjlvqQp78I0/rt5sDi2CMbmF2u50JmA4H40+g3+ml+1NkterboufZoZXkjR2WpVLeNMJ7YskUB6+FBW3o/WsugcI/ELUDJ96aM7pm0SBoMIJf5j1ieO1qO/Mf/rdT+BARO5wOq2J1IGZGrQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=altera.com; dmarc=pass action=none header.from=altera.com;
+ dkim=pass header.d=altera.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=altera.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qVktPPNuTYuIembm+AIsoeIA/HVDM7JulsfMFAxLy98=;
+ b=vKHT2oRxpWRF7zsfqaAhV/Enu+sV+J62LqwgkgU9NsxXdQxheMs6uGDi+7bZHcscvY5AJRY8ngOJR95bDz9tKuLFpyUtKBPxJJuoaQsZZotVMUPGNSB9gDIYu3OC1CzI/pQxDDf5VuHKUSv2GGsI/mdwHnhNwN8ViQnJyj467P927W5ndU0v+opStpfmFom3tKri5yPamVyVepn4jcs6ErXGTmdxALWcaAuJw8MN+NLc/f5AgabYH55x8FmOuSqmsdaKMNkVxsPqiTC1ZYiqddruJl/PFoFhK8QHluInGCIrOTaD5vJrKnu0gxU1CdteL2Ks+peq28CWcZzsgN0H3Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=altera.com;
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com (2603:10b6:8:3c::13) by
+ CH8PR03MB8249.namprd03.prod.outlook.com (2603:10b6:610:2c1::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
+ 2026 05:11:21 +0000
+Received: from DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542]) by DM8PR03MB6230.namprd03.prod.outlook.com
+ ([fe80::abad:9d80:7a13:9542%4]) with mapi id 15.21.0048.016; Thu, 28 May 2026
+ 05:11:20 +0000
+Message-ID: <e5238a24-75ca-4121-8bc2-e8820fe294ca@altera.com>
+Date: Thu, 28 May 2026 13:11:12 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] arm64: dts: socfpga: agilex5: replace clocks
+ reference with clock-frequency for dw-apb-timer
+To: Dinh Nguyen <dinguyen@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org,
+ sashiko-reviews@lists.linux.dev
+References: <43d6d68a74340a5b513972e8b25c1369b31b130a.1779785788.git.adrian.ho.yin.ng@altera.com>
+ <20260526092419.220931F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: "Ng, Adrian Ho Yin" <adrian.ho.yin.ng@altera.com>
+In-Reply-To: <20260526092419.220931F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SI2PR04CA0010.apcprd04.prod.outlook.com
+ (2603:1096:4:197::11) To DM8PR03MB6230.namprd03.prod.outlook.com
+ (2603:10b6:8:3c::13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260518095907.36158-1-clamor95@gmail.com> <20260527144619.GA671544@google.com>
-In-Reply-To: <20260527144619.GA671544@google.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Thu, 28 May 2026 08:10:34 +0300
-X-Gm-Features: AVHnY4Lq5d5JMdXBzoz6BtIZMrqkYtiGSsaMXY6hInghOFfRu3LWOak5AA72Ac8
-Message-ID: <CAPVz0n285opk=xwzEs28aitTZt-m_OtrvHRx0RenJrmV9rbPqA@mail.gmail.com>
-Subject: Re: [PATCH v7 0/7] mfd: Add support for Asus Transformer embedded controller
-To: Lee Jones <lee@kernel.org>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Dmitry Torokhov <dmitry.torokhov@gmail.com>, 
-	Pavel Machek <pavel@kernel.org>, Sebastian Reichel <sre@kernel.org>, Ion Agorria <ion@agorria.com>, 
-	=?UTF-8?B?TWljaGHFgiBNaXJvc8WCYXc=?= <mirq-linux@rere.qmqm.pl>, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-input@vger.kernel.org, linux-leds@vger.kernel.org, 
-	linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM8PR03MB6230:EE_|CH8PR03MB8249:EE_
+X-MS-Office365-Filtering-Correlation-Id: 84a88753-20c0-4bc3-7166-08debc778d06
+X-MS-Exchange-AtpMessageProperties: SA
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|366016|56012099006|6133799003|5023799004|4143699003|11063799006|18002099003|22082099003|55112099003;
+X-Microsoft-Antispam-Message-Info:
+	hzKt/5MZFLq2+8yHcyPozNGyWMTXzbX0gM6rpWEf2aXL0O9H2gXPSyHvm1X+mZ5m8o3RluwwQ1erRVxitaAy7Nv6Br6svQn/viN4hkhX1Xbccu3uF1EkyIeHxYzQziZW8AADT0jB2p7ahGRxpDBEsAph5vtB+ZYY0XMckAtdSX7IHN6WN/A6N0OUFeLAKO5ZgAEO6i1mEGIzPpm1kov6LFIdQuiBag9EOWLhVFMV8PuDwj0Tbqhg3Xzr4wzsmzJQ8lbQ+ooSUINEFYLEKrm1/Y/HQTfOYXlVkakXakGJ2iYpv6NAMjfutpxkV1bsUIZDTgV9OarPiOquriTHFVAJXOM5vbQxNzUo3o3BMvc5amUu0fH2gv03EUbkl7nd1cwU3plLehvu5IFY2tWufgcC9fsvmChG9qRWLKiYCtTcPDOOva4YN9E8gWNVvcJtHXFlAb5dz4MYIAj2rsgTxLIrvNBsK0l/uq5CJSQut1yzsMz1bApeOjBfDQp8iPQ5IoMEh+UQyFO5bx0DkHHepBklWabx51Uo0hj82QoTQIIbCaSXLLplUrSdpLDjc7J1LzMThZ1zv0xwYguCsATkN+6BSWJrO2+JHk2X75GUoY7MiK3HxOMBqckiZxbSHMTCyoFqnPNS0iGv4KtnDbv90eYK78sDqaCLi8aAe8HZnVut6zjFKb989LQBAHJ61mgdLNSv
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM8PR03MB6230.namprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(1800799024)(366016)(56012099006)(6133799003)(5023799004)(4143699003)(11063799006)(18002099003)(22082099003)(55112099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?M2Jsb3IvRzNuVTlTeWJNendRNmV6OVdaMWRnem1nY0xEdjhYazYwSmFhYk9a?=
+ =?utf-8?B?UHBtZVhvMnRvV0hGRG9LV1JGaHVnYzFDeVJsNStNVkRhSWNyMlJzVnQzYkhr?=
+ =?utf-8?B?QUZvK0lPM0djM3pRaWZOZE1aRG0wejlJclVFU2h0ZUx5aHlBU0JGN1N6ZkNy?=
+ =?utf-8?B?NzRLeTVGWUptWUs3dnAxY0dmQWJIRmNFcjFiUUR4YVNXdHh2cmRsWDlmODNY?=
+ =?utf-8?B?UzJGdUt1dklWL2tGNWpmRkNFVjJrMUMrS2p3bDJSOW5oUzdLYS8rNUx2Y3ZE?=
+ =?utf-8?B?MkJPMDRFYmNuV25jZ1kxeHp3MFRZSDhyTlBaaDFDdW1RL0h6ZkFUZG1XU3Zh?=
+ =?utf-8?B?eEEyNCtVaHNSOURhQlU0U29ENlJlMTVxby9XaWZ4NzZRTFdXUGFHLzYvblVj?=
+ =?utf-8?B?a05QZEtKa21CL1AxWkp6S29QRXBBc0ZSV3N6S1I0cGxvU2FnS2g2YnhBemZY?=
+ =?utf-8?B?RXREK2NMNytLZUN0QStlRnVoWDdTanFLMlBtYUQ1ZWY4c0xwU1g1RDRyYTR1?=
+ =?utf-8?B?WU0yQzY1YkNacUhvSWxlQjNtR0c0S21jNThZT1F4TWdKUk92ZjhSSVE2WmFT?=
+ =?utf-8?B?SENHamNXTlhwdmxKZFFUNm9qbGJNNytiZ2pjNnVZbW9xNDl4QXpaL2dCcjdj?=
+ =?utf-8?B?NlJXNzI1Nk04NUYvcmJFNnhwREVPZHFObUM2dW83RCt5UDZiQkhJdkR4Zm0x?=
+ =?utf-8?B?Z21vUGJnQzVBUWU2K1hKcnRKVEJhK3VCWVRsS204Rm5KeTVkVmxEWEZ2QmFs?=
+ =?utf-8?B?ME9jZkxqOVlkSnoyY3BUakx6TWxHSDFNWW5FR1drdExhU24vSUQwOVYxbWJz?=
+ =?utf-8?B?V3BzakgyckJwdEhEWDQwbUdDUkR5ZmxJRWFDQy9nMThac2grMXJ6R0gyK2kw?=
+ =?utf-8?B?cGJxZ09MS0RYRG84bFhzeVd1T1RVRnBNeDN3Mm8wT0NIbDVVR01SL0FWV2Nx?=
+ =?utf-8?B?elg0NlhvWVE2U1IybHNzVy9lT0YvQXZHRloyNFRuVDlaV0oycjc3QnAyd3Bx?=
+ =?utf-8?B?UUQ5Z29oMEZKb2Rrd0FzUkhKeUl0UjlPSTU0d2lzcDg0NWQwN1pGc0pzUi93?=
+ =?utf-8?B?cUlsOTIrdU1zdjRCc3BhbzZIRTJiMVFwbWR0QkkyYXRNWTc3OUluVklYd2V4?=
+ =?utf-8?B?akVCK0x2bC9FS3FEL3pWVzV4a25NTjdVUjZ1NDdSZFh6MDZ1UERuVE9OVGMy?=
+ =?utf-8?B?dFJDQ0tiMDdyVk1qQkdmZlZsSVVKbFJpU3lINTh4RDBpVG1EUkpkL3c4cmRn?=
+ =?utf-8?B?ejNZUmhpaDREZ3VLRDVVOFF3bzIyT29vOGhwSlUzQ2Z6aWkwOGN4NUFPNElQ?=
+ =?utf-8?B?QUV5US9IWVgwbW1QOWI0RCtIS1F5UkRmSzBnVzg5SXh5VzcwaDBnaUhudGZX?=
+ =?utf-8?B?b2FhcEkvd0dMWlNkU084ZHc2dnZObldGZ2dVT0N4NHhYRGtKVUQ2MkM5aW04?=
+ =?utf-8?B?TmkxNG04WThiUXNwYmI5ZEcwc2Z0ZWxYNGZEMGx3d21uKzZKOFlRbHpCTGVB?=
+ =?utf-8?B?cTE0bFhnaGJPRTB1ZGx2ZEVTRXFhYVowNzVqakhlMTRaMEFxOEdOQ2VxZWpj?=
+ =?utf-8?B?QVJQUHRHcnRYZ0EvQXVnYTV5c0ZOc29EMFNDODZndURqS3hoOHVLaUVmNjhY?=
+ =?utf-8?B?ek12MHFyQUJJZ0NTeFZNRFdBanRUZXNHQjRkc1BNUkowa3RNQW1zZzVmMGoy?=
+ =?utf-8?B?L084WmlNd0ZBc3VkZVd5OHFNVlZYRTdvRGZpVStLSERzRTRWekNCM1hwbWxs?=
+ =?utf-8?B?TC9TTkp4Ui81Q0VDL0VGSEw5OTRKdFlDbmo3WFNKNjVDMnhjdGdlTTNIK2s3?=
+ =?utf-8?B?cUwvdnhJeUZjMkpWcXM3NkdyRmxGMXFkYWFEUEsrSWRlTmc2aVFLNGlYanRw?=
+ =?utf-8?B?a2szQy96Q25nejJRbjd2cWVUbHRUTUJwbjZwS3RpYjB4Y2gzR0wvbFM3Z3lh?=
+ =?utf-8?B?N1UrWEs0akdOWEJKdFFJcTViRFY5Rm1aNjlHR0NDVnQ4VWFPNURYeTk1RENq?=
+ =?utf-8?B?c3cyNlg0NU1NaTR3eFZjdmI5VEh3Qkd1Yi9oMEpadGNKc3lvNEVsazF5aHl6?=
+ =?utf-8?B?VWc2dlZGeWdadkhZVlpVS3ZQc2dLaERCdzZ3ZmFNVlFRSzRVM3huSENRczMv?=
+ =?utf-8?B?TnJLaHIydmhtcEIwQkRVa0JQaEpWT0htclNGcldQK2xHVlYxUXNocElDUTN5?=
+ =?utf-8?B?b0pBL1RsTWJWQ3dIeWpRMWJyVlYvdUZWWTVKWTgzb2w0L3l5aEJFWGlobGxJ?=
+ =?utf-8?B?OTZGdkFXRzNnTm80em9wMzZJV29LcElZMjNMWUtGaTY2b2tDUFFJd3pXU1Qr?=
+ =?utf-8?B?ZmUyNHdiQ0lTUXJRaEJnMndEaGNXM2tIVHVTdWxnN2l2RWNpWTRVQllpc1ln?=
+ =?utf-8?Q?7GZMPWSZTFDqkHL4=3D?=
+X-OriginatorOrg: altera.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 84a88753-20c0-4bc3-7166-08debc778d06
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR03MB6230.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 05:11:20.4389
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: fbd72e03-d4a5-4110-adce-614d51f2077a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: EWFa/omdK6y4ah1Linw3HBUfgPDSvAGW7PJxE+cjR+tlfnjdYnIDTx8RGuFDfLyya0fKsZJ9ZqivnKHhp1sjCpY0ZWCbsshhTYKrprLh1vw=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH8PR03MB8249
 
-=D1=81=D1=80, 27 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17:4=
-6 Lee Jones <lee@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, 18 May 2026, Svyatoslav Ryhel wrote:
->
-> > Add support for embedded controller used in Asus Transformers for
-> > managing power and input functions.
->
-> Once you have your Input Acks, I'll merge everything through MFD.
->
-
-That is awesome news! I have a few minor adjustments to add including
-input adjustments Dmitry might require.
-
+On 5/26/2026 5:24 PM, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Replacing 'clocks' with a static 'clock-frequency' property to work around a Linux driver probe ordering issue violates the principle that Device Tree describes hardware topology, not OS software state.
 > --
-> Lee Jones
+> 
+> commit a7903d7afbf4e7139441f7d02ec41f33a88a0de2
+> Author: Adrian Ng Ho Yin <adrian.ho.yin.ng@altera.com>
+> 
+> arm64: dts: socfpga: agilex5: replace clocks reference with clock-frequency for dw-apb-timer
+> 
+> This commit replaces the clocks and clock-names properties with a hardcoded
+> clock-frequency property for the dw-apb-timer nodes in the Agilex5 device
+> tree. This is done to bypass a Linux probe ordering issue where the timer
+> initialization runs before the clock manager driver.
+> 
+>> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+>> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+>> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+>> @@ -430,32 +430,28 @@ timer0: timer0@10c03000 {
+>>   			compatible = "snps,dw-apb-timer";
+>>   			reg = <0x10c03000 0x100>;
+>>   			interrupts = <GIC_SPI 113 IRQ_TYPE_LEVEL_HIGH>;
+>> -			clocks = <&clkmgr AGILEX5_L4_SP_CLK>;
+>> -			clock-names = "timer";
+>> +			clock-frequency = <100000000>;
+>>   		};
+> 
+> [Severity: Medium]
+> Is this modifying the device tree to work around an OS software state issue
+> rather than describing the hardware topology? Replacing the physical clocks
+> reference with a static clock-frequency bypasses the actual hardware link.
+> 
+> Could the clock provider be registered early using CLK_OF_DECLARE instead
+> of removing the clocks property?
+> 
+> [ ... ]
+> 
+Hi Dinh,
+
+With regard to this comment from Sashiko which method do you prefer 
+since you are the maintainer for both the device tree and the socfpga 
+clk manager.
+
+Converting the clock manager to CLK_OF_DECLARE is technically feasible 
+but requires replacing devm_platform_ioremap_resource() and 
+devm_kzalloc() with of_iomap() and kzalloc(), and changing the error 
+handling model from returning an int to a void function with no deferral 
+path. That is a separate, more invasive change. The dw-apb-timer binding 
+explicitly provides clock-frequency as the supported alternative for 
+this exact scenario — where the clock framework is unavailable at timer 
+probe time.
+
+Thank You
+Adrian
