@@ -1,160 +1,163 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B579F233923;
-	Thu, 28 May 2026 07:06:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D71344D85;
+	Thu, 28 May 2026 07:14:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779951999; cv=none; b=tYkuR4PIP2fIcpBjM0V+1jPtkHS0WmxpPY4gOjLDibdjfoLXa3HRoF+wDZVk+qw4HM5x+Jo5rqJbR4YCabu9hzXffZv65OciLIru4x1ZFINwPs7cCCJpWf6kqeyY93dD32xnm68bXGWa5n4UrB83w2CtQwqiuAgk5oDXl8a8OaQ=
+	t=1779952469; cv=none; b=PBH6ssZ3d+AttHnffAYVYcHUF0XfIg6eYJUcNjPJC3BFjCNCps8NqMj13bKBEK6K3imzlQHlaACWmxags7ZJn1f05tW2ZfaNB5Aji05zyjNB+yabjXXRSQA2FD2JcWBDhH2w2wLq1GpvznRw5fy5nVShBbvvDz4FE77LwE7bWHw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779951999; c=relaxed/simple;
-	bh=ImzjA+ndOSyft5xxUqo4XWOX7xBNtjoZeAlU/dOoYzg=;
+	s=arc-20240116; t=1779952469; c=relaxed/simple;
+	bh=x9EyM01FOM43mnA4zeMmNv5Itikmz+R93LlCpHlkeWU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=aEDgCnCky+Xkw4SC9U9AVC69Xtkw9ej+IrCgR3yv83Pw/8RMgtl+V9tNacEavbXg5k3twbahxrkDkUkWaE5n96IQkuf7PPR5KY4CpSILDGNTgCvr5KnKm4UydIgsagm4eACd9IooW0vrA7rRT+W2sYEF0oaLEj4PM45kTNcH/8w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aGehPrIA; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pc9WBgjsP1Ubb7IgpWdhtd4SihbVMcK2pMqlQkj67l97Jzo2xAAOdP9gcUJLuUuO72QCLOKiKWNrRB0aNWN2vzZLCuAEtyXVoRK6nj5DiWwBhRcFkMXVaCJKlhzPgH4ONY2Nb3LGjGGQ1Zp8o4S/DGeEyvdSkoNbh7V1QyFicsI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kA4H4NBb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aGehPrIA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1AD491F00A3A;
-	Thu, 28 May 2026 07:06:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kA4H4NBb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB9C91F00A3A;
+	Thu, 28 May 2026 07:14:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779951998;
-	bh=eQLcSqgCAD4VaSYTq34s8sk7K5HMH3cQxF8L0ZA3PVU=;
+	s=k20260515; t=1779952468;
+	bh=xKHvp74XNwJ5bs6EzdPM6zlVX4pqjdmFr3KZoKriYbY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aGehPrIACmVCl8lU7XL7BPfD4CxjVeLO/91LF1rWBnK+UU9bUN8cxT7Md9qDrHAFw
-	 gwqu9L9nMFGJMbi2draC2N8LR7kz+AQYSnZxdYSWsDmKdTnjYD2UXpMpqTQ+m8wtj3
-	 carU4OUBQyfAXakcbyHSnTRKy0RXvqi/WwP0tWmnPVDzXPsp7o2Zkhk7xbMGW+osbR
-	 xh83SKpbEXpGttcHY/aJEKSplz9II/3z/Vty9FHyU1pMLGvVRJRdmTm+EfKMnHmZrJ
-	 L6oumBUc0OjY2NyqTL06lQiXfRB5Na+4rTZBOEDcK7BXELMjV3yDenZ+EqKixB3wls
-	 jWbZerzeqCjiA==
+	b=kA4H4NBb+COq2/5SwWskSQAUtpSaKavwkDMXoyIBt+3j8A71x6K26diCI/slLSG4m
+	 DjN8+vwGgPnfcuEyoFkl6N683kduvycOv0EECy39J7t/vFSs2dcLqaCochjQpb9oj3
+	 HmkscNFOW4l/g7ZinzHh4cWukVIfQTygCShOxswNb3UBdNjtQC64zZZj52E14X9kkG
+	 89wVXetMWM5a8clf1JWIXOpgq21gMm6hJQdcFi/vEPfJZaG16wUFUCSC18syCMqohc
+	 lHeuViR9qnr1ljmMnRqmbIvmxlHF6eQs4uUs1Scldt5BU04GT1NaJ9tdSZ4TvEh6My
+	 iQpRWsnx1ZQGg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 3/7] input: serio: Add driver for ASUS Transformer
- dock keyboard and touchpad
+Subject: Re: [PATCH 1/1] arm64: dts: s32g: add PWM support for s32g2 and
+ s32g3
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, dmitry.torokhov@gmail.com, linux-input@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528053203.9339-4-clamor95@gmail.com>
-References: <20260528053203.9339-4-clamor95@gmail.com>
+To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, Frank.Li@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, robh@kernel.org
+In-Reply-To: <20260528065228.1300779-2-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260528065228.1300779-2-khristineandreea.barbulescu@oss.nxp.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 07:06:37 +0000
-Message-Id: <20260528070638.1AD491F00A3A@smtp.kernel.org>
+Date: Thu, 28 May 2026 07:14:26 +0000
+Message-Id: <20260528071427.BB9C91F00A3A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] The serio->write callback calls a sleeping I2C API, violating the =
-atomic context requirements of the serio subsystem.
-- [High] Serio ports are registered before the EC notifier is active, which=
- can lead to dropped hardware ACKs and driver probe timeouts.
+- [Low] Pinctrl node and subnode names contain underscores (`_`) instead of=
+ hyphens (`-`).
+- [Low] The overriding board-level nodes `&pwm0` and `&pwm1` are appended a=
+t the end of the file rather than being sorted alphabetically.
+- [Low] Inconsistent and misaligned indentation for multi-line properties.
 --
 
-commit c384b4357257c7b443531cb85e3b65aa83067d31
-Author: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
+commit 93bb27d5fd3b95357925ced6b98931cf0038033a
+Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
+om>
 
-input: serio: Add driver for ASUS Transformer dock keyboard and touchpad
+arm64: dts: s32g: add PWM support for s32g2 and s32g3
 
-This commit adds a serio input driver for the ASUS Transformer dock keyboard
-and touchpad. It handles incoming scancodes, remaps specific keys to match
-the standard AT layout, and forwards the data to the serio subsystem.
+This commit adds PWM0 and PWM1 support for the S32G2 and S32G3 SoCs.
 
-Co-developed-by: Ion Agorria <ion@agorria.com>
-Signed-off-by: Ion Agorria <ion@agorria.com>
-Signed-off-by: Micha=C5=82 Miros=C5=82aw <mirq-linux@rere.qmqm.pl>
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-
+> diff --git a/arch/arm64/boot/dts/freescale/s32g3.dtsi b/arch/arm64/boot/d=
+ts/freescale/s32g3.dtsi
+> index e314f3c7d61d0..408bf0b407346 100644
+> --- a/arch/arm64/boot/dts/freescale/s32g3.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32g3.dtsi
 [ ... ]
+> @@ -617,6 +617,20 @@ i2c2: i2c@401ec000 {
+>  			status =3D "disabled";
+>  		};
+> =20
+> +		pwm0: pwm@401f4000 {
+> +			compatible =3D "nxp,s32g3-ftm-pwm",
+> +					 "nxp,s32g2-ftm-pwm";
 
-> diff --git a/drivers/input/serio/asus-transformer-ec-kbc.c b/drivers/inpu=
-t/serio/asus-transformer-ec-kbc.c
-> new file mode 100644
-> index 0000000000000..6f10b7f1baae5
-> --- /dev/null
-> +++ b/drivers/input/serio/asus-transformer-ec-kbc.c
-> @@ -0,0 +1,158 @@
+[Severity: Low]
+This isn't a bug, but could the indentation of the continuation string be
+aligned with spaces instead of tabs? The excessive tabs misalign the second
+string relative to the opening quote of the first value. The same formatting
+question applies to the clock-names property below, as well as the pwm1
+additions.
+
+> +			reg =3D <0x401f4000 0x1000>;
+> +			#pwm-cells =3D <3>;
+> +			clocks =3D <&clks 5>,
+> +				 <&clks 6>,
+> +				 <&clks 5>,
+> +				 <&clks 5>;
+> +			clock-names =3D "ftm_sys", "ftm_ext",
+> +					  "ftm_fix", "ftm_cnt_clk_en";
+> +			status =3D "disabled";
+> +		};
+> +
 [ ... ]
-> +static int asus_ec_serio_write(struct serio *port, unsigned char data)
-> +{
-> +	struct asus_ec_kbc_data *priv =3D port->port_data;
-> +
-> +	return i2c_smbus_write_word_data(priv->parent, ASUSEC_WRITE_BUF,
-> +					 (data << 8) | port->id.extra);
-> +}
-
-[Severity: High]
-Does this code sleep in an atomic context?
-
-The i2c_smbus_write_word_data() function takes the I2C adapter's mutex and
-sleeps while waiting for the synchronous transaction to complete.=20
-
-However, the serio core and keyboard/mouse drivers frequently call
-serio_write() from atomic contexts. For example, the core serio_interrupt()
-function holds the port's spinlock with interrupts disabled:
-
-serio_interrupt() {
-    guard(spinlock_irqsave)(&serio->lock);
-    ...
-    serio->drv->interrupt(...) // calls driver interrupt which may write
-}
-
-If a driver like atkbd needs to resend a command or respond to a hardware
-NAK, it calls serio_write() directly from this interrupt handler.
-
-Executing a sleeping I2C write while holding a spinlock with interrupts
-disabled will trigger a "scheduling while atomic" bug or cause a system
-deadlock.
-
+> diff --git a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi b/arch/arm64=
+/boot/dts/freescale/s32gxxxa-evb.dtsi
+> index 803ff45310771..844d2c4fabf76 100644
+> --- a/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
+> +++ b/arch/arm64/boot/dts/freescale/s32gxxxa-evb.dtsi
 [ ... ]
-> +static int asus_ec_kbc_probe(struct platform_device *pdev)
-> +{
-> +	struct asusec_core *ec =3D dev_get_drvdata(pdev->dev.parent);
-> +	struct asus_ec_kbc_data *priv;
-> +	int error;
+> @@ -245,6 +245,70 @@ dspi5-grp4 {
+>  			bias-pull-up;
+>  		};
+>  	};
 > +
-> +	priv =3D devm_kzalloc(&pdev->dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +
-> +	platform_set_drvdata(pdev, priv);
-> +
-> +	priv->ec =3D ec;
-> +	priv->parent =3D to_i2c_client(pdev->dev.parent);
-> +
-> +	error =3D asus_ec_register_serio(pdev, 0, "Keyboard", 0);
-> +	if (error)
-> +		return error;
-> +
-> +	error =3D asus_ec_register_serio(pdev, 1, "Touchpad", I8042_CMD_AUX_SEN=
-D);
-> +	if (error)
-> +		return error;
-> +
-> +	priv->nb.notifier_call =3D asus_ec_kbc_notify;
-> +
-> +	return blocking_notifier_chain_register(&ec->notify_list, &priv->nb);
-> +}
+> +	ftm0_pins: ftm0_pins {
+> +		ftm0_grp0 {
+> +			pinmux =3D <0x2912>;
+> +		};
 
-[Severity: High]
-Can this cause driver probe timeouts by dropping hardware ACKs?
+[Severity: Low]
+This isn't a bug, but should these pinctrl node and subnode names use hyphe=
+ns
+instead of underscores?
 
-The asus_ec_register_serio() calls are exposing the keyboard and touchpad
-to the serio subsystem before the EC notifier is attached. The serio port
-registration asynchronously queues work on the kseriod workqueue, which
-finds and binds drivers.
+The Device Tree specification and dts-coding-style.rst indicate that node n=
+ames
+should use hyphens (for example, ftm0-pins and ftm0-grp0) rather than
+underscores. This deviation from the existing file conventions might also
+trigger node_name_chars_strict warnings from dtc.
 
-Since the kseriod workqueue can run concurrently on another CPU, it may send
-initialization commands and the hardware may respond before this probe
-function reaches blocking_notifier_chain_register().
+> +
+> +		ftm0_grp1 {
+> +			pinmux =3D <0x122>,
+> +				 <0xb42>;
+> +			output-enable;
+> +			input-enable;
+> +		};
+[ ... ]
+> @@ -304,3 +368,15 @@ &spi5 {
+>  	pinctrl-names =3D "default";
+>  	status =3D "okay";
+>  };
+> +
+> +&pwm0 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&ftm0_pins>;
+> +	status =3D "okay";
+> +};
+> +
+> +&pwm1 {
+> +	pinctrl-names =3D "default";
+> +	pinctrl-0 =3D <&ftm1_pins>;
+> +	status =3D "okay";
+> +};
 
-Because the notifier is not yet attached to receive and forward these ACKs,
-the events will be dropped. This causes the bound driver's probe to time out
-and fail, leaving the input devices non-functional.
+[Severity: Low]
+This isn't a bug, but would it be better to sort these overriding nodes
+alphabetically?
 
-Should the notifier be fully registered before the serio ports are exposed?
+The official devicetree coding style notes that overriding nodes at the boa=
+rd
+level should be sorted alphabetically. Sorting them correctly would place t=
+he
+&pwm0 and &pwm1 nodes before &spi5 instead of appending them at the end of =
+the
+file.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528053203.9339=
--1-clamor95@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528065228.1300=
+779-2-khristineandreea.barbulescu@oss.nxp.com?part=3D1
