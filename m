@@ -1,103 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpbgbr1.qq.com (smtpbgbr1.qq.com [54.207.19.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6597C1F5858;
-	Thu, 28 May 2026 01:50:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68CAC23394A;
+	Thu, 28 May 2026 01:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.19.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779933012; cv=none; b=NpFQq6hUrqKuOqUuvPS4+i+byaqC/bEVfoanXrBfcO3nM3R32OxwwGRqlaVB49hSjwnFEv0NpNlk7WcNmiCuz/0+b1uvyR5dtaYXqImSrhW3oJIfVgxVYRsRqtSAslrD59Cy8KONkTgEUEwQ+G20kMXELcwdp5qlXfsP7Idqy0Y=
+	t=1779933434; cv=none; b=smu3o7bBu3fkEarL3/IEbBTZwT86LKs+be6j7sFGIMzdHtK50y0HvQ3D+HrqyrlfNTXlMXNz7V9ssM0jFkHwFV8NEY28bD6oXuvVL2HGx/t0kdCj7UnNltVh46768W6DrNqAaDhFO1CkNM6l/CE7nqF6/UicPJgADKnOJc606CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779933012; c=relaxed/simple;
-	bh=4CU6JBS0dQWfLBpm3F8quBrkeVT5U090q0rGX5qMzmE=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=bXjHB4fTStBV6+UB/ekY04iAZfkdQZ5Iagjv6F5mgPBEIjqRZpeG1zn7Ple+AevJTYw43V6Ms75jVc/1+EEL/PntFga9dOg4KrXXcMlxhsaQVo5DxhpWqoq0MdszCGSo8unaXXoOMCs0oDKTFuAxIX1TBQ88lEJN3a+1n0GTztA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oZX/DTnc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oZX/DTnc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EBDD51F000E9;
-	Thu, 28 May 2026 01:50:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779933011;
-	bh=uOox2uRaVHzcxzDbkU1ncr7dwdyroKxjIXuOl3sptoA=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=oZX/DTnc5s5KY+hnrBUXkHaGKUTcrVSXOrneobeG6+kpyp5DlCoKLblCcDIXfwxpr
-	 OcclAJvDXsKKTqcCyL5GYOFn9iWXzb5MyCZaA6Z6jxUFRzqH+dob0X4vbdHS31CyU9
-	 EnNE1fakLRMFjDnk7tD2tTBMZlLN6wYSKHtaOSgTxVFW8Om1iJ6u299CJ+WQ2Uzdx0
-	 nz8OqqFIAKUbUPbMJEhqsus+6jp8oQXUSCgm9xzb2rlie8Eql9fOoowbJH7BIlmtMX
-	 XSt86LNjLEfBOe//QMZR2gpGQEq/0MbqyudmaNZYRLlwVu6iW2TIBWC/hOGK/b729o
-	 MjVc6ZgWNvIXw==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19BB5380CFEF;
-	Thu, 28 May 2026 01:50:17 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1779933434; c=relaxed/simple;
+	bh=KBlLgF6gRJ1Qn56J9PT2IuLK4PeEsqW8yyXjeblENb8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VA7U4Evzphp1Sr/I9i5N7Ym6rYtEGU4FlGFygexnXLoUFJROKGq9GpafTb5yc3Ihox7xEbIMvBopFiJY+5b1oVJ3xocX1DMFIiqwG7sOgwJzkX+ti0Uk7DlZ//wrYnJqQDAkxiknOdZPIpnRpcKsHNyccyx2WcbyeQoxNcAAU6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com; spf=pass smtp.mailfrom=radxa.com; arc=none smtp.client-ip=54.207.19.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=radxa.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=radxa.com
+X-QQ-mid: zesmtpsz3t1779933411t051b27aa
+X-QQ-Originating-IP: Xo+WVLqeetR6zv4ASWWCm/TADq7Vz3fao/NqAUF+c7w=
+Received: from [127.0.0.1] ( [116.234.26.110])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Thu, 28 May 2026 09:56:48 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 3255798331960100904
+Message-ID: <755BEADC478F92B8+16dd5a2a-9a6f-44c2-a84a-af36675a3346@radxa.com>
+Date: Thu, 28 May 2026 09:56:47 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/6] arm64: qcom: Enable additional hardware on Radxa
+ Dragon Q6A
+To: Gekko <graham.oconnor@gmail.com>, linux-arm-msm@vger.kernel.org
+Cc: andersson@kernel.org, konradybcio@kernel.org,
+ robin.clark@oss.qualcomm.com, lumag@kernel.org, abhinav.kumar@linux.dev,
+ robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, neil.armstrong@linaro.org
+References: <20260522060645.4399-1-graham.oconnor@gmail.com>
+ <20260522101323.31911-1-graham.oconnor@gmail.com>
+ <15015D7EB84640D6+cc21a9f7-ae1b-4a22-bb38-34d6fafe1bcb@radxa.com>
+ <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
+Content-Language: en-US
+From: Xilin Wu <sophon@radxa.com>
+In-Reply-To: <30edf212-f656-4c09-a066-d765debf3fcb@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net-next v5 0/6] Introduce Airoha AN8801R series Gigabit
- Ethernet PHY driver
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <177993301589.711996.780315750455117859.git-patchwork-notify@kernel.org>
-Date: Thu, 28 May 2026 01:50:15 +0000
-References: 
- <20260526-add-airoha-an8801-support-v5-0-01aea8dee69b@collabora.com>
-In-Reply-To: 
- <20260526-add-airoha-an8801-support-v5-0-01aea8dee69b@collabora.com>
-To: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, angelogioacchino.delregno@collabora.com, andrew@lunn.ch,
- hkallweit1@gmail.com, linux@armlinux.org.uk, kevin-kw.huang@airoha.com,
- macpaul.lin@mediatek.com, matthias.bgg@gmail.com, kernel@collabora.com,
- netdev@vger.kernel.org, devicetree@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org,
- linux-kernel@vger.kernel.org
+X-QQ-SENDSIZE: 520
+Feedback-ID: zesmtpsz:radxa.com:qybglogicsvrsz:qybglogicsvrsz3b-0
+X-QQ-XMAILINFO: N+4N2KiqbZESIbKj7VNt9rs5Mnx/p51JwKlMwucRmj8jNA2dTiFYqcOE
+	mC24iYw+JFVK2O67Pvntmtb9eil1I9ma0ANnwmGLN8cOCsXHAmJVuNVrpOB8NIbB79gb/FX
+	WJrqpY6SacedYJRiuPYBVM29K+i328Qvks12iOBTYv3U7eT8o+SThCGQBueCW920Jdy34AA
+	T3WgKjujHTKimTfLqj0J4lNnWhdblPJSPBp3dRzwNtU13lGlRNkXFDl1lU4MFWJEaWS+/PU
+	EICyTYv4k1Zpgn7bhC6Mnl66RPX4RuAzfme95QxeMrJuDnn1Wdia1yWveo62njDARtJGFEv
+	8QH2khW4nOypHnsBDrnHe4pmxDgCyQI0heizJP//R0UQrMA7DZBYJJZeBGub/h8VzAcd39M
+	iOtC8fjHSFjxM9X95KoqC9szY6ibCSZPcf65jL0ZU02Cy6UX4ajwfL89iAputzCiuSerf1p
+	t20IOBPDY73BeN2pmhsmzsfNAZVExAUPYeXgeMdtDbZ1fTks8mf1R03AXBCSWWgLmnEYmcN
+	0u0OGDYGlFkbRxXMMmSeDYNqtbrvhSW+t0/ITIY6TLL0nUi8FajEMWNWw/50NPZWXirDT2S
+	6q6M8LgHwacwI3zF1Kn8ZRgRvET293NIVG0r9kxwRQCsIONX9I/KsPvPNw30WWrzmXS1YU4
+	ehyKFC/Sss4WxM5ZrSo1+y1hZVX0S/sFyEO+lP815DtD+NA9UrrdrsAzr2JitXWf0w1Fakq
+	8wG5uv/CWYo+ccAKeRJMEfqxeBso1y81LDkl0CqP3XS5n4M8Lk13K01Zwm0u/parb46MMUi
+	xLNPWRsOLSRrKb+anuEzeneg2S/xhqIYd2JwiCU75400svUaR8XdkwCWqei91IWdOSoqjIu
+	MxJidqUcfo7WwtGfboTmyuekUpSTGrqxElv9hANtDDjyU/RxdBS1sbXX3qURbntIJ2R0oAp
+	w1jMcaEIZI941KkSM4NN/y/KzvVB+xa9uuipFYuL5xyhQPeoZalij2aZII/Qby9RO+R+gb5
+	dURtuceBUXC+V14iGYu22+YHVJ9jP1qTPu+LVQTHz5C/gRngy1G61HT41sV9qVecDqNYbac
+	FK8r/HsinOR
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
-Hello:
-
-This series was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Tue, 26 May 2026 16:58:05 +0200 you wrote:
-> This series introduces the Airoha AN8801R Gigabit Ethernet PHY initial
-> support.
+On 5/28/2026 4:43 AM, Gekko wrote:
+> Hi Xilin,
 > 
-> The Airoha AN8801R is a low power single-port Ethernet PHY Transceiver
-> with Single-port serdes interface for 1000Base-X/RGMII.
-> This chip is compliant with 10Base-T, 100Base-TX and 1000Base-T IEEE
-> 802.3(u,ab) and supports:
->   - Energy Efficient Ethernet (802.3az)
->   - Full Duplex Control Flow (802.3x)
->   - auto-negotiation
->   - crossover detect and autocorrection,
->   - Wake-on-LAN with Magic Packet
->   - Jumbo Frame up to 9 Kilobytes.
-> This PHY also supports up to three user-configurable LEDs, which are
-> usually used for LAN Activity, 100M, 1000M indication.
+> Thank you for the response.
 > 
-> [...]
+> I appreciate the offer to take over your patch set to move things 
+> forward. However, I feel I must respectfully decline. This is mainly due 
+> to my lack of experience with both upstream kernel development on this 
+> hardware and the patch management process itself. It would be 
+> irresponsible of me to take on something that I'm not knowledgeable 
+> enough to ensure successful completion.
+> 
+> I'm happy to work with you to help in any other way that I can such as 
+> testing patches, but I think you should maintain ownership of the patch- 
+> set and submission process, at least for now.
+> 
+> One of the reasons I withdrew my own patch-set is that from what I can 
+> see your series covers everything I was trying to achieve, and does it 
+> correctly :-)
+> 
+> The only one that isn't covered is the patch for early TCS 
+> initialisation that I'm discussing with Konrad which may be unnecessary 
+> anyway.
+> 
+> Graham
+> 
 
-Here is the summary with links:
-  - [net-next,v5,1/6] dt-bindings: net: Add support for Airoha AN8801R GbE PHY
-    https://git.kernel.org/netdev/net-next/c/ed28bd094db3
-  - [net-next,v5,2/6] net: phy: Add Airoha phy library for shared code
-    https://git.kernel.org/netdev/net-next/c/dddfadd75197
-  - [net-next,v5,3/6] net: phy: air_phy_lib: Factorize BuckPBus register accessors
-    https://git.kernel.org/netdev/net-next/c/5226bb6634cd
-  - [net-next,v5,4/6] net: phy: Rename Airoha common BuckPBus register accessors
-    https://git.kernel.org/netdev/net-next/c/e08f0ea6daf2
-  - [net-next,v5,5/6] net: phy: Introduce Airoha AN8801R Gigabit Ethernet PHY driver
-    https://git.kernel.org/netdev/net-next/c/fdb9bf7f1658
-  - [net-next,v5,6/6] net: phy: air_an8801: ensure maximum available speed link use
-    https://git.kernel.org/netdev/net-next/c/f6465e36353f
+Hi Graham,
 
-You are awesome, thank you!
+Thanks, I understand your point.
+
+I appreciate your offer to help with testing. I will do my best to move 
+this series forward once I get the current work off my plate.
+
+Thanks again for your help.
+
+> On 24/05/2026 13:58, Xilin Wu wrote:
+>> On 5/22/2026 6:13 PM, Graham O'Connor wrote:
+>>> Thank you to Konrad, Neil, and others for the very prompt and helpful 
+>>> reviews.
+>>>
+>>> Based on the feedback received, I think it best to withdraw this 
+>>> series to
+>>> address the issues raised, most notobly:
+>>>
+>>> 1. The DP_TRAIN_LEVEL_MAX change (patch 3) is too broad - it affects all
+>>>     devices using the Qualcomm MSM DP driver rather than being 
+>>> specific to
+>>>     the RA620 bridge. A proper fix should be implemented at the bridge
+>>>     level. This is going to take more investigation.
+>>>
+>>> 2. The display DT nodes (patch 5) should use the radxa,ra620 compatible
+>>>     string per the existing Radxa upstream series from Xilin Wu, and the
+>>>     lane ordering needs correcting.
+>>>
+>>> 3. The rpmh-rsc early return (patch 1) needs further review regarding
+>>>     the implications of returning before full driver initialization.
+>>>
+>>> 4. DTS patch label dependency issue (sorry)
+>>>
+>>> I'll integrate with the Radxa upstream effort, re-evaluate the other 
+>>> areas
+>>> and resubmit corrected patches addressing these concerns at a later 
+>>> date.
+>>>
+>>> Thanks for the feedback.
+>>>
+>>> Cheers
+>>>
+>>> Graham
+>>
+>> Hi Graham,
+>>
+>> Thanks for working on the additional hardware bring-up for Q6A 
+>> upstream support. I'm really glad to see someone pushing this forward.
+>>
+>> I actually posted a patch series [1] last month, and it is generally 
+>> in good shape. Unfortunately, I got busy with other work and haven't 
+>> had a chance to send v2 yet.
+>>
+>> If it helps, please feel free to take over that series and fold your 
+>> additional patches into it. I think that would be a good way to move 
+>> things forward.
+>>
+>> Also, I believe patches 10-12 in my series are no longer needed and 
+>> can be dropped.
+>>
+>> Thank you again for the work you have done.
+>>
+>> [1] https://patchwork.kernel.org/project/linux-arm-msm/list/? 
+>> series=1078242&state=%2A&archive=both
+>>
+> 
+> 
+
+
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
+Best regards,
+Xilin Wu <sophon@radxa.com>
 
