@@ -1,140 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BDA78F4A
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:39:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779957594; cv=none; b=chPJnm7cnTViTNKDEBOF6HI5NBk6iHFZ2tjnGiqJB8qVr2GS1ACUbcsG7sOBNR+XKAvuP7exXcmmMHM5RqRVZztBmKIBMhRCqT/QC1izjVraQzAA/qZgBHCUbfqaaXFzNX+LGIAeK9aqwe9nDDOBGaCW4u3JyxddelZwyBuCi+g=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779957594; c=relaxed/simple;
-	bh=88teVG0vVemQhQVDPE7WQCjSlUFqhhd4xA1aaUIyl6M=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RYweIvo58cxCGd2cIDVtKCYADuC2I8q/rw0WWBE6pSRoQcyXvd5rmjGifrjJiplxEwqlz2FwhnV/IMYblh0PI3rDJFefBqLDmMTWn5E7BxWD6waa/qSZlZ9xr4tGDpLry7DzL2ch4Mua/6gQhdNSWS+GG5OasHnay3ZXj0k6Yd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWi+rSUr; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EE79379989
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:40:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779957607; cv=pass; b=ZlrKydXv8PowTmRrt+ByYO3gm8QARyHrCu2TjQaPMNltyQnKalqieRJGadDlYKSU+UhWo+j7kajJ+9lcWNYb5Py2+BpnkCQlWT9D7FevnXG0wKkcdPjxIRYBe4ZQxj9VMUjyC6eL3dB9mZKHRTykgShgPeu7KinH98llqc1mWI8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779957607; c=relaxed/simple;
+	bh=bMVYCHW2rA/kKGjqYMY6NUZrWJ1hytGHa1uCrkcH62k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZA3YbBb6i3xttIKNWa7hvbNfrfSjm4bfv6LvMg+KG6PFbym1BbBEjH+I+uyld6kTeO+lErv5RjVWuXfaekDxpCxoNVvTCiuNBG89cdKD5wmkUR9gFTkEd8MEaAiz84elQg1SSbOP81vd69c0KlbIxP0jFSleTPflkX8mFj9E9XA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=cXGfUXPo; arc=pass smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWi+rSUr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF1781F000E9;
-	Thu, 28 May 2026 08:39:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779957593;
-	bh=76Ai/ZcGDLSB7fU1iMLje8Nq3n3WAuYohPAuC89Vh6s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aWi+rSUrx3ZdcdY+BBAlzKE40LQeF487M05nsF8wCUnzeH6e6kCipm1AzuqvIb0vj
-	 nljDP11e82cTL8QXr7AyteLrE+X7NkxcUUf+E3Fg4Mi6eQu0O1KgRFXDtkKK7DclFJ
-	 0SF0CdG4vX6jHoihLt1K5fW0ufrrJZmXSe59ILSNQ4EZ6kxaecINRhyDG7hKp3g3RF
-	 5uOISv4/0llq/OpnKUXuUEpfYFUko65qd+FSrowxf4UJFEhaz/jlX6Z4uhFIGcn3VG
-	 Le5XoMIQYizA5rFUkuNQchhW5oOT6NSngnSSGXDO6/q3YWylv6esHo5KFwF7utDnB0
-	 NKen++8QaHi+Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/3] iio: adc: add Axiado SARADC driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Petar Stepanovic" <pstepanovic@axiado.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260528-axiado-ax3000-ax3005-saradc-v1-2-345dd5f6608a@axiado.com>
-References: <20260528-axiado-ax3000-ax3005-saradc-v1-2-345dd5f6608a@axiado.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 08:39:52 +0000
-Message-Id: <20260528083952.BF1781F000E9@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="cXGfUXPo"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5a4113ab355so7623604e87.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 01:40:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1779957604; cv=none;
+        d=google.com; s=arc-20240605;
+        b=LEYS0rkqC2jqWP5hl0HFI11bYPVsTXUq/X7QBYgj+xbuYNzwPo/LwdXwPuIi8+eEj6
+         NIzl7B0ec1lNCxsiVk2hcePIrnHPFDlqbfMr/nBiwzE2i3Bo2a86fscWrjIO6jiw+ar3
+         sAQgU+6YVPPEeljg9OtlRlPpYxdeBQgojmj+/DN+vfpdZVHHJrBsKc5tnA3MfG5RPDmR
+         lq0LTIbM0XFd0wTqqhKeTc1N0OIUNU+jR9ctKSbrds8NLYfrQFf0sq6AvmBGuhhZfquT
+         2hqy/J2HCo9QkBDyNS0isvI7PzcbkMKnalw3xmhw4sXiCH4xjdigROaXn2a97sqzey8e
+         skBg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=I3ozGp08XBKPc3Oc1CPTjccxZqkmofz+VaCJR4hZhDE=;
+        fh=dy2pB7Cj9yZh0DUilHtTuLw3bRaV7fTD0ivRmb7HzjA=;
+        b=U/EjKArGwW6I39AYKcYqjhMgN8gM4nXgs3APTHBQhg+dkYNoKFPTw4fmTfnoSe4Dqn
+         um7bGR3Dzmvy2Tj0FOCh+7aktQJ+oOajNXt7UTxhR7mJjytpM+yCynXrxNkkWut+Cevj
+         jVhjtGq2JCThIFc0ABXzuC/AB8kcuYH4LItQN0xLVJ9/x57OVwkAuh1TCvbF9keiubwy
+         oyVdYZcFuxdiFadqIOpsQEHsB4CosFpp4rnqrjexv6EUCF+o6gde7DDcbs2+7ExeJ1Le
+         q9Dwen0sXLTqBqw5lut9gnYI/TJg2Od3EZwH5VGuXHqK+WXbZ2q+wO1c6RXyMGVMh4sN
+         B6lQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1779957604; x=1780562404; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I3ozGp08XBKPc3Oc1CPTjccxZqkmofz+VaCJR4hZhDE=;
+        b=cXGfUXPor2b1Nakp3P0r8YwatpnWa5ja4K3M7lsC9HsERO15z7WxUBx5Tl63C3srvd
+         8HUB3N66ZWmcqB/PENV3t4Oq/7gXoxnmeh5XuomDFMRcaBf8A7qUCuISyS2w3VmIidCS
+         9tB9VkPhpYvwAyC6eS40t+Cz6X0BEaNsYSqOI=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779957604; x=1780562404;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=I3ozGp08XBKPc3Oc1CPTjccxZqkmofz+VaCJR4hZhDE=;
+        b=sIc2ltvVfiveoBFo4Vb0PO5oOkjVvzFAzYfGImj5C17HYvoTs3gTnLleAjW/6YWEer
+         J2Q35v0dZ0wAcvJa/wPMatoMvlRpTe0G1leG9w985ibtKcQ5CZLQxDym91Ojee4HCTEI
+         Btiwj7kTSFS9rrU10csfAEhHY4qmkWTcbW7WjvXD+f4X+ajWrSOGHpHM2VEpdeURLEqq
+         mnrdfOYsJv6ZmBiBmEnGvvFr/AAiWwJAH9KFxqqJsfP1F/hrsIFjmACd3ilpSjF3GCn1
+         hDPXw1k4ohzcHlbq6rIQswdds3kz1LcUVpG5RDB39pp4164sOhEBbIB8NXtQMD2xaQMN
+         3cyg==
+X-Forwarded-Encrypted: i=1; AFNElJ+yYzQBq/bG08WkisvDInfTbHCf9uhCOUyPrTAIlkOz7OeheopkGAFnxdwwtzsgVo0bizRR8WjZ73XG@vger.kernel.org
+X-Gm-Message-State: AOJu0YxR3tynFHEGprCaQ453HGjRHG3lAp3HU2ucOxN/zacIfKK/TFlp
+	olXigyAbL0XJ+3YFWV/0OUQxhRUPESxzTImVRbWphtHwW6wyI7qGMvnRYUDaeDgJXJcooNJ/T/r
+	0A9V90Kyg17VEnZWUZ6hLJom0lhMsHwhUcROGkA88
+X-Gm-Gg: Acq92OG4O4npUNFFS4j3Rh/vgnUbvmZQ+fiXTdDjLkA/1Q/n4MZ7RnJCjSKdAzNvv7S
+	+D5ygJUnlz0MtJDfQxMKKV59hEVtWdbmzoUWNhsmPgue/Qc/PQwvTwqwhkBHhuYWumqDUsJLmdZ
+	cPunsTpmIYLeIS0a2vwUOfUCcqj+w/cHxzTM+9GXicH47nHyquVvo+ND915e3fqXWv7xB4o9b/j
+	FS+urqBVLp6kgclxn6v91KZiSi664Jko8NAZqJzATikH6xhik6mAfnwuHYexiLYLACmwIOZx1eQ
+	a9FRUUpT9CHX+Su34QhfvbnU+hMd
+X-Received: by 2002:a05:6512:3ca9:b0:5a8:afc8:c37 with SMTP id
+ 2adb3069b0e04-5aa32369fccmr7817435e87.4.1779957603539; Thu, 28 May 2026
+ 01:40:03 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260515090149.3169406-1-wenst@chromium.org> <CAMRc=MdnjRRMVzxPkkrPhQ4dz7rsK8-HKUp9cQ0z11apL3escQ@mail.gmail.com>
+ <CAGXv+5HC3dqgcE3KnKzakHHWFHB6m_X42orOkNUvZvp=SL_O8g@mail.gmail.com>
+ <CAMRc=Med-_0GSYzoFBRiwFzBCK0DZqJD8_SEBxi+zwR20GS-HA@mail.gmail.com>
+ <CAGXv+5GbW0bx3nKdZt2+tHuHyQ-J-1-Z79nMzHAwjmEPGKT02A@mail.gmail.com>
+ <2026052710-flagship-unsmooth-ce82@gregkh> <CAMRc=Me=ujnscSOKhHDLz+ccMDyLyCfZnpqobF2BJ4YowgXB5A@mail.gmail.com>
+In-Reply-To: <CAMRc=Me=ujnscSOKhHDLz+ccMDyLyCfZnpqobF2BJ4YowgXB5A@mail.gmail.com>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Thu, 28 May 2026 10:39:52 +0200
+X-Gm-Features: AVHnY4ImlKiDtiu3PtJAJE_NOkB4Apdo_R0OjsOkU3xKzZOWZm2qt_u0g9B3V2M
+Message-ID: <CAGXv+5HKxhfZuAHTZECsVFp4S9yTN2rXW_Nps2TcoV=r9KgfEQ@mail.gmail.com>
+Subject: Re: [PATCH RFC 00/12] arm64: mediatek: Add M.2 E-key slot on Chromebooks
+To: Bartosz Golaszewski <brgl@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Manivannan Sadhasivam <mani@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, linux-pm@vger.kernel.org, 
+	linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The SARADC hardware block is enabled during probe but is never e=
-xplicitly disabled on driver unbind or probe failure.
-- [Medium] The power-down (PD) bit is toggled with no delay, resulting in a=
-n ineffective reset or power cycle pulse.
-- [Medium] The IIO device name is initialized with `dev_name()`, which viol=
-ates the IIO sysfs ABI.
---
+On Thu, May 28, 2026 at 10:36=E2=80=AFAM Bartosz Golaszewski <brgl@kernel.o=
+rg> wrote:
+>
+> On Wed, 27 May 2026 19:41:30 +0200, Greg Kroah-Hartman
+> <gregkh@linuxfoundation.org> said:
+> > On Wed, May 27, 2026 at 06:21:00PM +0200, Chen-Yu Tsai wrote:
+>
+> ...
+>
+> >>
+> >> However this seems to completely decouple the power sequencing from th=
+e
+> >> USB core. Take the USB A connector for example, it was recently added =
+to
+> >> the onboard USB devices driver. However the connector has a device nod=
+e
+> >> that is not a child node of any USB host controller or hub; it is conn=
+ected
+> >> through OF graph. At the same time, since it typically sits at the top
+> >> level of the device tree, a platform device is directly created and th=
+e
+> >> driver subsequently binds to that device. This is totally different fr=
+om
+> >> how the hub and other directly connected onboard USB devices work. In
+> >> the onboard device case, the device node is a child node of the USB hu=
+b
+> >> or controller, and the corresponding platform device only gets created
+> >> when the USB hub driver probes, thereby sort of tying it into the USB
+> >> device topology.
+> >
+> > Hm, did we mess this up?  If so, we can always change it if you think
+> > this should be done differently.
+> >
+> > Hubs should be dealing with the power issues for their ports, so maybe
+> > rethinking this might be wise.  I'm just loath to add hardware-specific
+> > hacks to the hub common code for obvious reasons.  Anything we can do t=
+o
+> > pull it out to a separate driver is best so it doesn't affect the 99% o=
+f
+> > the users that don't have that crazy hardware :)
+> >
+>
+> IIUC what we discussed with Chen-Yu yesterday, the only thing that needs =
+to be
+> done in the USB hub driver is attaching the port firmware nodes (if prese=
+nt) to
+> the port devices we instantiate. The rest can be handled elsewhere.
+>
+> Chen-Yu: correct me if I'm wrong.
 
-commit 14677b4fe42ae6002d14ca13458223da2d275626
-Author: Petar Stepanovic <pstepanovic@axiado.com>
+The above, plus adding pwrseq_get(), pwrseq_power_on(), pwrseq_power_off()
+calls to the appropriate places in the hub driver.
 
-iio: adc: add Axiado SARADC driver
 
-Add support for the SARADC controller found on Axiado AX3000 and AX3005 SoC=
-s.
-The driver supports single-shot voltage reads through the IIO subsystem,
-dynamically selecting the number of available channels from SoC match data.
-
-> diff --git a/drivers/iio/adc/axiado_saradc.c b/drivers/iio/adc/axiado_sar=
-adc.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/iio/adc/axiado_saradc.c
-
-[ ... ]
-
-> +static int axiado_saradc_probe(struct platform_device *pdev)
-> +{
-
-[ ... ]
-
-> +	mutex_init(&info->lock);
-> +	reg =3D FIELD_PREP(AX_SARADC_CH_EN_MASK,
-> +			 GENMASK(soc_data->num_channels - 1, 0)) |
-> +	      AX_SARADC_SAMPLE_16 | AX_SARADC_MODE | AX_SARADC_ENABLE;
-> +
-> +	iowrite32(AX_SARADC_PD, info->regs + AX_SARADC_GLOBAL_CTRL);
-> +	iowrite32(reg, info->regs + AX_SARADC_GLOBAL_CTRL);
-
-[Severity: Medium]
-Is this reset or power cycle sequence effective without a delay?
-
-The power-down (PD) bit is toggled with no delay between writes, and without
-a read-back to flush the write buffer. This typically results in a
-zero-width pulse that hardware might not register.
-
-Does the hardware require a short sleep or a dummy read here to ensure the
-analog components properly reset?
-
-> +
-> +	indio_dev->name =3D dev_name(&pdev->dev);
-
-[Severity: Medium]
-Will this name format break the IIO sysfs ABI?
-
-The driver initializes the IIO device name using dev_name(). For device tree
-nodes, this usually includes the bus address and a dot, such as
-12340000.saradc.
-
-The IIO sysfs ABI dictates that the device name attribute must not contain
-whitespace, dashes, or dots. Could a hardcoded driver string or the
-compatible string be used instead to avoid breaking userspace applications?
-
-> +	indio_dev->dev.parent =3D &pdev->dev;
-> +	indio_dev->info =3D &axiado_saradc_iio_info;
-> +	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> +	indio_dev->channels =3D axiado_saradc_iio_channels;
-> +	indio_dev->num_channels =3D soc_data->num_channels;
-> +
-> +	ret =3D devm_iio_device_register(&pdev->dev, indio_dev);
-> +	if (ret)
-> +		return dev_err_probe(&pdev->dev, ret,
-> +				     "failed to register IIO device\n");
-> +
-> +	return 0;
-> +}
-
-[Severity: Medium]
-Is there a missing cleanup step to disable the SARADC hardware block?
-
-During probe, the hardware is enabled by writing AX_SARADC_ENABLE to the
-global control register. However, the driver does not seem to register a
-devm action or provide a remove callback to clear this bit and power down
-the ADC.
-
-When the driver unbinds or probe fails, standard devres will gate the clock
-and disable the regulator while the ADC block is still logically active.
-Does disabling clocks on active hardware lead to system bus lockups or power
-leaks on these SoCs?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-axiado-ax3=
-000-ax3005-saradc-v1-0-345dd5f6608a@axiado.com?part=3D2
+ChenYu
