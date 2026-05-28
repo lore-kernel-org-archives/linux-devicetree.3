@@ -1,355 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com [209.85.221.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AF43B47D7
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 09:46:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E17D3822B5
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 09:47:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779961571; cv=none; b=XLMuPcIn85BCgzubleRMuvinwJjx2gLtpBRrG+BJB4is1aKFduVvm7rzoaSM+9aZ7sxj5BrDray1cC2y0mJq5CkY6b/jZep531ltISCVZ8I7hoRIQ4TJkeBl2WoJ46HK69MDIjsjRAX7U7JV67E/0Mo6O9GFAWO8s/DyuB/Bv1c=
+	t=1779961633; cv=none; b=PY378PEWorPIyCsTuDAXfVxMAgfm1jBuTl3uIoJp0TbtkS52KhDOh99+6TjmyyhktUJhBVxvt9SBEDJZAFqDqpso4OjkJpQJZQnG0U8VbkEiff6kqB/Tt2KUwEnAcDoo4O/B0DZuiz5AloEJyvy6swJcT+bnY/pQsEyRfnpNbCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779961571; c=relaxed/simple;
-	bh=CSzmclSTU6fVJ+aJDLHzAu2365vs3rUMFPsswkmbtMk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=D+RtOx1R6Y4o2gvBJTCinnjd2JSL6WuhuzNgGNcCDEPjR0XE4sjXM8GUTIvdGazzc2eFfO5c8J/m0gTgqLBw8y1wGwyVcOD2ev52VcFyHNyWFRnP9HCCjUuSmFGbEBwrQVHanSK5qjqjycyxfq+rLSadYuJ4CLtLiSlSMXGHhuo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIXjUULL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779961633; c=relaxed/simple;
+	bh=2eRDrkUiMv0kQFYC+tmw+qv8V5rFfDZjefneGTg5nKk=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=qDH7SgUr9h19UKbTI5BSKlhQDoZVgGPFaMtOuvqmVyO3yCB6W0Qn7yy/qdhsrafzjit8+u5AdNSacLBU62OGZYGfBRzMD+l6JuhynE8Uuyga+25asGHiGC8rSlVIDXpIM4ZRg7yRL6yk6/mO0UP5DqpS87EmMSHGqqPPDBJ3g5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=umdgNHOK; arc=none smtp.client-ip=209.85.221.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIXjUULL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8EE11F000E9;
-	Thu, 28 May 2026 09:46:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779961570;
-	bh=vrySqI4E/vxVL1HFDYQ/IZkDNdCFbYkFI47iXit5XIY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lIXjUULLBnrY3IDx0JD3r5kSdXPNGR6QSRY50dKndiyRuJGigSQKl0rwoZkxxzGHW
-	 ch39RYlo4KnWYynPWWM0Dv1HBdlyfpO5kYLc07Il8ihcao/pemsH1L4Q1LPK2yQ+tH
-	 ErQ1qMbT48RgNt3I+3t5ddxHhqtj51nPLIcshK/NjS9SNV0jBZRQ0oPO+njKR4T/7v
-	 5RdFp25d+2QwCr309otzI+CRw11IEvsAA8eHcrILoLzNimkL7jRZTSUVgOn1r5O4Qd
-	 N79iTduZhCXaJzXmaR/g979IiWKZHOYpC7XsCgvdbJLnw6VAoikc1KsNjTUAjdClW6
-	 reBfdBMI/FfSg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v30 5/5] i2c: ast2600: Add target mode support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ryan Chen" <ryan_chen@aspeedtech.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528-upstream_i2c-v30-5-5d4f9adc3530@aspeedtech.com>
-References: <20260528-upstream_i2c-v30-5-5d4f9adc3530@aspeedtech.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 09:46:09 +0000
-Message-Id: <20260528094609.D8EE11F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="umdgNHOK"
+Received: by mail-wr1-f52.google.com with SMTP id ffacd0b85a97d-45ee5cdbd28so299526f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 02:47:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1779961630; x=1780566430; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=n/UF4B76x6jmOob9PiMHS3CrMue0u8lzLT7tvPWdGwk=;
+        b=umdgNHOKQpsPRQAO2QKoktGCfNwpWHKA6Fj1bHFzsxcXuJe1sjUFF9nSu7GKsgAhqx
+         Zj+BRWKqB1dAAsoPaMopxkkZ1rzoAKripa+bgyeFD8KrbfWEEoiv1l1gIoTNPw1bk+hm
+         xmrHZTiI2Ec/WpidRVD2OFnfcoEISFDeDw90sV5TPy6WFQbyW399KZJYoCW7C72oLNOo
+         p1XMP2naNfZwLk699oPa0gr3j/8qwm/ZlgzJhU13UdpSp5p/EfqThFGs36HGtdJOQo34
+         5v9UEZ4fSc9/wGwWy7W74fi3NUh/XG+0iDROb9LqFKe+tYm5/1HJW/q2L9JyCW1azL8j
+         cS0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779961630; x=1780566430;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=n/UF4B76x6jmOob9PiMHS3CrMue0u8lzLT7tvPWdGwk=;
+        b=RF+7+KWJVKvYhwjC19aeiAOHzvoVPo3fyJ4WW+nkKWTvyX2UTaO6QN4DbzxeOOUcvW
+         YIzU2q1FDw2ZK0RdFY7hHAzIVLPdVyydrBx1T/A54livqK85jq1fepf92qMQNNVaiFmF
+         y3fq1NCaiYUM+VyevxJR04ZAzmb1wF3WsewTxO0+f1zTTp+9ARPbbtwdW4BVxQswKPRr
+         uw+8LKb7XWioyNJdyDBNiLSqOrR5sgWJnSJNaULVMBSBCsNaF9g4SMyxxv+/GykXYTme
+         dhCffLSLfeGTU5VbMe4He2AHWEfk3I0fnslsMKr+mdVcSsMXaB0gc25t3nfwtc6KVz/n
+         8YVw==
+X-Forwarded-Encrypted: i=1; AFNElJ8Zu09f43ezUp6z2Jn+Q6mrhXjGRaqI6Rnwj85aQweOwAIRnNkjjak3MmfDQvg2Bxt/aTU/Tcxt7lnY@vger.kernel.org
+X-Gm-Message-State: AOJu0YwOAulzdkqkKw78+7hVwjL2uZs4W3dLx+LMwWtBTfTtkOGMUQv2
+	KPYjDLtxpb+ZSrYp0c2hzB9JFGNNg8HrBTjA9BAtvaNt4p5vba0mZgpkbjayW06PkDQ=
+X-Gm-Gg: Acq92OF1xfvqxM0daPNOuzs2OxivM0BoASQ2LCOygXPQKHcUbw7MxLwN69z9zvxDH5+
+	1hY+MO24VhWrm1gYzaiUwCRec1DtoLBf7eKwq4JPM2F9S/uRaV8pBbCjB5n5IxcxfPyV7xnyIBq
+	DZOONnH0Tkon4IUMsYZW2pPCbuoIBEaw4vGLQkymIz070i/RVWOGI32tOU+rv3GyYR6wt0+KBET
+	f8HTmk8a2vYJ/tQcQm5UOEr4vTXlHz2BWVb4HDqCkob5bGfNQKRwfpuxg3M7i9B+RhonGFwarQw
+	UKrMHV0jnwIwWoaMPoqg87769F2rzplTlBlB5qymLIFOtRRucVGc1ygc23z8kY2m2GH/jbwCKg6
+	5yrBL0+Wha24VJyuSc8O1FNER9LnENpc+csdwWZsqyGD/eDY68GAjNVFSYQbzl7S9lj8bgbs19l
+	W2rsmRZjeUcrj+dWTC0tJc0GaFjz6htNPrOe0uKxFgOgs=
+X-Received: by 2002:a05:6000:70e:b0:45b:d872:592d with SMTP id ffacd0b85a97d-45eeceac20dmr741447f8f.10.1779961629881;
+        Thu, 28 May 2026 02:47:09 -0700 (PDT)
+Received: from [172.20.10.2] ([37.167.60.147])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45edb5a296bsm11985519f8f.21.2026.05.28.02.47.08
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 28 May 2026 02:47:09 -0700 (PDT)
+Message-ID: <ec921247-ff5d-4226-9e9e-81a4021d320b@linaro.org>
+Date: Thu, 28 May 2026 11:47:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH RFC v2 0/6] arm64: dts: qcom: sm8[56]50: add PMIC5 Gen3
+ ADC channels
+To: Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260504-topic-sm8x50-adc5-gen3-v2-0-5cc04d6ecda0@linaro.org>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <20260504-topic-sm8x50-adc5-gen3-v2-0-5cc04d6ecda0@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 10 potential issue=
-(s) to consider:
+On 5/4/26 18:29, Neil Armstrong wrote:
+> Now the bindings and driver was merged for the SPMI PMIC5 Gen3 ADC
+> found on the PMK8550 which allow reading ADC data on the PMK8550
+> and other PMICs on the system.
+> 
+> First, add the PMIC5 Gen3 macros to calculate the channel numbers which
+> is a combination of SPMI bus number and a constant for the sensor
+> type and configuration.
+> 
+> The macros definitions were taken out of [1] where it was initially
+> in the dt-bindings include directory but since those are not hardware
+> bindings but logical numbers, they can be moved to local includes
+> instead to make the DT source more readable.
+> 
+> [1] https://lore.kernel.org/all/20250826083657.4005727-4-jishnu.prakash@oss.qualcomm.com/
+> 
+> Finally add the SPMI ADC channels on the PMK8550 SPMI5 ADC3 for the
+> other PMICS on the system.
+> 
+> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> ---
+> Changes in v2:
+> - Removed stray line from patch 2, added review tag
+> - Added missing header file
+> - Link to v1: https://patch.msgid.link/20260427-topic-sm8x50-adc5-gen3-v1-0-8a70f7b90a75@linaro.org
+> 
+> ---
+> Neil Armstrong (6):
+>        arm64: dts: qcom: add PMIC5 Gen3 macros for channel numbers
+>        arm64: dts: qcom: pmk8550: add VADC node
+>        arm64: dts: qcom: sm8550-qrd: add SPMI ADC channels and thermal nodes
+>        arm64: dts: qcom: sm8550-hdk: add SPMI ADC channels and thermal nodes
+>        arm64: dts: qcom: sm8650-qrd: add SPMI ADC channels and thermal nodes
+>        arm64: dts: qcom: sm8650-hdk: add SPMI ADC channels and thermal nodes
+> 
+>   arch/arm64/boot/dts/qcom/pmk8550.dtsi              |  30 +++
+>   arch/arm64/boot/dts/qcom/qcom,adc5-gen3-channels.h |  88 +++++++
+>   arch/arm64/boot/dts/qcom/qcom,pm8550-adc5-gen3.h   |  46 ++++
+>   arch/arm64/boot/dts/qcom/qcom,pm8550b-adc5-gen3.h  |  85 +++++++
+>   arch/arm64/boot/dts/qcom/qcom,pm8550vx-adc5-gen3.h |  22 ++
+>   arch/arm64/boot/dts/qcom/qcom,pmk8550-adc5-gen3.h  |  52 ++++
+>   arch/arm64/boot/dts/qcom/sm8550-hdk.dts            | 279 +++++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/sm8550-qrd.dts            | 279 +++++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/sm8650-hdk.dts            | 279 +++++++++++++++++++++
+>   arch/arm64/boot/dts/qcom/sm8650-qrd.dts            | 279 +++++++++++++++++++++
+>   10 files changed, 1439 insertions(+)
+> ---
+> base-commit: b9303e6bff706758c167af686b5315ad00233bf8
+> change-id: 20260427-topic-sm8x50-adc5-gen3-edf94fbd335b
+> 
+> Best regards,
+> --
+> Neil Armstrong <neil.armstrong@linaro.org>
+> 
 
-New issues:
-- [Critical] Aborting an in-flight controller transfer from the target IRQ =
-handler races with controller IRQs, leading to a Use-After-Free.
-- [Critical] A Time-Of-Check to Time-Of-Use (TOCTOU) race in `ast2600_i2c_c=
-ontroller_xfer` allows target hardware to corrupt the shared I2C buffer.
-- [High] Invalid I2C Slave event ordering: STOP events are emitted before W=
-RITE_REQUESTED and WRITE_RECEIVED data events.
-- [High] The `target_active` flag is permanently leaked as true under speci=
-fic hardware interrupt combinations, deadlocking controller transfers.
-- [High] Target interrupts are permanently disabled if a target is unregist=
-ered and later re-registered.
-- [High] A specific target ISR STOP case stalls the I2C target state machin=
-e by failing to trigger the hardware command.
-- [High] Unhandled target interrupt states fail to re-arm the hardware, per=
-manently hanging the I2C bus.
-- [High] Checking the raw ISR register to block controller transfers perman=
-ently bricks the controller due to uncleared W1C bits.
-- [Medium] Target interrupts are unconditionally enabled even when no targe=
-t is registered.
+Gente ping, any other comments on this patchset ? PMIC ADC entries have been missing for too long on those platforms.
 
-Pre-existing issues:
-- [High] In controller mode, the received `xfer_len` is not validated again=
-st the remaining bounds of the `msg->buf` array.
---
-
-commit fdd43bfe0f52b1390eb013eb7a0a2e7b1131f43e
-Author: Ryan Chen <ryan_chen@aspeedtech.com>
-
-i2c: ast2600: Add target mode support
-
-Add target mode support to the AST2600 I2C driver. This complements the=20
-existing controller-mode support, enabling dual-role capability.
-
-> diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
-t2600.c
-> index a06d0483865ed..7e609fdfa1a19 100644
-> --- a/drivers/i2c/busses/i2c-ast2600.c
-> +++ b/drivers/i2c/busses/i2c-ast2600.c
-[ ... ]
-> @@ -337,6 +342,249 @@ static int ast2600_i2c_recover_bus(struct ast2600_i=
-2c_bus *i2c_bus)
->  	return ret;
->  }
-> =20
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static void ast2600_i2c_target_packet_buff_irq(struct ast2600_i2c_bus *i=
-2c_bus, u32 sts)
-> +{
-> +	u8 value =3D 0;
-> +	int target_rx_len =3D 0;
-> +	u32 cmd =3D 0;
-> +	int i;
-> +
-> +	/* due to controller target is common buffer, need force the master sto=
-p not issue */
-> +	if (readl(i2c_bus->reg_base + AST2600_I2CM_CMD_STS) & GENMASK(15, 0)) {
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_CMD_STS);
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
-> +		writel(readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
-> +		       i2c_bus->reg_base + AST2600_I2CM_ISR);
-> +		i2c_bus->cmd_err =3D -EBUSY;
-> +		writel(0, i2c_bus->reg_base + AST2600_I2CC_BUFF_CTRL);
-> +		complete(&i2c_bus->cmd_complete);
-> +		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
-> +		       i2c_bus->reg_base + AST2600_I2CM_IER);
-> +	}
-
-[Severity: Critical]
-Does calling complete() here race with re-enabling the controller interrupt=
-s?
-
-If the controller thread wakes up immediately and frees the locally allocat=
-ed
-msgs array, could a subsequent delayed hardware interrupt cause
-ast2600_i2c_controller_packet_irq() to dereference the freed msgs pointer?
-
-> +
-> +	/* Handle i2c target timeout condition */
-> +	if (sts & AST2600_I2CS_INACTIVE_TO) {
-[ ... ]
-> +	switch (sts) {
-> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_WAIT_RX_DMA |
-> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
-> +	case AST2600_I2CS_SLAVE_PENDING |
-> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
-> +	case AST2600_I2CS_SLAVE_PENDING |
-> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_STOP:
-> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
-> +		fallthrough;
-> +	case AST2600_I2CS_SLAVE_PENDING |
-> +		 AST2600_I2CS_WAIT_RX_DMA | AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX=
-_DONE:
-
-[Severity: High]
-Does falling through here emit events in the wrong order?
-
-The I2C slave API expects I2C_SLAVE_STOP to be the final event indicating
-the end of a transaction. If we fall through to the block that issues
-I2C_SLAVE_WRITE_REQUESTED and I2C_SLAVE_WRITE_RECEIVED, could this corrupt
-the state machine of backend devices?
-
-[ ... ]
-> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_RX_DONE |
-> +	     AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS_STOP:
-> +		target_rx_len =3D AST2600_I2CC_GET_RX_BUF_LEN(readl(i2c_bus->reg_base +
-> +						       AST2600_I2CC_BUFF_CTRL));
-> +		for (i =3D 0; i < target_rx_len; i++) {
-> +			value =3D readb(i2c_bus->buf_base + i2c_bus->buf_size + i);
-> +			i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_RECEIVED, &value);
-> +		}
-> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
-> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_READ_REQUESTED, &value);
-> +		writel(value, i2c_bus->buf_base);
-> +		break;
-
-[Severity: High]
-Is this case missing an assignment to cmd?
-
-Since cmd defaults to 0 and is not updated here, the driver will not write
-a command to AST2600_I2CS_CMD_STS. Could this leave the hardware state mach=
-ine
-hanging or stretching the clock indefinitely?
-
-[ ... ]
-> +	default:
-> +		dev_dbg(i2c_bus->dev, "unhandled target isr case %x, sts %x\n", sts,
-> +			readl(i2c_bus->reg_base + AST2600_I2CC_STS_AND_BUFF));
-> +		break;
-> +	}
-> +
-> +	if (cmd)
-> +		writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-
-[Severity: High]
-Does an unhandled interrupt state hang the I2C bus?
-
-If we hit the default case, cmd remains 0. Without writing a valid command
-to acknowledge and proceed, will the hardware remain paused and stretch
-the clock?
-
-> +
-> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
-> +	readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
-> +
-> +	if ((sts & AST2600_I2CS_STOP) && !(sts & AST2600_I2CS_SLAVE_PENDING))
-> +		WRITE_ONCE(i2c_bus->target_active, false);
-> +}
-
-[Severity: High]
-Can the target_active flag become permanently stuck as true?
-
-The switch statement above explicitly handles combined interrupt cases where
-both AST2600_I2CS_STOP and AST2600_I2CS_SLAVE_PENDING are set. In those
-cases, target_active will remain true.
-
-Since a STOP occurred, no further interrupts will arrive for this transacti=
-on.
-Will this cause all future controller transfers to permanently return -EBUS=
-Y?
-
-> +
-> +static int ast2600_i2c_target_irq(struct ast2600_i2c_bus *i2c_bus)
-> +{
-> +	u32 ier =3D readl(i2c_bus->reg_base + AST2600_I2CS_IER);
-> +	u32 isr =3D readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
-[ ... ]
-> +	isr &=3D ~(AST2600_I2CS_ADDR_INDICATE_MASK);
-> +
-> +	if (AST2600_I2CS_ADDR1_NAK & isr)
-> +		isr &=3D ~AST2600_I2CS_ADDR1_NAK;
-> +
-> +	if (AST2600_I2CS_ADDR2_NAK & isr)
-> +		isr &=3D ~AST2600_I2CS_ADDR2_NAK;
-
-[Severity: High]
-Are these Write-1-to-Clear (W1C) bits being left set in the hardware?
-
-The bits are masked out of the local isr variable but are never written back
-to AST2600_I2CS_ISR to clear them in hardware. Because they remain set,
-will later checks against AST2600_I2CS_ISR always evaluate to true, blocking
-all future controller transfers?
-
-[ ... ]
->  	case AST2600_I2CM_RX_DONE:
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +		/*
-> +		 * Workaround for controller/target packet mode enable rx done stuck i=
-ssue
-> +		 * When controller go for first read (RX_DONE), target mode will also =
-effect
-> +		 * Then controller will send nack, not operate anymore.
-> +		 */
-> +		if (readl(i2c_bus->reg_base + AST2600_I2CS_CMD_STS) & AST2600_I2CS_PKT=
-_MODE_EN) {
-> +			u32 target_cmd =3D readl(i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-> +
-> +			writel(0, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-> +			writel(target_cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-> +		}
-> +		fallthrough;
-> +#endif
->  	case AST2600_I2CM_RX_DONE | AST2600_I2CM_NORMAL_STOP:
->  		xfer_len =3D AST2600_I2CC_GET_RX_BUF_LEN(readl(i2c_bus->reg_base +
->  							     AST2600_I2CC_BUFF_CTRL));
-
-[Severity: High]
-This is a pre-existing issue, but does xfer_len need bounds checking here?
-
-The xfer_len value is read directly from hardware and used unconditionally =
-in
-the copy loop below. If the hardware reports a length longer than the
-remaining message size, could it overflow the msg->buf array?
-
-[ ... ]
-> @@ -599,12 +867,31 @@ static int ast2600_i2c_controller_xfer(struct i2c_a=
-dapter *adap, struct i2c_msg
->  			return ret;
->  	}
-> =20
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +	if (i2c_bus->target_active)
-> +		return -EBUSY;
-> +	/*
-> +	 * Controller and target share the same buffer register. A target
-> +	 * transaction can update buffer state asynchronously via IRQ, so block
-> +	 * controller transfers while target is active to avoid buffer corrupti=
-on.
-> +	 */
-> +	writel(0, i2c_bus->reg_base + AST2600_I2CS_IER);
-> +	if (readl(i2c_bus->reg_base + AST2600_I2CS_ISR) || i2c_bus->target_acti=
-ve) {
-> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_IER);
-> +		return -EBUSY;
-> +	}
-> +#endif
-> +
->  	i2c_bus->cmd_err =3D 0;
->  	i2c_bus->msgs =3D msgs;
->  	i2c_bus->msgs_index =3D 0;
->  	i2c_bus->msgs_count =3D num;
->  	reinit_completion(&i2c_bus->cmd_complete);
->  	ret =3D ast2600_i2c_do_start(i2c_bus);
-
-[Severity: Critical]
-Is there a race condition between software checks and the hardware state ma=
-chine?
-
-Disabling CPU interrupts via AST2600_I2CS_IER does not pause the autonomous
-hardware state machine since AST2600_I2CC_SLAVE_EN is still active. Can an
-external I2C master address the target right after the check, causing the
-hardware to overwrite the shared buffer while ast2600_i2c_do_start() is
-preparing the master transfer?
-
-[ ... ]
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +static int ast2600_i2c_reg_target(struct i2c_client *client)
-> +{
-> +	struct ast2600_i2c_bus *i2c_bus =3D i2c_get_adapdata(client->adapter);
-> +	u32 cmd =3D TARGET_TRIGGER_CMD;
-[ ... ]
-> +	writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
-> +	/* Set target addr. */
-> +	writel(client->addr | AST2600_I2CS_ADDR1_ENABLE,
-> +	       i2c_bus->reg_base + AST2600_I2CS_ADDR_CTRL);
-> +
-> +	return 0;
-> +}
-> +
-> +static int ast2600_i2c_unreg_target(struct i2c_client *client)
-> +{
-> +	struct ast2600_i2c_bus *i2c_bus =3D i2c_get_adapdata(client->adapter);
-> +	u32 val;
-> +
-> +	writel(0, i2c_bus->reg_base + AST2600_I2CS_IER);
-
-[Severity: High]
-Will target interrupts remain permanently disabled if a target is unbound a=
-nd
-then rebound?
-
-The ast2600_i2c_unreg_target() function disables target interrupts, but
-ast2600_i2c_reg_target() does not re-enable them. Does this break target
-functionality on subsequent registrations?
-
-[ ... ]
-> @@ -784,6 +1138,9 @@ static int ast2600_i2c_probe(struct platform_device =
-*pdev)
-> =20
->  	writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
->  	       i2c_bus->reg_base + AST2600_I2CM_IER);
-> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
-> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_IER);
-> +#endif
-> =20
->  	ret =3D i2c_add_adapter(&i2c_bus->adap);
-
-[Severity: Medium]
-Is it safe to unconditionally enable target interrupts here?
-
-Since i2c_bus->target is NULL until a target is registered, ast2600_i2c_bus=
-_irq
-will ignore target interrupts. If the hardware asserts an interrupt before
-a target is bound, could this lead to an unhandled interrupt storm?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-upstream_i=
-2c-v30-0-5d4f9adc3530@aspeedtech.com?part=3D5
+Neil
