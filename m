@@ -1,63 +1,63 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00BC328851F
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:51:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3F4429C33F
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:51:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976317; cv=none; b=jCIPSetTSLM7jAWXCKXGL6syPUfzYv7sv1JczZSAyvmkjKwBCvBX40J19kgepdJdZCnzF5nkIV0/Ik332CFU8lkBeaYm5r1oRslg0Jj6uffDhR7NrqjV7OU8+owvGBITk4RmdbJBDcFqMwRracnzBmoB+Aa1a5dwMI3JnZz64UI=
+	t=1779976318; cv=none; b=sIR7x0pmjlZx2aVCrQusv7y7dkSmIPDdUI/Cp1igTvYgu/wESdkEJvm/7hu7o1CvoA7Nh/sX3O/jdYPxUYE4+p6V/Wbzg8cAc4t94iExpZ91jrP31FKkwArVFm7VtfA9Cke8Txt+PrtZwEhl4xG5HxUptinyjD1fN5LSi8ZjYgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976317; c=relaxed/simple;
-	bh=GVDB20doAR1K3eUlSf2alRlQ5pVPpRgTdHeEwbkCl1w=;
+	s=arc-20240116; t=1779976318; c=relaxed/simple;
+	bh=bNI9riTSmou7+zW+mF5Zb+cHzMSVVsaXDh2lYEatQQc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pcEFUEft5Uq1p5AXjT5c8K3gQaUao5t2/bXyJvt3d1+XVaYOzX9QC0HDGUOqwlPBJrhJvzFCT5CtMlRp2M50rVTgmKd6YD6sgoc9n++qZ8qadrdws6WE3FHmNFPuvUdGETTXU9245815x9NP/FdvjS+mamQFLIJqf/2whw+CoXU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WM0NCWkf; arc=none smtp.client-ip=209.85.218.51
+	 MIME-Version; b=Pl4FDrrdxm2+IsZSze6Srophd1e0abl0d2q+u8Yk22A4u/llGtxdAEsRt6Ci670zj45pE+bylyGHqk9bgcRvZ+XfNmDk0TAJ+GZn2DPJ4kq7aF/Q4drHsb0wCF7uiKgYdojBs6MgzFefwLvCDJdHeobNqGFr5ezPPMqkP9WgWts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=agxcVUNo; arc=none smtp.client-ip=209.85.208.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WM0NCWkf"
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-bcda7765d64so2426961966b.1
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:51:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="agxcVUNo"
+Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-68b2229b48eso984533a12.2
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:51:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779976313; x=1780581113; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1779976315; x=1780581115; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8RF2xk6t5S9a3BXZ1svw/IWrQWbafQA9obLcpKPhSUU=;
-        b=WM0NCWkfxxhAP1fs+Vo6mRLqj6NIobz/HNMMMFa+sRnSMxYkv/45NnT4Smn4bmOIVK
-         KO+Qpf4eTYFykEuHrLoKOpIqvv11vwJBmKUnX77F9J9UC2x8b+ulhQLf3xdCsy6GMHke
-         T1qZTr8x40LTNP3rixwb5g9MQzcMwrrBc1XRv/8DCe57fPbgTH0r+lz48UnUKGNDjknB
-         /lNNdYQ3Z1/XyKGFvL8Ms2xg88uTaKaN9pyFuk01JIELKWVVmWgPQkwcHXPRbuxqNPeM
-         Ls3k5okZp2MAEviLQbi+G1VIeL9umYlji8BxGasjL94HP5QCOl1qMVIPNzliRQkOZqAE
-         wB8w==
+        bh=HqOemnD04LJjQnMzwMBgcGs6gZ1ngsn7g7S9Cna4sh0=;
+        b=agxcVUNoXS0667varjCB/l8usoQRDYzC5dLGzKK+J++F3MLdH3t2wtlPsD1C/TbHAS
+         /TCGKcXiNLUpQ+PR3hLQWgNmdtg098ZwoLI8VirthUFh5rPC+ztBSb83CAAwQcGvCf8/
+         8jN7h4DoCd+jFMZ+lW9nWWro5/JbxgIOIlwGLU4qnPxLImT8MAq2CjTfpataX7fY110e
+         FSO9WoKoWIiREo2/cbGbsE+NyVm1WYGmpAtjAj248lpbZVVCQUnyGMJSveeygShEgMeq
+         7HtaQp7DiV7npQcVm7t+VGq7SxCa6XGp28tuZIxVv+onrZmVS01hxNb8inIuNLxDBVsF
+         24lg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779976313; x=1780581113;
+        d=1e100.net; s=20251104; t=1779976315; x=1780581115;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=8RF2xk6t5S9a3BXZ1svw/IWrQWbafQA9obLcpKPhSUU=;
-        b=ivL6o+SKJz9H1oJXKHUxYkQ/0ma8tMNJGN6gJGDAjpNI3csau7qKlPBH6xcDD6uewE
-         oYp03R2bajsO1Tuu8P684iiiaw3opYxoy+yiU+cJyXaM/J+RXOl1EAvqoaSjQWNZOAu2
-         p60U8RyDaRTKwkD919A/TrxryBHILmQF4D9FTsUFvvH/LOsdvijSJWY7JkohkQUxA1a1
-         OPHfCEIGlsxFUuWCHvQuwe6/DzQVwiLHQE07UsHQAolYIZlL58+GhDHL5JRVBDjEQ124
-         qx8XCqWJhAPxC8vGABMXNKlsJwbHAhj/HDN1vqBPTeIiRCSTKrDGHCVh0YIPCCCmrCE6
-         23PA==
-X-Forwarded-Encrypted: i=1; AFNElJ9u2ZgsVDntqXjIOppOWHyeDwH2XF+Z/VeRvvWr6n/mKC6Ty9Q2KEqKi1EQft966uCKSbd4OgN3z+EI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1/Iet8jdkEjmSZ225uhykHwgr1VIAuRq1hh6JspORkfz58wC2
-	xVmlAJ1jKy20ht1I7GjK5zjuvA/l5HjdfYqJ6bgENDogPZod+itsMNe/
-X-Gm-Gg: Acq92OGlAMYtDWQ6p5qzbHrsEQJ9q1550Byhb2UtlWWxl/nJeKIllKjz5zxmBEbiBtf
-	IFij2vwwE964vkfCZtV8sZiJ4YqkzlQx3zXt3aab0TyUYzhSBAOJ1M28woCaTbGjEdYcB1RmmUN
-	QYmlYNAn9PXuVoR6weN98mNMxCWxE+WAh2725V3f4s8ZJUGEgONXInnxV50e3+oHyFjpcdVBG+r
-	i9Vq+3OHfV7ZJjHWzv6mnDQm5qvr5/TFBqujtzBxRJsUGLQcxlDIpqWIR4THbhM5a2Ja5Tq7cc1
-	E3p9Dtzr/MWAE0klObpNo5dYhF+z88gSNzAXudG8+UctoQhalZSebWUPDwS+sa+uNcwEigtoMaE
-	CvpyI+9qEpOjS6d7MRcL0I9YTlP75HIWInmJrMqMgXs5PYm50hafcQo4T98JSeTxfBjLBUJ31eG
-	DAiA/yoRz3oWTI3tl9GfFq4ZMQlt+TuPMxGw==
-X-Received: by 2002:a17:907:1b06:b0:bd5:b27:c02e with SMTP id a640c23a62f3a-be86d71c01amr114017466b.6.1779976313029;
-        Thu, 28 May 2026 06:51:53 -0700 (PDT)
+        bh=HqOemnD04LJjQnMzwMBgcGs6gZ1ngsn7g7S9Cna4sh0=;
+        b=FZprtE6ndpNt4UPD+UYaWri9YDuPA9OvxlhJ3s1K8hu8PJ83rbPglfJZriSKrhwms8
+         u3WchvZtRKqfgvy4QzmEX26mLRArkQQF3sDGv9//ZrLqkgTdwXGU8fKfwSq+iKmPR9ZU
+         5XFm6JqkUAXr00RJ8L3j7CZ+WOfUKaoqKnk68kcn4IEJ5EiaO/Xyj2cZumGbg/py8vXx
+         7mIJDbApoE/ZWMhL0QGPOQ7E9uj1JxuMB7R4GFxtZWgmT17PO9mUSxD6eXWFfvt8+ds1
+         8I7igIwIOL5T3wCQ+qDF+C5a3PkKiahjqxDJwfMYvjXwj59anUS3mzCJpU/6ZOcLPz/X
+         Mw5g==
+X-Forwarded-Encrypted: i=1; AFNElJ+XmcCKc/7c16RpmH3Z2Ts2Sy7flWWuUHBf/ePuFiWpVNunLfm9lLRMEGcaXtEInTc5WcY/txw1jKSW@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJctv0VhRWZwhNGA+YPczjisufJFVX/+aKtppV4or6fhSTczI+
+	TCOIm3Njks4k8HAKlXhVIfLy7hR5TWT0ugIxHOGG7dNIwp2DBA2gp6sL
+X-Gm-Gg: Acq92OEe+0w8mxcBDyj48lp7Dy3/r/4YdB9xX9owfQetpkcYF0pdQ/nnxVWeAG6uUQY
+	DQ76AXCdjCXIXsKl/fMSnf4L6Lo2mkIQ/h7wpUfz1TuisoJB2aao+Z8QyyT0GqGMnrBFIMi0naA
+	9/cUXwRdcx3dYn9U0KoFW+U/vj44a2WFdC+qWQbY016KOCxswmQdUipe/YveUOpRBO6e5pI8LkK
+	GHdWuyS27vVGuOqIbqUlSaHJltIP8VytIVw4u20YxQ/kCf52hWW86eccj9w6CeCv1KaQO+0mqix
+	C4n932szCIp0ygUN3wO3mvpE5i2fx6WZH+2xtTixfO/PmfjZ4BL3T2+kCwVy2M+2Gsribn1N7ud
+	+RnKLfsnk4VoJu5VUDh+Fa3pwL7T0RegUrtGmc8VMG5vZpFiEoeJpHFbbMtkRJzSpuW0DvNK3fY
+	ItLfmJSRDylf8hM0l7Sy8tj8M=
+X-Received: by 2002:a17:907:2665:b0:bd1:d549:decc with SMTP id a640c23a62f3a-bdd23af346bmr1376086666b.20.1779976314604;
+        Thu, 28 May 2026 06:51:54 -0700 (PDT)
 Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.51
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.53
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 06:51:52 -0700 (PDT)
+        Thu, 28 May 2026 06:51:54 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Lee Jones <lee@kernel.org>,
 	Daniel Thompson <danielt@kernel.org>,
@@ -79,9 +79,9 @@ Cc: Johan Hovold <johan@kernel.org>,
 	linux-kernel@vger.kernel.org,
 	linux-iio@vger.kernel.org,
 	linux-fbdev@vger.kernel.org
-Subject: [PATCH v2 3/6] mfd: lm3533: Add support for VIN power supply
-Date: Thu, 28 May 2026 16:51:20 +0300
-Message-ID: <20260528135123.103745-4-clamor95@gmail.com>
+Subject: [PATCH v2 4/6] mfd: lm3533: Set DMA mask
+Date: Thu, 28 May 2026 16:51:21 +0300
+Message-ID: <20260528135123.103745-5-clamor95@gmail.com>
 X-Mailer: git-send-email 2.51.0
 In-Reply-To: <20260528135123.103745-1-clamor95@gmail.com>
 References: <20260528135123.103745-1-clamor95@gmail.com>
@@ -93,96 +93,35 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add support for 2.7V-5.5V VIN power supply.
+Missing coherent_dma_mask assigning triggers the following warning in
+dmesg:
+
+[    3.287872] platform lm3533-backlight.0: DMA mask not set
+
+Since this warning might be elevated to an error in the future, set
+coherent_dma_mask to zero because both the core and cells do not utilize
+DMA.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- drivers/mfd/lm3533-core.c  | 23 +++++++++++++++++++++--
- include/linux/mfd/lm3533.h |  2 ++
- 2 files changed, 23 insertions(+), 2 deletions(-)
+ drivers/mfd/lm3533-core.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-index 8495e9119871..519f8c16a3f3 100644
+index 519f8c16a3f3..3cfdebf5fb52 100644
 --- a/drivers/mfd/lm3533-core.c
 +++ b/drivers/mfd/lm3533-core.c
-@@ -17,6 +17,7 @@
- #include <linux/mod_devicetable.h>
- #include <linux/property.h>
- #include <linux/regmap.h>
-+#include <linux/regulator/consumer.h>
- #include <linux/seq_file.h>
- #include <linux/slab.h>
- #include <linux/uaccess.h>
-@@ -164,14 +165,25 @@ static int lm3533_set_lvled_config(struct lm3533 *lm3533, u8 lvled, u8 led)
- 	return ret;
+@@ -526,6 +526,10 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
+ 				   LM3533_BOOST_FREQ_MAX);
+ 	lm3533->boost_freq = lm3533->boost_freq / (500 * KILO) - 1;
+ 
++	/* LM3533 and child devices do not use DMA */
++	i2c->dev.coherent_dma_mask = 0;
++	i2c->dev.dma_mask = &i2c->dev.coherent_dma_mask;
++
+ 	return lm3533_device_init(lm3533);
  }
  
--static void lm3533_enable(struct lm3533 *lm3533)
-+static int lm3533_enable(struct lm3533 *lm3533)
- {
-+	int ret;
-+
-+	ret = regulator_enable(lm3533->vin_supply);
-+	if (ret) {
-+		dev_err(lm3533->dev, "failed to enable vin power supply\n");
-+		return ret;
-+	}
-+
- 	gpiod_set_value(lm3533->hwen, 1);
-+
-+	return 0;
- }
- 
- static void lm3533_disable(struct lm3533 *lm3533)
- {
- 	gpiod_set_value(lm3533->hwen, 0);
-+	regulator_disable(lm3533->vin_supply);
- }
- 
- enum lm3533_attribute_type {
-@@ -324,7 +336,9 @@ static int lm3533_device_init(struct lm3533 *lm3533)
- 	u32 count = 0, reg;
- 	int ret;
- 
--	lm3533_enable(lm3533);
-+	ret = lm3533_enable(lm3533);
-+	if (ret)
-+		return ret;
- 
- 	device_for_each_child_node_scoped(lm3533->dev, child) {
- 		if (!fwnode_device_is_available(child))
-@@ -493,6 +507,11 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
- 		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
- 				     "failed to get HWEN GPIO\n");
- 
-+	lm3533->vin_supply = devm_regulator_get(lm3533->dev, "vin");
-+	if (IS_ERR(lm3533->vin_supply))
-+		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->vin_supply),
-+				     "failed to get vin-supply\n");
-+
- 	device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
- 				 &lm3533->boost_ovp);
- 
-diff --git a/include/linux/mfd/lm3533.h b/include/linux/mfd/lm3533.h
-index 3aa962d4c747..d751773fc92d 100644
---- a/include/linux/mfd/lm3533.h
-+++ b/include/linux/mfd/lm3533.h
-@@ -21,6 +21,7 @@
- struct device;
- struct gpio_desc;
- struct regmap;
-+struct regulator;
- 
- struct lm3533 {
- 	struct device *dev;
-@@ -28,6 +29,7 @@ struct lm3533 {
- 	struct regmap *regmap;
- 
- 	struct gpio_desc *hwen;
-+	struct regulator *vin_supply;
- 
- 	u32 boost_ovp;
- 	u32 boost_freq;
 -- 
 2.51.0
 
