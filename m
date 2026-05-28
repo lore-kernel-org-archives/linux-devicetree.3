@@ -1,121 +1,185 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFF439A81E
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 09:58:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D428B39A805;
+	Thu, 28 May 2026 10:06:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779962295; cv=none; b=tD8X6MbfR1+xdz93PZWRHMQxrdfQrSl2vfCE5pgAPfD8R8+l2G2ORtR6j7XW4hjLj9ZO3vVpb/t+D8YIXbVJeLUPSbho/Rh3lTifonlv85IRuvYbK7bRIDChy2MlUg4jmcy805QbcD+q6SloauuSV/FI+aJKGhn1sPL5fTNz4o4=
+	t=1779962815; cv=none; b=ND+6hF1pFJuDVm1KRmfjpTDADTcUlQiF8KpdeP5Tw91d+8M1T2FVaMntrFArsZvLln1QhIBZXCU/nmweMljZBh1k5c+YrmsenIupHZHMt1Vrljay0ZrXRiW+Eh2yPUgvdSDIOSE0YSEgQFKJwkXZeMxWyttTC4R0m2xWljQ0ViQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779962295; c=relaxed/simple;
-	bh=qXq0pp2PGGQ0SzReuRieWR9ODhUaHEYwoxhyblJad58=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=rA9rD6hSwjlDZ6r9Ypgzw6QTnrU1swiF9IBflJysRXJ3Fos1W04sbil9dcTO+azv42mUPuR2k3j1i7ZUvj4kF6PAYBufADHItEplFAa6rvSzoahIlF6/HL9wmDsjEx3vkNdlgF+kwMXbuqkvRmw5Q1WPy/panoo3/vxLg799bsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oD28J5Bn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779962815; c=relaxed/simple;
+	bh=cEGUrQn5zfSHcZel1YP2AsXMaFm37TEl1+M+p4EizJo=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=gWQTHNgtbnshQRXGbvD+jITC3BftxXkbyZLcP0cjNjuYjLZWUoNtBT40hWqBBzCT4I28Kn9+zzjeSV2cXhRl1H5EUcTnBAyLxNmCYjsaCmfbjDgemVoXuPLbuNXf/580rna/wU/cynxgAlv2Sd6BBq3SqS8ROUEA3gOQaYa3O3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=h5lYngtS; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oD28J5Bn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C8B01F000E9;
-	Thu, 28 May 2026 09:58:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779962294;
-	bh=W4/LXQzdkPk6yBqu25C5pOL7uEazBRhGnfLaKdrRrxw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=oD28J5BneDFv33ghfc6zxtofUxOmOLh0IdIOv33I3UArPWudJmFUUlfYggP0Hwv5X
-	 GDyfZDsWOjNMOd8g8LV34aBI/fwWvhyLdvqxUrqICv75QKkmVO6MIa1F2SbGnuzEOl
-	 PDHwu+0nfhcrEteQvBlTFNtU9g9N7MRQHs6hP4cJuK0rbcZEy3cpL80W9Ic5kMY2iu
-	 EMjAqVhmVEesZPTGXNkHnOCjIicqIPgqIqeKLASqnoWPsMaQxHDgiNLD9L03KADQiB
-	 Dx8xZ9Y/tH7hmimojGtBAkLN6/8tCq96bxTWyoJjubuYRxvTJlvkldF+NrhlMTja/i
-	 9zsnY8LQe22Wg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add
- ramoops region
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?TWFydGlubyBEZWxsJ0FtYnJvZ2lv?= <tillo@tillo.ch>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528093038.1945245-1-tillo@tillo.ch>
-References: <20260528093038.1945245-1-tillo@tillo.ch>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 09:58:13 +0000
-Message-Id: <20260528095814.2C8B01F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="h5lYngtS"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vaPH4016473;
+	Thu, 28 May 2026 10:06:21 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=qcppdkim1; bh=Z9fHghHvoMM
+	TbEf/iS8uDXDn4ErwJXgkPHYYxFOsCkc=; b=h5lYngtSqXBZAaDsMIraNju4YAm
+	qrIld6lWYawjVTNK2WShVdRENyGgewiQ7+CA7cOQplMsjW7UhtBr9A5MKCLR0aFb
+	uJ0hCk3QWd/QFLccIlN2Ga1TyJByRn5urQD29cWLSaSVHZK6rNi/+1xO0YRpncUJ
+	hjPHUkrDdM9+IkOjBVikAN7sxbOtasxXsd68gspxKjd3TdNCDh6nmFr1YhLEEEv0
+	nxGsTR8nZRYRB1S2qrTikrehMqd+w1yR+B9XGfNtFF4Iv1zV7cy5unUPnt9ma6tq
+	r52rF67uLrv6xTZkTTpxJ4XzNO7lz6V9/e7MFinQ5Ds8bmCljqE8swpotEw==
+Received: from nalasppmta04.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7y5aagt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 28 May 2026 10:06:21 +0000 (GMT)
+Received: from pps.filterd (NALASPPMTA04.qualcomm.com [127.0.0.1])
+	by NALASPPMTA04.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64SA4iUN013336;
+	Thu, 28 May 2026 10:06:20 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 4ee8c5cx5w-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 28 May 2026 10:06:20 +0000 (GMT)
+Received: from NALASPPMTA04.qualcomm.com (NALASPPMTA04.qualcomm.com [127.0.0.1])
+	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64SA6JcW015375;
+	Thu, 28 May 2026 10:06:20 GMT
+Received: from hu-devc-lv-u22-c.qualcomm.com (hu-cang-lv.qualcomm.com [10.81.25.255])
+	by NALASPPMTA04.qualcomm.com (PPS) with ESMTPS id 64SA6JH8015374
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Thu, 28 May 2026 10:06:19 +0000 (GMT)
+Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 359480)
+	id B142F62C; Thu, 28 May 2026 03:06:19 -0700 (PDT)
+From: Can Guo <can.guo@oss.qualcomm.com>
+To: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
+        martin.petersen@oracle.com, mani@kernel.org
+Cc: linux-scsi@vger.kernel.org, Can Guo <can.guo@oss.qualcomm.com>,
+        Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
+        Zhaoming Luo <zhml@posteo.com>,
+        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+        linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v4 1/2] dt-bindings: ufs: Document static TX Equalization settings properties
+Date: Thu, 28 May 2026 03:06:13 -0700
+Message-Id: <20260528100614.3386423-2-can.guo@oss.qualcomm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260528100614.3386423-1-can.guo@oss.qualcomm.com>
+References: <20260528100614.3386423-1-can.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-QCInternal: smtphost
+X-QCInternal: smtphost
+X-Authority-Analysis: v=2.4 cv=OM4XGyaB c=1 sm=1 tr=0 ts=6a18139d cx=c_pps
+ a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=rJkE3RaqiGZ5pbrm-msn:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=aytFPfgCXfsv55HZsIkA:9
+X-Proofpoint-ORIG-GUID: sXGDQFHB6RyLDwWOjjA3dF4vxS7hh2JD
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEwMiBTYWx0ZWRfX/KxYpt9YL62h
+ XI8qFqtiE/Qv6K6KkL3Ka7BkjEgeXJLAZ1rgv2LioQICPMlEBFG4qeSPONEY6r930O9xO69CN7S
+ 1HVjOzuM2BBbXYHTAXjDwmf8pKgRzrtgXr1cRZ4ksZfdrH6G1DzuAYa3RPZLo+yKRK/KrCj/7gi
+ II+2iVCq9Dt0D71dU/3JIL2wRA0sN2ujhpaaAGrhhmMb4yr1cgXI8MWA8Ju88+J5JUwFCIPk/Ou
+ 210hTwdgyFtxUZ6EfnsE4VzsYKSCnW8jXoYMk/7Rld7EisBfuhsjl8ZK2CxdFt46Zzunw3sBuaZ
+ ZfNrbvSnKXCc4p31b/n1vI+jVmWfq1fIkaN3fQ5OsgGUhDf3nlofEbb7b2+OqC00dKCVksVva6q
+ /Cl/BLMhGJUtXQBEgZP3T5Tr9sF+saYw4fhjaIZa/+uAJmQN2ELsXvh/WoMcWSk5MwMt07vQV7e
+ Ll4rQMlnyPjvFQGuqrA==
+X-Proofpoint-GUID: sXGDQFHB6RyLDwWOjjA3dF4vxS7hh2JD
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-26_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 impostorscore=0 adultscore=0 suspectscore=0
+ clxscore=1015 priorityscore=1501 lowpriorityscore=0 phishscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280102
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `ramoops` reserved-memory node is missing the `no-map` propert=
-y, leading to initialization failure and preventing the driver from loading.
-- [Low] The commit message mathematically miscalculates the memory layout a=
-nd fundamentally misrepresents how `ramoops` allocates space for ECC parity.
---
+UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+integrity at high speed operation.
 
-commit b448b96b8ca8171732f9a19b1cb33fbb0c73f34d
-Author: Martino Dell'Ambrogio <tillo@tillo.ch>
+For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+required depending on channel characteristics.
 
-arm64: dts: mediatek: mt7986a-bananapi-bpi-r3: add ramoops region
+Add vendor-neutral DT properties:
 
-This patch reserves a 64 KiB memory region for pstore/ramoops on the
-BPI-R3 board. The carve-out is intended to store kernel log data to
-persist across warm resets.
+- patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
+- fixed property tx-precode-enable-g6
 
-> The carve-out is divided into 8 KiB kmsg records, a 32 KiB rolling consol=
-e,
-> 8 KiB ftrace, and 8 KiB pmsg, leaving the remainder for the per-record
-> Reed-Solomon ECC parity (ecc-size=3D16) which significantly improves dump
-> readability when the panic path truncates writes mid-record.
+Each property is a uint32 array of per-lane tuples:
+<Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
 
-[Severity: Low]
-Is this description of the ECC parity location accurate?
+Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
+are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
 
-With 32 KiB for the console, 8 KiB for ftrace, 8 KiB for pmsg, and two 8 KiB
-kmsg records, the allocations sum to exactly 64 KiB, leaving 0 bytes of
-remainder.
+Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
+---
+ .../devicetree/bindings/ufs/ufs-common.yaml   | 45 +++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-It appears the ramoops driver implements ECC by carving the ecc-size
-directly out of the payload capacity of each individual zoned region, rather
-than placing it in a separate remainder pool.
+diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+index ed97f5682509..d90cf25adfa5 100644
+--- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
++++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+@@ -105,6 +105,51 @@ properties:
+       Restricts the UFS controller to rate-a or rate-b for both TX and
+       RX directions.
+ 
++  tx-precode-enable-g6:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    oneOf:
++      - minItems: 2
++        maxItems: 2
++      - minItems: 4
++        maxItems: 4
++    items:
++      enum: [0, 1]
++    description: |
++      Static TX Precode enable values for HS-G6 only.
++      Values are specified as per-lane tuples:
++      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
++
++patternProperties:
++  "^txeq-preshoot-g[1-6]$":
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    oneOf:
++      - minItems: 2
++        maxItems: 2
++      - minItems: 4
++        maxItems: 4
++    items:
++      minimum: 0
++      maximum: 7
++    description: |
++      Static TX Equalization PreShoot values for High Speed Gears.
++      Values are specified as per-lane tuples:
++      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
++
++  "^txeq-deemphasis-g[1-6]$":
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    oneOf:
++      - minItems: 2
++        maxItems: 2
++      - minItems: 4
++        maxItems: 4
++    items:
++      minimum: 0
++      maximum: 7
++    description: |
++      Static TX Equalization DeEmphasis values for High Speed Gears.
++      Values are specified as per-lane tuples:
++      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
++
+ dependencies:
+   freq-table-hz: [ clocks ]
+   operating-points-v2: [ clocks, clock-names ]
+-- 
+2.34.1
 
-Could the commit message be updated to clarify how the ECC parity is actual=
-ly
-allocated within the zones?
-
-> diff --git a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts b/a=
-rch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-> index 19f538d160ab5..31ee189dedc73 100644
-> --- a/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-> +++ b/arch/arm64/boot/dts/mediatek/mt7986a-bananapi-bpi-r3.dts
-
-[ ... ]
-
-> +&{/reserved-memory} {
-> +	ramoops@42ff0000 {
-> +		compatible =3D "ramoops";
-> +		reg =3D <0 0x42ff0000 0 0x10000>;
-> +		record-size =3D <0x2000>;
-> +		console-size =3D <0x8000>;
-> +		ftrace-size =3D <0x2000>;
-> +		pmsg-size =3D <0x2000>;
-> +		ecc-size =3D <16>;
-> +	};
-> +};
-
-[Severity: High]
-Does this reserved memory node need the no-map property to function correct=
-ly?
-
-Since this region sits within the system DRAM starting at 0x40000000,
-without no-map the OS will incorporate it into the kernel's linear mapping
-as Normal Cacheable memory.
-
-When the pstore/ramoops driver attempts to map this region using ioremap_wc=
-(),
-will ioremap_prot() on ARM64 detect the attempt to remap active RAM with
-different memory attributes and trigger an aliasing violation warning,
-returning NULL and preventing the driver from loading?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528093038.1945=
-245-1-tillo@tillo.ch?part=3D1
