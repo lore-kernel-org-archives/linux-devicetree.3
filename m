@@ -1,115 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C532E7366
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:23:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F8926A08F
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:28:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779981818; cv=none; b=d84kMe4lr7OF8QF4MQ0KGBchQksQIX7t3GRfVZIXKtphHNk/Rx65AlaO92TFWMn6A9yjhv96tmnBQov9R/fLOBF9pXXFKF0tlJFAS3ekj7xurYFfeq1JI4+tlekqEHhGXHJSMEvmSQWRWKtb7czztDB+maH1VIV6ZcV2056Mzgg=
+	t=1779982117; cv=none; b=aOCU9Xfm8NZ6Cv3Xld33h//an4IqELK4/FDeeKaglPY/MFNHLoTt8mcg87mHj1Ix6NuCBQVJ4sgacRm9a5e/q5DA2CpDR5Akuk29uZerxhpQJqOy9rloerSDGOLXLJR9c6Q3C/HXFYhrfeUB/iWgIcEY5M3qMmqK6c/9WeDKt6M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779981818; c=relaxed/simple;
-	bh=F/iG7+TQYK/3Gk+z5S15nPk6Tp6X1NtNbYm73De2KyM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=f2XQLKUoqBmC5NA9fSjVmig6FlOzN4H7X+LsSMTv7SjB6in51aZBBlMDFwxqG5URUYkhzdo8fpInDMRW/QK2omGhQaRCK5wJ2g+3by/zhhCacZlUXMJTgX/5lqa3pNnGwvoNh753qXZ4toQPkmsG1gttv7kMbdBDL9pvuCNv2rM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PwW7+42d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779982117; c=relaxed/simple;
+	bh=eeEMIJjxVyJLBdL8FEaWHTXSNzVQEV3p0297m14anKI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=m1E7SB92bcKaSso+16XXw+rk73abfREeehK4AVLwK/7OiRt8vZKd/ffxVwFj8ZEMwsCy+zMtieSWFXLLLal7RQ2Iltkl87JqnwnMoPxwlHRiX5ptlb8PWp8GC1w+saKgPNZboaF7fj4EM/itnzgb+5TXNrGe5izAIaiEvmD9wFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=TAK8w7U2; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PwW7+42d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD6D41F000E9;
-	Thu, 28 May 2026 15:23:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779981818;
-	bh=n9d0JFpqcwCKeoAVlUij0GNGvhkPQrsAklBcDQN0t2E=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=PwW7+42dgDl3PW3ImI7sw/+CHx5Evz4CyKQbO3BnXU5vxtmASf+uNmV/bmpS1i9SW
-	 oUVVQy44WkQLyLsD+QE1O8IYLwuoUPQR+4kIVj92TtZh3G1tqIhrgDT+T6nJ2RwLwg
-	 Q89AAhgkWgBVDZngxBbxBSLTJOBMwEPxb1NM6Ht6LcJ+RWUwLvFkhQP5Hz7hToG/wd
-	 b0ac9qyIUzW0jmqhnwcMiexErbS/JwTm71NVTt8nnU7KQOY2RR784Q6HwpqtMUyjA4
-	 Ah1QwUQf8TahFusQdMAigIEcMSz+/NKOWDPJiBTkz12apGO5xjOMVcKNHuew5ajDEE
-	 eBIC5zdZK3myw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/5] clocksource/timer-econet-en751221: Init teardown
- on error if possible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Caleb James DeLisle" <cjd@cjdns.fr>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528140046.2897674-4-cjd@cjdns.fr>
-References: <20260528140046.2897674-4-cjd@cjdns.fr>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 15:23:37 +0000
-Message-Id: <20260528152337.DD6D41F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="TAK8w7U2"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E36E84B8557;
+	Thu, 28 May 2026 17:28:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1779982114; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=t0W1udPINrIavFGb3a52KDavbFALzINfXswBdNoYZbc=;
+	b=TAK8w7U2Vrt57VszqooF7CL3RTycS4qG8jd82Za7JKN0lQeh8akjJEmVvOg2+h6Z+paDPO
+	f3QUBnMhN6AEnAOSfi0LIm5mz6H1duDy1uCFjlYVnFqalUkbnQH7pcUDJgsD15zP7UWCMY
+	VI8ViBOeW1A7HJqw7pPq64QLAsbS8ykFhQtDof33eQgTla0uXqlUPd9UtUpWmms41YAX5W
+	reYwThUZPGYWw7P1rG6aJHvBxknN3jma78pbJ2OBk55hWmGbCruWm5Zz4B0kXglm14s4vr
+	m0ECopZLAamXEcEinmwGpNLHYdhkQbV/ca8T0v8vSkACgjceelD/iiqswlFrIA==
+Message-ID: <562d7eb0-6536-43ad-859c-1ee2a83623e0@cjdns.fr>
+Date: Thu, 28 May 2026 17:28:23 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v6 2/5] dt-bindings: timer: econet: Update EN751627 for
+ multi-IRQ
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+References: <20260528140046.2897674-3-cjd@cjdns.fr>
+ <20260528144536.4BCEA1F000E9@smtp.kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260528144536.4BCEA1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Critical] The newly added error path for `cpuhp_setup_state()` failure c=
-reates a fatal use-after-unmap vulnerability by freeing IRQs and unmapping =
-I/O memory without unregistering the active clockevent devices.
---
 
-commit e1e0b36b8164978eb079f38d9547d743cebd0a97
-Author: Caleb James DeLisle <cjd@cjdns.fr>
+On 28/05/2026 16:45, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] The commit modifies the `compatible` property to remove the fallback and strictly require 4 interrupts for the `econet,en751627-timer`, breaking backwards compatibility with existing device trees.
+> --
 
-clocksource/timer-econet-en751221: Init teardown on error if possible
+When I first contributed this driver, I added an en751627 compatible 
+because I knew it to be present on the hardware but en751627 support was 
+not developed. Now we know that for this to work it requires 4 IRQs.
 
-This commit reorganizes the initialization process of the econet timer by
-separating it into two phases. It adds teardown logic to safely roll back
-resource allocations like memory mappings and IRQ requests if an error occu=
-rs
-before the point of no return.
+This was a mistake on my part the first time around.
 
-> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocks=
-ource/timer-econet-en751221.c
-> --- a/drivers/clocksource/timer-econet-en751221.c
-> +++ b/drivers/clocksource/timer-econet-en751221.c
-[ ... ]
-> @@ -187,22 +166,45 @@ static int __init timer_init(struct device_node *np)
-[ ... ]
-> +	ret =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN,
-> +				"clockevents/econet/timer:starting",
-> +				cevt_init_cpu, NULL);
-> +	if (ret < 0) {
-> +		pr_err("%pOFn: cpuhp setup failed (%d)\n", np, ret);
-> +		goto out_irq_free;
-> +	}
+Thanks,
 
-[Severity: Critical]
-When cpuhp_setup_state() executes the startup callback across online CPUs,
-it registers the clockevent devices. If this fails on a subsequent CPU,
-cpuhp_setup_state() aborts. Because a NULL teardown callback was provided,
-the CPU hotplug core skips rollback and leaves the successfully registered
-clockevent devices active on the earlier CPUs.
+Caleb
 
-The error path here then frees the IRQs and unmaps the I/O memory. If the
-timekeeping core attempts to handle a timer interrupt or program the next
-event on the still-registered clockevent devices, will it dereference the
-unmapped memory?
-
-Should the active clockevent devices be unregistered, or a teardown callback
-provided to cpuhp_setup_state(), before freeing these resources?
-
-> +
-> +	/* Point of no return, do not attempt to tear down after this. */
-[ ... ]
-> +out_irq_free:
-> +	free_percpu_irq(econet_timer.irq, &econet_timer_pcpu);
-> +out_irq_mapping:
-> +	irq_dispose_mapping(econet_timer.irq);
-> +out_membase:
-> +	for (int i =3D 0; i < ARRAY_SIZE(econet_timer.membase); i++) {
-> +		if (econet_timer.membase[i]) {
-> +			iounmap(econet_timer.membase[i]);
-> +			econet_timer.membase[i] =3D NULL;
-> +		}
-> +	}
-> +
-> +	return ret;
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528140046.2897=
-674-1-cjd@cjdns.fr?part=3D3
+>
+> commit 4d76d221e102e3fd0badbb607f955a94dc92884a
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+>
+> dt-bindings: timer: econet: Update EN751627 for multi-IRQ
+>
+> This commit updates the device tree binding for the EN751627 timer. It
+> modifies the binding to require an individual IRQ number per timer instead
+> of a single shared percpu IRQ.
+>
+>> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+>> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+>> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
+> [ ... ]
+>>   properties:
+>>     compatible:
+>> -    oneOf:
+>> -      - const: econet,en751221-timer
+>> -      - items:
+>> -          - const: econet,en751627-timer
+>> -          - const: econet,en751221-timer
+>> +    enum:
+>> +      - econet,en751221-timer
+>> +      - econet,en751627-timer
+> [ ... ]
+>
+>> @@ -52,21 +51,31 @@ allOf:
+>>             items:
+>>               - description: VPE timers 0 and 1
+>>               - description: VPE timers 2 and 3
+>> +        interrupts:
+>> +          description: An interrupt for each timer (one per VPE)
+>> +          minItems: 4
+> [Severity: High]
+> Does this change break backwards compatibility with existing device trees?
+>
+> The previous schema allowed compatible = "econet,en751627-timer",
+> "econet,en751221-timer" with a single interrupt.
+>
+> Modifying the compatible property to an enum without the fallback and enforcing
+> minItems: 4 for interrupts on the en751627-timer means any existing device tree
+> using the old schema will now fail validation.
+>
+> Can this cause boot regressions on previously functioning deployed systems if
+> an updated driver expects 4 interrupts and attempts to index into an
+> uninitialized IRQ array?
+>
