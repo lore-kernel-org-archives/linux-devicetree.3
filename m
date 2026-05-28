@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 569053B4E8F
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 09:45:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47AF43B47D7
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 09:46:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779961541; cv=none; b=dvGgJsLlbTwFNrBWk7O4TTpN1qmeC9a+AH3yB2aupAdnK9yrBQPpMdZY0WWNfkKZjNTqKuHX+ji5FHoMl6u1nqge8ojrVH032xQAKtMhjT5jPgc3dYSLEDcqGNvsaOIDbAGZrcIJiNwUF5VuPwBXJDUk246KPPdNf9nO58r+/mw=
+	t=1779961571; cv=none; b=XLMuPcIn85BCgzubleRMuvinwJjx2gLtpBRrG+BJB4is1aKFduVvm7rzoaSM+9aZ7sxj5BrDray1cC2y0mJq5CkY6b/jZep531ltISCVZ8I7hoRIQ4TJkeBl2WoJ46HK69MDIjsjRAX7U7JV67E/0Mo6O9GFAWO8s/DyuB/Bv1c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779961541; c=relaxed/simple;
-	bh=OCc6nTo5TgNX7Pgxi4OGR3KoG3JJHiEDnvxOzCWezdw=;
+	s=arc-20240116; t=1779961571; c=relaxed/simple;
+	bh=CSzmclSTU6fVJ+aJDLHzAu2365vs3rUMFPsswkmbtMk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pXHRaUkvzWsNRhi61+JhL9NaBW2zQ4vuLflyaslyPfmNsM1BSFEWFAK/ozsDkrrv5Cjk+twZ7LUeS1tY7rxiKyjFvaZDiEnPfxeMONaA7Rsp2mgvKlr36FpGspOsLMGm8wTVjqUO1f6eWTiot5+Wbm2MAVMt/TGMwq4N3IMT38o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eXkN0k2U; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=D+RtOx1R6Y4o2gvBJTCinnjd2JSL6WuhuzNgGNcCDEPjR0XE4sjXM8GUTIvdGazzc2eFfO5c8J/m0gTgqLBw8y1wGwyVcOD2ev52VcFyHNyWFRnP9HCCjUuSmFGbEBwrQVHanSK5qjqjycyxfq+rLSadYuJ4CLtLiSlSMXGHhuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lIXjUULL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eXkN0k2U"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE13D1F000E9;
-	Thu, 28 May 2026 09:45:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lIXjUULL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8EE11F000E9;
+	Thu, 28 May 2026 09:46:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779961538;
-	bh=rPch0l1dLxkO+0MnNdrwbxOPVkadQZrLCO57Y0wZnzI=;
+	s=k20260515; t=1779961570;
+	bh=vrySqI4E/vxVL1HFDYQ/IZkDNdCFbYkFI47iXit5XIY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=eXkN0k2UPg4qQtykPD3SxPZCFMcG9BNQ21UTkr5X+cJYU1JJky+R8Lw5segdC79kK
-	 +aTAgDXiDiXRiTqwIzifUYFAhfZn78dJcjXPcE/c+G2Sj1TQksH+Jotq1M7Ztk9/If
-	 kQQqWPGSeSjzDNnmKtr5FcNDs/TrLGBYheVDjNWrVNhIrVmyIFEtLTwdXv5UPGxmID
-	 5t+x2rTkHCpHZpV2zxC61nptGhUAk/PwPMunhWYetHkjh423QRxBmSmAogEmdm7C6c
-	 bOabthQL6i4Wmcafek4EofBndvgHoUrshdDjrmZhl2ctD9GOJ7K0bos9MmV0WUteTA
-	 v2edoI+fZeZMw==
+	b=lIXjUULLBnrY3IDx0JD3r5kSdXPNGR6QSRY50dKndiyRuJGigSQKl0rwoZkxxzGHW
+	 ch39RYlo4KnWYynPWWM0Dv1HBdlyfpO5kYLc07Il8ihcao/pemsH1L4Q1LPK2yQ+tH
+	 ErQ1qMbT48RgNt3I+3t5ddxHhqtj51nPLIcshK/NjS9SNV0jBZRQ0oPO+njKR4T/7v
+	 5RdFp25d+2QwCr309otzI+CRw11IEvsAA8eHcrILoLzNimkL7jRZTSUVgOn1r5O4Qd
+	 N79iTduZhCXaJzXmaR/g979IiWKZHOYpC7XsCgvdbJLnw6VAoikc1KsNjTUAjdClW6
+	 reBfdBMI/FfSg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v9 2/2] leds: ltc3220: Add Support for LTC3220 18
- channel LED Driver
+Subject: Re: [PATCH v30 5/5] i2c: ast2600: Add target mode support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Edelweise Escala" <edelweise.escala@analog.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260528-ltc3220-driver-v9-2-69450fc213cb@analog.com>
-References: <20260528-ltc3220-driver-v9-2-69450fc213cb@analog.com>
+To: "Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260528-upstream_i2c-v30-5-5d4f9adc3530@aspeedtech.com>
+References: <20260528-upstream_i2c-v30-5-5d4f9adc3530@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 09:45:37 +0000
-Message-Id: <20260528094537.EE13D1F000E9@smtp.kernel.org>
+Date: Thu, 28 May 2026 09:46:09 +0000
+Message-Id: <20260528094609.D8EE11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,284 +45,311 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 10 potential issue=
 (s) to consider:
-- [High] LTC3220_GRAD_BLINK_REG is incorrectly marked as a volatile registe=
-r, which can break regmap_update_bits().
-- [High] Hardware registers are not restored during system resume, leaving =
-LEDs permanently off after suspend.
-- [High] Missing delays during the hardware reset sequence can cause the re=
-set to be ignored.
-- [High] Early return in `ltc3220_reset` skips software initialization and =
-regmap cache setup when a reset GPIO is present.
-- [Medium] Hardware blink activates at 0 brightness if the LED was previous=
-ly off.
-- [Medium] LED sysfs interfaces are exposed to userspace before the driver =
-probe is fully validated.
-- [Low] Invalid use of a dynamic variable as an array index inside the `con=
-tainer_of` macro causes a build failure.
-- [Low] Unused macro LTC3220_GRADATION_START_VALUE.
-- [Low] Missing inclusion of <linux/property.h>.
-- [Low] Unused inclusion of <linux/delay.h>.
+
+New issues:
+- [Critical] Aborting an in-flight controller transfer from the target IRQ =
+handler races with controller IRQs, leading to a Use-After-Free.
+- [Critical] A Time-Of-Check to Time-Of-Use (TOCTOU) race in `ast2600_i2c_c=
+ontroller_xfer` allows target hardware to corrupt the shared I2C buffer.
+- [High] Invalid I2C Slave event ordering: STOP events are emitted before W=
+RITE_REQUESTED and WRITE_RECEIVED data events.
+- [High] The `target_active` flag is permanently leaked as true under speci=
+fic hardware interrupt combinations, deadlocking controller transfers.
+- [High] Target interrupts are permanently disabled if a target is unregist=
+ered and later re-registered.
+- [High] A specific target ISR STOP case stalls the I2C target state machin=
+e by failing to trigger the hardware command.
+- [High] Unhandled target interrupt states fail to re-arm the hardware, per=
+manently hanging the I2C bus.
+- [High] Checking the raw ISR register to block controller transfers perman=
+ently bricks the controller due to uncleared W1C bits.
+- [Medium] Target interrupts are unconditionally enabled even when no targe=
+t is registered.
+
+Pre-existing issues:
+- [High] In controller mode, the received `xfer_len` is not validated again=
+st the remaining bounds of the `msg->buf` array.
 --
 
-commit 2114fc05b329ae4441a5e44db9eed34c434f6c7b
-Author: Edelweise Escala <edelweise.escala@analog.com>
-Subject: leds: ltc3220: Add Support for LTC3220 18 channel LED Driver
+commit fdd43bfe0f52b1390eb013eb7a0a2e7b1131f43e
+Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
-Add driver for the LTC3220 18-channel LED driver with I2C interface,
-individual brightness control, and hardware-assisted blink/gradation
-features.
+i2c: ast2600: Add target mode support
 
-> diff --git a/drivers/leds/leds-ltc3220.c b/drivers/leds/leds-ltc3220.c
-> new file mode 100644
-> index 0000000000000..a633ac5ca6ae4
-> --- /dev/null
-> +++ b/drivers/leds/leds-ltc3220.c
-> @@ -0,0 +1,440 @@
+Add target mode support to the AST2600 I2C driver. This complements the=20
+existing controller-mode support, enabling dual-role capability.
+
+> diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
+t2600.c
+> index a06d0483865ed..7e609fdfa1a19 100644
+> --- a/drivers/i2c/busses/i2c-ast2600.c
+> +++ b/drivers/i2c/busses/i2c-ast2600.c
 [ ... ]
-> +#include <linux/bitfield.h>
-> +#include <linux/delay.h>
-
-[Severity: Low]
-Is this include needed?
-
-It doesn't appear that any delay functions like msleep() or usleep_range()
-are used in the driver implementation.
-
-> +#include <linux/device.h>
-> +#include <linux/gpio/consumer.h>
-> +#include <linux/i2c.h>
-> +#include <linux/leds.h>
-> +#include <linux/mod_devicetable.h>
-> +#include <linux/module.h>
-> +#include <linux/regmap.h>
-> +#include <linux/types.h>
-
-[Severity: Low]
-Should this file include <linux/property.h>?
-
-The driver uses fwnode property APIs such as device_for_each_child_node_sco=
-ped(),
-fwnode_property_read_u32(), and fwnode_property_present(), which are defined
-in <linux/property.h>.
-
-> +/* LTC3220 Registers */
-> +#define LTC3220_COMMAND_REG				0x00
-[ ... ]
-> +#define LTC3220_NUM_LEDS				18
-> +
-> +#define LTC3220_GRADATION_START_VALUE			128
-
-[Severity: Low]
-Is this macro used anywhere in the driver?
-
-It appears to be dead code as it is never referenced.
-
-> +#define LTC3220_GRADATION_RAMP_TIME_240MS		240
-[ ... ]
-> +static bool ltc3220_volatile_reg(struct device *dev, unsigned int reg)
+> @@ -337,6 +342,249 @@ static int ast2600_i2c_recover_bus(struct ast2600_i=
+2c_bus *i2c_bus)
+>  	return ret;
+>  }
+> =20
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +static void ast2600_i2c_target_packet_buff_irq(struct ast2600_i2c_bus *i=
+2c_bus, u32 sts)
 > +{
-> +	return reg =3D=3D LTC3220_GRAD_BLINK_REG;
-> +}
-
-[Severity: High]
-Does this register need to be marked volatile?
-
-Marking a register as volatile tells regmap to bypass the cache and read fr=
-om
-the physical hardware. If the LTC3220 is a write-only I2C device, the physi=
-cal
-read will fail, causing regmap_update_bits() to fail entirely in
-ltc3220_pattern_set() and ltc3220_blink_set().
-
-Even if the device supports reads, this register is exclusively controlled =
-by
-software and does not change autonomously, so could it be cached normally to
-avoid unnecessary I2C reads?
-
-> +static const struct regmap_config ltc3220_regmap_config =3D {
-[ ... ]
-> +static int ltc3220_set_led_data(struct led_classdev *led_cdev,
-> +				enum led_brightness brightness)
-> +{
-> +	struct ltc3220_uled_cfg *uled_cfg =3D container_of(led_cdev, struct ltc=
-3220_uled_cfg,
-> +							 led_cdev);
-> +	struct ltc3220 *ltc3220 =3D container_of(uled_cfg, struct ltc3220,
-> +					       uled_cfg[uled_cfg->led_index]);
-
-[Severity: Low]
-Will this dynamic variable index inside container_of() cause a build failur=
-e?
-
-The driver attempts to retrieve the parent structure using
-uled_cfg[uled_cfg->led_index]. The container_of macro relies on offsetof(),
-which strictly requires the member argument to be a constant expression.
-
-Since uled_cfg->led_index is a runtime variable, this violates the C standa=
-rd
-and can abort compilation on compilers like Clang with an error about a
-non-constant integer expression.
-
-> +	int ret;
-[ ... ]
-> +static int ltc3220_blink_set(struct led_classdev *led_cdev,
-> +			     unsigned long *delay_on,
-> +			     unsigned long *delay_off)
-> +{
-> +	struct ltc3220_uled_cfg *uled_cfg =3D container_of(led_cdev, struct ltc=
-3220_uled_cfg,
-> +							 led_cdev);
-[ ... ]
-> +	ret =3D regmap_update_bits(ltc3220->regmap, LTC3220_GRAD_BLINK_REG,
-> +				 LTC3220_BLINK_MASK, FIELD_PREP(LTC3220_BLINK_MASK, blink_mode));
-> +	if (ret)
-> +		return ret;
+> +	u8 value =3D 0;
+> +	int target_rx_len =3D 0;
+> +	u32 cmd =3D 0;
+> +	int i;
 > +
-> +	return regmap_update_bits(ltc3220->regmap, LTC3220_ULED_REG(uled_cfg->l=
-ed_index),
-> +				  LTC3220_LED_MODE_MASK,
-> +				  FIELD_PREP(LTC3220_LED_MODE_MASK, LTC3220_BLINK_MODE));
-> +}
-
-[Severity: Medium]
-Will the hardware blink activate at 0 brightness if the LED was previously =
-off?
-
-When the LED is off, its current bits in LTC3220_ULED_REG are 0. The driver
-updates the mode bits to LTC3220_BLINK_MODE using regmap_update_bits() but
-does not update the brightness bits.
-
-Because the core expects the driver to handle brightness configuration for
-hardware blinking, could this hardware blink execute at 0 brightness, leavi=
-ng
-the LED unlit?
-
-> +static void ltc3220_reset_gpio_action(void *data)
-[ ... ]
-> +static int ltc3220_reset(struct ltc3220 *ltc3220, struct i2c_client *cli=
-ent)
-> +{
-> +	struct gpio_desc *reset_gpio;
-> +	int ret;
-> +
-> +	reset_gpio =3D devm_gpiod_get_optional(&client->dev, "reset", GPIOD_OUT=
-_HIGH);
-> +	if (IS_ERR(reset_gpio))
-> +		return dev_err_probe(&client->dev, PTR_ERR(reset_gpio), "Failed on res=
-et GPIO\n");
-> +
-> +	if (reset_gpio) {
-> +		gpiod_set_value_cansleep(reset_gpio, 0);
-
-[Severity: High]
-Does this sequence lack the necessary delays to ensure a successful reset?
-
-The driver asserts the reset GPIO by requesting it with GPIOD_OUT_HIGH and
-immediately de-asserts it with gpiod_set_value_cansleep(reset_gpio, 0). The=
-re
-is no delay between these calls, creating a near-zero width pulse that may =
-fail
-to meet the IC's minimum reset pulse width requirement.
-
-It also lacks a wakeup delay before subsequent I2C commands might be sent.
-
-> +
-> +		return devm_add_action_or_reset(&client->dev, ltc3220_reset_gpio_actio=
-n,
-> +						reset_gpio);
-
-[Severity: High]
-Does returning early here skip software initialization and regmap cache set=
-up?
-
-If the reset_gpio is successfully acquired, this function immediately retur=
-ns
-0, entirely skipping the subsequent regmap_write() calls intended to initia=
-lize
-the hardware registers.
-
-Because the driver does not define a .reg_defaults table, skipping these wr=
-ites
-leaves the regmap cache uninitialized, which can break subsequent
-read-modify-write logic via regmap_update_bits().
-
+> +	/* due to controller target is common buffer, need force the master sto=
+p not issue */
+> +	if (readl(i2c_bus->reg_base + AST2600_I2CM_CMD_STS) & GENMASK(15, 0)) {
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_CMD_STS);
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
+> +		writel(readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
+> +		       i2c_bus->reg_base + AST2600_I2CM_ISR);
+> +		i2c_bus->cmd_err =3D -EBUSY;
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CC_BUFF_CTRL);
+> +		complete(&i2c_bus->cmd_complete);
+> +		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
+> +		       i2c_bus->reg_base + AST2600_I2CM_IER);
 > +	}
-> +
-> +	ret =3D regmap_write(ltc3220->regmap, LTC3220_COMMAND_REG, 0);
-[ ... ]
-> +static int ltc3220_suspend(struct device *dev)
-> +{
-> +	struct ltc3220 *ltc3220 =3D i2c_get_clientdata(to_i2c_client(dev));
-> +
-> +	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
-> +				  LTC3220_SHUTDOWN_MASK, LTC3220_SHUTDOWN_MASK);
-> +}
-> +
-> +static int ltc3220_resume(struct device *dev)
-> +{
-> +	struct ltc3220 *ltc3220 =3D i2c_get_clientdata(to_i2c_client(dev));
-> +
-> +	return regmap_update_bits(ltc3220->regmap, LTC3220_COMMAND_REG,
-> +				  LTC3220_SHUTDOWN_MASK, 0);
-> +}
 
-[Severity: High]
-Are the hardware registers left permanently off after resume?
-
-In ltc3220_suspend(), the driver sets the LTC3220_SHUTDOWN_MASK bit. On many
-such chips, asserting the shutdown bit resets internal registers. Additiona=
-lly,
-power to the IC may be lost during system suspend.
-
-In ltc3220_resume(), the driver clears the shutdown bit but does not call
-regcache_mark_dirty() and regcache_sync(). Could this leave the physical LED
-outputs permanently off, while the kernel's regmap cache and LED classdev s=
-tate
-incorrectly reflect that the LEDs are still configured and illuminated?
-
-> +static DEFINE_SIMPLE_DEV_PM_OPS(ltc3220_pm_ops, ltc3220_suspend, ltc3220=
-_resume);
-> +
-> +static int ltc3220_probe(struct i2c_client *client)
-> +{
-> +	struct ltc3220 *ltc3220;
-[ ... ]
-> +		ret =3D devm_led_classdev_register_ext(&client->dev, &led->led_cdev, &=
-init_data);
-> +		if (ret)
-> +			return dev_err_probe(&client->dev, ret, "Failed to register LED class=
-\n");
-> +	}
-> +
-> +	/*
-> +	 * Aggregated LED mode uses hardware quick-write to control all 18 LEDs
-> +	 * simultaneously. This is mutually exclusive with individual LED contr=
-ol.
-> +	 * See Documentation/devicetree/bindings/leds/adi,ltc3220.yaml for deta=
-ils
-> +	 * on how to configure aggregated LED mode.
-> +	 */
-> +	if (aggregated_led_found && num_leds > 1)
-> +		return dev_err_probe(&client->dev, -EINVAL,
-> +				     "Aggregated LED must be the only LED node\n");
-
-[Severity: Medium]
-Are the LED sysfs interfaces exposed to userspace before the driver probe is
-fully validated?
-
-Inside the loop above, devm_led_classdev_register_ext() is called, which
-immediately exposes sysfs interfaces. If the validation check here fails and
-returns an error, userspace could have already discovered and interacted wi=
-th
-the LED devices before they are unexpectedly torn down by devres.
-
-Could these validation checks be completed before registering the interface=
+[Severity: Critical]
+Does calling complete() here race with re-enabling the controller interrupt=
 s?
 
+If the controller thread wakes up immediately and frees the locally allocat=
+ed
+msgs array, could a subsequent delayed hardware interrupt cause
+ast2600_i2c_controller_packet_irq() to dereference the freed msgs pointer?
+
+> +
+> +	/* Handle i2c target timeout condition */
+> +	if (sts & AST2600_I2CS_INACTIVE_TO) {
+[ ... ]
+> +	switch (sts) {
+> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_WAIT_RX_DMA |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_STOP:
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
+> +		fallthrough;
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_WAIT_RX_DMA | AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX=
+_DONE:
+
+[Severity: High]
+Does falling through here emit events in the wrong order?
+
+The I2C slave API expects I2C_SLAVE_STOP to be the final event indicating
+the end of a transaction. If we fall through to the block that issues
+I2C_SLAVE_WRITE_REQUESTED and I2C_SLAVE_WRITE_RECEIVED, could this corrupt
+the state machine of backend devices?
+
+[ ... ]
+> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_RX_DONE |
+> +	     AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS_STOP:
+> +		target_rx_len =3D AST2600_I2CC_GET_RX_BUF_LEN(readl(i2c_bus->reg_base +
+> +						       AST2600_I2CC_BUFF_CTRL));
+> +		for (i =3D 0; i < target_rx_len; i++) {
+> +			value =3D readb(i2c_bus->buf_base + i2c_bus->buf_size + i);
+> +			i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_RECEIVED, &value);
+> +		}
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_READ_REQUESTED, &value);
+> +		writel(value, i2c_bus->buf_base);
+> +		break;
+
+[Severity: High]
+Is this case missing an assignment to cmd?
+
+Since cmd defaults to 0 and is not updated here, the driver will not write
+a command to AST2600_I2CS_CMD_STS. Could this leave the hardware state mach=
+ine
+hanging or stretching the clock indefinitely?
+
+[ ... ]
+> +	default:
+> +		dev_dbg(i2c_bus->dev, "unhandled target isr case %x, sts %x\n", sts,
+> +			readl(i2c_bus->reg_base + AST2600_I2CC_STS_AND_BUFF));
+> +		break;
+> +	}
+> +
+> +	if (cmd)
+> +		writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+
+[Severity: High]
+Does an unhandled interrupt state hang the I2C bus?
+
+If we hit the default case, cmd remains 0. Without writing a valid command
+to acknowledge and proceed, will the hardware remain paused and stretch
+the clock?
+
+> +
+> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +	readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +
+> +	if ((sts & AST2600_I2CS_STOP) && !(sts & AST2600_I2CS_SLAVE_PENDING))
+> +		WRITE_ONCE(i2c_bus->target_active, false);
+> +}
+
+[Severity: High]
+Can the target_active flag become permanently stuck as true?
+
+The switch statement above explicitly handles combined interrupt cases where
+both AST2600_I2CS_STOP and AST2600_I2CS_SLAVE_PENDING are set. In those
+cases, target_active will remain true.
+
+Since a STOP occurred, no further interrupts will arrive for this transacti=
+on.
+Will this cause all future controller transfers to permanently return -EBUS=
+Y?
+
+> +
+> +static int ast2600_i2c_target_irq(struct ast2600_i2c_bus *i2c_bus)
+> +{
+> +	u32 ier =3D readl(i2c_bus->reg_base + AST2600_I2CS_IER);
+> +	u32 isr =3D readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
+[ ... ]
+> +	isr &=3D ~(AST2600_I2CS_ADDR_INDICATE_MASK);
+> +
+> +	if (AST2600_I2CS_ADDR1_NAK & isr)
+> +		isr &=3D ~AST2600_I2CS_ADDR1_NAK;
+> +
+> +	if (AST2600_I2CS_ADDR2_NAK & isr)
+> +		isr &=3D ~AST2600_I2CS_ADDR2_NAK;
+
+[Severity: High]
+Are these Write-1-to-Clear (W1C) bits being left set in the hardware?
+
+The bits are masked out of the local isr variable but are never written back
+to AST2600_I2CS_ISR to clear them in hardware. Because they remain set,
+will later checks against AST2600_I2CS_ISR always evaluate to true, blocking
+all future controller transfers?
+
+[ ... ]
+>  	case AST2600_I2CM_RX_DONE:
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +		/*
+> +		 * Workaround for controller/target packet mode enable rx done stuck i=
+ssue
+> +		 * When controller go for first read (RX_DONE), target mode will also =
+effect
+> +		 * Then controller will send nack, not operate anymore.
+> +		 */
+> +		if (readl(i2c_bus->reg_base + AST2600_I2CS_CMD_STS) & AST2600_I2CS_PKT=
+_MODE_EN) {
+> +			u32 target_cmd =3D readl(i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +
+> +			writel(0, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +			writel(target_cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +		}
+> +		fallthrough;
+> +#endif
+>  	case AST2600_I2CM_RX_DONE | AST2600_I2CM_NORMAL_STOP:
+>  		xfer_len =3D AST2600_I2CC_GET_RX_BUF_LEN(readl(i2c_bus->reg_base +
+>  							     AST2600_I2CC_BUFF_CTRL));
+
+[Severity: High]
+This is a pre-existing issue, but does xfer_len need bounds checking here?
+
+The xfer_len value is read directly from hardware and used unconditionally =
+in
+the copy loop below. If the hardware reports a length longer than the
+remaining message size, could it overflow the msg->buf array?
+
+[ ... ]
+> @@ -599,12 +867,31 @@ static int ast2600_i2c_controller_xfer(struct i2c_a=
+dapter *adap, struct i2c_msg
+>  			return ret;
+>  	}
+> =20
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +	if (i2c_bus->target_active)
+> +		return -EBUSY;
+> +	/*
+> +	 * Controller and target share the same buffer register. A target
+> +	 * transaction can update buffer state asynchronously via IRQ, so block
+> +	 * controller transfers while target is active to avoid buffer corrupti=
+on.
+> +	 */
+> +	writel(0, i2c_bus->reg_base + AST2600_I2CS_IER);
+> +	if (readl(i2c_bus->reg_base + AST2600_I2CS_ISR) || i2c_bus->target_acti=
+ve) {
+> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_IER);
+> +		return -EBUSY;
+> +	}
+> +#endif
+> +
+>  	i2c_bus->cmd_err =3D 0;
+>  	i2c_bus->msgs =3D msgs;
+>  	i2c_bus->msgs_index =3D 0;
+>  	i2c_bus->msgs_count =3D num;
+>  	reinit_completion(&i2c_bus->cmd_complete);
+>  	ret =3D ast2600_i2c_do_start(i2c_bus);
+
+[Severity: Critical]
+Is there a race condition between software checks and the hardware state ma=
+chine?
+
+Disabling CPU interrupts via AST2600_I2CS_IER does not pause the autonomous
+hardware state machine since AST2600_I2CC_SLAVE_EN is still active. Can an
+external I2C master address the target right after the check, causing the
+hardware to overwrite the shared buffer while ast2600_i2c_do_start() is
+preparing the master transfer?
+
+[ ... ]
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +static int ast2600_i2c_reg_target(struct i2c_client *client)
+> +{
+> +	struct ast2600_i2c_bus *i2c_bus =3D i2c_get_adapdata(client->adapter);
+> +	u32 cmd =3D TARGET_TRIGGER_CMD;
+[ ... ]
+> +	writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +	/* Set target addr. */
+> +	writel(client->addr | AST2600_I2CS_ADDR1_ENABLE,
+> +	       i2c_bus->reg_base + AST2600_I2CS_ADDR_CTRL);
 > +
 > +	return 0;
 > +}
+> +
+> +static int ast2600_i2c_unreg_target(struct i2c_client *client)
+> +{
+> +	struct ast2600_i2c_bus *i2c_bus =3D i2c_get_adapdata(client->adapter);
+> +	u32 val;
+> +
+> +	writel(0, i2c_bus->reg_base + AST2600_I2CS_IER);
+
+[Severity: High]
+Will target interrupts remain permanently disabled if a target is unbound a=
+nd
+then rebound?
+
+The ast2600_i2c_unreg_target() function disables target interrupts, but
+ast2600_i2c_reg_target() does not re-enable them. Does this break target
+functionality on subsequent registrations?
+
+[ ... ]
+> @@ -784,6 +1138,9 @@ static int ast2600_i2c_probe(struct platform_device =
+*pdev)
+> =20
+>  	writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
+>  	       i2c_bus->reg_base + AST2600_I2CM_IER);
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_IER);
+> +#endif
+> =20
+>  	ret =3D i2c_add_adapter(&i2c_bus->adap);
+
+[Severity: Medium]
+Is it safe to unconditionally enable target interrupts here?
+
+Since i2c_bus->target is NULL until a target is registered, ast2600_i2c_bus=
+_irq
+will ignore target interrupts. If the hardware asserts an interrupt before
+a target is bound, could this lead to an unhandled interrupt storm?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-ltc3220-dr=
-iver-v9-0-69450fc213cb@analog.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-upstream_i=
+2c-v30-0-5d4f9adc3530@aspeedtech.com?part=3D5
