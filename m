@@ -1,90 +1,92 @@
-Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com [209.85.218.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0B142D0605
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:51:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7373279336
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:53:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779976323; cv=none; b=tpiJ6x1TflSVyg9MRLgkXWhn1CpSLhENikk7e7j2gmyndbXdr8mlLqB3qtSA7PSrfBVpbpxPZJtlfjUXrpuNBW+lx2GHi+CeNyzl8dGcpBPFYk4l6X/OhTq8BoKBkb8WDIypmgwCnKMZJMbWjeAQyiB7taHmoK71NnagZ0axGcw=
+	t=1779976430; cv=none; b=PJQnFQltABgt7XPwpFF5GtbzHd9B2h+7RBdjVYIMo3Itur+5iZavOL1tEhRwRvsaAoRA8WCcrsqYY0RyCpXUm5ZmEA1LYIU8SEa0sBskcDftkQpjZm/dPw1WJDfvpSDqJD7hQhFwlB9xXpFlaYjseLdm14NMoeg+Ln7zGCUOAgE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779976323; c=relaxed/simple;
-	bh=QatHeIZOOO1MdlnFTcSf0Fa5jOzUlZQ5UPjhnZSfOVI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=g8bjHcNaQk+0gVllCtc2JEIO+9ntXjhR6dGiYdOsNsTB1CDrY9IZdPrTcAHF5MlTOQl8wmSYVWxXR3Uh5JSgugWWeR79zJo/JHiDzaCa7EvLUwIql6vQbEPkrnfsp+6+QrUNiEVz2ywxpVsHOE+vr/PEfJUvHCaXsold9WHJ6ug=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YTEZwRiQ; arc=none smtp.client-ip=209.85.218.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1779976430; c=relaxed/simple;
+	bh=Z5jHEKYlnHq9blygIp04x8kPJ+G9+sAPZfircpJPTSc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=F6JnzOt6HyjexqnesVP2gv0VFXa5m/IVoqONQITDqSIpgRikLwIo+7BdKiOkTQE5VHr3xVrBtMUjJEuTP56A/kBNLyNh40AJFl7LyWFE9XKU3Kp70WWAh+kC2IFT74iJpb4nY41/REAdODWZNptnPzf2Av8NYKoimTrxF5c1p88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nmE7Zc6n; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=hSn1tAHL; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YTEZwRiQ"
-Received: by mail-ej1-f49.google.com with SMTP id a640c23a62f3a-bd56d108454so2290054466b.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:51:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nmE7Zc6n";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="hSn1tAHL"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8w4DA124976
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:53:47 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=qcppdkim1; bh=r8C5tBkc9P5qygIlEDIPmRkW+nBFHz9T0Fu
+	3Uy/u1xU=; b=nmE7Zc6n5LkB847ukuW91Sj8tY1YA20FbeSXts3BqwN6Hkl9o3d
+	zdRwbo4cHkFPkD1zb8WlOGsG4BiC1riH7jZ9D/ev6arhbw6pCPTBap9oZdVXcEGI
+	zGVGYomrhe8xoO3LJFLL0JDN4cZJ5H8ZnCOxHeG05/cRi3uYHd3CVWkNZaDr0Amq
+	Nzte8qzrkh3bw+xndkwcmQzJ/CQvupNW/tdPD0aNresZIIY7OACM/S0tjL8CcStw
+	5Ckmr6VOc0LwP4C5lpr9aLL1qvPLRyzJTY/hhk6Os+vRkSCEOmdbEZg3GH6Sxh4m
+	V99bWcdN/FD5lIWISyvwCQBVFdwTY4b+AEg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7ycaycv-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:53:47 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-517288c4ed0so3726171cf.3
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:53:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1779976318; x=1780581118; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/VF1wrmilBUlbim8sdlHkjNWy4s/JRLxuueYjCB0tac=;
-        b=YTEZwRiQSM9RP0l8GbmMpvJHYJfGRPiE/uk9AxfaotULej8GbWy2mUZdQqbKiHQPUj
-         L5tQXpsJ4VRfmAASbW8CMZsDV9qXknAFnTZlNXzp930ebb/oWrU4BDDzcs9Ewwugm6Fp
-         QYtaARp3BcqRafSK3X9HNJwS5IZu/WkHxCuRSg3u6NnQPL5gMSjue1zhZn21Ge1Sosef
-         pHnSvm9DX0oZjMnRN0YX+BRPcipEIH9W8dNZAviakS4PEnmuXd//Gt6R2Uc8VSthOU/X
-         FqvwwQNVc/sDvhcDfhD4yO6gpGmI62BrBVmK5XUQrg5Y+Iv38viIoGhUbNLE360FTTnz
-         c0tA==
+        d=oss.qualcomm.com; s=google; t=1779976427; x=1780581227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=r8C5tBkc9P5qygIlEDIPmRkW+nBFHz9T0Fu3Uy/u1xU=;
+        b=hSn1tAHL3ZUFEIiipJXcYRVDQ56BwnSkanXztbkb7u7/8lUxTw880GcCKbENsbQTj5
+         caIAGm5w03N6IXah+bHq/EtmrBpic7R1MkT2elnauPhG8+z89uA88kmH0fHQhpMUFBS7
+         LmsxCYf4h/iNMDw9gJtKQtzW3qY6NkfoUKcFbqPsblU557ba6caLnT+s5xBdnr2r0esB
+         UR36lRNotOyPXKBLEPd4diZ/XMqd0u+7B/iwzGjzVGR7QCh9Dz8N9CnHJQ1ogIKzIDOX
+         IAT5AXph/XHTo8/2VgWVR47ppXS6d/erRGF7ObNzqjXboD5NZ7SR74NybNdv/Qdx4T/s
+         JsKg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779976318; x=1780581118;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/VF1wrmilBUlbim8sdlHkjNWy4s/JRLxuueYjCB0tac=;
-        b=Vd9+N9GqrHocoJ4uUzC2UV0KIA8xYUXT6pB3AGvjk9lcbpeRcSM+sdmJPEOnlQWgfx
-         NXKa/hxC6oFRAWhhyZ4fVFLSBrONBSiiSuNpSZITrbZlgg3Yh99YQxmfVTxQT+v5woNH
-         Y8SrXe5fduUlcEA0auQ5cfTABNM/hkSP8ROFEIHjKJ2I96xzXxqzlfPBlR9q7g4LAsjv
-         EpBD91F+f7f4VR6W6XRjEINWnEmKq9JCspijicPURcJjbddZJn318SP8GbH57q6VCSXr
-         jm3xoen5XSb+yDuAvw3ltCZvXR7cLmT49LPUOnHF3kpGTR0hmIZ1YENwN8zaBuqRx1eX
-         a3Yw==
-X-Forwarded-Encrypted: i=1; AFNElJ91qK0zO6IsFz39gxFCZEK6xRBJN44Di7z8tnFlUMaYtokUWoFHhFfxN/Qc8M64OQG+uB96sukBdsaw@vger.kernel.org
-X-Gm-Message-State: AOJu0YwcwJauVCr0A6uB8P6coj5gcWWopgjF92huKxAg262RWwxMfXbJ
-	oEZfOy4XWmrREMJUFeJ2tFp0cV1clRcz0A4jhZQybBdnNyhXnnydwq6M
-X-Gm-Gg: Acq92OHjpOvkzWV4gbBqIt//rillfcSD0EzVFAvVF9E92lK4YtGuSLPCg0YDOLbPyTn
-	HB232yYf2G0rOazDBOw4oZbb1V+enOdFfbI3US4hg5gthcfWhEaJsCSeVCo0Gyh1FPPtGhctEgP
-	DVkqo9725cXQRcXzqTtbLIrhNAfMUaxA8Ajb+OQSED/lDr5O7Uo8RxYfWN5/jmpchRnqwO9N6PB
-	fA4UTXClVgYOPHO/zkRMsP/4ndC88rJij2UGaJU9SkWAUd+Jtof2zrs6JwPSJ0xX8ucjnDJy9Nf
-	qw+AFqnATQVFH/L2wlvoAlhnzVFhBwcXmmwgrmKAH1zOW1cClhBsFIohadRhUiXT5eLysOlDBuB
-	pz8wNwAB4NVNZ0o+RZPx7sjruB0ijLyHiKo6/CVz5wBlOOiJDyKIvVjnV0I0eMpQa830vJV1mPl
-	r1uhlbBdXeINVC9tiIz1x5Co4=
-X-Received: by 2002:a17:907:d10:b0:bd1:4da0:b0d5 with SMTP id a640c23a62f3a-bdd2360369fmr1692341766b.17.1779976318068;
-        Thu, 28 May 2026 06:51:58 -0700 (PDT)
-Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bddc65da3bbsm723636566b.52.2026.05.28.06.51.56
+        d=1e100.net; s=20251104; t=1779976427; x=1780581227;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=r8C5tBkc9P5qygIlEDIPmRkW+nBFHz9T0Fu3Uy/u1xU=;
+        b=hb5OIlJrr4nvfu5irEOTXCpsjz6t8xopv7mONGBNFVJg9S2aHtWX1yhtTCjAE8DCbl
+         JbvRveVEWKsDS9iF3H2LSdrnGzGECDXcpj0k9E6LD3bADxWNIjyWywoYN8B5clWGGEYa
+         0Ghy3m+SFbPBvX+mi7QLn8lk5oY3d1LvBDxHAzEaOO6nekkkUtXnOMFNNBLPNKEQhHMf
+         PyCQhVdWdIHi4iRejnbal7pbGUEclU/xK+Wn0DsSAmilVwq6NIKsSYFuRnE2oThquxew
+         s4Tq/j297WIaXpMy9JPLWCMFrUsKfHe0EVCIy2wx6jF8470bERfgPRwQKpObsCA+jVYp
+         W/Fg==
+X-Forwarded-Encrypted: i=1; AFNElJ+yO0bASONdRTFdnbNaGpsDTfofg+gYF6B/5gBeXmVvs35OiJvEtL2e4gA5bGNBl+Sbv2VdwtcXsGoi@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy5KnYJ/D1zGrZboKtQ97KXE/tJWCJUv6aQyWu8ueCKtK6OqoHn
+	c9QCNK9OtXkhDi6/50uhknXpaaOi/2zFCU31xUkDyGnoo5489sKSjOdrTzrp4TKoqAbgUPhYVLQ
+	YK8i+Nf0Aw8Akp+XUaBs7+cnu7UZn3Hgnzp/ydxY1lkg4/T0eo3GgILHNSw7uaIPA
+X-Gm-Gg: Acq92OF0vWIj/YjUjNd8ZAcaYcNsp5WyOiZEnmL093CqyuFUIXrratVIuwa+1yOIbJf
+	5ZZYBE3mKFBMJEGxoxGJVDqPwENgRRSf7EROzKz5b69Yk7bT4/pwSQyBCwlQ3efKHlsvX2fQ7PU
+	gYwoOiKqRRl36jsAratIRSgyN9DY4+D8yICDa0Zv6xtAZ476AtvMISfi6MyzkKr7EP2FPwDQ9MK
+	OgnDDkO7zQAcmAFTeiye2U9AqhPaJuMMWno2Bev2I8rZPuHUXnccm/uNzDW0IBAaK6LnLUUoQKl
+	tuPchtz129TSnn0itsLRK0jSJ9o1ZjDJmHApfaLc5FWo2nfKSxvJzy9tzbb2ICRVsXymmtkdXYs
+	z80+Lx4zDEv9bNuUenn/VBlbt2oPny2O0EIWLO6WSXq0KNAuTnv8ywbnoca/MpqXXGao1TA/ukt
+	92WnNJ/dd4MJv/yatHSBvqdw==
+X-Received: by 2002:ac8:6f0a:0:b0:516:e5d4:f86b with SMTP id d75a77b69052e-516e5d525e1mr299338101cf.49.1779976427016;
+        Thu, 28 May 2026 06:53:47 -0700 (PDT)
+X-Received: by 2002:ac8:6f0a:0:b0:516:e5d4:f86b with SMTP id d75a77b69052e-516e5d525e1mr299337581cf.49.1779976426446;
+        Thu, 28 May 2026 06:53:46 -0700 (PDT)
+Received: from work.wifi.ville-nice.fr (62-193-63-110.as16211.net. [62.193.63.110])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4908b5a618dsm17225435e9.8.2026.05.28.06.53.44
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 06:51:57 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Helge Deller <deller@gmx.de>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Johan Hovold <johan@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: [PATCH v2 6/6] video: leds: backlight: lm3533: Support getting LED sources from DT
-Date: Thu, 28 May 2026 16:51:23 +0300
-Message-ID: <20260528135123.103745-7-clamor95@gmail.com>
+        Thu, 28 May 2026 06:53:45 -0700 (PDT)
+From: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+To: ulfh@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+        andersson@kernel.org, konradybcio@kernel.org
+Cc: linux-arm-msm@vger.kernel.org, linux-mmc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
+        Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Subject: [PATCH] dt-bindings: mmc: sdhci-msm: Rename the binding to include 'qcom' prefix
+Date: Thu, 28 May 2026 15:53:42 +0200
+Message-ID: <20260528135342.11678-1-manivannan.sadhasivam@oss.qualcomm.com>
 X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260528135123.103745-1-clamor95@gmail.com>
-References: <20260528135123.103745-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -92,193 +94,72 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Authority-Analysis: v=2.4 cv=VOntWdPX c=1 sm=1 tr=0 ts=6a1848eb cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xizqlaZpAqmNt8UN1ov9oQ==:17
+ a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22 a=VwQbUJbxAAAA:8
+ a=EUspDBNiAAAA:8 a=gEfo2CItAAAA:8 a=doSvXZN1fV365kk4ip4A:9
+ a=kacYvNCVWA4VmyqE58fU:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-GUID: vIEs_lyUiLVbuM0wmNfEGT552g9XHFS0
+X-Proofpoint-ORIG-GUID: vIEs_lyUiLVbuM0wmNfEGT552g9XHFS0
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDE0MCBTYWx0ZWRfX8JnqkGG5TYal
+ X/+o+k679o3lzWz/Ap18j5iP9uy5KRBwB/RGkdIsYdD5ETFGEKhl6SPNvOSNqWQAZz6XE1IH5sT
+ vvGTYp7pQxon6JlZ4pQMJvwtr+RMfmo47h7PqAttS7upxZIP2fb+5QIANUJocw6TxNawybyFiCv
+ vAQ7K7fUMqLvKcy5MxqdEgpS6u7Ty2G6VABgPM9Q3KG8WcYl8Wm347p1reLUkju+1eZ4p4M7n2q
+ sdErVOxNZ16+jLPb0OH7gjS1RFQWuiTIX1Ty8iY8nIGzh99IhOimvJy4IZoBLzpIpS5JeHI4odG
+ vA7IiJpmR9Baax5prVKdUtTTkmumDB0NNP5ZSDg5XgfiiGdjq4AywM8OXriTveAUZMB9B9Iqq57
+ kvJ565tvv7gv/7qc7agfsImGtN581qONIRS0IvSBIQqpsUm9u7evjOMW1cZu0marZ9qixiMEMrZ
+ ebWS/RIiAFD1RdgzjWQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 phishscore=0 adultscore=0 impostorscore=0 suspectscore=0
+ lowpriorityscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280140
 
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+This is the only Qcom binding that doesn't have 'qcom' prefix in the
+bindings name. This doesn't match with the regex in MAINTAINERS file and
+the 'get_maintainer.pl' script fails to list the 'linux-arm-msm' list:
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+Ulf Hansson <ulfh@kernel.org> (maintainer:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND...)
+Rob Herring <robh@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Krzysztof Kozlowski <krzk+dt@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Conor Dooley <conor+dt@kernel.org> (maintainer:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+Bjorn Andersson <andersson@kernel.org> (in file)
+Konrad Dybcio <konradybcio@kernel.org> (in file)
+linux-mmc@vger.kernel.org (open list:MULTIMEDIA CARD (MMC), SECURE DIGITAL (SD) AND...)
+devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS)
+linux-kernel@vger.kernel.org (open list)
+
+Hence, rename the binding to include 'qcom' prefix so that the regex
+matches correctly.
+
+Reported-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Closes: https://lore.kernel.org/all/20260526151003.p4kn2vek3hpv4gzv@hu-mojha-hyd.qualcomm.com
+Signed-off-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
 ---
- drivers/leds/leds-lm3533.c          | 55 ++++++++++++++++++++++++++++-
- drivers/video/backlight/lm3533_bl.c | 37 ++++++++++++++++++-
- 2 files changed, 90 insertions(+), 2 deletions(-)
+ .../bindings/mmc/{sdhci-msm.yaml => qcom,sdhci-msm.yaml}        | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+ rename Documentation/devicetree/bindings/mmc/{sdhci-msm.yaml => qcom,sdhci-msm.yaml} (99%)
 
-diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-index d707d43d5526..07390bba9a48 100644
---- a/drivers/leds/leds-lm3533.c
-+++ b/drivers/leds/leds-lm3533.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
+diff --git a/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+similarity index 99%
+rename from Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
+rename to Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+index 695a95e8f35d..cb16c08d22cc 100644
+--- a/Documentation/devicetree/bindings/mmc/sdhci-msm.yaml
++++ b/Documentation/devicetree/bindings/mmc/qcom,sdhci-msm.yaml
+@@ -1,7 +1,7 @@
+ # SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+ %YAML 1.2
+ ---
+-$id: http://devicetree.org/schemas/mmc/sdhci-msm.yaml#
++$id: http://devicetree.org/schemas/mmc/qcom,sdhci-msm.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
  
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/leds.h>
- #include <linux/mfd/core.h>
-@@ -26,6 +27,12 @@
- #define LM3533_ALS_CHANNEL_LV_MIN	1
- #define LM3533_ALS_CHANNEL_LV_MAX	2
- 
-+#define LM3533_REG_OUTPUT_CONF1			0x10
-+#define   OUTPUT_CONF1_MASK			GENMASK(7, 2)
-+#define   OUTPUT_CONF1_SHIFT			2
-+#define LM3533_REG_OUTPUT_CONF2			0x11
-+#define   OUTPUT_CONF2_MASK			GENMASK(3, 0)
-+#define   OUTPUT_CONF2_SHIFT			6
- #define LM3533_REG_CTRLBANK_BCONF_BASE		0x1b
- #define LM3533_REG_PATTERN_ENABLE		0x28
- #define LM3533_REG_PATTERN_LOW_TIME_BASE	0x71
-@@ -53,6 +60,9 @@ struct lm3533_led {
- 
- 	u32 max_current;
- 	u32 pwm;
-+
-+	int num_leds;
-+	u32 leds[LM3533_LVCTRLBANK_MAX];
- };
- 
- 
-@@ -639,7 +649,33 @@ static const struct attribute_group *lm3533_led_attribute_groups[] = {
- 
- static int lm3533_led_setup(struct lm3533_led *led)
- {
--	int ret;
-+	u32 output_cfg_shift = 0;
-+	u32 output_cfg_val = 0;
-+	int ret, i;
-+
-+	if (led->num_leds) {
-+		for (i = 0; i < led->num_leds; i++) {
-+			if (led->leds[i] > LM3533_LVCTRLBANK_MAX)
-+				continue;
-+
-+			output_cfg_shift = led->leds[i] * 2;
-+			output_cfg_val |= led->id << output_cfg_shift;
-+		}
-+
-+		/* LVLED1, LVLED2 and LVLED3 */
-+		ret = lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF1,
-+				    output_cfg_val << OUTPUT_CONF1_SHIFT,
-+				    OUTPUT_CONF1_MASK);
-+		if (ret)
-+			return ret;
-+
-+		/* LVLED4 and LVLED5 */
-+		ret = lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF2,
-+				    output_cfg_val >> OUTPUT_CONF2_SHIFT,
-+				    OUTPUT_CONF2_MASK);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
- 	if (ret)
-@@ -714,6 +750,23 @@ static int lm3533_led_probe(struct platform_device *pdev)
- 	led->pwm = 0;
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
- 
-+	led->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default LVLED or is not linked to any LVLED at all.
-+	 */
-+	if (led->num_leds > 0 && led->num_leds <= LM3533_LVCTRLBANK_MAX) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     led->leds, led->num_leds);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to get led-sources\n");
-+			goto err_deregister;
-+		}
-+	} else {
-+		led->num_leds = 0;
-+	}
-+
- 	ret = lm3533_led_setup(led);
- 	if (ret)
- 		goto err_deregister;
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index c03d0d1667e4..82b46a531dd2 100644
---- a/drivers/video/backlight/lm3533_bl.c
-+++ b/drivers/video/backlight/lm3533_bl.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/mod_devicetable.h>
-@@ -21,6 +22,8 @@
- #define LM3533_HVCTRLBANK_COUNT		2
- #define LM3533_BL_MAX_BRIGHTNESS	255
- 
-+#define LM3533_REG_OUTPUT_CONF1		0x10
-+#define   OUTPUT_CONF1_MASK		GENMASK(1, 0)
- #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
- #define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
- 
-@@ -34,6 +37,9 @@ struct lm3533_bl {
- 	u32 max_current;
- 	u32 pwm;
- 	bool linear;
-+
-+	u32 num_leds;
-+	u32 led_strings[LM3533_HVCTRLBANK_COUNT];
- };
- 
- 
-@@ -248,7 +254,8 @@ static struct attribute_group lm3533_bl_attribute_group = {
- static int lm3533_bl_setup(struct lm3533_bl *bl)
- {
- 	int id = lm3533_bl_get_ctrlbank_id(bl);
--	int ret;
-+	u32 output_cfg_val = 0;
-+	int ret, i;
- 
- 	ret = lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
- 			    bl->linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
-@@ -256,6 +263,16 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
- 	if (ret)
- 		return ret;
- 
-+	if (bl->num_leds) {
-+		for (i = 0; i < bl->num_leds; i++)
-+			output_cfg_val |= id << bl->led_strings[i];
-+
-+		ret = lm3533_update(bl->lm3533, LM3533_REG_OUTPUT_CONF1,
-+				    output_cfg_val, OUTPUT_CONF1_MASK);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
- 	if (ret)
- 		return ret;
-@@ -329,6 +346,24 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 	bl->linear = device_property_read_bool(&pdev->dev,
- 					       "ti,linear-mapping-mode");
- 
-+	bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default HVLED or is not linked to any HVLED at all.
-+	 */
-+	if (bl->num_leds > 0 && bl->num_leds <= LM3533_HVCTRLBANK_COUNT) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     bl->led_strings,
-+						     bl->num_leds);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to get led-sources\n");
-+			goto err_sysfs_remove;
-+		}
-+	} else {
-+		bl->num_leds = 0;
-+	}
-+
- 	ret = lm3533_bl_setup(bl);
- 	if (ret)
- 		return ret;
+ title: Qualcomm SDHCI controller (sdhci-msm)
 -- 
 2.51.0
 
