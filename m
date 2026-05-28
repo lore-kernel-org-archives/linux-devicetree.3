@@ -1,144 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4BA28727D;
-	Thu, 28 May 2026 17:18:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA563AF677
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 17:21:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779988725; cv=none; b=gIyMSjyYk4arvFykMwpvKC0Q3qLfDSwwgcj6icWZ5jPplVFihquf8OQ2NAh6+f5JUWEnost0zGNKdBO5WpE4qiNtO7dYh7obTPMv0ZaKyyL9L3sMSC84wZxkGkNbC820qWLREox8GrZMHory2Qutwi0K6BKM8bqtvgiP09aQfh4=
+	t=1779988866; cv=none; b=CIo9fXCECYIODgPbr+Ndt/CX0zNGXgoQFlP9aSg+QAS+7xXBTK2qt6JaEVC+ZHJbR6H6zSiqcpPstuvCpvx7hnx2TbREkwYyfGzEskLWyLt0GCnTv29tyoD/eyElQHO+iJt/rg+v6QeiB1Df7IejrG0Aqvw7O5X/Iw1yusl9TLI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779988725; c=relaxed/simple;
-	bh=/HbR0QGskg8/wk9msa78HaN680ohxDzq+HSK6sdp0GY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VxuuG6AnCL/4nZB8P2081As6LzVa8cDtEi8ydFK4LbQBo+luCTvXMHPru85B4KwQoZFA80rmWaEZKDicUA0pa4nFx0bf5oHZ4aJivFPzrT/6kf6rxlmzyn8wUC64hlgXjOMWFbDRFcD4tTf6v+lTaf7vOGdOKbYjPg6ziclUfKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fAG0EfBP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779988866; c=relaxed/simple;
+	bh=jOppa0nTvqKtNau/ZoXxRgMQR3070qwcnCpfftGFxIM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=PbARxYgcF4a8UHP6skV6pGaOUUHrz83DEcPBaOsTkM3ISwJ0xsWq/oSGokD9kDTfq5K2b1L7E9ujznjNJTBwimUmbiHvKp4rDFdqSzEeFAN9Oo+GTvVDHuRPB7vMjJtoyIWOIBCLHug4vrOlGNKnk63LK6ulpzTy8MAx/rYvths=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cLbOS8vG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fAG0EfBP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E94C1F000E9;
-	Thu, 28 May 2026 17:18:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cLbOS8vG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F08851F000E9;
+	Thu, 28 May 2026 17:21:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779988724;
-	bh=6EVMSybi3rbZqC5wP14LRh21sOUpXfetPVkMcTMGv7w=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fAG0EfBPCLf4hO3rJkAHVfoRY4N8C/0euUqvv9Fe6G9LNgZkhdvLOpazzhOnrAOwz
-	 66kUwsAG+0piGbBxr39oi5gcqSXZi4+RhbB8QN7nh0u+CSGnpZVxwF1UTrUNk63ccX
-	 XHPEv049HnHRj9V6iCp5ogUSirl9/NzlsjaUpDdEP4PP3DHVHq+az7S62V9wAA9Y3o
-	 UFyHRgbSt3rb9d9IU5HXfXwVIVeuhcMnDJENqweJar4WnI1C9mIl4YQFDcX0AwM0Zn
-	 9vdDTpTMSsRbLuGwysf3Uh3t++CkGYteQobr5fPD/lFo+RCFdZQlaNPnJ/OujvrBJJ
-	 gwat0Srkr8K/Q==
-Date: Thu, 28 May 2026 18:18:38 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Regus, Ciprian" <Ciprian.Regus@analog.com>
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>
-Subject: Re: [PATCH net-next v2 01/10] dt-bindings: net: Add ADIN1140
-Message-ID: <20260528-slick-deprive-cc1b83031336@spud>
-References: <20260527-adin1140-driver-v2-0-37e5c8d4e0a0@analog.com>
- <20260527-adin1140-driver-v2-1-37e5c8d4e0a0@analog.com>
- <20260527-nearness-antacid-9f94a3f43abc@spud>
- <925d1903a01a44d8ac61b1302a820e6a@analog.com>
+	s=k20260515; t=1779988865;
+	bh=CC7KpohrjhpInsPafOuYfqPisS3mYzDsMFV/OoGwHj0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=cLbOS8vGpou99/kzYiC7ofobax2D5qkXbenUczrV75mHrFGJP1WtwSvDpaTePDbCs
+	 TJbcoLJT8AIAmJNh0iVkqmQ35TQJMPFTE+57viWWlDIAlr23gL0RO6pXr3XU103EJx
+	 2M09UcpSh6w3PBvNfCZZfaVqBf6UPmyEF5kB5mTY0rWW+JLIXq8jW4sxOdFcENX9FF
+	 kBIhw4dFpVCmZx5132RyIOdQOoscRL4Y0Q3EpTm48bsafhbQt+tFF5K0l+NHSrefqb
+	 a/Vgv2HGet/kIy/go2SsuvcHWqaVf86HfgteX6WOxIG2xtK1U/vFzUDUpRDbhED/KN
+	 N3odFXWgzst2w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] iio: adc: ltc2378: Enable triggered buffer data
+ capture
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <dc235f0b036a9eb33b37b0970815a95c9da52414.1779976379.git.marcelo.schmitt@analog.com>
+References: <dc235f0b036a9eb33b37b0970815a95c9da52414.1779976379.git.marcelo.schmitt@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 17:21:04 +0000
+Message-Id: <20260528172104.F08851F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="thpfhmrY2Klzm+AB"
-Content-Disposition: inline
-In-Reply-To: <925d1903a01a44d8ac61b1302a820e6a@analog.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The `ltc2378_scan` structure is allocated on the stack but not ful=
+ly initialized, leaving fields like `endianness`, `shift`, and `repeat` wit=
+h garbage values. This leads to out-of-bounds array reads in the IIO core, =
+data corruption, and potential information disclosure.
+--
 
---thpfhmrY2Klzm+AB
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+commit 9e45014ec9c648942b0872f2dcaabf867779b73e
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
 
-On Thu, May 28, 2026 at 04:46:54PM +0000, Regus, Ciprian wrote:
-> > > +title: ADI ADIN1140 10BASE-T1S MAC-PHY
-> > > +
-> > > +maintainers:
-> > > +  - Ciprian Regus <ciprian.regus@analog.com>
-> > > +
-> > > +description: |
-> > > +  The ADIN1140 (also called AD3306) is a low power single port
-> >=20
-> > Can you explain what is going on here please?
-> > Is "adin1140" (which I can find no information easily online for) the
-> > exact same device as the ad3306 (which has an entry on your site)?
->=20
-> The adin1140 is an upcoming version of ad3306 that lacks some
-> (stress test) qualifications, but otherwise they are the exact same die.
->=20
-> >=20
-> > > +  10BASE-T1S MAC-PHY. It integrates an Ethernet PHY with a MAC
-> > > +  and all the associated analog circuitry.
-> > > +  The device tries to implement the Open Alliance TC6 10BASE-T1x MAC-
-> > PHY
-> > > +  Serial Interface specification and is compliant with the
-> > > +  IEEE 802.3cg-2019 Ethernet standard for 10 Mbps single pair
-> > > +  Ethernet (SPE). The device has a 4-wire SPI interface for
-> > > +  communication between the MAC and host processor.
-> > > +
-> > > +allOf:
-> > > +  - $ref: /schemas/net/ethernet-controller.yaml#
-> > > +  - $ref: /schemas/spi/spi-peripheral-props.yaml#
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    enum:
-> > > +      - adi,ad3306
-> > > +      - adi,adin1140
-> >=20
-> > Because if they are really two names for the same part, this compatible
-> > setup makes no sense, as it means they have a different programming
-> > models.
->=20
-> Since they have the same programming model, should I just keep the adi,ad=
-in1140
-> entry?
+iio: adc: ltc2378: Enable triggered buffer data capture
 
-If the ad3306 was the existing device, probably it should be the
-compatible you keep, if you remove any.
-Otherwise, just permit ad3306 as a fallback for adin1140:
+This commit adds support for triggered buffer data captures to the
+LTC2378 ADC driver. It implements a trigger handler and configures the
+scan type for both SPI offload and fallback triggered buffer cases.
 
-compatible:
-  oneOf:
-    - items:
-        - const: adi,adin1140
-        - const: adi,ad3306
-    - const: adi,ad3306
+> diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+> index 6b01d8e96cc60..514645b847f0b 100644
+> --- a/drivers/iio/adc/ltc2378.c
+> +++ b/drivers/iio/adc/ltc2378.c
+[ ... ]
+> @@ -314,17 +337,27 @@ static int ltc2378_probe(struct spi_device *spi)
+>  	st->chans[0].type =3D IIO_VOLTAGE;
+>  	st->chans[0].info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>  					  BIT(IIO_CHAN_INFO_SCALE);
+> +	st->chans[0].scan_index =3D 0;
+> =20
+>  	struct iio_scan_type ltc2378_scan;
+> =20
+>  	ret =3D ltc2378_offload_buffer_setup(indio_dev, spi);
+>  	if (ret =3D=3D -ENODEV) {
+>  		/* SPI offloading is unavailable. Fall back to triggered buffer. */
+> -		dev_dbg(dev, "triggered data capture not supported\n");
+>  		ltc2378_scan.format =3D st->info->twos_comp ? IIO_SCAN_FORMAT_SIGNED_I=
+NT :
+>  							    IIO_SCAN_FORMAT_UNSIGNED_INT;
+>  		ltc2378_scan.realbits =3D st->info->resolution;
+>  		ltc2378_scan.storagebits =3D st->info->resolution > 16 ? 32 : 16;
 
->=20
-> >=20
-> > Thanks,
-> > Conor.
-> >=20
->=20
+[Severity: High]
+Does this leave fields in ltc2378_scan uninitialized?
 
---thpfhmrY2Klzm+AB
-Content-Type: application/pgp-signature; name="signature.asc"
+It looks like ltc2378_scan is allocated on the stack but not fully
+initialized. Only format, realbits, and storagebits are assigned here,
+leaving fields like endianness, shift, and repeat with stack garbage.
 
------BEGIN PGP SIGNATURE-----
+When st->chans[0].scan_type is later assigned from this struct, the
+uninitialized endianness field could cause an out-of-bounds array read in
+iio_show_scan_type() when indexing into iio_endian_prefix.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahh47gAKCRB4tDGHoIJi
-0syoAQCSZ6Ql3ZQUOEPqUPZoCTiDFk9wmUSGrB2Lt8R8pPZhPQD+Ow3lHtoQ+oq/
-SHRRCHhtQIF7VOhO4ayQKfT/UtYgjAE=
-=0USY
------END PGP SIGNATURE-----
+The garbage repeat value could also result in miscalculated IIO buffer
+chunk sizes.
 
---thpfhmrY2Klzm+AB--
+Could ltc2378_scan be zero-initialized to prevent these issues?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779976379.gi=
+t.marcelo.schmitt@analog.com?part=3D4
