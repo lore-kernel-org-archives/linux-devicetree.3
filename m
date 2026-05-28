@@ -1,108 +1,123 @@
-Received: from mail-ej1-f51.google.com (mail-ej1-f51.google.com [209.85.218.51])
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com [209.85.210.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DD863F412B
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:30:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 474333E0758
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.173
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779975039; cv=none; b=YzWtndmTlstwRWB92xx2jwQ1IdyUI00FSc3omw+jNmFaqGLlzTxitbhATgJeEqWX4w1Ds8LCUqPA3BOnzBIkYDniTa0GqtwjcogChCjcV8gjM5S3nhVDPlP0CozxvlM0NCr3LSChTu0Ll962oUINXv47pThrJnXOfJ2G6wygR78=
+	t=1779975295; cv=none; b=GJYrmWLe28lNz0K68nemi1KwbRW6jtLtftQKe6yP+YyRcQU6zquE6wtwwkLC1flPDCKDuXubUSXt2kJlMYKLhZCePLcGNUZp9lT5x6zI6eaaB9NwbhpWoYHW/A+S/bq4TxMLGPTk79VYYvCeoCu6PpvZaY07pJ1dcExTbzg6Nqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779975039; c=relaxed/simple;
-	bh=jBGtRaUIssZJBiL6UhZEdhVI/X8GSvu/qG2UsvRupI8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=RCaRHTPCP9BYJYltkH9nFyIbx6QqFDlw4mqW8Gaf9mV4MK/DstYqe1Br6DuibR3xWrPtFktKZPQeC0v5qC8VOobwZfkL7SSe0JeAzFf5C6ZuYv9Q8rPOV5dSJulA14MZvXjJgkKiSfDJR3i0j4M6kNS9AkjMcPRy6Lwyd0c23ZA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1779975295; c=relaxed/simple;
+	bh=D0k/9kMT/cL2pMsnIms6KyZ1W0wrvG21b+rTr48iBns=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CIctExKGFIZYmKX08P6p/eHvHkA/fY/5u4Ie0Qpo6UORQHhh1qrik23liHlofWnFZB7tqcpYb/wMLfpbbaLrh5yZvy4PtVVYVXz9nOvJL+85fDXlKlrVSDTR7CYovrvd1gSOLku9D+PkE18l/H2NPKzNMIpznjO1qCzQ7cHeoBU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BPmNREmI; arc=none smtp.client-ip=209.85.210.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f51.google.com with SMTP id a640c23a62f3a-bdb3eb93e20so1253111966b.0
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:30:37 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1779975036; x=1780579836;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BPmNREmI"
+Received: by mail-pf1-f173.google.com with SMTP id d2e1a72fcca58-82f9fdfc965so5835520b3a.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:34:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779975293; x=1780580093; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Fm7D9F1teaCAYCkqxhP59SQwZeLN4ep/zHxw7l5Vin0=;
-        b=KB820JvottXLWrLiS+yA9udy0QW51rS0qz2mmUYPB7h7RZgJPvTXykbSfl6YbWOWm2
-         EHlumP/4wzkXSCTkMukQqnlgUgqPYXjaey+4Pv2h1qrN5NIpmCwnz7QQBR/W397c1VED
-         NVTWvnMqwx+ukKxeK+ta16k+pyKEKwdYI6oJ7AmhGNnB9jEfmywKcMB5Ju1i+EOyfmez
-         /GG6MPw8gXdg1+luQLPN5OhB6bc5mqo9/hfkxaX6tWFGZtk+DdlI9UAKmM/uV46wM3lO
-         RbW8+AHEH45UmquVtJSUz50YW91pxw3KihtcHsyumY3Gyn/JshFr7EICZKSBd/iAhSwV
-         iNUA==
-X-Forwarded-Encrypted: i=1; AFNElJ++UMyifbxvuIGvG33RFFWo3Dn+oXlZTw7NpGruIt9pcYaPvWyLwb0ZVA+/sUltygOiwXZuHKxGJN21@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw7Yc9+qElUKAV2RwMGdeZVgYlEkRUI7aSAouKQyh7BjCKaBPTn
-	YEZSWB5btvL0VGCjgd9VBgA4MbChQQBLjoTGpQPczn872EB3Gl3JlQDctcRdfO4glNc=
-X-Gm-Gg: Acq92OHiN4FSu/K837lNsTBbJm1w0ZIB6LrooQkHYklM5rRb7z5MjzMeSVvBVoasv2J
-	Rv98RwIGbfygarVyQG/nQWMQ8XNRt+Lz66FziDcJHtXG+NyFAzUmGiGpw7/C7DWXSzgA52nW+F4
-	DmRUVy2vXutjYq4TIclbJNyRjmiMmNpSvu9zwMF0VU8rUD+pRP/jstwyDB1JCw9CxgU3pls6bJP
-	Ym0o939o3pmpeCTdZbhYW5FhtTJyV/8oMCePKm+eupRN/9K9V32Y41S1pULZkxRDDYXPzzzaZjX
-	iseRgbLNUGmsk/P7qV1hIRP5mT0pWRVnHA92b+WvZKLP415Q01sPbk4WqXMwITnQYeSOIYvQ3m1
-	mRxY+rEOlg09bnbcR68LoYZgMUPgXmfqIYdkcGNb7VQaPZjD9YYPu4gv/IK8NksKflRq0mxhQv7
-	PgZGu5oWBXqK6Xxwe8TbVnoJwLxKTqbGa5+8xiGOVIkzQ1qzNMtfujKQLynu0KaX8DTZD30Ns=
-X-Received: by 2002:a17:907:c08b:b0:be2:27e2:d7a2 with SMTP id a640c23a62f3a-be227e2d87amr948013866b.25.1779975035440;
-        Thu, 28 May 2026 06:30:35 -0700 (PDT)
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com. [209.85.208.48])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68a6fb4115csm1869648a12.30.2026.05.28.06.30.33
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 28 May 2026 06:30:33 -0700 (PDT)
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-687ed9aabb3so13509075a12.1
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:30:33 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/vh2yPjAPWdmxKczvgVDoSzu4AQzrqTF63Vgh4pe69WYO1P2yG/qMIDGvvsdd5I53kq3v86KTsR6Hx@vger.kernel.org
-X-Received: by 2002:a17:907:9d17:b0:be3:9977:e1c7 with SMTP id
- a640c23a62f3a-be39977e94bmr698117766b.19.1779975033006; Thu, 28 May 2026
- 06:30:33 -0700 (PDT)
+        bh=Yzn0YhLzTvt6pUfo05dJeo7r83ZFgX9EtU8J8f4Da+I=;
+        b=BPmNREmIJR4XU8LQFxJunZZryQJ7DLcvzCwJ9h32wQtRvtmZefV1bDr7I2YJDbehDT
+         xkhEbIzXVLCH8I0Wf+0r/YJw+pkx/lhMD1fM5ol7fzPHmCUeF9jdoC3zvSFFE7+IwxS5
+         kDfC0G1YNl1rOUfFmKeMp+j03Z86mlCQyolnAPQYXCDMUL1tEl9wQ4LiOLZtlJQLdHxw
+         BiPyf73ldvZdr7Jqzu4JuYKY4AWO1CMjcFASIYpISEpfzv0jk3rwvR5jITL4Z18Plf/O
+         hnYLxaTtV697O/nhCt8+v7xVNZAINNYUXjNKgUG8c9gONwgT+LT6KFx+vl+bKnkI4mIB
+         AgEg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779975293; x=1780580093;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=Yzn0YhLzTvt6pUfo05dJeo7r83ZFgX9EtU8J8f4Da+I=;
+        b=XXMVpXIlW7KkrL9rjCtcuYo7QHxcFEv/ZMSUuVfcNRFLLp3b6eEzn0/Nbpb33M3qEr
+         sGP4ieiBrHaIeOVM+qYUeHBWr9PELY/sRwnV/JJyCbKUVan8MmEnAi6pVWM7jMbORM9M
+         19HXPw8cOIs8tLiLnNvibmC+TjpljSF0YKdmV903XDA5Li4xZa0r6n2AOIfYEp8DKl+d
+         LGf0FQYuk+vI3xfuLPLrvTmCUQd64/9dosJZ+0IT7M1G8Dt1RAqaIGTmBmP80dOOq2n/
+         mBwUXkQJ/4PgWSsSWnZCd/MNHhGb1epanSU/qxkisgcy6GL6ubNN/LN7ostTvIejxhwI
+         vWsQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9aEOWJYw+y9VxfmI9NGd3OYZUFnVHi3z7Vrt5NHFp2Cii+ioc4aUTgExP9IouRzGQ76EWkYrXaSmgB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEi++0uCn78ECJaPzWdFco/jqTo46RjaKi0hQwNK01/RS1xeFN
+	TklxA6PixMfqxWABlpGfn7F3/OkfsrAB92j20J8+kh83mtiJ/KMjuZlf
+X-Gm-Gg: Acq92OEWPKz12KMg1TrSDMLyoPg9BlgfGokSqKDKhUAwwf6NCR4GVFlevtxYGi1RneC
+	3V1I1hcNOv2zNNwskm4J8ekG8iG7ve1pqVShdQhOEJ9V9a4J0HflkYj3mNkeHhFCDxKPP7A5XHu
+	Z5Qroj4Oa2KnJ6fAKNXPyvtrbPGEY2nD1Y2e27i4eUedj+LTezpoJpunETjsQsfrAm4aXKx1YrM
+	idMTdxNeXY+M9UhtckV6uM3geDt3Yc8cVRTr11PIDtdF/YFnQlzHChaVjjNakCgFF5jY9FinW4w
+	bk+52N5a4awRpZr5aNws+MwfnzOgfUtEddeUirqkl2ah4u6weF68cod58ZtndwBO1QpWphcwXWK
+	W7bFVG0sfaL/2Dxxf6u5WhWDFMV2auDrAYhcCmKm4yXz9YECEcn8JbzvH5pC3OiJsV+gHd2FDnx
+	VzYc7AyUvxqOJpkrYpOiQ0NeXgMsqh7B9B8NYHAUsCO6ds/KaBzpJl32uyPkeINDCPiGKn7ozNJ
+	Lgc96z0hhtLC3S4fp+5VfeG
+X-Received: by 2002:a05:6a00:3910:b0:82a:5ef0:210b with SMTP id d2e1a72fcca58-8415f15a77bmr25792188b3a.15.1779975293490;
+        Thu, 28 May 2026 06:34:53 -0700 (PDT)
+Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.lan ([58.164.4.185])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-841d6e82323sm5195429b3a.2.2026.05.28.06.34.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2026 06:34:52 -0700 (PDT)
+From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+To: ilpo.jarvinen@linux.intel.com
+Cc: airlied@gmail.com,
+	andersson@kernel.org,
+	bentiss@kernel.org,
+	conor+dt@kernel.org,
+	davem@davemloft.net,
+	devicetree@vger.kernel.org,
+	dianders@chromium.org,
+	dri-devel@lists.freedesktop.org,
+	hansg@kernel.org,
+	herbert@gondor.apana.org.au,
+	jesszhan0024@gmail.com,
+	jikos@kernel.org,
+	konradybcio@kernel.org,
+	krzk+dt@kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-crypto@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	luzmaximilian@gmail.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	platform-driver-x86@vger.kernel.org,
+	robh@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de
+Subject: Re: [PATCH v2 3/7] platform/surface: SAM: Add support for Surface Pro 12in
+Date: Thu, 28 May 2026 23:33:47 +1000
+Message-ID: <20260528133353.33312-1-harrison.vanderbyl@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
+References: <6808166a-423c-c801-497a-ed95cccc8d0c@linux.intel.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260519074702.3308-4-wsa+renesas@sang-engineering.com>
- <20260519074702.3308-6-wsa+renesas@sang-engineering.com> <CAMuHMdXpGLYrSMNgkqUGhhBJPuQKt-KZGGsXsbchAixbYRvD9w@mail.gmail.com>
- <ahanyVCJoqk9Hl8x@shikoro>
-In-Reply-To: <ahanyVCJoqk9Hl8x@shikoro>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 28 May 2026 15:30:18 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdX7ezkNDYfshKpLBSZygcurJPPWAf5bDF7p428S_S7QeA@mail.gmail.com>
-X-Gm-Features: AVHnY4I-KuYi8iDJ9KVUVS6476LWmZXfOsoopgf9Rrtq-gY-1ednCl8_huhz8eo
-Message-ID: <CAMuHMdX7ezkNDYfshKpLBSZygcurJPPWAf5bDF7p428S_S7QeA@mail.gmail.com>
-Subject: Re: [PATCH v2 2/2] arm64: renesas: r8a78000-ironhide: enable to use SCMI
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Hi Wolfram,
-
-On Wed, 27 May 2026 at 10:14, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> we are missing you here! :)
-
-Meh...
-
-> > > +                       scmi_clk: protocol@14 {
-> > > +                               reg = <0x14>;
-> > > +                               #clock-cells = <1>;
-> > > +                       };
-> >
-> > I am a bit reluctant to apply this patch: with all current firmware
-> > versions, the system will lock up after "clk: Disabling unused clocks",
-> > unless "clk_ignore_unused" is used, or unless out-of-tree SCMI
-> > quirk handling patches are applied.
+On Thu, 28 May 2026, Ilpo Järvinen wrote:
+> Could you please confirm this penstash is correct (sam vs kip)?
 >
-> Yeah, I understand. Maybe we leave out only the scmi_clk hunk and
-> send it separately once it works upstream?
+> Sashiko suggested it might be wrong but take it's report with a grain of
+> salt, it's AI after all and sometimes seems to extrapolate about HW to a
+> sibling HW without any real knowledge:
 
-OK, I will drop that node for now.
+Sam is correct here, unlike the surface pro 11, 
+The pen stash is on the reverse of the screen,
+not on the detachable keyboard.
 
-Gr{oetje,eeting}s,
+An image of the pen stash in use is available here:
+https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/B04-Surface-Pro-12-inch-1Ed-Family-Rear?wid=1200&hei=900&qlt=90&bgc=F2F2F2F2&fmt=jpg
 
-                        Geert
+When using the above config,
+pen stash events can be seen with evtest.
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+Thanks,
+Harrison
