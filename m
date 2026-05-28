@@ -1,97 +1,252 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B394378832
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:26:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 558BF3C3C0E;
+	Thu, 28 May 2026 13:28:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779974772; cv=none; b=EbpbWHXa3oeZFgov7XB9AggZMtmD7UsW06yeFUhOSIuWfo4C25i3LUzOhoYgop2agynWzzTbF4q/8uieFS4GlC+JvFpwxSkcR41XZ5C2DUu5gfegL9qfXys3yvZWDbAiQN+lxYQAteeebRari1ZCqeQYuhKzAXQPH9e+i7EfjC4=
+	t=1779974894; cv=none; b=CYQxz7uehmU0XHb1iH97ZV3/rumc/2oioaDTt0SAIGYkMUiel7P3McqDSChPxoMtKICvaeZMpoJG+j/cZ3/6CwTD1fX8T4lEJLvC3V80J9v82PKs8iZa2K+XgOqLDdEvpm+ijCKlgRcdKRZG71PgeMcsRZtqnfihBlftvyRHCoI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779974772; c=relaxed/simple;
-	bh=rCC9KIEnDGWC/HKsiRQOFKtPw/7Qg9v4r/KbVmLWmXM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=m7yZ2rBNfSTPQATOw63OzpSB8U/4+vzjL3CYSRmkX4a6rLPtOMmc6Ne+lcuPH6Tx7Cd9BM/2zKd5/i3oiqFSLj4C6UtBRJJ0It7U36Q4gm3tdKXNXvd4HZeQ1V22GNedZ7EweGlDG+YuR0yxQB0aADY7NHTsh1K9HzjRwOsFuEU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O3ID8FmT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779974894; c=relaxed/simple;
+	bh=2/79Xl9j6URhvHGJvox012U1c+nNuesozE5cNI9IjDE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qfnYVGJ/stU4U2yAF91SUDmMhiKfmXIHRDFGF+Hew/G2MCzOtnEb+vjZVXwi3nAWXh4i8OK7lk0Ae1vjoaAKlQ2pp0QuexgpJfE1VjJY9d2rAirI2EAmShVmnqMN1xzpUpVXracbPJUmdgla/DpdRNepTnGY3Xfpca0PeX2hj9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ifqwe+UK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O3ID8FmT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F33711F000E9
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:26:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ifqwe+UK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAEF61F000E9;
+	Thu, 28 May 2026 13:28:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779974771;
-	bh=rCC9KIEnDGWC/HKsiRQOFKtPw/7Qg9v4r/KbVmLWmXM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=O3ID8FmTNtEwUmxJ6G9mvay6rVYnprqtUCUzacQAnp+BDTjT4DF0ZMyBLWgImaqfL
-	 8W0imWKUA0Gv9gFL3tNQiDvu/pb1ZBik2at4DynDMsqEH9ol4aewKzdNYYRwFKqBGE
-	 DSqR9lo2jTDJetzEaBM9cuiVFodRnlKc/ojtZ77ZqZ0I7EhHWPYwPgwPSQi/eIpsZy
-	 w6YFtVPUzWcVW/wWMZiL7VTgPmO5corwrYhz9XNftuEaZxT4eoXSsf2CGKamuRvGVu
-	 neIB2X3Chr3QRpi8ugKVl3sGxwD+fO8Hq9ihJstlXzMQfWKi1tyyMUXhKrTVMsGK/B
-	 sIC2Jtwns+Sbg==
-Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5a8cb92f26aso13856191e87.1
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:26:10 -0700 (PDT)
-X-Gm-Message-State: AOJu0YyJtZasypoOU3IjvjyIztjWuz5/RO25P9N4m+GkvoFZXxmYnTHM
-	ZJ+ecYLkAFTvb/smcUTVXLkbuBRTXI734RiS4xBEr9nlEoGMJLnYczeRu72BEsb1zEmEKrj9gfy
-	kRCAwc5ZKlK6i3pqxDZ5T03YF90ivwq0=
-X-Received: by 2002:a05:6512:159f:b0:5a8:6cab:4866 with SMTP id
- 2adb3069b0e04-5aa323d5209mr8660268e87.41.1779974768703; Thu, 28 May 2026
- 06:26:08 -0700 (PDT)
+	s=k20260515; t=1779974893;
+	bh=fVbHTcPUYD/TlD5jqvCK3yaWHdNW7U/NQpwQOV26rnw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Ifqwe+UK55I3YvgNmZztbCWFPDGSE6e9ZnW+JCsY+9u4tGAWvEqsib2n1LIQkFSBI
+	 WKzVeJHlui91r/q/OurdprwiQLtxIlJRtzZxCCh5JoYc/DYWwox85ORGq5IlruTigy
+	 CP0DHA4uju05nGKb+XaLOq1CpWt/60GXHMfMoHzAVD5nU370Xq1bgkQD4w0Mo4kvFu
+	 Ho5QdJuHyZ8js936Ts1qfJx8IybF9+KhXg8q3COe7F3jkgYynaoG8jBiYtjBlJlLH0
+	 f3QEJyt59u0Fj0nKVHxmhf5SjxVGcVufB7RTYET1/aSUsxVvtsZQstLuidHmiomSHV
+	 vOEwSLgvWpyLQ==
+Date: Thu, 28 May 2026 14:28:03 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 2/7] Documentation: iio: add Open Sensor Fusion
+ protocol v0 reference
+Message-ID: <20260528142803.15e3ff83@jic23-huawei>
+In-Reply-To: <20260524085312.15369-3-kimjinseob88@gmail.com>
+References: <20260524085312.15369-1-kimjinseob88@gmail.com>
+	<20260524085312.15369-3-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260528-gemini-fix-sq201-fis-offset-v2-1-f594d3072fe6@kernel.org>
- <20260528083754.5FD531F000E9@smtp.kernel.org>
-In-Reply-To: <20260528083754.5FD531F000E9@smtp.kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Thu, 28 May 2026 15:25:55 +0200
-X-Gmail-Original-Message-ID: <CAD++jLk4afSKzAf-mjG=Jtbr-TkHJaeaxunoFLb61uAJBmtk8Q@mail.gmail.com>
-X-Gm-Features: AVHnY4ItPQWKx3NA9r90IactXTwK7m3B7cDGBTx7L65pMFYCIfR1rQjcQiQVdZE
-Message-ID: <CAD++jLk4afSKzAf-mjG=Jtbr-TkHJaeaxunoFLb61uAJBmtk8Q@mail.gmail.com>
-Subject: Re: [PATCH v2] ARM: dts: gemini: Fix partition offsets
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 28, 2026 at 10:37=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
+On Sun, 24 May 2026 17:53:07 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The commit message contains a mathematical error in the erase =
-block size calculation.
-> --
->
-> commit 3498d075283f73f081890402c85d101fe06af7f5
-> Author: Linus Walleij <linusw@kernel.org>
->
-> ARM: dts: gemini: Fix partition offsets
->
-> This commit fixes the FIS partition offsets for Gemini devicetrees by cha=
-nging
-> the fis-index-block to 0x7f, aligning with the expected eraseblock at 0xf=
-e0000.
->
-> > These FIS partition offsets were never right: the comment clearly
-> > states the FIS index is at 0xfe0000 and 0x7f * 0x200000 is
-> > 0xfe0000.
->
-> [Severity: Medium]
-> Is the block size multiplier in this description accurate? 0x7f multiplie=
-d by
-> 0x200000 is actually 0xfe00000. To reach 0xfe0000, the multiplier would n=
-eed
-> to be 0x20000. Could the commit message be updated to reflect the correct
-> erase block size?
+> Document the OSF0 frame format and payloads used by the driver.
+> 
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+> ---
+>  .../iio/open-sensor-fusion-protocol-v0.rst    | 267 ++++++++++++++++++
+>  1 file changed, 267 insertions(+)
+>  create mode 100644 Documentation/iio/open-sensor-fusion-protocol-v0.rst
+> 
+> diff --git a/Documentation/iio/open-sensor-fusion-protocol-v0.rst b/Documentation/iio/open-sensor-fusion-protocol-v0.rst
+> new file mode 100644
+> index 000000000..4800a3ce6
+> --- /dev/null
+> +++ b/Documentation/iio/open-sensor-fusion-protocol-v0.rst
+> @@ -0,0 +1,267 @@
+> +.. SPDX-License-Identifier: GPL-2.0-only
+> +
+> +Open Sensor Fusion protocol v0
+> +==============================
+> +
+> +This document describes the OSF0 UART wire format used by the Linux IIO
+> +driver. It is not a firmware programming interface.
 
-Nope.
+Can we have some background information. Where does this OSF thing come from?
+Is it a general standard or something you are personally developing?
+Some links would definitely help.
 
-Severity: zero.
+> +
+> +Device model
+> +------------
+> +
+> +An Open Sensor Fusion UART device is a sensor aggregation device. It sends
+> +binary frames from the device to the host. The host driver decodes the frames
+> +and maps supported sensors to IIO devices.
+> +
+> +The hardware used for smoke testing is an OSF GREEN prototype with an
+> +STM32F405RGT6 MCU, an ICM42688P-class IMU, and an MMC5983MA magnetometer. That
+> +hardware is a test target, not part of the binding ABI.
+> +
+> +Transport
+> +---------
+> +
+> +The transport is UART at 115200 baud, 8 data bits, no parity, and 1 stop bit.
+> +The Linux transport is serdev. The v0 upstream driver covers device-to-host
+> +frames. Flow control is not used by the tested stream.
+> +
+> +Byte order
+> +----------
+> +
+> +All multi-byte integer fields are little-endian. Samples use signed 32-bit
+> +little-endian integers when ``sample_format`` is ``S32``.
 
-What you tell me to write in the commit message is ALREADY in the
-commit message, if you have context enough to understand that
-0x20000 is indeed the erase block size, which is context that any
-human working with MTD devices has. Go and adjust your weights.
+s32 given this is kernel code and i'm not sure what else this is referring to.
 
-Yours,
-Linus Walleij
+
+
+> +``SENSOR_SAMPLE`` payload
+> +-------------------------
+> +
+> +The base payload size is 16 bytes.
+
+Not sure that is meaninful given expectation that there will be channels.
+I'd describe it as a payload header, or express this as 16 + 4 * channel_count
+
+> +
+> +.. list-table::
+> +   :header-rows: 1
+> +
+> +   * - Offset
+> +     - Size
+> +     - Field
+> +     - Description
+> +   * - 0
+> +     - 2
+> +     - sensor_type
+> +     - Sensor type ID
+> +   * - 2
+> +     - 2
+> +     - sensor_index
+> +     - Instance index
+> +   * - 4
+> +     - 2
+> +     - channel_count
+> +     - Number of S32 channels
+> +   * - 6
+> +     - 2
+> +     - sample_format
+> +     - Must be ``1`` (``S32``)
+
+Is this spec defined, or just what the driver supports?
+I think this doc needs to distinguish between those two cases
+more clearly.
+
+> +   * - 8
+> +     - 4
+> +     - scale_nano
+> +     - Scale factor in nano-units
+> +   * - 12
+> +     - 4
+> +     - reserved
+> +     - Must be zero for v0
+> +   * - 16
+> +     - 4 * channel_count
+> +     - samples
+> +     - Signed 32-bit channel samples
+> +
+> +``DEVICE_STATUS`` payload
+> +-------------------------
+> +
+> +The payload size is 20 bytes. Fields are ``uptime_s``, ``status_flags``,
+> +``error_flags``, ``dropped_frames``, and a reserved field. Each field is
+> +32 bits.
+> +
+> +``CAPABILITY_REPORT`` payload
+> +-----------------------------
+> +
+> +The base payload size is 4 bytes. It contains ``capability_count`` and a
+> +reserved field. Each capability entry is 20 bytes:
+
+Probably want a separate table for that header.
+
+> +
+> +.. list-table::
+> +   :header-rows: 1
+> +
+> +   * - Offset
+> +     - Size
+> +     - Field
+> +     - Description
+> +   * - 0
+> +     - 2
+> +     - sensor_type
+> +     - Sensor type ID
+> +   * - 2
+> +     - 2
+> +     - sensor_index
+> +     - Instance index
+> +   * - 4
+> +     - 2
+> +     - channel_count
+> +     - Number of channels
+> +   * - 6
+> +     - 2
+> +     - sample_format
+> +     - Must be ``1`` (``S32``)
+> +   * - 8
+> +     - 4
+> +     - scale_nano
+> +     - Scale factor in nano-units
+> +   * - 12
+> +     - 4
+> +     - flags
+> +     - Capability flags
+> +   * - 16
+> +     - 4
+> +     - reserved
+> +     - Must be zero for v0
+> +
+> +Capability flag bit 0 means enabled by default. Bit 1 means calibrated data can
+> +be provided by the device. Other bits are invalid for v0.
+> +
+
+> +Scaling
+> +-------
+> +
+> +``scale_nano`` is the per-channel scale value in nano-units. The Linux driver
+> +maps it to ``IIO_CHAN_INFO_SCALE`` as integer plus nano. The exact physical
+> +unit depends on the IIO channel type.
+> +
+> +Timestamps
+> +----------
+> +
+> +The frame header carries ``timestamp_us``, a device-side timestamp in
+> +microseconds. v0 transports this value for ordering and diagnostics. The driver
+> +does not use it as a production-grade host-correlated timestamp. Buffered IIO
+> +timestamps follow IIO timestamp clock handling.
+
+Is there likely to be a non trivial delay?  If so we should figure out how to use
+that timestamp to get something more useful.
+
+> +
+> +Non-goals for v0 upstream
+> +-------------------------
+> +
+> +The v0 upstream driver does not include USB transport, fusion output,
+> +AHRS/Kalman output, calibration command ABI, custom sysfs control surface,
+
+What is AHRS?  I'd spell it out.
+
+> +production timestamp correlation, or runtime capability removal.
+This is where an external link would be helpful. Lets us have some visibility
+of what is coming.
+
+Thanks,
+
+Jonathan
+
+
