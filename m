@@ -1,424 +1,226 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6410932B11D
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 18:56:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF34833BBD0
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 19:00:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779994609; cv=none; b=BDpHDRbjwaRNTYeXAceJdkBP+2eZp2N7JE8ud751qJdQkv5JmHtt5uiUl6TR5QQCJ5vdBRil7qWrdXan+WGLXUkaSnZIn9sbYUl30zxVQCee4XN2EWfFTVe6fQ/R3tcSTm4aovSEVkY9b/44P2MFj1G576e6i3zARulsgWnVzXk=
+	t=1779994823; cv=none; b=SpNPvR/JU4m7z9kKoA7jLTIBg8avKH+R5VNOGne+5wFQCeCfxXKbQ3gWgBX9AJxT4uQ0fuVFbylaWjOfSlRjT2I9p/Ojs1aje5jloY3wjOIXwkLSzKIQMNdDBEqhtliQqOr/Di96MaSPxBTRL/c2ValxdyDW+G4RQVMg8fbZngQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779994609; c=relaxed/simple;
-	bh=xaPonPAngCwocGK0RNZl3C95svk/TV3yFS9LRwBU2A0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=sg9SGifiiqeNYI6CSUvp4hAzPHYs3qdKrFWn2Tcy5V1OaT1IVyaYQ3Ma8FTnKcZPFc9XPYHnradT3Svr5u/d3AqEUxS5M9LAJR2wJLgH031OC7t2NxgORfavnpAdiZBPAbeTpOFNuqkKlNILC0bHWHoe4ILPI5HhEUw0DIyAXeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZqYjx6eO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779994823; c=relaxed/simple;
+	bh=yLGLTQApgZA15AXCEVF0mQJP/6iyVeYZod8UKSi1UK4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uPm7hx1uPUa2rxuGo/BIWuUcdVmnELkMX2EhwjUS8unbfshS053Y5YhvqRr9TFZB8UACKXWrvYa/SH2RdWcJP/tLn04HvAuuGvleneXvwCn5LWYK8Eaia3udmasd/zgL5IFMQNZn9IEXyx14DfFCsaaP08Enh7R1vS3BDCp3vKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=euMM7OOG; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZqYjx6eO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E0DC61F000E9;
-	Thu, 28 May 2026 18:56:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779994608;
-	bh=x2fVzZ4S7gWGxy8ZHcbyrpqQNiHNBhPt0BfADpwLze0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ZqYjx6eONU/YkSJrWjO9RFy8ty3E0ABrJcnGAapJcdywbwFHDYqMvrRWkfC+HazGs
-	 20RzfhlXHs2vM1OcJ4u4I1l/YTGd9DQ50ei57gxozLz+NPxeX6MdpvBsfWdfCjg3i0
-	 fwUU+5q/EGG08CsXQJ90YsNX9tSNUYr15aTzqh53SgxGpiI6YTFe9ZH1YNW1TTTtEt
-	 3HTmKNQw4W8RlLDW4zk3MY3kLQIiozi9dLnXXHJIwSSlRMEEQkgz30mIPQMgNJmYJf
-	 kzg4BxrXvHz0EK8xmZEG6OmuZCUJRuVsRDlcszFsQX000Agb41R6aJjWoNLpIFmB7C
-	 2WYffeG+nTzJQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] ASoC: airoha: Add AFE and machine driver for
- Airoha AN7581
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Christian Marangi" <ansuelsmth@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528174840.28644-5-ansuelsmth@gmail.com>
-References: <20260528174840.28644-5-ansuelsmth@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 18:56:47 +0000
-Message-Id: <20260528185647.E0DC61F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="euMM7OOG"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-44a74032ff8so9804845f8f.1
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 12:00:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1779994818; x=1780599618; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kXrbVY3dHR05UWwisMVSYjDPIQ0+JKmIGqj24ogcC/w=;
+        b=euMM7OOGLUcsxvP0PSFaD1tMmNfo+SGkHxj58A3Hp7NUvr4XOBoUrn5gaTAihBS+K1
+         mkbEDwgA/bfpMEephn3uBGKh/B3+hNM/h1bRU6ZOnmkS8AtPW6ggPcKcT99Dk8m7VdL2
+         MGAReO0PwQRxtnZd99xu3IVo57gyM14huP/QhD1AMpgVNhjzbQSKi7MvU23/luldaFDx
+         XR4jNVgrWbiiD3TJKKYG1191hdeKPvpioqcycsdyOxPNuWvS4tV3dDMInvSD5SkB4p9q
+         sI1ApeXFtppc/TfRmTXCIBvLSZhIcCh0Q2693ahWLNyDjzmrGtFMxq3Pby4YovDiBitt
+         vvxA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779994818; x=1780599618;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=kXrbVY3dHR05UWwisMVSYjDPIQ0+JKmIGqj24ogcC/w=;
+        b=qMaVt6SLEaRolpQnVIBYLp0Fg1JSSCxoWbvMAXY3rdyzVthpNEF6rahrb6a8u6x0D4
+         Iw0p71kyr1bdHdZvrGlr0uOL1+rhpJHSi7ZUcjrH1f8CVgbHC/1jiTicn+6yokLiRMWs
+         f8tvsoawlx7fr+wNQZvU0+4iH/WA8aY18Bz7B+jbzHQI6fdr/DAeRoN7SE7mfAiDfd0c
+         Ohw12IpDby8MpaJYbTxI4Lltf5x9j0gR8pKPlBC3vIlo1aNmclOD6onTyVmSzvmO0ZTg
+         BV8UwG4bh8UjCpVgQi6nWpFYIcofa4GRAkPITNIY6la4bKlMWg3zmUp5NqrHMQsm5m5I
+         dNRw==
+X-Forwarded-Encrypted: i=1; AFNElJ+IgUnKSb32LQjVkCFyNxKaSinyO+CwWSCyGpspkP7zQuYZTbGwVaR5VcEHvAe2pWGd1i1GLnDH15ZY@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy8WrjHBo0H8w2aJYyl3qjhqLBnLQ8cKX2WNqG4AmNdxGdt8bJn
+	HgquVGKNSq76dLXdaSIJJm7H5J4c/Ki6BThoCNLaBW1h5jfm0CNPglAE
+X-Gm-Gg: Acq92OEmGo4B74uZDm+yeUzsoXz2rW2B8gA1OtVhHSMPXw6+dzMPY/UiDoM46p4TwqR
+	WwIi33RbWsFrU9u68/GbLO70Mlqk+ODNAzPFBWsF3fyzF1H11REdLA7in6NuSwcxVBAmNOZL1hK
+	6yaYxs2J5w1sjQnaf90Ff4FaRLbgo2/Kr8BC/9HmnLBIWg2f5DIfrhlsC3sI7BMOW56hhz+zwTu
+	fF8QDX8wtTI6AoeHRgyhmlMZ17Nes/X6MFsM9HqOjSCFip8zNB6AKfUd2FS6pa7JuLP+gjt3WWt
+	2pN3yZCrIjudlTM0wBGD9n5yU/KR/Btr0FSp1qLow27eUoWjOxYTy8XYeW9/4rQqSxClxClDzjY
+	manbqWeBziv2yCSzBtZQI7zk4fWDhZ8eBCyWfCWVfVhC6WH/R5E+69NY3beIubzk85rsjf1HXED
+	F3TVvfxHwCgfZd0wsgOk/IrwNCGG7SgZlPLjL1cKRkK+ZVyKfJEiXJaJOcGvqYAyRvayfCe5Q+R
+	J0awLc=
+X-Received: by 2002:adf:fa4f:0:b0:449:9aee:4575 with SMTP id ffacd0b85a97d-45ef05f6b0amr411382f8f.30.1779994817824;
+        Thu, 28 May 2026 12:00:17 -0700 (PDT)
+Received: from Ansuel-XPS24 (host-79-42-252-49.retail.telecomitalia.it. [79.42.252.49])
+        by smtp.googlemail.com with ESMTPSA id ffacd0b85a97d-45ee2a12a69sm8625408f8f.16.2026.05.28.12.00.16
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2026 12:00:17 -0700 (PDT)
+From: Christian Marangi <ansuelsmth@gmail.com>
+To: Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	Brian Masney <bmasney@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Felix Fietkau <nbd@nbd.name>,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Christian Marangi <ansuelsmth@gmail.com>
+Subject: [PATCH v5 1/3] dt-bindings: clock: airoha: Document support for AN7583 clock
+Date: Thu, 28 May 2026 20:59:54 +0200
+Message-ID: <20260528190000.9164-2-ansuelsmth@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260528190000.9164-1-ansuelsmth@gmail.com>
+References: <20260528190000.9164-1-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] IRQ handler is requested before its required data structures are a=
-llocated, leading to a potential NULL pointer dereference.
-- [High] The interrupt handler fails to clear all active interrupts when mu=
-ltiple fire simultaneously, causing an interrupt storm and duplicate ALSA s=
-tate updates.
-- [High] Potential NULL pointer dereference in `mtk_dai_etdm_config()` if t=
-he `.set_fmt` callback is not invoked.
-- [High] Device-specific regmaps are stored in a static global array, break=
-ing multi-instance support.
-- [Medium] Unconditional memory allocation in the `.set_fmt` callback cause=
-s a memory leak.
-- [Medium] Device tree node references are leaked on successful probe in th=
-e machine driver.
-- [Medium] Clock inversion settings parsed in `.set_fmt` are silently ignor=
-ed during hardware configuration.
-- [Medium] Incorrect constraint applied to `SNDRV_PCM_HW_PARAM_PERIOD_SIZE`=
-, forcing excessive latency.
-- [Medium] Hardware enablement state and atomic user counters are updated n=
-on-atomically, leading to a TOCTOU race condition.
---
+Document support for Airoha AN7583 clock. This is based on the EN7523
+clock schema with the new requirement of the "airoha,chip-scu".
 
-commit 7488a2b7823cb2f6f02588d00f40f601dc2dcb3a
-Author: Christian Marangi <ansuelsmth@gmail.com>
+Add additional binding for additional clock and reset lines.
 
-ASoC: airoha: Add AFE and machine driver for Airoha AN7581
-   =20
-Add support for the Sound system present on Airoha AN7581 SoC. This is
-based on the mediatek AFE drivers.
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+---
+ .../bindings/clock/airoha,en7523-scu.yaml     | 18 ++++++
+ include/dt-bindings/clock/en7523-clk.h        |  3 +
+ .../dt-bindings/reset/airoha,an7583-reset.h   | 62 +++++++++++++++++++
+ 3 files changed, 83 insertions(+)
+ create mode 100644 include/dt-bindings/reset/airoha,an7583-reset.h
 
-> diff --git a/sound/soc/mediatek/an7581/an7581-afe-pcm.c b/sound/soc/media=
-tek/an7581/an7581-afe-pcm.c
-> new file mode 100644
-> index 0000000000000..d6c3fc09951c5
-> --- /dev/null
-> +++ b/sound/soc/mediatek/an7581/an7581-afe-pcm.c
+diff --git a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+index eb24a5687639..6c3c88798515 100644
+--- a/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
++++ b/Documentation/devicetree/bindings/clock/airoha,en7523-scu.yaml
+@@ -30,6 +30,7 @@ properties:
+   compatible:
+     items:
+       - enum:
++          - airoha,an7583-scu
+           - airoha,en7523-scu
+           - airoha,en7581-scu
+           - econet,en751221-scu
+@@ -50,12 +51,29 @@ properties:
+     description: ID of the controller reset line
+     const: 1
+ 
++  airoha,chip-scu:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: phandle to Chip SCU
++
+ required:
+   - compatible
+   - reg
+   - '#clock-cells'
+ 
+ allOf:
++  - if:
++      properties:
++        compatible:
++          const: airoha,an7583-scu
++
++    then:
++      required:
++        - airoha,chip-scu
++
++    else:
++      properties:
++        airoha,chip-scu: false
++
+   - if:
+       properties:
+         compatible:
+diff --git a/include/dt-bindings/clock/en7523-clk.h b/include/dt-bindings/clock/en7523-clk.h
+index edfa64045f52..0fbbcb7b1b25 100644
+--- a/include/dt-bindings/clock/en7523-clk.h
++++ b/include/dt-bindings/clock/en7523-clk.h
+@@ -14,4 +14,7 @@
+ 
+ #define EN7581_CLK_EMMC		8
+ 
++#define AN7583_CLK_MDIO0	9
++#define AN7583_CLK_MDIO1	10
++
+ #endif /* _DT_BINDINGS_CLOCK_AIROHA_EN7523_H_ */
+diff --git a/include/dt-bindings/reset/airoha,an7583-reset.h b/include/dt-bindings/reset/airoha,an7583-reset.h
+new file mode 100644
+index 000000000000..7ff07986f8ba
+--- /dev/null
++++ b/include/dt-bindings/reset/airoha,an7583-reset.h
+@@ -0,0 +1,62 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2024 AIROHA Inc
++ * Author: Christian Marangi <ansuelsmth@gmail.com>
++ */
++
++#ifndef __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
++#define __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_
++
++/* RST_CTRL2 */
++#define AN7583_XPON_PHY_RST		 0
++#define AN7583_GPON_OLT_RST		 1
++#define AN7583_CPU_TIMER2_RST		 2
++#define AN7583_HSUART_RST		 3
++#define AN7583_UART4_RST		 4
++#define AN7583_UART5_RST		 5
++#define AN7583_I2C2_RST			 6
++#define AN7583_XSI_MAC_RST		 7
++#define AN7583_XSI_PHY_RST		 8
++#define AN7583_NPU_RST			 9
++#define AN7583_TRNG_MSTART_RST		10
++#define AN7583_DUAL_HSI0_RST		11
++#define AN7583_DUAL_HSI1_RST		12
++#define AN7583_DUAL_HSI0_MAC_RST	13
++#define AN7583_DUAL_HSI1_MAC_RST	14
++#define AN7583_XPON_XFI_RST             15
++#define AN7583_WDMA_RST			16
++#define AN7583_WOE0_RST			17
++#define AN7583_HSDMA_RST		18
++#define AN7583_TDMA_RST			19
++#define AN7583_EMMC_RST			20
++#define AN7583_SOE_RST			21
++#define AN7583_XFP_MAC_RST		22
++#define AN7583_MDIO0                    23
++#define AN7583_MDIO1                    24
++/* RST_CTRL1 */
++#define AN7583_PCM1_ZSI_ISI_RST		25
++#define AN7583_FE_PDMA_RST		26
++#define AN7583_FE_QDMA_RST		27
++#define AN7583_PCM_SPIWP_RST		28
++#define AN7583_CRYPTO_RST		29
++#define AN7583_TIMER_RST		30
++#define AN7583_PCM1_RST			31
++#define AN7583_UART_RST			32
++#define AN7583_GPIO_RST			33
++#define AN7583_GDMA_RST			34
++#define AN7583_I2C_MASTER_RST		35
++#define AN7583_PCM2_ZSI_ISI_RST		36
++#define AN7583_SFC_RST			37
++#define AN7583_UART2_RST		38
++#define AN7583_GDMP_RST			39
++#define AN7583_FE_RST			40
++#define AN7583_USB_HOST_P0_RST		41
++#define AN7583_GSW_RST			42
++#define AN7583_SFC2_PCM_RST		43
++#define AN7583_PCIE0_RST		44
++#define AN7583_PCIE1_RST		45
++#define AN7583_CPU_TIMER_RST		46
++#define AN7583_PCIE_HB_RST		47
++#define AN7583_XPON_MAC_RST		48
++
++#endif /* __DT_BINDINGS_RESET_CONTROLLER_AIROHA_AN7583_H_ */
+-- 
+2.53.0
 
-[ ... ]
-
-> +static struct mtk_base_irq_data irq_data[AN7581_IRQ_NUM] =3D {
-> +	[AN7581_IRQ_0] =3D {
-> +		.id =3D AN7581_IRQ_0,
-
-[Severity: High]
-Does this break support for multiple AFE hardware instances?
-
-The device-specific regmap pointers are written directly into this static
-global array during an7581_afe_pcm_dev_probe(), which would cause the first
-device's IRQ handler to access the second device's memory-mapped registers.
-
-[ ... ]
-
-> +static int an7581_afe_fe_startup(struct snd_pcm_substream *substream,
-> +				 struct snd_soc_dai *dai)
-> +{
-> +	struct snd_pcm_runtime *runtime =3D substream->runtime;
-> +	struct mtk_base_afe *afe =3D snd_soc_dai_get_drvdata(dai);
-> +	int ret;
-> +
-> +	ret =3D mtk_afe_fe_startup(substream, dai);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	if (substream->stream =3D=3D SNDRV_PCM_STREAM_CAPTURE) {
-> +		ret =3D snd_pcm_hw_constraint_minmax(runtime,
-> +						   SNDRV_PCM_HW_PARAM_PERIOD_SIZE,
-> +						   0x2000, UINT_MAX);
-
-[Severity: Medium]
-Will this enforce excessive latency?
-
-The constraint is applied to SNDRV_PCM_HW_PARAM_PERIOD_SIZE, which is
-measured in frames. At an 8000 Hz sample rate, a minimum of 0x2000 (8192)
-frames enforces a minimum period latency of over 1 second. Was the
-intention to constrain SNDRV_PCM_HW_PARAM_PERIOD_BYTES instead?
-
-[ ... ]
-
-> +static irqreturn_t an7581_afe_irq_handler(int irq_id, void *dev)
-> +{
-> +	const struct an7581_memif_irq_desc *irq_desc;
-> +	struct mtk_base_afe *afe =3D dev;
-> +	struct regmap *irq_regmap;
-> +	u32 clear_reg, status;
-> +	int substream, i;
-> +
-> +	regmap_read(afe->regmap, AFE_IRQ_STS, &status);
-> +	if (status & AFE_IRQ_STS_PLAY)
-> +		substream =3D AN7581_MEMIF_DL1;
-> +	else
-> +		substream =3D AN7581_MEMIF_UL1;
-> +
-> +	irq_desc =3D &an7581_memif_irq_descs[substream];
-> +	irq_regmap =3D irq_data[irq_desc->irq].regmap;
-> +	clear_reg =3D irq_desc->clear_reg;
-> +
-> +	for (i =3D 0; i < AN7581_MEMIF_NUM; i++) {
-> +		struct mtk_base_afe_memif *memif =3D &afe->memif[i];
-> +
-> +		if (!memif->substream)
-> +			continue;
-> +
-> +		if (memif->irq_usage < 0)
-> +			continue;
-> +
-> +		irq_desc =3D &an7581_memif_irq_descs[i];
-> +		if (status & irq_desc->status_bit)
-> +			snd_pcm_period_elapsed(memif->substream);
-> +	}
-> +
-> +	regmap_set_bits(irq_regmap, clear_reg,
-> +			BIT(AFE_IRQ_CLR_SHIFT));
-
-[Severity: High]
-Can this cause an interrupt storm and duplicate ALSA state updates?
-
-If both AFE_IRQ_STS_PLAY and AFE_IRQ_STS_RECORD are set in the status
-register, the if/else block only selects AN7581_MEMIF_DL1. As a result, only
-the playback interrupt is cleared, leaving the capture interrupt active.
-
-The loop then calls snd_pcm_period_elapsed() for both streams. Since the
-capture interrupt isn't cleared, the IRQ handler will immediately re-trigge=
-r,
-observe the capture interrupt bit, clear it, and call
-snd_pcm_period_elapsed() a second time for the same capture period.
-
-[ ... ]
-
-> +static int an7581_afe_pcm_dev_probe(struct platform_device *pdev)
-> +{
-> +	struct an7581_afe_private *afe_priv;
-> +	struct reset_control *reset;
-> +	struct mtk_base_afe *afe;
-> +	struct device *dev;
-> +	int i, irq_id, ret;
-> +	void *base;
-> +
-[ ... ]
-> +	/* request irq */
-> +	irq_id =3D platform_get_irq(pdev, 0);
-> +	if (irq_id < 0)
-> +		return irq_id;
-> +
-> +	ret =3D devm_request_irq(dev, irq_id, an7581_afe_irq_handler,
-> +			       IRQF_TRIGGER_NONE, "asys-isr", (void *)afe);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to request irq for asys-isr\n");
-> +
-> +	/* init memif */
-> +	afe->memif_size =3D AN7581_MEMIF_NUM;
-> +	afe->memif =3D devm_kcalloc(dev, afe->memif_size, sizeof(*afe->memif),
-> +				  GFP_KERNEL);
-
-[Severity: High]
-Could this result in a NULL pointer dereference?
-
-The IRQ handler is requested before afe->memif is allocated. If an interrupt
-triggers immediately (e.g., from pending bootloader state or a shared IRQ
-line), an7581_afe_irq_handler() will execute and unconditionally iterate
-over afe->memif. Accessing &afe->memif[i] when the pointer is NULL will
-cause a panic.
-
-> diff --git a/sound/soc/mediatek/an7581/an7581-dai-etdm.c b/sound/soc/medi=
-atek/an7581/an7581-dai-etdm.c
-> new file mode 100644
-> index 0000000000000..1022bedea9911
-> --- /dev/null
-> +++ b/sound/soc/mediatek/an7581/an7581-dai-etdm.c
-
-[ ... ]
-
-> +static int mtk_dai_etdm_startup(struct snd_pcm_substream *substream,
-> +				struct snd_soc_dai *dai)
-> +{
-> +	struct mtk_base_afe *afe =3D snd_soc_dai_get_drvdata(dai);
-> +	struct an7581_afe_private *afe_priv =3D afe->platform_priv;
-> +
-> +	regmap_set_bits(afe->regmap, AFE_DAC_CON0,
-> +			BIT(AFE_AFE_ENABLE_SHIFT));
-> +
-> +	atomic_inc(&afe_priv->users);
-> +
-> +	return 0;
-> +}
-> +
-> +static void mtk_dai_etdm_shutdown(struct snd_pcm_substream *substream,
-> +				  struct snd_soc_dai *dai)
-> +{
-> +	struct mtk_base_afe *afe =3D snd_soc_dai_get_drvdata(dai);
-> +	struct an7581_afe_private *afe_priv =3D afe->platform_priv;
-> +
-> +	if (atomic_dec_and_test(&afe_priv->users))
-> +		regmap_clear_bits(afe->regmap, AFE_DAC_CON0,
-> +				  BIT(AFE_AFE_ENABLE_SHIFT));
-> +}
-
-[Severity: Medium]
-Could this introduce a race condition?
-
-The hardware enablement state and atomic user counters are updated
-non-atomically. If multiple streams are opened/closed concurrently, thread A
-could increment the atomic counter immediately after thread B decrements it
-to 0 but before thread B disables the hardware. Thread B will then disable
-the hardware while thread A considers it successfully enabled, leaving the
-hardware incorrectly powered off.
-
-[ ... ]
-
-> +static int mtk_dai_etdm_config(struct mtk_base_afe *afe,
-> +			       struct snd_pcm_hw_params *params,
-> +			       struct snd_soc_dai *dai,
-> +			       int stream)
-> +{
-> +	struct an7581_afe_private *afe_priv =3D afe->platform_priv;
-> +	struct mtk_dai_etdm_priv *etdm_data =3D afe_priv->dai_priv[dai->id];
-> +	unsigned int rate =3D params_rate(params);
-> +	unsigned int etdm_rate =3D an7581_etdm_rate_transform(afe->dev, rate);
-> +	unsigned int channels =3D params_channels(params);
-> +	unsigned int bit_width =3D params_width(params);
-> +	unsigned int wlen =3D get_etdm_wlen(bit_width);
-> +	unsigned int val =3D 0, val1 =3D 0;
-> +	unsigned int mask =3D 0, mask1 =3D 0;
-> +
-> +	dev_dbg(afe->dev, "%s(), stream %d, rate %u, bitwidth %u\n",
-> +		__func__, stream, rate, bit_width);
-> +
-> +	/* CON0 */
-> +	mask |=3D ETDM_SLAVE_MODE;
-> +	if (etdm_data->slave_mode)
-
-[Severity: High]
-Can this cause a NULL pointer dereference?
-
-The etdm_data pointer is dynamically allocated and assigned in
-mtk_dai_etdm_set_fmt(). If a machine driver does not define a dai_fmt and
-the .set_fmt callback is never invoked, etdm_data will remain NULL. When an
-audio stream is started, this will unconditionally dereference etdm_data,
-causing a panic.
-
-[Severity: Medium]
-Are the clock inversion settings being ignored?
-
-The .set_fmt callback parses SND_SOC_DAIFMT_INV_MASK and populates
-etdm_data->bck_inv and etdm_data->lrck_inv. However, these fields are never
-read or programmed into the hardware registers here in mtk_dai_etdm_config(=
-),
-meaning any requested phase inversions are silently ignored.
-
-[ ... ]
-
-> +static int mtk_dai_etdm_set_fmt(struct snd_soc_dai *dai, unsigned int fm=
-t)
-> +{
-> +	struct mtk_base_afe *afe =3D snd_soc_dai_get_drvdata(dai);
-> +	struct an7581_afe_private *afe_priv =3D afe->platform_priv;
-> +	struct mtk_dai_etdm_priv *etdm_data;
-> +	void *priv_data;
-> +
-> +	switch (dai->id) {
-> +	case AN7581_DAI_ETDM:
-> +		break;
-> +	default:
-> +		dev_warn(afe->dev, "%s(), id %d not support\n",
-> +			 __func__, dai->id);
-> +		return -EINVAL;
-> +	}
-> +
-> +	priv_data =3D devm_kzalloc(afe->dev, sizeof(struct mtk_dai_etdm_priv),
-> +				 GFP_KERNEL);
-> +	if (!priv_data)
-> +		return -ENOMEM;
-
-[Severity: Medium]
-Does this cause a memory leak?
-
-A new mtk_dai_etdm_priv struct is allocated via devm_kzalloc() on every
-invocation of mtk_dai_etdm_set_fmt(). Since snd_soc_dai_set_fmt() can be
-called multiple times during the device lifecycle (e.g., from hw_params or
-userspace topologies), each call leaks the previously allocated memory until
-the device is unbound.
-
-> diff --git a/sound/soc/mediatek/an7581/an7581-wm8960.c b/sound/soc/mediat=
-ek/an7581/an7581-wm8960.c
-> new file mode 100644
-> index 0000000000000..4e60e112018cc
-> --- /dev/null
-> +++ b/sound/soc/mediatek/an7581/an7581-wm8960.c
-
-[ ... ]
-
-> +static int an7581_wm8960_machine_probe(struct platform_device *pdev)
-> +{
-> +	struct device_node *platform_dai_node, *codec_dai_node;
-> +	struct snd_soc_card *card =3D &an7581_wm8960_card;
-> +	struct device_node *platform, *codec;
-> +	struct snd_soc_dai_link *dai_link;
-> +	int ret, i;
-> +
-> +	card->dev =3D &pdev->dev;
-> +
-> +	platform =3D of_get_child_by_name(pdev->dev.of_node, "platform");
-> +
-> +	if (platform) {
-> +		platform_dai_node =3D of_parse_phandle(platform, "sound-dai", 0);
-> +		of_node_put(platform);
-> +
-> +		if (!platform_dai_node) {
-> +			dev_err(&pdev->dev, "Failed to parse platform/sound-dai property\n");
-> +			return -EINVAL;
-> +		}
-> +	} else {
-> +		dev_err(&pdev->dev, "Property 'platform' missing or invalid\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	for_each_card_prelinks(card, i, dai_link) {
-> +		if (dai_link->platforms->name)
-> +			continue;
-> +		dai_link->platforms->of_node =3D platform_dai_node;
-> +	}
-> +
-> +	codec =3D of_get_child_by_name(pdev->dev.of_node, "codec");
-> +
-> +	if (codec) {
-> +		codec_dai_node =3D of_parse_phandle(codec, "sound-dai", 0);
-> +		of_node_put(codec);
-> +
-> +		if (!codec_dai_node) {
-> +			of_node_put(platform_dai_node);
-> +			dev_err(&pdev->dev, "Failed to parse codec/sound-dai property\n");
-> +			return -EINVAL;
-> +		}
-> +	} else {
-> +		of_node_put(platform_dai_node);
-> +		dev_err(&pdev->dev, "Property 'codec' missing or invalid\n");
-> +		return -EINVAL;
-> +	}
-> +
-> +	for_each_card_prelinks(card, i, dai_link) {
-> +		if (dai_link->codecs->name)
-> +			continue;
-> +		dai_link->codecs->of_node =3D codec_dai_node;
-> +	}
-> +
-> +	ret =3D snd_soc_of_parse_audio_routing(card, "audio-routing");
-> +	if (ret) {
-> +		dev_err(&pdev->dev, "Failed to parse audio-routing: %d\n", ret);
-> +		goto err_of_node_put;
-> +	}
-> +
-> +	ret =3D devm_snd_soc_register_card(&pdev->dev, card);
-> +	if (ret) {
-> +		dev_err_probe(&pdev->dev, ret, "%s snd_soc_register_card fail\n", __fu=
-nc__);
-> +		goto err_of_node_put;
-> +	}
-> +
-> +	return 0;
-> +
-> +err_of_node_put:
-> +	of_node_put(platform_dai_node);
-> +	of_node_put(codec_dai_node);
-> +	return ret;
-> +}
-
-[Severity: Medium]
-Are device tree node references leaked here on successful probe?
-
-The of_parse_phandle() function increments the reference count of the
-returned nodes for platform_dai_node and codec_dai_node. While the error
-paths correctly call of_node_put(), the success path returns 0 without
-ever dropping these references. Since there is no .remove callback or
-devres action to clean them up, the OF nodes are permanently leaked.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528174840.2864=
-4-1-ansuelsmth@gmail.com?part=3D4
