@@ -1,95 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f227.google.com (mail-qk1-f227.google.com [209.85.222.227])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE92D328B7B;
-	Thu, 28 May 2026 21:12:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 541D43630A0
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 21:45:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780002760; cv=none; b=F3+mHKe0xq2xTpkxUY2jmQ4owEM8TUNtzXFIXo67uwmeOk6SPI8ZXPhoP46SgR98qIRJXbh+g8v85m4hflDl+5NGvsUaGuEt9CEHbmSgF6yxKN3EuWsFjOh3/lCIURPQCn4QDdgP4LdcsvTbCXnYmzXBOrjfK6ZzvU1f7AjlRD4=
+	t=1780004722; cv=none; b=RuKR0Xbv8NxsX8IUotTUudTn5+HdnhklST89ocxxFmpj6EDE74RmxqPXsUU1gcJtoQTABn3OoWigtfE9DNtmG3PVtgcwHbDudXWA6zBFmMY1YAnUPRsXnHs5+GL/iuNVAUJM6vIcCTREIACor4MHhYUdMdXSTgTSuCZM54gWiHU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780002760; c=relaxed/simple;
-	bh=N6Q6dZlSpEmNSOYoyglyqXsB7by6b/s3pGUdN8sYtlc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CTgH7C2Ci+GRl7mmqQ6xCwyQ1Nbh8G8BnvKmblx4g0Mahm2IA9JiuKSInRAG0NcN/9fNnH75nkQiat2Rm8YK1XuAauUOdmG8ixZ5bN5g9+eGUrwMg0VIuHW3EwBdF3wLheT/tAheljN/pZC5ssVKwIuseIQoUmpaEzE2HJCPVzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KLrdjzuV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780004722; c=relaxed/simple;
+	bh=Mtr9YlkZZQx6kxkUpIGHK1Oy+GluifVySrjlvfh1knE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BVJsj153DnejTUM13EfMQZoO7ktF5fH5qHR4Y1uJegBioMM1E4u+jU/SqOPWF+xP2j46gyeI0D+T9zxMA9HByR/n6VvnTkN7oHkyG7nre0FT5fNkcf0FWBb/NYnuiAzJKz5+w2XyYjI/NstCtfJLZcDQ54cN38yDONc2GKXtoX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=X7Qe9N0J; arc=none smtp.client-ip=209.85.222.227
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KLrdjzuV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 289F41F00A3C;
-	Thu, 28 May 2026 21:12:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780002758;
-	bh=+A4LcBHs+bvjbmYW4AZ4n3BDBMEU6xKBUVGi2RDblfw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KLrdjzuVoq+HRGpJHvbpPRanueI5bVqkBeKiQeoRIzGALYGP9byvd0lOVZWCNxcng
-	 yqf7WSRzLFKcnzyZbT9A8KmBvSwccQR9fyD/6/NU6oveUnD4ojr7Z7OCDzemlwYibG
-	 AMJhKrsHQe9TlHM51/nLGbFURMPQb+sasHeGXoJOIEX1ClEGb5meLX1+eTB5UN+qOG
-	 FkN9nXkHlSJaOhnzZ4O1fMuQFQgI4e1TR1Wzuj4lNfFNST3X3BkyY8Wqp88vE8FkvQ
-	 PHMrGNqH7IxZnTfoQu6mHtiWlEN9n1wJA0N54FBul+Mhdr0FRxflfh1spaZj4F7Ows
-	 8lszmWNXxIq6Q==
-Date: Thu, 28 May 2026 23:12:36 +0200
-From: Thierry Reding <thierry.reding@kernel.org>
-To: Prathamesh Shete <pshete@nvidia.com>
-Cc: jonathanh@nvidia.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: tegra: pmc: Add Tegra238 compatible
-Message-ID: <ahivtxKVx75EvaD7@orome>
-References: <20260518101420.171465-1-pshete@nvidia.com>
+	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="X7Qe9N0J"
+Received: by mail-qk1-f227.google.com with SMTP id af79cd13be357-912475287a5so1472464985a.2
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:45:21 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780004720; x=1780609520;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=jFtFebur4e89Yp2GhL1rRJfGJOlb0c6RszvUZdfId9Y=;
+        b=MRWLork5ni8uQGNHUYQoaJy5v1u/+cajQBGU+UJU5j3J/lLxYTEvwMu0AyK+ssRzBb
+         kETbn6hzMjgrsBeyJgEdR5Gg6EkELA/db9zz7nNujCOXtjDC2axFM8XrxBwc0V8rHcM1
+         +xdNNT221xVT5smD22kHvzvZKdt6Ru8G/Y7XHfp57G8Mq8g4TUzd8vkn9gaZnZKzu09F
+         1iev4RfrokMV6wA27X2RrW/J+VAZHN33+xK1oaLKHb6c9ISHy7jjzCWAhG1GnymgaM/q
+         9pV5FuIN6ku0o5c1Koi+9o0lyqfL8EN4guxawN1VnBsMbeYf8CTMZDLHvvgWtWFw3x4m
+         Rt6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ9gUtjeINGFygHT5dELIexS4SaTKdU9wwM41bqbPJT09zPLPjTQV/Hsxyy33dyOMsm7QEQ24mzviGj4@vger.kernel.org
+X-Gm-Message-State: AOJu0YyQcp/jxfN+tNifxqy/X8rNwE8nRbgrMbCMCAk/pNMVGVDTL0Dp
+	lxLxIOSWCz/dNCQnwjGdjWDurs7tTjH1nC+qgQ3zbckKPXqoh7egxm7VmQ49aNt8yjlS8qJKfNl
+	22Mpyt4vmmmOePkaSF+GjPYcqX4xTd3ijiYz9BCLsP02wV17ej4JfLT1Oxp7vmBc1iUo+UdO7uQ
+	K822YcVesJHzMOUq3WDZVuzngMTlqbXGVEkU4irZaGY+pRHrCwp6EBzKgA1QudKRS8gjy44BhJf
+	lZGTdMdOqJpYfQGAdg=
+X-Gm-Gg: Acq92OGvfLObELELqWgtEdVZ1hlBF7ZRYURuwUIxqwvlWBwqLUQl+R1U0jdZbn+f3FD
+	D43C5Qc47l3JzMW+5QwkE4UI4IFxDIOsCyqHotPH+LZAdpyNfemNoUUcwLOcp0Tasm1sGLjA3DH
+	GGr4yJkBkQhpClDVfyGS+WewfNp03hq5nOYeO0E0ypThPMtS6ynnFHEeRd3IJmIKme1bn8E+9TU
+	3yRBjvETNEHH0aOSiNIOWr5V9ffFsAUI55AIGOH4l9/jaZA9h4axYSTxPv6tpMkZY4dVBJeu0ze
+	ZczVycqZ40pKjwc4iTzVaJVeA9GUHu+QTLHKm6i2qBpbixuK1VGrLj6UlTO0KB2QHDv03uo47Gd
+	EQ3neiiOGN18VZNs9kuoa4c2/xFJLPEsHKDSKfaVrsVr1nfApqZAZU79WiNOSqyo1BhdrEogR7Z
+	hDMc2uJIJUZnBiQBPeKi9pv6hQbXSYOU0c1a3U622YRh7Rfn7WdjfYU62nc230Pv9p/XM=
+X-Received: by 2002:a05:622a:228e:b0:516:e0eb:d7d with SMTP id d75a77b69052e-5172dca040cmr3891711cf.27.1780004720113;
+        Thu, 28 May 2026 14:45:20 -0700 (PDT)
+Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-22.dlp.protect.broadcom.com. [144.49.247.22])
+        by smtp-relay.gmail.com with ESMTPS id d75a77b69052e-5172ebc47bcsm2331cf.29.2026.05.28.14.45.19
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+        Thu, 28 May 2026 14:45:20 -0700 (PDT)
+X-Relaying-Domain: broadcom.com
+X-CFilter-Loop: Reflected
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-bd86cf9d900so943229966b.2
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 14:45:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=broadcom.com; s=google; t=1780004718; x=1780609518; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=jFtFebur4e89Yp2GhL1rRJfGJOlb0c6RszvUZdfId9Y=;
+        b=X7Qe9N0Jxv8f7AUpHBwzIqmHM3ZLpoDAfNIRzYhDTEzARmt47MO20uasg9AGY2Np/m
+         qtkP8e4d1NAP/Y77yOzBaYn/E2bVEHVHUAYmNKd062FJJ1QYIHO1GeXklwy6D/n4yuco
+         HtEFIrhV5msRXDRaY51DLfq98C8sre2iyZD+8=
+X-Forwarded-Encrypted: i=1; AFNElJ8ONHX6SpJZ71EgLtQYKF2+KkLQ59LptMejf0ZdgJpdw1Z1GFlle8nw9dRxqPriwamMynSZfv8vlwyY@vger.kernel.org
+X-Received: by 2002:a17:907:9307:b0:bce:804f:f199 with SMTP id a640c23a62f3a-be973e21a03mr53468366b.40.1780004717688;
+        Thu, 28 May 2026 14:45:17 -0700 (PDT)
+X-Received: by 2002:a17:907:9307:b0:bce:804f:f199 with SMTP id
+ a640c23a62f3a-be973e21a03mr53466366b.40.1780004717186; Thu, 28 May 2026
+ 14:45:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="wltrl2omqbtsvzb4"
-Content-Disposition: inline
-In-Reply-To: <20260518101420.171465-1-pshete@nvidia.com>
+References: <20231205184741.3092376-1-mmayer@broadcom.com> <20231205184741.3092376-4-mmayer@broadcom.com>
+ <e63906cf-9f76-4fed-91b0-1a9168b179bd@linaro.org> <12f3c515-71cf-46a5-ad92-15bf6c4c2f2c@broadcom.com>
+ <c483e962-a565-45b0-91e2-41f47e2cf4bb@linaro.org> <CAGt4E5smwohGsPkvFOY8o270mNQnTkSWz8UKh3un2=XtEibzAg@mail.gmail.com>
+In-Reply-To: <CAGt4E5smwohGsPkvFOY8o270mNQnTkSWz8UKh3un2=XtEibzAg@mail.gmail.com>
+From: Markus Mayer <mmayer@broadcom.com>
+Date: Thu, 28 May 2026 14:45:04 -0700
+X-Gm-Features: AVHnY4LsuN8khH5Ub8nJHTjQ2-duCpid8nsrQhdGRehtA94tVmwnGX7LA3VIKfY
+Message-ID: <CAGt4E5tGHJFXswic6vTx-ThN2K9xBtO8oA4ybrXg+q5cA6GYCA@mail.gmail.com>
+Subject: Re: [PATCH 3/4] memory: brcmstb_dpfe: support DPFE API v4
+To: Krzysztof Kozlowski <krzysztof.kozlowski@linaro.org>
+Cc: Florian Fainelli <florian.fainelli@broadcom.com>, Rob Herring <robh+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, 
+	Linux ARM Kernel List <linux-arm-kernel@lists.infradead.org>, 
+	Device Tree Mailing List <devicetree@vger.kernel.org>, 
+	Linux Kernel Mailing List <linux-kernel@vger.kernel.org>
+Content-Type: text/plain; charset="UTF-8"
+X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
 
+On Wed, 6 Dec 2023 at 10:48, Markus Mayer <mmayer@broadcom.com> wrote:
+>
+> On Wed, 6 Dec 2023 at 09:32, Krzysztof Kozlowski
+> <krzysztof.kozlowski@linaro.org> wrote:
+> >
+> > On 06/12/2023 17:18, Florian Fainelli wrote:
+> > >
+> > >
+> > > On 12/6/2023 3:10 AM, Krzysztof Kozlowski wrote:
+> > >> On 05/12/2023 19:47, Markus Mayer wrote:
+> > >>> Add support for version 4 of the DPFE API. This new version is largely
+> > >>> identical to version 3. The main difference is that all commands now
+> > >>> take the MHS version number as the first argument. Any other arguments
+> > >>> have been pushed down by one (i.e. what used to be arg0 in v3 is arg1 in
+> > >>> v4).
+> > >>>
+> > >>> Signed-off-by: Markus Mayer <mmayer@broadcom.com>
+> > >>
+> > >> ...
+> > >>
+> > >>> +
+> > >>>   static const char *get_error_text(unsigned int i)
+> > >>>   {
+> > >>>     static const char * const error_text[] = {
+> > >>> @@ -929,8 +954,12 @@ static const struct of_device_id brcmstb_dpfe_of_match[] = {
+> > >>>     { .compatible = "brcm,dpfe-cpu-v1", .data = &dpfe_api_old_v2 },
+> > >>>     { .compatible = "brcm,dpfe-cpu-v2", .data = &dpfe_api_new_v2 },
+> > >>>     { .compatible = "brcm,dpfe-cpu-v3", .data = &dpfe_api_v3 },
+> > >>> +   { .compatible = "brcm,dpfe-cpu-v4", .data = &dpfe_api_v4 },
+> > >>>
+> > >>
+> > >> No, use SoC specific compatible.
+> > >
+> > > This is not that simple because for a given SoC, the API implemented by
+> > > the firmware can change, in fact it has changed over the lifetime of a
+> > > given SoC as firmware updates get rolled out. Arguably the dialect
+> > > spoken by the firmware should not have changed and we told the firmware
+> > > team about that but it basically went nowhere and here we are.
+> > >
+> > > The Device Tree gets populated by the boot loader which figures out
+> > > which API is spoken and places one of those compatible strings
+> > > accordingly for the kernel to avoid having to do any sort of run-time
+> > > detection which is slow and completely unnecessary when we can simply
+> > > tell it ahead of time what to use.
+> >
+> > Thanks for providing justification, quite reasonable. A pity that none
+> > of the commit msgs answered this way.
+>
+> The real pity is how this API was designed, making all of this
+> necessary in the first place.
+>
+> We can definitely spell out more clearly in the commit messages what
+> is going on and why all of this is needed. I'll pull all the pieces
+> together from the various responses. As long as there's a way we can
+> reasonably implement what we need, we'll be happy.
 
---wltrl2omqbtsvzb4
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v2 1/2] dt-bindings: tegra: pmc: Add Tegra238 compatible
-MIME-Version: 1.0
+It has been a minute, but we'd like to resume this effort[1] to
+upstream these changes or some variation thereof.
 
-On Mon, May 18, 2026 at 10:14:19AM +0000, Prathamesh Shete wrote:
-> The PMC found on Tegra238 is similar to the version in earlier chips but
-> some of the register offsets and bitfields differ, so add a specific
-> compatible string for this new variant.
->=20
-> Signed-off-by: Prathamesh Shete <pshete@nvidia.com>
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> ---
-> Changes from v1:
->   - No change.
-> ---
->  .../devicetree/bindings/arm/tegra/nvidia,tegra186-pmc.yaml      | 2 ++
->  1 file changed, 2 insertions(+)
+What are the best steps to resume this undertaking? There are still a
+few topics where I am not entirely clear on how to better explain
+things or how to address the feedback provided. My apologies for that.
+I will do my best to address whatever concerns there are.
 
-Both patches applied, thanks.
+Should I put together a new pull request that contains improved commit
+messages and addresses some of the feedback and we hash out whatever
+questions remain on the new thread? Or would it be better for me to
+reply to the old thread with some of the questions that remain before
+sending a revised series?
 
-Thierry
+Thanks,
+-Markus
 
---wltrl2omqbtsvzb4
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEiOrDCAFJzPfAjcif3SOs138+s6EFAmoYr8QACgkQ3SOs138+
-s6GPHBAAiQW0MnmIaqQXudS2RMeuVlnegu0Jxy2aKb+23Hn7nhxoz39mllAXpE5o
-sGaBPst/vHYeUytKrZyK566O04upyJEJ2ZSZSKBXbP5+P4c6mTpp+lTXzYA+Gcuy
-nCFtIsIL/mGMOeh6Y3yA9CJKGAHAPzCi4AwgOtoPstyAFRD0l5AoXEqaPvHQ1auU
-tqBVdZuCTNxkOm61jhSaBE/1JAZuzuuoH3bXXuJ0US3evTB2/hVb1nImU28NH2WA
-3qSQJYtGWMU87sFtGft3x35ajihkAFYiDG4mrEJvQohVIG7EJ/CRkqGVLIbOyrsB
-ALay74CQAzg9ECv1AhSOCb+9z/k3HF9R1+yrWvBk1o+CedOf5Rz26P5zqGzTlGir
-99HWWecxpRm0X/qtDcC1UABeX4KTkzdhsMv+XrmsLNOAIvc9HzkEWNk/9BbOpBma
-g35P7GttrBWiCSWRzL48vMBkT+M1NyMuQCHLNDgh2UBvRet9QzJt26OTOdVMbrH8
-92l3JMKH7RT/6/onLGJK+3vUYGgkPVLamWC+pCTnD79sLrwzch7v0muDdKLIMJPl
-blj0ZQIgmk1Y+gZ4JzzaKIEjbekGBOO5nCLD+2pB79OUJ9J06dGcwQ2ZSBlV+yBu
-0xlsr5xf0iZijf6M8y60Exw99A8EZ9LPPxxwjJKENztSgxNv10E=
-=48Ev
------END PGP SIGNATURE-----
-
---wltrl2omqbtsvzb4--
+[1] https://lore.kernel.org/all/20231205184741.3092376-1-mmayer@broadcom.com/
