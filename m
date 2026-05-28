@@ -1,114 +1,152 @@
-Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32F8926A08F
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:28:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9B732E7372
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 15:28:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779982117; cv=none; b=aOCU9Xfm8NZ6Cv3Xld33h//an4IqELK4/FDeeKaglPY/MFNHLoTt8mcg87mHj1Ix6NuCBQVJ4sgacRm9a5e/q5DA2CpDR5Akuk29uZerxhpQJqOy9rloerSDGOLXLJR9c6Q3C/HXFYhrfeUB/iWgIcEY5M3qMmqK6c/9WeDKt6M=
+	t=1779982130; cv=none; b=o4UCMF7xiqdeA9VGMAlOlkI62COBd8leC/vg781j9H5D66n/NtJ6Hikqqi1NrjdqVnA0GPP7e2NBjOJUS79Hr1J8koR+oZw5yfCrgJEyiWBpOA1tPXNo8G9Dz0kPzMKey5JUpf014r4QYNX8jrw9YjhfXnxUHlJnWOa31JpDtnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779982117; c=relaxed/simple;
-	bh=eeEMIJjxVyJLBdL8FEaWHTXSNzVQEV3p0297m14anKI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m1E7SB92bcKaSso+16XXw+rk73abfREeehK4AVLwK/7OiRt8vZKd/ffxVwFj8ZEMwsCy+zMtieSWFXLLLal7RQ2Iltkl87JqnwnMoPxwlHRiX5ptlb8PWp8GC1w+saKgPNZboaF7fj4EM/itnzgb+5TXNrGe5izAIaiEvmD9wFg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=TAK8w7U2; arc=none smtp.client-ip=5.135.140.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
+	s=arc-20240116; t=1779982130; c=relaxed/simple;
+	bh=itYpk8TQQBzAVnejejbOWw5vZQdElzT7wg3lhF7DYOA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mjTORVkZBhyto3Ov/Iq35P43zvL/tdkn6sfSMimFkVO/AQd4qKr7+nFZTu3256IxmuNch4cjf49uavO2wxGjud9M53RITJ2Pq41c7mzigJ23RhBfYyymCrZ0AX5vAbXVHmHIrvOLT57nlRQyTb3DOgEq15RiK1IxQz3uaxCwbHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GLv1Dv7a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="TAK8w7U2"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E36E84B8557;
-	Thu, 28 May 2026 17:28:32 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
-	t=1779982114; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=t0W1udPINrIavFGb3a52KDavbFALzINfXswBdNoYZbc=;
-	b=TAK8w7U2Vrt57VszqooF7CL3RTycS4qG8jd82Za7JKN0lQeh8akjJEmVvOg2+h6Z+paDPO
-	f3QUBnMhN6AEnAOSfi0LIm5mz6H1duDy1uCFjlYVnFqalUkbnQH7pcUDJgsD15zP7UWCMY
-	VI8ViBOeW1A7HJqw7pPq64QLAsbS8ykFhQtDof33eQgTla0uXqlUPd9UtUpWmms41YAX5W
-	reYwThUZPGYWw7P1rG6aJHvBxknN3jma78pbJ2OBk55hWmGbCruWm5Zz4B0kXglm14s4vr
-	m0ECopZLAamXEcEinmwGpNLHYdhkQbV/ca8T0v8vSkACgjceelD/iiqswlFrIA==
-Message-ID: <562d7eb0-6536-43ad-859c-1ee2a83623e0@cjdns.fr>
-Date: Thu, 28 May 2026 17:28:23 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GLv1Dv7a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2953C1F000E9;
+	Thu, 28 May 2026 15:28:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1779982130;
+	bh=ooHyoQj9Mkmyfymwoy6z2iC9BRmTXubXlM4ajQiL9eI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=GLv1Dv7aT+PId8H28h0HvhGeQz9mRnk1c2iukaxLgwDd1yJjJhVu4TOGzfvPit+zM
+	 /XHNTju8GVNv3UkXIeGX2oY3pI/yYu4gi/YpHznPQSFQ+UdeX0+xEjnT9gEkAvuLDC
+	 fi3Gzg78zQwT/gIICssGDbuNwee3zAJ9anrB4NQCFEPkb1UMNljcjdHGftgoICr8/J
+	 g8XAlxHabT4TliUIPYsQgJl0xk4bVxflFGnB9Lx3eAinqQfZRKoRAwzwyp3E9xyZWm
+	 ELI0LQBj8EY1oF+43LW6zVYKthCtn9RdUybY9Igh58Wq6qmEzUmc4XzsWiHPDhqeUw
+	 NgNpshog9Q3gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/6] mfd: lm3533: Set DMA mask
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260528135123.103745-5-clamor95@gmail.com>
+References: <20260528135123.103745-5-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 15:28:49 +0000
+Message-Id: <20260528152850.2953C1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird Beta
-Subject: Re: [PATCH v6 2/5] dt-bindings: timer: econet: Update EN751627 for
- multi-IRQ
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-References: <20260528140046.2897674-3-cjd@cjdns.fr>
- <20260528144536.4BCEA1F000E9@smtp.kernel.org>
-Content-Language: en-US
-From: Caleb James DeLisle <cjd@cjdns.fr>
-In-Reply-To: <20260528144536.4BCEA1F000E9@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `lm3533_cells` array is allocated on the stack without being z=
+ero-initialized, and an unconditional `count++` leads to uninitialized elem=
+ents being passed to the MFD core, risking memory corruption or kernel pani=
+cs.
+- [Medium] An off-by-one error in the validation of the backlight `reg` pro=
+perty allows it to overlap with the LED `reg` address space.
+--
+
+commit e3db8e2c46ac0e3ca30554a0b5ae2956e28c6227
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
+
+mfd: lm3533: Set DMA mask
+
+Missing coherent_dma_mask assigning triggers a warning in dmesg. This sets
+coherent_dma_mask to zero because both the core and cells do not utilize
+dma.
+
+> diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
+> index 519f8c16a3f35..3cfdebf5fb52b 100644
+> --- a/drivers/mfd/lm3533-core.c
+> +++ b/drivers/mfd/lm3533-core.c
+> @@ -526,6 +526,10 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
+>  				   LM3533_BOOST_FREQ_MAX);
+>  	lm3533->boost_freq =3D lm3533->boost_freq / (500 * KILO) - 1;
+> =20
+> +	/* LM3533 and child devices do not use DMA */
+> +	i2c->dev.coherent_dma_mask =3D 0;
+> +	i2c->dev.dma_mask =3D &i2c->dev.coherent_dma_mask;
+> +
+>  	return lm3533_device_init(lm3533);
+
+[Severity: High]
+Does this call to lm3533_device_init() pass uninitialized elements to the m=
+fd
+core?  Looking at lm3533_device_init(), the lm3533_cells array is allocated
+on the stack without zero-initialization.
+
+If a child node is present in the device tree that does not match any of the
+recognized compatible strings, the iteration loop skips the initialization
+blocks but still unconditionally executes count++, leaving the array element
+with stack garbage:
+
+drivers/mfd/lm3533-core.c:lm3533_device_init() {
+    struct mfd_cell lm3533_cells[LM3533_CELLS_MAX];
+    u32 count =3D 0, reg;
+    ...
+    device_for_each_child_node_scoped(lm3533->dev, child) {
+        if (!fwnode_device_is_available(child))
+            continue;
+
+        if (count >=3D LM3533_CELLS_MAX)
+            break;
+
+        if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
+            ...
+        }
+        if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
+            ...
+        }
+        if (fwnode_device_is_compatible(child, "ti,lm3533-leds")) {
+            ...
+        }
+
+        count++;
+    }
+    ...
+    ret =3D mfd_add_devices(dev, 0, lm3533_cells, count, NULL, 0, NULL);
+}
+
+When this array is passed to mfd_add_devices(), the mfd core will attempt to
+dereference a garbage pointer for the device name.  Can this cause memory
+corruption or a kernel panic?
 
 
-On 28/05/2026 16:45, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [High] The commit modifies the `compatible` property to remove the fallback and strictly require 4 interrupts for the `econet,en751627-timer`, breaking backwards compatibility with existing device trees.
-> --
+[Severity: Medium]
+Can an invalid backlight reg value overlap with the LED reg address space?
+Looking at lm3533_device_init(), the validation allows reg =3D 2 to be acce=
+pted
+for a backlight:
 
-When I first contributed this driver, I added an en751627 compatible 
-because I knew it to be present on the hardware but en751627 support was 
-not developed. Now we know that for this to work it requires 4 IRQs.
+drivers/mfd/lm3533-core.c:lm3533_device_init() {
+        ...
+        if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
+            ret =3D fwnode_property_read_u32(child, "reg", &reg);
+            if (ret || reg > LM3533_HVLED_ID_MAX) {
+                dev_err(dev, "invalid backlight reg %d\n", reg);
+                continue;
+            }
+        ...
+}
 
-This was a mistake on my part the first time around.
+LM3533_HVLED_ID_MAX is 2.  This incorrectly allows reg =3D 2 to be accepted=
+ for
+a backlight, assigning it an ID of 2, even though the backlight driver only
+supports 2 control banks (IDs 0 and 1).
 
-Thanks,
+While the backlight child driver safely returns -EINVAL during probe when it
+encounters ID 2, should this check be reg >=3D LM3533_HVLED_ID_MAX to reject
+invalid device tree configurations early in the core driver?
 
-Caleb
+>  }
 
->
-> commit 4d76d221e102e3fd0badbb607f955a94dc92884a
-> Author: Caleb James DeLisle <cjd@cjdns.fr>
->
-> dt-bindings: timer: econet: Update EN751627 for multi-IRQ
->
-> This commit updates the device tree binding for the EN751627 timer. It
-> modifies the binding to require an individual IRQ number per timer instead
-> of a single shared percpu IRQ.
->
->> diff --git a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
->> --- a/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
->> +++ b/Documentation/devicetree/bindings/timer/econet,en751221-timer.yaml
-> [ ... ]
->>   properties:
->>     compatible:
->> -    oneOf:
->> -      - const: econet,en751221-timer
->> -      - items:
->> -          - const: econet,en751627-timer
->> -          - const: econet,en751221-timer
->> +    enum:
->> +      - econet,en751221-timer
->> +      - econet,en751627-timer
-> [ ... ]
->
->> @@ -52,21 +51,31 @@ allOf:
->>             items:
->>               - description: VPE timers 0 and 1
->>               - description: VPE timers 2 and 3
->> +        interrupts:
->> +          description: An interrupt for each timer (one per VPE)
->> +          minItems: 4
-> [Severity: High]
-> Does this change break backwards compatibility with existing device trees?
->
-> The previous schema allowed compatible = "econet,en751627-timer",
-> "econet,en751221-timer" with a single interrupt.
->
-> Modifying the compatible property to an enum without the fallback and enforcing
-> minItems: 4 for interrupts on the en751627-timer means any existing device tree
-> using the old schema will now fail validation.
->
-> Can this cause boot regressions on previously functioning deployed systems if
-> an updated driver expects 4 interrupts and attempts to index into an
-> uninitialized IRQ array?
->
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528135123.1037=
+45-1-clamor95@gmail.com?part=3D4
