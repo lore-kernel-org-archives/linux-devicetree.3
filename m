@@ -1,93 +1,121 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 098F9377558;
-	Thu, 28 May 2026 08:46:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445B2383C87
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 08:48:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779957978; cv=none; b=XkNHdrwS5s9nYQJp7tkuLVJe3N5AgiQQppIpKax7dY2BBnl8dXxbqsm6om1igCh/QLsQPva8+CV9lUhp3VQoJ/XLlW63h+2m3IC5TYXElMv3sXMpPWUhy93bOcGIHEqp4ofSyhZgsw4+nPw5xv2uQXnC70KzL7Nsg8fUalNf9c4=
+	t=1779958096; cv=none; b=C2Rdgupp7oV8NVTGiuipsUepcL3MTWyjz9qp5tVFpNNMIJO1JSK6XlkQTNj9MmHOVbQZSg/RGXYl/RCUJsddANWumaRHba7ijCO8gglkE0NiStFxVwmjNlI2e3Vm6MiwUXZBKq8GIzKGF0VGpolp4dV0q0sYirR/Vpm9MBut240=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779957978; c=relaxed/simple;
-	bh=bCw1mziPAWq/LFTvN5yIdeNzZL/wui4MxRIIvoGyqOQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=KxTUM4tSNShR/M2BcHhh3vaLeqifVHBZ2qQFtX9n0/ekWeq7arjQFa9lz3yRgurU3hNeRER6UU36ljgx+m0bYMOvvT+yITsRfu0H81skexHF48ttq8JEn3cXg035uiHb1hikWmZOm9zMC2/6xgMwcQSuY+K/rpTofSb54fjNDak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKbsBXKC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779958096; c=relaxed/simple;
+	bh=JPUTuk9vfQ7fMXMYULy9+l8DRpMkT7kVNCe4WV4Yl98=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=aaO0qylzB0VCg92fWUebvYHMghzcV8ktFUf7s6isL00HH+5FwmHfUwb2c1/1diIichRAT/4D6OJzcUhZpmTKIuxPW5GIVuO1NPONGRuLLz8huLguC05RlzYQjN8tpzHThSYUjqnWK6KWCeUOIyszYHOgWWIx1lG+ilz6CkpQo+4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aEpnUQsX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKbsBXKC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD9C11F000E9;
-	Thu, 28 May 2026 08:46:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aEpnUQsX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962511F00A3D;
+	Thu, 28 May 2026 08:48:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779957976;
-	bh=WI7oT4rS33f9Z+daXxCWohJCYdbj3iwN4CHJSsXs+J0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=RKbsBXKC3kpBLUM5x3zgOI/roHmPOSubwT/QosUm29nDe7oYMPqciLaXg4crgSSVx
-	 mu9fsMLX8tFd4KFcWJPOCPvCs7LN8poDP6zfE/e71gNXwM30X9lfD84U8fiuhc0oQj
-	 laSHVLWAc/9YviADQukNXLsqx7Ff6EE+XMcTWqgLa1UY2gCjXTSWHujUta/fqEb1rL
-	 /flNqSlKZaXNP5aXXck8a/Qs79202gzzjHhn8Jw3k4dOfSeOU4yiIznWRMTBMlOxR8
-	 KjosAdJ6/TPz8g+H/4Oi0niw4pQimcGreJqfActJRt68H8774WA8+bYT+bnMxnaOKV
-	 y5Zz+/gUqbq3g==
-Message-ID: <8df8e9dd-3d84-44af-899f-b46496506a19@kernel.org>
-Date: Thu, 28 May 2026 11:46:11 +0300
+	s=k20260515; t=1779958094;
+	bh=V0ZbP1/dssyOPLY8ecQofmZmZIWkBtj/9Fo5VkNRfEE=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=aEpnUQsXFqn8CZlMTUr3dpRannKXN/ddLa/+0rTogHMs+6ntgbUWdCcHInVWTTMpf
+	 bayAupMCco2FVQo2ht7ntcobYXNboy8k+SaC2EfXgyfl9bOwUJdkEvVMSadThkhTua
+	 Ay5fi904f9ODGfnEbRE5j5coWmPUMxX5m27yts/LfUjIuwsyNosSMGGJcwCh9BGFVJ
+	 wmProGJo531X57ScCz0vciHgtbV1sXnQ6kifpZxeU0IJ2JYxRL+LL/lrgmn/94eAHU
+	 //eD1OkZ5t984kRvGBTTD9qp8J/M7ri17oVhbfSF0jmbl56JoW9nsdv7vSpyMCZkKi
+	 7PpbBBfKFV7Kw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/7] pinctrl: renesas: rzg2l: Generalize the power
+ source code
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Claudiu Beznea" <claudiu.beznea@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
+In-Reply-To: <20260528080439.615958-2-claudiu.beznea@kernel.org>
+References: <20260528080439.615958-2-claudiu.beznea@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 28 May 2026 08:48:14 +0000
+Message-Id: <20260528084814.962511F00A3D@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 2/7] pinctrl: renesas: rzg2l: Drop defines present in
- struct rzg2l_hwcfg
-To: Biju Das <biju.das.jz@bp.renesas.com>,
- "geert+renesas@glider.be" <geert+renesas@glider.be>,
- "linusw@kernel.org" <linusw@kernel.org>, "robh@kernel.org"
- <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "magnus.damm" <magnus.damm@gmail.com>,
- Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Cc: "Claudiu.Beznea" <claudiu.beznea@tuxon.dev>,
- "linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
- "linux-gpio@vger.kernel.org" <linux-gpio@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
- <20260528080439.615958-3-claudiu.beznea@kernel.org>
- <TY3PR01MB113461A5FC6EEB722B947671586092@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <TY3PR01MB113461A5FC6EEB722B947671586092@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-Hi, Biju,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-On 5/28/26 11:16, Biju Das wrote:
->> @@ -3816,9 +3814,9 @@ static const struct rzg2l_hwcfg rzg2l_hwcfg = {
->>   	.regs = {
->>   		.pwpr = 0x3014,
->>   		.sd_ch = 0x3000,
->> +		.qspi = 0x3008,
->>   		.eth_poc = 0x300c,
->>   		.oen = 0x3018,
->> -		.qspi = QSPI,
-> Any reason for moving the assignment?
+Pre-existing issues:
+- [High] Acquiring an IRQ-safe lock without disabling interrupts causes loc=
+kdep inconsistency and potential deadlocks.
+--
 
-I tried to keep it sorted by the register offsets but it seems the pwpr is not 
-in the right place either for this.
-> 
-> struct rzg2l_register_offsets {
-> 	u16 pwpr;
-> 	u16 sd_ch;
-> 	u16 eth_poc;
-> 	u16 oen;
-> 	u16 qspi;
-> 	u16 other_poc;
-> };
-> 
-> Cheers,
-> Biju
+commit 22349bc4fa49f3c73863f4e8930404081ba4603f
+Author: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
--- 
-Thank you,
-Claudiu
+pinctrl: renesas: rzg2l: Generalize the power source code
 
+This commit generalizes the get/set pin power source functions to allow
+extension for other functionalities like I3C on RZ/G3S. It introduces a
+register masks data structure and updates the register modification in
+rzg2l_set_power_source() to use a generic read-modify-write approach.
+
+> diff --git a/drivers/pinctrl/renesas/pinctrl-rzg2l.c b/drivers/pinctrl/re=
+nesas/pinctrl-rzg2l.c
+> index ac42093fc579c..a648d75a2bd23 100644
+> --- a/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+> +++ b/drivers/pinctrl/renesas/pinctrl-rzg2l.c
+
+[ ... ]
+
+> @@ -1077,76 +1144,51 @@ static int rzg2l_get_power_source(struct rzg2l_pi=
+nctrl *pctrl, u32 pin, u32 caps
+>  static int rzg2l_set_power_source(struct rzg2l_pinctrl *pctrl, u32 pin, =
+u32 caps, u32 ps)
+>  {
+
+[ ... ]
+
+> -	if (pwr_reg =3D=3D OTHER_POC) {
+> -		scoped_guard(raw_spinlock, &pctrl->lock) {
+> -			val =3D readb(pctrl->base + pwr_reg);
+> -			if (poc_val)
+> -				val |=3D mask;
+> -			else
+> -				val &=3D ~mask;
+> -			writeb(val, pctrl->base + pwr_reg);
+> -		}
+> -	} else {
+> -		writeb(poc_val, pctrl->base + pwr_reg);
+> +	scoped_guard(raw_spinlock, &pctrl->lock) {
+> +		u8 tmp =3D readb(pctrl->base + offset);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but since this change expands the
+lock usage to all power source updates, could this result in a deadlock?
+
+The lock pctrl->lock is an IRQ-safe raw spinlock, acquired with interrupts
+disabled in functions like rzg2l_gpio_irq_disable().
+
+Using scoped_guard(raw_spinlock, &pctrl->lock) disables preemption but
+leaves local hardware interrupts enabled. If a GPIO interrupt fires on the
+same CPU while this lock is held, and the client interrupt handler calls
+disable_irq_nosync(), the system would attempt to acquire the already-held
+lock.
+
+Would it be safer to use scoped_guard(raw_spinlock_irqsave, &pctrl->lock)
+instead?
+
+> =20
+> +		tmp &=3D ~mask;
+> +		tmp |=3D field_prep(mask, val);
+> +		writeb(tmp, pctrl->base + offset);
+>  	}
+> =20
+>  	pctrl->settings[pin].power_source =3D ps;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528080439.6159=
+58-1-claudiu.beznea@kernel.org?part=3D1
