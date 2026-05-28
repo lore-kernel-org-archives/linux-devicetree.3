@@ -1,157 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D05A33F1AA1
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:13:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DA9D3F23A2
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:15:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779974009; cv=none; b=FKXPW4cF2/7KktHoQMBPK8QnqhigOOrZtQ/WiEHnoYLdBZkhx4oVtPRQrS7OKlkw3UP5Z4+wqA7Bv+tH+xJzAWemSYXmxybIVQxovxdJsEkWaezW5sK3CIpwGbZIuP/VVZz2QpbOAIAvYsD2BJNpnETsFUI96niIiGy3RSj6Vd0=
+	t=1779974148; cv=none; b=Jz4BQK775H/MF7vXrsNZ9KhwSZ3KFyKOXxqGWH1CzfSewaBEiB6dOYZHYvcmNu1/e5oMsMtqjZkAzAC3De0CwDrZKrPOlKaDESsT13v5TwSyJIWGJ+AXwMor3oa3kfMl8MJxHkJtIcTAPVlLX57o4b+LjusEl54mWKHjDtbaHPk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779974009; c=relaxed/simple;
-	bh=mspoBZCTwb041Rjt8oeTx8IwYnHSbpHh6IFT1g7Opw4=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=klXzizGa7Naokc4+PA0K+Vq1CSRPXphuLmXPG+PC7Yx4xSlrtkU5ehzCYNOfjHfXGxYghjRnb9ZIp66e8IFTwq4eF07o8Z5rl8x3SXJLsVWBggINKP8fg+vR4VdhxsT11oeXpXB+N2663HWPRUG6xsuP7nEnR0mhZlGEf9pqpk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jiTh9UT7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1779974148; c=relaxed/simple;
+	bh=Vo1i6u78HdYqI978QgAqscnNoozWLbIOBnxfjDfKqp8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=E+gOoe6GZFCaQXoaK6FEXKGd+LsTQ3OrQp0KniXQdAIjc90/Bn0gBr1gO5RSiDqRfeJYAekl36owFgy0Pxa39GUo7xtxJKBug5406N1RrbUhvWWlKcL/jkcu919fG9D2/U+x2n4mEmkSNus+H+gJjJyrNCqSFo+nGOGgg8teXbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MHQkpna+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=gCuY4wCN; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jiTh9UT7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 841C81F00A3F
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:13:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779974007;
-	bh=YYpeafvMhAx0qgEhbKf7QJbwzvvyekLX4+tpZsjO+/w=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=jiTh9UT76ucrnHoIIcGjrEgFVOoq/Gplzt/6ZT0GCZAcP6hYf26P9I/MIJIWEYi02
-	 TFjLFmfJTq7tRzdS2MNdxsYmQhhrflyF0QIJVa6NcKEXPQ9CJNB+bKqDiKC4rQDkF/
-	 egHGRL40QiPLA0JEglCVBpT9TtQSTDL8czczL2goDfalbmGjVO1DpSC6IG4k5fSaxs
-	 6u3qFdbaTebDHJypUaNQp3dfmVhkh1DWU3B6/wfhnYLTjcDhUb7NsBgNWImB7Jzhqm
-	 JoYm8ulAgxhACvXS+7QHRWlg/wh5qeGRKh965SiLNcpHkmF+jI9aBPtq5mnLshYVgN
-	 nEdy1dgbxGJXg==
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-39393ec4ed0so113218771fa.0
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:13:27 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+oxlTKy19humTDAJuAKm2Boo/50KP7HThUsiYgCmZn/0QNyeghzU/YtN0tQRREsreVULYuCNBF5PdD@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyj0q8byMeCII63ziG/a2pOIaYQnOqrU4V3Qe0Fd83TcqLCH8oO
-	izif1lMpdL6pkiqOMbSv61lpO9SMoYyHA8jXYas83Roh19344+ZXfuUUK4097F2aMOAbmboIuM5
-	9l2/R5kch0Q6s0Y09UoBvKQ/qzzgKolUcjZTyAl6/IQ==
-X-Received: by 2002:a05:651c:212a:b0:393:aea6:857e with SMTP id
- 38308e7fff4ca-395d89085f4mr89644911fa.10.1779974006225; Thu, 28 May 2026
- 06:13:26 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 28 May 2026 09:13:23 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Thu, 28 May 2026 09:13:23 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <e49c4a45-6455-47f3-a91f-c32c1a0b99be@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MHQkpna+";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="gCuY4wCN"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64S8vk3o298205
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:15:45 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Tr7DqnhWUk+VrPGKd9HD4o4Q1JTv5aQY1ZNREgd9xhQ=; b=MHQkpna+qodOr+Mp
+	tyquD5PKaWGON31cG/1uUqINKyXCUiFUDRLF7+fBHdqwU1YETR5WnDmilF66iUh7
+	u45JlvuNhY57I9T/gVmlZucDnazikH8A88Zi3i82HZEnfXpg2Ak71JdxFbdA1ugt
+	oz1PspDIACg8PY8Fj1OXoXRIeQz6RGMOMfGJ1kmdVs2e5LLpmLhNpzqqPkwR0Lfb
+	+PCWtU8uCFYDLbisOvU/hQtrioLpU3l0sHkJ5wJgLeocW3eSb+kN+iIx8UXwqCge
+	H+WcFz2iDE+pNOZdBMeoCGyyV4bBnXC91mYvo/p7OEzRMRu+HIbrkGpVgpmQE6Hl
+	oogW1w==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ee7yaju01-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 13:15:45 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-304d0d0b28eso2204440eec.0
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 06:15:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1779974144; x=1780578944; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=Tr7DqnhWUk+VrPGKd9HD4o4Q1JTv5aQY1ZNREgd9xhQ=;
+        b=gCuY4wCNw9RcjGJHkolD2V/MFr1QMGQSx4un8FVb1CJDnpQjKa7tZ4T9NPyAQgel75
+         6MJZ+eDB/u/lLA/HF2qekoFfEn7ZZABxqRNxsrSI7zX/JnI0qCsJZ9mh6N0OCoZd4BLy
+         59PwjCHQo0gBzo3yZJEZ4ylPI5ApBL9JlRkncm3CgY8d4duVgOy6u2O1licEopAEL/vX
+         OQHejvnX4mTrTLWmjyAn4BgeoiAk4Mrayn2YlKHWZHsJtJURLuXJ7R+4/n+Vnf6LVdJ+
+         dlEStY2tsMKgL6nvkIoZwm4h22hbcq2CiMUxIGRZkDkEmT75X/H4YHGm55BlMDfFpZsI
+         J6yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1779974144; x=1780578944;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=Tr7DqnhWUk+VrPGKd9HD4o4Q1JTv5aQY1ZNREgd9xhQ=;
+        b=qeZl0B/TMaYCf/vOs4EOUiq+9iCpyfXLrcytWARbhfh+wuq3hPA1VjcV6gcRNIX0Uu
+         3s6k+AJ/CMn3slrABWZOhjx0EfK70rWw830R0sslxtq3Pb1JyNIFt4MkegjOtS4DHlBE
+         7w8qC4kB+sUJ9tMAtJyD+bqa1pBarvttGQd8XAZMCz+XwyySekiFsIpU1lPNWOQ6VIyJ
+         H4qIY36Klojn1/JnT9e8/UrINjdKmuSiKPblfVEOl1K4ecac6z5PP1MKEbomia27t5Ks
+         bWofexJmtqPMaBSMvDok8dpsjulNbZj5EmE8quWx0kbcUwBtyOdkDKrwFeZUo+sHq/ZQ
+         ngUw==
+X-Forwarded-Encrypted: i=1; AFNElJ9HPo+qVyi53P4x5/J+MR1OcG/s5jl6ArGjX5hylJT5os/y3p4SEznC3hOF835f24kRL8fCDblWwDm/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8Djq94rN5VVmZeOwoEYDjBqWePUs4x2RhiFUupSNWpnwjBE3e
+	GGFRaThEbaR83hcJ4orC4I4EJ7cSpxNgdFs3Tntk86O3NCJLivTVT/xjnRCI1vxmRtS93gPtWUK
+	zVPnpMoXGDpHe67YfK2L76ELy+htQb7ROZNYadLu4ZQ69mH7Pc+rpGzubIH/m4ass
+X-Gm-Gg: Acq92OGANIo9etBqmgjmadrRu77dj5CqUHV79rmej3Lu7pmobYC22RSgS/EUw5Dn+dX
+	YiQrnFLxVM9KrpQJZQLlLWEYxEPP/1NYoMcIU60iws32w6jm+bIBqQYkHNVBDYmnOK70mK6z65W
+	jVGOezl50qGOD4/+Z/qI40lqQrM3qiAGRjNYBYwCvBL4YRFkjwxj0dvdrtH83HaM0sK3aUSvKLw
+	fsiQ+mbqxggZDF1jYhUmV1QCqBSdKfbIegzq6/jIGPPl6Knj+T3b6G75evltqBkXeRkOTU0rZjp
+	k10yL3iZR8J4yGphuKqq33B2aDpzbyuOyadvhwfDueflnOQXjUdGwp/bhGV1eNW2tj/t8wz55VR
+	KP1OuJaiXijD0INd1EyYojgMFG18QcffY8TuYJFBvqRagEJXM4/vj0AjsQje3tVvBMo5W3OQ75a
+	gDnZM=
+X-Received: by 2002:a05:693c:8848:b0:304:59cc:aee8 with SMTP id 5a478bee46e88-30459ccb57emr7594268eec.18.1779974144403;
+        Thu, 28 May 2026 06:15:44 -0700 (PDT)
+X-Received: by 2002:a05:693c:8848:b0:304:59cc:aee8 with SMTP id 5a478bee46e88-30459ccb57emr7594241eec.18.1779974143736;
+        Thu, 28 May 2026 06:15:43 -0700 (PDT)
+Received: from hu-qianyu-lv.qualcomm.com (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3045245fbeesm15786645eec.30.2026.05.28.06.15.43
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2026 06:15:43 -0700 (PDT)
+Date: Thu, 28 May 2026 06:15:41 -0700
+From: Qiang Yu <qiang.yu@oss.qualcomm.com>
+To: Manivannan Sadhasivam <mani@kernel.org>
+Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+        Vinod Koul <vkoul@kernel.org>,
+        Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Philipp Zabel <p.zabel@pengutronix.de>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v4 5/9] phy: qcom: qmp-pcie: Refactor pipe clk
+ register and parse_dt helpers
+Message-ID: <ahg//RDP2dtleqBv@hu-qianyu-lv.qualcomm.com>
+References: <20260518-link_mode_0519-v4-0-269cd73cc5d1@oss.qualcomm.com>
+ <20260518-link_mode_0519-v4-5-269cd73cc5d1@oss.qualcomm.com>
+ <ipzncrxi3x45fc6tz5xb7frxt62zmg4gwr25xmvzghlbt5miio@7eavln3cydfa>
+ <fkcidw46hdsrrufxhhkk66mmitxnswmghpypyvtmax3x6vmnlp@2er6xgymxdf2>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
- <20260514194735.GA1939213@google.com> <d4d35e17-84fa-4c95-9bfb-abfd25ea7f4a@oss.qualcomm.com>
- <20260522024912.GC5937@quark> <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
- <20260525142843.GA2018@quark> <e49c4a45-6455-47f3-a91f-c32c1a0b99be@oss.qualcomm.com>
-Date: Thu, 28 May 2026 09:13:23 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MfC6CEwOXYttsav3mwqyJ2F4sburBj+zNJ25qMoweyL-Q@mail.gmail.com>
-X-Gm-Features: AVHnY4LugvRYZll4BPMcuUQeZJsNVmlPyEMrJTl0DoRxI9a9LoB78G8ub57WLMA
-Message-ID: <CAMRc=MfC6CEwOXYttsav3mwqyJ2F4sburBj+zNJ25qMoweyL-Q@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
-To: Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>
-Cc: Thara Gopinath <thara.gopinath@gmail.com>, Herbert Xu <herbert@gondor.apana.org.au>, 
-	"David S. Miller" <davem@davemloft.net>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dmaengine@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Bartosz Golaszewski <brgl@kernel.org>, Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>, 
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>, Eric Biggers <ebiggers@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <fkcidw46hdsrrufxhhkk66mmitxnswmghpypyvtmax3x6vmnlp@2er6xgymxdf2>
+X-Proofpoint-GUID: barGlFxQiVQHQXzxzyUvbh4NTnjnUP5Q
+X-Proofpoint-ORIG-GUID: barGlFxQiVQHQXzxzyUvbh4NTnjnUP5Q
+X-Authority-Analysis: v=2.4 cv=CaE4Irrl c=1 sm=1 tr=0 ts=6a184001 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=EUspDBNiAAAA:8 a=HkNMFyVr_tcJnp_woqUA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI4MDEzNCBTYWx0ZWRfX3PWXzj2LxeKK
+ RlTewBOwYRD9xFV+L6txFnP2lNcDldgwNFWt5BV4Tf7VRgKky+TKHo4HtQlBddzRgaV8cLKgv7U
+ SiNJZXwk1IBk8fwDFFaRSDeRPQ1aQ4XHT9cHVuZBl6e0JeG1kYeNWoNdnsaEHigwmDzGioFimYA
+ rxCfHUfmK9oyPzWTTtYm3CsXS5iCi4u2Y42ncpjhWRdQW/a+HEfjhXXI2ylqlLhcY9GlVXcsbtQ
+ nVQGIL8B3vDFxW+3jTLwuJtIn0Fu3diZFysUL6s2lWFQmnmcxsig0EOFY0q01/5Tq4+jk+0WWiJ
+ eaVDcFHHmVZmaa0EiuFTzO0AwtaEw1rymdto6JQZy9K4iTVA9iXRM1GGkEF1h3mTcNYrx721qER
+ IKJp3haZK6E39EjlXYbKcchb5p8kstqWhFOJP1O1gYzz9JMFNdAWXPMOHhQoxOzWAOIQEtIRKTC
+ oIfe5x1+0pux+Z9vpSQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-28_03,2026-05-28_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 priorityscore=1501 spamscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605280134
 
-On Thu, 28 May 2026 13:54:51 +0200, Kuldeep Singh
-<kuldeep.singh@oss.qualcomm.com> said:
->>> +Bartosz, Gaurav, Neeraj
->>>
->>> Hi Eric,
->>>
->>> GPCE is relevant in terms of providing hardware security.
->>> There are multiple usecases coming up for example to handle DRM/secure
->>> buffer usecases to improve overall throughput for secure content.
->>>
->>> Regarding performance, it's currently slower compared to arm CE but
->>> provides an edge by giving hardware security which is considered more
->>> secure.
->>>
->>> Btw, there's been performance improvement with new targets and we are
->>> expecting to achieve far more better performance with new SoCs family.
->>> Pakala:    GPCE - 550MBps, ARMv8 - 8GBps
->>> Kaanapali: GPCE - 3GBps,   ARMv8 - 10GBps
->>>
->>> Please note, there's almost 5x improvement in kaanapali compared to
->>> pakala. Though overall is still slower compared to arm but as mentioned,
->>> expecting better performance with hardware improvements as we progress.
->>>
->>> Also, currently qce driver exhibit stability issues and that's what we
->>> are putting effort in stabilizing the software on immediate basis.
->>>
->>> There's parallel effort ongoing by Bartosz to introduce baseline for
->>> secure buffer usecases.
->>> https://lore.kernel.org/lkml/20260522-qcom-qce-cmd-descr-v18-0-99103926bafc@oss.qualcomm.com/
->>> There's active development ongoing and i believe lowering cra_priority
->>> for qce is fine as of now and can scale values once qce becomes
->>> performance efficient.
->>>
->>> Please share your thoughts. Thanks!
->>
->> ARMv8 Crypto Extensions are "hardware" as well, just in the CPU.  They
->> provide constant-time execution, for example.
->>
->> Granted, they don't protect from power analysis and electromagnetic
->> emanation attacks.  Does QCE actually provide those protections, though?
+On Fri, May 22, 2026 at 04:27:35PM +0530, Manivannan Sadhasivam wrote:
+> On Wed, May 20, 2026 at 07:25:01PM +0300, Dmitry Baryshkov wrote:
+> > On Mon, May 18, 2026 at 10:47:16PM -0700, Qiang Yu wrote:
+> > > Some QMP PCIe PHY hardware blocks can be split into multiple sub-PHYs
+> > > under a single DT node, each requiring its own pipe clock registration and
+> > > DT resource mapping. The current helpers are tightly coupled to a single
+> > > qmp_pcie instance, which prevents reuse across sub-PHY instances.
+> > > 
+> > > Refactor __phy_pipe_clk_register() as a generic helper and reduce
+> > > phy_pipe_clk_register() to a thin wrapper around it. Similarly, extract
+> > > qmp_pcie_parse_dt_common() from qmp_pcie_parse_dt() to hold the register-
+> > > mapping and pipe-clock setup that will be shared between sub-PHY instances,
+> > > with pipe clock names parameterised per instance.
+> > > 
+> > > This is a preparatory step before adding multi-PHY support. No functional
+> > > change for existing platforms.
+> > > 
+> > > Signed-off-by: Qiang Yu <qiang.yu@oss.qualcomm.com>
+> > > ---
+> > >  drivers/phy/qualcomm/phy-qcom-qmp-pcie.c | 76 ++++++++++++++++++--------------
+> > >  1 file changed, 44 insertions(+), 32 deletions(-)
+> > 
+> > I'd suggest splitting the Glymur PHY to a separate driver. Otherwise we
+> > end up having too many single-platform, single-device specifics which
+> > don't apply to other platforms.
+> > 
+> 
+> I don't think that's really needed. This shared PHY concept is going to be
+> applicable to upcoming SoCs as well. And moreover, the split won't be clean
+> either. We still need to reuse a lot of common logic in the 'phy-qcom-qmp-pcie'
+> driver and may only end up keeping very minimal code in
+> 'phy-qcom-qmp-pcie-glymur'.
+> 
+> If you are concerned about the file size of 'phy-qcom-qmp-pcie', then we should
+> move the SoC specific 'cfg' structs into a separate file as that's what
+> occupying majority of the space.
 >
-> QCE doesn't provide these protections currently.
-> What i wanted to highlight was there are certain security usecases which
-> are possible via dedicated crypto engine only and not via arm cpu.
->> Either way, it doesn't really matter in this case.  There are multiple
->> aspects to security, and before even considering these advanced
->> protections, the basics of security need to be absolutely solid.  That
->> is, the driver needs to always compute the crypto algorithms correctly,
->> and it needs to be completely robust when fuzzed by unprivileged
->> userspace (because it can accessed in that way).
->  > Yet, this driver "exhibits stability issues", fails the self-tests, and
->> doesn't even have exclusive access to the hardware!  These are all
->> security bugs.  That very much defeats the claimed point.  (Plus, due to
->> the performance issues no one wants to use it in Linux anyway.)
->
-> Sure, we are analyzing self-tests failures and are committed to fix any
-> hung/stability issue in any aspect but i do feel it should not be a
-> blocker to add new soc id support.
->
-> Also, could you please elaborate more on "exclusive access to hardware"?
-> Do you mean the hardware can be accessed by multiple execution
-> environment like TEE and Linux?
-> --
-> Regards
-> Kuldeep
->
->
+Can I move the SoC specific 'cfg' structs out of phy-qcom-qmp-pcie.c in
+next version?
 
-Eric: FYI I do plan - and have been allowed to by Qualcomm - to work on this
-driver further to refactor and improve it. However, the BAM locking series[1]
-needs to be queued first as it significantly changes the way the driver works.
-Any help with reviewing and getting these patches merged is appreciated. I
-don't want to start sending more patches before the 14 commit series gets queued
-first.
-
-Vinod: the series has been reviewed and tested. The NAND team at qualcomm is
-telling me they're using it internally already to fix a race between the modem
-firmware and linux. Can we get it queued for v7.2 please? This will make further
-refactoring easier.
-
-I know about the self-tests etc., I will address them next.
-
-Bart
-
-[1] https://lore.kernel.org/all/20260526-qcom-qce-cmd-descr-v19-0-08472fdcbf4a@oss.qualcomm.com/
+- Qiang Yu
+> - Mani
+> 
+> -- 
+> மணிவண்ணன் சதாசிவம்
