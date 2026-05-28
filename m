@@ -1,148 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013047.outbound.protection.outlook.com [52.101.72.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 605FF3AC0D7;
-	Thu, 28 May 2026 17:41:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779990097; cv=none; b=JXmcl/ZTee/aeOIInDF+B1zc7eY0Y0dvKUDk9WYpszLn/fYnigMBYv0pmY+4Bk2bU3L40SfxKzTRRfB/1910Lnrp37mX2fQAKXsUr+eKDl7fxapdQcAJDDIRJk1tKcq7NO4cNjZLfUDDRUsZNYsylvFE2WGkB9a9btk4Vfgzk7U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779990097; c=relaxed/simple;
-	bh=jWDWyTChKoIviV1tKXi4im9XMN7quiaxxt7XzFkP3FE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oiTUKNRaGEWxjbxVLbOT6CKJz2XsNE4G3+vZuzpO40dhF9h8ZA+ohqNqpvNw0KE83kfoFpYCHsHx+jq5TnLJnaQ3z7UmprpF1sPgGVxIzZr5UoLQ8MmdB6S1LY8FhUFeWaaPVYdjymbOBpSeEnQCy4t8CHr3Fk1aMclpJeXwXt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RWpf7NwB; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1099C3FF8AA
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 17:45:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1779990317; cv=fail; b=BUeUYjoGs3Az8iL8dgVHlQGMJPpnw8+XSltvDIrnApYmCu2tU2ZvxcPJ20Y5Pr+TTV3BQNf8kUOUhUeWLqW89JORMK1tGYsHOfs7IYSlV5BqEt7ngrVtX9QN877AEApUTFs322i+al8vr+JNsItAdlTd5RFe/mS7WymeHl8mH8A=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1779990317; c=relaxed/simple;
+	bh=iIYa8J0XkmoeyNISXbpmciHstzXmlViOeZB8e0/Uk4w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=GRxKC/l89iRAH519mBPsr8YtKVXe1GJmCqYdzYjSZ7YIsNMWTAVvtzUXXOpRNoRkmJP+o0xK5pXbqrKijO6UOLqGDyzTMorouIQwTGxh2DjftyHTD6H4O/KAnqpf18VgZQFLFktLCq0sE1qdXmJJHXEsuSocZyCXilcmvzHq/WM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=eIMVTmJC; arc=fail smtp.client-ip=52.101.72.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RWpf7NwB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95FD51F000E9;
-	Thu, 28 May 2026 17:41:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779990096;
-	bh=6Mscv3dyKk9BmRJdi770v/J+mBXBLTsaNpCsXPcU92s=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RWpf7NwB0O+rab7qfh0TMqzYXQNQ0JTqraZo/Bu5LM/iSyP5LBUhqzsvPMCPJtgNh
-	 e7wA97sEoMta5347OiQTntyhbCvb9HDvHxKWi3DVp3Vt8h+4pFwwUo6OAWkQVfzoGd
-	 PSEW+RQqCRKV1nK07cELKwAJZLAJJdm89B54038i9aJ3aQmfvTkQZ359FFyU+SUdDW
-	 Hd2EaR3IFo/u5IN2AanKOOVI9MmHoMtPOKYFhNdexR3FTPHorPUXk2BQN2Qr2btSNC
-	 bNYZH2h+jLKnLV4xipa2uCBo1XBltk3X6tDCNg79AYZVte70kbj24ARooBrrMlOIvL
-	 5Xf+7IKdzqzZA==
-Date: Thu, 28 May 2026 18:41:31 +0100
-From: Conor Dooley <conor@kernel.org>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"linux@roeck-us.net" <linux@roeck-us.net>,
-	"robh@kernel.org" <robh@kernel.org>,
-	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>,
-	"corbet@lwn.net" <corbet@lwn.net>,
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"Syed, Arif" <arif.syed@hpe.com>,
-	Sanman Pradhan <psanman@juniper.net>
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
- MAX20860A
-Message-ID: <20260528-paging-alfalfa-9c3837635192@spud>
-References: <20260528173424.87503-1-sanman.pradhan@hpe.com>
- <20260528173424.87503-2-sanman.pradhan@hpe.com>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="eIMVTmJC"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=SFTMwgByKfmo2zwyvKYNfcrCyhkjdw54kmvrHu8GUyZt15f7yKnbc22ppwfHJaDsWa1fkjD8o+uusaPsBFxWxL9Ty2lOagaf793FiVRj4uDAqZHVsoBZrkzSF/mIxlj6B4nOitJ39WJDT6h380s/QDW73oCsRk3OMCyLDkRyiZuPGAEYiydGPjtux2Kbv+lcPa0T9F2it/wUB54EZs4EKWPou6sh4G/IdXek/8g6vcpR1YRBZc6kS6ukCnrD0FtyB7QnfhIwYRmilo6xdk2ZwNmadXBtNwYQvpxFRfIQr4qYcDfnBxKI+9pzdlPM1ttOaRweHGCuKGSdfu8CDeNfng==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tu5OS5PXi4MWBspkj/k5ojnWr8etTeWcSlCsQ03Kd0o=;
+ b=dAbaQXBhqT/3gbSofkr2iux5UjE5j4G25JhSFFtRillkABpaEXR4MMgDDMI4UnxAS5kgMu7onOPy2tr+EoeQEPlV4XC/+iDAWkBb3Ih8dN8iyGCA5/KtCPW/tRucm0aKMNodf/xeWY3jg0j0B4I/p1v4Q7XSg3ZwykPgzuRldeSG+efoVz912lcCVv0ECDdJMpqqSQQIKkUaXlTmkQ+mksWvtgbNSet8hU9NWKdmkzvB9d38bdERxCq+sM/y2Ab2YKXJj4popzYmeCusGIi/YmIc/Ywg4z0dfqTyAwUakMrA6+ff8rgUVNUsuyBErTrvBEJvjuMYWnbKKmcHNYohvw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tu5OS5PXi4MWBspkj/k5ojnWr8etTeWcSlCsQ03Kd0o=;
+ b=eIMVTmJCrc2fIVmGn9c5d3D32633w/MZOxDolyXgcxvuirufzRI7O7QGu4f4nwUVERFPprJjIQuHdHvYJKZRHwuHHBOnYssNvcIntJs71a/7TUmoKUo0I4+AECgw5k37UW9d4HATJRxD9qSbpff2w4ODlocYvMUT/lV+PLAMM1FGpZDlXb9zZGlbm7/dBMjvgZ/pqXgoazCatmd8QTmIm03CaWoh+oZBqCz7OYeHNG84nOo548lvg5YfJ/mzpS9Uu8Nfh2Y6HXsoCNrc7WIVL89+KuZYuAMkvlo7eE5hLZvzKHNnSK0XQVFhFip2VAcsNnPNwuNvU1Z/bFoxOeWl/w==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by PAXPR04MB9374.eurprd04.prod.outlook.com (2603:10a6:102:2b4::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Thu, 28 May
+ 2026 17:45:11 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0071.011; Thu, 28 May 2026
+ 17:45:11 +0000
+Date: Thu, 28 May 2026 20:45:08 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
+	neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
+	olteanv@gmail.com, vkoul@kernel.org
+Subject: Re: [PATCH phy-next 01/13] dt-bindings: phy: lynx-10g: initial
+ document
+Message-ID: <20260528174508.bqu6ks4rgkysvgdg@skbuf>
+References: <20260528172404.733196-2-vladimir.oltean@nxp.com>
+ <20260528174044.EBE8A1F000E9@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260528174044.EBE8A1F000E9@smtp.kernel.org>
+X-ClientProxiedBy: VI6PEPF000001FB.AUTP296.PROD.OUTLOOK.COM
+ (2603:10a6:808:1::909) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="R17WgRC3FSG8u/9M"
-Content-Disposition: inline
-In-Reply-To: <20260528173424.87503-2-sanman.pradhan@hpe.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|PAXPR04MB9374:EE_
+X-MS-Office365-Filtering-Correlation-Id: 2d24f0ec-63b6-4606-c6ae-08debce0dde9
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|366016|10070799003|1800799024|19092799006|3023799007|11063799006|56012099006|4143699003|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	mwcXF0Ofg/tKbUwj3lqi6z3Hd/QdF7hUi8slHKK43U10z/mpIow9RgK2qwkXELETcTBTv/Ffdjrxg5bpAw1+GYo73c46nhXsvRgBWm8AwjWCBlA57xxv9/41Pnrk7hEDxtCaOu1YV4b5L6PpVtLw7RGa9ndOJrufXJXzq/wSqBEoggitGd318zvE0QXGSpR/00woIxuWPFQ0kkBnM4AF2612LXOEEgmCfkX38o60FzITEj74LnL1mKeQYmmYZqhrVdXHhuAokbVhxtEiQYWeVSIS/FBsNv+PDioWpyg14Qqe5utoMMprgi4bcNhOmkXX2uHDgeYlKXZqEqrH12u4QWdTutTMu+4usscKGBD2FLuLFcXjD861ozY9WKEY7S2jO8voUH/RIKL5AfaKYWAoVq0gDqDOR3nO3YJ3JgUSPIyEypYxap12glIYEM2g9OMiVdp5NgqcaMWlCExfTfprOxG4nxQw3qLBz9NXSaGDITQv2sgvp6zQAJiCr1IXmPaulAKORGQGQ415GMGzx5WhWmsvlOo0HaxJAw9NU0bG2H9ssKwx0HqYA2QKsh/zUqPIzJVOSmu3oO3Ky0eGhRlwx0Fze423Eb/bYsqD+qjiNYmhcGjhPKjYWur9bEY5aZQ+FTwXaskSWm9s/nZBKNrLbA==
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(10070799003)(1800799024)(19092799006)(3023799007)(11063799006)(56012099006)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?zeSFYrJVO/1oys7g5q+11aRfW70mPouVQCjB8YHNJH9UZzp/4IrWFpz3iy?=
+ =?iso-8859-1?Q?BEDeOQEipUBWu024njCt+pl0o4adsCWr01WOrVh1gUZ6KBam5gsKYXX+Vp?=
+ =?iso-8859-1?Q?Uk2JqVVpXHiKpeQx+Otd4crSh7oS8zRgn83xnWZZwjAThZAXXXv0T6no+B?=
+ =?iso-8859-1?Q?cA9YVZUyAhE6pJ6G+94SZIXWqbaOO4u3MboZf9hr5iP7dARPDRlrI8mNH6?=
+ =?iso-8859-1?Q?kG4wz1arp6vNHWAQB9U8Q7vPdNJXrw9WogTeoo/KhoQ/KbNfaa3kyh6LGT?=
+ =?iso-8859-1?Q?muOTF+upDYblPRnNRKPYVG779fxGPCpFps1El/pCERtf6BvGROdxZyVrKS?=
+ =?iso-8859-1?Q?GYUD/LpA9Fe1fg9HBiGqQlvqKuyC9toYXV5tBEgoPukbv1QqXg/nJz55KU?=
+ =?iso-8859-1?Q?cslwMpUnHsrfm1uzXQZrHw45Eov5TVuocQ5yOEDRaxxcxthbjBxAYlxBDg?=
+ =?iso-8859-1?Q?nedxX1qhY+gLGr8D0yz1zvrGmIwYFqNZzDkZn+2miZ8n6Y0lPtE5Z2rLXk?=
+ =?iso-8859-1?Q?CZT8PDxmrcvfb6ElzxmW4my6zQa8B/0Pe57Dy/5aIIyLhLEWJqr/rYQ6HV?=
+ =?iso-8859-1?Q?9mdF4PEZpUT6lOrWvZh3uN5KG8Yv+ghaWakZoUV74RmQwMbE/N6zfpRMzL?=
+ =?iso-8859-1?Q?9UjuTjFMGpgRjsiGmu8VO/zbcTKbojtzEsL+p6ml/xWzrUDfuBBq7Rx5+5?=
+ =?iso-8859-1?Q?GRp7O+z/jsm71qpPW82T0ibLFVNeF7Rt51DeK9W4HPFN/TuffEyXK9oqfk?=
+ =?iso-8859-1?Q?10TMZRgtgrm30xJ1ROm5Rlu8CtHckps60PcBFfElJzv5kMFIxGCL0ND1gu?=
+ =?iso-8859-1?Q?Q10ZEzhnflas1vIYpIjzP/Lyc3UubuPXyOhNLxTH/GLiMfwVhXNQOwt4Ke?=
+ =?iso-8859-1?Q?B6zdJHhSGMtgZjPbdGlHbgxaHqaRuTbD+7hNK+PxLGomGW+OZ6N0IF022J?=
+ =?iso-8859-1?Q?k2Ji0ZHT7LZ4A07J70cPT634ggC/z8/Ixwu+GJA9WY9tx0tETBV0wts5sg?=
+ =?iso-8859-1?Q?PviBjwTbvM0u5XYxpzCa44pbm/d724QLE/jJ+A4UrhF0qND4rGUKI46Xf/?=
+ =?iso-8859-1?Q?+tv0/L2+nmzxCINbxPBlL4w3uoTzcusD/NCT9s7HuO5O2zYtUGJ8JQLEJ8?=
+ =?iso-8859-1?Q?SzBGrz0LoDSRKch3B6b6vbZA/MRnGAS+6+vFy+tZUKZcifCcQv81e6QBKy?=
+ =?iso-8859-1?Q?LXd1PF9s17S1++qQ+EpCbbu2YFJBRbaH4PZuhnUBskadnu9tLWXw8Vo1iv?=
+ =?iso-8859-1?Q?1iw774jYJx6MYW0srspEWb8DMCfeqr9ZxfGITohSkTBmNSCQAQsyHtI2me?=
+ =?iso-8859-1?Q?PY/7TrtIIl48wRFerpfOdIolXtwLjIO/JTEIu5fvaJ1uwy3l15NKoPK+3K?=
+ =?iso-8859-1?Q?F/DYNDbZLByPzUn+1ptORKtpe4zmmOD6GivufoRrngC2OWif3rUSJxCNTV?=
+ =?iso-8859-1?Q?NqMxR1D1qHlypXjR7rE5VCrtfS/afyh2I9XOdTR+0qD/JFOSOs2dBwZUC4?=
+ =?iso-8859-1?Q?jIdCi51+pCObiSFRGxZMyBo56Z7oSl+jT0bxUK1/CWQkh9mj1jDvX78/XX?=
+ =?iso-8859-1?Q?uVRqpOdbs5vp1pM2fkLsYPSuJQtHbtbFxUB98WhP63YDPIA2o4c36X5KaL?=
+ =?iso-8859-1?Q?nMNvjhp2slve/h7gBP5Kb/EeiWkAnaGq1k7sLWIOeC8AI+9u6JeO4UYIz3?=
+ =?iso-8859-1?Q?V9EqUSB4i4RHE1TRGJwZJL/jc5hAaQBNFYjnl9vd75rqDK0sM7hkXMXba9?=
+ =?iso-8859-1?Q?yMhBsvyR9zrb2GwRjbHnYTlMzerAemh7ctl9nOqoPxLPsL6BZBP1JwfeBM?=
+ =?iso-8859-1?Q?n4eOV1ICAMRowd7eFrYHSwFn00CsEp82J4adXG2lEswV3ndrYJ2MUzcBkW?=
+ =?iso-8859-1?Q?vD?=
+X-MS-Exchange-AntiSpam-MessageData-1: +FHPc31bpiBV+escswbv1MO4wfqbfBCLAEg=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2d24f0ec-63b6-4606-c6ae-08debce0dde9
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 May 2026 17:45:11.6016
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: sb0mCzeIWXCPLgmfXgp+4INSQy8u0AoXHvzCa569zCYs4fWYX0bF7gVTZD6iFE/j0/ut9cHN5YOczHy4Zg/A8w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB9374
 
+On Thu, May 28, 2026 at 05:40:44PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] Invalid JSON Schema syntax for the `reg` property constraint.
+> --
+> 
+> commit e219405276839837989c30627d109ff39c15e361
+> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+> 
+> dt-bindings: phy: lynx-10g: initial document
+> 
+> This commit adds a new device tree binding schema for the 10G Lynx SerDes.
+> It defines the register map constraints and allows flexibility for the
+> #phy-cells property.
+> 
+> > diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> > new file mode 100644
+> > index 0000000000000..993f076bba4e6
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> [ ... ]
+> > patternProperties:
+> >   "^phy@[0-7]$":
+> >     type: object
+> >     description: SerDes lane (single RX/TX differential pair)
+> > 
+> >     properties:
+> >       reg:
+> >         minimum: 0
+> >         maximum: 7
+> 
+> [Severity: Low]
+> Will this cause a meta-schema validation error during make dt_binding_check?
+> 
+> The reg property is parsed as an array type by dt-schema. Applying minimum
+> and maximum directly to an array property is invalid in JSON Schema, as those
+> keywords are only applicable to numeric types.
+> 
+> Should these constraints be wrapped inside an items list?
+> 
+> [ ... ]
+> > allOf:
+> >   - if:
+> >       properties:
+> >         compatible:
+> >           contains:
+> >             enum:
+> >               - fsl,ls1028a-serdes
+> >               - fsl,ls1046a-serdes1
+> >               - fsl,ls1046a-serdes2
+> >               - fsl,ls1088a-serdes1
+> >               - fsl,ls1088a-serdes2
+> >     then:
+> >       patternProperties:
+> >         "^phy@[0-7]$":
+> >           properties:
+> >             reg:
+> >               minimum: 0
+> >               maximum: 3
+> 
+> [Severity: Low]
+> Could the same meta-schema validation issue occur here? 
+> 
+> Since reg is an array, perhaps this constraint would be better enforced by
+> rejecting invalid unit addresses in the then clause entirely, for example,
+> by setting "^phy@[4-7]$": false?
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260528172404.733196-1-vladimir.oltean@nxp.com?part=1
 
---R17WgRC3FSG8u/9M
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, May 28, 2026 at 05:34:36PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
->=20
-> Add devicetree binding documentation for the Analog Devices MAX20860A
-> step-down DC-DC switching regulator with PMBus interface.
->=20
-> Both "adi,max20860a" and "maxim,max20860a" compatible strings are
-> supported. The MAX20860A was originally manufactured by Maxim Integrated,
-> now part of Analog Devices.
->=20
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> ---
-> v2:
->   - Added allOf regulator.yaml reference and unevaluatedProperties
-
->   - Added "maxim,max20860a" as alternative compatible
-
-No, please delete this.
-I don't remember what the policy that ADI use for things that used to be
-maxim products, but just pick one compatible for this device. I have a
-feeling they want adi to always be used in these cases.
-
-pw-bot: changes-requested
-
->=20
->  .../bindings/hwmon/pmbus/adi,max20860a.yaml   | 47 ++++++++++++++++++++
->  1 file changed, 47 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/adi,max=
-20860a.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.=
-yaml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml
-> new file mode 100644
-> index 000000000000..f7eeb30f11b3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml
-> @@ -0,0 +1,47 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/adi,max20860a.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Analog Devices MAX20860A Step-Down Converter
-> +
-> +maintainers:
-> +  - Sanman Pradhan <psanman@juniper.net>
-> +
-> +description: |
-> +  The MAX20860A is a fully integrated step-down DC-DC switching regulator
-> +  with PMBus interface for monitoring input/output voltage, output curre=
-nt
-> +  and temperature.
-> +
-> +  Datasheet: https://www.analog.com/en/products/max20860a.html
-> +
-> +allOf:
-> +  - $ref: /schemas/regulator/regulator.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,max20860a
-> +      - maxim,max20860a
-
-And for future reference, please use fallback compatibles when dealing
-with devices that have the same programming mode.
-
-Cheers,
-Conor.
-
---R17WgRC3FSG8u/9M
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahh+SwAKCRB4tDGHoIJi
-0iKGAP0SFOOl0b3tC1ho14Gd2eEUTqX9/6cBV5YLvIjTUl3DPwD+Mopyt1J6yIPy
-MMiAkePD+ofylOkR2UPURwnz/lsNEA8=
-=1G8j
------END PGP SIGNATURE-----
-
---R17WgRC3FSG8u/9M--
+We have the same pattern in fsl,lynx-28g.yaml and it didn't cause schema
+validation failures there.
