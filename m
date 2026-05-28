@@ -1,214 +1,252 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93F292F7F19
-	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:33:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FB782E7384
+	for <devicetree@vger.kernel.org>; Thu, 28 May 2026 16:39:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1779986012; cv=none; b=VpcErSnaRaxS36IjDbvrLNtZf2Ebx7HBfB6ISNdNjdSvswpQqVs7WiCW7J3iclUgZ/mZGUUI39AxdQqHrGghJ+Yc+JEKsU880na2wbD+OL2N7oppM2/GgmhRUxYHNfagPjKxWVLIbDwiiMG5ZPEZLg3ZOoUwrzcWN/L6paKuDPs=
+	t=1779986378; cv=none; b=oertUQ3cy3qiqZrVRGifQvaoHyS9EHi9oatswwd/LcxB+X6+iX1saVWfAepX3dsrrsu6/OcR9+i0T8CdXDSzUCTGXb1gCs8S5pEB8BjjL/caX/8PEma69xWrzadg/Aes09qrKDJK6LQGWRYBeXZgYtnPRz0aJ/zchc+1l3umjTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1779986012; c=relaxed/simple;
-	bh=wSSujGhIPjybcjubjrC+YM5m904UyRH9L/C9VD/dxpA=;
+	s=arc-20240116; t=1779986378; c=relaxed/simple;
+	bh=wPfgmyfnxCqzZqXVJB/ihPD6Kcs++eLR/boCZ97KaII=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=NPlG2MrhpCfo7ARkBJUywq2Y4ygI0dwCdVYocaBMqnTLRYAA4zSeviiwFd/9YdN59yQxo8XfUHq90k/dRsNC4PpJV2v6Qe1pAMmY8SntmX4EweGNJaK8rK7dQkm4cPjHJiSQuExVy3s5VYbyD0tp+pAhTVemn99gGtmLmEG0vaQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YgEeDUkp; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=aD33jm9swO2CCSjeNFJz4rOoH0Erl6g8BhYrbNhx6u+d7ClD1GU7lW8G/t9nehQVpAZcPMtdQDDHhqVjVEHdJXvhUodQq+vOP/UdAuz7q2TC12+4CFhd1RRcjupG8durQtgJlaeEsVYSxP7EQaR9QDjgCDG9+HyaoQnMvmiJnuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xl2K+8zi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YgEeDUkp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D391F000E9;
-	Thu, 28 May 2026 16:33:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xl2K+8zi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 66BA11F000E9;
+	Thu, 28 May 2026 16:39:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1779986011;
-	bh=SY4K8ZrjIUn2GHRodTI8nDLfOxTNQTauppzYlXw/A+M=;
+	s=k20260515; t=1779986376;
+	bh=2rqTkiVrGviNYMCTBlQR+gyj27fzBQGB2daSSF8JrOU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YgEeDUkpEOV7wq1cQowXOF58RBKSs3wc5D7T/JdW+h6XUZd5blpNNeq4HuR3Gdtvi
-	 kglg1eS8sizJYKAeswFEbnnj5gfYg9FJBhJEXh/unqUGyWX8Z5XzH+HjggKDGfvk05
-	 CsMrky26t3YDw5dbUIF2kn8RgXPgeNJ5gGJCZOEAOUjGdV1QtKcLJ7rkvUQBtXBalP
-	 k+U21p41rYVv2TIxcFDfamqHK3yx/3OS5WeDiptAAtMi599IWbdXIfi0se6KWR8ey4
-	 0LCXIM/6uy2P5qwgXmiaanioYB4GFhEUJZDQFN0rhg6zlKWghM8/P00nHP1i51KHjm
-	 CRzbYJVxeQRFQ==
+	b=Xl2K+8zitkdWEjPsZtEohAWuOpxjYaKV0sZVQKluGvG+Lc/3bEfy/LxdLwID2tInf
+	 e3b9dVngfSCI3pbdWZ4dqaigShftqIXCwYZu3JJYqSGenTOhspRgFQ+0cU/BULqCKl
+	 BK86v6mDirro3jLNKPkBjFK6RZ0HhAqyKOpWYaOUsjfilwoMHKR+wCXk4Cw6oFb5eu
+	 xIN2EnhFXuqtxhAhNk3yCUCJsF/Kx/Wv9ywRYM+39YLbWuqPzzbzrCdSDY699yKnVr
+	 230vwG1w5C6BonKEqOSneV6tKIHv4/aNsQzI7t1a6mQzqIiQUDbMCpO/ot7FRerbnF
+	 OPKvb7WSigOJg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 6/6] video: leds: backlight: lm3533: Support getting
- LED sources from DT
+Subject: Re: [PATCH v2 3/4] iio: adc: ltc2378: Enable high-speed data
+ capture
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+To: "Marcelo Schmitt" <marcelo.schmitt@analog.com>
 Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260528135123.103745-7-clamor95@gmail.com>
-References: <20260528135123.103745-7-clamor95@gmail.com>
+In-Reply-To: <e04a432efb6536f93bbe7f410964aa877370de36.1779976379.git.marcelo.schmitt@analog.com>
+References: <e04a432efb6536f93bbe7f410964aa877370de36.1779976379.git.marcelo.schmitt@analog.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Thu, 28 May 2026 16:33:30 +0000
-Message-Id: <20260528163330.F2D391F000E9@smtp.kernel.org>
+Date: Thu, 28 May 2026 16:39:36 +0000
+Message-Id: <20260528163936.66BA11F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
 s) to consider:
-- [High] Hardcoded register masks clobber sibling device configurations.
-- [Medium] Missing bounds validation on device tree shift values causes und=
-efined behavior.
-- [Medium] Premature sysfs group removal in error path triggers kernel warn=
-ings.
-- [Low] Incorrect boundary check allows an out-of-bounds LVLED index.
-- [Low] Improper handling of negative error codes from device property coun=
-t via unsigned wrapping.
+- [High] LTC2378_OFFLOAD_BUFFER incorrectly forces tristate dependencies to=
+ be built-in and fails to propagate constraints, causing Kconfig warnings a=
+nd linker errors.
+- [High] Incorrect continuation conditions in hardware configuration loops =
+cause infinite loops or unconditional failures at high sample rates.
+- [High] Fallback stub functions in the header contain syntax errors and la=
+ck static inline specifiers.
+- [High] Direct read SPI transfers execute unintended 32-bit transactions f=
+or 16-bit ADCs when offload is supported.
+- [High] Uninitialized kernel stack memory is leaked to user-space via the =
+IIO sysfs interface.
+- [High] `ltc2378_read_avail` fails to populate the `length` parameter for =
+`IIO_AVAIL_RANGE`, leading to undefined behavior.
+- [Medium] dev_err_probe is used to log an error when an optional SPI offlo=
+ad resource is unavailable, polluting kernel logs with false positives.
 --
 
-commit e5414513aab84157f65b5403f08affee4717c3cb
-Author: Svyatoslav Ryhel <clamor95@gmail.com>
+commit 1c9aa766f95e380ea9e11f4b2b8e9cbf0718b8f9
+Author: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Subject: iio: adc: ltc2378: Enable high-speed data capture
 
-video: leds: backlight: lm3533: Support getting LED sources from DT
-   =20
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+Make use of SPI transfer offloading to speed up data capture, enabling data
+acquisition at faster sample rates (up to 2 MSPS).
 
-> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> index d707d43d55260..07390bba9a48c 100644
-> --- a/drivers/leds/leds-lm3533.c
-> +++ b/drivers/leds/leds-lm3533.c
+diff --git a/drivers/iio/adc/Kconfig b/drivers/iio/adc/Kconfig
+--- a/drivers/iio/adc/Kconfig
++++ b/drivers/iio/adc/Kconfig
 [ ... ]
-> @@ -639,7 +649,33 @@ static const struct attribute_group *lm3533_led_attr=
-ibute_groups[] =3D {
-> =20
->  static int lm3533_led_setup(struct lm3533_led *led)
->  {
-> -	int ret;
-> +	u32 output_cfg_shift =3D 0;
-> +	u32 output_cfg_val =3D 0;
-> +	int ret, i;
 > +
-> +	if (led->num_leds) {
-> +		for (i =3D 0; i < led->num_leds; i++) {
-> +			if (led->leds[i] > LM3533_LVCTRLBANK_MAX)
-
-[Severity: Low]
-Is this boundary check correct? LM3533_LVCTRLBANK_MAX appears to be 5, so
-using greater-than allows an index of 5 to pass.
-
-Since there are only 5 LV LEDs mapped to indices 0 through 4, would an index
-of 5 result in calculating a bit shift for a non-existent LVLED6?
-
-> +				continue;
-> +
-> +			output_cfg_shift =3D led->leds[i] * 2;
-> +			output_cfg_val |=3D led->id << output_cfg_shift;
-> +		}
-> +
-> +		/* LVLED1, LVLED2 and LVLED3 */
-> +		ret =3D lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF1,
-> +				    output_cfg_val << OUTPUT_CONF1_SHIFT,
-> +				    OUTPUT_CONF1_MASK);
+> +config LTC2378_OFFLOAD_BUFFER
+> +	bool
+> +	select SPI_OFFLOAD_TRIGGER_PWM
+> +	select IIO_BUFFER_DMA
+> +	select IIO_BUFFER_DMAENGINE
+> +	help
+> +	  Say yes here to build support for high speed data capture with LTC2378
 
 [Severity: High]
-If a mask like OUTPUT_CONF1_MASK is used for lm3533_update() and it covers =
-all
-LEDs, will it unconditionally clear the configuration bits for any LEDs not
-assigned to the current bank?
+Should LTC2378_OFFLOAD_BUFFER be a tristate or use depends on instead of
+select? Since it is a bool, unconditionally selecting tristate options like
+IIO_BUFFER_DMA can force them to be compiled as built-in even when the pare=
+nt
+module is built as a module. Selecting them without inheriting their
+dependencies can also cause Kconfig warnings.
 
-For example, if Bank 0 configures one LED and then Bank 1 configures anothe=
-r,
-does the second update overwrite and clear the first one's configuration si=
-nce
-the mask is static? Should the register mask be dynamically generated based=
- on
-the LEDs actually being configured?
-
+diff --git a/drivers/iio/adc/ltc2378-offload-buffer.c b/drivers/iio/adc/ltc=
+2378-offload-buffer.c
+--- /dev/null
++++ b/drivers/iio/adc/ltc2378-offload-buffer.c
+[ ... ]
+> +static int ltc2378_update_conversion_rate(struct ltc2378_state *st, int =
+freq_Hz)
+> +{
+[ ... ]
+> +	do {
+> +		cnv_wf.duty_length_ns =3D target;
+> +		ret =3D pwm_round_waveform_might_sleep(st->cnv_trigger, &cnv_wf);
 > +		if (ret)
 > +			return ret;
+> +		target +=3D 10;  /* Increment by PWM duty cycle period */
+> +	} while (cnv_wf.duty_length_ns < LTC2378_TCNV_HIGH_NS || count++ < 100);
+
+[Severity: High]
+Does this loop condition evaluate correctly? Due to short-circuit evaluation
+in C, if the left side of the || is true, count++ is never executed, which
+might lead to an infinite loop if the PWM hardware caps the value. If the l=
+eft
+side is false, the loop will run exactly 100 more times, artificially
+inflating the target.
+
+[ ... ]
+> +	do {
+> +		config->periodic.offset_ns =3D offload_offset_ns;
+> +		ret =3D spi_offload_trigger_validate(st->offload_trigger, config);
+> +		if (ret)
+> +			return ret;
+> +		offload_offset_ns +=3D 10;
+> +	} while (config->periodic.offset_ns < min_read_offset || count++ < 100);
+
+[Severity: High]
+This loop condition has the same short-circuit evaluation issue as above.
+
+[ ... ]
+> +int ltc2378_read_avail(struct iio_dev *indio_dev, struct iio_chan_spec c=
+onst *chan,
+> +		       const int **vals, int *type, int *length, long mask)
+> +{
+> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
 > +
-> +		/* LVLED4 and LVLED5 */
-> +		ret =3D lm3533_update(led->lm3533, LM3533_REG_OUTPUT_CONF2,
-> +				    output_cfg_val >> OUTPUT_CONF2_SHIFT,
-> +				    OUTPUT_CONF2_MASK);
-> +		if (ret)
-> +			return ret;
-> +	}
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SAMP_FREQ:
+> +		*vals =3D st->sample_freq_range;
+> +		*type =3D IIO_VAL_INT;
+> +		return IIO_AVAIL_RANGE;
+
+[Severity: High]
+Does ltc2378_read_avail need to set the *length pointer here? The IIO core
+expects the driver to populate it with the number of elements in the return=
+ed
+array. Leaving it unset might lead to out-of-bounds memory accesses when the
+core processes the range.
+
 [ ... ]
-> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
-t/lm3533_bl.c
-> index c03d0d1667e42..82b46a531dd27 100644
-> --- a/drivers/video/backlight/lm3533_bl.c
-> +++ b/drivers/video/backlight/lm3533_bl.c
-[ ... ]
-> @@ -248,7 +254,8 @@ static struct attribute_group lm3533_bl_attribute_gro=
-up =3D {
->  static int lm3533_bl_setup(struct lm3533_bl *bl)
->  {
->  	int id =3D lm3533_bl_get_ctrlbank_id(bl);
-> -	int ret;
-> +	u32 output_cfg_val =3D 0;
-> +	int ret, i;
-> =20
->  	ret =3D lm3533_update(bl->lm3533, LM3533_REG_CTRLBANK_AB_BCONF,
->  			    bl->linear ? CTRLBANK_AB_BCONF_MODE(id) : 0,
-> @@ -256,6 +263,16 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
->  	if (ret)
->  		return ret;
-> =20
-> +	if (bl->num_leds) {
-> +		for (i =3D 0; i < bl->num_leds; i++)
-> +			output_cfg_val |=3D id << bl->led_strings[i];
+> +int ltc2378_offload_buffer_setup(struct iio_dev *indio_dev, struct spi_d=
+evice *spi)
+> +{
+> +	struct ltc2378_state *st =3D iio_priv(indio_dev);
+> +	struct device *dev =3D &spi->dev;
+> +	int ret;
+> +
+> +	st->offload =3D devm_spi_offload_get(dev, spi, &ltc2378_offload_config);
+> +	ret =3D PTR_ERR_OR_ZERO(st->offload);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "failed to get offload\n");
 
 [Severity: Medium]
-Since the values from bl->led_strings arrays are read directly from the dev=
-ice
-tree property without bounds checking, could a malformed device tree provid=
-e a
-value of 32 or greater and cause an out-of-bounds bitwise shift here?
+Since SPI offload is an optional feature, if devm_spi_offload_get() returns
+-ENODEV, will dev_err_probe() log a false positive error message to the
+system log?
 
-> +
-> +		ret =3D lm3533_update(bl->lm3533, LM3533_REG_OUTPUT_CONF1,
-> +				    output_cfg_val, OUTPUT_CONF1_MASK);
-> +		if (ret)
-> +			return ret;
-> +	}
+diff --git a/drivers/iio/adc/ltc2378.c b/drivers/iio/adc/ltc2378.c
+--- a/drivers/iio/adc/ltc2378.c
++++ b/drivers/iio/adc/ltc2378.c
 [ ... ]
-> @@ -329,6 +346,24 @@ static int lm3533_bl_probe(struct platform_device *p=
-dev)
->  	bl->linear =3D device_property_read_bool(&pdev->dev,
->  					       "ti,linear-mapping-mode");
-> =20
-> +	bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
-
-[Severity: Low]
-Looking at the struct definition, bl->num_leds is declared as a u32.
-
-If device_property_count_u32() returns a negative error code like -EINVAL,
-does that get implicitly cast to a very large positive unsigned integer?
-
-The subsequent bounds check would safely fail, but could this be avoided by
-using an int for the count, similar to what is done in lm3533_led_probe()?
-
+> @@ -261,10 +314,35 @@ static int ltc2378_probe(struct spi_device *spi)
+>  	st->chans[0].type =3D IIO_VOLTAGE;
+>  	st->chans[0].info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>  					  BIT(IIO_CHAN_INFO_SCALE);
+> -	st->chans[0].scan_type.format =3D st->info->twos_comp ? IIO_SCAN_FORMAT=
+_SIGNED_INT :
+> -							      IIO_SCAN_FORMAT_UNSIGNED_INT;
+> -	st->chans[0].scan_type.realbits =3D st->info->resolution;
+> -	st->chans[0].scan_type.storagebits =3D st->info->resolution > 16 ? 32 :=
+ 16;
 > +
-> +	/*
-> +	 * If led-sources property is not set then either this Control Bank uses
-> +	 * its default HVLED or is not linked to any HVLED at all.
-> +	 */
-> +	if (bl->num_leds > 0 && bl->num_leds <=3D LM3533_HVCTRLBANK_COUNT) {
-> +		ret =3D device_property_read_u32_array(&pdev->dev, "led-sources",
-> +						     bl->led_strings,
-> +						     bl->num_leds);
-> +		if (ret) {
-> +			dev_err(&pdev->dev, "failed to get led-sources\n");
-> +			goto err_sysfs_remove;
+> +	struct iio_scan_type ltc2378_scan;
+> +
+> +	ret =3D ltc2378_offload_buffer_setup(indio_dev, spi);
 
-[Severity: Medium]
-If device_property_read_u32_array() fails, this jumps to err_sysfs_remove.
+[Severity: High]
+Could this leak uninitialized stack memory to user-space? The ltc2378_scan
+structure is allocated on the stack and only partially initialized before
+being assigned to the IIO channel. Uninitialized fields and padding might
+retain garbage data that gets exposed via sysfs attributes.
 
-Looking at lm3533_bl_probe(), sysfs_create_group() is called later in the
-probe sequence.
+[ ... ]
+> +	st->chans[0].scan_type =3D ltc2378_scan;
+> =20
+>  	st->xfer.rx_buf =3D &st->scan.data;
+>  	st->xfer.len =3D BITS_TO_BYTES(st->chans[0].scan_type.storagebits);
+>  	st->xfer.bits_per_word =3D st->info->resolution > 16 ? 32 : 16;
 
-Does calling sysfs_remove_group() on an uncreated sysfs group here trigger a
-kernel warning? Should the error path at this stage simply return the error
-code instead?
+[Severity: High]
+When SPI offload is available, storagebits is forced to 32, meaning
+st->xfer.len is set to 4 bytes. Since xfer.bits_per_word remains 16 for a
+16-bit ADC, could this cause non-offloaded direct reads to execute two
+16-bit word reads per transaction, violating the SPI hardware protocol?
 
-> +		}
-> +	} else {
-> +		bl->num_leds =3D 0;
-> +	}
+diff --git a/drivers/iio/adc/ltc2378.h b/drivers/iio/adc/ltc2378.h
+--- a/drivers/iio/adc/ltc2378.h
++++ b/drivers/iio/adc/ltc2378.h
+[ ... ]
+> +#else /* CONFIG_IIO_LTC2378_LIB_OFFLOAD_BUFFER */
+> +
+> +#define LTC2378_WRITE_RAW_PTR (NULL)
+> +
+> +#define LTC2378_READ_AVAIL_PTR (NULL)
+> +
+> +static inline int ltc2378_offload_buffer_setup(struct iio_dev *indio_dev,
+> +					       struct spi_device *spi)
+> +{
+> +	return -ENODEV;
+> +}
+> +
+> +int ltc2378_get_sampling_frequency(struct ltc2378_state *st, int *val)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +int ltc2378_set_sampling_frequency(struct ltc2378_state *st, int freq_Hz=
+);
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +int ltc2378_write_raw(struct iio_dev *indio_dev, struct iio_chan_spec co=
+nst *chan,
+> +		      int val, int val2, long mask)
+> +{
+> +	return -EOPNOTSUPP;
+> +}
+> +
+> +#endif
+
+[Severity: High]
+Are there build issues with these fallback functions? The function
+ltc2378_set_sampling_frequency has a trailing semicolon after its parameter
+list. Additionally, these functions lack the static inline qualifier, which
+might cause multiple definition linker errors if the header is included in
+multiple files.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528135123.1037=
-45-1-clamor95@gmail.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1779976379.gi=
+t.marcelo.schmitt@analog.com?part=3D3
