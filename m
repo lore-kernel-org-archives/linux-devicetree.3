@@ -1,402 +1,161 @@
-Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17C03C2798
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:40:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780047614; cv=pass; b=Qoa6ZDgb/XTUtc+IOx9rwvSivdy9wYbojZMYuqpHkg2YN3Z9eMNPYv4/qaOtj+Ubyg2lCzZFdpdiTHse2ulG4cktToShZ2+YbZRBZ4D6XMduuVSJ8yscEsEKS84Bevya1x6/l5d3aCX4cNU9hJmldh0pDyZMSxlqweMj5eGq7Cw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780047614; c=relaxed/simple;
-	bh=hg1MJgJp69xCiE6cXF9NCpUM7bLjzfVxjRpPbrpZrNk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=dFYvKWLjdSubru0d2s15xB/WqARQKzzRl50R/3Fp/ijKv6YaS76Ma4O3b3M3jQfVDqVMBGxnhQwo7mvejBTBCYhpiUxbW18n9m9K6PNpA5wtR+AIy1hX66irKRfnNm6PTA4hV41h+UIa1A+FDVzcvIwPQpWEahS+LHFUYJEX/1M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ER/ZUh/n; arc=pass smtp.client-ip=74.125.82.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA7A3C4575
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:45:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780047945; cv=none; b=iDzRDwuTK4nQULPK8K2FKOlm3+qeBNdYGD7ED3hh9oJQoIliUS0r01Y2ZYLSIevyespAoaIi3lPwMLe5JpZIMNsaz8Yz0JVANzt5/iFAicbhBJl8q07Fdxd9dRi/aBZPRF9wuKMClc72AJIm9ISGw2kpEuDztCJhbsK6zxYHwtM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780047945; c=relaxed/simple;
+	bh=4d0rimpxQUNcM63dGzxewjxyF1i/4vDxt4Z/QMTInVA=;
+	h=Message-ID:Date:MIME-Version:Cc:Subject:To:References:From:
+	 In-Reply-To:Content-Type; b=FjkSlUU3tkFCMFrt5L/7wuMCR01qAJKExa1P53MkC5ndJZNISYS+u7fX+dPWvk846ExlUDBPg5koeoSiO+qLrTG7pRB0CU8NYM66/8Z/WEnCLAP1GqKJXbxQk+baDaS5JJTTQ3gfM6WMsqp6gBBJllEZqr9CfZS8PebFcEWv3Aw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pyN9kRIT; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=BhPZlD73; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ER/ZUh/n"
-Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-304f590dd91so64322eec.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:40:09 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780047609; cv=none;
-        d=google.com; s=arc-20240605;
-        b=X2aLj5IDquwk1Qjo/+qLRCjTFpmVC5ZN6njYjoFcGMI4mjMvOklMthLMOl7ExalEEX
-         8dxetryAsKrlT2u3FIkUO+95B3IpTo2+cXTY+7n6bUX5dO3pYpAdluQpaX9u1CNRTsyS
-         FHZ4+AomUUW3z/7JH1eSHqwW21VlF4Vmth34p3gqzfhRIW4WM4xatByRonw5i1sktU2I
-         GLEOQB05sGFAj/A65nP9q2Xr1BfjjJiSMyxsk3sMP/OMkq9FvW4Xq7ZQT4qjMyeD0IqS
-         zDtGZ4tFjOtvO4o4ZvyfR0tOtdtusxvyuvjrQA4G5a5clfX1Oe7qG74iOt7b2RinkluL
-         paAQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=CNp8LY64my7Ot0qUd7egC8x+n5gTs/XUD+GWS+UeAxA=;
-        fh=yBlV/uk1D9VeSOWXi2huCnG+HD31XyI91Cw6MKz2x1E=;
-        b=PnLU+CQv3TxfDL5zFa0ayJUEbG2Z3AzVYZ/Bw+V/FRfjtZjTzZV6P6/JQ66kV1HNdV
-         JXlhBxbUpGQRRuy2t/5FD2lK2V4sWhGO5Ocvph5IAJtprqis2IP40V1/f7WWS4xZVamv
-         0TaomvEKUdrYaQaOzjbLeTe5aK+UmJGE7SfdaePWsFfyQRFbVlcJv/v34mqY86eiB8ha
-         W020EiWrMo+sIVkbVx11JnSiSZCkUrrT44jbjOtFAhWzsQVTBYCeOyiQHWHkUjwNNHrZ
-         ZC4qwfXoqpr/gmIEA85MaVCddEMFlxvZDFC+3nJQq+8b7VHOjTwNDbFzePwaPMRmBNHU
-         4bvA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pyN9kRIT";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="BhPZlD73"
+Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64T6gCL41386545
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:45:42 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Uz667M+0GzNu3DQdktJc+dlcwqwGLPErXGT+hqHNISM=; b=pyN9kRIT9v8vFNST
+	oXxTDt7sJgih08c7g4Y6N1DueLiFLz+c0bHxNGB72KGOUJnDUk7Bk2MWgOBKjcem
+	XG597OsBMgVMlfYXK+1R60Wjcm+VllBQwG5jIQ7nlSkBZPsvd/Fl+9z3lJEXcG2s
+	OjZLv14M4rfGAtLGSINniwHHuaSMmV5WVTlfQw4EyVx5eJdAkX6BIdQ6N3wm0WVG
+	2VOPwJujgoeNbHR5lvzKDtiB4uhW3+0KA8BgQuSyZO0Mi3gHAdbxUKg88LZQvFSd
+	fOpRkdrIdOJAdB8ItCgB68SM/sxOoW5KXxlNDmC1NOsW5eC1nYi0Icl6USfUHkxO
+	u34hWw==
+Received: from mail-pj1-f72.google.com (mail-pj1-f72.google.com [209.85.216.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eevumtv32-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:45:42 +0000 (GMT)
+Received: by mail-pj1-f72.google.com with SMTP id 98e67ed59e1d1-368f2d76b04so13104815a91.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:45:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780047609; x=1780652409; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=CNp8LY64my7Ot0qUd7egC8x+n5gTs/XUD+GWS+UeAxA=;
-        b=ER/ZUh/n9BTKkNEbqFe4m2wNZ7eu/R3sRNbBT86MgRvs9JqHi+OEBGDBuazyQcnncd
-         DRyKGjwuI1VbaNL5v2j5cXy+22qLNHSm37J0Rf4rGoIPm8wH7ngdWn48jisI69LF4DWP
-         F/wnJznYogmxTTLscmY7dkEQs77qyyPn4kxwDB2eIRyccVVMsshqrKzP50X7HwLpt7Er
-         +64is3HsJHHYpsx9UoLYPqlvg+go3bpy/YzirrA/vglper5FJFNY4+dmGbpMcnreyG53
-         E4LogGWgyd4DCdMgYPZaaPyR3aY8J1Scs0PatWDN2jV2imyXRsGD9gEhAt0B88/cm7Ri
-         I31g==
+        d=oss.qualcomm.com; s=google; t=1780047941; x=1780652741; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:cc:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Uz667M+0GzNu3DQdktJc+dlcwqwGLPErXGT+hqHNISM=;
+        b=BhPZlD738DWlgMNi03LwbenlcwV9GWDI7AGCgUeMIMhlXj6dkOMgHxn/20G34OabLB
+         Jemb2j0vRKvVkHEhRPXACs8ljDyaa7ppR6TLVvylLRGzockUDTtgBp4Q8LXN4xKG23rU
+         +zU9ngYlZXoqqeSzewYk2EzKRoOb4KOS+x+A4fmczea86aXxV/bwyo/VcevznsXP+C1s
+         gVMWT4gB6u41yj7CDf/4wueHXkvK0iR2ZDJMVxnEjtDv9MoHityl6oo/BfxnzWdlDlA1
+         8xAfGah8ARqvdFmPtUKt79MQ/c0WsbkwrZempth3VeRwN7/xdGjTI946CjTS0KR9Lcje
+         8rDw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780047609; x=1780652409;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=CNp8LY64my7Ot0qUd7egC8x+n5gTs/XUD+GWS+UeAxA=;
-        b=ChJmRUwzHHktzSvhcB3aKx1eNyvVT3obPzQcvilDf+bz8EDbIXUr/ILRy+T9OXi5lo
-         yyks7R6vk3nRYgYPgFvimlXghrKqvhqqS3A3ZfyVwn2tsDiZ4a7HtiSik4HAnmcP1LJr
-         VA1tNbFNHnEdUqOHu7or7p4eYyjcMqkePk58YUK9xLmNUL6e1fPRzvu1WUsTejxtP2Le
-         /LF2NReeuM/aC6ikVlZh2h1QM/uxjHy++rYPUHEjGPxKYvMbJULAiMkMufDgey9QcOht
-         TcTGtaZdPNOSYiRQmY+Su7RnNhnuUcRdKDCOozRMvoMTeuV07UVPhEAuHzG9nIrEAgrp
-         vddg==
-X-Forwarded-Encrypted: i=1; AFNElJ+31F5Mn4ezsYwA7GG7KwrhQRz3IyEVFw9wR25XQLo2YRlQ/LfCOQ4dO6hmd4L2FwmozkBEvYaO56px@vger.kernel.org
-X-Gm-Message-State: AOJu0YwEe1MAkcgMBsmph79NiBD1KT24s0KZF1aRzQqySaW3kVJSVB7r
-	yI+GvLZOIupE/fcoyno66VCJRVDNZ9NByKw7JhgyGj8hPx0LYB2hq3kwZ92je2kIFEtHRLNCY+r
-	hbfw0sukvguCBDum7Mez71GOJ/dcioPE=
-X-Gm-Gg: Acq92OHpJqFSesgvvQv20MKjja/Y/DFR7XXr25XlDRNh0Y6wq0rerftfh5TKueMO0kN
-	OvyYWRSqao5oX2/iqnsAgVUrcZfoYa+RJpo/8IuKxiNrTJxCkJcsyRP4oWOmH9KRoXPh1JkvAeq
-	RD+mStemdwn8L9YT1Kno2UCbrxYnRQ2DqtAseGNstF0yxCcbjCdTW5S9pMdkxUYzr9Z9JS+d7yu
-	Zvi4ap5rsEM47MZ3idfPnS/3DDzNSy94iEfhcvZNpgUI3jDerxCL4l04kCQtVsOHJO2CjorXXfb
-	rAYAKWbVOvtjTwiElHY=
-X-Received: by 2002:a05:7300:371e:b0:304:d75b:f5df with SMTP id
- 5a478bee46e88-304eb1f674amr920610eec.19.1780047608587; Fri, 29 May 2026
- 02:40:08 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780047941; x=1780652741;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:to:subject:cc:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Uz667M+0GzNu3DQdktJc+dlcwqwGLPErXGT+hqHNISM=;
+        b=QrFZMbb9sxD/4b3N0Yr4woXRgrEp1O3RMhwvIp0+wH8B1urBcp5e+vrowcTLZbLP4L
+         VupzU0+AqaD7aDgq6l34cWm0oU1pZPi7FpR6Io/jPpdoQ7jEE010gtw6lgXvs7i7/RQE
+         Z0n8PnhNYIqtWh3WluVciW12StimOz99mEkKMurqodpJR69qmR6vb2V9svfSxVygzj/o
+         zV6rmW/Ea4NJdF2XQR38yjSCuOd0IF9B3ZmakpYGxl2WTMdtRcjNMFzwN+2LFILu0N/T
+         ClXgAh45psuj0nu9Vzn4UAQybxZbcFB0APzMFcCLEL09eiWBY28j66sScx040hEt4y9R
+         BwGA==
+X-Forwarded-Encrypted: i=1; AFNElJ8iGqMxiU9F8RChdh8nD7hi7aw3akZT4074LOfmyE5bwkNhbBMkKf3MYxQtPZFdyt53bqKXgzQNLv/9@vger.kernel.org
+X-Gm-Message-State: AOJu0YwzCbOz6NFx8sQ7oxniJdIwGRu7g9DBRyMHgac/tsToHFtmlp+1
+	HRjDKS0Dlmey+/7pVqBwHlHwnEE72u+m+db3W6wrSOL/fXEz/EsDN1/Ygd5h5vqt3sgx5Sw/A3L
+	YN+dQS1/mVAF+JjxfdSxjsjZZuEpg5NhINb+54gRj4mpNbJUlxgJEDZi3mN07s+7I
+X-Gm-Gg: Acq92OGYqG6lYphPmWNJ+4mjlVbm/WUbAAM2kvRvvsJTg8zqx+g+SizM5vHJQmV7Trh
+	yTuWYDQyuaeEf4cFnipsMMgjyA6V8Vw60ZQB+WD7etIPl5MDmIQ2NyCJX6AuXy23Kf2aVFO7qfg
+	tpMhj3lWTlFhrgJoYsi5m7l/6W39faFv4bKEbzoq1E+l/dMyYEmY3cDdN/JnQrO9gEomQ7JsC8w
+	OKyTGrpFqr9l3LtgbLRyBGVK1qbC8VBP1rQFnORgoI2gpRTKJBiZHVBl6q32e4sHvJYZqYKCg4a
+	dkG1vWx3wPAmIh4xjv94k4du7MEyoW9P1CCPsbnmJO507N2nO8o6LlTkE8X6bIA5g9qUsTNg5gU
+	hmyrl1Kty4qidsOc1GflzUbJSZMIlTTxZ7sVDo8Jb47FZfr/qYo3lHyyEUJouIBgooXP+5fD65M
+	5Tm4ZqXIL56KJd60ZrjuAtjrHtCg4=
+X-Received: by 2002:a17:90a:c88e:b0:36a:95c:7613 with SMTP id 98e67ed59e1d1-36bbcd5b0bdmr2738464a91.10.1780047941292;
+        Fri, 29 May 2026 02:45:41 -0700 (PDT)
+X-Received: by 2002:a17:90a:c88e:b0:36a:95c:7613 with SMTP id 98e67ed59e1d1-36bbcd5b0bdmr2738429a91.10.1780047940781;
+        Fri, 29 May 2026 02:45:40 -0700 (PDT)
+Received: from [10.249.20.117] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bc0c341dasm1644114a91.15.2026.05.29.02.45.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 02:45:40 -0700 (PDT)
+Message-ID: <ce5f261a-8c39-4fca-a267-31bea6fc1e85@oss.qualcomm.com>
+Date: Fri, 29 May 2026 17:45:34 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260528135123.103745-1-clamor95@gmail.com> <20260528135123.103745-3-clamor95@gmail.com>
- <20260528155001.2bcb7003@jic23-huawei> <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
- <20260529100819.1823ebb3@jic23-huawei>
-In-Reply-To: <20260529100819.1823ebb3@jic23-huawei>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 29 May 2026 12:39:56 +0300
-X-Gm-Features: AVHnY4KxytPKwIfHLJ8T1GXio2-Gko93x1b9EqyHTERy5U5OnXbey3uFJfFakx8
-Message-ID: <CAPVz0n0VHdUo5oHdALgcerLsykdz-2n7c+jxYHrMOV7Ra5x_qQ@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Cc: wangao.wang@oss.qualcomm.com, linux-media@vger.kernel.org,
+        linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: Re: [PATCH v8 0/5] media: iris: add support for purwa platform
+To: Bryan O'Donoghue <bod@kernel.org>,
+        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+        Abhinav Kumar <abhinav.kumar@linux.dev>,
+        Mauro Carvalho Chehab <mchehab@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+References: <keD2FYytnyM7Tuz-kCdnzVBtv7rq_24Kr2dEKBfOpBjqQnmRFqksX-dY7IE8TlIB4ke44GBSYStsHtoa0x4DJQ==@protonmail.internalid>
+ <20260529-enable_iris_on_purwa-v8-0-b1b9670459ab@oss.qualcomm.com>
+ <dd93b5b9-ac3c-4fc1-bb54-a68ce6d477c7@kernel.org>
+Content-Language: en-US
+From: Wangao Wang <wangao.wang@oss.qualcomm.com>
+In-Reply-To: <dd93b5b9-ac3c-4fc1-bb54-a68ce6d477c7@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: yoCaizQdWl02ITIfOh51Muf5zmuop_bg
+X-Proofpoint-ORIG-GUID: yoCaizQdWl02ITIfOh51Muf5zmuop_bg
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDA5NSBTYWx0ZWRfX3KJjC3SCSEDr
+ 3/BHU5CiWuVLYfaoDOd8lv2gpQoAToyGBZCSPiztCgMzQ+gHcdiZdavitXfLqCLZ6XUFO3cVtsJ
+ nw/ww5SjWHoYPv658OpraRrXHX4muqnzDshBz6AAVtA2+KWxP1c5qO0UEeKF18g7Q58lsic/uGI
+ VE/WAuoarQPuTewGwloPj5laYA4WUr1BTYhvI994Zpl3KudjplL8uVM8hskx3hOzwQ25hBxOiIt
+ 5e9iVfCcHaOcPJ/kyHRkxVYFy7fE3lyAGniUFtwThFT95gXlqE5RlNaPbq5nUx18knr0Px1M1K6
+ QoyHdsumTs6enpKkWiZItLRrznTQQtepWuMOTng7LgqhSkHjFv9c+GSOqZaN6mfoqHrCpybV6yD
+ cRbLQksRQ8zgW42dfodvO3+x3GOdwOVqjUvl+8Ri24X525qZc0QRRcEB0uWFB0kLfqd5DG7OP9o
+ 2tpkz2UmPH2mPYoPM2w==
+X-Authority-Analysis: v=2.4 cv=cObQdFeN c=1 sm=1 tr=0 ts=6a196046 cx=c_pps
+ a=RP+M6JBNLl+fLTcSJhASfg==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
+ a=2yV_Bs2KBFBxzfrgXuIA:9 a=QEXdDO2ut3YA:10 a=iS9zxrgQBfv6-_F4QbHw:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-29_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 adultscore=0 clxscore=1015 spamscore=0 malwarescore=0
+ phishscore=0 suspectscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290095
 
-=D0=BF=D1=82, 29 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:0=
-8 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Thu, 28 May 2026 18:03:31 +0300
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-17:50 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, 28 May 2026 16:51:19 +0300
-> > > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> > >
-> > > > Since there are no users of this driver via platform data, remove t=
-he
-> > > > platform data support and switch to using Device Tree bindings.
-> > > > Additionally, optimize functions used only by platform data.
-> > >
-> > >
-> > > At least the IIO ones would have made much the same amount of sense f=
-or
-> > > dt, just that they weren't having in the first place. I'd prefer that
->
-> Gah. I write gibberish after too much reviewing.  having/helping!
->
-> > > as a precursor patch to make the rest much more readable.
-> > >
-> >
-> > I can add you preferences into this commit, I don't mind.
-> >
-> > > >
-> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > >
-> > > I only looked in detail at the iio bit. A few changes requested.
-> > >
-> > > > ---
-> > > >  drivers/iio/light/lm3533-als.c      |  95 ++++------
-> > > >  drivers/leds/leds-lm3533.c          |  51 ++++--
-> > > >  drivers/mfd/lm3533-core.c           | 268 ++++++++++--------------=
-----
-> > > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
-> > > >  include/linux/mfd/lm3533.h          |  51 +-----
-> > > >  5 files changed, 212 insertions(+), 305 deletions(-)
-> > > >
-> > > > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3=
-533-als.c
-> > > > index 99f0b903018c..cbd337b73bd9 100644
-> > > > --- a/drivers/iio/light/lm3533-als.c
-> > > > +++ b/drivers/iio/light/lm3533-als.c
-> > >
-> > > > @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_al=
-s_attribute_group =3D {
-> > > >       .attrs =3D lm3533_als_attributes
-> > > >  };
-> > > >
-> > > > -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool =
-pwm_mode)
-> > > > +static int lm3533_als_setup(struct lm3533_als *als)
-> > > >  {
-> > > > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
-> > > > -     u8 val;
-> > > > +     struct device *dev =3D &als->pdev.dev;
-> > > >       int ret;
-> > > >
-> > > > -     if (pwm_mode)
-> > > > -             val =3D mask;     /* pwm input */
-> > > > -     else
-> > > > -             val =3D 0;        /* analog input */
-> > > > -
-> > > > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, =
-mask);
-> > > > -     if (ret) {
-> > > > -             dev_err(&als->pdev->dev, "failed to set input mode %d=
-\n",
-> > > > -                                                             pwm_m=
-ode);
-> > > > -             return ret;
-> > > > -     }
-> > > > -
-> > > > -     return 0;
-> > > > -}
-> > > > -
-> > > > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
-> > > > -{
-> > > > -     int ret;
-> > > > -
-> > > > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTO=
-R_MAX) {
-> > > > -             dev_err(&als->pdev->dev, "invalid resistor value\n");
-> > > > -             return -EINVAL;
-> > > > -     }
-> > > > -
-> > > > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SEL=
-ECT, val);
-> > > > -     if (ret) {
-> > > > -             dev_err(&als->pdev->dev, "failed to set resistor\n");
-> > > > -             return ret;
-> > > > -     }
-> > > > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
-> > > > +                              &als->r_select);
-> > > Does this have a default?  If so the pattern we've recently be settin=
-g on for IIO
-> > > is
-> > >         if (device_property_present(dev, "ti,resistor-value-ohm"))
-> > >                 ret =3D device_property_read_u32();
-> > >                 if (ret) //corrupt property in some fashion
-> > >                         return ret;
-> > >         } else {
-> > >                 //set default
-> > >         }
-> > > If there is no default then check it unconditionally.
-> >
-> > default value is LM3533_ALS_RESISTOR_MIN and if no property is present
-> > clamp will ensure that als->r_select will be set to
-> > LM3533_ALS_RESISTOR_MIN
->
-> I don't see that default in the binding doc and relying in the 0 being cl=
-amped
-> isn't particularly readable - I'd set it explicitly.
->
 
-Oh, ye, my bad. Schema enforces one of props to be present and if pwn
-is present then resistor is ignored. What if I move resistor reading,
-clamping and conversion under !als->pwm_mode check? Then resistor must
-be present and hence must be checked unconditionally.
 
-Additionally, I can comment original lm3533_als_setup with #if 0
-#endif then git formatting will be much cleaner and easier to review,
-and once we all come to result I will just remove entire commented
-block and Lee can pick clean commits.
+On 2026/5/29 17:15, Bryan O'Donoghue wrote:
+> 
+> Ehy why are camcc patches prerequisites for vidc ?
+> 
+> I'll drop all of that stuff since you don't depend on it and and you 
+> don't actually want to be gated by it.
+> 
+> ---
+> bod
 
->
-> >
-> > >
-> > > >
-> > > > -     return 0;
-> > > > -}
-> > > > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MI=
-N,
-> > > > +                           LM3533_ALS_RESISTOR_MAX);
-> > > > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select)=
-;
-> > > >
-> > > > -static int lm3533_als_setup(struct lm3533_als *als,
-> > > > -                         const struct lm3533_als_platform_data *pd=
-ata)
-> > > > -{
-> > > > -     int ret;
-> > > > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode=
-");
-> > > >
-> > > > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > > > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_m=
-ode ?
-> > > > +                         LM3533_ALS_INPUT_MODE_MASK : 0,
-> > >
-> > > That's ugly.  Better as
-> > >
-> > >         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
-> > >                             als->pwm_mode ? LM3533_ALS_INPUT_MODE_MAS=
-K : 0,
-> > >
-> >
-> > Yes sure, just followed 80 char limit.
-> >
-> > > Though if there wasn't a layer hiding the regmap, it could just have =
-been
-> > >
-> > >         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CON=
-F,
-> > >                                  LM3533_ALS_INPUT_MODE_MASK, als->pwm=
-_mode);;
-> > >
-> > > which would have been nicer.
-> > >
-> > > I'm not particularly keen on the swashing of the helpers being in a p=
-atch
->
-> smashing.  (this definitely wasn't my best effort at English!)
->
-> > > that is about switching the binding type as feels largely unrelated.
-> > > Should really have been a precursor, easier to review patch.
-> > >
-> >
-> > Removing of lm3533_update layer is not the scope of this patchset.
->
-> Understood.  I'm fine with just the refactor you are doing brought out as=
- a precursor
-> patch.
->
+Only the last two patches of this series, which are the DT patches, 
+depend on videocc. Please drop them. The driver is good to go.
 
-I have looked into removing wrappers too. That seems to be less a
-hassle that I anticipated, so I will include regmap switch in the v2.
+-- 
+Best Regards,
+Wangao
 
-> >
-> > >
-> > > > +                         LM3533_ALS_INPUT_MODE_MASK);
-> > > >       if (ret)
-> > > > -             return ret;
-> > > > +             return dev_err_probe(dev, ret, "failed to set input m=
-ode %d\n",
-> > > > +                                  als->pwm_mode);
-> > > >
-> > > >       /* ALS input is always high impedance in PWM-mode. */
-> > > > -     if (!pdata->pwm_mode) {
-> > > > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select)=
-;
-> > > > +     if (!als->pwm_mode) {
-> > > > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_=
-SELECT,
-> > > > +                                (u8)als->r_select);
-> > >
-> > > Same applies here. Mostly an unrelated change as the only thing switc=
-hing that
-> > > is related to the patch is one parameter.
-> > >
-> >
-> > Removing of lm3533_write layer is not the scope of this patchset.
-> >
-> > > >               if (ret)
-> > > > -                     return ret;
-> > > > +                     return dev_err_probe(dev, ret, "failed to set=
- resistor\n");
-> > > >       }
-> > > >
-> > > >       return 0;
-> > >
-> > > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_d=
-evice *pdev)
-> > > >       indio_dev->channels =3D lm3533_als_channels;
-> > > >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
-> > > >       indio_dev->name =3D dev_name(&pdev->dev);
-> > > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
-> > >
-> > > I'm not sure why this was there in the first place.  Hence not sure i=
-f it
-> > > is safe to remove.
-> > >
-> >
-> > This is directly related to OF conversion. The iio_device_set_parent
-> > bound indio_dev to parent, and it causes problems with OF now since
-> > als output has its own node and binding it to parent if wrong. Same
-> > story for backlight and leds btw.
->
-> Is there any risk anyone was using the canonical path to get to the iio d=
-ev?
-> /sys/bus/platform/devices/..../iio\:deviceX
-> This is technically an ABI change be it a subtle one.
->
-
-Linux kernel has no users of this driver, and it is in "stale" state
-for more then 2 years (maybe even longer). I have cc'd Johan Hovold.
-
-https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
-
-This this 2 y. o. discussion and there were no actions ore movements.
-I assume this driver in its current form has no more users. This does
-not mean that it cannot be revived though.
-
->
-> >
-> > >
-> > > > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.=
-c
-> > > > index 45795f2a1042..d707d43d5526 100644
-> > > > --- a/drivers/leds/leds-lm3533.c
-> > > > +++ b/drivers/leds/leds-lm3533.c
-> > >
-> > > >
-> > > >       led->cb.dev =3D led->cdev.dev;
-> > > >
-> > > > -     ret =3D lm3533_led_setup(led, pdata);
-> > > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > > > +                              &led->max_current);
-> > >
-> > > I'd prefer explicit setting of the default to be visible before this,=
- or
-> > > the property_present pattern I mention in the IIO review above.
-> > >
-> >
-> > clamp will ensure that led->max_current will be set to
-> > LM3533_LED_MAX_CURRENT_MIN regardless if it it present
->
-> As above, I'd prefer it set explicitly.
->
-
-I understand your position and I am not denying it for ALS part, but
-LEDs don't belong to IIO subsystem and different subsystem maintainers
-may have drastically different preferences and requirements (ugh, PTSD
-in its full glory).
-
-> >
-> > > > +     led->max_current =3D clamp(led->max_current, LM3533_LED_MAX_C=
-URRENT_MIN,
-> > > > +                              LM3533_LED_MAX_CURRENT_MAX);
-> > >
-> > > I didn't look any further (busy day!)
-> >
->
