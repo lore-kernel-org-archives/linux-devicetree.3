@@ -1,159 +1,155 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06553BED46
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:51:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id DEC113B6376;
+	Fri, 29 May 2026 09:51:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780048273; cv=none; b=s8r5nmDKU5fTnZgFRYPQAQZOjHO4npgAC0yZlaUPGnyLFJIpFO/T+InIqH522G3fCWEnCeO+qbU4PvOMRVisKbnfhxoVAsOwfMlt83hwqErNzC2mzFyFvLhcN8LO2ewSo3j5s6rvlqL4RhdbCkuLDxUVOjsJFtWQKiTOtzZ8jD0=
+	t=1780048276; cv=none; b=PH+PIqYrIKiYqI7axVC2GBvqE1t1JQ3F2ug7ox+GS5OIzn8aLVUJuqRKnUnOPoTEF4/Ve7Zrtg9T+XlBAYEPhA9HfH4o7YeZKz0S/QuuI1Ry+g/hxyOleUlujmW3rWoyymZzX3JUjzbVr/GSOTUo7S8MHwFrEtxUqj4A8Sxy+vQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780048273; c=relaxed/simple;
-	bh=ZfaOPPNYNFKKgWBQ0CjGxfImqDjPcW4gKYAlO7OIXQA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ciox5WCx7nbDjYWOFOZjshO9R9bQWJO4V7xG51Dj64UyADvUtuPfg1h2km7T1k/eq6YWXVRh+9waZo3hIk1WwSEIyYpgG8SKlb/sbU2NDxMtwzpJvcXdmV5ZROvwHF9z/m8Q7kaXZIk1b76Kg+quxb9gOm/UYxhgI/SA7z3kqJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=l2x5qOnh; arc=none smtp.client-ip=209.85.128.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
+	s=arc-20240116; t=1780048276; c=relaxed/simple;
+	bh=PhsoWnNzKoot9QOeJqx67Uz0y4ZbixYdSGzdVAqeDi0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=owl/4LQ0pmM5Ym6vyUtBAKBcc5tWziVdLRKk/GrDZC3MRJdsMotlpO8ZdoIt4YHUEuV/DMrGaTvT0m+Nt5H/LrZde4bBF3UmjQLi0fKR3+jRVlhlbSgOelL8wZxI98YsczLj613csOPVnlHoV9adiBuWPMhwE/DMpJNx5JK0PnE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=gUOu0QnP; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="l2x5qOnh"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4891d7164ddso65301445e9.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:51:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780048270; x=1780653070; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=qf1xsznGow3Mq8kqI6r2C6YXYEYFaDdBn6M5Ic+GMxw=;
-        b=l2x5qOnhQAeQWbCt0fRrLXN5kKMUm2CiyrjUh/s2Fj8zHvf2xij7eSMCUhxE3lQDEd
-         qIGJUaAzDLsNapuDn0LXCbJJYcNv64DsJ7db394VhYzB2B0eqV/GgDg74iineSIgwDEp
-         Y/iKr4C0+HYEblMJxqm9qVgJMo2V5u3J/UVVrzdvF6sqeImXcrrcSgbhDvGQhvKL2wXJ
-         z/cBT/TMUy37AKq9QwM5ucGgZmguqgt0Gs26bRyEGBovXnXu1VyuVhOWxzfCAry4ejMf
-         0Jw/ymcCd9bViXEbuRshUd2rQeM5aDi7+Ej96/n8vWfoIHisfgedD2Yejcr/RggzWX4i
-         lu6A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780048270; x=1780653070;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=qf1xsznGow3Mq8kqI6r2C6YXYEYFaDdBn6M5Ic+GMxw=;
-        b=rK19ABRGTkTuIn9uwJWOHiXG14SSnwY4iT4nXbdDzUudWsE7YtjRIrhYa3Ek09I6uU
-         7plmIBAIsO0YOf1I/aSEVg5wI4Ct40KfmaS6JQ59P9ZDtbodJrbqjEq6sm//Lv5Wl0A6
-         FsYUtHmSViSEOs+t93xLT+x5p5YgH5z0XqB6GSGA0qHov7Yc/r2OnfQmEPXpPtsghrss
-         Riw4g4eB34yPUAafsJnGRBtIz5i1b/EDNWaCQ6vIieol91NgPw5rJCE6qvAklyf6V867
-         gTq/UKz8CfS621+Pjn8Y8Q7yQN8g/Ayq1pnihmb1AO8l8wJ+ZOHufoMoUCEI3+VCas8Q
-         TU/g==
-X-Forwarded-Encrypted: i=1; AFNElJ8PcKEz6cHOco1GzyzSnmU8BJQiWxlN46xTNQtoP2ueUVdLDiezdws58XER1G6fN8abAP0xRjkrqijd@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx9TdbIfM1uqU87HZ6QWkPfgWq2oHquCOvJcto4JQ7vAz6k5xbZ
-	D3lJCloV5zeN+UrjrWvE44WiKQuVwxkuwBmqQIs+Vy5xFaOVKEDSHOIb/BkD9pLriF0=
-X-Gm-Gg: Acq92OFCgr7GMCrRk2wBsZF6bPy+Di3x5Dcfss3Lx7V5eyS7CDnZip/wVs8WQhU01LS
-	2RfGuBcnDmiFO6dOPJsCNzxor13/96QBLH+6BoBJ+fhKHUdFI1YBh61hlV2EOgmuvLRQPV3O5XB
-	N0tI/d8dCQbzPyZvhNc+2bINiCyKX4tniuoSMAiHIBA39neUQB9DWhf67TJMYM8V87i2/1hnjNH
-	ysksTpLZ4SPBe+HrEZL2fXHXWVBNUbmF6eS1gS1UxcD0wFP8VGarsb+7eJuQ73hHTIGm/YTqaOG
-	6hUEFTw2T0MjnzbVRuOGDcx3U/UTWO5Is/il4BFZ31fZPPBMk+JxQ5RvoU3fKkTYpqRjIReK7eY
-	nSETgDjj+BU2PV2sv8tmrjrNMgtgsTZIqRiyZDOe7R+s6XjbUTw/AEavMTBnNwavfX7522N/F7M
-	X9zCwdNFKkxojpJrO+FETStD0JF/SjoEs4nMTyfBioyVUYi11hNBjFIe80s37oE3fx6biBpOVvP
-	HSKaG9LTKd7hdjuTaEeq6gEa/pwNU8nVf887NpzWqyc1jzGWdj3bM2XHWJ7QHG8rjw5TLn7aHMn
-	Ecmss1MWJQjgQAQDtXk=
-X-Received: by 2002:a05:600c:12d1:b0:48a:5970:1fe1 with SMTP id 5b1f17b1804b1-4909c091fd2mr22900055e9.4.1780048269850;
-        Fri, 29 May 2026 02:51:09 -0700 (PDT)
-Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef3563cb9sm2337806f8f.29.2026.05.29.02.51.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 02:51:08 -0700 (PDT)
-Date: Fri, 29 May 2026 10:51:06 +0100
-From: Daniel Thompson <daniel@riscstar.com>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
-	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: leds: Document TI LM3533 LED
- controller
-Message-ID: <ahlhinOh3NxB7FY_@aspen.lan>
-References: <20260528135123.103745-1-clamor95@gmail.com>
- <20260528135123.103745-2-clamor95@gmail.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="gUOu0QnP"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3470B22D7;
+	Fri, 29 May 2026 02:51:09 -0700 (PDT)
+Received: from e134710.arm.com (e134710.arm.com [10.33.10.82])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id C3A863F905;
+	Fri, 29 May 2026 02:51:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780048274; bh=PhsoWnNzKoot9QOeJqx67Uz0y4ZbixYdSGzdVAqeDi0=;
+	h=From:Subject:Date:To:Cc:From;
+	b=gUOu0QnPcKnD3bkA1MrT7ZF46sBfdAYOyiqCLYtu9YKupH+gOKBV+WOikGfSD9NcQ
+	 EPyArBAnrs+zw4i2tVQ4C1KCeaoa/ywBKG7Mi7aECBgI1J9G4MC+3NCyl8dGpwyuCV
+	 QSmJIfizE8sI4oShP3gADl3ZjiMbrYnnl/Ctoo6E=
+From: Ahmed Tiba <ahmed.tiba@arm.com>
+Subject: [PATCH v5 00/10] ACPI: APEI: share GHES CPER helpers and add DT
+ FFH provider
+Date: Fri, 29 May 2026 10:50:40 +0100
+Message-Id: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260528135123.103745-2-clamor95@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAHBhGWoC/5XOzYrCMBSG4VuRrE3JOSZNdTX3MUjJ7/SAbSUpd
+ QbpvZsIIrN0+R3I8+bOckgUMjvt7iyFlTLNUxlqv2NuMNNP4OTLZiiwFYiCL/OVXOZmGBeyAng
+ yuY9x6E0ae5qWkCZz6asUbtxG752OTjtjWRGvKUT6fda+z2UPlJc5/T3jK9Rr7ShA0ADYSdVAB
+ xLgyKEGg29K03yVVOPmkVVixdezz7+3Ihf8IHU06PVBgf0vy7esoPtMlkWW2B67VitrWnjL27Y
+ 9ACF2UCN1AQAA
+To: will@kernel.org, jic23@kernel.org, xueshuai@linux.alibaba.com, 
+ saket.dumbre@intel.com, mchehab@kernel.org, dave@stgolabs.net, 
+ djbw@kernel.org, bp@alien8.de, tony.luck@intel.com, guohanjun@huawei.com, 
+ lenb@kernel.org, skhan@linuxfoundation.org, vishal.l.verma@intel.com, 
+ rafael@kernel.org, corbet@lwn.net, ira.weiny@intel.com, 
+ dave.jiang@intel.com, krzk+dt@kernel.org, robh@kernel.org, 
+ catalin.marinas@arm.com, alison.schofield@intel.com, conor+dt@kernel.org
+Cc: Ahmed Tiba <ahmed.tiba@arm.com>, linux-arm-kernel@lists.infradead.org, 
+ Michael.Zhao2@arm.com, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Dmitry.Lamerov@arm.com, devicetree@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-edac@vger.kernel.org, 
+ acpica-devel@lists.linux.dev
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780048269; l=4273;
+ i=ahmed.tiba@arm.com; s=20260219; h=from:subject:message-id;
+ bh=PhsoWnNzKoot9QOeJqx67Uz0y4ZbixYdSGzdVAqeDi0=;
+ b=4LZk0RIa3vVsPfok70Bkk0nn/tFW90OcgFipoA9qmlu1DTjOsn7/XsxWtMrCF3t0hdeWKsRDG
+ qK1VHPix0lxCheY5fBK53z7Wxo4MMrJ6qkbFDhJk0TCcZZ+6/6wcgg7
+X-Developer-Key: i=ahmed.tiba@arm.com; a=ed25519;
+ pk=xVOtd+Qklh/4tuM3tB+BEZD4jj5a6W59C3KCNX6v7OE=
 
-On Thu, May 28, 2026 at 04:51:18PM +0300, Svyatoslav Ryhel wrote:
-> Document the LM3533 - a complete power source for backlight, keypad and
-> indicator LEDs in smartphone handsets. The high-voltage inductive boost
-> converter provides the power for two series LED strings display backlight
-> and keypad functions.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
->  .../leds/backlight/ti,lm3533-backlight.yaml   |  68 +++++++
->  .../bindings/leds/ti,lm3533-leds.yaml         |  66 +++++++
->  .../devicetree/bindings/leds/ti,lm3533.yaml   | 170 ++++++++++++++++++
->  3 files changed, 304 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
->  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533-leds.yaml
->  create mode 100644 Documentation/devicetree/bindings/leds/ti,lm3533.yaml
->
-> diff --git a/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
-> new file mode 100644
-> index 000000000000..866b0fb8ed04
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/leds/backlight/ti,lm3533-backlight.yaml
-> @@ -0,0 +1,68 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/leds/backlight/ti,lm3533-backlight.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: TI LM3533 high voltage series LED strings
-> +
-> +description:
-> +  This is part of the TI LM3533 MFD device. It represents two high voltage series
-> +  LED strings for display backlight controlled by the TI LM3533.
-> +
-> +maintainers:
-> +  - Svyatoslav Ryhel <clamor95@gmail.com>
-> +
-> +allOf:
-> +  - $ref: /schemas/leds/backlight/common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,lm3533-backlight
-> +
-> +  reg:
-> +    description: Control bank selection (0 = bank A, 1 = bank B).
-> +    maximum: 1
->    <snip>
-> +  ti,pwm-config-mask:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: |
-> +      Control Bank PWM Configuration Register mask that allows to configure
-> +      PWM input in Zones 0-4
-> +      BIT(0) - PWM Input is enabled
-> +      BIT(1) - PWM Input is enabled in Zone 0
-> +      BIT(2) - PWM Input is enabled in Zone 1
-> +      BIT(3) - PWM Input is enabled in Zone 2
-> +      BIT(4) - PWM Input is enabled in Zone 3
-> +      BIT(5) - PWM Input is enabled in Zone 4
+This is v5 of the GHES refactor series. Compared to v4, it only updates
+the DT binding to address the latest review comments.
 
-This is optional and the drive implements a default (zero) that is not
-documented here.
+Changes in v5:
+- Dropped the `oneOf` from `memory-region` and described it as a plain
+  list with `minItems: 1`.
+- Simplified the DT example to keep only the `arm,ras-cper` device node.
+- Link to v4: https://lore.kernel.org/r/20260518-topics-ahmtib01-ras_ffh_arm_internal_review-v4-0-42698675ba61@arm.com
 
-Is zero a sane default from a DT binding point of view?
+Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
 
+Changes in v4:
+- Reworded the ghes_cper.h header comment and kept the original copyrights.
+- Fixed the ghes_cper.h W=1 warnings by limiting the ACPI
+  fixmap-based declarations to the ACPI build path.
+- Updated the DT binding to describe the CPER buffer
+  as firmware-owned shared memory.
+- Described the optional ack area as a second memory-region entry.
+- Updated the DT example accordingly.
+- Link to v3: https://lore.kernel.org/r/20260318-topics-ahmtib01-ras_ffh_arm_internal_review-v3-0-48e6a1c249ef@arm.com
 
-Daniel.
+Changes in v3:
+- Fixed the new ghes_cper.h header comment and kept the original
+  copyrights.
+- Added <linux/bitfield.h> to fix the kernel test robot build failure.
+- Renamed the binding/compatible and DT-side naming to ras-cper.
+- Switched the DT provider to generic firmware property accessors.
+- Replaced atomic source IDs with IDA.
+- Updated IRQ/error/resource handling as suggested in review
+  (platform_get_irq(), dev_err_probe(), devm platform ioremap
+  helpers).
+- Removed the ARM64 dependency and fixed Kconfig/build coverage.
+- Clarified comments and kept the early move patches mechanical.
+- Link to v2: https://lore.kernel.org/r/20260220-topics-ahmtib01-ras_ffh_arm_internal_review-v2-0-347fa2d7351b@arm.com
+
+Changes in v2:
+- Dropped the proposed "estatus core" and kept GHES naming/flow intact
+  (per Borislav Petkov).
+- Re-sliced the series into smaller mechanical steps (per Mauro Carvalho Chehab).
+- Minor DT binding fixes based on Krzysztof Kozlowski's feedback.
+- Removed fixmap slot usage from the DT FFH driver (per Will Deacon).
+
+Series structure:
+- Patches 1-8 are mechanical moves only and do not change behavior.
+- Patch 9 wires the shared helpers back into GHES.
+- The DT firmware-first CPER buffer provider is added in the final patches.
+- "ACPI: APEI: introduce GHES helper" is internal build glue only
+  and does not introduce a new user-visible configuration option.
+
+- Link to v1: https://lore.kernel.org/r/20251217112845.1814119-1-ahmed.tiba@arm.com
+
+---
+Ahmed Tiba (10):
+      ACPI: APEI: GHES: share macros via a private header
+      ACPI: APEI: GHES: move CPER read helpers
+      ACPI: APEI: GHES: move GHESv2 ack and alloc helpers
+      ACPI: APEI: GHES: move estatus cache helpers
+      ACPI: APEI: GHES: move vendor record helpers
+      ACPI: APEI: GHES: move CXL CPER helpers
+      ACPI: APEI: introduce GHES helper
+      ACPI: APEI: share GHES CPER helpers
+      dt-bindings: firmware: add arm,ras-cper
+      RAS: add firmware-first CPER provider
+
+ Documentation/admin-guide/RAS/main.rst             |   18 +
+ .../devicetree/bindings/firmware/arm,ras-cper.yaml |   54 +
+ MAINTAINERS                                        |    6 +
+ drivers/Makefile                                   |    1 +
+ drivers/acpi/Kconfig                               |    4 +
+ drivers/acpi/apei/Kconfig                          |    1 +
+ drivers/acpi/apei/apei-internal.h                  |   10 +-
+ drivers/acpi/apei/ghes.c                           | 1025 +------------------
+ drivers/acpi/apei/ghes_cper.c                      | 1027 ++++++++++++++++++++
+ drivers/ras/Kconfig                                |   11 +
+ drivers/ras/Makefile                               |    1 +
+ drivers/ras/cper-esource.c                         |  257 +++++
+ include/acpi/ghes.h                                |   10 +-
+ include/acpi/ghes_cper.h                           |  151 +++
+ include/cxl/event.h                                |    2 +-
+ 15 files changed, 1542 insertions(+), 1036 deletions(-)
+---
+base-commit: 8fde5d1d47f69db6082dfa34500c27f8485389a5
+change-id: 20260220-topics-ahmtib01-ras_ffh_arm_internal_review-bfddc7fc7cab
+
+Best regards,
+-- 
+Ahmed Tiba <ahmed.tiba@arm.com>
+
