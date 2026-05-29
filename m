@@ -1,186 +1,147 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C003F4DDF
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:56:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F303612EE
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:58:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.41
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780066597; cv=pass; b=c7v42eHA73b8BuHxHv73/i5c4IMxw3GkaOtEZ5gp+BaGMdPZgH67OeFmCQjofjWVu/DeLyt+O/KFqov5V33+j5FVx55q+rh5rI9Cu1fKUC4E3DLncuMUPaZfhsLu1ehPZCLFnkQWDhQTMs7eVdM6rK5CV8R15fnYIWzRFQPX+/w=
+	t=1780066693; cv=pass; b=VhI+bltwaGtv9i9WQwVhz2Ed0c/CYD7ndknrNb3eWybpoBLC5F14i1uHSXjHTYI7fpuPMoC8rTNgUqvWpUlSHcC8Nc4xGLPS5HvuOEZI8z9L7AfPRZVGzrB9zHxKB/seAJr5Lr+i08EbqysfRSIsAA1tRx+CinWqs66SnIqvgwQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780066597; c=relaxed/simple;
-	bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
+	s=arc-20240116; t=1780066693; c=relaxed/simple;
+	bh=fQfj+gPmvgEK0Au1fq8tS1UqLUrdEtewMemM1nyumCU=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=A/TN8A3TjrUKtL57+aMnICkyrax72rgdvR0JD20jTXAo31OBQaNWGTnRhF9gjdydXOxPicaKAKTIDUv7wqy8OeOyk3WD3fCg6OQsSVfnoblCKFIbI1Aen6JrWZQLMfUFjWWT9+1pZDM0cA/naDdQ+/yl4P546/cyf5PW3URktfg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pe7FSy6e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fPJrKnE1; arc=pass smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 To:Cc:Content-Type; b=tH5DlRwDRvt7ZzDjBKyAqY52+JXQZvxobV+g34ujyvdeXZQCwIN62+U+DGHybWWqaEjgyT/yreqXXvI8VNwMjXYk2iMIWW/9IAPoS/PUlnLerny2v3oFeOd1fT/M9DiQiGP36QRR9h9hJKXIJmAZXQZZoKkCtLxyXuGU9dgA2Fo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CyWOGUdF; arc=pass smtp.client-ip=74.125.82.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pe7FSy6e";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fPJrKnE1"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64TDLfZ32748110
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:56:36 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=; b=pe7FSy6erHB/iGtj
-	O4JsVkvN6Ej8+SrfAoRMm56O0pqWM8hfYrzevYidONDiGuh+wgGQNKg5T1CNmvuk
-	H8XpOIu2y6R6pWqP3gB/3bWYiuztUfJ1C081lGdiw/iRhtrJmnvHvn0iEMjh4K5j
-	+EMpOSBNSH0K4ZIZas82TIV2jFGrTVkTi4/kAicHvlkzxLi82eRno1Yj6eTgPLoC
-	qdCtIUFnN1rQQsUf0pU5M41StI77xxrKtj1RLBw7NntoaNo0rXKrKSPAzk5DoviJ
-	Dudnrjlfw22SRcGnrjqmkpDGF3yOVUfkqiiSe6gj01YMUmhrLfmSrV/xYqb3Hr3i
-	aCiT/Q==
-Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eevug45fn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:56:36 +0000 (GMT)
-Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8cce230de8bso26071196d6.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:56:35 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780066595; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CyWOGUdF"
+Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-132d1b2519eso10644566c88.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:58:12 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780066691; cv=none;
         d=google.com; s=arc-20240605;
-        b=lC9pETn/1bZsjJY/CW5+5oDCz8XDEGygqDNzTVMyiOEa2Kdm0QPkgCpsAsnxwFtbjm
-         aWt4+dTJ0FCMkoT5XGJGIh5IpXaa9RTpwwelXe37DYnMoUiHcSL2L8ZYIwhxj11r7rEA
-         Q3fWGZqrpBfUGV3I5LQAuEQX+lqa0OZNGzdTlYiuKcehR0QXlnRlserI9jlCSfod+Psu
-         BBXgkax7pR50TZ9ZxQ/ZPYx7i3YgF07pVxVBOQT3aUkeTs77zjHV810YwMtAH4g/FCjq
-         p12az0L436U9lJv35A83sFNJ+5pEMKHgckKW27WWEwj1hkmzuwszueYLfpBhUd3KKhwo
-         2NDA==
+        b=Ylv0DZBCV2gD7voQHmD+wHcUW0dG4S7TYcNJ7HPMgjTL1/aNxzxxZLrZhWuYtunz6u
+         +xrswU6jI7v/iwL3UWqxaT5dheCT2EQC4khLVd2nG3csYPwNTtQ8s0A5gbIVVxEV8HeV
+         J4ZGK3HYsVHhKG9zO48GdDXRTjoevErX8uIQe0EsiIwrVOF9nBqBPdqRhjdqiBThSMLe
+         IFNPncwuz+Yc7NwWOt3vqFVKQk6zAE1YQh+7mbVLoK44DpyJQElbUFA/NJE1Eyx8GDM0
+         r//cijaVwSjWJ+Ln7lXmgr6rsfMukoXA79FK8huLSmBj/k3fbpqjQVQXk8zfJaMRn1OX
+         aRBA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:dkim-signature;
-        bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
-        fh=Jt+1rU/INOiPGE9j/m+WM8Ohp/J9ZBCMXKPpmarJAh8=;
-        b=ktfhfAvgVwTR1S3D/QhJggLWC/j5fHXT512ubgGd90habkc803kcI1Oz5mkUCGrH+c
-         kbuk2+euZDKrPQNGCcngQ9W9zPkINlaUUesiOzTM7Sq2Vrc9Ho7B6cNPaxQs0fQOsiqc
-         ual78/YlDlv16aeGrNsw6GZHfRSHMwOmLrMIA4jrjTpXYqtpOR1mHVuTSv0ThxVAUuMC
-         nwz2Ro/VXrNWU3BtjEUCrbUbFppWF6wKE/7wpix7uh35KWb/E8jIhyF76IBrMMGKzFnS
-         qljDhXnPtUS2wLRqgzKcK4Lswgwwqf9baAm0oqYNwuOeDJW6JIqPL5vxNa7XD2umAjKW
-         SZbw==;
+        bh=D0M/NZDH6fcDnv+eyc8PV40uOX6pNFdyudXQwoi/OMA=;
+        fh=QcUown2p8LMi9AFk2iclb0pQJTUuxIzG6fkvBfUmBbI=;
+        b=laTE6b519LDKK3u9zJQAK15jO2w3N4oizqEiG47VsY2rTm34t+a6IilOcIhmc0GirK
+         vnQb1vS00kRvy2cuf+R9zooG3Ft8+UneM/ilsZxAxc2uIwL1Gd9iTrFcXlH9a5ZRzk6z
+         TqHiO3NEt88E74cWCOUDLiFSi6/KKg6/gFrcAUnBDUufak5w7LTaUQuXo9MJQmMa6ELF
+         t1Wfp4WDX7sUwyJhPValHeg2Uuskfv4cppUdKf7/X85PjraMdcTYtOCx0cNLpemDRGdb
+         kfCE46etQBtcmvz8Zxa8xpMLUcIMhK3MKqxoY1EfduTYmA4brGUdtmfpNPZO6+ci6PN7
+         Oy0Q==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780066595; x=1780671395; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780066691; x=1780671491; darn=vger.kernel.org;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
-        b=fPJrKnE18O2ELrG+1EYVhAL3JW8yWtx+LTnh6bS4lkJTjmKe6se3bjOeAK4SPk9jD/
-         nB9yFZDbb/5MwmpSU+p8pvLOMeTIVcRq4OJqv1onJDcnowLcJXvFcM8WAF+o3vVDzio9
-         XCF8i5S9eKoV4bP3g7ijEzJu1fxdCI9i7ySkseEiMeGsO3j4Kjwtz+/+VzyX0IoXbHJv
-         Iygt1XyZk0PlDljWS+w1f98KKpRxas26rT+usd1Xkw8N8g6wve1E8hnn3RnrVVfiCirH
-         a94c5gOcnD96dKC678TwWrOZg+k61lJ3XJMZ7E8Ns/xKbSRDzy8q30k/Pz3li1pUUmZV
-         G7FA==
+        bh=D0M/NZDH6fcDnv+eyc8PV40uOX6pNFdyudXQwoi/OMA=;
+        b=CyWOGUdFOn3NrSgpnO5y1zSbbaZfyqNAaxOZW4bX0ecjvX3v4VcoYZkF0IbeMy6elY
+         Iqhg40OsDJj+hgkdC8EKY8Y6vP6CK8ddUAREUAyYxCHZge2CYIyd0WWwvUL5D8mmZGdQ
+         oWQiOxJIVnUZbKIf3jmgMh8rvYOOIs458YOj8RAQsIgpLCxP5MW3p7GZs+KE+Yyda8h0
+         2B5FeG55U7zCz3kmLiTxWuyE1bYjK4WZSRuuj/6+ijuSR50u/WfKLwNddAoUbejBKExi
+         I8Rrj0DbemTU8tcIZj//H/XNMQRLCw4V+yhMHZFMrb7PIKPq+0ZH3KPVGdNMp1I0/FG9
+         IxWg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780066595; x=1780671395;
+        d=1e100.net; s=20251104; t=1780066691; x=1780671491;
         h=content-transfer-encoding:cc:to:subject:message-id:date:from
          :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
-        b=BXROC6AGZ4mFQVqVC8P29hCldVhMfoeMQ2rITKy+8mNM98bSBaC1I+8TC2yH4By1zQ
-         n8BLapZGb1aHWBFOyWs2+FtJD1IiORk/mR+kvN2QHlY3HBoPSSeFyjLcBhbZe78hAprc
-         qdnsAGa55fMNIz1NOy8xvkn+2HxoyNy7+6x2YIXCCNo+XOr2JBRARmtT5NFZFZQEV5T+
-         PmHawKO6nQh46VKT6Kiiiv7NHB5sdRKSBA+lwZX6WeDGLHQjKZuZXy53Wc+NjLlCHxo9
-         O6Nb33CUzuTHXGmQcLTu/hOwgrpIb2hoVqTCIfBOMKDOZkBtvqMCrsfOXX87fOlRIqDS
-         2NFg==
-X-Forwarded-Encrypted: i=1; AFNElJ+d1CmCkSAUUKaAPwHFepq1TaCSCUKcirNhc3P+tRG28XNWDXxgXUTmv1EUXxMgH0YPZqfAk/++lDR6@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx07RhqGCGiFt+DxmcPBCACet4uwoMgCPsciy55Olf3LkkEWGa8
-	npMTH37VhpOLGMCA5bkcYLKx3dMonGbud6CTNhAEqV1vSq48OxGF1RjRBpOx3LLPs0JdFike3oX
-	eBrIQPicoOSvgDs8W5WADTYSqb9QkIemoH1PWgqMMSdXxGC9FrQtt4NxNdqenIT5eNxnw1Z9ukO
-	4FU0eafeJwdSxYn6UmQ/6FKABE3B9nve44Wmxn25k=
-X-Gm-Gg: Acq92OGbcTBBlpNOtcZkyTx8gP/Wsv2ZZsCGcLq+ThdIgE/CVAMJ5nGOmmOefKYTQTA
-	m1yfUQmpi94CVy6RiBtXC4C+o4UeSQNDjI7SlQ8WY/tnf0N1CZBNWYIBzlMn28EfmVHV0CguIZx
-	SbmxsUZkXbQM36NjlTKgFBeEYiWWwHxEjsNEyqOVgHwZYN/lqTdRMZN4T3yx6xdDtRsQcpDsyFo
-	UmPQua6GrTuZZJpoA==
-X-Received: by 2002:a05:6214:3018:b0:8be:3201:ed03 with SMTP id 6a1803df08f44-8ccefdac039mr123326d6.28.1780066594959;
-        Fri, 29 May 2026 07:56:34 -0700 (PDT)
-X-Received: by 2002:a05:6214:3018:b0:8be:3201:ed03 with SMTP id
- 6a1803df08f44-8ccefdac039mr122786d6.28.1780066594551; Fri, 29 May 2026
- 07:56:34 -0700 (PDT)
+        bh=D0M/NZDH6fcDnv+eyc8PV40uOX6pNFdyudXQwoi/OMA=;
+        b=O+SQVzepubgsLVKHAQHV31SObYDdpIjQXvRAxScqLx0wTvibe6PSAsJuE30OeXNoMC
+         BUUXj5WpJD04Pb9t7VAU6Yy0dxIX4ceBDsaSSBBuQpQ0jhtegEj3skcL8NmcRzJW0g2Y
+         PzXTAP/EzgrhcCPJYMXW6COGNJqCMbNt5YbDr2Wn+kD2hdrq9V/mvqsxA+2LvhjeeEtc
+         1oI/M/BtlcYMfRIfZRisO/jCwHdRk5VL5AZvWxrFQ2FGrsQAh0Jgx1ceov2yjvS+hmzw
+         gNR+zcdzDhQkMz3i+GABsci8YoStF9DN+cTkHHqkYKz9vDlGauJHBBfVPpDZTt7cr3PT
+         qXDg==
+X-Forwarded-Encrypted: i=1; AFNElJ+PQs6Iqs4F9BMjHbDsjg8Zfmijkhjvajw+2V5kWmL/tnlpzUvDooExg53rF33gA0sQdzKS9FUdDciE@vger.kernel.org
+X-Gm-Message-State: AOJu0YzOkv9TZr3tGlNuU4odwmN2vPizNg0kZ9pKKAt8Uw+TA1Vf9EBe
+	OxkmmuDR+8VJdWNzNvTnvHKqig6Nou/LYSA6DS8R8B4dO7qdommuqGfqSZa89VqK9onvXiEoNtE
+	Fg2gtbB1zUur3upDogERNlzOi9MXOq0M=
+X-Gm-Gg: Acq92OFg8AatJq8isx+c8HOEEiDi/NF3+TE3P8F6a99WzURELrgKVchPfITFYBdtqtU
+	oACmax4vg+alNzEOpenjpEhHoPkNFnKbuKMCYtKfWhgNq5CrV2Ud/riuhBjEHiPB31ZBibwnfqf
+	2nztgS7MtARoZVDRE572hcdjNl8h8+pukxQtGRuLDZqNBM/gkvyTXUupskOfFe+NRI5zWpl+kIA
+	Pl16YmWCyltZsqO09Z4HJrCKJ7IweiGH4STImYcp3ZkQs1EMnaIhXy107rpcEmeyHh880CsdDY8
+	xjnelejs/56WOuYapyc=
+X-Received: by 2002:a05:7022:49f:b0:136:e42d:2c20 with SMTP id
+ a92af1059eb24-137d3f0d89cmr13506c88.16.1780066691402; Fri, 29 May 2026
+ 07:58:11 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260310113557.348502-1-neeraj.soni@oss.qualcomm.com> <07a7d2f8-4a6c-d9f9-71b5-49a1dae693fd@oss.qualcomm.com>
-In-Reply-To: <07a7d2f8-4a6c-d9f9-71b5-49a1dae693fd@oss.qualcomm.com>
-From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
-Date: Fri, 29 May 2026 16:56:23 +0200
-X-Gm-Features: AVHnY4Jm7GKGq_habBfPiaPG5j1Bztziq1HOpWPaB7d3DTUiS4TBgGnY-iRv1tI
-Message-ID: <CAPx+jO9kc7-QCV+ZgeeQQGdTaLAcvedLgvOpdSxqt4ezz-Lxhg@mail.gmail.com>
-Subject: Re: [PATCH v6 0/3] Enable Inline crypto engine for kodiak and monaco
-To: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Cc: ulf.hansson@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
-        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
-        ulfh@kernel.org, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
+References: <20260523083013.46372-1-clamor95@gmail.com>
+In-Reply-To: <20260523083013.46372-1-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 29 May 2026 17:57:57 +0300
+X-Gm-Features: AVHnY4K-1vYeiXFYk-AlYEtzVzIQXE43sf_M9vxLcJuCUs6YujSLvUbhSvlV1gE
+Message-ID: <CAPVz0n3hYU86yGeNS9WqHHPqn6JOPGrTqtSz=afs-SyDgeiKvA@mail.gmail.com>
+Subject: Re: [PATCH v2 0/4] usb: chipidea: tegra: Add external control option
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
+	Peter Chen <peter.chen@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>, Xu Yang <xu.yang_2@nxp.com>, 
+	Peng Fan <peng.fan@nxp.com>
+Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDE0OSBTYWx0ZWRfXyAqbNi1J6Ta7
- oHb2ECWLtJvmCqFs4pL65GJP5/sH7D3Vp+B6oeuAWzVnR3hFxEE1r8/lg3sQRd/chGdRToznfGk
- IdGIOmJhXmlCeWYdzrbuS4bPC3FNCztkIGih6/ov8Q28DcOYv1WsqUiPQrOegrVd9M5Mt00VcKH
- ePc6Ob5zEBO+rwtYWmagdC+78nzODaZcZd2H0oxfS6Rx+XGWKKZODbNYUi0SlaFEaqaTWVgv/fB
- U84fw8Zlw8r28qmYQXgDGe2LPOUe8NMtXGqVS37UxNPor43RaAFj4N+n5rUOGBEbLSeKMIf+xzP
- 8ZLMNV2fwLq9TfbkedsabZVCOvLDt7Cf0UsTlAmMVkECND8nC9FmHxnlv2Ef0gqaAvpUy/jVcNj
- nthRQvQgl6rqmGrnmaWne8auXI+8k59N5OLEf9T0gK+2J6Er6sdJQqC4W2pFqhvmZzn76UyQF7c
- 0mrvnYwh0GBhwlVG4FQ==
-X-Authority-Analysis: v=2.4 cv=SNBykuvH c=1 sm=1 tr=0 ts=6a19a924 cx=c_pps
- a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
- a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
- a=1P0UMqgBtEyZMnONbk4A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
-X-Proofpoint-ORIG-GUID: lRbZPOvbIAdJHYxG96LqcwpX1hO5O2YL
-X-Proofpoint-GUID: lRbZPOvbIAdJHYxG96LqcwpX1hO5O2YL
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-29_04,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290149
 
-On Fri, May 22, 2026 at 11:34=E2=80=AFAM Neeraj Soni
-<neeraj.soni@oss.qualcomm.com> wrote:
+=D1=81=D0=B1, 23 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:3=
+0 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
 >
-> On 3/10/2026 5:05 PM, Neeraj Soni wrote:
-> > Document Inline Crypto Engine (ICE) handle for SDHC and add its device-=
-tree
-> > node to enable it for kodiak and monaco.
-> >
-> > How this patch was tested:
-> > - export ARCH=3Darm64
-> > - export CROSS_COMPILE=3Daarch64-linux-gnu-
-> > - make menuconfig
-> > - make defconifg
-> > - make DT_SCHEMA_FILES=3DDocumentation/devicetree/bindings/mmc/sdhci-ms=
-m.yaml dt_binding_check
-> > - make ARCH=3Darm64 CROSS_COMPILE=3Daarch64-linux-gnu- CHECK_DTBS=3Dy d=
-tbs
-> >
-> > ---
+> Patchset adjusts the Tegra-specific portion of the Chipidea USB controlle=
+r
+> to allow for the disabling of automatic PHY and USB controller
+> registration. This is achieved by adding the nvidia,external-control
+> property/flag. It does not affect any existing configurations, but it
+> allows the USB line to be registered or deregistered by an external
+> device =E2=80=94 in this case, the modem.
 >
-> Hi Ulf/Bjorn,
+> Since Tegra USB PHY holds clock gating for controller PHY cannot be
+> handled by code Chipidea mechanism.
 >
-> We are looking to target this patch series to be part of 7.2 merge window
-> if there are no further review comments.
-> If if is fine, Ulf can you please ack the dt-binding patch (1/3) so that
-> this entire series be picked via Bjorn tree.
+> This patchset is a part of larger series aiming to bring XMM6260 modem
+> support for Tegra devices:
+> https://lore.kernel.org/lkml/20260511135703.62470-1-clamor95@gmail.com/
 >
-> Bjorn i hope this is fine with you.
+> ---
+> Changes in v2:
+> - separated Tegra USB into its own schema
+> - tegra_usb structure moved into tegra_usb_phy.h
+> ---
 >
-> The v5 of this patch series was "Reviewed-by" Krzysztof for dt-binding ch=
-anges:
-> https://lore.kernel.org/all/20260307-llama-of-massive-downpour-2e512a@quo=
-ll/
-> but i missed to add it in v6. Requesting to please apply the tag while pi=
-cking
-> the patch series.
+> Svyatoslav Ryhel (4):
+>   dt-bindings: usb: Move Tegra-specific Chipidea USB properties into a
+>     dedicated schema
+>   dt-bindings: usb: chipidea,usb2-tegra: Document
+>     nvidia,external-control property
+>   usb: chipidea: tegra: Avoid controller/PHY init if bus is externally
+>     controlled
+>   usb: chipidea: tegra: Expose tegra_usb structure
+>
+>  .../bindings/usb/chipidea,usb2-tegra.yaml     | 95 +++++++++++++++++++
+>  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml | 22 -----
+>  drivers/usb/chipidea/ci_hdrc_tegra.c          | 43 ++++-----
+>  include/linux/usb/tegra_usb_phy.h             | 15 +++
+>  4 files changed, 131 insertions(+), 44 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/usb/chipidea,usb2-t=
+egra.yaml
+>
+> --
+> 2.51.0
+>
 
-It's been a little messy to keep my backlog up to date while changing
-employment, please re-submit a new version of the series.
-
-Also note, I don't pick up arm64 dts patches (unless very specific
-reasons), so that parts need to go with the soc/platform maintainer.
-
-Kind regards
-Uffe
+Hello there! There will be no v3. Sorry for disturbing LKML with 15
+year old obsolete tech. My mistake.
