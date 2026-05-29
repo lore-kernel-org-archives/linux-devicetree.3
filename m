@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28F893DB63A
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:34:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BB22472AF
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:36:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780065265; cv=none; b=qK9MgH9yezolowe4x+Yn+vFHhsj2IY3TrBuMzenwQVVb/XfPZndE5pOhNhwq1fa8bOt0JOAMqfek3HIrq8Okxq8xllz0S6b54khy6IPceYtImARYfmonSrAtkqGXTAmfTW+SvJ4TyJrCmh1E+1T2OsUFc6NQCrnxC7gDIFOafVY=
+	t=1780065394; cv=none; b=steCzgp+JhRHCB7kzCm5KDtUdATnHW7FURRWc7jgj5iVb4td5IIkrbl5cxnsnjSHjDBk7YWTo6G2fih9eELENE3QnuxCiBRXgvQid2oT4d4ZIobfgw+icUO6Fj5SE0D2X1iOmaeeLH2c4ttxhO7NZfz0l4PC+cAX+/VstEOiqag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780065265; c=relaxed/simple;
-	bh=seP5ZOhGVh1Z9YBkV33mohniOYR8b54+BDkeWLjt6vk=;
+	s=arc-20240116; t=1780065394; c=relaxed/simple;
+	bh=z74N0pFagtP6RQ6H4YaH8/GA6tRexv6havmalby5zJo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=lcH/8pGO5iu/oXuz5CXnMUFepHJf6UQhtLLyTr/wQs+swNvMhMBM58sVEwNiZWAea9zficHdkjSDXLp7x+15/9RKfFwfN81fZoZXSn8eWqnJeopWXiw6tgHzw/i9ChApR85APREie+ea7OhqYgn+qf4tvq24STSVzkvqNd/nPtE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LGm5xUDW; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pIoDNAGwobRQFBXrKPOM6MWTXTAU4HVrsVNtPow140JhlhxiCTzJe/cuqM/erKvjxdm6TvRX4LIL5BI0WQuwyThU1FNetZ9RD31nSO0F81TEtt9BnAEcHeM51r4D/Uuj8IH1aNiD17d5P0cVYdPEfnOKSJBK23KigYhqx1wmCfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKSlYlyq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LGm5xUDW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9AFED1F00893;
-	Fri, 29 May 2026 14:34:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKSlYlyq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5671F00893;
+	Fri, 29 May 2026 14:36:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780065263;
-	bh=d8dMryTWwXJLLsJ12ko/t9wXOAO/co0bVBBA+nxJOfo=;
+	s=k20260515; t=1780065392;
+	bh=hblTrsrfduhGMwYJES2rGelYn5tVRJG/WVfXM6ll7MA=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=LGm5xUDWfg1Snxkih+pU/G12QljdLouu6hGHS0hyX18nEvnhCpKLupwQaSoyrWg2L
-	 nZC1zTc2X4Niu10q92r7WslV4TZI6Mre17VJx32CUMAlLDEIx2LZ0QULqVnsKb73Jl
-	 sEAadqwtrBvs6tCYzfvRDDsLTDPdRj2o3hfr1U2uD2SpTo9nrCe82bz+f6Bff4vo6I
-	 vPaiSdA7TAZiRjDVoHvBZhmlaMQx/O2rTXr6Mhfc7X4Msu3VqfpZ5oNeRysDHPcXi7
-	 40Hm7DXm9Hmqq8rMiPk+e9s0YkEDHnBGWFIeCRY6Liivcd9vAQNeXm2rdY296WyDG7
-	 937sPTZ5LkJ3A==
+	b=IKSlYlyqkV1D2Ek5IlR+C/0fWyDxzQVLb8VRef/M7ecx2j7bF0U4QkhoQ0KbJUptj
+	 cafL0WCwQSXPb91qTzINodgTEcKMePNw7KK3Dj62fiH9AxkM3T5JGSa3mALPxoHXBb
+	 5L+eaupm/rJ+5/NfZWPfmm3EuUyd6QIYosaMZ5rY4dRQlwxwSEPeq0skZQVacL5/bX
+	 QWBo+hkrNkzRAvamH3om601ygPFesOnmV1ne74ynZV1MM0fq9Tv4owW6UQPYhJTt2L
+	 R4Y0rKOS8p57yL860/RTgY3VvZc3RYW1uHfIotRcRo2ZR4BsM0tap0ZyVsGyTRnzR6
+	 p1uPm7SHXXAug==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/3] dt-bindings: clock: Move xlnx,zynqmp-clk to its
- own schema
+Subject: Re: [PATCH RFC v3 6/6] iio: osf: register IIO devices from
+ capabilities
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michal Simek" <michal.simek@amd.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <8e9163806c6f6858cca9afcbdf63599ced3422fe.1780063921.git.michal.simek@amd.com>
-References: <8e9163806c6f6858cca9afcbdf63599ced3422fe.1780063921.git.michal.simek@amd.com>
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529121005.1470-7-kimjinseob88@gmail.com>
+References: <20260529121005.1470-7-kimjinseob88@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 14:34:23 +0000
-Message-Id: <20260529143423.9AFED1F00893@smtp.kernel.org>
+Date: Fri, 29 May 2026 14:36:32 +0000
+Message-Id: <20260529143632.AA5671F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,44 +46,87 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] Splitting the `xlnx,zynqmp-clk` binding into a new schema breaks va=
-lidation because the parent firmware schema still references the old file.
+- [High] Uninitialized kernel heap memory is leaked to userspace through II=
+O buffer padding.
 --
 
-commit 1e02d44e7b2b8c89538f05376475e81433856e26
-Author: Michal Simek <michal.simek@amd.com>
+commit 9319c55b6b77ef9ce1f7e526e5ce9463c217bc27
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-dt-bindings: clock: Move xlnx,zynqmp-clk to its own schema
+iio: osf: register IIO devices from capabilities
+   =20
+This commit updates the Open Sensor Fusion (OSF) driver to parse the first
+capability report and create corresponding IIO devices. It also adds logic
+to cache the latest samples and push enabled buffers directly to userspace.
 
-The ZynqMP clock controller binding shares only #clock-cells with the
-Versal bindings. Move it to a dedicated xlnx,zynqmp-clk.yaml schema.
+> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensen=
+sorfusion/osf_iio.c
+> new file mode 100644
+> index 0000000000000..5e509987876d7
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_iio.c
+[ ... ]
+> +int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
+> +			unsigned int channel_count)
+> +{
+> +	struct osf_iio_state *state =3D iio_priv(indio_dev);
+> +	s32 scan[OSF_MAX_SAMPLE_CHANNELS] =3D { };
+> +	s64 timestamp;
+> +
+> +	if (channel_count !=3D state->spec->channel_count)
+> +		return -EPROTO;
+> +
+> +	memcpy(scan, values, channel_count * sizeof(*values));
+> +
+> +	/* Buffer state can change here; IIO rechecks it during the push path. =
+*/
+> +	if (!iio_buffer_enabled(indio_dev))
+> +		return 0;
+> +
+> +	timestamp =3D iio_get_time_ns(indio_dev);
+> +
+> +	return iio_push_to_buffers_with_ts_unaligned(indio_dev, scan,
+> +						     channel_count * sizeof(*scan),
+> +						     timestamp);
 
-> diff --git a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml=
- b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> index bef109d163a82..12d060c39bfc4 100644
-> --- a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> +++ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> @@ -17,9 +17,7 @@ description: |
->  properties:
->    compatible:
->      oneOf:
-> -      - enum:
-> -          - xlnx,versal-clk
-> -          - xlnx,zynqmp-clk
-> +      - const: xlnx,versal-clk
+[Severity: High]
+Does this leak uninitialized kernel heap memory to userspace?
 
-[Severity: Low]
-Does this change break schema validation for the parent firmware node?
+The driver passes channel_count * sizeof(*scan) as the data_sz, which
+is 12 bytes for a 3-axis sensor or 4 bytes for temperature.
 
-The firmware binding at
-Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmware.yaml
-still validates its clock-controller child node using a reference to
-/schemas/clock/xlnx,versal-clk.yaml#.
+However, the IIO core calculates the buffer's scan_bytes to include padding
+to 8-byte align the 64-bit timestamp. This results in a scan size of 24
+bytes for a 3-axis sensor, or 16 bytes for temperature.
 
-Since xlnx,zynqmp-clk is removed from this schema, will dtbs_check now fail
-for device trees like arch/arm64/boot/dts/xilinx/zynqmp-clk-ccf.dtsi that
-define the clock-controller under the firmware node?
+Looking at iio_push_to_buffers_with_ts_unaligned(), the bounce buffer is
+allocated without zeroing the memory:
+
+drivers/iio/industrialio-buffer.c:iio_push_to_buffers_with_ts_unaligned() {
+	...
+	if (iio_dev_opaque->bounce_buffer_size !=3D  indio_dev->scan_bytes) {
+		void *bb;
+
+		bb =3D devm_krealloc(&indio_dev->dev,
+				   iio_dev_opaque->bounce_buffer,
+				   indio_dev->scan_bytes, GFP_KERNEL);
+		...
+	}
+	memcpy(iio_dev_opaque->bounce_buffer, data, data_sz);
+	return iio_push_to_buffers_with_timestamp(indio_dev, ...);
+}
+
+It only copies data_sz bytes into the bounce buffer and then appends the
+8-byte timestamp, leaving the intermediate padding bytes uninitialized.
+When this buffer is pushed to the kfifo, the uninitialized kernel memory is
+exposed to userspace.
+
+Could we pass a correctly padded and zero-initialized structure, or provide
+the exact size including padding up to the timestamp, to avoid leaking
+these bytes?
+
+> +}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780063921.gi=
-t.michal.simek@amd.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529121005.1470=
+-1-kimjinseob88@gmail.com?part=3D6
