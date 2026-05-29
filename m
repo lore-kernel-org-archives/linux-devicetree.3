@@ -1,454 +1,117 @@
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com [209.85.216.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AD3783A9018
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 06:28:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC4BD351C0D;
+	Fri, 29 May 2026 06:29:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780036125; cv=none; b=K6BPhefFTnhMGXNwCpC8UYGWnkRKRiQbsqSd/lriwrYwPEXG8UCvE9NzlqBl+2b7fnY6VLrRCv4JquRf8A48VjmdWTcPUxFt/Co1hyC9L+Q+jCU44T3qIapIHkXaCfpkTiyQz3scllArThLd4dKBiZmNsnn+H8I+X2ccGL1/S0Y=
+	t=1780036178; cv=none; b=gxmkOgU0+KeywT3MRLMdmzYkjjWODnTuh7nwJqCdvuo4vh0rxvnnFlRQRCn1qCb7R8LyMPTTYbBewhtNU3WWEpAvGdb8aTwmVWvfCn+bP1M9fXtE2FeHn694QhOO5W5Bah0YKOLeAWxEaR0LP/AZ4nXufXfOpsoLVSGhQOXey2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780036125; c=relaxed/simple;
-	bh=2dJ2aOlce/DBDs8l/E5yf4ruuvvibpGZoJHOZL358O4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eVaVL2fJzd5nLQj/xWIlXJ7InXT0ytFnzx+fimrMDecRFTWympTsn1RIMS6NYI1YgZ4u2fsBEDF7yzNvFcCOmlYIPC9dvTVuJWl1sIoClY5W2Gxx9wDyOJlwnZnhSYNRMVXOpIMjahHkhucYHQRFxSd+l8+IZMptb6Vqde7R+pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reznichenko.net; spf=none smtp.mailfrom=dpplabs.com; dkim=pass (2048-bit key) header.d=reznichenko.net header.i=@reznichenko.net header.b=k1WUiFVt; arc=none smtp.client-ip=209.85.216.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=reznichenko.net
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=dpplabs.com
+	s=arc-20240116; t=1780036178; c=relaxed/simple;
+	bh=FRbQkOyhdUxT8fShnakEuKOQ+iMzRTGaSOoJ539kxGM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=hW9N8JY8prhImYp9+aOnKbzGq5pJ3EPLjB8JUki0GqPdxy1lXOcJbkw7IhzO2DRk2e8gkLnyLqctkkl49/154CMoW6MedvGv8wL24EpVFZt8nx5oB5AD1t5V2YYtXCo2VNuZSzVXrNFA/3jM5Wl/SgvTIRXLdEOrSDZMrjeIPE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TUchP8T4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=reznichenko.net header.i=@reznichenko.net header.b="k1WUiFVt"
-Received: by mail-pj1-f49.google.com with SMTP id 98e67ed59e1d1-36b88b76318so860148a91.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 23:28:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=reznichenko.net; s=google; t=1780036123; x=1780640923; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/R5s8AFv5SWiiBoBPQWALTb4LDSkvGd9PHCHTYqOo24=;
-        b=k1WUiFVt67WT6ekQ9+zN0Y8QgF6KQqazX8a9ubju9bhvcfHtRkc+JZSR7XFi4ekYu5
-         6W6uhXZO3YYs35BWqPOXhpUlDnjwF8yqjRZBTnJtm6pNn9nOT8aGmV8N+AoZ7HteDRv7
-         OCGxAcxfMfvkpkW9B81uzJtg18u6bdBrMPQDF7XfMkEvUk1lFrb6K0NIIXY+U3z03D4E
-         BKMp0tdTrP1mSm9idbKObPOQG18xCjnAHBsIYizkLIfYy5kEFTlbfx+hZcsuFVKu6X3R
-         KuJjxGG34GJYfl/gNncJCSYil89N7fZAHpxBmp9+sl1pBlQFb12CrLnrm8tK4rqVBbb8
-         ZgwQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780036123; x=1780640923;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=/R5s8AFv5SWiiBoBPQWALTb4LDSkvGd9PHCHTYqOo24=;
-        b=ixPCEI9NvAhin7fLXg65lwR03TQdyW8ZP5+yrXdQvIwTJg35PQX0XrSiCSsLR1tNWY
-         Cn5Ti2+kAgOZ9KJ02dYAcWPNDj4gwjD3EkjICbOylWaWsIUyWmiSmAxHOhYTRauwDbyd
-         slyhuIJDsCrzWA6w4dE3dY9apQ/rwqq8X6A7ZBbDBAHRgUaHdIX/xuKG3XhZIfTqeDtO
-         LJXg2lCgeNz4BSM+AWRU1CkF7ZpVb92aEhve4k369fPwfDY7O1P1gWmrrCqQDKamO2Q/
-         +cIwYryECMNmHYAXwrYEBUWY2fyY0UBqEPC8HyOwUdtAQNOw8AIPxTDOxBJznaenmpIy
-         XrYA==
-X-Forwarded-Encrypted: i=1; AFNElJ+k2Mhm0vGHShFZVVIcY6l7oObsMqXTNDAl7loI7+1eFZN49qfleipLfaYDTnWYQ6Qxiq7+Bi4HYZ3U@vger.kernel.org
-X-Gm-Message-State: AOJu0YyX7MUoacPbsSneaKIZXOlOBvZ4xmD3WYBQV/B5mSuvdMDW0v0R
-	+09h7rp78gsr9kwOWAOGSEEdiYTaOl3a4ypF6cfPhUCcJhhdnS2MC3i9sJV6BAc8Rk0=
-X-Gm-Gg: Acq92OE/KeH3zMflUL/gf4sHBqgUlAGfU+2ldHzacOCxDQrjzBiYZrQe69lxywap1Pr
-	viFw+retiWcL7jacPt/ALYuDqnW+mjcKVTquzZTMEbUHAfMhcYL/aDj50Ev9aKeVoSXd44C/rpn
-	CPnRAzv11vOUYan7xJaSd+WcGhmr4IVYXcuBQtyeKmDu7WMQ2+7y/nqB2jGqqlKfvD3ktOjmAVa
-	pfuL4nWjdzOwjQcyjGfXM29xiOMR4ZL17VTxXy+GUvUoY8ubydPbja7S597NBDBfIHyD/IEUzsL
-	3/s43tsFtk5N9hKU79AYXmf7VsXoJlbpHleRg5wzrjQXTVN9B+Q07WlClcYm62+/ueZ0a3ROyO1
-	mumc2aBiqHYPTAHB/JBFHkvF9dxtu6uAOHdXciEo3ZILJq7JrozFMKDIO0lYje537AhM118iCYq
-	RHh1lzexNVUX0ZuEjuguKZRZGyyEX17oVOOIsn
-X-Received: by 2002:a17:90b:2b4b:b0:369:747b:48b8 with SMTP id 98e67ed59e1d1-36bbcd3fdd1mr2022896a91.8.1780036122987;
-        Thu, 28 May 2026 23:28:42 -0700 (PDT)
-Received: from z440.. ([24.21.231.36])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bc6a340b7sm717087a91.11.2026.05.28.23.28.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 23:28:42 -0700 (PDT)
-From: Igor Reznichenko <igor@reznichenko.net>
-To: Neil Armstrong <neil.armstrong@linaro.org>,
-	Jessica Zhang <jesszhan0024@gmail.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Manivannan Sadhasivam <mani@kernel.org>,
-	"Kael D'Alcamo" <dev@kael-k.io>,
-	Kever Yang <kever.yang@rock-chips.com>
-Cc: dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 2/2] drm/panel: Add Ilitek ILI9488 controller driver
-Date: Thu, 28 May 2026 23:28:36 -0700
-Message-ID: <20260529062836.203990-3-igor@reznichenko.net>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260529062836.203990-1-igor@reznichenko.net>
-References: <20260529062836.203990-1-igor@reznichenko.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TUchP8T4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 646091F00893;
+	Fri, 29 May 2026 06:29:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780036177;
+	bh=SRuIz3TU79Qu+65qo0yf1cxlyHQng1b+ovTiV+ccBbo=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TUchP8T4b9bp8imrpbxK6hBmzaZ9czwHInA0cN3xCdo2Y0U1AWutHdVvWNrdjZnpq
+	 TMaicSc+Uc52KDQkO2n0nAmf9UXQ8SQe4NogKQPUKQeiRqrlUqC3csSzhqqa7ENZt8
+	 Vh5+4k08HVIAY2Cdxm/xvA1plcS9r/DciweCwD8sTD3jIfvOO2ppXUdKsHxB3xUJGr
+	 ZiZO6Ltqo/QfJ/T4I5B5Sjf4m+ozre7OPb76zEVznIQC5PJlyZtgTF6t3OJzaeiNZw
+	 diZNjw4fgmithavE/LtsGL+AI2TZNBIVmIts/bhkbHhsWw1yoFFcOvLVCbHCAKRqyn
+	 KoEKkQ3HMabtw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] hwmon:(pmbus/xdp730) Add support for efuse
+ xdp720/xdp730
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "ASHISH YADAV" <ashishyadav78@gmail.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-hwmon@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260529054218.5184-3-Ashish.Yadav@infineon.com>
+References: <20260529054218.5184-3-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 06:29:37 +0000
+Message-Id: <20260529062937.646091F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-Add support for Ilitek ILI9488 DSI controller which is used in
-FocusLCDs E35GH-I-MW800-CB 320x480 MIPI DSI panel. The mode timing
-was adjusted after STM32MP157 testing. The previous 14.256 MHz mode
-worked on AM62P, but was awkward for STM32 DSI/LTDC clock synthesis.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Renaming the Kconfig symbol, module, and driver from 'xdp720' to=
+ 'xdp730' breaks existing kernel and userspace configurations.
+--
 
-Signed-off-by: Igor Reznichenko <igor@reznichenko.net>
----
- MAINTAINERS                                  |   6 +
- drivers/gpu/drm/panel/Kconfig                |   9 +
- drivers/gpu/drm/panel/Makefile               |   1 +
- drivers/gpu/drm/panel/panel-ilitek-ili9488.c | 289 +++++++++++++++++++
- 4 files changed, 305 insertions(+)
- create mode 100644 drivers/gpu/drm/panel/panel-ilitek-ili9488.c
+commit 83256f5e0c4297d842a3fc2a6730dfe5ce709501
+Author: Ashish Yadav <ashish.yadav@infineon.com>
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index ac87c217ab1f..987635948cde 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -8040,6 +8040,12 @@ T:	git https://gitlab.freedesktop.org/drm/misc/kernel.git
- F:	Documentation/devicetree/bindings/display/ilitek,ili9486.yaml
- F:	drivers/gpu/drm/tiny/ili9486.c
- 
-+DRM DRIVER FOR ILITEK ILI9488 PANELS
-+M:	Igor Reznichenko <igor@reznichenko.net>
-+S:	Maintained
-+F:	Documentation/devicetree/bindings/display/panel/ilitek,ili9488.yaml
-+F:	drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-+
- DRM DRIVER FOR ILITEK ILI9805 PANELS
- M:	Michael Trimarchi <michael@amarulasolutions.com>
- S:	Maintained
-diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-index 7450b27622a2..37987e47f3f7 100644
---- a/drivers/gpu/drm/panel/Kconfig
-+++ b/drivers/gpu/drm/panel/Kconfig
-@@ -284,6 +284,15 @@ config DRM_PANEL_ILITEK_ILI9341
- 	  QVGA (240x320) RGB panels. support serial & parallel rgb
- 	  interface.
- 
-+config DRM_PANEL_ILITEK_ILI9488
-+	tristate "Ilitek ILI9488-based panels"
-+	depends on OF
-+	depends on DRM_MIPI_DSI
-+	depends on BACKLIGHT_CLASS_DEVICE
-+	help
-+	  Say Y if you want to enable support for panels based on the
-+	  Ilitek ILI9488 controller.
-+
- config DRM_PANEL_ILITEK_ILI9805
- 	tristate "Ilitek ILI9805-based panels"
- 	depends on OF
-diff --git a/drivers/gpu/drm/panel/Makefile b/drivers/gpu/drm/panel/Makefile
-index c2c5cf817116..a1344a0a3fd0 100644
---- a/drivers/gpu/drm/panel/Makefile
-+++ b/drivers/gpu/drm/panel/Makefile
-@@ -28,6 +28,7 @@ obj-$(CONFIG_DRM_PANEL_HIMAX_HX8394) += panel-himax-hx8394.o
- obj-$(CONFIG_DRM_PANEL_HYDIS_HV101HD1) += panel-hydis-hv101hd1.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_IL9322) += panel-ilitek-ili9322.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9341) += panel-ilitek-ili9341.o
-+obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9488) += panel-ilitek-ili9488.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9805) += panel-ilitek-ili9805.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_CORE) += panel-ilitek-ili9806e-core.o
- obj-$(CONFIG_DRM_PANEL_ILITEK_ILI9806E_DSI) += panel-ilitek-ili9806e-dsi.o
-diff --git a/drivers/gpu/drm/panel/panel-ilitek-ili9488.c b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-new file mode 100644
-index 000000000000..7302766034fc
---- /dev/null
-+++ b/drivers/gpu/drm/panel/panel-ilitek-ili9488.c
-@@ -0,0 +1,289 @@
-+// SPDX-License-Identifier: GPL-2.0
-+
-+#include <linux/delay.h>
-+#include <linux/device.h>
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/kernel.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+
-+#include <linux/gpio/consumer.h>
-+#include <linux/regulator/consumer.h>
-+
-+#include <drm/drm_mipi_dsi.h>
-+#include <drm/drm_modes.h>
-+#include <drm/drm_panel.h>
-+#include <drm/drm_probe_helper.h>
-+
-+#include <video/mipi_display.h>
-+
-+struct ili9488_desc {
-+	const struct drm_display_mode *display_mode;
-+	unsigned long mode_flags;
-+	enum mipi_dsi_pixel_format format;
-+	unsigned int lanes;
-+	unsigned int bpc;
-+	void (*init_sequence)(struct mipi_dsi_multi_context *ctx);
-+};
-+
-+struct ili9488 {
-+	struct drm_panel panel;
-+	struct mipi_dsi_device *dsi;
-+	struct gpio_desc *reset;
-+	struct regulator_bulk_data supplies[2];
-+	const struct ili9488_desc *desc;
-+	enum drm_panel_orientation orientation;
-+};
-+
-+static const char * const regulator_names[] = {
-+	"vci",
-+	"iovcc",
-+};
-+
-+static void e35gh_i_mw800cb_init(struct mipi_dsi_multi_context *ctx)
-+{
-+	/* Gamma control 1,2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE0, 0x00, 0x10, 0x14, 0x01, 0x0E, 0x04, 0x33,
-+				     0x56, 0x48, 0x03, 0x0C, 0x0B, 0x2B, 0x34, 0x0F);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE1, 0x00, 0x12, 0x18, 0x05, 0x12, 0x06, 0x40,
-+				     0x34, 0x57, 0x06, 0x10, 0x0C, 0x3B, 0x3F, 0x0F);
-+	/* Power control 1,2 */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC0, 0x0F, 0x0C);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC1, 0x41);
-+	/* VCOM Control */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xC5, 0x00, 0x25, 0x80);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x36, 0x48);
-+	/* Interface pixel format 18bpp */
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x3A, 0x66);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB0, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB1, 0xA0);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB4, 0x02);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xB6, 0x02, 0x02, 0x3B);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xE9, 0x00);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0xF7, 0xA9, 0x51, 0x2C, 0x82);
-+	mipi_dsi_dcs_write_seq_multi(ctx, 0x21);
-+}
-+
-+static const struct drm_display_mode e35gh_i_mw800cb_display_mode = {
-+	.clock = 14400,
-+
-+	.hdisplay = 320,
-+	.hsync_start = 320 + 60,
-+	.hsync_end = 320 + 60 + 20,
-+	.htotal = 320 + 60 + 20 + 42,
-+
-+	.vdisplay = 480,
-+	.vsync_start = 480 + 20,
-+	.vsync_end = 480 + 20 + 10,
-+	.vtotal = 480 + 20 + 10 + 33,
-+
-+	.width_mm = 48,
-+	.height_mm = 73,
-+
-+	.flags = DRM_MODE_FLAG_NHSYNC | DRM_MODE_FLAG_NVSYNC,
-+	.type = DRM_MODE_TYPE_DRIVER | DRM_MODE_TYPE_PREFERRED,
-+};
-+
-+static inline struct ili9488 *panel_to_ili9488(struct drm_panel *panel)
-+{
-+	return container_of(panel, struct ili9488, panel);
-+}
-+
-+static int ili9488_power_on(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_device *dsi = ili->dsi;
-+	int ret;
-+
-+	ret = regulator_bulk_enable(ARRAY_SIZE(ili->supplies), ili->supplies);
-+	if (ret < 0) {
-+		dev_err(&dsi->dev, "regulator bulk enable failed: %d\n", ret);
-+		return ret;
-+	}
-+
-+	gpiod_set_value_cansleep(ili->reset, 0);
-+	usleep_range(1000, 5000);
-+	gpiod_set_value_cansleep(ili->reset, 1);
-+	usleep_range(1000, 5000);
-+	gpiod_set_value_cansleep(ili->reset, 0);
-+	usleep_range(5000, 10000);
-+
-+	return 0;
-+}
-+
-+static int ili9488_power_off(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_device *dsi = ili->dsi;
-+	int ret;
-+
-+	gpiod_set_value_cansleep(ili->reset, 1);
-+
-+	ret = regulator_bulk_disable(ARRAY_SIZE(ili->supplies), ili->supplies);
-+	if (ret)
-+		dev_err(&dsi->dev, "regulator bulk disable failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int ili9488_activate(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-+
-+	if (ili->desc->init_sequence)
-+		ili->desc->init_sequence(&ctx);
-+
-+	mipi_dsi_dcs_exit_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 120);
-+	mipi_dsi_dcs_set_display_on_multi(&ctx);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int ili9488_prepare(struct drm_panel *panel)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+	int ret;
-+
-+	ret = ili9488_power_on(ili);
-+	if (ret)
-+		return ret;
-+
-+	ret = ili9488_activate(ili);
-+	if (ret) {
-+		ili9488_power_off(ili);
-+		return ret;
-+	}
-+
-+	return 0;
-+}
-+
-+static int ili9488_deactivate(struct ili9488 *ili)
-+{
-+	struct mipi_dsi_multi_context ctx = { .dsi = ili->dsi };
-+
-+	mipi_dsi_dcs_set_display_off_multi(&ctx);
-+	mipi_dsi_dcs_enter_sleep_mode_multi(&ctx);
-+	mipi_dsi_msleep(&ctx, 120);
-+
-+	return ctx.accum_err;
-+}
-+
-+static int ili9488_unprepare(struct drm_panel *panel)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+	struct mipi_dsi_device *dsi = ili->dsi;
-+	int ret;
-+
-+	ili9488_deactivate(ili);
-+	ret = ili9488_power_off(ili);
-+	if (ret < 0)
-+		dev_err(&dsi->dev, "power off failed: %d\n", ret);
-+
-+	return ret;
-+}
-+
-+static int ili9488_get_modes(struct drm_panel *panel, struct drm_connector *connector)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+	const struct drm_display_mode *mode = ili->desc->display_mode;
-+
-+	connector->display_info.bpc = ili->desc->bpc;
-+
-+	return drm_connector_helper_get_modes_fixed(connector, mode);
-+}
-+
-+static enum drm_panel_orientation ili9488_get_orientation(struct drm_panel *panel)
-+{
-+	struct ili9488 *ili = panel_to_ili9488(panel);
-+
-+	return ili->orientation;
-+}
-+
-+static const struct drm_panel_funcs ili9488_funcs = {
-+	.prepare	= ili9488_prepare,
-+	.unprepare	= ili9488_unprepare,
-+	.get_modes	= ili9488_get_modes,
-+	.get_orientation = ili9488_get_orientation,
-+};
-+
-+static int ili9488_dsi_probe(struct mipi_dsi_device *dsi)
-+{
-+	struct device *dev = &dsi->dev;
-+	struct ili9488 *ili;
-+	int i, ret;
-+
-+	ili = devm_drm_panel_alloc(dev, struct ili9488, panel, &ili9488_funcs,
-+				   DRM_MODE_CONNECTOR_DSI);
-+	if (IS_ERR(ili))
-+		return PTR_ERR(ili);
-+
-+	ili->desc = device_get_match_data(dev);
-+	ili->dsi = dsi;
-+
-+	dsi->mode_flags = ili->desc->mode_flags;
-+	dsi->format = ili->desc->format;
-+	dsi->lanes = ili->desc->lanes;
-+
-+	ili->reset = devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
-+	if (IS_ERR(ili->reset))
-+		return dev_err_probe(dev, PTR_ERR(ili->reset),
-+				     "failed to get reset-gpios\n");
-+
-+	for (i = 0; i < ARRAY_SIZE(ili->supplies); i++)
-+		ili->supplies[i].supply = regulator_names[i];
-+
-+	ret = devm_regulator_bulk_get(dev, ARRAY_SIZE(ili->supplies),
-+				      ili->supplies);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to get regulators\n");
-+
-+	ret = of_drm_get_panel_orientation(dev->of_node, &ili->orientation);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get orientation\n");
-+
-+	ret = drm_panel_of_backlight(&ili->panel);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to get backlight\n");
-+
-+	ili->panel.prepare_prev_first = true;
-+
-+	ret = devm_drm_panel_add(dev, &ili->panel);
-+	if (ret)
-+		return ret;
-+
-+	ret = devm_mipi_dsi_attach(dev, dsi);
-+	if (ret < 0)
-+		return dev_err_probe(dev, ret, "failed to attach to DSI host\n");
-+
-+	return 0;
-+}
-+
-+static const struct ili9488_desc e35gh_i_mw800cb_desc = {
-+	.init_sequence = e35gh_i_mw800cb_init,
-+	.display_mode = &e35gh_i_mw800cb_display_mode,
-+	.mode_flags = MIPI_DSI_MODE_VIDEO | MIPI_DSI_MODE_VIDEO_SYNC_PULSE |
-+		      MIPI_DSI_MODE_LPM | MIPI_DSI_CLOCK_NON_CONTINUOUS,
-+	.format = MIPI_DSI_FMT_RGB666_PACKED,
-+	.lanes = 1,
-+	.bpc = 6,
-+};
-+
-+static const struct of_device_id ili9488_of_match[] = {
-+	{ .compatible = "focuslcds,e35gh-i-mw800cb", .data = &e35gh_i_mw800cb_desc },
-+	{ }
-+};
-+
-+MODULE_DEVICE_TABLE(of, ili9488_of_match);
-+
-+static struct mipi_dsi_driver ili9488_dsi_driver = {
-+	.probe	= ili9488_dsi_probe,
-+	.driver = {
-+		.name		= "ili9488-dsi",
-+		.of_match_table	= ili9488_of_match,
-+	},
-+};
-+module_mipi_dsi_driver(ili9488_dsi_driver);
-+
-+MODULE_AUTHOR("Igor Reznichenko <igor@reznichenko.net>");
-+MODULE_DESCRIPTION("Ilitek ILI9488 Controller Driver");
-+MODULE_LICENSE("GPL");
--- 
-2.43.0
+hwmon:(pmbus/xdp730) Add support for efuse xdp720/xdp730
 
+This commit adds support for the Infineon XDP730 Digital eFuse Controller by
+updating the existing XDP720 driver. It renames the Kconfig symbol, module,
+and source file to reflect the expanded family support.
+
+> diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
+> --- a/drivers/hwmon/pmbus/Kconfig
+> +++ b/drivers/hwmon/pmbus/Kconfig
+> @@ -711,14 +711,14 @@ config SENSORS_XDP710
+>  	  This driver can also be built as a module. If so, the module will
+>  	  be called xdp710.
+> =20
+> -config SENSORS_XDP720
+> -	tristate "Infineon XDP720 family"
+> +config SENSORS_XDP730
+> +	tristate "Infineon XDP730 family"
+
+[Severity: Medium]
+Does this renaming break existing kernel configurations?
+
+When users upgrade, their existing CONFIG_SENSORS_XDP720 setting will be
+silently dropped (e.g., during make olddefconfig), resulting in an unintend=
+ed
+loss of hardware monitoring capabilities for the XDP720.
+
+Would it be safer to preserve the existing Kconfig symbol and only update
+the prompt and help text to reflect the expanded support?
+
+>  	help
+>  	  If you say yes here you get hardware monitoring support for Infineon
+> -	  XDP720.
+> +	  XDP720 and XDP730 Digital eFuse Controllers.
+> =20
+>  	  This driver can also be built as a module. If so, the module will
+> -	  be called xdp720.
+> +	  be called xdp730.
+> =20
+>  config SENSORS_XDPE152
+>  	tristate "Infineon XDPE152 family"
+> diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
+> --- a/drivers/hwmon/pmbus/Makefile
+> +++ b/drivers/hwmon/pmbus/Makefile
+> @@ -69,7 +69,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)	+=3D tps546d24.o
+>  obj-$(CONFIG_SENSORS_UCD9000)	+=3D ucd9000.o
+>  obj-$(CONFIG_SENSORS_UCD9200)	+=3D ucd9200.o
+>  obj-$(CONFIG_SENSORS_XDP710)	+=3D xdp710.o
+> -obj-$(CONFIG_SENSORS_XDP720)	+=3D xdp720.o
+> +obj-$(CONFIG_SENSORS_XDP730)	+=3D xdp730.o
+
+[Severity: Medium]
+Will changing the module and driver name to xdp730 break userspace scripts
+and expectations?
+
+Any explicit module load rules (e.g., in /etc/modules) or sysfs paths that
+currently depend on the old xdp720 name might fail after this update.
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529054218.5184=
+-1-Ashish.Yadav@infineon.com?part=3D2
