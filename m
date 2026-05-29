@@ -1,213 +1,190 @@
-Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A75728B7DA
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780059200; cv=pass; b=nlP3ntknoZHqZPIgvjk446xVPQ+RZmo2RvTBzV+YY9bGYvZaEqJRcWDS7RDWRaoJisB4GwykvExV9a7rgaOHws5Wc5EOSZVWgbNdzVPG7lydfJ7/2ORbPc118cW0yYHbAayJ0jibx/2Yl8YdN6Pl65V4+heAfT0esEfN+MqyhPA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780059200; c=relaxed/simple;
-	bh=532+dLG2bbDU5qhM1SXwnloFiDTZfwwoA/4+UkT/VQk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=cTfWF8oqDKoSVO64ovBWEeEq7tUHEhQfLysJoar1eBRa+aY/2Zavsyl1FuFrJFDEq93h4PJGVFdC9XQya4FpaMIvgW+Etv8UZ0ysRQW1yl1eTfm1jVUJBkVd2ZVY+cCQ9lzcTyLFNbkdT7n5GURpnXY51/fqsg2kkO4nMWcYm1Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6cudlLX; arc=pass smtp.client-ip=74.125.82.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F3242C21E8
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:54:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780059291; cv=none; b=sg4gJ+uwAg4sqkuzUdwZdc344FFsSk3oGPjEDXvH+w3TMzx/+rAi2UiCr5Ha7yneEk/sJJlb39A7ZP4jRGFsuUarzuMTb+xyLt2k4xH5ESKibilIfVdmTDS8kRHVYnAPrH4Q/kQm7uI1UHzUuY6cBhG7cTynhdebtdVGkplsY6g=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780059291; c=relaxed/simple;
+	bh=cLDLzfRzL/iWdI+EEKBcb/jXgTAtbt5D6sMaRuAwo50=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dYlK32f7AoM4U6Bbxm2dHMs/dPbzA5hIsMpCnTq/jZ6LJ/YcKveQhQ8TR04vPFOJq5aBUX8qhiElkWT/V61cSshcCktUTzkxCuR1iUuRuxmdpxRn7mS4LCU+EDUfoESu1ucw8/99gIPFbmgz0qEPwqG7ofWp8a0HuBeSq9uAXbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CchEurjZ; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6cudlLX"
-Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-304545f5206so10699198eec.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:53:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780059198; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Y26pNqNVwKtfqwupXuU44/wdwfs2gtebYSbuGOeg7WZ8TSIjd1MosAi8sZzBOIlpYd
-         TdKSkXQoa+8WDxgOYaE3DwJXmxaU7ckZvcxxa4bTUHflAlx5MQR4ZLM28Erbb1YB+yjg
-         0qBbhBjy531mNLVGdnXsZCY24YbMBf92BMi6CdS+TZ14RdG/C5L/BcXYQehDGTACgTkI
-         DQC8UzIcuuSE++/syZm93Jx50L6ip2U55TTfB53hfSJGBoRmbMTfUD3UYkfZksvtFGnV
-         0vOf/wfQw4Eoxp2x9TbPxCrP7E0W6iGfS5+Dk3fn9AUNGheF0J9dfYfGjPqIuWA/oNQm
-         8XsA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=4hkrvbEDQ7S/ccYzMc9b/sSg1UxvqgRfRv2D5+QoUYc=;
-        fh=oRRFdW3Ej/+D7VGsqPMbuj8ASssbYXWRRU70XivVYAA=;
-        b=LmXgMfJF1wdDTZ1tp6XKWw+1AJ7596WNki/yv+QsicrFmPI5Hw/xsAxCD1/scvixAb
-         jMZF/fXBhcCk43TOHC/3VbZ9DuCMvM93GwTcqcHuHzF9shtW+CrCM81mvKGLWaYai3pf
-         nvie655nayQOWvMIbBfUdgEhNcGb/MNuJNg2cKx8ycUQ3LuqGfvinGf1mKVVL6slI30z
-         H3YK1tMEYTumsHPvyhMID8o/FqvVGIfKFmQ9A2nkjNy0CU1O4B5qImC9kqGZEHe4KgBw
-         9B1WF10UjLsQNslWtF/CQ3r1WxHgvMjhCyMskkwKymCKPYluxNEVFMGxxa5BsH8bpKdj
-         PCRg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CchEurjZ"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-4904fd4f6aeso62029025e9.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:54:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780059198; x=1780663998; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=4hkrvbEDQ7S/ccYzMc9b/sSg1UxvqgRfRv2D5+QoUYc=;
-        b=U6cudlLXv2JjG82mE+rJwRAbLqPeJT/u33TZ4rosOyMQQDj/xMAo3F+Ad/TpaEYh9p
-         rLH83ElBwJ1jJc/DPqQ1NMvPpyxdzWNcPQ62ch/dGQXN40H/LWD25PHa0a33r7Vys8I2
-         cwK6GgLtZiN821PCXVXi+HxZ11SPlverzmn6jhaGu1F4m40FCYM11Q1kPJOewmUlcCLP
-         s07OsPWJMrPazFX1yFpEERLB6cRrMT+HG/32dyFGssxK39WaD87nK6GERO5sjH6Ber0p
-         nKshgGGp3HnQ1/OMckRkbhITshCgTHj1Kbqfws2aNnZXcDFfRKzQNn0tWAD+4rHO9rIb
-         oDbQ==
+        d=gmail.com; s=20251104; t=1780059287; x=1780664087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pP6WBbFR0rqelNglh6H5g+knQHo3T1xmXwPHqlFYGx0=;
+        b=CchEurjZdwlSnimhEi0f0DoD901Annvw20HzU0sC9zDX5tqm4xKguYMfCImUmDzNMi
+         40qad8+yO5PwBXxZEOH9tbu2CMMR3FVAPcY/La2GZwX4gUwFuvy1dvgYYArtDNQA+/Vc
+         qUAYufIuV6VPpU88+MchvLOcz5d+DuKySiAL269yzPseYZ3MVbuzaqU+YYlO85b1vbms
+         JdQs8lEP+JUOdDpFCdPZIWmviQJatlRN8WJus3P6j2FPDhUO5yRAAyVaLVHhP/ESJM+k
+         2NQB2h1QgK9+Nd95MRN1fR6OFoju1OPNI1u7xKflcEaib69yA7QCA28uRTeSfWQuqwiD
+         9BpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780059198; x=1780663998;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1780059287; x=1780664087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=4hkrvbEDQ7S/ccYzMc9b/sSg1UxvqgRfRv2D5+QoUYc=;
-        b=YbT/jWQlpK4C8TtHn14VyI9EuwZzFsPruFH1y69dmF/vd2iTc4kvkUgBwbtxWPe1dT
-         623dft/Ja3MmgCLRbR52ErfaWI4/kuCzMWthA1AqCwUJTCmW5kq0T4b2OXShlelcu4II
-         enfZiJe/J25NPvUUeTE/Sztz5XE6nqEMxQg2vsNFX69GSF1Rl0JWY18cn/NTd7NjSXl7
-         CVU7oEkbGFohJ3sLaFO6q2lVlOWVw5/E6RbKJit0B5zLAXvM9L/ShpRP4fsjgtxTWzIE
-         Jt6T575muS9i6QHszzdq/6nUFcoKMUD4FwIqL4VPgzCAIoA1aWdbgbmpfs5BlbeA2EcJ
-         5kRA==
-X-Forwarded-Encrypted: i=1; AFNElJ+74RzRSDJYM1oNw8UJJh4z5uI+xulVIXBZ8vccgTE/sqGJd6NgHkDqhjysCHKDsoUsDT5BMdpoz3Mq@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw0oElx+e5u2vLR7lm/X4jU0BZAKCjwEugvx4wyaXaqxNX9ShRb
-	vgLcyJiYNQBoyNHGxsOUQ7Ym6m1pPHIOFcmPmjdU/MQgFBjRYTm8gGn1EBSNTPYKo2QWx47kW47
-	L8Jp4qu7TQCuWvChRQg61a+oISUamA+4=
-X-Gm-Gg: Acq92OGzlbOEi+/9/fGcTLqC88mC/Vru+pFJwd2TVCcTE2CR3lnh3Blzeq/xQH9ZHmW
-	OtiuQHdANFFsMhmp0SAY9KwC2EIfFk25ou4lF+Z9aqh2eLTjvR0jhUXQ8iJhtivhyL/Z3HdYUh8
-	+oChlUVCjPARRoWYJZO1WJZyUy7Y4E9V825RubAjaNEUuw36dAJ939FjoKGC21c2xOydxDC98Wb
-	NVQF9KyPSsF4YqI4xEDaQQdSfctWQ7bV9nQE/4l6q+yMRSQxeN8W/RolKylUa590L5o9fFkBXzi
-	fB3u3dQVda2nnD6+CuoC6n8aAyC7QdCuG0MbwqYqxA2WNjUEjV7mjSHL3F4uKyRpcIm2rEqtWX4
-	sn7BYzA==
-X-Received: by 2002:a05:7300:2316:b0:303:a1af:5042 with SMTP id
- 5a478bee46e88-304eacd38acmr1536564eec.0.1780059198197; Fri, 29 May 2026
- 05:53:18 -0700 (PDT)
+        bh=pP6WBbFR0rqelNglh6H5g+knQHo3T1xmXwPHqlFYGx0=;
+        b=YSAKPgfiRnd+yDBdeFdeYOjHNTFZekoOeCxud0e/zhf4yURj7G3at/hkATsOKHcdwI
+         szW367ZGQ1Ql58prlKMDX9YUuXHVi7/5LTW+I+w8ovqkSqnsrDN6a3SRNak3db0Q1FTQ
+         tm/glHvpfeRXJX/YYWXA+BUy/zzJPvVTG8tNJdt7DOz41so+5oOHbj3r27JAJc0kAsQL
+         mWmfMhiAS8MEovlDzZGL/hDvbWQzJGCfGDbbp6TRk1wbI1VQ3Ao9FXHhCt/LDCLFeN4G
+         8nYVKDsajWk3u5aORBmzW9SaD5kPFbWXjKpn7AnjiOZ7IPZ6Wbb9m7rIudz0T0cGlr0M
+         9Wyw==
+X-Forwarded-Encrypted: i=1; AFNElJ8rQ0AisW4yZfXcMJ0NR5mV2vbhO5hhGlLTXE8aqU0VikC8A9xVQUJ+QLuSVR1tnVwOdDy27dAN/cII@vger.kernel.org
+X-Gm-Message-State: AOJu0YyF8mw0/U8IPvTWYbzannoNZSh/UnOp7FD9sFzoSGDE9S8dUXZi
+	Gbiq1K2fEJGRPjiE7WnJbjOTR7xsADvw7B0/C+j+kJ+RIOCae3RZinsi
+X-Gm-Gg: Acq92OGZioGbJcQJlGkMuK5ETPyvQJcdVK1cTYFZf+ikfgEbhQsi5Anh4zHL5eZRRNm
+	HRpvHTx3uRG1tKys7wdzMQ978wf+gsJzTTYyN7u2kExlWCyvD0hSWRuh7niQhRs1ASmB+8OMuYn
+	sqw+OEWJdU3PyKLY/7txalHLLjoWF8XPI7TBm94Lr5sXJUSxKeoyOr+aC76cX/8HrB1ysbgR0Y3
+	VV4+WcRdMjwyrV5BwwtQc6Z39Bykmntr5x7bOIkvzQGARVeBVsATrPpPOwVxcipkQx1ugRuk/Ej
+	yIMC4LBTiafUU2J3KmV8m+URhLVM1b2+QCDVIJ0RHmSsWyz9vl9kKdnEdmuivlbp3T11dMcnAzx
+	iWXyRAigKP24A6EdQtlo0WL54MFx0WA4CD5eDhZlrEsG9mzJEGMVkU83fd0yBtcYdqVbu723idz
+	MiJ5mtsea3IEJ8plnYE0WlkiEZ/Va3C4vLIBPAz212BrepvZqLggGDbCDI1IxK2J35JWSolQ==
+X-Received: by 2002:a05:600c:4e55:b0:48a:9428:5522 with SMTP id 5b1f17b1804b1-4909c0a7eeemr55869565e9.16.1780059286890;
+        Fri, 29 May 2026 05:54:46 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:df4f:8f31:69aa:c094])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c0aecdfsm14200725e9.13.2026.05.29.05.54.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 05:54:46 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v2] arm64: dts: renesas: r9a08g046l48-smarc: Enable rsci{1,2,3} nodes
+Date: Fri, 29 May 2026 13:54:40 +0100
+Message-ID: <20260529125442.327290-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260524085312.15369-1-kimjinseob88@gmail.com>
- <20260524085312.15369-4-kimjinseob88@gmail.com> <20260528144853.354a71e7@jic23-huawei>
- <CALMSew+wUH1H-2MTtexCFgyD4Y+upFuSfFzTWBn3VGN6CWYFNQ@mail.gmail.com>
-In-Reply-To: <CALMSew+wUH1H-2MTtexCFgyD4Y+upFuSfFzTWBn3VGN6CWYFNQ@mail.gmail.com>
-From: Kim Jinseob <kimjinseob88@gmail.com>
-Date: Fri, 29 May 2026 21:53:06 +0900
-X-Gm-Features: AVHnY4IPPhh4OolSzIGZ_CRDIofNCpXhPUVz-GCUtgihrVwln8rbJd6WVtVvqI4
-Message-ID: <CALMSewJk7Kt-o99MJVFLEHbLwRqcnJ81XHbrfs3dy8VFgssTsQ@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 3/7] iio: osf: add protocol v0 decoding
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Sorry, resending in plain text.
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-On Thu, May 28, 2026 at 10:49:00PM +0100, Jonathan Cameron wrote:
-> https://sashiko.dev/#/patchset/20260524085312.15369-1-kimjinseob88%40gmail.com
-> Has some perhaps useful feedback. Please make sure to either exclude
-> them as false positives or address for next version.
->
-> Quite a bit of the feedback in here is about which checks are actually
-> useful. Normal kernel practice is assume we didn't shoot outselves in the
-> foot but hardware and userspace may have done. So we defend only against
-> things in their control.
+Enable rsci{1,2,3} device nodes for the RZ/G3L SMARC EVK.
 
-Addressed in RFC v3.
+Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+---
+v1->v2:
+ * Dropped SW_SER0_PMOD macro check in rsci2 as it is always available
+   for use.
+---
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 59 +++++++++++++++++++
+ 1 file changed, 59 insertions(+)
 
-I reworked the decoder to focus validation on device-controlled fields. The
-v3 decoder now validates sensor_type, sample_format, channel_count, reserved
-fields, and payload length overflow cases.
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+index 32d3b08a3cf3..3ce24b66cb8d 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+@@ -13,6 +13,7 @@
+ #define SW_DPI_EN		0
+ #define SW_GPIO4		1
+ #define SW_I3C_EN		0
++#define SW_SER0_PMOD		1
+ 
+ #define PMOD_GPIO4		0
+ #define PMOD_GPIO6		0
+@@ -37,6 +38,9 @@ / {
+ 	aliases {
+ 		i2c2 = &i2c2;
+ 		i2c3 = &i2c3;
++		serial0 = &rsci2;
++		serial1 = &rsci3;
++		serial2 = &rsci1;
+ 		serial3 = &scif0;
+ 	};
+ 
+@@ -134,6 +138,30 @@ i2c3_pins: i2c3 {
+ 			 <RZG3L_PORT_PINMUX(2, 1, 4)>; /* RIIC3_SDA */
+ 	};
+ 
++	rsci1_pins: rsci1 {
++		pinmux = <RZG3L_PORT_PINMUX(D, 4, 5)>, /* RSCI1_RXD_MISO_SCL */
++			 <RZG3L_PORT_PINMUX(D, 5, 5)>, /* RSCI1_TXD_MOSI_SDA */
++			 <RZG3L_PORT_PINMUX(D, 6, 6)>, /* RSCI1_CTS */
++			 <RZG3L_PORT_PINMUX(D, 7, 5)>; /* RSCI1_SS_CTS#_RTS# */
++		bias-pull-up;
++	};
++
++	rsci2_pins: rsci2 {
++		pinmux = <RZG3L_PORT_PINMUX(7, 6, 5)>, /* RSCI2_RXD_MISO_SCL */
++			 <RZG3L_PORT_PINMUX(7, 7, 5)>, /* RSCI2_TXD_MOSI_SDA */
++			 <RZG3L_PORT_PINMUX(8, 0, 6)>, /* RSCI2_CTS */
++			 <RZG3L_PORT_PINMUX(8, 1, 5)>; /* RSCI2_SS_CTS#_RTS# */
++		bias-pull-up;
++		power-source = <1800>;
++	};
++
++	rsci3_pins: rsci3 {
++		pinmux = <RZG3L_PORT_PINMUX(8, 2, 5)>, /* RSCI3_RXD_MISO_SCL */
++			 <RZG3L_PORT_PINMUX(8, 3, 5)>; /* RSCI3_TXD_MOSI_SDA */
++		bias-pull-up;
++		power-source = <1800>;
++	};
++
+ 	scif0_pins: scif0 {
+ 		pins = "SCIF0_TXD", "SCIF0_RXD";
+ 		power-source = <1800>;
+@@ -147,6 +175,37 @@ ssi0_pins: ssi0 {
+ 	};
+ };
+ 
++#if SW_SER0_PMOD
++&rsci1 {
++	pinctrl-0 = <&rsci1_pins>;
++	pinctrl-names = "default";
++
++	uart-has-rtscts;
++
++	status = "okay";
++};
++#endif
++
++#if !SW_DPI_EN
++&rsci2 {
++	pinctrl-0 = <&rsci2_pins>;
++	pinctrl-names = "default";
++
++	uart-has-rtscts;
++
++	status = "okay";
++};
++#endif
++
++#if (!SW_DPI_EN)
++&rsci3 {
++	pinctrl-0 = <&rsci3_pins>;
++	pinctrl-names = "default";
++
++	status = "okay";
++};
++#endif
++
+ &scif0 {
+ 	pinctrl-0 = <&scif0_pins>;
+ 	pinctrl-names = "default";
+-- 
+2.43.0
 
-I also removed unnecessary internal-only caller checks where the call path
-already guarantees the arguments, while keeping protocol and stream boundary
-checks.
-
-> Similar on whether this defensive code makes sense
-
-Addressed in RFC v3. I removed the remaining internal-only defensive checks
-where the caller already guarantees valid arguments.
-
-> I guess it might change in future, but for now why not make samples an s32 *
-
-For the variable sample data I kept the wire-format decoding explicit because
-the payload is little-endian data from the device and may not be naturally
-aligned. The v3 code validates the format and channel count before the sample
-data is consumed.
-
-> Similar sanity check questions.
->
-> If that happens seems like something went very wrong elsewhere so
-> seems unlikely defense makes sense here.
-
-Addressed in RFC v3. I trimmed the redundant internal consistency checks and
-kept the checks that validate frame and payload data received from the device.
-
-> This one does belong in here.
-
-Kept in RFC v3. Payload length validation remains part of the decoder.
-
-> This check is fine as picks up on bad hardware, but why keep
-> the value of reserved?
-
-Addressed in RFC v3. Reserved fields are now validate-only. The decoder checks
-them for protocol compliance but does not keep them in the decoded driver
-structures.
-
-> I'm not sure if there is a way to get here with any of those failing.
-> Generally for kernel code we defend against this sort of thing at higher levels.
->
-> Same applies to all this parser.
->
-> Likewise, I'd expect this to only be called on one that exists. This
-> defensive stuff costs us in complexity so only do it if needed. Do however
-> defend against values that are coming from the device where possible to
-> ensure they are consistent.
-
-Addressed in RFC v3. I removed unnecessary internal-only checks and kept the
-validation for values that come from the device.
-
-> Why keep it?
-
-Addressed in RFC v3. Reserved values are no longer stored after validation.
-
-> I think you are setting them all, so would be neater as a designated
-> inializer:
->         *entry = (struct osf_capbility_entry) {
->                 .sensor_type = get_unaligned_le16(payload),
->                 .sensor_index = get_unaligned_le16(payload + 2),
->         };
->
-> Same applies to some of the other structures filled in here.
-
-Addressed in RFC v3 where it made the code clearer. I also reduced the amount
-of field-by-field copying where the decoded data did not need to be retained.
-
-> We don't need to match types with original data so
-> nice to use the named enums if possible.  Will need
-> to check limits though when decoding.
-
-Addressed in RFC v3 by validating decoded values before accepting them from
-the device. The decoder now rejects unsupported sensor_type, sample_format, and
-channel_count combinations.
-
-> Compared to capabilities this one seems trickier for
-> types given it's variable size. Still nice to use something
-> that indicates the type if we can.
-
-For the variable sample data I kept the wire-format decoding explicit because
-the payload is little-endian data from the device and may not be naturally
-aligned.
-
-> Are these not struct osf_capability_entry?
-> If they are then use that not a u8.
->
-> I'd not bother with a const marking.
-> With that type fixed you should be able to use
-> __counted_by_ptr(capability_count)  to make that relationship
-> clear.
-
-I reviewed this while preparing RFC v3. The capability payload is still decoded
-from the wire format, but v3 now validates the capability entry contents more
-strictly and avoids keeping reserved fields after validation.
-
-Thanks,
-
-Jinseob
