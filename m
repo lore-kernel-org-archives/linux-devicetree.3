@@ -1,120 +1,107 @@
-Received: from mail-m3276.qiye.163.com (mail-m3276.qiye.163.com [220.197.32.76])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5380535AC01;
-	Fri, 29 May 2026 04:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21F130CD82
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780028503; cv=none; b=EE+S78oCO/egHxk6wFBKS5nxcn/c2gM63AZZBpkxDJ8QYw18prilBA51uBxoC/jdIwlZxln2adBI7QXLp0rhkpjprZwF/KMuPkICnq8sTUy3kLPtaiwq4PB1zp+beB59H06rzCl1G1dyxdTCAlzMJ1QO+rRwDE8QzRNHXZhVfys=
+	t=1780029060; cv=none; b=Y3jq5HVC5FtvpolcDRePAw/AjxwlzGQjP1etLWQyqEPxZVadS6CBA278Eaejrhpow5t1gPhpngQzAniPVkprjalwheaGRBjvvoWxq4TS9DnDAftV2630V2FBPkJ1/xBw9ROc8lYtyCtyyzkkCl1a61N2lba4zHlorpD2bk3JLkY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780028503; c=relaxed/simple;
-	bh=d2cmOen4RyvEWkrqd/ZQWhOxCZUJBnB4IBGqXVS9FEQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=ITZIsEqImeVwhvq3i38BrTBiH3BBUpWV9x3YqGnFKG/kiQUMixpZ3lnbW60U4FRQ6zBsyGWyME7LKe0/zG6prrxSvNw2zCVgzJa39nwu7Kp734pG4mM7Guh73aGYlxjg1+/auF0G0shyzsykmjQAlINxtKNatDIK+Lr5dwkrwZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=DfdPuSR2; arc=none smtp.client-ip=220.197.32.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1780029060; c=relaxed/simple;
+	bh=RTu624FOaFYsSVqzRNcr94QrkGuIwKPpDR/vsnae1sY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=u3h/+BH+VVeuAoDbzriwIxWeraqkljWGcDMpl2NqIrAyU3TMnUoUE4uSihxNE9b1g1tdw0azvv7wSmNFusR2KkcczMvMxKu6r35aGAmZAdfqkTbh9qvAME+9DXIF1D/p6BpZcOyFrBJ+E07oTwRw+A+iw76thMAKkwJtqWCuHok=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1D48ruc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="DfdPuSR2"
-Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 404653bc6;
-	Fri, 29 May 2026 12:05:50 +0800 (GMT+08:00)
-From: Damon Ding <damon.ding@rock-chips.com>
-To: hjc@rock-chips.com,
-	heiko@sntech.de,
-	andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com,
-	cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com,
-	dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com,
-	dianders@chromium.org,
-	m.szyprowski@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>
-Subject: [PATCH v4 2/3] drm/bridge: analogix_dp: Add validation for samsung,lane-count property
-Date: Fri, 29 May 2026 12:05:29 +0800
-Message-Id: <20260529040530.741336-3-damon.ding@rock-chips.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529040530.741336-1-damon.ding@rock-chips.com>
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1D48ruc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 845D71F00893;
+	Fri, 29 May 2026 04:30:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780029059;
+	bh=X7FPX1IaTFbUqUIvOIe03z5wU1RLGWPHY8UrwiNFqzc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=h1D48ruch97nUnOymybKIz75tmHTTw8ZGXhe3AvjR1cSjZQzRKE8i3o4jPyMuR3Rk
+	 Uwq8Fun21YeQ1W0YeYttLIP0gpz9hQKcJZjbmZo2/FHDkbzxleBKJbaj8AjDdSLX1c
+	 cxabqvOEzg9uQ4LbiJDKSIvt/XaG6o8c/qe1Ilncr0pg+WFBydYKp9EydOywYtsn0X
+	 y+ewZaSuBKgMr7wL4r3TRX7xG5rIDSctp/+u4CFMWYnkxADS7cokS9jN7LWXgjCxyp
+	 MDDS3f7aFcuW3F6ubO1cCddiFVYd1QZ8CySd9647UwCfjRNr2Dkw7ei/uI3p/xXXwd
+	 UR7AJET/agh9A==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 6/7] pwm: tegra: Add support for Tegra264
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Mikko Perttunen" <mperttunen@nvidia.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260529-t264-pwm-v5-6-7bf9e405a96a@nvidia.com>
+References: <20260529-t264-pwm-v5-6-7bf9e405a96a@nvidia.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 04:30:58 +0000
+Message-Id: <20260529043059.845D71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e71e8eb0203a8kunmaf9a1d48e6c1d
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSE9CVkxITklCSh4YGhhDGFYVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=DfdPuSR2IE05HJwrYdcrDhvrb3baFXB3hECoW7hXsI7+DxcjIXaD5jhGrwdCL/3jr3hdWhXrjaRR4L3HzG8PKDrX7zpWxn8gMWS1bdKR6cblDWRZd3qxJxWi88l4hPrCEN2QyIVHPn7XP7pddJ+0BICUCFVDlnRZd7rwqN5rlns=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=Syj2RHvx/LpmGjzUXzJU++cXesHP0Q423pMH72UNJp4=;
-	h=date:mime-version:subject:message-id:from;
 
-Add range check for samsung,lane-count to avoid invalid values.
-Validation is only applied when the property exists to maintain
-backward compatibility.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The driver assumes a fixed PWM depth of 256 but fails to initializ=
+e the new configurable DEPTH register field on Tegra264, risking incorrect =
+PWM frequency and duty cycle.
+--
 
-Suggested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
----
- drivers/gpu/drm/bridge/analogix/analogix_dp_core.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+commit a215267521de0fbfc0019ea87d4d0d3a5d3250ea
+Author: Mikko Perttunen <mperttunen@nvidia.com>
 
-diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-index 8cf6b73bceac..699a7f380c56 100644
---- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-+++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
-@@ -1238,6 +1238,7 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- {
- 	struct device_node *dp_node = dp->dev->of_node;
- 	struct video_info *video_info = &dp->video_info;
-+	int ret;
- 
- 	switch (dp->plat_data->dev_type) {
- 	case RK3288_DP:
-@@ -1260,8 +1261,16 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
- 		 */
- 		of_property_read_u32(dp_node, "samsung,link-rate",
- 				     &video_info->max_link_rate);
--		of_property_read_u32(dp_node, "samsung,lane-count",
--				     &video_info->max_lane_count);
-+		ret = of_property_read_u32(dp_node, "samsung,lane-count",
-+					   &video_info->max_lane_count);
-+		if (!ret) {
-+			if (video_info->max_lane_count == 0 ||
-+			    video_info->max_lane_count > LANE_COUNT4) {
-+				dev_err(dp->dev, "samsung,lane-count = %d is out of range\n",
-+					video_info->max_lane_count);
-+				return -EINVAL;
-+			}
-+		}
- 		break;
- 	}
- 
--- 
-2.34.1
+pwm: tegra: Add support for Tegra264
 
+This patch adds support for the Tegra264 PWM controller. It introduces
+an enable_reg field to handle the relocated PWM_ENABLE bit in the new
+CSR_1 register for Tegra264 devices.
+
+> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
+> index 7c7b884d44363..50e72139cbc34 100644
+> --- a/drivers/pwm/pwm-tegra.c
+> +++ b/drivers/pwm/pwm-tegra.c
+[ ... ]
+> @@ -215,6 +257,7 @@ static int tegra_pwm_config(struct pwm_chip *chip, st=
+ruct pwm_device *pwm,
+> =20
+>  static int tegra_pwm_enable(struct pwm_chip *chip, struct pwm_device *pw=
+m)
+>  {
+> +	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
+>  	int rc =3D 0;
+>  	u32 val;
+> =20
+> @@ -222,20 +265,21 @@ static int tegra_pwm_enable(struct pwm_chip *chip, =
+struct pwm_device *pwm)
+>  	if (rc)
+>  		return rc;
+> =20
+> -	val =3D tegra_pwm_readl(pwm, TEGRA_PWM_CSR_0);
+> +	val =3D tegra_pwm_readl(pwm, pc->soc->enable_reg);
+>  	val |=3D TEGRA_PWM_ENABLE;
+> -	tegra_pwm_writel(pwm, TEGRA_PWM_CSR_0, val);
+> +	tegra_pwm_writel(pwm, pc->soc->enable_reg, val);
+
+[Severity: High]
+Could this cause a regression where the PWM output is left in a broken state
+if the hardware resets the DEPTH field to 0?
+
+The commit message notes that configurable depth will be supported in a
+later patch, and tegra_pwm_config() continues to use a hardcoded
+TEGRA_PWM_DEPTH of 256 for duty cycle and clock rate calculations.
+
+Since this read-modify-write only updates the ENB bit, if the CSR_1.DEPTH
+field defaults to 0 after a device reset, wouldn't the hardware divide by 1
+instead of 256?
+
+This seems like it would cause the PWM to operate at 256x the intended
+frequency, and any calculated duty cycle value would exceed the hardware's
+maximum depth. Should CSR_1.DEPTH be explicitly initialized to 255 here to
+safely match the software's TEGRA_PWM_DEPTH assumption?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-t264-pwm-v=
+5-0-7bf9e405a96a@nvidia.com?part=3D6
