@@ -1,142 +1,95 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98B8311C1B
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 13:07:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21B21684BE;
+	Fri, 29 May 2026 13:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780060032; cv=none; b=VRwF04J3LgA8ugny8dYff97ER8k4P+Y3S5cpPZ/vnCmblxi8QYF4PGfpG2HoAxQPyYcEdVb709GVaM1qXAyLyvP6j++t+RO6B0D470YxL3Begn7TcZeZJrkTNhZb3cNWB/Q9QDW0scxsw9SQeGg21PuKbcb7EueIbxFGL7DhPSg=
+	t=1780060046; cv=none; b=r+cdlY2A8/GZVv3fBll+FQkhFhEqrzauwMoOl0FyyDoYxtx/zZIofbBlpGAsL43HilG4dUxcuAzwjpzbeyd9+CYeYuZ7YTshJUtDp/LcP7Mb9bC6Gv5S3AR8VWUObMEZuQ63V//miv1YdBrI3/qKtEYC70lIsbcm5I5aylxQ3rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780060032; c=relaxed/simple;
-	bh=N4UM/OP4SW9Bw2QWwFILNnN7vVM6l0aqfGaJsxdPtig=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xf5vhnWL68PDW9KZHwXVet27fVCPlKAfONjzyieJ4Ugwqw46ICnORH56GaRKpg+Jj2hZqEBS9juOBHIp7eXUjNcMmVhXfWDr+zCoQbuygO6Y8UXlyMl0vNTO+pnWnWJRTZTZvvGVyCBc/1cLfpY80bTAB3btJNUQrWCoHqpZYZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QCk6/cP7; arc=none smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780060046; c=relaxed/simple;
+	bh=CAHgOCzI8ZtMcCDqiRL9o6tYMk9F6wVmA4dRR0mfbh0=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Oxg/j12Fm2EPupyZ02clKf5AwQogUsJcC+CA1k7smU8yrmr5u1pEadUzeu/CNDw+cMJ8Cyioh+YdtNEgH7ZDxdtSxOa950AtPe3xg+SGzO9hwCL9Gkd2QVsjki8wkcKPSgL9gb9W2Je/JPPE0WeXrySphms5QqO7LtM7ugmFcHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHv/EJZP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QCk6/cP7"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4904c1ce4c1so81182935e9.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 06:07:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780060029; x=1780664829; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Kbf7TH0BryRvZ27AZVS4u+b2U56NalYuvxhYtLCqWIE=;
-        b=QCk6/cP7szBOXHdOFYZRbHdyLG7FkQ5Az2sG2nVojixnoL19QnuVOFU0EzE8phy+sk
-         2u7M5nj0adg9AKlgi2cGKQIt82emr7Z0VuTLQ6otBUG8yQ3oQQwjbh4CEGWmSmIbpYnO
-         calbKKGrD/QWlbhJetkRSpFsa6MDOoxeHJZsceLlVDsN2EWvvbR7EI7GcaPjgFtnU2p5
-         DCZAhj/xyBobdwRJszd2k4VPVUVTP9iEM5pbssT+ivtlIJHWeqfZk7SdC4Tdo5Y3LKZp
-         UP5B3hNtUQM+zRN14iIrUe0zzBMOwNQl+TyMuR9Z80/BZ95O7TrUT8hVQpyY2g6+TzZI
-         JkIg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780060029; x=1780664829;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Kbf7TH0BryRvZ27AZVS4u+b2U56NalYuvxhYtLCqWIE=;
-        b=WEGUBU15PkS1PcxO7iCgzfLbUyKHbKUrRpnj7GFMYBcmzuJ9oBgrNufwyyNUQPmryG
-         sqr+hv8SMlgUyLDT/kZ9+msGs/kPhb0bg/h7Cvg5eWKd8Oce46W4b70p9ke5ScngB153
-         a4HOpeePD/GlhsdKc2HgHH9cnQQiTSy5pB1b9HM6W8HRB0NdIMXLDO6sHCuGViPVdqG6
-         O3JCdpN+8kQEsdIFK6MZkk/0G40f8sMDQli9szlNjt1h9mv84GpqbWL1eOovvR8jGGRs
-         aJxwgO1cPyKFT2fcN5MlOP6x7wWNuZdIwDI7GPNVCszy/u/adTzcvuqIZa7ZfZWeQZ1e
-         EcdA==
-X-Forwarded-Encrypted: i=1; AFNElJ+AV9Vrn19y/VCkqoxoI0HyswPvBfiDGiYld3aaxHU5HYtBnYX9X3Z7z0fWRGCtWvqADGU7WiN2rE0m@vger.kernel.org
-X-Gm-Message-State: AOJu0YyDGHSZnsvuU7Nbhg7osPN26D+DlY/SK8d2CaUD71ZPLfZxnuOu
-	M3FVAUOAz05IS0JTxT7wYhWTVPzfEZ2vVYb7BKSU74zSpF/GSPEdfeV6
-X-Gm-Gg: Acq92OFJN6tQ1DTr6YpqT2NLtqrtPHimVjxol8H7MDY3obVXB0tx7gW5oTfoYa2/AFI
-	mMcf2ILMz/tr/iN4YeDrF6J7IGsMN8xQ99VJjdogRd3tEqtVXXN4HsorpOZVzAeVTdK9p5D5FtW
-	i3gNywah3ptpMjsdIKv7QN7pRQVKsOp6bI3fKf7hDgzKivXS6ecjAXHfKV8EYJz57puFLRoLzcR
-	AXC7NWC5ojCEcpCCWUD29qS8sLxve7HulMzImRATRWXeJdsJZ3dvg/gcOfeqqmyfahtmtPVQQYE
-	eeRs+3FPTo/AHvK6qNouMlEw5qAFuEu4QgkTkinC+R3YiKT0kuP7Pd8MXd7ot6jj335XE0H6Kap
-	+KEhB/XLj7k9FH4XsMfo81NsmXDGkA4hy8AqkLOaMKUwGlSzhpssXR3zxB0QJL1HgMWYY9HJzAw
-	XoOA0WKq2dn/hjNBmzer3nkmnQo0fr/J8xKCjEXTLDCsTc15VcKU3JHVUai1A=
-X-Received: by 2002:a05:600c:4815:b0:488:b187:3c with SMTP id 5b1f17b1804b1-4909c088fd9mr29652175e9.14.1780060028867;
-        Fri, 29 May 2026 06:07:08 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a700:7301:df4f:8f31:69aa:c094])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909dff2a80sm45247225e9.3.2026.05.29.06.07.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 06:07:08 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v2 2/2] arm64: dts: renesas: r9a08g046l48-smarc: Enable RSPI2
-Date: Fri, 29 May 2026 14:07:01 +0100
-Message-ID: <20260529130704.327505-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260529130704.327505-1-biju.das.jz@bp.renesas.com>
-References: <20260529130704.327505-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHv/EJZP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BFD51F00898;
+	Fri, 29 May 2026 13:07:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780060045;
+	bh=lS5EIhTABeMXjRYBFC+63t0Oqm4TW990BTocB+jyLQQ=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hHv/EJZP3YqTS5J5oDld70x8J6fqY6lUbQl0NFDwjjO55kqZ8mbhDcgYydn3zooD5
+	 QDb6kPFsTbEy/i9pKmvCxY11Yfwr1zEzgSSj2q055sL1nWunh55nsb3+kgKL8FAQnJ
+	 pVz7b07AcM5FlC6Wi2jz4848fbQ0DGtXcF1e6bsC1XuCydFo2SKP9xW4XS1m8o1ziO
+	 lfEY33caGXbOCjWF30oZwx9lczPx+5HY5U85bzDwnKV/NjrlB/Uu6dF1d9Zh3x1Gp1
+	 RpGhLOvcprHYw6mnazdOztYGKWBM6rKucAx8WPFaMHlfRNsx3tcq4ukZzAnQeEzqia
+	 3KslEi5qcvFBg==
+Date: Fri, 29 May 2026 14:07:16 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Kim Jinseob <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v2 7/7] MAINTAINERS: add Open Sensor Fusion IIO
+ driver
+Message-ID: <20260529140716.1c3a9afd@jic23-huawei>
+In-Reply-To: <CALMSewL7RvTSet3DSk7cQ5Lqi+EDduUOSAVK=vZ5TKz65_9qyg@mail.gmail.com>
+References: <20260524085312.15369-1-kimjinseob88@gmail.com>
+	<20260524085312.15369-8-kimjinseob88@gmail.com>
+	<20260528153126.7be7c765@jic23-huawei>
+	<CALMSewL7RvTSet3DSk7cQ5Lqi+EDduUOSAVK=vZ5TKz65_9qyg@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On Fri, 29 May 2026 21:51:06 +0900
+Kim Jinseob <kimjinseob88@gmail.com> wrote:
 
-Enable RSPI2 on the RZ/G3L SMARC EVK board by adding pin control
-configuration and activating the rspi2 node.
+> On Thu, May 28, 2026 at 11:31:00PM +0100, Jonathan Cameron wrote:
+> 
+> > As noted, no need for lists. The appropriate catch all listings in
+> > maintainers cover IIO and DT-bindings.  
+> 
+> Addressed in RFC v3.
+> 
+> I dropped the explicit linux-iio and devicetree list entries from the new
+> MAINTAINERS section.
+> 
+> > Bring this in with the first file, then update as you add additional files.  
+> 
+> Addressed in RFC v3.
+> 
+> I removed the standalone MAINTAINERS patch and folded the MAINTAINERS updates
+> into the patches that add the corresponding files.
+> 
+> Thanks
+> 
+> Jinseob
 
-The RSPI2 pins are shared with the DPI display interface and the
-two cannot be used simultaneously and it is controlled by a switch
-SW_DPI_EN.
+Hi.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
----
-v1->v2:
- * Collected tag.
----
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 19 +++++++++++++++++++
- 1 file changed, 19 insertions(+)
+A few kernel process things.
+1) Don't reply just to say you have address comments - if you are saying that
+   for some things in an email, then crop the rest of the quoted text.
+   Keep thanks, and how you change it for the next version of the patch, mostly
+   in the change log.
+2) Slow down a bit - I'd leave at least a week on the list between early versions
+   of a patch set of this complexity.  You might have received some more review
+   before writing v3 or discussion might be continued on any feedback you commented
+   on (I didn't spot any but maybe lack of cropping meant I missed it?)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 3ce24b66cb8d..624fcaea350f 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -162,6 +162,14 @@ rsci3_pins: rsci3 {
- 		power-source = <1800>;
- 	};
- 
-+	rspi2_pins: rspi2 {
-+		pinmux = <RZG3L_PORT_PINMUX(6, 0, 2)>, /* RSPI2_MISO */
-+			 <RZG3L_PORT_PINMUX(6, 1, 2)>, /* RSPI2_MOSI */
-+			 <RZG3L_PORT_PINMUX(6, 2, 2)>, /* RSPI2_SCK */
-+			 <RZG3L_PORT_PINMUX(6, 3, 2)>; /* RSPI2_SSLA */
-+			 power-source = <1800>;
-+	};
-+
- 	scif0_pins: scif0 {
- 		pins = "SCIF0_TXD", "SCIF0_RXD";
- 		power-source = <1800>;
-@@ -222,3 +230,14 @@ &ssi0 {
- 	status = "okay";
- };
- #endif
-+
-+#if !SW_DPI_EN
-+&rspi2 {
-+	pinctrl-0 = <&rspi2_pins>;
-+	pinctrl-names = "default";
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	status = "okay";
-+};
-+#endif
--- 
-2.43.0
+
+Thanks,
+
+Jonathan
 
