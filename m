@@ -1,80 +1,80 @@
-Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
+Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD528134C
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 100DD2D46B3
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:52:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780059080; cv=pass; b=rGdvCTGgg87oPMG9AOZQbsu4IrkyIznmaxvn3qBbtszjGfvFlani/4zpGqnFIvOf/z6UVVaa199uO2LTRDtK+HDE1dfyljnYVdq7ZzQ4rx5H9K7z6K4Y+BYAEAy309I7BBNfFnbi8on2CxqnZ/2z/T3HkEu7QiFRQLZrq3nbKGg=
+	t=1780059158; cv=pass; b=szT7szXFSH2R6gxrAuFFHvS63jnjuDKVfEx+exReW0txFC2b8Urrj/dg8zg6Qym9BVPa3he67D2zHCwT5k+Sp94ixUEn6S2WvB0JYCpBfou6zRP3qnVVYQPayFLXL+Q/u7fcVy3yJlY26QH4GJ/UChBL8pwjMHAUicF2KhNBvrs=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780059080; c=relaxed/simple;
-	bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
+	s=arc-20240116; t=1780059158; c=relaxed/simple;
+	bh=YTKSyjfM1aCnF/fsctlBeRA3k3Js+B+P61PpTYUydDI=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Qi94OFkYcZjFmWIJdi1EkAnIxHSwStqeh4lWbgP00P0rtyOcFJODzed+7214wwbAe29820A/MOQZPVfgc6xYXl/qIUgtJiZaNm2eoqFP9gfqcrWtWgUgG/nvYS6F7EXBDE0KRZekgZEAQ5Su0QJvVzVbsIIE2nQL0jv9h4+UGvk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vj6DigeZ; arc=pass smtp.client-ip=74.125.82.169
+	 To:Cc:Content-Type; b=pcY/Si6e+ok5nn5H7g73ixFoCY+OG2DEjgbKx5Y2KivORJXnLsg8H7VEQFvoF57cY6fJT458S4q6QTLwzJX1D8Dte1appZQILGHvP/jbWYcYePV0EVEcFuW/DAl6hfIUsEPhxXuSNYUlsjbq7kyZkm0uYTC5fokePN8x3OKdoWA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nP5RzSDt; arc=pass smtp.client-ip=74.125.82.173
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vj6DigeZ"
-Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-304b8ced372so4455061eec.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:51:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780059078; cv=none;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nP5RzSDt"
+Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-304ddfcf72cso1645931eec.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:52:32 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780059152; cv=none;
         d=google.com; s=arc-20240605;
-        b=VVizqNXUL8ScHAZcH1A1dGEhgGXQkB5M4MK3eGtp2h55rHM8xKlzr07PKbQcw9WDkd
-         qHnLo0eJW7jYIN6s6yr8rsuXVim7Ob9OtG+NXKJcMzaZbTWqPZhSeKISI5oI3gmwxJdC
-         02hduONZf1cJuaDb0YahikcmEqjtvaSgtV4qFOFe9bhzpfCU/u9eMk6vQCB/wzcyzeHW
-         NsLuy0Gmh+FvfPzcuIzEw+l/PglPo2uKqZwuQEY5s2JqPHwUdSR1mEkThqkLcryvY42z
-         yfc1+b6tgZAQc6tId1hCreciqauqKgDHLAMIavYKz+mwYJ95jVifkY63MR/fXSM4b45V
-         lIDw==
+        b=ixm5BmbYcIF05pxQo3gVkFVOVfe+OYdpTJb501nG0f4pfRIXw0thkiYyfWdDPChbsu
+         JlZ1b80jZ+r/qWYDp5prZ2xbFNs8QHoqYrExhO2JM1BpCeQPeSOr+GorGA88uRLR1Kt/
+         XQ2bb8nObK5VUxIeLzjNIw/26Xn5NVunpi9E8g/MJjGd5j+14m5r18IrI1HgWbnu6qco
+         WegsHj0BHItz0q3DT0YO6wGT95vx1izULjarUctT4e3l7Rr1AN9p7Bc2SWgl5vJIxN/b
+         UBeGGB2/ZHC3Usk24prd4PA/ifh9LNdZJIqNo0RpnP1nagVCcjWnVlC9OzEYwtnC6jsN
+         Ed+Q==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:dkim-signature;
-        bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
-        fh=dEomsSBLquwCR217ceap/DHCcJHnH6bYXlNj2RPeUGY=;
-        b=kRAIAWLk/F9t1Wx8rAp0FbKIVDEJE550D2Mit4fF6avKYs2OXcjcDZlbgb7L0VYd0a
-         9rTuCoy6AEqnvKiw4T6WLMeFlDIbLRgHfdh2va5OpP2VvevvaA1TggCiHzwGhxehXikX
-         4hAora8z8/OfE+/me1R4jP0kUrggNQOCXG0rfml3gySz8uTXoRpojVpt7ZMNbgHNKnpR
-         7auXx4I1xf6Ssdy3LjtF31Vk3ISDC31Qqbl6X7AOvCKUn3UhJSEoyScpbr1wGNsSJTTg
-         Kj7N2s8JhXdEW+gckN5Do6McOpASc579NLHSLK1CzWQ9Hs2zGM8AwqbAYUte6ukjETLq
-         AiGQ==;
+        bh=6N0Dxr90tSGN8D06PZxqcdaObrRzD2iypgyadxATbBQ=;
+        fh=j/K2FBQEGi4Ute4JVIRRxYsjkw60Iibc18zQI9yyPC0=;
+        b=dzSPh8D5vNANP0uegCZLArMJLFtugGpMDn86Iy9n+ht3vkBRgnRlNMlmPMeFGKjMDH
+         Oa2bsDa8TJeuUHlj4q2kXC77anZegTmnmuukkkyMUoPbRjHqX6zIOq/dpE+zvU6ZJwEE
+         C6t3n/3r7SCNH5WeoX4DmrxBptM/mAJLQGZ6iE+J9L8PlqN5bHjcYeMrJcq/AXXfjcXV
+         ugaE62ARM0tfIQx3TpH6bRdmKOwXDM1LxZtSD3A2LYr3j9BxeOstB5ayz9/tGk957f2B
+         7SsIfg9EileDJTPyURD2co621VaydZULJUq9lHFrwk0vWasLghICupdDyB2e8+YG6gHx
+         hw/A==;
         darn=vger.kernel.org
 ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780059078; x=1780663878; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780059152; x=1780663952; darn=vger.kernel.org;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
-        b=Vj6DigeZ4VYTLHSS0Ct8oI6PY7PEhHkPmSNBVaXxmkgyD0LpvFgbkfevU3di7JhBOR
-         bzZwZ+F1btjPbZz0/O3IT+Gv6ge5wL4Wxos1f7U5fwvhK+VeZSLY8HM865KLvkvvki9c
-         LIC152QURm7E0lVUcrs7IpVblyxiwg8VfI7PXNqLj8ANRpH2fcyybEARWnQ3gDDimb6f
-         7nEEQHWWY3QS+06QCms6pPBgzBHDoRx4BkgWUkMHsG/vHOlUg/9waKL0gNXUPT1aBQ7c
-         ccb8exeCXFi+UjFvXpmBb2fuWJQtN5BxLN7TW6Md3zWLoNX39wf1ryCXwpjQlqMCSPMh
-         2QDg==
+        bh=6N0Dxr90tSGN8D06PZxqcdaObrRzD2iypgyadxATbBQ=;
+        b=nP5RzSDt1lEEnviNJqjBSaThTs0bmG8qYg60QaXoOjXQh/ezk5OmmFNoWEy2mBToha
+         gLBGgewKC6hIW5l7B3NbPJEq0N3Lu2G2S1ZNryO+cPwpySQ/i/GEboLKhH/fejnnOTpT
+         SlovXwonuW/7NSD+/zoF1rlWb7DahOa5eFjcFaYCU6qYFLY1vXinATCWqMpBtnMFX9EI
+         kzHPi1qYhmSn4JGI37sicoGtGUPhaWunaTUOOyfFv8HMfz9PAQwTKjsNDxmWNXB/PUYY
+         rfiQ8buLEo7pnK+/mIOHFjIY04HlLCtqh4XQCWyLj1VgozUoSYOiIB76vUG9oV1/ece4
+         uPUA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780059078; x=1780663878;
+        d=1e100.net; s=20251104; t=1780059152; x=1780663952;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
-        b=AAc5UVpE3EgdR2+6ei8ES5u3iC/zzpO7gkTW+LKj47QrwBF7wn+RuF5XXW9qP/Fv9o
-         97pdk3KFaSw2K5S1d1QJ7TbEkvO7sGFeo6+/Ogk+x2/O72mzM9eq+TTZ6sDhDqHklaay
-         1+CEEQnleHT7vH6fBdRHlHZxYnVs9BzUy2MrIt9sIzsI3R015yVyWlbAJwB3DUYYZz8q
-         Yrl00wgYeSfcy6HzR9zBmIpvrtLbZr3/74oBh1n9OEWXxbvAjqViSI8Mv3AMzKlPciPn
-         Yhnd9SchxRr3lSmF6K9wxwUjkJcbldTiroFmLpP8lATufzT9cA9GLKcmG9hrrC4/C38V
-         tpTg==
-X-Forwarded-Encrypted: i=1; AFNElJ9FmBHE5tUQhMhnL0ywGq4pP5tfTDKG46eqLLMv9cCJPqPBvjigWAZQanPKaq/bOaVmXQvlWtmStxVP@vger.kernel.org
-X-Gm-Message-State: AOJu0YwFkF3Q+SDltOFMZJo0/kG4QKfpvgxLpXhFEopUxxsHUGSPMj4X
-	DjiEuGLiK5iw2GdmIkRj7Gt7o5Ds1EyB5gLLH3Mklpbs1n0EkXLLH3AfsKwj+C29iwZEsdWZdee
-	tMGmfbZ/TagIXQjJA148E1L1BrqQUzRE=
-X-Gm-Gg: Acq92OG29rEdP4TzXUm/RrHaoQxPxnwjbr9s/fcsBTMzcgKrG5n/ofNCfoBp7HsCf1w
-	Mbd60/xfF9ks+s/CcZZTJZTUtcp8sO29T/EwwomgeBb0XEVNYc0wuPdgKinyL6e8a9m8aXvENc6
-	OY6I5GdMHAHu7v0XWRajwZpNNbarBro/W6cZiEO1WtVPERkgMxEAAHTodYe9ZCufU9SOF8K5lMI
-	LCMG/G+44JCfVOPhYokoDgI6u2FF9agK6TYIW2C4fO15BHXrFAAZ+QLP7DUB1f7uhqurMH59fQ5
-	F2+DK22sMzsoS1R/+A///WYpR8Uee1fITzroHJ9Tw+lUYSpvjPkRkNjZp8jZqNAMPftzIfyS6Gm
-	EHoUdOA==
-X-Received: by 2002:a05:7300:bc0b:b0:2da:2ec2:64e5 with SMTP id
- 5a478bee46e88-304eb17d833mr1328199eec.18.1780059078543; Fri, 29 May 2026
- 05:51:18 -0700 (PDT)
+        bh=6N0Dxr90tSGN8D06PZxqcdaObrRzD2iypgyadxATbBQ=;
+        b=msA6CZ1rKmUAejaoIaMgT9C5QxGWAy0EXS4prlTvGkdBZOIVreHh2q85suFP+jIL6V
+         X3BqZIo+30dFyW7k4oINUegquBk0FwECWKGkqGBweb/ZU7rzbhcvfKLOQ4yLu9mQV96c
+         aJwGYjMpBKqs7cQpKvCicM3bGhCMdxNGlowNrjWZHGysfCXTNc+yiGMTcmkCt5gKM8z4
+         XdQsR/dW3dsRs9VpEg3cSTQ4mAuiS7Y3BpBOI7+3WJqp74/JgZNiHAZX4UFyTr8GqpYt
+         xim9OHDlHm6KVI0ybWTfnYh28jU+8U1SIhWg3KJh7Wt4GT+AR3B7vV0+ID6bRC00QnO9
+         H9NA==
+X-Forwarded-Encrypted: i=1; AFNElJ9JEXNsw7DCxk9arEK7OPkTn2w6lJnz0JIynI08xi75UM2Zi9uMQZN4O9D/ZRZGvWjib/GEYrC1JdcM@vger.kernel.org
+X-Gm-Message-State: AOJu0YwHCDadqZ/0Tm4Wb1orjlTLRsRVmYtKpCbFO42IYhXHp41PY9d8
+	8t8eSaXS6MDO8IoBFzwrqlR0Og6cWqXnK2QNhawU0JTR4clgZfvjaelfj1UTbMlvNxyGGHGO7Om
+	yZZok52ina8in7wBRGVNgNH1kHJs1/Ao=
+X-Gm-Gg: Acq92OEVqlFc9seO25xEdyVwLv2gieLb7FzAiTZhMd6Y0lUIoawxP72N7KAt04OA74h
+	87wYOiYzE4kkp96hha5Z70EBBFmVHb6yTlXF5spXJfUZk720yWH7a6U31Hsq4VYX9q2MKLqzFVu
+	MuCCHi83Nt2dYwyrBlpC/utYBBLTYRrXRQYJktU8abY1xGkjZ+g2W8p73LuZVf2JeCLo8Xe3faN
+	bPglOMTwr+K/9YTtz3ya+1w74/apdNEW5KYl1EScMzjHSNdYB2AgdXN9WuS5NTwo2dEGsgycs3N
+	nTrLf284mPYbqhLJnm3LADrsdbhdmnlJlbx1ztuUMhYswMngCGoDoMmK7a/5i1ejVArdhBV9UUn
+	+N5qIxQ==
+X-Received: by 2002:a05:7300:6c28:b0:304:cefc:5fe3 with SMTP id
+ 5a478bee46e88-304eb0d7e2fmr1270278eec.18.1780059151866; Fri, 29 May 2026
+ 05:52:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -82,13 +82,15 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 References: <20260524085312.15369-1-kimjinseob88@gmail.com>
- <20260524085312.15369-8-kimjinseob88@gmail.com> <20260528153126.7be7c765@jic23-huawei>
-In-Reply-To: <20260528153126.7be7c765@jic23-huawei>
+ <20260524085312.15369-3-kimjinseob88@gmail.com> <20260528142803.15e3ff83@jic23-huawei>
+ <CALMSew+3RVXxLJYtr3HkV7UeAf6Mqx6PpA2CehChoVaMFddpJw@mail.gmail.com>
+In-Reply-To: <CALMSew+3RVXxLJYtr3HkV7UeAf6Mqx6PpA2CehChoVaMFddpJw@mail.gmail.com>
 From: Kim Jinseob <kimjinseob88@gmail.com>
-Date: Fri, 29 May 2026 21:51:06 +0900
-X-Gm-Features: AVHnY4Ln9TX6I_0W0MRyaA3N1oy1elL0wOv-HXney8IDZR5wMdYVBqFAwE78op0
-Message-ID: <CALMSewL7RvTSet3DSk7cQ5Lqi+EDduUOSAVK=vZ5TKz65_9qyg@mail.gmail.com>
-Subject: Re: [PATCH RFC v2 7/7] MAINTAINERS: add Open Sensor Fusion IIO driver
+Date: Fri, 29 May 2026 21:52:20 +0900
+X-Gm-Features: AVHnY4IH03ffAVGcDvOGGjSAXSpJWUGRln-tfw0E4es2Op9aZsxsbd9lCLC0GvM
+Message-ID: <CALMSew+gVfGS5RJN2ccYiF0Rs+Eia_QM1xJ9NU4=aXubhTFTaQ@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 2/7] Documentation: iio: add Open Sensor Fusion
+ protocol v0 reference
 To: Jonathan Cameron <jic23@kernel.org>
 Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
 	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
@@ -97,22 +99,53 @@ Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>,
 	linux-kernel@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 
-On Thu, May 28, 2026 at 11:31:00PM +0100, Jonathan Cameron wrote:
+Sorry, resending in plain text.
 
-> As noted, no need for lists. The appropriate catch all listings in
-> maintainers cover IIO and DT-bindings.
-
-Addressed in RFC v3.
-
-I dropped the explicit linux-iio and devicetree list entries from the new
-MAINTAINERS section.
-
-> Bring this in with the first file, then update as you add additional files.
+> Can we have some background information. Where does this OSF thing come from?
+> Is it a general standard or something you are personally developing?
+> Some links would definitely help.
 
 Addressed in RFC v3.
 
-I removed the standalone MAINTAINERS patch and folded the MAINTAINERS updates
-into the patches that add the corresponding files.
+I added a Background section and public project links. I also clarified that
+OSF0 is not a general standard, but the current wire format used by the Open
+Sensor Fusion project and by this RFC driver.
+
+The public links are now included in the documentation and cover letter:
+
+https://www.opensensorfusion.org/
+https://github.com/opensensorfusion
+https://github.com/opensensorfusion/opensensorfusion-hardware
+https://github.com/opensensorfusion/opensensorfusion-linux
+
+> s32 given this is kernel code and i'm not sure what else this is referring to.
+
+Addressed in RFC v3. I changed the kernel-facing wording to use s32.
+
+> Not sure that is meaninful given expectation that there will be channels.
+> I'd describe it as a payload header, or express this as 16 + 4 * channel_count
+
+Addressed in RFC v3. The SENSOR_SAMPLE payload is now described as a 16-byte
+payload header followed by 4 * channel_count bytes of s32 channel data.
+
+> Is this spec defined, or just what the driver supports?
+> I think this doc needs to distinguish between those two cases
+> more clearly.
+
+Addressed in RFC v3 I separated the OSF0 wire format description from the
+subset currently supported by this RFC driver.
+
+
+> Is there likely to be a non trivial delay?  If so we should figure out how to use
+> that timestamp to get something more useful.
+
+Addressed in RFC v3. I clarified that timestamp_us is a device-side timestamp
+and that the current RFC driver does not claim production-grade host/device
+timestamp correlation.
+
+> What is AHRS?  I'd spell it out.
+
+Addressed in RFC v3 as Attitude and Heading Reference System (AHRS).
 
 Thanks
 
