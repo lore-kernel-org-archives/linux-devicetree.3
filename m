@@ -1,116 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BADB2351C2D
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5825F2E738D
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:13:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780041684; cv=none; b=SdCxSC8x7ukeyVhzDsJT+783CLFPc9oTi1t6DJ0MCTizhokxC3EGco11xTqTyqRfRn5dmsFxab4WbuAtWXL3c7/XJtpOuO0Lez6+S/hIB6wz4gmM2OV2G4PGhKIequlsmfNDruULzbe3KpzBfPz7A2xuIRMYbGWMFk3KWEIMoLI=
+	t=1780042438; cv=none; b=MFwOMob5/7mD1xol6PKxBBIrO3GNv+YqDhH+VT4+VCXjrJZMmQeTj8e4VW60OOpuOnMdSGVI5Ojy/LMhrWLHd8HG7524n3TKIuI0M8XRU8yXjSvF4nkenFox8xGasLB3oY0II4SWNLURM1vEeo7RM+MDvrdkmZ/5AXemOtdEnYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780041684; c=relaxed/simple;
-	bh=KZnh/sIbmjXot/AG6HYfnrJqekMUpeAZQ7q7WQU2zLk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FayO8F+sIBwsm72ij5kyIr/6eVAmnSAHPNlCZrh2uIDmfZleB7AlhhVXyvXdGNv/BZ/7+8m0sG8swg6odzPHl8rCHSJlYla0HN0wx9paLgRQYddF6nRL4LY3Zwsiz6gSRbIoZQHMak+0IEjGAz1pgmtozenULhv0d+uG+uWOFVY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U1bbjQyo; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U1bbjQyo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D8FE1F00893;
-	Fri, 29 May 2026 08:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780041683;
-	bh=HLonyZMich28Ub0fq8UUYE23Ggx1wcepVCJbL2/RjIs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U1bbjQyoLKzlOM8QMMKvbzevKYJ77zwAEmnzaI7cl0cVkINjT9oh903gYhErRD5Nm
-	 Dby4pClCXH6Zk+irhLgqVApgwS/f1rrRCD300c/k7HPJBxAS54R9dItP8AuUbYHeYM
-	 nHAov7Yt24ybFN+q37XJRZ8H1a2FrIquoFWifvyV8igbP+MaATWx6s+GbfZH9WM3WC
-	 DeKvbknERNFWTpWBFTCPQ6bvA6dJ5lOspz5yJMCxfMqMgtq9pPyolNCLxhlB9SmZdt
-	 YVqvp7Fgx/fKDJiNhse9htS6/Lmllt83DPREB01WBPzBdWBwLY5WlX9LsEUx4moJOr
-	 juvAuS69jWfrw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 1/5] dt-bindings: media: qcom,sm8550-iris: Add
- X1P42100 compatible
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wangao Wang" <wangao.wang@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529-enable_iris_on_purwa-v8-1-b1b9670459ab@oss.qualcomm.com>
-References: <20260529-enable_iris_on_purwa-v8-1-b1b9670459ab@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 08:01:22 +0000
-Message-Id: <20260529080123.3D8FE1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780042438; c=relaxed/simple;
+	bh=ksVv1Z3kxdSomKXTAzAruPJr22j42V9L+ZrAtYZ/f6k=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qxc1ie0dm3Th7XEK1Y0S7R2uiA5pMQobZTiTI2beauioQitH75nKZ291hCU0NS/jPjNusnnGo4YbS0azHuYlkKGFVEhdLvz3tsCed+CU4CuhXLt1ZocAI6QknfAe13y5gVxmxCAqYQqka41qsphbqLTT+au88AI3P35vxF069qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5752b279662so4890579e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:13:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780042435; x=1780647235;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=A4O1rGAxVnzbuU02bFkeBc3pYMVxSZfJuH3Ds5fZ03M=;
+        b=tPeuHj2+EYwF0ydNJA2680pJeX68Do+eCAkMIZ2g4aV8+adBQvAEMMnWNvKhbAZ6/U
+         ZpASMhwUJmDBFDfQSXX6LR9LsSLdfWDdZQFQc/x5BFO/r2+57XGDAHzklwdXwHP3Gimu
+         OgJ0FM0wcPyqWizkMp7Yi547xAD5Lex4M7KTKENOadbqTs2E7PsK9RfHdyNaL2GZg0z3
+         7qPxQ0A/j8xkqAkTfz0DP4XtjLiPu8TfcP+1dpG0fTuQQAznsw5pZSJddNQuHyO951Ci
+         rzafEvgonmX0+mOTBiTy368pS4XVDDbO0jjS093DY/Qi19cV5+nvkZMWbS0vwyHDEBbV
+         bnJg==
+X-Forwarded-Encrypted: i=1; AFNElJ+cW5i4Df/6hHc8ULkio4YkK4EXEMFagR4p8OPmiz2WFNO9eP1lp4UH7qsX0m/v6RW5Wn5hFsinvxgW@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxVSTgS74OgqSl20E24whXktzUEbX3CgP9NsMatpvcfWHOyhPW
+	qUNk3PML3q0brRb0ZIw52IzjtweT1mp1BQfoEhogrmQgLxpEsb1Rpo0H9vV9ZaoRpJM=
+X-Gm-Gg: Acq92OHuTQ6NmEaR1B3QWeTsTVrNwtZjajGBuKjbFzDTjv2R/8FPk3DEZXDJO1cbN28
+	3MpMZN/W4SGPzT86ZHmAZ3BSosk+SsY0kCrNQjGkooMcGzzpmHCf4qzMa5n09b+++6NxjQONpzO
+	GDQVHUUB+pRwWLEiLfECS/9UomRxTgeW+R2FpBUGgElVvv6BGtxhwrddsGWPd3iff15ar58iCPN
+	bfKzsL2/MEl2zDRjj3h7MaSyIrmMcecMHskkb/eLYvuM6F0hct9kMRwQR1zRfOoX6Z/GWmxIoQF
+	lXUjZgzDAXDlEGHDx/ZjfJ9sQDSMeUQMvFnM2idv8GwirK98s3p6bzw1ikZ7foHPLKqqFU+JrAB
+	EMo4ycU0D/Hk19FX+cKn0XLUByD15yOOhyO/myrIb+GwBL+4PUh3l7IhVlJ4qIG8OY9kiPejNoP
+	hUTO3WP2ofzveOGjprrXsWifPrQp+BICYFU2bjWi5+rpsQOVKPzUq2H96DR4AAO/xJdtsxFhU=
+X-Received: by 2002:a05:6122:829f:b0:575:3433:bb34 with SMTP id 71dfb90a1353d-599f1da910amr496056e0c.7.1780042435182;
+        Fri, 29 May 2026 01:13:55 -0700 (PDT)
+Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-599d3c9649asm736706e0c.1.2026.05.29.01.13.54
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 01:13:54 -0700 (PDT)
+Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so2035791241.1
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:13:54 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+VVTHFgdjW22CSTsS80iLePimur5CSaUJ9DqMeiSiQy9en/BX34NyRTNtLcjruzDoFpnKPDch5GOCL@vger.kernel.org
+X-Received: by 2002:a05:6102:61cb:20b0:6c3:1d6c:2800 with SMTP id
+ ada2fe7eead31-6c31d6c2c3emr22326137.5.1780042434281; Fri, 29 May 2026
+ 01:13:54 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260519075620.4128-1-wsa+renesas@sang-engineering.com> <20260519075620.4128-2-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260519075620.4128-2-wsa+renesas@sang-engineering.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 29 May 2026 10:13:42 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXn2i9K64NC47VV7GRQZbPrFq5aom2wMjFNsyFzLxUC9Q@mail.gmail.com>
+X-Gm-Features: AVHnY4I8_LolE-354sAuXX9KsfKM2PHDXb13x_jgzOFpxUa6Rman_8lcR8iFUUg
+Message-ID: <CAMuHMdXn2i9K64NC47VV7GRQZbPrFq5aom2wMjFNsyFzLxUC9Q@mail.gmail.com>
+Subject: Re: [PATCH v2 1/2] dt-bindings: soc: renesas: mfis: add R-Car V4H/V4M support
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] Missing required properties in the conditional block for `qcom,x=
-1p42100-iris` allows incomplete device tree nodes to pass validation.
-- [Medium] Broken schema conditional matching for `qcom,x1p42100-iris` caus=
-es valid device tree nodes to fail validation.
---
+On Tue, 19 May 2026 at 09:56, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> The above SoCs have only 12 mailboxes and do not have an extra register
+> space for mailboxes. Everything is contained in the common register set.
+> In addition to adding these SoCs, the other entries get updated to
+> enforce 2 register spaces and their specific number of interrupts.
+>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
 
-commit f911896de9da99ee2b5652949237c15bf6d78f44
-Author: Wangao Wang <wangao.wang@oss.qualcomm.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-dt-bindings: media: qcom,sm8550-iris: Add X1P42100 compatible
+Gr{oetje,eeting}s,
 
-Document the new compatible string "qcom,x1p42100-iris". Unlike SM8550 where
-the BSE is clocked implicitly, x1p42100 exposes a dedicated BSE clock that
-requires explicit configuration.
+                        Geert
 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
-l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> index 9c4b760508b50..0400ca1bff05d 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[ ... ]
-
-> @@ -115,6 +119,23 @@ allOf:
->            maxItems: 1
->          reset-names:
->            maxItems: 1
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - qcom,x1p42100-iris
-
-[Severity: Medium]
-Should this use "contains: enum" or "contains: const" instead of a direct
-enum match?
-
-Since the compatible property is evaluated as an array of strings in device
-tree validation, a direct enum match will fail against an array. This could
-cause the condition to always evaluate to false, falling through to the else
-block which restricts clocks to maxItems: 3, causing correctly configured
-nodes to fail validation.
-
-> +    then:
-> +      properties:
-> +        clocks:
-> +          minItems: 4
-> +        clock-names:
-> +          minItems: 4
-
-[Severity: Medium]
-Since minItems constraints only apply if the property is actually present,
-should clocks and clock-names be added to a required list in this block?
-
-Without them, a device tree node omitting the clocks entirely might silently
-pass schema validation, even though the fourth clock is mandatory for this
-variant to operate.
-
-> +    else:
-> +      properties:
-> +        clocks:
-> +          maxItems: 3
-> +        clock-names:
-> +          maxItems: 3
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-enable_iri=
-s_on_purwa-v8-0-b1b9670459ab@oss.qualcomm.com?part=3D1
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
