@@ -1,95 +1,109 @@
-Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B733BCD1C
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:31:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B1E13BD64D
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:37:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780047086; cv=none; b=NVJDy2bAkxzu0nHzrEBmg/Kkb/uhqGTHRGJjN5ZYNudrrr/7jtdDIFinLWfnYMLBjzSM99QN3G+DMA/hFcKepWg1ZqCl3/z/6hMgwzWunyx7NwsoV2UnRLiUwSNfx4iVW/rBWg5Mxp1wzaFj0QV9HRoIaNrYXWyvnOPds7KtRO0=
+	t=1780047439; cv=none; b=sGIR7D1Wyc2vtbmadQbOdQiuOgLzx8PtKOapjgc3IklVr1fyMHlYF9zSy9xWH6pHKcu5VxZUkoFr1UQxpQ5bc8vnHjlTdF1BEm6Bod0AQshCD3jICXIx6AWTPxYvZyQ/5TLAThttwJIHT6B8meN4hQHzoPAnpGtkZxU4BE8anJM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780047086; c=relaxed/simple;
-	bh=fkaQRWlguE1XcB8+mrrOiMJJfeTRiMx6aKZNUDiyeY0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WgMlEUnWMSVhiCSSrJhD/jZHDEHaGTbtTnx2q5IVx0Np6swi5a+JgKWXhvUkeyrId1PcFQU2cZqlRkUszHBH+HGH3CjPJrCejmkWJ0xMhDDb1TOUTnOYQHEnfYo8Jl+biI9jonhgKimZyA4fMrGLa4JPh522jCZOULkTapvvKdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-57512b86273so9825358e0c.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:31:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780047085; x=1780651885;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Jre8RAaVdOIJ6OFsSp8WRmOCVJOhYOYPv+VFLctcfh8=;
-        b=mvGWjoebFd70sPxjRp9t8a11DMUlrgQcw6LVeWbdLFaQVjRlh5zJx8snTfJEZMllei
-         x3KHPw8gTFN9wW9YSRzmpCo5EfG9jWjsl8zK8h6ugp9QoTVutsd8s3eaZmkOA+NtmpgG
-         3m13DbIpZBT2XrSGJ2T7eOSdmWZvhHZ5TtoWHiNEmQeRw7CEITJ9fYo1sUVsvnuhM3gy
-         k8LKxCEh2UfvwLtTp4kGrOplq/4sSuABAPW3EyTVOzhOKiWrMpvcNs5AIBL8aJjz9I7j
-         xmh2kBiwAi/K2IhihQv5M5MbhcC1n9i+hj+IAvvKFyC5SJiJZw/ktSOXbdE19hL+JBbf
-         4txQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+AeJBEGcOPZf4NDvX9bSYy+iH0lVhlHeMSJ3/G+9AQ0GMd2PiflhnaaAg554hX1818BdivOV2zT0B4@vger.kernel.org
-X-Gm-Message-State: AOJu0YzITneVamOnGXoRjmbxZcCiDb5w9i4fDMFcOGj4NeR9HlE0eGt1
-	rurunIEdJHIA6/9VRdh7rJBCweV2/Pcr8BgDh4xE1oheKapNeRnGDa57vo4TnhZky2U=
-X-Gm-Gg: Acq92OHBeb5qKN0lYMhHv/X3icrrf0g2tl5LgnbxwDamHTXiY9X0VJfOA84tFEk5o+P
-	C5KvRs/q3fPcKjW7Ys/T61755Id7zwpfxe99tNHbye//hpVDZPntSkSkoE0XgdAS5O0NgINhV5/
-	Z94dKXlPfPWLAC3hPNy6yjnIMUNuWy8ebUij92hLSAj238t23zWfAQwC2c+9/aQ38pwo2bAWf7s
-	enwDgRd+P/56ACpqGs72m0bjdNUhO95ARrnqqHtfKurdZy3BFAbgBVCSLy1x0Xni48+BPP7ezaE
-	Jb0ARYlFP86F7bBr8Ys9x+rsR3XFOokRyquLQM784BMBreYpqDMpgkk4wtYlXuWkzqvL+Oijbu6
-	Ro49iwEd27DHhMbURU1hAKk2ONdaebVuaH0bVTBn3ADO7NMi1Y6gLYeWeQ3RmUYY9W3q+rL63Ib
-	Bw4qQg1J0ll++kptX1+4oruDX72HKn678xVvz8r4FAK0oMrHIz8Oghg1RdzaQydM98n8c8Y5g=
-X-Received: by 2002:a05:6122:4f89:b0:575:3b1b:ef01 with SMTP id 71dfb90a1353d-599f8ff0518mr624460e0c.9.1780047084685;
-        Fri, 29 May 2026 02:31:24 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-599da3ed0cfsm786148e0c.16.2026.05.29.02.31.23
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 02:31:23 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9639d7daff3so879522241.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:31:23 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/jJyJX1ako5sCbW81MCQj8bkHkV13e0ZDW2PohzJLySoevzkMdmYXplc0HDtwLl3x0djpSwc2ojr+/@vger.kernel.org
-X-Received: by 2002:a05:6102:1498:b0:639:4bb7:c916 with SMTP id
- ada2fe7eead31-6bf2b42f26emr693736137.3.1780047083481; Fri, 29 May 2026
- 02:31:23 -0700 (PDT)
+	s=arc-20240116; t=1780047439; c=relaxed/simple;
+	bh=r0MH5ZqfMCRbz8dg3wOWdglKGZFxIrGg7kZqKui4hxY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=LWKWl3WZWrpUG7EXgHsoNGxKjyIOL1Ibob37I4ewna/nsM99kPOnSn4NcIdXgpjoBxaS46BBg9aeAejG9lKKhgsubBHP18ct2GYAZjLQ6vWYNAGN7A6CTsMyifOoOkiBF/rmxIeEoGA62aGWaPCtOlPaEHdlB/wFuqEoMe39VSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K7YCstr2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K7YCstr2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B61AB1F00893;
+	Fri, 29 May 2026 09:37:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780047436;
+	bh=9wkhyPChcehQyv93ZjEAX3HK+Ciinq2UgYkv9IpkFlY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=K7YCstr2H9Z6xHqvRAoneSISAX4mxp37/6ruHKtvVOnJj6xdgQ4l9nMpSPCGF5oeP
+	 PvckxwOUN1pWi5X0hVNJ7mk/9MJSTf92W8KzbX7bLIf5aHDELqKKw6RM2KrWzpFhgd
+	 Sb7f3z/ZH9iqVyi0blaefar9fTicRwHxUk5kw5+hOaFbKYwZopzC9M7ZfVet1RfiSx
+	 slx5et45btsto7QlbqUIxVAXZafXMTq90pvou2+B6E76c09s2A2VJv0GTAPYt4H9DK
+	 6cMMgNwZ0/JN3Ig9AfIJXESbTjiXlAxgdhLZ3/cRG6STyj0uF5DKGIlE+hVyyJjW0/
+	 5T8d19nH9wbAA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 11/15] drm/tidss: oldi: Fix OLDI signal polarities
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529-beagley-ai-display-v3-11-7fefdc5d1adf@ideasonboard.com>
+References: <20260529-beagley-ai-display-v3-11-7fefdc5d1adf@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 09:37:15 +0000
+Message-Id: <20260529093715.B61AB1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260519100022.116318-1-biju.das.jz@bp.renesas.com> <20260519100022.116318-2-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260519100022.116318-2-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 29 May 2026 11:31:12 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdULG5KiCrm2cFZoy-kvLEG6qZpLx1fNi44rZgEdFs30Jw@mail.gmail.com>
-X-Gm-Features: AVHnY4L71FrecII2P--Vqr75z7vmkHcqqegJs4qIL_cRpsjO8D5Eiqg2zGFC3ew
-Message-ID: <CAMuHMdULG5KiCrm2cFZoy-kvLEG6qZpLx1fNi44rZgEdFs30Jw@mail.gmail.com>
-Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a08g046: Add rsci{0..3} device nodes
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 19 May 2026 at 12:00, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Add rsci{0..3} device nodes to RZ/G3L ("R9A08G046") SoC DTSI.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+Pre-existing issues:
+- [High] The `bus_format` field in `struct tidss_oldi` caches transient ato=
+mic state in a persistent device structure, causing state leakage that can =
+lead to incorrect hardware programming.
+--
 
-Gr{oetje,eeting}s,
+commit aa70ea0cc740dc55d3518c6263c986fe44dc96b7
+Author: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
-                        Geert
+drm/tidss: oldi: Fix OLDI signal polarities
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+This commit fixes OLDI signal polarities by removing drm_bridge_timings,
+setting the correct input_bus_cfg.flags in tidss_oldi_atomic_check(),
+and setting OLDI_DEPOL based on the DE bus flag.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> diff --git a/drivers/gpu/drm/tidss/tidss_oldi.c b/drivers/gpu/drm/tidss/t=
+idss_oldi.c
+> index 17c535bfa0576..e925ddaa4fd6a 100644
+> --- a/drivers/gpu/drm/tidss/tidss_oldi.c
+> +++ b/drivers/gpu/drm/tidss/tidss_oldi.c
+> @@ -183,7 +184,8 @@ static int tidss_oldi_config(struct tidss_oldi *oldi)
+>  			 "OLDI%u: DSS port width %d not supported\n",
+>  			 oldi->oldi_instance, bus_fmt->data_width);
+> =20
+> -	oldi_cfg |=3D OLDI_DEPOL;
+> +	if (bridge_state->input_bus_cfg.flags & DRM_BUS_FLAG_DE_LOW)
+> +		oldi_cfg |=3D OLDI_DEPOL; /* 1 =3D active low */
+> =20
+>  	oldi_cfg =3D (oldi_cfg & (~OLDI_MAP)) | (bus_fmt->oldi_mode_reg_val << =
+1);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does the use of bus_fmt
+(which is assigned from the persistent oldi->bus_format earlier in this
+function) cache transient atomic state in the persistent device structure?
+
+During format negotiation in tidss_oldi_atomic_get_input_bus_fmts (called
+during the atomic check phase), the negotiated bus format is cached in the
+persistent oldi->bus_format pointer. If user space performs a
+DRM_MODE_ATOMIC_TEST_ONLY commit that requests a different format,
+oldi->bus_format is overwritten.
+
+Since it is a test-only commit, the hardware state remains unchanged.
+However, if the system later suspends and resumes, drm_atomic_helper_resume
+commits the saved active state directly without re-running the atomic_check
+hooks.
+
+When tidss_oldi_atomic_pre_enable executes during resume, tidss_oldi_config
+reads the corrupted oldi->bus_format from the aborted test commit instead
+of deriving it from the active bridge_state. This results in the OLDI
+hardware being programmed with the wrong data width and register values,
+distorting or blanking the display.
+
+Since this patch already passed bridge_state down to tidss_oldi_config(),
+could the format derivation be updated to use
+bridge_state->input_bus_cfg.format (or output_bus_cfg.format) instead of
+the cached oldi->bus_format?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-beagley-ai=
+-display-v3-0-7fefdc5d1adf@ideasonboard.com?part=3D11
