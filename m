@@ -1,143 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28613F39F2;
-	Fri, 29 May 2026 16:44:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3116F3F39F1;
+	Fri, 29 May 2026 16:44:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780073065; cv=none; b=uk9UFulhNxfIvJem4sswJUANRJ5WG89W+QgStk0H7ZZR9IW2EUBWJi25d4PDxYlv1oNNe46Pb2BmY7+MqwSm2jXMw40pjmCUlDa9lFgSiqBYaNjkzNH+BTWPZsLF/u38nR2t6Vj2Ygno5fCNgmxMZn8A3N5e6RTB3TRAQMfQFo4=
+	t=1780073074; cv=none; b=VUoD6lmVWybCWDa/oo5aHRn/nidw4GbN8w+rfbwip+GIrGDsrbxdC+/HO2RB+87RUM9JhMhLIgXuJj8tpebEQXIy3wmd0/0FvjAnhkax11u66EZfuNWcOSs3Bw7jxegjXRq+TZ628Qm8vmq2IiTdy3sVAYucgPGHpmXTOrv1jKc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780073065; c=relaxed/simple;
-	bh=iAGB81dBLfsXAEdxg+76PjqGPkY/qwYtSvgjH4xRwWQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Uc3a2EqkJC+XwIY4io/+TTwoJ0NsRQhQV/RRAtSjAdhvWj3sGLkbQibPtORMjJXzrZudILauxVqbXFMJJ6z64i+cNqE7Sd27XCGAbTj+s5OIDHBB08e/uvIDZjQ6lWST3PWtdyiKMn3JYOytEfX1UHOcS0m0Ar7jA2kmJmUUmNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WM0FXeps; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780073074; c=relaxed/simple;
+	bh=MG765tz4pOgROB9LJzV2O9IUqpE2fX3TOV6kCIWSwI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pJ+3ymnIjbnea4xE0LKUw1+V8hfq7T3KJQZhrZ9tH56kIc8sAHpVvFAjgMskd3GTQpr39lrnm4ivuKgcd8aAjgdIA2xwtmmIx6YdjOVoujxqczTmjUE9Bbk24Yp8GL2Ltb+RFWg3GJOE9VsUl3DuELUf9rYson9yzuoN7WaWhOQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZRqBF3vm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WM0FXeps"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2FF41F00893;
-	Fri, 29 May 2026 16:44:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZRqBF3vm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 601871F00893;
+	Fri, 29 May 2026 16:44:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780073063;
-	bh=G3wDg+4g2GptZbsh0HCiLEhJwcrrrvElip6Ufk/Fn/o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=WM0FXepsh/oPSKCdzTWjewW0wPQJFUaBHz7CLH18fotnVaOFZU+Ne2y6a0Q6qnlwe
-	 tsxFmYFSHcvpPZGdmr3Xqv1rSHY+RHAlzg4dCm2D4uSI1Ohspv05QeRm5jSGHI48qk
-	 imSVQ5s0omjKZRBZZAFxtjnfzqZizp6PFRfoCHK+oIHvuxetQzWtLKPteUn4NW/Qnh
-	 NNWgpPd45k+Sd42HIf1LFbykbOj1IKD/Bwskw3FNLfCcGApKbjFRXJKB8TfeCg1uYM
-	 KGMAQguxHHBhC4/wKlhQ1SnVVRgvCtGrNgpE/dDZwSmh9iekrsStpOO6qbKG8lF5Sa
-	 nF04ArOzslibQ==
-Date: Fri, 29 May 2026 17:44:07 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ahmed Tiba <ahmed.tiba@arm.com>
-Cc: will@kernel.org, xueshuai@linux.alibaba.com, saket.dumbre@intel.com,
- mchehab@kernel.org, dave@stgolabs.net, djbw@kernel.org, bp@alien8.de,
- tony.luck@intel.com, guohanjun@huawei.com, lenb@kernel.org,
- skhan@linuxfoundation.org, vishal.l.verma@intel.com, rafael@kernel.org,
- corbet@lwn.net, ira.weiny@intel.com, dave.jiang@intel.com,
- krzk+dt@kernel.org, robh@kernel.org, catalin.marinas@arm.com,
- alison.schofield@intel.com, conor+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
- devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
-Subject: Re: [PATCH v5 09/10] dt-bindings: firmware: add arm,ras-cper
-Message-ID: <20260529174407.7081ad0b@jic23-huawei>
-In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-9-2e0500d42642@arm.com>
-References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
-	<20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-9-2e0500d42642@arm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780073072;
+	bh=MG765tz4pOgROB9LJzV2O9IUqpE2fX3TOV6kCIWSwI0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZRqBF3vmJoiRF7QgG74Axw2Q7BlzEogTPsR6erNkDZK2odXxTbxjQtXj+rueaRWrT
+	 CtwGx+1rtdnAstLF38JA31b25nqXAvKRftaUzwh1nMi+XHrl9efwY4hBe+PaBkVE8V
+	 baUxNZE8dRqe9poAY5OcEyiYmU3O8ZtNwqegOCtqXyx/JzaLuveRu9MUXBwgGHfd4T
+	 S2FrorjsdCZtJe/3Gr16SkegHH/7KzLwHPAzvwT0h/osHHUxWza3Yj+6Cn/jk8Fnhx
+	 I6Y5FNqZ9ASMVvCjGKxjj1mmAuMdrx5YNo2iKU0ASPDf2HT7RaCQiOEF4nNwJZVWqj
+	 +kXcjFQdf24fw==
+Date: Fri, 29 May 2026 17:44:28 +0100
+From: Conor Dooley <conor@kernel.org>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"linux@roeck-us.net" <linux@roeck-us.net>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>,
+	"corbet@lwn.net" <corbet@lwn.net>,
+	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"Syed, Arif" <arif.syed@hpe.com>,
+	Sanman Pradhan <psanman@juniper.net>
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
+ MAX20860A
+Message-ID: <20260529-elaborate-scroll-d57e68c2b24d@spud>
+References: <20260529001903.625737-1-sanman.pradhan@hpe.com>
+ <20260529001903.625737-2-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
-
-On Fri, 29 May 2026 10:50:49 +0100
-Ahmed Tiba <ahmed.tiba@arm.com> wrote:
-
-> Describe the DeviceTree node that exposes the Arm firmware-first
-> CPER provider and hook the file into MAINTAINERS so the
-> binding has an owner.
-
-Odd wrap. Pick a length (72 / 75 typical for commit messages) and
-stick to it.
-
-Request for references inline + a question on whether we have
-to allow for the ack register not existing. I'd rather we required
-it if possible.
-
-> 
-> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
-> ---
->  .../devicetree/bindings/firmware/arm,ras-cper.yaml | 54 ++++++++++++++++++++++
->  MAINTAINERS                                        |  5 ++
->  2 files changed, 59 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
-> new file mode 100644
-> index 000000000000..3d4de096093f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
-> @@ -0,0 +1,54 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/firmware/arm,ras-cper.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Arm RAS CPER provider
-> +
-> +maintainers:
-> +  - Ahmed Tiba <ahmed.tiba@arm.com>
-> +
-> +description:
-> +  Arm Reliability, Availability and Serviceability (RAS) firmware can expose
-> +  a firmware-first CPER error source directly via DeviceTree. Firmware
-> +  provides the CPER Generic Error Status block and notifies the OS through
-> +  an interrupt.
-
-I'd like some spec references in here if possible.
-
-> +
-> +properties:
-> +  compatible:
-> +    const: arm,ras-cper
-> +
-> +  memory-region:
-> +    minItems: 1
-> +    items:
-> +      - description:
-> +          CPER Generic Error Status block exposed by firmware.
-> +      - description:
-> +          Optional firmware-owned ack buffer used on platforms
-> +          where firmware needs an explicit "ack" handshake before overwriting
-> +          the CPER buffer. Firmware watches bit 0 and expects the OS to set it
-> +          once the current status block has been consumed.
-
-Does the arm spec really make this optional?  Can we constraint it to not be
-just to make our lives easier?  I've never been sure how you would actually
-make a working platform without the ack support.
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="foRTfrb/RzR+apiY"
+Content-Disposition: inline
+In-Reply-To: <20260529001903.625737-2-sanman.pradhan@hpe.com>
 
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 461a3eed6129..8a9714603a7d 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -22261,6 +22261,11 @@ M:	Alexandre Bounine <alex.bou9@gmail.com>
->  S:	Maintained
->  F:	drivers/rapidio/
->  
-> +RAS ERROR STATUS
-> +M:	Ahmed Tiba <ahmed.tiba@arm.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
-> +
->  RAS INFRASTRUCTURE
->  M:	Tony Luck <tony.luck@intel.com>
->  M:	Borislav Petkov <bp@alien8.de>
-> 
+--foRTfrb/RzR+apiY
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+--foRTfrb/RzR+apiY
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahnCbAAKCRB4tDGHoIJi
+0u5xAP9efn1nWnm2BKbSt1GvSf7Rih59u/F2klwCAho7In616gEAjZAlXSaaUsj/
+xZAXrxYpvRSAGdxznN63G5vtpHowgQs=
+=/MPx
+-----END PGP SIGNATURE-----
+
+--foRTfrb/RzR+apiY--
