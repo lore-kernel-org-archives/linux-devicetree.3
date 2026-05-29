@@ -1,218 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55D9B1C3F0C
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:34:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCC73BCD21;
+	Fri, 29 May 2026 10:35:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780050857; cv=none; b=ZiEQZlhDXP+Km/DaMz5TLa3beyxgGKzV2BzH48rNtV9EFFROL6pOSLkLdW3qda6NItYGS631RTxfXS87yMrFftePeEV51qDSPdVGQLLoFe81M5jBEKGae1D69oGOVrWKC8dNLuhGCm6l8UWGoF76NoM/mDDPVD+TWvI4E85cGk0=
+	t=1780050908; cv=none; b=PgaCz6IGap2yxlKN72ELZXP9XH+V/zkFwlFWhX/O1lM8t8kA91zRspFegJAHGOcpUcSrlkr8uIuLrnjeRzzoxRtChujavfwXfALJpM4n2+ZUGFb+p45FpDlxQaFczEN8RZMeKewh6SjShvv2jj1TVm49EwhQd18tqtaPO46XVTs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780050857; c=relaxed/simple;
-	bh=2hUgCtAACYiccmOOQ8w7rLnf/x48NyZBCT7pgOuDs2A=;
+	s=arc-20240116; t=1780050908; c=relaxed/simple;
+	bh=yrTaa0QVo4yeXWWbowoyH/TYNX0ykof8iVwPCcXBHcg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eunJiB7SOZlwqBVUXFubqXT70XAIchjOvELqLrgozrxuguXzthRKcBlsS7/OsTI2DuUaDlGKUhONqH9oVn27ex4YL/XkIlOCMqMTXxjOOIh12uDmYJIyTY4kNrqObllEPvDLiqCmfSM89AMkCeXkvMSOJOEc4L1gRrBo4FN0wsM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OgfZD40A; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=kCL7xk0iftDimtt0DSFKJy5zyg7Fq6esN/rkZyjwjkE1yRQ1pb4WJQyHWCBJxaI/xVmb8q57c20S+5d50WcP178JfuHNuCxlKBJD/RdWcdEB/WVQbgCiVS42/csAjX3MlmjEP0QIfkR7DUNTNdH4w/fTQDNyh/tB3t9ptjOKcpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9qBnRU5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OgfZD40A"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E939F1F00893;
-	Fri, 29 May 2026 10:34:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9qBnRU5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E551F00893;
+	Fri, 29 May 2026 10:35:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780050856;
-	bh=Ady4WRTY1skNZKIWj6Qqbaa9icFEhQEIUKyNdLAFups=;
+	s=k20260515; t=1780050907;
+	bh=0Vg1mO88ZlNTgUSSDpUkuZSSdcJMS0lQ67ES3JiQT50=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OgfZD40AMBAmWN03PtyyjrroBpqE7zQ/M5RLJ1i4MwwTj5Q8jDPVdLyF+XjO5lRTo
-	 fPi3z1Mq6OLWilruAqyKveYrx/gO+JPV7A6UR9sYbculJ5wUEgTMOkE4eArl2iUp5D
-	 N9JHOTAKWGVD/kt19Lv+LIkuD7TMW25oJEZD2328BfOUY6bBEmMLqEckq6OGnVVY+a
-	 DU4h4W/wxyh3D9czJweuTa/6LYXEXWnilpO8wovASnjTpfq1M1Dn/S8wHCvn/lx0GM
-	 YvbblQy/nEjWipghAJu6gMMW/MxG/l3ruslpbFQIxPHuzF8wTTneBcqsAZ0VG2Mpwc
-	 D8ReE9ZCvy9Uw==
+	b=k9qBnRU5qF81O3N94KAXEwwdvs0uN1eHPLjNa6dWMkES3aKfFEO8smFaHnoRY5pEf
+	 DkaVmx6vnY3FBLjPP0KPbqMD1UfjxIJEYxRUUee3fOlBp74LCa6WkoDktJwIthDu/y
+	 +S6Ex+r7z7U7H1UH+hNOMPYi+1APK6Lwfm70/FDNoBkOL0C9oKPg12yT5doDmslhl9
+	 KLu/0bzoPyt51CsoECJ3GVSNGdAuhusOznX/DFElyeJzbumf26+9/JifGsQh8hwCwV
+	 Cq0S0v5Gb6PcPm7xPBO8hqEyRT6CoLzPNMdKjwm28lV30LdSEefbNPPoO8grTGAEDP
+	 y4rDnX6fA6R0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 06/10] ACPI: APEI: GHES: move CXL CPER helpers
+Subject: Re: [PATCH v1 1/4] arm64: dts: imx93-var-som-symphony: add TPM
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmed Tiba" <ahmed.tiba@arm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-6-2e0500d42642@arm.com>
-References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-6-2e0500d42642@arm.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
+In-Reply-To: <040ad9104a8a628e3b2c18cb296a0d63d31b533c.1780049085.git.stefano.r@variscite.com>
+References: <040ad9104a8a628e3b2c18cb296a0d63d31b533c.1780049085.git.stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 10:34:15 +0000
-Message-Id: <20260529103415.E939F1F00893@smtp.kernel.org>
+Date: Fri, 29 May 2026 10:35:06 +0000
+Message-Id: <20260529103507.13E551F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-New issues:
-- [Low] Missing explicit include for `<linux/cleanup.h>` in `drivers/acpi/a=
-pei/ghes_cper.c`.
-
-Pre-existing issues:
-- [High] Unconditional `memcpy` of maximum struct size causes an out-of-bou=
-nds read for variable-length CPER records.
-- [High] Missing bounds validation on the untrusted firmware-provided `dvse=
-c_len` causes an out-of-bounds memory read.
-- [High] Registration functions acquire spinlocks without disabling interru=
-pts, leading to a potential deadlock with hardware error interrupt handlers.
+- [High] Using a GPIO hog to enable the TPM device creates an unhandled dep=
+endency, leading to potential probe and suspend/resume failures.
+- [Low] The node name and label for the PCAL6408 GPIO expander contain a ty=
+po, omitting the letter 'l'.
 --
 
-commit d583282347526020c8ef8e69151955c3658e3406
-Author: Ahmed Tiba <ahmed.tiba@arm.com>
+commit bcdb28f289b71a5c2629f6f0cbc1ebb8edd84640
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-ACPI: APEI: GHES: move CXL CPER helpers
+arm64: dts: imx93-var-som-symphony: add TPM support
+   =20
+This commit adds support for the ST33KTPM2XI2C TPM device on the Symphony
+carrier board. It configures the TPM enable line as a GPIO hog on a
+PCAL6408 expander located on the I2C bus.
 
-Move the CXL CPER handling paths out of ghes.c and into ghes_cper.c so the
-helpers can be reused.
-
-[ ... ]
-
-> diff --git a/drivers/acpi/apei/ghes_cper.c b/drivers/acpi/apei/ghes_cper.c
-> index 131980d360641..d7a666a163c3a 100644
-> --- a/drivers/acpi/apei/ghes_cper.c
-> +++ b/drivers/acpi/apei/ghes_cper.c
-> @@ -12,10 +12,12 @@
->   *   Author: Huang Ying <ying.huang@intel.com>
->   */
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/a=
+rch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> index c0842fb3cfa33..ea996a36b0228 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> @@ -208,6 +208,26 @@ &lpi2c1 {
+>  	sda-gpios =3D <&gpio1 1 GPIO_ACTIVE_HIGH>;
+>  	status =3D "okay";
 > =20
-> +#include <linux/aer.h>
->  #include <linux/err.h>
->  #include <linux/genalloc.h>
->  #include <linux/irq_work.h>
->  #include <linux/io.h>
-> +#include <linux/kfifo.h>
+> +	pca6408: gpio@21 {
 
 [Severity: Low]
-Is it possible to include <linux/cleanup.h> explicitly in this file?
+This isn't a bug, but the node name and label appear to contain a typo.
+The commit message and compatible string identify the part as a PCAL6408,
+but the label and node name omit the letter l.
 
-The code makes heavy use of the guard() macro, which is defined there.
-Relying on transitive inclusions might lead to build breakages if header
-dependencies change in the future.
-
->  #include <linux/kernel.h>
->  #include <linux/list.h>
->  #include <linux/math64.h>
-
-[ ... ]
-
-> +void cxl_cper_post_prot_err(struct cxl_cper_sec_prot_err *prot_err,
-> +			    int severity)
-> +{
-> +#ifdef CONFIG_ACPI_APEI_PCIEAER
-> +	struct cxl_cper_prot_err_work_data wd;
+> +		compatible =3D "nxp,pcal6408";
+> +		reg =3D <0x21>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		status =3D "okay";
 > +
-> +	if (cxl_cper_sec_prot_err_valid(prot_err))
-> +		return;
-> +
-> +	guard(spinlock_irqsave)(&cxl_cper_prot_err_work_lock);
-> +
-> +	if (!cxl_cper_prot_err_work)
-> +		return;
-> +
-> +	if (cxl_cper_setup_prot_err_work_data(&wd, prot_err, severity))
+> +		tpm-enable-hog {
+> +			gpio-hog;
+> +			gpios =3D <4 GPIO_ACTIVE_HIGH>;
+> +			output-high;
+> +			line-name =3D "tpm_en";
+> +		};
+> +	};
 
 [Severity: High]
-This isn't a bug introduced by this patch, but does the validation here ens=
-ure
-that the untrusted firmware-provided dvsec_len is safe to use?
+Does using a GPIO hog here create an unhandled probe dependency?
 
-Inside cxl_cper_setup_prot_err_work_data(), the offset to the RAS capability
-structure is computed using dvsec_len from the firmware:
+Because the device tree core ignores GPIO hog nodes when parsing
+dependencies, it doesn't create an explicit supplier/consumer link via
+fw_devlink. This means there is no guarantee the GPIO expander is probed
+before the TPM device.
 
-    dvsec_start =3D (u8 *)(prot_err + 1);
-    cap_start =3D dvsec_start + prot_err->dvsec_len;
+If the drivers are built as modules and loaded in parallel, and the TPM
+driver happens to bind first, its probe function will attempt an I2C read.
+Could that read fail because the TPM is still disabled, potentially
+preventing the device from functioning?
 
-Since cxl_cper_sec_prot_err_valid() doesn't seem to validate dvsec_len
-against the boundaries of the mapped CPER payload, could a malformed record
-with an oversized dvsec_len cause cap_start to point into unmapped memory?
-
-If so, the subsequent memcpy() might trigger an out-of-bounds read and a
-kernel panic:
-
-    memcpy(&wd->ras_cap, cap_start, sizeof(wd->ras_cap));
-
-> +		return;
+> +	st33ktpm2xi2c: tpm@2e {
+> +		compatible =3D "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
+> +		reg =3D <0x2e>;
+> +	};
 > +
-> +	if (!kfifo_put(&cxl_cper_prot_err_fifo, wd)) {
-> +		pr_err_ratelimited("CXL CPER kfifo overflow\n");
-> +		return;
-> +	}
 
 [ ... ]
-
-> +int cxl_cper_register_prot_err_work(struct work_struct *work)
-> +{
-> +	if (cxl_cper_prot_err_work)
-> +		return -EINVAL;
-> +
-> +	guard(spinlock)(&cxl_cper_prot_err_work_lock);
-
-[Severity: High]
-This is a pre-existing issue, but can acquiring this spinlock without
-disabling interrupts lead to a deadlock?
-
-The event reporting path, cxl_cper_post_prot_err(), is executed from IRQ
-context (such as NMI, IRQ, or timer contexts for GHES events) and acquires
-the same lock using guard(spinlock_irqsave).
-
-If a hardware error interrupt fires while a process context thread is
-executing this registration function and holding the lock, won't the
-interrupt handler attempt to acquire the already-held lock on the same CPU,
-resulting in a hard lockup?
-
-> +	cxl_cper_prot_err_work =3D work;
-> +	return 0;
-> +}
-
-[ ... ]
-
-> +void cxl_cper_post_event(enum cxl_event_type event_type,
-> +			 struct cxl_cper_event_rec *rec)
-> +{
-> +	struct cxl_cper_work_data wd;
-> +
-> +	if (rec->hdr.length <=3D sizeof(rec->hdr) ||
-> +	    rec->hdr.length > sizeof(*rec)) {
-> +		pr_err(FW_WARN "CXL CPER Invalid section length (%u)\n",
-> +		       rec->hdr.length);
-> +		return;
-> +	}
-> +
-> +	if (!(rec->hdr.validation_bits & CPER_CXL_COMP_EVENT_LOG_VALID)) {
-> +		pr_err(FW_WARN "CXL CPER invalid event\n");
-> +		return;
-> +	}
-> +
-> +	guard(spinlock_irqsave)(&cxl_cper_work_lock);
-> +
-> +	if (!cxl_cper_work)
-> +		return;
-> +
-> +	wd.event_type =3D event_type;
-> +	memcpy(&wd.rec, rec, sizeof(wd.rec));
-
-[Severity: High]
-This is a pre-existing issue, but could this memcpy() read past the bounds
-of the firmware-provided payload?
-
-The function receives an untrusted rec pointer and validates that
-rec->hdr.length is less than or equal to sizeof(*rec). However, it then
-unconditionally copies the maximum struct size, sizeof(wd.rec), into the
-work queue buffer.
-
-If rec->hdr.length is less than sizeof(wd.rec), wouldn't the memcpy() read
-beyond the end of the provided payload? Since this memory is an ioremapped
-ACPI buffer, could reading past its bounds cross into unmapped physical
-memory or unrelated device I/O space?
-
-> +
-> +	if (!kfifo_put(&cxl_cper_fifo, wd)) {
-> +		pr_err_ratelimited("CXL CPER kfifo overflow\n");
-> +		return;
-> +	}
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-topics-ahm=
-tib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780049085.gi=
+t.stefano.r@variscite.com?part=3D1
