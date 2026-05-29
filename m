@@ -1,95 +1,173 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F21B21684BE;
-	Fri, 29 May 2026 13:07:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9131DDC1D
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 13:08:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780060046; cv=none; b=r+cdlY2A8/GZVv3fBll+FQkhFhEqrzauwMoOl0FyyDoYxtx/zZIofbBlpGAsL43HilG4dUxcuAzwjpzbeyd9+CYeYuZ7YTshJUtDp/LcP7Mb9bC6Gv5S3AR8VWUObMEZuQ63V//miv1YdBrI3/qKtEYC70lIsbcm5I5aylxQ3rk=
+	t=1780060129; cv=none; b=goB7XOYr3uTqP7+/go8p/96gQlrA2qspRLVaFGAxdKTxCBO75rZi/b87NEr1LvZnWLreyL0+tqjdo4JhK2omKpDDBU+BC0FnQC1bV8wwbdx07sk2QHP28eCPJMDs1rSCF4DXT955MbNkMbFE/Pk89qWu1laZh3lq97mJmfgMQUI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780060046; c=relaxed/simple;
-	bh=CAHgOCzI8ZtMcCDqiRL9o6tYMk9F6wVmA4dRR0mfbh0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Oxg/j12Fm2EPupyZ02clKf5AwQogUsJcC+CA1k7smU8yrmr5u1pEadUzeu/CNDw+cMJ8Cyioh+YdtNEgH7ZDxdtSxOa950AtPe3xg+SGzO9hwCL9Gkd2QVsjki8wkcKPSgL9gb9W2Je/JPPE0WeXrySphms5QqO7LtM7ugmFcHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHv/EJZP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780060129; c=relaxed/simple;
+	bh=UQLsr2qkcqb60El/5BD//D40gKMg5Oi0BtFd3/8rIJs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EK7HOlG7qVGGDoyNUTskxnygvzLMgXgPix+MaP2H4u0lSQHoCsmPjQqjX8bi9HcFFfZq0bDjgehfnn+h+U6NwlDrIDH81yH/xRq9LfcXoHwP1H/QdTdcxm5HjVvO7ccV+Ctl032HS64GFZprXrqnOPRHQa/mSPVBylRKbg/EXdE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AIyrWRnY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHv/EJZP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BFD51F00898;
-	Fri, 29 May 2026 13:07:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AIyrWRnY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9822F1F00893;
+	Fri, 29 May 2026 13:08:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780060045;
-	bh=lS5EIhTABeMXjRYBFC+63t0Oqm4TW990BTocB+jyLQQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hHv/EJZP3YqTS5J5oDld70x8J6fqY6lUbQl0NFDwjjO55kqZ8mbhDcgYydn3zooD5
-	 QDb6kPFsTbEy/i9pKmvCxY11Yfwr1zEzgSSj2q055sL1nWunh55nsb3+kgKL8FAQnJ
-	 pVz7b07AcM5FlC6Wi2jz4848fbQ0DGtXcF1e6bsC1XuCydFo2SKP9xW4XS1m8o1ziO
-	 lfEY33caGXbOCjWF30oZwx9lczPx+5HY5U85bzDwnKV/NjrlB/Uu6dF1d9Zh3x1Gp1
-	 RpGhLOvcprHYw6mnazdOztYGKWBM6rKucAx8WPFaMHlfRNsx3tcq4ukZzAnQeEzqia
-	 3KslEi5qcvFBg==
-Date: Fri, 29 May 2026 14:07:16 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Kim Jinseob <kimjinseob88@gmail.com>
-Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v2 7/7] MAINTAINERS: add Open Sensor Fusion IIO
- driver
-Message-ID: <20260529140716.1c3a9afd@jic23-huawei>
-In-Reply-To: <CALMSewL7RvTSet3DSk7cQ5Lqi+EDduUOSAVK=vZ5TKz65_9qyg@mail.gmail.com>
-References: <20260524085312.15369-1-kimjinseob88@gmail.com>
-	<20260524085312.15369-8-kimjinseob88@gmail.com>
-	<20260528153126.7be7c765@jic23-huawei>
-	<CALMSewL7RvTSet3DSk7cQ5Lqi+EDduUOSAVK=vZ5TKz65_9qyg@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780060128;
+	bh=qMVo8MFwoKQ+TpaKmIOnFow7Hz/InrHpnfIBEPPxcI8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=AIyrWRnYXWmXhZCCrCUxV/wh/P/Lyot8NnNG5p5/OpENfh9/2AxNtbRrOacejdfxv
+	 6f3skLXRAmoKjF+RwMra3CrYr52RXCJypKJbL1lahhhz+4Du21YfSeD1fp61KFpKOu
+	 if/XkwoaFI12psPsw5mzChJjOY9VukpvEGpkwbzcyA29JRGM6srsP6mW8ZdADpccrD
+	 K4D0w9xl6LLLBDzDFAhB+eIgVekP938VC7yYDMiyroJPauW7SCZNhyl2ZlEdLmxYY2
+	 6SQ2+Keze/CtzaVkS+wO+EHJp1SWdGnArCaQGd3QMY3KeMdkMqp5dmXU3Q2tOUukMy
+	 aH2xIE2wsUXlQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v3 4/6] iio: osf: add stream parser
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinseob Kim" <kimjinseob88@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529121005.1470-5-kimjinseob88@gmail.com>
+References: <20260529121005.1470-5-kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 13:08:48 +0000
+Message-Id: <20260529130848.9822F1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Fri, 29 May 2026 21:51:06 +0900
-Kim Jinseob <kimjinseob88@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `partial_frames` statistic incorrectly increments multiple t=
+imes for a single valid frame during normal stream reception.
+- [Medium] Frame is fully decoded into a local structure that is subsequent=
+ly discarded without being used, causing duplicate CRC and parsing overhead.
+--
 
-> On Thu, May 28, 2026 at 11:31:00PM +0100, Jonathan Cameron wrote:
-> 
-> > As noted, no need for lists. The appropriate catch all listings in
-> > maintainers cover IIO and DT-bindings.  
-> 
-> Addressed in RFC v3.
-> 
-> I dropped the explicit linux-iio and devicetree list entries from the new
-> MAINTAINERS section.
-> 
-> > Bring this in with the first file, then update as you add additional files.  
-> 
-> Addressed in RFC v3.
-> 
-> I removed the standalone MAINTAINERS patch and folded the MAINTAINERS updates
-> into the patches that add the corresponding files.
-> 
-> Thanks
-> 
-> Jinseob
+commit 8eb00bef4725c351a5a3267078dfac541b5f3a1b
+Author: Jinseob Kim <kimjinseob88@gmail.com>
 
-Hi.
+iio: osf: add stream parser
 
-A few kernel process things.
-1) Don't reply just to say you have address comments - if you are saying that
-   for some things in an email, then crop the rest of the quoted text.
-   Keep thanks, and how you change it for the next version of the patch, mostly
-   in the change log.
-2) Slow down a bit - I'd leave at least a week on the list between early versions
-   of a patch set of this complexity.  You might have received some more review
-   before writing v3 or discussion might be continued on any feedback you commented
-   on (I didn't spot any but maybe lack of cropping meant I missed it?)
+Add the byte stream assembler and resync handling for OSF0 UART frames.
 
+> diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/open=
+sensorfusion/osf_stream.c
+> new file mode 100644
+> index 0000000000000..a2739c987da3f
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_stream.c
 
-Thanks,
+[ ... ]
 
-Jonathan
+> +static int osf_stream_process(struct osf_stream *stream)
+> +{
+> +	struct osf_frame frame;
+> +	size_t decoded_len;
+> +	size_t discarded;
+> +	size_t frame_len;
+> +	u32 payload_len;
+> +	int first_err =3D 0;
+> +	int ret;
+> +
+> +	while (stream->len) {
+> +		discarded =3D osf_stream_discard_to_magic(stream);
+> +		if (discarded) {
+> +			stream->stats.bad_magic_resyncs++;
+> +			stream->stats.dropped_bytes +=3D discarded;
+> +			if (!first_err)
+> +				first_err =3D -EPROTO;
+> +		}
+> +
+> +		if (!stream->len)
+> +			break;
+> +
+> +		if (stream->len < OSF_FRAME_HEADER_LEN) {
+> +			stream->stats.partial_frames++;
 
+[Severity: Medium]
+Since UART receives data in small chunks, will osf_stream_receive_bytes()
+repeatedly hit this break condition while accumulating a single valid frame?
+
+It looks like this might inflate partial_frames into a count of receive wait
+states rather than actual truncated frames.
+
+> +			break;
+> +		}
+> +
+> +		if (get_unaligned_le16(stream->buf + 6) !=3D
+> +		    OSF_FRAME_HEADER_LEN) {
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err =3D -EPROTO;
+> +			continue;
+> +		}
+> +
+> +		payload_len =3D get_unaligned_le32(stream->buf + 10);
+> +		if (payload_len > OSF_STREAM_MAX_PAYLOAD_LEN) {
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err =3D -EMSGSIZE;
+> +			continue;
+> +		}
+> +
+> +		frame_len =3D OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
+> +		if (stream->len < frame_len) {
+> +			stream->stats.partial_frames++;
+
+[Severity: Medium]
+Similar to the check above, does this increment partial_frames incorrectly
+when simply waiting for the rest of the payload and CRC to arrive over UART?
+
+> +			break;
+> +		}
+> +
+> +		ret =3D osf_protocol_decode_frame(stream->buf, frame_len, &frame,
+> +						&decoded_len);
+> +		if (ret) {
+> +			if (ret =3D=3D -EBADMSG)
+> +				stream->stats.bad_crc_frames++;
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err =3D ret;
+> +			continue;
+> +		}
+> +
+> +		if (decoded_len !=3D frame_len) {
+> +			stream->stats.dropped_bytes++;
+> +			osf_stream_drop_invalid_head(stream);
+> +			if (!first_err)
+> +				first_err =3D -EMSGSIZE;
+> +			continue;
+> +		}
+> +
+> +		ret =3D osf_core_receive_frame(stream->osf, stream->buf, frame_len);
+
+[Severity: Medium]
+The frame structure is fully decoded and its CRC calculated by
+osf_protocol_decode_frame() above, but then the local frame struct is
+discarded.
+
+Does passing stream->buf directly to osf_core_receive_frame() cause the
+frame to be decoded and the CRC to be calculated a second time?
+
+> +		if (ret) {
+> +			osf_stream_discard(stream, frame_len);
+> +			if (!first_err)
+> +				first_err =3D ret;
+> +			continue;
+> +		}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529121005.1470=
+-1-kimjinseob88@gmail.com?part=3D4
