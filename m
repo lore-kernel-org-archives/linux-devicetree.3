@@ -1,156 +1,186 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+Received: from CO1PR03CU002.outbound.protection.outlook.com (mail-westus2azon11010065.outbound.protection.outlook.com [52.101.46.65])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E224449ECA
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:05:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780085102; cv=none; b=NH0BCSnkhw/z6pW4RnRTtuy26Y5NVb5LBMmp8N0DviRvTK5a1GQlMofdhuRKSiYyLXMKOtqEw5SFIzRLgknGVO3oSHkNNb6O7QdYGKxYv824oCip1wkPJ3bIIS9CYRz1AaTtvjTPJIMi6Q2ZAd2aQJJo3cv8Z4iG2N53pq2QHPo=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780085102; c=relaxed/simple;
-	bh=cboX3d8XkVXIEKowAOjoe4Fu6Sq0Dq4+kvLQFmjQATQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=SJ6kYCKHPyl1JWWUzY490jsh5RvtaQfRmRdhUgLnUkG63z5XnheTvA4SpizPXdM29ynj3sZu59GXyE85VNvJ3cqvY/IoY8qB3L05y3SSf/SJMar8PX337/jlSi5gSvjHNRFW+Ap4+bAmdTlDkCJQ3FTYB08KmTy2gzOhftaF1Ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=iqL7hUhW; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD93D3403FF;
+	Fri, 29 May 2026 20:08:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.46.65
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780085321; cv=fail; b=LCKWLHtS9CImVJTZ56IMHJoIP6QTDpw6Tiay0nrnBqTF28oeHaREbRAYj3MPhykdaFxPYApqelLqebOU+WDVEZ4a2fM8k+irpHdIbgPyhE2NXtw1KzxW0eQIP8whpaIA9bViyqaqn1JNz8ciQcNq2Oi0qHkcKQR8OqYZ76RWxIk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780085321; c=relaxed/simple;
+	bh=qnBvBfdnxRmoMifYPEjYMiaUc9JuAGBREEw0qQ5z/EM=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=N7u1s5RBJuolMNzNT2Ez0ZwsLU/8Pn3w9Ep9BAzOLUk95YUH8W8R5K/zYZmPWqmtMG/ZzIveOq8wOu4oQRIkaxaEbcKC1flQeBA0W0ZVNsVwpF13umDh4/r0nI+ZMH34dusIR3U6sLq7KgCP3vPwgMllQ+DjB8gO7v6GhaWXgTM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=vG4H8L9J; arc=fail smtp.client-ip=52.101.46.65
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="iqL7hUhW"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1780085100;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=6z1jfvzQfiPZQlmfQKAx/3yNkDe+kLUmEifZ3V+qmwQ=;
-	b=iqL7hUhWGx3fPoIf4Yyam6eZIfIQD0rdMXDExZqFtZF/ZnjyRas5HifNnSCh/8h5E5GPbP
-	KubRZtoaMt4rAkT1fbbErHsgVlyA0x7YN4aJnOzfUftlLPkEOy+DhBnGeQe5a1AN0tDd2a
-	UdJFhBoDJ35rxa4pS1++pC6s+Ni09kb2GckW17rL1Ja5DHzSUwjm24f9+u83cCLWIo3Hip
-	UvBCOUA+veUtpXTC8qY1CL+RU0lB6CVb0AR0Y28TF1F2u4SCJHg3UYOlv5N9sclx8wWxQI
-	qmKqLgdfVMredDF2OliZc9xVxX/alO9tN49vu8KRTVtDxdvGjO1feRgCqP8+Wg==
-Received: from MW6PR02CU001.outbound.protection.outlook.com
- (mail-westus2azon11012028.outbound.protection.outlook.com [52.101.48.28])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-13-EZSTXzn9ObWJE2oS3EUZTg-1; Fri,
- 29 May 2026 13:04:57 -0700
-X-MC-Unique: EZSTXzn9ObWJE2oS3EUZTg-1
-X-Mimecast-MFC-AGG-ID: EZSTXzn9ObWJE2oS3EUZTg_1780085097
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
- by CO6PR02MB7746.namprd02.prod.outlook.com (2603:10b6:303:a2::11) with
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="vG4H8L9J"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=XFf88jsHBh/J3r+u78lary1i2mbhc3UR8htvhU2cicW3XaT1jCu/tWrmGBqv5rzmwsyfv7CoEgCXkRnWvBzZwqkQsqbQiwMYhJNZzdioNZQjUbxbEMGkX2h9kau1XoYA3CZWeCTssGei5cvtTm4ljWQUgKa10VowzHKGO4VO9Mkwf0M+I4metezDr/g2/sglpRuZHt91J4ktLmTb7xauX+wYcClrU6uPMdxzzLQR3hmM73pbuOyCoYRTjA08ztYRBoxp+gTzVwHJhX6rRMLeRiIunxx0kD72Spg+E+/6agE+I9m3v5UqHBJ/+uo+d6rv0YzVlCtxOagVOOpr8HYjsw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=5Z++yGXrnuItwNYnKuotvbboICoE0BJ78sla09t4BNI=;
+ b=xR9imDN0WyxHPF4sGDEEI9P4sESpOGfIrpHkHwzlWFfxc1bmGfL4qHvISNOJ0dVQgKTADnFDTUOUDSMSnYDxQPR3ishTyYsiCDwTWGUMeeh+3SfoqSEomDYjl93eJ3WJqHxKKwrRhfH7Lsjrcdhi4zv68fQ/E88AODQE0QfnqZ/WYP1pPK97j+1qNB9IoOaS1LNWfbaJ7vW+9dNKLkQO8F1NQDMkww6OEDcZIuN0HhVfFijbmsiQUj4xFuqo73EPSALlB0iX7vL+hf8ls+IYHD/w71DIFtUfholF0q4KV0cpVe2LGjHdRHjOx5PJKzaTVw2lrqUkdg25TKOqon6aaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=5Z++yGXrnuItwNYnKuotvbboICoE0BJ78sla09t4BNI=;
+ b=vG4H8L9JCK5Od+ncXlNOqnbckpDvWxqBJou9tGjm5wwkNcerOzV8xPBYTuaA5b/RRy5DLZq7GnFkGVwzEPd5jH319eDNW7Uvi8VSWbnrERXEX9CEx2c8AdpOjgemAVHBoI4F5yLeIn8KbsydVcW0dOXPQn8TLyygHJH2dleKT7k=
+Received: from CY5PR22CA0034.namprd22.prod.outlook.com (2603:10b6:930:1d::10)
+ by CO6PR10MB5537.namprd10.prod.outlook.com (2603:10b6:303:134::20) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 20:04:55 +0000
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0071.011; Fri, 29 May 2026
- 20:04:55 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: "parthiban.veerasooran@microchip.com"
-	<parthiban.veerasooran@microchip.com>, "andrew+netdev@lunn.ch"
-	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
-	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
-	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
-	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-Subject: [PATCH net v2 2/2] dt-bindings: net: updated interrupt type to be
- active low, level triggered
-Thread-Topic: [PATCH net v2 2/2] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Thread-Index: Adzvphv6ynOJ7tFNRMGEE6zUoRwGYA==
-Date: Fri, 29 May 2026 20:04:55 +0000
-Message-ID: <CY8PR02MB92497E67D5AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|CO6PR02MB7746:EE_
-x-ms-office365-filtering-correlation-id: 09127b92-27e6-44ec-30ec-08debdbd8db3
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|38070700021|921020|56012099006|6133799003|11063799006|18002099003
-x-microsoft-antispam-message-info: rt4Yu3r4ynDuvxUZUa3bl+hbOGtZHsku+22j8CdqFqwbx6rDLnXktw4i6MBRk1CElQrTsAJwq5mu2mf7QpgHafNnKjYyeb/ZDgmIvU5sKWq/vBeKh/Ml6uGeYn0fI1JiWvNN4I02DQR7FiH6BRmWVC0DqWuaz7ZGamq/JkafhZ+UaV27EYG56xoI71s0Ne2bJrvQjBB/M7j3zGlGMGHu2cGvE+5M7cD/3yuKT6VieM6ueWCFYUu5Yax7IBT0+nfcPDH6L1SbtMWed6wqizlEf1gCz0GqOzrYDfJQGTQh/ct9ndZ56oYTMbiaIt6eQ4O4SNfggJfie+jwFWDmeR5hNJUJkUuNgwJ8zHJau54f+xD1wcVYxdG6d78RdRx6opQmZn3c5mkwbbTCBJrlUHucDM5OQqZVKb8qvbVZvp/QM9QgegDA0VR4cLpFtC2kfCc2Jmy2XpkQlq7bKPg8FlACzE2jOjqnm4956PgkcuyStaGWWeA8LrJvshszmPwMMnd9dB5bQ9Zfvhw/2gZeK3v6sNqJrJhDYhhzJniK4nph/9MjXrQL4CJRZS6M7xi5Zkg4zxlQjts1fJxfg+VrMqH4qZVRUyeSi8oaTVXfWMS7Duy1jQ4Ow+BIBvmgcloR58BcOSf31z6828nv6rp8ZklIOFXIFMoTlpLbojZWL9mxhAc+b9nd1r/9j957CWCOyXetWE+dNEKg8O49UWICulA2ANhv8r5HUVrWq8wrPyuGuP/FJIp3WnWpR8PYtV1BqTOlZO6gSVfze/vUENoDHVKpfA==
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(38070700021)(921020)(56012099006)(6133799003)(11063799006)(18002099003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?EuABdMjcT59jfQElv2uOQBzhB6I0PydCkgkfIFIy94G1UHq3vG6CTD+p1+u2?=
- =?us-ascii?Q?zhHXj2gNah6I0ZQ19IRBmPy1Bq4Shg3m8uXBgrtxUcElhKDeFPCHeYVS8XRM?=
- =?us-ascii?Q?bm/NQvvwARt6ja+iPTGw6VYsC1l4nc8unxE2QBaSdTjSlhI45+lq3iPAYuVf?=
- =?us-ascii?Q?gK1gDZAR2gBPKbcNOX815EjjB9c0SKRGhzQYQO2KHHHd/JHc7T/ygx9ijftV?=
- =?us-ascii?Q?B/W82yw5fuRAisbDdG1AkHCsYbn1HCo36VgOIWbpuHKXJ2cGkSnaU/q72+mB?=
- =?us-ascii?Q?6LcwThlBz3sBvJChVo/z6Z8Zpucb1eriKMz8bgWxSxM8d/O+XsQKeE/hv6QT?=
- =?us-ascii?Q?NZpwzXO7lhUyIaCdCmsAJmoqFEAJbBbNbxUtC6rVJ+jy4+gwIRRhFD3KOJmh?=
- =?us-ascii?Q?M00eBKnJBMhDpRtQwRethb0+Q2f9FpbQIN+pI2gBzGTvE5xpyBCU0DbFGadW?=
- =?us-ascii?Q?C6gAan5InmXsKrpBX/srJ7Yh6gVeEvGzDZlSEHS7JzakN38mMmyYuJ/sEVOx?=
- =?us-ascii?Q?Ywz5zNfJst73smRXBi4Ktzjo4tPyoYvBaW4TeP8oZCRg7Dr9ahP+2hhf1+7I?=
- =?us-ascii?Q?2LsxeeqYy+vR9TOasA/WpqJmDSGT8Sbp4rOYXSG2m4rEUG/M/uQz/nWludiE?=
- =?us-ascii?Q?9szsQ8xylX2qph65K+2YOyU/QJ4eWGEBoIRH//iP57qV1746RiJsLjk7/lIi?=
- =?us-ascii?Q?85XFXu3OXJBkVW/TvcNtjd9Cd8Lu6VPwx/S5ciMTE0JADbB+qjLWyo7mfOfU?=
- =?us-ascii?Q?LqsyrVYmMfdGIopZ8RMwOZLHge6ENelX5l3mhCNT8DYmDXOvn0lQBvmiT/g0?=
- =?us-ascii?Q?we5tSbVYb0g+tQHng9rtI145Y/IrDL0Xgdf3un81TcqbuHxMKvaYLGkcYxZU?=
- =?us-ascii?Q?RYVXMh7UT/v/vRJXdLG7oXGZyK75sGMRMNYoi1kfOgloiMbvI4UhpRFO8fUk?=
- =?us-ascii?Q?sl+jk1jZAgOUqd3dEljNU3OFdVfuqPVUIzNLdhZVCTNN0wOxUusfbtzg4gTc?=
- =?us-ascii?Q?UeVKfC/qwCtlkB78VKdw2noLFhDw3wOIdxDHH15PrOV4f5Lmx6AUX80iMgyu?=
- =?us-ascii?Q?qgSOLETlOOK0BWHKYw98cI0t8VFjzDYuzZg3efypHvEJbqJU1qG008lWldCK?=
- =?us-ascii?Q?AFmJ/K6a82RXUQC0aK0bCsu98CfJkT60ZyD2VrqWpRfcNeErItSi14Y2Bmuu?=
- =?us-ascii?Q?dmOrhb/ejWVFAJRvbBlMc7WOcqVYegkvRGqAAWDb0YsigpEL0iqW+9h39pVd?=
- =?us-ascii?Q?3KpvmSB9XkL0Cs0gj1tm+5+MKg+58a6ZceTw0hHmJFvAcffedW5o/gRs+1cs?=
- =?us-ascii?Q?04+EHpPjQAutfrsC0dJsZvOBVe7vvoyUAp9xUV+a073Ftr47YnqSXL8IgNyT?=
- =?us-ascii?Q?LuwqgLsq3a16bo5M2BriwHnRAoy8KHY8PX+4TcdUx2aYfXOPUicrKp80NghW?=
- =?us-ascii?Q?nVyCrgJ7kJmjkxEYigERwvoUCrPGEOgZRKJVLKLqs0+QX486yGOFrShreHGH?=
- =?us-ascii?Q?UeAEv6ouE3SnOm8Lw98W1LZijcl7MxhWW4PwndCwLs+Pn/wZdwXAGh5zr1iA?=
- =?us-ascii?Q?smE+6xEY7Un9Q6iI7YtHSpmt+t16K7NWKMFHmegpyd9xM5c+PgXDvcxEBylX?=
- =?us-ascii?Q?S0WXGLIpmTCpciYIKpZw/f3EyAdt7xgBgi6k+v9/MpACivFhFCCxtN7uBX53?=
- =?us-ascii?Q?tUx6yQrqSY1isWkAX28XMQSyipbUOTeYJzuCAkRtLXXe7lkkCTIbG0AYHuwG?=
- =?us-ascii?Q?ukQHX0NcFdkKule+DLXw02IVntn6i9c=3D?=
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
+ 2026 20:08:35 +0000
+Received: from CH2PEPF0000009E.namprd02.prod.outlook.com
+ (2603:10b6:930:1d:cafe::63) by CY5PR22CA0034.outlook.office365.com
+ (2603:10b6:930:1d::10) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 20:08:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CH2PEPF0000009E.mail.protection.outlook.com (10.167.244.27) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 20:08:33 +0000
+Received: from DFLE214.ent.ti.com (10.64.6.72) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
+ 2026 15:08:32 -0500
+Received: from DFLE206.ent.ti.com (10.64.6.64) by DFLE214.ent.ti.com
+ (10.64.6.72) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
+ 2026 15:08:32 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE206.ent.ti.com
+ (10.64.6.64) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Fri, 29 May 2026 15:08:32 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64TK8W6R101622;
+	Fri, 29 May 2026 15:08:32 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, Neil Armstrong
+	<neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, "David
+ Airlie" <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, "Maarten
+ Lankhorst" <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring
+	<robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo
+	<kristo@kernel.org>, Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Thierry Reding <thierry.reding@gmail.com>, Vitor Soares <ivitro@gmail.com>
+CC: Nishanth Menon <nm@ti.com>, Vitor Soares <vitor.soares@toradex.com>,
+	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>
+Subject: Re: (subset) [PATCH v3 00/11] arm64: dts: ti: k3-am62-verdin: Add display and peripheral overlays
+Date: Fri, 29 May 2026 15:08:30 -0500
+Message-ID: <178008517336.3731914.15433260939449202476.b4-ty@b4>
+X-Mailer: git-send-email 2.47.0
+In-Reply-To: <20260522161105.277519-13-ivitro@gmail.com>
+References: <20260522161105.277519-13-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: QeF2c8dXhhqtt7r5PQxETuR8QLHfNGnlN4jCXPISsO20f/XL+IpxQDz5aTTxjxPONVtHJuMpSIuqOu6plVUX9ImrZ5xjid6f6kyK34tdyYjMjgZUas9AsHBdbadf1eWMNVdupE6MwddtfDsaweRc8R27vcqjaMOQWOqVrw4UWy6xt2PjuEkBWaVIMnWhrK+SWQh3nzwk1No/VBKW6gmmagZkozfONeDftdYslzPIdurgkPbYqqazs79w8L5GtHyk6Q+J0dhjCn09WBKXRjErNcNOG+zPLuO+Eses7JW2lm72Pgj1jNp13vTlS+fII1eLhyAGfMG+cLPYR64gFVOb3Q==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 09127b92-27e6-44ec-30ec-08debdbd8db3
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 20:04:55.6623
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH2PEPF0000009E:EE_|CO6PR10MB5537:EE_
+X-MS-Office365-Filtering-Correlation-Id: b47f21a9-07d6-4792-fd67-08debdbe0f67
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|7416014|376014|36860700016|82310400026|1800799024|921020|22082099003|18002099003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	cmZXWCewAlNxoxrUua+XNXoh00WEjdEvnBo9Qgi7lN8lsmvJk61EQVTuRZgpbQxF2i8loC2OFc+gULMHYMQOr1iI86LHqYgLKg4Kqd81+VMzN/k68uFNNTfXWppI1kHul+IvQYUHJp1ASt05lsHwej+e57OWC0doWxXk1H+T+ecFeHFwjr37ObSJhOVCnBB23W4cgJ8wiPs6kU1VJ48QwQyGe2fbacV0YoWnAf0Yb9BhJuu2MvcZwXEaeoO/XRFea32GgUth8gn8Q+YfuaN/5U7bqf0Q2QqQhNRrQPqNkiP13yVPGcxsr4zF78oW7qZfwqD/u4npBL4Fw+iW72SLNnnb3bVmJmXSlaHgsCJb/kfxWHUz/barNXFgSLDX1DXVI/8VFx88VX4Wt4v0Jl1KTt1HrHDUoB5zzaX7qvUqDLnl7Cp9s6T6Ktt4bNu/RoC3OpxBewSUaiNCchgRp4GyO1s4D2DNM4MkzN/1ZBh0Ijw85owcyMZH8sX27pfeO1/ShNAunwiAVOZ6vnE5fT33NOi01hbjdUhR+Dl6x7PGr/JCYVsyIPXnGPTqz2CP5Vq5y0aiZ3V0JhklmGsd3klHDtvoT+TGwH++kb8YuvvLf5/G5mAZsJvgh9QTvW4VYxYf40Q5Jidw/1CSb2jb0SMhsHrkVyDi15arHTHdUx4wVYUwaqdi9mUpKlsP4lD6pn8Uf4qfUtKFa39wGCaTvZmr6PjPZwOWzgdalgki+T3naeMw+lYVSdWn1+OOtZC1dKRpJwovlsAYSumNrWtvMI+pmGDtP+tR1k7jVZ3ioURtZfo=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(7416014)(376014)(36860700016)(82310400026)(1800799024)(921020)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	S5xLz/u/g7P9BwIjkiKrz+um9DXkKHIcnff18qYdqqS/HUZNR066XwOlMC7EtcKUoW6JfxzFZvX7+l5h2NXZrSy7RTdQtX9a3AOF8eBdWg7664k7pCmWs8J/KX82cxDr83+hWSChPoopphtgSyD46IcxB5davSvRApTsJOz9B3smfRtCI4TrpIw6+R+tiT9QRfdYrgjhAEwRILTc9+pfU5rxYJYHkvL8XztSKlsnV4SEPt5gTRB5PmWX9Yofsq9N7LbKSGfKYvKYReGuitQDSdT8Tg4shr+Q3JTF1KsjhUOJop8rTrKj7pXkvPnevbYv9PFP2pVL5ojYqNVVq0vsB1BzNS90L4u2Sm3yb/v+vesdXZs9fHcdUR+Q5gBy1mHfA3lpN0/cWYsaybaguGeUgj08mwb8Hhk753Alfdjl0fu6oHSARmvr1OyTW1y14gIZ
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 20:08:33.2222
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: m+bxWNQq3aBQLKXqXhPJSqUY5fpW0u8BXfo2JKcyE+lPe9OoRNHUb8Nxhh3W9d8xv9cruzVkmWiq9k3UHbwZdUPXUFzLxpSdhhPBh2JrOUY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR02MB7746
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: 3xYVS763jJuK29w4ZUJf5Z1UelQGbdnL9h9X55Rm8Cg_1780085097
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-CrossTenant-Network-Message-Id: b47f21a9-07d6-4792-fd67-08debdbe0f67
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH2PEPF0000009E.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR10MB5537
 
-According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
-specification, interrupt type is active low, level triggered interrupt.
+Hi Vitor Soares,
 
-Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1S =
-MACPHY")
-Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
----
- Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+On Fri, 22 May 2026 17:11:04 +0100, Vitor Soares wrote:
+> From: Vitor Soares <vitor.soares@toradex.com>
+> 
+> This series adds device tree overlays, expanding the hardware support for
+> the Toradex Verdin AM62 SoM. The overlays target displays, cameras, audio,
+> and peripherals available through Toradex carrier boards and the accessory
+> ecosystem.
+> 
+> [...]
 
-diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml b=
-/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-index 61e11d4a07c4..766ff58147ae 100644
---- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-+++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-@@ -67,7 +67,7 @@ examples:
-         pinctrl-names =3D "default";
-         pinctrl-0 =3D <&eth0_pins>;
-         interrupt-parent =3D <&gpio>;
--        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
-+        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
-         local-mac-address =3D [04 05 06 01 02 03];
-         spi-max-frequency =3D <15000000>;
-       };
---=20
-2.43.0
+I have applied the following to branch ti-next on [1].
+
+Now, I have assumed that [2] will get in, but if in the unlikely
+event that things change, please notify me and I can drop the series.
+Pulling this in from the best interest of Toradex community.
+
+Thank you!
+
+[01/11] arm64: dts: ti: k3-am62-verdin: Add Toradex DSI to LVDS adapter with 10.1" display
+        commit: ff4427a465a018fedaadd607c8166588a28a79d1
+[02/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" LVDS
+        commit: 38d01a245e66c30e7372a4a67d310fbcd8319649
+[05/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 10.1" DSI
+        commit: 8e76e1539c440c3070e4004bd20392588f870010
+[06/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Capacitive Touch Display 7" DSI
+        commit: 8a637725ad7cb29434bba0deb6b530d3116429b3
+[07/11] arm64: dts: ti: k3-am62-verdin: Add NAU8822 Bridge Tied Load
+        commit: a8891ba79990aded756e8bb92ebb690a4da6dab2
+[08/11] arm64: dts: ti: k3-am62-verdin: Reserve UART_4 for Cortex-M4F
+        commit: ca61bcec3e8a52ad2bf8b02f9244df1d47447ffa
+[09/11] arm64: dts: ti: k3-am62-verdin: Add Toradex OV5640 CSI Cameras
+        commit: f63de43a0d6f13874b6c20af0ca4726f7a5327f8
+[10/11] arm64: dts: ti: k3-am62-verdin: Add Toradex Verdin Mezzanine CAN
+        commit: a63211b0b7c9cea098ab954bbafec31982c89f57
+[11/11] arm64: dts: ti: k3-am62-verdin: Add Mezzanine with Toradex Display 10.1" LVDS
+        commit: 837c7dbc5bee260768333c1f985dd0688b5aff8a
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent up the chain during
+the next merge window (or sooner if it is a relevant bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/ti/linux.git
+[2] https://lore.kernel.org/linux-arm-kernel/178006233854.3611686.1401419911890133047.b4-ty@b4/
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
 
