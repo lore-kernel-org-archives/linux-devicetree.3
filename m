@@ -1,113 +1,83 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF143BA222
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:11:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D662A3BC673;
+	Fri, 29 May 2026 09:13:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780045880; cv=none; b=We39B8c8+g33SGWMcI6q9EPUjzcN/Tvzcjv0v/fU4F0v224TPwsjCkgVYGC8Byg18GpdobS2kNBkp6u1lb/00UqONA8IcPsUYp03q/xIO34ow6mUx9Hln4mDCm5PFC4zfb0xD8uViuz6JzdjsRCeToMoMyRwy40rR0PnxzWCd/o=
+	t=1780046006; cv=none; b=XrRUyOU7VZF4Y9wIHo8y+ku6RmTTsJBRNmqSYZ+5Pe4KnjKkbxtRaNMvMJPLizPRILCixuxniGLYQiUiDMXn7nO2Pr7P4AwbVSjF5OAiTG2sHleuFiZ5HXxhhz26AWTgixdoUBJSPWz1MTvNRQikMnX15aRu2chulLfzTAVkdvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780045880; c=relaxed/simple;
-	bh=iwUjvlRt11ZLJvFv6Z3nzGwsbJHnTXBDkxx5bqNx0Rc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=dYESALDH8wZzDQrSgsix7268t0ojO9S5GSBqph8cTtr9zwaeo9ep4MNXJxGW1M0j4vWWOdiRzFcKEmsgXF3rB9iHo22G4cZ3VTl4V5xWdrTsyb2ckFeyqjsQr0ucemP8sHVo0TNXT7saQ4Q6ucvEPgkolN5Aqqf3WZ2jFwHikeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=So+T73uS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780046006; c=relaxed/simple;
+	bh=DkUCnYG16jGtLnxsToJ+wLj2mcAHqaEZVr8oBF4zY/8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=cTCaEh2LJ9fM+OC0StO5lRIJeH6zOBEBzVabGWQCVgZ8yHDlrqOfj710ZLoYHfOq9CFW9xOldveh8i7dgOs63kjNZNWXYzjMa0fV1T3z85ZWTR3/BjvxIzg6DdXqdVIqXXFJI9Z4RAWhDGdNEIgJa2k+C3bQrUQodPZW9nllA2Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ga0EKb6V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="So+T73uS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4967F1F00893;
-	Fri, 29 May 2026 09:11:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ga0EKb6V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68281F00893;
+	Fri, 29 May 2026 09:13:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780045879;
-	bh=6tgekIIi0aqjvVnx9X2vM9TwgqbhE1PQEaWGM1uc1Iw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=So+T73uSs7/hqYLGmhWJzJGt/h4CA+5Ib47nisFTY6+Sbm70DK9pxPR7FeONQFp7m
-	 qvSsfFMrxsNEYMN81bGHm17kQ+vIzcMkZO5LKtL1/tHMmWo63HYd6SeTI1nXmWvuIX
-	 y0UuwxrLLM4IvMVujuR9tC+Yk84KF/O1zioL5FisfSTBFZw/Uv0zxU4F+PFIpz1t9b
-	 3HXVSY0i36KIVTq7aN1anRdzv8b8PB/VV2ufSvHC20sidx6745QxDolAaDG9PvEiHS
-	 gUy0mN7JM15d2S3MygJnU4r/GeDWjmZVBV+I2GyN29yt3QGQBS9c6xa9LwYVaBqVOX
-	 6rmDdly5Pl3zw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 06/15] drm/tidss: Remove extra
- pm_runtime_mark_last_busy
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260529-beagley-ai-display-v3-6-7fefdc5d1adf@ideasonboard.com>
-References: <20260529-beagley-ai-display-v3-6-7fefdc5d1adf@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 09:11:18 +0000
-Message-Id: <20260529091119.4967F1F00893@smtp.kernel.org>
+	s=k20260515; t=1780046004;
+	bh=FXj5u36sg2hgyUPKcHk2jErv4YWBbc9Vg9Nk/pqvO+s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=Ga0EKb6VAZx0lj+0Znh56/Rc5aMP9kT28wWqOzKGGpIrPVPvrJRkLfGM/okcsYtH6
+	 hryj0NWTyzwls5i69zwUy/IoX4+sqkwSi4qkWJTaKE4ZTiCScezTmIOLx4ROizDmr5
+	 gpXd1Zl6mPAYyqWLPLXsSRTpTj7qgnPfadedXwmM5UbB3al26ZL6+1tJ5vgnk1R2b2
+	 QDNYItuC/qpHW1WiELwjv9bKP/6tjHpS8MJodT3pXLiBbfUNDo93XLlayDnyO42Eob
+	 vnmLE1xAqJ7oLVo9lyC9j9ytILcQZ9I3MARW0/oQOBwqmtSYaIvNZ/8KZ/cvH7v/8b
+	 AdJykaZ1zuYMA==
+Message-ID: <28147335-f52d-4c74-8f1b-c3c3e5669566@kernel.org>
+Date: Fri, 29 May 2026 10:13:17 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 0/5] media: iris: add support for purwa platform
+To: Jie Gan <jie.gan@oss.qualcomm.com>,
+ Wangao Wang <wangao.wang@oss.qualcomm.com>,
+ Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+ Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+ Abhinav Kumar <abhinav.kumar@linux.dev>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260529-enable_iris_on_purwa-v8-0-b1b9670459ab@oss.qualcomm.com>
+ <FbrMbTbSATsfUzmR2WEfodqIdJU5mZKc-bD7y0vq6EeM7MioKBu2pGek6fl2pMfzSgRA4mr0bWXTFpm3vcbNzw==@protonmail.internalid>
+ <77b29e18-5abf-4254-b027-ba443f4eccbf@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <77b29e18-5abf-4254-b027-ba443f4eccbf@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On 29/05/2026 09:46, Jie Gan wrote:
+>> All patches have been tested with v4l2-compliance and v4l2-ctl on
+>> purwa. And it does not affect existing targets.
+>>
+> Please rebase on the latest linux-next tag, saw conflict with the commit:
+> 95a337f92f0a  media: iris: switch to hardware mode after firmware boot
+> 
+> Thanks,
+> Jie
 
-Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but the WARN_ON(r < =
-0) following pm_runtime_put_autosuspend() incorrectly treats valid Runtime =
-PM API returns as driver bugs. According to the Runtime PM subsystem API co=
-ntracts, pm_runtime_put_autosuspend() can legitimately return negative erro=
-r codes during normal operation. For example, if another thread concurrentl=
-y increments the usage counter between the usage drop and the idle check, t=
-he internal PM checks will return -EAGAIN. If the driver has active childre=
-n (like the newly added OLDI auxiliary devices) and ignore_children is not =
-set, it can return -EBUSY. Furthermore, if CONFIG_PM is disabled, it uncond=
-itionally returns -ENOSYS. Asserting WARN_ON(r < 0) on these valid state tr=
-ansitions leads to spurious warnings in the kernel log.
---
+That's a -stable commit.
 
-commit d589ba6abd338a264b1bc27a4829172f13fddbbc
-Author: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Base patches off of media-committers/next.
 
-drm/tidss: Remove extra pm_runtime_mark_last_busy
+media-committers 
+git@ssh.gitlab.freedesktop.org:linux-media/media-committers.git (fetch)
+media-committers 
+git@ssh.gitlab.freedesktop.org:linux-media/media-committers.git (push)
 
-This commit removes the explicit call to pm_runtime_mark_last_busy() in
-tidss_runtime_put(), as pm_runtime_put_autosuspend() already handles this
-internally.
-
-> diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/ti=
-dss_drv.c
-> index 1c8cc18bc53c3..5cb3e746aeb37 100644
-> --- a/drivers/gpu/drm/tidss/tidss_drv.c
-> +++ b/drivers/gpu/drm/tidss/tidss_drv.c
-> @@ -42,8 +42,6 @@ void tidss_runtime_put(struct tidss_device *tidss)
->  {
->  	int r;
-> =20
-> -	pm_runtime_mark_last_busy(tidss->dev);
-> -
->  	r =3D pm_runtime_put_autosuspend(tidss->dev);
->  	WARN_ON(r < 0);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this WARN_ON() incorrec=
-tly
-treat valid Runtime PM API returns as driver bugs?
-
-According to the Runtime PM subsystem API contracts,=20
-pm_runtime_put_autosuspend() can legitimately return negative error codes d=
-uring
-normal operation. For example, if another thread concurrently increments the
-usage counter between the usage drop and the idle check, the internal PM ch=
-ecks
-will return -EAGAIN.=20
-
-If the driver has active children and ignore_children is not set, it can re=
-turn
--EBUSY. Furthermore, if CONFIG_PM is disabled, it unconditionally returns
--ENOSYS.
-
-Asserting WARN_ON(r < 0) on these valid state transitions could lead to spu=
-rious
-warnings in the kernel log.
-
->  }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-beagley-ai=
--display-v3-0-7fefdc5d1adf@ideasonboard.com?part=3D6
+---
+bod
