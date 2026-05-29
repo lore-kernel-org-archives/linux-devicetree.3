@@ -1,204 +1,119 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32DD33A3E91
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:23:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25444377EBA
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:31:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780032186; cv=none; b=H+QfHuvr7i/XJrTOGd1NhEaNkVdpSXdFEdXVl9SEPMo7oDTefvgr5NuIREoSXFuI+BsbJy2L2VcNACVhQqA95wy7G9UxKgkM8Gf27VA59LgQsC52ueGf1x2znmkX8BrXUipa6OLjsZWF0kyNq3zf3ZlH3RyzIcypbWJBHtogDMY=
+	t=1780032709; cv=none; b=rLCpanUWhqS1TBamGEQF131TMwBvLCh3hIYWx0E27Z6difYi2Gfzok6Kz++gL8s0fAt+Ic5sES+rCnmtL5ZY0CEaB9hfs3CeQU/3NbCJ3NQ6ULuQjO9trqrZyLpBygKZoBO51LhDqEiyekVZkxOV+ddqcAwCUEre/COVYyfcezA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780032186; c=relaxed/simple;
-	bh=jTwMOmyz6NqS7PQapPujdg9bPtfrUTYsGa1vQFD7WG8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=je8M2GNHXdeF63vg48jvZsRg+mCRShTb1v1HHpflC5P85CA4172Y6cR4tyz57rsNZandfjhSRDvznbrfEr8AcCB5WzkMM6UygHbss5nNerTx2Qz+h8nvJM6DRpCSSK4fgOEagvvdVtnbm9RCtj5/qPYo7mnb4t/SGfUzn+63QsI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZFwqNkki; arc=none smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780032709; c=relaxed/simple;
+	bh=a5uGGsKKTmEQbeJ1MjcJdCf2x8gQYa1n+IBHROENI+4=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=pj/sUqIeMzuktpHgcUPdtRx2nIvkGGEBv4HZ3s16FMGqRLrYMQz1ujckqBifDcfBQNonfsrPCe8rZDe/PhVG+/FEmMPbeoyfwH1yfmbjbeMsq9dFaHqrl0JAHPqrxtQXfljGY35ykrMRyFsnb1Wkb+DM5SkqRh1JmsVTT+9o6F0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N8DGC3Fp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZFwqNkki"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7e62b6163c8so1946667a34.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 22:23:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780032184; x=1780636984; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=WF4nOUMSYWHAuFSlYY+ocAG8zIXA/0Y12y9w/560UiI=;
-        b=ZFwqNkkiWWjGcUbR0vd/VP49dku/DtwYZiaS/ASEVEeN9nFPhDKsB5Os5PL8ZVVNb1
-         frzMnxHaZjtShLZ55OAf66ZdAX35RKBfaYCti0QNFPxPn8VgLsg7RAmU1/gx5dNNMKWn
-         sSz+1Kff4WK70Zs3edbtQskF+E5LX321nIX8rjvMpPW1siIGPyvfmklqE3V2fDAASbY6
-         VVCK6QDAtEdmM/alVo+vQRreDXIK/AxPIibRkiIN4mxWNWysra/581f4iWmr7q+oJDRL
-         LeWO2I1kW4VkWeDHCB3UXO2EZ2nJ7Ln+YOMfIlagw6L3AWbynR9ir09vRaVGvpLbxQfn
-         cXJw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780032184; x=1780636984;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=WF4nOUMSYWHAuFSlYY+ocAG8zIXA/0Y12y9w/560UiI=;
-        b=UCqKYdfn0zMqgZ5irCoONB9a2CBtaAwt9g6gZfQiRcec3bWvbbM9wiXXZAy9OLNpl8
-         1CEeits5dMMezZMa/xGJvRbSqp2dNh4qp6WsCfe1FJvJrCm2YDr8cSCGNNP/V2H/LM6W
-         thRJ44UFbVnF6TaznHj5pzrwVrUEwU6JnY/NB/J+6f6v/O3mczTQ0NxuanU6lTgw71/v
-         Eg5m3RqbN4nTwvnL3YHSO7CyZx2z6aMfyh5jIKjNmoOrw/UIypmwVYo/YBvGtmsRowYB
-         8zQE9Mrt0mgb5ePO7AMxQmJuFxgunyeN6VDrsQQLT7YS25lNRuHNVmyien5fiorRIrTX
-         NFpw==
-X-Gm-Message-State: AOJu0YzCa0RFFAEqb6Zn/ecMnEKDXH2fdDkmRWwE/67GH9CDHryVB9YF
-	aO97FIdHydfgjyWoF+I01VXanGFE4Tzm2RieY6tlDwoK3z9BJWm5tfXPecz3Ng==
-X-Gm-Gg: Acq92OFyq6R2bcC3FkkTtpvA5SioTrXiwoSNfI2tcQQr+N+0wB3TCCugPkkU5cAvY9f
-	+9dgH+xDlUyImTfQ561OcLHa8WOO8RqYT4s9GsqjiyvnsIJbALwenP0q/82Q1F11tK/Tb/7+Dn1
-	Qhcatnfpz39ZnURz8qLvopWRzR2+WIrNZ4RMREoIXMzRypvzVi6qMyDfrwOAOE5l2TNG8orpUvP
-	AyCBz3jcY85fAR3SvgvHEes3Yr5KQQHBwOkk3C0/88zddZo0Zwc4RkJ4gSSFhY+OWgFKW0KTR6X
-	xa+IlKc7y8VzsXjSvDVwmFbCLTh55WbhjCwpZMoacGRzgifyMH7iKdkTti4SecVsetrsgWauwAm
-	DPePkYWxufQuDVMNZmF0lbWm5xvn5G1aEfHq1dirgRbBdFkXhYZ1KgguN60picnv7bwfHNtDcud
-	fbkStoB/M4eJvy8KWfOrwP113aEcOBMrco60EcjWjae/g0XLWjwKi9
-X-Received: by 2002:a05:6830:67d2:b0:7dc:dd58:50c7 with SMTP id 46e09a7af769-7e694df7f54mr1039318a34.18.1780032184244;
-        Thu, 28 May 2026 22:23:04 -0700 (PDT)
-Received: from fsh.attlocal.net ([2600:1702:56e9:4b40:e3a9:78c5:641e:a58c])
-        by smtp.gmail.com with ESMTPSA id 46e09a7af769-7e695bd790fsm760909a34.10.2026.05.28.22.23.01
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 22:23:03 -0700 (PDT)
-From: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-To: devicetree@vger.kernel.org
-Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Lee Jones <lee@kernel.org>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-tegra@vger.kernel.org
-Subject: [PATCH 4/4] dt-bindings: input: remove obsolete matrix-keymap.txt
-Date: Fri, 29 May 2026 00:22:41 -0500
-Message-ID: <20260529052246.4934-5-akash.sukhavasi@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260529052246.4934-1-akash.sukhavasi@gmail.com>
-References: <20260529052246.4934-1-akash.sukhavasi@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N8DGC3Fp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F2871F00893;
+	Fri, 29 May 2026 05:31:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780032707;
+	bh=19bcZSLe8NVNEqbs4U4ZWcK5B+ejLvkjp5J43hzk+w0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=N8DGC3Fp6zfUHx7kBTB0RZDLmH5KOAwtsntUO5yv7baEfAWlHYzznG0kXwLdZ00tb
+	 7obaNOK7ZQi/evFEckhKz8J9Y53WMMnZrlaxGfK/9fpXz3RcNZ/6gEhzzBRh+fWkeU
+	 XLXe/X6FUUBnELS4BubZHxWbvEgC5jHUt7+JwPcEFD6iKii786zyH7ySUMd2AHyxvQ
+	 uqVqjBlZuiherCR3btEX2Owe0VFjrLQ86znTgZCrRATYTyhxMP+H9arg/ACzObMQg4
+	 2RBolt8EXeCHzoeioaCnmRNsJmgVmF4GGv9HZY4+e3Zz/KQgmlrlh8RSBXk0JcL3Gf
+	 1HSMP9vkmt/HA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v4 2/3] drm/bridge: analogix_dp: Add validation for
+ samsung,lane-count property
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Damon Ding" <damon.ding@rock-chips.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529040530.741336-3-damon.ding@rock-chips.com>
+References: <20260529040530.741336-3-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 05:31:47 +0000
+Message-Id: <20260529053147.8F2871F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-matrix-keymap.txt has been a single-line redirect to
-matrix-keymap.yaml since commit 639d6eda3b80 ("dt-bindings: input:
-Convert matrix-keymap to json-schema"), which introduced the .yaml
-schema and reduced the .txt to a stub in the same change. The .yaml
-has the same filename in the same directory, making this redirect
-unnecessary for discoverability.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Eight files still reference matrix-keymap.txt, forcing readers
-through an extra hop to reach the .yaml. The stub has not been
-touched since June 2020. Update all references across input and mfd
-binding documentation to point directly to matrix-keymap.yaml and
-remove the stub.
+Pre-existing issues:
+- [High] The bounds check for `samsung,lane-count` incorrectly accepts inva=
+lid lane counts (like 3) and can be entirely bypassed with large values due=
+ to signed comparison, leaving a heap overflow vulnerability unfixed.
+--
 
-Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
----
- Documentation/devicetree/bindings/input/brcm,bcm-keypad.txt | 2 +-
- Documentation/devicetree/bindings/input/clps711x-keypad.txt | 2 +-
- Documentation/devicetree/bindings/input/matrix-keymap.txt   | 1 -
- .../devicetree/bindings/input/nvidia,tegra20-kbc.txt        | 2 +-
- Documentation/devicetree/bindings/input/pxa27x-keypad.txt   | 2 +-
- Documentation/devicetree/bindings/input/st-keyscan.txt      | 2 +-
- Documentation/devicetree/bindings/mfd/tc3589x.txt           | 6 +++---
- 7 files changed, 8 insertions(+), 9 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/input/matrix-keymap.txt
+commit f84cb246760d7a4c631b55b3c7a41c458926dcf4
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-diff --git a/Documentation/devicetree/bindings/input/brcm,bcm-keypad.txt b/Documentation/devicetree/bindings/input/brcm,bcm-keypad.txt
-index 262deab73588..33514eba0c9c 100644
---- a/Documentation/devicetree/bindings/input/brcm,bcm-keypad.txt
-+++ b/Documentation/devicetree/bindings/input/brcm,bcm-keypad.txt
-@@ -59,7 +59,7 @@ Board Specific Properties:
- 	  subsystem (optional).
- 
- - linux,keymap: The keymap for keys as described in the binding document
--  devicetree/bindings/input/matrix-keymap.txt.
-+  devicetree/bindings/input/matrix-keymap.yaml.
- 
- Example:
- #include "dt-bindings/input/input.h"
-diff --git a/Documentation/devicetree/bindings/input/clps711x-keypad.txt b/Documentation/devicetree/bindings/input/clps711x-keypad.txt
-index 3eed8819d05d..5f4514c0cd5f 100644
---- a/Documentation/devicetree/bindings/input/clps711x-keypad.txt
-+++ b/Documentation/devicetree/bindings/input/clps711x-keypad.txt
-@@ -5,7 +5,7 @@ Required Properties:
- - row-gpios:     List of GPIOs used as row lines.
- - poll-interval: Poll interval time in milliseconds.
- - linux,keymap:  The definition can be found at
--                 bindings/input/matrix-keymap.txt.
-+                 bindings/input/matrix-keymap.yaml.
- 
- Optional Properties:
- - autorepeat:    Enable autorepeat feature.
-diff --git a/Documentation/devicetree/bindings/input/matrix-keymap.txt b/Documentation/devicetree/bindings/input/matrix-keymap.txt
-deleted file mode 100644
-index 79f6d01aecaa..000000000000
---- a/Documentation/devicetree/bindings/input/matrix-keymap.txt
-+++ /dev/null
-@@ -1 +0,0 @@
--This file has been moved to matrix-keymap.yaml
-diff --git a/Documentation/devicetree/bindings/input/nvidia,tegra20-kbc.txt b/Documentation/devicetree/bindings/input/nvidia,tegra20-kbc.txt
-index 1faa7292e21f..460b64d332cd 100644
---- a/Documentation/devicetree/bindings/input/nvidia,tegra20-kbc.txt
-+++ b/Documentation/devicetree/bindings/input/nvidia,tegra20-kbc.txt
-@@ -12,7 +12,7 @@ Required properties:
- - nvidia,kbc-col-pins: The KBC pins which are configured as column. This is an
-   array of pin numbers which is used as column.
- - linux,keymap: The keymap for keys as described in the binding document
--  devicetree/bindings/input/matrix-keymap.txt.
-+  devicetree/bindings/input/matrix-keymap.yaml.
- - clocks: Must contain one entry, for the module clock.
-   See ../clocks/clock-bindings.txt for details.
- - resets: Must contain an entry for each entry in reset-names.
-diff --git a/Documentation/devicetree/bindings/input/pxa27x-keypad.txt b/Documentation/devicetree/bindings/input/pxa27x-keypad.txt
-index f8674f7e5ea5..a727d66eece4 100644
---- a/Documentation/devicetree/bindings/input/pxa27x-keypad.txt
-+++ b/Documentation/devicetree/bindings/input/pxa27x-keypad.txt
-@@ -10,7 +10,7 @@ Required Properties
-   interval for matrix key. The value is in binary number of 2ms
- 
- Optional Properties For Matrix Keyes
--Please refer to matrix-keymap.txt
-+Please refer to matrix-keymap.yaml
- 
- Optional Properties for Direct Keyes
- - marvell,direct-key-count : How many direct keyes are used.
-diff --git a/Documentation/devicetree/bindings/input/st-keyscan.txt b/Documentation/devicetree/bindings/input/st-keyscan.txt
-index 51eb428e5c85..fd88f40faebf 100644
---- a/Documentation/devicetree/bindings/input/st-keyscan.txt
-+++ b/Documentation/devicetree/bindings/input/st-keyscan.txt
-@@ -17,7 +17,7 @@ Required properties:
-   See ../pinctrl/pinctrl-bindings.txt for details.
- 
- - linux,keymap: The keymap for keys as described in the binding document
--  devicetree/bindings/input/matrix-keymap.txt.
-+  devicetree/bindings/input/matrix-keymap.yaml.
- 
- - keypad,num-rows: Number of row lines connected to the keypad controller.
- 
-diff --git a/Documentation/devicetree/bindings/mfd/tc3589x.txt b/Documentation/devicetree/bindings/mfd/tc3589x.txt
-index 4f22b2b07dc5..a6d356e90f42 100644
---- a/Documentation/devicetree/bindings/mfd/tc3589x.txt
-+++ b/Documentation/devicetree/bindings/mfd/tc3589x.txt
-@@ -48,11 +48,11 @@ Optional nodes:
-  - compatible : must be "toshiba,tc3589x-keypad"
-  - debounce-delay-ms : debounce interval in milliseconds
-  - keypad,num-rows : number of rows in the matrix, see
--   bindings/input/matrix-keymap.txt
-+   bindings/input/matrix-keymap.yaml
-  - keypad,num-columns : number of columns in the matrix, see
--   bindings/input/matrix-keymap.txt
-+   bindings/input/matrix-keymap.yaml
-  - linux,keymap: the definition can be found in
--   bindings/input/matrix-keymap.txt
-+   bindings/input/matrix-keymap.yaml
-  - linux,no-autorepeat: do no enable autorepeat feature.
-  - wakeup-source: use any event on keypad as wakeup event.
- 		  (Legacy property supported: "linux,wakeup")
--- 
-2.54.0
+drm/bridge: analogix_dp: Add validation for samsung,lane-count property
 
+This patch adds a range check for the samsung,lane-count device tree proper=
+ty
+to avoid invalid values. The validation is only applied when the property
+exists to maintain backward compatibility.
+
+> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers=
+/gpu/drm/bridge/analogix/analogix_dp_core.c
+> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+
+[ ... ]
+
+> @@ -1260,8 +1261,16 @@ static int analogix_dp_dt_parse_pdata(struct analo=
+gix_dp_device *dp)
+>  		 */
+>  		of_property_read_u32(dp_node, "samsung,link-rate",
+>  				     &video_info->max_link_rate);
+> -		of_property_read_u32(dp_node, "samsung,lane-count",
+> -				     &video_info->max_lane_count);
+> +		ret =3D of_property_read_u32(dp_node, "samsung,lane-count",
+> +					   &video_info->max_lane_count);
+> +		if (!ret) {
+> +			if (video_info->max_lane_count =3D=3D 0 ||
+> +			    video_info->max_lane_count > LANE_COUNT4) {
+
+[Severity: High]
+This is a pre-existing issue, but does this bounds check effectively
+prevent all invalid lane counts?
+
+Since max_lane_count is defined as an enum link_lane_count_type, on ARM
+architectures (following AAPCS) enums without negative values that fit in a
+signed int are represented as signed int. If of_property_read_u32 writes
+a large unsigned value like 0xFFFFFFFF into this enum, it is interpreted
+as -1. The signed comparison -1 > 4 evaluates to false, which bypasses
+the validation.
+
+When this large value is cast back to u32 later in the driver, it could
+allow dp->link_train.lane_count to remain at a malicious value read from
+the sink's DPCD, eventually leading to a heap buffer overflow when
+initializing the cr_loop array which is sized for only 4 elements.
+
+Additionally, does this check inadvertently allow 3, which is an invalid
+DisplayPort lane count?
+
+Would it be safer to read the property into a local u32 variable, validate
+it strictly, and only then assign it to video_info->max_lane_count?
+
+> +				dev_err(dp->dev, "samsung,lane-count =3D %d is out of range\n",
+> +					video_info->max_lane_count);
+> +				return -EINVAL;
+> +			}
+> +		}
+>  		break;
+>  	}
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529040530.7413=
+36-1-damon.ding@rock-chips.com?part=3D2
