@@ -1,102 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556A7288D0
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 22:01:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFCD1AC45D;
+	Fri, 29 May 2026 22:57:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780092075; cv=none; b=odink669rncUKg/wVQaIMl3Op7X0NyubOnzfewJWoVP6PeDXZoEosoJ57FRffg3xn4ng2uNtutbWe2Mw4dXic0AuJCaNWa9JsWc+/3DcFQ8+qAHOIN+RSTVR04tIeVXHCjsZwk1TirY9jVrud11CyTx9jfbpnUlQnMoGGfj6p3Y=
+	t=1780095465; cv=none; b=ARQ7OYqR7DHTTlcRB3vSPO9NthqnahNQcIqt/lZt9//BDcKybtksOOex/J7SCu1ld2YlMpN7/HvgIlKTJ3l1Z3R/d/YaykVzqX3wYKFJ0BRYC2xm4+fwFyWxMaETHr7PmgqyLH1rwYIbzVL9sW9gpI4NXBZwGvsOgnq0pIYxtLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780092075; c=relaxed/simple;
-	bh=pV0TWZ5PN7y6swk63a7UmAAFzKnL9lA+X8PyRUPLxF8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Fu7hruMZ7z9equVIRZrU318P1k042EWwwNx5nmd4soWuSjmcGWGHxoSb8Vo4OMVlY7DwJsKSgvhxVjSuekrJpMJ4/YmAtxy9Iwm7Es72yHYxkNqRaSsCTKF1MjJKT+xbFCvN9Y+dMa1tNj6650Kc1XB/sNXro+ZbWTkn5OWJ0Nc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UT1ljO9K; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780095465; c=relaxed/simple;
+	bh=qHtiwpZ+hr3LQA/M8vOQeknAplJllI+oQpfScdkdaC0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=l8A8Tim482YGAtWEuDqP3tNw786O6rqsfema22ylEX6P2WPF7LMnOqldnuBX67ujcLAINtVzZGqFIvUoH5CMPeu/FVo14S/4YrFu4PehQlUY0I27moJUZwKhZnBpgR5drDCwOiZBciTe9GUpBT0A7NTo3V21Ul6dB21t129Sh+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTfZDkmd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UT1ljO9K"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CABB41F00893;
-	Fri, 29 May 2026 22:01:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTfZDkmd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774D91F00893;
+	Fri, 29 May 2026 22:57:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780092074;
-	bh=I3mJ1BLdCK5eAocY2gSFSoclzkIK5eS+mqgUJB6qB4s=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=UT1ljO9KRZlIaBbZvMcR/65X610iFdQlMX8/M8SDpAm1IfYARHIaDUSUrCH0Gd9xe
-	 8/Mv3W/aNWFUsJTp7+gvnipEP0+r6JQrqw0fSha+GBK7bbuLpdfkUgK3uJJM5t0ND0
-	 a31DpFj6yTgWTm/iyB+FfrHYtavcinxkKJ9rj6TV44FtsvP/5WjsPihuY9QZWkYBF1
-	 oW/opO1ZQXR+oR7tMjvlnHsoItjjgG1qb/5/62J1akyyDqrRUOOkD/oVH5oM+YZVOD
-	 GUOImjhDtcxhHsHnVov3p5Uz0UjJln6hS/BAG6ZiUlj2R2jhqCBWC9H2SaZ1YfOIDW
-	 DBdSmSiHeeChQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: usb: convert PXA USB bindings to YAML
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jeremiah Bishop" <jbishop.dev@gmail.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529213506.37462-1-jbishop.dev@gmail.com>
-References: <20260529213506.37462-1-jbishop.dev@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 22:01:13 +0000
-Message-Id: <20260529220113.CABB41F00893@smtp.kernel.org>
+	s=k20260515; t=1780095464;
+	bh=qHtiwpZ+hr3LQA/M8vOQeknAplJllI+oQpfScdkdaC0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MTfZDkmdKifsvJxS5issxaPsSpVdp3atWttJuQnh042nP/CAAxDPs3AXYF5CXQZM7
+	 GXnWIfnLV4oloyJK2Y+f86OdMUOackqzoQL5ogAGfanY2/It1c65Bm7mqS3b6/uwjx
+	 kRA3bFPJ7vHRBg+VvL05VeR/pYNky/n4evRZFGH89b1yBFVvn7BFw71fJrSOyHzkPX
+	 sCaTe+eE6brH4k40UNjqzwCenhZyrO5McjZRh64s9WejW63BejWSjGvMy6TC6xTptb
+	 X6Q1LValvWGpKM5GI5N+lS+QR2MoSLeb6pn4UPvoyLelgFeYWKyEoC6eJX+icoQJat
+	 Mr6g6cZx3vWPQ==
+Message-ID: <73364628-5345-4c6d-ab18-7aee6c5b579d@kernel.org>
+Date: Fri, 29 May 2026 23:57:35 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7/8] arm64: dts: qcom: shikra-cqm-evk-imx577-camera: Add
+ DT overlay
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>,
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Suresh Vankadara <quic_svankada@quicinc.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
+ <20260526-shikra-camss-review-v1-7-645d2c8c75a7@qti.qualcomm.com>
+ <178000731452.4557.8537369407478321842.b4-reply@b4>
+ <oiPZ6ZMRghpGaIEC7KqUDt7QZQT8w5gq0OMZzopCPkcqKOBXXVrP7-t6ZL4LY4ErAN_z1Z4tCdqn7xbxE5EE7w==@protonmail.internalid>
+ <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
+Content-Language: en-US
+From: Bryan O'Donoghue <bod@kernel.org>
+In-Reply-To: <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `marvell,pxa-ohci.yaml` schema omits the `vbus1-supply`, `vb=
-us2-supply`, and `vbus3-supply` properties but enforces `unevaluatedPropert=
-ies: false`, which will cause valid device trees to fail schema validation.
---
+On 29/05/2026 18:30, Nihal Kumar Gupta wrote:
+> Happy to rename to shikra-cqm-cqs-evk-imx577-camera if that makes the
+> shared scope clearer - open to suggestions.
 
-commit 78f580ae03eab5d588221a2a8289471c77c1c517
-Author: Jeremiah Bishop <jbishop.dev@gmail.com>
+That would sufficiently pick the nit for me.
 
-dt-bindings: usb: convert PXA USB bindings to YAML
-
-This commit converts the legacy pxa-usb.txt binding documentation to
-YAML schemas. It splits the documentation into marvell,pxa-ohci.yaml
-and marvell,pxa270-udc.yaml to provide machine-readable validation for
-both the host and device controllers.
-
-> diff --git a/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml =
-b/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml
-> new file mode 100644
-> index 0000000000000..3f7935384b9f5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml
-[ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +
-> +unevaluatedProperties: false
-
-[Severity: Medium]
-Will this strict validation reject valid device trees that provide vbus
-regulators?=20
-
-The PXA OHCI driver in drivers/usb/host/ohci-pxa27x.c explicitly calls
-devm_regulator_get() for "vbus1", "vbus2", and "vbus3" for enabled ports.
-These requests resolve to the vbus1-supply, vbus2-supply, and vbus3-supply
-properties in the device tree.
-
-Because these properties are not defined in this schema or inherited from
-usb-hcd.yaml, and unevaluatedProperties is set to false, it appears that
-any device tree describing the vbus supplies will falsely fail the
-dt_binding_check validation.
-
-Could these supply properties be added to the schema to prevent validation
-errors for existing users?
-
-> +
-> +examples:
-> +  - |
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529213506.3746=
-2-1-jbishop.dev@gmail.com?part=3D1
+---
+bod
