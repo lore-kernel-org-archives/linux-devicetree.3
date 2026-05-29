@@ -1,128 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CH1PR05CU001.outbound.protection.outlook.com (mail-northcentralusazon11010063.outbound.protection.outlook.com [52.101.193.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 775C33EAC75;
-	Fri, 29 May 2026 16:06:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780070793; cv=none; b=CLco6a3loUji4+6mCTBq6sicf3psDXQDtbLXFRTUW5DY36oFWxnxyYBuqDBq8LERSG2Dm/o81+tX5B0CBmuRg/M3zb6aJp47BJywZbZS/LZ7GNxYnOHgGPtjh9Qz/E0p7rJ5PK+SJaR83pbjlv9ovhXliTkWkNt/hJ3eDY7b2DY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780070793; c=relaxed/simple;
-	bh=iG91rGyxfPVlIcqdnCpBe8WI8EsAARv+Z1HtrXL0l0c=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p+sRjrLUKDcb7uElO7RygxCg8yyo6FZbmHSfNm3BNkRRKJhAUQo5eNt6U9Y02Vgv/fw7ZcP5DSxxUK/VrplXj7X03lBBRZVbj1XWgYIjlv8aEoTPcR0QGKgYe9ScTAfJjwXBshfFe8iCv5jASnL5GZa7qUvxITLNuA5YoouzPZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lq9kypbV; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5185D2192F4;
+	Fri, 29 May 2026 16:08:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.193.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780070922; cv=fail; b=sJUVQ7t2nFvOw9L9SK6+MTB0U9UBPnbiWBOH0E8uxHg21bpJNL8UrtbmefD0SqDOqEnsiyOzZSPjFWIGTrKi2UC6aDpRQYn8Hme+Pt0udQ7s1AlhIkODRB52bTZ/LOneTzJ/vfJ5bGsiWdwPnxw3UHG4Uc8AVZxsjpmaugCZoFw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780070922; c=relaxed/simple;
+	bh=Q2GkM7G69k6J/hyoGZLZ9umlwSiuyTvLmKbdGSVUBbQ=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=huiQZ3bXo2oNe+Tw4HuJ71DeVS7MySS2yxHbKu8Iy0sUFbL87btlWR3036V2/wRgs5RfBMK4gwQiGQggEhS1e1wrG3qn6rPoDU/U/eAP1N6GY+5USyu2l8ynaQ5siDT7FTDcFJFqTaSIRhYahTo3kynxHC7OdpkvK9b3+wmT/c0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=hVy23Dbb; arc=fail smtp.client-ip=52.101.193.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lq9kypbV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E649B1F0089C;
-	Fri, 29 May 2026 16:06:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780070791;
-	bh=jy1Vna5n/pf5t6QN3pX0+QNIculqo5cTILdYN8VG3T0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Lq9kypbVinuwhXYOjjb87O40JTy6+GuEb6zFm8q8WVg+vf6biRDTe51RYq5LC6aD2
-	 TFhXeBsSlRAIvxqKzJEvqNAAh2VouZUOENnWORECcRDl9YxwJa4sYlU/QEaAPaxw8n
-	 isl9BPOchsnp7Sk+DTYozEDWSJdIsqrU0gucbPREB5KL9wJjwqRtrRD5WWlBs6DRHU
-	 55zwzzP4HBUOBVagm7gT0fMHm5RfeJN6+Wu5ZYdy0rdXOeZtyPnIC4JEf3PiZ5I+5E
-	 EG/ICgk5Obg2LCo4WefOXZ7CdsYq44CfF6LZoBeggVDl473bKqyksI81S9PfkfwHpN
-	 3bZinsAXXaI+Q==
-Date: Fri, 29 May 2026 17:06:25 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Junhui Liu <junhui.liu@pigmoral.tech>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Yixun Lan <dlan@kernel.org>, Vivian Wang <wangruikang@iscas.ac.cn>,
-	Paolo Abeni <pabeni@redhat.com>, Guodong Xu <guodong@riscstar.com>,
-	Yangyu Chen <cyy@cyyself.name>, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org, spacemit@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] riscv: dts: spacemit: k1: Split gmac_clk_ref into
- independent pinctrl groups
-Message-ID: <20260529-casing-carat-23f471ce6ea2@spud>
-References: <20260528-bpi-cm6-v2-0-d0eb3f236cea@pigmoral.tech>
- <20260528-bpi-cm6-v2-2-d0eb3f236cea@pigmoral.tech>
- <20260528-mushily-suffrage-5162d4ffdaf2@spud>
- <DIUT907819JD.MG7B60VQLZ8L@pigmoral.tech>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="hVy23Dbb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=hOogBxYVaFbSGf+3kVaSCjOy35hc2rXLOIggUEM6hlhwSzS45K+FJYbNhLsBeJGoaXqE+TcQp8rWszNtP2piM49jW+8ZzwGIQEX+fkAcSB4n+1/c6k1dn9k+HK5aimhFJCEzUVB791qab5kdoE6OoCCNFUhirDU4uFzDH74cdWjT2J7AFgHFpMSEWw5isL8hLdE+5hpN/vnLPLQeQauOxvnauPRGrvy39edEGonZsasuLvKns2ToHjop4hjeGz6pSQVgKmAwvguYsD77Yxc1SZS9s13Pl5YbExmkc2N09T0Bwh9v+LLl2je3hPfTz3FcH+tm2sYlsatnX+u3WivWoQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=noAY9NZxtLNkAKzoeB8W2GTdzIWcd+fyH30V6CqPW9I=;
+ b=mmiLH36B18dBd7iBgsPlSM2ovjMKCxWpGCeM7Fji/iiuUBArgeuoBqRN1GDGSAJysG1GLmMt3T1f4Kvx4bGvZ5IPpHVRm8pXnXbtESD0drDI2p9cxIuLhX8JvZNjSKrdP45+d8aGS9xtnmXO++1Vs/BhqTzkWY2eIcy2Uuj22c9RZuj31kF2B1Q6oxosxU05jiuzgUgjRvNN/XS1Vkeh6xImzWe9avhnXLFkVmgfJQVYBlEG+uSMlYqUWKoOltTau4U0Ggra8tNguOP05PUPSO4589JvojF/mqx5FP22W4pqzepgax/8on6+1gghujzRIPNVG3pmCCjAynnDZtbMIA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=noAY9NZxtLNkAKzoeB8W2GTdzIWcd+fyH30V6CqPW9I=;
+ b=hVy23Dbbdw1glO0pF1bxqQW+1wQUiPsyORCtZAuIn3zaj5eKBjT9QS7bRApb6tnbqPtO9TBYNpjhORyW5evmjKeyoaXbKH4Tro+1Da5RpvnG2bCpj66E533mHsdz7LyMDBZPCMZwHwvAZ/7qWG/AbpS2H5OoEinNnULYM82YyeI=
+Received: from BY3PR03CA0026.namprd03.prod.outlook.com (2603:10b6:a03:39a::31)
+ by SN7PR10MB6594.namprd10.prod.outlook.com (2603:10b6:806:2aa::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Fri, 29 May
+ 2026 16:08:35 +0000
+Received: from SJ1PEPF00002312.namprd03.prod.outlook.com
+ (2603:10b6:a03:39a:cafe::90) by BY3PR03CA0026.outlook.office365.com
+ (2603:10b6:a03:39a::31) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
+ May 2026 16:08:35 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
+Received: from lewvzet200.ext.ti.com (198.47.23.194) by
+ SJ1PEPF00002312.mail.protection.outlook.com (10.167.242.166) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 16:08:34 +0000
+Received: from DLEE207.ent.ti.com (157.170.170.95) by lewvzet200.ext.ti.com
+ (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
+ 2026 11:08:31 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE207.ent.ti.com
+ (157.170.170.95) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
+ 2026 11:08:31 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Fri, 29 May 2026 11:08:31 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64TG8VgK3950593;
+	Fri, 29 May 2026 11:08:31 -0500
+Date: Fri, 29 May 2026 11:08:31 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Swamil Jain <s-jain1@ti.com>
+CC: <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
+	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+	<tomi.valkeinen@ideasonboard.com>, <r-sharma3@ti.com>, <devarsht@ti.com>,
+	<praneeth@ti.com>, <linux-arm-kernel@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v3] arm64: dts: ti: Add LincolnTech OLDI LCD-185 Overlay
+ for AM625-BeaglePlay
+Message-ID: <20260529160831.cltcr6wushiozupt@freeload>
+References: <20260528111319.3262698-1-s-jain1@ti.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n7EcFU5F5S286T6/"
+Content-Type: text/plain; charset="us-ascii"
 Content-Disposition: inline
-In-Reply-To: <DIUT907819JD.MG7B60VQLZ8L@pigmoral.tech>
+In-Reply-To: <20260528111319.3262698-1-s-jain1@ti.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF00002312:EE_|SN7PR10MB6594:EE_
+X-MS-Office365-Filtering-Correlation-Id: 913bc696-e3bf-493d-f690-08debd9c8950
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|1800799024|376014|36860700016|13003099007|18002099003|22082099003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	EnbPgD0ai0GsOZ0Z1AFoRgdO53hER3D0RpsTqc6j29lQ0Rkf1Pe6Kq4M4k/DsbLg0VyPU/J1cBJZKkAZjKWEpzbqk2x0k8yBIFEzxbbXC755AygysYkYa2Wkc5n9l2GTvYgI++DbgJcn8ZhMSKHJrM6dF35d0LXahnEShV1YRv6aWVe/uj8GES/CdFTxQtF6ecR5E9kmrLCScmP2S0LiviRZ4lZrsQ+OMNWn+jo/RadtTJ1iN0i7P4/P6e1mJKW0ytnNZCZdtmz/bH35ll429wmTdECaL/SdBnt2oMCoHgRzN4SbOS9HL+pEQoN80/6lUvCp+lhs/f3kCfklSV/pC8aGOI9/bkb3h/58MUaiX1b55vIMn0gM0w0+7nAn+dPzmy60+dhIHmIokL9Akn7q9wf+kdH3jwAPzzTQXOT8nOiHxOEm1tBAvv3zLcORgvDVeQqVSJzkSA6PM6iGORb0I33HRpKY3UIW3jWnrKY2shkw8sQFGnZXxF1Of+QqjQ0vEb/2yR3/rioADKgngvvGS7xYpcMx/dg5Fdvnmb/MmiolEM2pxGW7c3aueX2JS3ncdXuMVzvhp2EgG0bdfgqO5y3f70fjTLAMkQeVcN8uR+btgpEU+fGwgiQvKDJo1C9g2GakGcctgpN/XTJtKwVpu+Mf9CmUp6Qyy06uHNVafYtyZNC2NNHA+oKDCdit0zu9
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(376014)(36860700016)(13003099007)(18002099003)(22082099003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	N+l2qLkuNGDk772gHqu1d1WnQARPA0PE3GcSqcvQ01fGJuLnSsS1UjTvIzFg4rD0I8NV0iinbt54/YTHf1Dx0WlMH5zZjQDxDQ2Jcx8xm9VnIwhes/DZV35WTQaz1F6V20SKWLEXUWrzLgBC/CzGryIosFHA4Hh1RIYQAoLIx+7cEkD1w8MGhbku57TSX4omsmLjZrsTLdHJDGqhVXUKlGNlOGhvMJlo9d658JVHTbY7/ESxYIjcZ1Q0Rjnb1gBru1GaX5XD+lQ8godUTVhJ5G/7B2EPBwU1L770EHWUUVNpTZc8Cxh4TU8oGRcAekTIj5RCECthrRkZXlSJqDdhVlbI1pStCXdToQwxUPVHxUoGn4CCwy5CjBY3QA+jnB44hnmCGmsd/AftJ7CBVUrw+8rDVbipoeCGjfXdY7D7kHRsNgq7+loj+EtyECd0GMk8
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 16:08:34.8155
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 913bc696-e3bf-493d-f690-08debd9c8950
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF00002312.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6594
 
+Please fix $subject  - something like
+arm64: dts: ti: k3-am625-beagleplay: Add overlay for ....
 
---n7EcFU5F5S286T6/
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+On 16:43-20260528, Swamil Jain wrote:
+> From: Aradhya Bhatia <a-bhatia1@ti.com>
+> 
+> The panel is Lincoln Technology Solutions LCD185-101CT[0]. It is a
+> Dual-Link LVDS panel and supports WUXGA resolution (1920x1200).
+> Furthermore, it has an i2c based touch controller: Goodix-GT928.
+> 
+> Add DT overlay for the OLDI panel to connect with BeaglePlay platform.
+> 
+> [0]: https://lincolntechsolutions.com/wp-content/uploads/2024/09/LCD185-101CTL1ARNTT_DS_R1.3.pdf
+> 
+[...]
 
-On Fri, May 29, 2026 at 10:38:38AM +0800, Junhui Liu wrote:
-> Hi Conor,
->=20
-> On Fri May 29, 2026 at 1:13 AM CST, Conor Dooley wrote:
-> > On Thu, May 28, 2026 at 01:22:48PM +0800, Junhui Liu wrote:
-> >> The gmac_clk_ref signal is optional for the GMAC controller and is not
-> >> strictly required for all hardware designs. The pins for gmac0_clk_ref
-> >> (GPIO 45) and gmac1_clk_ref (GPIO 46) may also be used as GPIOs for
-> >> other functions even when the Ethernet controller is active.
-> >>=20
-> >> Split the refclk pins into independent pinctrl groups so boards can
-> >> request them only when the reference clock path is actually needed.
-> >>=20
-> >> Among the already mainlined boards, BPI-F3, Jupiter and MusePi Pro have
-> >> optional hardware paths for the GMAC refclk pins. BPI-F3 and Jupiter
-> >> route both GMAC refclk pins to the PHYs through NC/0R option resistors,
-> >> while MusePi Pro only does so for GMAC0. Keep referencing the new
-> >> clk-ref pinctrl groups on these boards so the optional hardware paths
-> >> remain usable if the option resistors are populated.
-> >>=20
-> >> OrangePi R2S has no publicly available schematic, so also keep the
-> >> clk-ref groups there to preserve the previous pinmux behavior.
-> >>=20
-> >> Fixes: 60775f28cfb7 ("riscv: dts: spacemit: Add Ethernet support for K=
-1")
-> >> Signed-off-by: Junhui Liu <junhui.liu@pigmoral.tech>
-> >
-> >> diff --git a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi b/arch/riscv=
-/boot/dts/spacemit/k1-pinctrl.dtsi
-> >> index 4e9a62d0e85b..8c57ca05dabd 100644
-> >> --- a/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-> >> +++ b/arch/riscv/boot/dts/spacemit/k1-pinctrl.dtsi
-> >> @@ -27,8 +27,16 @@ gmac0-pins {
-> >>  				 <K1_PADCONF(11, 1)>,	/* gmac0_tx_en */
-> >>  				 <K1_PADCONF(12, 1)>,	/* gmac0_mdc */
-> >>  				 <K1_PADCONF(13, 1)>,	/* gmac0_mdio */
-> >> -				 <K1_PADCONF(14, 1)>,	/* gmac0_int_n */
-> >> -				 <K1_PADCONF(45, 1)>;	/* gmac0_clk_ref */
-> >
-> > The point sashiko made here seems valid, odd that these aren't added to
-> > another group.
->=20
-> Do you mean Sashiko's point about not adding these groups to the
-> OrangePi RV2 board? That is because GPIO45 and GPIO46 are used as
-> TP_RST_1V8 and TP_INT_1V8 respectively on the OrangePi RV2. These are
-> the reset and interrupt signals for the touch panel, and are not
-> connected to the optional GMAC PHY refclk path. So with this patch,
-> GPIO45/46 can be properly used by the touch panel without pinmux
-> conflicts once display/tp support is added in the future.
+> + * Lincoln tech Solutions OLDI panel (LCD185-101CT) and touch DT overlay for AM625-BeaglePlay
+> + *
+> + * AM625-BeaglePlay: https://www.beagleboard.org/boards/beagleplay
 
-Okay, that sounds fair enough!
+Please drop this. we already have that in .dts information.
 
---n7EcFU5F5S286T6/
-Content-Type: application/pgp-signature; name="signature.asc"
+> + * Panel datasheet: https://lincolntechsolutions.com/wp-content/uploads/2024/09/LCD185-101CTL1ARNTT_DS_R1.3.pdf
+> + *
+> + * Copyright (C) 2026 Texas Instruments Incorporated - http://www.ti.com/
 
------BEGIN PGP SIGNATURE-----
+https:// please!
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahm5gQAKCRB4tDGHoIJi
-0j6HAQD9yT0EvjvfBz74b/0p8nGpyOr/6dWhXyFM9Ci1R1AVWQD+Kev51HUz4QEU
-Yp2KAliIYhPeIibILnEX5d1vVKqUUgw=
-=s/LD
------END PGP SIGNATURE-----
+> + */
+> +
+> +/dts-v1/;
+> +/plugin/;
 
---n7EcFU5F5S286T6/--
+[...]
+
+-- 
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
