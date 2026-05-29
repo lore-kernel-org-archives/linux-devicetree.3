@@ -1,96 +1,104 @@
-Received: from mail-vk1-f182.google.com (mail-vk1-f182.google.com [209.85.221.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5825F2E738D
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:13:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB8D33F5B0
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780042438; cv=none; b=MFwOMob5/7mD1xol6PKxBBIrO3GNv+YqDhH+VT4+VCXjrJZMmQeTj8e4VW60OOpuOnMdSGVI5Ojy/LMhrWLHd8HG7524n3TKIuI0M8XRU8yXjSvF4nkenFox8xGasLB3oY0II4SWNLURM1vEeo7RM+MDvrdkmZ/5AXemOtdEnYI=
+	t=1780042782; cv=none; b=fL80+NEerXs318dD7XFvFYq5M++SGcv0JFUMU63Da/VakFZjWsGeOTU9oCvvoGLVug9V9QcsnQv7TaFRev4uCXNmPTlb8O85dFgcYahaUdCHRxfHGqkCKqucsQGwAED4ROH2e7BHI/52+vx7IrmzY7oqzbDqP+8G0J88Y6giXlU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780042438; c=relaxed/simple;
-	bh=ksVv1Z3kxdSomKXTAzAruPJr22j42V9L+ZrAtYZ/f6k=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qxc1ie0dm3Th7XEK1Y0S7R2uiA5pMQobZTiTI2beauioQitH75nKZ291hCU0NS/jPjNusnnGo4YbS0azHuYlkKGFVEhdLvz3tsCed+CU4CuhXLt1ZocAI6QknfAe13y5gVxmxCAqYQqka41qsphbqLTT+au88AI3P35vxF069qc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f182.google.com with SMTP id 71dfb90a1353d-5752b279662so4890579e0c.2
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:13:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780042435; x=1780647235;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=A4O1rGAxVnzbuU02bFkeBc3pYMVxSZfJuH3Ds5fZ03M=;
-        b=tPeuHj2+EYwF0ydNJA2680pJeX68Do+eCAkMIZ2g4aV8+adBQvAEMMnWNvKhbAZ6/U
-         ZpASMhwUJmDBFDfQSXX6LR9LsSLdfWDdZQFQc/x5BFO/r2+57XGDAHzklwdXwHP3Gimu
-         OgJ0FM0wcPyqWizkMp7Yi547xAD5Lex4M7KTKENOadbqTs2E7PsK9RfHdyNaL2GZg0z3
-         7qPxQ0A/j8xkqAkTfz0DP4XtjLiPu8TfcP+1dpG0fTuQQAznsw5pZSJddNQuHyO951Ci
-         rzafEvgonmX0+mOTBiTy368pS4XVDDbO0jjS093DY/Qi19cV5+nvkZMWbS0vwyHDEBbV
-         bnJg==
-X-Forwarded-Encrypted: i=1; AFNElJ+cW5i4Df/6hHc8ULkio4YkK4EXEMFagR4p8OPmiz2WFNO9eP1lp4UH7qsX0m/v6RW5Wn5hFsinvxgW@vger.kernel.org
-X-Gm-Message-State: AOJu0YyxVSTgS74OgqSl20E24whXktzUEbX3CgP9NsMatpvcfWHOyhPW
-	qUNk3PML3q0brRb0ZIw52IzjtweT1mp1BQfoEhogrmQgLxpEsb1Rpo0H9vV9ZaoRpJM=
-X-Gm-Gg: Acq92OHuTQ6NmEaR1B3QWeTsTVrNwtZjajGBuKjbFzDTjv2R/8FPk3DEZXDJO1cbN28
-	3MpMZN/W4SGPzT86ZHmAZ3BSosk+SsY0kCrNQjGkooMcGzzpmHCf4qzMa5n09b+++6NxjQONpzO
-	GDQVHUUB+pRwWLEiLfECS/9UomRxTgeW+R2FpBUGgElVvv6BGtxhwrddsGWPd3iff15ar58iCPN
-	bfKzsL2/MEl2zDRjj3h7MaSyIrmMcecMHskkb/eLYvuM6F0hct9kMRwQR1zRfOoX6Z/GWmxIoQF
-	lXUjZgzDAXDlEGHDx/ZjfJ9sQDSMeUQMvFnM2idv8GwirK98s3p6bzw1ikZ7foHPLKqqFU+JrAB
-	EMo4ycU0D/Hk19FX+cKn0XLUByD15yOOhyO/myrIb+GwBL+4PUh3l7IhVlJ4qIG8OY9kiPejNoP
-	hUTO3WP2ofzveOGjprrXsWifPrQp+BICYFU2bjWi5+rpsQOVKPzUq2H96DR4AAO/xJdtsxFhU=
-X-Received: by 2002:a05:6122:829f:b0:575:3433:bb34 with SMTP id 71dfb90a1353d-599f1da910amr496056e0c.7.1780042435182;
-        Fri, 29 May 2026 01:13:55 -0700 (PDT)
-Received: from mail-ua1-f48.google.com (mail-ua1-f48.google.com. [209.85.222.48])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-599d3c9649asm736706e0c.1.2026.05.29.01.13.54
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 01:13:54 -0700 (PDT)
-Received: by mail-ua1-f48.google.com with SMTP id a1e0cc1a2514c-9618b8bdc51so2035791241.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:13:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+VVTHFgdjW22CSTsS80iLePimur5CSaUJ9DqMeiSiQy9en/BX34NyRTNtLcjruzDoFpnKPDch5GOCL@vger.kernel.org
-X-Received: by 2002:a05:6102:61cb:20b0:6c3:1d6c:2800 with SMTP id
- ada2fe7eead31-6c31d6c2c3emr22326137.5.1780042434281; Fri, 29 May 2026
- 01:13:54 -0700 (PDT)
+	s=arc-20240116; t=1780042782; c=relaxed/simple;
+	bh=MgxAUkxpTBpOJvxn1LZGdb3VZiu4fzAPsufR2SmtxnA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Oz/7g1nBiqjzO5LahFFtqljXZG5no6tML/XDF6WGHyEqPy+Xvvtp6Q7tL9bhqODsz45fAi83urTgAO25JNutEFKTXwzPX28FSTyoiGQEAOe+hkzr4ozkmBV+oH1N6tu/6VvW8Lvrk7mlo5bZYyEn5t2cAD4anAbgLYUfSLdhx8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eQ/F31WC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eQ/F31WC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 046651F00893;
+	Fri, 29 May 2026 08:19:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780042781;
+	bh=14ccDOC5JgwcKlEq2EiKOtk4nkG4zPRtdzUaDZwXGhU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=eQ/F31WCFBRhSPl4WAsz3h4hOxpnOjKCspTHAMLTFHl+EVO1UuQ3EVdszFYEPKO5k
+	 tzkOpc227qNQTrtlGkw75bWzlFXkkxbzAhVsbuE+751XUAW+LeAhdrcw6aRkwAKRxL
+	 dQlL3tSdkSjuiDYT0viP9Nvx7MT5JChPNh3eChZp9R0/jZMU60LK2VZlzywOW44qUs
+	 kD2lJbjlPL1vSX308nQDF0Z5zq9Sk7aeAPIJZ57rp+GzmhTy6ov691Hc38ZLSNm1C8
+	 Gxuqp7Hli2WNQg8ElFflorlssfSE3WGgCylrAuSOejtQHp3LiyCI1VExiW41ey1oz/
+	 AQBO9ehT8adKg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v8 2/5] media: iris: Add hardware power on/off ops for
+ X1P42100
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Wangao Wang" <wangao.wang@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260529-enable_iris_on_purwa-v8-2-b1b9670459ab@oss.qualcomm.com>
+References: <20260529-enable_iris_on_purwa-v8-2-b1b9670459ab@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 08:19:40 +0000
+Message-Id: <20260529081941.046651F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260519075620.4128-1-wsa+renesas@sang-engineering.com> <20260519075620.4128-2-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260519075620.4128-2-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 29 May 2026 10:13:42 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXn2i9K64NC47VV7GRQZbPrFq5aom2wMjFNsyFzLxUC9Q@mail.gmail.com>
-X-Gm-Features: AVHnY4I8_LolE-354sAuXX9KsfKM2PHDXb13x_jgzOFpxUa6Rman_8lcR8iFUUg
-Message-ID: <CAMuHMdXn2i9K64NC47VV7GRQZbPrFq5aom2wMjFNsyFzLxUC9Q@mail.gmail.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: soc: renesas: mfis: add R-Car V4H/V4M support
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 19 May 2026 at 09:56, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> The above SoCs have only 12 mailboxes and do not have an extra register
-> space for mailboxes. Everything is contained in the common register set.
-> In addition to adding these SoCs, the other entries get updated to
-> enforce 2 register spaces and their specific number of interrupts.
->
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+Pre-existing issues:
+- [High] Incorrect teardown ordering in `iris_vpu_power_off_hw()` disables =
+power domains before hardware clocks.
+--
 
-Gr{oetje,eeting}s,
+commit 99a4b6ceed030f2e0c99e6828095cd2e45157242
+Author: Wangao Wang <wangao.wang@oss.qualcomm.com>
 
-                        Geert
+media: iris: Add hardware power on/off ops for X1P42100
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+This commit wires an extra BSE clock into the power on/off sequence for
+the Iris block on the X1P42100 platform. The BSE clock drives the Bin
+Stream Engine and is required to be enabled separately from the core clock.
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers=
+/media/platform/qcom/iris/iris_vpu_common.c
+> index c6cfc1d9fd9ec..a3238bf118eb9 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> @@ -224,6 +224,7 @@ void iris_vpu_power_off_hw(struct iris_core *core)
+>  {
+>  	dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWER_DOMAI=
+N], false);
+>  	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_PO=
+WER_DOMAIN]);
+> +	iris_disable_unprepare_clock(core, IRIS_BSE_HW_CLK);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does this function disable
+power domains before disabling the hardware clocks?
+
+In iris_vpu_power_on_hw(), the sequence first enables the power domain,
+then enables the clocks, and finally sets the hwmode. The error path of
+iris_vpu_power_on_hw() correctly follows a last-in, first-out (LIFO) order
+and disables the clocks before disabling the power domain.
+
+However, iris_vpu_power_off_hw() calls iris_disable_power_domains() before
+disabling the clocks. On ARM/Qualcomm platforms, turning off a power domain
+(such as a GDSC) while its associated clocks are still running can prevent
+the domain from fully collapsing, lead to bus hangs, or trigger
+asynchronous external aborts (SErrors) when the clock controller
+subsequently attempts to access unpowered registers.
+
+By inserting the new IRIS_BSE_HW_CLK here, this patch perpetuates the
+unsafe sequence. Should the teardown in iris_vpu_power_off_hw() be updated
+to strictly mirror the reverse order used in the error path of
+iris_vpu_power_on_hw()?
+
+>  	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
+>  	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-enable_iri=
+s_on_purwa-v8-0-b1b9670459ab@oss.qualcomm.com?part=3D2
