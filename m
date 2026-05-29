@@ -1,119 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A37EF34C981
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780066491; cv=none; b=K9EDkw0o/0aW5cXaggLVfDd3aKk60Stoi12x4YEZKxfWZqARUtAsKHnPD7NMETkDB5nJNjlZD8PbNOdh1HMVjvvf3VX9QOGzbkzfWuP2t4/DR3pKUK1zbyJ8GWDfEPgg9V+YjORvgumafMzA/aze8IJNNvkt4Sp/RAYsNtsx7es=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780066491; c=relaxed/simple;
-	bh=VihoYmau5FOm4Xcn+aQdOhoZ+4NKFDnOWEC1F5dUqc4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jMyUDrXfn/mf29Xs5ClH93NNWPG8/Yo1LNToFnd2DSRi7FLl0MrAClGwl9ZR2gVzA2L4y3mUx9XZMeqHUXqSkko6DntHC81ZRpLXDTgF2byaojHY1L4pdMIgI5BbH+2fcXtlD9KtFnfGh8lM9pTtjPJGud5NefjWUJW7h4Wi0Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gmO3ghy1; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1C003F4DDF
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:56:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=205.220.168.131
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780066597; cv=pass; b=c7v42eHA73b8BuHxHv73/i5c4IMxw3GkaOtEZ5gp+BaGMdPZgH67OeFmCQjofjWVu/DeLyt+O/KFqov5V33+j5FVx55q+rh5rI9Cu1fKUC4E3DLncuMUPaZfhsLu1ehPZCLFnkQWDhQTMs7eVdM6rK5CV8R15fnYIWzRFQPX+/w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780066597; c=relaxed/simple;
+	bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=A/TN8A3TjrUKtL57+aMnICkyrax72rgdvR0JD20jTXAo31OBQaNWGTnRhF9gjdydXOxPicaKAKTIDUv7wqy8OeOyk3WD3fCg6OQsSVfnoblCKFIbI1Aen6JrWZQLMfUFjWWT9+1pZDM0cA/naDdQ+/yl4P546/cyf5PW3URktfg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pe7FSy6e; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fPJrKnE1; arc=pass smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gmO3ghy1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A34C1F00893;
-	Fri, 29 May 2026 14:54:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780066490;
-	bh=m2vuIeZmb8QyJU2yWsoDSHwEa3CSsieEQzs21mEScEY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=gmO3ghy1sVu14LkxC0Xcm3OvPbkmGJ3A0+cR6F38pbPVfTl0MK+6bHgl7s8HT7aqr
-	 zHG81zfzMTdxi03wy+vjEDIYSnFtC8h5Tnj2OXiqRChfZcCG1kWURn9qZGH6QRjlXg
-	 hXdDESMgTPRvBZ6AjGq69Rs5GajwnlzJTTHdCGdwAxEb+FhCvuAe5Qd1ijKAsI8mDv
-	 +bkrwjT5sbj30v/iM1twgt+taC/v3Vd5GlUdPXw1h6H8nWFxzL4witnMXoidKxVZth
-	 bYYNiB7mVgNFrb07g+8sC+8p9Xpy3+nK+J5HOJATMzD/B4dp37RNe7OX/+JoBifmsm
-	 8lIvrv3UMRfHg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] arm64: dts: qcom: sm8750: add reboot-mode
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anurag Pateriya" <anurag.pateriya@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-1-1964ebf1924c@oss.qualcomm.com>
-References: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-1-1964ebf1924c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 14:54:49 +0000
-Message-Id: <20260529145450.5A34C1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pe7FSy6e";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fPJrKnE1"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64TDLfZ32748110
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:56:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=; b=pe7FSy6erHB/iGtj
+	O4JsVkvN6Ej8+SrfAoRMm56O0pqWM8hfYrzevYidONDiGuh+wgGQNKg5T1CNmvuk
+	H8XpOIu2y6R6pWqP3gB/3bWYiuztUfJ1C081lGdiw/iRhtrJmnvHvn0iEMjh4K5j
+	+EMpOSBNSH0K4ZIZas82TIV2jFGrTVkTi4/kAicHvlkzxLi82eRno1Yj6eTgPLoC
+	qdCtIUFnN1rQQsUf0pU5M41StI77xxrKtj1RLBw7NntoaNo0rXKrKSPAzk5DoviJ
+	Dudnrjlfw22SRcGnrjqmkpDGF3yOVUfkqiiSe6gj01YMUmhrLfmSrV/xYqb3Hr3i
+	aCiT/Q==
+Received: from mail-qv1-f72.google.com (mail-qv1-f72.google.com [209.85.219.72])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eevug45fn-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:56:36 +0000 (GMT)
+Received: by mail-qv1-f72.google.com with SMTP id 6a1803df08f44-8cce230de8bso26071196d6.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:56:35 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780066595; cv=none;
+        d=google.com; s=arc-20240605;
+        b=lC9pETn/1bZsjJY/CW5+5oDCz8XDEGygqDNzTVMyiOEa2Kdm0QPkgCpsAsnxwFtbjm
+         aWt4+dTJ0FCMkoT5XGJGIh5IpXaa9RTpwwelXe37DYnMoUiHcSL2L8ZYIwhxj11r7rEA
+         Q3fWGZqrpBfUGV3I5LQAuEQX+lqa0OZNGzdTlYiuKcehR0QXlnRlserI9jlCSfod+Psu
+         BBXgkax7pR50TZ9ZxQ/ZPYx7i3YgF07pVxVBOQT3aUkeTs77zjHV810YwMtAH4g/FCjq
+         p12az0L436U9lJv35A83sFNJ+5pEMKHgckKW27WWEwj1hkmzuwszueYLfpBhUd3KKhwo
+         2NDA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
+        fh=Jt+1rU/INOiPGE9j/m+WM8Ohp/J9ZBCMXKPpmarJAh8=;
+        b=ktfhfAvgVwTR1S3D/QhJggLWC/j5fHXT512ubgGd90habkc803kcI1Oz5mkUCGrH+c
+         kbuk2+euZDKrPQNGCcngQ9W9zPkINlaUUesiOzTM7Sq2Vrc9Ho7B6cNPaxQs0fQOsiqc
+         ual78/YlDlv16aeGrNsw6GZHfRSHMwOmLrMIA4jrjTpXYqtpOR1mHVuTSv0ThxVAUuMC
+         nwz2Ro/VXrNWU3BtjEUCrbUbFppWF6wKE/7wpix7uh35KWb/E8jIhyF76IBrMMGKzFnS
+         qljDhXnPtUS2wLRqgzKcK4Lswgwwqf9baAm0oqYNwuOeDJW6JIqPL5vxNa7XD2umAjKW
+         SZbw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780066595; x=1780671395; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
+        b=fPJrKnE18O2ELrG+1EYVhAL3JW8yWtx+LTnh6bS4lkJTjmKe6se3bjOeAK4SPk9jD/
+         nB9yFZDbb/5MwmpSU+p8pvLOMeTIVcRq4OJqv1onJDcnowLcJXvFcM8WAF+o3vVDzio9
+         XCF8i5S9eKoV4bP3g7ijEzJu1fxdCI9i7ySkseEiMeGsO3j4Kjwtz+/+VzyX0IoXbHJv
+         Iygt1XyZk0PlDljWS+w1f98KKpRxas26rT+usd1Xkw8N8g6wve1E8hnn3RnrVVfiCirH
+         a94c5gOcnD96dKC678TwWrOZg+k61lJ3XJMZ7E8Ns/xKbSRDzy8q30k/Pz3li1pUUmZV
+         G7FA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780066595; x=1780671395;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=t0sbuoCRscRsNgBNxc9x5TWkTU0fefbRXG4QqzAlBkU=;
+        b=BXROC6AGZ4mFQVqVC8P29hCldVhMfoeMQ2rITKy+8mNM98bSBaC1I+8TC2yH4By1zQ
+         n8BLapZGb1aHWBFOyWs2+FtJD1IiORk/mR+kvN2QHlY3HBoPSSeFyjLcBhbZe78hAprc
+         qdnsAGa55fMNIz1NOy8xvkn+2HxoyNy7+6x2YIXCCNo+XOr2JBRARmtT5NFZFZQEV5T+
+         PmHawKO6nQh46VKT6Kiiiv7NHB5sdRKSBA+lwZX6WeDGLHQjKZuZXy53Wc+NjLlCHxo9
+         O6Nb33CUzuTHXGmQcLTu/hOwgrpIb2hoVqTCIfBOMKDOZkBtvqMCrsfOXX87fOlRIqDS
+         2NFg==
+X-Forwarded-Encrypted: i=1; AFNElJ+d1CmCkSAUUKaAPwHFepq1TaCSCUKcirNhc3P+tRG28XNWDXxgXUTmv1EUXxMgH0YPZqfAk/++lDR6@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx07RhqGCGiFt+DxmcPBCACet4uwoMgCPsciy55Olf3LkkEWGa8
+	npMTH37VhpOLGMCA5bkcYLKx3dMonGbud6CTNhAEqV1vSq48OxGF1RjRBpOx3LLPs0JdFike3oX
+	eBrIQPicoOSvgDs8W5WADTYSqb9QkIemoH1PWgqMMSdXxGC9FrQtt4NxNdqenIT5eNxnw1Z9ukO
+	4FU0eafeJwdSxYn6UmQ/6FKABE3B9nve44Wmxn25k=
+X-Gm-Gg: Acq92OGbcTBBlpNOtcZkyTx8gP/Wsv2ZZsCGcLq+ThdIgE/CVAMJ5nGOmmOefKYTQTA
+	m1yfUQmpi94CVy6RiBtXC4C+o4UeSQNDjI7SlQ8WY/tnf0N1CZBNWYIBzlMn28EfmVHV0CguIZx
+	SbmxsUZkXbQM36NjlTKgFBeEYiWWwHxEjsNEyqOVgHwZYN/lqTdRMZN4T3yx6xdDtRsQcpDsyFo
+	UmPQua6GrTuZZJpoA==
+X-Received: by 2002:a05:6214:3018:b0:8be:3201:ed03 with SMTP id 6a1803df08f44-8ccefdac039mr123326d6.28.1780066594959;
+        Fri, 29 May 2026 07:56:34 -0700 (PDT)
+X-Received: by 2002:a05:6214:3018:b0:8be:3201:ed03 with SMTP id
+ 6a1803df08f44-8ccefdac039mr122786d6.28.1780066594551; Fri, 29 May 2026
+ 07:56:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260310113557.348502-1-neeraj.soni@oss.qualcomm.com> <07a7d2f8-4a6c-d9f9-71b5-49a1dae693fd@oss.qualcomm.com>
+In-Reply-To: <07a7d2f8-4a6c-d9f9-71b5-49a1dae693fd@oss.qualcomm.com>
+From: Ulf Hansson <ulf.hansson@oss.qualcomm.com>
+Date: Fri, 29 May 2026 16:56:23 +0200
+X-Gm-Features: AVHnY4Jm7GKGq_habBfPiaPG5j1Bztziq1HOpWPaB7d3DTUiS4TBgGnY-iRv1tI
+Message-ID: <CAPx+jO9kc7-QCV+ZgeeQQGdTaLAcvedLgvOpdSxqt4ezz-Lxhg@mail.gmail.com>
+Subject: Re: [PATCH v6 0/3] Enable Inline crypto engine for kodiak and monaco
+To: Neeraj Soni <neeraj.soni@oss.qualcomm.com>
+Cc: ulf.hansson@linaro.org, robh@kernel.org, krzk+dt@kernel.org,
+        conor+dt@kernel.org, andersson@kernel.org, konradybcio@kernel.org,
+        ulfh@kernel.org, linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDE0OSBTYWx0ZWRfXyAqbNi1J6Ta7
+ oHb2ECWLtJvmCqFs4pL65GJP5/sH7D3Vp+B6oeuAWzVnR3hFxEE1r8/lg3sQRd/chGdRToznfGk
+ IdGIOmJhXmlCeWYdzrbuS4bPC3FNCztkIGih6/ov8Q28DcOYv1WsqUiPQrOegrVd9M5Mt00VcKH
+ ePc6Ob5zEBO+rwtYWmagdC+78nzODaZcZd2H0oxfS6Rx+XGWKKZODbNYUi0SlaFEaqaTWVgv/fB
+ U84fw8Zlw8r28qmYQXgDGe2LPOUe8NMtXGqVS37UxNPor43RaAFj4N+n5rUOGBEbLSeKMIf+xzP
+ 8ZLMNV2fwLq9TfbkedsabZVCOvLDt7Cf0UsTlAmMVkECND8nC9FmHxnlv2Ef0gqaAvpUy/jVcNj
+ nthRQvQgl6rqmGrnmaWne8auXI+8k59N5OLEf9T0gK+2J6Er6sdJQqC4W2pFqhvmZzn76UyQF7c
+ 0mrvnYwh0GBhwlVG4FQ==
+X-Authority-Analysis: v=2.4 cv=SNBykuvH c=1 sm=1 tr=0 ts=6a19a924 cx=c_pps
+ a=7E5Bxpl4vBhpaufnMqZlrw==:117 a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10
+ a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
+ a=yOCtJkima9RkubShWh1s:22 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8
+ a=1P0UMqgBtEyZMnONbk4A:9 a=QEXdDO2ut3YA:10 a=pJ04lnu7RYOZP9TFuWaZ:22
+X-Proofpoint-ORIG-GUID: lRbZPOvbIAdJHYxG96LqcwpX1hO5O2YL
+X-Proofpoint-GUID: lRbZPOvbIAdJHYxG96LqcwpX1hO5O2YL
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-29_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290149
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Medium] The reboot mode properties define multiple 32-bit values which w=
-ill be truncated if using the generic reboot-mode framework.
-- [Low] Adding a `reboot-mode` child node to the `psci` node violates the P=
-SCI device tree binding schema.
-- [Low] The newly added `reboot-mode` node lacks a `compatible` property, p=
-reventing platform drivers from probing it.
-- [Low] The commit adds device tree nodes for a `psci-reboot-mode` driver t=
-hat does not exist in the kernel tree.
---
+On Fri, May 22, 2026 at 11:34=E2=80=AFAM Neeraj Soni
+<neeraj.soni@oss.qualcomm.com> wrote:
+>
+> On 3/10/2026 5:05 PM, Neeraj Soni wrote:
+> > Document Inline Crypto Engine (ICE) handle for SDHC and add its device-=
+tree
+> > node to enable it for kodiak and monaco.
+> >
+> > How this patch was tested:
+> > - export ARCH=3Darm64
+> > - export CROSS_COMPILE=3Daarch64-linux-gnu-
+> > - make menuconfig
+> > - make defconifg
+> > - make DT_SCHEMA_FILES=3DDocumentation/devicetree/bindings/mmc/sdhci-ms=
+m.yaml dt_binding_check
+> > - make ARCH=3Darm64 CROSS_COMPILE=3Daarch64-linux-gnu- CHECK_DTBS=3Dy d=
+tbs
+> >
+> > ---
+>
+> Hi Ulf/Bjorn,
+>
+> We are looking to target this patch series to be part of 7.2 merge window
+> if there are no further review comments.
+> If if is fine, Ulf can you please ack the dt-binding patch (1/3) so that
+> this entire series be picked via Bjorn tree.
+>
+> Bjorn i hope this is fine with you.
+>
+> The v5 of this patch series was "Reviewed-by" Krzysztof for dt-binding ch=
+anges:
+> https://lore.kernel.org/all/20260307-llama-of-massive-downpour-2e512a@quo=
+ll/
+> but i missed to add it in v6. Requesting to please apply the tag while pi=
+cking
+> the patch series.
 
-commit 29b2e890de1b3d908134e3a9d75f1f250b9a8f44
-Author: Anurag Pateriya <anurag.pateriya@oss.qualcomm.com>
+It's been a little messy to keep my backlog up to date while changing
+employment, please re-submit a new version of the series.
 
-arm64: dts: qcom: sm8750: add reboot-mode support
+Also note, I don't pick up arm64 dts patches (unless very specific
+reasons), so that parts need to go with the soc/platform maintainer.
 
-This commit adds PSCI SYSTEM_RESET2 reboot-modes for sm8750-mtp and
-sm8750-qrd. It defines bootloader and edl modes for use by the
-psci-reboot-mode driver.
-
-> Add PSCI SYSTEM_RESET2 reboot-modes for sm8750-mtp and sm8750-qrd for
-> use by the psci-reboot-mode driver.
-
-[Severity: Low]
-Is the psci-reboot-mode driver available in the kernel tree? It does not
-appear to exist in the current tree or in this patch series, which leaves
-these device tree nodes as unused code.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts b/arch/arm64/boot/dt=
-s/qcom/sm8750-mtp.dts
-> index 3837f6785320d..af4b548d39e91 100644
-> --- a/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-> +++ b/arch/arm64/boot/dts/qcom/sm8750-mtp.dts
-[ ... ]
-> @@ -1426,3 +1426,10 @@ &usb_hsphy {
-> =20
->  	status =3D "okay";
->  };
-> +
-> +&psci {
-> +	reboot-mode {
-
-[Severity: Low]
-Does this new child node violate the PSCI device tree binding schema? The
-Documentation/devicetree/bindings/arm/psci.yaml schema specifies
-additionalProperties: false at the top level and does not define a
-reboot-mode child node, which might cause schema validation to fail with an
-additional properties error.
-
-[Severity: Low]
-How will the system bind a driver to this node without a compatible
-property? Without it, the platform bus will not instantiate a device for
-the child node, preventing drivers from probing it natively.
-
-> +		mode-bootloader =3D <0x80010001 0x2>;
-> +		mode-edl =3D <0x80000000 0x1>;
-
-[Severity: Medium]
-Are the second 32-bit cells in these properties going to be ignored? If the
-driver hooks into the generic reboot-mode framework in
-drivers/power/reset/reboot-mode.c, the framework reads properties prefixed
-with mode- using of_property_read_u32().
-
-This function reads strictly the first 32-bit value into the magic field,
-so the second parameter might be silently truncated and lost.
-
-> +	};
-> +};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-psci_sys_r=
-eset-dt-changes-for-pakala-v2-0-1964ebf1924c@oss.qualcomm.com?part=3D1
+Kind regards
+Uffe
