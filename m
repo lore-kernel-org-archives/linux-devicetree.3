@@ -1,127 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m2411.xmail.ntesmail.com (mail-m2411.xmail.ntesmail.com [45.195.24.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 21FEA18DB1A
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:05:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D020636074F;
+	Fri, 29 May 2026 04:05:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.195.24.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780027517; cv=none; b=m+jsViqnpkjb3tVHGcgN9YN7HyGZ71v7oFc+5e3o2KBxgLxrPSeF2cr8iuCI9/oCzgb1wXkOEv1RoOdb95Kp85/lDwsC7rD4jz4AX6wIFDNqx3aIlIOftVmvvF+LJimpBD2BkTIVEPF1OOMUFU7DqRVaBW0zv7Bxn0SRvky1B8c=
+	t=1780027553; cv=none; b=aAOjFskQM1S4ZHUt+ZQWJ2Uq+gwnCz1HOszGm8K+8eVChYXTqYY2KWA2yYPlh6yas/CisddfXgCfPgmtuipq29BzI6NFZU3u4y2iDJEf0snnbPFqWvNVphivrFtX049RR+jh68GYHyOrCvaXLzvFBYQ/ILWwe9a4ghrkx+t+elw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780027517; c=relaxed/simple;
-	bh=x1VS4UR/JdpWVYiWhTtigCNb6MWWAmacrG/WPeg5tK4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nydCs60AYacCMC+h7k9KhSJvnlE5wS8aC4/vZdL/Gf1+LC7U9QSEsCHEDQpa7mPfgvJ4vgRMe55jIa+DK6iDLLeVynh0n9DBzQ5iQf/l0HXv+GQxraChNEg5PtIaFHLfZM6hkAxsM5UukfzrtaCC5T4w6KHnwp9z/Udjk3RVcm8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ro1Fcayp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780027553; c=relaxed/simple;
+	bh=EF/w9XNX9V3HB4yDVIQ5vT5i5wwA4sm6UXupkgcEarI=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=gktLsOhOeITg+/J7SvxEB1CvTdUaw76J//Mxyvu2S+Xn45yqfPQ1XXLxnEPb1YFBB070j9E25hjxog3+84IVr6dlLi2zc2+7Oi9ut9tFFEuIgxM8PQk3Gak58wAhw1D5q8ANS4tk/RoLFfxTj+j1VVHOIeYmSUlBsaFl/DsGNnI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=eyRwlXX4; arc=none smtp.client-ip=45.195.24.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ro1Fcayp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FD111F00893;
-	Fri, 29 May 2026 04:05:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780027515;
-	bh=mena1tK4AnU+anxNQ8NciiOtob8BwjiJE8otWsr9wSs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ro1FcaypV591s31vnQGuzo07o3HeTwye3TVttRmEeqtRb1VyTg0L/kxg4EA3sbRD8
-	 kzuLg0eVQl1CKyWz/ojGYjkgHE+G9/z62UdEJL2JWpmOU83pvKCriQJRTWZSUqND/Q
-	 Q9WE5OlLUyvWywtwEGbwNMwOEJ1pDTWt3kSeLd+pWlMqn2x2neAhPtZLjZpMVeOZvE
-	 cvqCYM4zDOJKe+pHm+52kXUIN/coLC0kQiHpuxD95afwwqKHfDuYxJpikwFPpHd6ZR
-	 TvzUhX7TPDB8WPsACbTduPsHKIOG37iwHnWRDJqLJE806DCGT0OoucPe+w2Jj7Kt5v
-	 bgYpHp9ymhr9Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 5/7] pwm: tegra: Parametrize duty and scale field
- widths
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikko Perttunen" <mperttunen@nvidia.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260529-t264-pwm-v5-5-7bf9e405a96a@nvidia.com>
-References: <20260529-t264-pwm-v5-5-7bf9e405a96a@nvidia.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 04:05:14 +0000
-Message-Id: <20260529040515.3FD111F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="eyRwlXX4"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 404653b96;
+	Fri, 29 May 2026 12:05:40 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpoint
+Date: Fri, 29 May 2026 12:05:28 +0800
+Message-Id: <20260529040530.741336-2-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260529040530.741336-1-damon.ding@rock-chips.com>
+References: <20260529040530.741336-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e71e8c2ac03a8kunmaf9a1d48e6bc9
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSkpCVkgZTk1JGh8dGE4fQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=eyRwlXX4fJCK6ANquk1lRzey47o/T2/m7U3rokghp+xX8elRaBrRvIaSq7luu/2kN94dl14Mmq/Mtg4C4+rsw98VanhIYpp0+5pGqA83Se/AKtGlThG2ucdZl5RI5Qy/1GWJKhQQr9X3TrIHwNKU7RULc6Ph43KfdLApVwa3r5o=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=4TECj+eo2504ZHJMX4bVMBIaoIrtjNzQH7rBEbcRAg4=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Add data-lanes property support to the port@1 endpoint for physical
+lane mapping configuration.
 
-Pre-existing issues:
-- [High] Division by zero kernel panic in `tegra_pwm_probe` if the retrieve=
-d clock rate is less than `TEGRA_PWM_DEPTH` (256).
-- [High] Integer truncation of 64-bit PWM state values to 32-bit signed int=
-egers in `tegra_pwm_config` leading to a division by zero kernel panic.
---
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-commit 0c0ba991124cb1c177969041379fb6a95cd2a4c9
-Author: Mikko Perttunen <mperttunen@nvidia.com>
+Additionally, add data-lanes setting in Rockchip eDP DT node example
+to show actual lane mapping usage.
 
-pwm: tegra: Parametrize duty and scale field widths
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-This patch parametrizes the scale field width for the Tegra PWM driver to
-accommodate wider fields in Tegra264. It separates the depth value from the
-duty field width and removes the duty field width definition.
+---
 
-> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-> index c82d537436a0f..7c7b884d44363 100644
-> --- a/drivers/pwm/pwm-tegra.c
-> +++ b/drivers/pwm/pwm-tegra.c
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
+- Remove redundant deprecated property 'data-lanes' for eDP node.
+- Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
 
-[ ... ]
+Changes in v3:
+- Squash data-lanes adjustment of Rockchip eDP DT example into this
+  commit.
+- Add unevaluatedProperties: false to both the port@1 and endpoint
+  nodes.
+---
+ .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++++++++++++-----
+ .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+ 2 files changed, 15 insertions(+), 5 deletions(-)
 
-> @@ -105,22 +107,22 @@ static int tegra_pwm_config(struct pwm_chip *chip, =
-struct pwm_device *pwm,
-> =20
->  	/*
->  	 * Convert from duty_ns / period_ns to a fixed number of duty ticks
-> -	 * per (1 << TEGRA_PWM_DUTY_WIDTH) cycles and make sure to round to the
-> +	 * per TEGRA_PWM_DEPTH cycles and make sure to round to the
->  	 * nearest integer during division.
->  	 */
-> -	c *=3D (1 << TEGRA_PWM_DUTY_WIDTH);
-> +	c *=3D TEGRA_PWM_DEPTH;
->  	c =3D DIV_ROUND_CLOSEST_ULL(c, period_ns);
+diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+index 62f0521b0924..ecf206871cdd 100644
+--- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
++++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+@@ -42,13 +42,22 @@ properties:
+     properties:
+       port@0:
+         $ref: /schemas/graph.yaml#/properties/port
+-        description:
+-          Input node to receive pixel data.
++        description: Input node to receive pixel data.
+ 
+       port@1:
+-        $ref: /schemas/graph.yaml#/properties/port
+-        description:
+-          Port node with one endpoint connected to a dp-connector node.
++        $ref: /schemas/graph.yaml#/$defs/port-base
++        unevaluatedProperties: false
++        description: Port node with one endpoint connected to sink device node.
++        properties:
++          endpoint:
++            $ref: /schemas/media/video-interfaces.yaml#
++            unevaluatedProperties: false
++            properties:
++              data-lanes:
++                minItems: 1
++                maxItems: 4
++                items:
++                  enum: [ 0, 1, 2, 3 ]
+ 
+     required:
+       - port@0
+diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+index d99b23b88cc5..f690ee393fdb 100644
+--- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
++++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
+@@ -117,6 +117,7 @@ examples:
+           reg = <1>;
+ 
+           edp_out_panel: endpoint {
++            data-lanes = <0 1>;
+             remote-endpoint = <&panel_in_edp>;
+           };
+         };
+-- 
+2.34.1
 
-[Severity: High]
-This is a pre-existing issue, but could this division result in a kernel
-panic if period_ns becomes zero?
-
-The core PWM framework provides 64-bit unsigned integers for the duty cycle
-and period. When tegra_pwm_apply() passes these to tegra_pwm_config(), they
-are cast to 32-bit signed integers (int duty_ns, int period_ns).
-
-If a user sets a period of 4294967296 ns (2^32 ns, roughly 4.29 seconds) via
-sysfs, the 64-bit value gets truncated to period_ns =3D 0.=20
-
-Since the DIV_ROUND_CLOSEST_ULL() division occurs before any bounds checking
-against min_period_ns, does this allow an unprivileged user with sysfs acce=
-ss
-to trigger a division by zero exception and panic the kernel?
-
-[ ... ]
-
-> @@ -319,7 +321,7 @@ static int tegra_pwm_probe(struct platform_device *pd=
-ev)
-> =20
->  	/* Set minimum limit of PWM period for the IP */
->  	pc->min_period_ns =3D
-> -	    (NSEC_PER_SEC / (pc->clk_rate >> TEGRA_PWM_DUTY_WIDTH)) + 1;
-> +	    (NSEC_PER_SEC / (pc->clk_rate / TEGRA_PWM_DEPTH)) + 1;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this lead to a division
-by zero exception during probe?
-
-If clk_get_rate() returns a rate less than TEGRA_PWM_DEPTH (256) or fails
-and returns 0, the denominator (pc->clk_rate / TEGRA_PWM_DEPTH) evaluates
-to 0.
-
-Will the subsequent NSEC_PER_SEC / 0 operation cause an immediate kernel pa=
-nic
-during boot? Should the driver validate pc->clk_rate and return an error if
-it is too low?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-t264-pwm-v=
-5-0-7bf9e405a96a@nvidia.com?part=3D5
