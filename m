@@ -1,73 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86C43E8C45;
-	Fri, 29 May 2026 16:37:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35EBE33DEE5;
+	Fri, 29 May 2026 16:38:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780072631; cv=none; b=RMJxTO9R78UDsv+sSKRWCMRPFB4/DMlRNekW+wKkCysR/o7JoB9AmcqAelnmYhg/uvWVrc1eZoB84Fva8H4m5E4DXNk/ODrsT8PQgY092cmaQ2k0lIZKzLKXFZWWcTjNcZJPMo/oNYK9VCJzQcXd52q+/vsb8jQDshPsJS8zR6c=
+	t=1780072716; cv=none; b=auxjNKq2F3zBB6Z2ANTG92Z69gpUiIcQa06mbB4FQSumpDQlf3y3BKGk3lMTFeK3WPc2KXLTmC/i0Lw1nt67cxm68hJUfrpwT7LxamHUPoYTRZTerp2XYE4GSHSefaGsqs64aaoIINkw1ef1R4kn5RTjjWjPTHpeIxy1Z2Edekw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780072631; c=relaxed/simple;
-	bh=Er+CRp+/fzF6XP7lhBBmaTyKlQe5AEFZx4olmr5xIQ0=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jsE1p4raTNtzCBThPLqBMzTpilmLLvrhI/M950ZdFCI2zk4D2HniOetcLWvIvVJI13Yrv0PI0RgIElp5jV2063PbkoCIMvg/F6y8i+bhOVadJgAY6pWr8Z9OmbBuc2wFhKwoplVWBxOb4jA1hPvcMx/wZ/IqpPQytfLcIZoFgpM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpJhVU3r; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780072716; c=relaxed/simple;
+	bh=ZuGYoimv2AWMa7fL0YVVwM+74fpstl4A7epYJTl53z0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=We7xYUYCAx2PYJOUzmJ+jICOxvy8EV4J/f6hlFfp6+gzCvTMlzqbakr2mB7Tn8Bjxssm0sCRkROVvIJamVcepl48fIpcBq84rnmV6n+M3NV6AWiViP5cRLdUqAhhnPDOXmD9cqqOP87iZRO/KXQggRAvKpynQTwKXN8pLhJfAJo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S1tWrG3o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpJhVU3r"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF4E71F00893;
-	Fri, 29 May 2026 16:36:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S1tWrG3o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12731F00893;
+	Fri, 29 May 2026 16:38:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780072629;
-	bh=Er+CRp+/fzF6XP7lhBBmaTyKlQe5AEFZx4olmr5xIQ0=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=DpJhVU3rHJQc98K2nTljj478Xh+GZiF0GUfOrwna3KtBKLlr2LjxoQlGAGOl1YFYj
-	 JBYbOaE9746eYVP4RH2CqkzDMpk83yl26x5ckIrnbt4smT+ohvYdTsPlkFYVI1mTej
-	 EB0KqUUmrVx45MeOEZ5y7jdg7Lsd+RA3Snlz6IhJrxF4Iu5Nya8fgNgD4vxLhbNqjH
-	 KpmKdd5xCszMTY5cp16+JK/yjzYpX+MQt80DJQ5CJWKsYanZIszzTUQHokKsxNcmTq
-	 Sh9iw2+A5hUTvVNfA2MHfr0zoJwCpvO1wp44xDknFQUzawJM/USdYwTFXVanvDnM+M
-	 mqN0hjyHWFxgQ==
-Date: Fri, 29 May 2026 17:36:52 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Ahmed Tiba <ahmed.tiba@arm.com>
-Cc: will@kernel.org, xueshuai@linux.alibaba.com, saket.dumbre@intel.com,
- mchehab@kernel.org, dave@stgolabs.net, djbw@kernel.org, bp@alien8.de,
- tony.luck@intel.com, guohanjun@huawei.com, lenb@kernel.org,
- skhan@linuxfoundation.org, vishal.l.verma@intel.com, rafael@kernel.org,
- corbet@lwn.net, ira.weiny@intel.com, dave.jiang@intel.com,
- krzk+dt@kernel.org, robh@kernel.org, catalin.marinas@arm.com,
- alison.schofield@intel.com, conor+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
- devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
- linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
-Subject: Re: [PATCH v5 00/10] ACPI: APEI: share GHES CPER helpers and add DT
- FFH provider
-Message-ID: <20260529173652.25069d3b@jic23-huawei>
-In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
-References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780072714;
+	bh=ZuGYoimv2AWMa7fL0YVVwM+74fpstl4A7epYJTl53z0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=S1tWrG3oL7vCN1k6jXyEt9jDBScEebec00FHZJ6JQ7u1sdnhiQC4OvXZgl20djrQ7
+	 FN31Qs6z8pcHEVI6vBzB3bNOCwBIVZ4rCEt5L/yiAsE4Yqnj7HkA3efCt7hoCSVHjL
+	 rNk+CjJuowYeDUlSiePRSSO1RvVkD/zgFsGYKaDT0lyG8lKaNmvTXxEzKPyj3GW/jI
+	 xmp5fziphGSC8srKXiN6PMLW+vMkhscO/A2HF/3gAdWootZNkNjrL+UH4d2hCr3U6G
+	 uZ/TYPo+Y/UxgYKG+Uzw1x95aRcX/4KuIc/HCB4aA8+Qw4icDeR13mR9+SjOwe0WCr
+	 0wio7BTqIsR3w==
+Date: Fri, 29 May 2026 17:38:30 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>, Stephen Boyd <sboyd@kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v2 2/3] dt-bindings: clock: versal-clk: Fix Versal NET
+ clock validation
+Message-ID: <20260529-trance-reversing-fef2cb06f044@spud>
+References: <cover.1780063921.git.michal.simek@amd.com>
+ <0b450e97e83b7ea662dbfae54b97d894534407e1.1780063921.git.michal.simek@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/W9jKy9jc8coBvyc"
+Content-Disposition: inline
+In-Reply-To: <0b450e97e83b7ea662dbfae54b97d894534407e1.1780063921.git.michal.simek@amd.com>
 
-On Fri, 29 May 2026 10:50:40 +0100
-Ahmed Tiba <ahmed.tiba@arm.com> wrote:
 
-> This is v5 of the GHES refactor series. Compared to v4, it only updates
-> the DT binding to address the latest review comments.
+--/W9jKy9jc8coBvyc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-https://sashiko.dev/#/patchset/20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-It is mostly not happy with existing code, but there is one point where it notes
-a header that should be there (linux/cleanup.h)
+--/W9jKy9jc8coBvyc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Given you are working with this code at the moment, maybe take a look at some
-of the reported issues whilst you are here!
+-----BEGIN PGP SIGNATURE-----
 
-Jonathan
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahnBBgAKCRB4tDGHoIJi
+0j/FAQDxgjIzDw/vq6dwwHC2nztRVtJM+L/bjkbtir6LnYLgSwD8DDJfND/Ml21g
+eSe73E4qYqXsK/SrmVyXNUM/aHgitwM=
+=kNmW
+-----END PGP SIGNATURE-----
+
+--/W9jKy9jc8coBvyc--
