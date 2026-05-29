@@ -1,445 +1,206 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C7E217745
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:42:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+Received: from ultrarisc.com (unknown [218.76.62.146])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 62F257E792;
+	Fri, 29 May 2026 05:43:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=218.76.62.146
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780033374; cv=none; b=KPHoYUNGPVU4k362j7ldvIk1DMjpNwofa5Fk2C90XaFEM0+X5nqBNf60ri5pAUKJOfFDQJZ0wcKDhRB2RNse1teS68exBtXF0Gkkx+zrKSUsNCenu4RpgNdhf9G4IUH/zVS3eCOXECL9vLRC3l9aIIdAf56AOpw6EaqiBboxBrc=
+	t=1780033423; cv=none; b=l2WBOQhPNBlqKKyLpg4bprdDmcbIDmWdvDnZrtzjvwPhBrItSZEtFoobM91m4dxUL9vkTdg6kubHvyPafStP911FC2R2l8ZG8EgSEXrgbwHP8h4ZpJjhkbhd5cAgznUwzmG35jIVIR5aAR1e1XCXYG8Js8Fk90gTgNSlELfIn/U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780033374; c=relaxed/simple;
-	bh=PJA1y4g/7GObBLE5JbdPoFYtJQzjLeZFtE0L2K+RhHM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=An6dKAMSG+L7PaPNm/eJqdZZVKuBAu7L4Jula8Nf/LV1LLKUpS3S7Y+H88Qbs2EApgy8ruEdBF4aUFqZIYgQwwGDYPDK2dFJ6iCWATRUmTpmbcWoHkcDrRB1cETwPVV3UQ8kTRbg28Y8qj0+K6Ql9V31R9g8Rhaxan0dxzhwxEk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RoH9pwP5; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780033423; c=relaxed/simple;
+	bh=SxjCdFHCCENmLkqPCEujysBRfd568bVtH/3FxfoaW/A=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=o0Q8YYKXLOKCLdrGhaQya6S5r+ZC879h5RdGQ988JUxbcwUhCz93qTpTuIi0QrxAiDWc6x/IVXbtY8+9OJz4KtYemyZq8M8AoteFnR1udouhzyRefinUMWqQ1x/2EOmc1I/Aayc4Swyw9UpL8HTl6cNDtYiHMkXp8NbqnlQXQGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com; spf=pass smtp.mailfrom=ultrarisc.com; dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b=I/pCpTKR; arc=none smtp.client-ip=218.76.62.146
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ultrarisc.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ultrarisc.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RoH9pwP5"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-3698e34a567so12452120a91.2
-        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 22:42:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=ultrarisc.com header.i=@ultrarisc.com header.b="I/pCpTKR"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780033372; x=1780638172; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=iUiGTew/XqQaUao6a+AVrAz8djQBUFcvos6GNk5mPEA=;
-        b=RoH9pwP5kETBkqTnqu9uhhq2X4raVB/ciMbsH20CY+BM/f/xxfMdtul+Iv7qYNMC8b
-         obGxeqkaFcMIMzMU8jzHYcs/wclZzMzb3Rh9/448dUXGZWTsZGpffjhlFUpFT+45ANKd
-         uW/oRI2IvNGUzuYKJ4G9XeK0S/eOxlaMX7H+rPzZREYwk/wa6l3yg5rzHxKM5X0By2zC
-         /SE2W00BckuaIqUW6LQYwX+7LZ5r+4oIGRBowlfQprjWuWs2IHaNgGwZUUIYt55BVRyI
-         SnEGdMKVbiNnwppx/SxJmzz98o5dDXiHXU1J/WqvMcJxoNz9xZNt7KqwUMCq2UCAsgTC
-         QG9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780033372; x=1780638172;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=iUiGTew/XqQaUao6a+AVrAz8djQBUFcvos6GNk5mPEA=;
-        b=X8QU3cpzFTqXJkKROqxrBiw0K8OFG8gW7/8POzxZNM+gTlOEuJXrY7r2zZBGZkW0h/
-         5XOsNymbZu5JLkwQiSfd3apeQxzGcqVDWy48ATrDc+fOaaMKxV6frr33A6MWp13J13b2
-         eOHoNaD5q/HctctnfSeuHs7F2G/tYMcSoQ+TMInnktFQbXhYgnkDdyz8RHox1iXsY3kU
-         xlfNOBNIxmE37CrrGdGXfCHsdRtUOy8Qf8zHyomN3bueX3DFhIc2SZa6bQm8B3KwV9zf
-         4Dwx/xNpSmPD1mLe8XnxEGDiY6wqUDehpDE/2WBpXkgv2w+NTogdRvpAVplIXq8N81vi
-         /8+A==
-X-Forwarded-Encrypted: i=1; AFNElJ8RoSLMm0bASXkZgLC1EK4XgJ4CggAUJLo13D7kR56btloknOobzRSP88N5iAKLEK3Su6PYSF4ZMTYn@vger.kernel.org
-X-Gm-Message-State: AOJu0YzPJZv6H+TWdZifHKVSzlVlKWjotYIV4SURWKoUPTxutDVtE78Z
-	gcwnTgkyuUXiDEetorh+Q6oBLi7lDSBwxskbSDMGKA8vVA68CBexbe7X
-X-Gm-Gg: Acq92OFlUY82PoronQN+dp2ZoJtWQsWddqFZPbEd4tccqEFGMdSpzAKVGGbvFUpZeRJ
-	+98L1esdUK2iad5ofG45CC7s6FGfif8lTRmvqMfhu0jxFO1TPBh2n08cE2LQoQOGABn2NmcWjdX
-	yIpwaUv7blPz1kLfRSH4OtYnfX6imla5QcR99AKOTj6IdgYdmknjkLGGu2g+lDQH73GgOYWd671
-	5rkk1LNePgCzA6S//UZvWRu5yJIg2Afl0BcwjuuZORlryuif1cXlzmD323OGxXAha2R/8pKTxJv
-	2vj/0Rir+fVyC/yL4PU5MX19yzQtNMa8TsuDUFl8tV8ucH2MsBk+1Lk9MaF0plRKFIV+pPONima
-	loidwWbvjw7Yr5v06JzgvZqPbZY9Un+0Lo5fgwlrfkdpOwM9swA7VLpeVuGhSpFJNFBulKgV+M5
-	xgkg59HsbYCvVRZr2lKaDr4pL3OmCaD3B3EfoI9fD8cv6a+hyYJGXfKFO0
-X-Received: by 2002:a17:90b:3f85:b0:36b:9daf:1504 with SMTP id 98e67ed59e1d1-36bbcfd8fb3mr1904011a91.14.1780033372316;
-        Thu, 28 May 2026 22:42:52 -0700 (PDT)
-Received: from localhost.localdomain ([2401:4900:93ae:ce9d:fecf:bae0:f194:40fa])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bc6bc0b2fsm578157a91.17.2026.05.28.22.42.48
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 28 May 2026 22:42:51 -0700 (PDT)
-From: ASHISH YADAV <ashishyadav78@gmail.com>
-X-Google-Original-From: ASHISH YADAV <Ashish.Yadav@infineon.com>
-To: Guenter Roeck <linux@roeck-us.net>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: [PATCH v2 2/2] hwmon:(pmbus/xdp730) Add support for efuse xdp720/xdp730
-Date: Fri, 29 May 2026 11:12:18 +0530
-Message-Id: <20260529054218.5184-3-Ashish.Yadav@infineon.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260529054218.5184-1-Ashish.Yadav@infineon.com>
-References: <20260529054218.5184-1-Ashish.Yadav@infineon.com>
+	d=ultrarisc.com; s=dkim; h=Received:MIME-Version:Content-Type:
+	Content-Transfer-Encoding:Subject:From:To:Cc:In-Reply-To:
+	References:Date:Message-Id; bh=R8t6pLKg1TYJMljpG0LujE1NO9A7R1xIe
+	xX2vW0OUtM=; b=I/pCpTKRSB+xFjx/Ttr7KqB3gyxRLYcEgzdnYHHIJWWj+Q/mo
+	RM4DHWRKNwmltKTw5NqqEa2l7n/6rntVMZObhzu3qUVR+ThYJktHBuvbFe3XuU9h
+	Kk3pesEyzJXP5Pgqrx36/rDzW2z674tC91M8irLunO1M93hDIKLJcAorJQ=
+Received: from [127.0.0.1] (unknown [192.168.100.1])
+	by localhost.localdomain (Coremail) with SMTP id AQAAfwAnYUKkJxlqAfYGAA--.8119S2;
+	Fri, 29 May 2026 13:44:04 +0800 (CST)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH 6/9] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
+ driver
+From: Jia Wang <wangjia@ultrarisc.com>
+To: Conor Dooley <conor@kernel.org>
+Cc: Jia Wang <wangjia@ultrarisc.com>, Linus Walleij <linusw@kernel.org>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Paul Walmsley <pjw@kernel.org>, 
+ Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+ Alexandre Ghiti <alex@ghiti.fr>, Bartosz Golaszewski <brgl@kernel.org>, 
+ Samuel Holland <samuel.holland@sifive.com>, 
+ Paul Walmsley <paul.walmsley@sifive.com>, 
+ Palmer Dabbelt <palmer@sifive.com>, devicetree@vger.kernel.org, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-gpio@vger.kernel.org
+In-Reply-To: <20260528-broiling-naturist-78401ecbb870@spud>
+References: <20260515-ultrarisc-pinctrl-v1-0-bf559589ea8a@ultrarisc.com>
+ <20260515-ultrarisc-pinctrl-v1-6-bf559589ea8a@ultrarisc.com>
+ <CAD++jLn=RX2rZ33kD427wR1KBo=YPzCqFaaSot22nJL4Emn_=A@mail.gmail.com>
+ <20260525-turbojet-theorize-3a7b49f41af0@spud>
+ <177995438556.929162.1470247666821673655.b4-reply@b4>
+ <20260528-broiling-naturist-78401ecbb870@spud>
+Date: Fri, 29 May 2026 13:43:25 +0800
+Message-Id: <178003340524.2187387.10656805779953719738.b4-reply@b4>
+X-Mailer: b4 0.15-dev
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780033405; l=5681;
+ i=wangjia@ultrarisc.com; s=20260515; h=from:subject:message-id;
+ bh=SxjCdFHCCENmLkqPCEujysBRfd568bVtH/3FxfoaW/A=;
+ b=YgD6CblDPtfxQr1la0TpURB+x6fZJggwnhJJfIa/JrOkRFLZ6zFqJ2u6L77kMBxsapzLrAlAN
+ jUzkzIfL2OTB5ECnOdrC/k3ycfZrCINZy8Rk+CPxzuEMKuCMvNLVQ4r
+X-Developer-Key: i=wangjia@ultrarisc.com; a=ed25519;
+ pk=wGVm18siRScehKOkOz0WKxgxDy7IezHEszhnN4/TUCY=
+X-CM-TRANSID:AQAAfwAnYUKkJxlqAfYGAA--.8119S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxAF43Zr1UAr4rJFWkKF13XFb_yoWrKr47pF
+	W8Ga1YkrWUJF4agryjv395uFy3Krs7Jr1YqryUKryUtFn0yr97GF48X3yfuF9YkrZ8Gr1U
+	ZayYyFya93s8ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9l14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Jr0_Gr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCY02Avz4vE-syl42xK82IYc2Ij64vIr41l4I
+	8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AK
+	xVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcV
+	AFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8I
+	cIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r
+	4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjTRNJ5oDUUUU
+X-CM-SenderInfo: pzdqwylld63zxwud2x1vfou0bp/1tbiAQAAEWoWakYABgATsV
 
-From: Ashish Yadav <ashish.yadav@infineon.com>
+On 2026-05-28 09:55 +0100, Conor Dooley wrote:
+> On Thu, May 28, 2026 at 03:46:25PM +0800, Jia Wang wrote:
+> > On 2026-05-25 11:10 +0100, Conor Dooley wrote:
+> > > On Mon, May 25, 2026 at 11:28:51AM +0200, Linus Walleij wrote:
+> > > > On Fri, May 15, 2026 at 3:18 AM Jia Wang via B4 Relay
+> > > > <devnull+wangjia.ultrarisc.com@kernel.org> wrote:
+> > > 
+> > > > > +static int ur_legacy_parse_prop(struct pinctrl_dev *pctldev,
+> > > > > +                               struct device_node *np,
+> > > > > +                               const char *propname,
+> > > > > +                               struct ur_legacy_prop_data *prop)
+> > > > > +static const char *ur_legacy_get_function_name(const struct ur_pinctrl_match_data *match_data,
+> > > > > +                                              u32 mode)
+> > > > > +static int ur_legacy_conf_to_configs(struct pinctrl_dev *pctldev, u32 conf,
+> > > > > +                                    unsigned long **configs,
+> > > > > +                                    unsigned int *num_configs)
+> > > > > +static int ur_legacy_add_pinconf_maps(struct pinctrl_dev *pctldev,
+> > > > > +                                     struct pinctrl_map **map,
+> > > > > +                                     unsigned int *reserved_maps,
+> > > > > +                                     unsigned int *num_maps,
+> > > > > +                                     const struct ur_legacy_prop_data *prop)
+> > > > > +static int ur_legacy_dt_node_to_map(struct pinctrl_dev *pctldev,
+> > > > > +                                   struct device_node *np,
+> > > > > +                                   struct pinctrl_map **map,
+> > > > > +                                   unsigned int *num_maps)
+> > > > 
+> > > > What's up with all this legacy stuff?
+> > > > 
+> > > > What is this a legacy of?
+> > > > 
+> > > > I thought this was a *new* driver so how can it be "legacy"?
+> > > 
+> > > Jia already agreed to drop this stuff :)
+> > > 
+> > > > 
+> > > > > +static int ur_generic_dt_node_to_map(struct pinctrl_dev *pctldev,
+> > > > > +                                    struct device_node *np_config,
+> > > > > +                                    struct pinctrl_map **map,
+> > > > > +                                    unsigned int *num_maps)
+> > > > > +{
+> > > > > +       return pinconf_generic_dt_node_to_map(pctldev, np_config, map, num_maps,
+> > > > > +                                             PIN_MAP_TYPE_INVALID);
+> > > > > +}
+> > > > 
+> > > > Hm I think Conor has new helpers for this so you don't need to wrap
+> > > > it like this.
+> > > 
+> > > Yeah, although "more importantly" the new helpers mean that drivers
+> > > shouldn't need to do things like calling these home-rolled functions in
+> > > probe, just so that they can try to use pinconf_generic_dt_node_to_map():
+> > > | static int ur_add_pin_groups(struct ur_pinctrl *pctldata)
+> > > | {
+> > > | 	for (u32 i = 0; i < pctldata->match_data->npins; i++) {
+> > > | 		int ret;
+> > > | 
+> > > | 		pctldata->group_names[i] = pctldata->match_data->pins[i].name;
+> > > | 		pctldata->group_pins[i] = pctldata->match_data->pins[i].number;
+> > > | 
+> > > | 		ret = pinctrl_generic_add_group(pctldata->pctl_dev, pctldata->group_names[i],
+> > > | 						&pctldata->group_pins[i], 1, NULL);
+> > > | 		if (ret < 0)
+> > > | 			return dev_err_probe(pctldata->dev, ret,
+> > > | 					     "failed to add pin group %s\n",
+> > > | 					     pctldata->group_names[i]);
+> > > | 	}
+> > > | 
+> > > | 	return 0;
+> > > | }
+> > > | 
+> > > | static int ur_add_functions(struct ur_pinctrl *pctldata)
+> > > | {
+> > > | 	for (u32 i = 0; i < pctldata->match_data->num_functions; i++) {
+> > > | 		const struct ur_function_desc *desc = &pctldata->match_data->functions[i];
+> > > | 		struct pinfunction func = desc->gpio ?
+> > > | 			PINCTRL_GPIO_PINFUNCTION(desc->name, pctldata->group_names,
+> > > | 						 pctldata->match_data->npins) :
+> > > | 			PINCTRL_PINFUNCTION(desc->name, pctldata->group_names,
+> > > | 					    pctldata->match_data->npins);
+> > > | 		int ret;
+> > > | 
+> > > | 		ret = pinmux_generic_add_pinfunction(pctldata->pctl_dev, &func, (void *)desc);
+> > > | 		if (ret < 0)
+> > > | 			return dev_err_probe(pctldata->dev, ret,
+> > > | 					     "failed to add function %s\n",
+> > > | 					     desc->name);
+> > > | 	}
+> > > | 
+> > > | 	return 0;
+> > > | }
+> > > (If I had more time, I would probably go looking to see if there are
+> > > more candidates for conversion)
+> > > 
+> > > Jia, the helper in question is pinctrl_generic_pins_functions_dt_node_to_map().
+> > >
+> > 
+> > I found pinctrl_generic_pins_function_dt_node_to_map() in mainline, but
+> > there is no pinctrl_generic_pins_functions_dt_node_to_map() as mentioned.
+> > Did you mean the singular version, and is that the one I should use?
+> 
+> I did, the s was a typo.
+>
 
-Add the pmbus driver for Infineon XDP720/XDP730 Digital eFuse
-Controllers.
+Thanks for the suggestion. I tried reworking the driver around
+pinctrl_generic_pins_function_dt_node_to_map(), but for this driver it
+doesn’t appear to be a clear simplification.
 
-Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
----
-XDP720/XDP730 Digital eFuse Controllers provides accurate system telemetry
-(V, I, P, T) and reports analog current at the IMON pin for post-processing.
+The driver relies on a static SoC function table for the hardware mux modes
+and valid pin masks, and the current model allows set_mux() to use that data
+directly. Switching to the generic DT-driven helper would remove the
+probe-time registration, but it would also require extra handling for GPIO
+classification and nudge the binding/DTS toward a different representation.
 
-The Current and Power measurement depends on the RIMON and GIMON values.
-The GIMON (microA/A) depends on the 10th bit of TELEMETRY_AVG PMBUS Register.
-The value of RIMON (kohm) can be provided by the user through device tree using
-infineon,rimon-micro-ohms  property.
----
- drivers/hwmon/pmbus/Kconfig  |   8 +-
- drivers/hwmon/pmbus/Makefile |   2 +-
- drivers/hwmon/pmbus/xdp720.c | 128 ----------------------------
- drivers/hwmon/pmbus/xdp730.c | 159 +++++++++++++++++++++++++++++++++++
- 4 files changed, 164 insertions(+), 133 deletions(-)
- delete mode 100644 drivers/hwmon/pmbus/xdp720.c
- create mode 100644 drivers/hwmon/pmbus/xdp730.c
-
-diff --git a/drivers/hwmon/pmbus/Kconfig b/drivers/hwmon/pmbus/Kconfig
-index 8f4bff375ecb..eb3ed41c6fdc 100644
---- a/drivers/hwmon/pmbus/Kconfig
-+++ b/drivers/hwmon/pmbus/Kconfig
-@@ -711,14 +711,14 @@ config SENSORS_XDP710
- 	  This driver can also be built as a module. If so, the module will
- 	  be called xdp710.
+So I would prefer to keep the current model in v2, and I can revisit a
+helper-based conversion in a later revision if it still seems beneficial.
  
--config SENSORS_XDP720
--	tristate "Infineon XDP720 family"
-+config SENSORS_XDP730
-+	tristate "Infineon XDP730 family"
- 	help
- 	  If you say yes here you get hardware monitoring support for Infineon
--	  XDP720.
-+	  XDP720 and XDP730 Digital eFuse Controllers.
- 
- 	  This driver can also be built as a module. If so, the module will
--	  be called xdp720.
-+	  be called xdp730.
- 
- config SENSORS_XDPE152
- 	tristate "Infineon XDPE152 family"
-diff --git a/drivers/hwmon/pmbus/Makefile b/drivers/hwmon/pmbus/Makefile
-index 7129b62bc00f..6d31082aa91f 100644
---- a/drivers/hwmon/pmbus/Makefile
-+++ b/drivers/hwmon/pmbus/Makefile
-@@ -69,7 +69,7 @@ obj-$(CONFIG_SENSORS_TPS546D24)	+= tps546d24.o
- obj-$(CONFIG_SENSORS_UCD9000)	+= ucd9000.o
- obj-$(CONFIG_SENSORS_UCD9200)	+= ucd9200.o
- obj-$(CONFIG_SENSORS_XDP710)	+= xdp710.o
--obj-$(CONFIG_SENSORS_XDP720)	+= xdp720.o
-+obj-$(CONFIG_SENSORS_XDP730)	+= xdp730.o
- obj-$(CONFIG_SENSORS_XDPE122)	+= xdpe12284.o
- obj-$(CONFIG_SENSORS_XDPE152)	+= xdpe152c4.o
- obj-$(CONFIG_SENSORS_XDPE1A2G7B)	+= xdpe1a2g7b.o
-diff --git a/drivers/hwmon/pmbus/xdp720.c b/drivers/hwmon/pmbus/xdp720.c
-deleted file mode 100644
-index 8729a771f216..000000000000
---- a/drivers/hwmon/pmbus/xdp720.c
-+++ /dev/null
-@@ -1,128 +0,0 @@
--// SPDX-License-Identifier: GPL-2.0+
--/*
-- * Hardware monitoring driver for Infineon XDP720 Digital eFuse Controller
-- *
-- * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-- */
--
--#include <linux/i2c.h>
--#include <linux/module.h>
--#include <linux/init.h>
--#include <linux/kernel.h>
--#include <linux/of_device.h>
--#include <linux/bitops.h>
--#include <linux/math64.h>
--#include "pmbus.h"
--
--/*
-- * The IMON resistor required to generate the system overcurrent protection.
-- * Arbitrary default Rimon value: 2k Ohm
-- */
--#define XDP720_DEFAULT_RIMON 2000000000 /* 2k ohm */
--#define XDP720_TELEMETRY_AVG 0xE9
--
--static struct pmbus_driver_info xdp720_info = {
--	.pages = 1,
--	.format[PSC_VOLTAGE_IN] = direct,
--	.format[PSC_VOLTAGE_OUT] = direct,
--	.format[PSC_CURRENT_OUT] = direct,
--	.format[PSC_POWER] = direct,
--	.format[PSC_TEMPERATURE] = direct,
--
--	.m[PSC_VOLTAGE_IN] = 4653,
--	.b[PSC_VOLTAGE_IN] = 0,
--	.R[PSC_VOLTAGE_IN] = -2,
--	.m[PSC_VOLTAGE_OUT] = 4653,
--	.b[PSC_VOLTAGE_OUT] = 0,
--	.R[PSC_VOLTAGE_OUT] = -2,
--	/*
--	 * Current and Power measurement depends on the RIMON (kOhm) and
--	 * GIMON(microA/A) values.
--	 */
--	.m[PSC_CURRENT_OUT] = 24668,
--	.b[PSC_CURRENT_OUT] = 0,
--	.R[PSC_CURRENT_OUT] = -4,
--	.m[PSC_POWER] = 4486,
--	.b[PSC_POWER] = 0,
--	.R[PSC_POWER] = -1,
--	.m[PSC_TEMPERATURE] = 54,
--	.b[PSC_TEMPERATURE] = 22521,
--	.R[PSC_TEMPERATURE] = -1,
--
--	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
--		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_INPUT |
--		   PMBUS_HAVE_STATUS_TEMP,
--};
--
--static int xdp720_probe(struct i2c_client *client)
--{
--	struct pmbus_driver_info *info;
--	int ret;
--	u32 rimon;
--	int gimon;
--
--	info = devm_kmemdup(&client->dev, &xdp720_info, sizeof(*info),
--			    GFP_KERNEL);
--	if (!info)
--		return -ENOMEM;
--
--	ret = devm_regulator_get_enable(&client->dev, "vdd-vin");
--	if (ret)
--		return dev_err_probe(&client->dev, ret,
--			"failed to enable vdd-vin supply\n");
--
--	ret = i2c_smbus_read_word_data(client, XDP720_TELEMETRY_AVG);
--	if (ret < 0) {
--		dev_err(&client->dev, "Can't get TELEMETRY_AVG\n");
--		return ret;
--	}
--
--	ret >>= 10; /* 10th bit of TELEMETRY_AVG REG for GIMON Value */
--	ret &= GENMASK(0, 0);
--	if (ret == 1)
--		gimon = 18200; /* output gain 18.2 microA/A */
--	else
--		gimon = 9100; /* output gain 9.1 microA/A */
--
--	if (of_property_read_u32(client->dev.of_node,
--				 "infineon,rimon-micro-ohms", &rimon))
--		rimon = XDP720_DEFAULT_RIMON; /* Default if not set via DT */
--	if (rimon == 0)
--		return -EINVAL;
--
--	/* Adapt the current and power scale for each instance */
--	info->m[PSC_CURRENT_OUT] = DIV64_U64_ROUND_CLOSEST((u64)
--		info->m[PSC_CURRENT_OUT] * rimon * gimon, 1000000000000ULL);
--	info->m[PSC_POWER] = DIV64_U64_ROUND_CLOSEST((u64)
--		info->m[PSC_POWER] * rimon * gimon, 1000000000000000ULL);
--
--	return pmbus_do_probe(client, info);
--}
--
--static const struct of_device_id xdp720_of_match[] = {
--	{ .compatible = "infineon,xdp720" },
--	{}
--};
--MODULE_DEVICE_TABLE(of, xdp720_of_match);
--
--static const struct i2c_device_id xdp720_id[] = {
--	{ "xdp720" },
--	{}
--};
--MODULE_DEVICE_TABLE(i2c, xdp720_id);
--
--static struct i2c_driver xdp720_driver = {
--	.driver = {
--		   .name = "xdp720",
--		   .of_match_table = xdp720_of_match,
--	},
--	.probe = xdp720_probe,
--	.id_table = xdp720_id,
--};
--
--module_i2c_driver(xdp720_driver);
--
--MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
--MODULE_DESCRIPTION("PMBus driver for Infineon XDP720 Digital eFuse Controller");
--MODULE_LICENSE("GPL");
--MODULE_IMPORT_NS("PMBUS");
-diff --git a/drivers/hwmon/pmbus/xdp730.c b/drivers/hwmon/pmbus/xdp730.c
-new file mode 100644
-index 000000000000..3d6cb0614fe7
---- /dev/null
-+++ b/drivers/hwmon/pmbus/xdp730.c
-@@ -0,0 +1,159 @@
-+// SPDX-License-Identifier: GPL-2.0+
-+/*
-+ * Hardware monitoring driver for Infineon XDP720 / XDP730 Digital
-+ * eFuse Controllers.
-+ *
-+ * Both parts share the same PMBus register map and direct-format
-+ * coefficients; they differ in the GIMON gain step exposed via
-+ * the TELEMETRY_AVG register and in the VDD_VIN pin number.
-+ *
-+ * Copyright (c) 2026 Infineon Technologies. All rights reserved.
-+ */
-+
-+#include <linux/bitops.h>
-+#include <linux/i2c.h>
-+#include <linux/init.h>
-+#include <linux/kernel.h>
-+#include <linux/math64.h>
-+#include <linux/module.h>
-+#include <linux/of_device.h>
-+#include <linux/property.h>
-+#include <linux/regulator/consumer.h>
-+#include "pmbus.h"
-+
-+/*
-+ * The IMON resistor required to generate the system overcurrent
-+ * protection.  Arbitrary default Rimon value: 2 kOhm (in micro-ohms).
-+ */
-+#define XDP730_DEFAULT_RIMON		2000000000U	/* 2 kohm */
-+#define XDP730_TELEMETRY_AVG		0xE9
-+#define XDP730_TELEMETRY_AVG_GIMON	BIT(10)		/* high/low GIMON select */
-+
-+/* Chip identifiers carried in OF match-data and i2c_device_id->driver_data. */
-+enum xdp730_chip_id {
-+	CHIP_XDP720 = 0,
-+	CHIP_XDP730,
-+};
-+
-+struct xdp730_data {
-+	enum xdp730_chip_id	 id;
-+	struct pmbus_driver_info info;
-+};
-+
-+static const struct pmbus_driver_info xdp730_info = {
-+	.pages = 1,
-+	.format[PSC_VOLTAGE_IN]		= direct,
-+	.format[PSC_VOLTAGE_OUT]	= direct,
-+	.format[PSC_CURRENT_OUT]	= direct,
-+	.format[PSC_POWER]		= direct,
-+	.format[PSC_TEMPERATURE]	= direct,
-+
-+	.m[PSC_VOLTAGE_IN]	= 4653,
-+	.b[PSC_VOLTAGE_IN]	= 0,
-+	.R[PSC_VOLTAGE_IN]	= -2,
-+	.m[PSC_VOLTAGE_OUT]	= 4653,
-+	.b[PSC_VOLTAGE_OUT]	= 0,
-+	.R[PSC_VOLTAGE_OUT]	= -2,
-+	/*
-+	 * Current and Power measurement depend on the RIMON (micro-ohm)
-+	 * and GIMON (microA/A) values; scaled per-instance in probe().
-+	 */
-+	.m[PSC_CURRENT_OUT]	= 24668,
-+	.b[PSC_CURRENT_OUT]	= 0,
-+	.R[PSC_CURRENT_OUT]	= -4,
-+	.m[PSC_POWER]		= 4486,
-+	.b[PSC_POWER]		= 0,
-+	.R[PSC_POWER]		= -1,
-+	.m[PSC_TEMPERATURE]	= 54,
-+	.b[PSC_TEMPERATURE]	= 22521,
-+	.R[PSC_TEMPERATURE]	= -1,
-+
-+	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT | PMBUS_HAVE_PIN |
-+		   PMBUS_HAVE_TEMP | PMBUS_HAVE_IOUT |
-+		   PMBUS_HAVE_STATUS_INPUT | PMBUS_HAVE_STATUS_TEMP,
-+};
-+
-+static int xdp730_probe(struct i2c_client *client)
-+{
-+	struct xdp730_data *data;
-+	int ret;
-+	int gimon;
-+	u32 rimon;
-+
-+	data = devm_kzalloc(&client->dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	data->id = (enum xdp730_chip_id)(uintptr_t)i2c_get_match_data(client);
-+	data->info = xdp730_info;
-+
-+	ret = devm_regulator_get_enable(&client->dev, "vdd-vin");
-+	if (ret)
-+		return dev_err_probe(&client->dev, ret,
-+				     "failed to enable vdd-vin supply\n");
-+
-+	ret = i2c_smbus_read_word_data(client, XDP730_TELEMETRY_AVG);
-+	if (ret < 0)
-+		return dev_err_probe(&client->dev, ret,
-+				     "failed to read TELEMETRY_AVG\n");
-+
-+	/* Bit 10 of TELEMETRY_AVG selects the GIMON gain step in microA/A */
-+	switch (data->id) {
-+	case CHIP_XDP720:
-+		gimon = (ret & XDP730_TELEMETRY_AVG_GIMON) ? 18200 : 9100;
-+		dev_info(&client->dev, "Initialised XDP720 instance\n");
-+		break;
-+	case CHIP_XDP730:
-+		gimon = (ret & XDP730_TELEMETRY_AVG_GIMON) ? 20000 : 10000;
-+		dev_info(&client->dev, "Initialised XDP730 instance\n");
-+		break;
-+	default:
-+		return -EINVAL;
-+	}
-+
-+	if (device_property_read_u32(&client->dev,
-+				     "infineon,rimon-micro-ohms", &rimon))
-+		rimon = XDP730_DEFAULT_RIMON;	/* Default if not in FW */
-+	if (rimon == 0)
-+		return -EINVAL;
-+
-+	/* Adapt the current and power scale for each instance. */
-+	data->info.m[PSC_CURRENT_OUT] = DIV64_U64_ROUND_CLOSEST((u64)
-+		data->info.m[PSC_CURRENT_OUT] * rimon * gimon,
-+		1000000000000ULL);
-+	data->info.m[PSC_POWER] = DIV64_U64_ROUND_CLOSEST((u64)
-+		data->info.m[PSC_POWER] * rimon * gimon,
-+		1000000000000000ULL);
-+
-+	return pmbus_do_probe(client, &data->info);
-+}
-+
-+static const struct of_device_id xdp730_of_match[] = {
-+	{ .compatible = "infineon,xdp720", .data = (void *)CHIP_XDP720 },
-+	{ .compatible = "infineon,xdp730", .data = (void *)CHIP_XDP730 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, xdp730_of_match);
-+
-+static const struct i2c_device_id xdp730_id[] = {
-+	{ "xdp720", CHIP_XDP720 },
-+	{ "xdp730", CHIP_XDP730 },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(i2c, xdp730_id);
-+
-+static struct i2c_driver xdp730_driver = {
-+	.driver = {
-+		.name		= "xdp730",
-+		.of_match_table	= xdp730_of_match,
-+	},
-+	.probe		= xdp730_probe,
-+	.id_table	= xdp730_id,
-+};
-+
-+module_i2c_driver(xdp730_driver);
-+
-+MODULE_AUTHOR("Ashish Yadav <ashish.yadav@infineon.com>");
-+MODULE_DESCRIPTION("PMBus driver for Infineon XDP720/XDP730 Digital eFuse Controllers");
-+MODULE_LICENSE("GPL");
-+MODULE_IMPORT_NS("PMBUS");
--- 
-2.39.5
+> Sorry about that,
+> Conor.
+
+Best regards,
+Jia Wang
+
 
