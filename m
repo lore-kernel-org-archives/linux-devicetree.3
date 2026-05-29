@@ -1,68 +1,70 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012004.outbound.protection.outlook.com [40.107.200.4])
+Received: from TYPPR03CU001.outbound.protection.outlook.com (mail-japaneastazon11022125.outbound.protection.outlook.com [52.101.126.125])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F239368D67;
-	Fri, 29 May 2026 02:48:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26E5936494F;
+	Fri, 29 May 2026 03:02:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.126.125
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780022898; cv=fail; b=oOvDtA9FzQg+wLwUIW58tMJ5RTdn/iJp++eI6eAPE64nkxEebiHVFJ6G2bz56METrLFubQYCT1L2UJfSLN/NJg6S4aku1QgQmviG2ecxI0DRquo6rTyLfifl+HAzg6fiNWR/53DzgL9pMvdEorQha6Tra+LxhcJkntRU/r1JoVc=
+	t=1780023742; cv=fail; b=UgFP0Ob4s6TaJSz8kgwC8OTh+guvZDVwMvARXL8hr8TjYraWFaac7BFwgKjKxwUtwirwZ1y/gzxg/00eGm5g2f/HtGMy3NKgp8nJ2jPUWRK53TTIHSgzxzsH9dtDGFM6dkiUtNgH9RGoU1QxvJWQaUKDPBMqxLtsJZzo02XpYac=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780022898; c=relaxed/simple;
-	bh=0EF+ZcaNd3B1LD/E0YNl4SMipcptYoge6aO1ddWd1ts=;
-	h=From:Date:Subject:Content-Type:Message-Id:References:In-Reply-To:
-	 To:Cc:MIME-Version; b=dRxEnerUTQEwBOC40c89YQVv9xDGCFBA5teFN08n3B1OaBc32ixzhl5wNUUImgos+SGCHSY6FaJsx6mioLvOfkRBht9t7qVY71je+h5c3+H8jouWcJo4bBCyd8qA4eH+oCrt8SVapj0RYh8pt4u+8HtSfNYrU1a8SHc+Gppg7Aw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=nJUAVUf9; arc=fail smtp.client-ip=40.107.200.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	s=arc-20240116; t=1780023742; c=relaxed/simple;
+	bh=1aOZSGsA0Pa5DCBFdjar8Fc23/8vVgq/j7u8W7Hv9rE=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=F745hMOTOWtv3i+eWv3yJDADtkudLMf1ooQUlbZyErNe+7YEYFA2g+c4KRgbfTUZawDsEmvSAyJC28xJP/6Rt27MiKjHxdXjS6gm0PJKa3bcif6g3UHItXbURQkEbN1o9bl5vO1nBQ+HfR5KNKrWEs92d+IAAC136efg+hdmXAI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com; spf=pass smtp.mailfrom=amlogic.com; dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b=gGztoYDm; arc=fail smtp.client-ip=52.101.126.125
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amlogic.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amlogic.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="nJUAVUf9"
+	dkim=pass (2048-bit key) header.d=amlogic.com header.i=@amlogic.com header.b="gGztoYDm"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=G3WZ1qYsnISB21rjOFnF3swfbpLqCCCd7+tReET8n0q93jqqsIhW1gN+P9qNZTK4OppKJCtjHmSA0SaivJJ2LAwD0LTdQgPVnLo08VuS6eTWMLQFqbdtmVb7sImJ04EQAJPFGPWMOjOVqjDo9HptwSHHlxE4vQvv8iZIgYHGkZXft9OoJgWUoRga5ZiJu5xOBQTpN0i6XGMe6DsrNOMqpAsMAhVtiPVhDXr4tQoDZMVkMEXtNCrrL5SZpBqCfrSwIKOBkYmWNpik3+kQo50bfQ5UO85WW/LjN6LPr7LXP3hLCpZvy8VAscciLpXBI5LPPeS0vcI5zQjxtfEdRfLODQ==
+ b=FiFdyt9Ao5zjjJ9lHO/2F+QQAVdff9j1vq52dqfN4JDTIR+UHE4zleKSeUdOdWHP6HJbb9bksblDzp851YG8Gml0t5UjtQuSD51qbMrjN7oJYYLPNZQujFtwRAMKmbrH3HiVTY9GTLB94Nq1SnClKGnxnlWaNfs77lkkaEopMa7d4NLbIFnS9DTJkdoCM9ACTX2KQIxdfv7I1KBL9Mb+A6VGBBQ1sr3ToCerZ+VrFRWoOVWJa96qRCvyqHhVbuEbK7LB4/cy3ZRC/WJy5DryVxQpAgprQ0+yot8rducm97m2WkjacNj8goyHsg4q+JLs3LEF49VeyvwAkuwkKMmTnw==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=6TpoaQkpiv/22Ip+E+/1aaoVXd5foA29FNuoKDa+Zzo=;
- b=VwZfZqG9HGCIBLPHXisL+c5UoFXz01My1Hdo5cM2vOD7b6yTdJXnQXj6Yi99VATtlEHdAESZGI9E9z6rIyYqq0D6Aw7p3fZ5sfEDVotvz0f+Xg0wmtVhSkWMib3GtQKwmcX1xmDwSUDnu3h74VE+gaHiykilu+jIJLgmFH7MJaF8rN8G71Duyvlgg49T2IbocNuslql42d7YfS77KtxDgqU8eQWxoQQg6jnEL8Y9W0kEtGR4z1LoLXQREGipd6udr1Ta+x2esDW43KtGhGj+LNNSBqv1n2D7AQi+1CayfUaczh63uFtxEkM2M09ALBWC240OBrEQNS+Ygz5xzaDSOA==
+ bh=sldZIpeQK00g+w01RVFor397fxQTt/wMRVgrioKiDjs=;
+ b=iTOiQrYmEvlB/zyiY28VYAVralvN/skIlA9TXfLO+iyoDGy59BT3iODkFrGJ7ZMkHE61p+wqWMn+p9Oerw/t+5X7QTEsN4j93F5Cmw4L2ravQZTQagNfJ4o/OZZ6peQ+eqUJVgdVBCCEL3IjZZnWbvXnpuK5Ql4XMar8GFrIAd1TdYeqJcsihul72ZZIXdqqfoTqpBe4iVNiZu05UUS1vjFhm4/wtYKxmPhzVECdmhGUt+y9d78IbGGpv+m0IUeFeXLOU3xMsRT4cQ4/bvtxkXZmkls+Vu5fRJfhiAdPv0XAVK+z3seqVgLWEcybErTgFcJ8UBC+eHT+MseTKP3kWQ==
 ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
+ smtp.mailfrom=amlogic.com; dmarc=pass action=none header.from=amlogic.com;
+ dkim=pass header.d=amlogic.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amlogic.com;
+ s=selector1;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=6TpoaQkpiv/22Ip+E+/1aaoVXd5foA29FNuoKDa+Zzo=;
- b=nJUAVUf9qjlHBZhmBNE1H3htEiJMFMWBzWZFw5NUBmCDiVBgCklZ70TqWt7A4qohcCDX1l+ULhYP1KcfMZpBVzo6K2EuilU5hMBd/fj8NYwWDd5YbBkdTilIbZ+qiz4NT7B93TAkHvp5livW3dl8izGqXO0wxNYdaUBf/iDFGPH4BoLCbKVGMoTsZ97wN/69SZH2T+fT/2YKlpuIeYVI/g43PMJmIq6frcvqSjAmBYWjQAmWPBLcdZn3YrdM8wG2NaDZPKrRZWKoPH2WJf85xbPH7YHYMv+5oWtVcn2gMdhU5eL3BHbNJqyP7LXut/EppuLoOcN7pS+2rgkaFpaEAw==
+ bh=sldZIpeQK00g+w01RVFor397fxQTt/wMRVgrioKiDjs=;
+ b=gGztoYDm9AZfEANsen0djzI+t1M9mtNSDmYziDO6l6/UHMqUHKyX69beXAYPL56HsYOEn+nM47M9Eqo2/VPz/MCZp17GA9EjXdoLCveuHATVxBe2tBirg3cXWxpNDHXZnxzfRa3OEBPzkVV45W9dVYFquxlv+ToktFMWIHWecmnXQwSIIK7ruaaFXJd6uEFdmqIt6TI8wH5rQ1osKVHPfZ1/bWUMEV/Bjnf4wYBnL8oeLbPQavtMHipbu5pf2PF+OfYvUIt8OjbO65UMgLHqLTq1MrOu0gzNTCn9dfKj57HEO4E10kOPLbEAHv7Nth+d7FDLoramjEiWOr7HWihw6g==
 Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com (2603:10b6:a03:566::20)
- by PH7PR12MB5685.namprd12.prod.outlook.com (2603:10b6:510:13c::22) with
+ header.d=none;dmarc=none action=none header.from=amlogic.com;
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com (2603:1096:400:289::14)
+ by KL1PR03MB8514.apcprd03.prod.outlook.com (2603:1096:820:135::9) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
- 2026 02:48:11 +0000
-Received: from SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017]) by SJ2PR12MB9161.namprd12.prod.outlook.com
- ([fe80::d9d1:8c49:a703:b017%6]) with mapi id 15.21.0071.011; Fri, 29 May 2026
- 02:48:09 +0000
-From: Mikko Perttunen <mperttunen@nvidia.com>
-Date: Fri, 29 May 2026 11:47:28 +0900
-Subject: [PATCH v5 7/7] arm64: tegra: Add PWM controllers on Tegra264
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260529-t264-pwm-v5-7-7bf9e405a96a@nvidia.com>
-References: <20260529-t264-pwm-v5-0-7bf9e405a96a@nvidia.com>
-In-Reply-To: <20260529-t264-pwm-v5-0-7bf9e405a96a@nvidia.com>
-To: Thierry Reding <thierry.reding@gmail.com>, 
- =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>, 
- Jonathan Hunter <jonathanh@nvidia.com>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-pwm@vger.kernel.org, linux-tegra@vger.kernel.org, 
- linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
- Thierry Reding <treding@nvidia.com>, 
- Mikko Perttunen <mperttunen@nvidia.com>
-X-Mailer: b4 0.16-dev
-X-ClientProxiedBy: TYCP286CA0079.JPNP286.PROD.OUTLOOK.COM
- (2603:1096:400:2b3::17) To SJ2PR12MB9161.namprd12.prod.outlook.com
- (2603:10b6:a03:566::20)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.4; Fri, 29 May 2026
+ 03:02:17 +0000
+Received: from TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4]) by TYZPR03MB6896.apcprd03.prod.outlook.com
+ ([fe80::78d4:9dee:2e32:d1e4%3]) with mapi id 15.21.0092.004; Fri, 29 May 2026
+ 03:02:17 +0000
+Message-ID: <36cdfa84-1e83-4a44-a529-653d476778fd@amlogic.com>
+Date: Fri, 29 May 2026 11:02:11 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/2] pinctrl: add support amlogic a9
+Content-Language: en-US
+To: Linus Walleij <linusw@kernel.org>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>,
+ Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
+ linux-amlogic@lists.infradead.org, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org
+References: <20260507-a9-pinctrl-v2-0-49774feff2ef@amlogic.com>
+ <CAD++jLmGr_UOja2yHjCHv7xRcGqit_TxKk7A5YzSoviicJrJUA@mail.gmail.com>
+From: Xianwei Zhao <xianwei.zhao@amlogic.com>
+In-Reply-To: <CAD++jLmGr_UOja2yHjCHv7xRcGqit_TxKk7A5YzSoviicJrJUA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: TPYP295CA0043.TWNP295.PROD.OUTLOOK.COM
+ (2603:1096:7d0:7::11) To TYZPR03MB6896.apcprd03.prod.outlook.com
+ (2603:1096:400:289::14)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,174 +72,81 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ2PR12MB9161:EE_|PH7PR12MB5685:EE_
-X-MS-Office365-Filtering-Correlation-Id: afa448ae-a006-4367-0669-08debd2cb7c7
+X-MS-TrafficTypeDiagnostic: TYZPR03MB6896:EE_|KL1PR03MB8514:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6d27a221-2e55-471e-3821-08debd2eb13c
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|10070799003|376014|1800799024|366016|11063799006|56012099006|22082099003|18002099003;
+	BCL:0;ARA:13230040|366016|7416014|1800799024|376014|18002099003|22082099003|11063799006|4143699003|6133799003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	81CNHiUf3RZZ4aYD9/wP+aBkDWkkG7aMZrjBdGGTvaPmPXiqtBNuuNQnC7vym/LbN2+luVe2vi8RUNqs/jKcGrYZ2S32d9afTHT4s8jGZ3pNjaoUlh5UUbMUijMo6a/j7/1xPn7jtVzYhXSzpkm+GRTxjjuLYnRKD85aQiqGnuboFP1XELtYRvaCAmV+doRMAtES/zWqTLM1m3k9/qSIJ+pGOvuCJ9KSiZQuzuEd8toZNthk04NhCv/gM4Kx6Zbd14kzD1P6IkpzDrfCOt23jYWRBumNpc7Vp6d+fm2iI8X+HKLTXCLakt4d3hVFAUtxlBmZR20mTGIT/OXjpoInzc89e2f6rhIIVJK/INaA2pn3x3RsSsOhWGFZsOtCBHE6YEfCyDwAA/AVDWg9H7/MZKZQu1PzHr5c5SOBfQQ/tultk4KZCN9fznUZw1VdsTBxl2TuSGUQ8aK9y1I6cQ7LuLOqhrvKj9vx1DaNiBsQLA3QvXhJH++usR9GlzcuT7IADC0yqEn8WoXlqdm4IibHwFjeVD3KNXndHp7TwFYwOaLw8yXgZiT5A0YT7nDvFQZ4E+zZzbIxxzgDNCbdTqgS3FrQKB4KWXsKbljJDbcolldHsbvSM5Wnm9qo3SIUXVzNi6VmPeYZg6xF/7BX/SAA1/xxQszpMPyP7b1tpu0Yhfc8OFtXhVun0LtkM3eQLXLr
+	iX+Ws63s6CKYChKl5iM7SBhimYXfEn+9pq6zAPYCYI+/Miy7hkzrk07IfTXp3kf7c3kDDmpiBUXxmD4N4zi2EuJshSj5cnFZtfknsqVOB9XPGyfi+MuiOtBIGYmHsB3qrR8b1+Uzi7/MjngDbqbmxaYSz/DdMw/b1ZfQg/F0Em3IWRog566m/FoCCBICfgjGOkPi0FFQ3xdyutNYfDofGKxeN2ZeCvqfRyDS9HVhe3HsBV3D44NKOfr+QREf8XhPbM4CA+o3sFhjrrmIxu4NWWsVO10jzkhABeatveM2qMSMGWBA+Q/rSL7JnUtfwF04SqKYG+L2Mfb73z1V7b7R3iVJkifS8EOTwQjC+SkYBqEgEWen5QR3U6aPLFJa3sBgCGYUes54Mt0RZm7NjNQ7ftGesDmsGUJK7vbqDu0oyaCYjzyV4hOn/D58dkROMe1kCB0tGdEFHbb4wl9HiIyQzMELRHjXZsjzDFV1LoQOs0Lc0lPlTYBSWMxsoWQk5fOhXDPBlm5I95GVz2pCFMAPiLkpMeJ0ngDOg36leIgi1Hu2aivEZ24uzHI9f6sD2IGtFcA0G5noTDvVj+U4k6+8irbNBj++8bwPxYYpApzrtFKB3LJ74/tmduNAiw3uysmS5R+13rq3gWjaimr/OdRnUpfl3uUqbeYUYGRx9Qsx1Wd1PEX9FAR7W745K8Tvjopv
 X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ2PR12MB9161.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(1800799024)(366016)(11063799006)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TYZPR03MB6896.apcprd03.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(1800799024)(376014)(18002099003)(22082099003)(11063799006)(4143699003)(6133799003)(56012099006);DIR:OUT;SFP:1102;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?OWVwUURGbkNlNUhtMWpJQzFDeUxrVjd1QWE3bnVyZlNrYy9jM0h2WFZKdlhH?=
- =?utf-8?B?azJwSi81QTZLKzQ5MWdCMndKSThmcFJRRG9xV3pybGhvMmIzUHpoWXhSZWtn?=
- =?utf-8?B?RVdxTDBKRUxHUERHeXgrOVAwL2lwMmRKcVNlbGQ3b2lEN3JkeWh2cG85NTN4?=
- =?utf-8?B?N3VzS3liaGh1THpDekxHUFJadmQ0SnV0MWRvQjJuaW1EV2lWVUdDaWlJWUs0?=
- =?utf-8?B?endCbHJGV3N1L213NmhaZ0wxTFRGeXZsTUhIcE5qZW5VUHFMS2V5MXZIblNj?=
- =?utf-8?B?cEJnSUtiQ3d6c00rNGV3RGprczhqVmo4Y0RiMkNUcE5jYnZvWlpQR1pSTi9K?=
- =?utf-8?B?cDlTTjNVUmpJcEhXNFFGK3ZXV1RQY3g4UlZqblVDWmNkMS9KemlJUHpMQ1h1?=
- =?utf-8?B?N1Q0b2JBZlBadllFaWZmOWUyMFY3cHFVdjZ3LzdrV3BsQlhKelZzZWRRaXNn?=
- =?utf-8?B?T3dzS0lkMDhRRk5IWkpQM0hYK2lqRld0MlJzQUk1emZmc3hQU0ovWnlGcDRl?=
- =?utf-8?B?aUgvcTZYclIvZ002UDdyQTcraXBRbjczSUNhK3ZablloUjdWSEJFMy9QV3ov?=
- =?utf-8?B?SDV4THk2NzJ3dEhtd3UzUmQ1Z20wbW1PQzJTWkdOMFdJdTlqZDVJcytFaUhJ?=
- =?utf-8?B?S00wRFlTaG9TVXIxQ0htUXdJRXJKNXY1eXR4SHgvRzZCdGtzeHBNcEhQbXpt?=
- =?utf-8?B?T0k3RytZQ2dHOXh3Q3MzaWdOYUh2aEZNTXlHVzdxcHZpS3ZhQnhxRXhsbjZN?=
- =?utf-8?B?eGwwL0dhN1gxZnQzZ3lpalk3MUNKK0hZRmpiWTVETEJUanFZU1BRMCsrcGtk?=
- =?utf-8?B?ci8zR20yMmx4anc2S2xtaVMySTI3TWZTc2Z0QmdrMUQxRUpZSVBCcW9ndzVV?=
- =?utf-8?B?R0RiUVdJR09xTFNiRkxzNk05TjdmMWxmZ3dHOHNRZS84bEkwMzhNWFN6OEFP?=
- =?utf-8?B?bko4TmpDdGI2c2M1eTFXMElKOEM2aXVyWDdyWUFhSDZJVll6M0dEbTZRZmhZ?=
- =?utf-8?B?TnVnbjdDeloxa0ZLWTlKWUpuUmREVXZLOUJHYUF2VGg2ekMrZ0VVeTV0SzBW?=
- =?utf-8?B?Q3VXRlJ5L1ZLT3JrdWVsem9jM2prbmIyL3gyVENrM2Q2MlRLSFE1KzlhUkd0?=
- =?utf-8?B?L2JLdnZtTDFXUjlFbmdqdkY4bm5kU1JMcGg3S09HTGRnYVA3eldkRy9nYStH?=
- =?utf-8?B?TEZMd3RtZTU5UVVUOFR5QjJxbE1FbDlabDV1MDZxdEVOdzhxZ0VteEs1Q1U5?=
- =?utf-8?B?bzZwNjZBb3NtNFhxQVpucHpJZGlwNFZtRlYwZ3p0OTRyMlhYblVoaGZHSCtp?=
- =?utf-8?B?TTBOOFBBUlUvUDVuNmN5VHJqTVp3U01LbjViSklCckRtMGU5dTg0Y0N6K0x1?=
- =?utf-8?B?NmtuSHM5Y1FlK0wvTElVS2s0SzFpczF4dmtoOFg4Z0JieS9RUVduTEJYdFR3?=
- =?utf-8?B?dFF1bzc2QjRKSVlyMVpJWjBObFliTEhPbVpscEVacUMzMTFGRkpzcGNTbVBE?=
- =?utf-8?B?eUt1bWt1UEZWUEpsVWR3MGZQOXJjZCtyMGp6bHBtaFdXZ3pHRGhCeHlxMGVu?=
- =?utf-8?B?V203UnQzT0lyci9BOVgwUSs4dmlXSlVSRUJYQjZuamswVzVhZVFJWHJuNWVW?=
- =?utf-8?B?OGduVmg5SnRYQ1NNUWNjd2xqSHYvVGIvUGRMOVlLSTRkU2lrZSs4R21xNjAr?=
- =?utf-8?B?S3dxUDZHdmhCWW9Jald5Ti8vM1h4Vko4elBKVmNHUDJCUExWSDNYUysvL2J4?=
- =?utf-8?B?aXNld24vQjkwSmxTMEhOeEVsRjF0MCt6QjhDNDR5b0Q5SHI0VDZCU3dLdHUx?=
- =?utf-8?B?U2dKTDA5MUp4clU5M0p6RVltZmNwemh3TEs2SVF5SWZvcnpCWENZUFFtcDRu?=
- =?utf-8?B?bGNjNEhURzI1Nmxobmk2Z2FlamNxYmxxcExRQXhFbFpZTW9jRzU1VVo2LzZ5?=
- =?utf-8?B?eHJBalkvM3U3UlhMUVZpczhTTFNiYXlZSVdYTHVuS2dydVhZLzNoT2Y1OFhS?=
- =?utf-8?B?NUM2cnhRc2dHOG1SbFBhZVh0SXZKVVBQUmtUbjNXZSs1ZjkzMlJPeTJ1RGw0?=
- =?utf-8?B?NDFKVGhRK3RjNlczYVF2VFpGVzJnU0lXMGZFQmxZWmFEQW5nemdURGQ2dHRE?=
- =?utf-8?B?VzVCYUNmMW0wUjBoOThlNTJHOUFQVHF5Rnl4aytKOWY0UTRBU05SdlpGdDh2?=
- =?utf-8?B?OUlpMk9Tc2V4bks5SkVGd2JHblR6dHlKdmVlNHFSV2JHU3JJUFBLYzZaUkVC?=
- =?utf-8?B?ekZLRGJ6UWpqbGdwdkFCNi9MZ0RwTnEweVpoQWhSL0ZKWnR5OWFXL3M5MkV0?=
- =?utf-8?B?SWNCdW5JaTFZMTIyV01ZanZJa1NLaFppcjNnaiswZEJxZjhNMGVjaHRxTnk4?=
- =?utf-8?Q?O52C7KAW49OZ74r+PMl5qKxm4oYvIXMluO6dTVpslqtYs?=
-X-MS-Exchange-AntiSpam-MessageData-1: bMnt8fLsX51hRQ==
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: afa448ae-a006-4367-0669-08debd2cb7c7
-X-MS-Exchange-CrossTenant-AuthSource: SJ2PR12MB9161.namprd12.prod.outlook.com
+	=?utf-8?B?VURwT2pOVlhZbXJJTmhqRC9DK1JVR0xRakRra0xjd0lEenNnYWRPR2w0aFdH?=
+ =?utf-8?B?MlpWUXBrOCtjb0UwOFZxRGxZeFFKaDJ1cmZJelladHZ6S1N3SmpKOGNITUta?=
+ =?utf-8?B?OUhuWm9HdUR4NHp1N1NydmNVZnFJTWErUVlTeE5RU2taMHcxMTNoeGlpZDBC?=
+ =?utf-8?B?S0srbG9QNHlpWUFEMDZiOHR5WEU3WmF1NklRTDRCN2hHcXlCdlJHenZuOEFN?=
+ =?utf-8?B?S2QyTzJ1cUJPQlZHcXRGajEzcmpEZFVGRklsU2IyN1NoakFXMkVaU2NyeUJG?=
+ =?utf-8?B?azlWNjN0NnQ5WHRoYUc0Mm1KeUlXOTJzZEdlMzFRYkF3UkxZOG5semwvZTVh?=
+ =?utf-8?B?UFNRMnpjcUVHdERaQzNEWENUN3V2dmUwa1kxY2JUKy9ySjZlVHVHMkRWelNa?=
+ =?utf-8?B?UDI2NS9lN3k4cDRHK3lwUTBhS292RmRoL2ZKSjYxYk9saXlBOWlaN3ZEa3Fo?=
+ =?utf-8?B?Z3ZtYUFISUN0U0YyN0l1MXZoalJZNWpVYnc2cmRUZmNFa29zY1JQUXREV0gv?=
+ =?utf-8?B?SFJwVnI2V0R1TCtVSVExeEFQMzZSMG0rRitFaDBEcTZaUWQ1aGpqSTc0eUE1?=
+ =?utf-8?B?SkExWWRIRXB4UXpRNDNLdmV6cjJVZG1vZkYzQjJ4Y0lINkNRcmFTSEgrd1lq?=
+ =?utf-8?B?VFh5RjVCajRad1dQbnVuVE5pRStPdnBoOXU5NHY3L1YyMTlLTG9rNEk1Sk9m?=
+ =?utf-8?B?dDY3bSthbzR2ei84c1VOY3NFekx2eUZNcU1zQmdDd3orQVN6by9JT0Nyd0t6?=
+ =?utf-8?B?aCt6T3BCUzRGQXIyWERyNS9xLzc4OXNLYUw5SXJDOGlmK3lCd2VDWVU5VnZQ?=
+ =?utf-8?B?RTlqVjBMalFjUlVlMHoxc1krSzcvYms0bkVCZTJqbnRtTjBZZHdUM2c5SEI2?=
+ =?utf-8?B?VWtDVzlsdXlML1l5Um5TbTBwVDhXVEI4bCsvWXVXSmpndks0ak16a1A5aWJ5?=
+ =?utf-8?B?NmJIbDBZQzR3eFlQZnZ6MkdqeGQ5TFIzdDNILzFkSThkZUQrOTd5cDU2a29i?=
+ =?utf-8?B?SUNwcmZrSHpkSk1jS1o0WU9MeEs2a3dPSGxEd2tqeE5wWmpYakRXWCt3RDVz?=
+ =?utf-8?B?ckdZTjlJWWZiTzQ1b0M2bS9JK0szZS9YMW02YzlOOTVBbE9rckE5YWZlUVFM?=
+ =?utf-8?B?WUg0V1hMNTVCNWx2bityMVBKaWNkN2NMZWN5UW9YdVpUMFFwYjEyMGE4MkpY?=
+ =?utf-8?B?T1BVVDZSRjR4N2NITG9RSG5QNHNTbHVtRHpHMEI5MUdib3k4QmNoRm04aTNX?=
+ =?utf-8?B?LzFuME5heDF2am5vdTc4SWxLaEtESzliOFdyZGJRUW9DZTh4ckFTOHFwOS9o?=
+ =?utf-8?B?WGlkOHJUMXp2VmkzZWVVcys3UUplQlBZNTBSOEhadGRSeTg2UjVIbUZqSWgr?=
+ =?utf-8?B?TjJDZmhSeDkzYXpHUjlPSGVxQkE0bVRoMUFSWkxJbjhudW9KRndtYUtOUVNF?=
+ =?utf-8?B?aXRpMUljMnN2Y3pkSDRWUHpOUFQrb1d6UjQ1N29oc1Q0Ujd0K25wWEwwbWxL?=
+ =?utf-8?B?STNqa2tnVmFncFdwL000Tml6bXdJNUJENWplZCtHeDRLU2s1Z3IyajFUZ0JU?=
+ =?utf-8?B?UG9VTStsVmlaeWhMWGM0WmlHb2F3cmh6d1hQNm4rQzNKcytESUhvcHE4c2VB?=
+ =?utf-8?B?Q3FHK3ZCZ2ZPREtZc09tOEVhODJtbzNJSnBublVjV3ZnZmo0WG1xM3NPSy90?=
+ =?utf-8?B?TTk4K3E3VUd5bG9OTndzVHg2b3hjZW1Iamc5VDkvQ1NBM0c3MUh5YXhqZkta?=
+ =?utf-8?B?M0dudnVvd2VtVVpTR2c3Q3pqSDFpckpUNHgzYVhmdUFhZ1hTUGwwQXFqQkt3?=
+ =?utf-8?B?ekNYNS9kdmtoMjRMUGJSd042YmQwSjVta1F3WlAzd2lUZEZvNVNkdDlVZGtS?=
+ =?utf-8?B?WTdFdFYwUlg3RDRkMXRaa2xYNUNnR3VJYjFlZXRVQXFYWUVhZVlPSkFGMnMr?=
+ =?utf-8?B?V2NFOFNlWlBKWHFjaDZIeHFJTm55Ry9CTkZVWXZmenhwNlRHeFlzajhlYkVF?=
+ =?utf-8?B?TE9uLys0RXZWZzVLaGE5ZDdzbkpUQlZKcXA0RDlLZjg1TSswbkNHVmZvcloy?=
+ =?utf-8?B?M2RPUG8xaDNkaENXMnZRcWFYV3dZWjFYeEdUU210MGhEZWtCT3BqanpMeWhq?=
+ =?utf-8?B?V1NIWTRSTGtQa1hPbUN4aGxyaDIvWE4zR1N1T2JhUmE4WjVBK3BxT0NYTGxq?=
+ =?utf-8?B?ZEpwNEcvTElDVzZHa2pySTROMGZrMUgybG1RNHNaTDVPakxzOFRGdHlaVzRt?=
+ =?utf-8?B?cDA2aWo4a0VPemdZaEZnK09tUFoxdU83bEo2ZCt3SFFzYlNQa0tVMHZqdVVX?=
+ =?utf-8?B?amwvcDIySXFlWWpJaEk2LzRCR2QrSE12NzBuOFpSQlZLZGRpWnJDdz09?=
+X-OriginatorOrg: amlogic.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6d27a221-2e55-471e-3821-08debd2eb13c
+X-MS-Exchange-CrossTenant-AuthSource: TYZPR03MB6896.apcprd03.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 02:48:09.4741
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 03:02:17.5149
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-Id: 0df2add9-25ca-4b3a-acb4-c99ddf0b1114
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: lNqStpiKjB4B2w5sQnlyiL6ZTsVtZQbweSGacI7GvUx7X3bxhO4enCbabI6qyHsC3/qR/mSkwti+Udx5Q1hsJQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5685
+X-MS-Exchange-CrossTenant-UserPrincipalName: mbkFFaR5+Q2ALcULuGSZ2wIi8muHD/jEjUt781E7nL5NlSTdbDJCiwSDa5oenbZ4sUqUE4j3CcfzkK3xQt6BmXDb/93ITn98Vxq07zYF0a4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: KL1PR03MB8514
 
-From: Thierry Reding <treding@nvidia.com>
+Hi Linus,
+    I don't see these patches in the for-next branch yet. Were they 
+intentionally left out?
 
-Tegra264 has a number of PWM controllers that are similar but
-incompatible with those found on earlier chips.
-
-Signed-off-by: Thierry Reding <treding@nvidia.com>
-[mperttunen: Adjust commit message]
-Signed-off-by: Mikko Perttunen <mperttunen@nvidia.com>
----
- arch/arm64/boot/dts/nvidia/tegra264.dtsi | 72 ++++++++++++++++++++++++++++++++
- 1 file changed, 72 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/nvidia/tegra264.dtsi b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-index 2d8e7e37830f..d08adb60ade4 100644
---- a/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-+++ b/arch/arm64/boot/dts/nvidia/tegra264.dtsi
-@@ -3336,6 +3336,18 @@ i2c3: i2c@c610000 {
- 			status = "disabled";
- 		};
- 
-+		pwm4: pwm@c6a0000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc6a0000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM4>;
-+			resets = <&bpmp TEGRA264_RESET_PWM4>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
- 		pmc: pmc@c800000 {
- 			compatible = "nvidia,tegra264-pmc";
- 			reg = <0x0 0x0c800000 0x0 0x100000>,
-@@ -3631,6 +3643,66 @@ i2c16: i2c@c430000 {
- 			status = "disabled";
- 		};
- 
-+		pwm2: pwm@c5e0000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc5e0000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM2>;
-+			resets = <&bpmp TEGRA264_RESET_PWM2>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm3: pwm@c5f0000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc5f0000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM3>;
-+			resets = <&bpmp TEGRA264_RESET_PWM3>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm5: pwm@c600000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc600000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM5>;
-+			resets = <&bpmp TEGRA264_RESET_PWM5>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm9: pwm@c610000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc610000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM9>;
-+			resets = <&bpmp TEGRA264_RESET_PWM9>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
-+		pwm10: pwm@c620000 {
-+			compatible = "nvidia,tegra264-pwm";
-+			reg = <0x0 0xc620000 0x0 0x10000>;
-+			status = "disabled";
-+
-+			clocks = <&bpmp TEGRA264_CLK_PWM10>;
-+			resets = <&bpmp TEGRA264_RESET_PWM10>;
-+			reset-names = "pwm";
-+
-+			#pwm-cells = <2>;
-+		};
-+
- 		i2c0: i2c@c630000 {
- 			compatible = "nvidia,tegra264-i2c";
- 			reg = <0x00 0x0c630000 0x0 0x10000>;
-
--- 
-2.53.0
-
+On 2026/5/12 04:26, Linus Walleij wrote:
+> On Thu, May 7, 2026 at 10:21 AM Xianwei Zhao via B4 Relay
+> <devnull+xianwei.zhao.amlogic.com@kernel.org>  wrote:
+> 
+>> Add pinctrl bindings and driver about for amlogic a9.
+>>
+>> Signed-off-by: Xianwei Zhao<xianwei.zhao@amlogic.com>
+> Patches applied!
+> 
+> Yours,
+> Linus Walleij
