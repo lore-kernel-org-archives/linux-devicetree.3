@@ -1,83 +1,76 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FE1367B9A
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:56:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF5EC3F4DF1
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:56:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780070169; cv=none; b=BaYZ2asEWjJMc64E+BNn9yTrCFdzMpVjG551A2cUyGL/zROoMloWpcDOuCdpOKKtyF32FPwk4O1vc3UwXAmNznII0O8ANm82x6abaC3pIhbt111Eb7qcTbAFXqiyTGnXEXerRmRKz/TAUfPYiPydWZWuVsNmFoH3Gx8ELI6I4Hc=
+	t=1780070176; cv=none; b=hE5CFPJ+jZj+Ysc45BTE6FOgohFfCAeqqHqiRNS7syRnqDJyU9UTIrFI7eFTkxjo/DNG5pFnVzXVXD8y3iKmZYPFHgFkPggv2Jb65lqmxJPASFcKOBcgOaQku8bO9ubSWIrCQXJUTJFNWGDaKvldanY7cFp5K2v93mHwYSLCUvg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780070169; c=relaxed/simple;
-	bh=xJH0Uap0D4orpwVWsdEK5aDp5BeI8CTJg9iKCi4KJZQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=EVIzL+yuAj1nIgeOwGEyvVZKYYbXBfdp5lswc5xtcD8L7ppT95NDERfVFcfuUFezmqjPuwycqsdbmIVICqlJoC2lgfBfk1p2GIzKYRKx535Be+IejBNG491MEUJ4RJNkomPhyKIoBgolqqER4k5gNOIn2g4NZUKAcsXSI97OxDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d1p3G8+j; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780070176; c=relaxed/simple;
+	bh=PqJTyAM76dPh91rM1EBFSRkgJv7U1lhIPE64WmIlskI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KDfEGWljvnb8773AUv7VPY/OOhZILW9knPCYHna052Ygehi+Q6ML3C29arGDhAK5CdoNS3IBKk4UFWyiG/a8jck5C1lEuDhjBUcN1TTtc4FvxfsHD6U5TGnXJdW7fgZ5s+ZXavT4Kfz0eS550LJW9UIUdPUebR1+R2z44p+MWSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=Iye5K/0D; arc=none smtp.client-ip=209.85.128.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d1p3G8+j"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4903d5c67bfso46479495e9.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:56:07 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="Iye5K/0D"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-49042aeeb75so95482475e9.1
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:56:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780070166; x=1780674966; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=ksGpgyBSOY6krVRLLbP0F0NC4KXp/RG/saaAZ0uBhZk=;
-        b=d1p3G8+jo51J0bICH4NtA3q4mSaD81koRcQ66v0Z99pju04+jwIeoxxlx4uL391Jvi
-         sP6oTUevF7WiutmFGVYu4KKOxzZxxtzO3IU/T0po1xkJRXa+/dYj/LEXPJxGhISkxSTE
-         SEM+bCF1RGrjIRz9+kSdUqbcqt+o53HkhWlvIbnX2He4LeuqLlvSnb7uEHK2DjKKPH2X
-         m36E0dMK+9yOxO46LO2pDvFOSFdYDdSOHD5OPO5wUnWnvd8BeL/2yvHPy8mTKV9F3Uih
-         48S4ZoJRXJ1fQNnGyhj44njy7VLCd0WGDKZ4SSGrphRxCb5oWRwfgIjyadt+PPbT8q6P
-         Jruw==
+        d=amarulasolutions.com; s=google; t=1780070172; x=1780674972; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LnHNg9n0JGZsDydxLfv4khIj43e63eeZtcUcMwaZSDY=;
+        b=Iye5K/0DJdGn9pt+rECmPXEZEjsfJgNWt0WntmfGm0r+GEdBk9CWJt2cdVEjaXbMT4
+         jH0OZPi7WiiN5Q+WFH30jJkqUbx2S/f211639pfJU8DkmV0YbUiyjZtV9PReMPinCitz
+         ImfIXOGVQ6UxqpmyKx4GnBYIIYW1LQ4OZOS0g=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780070166; x=1780674966;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=ksGpgyBSOY6krVRLLbP0F0NC4KXp/RG/saaAZ0uBhZk=;
-        b=Xtw/TuiYBjRqTNK8+iUIc9okeW1B9RPEpmM0mOhid8cf95nJiSfBO7jTdl9SWELhHf
-         YtxxS+wwgEZJr//68pOskGxcu67GHpp8ttoYFzUmMAB0r8Gp/MhsmjF/Uk6J3LFlpJdM
-         ZePtp94s5ib1i3MtLcLFKh/L5FDRho5LR86SKdovkOkjupm61TqXMgLbeBne5OxfD2nD
-         WzN/C51XNruL3ArActxbE4OVluzGL2db7738dYecQqsJqqx4zCBsrMMM7fXloU5pi+9y
-         o7PLJ1ZxbhomyEejcqfY/mZfQANL7cJh1NyZEKgRkc/3amu4s4yItJTCQUEuyIAt64oj
-         rwzw==
-X-Forwarded-Encrypted: i=1; AFNElJ9zRVj4KlpnHW5LozvRNb+2cOe8WPhTepGOHVM/dvtapVG7tZogad1uLe5NEEMmp7lVBdFE5aVa7Bn1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwC1AVj6Xn6ZORqLfZ0gqnuzy49Zfwdw7B/AGfiX+WTHX2OsgmO
-	qzN3yiBcklCTw6zpURj7hxUJ6kdDCopjKYS+IbuwHU4fdzTXuGD8cEv4
-X-Gm-Gg: Acq92OHOiTMgD19XdA7xNP6x/OpsdhAb7aFJjGlMTd9Rvfn9gfchH60YW7clk74YCX9
-	91oTaN3VgMn3tLACEPOYB1rOWCQ4d9Y1Myc9/SQiUgT6K4loSR59JCNeskYJxRXOyS/JM7vmKzv
-	dNr7NJZgQa0pQjq5WzUlgBR4q0J8CYzmMdVeVxaoaoKw7v7B4lONaRpkSDAv315789RRE92JRBy
-	gkxvdoEOXaHiMD6nzpWmpSQbYyVLjr6Mp0iWQ/yDBZndwWiA6VX2hdmKuD7sqMFV+vypPTaU3AZ
-	cSeoblJx218qDit9S0ehAGLrDQ4ubCq3geA8nmTw7SLC1bFwKkMjFZkiQmuRq7SBY0stLC4jnDz
-	zgPba4tQXg4HE6DHA/HQcyqtCKRStBiXRokD2XRjyQ4dNRvXB6exWoMFvFoUJEniUWjZS1xYDY2
-	xUAkCETK4IxR3i5R+MTS5PRpKWyvj5sEMrzOFh0ZL5Y6c8RAt4SEUf8RQi3R8k303cS8F7DIgo5
-	VzYolFvB/gt7kRvVVsBSeIMIj/TqjpDXERlpnpC
-X-Received: by 2002:a05:600c:1988:b0:490:9d1b:201f with SMTP id 5b1f17b1804b1-490a294d4b0mr2703635e9.32.1780070165977;
-        Fri, 29 May 2026 08:56:05 -0700 (PDT)
-Received: from debian.tailb81abf.ts.net (2a01cb09e0354cc878d00097536575e1.ipv6.abo.wanadoo.fr. [2a01:cb09:e035:4cc8:78d0:97:5365:75e1])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909cabfd6esm55150315e9.15.2026.05.29.08.56.05
+        d=1e100.net; s=20251104; t=1780070172; x=1780674972;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LnHNg9n0JGZsDydxLfv4khIj43e63eeZtcUcMwaZSDY=;
+        b=aSy2tyrcLWPmplkeTySHp9dtUEa/a0fZvabsGUMjzvwulJ/3cgmbkZWjL/sMJVSb0H
+         5mXhKt7ZKdqULimdwMPFIRf0tMI5MqXXrztsKHv+HHm+kE9AJoGlrApSqBJ6HLfYrH9+
+         j2OAUZJtOMUri6FcGBCQRGcpYyJ3VE6AHcn6Za9PAjH4YQkP1qHVFPIO+RWCCqPA0MgH
+         0IOK176hQzYRZ9b2RpIaYnVvyMgav0lLHvwlUoFnw/KN1saBbcc/oKQEoU6aC7tSbC7h
+         yPaSlevP4mXxZgALGba0j2Zp1nr5GX7B/vxvmRqHpNnGUTcQcc+KJYM9oizv/czpKgGG
+         0Few==
+X-Forwarded-Encrypted: i=1; AFNElJ+L3HJuf9kbqwhrOM5N0COEOjRr0tVjy2XvkcSE6U8X9TYb2S5zIpa+elSH5jKT5snQmCwOeMvpSUpN@vger.kernel.org
+X-Gm-Message-State: AOJu0Yzn6+nsvzpEzQfBjZWe26MzL+LLExtpNtmm6/4N55fzZN/an1pZ
+	iLmRneIZpde2odMbOFrsmmer2xq2oHWxxrE2l+/y+oJ+w/VFZkatbsyHSJI420fx6ZY=
+X-Gm-Gg: Acq92OHMZZ0Zv782RtpOcQxLKyzwArIFIngNPgugNtCptWiDdH6Q4WaJe7skdqMtFba
+	YtmVz1N7R+J9iHf0Acy9gQs8G8zRAU32v1cdv8Z7uR5M5ZRB+d8BtuVPA9xAkpLfX775YJdhoFP
+	bIeKaKFljPnPlBCXkOAwKVg7etKe17RM0DTr9517cfmvx3eY7suy+IwQka7lvBrYyVlM8Wg2Lwg
+	gGitNzReYgthaOHmC4BgSlAp8nbuNJnjSUWVQNA861Ggs8AOEUz+DLM2mkk7I1+ihdCxXtvb+bv
+	phbtKh1pz+5mkVG7tchGwy/nn3lZ8JcamChjjyE+ehfvQF9nN1qwK8iLlDvEJk0YcAuqD1C9sRZ
+	P8TOyS5oTvgP9FrVnfuTa3iQw5AxOD4fYGkUlUMWJTJ9mKvMRpstotKUkP3e07TlvJ4//6YOIjh
+	oTGJXy06KhMyaBuEIrX46X+dTqnvUMJjLyvSQl7CxjK3JDo+Cl8lFNGdXj5Md2m0XDwzxDfLcor
+	htNzTCv5CWY2UJyXLgA1FU7OgMcItrAEl3D6JpjkDt43lMoarpvLDQzopB38WAtv1zg8Q==
+X-Received: by 2002:a05:600c:8a0d:20b0:48a:906b:14ca with SMTP id 5b1f17b1804b1-490a293dcaamr2867795e9.20.1780070172253;
+        Fri, 29 May 2026 08:56:12 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.43.161])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354c682sm4114680f8f.23.2026.05.29.08.56.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 08:56:05 -0700 (PDT)
-From: MidG971 <midgy971@gmail.com>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>,
-	Oded Gabbay <ogabbay@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Fri, 29 May 2026 08:56:11 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	dri-devel@lists.freedesktop.org,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Midgy BALON <midgy971@gmail.com>
-Subject: [PATCH v2 2/4] dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568 support
-Date: Fri, 29 May 2026 17:58:22 +0200
-Message-Id: <20260529155824.3099831-3-midgy971@gmail.com>
-X-Mailer: git-send-email 2.39.5
-In-Reply-To: <20260529155824.3099831-1-midgy971@gmail.com>
-References: <20260529155824.3099831-1-midgy971@gmail.com>
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH] arm64: dts: st: add power-domains to sdmmc1 on stm32mp251
+Date: Fri, 29 May 2026 17:55:50 +0200
+Message-ID: <20260529155607.3948045-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,66 +79,31 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Midgy BALON <midgy971@gmail.com>
+The sdmmc1 node was introduced early in the SoC bring-up before power
+domains were systematically mapped. Add the missing power-domains
+property to align it with the rest of the peripheral nodes.
 
-Add rockchip,rk3568-rknn-core to the compatible enum, document the
-new rockchip,pmu phandle that RK3568 needs for the NPU NOC bus de-idle
-sequence, and make sram-supply only required on RK3588 (RK3568 has no
-NPU SRAM rail).
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-The driver supports both RK3568 and RK3588 RKNN cores; the binding now
-documents both. The rockchip,pmu phandle is consumed by the driver to
-issue PMU register writes (BUS_IDLE_SFTCON0, NOC_AUTO_CON0,
-PWR_GATE_SFTCON, BUS_IDLE_ST) on RK3568 only.
-
-Signed-off-by: Midgy BALON <midgy971@gmail.com>
 ---
- .../npu/rockchip,rk3588-rknn-core.yaml         | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-index caca2a490..6582a0c5c 100644
---- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-+++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
-@@ -21,6 +21,7 @@ properties:
- 
-   compatible:
-     enum:
-+      - rockchip,rk3568-rknn-core
-       - rockchip,rk3588-rknn-core
- 
-   reg:
-@@ -50,6 +51,13 @@ properties:
- 
-   npu-supply: true
- 
-+  rockchip,pmu:
-+    : /schemas/types.yaml#/definitions/phandle
-+    description:
-+      Phandle to the Rockchip PMU syscon node.  Required on RK3568 to
-+      perform the NPU NOC bus de-idle sequence via PMU registers before
-+      the hardware can be accessed.
-+
-   power-domains:
-     maxItems: 1
- 
-@@ -75,7 +83,15 @@ required:
-   - resets
-   - reset-names
-   - npu-supply
--  - sram-supply
-+
-+if:
-+  properties:
-+    compatible:
-+      contains:
-+        const: rockchip,rk3588-rknn-core
-+then:
-+  required:
-+    - sram-supply
- 
- additionalProperties: false
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 673fbc5632e6..b3416c928c08 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -1664,6 +1664,7 @@ sdmmc1: mmc@48220000 {
+ 				cap-mmc-highspeed;
+ 				max-frequency = <120000000>;
+ 				access-controllers = <&rifsc 76>;
++				power-domains = <&CLUSTER_PD>;
+ 				status = "disabled";
+ 			};
  
 -- 
-2.39.5
+2.43.0
 
+base-commit: 8fde5d1d47f69db6082dfa34500c27f8485389a5
+branch: stm32mp251-sdmmc1-power-domains
