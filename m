@@ -1,148 +1,180 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D40318BA6
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:21:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1ABD747278A
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:41:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780078879; cv=none; b=UUu18NmthKtv5odmUbiuRBoXD5Kc5EvTGPmWQ7mdzMpKR6fn/JNtuUcWH+uYhH6T7d7sFkUkWjo8YPB3OdLbOuTgXFdclrLfk7S8KlC2s8lxxCfqX1nL0JLdrb2ntD0gE2D/yrCEnG6jQ1uM6MTlXx0ypuRC/cPNpQwBhAxu49g=
+	t=1780080112; cv=none; b=JtBiOHSvFY9zX6GSZjvAveihuoQotm4/Ot3vJ9ZiuWpAK9yG0rRnJT8LEceruTbkErMuKB5yH3UmM7hi4X+OGOWGhSID2Y54y0esOPpznEc27Mvu9HDNqmJh0NTp8D8sC8uz70t3AkdKU7DgOWNPsuICZe/RqLim1afV68WGnAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780078879; c=relaxed/simple;
-	bh=I96NCFOJVWNwqBltV022jffEvkOwTtZBtO0vftPJUkE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mqE/+WolRzWeJ/Iqk1Sj9Ir9YzzdGZBJXLUTkOiekpxNrMAJfr+CXTgDRYC5CQ0MJWi4WN9U+FhmJg/ptYZjo3r2fAE5dbbyCb1Eyb2phUZm5v3S8nk7P7M6JzHQBThL3Ted3iXZDWOGJcvsqeXpwIk98DhmPFVzs7cp38k0DMU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hF5xbDl/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780080112; c=relaxed/simple;
+	bh=+mzOR3OjTeBToNKqpNe5js+UG2SYrRxx5gb6HP7Re2w=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=B2HBoTzv0GiGBCzZV/o4hDYmkS8cvsww/GjylMoPziuhjlW5d+ahJgmuuSy4yRIpwmBOa8N6289EWu+7yLPsDZ2kQMAFUfkpuY+QqK6tkVkNB5RYoLASkzCy6tlhurklCJuRVBVDSMuekVexcpe0k9AoPbem/WFm/mM8zyAjuyc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=abCYGQec; arc=none smtp.client-ip=170.10.153.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hF5xbDl/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007AC1F00893;
-	Fri, 29 May 2026 18:21:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780078878;
-	bh=7L4Nefg1MpJZXVjG9kFg5PWnu/7Y78YZ+KrJSEOcupk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=hF5xbDl/21VvZ3i7SSIRLqLLtiAeRs0rDpj+RVxDGudhgNM6elubTG/iHFTkmbxjQ
-	 VY0BoEjpWrGUfUW4/9pl3h0rr/sj2QqDkTVoySUllWwj8ajLiE+U8C4BJ0NGHWrYc6
-	 5zE1WFUVK5b/Bo6i1S5ZF8LAJrPBGrNjDG1wQ7ukFgpibfSmNxSAmGXD9LYDEdOV59
-	 hW5Ji30uJH9W1H04iQNHvzRB2CLO4XxviAEYaMC1rmSJoDGY+3oR46oeAFceg8Cdbo
-	 soAuo5jVSlqspdOIcNuuPujAOa2JfLY/Q1qXZqBQrxD282O2Gd0zkf/5V0jKqB11u7
-	 lpNCbfceLZtvg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 phy-next 14/15] phy: lynx-10g: new driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, olteanv@gmail.com
-In-Reply-To: <20260529171509.1163787-15-vladimir.oltean@nxp.com>
-References: <20260529171509.1163787-15-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 18:21:17 +0000
-Message-Id: <20260529182118.007AC1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="abCYGQec"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1780080107;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=+mzOR3OjTeBToNKqpNe5js+UG2SYrRxx5gb6HP7Re2w=;
+	b=abCYGQecCuSxxB2IXr/CPEBxklvjJ6VZae9ZCXxm0RP7G7mgEYBHwK90NEgJ0EioP8KG8i
+	nyMiG9lHPBojstTQcNtmgK0HoDFWsaSnBfbCeH1MJF4dvcqRMbfposWsagboYmcAIWM4oN
+	tf6JR9vgR7gllDeBfXtSLgUQNfQcBb5FKxuHRTwjPvUMQiMKpU3QgY6h4OpqqiRZ0N9EOx
+	epkbVY+n7uNx4wry4oYcyhnoRM43fewHId4SCaEFJt05rm3z0VMh1m+Wqw0qpuOTV8qwdd
+	qgmF3B2Qc53Xfw/alb8H3C5cqceivI0PCQi7kmEOgvf5Bnbj97F4+D1zIs3xMQ==
+Received: from BN1PR04CU002.outbound.protection.outlook.com
+ (mail-eastus2azon11010051.outbound.protection.outlook.com [52.101.56.51])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-16-pB3tR0ZBPDG3OBUJ5ptDJQ-1; Fri,
+ 29 May 2026 11:41:41 -0700
+X-MC-Unique: pB3tR0ZBPDG3OBUJ5ptDJQ-1
+X-Mimecast-MFC-AGG-ID: pB3tR0ZBPDG3OBUJ5ptDJQ_1780080097
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
+ by PH0PR02MB7399.namprd02.prod.outlook.com (2603:10b6:510:a::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 18:41:35 +0000
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0071.011; Fri, 29 May 2026
+ 18:41:35 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: Piergiorgio Beruto <Pier.Beruto@onsemi.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH net-next v3 13/14] dt-bindings: net: add onsemi's S2500
+Thread-Topic: [PATCH net-next v3 13/14] dt-bindings: net: add onsemi's S2500
+Thread-Index: AdzvmfEIy4ETAEJuRtKKpddsqy3CTg==
+Date: Fri, 29 May 2026 18:41:35 +0000
+Message-ID: <CY8PR02MB92494D02A1209BC9BC72EAC883162@CY8PR02MB9249.namprd02.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|PH0PR02MB7399:EE_
+x-ms-office365-filtering-correlation-id: 89dc4c29-f41e-4add-6bd5-08debdb1e963
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|7416014|376014|38070700021|921020|3023799007|18002099003|56012099006|11063799006
+x-microsoft-antispam-message-info: +fm3U9v0ql5h3Kg5i1/GpUgC9+DlOkCT0w49KUPMFV6iDCi2XElTFV2W/SoBTeH+nN8NtoXbSoYiLBEVYPj9D3lXPpR/NEFbHZ5yLFZyKDG5+pTOxr6h4ZhzWqD4lt79DvyQF/9KDwpsK7dIo6yQd21cH8QKn2LJmmgO9N4M2khQ3cjw4hGMB9vEdL5My4RC5XIri9MAdzo1WtmfhE8svZ2O6PikQAxT+158di5S1NmpWwuPk2iiAxuiqlVHdTGzTDdiRnKBPOKjzVFwAzZvQu8nVhvjX5wHEZtdo6EjxUCd4cTzsM0uI3VYSwkgqVO/3KM40uBIzuefSBSXlhrkYvPH9VxKmoSGeRMFj2KFORCST+/zi5ko1LUWCozMwcmhXrtGwU5F1QUwA2IVCAQVDnQmPTIVLO11Fj3dbruOS2RVZVW/d6jH93Qg4HqDrHu5Wwrii1KqEArpGhWN+zwBh3TCy7ZT8+2Lo9a9enRHdfoSKzp4imZ292DLey15nRXHJ2F3gF5gGEgtlsK3oMr+0ijmexBXhAJgdTsny5d89JYQwOsiRruPx41L6LOlfOAznzl1huUPRD9dIuQfTPVR9F/BOERJdaWOt/h8QZiiDE+S2YQi2L4TGtgBddQI8L7mD69VJPJhJeMuEkLNrsvalRIBOCbGLiratKKZD5AIFMPrY44wZZ9CdJO6aGV1QGQwyIAF/RsXUf7Ue6R6fgwpwQ==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(7416014)(376014)(38070700021)(921020)(3023799007)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?R0lqYVJqR24rd092dzdFVjZOTlp5dVduSzMrd3pTcUt5eWYwTEZObzFKZGhy?=
+ =?utf-8?B?UE9ldGJ6Z3d4WkJJQUJ5Q3cxVHBxUlNtY2NiRjFiZGh2bTNFZXF0NDgzbkVu?=
+ =?utf-8?B?OHVSZTVrWExQdUQ4Z3UxVDBlQjV1UWdBaDhZcllBYWU4TmQ2OEZwRmlEN3M2?=
+ =?utf-8?B?TitQNU55QzlOZGxncTJyK25vVEVKRDhrSEZtd252dlZQREl5WmlFWld6VFli?=
+ =?utf-8?B?bnNGWEQ4c0tLcUEwRFI4L1FrV1JjcS9SYXl0MXJNd1VUOW41R25PYldSbVhw?=
+ =?utf-8?B?dlpUWDNUZ1Q1K2hFeGZNOVB1UjgreVFRY2p3LzNGME9tTFJPeFZ1ZzRxM0Vm?=
+ =?utf-8?B?Zk5QV1p4N2ZkaUF4NVIyR2dSREZUWUN4NlJySDVRM3U4RlVuTUV2UDJFbjF4?=
+ =?utf-8?B?WUZhSkJmTkM5bWJ1eU9jamNmSGtxUWc0cmtZbUNwY095VXFWQVppL1NCZUl6?=
+ =?utf-8?B?MDVleFRyVmNWbUNLZVZGZmlrL280aTg2SkFRZzNGRGlyOWlXc0RBeXRpOCtD?=
+ =?utf-8?B?S0xJcWV3b2Q2bnpEM2RoSTRwaGpnbU9OdzhhV1VqZk5KR2VUMndmQVRpdW8r?=
+ =?utf-8?B?RDA4RGV2MkpMQVBZc2p6V1hKcFJuV3lsdnBPTGtqcnJRNyt5UlVsL1JSTWxs?=
+ =?utf-8?B?c29kR1NMeU9MYmh4Skx0QUw1MnV1dGU4WlZTZ0JOanpZcGJTazF4dndHU0xR?=
+ =?utf-8?B?ZmNUeU04SjdRU3BaWDNVNlVaQnc2SXFFd2ROUmlaM0tncWVBUXRMSUZHWHRi?=
+ =?utf-8?B?U1hPUDNlRWJpU1NXNDhFTFFQdnVsdHZVS04zRzVsTnNZWm44QzI3cGpyaFpo?=
+ =?utf-8?B?MjUzUEdaQmV2dFZBaGlKcGdTUlNzcHMvTWhVOXl3eE9xU09PRHhhcVN4UWI0?=
+ =?utf-8?B?LzBnVEdIQXVQQ2puMTZMamJFanNUYkpFMXVXSzYvTW11RnIxeUpzOVJKYldY?=
+ =?utf-8?B?c01Yd3RnZ25KK1JyMWVySE9KQnk2SU1tWTBsckM4Y3RYMmtram9HRjlHc0wz?=
+ =?utf-8?B?c0paVmVnSjBRU0ZXaHZlWTE2cHFUSFdYL0k1MGFXQndFQldRUmMvZ2paWXFy?=
+ =?utf-8?B?dGVxWmRUYldiVmplZG90dGwzTWdtcmxjeGI3eDNPVjg1N1NncEdpQkVhVjU1?=
+ =?utf-8?B?aGk2dnBld05mSWZud21rWllOK3pKMDZyS0xIOWhxbndZV25hekN6c20xbHNE?=
+ =?utf-8?B?bWFVelV3TjlCb09SSDZWRXpxbXJyV0NodTF1UVQ1Z0FXWFZEQ25QbG85bkk4?=
+ =?utf-8?B?bWxHblhxdjF3akozQVlLREk3MzE5MkFzYVBVS3lLYXVYZkZLbTI5UC9TNHNV?=
+ =?utf-8?B?TENoakk0NjkxZ0hCeEYvelhwY201WkdDL1N1VUg3dzYyNWw4TXJoWUFOcEV5?=
+ =?utf-8?B?VW85S1AwSzZRajQ5cG5vUDJTaDlzd2dOM3orSUZOWjdlZkpSYjcxeDVOVmdt?=
+ =?utf-8?B?bXFrRWxCWVRBL0hGeVdycklUZ3l4Wmh6YUZtdTJTYkN5OU1TdVBtMUM1MnNz?=
+ =?utf-8?B?T3BHMDhaaHVDRGlNb0xOUjRHVFI1RTRWRFpzaURsK2RhY3NRS3I0c25LQ05H?=
+ =?utf-8?B?K3FZK1FQTkVobkRuYWRNbmVqbTFkc25KekdBMjh0dFNRK1JCclV1TDcwcU9M?=
+ =?utf-8?B?dUpneEdCMVVRbVBNWlptMHpGbXpZM2daQTBGQ1F3SmF6UkpEVVBxTnlJK0Y1?=
+ =?utf-8?B?YjBzdTlydEc5cVorNTZwbmFpWVRubHhEUnUwZTFrK1VuWEpBYmkrZkZ1WXBE?=
+ =?utf-8?B?bUJTRStiNEZ4RCtURWZiODFpbjdNazhBQmFkL1hpVUkyQlFtRnhyYkRKbS94?=
+ =?utf-8?B?dDB3NzRNVWUzVndNaThSbUdCQnd3cWRpSUhQWVFJdllrSW53Ym5Oek1nTkZM?=
+ =?utf-8?B?Wk9PU2FtYno3dmhvYXpEWmxhMnp2emViS1JvU3V4Vkt1dmt3UDdFMVRBN3Ex?=
+ =?utf-8?B?STFEem5vUno0a2FGOFFFejU3L2VCbnAydmpXVjZVdFp4bWRzdFpuVk5rMFRH?=
+ =?utf-8?B?T3oxMmtFU3ZnUStVSktzaHNtZnBId1Zqa3M5VzFyUStaZ0ZXckVFdFptRm5l?=
+ =?utf-8?B?R3g2c1dpYS9oTzJSOVR2NUd4dlBQR1NzUjViNnhDRmZKckhoLzB4d0o4a3VY?=
+ =?utf-8?B?NWYxc0tMQWlHeUpDa1FGNmlkbjhkeW1NeG4xRDdmVUdCMXJXVncwMjBCNE1G?=
+ =?utf-8?B?M0FPcWJCRldLR1dXdkJXZ2JVTzREcnMxMjlQZnFtZkR6WFpiVExaUFJNZDIr?=
+ =?utf-8?B?U0J5QVFMSm1MU0QyR1pCSEVuUTBLYXZNV2hlQytITEpBY0dmUTJ4R1VEWDQw?=
+ =?utf-8?B?SnJPVHFEa1VkRFgya1c1emZDT04wb3Y3L0llQjhZVWpHSHRTUmlEeklZd1FD?=
+ =?utf-8?Q?y8avtp9LB2xPfqfo=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: ZGXCOxrJSCASosgVsNKPgX+8y8i7qNLECxIRvHW4e7tpKTVXyY26jNQQKfYNoQlIdHpLAn4aaU2ie3aICm9aXTsD0yOq6uffxIaSkyqNVSwnkBgkBa6ViDmY09daL4ShVWZKwp/aPgqbKbKSJyG+Ta3JyJEQGJIUloOdwHc7CV2gv4yvTVk5VIDLdAwvOm9zC2Qz6kg707rngRH0owcJgP1GXMQtzqEGM5UFiwI6/krQaJKlqieAsc2Uum7dN8U4KGtx3uw3UQLdLxtLvImhDDlQXo+yHZpLDTjngcuXsgl7MH/UuDM7TijPZmm78xCScO+E801SlOAZby1nNnHl2A==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 89dc4c29-f41e-4add-6bd5-08debdb1e963
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 18:41:35.5286
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: qt0ilXoErP+lNjw1Jm05nNwpsgkwqLInA094wHq8f/jH4s9AClV7ViPy/54H/tcn0sTLA59hXhP/nf8djNBz3Y3ZrAnQ0Vb544+sz9Qk+zM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR02MB7399
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: TgcV5vQ8hvnaABJqSq-oRj-NrWJp4MoNnBLccMBPPHQ_1780080097
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: base64
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+QWRkIFlBTUwgZGV2aWNlIHRyZWUgYmluZGluZyBmb3IgdGhlIG9uc2VtaSBTMjUwMCBJRUVFIDgw
+Mi4zY2cNCmNvbXBsaWFudCBFdGhlcm5ldCB0cmFuc2NlaXZlciBkZXZpY2UuDQoNClNpZ25lZC1v
+ZmYtYnk6IFNlbHZhbWFuaSBSYWphZ29wYWwgPFNlbHZhbWFuaS5SYWphZ29wYWxAb25zZW1pLmNv
+bT4NCi0tLQ0KIC4uLi9kZXZpY2V0cmVlL2JpbmRpbmdzL25ldC9vbm5uLHMyNTAwLnlhbWwgICB8
+IDYyICsrKysrKysrKysrKysrKysrKysNCiAxIGZpbGUgY2hhbmdlZCwgNjIgaW5zZXJ0aW9ucygr
+KQ0KIGNyZWF0ZSBtb2RlIDEwMDY0NCBEb2N1bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3Mv
+bmV0L29ubm4sczI1MDAueWFtbA0KDQpkaWZmIC0tZ2l0IGEvRG9jdW1lbnRhdGlvbi9kZXZpY2V0
+cmVlL2JpbmRpbmdzL25ldC9vbm5uLHMyNTAwLnlhbWwgYi9Eb2N1bWVudGF0aW9uL2RldmljZXRy
+ZWUvYmluZGluZ3MvbmV0L29ubm4sczI1MDAueWFtbA0KbmV3IGZpbGUgbW9kZSAxMDA2NDQNCmlu
+ZGV4IDAwMDAwMDAwMDAwMC4uOGIyMGQxZjc2MDI3DQotLS0gL2Rldi9udWxsDQorKysgYi9Eb2N1
+bWVudGF0aW9uL2RldmljZXRyZWUvYmluZGluZ3MvbmV0L29ubm4sczI1MDAueWFtbA0KQEAgLTAs
+MCArMSw2MiBAQA0KKyMgU1BEWC1MaWNlbnNlLUlkZW50aWZpZXI6IChHUEwtMi4wLW9ubHkgT1Ig
+QlNELTItQ2xhdXNlKQ0KKyVZQU1MIDEuMg0KKy0tLQ0KKyRpZDogaHR0cDovL2RldmljZXRyZWUu
+b3JnL3NjaGVtYXMvbmV0L29ubm4sczI1MDAueWFtbCMNCiskc2NoZW1hOiBodHRwOi8vZGV2aWNl
+dHJlZS5vcmcvbWV0YS1zY2hlbWFzL2NvcmUueWFtbCMNCisNCit0aXRsZTogb25zZW1pIFMyNTAw
+IDEwQkFTRS1UMVMgTUFDUEhZIEV0aGVybmV0IENvbnRyb2xsZXJzDQorDQorbWFpbnRhaW5lcnM6
+DQorICAtIFBpZXJnaW9yZ2lvIEJlcnV0byA8cGllci5iZXJ1dG9Ab25zZW1pLmNvbT4NCisgIC0g
+U2VsdmEgUmFqYWdvcGFsIDxTZWx2YW1hbmkuUmFqYWdvcGFsQG9uc2VtaS5jb20+DQorDQorZGVz
+Y3JpcHRpb246DQorICBUaGUgUzI1MDAgY29tYmluZXMgYSBNZWRpYSBBY2Nlc3MgQ29udHJvbGxl
+ciAoTUFDKSBhbmQgYW4NCisgIEV0aGVybmV0IFBIWSB0byBlbmFibGUgMTBCQVNF4oCRVDFTIG5l
+dHdvcmtzLiBUaGUgRXRoZXJuZXQgTWVkaWEgQWNjZXNzDQorICBDb250cm9sbGVyIChNQUMpIG1v
+ZHVsZSBpbXBsZW1lbnRzIGEgMTAgTWJwcyBoYWxmIGR1cGxleCBFdGhlcm5ldCBNQUMsDQorICBj
+b21wYXRpYmxlIHdpdGggdGhlIElFRUUgODAyLjMgc3RhbmRhcmQgYW5kIGEgMTBCQVNFLVQxUyBw
+aHlzaWNhbCBsYXllcg0KKyAgdHJhbnNjZWl2ZXIgaW50ZWdyYXRlZCBpbnRvIHRoZSBTMjUwMC4g
+VGhlIGNvbW11bmljYXRpb24gYmV0d2Vlbg0KKyAgdGhlIGhvc3QgYW5kIHRoZSBNQUMtUEhZIGlz
+IHNwZWNpZmllZCBpbiB0aGUgT1BFTiBBbGxpYW5jZSAxMEJBU0UtVDF4DQorICBNQUNQSFkgU2Vy
+aWFsIEludGVyZmFjZSAoVEM2KS4NCisNCithbGxPZjoNCisgIC0gJHJlZjogL3NjaGVtYXMvbmV0
+L2V0aGVybmV0LWNvbnRyb2xsZXIueWFtbCMNCisgIC0gJHJlZjogL3NjaGVtYXMvc3BpL3NwaS1w
+ZXJpcGhlcmFsLXByb3BzLnlhbWwjDQorDQorcHJvcGVydGllczoNCisgIGNvbXBhdGlibGU6DQor
+ICAgIGNvbnN0OiBvbm5uLHMyNTAwDQorDQorICByZWc6DQorICAgIG1heEl0ZW1zOiAxDQorDQor
+ICBpbnRlcnJ1cHRzOg0KKyAgICBkZXNjcmlwdGlvbjoNCisgICAgICBJbnRlcnJ1cHQgZnJvbSBN
+QUMtUEhZIGFzc2VydGVkIGluIHRoZSBldmVudCBvZiBSZWNlaXZlIENodW5rcw0KKyAgICAgIEF2
+YWlsYWJsZSwgVHJhbnNtaXQgQ2h1bmsgQ3JlZGl0cyBBdmFpbGFibGUgYW5kIEV4dGVuZGVkIFN0
+YXR1cw0KKyAgICAgIEV2ZW50Lg0KKyAgICBtYXhJdGVtczogMQ0KKw0KK3JlcXVpcmVkOg0KKyAg
+LSBjb21wYXRpYmxlDQorICAtIHJlZw0KKyAgLSBpbnRlcnJ1cHRzDQorDQordW5ldmFsdWF0ZWRQ
+cm9wZXJ0aWVzOiBmYWxzZQ0KKw0KK2V4YW1wbGVzOg0KKyAgLSB8DQorICAgICNpbmNsdWRlIDxk
+dC1iaW5kaW5ncy9pbnRlcnJ1cHQtY29udHJvbGxlci9pcnEuaD4NCisgICAgc3BpIHsNCisgICAg
+ICAjYWRkcmVzcy1jZWxscyA9IDwxPjsNCisgICAgICAjc2l6ZS1jZWxscyA9IDwwPjsNCisNCisg
+ICAgICBldGhlcm5ldEAwIHsNCisgICAgICAgIGNvbXBhdGlibGUgPSAib25ubixzMjUwMCI7DQor
+ICAgICAgICByZWcgPSA8MD47DQorICAgICAgICBwaW5jdHJsLW5hbWVzID0gImRlZmF1bHQiOw0K
+KyAgICAgICAgcGluY3RybC0wID0gPCZldGgwX3BpbnM+Ow0KKyAgICAgICAgaW50ZXJydXB0LXBh
+cmVudCA9IDwmZ3Bpbz47DQorICAgICAgICBpbnRlcnJ1cHRzID0gPDI1IElSUV9UWVBFX0xFVkVM
+X0xPVz47DQorICAgICAgfTsNCisgICAgfTsNCi0tIA0KMi40My4wDQo=
 
-New issues:
-- [High] Incorrect restoration of the PCCR mux configuration because `0` is=
- treated as uninitialized.
-- [High] Potential timing violation when bringing lanes out of reset and po=
-wer down simultaneously.
-
-Pre-existing issues:
-- [High] lynx_xlate can return a NULL pointer for unprobed PHY lanes, leadi=
-ng to a NULL pointer dereference in the PHY core framework.
---
-
-commit 851e6824db7b03958722b9808f3549609168de99
-Author: Vladimir Oltean <vladimir.oltean@nxp.com>
-
-phy: lynx-10g: new driver
-   =20
-Introduce a driver for the networking lanes of the 10G Lynx SerDes
-block, present on the majority of Layerscape and QorIQ (Freescale/NXP)
-SoCs.
-
-> diff --git a/drivers/phy/freescale/phy-fsl-lynx-10g.c b/drivers/phy/frees=
-cale/phy-fsl-lynx-10g.c
-> index 0000000000000..9b04d6a4b825a
-> --- /dev/null
-> +++ b/drivers/phy/freescale/phy-fsl-lynx-10g.c
-[ ... ]
-> +static int lynx_10g_lane_enable_pcvt(struct lynx_lane *lane,
-> +				     enum lynx_lane_mode mode)
-> +{
-> +	struct lynx_priv *priv =3D lane->priv;
-> +	u32 val;
-> +	int err;
-> +
-> +	spin_lock(&priv->pcc_lock);
-[ ... ]
-> +	if (lane->default_pccr[mode]) {
-[Severity: High]
-Can this condition incorrectly fall through to hardcoded defaults if a valid
-mux configuration of 0 is backed up?
-
-Since default_pccr is zero-initialized by devm_kcalloc(), a backed-up value
-of 0 evaluates to false. This skips the restoration and allows the driver to
-apply hardcoded defaults later, which could permanently reroute the hardware
-lanes and break the network interface.
-
-> +		err =3D lynx_pccr_write(lane, mode, lane->default_pccr[mode]);
-> +		goto out;
-> +	}
-> +
-> +	val =3D 0;
-[ ... ]
-> +static int lynx_10g_power_on(struct phy *phy)
-> +{
-> +	struct lynx_lane *lane =3D phy_get_drvdata(phy);
-> +
-> +	if (lane->powered_up)
-> +		return 0;
-> +
-> +	/* The RM says to wait for at least 120ns between per lane setting have
-> +	 * been changed and the lane being taken out of reset
-> +	 */
-> +	usleep_range(1, 2);
-> +
-> +	lynx_lane_rmw(lane, LNaGCR0, LNaGCR0_RRST_OFF | LNaGCR0_TRST_OFF,
-> +		      LNaGCR0_RRST | LNaGCR0_TRST |
-> +		      LNaGCR0_RX_PD | LNaGCR0_TX_PD);
-[Severity: High]
-Does this code violate typical PHY hardware sequencing by clearing both the
-power-down bits and digital reset bits simultaneously?
-
-Releasing the digital reset at the same time as activating the analog
-components doesn't leave time for the analog circuitry to stabilize. The
-prior usleep_range() occurs before power-up is initiated, which might not
-prevent hardware lockups or unreliable behavior on link up.
-
-> +
-> +	lane->powered_up =3D true;
-> +
-> +	return 0;
-> +}
-[ ... ]
-> +static int lynx_10g_probe(struct platform_device *pdev)
-> +{
-> +	return lynx_probe(pdev, of_device_get_match_data(&pdev->dev),
-> +			  &lynx_10g_ops);
-> +}
-[Severity: High]
-This is a pre-existing issue, but does the core PHY framework crash if
-lynx_xlate() returns a NULL pointer for an unprobed PHY lane?
-
-If a PHY lane is requested via device tree but the driver did not probe it,
-priv->lane[idx].phy will be NULL. If lynx_xlate() returns this NULL pointer,
-the core PHY framework interprets it as a successful retrieval of an option=
-al
-PHY and might attempt to dereference it. Would it be safer to explicitly
-return ERR_PTR(-ENODEV) in lynx_xlate() when the phy pointer is NULL?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529171509.1163=
-787-1-vladimir.oltean@nxp.com?part=3D14
