@@ -1,263 +1,97 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7A13D0935
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9480236C9C2;
+	Fri, 29 May 2026 11:57:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780055341; cv=none; b=QfMiQ6k3y8597CBIphBKKx4TqP3kT6+w1wvkktRxBSJC0CiKLP5zlesYiW/xacxjyif0cm96J5cERGJwMEd3wdjIDc0tY/1Utju28cRBkuienJyOeXuUooA/2no9OIo9ZVCqt/gpySlV2DHZHv5kOOxU+4RuI9+rSq+zTL+hz9g=
+	t=1780055853; cv=none; b=qozz895ePyUacfoR+G14GQfk+pxPa0t1o30q3VlvCbE7/0RIqYNtiyrLYp8q5JPJ9J/bRX6nPpWcJrqhxosQkvE0R7QBkn5gqVhoqWGCkM16DcOioPk49RKXp7GF8lg1hLk2hgOxx234Vg2HqpxvAe4ZsAXU5cvJw+R2Zz5ZXdM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780055341; c=relaxed/simple;
-	bh=fBqbjHRBCyIL3UfovEF7gVbOk5i52uNcifbmpp1shzE=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HEulSDqJVBt8eqkDk+UjnTGil+EQLfIgECD7/Kr00r6EZ2kmmq0V+UG2HUj/Y79nKbI7QBQOJ1dK6onKL6ufsCwa0vVK5UpYnDF4pdAeGByjwrUbuzdHX3Wo8DG1KZSU9XxvG2MoKMET7feHfcvK5UXaVcSBN14R3JEMuVGAu14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmawZuCm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780055853; c=relaxed/simple;
+	bh=XFsgrsCjGSjstVa6RvszBDjXsctRxLUF7p0mxc2muI0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Bj79OpUUcB2LiDHSkmUzEFM+euWYv8zTHaRW88IebtNrztaZ6RnQ18BAjtP5icn8E0JIjGKZMMLI4ZYWvHNUh4pRxRqc7izDdfnWfeSP9F7UCtnAj2Vz2S3TatVuuV/PPe68vB/FmaxODn38nW91oApdWmYisf7f3wHm8J1bbng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k/v7zWyu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmawZuCm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC4D1F00893;
-	Fri, 29 May 2026 11:48:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k/v7zWyu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D32861F00893;
+	Fri, 29 May 2026 11:57:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780055339;
-	bh=76FNoRZv+HWvq02dn1SJNW8wye7L/65s6GlGIvjd8RY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TmawZuCmXUgz/5krphfMyiLIz43kqM43l1tscwBWUkOVIB6emhZnrdUibOrhpqzmd
-	 UAodyQD8aRoYNYyFH4k0m4ScknHRnkZbHrtjPtFZOcZBiAOtyYQ/wsLzqnfPUf5rXN
-	 s2tF1kl16DqFqsmlmHxrpoZxskZdt+hSCKsI6n+F1yleyYmunwQxf2Fu0aOqDh0554
-	 hkVF9MC53zrK/yJYSOhHetl99+WYQ6FwRCJ5RQMDQ8mZrpKs16bvm7aJYXipD5k6pM
-	 +lsdP09Tx2WZAKZPBNMB/RJ7WJWW1HeuL9dxas5ckNPOTHWVO+EnqDH8HzZLz1ZMaj
-	 vBFfZG8wNc+gw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 3/6] iio: adc: ad4691: add triggered buffer support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529-ad4692-multichannel-sar-adc-driver-v14-3-e93c2747dc1f@analog.com>
-References: <20260529-ad4692-multichannel-sar-adc-driver-v14-3-e93c2747dc1f@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 11:48:58 +0000
-Message-Id: <20260529114859.0CC4D1F00893@smtp.kernel.org>
+	s=k20260515; t=1780055852;
+	bh=sItfJ0cb+MWD2HBd0NIc4WI19pJetbDoSxn5IZKyj6c=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=k/v7zWyuc9EOSppNop7KG6a3jeHgDERG7u5x2jcoHtdnxhcqG7+MTQBSdeyRk6Cfr
+	 8LmpDNxBYawAf/kaF65MMeu90vUFcr9gKTkU+sYNY3uYa4aMEHg5haOX+aMs3oXbfy
+	 g8jQrG558iBOsfLwHTAmqg1O8z7hsVxoa/fq76k6NOFJG2TUeyBRKklbwrXz5q8ub6
+	 szDp0DU/DPTmOk3a2wfum0qBUl9iYr1+ieyzyfvyiphgemJkNf4GwheVu7jfw3r7wW
+	 yfhNoxIlZREH9Cr3yHDVTWnBY2Re6UsOALkohuzQsV6mX8XGTcDrPiL7NUUpysYMQA
+	 wV2VC8DFSifhQ==
+Date: Fri, 29 May 2026 12:57:27 +0100
+From: Mark Brown <broonie@kernel.org>
+To: YLCHANG2 <neo.chang70@gmail.com>
+Cc: Neo Chang <YLCHANG2@nuvoton.com>, lgirdwood@gmail.com, perex@perex.cz,
+	robh@kernel.org, krzk+dt@kernel.org, linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org, alsa-devel@alsa-project.org,
+	kchsu0@nuvoton.com, sjlin0@nuvoton.com
+Subject: Re: [PATCH v3 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
+ amplifier
+Message-ID: <cad71e89-ce31-4ed9-837c-9395e020f34d@sirena.org.uk>
+References: <20260526015826.440769-1-YLCHANG2@nuvoton.com>
+ <20260526015826.440769-3-YLCHANG2@nuvoton.com>
+ <d4cf4ad9-82fb-4beb-be5b-b3687f822fcf@sirena.org.uk>
+ <1d7a01aa-dd65-129a-c9ac-e24e9b474f8e@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="tdZd9ctACY54NNcc"
+Content-Disposition: inline
+In-Reply-To: <1d7a01aa-dd65-129a-c9ac-e24e9b474f8e@gmail.com>
+X-Cookie: Equal bytes for women.
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] The `iio_for_each_active_channel()` loop does not skip the timesta=
-mp channel, leading to array out-of-bounds accesses and invalid hardware co=
-nfigurations.
-- [High] `sampling_frequency_store` accepts any arbitrary positive frequenc=
-y without checking against the ADC's maximum supported rate.
-- [High] `ad4691_transfer()` passes a stack-allocated buffer directly to `s=
-pi_write()`, which is illegal and will cause crashes with `CONFIG_VMAP_STAC=
-K`.
-- [High] The driver points individual `spi_transfer` `tx_buf` and `rx_buf` =
-pointers to tightly packed 2-byte elements within the `st->scan_tx` and `st=
-->vals` arrays, violating the DMA API.
-- [Medium] Trigger reference count is leaked if subsequent initializations =
-in `ad4691_setup_triggered_buffer` fail.
---
 
-commit 4e95345888521996a31c6b2feb0dd8f47d67b29c
-Author: Radu Sabau <radu.sabau@analog.com>
-Date:   Fri May 29 10:15:02 2026 +0000
+--tdZd9ctACY54NNcc
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-iio: adc: ad4691: add triggered buffer support
+On Fri, May 29, 2026 at 04:49:11PM +0800, YLCHANG2 wrote:
+> On 5/27/26 21:43, Mark Brown wrote:
+> > On Tue, May 26, 2026 at 09:58:26AM +0800, Neo Chang wrote:
 
-This commit adds triggered buffer support using the IIO triggered buffer
-framework. It implements a CNV burst mode driven by a PWM and a manual mode
-where each transfer simultaneously reads the previous result and starts the
-next conversion.
+> >     https://sashiko.dev/#/patchset/20260526015826.440769-1-YLCHANG2%40nuvoton.com
+> Regarding the sashiko report, I have a few questions:
+> Are we required to address every issue caught by sashiko? We found that some
+> of them are actually false positives.
+> If we need to explain our code regarding sashiko's findings, who should we
+> send the reply to?
 
-> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
-> index e1febf80f21d3..175c801297867 100644
-> --- a/drivers/iio/adc/ad4691.c
-> +++ b/drivers/iio/adc/ad4691.c
-[ ... ]
-> +static int ad4691_transfer(struct ad4691_state *st, u16 cmd)
-> +{
-> +	u8 buf[2];
-> +
-> +	put_unaligned_be16(cmd, buf);
-> +
-> +	return spi_write(st->spi, buf, sizeof(buf));
-> +}
+Just address anything that looks legitimate and ignore the rest.  Part
+of the reason I only linked to the review is that I didn't have time to
+verify what was accurate in there.
 
-[Severity: High]
-Is it safe to pass a stack-allocated buffer to spi_write() here?
+> Additionally, is there a way to run the sashiko checks locally before
+> submitting our patches?
 
-The SPI subsystem maps this buffer for DMA. On architectures with virtually
-mapped stacks (CONFIG_VMAP_STACK enabled), dma_map_single() cannot operate
-on stack addresses, which could trigger a kernel panic when enabling or
-disabling the buffer.
+You can install it locally, the code for the service itself is
+available, but these things being what they are you can't rely on the
+output being exactly the same.
 
-[ ... ]
-> +static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
-> +{
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int k, i;
-> +	int ret;
-> +
-> +	memset(st->scan_xfers, 0, sizeof(st->scan_xfers));
-> +	memset(st->scan_tx, 0, sizeof(st->scan_tx));
-> +
-> +	spi_message_init(&st->scan_msg);
-> +
-> +	k =3D 0;
-> +	iio_for_each_active_channel(indio_dev, i) {
-> +		/*
-> +		 * Channel-select command occupies the first (high) byte of the
-> +		 * 16-bit DIN frame; the second byte is a don't-care zero pad.
-> +		 * put_unaligned_be16() writes [cmd, 0x00] in memory so the
-> +		 * SPI controller sends the command byte first on the wire.
-> +		 */
-> +		put_unaligned_be16((u16)(AD4691_ADC_CHAN(i) << 8), &st->scan_tx[k]);
-> +		st->scan_xfers[k].tx_buf =3D &st->scan_tx[k];
-> +		/*
-> +		 * The pipeline means xfer[0] receives the residual from the
-> +		 * previous sequence, not a valid sample. Discard it (rx_buf=3DNULL)
-> +		 * to avoid aliasing vals[0] across two concurrent DMA mappings.
-> +		 * xfer[1] (or the NOOP when only one channel is active) writes
-> +		 * the real ch[0] result to vals[0]. Subsequent transfers write
-> +		 * into vals[k-1] so each result lands at the next dense slot.
-> +		 */
-> +		st->scan_xfers[k].rx_buf =3D (k =3D=3D 0) ? NULL : &st->vals[k - 1];
+--tdZd9ctACY54NNcc
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: High]
-Since scan_tx and vals arrays have elements that are 2 bytes in size,
-does pointing individual spi_transfer buffers to them violate the DMA API?
+-----BEGIN PGP SIGNATURE-----
 
-Because each transfer is mapped individually by the SPI core, multiple
-DMA mappings will share the same CPU cacheline. On non-cache-coherent
-architectures, could cache invalidations during dma_unmap_single() for
-one transfer overwrite and corrupt adjacent data written by the DMA
-controller?
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoZfyYACgkQJNaLcl1U
+h9Dw/wf/SkgXf8IGxg4KAoclYOkN8Wtjlo+8RpQ79pg0XPSoj92+E09CqQOaW28S
+4JRXCkA7YKwsDEpldMqAiCajCafVnlprnH6FrRyhOBUGyeWEyVD5NdV166gl9rRp
+YSKXy1AxWE025Eib+QfR5CL1GXTlPLSl44mNok1lpaBW4VHPT2jDY9i1Md6tlKUC
+6NPYtuYXeyBSgafHPtH1c1OJX09JyWsraRqMN6cFc2YQqpTAU9FR1SeBDmK/7CxC
+4IO7WSR5B/10EkDAIBLSPFqDsnwO2EFu2jOGlletvES9QWgo+vyJcrkkI+9wYfut
+g/99OTYNG0sf0eLH9Lk5e8majrOoUA==
+=jpYX
+-----END PGP SIGNATURE-----
 
-> +		st->scan_xfers[k].len =3D sizeof(*st->scan_tx);
-> +		st->scan_xfers[k].cs_change =3D 1;
-> +		st->scan_xfers[k].cs_change_delay.value =3D AD4691_CNV_HIGH_TIME_NS;
-> +		st->scan_xfers[k].cs_change_delay.unit =3D SPI_DELAY_UNIT_NSECS;
-> +		spi_message_add_tail(&st->scan_xfers[k], &st->scan_msg);
-> +		k++;
-> +	}
-> +
-> +	/* Final NOOP transfer retrieves the last channel's result. */
-> +	st->scan_xfers[k].tx_buf =3D &st->scan_tx[k]; /* scan_tx[k] =3D=3D 0 =
-=3D=3D NOOP */
-
-[Severity: High]
-Does iio_for_each_active_channel() skip the timestamp channel?
-
-If the timestamp channel is enabled, it seems the loop counter k will reach
-17 (16 physical channels + 1 timestamp). When it evaluates to 17, the final
-NOOP transfer writes to st->scan_tx[17] and st->scan_xfers[17], exceeding t=
-he
-scan_tx array size of 17.
-
-Similarly, in ad4691_cnv_burst_buffer_preenable(), k could reach 17, causing
-st->scan_xfers[2 * k] to access scan_xfers[34], exceeding the scan_xfers
-array size of 34, potentially causing out-of-bounds memory accesses.
-
-[ ... ]
-> +static ssize_t sampling_frequency_store(struct device *dev,
-> +					struct device_attribute *attr,
-> +					const char *buf, size_t len)
-> +{
-> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
-> +	struct ad4691_state *st =3D iio_priv(indio_dev);
-> +	unsigned int freq;
-> +	int ret;
-> +
-> +	ret =3D kstrtouint(buf, 10, &freq);
-> +	if (ret)
-> +		return ret;
-> +
-> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
-> +		return -EBUSY;
-> +
-> +	ret =3D ad4691_set_pwm_freq(st, freq);
-
-[Severity: High]
-Does this code validate the requested frequency against the maximum support=
-ed
-rate (st->info->max_rate)?
-
-If a user requests an extremely high frequency, could it drive the hardware
-out of spec and cause the GP pin to assert interrupts at an unmanageable
-rate, potentially locking up the CPU?
-
-[ ... ]
-> +static int ad4691_setup_triggered_buffer(struct iio_dev *indio_dev,
-> +					 struct ad4691_state *st)
-> +{
-> +	struct device *dev =3D regmap_get_device(st->regmap);
-> +	struct iio_trigger *trig;
-> +	unsigned int i;
-> +	int irq, ret;
-> +
-> +	indio_dev->channels =3D st->info->sw_info->channels;
-> +	indio_dev->num_channels =3D st->info->sw_info->num_channels;
-> +	indio_dev->info =3D st->manual_mode ? &ad4691_manual_info : &ad4691_cnv=
-_burst_info;
-> +
-> +	/*
-> +	 * Manual mode relies on an external trigger (e.g. iio-trig-hrtimer);
-> +	 * no internal trigger is needed or registered.
-> +	 */
-> +	if (st->manual_mode)
-> +		return devm_iio_triggered_buffer_setup(dev, indio_dev,
-> +						       iio_pollfunc_store_time,
-> +						       ad4691_trigger_handler,
-> +						       &ad4691_manual_buffer_setup_ops);
-> +
-> +	/*
-> +	 * CNV burst mode: allocate an internal trigger driven by the
-> +	 * DATA_READY IRQ on the GP pin.
-> +	 */
-> +	trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
-> +				      iio_device_id(indio_dev));
-> +	if (!trig)
-> +		return -ENOMEM;
-> +
-> +	trig->ops =3D &ad4691_trigger_ops;
-> +	iio_trigger_set_drvdata(trig, st);
-> +
-> +	ret =3D devm_iio_trigger_register(dev, trig);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "IIO trigger register failed\n");
-> +
-> +	indio_dev->trig =3D iio_trigger_get(trig);
-> +
-> +	/*
-> +	 * The GP pin named in interrupt-names asserts at end-of-conversion.
-> +	 * The IRQ handler fires the IIO trigger so the trigger handler can
-> +	 * read and push the sample to the buffer. The IRQ is kept disabled
-> +	 * until the buffer is enabled.
-> +	 */
-> +	irq =3D -ENXIO;
-> +	for (i =3D 0; i < ARRAY_SIZE(ad4691_gp_names); i++) {
-> +		irq =3D fwnode_irq_get_byname(dev_fwnode(dev),
-> +					    ad4691_gp_names[i]);
-> +		if (irq > 0 || irq =3D=3D -EPROBE_DEFER)
-> +			break;
-> +	}
-> +	if (irq < 0)
-> +		return dev_err_probe(dev, irq, "failed to get GP interrupt\n");
-
-[Severity: Medium]
-If fwnode_irq_get_byname() fails here, or if ad4691_gpio_setup() fails
-later, is the trigger reference obtained via iio_trigger_get(trig) ever
-released?
-
-Because INDIO_BUFFER_TRIGGERED is not added to indio_dev->modes until
-devm_iio_triggered_buffer_setup_ext() succeeds, the IIO core's devres clean=
-up
-might not drop this reference if we return early, potentially leaking the
-trigger structure.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-ad4692-mul=
-tichannel-sar-adc-driver-v14-0-e93c2747dc1f@analog.com?part=3D3
+--tdZd9ctACY54NNcc--
