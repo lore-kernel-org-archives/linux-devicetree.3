@@ -1,348 +1,119 @@
-Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011050.outbound.protection.outlook.com [40.93.194.50])
+Received: from mx0a-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF4293E8C77;
-	Fri, 29 May 2026 14:13:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780063988; cv=fail; b=NYT2VtKq7v3Df0vE4bpvYKxRidhd7fsKlNIXo200t+UzqCpV5teT0bywdqedQhGH1bnmzu3OfXV9Fzb8v3IWCh2e1BZHkSHEkE5QkyND0DeQXJ6yZR2gFOHaFEanKF+Kg2M4M1M8YYZDQKvelej4MJliLfxcGfMlrlhdW/TnQM0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780063988; c=relaxed/simple;
-	bh=AybpGeQut73221Fa4yrwrG3E/G7eG6qV49Z2yNXxjSg=;
-	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hI/FG2wiKDNik0sQsnKjJ3Tx+d1eQxWNE1yq7pr+ffe4NDKoGAFuTCR4UMNAnb4t20ssm5eYJ5wFPYoEV8TBhnRbn7Fj5byqyPgbOGhLj8T5b47tMfdLxXscDp9wyKDoPBOc/BDV7uFiwNoVAarGaiycTI9m8k5RCNZ4yevU818=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=jb1QBQuN; arc=fail smtp.client-ip=40.93.194.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E18C3ACA68;
+	Fri, 29 May 2026 14:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780064076; cv=none; b=AkCZjCJ8Wcq56RI8OmHf7KHfKyXZG974lKQPpN9sA+RFtDdyzMy6aZrU/iZR+KLcvq2obHjOH/1FSnHZexEdtazAJS/2yRoyDSeNFQi0aDjzsQBcK5M6WyJhBmFDrKtRtoQvEOnpvy21+7Omnt/EBlI9pGolRR+JCH4n1X2oI90=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780064076; c=relaxed/simple;
+	bh=4r/NCvqUy92r0Jbag11j7G7bEZ2kL14zOVqm+baV3cQ=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=V/pRkEXaySXoE8s/dnPeO49CV01JemMXVYsMrjdpZaKPmu4ZF8WDrp3deou5Xq9uhPD6NWLlBrUUQeJCHgIVPf8XtO9AANJn+LRQoxG4mQM/8gJ+HlRwS0T1XpVhlRsqwvtC4LRF3EK7rPBqIY2Z2/lp5TfXyM3LesCrGxLNpiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=0HFre1JN; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="jb1QBQuN"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=QpeQ7sU2rpmIZlRpb0xMzqrwcF/R3VpNMf5e6B4cynbrDnJYw/5JLhbUpwnI89jhWyN/rjSbTvarkSK8xSeQDFj4UiL5hsAHRStMLMvRZxhQF2BH8vy7b5QcsHJ+F1AB9rOgIsnqeaqnCXe9GRxw8eN2aCM4unPejJl/joDRYhFyQq3xGQYFqgSWVz3EdVyVZoiugNSOewuzHQF5cGsqFY8twIvqi89UC9Ea2fgLn+nfLsBBgOM3UmnN6CuwkZmI1jBOpfutcbYScXbSHnKlw60UZlOJWwhQeHw2bR4u+J25qZwt8ybFZWLVMlUiXahtBH9XH+tQmLSsdc9gp/B0Fg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=ZuGbVl/XJ9X4bqHr8AjXoP2jTOIwEDcWnRsf9eWbmv8=;
- b=R7AUuHCiXyv83M0d44vlvNTqRK55TqRguzMqc5xQ67vb7HVMn96+lT2fkCLgYgFGcHP2GCOxMpAOX6nUHDzrhYVMMZDjUL0qky5D07r/KBLFDaJH3/2a4BmX8J/aDkmZOlBObfZ6pFtxFvT57XsHnJwVKkNZ8rROa0noCxrrhjNG5QKR8nMV0u5y9PUKkpZ8WhUiz7lBmxV6agg784Qoec6ktA6Utu5mkt/uI9aBrPG2FZzUpX1+T64murugtpgf4Us3VU3RjJV++fi1S96zEBskLoSzbMGEzVeHuUMy/OH02E4gLXt1ank5Ixw4zprDBSTydsJZRNy5S/aiY0nPUA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=ZuGbVl/XJ9X4bqHr8AjXoP2jTOIwEDcWnRsf9eWbmv8=;
- b=jb1QBQuNyENeXAEoj9fA/zBiL3mf4TZxQgbHKqhQ+tMaxg0SXkgutF1IlYWceAaH3AE4Mynd13LPbepuYx7SkRTn3dWe/dn632TLxO4nJG1TczQkPDhXP0809zB5Xc7sEOUWXkgrEzIrt17NtFaV0i4Efipmy0Y58kBHIMHJ+ic=
-Received: from BN9P222CA0028.NAMP222.PROD.OUTLOOK.COM (2603:10b6:408:10c::33)
- by DS3PR10MB997750.namprd10.prod.outlook.com (2603:10b6:8:347::15) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.12; Fri, 29 May
- 2026 14:13:03 +0000
-Received: from BL6PEPF00020E65.namprd04.prod.outlook.com
- (2603:10b6:408:10c:cafe::6a) by BN9P222CA0028.outlook.office365.com
- (2603:10b6:408:10c::33) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 14:13:03 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
-Received: from flwvzet201.ext.ti.com (198.47.21.195) by
- BL6PEPF00020E65.mail.protection.outlook.com (10.167.249.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 14:13:01 +0000
-Received: from DFLE200.ent.ti.com (10.64.6.58) by flwvzet201.ext.ti.com
- (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
- 2026 09:12:33 -0500
-Received: from DFLE203.ent.ti.com (10.64.6.61) by DFLE200.ent.ti.com
- (10.64.6.58) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
- 2026 09:12:32 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE203.ent.ti.com
- (10.64.6.61) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Fri, 29 May 2026 09:12:32 -0500
-Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64TECWPq3771677;
-	Fri, 29 May 2026 09:12:32 -0500
-Date: Fri, 29 May 2026 09:12:32 -0500
-From: Nishanth Menon <nm@ti.com>
-To: Swamil Jain <s-jain1@ti.com>
-CC: <vigneshr@ti.com>, <kristo@kernel.org>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<tomi.valkeinen@ideasonboard.com>, <r-sharma3@ti.com>, <devarsht@ti.com>,
-	<praneeth@ti.com>, <linux-arm-kernel@lists.infradead.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v2] arm64: dts: ti: k3-am62l: Add HDMI & DSI support
-Message-ID: <20260529141232.dbtqg6mudjy3dlwh@grandkid>
-References: <20260528133529.3476499-1-s-jain1@ti.com>
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="0HFre1JN"
+Received: from pps.filterd (m0516787.ppops.net [127.0.0.1])
+	by mx0a-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64TA4Pok400344;
+	Fri, 29 May 2026 10:14:30 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=
+	content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=DKIM; bh=w3RhsycqPFR9LA196+NaEfDIsUZ
+	8mFCQ4AiWKzFkNCY=; b=0HFre1JNWMPJ+R+Eh5OHc5lbJpN/Hxh2Em7UVVKNALZ
+	2PQnlDntZW79TJxcARsL/bR5EtdEgBJ5PEFiT/dtHwKqCbxK21DT+sai+TSRLEBr
+	Qjng2C/ghYNJNlqSKLLOtr2+/RofNb7g7fNhNK66p04KJ9xQkXNrKgZcOa7AhWk9
+	0r7skCwas039nCOVV+VSN+y7wq2dqlJTBAMa/kQIiCQVuaSLQwrxQPC6sG0ZiXI+
+	cEOz/pPuVmtGKBEXP/EQODHBJpPhyEnc2KIEhvyqOWFI3O5xMEr9KV4ZIo6248xn
+	x6FVlRJCrLqxTsxrnkLJhV4o21wy0HIEZG6LhbPWk6w==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0a-00128a01.pphosted.com (PPS) with ESMTPS id 4ee7x1yr69-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Fri, 29 May 2026 10:14:30 -0400 (EDT)
+Received: from ASHBMBX9.ad.analog.com (ASHBMBX9.ad.analog.com [10.64.17.10])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 64TEET3S012812
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Fri, 29 May 2026 10:14:29 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX9.ad.analog.com (10.64.17.10) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 29 May 2026 10:14:28 -0400
+Received: from ASHBMBX9.ad.analog.com (10.64.17.10) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Fri, 29 May 2026 10:14:28 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx9.ad.analog.com
+ (10.64.17.10) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Fri, 29 May 2026 10:14:28 -0400
+Received: from HYB-b1tGeUj4GP1.ad.analog.com ([10.32.223.86])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 64TEE8Ma020671;
+	Fri, 29 May 2026 10:14:15 -0400
+From: Antoniu Miclaus <antoniu.miclaus@analog.com>
+To: =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Michael Hennerich
+	<Michael.Hennerich@analog.com>,
+        Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        Jonathan Cameron <jic23@kernel.org>,
+        David Lechner <dlechner@baylibre.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, <linux@analog.com>,
+        <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>
+Subject: [PATCH v2 0/2] iio: adc: ad4080: add support for AD4884
+Date: Fri, 29 May 2026 17:13:51 +0300
+Message-ID: <20260529141353.8492-1-antoniu.miclaus@analog.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-In-Reply-To: <20260528133529.3476499-1-s-jain1@ti.com>
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BL6PEPF00020E65:EE_|DS3PR10MB997750:EE_
-X-MS-Office365-Filtering-Correlation-Id: aaa7c389-eb2e-4806-3d4c-08debd8c64c6
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|376014|1800799024|56012099006|18002099003|6133799003|22082099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	UUIGFMmlhDe249O0G+yICmhhH1bOgJngqtXu9KVwwwpnWnhLq7xluEpd4L6xIVTMg8B6RZN6DXLKYcpIDz7SnnMu9zti8jY5rc/ZvsdoNkLznOnCJOjJI98zoz1e/N6YaAjh6bhp4m22oHFGzFQ0ziWC883DS182oyy5I5kAHDUj6QQjqSiFsMxDKR64KIF//B6Wy90qRQsg/rrH8+Nu/gzCIvDSSVX3pkmZJRi1GpNnKq61tbHP3SQFn0dMqikb4WPceEIfq6KLHDJC9pHMe96+VUsquu/DUPzKUDap6zgPjHoKySgYWtpuhXKN4UTHEYABfIVkxrFxe+U8ci8JpG+XzHu59A1yOR2Eei6RLcO0xYZ+EkKpdtwT13JuHPkPriv0g+sBFOMeWyGQZcVXSLNUx9m+zSGz4vbA4Io9bx/yEdvCAK88ejJpfBSA4aS/RHJB4AWP2B2nsv290Qsq/GjDIsehqaMzkP4DKzGO/zIFlZ6KLqhUN/2DiNRcYjBAGiwXRATNrUJyBqaLuHajymvWnA7MOtykVtP0PToSmlbdkYXEJn88dAkksuvilRBJ8KI651Rr7n4JOQZUL2fije9LPunfTGP5zKVl3dHfpgL/Op7mYwic8zVd9k5iYSYTaYtdIUeSdxGkMK3r4U0eUZh2r4WfmeT5AtxElMBpBHo8xrVSxnkE/IQPkAubhnsH
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(376014)(1800799024)(56012099006)(18002099003)(6133799003)(22082099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	CFu5On7xgEsdDxt7kZihCge158Dsce2qoVuKENz+BSQJwzVBDxFhMokCWTleTMg3zutyEPzXCSTaRwXyjNGHbBivn9pD1WgJeC4k5BPa9+0RUfGfUEDvCxJ/81sMzNtRtpVYnHZTlhlSMmQVQdFX+0oZHBxTV8cIcpimyOQ75cxpHEeYsudkXwtisyxok+VjDGX0+RA3JdukZjqB+LQ0rhlha8wgUsgCekMQzEOecHkra5l5po1OjUnyV9VWGcvnNSF23B9hUzO6XOx8te/kPeeK8CvBYqsurm5qIBD2IimccLlRyusLtSKgFzseMrp3RsTAURcMslMdurppc6wg7IVN1qmFfnIa2fuCwk/47S/b/UFTKsv+cphiJfAFpbOFMvjLCu2gXuIgYUEiG1UXcUU3XGm3HMQIWh3oezRpEviffKJagZWP2lsqr2fw2FD2
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 14:13:01.5797
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: aaa7c389-eb2e-4806-3d4c-08debd8c64c6
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BL6PEPF00020E65.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR10MB997750
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDE0MiBTYWx0ZWRfXxdBkSgvua/dc
+ UaI5UESZypBMpAL+8FvKulCFDT7TxfGDbCgu0pvWo345PEli+B9/uKVQOnzkJCpYMn9B3k2/sz/
+ TOgeW6pJMkdejbCD2sIhC6/5y7SeMuDcTtb9fVIdqP8KkLEDKwajeH/xbl1aKd58VaIP3PlotNE
+ PLzJQeGIFqWiqdih3Z+8dZ+bpigC/7LRu433s38Mwh3Vl717RARJbqzcIcfnFMRaQNFjTC0rnZJ
+ 9dQY1fA4KxkmdKsxRirVUGCBm1uC4UClw56mGIBs5gokLp8zk0xcXS2eU2mTmSbkYCT2A6tf5Lq
+ N3p+Y1r6QSAhPbGr+4EVHu1B630XjA06v83fI6XqnIlXji3+Ktk/zu1e1/FSTc8NfikRgwfxirN
+ BDRwyectM/hoyZrYnZMzyyIIzNDA8XhnVRnpUNGYNHppRAxI1O2EsHC6wxv0hIGPh9B8a72hQmU
+ IImBo26c82KZRGCGc8g==
+X-Authority-Analysis: v=2.4 cv=HMbz0Itv c=1 sm=1 tr=0 ts=6a199f46 cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=0sLvza09kfJOxVLZPwjg:22
+ a=OmVn7CZJonkx5R5zMQLL:22 a=mHfdNUOf9pWPJ8OnG94A:9
+X-Proofpoint-GUID: qitavqlYJhJ0lvTFLvAfxgF6pdyGksUH
+X-Proofpoint-ORIG-GUID: qitavqlYJhJ0lvTFLvAfxgF6pdyGksUH
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-29_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 lowpriorityscore=0 impostorscore=0 phishscore=0 bulkscore=0
+ adultscore=0 malwarescore=0 priorityscore=1501 clxscore=1015 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290142
 
-On 19:05-20260528, Swamil Jain wrote:
-> From: Devarsh Thakkar <devarsht@ti.com>
-> 
-> Add DSS, DSI, DPHY, and HDMI bridge nodes to enable DPI-to-HDMI output
-> on AM62L[1]. The DSS uses parallel DPI interface with pinctrl
-> configuration to drive an external SiI9022 HDMI bridge.
-> 
-> DSI and DPHY nodes are added but remain disabled, as the AM62L shares a
-> single video port for DPI and DSI output.
-> 
-> DSI functionality can be enabled via overlays when required.
-> 
-> [1]: https://www.ti.com/product/AM62L
+Add support for the AD4884, a dual-channel, 16-bit, 40 MSPS SAR ADC,
+to the ad4080 driver family.
 
-1. please split this up. please dont mix the SoC with evm stuff.
-2. I suggest DPI output be a overlay as well
+Patch 1 adds the AD4884 compatible string to the devicetree binding.
+Patch 2 adds the chip info and device ID to the driver.
 
-> 
-> Signed-off-by: Devarsh Thakkar <devarsht@ti.com>
-> Signed-off-by: Swamil Jain <s-jain1@ti.com>
-> ---
-> Changelog:
-> v1->v2:
-> - Update the commit message to elaborate more about the patch.
-> - Add dpi-pinctrl configuration.
-> - Update the interrupt routing index for HDMI interrupt line
-> 
-> Link to v1: https://lore.kernel.org/all/20260513210942.692269-1-s-jain1@ti.com/
-> ---
->  arch/arm64/boot/dts/ti/k3-am62l-main.dtsi | 47 +++++++++++
->  arch/arm64/boot/dts/ti/k3-am62l3-evm.dts  | 95 +++++++++++++++++++++++
->  2 files changed, 142 insertions(+)
-> 
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-> index 80615ca1e01a..1d255c9138db 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l-main.dtsi
-> @@ -584,4 +584,51 @@ scmi_shmem: sram@0 {
->  			bootph-all;
->  		};
->  	};
-> +
-> +	dss: dss@30200000 {
-> +		compatible = "ti,am62l-dss";
-> +		reg = <0x00 0x30200000 0x00 0x1000>, /* common */
-> +		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
-> +		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
-> +		      <0x00 0x3020a000 0x00 0x1000>, /* vp1 */
-> +		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
-> +		reg-names = "common", "vidl1", "ovr1", "vp1", "common1";
-> +		power-domains = <&scmi_pds 39>;
-> +		clocks = <&scmi_clk 162>,
-> +			 <&scmi_clk 161>;
-> +		clock-names = "fck", "vp1";
-> +		interrupts = <GIC_SPI 60 IRQ_TYPE_LEVEL_HIGH>;
-> +		status = "disabled";
-> +
-> +		dss_ports: ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +		};
-> +	};
-> +
-> +	dphy_tx0: phy@301c0000 {
-> +		compatible = "ti,j721e-dphy";
-> +		reg = <0x0 0x301c0000 0x0 0x1000>;
-> +		clocks = <&scmi_clk 348>, <&scmi_clk 343>;
-> +		clock-names = "psm", "pll_ref";
-> +		#phy-cells = <0>;
-> +		power-domains = <&scmi_pds 86>;
-> +		assigned-clocks = <&scmi_clk 343>;
-> +		assigned-clock-parents = <&scmi_clk 341>;
-> +		assigned-clock-rates = <25000000>;
-> +		status = "disabled";
-> +	};
-> +
-> +	dsi0: dsi@30500000 {
-> +		compatible = "ti,j721e-dsi";
-> +		reg = <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
-> +		clocks = <&scmi_clk 155>, <&scmi_clk 158>;
-> +		clock-names = "dsi_p_clk", "dsi_sys_clk";
-> +		power-domains = <&scmi_pds 38>;
-> +		interrupt-parent = <&gic500>;
-> +		interrupts = <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> +		phys = <&dphy_tx0>;
-> +		phy-names = "dphy";
-> +		status = "disabled";
-> +	};
->  };
-> diff --git a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> index a1af4571a815..9b04fa6d2cba 100644
-> --- a/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> +++ b/arch/arm64/boot/dts/ti/k3-am62l3-evm.dts
-> @@ -119,6 +119,18 @@ vcc_1v8: regulator-3 {
->  		regulator-always-on;
->  		regulator-boot-on;
->  	};
-> +
-> +	hdmi0: connector-hdmi {
-> +		compatible = "hdmi-connector";
-> +		label = "hdmi";
-> +		type = "a";
-> +
-> +		port {
-> +			hdmi_connector_in: endpoint {
-> +				remote-endpoint = <&sii9022_out>;
-> +			};
-> +		};
-> +	};
->  };
->  
->  &gpio0 {
-> @@ -192,6 +204,38 @@ exp2: gpio@23 {
->  		bootph-all;
->  	};
->  
-> +	sii9022: bridge-hdmi@3b {
-> +		compatible = "sil,sii9022";
-> +		reg = <0x3b>;
-> +		interrupt-parent = <&exp1>;
-> +		interrupts = <20 IRQ_TYPE_EDGE_FALLING>;
+Changes in v2:
+- Add rationale for no fallback compatible in commit message.
+- Collect Acked-by tag.
 
-I see you addressed sashiko comments
-https://lore.kernel.org/all/20260514112012.0B0D0C2BCB3@smtp.kernel.org/
+Antoniu Miclaus (2):
+  dt-bindings: iio: adc: ad4080: add AD4884 support
+  iio: adc: ad4080: add support for AD4884
 
-but i dont see evidence of HPD working. logs please for the next rev.
-
-> +		#sound-dai-cells = <0>;
-> +		sil,i2s-data-lanes = < 0 >;
-> +		pinctrl-names = "default";
-> +		pinctrl-0 = <&dpi_pins_default>;
-> +		bootph-all;
-> +
-> +		ports {
-> +			#address-cells = <1>;
-> +			#size-cells = <0>;
-> +
-> +			port@0 {
-> +				reg = <0>;
-> +
-> +				sii9022_in: endpoint {
-> +					remote-endpoint = <&dpi_out>;
-> +				};
-> +			};
-> +
-> +			port@1 {
-> +				reg = <1>;
-> +
-> +				sii9022_out: endpoint {
-> +					remote-endpoint = <&hdmi_connector_in>;
-> +				};
-> +			};
-> +		};
-> +	};
->  };
->  
->  &i2c2 {
-> @@ -221,6 +265,41 @@ usb_con_hs: endpoint {
->  };
->  
->  &pmx0 {
-> +	dpi_pins_default: dpi-default-pins {
-> +		pinctrl-single,pins = <
-> +			AM62LX_IOPAD(0x00e4, PIN_OUTPUT, 1) /* (L20) GPMC0_CSn0.VOUT0_VSYNC */
-> +			AM62LX_IOPAD(0x00dc, PIN_OUTPUT, 1) /* (N21) GPMC0_WPn.VOUT0_HSYNC */
-> +			AM62LX_IOPAD(0x00e8, PIN_OUTPUT, 1) /* (L19) GPMC0_CSn1.VOUT0_PCLK */
-> +			AM62LX_IOPAD(0x00e0, PIN_OUTPUT, 1) /* (M21) GPMC0_DIR.VOUT0_DE */
-> +			AM62LX_IOPAD(0x0078, PIN_OUTPUT, 1) /* (L22) GPMC0_AD0.VOUT0_DATA0 */
-> +			AM62LX_IOPAD(0x007c, PIN_OUTPUT, 1) /* (L23) GPMC0_AD1.VOUT0_DATA1 */
-> +			AM62LX_IOPAD(0x0080, PIN_OUTPUT, 1) /* (K22) GPMC0_AD2.VOUT0_DATA2 */
-> +			AM62LX_IOPAD(0x0084, PIN_OUTPUT, 1) /* (J23) GPMC0_AD3.VOUT0_DATA3 */
-> +			AM62LX_IOPAD(0x0088, PIN_OUTPUT, 1) /* (K23) GPMC0_AD4.VOUT0_DATA4 */
-> +			AM62LX_IOPAD(0x008c, PIN_OUTPUT, 1) /* (H22) GPMC0_AD5.VOUT0_DATA5 */
-> +			AM62LX_IOPAD(0x0090, PIN_OUTPUT, 1) /* (H23) GPMC0_AD6.VOUT0_DATA6 */
-> +			AM62LX_IOPAD(0x0094, PIN_OUTPUT, 1) /* (J22) GPMC0_AD7.VOUT0_DATA7 */
-> +			AM62LX_IOPAD(0x0098, PIN_OUTPUT, 1) /* (H19) GPMC0_AD8.VOUT0_DATA8 */
-> +			AM62LX_IOPAD(0x009c, PIN_OUTPUT, 1) /* (H20) GPMC0_AD9.VOUT0_DATA9 */
-> +			AM62LX_IOPAD(0x00a0, PIN_OUTPUT, 1) /* (H21) GPMC0_AD10.VOUT0_DATA10 */
-> +			AM62LX_IOPAD(0x00a4, PIN_OUTPUT, 1) /* (H18) GPMC0_AD11.VOUT0_DATA11 */
-> +			AM62LX_IOPAD(0x00a8, PIN_OUTPUT, 1) /* (G23) GPMC0_AD12.VOUT0_DATA12 */
-> +			AM62LX_IOPAD(0x00ac, PIN_OUTPUT, 1) /* (G22) GPMC0_AD13.VOUT0_DATA13 */
-> +			AM62LX_IOPAD(0x00b0, PIN_OUTPUT, 1) /* (F22) GPMC0_AD14.VOUT0_DATA14 */
-> +			AM62LX_IOPAD(0x00b4, PIN_OUTPUT, 1) /* (F23) GPMC0_AD15.VOUT0_DATA15 */
-> +			AM62LX_IOPAD(0x00b8, PIN_OUTPUT, 1) /* (L21) GPMC0_CLK.VOUT0_DATA16 */
-> +			AM62LX_IOPAD(0x00c0, PIN_OUTPUT, 1) /* (N19) GPMC0_ADVn_ALE.VOUT0_DATA17 */
-> +			AM62LX_IOPAD(0x00c4, PIN_OUTPUT, 1) /* (N20) GPMC0_OEn_REn.VOUT0_DATA18 */
-> +			AM62LX_IOPAD(0x00c8, PIN_OUTPUT, 1) /* (M19) GPMC0_WEn.VOUT0_DATA19 */
-> +			AM62LX_IOPAD(0x00cc, PIN_OUTPUT, 1) /* (P23) GPMC0_BE0n_CLE.VOUT0_DATA20 */
-> +			AM62LX_IOPAD(0x00d0, PIN_OUTPUT, 1) /* (P22) GPMC0_BE1n.VOUT0_DATA21 */
-> +			AM62LX_IOPAD(0x00d4, PIN_OUTPUT, 1) /* (N23) GPMC0_WAIT0.VOUT0_DATA22 */
-> +			AM62LX_IOPAD(0x00d8, PIN_OUTPUT, 1) /* (N22) GPMC0_WAIT1.VOUT0_DATA23 */
-> +			AM62LX_IOPAD(0x00ec, PIN_OUTPUT, 5) /* (M23) GPMC0_CSn2.VOUT0_EXTPCLKIN */
-> +		>;
-> +		bootph-all;
-> +	};
-> +
->  	gpio0_ioexp_intr_pins_default: gpio0-ioexp-intr-default-pins {
->  		pinctrl-single,pins = <
->  			AM62LX_IOPAD(0x01b0, PIN_INPUT, 7) /* (B12) SPI0_D1.GPIO0_91 */
-> @@ -375,6 +454,22 @@ &usb1 {
->  	pinctrl-0 = <&usb1_default_pins>;
->  };
->  
-> +&dss {
-> +	status = "okay";
-> +	bootph-all;
-> +};
-> +
-> +&dss_ports {
-> +	/* VP1: DPI Output */
-> +	port@0 {
-> +		reg = <0>;
-> +
-> +		dpi_out: endpoint {
-> +			remote-endpoint = <&sii9022_in>;
-> +		};
-> +	};
-> +};
-> +
-
-Did we miss routing audio? I think it has an option of going to M2.key
-
->  &wkup_uart0 {
->  	pinctrl-0 = <&wkup_uart0_pins_default>;
->  	pinctrl-names = "default";
-> 
+ .../bindings/iio/adc/adi,ad4080.yaml           |  5 ++++-
+ drivers/iio/adc/ad4080.c                       | 18 ++++++++++++++++++
+ 2 files changed, 22 insertions(+), 1 deletion(-)
 
 -- 
-Regards,
-Nishanth Menon
-Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
-https://ti.com/opensource
+2.43.0
+
