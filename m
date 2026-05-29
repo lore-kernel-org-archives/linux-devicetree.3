@@ -1,148 +1,132 @@
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+Received: from mail-ua1-f42.google.com (mail-ua1-f42.google.com [209.85.222.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449AA3B961F
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:49:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DFAC341ADD
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780044558; cv=none; b=jQbzsi503Q9geCeA5ispS/I8jHEwj0HS2NGvDlCCcVhR92bptF9HkZ2UUUl0HFP21GIYT5qQWlPS/BFZGRCs4P/AWDuyIIrXpB5dsZoT6g2vsACrINCrqYjdmmOEpLVmbn3K0OwX+S9U4c5FuDW/cUk9siTW4RcQ22UHvQeyxFM=
+	t=1780044689; cv=none; b=PKKJaEN3kWXH0150ooqhmO7/9wLOy0xrbnJf/t+3bR+LgO3Er0EOMNTsT7VFAOZKxpRgJqIwkz/CIOv9vHj5rSNQWgubFWHBy4E3G1fCD6un2eR2178TJljzB2uDttknEWHplIgf/GMjcL9ue6iRND6lnpv2w7gFQe3m5r1wD2c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780044558; c=relaxed/simple;
-	bh=9ueTTfsQM7Cuw9fsa2Mw5zy14prrsOw1dfrs93kRZHI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=buyMMfNhxAU9FS0gVK3gT/3xHQ97gu35IzpTkyVpvglBGfJAWH/RwPIV9CBygkgUDkGkHdMJ9mRuc2NhoXi8jpS/mT86V9p8OXcWwUm3bwng/X9akiuFSd3CKHACdoqe8RGJH71ffUaGBB6FSBt1tJ26vjgWwludprAtgxQ6y04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZJdTJNkP; arc=none smtp.client-ip=209.85.214.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1780044689; c=relaxed/simple;
+	bh=bdkabu71rrDKTa7LCUjVlosFsfIEDCU0sEtD7EQ1qII=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qw1RgfKPlDQSo9kwv2TcQiRahyVKofZeoZ83eLHYxbRvqYBtbqklMPsUMyJQosWdZRoaFZQK6pKV7twSPXIjaW8zl9OehDLtU64jN2TxJT9G+vJQQm0QKHf4ZgAhxZpcjh3YPmDcL4Ku2w4GVdGd7fQRPiLkIBEG17W5KE3sW+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZJdTJNkP"
-Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2ba856db1c0so99435655ad.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:49:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780044556; x=1780649356; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QhjoroGKXf9Vnwm4rb6qgzeF8DBjHLvOxd0WaalRzBk=;
-        b=ZJdTJNkPywclqp7ovf1fs/qp/yt+uqTj5HYvBH7ouN5xpah9qEZum/m5KVP9Z60MG2
-         feXHG3Zwe7w4xw+uo2MLvPzptXRr/Xqi6zfYGS5Emur97wzM93y3wY98wleUiROWWn0X
-         0kCxmpfhqo6h1YJ40LUgJie8v/hTciVmx4dYUukNmWBPz07bSVGmtpU9hfk+QbtO+xGf
-         sG9i/6KOlt9nKAVTQc4O35Aye1jhWcUdzU9DW9helYAl+jTTiVTy48EYFtO1SwgDOvUa
-         OPcIg2bXbxzkYnnZ139BaCxbwORccFtnw0VozX1Y9EDzgwKbV78W2IyRdjzLZuJSqlYV
-         g/lQ==
+Received: by mail-ua1-f42.google.com with SMTP id a1e0cc1a2514c-963b04fd87aso64937241.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:51:28 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780044556; x=1780649356;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QhjoroGKXf9Vnwm4rb6qgzeF8DBjHLvOxd0WaalRzBk=;
-        b=aIP00r6/QDS3PNPXCskzTp9IhXcA9ihT0OzjjSoMsRVrd+y+LS3EUqPJdsqu0OwioE
-         s+zUXGuEumQ1uBBqQSTs1Oywz8/s++NxQ1D4wZ0jv/dsYXPPM1B16ww3MHWNzGayBjUo
-         BqsqxN/My69cA8Nox4H7hqUWCC0Erl8FW7VR3PDPQdX2rSuQmruuKTuZyhvwyGdmmLUV
-         HrrpxOSYyslQv/Je+digyo8XndEUyb6Ahnu4Owaf2O9nf9r+JzfzyqvToeuPBve8z0ii
-         xV4MQmyeROXTR8ZiKnuclDHCpCG7J322cNyRDrFz/N5MYCnOkw1rxHYbFQqR3Ac09iju
-         2LJw==
-X-Forwarded-Encrypted: i=1; AFNElJ/3KoiB83I5U4G3HmKLMf8+eRQmP6F//mqs8fjDIHTrxq5qk9E7hGnI4TRLptVwRVa4t7hSU+s8SKhg@vger.kernel.org
-X-Gm-Message-State: AOJu0YzGmJtV3a8lT9MTkSOLBl/xo4TxLpw8PfliRXNMHBQoaWDhyhrt
-	gLwY8YzZau93M0QOzYaeUc7/hMxQxpLzsauKKsNn9hUCkF41cQJMIAOw
-X-Gm-Gg: Acq92OEfKYpto/RbRfpL0jbYoYgZfL1tHdu3GknXc/K3yZ+PEve+BR7aBSjQl62tM87
-	YP96oOhByjB12yWI0uPIeQwG3X/xxO0Lxd435yurL6htOYW24f/NnDRvcwMtPyMLeusoLvOCZTQ
-	0XvZvbd4hw6L54I2YZg+sv5EwHgsGnUyRj+P4zS4qnfiuXkpI552JQ7GecMO5B9d+WO1+8ZsY2a
-	E6ae5EM2sOOKLkw7R6FLO4EMVd+Hrwfk1R80GF3JHi8cBnvvNa7mRSL2JYTMM1YY1vkmV+IUGwd
-	TW+eOwCquBjEzrd6OFZ9eM9U5OqB17uuSjuoMulg7sE/yyHqshk42gMjc4bIm12kzQv0i6Oukri
-	8OAhY7FBe9oFO82POuc57AzpfBKbVWVVKAy85GxTrT3TySi2iROtBxWwGDQDeb8MqcNkgvUhtPj
-	J80mAHyldSBET/aSsHdS1uH8/5P3RWeoLY15oa64olGIkd9sVS4VC8Zrwe0UOfaa+M121q
-X-Received: by 2002:a17:903:32c7:b0:2bf:2e06:2ebf with SMTP id d9443c01a7336-2bf2e062fb8mr2415555ad.31.1780044556442;
-        Fri, 29 May 2026 01:49:16 -0700 (PDT)
-Received: from [172.20.10.2] (42-79-54-216.emome-ip.hinet.net. [42.79.54.216])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23a21f0bsm10975345ad.34.2026.05.29.01.49.13
+        d=1e100.net; s=20251104; t=1780044688; x=1780649488;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=RkwvcdoTXy80UmD5wUVPELnXBlXTid1VaGcK25N+5mA=;
+        b=XB3iTPl2n51yt1ce1T2L9ILQk3K4pBsdLqb8Mf50//9+BVH25u32p08CYPvM585l+O
+         2xricZzexfOYfoQDRCDsdSV5MpD2oQO57DMv7CdgIWUO8mraqXZpba1XEn7ppaMju66d
+         8zBFzo3RhoPWpeI/C6zPdeLCQMMvYzhdtoB4CeRSiAnvSxZKDBFeiDOqNrWacT7Gbl7M
+         cqgCqtfbRiksVCbIR7W9KtoNSuGe3bHW2dJz7EN30F5G+FQfQXfRl5P/InRURCIiI1gi
+         zfRAHx+OmSEzdqFYQddlpdMqTsYgXrUdGsfYLiMrVmdTOXS/T2QwUBLPfkrTje1C+/oi
+         0zsw==
+X-Forwarded-Encrypted: i=1; AFNElJ+wyvBeTAKwq470EkD0E2fkOUx8hDc5S/hHdoIGtDb24DkWV4Rvj8vyf+UlkX7JAm3e+FZvGXfaEW6K@vger.kernel.org
+X-Gm-Message-State: AOJu0YyaBmUlX8QKbSvyahI0fvcX4/kSKKQnYyh0rMPNX9EkINGNJsUv
+	cuESNsgVMXY4ep71AyGYhYz7dIguKRqfITaXocqnFJhOIt8Tvd0vXq7Hlwh0qt3ig4A=
+X-Gm-Gg: Acq92OGAjUX71DB1h3mf35CNb9rz5zdzvTaPgx+grxNdBfz6yWF4ap6wm+8DDohbuP9
+	LOZYmL0ct64EUaws9WPQZovoF0dUd2AVzFfX2pyi5ivGkG6rjFYkkGQxqkQPbroJJljPmM7Ron1
+	cXDKPzrWrZzlyFlxA1y3ssL4xvMrtf8kGcu9WfVL5KizZr/ZnHHGLUoIe9yJAMfXIj6Xwl0ABjO
+	oxU6eZAb/H4Qo++wZyN6v2VSPceOjGGydiQJX3ujWN5cqq+PKud/7d5QyhzvW7UnkswW0dUR6IH
+	jS1QKjfZGee7IiBqwwalTw2x6aztKulQnf+kINY3GVQLKOjwso0Em2XZrS4XL0ZJJG4CduoAdoz
+	9zWum6JNhvdzcfAsSZh1Lqlm34TQ6WkFfzKZtW0ZXtpWxgX8CKVtFRSIxiWxt8Tl1M/ISjme4gn
+	DS0o9OEDNWQIb6EQtUd1IQvneL+dBf6ayPnTj/7u/X1Kz61cYn1fftYbTNo0KRCUQWn6o9MF09E
+	cWqrwDG2w==
+X-Received: by 2002:a05:6102:2c0e:b0:607:798d:8083 with SMTP id ada2fe7eead31-6bf44d030bfmr589318137.15.1780044687622;
+        Fri, 29 May 2026 01:51:27 -0700 (PDT)
+Received: from mail-vs1-f45.google.com (mail-vs1-f45.google.com. [209.85.217.45])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-963abac87ffsm492475241.7.2026.05.29.01.51.26
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 01:49:15 -0700 (PDT)
-Message-ID: <1d7a01aa-dd65-129a-c9ac-e24e9b474f8e@gmail.com>
-Date: Fri, 29 May 2026 16:49:11 +0800
+        Fri, 29 May 2026 01:51:27 -0700 (PDT)
+Received: by mail-vs1-f45.google.com with SMTP id ada2fe7eead31-63130466364so5081509137.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:51:26 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8KxudpDKpvr/5gBSYXZ7qu7dBJFZjfjVbgIPiCP9DNJgYYkUQlJnmE7bcCmMLr/0frHvJcnmWCGcdJ@vger.kernel.org
+X-Received: by 2002:a05:6102:3ed1:b0:64e:32c3:1371 with SMTP id
+ ada2fe7eead31-6bf3719eddcmr673394137.2.1780044686545; Fri, 29 May 2026
+ 01:51:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-Subject: Re: [PATCH v3 2/2] ASoC: codecs: nau8360: Add support for NAU83G60
- amplifier
-Content-Language: en-US
-To: Mark Brown <broonie@kernel.org>, Neo Chang <YLCHANG2@nuvoton.com>
-Cc: lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org, krzk+dt@kernel.org,
- linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
- alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com
-References: <20260526015826.440769-1-YLCHANG2@nuvoton.com>
- <20260526015826.440769-3-YLCHANG2@nuvoton.com>
- <d4cf4ad9-82fb-4beb-be5b-b3687f822fcf@sirena.org.uk>
-From: YLCHANG2 <neo.chang70@gmail.com>
-In-Reply-To: <d4cf4ad9-82fb-4beb-be5b-b3687f822fcf@sirena.org.uk>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260517163212.18016-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260517163212.18016-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 29 May 2026 10:51:14 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUvUsUUkOj43oOWGs_MLvOZnEW=2YyKpP-VwHxe7ZaTgg@mail.gmail.com>
+X-Gm-Features: AVHnY4KcCj63IhphrvFGQN6syC1_7Ix7eM6G3oNuhl6QDo_VJC9lcWJclcF3QAs
+Message-ID: <CAMuHMdUvUsUUkOj43oOWGs_MLvOZnEW=2YyKpP-VwHxe7ZaTgg@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a78000: Describe all reserved memory
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+Hi Marek,
 
-On 5/27/26 21:43, Mark Brown wrote:
-> On Tue, May 26, 2026 at 09:58:26AM +0800, Neo Chang wrote:
->> Add support for the Nuvoton NAU83G60 audio codec. The NAU83G60 is a
->> stereo 30W+30W smart amplifier with an integrated low-latency
->> Advanced Audio DSP.
-> A few things below, you also have a bunch of what look like legitimate
-> issues picked up by sashiko (some of which overlap with what I've got
-> below):
+s/r8a78000/ironhide/ in the one-line summary
+
+On Sun, 17 May 2026 at 18:32, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Fully describe all available DRAM in the DT, and describe regions which
+> are not accessible because they are used by firmware in reserved-memory
+> node.
 >
->     https://sashiko.dev/#/patchset/20260526015826.440769-1-YLCHANG2%40nuvoton.com
-Regarding the sashiko report, I have a few questions:
-Are we required to address every issue caught by sashiko? We found that 
-some of them are actually false positives.
-If we need to explain our code regarding sashiko's findings, who should 
-we send the reply to?
-Additionally, is there a way to run the sashiko checks locally before 
-submitting our patches?
+> Replace first memory bank memory@60600000 with memory@40000000 and a
+> 518 MiB long reserved-memory no-map subnode. This memory region is used
+> by other cores in the system.
 >
->> +static int nau8360_peq_coeff_get(struct snd_kcontrol *kcontrol,
->> +	struct snd_ctl_elem_value *ucontrol)
->> +{
-> ...
+> Reserve 32 kiB of memory at 0x8c100000 for parameters shared by IPL,
+> SCP, TFA BL31 and TEE.
 >
->> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST,
->> +		NAU8360_HW1_MEM_TEST);
->> +	for (i = 0; i < params->max / sizeof(u16); i++) {
->> +		value = snd_soc_component_read(cp, reg + i);
->> +		*(val + i) = cpu_to_be16(value);
->> +	}
->> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST, 0);
->> +
->> +	return 0;
->> +}
+> Reserve 512 kiB of memory at 0x8c200000 for TFA BL31. The upcoming
+> upstream TFA 2.15 BL31 uses memory from 0x8c200000..0x8c242fff, the
+> round up to 512 kiB is slight future proofing.
 >
->> +static int nau8360_peq_coeff_put(struct snd_kcontrol *kcontrol,
->> +	struct snd_ctl_elem_value *ucontrol)
->> +{
->> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST,
->> +		NAU8360_HW1_MEM_TEST);
-> ...
+> Reserve 32 MiB of memory at 0x8c400000 for OPTEE-OS, which is the
+> entire OPTEE-OS TZ protected DRAM area.
 >
->> +	snd_soc_component_update_bits(cp, NAU8360_R9D_PEQ_CTL, NAU8360_HW1_MEM_TEST, 0);
-> We use an rwsem to protect the controls from userspace so we could get
-> more than one caller in these, you need some driver local locking.
-Got it. I will add local lock in v4.
->
->> +static int nau8360_set_tdm_slot(struct snd_soc_dai *dai, unsigned int tx_mask,
->> +	unsigned int rx_mask, int slots, int slot_width)
->> +{
->> +	struct snd_soc_component *cp = dai->component;
->> +	struct nau8360 *nau8360 = snd_soc_component_get_drvdata(cp);
->> +	unsigned int tx_slot_used = 0, rx_slot_used = 0;
->> +	int ret = 0;
->> +
->> +	if (slot_width != 16 && slot_width != 24 && slot_width != 32) {
->> +		dev_err(cp->dev, "Invalid TDM channel length: %d", slot_width);
->> +		return -EINVAL;
->> +	}
-> This stops the support for disabling TDM from working, a slot_width is
-> required here.
-Got it. I will fix this in v4.
+> Neither the TFA BL31 nor OPTEE-OS do modify the DT passed to Linux in
+> any way with any new reserved-memory {} node to reserve memory areas
+> used by the TFA BL31 or OPTEE-OS to prevent the next stage from using
+> those areas, which lets Linux use all of the available DRAM as it is
+> described in the DT that was passed in by U-Boot, including the areas
+> that are newly utilized by TFA BL31 or OPTEE-OS.
+
+Thanks for your patch!
+
+> In case of high DRAM utilization, unless the memory used by TFA BL31
+> or OPTEE-OS is properly reserved, Linux may use and corrupt the memory
+> used by TFA BL31 or OPTEE-OS, which would lead to the system becoming
+> unresponsive.
+
+Oh well...
+
+> Fixes: ad142a4ef710 ("arm64: dts: renesas: r8a78000: Add initial Ironhide board support")
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+
+LGTM, so
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
+
+Gr{oetje,eeting}s,
+
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
