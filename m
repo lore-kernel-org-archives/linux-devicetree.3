@@ -1,83 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f171.google.com (mail-vk1-f171.google.com [209.85.221.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BF7A1ABED9
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0B733BCD1C
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:31:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780047046; cv=none; b=ddWvn1/sEHnaZSuVs0RAubvqOrDLYVuRTU/qhD1Jz6/moi46WIK/L5D8ZmN27vpLdoBcGed9BKL5Klr1aA+TmGVSNgnxdUaDzPJnCdHmDw5XAL5lxtTcdn9jTRkVj4nqehAbZglgT0CHFLrPosapiQSxrio/h2XkI3ywDjpiRvY=
+	t=1780047086; cv=none; b=NVJDy2bAkxzu0nHzrEBmg/Kkb/uhqGTHRGJjN5ZYNudrrr/7jtdDIFinLWfnYMLBjzSM99QN3G+DMA/hFcKepWg1ZqCl3/z/6hMgwzWunyx7NwsoV2UnRLiUwSNfx4iVW/rBWg5Mxp1wzaFj0QV9HRoIaNrYXWyvnOPds7KtRO0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780047046; c=relaxed/simple;
-	bh=ElRI4n8aLcmNEXHtK8hkpxBbmKCeNh/qtKL9tf4sz2c=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WsnHnKh/YEgjOyE4PAQRtrdhezDVNaQSr21/zcZFL6SiQHykWo9TO4E5ivY7n2ORB8LPRWeTDlz5L+N4A4cxqD4q+TIK7/NACub6xK6NCefg4dE+E7AdzPVbZJnYvKTz/ywPegG0n1K3vNuy2SdPTTwMbdOaCNHI/VUbF2tewEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuaX59IY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuaX59IY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C7CC11F00893;
-	Fri, 29 May 2026 09:30:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780047045;
-	bh=d5MAZtVTisSGFGAD5CxHncH6lbC9FtlQynGJsg36V54=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BuaX59IYIk0rqSULkpdj1h3S0NMY7awpWocHy87OpfisEw+tnE8YBuG/RiYBrCxbi
-	 DtZl9RLqfFLCUGbiCEMOwM1pzK/Jk/u7Hh6MmFFo09r3fmWINREQdhHspo2A+NnpDO
-	 1vhDLNZIoP1aBKog+vlHLA/MyBQYPlPTc7nfP0nS1Tq6oA6930BNiivl807/MiYagZ
-	 Vvug20PuwXp2rnn8HhP7vypt3exnVTsdy0h0uUapAFiu3NmZYr00ZEy7aztyZULRhL
-	 JI48TkAtlfUTFMX4uflTsLkm61pCRMHY66CO6UTFSJRIUzFeoy/LyYscTBs4ooET6J
-	 lv6Q+jwgAoDEA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 10/15] drm/tidss: Add support for DPIENABLE bit
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260529-beagley-ai-display-v3-10-7fefdc5d1adf@ideasonboard.com>
-References: <20260529-beagley-ai-display-v3-10-7fefdc5d1adf@ideasonboard.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 09:30:44 +0000
-Message-Id: <20260529093044.C7CC11F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780047086; c=relaxed/simple;
+	bh=fkaQRWlguE1XcB8+mrrOiMJJfeTRiMx6aKZNUDiyeY0=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WgMlEUnWMSVhiCSSrJhD/jZHDEHaGTbtTnx2q5IVx0Np6swi5a+JgKWXhvUkeyrId1PcFQU2cZqlRkUszHBH+HGH3CjPJrCejmkWJ0xMhDDb1TOUTnOYQHEnfYo8Jl+biI9jonhgKimZyA4fMrGLa4JPh522jCZOULkTapvvKdI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f171.google.com with SMTP id 71dfb90a1353d-57512b86273so9825358e0c.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:31:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780047085; x=1780651885;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Jre8RAaVdOIJ6OFsSp8WRmOCVJOhYOYPv+VFLctcfh8=;
+        b=mvGWjoebFd70sPxjRp9t8a11DMUlrgQcw6LVeWbdLFaQVjRlh5zJx8snTfJEZMllei
+         x3KHPw8gTFN9wW9YSRzmpCo5EfG9jWjsl8zK8h6ugp9QoTVutsd8s3eaZmkOA+NtmpgG
+         3m13DbIpZBT2XrSGJ2T7eOSdmWZvhHZ5TtoWHiNEmQeRw7CEITJ9fYo1sUVsvnuhM3gy
+         k8LKxCEh2UfvwLtTp4kGrOplq/4sSuABAPW3EyTVOzhOKiWrMpvcNs5AIBL8aJjz9I7j
+         xmh2kBiwAi/K2IhihQv5M5MbhcC1n9i+hj+IAvvKFyC5SJiJZw/ktSOXbdE19hL+JBbf
+         4txQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+AeJBEGcOPZf4NDvX9bSYy+iH0lVhlHeMSJ3/G+9AQ0GMd2PiflhnaaAg554hX1818BdivOV2zT0B4@vger.kernel.org
+X-Gm-Message-State: AOJu0YzITneVamOnGXoRjmbxZcCiDb5w9i4fDMFcOGj4NeR9HlE0eGt1
+	rurunIEdJHIA6/9VRdh7rJBCweV2/Pcr8BgDh4xE1oheKapNeRnGDa57vo4TnhZky2U=
+X-Gm-Gg: Acq92OHBeb5qKN0lYMhHv/X3icrrf0g2tl5LgnbxwDamHTXiY9X0VJfOA84tFEk5o+P
+	C5KvRs/q3fPcKjW7Ys/T61755Id7zwpfxe99tNHbye//hpVDZPntSkSkoE0XgdAS5O0NgINhV5/
+	Z94dKXlPfPWLAC3hPNy6yjnIMUNuWy8ebUij92hLSAj238t23zWfAQwC2c+9/aQ38pwo2bAWf7s
+	enwDgRd+P/56ACpqGs72m0bjdNUhO95ARrnqqHtfKurdZy3BFAbgBVCSLy1x0Xni48+BPP7ezaE
+	Jb0ARYlFP86F7bBr8Ys9x+rsR3XFOokRyquLQM784BMBreYpqDMpgkk4wtYlXuWkzqvL+Oijbu6
+	Ro49iwEd27DHhMbURU1hAKk2ONdaebVuaH0bVTBn3ADO7NMi1Y6gLYeWeQ3RmUYY9W3q+rL63Ib
+	Bw4qQg1J0ll++kptX1+4oruDX72HKn678xVvz8r4FAK0oMrHIz8Oghg1RdzaQydM98n8c8Y5g=
+X-Received: by 2002:a05:6122:4f89:b0:575:3b1b:ef01 with SMTP id 71dfb90a1353d-599f8ff0518mr624460e0c.9.1780047084685;
+        Fri, 29 May 2026 02:31:24 -0700 (PDT)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-599da3ed0cfsm786148e0c.16.2026.05.29.02.31.23
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 02:31:23 -0700 (PDT)
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9639d7daff3so879522241.1
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:31:23 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/jJyJX1ako5sCbW81MCQj8bkHkV13e0ZDW2PohzJLySoevzkMdmYXplc0HDtwLl3x0djpSwc2ojr+/@vger.kernel.org
+X-Received: by 2002:a05:6102:1498:b0:639:4bb7:c916 with SMTP id
+ ada2fe7eead31-6bf2b42f26emr693736137.3.1780047083481; Fri, 29 May 2026
+ 02:31:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260519100022.116318-1-biju.das.jz@bp.renesas.com> <20260519100022.116318-2-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260519100022.116318-2-biju.das.jz@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 29 May 2026 11:31:12 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdULG5KiCrm2cFZoy-kvLEG6qZpLx1fNi44rZgEdFs30Jw@mail.gmail.com>
+X-Gm-Features: AVHnY4L71FrecII2P--Vqr75z7vmkHcqqegJs4qIL_cRpsjO8D5Eiqg2zGFC3ew
+Message-ID: <CAMuHMdULG5KiCrm2cFZoy-kvLEG6qZpLx1fNi44rZgEdFs30Jw@mail.gmail.com>
+Subject: Re: [PATCH 1/2] arm64: dts: renesas: r9a08g046: Add rsci{0..3} device nodes
+To: Biju <biju.das.au@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The commit message claims to modify the DPIENABLE bit in `dispc_=
-vp_enable()` and `dispc_vp_disable()`, but the code actually implements thi=
-s in `dispc_vp_prepare()` and `dispc_vp_unprepare()`.
---
+On Tue, 19 May 2026 at 12:00, Biju <biju.das.au@gmail.com> wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>
+> Add rsci{0..3} device nodes to RZ/G3L ("R9A08G046") SoC DTSI.
+>
+> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 
-commit 5f892829b86a9d1dabfa16f8442393394955354e
-Author: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-drm/tidss: Add support for DPIENABLE bit
+Gr{oetje,eeting}s,
 
-This commit adds support for the DPIENABLE bit in the VP_CONTROL register,
-which provides power savings on the AM62L SoC when disabled. It introduces a
-new feature flag to track this capability and updates the initialization
-paths to disable it by default. The driver then turns the bit on and off
-when DPI output is active.
+                        Geert
 
-> Let's add a new feature flag for this, 'has_vp_control_dpienable', and
-> implement the support.  Disable DPIENABLE for all videoports at resume
-> time, so that it is 0 by default. Specifically enable and disable it in
-> dispc_vp_enable() and dispc_vp_disable() for DPI output.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-[Severity: Medium]
-Is the commit message accurate about where the bit is enabled and disabled?
-
-The commit message states that the DPIENABLE bit is managed in
-dispc_vp_enable() and dispc_vp_disable().
-
-However, the patch actually applies these register modifications in
-dispc_vp_prepare() and dispc_vp_unprepare().
-
-Could the commit message be updated to correctly reflect the functions
-modified in the implementation?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-beagley-ai=
--display-v3-0-7fefdc5d1adf@ideasonboard.com?part=3D10
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
