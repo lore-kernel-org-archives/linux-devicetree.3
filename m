@@ -1,230 +1,119 @@
-Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+Received: from mail-dy1-f169.google.com (mail-dy1-f169.google.com [74.125.82.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD9E280A51
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:50:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780059047; cv=none; b=P9VidjyVDbUNZwDo7VEaDYuZ+2TblxTUzdeeBgqkSK2I/0dHWoXgaVlUP+lCEdd94Hwa1OStXYKRErUPLR0pElCaTAnThbMTmYVVQVBv3Jd/eNJ8vGvZ5ROs79AwHsSwmQRM27PxgVczvPawJIiBoiMQrbcE2jCUiaVqojjlxCI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780059047; c=relaxed/simple;
-	bh=kjmAeA0WIYxplZf0lI6NSpHtYD/nF1xj0SWbgmpaoTo=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=igQS/bwPDpta3hTvFKZnd9Ydr+W7A6i00h3x9nv3FTO123DhPbNIEWjrUW+c4FK5P+Vlq1rEZw82ECFttpD4v/rhqthp65KzJead/CNtzteTRcuPr4MtawdhaOFwNkvV61Rx7BtJpf7RJmYR8moIaHSY9DmxLkwNgovo0LWV1N0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pHyhti/l; arc=none smtp.client-ip=209.85.221.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75CD528134C
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:51:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.169
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780059080; cv=pass; b=rGdvCTGgg87oPMG9AOZQbsu4IrkyIznmaxvn3qBbtszjGfvFlani/4zpGqnFIvOf/z6UVVaa199uO2LTRDtK+HDE1dfyljnYVdq7ZzQ4rx5H9K7z6K4Y+BYAEAy309I7BBNfFnbi8on2CxqnZ/2z/T3HkEu7QiFRQLZrq3nbKGg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780059080; c=relaxed/simple;
+	bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Qi94OFkYcZjFmWIJdi1EkAnIxHSwStqeh4lWbgP00P0rtyOcFJODzed+7214wwbAe29820A/MOQZPVfgc6xYXl/qIUgtJiZaNm2eoqFP9gfqcrWtWgUgG/nvYS6F7EXBDE0KRZekgZEAQ5Su0QJvVzVbsIIE2nQL0jv9h4+UGvk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Vj6DigeZ; arc=pass smtp.client-ip=74.125.82.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pHyhti/l"
-Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-44c350a5b87so8169695f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:50:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Vj6DigeZ"
+Received: by mail-dy1-f169.google.com with SMTP id 5a478bee46e88-304b8ced372so4455061eec.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:51:19 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780059078; cv=none;
+        d=google.com; s=arc-20240605;
+        b=VVizqNXUL8ScHAZcH1A1dGEhgGXQkB5M4MK3eGtp2h55rHM8xKlzr07PKbQcw9WDkd
+         qHnLo0eJW7jYIN6s6yr8rsuXVim7Ob9OtG+NXKJcMzaZbTWqPZhSeKISI5oI3gmwxJdC
+         02hduONZf1cJuaDb0YahikcmEqjtvaSgtV4qFOFe9bhzpfCU/u9eMk6vQCB/wzcyzeHW
+         NsLuy0Gmh+FvfPzcuIzEw+l/PglPo2uKqZwuQEY5s2JqPHwUdSR1mEkThqkLcryvY42z
+         yfc1+b6tgZAQc6tId1hCreciqauqKgDHLAMIavYKz+mwYJ95jVifkY63MR/fXSM4b45V
+         lIDw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
+        fh=dEomsSBLquwCR217ceap/DHCcJHnH6bYXlNj2RPeUGY=;
+        b=kRAIAWLk/F9t1Wx8rAp0FbKIVDEJE550D2Mit4fF6avKYs2OXcjcDZlbgb7L0VYd0a
+         9rTuCoy6AEqnvKiw4T6WLMeFlDIbLRgHfdh2va5OpP2VvevvaA1TggCiHzwGhxehXikX
+         4hAora8z8/OfE+/me1R4jP0kUrggNQOCXG0rfml3gySz8uTXoRpojVpt7ZMNbgHNKnpR
+         7auXx4I1xf6Ssdy3LjtF31Vk3ISDC31Qqbl6X7AOvCKUn3UhJSEoyScpbr1wGNsSJTTg
+         Kj7N2s8JhXdEW+gckN5Do6McOpASc579NLHSLK1CzWQ9Hs2zGM8AwqbAYUte6ukjETLq
+         AiGQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780059044; x=1780663844; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=gsdtKyBNIze1lqIATJulyFXg8jvRauNrlgVPkVHHWJU=;
-        b=pHyhti/lAPWeuAygOmGafvkos81ho9hN0dLshzPNGsd6f25Wzu+UhxoJuq1CUKDe4e
-         VqKBazOWwOcNchRejHlrIbdqpvi4alWoRlFZ/YjpKYsF19m5p1D/ejXwRHPfC57lRhOu
-         f0HSs2uVlQFEFCwAE3ElHUuN3TjtIRfGCcIL+os1b/rZXW9htbaq26crE3aFRBP3EQZs
-         pvnL4xZbNTleZ5xe1Nc4V9qjk4MIB2pqYViQhjwimYmvHvdurpVIA7Acbnu8/vg2CvOJ
-         aFn1C3BobL9MAz6IO07cLYMf5rwK1/str6odlZaRrSDVhKWYyR8Y05DsSV9w0gvlBQQH
-         aMJw==
+        d=gmail.com; s=20251104; t=1780059078; x=1780663878; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
+        b=Vj6DigeZ4VYTLHSS0Ct8oI6PY7PEhHkPmSNBVaXxmkgyD0LpvFgbkfevU3di7JhBOR
+         bzZwZ+F1btjPbZz0/O3IT+Gv6ge5wL4Wxos1f7U5fwvhK+VeZSLY8HM865KLvkvvki9c
+         LIC152QURm7E0lVUcrs7IpVblyxiwg8VfI7PXNqLj8ANRpH2fcyybEARWnQ3gDDimb6f
+         7nEEQHWWY3QS+06QCms6pPBgzBHDoRx4BkgWUkMHsG/vHOlUg/9waKL0gNXUPT1aBQ7c
+         ccb8exeCXFi+UjFvXpmBb2fuWJQtN5BxLN7TW6Md3zWLoNX39wf1ryCXwpjQlqMCSPMh
+         2QDg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780059044; x=1780663844;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=gsdtKyBNIze1lqIATJulyFXg8jvRauNrlgVPkVHHWJU=;
-        b=sNZ7ghMJE2fsTuIO0gSjjQajKz1vosxfIsOzXF22mQlTsXRuwIemxDIyWmnfUc8DPb
-         4lOzVcsVsYS+ej0W0yNSH/xrusGVycHWc/fWjP6RQLfmIyw0kUywDKsTE7eFeThQnKGh
-         6ZWqqKXk6LzfqF/Bnc4jpK9KSsRe9BMmYJ1L6Vtx5i2qse8vgSIoW5LpgNZBewzap8SF
-         /LDtddFspdwEX7cmJYXziazJiXZAhnj2uaHNx6u3Uw8wmd69aiWvThkKT8yzWgZkR7xR
-         kRBJXGSekEZPcwv5QqIlywmflrpmCnHigobS37704fpDKk+vC4Ft1LSv3U2I4ZwIXyTv
-         erFw==
-X-Forwarded-Encrypted: i=1; AFNElJ9bJZZkM7ijPJ7nFw94nAE1vwV5mroxSm7tyqHT+7SoONW5oAkV2PgvzBS9cWXKjUe7qCfF1TH6cVMe@vger.kernel.org
-X-Gm-Message-State: AOJu0YwWAaii/D8kBDxrufqRo2+gFuy0rbvJraL5U+QYRZNV8hMqMa/K
-	d7CzGpg19lO4pgvZHofoIxNhEB70ARWGyP8p3z1muTE759dHWQx0Vh4VaQns8lG1Krs=
-X-Gm-Gg: Acq92OE9XnaBOfghBF7bCUWAJ9e/T1N4GZ0XXs/aVn8BWyUwWvGySoxoeamuc5G45ya
-	ZhJCBDVSsQYlBnW58qqMbg95IchswAaFUJehPMyL6oRQKEyzqkpTCfGWsPJ882p8RViinaJWz3s
-	26yqZjfQ7hfNXy5XeBYMPpV2Z8Ge5uqzagqwdJ8l1GRlp3QFxiIUTr90B+F84hFRKBHKqQgBCoa
-	R6B8GYbg4oYJhK4j/7o+6BH48ZJDJKFCe/LE3obLmF0vMKoJ1Md5K+IoQUyzgmm8w6kllWO53pX
-	9g1ztGN8qVxD5Dbm7S/DaST+x1vPEfxrlVqRKHUZG0YqVNdlypJOe9x3whxxIMe8SQze7dmroSA
-	KZog77W3rgUNyvhSrCZsPgdaP7LG/CiQ61RzY9qSc0I19F+B9A86qLZZRB/EpQNOGUjGZVtJLQ3
-	RyJhQQXaVA7RFgy+gFJ3kND9UkZKOTfEKTi1IFiHbyH4/xLDjMlJ7onv6IP63wIGZheryaRNPON
-	EL1zxmdfoubbVL7FdCzukc4P4Vt
-X-Received: by 2002:a5d:5d0c:0:b0:45e:e1a4:c4c3 with SMTP id ffacd0b85a97d-45ef1403b76mr5200312f8f.15.1780059044315;
-        Fri, 29 May 2026 05:50:44 -0700 (PDT)
-Received: from ?IPV6:2a01:e0a:106d:1080:b6d0:a628:be51:f552? ([2a01:e0a:106d:1080:b6d0:a628:be51:f552])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b5bdsm3169110f8f.21.2026.05.29.05.50.43
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 05:50:43 -0700 (PDT)
-Message-ID: <4001cf6a-b7de-4933-96bc-c9b4ccb53e4d@linaro.org>
-Date: Fri, 29 May 2026 14:50:43 +0200
+        d=1e100.net; s=20251104; t=1780059078; x=1780663878;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ODkGxCw5SXtPHcQOjgdJU6FKSQ/m3pZ1pyOImUBC7zo=;
+        b=AAc5UVpE3EgdR2+6ei8ES5u3iC/zzpO7gkTW+LKj47QrwBF7wn+RuF5XXW9qP/Fv9o
+         97pdk3KFaSw2K5S1d1QJ7TbEkvO7sGFeo6+/Ogk+x2/O72mzM9eq+TTZ6sDhDqHklaay
+         1+CEEQnleHT7vH6fBdRHlHZxYnVs9BzUy2MrIt9sIzsI3R015yVyWlbAJwB3DUYYZz8q
+         Yrl00wgYeSfcy6HzR9zBmIpvrtLbZr3/74oBh1n9OEWXxbvAjqViSI8Mv3AMzKlPciPn
+         Yhnd9SchxRr3lSmF6K9wxwUjkJcbldTiroFmLpP8lATufzT9cA9GLKcmG9hrrC4/C38V
+         tpTg==
+X-Forwarded-Encrypted: i=1; AFNElJ9FmBHE5tUQhMhnL0ywGq4pP5tfTDKG46eqLLMv9cCJPqPBvjigWAZQanPKaq/bOaVmXQvlWtmStxVP@vger.kernel.org
+X-Gm-Message-State: AOJu0YwFkF3Q+SDltOFMZJo0/kG4QKfpvgxLpXhFEopUxxsHUGSPMj4X
+	DjiEuGLiK5iw2GdmIkRj7Gt7o5Ds1EyB5gLLH3Mklpbs1n0EkXLLH3AfsKwj+C29iwZEsdWZdee
+	tMGmfbZ/TagIXQjJA148E1L1BrqQUzRE=
+X-Gm-Gg: Acq92OG29rEdP4TzXUm/RrHaoQxPxnwjbr9s/fcsBTMzcgKrG5n/ofNCfoBp7HsCf1w
+	Mbd60/xfF9ks+s/CcZZTJZTUtcp8sO29T/EwwomgeBb0XEVNYc0wuPdgKinyL6e8a9m8aXvENc6
+	OY6I5GdMHAHu7v0XWRajwZpNNbarBro/W6cZiEO1WtVPERkgMxEAAHTodYe9ZCufU9SOF8K5lMI
+	LCMG/G+44JCfVOPhYokoDgI6u2FF9agK6TYIW2C4fO15BHXrFAAZ+QLP7DUB1f7uhqurMH59fQ5
+	F2+DK22sMzsoS1R/+A///WYpR8Uee1fITzroHJ9Tw+lUYSpvjPkRkNjZp8jZqNAMPftzIfyS6Gm
+	EHoUdOA==
+X-Received: by 2002:a05:7300:bc0b:b0:2da:2ec2:64e5 with SMTP id
+ 5a478bee46e88-304eb17d833mr1328199eec.18.1780059078543; Fri, 29 May 2026
+ 05:51:18 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
- 6-channel High Efficiency LED Driver
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
- <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
- <ahllT_HVTAJ5MbkS@aspen.lan>
- <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
- <ahlr5PnX5O0tEd6G@aspen.lan>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <ahlr5PnX5O0tEd6G@aspen.lan>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260524085312.15369-1-kimjinseob88@gmail.com>
+ <20260524085312.15369-8-kimjinseob88@gmail.com> <20260528153126.7be7c765@jic23-huawei>
+In-Reply-To: <20260528153126.7be7c765@jic23-huawei>
+From: Kim Jinseob <kimjinseob88@gmail.com>
+Date: Fri, 29 May 2026 21:51:06 +0900
+X-Gm-Features: AVHnY4Ln9TX6I_0W0MRyaA3N1oy1elL0wOv-HXney8IDZR5wMdYVBqFAwE78op0
+Message-ID: <CALMSewL7RvTSet3DSk7cQ5Lqi+EDduUOSAVK=vZ5TKz65_9qyg@mail.gmail.com>
+Subject: Re: [PATCH RFC v2 7/7] MAINTAINERS: add Open Sensor Fusion IIO driver
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 5/29/26 12:35, Daniel Thompson wrote:
-> On Fri, May 29, 2026 at 12:16:07PM +0200, Neil Armstrong wrote:
->> On 5/29/26 12:07, Daniel Thompson wrote:
->>> On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
->>>> Document the Silergy SY7758 6-channel High Efficiency LED Driver
->>>> used for backlight brightness control.
->>>>
->>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
->>>> ---
->>>>    .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
->>>>    1 file changed, 53 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
->>>> new file mode 100644
->>>> index 000000000000..80e978d691c2
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
->>>> @@ -0,0 +1,53 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Silergy SY7758 6-channel High Efficiency LED Driver
->>>> +
->>>> +maintainers:
->>>> +  - Neil Armstrong <neil.armstrong@linaro.org>
->>>> +
->>>> +description:
->>>> +  Silergy SY7758 is a high efficiency 6-channels LED backlight
->>>> +  driver with I2C brightness control.
->>>> +
->>>> +allOf:
->>>> +  - $ref: common.yaml#
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: silergy,sy7758
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>> +
->>>> +  vddio-supply: true
->>>> +
->>>> +  enable-gpios:
->>>> +    maxItems: 1
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +  - reg
->>>> +  - vddio-supply
->>>
->>> Sorry for missing this in v2 but is vddio-supply really a required
->>> property?
->>>
->>> It's unusual for supplies to be mandatory (and the it is not mandatory
->>> in the driver implementation).
->>
->> This device is a little bit special, the VDDIO regulator is used to provide
->> power for the I/O via the enable input, so basically the enable gpio power
->> level is provided by VDDIO.
-> 
-> I don't follow. The EN pin acts as both VDDIO and as an enable but it's
-> still effectively a power rail isn't it (albeit one with very low current
-> draw).
+On Thu, May 28, 2026 at 11:31:00PM +0100, Jonathan Cameron wrote:
 
-Here's the datasheet description:
-```
-Dual-purpose pin serving both as a chip enable and as a power supply
-reference for PWM, SDA, and SCL inputs.
-```
+> As noted, no need for lists. The appropriate catch all listings in
+> maintainers cover IIO and DT-bindings.
 
-The VDD input is directly provided by the panel, so Linux has no control
-of it so I haven't added it.
+Addressed in RFC v3.
 
-> 
-> It looked to me like the correct way to model to two power rails
-> going into the chip is vdd-supply (main power supply) and vddio-supply
-> (EN/VDDIO) I don't understand why a single pin needs both a regulator
-> *and* a GPIO in the DT bindings?
+I dropped the explicit linux-iio and devicetree list entries from the new
+MAINTAINERS section.
 
-I don't have a the schematics of the board, but as I understood one gpio is
-actually enabling an regulator which provides power to the IC (vddio) and
-a second gpio will either drive the EN signal to GND or VDDIO to provide a
-clean rising edge on the EN pin.
+> Bring this in with the first file, then update as you add additional files.
 
-So it's not really 2 regulators, and having regulators means the enable
-signal can be shared and would have regulator characteristics which it hasn't.
+Addressed in RFC v3.
 
-> 
->> This is the recommended way from the datasheet, and I assume it will be used
->> like that on other platforms (if it exists...)
->>
->> This is why it's mandatory and enabled first before setting the enable pin.
-> 
-> It's not mandatory for the C implementation. devm_regulator_get_enable()
-> will provide a dummy regulator if the property is omitted.
+I removed the standalone MAINTAINERS patch and folded the MAINTAINERS updates
+into the patches that add the corresponding files.
 
-So yeah if you prefer I'll re-spin with the vddio regulator as optional
-because between both, the VDDIO is the only which could be shared with
-other devices or always-on.
+Thanks
 
-Neil
-
-> 
-> 
-> Daniel.
-
+Jinseob
