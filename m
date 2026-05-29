@@ -1,448 +1,136 @@
-Received: from mail-dl1-f47.google.com (mail-dl1-f47.google.com [74.125.82.47])
+Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DB2A3C4175
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:02:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780052577; cv=pass; b=GLYNGtGXMg4vjDg5WD4PmqQsEQI8IjHVCnvQt95DO2i6PMAXE6E3Jse3s24u3qYoMKiXKKlLeKVEhfB3SN6o4Gg9aP+H+Je7V2gSlm+SlZzSx2U0PJGoQpi1rM1Ctsr5rwZ/KFTk1IznxAf79UZhWJAW1yu6bwvSb8e1UTyv+14=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780052577; c=relaxed/simple;
-	bh=VX0GZld8TcpuuHGg4c1vdgycUrvDO2NLeGvlFPPDW2M=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZVlaZSh8d4h/iHveNbjevMT/E76/8TL91jICRDldAMDyuu9zHAb9KM6Vz/qsxvVbMvSjl9exIKj8/RCDZ6DzHQR8FPPHx5FIkK7sakaGXK6io4sLWd3AY1TW01Y7yYhW9jSMOYGZtoFmMyOQOLJN9OfBzZ/sZdKlL7dNUruEAZ4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ag/qz1V0; arc=pass smtp.client-ip=74.125.82.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A803B7751
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:05:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780052734; cv=none; b=MFhzcIl0qBh5A+Ft/DzWLCgCpMl/ZHCNNPWW1Jk6KGDDx1pfQAb68fwN6iavqgHJDZltyyDlTR1JD6zNVX14/X4Po7t0gTHA7sDhyKxJzMu1R/DvGNE9xL3TB3w6WFJoVmRr19b11IE4z+tFfoqr1TBjIG8SSc4BVCs/2CZojZk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780052734; c=relaxed/simple;
+	bh=ncIMr7bQYJygA+4kRTgjU2C1cHSIfr6iw5KJDlUDahU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sysVt3uY9GW/82ap4za5kVZU1Tums694vH3EmCpRfnist17ypbDUAaC/nvliMWK6yYeJGwni+X3KDRfwjWCQI9Y1+TdCMOC2l/aoQckpFC6WgBNkk5fZQw5UyST06cEid+JT8rGCLcgmH1TlB4p+Jg7L4bXmtualoF/6b5u4IwM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lGOMV8A/; arc=none smtp.client-ip=209.85.221.50
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ag/qz1V0"
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-137bd9ed2b1so967398c88.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:02:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780052575; cv=none;
-        d=google.com; s=arc-20240605;
-        b=dEP6ECmSY1yRqqyXqG5d3O+FIDaiZkytHZCfSEImFBivyPAbaagTetYC4B9YNLcFM4
-         ejs2XGdzi5LtDQeQ61gdXQglO6LonXG3BT8ltekiUKB/boXBvS+6FlzQR4IgRBg13EpS
-         G3loSkDL3SGIRB7TU/rLQWF58ap7HTBMZ8DoGILphKNq+F9rFxIQE5RR08BDqzMirqVg
-         baAun+aiaNrTKZiFgLm9J7hnKxK6slro19dnbqqLE97jZc3+E1AC6WoSJwGRbNsfp5TO
-         GU9FV+BvlEYn2eU5xTnhYlmCpGLNfR9bswdVKiQoiiVQ/qKOaw8+JGtl9tt+hSJM05NX
-         JLtQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=Qf0EPFsEMgv7RinRHJC8+FSrNX+a+vtz20v10EwyVsU=;
-        fh=en1mebMlBvRno/8qse+zCzOYsveZgk2ZJEOGyk60PSQ=;
-        b=JQBUhe+aqLyrOHmODfQ2+0OzlvdnPkze+fUnhdfD/0rzA8V6cUpztCjhyn51pbTPQq
-         WAX+2oHrH24Jhzy6xMqA8VVloyE86Frf5/i5JWA6XgbQGvP4qIhn6FGv+PSQervWn6qr
-         79PONFMh5N/5mj5uTqx6fzMITSVNz76MDv3s0/QRFunkaAJrJwvuqaZ/Dp2iAxk55L9z
-         3wAnIHBkpNaFoVXh560IDAOznQIxMzNGOTSg3h2DcGKhfvBjOQuVbd7zNqB3ADTt67dD
-         7C539gjdSIC4jeZiXgOU4pEBuPISRHeo2xdg4hEjeuXP+DlghTLDJCVrOore8B6ZRYOK
-         PQRA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lGOMV8A/"
+Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-45ebafde87cso4810023f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:05:32 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780052575; x=1780657375; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Qf0EPFsEMgv7RinRHJC8+FSrNX+a+vtz20v10EwyVsU=;
-        b=Ag/qz1V0RHuzU2g6cEi1QeCR/yaPQ3rrFe4RWo3BqITNwBLsw52nwXWUEeBJJRA7gV
-         oDH9BxJzCce69Dstm/ApyIL9MbV6rlWC5HAiX6YvuMlgVLwPU24thshD4UANWbIBG76T
-         kPPZLP+sodhGOMriruD0laaf2jkZCvfmRssSKeQT1gZSKcMrnZ6L0YFIydRlcsRRq3gE
-         CZ9QhItOrVlqkXcIGfz+vRVNevtSEE51l3ZvLeLsEMimZ5YgqPqzr3RU0ckX5hzpwrqN
-         ADJg7+VEaY1lK1/0lqVKjxJNVGH0dBABGNX41xzhsMVyUyzHeRtozwn53Gc+SL6tob4/
-         LPgA==
+        d=gmail.com; s=20251104; t=1780052731; x=1780657531; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=qE6RnHPAGUOc6JTeO2foqPr0MsIVa35llYbJ9yTYeCg=;
+        b=lGOMV8A/u9xOBvqHyZnXxJ58CErjW69ovtxZhblYT9izP2SoOQ2y9oqhNCm47htwOE
+         Q0K92kI/TYRSaPJ8GBmMN9m9AKpGVj/jTOb6FklckGI0PP+5IRCAqSRYuey2a/Dh5JXk
+         ZpSSnq/zCqym43xFQdOhNVFpDxNDq+tA/dAPYWCyhQ9Gl1mrMEeqwjmtgf0QeNpraksd
+         sSlikp2+yGiI6zZo/pMNOzc9+g0Sx+huk7YZ1jL9ef5sOCIssYXDzWZC01QYE3iGrggt
+         EqVbahWARGMQf41YGdSr61yUAvRMfEXAcSLdcDOT7mTcAKc1xRTitLk4DF+qTw+BWli3
+         M2cA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780052575; x=1780657375;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=Qf0EPFsEMgv7RinRHJC8+FSrNX+a+vtz20v10EwyVsU=;
-        b=sdi4j25Kx/h6VlxWqTdaYIGj5UGgwzTghttJ4SAfDVeUWCN/i6e6bz+e0q1/eCWIe3
-         8R6HWdsf2koq9+PMFcA1EUzg5jARZ7kRFEYYQx6DgTvreAy/6lHULCmqdrj16BGDMGH5
-         c/OGttf//Ge9OJHrC6QsooVIv9qcHFPRBsab24aYaEL3fKHX2skcSfwd/+yzcPC4cFoC
-         kj/NWr+PLfGIaflYr9sdD7o5MQVIzmI4q/B5Y2cE02I1/loWYqmeTbrhm2pCSMURWgEf
-         uHSgillr32TxNZ+6Pvff/eLB3v3VTfB4Na+wcCEPOpjIvXd7S4I76zWDZynV4NLUBm1h
-         ymvw==
-X-Forwarded-Encrypted: i=1; AFNElJ9VYuoSv82DuacsNF+Yj0rzD+VTXUSiG1NXsoitQG8ZR17ZXZ+6v34/rKR5yvZNtIuuA6jy7zczw6Y1@vger.kernel.org
-X-Gm-Message-State: AOJu0YwPr80yeFXOAZizJJKXg4Zo4Jw7ao07CN8NV/D+ZKGczR8pTIKj
-	+sk6Xd54cF+0Qtp4+ePnHpvWDXdzpF9jJmDtBfjTWxFk3JyaJNd2zHnEYgwU23HZ5gEpQliUzKD
-	PeQzeeM9/vHRjPuohjr4JmqV3WtUgzhY=
-X-Gm-Gg: Acq92OFJ2d7xngdjeWj3jOxsUq5+PocuIFLnfXY/6AQKoyU/NrCSIpkw9EvkN7316I3
-	Nl02p/bKAFNAlMH4/W0TikImFNAmfWt90UK0DreIiqyMhvodBGYqkwTcICAYMlpLfF6lbuvnWPg
-	ehv5S8Mm4YBN5sfinEbnqSK8L0wee6ufgX0Xn+UKrCxZxB4zjxh27H55656/Kgc+bfOFxfUYdZN
-	gzc5QjyF2kRGzcqPqFzS9gnIM6y4lmiF3rBKXhhdQ1TopCLc8pH6yGDuqmChsyh+cjoBJ9Jlgkj
-	lXRuj7cjr122zbddByE=
-X-Received: by 2002:a05:7301:5f89:b0:2f1:6252:f8fe with SMTP id
- 5a478bee46e88-304ead9c0a3mr1051392eec.3.1780052575098; Fri, 29 May 2026
- 04:02:55 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780052731; x=1780657531;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=qE6RnHPAGUOc6JTeO2foqPr0MsIVa35llYbJ9yTYeCg=;
+        b=DgCAbsHvjqOgQ0h0DtUVyA4bL/3lTfdMyvH9KogxcYnlUMGLw7wkPjZFAV2dmnAHeG
+         BKtu+oVKkKaRc6zcv21IlDybgMbLoj5Q3jFxdVjfhIOuX6fGqMrOD95CxT1SKgBeX7F1
+         Gs4b5d+6TJ/K0+KDxP/N8Rrn4fuyFDxmEgYiqcx/P/plOj1COIQVJGiMY9pnhVojzswH
+         cmQnEDqXQZ2objmMA6ztyvvratZ6XfNf95iPjsjK5dl27938t8u0VzmaEZb+6UziGRnI
+         VRM2FGDexsEHBMsuv9sFaGw2obdOZz48CKT3rZ5LiLd8Xd1v8+myIoCVqL8ryh1naveB
+         wf3w==
+X-Forwarded-Encrypted: i=1; AFNElJ80h67RpnQzYKguA4xknY2mdgKJ7ep+bUv7ltFNYZBlKRh/ktMppg/IwYCLiB4PDftn3RGwNKUjEoEL@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBTJvfXq1rO2le4IdbRIZHEipeqWDvjN23+WaAq78EEQBBEnhy
+	5VFLSBTSeK9V/ByDlVemQ7J+fdqcpzIq4hOMVUp5U2MhaqmPPbdLDenm
+X-Gm-Gg: Acq92OFK7+pFvWuQYMjR7owKUe+nZIb5+9+qT5jGKz+ZqxnjBHP60lp7neKiWaWuRO2
+	qB3s7z1kXo/2qWYETJApAJ6M3CvssUSAEA9SK8lOiS+cUNKRPSFBtWhqo0o8HXxTZJ85xLhiAN6
+	5aU+Y/vlN3hzVBpToq0bEZ6pGcMxS3pmD8cpSJRFpURBSHoAWAgzJt1xZHPBENLUMILuIjiyy5l
+	6BYHfJkAdelIt3Xr4q25ZLPaWltZafJ9XOPHofUc4r4sB2muYDUgfWrYw1ZIf/1XeOB2DrsS25x
+	QTUMwSOmc3yV8S2RP5OVwdAVUYhNYJAivMmEyJQZGVcFM6EIxdGGR8KhaOj5lhFgjEn5EFHkY4C
+	R3NvHq2qN5CGal836TKn6vJ6AB21JXlLiG4BzYlIKKAcEtk0sZTHyspjhbJ27JJCcpWRXOrEc+A
+	lrObOs36FOfuKXzeaFuyiMU/uyA5UQq34pYtEy
+X-Received: by 2002:a05:6000:1a8c:b0:43b:5b25:67f8 with SMTP id ffacd0b85a97d-45ef144a48emr4457888f8f.20.1780052730683;
+        Fri, 29 May 2026 04:05:30 -0700 (PDT)
+Received: from vitor-nb ([2001:8a0:c4c6:f00:7677:753b:2cb5:7f25])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34c3081sm3033663f8f.15.2026.05.29.04.05.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 04:05:30 -0700 (PDT)
+From: Vitor Soares <ivitro@gmail.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	David Airlie <airlied@gmail.com>,
+	Simona Vetter <simona@ffwll.ch>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Francesco Dolcini <francesco@dolcini.it>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Thierry Reding <thierry.reding@gmail.com>
+Cc: Vitor Soares <vitor.soares@toradex.com>,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: [PATCH v1 0/2] dt-bindings: display: panel: Add LG LP156WF1 dual-LVDS panel
+Date: Fri, 29 May 2026 12:05:18 +0100
+Message-ID: <20260529110518.624454-4-ivitro@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260528135123.103745-1-clamor95@gmail.com> <20260528135123.103745-3-clamor95@gmail.com>
- <20260528155001.2bcb7003@jic23-huawei> <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
- <20260529100819.1823ebb3@jic23-huawei> <CAPVz0n0VHdUo5oHdALgcerLsykdz-2n7c+jxYHrMOV7Ra5x_qQ@mail.gmail.com>
- <20260529114828.5a87c732@jic23-huawei>
-In-Reply-To: <20260529114828.5a87c732@jic23-huawei>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 29 May 2026 14:02:43 +0300
-X-Gm-Features: AVHnY4JFkCjq5u7WpABFbger7MZKVNNC_WAp1_zpv0s6179IZSDqS5525lREGVM
-Message-ID: <CAPVz0n1u0z35rP8vUKjAzW_mrPm9yeMjK_-nKbyctUvQik6ECw@mail.gmail.com>
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=BF=D1=82, 29 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 13:4=
-8 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Fri, 29 May 2026 12:39:56 +0300
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > =D0=BF=D1=82, 29 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
-12:08 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > >
-> > > On Thu, 28 May 2026 18:03:31 +0300
-> > > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> > >
-> > > > =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=
-=BE 17:50 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> > > > >
-> > > > > On Thu, 28 May 2026 16:51:19 +0300
-> > > > > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> > > > >
-> > > > > > Since there are no users of this driver via platform data, remo=
-ve the
-> > > > > > platform data support and switch to using Device Tree bindings.
-> > > > > > Additionally, optimize functions used only by platform data.
-> > > > >
-> > > > >
-> > > > > At least the IIO ones would have made much the same amount of sen=
-se for
-> > > > > dt, just that they weren't having in the first place. I'd prefer =
-that
-> > >
-> > > Gah. I write gibberish after too much reviewing.  having/helping!
-> > >
-> > > > > as a precursor patch to make the rest much more readable.
-> > > > >
-> > > >
-> > > > I can add you preferences into this commit, I don't mind.
-> > > >
-> > > > > >
-> > > > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> > > > >
-> > > > > I only looked in detail at the iio bit. A few changes requested.
-> > > > >
-> > > > > > ---
-> > > > > >  drivers/iio/light/lm3533-als.c      |  95 ++++------
-> > > > > >  drivers/leds/leds-lm3533.c          |  51 ++++--
-> > > > > >  drivers/mfd/lm3533-core.c           | 268 ++++++++++----------=
---------
-> > > > > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
-> > > > > >  include/linux/mfd/lm3533.h          |  51 +-----
-> > > > > >  5 files changed, 212 insertions(+), 305 deletions(-)
-> > > > > >
-> > > > > > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light=
-/lm3533-als.c
-> > > > > > index 99f0b903018c..cbd337b73bd9 100644
-> > > > > > --- a/drivers/iio/light/lm3533-als.c
-> > > > > > +++ b/drivers/iio/light/lm3533-als.c
-> > > > >
-> > > > > > @@ -714,59 +720,33 @@ static const struct attribute_group lm353=
-3_als_attribute_group =3D {
-> > > > > >       .attrs =3D lm3533_als_attributes
-> > > > > >  };
-> > > > > >
-> > > > > > -static int lm3533_als_set_input_mode(struct lm3533_als *als, b=
-ool pwm_mode)
-> > > > > > +static int lm3533_als_setup(struct lm3533_als *als)
-> > > > > >  {
-> > > > > > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
-> > > > > > -     u8 val;
-> > > > > > +     struct device *dev =3D &als->pdev.dev;
-> > > > > >       int ret;
-> > > > > >
-> > > > > > -     if (pwm_mode)
-> > > > > > -             val =3D mask;     /* pwm input */
-> > > > > > -     else
-> > > > > > -             val =3D 0;        /* analog input */
-> > > > > > -
-> > > > > > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, v=
-al, mask);
-> > > > > > -     if (ret) {
-> > > > > > -             dev_err(&als->pdev->dev, "failed to set input mod=
-e %d\n",
-> > > > > > -                                                             p=
-wm_mode);
-> > > > > > -             return ret;
-> > > > > > -     }
-> > > > > > -
-> > > > > > -     return 0;
-> > > > > > -}
-> > > > > > -
-> > > > > > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 =
-val)
-> > > > > > -{
-> > > > > > -     int ret;
-> > > > > > -
-> > > > > > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RES=
-ISTOR_MAX) {
-> > > > > > -             dev_err(&als->pdev->dev, "invalid resistor value\=
-n");
-> > > > > > -             return -EINVAL;
-> > > > > > -     }
-> > > > > > -
-> > > > > > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR=
-_SELECT, val);
-> > > > > > -     if (ret) {
-> > > > > > -             dev_err(&als->pdev->dev, "failed to set resistor\=
-n");
-> > > > > > -             return ret;
-> > > > > > -     }
-> > > > > > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
-> > > > > > +                              &als->r_select);
-> > > > > Does this have a default?  If so the pattern we've recently be se=
-tting on for IIO
-> > > > > is
-> > > > >         if (device_property_present(dev, "ti,resistor-value-ohm")=
-)
-> > > > >                 ret =3D device_property_read_u32();
-> > > > >                 if (ret) //corrupt property in some fashion
-> > > > >                         return ret;
-> > > > >         } else {
-> > > > >                 //set default
-> > > > >         }
-> > > > > If there is no default then check it unconditionally.
-> > > >
-> > > > default value is LM3533_ALS_RESISTOR_MIN and if no property is pres=
-ent
-> > > > clamp will ensure that als->r_select will be set to
-> > > > LM3533_ALS_RESISTOR_MIN
-> > >
-> > > I don't see that default in the binding doc and relying in the 0 bein=
-g clamped
-> > > isn't particularly readable - I'd set it explicitly.
-> > >
-> >
-> > Oh, ye, my bad. Schema enforces one of props to be present and if pwn
-> > is present then resistor is ignored. What if I move resistor reading,
-> > clamping and conversion under !als->pwm_mode check? Then resistor must
-> > be present and hence must be checked unconditionally.
->
-> Sounds good.
->
-> >
-> > Additionally, I can comment original lm3533_als_setup with #if 0
-> > #endif then git formatting will be much cleaner and easier to review,
-> > and once we all come to result I will just remove entire commented
-> > block and Lee can pick clean commits.
->
-> No don't do that.  If you flatten the two helpers as a precursor patch
-> then the changes in here will be easier to review anyway.
->
+From: Vitor Soares <vitor.soares@toradex.com>
 
-By "flatten the two helpers" you mean incorporate
-lm3533_als_set_input_mode and lm3533_als_set_resistor into
-lm3533_als_setup first and then convert it to use DT? I am asking,
-just to be sure.
+Add support for the LG LP156WF1 15.6" Full-HD dual-link LVDS panel and
+a Verdin AM62 overlay for using it through the Verdin Development Board
+with the Verdin AM62 Mezzanine LVDS interface.
 
-> >
-> > >
-> > > >
-> > > > >
-> > > > > >
-> > > > > > -     return 0;
-> > > > > > -}
-> > > > > > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTO=
-R_MIN,
-> > > > > > +                           LM3533_ALS_RESISTOR_MAX);
-> > > > > > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_sel=
-ect);
-> > > > > >
-> > > > > > -static int lm3533_als_setup(struct lm3533_als *als,
-> > > > > > -                         const struct lm3533_als_platform_data=
- *pdata)
-> > > > > > -{
-> > > > > > -     int ret;
-> > > > > > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-=
-mode");
-> > > > > >
-> > > > > > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > > > > > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->p=
-wm_mode ?
-> > > > > > +                         LM3533_ALS_INPUT_MODE_MASK : 0,
-> > > > >
-> > > > > That's ugly.  Better as
-> > > > >
-> > > > >         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
-> > > > >                             als->pwm_mode ? LM3533_ALS_INPUT_MODE=
-_MASK : 0,
-> > > > >
-> > > >
-> > > > Yes sure, just followed 80 char limit.
-> > > >
-> > > > > Though if there wasn't a layer hiding the regmap, it could just h=
-ave been
-> > > > >
-> > > > >         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS=
-_CONF,
-> > > > >                                  LM3533_ALS_INPUT_MODE_MASK, als-=
->pwm_mode);;
-> > > > >
-> > > > > which would have been nicer.
-> > > > >
-> > > > > I'm not particularly keen on the swashing of the helpers being in=
- a patch
-> > >
-> > > smashing.  (this definitely wasn't my best effort at English!)
-> > >
-> > > > > that is about switching the binding type as feels largely unrelat=
-ed.
-> > > > > Should really have been a precursor, easier to review patch.
-> > > > >
-> > > >
-> > > > Removing of lm3533_update layer is not the scope of this patchset.
-> > >
-> > > Understood.  I'm fine with just the refactor you are doing brought ou=
-t as a precursor
-> > > patch.
-> > >
-> >
-> > I have looked into removing wrappers too. That seems to be less a
-> > hassle that I anticipated, so I will include regmap switch in the v2.
->
-> Ah ok. Even better.
->
-> >
-> > > >
-> > > > >
-> > > > > > +                         LM3533_ALS_INPUT_MODE_MASK);
-> > > > > >       if (ret)
-> > > > > > -             return ret;
-> > > > > > +             return dev_err_probe(dev, ret, "failed to set inp=
-ut mode %d\n",
-> > > > > > +                                  als->pwm_mode);
-> > > > > >
-> > > > > >       /* ALS input is always high impedance in PWM-mode. */
-> > > > > > -     if (!pdata->pwm_mode) {
-> > > > > > -             ret =3D lm3533_als_set_resistor(als, pdata->r_sel=
-ect);
-> > > > > > +     if (!als->pwm_mode) {
-> > > > > > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESIS=
-TOR_SELECT,
-> > > > > > +                                (u8)als->r_select);
-> > > > >
-> > > > > Same applies here. Mostly an unrelated change as the only thing s=
-witching that
-> > > > > is related to the patch is one parameter.
-> > > > >
-> > > >
-> > > > Removing of lm3533_write layer is not the scope of this patchset.
-> > > >
-> > > > > >               if (ret)
-> > > > > > -                     return ret;
-> > > > > > +                     return dev_err_probe(dev, ret, "failed to=
- set resistor\n");
-> > > > > >       }
-> > > > > >
-> > > > > >       return 0;
-> > > > >
-> > > > > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platfo=
-rm_device *pdev)
-> > > > > >       indio_dev->channels =3D lm3533_als_channels;
-> > > > > >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channel=
-s);
-> > > > > >       indio_dev->name =3D dev_name(&pdev->dev);
-> > > > > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
-> > > > >
-> > > > > I'm not sure why this was there in the first place.  Hence not su=
-re if it
-> > > > > is safe to remove.
-> > > > >
-> > > >
-> > > > This is directly related to OF conversion. The iio_device_set_paren=
-t
-> > > > bound indio_dev to parent, and it causes problems with OF now since
-> > > > als output has its own node and binding it to parent if wrong. Same
-> > > > story for backlight and leds btw.
-> > >
-> > > Is there any risk anyone was using the canonical path to get to the i=
-io dev?
-> > > /sys/bus/platform/devices/..../iio\:deviceX
-> > > This is technically an ABI change be it a subtle one.
-> > >
-> >
-> > Linux kernel has no users of this driver, and it is in "stale" state
-> > for more then 2 years (maybe even longer). I have cc'd Johan Hovold.
-> >
-> > https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
-> >
-> > This this 2 y. o. discussion and there were no actions ore movements.
-> > I assume this driver in its current form has no more users. This does
-> > not mean that it cannot be revived though.
->
-> So, just to check, are you a user of this code or is this more trying to
-> help out with old code?
->
+This is a follow-up to an earlier attempt [1], where panel-lvds.yaml
+was incorrectly extended to describe dual-link panels. Back in 2023,
+when a generic dual-channel LVDS binding was proposed, Rob Herring [2]
+pointed out that dual-link panels should follow the existing
+advantech,idk-2121wr pattern instead of introducing a new generic
+compatible.
 
-I am not insane enough to get myself into all this conversion if I did
-not need it. This is one of 2 remaining gaps in support of LG
-P880/P895 I own and support. I would really like to finally mainline
-all the patches I have locally since maintaining them becomes quite
-troublesome with time and additional patches layering on top.
+Following that approach, this series adds a dedicated binding for
+lg,lp156wf1, with the dual-link LVDS ports described by
+lvds-dual-ports.yaml, and excludes it from the generic panel-lvds
+schema selection.
+The second patch adds the Verdin AM62 overlay for the LG LP156WF1 panel
+on the Mezzanine LVDS connector.
 
-> Jonathan
->
-> >
-> > >
-> > > >
-> > > > >
-> > > > > > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3=
-533.c
-> > > > > > index 45795f2a1042..d707d43d5526 100644
-> > > > > > --- a/drivers/leds/leds-lm3533.c
-> > > > > > +++ b/drivers/leds/leds-lm3533.c
-> > > > >
-> > > > > >
-> > > > > >       led->cb.dev =3D led->cdev.dev;
-> > > > > >
-> > > > > > -     ret =3D lm3533_led_setup(led, pdata);
-> > > > > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > > > > > +                              &led->max_current);
-> > > > >
-> > > > > I'd prefer explicit setting of the default to be visible before t=
-his, or
-> > > > > the property_present pattern I mention in the IIO review above.
-> > > > >
-> > > >
-> > > > clamp will ensure that led->max_current will be set to
-> > > > LM3533_LED_MAX_CURRENT_MIN regardless if it it present
-> > >
-> > > As above, I'd prefer it set explicitly.
-> > >
-> >
-> > I understand your position and I am not denying it for ALS part, but
-> > LEDs don't belong to IIO subsystem and different subsystem maintainers
-> > may have drastically different preferences and requirements (ugh, PTSD
-> > in its full glory).
-> >
-> > > >
-> > > > > > +     led->max_current =3D clamp(led->max_current, LM3533_LED_M=
-AX_CURRENT_MIN,
-> > > > > > +                              LM3533_LED_MAX_CURRENT_MAX);
-> > > > >
-> > > > > I didn't look any further (busy day!)
-> > > >
-> > >
->
+This series should be applied on top of [3] to avoid conflicts in the TI
+device-tree Makefile with the other overlay additions.
+
+[1] https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com/
+[2] https://lore.kernel.org/all/20230130170441.GA2796575-robh@kernel.org/
+[3] https://lore.kernel.org/all/20260522161105.277519-13-ivitro@gmail.com/
+
+Vitor Soares (2):
+  dt-bindings: display: panel: Add LG LP156WF1
+  arm64: dts: ti: k3-am62-verdin: Add Mezzanine with LG LP156WF1 LVDS
+    panel
+
+ .../bindings/display/panel/lg,lp156wf1.yaml   | 105 ++++++++++++++
+ .../bindings/display/panel/panel-lvds.yaml    |   1 +
+ arch/arm64/boot/dts/ti/Makefile               |   5 +
+ ...verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso | 131 ++++++++++++++++++
+ 4 files changed, 242 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/lg,lp156wf1.yaml
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso
+
+-- 
+2.54.0
+
