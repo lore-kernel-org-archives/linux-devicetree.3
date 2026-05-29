@@ -1,390 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3735255F2D;
-	Fri, 29 May 2026 09:15:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0D2D32ED5C
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780046135; cv=none; b=Fmp8L4rCOzmlEEJddmV8MLkbhPw83nzUiT8bQ6woSpe/d9eA43emMAGHuunOuNeg2BUtke/15MnRXJCTed1BtNH1iFZLdw6c/ib1IN4unKaF4RlVINNwKka8UaDPInj7KAIgLUxh2iTHxI7VuuG2qqFGyKXAqCwieqYI1ORKWlg=
+	t=1780046239; cv=none; b=QQSpEqpYb0QApXwD8s4xpwBBALbkLV0WkvLOA4yVAxpqqhCJBfNSasYV5eJUSzH+7GZg/57p9DLmmqhxwtiLoNzflCVc+6yOltGMOYu7c3z3ghfwDStCkOKkf28cZ1sBPyHo2NWv0pJzzWTero36RlwiVi8lPddyqXpILulEXcs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780046135; c=relaxed/simple;
-	bh=WTQUkfxQ0I/PL5IE+U+dScLtW6/Z9PQks85b1BxFUTs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QpBadgUwTZrQUE2wTUA0SjZf6uSNrlFT35mqajVZPX7zSKvoQ5qEgKkPXsKXuRRQVfjYxySGu3fALYG3+j4bzOoMj63nXawgdpiE2+Jyb75JnZL53os3sJhnu2H+DCrMMfnqJT5c0AWgYcvfUEYHuE+JA4WlaCYaHWoqsDxBSLY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J40li7ki; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J40li7ki"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D2711F00893;
-	Fri, 29 May 2026 09:15:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780046133;
-	bh=xolym2nROWPV+uNn8Ng4VDdxpFYsF2ZHLBSmjpgYSbc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=J40li7kioaZlqj6DxmP3fQsUrEVfQENKj+OyTWzOxq3ai6t4lxAZuzUqhqp1AGD1E
-	 d0re3vpKORPm/c+fUwZGBCsT2oaIh7g08/9oAxgRnUNYakGaB8qDfKB8qk6ZwXWBCO
-	 R9QzuoDjldp7clgag69CWtiJ5kGLQoW6DAG14veIzInOp/uSI34YlZd1+eNeUxwcDZ
-	 y1QGnxpOzYu6jGtsr6QeqQP9B+dpTVXY0CtVLKUjPQ7HB+VYxyBRH/jN0e15pzKRbg
-	 9lgjuAQ9uy7nhlLZgFQcNwC0XB07iE5thQpe5K6Hc4rI2LcTOn/hB2IZS5kgbAeyt6
-	 X5itlxIiqq/BA==
-Message-ID: <dd93b5b9-ac3c-4fc1-bb54-a68ce6d477c7@kernel.org>
-Date: Fri, 29 May 2026 10:15:27 +0100
+	s=arc-20240116; t=1780046239; c=relaxed/simple;
+	bh=A7303nXP7mzkEH/OWAtRsm4hbLTXsrEjg9htPQcfPcs=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HQa7NVt9ZSSnvljJ05k7HAayO+e+9g8HtFvg/+Pd1ZCOqZYe6rVQ2nBaF0V7oGHbFJZevJgWO9R/cf8w3s2znbeW0/R6CO3VGtwyGQUonqZbxZQ5mlfzACo2eyM9/6MAA3LTrUvvopdHGRiHo3Xif+1HIo/1AUwnAOQPjgWLwLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-63201e0d6b8so10838707137.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:17:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780046238; x=1780651038;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4KsR+eTamR7CorXHidGBoOzlgDhPzd4vd0egbm1d2kE=;
+        b=dUHQu8cCzEaeFlUk3EfzSx/I7hD1hSf6PsSSV/PLF4yZK0vyd/d0q6Ntw/LyR40WLI
+         VPenYlCxjded4TQWngpMc5QRw0ArImEbkzDEn9AAMokEMxHlNBGu6Y4pp+JCu/LSWBxz
+         /oqBGV/Awz4hnu+gvUivbcbwezrcqd51Vk6gRMkUnUglUHuhXW2ovElQzNDrEHHYq2st
+         4aWgnWUIOOJySVl09ca6rnQNhw48I2wAEv1eSkHO0yAVpfboyCOA0/2pGHN/tb1LKfDt
+         L+iIIxBUkRw1mJxNbFsvu7DC0HV6X1NRZAIx0XKIAPaDDJ+CwJ2zVAWpS7siOQGKtBg7
+         RPbg==
+X-Forwarded-Encrypted: i=1; AFNElJ/swNTzM50/2Jq45pzgguikLjEjenQo0ImN35LlK36bvC0G/6ZuqRNxHDp3CfuJJUnPMw0BXcL3oA9c@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyi5c+rquDP3b6k3euOUlhsiK2BMi9GuKBHUFDiLaN5NIRCc8mq
+	2p9ZI3LmarXF5B8+e+cZs660gjHLthhgPku0EFH2c0g0fO7Ur4PIE6YsqdD91N1dHAM=
+X-Gm-Gg: Acq92OGrqJs+mL5mmNyxV2edcgY+yn1W7AdWHvIOR2AtJgvXQAi2jFDxIzO16+bbmsi
+	oo+byIzq1f2bd4Rs85xtVAVJzVxTOf6PYqdwWC2RaCGNCfvmVTSM6AqC+sC1KdeZWd3GkiOt+6q
+	i3jmQ0+3iPQ3OnDwxPbdlND3YFnt14u/PT1ZjBT6RI4jGHuxlgaAYKeLxCE+DEdkbh3QhdEXX8E
+	O3wEl38zjpchbQSfip+C1+um+PsGaJ/kV2+h7w0gVr2at6+8M0oLzQX7EN1UU7S5bO4uN5kJ/H+
+	vMvgYAC47P4zZZMI3s0P0FnSJAEgar82A/9vs9rIzmRaF+j+ysX1Gkk3RbPQAgemHgVLrxlNY5P
+	BvMHBYMXGY/duUaOm2J4XNKepQ+u+I5JmwliqRbyYXnyn8VvyJNFjX5zn6M7tc18ex6Mwy8j3+A
+	cH39Se6UAw4LsrVTUrt05gw7y2UrpSaC0L0+fDwf7M8w65VZKJgHMVq6/lnY7aZXzo69MH2Mw=
+X-Received: by 2002:a05:6102:5541:b0:633:f7ab:6bd5 with SMTP id ada2fe7eead31-6bedd951975mr679976137.18.1780046237789;
+        Fri, 29 May 2026 02:17:17 -0700 (PDT)
+Received: from mail-vs1-f49.google.com (mail-vs1-f49.google.com. [209.85.217.49])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-963aba249f0sm513498241.3.2026.05.29.02.17.16
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 02:17:16 -0700 (PDT)
+Received: by mail-vs1-f49.google.com with SMTP id ada2fe7eead31-636970cf66cso10240771137.1
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:17:16 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/e4oCX0njxQ0t0rIov7AZ+SEopqnCd1GKcvNPRRpyRNiRT1nbcXHXZFJJ1kpBc3y+YqrnVTpf/X5Mi@vger.kernel.org
+X-Received: by 2002:a67:fac8:0:b0:600:3b3e:681a with SMTP id
+ ada2fe7eead31-6bed960857dmr483889137.14.1780046235748; Fri, 29 May 2026
+ 02:17:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 0/5] media: iris: add support for purwa platform
-To: Wangao Wang <wangao.wang@oss.qualcomm.com>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-References: <keD2FYytnyM7Tuz-kCdnzVBtv7rq_24Kr2dEKBfOpBjqQnmRFqksX-dY7IE8TlIB4ke44GBSYStsHtoa0x4DJQ==@protonmail.internalid>
- <20260529-enable_iris_on_purwa-v8-0-b1b9670459ab@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <20260529-enable_iris_on_purwa-v8-0-b1b9670459ab@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260527202430.606341-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+In-Reply-To: <20260527202430.606341-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 29 May 2026 11:17:04 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdUuvQ7sKbUh6kn4DPfYR7iYk5cK=EV-zJ=GbrKudY5Yag@mail.gmail.com>
+X-Gm-Features: AVHnY4Js00YTQovdr1eCSGXVo4f2fAUcVUSkGdqR3jPyv1KLJgrEEvSe7UG5BL0
+Message-ID: <CAMuHMdUuvQ7sKbUh6kn4DPfYR7iYk5cK=EV-zJ=GbrKudY5Yag@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: dts: renesas: rzt2h-n2h-evk: Enable xSPI nodes
+To: Prabhakar <prabhakar.csengg@gmail.com>
+Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>, 
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>, 
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 29/05/2026 08:34, Wangao Wang wrote:
-> This series enables the Iris video codec on purwa, allowing purwa to
-> use hardware‑accelerated video encoding and decoding.
-> 
-> The Iris codec on purwa is nearly identical to the one on hamoa(X1E),
-> except that it requires one additional clock and uses a different OPP
-> table.
-> 
-> Therefore, purwa can reuse the Iris node from hamoa, but the clocks
-> and OPP table need to be redefined.
-> 
-> All patches have been tested with v4l2-compliance and v4l2-ctl on
-> purwa. And it does not affect existing targets.
-> 
-> Dependencies:
-> https://lore.kernel.org/all/20260409-purwa-videocc-camcc-v4-0-5a8e5f2dd4b2@oss.qualcomm.com/
-> 
-> The result of v4l2-compliance on purwa:
-> v4l2-compliance 1.31.0-5379, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 14c988631ad4 2025-11-11 11:19:35
-> 
-> Compliance test for iris_driver device /dev/video0:
-> 
-> Driver Info:
->          Driver name      : iris_driver
->          Card type        : Iris Decoder
->          Bus info         : platform:aa00000.video-codec
->          Driver version   : 6.19.0
->          Capabilities     : 0x84204000
->                  Video Memory-to-Memory Multiplanar
->                  Streaming
->                  Extended Pix Format
->                  Device Capabilities
->          Device Caps      : 0x04204000
->                  Video Memory-to-Memory Multiplanar
->                  Streaming
->                  Extended Pix Format
->          Detected Stateful Decoder
-> 
-> Required ioctls:
->          test VIDIOC_QUERYCAP: OK
->          test invalid ioctls: OK
-> 
-> Allow for multiple opens:
->          test second /dev/video0 open: OK
->          test VIDIOC_QUERYCAP: OK
->          test VIDIOC_G/S_PRIORITY: OK
->          test for unlimited opens: OK
-> 
-> Debug ioctls:
->          test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
->          test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
->          test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
->          test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->          test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
->          test VIDIOC_ENUMAUDIO: OK (Not Supported)
->          test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
->          test VIDIOC_G/S_AUDIO: OK (Not Supported)
->          Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
->          test VIDIOC_G/S_MODULATOR: OK (Not Supported)
->          test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->          test VIDIOC_ENUMAUDOUT: OK (Not Supported)
->          test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
->          test VIDIOC_G/S_AUDOUT: OK (Not Supported)
->          Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
->          test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
->          test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
->          test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
->          test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Control ioctls:
->          test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
->          test VIDIOC_QUERYCTRL: OK
->          test VIDIOC_G/S_CTRL: OK
->          test VIDIOC_G/S/TRY_EXT_CTRLS: OK
->          test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
->          test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
->          Standard Controls: 10 Private Controls: 0
-> 
-> Format ioctls:
->          test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
->          test VIDIOC_G/S_PARM: OK (Not Supported)
->          test VIDIOC_G_FBUF: OK (Not Supported)
->          test VIDIOC_G_FMT: OK
->          test VIDIOC_TRY_FMT: OK
->          test VIDIOC_S_FMT: OK
->          test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
->          test Cropping: OK
->          test Composing: OK
->          test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
->          test VIDIOC_(TRY_)ENCODER_CMD: OK (Not Supported)
->          test VIDIOC_G_ENC_INDEX: OK (Not Supported)
->          test VIDIOC_(TRY_)DECODER_CMD: OK
-> 
-> Buffer ioctls:
->          test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
->          test CREATE_BUFS maximum buffers: OK
->          test VIDIOC_REMOVE_BUFS: OK
->          test VIDIOC_EXPBUF: OK
->          test Requests: OK (Not Supported)
->          test blocking wait: OK
-> 
-> Test input 0:
-> 
-> Streaming ioctls:
->          test read/write: OK (Not Supported)
-> the input file is smaller than 7077888 bytes
->          Video Capture Multiplanar: Captured 65 buffers
->          test MMAP (select, REQBUFS): OK
-> the input file is smaller than 7077888 bytes
->          Video Capture Multiplanar: Captured 65 buffers
->          test MMAP (epoll, REQBUFS): OK
-> the input file is smaller than 7077888 bytes
->          Video Capture Multiplanar: Captured 65 buffers
->          test MMAP (select, CREATE_BUFS): OK
-> the input file is smaller than 7077888 bytes
->          Video Capture Multiplanar: Captured 65 buffers
->          test MMAP (epoll, CREATE_BUFS): OK
->          test USERPTR (select): OK (Not Supported)
->          test DMABUF: Cannot test, specify --expbuf-device
-> 
-> Total for iris_driver device /dev/video0: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> root@localhost:/lib/video_test# ./v4l2-compliance -d /dev/video1 -s
-> v4l2-compliance 1.31.0-5379, 64 bits, 64-bit time_t
-> v4l2-compliance SHA: 14c988631ad4 2025-11-11 11:19:35
-> 
-> Compliance test for iris_driver device /dev/video1:
-> 
-> Driver Info:
->          Driver name      : iris_driver
->          Card type        : Iris Encoder
->          Bus info         : platform:aa00000.video-codec
->          Driver version   : 6.19.0
->          Capabilities     : 0x84204000
->                  Video Memory-to-Memory Multiplanar
->                  Streaming
->                  Extended Pix Format
->                  Device Capabilities
->          Device Caps      : 0x04204000
->                  Video Memory-to-Memory Multiplanar
->                  Streaming
->                  Extended Pix Format
->          Detected Stateful Encoder
-> 
-> Required ioctls:
->          test VIDIOC_QUERYCAP: OK
->          test invalid ioctls: OK
-> 
-> Allow for multiple opens:
->          test second /dev/video1 open: OK
->          test VIDIOC_QUERYCAP: OK
->          test VIDIOC_G/S_PRIORITY: OK
->          test for unlimited opens: OK
-> 
-> Debug ioctls:
->          test VIDIOC_DBG_G/S_REGISTER: OK (Not Supported)
->          test VIDIOC_LOG_STATUS: OK (Not Supported)
-> 
-> Input ioctls:
->          test VIDIOC_G/S_TUNER/ENUM_FREQ_BANDS: OK (Not Supported)
->          test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->          test VIDIOC_S_HW_FREQ_SEEK: OK (Not Supported)
->          test VIDIOC_ENUMAUDIO: OK (Not Supported)
->          test VIDIOC_G/S/ENUMINPUT: OK (Not Supported)
->          test VIDIOC_G/S_AUDIO: OK (Not Supported)
->          Inputs: 0 Audio Inputs: 0 Tuners: 0
-> 
-> Output ioctls:
->          test VIDIOC_G/S_MODULATOR: OK (Not Supported)
->          test VIDIOC_G/S_FREQUENCY: OK (Not Supported)
->          test VIDIOC_ENUMAUDOUT: OK (Not Supported)
->          test VIDIOC_G/S/ENUMOUTPUT: OK (Not Supported)
->          test VIDIOC_G/S_AUDOUT: OK (Not Supported)
->          Outputs: 0 Audio Outputs: 0 Modulators: 0
-> 
-> Input/Output configuration ioctls:
->          test VIDIOC_ENUM/G/S/QUERY_STD: OK (Not Supported)
->          test VIDIOC_ENUM/G/S/QUERY_DV_TIMINGS: OK (Not Supported)
->          test VIDIOC_DV_TIMINGS_CAP: OK (Not Supported)
->          test VIDIOC_G/S_EDID: OK (Not Supported)
-> 
-> Control ioctls:
->          test VIDIOC_QUERY_EXT_CTRL/QUERYMENU: OK
->          test VIDIOC_QUERYCTRL: OK
->          test VIDIOC_G/S_CTRL: OK
->          test VIDIOC_G/S/TRY_EXT_CTRLS: OK
->          test VIDIOC_(UN)SUBSCRIBE_EVENT/DQEVENT: OK
->          test VIDIOC_G/S_JPEGCOMP: OK (Not Supported)
->          Standard Controls: 38 Private Controls: 0
-> 
-> Format ioctls:
->          test VIDIOC_ENUM_FMT/FRAMESIZES/FRAMEINTERVALS: OK
->          test VIDIOC_G/S_PARM: OK
->          test VIDIOC_G_FBUF: OK (Not Supported)
->          test VIDIOC_G_FMT: OK
->          test VIDIOC_TRY_FMT: OK
->          test VIDIOC_S_FMT: OK
->          test VIDIOC_G_SLICED_VBI_CAP: OK (Not Supported)
->          test Cropping: OK
->          test Composing: OK (Not Supported)
->          test Scaling: OK (Not Supported)
-> 
-> Codec ioctls:
->          test VIDIOC_(TRY_)ENCODER_CMD: OK
->          test VIDIOC_G_ENC_INDEX: OK (Not Supported)
->          test VIDIOC_(TRY_)DECODER_CMD: OK (Not Supported)
-> 
-> Buffer ioctls:
->          test VIDIOC_REQBUFS/CREATE_BUFS/QUERYBUF: OK
->          test CREATE_BUFS maximum buffers: OK
->          test VIDIOC_REMOVE_BUFS: OK
->          test VIDIOC_EXPBUF: OK
->          test Requests: OK (Not Supported)
->          test blocking wait: OK
-> 
-> Test input 0:
-> 
-> Streaming ioctls:
->          test read/write: OK (Not Supported)
->          Video Capture Multiplanar: Captured 61 buffers
->          test MMAP (select, REQBUFS): OK
->          Video Capture Multiplanar: Captured 61 buffers
->          test MMAP (epoll, REQBUFS): OK
->          Video Capture Multiplanar: Captured 61 buffers
->          test MMAP (select, CREATE_BUFS): OK
->          Video Capture Multiplanar: Captured 61 buffers
->          test MMAP (epoll, CREATE_BUFS): OK
->          test USERPTR (select): OK (Not Supported)
->          test DMABUF: Cannot test, specify --expbuf-device
-> 
-> Total for iris_driver device /dev/video1: 54, Succeeded: 54, Failed: 0, Warnings: 0
-> 
-> fluster result:
-> H.264:
-> Ran 77/135 tests successfully
-> 
-> H.265:
-> Ran 131/147 tests successfully
-> 
-> VP9:
-> Ran 235/305 tests successfully
-> 
-> Signed-off-by: Wangao Wang <wangao.wang@oss.qualcomm.com>
+On Wed, 27 May 2026 at 22:24, Prabhakar <prabhakar.csengg@gmail.com> wrote:
+> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+>
+> Enable the xSPI0 and xSPI1 controllers on the RZ/T2H N2H EVK board.
+>
+> Configure the xSPI0 controller interface to 1-bit (x1) mode, even though
+> the connected MX25LW51245 octal flash device supports octal mode. Add a
+> corresponding inline hardware comment detailing this restriction;
+> operating in octal mode causes the BootROM to fail loading the first-stage
+> bootloader following a Watchdog Timer (WDT) reset.
+>
+> Configure the xSPI1 controller interface connected to the AT25SF128A
+> flash device for 4-bit (x4) mode to utilize all available data lines.
+>
+> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 > ---
-> Changes in v8:
-> - Rebase onto the media-committers venus-iris-next branch.
-> - Link to v7: https://lore.kernel.org/r/20260514-enable_iris_on_purwa-v7-0-47aa5b026f1a@oss.qualcomm.com
-> 
-> Changes in v7:
-> - Rebase onto the media-committers next+fixes branch.
-> - Correct the firmware name.
-> - Link to v6: https://lore.kernel.org/r/20260507-enable_iris_on_purwa-v6-0-48da505e23bf@oss.qualcomm.com
-> 
-> Changes in v6:
-> - Correct the firmware being used.(Dikshita)
-> - Add comments to platform data.(Dikshita)
-> - Link to v5: https://lore.kernel.org/r/20260429-enable_iris_on_purwa-v5-0-438fa96da248@oss.qualcomm.com
-> 
-> Changes in v5:
-> - Modify the dt-binding description.(Krzysztof)
-> - Move the BSE clock on/off handling into the vpu3 code.(Krzysztof)
-> - Link to v4: https://lore.kernel.org/r/20260401-enable_iris_on_purwa-v4-0-ca784552a3e9@oss.qualcomm.com
-> 
-> Changes in v4:
-> - Correct the dt-binding description.(Krzysztof)
-> - Fix incorrect required-opps.(Dmitry)
-> - Reuse the vpu3 power off hardware api.
-> - Link to v3: https://lore.kernel.org/r/20260319-enable_iris_on_purwa-v3-0-bf8f3e9a8c9c@oss.qualcomm.com
-> 
-> Changes in v3:
-> - Correct the dt-binding description.(Krzysztof)
-> - Fix warnings reported in the patch.(Krzysztof)
-> - Add separate power on/off hooks for Purwa.(Dmitry)
-> - Link to v2: https://lore.kernel.org/r/20260306-enable_iris_on_purwa-v2-0-75fa80a0a9e3@oss.qualcomm.com
-> 
-> Changes in v2:
-> - Improve the dt-binding description.(Krzysztof)
-> - Move the BSE clock on/off handling into the vpu3 code.(Dmitry)
-> - Add the required members to the platform data for Purwa.(Dikshita)
-> - Link to v1: https://lore.kernel.org/r/20260209-enable_iris_on_purwa-v1-0-537c410f604f@oss.qualcomm.com
-> 
-> ---
-> Wangao Wang (5):
->        dt-bindings: media: qcom,sm8550-iris: Add X1P42100 compatible
->        media: iris: Add hardware power on/off ops for X1P42100
->        media: iris: Add platform data for X1P42100
->        arm64: dts: qcom: purwa: Override Iris clocks and operating points
->        arm64: dts: qcom: purwa-iot-som: enable video
-> 
->   .../bindings/media/qcom,sm8550-iris.yaml           | 23 +++++++++-
->   arch/arm64/boot/dts/qcom/purwa-iot-som.dtsi        |  4 ++
->   arch/arm64/boot/dts/qcom/purwa.dtsi                | 50 ++++++++++++++++++++++
->   .../platform/qcom/iris/iris_platform_common.h      |  1 +
->   .../media/platform/qcom/iris/iris_platform_vpu3x.c | 42 ++++++++++++++++++
->   .../platform/qcom/iris/iris_platform_x1p42100.h    | 22 ++++++++++
->   drivers/media/platform/qcom/iris/iris_probe.c      |  4 ++
->   drivers/media/platform/qcom/iris/iris_vpu_common.c |  9 +++-
->   8 files changed, 153 insertions(+), 2 deletions(-)
-> ---
-> base-commit: 735d2f48cadaa9a87e7c7601667878de70c771c5
-> change-id: 20260209-enable_iris_on_purwa-a000527a098d
-> prerequisite-change-id: 20260331-purwa-videocc-camcc-d9700d0f797d:v4
-> prerequisite-patch-id: 61bdb45446193b72dd8a4b093e4ab2f78db2f066
-> prerequisite-patch-id: b5be9dcbb612a14108f890b2782860847edfcbe4
-> prerequisite-patch-id: 2f4d4c5c118e057c76e6d2785479df01d5bc1c7b
-> prerequisite-patch-id: 026db5dd71d5b0472225ba72c8ba2781334143a9
-> prerequisite-patch-id: 615e6f38e528de35dc206f1c7f3eaf78ff04afe2
-> prerequisite-patch-id: 66096b909debe4d942eee972948d5a138a5be427
-> prerequisite-patch-id: ee26e00cdde21ddb070af713230082ad3454422c
-> 
-> Best regards,
-> --
-> Wangao Wang <wangao.wang@oss.qualcomm.com>
-> 
+> v1->v2:
+> - Dropped CKN pin
+> - Added ECS pin configuration for T2H EVK
+> - Added Switch settings for both T2H and N2H EVKs
+> - Fixed partition address for xSPI0 flash device
+> - Added spi-max-frequency property for both xSPI controllers
+> - Dropped grouping the pinctrl into subnodes for XSPI1 and
+>   for XSPI0 merged the ctrl and data pins into a single group
 
-Ehy why are camcc patches prerequisites for vidc ?
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.2.
 
-I'll drop all of that stuff since you don't depend on it and and you 
-don't actually want to be gated by it.
+Gr{oetje,eeting}s,
 
----
-bod
+                        Geert
+
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
