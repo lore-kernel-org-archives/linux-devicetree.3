@@ -1,369 +1,177 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 8B084352008;
-	Fri, 29 May 2026 09:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from out28-194.mail.aliyun.com (out28-194.mail.aliyun.com [115.124.28.194])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042F23C1989;
+	Fri, 29 May 2026 09:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.194
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780048281; cv=none; b=U7jpc4YC0RdonAbxOMD2+eCFOGzRXBIHIRbBuN/j0DX4lw85TjRpZOFc2M12lEGQcjDs5Kus67PTyfEUl9L6xiNgcG00yYHDDvAkKPBmgxjlYcQxLe0Ul0zxi+ow/F1UJAeQWrc9PDXvg5+eXpx71LNQ3FYzuyTEz3Yzxw4hJ78=
+	t=1780048285; cv=none; b=Q9EIAjdDzpV3QYzyhJrhLaC4qtlSGAPeY3lB0sItOLLEBRiJG3zqWBYR7lbCEmQfgOZz9KI4icmVNppyx6KFbJrHuqjIbUvzS+z5G5wV2YFH7fH8jsF49O5glhryBaYk2/QAe0oVTP3JHjtZ4LdPrSVn55xsvEictbRgQXY0vBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780048281; c=relaxed/simple;
-	bh=gn6E4YUkBoMhlc2fzVF1rkrenull8ItDqZ35JVAlmpE=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=L+e77blOEmUnY3t1gjkfLJzaewibRtBd76MAnncoiPJmZe9WtosyarMEVUPsEH1xLkifzSkeSFWAyqU6L0/DBSMyN6K70Qwj8Flpe+YSV174QbilcvOhvtwHiX+WS7BJRGvGarlpYcNOJuTonhvRh2rlr5mjXergTW16qnlNVbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=q96/kYoz; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780048285; c=relaxed/simple;
+	bh=FwZilHJvlu5BcKUF1QM9XkgeYWA0R8eDrcBtZ+1ty8U=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=XiHnUthN6TZah686+PC4HE8xSxHfpdkJYszpouXNzYbe5Prmub24nyoj+5KiByuR5KvD/mkkFPLDdSHXdt1SPZd8C6N8gmj2vLA5gyqPFCzkrn+UbIu/LCC96P0lc50zAGjFFuPsjA0gkNA/w4eCABFhcazsyRpOXw9ebdpD8N8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=JXjwaA46; arc=none smtp.client-ip=115.124.28.194
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="q96/kYoz"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id DEB4232E5;
-	Fri, 29 May 2026 02:51:13 -0700 (PDT)
-Received: from e134710.arm.com (e134710.arm.com [10.33.10.82])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 815533F905;
-	Fri, 29 May 2026 02:51:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780048278; bh=gn6E4YUkBoMhlc2fzVF1rkrenull8ItDqZ35JVAlmpE=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=q96/kYozvwR4cSpcfyIg1Y2epdEN4CXd2I6EmQJ3tlaTt11k6JM6b02uS7h5hvjEp
-	 lxW8AHjcetLYHEt8daat1PBMLmMvtqJP7T49/lHAxjLI3VJUGPIv3hCZ4ML0JUenUi
-	 lte7aorxs+wC/cXb/ErdTtMfi32HZDKeui8tO8Dw=
-From: Ahmed Tiba <ahmed.tiba@arm.com>
-Date: Fri, 29 May 2026 10:50:41 +0100
-Subject: [PATCH v5 01/10] ACPI: APEI: GHES: share macros via a private
- header
+	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="JXjwaA46"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=lontium.com; s=default;
+	t=1780048274; h=From:To:Subject:Date:Message-Id:MIME-Version;
+	bh=eVZn7MAONGMHowrlbF8Q4henpwp8Ya3lVGmR/icgdNU=;
+	b=JXjwaA46JCGQd6uFEoC6HY0uIcnkFqOYbd0W3Zep7rznj67wRAQ1ManvuJ8mUEMyBfjN7rcIIT0cMI0aXkp19u3Wx8XvJF/dAGVizdKjfOanpNgE3OfgvMoAQUEoZFgQwXdMyPm5J4gxdsO6RKqAGwx7tKikGbT9GMm9BLgLsm7RPCu7IL+mRIRh/hUSMyZ7J2Eb55upCFHiAlXY+oci+rbMSD3ga0V0as4gWJcR8ATtN1kRcGHLXnK5XB0rjMJAtoDWwJl2iSBxZM4Lgq44bc1msK150QcF/Vh2xY11x1EhugWc8NceDXvT8npB9viDrxfxXp/uqiABivgjpJNOnA==
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08557807|-1;BR=01201311R551ec;CH=green;DM=|CONTINUE|false|;DS=SPAM|spam_ad|0.867174-0.00121929-0.131607;FP=12538499638350538034|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021130;MF=syyang@lontium.com;NM=1;PH=DS;RN=24;RT=24;SR=0;TI=SMTPD_---.hjtUXR._1780047952;
+Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hjtUXR._1780047952 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Fri, 29 May 2026 17:45:53 +0800
+From: syyang@lontium.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	maarten.lankhorst@linux.intel.com,
+	rfoss@kernel.org,
+	mripard@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	tzimmermann@suse.de,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	devicetree@vger.kernel.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	xmzhu@lontium.corp-partner.google.com,
+	xmzhu@lontium.com,
+	rlyu@lontium.com,
+	xbpeng@lontium.com,
+	qdchen@lontium.com,
+	llzhang@lontium.com,
+	Sunyun Yang <syyang@lontium.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH v13 1/2] dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+Date: Fri, 29 May 2026 17:45:46 +0800
+Message-Id: <20260529094547.869919-2-syyang@lontium.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260529094547.869919-1-syyang@lontium.com>
+References: <20260529094547.869919-1-syyang@lontium.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-1-2e0500d42642@arm.com>
-References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
-In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
-To: will@kernel.org, jic23@kernel.org, xueshuai@linux.alibaba.com, 
- saket.dumbre@intel.com, mchehab@kernel.org, dave@stgolabs.net, 
- djbw@kernel.org, bp@alien8.de, tony.luck@intel.com, guohanjun@huawei.com, 
- lenb@kernel.org, skhan@linuxfoundation.org, vishal.l.verma@intel.com, 
- rafael@kernel.org, corbet@lwn.net, ira.weiny@intel.com, 
- dave.jiang@intel.com, krzk+dt@kernel.org, robh@kernel.org, 
- catalin.marinas@arm.com, alison.schofield@intel.com, conor+dt@kernel.org
-Cc: Ahmed Tiba <ahmed.tiba@arm.com>, linux-arm-kernel@lists.infradead.org, 
- Michael.Zhao2@arm.com, linux-doc@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
- Dmitry.Lamerov@arm.com, devicetree@vger.kernel.org, 
- linux-acpi@vger.kernel.org, linux-edac@vger.kernel.org, 
- acpica-devel@lists.linux.dev
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780048269; l=10841;
- i=ahmed.tiba@arm.com; s=20260219; h=from:subject:message-id;
- bh=gn6E4YUkBoMhlc2fzVF1rkrenull8ItDqZ35JVAlmpE=;
- b=jgtGkbo+0W3nQoBUrxCyfd77zgGPJf/3Dvek7YEgGlmglXx/Z5A6dw6Q/CbIa5Ow9et9dPFO8
- SAGmL/owT9QC1EUJzj2KGczmDahd9HUGHmCDFTy3w5srF728pXrEZTo
-X-Developer-Key: i=ahmed.tiba@arm.com; a=ed25519;
- pk=xVOtd+Qklh/4tuM3tB+BEZD4jj5a6W59C3KCNX6v7OE=
+Content-Transfer-Encoding: 8bit
 
-Carve the CPER helper macros out of ghes.c and place them in a private
-header so they can be shared with upcoming helper files. This is a
-mechanical include change with no functional differences.
+From: Sunyun Yang <syyang@lontium.com>
 
-Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
+This commit adds the device tree binding schema for the Lontium LT7911EXC.
+This device is an I2C-controlled bridge that converts eDP 1.4 input to MIPI
+DSI output.
+
+Signed-off-by: Sunyun Yang <syyang@lontium.com>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 ---
- drivers/acpi/apei/ghes.c |  94 +++++++++----------------------------------
- include/acpi/ghes_cper.h | 102 +++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 120 insertions(+), 76 deletions(-)
+ .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
+ 1 file changed, 89 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
 
-diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
-index 3236a3ce79d6..4f67f46410c4 100644
---- a/drivers/acpi/apei/ghes.c
-+++ b/drivers/acpi/apei/ghes.c
-@@ -49,6 +49,7 @@
- 
- #include <acpi/actbl1.h>
- #include <acpi/ghes.h>
-+#include <acpi/ghes_cper.h>
- #include <acpi/apei.h>
- #include <asm/fixmap.h>
- #include <asm/tlbflush.h>
-@@ -57,40 +58,6 @@
- 
- #include "apei-internal.h"
- 
--#define GHES_PFX	"GHES: "
--
--#define GHES_ESTATUS_MAX_SIZE		65536
--#define GHES_ESOURCE_PREALLOC_MAX_SIZE	65536
--
--#define GHES_ESTATUS_POOL_MIN_ALLOC_ORDER 3
--
--/* This is just an estimation for memory pool allocation */
--#define GHES_ESTATUS_CACHE_AVG_SIZE	512
--
--#define GHES_ESTATUS_CACHES_SIZE	4
--
--#define GHES_ESTATUS_IN_CACHE_MAX_NSEC	10000000000ULL
--/* Prevent too many caches are allocated because of RCU */
--#define GHES_ESTATUS_CACHE_ALLOCED_MAX	(GHES_ESTATUS_CACHES_SIZE * 3 / 2)
--
--#define GHES_ESTATUS_CACHE_LEN(estatus_len)			\
--	(sizeof(struct ghes_estatus_cache) + (estatus_len))
--#define GHES_ESTATUS_FROM_CACHE(estatus_cache)			\
--	((struct acpi_hest_generic_status *)				\
--	 ((struct ghes_estatus_cache *)(estatus_cache) + 1))
--
--#define GHES_ESTATUS_NODE_LEN(estatus_len)			\
--	(sizeof(struct ghes_estatus_node) + (estatus_len))
--#define GHES_ESTATUS_FROM_NODE(estatus_node)			\
--	((struct acpi_hest_generic_status *)				\
--	 ((struct ghes_estatus_node *)(estatus_node) + 1))
--
--#define GHES_VENDOR_ENTRY_LEN(gdata_len)                               \
--	(sizeof(struct ghes_vendor_record_entry) + (gdata_len))
--#define GHES_GDATA_FROM_VENDOR_ENTRY(vendor_entry)                     \
--	((struct acpi_hest_generic_data *)                              \
--	((struct ghes_vendor_record_entry *)(vendor_entry) + 1))
--
- /*
-  *  NMI-like notifications vary by architecture, before the compiler can prune
-  *  unused static functions it needs a value for these enums.
-@@ -102,25 +69,6 @@
- 
- static ATOMIC_NOTIFIER_HEAD(ghes_report_chain);
- 
--static inline bool is_hest_type_generic_v2(struct ghes *ghes)
--{
--	return ghes->generic->header.type == ACPI_HEST_TYPE_GENERIC_ERROR_V2;
--}
--
--/*
-- * A platform may describe one error source for the handling of synchronous
-- * errors (e.g. MCE or SEA), or for handling asynchronous errors (e.g. SCI
-- * or External Interrupt). On x86, the HEST notifications are always
-- * asynchronous, so only SEA on ARM is delivered as a synchronous
-- * notification.
-- */
--static inline bool is_hest_sync_notify(struct ghes *ghes)
--{
--	u8 notify_type = ghes->generic->notify.type;
--
--	return notify_type == ACPI_HEST_NOTIFY_SEA;
--}
--
- /*
-  * This driver isn't really modular, however for the time being,
-  * continuing to use module_param is the easiest way to remain
-@@ -165,12 +113,6 @@ static DEFINE_MUTEX(ghes_devs_mutex);
-  */
- static DEFINE_SPINLOCK(ghes_notify_lock_irq);
- 
--struct ghes_vendor_record_entry {
--	struct work_struct work;
--	int error_severity;
--	char vendor_record[];
--};
--
- static struct gen_pool *ghes_estatus_pool;
- 
- static struct ghes_estatus_cache __rcu *ghes_estatus_caches[GHES_ESTATUS_CACHES_SIZE];
-@@ -266,7 +208,7 @@ static void ghes_ack_error(struct acpi_hest_generic_v2 *gv2)
- 	apei_write(val, &gv2->read_ack_register);
- }
- 
--static struct ghes *ghes_new(struct acpi_hest_generic *generic)
-+struct ghes *ghes_new(struct acpi_hest_generic *generic)
- {
- 	struct ghes *ghes;
- 	unsigned int error_block_length;
-@@ -313,7 +255,7 @@ static struct ghes *ghes_new(struct acpi_hest_generic *generic)
- 	return ERR_PTR(rc);
- }
- 
--static void ghes_fini(struct ghes *ghes)
-+void ghes_fini(struct ghes *ghes)
- {
- 	kfree(ghes->estatus);
- 	apei_unmap_generic_address(&ghes->generic->error_status_address);
-@@ -363,8 +305,8 @@ static void ghes_copy_tofrom_phys(void *buffer, u64 paddr, u32 len,
- }
- 
- /* Check the top-level record header has an appropriate size. */
--static int __ghes_check_estatus(struct ghes *ghes,
--				struct acpi_hest_generic_status *estatus)
-+int __ghes_check_estatus(struct ghes *ghes,
-+			 struct acpi_hest_generic_status *estatus)
- {
- 	u32 len = cper_estatus_len(estatus);
- 	u32 max_len = min(ghes->generic->error_block_length,
-@@ -389,9 +331,9 @@ static int __ghes_check_estatus(struct ghes *ghes,
- }
- 
- /* Read the CPER block, returning its address, and header in estatus. */
--static int __ghes_peek_estatus(struct ghes *ghes,
--			       struct acpi_hest_generic_status *estatus,
--			       u64 *buf_paddr, enum fixed_addresses fixmap_idx)
-+int __ghes_peek_estatus(struct ghes *ghes,
-+			struct acpi_hest_generic_status *estatus,
-+			u64 *buf_paddr, enum fixed_addresses fixmap_idx)
- {
- 	struct acpi_hest_generic *g = ghes->generic;
- 	int rc;
-@@ -400,7 +342,7 @@ static int __ghes_peek_estatus(struct ghes *ghes,
- 	if (rc) {
- 		*buf_paddr = 0;
- 		pr_warn_ratelimited(FW_WARN GHES_PFX
--"Failed to read error status block address for hardware error source: %d.\n",
-+				    "Failed to read error status block address for hardware error source: %d.\n",
- 				   g->header.source_id);
- 		return -EIO;
- 	}
-@@ -417,9 +359,9 @@ static int __ghes_peek_estatus(struct ghes *ghes,
- 	return 0;
- }
- 
--static int __ghes_read_estatus(struct acpi_hest_generic_status *estatus,
--			       u64 buf_paddr, enum fixed_addresses fixmap_idx,
--			       size_t buf_len)
-+int __ghes_read_estatus(struct acpi_hest_generic_status *estatus,
-+			u64 buf_paddr, enum fixed_addresses fixmap_idx,
-+			size_t buf_len)
- {
- 	ghes_copy_tofrom_phys(estatus, buf_paddr, buf_len, 1, fixmap_idx);
- 	if (cper_estatus_check(estatus)) {
-@@ -431,9 +373,9 @@ static int __ghes_read_estatus(struct acpi_hest_generic_status *estatus,
- 	return 0;
- }
- 
--static int ghes_read_estatus(struct ghes *ghes,
--			     struct acpi_hest_generic_status *estatus,
--			     u64 *buf_paddr, enum fixed_addresses fixmap_idx)
-+int ghes_read_estatus(struct ghes *ghes,
-+		      struct acpi_hest_generic_status *estatus,
-+		      u64 *buf_paddr, enum fixed_addresses fixmap_idx)
- {
- 	int rc;
- 
-@@ -449,9 +391,9 @@ static int ghes_read_estatus(struct ghes *ghes,
- 				   cper_estatus_len(estatus));
- }
- 
--static void ghes_clear_estatus(struct ghes *ghes,
--			       struct acpi_hest_generic_status *estatus,
--			       u64 buf_paddr, enum fixed_addresses fixmap_idx)
-+void ghes_clear_estatus(struct ghes *ghes,
-+			struct acpi_hest_generic_status *estatus,
-+			u64 buf_paddr, enum fixed_addresses fixmap_idx)
- {
- 	estatus->block_status = 0;
- 
-diff --git a/include/acpi/ghes_cper.h b/include/acpi/ghes_cper.h
+diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
 new file mode 100644
-index 000000000000..6b7632cfaf66
+index 000000000000..3290b10ce883
 --- /dev/null
-+++ b/include/acpi/ghes_cper.h
-@@ -0,0 +1,102 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+/*
-+ * GHES declarations used by both the ACPI APEI GHES driver
-+ * and the firmware-first CPER provider.
-+ *
-+ * These declarations lets GHES and other firmware-first error sources use
-+ * the same helper so the non-ACPI path follows the same
-+ * behavior as GHES instead of carrying a separate copy.
-+ *
-+ * Derived from the ACPI APEI GHES driver.
-+ *
-+ * Copyright 2010,2011 Intel Corp.
-+ *   Author: Huang Ying <ying.huang@intel.com>
-+ */
++++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+@@ -0,0 +1,89 @@
++# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+#ifndef ACPI_APEI_GHES_CPER_H
-+#define ACPI_APEI_GHES_CPER_H
++title: Lontium LT7911EXC eDP to MIPI DSI Bridge
 +
-+#include <linux/workqueue.h>
++maintainers:
++  - Sunyun Yang <syyang@lontium.com>
 +
-+#include <acpi/ghes.h>
++properties:
++  compatible:
++    enum:
++      - lontium,lt7911exc
 +
-+#define GHES_PFX	"GHES: "
++  reg:
++    maxItems: 1
 +
-+#define GHES_ESTATUS_MAX_SIZE		65536
-+#define GHES_ESOURCE_PREALLOC_MAX_SIZE	65536
++  reset-gpios:
++    maxItems: 1
++    description: GPIO connected to RST_ pin.
 +
-+#define GHES_ESTATUS_POOL_MIN_ALLOC_ORDER 3
++  vdd-supply:
++    description: Regulator for 1.2V MIPI phy power.
 +
-+/* This is just an estimation for memory pool allocation */
-+#define GHES_ESTATUS_CACHE_AVG_SIZE	512
++  vcc-supply:
++    description: Regulator for 3.3V IO power.
 +
-+#define GHES_ESTATUS_CACHES_SIZE	4
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
 +
-+#define GHES_ESTATUS_IN_CACHE_MAX_NSEC	10000000000ULL
-+/* Prevent too many caches are allocated because of RCU */
-+#define GHES_ESTATUS_CACHE_ALLOCED_MAX	(GHES_ESTATUS_CACHES_SIZE * 3 / 2)
++    properties:
++      port@0:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for eDP input.
 +
-+#define GHES_ESTATUS_CACHE_LEN(estatus_len)			\
-+	(sizeof(struct ghes_estatus_cache) + (estatus_len))
-+#define GHES_ESTATUS_FROM_CACHE(estatus_cache)			\
-+	((struct acpi_hest_generic_status *)				\
-+	 ((struct ghes_estatus_cache *)(estatus_cache) + 1))
++      port@1:
++        $ref: /schemas/graph.yaml#/properties/port
++        description: Video port for MIPI DSI output.
 +
-+#define GHES_ESTATUS_NODE_LEN(estatus_len)			\
-+	(sizeof(struct ghes_estatus_node) + (estatus_len))
-+#define GHES_ESTATUS_FROM_NODE(estatus_node)			\
-+	((struct acpi_hest_generic_status *)				\
-+	 ((struct ghes_estatus_node *)(estatus_node) + 1))
++    required:
++      - port@0
++      - port@1
 +
-+#define GHES_VENDOR_ENTRY_LEN(gdata_len)                               \
-+	(sizeof(struct ghes_vendor_record_entry) + (gdata_len))
-+#define GHES_GDATA_FROM_VENDOR_ENTRY(vendor_entry)                     \
-+	((struct acpi_hest_generic_data *)                              \
-+	((struct ghes_vendor_record_entry *)(vendor_entry) + 1))
++required:
++  - compatible
++  - reg
++  - reset-gpios
++  - vdd-supply
++  - vcc-supply
++  - ports
 +
-+static inline bool is_hest_type_generic_v2(struct ghes *ghes)
-+{
-+	return ghes->generic->header.type == ACPI_HEST_TYPE_GENERIC_ERROR_V2;
-+}
++additionalProperties: false
 +
-+/*
-+ * A platform may describe one error source for the handling of synchronous
-+ * errors (e.g. MCE or SEA), or for handling asynchronous errors (e.g. SCI
-+ * or External Interrupt). On x86, the HEST notifications are always
-+ * asynchronous, so only SEA on ARM is delivered as a synchronous
-+ * notification.
-+ */
-+static inline bool is_hest_sync_notify(struct ghes *ghes)
-+{
-+	u8 notify_type = ghes->generic->notify.type;
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+	return notify_type == ACPI_HEST_NOTIFY_SEA;
-+}
++        mipi-bridge@41 {
++            compatible = "lontium,lt7911exc";
++            reg = <0x41>;
++            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
++            vdd-supply = <&lt7911exc_1v2>;
++            vcc-supply = <&lt7911exc_3v3>;
 +
-+struct ghes_vendor_record_entry {
-+	struct work_struct work;
-+	int error_severity;
-+	char vendor_record[];
-+};
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
 +
-+#ifdef CONFIG_ACPI_APEI
-+struct ghes *ghes_new(struct acpi_hest_generic *generic);
-+void ghes_fini(struct ghes *ghes);
++                port@0 {
++                    reg = <0>;
++                    bridge_in: endpoint {
++                        remote-endpoint = <&edp_out>;
++                    };
++                };
 +
-+int ghes_read_estatus(struct ghes *ghes,
-+		      struct acpi_hest_generic_status *estatus,
-+		      u64 *buf_paddr, enum fixed_addresses fixmap_idx);
-+void ghes_clear_estatus(struct ghes *ghes,
-+			struct acpi_hest_generic_status *estatus,
-+			u64 buf_paddr, enum fixed_addresses fixmap_idx);
-+int __ghes_peek_estatus(struct ghes *ghes,
-+			struct acpi_hest_generic_status *estatus,
-+			u64 *buf_paddr, enum fixed_addresses fixmap_idx);
-+int __ghes_check_estatus(struct ghes *ghes,
-+			 struct acpi_hest_generic_status *estatus);
-+int __ghes_read_estatus(struct acpi_hest_generic_status *estatus,
-+			u64 buf_paddr, enum fixed_addresses fixmap_idx,
-+			size_t buf_len);
-+#endif
-+
-+#endif /* ACPI_APEI_GHES_CPER_H */
-
++                port@1 {
++                    reg = <1>;
++                    bridge_out: endpoint {
++                        remote-endpoint = <&panel_in>;
++                    };
++                };
++            };
++        };
++    };
 -- 
-2.43.0
+2.34.1
 
