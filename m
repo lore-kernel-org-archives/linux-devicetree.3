@@ -1,96 +1,99 @@
-Received: from mail-ua1-f53.google.com (mail-ua1-f53.google.com [209.85.222.53])
+Received: from mail-wm1-f41.google.com (mail-wm1-f41.google.com [209.85.128.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 986B83B3888
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:35:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB3E30C35C
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:38:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780043701; cv=none; b=q3CafDwPC07HCuCB6XB30vv6G/i3/YSnWUArPJQxNjfFIxUB5PQDdd7fx6Un+/wyG1tf7zy9cLBVfP5M2QnOWMMrpJMYJsZDMFgVQaVIbhqunJlW1x6lWBqMWBGu5ldHcW/xwQXYWM+wU+HUzfm4MorAh6Kco65wJv4VSE9eGM4=
+	t=1780043894; cv=none; b=n87M8SOMin9eFTwVZ4qbfO8KHPW00aoQV6YoByQ/2oKXvHPkeT4Tfd8YOVrAp3CBrMCttoGXdGTdcq7RSmmueaixujLDngV/EDOLfOPHziJIwfDiKmKLUUX1ryzcTSFMigIge65k3oSOqn98iKSeFLGM8UhVNucAnmLytFZ+YkA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780043701; c=relaxed/simple;
-	bh=ek3qk4m+/2gBxopYsug1++/DvNEbzXlTNyoVd3g+TaA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=a69W3NKfp8vWtwXkiZYzxsxcWYWUJ0///fVy8sc3fsdjgWEk6vn9SilYmxwS4keIEYB+Rf6+RXp76mZ3CWKp0W2tI8LfcAtQqYQ4lOhdXxGtFDIIypWBIc3scIMXB2mGr7wWcRAgb/ReLzsdtNnhlW2XJq8QN/8DELK7+SLZXVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1780043894; c=relaxed/simple;
+	bh=VgAm+RNMOJA2j0Sf/kAZ80gwxzHPi9+cRsWGiGUdYTM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oWlOkO0ZLKpxuahvSSPOwv/qcrViEf9eLEbnUDY9RuioJvA8jQtFTPNP6mAXPDvgelHx8n3xEppKWpa+J67DgWMtrA1nKPotgAkY8tRVUtf4DQW5l43umC6ISXtq0iqPs25k4Bw/RbyxeZjG2HwCC7Yn4FPHqclMCG9ZcTppTO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LMdQ4Bk2; arc=none smtp.client-ip=209.85.128.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f53.google.com with SMTP id a1e0cc1a2514c-9639e91e773so444892241.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:35:00 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LMdQ4Bk2"
+Received: by mail-wm1-f41.google.com with SMTP id 5b1f17b1804b1-49041e84237so61338025e9.1
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:38:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780043892; x=1780648692; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=5gBZ+/d1KcPESiQ0VdW5TtOLU2jbI36z47/ITTKvpHY=;
+        b=LMdQ4Bk2TUf7zi7yHKpp1xWzHUY1JYgWo60bx0BNm9QlvbNq52fI3blCb6B+9bwvzG
+         p7cCi30JcBMnb8jWy4YM464leoB5IB91+hv9kihkJ1XecO46EtS5DJ17/PktsC6vz7zB
+         V6IYb9gBgMjxN8eEWTlmPuQ4PDHmeIsErwpmeEnIz3S34FfXAC9qeE8xx9LF5vGozszY
+         ltFvzwFk7viTj/5aRpBmPdcUlBkDh/4c8NcRNmpF/pr+4SYK4SWThPo0K00riu/0bEw9
+         X6YVuiBPqhVkkmttG5isFgh8EcwwUAE1VQIsbzLJgNZkkcZvR93lfoyOvj9UTtjY4X57
+         jFqQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780043700; x=1780648500;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20251104; t=1780043892; x=1780648692;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=3Q6zzuN3Y1XcfvM192VXxH5bPBxYyz0/XT0mI+jj97c=;
-        b=RE0vSrjc25Jq/XC5rXvhcdZAj81exTOnJligunXZaWeEAmiZNsE2cMkf7lM/NcutpM
-         wuC1/TcFPOt2teU4xWC+B4JwsLp1ReNBQohXvkcNgz5x1DmKcBUjupiq29y9BVnprKt9
-         09PBrRswfrcV0imVyIVkBwYMWru0z195POqGcD5iQZjrvsdZFgEJTQhPn3rNxXUvTpVT
-         Ll2aU4adgewLehQjY652cE0yjp1kv/NF94EMtda80S1Z0li/q5Yxz4VwfMd0AFPKP6Ng
-         1t6fkIebNMr53IEQ4FxX9PtNucuq8pdqyhAZgJFSH7yoMKzINidTiGhyMI7AVcFD+jmK
-         pu+g==
-X-Forwarded-Encrypted: i=1; AFNElJ86QJuOcjUBLcON766ss0vCW/GNoacfg8W+oFx2jcoW7lngS7VDjIMD/Scs2BALcUXV4TQLs/Zsl/p7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSYMW5z77YtZicxDMfxKyNtiHUgbMgtGTIBP5qCVfe9CDHWxwt
-	/BT3eEFQ1lm3ocw03AsDOQmezK73ZTB7WdBYBvNSxrGn6RltWV0KQDBIS+LRMNXvBRE=
-X-Gm-Gg: Acq92OFnn0UK70mDTvT5rBRrboChksY6h+D4HYsSD53DT8pOQd99MAyS+y/br6NJhZN
-	K/79KKJb//RPgV1gmSi8yoEndaFA0qtJflj3Jv02+vCwaXjU5NXYIyAI1qADN6knUoVCkRIJXAd
-	r+7QOm6xeCowy1P8+qz0jT2HBFN6F6FBmL4OSTaNS8ot/Tvj7i9fsgcWuRLJIztgvevoVb53kwJ
-	b7NgUhAlrnDgrk0wzlEOdrNwB0oQgNjsqgfmUzbjWDQKQNqqWuw8fy7i3DOug3sW37HxCuh7Cnt
-	rbAYr9h+L1rf2rGv1Qwg5OY0CNNJimWajn4C+TQyczqjiqfOPAhQnizrOUQ+/KZaUbkVfKwM93q
-	/fXPazQkG6kT8csoe38Fu75TRVpGFY1dle+J62OmdhZD7Zpebu9WuAgeaEkWZV/BZH9LzPR3jEf
-	v6kTZFHvloGXLU/eiHSuoma5J4/XAn/L04qrmdED22e1vrOQFSmpxbQkaLKmSdF+W7evSHMlICT
-	tMGf0oLUQ==
-X-Received: by 2002:a05:6102:6a8c:b0:6ac:c0ab:5dc7 with SMTP id ada2fe7eead31-6bf264835cemr653948137.5.1780043699609;
-        Fri, 29 May 2026 01:34:59 -0700 (PDT)
-Received: from mail-vs1-f54.google.com (mail-vs1-f54.google.com. [209.85.217.54])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-963abeadd1fsm499288241.12.2026.05.29.01.34.58
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 01:34:58 -0700 (PDT)
-Received: by mail-vs1-f54.google.com with SMTP id ada2fe7eead31-6c1f4439688so48899137.2
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:34:58 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8oXlhRVZN5v8JlzOf9W/2IOUMMuYmy4wQcoSaEWhWBgbkaHBiYy4CpToipPmIsAB06uE+ij27KZlNL@vger.kernel.org
-X-Received: by 2002:a05:6102:3a0e:b0:632:29a5:2b28 with SMTP id
- ada2fe7eead31-6bf26482f08mr633139137.6.1780043698317; Fri, 29 May 2026
- 01:34:58 -0700 (PDT)
+        bh=5gBZ+/d1KcPESiQ0VdW5TtOLU2jbI36z47/ITTKvpHY=;
+        b=XDXmLIl56v9qelV6Bc17bew/Iu6VvsXYbuFnYWlNwO7nHeHIVvGMCthppTWnfPbml2
+         hFsdtcluFd4s8Ed/HuddQ761K3URJun1sfv9EXM3ReJXJPecfFhUwGC0sh/GAzwejuV1
+         FVaHFr7ZPZyZ8DT3MXY1ZIuPvs189hhM5a7DyqfZPG7In5XSYsZ1qhvCz6kakUdFJptz
+         pQjmWx8hs4ue1cGSbEvxYclV55rwX7PJ1snokVFxbjwLlO8DI8tTYzV/ghehh13S8gNP
+         ti6We8icyVFTrGDSOlGQRRX5YC4vK5/a9suDB3bp6TStqrnqBT/Qp8PNVFNZwJbzox4D
+         mdBw==
+X-Gm-Message-State: AOJu0Yz6DplH+32HRtwVdsOIow6/HcufDhqKQ5UkPx0lZabHfJBsozZh
+	HOBB/m/xEqK2NEG9xkNgVuxr72ycVbUOz18OvzRRHcWe3gEdWY5M28AQ
+X-Gm-Gg: Acq92OHVUwx0n5/gk/ZNXMScvDAV9DDs64DS77NlAta1e//NZu6pAHo8egzTTxZEO2f
+	XOArSaPM0kwfXX4C1u8qlhL+2ydy2otZ2NiiTy1/Ax0+tj0o+cx+Q+vpS97YA9GxsayfY9Qf38y
+	h0f+JdDMA86GjJRdWW3ah7PR0OFp2xwVvLM21Mi/p4gTaXmwxaSr2VISp5rtJxAPHdhDYZeIVuR
+	v7+muU135kwc32mkkX9QMRJY3h18O1WwDhgnijo1skFVhIAkc85WAhr/ksU4zI0PxoUpgz5Zouk
+	uAFoJYd1eEvFyH3tcAVqG084r9o/guGYQc/aqA0E2YChOUK9EFCFhlF3IZYJcD3SZx4X1sTBbaE
+	57OEYR8d3VNg/bbwTJYwVifvO6O5t9C9XPnBlB2UOlDCs7jqUvXjOC+CqW3SG700ePk2j+fipA/
+	/N7JSJ2JFDo3wgLHQBPuUoz9k=
+X-Received: by 2002:a05:600c:3e88:b0:490:5000:917 with SMTP id 5b1f17b1804b1-4909c406a47mr25143675e9.1.1780043891800;
+        Fri, 29 May 2026 01:38:11 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909d5f2347sm24939705e9.0.2026.05.29.01.38.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 01:38:11 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v1 0/2] ARM: tegra: Add device-tree for Motorola Atrix 4G and Droid X2
+Date: Fri, 29 May 2026 11:37:50 +0300
+Message-ID: <20260529083752.44796-1-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260520132315.944117-1-claudiu.beznea@kernel.org>
-In-Reply-To: <20260520132315.944117-1-claudiu.beznea@kernel.org>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 29 May 2026 10:34:46 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXLmoOrx9+TngcOK7_M=oKgJRcxmPKGDetRe++hX2vDPw@mail.gmail.com>
-X-Gm-Features: AVHnY4LJbRYzzzwKxtB5OZZtYlbRSFCPZZqg47A89j0pRjOAgDTOMrGCgSK8kjA
-Message-ID: <CAMuHMdXLmoOrx9+TngcOK7_M=oKgJRcxmPKGDetRe++hX2vDPw@mail.gmail.com>
-Subject: Re: [PATCH] arm64: dts: renesas: r9a07g044: Add DMA properties for
- serial nodes
-To: Claudiu Beznea <claudiu.beznea@kernel.org>
-Cc: magnus.damm@gmail.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	claudiu.beznea@tuxon.dev, Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Wed, 20 May 2026 at 15:23, Claudiu Beznea <claudiu.beznea@kernel.org> wrote:
-> From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
->
-> Add DMA properties for the serial nodes on RZ/G2L SoC.
->
-> Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+Add a device-tree for the Motorola Atrix 4G and Droid X2, which both are
+NVIDIA Tegra20-based smartphones, originally running Android.
 
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.2.
+Svyatoslav Ryhel (2):
+  dt-bindings: arm: tegra: Add Motorola Artix 4G and Droid X2
+  ARM: tegra: Add device-tree for Motorola Atrix 4G and Droid X2
 
-Gr{oetje,eeting}s,
-
-                        Geert
+ .../devicetree/bindings/arm/tegra.yaml        |    6 +
+ arch/arm/boot/dts/nvidia/Makefile             |    2 +
+ .../dts/nvidia/tegra20-motorola-daytona.dts   |  107 ++
+ .../boot/dts/nvidia/tegra20-motorola-mot.dtsi | 1194 +++++++++++++++++
+ .../dts/nvidia/tegra20-motorola-olympus.dts   |  108 ++
+ 5 files changed, 1417 insertions(+)
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra20-motorola-daytona.dts
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra20-motorola-mot.dtsi
+ create mode 100644 arch/arm/boot/dts/nvidia/tegra20-motorola-olympus.dts
 
 -- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+2.51.0
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
