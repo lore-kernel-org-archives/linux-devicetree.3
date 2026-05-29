@@ -1,90 +1,104 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7353A37106E;
-	Fri, 29 May 2026 11:45:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCDD3C76A3
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:45:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780055136; cv=none; b=IKfT8hf5crCOzu9X3GKvqkG9oHeY0Dwj6OP5UXaS+aDtXngQy3WdXPu6fgzzcW5Rw6EpVlOAOoxLBg5DQMeePf9DuFbMofpRr6Hutj5KN5ULW4fNA8XdR2aKrKv3rlIGhAn/BU6pJlv9lSSoFrl2EqPTKgZboP1zovaw41Z55Iw=
+	t=1780055142; cv=none; b=k8q6HgfvCuqTHRCRHyj6d3hkueOEM3jdl54J31c5DX31bf3klXHlCSbip48MPTqKjU206I/i+FaFya/qW8m9dv7sWP4NvnLppgLGmySY1fEh7yqirqDltE7nAwNqUfECkaobO/x3Kz2LQpqPabS0132Px+tMvvAVrTDbt6uQgVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780055136; c=relaxed/simple;
-	bh=+Y5pr1tUtowdq4cGdCkoGxL6d1e+ZMqe0Src+FHo/gM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=h/lrjMj+E+V90qYIcbiSbI7Lrkq/6owM61xPNcpmqzFOJNO6y1hzjkqw7XinXDwC3whYdMH6G0UJyXPcgyrooRPZbEuIR7cB25v/6DuPHJY2kXn2/39pmdX8x5SQ24ZMcWxUjW9CDwL5J6GmUFEDQsB4xP6jPjBP+M19K3aUm3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=ZoOBoPTY; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="ZoOBoPTY"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=OsUANOWLHKOer8SDTCbPpoX6AoZe8u2V4LnMwcLy5iA=; b=ZoOBoPTYgtLqwe91Tke96Elckk
-	2JzMPczz4LtDrQ6kqL5HiO3UT78giBGarZ2ccbzg9Ew+7SPP1yUPfKE9XQ+m42LfYELqkSe8ZV8of
-	RK4quJgk1VDbZfRDM/3paRUbUwShr6YjMeOV+biHXGTzg6AwXjsj8P7xgqyG0QXqNhnaG3E+/eIJ/
-	CJmFKmVsSaWX1ad9SyNxnZ09PBDojtuRm7AUQH5oPzdEVAW/n970ezm7TZ89k5yEw5FxgC7I4EZev
-	QiGNOU4Mlvu8rnr2W76SNikGepa6UgD3blySqraW9DGF35a+dp5F/l8IE7uAlQiWXLRv7sp3AYu/i
-	G+KjkZOg==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Mehdi Djait <mehdi.djait@linux.intel.com>,
-	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Kever Yang <kever.yang@rock-chips.com>,
-	Jagan Teki <jagan@amarulasolutions.com>,
-	=?UTF-8?q?=D0=9A=D1=83=D0=B7=D0=BD=D0=B5=D1=86=D0=BE=D0=B2=20=D0=9C=D0=B8=D1=85=D0=B0=D0=B8=D0=BB?= <mai.kuznetsov.misha@gmail.com>,
-	Charalampos Mitrodimas <charmitro@posteo.net>,
-	Sebastian Reichel <sebastian.reichel@collabora.com>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Collabora Kernel Team <kernel@collabora.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Michael Riesch <michael.riesch@collabora.com>
-Cc: Heiko Stuebner <heiko@sntech.de>,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: (subset) [PATCH v5 0/8] media: rockchip: rkcif: add support for rk3588 vicap
-Date: Fri, 29 May 2026 13:45:09 +0200
-Message-ID: <178005509966.4123143.16381895849368924420.b4-ty@sntech.de>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
-References: <20260522-rk3588-vicap-v5-0-d1d1f5265c56@collabora.com>
+	s=arc-20240116; t=1780055142; c=relaxed/simple;
+	bh=uQ4PvHJVfbTOZrFWm2Q/Py0yYq70+Va6RDcoUzVbHXk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=n1FcZofzhZZZ/QnlmDo6G8bUsJjLTzmterusFe8kcXt5PDR3IjOGpUZBp7JWt/NkQMh/2IFEmsrNBxJUaNV/cTIkk0sOf4bAiiLZ7jRr7QnIEz0P5QwGXJCBb5O/t6wuuniDTfwReEu2Da5DZKdgUElfVmIHuaNlgZQZZIjhX7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-57602a2d80aso4420252e0c.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:45:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780055140; x=1780659940;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tI1s7RBWZ86LPvUzgArfAozo8RX0QfMdUCXZm64P2Is=;
+        b=srZFWsRu4bhpKV2yfe/QuLlL361GK4UIJaCdv9HvmTKYWqztE0EVGo0CJF7tbBUZOw
+         JhaGWEb2YkxgSa0U9x0Eb9xOsW0dWzGNy7vL1QMs1tpWpsJl7OLshvbRDM5fK/T3AhHV
+         5WJVx9EojXJpf9uq1fB9fJMLF6yBZZ34KZA+iq4n6nP0Zy8vceGgtgxk8Hbma2bKAMJH
+         Nk0mzruq5qwRH4aSKqm+MEd7C4r5+knLX+A+blVNPQMowhDH43BJjF6llSkmCW78YeE0
+         vWS/92sVkTHpjef6KeTMAnbnGd0D/BW8N9D5Y+3wFAiF5F942eqVTd2xz7TiQuOjwcCu
+         Tq+g==
+X-Forwarded-Encrypted: i=1; AFNElJ8r7ezbI4EP2ve2DI+WhWsIEgKWqmUHf09jIz2KHUTEkHvYOgAGKZ2kwqgXzHQE67CzvG9TZVwj6ko1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzRC3dcmahxOmgww2ilvb2CVSXrzP6mMTtHVqVReEucd+a8PDti
+	AlUvoGxp4N1Udsh8aJ+CuFPAgaVQX0i/mHM6PzhvhaIgTyS6ehhL1LzYsVDCOwkyaqM=
+X-Gm-Gg: Acq92OGOBgC68kV5gd9HH/7S+1JmSPNZxmKASJwNPDgRY1a6mRDWaoaFdAgnwIXj7Zs
+	UfTdb1CpJh+JGJhv3K2WJbCZsWFzB/Xj7dbL7xQpChT4nPRAiusVOs0/It0uaB1RBky1p84NSB9
+	jzfig0imLI42KxCWQVFmsgZkXLT077acZPWk87/2V+GdswKn2gvbEr3pBiUpfIeXEsSp+FLGLAX
+	wJD9chEqyHh/W8IlpORSmBk2HslkouauxrKvZ+/aUoBSRVSInSqGwgPcp5wbcREG3oz15LD1Ou5
+	8AEBQgO2q31tnglviYPoJYFmLphPPB6ATt6kksYkION/16GIGnPhAAsKovm/bf73bukZ93mHnDI
+	pvtpBNcUbkx/VqQGh7QU2/eSHHP1RaGL0ReGVPdxIGLH23bA3kmK+wRh/j9W8HcCk4pPy8xcEfR
+	oRylvVMm0c4yHlqQFdrYCpN4uAFVLj6X9bEL2qh/kR1V0SM0Iq/Aqe/9hezcbW3Ygd/DYQd0g=
+X-Received: by 2002:a05:6122:180d:b0:575:3b9e:db3e with SMTP id 71dfb90a1353d-599f5c1bd2bmr708482e0c.1.1780055139789;
+        Fri, 29 May 2026 04:45:39 -0700 (PDT)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-599d9e10e4asm987857e0c.15.2026.05.29.04.45.39
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 04:45:39 -0700 (PDT)
+Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9617940274bso2594426241.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:45:39 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8h2YIURFqu1cuLTAic/UAeg/DBnY+rohaTy8lhzNE+hYEguYvwjQ0CJRvZ4C3ylL0ytQxLAApmutu6@vger.kernel.org
+X-Received: by 2002:a05:6102:1591:b0:650:aa33:5dd7 with SMTP id
+ ada2fe7eead31-6bf2d2f8f9amr796853137.2.1780055139478; Fri, 29 May 2026
+ 04:45:39 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <1ba6a98ace4ad9525d054cbaa308d3aeeecfa22a.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
+ <20260408113217.GD1928916@killaraus.ideasonboard.com>
+In-Reply-To: <20260408113217.GD1928916@killaraus.ideasonboard.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Fri, 29 May 2026 13:45:27 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXZqJw=T7voOnJjsh-Y1e79Mr9wK6zoGxwojzidDxMycw@mail.gmail.com>
+X-Gm-Features: AVHnY4KloFUS2B9LQzF4TBeNYZgidRaM7YLq9hAhtI_KcqQjkDOZSbYAGjwtGrU
+Message-ID: <CAMuHMdXZqJw=T7voOnJjsh-Y1e79Mr9wK6zoGxwojzidDxMycw@mail.gmail.com>
+Subject: Re: [PATCH v6 18/21] arm64: dts: renesas: r9a09g047: Add fcpvd{0,1} nodes
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, tomm.merciai@gmail.com, 
+	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Michael Turquette <mturquette@baylibre.com>, 
+	Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-clk@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
+On Wed, 8 Apr 2026 at 13:32, Laurent Pinchart
+<laurent.pinchart@ideasonboard.com> wrote:
+> On Wed, Apr 08, 2026 at 12:37:03PM +0200, Tommaso Merciai wrote:
+> > Add fcpvd{0,1} nodes to RZ/G3E SoC DTSI.
+> >
+> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
 
-On Fri, 22 May 2026 23:23:06 +0200, Michael Riesch wrote:
-> Habidere,
-> 
-> The RK3588 Video Capture (VICAP) constitutes an essential piece of the
-> RK3588 camera interface with one DVP, six MIPI CSI-2 receivers, scale/crop
-> units, and a data path multiplexer (to scaler units, to ISP, ...). This
-> series introduces basic support for the RK3588 VICAP unit to the rkcif
-> driver, thus paving the way for video capture in general and for camera
-> sensor image processing in particular.
-> 
-> [...]
+> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
 
-Applied, thanks!
+Thanks, will queue in renesas-devel for v7.2.
 
-[5/8] arm64: dts: rockchip: add vicap node to rk3588
-      commit: c7126247fb797127ced68691583932d0a05bbd68
-[6/8] arm64: dts: rockchip: add radxa camera 4k on rock 5b+ cam0
-      commit: bfc2779116ab7636a08c254d76a7a43d06feae1c
-[7/8] arm64: dts: rockchip: add radxa camera 4k on rock 5b+ cam1
-      commit: a34ae4f44c9ff4f4170dd21cdb22efad63710af4
+Gr{oetje,eeting}s,
 
-Best regards,
+                        Geert
+
 -- 
-Heiko Stuebner <heiko@sntech.de>
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
