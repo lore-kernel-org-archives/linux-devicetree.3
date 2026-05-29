@@ -1,207 +1,288 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2B993DE45C;
-	Fri, 29 May 2026 16:31:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DD913E171F;
+	Fri, 29 May 2026 16:32:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780072308; cv=none; b=a+UM18BT8+SerP3IPTk/oehHDul64lkDUbo0vR6jk6FxdcpDRYCy2g9+GstCjQOv84FKRht7+rGZbZB0SywBijqmX8F7TkVvvqyw8Mzyw9uITQvDdrdm8zB/+iOg70QiwHC9IxFMFfBV2CFuyL1hD3SL1HarCGDbMv+5EG5BXdI=
+	t=1780072367; cv=none; b=rLmiNqrfI0VjBgUQpu7p/WGEKajt5sJ4R2feNGgNcW6cJUnANmyM0QVeLtToPloDZlISKx/2v9bAUA5lGBzAE5Re1XcxyxB/HISGF+ImGinDOQLpzPXo3CPTpDQGouGEbUQaxweNn1pl+YtAh8H27RpIQM0o2R79iP4mzjrBUAk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780072308; c=relaxed/simple;
-	bh=ESeXRMfx8qWbB0YQ8x/UseGEMXfKQfaXrT8L9aN9UBo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PHuYDK9dOYQE2hKN8GyrwZJ8H1zkYOi+P2+Str5Zt5YkX/56TGQRheSh1F2onRFJ9gjLGFxr0EKuHUen7PZplnQ7xfPOuGCHju8pY4N7MTebnU/Z01tqkhuLwQkqHwYv60/8n+2qhhXa5EuXfF5msseQnRRlxYeq0P18xNQzN+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTJJaQjT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780072367; c=relaxed/simple;
+	bh=OHVQpI9mbq4ibObEPEd4d9aCTs7PT3kjEHNV1ZZU7vY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=rEPig0bne+RJaLd1N5/WFLDdfM6cQrOZDJKOTvg++gPs1SXDnW/lFI/JYRp4xLwF85/p492nB1JtHCfh94Ff0jtQWm7fk/LeU3rjuLjjsJDA5GYbZm4adfMt2odYH/hZdz6GWEAXf+CozwZeHzhTMQJwQhDcaAG91H3jYFYGnRc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mX8PGa38; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTJJaQjT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 680F21F00893;
-	Fri, 29 May 2026 16:31:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mX8PGa38"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE0001F00893;
+	Fri, 29 May 2026 16:32:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780072306;
-	bh=mLcbHWOvU3I6HLKgiFvg8x4kEjsll0o2NB1ANzufR/8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eTJJaQjTS4SiDRWfywDcx+OolD9ryElqTFYsiQhD0zlbLoOYPj8bge01KxO8kmvSn
-	 be9DFe2EaSohkqvjVme/nu9cp752wqfvu3wV+SpIQADFaoeCrzLgIZx7bxVfzgqFgL
-	 a/gnob/6IM5vdUFZ4FV8/GVZdmu1qa648Oe567A919TCqhkMbQYU737asDw6Y1qskm
-	 a8AyHWukZkQY3asO0+rnEmRa7FHJySUTEUAaldJA1o3v6E2DouzlIDOyhTio4541oN
-	 fsK4lhLeXBudq1gJfXIf7nwoTso5/DCxUoToyOL3VktVlyxUUdBqXEhlJxkGOmR6Aa
-	 24VYB0rroYpwg==
-Date: Fri, 29 May 2026 17:31:42 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v3 1/6] dt-bindings: iio: add OSF GREEN sensor
- aggregation device
-Message-ID: <20260529-recant-imperfect-ba65ef80e542@spud>
-References: <20260529121005.1470-1-kimjinseob88@gmail.com>
- <20260529121005.1470-2-kimjinseob88@gmail.com>
+	s=k20260515; t=1780072365;
+	bh=NJKm4DQd8wLymlnydE/tYUEbKfRJqcyMFKjOdZG+S0A=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mX8PGa38Wq6NozoBBfp4pcg9DjDIcytpq0mrX99CXq9anID9csliTdSxABivMZ+R5
+	 qIJ3d4b86aqP+Z4OXEE8CfMUBrm/fQDTGVqH6dg/KFIOFr6iNmGtvxAch1/1xcIs9J
+	 OeRW+vk1DUCqjnMXaP4B9emGolgupQs3TBMZp/75CyS5S+0HvhwkGY4FP+xh/zP5Gk
+	 IYPthMuJJYDzdHvKGSgWLe7LG3ZJEvPe+0qPUI+ZnljD7xIpdwg5B+swXd2yryYzlj
+	 kr3c8aGuNlb8/zcGGjmAexOs75NVeIn0+Nw0hBluFglUAculi5lm4O9ofCC+07zkWp
+	 7txTu1m/+e6gw==
+Date: Fri, 29 May 2026 17:32:29 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ahmed Tiba <ahmed.tiba@arm.com>
+Cc: will@kernel.org, xueshuai@linux.alibaba.com, saket.dumbre@intel.com,
+ mchehab@kernel.org, dave@stgolabs.net, djbw@kernel.org, bp@alien8.de,
+ tony.luck@intel.com, guohanjun@huawei.com, lenb@kernel.org,
+ skhan@linuxfoundation.org, vishal.l.verma@intel.com, rafael@kernel.org,
+ corbet@lwn.net, ira.weiny@intel.com, dave.jiang@intel.com,
+ krzk+dt@kernel.org, robh@kernel.org, catalin.marinas@arm.com,
+ alison.schofield@intel.com, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
+ devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
+Subject: Re: [PATCH v5 08/10] ACPI: APEI: share GHES CPER helpers
+Message-ID: <20260529173229.18843384@jic23-huawei>
+In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-8-2e0500d42642@arm.com>
+References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
+	<20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-8-2e0500d42642@arm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="fQokb3JVQ6ICtlTe"
-Content-Disposition: inline
-In-Reply-To: <20260529121005.1470-2-kimjinseob88@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Fri, 29 May 2026 10:50:48 +0100
+Ahmed Tiba <ahmed.tiba@arm.com> wrote:
 
---fQokb3JVQ6ICtlTe
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> Wire GHES up to the helper routines in ghes_cper.c and remove the local
+> copies from ghes.c. This keeps the control flow identical while letting
+> the helpers be shared with other firmware-first providers.
+> 
+> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
+Mostly looks fine.  The one bit that rather makes this exercise of breaking
+out generic code look dodgy is the ifdefs in the generic file.
 
-On Fri, May 29, 2026 at 09:10:00PM +0900, Jinseob Kim wrote:
-> Describe OSF GREEN as the first board target.
->=20
-> Add vendor prefix and MAINTAINERS binding entry.
->=20
-> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
+I'm haven't looked closely but that to me implies a coupling that should not be
+here.
+
+Jonathan
+
 > ---
->  .../iio/imu/opensensorfusion,osf-green.yaml   | 43 +++++++++++++++++++
->  .../devicetree/bindings/vendor-prefixes.yaml  |  2 +
->  MAINTAINERS                                   |  5 +++
->  3 files changed, 50 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/iio/imu/opensensorf=
-usion,osf-green.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/iio/imu/opensensorfusion,o=
-sf-green.yaml b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,=
-osf-green.yaml
-> new file mode 100644
-> index 000000000..626b41fb0
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-gree=
-n.yaml
+>  drivers/acpi/apei/ghes.c      | 416 +--------------------------------------
+>  drivers/acpi/apei/ghes_cper.c | 438 +++++++++++++++++++++++++++++++++++++++++-
+>  include/acpi/ghes_cper.h      |  20 ++
+>  3 files changed, 459 insertions(+), 415 deletions(-)
+> 
+> diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+> index 85be2ebf4d3e..f85b97c4db4c 100644
+> --- a/drivers/acpi/apei/ghes.c
+> +++ b/drivers/acpi/apei/ghes.c
 
-This is still not an IMU.
-pw-bot: changes-requested
+>  
+>  static void __ghes_panic(struct ghes *ghes,
+> diff --git a/drivers/acpi/apei/ghes_cper.c b/drivers/acpi/apei/ghes_cper.c
+> index d7a666a163c3..0ff9d06eb78f 100644
+> --- a/drivers/acpi/apei/ghes_cper.c
+> +++ b/drivers/acpi/apei/ghes_cper.c
+> @@ -13,22 +13,32 @@
 
-> @@ -0,0 +1,43 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/imu/opensensorfusion,osf-green.ya=
-ml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>  
+>  #include "apei-internal.h"
+>  
+> +ATOMIC_NOTIFIER_HEAD(ghes_report_chain);
 > +
-> +title: OSF GREEN sensor aggregation board
-> +
-> +maintainers:
-> +  - Jinseob Kim <kimjinseob88@gmail.com>
-> +
-> +description: |
-> +  OSF GREEN is an STM32F405-based sensor aggregation board from the Open
-> +  Sensor Fusion open hardware project. It sends OSF0 capability, status,=
- and
-> +  sample frames to a host over a UART link.
-> +
-> +  Open Sensor Fusion is not a generic industry standard. Public project =
-and
-> +  hardware documentation is available at:
-> +
-> +    https://github.com/opensensorfusion
-> +    https://github.com/opensensorfusion/opensensorfusion-hardware
-> +
-> +allOf:
-> +  - $ref: /schemas/serial/serial-peripheral-props.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: opensensorfusion,osf-green
-
-I'm still not convinced by the compatible here, or at least I am not
-convinced by it without clear answers to my questions on v1 about
-discoverability and compatibility between protocol versions. If the
-software on the "osf-green" is updatable (it is, right?) the compatible
-doesn't actually represent the hardware, it represents the programming
-model of what's exposed on the serial port to the host. That means the
-compatible you use has to identify the exact protocol version
-implemented, or provide enough information that the version can be
-figured out by software.
-
-Given you talk about OSF0 communicating capability etc, it seems to me
-like OSF0 is a discoverable bus? In that case, compatibles for boards
-doesn't really matter, all software should need to know is that there is
-an OSF0 "bus" and query it for what sensors are there.
-
-The questions I asked on v1 were:
-- What does "v0" mean here? Is the data format not complete yet?
-- Are versions of the protocol likely to be backwards compatible?
-- Will the device identify what version of the protocol it implements?
-
-Remember, there's no rush here, and you're better off slowing down and
-taking your time responding to reviews before sending new versions, so
-that the same conversations don't take place multiple times.
-
-Cheers,
-Conor.
+> +#ifndef CONFIG_ACPI_APEI
+> +void __weak arch_apei_report_mem_error(int sev, struct cper_sec_mem_err *mem_err) { }
+> +#endif
+This is non obvious enough that the reasoning for a new weak function should be mentioned in
+the patch description.  Why not stub it in include/acpi/apei.h? 
 
 > +
-> +required:
-> +  - compatible
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    serial {
-> +        sensor {
-> +            compatible =3D "opensensorfusion,osf-green";
-> +        };
-> +    };
-> +
-> +...
-> diff --git a/Documentation/devicetree/bindings/vendor-prefixes.yaml b/Doc=
-umentation/devicetree/bindings/vendor-prefixes.yaml
-> index 28784d66a..f1b1f2ad3 100644
-> --- a/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> +++ b/Documentation/devicetree/bindings/vendor-prefixes.yaml
-> @@ -1237,6 +1237,8 @@ patternProperties:
->      description: OpenPandora GmbH
->    "^openrisc,.*":
->      description: OpenRISC.io
-> +  "^opensensorfusion,.*":
-> +    description: Open Sensor Fusion project
->    "^openwrt,.*":
->      description: OpenWrt
->    "^option,.*":
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index c2c6d7927..26bbdf8d3 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -19977,6 +19977,11 @@ F:	Documentation/networking/oa-tc6-framework.rst
->  F:	drivers/net/ethernet/oa_tc6.c
->  F:	include/linux/oa_tc6.h
-> =20
-> +OPEN SENSOR FUSION IIO DRIVER
-> +M:	Jinseob Kim <kimjinseob88@gmail.com>
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/iio/imu/opensensorfusion,osf-green.=
-yaml
-> +
->  OPEN FIRMWARE AND FLATTENED DEVICE TREE
->  M:	Rob Herring <robh@kernel.org>
->  M:	Saravana Kannan <saravanak@kernel.org>
-> --=20
-> 2.43.0
->=20
+>  static struct ghes_estatus_cache __rcu *ghes_estatus_caches[GHES_ESTATUS_CACHES_SIZE];
+>  static atomic_t ghes_estatus_cache_alloced;
 
---fQokb3JVQ6ICtlTe
-Content-Type: application/pgp-signature; name="signature.asc"
+> +void __ghes_print_estatus(const char *pfx,
+> +			  const struct acpi_hest_generic *generic,
+> +			  const struct acpi_hest_generic_status *estatus)
+> +{
+> +	static atomic_t seqno;
+> +	unsigned int curr_seqno;
+> +	char pfx_seq[64];
+> +
+> +	if (!pfx) {
+> +		if (ghes_severity(estatus->error_severity) <=
+> +		    GHES_SEV_CORRECTED)
+> +			pfx = KERN_WARNING;
+> +		else
+> +			pfx = KERN_ERR;
+> +	}
+> +	curr_seqno = atomic_inc_return(&seqno);
+> +	snprintf(pfx_seq, sizeof(pfx_seq), "%s{%u}" HW_ERR, pfx, curr_seqno);
+> +	printk("%sHardware error from APEI Generic Hardware Error Source: %d\n",
+> +	       pfx_seq, generic->header.source_id);
+> +	cper_estatus_print(pfx_seq, estatus);
+> +}
+> +
+> +int ghes_print_estatus(const char *pfx,
+> +		       const struct acpi_hest_generic *generic,
+> +		       const struct acpi_hest_generic_status *estatus)
+> +{
+> +	/* Not more than 2 messages every 5 seconds */
+> +	static DEFINE_RATELIMIT_STATE(ratelimit_corrected, 5 * HZ, 2);
+> +	static DEFINE_RATELIMIT_STATE(ratelimit_uncorrected, 5 * HZ, 2);
+> +	struct ratelimit_state *ratelimit;
+> +
+> +	if (ghes_severity(estatus->error_severity) <= GHES_SEV_CORRECTED)
+> +		ratelimit = &ratelimit_corrected;
+> +	else
+> +		ratelimit = &ratelimit_uncorrected;
+> +	if (__ratelimit(ratelimit)) {
+> +		__ghes_print_estatus(pfx, generic, estatus);
+> +		return 1;
+> +	}
+> +	return 0;
+> +}
+> +
+> +#ifdef CONFIG_ACPI_APEI
 
------BEGIN PGP SIGNATURE-----
+So after the effort to break the the generic stuff we end up with non generic
+bits in the broken out file?  Is there no way to avoid this?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahm/bQAKCRB4tDGHoIJi
-0sEcAP0ZoKZ/Ut24KMgR9zjcP48fLsZcrvTIT6PmPSoAcZL7IwEAvGdDHJN3J/3L
-8zEZzUQ7YacyErwbpf8e3zpvylNp5Q0=
-=Rv46
------END PGP SIGNATURE-----
+>  static void __iomem *ghes_map(u64 pfn, enum fixed_addresses fixmap_idx)
+>  {
+>  	phys_addr_t paddr;
+> @@ -272,6 +636,7 @@ void ghes_clear_estatus(struct ghes *ghes,
+>  	if (is_hest_type_generic_v2(ghes))
+>  		ghes_ack_error(ghes->generic_v2);
+>  }
+> +#endif /* CONFIG_ACPI_APEI */
 
---fQokb3JVQ6ICtlTe--
+> +void ghes_cper_handle_status(struct device *dev,
+> +			     const struct acpi_hest_generic *generic,
+> +			     const struct acpi_hest_generic_status *estatus,
+> +			     bool sync)
+> +{
+> +	int sev, sec_sev;
+> +	struct acpi_hest_generic_data *gdata;
+> +	guid_t *sec_type;
+> +	const guid_t *fru_id = &guid_null;
+> +	char *fru_text = "";
+> +	bool queued = false;
+> +
+> +	sev = ghes_severity(estatus->error_severity);
+> +	apei_estatus_for_each_section(estatus, gdata) {
+> +		sec_type = (guid_t *)gdata->section_type;
+> +		sec_sev = ghes_severity(gdata->error_severity);
+> +		if (gdata->validation_bits & CPER_SEC_VALID_FRU_ID)
+> +			fru_id = (guid_t *)gdata->fru_id;
+> +
+> +		if (gdata->validation_bits & CPER_SEC_VALID_FRU_TEXT)
+> +			fru_text = gdata->fru_text;
+> +
+> +		ghes_log_hwerr(sev, sec_type);
+> +		if (guid_equal(sec_type, &CPER_SEC_PLATFORM_MEM)) {
+> +			struct cper_sec_mem_err *mem_err = acpi_hest_get_payload(gdata);
+> +
+> +			atomic_notifier_call_chain(&ghes_report_chain, sev, mem_err);
+> +
+> +			arch_apei_report_mem_error(sev, mem_err);
+> +			queued = ghes_handle_memory_failure(gdata, sev, sync);
+> +		} else if (guid_equal(sec_type, &CPER_SEC_PCIE)) {
+> +			ghes_handle_aer(gdata);
+> +		} else if (guid_equal(sec_type, &CPER_SEC_PROC_ARM)) {
+> +			queued = ghes_handle_arm_hw_error(gdata, sev, sync);
+> +		} else if (guid_equal(sec_type, &CPER_SEC_CXL_PROT_ERR)) {
+> +			struct cxl_cper_sec_prot_err *prot_err = acpi_hest_get_payload(gdata);
+> +
+> +			cxl_cper_post_prot_err(prot_err, gdata->error_severity);
+> +		} else if (guid_equal(sec_type, &CPER_SEC_CXL_GEN_MEDIA_GUID)) {
+> +			struct cxl_cper_event_rec *rec = acpi_hest_get_payload(gdata);
+> +
+> +			cxl_cper_post_event(CXL_CPER_EVENT_GEN_MEDIA, rec);
+> +		} else if (guid_equal(sec_type, &CPER_SEC_CXL_DRAM_GUID)) {
+> +			struct cxl_cper_event_rec *rec = acpi_hest_get_payload(gdata);
+> +
+> +			cxl_cper_post_event(CXL_CPER_EVENT_DRAM, rec);
+> +		} else if (guid_equal(sec_type, &CPER_SEC_CXL_MEM_MODULE_GUID)) {
+> +			struct cxl_cper_event_rec *rec = acpi_hest_get_payload(gdata);
+> +
+> +			cxl_cper_post_event(CXL_CPER_EVENT_MEM_MODULE, rec);
+> +		} else {
+> +			void *err = acpi_hest_get_payload(gdata);
+> +
+> +			ghes_defer_non_standard_event(gdata, sev);
+> +			log_non_standard_event(sec_type, fru_id, fru_text,
+> +					       sec_sev, err,
+> +					       gdata->error_data_length);
+> +		}
+> +	}
+> +
+> +	/*
+> +	 * If no memory failure work is queued for abnormal synchronous
+> +	 * errors, do a force kill.
+> +	 */
+> +	if (sync && !queued) {
+> +		dev_err(dev,
+> +			HW_ERR GHES_PFX "%s:%d: synchronous unrecoverable error (SIGBUS)\n",
+> +			current->comm, task_pid_nr(current));
+> +		force_sig(SIGBUS);
+> +	}
+> +}
+
+Blank line here
+
+>  /* Room for 8 entries */
+>  #define CXL_CPER_PROT_ERR_FIFO_DEPTH 8
+>  static DEFINE_KFIFO(cxl_cper_prot_err_fifo, struct cxl_cper_prot_err_work_data,
+> diff --git a/include/acpi/ghes_cper.h b/include/acpi/ghes_cper.h
+> index dd49e9179b63..511b95b50911 100644
+> --- a/include/acpi/ghes_cper.h
+> +++ b/include/acpi/ghes_cper.h
+> @@ -17,6 +17,8 @@
+>  #define ACPI_APEI_GHES_CPER_H
+>  
+>  #include <linux/atomic.h>
+> +#include <linux/device.h>
+> +#include <linux/notifier.h>
+>  #include <linux/workqueue.h>
+>  
+>  #include <acpi/ghes.h>
+> @@ -57,6 +59,7 @@
+>  	((struct ghes_vendor_record_entry *)(vendor_entry) + 1))
+>  
+>  extern struct gen_pool *ghes_estatus_pool;
+> +extern struct atomic_notifier_head ghes_report_chain;
+>  
+>  static inline bool is_hest_type_generic_v2(struct ghes *ghes)
+>  {
+> @@ -107,6 +110,23 @@ void ghes_estatus_cache_add(struct acpi_hest_generic *generic,
+>  			    struct acpi_hest_generic_status *estatus);
+>  void ghes_defer_non_standard_event(struct acpi_hest_generic_data *gdata,
+>  				   int sev);
+> +int ghes_severity(int severity);
+> +bool ghes_handle_memory_failure(struct acpi_hest_generic_data *gdata,
+> +				int sev, bool sync);
+> +bool ghes_handle_arm_hw_error(struct acpi_hest_generic_data *gdata,
+> +			      int sev, bool sync);
+> +void ghes_handle_aer(struct acpi_hest_generic_data *gdata);
+> +void ghes_log_hwerr(int sev, guid_t *sec_type);
+> +void __ghes_print_estatus(const char *pfx,
+> +			  const struct acpi_hest_generic *generic,
+> +			  const struct acpi_hest_generic_status *estatus);
+> +int ghes_print_estatus(const char *pfx,
+> +		       const struct acpi_hest_generic *generic,
+> +		       const struct acpi_hest_generic_status *estatus);
+> +void ghes_cper_handle_status(struct device *dev,
+> +			     const struct acpi_hest_generic *generic,
+> +			     const struct acpi_hest_generic_status *estatus,
+> +			     bool sync);
+>  void cxl_cper_post_prot_err(struct cxl_cper_sec_prot_err *prot_err,
+>  			    int severity);
+>  int cxl_cper_register_prot_err_work(struct work_struct *work);
+> 
+
