@@ -1,295 +1,222 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AED2E3F54DB
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:02:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 121453F23B6;
+	Fri, 29 May 2026 18:04:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780077769; cv=none; b=riIsuqnLgyNRFMflKfyj4+NUl4+50moLYV1Tj2RRW8yLkSPFyVZHX0vb8XcJ14bruNlSgM07Z+eek30BJVZls0mMPAi1aa2j2GRLV4yxQ+VuulswhRUEAzYC+xR823dVHcJlq9hNVczN7ywRCDYu5c6IS5elQrBN0P2lxSdnjuA=
+	t=1780077865; cv=none; b=t2gOZ8A4sUBaINMH/DsiGbf/QfaZl6mJqFodh8sIgz+jxDf3xvSEFRsXJneAMFfS2PckIxROcuauXemO2q/8YtCXz/W4LYa9IFL3uCS8WU9r6WISwjqsnq/00+RL03vx+O2h9Wn/9xT1oyDSNduTlAAAyK1/TiwFEkBjcd6KzE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780077769; c=relaxed/simple;
-	bh=3+Oa9f4QepMvcag731FY22cwOpy+XSYq5QE7o/iB3lM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DhgCnLXoZ7U859W5CZk1o9GJphnQTzc21hG7tXn1RgKccTK3YedRLi8HOmkxNkBLZ4svqKKT1OMgi5SnT/I2C3kBbuSrQGqhWqJTS6g7kr21qN6mxQhCqz0EbdAHVmz6tv62AcxMllhZevBoNtmSEz3l1DllGgH/Fq1O2cxByqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o5t1NItO; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jYE4qtQ/; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780077865; c=relaxed/simple;
+	bh=DLW/mk3Iq85lMOoJqTYjgKamJk8Z1uhqZWCI7uasVLc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=L8PR+4l+0j5zVlbJBE7HGu8TAZV4Mj9qORV49iJXcxug7zDJ0pgtv1rqopImqZ+29o0CnjmGNXFOQplGkVz16QeQmSjkjl/YCRudwXUffGdbFZJEvwNMOXzrL6yxyeFN5Ka/rsl8cIP/N5vpX5kTzxba+pofmUuQJ38qwpLSN4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=iKvGZWeA; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o5t1NItO";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jYE4qtQ/"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64TI2Pbi3409691
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:02:46 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:message-id:mime-version
-	:subject:to; s=qcppdkim1; bh=Q+4GT+TR3WQGdrrJ6oshyZeQyk4XOz4zR/y
-	TLN2j3xc=; b=o5t1NItOg3BAZLJhdKmYEGQjlh+L4y85rvNvh7XQvLN76rQbV1X
-	SntDfNfMMU4OAxRjGboRPQE/wXclopGgh7kGsZ59tWN8v/49mSZA3HgBcIkWw+1S
-	6kt1Sb/SZS5O9GB3abnoueV1B29Gjqo3X57MUhC9RyP/2R04PueH/Obdx7/aeOzZ
-	neYcrZ3JynNLthRdOwQYLiMDEX/gZxMmvvjRH484qRI/66soUd348g6m2PzQEpFf
-	MXoUkMm41W2YR4rGxnpHzyBnRppSTWAJN/5E0vVoq6YnyZFlwr4I/cYcungj+lHS
-	nPFuOWyAPdOwasWC8x6gw/NeYTAMZW5ywvQ==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eevug5b1q-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:02:45 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2bc7f9b2213so105914085ad.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:02:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780077765; x=1780682565; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=Q+4GT+TR3WQGdrrJ6oshyZeQyk4XOz4zR/yTLN2j3xc=;
-        b=jYE4qtQ/YOv7yMB4hyhJRD9AwIVcONzHUHo76lapSy9vJ2A1VqxEsFBitRaOcOp+qm
-         2FwxVfjr9BUqR/IYYtxWriIktlBGGyKLyDc7XpdxtiKanqgC4sl57JP8DMQw/Edk8O3A
-         mHYiDTmAXFoiEQTJh8X3uo8IkRRp6snRq8cgcpiEMu8YWe/OsBaSkmw743NP5Cz+5sPz
-         kvCvHX0W32VFKQWb457dZtMxTkT2fhnEPFjdbseE3PLrNW0X7UKFXFqdMu3gSN9eUi+2
-         lvUC5OEpJZPDsEhJElOitlYUvMDthgOHfTXhmy0okVuFMFDXVdpwnR1dzmvnumfUbhUB
-         F/lA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780077765; x=1780682565;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=Q+4GT+TR3WQGdrrJ6oshyZeQyk4XOz4zR/yTLN2j3xc=;
-        b=ICHLNW6jtmklN8ZZ1Ov+WQX8/tWNNgBhUPSSzyvH62LSQ9EUYqkLq8GnDqEQvIndpZ
-         7OEbZw/LYInHYoomRqYpto9EX84cXIhWbHhhO/dM3NCEJHT94FO3buFiyFvENIOVdyay
-         w8y5ffA0QmxLmhzERpfrPaa+i8mSOwsfMVpCNuZCOO7Nw7R5uLflx/Cx0PR2ZEwyS76l
-         YLlJmiKvYDYAuLoWGJRoakr7NcyKRLtycJv9/VnIEM4uzfDgzT4ySrXEr+VEkfZcAiGE
-         NgAm2FTSVxvf3pqxsL+k3O3G/Kie42bfHPHrHmk7VhG3jqNvTOxbtKzT0Ke2T1T6l1+1
-         iYog==
-X-Forwarded-Encrypted: i=1; AFNElJ8xuELSbG8CoU32u+J+mqd1NgpDZctCA2+q+r8XwclEP/z/dPMD7hvPLV03crZcB8FfAn8kV3WyZwPG@vger.kernel.org
-X-Gm-Message-State: AOJu0YyGUXXLZVgJ9kS54Gy8jeo+oESth4p9/KnuyfdqXWFPM/VnBNib
-	trCVXjsFUZWCl8ko6XC6/XaepYjZ029xKdnunkQfNEDMew+KcopEGV1sTB0qxfEnS5fU2UCfTK9
-	hAWoSpPJOdh8tPRDbcvPNAUaNk8ceOF0CJPRKsf3MTRxCU4QoG+z2Vf8AgzLvyDR0
-X-Gm-Gg: Acq92OFL6K650U52qL7H26gzMJfYgCaiKm4+N1ZES/GeaBTpfgWCzxyfZ77RysiRVBG
-	dv6wqEDxRBXwX92Pfo7xegSB7hJ3y4sOApTAwK10B57VIrzpaDq7qcgL6fk/8bo4Zj3bVXLjAVm
-	HIQjlhCyZl0RtR/QgFkcPEo5HsuU+r3Cz30Tv1VzIwurrwNHVwsBzS3NOzMEAjQCGhc2W+Vv9jC
-	gsgtMBu93D1lP8zJ2FC8GO63L0Ew5xsVpHfu8FlR4dQuISagcQh89qMq1Lb6+J8Q4h7HXGdDpPS
-	JMOmZaSkmSQSdJ6qZWhcEmW7AgZzzwHSKEJw6IWJ3izt4PQtGU4AKbueR5jMMZmePM1WrVDWdN/
-	9b+Gfc3HTN+oyZGCn/WPoO8Nit9U3En5W4N7DmuJiUVcS9I9vuZ7Z3MQhvktjNA==
-X-Received: by 2002:a17:902:e88c:b0:2b9:ec37:2977 with SMTP id d9443c01a7336-2bf36879045mr10387745ad.38.1780077765140;
-        Fri, 29 May 2026 11:02:45 -0700 (PDT)
-X-Received: by 2002:a17:902:e88c:b0:2b9:ec37:2977 with SMTP id d9443c01a7336-2bf36879045mr10387125ad.38.1780077764618;
-        Fri, 29 May 2026 11:02:44 -0700 (PDT)
-Received: from hu-ysiddu-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23b011d3sm27268345ad.52.2026.05.29.11.02.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 11:02:44 -0700 (PDT)
-From: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-To: Bartosz Golaszewski <brgl@kernel.org>,
-        Marcel Holtmann <marcel@holtmann.org>,
-        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
-        Rocky Liao <quic_rjliao@quicinc.com>
-Cc: quic_mohamull@quicinc.com, quic_hbandi@quicinc.com,
-        rahul.samana@oss.qualcomm.com, harshitha.reddy@oss.qualcomm.com,
-        dishank.garg@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-Subject: [PATCH 3/4] arm64: dts: qcom: qcs6490-rb3gen2-industrial-mezzanine: Add QCC2072 Bluetooth M.2 overlay
-Date: Fri, 29 May 2026 23:32:34 +0530
-Message-Id: <20260529180234.3373056-1-yepuri.siddu@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="iKvGZWeA"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=JqoWqM560NgOyBoJArt872roHXO7vVZ5JRvRtTr4UX4=; b=iKvGZWeASddt48GOlMPuIIeRMZ
+	pfRwHJhRCcNkLDl4TjmaSF9g/aqPjeOQfTwHYyBHseFaK0nhg5yZZHqmguq8+MziFtOkOBgEv/ymk
+	ibVly8UMhek/4Sgti3OKZaJeHAD44KEzRA73Rc6qjODs71Vw6VBDj5Rs24WjyJ+zBCzdc7APjRGQf
+	Y6IDAMppRYBry5Ak6UJfvA/CgRJfuy8fuIo3WBM2z5w5hQh0+JPllz99Q37n/6ZFMm0ICd1WSHec7
+	V6UkD99MOfO3g6Al/p6FSrl9cdWxZWYClOyhnrUDPQBJDD2lxmNsyEkXfp8VRJjD+WizBk8dZFxls
+	VN+eTiaw==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
+ MidG971 <midgy971@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Midgy BALON <midgy971@gmail.com>
+Subject: Re: [PATCH v2 0/4] accel: rocket: Add RK3568 NPU support
+Date: Fri, 29 May 2026 20:04:17 +0200
+Message-ID: <9739310.nlapOpYt14@phil>
+In-Reply-To: <20260529155824.3099831-1-midgy971@gmail.com>
+References: <20260529155824.3099831-1-midgy971@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDE4MCBTYWx0ZWRfX8kqPhPehZhve
- xoF/mH20YUhRfv2LfGGAk/H0ewCPW3Jszk0Bo41EnTfNzRw/AJCljObBbyb4YSrDtRk6tyUXf7L
- Ye8TiLAPpOpSY4mto6trWcVxzSrSCz9wBBSmZHLYOzc65pM+T8VnMWofTuXR4Gw8TJsLNf6x07b
- QLOvEJXaI+qnKEO2Ry/uftFTdz5k1xEF6mlZqi/09P4BKOIFbhmTKg3WaOkQ7tc+18cZrixW48n
- 4Koz4I6MjJ18oOyh4bOGZ2MOXMH1XhuTsx269jfL3Q51cXU4ekeEyvIFAC7eQgQKBmtImy1RAKx
- /f/hsRCqveeuyRgP46EgKjicUUKnVKH2TZn3Ne1WWY1tC6f606sxHdIPnQ5fUZJf8wgCnMCvprj
- E/YRhvAQLf++ZqWAhBuzOq9REWBvcj7gPbjAI1/WDpM4Bhuu7pLh+ScQduz1OvamEo0yYXHB6tG
- kYbI9WKvhslV2H/i0qQ==
-X-Authority-Analysis: v=2.4 cv=SNBykuvH c=1 sm=1 tr=0 ts=6a19d4c6 cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22 a=EUspDBNiAAAA:8
- a=86PJZVPQ1pRugi-lMccA:9 a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-ORIG-GUID: YpeA4PBzF-m6-vnyshmtkP_r11zF9EZw
-X-Proofpoint-GUID: YpeA4PBzF-m6-vnyshmtkP_r11zF9EZw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-29_05,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290180
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Add a DTSO overlay for the M.2 E-key slot on the QCS6490 RB3 Gen2
-industrial mezzanine board when populated with a QCC2072 Bluetooth
-module.
+Hi,
 
-The overlay configures UART4 (gpio16-19) for Bluetooth communication
-at up to 3.2 Mbps. Sleep pin states are defined for all four UART
-lines to minimize power consumption when Bluetooth is inactive. Host
-wakeup is handled via a GPIO interrupt on the RX line (gpio19), and
-SW_CTRL is mapped to gpio86 for power sequencing.
+Am Freitag, 29. Mai 2026, 17:58:20 Mitteleurop=C3=A4ische Sommerzeit schrie=
+b MidG971:
+> From: Midgy BALON <midgy971@gmail.com>
+>=20
+> This series adds Rockchip RK3568 support to the upstream Rocket accel
+> driver (drivers/accel/rocket/), tested on a Radxa ROCK 3B board running
+> Linux 6.19-rc5.
+>=20
+> The RK3568 carries a single NVDLA-derived NPU core (0.8 TOPS), the same
+> IP family as the three-core RK3588 NPU already supported by the driver.
+> The hardware register layout (pc/cna/core regions, interrupt, IOMMU) is
+> identical; the differences are:
+>=20
+>   - 32-bit DMA address limit (NPU AXI bus and IOMMU page walker are 32-bi=
+t)
+>   - Requires explicit PVTPLL initialisation via two TF-A SCMI calls before
+>     the NPU NOC bus can be de-idled
+>   - Requires explicit PMU writes to power on the NPU domain (because the
+>     RK3568 power domain RK3568_PD_NPU is always_on so the generic
+>     pm-domains callback is a no-op) and de-idle the NPU NOC bus
+>=20
+> Patch 1 introduces a per-SoC rocket_soc_data abstraction (dma_bits and
+> optional noc_init callback) plumbed via of_device_get_match_data(), and
+> adds RK3568 SoC support on top of it.  The DMA mask for the parent
+> DRM facade device is chosen based on the narrowest core present
+> (32-bit if any RK3568 core is in the system).
+>=20
+> Patch 2 documents the new rk3568-rknn-core compatible and the
+> rockchip,pmu phandle that RK3568 requires; the sram-supply property
+> becomes conditional (RK3588-only).
+>=20
+> Patches 3-4 add the RK3568 NPU and IOMMU nodes to rk356x-base.dtsi and
+> enable them on the Radxa ROCK 3B.
+>=20
+> Verified on Radxa ROCK 3B (RK3568, 8 GB RAM):
+>   - /dev/accel/accel0 created at boot
+>   - dmesg: "Rockchip NPU core 0 version: 0"
+>   - IOMMU domain attached per open()
+>   - Job submission path complete: regcmd reaches the NPU's program
+>     controller, PC processes all 135 regcmd entries, broadcasts to
+>     sub-units, and advances to BSP-equivalent completion state
+>     (PC_TASKST=3D0x11000)
+>=20
+> Status of end-to-end inference: NOT YET WORKING.  After 12 days of
 
-Disable UART7 in the base industrial mezzanine overlay as it is
-not used when the M.2 slot is populated.
+what about the iommu side, aka the parts mentioned in
+https://lore.kernel.org/linux-rockchip/5663593b-2c53-4632-ad2c-db9efa8e9ab2=
+@rock-chips.com/
 
-Signed-off-by: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/Makefile             |   2 +
- ...3gen2-industrial-mezzanine-m2-cologne.dtso | 110 ++++++++++++++++++
- .../qcs6490-rb3gen2-industrial-mezzanine.dtso |   4 +
- 3 files changed, 116 insertions(+)
- create mode 100644 arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtso
+does that is in some way responsible for the not-yet-working state?
 
-diff --git a/arch/arm64/boot/dts/qcom/Makefile b/arch/arm64/boot/dts/qcom/Makefile
-index 4ba8e7306419..98b2d6402a26 100644
---- a/arch/arm64/boot/dts/qcom/Makefile
-+++ b/arch/arm64/boot/dts/qcom/Makefile
-@@ -173,8 +173,10 @@ dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2.dtb
- 
- qcs6490-rb3gen2-vision-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-vision-mezzanine.dtbo
- qcs6490-rb3gen2-industrial-mezzanine-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo
-+qcs6490-rb3gen2-industrial-mezzanine-m2-cologne-dtbs := qcs6490-rb3gen2.dtb qcs6490-rb3gen2-industrial-mezzanine.dtbo qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtbo
- 
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine.dtb
-+dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-rb3gen2-vision-mezzanine.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-minipc-g1iot.dtb
- dtb-$(CONFIG_ARCH_QCOM)	+= qcs6490-thundercomm-rubikpi3.dtb
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtso
-new file mode 100644
-index 000000000000..905a40f4b938
---- /dev/null
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtso
-@@ -0,0 +1,110 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026, Qualcomm Innovation Center, Inc. All rights reserved.
-+*/
-+
-+/dts-v1/;
-+/plugin/;
-+#include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+&tlmm {
-+	qup_uart4_sleep_cts: qup-uart4-sleep-cts-state {
-+		pins = "gpio16";
-+		function = "gpio";
-+		/*
-+		 * Configure a bias-bus-hold on CTS to lower power
-+		 * usage when Bluetooth is turned off. Bus hold will
-+		 * maintain a low power state regardless of whether
-+		 * the Bluetooth module drives the pin in either
-+		 * direction or leaves the pin fully unpowered.
-+		 */
-+		bias-bus-hold;
-+	};
-+
-+	qup_uart4_sleep_rts: qup-uart4-sleep-rts-state {
-+		pins = "gpio17";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-down on RTS. As RTS is active low
-+		 * signal, pull it low to indicate the BT SoC that it
-+		 * can wakeup the system anytime from suspend state by
-+		 * pulling RX low (by sending wakeup bytes).
-+		 */
-+		bias-pull-down;
-+	};
-+
-+	qup_uart4_sleep_rx: qup-uart4-sleep-rx-state {
-+		pins = "gpio19";
-+		function = "gpio";
-+		/*
-+		 * Configure a pull-up on RX. This is needed to avoid
-+		 * garbage data when the TX pin of the Bluetooth module
-+		 * is floating which may cause spurious wakeups.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	qup_uart4_sleep_tx: qup-uart4-sleep-tx-state {
-+		pins = "gpio18";
-+		function = "gpio";
-+		/*
-+		 * Configure pull-up on TX when it isn't actively driven
-+		 * to prevent BT SoC from receiving garbage during sleep.
-+		 */
-+		bias-pull-up;
-+	};
-+
-+	sw_ctrl: sw-ctrl-state {
-+		pins = "gpio86";
-+		function = "gpio";
-+		bias-pull-down;
-+	};
-+};
-+
-+&qup_uart4_cts {
-+	/*
-+	 * Configure a bias-bus-hold on CTS to lower power
-+	 * usage when Bluetooth is turned off. Bus hold will
-+	 * maintain a low power state regardless of whether
-+	 * the Bluetooth module drives the pin in either
-+	 * direction or leaves the pin fully unpowered.
-+	 */
-+	bias-bus-hold;
-+};
-+
-+&qup_uart4_rts {
-+	/* We'll drive RTS, so no pull */
-+	drive-strength = <2>;
-+	bias-disable;
-+};
-+
-+&qup_uart4_rx {
-+	/*
-+	 * Configure a pull-up on RX. This is needed to avoid
-+	 * garbage data when the TX pin of the Bluetooth module is
-+	 * in tri-state (module powered off or not driving the
-+	 * signal yet).
-+	 */
-+	bias-pull-up;
-+};
-+
-+&qup_uart4_tx {
-+	/* We'll drive TX, so no pull */
-+	drive-strength = <2>;
-+	bias-disable;
-+};
-+
-+&uart4 {
-+	status = "okay";
-+	/delete-property/ interrupts;
-+	interrupts-extended = <&intc GIC_SPI 605 IRQ_TYPE_LEVEL_HIGH>,
-+				<&tlmm 19 IRQ_TYPE_EDGE_FALLING>;
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-1 = <&qup_uart4_sleep_cts>, <&qup_uart4_sleep_rts>,
-+			<&qup_uart4_sleep_tx>, <&qup_uart4_sleep_rx>;
-+
-+	bluetooth: bluetooth {
-+		compatible = "qcom,qcc2072-bt";
-+		max-speed = <3200000>;
-+	};
-+};
-diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-index 83908db335af..c96c7f52ea7a 100644
---- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-+++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-@@ -288,3 +288,7 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
- &wifi {
-        status = "disabled";
- };
-+
-+&uart7 {
-+	status = "disabled";
-+};
--- 
-2.34.1
+
+Also in general, we don't want to merge partially working code.
+Either things work, or they don't, especially as right now you wouldn't
+even know if it's your code that is wrong, or some other part that needs
+changes.
+
+Also please reduce those novel-sized (generated) texts.
+=46or the cover-letter alone I'd need a fireplace, an armchair and a
+hot cocoa to fully parse it.
+
+
+Heiko
+
+> investigation comparing rocket's behaviour against the vendor BSP RKNPU
+> driver, the NPU's MMIO state at submission time matches BSP byte-for-byte
+> (CNA configs, sub-unit OP_ENABLE registers, CBUF_CON0, etc.) but no
+> sub-unit transitions to its EXECUTER state and the completion IRQ never
+> fires.  The kernel driver and DT infrastructure in this series stand on
+> their own =E2=80=94 the driver loads, IOMMU domain is attached, regcmd re=
+aches
+> the NPU, PC state machine matches BSP =E2=80=94 but a mesa-side regcmd is=
+sue
+> (or another piece we have not yet found) blocks the final conv firing.
+>=20
+> I am sending this series now because the kernel and DT pieces are
+> self-contained, verifiable, and ready for review.  A separate RFC on
+> mesa-dev will follow with the userspace findings.  Detailed investigation
+> notes are available on request; relevant highlights for the maintainer:
+>=20
+> 1. Mesa rocket userspace (src/gallium/drivers/rocket/) targets RK3588.
+>    For RK3568, several encoded values need adjustment.  Most notably,
+>    sub-unit OP_ENABLE register offset on RK3568 is 0x_00c, not 0x_008.
+>    Mesa emits writes at 0x1008/0x2008/0x3008/0x4008/0x5008 =E2=80=94 BSP =
+regcmd
+>    captures show no writes at these offsets across two distinct conv
+>    shapes (YOLOv5s 6x6/s2 and MobileNet 3x3/s2).  BSP writes OP_ENABLE
+>    at offset 0x_00c with multi-bit values (CMAC=3D0x1, ACCU=3D0x0, DPU=3D=
+0x108,
+>    DPU_RDMA=3D0x13f), not bit-0 booleans.  This and a handful of other
+>    shape-independent value differences will be filed as a mesa RFC.
+>=20
+> 2. The vendor BSP RKNPU driver writes the userspace task_base_addr to
+>    PC_DMA_BASE_ADDR (PC offset 0x34); the rocket driver did not.  PC's
+>    TASK_DMA engine reads struct rknpu_task descriptors from there.  With
+>    task_pp_en=3D1 in TASK_CON and a kernel-allocated descriptor BO,
+>    PC's task counter state machine advances from "stuck at 0xf000" to
+>    the BSP completion state.  This is the most invasive piece of the
+>    investigation and is held back for a follow-on patch (not in this
+>    series); the current series gets the driver to a working /dev/accel/
+>    node and an attached IOMMU domain, which is the right shape for v2.
+>=20
+> 3. The NPU's master AXI port is 32-bit, but dma_alloc_coherent() through
+>    the dma-iommu framework silently ignores GFP_DMA32 even with a 32-bit
+>    dma_mask set on the device.  When BOs for the NPU are allocated kernel-
+>    side, __get_free_pages(GFP_DMA32 | __GFP_ZERO, order) + dma_map_single=
+()
+>    is the working pattern.  Not in this series, but might be a useful
+>    documentation note for other 32-bit AXI accelerators using dma-iommu.
+>
+> This series builds against current v6.19-rc5 with no checkpatch warnings,
+> the dtb builds, and dtbs_check passes.  The April v1 series included a
+> fifth patch ("Use of_find_matching_node() instead of for_each_of_allnodes=
+")
+> which is no longer required =E2=80=94 upstream rocket already uses
+> for_each_compatible_node() since v6.19-rc5.
+>=20
+> Changes since v1 (April 2026, never sent on-list):
+>   - Rebased to v6.19-rc5
+>   - Patch 1 absorbed v1 patch 1 (obsolete) and now includes the
+>     rocket_soc_data abstraction needed to support both RK3568 and
+>     RK3588 cores in the same driver
+>   - Cover letter expanded with current investigation status
+>=20
+> Assisted by Claude Sonnet/Opus 4.x throughout the investigation.  All
+> findings empirically verified via BSP register captures and side-by-side
+> rocket execution traces on the same board.
+>=20
+> Midgy BALON (4):
+>   accel: rocket: Add support for Rockchip RK3568
+>   dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568 support
+>   arm64: dts: rockchip: rk356x: Add NPU and its IOMMU
+>   arm64: dts: rockchip: rk3568-rock-3b: Enable NPU
+>=20
+>  Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml | 1=
+8 ++++++++++++++--
+>  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi                        | 3=
+1 +++++++++++++++++++++++++++
+>  arch/arm64/boot/dts/rockchip/rk3568-rock-3b.dts                      |  =
+9 ++++++++
+>  drivers/accel/rocket/rocket_core.c                                   | 2=
+1 +++++++++++++++++-
+>  drivers/accel/rocket/rocket_core.h                                   | 1=
+8 ++++++++++++++--
+>  drivers/accel/rocket/rocket_device.c                                 | 2=
+3 +++++++++++++++++--
+>  drivers/accel/rocket/rocket_drv.c                                    | 7=
+9 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-
+>  7 files changed, 192 insertions(+), 7 deletions(-)
+>=20
+>=20
+> Midgy BALON (4):
+>   accel: rocket: Add support for Rockchip RK3568
+>   dt-bindings: npu: rockchip,rk3588-rknn-core: Add RK3568 support
+>   arm64: dts: rockchip: rk356x: Add NPU and its IOMMU
+>   arm64: dts: rockchip: rk3568-rock-3b: Enable NPU
+>=20
+>  .../npu/rockchip,rk3588-rknn-core.yaml        | 18 ++++-
+>  .../boot/dts/rockchip/rk3568-rock-3b.dts      |  9 +++
+>  arch/arm64/boot/dts/rockchip/rk356x-base.dtsi | 31 ++++++++
+>  drivers/accel/rocket/rocket_core.c            | 18 ++++-
+>  drivers/accel/rocket/rocket_core.h            | 16 +++++
+>  drivers/accel/rocket/rocket_device.c          | 25 ++++++-
+>  drivers/accel/rocket/rocket_drv.c             | 71 ++++++++++++++++++-
+>  7 files changed, 182 insertions(+), 6 deletions(-)
+>=20
+>=20
+
+
+
 
