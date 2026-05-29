@@ -1,226 +1,402 @@
-Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010024.outbound.protection.outlook.com [52.101.229.24])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f178.google.com (mail-dy1-f178.google.com [74.125.82.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576AA3B27D3;
-	Fri, 29 May 2026 09:39:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D17C03C2798
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:40:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.178
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780047575; cv=fail; b=lJ4d2pV8A1fWajpBoYhcYD9BsddNltH6U5o0NqyXTElQeVpALkM44YVcikoqaIIcw9UDWPfg7YnwWTcXjy+JNfwQzFSGK+mcs5f7ERZQXYEEG5+uqUTyNlDqxxFYS4ZzOl+E1LdpdA9bubBXc/qqxTbdfOyvPsWuaHlxxQAs0sg=
+	t=1780047614; cv=pass; b=Qoa6ZDgb/XTUtc+IOx9rwvSivdy9wYbojZMYuqpHkg2YN3Z9eMNPYv4/qaOtj+Ubyg2lCzZFdpdiTHse2ulG4cktToShZ2+YbZRBZ4D6XMduuVSJ8yscEsEKS84Bevya1x6/l5d3aCX4cNU9hJmldh0pDyZMSxlqweMj5eGq7Cw=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780047575; c=relaxed/simple;
-	bh=DW3VwbMLMtxQ9iY7WugczNI+2p2z8InaHR1Ap5hUh0M=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=t4+OtIzRtZaNo2Hp6uylbmhV8/FjE5c8OTG71GPpjpbr8F+1dz/eA/XZCvoNH9sICT5Eqr5QaIBVLB4MvLTNgG28nQ4o6wZ0facjJ+ClYrfA29jdQQdFDj5oyBe4YoBp12DwwZLo3UWFd/C1WpQyGJ31Xe4yC4WDo/gqiNEij50=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=Uyu58HQm; arc=fail smtp.client-ip=52.101.229.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
+	s=arc-20240116; t=1780047614; c=relaxed/simple;
+	bh=hg1MJgJp69xCiE6cXF9NCpUM7bLjzfVxjRpPbrpZrNk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dFYvKWLjdSubru0d2s15xB/WqARQKzzRl50R/3Fp/ijKv6YaS76Ma4O3b3M3jQfVDqVMBGxnhQwo7mvejBTBCYhpiUxbW18n9m9K6PNpA5wtR+AIy1hX66irKRfnNm6PTA4hV41h+UIa1A+FDVzcvIwPQpWEahS+LHFUYJEX/1M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ER/ZUh/n; arc=pass smtp.client-ip=74.125.82.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="Uyu58HQm"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=sl60qlxsFjBIOUP3qXGS3pp6gisbGNMpjDxsEpwmSIEyup0St+z8fNsCRYBkCAo8aMw7PWyxDFZ49PROd7D0yT2ItWKjQrl3xXQ2NEkyA0wa6lXU0lOtArplfPrb4lsrBY0kT5NAyY6MHpC8ypPQMGhwpw8t4lxlhsPHufZLmOEC6OY2P7IizKpgG4w5CctKDv5rU+J/QbUE04Ay51OHn/wk0ZzDzk5stskzveJnTIz1NyWfcW291gYFqsSGXPG6O8frOqnA3CHJ4C7MZfRR8O2r0am7bHEDSOgS8g0z/TWYDXAQKjVJXApDeXmcYiCTk6q2PVioKZ+ElmT414jpwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DW3VwbMLMtxQ9iY7WugczNI+2p2z8InaHR1Ap5hUh0M=;
- b=KbclWJ9bwD+1ncRF4G7BEyybDojFR4pI8qBk/ug9eD6KhrqZDo4Wd8nPP+Pb9qaXhpeCWSmuydMBdVMTjT6U22+T3roloUr2MriMEOY1wxa+FSCR5mHsVN+77PEWtBtpvgyr0gBYERvNhVnNkGn0eG/71ZjMndrMhCppnEC8u4x+wvvmUeSng1tw6ZqhoBsRELu5/mJGQDJ5IuoYgulO6DkAAxyLe6UBLbFOAL0mcTTL5bvJG3qW81C3bo/yzUYfvlIJzn+DWc4IgUNVBEFhnEbcvSBPjrf/Vj6Dm1zAsNI/hCvSV6f+uqhXh9Q859QXJ6uwfd5GFkTOyzRQNckt6Q==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
- dkim=pass header.d=renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DW3VwbMLMtxQ9iY7WugczNI+2p2z8InaHR1Ap5hUh0M=;
- b=Uyu58HQmCTqkm+SlXAhENBoGfxaGL8tGvQ0Qtbo8UJroC1pUFdK2vr0F6fflSbBsKki0CLBtirmhncHJJDL4zmv4dTxjCAGmasFT38PwuITRQO84m8X3WgazZknoOvtua9G72HbO68bCUj33x3KjK5spfDBH8/0Xhjp8U6naYIM=
-Received: from TY3PR01MB12089.jpnprd01.prod.outlook.com (2603:1096:400:3cf::5)
- by TYWPR01MB10243.jpnprd01.prod.outlook.com (2603:1096:400:1d5::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 09:39:30 +0000
-Received: from TY3PR01MB12089.jpnprd01.prod.outlook.com
- ([fe80::2221:b6b2:e5f3:2f0]) by TY3PR01MB12089.jpnprd01.prod.outlook.com
- ([fe80::2221:b6b2:e5f3:2f0%3]) with mapi id 15.21.0071.014; Fri, 29 May 2026
- 09:39:30 +0000
-From: Fabrizio Castro <fabrizio.castro.jz@renesas.com>
-To: geert <geert@linux-m68k.org>, "Lad, Prabhakar"
-	<prabhakar.csengg@gmail.com>
-CC: magnus.damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Biju Das
-	<biju.das.jz@bp.renesas.com>, Prabhakar Mahadev Lad
-	<prabhakar.mahadev-lad.rj@bp.renesas.com>
-Subject: RE: [PATCH v2] arm64: dts: renesas: rzt2h-n2h-evk: Configure
- eMMC/SDHI pins
-Thread-Topic: [PATCH v2] arm64: dts: renesas: rzt2h-n2h-evk: Configure
- eMMC/SDHI pins
-Thread-Index: AQHc4+T6PYo9V+SM4EiVqK6sBkQi9LYiPxaAgAD5FgCAAZ38EA==
-Date: Fri, 29 May 2026 09:39:29 +0000
-Message-ID:
- <TY3PR01MB1208987BE39F534A852A38E9DC2162@TY3PR01MB12089.jpnprd01.prod.outlook.com>
-References: <20260514210220.7616-1-fabrizio.castro.jz@renesas.com>
- <CA+V-a8vhCqdVf4iAusGj3rtCjkazAFqQJ4cwcnEGS0qK-EnVVw@mail.gmail.com>
- <CAMuHMdVrKr=Y=Xe-J-udh+CqoBD6XCKCSLBX7-N2ayrnw5prSg@mail.gmail.com>
-In-Reply-To:
- <CAMuHMdVrKr=Y=Xe-J-udh+CqoBD6XCKCSLBX7-N2ayrnw5prSg@mail.gmail.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB12089:EE_|TYWPR01MB10243:EE_
-x-ms-office365-filtering-correlation-id: 789de9c7-3444-49ca-3fc8-08debd662eac
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|376014|1800799024|22082099003|18002099003|38070700021|6133799003|11063799006|56012099006|4143699003;
-x-microsoft-antispam-message-info:
- fUuycPlF403EJqGmepiupCLVsDnbc7aqaZ+YnyFagnHRUPz12JFgN/JxqJdRumlnc7ymHojjkhBuT8wHFi8ZUWFfm4Crbo9wjGLHNauXx3oWGLcpUdxB1RBF25Py0AWkT+df5s4UNpKdlUl2PssTDVYoT41sMfB8+57ngyPywjH/+kkh62xCgmxQmO1i/QVC0hRhFEyyT9eoQkJtxNQM7agsq6V3EpxGplNjCTnwXQm1LYFWhJduDRY12AYGjCvULOeixXf8cHsAEV+kGpmHx8nWczN3hf2p1DSZOsuSJxB9iHFl7Jjkat30OinF6JgRYwx+M51MP76wwGnz+ZZbJE3kIq+HPU/I8jZZ9qdltavSLAIn+WwC3vIAUR6G3mvsmrThF6IJfPHvYSllmFwMoIHlq5ahNNE8HD7JrFLlLIZoZWlQfmXY/hhuqmOGl6DC+JkCwas4HlsktAc4gAnwPQ4NNiIp+fcvDt8zIpWDZZoFhy4txFwrIhKvH/3Pcgv8XL45w/++GljDwZa+IG22V4i6HRb322jcbopyF/sOLpFfngo3jAX152j6BqVG7GhW9v52+QjtXiVo5DXujYYjy1nHo6RyRmA5u94YoanbZSYrZQXUfRpaDB4OS7WtlKzHlBrAKOcKkp3L5dmdMT7Dd9sKP79gdSsaq8MEKZqG2EcKI3JOejr+d8lr9gve2Vn0wKHwCsh2CF0gNiEQ/eV8fZyRvktKux4pEzcWzWB6K1E2bVCjS3dWIHbZQruJWYD6
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB12089.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(22082099003)(18002099003)(38070700021)(6133799003)(11063799006)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?bHh2cGx0alo3aE9ZckJsTVhyTUdXNHR0TDZCcStFZXFXS040YWlKRHhxeWZl?=
- =?utf-8?B?cmcrTVhlZzZXa3d5RU5kbGFIdjl5bEpiMGZQZ0tUMDZHclFWSW00S1lUQTR1?=
- =?utf-8?B?MStDSGJNL3ZSdk9mdXFzN3dHY3NPdURKdGoyOExQMmJBQ0FNaStuWEFObEJo?=
- =?utf-8?B?UGIxa2l6TUFTcTRSaVoxL2FycTdscmU1QVFZenJyRHNXQ2E3UWF1NkJ6WXBP?=
- =?utf-8?B?S1hFWlNDemw2YkxURW0zVXJmNHNsSk9lUXQ3ckluamNmdFR5bDRVWGdkcFo1?=
- =?utf-8?B?MkhJZ1EzejY0VHUyNVI3UThVOUwyOG00b1lEZ3hqcjRIWGVUcFFBYjBoay9y?=
- =?utf-8?B?TWN2aE5RRTVOZllxaXg5ZnpFN05yaENmbWM0aEVORkRmRkEreTJ2WmpKcStq?=
- =?utf-8?B?SUNKbXM1bjQ1VXlUUGdjc3kzK1d2WGFnZ2dpelZ1dzdjZlVURithSlpEZTZI?=
- =?utf-8?B?RWxMZHNxcitmM1ZEc0tZSjVjTGRrRm9qSmZmU2VWVTJHSG1uY3phdWFkR1hv?=
- =?utf-8?B?dW13cXR0ZDdBY1VCbEFJb1dESGFwZ3pHUjVSOGhOZ09GT1FNSGc2eGcvQlpz?=
- =?utf-8?B?WHlhckMwdTU2K0RZSkVxS3ZRbWNCdXhvNVhJZ3BWMUdzeUlvV2VyZCtBSkFT?=
- =?utf-8?B?bVF5bVl4NGVuRjk4Vjh5OUt6UVRQOEVCS0JoaVJiL3dtS3YrWlNQa0JtclFl?=
- =?utf-8?B?N2xBZTNaaTVRcmR1czhISFdxVjFldU5LSUptZURPR0NjZndiWTZxSjcwaDVp?=
- =?utf-8?B?bUI2N2RYSSt3NkpIVmpWWUVTTEVreWJYWVNpV1NsWGhDQ3BHLzBFWmYwMHhS?=
- =?utf-8?B?T1ZrRE9pbVpLVVUwK1VZcDVQZE9ZVmFPMXdXblBUQVJlNW1yR2c5aWREcDdV?=
- =?utf-8?B?YThwMmhyODFQYUI3WjlmRkhhc1U0eWRhbDZZSUNEaUdXRDMvRjRzWjVoZzJy?=
- =?utf-8?B?TmlrMTlvMHVJK251czVWMFJIWjE4aGM1K0lXeElxVEhQTVdBQUZDTkc5dnNx?=
- =?utf-8?B?TXRjNCtGYnQ0R2w5dDc5QlBXUkROZlVQb2pqTEdmVWEwTHllOFN2N1hFUWdz?=
- =?utf-8?B?QVZSaFJKSjU2eTZQaFNReFVRYWNCQm0rMldPc2dqZ0xJYlJCOGpMVUNjT3JK?=
- =?utf-8?B?MXhJRmV1NjVhYmt0NUhnTUU4ZmpYalJud2hZWGZSZTFIeEtSeDZ0SHQ1WnMw?=
- =?utf-8?B?a2dxeVFEMWlFMERkc1VJVjNCY2ZqbHNEV0plRzV4YWRyRSsyY2hTSlBBVkdo?=
- =?utf-8?B?K3pnclgzak43MklQd3JackFwZ1laQ2YwUjEwWURmZXVncno5TlR6UTRSUTgv?=
- =?utf-8?B?cm5BNWsxVzZTbzl0NmV2ZG9kYkdjTTZYMGhBZUVqeEFDNllnbmtmUEg5RkpG?=
- =?utf-8?B?VnZCbWtKTlFjdXBuMVkzWnpOVjY5cUtQLzF3SGRncFp0NkdlcUloTnZSQ0hC?=
- =?utf-8?B?Ui94SUpDRmxOUlhXV3JaR3FabmREV3dCYVVIRFhSb1RSWDVvTStycnEzRHJX?=
- =?utf-8?B?V0VJK3BtZGFueXc3VWNocDlsbGJVUEFySEZJYmR1WXR4UmFyVTZPckNBVitn?=
- =?utf-8?B?a3VKUlpzczQrSkVCWWM3VWpkYVk3TVFhNXY5YTBvTVJLb0lLVW1JZzk0SENz?=
- =?utf-8?B?cDRGZktEcWFOL1k0T0pnazh0dTBYMVhYMmx3enBxaFdUNm5tay82OWZ1cmcz?=
- =?utf-8?B?cnd2SWZLUmJrN2hML2p5L0dncUxiT3B3Wlk0VHhjVkViZjAvTmlrTE1GTity?=
- =?utf-8?B?a016L2prRGhydC9IZnNMVWVPTjl3N1hWYUhqWGVKMUN0ckQ5c292VldYbTdu?=
- =?utf-8?B?SHlIcEE2YThiNjhGOXdyZk1kdTZQZTMzYUZtajlyVktjWXhxM3puZkdjOGlP?=
- =?utf-8?B?dzh3RGUxTlZlY2pjTW16SzdzNXFkeE4rZWtCbi9iWlJRZmJ1eVZEY1RiRGEz?=
- =?utf-8?B?NXJEbTErQ0d1MGgzL0JKNDNoTnA4c1NTQUVhV2ttUkxUTG1LQkY2TFVoQmlC?=
- =?utf-8?B?WkkvZ1pUb1gxdXQvVmtNY2NETVlxYkxxT1E1RTBJSEdUMHNSSnBTR01XcDc4?=
- =?utf-8?B?YjBqM2ZzMGJuV25qUXJpRzFrRGc4cDJtemViT0x4RENXK2g3bVVvU2hFa3VT?=
- =?utf-8?B?TEJTK0ZPY0lQeUJBQWp3WURya2ZJTDNwQWQvMHRmTlFFNzllNWQzdmdQeUw5?=
- =?utf-8?B?eFBVUnY2V0RkZUt3UWpiU05HN1V3elVCcTZCZjFpLzhlNlFqZi9HWithblZl?=
- =?utf-8?B?bWkyU1FPUE5yUHNTbmFtMTc1NGhLZDdEYW11MHl5Ymo0NHdlTHJLVkFvOGNS?=
- =?utf-8?B?WmhZdDhtd0cwUFlhWDNvOExzYTFvS3ZnLzZJL3hVOFozeCtOZ2Y1MHErREFq?=
- =?utf-8?Q?rWOmKx8UrHNmOo4M=3D?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ER/ZUh/n"
+Received: by mail-dy1-f178.google.com with SMTP id 5a478bee46e88-304f590dd91so64322eec.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:40:09 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780047609; cv=none;
+        d=google.com; s=arc-20240605;
+        b=X2aLj5IDquwk1Qjo/+qLRCjTFpmVC5ZN6njYjoFcGMI4mjMvOklMthLMOl7ExalEEX
+         8dxetryAsKrlT2u3FIkUO+95B3IpTo2+cXTY+7n6bUX5dO3pYpAdluQpaX9u1CNRTsyS
+         FHZ4+AomUUW3z/7JH1eSHqwW21VlF4Vmth34p3gqzfhRIW4WM4xatByRonw5i1sktU2I
+         GLEOQB05sGFAj/A65nP9q2Xr1BfjjJiSMyxsk3sMP/OMkq9FvW4Xq7ZQT4qjMyeD0IqS
+         zDtGZ4tFjOtvO4o4ZvyfR0tOtdtusxvyuvjrQA4G5a5clfX1Oe7qG74iOt7b2RinkluL
+         paAQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CNp8LY64my7Ot0qUd7egC8x+n5gTs/XUD+GWS+UeAxA=;
+        fh=yBlV/uk1D9VeSOWXi2huCnG+HD31XyI91Cw6MKz2x1E=;
+        b=PnLU+CQv3TxfDL5zFa0ayJUEbG2Z3AzVYZ/Bw+V/FRfjtZjTzZV6P6/JQ66kV1HNdV
+         JXlhBxbUpGQRRuy2t/5FD2lK2V4sWhGO5Ocvph5IAJtprqis2IP40V1/f7WWS4xZVamv
+         0TaomvEKUdrYaQaOzjbLeTe5aK+UmJGE7SfdaePWsFfyQRFbVlcJv/v34mqY86eiB8ha
+         W020EiWrMo+sIVkbVx11JnSiSZCkUrrT44jbjOtFAhWzsQVTBYCeOyiQHWHkUjwNNHrZ
+         ZC4qwfXoqpr/gmIEA85MaVCddEMFlxvZDFC+3nJQq+8b7VHOjTwNDbFzePwaPMRmBNHU
+         4bvA==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780047609; x=1780652409; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CNp8LY64my7Ot0qUd7egC8x+n5gTs/XUD+GWS+UeAxA=;
+        b=ER/ZUh/n9BTKkNEbqFe4m2wNZ7eu/R3sRNbBT86MgRvs9JqHi+OEBGDBuazyQcnncd
+         DRyKGjwuI1VbaNL5v2j5cXy+22qLNHSm37J0Rf4rGoIPm8wH7ngdWn48jisI69LF4DWP
+         F/wnJznYogmxTTLscmY7dkEQs77qyyPn4kxwDB2eIRyccVVMsshqrKzP50X7HwLpt7Er
+         +64is3HsJHHYpsx9UoLYPqlvg+go3bpy/YzirrA/vglper5FJFNY4+dmGbpMcnreyG53
+         E4LogGWgyd4DCdMgYPZaaPyR3aY8J1Scs0PatWDN2jV2imyXRsGD9gEhAt0B88/cm7Ri
+         I31g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780047609; x=1780652409;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CNp8LY64my7Ot0qUd7egC8x+n5gTs/XUD+GWS+UeAxA=;
+        b=ChJmRUwzHHktzSvhcB3aKx1eNyvVT3obPzQcvilDf+bz8EDbIXUr/ILRy+T9OXi5lo
+         yyks7R6vk3nRYgYPgFvimlXghrKqvhqqS3A3ZfyVwn2tsDiZ4a7HtiSik4HAnmcP1LJr
+         VA1tNbFNHnEdUqOHu7or7p4eYyjcMqkePk58YUK9xLmNUL6e1fPRzvu1WUsTejxtP2Le
+         /LF2NReeuM/aC6ikVlZh2h1QM/uxjHy++rYPUHEjGPxKYvMbJULAiMkMufDgey9QcOht
+         TcTGtaZdPNOSYiRQmY+Su7RnNhnuUcRdKDCOozRMvoMTeuV07UVPhEAuHzG9nIrEAgrp
+         vddg==
+X-Forwarded-Encrypted: i=1; AFNElJ+31F5Mn4ezsYwA7GG7KwrhQRz3IyEVFw9wR25XQLo2YRlQ/LfCOQ4dO6hmd4L2FwmozkBEvYaO56px@vger.kernel.org
+X-Gm-Message-State: AOJu0YwEe1MAkcgMBsmph79NiBD1KT24s0KZF1aRzQqySaW3kVJSVB7r
+	yI+GvLZOIupE/fcoyno66VCJRVDNZ9NByKw7JhgyGj8hPx0LYB2hq3kwZ92je2kIFEtHRLNCY+r
+	hbfw0sukvguCBDum7Mez71GOJ/dcioPE=
+X-Gm-Gg: Acq92OHpJqFSesgvvQv20MKjja/Y/DFR7XXr25XlDRNh0Y6wq0rerftfh5TKueMO0kN
+	OvyYWRSqao5oX2/iqnsAgVUrcZfoYa+RJpo/8IuKxiNrTJxCkJcsyRP4oWOmH9KRoXPh1JkvAeq
+	RD+mStemdwn8L9YT1Kno2UCbrxYnRQ2DqtAseGNstF0yxCcbjCdTW5S9pMdkxUYzr9Z9JS+d7yu
+	Zvi4ap5rsEM47MZ3idfPnS/3DDzNSy94iEfhcvZNpgUI3jDerxCL4l04kCQtVsOHJO2CjorXXfb
+	rAYAKWbVOvtjTwiElHY=
+X-Received: by 2002:a05:7300:371e:b0:304:d75b:f5df with SMTP id
+ 5a478bee46e88-304eb1f674amr920610eec.19.1780047608587; Fri, 29 May 2026
+ 02:40:08 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB12089.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 789de9c7-3444-49ca-3fc8-08debd662eac
-X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 09:39:29.9916
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: oV+ZcsU4qNa9FFTZtNmyhoxhW0ZA1wVNFCgqSbCXNVfpylSc5D7IQO7/5x7Oo+fXByJJOfOIFYUV9mk4tkvhMWjAA7cOEMBZJwJt79ipzs8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYWPR01MB10243
+References: <20260528135123.103745-1-clamor95@gmail.com> <20260528135123.103745-3-clamor95@gmail.com>
+ <20260528155001.2bcb7003@jic23-huawei> <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
+ <20260529100819.1823ebb3@jic23-huawei>
+In-Reply-To: <20260529100819.1823ebb3@jic23-huawei>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Fri, 29 May 2026 12:39:56 +0300
+X-Gm-Features: AVHnY4KxytPKwIfHLJ8T1GXio2-Gko93x1b9EqyHTERy5U5OnXbey3uFJfFakx8
+Message-ID: <CAPVz0n0VHdUo5oHdALgcerLsykdz-2n7c+jxYHrMOV7Ra5x_qQ@mail.gmail.com>
+Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgR2VlcnQsDQoNCj4gRnJvbTogR2VlcnQgVXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhr
-Lm9yZz4NCj4gU2VudDogMjggTWF5IDIwMjYgMDk6NTcNCj4gVG86IExhZCwgUHJhYmhha2FyIDxw
-cmFiaGFrYXIuY3NlbmdnQGdtYWlsLmNvbT4NCj4gQ2M6IEZhYnJpemlvIENhc3RybyA8ZmFicml6
-aW8uY2FzdHJvLmp6QHJlbmVzYXMuY29tPjsgbWFnbnVzLmRhbW0gPG1hZ251cy5kYW1tQGdtYWls
-LmNvbT47IFJvYiBIZXJyaW5nDQo+IDxyb2JoQGtlcm5lbC5vcmc+OyBLcnp5c3p0b2YgS296bG93
-c2tpIDxrcnprK2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkgPGNvbm9yK2R0QGtlcm5lbC5v
-cmc+OyBsaW51eC0NCj4gcmVuZXNhcy1zb2NAdmdlci5rZXJuZWwub3JnOyBkZXZpY2V0cmVlQHZn
-ZXIua2VybmVsLm9yZzsgbGludXgta2VybmVsQHZnZXIua2VybmVsLm9yZzsgQmlqdSBEYXMNCj4g
-PGJpanUuZGFzLmp6QGJwLnJlbmVzYXMuY29tPjsgUHJhYmhha2FyIE1haGFkZXYgTGFkIDxwcmFi
-aGFrYXIubWFoYWRldi1sYWQucmpAYnAucmVuZXNhcy5jb20+DQo+IFN1YmplY3Q6IFJlOiBbUEFU
-Q0ggdjJdIGFybTY0OiBkdHM6IHJlbmVzYXM6IHJ6dDJoLW4yaC1ldms6IENvbmZpZ3VyZSBlTU1D
-L1NESEkgcGlucw0KPiANCj4gSGkgUHJhYmhha2FyLA0KPiANCj4gT24gV2VkLCAyNyBNYXkgMjAy
-NiBhdCAyMDowNiwgTGFkLCBQcmFiaGFrYXIgPHByYWJoYWthci5jc2VuZ2dAZ21haWwuY29tPiB3
-cm90ZToNCj4gPiBPbiBUaHUsIE1heSAxNCwgMjAyNiBhdCAxMDowMuKAr1BNIEZhYnJpemlvIENh
-c3Rybw0KPiA+IDxmYWJyaXppby5jYXN0cm8uanpAcmVuZXNhcy5jb20+IHdyb3RlOg0KPiA+ID4g
-VGhlIEhXIHVzZXIgbWFudWFsIGZvciB0aGUgUmVuZXNhcyBSWi9UMkggYW5kIHRoZSBSWi9OMkgg
-c3RhdGVzDQo+ID4gPiB0aGF0IGZvciBTRFIxMDQsIFNEUjUwLCBhbmQgSFMyMDAgdG8gd29yayBw
-cm9wZXJseSB0aGUgZU1NQy9TREhJDQo+ID4gPiBpbnRlcmZhY2UgcGlucyBoYXZlIHRvIGJlIGNv
-bmZpZ3VyZWQgYXMgc3BlY2lmaWVkIGJlbG93Og0KPiA+ID4gKiBTRG5fQ0xLIHBpbiAtIGRyaXZl
-IHN0cmVuZ3RoOiBVbHRyYSBIaWdoLCBzbGV3IHJhdGU6IEZhc3QNCj4gPiA+ICogT3RoZXIgU0Ru
-XyogcGluczogZHJpdmUgc3RyZW5ndGg6IEhpZ2gsIHNsZXcgcmF0ZTogRmFzdCwNCj4gPiA+ICAg
-U2NobWl0dCB0cmlnZ2VyOiBkaXNhYmxlZCAobm90IGFwcGxpY2FibGUgdG8gU0RuX1JTVCBwaW5z
-KS4NCj4gPiA+DQo+ID4gPiBIUyBERFIgYW5kIEREUjUwIGFyZSBjdXJyZW50bHkgbm90IHN1cHBv
-cnRlZCwgYW5kIGZvciBldmVyeQ0KPiA+ID4gb3RoZXIgYnVzIG1vZGUgdGhlIGVNTUMvU0RISSBp
-bnRlcmZhY2UgcGlucyBzaG91bGQgYmUgY29uZmlndXJlZA0KPiA+ID4gYXMgc3BlY2lmaWVkIGJl
-bG93Og0KPiA+ID4gKiBTRG5fQ0xLIHBpbiAtIGRyaXZlIHN0cmVuZ3RoOiBIaWdoLCBzbGV3IHJh
-dGU6IEZhc3QNCj4gPiA+ICogT3RoZXIgU0RuXyogcGluczogZHJpdmUgc3RyZW5ndGg6IE1pZGRs
-ZSwgc2xldyByYXRlOiBGYXN0LA0KPiA+ID4gICBTY2htaXR0IHRyaWdnZXI6IGRpc2FibGVkIChu
-b3QgYXBwbGljYWJsZSB0byBTRG5fUlNUIHBpbnMpLg0KPiA+ID4NCj4gPiA+IEFkanVzdCB0aGUg
-cGluIGRlZmluaXRpb25zIGFjY29yZGluZ2x5Lg0KPiA+ID4NCj4gPiA+IFNpZ25lZC1vZmYtYnk6
-IEZhYnJpemlvIENhc3RybyA8ZmFicml6aW8uY2FzdHJvLmp6QHJlbmVzYXMuY29tPg0KPiANCj4g
-PiA+IC0tLSBhL2FyY2gvYXJtNjQvYm9vdC9kdHMvcmVuZXNhcy9yenQyaC1uMmgtZXZrLWNvbW1v
-bi5kdHNpDQo+ID4gPiArKysgYi9hcmNoL2FybTY0L2Jvb3QvZHRzL3JlbmVzYXMvcnp0MmgtbjJo
-LWV2ay1jb21tb24uZHRzaQ0KPiA+ID4gQEAgLTI3NSwxMiArMjc1LDYzIEBAIGRhdGEtcGlucyB7
-DQo+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8UlpUMkhfUE9SVF9QSU5N
-VVgoMTIsIDcsIDB4MjkpPiwgLyogU0QwX0RBVEE1ICovDQo+ID4gPiAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICA8UlpUMkhfUE9SVF9QSU5NVVgoMTMsIDAsIDB4MjkpPiwgLyogU0Qw
-X0RBVEE2ICovDQo+ID4gPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8UlpUMkhf
-UE9SVF9QSU5NVVgoMTMsIDEsIDB4MjkpPjsgLyogU0QwX0RBVEE3ICovDQo+ID4gPiArICAgICAg
-ICAgICAgICAgICAgICAgICBkcml2ZS1zdHJlbmd0aC1taWNyb2FtcCA9IDw1MDAwPjsNCj4gPiA+
-ICsgICAgICAgICAgICAgICAgICAgICAgIHNsZXctcmF0ZSA9IDwxPjsNCj4gPiA+ICsgICAgICAg
-ICAgICAgICAgICAgICAgIGlucHV0LXNjaG1pdHQtZGlzYWJsZTsNCj4gPiA+ICAgICAgICAgICAg
-ICAgICB9Ow0KPiA+ID4NCj4gPiA+IC0gICAgICAgICAgICAgICBjdHJsLXBpbnMgew0KPiA+ID4g
-LSAgICAgICAgICAgICAgICAgICAgICAgcGlubXV4ID0gPFJaVDJIX1BPUlRfUElOTVVYKDEyLCAw
-LCAweDI5KT4sIC8qIFNEMF9DTEsgKi8NCj4gPiA+IC0gICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgIDxSWlQySF9QT1JUX1BJTk1VWCgxMiwgMSwgMHgyOSk+LCAvKiBTRDBfQ01EICovDQo+
-ID4gPiAtICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8UlpUMkhfUE9SVF9QSU5NVVgo
-MTMsIDIsIDB4MjkpPjsgLyogU0QwX1JTVCMgKi8NCj4gPiA+ICsgICAgICAgICAgICAgICBjbGst
-cGlucyB7DQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICBwaW5tdXggPSA8UlpUMkhfUE9S
-VF9QSU5NVVgoMTIsIDAsIDB4MjkpPjsgLyogU0QwX0NMSyAqLw0KPiA+ID4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgZHJpdmUtc3RyZW5ndGgtbWljcm9hbXAgPSA8OTAwMD47DQo+ID4gPiArICAg
-ICAgICAgICAgICAgICAgICAgICBzbGV3LXJhdGUgPSA8MT47DQo+ID4gPiArICAgICAgICAgICAg
-ICAgfTsNCj4gPiA+ICsNCj4gPiA+ICsgICAgICAgICAgICAgICBjbWQtcGlucyB7DQo+ID4gPiAr
-ICAgICAgICAgICAgICAgICAgICAgICBwaW5tdXggPSA8UlpUMkhfUE9SVF9QSU5NVVgoMTIsIDEs
-IDB4MjkpPjsgLyogU0QwX0NNRCAqLw0KPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgZHJp
-dmUtc3RyZW5ndGgtbWljcm9hbXAgPSA8NTAwMD47DQo+ID4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICBzbGV3LXJhdGUgPSA8MT47DQo+ID4gPiArICAgICAgICAgICAgICAgICAgICAgICBpbnB1
-dC1zY2htaXR0LWRpc2FibGU7DQo+ID4gPiArICAgICAgICAgICAgICAgfTsNCj4gPiA+ICsNCj4g
-PiA+ICsgICAgICAgICAgICAgICByc3QtcGlucyB7DQo+ID4gPiArICAgICAgICAgICAgICAgICAg
-ICAgICBwaW5tdXggPSA8UlpUMkhfUE9SVF9QSU5NVVgoMTMsIDIsIDB4MjkpPjsgLyogU0QwX1JT
-VCMgKi8NCj4gPiA+ICsgICAgICAgICAgICAgICAgICAgICAgIGRyaXZlLXN0cmVuZ3RoLW1pY3Jv
-YW1wID0gPDUwMDA+Ow0KPiA+ID4gKyAgICAgICAgICAgICAgICAgICAgICAgc2xldy1yYXRlID0g
-PDE+Ow0KPiA+ID4gKyAgICAgICAgICAgICAgIH07DQo+ID4gPiArICAgICAgIH07DQo+ID4gPiAr
-DQo+ID4gPiArICAgICAgIHNkaGkwX2VtbWNfcGluc191aHM6IHNkMC1lbW1jLWdyb3VwLXVocyB7
-DQo+ID4gVGhpcyBuZWVkcyB0byBiZSBzZDAtZW1tYy11aHMtZ3JvdXAgYW5kIHRvIGtlZXAgaXQg
-Y29uc2lzdGVudCwgd2UgY2FuDQo+ID4gcmVuYW1lIHNkaGkwX2VtbWNfcGluc191aHMgdG8gc2Ro
-aTBfZW1tY191aHNfcGlucyAoYW5kIHNhbWUgZm9yDQo+ID4gYmVsb3cpLiBTaW5jZSBHZWVydCBo
-YXMgYWxyZWFkeSByZXZpZXdlZCwgcGVyaGFwcyB0aGlzIGNhbiBiZSBmaXhlZCB1cA0KPiA+IHdo
-aWxlIGFwcGx5aW5nLg0KPiA+DQo+ID4gUmVzdCBMR1RNLA0KPiA+DQo+ID4gUmV2aWV3ZWQtYnk6
-IExhZCBQcmFiaGFrYXIgPHByYWJoYWthci5tYWhhZGV2LWxhZC5yakBicC5yZW5lc2FzLmNvbT4N
-Cj4gDQo+IFRoYW5rcywgd2lsbCBmaXggdGhhdCB3aGlsZSBhcHBseWluZy4NCg0KVGhhbmtzIGZv
-ciB0YWtpbmcgY2FyZSBvZiB0aGlzIQ0KDQpDaGVlcnMsDQpGYWINCg0KPiANCj4gQXBwYXJlbnRs
-eSB3ZSd2ZSBiZWVuIGNvbnNpc3RlbnQgd2l0aCB1c2luZyAiLWdyb3VwIiBhcyBhIHN1ZmZpeCwN
-Cj4gYnV0IGhhdmUgYSBtaXggb2YgInBpbnMiIGluIHRoZSBtaWRkbGUgYW5kIGFzIGEgc3VmZml4
-Lg0KPiANCj4gR3J7b2V0amUsZWV0aW5nfXMsDQo+IA0KPiAgICAgICAgICAgICAgICAgICAgICAg
-ICBHZWVydA0KPiANCj4gLS0NCj4gR2VlcnQgVXl0dGVyaG9ldmVuIC0tIFRoZXJlJ3MgbG90cyBv
-ZiBMaW51eCBiZXlvbmQgaWEzMiAtLSBnZWVydEBsaW51eC1tNjhrLm9yZw0KPiANCj4gSW4gcGVy
-c29uYWwgY29udmVyc2F0aW9ucyB3aXRoIHRlY2huaWNhbCBwZW9wbGUsIEkgY2FsbCBteXNlbGYg
-YSBoYWNrZXIuIEJ1dA0KPiB3aGVuIEknbSB0YWxraW5nIHRvIGpvdXJuYWxpc3RzIEkganVzdCBz
-YXkgInByb2dyYW1tZXIiIG9yIHNvbWV0aGluZyBsaWtlIHRoYXQuDQo+ICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgLS0gTGludXMgVG9ydmFsZHMNCg==
+=D0=BF=D1=82, 29 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:0=
+8 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Thu, 28 May 2026 18:03:31 +0300
+> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+>
+> > =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE =
+17:50 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
+> > >
+> > > On Thu, 28 May 2026 16:51:19 +0300
+> > > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+> > >
+> > > > Since there are no users of this driver via platform data, remove t=
+he
+> > > > platform data support and switch to using Device Tree bindings.
+> > > > Additionally, optimize functions used only by platform data.
+> > >
+> > >
+> > > At least the IIO ones would have made much the same amount of sense f=
+or
+> > > dt, just that they weren't having in the first place. I'd prefer that
+>
+> Gah. I write gibberish after too much reviewing.  having/helping!
+>
+> > > as a precursor patch to make the rest much more readable.
+> > >
+> >
+> > I can add you preferences into this commit, I don't mind.
+> >
+> > > >
+> > > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> > >
+> > > I only looked in detail at the iio bit. A few changes requested.
+> > >
+> > > > ---
+> > > >  drivers/iio/light/lm3533-als.c      |  95 ++++------
+> > > >  drivers/leds/leds-lm3533.c          |  51 ++++--
+> > > >  drivers/mfd/lm3533-core.c           | 268 ++++++++++--------------=
+----
+> > > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
+> > > >  include/linux/mfd/lm3533.h          |  51 +-----
+> > > >  5 files changed, 212 insertions(+), 305 deletions(-)
+> > > >
+> > > > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3=
+533-als.c
+> > > > index 99f0b903018c..cbd337b73bd9 100644
+> > > > --- a/drivers/iio/light/lm3533-als.c
+> > > > +++ b/drivers/iio/light/lm3533-als.c
+> > >
+> > > > @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_al=
+s_attribute_group =3D {
+> > > >       .attrs =3D lm3533_als_attributes
+> > > >  };
+> > > >
+> > > > -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool =
+pwm_mode)
+> > > > +static int lm3533_als_setup(struct lm3533_als *als)
+> > > >  {
+> > > > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
+> > > > -     u8 val;
+> > > > +     struct device *dev =3D &als->pdev.dev;
+> > > >       int ret;
+> > > >
+> > > > -     if (pwm_mode)
+> > > > -             val =3D mask;     /* pwm input */
+> > > > -     else
+> > > > -             val =3D 0;        /* analog input */
+> > > > -
+> > > > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, =
+mask);
+> > > > -     if (ret) {
+> > > > -             dev_err(&als->pdev->dev, "failed to set input mode %d=
+\n",
+> > > > -                                                             pwm_m=
+ode);
+> > > > -             return ret;
+> > > > -     }
+> > > > -
+> > > > -     return 0;
+> > > > -}
+> > > > -
+> > > > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
+> > > > -{
+> > > > -     int ret;
+> > > > -
+> > > > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTO=
+R_MAX) {
+> > > > -             dev_err(&als->pdev->dev, "invalid resistor value\n");
+> > > > -             return -EINVAL;
+> > > > -     }
+> > > > -
+> > > > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SEL=
+ECT, val);
+> > > > -     if (ret) {
+> > > > -             dev_err(&als->pdev->dev, "failed to set resistor\n");
+> > > > -             return ret;
+> > > > -     }
+> > > > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
+> > > > +                              &als->r_select);
+> > > Does this have a default?  If so the pattern we've recently be settin=
+g on for IIO
+> > > is
+> > >         if (device_property_present(dev, "ti,resistor-value-ohm"))
+> > >                 ret =3D device_property_read_u32();
+> > >                 if (ret) //corrupt property in some fashion
+> > >                         return ret;
+> > >         } else {
+> > >                 //set default
+> > >         }
+> > > If there is no default then check it unconditionally.
+> >
+> > default value is LM3533_ALS_RESISTOR_MIN and if no property is present
+> > clamp will ensure that als->r_select will be set to
+> > LM3533_ALS_RESISTOR_MIN
+>
+> I don't see that default in the binding doc and relying in the 0 being cl=
+amped
+> isn't particularly readable - I'd set it explicitly.
+>
+
+Oh, ye, my bad. Schema enforces one of props to be present and if pwn
+is present then resistor is ignored. What if I move resistor reading,
+clamping and conversion under !als->pwm_mode check? Then resistor must
+be present and hence must be checked unconditionally.
+
+Additionally, I can comment original lm3533_als_setup with #if 0
+#endif then git formatting will be much cleaner and easier to review,
+and once we all come to result I will just remove entire commented
+block and Lee can pick clean commits.
+
+>
+> >
+> > >
+> > > >
+> > > > -     return 0;
+> > > > -}
+> > > > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MI=
+N,
+> > > > +                           LM3533_ALS_RESISTOR_MAX);
+> > > > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select)=
+;
+> > > >
+> > > > -static int lm3533_als_setup(struct lm3533_als *als,
+> > > > -                         const struct lm3533_als_platform_data *pd=
+ata)
+> > > > -{
+> > > > -     int ret;
+> > > > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode=
+");
+> > > >
+> > > > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
+> > > > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_m=
+ode ?
+> > > > +                         LM3533_ALS_INPUT_MODE_MASK : 0,
+> > >
+> > > That's ugly.  Better as
+> > >
+> > >         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
+> > >                             als->pwm_mode ? LM3533_ALS_INPUT_MODE_MAS=
+K : 0,
+> > >
+> >
+> > Yes sure, just followed 80 char limit.
+> >
+> > > Though if there wasn't a layer hiding the regmap, it could just have =
+been
+> > >
+> > >         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CON=
+F,
+> > >                                  LM3533_ALS_INPUT_MODE_MASK, als->pwm=
+_mode);;
+> > >
+> > > which would have been nicer.
+> > >
+> > > I'm not particularly keen on the swashing of the helpers being in a p=
+atch
+>
+> smashing.  (this definitely wasn't my best effort at English!)
+>
+> > > that is about switching the binding type as feels largely unrelated.
+> > > Should really have been a precursor, easier to review patch.
+> > >
+> >
+> > Removing of lm3533_update layer is not the scope of this patchset.
+>
+> Understood.  I'm fine with just the refactor you are doing brought out as=
+ a precursor
+> patch.
+>
+
+I have looked into removing wrappers too. That seems to be less a
+hassle that I anticipated, so I will include regmap switch in the v2.
+
+> >
+> > >
+> > > > +                         LM3533_ALS_INPUT_MODE_MASK);
+> > > >       if (ret)
+> > > > -             return ret;
+> > > > +             return dev_err_probe(dev, ret, "failed to set input m=
+ode %d\n",
+> > > > +                                  als->pwm_mode);
+> > > >
+> > > >       /* ALS input is always high impedance in PWM-mode. */
+> > > > -     if (!pdata->pwm_mode) {
+> > > > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select)=
+;
+> > > > +     if (!als->pwm_mode) {
+> > > > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_=
+SELECT,
+> > > > +                                (u8)als->r_select);
+> > >
+> > > Same applies here. Mostly an unrelated change as the only thing switc=
+hing that
+> > > is related to the patch is one parameter.
+> > >
+> >
+> > Removing of lm3533_write layer is not the scope of this patchset.
+> >
+> > > >               if (ret)
+> > > > -                     return ret;
+> > > > +                     return dev_err_probe(dev, ret, "failed to set=
+ resistor\n");
+> > > >       }
+> > > >
+> > > >       return 0;
+> > >
+> > > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_d=
+evice *pdev)
+> > > >       indio_dev->channels =3D lm3533_als_channels;
+> > > >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
+> > > >       indio_dev->name =3D dev_name(&pdev->dev);
+> > > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);
+> > >
+> > > I'm not sure why this was there in the first place.  Hence not sure i=
+f it
+> > > is safe to remove.
+> > >
+> >
+> > This is directly related to OF conversion. The iio_device_set_parent
+> > bound indio_dev to parent, and it causes problems with OF now since
+> > als output has its own node and binding it to parent if wrong. Same
+> > story for backlight and leds btw.
+>
+> Is there any risk anyone was using the canonical path to get to the iio d=
+ev?
+> /sys/bus/platform/devices/..../iio\:deviceX
+> This is technically an ABI change be it a subtle one.
+>
+
+Linux kernel has no users of this driver, and it is in "stale" state
+for more then 2 years (maybe even longer). I have cc'd Johan Hovold.
+
+https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
+
+This this 2 y. o. discussion and there were no actions ore movements.
+I assume this driver in its current form has no more users. This does
+not mean that it cannot be revived though.
+
+>
+> >
+> > >
+> > > > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.=
+c
+> > > > index 45795f2a1042..d707d43d5526 100644
+> > > > --- a/drivers/leds/leds-lm3533.c
+> > > > +++ b/drivers/leds/leds-lm3533.c
+> > >
+> > > >
+> > > >       led->cb.dev =3D led->cdev.dev;
+> > > >
+> > > > -     ret =3D lm3533_led_setup(led, pdata);
+> > > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
+> > > > +                              &led->max_current);
+> > >
+> > > I'd prefer explicit setting of the default to be visible before this,=
+ or
+> > > the property_present pattern I mention in the IIO review above.
+> > >
+> >
+> > clamp will ensure that led->max_current will be set to
+> > LM3533_LED_MAX_CURRENT_MIN regardless if it it present
+>
+> As above, I'd prefer it set explicitly.
+>
+
+I understand your position and I am not denying it for ALS part, but
+LEDs don't belong to IIO subsystem and different subsystem maintainers
+may have drastically different preferences and requirements (ugh, PTSD
+in its full glory).
+
+> >
+> > > > +     led->max_current =3D clamp(led->max_current, LM3533_LED_MAX_C=
+URRENT_MIN,
+> > > > +                              LM3533_LED_MAX_CURRENT_MAX);
+> > >
+> > > I didn't look any further (busy day!)
+> >
+>
