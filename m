@@ -1,131 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 551FD3E8333
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:58:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D3E93F8EB5;
+	Fri, 29 May 2026 16:02:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780070309; cv=none; b=LQRuO2Xqb6ButfK6dernuqDJQ1+Z329L0nN7GjlMwGRlqSuh8VurKwfBvg/omLWvyJtQoLp0/HOsqqBFrhAfU8Pv0yMDQ21sOsAsDL7iTzgcwf4WJOiCJIiaf3XX0brQRh7Ao3hdXbUbd+m1hPWgMgdK4M9rn01PdlqGrxtlX1o=
+	t=1780070560; cv=none; b=V/vy4cdrAaCRHFc2YoykUmZcwODKnsyF0xhbtEv3URKfEDgUiqTHjsUYp0d34gVf5QqwbfQMno8OLw3/+SlHioKxwC4FLQ610zbEtVyQ3SUMZk22zINpMHopdrxLul1miidq7t2ScPVTobZxcmlkl53TUbdHE0tBWH4mBqOK2Ho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780070309; c=relaxed/simple;
-	bh=9BCS56pVRryY7pWjuzmcS8K36R35NfR88+/6XLLhN6U=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tgqMt8aCNNHcGzKGXpmQ32XX2AqUOqtjibtWXiAkHfs2UiPZAUQAN+PO/vWrOWoXxgLBohM6lTHSAMWvbKCYCHt8ZwMtlkoFZkOfJOxIANAg5PQD+zoITnWGoWw6EHTcLr1X7U/n6EGhhAf1EtzQgzgc3ZsH9tU6FQcn5apJv/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P3d54xtL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780070560; c=relaxed/simple;
+	bh=B/v6ZAN77QlWj2UWfj3wzqhg81twFrvJGliUSR6dCIc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hqr6g8+u+x6uvECeITs7ZxVAbhMGCQ+3rVu0sYsyvXk1rkGpbp7mCKnN2vnaAaNFrbPMgdEIlfYTWKM5VrbOpyjjPyg9Wlv8MiYD8SCdAKlVkkXO28rFD80IRaSwOaTY3YTfGwyYfvJLV29ppkIxuYEV6zaLfbPITvlWy6V3dXQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=MfjVvoT2; arc=none smtp.client-ip=217.194.8.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P3d54xtL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B6D1F00A05
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780070308;
-	bh=9q8bnA8Cybs5JYtZeRk2lM9ckb6ZQxrxMyz/lWzwvTQ=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=P3d54xtLn7Ia7Nk5lngi8u5E3xjbRP6p/xAKljQBbrNrug1jMH/sDsM9xCIdtYLHb
-	 T1ns8r6FvNwhZaO18DtrHjb4baqPSWJ/3YiGqWL9p5L1rIRP87PhMXNAQu9TGp8EzF
-	 f5W2S4zL62KwX6VO0XF/ZlBat0Fzkjis4YdcNAvQ4HUNeEQNEh2GB/rq4RVJMZqMTH
-	 Q1aOE2+MUi5lVzOVCxno9KCFyI87w9vM/cYntbVKAZzt5kUm014zfOzF8kD7GHOAvy
-	 qnrQFwbYhVf5JsBHS9Uztif27v2rwCXRcGyGIpAimDGDoVk7748Z2q8y5A3OvtgY1S
-	 hBi7szKWxWhNw==
-Received: by mail-dl1-f47.google.com with SMTP id a92af1059eb24-1353c2f35cfso7458158c88.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:58:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ/sqvCC4auSLQywTylohKw1S+pg3fYHbeIbhMABQ2jn9wHwu7jrItP883cosOJu4bIIPp9JO7dHsURG@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzt5L87XnLQgF2jijIvAzL6Q7WxXAHtS6i+V5MWdRIXcZR+l2E4
-	rX/t9vNsxVqpnYbXkInK0dNN9eYq7O3Gmz+89/yxHGjyVuQ8PdF9GxKg2E2hTUovZeSTb/w7CuN
-	Bye13aRHn9HMThJ6SOnl+esi6hMqK6/PSxAToITVcBA==
-X-Received: by 2002:a05:7022:6299:b0:135:dc3d:ab50 with SMTP id
- a92af1059eb24-137d4242f26mr125225c88.29.1780070307047; Fri, 29 May 2026
- 08:58:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="MfjVvoT2"
+Received: from francesco-nb (93-33-39-96.ip42.fastwebnet.it [93.33.39.96])
+	by mail11.truemail.it (Postfix) with ESMTPA id 0DE4A1FCFB;
+	Fri, 29 May 2026 18:02:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
+	s=default; t=1780070555;
+	bh=vev3uWK3nb5vm7RDNrdb/+RhFlWVQB2NrTqyd6V5BOk=; h=From:To:Subject;
+	b=MfjVvoT2mqcofwmK1RIh/yf5VUeSVxZwEqfG6FEDSpVQEJH6XUcjw5qWnnCsVyNgi
+	 FApejYKeYSsZe0yRZwh5++hxKGfYEWj5yqhLDsU0GvGV1BrZzT+MPq+enviTJ3V2i6
+	 VIM5Ds3YDLzDvDcpvXO2GSjQSxji8T+ELdX+sZqJ6CXYESDrz+i0vLt7ZdRDWR5GuF
+	 uYfuzatGvRxQ3+qnmG+Snx2sxlu0OI7BLXxUC/HTs+NYqQ2d68u6hAsVh6f6wPPSYh
+	 pHoslPekcopkkYkbyljmX05CADm/jC7ET/RCVgPi1QatzDc9b8uXG2RV5elXUyTVSp
+	 8dl1h14bStsIw==
+Date: Fri, 29 May 2026 18:02:27 +0200
+From: Francesco Dolcini <francesco@dolcini.it>
+To: Nishanth Menon <nm@ti.com>
+Cc: Vitor Soares <ivitro@gmail.com>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	Neil Armstrong <neil.armstrong@linaro.org>,
+	Jessica Zhang <jesszhan0024@gmail.com>,
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+	Maxime Ripard <mripard@kernel.org>,
+	Thomas Zimmermann <tzimmermann@suse.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Thierry Reding <thierry.reding@gmail.com>,
+	Vitor Soares <vitor.soares@toradex.com>,
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH v3 06/11] arm64: dts: ti: k3-am62-verdin: Add Toradex
+ Capacitive Touch Display 7" DSI
+Message-ID: <20260529160227.GA6917@francesco-nb>
+References: <20260522161105.277519-13-ivitro@gmail.com>
+ <20260522161105.277519-19-ivitro@gmail.com>
+ <20260529155345.z6ht5adzhwafdvx5@voting>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260515-shikra_qcrypto-v1-0-80f07b345c29@oss.qualcomm.com>
- <20260514194735.GA1939213@google.com> <d4d35e17-84fa-4c95-9bfb-abfd25ea7f4a@oss.qualcomm.com>
- <20260522024912.GC5937@quark> <c1697372-54ec-4f57-85d9-ad375ff1a44d@oss.qualcomm.com>
- <20260525142843.GA2018@quark> <e49c4a45-6455-47f3-a91f-c32c1a0b99be@oss.qualcomm.com>
- <CAMRc=MfC6CEwOXYttsav3mwqyJ2F4sburBj+zNJ25qMoweyL-Q@mail.gmail.com>
- <lj7geczhthury476ilkjym2k5fblo5pqroefsbdfgh5jcf7zy2@qrss5xc7umn3>
- <CAMRc=Me6cqasdBknbAjUZ5BqcpERYwV+NvseRJp4P0aTSYAMUw@mail.gmail.com> <20260528175214.GA3936298@google.com>
-In-Reply-To: <20260528175214.GA3936298@google.com>
-From: Bartosz Golaszewski <brgl@kernel.org>
-Date: Fri, 29 May 2026 17:58:12 +0200
-X-Gmail-Original-Message-ID: <CAMRc=MfY-tmMCdw9FVBgfkX-FvB5Nx2X06S023GhASenSCQSNA@mail.gmail.com>
-X-Gm-Features: AVHnY4LP_t91eok9MEp4yvSeZMeVRFiXKE_WmFYVgc-of5NzGm-5x7t-ox5gugo
-Message-ID: <CAMRc=MfY-tmMCdw9FVBgfkX-FvB5Nx2X06S023GhASenSCQSNA@mail.gmail.com>
-Subject: Re: [PATCH 0/3] Add support for qcrypto on shikra
-To: Eric Biggers <ebiggers@kernel.org>
-Cc: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
-	Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>, Thara Gopinath <thara.gopinath@gmail.com>, 
-	Herbert Xu <herbert@gondor.apana.org.au>, "David S. Miller" <davem@davemloft.net>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, Andy Gross <agross@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, linux-crypto@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	dmaengine@vger.kernel.org, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, 
-	Gaurav Kashyap <gaurav.kashyap@oss.qualcomm.com>, 
-	Neeraj Soni <neeraj.soni@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260529155345.z6ht5adzhwafdvx5@voting>
 
-On Thu, May 28, 2026 at 7:52=E2=80=AFPM Eric Biggers <ebiggers@kernel.org> =
-wrote:
->
-> On Thu, May 28, 2026 at 11:13:47AM -0400, Bartosz Golaszewski wrote:
-> > On Thu, 28 May 2026 15:50:10 +0200, Dmitry Baryshkov
-> > <dmitry.baryshkov@oss.qualcomm.com> said:
-> > > On Thu, May 28, 2026 at 09:13:23AM -0400, Bartosz Golaszewski wrote:
-> > >> On Thu, 28 May 2026 13:54:51 +0200, Kuldeep Singh
-> > >> <kuldeep.singh@oss.qualcomm.com> said:
-> > >> >>> +Bartosz, Gaurav, Neeraj
-> > >>
-> > >> I know about the self-tests etc., I will address them next.
-> > >
-> > > My 2c, the self-tests would be more important, as they are fixes. Doi=
-ng
-> > > the crypto in a wrong way is a bad idea...
-> > >
-> >
-> > Then let that be "in parallel". :)
->
-> The race conditions between Linux and other environments (modem, TEE,
-> etc) are of course about correctness as well, even though the self-tests
-> don't expose race condition bugs.  The self-tests have always just done
-> a few serialized tests.  That's sufficient for CPU-based code, but not
-> for offload drivers, which need to be stress-tested to find the
-> concurrency bugs that occur during actual use.
->
-> Is there a plan to improve the tests to do stress testing as well?
->
+On Fri, May 29, 2026 at 10:53:45AM -0500, Nishanth Menon wrote:
+> On 17:11-20260522, Vitor Soares wrote:
+> > +	touchscreen@41 {
+> > +		compatible = "ilitek,ili2132";
+> > +		reg = <0x41>;
+> > +		pinctrl-names = "default";
+> > +		pinctrl-0 = <&pinctrl_dsi1_int>, <&pinctrl_i2s_2_bclk_gpio>;
+> > +		/* Verdin GPIO_9_DSI (SODIMM 17) - TOUCH_INT# */
+> > +		interrupt-parent = <&main_gpio1>;
+> > +		interrupts = <49 IRQ_TYPE_EDGE_RISING>;
+> 
+> https://lore.kernel.org/r/20260521152550.A928B1F000E9@smtp.kernel.org
+> https://lore.kernel.org/r/20260522140245.472651F000E9@smtp.kernel.org
+> Sashiko comment would probably be good to explain - I see the same in
+> v3.
 
-I'm not sure if we can easily implement linux-only tests using
-multiple execution environments. I will look into it and come back
-with an answer.
+The interrupt pin of the ilitek,ili2132 touch controller is a very short
+pulse, the net name TOUCH_INT# is on the board side and it is generic,
+not specific on the touch controller used.
 
-> It's kind of odd that they don't do that yet.  But it makes sense: the
-> CPU-based code doesn't need it, while the offload driver authors have
-> never cared enough about correctness and test coverage to add it.
->
-> I still don't really see a path forward here, given the track record and
-> poor performance numbers.  This approach just doesn't work.
->
+Both falling and edge would work fine.
 
-Sorry but I'm not sure what your point is. What this series does is:
-it documents the compatible for the crypto engine that very much *does
-exist* on the SoC and describes how it's wired up as a real HW
-component in devicetree. Whatever the state of the driver is, it's not
-grounds for NAKing HW description. The IP *is* there, we're allowed to
-describe it in DTS.
+The reason for using rising is that for the way the HW is designed the
+interrupt signal is not that "clean", and triggering on the falling edge
+produce some spurious interrupt. Those spurious interrupts are handled
+nicely by the driver, but they pollute the kernel logs for no reason.
 
-Qualcomm wants to use this IP and I will keep on improving it. I think
-that - given the BAM locking series is at v19 now and has been
-initially posted in 2023 - I've a proven track record of not
-abandoning it. :)
 
-I'm away next week but will look into self-tests the week after. This
-series - once fixed - should go upstream independently.
+Nishanth: in general do you want an explicit answer to every comment made my
+sashiko?
 
-Bart
+Francesco
+
