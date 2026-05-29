@@ -1,147 +1,219 @@
-Received: from CH5PR02CU005.outbound.protection.outlook.com (mail-northcentralusazon11012050.outbound.protection.outlook.com [40.107.200.50])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 603BF346E51;
-	Fri, 29 May 2026 03:09:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.200.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780024155; cv=fail; b=qcCl0VzQIsHtmuYEZmpaJAQqXJA9DULq5BVcVCT/nn9ik4yf7h3AUol6RtUOXL1QxuQ6uDEBAgKUU6YEhVfoDpnNQqZFjiUK/NvUbfkR0wxIYQeiBi3sA+W7e4SDMvZ9na6q0RHVi+ywhqINKbS317Uu8inBAsYQSCC3Aq9dKMI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780024155; c=relaxed/simple;
-	bh=vPPMcMGUzcjw6VmCZkfhx+5X/hnVED8mpkZP3J2yFDE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=BjIB+ijve60VscDVj9CxFzDtBt+BeJ6UN26xIQDFvBVv1H0x7JyI+ICBraRO/6mya9jKwxj2z9jfvYLkflhHYjWtGj6MuJHnu4v0onUY5j+uceZnH7J8DZ4ZmR1U+BaBIZCAGST0E7FKz0Xr5sv2ge8SXJIavx4Ib+E1nxb7FOk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=Um/rn5LI; arc=fail smtp.client-ip=40.107.200.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D97AC367B73
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 03:15:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780024532; cv=none; b=RxcSS7+dOt8McAduRY1MFDeDlpJi2GnZev6bxvBtb7fPSnjKlJMdnBUsMr/ah47SNA39bcFdyprGIkHrZdZNvYWdN1D/ADnczf9yxI5atCzrrl9emBKxGhI3cKbMHU6k3Wy7A64ew0EtjF+Hbw0hkKGpU6QQRjP1Q5eKvvQoSnw=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780024532; c=relaxed/simple;
+	bh=7uOkRA701VIy1v3uc1XWi5GMJ7zgB3SVC4l5FTP++Xs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dLsQ3WOJNdcKxyRUfFoTVZe2ZUgJa0SwaQmiJf8mySRgHn/4wKaJsUIfY5TWCEG0M320j57y5oHwAwbcRg00PnZy1gEqi5W50vmiuLwZngAO/SSnYl1XwHJzEleDUadrXfMhPstZsNo3DuU4UoAm0erRLdlb6fzGvmg1G7Sdyw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UrB2A+xE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="Um/rn5LI"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=nogOPbcsdKfnOBEOTvFO1ohFpm/tIE7Cuu5t6wOZZ2neVdakGsX1FjbWr6bbZTci/p57YJvtVUvD3xgO7IcxHVbLqe0CBW89Bqcj+WyzWzNihQ78NBYi4XOoFEVrX4IkPFMcxJi5iIQh0HhSI+wYAv9yGOyXcb63iOS3zt6tI99N+AmBTnqKktupTF4ptAOjVf2t84NCUwgPNKYgQgBAtb044XSDVhRtLNm1a6TPJ2wiLl3cGM0dZzfESg0tuaXJYL2s1cYF/yG6Ty3K6FoNW4HV9yFl1hAoEzxGUTbPhPpKvzHpJPhmtgXn+e55UCBMGuBCK31BbsChY+uONiQVPA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=njm9Lb6PnPkKXEPA2I6kX9wff67YWmaAIYAMRIfCmqs=;
- b=TcndqHfGeulA+6HrSNfNNRhLfzNydt5iKpKVZJ59tfz9HB30T7ZEYcuEtLcgh1H600wbO8maWNwC84SVKRq2JlmcGFxYUWdRLPEDtZIY1JttBZmS1LF1q12PwhRy2h12v8ItRIpP1muMd3NJAbIWcQeixk5pQKAF5AOK9LEF4TMF/Wihuae9HUdWcgOIE0z1VmUQSgHBnMfckMSvKDgT6+xfVsDZ1qt6c9jhI6aSFAq27Rs5C7xkqoXXW1dFLqF5MKE7RMtPfol1kTtiqovqTL5+SjRVEFfrTcrnTGcwqlsR2Nm0Az3EoVng09JLz8oeCCefJweVLNIfuPWHycRKJg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=njm9Lb6PnPkKXEPA2I6kX9wff67YWmaAIYAMRIfCmqs=;
- b=Um/rn5LIA+Wv9gIeneEOtEGM0oPdpZEyn14VzrRd8iG0ActvWqeT+R8zg32ddFC8QwMzztcfSjmiTI507coS0A+3/K58YPZQd2Z7zwjVjlRv+OGD+nVF1V6GOF3+oeEvrxK4t0HJO/4sgP4onbTeg+Ep9Vo9LvtG/GJwx7r3i+8=
-Received: from BN9PR03CA0206.namprd03.prod.outlook.com (2603:10b6:408:f9::31)
- by DM4PR10MB7389.namprd10.prod.outlook.com (2603:10b6:8:10f::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Fri, 29 May
- 2026 03:09:11 +0000
-Received: from BN3PEPF0000B075.namprd04.prod.outlook.com
- (2603:10b6:408:f9:cafe::64) by BN9PR03CA0206.outlook.office365.com
- (2603:10b6:408:f9::31) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.13 via Frontend Transport; Fri, 29
- May 2026 03:09:11 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- BN3PEPF0000B075.mail.protection.outlook.com (10.167.243.120) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 03:09:11 +0000
-Received: from DLEE200.ent.ti.com (157.170.170.75) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 22:09:10 -0500
-Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE200.ent.ti.com
- (157.170.170.75) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Thu, 28 May
- 2026 22:09:10 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Thu, 28 May 2026 22:09:10 -0500
-Received: from [10.249.33.223] ([10.249.33.223])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64T39ARj2782222;
-	Thu, 28 May 2026 22:09:10 -0500
-Message-ID: <3d958ba0-30b1-461b-aea7-c0bf758a490c@ti.com>
-Date: Thu, 28 May 2026 22:09:09 -0500
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UrB2A+xE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676FF1F000E9;
+	Fri, 29 May 2026 03:15:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780024530;
+	bh=8JMnxDkodE7vC+K2EBuhTzI+xSgbqCL7v8h6aKBOXgc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=UrB2A+xEz/AfO28QaYUy9LpyJyKpY18IA6UJM2ZKXAd/6oSRWleXxzFnhsLKO8eWI
+	 7FeTUFjUef7jLVh2B7TUrKgoRIE93FSGZ0DMxbxEJ2q2RY4s13im8GXFSHEoBHP5+4
+	 vGjSz6k7+FwfCSaEmrMPRHoW99c6IKJw2QMUatze6JUzXZd4sAvkqfGiMs6dPREgt/
+	 Fd9XbwqxTeUJ9DjbTi4Cm4RqJU2vbvhluDLF6xTGhKOPvbbvk6WmiXElsv+eRgOUcD
+	 dX0gmLDGnPpjk51AoqF4gbQPChd0BFn81RUbFLcZofTLc2uURcoHhj2XV2KTBwYYB5
+	 qimX4I5tQo4Tw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/4] pinctrl: qcom: spmi-gpio: Add level-shifter
+ function support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260528-pinctrl-level-shifter-v2-4-3a6a025392bf@oss.qualcomm.com>
+References: <20260528-pinctrl-level-shifter-v2-4-3a6a025392bf@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 03:15:29 +0000
+Message-Id: <20260529031530.676FF1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v5 2/2] arm64: dts: ti: Add audio overlay for
- k3-j721s2-evm
-To: Moteen Shah <m-shah@ti.com>, <krzk+dt@kernel.org>, <robh@kernel.org>,
-	<conor+dt@kernel.org>, <nm@ti.com>, <vigneshr@ti.com>, <kristo@kernel.org>
-CC: <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<linux-kernel@vger.kernel.org>, <u-kumar1@ti.com>, <gehariprasath@ti.com>,
-	<y-abhilashchandra@ti.com>
-References: <20260520115603.2662930-1-m-shah@ti.com>
- <20260520115603.2662930-3-m-shah@ti.com>
-Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <20260520115603.2662930-3-m-shah@ti.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF0000B075:EE_|DM4PR10MB7389:EE_
-X-MS-Office365-Filtering-Correlation-Id: 36b1536e-15ec-4e8c-83dd-08debd2fa80b
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|376014|1800799024|82310400026|18002099003|22082099003|56012099006|4143699003;
-X-Microsoft-Antispam-Message-Info:
-	Wo3y2IcQoKtebXYSkeCcYCNlRbffxQAmbEVG6WM9KZVCz0M2PDZ1tmPUMlSrCOzMkR9B0jWl8cCf53F02VwTBS4pQk97/ZBi2QbOmjIrA1zUuIcNDa2GscuYa5C5pdLsrrubYUsYGFqH0D8gaCKvx2moQ0+5bOLFVGpWRej0/qWpkLSpsyO0zUUuYEkiEtJ/YnUcC4Y/X+hdTCXfaUPl+pQSWSYPA+J6XVP9RVQBjDFnFjsBf1ij2QrdrqIJSt8i5U7eAV559aLL3GCHlhNYZKHOOnkr3l2tkm63yuDM+KwCO6upMk9oaY/cgEjjdKOvN3i75BDVpJP83o8mEDi6YclZRDg5kA88Gldrtf3o8rKBLO8AUq8KRKjx5hQqLbmVewyDmu6xKJz0k8TaV9xsIWKhcQtGZGqwM5EBeDWCDlnAJ/ehHrmo973nApAbmBJHH9W2ZTaMP73wo6WHmlcKmvTVltKHSEwrxH2pWzb9W9lum4MKTc6mz4GhEDKAvbDxZosvtcOZm/4qZHoZtCWTVRwgSIxAk2OFqKr5rRadKOHRmr1GXSooV6w4qv2zcoCsk5GRM/U7Jk8RsKTWakLUI+D5Kiy/RPLdYQSBZ8ILbcfLuiQDEbo1LNeX6FQHTBZA72Xfs3+vbpya3BXti//lGl5b67NFte07g05xxWXhV7DxRbKgkfrED36nfBRnoewQmY36jujE6J4R6tv0ZGmrZiNbhpeu67UX6hPLQeZd+oM=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(1800799024)(82310400026)(18002099003)(22082099003)(56012099006)(4143699003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MruZqCDfldlZ4hAF7yCUUl4u0bnhh94OrKLOkH7k4OiKfwsFc3Z61H+j2368n4u4CvTrVh7LZdgY7DK6XCXGd0ZVaNTM3YT+RQnKv2LK+A7VD7eimmfbddqJaKiPmCHzVywDt8lJZNnIh4VlUQlaKvx8ebhidyUXDyO4GY0890TFdd/VipUh3zGfKsn63DWHhC+tG4ch7VGFGGB7utE7nBdVJ8/9cDMMPjwwhffulLeCTZcAdV3n4o0CLlw4CVcAMzvOx9ueVvQ/ojcc7e8bR9eLOUrcIaMVRJPUWtw7EhzlJAubon4DTjWsP0igAbN1PsQ0oDxPXk6x915+QqlaQQxsutcnzRdeVHJpxJ94s6AAv/NdZW3RxvnNp5gNLIjQhivI9ilc1shcgV7qV/qp8jc4M0k/8USlerZcIvmUkk/+HALdmlCHiM5ZqvIOx1V6
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 03:09:11.2380
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 36b1536e-15ec-4e8c-83dd-08debd2fa80b
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF0000B075.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR10MB7389
 
-On 5/20/2026 6:56 AM, Moteen Shah wrote:
-> From: Jayesh Choudhary <j-choudhary@ti.com>
-> 
-> Add device tree overlay to enable analog audio support on J721S2-EVM
-> using PCM3168A codec connected to McASP4 serializers.
-(snip)> +&scm_conf {
-> +	#address-cells = <1>;
-> +	#size-cells = <1>;
-> +
-> +	audio_refclk1: clock-controller@42e4 {
-> +		compatible = "ti,j721s2-audio-refclk", "ti,am62-audio-refclk";
-> +		reg = <0x42e4 0x4>;
-> +		clocks = <&k3_clks 157 299>;
-> +		assigned-clocks = <&k3_clks 157 299>;
-> +		assigned-clock-parents = <&k3_clks 157 328>;
-> +		#clock-cells = <0>;
-> +	};
-> +};
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Writing the software-defined `LEVEL_SHIFTER` function index to har=
+dware registers causes register corruption.
+- [High] Out-of-bounds array access when displaying pinconf debugfs for a l=
+evel-shifter pin.
+- [High] Use-After-Free of level shifter resources during driver unbind due=
+ to reversed devm initialization order.
+- [High] Failure to enforce mutual exclusivity between the bidirectional le=
+vel shifter and physical GPIO functions.
+- [Medium] Missing GET support for the newly added `qcom,1p2v-1p8v-ls-en` p=
+in configuration.
+--
 
-Hi Moteen,
+commit febef2022fa1d171b552bf56874bdc04c2cb463b
+Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-Should the bulk of this scm_conf block go to the SoC-dtsi instead? It 
-looks like it could be a part of J721 SoC dtsi, which currently doesn't 
-seem to have any audio refclks defined.
+pinctrl: qcom: spmi-gpio: Add level-shifter function support
 
-Best,
-Sen Wang
+This commit introduces bidirectional level shifter support for open-drain
+signals. It adds a level-shifter function to the SPMI GPIO driver for speci=
+fic
+GPIO pairs managed via RPMh.
 
+> diff --git a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c b/drivers/pinctrl/q=
+com/pinctrl-spmi-gpio.c
+> index 268cfae706a82..741795ae261ef 100644
+> --- a/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> +++ b/drivers/pinctrl/qcom/pinctrl-spmi-gpio.c
+> @@ -137,6 +144,7 @@ enum pmic_gpio_func_index {
+>  	PMIC_GPIO_FUNC_INDEX_DTEST2,
+>  	PMIC_GPIO_FUNC_INDEX_DTEST3,
+>  	PMIC_GPIO_FUNC_INDEX_DTEST4,
+> +	PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER,
+>  };
+
+[ ... ]
+
+> @@ -183,25 +191,86 @@ struct pmic_gpio_state {
+>  	{"qcom,analog-pass",		PMIC_GPIO_CONF_ANALOG_PASS,	0},
+> -	{"qcom,dtest-buffer",           PMIC_GPIO_CONF_DTEST_BUFFER,    0},
+> +	{"qcom,dtest-buffer",		PMIC_GPIO_CONF_DTEST_BUFFER,	0},
+> +	{"qcom,1p2v-1p8v-ls-en",	PMIC_GPIO_CONF_LS_ENABLE,	0},
+>  };
+
+[Severity: Medium]
+Since this commit adds the PMIC_GPIO_CONF_LS_ENABLE property and handles it
+in pmic_gpio_pinconf_group_set(), does it also need corresponding read
+support?
+
+The driver uses generic pinconf dumps but lacks a pin_config_group_get
+implementation, and pmic_gpio_pinconf_pin_get() lacks a case for the new
+parameter. This appears to break the symmetry of the pinctrl API, which
+might cause programmatic reads of this configuration to fail with -EINVAL.
+
+[ ... ]
+
+> @@ -214,16 +283,16 @@ static const char *const pmic_gpio_groups[] =3D {
+>  };
+> =20
+>  static const char *const pmic_gpio_functions[] =3D {
+> -	[PMIC_GPIO_FUNC_INDEX_NORMAL]	=3D PMIC_GPIO_FUNC_NORMAL,
+> -	[PMIC_GPIO_FUNC_INDEX_PAIRED]	=3D PMIC_GPIO_FUNC_PAIRED,
+> -	[PMIC_GPIO_FUNC_INDEX_FUNC1]	=3D PMIC_GPIO_FUNC_FUNC1,
+> -	[PMIC_GPIO_FUNC_INDEX_FUNC2]	=3D PMIC_GPIO_FUNC_FUNC2,
+> -	[PMIC_GPIO_FUNC_INDEX_FUNC3]	=3D PMIC_GPIO_FUNC_FUNC3,
+> -	[PMIC_GPIO_FUNC_INDEX_FUNC4]	=3D PMIC_GPIO_FUNC_FUNC4,
+> -	[PMIC_GPIO_FUNC_INDEX_DTEST1]	=3D PMIC_GPIO_FUNC_DTEST1,
+> -	[PMIC_GPIO_FUNC_INDEX_DTEST2]	=3D PMIC_GPIO_FUNC_DTEST2,
+> -	[PMIC_GPIO_FUNC_INDEX_DTEST3]	=3D PMIC_GPIO_FUNC_DTEST3,
+> -	[PMIC_GPIO_FUNC_INDEX_DTEST4]	=3D PMIC_GPIO_FUNC_DTEST4,
+> +	[PMIC_GPIO_FUNC_INDEX_NORMAL]		=3D PMIC_GPIO_FUNC_NORMAL,
+> +	[PMIC_GPIO_FUNC_INDEX_PAIRED]		=3D PMIC_GPIO_FUNC_PAIRED,
+> +	[PMIC_GPIO_FUNC_INDEX_FUNC1]		=3D PMIC_GPIO_FUNC_FUNC1,
+> +	[PMIC_GPIO_FUNC_INDEX_FUNC2]		=3D PMIC_GPIO_FUNC_FUNC2,
+> +	[PMIC_GPIO_FUNC_INDEX_FUNC3]		=3D PMIC_GPIO_FUNC_FUNC3,
+> +	[PMIC_GPIO_FUNC_INDEX_FUNC4]		=3D PMIC_GPIO_FUNC_FUNC4,
+> +	[PMIC_GPIO_FUNC_INDEX_DTEST1]		=3D PMIC_GPIO_FUNC_DTEST1,
+> +	[PMIC_GPIO_FUNC_INDEX_DTEST2]		=3D PMIC_GPIO_FUNC_DTEST2,
+> +	[PMIC_GPIO_FUNC_INDEX_DTEST3]		=3D PMIC_GPIO_FUNC_DTEST3,
+> +	[PMIC_GPIO_FUNC_INDEX_DTEST4]		=3D PMIC_GPIO_FUNC_DTEST4,
+>  };
+
+[Severity: High]
+Should PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER be added to this array?
+
+If pmic_gpio_pinconf_pin_dbg_show() formats the status of a level-shifter
+pin, it dereferences pmic_gpio_functions[function]. For a level-shifter
+pin, this would be index 10 (or potentially 12 for non-LV/MV pins), while
+the array only has 10 elements.
+
+Could this cause an out-of-bounds memory access that crashes the kernel when
+reading pinctrl debugfs?
+
+[ ... ]
+
+> @@ -513,7 +639,8 @@ static int pmic_gpio_pinconf_pin_set(struct pinctrl_d=
+ev *pctldev,
+> =20
+>  	pad =3D pctldev->desc->pins[pin].drv_data;
+> =20
+> -	pad->is_enabled =3D true;
+> +	if (pad->function !=3D PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER)
+> +		pad->is_enabled =3D true;
+
+[Severity: High]
+The commit message states that the level shifter must be mutually exclusive
+with all existing functions and configurations. However, does this code
+enforce that exclusivity?
+
+If a device tree simultaneously assigns a normal function to a pin and
+enables the level shifter on its associated group, pad->function will be
+NORMAL.
+
+Since the check above will pass, it will set pad->is_enabled =3D true,
+potentially causing both the physical GPIO output buffer and the external
+level shifter to drive the pin concurrently. Could this result in
+electrical overstress?
+
+[Severity: High]
+Is there a risk of corrupting hardware registers with the LEVEL_SHIFTER
+index?
+
+When setting PMIC_GPIO_REG_MODE_CTL for non-LV/MV pins later in
+pmic_gpio_pinconf_pin_set(), the driver does this:
+
+        val =3D val << PMIC_GPIO_REG_MODE_DIR_SHIFT;
+        val |=3D pad->function << PMIC_GPIO_REG_MODE_FUNCTION_SHIFT;
+
+If pad->function is PMIC_GPIO_FUNC_INDEX_LEVEL_SHIFTER (10, 0b1010),
+shifting it by 1 results in 20 (0x14). Since the hardware function field is
+only 3 bits, this overflows and overwrites bit 4
+(PMIC_GPIO_REG_MODE_DIR_SHIFT).
+
+Since LEVEL_SHIFTER is a software-defined pseudo-function that physically
+operates by keeping the pad disabled, should the driver explicitly bypass
+hardware register writes for level-shifter pins?
+
+[ ... ]
+
+> @@ -1285,6 +1545,15 @@ static int pmic_gpio_probe(struct platform_device =
+*pdev)
+>  		}
+>  	}
+> =20
+> +	/* Register level-shifter groups and function if hardware and DT both o=
+pt in */
+> +	if (hw_data->ls_config && hw_data->num_ls &&
+> +	    of_property_present(dev->of_node, "qcom,rpmh") &&
+> +	    of_property_present(dev->of_node, "qcom,pmic-id")) {
+> +		ret =3D pmic_gpio_register_level_shifters(state, hw_data);
+> +		if (ret < 0)
+> +			return ret;
+> +	}
+
+[Severity: High]
+Will this devres allocation order cause a Use-After-Free during driver
+unbind?
+
+Earlier in pmic_gpio_probe(), devm_pinctrl_register_and_init() is called to
+register the pinctrl device. Then, pmic_gpio_register_level_shifters()
+allocates the level shifter resources (ls_group_data, ls_group_names) using
+devm_kcalloc and devm_kzalloc.
+
+Because devres releases resources in LIFO order, the level shifter memory
+will be freed before the pinctrl device is unregistered. Does this leave a
+window where the pinctrl device remains active and exposed to userspace
+(e.g. sysfs/debugfs) while its registered groups and functions point to
+freed memory?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-pinctrl-le=
+vel-shifter-v2-0-3a6a025392bf@oss.qualcomm.com?part=3D4
