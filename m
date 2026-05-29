@@ -1,311 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C433AFAEA;
-	Fri, 29 May 2026 09:08:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEF143BA222
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:11:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780045713; cv=none; b=uwjWYFkW8VD8N4QajlV/yS50vBvqLVFPoDbDtVXDXGZmr1zIx0mcQpIFkbAvWGy1WHpSD05nBXCfpiO35pf6M5M/CNnMGIywWYtBFIwnLmV7/ZUhe78TXr2Ghgs6jxRZy72GzgssCWbm1qllYAUvRnqgr6j6bZ5IO1HZIwxCFqA=
+	t=1780045880; cv=none; b=We39B8c8+g33SGWMcI6q9EPUjzcN/Tvzcjv0v/fU4F0v224TPwsjCkgVYGC8Byg18GpdobS2kNBkp6u1lb/00UqONA8IcPsUYp03q/xIO34ow6mUx9Hln4mDCm5PFC4zfb0xD8uViuz6JzdjsRCeToMoMyRwy40rR0PnxzWCd/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780045713; c=relaxed/simple;
-	bh=pRg9Vtd183dHhOU3Ypb1ilDIzo7KsV7UFoQRfmBll5o=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pIRwnAXtVZZ87ZU5hvzzGQBkAvpbrP42HFwclIt5wYjPXs/u7YUngOuoFIx7UPaINuwzevaGrhutPG7YwtXv+IE6+MwgeDT9MWcPsiiLotueoyfZ9UBwdJ1fc971vNLhOL6C5SeJipL2FPzMGele4WKNskHIMab1CHPHgeyTspE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1KsMRvl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780045880; c=relaxed/simple;
+	bh=iwUjvlRt11ZLJvFv6Z3nzGwsbJHnTXBDkxx5bqNx0Rc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=dYESALDH8wZzDQrSgsix7268t0ojO9S5GSBqph8cTtr9zwaeo9ep4MNXJxGW1M0j4vWWOdiRzFcKEmsgXF3rB9iHo22G4cZ3VTl4V5xWdrTsyb2ckFeyqjsQr0ucemP8sHVo0TNXT7saQ4Q6ucvEPgkolN5Aqqf3WZ2jFwHikeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=So+T73uS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1KsMRvl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55181F00893;
-	Fri, 29 May 2026 09:08:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="So+T73uS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4967F1F00893;
+	Fri, 29 May 2026 09:11:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780045711;
-	bh=SJhCBNK1z06eHdQUaoXs+yc4q80tlftXqJh3f219zPs=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=X1KsMRvlEDqxH6HNt/sLZgqvC6pDIHPcOnX3zD0c2VF1uncQ83dO7ICSK4kHtlu6y
-	 txTfvgvkcC5u4WQ3Ic2CcKYtM2Vt5r+5HVL+gbsCV/AOXWpv6WgQEdkmnAARpTqMrZ
-	 0knmKymZLqVmnD5eJWszccrsioEQX5Tnf+S7y759DKhWLq/2pjPTlGrfUw32OTGqC7
-	 x0BKMy7E/SnaQ8nvlkNq3mGvcMKOwdDwHw8yDYCVt8gBjRm6IhIhFkCJjQ1Z6bUBjq
-	 5vpfX8fdsIezybD6WxANkb0tYH1L1r4NuCiBjv4AwrEjJxapFBlYQz1bZfyrulY3Yh
-	 EsxthgMwu0iAw==
-Date: Fri, 29 May 2026 10:08:19 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
- Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
-Message-ID: <20260529100819.1823ebb3@jic23-huawei>
-In-Reply-To: <CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
-References: <20260528135123.103745-1-clamor95@gmail.com>
-	<20260528135123.103745-3-clamor95@gmail.com>
-	<20260528155001.2bcb7003@jic23-huawei>
-	<CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780045879;
+	bh=6tgekIIi0aqjvVnx9X2vM9TwgqbhE1PQEaWGM1uc1Iw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=So+T73uSs7/hqYLGmhWJzJGt/h4CA+5Ib47nisFTY6+Sbm70DK9pxPR7FeONQFp7m
+	 qvSsfFMrxsNEYMN81bGHm17kQ+vIzcMkZO5LKtL1/tHMmWo63HYd6SeTI1nXmWvuIX
+	 y0UuwxrLLM4IvMVujuR9tC+Yk84KF/O1zioL5FisfSTBFZw/Uv0zxU4F+PFIpz1t9b
+	 3HXVSY0i36KIVTq7aN1anRdzv8b8PB/VV2ufSvHC20sidx6745QxDolAaDG9PvEiHS
+	 gUy0mN7JM15d2S3MygJnU4r/GeDWjmZVBV+I2GyN29yt3QGQBS9c6xa9LwYVaBqVOX
+	 6rmDdly5Pl3zw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 06/15] drm/tidss: Remove extra
+ pm_runtime_mark_last_busy
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260529-beagley-ai-display-v3-6-7fefdc5d1adf@ideasonboard.com>
+References: <20260529-beagley-ai-display-v3-6-7fefdc5d1adf@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 09:11:18 +0000
+Message-Id: <20260529091119.4967F1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, 28 May 2026 18:03:31 +0300
-Svyatoslav Ryhel <clamor95@gmail.com> wrote:
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-> =D1=87=D1=82, 28 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 17=
-:50 Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
-> >
-> > On Thu, 28 May 2026 16:51:19 +0300
-> > Svyatoslav Ryhel <clamor95@gmail.com> wrote:
-> > =20
-> > > Since there are no users of this driver via platform data, remove the
-> > > platform data support and switch to using Device Tree bindings.
-> > > Additionally, optimize functions used only by platform data. =20
-> >
-> >
-> > At least the IIO ones would have made much the same amount of sense for
-> > dt, just that they weren't having in the first place. I'd prefer that
-
-Gah. I write gibberish after too much reviewing.  having/helping!
-
-> > as a precursor patch to make the rest much more readable.
-> > =20
->=20
-> I can add you preferences into this commit, I don't mind.
->=20
-> > >
-> > > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com> =20
-> >
-> > I only looked in detail at the iio bit. A few changes requested.
-> > =20
-> > > ---
-> > >  drivers/iio/light/lm3533-als.c      |  95 ++++------
-> > >  drivers/leds/leds-lm3533.c          |  51 ++++--
-> > >  drivers/mfd/lm3533-core.c           | 268 ++++++++++----------------=
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but the WARN_ON(r < =
+0) following pm_runtime_put_autosuspend() incorrectly treats valid Runtime =
+PM API returns as driver bugs. According to the Runtime PM subsystem API co=
+ntracts, pm_runtime_put_autosuspend() can legitimately return negative erro=
+r codes during normal operation. For example, if another thread concurrentl=
+y increments the usage counter between the usage drop and the idle check, t=
+he internal PM checks will return -EAGAIN. If the driver has active childre=
+n (like the newly added OLDI auxiliary devices) and ignore_children is not =
+set, it can return -EBUSY. Furthermore, if CONFIG_PM is disabled, it uncond=
+itionally returns -ENOSYS. Asserting WARN_ON(r < 0) on these valid state tr=
+ansitions leads to spurious warnings in the kernel log.
 --
-> > >  drivers/video/backlight/lm3533_bl.c |  52 ++++--
-> > >  include/linux/mfd/lm3533.h          |  51 +-----
-> > >  5 files changed, 212 insertions(+), 305 deletions(-)
-> > >
-> > > diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm353=
-3-als.c
-> > > index 99f0b903018c..cbd337b73bd9 100644
-> > > --- a/drivers/iio/light/lm3533-als.c
-> > > +++ b/drivers/iio/light/lm3533-als.c =20
-> > =20
-> > > @@ -714,59 +720,33 @@ static const struct attribute_group lm3533_als_=
-attribute_group =3D {
-> > >       .attrs =3D lm3533_als_attributes
-> > >  };
-> > >
-> > > -static int lm3533_als_set_input_mode(struct lm3533_als *als, bool pw=
-m_mode)
-> > > +static int lm3533_als_setup(struct lm3533_als *als)
-> > >  {
-> > > -     u8 mask =3D LM3533_ALS_INPUT_MODE_MASK;
-> > > -     u8 val;
-> > > +     struct device *dev =3D &als->pdev.dev;
-> > >       int ret;
-> > >
-> > > -     if (pwm_mode)
-> > > -             val =3D mask;     /* pwm input */
-> > > -     else
-> > > -             val =3D 0;        /* analog input */
-> > > -
-> > > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, ma=
-sk);
-> > > -     if (ret) {
-> > > -             dev_err(&als->pdev->dev, "failed to set input mode %d\n=
-",
-> > > -                                                             pwm_mod=
-e);
-> > > -             return ret;
-> > > -     }
-> > > -
-> > > -     return 0;
-> > > -}
-> > > -
-> > > -static int lm3533_als_set_resistor(struct lm3533_als *als, u8 val)
-> > > -{
-> > > -     int ret;
-> > > -
-> > > -     if (val < LM3533_ALS_RESISTOR_MIN || val > LM3533_ALS_RESISTOR_=
-MAX) {
-> > > -             dev_err(&als->pdev->dev, "invalid resistor value\n");
-> > > -             return -EINVAL;
-> > > -     }
-> > > -
-> > > -     ret =3D lm3533_write(als->lm3533, LM3533_REG_ALS_RESISTOR_SELEC=
-T, val);
-> > > -     if (ret) {
-> > > -             dev_err(&als->pdev->dev, "failed to set resistor\n");
-> > > -             return ret;
-> > > -     }
-> > > +     device_property_read_u32(dev, "ti,resistor-value-ohm",
-> > > +                              &als->r_select); =20
-> > Does this have a default?  If so the pattern we've recently be setting =
-on for IIO
-> > is
-> >         if (device_property_present(dev, "ti,resistor-value-ohm"))
-> >                 ret =3D device_property_read_u32();
-> >                 if (ret) //corrupt property in some fashion
-> >                         return ret;
-> >         } else {
-> >                 //set default
-> >         }
-> > If there is no default then check it unconditionally. =20
->=20
-> default value is LM3533_ALS_RESISTOR_MIN and if no property is present
-> clamp will ensure that als->r_select will be set to
-> LM3533_ALS_RESISTOR_MIN
 
-I don't see that default in the binding doc and relying in the 0 being clam=
-ped
-isn't particularly readable - I'd set it explicitly.
+commit d589ba6abd338a264b1bc27a4829172f13fddbbc
+Author: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 
+drm/tidss: Remove extra pm_runtime_mark_last_busy
 
->=20
-> > =20
-> > >
-> > > -     return 0;
-> > > -}
-> > > +     als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
-> > > +                           LM3533_ALS_RESISTOR_MAX);
-> > > +     als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
-> > >
-> > > -static int lm3533_als_setup(struct lm3533_als *als,
-> > > -                         const struct lm3533_als_platform_data *pdat=
-a)
-> > > -{
-> > > -     int ret;
-> > > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode");
-> > >
-> > > -     ret =3D lm3533_als_set_input_mode(als, pdata->pwm_mode);
-> > > +     ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF, als->pwm_mod=
-e ?
-> > > +                         LM3533_ALS_INPUT_MODE_MASK : 0, =20
-> >
-> > That's ugly.  Better as
-> >
-> >         ret =3D lm3533_update(lm3533, LM3533_REG_ALS_CONF,
-> >                             als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK =
-: 0,
-> > =20
->=20
-> Yes sure, just followed 80 char limit.
->=20
-> > Though if there wasn't a layer hiding the regmap, it could just have be=
-en
-> >
-> >         ret =3D regmap_assign_bits(lm3533->regmap, LM3533_REG_ALS_CONF,
-> >                                  LM3533_ALS_INPUT_MODE_MASK, als->pwm_m=
-ode);;
-> >
-> > which would have been nicer.
-> >
-> > I'm not particularly keen on the swashing of the helpers being in a pat=
-ch
+This commit removes the explicit call to pm_runtime_mark_last_busy() in
+tidss_runtime_put(), as pm_runtime_put_autosuspend() already handles this
+internally.
 
-smashing.  (this definitely wasn't my best effort at English!)
+> diff --git a/drivers/gpu/drm/tidss/tidss_drv.c b/drivers/gpu/drm/tidss/ti=
+dss_drv.c
+> index 1c8cc18bc53c3..5cb3e746aeb37 100644
+> --- a/drivers/gpu/drm/tidss/tidss_drv.c
+> +++ b/drivers/gpu/drm/tidss/tidss_drv.c
+> @@ -42,8 +42,6 @@ void tidss_runtime_put(struct tidss_device *tidss)
+>  {
+>  	int r;
+> =20
+> -	pm_runtime_mark_last_busy(tidss->dev);
+> -
+>  	r =3D pm_runtime_put_autosuspend(tidss->dev);
+>  	WARN_ON(r < 0);
 
-> > that is about switching the binding type as feels largely unrelated.
-> > Should really have been a precursor, easier to review patch.
-> > =20
->=20
-> Removing of lm3533_update layer is not the scope of this patchset.
+[Severity: High]
+This isn't a bug introduced by this patch, but does this WARN_ON() incorrec=
+tly
+treat valid Runtime PM API returns as driver bugs?
 
-Understood.  I'm fine with just the refactor you are doing brought out as a=
- precursor
-patch.
+According to the Runtime PM subsystem API contracts,=20
+pm_runtime_put_autosuspend() can legitimately return negative error codes d=
+uring
+normal operation. For example, if another thread concurrently increments the
+usage counter between the usage drop and the idle check, the internal PM ch=
+ecks
+will return -EAGAIN.=20
 
->=20
-> > =20
-> > > +                         LM3533_ALS_INPUT_MODE_MASK);
-> > >       if (ret)
-> > > -             return ret;
-> > > +             return dev_err_probe(dev, ret, "failed to set input mod=
-e %d\n",
-> > > +                                  als->pwm_mode);
-> > >
-> > >       /* ALS input is always high impedance in PWM-mode. */
-> > > -     if (!pdata->pwm_mode) {
-> > > -             ret =3D lm3533_als_set_resistor(als, pdata->r_select);
-> > > +     if (!als->pwm_mode) {
-> > > +             ret =3D lm3533_write(lm3533, LM3533_REG_ALS_RESISTOR_SE=
-LECT,
-> > > +                                (u8)als->r_select); =20
-> >
-> > Same applies here. Mostly an unrelated change as the only thing switchi=
-ng that
-> > is related to the patch is one parameter.
-> > =20
->=20
-> Removing of lm3533_write layer is not the scope of this patchset.
->=20
-> > >               if (ret)
-> > > -                     return ret;
-> > > +                     return dev_err_probe(dev, ret, "failed to set r=
-esistor\n");
-> > >       }
-> > >
-> > >       return 0; =20
-> > =20
-> > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_dev=
-ice *pdev)
-> > >       indio_dev->channels =3D lm3533_als_channels;
-> > >       indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
-> > >       indio_dev->name =3D dev_name(&pdev->dev);
-> > > -     iio_device_set_parent(indio_dev, pdev->dev.parent); =20
-> >
-> > I'm not sure why this was there in the first place.  Hence not sure if =
-it
-> > is safe to remove.
-> > =20
->=20
-> This is directly related to OF conversion. The iio_device_set_parent
-> bound indio_dev to parent, and it causes problems with OF now since
-> als output has its own node and binding it to parent if wrong. Same
-> story for backlight and leds btw.
+If the driver has active children and ignore_children is not set, it can re=
+turn
+-EBUSY. Furthermore, if CONFIG_PM is disabled, it unconditionally returns
+-ENOSYS.
 
-Is there any risk anyone was using the canonical path to get to the iio dev?
-/sys/bus/platform/devices/..../iio\:deviceX
-This is technically an ABI change be it a subtle one.
+Asserting WARN_ON(r < 0) on these valid state transitions could lead to spu=
+rious
+warnings in the kernel log.
 
+>  }
 
->=20
-> > =20
-> > > diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-> > > index 45795f2a1042..d707d43d5526 100644
-> > > --- a/drivers/leds/leds-lm3533.c
-> > > +++ b/drivers/leds/leds-lm3533.c =20
-> > =20
-> > >
-> > >       led->cb.dev =3D led->cdev.dev;
-> > >
-> > > -     ret =3D lm3533_led_setup(led, pdata);
-> > > +     device_property_read_u32(&pdev->dev, "led-max-microamp",
-> > > +                              &led->max_current); =20
-> >
-> > I'd prefer explicit setting of the default to be visible before this, or
-> > the property_present pattern I mention in the IIO review above.
-> > =20
->=20
-> clamp will ensure that led->max_current will be set to
-> LM3533_LED_MAX_CURRENT_MIN regardless if it it present
-
-As above, I'd prefer it set explicitly.
-
->=20
-> > > +     led->max_current =3D clamp(led->max_current, LM3533_LED_MAX_CUR=
-RENT_MIN,
-> > > +                              LM3533_LED_MAX_CURRENT_MAX); =20
-> >
-> > I didn't look any further (busy day!) =20
->=20
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-beagley-ai=
+-display-v3-0-7fefdc5d1adf@ideasonboard.com?part=3D6
