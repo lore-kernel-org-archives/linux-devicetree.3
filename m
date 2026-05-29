@@ -1,169 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C915D29AAFD
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 19:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA25B3A3E91
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:04:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780084565; cv=none; b=VuMlejzGc1EPu2jBX8ujUGf1P3zPmqgnjfavhy6IJuNiQwB5F8a4s3Mcvf4E6cxrK1mVzSmsImNyoLjwCRS7SNKltoqD6gUEqJkoySqQv1ETl4vD+6aMsvp9sOnDyK0IA6KfpQTA1nhzrFbHnL4RRm1Jzc8jfLOzjBy3GEIxd2w=
+	t=1780085094; cv=none; b=MViHdVNCwu7lQI4Gd2IXCLpiN6vZKUvsbSkY5Bpp2HHEXaGywau0d6uCDei4MhSioSC6+bZ7WPbufCSRAOVf0BNP/W2aq5TdniK7qnUTeY29bbmrZRdKCRs1zZ0x8HpPcd8t0XkGavPi5ajYQk7Z0BQ7RHluFpIKq67YNsSJUcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780084565; c=relaxed/simple;
-	bh=zo/59g/UcnkhlQDpErztGXF+XjBoNhnAYVs/lvufTGQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=six4VQuMvwdXMUI2gMhSuQVPSENp+rDx1vWFy+GxewbaDf/zXcEJ2nJO44Kka8XFMJAHNNKBlbk8GG2RhQCCs9nXOYoIOl+zlrW6LlZZhKUboZNCnr77La/sLYLmt2ocNaJSSXcBihLcFAGT1wyX58h/l7HsUIJaP1jqysXhEJE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=onYGpwfC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780085094; c=relaxed/simple;
+	bh=VfV0rbpSCEyI+/xS3T7SDQENG4Uj1X8YfTp9nlBW2rM=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WLsRkcf2VyA+X8jQ7oP07x7NEGCqPVSaWUm+/QgVahvKCC6j+UZVwKTVwuomnXHkAPn36p8PTxinhgrYmjZoBOUwYaw/1phWLez48tmtxjz/9hpTXA4U+VYdYV57O2IgGu68+PKy66kjfh2elecSXwlAgAIiiyKMZac2QfmckTY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=CFP/1z93; arc=none smtp.client-ip=170.10.153.120
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="onYGpwfC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EBCF1F00893;
-	Fri, 29 May 2026 19:56:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780084564;
-	bh=OF9tnpbpYqXFLWcCaUMeNtU/TVp49Z1GXjxmNEnJFzs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=onYGpwfCxF45BH+XbmSoxGk8vVjeYouJ/XixIgIw9ucmNTa5EZN6/GMdKCugVp/mo
-	 dygiQ5fXdUVQEW/edirg+vuQKXokqCVl170vOjKh+aA6gco/cgWqT6bTkuPsNu4lPa
-	 KH5TkEW/oq//Sy25LsyZLGTksJiTzP58RjsbrDRI+FhXGHnbG1iHKK8JMGx8SwZg6a
-	 ANf3ycBCWBI5c49VyKUm8lAsvHsak6ApP5wt9ZzeTxqyDpoHhsJtUMtk/4G1FfPhMs
-	 9q3ACtWGS2WOMPvWOInLbdHBveGeMS8+QHMA1rlJrxNv0LEHc51GjcTCk4Cbfs2AC6
-	 JT+yYIcWeY1oQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 2/2] backlight: Add SY7758 6-channel High Efficiency
- LED Driver support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Neil Armstrong" <neil.armstrong@linaro.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260529-topic-sm8650-ayaneo-pocket-s2-sy7758-v5-2-03aacd49747c@linaro.org>
-References: <20260529-topic-sm8650-ayaneo-pocket-s2-sy7758-v5-2-03aacd49747c@linaro.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 19:56:03 +0000
-Message-Id: <20260529195604.3EBCF1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="CFP/1z93"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
+	s=mimecast20250127; t=1780085092;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=G+G45O02N/hvQoeUFdPyFxVUgYZcVDEOFTIgLsz4+xs=;
+	b=CFP/1z93mBukRBKNNEvIHW0Rc6kVaLqJGsD9BRM2QcPInmzGW6eE2XQkbSC3UknSHEh9EP
+	kH22k1WHg1w5Fzejw0Wfm2bJLvyatr46iBm8mNz9WzTr6I9dCmzLENAtQRTmveJfE4sDDK
+	+RIVQ9yO1+56XC9orP6s3gyKl634RlIoRhFD7vvkF93b3Ayt03Y129Wno0KEWRyMFaBLIq
+	rAGBFm0uMBE7sH3wlnM0zaa75eZSRy7QHE1GT1Hacsrh549LozMYykFz5wqO8OkxBc46NQ
+	y2lCrAbIqO8rdoMGTLSL7+Gv8dmBCKH7CFnXjAASGoZYMrDzjK110SzE7RA3uw==
+Received: from MW6PR02CU001.outbound.protection.outlook.com
+ (mail-westus2azon11012051.outbound.protection.outlook.com [52.101.48.51])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id usb-mta-58-ccCIABsyNnWq_jO6JtoA1w-1; Fri,
+ 29 May 2026 13:04:47 -0700
+X-MC-Unique: ccCIABsyNnWq_jO6JtoA1w-1
+X-Mimecast-MFC-AGG-ID: ccCIABsyNnWq_jO6JtoA1w_1780085084
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
+ by CO6PR02MB7746.namprd02.prod.outlook.com (2603:10b6:303:a2::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 20:04:41 +0000
+Received: from CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
+ ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0071.011; Fri, 29 May 2026
+ 20:04:41 +0000
+From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+To: "parthiban.veerasooran@microchip.com"
+	<parthiban.veerasooran@microchip.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "robh@kernel.org"
+	<robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
+	"conor+dt@kernel.org" <conor+dt@kernel.org>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: [PATCH net v2 0/2] Resubmitting to fix apply error
+Thread-Topic: [PATCH net v2 0/2] Resubmitting to fix apply error
+Thread-Index: AdzvpY7j4Xmb28GBR5qyBpELCKRAkA==
+Date: Fri, 29 May 2026 20:04:40 +0000
+Message-ID: <CY8PR02MB924989007ABFFEDA5A39E50383162@CY8PR02MB9249.namprd02.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|CO6PR02MB7746:EE_
+x-ms-office365-filtering-correlation-id: e9c9b0c6-19c0-4d86-11bd-08debdbd84f1
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|1800799024|366016|38070700021|921020|56012099006|6133799003|11063799006|18002099003
+x-microsoft-antispam-message-info: LVY5hu22uwBr3OM6nPyBuAlmQFFewHjAY2PJcl3xQ6SODBeHDBUTw/+YQfcLAvzVa5iFh1X5jPVpgzNrTVgjDuTVTeajqm0BDQXDuL98QHtWJElc+epmLsx5AGyqYBIYcwCBde6ZgwZoik6Ca9UPt7QN5N4/JbmXO0+cblGlo/A+nMKW2WaMs9asqHyVU2dgj3Lhc87n/hmuRAnXK8BYw+zSeavu4rDpSXHsSj0qDyX75TXRUXYrCoMT9zcHsIuLMzjtjvE/R7xO2gTJYISFyauOXfqoERIjYJCqj1/qH3D7eKxfSShrknqEdFM45jfr/2dCjV1KPLaiiBLNrvlvfLLoTJFX+fl+WJerGzyTaXTuu+mhqAxmQ0q77Ndnuo13rjsvW4a0bPm2IJlan/ftQ+EOY+RYeHqOn2ZDF36A7nznHjTSQwG3xtvWwLDd4Exej4NgI2bYBLV73xYZFwhUZY6tRbWmRmYfoI8QURKG88MzsDfynA5+7ZMcke1zYuDhNh6UotktfNEFO8sqD9EXiXiA48MzlUJLTgnh6a5/MPeUlFrJ0ogvNASY9eBY7ejvIFf9YJp+hqrfQ3iid5Si0ST/QrMtXUSMt99QwWeDCD2CT0LfyDBGdgFdgloqkLq9eWzP/EgtcGmiRQstaphjv6E54bG/DcUfubbco2lcRYtinKiMnBe3shju0s6k5p+Al24HTt0aolzzxG5PmeHJ0PBPY+ogDuj8/qk5YEcW1lC2xJVifo+AsnHjykOUd2NQfFt9dmcyb/zDlaWBEty1ww==
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(1800799024)(366016)(38070700021)(921020)(56012099006)(6133799003)(11063799006)(18002099003);DIR:OUT;SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?iA3Cww92PZ9dHX41kJepQPYqZYqXZYiWe9m/s0mLOghzxsZzLfAtUX/yR262?=
+ =?us-ascii?Q?iNDXBWk5Dl2ppWwOmarJ/L9CYeqHKmlO92Badfojvxy84IwHIVPW4OrdvVz9?=
+ =?us-ascii?Q?BpLduW+mHuMyl0RoHHZ1A9GFpZHz7nHLsbcLLIP0ah23tByxuilN6t3ui7VQ?=
+ =?us-ascii?Q?KKZCqtLgDqrd0huHzIhScdTnxaxA9cCfaYWRiXQJa5hWylG4aRovTlqlBOZ/?=
+ =?us-ascii?Q?MsMyTRYhFAHKXfz7BnHyBJsJyoM5riPgtT22IAllysjDfV/Ye4lI8R9qrSeL?=
+ =?us-ascii?Q?qsiJ6fVJNvhVTN6zORYMDVhXZ1kuOs6Eaxw0wJUQ8rUsxMWXziQlnQoQNVzs?=
+ =?us-ascii?Q?lEnFeHbz82Ny0hhprPxy8bRoFa6fXdbb4t8vr54tJDbnTbneWQvK8F4qPuc5?=
+ =?us-ascii?Q?9blrfgzOgzPm+eNm9CZkPGN7NeeoXSS1DCaq6Y79Vstr4DTTPSBKD+jT1b4K?=
+ =?us-ascii?Q?Cv/iimmIYZHSoc6MDBdxe1OdXgTrR2S4PKS961JlOt7mAARGpSglL53qw4Ql?=
+ =?us-ascii?Q?vuinY3hhMCo+BcOQYe+c1Vb3yIoj1vpS9wXozfaS6i5mItsX78vIu20C8Wlv?=
+ =?us-ascii?Q?UPUvYfh+B25tL94Zet5dA6RY94W/vqhOdKF4tKnm/v5NxJwSrGuTEJGwT8rr?=
+ =?us-ascii?Q?C+/J+bla8HTVuDLOYNiUL9G36jLX5LeNdRR627EWdV4sg8a49NZspsfYrtrF?=
+ =?us-ascii?Q?sF8hLWMyzh/AgTzGeNt2oLW+V2hNGbJVkyK+llAkR1zGqr9dvrXcF/26QoQn?=
+ =?us-ascii?Q?qrX5DTEYqMWl5mIhWc6DEkekYFUEPT21BkQr2I3GSWae3alJweSRKWje42gS?=
+ =?us-ascii?Q?eq4Vi6PoM6HquZK3nHusHGMweoD5GsaDSXGx3q9eqLOedcZqGW1KcOpt+2W9?=
+ =?us-ascii?Q?/KzDjdh2mplm4xkdpqgfeKxiyVC7kQOk0FUlPZefauR7D6lYSzaQvvfZyYwX?=
+ =?us-ascii?Q?BIwn3eLNNvFXdL/UMt6oGFnTWE82Sjxyvd4HynE5ghcZ7LldLpG41Kx+ebv9?=
+ =?us-ascii?Q?yoYtzaPUDsBIzL1nbanubxEYqtaP7AwyNDBRxRIiU3xYoe0qg+qLBcBzxTaf?=
+ =?us-ascii?Q?nIbMko+hPGoUAWldrjdlEykdKKq6NBguZMJeWXXDJU44ws1SHBcm46USbl9e?=
+ =?us-ascii?Q?o0QoUKnh9EIoAChtT0BQE18ZtijJwNOhzUHRU4Czl08lmIUvBRzXcpozIedA?=
+ =?us-ascii?Q?hECiTsJ4j9yYiHB+X5YSRFaS10ncRMabvmgpSKFEU0zDIroTmk3Sn6QGD6LU?=
+ =?us-ascii?Q?Qy9e6QR+GzAnBbFcLNERWoNqUET7s3lZdoofnZtc0uRNYBte+/QUfiUI4doH?=
+ =?us-ascii?Q?PggN2SdUlNp5f6gsttYaT6xxQaog2N9x+3Nv5sP04ZHFKWqElIdrS1r6tYF8?=
+ =?us-ascii?Q?q8bJRIPOx2cRgopfPdTr1br08rWL18kHT4YOC0taKk0LSP0ICqUKpdmeDGEN?=
+ =?us-ascii?Q?kIdL5nBTujklExNB+q7kzRkxgeBXoUIKG0kT7yCYBDQrRhWsJQQN50KgRYPX?=
+ =?us-ascii?Q?5epHx3dDOJ8okeGvhRRtrbGRC+8zQqcftGNVbRD9HEKE1lyF7ecU7BT/JwSB?=
+ =?us-ascii?Q?0yrANuKWrAJOBrO2ArvpxCBKg7lC1D6hb9lx0hqC0KLWY7UDkNKE2Z6nTn5C?=
+ =?us-ascii?Q?iBOa1yKpmhm7J/W5c1fAkaJhEDCgXrDqvRYlVnzVsrC62h3qOyka+UwDF5AE?=
+ =?us-ascii?Q?+87zR008FmBbeP0clNz+Y7SB9wYNywZP+dp8UjcHxU0Wy2p5r3myX+UlbKzd?=
+ =?us-ascii?Q?2NlusfnALxLHf85dr6wHYSYsvT+vcEg=3D?=
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-Exchange-RoutingPolicyChecked: cpvhrFCtgOc+iqy0TtANmyXi2/E4kX7IuSYaYcD2IpNWA5ZZbayNL32lOsDyTbc/DdqRlcen/XROFY+Gu6VntMvIGu2CHiowPDGamG2ViK4YuotIfCYRoG+tDo1EIveuY31kcQCOTSMlfFPmJkfbdxaDpoQ+bLLq86rMzsp6tLhy48ph7d0kH/cpzHwnEmjT7/SYVh2o+hcT/Gxvk0z9FRbf1wST07dScUfj7zAFLLFfxo+rDt1Hn1TKVhmm1lFD5TvNhPRu37W4GoyDiBXRTmLZeH+wWvFmMCN4LzSRqpVWiBPuL5JxUhdnTMDXin5qSaz1CDKG7tZwMBsJjV0XtQ==
+X-OriginatorOrg: onsemi.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9c9b0c6-19c0-4d86-11bd-08debdbd84f1
+X-MS-Exchange-CrossTenant-originalarrivaltime: 29 May 2026 20:04:40.9529
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: PuT/W77Q4A5a2enNznssh1vNytLptzkDAErMcSQzAIuhsM2zystcnQSrrzJS7eyGVP13lsJsK0+ghfwjhOELBU1R04D5qCGxZToBfIGEvVY=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR02MB7746
+X-Mimecast-Spam-Score: 0
+X-Mimecast-MFC-PROC-ID: bUVjGcOZCqWzoiS4aHS5L-bOjc4aAnCI8xk7ntK5iPg_1780085084
+X-Mimecast-Originator: onsemi.com
+Content-Language: en-US
+Content-Type: text/plain; charset=WINDOWS-1252
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] The enable GPIO is asserted high during probe but never explicitly=
- driven low during driver removal or probe failure, risking back-powering a=
-nd hardware damage.
-- [High] The driver relies on `BL_CORE_SUSPENDRESUME` but fails to restore =
-volatile hardware initialization state upon resume.
-- [Medium] The enable GPIO is requested as strictly mandatory, breaking sup=
-port for hardware designs where the pin is hardwired.
-- [Medium] The backlight sysfs interface remains active after `backlight_di=
-sable()` is called in `remove()`, creating a race condition where userspace=
- can re-enable the hardware during teardown.
---
+Resubmitting as my previous submission shows apply error, probably=20
+due to missing base-commit ID.
 
-commit 55527bb448bde80cb22811193477de9c8839514e
-Author: KancyJoe <kancy2333@outlook.com>
+Selvamani Rajagopal (2):
+  net: ethernet: oa_tc6: Interrupt is active low, level triggered.
+  dt-bindings: net: updated interrupt type to be active low, level
+    triggered
 
-backlight: Add SY7758 6-channel High Efficiency LED Driver support
+ Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
+ drivers/net/ethernet/oa_tc6.c                                | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-Implement support for the Silergy SY7758 6-channel High Efficiency LED
-Driver used for backlight brightness control in the Ayaneo Pocket S2
-dual-DSI panel.
 
-> diff --git a/drivers/video/backlight/sy7758.c b/drivers/video/backlight/s=
-y7758.c
-> new file mode 100644
-> index 0000000000000..786589cb8df91
-> --- /dev/null
-> +++ b/drivers/video/backlight/sy7758.c
-
-[ ... ]
-
-> +static int sy7758_backlight_update_status(struct backlight_device *backl=
-ight_dev)
-> +{
-
-[ ... ]
-
-> +}
-> +
-> +static const struct backlight_ops sy7758_backlight_ops =3D {
-> +	.options =3D BL_CORE_SUSPENDRESUME,
-> +	.update_status =3D sy7758_backlight_update_status,
-> +};
-
-[Severity: High]
-This driver sets the BL_CORE_SUSPENDRESUME option, which relies on the
-backlight core to blank and unblank the brightness on suspend and resume.
-However, if the system's power management cuts power to the vdd regulator
-during suspend, won't the device lose all the configuration state establish=
-ed
-in sy7758_init()?
-
-Because there are no standard pm_ops to re-apply this initialization sequen=
-ce
-upon resume, it seems the backlight might operate with incorrect parameters=
- or
-fail to turn on. Should this driver implement a resume callback to restore =
-the
-volatile hardware configuration?
-
-[ ... ]
-
-> +static int sy7758_probe(struct i2c_client *client)
-> +{
-> +	struct backlight_properties props =3D { };
-> +	struct device *dev =3D &client->dev;
-> +	struct sy7758 *sydev;
-
-[ ... ]
-
-> +	/* Get and enable regulator */
-> +	ret =3D devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to get regulator\n");
-> +
-> +	fsleep(100);
-> +
-> +	/* Get enable GPIO and set to high */
-> +	sydev->gpio =3D devm_gpiod_get(dev, "enable", GPIOD_OUT_HIGH);
-> +	if (IS_ERR(sydev->gpio))
-> +		return dev_err_probe(dev, PTR_ERR(sydev->gpio),
-> +				     "failed to get enable GPIO\n");
-
-[Severity: Medium]
-Is it possible for the enable pin to be hardwired to a power rail on some
-hardware designs? Using devm_gpiod_get() makes this GPIO strictly mandatory
-and fails the probe if the enable-gpios property is absent in the Device Tr=
-ee.
-Would devm_gpiod_get_optional() be more appropriate here?
-
-[Severity: High]
-The enable GPIO is asserted high here, but is there a mechanism to ensure it
-is explicitly driven low during driver removal or if the probe fails later?
-
-If devres automatically disables the vdd regulator while the host is still
-driving the GPIO high, couldn't this back-power the chip through its intern=
-al
-ESD protection diodes and cause hardware damage? Using
-devm_add_action_or_reset() to drive the GPIO low before the regulator is
-disabled might prevent this.
-
-[ ... ]
-
-> +static void sy7758_remove(struct i2c_client *client)
-> +{
-> +	struct sy7758 *sydev =3D i2c_get_clientdata(client);
-> +
-> +	backlight_disable(sydev->bl);
-> +}
-
-[Severity: Medium]
-Since the backlight was registered using devm_backlight_device_register(),
-devres will unregister the sysfs interface after sy7758_remove() returns.
-
-Does this leave a race window where userspace could concurrently write to t=
-he
-sysfs brightness file and re-enable the hardware right after
-backlight_disable() turns it off?
-
+base-commit: 9c7da87c2dc860bb17ca1ece942495d28b1ce3b9
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-topic-sm86=
-50-ayaneo-pocket-s2-sy7758-v5-0-03aacd49747c@linaro.org?part=3D2
+2.43.0
+
