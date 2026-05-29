@@ -1,147 +1,118 @@
-Received: from mail-dl1-f41.google.com (mail-dl1-f41.google.com [74.125.82.41])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F303612EE
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:58:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780066693; cv=pass; b=VhI+bltwaGtv9i9WQwVhz2Ed0c/CYD7ndknrNb3eWybpoBLC5F14i1uHSXjHTYI7fpuPMoC8rTNgUqvWpUlSHcC8Nc4xGLPS5HvuOEZI8z9L7AfPRZVGzrB9zHxKB/seAJr5Lr+i08EbqysfRSIsAA1tRx+CinWqs66SnIqvgwQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780066693; c=relaxed/simple;
-	bh=fQfj+gPmvgEK0Au1fq8tS1UqLUrdEtewMemM1nyumCU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tH5DlRwDRvt7ZzDjBKyAqY52+JXQZvxobV+g34ujyvdeXZQCwIN62+U+DGHybWWqaEjgyT/yreqXXvI8VNwMjXYk2iMIWW/9IAPoS/PUlnLerny2v3oFeOd1fT/M9DiQiGP36QRR9h9hJKXIJmAZXQZZoKkCtLxyXuGU9dgA2Fo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CyWOGUdF; arc=pass smtp.client-ip=74.125.82.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B99EC3FB7E1
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:58:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780066701; cv=none; b=A8W09sP/imiuSZyVixEzzeFk7S+WrhjApeoHZx38FmqKJq3AJQpX50/ZMxiqzz7T7Z0t7hKBiaBmx69ATrsngK+JxRVGnssxSQgYPFHnxgcNP/pUcf6q5rb5hK44ybLRW5oBSLhSzX+iWBCZ2PdHqn3jsffMsxTEwTTp0LuSNME=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780066701; c=relaxed/simple;
+	bh=TvDNOUNE5esDjb0VJzWZLByvq8d6tWkBf2WKUMK9i1A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jbN6effKHoxwN4ZX/Ta6L4UBWZUpBqUCr7hxUzdJeSmaf9anaAjYtmn3loZL28EvoPU0WHViYqta1bC0EdloWgnTxSRGGHvwAglmlcl0PtEubqeLe9HWDDioNJ4hQvWpcd38fsM3RWsrzKU4l2NCa1cHaubd0t9DmxVu4gZ9dSg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dEp8C/l4; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CyWOGUdF"
-Received: by mail-dl1-f41.google.com with SMTP id a92af1059eb24-132d1b2519eso10644566c88.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:58:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780066691; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Ylv0DZBCV2gD7voQHmD+wHcUW0dG4S7TYcNJ7HPMgjTL1/aNxzxxZLrZhWuYtunz6u
-         +xrswU6jI7v/iwL3UWqxaT5dheCT2EQC4khLVd2nG3csYPwNTtQ8s0A5gbIVVxEV8HeV
-         J4ZGK3HYsVHhKG9zO48GdDXRTjoevErX8uIQe0EsiIwrVOF9nBqBPdqRhjdqiBThSMLe
-         IFNPncwuz+Yc7NwWOt3vqFVKQk6zAE1YQh+7mbVLoK44DpyJQElbUFA/NJE1Eyx8GDM0
-         r//cijaVwSjWJ+Ln7lXmgr6rsfMukoXA79FK8huLSmBj/k3fbpqjQVQXk8zfJaMRn1OX
-         aRBA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=D0M/NZDH6fcDnv+eyc8PV40uOX6pNFdyudXQwoi/OMA=;
-        fh=QcUown2p8LMi9AFk2iclb0pQJTUuxIzG6fkvBfUmBbI=;
-        b=laTE6b519LDKK3u9zJQAK15jO2w3N4oizqEiG47VsY2rTm34t+a6IilOcIhmc0GirK
-         vnQb1vS00kRvy2cuf+R9zooG3Ft8+UneM/ilsZxAxc2uIwL1Gd9iTrFcXlH9a5ZRzk6z
-         TqHiO3NEt88E74cWCOUDLiFSi6/KKg6/gFrcAUnBDUufak5w7LTaUQuXo9MJQmMa6ELF
-         t1Wfp4WDX7sUwyJhPValHeg2Uuskfv4cppUdKf7/X85PjraMdcTYtOCx0cNLpemDRGdb
-         kfCE46etQBtcmvz8Zxa8xpMLUcIMhK3MKqxoY1EfduTYmA4brGUdtmfpNPZO6+ci6PN7
-         Oy0Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dEp8C/l4"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4891d7164ddso67033105e9.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:58:19 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780066691; x=1780671491; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=D0M/NZDH6fcDnv+eyc8PV40uOX6pNFdyudXQwoi/OMA=;
-        b=CyWOGUdFOn3NrSgpnO5y1zSbbaZfyqNAaxOZW4bX0ecjvX3v4VcoYZkF0IbeMy6elY
-         Iqhg40OsDJj+hgkdC8EKY8Y6vP6CK8ddUAREUAyYxCHZge2CYIyd0WWwvUL5D8mmZGdQ
-         oWQiOxJIVnUZbKIf3jmgMh8rvYOOIs458YOj8RAQsIgpLCxP5MW3p7GZs+KE+Yyda8h0
-         2B5FeG55U7zCz3kmLiTxWuyE1bYjK4WZSRuuj/6+ijuSR50u/WfKLwNddAoUbejBKExi
-         I8Rrj0DbemTU8tcIZj//H/XNMQRLCw4V+yhMHZFMrb7PIKPq+0ZH3KPVGdNMp1I0/FG9
-         IxWg==
+        d=linaro.org; s=google; t=1780066698; x=1780671498; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=GU2T/pZfXae23cHrpeloETVxMMttaLJWiMdOf7oLCD8=;
+        b=dEp8C/l4kP6fTzCOB0TqE8BUSqt69CnDSmzsvE8WbH6NizrhkG8T147dC1PVYuxN73
+         EBSHHiYf4uKHpwJ/MEqpT1p+f+gh+LdFJg0A15EnPfEF2bI0MOcRTd47AtAXi41i8eLo
+         wF3z3yWSqSqivF8sXBaxvfz7PKAU6/sluHBvH+IbFhAApcX51hsPRttuquZqx78m0oLK
+         IL48+/+6gsoD6zNsc66DMmRCSvWHPtS1ZjKbqJuOQ5NOfMr0KSt0oi4aR26Hzt/fpAIo
+         ZmCvBEIb4tGWmrA/yakeGSk0z876HQaNoAClDgFu1v6jKWQShyddHXKnpUh/iqg0n7aF
+         s6Ww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780066691; x=1780671491;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=D0M/NZDH6fcDnv+eyc8PV40uOX6pNFdyudXQwoi/OMA=;
-        b=O+SQVzepubgsLVKHAQHV31SObYDdpIjQXvRAxScqLx0wTvibe6PSAsJuE30OeXNoMC
-         BUUXj5WpJD04Pb9t7VAU6Yy0dxIX4ceBDsaSSBBuQpQ0jhtegEj3skcL8NmcRzJW0g2Y
-         PzXTAP/EzgrhcCPJYMXW6COGNJqCMbNt5YbDr2Wn+kD2hdrq9V/mvqsxA+2LvhjeeEtc
-         1oI/M/BtlcYMfRIfZRisO/jCwHdRk5VL5AZvWxrFQ2FGrsQAh0Jgx1ceov2yjvS+hmzw
-         gNR+zcdzDhQkMz3i+GABsci8YoStF9DN+cTkHHqkYKz9vDlGauJHBBfVPpDZTt7cr3PT
-         qXDg==
-X-Forwarded-Encrypted: i=1; AFNElJ+PQs6Iqs4F9BMjHbDsjg8Zfmijkhjvajw+2V5kWmL/tnlpzUvDooExg53rF33gA0sQdzKS9FUdDciE@vger.kernel.org
-X-Gm-Message-State: AOJu0YzOkv9TZr3tGlNuU4odwmN2vPizNg0kZ9pKKAt8Uw+TA1Vf9EBe
-	OxkmmuDR+8VJdWNzNvTnvHKqig6Nou/LYSA6DS8R8B4dO7qdommuqGfqSZa89VqK9onvXiEoNtE
-	Fg2gtbB1zUur3upDogERNlzOi9MXOq0M=
-X-Gm-Gg: Acq92OFg8AatJq8isx+c8HOEEiDi/NF3+TE3P8F6a99WzURELrgKVchPfITFYBdtqtU
-	oACmax4vg+alNzEOpenjpEhHoPkNFnKbuKMCYtKfWhgNq5CrV2Ud/riuhBjEHiPB31ZBibwnfqf
-	2nztgS7MtARoZVDRE572hcdjNl8h8+pukxQtGRuLDZqNBM/gkvyTXUupskOfFe+NRI5zWpl+kIA
-	Pl16YmWCyltZsqO09Z4HJrCKJ7IweiGH4STImYcp3ZkQs1EMnaIhXy107rpcEmeyHh880CsdDY8
-	xjnelejs/56WOuYapyc=
-X-Received: by 2002:a05:7022:49f:b0:136:e42d:2c20 with SMTP id
- a92af1059eb24-137d3f0d89cmr13506c88.16.1780066691402; Fri, 29 May 2026
- 07:58:11 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780066698; x=1780671498;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=GU2T/pZfXae23cHrpeloETVxMMttaLJWiMdOf7oLCD8=;
+        b=PniEEKD65e7JyPPCKaHrPcY2e1pugXD9apWNMUCkyF2fVIuO8v8EA9FczVpYsaOSWh
+         zDlAbbg70LXQUhkr9pv9xSrqBYGxymbneDtzHb5IPdVzWFlaiOMddI7uycbz1ScVjrji
+         JoTOj4h15UN3jmuuJ3RL1rp59mC3uLe9MDL1IbURe413XcPQVIWiZKa9V7A5HlmM+0Th
+         k9QN3mgSnTJx5f5iiclP6KuhDrYtbTyiXiQJbfPtbLVdmCjEm2hEb48rBNoUFJkPfCqn
+         iJPwuFO3WdiGKSlHUvm8Ji8tcgt2rk+CN42X+u8pmlAJ9RsXEN3YFGvjymBqRUyIVEgj
+         Xd6A==
+X-Forwarded-Encrypted: i=1; AFNElJ8DRBhgskHMmoX1cGNQdyL2eRx+SUc8xsksiA8oInPFfh35pycrvP2ztU/r7delNZWeyavI9i+Ehq79@vger.kernel.org
+X-Gm-Message-State: AOJu0YxhmaMNmIX30TSek59EkSRBMHDbTqcm/XPz4eAv0Ivc5m4NnFoM
+	jd1qqW9JuaCVcaWBTcekVhhB+RLkycN2mUg/5rtaF5+1g8oTw6+b+Ce5hnWqgxMY7e0=
+X-Gm-Gg: Acq92OGuzyrdEzCOtq/8yEeGJFdFHiWwMMNsZSfWDOFCMOyDHeWSAmNBmySnFHRNokt
+	kaoTnMu7dm2CgTJD3pBJTJ9LKMs+npEY12iAHO3tXyyna0+hGx/7JV7Nffm58SS80RjjuZCbzRc
+	bxB7zVK4zASCDc1T+1Qd4OwF/CQtZovUEZwiNuQdpgywcumZD9HLWfnrr3HliPBLTDW6cCPglzM
+	Y/2jHYXOZvZXwU582R/prIkBVyexvh2vQz1Cl6SsMPopw6b5ODe7zT0xVrsj9E5Z2l0BbAX4z3M
+	1nQ4MBS7StLBJyOi9RAWWoVI4NeVT8M/pncc3p9sYFrFoETZmmOUVAjCzOg8UBEfzUUZ5DlKbBW
+	g9rwS/+3hl6TNNj0E8nVn2B3Gnsj7mLZXhn8h6lnkxNtubU4lB8/hyzThWJiRQT+/NyN51WukKF
+	l2JZ/JQ1ioJ8veJPh7aBv3qkCM9mSPNCDmoAyg0z3+UIY=
+X-Received: by 2002:a05:600c:1994:b0:490:48df:2793 with SMTP id 5b1f17b1804b1-4909c0e77d6mr57620855e9.26.1780066698120;
+        Fri, 29 May 2026 07:58:18 -0700 (PDT)
+Received: from [192.168.0.101] ([64.43.33.81])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909ca6e124sm49445275e9.7.2026.05.29.07.58.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 07:58:17 -0700 (PDT)
+Message-ID: <23d2a824-e894-4c26-8bd1-02bbb8a7c6d1@linaro.org>
+Date: Fri, 29 May 2026 15:58:16 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260523083013.46372-1-clamor95@gmail.com>
-In-Reply-To: <20260523083013.46372-1-clamor95@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 29 May 2026 17:57:57 +0300
-X-Gm-Features: AVHnY4K-1vYeiXFYk-AlYEtzVzIQXE43sf_M9vxLcJuCUs6YujSLvUbhSvlV1gE
-Message-ID: <CAPVz0n3hYU86yGeNS9WqHHPqn6JOPGrTqtSz=afs-SyDgeiKvA@mail.gmail.com>
-Subject: Re: [PATCH v2 0/4] usb: chipidea: tegra: Add external control option
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Thierry Reding <thierry.reding@kernel.org>, Jonathan Hunter <jonathanh@nvidia.com>, 
-	Peter Chen <peter.chen@kernel.org>, Svyatoslav Ryhel <clamor95@gmail.com>, Xu Yang <xu.yang_2@nxp.com>, 
-	Peng Fan <peng.fan@nxp.com>
-Cc: linux-usb@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] arm64: dts: qcom: shikra: Add CAMSS node
+To: Vikram Sharma <vikram.sharma@oss.qualcomm.com>, bod@kernel.org,
+ Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Suresh Vankadara <quic_svankada@quicinc.com>
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
+ <20260526-shikra-camss-review-v1-4-645d2c8c75a7@qti.qualcomm.com>
+ <178000689150.4557.11759359941436928903.b4-reply@b4>
+ <df00e8d8-21ab-415f-815e-608eb7ab0967@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <df00e8d8-21ab-415f-815e-608eb7ab0967@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-=D1=81=D0=B1, 23 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:3=
-0 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Patchset adjusts the Tegra-specific portion of the Chipidea USB controlle=
-r
-> to allow for the disabling of automatic PHY and USB controller
-> registration. This is achieved by adding the nvidia,external-control
-> property/flag. It does not affect any existing configurations, but it
-> allows the USB line to be registered or deregistered by an external
-> device =E2=80=94 in this case, the modem.
->
-> Since Tegra USB PHY holds clock gating for controller PHY cannot be
-> handled by code Chipidea mechanism.
->
-> This patchset is a part of larger series aiming to bring XMM6260 modem
-> support for Tegra devices:
-> https://lore.kernel.org/lkml/20260511135703.62470-1-clamor95@gmail.com/
->
-> ---
-> Changes in v2:
-> - separated Tegra USB into its own schema
-> - tegra_usb structure moved into tegra_usb_phy.h
-> ---
->
-> Svyatoslav Ryhel (4):
->   dt-bindings: usb: Move Tegra-specific Chipidea USB properties into a
->     dedicated schema
->   dt-bindings: usb: chipidea,usb2-tegra: Document
->     nvidia,external-control property
->   usb: chipidea: tegra: Avoid controller/PHY init if bus is externally
->     controlled
->   usb: chipidea: tegra: Expose tegra_usb structure
->
->  .../bindings/usb/chipidea,usb2-tegra.yaml     | 95 +++++++++++++++++++
->  .../devicetree/bindings/usb/ci-hdrc-usb2.yaml | 22 -----
->  drivers/usb/chipidea/ci_hdrc_tegra.c          | 43 ++++-----
->  include/linux/usb/tegra_usb_phy.h             | 15 +++
->  4 files changed, 131 insertions(+), 44 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/usb/chipidea,usb2-t=
-egra.yaml
->
-> --
-> 2.51.0
->
+On 29/05/2026 15:52, Vikram Sharma wrote:
+> Shikra and Agatti are not iommu compatible in terms of Stream ID. Only VFE SID is same
+> for both. Agatti is documenting iommu for VFE, CDM and OPE. OPE is not yet enabled for
+> Shikra and in my opinion it should be added as a separate yaml similar to Agatti.
+> "https://lore.kernel.org/all/20260508-camss-isp-ope-v3-9- 
+> bb1055274603@oss.qualcomm.com/"
+> 
+> Regarding cdm iommu we have excluded it as we do not use it to program registers as of now.
 
-Hello there! There will be no v3. Sorry for disturbing LKML with 15
-year old obsolete tech. My mistake.
+Which will be a problem as soon as CDM is attempted to be enabled and 
+yaml changes are dropped upstream.
+
+Hmm then it seems to me that five is too many for Agatti's IOMMU set.
+
+I'd like a number list so that we are discussing facts instead of 
+nebulous hypotheticals.
+
+For both Agatti and Shikra.
+
+---
+bod
