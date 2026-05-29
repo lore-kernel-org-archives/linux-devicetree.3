@@ -1,117 +1,139 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADCC73BCD21;
-	Fri, 29 May 2026 10:35:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914151C3F0C;
+	Fri, 29 May 2026 10:35:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780050908; cv=none; b=PgaCz6IGap2yxlKN72ELZXP9XH+V/zkFwlFWhX/O1lM8t8kA91zRspFegJAHGOcpUcSrlkr8uIuLrnjeRzzoxRtChujavfwXfALJpM4n2+ZUGFb+p45FpDlxQaFczEN8RZMeKewh6SjShvv2jj1TVm49EwhQd18tqtaPO46XVTs=
+	t=1780050922; cv=none; b=SL21dcyXJZOyb1mrO1G2+MyjYzOOcZ3i7TbWP12xSNUregYWdIKslSKxW2sWAECHr3N4p3Balezu47iNteApG4RIGShefqa4HCUT1UQ8RMYZVUgpJ8YjKo6ls9/7yBcn8rZXKGUqjF1VgPmBOwZ3qzAqIOoDEwpfPY9BuIEbIAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780050908; c=relaxed/simple;
-	bh=yrTaa0QVo4yeXWWbowoyH/TYNX0ykof8iVwPCcXBHcg=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=kCL7xk0iftDimtt0DSFKJy5zyg7Fq6esN/rkZyjwjkE1yRQ1pb4WJQyHWCBJxaI/xVmb8q57c20S+5d50WcP178JfuHNuCxlKBJD/RdWcdEB/WVQbgCiVS42/csAjX3MlmjEP0QIfkR7DUNTNdH4w/fTQDNyh/tB3t9ptjOKcpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k9qBnRU5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780050922; c=relaxed/simple;
+	bh=gb0SZWmMeBXhfXRqIou92uTboWGsBGlW5UTsjaq3kZA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=asotzQVlSPgIG/6V/U1NKekAYZtXfklroRml4iGYtfDdHDiWDfAsrlZB/awSttn44EGYgC3Ebg0Lsru4JAU9yD4K4pVkMOWiy75zPeRdhThCxyV7c1r6ZHwuNhyacKEAzvLebW8Al0l6Nl2RaIARGdMo9pVsM+KZqj90WdXnD7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Em4uxmtz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k9qBnRU5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E551F00893;
-	Fri, 29 May 2026 10:35:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Em4uxmtz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F6FB1F00898;
+	Fri, 29 May 2026 10:35:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780050907;
-	bh=0Vg1mO88ZlNTgUSSDpUkuZSSdcJMS0lQ67ES3JiQT50=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k9qBnRU5qF81O3N94KAXEwwdvs0uN1eHPLjNa6dWMkES3aKfFEO8smFaHnoRY5pEf
-	 DkaVmx6vnY3FBLjPP0KPbqMD1UfjxIJEYxRUUee3fOlBp74LCa6WkoDktJwIthDu/y
-	 +S6Ex+r7z7U7H1UH+hNOMPYi+1APK6Lwfm70/FDNoBkOL0C9oKPg12yT5doDmslhl9
-	 KLu/0bzoPyt51CsoECJ3GVSNGdAuhusOznX/DFElyeJzbumf26+9/JifGsQh8hwCwV
-	 Cq0S0v5Gb6PcPm7xPBO8hqEyRT6CoLzPNMdKjwm28lV30LdSEefbNPPoO8grTGAEDP
-	 y4rDnX6fA6R0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 1/4] arm64: dts: imx93-var-som-symphony: add TPM
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: Frank.Li@kernel.org, conor+dt@kernel.org, robh@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org
-In-Reply-To: <040ad9104a8a628e3b2c18cb296a0d63d31b533c.1780049085.git.stefano.r@variscite.com>
-References: <040ad9104a8a628e3b2c18cb296a0d63d31b533c.1780049085.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 10:35:06 +0000
-Message-Id: <20260529103507.13E551F00893@smtp.kernel.org>
+	s=k20260515; t=1780050921;
+	bh=/81VudvRrm3p1s1RTSNTNyWiS4UEzvG8GS46X/jp2UQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Em4uxmtzY1k6rxjB1apPt95CeGfsxjzf9CJ9egdLVUfW0O0FZUXde/EG9fWv2EwBM
+	 dLruv10Rnc8aagJjVA8UHpsj73p5nkQqkDqLMjyDM3UW6MoZaYKGtGfOvw01IQWGtm
+	 tzW6pvMcH3pf/HnJTLy/ZKo7sOjLV/uNWvN1lBInrtoi07CFK3b0EIyHJSoX3r+UII
+	 an8q+13mv/ifGRUKmN8wZlyn+rjMB9OdX2bU2/UumW/HSH9+tWZYCnsIhG3kjN7K0P
+	 CzA6UqWWMDhuZ1reqe7CGQrvK2elag/gxPsyN0M4bS9CuqzGME+7/3/4qOcSjb1xSR
+	 495O+ckls7drg==
+Date: Fri, 29 May 2026 11:35:16 +0100
+From: Daniel Thompson <danielt@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+Message-ID: <ahlr5PnX5O0tEd6G@aspen.lan>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
+ <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
+ <ahllT_HVTAJ5MbkS@aspen.lan>
+ <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] Using a GPIO hog to enable the TPM device creates an unhandled dep=
-endency, leading to potential probe and suspend/resume failures.
-- [Low] The node name and label for the PCAL6408 GPIO expander contain a ty=
-po, omitting the letter 'l'.
---
+On Fri, May 29, 2026 at 12:16:07PM +0200, Neil Armstrong wrote:
+> On 5/29/26 12:07, Daniel Thompson wrote:
+> > On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
+> > > Document the Silergy SY7758 6-channel High Efficiency LED Driver
+> > > used for backlight brightness control.
+> > >
+> > > Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> > > Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+> > > ---
+> > >   .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
+> > >   1 file changed, 53 insertions(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+> > > new file mode 100644
+> > > index 000000000000..80e978d691c2
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+> > > @@ -0,0 +1,53 @@
+> > > +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> > > +%YAML 1.2
+> > > +---
+> > > +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
+> > > +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> > > +
+> > > +title: Silergy SY7758 6-channel High Efficiency LED Driver
+> > > +
+> > > +maintainers:
+> > > +  - Neil Armstrong <neil.armstrong@linaro.org>
+> > > +
+> > > +description:
+> > > +  Silergy SY7758 is a high efficiency 6-channels LED backlight
+> > > +  driver with I2C brightness control.
+> > > +
+> > > +allOf:
+> > > +  - $ref: common.yaml#
+> > > +
+> > > +properties:
+> > > +  compatible:
+> > > +    const: silergy,sy7758
+> > > +
+> > > +  reg:
+> > > +    maxItems: 1
+> > > +
+> > > +  vddio-supply: true
+> > > +
+> > > +  enable-gpios:
+> > > +    maxItems: 1
+> > > +
+> > > +required:
+> > > +  - compatible
+> > > +  - reg
+> > > +  - vddio-supply
+> >
+> > Sorry for missing this in v2 but is vddio-supply really a required
+> > property?
+> >
+> > It's unusual for supplies to be mandatory (and the it is not mandatory
+> > in the driver implementation).
+>
+> This device is a little bit special, the VDDIO regulator is used to provide
+> power for the I/O via the enable input, so basically the enable gpio power
+> level is provided by VDDIO.
 
-commit bcdb28f289b71a5c2629f6f0cbc1ebb8edd84640
-Author: Stefano Radaelli <stefano.r@variscite.com>
+I don't follow. The EN pin acts as both VDDIO and as an enable but it's
+still effectively a power rail isn't it (albeit one with very low current
+draw).
 
-arm64: dts: imx93-var-som-symphony: add TPM support
-   =20
-This commit adds support for the ST33KTPM2XI2C TPM device on the Symphony
-carrier board. It configures the TPM enable line as a GPIO hog on a
-PCAL6408 expander located on the I2C bus.
+It looked to me like the correct way to model to two power rails
+going into the chip is vdd-supply (main power supply) and vddio-supply
+(EN/VDDIO) I don't understand why a single pin needs both a regulator
+*and* a GPIO in the DT bindings?
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/a=
-rch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> index c0842fb3cfa33..ea996a36b0228 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> @@ -208,6 +208,26 @@ &lpi2c1 {
->  	sda-gpios =3D <&gpio1 1 GPIO_ACTIVE_HIGH>;
->  	status =3D "okay";
-> =20
-> +	pca6408: gpio@21 {
 
-[Severity: Low]
-This isn't a bug, but the node name and label appear to contain a typo.
-The commit message and compatible string identify the part as a PCAL6408,
-but the label and node name omit the letter l.
+> This is the recommended way from the datasheet, and I assume it will be used
+> like that on other platforms (if it exists...)
+>
+> This is why it's mandatory and enabled first before setting the enable pin.
 
-> +		compatible =3D "nxp,pcal6408";
-> +		reg =3D <0x21>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		status =3D "okay";
-> +
-> +		tpm-enable-hog {
-> +			gpio-hog;
-> +			gpios =3D <4 GPIO_ACTIVE_HIGH>;
-> +			output-high;
-> +			line-name =3D "tpm_en";
-> +		};
-> +	};
+It's not mandatory for the C implementation. devm_regulator_get_enable()
+will provide a dummy regulator if the property is omitted.
 
-[Severity: High]
-Does using a GPIO hog here create an unhandled probe dependency?
 
-Because the device tree core ignores GPIO hog nodes when parsing
-dependencies, it doesn't create an explicit supplier/consumer link via
-fw_devlink. This means there is no guarantee the GPIO expander is probed
-before the TPM device.
-
-If the drivers are built as modules and loaded in parallel, and the TPM
-driver happens to bind first, its probe function will attempt an I2C read.
-Could that read fail because the TPM is still disabled, potentially
-preventing the device from functioning?
-
-> +	st33ktpm2xi2c: tpm@2e {
-> +		compatible =3D "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
-> +		reg =3D <0x2e>;
-> +	};
-> +
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780049085.gi=
-t.stefano.r@variscite.com?part=3D1
+Daniel.
