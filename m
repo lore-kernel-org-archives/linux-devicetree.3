@@ -1,177 +1,483 @@
-Received: from out28-194.mail.aliyun.com (out28-194.mail.aliyun.com [115.124.28.194])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 042F23C1989;
-	Fri, 29 May 2026 09:51:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.194
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 389A43C4B85;
+	Fri, 29 May 2026 09:51:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780048285; cv=none; b=Q9EIAjdDzpV3QYzyhJrhLaC4qtlSGAPeY3lB0sItOLLEBRiJG3zqWBYR7lbCEmQfgOZz9KI4icmVNppyx6KFbJrHuqjIbUvzS+z5G5wV2YFH7fH8jsF49O5glhryBaYk2/QAe0oVTP3JHjtZ4LdPrSVn55xsvEictbRgQXY0vBg=
+	t=1780048286; cv=none; b=peJgQv4yRuFjRfoT17AO58ICNJPbvwOtiaE9F5YCAMG9erE91u+zln4ih0o6lkHyfxmJMgbC8Yb2TvksHVMIjfgRfmnhDTxNAoFFetQVfVP41XbWopy+A6/OguwBrxAFAE4Hr1Yw35KteJ4sZ2To5AA3wwv3IKEzPMPPQR0HI1Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780048285; c=relaxed/simple;
-	bh=FwZilHJvlu5BcKUF1QM9XkgeYWA0R8eDrcBtZ+1ty8U=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XiHnUthN6TZah686+PC4HE8xSxHfpdkJYszpouXNzYbe5Prmub24nyoj+5KiByuR5KvD/mkkFPLDdSHXdt1SPZd8C6N8gmj2vLA5gyqPFCzkrn+UbIu/LCC96P0lc50zAGjFFuPsjA0gkNA/w4eCABFhcazsyRpOXw9ebdpD8N8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com; spf=pass smtp.mailfrom=lontium.com; dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b=JXjwaA46; arc=none smtp.client-ip=115.124.28.194
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lontium.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lontium.com
+	s=arc-20240116; t=1780048286; c=relaxed/simple;
+	bh=JSh+Q/vHoSFoymgLe3sKdFZMl/TXUZwnf/sWaV43igU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=tOR1QnMmJeyQciVy/xwKSy0BdYx4JFMEKIzdiGkdVykCAOcwoXv2Q7YoaqEziFsaz0fdfLZDO8A+KEH3Y8Jo9D8kc4qDKB6emIByF/66OQ4ZpMwdI8J+FbXIpU5qezqj98R+LlrwWekCOU2rvVaMK6BtCOaa5VwbqbsupGcM/SA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=J5CzN77G; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lontium.com header.i=@lontium.com header.b="JXjwaA46"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=lontium.com; s=default;
-	t=1780048274; h=From:To:Subject:Date:Message-Id:MIME-Version;
-	bh=eVZn7MAONGMHowrlbF8Q4henpwp8Ya3lVGmR/icgdNU=;
-	b=JXjwaA46JCGQd6uFEoC6HY0uIcnkFqOYbd0W3Zep7rznj67wRAQ1ManvuJ8mUEMyBfjN7rcIIT0cMI0aXkp19u3Wx8XvJF/dAGVizdKjfOanpNgE3OfgvMoAQUEoZFgQwXdMyPm5J4gxdsO6RKqAGwx7tKikGbT9GMm9BLgLsm7RPCu7IL+mRIRh/hUSMyZ7J2Eb55upCFHiAlXY+oci+rbMSD3ga0V0as4gWJcR8ATtN1kRcGHLXnK5XB0rjMJAtoDWwJl2iSBxZM4Lgq44bc1msK150QcF/Vh2xY11x1EhugWc8NceDXvT8npB9viDrxfxXp/uqiABivgjpJNOnA==
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.08557807|-1;BR=01201311R551ec;CH=green;DM=|CONTINUE|false|;DS=SPAM|spam_ad|0.867174-0.00121929-0.131607;FP=12538499638350538034|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021130;MF=syyang@lontium.com;NM=1;PH=DS;RN=24;RT=24;SR=0;TI=SMTPD_---.hjtUXR._1780047952;
-Received: from DESKTOP-V2MKAT2.localdomain(mailfrom:syyang@lontium.com fp:SMTPD_---.hjtUXR._1780047952 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 29 May 2026 17:45:53 +0800
-From: syyang@lontium.com
-To: robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	andrzej.hajda@intel.com,
-	neil.armstrong@linaro.org,
-	dmitry.baryshkov@oss.qualcomm.com,
-	maarten.lankhorst@linux.intel.com,
-	rfoss@kernel.org,
-	mripard@kernel.org
-Cc: Laurent.pinchart@ideasonboard.com,
-	tzimmermann@suse.de,
-	jonas@kwiboo.se,
-	jernej.skrabec@gmail.com,
-	devicetree@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	xmzhu@lontium.corp-partner.google.com,
-	xmzhu@lontium.com,
-	rlyu@lontium.com,
-	xbpeng@lontium.com,
-	qdchen@lontium.com,
-	llzhang@lontium.com,
-	Sunyun Yang <syyang@lontium.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH v13 1/2] dt-bindings: bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
-Date: Fri, 29 May 2026 17:45:46 +0800
-Message-Id: <20260529094547.869919-2-syyang@lontium.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529094547.869919-1-syyang@lontium.com>
-References: <20260529094547.869919-1-syyang@lontium.com>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="J5CzN77G"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 98A1322D7;
+	Fri, 29 May 2026 02:51:18 -0700 (PDT)
+Received: from e134710.arm.com (e134710.arm.com [10.33.10.82])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3C04E3F905;
+	Fri, 29 May 2026 02:51:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780048283; bh=JSh+Q/vHoSFoymgLe3sKdFZMl/TXUZwnf/sWaV43igU=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
+	b=J5CzN77GJ1q/UgidhWIM+/D0Bqrf/ebH3t/RWF09PTBJA+B22pC9ZXc1Nqi6dVsG8
+	 RhhPnmUS9x+C4+FERStjxNzypTj5XJsIUXbj8nGoovpHfiqH1/MC67SG/QaWeYXvIJ
+	 Z/uKEeldVj4rl8mA+ZUDyo/ZexQX3kft+hRSAAXU=
+From: Ahmed Tiba <ahmed.tiba@arm.com>
+Date: Fri, 29 May 2026 10:50:42 +0100
+Subject: [PATCH v5 02/10] ACPI: APEI: GHES: move CPER read helpers
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-2-2e0500d42642@arm.com>
+References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
+In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
+To: will@kernel.org, jic23@kernel.org, xueshuai@linux.alibaba.com, 
+ saket.dumbre@intel.com, mchehab@kernel.org, dave@stgolabs.net, 
+ djbw@kernel.org, bp@alien8.de, tony.luck@intel.com, guohanjun@huawei.com, 
+ lenb@kernel.org, skhan@linuxfoundation.org, vishal.l.verma@intel.com, 
+ rafael@kernel.org, corbet@lwn.net, ira.weiny@intel.com, 
+ dave.jiang@intel.com, krzk+dt@kernel.org, robh@kernel.org, 
+ catalin.marinas@arm.com, alison.schofield@intel.com, conor+dt@kernel.org
+Cc: Ahmed Tiba <ahmed.tiba@arm.com>, linux-arm-kernel@lists.infradead.org, 
+ Michael.Zhao2@arm.com, linux-doc@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-cxl@vger.kernel.org, 
+ Dmitry.Lamerov@arm.com, devicetree@vger.kernel.org, 
+ linux-acpi@vger.kernel.org, linux-edac@vger.kernel.org, 
+ acpica-devel@lists.linux.dev
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780048269; l=11668;
+ i=ahmed.tiba@arm.com; s=20260219; h=from:subject:message-id;
+ bh=JSh+Q/vHoSFoymgLe3sKdFZMl/TXUZwnf/sWaV43igU=;
+ b=72sSCnTP0JCxDW2O3TNFh4CamrmbaDP5qXwVyM9aTLWM924wpPU7+mLvoWX7nDH9m7dYEtEwQ
+ 3dS4uScboVSDRlsFMEi7+h6dd89WbfAL92oYfdTNyiXvxAbsdZmRyno
+X-Developer-Key: i=ahmed.tiba@arm.com; a=ed25519;
+ pk=xVOtd+Qklh/4tuM3tB+BEZD4jj5a6W59C3KCNX6v7OE=
 
-From: Sunyun Yang <syyang@lontium.com>
+Relocate the CPER buffer mapping, peek, and clear helpers from ghes.c into
+ghes_cper.c so they can be shared with other firmware-first providers.
+This commit only shuffles code; behavior stays the same.
 
-This commit adds the device tree binding schema for the Lontium LT7911EXC.
-This device is an I2C-controlled bridge that converts eDP 1.4 input to MIPI
-DSI output.
-
-Signed-off-by: Sunyun Yang <syyang@lontium.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
 ---
- .../display/bridge/lontium,lt7911exc.yaml     | 89 +++++++++++++++++++
- 1 file changed, 89 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+ drivers/acpi/apei/Makefile    |   2 +-
+ drivers/acpi/apei/ghes.c      | 166 -----------------------------------
+ drivers/acpi/apei/ghes_cper.c | 195 ++++++++++++++++++++++++++++++++++++++++++
+ 3 files changed, 196 insertions(+), 167 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
+diff --git a/drivers/acpi/apei/Makefile b/drivers/acpi/apei/Makefile
+index 66588d6be56f..f57f3b009d8e 100644
+--- a/drivers/acpi/apei/Makefile
++++ b/drivers/acpi/apei/Makefile
+@@ -1,6 +1,6 @@
+ # SPDX-License-Identifier: GPL-2.0
+ obj-$(CONFIG_ACPI_APEI)		+= apei.o
+-obj-$(CONFIG_ACPI_APEI_GHES)	+= ghes.o
++obj-$(CONFIG_ACPI_APEI_GHES)	+= ghes.o ghes_cper.o
+ # clang versions prior to 18 may blow out the stack with KASAN
+ ifeq ($(CONFIG_COMPILE_TEST)_$(CONFIG_CC_IS_CLANG)_$(call clang-min-version, 180000),y_y_)
+ KASAN_SANITIZE_ghes.o := n
+diff --git a/drivers/acpi/apei/ghes.c b/drivers/acpi/apei/ghes.c
+index 4f67f46410c4..3f35580e8efd 100644
+--- a/drivers/acpi/apei/ghes.c
++++ b/drivers/acpi/apei/ghes.c
+@@ -118,26 +118,6 @@ static struct gen_pool *ghes_estatus_pool;
+ static struct ghes_estatus_cache __rcu *ghes_estatus_caches[GHES_ESTATUS_CACHES_SIZE];
+ static atomic_t ghes_estatus_cache_alloced;
+ 
+-static void __iomem *ghes_map(u64 pfn, enum fixed_addresses fixmap_idx)
+-{
+-	phys_addr_t paddr;
+-	pgprot_t prot;
+-
+-	paddr = PFN_PHYS(pfn);
+-	prot = arch_apei_get_mem_attribute(paddr);
+-	__set_fixmap(fixmap_idx, paddr, prot);
+-
+-	return (void __iomem *) __fix_to_virt(fixmap_idx);
+-}
+-
+-static void ghes_unmap(void __iomem *vaddr, enum fixed_addresses fixmap_idx)
+-{
+-	int _idx = virt_to_fix((unsigned long)vaddr);
+-
+-	WARN_ON_ONCE(fixmap_idx != _idx);
+-	clear_fixmap(fixmap_idx);
+-}
+-
+ int ghes_estatus_pool_init(unsigned int num_ghes)
+ {
+ 	unsigned long addr, len;
+@@ -193,21 +173,6 @@ static void unmap_gen_v2(struct ghes *ghes)
+ 	apei_unmap_generic_address(&ghes->generic_v2->read_ack_register);
+ }
+ 
+-static void ghes_ack_error(struct acpi_hest_generic_v2 *gv2)
+-{
+-	int rc;
+-	u64 val = 0;
+-
+-	rc = apei_read(&val, &gv2->read_ack_register);
+-	if (rc)
+-		return;
+-
+-	val &= gv2->read_ack_preserve << gv2->read_ack_register.bit_offset;
+-	val |= gv2->read_ack_write    << gv2->read_ack_register.bit_offset;
+-
+-	apei_write(val, &gv2->read_ack_register);
+-}
+-
+ struct ghes *ghes_new(struct acpi_hest_generic *generic)
+ {
+ 	struct ghes *ghes;
+@@ -280,137 +245,6 @@ static inline int ghes_severity(int severity)
+ 	}
+ }
+ 
+-static void ghes_copy_tofrom_phys(void *buffer, u64 paddr, u32 len,
+-				  int from_phys,
+-				  enum fixed_addresses fixmap_idx)
+-{
+-	void __iomem *vaddr;
+-	u64 offset;
+-	u32 trunk;
+-
+-	while (len > 0) {
+-		offset = paddr - (paddr & PAGE_MASK);
+-		vaddr = ghes_map(PHYS_PFN(paddr), fixmap_idx);
+-		trunk = PAGE_SIZE - offset;
+-		trunk = min(trunk, len);
+-		if (from_phys)
+-			memcpy_fromio(buffer, vaddr + offset, trunk);
+-		else
+-			memcpy_toio(vaddr + offset, buffer, trunk);
+-		len -= trunk;
+-		paddr += trunk;
+-		buffer += trunk;
+-		ghes_unmap(vaddr, fixmap_idx);
+-	}
+-}
+-
+-/* Check the top-level record header has an appropriate size. */
+-int __ghes_check_estatus(struct ghes *ghes,
+-			 struct acpi_hest_generic_status *estatus)
+-{
+-	u32 len = cper_estatus_len(estatus);
+-	u32 max_len = min(ghes->generic->error_block_length,
+-			  ghes->estatus_length);
+-
+-	if (len < sizeof(*estatus)) {
+-		pr_warn_ratelimited(FW_WARN GHES_PFX "Truncated error status block!\n");
+-		return -EIO;
+-	}
+-
+-	if (!len || len > max_len) {
+-		pr_warn_ratelimited(FW_WARN GHES_PFX "Invalid error status block length!\n");
+-		return -EIO;
+-	}
+-
+-	if (cper_estatus_check_header(estatus)) {
+-		pr_warn_ratelimited(FW_WARN GHES_PFX "Invalid CPER header!\n");
+-		return -EIO;
+-	}
+-
+-	return 0;
+-}
+-
+-/* Read the CPER block, returning its address, and header in estatus. */
+-int __ghes_peek_estatus(struct ghes *ghes,
+-			struct acpi_hest_generic_status *estatus,
+-			u64 *buf_paddr, enum fixed_addresses fixmap_idx)
+-{
+-	struct acpi_hest_generic *g = ghes->generic;
+-	int rc;
+-
+-	rc = apei_read(buf_paddr, &g->error_status_address);
+-	if (rc) {
+-		*buf_paddr = 0;
+-		pr_warn_ratelimited(FW_WARN GHES_PFX
+-				    "Failed to read error status block address for hardware error source: %d.\n",
+-				   g->header.source_id);
+-		return -EIO;
+-	}
+-	if (!*buf_paddr)
+-		return -ENOENT;
+-
+-	ghes_copy_tofrom_phys(estatus, *buf_paddr, sizeof(*estatus), 1,
+-			      fixmap_idx);
+-	if (!estatus->block_status) {
+-		*buf_paddr = 0;
+-		return -ENOENT;
+-	}
+-
+-	return 0;
+-}
+-
+-int __ghes_read_estatus(struct acpi_hest_generic_status *estatus,
+-			u64 buf_paddr, enum fixed_addresses fixmap_idx,
+-			size_t buf_len)
+-{
+-	ghes_copy_tofrom_phys(estatus, buf_paddr, buf_len, 1, fixmap_idx);
+-	if (cper_estatus_check(estatus)) {
+-		pr_warn_ratelimited(FW_WARN GHES_PFX
+-				    "Failed to read error status block!\n");
+-		return -EIO;
+-	}
+-
+-	return 0;
+-}
+-
+-int ghes_read_estatus(struct ghes *ghes,
+-		      struct acpi_hest_generic_status *estatus,
+-		      u64 *buf_paddr, enum fixed_addresses fixmap_idx)
+-{
+-	int rc;
+-
+-	rc = __ghes_peek_estatus(ghes, estatus, buf_paddr, fixmap_idx);
+-	if (rc)
+-		return rc;
+-
+-	rc = __ghes_check_estatus(ghes, estatus);
+-	if (rc)
+-		return rc;
+-
+-	return __ghes_read_estatus(estatus, *buf_paddr, fixmap_idx,
+-				   cper_estatus_len(estatus));
+-}
+-
+-void ghes_clear_estatus(struct ghes *ghes,
+-			struct acpi_hest_generic_status *estatus,
+-			u64 buf_paddr, enum fixed_addresses fixmap_idx)
+-{
+-	estatus->block_status = 0;
+-
+-	if (!buf_paddr)
+-		return;
+-
+-	ghes_copy_tofrom_phys(estatus, buf_paddr,
+-			      sizeof(estatus->block_status), 0,
+-			      fixmap_idx);
+-
+-	/*
+-	 * GHESv2 type HEST entries introduce support for error acknowledgment,
+-	 * so only acknowledge the error if this support is present.
+-	 */
+-	if (is_hest_type_generic_v2(ghes))
+-		ghes_ack_error(ghes->generic_v2);
+-}
+ 
+ /**
+  * struct ghes_task_work - for synchronous RAS event
+diff --git a/drivers/acpi/apei/ghes_cper.c b/drivers/acpi/apei/ghes_cper.c
 new file mode 100644
-index 000000000000..3290b10ce883
+index 000000000000..7bb72fe57838
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/display/bridge/lontium,lt7911exc.yaml
-@@ -0,0 +1,89 @@
-+# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/display/bridge/lontium,lt7911exc.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/drivers/acpi/apei/ghes_cper.c
+@@ -0,0 +1,195 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Shared GHES helpers for firmware-first CPER error handling.
++ *
++ * This file holds the GHES helper code that is shared by the in-tree GHES
++ * driver and by other firmware-first error sources that reuse the same CPER
++ * handling flow.
++ *
++ * Derived from the ACPI APEI GHES driver.
++ *
++ * Copyright 2010,2011 Intel Corp.
++ *   Author: Huang Ying <ying.huang@intel.com>
++ */
 +
-+title: Lontium LT7911EXC eDP to MIPI DSI Bridge
++#include <linux/err.h>
++#include <linux/io.h>
++#include <linux/kernel.h>
++#include <linux/mm.h>
++#include <linux/ratelimit.h>
++#include <linux/slab.h>
 +
-+maintainers:
-+  - Sunyun Yang <syyang@lontium.com>
++#include <acpi/apei.h>
++#include <acpi/ghes_cper.h>
 +
-+properties:
-+  compatible:
-+    enum:
-+      - lontium,lt7911exc
++#include <asm/fixmap.h>
++#include <asm/tlbflush.h>
 +
-+  reg:
-+    maxItems: 1
++#include "apei-internal.h"
 +
-+  reset-gpios:
-+    maxItems: 1
-+    description: GPIO connected to RST_ pin.
++static void __iomem *ghes_map(u64 pfn, enum fixed_addresses fixmap_idx)
++{
++	phys_addr_t paddr;
++	pgprot_t prot;
 +
-+  vdd-supply:
-+    description: Regulator for 1.2V MIPI phy power.
++	paddr = PFN_PHYS(pfn);
++	prot = arch_apei_get_mem_attribute(paddr);
++	__set_fixmap(fixmap_idx, paddr, prot);
 +
-+  vcc-supply:
-+    description: Regulator for 3.3V IO power.
++	return (void __iomem *) __fix_to_virt(fixmap_idx);
++}
 +
-+  ports:
-+    $ref: /schemas/graph.yaml#/properties/ports
++static void ghes_unmap(void __iomem *vaddr, enum fixed_addresses fixmap_idx)
++{
++	int _idx = virt_to_fix((unsigned long)vaddr);
 +
-+    properties:
-+      port@0:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for eDP input.
++	WARN_ON_ONCE(fixmap_idx != _idx);
++	clear_fixmap(fixmap_idx);
++}
 +
-+      port@1:
-+        $ref: /schemas/graph.yaml#/properties/port
-+        description: Video port for MIPI DSI output.
++static void ghes_ack_error(struct acpi_hest_generic_v2 *gv2)
++{
++	int rc;
++	u64 val = 0;
 +
-+    required:
-+      - port@0
-+      - port@1
++	rc = apei_read(&val, &gv2->read_ack_register);
++	if (rc)
++		return;
 +
-+required:
-+  - compatible
-+  - reg
-+  - reset-gpios
-+  - vdd-supply
-+  - vcc-supply
-+  - ports
++	val &= gv2->read_ack_preserve << gv2->read_ack_register.bit_offset;
++	val |= gv2->read_ack_write    << gv2->read_ack_register.bit_offset;
 +
-+additionalProperties: false
++	apei_write(val, &gv2->read_ack_register);
++}
 +
-+examples:
-+  - |
-+    #include <dt-bindings/gpio/gpio.h>
-+    i2c {
-+        #address-cells = <1>;
-+        #size-cells = <0>;
++static void ghes_copy_tofrom_phys(void *buffer, u64 paddr, u32 len,
++				  int from_phys,
++				  enum fixed_addresses fixmap_idx)
++{
++	void __iomem *vaddr;
++	u64 offset;
++	u32 trunk;
 +
-+        mipi-bridge@41 {
-+            compatible = "lontium,lt7911exc";
-+            reg = <0x41>;
-+            reset-gpios = <&gpy8 8 GPIO_ACTIVE_LOW>;
-+            vdd-supply = <&lt7911exc_1v2>;
-+            vcc-supply = <&lt7911exc_3v3>;
++	while (len > 0) {
++		offset = paddr - (paddr & PAGE_MASK);
++		vaddr = ghes_map(PHYS_PFN(paddr), fixmap_idx);
++		trunk = PAGE_SIZE - offset;
++		trunk = min(trunk, len);
++		if (from_phys)
++			memcpy_fromio(buffer, vaddr + offset, trunk);
++		else
++			memcpy_toio(vaddr + offset, buffer, trunk);
++		len -= trunk;
++		paddr += trunk;
++		buffer += trunk;
++		ghes_unmap(vaddr, fixmap_idx);
++	}
++}
 +
-+            ports {
-+                #address-cells = <1>;
-+                #size-cells = <0>;
++/* Check the top-level record header has an appropriate size. */
++int __ghes_check_estatus(struct ghes *ghes,
++			 struct acpi_hest_generic_status *estatus)
++{
++	u32 len = cper_estatus_len(estatus);
++	u32 max_len = min(ghes->generic->error_block_length,
++			  ghes->estatus_length);
 +
-+                port@0 {
-+                    reg = <0>;
-+                    bridge_in: endpoint {
-+                        remote-endpoint = <&edp_out>;
-+                    };
-+                };
++	if (len < sizeof(*estatus)) {
++		pr_warn_ratelimited(FW_WARN GHES_PFX "Truncated error status block!\n");
++		return -EIO;
++	}
 +
-+                port@1 {
-+                    reg = <1>;
-+                    bridge_out: endpoint {
-+                        remote-endpoint = <&panel_in>;
-+                    };
-+                };
-+            };
-+        };
-+    };
++	if (!len || len > max_len) {
++		pr_warn_ratelimited(FW_WARN GHES_PFX "Invalid error status block length!\n");
++		return -EIO;
++	}
++
++	if (cper_estatus_check_header(estatus)) {
++		pr_warn_ratelimited(FW_WARN GHES_PFX "Invalid CPER header!\n");
++		return -EIO;
++	}
++
++	return 0;
++}
++
++/* Read the CPER block, returning its address, and header in estatus. */
++int __ghes_peek_estatus(struct ghes *ghes,
++			struct acpi_hest_generic_status *estatus,
++			u64 *buf_paddr, enum fixed_addresses fixmap_idx)
++{
++	struct acpi_hest_generic *g = ghes->generic;
++	int rc;
++
++	rc = apei_read(buf_paddr, &g->error_status_address);
++	if (rc) {
++		*buf_paddr = 0;
++		pr_warn_ratelimited(FW_WARN GHES_PFX
++				    "Failed to read error status block address for hardware error source: %d.\n",
++				   g->header.source_id);
++		return -EIO;
++	}
++	if (!*buf_paddr)
++		return -ENOENT;
++
++	ghes_copy_tofrom_phys(estatus, *buf_paddr, sizeof(*estatus), 1,
++			      fixmap_idx);
++	if (!estatus->block_status) {
++		*buf_paddr = 0;
++		return -ENOENT;
++	}
++
++	return 0;
++}
++
++int __ghes_read_estatus(struct acpi_hest_generic_status *estatus,
++			u64 buf_paddr, enum fixed_addresses fixmap_idx,
++			size_t buf_len)
++{
++	ghes_copy_tofrom_phys(estatus, buf_paddr, buf_len, 1, fixmap_idx);
++	if (cper_estatus_check(estatus)) {
++		pr_warn_ratelimited(FW_WARN GHES_PFX
++				    "Failed to read error status block!\n");
++		return -EIO;
++	}
++
++	return 0;
++}
++
++int ghes_read_estatus(struct ghes *ghes,
++		      struct acpi_hest_generic_status *estatus,
++		      u64 *buf_paddr, enum fixed_addresses fixmap_idx)
++{
++	int rc;
++
++	rc = __ghes_peek_estatus(ghes, estatus, buf_paddr, fixmap_idx);
++	if (rc)
++		return rc;
++
++	rc = __ghes_check_estatus(ghes, estatus);
++	if (rc)
++		return rc;
++
++	return __ghes_read_estatus(estatus, *buf_paddr, fixmap_idx,
++				   cper_estatus_len(estatus));
++}
++
++void ghes_clear_estatus(struct ghes *ghes,
++			struct acpi_hest_generic_status *estatus,
++			u64 buf_paddr, enum fixed_addresses fixmap_idx)
++{
++	estatus->block_status = 0;
++
++	if (!buf_paddr)
++		return;
++
++	ghes_copy_tofrom_phys(estatus, buf_paddr,
++			      sizeof(estatus->block_status), 0,
++			      fixmap_idx);
++
++	/*
++	 * GHESv2 type HEST entries introduce support for error acknowledgment,
++	 * so only acknowledge the error if this support is present.
++	 */
++	if (is_hest_type_generic_v2(ghes))
++		ghes_ack_error(ghes->generic_v2);
++}
+
 -- 
-2.34.1
+2.43.0
 
