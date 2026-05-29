@@ -1,457 +1,139 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012013.outbound.protection.outlook.com [52.101.43.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0B9243E4A9
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:47:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780066063; cv=none; b=S642LdyBM+GPB75dp8WagOcfruGdpVCSDjZU7/91lGm7kGjMydWvs+ez7D/PtAVyG5qkYtVKouCpFYDuw9lwKVrrIgN2nm/QWryGUuneuCUSMziUaDs8tshX2aayF/qvFph7zAtAPFrZR4KG6ntmGUWdlUlzdQvOO/EQAYnD8Es=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780066063; c=relaxed/simple;
-	bh=h/rZujb5vQ/7BLVxTXXB95gj7Z4ou4+X2pZ4A1QepVE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gOkjb6B33SGWJOoR4uj/vjFnzoPJJtYXyASUJlB1nLTJ49Cu8iJLeiWWEBeOCJ/lQ28ca90t/r/bHDYEGWYC9jW9arOVhknfKUU9T5nthKXN5a/9DDBYI589K3JVLcBQvv/lN6mYdjX0O6KbVeaEkJqfuNfcrx99FI5COweSLME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=MP9l76LH; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65D1C261B71;
+	Fri, 29 May 2026 14:49:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780066177; cv=fail; b=foXRMr+MjoUX6rjZ+rTzFCNihFFvhxNYfKe/i/RQNX/C7E8Zzc92X50LwaxfJxGSd9m1T7te+m/xWH6dd0eQ47dGhFys67fw796uW0Jy9de5jyr1LnegPctr50kUwYfUGUetrvrNgXwB8HqjyzmfeqUhPOOzIJlvtRCn8G+ti0k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780066177; c=relaxed/simple;
+	bh=pvo9CGNFcJe9IJVtV+apIf++I8PBX8uc28uo4ksoWww=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SfaTklWlgXxEYjcQoP0J/BkJ5exywmfwoeX4L6ByepZH2sb8Fu47Auzc9NS1wjapSNRPHedo+Ia1otku+RQIznnePyAz5iKgErZmCNwFLiY7a9x33xPtpySmmDZoz6fH1q+V27edriGQpl0ZJgj+DKm1v23PFHiZgODXwq70+14=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=sdNQmRJY; arc=fail smtp.client-ip=52.101.43.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="MP9l76LH"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4905529b933so56655085e9.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:47:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=amarulasolutions.com; s=google; t=1780066059; x=1780670859; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=E2+5EHsPFnutewiVxQ2U2ZYN7ZmcP1XidbGdGtxQQJk=;
-        b=MP9l76LHKt7w7iII/OkSdcswGsG0815LK7h3EwOi1uWkuyC1B0sSJikPfxZwsP5zam
-         ie7r/9/4Gg7bWMPQDf0kCy7RNeLtEnrC11f2INIROL9gDjNw2KS/d3Ukj/7JQPwqAIK2
-         FsMGJQFk6LrySlZgH4NlWc4cIOpqLSmOok4KI=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780066059; x=1780670859;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=E2+5EHsPFnutewiVxQ2U2ZYN7ZmcP1XidbGdGtxQQJk=;
-        b=CEmSKXomTQtaEX77Cj2DxrDafAu84SYThbfvttlAeB/ZYdxj6Lkjs6zdOcDE/InrhY
-         eaPpQ6JZB1yJ+Xz2fXHjwAcCBVfvwspuyGKZwepdgSy169wPiGIpg3lXgC/YSP473dKt
-         D34Rr8zpj5lybZAExQVPzQiDR4wV+79ROSnN/LKkozRYKca66Jg9PdZfoCbjXmrV++8t
-         gCqY1yKY5niNF2hzo8mKvBGVz4XqETpoTV/2gHqHGE18JlCVd4DWxqxhvIQRJ9jSpnWh
-         Rx5HYIWf2GMmyDih31gx6hnN53n1JBiEpINtVeZSyEjwAm3o6KK/5z8TQW6ty+Hy9+nK
-         aalA==
-X-Forwarded-Encrypted: i=1; AFNElJ+8WSqAf/4jbJWfFLwYcZQmoEd2uVivk5y77wF8ZMuKBvkqufVFMGb2kVe369c6/D3XfCvURHJoHZdi@vger.kernel.org
-X-Gm-Message-State: AOJu0YyCX3axE2ock4m3cC+bNZFerEMzvgvyayzXc76sFyZSlBIn8zO/
-	BDfYTxvPhIrtEX2Ee5yXmakSpTo0WmPnEh3UonDq43WefccEa5gTGhhzamJhMl0MzJw=
-X-Gm-Gg: Acq92OEm4dHeDdMg0+nZRcgbHZWqMIzxE901qfIZ+ky3jL6J8WV96kySc8izXpRZLEI
-	IYosc1nbktsm1cAemZZZxKBISWMa96DyxRfSsZcxQ3HA84k04ldFrucGTK7PezXYfljcjk5ORZ6
-	YHglf5qusB5KepNFvY5xFWou7/exPd+UzTuvN+5pgpwY2QqYXtbsH8zfmTYCFWF3TZJ8/l/Xw1b
-	o2Ev0T7LFbLX2oNQfUN/8aellJ6Gb4Ea8h5Fr/dVpnlsNAIGOd4Keo60UJQ/+aExDCItZw84kUw
-	b1NZ6nHBmG011bdICLCPwtIgc+dLr+qMlM8ghQa+uT1Jv59koT3Jl8JyKN1gl+QfXpop176WUK4
-	fp6RsWYUd7JmTb6LyLT1sQ/K0uca/NbBC1DV3aH5Ru4j/853KWT9j8lBYIKfqaQpAywHQKDheM7
-	p8yPApa00wNNVdtna/v0nZBnwPgQTUi7K7Ot1IW/6OMNw0hRyJL2M2OYfXYepYscUYj197euwqz
-	t7jI2roATUuF8+SAxopGdlVdLosfuChT5OQX8Y0e+piV6gqx+e07tJDXfQ=
-X-Received: by 2002:a05:600c:1453:b0:490:9536:c513 with SMTP id 5b1f17b1804b1-4909c0b0012mr41515945e9.19.1780066059157;
-        Fri, 29 May 2026 07:47:39 -0700 (PDT)
-Received: from dario-ThinkPad-P14s-Gen-5.amarulasolutions.com ([2.196.43.161])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909d6eb470sm38694785e9.10.2026.05.29.07.47.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 07:47:38 -0700 (PDT)
-From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-To: linux-kernel@vger.kernel.org
-Cc: domenico.acri@engicam.com,
-	francesco.utel@engicam.com,
-	michael@amarulasolutions.com,
-	linux-amarula@amarulasolutions.com,
-	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	devicetree@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-stm32@st-md-mailman.stormreply.com
-Subject: [PATCH v2 13/15] arm64: dts: st: support Engicam MicroGEA-STM32MP257-RMM board
-Date: Fri, 29 May 2026 16:46:27 +0200
-Message-ID: <20260529144707.3931919-14-dario.binacchi@amarulasolutions.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260529144707.3931919-1-dario.binacchi@amarulasolutions.com>
-References: <20260529144707.3931919-1-dario.binacchi@amarulasolutions.com>
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="sdNQmRJY"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=E4Nzox21HTBmqEVwHb6wO0BX9tpu171ESHkvSxRCSUVye2Dx8v2ak6tFaZ1DjTsRHVFHke7fOzP77eEkL6aNM5X1Op3sMwBLe1FlVcbCaA1uRJvC06yXGSvWhVEZRGRpoCVuD6l1bWL3CTUgsPueNj6cD+jHOe+A4VIfpwP+rxTu/dwMuRX0HD7Q+Oyamv83j+Hzo7R9zqzZcA4hu4wt+vGDkQKpNVkuLcz75e02diK5N+yOgoHNXUEO46H9ZJUw+P+ZppmcjhuxbHNeBRHoULByXdgGvthljFybJChicRI5j8M6i27F8caiGipT8RdCn39jvjTLKvIfZY/t4UsOYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=tydq5bl4Lid7dHHgeyO1M936S9mVL9K3D2tiHZQ1bf0=;
+ b=C/mbgOJ5Ee5t53GGNqsVmbv517bsZbetpq9pjqvZbtW6GwaHJsJJPu7NvefLshCxXH4Po2HJ1Zm+x3XpWEYipozxH8VAUAr3tfRG/wCX5U3cBzLZ2nM8o51yjvY/k/HVM/n7JZIIRFlHLBtlTD8z+zko7ZraE7AT/Lft8WcKWDxd6TF9dHnaFYlaO4t6yD7xyck67SpxKeo6rjq1fMiqNbI4vga73T948INdn/jy6g2UxOdJvFCcXr0yzqL3MtNNk73z0KwgpJNSsB1d0N23Sm+1OGFXZVc/rRqD2bFMLGHzuHBQKeRC+UYIESmhbZkeGnFovlTqaUOhwwWt3G/7Zg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=tydq5bl4Lid7dHHgeyO1M936S9mVL9K3D2tiHZQ1bf0=;
+ b=sdNQmRJYr3KMcU6Go9LgH4LaVP76xzIEHYFsTR82+TrEcc4jo9VXsapbffTlI9uqq/+m8D+3GpuBVe7zqiBDTjt6wuResCqkavXLIhLGr49oGpEoav8lCGfz0sQ3qw3g/IfIPwdBixFPIJGDvalxCZeTwiR79Oe4Q8GW24Rbxeg=
+Received: from BL1PR13CA0301.namprd13.prod.outlook.com (2603:10b6:208:2c1::6)
+ by SN7PR10MB6332.namprd10.prod.outlook.com (2603:10b6:806:270::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
+ 2026 14:49:31 +0000
+Received: from BL6PEPF0001AB50.namprd04.prod.outlook.com
+ (2603:10b6:208:2c1:cafe::77) by BL1PR13CA0301.outlook.office365.com
+ (2603:10b6:208:2c1::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.5 via Frontend Transport; Fri, 29
+ May 2026 14:49:31 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
+Received: from flwvzet200.ext.ti.com (198.47.21.194) by
+ BL6PEPF0001AB50.mail.protection.outlook.com (10.167.242.74) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Fri, 29 May 2026 14:49:30 +0000
+Received: from DFLE212.ent.ti.com (10.64.6.70) by flwvzet200.ext.ti.com
+ (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
+ 2026 09:49:17 -0500
+Received: from DFLE209.ent.ti.com (10.64.6.67) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Fri, 29 May
+ 2026 09:49:17 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE209.ent.ti.com
+ (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Fri, 29 May 2026 09:49:17 -0500
+Received: from localhost (uda0133052.dhcp.ti.com [128.247.81.232])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 64TEnHij3830103;
+	Fri, 29 May 2026 09:49:17 -0500
+Date: Fri, 29 May 2026 09:49:17 -0500
+From: Nishanth Menon <nm@ti.com>
+To: Jai Luthra <jai.luthra@ideasonboard.com>
+CC: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>,
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Nelson <robertcnelson@gmail.com>,
+	Andrew Davis <afd@ti.com>, Devarsh Thakkar <devarsht@ti.com>, Tomi Valkeinen
+	<tomi.valkeinen@ideasonboard.com>, <linux-arm-kernel@lists.infradead.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v2 3/4] arm64: dts: ti: k3-am67a-beagley-ai: Add overlay
+ for IMX219 on CSI0
+Message-ID: <20260529144917.wp46oj6z3clarvft@blabber>
+References: <20260515-beagley-cameras-v2-0-f6acb66c9995@ideasonboard.com>
+ <20260515-beagley-cameras-v2-3-f6acb66c9995@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260515-beagley-cameras-v2-3-f6acb66c9995@ideasonboard.com>
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BL6PEPF0001AB50:EE_|SN7PR10MB6332:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9a114a4d-e959-48bb-d5b4-08debd917d46
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|376014|7416014|36860700016|82310400026|18002099003|22082099003|4143699003|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	ounNTAm80SXYdx9Bs//JfJKrShwcYF1WdlNIHU7neONMjwlfUNMAtl5BIeN0GA2+RMjX8/yN8Qu4nv2fSiHUhi2nm7yTuGlW2jfP22k5ybfSFZVXIrRf3+eOeoW+TsyU+y5FDVcxUVGitQeuCrSt+dQkGk22Bg21z+APTwqKMsMx9GaUn1fb4Gs60LvMSpvQ7DezLd6U8vPDLDx5hJSvclHBNa502iI1jPUogIWGevbLVc9ifDubYpMdN/5vVguqukfhn3cCjc5PjRhtFKbXhLcAALux2OkuA9g9uYQDXwrivfaJMt7tOqZ8rfgEve+UK/4e8JD9OIkX61WM6yGysFeul1dpRtcC6sFqRIHBJerYMr4uUrJgcXB4iaLB72CumVK4tfgXHsjuE24AFn63SDToLjirwfdEgMdZvQ7yoHVjRrVDhlHNoafoEvKimsfBJvfEn+/wd/5UUw0axo3KL+J0HyYnjEX4QmdohfI369EHiki0a0Luq+W+ve8r7vFz3dU5LA9NeLFcND9mld18cCsVI5NnX+nTbjuAYId98NDEIApvdjlUr0cyJrKgCs3cBuYW+d9MLT9juAfXN9VGy50Gd56sUIllBOGfwPzTkrKa71QTI3kxKnDfOAiE9iCNlWiVK8tRigtrOZg2g/6foK5++VqQtsp8zvkhKnS9JwnslwWqIcX+C0yLatMIkvDX
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(36860700016)(82310400026)(18002099003)(22082099003)(4143699003)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	m2P119DPJbhu+Q5dDXhWImvhKLD+QLXMqqQelVrUKZvwkYiipJzbvMdhMEB98OWMCZXxbU4nn71s+Uqqwaip13ccOfU4wUeRgh+x7a4r/IaPEf8jJFyx3RQ/1wurBtgbP9IIiG3B3nLY1D7RnhOyX1axYkvgOR0VepsV6wY/46NWww/MgttCSP3WqPt9lpBYJ6NjsJf3EKIHbmBm+92OMMlij4MoV541CqJD7ni6dLpXr+ULnlAPnucVbkWFTXYZbBq4T6YmT5zdBiUVASC9nP7QO3Ne8tjHl5Mjr4JnB3mHuICoRw2Oorp5reh9mlHKVkAAysefKFeJXTlijIepmn/2IP0lfbIj7hf8YKr0DgKqq1PNMuKJ+RU0ZaCBNx2NaXmuGfx9/OpjPGSb2z+f+bbMLbycEUKiBSG0clCet7TsqOnOr+Q5hCSzG10XxOHV
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 14:49:30.1609
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9a114a4d-e959-48bb-d5b4-08debd917d46
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BL6PEPF0001AB50.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR10MB6332
 
-Support for Engicam MicroGEA-STM32MP257-RMM board with:
+On 06:46-20260515, Jai Luthra wrote:
+[...]
 
- - 8 GB eMMC Flash
- - 2 GB LPDDR4 DRAM
- - CAN
- - LEDs
- - LCD panel with touchscreen
- - Micro SD card connector
- - Audio codec
- - Buzzer
+> +&main_i2c2 {
+> +	status = "okay";
+Comes last.. please follow:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/dts-coding-style.rst#n117
 
-Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
-
----
-
-Changes in v2:
-- Drop the clocks property from the sai1 node in stm32mp257-engicam-microgea-rmm.dts
-  to avoid overriding the peripheral bus clock reference defined in the base
-  SoC device tree. Suggested by Sashiko.
-- Reference the existing labeled nodes directly at the root level using
-  &sai1a and &sai1b in stm32mp257-engicam-microgea-rmm.dts instead of
-  redefining the entire node structure and redeclaring the labels. Suggested by Sashiko.
-- Drop the #clock-cells property from sai1a and remove the reference to sai1a from
-  the clocks array in sai1b, relying strictly on the st,sync property to handle
-  internal synchronization.
-
- arch/arm64/boot/dts/st/Makefile               |   1 +
- .../st/stm32mp257-engicam-microgea-rmm.dts    | 319 ++++++++++++++++++
- 2 files changed, 320 insertions(+)
- create mode 100644 arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-
-diff --git a/arch/arm64/boot/dts/st/Makefile b/arch/arm64/boot/dts/st/Makefile
-index 63908113ae36..386eca593c54 100644
---- a/arch/arm64/boot/dts/st/Makefile
-+++ b/arch/arm64/boot/dts/st/Makefile
-@@ -2,5 +2,6 @@
- dtb-$(CONFIG_ARCH_STM32) += \
- 	stm32mp215f-dk.dtb \
- 	stm32mp235f-dk.dtb \
-+	stm32mp257-engicam-microgea-rmm.dtb \
- 	stm32mp257f-dk.dtb \
- 	stm32mp257f-ev1.dtb
-diff --git a/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-new file mode 100644
-index 000000000000..0212c03aae1a
---- /dev/null
-+++ b/arch/arm64/boot/dts/st/stm32mp257-engicam-microgea-rmm.dts
-@@ -0,0 +1,319 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2026 Amarula Solutions, Dario Binacchi <dario.binacchi@amarulasolutions.com>
-+ * Copyright (C) 2026 Engicam srl
-+ */
-+
-+/dts-v1/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include <dt-bindings/input/input.h>
-+#include <dt-bindings/leds/common.h>
-+
-+#include "stm32mp257-engicam-microgea.dtsi"
-+
-+/ {
-+	model = "Engicam MicroGEA STM32MP257D RMM Board";
-+	compatible = "engicam,microgea-stm32mp257-rmm",
-+		     "engicam,microgea-stm32mp257", "st,stm32mp257";
-+
-+	aliases {
-+		mmc0 = &sdmmc1;
-+		mmc1 = &sdmmc2;
-+		serial0 = &usart2;
-+		serial1 = &usart1;
-+	};
-+
-+	backlight: backlight {
-+		compatible = "pwm-backlight";
-+		brightness-levels = <0 100>;
-+		num-interpolated-steps = <100>;
-+		default-brightness-level = <85>;
-+		pwms = <&pwm2 0 100000 0>;
-+	};
-+
-+	buzzer {
-+		compatible = "pwm-beeper";
-+		pwms = <&pwm4 0 1000000 0>;
-+	};
-+
-+	chosen {
-+		stdout-path = "serial0:115200n8";
-+		#address-cells = <2>;
-+		#size-cells = <2>;
-+		ranges;
-+
-+		framebuffer {
-+			compatible = "simple-framebuffer";
-+			clocks = <&rcc CK_BUS_LTDC>, <&rcc CK_KER_LTDC>;
-+			lcd-supply = <&reg_3v3>;
-+			status = "disabled";
-+		};
-+	};
-+
-+	leds {
-+		compatible = "gpio-leds";
-+
-+		led-0 {
-+			gpios = <&gpioh 2 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			status = "okay";
-+		};
-+
-+		led-1 {
-+			gpios = <&gpioh 6 GPIO_ACTIVE_HIGH>;
-+			default-state = "off";
-+			status = "okay";
-+		};
-+	};
-+
-+	mclk: clock-mclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+	};
-+
-+	reg_1v8: regulator-1v8 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1v8";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+	};
-+
-+	reg_3v3: regulator-3v3 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "3v3";
-+		regulator-min-microvolt = <3300000>;
-+		regulator-max-microvolt = <3300000>;
-+	};
-+
-+	reg_ext_pwr: regulator-ext-pwr {
-+		compatible = "regulator-fixed";
-+		regulator-name = "ext-pwr";
-+		regulator-min-microvolt = <5000000>;
-+		regulator-max-microvolt = <5000000>;
-+		gpio = <&gpiog 0 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-always-on;
-+	};
-+
-+	sound {
-+		compatible = "audio-graph-card";
-+		label = "STM32MP25-RMM";
-+		widgets = "Headphone", "Headphone Jack",
-+			  "Microphone", "Microphone Jack";
-+		routing = "Headphone Jack", "HP_OUT",
-+			  "MIC_IN", "Microphone Jack",
-+			  "Microphone Jack", "Mic Bias";
-+		dais = <&sai1a_port &sai1b_port>;
-+		status = "okay";
-+	};
-+};
-+
-+&arm_wdt {
-+	timeout-sec = <32>;
-+	status = "okay";
-+};
-+
-+&i2c1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c1_pins_a>;
-+	pinctrl-1 = <&i2c1_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	touchscreen@38 {
-+		compatible = "edt,edt-ft5306";
-+		reg = <0x38>;
-+		interrupt-parent = <&gpiob>;
-+		interrupts = <0 IRQ_TYPE_EDGE_FALLING>;
-+		reset-gpios = <&gpiod 1 GPIO_ACTIVE_LOW>;
-+		touchscreen-size-x = <1280>;
-+		touchscreen-size-y = <800>;
-+	};
-+};
-+
-+&i2c2 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&i2c2_pins_a>;
-+	pinctrl-1 = <&i2c2_sleep_pins_a>;
-+	i2c-scl-rising-time-ns = <185>;
-+	i2c-scl-falling-time-ns = <20>;
-+	status = "okay";
-+	/* spare dmas for other usage */
-+	/delete-property/dmas;
-+	/delete-property/dma-names;
-+
-+	sgtl5000: codec@a {
-+		compatible = "fsl,sgtl5000";
-+		reg = <0x0a>;
-+		#sound-dai-cells = <0>;
-+		clocks = <&mclk>;
-+
-+		VDDA-supply = <&reg_3v3>;
-+		VDDIO-supply = <&reg_3v3>;
-+		VDDD-supply = <&reg_1v8>;
-+
-+		sgtl5000_port: port {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			sgtl5000_tx_endpoint: endpoint@0 {
-+				reg = <0>;
-+				remote-endpoint = <&sai1a_endpoint>;
-+				frame-master = <&sgtl5000_tx_endpoint>;
-+				bitclock-master = <&sgtl5000_tx_endpoint>;
-+			};
-+
-+			sgtl5000_rx_endpoint: endpoint@1 {
-+				reg = <1>;
-+				remote-endpoint = <&sai1b_endpoint>;
-+				frame-master = <&sgtl5000_rx_endpoint>;
-+				bitclock-master = <&sgtl5000_rx_endpoint>;
-+			};
-+		};
-+	};
-+};
-+
-+&ltdc {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&ltdc_pins_a>;
-+	pinctrl-1 = <&ltdc_sleep_pins_a>;
-+	status = "okay";
-+
-+	port {
-+		ltdc_out: endpoint {
-+			remote-endpoint = <&panel_in>;
-+		};
-+	};
-+};
-+
-+&m_can1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&m_can1_pins_a>;
-+	pinctrl-1 = <&m_can1_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&sai1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&sai1a_pins_a>, <&sai1b_pins_a>;
-+	pinctrl-1 = <&sai1a_sleep_pins_a>, <&sai1b_sleep_pins_a>;
-+	status = "okay";
-+};
-+
-+&sai1a {
-+	dma-names = "tx";
-+	status = "okay";
-+
-+	sai1a_port: port {
-+		sai1a_endpoint: endpoint {
-+			remote-endpoint = <&sgtl5000_tx_endpoint>;
-+			dai-format = "i2s";
-+			mclk-fs = <512>;
-+		};
-+	};
-+};
-+
-+&sai1b {
-+	dma-names = "rx";
-+	st,sync = <&sai1a 2>;
-+	clocks = <&rcc CK_KER_SAI1>;
-+	clock-names = "sai_ck";
-+	status = "okay";
-+
-+	sai1b_port: port {
-+		sai1b_endpoint: endpoint {
-+			remote-endpoint = <&sgtl5000_rx_endpoint>;
-+			dai-format = "i2s";
-+			mclk-fs = <512>;
-+		};
-+	};
-+};
-+
-+/* MicroSD */
-+&sdmmc1 {
-+	pinctrl-names = "default", "opendrain", "sleep";
-+	pinctrl-0 = <&sdmmc1_b4_pins_a>;
-+	pinctrl-1 = <&sdmmc1_b4_od_pins_a>;
-+	pinctrl-2 = <&sdmmc1_b4_sleep_pins_a>;
-+	broken-cd;
-+	disable-wp;
-+	st,neg-edge;
-+	bus-width = <4>;
-+	vmmc-supply = <&scmi_v3v3>;
-+	vqmmc-supply = <&scmi_vddio1>;
-+	no-1-8-v;
-+	status = "okay";
-+};
-+
-+&spi1 {
-+	pinctrl-names = "default", "sleep";
-+	pinctrl-0 = <&spi1_pins_a>;
-+	pinctrl-1 = <&spi1_sleep_pins_a>;
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+	cs-gpios = <&gpioh 8 GPIO_ACTIVE_HIGH>, <&gpioh 3 GPIO_ACTIVE_HIGH>;
-+	status = "okay";
-+
-+	display: display@0 {
-+		compatible = "rocktech,rk050hr345-ct106a", "ilitek,ili9806e";
-+		reg = <0>;
-+		vdd-supply = <&reg_3v3>;
-+		spi-max-frequency = <10000000>;
-+		reset-gpios = <&gpiob 6 GPIO_ACTIVE_LOW>;
-+		backlight = <&backlight>;
-+
-+		port {
-+			panel_in: endpoint {
-+				remote-endpoint = <&ltdc_out>;
-+			};
-+		};
-+	};
-+};
-+
-+&timers2 {
-+	status = "okay";
-+
-+	pwm2: pwm {
-+		pinctrl-0 = <&pwm2_pins_a>;
-+		pinctrl-1 = <&pwm2_sleep_pins_a>;
-+		pinctrl-names = "default", "sleep";
-+		status = "okay";
-+	};
-+};
-+
-+&timers4 {
-+	status = "okay";
-+
-+	pwm4: pwm {
-+		pinctrl-names = "default", "sleep";
-+		pinctrl-0 = <&pwm4_pins_a>;
-+		pinctrl-1 = <&pwm4_sleep_pins_a>;
-+		status = "okay";
-+	};
-+};
-+
-+&usart1 {
-+	pinctrl-names = "default", "idle", "sleep";
-+	pinctrl-0 = <&usart1_pins_b>;
-+	pinctrl-1 = <&usart1_idle_pins_b>;
-+	pinctrl-2 = <&usart1_sleep_pins_b>;
-+	/delete-property/ dmas;
-+	/delete-property/ dma-names;
-+	status = "okay";
-+};
-+
-+&usart2 {
-+	pinctrl-names = "default", "idle", "sleep";
-+	pinctrl-0 = <&usart2_pins_a>;
-+	pinctrl-1 = <&usart2_idle_pins_a>;
-+	pinctrl-2 = <&usart2_sleep_pins_a>;
-+	/delete-property/ dmas;
-+	/delete-property/ dma-names;
-+	status = "okay";
-+};
+> +	pinctrl-names = "default";
+> +	pinctrl-0 = <&main_i2c2_pins_default>;
+> +	clock-frequency = <400000>;
+> +
+> +	#address-cells = <1>;
+> +	#size-cells = <0>;
+> +
 -- 
-2.43.0
-
+Regards,
+Nishanth Menon
+Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DDB5 849D 1736 249D
+https://ti.com/opensource
