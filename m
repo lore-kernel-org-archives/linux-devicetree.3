@@ -1,67 +1,86 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3DC3288B1
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2DA334C0D
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:17:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780049773; cv=none; b=Q4xnmHHoGPedJKkUnHRIfwjJGftgJIccbcs8DVJxahYgPgru1uPd6NsUfidnoq18kqm56e3h95uDY8uwHf8xOx4Fn+FYUW4gQqOSONGzV6iA6wp5LM+z1bTRuatsZpLXsU+yBm0PF/g1/mbQdyV7YUhNik7kJ/9JLjuZ66e1+n4=
+	t=1780049849; cv=none; b=fpYAV6RIfQu48T+XNnMP7NBePUIqfxSQoSmIYeRxMszxUrHthFvEfl5Rc9M9JhgujWVVDBBgXqoXDPoqrRdgwsRIGCW/h3ocUmFaolO/ZG0vzfY4zprTEQrE8dOIW9gQRTVf65ZUHIbL2hLpHNX2kfs9F04mHTDWAnP0TDGjhqY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780049773; c=relaxed/simple;
-	bh=Rb9pRMEWHB/11ewFIykCa7O3GdM34VtT66K9ppLOmLc=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=lOmCABATS5bb/SSwUqvDB3YM061vxuheaHBX7F7wFuXB3o8cxE2lsWTyXTY8ajCKOVVByixm4a8ksuSUp+gFA9NRwJeksn+Heo3g8/srlIVILtoNVZ78b2PbBQ6mjUNo2EHGNgHUnDxHrvxoOTqguUNGTvNK5dwDsSOd0frji+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uIUL9CNH; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780049849; c=relaxed/simple;
+	bh=wsTTRuHUZyUK2eHffcCelXOtF0Eanqo2UbgT/sM+3MI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qa2/zp06r5MRhTgPpcKTO+Dlcy4r/Q1z9RJO5NVIEMx3anG4dpGdnF2lBm0pAL2UOrrj2xbezc9Sl0Zah6T4ogcs0r8MPAeopiEHqAOU61zHnBXddMqiBrrXMGv3R5CYvhdtdF7gvpnSwQwNUABAyA1wTGZuudUCPupQB5sTVNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BIqgbXkg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EaOoDM4c; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uIUL9CNH"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4906238c62eso52793795e9.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 03:16:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BIqgbXkg";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EaOoDM4c"
+Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64T6LMYJ562448
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:17:26 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QlFPCdtZLGigc27wlhIiQC/YA2l7/69jHdSprQoVZBw=; b=BIqgbXkg22cpNPPU
+	1pY0M8VNRN7Oh/5UUY+KY4rDi0rHJ5zM3AhUWS0ilyFhJVAKwzFCwikg54MO0lA1
+	ZZwErYVBCuXb2AVwZx8i4j9Ff8B7Li56H4/0kVW0y5y9o6Ei+MBSzhQryga4CZba
+	mqi80RoAbOYQLgOnyVtnU4xSFf6NZBZDbcblS2PjDw0yprxYs9JaSa+TNFA9RWCe
+	0b5BhqB4JJhVQPRo3EMgUZnSUfeb0/gUUHFeFqtcwxVFGjjQ4dcPTA0X1DvS6OX9
+	tJ2x4ztc7kyLEvWtTtJSMkMw/gTtlKloitSvx2D4Vvr1hjPFnYkzE3lHT0wmwvB0
+	Fb8lrg==
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eevug3179-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:17:25 +0000 (GMT)
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-841f09a96ecso1320692b3a.1
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 03:17:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780049770; x=1780654570; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=zY32vo4wGSfZ5uOAVtxfFcwmsUjSGjI2ELbc4pDk6qU=;
-        b=uIUL9CNHpLGPRwdFb21rsg/w1BFlOt1dVNsPtSC8bR0gaDfEyjuAvjL7TAGrOYQBJi
-         XaFsGfdVrd+jzrnyuQl6NpJ3a2ATJlgdiiLsmIQUGTRVLQiusevdlTUOT0fzmm7x8zdN
-         TjuaaHTQMpQe/rc+Tw5boYCMdTyKOLNVQUQjYsxTUjU0vImb64e9TFPCSWo1H6Es5r2K
-         /qSjhGOxub+PgpW2+lI7/Q27b41te3+eNChnOnsi6asLTOlIguidxvD8QqhzDOk9SKuH
-         gzFGhIMLi90cl4WQZFXDrKUCioONUrvY16oYLEowm++FcTK+6s9h8TwF0fXUh0/0YuO9
-         Ncog==
+        d=oss.qualcomm.com; s=google; t=1780049845; x=1780654645; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QlFPCdtZLGigc27wlhIiQC/YA2l7/69jHdSprQoVZBw=;
+        b=EaOoDM4cIm/Nwax77CEjPXaXRTNolksC2fmv1EZefd0mmUGBoWEq4+X3nCfqfgpjvH
+         KWgL3hklRSOX80C5an1AA1FtuC1u9hQ1IG7tNDtHCRBLUuG4x7P65a004gLCaJLdthGA
+         Zh/OfT6CZ0RSz2yuIQbpEhRidcWnijwb9KQoXZ1v1r944P+/ybMWxvNOHrX7sJjWctVb
+         dg4RnZIN525RykBzwj9xSiz4Rut7w037m4V/s3skOGeVoyQe/dK0O/i8mNZJbE5vUia3
+         6wNXp7JqyGpa+Z3D7+R05VMAOb3WZwwbMj9RC2R7Fpib2s+2Xidd2Vq7FNovTxKkwkxS
+         VP+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780049770; x=1780654570;
-        h=content-transfer-encoding:in-reply-to:organization:autocrypt
-         :content-language:references:cc:to:subject:reply-to:from:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=zY32vo4wGSfZ5uOAVtxfFcwmsUjSGjI2ELbc4pDk6qU=;
-        b=KEuQQoz+RIO8OmRkls+LFe/o8uR3MAmOxO4tHrL+bNMRCWtf1a/+ox8DYFi+gXVjYj
-         nMt1UNkKdMPH/CFENcFHlhkH3KOvNk2snQuiFoKIFcPgdFlGf0PSYJglCVX0r+Jxpjnh
-         JJrSgEoRyZ4lxrxBpcE6GwqmxNIQvc0CchcI4bt+aOoZTDgG/BMhRiokf/jN5a0Zf3O1
-         a6sMjR+pc7FIKynjZSKmpLEWOW956xcsnhtomv8XIGpet/rRGF3/Zs72Kd2IvDrOC9BJ
-         NlN10hFg0djCraRD5o0Y/o2E1VC1mgkXSB1J+eOMlpSE9o3QAECVw1xGPc7a4ijOSSDH
-         oCOg==
-X-Forwarded-Encrypted: i=1; AFNElJ/6ZSsTpwzqIHmZ0vPekCScSkm50g3abVzOl0PCpp5Z4Siy+KSkbNu+clqzrOJT7nUwC+QLN4kmRg+h@vger.kernel.org
-X-Gm-Message-State: AOJu0YzqD2OjXBDUK/S05rjDYHR4unBqsffbLyPUBd94ULXRiZ+QMmmS
-	8mjRxQBOX+oRZ2YoN4IefAVr+hqtBjPcNleRCk9ccIDo5EJkVKWZz9CSJV4FfHQBiMo=
-X-Gm-Gg: Acq92OHLZrkVXKVBKIrYmmiqdTVo4fDM8JdAuAaonhZc8C9+8jWFQCU5WAbXsAIK3Wo
-	LwU7BsNbl8121qdeSFDxsAn++LmlbOOE9m3SCKleAvY4irNEaH/qSeSJYUkIMgkF58V1laEC4NI
-	07NPjH/NBbkOt/ahZUfb90baE6Gd7kDeuvW6Mwbr4sibbc8kjdvFp1UyzUtleVqOeplw68yHu7y
-	785MkHb74Bk8s3uuelxVq9XN/D+OJwHDQfr9dlYzsF53w/RrOp5Gp3q9WlPF1VZny7107o7unY4
-	Hr3+GmqywxjjA2EnFAoywasfIVe2+IR7ASrKPYNVYnE5nE610hw+Ktjgcg10jzEHvtCvJDCTTDd
-	UTEOWW+6pyoivDPzUCEbsVO1mhXPrRIhlo4XlPn9rlBQpLIr9gAENCXD+hfaM0fVDYxZeG9jSK2
-	oIkSfx+WHJgUSHarrHDwLErxKB7Sd0Ig8a/jUGNl7he+I=
-X-Received: by 2002:a05:600c:81c5:b0:490:3bad:3784 with SMTP id 5b1f17b1804b1-4909c0a7e03mr36047785e9.18.1780049770022;
-        Fri, 29 May 2026 03:16:10 -0700 (PDT)
-Received: from [172.20.10.3] ([37.167.116.21])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b7edsm2332881f8f.22.2026.05.29.03.16.07
+        d=1e100.net; s=20251104; t=1780049845; x=1780654645;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QlFPCdtZLGigc27wlhIiQC/YA2l7/69jHdSprQoVZBw=;
+        b=JyKYEfOLu9MR5JM/Eoh4lzKHFXXP8UCiSngR+0sHJkIbTuPoDIRpR4euhEZqsZ2hVC
+         Mk8mL0PjJElqpacA+WLM10qzMO13zoMCMVhxmIg5srhCS36LaaUF6JtrQIDj7xV1uOj+
+         rVDzTEP4yK7Kx+CUA4Bs6jTB0pd54QOVtidohdETedfr9HlvImx4tPwpvxQcVLOsYuOo
+         o2YQ4yNkpP5qaAUfm+IT31OYbIsJO+eULzlJYou/iPZwX5xJAiQtYjbhAdR+h1APkzeZ
+         W+ymuZ4mE5tA9s+VaAU7O89f8mLxxYBTkCkYycyicn/qVbAa1VnTjZNDGE86igcWxdtZ
+         e82Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8x92IDzAQJWcqfuE2j/IfpakGN96CtD4ZC8dv6X46rlyjE2JrTaE29JN1iqE4RKG8hw0cydFv6o5sL@vger.kernel.org
+X-Gm-Message-State: AOJu0Yza57sU9tIgDXZCKvwIUCOiVD0s0lAm2I0J0n2lC7BlxoIAiMII
+	tSwx1VIGctbfHbhR2VPZXEaDMivSrojzU5ExGZDK1vi2igBfeKXLPCzDdTgf6aTjHpadlZsfpii
+	Hr3rJsHqoMwn/ITmCbnbHUdrJB7f0Dnz7WpanPQ+OgIoRruv0MIhBVCca7bumxbD5
+X-Gm-Gg: Acq92OEGDlJgVC7LILVKRzhR5Hs51PonANPgAbHOEXbUrxE4MED1lYMEv9cyfFcpxa1
+	J3wCZIdf2l056moYOGN02JqG4UhOF1Lgs3PMc8v7hLGFvrKD71hqaS3Rj9VuFBDbxGsnMTwHBAC
+	V3t8BzW8cOobEzM/ambSHCKYUvSapEpr4eNRNR0KpeQluKr11mCrHCBQgrsWkO17LMAMnuyf5FF
+	JmZncDmZ3XpJGa8PgYfn5D6V1HnRfrmHMbDR6IsYGFdgkh6UBLjHrZp1fj8AtkkULVA4jrlra+/
+	cQZtvKdlW9ukGuLCduvhBMjfOi0LLgVBBj/Vhn53ZgcH3/Hre/DJ0V7U+o+CUL5WjOBrsrxAtp6
+	I/uIdxHjLneu3lCgpjpPLyhkp+JOnaiOzaqBLPu514jzCE6vtVhbQzOBOLOw=
+X-Received: by 2002:a05:6a00:3690:b0:82f:3828:a01d with SMTP id d2e1a72fcca58-84212d35431mr2340226b3a.29.1780049845182;
+        Fri, 29 May 2026 03:17:25 -0700 (PDT)
+X-Received: by 2002:a05:6a00:3690:b0:82f:3828:a01d with SMTP id d2e1a72fcca58-84212d35431mr2340201b3a.29.1780049844647;
+        Fri, 29 May 2026 03:17:24 -0700 (PDT)
+Received: from [10.219.57.29] ([202.46.23.19])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84214b307acsm1440342b3a.21.2026.05.29.03.17.19
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 03:16:09 -0700 (PDT)
-Message-ID: <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
-Date: Fri, 29 May 2026 12:16:07 +0200
+        Fri, 29 May 2026 03:17:24 -0700 (PDT)
+Message-ID: <63794650-69d4-4ebd-91c4-89bce022c772@oss.qualcomm.com>
+Date: Fri, 29 May 2026 15:47:17 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,124 +88,105 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-From: Neil Armstrong <neil.armstrong@linaro.org>
-Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
-Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
- 6-channel High Efficiency LED Driver
-To: Daniel Thompson <danielt@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
- dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
- <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
- <ahllT_HVTAJ5MbkS@aspen.lan>
-Content-Language: en-US, fr
-Autocrypt: addr=neil.armstrong@linaro.org; keydata=
- xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
- GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
- BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
- qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
- 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
- AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
- OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
- Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
- YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
- GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
- UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
- GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
- yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
- QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
- SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
- 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
- Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
- oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
- M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
- 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
- KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
- 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
- QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
-Organization: Linaro
-In-Reply-To: <ahllT_HVTAJ5MbkS@aspen.lan>
+Subject: Re: [PATCH 10/16] arm64: dts: qcom: shikra-cqm: Enable CDSP, LPAICP
+ and MPSS
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Krzysztof Kozlowski <krzk@kernel.org>,
+        Georgi Djakov <djakov@kernel.org>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
+ <20260525-shikra-dt-m1-v1-10-f51a9838dbaa@oss.qualcomm.com>
+ <xq6vkeer7c32fmmofhu3yxnwxns4mn7umzwjf6k575m55s5mek@zrjiuo3eiq37>
+Content-Language: en-US
+From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+In-Reply-To: <xq6vkeer7c32fmmofhu3yxnwxns4mn7umzwjf6k575m55s5mek@zrjiuo3eiq37>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDEwMiBTYWx0ZWRfXxMMdwILYVAVC
+ KTWFGlPGyG0Go2BED0uED+K8LHGcIWJ09HkW9SKzSUcfbrgzCGVXs5zFWrzotmA9rkfJPRSky5A
+ gZ3zkFLe9vypbNs9t272gQoMX8NLbZ2SY52q3MPZMhY37IMp1JOcvMkL2Flse/iLlGRoTUbXy0J
+ ssElXcJweuDLv5fLsV61R0bWKPW7UsFeRRdEz28IQksNOgK/D0Jm3NUE+luADgSTWEO1cn900H/
+ XxCmV8f6FpmIw1ZGGOQIc4o5XlNemMu9xN96VZli5qOggpUg4GDJtzEpejv9cMs/g0ZcUS9YvCv
+ 5BXSXP8YuxmaElTvT3sQ5MpqjXAJ5QnZHTe+6XdiM8+aPyBbwHVRqXVuqw6krIbaK3EGd046dmy
+ Dmdu8KI4CWd496HOdqlfC6p1wnw4ycK3mbfZtBtBaD33J/xOX7og6HPEr05V2Nm9wFeSDJ3u62n
+ p96HpokTgM8yZUKM43A==
+X-Authority-Analysis: v=2.4 cv=SNBykuvH c=1 sm=1 tr=0 ts=6a1967b5 cx=c_pps
+ a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
+ a=EUspDBNiAAAA:8 a=S9tZMReaGwYLiO49R74A:9 a=QEXdDO2ut3YA:10
+ a=IoOABgeZipijB_acs4fv:22
+X-Proofpoint-ORIG-GUID: pKaZvgwCiF9lpJ2lh-N5XSMuTbIXnDnF
+X-Proofpoint-GUID: pKaZvgwCiF9lpJ2lh-N5XSMuTbIXnDnF
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-29_03,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ suspectscore=0 priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0
+ lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290102
 
-On 5/29/26 12:07, Daniel Thompson wrote:
-> On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
->> Document the Silergy SY7758 6-channel High Efficiency LED Driver
->> used for backlight brightness control.
+On 5/25/2026 2:59 PM, Dmitry Baryshkov wrote:
+> On Mon, May 25, 2026 at 01:19:14AM +0530, Komal Bajaj wrote:
+>> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
 >>
->> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>> Enable CDSP, LPAICP and MPSS for Qualcomm's Shikra CQM EVK board.
+>>
+>> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+>> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
 >> ---
->>   .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
->>   1 file changed, 53 insertions(+)
+>>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 19 +++++++++++++++++++
+>>   1 file changed, 19 insertions(+)
 >>
->> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
->> new file mode 100644
->> index 000000000000..80e978d691c2
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
->> @@ -0,0 +1,53 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>> index 0a52ab9b7a4c..b112b21b1d79 100644
+>> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
+>> @@ -23,6 +23,25 @@ chosen {
+>>   	};
+>>   };
+>>   
+>> +&remoteproc_cdsp {
+>> +	firmware-name = "qcom/shikra/cdsp.mbn";
 >> +
->> +title: Silergy SY7758 6-channel High Efficiency LED Driver
+>> +	status = "okay";
+>> +};
 >> +
->> +maintainers:
->> +  - Neil Armstrong <neil.armstrong@linaro.org>
->> +
->> +description:
->> +  Silergy SY7758 is a high efficiency 6-channels LED backlight
->> +  driver with I2C brightness control.
->> +
->> +allOf:
->> +  - $ref: common.yaml#
->> +
->> +properties:
->> +  compatible:
->> +    const: silergy,sy7758
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  vddio-supply: true
->> +
->> +  enable-gpios:
->> +    maxItems: 1
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - vddio-supply
-> 
-> Sorry for missing this in v2 but is vddio-supply really a required
-> property?
-> 
-> It's unusual for supplies to be mandatory (and the it is not mandatory
-> in the driver implementation).
+>> +&remoteproc_lpaicp {
+>> +	firmware-name = "qcom/shikra/lpaicp.mbn",
+>> +			"qcom/shikra/lpaicp_dtb.mbn";
+> When can we expect modem and LPAICP firmware in linux-firmware?
 
-This device is a little bit special, the VDDIO regulator is used to provide
-power for the I/O via the enable input, so basically the enable gpio power
-level is provided by VDDIO.
+It is anticipated to be updated in linux-firmware within next three weeks.
 
-This is the recommended way from the datasheet, and I assume it will be used
-like that on other platforms (if it exists...)
+Thanks
+Komal
 
-This is why it's mandatory and enabled first before setting the enable pin.
-
-This should probably be a comment in the code.
-
-Neil
-
-> 
-> 
-> Daniel.
+>
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>> +&remoteproc_mpss {
+>> +	firmware-name = "qcom/shikra/cqm/qdsp6sw.mbn";
+>> +
+>> +	status = "okay";
+>> +};
+>> +
+>>   &sdhc_1 {
+>>   	vmmc-supply = <&pm4125_l20>;
+>>   	vqmmc-supply = <&pm4125_l14>;
+>>
+>> -- 
+>> 2.34.1
+>>
 
