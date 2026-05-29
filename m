@@ -1,148 +1,101 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id C50DA3F928E;
-	Fri, 29 May 2026 15:26:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55893EE1E2
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:28:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780068402; cv=none; b=Fi1fpTAttYwbsHdOQY/Xj9/hU4kqvPiiivH5UhfsI5H/ZPRPs1PkkOUrkvt48NDISDqyrK1NPHRsOAEPtfW5qlzBkrCy66ZGks1yr0Y7LjwHXlw/06jpP9xxiLn7E0VSJABVItY+FYArhHN8NrhCGY653N3faL9AX1Zr4F97mCg=
+	t=1780068521; cv=none; b=hK8A4wAM+Tn9ml78I3KcmliR3MQvFVVnm8U7YBfTtXyyp+8bQcNt6Ub1aP01M3qz9EjcpvRkSYGi9wO088Q/BxZOVKtUwKzxPdrMvTCeAeC8RwAPNqlnsebtuLneFNpsxpsAJ4Vvv10VGNowUcakRl3xxp34aA07AN/xFU5xarg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780068402; c=relaxed/simple;
-	bh=l2h6L9+8xpQj76sKZcSHGf0inZVWrk3HOuwkI1cwSSU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jpJVkJCWu8mdPQJOkhYR0TJJAb34mp9BqWLTNFW03ygGBggRzEN3+Ql/VYzd+gaGqDtFuZ2gQ5JxF/fu+CweAAiq2T/jI0C9jjxk9idCWOBxkZhb8umyktkgGrwG5EUETkoWZXAv70zuOJqKOA5xnPYPQdXONasTb4L7K4N0O4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jctJe062; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780068521; c=relaxed/simple;
+	bh=TpET9KkAYhzmtWBlkhjKD2sgxBONHmkvpdkbIGbnwRk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ntdtwR8QHkmB7R+WFBpj5hyh099pXUvknq8zOZqfMrdhYXcdeBt/yKOw5mmBplCsT/slUp2JGxTwwIKGoiry8wnmMkOnx5aqw1JPvvhP6gyjRXHFKRH+wLdkv1Nwf6WHz9KbON0Pdzk+SfNroMWHtdBxJP9ZjpaXj3/7WMfbcxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6o5HhuT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jctJe062"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 137F633EA;
-	Fri, 29 May 2026 08:26:35 -0700 (PDT)
-Received: from [10.57.26.238] (unknown [10.57.26.238])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B2D23FAF5;
-	Fri, 29 May 2026 08:26:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780068400; bh=l2h6L9+8xpQj76sKZcSHGf0inZVWrk3HOuwkI1cwSSU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=jctJe062Ocsi72FLYnrMsAlas8KPbHkbhS2ysefQ8uKAVvWVrEBCOe82UFr8Nqd+y
-	 HDMcz3y5oUHF+9BvmCRmJPiLhp0BSLPWMrAkLHhGbgIR/LA+YxZyjFl5cFfc5lxaDL
-	 LJiG9Fq7JgD7VQjnYzs2gt0Cqlpb5as8PSrPIjyA=
-Message-ID: <bfcfd7c9-8185-4ac5-83ab-3bc3a1a94990@arm.com>
-Date: Fri, 29 May 2026 16:26:31 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6o5HhuT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 792FB1F00898;
+	Fri, 29 May 2026 15:28:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780068520;
+	bh=Eg6FSI4BrnHKj/udEmywtPEQy6BgVRrf2Js21MHe0s4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=V6o5HhuTZEDZE3L5ddK91JvaQnXBpZBqvvWuGMEn59Qls37bMDlz3ROZYR20AptWQ
+	 oxTOW5dldV1re26RX01IOGfxBPTbJKn3Vd74cW4GP4DjI4uypiXKMVSZW9UW4j9bxt
+	 As86+bzJoPG5ZKVk9fB4Jj3yO4Wl+C2MAAV0c4QdJlFuVszjJoBfEWTbt/resSAMJZ
+	 3nVaYdu1myJGi9qy1PI0/m1iHY/Pl4unFKBFzFbDJxOKw5uajUbTnbhhq7yzem0Yh3
+	 PTwePNSlwi4Wz9utQVLNqhmJj9W58iLXeu4X50Fd3ga+WZ4LLBgdv747dn7i+jSJff
+	 QA6xHMpsHViMQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 02/15] arm64: dts: st: add SDMMC2 support on
+ stm32mp25
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dario Binacchi" <dario.binacchi@amarulasolutions.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260529144707.3931919-3-dario.binacchi@amarulasolutions.com>
+References: <20260529144707.3931919-3-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 15:28:40 +0000
+Message-Id: <20260529152840.792FB1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 10/10] dt-bindings: thermal: cooling-devices: Update
- support for 3 cells cooling device
-To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org,
- daniel.lezcano@kernel.org
-Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
- Russell King <linux+etnaviv@armlinux.org.uk>,
- Christian Gmeiner <christian.gmeiner@gmail.com>,
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
- Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
- Andrew Jeffery <andrew@codeconstruct.com.au>,
- =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
- Benson Leung <bleung@chromium.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
- <pali@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
- Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
- Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
- Benjamin Fair <benjaminfair@google.com>, Heiko Stuebner <heiko@sntech.de>,
- Thierry Reding <thierry.reding@gmail.com>,
- Jonathan Hunter <jonathanh@nvidia.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Amit Daniel Kachhap <amit.kachhap@gmail.com>,
- Viresh Kumar <viresh.kumar@linaro.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Amit Kucheria
- <amitk@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-hwmon@vger.kernel.org, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>
-References: <20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com>
- <20260526140802.1059293-22-daniel.lezcano@oss.qualcomm.com>
-Content-Language: en-US
-From: Lukasz Luba <lukasz.luba@arm.com>
-In-Reply-To: <20260526140802.1059293-22-daniel.lezcano@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The `power-domains` property is missing from the `sdmmc2` node.
+--
 
+commit 4ee314c8f9ee08a9bd17b8a43369159b8e1356d6
+Author: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-On 5/26/26 15:08, Daniel Lezcano wrote:
-> From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> 
-> Extend the thermal cooling device binding to support a 3 cells specifier
-> along with the 2 cells format.
-> 
-> Update #cooling-cells property to enum to support both 2 and 3 arguments.
-> 
-> Fix pwm-fan.yaml to restrict the number of cells to 'const: 2'
-> 
-> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
-> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
-> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->   Documentation/devicetree/bindings/hwmon/pwm-fan.yaml      | 3 ++-
->   .../bindings/thermal/thermal-cooling-devices.yaml         | 8 ++++++--
->   .../devicetree/bindings/thermal/thermal-zones.yaml        | 3 ++-
->   3 files changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-> index a84cc3a4cfdc..6a24851fd80d 100644
-> --- a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-> +++ b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
-> @@ -63,7 +63,8 @@ properties:
->       description: The PWM that is used to control the fan.
->       maxItems: 1
->   
-> -  "#cooling-cells": true
-> +  "#cooling-cells":
-> +    const: 2
->   
->   required:
->     - compatible
-> diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-> index b9022f1613d8..28f5818f1e60 100644
-> --- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
-> @@ -44,10 +44,14 @@ select: true
->   properties:
->     "#cooling-cells":
->       description:
-> -      Must be 2, in order to specify minimum and maximum cooling state used in
-> +      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
->         the cooling-maps reference. The first cell is the minimum cooling state
->         and the second cell is the maximum cooling state requested.
-> -    const: 2
-> +      If 3, the first cell specifies the thermal mitigation device specifier
-> +      index for devices that support multiple thermal mitigation mechanisms.
-> +      The two other cells are respectively the minimum cooling state and the
-> +      maximum cooling state.
-> +    enum: [2, 3]
->   
->   additionalProperties: true
->   
-> diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> index 07d9f576ffe7..999ad40a20d5 100644
-> --- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> +++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
-> @@ -211,7 +211,8 @@ patternProperties:
->                     device. Using the THERMAL_NO_LIMIT (-1UL) constant in the
->                     cooling-device phandle limit specifier lets the framework
->                     use the minimum and maximum cooling state for that cooling
-> -                  device automatically.
-> +                  device automatically. If three arguments are specified,
-> +                  the first argument is the cooling device specifier.
->   
->                 contribution:
->                   $ref: /schemas/types.yaml#/definitions/uint32
+arm64: dts: st: add SDMMC2 support on stm32mp25
 
+The SDMMC2 controller supports SD cards, eMMC memories and SDIO devices.
 
-Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts=
+/st/stm32mp251.dtsi
+> index 673fbc5632e69..5e46024d22152 100644
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -1667,6 +1667,21 @@ sdmmc1: mmc@48220000 {
+>  				status =3D "disabled";
+>  			};
+> =20
+> +			sdmmc2: mmc@48230000 {
+> +				compatible =3D "st,stm32mp25-sdmmc2", "arm,pl18x", "arm,primecell";
+> +				arm,primecell-periphid =3D <0x00353180>;
+> +				reg =3D <0x48230000 0x400>, <0x44230800 0x8>;
+> +				interrupts =3D <GIC_SPI 197 IRQ_TYPE_LEVEL_HIGH>;
+> +				clocks =3D <&rcc CK_KER_SDMMC2>;
+> +				clock-names =3D "apb_pclk";
+> +				resets =3D <&rcc SDMMC2_R>;
+> +				cap-sd-highspeed;
+> +				cap-mmc-highspeed;
+> +				max-frequency =3D <120000000>;
+> +				access-controllers =3D <&rifsc 77>;
+
+[Severity: Medium]
+Should this node include a power-domains property?
+
+On the STM32MP25 SoC, peripheral IP blocks are linked to the cluster power
+domain. For example, other nodes in the same file use:
+
+    power-domains =3D <&CLUSTER_PD>;
+
+Looking at the git history, the sdmmc1 node was added early in SoC bringup
+before power domains were systematically added to other peripherals.
+
+While the sdmmc1 node is currently missing this property as well, does the
+absence of it here cause a regression with runtime power management and
+sleep state transitions for the new sdmmc2 controller?
+
+> +				status =3D "disabled";
+> +			};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529144707.3931=
+919-1-dario.binacchi@amarulasolutions.com?part=3D2
