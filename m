@@ -1,89 +1,195 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A5592853E9
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:36:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51AC0332EC1
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:45:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780018591; cv=none; b=Xl9bvHB3rWB1+wskqwdVUuz/f2DVjNzNqFeQcyp1jVUGVjuneRAeS4fjVeAhJPC34+ItT3yTU1haR9wNTd4JUSabEBYMz3KigMiNNFYd9FbWNFYKap1+7hhMPnc7oWh5hzXHJsGYmL3zcGMusnB4n2wxvevGii1rHD3XUHP5CyQ=
+	t=1780019148; cv=none; b=fCs71FdSIjaoYINehVu2dQ1I7B3w6/3/5NOk6nSTKslQbRYaJRoADDbq7DCOVXAtBgEz/QYic4x4vbh/3dnCDEK5fGgAOaVDlWnkvmw9z5LqLX7uNFC+FCeHkrCpvZnAQVSq4gbqHLn4NnrSk6v6MmtWV4/wTWdIm7WR54pZOvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780018591; c=relaxed/simple;
-	bh=KkWfu9NdjbcpCCcxmUIJKwuw0FdQ2l41/YB7mfT2XXA=;
+	s=arc-20240116; t=1780019148; c=relaxed/simple;
+	bh=EBViwOimw0MOj+6v+sPn/LfM6IepEikZZaQyOonowwQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ix3s0/kk5hBWlE/BTFGfltptx9fq6m9Frxq8468rr/zIT1Kmt5Ka8BmI5vZeQNhINzJavBSv/uIFU6EBVehjTFVJeyiYZJWegt2duK3UWUt9Tjan3q2+lD7cd543egATFL7WZHwsa9A6/1ye+4NzQhLbCMRaszYG11tsyHQeJLo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Hes/Szro; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=isQ+LTfQF/8IxSPrLQHgPi7PsFo4xlLxyVgMfDbT2vprSqw55AQaDKhnoCuRnD7hPeSlKDOvJoCR5CiwwpMFzxdf8y9cnEi2/4sCoSCZcjFzPTzG3FgCAELGjE80ZOE+M87fB0LtIV16m9Wr72dZ72neGsN9lSqJmeYXutrDtr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oqTng5Gh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Hes/Szro"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB0E41F00A3A;
-	Fri, 29 May 2026 01:36:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oqTng5Gh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF7161F000E9;
+	Fri, 29 May 2026 01:45:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780018590;
-	bh=kFGrQPQFHwXGvcYVMag7zTDcwgS0hD0Fw/mUpJeHiHE=;
+	s=k20260515; t=1780019146;
+	bh=efve9e+mQ3Rbl2qiwr8ukg6X+uRKzXmdiikZu2a9m6g=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Hes/Szro+Q56L5gMqZYqCjErbCKAVMA9a7B3GTFy6ZkCxmjueqBVgoziAsqZiC4Mx
-	 Cc/r4AshcJMXQAzc5/l+IqcoCeVqGYnO483mTBy3qBDyVAXIfTYOOwc5vqDB2XOhJ7
-	 0QJ8IlrWBwomsyOtiM57XZZrX3CmegA0u3rVMnO62nX1mADJfk6uuyFUg1gys4ThWp
-	 oqC+UzTXplWbUkugbj548S9PKyZrk4M7vaUEPvEcg1zZBkIOS+u0mLIOCOTbaeZRJr
-	 BW4c4whG2iaYvhGM4xqvD0AecQ/puPXTP6buOo1i0Slhb2J6puEZuIKj+4UrI4Dsfp
-	 j0CFK3WwGmYcg==
+	b=oqTng5GhOew3kkJ+7MZa2LV5QGb5H1lNs8+EIf52T466vChoBSW5alOQyLwdLNNtb
+	 ETtZCoyHlgflB3MlG3l5HpHNS99EsYLUCb2uHI36bY/E6G7tbUGwdEep0BZv1J8mJw
+	 40Tno7I4C2IAlutCeu2lHlRDOLtdqhCscpIoUd9sJXVTBqJXkg3t102Zw2jTZ0fKXH
+	 XlzOue+bNpX8JHvDOf27KAJaOwTPpuUxnPbvEHzMgzPw2sb2e7sm5PigXHNqJ6Sm+t
+	 R+nNtTUjQ3CiKU9qDlo5OOW1m22I0ejmkoG1GbgJqs5yDndwBL0GYxB4nJtm7sHPUa
+	 JtQ/VcJos/H7Q==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: bus: add brcm,bcm6362-wlan
+Subject: Re: [PATCH v2 1/4] soc: qcom: rpmh: Allow non-child devices to
+ issue write commands
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alessio Ferri" <alessio.ferri@mythread.it>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260529-add-bcm6362-wlan-v1-3-722242777f58@gmail.com>
-References: <20260529-add-bcm6362-wlan-v1-3-722242777f58@gmail.com>
+To: "Fenglin Wu" <fenglin.wu@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
+References: <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 01:36:29 +0000
-Message-Id: <20260529013629.CB0E41F00A3A@smtp.kernel.org>
+Date: Fri, 29 May 2026 01:45:46 +0000
+Message-Id: <20260529014546.AF7161F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [Low] The child node patternProperty references the meta-schema `/schemas=
-/types.yaml#`, which is invalid for device tree node validation.
+
+New issues:
+- [High] Returning `-ENODEV` instead of `-EPROBE_DEFER` when the RPMH contr=
+oller hasn't fully probed causes premature and permanent probe failures for=
+ consumers.
+- [High] Missing validation of the device tree phandle target can lead to t=
+ype confusion and memory corruption.
+
+Pre-existing issues:
+- [Critical] Stack variables accessed asynchronously after stack frame is d=
+estroyed on timeout, leading to Use-After-Free.
 --
 
-commit 7510c5aa15726d2bac53841600becc3ad5dfc096
-Author: Alessio Ferri <alessio.ferri@mythread.it>
+commit 4f9cc5ff213e0a26acf5f3c77494a0af70926c9e
+Author: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
 
-dt-bindings: bus: add brcm,bcm6362-wlan
+soc: qcom: rpmh: Allow non-child devices to issue write commands
 
-This commit documents the binding for the SHIM bridge that gates the on-chip
-2.4 GHz WLAN block of the Broadcom BCM6362 SoC. It introduces a new YAML
-binding for the brcm,bcm6362-wlan device, including a child node for the
-bcma AXI backplane.
+This patch extends the RPMH driver to allow any device with a pointer to
+the RPMH controller device to issue write commands. It introduces
+rpmh_get_ctrlr_dev() to look up the controller via a device tree phandle,
+and new APIs to accept the controller device pointer directly.
 
-> diff --git a/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml=
- b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml
-> new file mode 100644
-> index 0000000000000..c8d49ccdd2c1a
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml
-
+> diff --git a/drivers/soc/qcom/rpmh.c b/drivers/soc/qcom/rpmh.c
+> index ca37da3dc2b14..9dbc42b775d9f 100644
+> --- a/drivers/soc/qcom/rpmh.c
+> +++ b/drivers/soc/qcom/rpmh.c
 [ ... ]
+> @@ -76,6 +77,21 @@ static struct rpmh_ctrlr *get_rpmh_ctrlr(const struct =
+device *dev)
+>  	return &drv->client;
+>  }
+> =20
+> +static struct rpmh_ctrlr *get_rpmh_ctrlr_from_dev(const struct device *c=
+trl_dev)
+> +{
+> +	struct rsc_drv *drv;
+> +
+> +	if (!ctrl_dev)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	drv =3D dev_get_drvdata(ctrl_dev);
+> +
+> +	if (!drv)
+> +		return ERR_PTR(-ENODEV);
 
-> +patternProperties:
-> +  "^axi@[0-9a-f]+$":
-> +    type: object
-> +    description: The bcma AXI backplane behind the SHIM.
-> +    $ref: /schemas/types.yaml#
+[Severity: High]
+If the RPMH controller device is found by of_find_device_by_node() but hasn=
+'t
+fully probed yet, dev_get_drvdata() will return NULL. Does returning -ENODEV
+here cause a premature and permanent probe failure for consumers instead of
+allowing them to gracefully defer by returning -EPROBE_DEFER?
 
-[Severity: Low]
-Is it correct to reference the meta-schema /schemas/types.yaml# here?
+> +
+> +	return &drv->client;
+> +}
+[ ... ]
+> +/**
+> + * rpmh_get_ctrlr_dev: Get RPMH controller device from device tree
+> + *
+> + * @dev: Device with "qcom,rpmh" phandle property
+> + *
+> + * Returns: Pointer to RPMH controller device, with a devm action regist=
+ered
+> + * on @dev to release the reference when @dev is unbound.
+> + */
+> +struct device *rpmh_get_ctrlr_dev(struct device *dev)
+> +{
+> +	struct device_node *rpmh_np;
+> +	struct platform_device *pdev;
+> +	struct device_link *link;
+> +	int ret;
+> +
+> +	rpmh_np =3D of_parse_phandle(dev->of_node, "qcom,rpmh", 0);
+> +	if (!rpmh_np)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	pdev =3D of_find_device_by_node(rpmh_np);
 
-The types.yaml meta-schema provides property type definitions (such as uint=
-32
-and phandle) via /definitions/... and is not meant to validate a node's
-structure directly. Using it as a schema reference might cause dt-schema
-validation to fail or apply meaningless structural constraints during
-dt_binding_check.
+[Severity: High]
+If a device tree maliciously or accidentally points the "qcom,rpmh" phandle
+to a non-RPMH device, is it possible for drvdata to point to a different
+driver's structure when get_rpmh_ctrlr_from_dev() evaluates it?
+
+Would this cause type confusion and memory corruption when the consumer
+subsequently casts it to struct rsc_drv? Should there be a validation
+check to ensure the resolved device is actually an RPMH controller?
+
+> +	of_node_put(rpmh_np);
+> +
+> +	if (!pdev)
+> +		return ERR_PTR(-EPROBE_DEFER);
+[ ... ]
+> +/**
+> + * rpmh_write_ctrlr: Write RPMH commands and block until response,
+> + * with the controller device pointer
+> + *
+> + * @ctrlr_dev: The RPMH controller device
+> + * @state: Active/sleep set
+> + * @cmd: The payload data
+> + * @n: The number of elements in @cmd
+> + *
+> + * May sleep. Do not call from atomic contexts.
+> + */
+> +int rpmh_write_ctrlr(const struct device *ctrlr_dev, enum rpmh_state sta=
+te,
+> +		     const struct tcs_cmd *cmd, u32 n)
+> +{
+> +	DECLARE_COMPLETION_ONSTACK(compl);
+> +	/* dev is unused in the synchronous non-batch path; pass NULL */
+> +	DEFINE_RPMH_MSG_ONSTACK(NULL, state, &compl, rpm_msg);
+> +	struct rpmh_ctrlr *ctrlr;
+> +	int ret;
+> +
+> +	ctrlr =3D get_rpmh_ctrlr_from_dev(ctrlr_dev);
+> +	if (IS_ERR(ctrlr))
+> +		return PTR_ERR(ctrlr);
+> +
+> +	ret =3D __fill_rpmh_msg(&rpm_msg, state, cmd, n);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D __rpmh_write_direct(ctrlr, state, &rpm_msg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret =3D wait_for_completion_timeout(&compl, RPMH_TIMEOUT_MS);
+> +	WARN_ON(!ret);
+> +	return (ret > 0) ? 0 : -ETIMEDOUT;
+> +}
+
+[Severity: Critical]
+This is a pre-existing issue, but can this lead to a stack use-after-free
+if the timeout expires?
+
+If wait_for_completion_timeout() times out, the function returns -ETIMEDOUT
+and the local stack frame is destroyed. However, rpm_msg and compl are
+allocated on the stack and the hardware transaction isn't explicitly
+canceled.
+
+When the hardware eventually completes the request, the interrupt handler
+would call rpmh_tx_done() which accesses the stale rpm_msg->completion
+pointer and calls complete(), writing to unmapped or reused stack memory.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-add-bcm636=
-2-wlan-v1-0-722242777f58@gmail.com?part=3D3
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260528-pinctrl-le=
+vel-shifter-v2-0-3a6a025392bf@oss.qualcomm.com?part=3D1
