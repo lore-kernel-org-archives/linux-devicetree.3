@@ -1,153 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2A0632B10C
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:07:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED3733067C;
+	Fri, 29 May 2026 11:10:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780052830; cv=none; b=hlRnfFLaH0eyDR7kiOu2WKtKb89F1Y9qV0DNWLbhHLAYQC1vqcq1VD4aBaCdwX4ozurgglARvgq/kGJ+kK/QRhKlgE8xrH/a+YyYe0oiNVhGqz2EuRgTo0ZsnsA93Ghr81g5XqJ4oQY+iMEwM9hrETU2EkAhFW6UV7ooFRIwwQo=
+	t=1780053010; cv=none; b=kiCH/uFPqqxi8O4m9Ajp7FCGwHMlSdZoT2JbHxaU0u++924oC7Xg85Guy8Al/w3cRd3S4F2ksUTIbWBIW3x1m4ljWzWl1wBPVdSs3vJ77X6RWKa1KSmdKE0pxJZdmfAySYr5MK1Uuczn+dvf3Fe9cBBUIClEtq/xpfVwZ7uhypE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780052830; c=relaxed/simple;
-	bh=1v9uN/ngg5RGuvdkaiwvzp4aW43Ap/sFRs4OA3/1pmo=;
+	s=arc-20240116; t=1780053010; c=relaxed/simple;
+	bh=3BszXj+baSCfwrrN3L6DU9yeSg03wGDLKGUdlYrMr/o=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mfYoQUwmaPmLbqLxOLnxr/BZRh+M7c34I/3gG96FZiksmhI3MTXtVGj3rStV/C8eGf65kBDBqPHCqnx2B0OpAHmbfXJn61WJ+BmeLe9gu4aGDHGjm2DgapEgcg9YxevogYL1mkWX/42kLETBUH1RENn4L48OZ35n62oX9ESOgMs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdISLnXt; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tZss6FljRLma/JYPsTwcaueWU3BriqZWfJSR3i/AhOMIDPD2u4OFhlk0YLvQ0vclOUy3FJJX1HdREXb9n+XLEE2+pcxk53EqW1BPR3mg+Gif5gC2WcbMn/xOEdtPF3h3Q6WPOSoAGPIvZ+4hAbD7Pp48J+CnBkAsyeVAe+frji4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyfYwUwA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdISLnXt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B3C01F00893;
-	Fri, 29 May 2026 11:07:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyfYwUwA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B50D1F00893;
+	Fri, 29 May 2026 11:10:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780052829;
-	bh=3MygCMg6DBf+icGqb5rYdyA3lrZZrIwoZ0olm6GIfCw=;
+	s=k20260515; t=1780053009;
+	bh=gHwKF2TNJxXyL8XVI6BcLgm9K/40EzKEL958bBffgmM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MdISLnXtRHbTKSFRHQq6VamPDuR4g6Ie2520ixsPblVglZi5bKYGpMPkuJ4G65aQ1
-	 WlcWP6+jkM4E/1OWzx4jno3AcygbmHadPvoBRyJnUwGMllL3BJkiStUdROm0N35mcu
-	 +0+CIBZwAvFMaZ/50+aPmLfAw0Waiimm/cQjEikm5iS7UxEwdBewyRFe559EqBdh0k
-	 ZAMlAqzrsIatGxtfqLTcU9DKIt+5dVcYpv6AWbv3XBbaGKV8ewKEGQzk3DM6EJ8vjH
-	 yqaTUg1cZnPoF/wSfBQxiERs6RzT7Oj8JplRpEhl7VCi0Vr3xWO+5nsZXusgZiBiNV
-	 GvtLljfX2Y8rA==
+	b=lyfYwUwALx8RbPuzADgJQjjJkWmCTV3KQcHFdMiLvBp/TWN1IWNnEdFjQXo4S0q8G
+	 M4NcnsFo+zGoYkdRXI1j1RQ3hCpt7HYTEfpDKOp4zZ522WZCWj/SPw95KOIFTXH2VQ
+	 BZLzOq8hDcnDHgHin5nnJDTwElNDGnmh/fir1eKjdbDT6nDkcDw/bUN6LD0y/EXTjy
+	 EvT11DyYg79E6nr3QkRZNtHGvo1HBV3hjgq9U2GXzay83uJ2r/oKPFZTdHQcl3/Y4/
+	 Cv4iwG8X32205aYowWVuxYczS6I0SaeiolsHUBqTh7mHn6yMEXoCh1hF2tDRVFxDP0
+	 88kOMfnIVOmQw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 10/10] RAS: add firmware-first CPER provider
+Subject: Re: [PATCH v2 1/4] arm64: dts: imx93-var-som-symphony: add TPM
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ahmed Tiba" <ahmed.tiba@arm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-10-2e0500d42642@arm.com>
-References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-10-2e0500d42642@arm.com>
+To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
+In-Reply-To: <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
+References: <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 11:07:08 +0000
-Message-Id: <20260529110709.0B3C01F00893@smtp.kernel.org>
+Date: Fri, 29 May 2026 11:10:08 +0000
+Message-Id: <20260529111008.8B50D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Handling synchronous errors via an asynchronous threaded IRQ cause=
-s force_sig(SIGBUS) to kill the kernel IRQ thread instead of the faulting u=
-ser task.
-- [High] The driver fails to validate or clear the hardware CPER 'block_sta=
-tus' field, leading to the processing of invalid/stale records and violatin=
-g the firmware state machine.
-- [High] The driver blindly trusts the memory-mapped region size and firmwa=
-re-provided CPER record lengths, leading to out-of-bounds heap reads.
+- [High] The TPM device relies on a GPIO hog from a sibling I2C GPIO expand=
+er to be enabled, but lacks a structural device dependency, leading to a pr=
+obe race condition and potential initialization failures.
 --
 
-commit 079bcf67c79972332f188b664beb5efc21cf8796
-Author: Ahmed Tiba <ahmed.tiba@arm.com>
+commit 2c29a43f4e74b7d0f118dc8b7401c07e3617e874
+Author: Stefano Radaelli <stefano.r@variscite.com>
 
-RAS: add firmware-first CPER provider
+arm64: dts: imx93-var-som-symphony: add TPM support
 
-Add a firmware-first CPER provider that reuses the shared GHES helpers, wire
-it into the RAS Kconfig/Makefile and document it in the admin guide.
+This commit adds the ST33KTPM2XI2C TPM device to the Symphony carrier
+board. It uses a GPIO hog on the PCAL6408 GPIO expander to assert the
+TPM enable line, since the binding lacks a dedicated enable GPIO property.
 
-> diff --git a/drivers/ras/cper-esource.c b/drivers/ras/cper-esource.c
-> new file mode 100644
-> index 0000000000000..83f7a910e50a7
-> --- /dev/null
-> +++ b/drivers/ras/cper-esource.c
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/a=
+rch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> index c0842fb3cfa33..f541308ebf6b8 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
 [ ... ]
-> +static int cper_esource_copy_status(struct cper_esource *ctx)
-> +{
-> +	memcpy_fromio(ctx->estatus, ctx->status, ctx->status_len);
-> +	return 0;
-> +}
-[ ... ]
-> +static void cper_esource_process(struct cper_esource *ctx)
-> +{
-> +	int sev;
+> @@ -208,6 +208,26 @@ &lpi2c1 {
+>  	sda-gpios =3D <&gpio1 1 GPIO_ACTIVE_HIGH>;
+>  	status =3D "okay";
+> =20
+> +	pcal6408: gpio@21 {
+> +		compatible =3D "nxp,pcal6408";
+> +		reg =3D <0x21>;
+> +		gpio-controller;
+> +		#gpio-cells =3D <2>;
+> +		status =3D "okay";
 > +
-> +	guard(spinlock_irqsave)(&ctx->lock);
+> +		tpm-enable-hog {
+> +			gpio-hog;
+> +			gpios =3D <4 GPIO_ACTIVE_HIGH>;
+> +			output-high;
+> +			line-name =3D "tpm_en";
+> +		};
+> +	};
 > +
-> +	if (cper_esource_copy_status(ctx))
-> +		return;
+> +	st33ktpm2xi2c: tpm@2e {
+> +		compatible =3D "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
+> +		reg =3D <0x2e>;
+> +	};
 
 [Severity: High]
-Should this code check and clear the CPER block_status field?
+Since there is no explicit structural dependency between the TPM device and
+the GPIO expander, could this introduce a probe order race condition?
 
-The CPER/HEST specification uses block_status to indicate if a valid error
-record is present. Since cper_esource_copy_status() unconditionally copies
-the buffer without checking ctx->estatus->block_status, could a spurious
-interrupt cause the driver to process invalid or stale records?
+Because fw_devlink is unaware of this relationship, if the drivers are
+loaded asynchronously and the tpm_tis_i2c driver probes before the
+gpio-pca953x driver, the enable line will remain deasserted.=20
 
-Also, does the hardware require the OS to clear the block_status in IO
-memory after consumption, similar to ghes_clear_estatus()? Without doing so,
-the firmware might consider the buffer permanently full or the OS might
-repeatedly process the same stale error upon subsequent interrupts.
+The TPM driver's initial I2C read might receive a NACK and return a
+permanent error like -ENXIO instead of returning -EPROBE_DEFER.
 
-> +
-> +	sev =3D ghes_severity(ctx->estatus->error_severity);
-> +	if (sev >=3D GHES_SEV_PANIC)
-> +		cper_esource_fatal(ctx);
-> +
-> +	if (!ghes_estatus_cached(ctx->estatus) &&
-
-[Severity: High]
-Can this lead to out-of-bounds heap reads if the firmware provides
-unexpected lengths?
-
-The estatus buffer is dynamically allocated with a size of ctx->status_len,
-but the ACPI GHES core helpers (like ghes_estatus_cached() and
-apei_estatus_for_each_section()) rely on the firmware-provided data_length
-and raw_data_length fields to calculate the total record size.
-
-If cper_estatus_len(ctx->estatus) evaluates to a size larger than
-ctx->status_len, these helpers could perform out-of-bounds reads when
-comparing memory or iterating over sections. Should the total length
-be validated against ctx->status_len before passing it to these helpers?
-
-> +	    ghes_print_estatus(NULL, ctx->generic, ctx->estatus))
-> +		ghes_estatus_cache_add(ctx->generic, ctx->estatus);
-> +
-> +	ghes_cper_handle_status(ctx->dev, ctx->generic, ctx->estatus, ctx->sync=
-);
-
-[Severity: High]
-For synchronous errors (when ctx->sync is true), will this signal the wrong
-task?
-
-ghes_cper_handle_status() uses force_sig(SIGBUS) to kill the current process
-for unrecoverable synchronous errors:
-
-drivers/acpi/apei/ghes_cper.c:ghes_cper_handle_status() {
-    ...
-    if (sync && !queued) {
-        ...
-        force_sig(SIGBUS);
-    }
-}
-
-Because cper_esource_irq() is registered below as a threaded IRQ via
-devm_request_threaded_irq(), it executes in the context of a kernel IRQ
-thread. Doesn't this mean force_sig(SIGBUS) will kill the IRQ thread instead
-of the user task that actually triggered the fault?
-
-> +	cper_esource_ack(ctx);
-> +}
-[ ... ]
+Does this setup inadvertently rely on undefined probe ordering to ensure
+the TPM is enabled before it is initialized?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-topics-ahm=
-tib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com?part=3D10
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780051874.gi=
+t.stefano.r@variscite.com?part=3D1
