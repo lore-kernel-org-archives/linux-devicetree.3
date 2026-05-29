@@ -1,169 +1,223 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFF6A385D66
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 17:31:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8A6A383C86;
+	Fri, 29 May 2026 17:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780075869; cv=none; b=aphQ90y0tT4HKo7WhWarfCW945gluHNmBCdH61TrjHn+UpXcvqggmJpB3A95U5s9DjQpBkSFvWPcEcrzNKT86zAIkhDvfC78Jt9sAIq9OR7wBq4jrg4G3xl2zzKMyFXS2TpNwfID3p3SwLxUHt+4er4Kthj8QdAoCqf2fjuqXoA=
+	t=1780075912; cv=none; b=WxMOXfE+kcvP5PW7Z2+ILUjnNFsDPfR42GG1VqGCqqzShhYL3ImMTG8q4I6lh6Hm/Z6vYvbdigay8GuZgQCafbr3sxEkagLY5CnE+QN6RJ1tmEV60D57RtdTqDdxM80/P+BB0q5dumjl6dcSZuEbMJYU7F5ZA6HZu1g95JL8Ln4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780075869; c=relaxed/simple;
-	bh=6XtuzAYEfFRw+HYYz42AkI11W9apPm76m7J6y3guol0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jgbc8ebw6gBoOZkHadwAsPN12WZNpjH88yFeEWioUeqtGzkw76wo7Anu0JF8s6iEAbtTfcPuZAnKRNhmev8DT2njzGyD0+J2dRNddfR/7gTL1HwazNIkWBctqR5nYNItKC6KhHn6nGN3IwHgnZiHKzR2qwpV9ASde30KRvRMVrU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=X4esPTDH; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Nrufv9zF; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780075912; c=relaxed/simple;
+	bh=yvpKqXUXWgwl/CXrubwtUAyBK39CPrhg3hqu0Neyu1U=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=St3IX58LVI8tADCC3Lk7hQyfdCWB39KQiF52yVY83SlqyOqHKHyXQWbiXkG8BHpFIV2giE0PUMT3PXGiAzjwkgsK3Qkr/HutEizuQ7GLqMCZBUxcSo8l6aAOs2YOjeYI5NOFST76b5GX5TXaaGh7Yr8kx7E4fZ0JV+nNetrKwxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gETYYk5r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="X4esPTDH";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Nrufv9zF"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64TH8e4h2857353
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 17:31:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fJDR0H8V82XJxR0Z1RuppBFcrPl2HmqD7fethUF331U=; b=X4esPTDHlq+Rsv8C
-	XbAcFT9hcaGFg+2OcBQjIPdDp0LQGn9CtGtOcrfjUnQuB0OsJ4FLm5a7uqYd2R/A
-	vviQZtUGLD1Zww5tRizwiuO+5O9eny4ME6bhlPQoEsnHbs2mGGhv9yOd3K/MkUyt
-	no1dFEHBlc21336KaM8+mWwh3RoF7mhff+nlFlO18jFuFoHAmAMvogt9wso9ZZ7V
-	J3rdS3i2lzRxvNslmAh26ZCFT+Pa150ebYXyp79xHtxLIgzZzKz01woDGCwutUIu
-	DJTF0TgnuC5gcTBNHbSy0NE+L4zZAlMM2vOAcW6aXypzOx+S9KnYiKqunG1anTNy
-	5J33Vg==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ef4jj379r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 17:31:06 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2bc7f9b2213so105589865ad.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:31:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780075866; x=1780680666; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=fJDR0H8V82XJxR0Z1RuppBFcrPl2HmqD7fethUF331U=;
-        b=Nrufv9zF1QfK5xsRcVoSjI33YXOAosHHvXl4KuQXm7x4pUdsF81Xxma2cAjQKapoN4
-         0yigDKkDm08nIJts/kJyBCcQc57MrEIXrQGy14AnRY3MjhWkUJxnVvYdrYE3KV2mZMwB
-         RUJNhHzJJb5ERltg1WpgekVtqcqb48klwOIrcdt5Lxjmnxyswa3abBMdzg4vty9PcWaD
-         mc6ySFj/K4/4Z6gQE5tuil01IhgjnzK6y7nPkZMdc3+ww0Frv4YMjdMdv2cFRWRW6gy9
-         5J5/tX2BNuqfFHJ13wAikO7I0NclVcTStKKA6gXDmR/Bj+MM8plecWpIPFQRIWzLcm17
-         vwIw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780075866; x=1780680666;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=fJDR0H8V82XJxR0Z1RuppBFcrPl2HmqD7fethUF331U=;
-        b=S6Cv6j9yF59hEam6QyCA0IsHXxFOFPJyrCrSPucu5SZ44zSHK2vQNsqj7EXhpoP8So
-         kJELbGK89HMRD1CeI+1JOxwV2HHp+H4PUOhmf6jIVfjYRQKwei9Yb4rdXOFpvKzYZEB4
-         gdUqHMagEu/PDFlYbQ8mFG6psm7PQTqMxRcfyit1d4mL6jojHvdeeizD30EXWJ2Dt0R/
-         6xdMOiD58Zo6klSoBf+9bnu5CRPfgs0eIqJeQ1abwRnOtVuASTd3qAdZmfeexB8zGt/k
-         JMUkQOabro4nxHL08oreXtp7CES7Lfyi59Lka/gEhGdC54VFMwRqg+9OOBBeQScRY6by
-         ob0Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8k/kBEjgaGcgxWFHz3vmBhFmXbwXja93OaePztQEqqHOBRpZ6LmZUlPsBBPa4CkfN0lXzIiM638fJK@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw/hG/zD292Y1VZIrMBBlN5YHggIFm5nFs7lpSh20GOlNogFoGi
-	CnR5vi3iv5PVg/k0gbp0+vPq+1dvlYmsmOsknFH2nx4TqEaEfmJ8EWfr4pz0odBhZcUQBcY6DKB
-	f5hUDUS/jOzk7PfzuQgP4rgD12DqHygq4UrfZO2VhgDXkofIOpGNPHAR0I6n6DQcL
-X-Gm-Gg: Acq92OHeQBV0y09lZbvt73n67Ey3flo3eULzI9M3McxiC3rLBKcT//RRhv8+gxdbSmy
-	IHtpq7hvS/IyuKxB6oMZgJP8xjPHhiYU1voYUbcZSNjiq/quDPXyk4iE7cmy4idnoKdTlwqF3Y/
-	fsHN6QmSre81GlgIs4+XgbRA0I3ub9jDYEOqbTnNzJ1mMV9oAGCuqOebJMZmhroDeOP6djTOpmC
-	J4LZOGqh1v9ZaqRhzPHnXP8pikYTMWiZn9pwlnmmkAZvtJ8vCgTIGD12ZatWXI/bGvgqCFk/AHo
-	J4vWSA/uEuB1w/YFpgZZHhT9+p4CKx+wplyrDpsSoJoPXInEC6GjsJIcBCALM7OaG7VEQSFjIHn
-	WiREwrJ6a8rvY7oTpAuzqaMPKI5c9l2M7bphLxSVFJI8xV8eHti3mJviUqjzM4Vk=
-X-Received: by 2002:a17:902:d50f:b0:2bf:2015:5ba4 with SMTP id d9443c01a7336-2bf3682a24bmr9445205ad.24.1780075865561;
-        Fri, 29 May 2026 10:31:05 -0700 (PDT)
-X-Received: by 2002:a17:902:d50f:b0:2bf:2015:5ba4 with SMTP id d9443c01a7336-2bf3682a24bmr9444745ad.24.1780075865095;
-        Fri, 29 May 2026 10:31:05 -0700 (PDT)
-Received: from [192.168.29.115] ([49.43.224.248])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239e71cbsm25476575ad.15.2026.05.29.10.30.55
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 10:31:04 -0700 (PDT)
-Message-ID: <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
-Date: Fri, 29 May 2026 23:00:53 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gETYYk5r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFC481F00893;
+	Fri, 29 May 2026 17:31:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780075911;
+	bh=y1FIYPPkCwKJ1+MIoSiwDm1jLE4JIC7+J/rfdFnHf1k=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=gETYYk5rW2y8N7VA1WSZpxxa9AA3xbEgx7MeyItbeWvGW3X2mFxq9ANElQohEhzT5
+	 PAdIfkgO5MPMYwZP+Obmx5d/vF3w0EDQqg1LogUpBDd/nLjTGyn6uHlNw6bzFqtHg9
+	 80m7xz9Wxtnn5XU3SP92lgUGpP3ejtE7Jhv1sl0cRc98LRqzdHUm3HR5QIvdu03Fdk
+	 SidpS4MQOviGg7EghaTsgcKgg5EGNrF+mWzmZhVSu87gPOvUIodoDgKHt6WRNOfDaV
+	 rfSVHNkUprQIQnsQcXQc0smfWEg/xrgOe9YeypRLgkyOnW6nC9mvBPsdZ34WhQSgHa
+	 uzQt+py9RJgNg==
+Date: Fri, 29 May 2026 18:31:41 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ nuno.sa@analog.com, Michael.Hennerich@analog.com, dlechner@baylibre.com,
+ andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ pop.ioan-daniel@analog.com
+Subject: Re: [PATCH v2 2/4] iio: adc: ltc2378: Add support for LTC2378-20
+ and similar ADCs
+Message-ID: <20260529183141.4a8e236b@jic23-huawei>
+In-Reply-To: <ahmIbL8sIwXaysff@debian-BULLSEYE-live-builder-AMD64>
+References: <cover.1779976379.git.marcelo.schmitt@analog.com>
+	<40e1108bc9eaeba486705b54c4c94004f0e7f369.1779976379.git.marcelo.schmitt@analog.com>
+	<20260529110205.2f91a1ed@jic23-huawei>
+	<ahmIbL8sIwXaysff@debian-BULLSEYE-live-builder-AMD64>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] arm64: dts: qcom: shikra-cqm-evk-imx577-camera: Add
- DT overlay
-To: bod@kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-        Andi Shyti <andi.shyti@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-        imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        Suresh Vankadara <quic_svankada@quicinc.com>,
-        Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-7-645d2c8c75a7@qti.qualcomm.com>
- <178000731452.4557.8537369407478321842.b4-reply@b4>
-Content-Language: en-US
-From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-In-Reply-To: <178000731452.4557.8537369407478321842.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDE3NSBTYWx0ZWRfX9FqVK1sY4K6D
- Xm+KKejqbph7YOfO/EW3N/gA9V6mRkG3YapoRMjdp3WWM0U/xXEELL4W6NQP82ibjusThll25Ob
- N+P6k9ZE20LLZ7EhN9DvFLrEtWKuzUXvq1Q7AR6SySf8N4U0nkQIG9qKrllDPccOsL0lgTktFmV
- erYvO175bcTFurD/2HL/RfgWcTBxRdU5tE4pNHFzvb1wvM0QX4K+L+3IjRE69SJFhDUncosvgRk
- aLa7o5RcNH9DdZSU/dwHKXpmxyvXfa483XMVDLj1jIXAdRwpGJ6kUfWYY1eRQA2o1nZMIAIr9DU
- WLVZIAXiuYoug0jchDFPdnBrtb2EsDeIAphB5gHk9/o2Uh30hvP6Ho1T5kRMlSKBGOs5ORmbdlS
- mhOFMXzzTfHyj7tbXKIqnCm4owyBv8iFGpXj5+UBaVnURvCQi5dm2EO38LX+t8U6xlfzUFbH1UZ
- y8Rj6/K8SKSj2MN9ztw==
-X-Proofpoint-ORIG-GUID: ET77FY1CyMLt2iY3maPwQIlJSDFviZHz
-X-Authority-Analysis: v=2.4 cv=Tt7WQjXh c=1 sm=1 tr=0 ts=6a19cd5a cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=tDSAgCU/rryVExTQDfsVjg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
- a=VwQbUJbxAAAA:8 a=iShi-8OPmrKBgnXoZJYA:9 a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-GUID: ET77FY1CyMLt2iY3maPwQIlJSDFviZHz
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-29_05,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 lowpriorityscore=0 clxscore=1015 impostorscore=0 bulkscore=0
- adultscore=0 malwarescore=0 phishscore=0 spamscore=0 priorityscore=1501
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290175
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Fri, 29 May 2026 09:37:00 -0300
+Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
 
-
-On 29-05-2026 03:58, bod@kernel.org wrote:
-> If the overlay is not specific to board then the overlay should have some
-> kind of base name shikra-evk-imx577-camera.dtb
+> On 05/29, Jonathan Cameron wrote:
+> > On Thu, 28 May 2026 12:03:52 -0300
+> > Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
+> >   
+> > > Support for LTC2378-20 and similar analog-to-digital converters.
+> > > 
+> > > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>  
+> >   
+> ...
+> > >  
+> > > +config LTC2378
+> > > +	tristate "Analog Devices LTC2378 ADC driver"
+> > > +	depends on SPI
+> > > +	depends on GPIOLIB || PWM  
+> > 
+> > Triggered sashiko:
+> > https://sashiko.dev/#/patchset/cover.1779976379.git.marcelo.schmitt%40analog.com
+> > This dependency is odd enough that I think I'd add a comment on why.
+> > Also bring in the dependency on PWM in the patch that needs it not this one.
+> > 
+> > Will it build without gpiolib? If so I'd prefer that to be a || COMPILE_TEST
+> > just to get a little more coverage.
+> >   
+> The intent was to allow using the ADC with offload PWM triggered setup
+> even if the GPIO is not provided/enabled. We would be able to do the buffered
+> reads, but the single-shot read would be debatable since we would very likely
+> trigger many conversions in between a pwm_enable()/pwm_disable(). In the doubt,
+> I left the single-read procedure untouched specially because there's also the
+> case where the GPIO is there and so the single-read would work normally.
 > 
-> This seems like a minor nit-pick and, it is 🙂
-Thanks for the review!
+>      +-------------+         +-------------+
+>      |         CNV |<-----+--| GPIO        |
+>      |             |      +--| PWM0        |
+>      |             |         |             |
+>      |             |      +--| PWM1        |
+>      |             |      |  +-------------+
+>      |             |      +->| TRIGGER     |
+>      |             |         |             |
+>      |     ADC     |         |    SPI      |
+>      |             |         | controller  |
+>      |             |         |             |
+>      |         SDI |<--------| SDO         |
+>      |         SDO |-------->| SDI         |
+>      |        SCLK |<--------| SCLK        |
+>      +-------------+         +-------------+
+> 
+> Maybe I'm going too much flexible trying to allow all those combinations?
+> Simplest way to avoid what sashiko points as garbage read is to go straight
+> 'depends on GPIOLIB' and check the GPIO must always be there.
 
-The overlay is named after CQM because it's shared between CQM and CQS
-both use PM4125 PMIC with identical camera supply rails. The only
-difference between them is the integrated modem on CQM, which does not
-affect camera hardware at all.
+Yes. I'd do that.  Almost no one will build without that anyway.
 
-IQS uses PM8150 with different supply rails, so it needs its own overlay
-and can't share with CQM/CQS. A generic shikra-evk-imx577-camera name 
-would be misleading since IQS is not compatible with this overlay. 
+Does the code remove the single read if the gpio isn't available?
+Sounds like it probably should.
 
-Happy to rename to shikra-cqm-cqs-evk-imx577-camera if that makes the
-shared scope clearer - open to suggestions.
+> 
+> >   
+> ...
+> > > +static int ltc2378_convert_and_acquire(struct ltc2378_state *st)
+> > > +{
+> > > +	int ret;
+> > > +
+> > > +	/* Cause a rising edge of CNV to initiate a new ADC conversion */
+> > > +	gpiod_set_value_cansleep(st->cnv_gpio, 1);  
+> > 
+> > Should we check for errors on setting the gpio?
+> >   
+> > > +	fsleep(4);
+> > > +	ret = spi_sync_transfer(st->spi, &st->xfer, 1);
+> > > +	gpiod_set_value_cansleep(st->cnv_gpio, 0);
+> > > +
+> > > +	return ret;
+> > > +}
+> > > +
+> > > +static int ltc2378_channel_single_read(const struct iio_chan_spec *chan,
+> > > +				       struct ltc2378_state *st, int *val)
+> > > +{
+> > > +	const struct iio_scan_type *scan_type = &chan->scan_type;
+> > > +	u32 sample;
+> > > +	int ret;
+> > > +
+> > > +	ret = ltc2378_convert_and_acquire(st);
+> > > +	if (ret)
+> > > +		return ret;
+> > > +
+> > > +	if (scan_type->realbits > 16)
+> > > +		sample = st->scan.data.sample_buf32;  
+> > 
+> > Sashikio has an interesting theory here that you need a shift. I can't immediately
+> > spot why it is wrong.  Given we are clocking in 32bits I assume the first
+> > res_bits are valid then we get a bunch of garbage after that. Given it's MSB first
+> > the SPI controller should put those in the top bits of the resulting u32 with the
+> > garbage at the bottom. So shouldn't we shift them down by 32 - resolution or something
+> > like that? + in buffered case provide the relevant shift value (in later patches)
+> >   
+> The only way I'm seing to get sample_buf32 with ADC data in the MSB is if the
+> CPU endianness is BE. Otherwise (LE), the data bits would be put into the lower
+> addresses when SPI puts the word in CPU endianness.
 
-------
-Regards,
-Nihal
+We aren't talking addreses here we are talking about handling of a 4 byte s32
+(which is also what the sign extend is operating on).
+
+> But, if we do unconditional
+> shift, won't that break sign_extend32() for LE CPUs? Well, I'll anyway double
+> check the data for all sample_buf16/sample_buf32 buffer/non-buffer use cases.
+
+It's operating on an s32 so say we extend 0xfabc from bit 15
+
+be is 
+
+[0x00] [0x00] [0xfa] [0xbc] =>  [0xff] [0xff] [0xfa] [0xbc]
+
+le
+
+[0xbc] [0xfa] [0x00] [0x00] =>  [0xbc] [0xfa] [0xff] [0xff]
+
+Which are both 0xfffffabc as an s32 (in hex obviously)
+
+Arguement in this case is the value is actually in the top few
+bytes so the ones that are 0 in the example above.
+
+
+> 
+> > > +	else
+> > > +		sample = st->scan.data.sample_buf16;
+> > > +
+> > > +	if (scan_type->format == IIO_SCAN_FORMAT_SIGNED_INT)
+> > > +		*val = sign_extend32(sample, scan_type->realbits - 1);
+> > > +	else
+> > > +		*val = sample;
+> > > +
+> > > +	return 0;
+> > > +}
+> > > +  
+> ...
+> 
+> > case IIO_CHAN_INFO_RAW: {
+> >   
+> > > +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> > > +		if (IIO_DEV_ACQUIRE_FAILED(claim))
+> > > +			return -EBUSY;
+> > > +
+> > > +		ret = ltc2378_channel_single_read(chan, st, val);
+> > > +		if (ret)
+> > > +			return ret;
+> > > +
+> > > +		return IIO_VAL_INT;
+> > > +  
+> > }
+> > 
+> > As that IIO_DEV_ACQUIRE_DIRECT_MODE() is declaring a local variable
+> > so there is something go out of scope and result in cleanup.
+> > LLVM moans about this, GCC just does the wrong thing which can in theory
+> > at least result in an underflow.
+> > You'll get build bot warnings on this - bug sashiko caught it.
+> >   
+> 
+> Oops I guess I started mis-squashing commits after a certain number of rebases XD
+
+Happens to us all.  Always do a last sanity check with an LLVM build
+(it finds way more than GCC currently!) one patch at a time.
+
+> Will fix this and all other suggestions.
+> 
+> Thanks
+
