@@ -1,185 +1,161 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 882161A0712;
-	Fri, 29 May 2026 01:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 495AC1C3BEB
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780017290; cv=none; b=R1jAIjVqKEhtz4AUOoyJlxnvQCTp4JmYlUAFN6GiBVVwJqcmTdZpTCx0ZwKVLWF0XKICk9RWPOMhATfwrdx5joPKsHKc/sTlwTqxeTeOx/MRT3uFor4yDgdIfmWh2ndB0RpZ13uJjQL3cAexsuEdZ93Fa06EI9lLSBkqyuHm0Ag=
+	t=1780017413; cv=none; b=Uw+M1SFlmT+8LlS9RpD6z/QtRBOUo5PavO3k5YgybNhtu+QQ/4WScVZdE8r/a9pciQZ3BMUvC1VBqsBxyu2AoluxxBo9Gk54AjJKDybaKyVSBRK/pNHTiqcvFW+tE2+a+l1B4ylLYBafpo5D626VlLcXGOkShqiUTwGsetCp4bk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780017290; c=relaxed/simple;
-	bh=A5eVm2EomAXESPEiIozIbCihaI9GvyGNZU4/Pp3SvOs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=T0oaGX6OzvmpQ4Tsl7ZlWfDbKlR51tSVw/Z7po/FweFViPobr6NByrJd1L4oYInQCh30h6Jp5lFme0mck6dXJEbKfjrOnmJvZJWYn7bNbi4D3ad2XVeR/WevWneyUMs0dzI0l3DPyUL1sjkfgY8MKr9BxcE97+sTmVQJQjbqGWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=amnBQN2y; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1780017413; c=relaxed/simple;
+	bh=sKg6xoqq2s+ZZcuSNKhLo4WCT4rISU2pWEoW2HBRb+o=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=pGn7X8ctj/iOnulFZKX1U+w7x9VDWr+CRDMhv1dwF78HR74S5uE8aQreq/aqLzeMI8fNozDlTGKM2Zle+SKXalUBlkNikidJwKgwD4SBs8WAWAoPRYdlKLoFrdg2V2kdKv2/RcTCcy7zBz5ue6ds/vwgYWSqJMF6kGzi3ecEQ/g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o3feYz0w; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="amnBQN2y"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64SKkS9f1540317;
-	Fri, 29 May 2026 01:14:29 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=K7q7nnq8/4z
-	atjMsZ7NJ/bqTAUM0L9LxlJKB6MIO7As=; b=amnBQN2yzBmLQ/VU8zBOnIsMpnz
-	u3bx0/FIiyk9Bw78J1gIMVKbfuL2JDErKUaQjC2Tu7L+LirakZgXdD7ornsPnVxT
-	Wdore9dkz7gODdYP2Rp21MEm3I21CaUD6v0rNXiKbSmBCMWicU2EfL7xKu+uDdUG
-	s8KAMsg3UGJQ2CAFth2TEymQbuzr4qhZ0GX/Do6yRPPizild8G41d0cuqQYh3FI1
-	1QdoXHhJfdidQ/XEVNcx6NYkBmiJ4CyI5H7i4VPOtxfzo5vCCsIES2IYT0tgf+ld
-	ouB7yZcCcS2yTaAOzKx7FBNhyun/MW/fNzfkbEO9V1KxBATqnLvkpxF3XgQ==
-Received: from nalasppmta01.qualcomm.com (Global_NAT1.qualcomm.com [129.46.96.20])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eety4skkj-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 29 May 2026 01:14:28 +0000 (GMT)
-Received: from pps.filterd (NALASPPMTA01.qualcomm.com [127.0.0.1])
-	by NALASPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 64T1ER7f021355;
-	Fri, 29 May 2026 01:14:27 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 4eeb0bhfsp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 29 May 2026 01:14:27 +0000 (GMT)
-Received: from NALASPPMTA01.qualcomm.com (NALASPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 64T1ERCu021348;
-	Fri, 29 May 2026 01:14:27 GMT
-Received: from hu-devc-lv-u22-c.qualcomm.com (hu-cang-lv.qualcomm.com [10.81.25.255])
-	by NALASPPMTA01.qualcomm.com (PPS) with ESMTPS id 64T1ERFu021343
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 29 May 2026 01:14:27 +0000 (GMT)
-Received: by hu-devc-lv-u22-c.qualcomm.com (Postfix, from userid 359480)
-	id 00D9362E; Thu, 28 May 2026 18:14:26 -0700 (PDT)
-From: Can Guo <can.guo@oss.qualcomm.com>
-To: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
-        martin.petersen@oracle.com, mani@kernel.org
-Cc: linux-scsi@vger.kernel.org, Can Guo <can.guo@oss.qualcomm.com>,
-        Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Zhaoming Luo <zhml@posteo.com>,
-        Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>,
-        devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
-        linux-kernel@vger.kernel.org (open list)
-Subject: [PATCH v5 1/2] dt-bindings: ufs: Document static TX Equalization settings properties
-Date: Thu, 28 May 2026 18:14:19 -0700
-Message-Id: <20260529011421.462046-2-can.guo@oss.qualcomm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260529011421.462046-1-can.guo@oss.qualcomm.com>
-References: <20260529011421.462046-1-can.guo@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o3feYz0w"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2bd266f6fc0so66290145ad.2
+        for <devicetree@vger.kernel.org>; Thu, 28 May 2026 18:16:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780017412; x=1780622212; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=GDATUkG/OtxlAUVWKXX5mKstzpi/LS1mSaHeR98JWp0=;
+        b=o3feYz0wg0BP86kBDfLGCOfCBFcdqHotfqStAeNzeC72X7lwjKgka7e58vHi727QyS
+         74bipmcYMxQP39guIeScFgk7aXnz7ThSmZ1Oh7j5gdMapyrPJqbl89lo86+r4GXPqykl
+         uMcFBg9NAqnj5DguqbjWuB5yIegaCUquCluh1mCZSt0zLz16NP/SPHDXM0MiZi/tsmKy
+         fQXbBaMQjm7r/pLDsTI9qB4j/MIbgmUzmK8mhp8GUimYswcxktMl/IgExHkZI7T7GOUJ
+         UqwSOxYYxN0eQAzKeBKf9mfKfcWBgppCibrCVpd6bLS9loQYbzg4aCwXlKTvukff1DRQ
+         /oBg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780017412; x=1780622212;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=GDATUkG/OtxlAUVWKXX5mKstzpi/LS1mSaHeR98JWp0=;
+        b=Zd4yNE2i8fXm57CcT1dOtm9ae3xoIEkdGNQ/Riwqeubae0/zBhCfVCYeeyOykMoHBN
+         RPy0H+h8Flswj4zG9hRBzbInF2wMuFV7jMSkwvMuZe4Db+L36mUKk9QyLQnH49dj43iG
+         jR/HwI+r5/6ws89kOa307HnE9BNemrJuyEPMV8gfbXv+a3fR3wQTVDdeDls76+bhIKwT
+         iEhjmsVqqOSX9AcjtKYB0c2m51OVmFSKGmTOB1eJbmWItxdZlPONzqXkezJlZJGVxdwy
+         QHrav4rtqH5n0jsdDAMkFxIMhzBfp8G8YRHzo7OEab0CGUKvePhpDOF66uUuRD324Kzz
+         NLjQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9W6RRNolVGoIhrXvYC7qRDGMNVRKGSUpHT0mWIDI2E03HkcU+ZWJkGeSyT4BzScslM6UfEdpull5cn@vger.kernel.org
+X-Gm-Message-State: AOJu0YxjqkIFjSOScnLEfw+SlVy/7UURezmfUGO4NGuWANzRLbHA3mI7
+	P1XhhZR6xxt1d1POBhFLtlF2UYHfgpUcllqcVtWsEsuCq9DuQI3/2xU1
+X-Gm-Gg: Acq92OG2hIoL54z/3HJGrhk1okMa6GfaEztzyYBbFjDsp2W3Kewj7BeTrjLu+mk1WPA
+	x6El9zSEs69oyIBtCiMcnOCFbZ6XN81RGKVqI3BdeIYa8JzQPklcnd88IAkpvUy+oin0qHnSHmR
+	1wxFeta4okbTbNzePvkPL6gazlY2yyFOqg96Sh59mbip6P84etNe4Ly3JiFB5mu3T5Sb7mob+/l
+	D/HVv5LI9nD4piuQEk6d+SIS+i6BXMmMGytV8x4Atr+PAY7qVFvY3MS1o4d6Y7zXgJhm7QzUHcB
+	iQ8i6oQeFqpYI4n+3FwRdKYR7FlsZVGeE8P3orr3PveO+fnMX3pRY5Sxtq3WWbPeFrv6Zxv+xl7
+	Z6ODFHKDu4Cupb4QtczvVw2f4beLqJnpYWcRd8HCCaNcQQ4PXhaQzHnGIvjFw0kXz9FRxekNtfI
+	hlKpTMUZiwc5uBTRuv6Y0v+SgLiF5qzeFbPe1lCgM6jRUIZI12S1YW0uCGlDTSOiZxnryLrDkk0
+	PajHCboPBaT4E4Uvwefz0UR
+X-Received: by 2002:a17:903:196b:b0:2bc:7d09:dcef with SMTP id d9443c01a7336-2bf209a2d71mr9668965ad.29.1780017411611;
+        Thu, 28 May 2026 18:16:51 -0700 (PDT)
+Received: from harrison-Surface-Pro-12in-1st-Ed-with-Snapdragon.lan ([58.164.4.185])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239e702fsm389235ad.4.2026.05.28.18.16.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 28 May 2026 18:16:51 -0700 (PDT)
+From: Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+To: linux-kernel@vger.kernel.org,
+	linux-input@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: jikos@kernel.org,
+	bentiss@kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	Harrison Vanderbyl <harrison.vanderbyl@gmail.com>
+Subject: [PATCH v3 0/2] Add support for Microsoft Surface Pro 12in
+Date: Fri, 29 May 2026 11:16:14 +1000
+Message-ID: <20260529011619.9586-1-harrison.vanderbyl@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-ORIG-GUID: d_t8S2vtPMHeVSfcSa6HKpVFmWIjKZkT
-X-Proofpoint-GUID: d_t8S2vtPMHeVSfcSa6HKpVFmWIjKZkT
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDAwOSBTYWx0ZWRfX98G9HtCP8V5H
- WvAhbNtdNXPZkyizb/Cn3BzQs3jHG3pNpKUwRYY4QGzRkSu9z38HP0qhEE81D3CLZVNchPtJuyu
- BifX8QSYu0YxpQDJUrygtSXYw7raSaLanebIsvCl0f6ykPcKfqgHWg57EFPEl5227dgRgX0FEXC
- eMlgPf0bWk8D7KPYXY1UNMiXSsiRiq8yVskkbp/qYoVl8seNnWiQsL0pmqsZUuYC2iXt3FSPO8C
- K7+wzT6RuFfNYMrR70jfztZe+H2fUcSDE6MKYxjz1eBUxxcoJTWv3eT1JJ4qxVsROATwO3JAMjS
- K9iK8qxaH6h8weD3wsETYajgIGNYG5H76OSBobSXGywt2XPSaKql5JoHbqFvplgpyr6xDSr691V
- gHH9U8PcG3XXP9LwvS3vjAz9bMw36JoD1YkV2DGo402ID6XrbU9yPhONmsSh2cOZb7GFGXMn/+G
- C1atCBQuxD8A30qfHcw==
-X-Authority-Analysis: v=2.4 cv=S+TpBosP c=1 sm=1 tr=0 ts=6a18e874 cx=c_pps
- a=ouPCqIW2jiPt+lZRy3xVPw==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
- a=NGcC8JguVDcA:10 a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22
- a=gowsoOTTUOVcmtlkKump:22 a=VwQbUJbxAAAA:8 a=PY6Zn8H8AAAA:8 a=EUspDBNiAAAA:8
- a=aytFPfgCXfsv55HZsIkA:9 a=ySS05r0LPNlNiX1MMvNp:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-28_07,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 lowpriorityscore=0 bulkscore=0 malwarescore=0 spamscore=0
- adultscore=0 clxscore=1015 impostorscore=0 priorityscore=1501 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290009
 
-UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
-and M-PHY v6.0. In these specs, TX Equalization is defined for all High
-Speed Gears (not only HS-G6) to compensate channel loss and improve signal
-integrity at high speed operation.
+Changes in v3:
 
-For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
-required depending on channel characteristics.
+Rebase:
+ - Rebased on next-20260528
+ - Removed ice device tree changes
 
-Add vendor-neutral DT properties:
+Device tree:
+ - Fixed C++ style comment in &i2c9 to use /* */ style
+ - Flattened mdss_dp3 port into &mdss_dp3_out directly
+ - Whitespace and formatting nits
 
-- patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
-- fixed property tx-precode-enable-g6
+Changes in v2:
+Ice device tree: 
+ - Updated to use 0x0 formatting
 
-Each property is a uint32 array of per-lane tuples:
-<Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
+Panel: 
+ - Add edid to commit message
 
-Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
-are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
+Device tree:
+ - Fixed formatting and ordering nits
+ - Removed extra dmic audio declarations
+ - Added suspected devices on i2c busses
+ - Fixed incorrect usb regulator
+ - Describe panel pin regulator
+ - Added defaults for volume button GPIOs
 
-Acked-by: Manivannan Sadhasivam <mani@kernel.org>
-Reviewed-by: Bean Huo <beanhuo@micron.com>
-Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
----
- .../devicetree/bindings/ufs/ufs-common.yaml   | 45 +++++++++++++++++++
- 1 file changed, 45 insertions(+)
+Already applied:
+ - dt-bindings: arm: qcom: Add Microsoft Surface Pro 12in
+   (landed in linux-next)
+ - firmware: qcom: scm: Allow QSEECOM on Surface Pro 12in
+   (applied by Bjorn Andersson, commit 667d05a09db3)
+ - platform/surface: SAM: Add support for Surface Pro 12in
+   (applied to review-ilpo-next by Ilpo Järvinen)
+ - drm/panel-edp: Add panel for Surface Pro 12in
+   (pushed to drm-misc-next by Doug Anderson, commit 02f48ffdf96c)
 
-diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-index ed97f5682509..d90cf25adfa5 100644
---- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-+++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
-@@ -105,6 +105,51 @@ properties:
-       Restricts the UFS controller to rate-a or rate-b for both TX and
-       RX directions.
- 
-+  tx-precode-enable-g6:
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    oneOf:
-+      - minItems: 2
-+        maxItems: 2
-+      - minItems: 4
-+        maxItems: 4
-+    items:
-+      enum: [0, 1]
-+    description: |
-+      Static TX Precode enable values for HS-G6 only.
-+      Values are specified as per-lane tuples:
-+      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
-+
-+patternProperties:
-+  "^txeq-preshoot-g[1-6]$":
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    oneOf:
-+      - minItems: 2
-+        maxItems: 2
-+      - minItems: 4
-+        maxItems: 4
-+    items:
-+      minimum: 0
-+      maximum: 7
-+    description: |
-+      Static TX Equalization PreShoot values for High Speed Gears.
-+      Values are specified as per-lane tuples:
-+      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
-+
-+  "^txeq-deemphasis-g[1-6]$":
-+    $ref: /schemas/types.yaml#/definitions/uint32-array
-+    oneOf:
-+      - minItems: 2
-+        maxItems: 2
-+      - minItems: 4
-+        maxItems: 4
-+    items:
-+      minimum: 0
-+      maximum: 7
-+    description: |
-+      Static TX Equalization DeEmphasis values for High Speed Gears.
-+      Values are specified as per-lane tuples:
-+      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
-+
- dependencies:
-   freq-table-hz: [ clocks ]
-   operating-points-v2: [ clocks, clock-names ]
+Pending in this series:
+ - hid: Pen battery quirk for Surface Pro 12in
+   (acked by Jiri Kosina in v1, needs a tree)
+ - arm64: dts: qcom: Add Microsoft Surface Pro 12in
+   (reviewed by Dmitry Baryshkov in v2, minor style fixes applied)
+
+Will be done in future patches:
+ - Camera support (pending purwa cams patchset)
+ - IRIS jpeg decoder support (pending purwa iris patchset)
+ - Accelerometer support via ADSP (probably userspace)
+  
+
+(Audioreach/ucm2 changes for audio)
+https://github.com/linux-msm/audioreach-topology/pull/32
+https://github.com/alsa-project/alsa-ucm-conf/blob/9577cd31121546b288759097901025376141177b/ucm2/Qualcomm/x1e80100/Surface12in-HiFi.conf
+
+
+Link to v1:
+https://lore.kernel.org/all/cover.1778498477.git.harrison.vanderbyl@gmail.com/
+Link to v2:
+https://lore.kernel.org/all/cover.1778822464.git.harrison.vanderbyl@gmail.com/
+
+
+Harrison Vanderbyl (2):
+  hid: Pen battery quirk for Surface Pro 12in
+  arm64: dts: qcom: Add Microsoft Surface Pro 12in
+
+ arch/arm64/boot/dts/qcom/Makefile             |    2 +
+ .../dts/qcom/x1p42100-microsoft-sp12in.dts    | 1194 +++++++++++++++++
+ drivers/hid/hid-ids.h                         |    1 +
+ drivers/hid/hid-input.c                       |    2 +
+ 4 files changed, 1199 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/x1p42100-microsoft-sp12in.dts
+
+
+base-commit: f7af91adc230aa99e23330ecf85bc9badd9780ad
 -- 
-2.34.1
+2.53.0
 
