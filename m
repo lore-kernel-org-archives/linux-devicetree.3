@@ -1,331 +1,150 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1813C4B78;
-	Fri, 29 May 2026 08:47:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 731AA3B6C0C
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 08:48:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780044479; cv=none; b=tfTD3elVXEMGqOBWALgOEufdoTKLDcINPLbOp2y+P/FLYq1AqulJ+Smz/y4gloLpkoYYgI7lL9zmE/BSZBQc7GVpSrbpOHpi3M6OCG4hYgCmuiWNdcElHk6Tvc37Ll3zZK+hQ0Qgvbhuo7LryMdf3PfZIVlJ8rmiQ/UOr8G4IR4=
+	t=1780044538; cv=none; b=tK3YuGkQP3AqeCNemfvf0lAE1Si3DC3cZxh8iG1fLO5I2yaw6YaTM+2wnC7+Ni4ZWucVDb7mZgrN/7t+YARquUz8c2sAs4iEAKOEzzdu8l/+ZLyOEYlRlj1G5F/CBLXUXPLw4Opy2Q50cxVPHEaG8KkNovCPpz9o5Rc1xL2kQFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780044479; c=relaxed/simple;
-	bh=gvLfMhv4HQU6DTIrpERtFSiOVrvkNCT0l7ewEFG2l50=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=rVLhiLXNfG1CSuSotM90+nWvSq3CNHgds3SLOcSPKxvR3/ZsgCO73THRBKfXSz4tvAH/y07hE6xT0dv6Qxn0DmhPucE617B2T6Tvhg8IRvHJPgl23tQveRkiF4wx/Rnr/qARwH++uPl510N8Gewgzkm/ZGYeTDiVhToG6rRUk84=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=YIuAVdzf; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1780044538; c=relaxed/simple;
+	bh=0pbmQ8x+4jkjdTH1lwE4m2tQBElxZ0ixePvmyrKwvMo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=odZEfPdI3kXbt12k1b4xyzM9fnAub1Nn/7XQSgS8KNs/UAocT8OahmFpw9XVRCC3aoZT653MeI5BmkahTW8egWeHTd3ujAO1L8oFwQzedBicqlARfM69DIYyaRu3TWoscbwlin8B/EjMJKnFyY39fsYAHy/QcW6UHECh4opZJQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BhvyXvZZ; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="YIuAVdzf"
-Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id B8DCC7B6A;
-	Fri, 29 May 2026 10:47:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780044432;
-	bh=gvLfMhv4HQU6DTIrpERtFSiOVrvkNCT0l7ewEFG2l50=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=YIuAVdzfW5Iyl1sDds7AfTwz1bC7BIYaOeRPSHku4nkNIxD+sfA7av6oRdWBK9xM4
-	 bI+o/3IPLkYhRXUH0pmO3riUe3mSPBnn0c9vCP5OegojBqSj1KtkHjpOKWNUaYuQqW
-	 WUIVNixCnbUzilEruzRQLJI8zcqQRsYqS1ghstpg=
-From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 29 May 2026 11:45:45 +0300
-Subject: [PATCH v3 15/15] arm64: dts: ti: beagley-ai: Enable HDMI display
- and audio
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BhvyXvZZ"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-368f25ff4c4so7908712a91.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 01:48:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780044537; x=1780649337; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=zu4woSO4TBEOYZHa/WNQ9LLC4/vLLUP8Ms3Ns6fPdiY=;
+        b=BhvyXvZZwx4iWjbDQfy8vq6Mt4wvEv0OksQHP8TeeHv/GukIM7LtdX0kZDSlFurTTH
+         qTFDIiT+WDmkHVYQTnJ4np6bIbCWjhQmRHFtyyOwf/ATSTW0amMH5oVnSR67BWtP4l8G
+         tg8cUw9kdRAuzQrma6wY/pSTfOWxD/UM1HKxs46WnmtSGgl0PtSs/a/pWX8okaPtvSZr
+         2j/vBZqPmWha7lmO8+idC0xzc7Jy4+Oh9f6v/dF9O4obCqYMuxFDYjpUQc8/fptrChsc
+         xGRKVCps6b8nDSIRghj3gcVTr+lZZcCtkohqk2iRKAYz4IWEngkJns+EZmK1qQdGU2kf
+         bECw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780044537; x=1780649337;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to
+         :content-language:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=zu4woSO4TBEOYZHa/WNQ9LLC4/vLLUP8Ms3Ns6fPdiY=;
+        b=hRuFqtnUHZARk5uBeSCj4ISmCNaBWUBykFicB68uITl657oILbHLlPBVBgQjsELWDm
+         xkPVYm4hz40kIIIPDKHQhdwApTZ1+oQEs6d8BoAGVgxoXYAk5+jsnIseQDiJJ1Helx5T
+         4n62M9HvZyeh34ya03IuHL7mSfBsnYTk6StGJS3+Q3r9HE9msrzvvAzagIENDBAotIWn
+         NNxvvqkNcEc6WTfraKyb8vAsr6WHMJoVuLEtyQ3CYineTU6b+2cJYSuqiVkh/OKP2to0
+         qxl9RoKDSWV0clmxpSYlT1thoNRrF6kWctNlQCoZTEfhFiecZyR2E9yOIfedSCWvxfNz
+         0+jw==
+X-Forwarded-Encrypted: i=1; AFNElJ99BHnr32CjET7GoA+euKMeWLmqMR+AbmlR6s3Q3ImNx98sOSwF+Gg/FjU2wkKt4jIJp0owNiqc/VSq@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx+/GMo5SMb2ZHKa1+tqn+ZSfQNRFAi44t8Na6iWgARjreZ4+sk
+	m7OpL11H4uZt7b9Nj9r8sgYWZhngx7hBnSZd+WZljFs0AvpLykzSkLae
+X-Gm-Gg: Acq92OE6bRea1XtjDzBH4gv8d1AiwxGs5gC5SA2zldjGDKVpa614q2tfzVAeJXAVMDv
+	oRGo4WudILW+3yjOrPcYsBWAFv184oy5A9f9OT7XwBM4JqpFp+n+2ihvR/v2EfnL9U2FQyLo0Bk
+	BEuitL5DM9CC3vF1BpKQkIBEQDwqD+xGyuyoWvqhponoIU981LpAyvFYsH1086DHipXdvUnZP3x
+	Z6Np2A2vZb4O/0x6sKd43Q4idkPCXhMKcWrFhnuWYR5yG6G8LdZRT9dDpOJC6FK5SFi3JjbRTdJ
+	cZl/ZZrbem1pNrU5unuK4uaWhnfrRX1+JxJr9fSRLd2E4UT1jjmx1BdaU1aoMh1TP0Xsf5d3iOb
+	M7dqdb3ip1dW4oiinaW6fKW+aDT6S2z8TKxjGV8vTsRLz+POWFBVgJAlLcz502QwgeikkGMA2BM
+	6qwmLA+sytmdUOGCg+rspEQt5646qXN26bSjuWU7n0qQlNac4CBUdzv+gbR3j38FNJRFI7
+X-Received: by 2002:a17:90b:3a50:b0:36b:769c:e5bb with SMTP id 98e67ed59e1d1-36bbcc145cfmr2354489a91.5.1780044536629;
+        Fri, 29 May 2026 01:48:56 -0700 (PDT)
+Received: from [172.20.10.2] (42-79-54-216.emome-ip.hinet.net. [42.79.54.216])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bc0befe7asm1448578a91.11.2026.05.29.01.48.53
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 01:48:56 -0700 (PDT)
+Message-ID: <b2e7738b-28b2-6b6c-6a7e-0649f42f5b85@gmail.com>
+Date: Fri, 29 May 2026 16:46:41 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+Subject: Re: [PATCH v3 1/2] ASoC: dt-bindings: nuvoton,nau8360: Add NAU83G60
+Content-Language: en-US
+To: Krzysztof Kozlowski <krzk@kernel.org>, Neo Chang <YLCHANG2@nuvoton.com>
+Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, robh@kernel.org,
+ krzk+dt@kernel.org, linux-sound@vger.kernel.org, devicetree@vger.kernel.org,
+ alsa-devel@alsa-project.org, kchsu0@nuvoton.com, sjlin0@nuvoton.com
+References: <20260526015826.440769-1-YLCHANG2@nuvoton.com>
+ <20260526015826.440769-2-YLCHANG2@nuvoton.com>
+ <20260527-pink-cockatrice-of-expression-04b6e0@quoll>
+From: YLCHANG2 <neo.chang70@gmail.com>
+In-Reply-To: <20260527-pink-cockatrice-of-expression-04b6e0@quoll>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260529-beagley-ai-display-v3-15-7fefdc5d1adf@ideasonboard.com>
-References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
-In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
- David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Aradhya Bhatia <aradhya.bhatia@linux.dev>, Nishanth Menon <nm@ti.com>, 
- Vignesh Raghavendra <vigneshr@ti.com>, Swamil Jain <s-jain1@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Louis Chauvet <louis.chauvet@bootlin.com>
-Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, Andrew Davis <afd@ti.com>, 
- Robert Nelson <robertcnelson@gmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7536;
- i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=Ge4aPjOaQi2GtYQmIurGaY0c8IXbvBUBn4UOL1Y1VfU=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKQbYdNh4QagCbQ5M7DAm9e2x+K1X9j0S5P1
- LkJQUOs/pOJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSkAAKCRD6PaqMvJYe
- 9YalEACaVfwiSw250f8We9JZAjWApwbtwDkh6rnlfLU7irzhDH7NlD+sbuoOs0L6FqSVfAnaUIW
- LWYr9+NJ8p7mCOSndxOAvvciFL8QN36iA3ZXY2F8UwVpNFLIG42hOTTBFmFKb0vEFEpIrohdBiT
- W4VDSK4rQbB3t7EWHn5Hxu7pkx/cmmXfTI/1VCSiPthzhcA6XB5HoZyNZi54vy5qtwham/9l/UY
- fe0YAern0KhjG7kfryDI8qzfMqc+34pBzd8qT3/2JHODQpXyslu01zyXggEp5bvAF7DsOV2p/dt
- TYuJ5V3Ml4n0FXRnK9nUMvlt/+CKZ134BdFY3zlyn4Rx0uMm7dPuZAFJTt9uhtSLhZefMbLVZXB
- zmJXAf8ZtsfnS7V3ufTBgGFP1jz9lQZ+zABeo44foe+0oCk1rryLSQeZLDg2xFFcalx40ewAxOo
- kMBE1TRbYpi2/FaJtaMLHYagnhqRq0Hlt036simluGRVuJP4jlfvxIYkSITJEub+9IQ82YyTWQe
- hXfmXf7SJHPoemI7Zi6IpdALxUjy0i8og2BnEHZPoZVd3oNpe9yyruy0McrRrz17jCGMy7BFMSR
- MeMqrpDTkIw+zQDtWvsiQ5hV2n6wCAg0mnDFUf3Z1jEVt7cykTgYS9zVE/XJo3g9fuwd6Rd/4Sq
- kuqbDKrLXVJKj3A==
-X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
- fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-From: Andrew Davis <afd@ti.com>
 
-Enable HDMI support for BeagleY-AI platform. The display controller used is
-TIDSS and the HDMI bridge used is IT66122.
-
-Based on DT by: Robert Nelson <robertcnelson@gmail.com>
-
-Signed-off-by: Andrew Davis <afd@ti.com>
-Signed-off-by: Swamil Jain <s-jain1@ti.com>
-[tomi.valkeinen: cosmetic fixes]
-Tested-by: Robert Nelson <robertcnelson@gmail.com>
-Tested-by: Swamil Jain <s-jain1@ti.com>
-Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
----
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts | 191 +++++++++++++++++++++++++
- 1 file changed, 191 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-index 5255e04b9ac7..f97e3bddf28f 100644
---- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-@@ -146,6 +146,34 @@ led-1 {
- 			default-state = "on";
- 		};
- 	};
-+
-+	hdmi0: connector-hdmi {
-+		compatible = "hdmi-connector";
-+		label = "hdmi";
-+		type = "d";
-+		port {
-+			hdmi_connector_in: endpoint {
-+				remote-endpoint = <&it66122_out>;
-+			};
-+		};
-+	};
-+
-+	sound0: sound {
-+		compatible = "simple-audio-card";
-+		simple-audio-card,name = "it66122 HDMI";
-+		simple-audio-card,format = "i2s";
-+		simple-audio-card,bitclock-master = <&hdmi_dailink_master>;
-+		simple-audio-card,frame-master = <&hdmi_dailink_master>;
-+
-+		hdmi_dailink_master: simple-audio-card,cpu {
-+			sound-dai = <&mcasp1>;
-+			system-clock-direction-out;
-+		};
-+
-+		simple-audio-card,codec {
-+			sound-dai = <&it66122>;
-+		};
-+	};
- };
- 
- &main_pmx0 {
-@@ -185,6 +213,14 @@ J722S_IOPAD(0x0240, PIN_INPUT, 7) /* (B24) MMC1_SDCD.GPIO1_48 */
- 		bootph-all;
- 	};
- 
-+	main_i2c1_pins_default: main-i2c1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x01e8, PIN_INPUT_PULLUP, 0) /* (C24) I2C1_SCL */
-+			J722S_IOPAD(0x01ec, PIN_INPUT_PULLUP, 0) /* (A22) I2C1_SDA */
-+		>;
-+		bootph-all;
-+	};
-+
- 	mdio_pins_default: mdio-default-pins {
- 		pinctrl-single,pins = <
- 			J722S_IOPAD(0x0160, PIN_OUTPUT, 0) /* (AC24) MDIO0_MDC */
-@@ -227,6 +263,47 @@ vdd_3v3_sd_pins_default: vdd-3v3-sd-default-pins {
- 			J722S_IOPAD(0x0254, PIN_OUTPUT, 7) /* (E25) USB0_DRVVBUS.GPIO1_50 */
- 		>;
- 	};
-+
-+	dss1_pins_default: dss1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0100, PIN_OUTPUT, 0) /* (AB23) VOUT0_VSYNC */
-+			J722S_IOPAD(0x00f8, PIN_OUTPUT, 0) /* (AB24) VOUT0_HSYNC */
-+			J722S_IOPAD(0x0104, PIN_OUTPUT, 0) /* (AC26) VOUT0_PCLK */
-+			J722S_IOPAD(0x00fc, PIN_OUTPUT, 0) /* (AC27) VOUT0_DE */
-+			J722S_IOPAD(0x00b8, PIN_OUTPUT, 0) /* (W27) VOUT0_DATA0 */
-+			J722S_IOPAD(0x00bc, PIN_OUTPUT, 0) /* (W25) VOUT0_DATA1 */
-+			J722S_IOPAD(0x00c0, PIN_OUTPUT, 0) /* (W24) VOUT0_DATA2 */
-+			J722S_IOPAD(0x00c4, PIN_OUTPUT, 0) /* (W23) VOUT0_DATA3 */
-+			J722S_IOPAD(0x00c8, PIN_OUTPUT, 0) /* (W22) VOUT0_DATA4 */
-+			J722S_IOPAD(0x00cc, PIN_OUTPUT, 0) /* (W21) VOUT0_DATA5 */
-+			J722S_IOPAD(0x00d0, PIN_OUTPUT, 0) /* (Y26) VOUT0_DATA6 */
-+			J722S_IOPAD(0x00d4, PIN_OUTPUT, 0) /* (Y27) VOUT0_DATA7 */
-+			J722S_IOPAD(0x00d8, PIN_OUTPUT, 0) /* (AA24) VOUT0_DATA8 */
-+			J722S_IOPAD(0x00dc, PIN_OUTPUT, 0) /* (AA27) VOUT0_DATA9 */
-+			J722S_IOPAD(0x00e0, PIN_OUTPUT, 0) /* (AA25) VOUT0_DATA10 */
-+			J722S_IOPAD(0x00e4, PIN_OUTPUT, 0) /* (AB25) VOUT0_DATA11 */
-+			J722S_IOPAD(0x00e8, PIN_OUTPUT, 0) /* (AA23) VOUT0_DATA12 */
-+			J722S_IOPAD(0x00ec, PIN_OUTPUT, 0) /* (AA22) VOUT0_DATA13 */
-+			J722S_IOPAD(0x00f0, PIN_OUTPUT, 0) /* (AB26) VOUT0_DATA14 */
-+			J722S_IOPAD(0x00f4, PIN_OUTPUT, 0) /* (AB27) VOUT0_DATA15 */
-+			J722S_IOPAD(0x005c, PIN_OUTPUT, 1) /* (AC25) GPMC0_AD8.VOUT0_DATA16 */
-+			J722S_IOPAD(0x0060, PIN_OUTPUT, 1) /* (U26) GPMC0_AD9.VOUT0_DATA17 */
-+			J722S_IOPAD(0x0064, PIN_OUTPUT, 1) /* (V27) GPMC0_AD10.VOUT0_DATA18 */
-+			J722S_IOPAD(0x0068, PIN_OUTPUT, 1) /* (V25) GPMC0_AD11.VOUT0_DATA19 */
-+			J722S_IOPAD(0x006c, PIN_OUTPUT, 1) /* (V26) GPMC0_AD12.VOUT0_DATA20 */
-+			J722S_IOPAD(0x0070, PIN_OUTPUT, 1) /* (V24) GPMC0_AD13.VOUT0_DATA21 */
-+			J722S_IOPAD(0x0074, PIN_OUTPUT, 1) /* (V22) GPMC0_AD14.VOUT0_DATA22 */
-+			J722S_IOPAD(0x0078, PIN_OUTPUT, 1) /* (V23) GPMC0_AD15.VOUT0_DATA23 */
-+		>;
-+	};
-+
-+	main_mcasp1_pins_default: main-mcasp1-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0090, PIN_INPUT, 2) /* (P27) GPMC0_BE0n_CLE.MCASP1_ACLKX */
-+			J722S_IOPAD(0x0098, PIN_INPUT, 2) /* (V21) GPMC0_WAIT0.MCASP1_AFSX */
-+			J722S_IOPAD(0x008c, PIN_OUTPUT, 2) /* (N23) GPMC0_WEn.MCASP1_AXR0 */
-+		>;
-+	};
- };
- 
- &cpsw3g {
-@@ -284,6 +361,13 @@ J722S_MCU_IOPAD(0x050, PIN_INPUT_PULLUP, 0)	/* (C6) WKUP_I2C1_SDA */
- 		>;
- 		bootph-all;
- 	};
-+
-+	hdmi_gpio_pins_default: hdmi-gpio-default-pins {
-+		pinctrl-single,pins = <
-+			J722S_MCU_IOPAD(0x0038, PIN_INPUT_PULLUP | PIN_DEBOUNCE_CONF6, 7) /* (D8) MCU_MCAN0_RX.MCU_GPIO0_14 HDMI_INTn */
-+			J722S_MCU_IOPAD(0x0034, PIN_OUTPUT_PULLUP, 7) /* (B2) MCU_MCAN0_TX.MCU_GPIO0_13 HDMI_RSTn */
-+		>;
-+	};
- };
- 
- &wkup_uart0 {
-@@ -385,6 +469,63 @@ rtc: rtc@68 {
- 	};
- };
- 
-+&main_i2c1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_i2c1_pins_default>;
-+	clock-frequency = <400000>;
-+	bootph-all;
-+
-+	it66122: bridge-hdmi@4c {
-+		compatible = "ite,it66122";
-+		reg = <0x4c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&hdmi_gpio_pins_default>;
-+		vcn33-supply = <&vdd_3v3>;
-+		vcn18-supply = <&buck2_reg>;
-+		vrf12-supply = <&ldo2_reg>;
-+		reset-gpios = <&mcu_gpio0 13 GPIO_ACTIVE_LOW>;
-+		interrupt-parent = <&mcu_gpio0>;
-+		interrupts = <14 IRQ_TYPE_EDGE_FALLING>;
-+		#sound-dai-cells = <0>;
-+
-+		ports {
-+			#address-cells = <1>;
-+			#size-cells = <0>;
-+
-+			/*
-+			 * HDMI can be serviced with 3 potential VPs -
-+			 * (DSS0 VP1 / DSS1 VP0 / DSS1 VP1).
-+			 * For now, we will service it with DSS1 VP0.
-+			 */
-+			port@0 {
-+				reg = <0>;
-+
-+				it66122_in: endpoint {
-+					bus-width = <24>;
-+					remote-endpoint = <&dss1_dpi0_out>;
-+				};
-+			};
-+
-+			port@1 {
-+				reg = <1>;
-+
-+				it66122_out: endpoint {
-+					remote-endpoint = <&hdmi_connector_in>;
-+				};
-+			};
-+		};
-+	};
-+};
-+
-+&main_gpio0 {
-+	status = "okay";
-+};
-+
-+&mcu_gpio0 {
-+	status = "okay";
-+};
-+
- &sdhci1 {
- 	/* SD/MMC */
- 	vmmc-supply = <&vdd_mmc1>;
-@@ -399,4 +540,54 @@ &sdhci1 {
- 	status = "okay";
- };
- 
-+&dss1 {
-+	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&dss1_pins_default>;
-+
-+	clocks = <&k3_clks 232 8>,
-+		 <&k3_clks 232 0>,
-+		 <&k3_clks 232 4>;
-+
-+	assigned-clocks = <&k3_clks 241 0>, /* DSS1-VP0 */
-+			  <&k3_clks 240 0>, /* DSS1-VP1 */
-+			  <&k3_clks 245 0>; /* DPI Output */
-+
-+	assigned-clock-parents = <&k3_clks 241 2>, /* PLL 17 HDMI */
-+				 <&k3_clks 240 1>, /* PLL 18 DSI */
-+				 <&k3_clks 245 2>; /* DSS1-DPI0 */
-+
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		/* DSS1-VP0: DPI/HDMI Output */
-+		port@0 {
-+			reg = <0>;
-+
-+			dss1_dpi0_out: endpoint {
-+				remote-endpoint = <&it66122_in>;
-+			};
-+		};
-+	};
-+};
-+
-+&mcasp1 {
-+	status = "okay";
-+	#sound-dai-cells = <0>;
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&main_mcasp1_pins_default>;
-+	auxclk-fs-ratio = <2177>;
-+	op-mode = <0>; /* MCASP_IIS_MODE */
-+	tdm-slots = <2>;
-+	serial-dir = <  /* 0: INACTIVE, 1: TX, 2: RX */
-+		1 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+		0 0 0 0
-+	>;
-+	tx-num-evt = <32>;
-+	rx-num-evt = <32>;
-+};
-+
- #include "k3-j722s-ti-ipc-firmware.dtsi"
-
--- 
-2.43.0
-
+On 5/27/26 17:15, Krzysztof Kozlowski wrote:
+> On Tue, May 26, 2026 at 09:58:25AM +0800, Neo Chang wrote:
+>> +  clocks:
+>> +    maxItems: 1
+>> +
+>> +  clock-names:
+>> +    const: mclk
+>> +
+>> +  nuvoton,dsp-bypass:
+>> +    type: boolean
+>> +    description:
+>> +      Forcibly disable/bypass DSP path.
+> Same questions as v1. Properties are not to control your probe() in the
+> driver, but to describe the hardware.
+>
+> You have entire description or commit msg to convince that previously
+> questioned property is still reasonable in terms of DT.
+>
+> OTOH, isn't lack of firmware binaries enough to deduce that DSP is not
+> going to be used?
+Got it. I will drop this property in v4. As you mentioned, the firmware 
+presence is enough.
+>
+>> +
+>> +  nuvoton,pbtl-enable:
+>> +    type: boolean
+>> +    description:
+>> +      NAU83G60 supports PBTL mode for mono output.
+>> +
+>> +  nuvoton,dac-cur-enable:
+>> +    type: boolean
+>> +    description:
+>> +      Adjust DAC output current to match speaker impedance and prevent
+>> +      hardware damage. +3.2dB when present, 0dB by default.
+>> +
+>> +  firmware-name:
+>> +    minItems: 2
+>> +    maxItems: 2
+>> +    description:
+>> +      Assign firmware filenames for left and right DSP cores.
+>> +
+>> +required:
+>> +  - compatible
+>> +  - reg
+>> +
+>> +allOf:
+>> +  - $ref: dai-common.yaml#
+>> +
+>> +unevaluatedProperties: false
+>> +
+>> +examples:
+>> +  - |
+>> +    i2c {
+>> +        #address-cells = <1>;
+>> +        #size-cells = <0>;
+>> +
+>> +        codec@1a {
+>> +            #sound-dai-cells = <0>;
+> Please follow DTS coding style.
+Thanks for the suggestion. I will follow dts-coding-style.rst in v4.
+>
+> Best regards,
+> Krzysztof
+>
