@@ -1,61 +1,63 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com [209.85.221.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68A803B7751
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:05:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC2E33C8184
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780052734; cv=none; b=MFhzcIl0qBh5A+Ft/DzWLCgCpMl/ZHCNNPWW1Jk6KGDDx1pfQAb68fwN6iavqgHJDZltyyDlTR1JD6zNVX14/X4Po7t0gTHA7sDhyKxJzMu1R/DvGNE9xL3TB3w6WFJoVmRr19b11IE4z+tFfoqr1TBjIG8SSc4BVCs/2CZojZk=
+	t=1780052735; cv=none; b=iDLQ2dbyLQvcmJzPuVCz5XZR+H3CNdkWOg4O0O4+yWhwjSDIoNsGe1DOUjXQrP4QfV/SRLPTZJEFRawdbtk5fXxqkhVMVu00QfrMGovOeRj0EQZaB/CMKAluqZNwGy/hp1P57CmFJ737ftbW3Mkljl84l/ui3LkaTH8o/MsGnCo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780052734; c=relaxed/simple;
-	bh=ncIMr7bQYJygA+4kRTgjU2C1cHSIfr6iw5KJDlUDahU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=sysVt3uY9GW/82ap4za5kVZU1Tums694vH3EmCpRfnist17ypbDUAaC/nvliMWK6yYeJGwni+X3KDRfwjWCQI9Y1+TdCMOC2l/aoQckpFC6WgBNkk5fZQw5UyST06cEid+JT8rGCLcgmH1TlB4p+Jg7L4bXmtualoF/6b5u4IwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lGOMV8A/; arc=none smtp.client-ip=209.85.221.50
+	s=arc-20240116; t=1780052735; c=relaxed/simple;
+	bh=vcyi5hnRuJ28WD6funZf5n/7z2tJgN2WoB93U8zcUBY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KPizwVpiEGoOM+nh4yoxcMf/phvBQpofhwX4xGXgkDEvigvGu/KvWLkjKofRD2kVr38WxY4qmCSMa70opIrsOBOrVXnJ3kX587YtMDm9jlBBrHscBNVmtLl/cXlOdgaBZRo7o81CbfL9XgmEb3pkX0n49t7Cx/zqaCi7NJQKzBo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZjL5dm9C; arc=none smtp.client-ip=209.85.221.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lGOMV8A/"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-45ebafde87cso4810023f8f.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:05:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZjL5dm9C"
+Received: by mail-wr1-f49.google.com with SMTP id ffacd0b85a97d-44e1ebb3122so8346744f8f.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:05:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780052731; x=1780657531; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=qE6RnHPAGUOc6JTeO2foqPr0MsIVa35llYbJ9yTYeCg=;
-        b=lGOMV8A/u9xOBvqHyZnXxJ58CErjW69ovtxZhblYT9izP2SoOQ2y9oqhNCm47htwOE
-         Q0K92kI/TYRSaPJ8GBmMN9m9AKpGVj/jTOb6FklckGI0PP+5IRCAqSRYuey2a/Dh5JXk
-         ZpSSnq/zCqym43xFQdOhNVFpDxNDq+tA/dAPYWCyhQ9Gl1mrMEeqwjmtgf0QeNpraksd
-         sSlikp2+yGiI6zZo/pMNOzc9+g0Sx+huk7YZ1jL9ef5sOCIssYXDzWZC01QYE3iGrggt
-         EqVbahWARGMQf41YGdSr61yUAvRMfEXAcSLdcDOT7mTcAKc1xRTitLk4DF+qTw+BWli3
-         M2cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780052731; x=1780657531;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780052732; x=1780657532; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=qE6RnHPAGUOc6JTeO2foqPr0MsIVa35llYbJ9yTYeCg=;
-        b=DgCAbsHvjqOgQ0h0DtUVyA4bL/3lTfdMyvH9KogxcYnlUMGLw7wkPjZFAV2dmnAHeG
-         BKtu+oVKkKaRc6zcv21IlDybgMbLoj5Q3jFxdVjfhIOuX6fGqMrOD95CxT1SKgBeX7F1
-         Gs4b5d+6TJ/K0+KDxP/N8Rrn4fuyFDxmEgYiqcx/P/plOj1COIQVJGiMY9pnhVojzswH
-         cmQnEDqXQZ2objmMA6ztyvvratZ6XfNf95iPjsjK5dl27938t8u0VzmaEZb+6UziGRnI
-         VRM2FGDexsEHBMsuv9sFaGw2obdOZz48CKT3rZ5LiLd8Xd1v8+myIoCVqL8ryh1naveB
-         wf3w==
-X-Forwarded-Encrypted: i=1; AFNElJ80h67RpnQzYKguA4xknY2mdgKJ7ep+bUv7ltFNYZBlKRh/ktMppg/IwYCLiB4PDftn3RGwNKUjEoEL@vger.kernel.org
-X-Gm-Message-State: AOJu0YwBTJvfXq1rO2le4IdbRIZHEipeqWDvjN23+WaAq78EEQBBEnhy
-	5VFLSBTSeK9V/ByDlVemQ7J+fdqcpzIq4hOMVUp5U2MhaqmPPbdLDenm
-X-Gm-Gg: Acq92OFK7+pFvWuQYMjR7owKUe+nZIb5+9+qT5jGKz+ZqxnjBHP60lp7neKiWaWuRO2
-	qB3s7z1kXo/2qWYETJApAJ6M3CvssUSAEA9SK8lOiS+cUNKRPSFBtWhqo0o8HXxTZJ85xLhiAN6
-	5aU+Y/vlN3hzVBpToq0bEZ6pGcMxS3pmD8cpSJRFpURBSHoAWAgzJt1xZHPBENLUMILuIjiyy5l
-	6BYHfJkAdelIt3Xr4q25ZLPaWltZafJ9XOPHofUc4r4sB2muYDUgfWrYw1ZIf/1XeOB2DrsS25x
-	QTUMwSOmc3yV8S2RP5OVwdAVUYhNYJAivMmEyJQZGVcFM6EIxdGGR8KhaOj5lhFgjEn5EFHkY4C
-	R3NvHq2qN5CGal836TKn6vJ6AB21JXlLiG4BzYlIKKAcEtk0sZTHyspjhbJ27JJCcpWRXOrEc+A
-	lrObOs36FOfuKXzeaFuyiMU/uyA5UQq34pYtEy
-X-Received: by 2002:a05:6000:1a8c:b0:43b:5b25:67f8 with SMTP id ffacd0b85a97d-45ef144a48emr4457888f8f.20.1780052730683;
-        Fri, 29 May 2026 04:05:30 -0700 (PDT)
+        bh=/ufMv3n9NJ42P8gEnrfOAT7W901Jg3eKnLZ21BwY03A=;
+        b=ZjL5dm9C7uF2QCEVAgGfGPoH7lnZXd+K3ND5MP0BBEs0Md8qAMCNpq8wjx4agGBaKd
+         h0/Gd/NRvBD1yrsxm823Eyl+v62JgGpO/QENH/n4dLcJu8+AW1ikrTuM5Gx2ZeX59v82
+         AQuN5OEziHAlt3DB2CD4epyZO78Dq1K0JzU97b6rXhwW9bMKk4AerzL0C1iNDpLm21z1
+         ydbXkELX7wzQ73oewVaPcWcFHDTyCt+rFte1LI+fG5oMLNXEpo3WMI4ftsPkd4cg3HNk
+         GI2aJWuQXOLNqbflCJ9jIdT9Kv08GUiMiXZxqZnBqzkCZNDGQdwbl0CBM/qrRDE5Sr4J
+         9AHA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780052732; x=1780657532;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=/ufMv3n9NJ42P8gEnrfOAT7W901Jg3eKnLZ21BwY03A=;
+        b=qDmm7aSCQsrVf2UOhwoLr40wM5dACf/QjNc7dfQA3HOGsWqhzLNE5DDoi4Od+jA92n
+         V7hagpftHAt1Ce+DA0/lpnKVUvR1oZt37i4sE9LR7dF9ukUHhU0Paw19Hs2rshmfSQr0
+         OWJyioNGJgXLDOBXMM5eBh39d74wyaJVAVEaeK1nY2VflUZ7Y8UmcmOFAWtdXjgbh0Tj
+         q0kWeO54gmork5RQ5KGjeo45IpV2Z7zHbrCRatkGMalTBdVyC+3PMpMcuI4sPuoYTGYf
+         vl9T3oIJroUz8IPwXZn54SZhbG2oNjSSarp3mJpkgqsGdEKuNppHt0UdjO+PPdSiqDB6
+         FMuQ==
+X-Forwarded-Encrypted: i=1; AFNElJ//FpiaR6hR9RaFpbMArHwcwhz5KSkuAOk6t/gOm3DK7h04QVCdNf/TWqIWFxCpfRYzSOYeXzjrrMa9@vger.kernel.org
+X-Gm-Message-State: AOJu0YxuUOPmFSGrilHZkNts/yQ9Hkj3qYRCxqv3EnJ8TPc2qPkPoWbZ
+	tR17O53WMzwXKvpuUaTnJrWPWS3IXJDsTeMRTC/+Bd/H/41OocNO5VMB
+X-Gm-Gg: Acq92OFH7BeCydBWQu7sNc+aYnzvuwTqw+5kk/JZm5uQrecAEgLwxNRdbbKoH5dXRCe
+	KeJzQCbL6KWnsQSpJYVZZMk69YAmChkk6jNkPp8pVL16z0T2r3KKqClOOcv2dCEWTO9Djau9ZEs
+	8Zmb0kkpCqUnj2vm6/FBljGp/9aL1Y5baLVn2HqXk8cVAg7i5DnDIRAxuM5eNaOgnqJ/Jq45Ivb
+	xiqUObQxxEI2Z0TsNF0KpUa7UcfL5ASicWAapUQ0b2+azdeJiIGO+5E83Jl3Ntj+94So2Z4VfUf
+	zYZKLnXqny6T3yEBjWONE6M6UOLIIXe2f5MALdf0J8hAjO2JGjMlJ04CvsPa7mAA8WSoiw47IUL
+	HC4VoTKVnrc1BCuF1f1it77PoCp1JdiBNpDGcNiC+TpvQncEckaffJiwLh3jgs2VvcOrM5p8s8v
+	qGeaWKpevx/G4Te3jVTKjv+2fZjLIRHhtwhw8J
+X-Received: by 2002:adf:e00f:0:10b0:449:c1e8:7655 with SMTP id ffacd0b85a97d-45ef14478c4mr3252609f8f.27.1780052732278;
+        Fri, 29 May 2026 04:05:32 -0700 (PDT)
 Received: from vitor-nb ([2001:8a0:c4c6:f00:7677:753b:2cb5:7f25])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34c3081sm3033663f8f.15.2026.05.29.04.05.28
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34c3081sm3033663f8f.15.2026.05.29.04.05.30
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 04:05:30 -0700 (PDT)
+        Fri, 29 May 2026 04:05:31 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Jessica Zhang <jesszhan0024@gmail.com>,
@@ -68,9 +70,6 @@ To: Neil Armstrong <neil.armstrong@linaro.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
 	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
-	Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
 	Francesco Dolcini <francesco@dolcini.it>,
 	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Thierry Reding <thierry.reding@gmail.com>
@@ -78,11 +77,15 @@ Cc: Vitor Soares <vitor.soares@toradex.com>,
 	dri-devel@lists.freedesktop.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v1 0/2] dt-bindings: display: panel: Add LG LP156WF1 dual-LVDS panel
-Date: Fri, 29 May 2026 12:05:18 +0100
-Message-ID: <20260529110518.624454-4-ivitro@gmail.com>
+	Nishanth Menon <nm@ti.com>,
+	Vignesh Raghavendra <vigneshr@ti.com>,
+	Tero Kristo <kristo@kernel.org>
+Subject: [PATCH v1 1/2] dt-bindings: display: panel: Add LG LP156WF1
+Date: Fri, 29 May 2026 12:05:19 +0100
+Message-ID: <20260529110518.624454-5-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260529110518.624454-4-ivitro@gmail.com>
+References: <20260529110518.624454-4-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -93,44 +96,142 @@ Content-Transfer-Encoding: 8bit
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-Add support for the LG LP156WF1 15.6" Full-HD dual-link LVDS panel and
-a Verdin AM62 overlay for using it through the Verdin Development Board
-with the Verdin AM62 Mezzanine LVDS interface.
+Add device tree binding for the LG LP156WF1 15.6" Full-HD (1920x1080)
+dual-channel LVDS panel.
 
-This is a follow-up to an earlier attempt [1], where panel-lvds.yaml
-was incorrectly extended to describe dual-link panels. Back in 2023,
-when a generic dual-channel LVDS binding was proposed, Rob Herring [2]
-pointed out that dual-link panels should follow the existing
-advantech,idk-2121wr pattern instead of introducing a new generic
-compatible.
+Also add lg,lp156wf1 to the panel-lvds.yaml exclusion list to prevent
+false schema matches.
 
-Following that approach, this series adds a dedicated binding for
-lg,lp156wf1, with the dual-link LVDS ports described by
-lvds-dual-ports.yaml, and excludes it from the generic panel-lvds
-schema selection.
-The second patch adds the Verdin AM62 overlay for the LG LP156WF1 panel
-on the Mezzanine LVDS connector.
-
-This series should be applied on top of [3] to avoid conflicts in the TI
-device-tree Makefile with the other overlay additions.
-
-[1] https://lore.kernel.org/all/20260521150038.103538-17-ivitro@gmail.com/
-[2] https://lore.kernel.org/all/20230130170441.GA2796575-robh@kernel.org/
-[3] https://lore.kernel.org/all/20260522161105.277519-13-ivitro@gmail.com/
-
-Vitor Soares (2):
-  dt-bindings: display: panel: Add LG LP156WF1
-  arm64: dts: ti: k3-am62-verdin: Add Mezzanine with LG LP156WF1 LVDS
-    panel
-
- .../bindings/display/panel/lg,lp156wf1.yaml   | 105 ++++++++++++++
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+---
+ .../bindings/display/panel/lg,lp156wf1.yaml   | 105 ++++++++++++++++++
  .../bindings/display/panel/panel-lvds.yaml    |   1 +
- arch/arm64/boot/dts/ti/Makefile               |   5 +
- ...verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso | 131 ++++++++++++++++++
- 4 files changed, 242 insertions(+)
+ 2 files changed, 106 insertions(+)
  create mode 100644 Documentation/devicetree/bindings/display/panel/lg,lp156wf1.yaml
- create mode 100644 arch/arm64/boot/dts/ti/k3-am625-verdin-dev-mezzanine-lvds-lg-lp156wf1.dtso
 
+diff --git a/Documentation/devicetree/bindings/display/panel/lg,lp156wf1.yaml b/Documentation/devicetree/bindings/display/panel/lg,lp156wf1.yaml
+new file mode 100644
+index 000000000000..6b91c2ea4827
+--- /dev/null
++++ b/Documentation/devicetree/bindings/display/panel/lg,lp156wf1.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/display/panel/lg,lp156wf1.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: LG LP156WF1 15.6" Full-HD dual-LVDS panel
++
++maintainers:
++  - Francesco Dolcini <francesco@dolcini.it>
++
++description: |
++  The LP156WF1 from LG is a 15.6" Full-HD dual-LVDS panel.
++  A dual-LVDS interface is a dual-link connection with even pixels traveling
++  on one link, and with odd pixels traveling on the other link.
++
++allOf:
++  - $ref: /schemas/display/lvds-dual-ports.yaml#
++  - $ref: panel-common.yaml#
++
++properties:
++  compatible:
++    items:
++      - const: lg,lp156wf1
++      - {} # panel-lvds, but not listed here to avoid false select
++
++  width-mm:
++    const: 345
++
++  height-mm:
++    const: 194
++
++  data-mapping:
++    const: jeida-24
++
++  panel-timing: true
++
++  ports:
++    $ref: /schemas/graph.yaml#/properties/ports
++
++    properties:
++      port@0:
++        required:
++          - dual-lvds-odd-pixels
++
++      port@1:
++        required:
++          - dual-lvds-even-pixels
++
++    required:
++      - port@0
++      - port@1
++
++required:
++  - compatible
++  - width-mm
++  - height-mm
++  - data-mapping
++  - panel-timing
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    panel-lvds {
++      compatible = "lg,lp156wf1", "panel-lvds";
++      width-mm = <345>;
++      height-mm = <194>;
++      data-mapping = "jeida-24";
++
++      panel-timing {
++        clock-frequency = <138500000>;
++        hactive = <1920>;
++        hback-porch = <40>;
++        hfront-porch = <24>;
++        hsync-len = <16>;
++        vactive = <1080>;
++        vback-porch = <23>;
++        vfront-porch = <3>;
++        vsync-len = <5>;
++      };
++
++      ports {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        port@0 {
++          reg = <0>;
++          dual-lvds-odd-pixels;
++          panel_in0: endpoint {
++            remote-endpoint = <&lvds0_out>;
++          };
++        };
++
++        port@1 {
++          reg = <1>;
++          dual-lvds-even-pixels;
++          panel_in1: endpoint {
++            remote-endpoint = <&lvds1_out>;
++          };
++        };
++      };
++    };
++
++...
+diff --git a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+index b89f86bc0683..fbe8c162ca59 100644
+--- a/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
++++ b/Documentation/devicetree/bindings/display/panel/panel-lvds.yaml
+@@ -28,6 +28,7 @@ select:
+             - advantech,idk-1110wr
+             - advantech,idk-2121wr
+             - innolux,ee101ia-01d
++            - lg,lp156wf1
+             - mitsubishi,aa104xd12
+             - mitsubishi,aa121td01
+             - sgd,gktw70sdae4se
 -- 
 2.54.0
 
