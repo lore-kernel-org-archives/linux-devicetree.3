@@ -1,163 +1,148 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F6ED374736;
-	Fri, 29 May 2026 18:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3D40318BA6
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:21:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780078798; cv=none; b=fSQObt87aAH0CVoptChSxizZ8bA/5k6BspmomM582V4Bdie9hT1mVMin54UwGnN8BbMtrISVKc/K2Fmkn8k65pAcmBHaoWhqYsMn2v8wrXD94CbpcWj0c74wdNZQVkbYFQnMLi6L1C5XRXCltK/OqLuxuqUvKEEcgZRLM+kzgAw=
+	t=1780078879; cv=none; b=UUu18NmthKtv5odmUbiuRBoXD5Kc5EvTGPmWQ7mdzMpKR6fn/JNtuUcWH+uYhH6T7d7sFkUkWjo8YPB3OdLbOuTgXFdclrLfk7S8KlC2s8lxxCfqX1nL0JLdrb2ntD0gE2D/yrCEnG6jQ1uM6MTlXx0ypuRC/cPNpQwBhAxu49g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780078798; c=relaxed/simple;
-	bh=lQQ9UKkCCo4X00g358hsjsmmFFDIODp5TofSrcvJerQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=moyhnmQThxaFfdH8wt19lajPdMzqto/M5xD1GM/yFO+IqDBMm19IgwcRgdW5iETv1oXQM158Qe4vNQPBA6zJ6C+fQZ9BOSApU43vZc8jSAPMC/uhfPcAvT2mdGOKzTFz74dhoQhx65pt5oRyrlqTDJlhx7OsYmaKJlyi6YkbP3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=iudeHZxJ; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1780078879; c=relaxed/simple;
+	bh=I96NCFOJVWNwqBltV022jffEvkOwTtZBtO0vftPJUkE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mqE/+WolRzWeJ/Iqk1Sj9Ir9YzzdGZBJXLUTkOiekpxNrMAJfr+CXTgDRYC5CQ0MJWi4WN9U+FhmJg/ptYZjo3r2fAE5dbbyCb1Eyb2phUZm5v3S8nk7P7M6JzHQBThL3Ted3iXZDWOGJcvsqeXpwIk98DhmPFVzs7cp38k0DMU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hF5xbDl/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="iudeHZxJ"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=MezAljbMtu/a/IWnbTDAtFD/p1r8DFJmzsXD7QfO5sE=; b=iudeHZxJStlryOmQAUHhsleY6G
-	6XU21yner9VdSVJz2LnIP66KoBRM3GZ3FMalVNbytmY4chArURs0O4Um31YsLhxSP9UTyIuvArUnr
-	pBGSlvQyxFlIV9a7MRAPChCJ6sewkACEUUtK80hGptBuDlq5bOXMgBph63rx5Y/70Pg9cClKVjBbe
-	alBOV5l6R8Yivt0+ULO6bzAQiwKRScSZ1Po2AjcaSpWhJKxpkZV6B974c8sCnfmy1R5ppPEgk+xjg
-	2/2M59Qq6ylmGuu8I5GcIDs/cUXizKa+cYPYXKQ+yGa3OJYrwUYgV9u0OuW8Q/aC+PgkFYeKPlDNb
-	H3E2FJjw==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Tomeu Vizoso <tomeu@tomeuvizoso.net>, Oded Gabbay <ogabbay@kernel.org>,
- MidG971 <midgy971@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- Midgy BALON <midgy971@gmail.com>
-Subject: Re: [PATCH v2 1/4] accel: rocket: Add support for Rockchip RK3568
-Date: Fri, 29 May 2026 20:19:50 +0200
-Message-ID: <5132269.NnENhoQgcM@phil>
-In-Reply-To: <20260529155824.3099831-2-midgy971@gmail.com>
-References:
- <20260529155824.3099831-1-midgy971@gmail.com>
- <20260529155824.3099831-2-midgy971@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hF5xbDl/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 007AC1F00893;
+	Fri, 29 May 2026 18:21:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780078878;
+	bh=7L4Nefg1MpJZXVjG9kFg5PWnu/7Y78YZ+KrJSEOcupk=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=hF5xbDl/21VvZ3i7SSIRLqLLtiAeRs0rDpj+RVxDGudhgNM6elubTG/iHFTkmbxjQ
+	 VY0BoEjpWrGUfUW4/9pl3h0rr/sj2QqDkTVoySUllWwj8ajLiE+U8C4BJ0NGHWrYc6
+	 5zE1WFUVK5b/Bo6i1S5ZF8LAJrPBGrNjDG1wQ7ukFgpibfSmNxSAmGXD9LYDEdOV59
+	 hW5Ji30uJH9W1H04iQNHvzRB2CLO4XxviAEYaMC1rmSJoDGY+3oR46oeAFceg8Cdbo
+	 soAuo5jVSlqspdOIcNuuPujAOa2JfLY/Q1qXZqBQrxD282O2Gd0zkf/5V0jKqB11u7
+	 lpNCbfceLZtvg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 phy-next 14/15] phy: lynx-10g: new driver
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, robh@kernel.org, olteanv@gmail.com
+In-Reply-To: <20260529171509.1163787-15-vladimir.oltean@nxp.com>
+References: <20260529171509.1163787-15-vladimir.oltean@nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 18:21:17 +0000
+Message-Id: <20260529182118.007AC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
 
-Hi,
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-Am Freitag, 29. Mai 2026, 17:58:21 Mitteleurop=C3=A4ische Sommerzeit schrie=
-b MidG971:
-> From: Midgy BALON <midgy971@gmail.com>
->=20
-> The RK3568 has a single NVDLA-derived NPU core (0.8 TOPS), the same IP
-> family as the three-core RK3588 NPU already supported by the Rocket
-> driver. To accommodate both SoCs:
->=20
->   - Introduce a per-SoC rocket_soc_data structure carrying dma_bits and
-> an optional noc_init callback, plumbed through of_device_get_match_data().
->   - rocket_device_init() now scans for both rk3568 and rk3588 RKNN cores
-> and picks the narrower DMA width (32-bit) when an RK3568 core is present.
->   - Add rk3568_soc_data and rk3568_noc_init() handling the three RK3568-
-> specific initialisation steps that must run after the power domain is
-> on and clocks are enabled:
+New issues:
+- [High] Incorrect restoration of the PCCR mux configuration because `0` is=
+ treated as uninitialized.
+- [High] Potential timing violation when bringing lanes out of reset and po=
+wer down simultaneously.
 
-if you need bullet points to describe your patch, that strongly indicates
-these need to be multple patches.
-I.e. the move of the relevant parts to a per-soc data is one patch
-(and only having the rk3588 soc-data in that one).
+Pre-existing issues:
+- [High] lynx_xlate can return a NULL pointer for unprobed PHY lanes, leadi=
+ng to a NULL pointer dereference in the PHY core framework.
+--
 
+commit 851e6824db7b03958722b9808f3549609168de99
+Author: Vladimir Oltean <vladimir.oltean@nxp.com>
 
+phy: lynx-10g: new driver
+   =20
+Introduce a driver for the networking lanes of the 10G Lynx SerDes
+block, present on the majority of Layerscape and QorIQ (Freescale/NXP)
+SoCs.
 
->=20
-> 1. PVTPLL initialisation: The NPU uses a PVTPLL ring oscillator
->    managed by TF-A via SCMI for rates above 400 MHz. A two-step
->    clk_set_rate() sequence (600 MHz then 1 GHz) forces two SCMI calls
->    to TF-A even if the kernel clock framework would skip an unchanged
->    rate. The PVTPLL must be running before the NPU NOC bus will
->    acknowledge a de-idle request.
->=20
-> 2. Explicit NPU power-on (PWR_GATE_SFTCON): The RK3568_PD_NPU power
->    domain is marked always_on in pm-domains.c, so the generic power
->    domain framework power_on() callback is a no-op. The NPU hardware
->    can remain power-gated at boot. Writing bit 1 =3D 0 to PWR_GATE_SFTCON
->    (PMU offset 0xa0) explicitly powers on the NPU hardware before the
->    de-idle request is issued.
->=20
-> 3. NOC bus de-idle: Disable NPU NOC auto-idle (NOC_AUTO_CON0 bit 2),
->    request de-idle (BUS_IDLE_SFTCON0 bit 2 =3D 0), then poll
->    BUS_IDLE_ST (PMU offset 0x60) until bit 2 clears (bus active).
->=20
-> The RK3568 DMA address space is limited to 32 bits, as the NPU AXI bus
-> and IOMMU page walker cannot address memory above 4 GB.
->=20
-> All PMU accesses follow the RK3568 write-mask protocol: upper 16 bits are
-> the write-enable mask for the lower 16 bits.
->=20
-> Signed-off-by: Midgy BALON <midgy971@gmail.com>
-
-[...]
-
-> diff --git a/drivers/accel/rocket/rocket_device.c b/drivers/accel/rocket/=
-rocket_device.c
-> index 46e6ee1e7..0ed8251c8 100644
-> --- a/drivers/accel/rocket/rocket_device.c
-> +++ b/drivers/accel/rocket/rocket_device.c
-> @@ -27,6 +27,9 @@ struct rocket_device *rocket_device_init(struct platfor=
-m_device *pdev,
->  	ddev =3D &rdev->ddev;
->  	dev_set_drvdata(dev, rdev);
-> =20
-> +	for_each_compatible_node(core_node, NULL, "rockchip,rk3568-rknn-core")
-> +		if (of_device_is_available(core_node))
-> +			num_cores++;
->  	for_each_compatible_node(core_node, NULL, "rockchip,rk3588-rknn-core")
->  		if (of_device_is_available(core_node))
->  			num_cores++;
-> @@ -37,9 +40,25 @@ struct rocket_device *rocket_device_init(struct platfo=
-rm_device *pdev,
-> =20
->  	dma_set_max_seg_size(dev, UINT_MAX);
-> =20
-> -	err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(40));
-> -	if (err)
-> -		return ERR_PTR(err);
-
-for both changes in rocket_device_init():
-
-rocket_device_init() gets called from the main probe function, so before
-calling rocket_device_init() you can already access the specific soc data
-from the compatible and can derive both that for_each above, and the dma-
-width, directly from that.
-
-No need for that loop below.
-
-> +	/* Use the DMA width of the first available RKNN core.  RK3568 cores
-> +	 * are 32-bit; RK3588 are 40-bit.  If both are present we pick the
-> +	 * narrower mask.
-> +	 */
-> +	{
-> +		struct device_node *n;
-> +		unsigned int dma_bits =3D 40;
+> diff --git a/drivers/phy/freescale/phy-fsl-lynx-10g.c b/drivers/phy/frees=
+cale/phy-fsl-lynx-10g.c
+> index 0000000000000..9b04d6a4b825a
+> --- /dev/null
+> +++ b/drivers/phy/freescale/phy-fsl-lynx-10g.c
+[ ... ]
+> +static int lynx_10g_lane_enable_pcvt(struct lynx_lane *lane,
+> +				     enum lynx_lane_mode mode)
+> +{
+> +	struct lynx_priv *priv =3D lane->priv;
+> +	u32 val;
+> +	int err;
 > +
-> +		for_each_compatible_node(n, NULL, "rockchip,rk3568-rknn-core")
-> +			if (of_device_is_available(n)) {
-> +				dma_bits =3D 32;
-> +				of_node_put(n);
-> +				break;
-> +			}
-> +
-> +		err =3D dma_set_mask_and_coherent(dev, DMA_BIT_MASK(dma_bits));
-> +		if (err)
-> +			return ERR_PTR(err);
+> +	spin_lock(&priv->pcc_lock);
+[ ... ]
+> +	if (lane->default_pccr[mode]) {
+[Severity: High]
+Can this condition incorrectly fall through to hardcoded defaults if a valid
+mux configuration of 0 is backed up?
+
+Since default_pccr is zero-initialized by devm_kcalloc(), a backed-up value
+of 0 evaluates to false. This skips the restoration and allows the driver to
+apply hardcoded defaults later, which could permanently reroute the hardware
+lanes and break the network interface.
+
+> +		err =3D lynx_pccr_write(lane, mode, lane->default_pccr[mode]);
+> +		goto out;
 > +	}
+> +
+> +	val =3D 0;
+[ ... ]
+> +static int lynx_10g_power_on(struct phy *phy)
+> +{
+> +	struct lynx_lane *lane =3D phy_get_drvdata(phy);
+> +
+> +	if (lane->powered_up)
+> +		return 0;
+> +
+> +	/* The RM says to wait for at least 120ns between per lane setting have
+> +	 * been changed and the lane being taken out of reset
+> +	 */
+> +	usleep_range(1, 2);
+> +
+> +	lynx_lane_rmw(lane, LNaGCR0, LNaGCR0_RRST_OFF | LNaGCR0_TRST_OFF,
+> +		      LNaGCR0_RRST | LNaGCR0_TRST |
+> +		      LNaGCR0_RX_PD | LNaGCR0_TX_PD);
+[Severity: High]
+Does this code violate typical PHY hardware sequencing by clearing both the
+power-down bits and digital reset bits simultaneously?
 
+Releasing the digital reset at the same time as activating the analog
+components doesn't leave time for the analog circuitry to stabilize. The
+prior usleep_range() occurs before power-up is initiated, which might not
+prevent hardware lockups or unreliable behavior on link up.
 
-Heiko
+> +
+> +	lane->powered_up =3D true;
+> +
+> +	return 0;
+> +}
+[ ... ]
+> +static int lynx_10g_probe(struct platform_device *pdev)
+> +{
+> +	return lynx_probe(pdev, of_device_get_match_data(&pdev->dev),
+> +			  &lynx_10g_ops);
+> +}
+[Severity: High]
+This is a pre-existing issue, but does the core PHY framework crash if
+lynx_xlate() returns a NULL pointer for an unprobed PHY lane?
 
+If a PHY lane is requested via device tree but the driver did not probe it,
+priv->lane[idx].phy will be NULL. If lynx_xlate() returns this NULL pointer,
+the core PHY framework interprets it as a successful retrieval of an option=
+al
+PHY and might attempt to dereference it. Would it be safer to explicitly
+return ERR_PTR(-ENODEV) in lynx_xlate() when the phy pointer is NULL?
 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529171509.1163=
+787-1-vladimir.oltean@nxp.com?part=3D14
