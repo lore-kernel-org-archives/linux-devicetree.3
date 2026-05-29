@@ -1,143 +1,104 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A17333067C;
-	Fri, 29 May 2026 11:10:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4F623B8127
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:10:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780053030; cv=none; b=ZlCFzUOjOjmr32V1uyDDSJFgfpflq91S4e7EyvlhpoCQ+6zLrDr2IBKgV5Gs8kpLucrWQ7dMk8ay2jOiu7IilKYVy361XIRIsMuNEAkECYUcUUco5s/UQX8RprmnTH4F6bLFpHKTTUahjfLL4zjyQK/66e5KHlb0pRkizJWhc2M=
+	t=1780053043; cv=none; b=Vl8Wv8BfngsyciXyx5EtvLSyvqOImbr7Aj3jMqN/NioIwB+ut/p45aN04mBciCZHFwkqLMkslVW4wTN7yEOqV12E1kXf4l8xH0CCx9gSCNVqjXvphIC9Wbk1aMqCvjulpRGgrKtGdb79Kenk3NC8Yvdqzp1rhxOpM9rjMAm+r5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780053030; c=relaxed/simple;
-	bh=ANtpuVqE9Cwp87X1vN7zPmC9cfnxtdTbe9wBuu1OjwY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=r8AAh6WBoOAh10J4ECtuUVcyQXSLWpbEqW6yQHvcFh2rI2r9YasR+pzSjNp2+k8S9sGiuv97OnsVmnxhzUlv5kQ1yEqp1Nm5j152n1TzhWmfAb1RoAALimEEo74BHBoLBkra+d40UK3Y5XrWFYY77qYJOZB1YrWAOWA+8/p9mQ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WIL3Gdzx; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1780053043; c=relaxed/simple;
+	bh=VwGJ1aVISsmjGLnoNcjoGKPnok5e19Xi0seckWEDRu0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DZYyNyzDMWuLq11c3/B9ZxbcKS/nyLlF+gyL7EX+YXX9uzgKEAAQ2ZWicSK/QTAUf2XPG+UttaP8poZDM0ghSqnk0yI4qaffpHpKY3hM+0aRmsA34t92GM/Lh88S73J4y3wOdONaoPJ1OEO1c0PG1jpKeW2Wdv+VcRr8GpjqFUM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=zHK8lmBu; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WIL3Gdzx"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 797CB2247;
-	Fri, 29 May 2026 04:10:22 -0700 (PDT)
-Received: from [10.57.24.26] (unknown [10.57.24.26])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 49F6B3F905;
-	Fri, 29 May 2026 04:10:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1780053027; bh=ANtpuVqE9Cwp87X1vN7zPmC9cfnxtdTbe9wBuu1OjwY=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=WIL3GdzxBxmJSnUDNqMsnouS28X6VxiafbOsL1XT/1nMLBXyH4p5s/tjvjFCKjPti
-	 145U2ZMaKHi33IcJARgrRtXXnkgdfsFigQxuAPsCDW7lm4zMC9EfCNyPpqAIaSIk5/
-	 Fi/pXCCD64ZanA55UaMsCGT6fzrmxnEwGiYUC0VA=
-Message-ID: <6b7294a1-8c13-42aa-9f64-5b5c9af0b41f@arm.com>
-Date: Fri, 29 May 2026 12:10:23 +0100
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="zHK8lmBu"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso70252275e9.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:10:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780053040; x=1780657840; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=VwGJ1aVISsmjGLnoNcjoGKPnok5e19Xi0seckWEDRu0=;
+        b=zHK8lmBucbZ1kGYWNxWdhPPADUlkMHzI3vr/HtsrxyRdyVZ5iG3yZ9ZYZ57JdWiK8O
+         Nj8/ghwxaaR9CN2MwOzZftw6rWW5HY0/VgIk8uWJEEVMnvoeR0jiiV4j2K+iPZNDHjY/
+         9OgFRmOq6lzmOS7R44nxtdSpkaGmRKzaIuG6GxMxUpR+4ix131SJVw4fclFmord8xWV6
+         5qP0M0B+H24ll019X3oA1PztnydZq7Xmwq4/8bvp+VbE/UP9UETZ5zybyKl7IoBreLZm
+         1wEMEitUqJog6Sz0xtKz1eCC7dgcDpPmMf746vzVqLxWRsu8QSDGuJgSik4+lf1xmny5
+         Pjgw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780053040; x=1780657840;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=VwGJ1aVISsmjGLnoNcjoGKPnok5e19Xi0seckWEDRu0=;
+        b=TpnUa75kvP9SLpEOTXx8wRpcKcaWE41r7ig8hUiOWjYqauQZgwmRD35woedC2TfhrM
+         7fqENYcAG+ceaQUXjsNDifoJlT3sbf53dyR8dzvQhVQbzCZLATqjEf7E0MjpTt9AFtDY
+         n4O3tdP8PLgzJKGYTisX+6AAGpzy+Zy3KrMmL0X04UvnQ1Q3AQ5fCHzC+QeGmz9oEQ0x
+         pdWRTrCa9nf41r4K+3q9w2qbJ9JJF3IHPhz11kZd+qqGc9mx+eirYYSmkQ3Wix2oeDPw
+         wbKzBkk5+NYjMHfWhHxXeHtIe2IG1OVowD9DmrkK5of8pqesUCjqpoJInH5qld4H4x6H
+         L3kA==
+X-Forwarded-Encrypted: i=1; AFNElJ+SNI8JXb4qW88PSxrk/N4bDLZXdnW/b6QBdXxFA7ue4lkTMFkVi6opCz9bGfEy232heFbbgbuxaoPs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy7y1ezDn3j9soKSjGR1Bf2l6SMN6tVVDL/DBQxo4NqNigXjl2A
+	MUCII/+aWSt3ztWnk8l24Eig+uT0hyEZnlS+9r1E08XLZUCcYnN+mSy+zJBlSVAtofo=
+X-Gm-Gg: Acq92OGajEYROYBpYzBql4H7eLU2N2Z0FeOOBFFVwj5O4zoNXavgIcQmwyrOsCEAk6C
+	CBkzJxDzSL5gcP8KzUbSQq5bm627Rb0K0fvtcO8GvskRn4oT8vonmqDfk71MHCCJjmocMxIPSsm
+	9vnHYsDwE4mtPsDl3yKKb50PQRyf6njrAKi3atJoXU08QqQO9t5qbkDiegmseXa5z112VipiOR3
+	mBcKVT3OS5eLBAhBhJnMo5sA96/dglhbzd1l1EzHpaOBPVgVMcrb7eVHNeUBhOzpJRfNSHupAUh
+	MW5gMSExruzZO0GPuq9UhDac4KdRJJfhmZqKKCo19d7NR9ynd22NoubzIHaxIt6TQRi3ugGRqdG
+	gqte6mSIYHZF7jTNotxFH9YVg7/j9PRoOc00eEKN33oaFX557HZas7cD0lv+tOiWGM3wPc17TQF
+	EJpumaPZofXfQCkgyLCSkrsditGwA549ihxOnnKULO86IlU5USfX5Cm83LEihjXWM63XLwFt+8z
+	UZQpT7uVEKporQ+k8Bvz83EfSpf+9upfrAQlhTLq1lYUqqekqISkuGZ/sgpZzZWfE2X7aEreJE3
+	PaskltPpa4vN8LnYYtmBnNwstM6oYg==
+X-Received: by 2002:a05:600c:4595:b0:490:52fb:12dd with SMTP id 5b1f17b1804b1-4909c0a4c85mr41540435e9.10.1780053040047;
+        Fri, 29 May 2026 04:10:40 -0700 (PDT)
+Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c103b98sm11912765e9.19.2026.05.29.04.10.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 04:10:39 -0700 (PDT)
+Date: Fri, 29 May 2026 12:10:37 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 5/6] video: backlight: lm3533_bl: Set initial mapping
+ mode from DT
+Message-ID: <ahl0La8OQHXAlV3m@aspen.lan>
+References: <20260528135123.103745-1-clamor95@gmail.com>
+ <20260528135123.103745-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 0/3] Enable CTCU and ETR devices for multiple QCOM
- platforms
-To: Jie Gan <jie.gan@oss.qualcomm.com>, Mike Leach <mike.leach@linaro.org>,
- James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260204-enable-ctcu-and-etr-v3-0-0bb95c590ae1@oss.qualcomm.com>
- <545b4ebb-2c7e-480d-80bb-5e08dd3c52a7@arm.com>
- <f2f23d0a-dc24-4a06-948d-56df913994ba@oss.qualcomm.com>
-Content-Language: en-GB
-From: Suzuki K Poulose <suzuki.poulose@arm.com>
-In-Reply-To: <f2f23d0a-dc24-4a06-948d-56df913994ba@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260528135123.103745-6-clamor95@gmail.com>
 
-On 29/05/2026 11:26, Jie Gan wrote:
-> 
-> 
-> On 2/27/2026 6:10 PM, Suzuki K Poulose wrote:
->> Hello,
->>
->>
->> On 04/02/2026 02:22, Jie Gan wrote:
->>> The DT‑binding patch adds platform‑specific compatibles for the
->>> CTCU device, and the following Qualcomm platforms are included:
->>> Kaanapali
->>> Pakala(sm8750)
->>> Hamoa(x1e80100)
->>> Glymur
->>
->> Given this is predominantly DTS changes, and there is very low chances
->> of a conflict with the binding yaml change, I would recommend this to go
->> via soc or the qcom platform tree.
->>
->> For the series:
->>
->> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
-> 
-> Hi Suzuki,
-> 
-> May I ask is there a chance this patch series could go through the 
-> CoreSight tree?
+On Thu, May 28, 2026 at 04:51:22PM +0300, Svyatoslav Ryhel wrote:
+> Add support to obtain the initial mapping mode from DT instead of leaving
+> it unconfigured. Additionally, update the linear sysfs code, which uses a
+> similar coding pattern.
 
-Like I said, it is mostly Qcom platform changes. So, I would leave it to
-the appropriate channel
-
-Suzuki
+Words like "additionally" in a patch description can be a sign the patch
+should actually be two patches. In this case the patch would be a lot
+easier to read if you cleaned up the linear sysfs code (patch N) and then
+added the new DT logic (patch N+1).
 
 
-> 
-> Thanks a lot.
-> Jie
-> 
->>
->>
->>>
->>> Since the base Coresight DT patches for the Kaanapali and Glymur
->>> platforms have not yet been applied, I created DT patches only
->>> for the Pakala and Hamoa platforms. I will submit the Kaanapali
->>> and Glymur patches once their corresponding base Coresight DT patches
->>> are merged.
->>>
->>> The Hamoa‑related patches were posted in a separate email, and I
->>> have included them in the current patch series.
->>>
->>> Link to the previous Hamoa patch series:
->>> https://lore.kernel.org/all/20251106-enable-etr-and-ctcu-for-hamoa- 
->>> v2-0-cdb3a18753aa@oss.qualcomm.com/
->>>
->>> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
->>> ---
->>> Changes in v3:
->>> - change back to the numeric compatible from hamoa to x1e80100.
->>> - Link to v2: https://lore.kernel.org/r/20260203-enable-ctcu-and-etr- 
->>> v2-0-aacc7bd7eccb@oss.qualcomm.com
->>>
->>> Changes in v2:
->>> - change back to the numeric compatible from pakala to sm8750.
->>> - Link to v1: https://lore.kernel.org/r/20260203-enable-ctcu-and-etr- 
->>> v1-0-a5371a2ec2b8@oss.qualcomm.com
->>>
->>> ---
->>> Jie Gan (3):
->>>        dt-binding: document QCOM platforms for CTCU device
->>>        arm64: dts: qcom: hamoa: enable ETR and CTCU devices
->>>        arm64: dts: qcom: sm8750: enable ETR and CTCU devices
->>>
->>>   .../bindings/arm/qcom,coresight-ctcu.yaml          |   4 +
->>>   arch/arm64/boot/dts/qcom/hamoa.dtsi                | 160 ++++++++++ 
->>> + +++++++-
->>>   arch/arm64/boot/dts/qcom/sm8750.dtsi               | 177 ++++++++++ 
->>> + ++++++++++
->>>   3 files changed, 340 insertions(+), 1 deletion(-)
->>> ---
->>> base-commit: 193579fe01389bc21aff0051d13f24e8ea95b47d
->>> change-id: 20260203-enable-ctcu-and-etr-31f9e9d1088d
->>>
->>> Best regards,
->>
-> 
-
+Daniel.
