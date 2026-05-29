@@ -1,149 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0A6C53C1413
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:43:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B41A243964
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:45:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780051411; cv=none; b=AAnzdlfKvd9LjZ4DYvReGWRGF+KVH7Ma9QKAfmkq1z1wTAV+MYgwt1KhoBOyaK0/2s/f8ExkjBHJMaI60xcszxyY63GNhqTgtLA5kAr69bdv67Z2jYtPdbxsVThIPKBnS6THQLh4TWqclnwKCq/b4/X40tqHSt3RDgg4Kdidfmc=
+	t=1780051509; cv=none; b=sIzIDSJoZW6/CJP15oVJ/WPd2rONK3ofuMYZkHAl/hFvVeMGys3Zo+CxoC7MaZ6/edz1Bp71bVpEEWKx6V6jfqAEsSqRSXkkA5BCyIsssZyl+j+IHAS1sA1kcvgSd8rdHYVWduBW3Wcqqu9QDWWoSTYUkBga+1JEgAQYOsW8WDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780051411; c=relaxed/simple;
-	bh=VqZwbtPTw64Ye8uhAbMDDoRjJy2MzArmNS6cMu5aQzI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Vfa8LAQ39MAI1WDJWjkiAjQbPPm2Nie2He8ks1pzlyX72+ojmxqFiUA3BgSqW11qT1XBkKjA0N1DUubTeK6MmDRhfXN+8L7Q9lgOnWWN/gvBOdesOUaVst5wHJOCiUR9HsHnT99JaYaPNYZeT8kWVg0NRJ6Cq/R6fxgingXzT20=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HwsWPhYv; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780051509; c=relaxed/simple;
+	bh=q55Pjcfb2A1CxLtDZiG6QmMCJacAXgOldx4XPKN2Vm0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bE1xJAQgHdaugMs/WFCYmNOl0k3cp7r75yta7Zj4G0m0gw9GSj12wyetFnbEKWflzQm+F+FCRS6Jh+GBGJCXPnbIMvuCaqx+1ONrP4PLbUec4cxoXO3vHq3u15eEjViGvdEBH60bolyRcrgKHLeodUvtNpUadGeeuimyfewC7fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=none smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=EsKqCMVt; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HwsWPhYv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BB431F00893;
-	Fri, 29 May 2026 10:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780051409;
-	bh=ldVvGmbOnvo2IS7G36I+48opYBrkjWBWwFojVL/xKqU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HwsWPhYvygbM56QSmh6NiDWUPB7Obh9vOFgnrHBUjx5iKxK5Ehqr7lKVABzQBUfox
-	 3htlJcaH/vn2n+m9TZ1pajDrjLWyK/uQ5Lm7oyeBU9H4Ky46dcFFmzwMdxyrB21Yb0
-	 6g6pky8VnH+5ZdrypeZsZTE7rM+s4p9RHZJKxt9lYN3aKWUh+kakEN34ieNZyWZunb
-	 /x6UXYhSL8u4VpgcbWZxQaU4Zx2koTrpdBpAfY5a2Oy1a8vNGAXVgE0SAcdkCSA+TT
-	 xKcATu/XbImjMz7tY6ZCCqowkaFD20YWR+1Y0lXhyUcOMDiWhbD9JM413cCaeRxvg+
-	 pwVQpdVZuaKpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
- DSI bridge
-Reply-To: sashiko-reviews@lists.linux.dev
-To: syyang@lontium.com
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260529094547.869919-3-syyang@lontium.com>
-References: <20260529094547.869919-3-syyang@lontium.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 10:43:29 +0000
-Message-Id: <20260529104329.9BB431F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="EsKqCMVt"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id E75944C5406;
+	Fri, 29 May 2026 12:45:03 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1780051504; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=NShxFgkqhFlPX3eSj7GlXncQnVCS3gHIKneKdTli3fc=;
+	b=EsKqCMVtNckAwU+RvMPeIaLTlCjD+rRXCqlK4B2ZA9f92jpK7U927vSRFCmE1XhifVuOGH
+	dnDSCBppv2VLqR+8qnY+AyySLSgUfK80nm8zX5GT9LllO2a2Z2W9BKnn5J/mKPolWKRodq
+	/gCeMTzT2jX/cnSrzAjJqGR7Xn/T+Ws9EAds+Dbl8L011E74OzoIXNB0nih6HblieFPDlt
+	p6gLiFY0uql5B4dgoWa63dBnmSWU/2B74driHVT6by6dW7/BFwGVg7eLflB/ygJKYrRwaM
+	jPvdUs2AFAa5IiCjHx4YU7nN9I5VrJuw1lkxbSccYdjy9B5rZD4WkQtGtNo0zw==
+Message-ID: <cd226f30-88ea-4ddd-abb3-7ef3a24f363e@cjdns.fr>
+Date: Fri, 29 May 2026 12:45:02 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH v6 5/5] clocksource/timer-econet-en751221: Support
+ EN751627 without percpu IRQ
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260528140046.2897674-6-cjd@cjdns.fr>
+ <20260528164158.CDE151F00A3A@smtp.kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260528164158.CDE151F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] AB-BA / self-deadlock between the bridge's ocm_lock and DRM modese=
-t locks during hotplug notification.
-- [High] Freeing the panel bridge in lt7911exc_dsi_host_detach while it is =
-still attached to the DRM bridge chain causes a Use-After-Free.
---
 
-commit ca8c39080d5fa5c9d8946d55f3858864628e4bf7
-Author: Sunyun Yang <syyang@lontium.com>
+On 28/05/2026 18:41, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
+> - [High] The interrupt handler incorrectly relies on `this_cpu_ptr` for standard IRQs, causing an interrupt storm if the IRQ executes on a different CPU.
+This should not be a real issue because cevt_init_cpu() calls 
+irq_force_affinity() and on error the IRQ is never enabled. It could be 
+nice to create a dev_id which is used for both percpu and 
+IRQ-number-per-timer modes, but that's a more invasive changeset. Using 
+the CPU number is how it worked previously.
+> - [Medium] Missing CPU hotplug teardown callback causes an unbalanced `enable_irq()` kernel warning when a CPU is offlined and then onlined again.
 
-drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
+These EcoNet devices don't support CPU hotplug and I don't see a 
+realistic chance that they ever will. Vendor code does not support it so 
+there's no clear path to how it would be done. So I think this is a 
+theoretical issue and cluttering the code for it would be net-negative.
 
-This commit adds support for the Lontium LT7911EXC bridge chip which conver=
-ts
-eDP input to MIPI DSI output. It provides DRM bridge integration, MIPI DSI
-host interface, firmware upgrade mechanism, and GPIO/regulator management.
 
-> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
-/bridge/lontium-lt7911exc.c
-> new file mode 100644
-> index 0000000000000..8401b7357b327
-> --- /dev/null
-> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
+Thanks,
 
-[ ... ]
+Caleb
 
-> +static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
-> +{
-> +	struct lt7911exc *lt7911exc =3D container_of(work, struct lt7911exc, wo=
-rk);
 
-[ ... ]
-
-> +	mutex_lock(&lt7911exc->ocm_lock);
-> +	lt7911exc_hw_mcu_run(lt7911exc);
-> +	lt7911exc->fw_version =3D lt7911exc_read_version(lt7911exc);
-> +	/* Notify DRM framework that hardware state changed/needs a modeset */
-> +	if (lt7911exc->bridge.dev)
-> +		drm_kms_helper_hotplug_event(lt7911exc->bridge.dev);
-
-[Severity: High]
-Will this result in a self-deadlock when the hotplug event triggers a modes=
-et?
-
-The driver holds ocm_lock here, and drm_kms_helper_hotplug_event() notifies
-user-space and triggers the in-kernel fbdev client to restore the display
-mode. This leads to a synchronous atomic commit that invokes bridge
-callbacks such as lt7911exc_atomic_pre_enable().
-
-Looking at lt7911exc_atomic_pre_enable():
-
-static void lt7911exc_atomic_pre_enable(...)
-{
-	struct lt7911exc *lt7911exc =3D bridge_to_lt7911exc(bridge);
-
-	guard(mutex)(&lt7911exc->ocm_lock);
-	...
-}
-
-Since the mutex is already held by this exact same worker thread, and
-mutexes aren't recursive, won't this permanently hang the worker thread?
-
-> +
-> +	mutex_unlock(&lt7911exc->ocm_lock);
-
-[ ... ]
-
-> +static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct =
-mipi_dsi_device *dev)
-> +{
-> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
-> +
-> +	if (!lt7911exc->output.dev)
-> +		return 0;
-> +
-> +	if (lt7911exc->output.panel && lt7911exc->output.bridge)
-> +		drm_panel_bridge_remove(lt7911exc->output.bridge);
-
-[Severity: High]
-Can this cause a use-after-free during subsequent DRM operations?
-
-In lt7911exc_bridge_attach(), the panel bridge is linked into the DRM
-encoder's bridge chain. If the downstream DSI device is unbound at
-runtime and calls this detach function, drm_panel_bridge_remove() will
-free the panel bridge memory.
-
-However, the bridge is not removed from the encoder's bridge chain
-(the chain_node list). Won't subsequent DRM operations like modesets,
-display disabling, or device teardown iterate over the encoder's
-bridge chain and dereference the freed memory?
-
-> +
-> +	lt7911exc->output.bridge =3D NULL;
-> +	lt7911exc->output.panel =3D NULL;
-> +	lt7911exc->output.dev =3D NULL;
-> +
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529094547.8699=
-19-1-syyang@lontium.com?part=3D2
+> --
+>
+> commit 0de42286a034bc944e765e97434f913831bc2960
+> Author: Caleb James DeLisle <cjd@cjdns.fr>
+> Subject: clocksource/timer-econet-en751221: Support EN751627 without percpu IRQ
+>
+> This commit adds support for the EN751627 timer, which uses a different
+> interrupt number for each CPU timer instead of a single percpu interrupt.
+>
+>> diff --git a/drivers/clocksource/timer-econet-en751221.c b/drivers/clocksource/timer-econet-en751221.c
+>> index f2c4c1ee0a56b..040386ded132a 100644
+>> --- a/drivers/clocksource/timer-econet-en751221.c
+>> +++ b/drivers/clocksource/timer-econet-en751221.c
+>> @@ -110,7 +131,10 @@ static int cevt_init_cpu(uint cpu)
+>>   	clockevents_config_and_register(cd, econet_timer.freq_hz,
+>>   					ECONET_MIN_DELTA, ECONET_MAX_DELTA);
+>>   
+>> -	enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+>> +	if (econet_timer.is_percpu)
+>> +		enable_percpu_irq(cd->irq, IRQ_TYPE_NONE);
+>> +	else
+>> +		enable_irq(cd->irq);
+> [Severity: Medium]
+> Will this cause an unbalanced enable_irq() warning if a CPU is offlined
+> and onlined again?
+>
+> The driver registers a dynamic CPU hotplug state via cpuhp_setup_state()
+> with cevt_init_cpu() as the starting callback, but passes NULL for the
+> teardown callback.
+>
+> Because there is no teardown callback to call disable_irq() when a CPU is
+> offlined, the IRQ descriptor's enable depth remains 0. When the CPU is
+> brought back online, cevt_init_cpu() will execute again and call
+> enable_irq() a second time.
+>
+> While this missing teardown existed before this patch, it was hidden
+> because enable_percpu_irq() does not track descriptor depth. The warning
+> appears to be newly exposed by the introduction of enable_irq().
+>
+> [ ... ]
+>
+>> @@ -173,22 +230,32 @@ static int __init timer_init(struct device_node *np)
+> [ ... ]
+>
+>> +	for (i = 0; i < num_irqs; i++) {
+>> +		irq_set_status_flags(econet_timer.irqs[i], IRQ_NOAUTOEN);
+>> +
+>> +		if (econet_timer.is_percpu)
+>> +			ret = request_percpu_irq(econet_timer.irqs[i],
+>> +						 cevt_interrupt, np->name,
+>> +						 &econet_timer_pcpu);
+>> +		else
+>> +			ret = request_irq(econet_timer.irqs[i], cevt_interrupt,
+>> +					  IRQF_TIMER | IRQF_NOBALANCING,
+>> +					  np->name, NULL);
+> [Severity: High]
+> Could passing NULL for dev_id lead to an interrupt storm if the IRQ
+> executes on a different CPU?
+>
+> For standard (non-percpu) IRQs, cevt_interrupt() currently calculates the
+> timer device using this_cpu_ptr(). If the interrupt fires on a different
+> CPU (e.g., due to CPU hotplug migrating the IRQ, or a spurious interrupt),
+> this_cpu_ptr() will return the timer for the currently executing CPU, not
+> the CPU for which the interrupt was intended.
+>
+> The handler would then check the wrong CPU's status, find it not pending,
+> and return IRQ_NONE. The actual pending interrupt would be left
+> unacknowledged.
+>
+> Would it be better to pass the specific CPU's timer pointer as dev_id here
+> and update cevt_interrupt() to use it instead of this_cpu_ptr()?
+>
