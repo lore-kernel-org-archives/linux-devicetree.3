@@ -1,132 +1,124 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f53.google.com (mail-lf1-f53.google.com [209.85.167.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38BB22472AF
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26AC53DB649
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:37:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780065394; cv=none; b=steCzgp+JhRHCB7kzCm5KDtUdATnHW7FURRWc7jgj5iVb4td5IIkrbl5cxnsnjSHjDBk7YWTo6G2fih9eELENE3QnuxCiBRXgvQid2oT4d4ZIobfgw+icUO6Fj5SE0D2X1iOmaeeLH2c4ttxhO7NZfz0l4PC+cAX+/VstEOiqag=
+	t=1780065425; cv=none; b=XF5vt0qtRO4m09IXGm+4MI2MmanNy8tmBp1Vcm149F+PBVIYjS9DwEUFgFbLnaZ7ueAD+XCAPjAKVYvIiNWUTGS4gGD4EDwXtfGb/J5DX7ZE6SPpHb0+IdnCFRt12qjcojSPlYB8ils0MCauxIis3Zowpp1O3wr0H0d4P0eZLPo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780065394; c=relaxed/simple;
-	bh=z74N0pFagtP6RQ6H4YaH8/GA6tRexv6havmalby5zJo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pIoDNAGwobRQFBXrKPOM6MWTXTAU4HVrsVNtPow140JhlhxiCTzJe/cuqM/erKvjxdm6TvRX4LIL5BI0WQuwyThU1FNetZ9RD31nSO0F81TEtt9BnAEcHeM51r4D/Uuj8IH1aNiD17d5P0cVYdPEfnOKSJBK23KigYhqx1wmCfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKSlYlyq; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780065425; c=relaxed/simple;
+	bh=RdKPo/J7jz8+PTZxfMlAGNH6ifidcVIKtGtDAneEbNI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Tnsue/67mubTjty0Pm35hLb5qFcrN64iotYc2ViZ8KZqERjl5J7GTjPhfhdyyP+OFrYUNb/ICY7ONqAmwSPfkBahp76tLpUju80nzazIEdOdvedkO7gS0bcwaxURtBVpNA7dkOuO/+mfCnVKIOPKs4l9mBvwDsZYlYbifqOQDXo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com; spf=pass smtp.mailfrom=riscstar.com; dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b=QzqIvUB/; arc=none smtp.client-ip=209.85.167.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=riscstar.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=riscstar.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKSlYlyq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA5671F00893;
-	Fri, 29 May 2026 14:36:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780065392;
-	bh=hblTrsrfduhGMwYJES2rGelYn5tVRJG/WVfXM6ll7MA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IKSlYlyqkV1D2Ek5IlR+C/0fWyDxzQVLb8VRef/M7ecx2j7bF0U4QkhoQ0KbJUptj
-	 cafL0WCwQSXPb91qTzINodgTEcKMePNw7KK3Dj62fiH9AxkM3T5JGSa3mALPxoHXBb
-	 5L+eaupm/rJ+5/NfZWPfmm3EuUyd6QIYosaMZ5rY4dRQlwxwSEPeq0skZQVacL5/bX
-	 QWBo+hkrNkzRAvamH3om601ygPFesOnmV1ne74ynZV1MM0fq9Tv4owW6UQPYhJTt2L
-	 R4Y0rKOS8p57yL860/RTgY3VvZc3RYW1uHfIotRcRo2ZR4BsM0tap0ZyVsGyTRnzR6
-	 p1uPm7SHXXAug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v3 6/6] iio: osf: register IIO devices from
- capabilities
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinseob Kim" <kimjinseob88@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529121005.1470-7-kimjinseob88@gmail.com>
-References: <20260529121005.1470-7-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 14:36:32 +0000
-Message-Id: <20260529143632.AA5671F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=riscstar-com.20251104.gappssmtp.com header.i=@riscstar-com.20251104.gappssmtp.com header.b="QzqIvUB/"
+Received: by mail-lf1-f53.google.com with SMTP id 2adb3069b0e04-5a887ebb416so17502673e87.2
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:37:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=riscstar-com.20251104.gappssmtp.com; s=20251104; t=1780065421; x=1780670221; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=RdKPo/J7jz8+PTZxfMlAGNH6ifidcVIKtGtDAneEbNI=;
+        b=QzqIvUB/274GQphujXYx6e2K07fRwbUink7XyH1YfGDfEvGwGL8qOl4eMESOqKPZ3O
+         h24KLu9U1BvgZDcv6tNDUgRgxGF16phqp/iXtByqZxwLMVoyhRJNPz5jc2XJIoBdNvgO
+         p8yBZ5bT/HG+ku6r7xIWv+/XV1VZNOVLCzqgMqTYKcBkPYcXFjOudRhIBccq/cFYqDnU
+         5JRAxTZjdSvU1s+0i1j/V/KpsD9lKYCF7MsBWRzZAjkjy6+1/aiIktNhrnjslL8qkB3q
+         Bh7lyhfm1ZJmsHuZE6SO81Akel32SlJsWhOZhfMC44OZn2qR5yc1QIRfgSew2FG+N4Ta
+         e9wA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780065421; x=1780670221;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=RdKPo/J7jz8+PTZxfMlAGNH6ifidcVIKtGtDAneEbNI=;
+        b=eKTZZAuuDZrCdoOmmRBbC5b/P6y41FGd2GIX8mo/4Mki4KbPcCm0IMfdTi7FpnGpEf
+         IhyACThlBT48Wqr0kU028LW1BYlJ+dzWjQtesgvBl3kdx/851FcEf3HXod93C/y36PWY
+         WRX8k2uqqIG3I08zZKF1P6uER4hB727w/sLlkW3Ih+VNVjuTMkqH5exefJgvvb9r39Zm
+         42L1cER5C9k5wJCxE1hk5dpnoUIGvAyDhJNIJVGAQ8uSHxjGCoUSE90JcPVKBUtoCZO2
+         BoDDcymUC7qKVkGmzpvaDqQ2kvLatRfvfqijat+Tzhvo8qR0DVGOC+X0TrVyVAXZBkCF
+         NRmg==
+X-Forwarded-Encrypted: i=1; AFNElJ/sPLt+T03p20c04KoeK+rxGefsJwzfDxulbL0YzSZgNLeIdR1Egxuz3KGuMKQz2PVM1kfc+6N3UpW1@vger.kernel.org
+X-Gm-Message-State: AOJu0YzHn99E+qDPTRA/ajQ1Emiimp1qdmG6RkcX1Ms8g5KEeIo3n4KI
+	t9Nd3puOXyoN2vj9HHXaRJ8nt4WYgBdc6vRApm/DS/2vNP8QxeV3OVqa2N0pXvXsVAE=
+X-Gm-Gg: Acq92OEYECKj5p7iIKIdKQtglgcXUJjZzja4u7rI5HPrJEek0d3AGfwlcAsD9HrVVn+
+	rPNbHkloxL/Vrd0zc9JgNOFJ4twzn8r/2DO777Sj+3FTsdn1mF13qp+JnSxkjuYHGRjld4hMGud
+	+U/Ven223uz4YHRlNSgio4VJasF5Ieuj6obQZw3Qyxp8S4uZcQl1YHodbOJUeypjNtlFAvbJKqq
+	tEs1KiOoRNEfgAog5m0nm2Y9+YUlbpOiBKnbKBSGCxiJoFKVApk86yE/CZdxsUPnT4DlIkmkYAV
+	MBTbfpu3hbzvzv7XzpAzdQSFqCC7siQE3L8cOieKrPrvMegmWpcLWIWkv6ZCC8Cotxnkev5lXhH
+	JmhiX4aqpdXOK1bIUml2dYWmWUMiB4wlxf7JWp9zekkE9ba1qlkhmRblLUwOuTbg20IGjrXN65F
+	ixSuEX5xpKaXiR4Da9Iy10dIZQ1YLAlx8a7lFDR4eoqSmOBajGuVyttBCQv7IrLsIPJE2zRkZx+
+	sDKQ8fS7JPhPg0RpPOd2YPc/BRFd187DVxS08ZldJiGEWA6ACsL4zL2YVMaHUIKcgMjFNy+VOrc
+	52OHqEPcbWnsSqY2FgM=
+X-Received: by 2002:a05:6512:ac8:b0:5aa:5bae:e9eb with SMTP id 2adb3069b0e04-5aa607c49c7mr35920e87.9.1780065421236;
+        Fri, 29 May 2026 07:37:01 -0700 (PDT)
+Received: from aspen.lan (aztw-34-b2-v4wan-166919-cust780.vm26.cable.virginm.net. [82.37.195.13])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef3556f51sm3888107f8f.25.2026.05.29.07.37.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 07:37:00 -0700 (PDT)
+Date: Fri, 29 May 2026 15:36:58 +0100
+From: Daniel Thompson <daniel@riscstar.com>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Daniel Thompson <danielt@kernel.org>, Lee Jones <lee@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+Message-ID: <ahmkirIuOYhd1rkM@aspen.lan>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
+ <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
+ <ahllT_HVTAJ5MbkS@aspen.lan>
+ <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
+ <ahlr5PnX5O0tEd6G@aspen.lan>
+ <4001cf6a-b7de-4933-96bc-c9b4ccb53e4d@linaro.org>
+ <ahmfZ0tdxbVfD_y4@aspen.lan>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahmfZ0tdxbVfD_y4@aspen.lan>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Uninitialized kernel heap memory is leaked to userspace through II=
-O buffer padding.
---
+On Fri, May 29, 2026 at 03:15:03PM +0100, Daniel Thompson wrote:
+> On Fri, May 29, 2026 at 02:50:43PM +0200, Neil Armstrong wrote:
+> > On 5/29/26 12:35, Daniel Thompson wrote:
+> > > On Fri, May 29, 2026 at 12:16:07PM +0200, Neil Armstrong wrote:
+> > So it's not really 2 regulators, and having regulators means the enable
+> > signal can be shared and would have regulator characteristics which it hasn't.
+>
+> Agreed. If the EN pin is merely use as an enable and voltage reference
+> then it are not two regulators.
+>
+> However, it is also *not* vddio-supply and enable-gpios. We don't need
+> the board design to check this. The pinout diagram in the datasheet
+> should be sufficient!
+>
+> If you have to activate vddio-supply for the backlight to work on the
+> board are you sure you don't just have a misnamed vdd-supply that needs
+> to be taken care of? That would make much more sense given the datasheet.
 
-commit 9319c55b6b77ef9ce1f7e526e5ce9463c217bc27
-Author: Jinseob Kim <kimjinseob88@gmail.com>
+After posting this I figured there is another possibility.
 
-iio: osf: register IIO devices from capabilities
-   =20
-This commit updates the Open Sensor Fusion (OSF) driver to parse the first
-capability report and create corresponding IIO devices. It also adds logic
-to cache the latest samples and push enabled buffers directly to userspace.
+If the host GPIO pin is not capable of delivering the 1mA requires by
+the chip then the board designer would have to add a buffer and that
+buffer would need a power supply... and that power supply could, in
+pinciple, be switchable.
 
-> diff --git a/drivers/iio/opensensorfusion/osf_iio.c b/drivers/iio/opensen=
-sorfusion/osf_iio.c
-> new file mode 100644
-> index 0000000000000..5e509987876d7
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_iio.c
-[ ... ]
-> +int osf_iio_push_sample(struct iio_dev *indio_dev, const s32 *values,
-> +			unsigned int channel_count)
-> +{
-> +	struct osf_iio_state *state =3D iio_priv(indio_dev);
-> +	s32 scan[OSF_MAX_SAMPLE_CHANNELS] =3D { };
-> +	s64 timestamp;
-> +
-> +	if (channel_count !=3D state->spec->channel_count)
-> +		return -EPROTO;
-> +
-> +	memcpy(scan, values, channel_count * sizeof(*values));
-> +
-> +	/* Buffer state can change here; IIO rechecks it during the push path. =
-*/
-> +	if (!iio_buffer_enabled(indio_dev))
-> +		return 0;
-> +
-> +	timestamp =3D iio_get_time_ns(indio_dev);
-> +
-> +	return iio_push_to_buffers_with_ts_unaligned(indio_dev, scan,
-> +						     channel_count * sizeof(*scan),
-> +						     timestamp);
+However if that were the case then I don't think the power supply for
+the buffer would belong in the bindings for the sy7758 so I'm afraid
+whichever way I turn it I can't make vddio-supply make sense.
 
-[Severity: High]
-Does this leak uninitialized kernel heap memory to userspace?
 
-The driver passes channel_count * sizeof(*scan) as the data_sz, which
-is 12 bytes for a 3-axis sensor or 4 bytes for temperature.
-
-However, the IIO core calculates the buffer's scan_bytes to include padding
-to 8-byte align the 64-bit timestamp. This results in a scan size of 24
-bytes for a 3-axis sensor, or 16 bytes for temperature.
-
-Looking at iio_push_to_buffers_with_ts_unaligned(), the bounce buffer is
-allocated without zeroing the memory:
-
-drivers/iio/industrialio-buffer.c:iio_push_to_buffers_with_ts_unaligned() {
-	...
-	if (iio_dev_opaque->bounce_buffer_size !=3D  indio_dev->scan_bytes) {
-		void *bb;
-
-		bb =3D devm_krealloc(&indio_dev->dev,
-				   iio_dev_opaque->bounce_buffer,
-				   indio_dev->scan_bytes, GFP_KERNEL);
-		...
-	}
-	memcpy(iio_dev_opaque->bounce_buffer, data, data_sz);
-	return iio_push_to_buffers_with_timestamp(indio_dev, ...);
-}
-
-It only copies data_sz bytes into the bounce buffer and then appends the
-8-byte timestamp, leaving the intermediate padding bytes uninitialized.
-When this buffer is pushed to the kfifo, the uninitialized kernel memory is
-exposed to userspace.
-
-Could we pass a correctly padded and zero-initialized structure, or provide
-the exact size including padding up to the timestamp, to avoid leaking
-these bytes?
-
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529121005.1470=
--1-kimjinseob88@gmail.com?part=3D6
+Daniel.
