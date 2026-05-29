@@ -1,104 +1,263 @@
-Received: from mail-vk1-f179.google.com (mail-vk1-f179.google.com [209.85.221.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFCDD3C76A3
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7A13D0935
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 11:48:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780055142; cv=none; b=k8q6HgfvCuqTHRCRHyj6d3hkueOEM3jdl54J31c5DX31bf3klXHlCSbip48MPTqKjU206I/i+FaFya/qW8m9dv7sWP4NvnLppgLGmySY1fEh7yqirqDltE7nAwNqUfECkaobO/x3Kz2LQpqPabS0132Px+tMvvAVrTDbt6uQgVk=
+	t=1780055341; cv=none; b=QfMiQ6k3y8597CBIphBKKx4TqP3kT6+w1wvkktRxBSJC0CiKLP5zlesYiW/xacxjyif0cm96J5cERGJwMEd3wdjIDc0tY/1Utju28cRBkuienJyOeXuUooA/2no9OIo9ZVCqt/gpySlV2DHZHv5kOOxU+4RuI9+rSq+zTL+hz9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780055142; c=relaxed/simple;
-	bh=uQ4PvHJVfbTOZrFWm2Q/Py0yYq70+Va6RDcoUzVbHXk=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=n1FcZofzhZZZ/QnlmDo6G8bUsJjLTzmterusFe8kcXt5PDR3IjOGpUZBp7JWt/NkQMh/2IFEmsrNBxJUaNV/cTIkk0sOf4bAiiLZ7jRr7QnIEz0P5QwGXJCBb5O/t6wuuniDTfwReEu2Da5DZKdgUElfVmIHuaNlgZQZZIjhX7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vk1-f179.google.com with SMTP id 71dfb90a1353d-57602a2d80aso4420252e0c.2
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:45:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780055140; x=1780659940;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=tI1s7RBWZ86LPvUzgArfAozo8RX0QfMdUCXZm64P2Is=;
-        b=srZFWsRu4bhpKV2yfe/QuLlL361GK4UIJaCdv9HvmTKYWqztE0EVGo0CJF7tbBUZOw
-         JhaGWEb2YkxgSa0U9x0Eb9xOsW0dWzGNy7vL1QMs1tpWpsJl7OLshvbRDM5fK/T3AhHV
-         5WJVx9EojXJpf9uq1fB9fJMLF6yBZZ34KZA+iq4n6nP0Zy8vceGgtgxk8Hbma2bKAMJH
-         Nk0mzruq5qwRH4aSKqm+MEd7C4r5+knLX+A+blVNPQMowhDH43BJjF6llSkmCW78YeE0
-         vWS/92sVkTHpjef6KeTMAnbnGd0D/BW8N9D5Y+3wFAiF5F942eqVTd2xz7TiQuOjwcCu
-         Tq+g==
-X-Forwarded-Encrypted: i=1; AFNElJ8r7ezbI4EP2ve2DI+WhWsIEgKWqmUHf09jIz2KHUTEkHvYOgAGKZ2kwqgXzHQE67CzvG9TZVwj6ko1@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRC3dcmahxOmgww2ilvb2CVSXrzP6mMTtHVqVReEucd+a8PDti
-	AlUvoGxp4N1Udsh8aJ+CuFPAgaVQX0i/mHM6PzhvhaIgTyS6ehhL1LzYsVDCOwkyaqM=
-X-Gm-Gg: Acq92OGOBgC68kV5gd9HH/7S+1JmSPNZxmKASJwNPDgRY1a6mRDWaoaFdAgnwIXj7Zs
-	UfTdb1CpJh+JGJhv3K2WJbCZsWFzB/Xj7dbL7xQpChT4nPRAiusVOs0/It0uaB1RBky1p84NSB9
-	jzfig0imLI42KxCWQVFmsgZkXLT077acZPWk87/2V+GdswKn2gvbEr3pBiUpfIeXEsSp+FLGLAX
-	wJD9chEqyHh/W8IlpORSmBk2HslkouauxrKvZ+/aUoBSRVSInSqGwgPcp5wbcREG3oz15LD1Ou5
-	8AEBQgO2q31tnglviYPoJYFmLphPPB6ATt6kksYkION/16GIGnPhAAsKovm/bf73bukZ93mHnDI
-	pvtpBNcUbkx/VqQGh7QU2/eSHHP1RaGL0ReGVPdxIGLH23bA3kmK+wRh/j9W8HcCk4pPy8xcEfR
-	oRylvVMm0c4yHlqQFdrYCpN4uAFVLj6X9bEL2qh/kR1V0SM0Iq/Aqe/9hezcbW3Ygd/DYQd0g=
-X-Received: by 2002:a05:6122:180d:b0:575:3b9e:db3e with SMTP id 71dfb90a1353d-599f5c1bd2bmr708482e0c.1.1780055139789;
-        Fri, 29 May 2026 04:45:39 -0700 (PDT)
-Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com. [209.85.222.51])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-599d9e10e4asm987857e0c.15.2026.05.29.04.45.39
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 04:45:39 -0700 (PDT)
-Received: by mail-ua1-f51.google.com with SMTP id a1e0cc1a2514c-9617940274bso2594426241.0
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:45:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8h2YIURFqu1cuLTAic/UAeg/DBnY+rohaTy8lhzNE+hYEguYvwjQ0CJRvZ4C3ylL0ytQxLAApmutu6@vger.kernel.org
-X-Received: by 2002:a05:6102:1591:b0:650:aa33:5dd7 with SMTP id
- ada2fe7eead31-6bf2d2f8f9amr796853137.2.1780055139478; Fri, 29 May 2026
- 04:45:39 -0700 (PDT)
+	s=arc-20240116; t=1780055341; c=relaxed/simple;
+	bh=fBqbjHRBCyIL3UfovEF7gVbOk5i52uNcifbmpp1shzE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HEulSDqJVBt8eqkDk+UjnTGil+EQLfIgECD7/Kr00r6EZ2kmmq0V+UG2HUj/Y79nKbI7QBQOJ1dK6onKL6ufsCwa0vVK5UpYnDF4pdAeGByjwrUbuzdHX3Wo8DG1KZSU9XxvG2MoKMET7feHfcvK5UXaVcSBN14R3JEMuVGAu14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TmawZuCm; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TmawZuCm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CC4D1F00893;
+	Fri, 29 May 2026 11:48:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780055339;
+	bh=76FNoRZv+HWvq02dn1SJNW8wye7L/65s6GlGIvjd8RY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TmawZuCmXUgz/5krphfMyiLIz43kqM43l1tscwBWUkOVIB6emhZnrdUibOrhpqzmd
+	 UAodyQD8aRoYNYyFH4k0m4ScknHRnkZbHrtjPtFZOcZBiAOtyYQ/wsLzqnfPUf5rXN
+	 s2tF1kl16DqFqsmlmHxrpoZxskZdt+hSCKsI6n+F1yleyYmunwQxf2Fu0aOqDh0554
+	 hkVF9MC53zrK/yJYSOhHetl99+WYQ6FwRCJ5RQMDQ8mZrpKs16bvm7aJYXipD5k6pM
+	 +lsdP09Tx2WZAKZPBNMB/RJ7WJWW1HeuL9dxas5ckNPOTHWVO+EnqDH8HzZLz1ZMaj
+	 vBFfZG8wNc+gw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v14 3/6] iio: adc: ad4691: add triggered buffer support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Radu Sabau via B4 Relay" <devnull+radu.sabau.analog.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529-ad4692-multichannel-sar-adc-driver-v14-3-e93c2747dc1f@analog.com>
+References: <20260529-ad4692-multichannel-sar-adc-driver-v14-3-e93c2747dc1f@analog.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 11:48:58 +0000
+Message-Id: <20260529114859.0CC4D1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <cover.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <1ba6a98ace4ad9525d054cbaa308d3aeeecfa22a.1775636898.git.tommaso.merciai.xr@bp.renesas.com>
- <20260408113217.GD1928916@killaraus.ideasonboard.com>
-In-Reply-To: <20260408113217.GD1928916@killaraus.ideasonboard.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 29 May 2026 13:45:27 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXZqJw=T7voOnJjsh-Y1e79Mr9wK6zoGxwojzidDxMycw@mail.gmail.com>
-X-Gm-Features: AVHnY4KloFUS2B9LQzF4TBeNYZgidRaM7YLq9hAhtI_KcqQjkDOZSbYAGjwtGrU
-Message-ID: <CAMuHMdXZqJw=T7voOnJjsh-Y1e79Mr9wK6zoGxwojzidDxMycw@mail.gmail.com>
-Subject: Re: [PATCH v6 18/21] arm64: dts: renesas: r9a09g047: Add fcpvd{0,1} nodes
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-Cc: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>, tomm.merciai@gmail.com, 
-	linux-renesas-soc@vger.kernel.org, biju.das.jz@bp.renesas.com, 
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
-	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Michael Turquette <mturquette@baylibre.com>, 
-	Stephen Boyd <sboyd@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
-	Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, dri-devel@lists.freedesktop.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-clk@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 8 Apr 2026 at 13:32, Laurent Pinchart
-<laurent.pinchart@ideasonboard.com> wrote:
-> On Wed, Apr 08, 2026 at 12:37:03PM +0200, Tommaso Merciai wrote:
-> > Add fcpvd{0,1} nodes to RZ/G3E SoC DTSI.
-> >
-> > Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-> > Signed-off-by: Tommaso Merciai <tommaso.merciai.xr@bp.renesas.com>
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] The `iio_for_each_active_channel()` loop does not skip the timesta=
+mp channel, leading to array out-of-bounds accesses and invalid hardware co=
+nfigurations.
+- [High] `sampling_frequency_store` accepts any arbitrary positive frequenc=
+y without checking against the ADC's maximum supported rate.
+- [High] `ad4691_transfer()` passes a stack-allocated buffer directly to `s=
+pi_write()`, which is illegal and will cause crashes with `CONFIG_VMAP_STAC=
+K`.
+- [High] The driver points individual `spi_transfer` `tx_buf` and `rx_buf` =
+pointers to tightly packed 2-byte elements within the `st->scan_tx` and `st=
+->vals` arrays, violating the DMA API.
+- [Medium] Trigger reference count is leaked if subsequent initializations =
+in `ad4691_setup_triggered_buffer` fail.
+--
 
-> Reviewed-by: Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>
+commit 4e95345888521996a31c6b2feb0dd8f47d67b29c
+Author: Radu Sabau <radu.sabau@analog.com>
+Date:   Fri May 29 10:15:02 2026 +0000
 
-Thanks, will queue in renesas-devel for v7.2.
+iio: adc: ad4691: add triggered buffer support
 
-Gr{oetje,eeting}s,
+This commit adds triggered buffer support using the IIO triggered buffer
+framework. It implements a CNV burst mode driven by a PWM and a manual mode
+where each transfer simultaneously reads the previous result and starts the
+next conversion.
 
-                        Geert
+> diff --git a/drivers/iio/adc/ad4691.c b/drivers/iio/adc/ad4691.c
+> index e1febf80f21d3..175c801297867 100644
+> --- a/drivers/iio/adc/ad4691.c
+> +++ b/drivers/iio/adc/ad4691.c
+[ ... ]
+> +static int ad4691_transfer(struct ad4691_state *st, u16 cmd)
+> +{
+> +	u8 buf[2];
+> +
+> +	put_unaligned_be16(cmd, buf);
+> +
+> +	return spi_write(st->spi, buf, sizeof(buf));
+> +}
 
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+[Severity: High]
+Is it safe to pass a stack-allocated buffer to spi_write() here?
 
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+The SPI subsystem maps this buffer for DMA. On architectures with virtually
+mapped stacks (CONFIG_VMAP_STACK enabled), dma_map_single() cannot operate
+on stack addresses, which could trigger a kernel panic when enabling or
+disabling the buffer.
+
+[ ... ]
+> +static int ad4691_manual_buffer_preenable(struct iio_dev *indio_dev)
+> +{
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +	unsigned int k, i;
+> +	int ret;
+> +
+> +	memset(st->scan_xfers, 0, sizeof(st->scan_xfers));
+> +	memset(st->scan_tx, 0, sizeof(st->scan_tx));
+> +
+> +	spi_message_init(&st->scan_msg);
+> +
+> +	k =3D 0;
+> +	iio_for_each_active_channel(indio_dev, i) {
+> +		/*
+> +		 * Channel-select command occupies the first (high) byte of the
+> +		 * 16-bit DIN frame; the second byte is a don't-care zero pad.
+> +		 * put_unaligned_be16() writes [cmd, 0x00] in memory so the
+> +		 * SPI controller sends the command byte first on the wire.
+> +		 */
+> +		put_unaligned_be16((u16)(AD4691_ADC_CHAN(i) << 8), &st->scan_tx[k]);
+> +		st->scan_xfers[k].tx_buf =3D &st->scan_tx[k];
+> +		/*
+> +		 * The pipeline means xfer[0] receives the residual from the
+> +		 * previous sequence, not a valid sample. Discard it (rx_buf=3DNULL)
+> +		 * to avoid aliasing vals[0] across two concurrent DMA mappings.
+> +		 * xfer[1] (or the NOOP when only one channel is active) writes
+> +		 * the real ch[0] result to vals[0]. Subsequent transfers write
+> +		 * into vals[k-1] so each result lands at the next dense slot.
+> +		 */
+> +		st->scan_xfers[k].rx_buf =3D (k =3D=3D 0) ? NULL : &st->vals[k - 1];
+
+[Severity: High]
+Since scan_tx and vals arrays have elements that are 2 bytes in size,
+does pointing individual spi_transfer buffers to them violate the DMA API?
+
+Because each transfer is mapped individually by the SPI core, multiple
+DMA mappings will share the same CPU cacheline. On non-cache-coherent
+architectures, could cache invalidations during dma_unmap_single() for
+one transfer overwrite and corrupt adjacent data written by the DMA
+controller?
+
+> +		st->scan_xfers[k].len =3D sizeof(*st->scan_tx);
+> +		st->scan_xfers[k].cs_change =3D 1;
+> +		st->scan_xfers[k].cs_change_delay.value =3D AD4691_CNV_HIGH_TIME_NS;
+> +		st->scan_xfers[k].cs_change_delay.unit =3D SPI_DELAY_UNIT_NSECS;
+> +		spi_message_add_tail(&st->scan_xfers[k], &st->scan_msg);
+> +		k++;
+> +	}
+> +
+> +	/* Final NOOP transfer retrieves the last channel's result. */
+> +	st->scan_xfers[k].tx_buf =3D &st->scan_tx[k]; /* scan_tx[k] =3D=3D 0 =
+=3D=3D NOOP */
+
+[Severity: High]
+Does iio_for_each_active_channel() skip the timestamp channel?
+
+If the timestamp channel is enabled, it seems the loop counter k will reach
+17 (16 physical channels + 1 timestamp). When it evaluates to 17, the final
+NOOP transfer writes to st->scan_tx[17] and st->scan_xfers[17], exceeding t=
+he
+scan_tx array size of 17.
+
+Similarly, in ad4691_cnv_burst_buffer_preenable(), k could reach 17, causing
+st->scan_xfers[2 * k] to access scan_xfers[34], exceeding the scan_xfers
+array size of 34, potentially causing out-of-bounds memory accesses.
+
+[ ... ]
+> +static ssize_t sampling_frequency_store(struct device *dev,
+> +					struct device_attribute *attr,
+> +					const char *buf, size_t len)
+> +{
+> +	struct iio_dev *indio_dev =3D dev_to_iio_dev(dev);
+> +	struct ad4691_state *st =3D iio_priv(indio_dev);
+> +	unsigned int freq;
+> +	int ret;
+> +
+> +	ret =3D kstrtouint(buf, 10, &freq);
+> +	if (ret)
+> +		return ret;
+> +
+> +	IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
+> +	if (IIO_DEV_ACQUIRE_FAILED(claim))
+> +		return -EBUSY;
+> +
+> +	ret =3D ad4691_set_pwm_freq(st, freq);
+
+[Severity: High]
+Does this code validate the requested frequency against the maximum support=
+ed
+rate (st->info->max_rate)?
+
+If a user requests an extremely high frequency, could it drive the hardware
+out of spec and cause the GP pin to assert interrupts at an unmanageable
+rate, potentially locking up the CPU?
+
+[ ... ]
+> +static int ad4691_setup_triggered_buffer(struct iio_dev *indio_dev,
+> +					 struct ad4691_state *st)
+> +{
+> +	struct device *dev =3D regmap_get_device(st->regmap);
+> +	struct iio_trigger *trig;
+> +	unsigned int i;
+> +	int irq, ret;
+> +
+> +	indio_dev->channels =3D st->info->sw_info->channels;
+> +	indio_dev->num_channels =3D st->info->sw_info->num_channels;
+> +	indio_dev->info =3D st->manual_mode ? &ad4691_manual_info : &ad4691_cnv=
+_burst_info;
+> +
+> +	/*
+> +	 * Manual mode relies on an external trigger (e.g. iio-trig-hrtimer);
+> +	 * no internal trigger is needed or registered.
+> +	 */
+> +	if (st->manual_mode)
+> +		return devm_iio_triggered_buffer_setup(dev, indio_dev,
+> +						       iio_pollfunc_store_time,
+> +						       ad4691_trigger_handler,
+> +						       &ad4691_manual_buffer_setup_ops);
+> +
+> +	/*
+> +	 * CNV burst mode: allocate an internal trigger driven by the
+> +	 * DATA_READY IRQ on the GP pin.
+> +	 */
+> +	trig =3D devm_iio_trigger_alloc(dev, "%s-dev%d", indio_dev->name,
+> +				      iio_device_id(indio_dev));
+> +	if (!trig)
+> +		return -ENOMEM;
+> +
+> +	trig->ops =3D &ad4691_trigger_ops;
+> +	iio_trigger_set_drvdata(trig, st);
+> +
+> +	ret =3D devm_iio_trigger_register(dev, trig);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "IIO trigger register failed\n");
+> +
+> +	indio_dev->trig =3D iio_trigger_get(trig);
+> +
+> +	/*
+> +	 * The GP pin named in interrupt-names asserts at end-of-conversion.
+> +	 * The IRQ handler fires the IIO trigger so the trigger handler can
+> +	 * read and push the sample to the buffer. The IRQ is kept disabled
+> +	 * until the buffer is enabled.
+> +	 */
+> +	irq =3D -ENXIO;
+> +	for (i =3D 0; i < ARRAY_SIZE(ad4691_gp_names); i++) {
+> +		irq =3D fwnode_irq_get_byname(dev_fwnode(dev),
+> +					    ad4691_gp_names[i]);
+> +		if (irq > 0 || irq =3D=3D -EPROBE_DEFER)
+> +			break;
+> +	}
+> +	if (irq < 0)
+> +		return dev_err_probe(dev, irq, "failed to get GP interrupt\n");
+
+[Severity: Medium]
+If fwnode_irq_get_byname() fails here, or if ad4691_gpio_setup() fails
+later, is the trigger reference obtained via iio_trigger_get(trig) ever
+released?
+
+Because INDIO_BUFFER_TRIGGERED is not added to indio_dev->modes until
+devm_iio_triggered_buffer_setup_ext() succeeds, the IIO core's devres clean=
+up
+might not drop this reference if we return early, potentially leaking the
+trigger structure.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-ad4692-mul=
+tichannel-sar-adc-driver-v14-0-e93c2747dc1f@analog.com?part=3D3
