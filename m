@@ -1,216 +1,92 @@
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7EA736D9FA
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:36:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.175
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B5CE73E1204;
+	Fri, 29 May 2026 12:37:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780058202; cv=none; b=TxDMkelXsugdBJVoToGz05PycbMvm15cYN/B00Y7Tx1DG5MxjhiTliowg427MCTFjha/NsLozsWq4r8ayJmqLHjPEtm506M+KqlM3JdpiSjxgcPyF1Msr3ft5CIYIuw4C7Auf/7sdBfc32lTPlKrEHJrxbqOyVo1GZiTZelqT70=
+	t=1780058241; cv=none; b=gXcj0vFNM2L6hO++XkOX2aIpRcFSIBcPknLWQpqIO2dTm8yr3Ysskq/e4t7/hiYiAGO8Frqhv7crNIcttepjV1TpHM+t9dNECgzKeYLgNqlyZ3jNiYiuqzHnKf/64aNJYy73TMlWGSx/3NF9yWNOmP1TvnrV2X/HW4jp41VKueY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780058202; c=relaxed/simple;
-	bh=myrxXD1dGrcA11fvw+2HVUvByQyyr53oo8ch+/2eIv8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FOM0qEYzhA27tBXGiANImqWgEvSDr23y7mMWweoBqV24eyDNQy5pF5XLmesi8ODl/p3iXYUF929t/2vMuiTDX8qG/sSR42jBmD+4zdigrXTKnkMyJemNzdA3/OoAWDtEMHXpLZXzstDPe1cXha7wVULOvgKtHDlLy3/EcVn/bDY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AiQX5Vck; arc=none smtp.client-ip=209.85.222.175
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780058241; c=relaxed/simple;
+	bh=eHFScpAOdMrqojmGK/E723D+P23UVdgRtOAMGWS1sG8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Jna513vzjhE84t2gPts1Wld9NLXnXY7JhgChodl3yVc0Kr0llocxMydWmZ11hRgWz+rs5RedzMELKbv+TfkgdRvO2FJff/gD3Q/dzdNAUYWQVVHyvKMscLT3Tvi3JXl+J2eUAA2c6HPcLN09MITpihi0v4NOekYpcugBPtttOSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BkWKjCbW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AiQX5Vck"
-Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-9106ea78cd8so2097937885a.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:36:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780058200; x=1780663000; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=YQQjgDRgrAEJpjkBeTc/yNlL6NewvgIK27ug4YpHsI4=;
-        b=AiQX5VckwhBPhKjC/YAd3tovir7unV+zrNiwRvH5dbEPKKArjeRyNEoJr7eXmFAhPj
-         we9IbbsjeUJdBDPH3yz6Xbt2dr7WSVq/8/X8IGqa2i7ORP/ycj65AQ4V65g0JgmDlBBL
-         4KeAz7UGStSNkOkxPDQMTO0s7MY5TjhlTphPkoPYGz+jAO7YoO+hglXh4TVI5OicWIB/
-         RxDMsJjeSM8/q4HFYqD2kDpP4rMTJ1Wl0jb6ay4HHskiIcf+Wuc/m/qKCjkLlkNGDKaG
-         frO+UU5NMAP9EM+xS39aTRF7k561z+mQZTRxY1ajdoNqc5ZuB40vd6U8jVyZcGfZT5bf
-         Sm3g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780058200; x=1780663000;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=YQQjgDRgrAEJpjkBeTc/yNlL6NewvgIK27ug4YpHsI4=;
-        b=VYFwocGeIv2Wc1s/DGjVEAEwUb1FaRB2ooehJCQ2r3zFxqxOlCaBHjSUFKVXt2xDMg
-         viqT5Xz/iwPzcoDTioBYfo5J3d13wWapHWvnGRapCPi8akG8KwiqZQT3jDIBbgj2Tnet
-         Zy5JrTOicVetjXHU14as4UT0rTozHZtVH8d1bhqu7Mp1ESS3fQUzCkyzxXiJBSZxfWH4
-         IOQgPcIHYm1FgSvCPqN0xBLos+FijYsI3flsUPy9YwaLfbhgmox2f+6sKJ7G2c0VFg2E
-         EZj03MjJQz5wUtwD3QsKwHAXJDX2JNT5V9wGMTR2hvsqEHUAF8THUhPbQHN1mBG1+Mw7
-         6Aiw==
-X-Forwarded-Encrypted: i=1; AFNElJ/3qJcD4NsAqELCXPUh41E8s+M+uZD5BNGkAov7a/ApLLmgY4+lLU1vWW6yF40HQ2NtpL3xvNiIKmvi@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy9LQIuXpXimp6Ndyw+95Sbym6vLlij99sdGc90CO34SRx5v9eV
-	1i/oiVYSJvTPjATGlmSw7SqYh17p3l7kL9UGjdonXypTmF8mO0Q65zHY
-X-Gm-Gg: Acq92OEG6y4c+UUGANwUc1HtO2AnMZDt86/6CYjSIM05E3hh7bNpYhUTbFqoOr7tjW5
-	lDVaqiNzNqSNcEL2ovHAdffUQRNKtF4Hn/jl63p06AkcTJ1d20EfqpSuLlPCNwUIOYs+C6cfwSV
-	SCWCEyXzthAkCDIXV+iBhE1BqrRKQZnqf83WrrAaDUzldXdatxG2bORX50J76Fbwr4daEFNYklv
-	c2+G6oqbrdWOiEFvnIeHwU5OI/dXMGxvBNOL5lWCNyq401sYcadVYEWKLtw0yDn8HwhNKCSD0CF
-	yC5ctl8cGPVEr8K5zP6GS3BeAy0Q1Yo7fz9Pwlw7IK4F0wIFuFJ4ecYAhxgLWVuboNBQC92u1CZ
-	7yrzXSbTmB/uUPiRy2SnOgHr3CehyUvL3iKRNszT5otfV1nVdpV57F5y1LIYPYDM2G7kfK8dRub
-	AsynJOvIapRKXrFwINf6l2C/aJk3Umqd/DjLbmfX1OQBk=
-X-Received: by 2002:a05:620a:4054:b0:914:c316:4608 with SMTP id af79cd13be357-915300673f8mr311156185a.62.1780058199768;
-        Fri, 29 May 2026 05:36:39 -0700 (PDT)
-Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-9153247515esm175596085a.13.2026.05.29.05.36.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 05:36:38 -0700 (PDT)
-Date: Fri, 29 May 2026 09:37:00 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Marcelo Schmitt <marcelo.schmitt@analog.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com, Michael.Hennerich@analog.com,
-	dlechner@baylibre.com, andy@kernel.org, robh@kernel.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org, pop.ioan-daniel@analog.com
-Subject: Re: [PATCH v2 2/4] iio: adc: ltc2378: Add support for LTC2378-20 and
- similar ADCs
-Message-ID: <ahmIbL8sIwXaysff@debian-BULLSEYE-live-builder-AMD64>
-References: <cover.1779976379.git.marcelo.schmitt@analog.com>
- <40e1108bc9eaeba486705b54c4c94004f0e7f369.1779976379.git.marcelo.schmitt@analog.com>
- <20260529110205.2f91a1ed@jic23-huawei>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BkWKjCbW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BADF71F008A0;
+	Fri, 29 May 2026 12:37:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780058240;
+	bh=Kn5GsKuQ/fvZEMiPmPauH+TfJVQazix684zDCw+pVjE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=BkWKjCbWPQ91PfRJqZH3Uc/nXSgrDB+BFBgIPJy5pc2xKLfUOYFxTRyuH0/23MMUk
+	 zCvp1xTncX/AAwAAsdE7IXdJFawFd8MCS8j6MA7G+mSwDZflbRsx9e/MGkYxKWj84e
+	 f54c4hWuaSz/CkIPoWOTe35tZLKgwHZxH1OSYoTmklF30icTgtHxrnOVN+as7ScqVz
+	 3sSGmD4anVrg4LPhKYGP7fRB6/K83Va9HS6hKxwGd4+i33Z2IvPTK+W76wRNHvSyUn
+	 hHGgDGAs0j/D/6haoXmQBgre9VFzJDsD95HorxyosqwJ0YrBka3yPiXVGI4WlDCB8E
+	 fCHCeBy1wnvqA==
+From: Thierry Reding <thierry.reding@kernel.org>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Ion Agorria <ion@agorria.com>,
+	=?UTF-8?q?Jonas=20Schw=C3=B6bel?= <jonasschwoebel@yahoo.de>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org,
+	linux-tegra@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v1 0/9 RESEND] ARM: tegra: complete a few Tegra30 device trees
+Date: Fri, 29 May 2026 14:37:14 +0200
+Message-ID: <178005821444.3449763.1615664087011062727.b4-ty@b4>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260511074859.24930-1-clamor95@gmail.com>
+References: <20260511074859.24930-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260529110205.2f91a1ed@jic23-huawei>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On 05/29, Jonathan Cameron wrote:
-> On Thu, 28 May 2026 12:03:52 -0300
-> Marcelo Schmitt <marcelo.schmitt@analog.com> wrote:
-> 
-> > Support for LTC2378-20 and similar analog-to-digital converters.
-> > 
-> > Signed-off-by: Marcelo Schmitt <marcelo.schmitt@analog.com>
-> 
-...
-> >  
-> > +config LTC2378
-> > +	tristate "Analog Devices LTC2378 ADC driver"
-> > +	depends on SPI
-> > +	depends on GPIOLIB || PWM
-> 
-> Triggered sashiko:
-> https://sashiko.dev/#/patchset/cover.1779976379.git.marcelo.schmitt%40analog.com
-> This dependency is odd enough that I think I'd add a comment on why.
-> Also bring in the dependency on PWM in the patch that needs it not this one.
-> 
-> Will it build without gpiolib? If so I'd prefer that to be a || COMPILE_TEST
-> just to get a little more coverage.
-> 
-The intent was to allow using the ADC with offload PWM triggered setup
-even if the GPIO is not provided/enabled. We would be able to do the buffered
-reads, but the single-shot read would be debatable since we would very likely
-trigger many conversions in between a pwm_enable()/pwm_disable(). In the doubt,
-I left the single-read procedure untouched specially because there's also the
-case where the GPIO is there and so the single-read would work normally.
+From: Thierry Reding <treding@nvidia.com>
 
-     +-------------+         +-------------+
-     |         CNV |<-----+--| GPIO        |
-     |             |      +--| PWM0        |
-     |             |         |             |
-     |             |      +--| PWM1        |
-     |             |      |  +-------------+
-     |             |      +->| TRIGGER     |
-     |             |         |             |
-     |     ADC     |         |    SPI      |
-     |             |         | controller  |
-     |             |         |             |
-     |         SDI |<--------| SDO         |
-     |         SDO |-------->| SDI         |
-     |        SCLK |<--------| SCLK        |
-     +-------------+         +-------------+
 
-Maybe I'm going too much flexible trying to allow all those combinations?
-Simplest way to avoid what sashiko points as garbage read is to go straight
-'depends on GPIOLIB' and check the GPIO must always be there.
+On Mon, 11 May 2026 10:48:50 +0300, Svyatoslav Ryhel wrote:
+> Configure camera support for ASUS Transformers, Google Nexus 7 and
+> LG X3 devices. Fix RTC on LG X3 devices. Lower throttling temperature
+> for LG P880. Add panel support for TF600T.
+> 
+> Ion Agorria (1):
+>   ARM: tegra: p880: Lower CPU thermal limit
+> 
+> [...]
 
-> 
-...
-> > +static int ltc2378_convert_and_acquire(struct ltc2378_state *st)
-> > +{
-> > +	int ret;
-> > +
-> > +	/* Cause a rising edge of CNV to initiate a new ADC conversion */
-> > +	gpiod_set_value_cansleep(st->cnv_gpio, 1);
-> 
-> Should we check for errors on setting the gpio?
-> 
-> > +	fsleep(4);
-> > +	ret = spi_sync_transfer(st->spi, &st->xfer, 1);
-> > +	gpiod_set_value_cansleep(st->cnv_gpio, 0);
-> > +
-> > +	return ret;
-> > +}
-> > +
-> > +static int ltc2378_channel_single_read(const struct iio_chan_spec *chan,
-> > +				       struct ltc2378_state *st, int *val)
-> > +{
-> > +	const struct iio_scan_type *scan_type = &chan->scan_type;
-> > +	u32 sample;
-> > +	int ret;
-> > +
-> > +	ret = ltc2378_convert_and_acquire(st);
-> > +	if (ret)
-> > +		return ret;
-> > +
-> > +	if (scan_type->realbits > 16)
-> > +		sample = st->scan.data.sample_buf32;
-> 
-> Sashikio has an interesting theory here that you need a shift. I can't immediately
-> spot why it is wrong.  Given we are clocking in 32bits I assume the first
-> res_bits are valid then we get a bunch of garbage after that. Given it's MSB first
-> the SPI controller should put those in the top bits of the resulting u32 with the
-> garbage at the bottom. So shouldn't we shift them down by 32 - resolution or something
-> like that? + in buffered case provide the relevant shift value (in later patches)
-> 
-The only way I'm seing to get sample_buf32 with ADC data in the MSB is if the
-CPU endianness is BE. Otherwise (LE), the data bits would be put into the lower
-addresses when SPI puts the word in CPU endianness. But, if we do unconditional
-shift, won't that break sign_extend32() for LE CPUs? Well, I'll anyway double
-check the data for all sample_buf16/sample_buf32 buffer/non-buffer use cases.
+Applied, thanks!
 
-> > +	else
-> > +		sample = st->scan.data.sample_buf16;
-> > +
-> > +	if (scan_type->format == IIO_SCAN_FORMAT_SIGNED_INT)
-> > +		*val = sign_extend32(sample, scan_type->realbits - 1);
-> > +	else
-> > +		*val = sample;
-> > +
-> > +	return 0;
-> > +}
-> > +
-...
+[1/9] ARM: tegra: lg-x3: Complete video device graph
+      commit: 8399055d9f98e94c33608fe9d61afc09a43cc4df
+[2/9] ARM: tegra: lg-x3: Set PMIC's RTC address
+      commit: 61cf0112f79d6c6de2a002874b8618e802b664f2
+[3/9] ARM: tegra: p880: Lower CPU thermal limit
+      commit: ece4229e457de4ceeec80890c5c760f0c858eeea
+[4/9] ARM: tegra: grouper: Add support for front camera
+      commit: a5acde8adb4d4d921a004b8df995d50255253afa
+[5/9] ARM: tegra: transformer: Add support for front camera
+      commit: 34d89435081d07b052dd522a57054132dada5400
+[6/9] ARM: tegra: transformers: Add connector node for common trees
+      commit: 5333a49e51c2d0d5fe1615f721898036733ed5b0
+[7/9] ARM: tegra: tf600t: Configure panel
+      commit: 2ecff0cda80b9ba0e513620003d156cfef7394df
+[8/9] ARM: tegra: tf600t: Drop backlight regulator
+      commit: d9c890d753034adcae0f74de578deed60d58233a
+[9/9] ARM: tegra: tf600t: Invert accelerometer calibration matrix
+      commit: 774bc2764647cfd6b65727cfa978d809f11df392
 
-> case IIO_CHAN_INFO_RAW: {
-> 
-> > +		IIO_DEV_ACQUIRE_DIRECT_MODE(indio_dev, claim);
-> > +		if (IIO_DEV_ACQUIRE_FAILED(claim))
-> > +			return -EBUSY;
-> > +
-> > +		ret = ltc2378_channel_single_read(chan, st, val);
-> > +		if (ret)
-> > +			return ret;
-> > +
-> > +		return IIO_VAL_INT;
-> > +
-> }
-> 
-> As that IIO_DEV_ACQUIRE_DIRECT_MODE() is declaring a local variable
-> so there is something go out of scope and result in cleanup.
-> LLVM moans about this, GCC just does the wrong thing which can in theory
-> at least result in an underflow.
-> You'll get build bot warnings on this - bug sashiko caught it.
-> 
-
-Oops I guess I started mis-squashing commits after a certain number of rebases XD
-Will fix this and all other suggestions.
-
-Thanks
+Best regards,
+-- 
+Thierry Reding <treding@nvidia.com>
