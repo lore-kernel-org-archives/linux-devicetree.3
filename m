@@ -1,109 +1,143 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED3733067C;
-	Fri, 29 May 2026 11:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3A17333067C;
+	Fri, 29 May 2026 11:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780053010; cv=none; b=kiCH/uFPqqxi8O4m9Ajp7FCGwHMlSdZoT2JbHxaU0u++924oC7Xg85Guy8Al/w3cRd3S4F2ksUTIbWBIW3x1m4ljWzWl1wBPVdSs3vJ77X6RWKa1KSmdKE0pxJZdmfAySYr5MK1Uuczn+dvf3Fe9cBBUIClEtq/xpfVwZ7uhypE=
+	t=1780053030; cv=none; b=ZlCFzUOjOjmr32V1uyDDSJFgfpflq91S4e7EyvlhpoCQ+6zLrDr2IBKgV5Gs8kpLucrWQ7dMk8ay2jOiu7IilKYVy361XIRIsMuNEAkECYUcUUco5s/UQX8RprmnTH4F6bLFpHKTTUahjfLL4zjyQK/66e5KHlb0pRkizJWhc2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780053010; c=relaxed/simple;
-	bh=3BszXj+baSCfwrrN3L6DU9yeSg03wGDLKGUdlYrMr/o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tZss6FljRLma/JYPsTwcaueWU3BriqZWfJSR3i/AhOMIDPD2u4OFhlk0YLvQ0vclOUy3FJJX1HdREXb9n+XLEE2+pcxk53EqW1BPR3mg+Gif5gC2WcbMn/xOEdtPF3h3Q6WPOSoAGPIvZ+4hAbD7Pp48J+CnBkAsyeVAe+frji4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyfYwUwA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780053030; c=relaxed/simple;
+	bh=ANtpuVqE9Cwp87X1vN7zPmC9cfnxtdTbe9wBuu1OjwY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=r8AAh6WBoOAh10J4ECtuUVcyQXSLWpbEqW6yQHvcFh2rI2r9YasR+pzSjNp2+k8S9sGiuv97OnsVmnxhzUlv5kQ1yEqp1Nm5j152n1TzhWmfAb1RoAALimEEo74BHBoLBkra+d40UK3Y5XrWFYY77qYJOZB1YrWAOWA+8/p9mQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=WIL3Gdzx; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyfYwUwA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B50D1F00893;
-	Fri, 29 May 2026 11:10:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780053009;
-	bh=gHwKF2TNJxXyL8XVI6BcLgm9K/40EzKEL958bBffgmM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=lyfYwUwALx8RbPuzADgJQjjJkWmCTV3KQcHFdMiLvBp/TWN1IWNnEdFjQXo4S0q8G
-	 M4NcnsFo+zGoYkdRXI1j1RQ3hCpt7HYTEfpDKOp4zZ522WZCWj/SPw95KOIFTXH2VQ
-	 BZLzOq8hDcnDHgHin5nnJDTwElNDGnmh/fir1eKjdbDT6nDkcDw/bUN6LD0y/EXTjy
-	 EvT11DyYg79E6nr3QkRZNtHGvo1HBV3hjgq9U2GXzay83uJ2r/oKPFZTdHQcl3/Y4/
-	 Cv4iwG8X32205aYowWVuxYczS6I0SaeiolsHUBqTh7mHn6yMEXoCh1hF2tDRVFxDP0
-	 88kOMfnIVOmQw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/4] arm64: dts: imx93-var-som-symphony: add TPM
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stefano Radaelli" <stefano.radaelli21@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev
-In-Reply-To: <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
-References: <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 11:10:08 +0000
-Message-Id: <20260529111008.8B50D1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="WIL3Gdzx"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 797CB2247;
+	Fri, 29 May 2026 04:10:22 -0700 (PDT)
+Received: from [10.57.24.26] (unknown [10.57.24.26])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 49F6B3F905;
+	Fri, 29 May 2026 04:10:25 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780053027; bh=ANtpuVqE9Cwp87X1vN7zPmC9cfnxtdTbe9wBuu1OjwY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=WIL3GdzxBxmJSnUDNqMsnouS28X6VxiafbOsL1XT/1nMLBXyH4p5s/tjvjFCKjPti
+	 145U2ZMaKHi33IcJARgrRtXXnkgdfsFigQxuAPsCDW7lm4zMC9EfCNyPpqAIaSIk5/
+	 Fi/pXCCD64ZanA55UaMsCGT6fzrmxnEwGiYUC0VA=
+Message-ID: <6b7294a1-8c13-42aa-9f64-5b5c9af0b41f@arm.com>
+Date: Fri, 29 May 2026 12:10:23 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 0/3] Enable CTCU and ETR devices for multiple QCOM
+ platforms
+To: Jie Gan <jie.gan@oss.qualcomm.com>, Mike Leach <mike.leach@linaro.org>,
+ James Clark <james.clark@linaro.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Tingwei Zhang <tingwei.zhang@oss.qualcomm.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: coresight@lists.linaro.org, linux-arm-kernel@lists.infradead.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260204-enable-ctcu-and-etr-v3-0-0bb95c590ae1@oss.qualcomm.com>
+ <545b4ebb-2c7e-480d-80bb-5e08dd3c52a7@arm.com>
+ <f2f23d0a-dc24-4a06-948d-56df913994ba@oss.qualcomm.com>
+Content-Language: en-GB
+From: Suzuki K Poulose <suzuki.poulose@arm.com>
+In-Reply-To: <f2f23d0a-dc24-4a06-948d-56df913994ba@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The TPM device relies on a GPIO hog from a sibling I2C GPIO expand=
-er to be enabled, but lacks a structural device dependency, leading to a pr=
-obe race condition and potential initialization failures.
---
+On 29/05/2026 11:26, Jie Gan wrote:
+> 
+> 
+> On 2/27/2026 6:10 PM, Suzuki K Poulose wrote:
+>> Hello,
+>>
+>>
+>> On 04/02/2026 02:22, Jie Gan wrote:
+>>> The DT‑binding patch adds platform‑specific compatibles for the
+>>> CTCU device, and the following Qualcomm platforms are included:
+>>> Kaanapali
+>>> Pakala(sm8750)
+>>> Hamoa(x1e80100)
+>>> Glymur
+>>
+>> Given this is predominantly DTS changes, and there is very low chances
+>> of a conflict with the binding yaml change, I would recommend this to go
+>> via soc or the qcom platform tree.
+>>
+>> For the series:
+>>
+>> Acked-by: Suzuki K Poulose <suzuki.poulose@arm.com>
+> 
+> Hi Suzuki,
+> 
+> May I ask is there a chance this patch series could go through the 
+> CoreSight tree?
 
-commit 2c29a43f4e74b7d0f118dc8b7401c07e3617e874
-Author: Stefano Radaelli <stefano.r@variscite.com>
+Like I said, it is mostly Qcom platform changes. So, I would leave it to
+the appropriate channel
 
-arm64: dts: imx93-var-som-symphony: add TPM support
+Suzuki
 
-This commit adds the ST33KTPM2XI2C TPM device to the Symphony carrier
-board. It uses a GPIO hog on the PCAL6408 GPIO expander to assert the
-TPM enable line, since the binding lacks a dedicated enable GPIO property.
 
-> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/a=
-rch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> index c0842fb3cfa33..f541308ebf6b8 100644
-> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
-[ ... ]
-> @@ -208,6 +208,26 @@ &lpi2c1 {
->  	sda-gpios =3D <&gpio1 1 GPIO_ACTIVE_HIGH>;
->  	status =3D "okay";
-> =20
-> +	pcal6408: gpio@21 {
-> +		compatible =3D "nxp,pcal6408";
-> +		reg =3D <0x21>;
-> +		gpio-controller;
-> +		#gpio-cells =3D <2>;
-> +		status =3D "okay";
-> +
-> +		tpm-enable-hog {
-> +			gpio-hog;
-> +			gpios =3D <4 GPIO_ACTIVE_HIGH>;
-> +			output-high;
-> +			line-name =3D "tpm_en";
-> +		};
-> +	};
-> +
-> +	st33ktpm2xi2c: tpm@2e {
-> +		compatible =3D "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
-> +		reg =3D <0x2e>;
-> +	};
+> 
+> Thanks a lot.
+> Jie
+> 
+>>
+>>
+>>>
+>>> Since the base Coresight DT patches for the Kaanapali and Glymur
+>>> platforms have not yet been applied, I created DT patches only
+>>> for the Pakala and Hamoa platforms. I will submit the Kaanapali
+>>> and Glymur patches once their corresponding base Coresight DT patches
+>>> are merged.
+>>>
+>>> The Hamoa‑related patches were posted in a separate email, and I
+>>> have included them in the current patch series.
+>>>
+>>> Link to the previous Hamoa patch series:
+>>> https://lore.kernel.org/all/20251106-enable-etr-and-ctcu-for-hamoa- 
+>>> v2-0-cdb3a18753aa@oss.qualcomm.com/
+>>>
+>>> Signed-off-by: Jie Gan <jie.gan@oss.qualcomm.com>
+>>> ---
+>>> Changes in v3:
+>>> - change back to the numeric compatible from hamoa to x1e80100.
+>>> - Link to v2: https://lore.kernel.org/r/20260203-enable-ctcu-and-etr- 
+>>> v2-0-aacc7bd7eccb@oss.qualcomm.com
+>>>
+>>> Changes in v2:
+>>> - change back to the numeric compatible from pakala to sm8750.
+>>> - Link to v1: https://lore.kernel.org/r/20260203-enable-ctcu-and-etr- 
+>>> v1-0-a5371a2ec2b8@oss.qualcomm.com
+>>>
+>>> ---
+>>> Jie Gan (3):
+>>>        dt-binding: document QCOM platforms for CTCU device
+>>>        arm64: dts: qcom: hamoa: enable ETR and CTCU devices
+>>>        arm64: dts: qcom: sm8750: enable ETR and CTCU devices
+>>>
+>>>   .../bindings/arm/qcom,coresight-ctcu.yaml          |   4 +
+>>>   arch/arm64/boot/dts/qcom/hamoa.dtsi                | 160 ++++++++++ 
+>>> + +++++++-
+>>>   arch/arm64/boot/dts/qcom/sm8750.dtsi               | 177 ++++++++++ 
+>>> + ++++++++++
+>>>   3 files changed, 340 insertions(+), 1 deletion(-)
+>>> ---
+>>> base-commit: 193579fe01389bc21aff0051d13f24e8ea95b47d
+>>> change-id: 20260203-enable-ctcu-and-etr-31f9e9d1088d
+>>>
+>>> Best regards,
+>>
+> 
 
-[Severity: High]
-Since there is no explicit structural dependency between the TPM device and
-the GPIO expander, could this introduce a probe order race condition?
-
-Because fw_devlink is unaware of this relationship, if the drivers are
-loaded asynchronously and the tpm_tis_i2c driver probes before the
-gpio-pca953x driver, the enable line will remain deasserted.=20
-
-The TPM driver's initial I2C read might receive a NACK and return a
-permanent error like -ENXIO instead of returning -EPROBE_DEFER.
-
-Does this setup inadvertently rely on undefined probe ordering to ensure
-the TPM is enabled before it is initialized?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780051874.gi=
-t.stefano.r@variscite.com?part=3D1
