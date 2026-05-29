@@ -1,106 +1,148 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6EBB23E5EFE
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:25:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C50DA3F928E;
+	Fri, 29 May 2026 15:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780068356; cv=none; b=t/MmdLE1Ih/a7l6syzIu6UK6TTj2NB48FoW+fWNg529eVdsK0PNQmKewI3dDNBeR6M1W7M4HazONbacxbUeZw5cC3MI8sPIyxDE0Az5/m6EvxIVIdpoNrJ9ew3KljwoSqmQl1WV7DbOQqF7UwQJ106/+/n7aw4kNo4zpfDF8AEM=
+	t=1780068402; cv=none; b=Fi1fpTAttYwbsHdOQY/Xj9/hU4kqvPiiivH5UhfsI5H/ZPRPs1PkkOUrkvt48NDISDqyrK1NPHRsOAEPtfW5qlzBkrCy66ZGks1yr0Y7LjwHXlw/06jpP9xxiLn7E0VSJABVItY+FYArhHN8NrhCGY653N3faL9AX1Zr4F97mCg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780068356; c=relaxed/simple;
-	bh=gjhVZqBJUa57p/noRyg9uSurcyra08mS6TM/qdSo42s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nQRdMRbQmMVgDxWmoxfoiO0WoLkikqMr8QshPN13TL4zFTGJ+4LlY1AxHLG4FWuaTH3VqtHZUN+vIOal+jV8+QhsVSAyG8A8IFhaWlbLHJiVECK5g5NW48X+kgL4In/bCmr61EsbDJQTwAj+krZObEAvHtUlgqNveldKNpod0Sc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=U2yar4oO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780068402; c=relaxed/simple;
+	bh=l2h6L9+8xpQj76sKZcSHGf0inZVWrk3HOuwkI1cwSSU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jpJVkJCWu8mdPQJOkhYR0TJJAb34mp9BqWLTNFW03ygGBggRzEN3+Ql/VYzd+gaGqDtFuZ2gQ5JxF/fu+CweAAiq2T/jI0C9jjxk9idCWOBxkZhb8umyktkgGrwG5EUETkoWZXAv70zuOJqKOA5xnPYPQdXONasTb4L7K4N0O4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=jctJe062; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="U2yar4oO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00C5D1F00893;
-	Fri, 29 May 2026 15:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780068355;
-	bh=Ehwgpxhxtw4kdDhfXBszZmun0ydcRsB6sfzaaZ8ttlQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=U2yar4oOHBpcpmFbVMnd+l0pssFnTSX4bS3DWScyDbTw4T1upWUQ9hhK0HtsTqrNy
-	 WrBUhdXBGa9bwSrnhNU74m75d7Im3oYsq2eZPuqbw7JKiRb4Q5bvPWGVhMPVHelNme
-	 1zKEE9571XlCHJVWZRpLBDFWq8qcXFc13EXLZgBpiXK6rvWzSQjrUWo1oFH+gG8X1N
-	 W/LtEAhGMj3DdPv0W2AhmhJNURz/TEiRu7JdneK/OJRfvihaWzqO0kLMZQqRvGrLxY
-	 YHSKSTcJgdi9JsdPGzL9c1lssQlzfa+s50OVO4mjJlnGkw7l/EWBZR2U1K09JyoJeN
-	 zdz204g1RpwQQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] arm64: dts: qcom: kaanapali: add reboot-mode
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Anurag Pateriya" <anurag.pateriya@oss.qualcomm.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-2-1964ebf1924c@oss.qualcomm.com>
-References: <20260529-psci_sys_reset-dt-changes-for-pakala-v2-2-1964ebf1924c@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 15:25:54 +0000
-Message-Id: <20260529152555.00C5D1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="jctJe062"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 137F633EA;
+	Fri, 29 May 2026 08:26:35 -0700 (PDT)
+Received: from [10.57.26.238] (unknown [10.57.26.238])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 3B2D23FAF5;
+	Fri, 29 May 2026 08:26:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1780068400; bh=l2h6L9+8xpQj76sKZcSHGf0inZVWrk3HOuwkI1cwSSU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=jctJe062Ocsi72FLYnrMsAlas8KPbHkbhS2ysefQ8uKAVvWVrEBCOe82UFr8Nqd+y
+	 HDMcz3y5oUHF+9BvmCRmJPiLhp0BSLPWMrAkLHhGbgIR/LA+YxZyjFl5cFfc5lxaDL
+	 LJiG9Fq7JgD7VQjnYzs2gt0Cqlpb5as8PSrPIjyA=
+Message-ID: <bfcfd7c9-8185-4ac5-83ab-3bc3a1a94990@arm.com>
+Date: Fri, 29 May 2026 16:26:31 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 10/10] dt-bindings: thermal: cooling-devices: Update
+ support for 3 cells cooling device
+To: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>, rafael@kernel.org,
+ daniel.lezcano@kernel.org
+Cc: Zhang Rui <rui.zhang@intel.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Lucas Stach <l.stach@pengutronix.de>,
+ Russell King <linux+etnaviv@armlinux.org.uk>,
+ Christian Gmeiner <christian.gmeiner@gmail.com>,
+ David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>,
+ Guenter Roeck <linux@roeck-us.net>, Joel Stanley <joel@jms.id.au>,
+ Andrew Jeffery <andrew@codeconstruct.com.au>,
+ =?UTF-8?Q?Thomas_Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+ Benson Leung <bleung@chromium.org>, =?UTF-8?Q?Pali_Roh=C3=A1r?=
+ <pali@kernel.org>, Avi Fishman <avifishman70@gmail.com>,
+ Tomer Maimon <tmaimon77@gmail.com>, Tali Perry <tali.perry1@gmail.com>,
+ Patrick Venture <venture@google.com>, Nancy Yuen <yuenn@google.com>,
+ Benjamin Fair <benjaminfair@google.com>, Heiko Stuebner <heiko@sntech.de>,
+ Thierry Reding <thierry.reding@gmail.com>,
+ Jonathan Hunter <jonathanh@nvidia.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Amit Daniel Kachhap <amit.kachhap@gmail.com>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>, Amit Kucheria
+ <amitk@kernel.org>, linux-pm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hwmon@vger.kernel.org, Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
+ "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>
+References: <20260526140802.1059293-12-daniel.lezcano@oss.qualcomm.com>
+ <20260526140802.1059293-22-daniel.lezcano@oss.qualcomm.com>
+Content-Language: en-US
+From: Lukasz Luba <lukasz.luba@arm.com>
+In-Reply-To: <20260526140802.1059293-22-daniel.lezcano@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The newly added `reboot-mode` child nodes under `&psci` lack a `=
-compatible` property, preventing the intended driver from probing.
-- [Low] Adding a `reboot-mode` child node to the `psci` node causes a DT sc=
-hema validation failure.
---
 
-commit 079cf5018c165ba61e6369f973cc92a5ec2da280
-Author: Xin Liu <xin.liu@oss.qualcomm.com>
 
-arm64: dts: qcom: kaanapali: add reboot-mode support
+On 5/26/26 15:08, Daniel Lezcano wrote:
+> From: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> 
+> Extend the thermal cooling device binding to support a 3 cells specifier
+> along with the 2 cells format.
+> 
+> Update #cooling-cells property to enum to support both 2 and 3 arguments.
+> 
+> Fix pwm-fan.yaml to restrict the number of cells to 'const: 2'
+> 
+> Signed-off-by: Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+> Signed-off-by: Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>   Documentation/devicetree/bindings/hwmon/pwm-fan.yaml      | 3 ++-
+>   .../bindings/thermal/thermal-cooling-devices.yaml         | 8 ++++++--
+>   .../devicetree/bindings/thermal/thermal-zones.yaml        | 3 ++-
+>   3 files changed, 10 insertions(+), 4 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
+> index a84cc3a4cfdc..6a24851fd80d 100644
+> --- a/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
+> +++ b/Documentation/devicetree/bindings/hwmon/pwm-fan.yaml
+> @@ -63,7 +63,8 @@ properties:
+>       description: The PWM that is used to control the fan.
+>       maxItems: 1
+>   
+> -  "#cooling-cells": true
+> +  "#cooling-cells":
+> +    const: 2
+>   
+>   required:
+>     - compatible
+> diff --git a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+> index b9022f1613d8..28f5818f1e60 100644
+> --- a/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/thermal-cooling-devices.yaml
+> @@ -44,10 +44,14 @@ select: true
+>   properties:
+>     "#cooling-cells":
+>       description:
+> -      Must be 2, in order to specify minimum and maximum cooling state used in
+> +      Must be 2 or 3. If 2, specifies minimum and maximum cooling state used in
+>         the cooling-maps reference. The first cell is the minimum cooling state
+>         and the second cell is the maximum cooling state requested.
+> -    const: 2
+> +      If 3, the first cell specifies the thermal mitigation device specifier
+> +      index for devices that support multiple thermal mitigation mechanisms.
+> +      The two other cells are respectively the minimum cooling state and the
+> +      maximum cooling state.
+> +    enum: [2, 3]
+>   
+>   additionalProperties: true
+>   
+> diff --git a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+> index 07d9f576ffe7..999ad40a20d5 100644
+> --- a/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+> +++ b/Documentation/devicetree/bindings/thermal/thermal-zones.yaml
+> @@ -211,7 +211,8 @@ patternProperties:
+>                     device. Using the THERMAL_NO_LIMIT (-1UL) constant in the
+>                     cooling-device phandle limit specifier lets the framework
+>                     use the minimum and maximum cooling state for that cooling
+> -                  device automatically.
+> +                  device automatically. If three arguments are specified,
+> +                  the first argument is the cooling device specifier.
+>   
+>                 contribution:
+>                   $ref: /schemas/types.yaml#/definitions/uint32
 
-This commit adds PSCI SYSTEM_RESET2 reboot-modes for the kaanapali-mtp
-and kaanapali-qrd boards. It defines the bootloader and edl modes for
-use by the psci-reboot-mode driver.
 
-> diff --git a/arch/arm64/boot/dts/qcom/kaanapali-mtp.dts b/arch/arm64/boot=
-/dts/qcom/kaanapali-mtp.dts
-[ ... ]
-> @@ -1321,3 +1321,10 @@ &ufs_mem_phy {
-> =20
->  	status =3D "okay";
->  };
-> +
-> +&psci {
-> +	reboot-mode {
-
-[Severity: Low]
-Will this new child node cause a device tree schema validation failure?
-
-The core PSCI schema (Documentation/devicetree/bindings/arm/psci.yaml)
-enforces additionalProperties: false at the top level and does not currently
-document or allow a reboot-mode child node.
-
-The binding schema may need to be updated to explicitly allow the
-reboot-mode node to avoid errors during dtbs_check.
-
-[Severity: Medium]
-Does this node need a compatible string to successfully probe the driver?
-
-Standard device tree matching via of_platform_populate() requires a
-compatible property to bind a device node to a platform driver.
-
-Without a compatible property (such as compatible =3D "qcom,psci-reboot-mod=
-e";),
-the driver core will likely ignore these nodes, leaving the bootloader and =
-edl
-reboot functionality inoperative.
-
-> +		mode-bootloader =3D <0x80010001 0x2>;
-> +		mode-edl =3D <0x80000000 0x1>;
-> +	};
-> +};
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-psci_sys_r=
-eset-dt-changes-for-pakala-v2-0-1964ebf1924c@oss.qualcomm.com?part=3D2
+Reviewed-by: Lukasz Luba <lukasz.luba@arm.com>
