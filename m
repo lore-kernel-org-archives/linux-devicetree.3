@@ -1,204 +1,230 @@
-Received: from OSPPR02CU001.outbound.protection.outlook.com (mail-norwayeastazon11013035.outbound.protection.outlook.com [40.107.159.35])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC8102BE03B
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:50:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.159.35
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780059030; cv=fail; b=K22wbGL79o9GnGJKJQbmJW85+ZtW58STZNiBiRmAbjV/ARnGI4tA0st2zM/gIm6Va2RMiLb34BqLhrTMSMmaU1fheT5PP6/mXUbtzlhHC00wcwJ7EJP/tf3yKrcArReA3XaCF+jR86iiK8rvNXwUNXi4MSHwGWSCASqXPmax5hw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780059030; c=relaxed/simple;
-	bh=py2fweiAr0ZuhyCo7nPPw1musXwu3sizvu68wy5Pnf0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=mz1WDMWgiG5Co+F5JVJ1Fhsjp0q+qjTizc1vIg3vvGoGff9ZCVOIq0djhxGkvxQAtpXVPt2MUBDEiHyb1cht1K/KbFaH4j+JYjZ9m7mJe9lZDcDpTTUGhKTYvFK+eVxE80Ne+rlgtQnoFrDMXH1SQejTkSoyW1PN8/9SMaaaJTM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=B6NYqkQ+; arc=fail smtp.client-ip=40.107.159.35
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2FD9E280A51
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 12:50:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780059047; cv=none; b=P9VidjyVDbUNZwDo7VEaDYuZ+2TblxTUzdeeBgqkSK2I/0dHWoXgaVlUP+lCEdd94Hwa1OStXYKRErUPLR0pElCaTAnThbMTmYVVQVBv3Jd/eNJ8vGvZ5ROs79AwHsSwmQRM27PxgVczvPawJIiBoiMQrbcE2jCUiaVqojjlxCI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780059047; c=relaxed/simple;
+	bh=kjmAeA0WIYxplZf0lI6NSpHtYD/nF1xj0SWbgmpaoTo=;
+	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
+	 In-Reply-To:Content-Type; b=igQS/bwPDpta3hTvFKZnd9Ydr+W7A6i00h3x9nv3FTO123DhPbNIEWjrUW+c4FK5P+Vlq1rEZw82ECFttpD4v/rhqthp65KzJead/CNtzteTRcuPr4MtawdhaOFwNkvV61Rx7BtJpf7RJmYR8moIaHSY9DmxLkwNgovo0LWV1N0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pHyhti/l; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="B6NYqkQ+"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dpyr7wsQf8zycCxhDItZWmXnXhi9N40Ws2vjmfQMoEUqMTLm9nJ8C0o+JDqEg1MGIRdSt5MPErFjreLLrukdn7sfCLJbukuG2uxVYxp2ASsxGDAaFRzVAcX4Mak6fVHmuRXhEn3HZFYJ0Bny7U5S9NR5hB4eDYHHlc6NiSifY9dbxjyvG1CfEWCS4q2Gg11Fsp2O3ge62DYZykank+ezSp/VAzWqx1LhatW0vv/61EFX6IANsbH/JRKZlCl6zOIotG/q1Unwgy9Ry08pJZUwhLmG5d0detJDYipL5pEZhRfcfRUHacYfTi176lHQtNFT33rFc28XwzQ7f2QJFch1KQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=Tnddp4WlPdwnDLOh33frAl42xyO1+ayKOo4z5UbOX64=;
- b=DchMNbLCcw4Pc3CkHxCAvTlbUnRoai8+jJrw4M+uaMz8Cd4aTGmVoUJmUdZBdufUt01zXwMoxf9XnyG3Lrgx5tE4GTzJMIqTn4zVjvFPg/bNFtxq50+SS5oibyHSZZnikYEDwe5pU/szl2pzXBf8AyBZ1QiJkRM9yxB01OjzKtTc2nV9I6wLFBuV+hWILsZFd0RbLAGqIlg4KkAYnvs/DjlC9vX71ASY30tGn0nyqXXoZ1/scbDbk90GIW2ClqvZzCWTnFJ/c06KFmlkpeawrXrayYWy1gQNkTPQvSzpgR58qd3s8jbTD1oNfmT0VhrZqKeeSKE38lnfMedRMhZEgg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=Tnddp4WlPdwnDLOh33frAl42xyO1+ayKOo4z5UbOX64=;
- b=B6NYqkQ+Eq5zahs0orBs4+BYILq/gSsfu/DWA4i2WWV26vvq7x9MzPasn+6JdMn7qQrt3i5YXk5+jRu9kAcqkTEbtPv6ODIS1H7IrSGj2nO6MCC56j1I+dEMEDuNPBunRKVL+KZt7I/cI/GY/SSdCnvs7ZOcHidXpi2FcSzLZi9e4aMqSc0KZIH3ZbUw4kq+cUGH761vfnru+BrXNpk64YtuvotD9v4TCbGhI6kC9OASHICwviQriI6Rp+8w2BMR+8lo/kXEwyllz9nidyBJzxrxoPLEk+F9w/sSNPa+Aek8UpFnKXi0nUCo6H+wTDPFkF0chnLnZ2M0YkdMpryrmg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
- by DU0PR04MB9562.eurprd04.prod.outlook.com (2603:10a6:10:321::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Fri, 29 May
- 2026 12:50:21 +0000
-Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
- ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0071.014; Fri, 29 May 2026
- 12:50:20 +0000
-Date: Fri, 29 May 2026 15:50:17 +0300
-From: Vladimir Oltean <vladimir.oltean@nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org,
-	neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
-	olteanv@gmail.com, vkoul@kernel.org
-Subject: Re: [PATCH phy-next 01/13] dt-bindings: phy: lynx-10g: initial
- document
-Message-ID: <20260529125017.ifqunh52gdzhthdg@skbuf>
-References: <20260528172404.733196-2-vladimir.oltean@nxp.com>
- <20260528174044.EBE8A1F000E9@smtp.kernel.org>
- <20260528174508.bqu6ks4rgkysvgdg@skbuf>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260528174508.bqu6ks4rgkysvgdg@skbuf>
-X-ClientProxiedBy: VE1PR03CA0014.eurprd03.prod.outlook.com
- (2603:10a6:802:a0::26) To AM0PR04MB6900.eurprd04.prod.outlook.com
- (2603:10a6:208:17d::10)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pHyhti/l"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-44c350a5b87so8169695f8f.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 05:50:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780059044; x=1780663844; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=gsdtKyBNIze1lqIATJulyFXg8jvRauNrlgVPkVHHWJU=;
+        b=pHyhti/lAPWeuAygOmGafvkos81ho9hN0dLshzPNGsd6f25Wzu+UhxoJuq1CUKDe4e
+         VqKBazOWwOcNchRejHlrIbdqpvi4alWoRlFZ/YjpKYsF19m5p1D/ejXwRHPfC57lRhOu
+         f0HSs2uVlQFEFCwAE3ElHUuN3TjtIRfGCcIL+os1b/rZXW9htbaq26crE3aFRBP3EQZs
+         pvnL4xZbNTleZ5xe1Nc4V9qjk4MIB2pqYViQhjwimYmvHvdurpVIA7Acbnu8/vg2CvOJ
+         aFn1C3BobL9MAz6IO07cLYMf5rwK1/str6odlZaRrSDVhKWYyR8Y05DsSV9w0gvlBQQH
+         aMJw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780059044; x=1780663844;
+        h=content-transfer-encoding:in-reply-to:organization:autocrypt
+         :content-language:references:cc:to:subject:reply-to:from:user-agent
+         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=gsdtKyBNIze1lqIATJulyFXg8jvRauNrlgVPkVHHWJU=;
+        b=sNZ7ghMJE2fsTuIO0gSjjQajKz1vosxfIsOzXF22mQlTsXRuwIemxDIyWmnfUc8DPb
+         4lOzVcsVsYS+ej0W0yNSH/xrusGVycHWc/fWjP6RQLfmIyw0kUywDKsTE7eFeThQnKGh
+         6ZWqqKXk6LzfqF/Bnc4jpK9KSsRe9BMmYJ1L6Vtx5i2qse8vgSIoW5LpgNZBewzap8SF
+         /LDtddFspdwEX7cmJYXziazJiXZAhnj2uaHNx6u3Uw8wmd69aiWvThkKT8yzWgZkR7xR
+         kRBJXGSekEZPcwv5QqIlywmflrpmCnHigobS37704fpDKk+vC4Ft1LSv3U2I4ZwIXyTv
+         erFw==
+X-Forwarded-Encrypted: i=1; AFNElJ9bJZZkM7ijPJ7nFw94nAE1vwV5mroxSm7tyqHT+7SoONW5oAkV2PgvzBS9cWXKjUe7qCfF1TH6cVMe@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWAaii/D8kBDxrufqRo2+gFuy0rbvJraL5U+QYRZNV8hMqMa/K
+	d7CzGpg19lO4pgvZHofoIxNhEB70ARWGyP8p3z1muTE759dHWQx0Vh4VaQns8lG1Krs=
+X-Gm-Gg: Acq92OE9XnaBOfghBF7bCUWAJ9e/T1N4GZ0XXs/aVn8BWyUwWvGySoxoeamuc5G45ya
+	ZhJCBDVSsQYlBnW58qqMbg95IchswAaFUJehPMyL6oRQKEyzqkpTCfGWsPJ882p8RViinaJWz3s
+	26yqZjfQ7hfNXy5XeBYMPpV2Z8Ge5uqzagqwdJ8l1GRlp3QFxiIUTr90B+F84hFRKBHKqQgBCoa
+	R6B8GYbg4oYJhK4j/7o+6BH48ZJDJKFCe/LE3obLmF0vMKoJ1Md5K+IoQUyzgmm8w6kllWO53pX
+	9g1ztGN8qVxD5Dbm7S/DaST+x1vPEfxrlVqRKHUZG0YqVNdlypJOe9x3whxxIMe8SQze7dmroSA
+	KZog77W3rgUNyvhSrCZsPgdaP7LG/CiQ61RzY9qSc0I19F+B9A86qLZZRB/EpQNOGUjGZVtJLQ3
+	RyJhQQXaVA7RFgy+gFJ3kND9UkZKOTfEKTi1IFiHbyH4/xLDjMlJ7onv6IP63wIGZheryaRNPON
+	EL1zxmdfoubbVL7FdCzukc4P4Vt
+X-Received: by 2002:a5d:5d0c:0:b0:45e:e1a4:c4c3 with SMTP id ffacd0b85a97d-45ef1403b76mr5200312f8f.15.1780059044315;
+        Fri, 29 May 2026 05:50:44 -0700 (PDT)
+Received: from ?IPV6:2a01:e0a:106d:1080:b6d0:a628:be51:f552? ([2a01:e0a:106d:1080:b6d0:a628:be51:f552])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b5bdsm3169110f8f.21.2026.05.29.05.50.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 05:50:43 -0700 (PDT)
+Message-ID: <4001cf6a-b7de-4933-96bc-c9b4ccb53e4d@linaro.org>
+Date: Fri, 29 May 2026 14:50:43 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|DU0PR04MB9562:EE_
-X-MS-Office365-Filtering-Correlation-Id: da81d237-06f3-4ffa-63f9-08debd80d7b7
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|10070799003|19092799006|366016|376014|22082099003|18002099003|11063799006|3023799007|4143699003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	nqepup6Li/6pPMG+jMrhrZYwlr0b+OAbtJUwUPnD5MVXctr63O8l4FTjBRenF607xV8ghd9WWkGafgnUVJcL8djq9n7MrV+Ju2vbME3Qklch/QDmlGsrnA9vGj+QbO2QGO7PZ4Oe+Yik8eN4L9uDOdaWP5x+uVc9c5GWhsQ9U246hr5E2tSIxJRLbUUguUK1229eC6bWzR8XM9bLl3TXVx+NpOcPWY9rmJMgPHI3u4bb30ycwB309ScOmGfjCVTvG9trsOGyQJ+MlJvXnZfVUZgEqS8X3amO6B1/aBA7cn884dYx72Wt8yWVeWdOQ0fsqbiG3AvDri01PSs9+3IwXNHTWfb/u8lTEUeXhwE/L7wuuCckycNSit7NRGxU9uVINxJi9zdZeXy1z6Q2EzopwMFk+xI5x+9XWfl/3jmpWvUpvnA2baekzs8LWkt/44ylI37WR9WuB4L1a/RIpMxvypN0Xj0MSMIMLWIaoFhejj/V+cbhRVJ/vv61VQcwNr9Ilqd8LdLhOmS+7ZzpqzXyWgLoN/jHL2o+tiCBfPGS2rLMruyOZYnKNt0HI0HcEUE0Fn345dUsMHnL3C3ITwtXQPEVb06i4lp4RiYJmd6QgjfvXpRuQpp19lH0IE0MFC3OPpW+w3uGmYlQ2ybCcWTAVQ==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(10070799003)(19092799006)(366016)(376014)(22082099003)(18002099003)(11063799006)(3023799007)(4143699003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?wnTqtwN+YI+9RvlGoZLSp+VlcNTZMrw9WOdArC9F9V2DHJR1O5vpTD0EDd?=
- =?iso-8859-1?Q?dOsXvRIAppk9KbgiVHQW4e0nNEw5KmA46xcjDBQ34HpZ32SZLbbU3zBwIx?=
- =?iso-8859-1?Q?xog4CqV2RuHuvsO6Nu9sawgyt37bwuwtdK9S8hVV5S9sBr9necG1o98Dvr?=
- =?iso-8859-1?Q?f9/9+T3m/bodx1iDkcacC0xd4vJk1JvwO3iyjo4GnoKKYjFvN+3n1y0u8C?=
- =?iso-8859-1?Q?2wUYzyroYQITtrqs79qk8FMMAsWMtiIXOpmox6ipfgtzg/zT6JynMSs/xr?=
- =?iso-8859-1?Q?LS2xCsTFQpzmcVoXkU5MEmkvTKLrOaZmYmB0RE1I1GOQWrTuInrMgikHiT?=
- =?iso-8859-1?Q?AifpFp7VpD3eGqP1Mk2WrsAH/XQaDZx/octleBKTIQMdW99hBojXaPYlVC?=
- =?iso-8859-1?Q?phff/AA52HARfZO+UCliapEbcqENpk3vefrjirVzUM+A5ME4aGDm6eeqSD?=
- =?iso-8859-1?Q?7gqUTQShKqsVf2RbDfHqxw9tb+7PPi1qNQXJq3m0PV23VIcM+2APIG7YQH?=
- =?iso-8859-1?Q?yq1NOmb00oJQBwj8oCylgSSYRER7J752aGeTDmq8esMD/g4HsyD/7etw89?=
- =?iso-8859-1?Q?kUAYZjlnliiVYgS5x0vBZqq4dntvaLhdlizPIqfnuLz1YoVFdq3gdyCJdj?=
- =?iso-8859-1?Q?rI0gK3UEZSCU7kWGLDby+BEuQLcs41xxPR7TQWDQxSXrRH+1WBdvDqWNuz?=
- =?iso-8859-1?Q?OxhMG8OBTtKhnHkQ2iofl61KZOjfk4Zsqf12IjCy13l2g7FrT43zQG+fOY?=
- =?iso-8859-1?Q?iIwepFE5WjqjVjKGLkAXW2BJmu+EqEST+wyLXK0Thy1JtBX97LcuupJDUx?=
- =?iso-8859-1?Q?GmNtYjz543du7zn7S+WwOWx7KgdOxATd9rTwNfGWeiiYDFEKwbshiseesp?=
- =?iso-8859-1?Q?jcoMtw/ODvXuakbkikEe67KmL095plwb4RetgEj3jeHfUHpTJLSi00Fzvl?=
- =?iso-8859-1?Q?POv+VUwmScu2/tjMNiXKJaNSbs+xO98XV1atOCHG2STXGTfFPau7L0oXMM?=
- =?iso-8859-1?Q?x54r8DjtGhQgAG3fNRLdt8CAVdRySBF3xKOS1KXWExO9e9BKPQoTfd5mg+?=
- =?iso-8859-1?Q?ba4T4Wm0HQMgciZ069CKSZC4VKlkIp1hTFw5GNI+XpiERtiD/5Vd9jMIi0?=
- =?iso-8859-1?Q?2AgvOWeatWFW3vfDjYEyCzpVCGPMIXPkr8zTvuCRtb+si/aclHPHPSSGzu?=
- =?iso-8859-1?Q?kWKSZGL6dhRriX7UwQg+50snRO17ZC5J3Uw0nzvoIBTN4IzIOTIWYBRJ9g?=
- =?iso-8859-1?Q?Te2eMMxy1CuMasTPnOM+Phj+wmfzG/2VR3zNdjIyxjLDy6gq7H0viqMajm?=
- =?iso-8859-1?Q?vqrCpA1JP49UUNsvTXB5h2OSfkHlVhqU2qIkMkEGlT278zTMjzJP3VrCgT?=
- =?iso-8859-1?Q?bsJn9/NjCd7WbYvys013rmmZUzs7Qi3r+ikaNwioyb9Saj2PZpOVDR63BG?=
- =?iso-8859-1?Q?0bUiytf2LOioiDlhO4D7apd70CzXxzJgdZQzXwAS7gGAaJU7Ip3299/JUV?=
- =?iso-8859-1?Q?hcNigRLyMWR+SJVL80kZRkIpCh4Nct5oi51IXOC/JgakxN6p3SiYbEktjh?=
- =?iso-8859-1?Q?F9FC8G1ffdIqCyOhHUdEYDBGT8Sg4Bnht+wrkKT4MjWq+0//6BkKxxPtAD?=
- =?iso-8859-1?Q?NI+YS8MjY/gq+5044NqEen1oAbrZ3M7ACIrQ3OzpMaB0uA3rZGOXlBapsd?=
- =?iso-8859-1?Q?B7uVZ5slZ0HzVA3z54ZAZU4StRg9tXhcRKSv6zs92par2Oq58FCo5Ims8s?=
- =?iso-8859-1?Q?4LtsYHOqjMJspKVR7Ej7EmA7lMOCuVrUk6xNfopTESDHj8BuUFl1SqSMmS?=
- =?iso-8859-1?Q?UULTaNRnb5I+hERqYWIqnqGXbbYxng8JTcavmSxML8enXFrKfL8F+sjYN1?=
- =?iso-8859-1?Q?rD?=
-X-MS-Exchange-AntiSpam-MessageData-1: aVRRCHlHMVSsLL9YCWUQh/5YdY1OQ8zmdMY=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da81d237-06f3-4ffa-63f9-08debd80d7b7
-X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 29 May 2026 12:50:20.7276
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: rSbwRCwkN/7+LKoll+TDyg+T5TOXH3Oq1lfa+MgK2IkZUgVZEGghMY4757N/omsBM5RRUZs7XOJl7eIWZuabgg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR04MB9562
+User-Agent: Mozilla Thunderbird
+From: Neil Armstrong <neil.armstrong@linaro.org>
+Reply-To: Neil Armstrong <neil.armstrong@linaro.org>
+Subject: Re: [PATCH v3 1/2] dt-bindings: leds: backlight: document the SY7758
+ 6-channel High Efficiency LED Driver
+To: Daniel Thompson <danielt@kernel.org>
+Cc: Lee Jones <lee@kernel.org>, Jingoo Han <jingoohan1@gmail.com>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Helge Deller <deller@gmx.de>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fbdev@vger.kernel.org, KancyJoe <kancy2333@outlook.com>,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-0-ec8194bbc885@linaro.org>
+ <20260519-topic-sm8650-ayaneo-pocket-s2-sy7758-v3-1-ec8194bbc885@linaro.org>
+ <ahllT_HVTAJ5MbkS@aspen.lan>
+ <e3c99fe3-9279-4dfa-af69-d9366ab06837@linaro.org>
+ <ahlr5PnX5O0tEd6G@aspen.lan>
+Content-Language: en-US, fr
+Autocrypt: addr=neil.armstrong@linaro.org; keydata=
+ xsBNBE1ZBs8BCAD78xVLsXPwV/2qQx2FaO/7mhWL0Qodw8UcQJnkrWmgTFRobtTWxuRx8WWP
+ GTjuhvbleoQ5Cxjr+v+1ARGCH46MxFP5DwauzPekwJUD5QKZlaw/bURTLmS2id5wWi3lqVH4
+ BVF2WzvGyyeV1o4RTCYDnZ9VLLylJ9bneEaIs/7cjCEbipGGFlfIML3sfqnIvMAxIMZrvcl9
+ qPV2k+KQ7q+aXavU5W+yLNn7QtXUB530Zlk/d2ETgzQ5FLYYnUDAaRl+8JUTjc0CNOTpCeik
+ 80TZcE6f8M76Xa6yU8VcNko94Ck7iB4vj70q76P/J7kt98hklrr85/3NU3oti3nrIHmHABEB
+ AAHNKk5laWwgQXJtc3Ryb25nIDxuZWlsLmFybXN0cm9uZ0BsaW5hcm8ub3JnPsLAkQQTAQoA
+ OwIbIwULCQgHAwUVCgkICwUWAgMBAAIeAQIXgBYhBInsPQWERiF0UPIoSBaat7Gkz/iuBQJk
+ Q5wSAhkBAAoJEBaat7Gkz/iuyhMIANiD94qDtUTJRfEW6GwXmtKWwl/mvqQtaTtZID2dos04
+ YqBbshiJbejgVJjy+HODcNUIKBB3PSLaln4ltdsV73SBcwUNdzebfKspAQunCM22Mn6FBIxQ
+ GizsMLcP/0FX4en9NaKGfK6ZdKK6kN1GR9YffMJd2P08EO8mHowmSRe/ExAODhAs9W7XXExw
+ UNCY4pVJyRPpEhv373vvff60bHxc1k/FF9WaPscMt7hlkbFLUs85kHtQAmr8pV5Hy9ezsSRa
+ GzJmiVclkPc2BY592IGBXRDQ38urXeM4nfhhvqA50b/nAEXc6FzqgXqDkEIwR66/Gbp0t3+r
+ yQzpKRyQif3OwE0ETVkGzwEIALyKDN/OGURaHBVzwjgYq+ZtifvekdrSNl8TIDH8g1xicBYp
+ QTbPn6bbSZbdvfeQPNCcD4/EhXZuhQXMcoJsQQQnO4vwVULmPGgtGf8PVc7dxKOeta+qUh6+
+ SRh3vIcAUFHDT3f/Zdspz+e2E0hPV2hiSvICLk11qO6cyJE13zeNFoeY3ggrKY+IzbFomIZY
+ 4yG6xI99NIPEVE9lNBXBKIlewIyVlkOaYvJWSV+p5gdJXOvScNN1epm5YHmf9aE2ZjnqZGoM
+ Mtsyw18YoX9BqMFInxqYQQ3j/HpVgTSvmo5ea5qQDDUaCsaTf8UeDcwYOtgI8iL4oHcsGtUX
+ oUk33HEAEQEAAcLAXwQYAQIACQUCTVkGzwIbDAAKCRAWmrexpM/4rrXiB/sGbkQ6itMrAIfn
+ M7IbRuiSZS1unlySUVYu3SD6YBYnNi3G5EpbwfBNuT3H8//rVvtOFK4OD8cRYkxXRQmTvqa3
+ 3eDIHu/zr1HMKErm+2SD6PO9umRef8V82o2oaCLvf4WeIssFjwB0b6a12opuRP7yo3E3gTCS
+ KmbUuLv1CtxKQF+fUV1cVaTPMyT25Od+RC1K+iOR0F54oUJvJeq7fUzbn/KdlhA8XPGzwGRy
+ 4zcsPWvwnXgfe5tk680fEKZVwOZKIEuJC3v+/yZpQzDvGYJvbyix0lHnrCzq43WefRHI5XTT
+ QbM0WUIBIcGmq38+OgUsMYu4NzLu7uZFAcmp6h8g
+Organization: Linaro
+In-Reply-To: <ahlr5PnX5O0tEd6G@aspen.lan>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 28, 2026 at 08:45:08PM +0300, Vladimir Oltean wrote:
-> On Thu, May 28, 2026 at 05:40:44PM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > - [Low] Invalid JSON Schema syntax for the `reg` property constraint.
-> > --
-> > 
-> > commit e219405276839837989c30627d109ff39c15e361
-> > Author: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > 
-> > dt-bindings: phy: lynx-10g: initial document
-> > 
-> > This commit adds a new device tree binding schema for the 10G Lynx SerDes.
-> > It defines the register map constraints and allows flexibility for the
-> > #phy-cells property.
-> > 
-> > > diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-> > > new file mode 100644
-> > > index 0000000000000..993f076bba4e6
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-> > [ ... ]
-> > > patternProperties:
-> > >   "^phy@[0-7]$":
-> > >     type: object
-> > >     description: SerDes lane (single RX/TX differential pair)
-> > > 
-> > >     properties:
-> > >       reg:
-> > >         minimum: 0
-> > >         maximum: 7
-> > 
-> > [Severity: Low]
-> > Will this cause a meta-schema validation error during make dt_binding_check?
-> > 
-> > The reg property is parsed as an array type by dt-schema. Applying minimum
-> > and maximum directly to an array property is invalid in JSON Schema, as those
-> > keywords are only applicable to numeric types.
-> > 
-> > Should these constraints be wrapped inside an items list?
-> > 
-> > [ ... ]
-> > > allOf:
-> > >   - if:
-> > >       properties:
-> > >         compatible:
-> > >           contains:
-> > >             enum:
-> > >               - fsl,ls1028a-serdes
-> > >               - fsl,ls1046a-serdes1
-> > >               - fsl,ls1046a-serdes2
-> > >               - fsl,ls1088a-serdes1
-> > >               - fsl,ls1088a-serdes2
-> > >     then:
-> > >       patternProperties:
-> > >         "^phy@[0-7]$":
-> > >           properties:
-> > >             reg:
-> > >               minimum: 0
-> > >               maximum: 3
-> > 
-> > [Severity: Low]
-> > Could the same meta-schema validation issue occur here? 
-> > 
-> > Since reg is an array, perhaps this constraint would be better enforced by
-> > rejecting invalid unit addresses in the then clause entirely, for example,
-> > by setting "^phy@[4-7]$": false?
-> > 
-> > -- 
-> > Sashiko AI review · https://sashiko.dev/#/patchset/20260528172404.733196-1-vladimir.oltean@nxp.com?part=1
+On 5/29/26 12:35, Daniel Thompson wrote:
+> On Fri, May 29, 2026 at 12:16:07PM +0200, Neil Armstrong wrote:
+>> On 5/29/26 12:07, Daniel Thompson wrote:
+>>> On Tue, May 19, 2026 at 10:43:38AM +0200, Neil Armstrong wrote:
+>>>> Document the Silergy SY7758 6-channel High Efficiency LED Driver
+>>>> used for backlight brightness control.
+>>>>
+>>>> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>>>> Signed-off-by: Neil Armstrong <neil.armstrong@linaro.org>
+>>>> ---
+>>>>    .../bindings/leds/backlight/silergy,sy7758.yaml    | 53 ++++++++++++++++++++++
+>>>>    1 file changed, 53 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>>>> new file mode 100644
+>>>> index 000000000000..80e978d691c2
+>>>> --- /dev/null
+>>>> +++ b/Documentation/devicetree/bindings/leds/backlight/silergy,sy7758.yaml
+>>>> @@ -0,0 +1,53 @@
+>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+>>>> +%YAML 1.2
+>>>> +---
+>>>> +$id: http://devicetree.org/schemas/leds/backlight/silergy,sy7758.yaml#
+>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>>>> +
+>>>> +title: Silergy SY7758 6-channel High Efficiency LED Driver
+>>>> +
+>>>> +maintainers:
+>>>> +  - Neil Armstrong <neil.armstrong@linaro.org>
+>>>> +
+>>>> +description:
+>>>> +  Silergy SY7758 is a high efficiency 6-channels LED backlight
+>>>> +  driver with I2C brightness control.
+>>>> +
+>>>> +allOf:
+>>>> +  - $ref: common.yaml#
+>>>> +
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    const: silergy,sy7758
+>>>> +
+>>>> +  reg:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +  vddio-supply: true
+>>>> +
+>>>> +  enable-gpios:
+>>>> +    maxItems: 1
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +  - reg
+>>>> +  - vddio-supply
+>>>
+>>> Sorry for missing this in v2 but is vddio-supply really a required
+>>> property?
+>>>
+>>> It's unusual for supplies to be mandatory (and the it is not mandatory
+>>> in the driver implementation).
+>>
+>> This device is a little bit special, the VDDIO regulator is used to provide
+>> power for the I/O via the enable input, so basically the enable gpio power
+>> level is provided by VDDIO.
 > 
-> We have the same pattern in fsl,lynx-28g.yaml and it didn't cause schema
-> validation failures there.
+> I don't follow. The EN pin acts as both VDDIO and as an enable but it's
+> still effectively a power rail isn't it (albeit one with very low current
+> draw).
 
-Yes, so the dt_binding_check test passed fine:
-https://patchwork.kernel.org/project/linux-phy/patch/20260528172404.733196-2-vladimir.oltean@nxp.com/
+Here's the datasheet description:
+```
+Dual-purpose pin serving both as a chip enable and as a power supply
+reference for PWM, SDA, and SCL inputs.
+```
 
-I will not be making any change to this patch in response to this LLM
-feedback, just humans.
+The VDD input is directly provided by the panel, so Linux has no control
+of it so I haven't added it.
+
+> 
+> It looked to me like the correct way to model to two power rails
+> going into the chip is vdd-supply (main power supply) and vddio-supply
+> (EN/VDDIO) I don't understand why a single pin needs both a regulator
+> *and* a GPIO in the DT bindings?
+
+I don't have a the schematics of the board, but as I understood one gpio is
+actually enabling an regulator which provides power to the IC (vddio) and
+a second gpio will either drive the EN signal to GND or VDDIO to provide a
+clean rising edge on the EN pin.
+
+So it's not really 2 regulators, and having regulators means the enable
+signal can be shared and would have regulator characteristics which it hasn't.
+
+> 
+>> This is the recommended way from the datasheet, and I assume it will be used
+>> like that on other platforms (if it exists...)
+>>
+>> This is why it's mandatory and enabled first before setting the enable pin.
+> 
+> It's not mandatory for the C implementation. devm_regulator_get_enable()
+> will provide a dummy regulator if the property is omitted.
+
+So yeah if you prefer I'll re-spin with the vddio regulator as optional
+because between both, the VDDIO is the only which could be shared with
+other devices or always-on.
+
+Neil
+
+> 
+> 
+> Daniel.
+
