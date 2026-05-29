@@ -1,133 +1,232 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD7D31AA8F
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780066747; cv=pass; b=frE89UrIYUYW0/1b4Q/GEirBqLwla/55DJt78Zy7rxF/5ZtU4j7c98mT08hQvLYT+1z6iGGw8ZYq1eII/nuipksFdgneW8PHayqvyn3EPx9LyJl9Bogw4As1b9feegxQs68CoCEv/F1mNVKYs+665UTLXRAYjK3esf5guV1V0/M=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780066747; c=relaxed/simple;
-	bh=nQCpACxM/NNDWLD8aG1f9Y5eQyxFb13mKb3dIoAiQz4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=IKhe+PTFAVGtJNlNphmx2h+uvUuHNtgJ3RP1lqmEOCDI33ZkXKhGf2X/a2FyZ8hsm1lRB4XfPoyKDPbcRjxubPgl4swAh5Uwenw6lcpgFSnaYRygl5Mfo0pPt+BRmR0+GL7JhFcAjrlBDVIYHNiLbWlsK8iHcbhxCZF8wfggFJw=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gNMwL1Yb; arc=pass smtp.client-ip=74.125.82.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66698366DB4
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 14:59:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780066751; cv=none; b=duULU+ViRTiw61xK5H0+rp+k+YWeRoSfHpuA1ZKkWrJ2vFShS8Idqb2L6H5an18MC9H06NoI0G582EHihAh+AuxwIx0R78p7MPCoHK1T887LnTa0JG9zahIU7NET2BzQL4sZ1lVjnJRRC+zWjA0Vph9ns8FBa/HTWsu5mJVb0Vs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780066751; c=relaxed/simple;
+	bh=P5zhO9i+2OJiBk9hcHZftkjk49FMNVG1+13spVIdT1E=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=IJzJY9gfvEF4FE9BPuhQCXN8S7L8W+2XR3xNYJZpZzEkqY+U7zopAWID1jy2ZB3G7WErRkprMr64bAYzTrYyWADTiRMh/UZFBkVwWFMYCM7qFczY8Evc+WnbzLGw9kzGlOsbdQ3GaxZSJPvRJD9zNngF6f/8m8GtJNWz4LkPBvg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rq4iW622; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gNMwL1Yb"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-1363e78746eso10453297c88.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 07:59:05 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780066745; cv=none;
-        d=google.com; s=arc-20240605;
-        b=fGczEbqGhhda63Yg4FeOS4U+ybFPHwVH2zogzrGce87zarep9JNWMOHB/D6oi8cEOK
-         pqVQPMxxq02GV0fn7SjckCydX3O8Iwnf/ZWeCKKDa6/9ej6tio3KEYVv70YSMJFU5uPh
-         ExIjFu34zLraQULr6GBLPRvjiGHOL+5Zgctr+fsm6jpbpSbNC1B9PJdYftRUGaYIsoTL
-         EexiPVAORRbEYvi2YE6eod42IuImT56pFBZkmcY06HHh4Ndhib13B5VLfQ5Mx/BPzZiK
-         c8x32sWF4Dna8o6CvUGxp+ZwMYo14q849EG9qL/kZV6a8dK3xpBO67UscaYXjb2DhbZT
-         3Law==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PgXHcM39V5zvAXFHcyS55ak/JoLwnSwxluSWMdfV+ZQ=;
-        fh=lyfQyaShSEbjYqzj6feHy6RVr/kDcCIQsr99gaY6qNQ=;
-        b=SPnbZcLWoflZxg72HB02cOuHDW1achR0twa+KEDj3/EUNUPJWQBPDaKRmOpKYnU+zr
-         EQV169Y3+MI8uDMRtxIB3OEjB29HEcrFfxF72nS6rA8b0RMv6oAyLxRlDNxVXWklnNwg
-         nNPbQQ3ymq10OuF/Mn/5y/D+ngk5+vWsZEkzdXHwq4lXjWLfHdmRU/9g14JLDrf/Gotw
-         5vLOG35n9wwJTSxGixPXk93O5upOAPjqZbYGghiVcA2tA+4Z6n/I9cDreMDIQK3ENGYM
-         Njeigds+y3TOcPy0FAOwC46Zd9dUBhqA1CoC0m0q7qexe1ZnBlATmLCFn+KLnNl1UqO1
-         Pmng==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780066745; x=1780671545; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=PgXHcM39V5zvAXFHcyS55ak/JoLwnSwxluSWMdfV+ZQ=;
-        b=gNMwL1YbBRZTB7NSZ4KCgt6SbCk7Nhp0rcGLAn43t4CF0eLO1A3IWnkWm/CTuhlCdZ
-         JzRwmtVYUdrS9YjadYk7X8Abc3sIH93tG1cfCprE/YmBLJwIcLLuGl9D4yECP64cD2gX
-         pXFNiRLIJhztez1AihysMIusiyY0KU9zuVXRv4DuQeix8mcdUHx4Q07Lhd2i2nkhY2GV
-         cBYzN7QPh2hXyEuy7TNXjgYfk/T/vIdZwTe75PLkGcZjNgFTRLf716UBbZ95a9Gyxpy8
-         h5r5wr88j6Ys0twBVoj5QQkRQdCpgejw4OrsYOlNAaJWCEjieQHiXZ5zFauyeKFT5uyg
-         NECA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780066745; x=1780671545;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=PgXHcM39V5zvAXFHcyS55ak/JoLwnSwxluSWMdfV+ZQ=;
-        b=dXDQ5bk6bu3MOKYMdO83ggA0nLnza0ga6+GWGyABL7qdit46CIk6eGMlVOLQ1Kh0r1
-         TjSTm8itl7JGuaUICJ4ATIR4FVCIVHFVxvF2edD5GskwqCnBPSvp1uTDGV1qnMnEoW13
-         wIHAhxJDw6rWYsah3EiZ11DJQpe2YoLE3IA9fOutWikGOWRskfXg6GJSj7hISDQaSgDB
-         crfgIbg1n4YTubrLE5UM3PwPaPByagYlP5vwSUtv4DN4/WqZP5gzWklBwUKaBkiN1eLj
-         py+r+EFiiBpFU89MBD4noPMJvx+/jRtZ2anIThOGM2lWfRx5aC8jmbypr4yfuSNkr/Hr
-         r0qQ==
-X-Gm-Message-State: AOJu0YxOypvrI1km3UcOqXXN3Cz9lV/ha2ShzxMGEo9oxECBxcUiAGVA
-	YcrwUMZ5AEQeesVBT/cwMgIsvAH0/eKkzkHd2eIOa4hDSgfaDJaqR7ITvntVWKHl9Ooa9XopX1J
-	s/RZBvESYVue80xdzpc1iTGvCJ89xzUA=
-X-Gm-Gg: Acq92OGKKgROUz6HnrJVXlXHA4I4JbryHr32z0RGUTHDF7jSlC0oezsFZolM/WuKojf
-	te/6+s+uIS/UPB4ZUsuWpa8c9q9c5dot67vbt75X7yLf/Cxs4zJq34dHqlZ7Nob1unIJbVkBmzC
-	ozr9qAktEtVJVNKwnCJVcARIu53+18epxQtEBl/rsxb1BOm42w1KDN0Eag/ac+9x0yd3VMdvBGG
-	k416AuBezw8jZSacxX04AXA/JprQzetPTwF5oGgn8Xt7wb8kueZXKCmBsfypH1qVc2uCmSxDl3B
-	W+VID4+7mQfOdVMrq8E=
-X-Received: by 2002:a05:7300:e683:b0:304:de26:3cb6 with SMTP id
- 5a478bee46e88-304fa61b98cmr74574eec.23.1780066744852; Fri, 29 May 2026
- 07:59:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rq4iW622"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDA681F00893;
+	Fri, 29 May 2026 14:59:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780066750;
+	bh=2MNdCNZjjpzBCFFTIgJ7Y7BdpUO1WMOh18yjcVSFT+8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Rq4iW622OWHiE850iny+S5g7UY439H3LsUFwbI60oTr6rNr2PuF0EPvSkOPq7CPKP
+	 okASQKsQsJo0ZKMhnRh4YFcoSfY2UdlvfawA8T2ujvTkWt8CUeUSxxjT094tXb7gl/
+	 MHDdDJ/hZuYDKMB4oF/H1Ifnq6NFDL8KcUBWn7JLAd9v29Z9FnxNhnxOmpOndtSbJu
+	 McdU5mn5b3/nsUHWV2eASkJhsBZZWV+DRz+Cc55HkRm38zLtxp78l7cjcfTGM3RHuo
+	 pk9ZEGXNwooIoRUjEb6iWdorCyVB0070jmJ1vT0C2WBKjLnEAcUdeUJyURbK6uIAL8
+	 BgE212GMmoXRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 3/3] arm64: zynqmp: Switch Versal NET to firmware
+ clock interface
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Simek" <michal.simek@amd.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <60222042a1c46d28b9c00a8128d270937f97d997.1780063921.git.michal.simek@amd.com>
+References: <60222042a1c46d28b9c00a8128d270937f97d997.1780063921.git.michal.simek@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 14:59:09 +0000
+Message-Id: <20260529145909.BDA681F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260523085102.51000-1-clamor95@gmail.com>
-In-Reply-To: <20260523085102.51000-1-clamor95@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Fri, 29 May 2026 17:58:53 +0300
-X-Gm-Features: AVHnY4I-sQrdOAdbDInY5d2djINIvTW6pdn0Pji3ZBEmd0xb_C9GzSfWWHFkO2w
-Message-ID: <CAPVz0n0+FEpfnuoH9STZoRtLOA2YxD_FvvyVn+WdyahxmEA-Qg@mail.gmail.com>
-Subject: Re: [PATCH v2 0/2] power: sequencing: Add support for Nvidia Tegra
- modem pwrseq
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Thierry Reding <thierry.reding@kernel.org>, 
-	Jonathan Hunter <jonathanh@nvidia.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, linux-tegra@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D1=81=D0=B1, 23 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:5=
-1 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Patchset implements support for the Tegra-specific modem powerseqence,
-> which handles the registration and unregistration of the USB controller.
->
-> This patchset is a part of larger series aiming to bring XMM6260 modem
-> support for Tegra devices:
-> https://lore.kernel.org/lkml/20260511135703.62470-1-clamor95@gmail.com/
->
-> ---
-> Changes in v2:
-> - previous phy driver reshaped into pwrseq driver
-> ---
->
-> Svyatoslav Ryhel (2):
->   dt-bindings: soc: tegra: Document Nvidia Tegra modem pwrseq
->   power: sequencing: Add support for Nvidia Tegra modem pwrseq
->
->  .../soc/tegra/nvidia,tegra-modem-pwrseq.yaml  |  49 ++++
->  drivers/power/sequencing/Kconfig              |  12 +
->  drivers/power/sequencing/Makefile             |   1 +
->  drivers/power/sequencing/pwrseq-tegra-modem.c | 209 ++++++++++++++++++
->  4 files changed, 271 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/soc/tegra/nvidia,te=
-gra-modem-pwrseq.yaml
->  create mode 100644 drivers/power/sequencing/pwrseq-tegra-modem.c
->
-> --
-> 2.51.0
->
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] Incorrect clock identifier assignments for GEM (Ethernet) controll=
+ers due to using legacy Versal IDs instead of the new Versal NET macros.
+- [High] Untested power-management node introduces a fatal hardware interru=
+pt collision.
+- [Medium] Missing `resets` properties for standard peripherals despite add=
+ing full reset controller bindings.
+--
 
-Hello there! There will be no v3. Sorry for disturbing LKML with 15
-year old obsolete tech. My mistake.
+commit 0cc079ca7fe5612fdd8dc6e417a47204046c354d
+Author: Michal Simek <michal.simek@amd.com>
+
+arm64: zynqmp: Switch Versal NET to firmware clock interface
+
+This commit switches Versal NET from using fixed clocks to the firmware-bas=
+ed
+CCF clock interface. It also adds device tree macro headers for Versal NET
+and base Versal clocks, power domains, and resets that are required by the
+CCF clock dtsi.
+
+> diff --git a/arch/arm64/boot/dts/xilinx/versal-net-clk.dtsi b/arch/arm64/=
+boot/dts/xilinx/versal-net-clk.dtsi
+> index b7a8a1a512cbd..dead487539cde 100644
+> --- a/arch/arm64/boot/dts/xilinx/versal-net-clk.dtsi
+> +++ b/arch/arm64/boot/dts/xilinx/versal-net-clk.dtsi
+
+[ ... ]
+
+> +	firmware {
+> +		versal_net_firmware: versal-net-firmware {
+> +			compatible =3D "xlnx,versal-net-firmware", "xlnx,versal-firmware";
+> +			bootph-all;
+> +			method =3D "smc";
+> +			#power-domain-cells =3D <1>;
+> +
+> +			versal_net_reset: reset-controller {
+> +				compatible =3D "xlnx,versal-net-reset";
+> +				#reset-cells =3D <1>;
+> +			};
+> +
+> +			versal_net_clk: clock-controller {
+> +				bootph-all;
+> +				#clock-cells =3D <1>;
+> +				compatible =3D "xlnx,versal-net-clk", "xlnx,versal-clk";
+> +				clocks =3D <&ref_clk>, <&ref_clk>, <&ref_clk>;
+> +				clock-names =3D "ref", "pl_alt_ref", "alt_ref";
+> +			};
+> +
+> +			versal_net_power: power-management { /* untested */
+> +				compatible =3D "xlnx,zynqmp-power";
+> +				interrupt-parent =3D <&gic>;
+> +				interrupts =3D <0 57 4>;
+
+[Severity: High]
+Will this interrupt assignment cause a probe failure?
+
+The interrupts property here is identically claimed by the zynqmp-ipi node
+below.
+
+Looking at the power driver (drivers/soc/xilinx/zynqmp_power.c), it
+requests this interrupt via devm_request_threaded_irq() without the
+IRQF_SHARED flag, while the IPI mailbox driver uses IRQF_SHARED.
+
+Because the flags mismatch and IRQF_SHARED is missing from the power driver,
+the second driver to initialize will fail, which could break either system
+power management or critical IPI communication.
+
+> +				mboxes =3D <&ipi_mailbox_pmu1 0>,
+> +					 <&ipi_mailbox_pmu1 1>;
+> +				mbox-names =3D "tx", "rx";
+> +			};
+> +		};
+>  	};
+> =20
+> -	clk200: clk200 {
+
+[ ... ]
+
+> +	zynqmp-ipi {
+> +		compatible =3D "xlnx,zynqmp-ipi-mailbox";
+> +		interrupt-parent =3D <&gic>;
+> +		interrupts =3D <0 57 4>;
+
+[ ... ]
+
+>  &can0 {
+> -	clocks =3D <&clk160>, <&clk160>;
+> +	clocks =3D <&can0_clk>, <&versal_net_clk LPD_LSBUS>;
+> +	power-domains =3D <&versal_net_firmware PM_DEV_CAN_FD_0>;
+>  };
+> =20
+>  &can1 {
+> -	clocks =3D <&clk160>, <&clk160>;
+> +	clocks =3D <&can1_clk>, <&versal_net_clk LPD_LSBUS>;
+> +	power-domains =3D <&versal_net_firmware PM_DEV_CAN_FD_1>;
+>  };
+
+[Severity: Medium]
+Should these peripheral nodes include their corresponding reset properties?
+
+The commit introduces comprehensive reset IDs (e.g., VERSAL_RST_GEM_0,
+VERSAL_RST_CAN_FD_0) and instantiates the versal_net_reset controller, but
+the resets property is only added to the usb0 and usb1 nodes.
+
+Standard peripheral drivers like the GEM ethernet driver (macb) actively qu=
+ery
+and trigger optional device resets via reset_control_get_optional() during
+probe or error recovery. Omitting these reset links might prevent the drive=
+rs
+from fully resetting the hardware, leading to reliability issues across warm
+reboots.
+
+> =20
+>  &gem0 {
+> -	clocks =3D <&clk125>, <&clk125>, <&clk125>, <&clk125>, <&clk250>;
+> +	clocks =3D <&versal_net_clk LPD_LSBUS>,
+> +		 <&versal_net_clk GEM0_REF>, <&versal_net_clk GEM0_TX>,
+> +		 <&versal_net_clk GEM0_RX>, <&versal_net_clk GEM_TSU>;
+
+[Severity: High]
+Are these the correct clock identifiers for the GEM ethernet controllers?
+
+The xlnx-versal-net-clk.h file introduces new clock IDs for Versal NET, such
+as GEM0_REF_TX (0xA8) and GEM0_REF_RX (0xA9). However, it appears the legacy
+Versal clock macros GEM0_TX (49) and GEM0_RX (48) are not undefined, so this
+node compiles using the legacy IDs.=20
+
+When the GEM Ethernet driver attempts to enable its clocks, the dynamically
+queried clock driver will request ID 49 instead of 0xA8 from the firmware.
+Will this fail to enable the correct clocks and break network connectivity?
+
+> +	power-domains =3D <&versal_net_firmware PM_DEV_GEM_0>;
+>  };
+> =20
+>  &gem1 {
+> -	clocks =3D <&clk125>, <&clk125>, <&clk125>, <&clk125>, <&clk250>;
+> +	clocks =3D <&versal_net_clk LPD_LSBUS>,
+> +		 <&versal_net_clk GEM1_REF>, <&versal_net_clk GEM1_TX>,
+> +		 <&versal_net_clk GEM1_RX>, <&versal_net_clk GEM_TSU>;
+> +	power-domains =3D <&versal_net_firmware PM_DEV_GEM_1>;
+>  };
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/xilinx/xlnx-versal-net-clk.h b/arch/arm6=
+4/boot/dts/xilinx/xlnx-versal-net-clk.h
+> new file mode 100644
+> index 0000000000000..f894d044c6f94
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/xilinx/xlnx-versal-net-clk.h
+> @@ -0,0 +1,78 @@
+
+[ ... ]
+
+> +#define GEM0_REF_RX	0xA9
+> +#define GEM0_REF_TX	0xA8
+> +#define GEM1_REF_RX	0xA2
+> +#define GEM1_REF_TX	0xA1
+
+[ ... ]
+
+> +/* Remove Versal specific node IDs */
+> +#undef APU_PLL
+> +#undef RPU_PLL
+
+[ ... ]
+
+> +#undef MIO_50_OR_51
+> +#undef MIO_24_OR_25
+> +
+> +#endif
+
+[Severity: High]
+Should the legacy GEM0_TX, GEM0_RX, GEM1_TX, and GEM1_RX macros be undefined
+here?
+
+Since they are not removed along with the other Versal specific node IDs, t=
+he
+dtsi file silently falls back to the old identifiers instead of the new
+GEM0_REF_TX style IDs, leading to the incorrect clock request discussed abo=
+ve.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780063921.gi=
+t.michal.simek@amd.com?part=3D3
