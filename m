@@ -1,175 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16ABB3557F3;
-	Fri, 29 May 2026 16:43:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D28613F39F2;
+	Fri, 29 May 2026 16:44:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780073009; cv=none; b=mdZjA34vaTkpGxWYKV8EgoE+fld1FxZFbU4YRin728hfY0VpD9Gt8KxCz2oELgYeu0MrZc271pPUeB0qfKZd4EHXegZm4CkpjVQrtKwauogxHWYurvdrAi5m8KWB4rrVaVFOUBKs32Vj534kZeBDsNBzdw2llgAVwgFpnrw+0ag=
+	t=1780073065; cv=none; b=uk9UFulhNxfIvJem4sswJUANRJ5WG89W+QgStk0H7ZZR9IW2EUBWJi25d4PDxYlv1oNNe46Pb2BmY7+MqwSm2jXMw40pjmCUlDa9lFgSiqBYaNjkzNH+BTWPZsLF/u38nR2t6Vj2Ygno5fCNgmxMZn8A3N5e6RTB3TRAQMfQFo4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780073009; c=relaxed/simple;
-	bh=lpd299+28Eh9h1nz/j1Zll0di8S4UpCxtvrWL7RXRJk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=QjxGZlrxSdFpDRGZzdDll+es0ZE1fHaIdPzT7gqEBVY/f1p55x1Bb8KXtvjuK8YT7Mte/tdYZZsZfg2wOGKrF4bhb6F95uKEuvUwCicRla8RjfOhwIEUsE9LIzCnKkDM0FEBoR9A7KlvRFC/ItleQNeTqx3Y97LhgtV9W7bST6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eSi9kAZX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780073065; c=relaxed/simple;
+	bh=iAGB81dBLfsXAEdxg+76PjqGPkY/qwYtSvgjH4xRwWQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Uc3a2EqkJC+XwIY4io/+TTwoJ0NsRQhQV/RRAtSjAdhvWj3sGLkbQibPtORMjJXzrZudILauxVqbXFMJJ6z64i+cNqE7Sd27XCGAbTj+s5OIDHBB08e/uvIDZjQ6lWST3PWtdyiKMn3JYOytEfX1UHOcS0m0Ar7jA2kmJmUUmNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WM0FXeps; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eSi9kAZX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6CB111F00898;
-	Fri, 29 May 2026 16:43:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WM0FXeps"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2FF41F00893;
+	Fri, 29 May 2026 16:44:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780073007;
-	bh=r957v2CWrz1MjIvRcsu269D9FVC83NzhoDB9LUW/yek=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eSi9kAZXupGxFPLy4ASfu+n36iRVBcamZ6fRqO8A5ZbTueEu4FXeAUjsrq/S9oQjd
-	 dIWHg53c6IqAnk732NmRuFNnq3KWRtAmBQ4DVhTKf4YX9oSau0/+c1EOcnvBB6sPYN
-	 mHvkZdq6+CaNH5PPsSYEln9oGOA4hBJfthYGNjk4gW4p/Q651oM4yuUUcyBQ8KjV0O
-	 fMQeTKArAwX7f6Nwfv0SHKdowN8ZVaQ+IcrsN9dXgOphz8ckUjzrTrVkD1F1hn6IVB
-	 zvlTX/+ByKxMQ2mXKL75mxb0QT/IdTHqfTqH1/ue/rSGqVYqeQWwNZpSKjghIFbsYk
-	 V0eMJ7oYmML/A==
-Date: Fri, 29 May 2026 17:43:20 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
-	tzimmermann@suse.de, airlied@gmail.com, simona@ffwll.ch,
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
-	andrzej.hajda@intel.com, neil.armstrong@linaro.org,
-	rfoss@kernel.org, Laurent.pinchart@ideasonboard.com,
-	jonas@kwiboo.se, jernej.skrabec@gmail.com,
-	nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com,
-	sebastian.reichel@collabora.com, dmitry.baryshkov@oss.qualcomm.com,
-	luca.ceresoli@bootlin.com, dianders@chromium.org,
-	m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
-Message-ID: <20260529-concur-grandly-745bb08c1d3f@spud>
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
- <20260529040530.741336-2-damon.ding@rock-chips.com>
+	s=k20260515; t=1780073063;
+	bh=G3wDg+4g2GptZbsh0HCiLEhJwcrrrvElip6Ufk/Fn/o=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=WM0FXepsh/oPSKCdzTWjewW0wPQJFUaBHz7CLH18fotnVaOFZU+Ne2y6a0Q6qnlwe
+	 tsxFmYFSHcvpPZGdmr3Xqv1rSHY+RHAlzg4dCm2D4uSI1Ohspv05QeRm5jSGHI48qk
+	 imSVQ5s0omjKZRBZZAFxtjnfzqZizp6PFRfoCHK+oIHvuxetQzWtLKPteUn4NW/Qnh
+	 NNWgpPd45k+Sd42HIf1LFbykbOj1IKD/Bwskw3FNLfCcGApKbjFRXJKB8TfeCg1uYM
+	 KGMAQguxHHBhC4/wKlhQ1SnVVRgvCtGrNgpE/dDZwSmh9iekrsStpOO6qbKG8lF5Sa
+	 nF04ArOzslibQ==
+Date: Fri, 29 May 2026 17:44:07 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Ahmed Tiba <ahmed.tiba@arm.com>
+Cc: will@kernel.org, xueshuai@linux.alibaba.com, saket.dumbre@intel.com,
+ mchehab@kernel.org, dave@stgolabs.net, djbw@kernel.org, bp@alien8.de,
+ tony.luck@intel.com, guohanjun@huawei.com, lenb@kernel.org,
+ skhan@linuxfoundation.org, vishal.l.verma@intel.com, rafael@kernel.org,
+ corbet@lwn.net, ira.weiny@intel.com, dave.jiang@intel.com,
+ krzk+dt@kernel.org, robh@kernel.org, catalin.marinas@arm.com,
+ alison.schofield@intel.com, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
+ linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
+ devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
+Subject: Re: [PATCH v5 09/10] dt-bindings: firmware: add arm,ras-cper
+Message-ID: <20260529174407.7081ad0b@jic23-huawei>
+In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-9-2e0500d42642@arm.com>
+References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
+	<20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-9-2e0500d42642@arm.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5luu5ycDxMPs2Thy"
-Content-Disposition: inline
-In-Reply-To: <20260529040530.741336-2-damon.ding@rock-chips.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Fri, 29 May 2026 10:50:49 +0100
+Ahmed Tiba <ahmed.tiba@arm.com> wrote:
 
---5luu5ycDxMPs2Thy
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+> Describe the DeviceTree node that exposes the Arm firmware-first
+> CPER provider and hook the file into MAINTAINERS so the
+> binding has an owner.
 
-On Fri, May 29, 2026 at 12:05:28PM +0800, Damon Ding wrote:
-> Add data-lanes property support to the port@1 endpoint for physical
-> lane mapping configuration.
->=20
-> Lane mapping is mainly used for below scenarios:
-> 1. Correct PCB lane swap and differential line routing crossover
->    without hardware changes;
-> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-> 3. Support multiple panel hardware variants on the same board
->    by configuring data-lanes in device tree only.
->=20
-> Additionally, add data-lanes setting in Rockchip eDP DT node example
-> to show actual lane mapping usage.
->=20
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Odd wrap. Pick a length (72 / 75 typical for commit messages) and
+stick to it.
 
-Not entirely sure if this is correct, but I'll leave that decision up to
-the display folks who know the hardware.
-pw-bot: not-applicable
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Request for references inline + a question on whether we have
+to allow for the ack register not existing. I'd rather we required
+it if possible.
 
-Cheers,
-Conor.
-
->=20
+> 
+> Signed-off-by: Ahmed Tiba <ahmed.tiba@arm.com>
 > ---
->=20
-> Changes in v2:
-> - Add lane mapping application scenarios in commit message.
-> - Remove redundant deprecated property 'data-lanes' for eDP node.
-> - Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
->=20
-> Changes in v3:
-> - Squash data-lanes adjustment of Rockchip eDP DT example into this
->   commit.
-> - Add unevaluatedProperties: false to both the port@1 and endpoint
->   nodes.
-> ---
->  .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++++++++++++-----
->  .../rockchip/rockchip,analogix-dp.yaml        |  1 +
->  2 files changed, 15 insertions(+), 5 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
-=2Eyaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> index 62f0521b0924..ecf206871cdd 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> @@ -42,13 +42,22 @@ properties:
->      properties:
->        port@0:
->          $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Input node to receive pixel data.
-> +        description: Input node to receive pixel data.
-> =20
->        port@1:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Port node with one endpoint connected to a dp-connector node.
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: Port node with one endpoint connected to sink devic=
-e node.
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 0, 1, 2, 3 ]
-> =20
->      required:
->        - port@0
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,analogix-dp.yaml
-> index d99b23b88cc5..f690ee393fdb 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> @@ -117,6 +117,7 @@ examples:
->            reg =3D <1>;
-> =20
->            edp_out_panel: endpoint {
-> +            data-lanes =3D <0 1>;
->              remote-endpoint =3D <&panel_in_edp>;
->            };
->          };
-> --=20
-> 2.34.1
->=20
->=20
+>  .../devicetree/bindings/firmware/arm,ras-cper.yaml | 54 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  5 ++
+>  2 files changed, 59 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
+> new file mode 100644
+> index 000000000000..3d4de096093f
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
+> @@ -0,0 +1,54 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/firmware/arm,ras-cper.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Arm RAS CPER provider
+> +
+> +maintainers:
+> +  - Ahmed Tiba <ahmed.tiba@arm.com>
+> +
+> +description:
+> +  Arm Reliability, Availability and Serviceability (RAS) firmware can expose
+> +  a firmware-first CPER error source directly via DeviceTree. Firmware
+> +  provides the CPER Generic Error Status block and notifies the OS through
+> +  an interrupt.
 
---5luu5ycDxMPs2Thy
-Content-Type: application/pgp-signature; name="signature.asc"
+I'd like some spec references in here if possible.
 
------BEGIN PGP SIGNATURE-----
+> +
+> +properties:
+> +  compatible:
+> +    const: arm,ras-cper
+> +
+> +  memory-region:
+> +    minItems: 1
+> +    items:
+> +      - description:
+> +          CPER Generic Error Status block exposed by firmware.
+> +      - description:
+> +          Optional firmware-owned ack buffer used on platforms
+> +          where firmware needs an explicit "ack" handshake before overwriting
+> +          the CPER buffer. Firmware watches bit 0 and expects the OS to set it
+> +          once the current status block has been consumed.
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahnCKAAKCRB4tDGHoIJi
-0krpAP9zkNijMkKB+OlQAVfE8qu8J6APtlizk/cPwZuBFwjGmQEA1qzuR9AdmjN2
-NDIExP/FQCGHdc3jKLG6nIP56dmsvAQ=
-=Mv2x
------END PGP SIGNATURE-----
+Does the arm spec really make this optional?  Can we constraint it to not be
+just to make our lives easier?  I've never been sure how you would actually
+make a working platform without the ack support.
 
---5luu5ycDxMPs2Thy--
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 461a3eed6129..8a9714603a7d 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -22261,6 +22261,11 @@ M:	Alexandre Bounine <alex.bou9@gmail.com>
+>  S:	Maintained
+>  F:	drivers/rapidio/
+>  
+> +RAS ERROR STATUS
+> +M:	Ahmed Tiba <ahmed.tiba@arm.com>
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/firmware/arm,ras-cper.yaml
+> +
+>  RAS INFRASTRUCTURE
+>  M:	Tony Luck <tony.luck@intel.com>
+>  M:	Borislav Petkov <bp@alien8.de>
+> 
+
