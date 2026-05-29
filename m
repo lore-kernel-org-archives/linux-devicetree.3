@@ -1,255 +1,90 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5580D3ED3A7;
-	Fri, 29 May 2026 16:41:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38EF73EFD35
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 16:41:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780072897; cv=none; b=BdleL+7+7e+RhwebVKjWd4hQ8p65CQNbSsYDxN6sJQN+BcccoU3MM71uixisBQDZh83jEMHAHyBjqyCijNKctrA191NH0UaZ0KumNuAPASW0svQa4zKvSvAa01ZlHIWtXtLt9XRWeqURgUUD/fhbJIUMgnjDZDCBxLEagey+sNQ=
+	t=1780072898; cv=none; b=qq0wLs8BcvDgBp0GByZBEuZ0yLY4M5g4mK5xb7yQ6z3bgLM25/4LfzaJAS6OzTZfDaxXmT2zZ/VoettpBJPQ42Uf0W2EgCA2bn3g0oIri42XHW3YIPeVAjj/4PPVLejNqJOZsQ1RMYJRnKO9bsIUdnRmSa0FcaPF2fIfdZmulx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780072897; c=relaxed/simple;
-	bh=AXVBY2iT07f3f2JA5peWqgTcCEO+GcWGJhiMkvuU/SY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HZVk+j5UtfRx5w4FvlGjYT2Rv7kTWk8HkfSV6WYnbFXiikX8khOU1vU3f7t0055Nkxbjs++eslwfthF3syuqI8cQ38CUAf5mjcZzkMimGZGDwl37FymbhPFWadipJ8YcmDusnw0vV62/XpM+n5RThUib5K3xUUBVwAkvKuSkzyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b2W9J7Vx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780072898; c=relaxed/simple;
+	bh=AGShdXd10/R0I9NwPMswPrNrIHg2uKhVeAj/eT012dM=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Od8PVIM1gbVpBjH63Q1jhIpJQksq1hcVd4uBT6w8s9DKLElkZ8v/p7sfgum16igAOdrMHxPtyYBvM7TpxhJ50UtrOJrb15b9XAo4ZPEgR69ZvDCjiETVRLtnrNG44+AOyqUswr0K2nvjj4CHCAXawhs3cI+yNKJLM/agX9vY1xc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Pk3k0P7P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b2W9J7Vx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 235771F00893;
-	Fri, 29 May 2026 16:41:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Pk3k0P7P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E42531F00898;
+	Fri, 29 May 2026 16:41:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780072895;
-	bh=49KrXDR1ILqUktozc7Qa5FEeoJQsP+kH07MiBeiTsZA=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=b2W9J7VxuPOnbjlo+YqmNA+VtRxBPSrTzoLs3agLoJFdh65vHAZehcHfvbP3DetWQ
-	 RPIruMwbfzRGaH4YpqRMCwEdwAR8NBSiummWMrF33fzZpNX1x3gOi0lTKbFNQI3EFX
-	 1LjHgtEvx4vLJ6p0sa26lF8WlgEb2rfzFmISKjGCdojfRcnvR1nKNU6roEFZyb7QQu
-	 ZWTXRhSMrgDf1M/mmPJwuVJsVLc+Wauv8BkWWS3cydl+xHrkvIBVuzqDjAtqS8creI
-	 o2CFLD4PBsiCznktYh2To6LIA1tbw3f1ctlMojdYhuAH4jrEE5iQjpiaTAh59eTr0m
-	 3nVxv1Tq97qTA==
-Date: Fri, 29 May 2026 17:41:32 +0100
-From: Conor Dooley <conor@kernel.org>
-To: ASHISH YADAV <ashishyadav78@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	Ashish Yadav <ashish.yadav@infineon.com>
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon/pmbus: Add Infineon
- XDP720/XDP730
-Message-ID: <20260529-partake-myself-baa76ed4e279@spud>
-References: <20260529054218.5184-1-Ashish.Yadav@infineon.com>
- <20260529054218.5184-2-Ashish.Yadav@infineon.com>
+	s=k20260515; t=1780072897;
+	bh=hq6imBQKRBH/7p+RJb3kiWxKfUZ7zsJ7n4Cqx52cLwM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Pk3k0P7P8anHxhWcREa4hgOV/mJ1Xv9PQA8K+8Vzbno7gMjvoNDYOE80DDmSbRPNK
+	 96bTnt4NUQzB6tjz9jSLMbNcR2m2queX+UjbA/CQTIL92rRW0yySZDJUUCkWi0ollX
+	 FfAf+kO7w2LAKuzziLlt9WgqNn/9BEATRwPy1LkxsgmDfJMDAzOz2e93qeue8Ij1mC
+	 sYjvWWmMay1uuDn0TcybSaOr5zLBrqRZiXKQI8gVLWFScQFT1DyhmRCljOKL6e8k8E
+	 exeU7gouA0uOVKg7tgUcJjPvYoHE3/Qm/GVw6PX1xb2/reL043ySMYgebPxZNRTIZ3
+	 nXXVXSANIkM0Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] arm64: dts: st: add power-domains to sdmmc1 on
+ stm32mp251
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Dario Binacchi" <dario.binacchi@amarulasolutions.com>
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529155607.3948045-1-dario.binacchi@amarulasolutions.com>
+References: <20260529155607.3948045-1-dario.binacchi@amarulasolutions.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 16:41:36 +0000
+Message-Id: <20260529164136.E42531F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hg6KsFQl9Tz6Qhdk"
-Content-Disposition: inline
-In-Reply-To: <20260529054218.5184-2-Ashish.Yadav@infineon.com>
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
---hg6KsFQl9Tz6Qhdk
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Pre-existing issues:
+- [High] The commit fixes a missing `power-domains` mapping for the `sdmmc1=
+` node in `stm32mp251.dtsi` but neglects to apply the identical fix to the =
+`sdmmc1` node in the sibling SoC device tree `stm32mp231.dtsi`.
+--
 
-On Fri, May 29, 2026 at 11:12:17AM +0530, ASHISH YADAV wrote:
-> From: Ashish Yadav <ashish.yadav@infineon.com>
->=20
-> Add documentation for the device tree binding of the XDP720/XDP730
-> eFuse Controllers.
->=20
-> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
-> ---
->  .../bindings/hwmon/pmbus/infineon,xdp720.yaml | 59 --------------
->  .../bindings/hwmon/pmbus/infineon,xdp730.yaml | 80 +++++++++++++++++++
+commit 15c583311b4857c29c6b06ffbc928426a3324c4a
+Author: Dario Binacchi <dario.binacchi@amarulasolutions.com>
 
-This rename just bloats out the diff, no thanks. Please do not do this,
-certainly not without a justification.
-pw-bot: changes-requested
+arm64: dts: st: add power-domains to sdmmc1 on stm32mp251
 
-Thanks,
-Conor.
+This commit adds the missing power-domains property to the sdmmc1 node
+in the stm32mp251 device tree. It addresses an early bring-up omission to
+align the node with the rest of the peripheral nodes.
 
->  2 files changed, 80 insertions(+), 59 deletions(-)
->  delete mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infineo=
-n,xdp720.yaml
->  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/infineo=
-n,xdp730.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp72=
-0.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
-> deleted file mode 100644
-> index 72bc3a5e7139..000000000000
-> --- a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp720.yaml
-> +++ /dev/null
-> @@ -1,59 +0,0 @@
-> -# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> -%YAML 1.2
-> ----
-> -
-> -$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,xdp720.yaml#
-> -$schema: http://devicetree.org/meta-schemas/core.yaml#
-> -
-> -title: Infineon XDP720 Digital eFuse Controller
-> -
-> -maintainers:
-> -  - Ashish Yadav <ashish.yadav@infineon.com>
-> -
-> -description: |
-> -  The XDP720 is an eFuse with integrated current sensor and digital
-> -  controller. It provides accurate system telemetry (V, I, P, T) and
-> -  reports analog current at the IMON pin for post-processing.
-> -
-> -  Datasheet:
-> -     https://www.infineon.com/assets/row/public/documents/24/49/infineon=
--xdp720-001-datasheet-en.pdf
-> -
-> -properties:
-> -  compatible:
-> -    enum:
-> -      - infineon,xdp720
-> -
-> -  reg:
-> -    maxItems: 1
-> -
-> -  infineon,rimon-micro-ohms:
-> -    description:
-> -      The value of the RIMON resistor, in micro ohms, required to enable
-> -      the system overcurrent protection.
-> -
-> -  vdd-vin-supply:
-> -    description:
-> -      Supply for the VDD_VIN pin (pin 9), the IC controller power supply.
-> -      Typically connected to the input bus (VIN) through a 100 ohm / 100=
- nF
-> -      RC filter.
-> -
-> -required:
-> -  - compatible
-> -  - reg
-> -  - vdd-vin-supply
-> -
-> -additionalProperties: false
-> -
-> -examples:
-> -  - |
-> -    i2c {
-> -        #address-cells =3D <1>;
-> -        #size-cells =3D <0>;
-> -
-> -        hwmon@11 {
-> -            compatible =3D "infineon,xdp720";
-> -            reg =3D <0x11>;
-> -            vdd-vin-supply =3D <&vdd_vin>;
-> -            infineon,rimon-micro-ohms =3D <1098000000>;  /* 1.098k ohm */
-> -        };
-> -    };
-> diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp73=
-0.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp730.yaml
-> new file mode 100644
-> index 000000000000..fdbc577bccdd
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/hwmon/pmbus/infineon,xdp730.yaml
-> @@ -0,0 +1,80 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +
-> +$id: http://devicetree.org/schemas/hwmon/pmbus/infineon,xdp730.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Infineon XDP720 / XDP730 Digital eFuse Controllers
-> +
-> +maintainers:
-> +  - Ashish Yadav <ashish.yadav@infineon.com>
-> +
-> +description: |
-> +  The XDP720 and XDP730 are PMBus-compliant digital eFuse controllers
-> +  with an integrated current sensor.  They provide accurate system
-> +  telemetry (V, I, P, T) and report analog current at the IMON pin for
-> +  post-processing.
-> +
-> +  Both parts share the same PMBus register map and direct-format
-> +  coefficients; they differ in the GIMON gain step exposed via the
-> +  TELEMETRY_AVG register (bit 10) and in the VDD_VIN pin number
-> +  (XDP720: pin 9, XDP730: pin 20).
-> +
-> +  Datasheets:
-> +    - XDP720: https://www.infineon.com/assets/row/public/documents/24/49=
-/infineon-xdp720-001-datasheet-en.pdf
-> +    - XDP730: https://www.infineon.com/assets/row/public/documents/24/49=
-/infineon-xdp730-001-datasheet-en.pdf
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - infineon,xdp720
-> +      - infineon,xdp730
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  infineon,rimon-micro-ohms:
-> +    description:
-> +      The value of the RIMON resistor, in micro ohms, required to enable
-> +      the system overcurrent protection.
-> +
-> +  vdd-vin-supply:
-> +    description:
-> +      Supply for the VDD_VIN pin (XDP720 pin 9, XDP730 pin 20), the IC
-> +      controller power supply.  Typically connected to the input bus
-> +      (VIN) through a 100 ohm / 100 nF RC filter.
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - vdd-vin-supply
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        efuse@11 {
-> +            compatible =3D "infineon,xdp720";
-> +            reg =3D <0x11>;
-> +            vdd-vin-supply =3D <&vdd_vin>;
-> +            infineon,rimon-micro-ohms =3D <1098000000>;  /* 1.098k ohm */
-> +        };
-> +    };
-> +
-> +  - |
-> +    i2c {
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +
-> +        efuse@12 {
-> +            compatible =3D "infineon,xdp730";
-> +            reg =3D <0x12>;
-> +            vdd-vin-supply =3D <&vdd_vin>;
-> +            infineon,rimon-micro-ohms =3D <1098000000>;  /* 1.098k ohm */
-> +        };
-> +    };
-> --=20
-> 2.39.5
->=20
+> diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts=
+/st/stm32mp251.dtsi
+> --- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> +++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+> @@ -1664,6 +1664,7 @@ sdmmc1: mmc@48220000 {
+>  				cap-mmc-highspeed;
+>  				max-frequency =3D <120000000>;
+>  				access-controllers =3D <&rifsc 76>;
+> +				power-domains =3D <&CLUSTER_PD>;
 
---hg6KsFQl9Tz6Qhdk
-Content-Type: application/pgp-signature; name="signature.asc"
+[Severity: High]
+This isn't a bug introduced by this patch, but should the sdmmc1 node in
+the sibling stm32mp231.dtsi device tree also receive this exact update?
 
------BEGIN PGP SIGNATURE-----
+Since the early bring-up omission affected these platforms, leaving the
+power domain unmapped on the stm32mp231 SoC might lead to a synchronous
+external abort or render the controller unusable when the driver attempts
+to access unpowered registers. Would it be appropriate to update both SoC
+device trees together to prevent runtime failures?
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCahnBvAAKCRB4tDGHoIJi
-0j/FAQCvvfwoLTjgCgmBWEX9s1FubG2bzRAJdtXGH7rKeT4LoAD8CC2/FgGfbc5I
-+PuIGebBLyVfiN9T6wJm+uBWitgplA0=
-=g1RT
------END PGP SIGNATURE-----
+>  				status =3D "disabled";
+>  			};
 
---hg6KsFQl9Tz6Qhdk--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529155607.3948=
+045-1-dario.binacchi@amarulasolutions.com?part=3D1
