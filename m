@@ -1,173 +1,150 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF9131DDC1D
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 13:08:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B7CE3128B2;
+	Fri, 29 May 2026 13:10:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780060129; cv=none; b=goB7XOYr3uTqP7+/go8p/96gQlrA2qspRLVaFGAxdKTxCBO75rZi/b87NEr1LvZnWLreyL0+tqjdo4JhK2omKpDDBU+BC0FnQC1bV8wwbdx07sk2QHP28eCPJMDs1rSCF4DXT955MbNkMbFE/Pk89qWu1laZh3lq97mJmfgMQUI=
+	t=1780060245; cv=none; b=Nv5RFobVaOjByFrun8H+KzNdgY1W8gD1doOo8p2OGs/VxiXkV7kjZSdwmBmzf5Ht3JUzIWiI0WQOV+Pxsp+pTxS9lvf8L0GoJ3k2Lum+pXiKYIljxd3+nhejDQ0Vid5ksLS2uV+MjoS25L9VxRgei40ZhNT6VjuOob+6SyYCxSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780060129; c=relaxed/simple;
-	bh=UQLsr2qkcqb60El/5BD//D40gKMg5Oi0BtFd3/8rIJs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EK7HOlG7qVGGDoyNUTskxnygvzLMgXgPix+MaP2H4u0lSQHoCsmPjQqjX8bi9HcFFfZq0bDjgehfnn+h+U6NwlDrIDH81yH/xRq9LfcXoHwP1H/QdTdcxm5HjVvO7ccV+Ctl032HS64GFZprXrqnOPRHQa/mSPVBylRKbg/EXdE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AIyrWRnY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780060245; c=relaxed/simple;
+	bh=zuzinPcFhRl9plRyoeXIwzrcl/6M6IK0u2t05etneN8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h4YBHaaNjM5Bmdq6yvdEAgFBWenRDdUPEQ/mDa5uvzb4HBJXAPvcU13GfvMiD9ZHQQ+IvnEPxXJ/FdAXT/mJvta28ytREimqAw3QZghqnhyruMGDgImoLnKim9P8Arv3U1P4vvfP6Qt6OfUD5/Ktitk2t71R32oFqxXp0eFOiFk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLOeNaY+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AIyrWRnY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9822F1F00893;
-	Fri, 29 May 2026 13:08:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLOeNaY+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC5F21F00893;
+	Fri, 29 May 2026 13:10:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780060128;
-	bh=qMVo8MFwoKQ+TpaKmIOnFow7Hz/InrHpnfIBEPPxcI8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AIyrWRnYXWmXhZCCrCUxV/wh/P/Lyot8NnNG5p5/OpENfh9/2AxNtbRrOacejdfxv
-	 6f3skLXRAmoKjF+RwMra3CrYr52RXCJypKJbL1lahhhz+4Du21YfSeD1fp61KFpKOu
-	 if/XkwoaFI12psPsw5mzChJjOY9VukpvEGpkwbzcyA29JRGM6srsP6mW8ZdADpccrD
-	 K4D0w9xl6LLLBDzDFAhB+eIgVekP938VC7yYDMiyroJPauW7SCZNhyl2ZlEdLmxYY2
-	 6SQ2+Keze/CtzaVkS+wO+EHJp1SWdGnArCaQGd3QMY3KeMdkMqp5dmXU3Q2tOUukMy
-	 aH2xIE2wsUXlQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v3 4/6] iio: osf: add stream parser
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinseob Kim" <kimjinseob88@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260529121005.1470-5-kimjinseob88@gmail.com>
-References: <20260529121005.1470-5-kimjinseob88@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 13:08:48 +0000
-Message-Id: <20260529130848.9822F1F00893@smtp.kernel.org>
+	s=k20260515; t=1780060242;
+	bh=tC9HqkQy8s8fCowmxdJQZ9JYQ14fcgNVnaNweKmAX5U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=mLOeNaY+LFPu3SP40WdO2KaINV+FYH004qBTmn1FtKJB81vr3GaeMS+zXZ2GLc+7g
+	 Jb6Y2Fzb6OXFGL9y16tZdu1odcIA8Atb87zT6MhQVOL1gwDsa5JEEsM/vsH6CpBbNZ
+	 6jXOArmVUaFWwm300UxV0flUbB4hP8IzDnFecLWxP+re32gb/Rab7G+RvvaUvSSNLZ
+	 QT8cVVWpcT4PrlCJPeISJV0SDOXxHdyJSK7lSRV8ONlcrmfF7DsauYAVdzennX+qUG
+	 IXWcnDLuiLQB81wMlInxRv7f36RnEfu1wqtz2YOVrThqQr1wDtWWP9AD850L0BNa2k
+	 kynlbPBjctgqA==
+Date: Fri, 29 May 2026 14:10:31 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
+ Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v2 2/6] mfd: lm3533: Convert to use OF bindings
+Message-ID: <20260529141031.62703eff@jic23-huawei>
+In-Reply-To: <CAPVz0n1u0z35rP8vUKjAzW_mrPm9yeMjK_-nKbyctUvQik6ECw@mail.gmail.com>
+References: <20260528135123.103745-1-clamor95@gmail.com>
+	<20260528135123.103745-3-clamor95@gmail.com>
+	<20260528155001.2bcb7003@jic23-huawei>
+	<CAPVz0n0qCekQVGGyAyBuYv+RKC6bpydYBLJNGfPrgTYjtOJOuA@mail.gmail.com>
+	<20260529100819.1823ebb3@jic23-huawei>
+	<CAPVz0n0VHdUo5oHdALgcerLsykdz-2n7c+jxYHrMOV7Ra5x_qQ@mail.gmail.com>
+	<20260529114828.5a87c732@jic23-huawei>
+	<CAPVz0n1u0z35rP8vUKjAzW_mrPm9yeMjK_-nKbyctUvQik6ECw@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The `partial_frames` statistic incorrectly increments multiple t=
-imes for a single valid frame during normal stream reception.
-- [Medium] Frame is fully decoded into a local structure that is subsequent=
-ly discarded without being used, causing duplicate CRC and parsing overhead.
---
 
-commit 8eb00bef4725c351a5a3267078dfac541b5f3a1b
-Author: Jinseob Kim <kimjinseob88@gmail.com>
+> > > > > >         if (device_property_present(dev, "ti,resistor-value-ohm"))
+> > > > > >                 ret = device_property_read_u32();
+> > > > > >                 if (ret) //corrupt property in some fashion
+> > > > > >                         return ret;
+> > > > > >         } else {
+> > > > > >                 //set default
+> > > > > >         }
+> > > > > > If there is no default then check it unconditionally.  
+> > > > >
+> > > > > default value is LM3533_ALS_RESISTOR_MIN and if no property is present
+> > > > > clamp will ensure that als->r_select will be set to
+> > > > > LM3533_ALS_RESISTOR_MIN  
+> > > >
+> > > > I don't see that default in the binding doc and relying in the 0 being clamped
+> > > > isn't particularly readable - I'd set it explicitly.
+> > > >  
+> > >
+> > > Oh, ye, my bad. Schema enforces one of props to be present and if pwn
+> > > is present then resistor is ignored. What if I move resistor reading,
+> > > clamping and conversion under !als->pwm_mode check? Then resistor must
+> > > be present and hence must be checked unconditionally.  
+> >
+> > Sounds good.
+> >  
+> > >
+> > > Additionally, I can comment original lm3533_als_setup with #if 0
+> > > #endif then git formatting will be much cleaner and easier to review,
+> > > and once we all come to result I will just remove entire commented
+> > > block and Lee can pick clean commits.  
+> >
+> > No don't do that.  If you flatten the two helpers as a precursor patch
+> > then the changes in here will be easier to review anyway.
+> >  
+> 
+> By "flatten the two helpers" you mean incorporate
+> lm3533_als_set_input_mode and lm3533_als_set_resistor into
+> lm3533_als_setup first and then convert it to use DT? I am asking,
+> just to be sure.
+> 
 
-iio: osf: add stream parser
+yes
 
-Add the byte stream assembler and resync handling for OSF0 UART frames.
+> > > > > > > @@ -852,25 +825,28 @@ static int lm3533_als_probe(struct platform_device *pdev)
+> > > > > > >       indio_dev->channels = lm3533_als_channels;
+> > > > > > >       indio_dev->num_channels = ARRAY_SIZE(lm3533_als_channels);
+> > > > > > >       indio_dev->name = dev_name(&pdev->dev);
+> > > > > > > -     iio_device_set_parent(indio_dev, pdev->dev.parent);  
+> > > > > >
+> > > > > > I'm not sure why this was there in the first place.  Hence not sure if it
+> > > > > > is safe to remove.
+> > > > > >  
+> > > > >
+> > > > > This is directly related to OF conversion. The iio_device_set_parent
+> > > > > bound indio_dev to parent, and it causes problems with OF now since
+> > > > > als output has its own node and binding it to parent if wrong. Same
+> > > > > story for backlight and leds btw.  
+> > > >
+> > > > Is there any risk anyone was using the canonical path to get to the iio dev?
+> > > > /sys/bus/platform/devices/..../iio\:deviceX
+> > > > This is technically an ABI change be it a subtle one.
+> > > >  
+> > >
+> > > Linux kernel has no users of this driver, and it is in "stale" state
+> > > for more then 2 years (maybe even longer). I have cc'd Johan Hovold.
+> > >
+> > > https://lore.kernel.org/lkml/ZmBcvtLCzllQDWVX@hovoldconsulting.com/
+> > >
+> > > This this 2 y. o. discussion and there were no actions ore movements.
+> > > I assume this driver in its current form has no more users. This does
+> > > not mean that it cannot be revived though.  
+> >
+> > So, just to check, are you a user of this code or is this more trying to
+> > help out with old code?
+> >  
+> 
+> I am not insane enough to get myself into all this conversion if I did
+> not need it. This is one of 2 remaining gaps in support of LG
+> P880/P895 I own and support. I would really like to finally mainline
+> all the patches I have locally since maintaining them becomes quite
+> troublesome with time and additional patches layering on top.
 
-> diff --git a/drivers/iio/opensensorfusion/osf_stream.c b/drivers/iio/open=
-sensorfusion/osf_stream.c
-> new file mode 100644
-> index 0000000000000..a2739c987da3f
-> --- /dev/null
-> +++ b/drivers/iio/opensensorfusion/osf_stream.c
+Excellent! There are some odd people out there who do start on this
+sort of thing despite no personal use case :)
 
-[ ... ]
+Jonathan
 
-> +static int osf_stream_process(struct osf_stream *stream)
-> +{
-> +	struct osf_frame frame;
-> +	size_t decoded_len;
-> +	size_t discarded;
-> +	size_t frame_len;
-> +	u32 payload_len;
-> +	int first_err =3D 0;
-> +	int ret;
-> +
-> +	while (stream->len) {
-> +		discarded =3D osf_stream_discard_to_magic(stream);
-> +		if (discarded) {
-> +			stream->stats.bad_magic_resyncs++;
-> +			stream->stats.dropped_bytes +=3D discarded;
-> +			if (!first_err)
-> +				first_err =3D -EPROTO;
-> +		}
-> +
-> +		if (!stream->len)
-> +			break;
-> +
-> +		if (stream->len < OSF_FRAME_HEADER_LEN) {
-> +			stream->stats.partial_frames++;
 
-[Severity: Medium]
-Since UART receives data in small chunks, will osf_stream_receive_bytes()
-repeatedly hit this break condition while accumulating a single valid frame?
 
-It looks like this might inflate partial_frames into a count of receive wait
-states rather than actual truncated frames.
-
-> +			break;
-> +		}
-> +
-> +		if (get_unaligned_le16(stream->buf + 6) !=3D
-> +		    OSF_FRAME_HEADER_LEN) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err =3D -EPROTO;
-> +			continue;
-> +		}
-> +
-> +		payload_len =3D get_unaligned_le32(stream->buf + 10);
-> +		if (payload_len > OSF_STREAM_MAX_PAYLOAD_LEN) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err =3D -EMSGSIZE;
-> +			continue;
-> +		}
-> +
-> +		frame_len =3D OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
-> +		if (stream->len < frame_len) {
-> +			stream->stats.partial_frames++;
-
-[Severity: Medium]
-Similar to the check above, does this increment partial_frames incorrectly
-when simply waiting for the rest of the payload and CRC to arrive over UART?
-
-> +			break;
-> +		}
-> +
-> +		ret =3D osf_protocol_decode_frame(stream->buf, frame_len, &frame,
-> +						&decoded_len);
-> +		if (ret) {
-> +			if (ret =3D=3D -EBADMSG)
-> +				stream->stats.bad_crc_frames++;
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err =3D ret;
-> +			continue;
-> +		}
-> +
-> +		if (decoded_len !=3D frame_len) {
-> +			stream->stats.dropped_bytes++;
-> +			osf_stream_drop_invalid_head(stream);
-> +			if (!first_err)
-> +				first_err =3D -EMSGSIZE;
-> +			continue;
-> +		}
-> +
-> +		ret =3D osf_core_receive_frame(stream->osf, stream->buf, frame_len);
-
-[Severity: Medium]
-The frame structure is fully decoded and its CRC calculated by
-osf_protocol_decode_frame() above, but then the local frame struct is
-discarded.
-
-Does passing stream->buf directly to osf_core_receive_frame() cause the
-frame to be decoded and the CRC to be calculated a second time?
-
-> +		if (ret) {
-> +			osf_stream_discard(stream, frame_len);
-> +			if (!first_err)
-> +				first_err =3D ret;
-> +			continue;
-> +		}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529121005.1470=
--1-kimjinseob88@gmail.com?part=3D4
