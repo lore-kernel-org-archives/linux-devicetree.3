@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E21F130CD82
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:30:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 430413876DF
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 04:46:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780029060; cv=none; b=Y3jq5HVC5FtvpolcDRePAw/AjxwlzGQjP1etLWQyqEPxZVadS6CBA278Eaejrhpow5t1gPhpngQzAniPVkprjalwheaGRBjvvoWxq4TS9DnDAftV2630V2FBPkJ1/xBw9ROc8lYtyCtyyzkkCl1a61N2lba4zHlorpD2bk3JLkY=
+	t=1780030023; cv=none; b=mBCqMpYNwpKWcTmzdIhEj/y2Lb7qHI1eoJUBb4jantqllZK9xjbwrERjqJuWQk0EstO7koR43yg8pyO925i5I3V/O6mlsz29FenzfEw1/bpV53TrnLewozOqVBqlpJuSFJQSZ1/j/30D1BmFPhyjGLZT4Wz1MPr67fiQagE+tMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780029060; c=relaxed/simple;
-	bh=RTu624FOaFYsSVqzRNcr94QrkGuIwKPpDR/vsnae1sY=;
+	s=arc-20240116; t=1780030023; c=relaxed/simple;
+	bh=Do2IHWBGWxpqrZO8nmtOZMQiJ6txQeNsNix9REbI8vQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=u3h/+BH+VVeuAoDbzriwIxWeraqkljWGcDMpl2NqIrAyU3TMnUoUE4uSihxNE9b1g1tdw0azvv7wSmNFusR2KkcczMvMxKu6r35aGAmZAdfqkTbh9qvAME+9DXIF1D/p6BpZcOyFrBJ+E07oTwRw+A+iw76thMAKkwJtqWCuHok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h1D48ruc; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=tWZa4r/gobFzUmYFsXAA6jRt1TGfevtQrfZ5mFJ8sBdVPnxZdz9cfeXqwiPyG0X1FFE6+phCWtwlbY9dLM+icytIZPYmOfz73F0OH56WG5XxQnF3tT1t1B/ebIm2+IVkbnqycrvUqxkkjJqNAYZxmE8T6TGyBkrjrAQtWh4OzCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P7mZ38op; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h1D48ruc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 845D71F00893;
-	Fri, 29 May 2026 04:30:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P7mZ38op"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6190C1F00893;
+	Fri, 29 May 2026 04:46:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780029059;
-	bh=X7FPX1IaTFbUqUIvOIe03z5wU1RLGWPHY8UrwiNFqzc=;
+	s=k20260515; t=1780030018;
+	bh=i3BLqhCSaL4AT7hgdw/bB7Vk51Pru9GEc/0n1HfoFpw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h1D48ruch97nUnOymybKIz75tmHTTw8ZGXhe3AvjR1cSjZQzRKE8i3o4jPyMuR3Rk
-	 Uwq8Fun21YeQ1W0YeYttLIP0gpz9hQKcJZjbmZo2/FHDkbzxleBKJbaj8AjDdSLX1c
-	 cxabqvOEzg9uQ4LbiJDKSIvt/XaG6o8c/qe1Ilncr0pg+WFBydYKp9EydOywYtsn0X
-	 y+ewZaSuBKgMr7wL4r3TRX7xG5rIDSctp/+u4CFMWYnkxADS7cokS9jN7LWXgjCxyp
-	 MDDS3f7aFcuW3F6ubO1cCddiFVYd1QZ8CySd9647UwCfjRNr2Dkw7ei/uI3p/xXXwd
-	 UR7AJET/agh9A==
+	b=P7mZ38opJWuDgAikdOme7YR2D7x7Aj0WrMuKr+HLiyAoeQuDSi/QA0cWGS90cuiTQ
+	 q9rDZMWcGJRtv7V5nEYhOjHpcgWM83itGcoWaYPfLiX1B+yvP+GXeUkCQXcshvOrT2
+	 Oknrbbg5D+I0T+V9PZug9ZsxfTw5B0bZJK/7O+3bqgeUMp3YRLCGDaoNJCGRWg02it
+	 Xrfzq6kT+QKjToIe4xsASVmSCbzeOQixU7K04mWYnUJYf/1zC0N6CN63JoTznkMPLZ
+	 ogFNgWnUaTac22BTShl1TRgASEtnEteU2E3DIRjRUsR0d2mAu7tVZOS/LR3Ksc2HX4
+	 WTj9TN8ZJvh4g==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 6/7] pwm: tegra: Add support for Tegra264
+Subject: Re: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add
+ data-lanes support for endpoint
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Mikko Perttunen" <mperttunen@nvidia.com>
+To: "Damon Ding" <damon.ding@rock-chips.com>
 Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260529-t264-pwm-v5-6-7bf9e405a96a@nvidia.com>
-References: <20260529-t264-pwm-v5-6-7bf9e405a96a@nvidia.com>
+In-Reply-To: <20260529040530.741336-2-damon.ding@rock-chips.com>
+References: <20260529040530.741336-2-damon.ding@rock-chips.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Fri, 29 May 2026 04:30:58 +0000
-Message-Id: <20260529043059.845D71F00893@smtp.kernel.org>
+Date: Fri, 29 May 2026 04:46:57 +0000
+Message-Id: <20260529044658.6190C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,63 +46,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The driver assumes a fixed PWM depth of 256 but fails to initializ=
-e the new configurable DEPTH register field on Tegra264, risking incorrect =
-PWM frequency and duty cycle.
+- [Low] Device Tree Schema Validation Bypass for data-lanes property
 --
 
-commit a215267521de0fbfc0019ea87d4d0d3a5d3250ea
-Author: Mikko Perttunen <mperttunen@nvidia.com>
+commit cd3810bac14e15433ba605ad5fc1eeb8345f5c17
+Author: Damon Ding <damon.ding@rock-chips.com>
 
-pwm: tegra: Add support for Tegra264
+dt-bindings: display: bridge: analogix-dp: Add data-lanes support for endpo=
+int
 
-This patch adds support for the Tegra264 PWM controller. It introduces
-an enable_reg field to handle the relocated PWM_ENABLE bit in the new
-CSR_1 register for Tegra264 devices.
+This commit adds support for the data-lanes property to the port@1 endpoint
+in the analogix-dp binding. It allows configuration of physical lane mappin=
+gs
+to handle scenarios like PCB lane swaps or mismatched pin definitions. The
+patch also updates the rockchip eDP DT node example to demonstrate this usa=
+ge.
 
-> diff --git a/drivers/pwm/pwm-tegra.c b/drivers/pwm/pwm-tegra.c
-> index 7c7b884d44363..50e72139cbc34 100644
-> --- a/drivers/pwm/pwm-tegra.c
-> +++ b/drivers/pwm/pwm-tegra.c
+> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
+.yaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> index 62f0521b09245..ecf206871cdde 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+
 [ ... ]
-> @@ -215,6 +257,7 @@ static int tegra_pwm_config(struct pwm_chip *chip, st=
-ruct pwm_device *pwm,
-> =20
->  static int tegra_pwm_enable(struct pwm_chip *chip, struct pwm_device *pw=
-m)
->  {
-> +	struct tegra_pwm_chip *pc =3D to_tegra_pwm_chip(chip);
->  	int rc =3D 0;
->  	u32 val;
-> =20
-> @@ -222,20 +265,21 @@ static int tegra_pwm_enable(struct pwm_chip *chip, =
-struct pwm_device *pwm)
->  	if (rc)
->  		return rc;
-> =20
-> -	val =3D tegra_pwm_readl(pwm, TEGRA_PWM_CSR_0);
-> +	val =3D tegra_pwm_readl(pwm, pc->soc->enable_reg);
->  	val |=3D TEGRA_PWM_ENABLE;
-> -	tegra_pwm_writel(pwm, TEGRA_PWM_CSR_0, val);
-> +	tegra_pwm_writel(pwm, pc->soc->enable_reg, val);
 
-[Severity: High]
-Could this cause a regression where the PWM output is left in a broken state
-if the hardware resets the DEPTH field to 0?
+>        port@1:
+> -        $ref: /schemas/graph.yaml#/properties/port
+> -        description:
+> -          Port node with one endpoint connected to a dp-connector node.
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: Port node with one endpoint connected to sink devic=
+e node.
+> +        properties:
+> +          endpoint:
 
-The commit message notes that configurable depth will be supported in a
-later patch, and tegra_pwm_config() continues to use a hardcoded
-TEGRA_PWM_DEPTH of 256 for duty cycle and clock rate calculations.
+[Severity: Low]
+Will this literal "endpoint" property match nodes in existing device trees?
 
-Since this read-modify-write only updates the ENB bit, if the CSR_1.DEPTH
-field defaults to 0 after a device reset, wouldn't the hardware divide by 1
-instead of 256?
+It looks like multiple existing device trees, such as rk3399-evb.dts and
+rk3288-evb.dtsi, define the endpoint with a unit address as "endpoint@0".
 
-This seems like it would cause the PWM to operate at 256x the intended
-frequency, and any calculated duty cycle value would exceed the hardware's
-maximum depth. Should CSR_1.DEPTH be explicitly initialized to 255 here to
-safely match the software's TEGRA_PWM_DEPTH assumption?
+Because these nodes do not perfectly match the literal name "endpoint",
+wouldn't they bypass this constraint block entirely, meaning any data-lanes
+configuration inside them will not be validated against the specified enum
+or maxItems limits?
+
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  enum: [ 0, 1, 2, 3 ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-t264-pwm-v=
-5-0-7bf9e405a96a@nvidia.com?part=3D6
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529040530.7413=
+36-1-damon.ding@rock-chips.com?part=3D1
