@@ -1,112 +1,105 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E6B92C21E8;
-	Fri, 29 May 2026 12:55:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AFFBE31197C;
+	Fri, 29 May 2026 13:04:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780059348; cv=none; b=eYuLjFCUiRkTpW9vHJAtjKJH3Orpaf487dqPJFQ1aW3i/ZqN8V87dKqQ5R6FQ++ckPJwvXi0umdBNRRl2xaOdxtrpQNJcsm0Nw5hWTU0lkpvUFxRzv63AmJ5qdA0ErXBoecFzJlSMc8Gx7EPKyKRD7DIj0kHkI1vRKGoGiz7YIg=
+	t=1780059855; cv=none; b=D1GXac6CXPc2CaA6oEm4HH7zwuREXBGH9CAF5rppDezFd5T0KYk0yhIDKstKvKx8Cq42oL91q3eobdJ6lyrkwz3r1plI0zxLGyax2Yrp3Mjtp3RAxvMybAjgmJBp0oBgWOhNjIRZyiJO1X0m21MSVhoErvKcAOZN2PmzJzxorL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780059348; c=relaxed/simple;
-	bh=rf9ietTEoUdNUWP+4Xs/on4TPwZiiiKAB2KYgWpPhmg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=I1kTxr6A2QhFCoXObyPg9oLOdWIYUQlAPs6e8Neo7Rg4OpNdfxcFbZAlB/GatxFAeJlPcOF8wC1ffzy9yQNj/Vtv7C06fMqkJ1qHz9zCwJpX/rrmiKUKbD3whm0IUXYuSU57OdJkErnZjt17CAt9CaL9v6ymsAT+HDoEZpVifQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HKme3PJu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780059855; c=relaxed/simple;
+	bh=OVQ0tA8+eFU5RLkX369uWTW1RTrTI3CHGxuTvryVfuU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lTw76OcRK2GOpMOZ7vTkJetWyf8TLb3RliFLWn/J+OaZdkRUj+DRkzINKrTuN8jkuRoPcUR2RjAh6dpGPR8uE6mXDpqMLJDbBiQB+/zV8l7GzZxNKcQRwf9HnYnnEySl3sJDwvQcjqmVnqeQL/00403CytH9cMYksQOrfXgbopo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=tlLWJsVY; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HKme3PJu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF6271F00893;
-	Fri, 29 May 2026 12:55:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780059346;
-	bh=+6AiMcZa3bd0LPjamkN4r9S9jW+Apu//pCbttaoWdDI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=HKme3PJuW/g8Xe3fa9pH4ndcExyYxHcd2cNlg9NECKqK4v1asLZhvhZEXzEeGPFwC
-	 krMU26G83m8iPSglCfYKCqgciw6JWvcuzjQUTI3wFtoI62nF0UChddzGFraXimF9pJ
-	 1k54Uu9U94IdLdsnRGH4hwmLSLP/pSSK0uKpJsDzqk30FcWpIwESOtKLiumR4V+6As
-	 unm055hDnQ1A4hKk4u4dzRoTU87SIvLvelBGdBip7ZDoIZon4MXvQ/IpRhuSbyjuUY
-	 udebOV+LpQuBbeFt6sWaU5lZ0itKuFGMHeMAFQa8OxgbyKZLGpVxsvBB1IjU2d1o4J
-	 48Eb2LMB+rd1A==
-From: Srinivas Kandagatla <srini@kernel.org>
-To: Lee Jones <lee@kernel.org>, 
- Mark Brown <broonie@opensource.wolfsonmicro.com>, 
- Thierry Reding <thierry.reding@avionic-design.de>, 
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Vinod Koul <vkoul@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>, 
- Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
- Saravana Kannan <saravanak@kernel.org>, 
- Madhavan Srinivasan <maddy@linux.ibm.com>, 
- Michael Ellerman <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>, 
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, 
- Andi Shyti <andi.shyti@kernel.org>, 
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
- Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>, 
- Robin Murphy <robin.murphy@arm.com>, Doug Berger <opendmb@gmail.com>, 
- Florian Fainelli <florian.fainelli@broadcom.com>, 
- Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>, 
- Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
- Sascha Hauer <s.hauer@pengutronix.de>, 
- Pengutronix Kernel Team <kernel@pengutronix.de>, 
- Fabio Estevam <festevam@gmail.com>, Matthew Brost <matthew.brost@intel.com>, 
- =?utf-8?q?Thomas_Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>, 
- Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@gmail.com>, 
- Simona Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>, 
- Paul Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, 
- Philipp Zabel <p.zabel@pengutronix.de>, 
- Maximilian Luz <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, 
- =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
- Krzysztof Kozlowski <krzk@kernel.org>, 
- Benjamin Herrenschmidt <benh@kernel.crashing.org>, 
- Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
- driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
- linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org, 
- iommu@lists.linux.dev, linux-pm@vger.kernel.org, imx@lists.linux.dev, 
- linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
- dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
- linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
-Subject: Re: (subset) [PATCH 00/23] driver core: count references of the
- platform device's fwnode, not OF node
-Message-Id: <178005933352.9337.17178239685242465219.b4-ty@kernel.org>
-Date: Fri, 29 May 2026 13:55:33 +0100
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="tlLWJsVY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=BUsVTXtWac4HLSNT5dWtOS8zRSibeIPlKQyEy6fXA8g=; b=tlLWJsVY8p0/R9sesXCKHs094J
+	PosCTQnW6A1Z05qQit3q+/aGqEuX1zhMcb+gezKm0VEXGYC23KIc90iqxTMMFcsVCWJWPdNBvjzYl
+	lba/KNhFT6+GdSzG1ehzr+OyNAp9W9ub7MiLNATP9fRVBSj285n6FbYOmsfbv++53v90=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1wSwsY-0055SF-7z; Fri, 29 May 2026 15:03:58 +0200
+Date: Fri, 29 May 2026 15:03:58 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Nuno =?iso-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+Cc: ciprian.regus@analog.com,
+	Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-doc@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v2 10/10] net: ethernet: adi: Add a driver for
+ the ADIN1140 MACPHY
+Message-ID: <a272f9ae-1958-456f-b177-7c966694c047@lunn.ch>
+References: <20260527-adin1140-driver-v2-0-37e5c8d4e0a0@analog.com>
+ <20260527-adin1140-driver-v2-10-37e5c8d4e0a0@analog.com>
+ <ahlY8WSRO_HPmGtK@nsa>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahlY8WSRO_HPmGtK@nsa>
 
+Hi Nuno
 
-On Thu, 21 May 2026 10:36:23 +0200, Bartosz Golaszewski wrote:
-> I'd like to first apologize for the long, treewide series and an
-> extensive Cc list but I think it's important to show the big picture and
-> the end result of this rework.
+> > +static void adin1140_stats_work(struct work_struct *work)
+> > +{
+> > +	struct delayed_work *dwork = to_delayed_work(work);
+> > +	u64 stat_buff[ADIN1140_STATS_CNT] = {};
+> > +	struct adin1140_priv *priv;
+> > +	u32 reg_val;
+> > +	int ret;
+> > +	u32 i;
+> > +
+> > +	priv = container_of(dwork, struct adin1140_priv, stats_work);
+> > +
+> > +	for (i = 0; i < ARRAY_SIZE(adin1140_stat_regs); i++) {
+> > +		ret = oa_tc6_read_register(priv->tc6, adin1140_stat_regs[i],
+> > +					   &reg_val);
+> > +		if (ret)
+> > +			break;
+> > +
+> > +		stat_buff[i] = reg_val;
+> > +	}
+> > +
+> > +	spin_lock(&priv->stat_lock);
 > 
-> Platform device core provides helper interfaces for dealing with
-> dynamically created platform devices. Most users should use
-> platform_device_register_full() which encapsulates most of the
-> operations but some modules will want to use the split approach of
-> calling platform_device_alloc() + platform_device_add() separately for
-> various reasons.
+> Maybe consider using scoped_guard() and similar for other places?
+> Marginal win though so up to you.
+
+Please trim the text when replying so just the needed context is
+provided. It is easy to miss comments when you need to repeatedly page
+down, page down, page down to find something.
+
+> > +	ret = register_netdev(netdev);
+> > +	if (ret) {
+> > +		dev_err(&spi->dev, "Failed to register netdev (%d)", ret);
 > 
-> [...]
+> If we go to devm, this could be return dev_err_probe().
 
-Applied, thanks!
+dev_err_probe() is not really about devm, but handling EPROBE_DEFFER,
+and not issues an error message when it is not wanted. I don't think
+register_netdev() can return EPROBE_DEFFER, so it probably does not
+apply here.
 
-[03/23] slimbus: qcom-ngd-ctrl: fix OF node refcount
-        commit: 0208edaf0b32cae5b922729c4ef52dcd865e2e19
-
-Best regards,
--- 
-Srinivas Kandagatla <srini@kernel.org>
-
+    Andrew
