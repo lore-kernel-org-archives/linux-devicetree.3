@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C03F83B9D84;
-	Fri, 29 May 2026 08:47:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 557B43BB11F;
+	Fri, 29 May 2026 08:47:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780044455; cv=none; b=LZY2gWOQaqZ1bRfCCZj9n6pz4EQRILO5+Y+BsYZ1tNc5DklbsZT7gGmG5CEiY1b/FE42ga4MpZt7lYyW24nIp7bsjDGLYxb9qxcEkVFPGWySrVIMnY7S5b+1cnKr2TrYbEbZJQVkHNCTPKtK94EgncGj6Mt9IcQt7nm9vEm+Ngo=
+	t=1780044459; cv=none; b=G8w1HJRRIQp/wNWCKR/bup2dXr9KoAgQpT++NJ1VbCQUCwdLVkfPN5wK1ZZeCaRHKVGDJm9n6uJAe55Vd4+YAgCAEowxNTMGUGYCzkR2RqZTo87qe2zmvnLrpmZAu4SkwDycDHSORMm+zoc8pHN+aU9xYcsWzWgUDJEAkCHHvDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780044455; c=relaxed/simple;
-	bh=5YxUz6t3BXJWUpNuKRYQwWhOjTfHf/XO0P/Y8t9xq0U=;
+	s=arc-20240116; t=1780044459; c=relaxed/simple;
+	bh=nPJzcPekfWg8VQk7v3Ppx+7G3lp2WtkHYg/I3DyeH3I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=N7A8WpjIAuUXv/bedxddNHkN79rLmPrpKR+LrcAzivO8VKauifrsQ2Gths3vvQpBvcv53nHVtHE0g1tmMtVuZVKtfo0XNMa+G6PUFw7z1lSPOo/TK6N11HtO+jJPefrN642mVer3hT0vJkXghFFqVYdsEj0byQGziBjD6riWdWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=CRAxuqhC; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=FzuU4CQM/8d4qR+1ky3aQDvWnHMOAeGATKCh9TQim/RHW+rb0E6ehWcVc9+Scclzs76D7jdzd4cZVKnH5Py6F0uKrhVQmrDMHnEEQyjEvGVUiRfR3j1PIDOQGcpNrcAICZmRKHNOn/j0J8jNcSm7SDxp0EaT9S+AFzWAgTs+BKE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=DXxjY7ku; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="CRAxuqhC"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="DXxjY7ku"
 Received: from [127.0.1.1] (91-158-153-178.elisa-laajakaista.fi [91.158.153.178])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 1C7861337;
-	Fri, 29 May 2026 10:46:57 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 4D1A91ADF;
+	Fri, 29 May 2026 10:46:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780044418;
-	bh=5YxUz6t3BXJWUpNuKRYQwWhOjTfHf/XO0P/Y8t9xq0U=;
+	s=mail; t=1780044419;
+	bh=nPJzcPekfWg8VQk7v3Ppx+7G3lp2WtkHYg/I3DyeH3I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=CRAxuqhCyy0hKdFEdWOhxWyGdseJ+JNIy4pFSr6DytelAKX+/x99moTNG+I6yh621
-	 DpsQzUoLF77lIvrh5zBpbAvEDi1ITqEkNT+GnmeDX/Qm1LEPxVW8HG5Y56bDW45YJz
-	 6CZvoKa92kIC3mPOGROmW1sSafazk5+w9cEwB9kI=
+	b=DXxjY7kuuDatg2Xpfl1DoA3MGxufMYT6DpTT83IuSJDPTriU6T28M22X3ptfGRbZL
+	 7Zbd2dYriZSRtmT4BC/K5PMrtL7xELwrae1pQN035au5JTNm/gPfPHkI53V1hi0EYb
+	 ez3wrLRpz4B7zDUuWiEs+1/b1er5u522Q+gXwSII=
 From: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
-Date: Fri, 29 May 2026 11:45:33 +0300
-Subject: [PATCH v3 03/15] dt-bindings: display: ti,am625-oldi: Add optional
- power-domain for OLDI
+Date: Fri, 29 May 2026 11:45:34 +0300
+Subject: [PATCH v3 04/15] dt-bindings: display: ti,am65x-dss: Add
+ ti,dpi-io-ctrl
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260529-beagley-ai-display-v3-3-7fefdc5d1adf@ideasonboard.com>
+Message-Id: <20260529-beagley-ai-display-v3-4-7fefdc5d1adf@ideasonboard.com>
 References: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 In-Reply-To: <20260529-beagley-ai-display-v3-0-7fefdc5d1adf@ideasonboard.com>
 To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
@@ -54,48 +54,72 @@ Cc: devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
  Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=939;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2200;
  i=tomi.valkeinen@ideasonboard.com; h=from:subject:message-id;
- bh=5YxUz6t3BXJWUpNuKRYQwWhOjTfHf/XO0P/Y8t9xq0U=;
- b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKMTj/FUyRipkwsdk72Ss6R7PRhPUsMoVJZ8
- LCgzs65T1uJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSjAAKCRD6PaqMvJYe
- 9U+RD/4m6jAQuBSloXMV8SWmCRgUkW3VaAIDeBY4Q/enD7xkwLyiXj/Liiz/uzwa/QXXj+cV0w+
- gqefzcfjvSplemjRn4r7t0Rh+u9FbT1IpskWQDfBy99PSxY8jdw2CDjozXfTQ7Oc6QQg8Du9Nqt
- KKNYRO/oOPg3fqucOFml++5/Ktyc0Pj/em41KQnM+jUp3f7VeKkYskfJa3X2Eu0pZgm40VSAej/
- hZlS+yn91hIibSCNkoS/nisZd7/rg+vYUByDeuTW/NaSwCFqkzEVEqKODt89PxAdhtlPuXsxp9D
- FW64dCvzjMppmcItyB7lozMU8exWu3HCxecHWfB2m5jzjb4BGUPawS4wPGzKu778OLP1lj4F/zI
- T8agNerWcBugPMvZSEgwAavcCuGaX3a7XbAj53H7nCtnRz4Leo6jLuoONZgyDoCjrOA4tvrQiZm
- 95xl9kWaSLMgih+UDR2XZmdydxUkTgxDdtYbuHGxCw93VE4wNc4YyCnFeG1qbk8Ll4cIEb2/mkL
- XSrEB1FWwvzUidpM0YFIF2qHgobPb0jzO+KOwhSwJmgy3hUggC7RxdFvruVpYcQoE1WTb5hzi8/
- 2NOYB6glu1ZJDdIVcpUycL2PSltIcIVYEh9hvKpmsnVc7fLyIWCx+G7pKZOy6uUfwq15x+t2fwb
- S1xuCzkCae9AGIA==
+ bh=nPJzcPekfWg8VQk7v3Ppx+7G3lp2WtkHYg/I3DyeH3I=;
+ b=owEBbQKS/ZANAwAIAfo9qoy8lh71AcsmYgBqGVKMQPas9xGtGiiETzNoyjXweNr7JCVYiumLz
+ UaeVh/oYiGJAjMEAAEIAB0WIQTEOAw+ll79gQef86f6PaqMvJYe9QUCahlSjAAKCRD6PaqMvJYe
+ 9WbJD/9TE7KWjYwzkrGQujHhJmY6a5owc4EOfE7HdTMjU91bRRejmD8SKywvjPbfErxv4PjI9gr
+ M3jCp1bG9yH8OpB9y5nkL4gW5sT8gHt5/hnQUHmOe9ZXiN4GTDkZ1eljJBh4+Ti4nklbau4cw6N
+ dcxbLTGe0yLIeEDIoM8rJBN3kL2O6o5Y0iS6EP4sP50Q91bKeUH/uMZZhgJqb4QuZC4vhkgJkwR
+ Suia93ezp3iyaMtNWUVtaMlaZOJ3F1vMEuW1ZXQLG2ywf2xB89R75uqTe1cEBqqbclUU96BtYSi
+ NVMAB84tnyApOw0KXwNPxHnop7ZF1pkC+Tp8eV5mi4cHv+vQsM4TWm+JgCqS0vlFBz0evwZTgF3
+ b6eowUTnFE7JYNw6+AQsDjuhyYq4I4XRh0CwQeV8RJwdRCX2bRb0uCATcxEqRp8e+7eSYpZoz4i
+ hxT84RNgi6p92qUrKNR5/g44vEZ0u7r0Rg/HMDFC12V2rnRophzTdah7uxadH/Ddhl/CtjWVXVH
+ JgJm8c24ra9fO//SKhMNYrZ94I6LQqe9pFAA1QVEJ1+b4kr7PIQ41Nzs5tLDVGV/Y94L0Kwfyte
+ pZnJr424NAGThoC9Ud0Qb9M1dZcLSGXYXVOIYZddqm++7C0SKPpkwKaNdvuYexixM7UxgejJm8A
+ SDMXDv0dc5YCqOw==
 X-Developer-Key: i=tomi.valkeinen@ideasonboard.com; a=openpgp;
  fpr=C4380C3E965EFD81079FF3A7FA3DAA8CBC961EF5
 
-On some SoCs the OLDI blocks belong to the same power-domain as the main
-DSS block, but on some more recent SoCs the OLDI blocks have a
-controllable power-domain.
+The DPI output pipeline in K3 SoCs contains the display subsystem (DSS)
+which produces the in-SoC parallel video signal, and a DPI block which
+adjusts the signal to the external MIPI DPI output.
 
-Add the power-domain to the DT binding.
+The DSS IP has registers to configure whether the data and sync signals
+are driven on rising or falling clock edge, and on some SoCs these are
+automatically conveyed to the DPI block which needs that configuration
+to properly output the MIPI DPI signal.
+
+However, on some SoCs the DPI block configuration has to be done
+manually, using an extra register outside the DSS, DPI0_CLK_CTRL in
+MAIN_CTRL_MMR_CFG0 block, which controls the DPI block's behavior.
+
+Currently the DPI0_CLK_CTRL is never written, so it's always 0, meaning
+the data and sync are always driven on a rising clock edge regardless of
+the DSS configuration.
+
+Add 'ti,dpi-io-ctrl' property, which contains phandle to the
+MAIN_CTRL_MMR_CFG0 block and the offset to the DPI0_CLK_CTRL register,
+so that the DSS driver can configure the data and sync signals
+correctly.
 
 Signed-off-by: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
 ---
- Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml | 3 +++
- 1 file changed, 3 insertions(+)
+ .../devicetree/bindings/display/ti/ti,am65x-dss.yaml          | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml b/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-index 8203ec5e5bb3..5dbf1f76dd3f 100644
---- a/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-+++ b/Documentation/devicetree/bindings/display/ti/ti,am625-oldi.yaml
-@@ -29,6 +29,9 @@ properties:
-   clock-names:
-     const: serial
+diff --git a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+index 588d72d4ec0d..902ae2122d86 100644
+--- a/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
++++ b/Documentation/devicetree/bindings/display/ti/ti,am65x-dss.yaml
+@@ -113,6 +113,17 @@ properties:
+       and OLDI_CLK_IO_CTRL registers. This property is needed for OLDI
+       interface to work.
  
-+  power-domains:
++  ti,dpi-io-ctrl:
++    $ref: /schemas/types.yaml#/definitions/phandle-array
++    description:
++      phandle to a syscon device node containing the DPI0_CLK_CTRL register,
++      with the offset to DPI0_CLK_CTRL as an argument.
 +    maxItems: 1
++    items:
++      items:
++        - description: phandle to the syscon node
++        - description: DPI0_CLK_CTRL register offset
 +
-   ti,companion-oldi:
-     $ref: /schemas/types.yaml#/definitions/phandle
+   max-memory-bandwidth:
+     $ref: /schemas/types.yaml#/definitions/uint32
      description:
 
 -- 
