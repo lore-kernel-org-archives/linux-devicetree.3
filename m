@@ -1,141 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A69C3EFFDB;
-	Fri, 29 May 2026 15:31:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 948243E5EFE
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 15:33:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780068692; cv=none; b=EYcJ0rYQVVYcWWOD3Biu0DopmIeV+gN8GklHsdZ2Czp1iGg73NF6LI9mcgdzWbsdpeAGHpW6NfSAVDj9Cf7PSEd4pARAj4yl7PIS8hqGlPNo/zZmY77Iow4PJ7Cjr60La6FIYqzqAtrGhVIbVbfPcfkkXZdstHonH92LlGiKZ3E=
+	t=1780068800; cv=none; b=fjwfc/7bUEmK7n8ggE5CDTzY7N8qZRmWOE5kNXZeubaxL/moeFl9eF2Yyiz9gSQOa3oLXaogcRtHCLuynJs9y15trRjiZW+oXz19cOLBc1/jcuP2l48s0LkVnFmGr2pvWdkDxlvFvIlxosWDWZJgAIEJ0jdaPpyeO63m4zEQJ8U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780068692; c=relaxed/simple;
-	bh=Wc7i4dF9ygiTQTaQ/gCEQkz1kc+L4fUW6J/05ngPp7E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=hB+UIW1btZ0sstoaE+mT6vTwQTtitbb3D2+4F0h3qY4vaU72XH1DlSNxfY1zVED1g96Ou3BqGaYJT3E33h0po91UujJfex5LktE8ieeZ7B0SlUv8i4zpNWunRyEas+UWRG+kSDSi9b9NySxcSUnm94NOCGcrbOE6Uq0furixzGk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=boPVeON2; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780068800; c=relaxed/simple;
+	bh=DOH+3g7w+KmlfDTsjLjiuMu/Fxk6iqxGULdvT+bBH5g=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XUqy4Sbvqzy0DDsggWoogkDLvJrPvD6VDhqthzeWZEcSbVUaz+j3knYziPyOS7beH7k//NwnJ2d/S2E9YtRNh2s5PWY5wEZt0BiZccGto80fMlUvtFWu4v+p2ZeJWJRib0mMpLOzqunxZx/Wjtfs2iW4zsnI3KK6GMlztWsJTDA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2Q12tkt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="boPVeON2"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EB91DC2BCB3;
-	Fri, 29 May 2026 15:31:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780068692;
-	bh=Wc7i4dF9ygiTQTaQ/gCEQkz1kc+L4fUW6J/05ngPp7E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=boPVeON2KW3rK93sT25Ly4iFGSKdlqTWm+ENdICl1VZIZECcCNk+w04jdJo+WT2JE
-	 VHE4zAcbHxfUUXjBDKj7ldrmAVMGyNT725OjVO/BzhT46kCgyEundpAlcG8R4wg0k2
-	 dLznGWGI3SfRoKLfvcUcDeFpzmjs++MgYHkKLCoC8x4dj9hC3ijkE5Lf10LaFi4SAJ
-	 PFW5PbqodBas3HGxToHcEeUprZFRevoTYRCAmMqoQc/Vcze7LHPOslW5jAG0GRL6lh
-	 G9MyiYK+egdLwWCGt3vVdqa0GZzaTtw6+90GKxCXgPKeIe72KOIx7JpIURgY9VLcnb
-	 XitH9p1ATQkAA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id E182ECD4F54;
-	Fri, 29 May 2026 15:31:31 +0000 (UTC)
-From: Ricardo Pardini via B4 Relay <devnull+ricardo.pardini.net@kernel.org>
-Subject: [PATCH v2 0/2] describe PCIe ethernet interfaces and alias
- ethernet0/1 on NanoPC-T6
-Date: Fri, 29 May 2026 17:31:23 +0200
-Message-Id: <20260529-rk3588-dts-rtl-eth-describe-dt-alias-v2-0-49700248143f@pardini.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2Q12tkt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 114FF1F00893;
+	Fri, 29 May 2026 15:33:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780068799;
+	bh=sCTB6lhHJrDoYEUN4ycP4vcjGGxoWiAPdnW/TIo6ytc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=D2Q12tktcFP7g5aayzYSoM6cZeTfm3hIHTyc5BYtidtmUBqhbwfvLVABqKFP69I1i
+	 6mw7q50yUDoFGpGsyIP8jbs4ojikwFnfGNlAP59Kq+nMJELd1S3i2YjaEeDOxkyz3n
+	 i15y4xn3wa31FwkKMRVJ9uLhoq/93ozbWhrWq2hBPaJm2LEMhIzTX/fPgJmOueBIcf
+	 NPifzQRwl0rv9l2f8YhSklVbK+flmpLAQaYO6BilGb0DAFyMqaUjZ+Mntqxq7ghQ4S
+	 zN0SBiVrx+gApZad4OC/fn0GnTDO5aTTsDARZ5RJw8EMf+vPRYcEEzgaa4uiuUuLVH
+	 N4M5RrLxGrCtQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 3/6] media: qcom: camss: Add Glymur compatible
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vikram Sharma" <vikram.sharma@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260529-glymur_camss-v1-3-bee535396d22@oss.qualcomm.com>
+References: <20260529-glymur_camss-v1-3-bee535396d22@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 15:33:18 +0000
+Message-Id: <20260529153319.114FF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42OwQ6CMBBEf4X07BpaLBBP/ofhUNpFVkkh20o0h
- H+3YLx7fJPJvFlEQCYM4pwtgnGmQKNPoA6ZsL3xNwRyiYXKVZlrdQJ+FLquwcUAHAfA2IPDYJl
- aTCGYgUwAK9HJumorq3ORpibGjl675tp8OTzbO9q4bW+NnkIc+b3/mOXW+yn1f8pZggRTdtYZX
- RbGVpfJsCNPR49RNOu6fgA3sv5v7AAAAA==
-X-Change-ID: 20260524-rk3588-dts-rtl-eth-describe-dt-alias-c1ed187b7c50
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>, 
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org, 
- Ricardo Pardini <ricardo@pardini.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2868;
- i=ricardo@pardini.net; h=from:subject:message-id;
- bh=Wc7i4dF9ygiTQTaQ/gCEQkz1kc+L4fUW6J/05ngPp7E=;
- b=owEBiQF2/pANAwAIATteP+Oex+3pAcsmYgBqGbFSPnLISoKIp2YOdD3mlPG61DJUOBfi9o1sC
- thxlsVlILWJAU8EAAEIADkWIQSsGCMM9q/qytxIiJM7Xj/jnsft6QUCahmxUhsUgAAAAAAEAA5t
- YW51MiwyLjUrMS4xMiwwLDMACgkQO14/457H7emM8Af+I/ztaHtuESg8K7PXiX+dQ+qkRAk6nPQ
- btd0McxQmrWGrJ57QoTBbgthgPt7E7fbINDputVTOkME8dq4b+6MsSN+VrtbR3HDjbDe6VC2daD
- w7zGtsEVV5yXRmLZllu6R+mLVvoilpLL534zYGM4N/QEGH2sIShyq+HI8vgS7V3fCx5fz6yFMzF
- aymwSBhN6/t1EV0UfTGisW/WOIbvxSIimh2vlNLvI/F7rXvgzG874uRx25yDtWylzIY3JpQoGpn
- +620KC3UsuZNwQ/HTlUQ+QxRI5Mqb+iM2PBGEN7RSM1M/SF18cPjMuv2fUG/0SRjoi0/J2/DUm0
- EkyPm173ZMA==
-X-Developer-Key: i=ricardo@pardini.net; a=openpgp;
- fpr=AC18230CF6AFEACADC4888933B5E3FE39EC7EDE9
-X-Endpoint-Received: by B4 Relay for ricardo@pardini.net/default with
- auth_id=588
-X-Original-From: Ricardo Pardini <ricardo@pardini.net>
-Reply-To: ricardo@pardini.net
 
-This describes the two on-board Realtek RTL8125BG PCIe Ethernet
-controllers on the FriendlyElec NanoPC-T6 (RK3588) board and aliases
-them to ethernet0/ethernet1.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Many Rockchip boards have on-board RTL8125 PCIe NICs, wired to
-pcie2x1l0 and pcie2x1l2. The controllers were already enabled in the
-board DT, but the Ethernet function nodes themselves are not
-described, so the kernel (and u-boot) has no DT handle on the NICs.
+Pre-existing issues:
+- [High] Missing bounds check for device tree endpoint port number against =
+`camss->res->csiphy_num` leads to out-of-bounds array access and memory cor=
+ruption.
+--
 
-Adding the function nodes lets us:
-- expose stable ethernet0/ethernet1 aliases for the two NICs, the
-  same way other rk3588 boards alias their GMAC interfaces; and
-- let U-Boot's fdt_fixup_ethernet() patch mac-address properties in
-  at boot time from its ethaddr/eth1addr environment - useful on
-  boards (like this one) whose on-NIC EEPROM is not pre-programmed
-  with a unique MAC. The kernel and U-Boot then agree on the MAC,
-  which matters for network-boot setups.
+commit f84037afd7728553fdb93e0bd472a151b8696e13
+Author: Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+   =20
+media: qcom: camss: Add Glymur compatible
+   =20
+This commit adds the CAMSS_GLYMUR enum, the Glymur compatible string, and
+the initial private data structure for the Glymur camss driver. The
+resources will be populated in subsequent commits.
+   =20
+> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
+atform/qcom/camss/camss.c
+> --- a/drivers/media/platform/qcom/camss/camss.c
+> +++ b/drivers/media/platform/qcom/camss/camss.c
+> @@ -5507,6 +5507,11 @@ static void camss_remove(struct platform_device *p=
+dev)
+>  	camss_genpd_cleanup(camss);
+>  }
+> =20
+> +static const struct camss_resources glymur_resources =3D {
+> +	.version =3D CAMSS_GLYMUR,
+> +	.pd_name =3D "top",
+> +};
 
-Checkpatch warnings:
--  WARNING: DT compatible string "pci10ec,8125" appears un-documented
--  WARNING: DT compatible string vendor "pci10ec" appears un-documented
-Both are expected. "pciVVVV,DDDD" is the Open Firmware PCI Bus
-Binding spelling, where VVVV/DDDD are the PCI vendor and device IDs
-allocated by the PCI-SIG (10ec = Realtek, 8125 = RTL8125). It is not a
-DT vendor prefix.
+[Severity: High]
+This isn't a bug introduced by this patch, but is a pre-existing issue
+affecting all supported SoCs.
 
-If this is seen as a good thing, it would apply very similarly to
-the Radxa Rock 5 series and others.
+In camss_parse_endpoint_node(), the device tree endpoint port number
+(vep.base.port) is assigned to csd->interface.csiphy_id without verifying
+if it is strictly less than camss->res->csiphy_num.
 
-While at it, rename regulator vcc3v3_pcie2x1l0 to l1, since that is
-what is actually powers; since only cosmetic, I did not include
-a Fixes tag.
+Later, when the external subdevice is bound, camss_subdev_notifier_bound()
+uses this unchecked id to directly index the dynamically allocated
+camss->csiphy array:
 
----
-Changes in v2:
-- fix: pcie2x1l0, not pcie2x1l1; indirectly caught by Sashiko's review [1]
-- while-at-it: rename regulator vcc3v3_pcie2x1l0 to l1
-- Link to v1: https://patch.msgid.link/20260525-rk3588-dts-rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7@pardini.net
+camss_subdev_notifier_bound() {
+    ...
+    struct camss_csiphy_device *csiphy =3D &camss->csiphy[id];
+    ...
+    csiphy->cfg.csi2 =3D &csd->interface.csi2;
+    ...
+}
 
-[1] https://sashiko.dev/#/patchset/20260525-rk3588-dts-rtl-eth-describe-dt-alias-v1-1-a6fcda563ac7%40pardini.net
+If a device tree (including runtime DT overlays) defines an endpoint with an
+abnormally high port number, could this unconditionally result in an
+out-of-bounds write past the allocated block, leading to memory corruption?
 
-To: Rob Herring <robh@kernel.org>
-To: Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Conor Dooley <conor+dt@kernel.org>
-To: Heiko Stuebner <heiko@sntech.de>
-Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: devicetree@vger.kernel.org
-Cc: linux-arm-kernel@lists.infradead.org
-Cc: linux-rockchip@lists.infradead.org
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+While the specific 0-resource crash for the newly added Glymur driver in
+this intermediate commit is resolved later in the patch series, the
+underlying lack of bounds checking remains unfixed.
 
----
-Ricardo Pardini (2):
-      arm64: dts: rockchip: describe PCIe Ethernet controllers on NanoPC-T6
-      arm64: dts: rockchip: fix PCIe regulator name on NanoPC-T6
+> +
+>  static const struct camss_resources msm8916_resources =3D {
+>  	.version =3D CAMSS_8x16,
 
- arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 36 ++++++++++++++++++++--
- 1 file changed, 33 insertions(+), 3 deletions(-)
----
-base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
-change-id: 20260524-rk3588-dts-rtl-eth-describe-dt-alias-c1ed187b7c50
+[ ... ]
 
-Best regards,
---  
-Ricardo Pardini <ricardo@pardini.net>
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-glymur_cam=
+ss-v1-0-bee535396d22@oss.qualcomm.com?part=3D3
