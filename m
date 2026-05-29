@@ -1,192 +1,185 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D2DA334C0D
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:17:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE041288B1
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:21:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780049849; cv=none; b=fpYAV6RIfQu48T+XNnMP7NBePUIqfxSQoSmIYeRxMszxUrHthFvEfl5Rc9M9JhgujWVVDBBgXqoXDPoqrRdgwsRIGCW/h3ocUmFaolO/ZG0vzfY4zprTEQrE8dOIW9gQRTVf65ZUHIbL2hLpHNX2kfs9F04mHTDWAnP0TDGjhqY=
+	t=1780050093; cv=none; b=RaEbarBmpLUBpdLdn80qLs/zZ9dU6zO+uk98aqhOMRnM/2NOQfJ7sZZgFf1/h0eoCw7HV6/JPhOAZFSOhlivn0mWlN5JASto2Oft4fLkcLoo63cyLILn1DkfUaR35an/G7be3+usKrZWTIdDlHC5xK0rEhA6bh1CJtf7V9dOdk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780049849; c=relaxed/simple;
-	bh=wsTTRuHUZyUK2eHffcCelXOtF0Eanqo2UbgT/sM+3MI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qa2/zp06r5MRhTgPpcKTO+Dlcy4r/Q1z9RJO5NVIEMx3anG4dpGdnF2lBm0pAL2UOrrj2xbezc9Sl0Zah6T4ogcs0r8MPAeopiEHqAOU61zHnBXddMqiBrrXMGv3R5CYvhdtdF7gvpnSwQwNUABAyA1wTGZuudUCPupQB5sTVNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=BIqgbXkg; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=EaOoDM4c; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780050093; c=relaxed/simple;
+	bh=4r7F8p1D1dshQf2R+Vl/kYg2GFb14SxAHMTMpm18un8=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=higsiHjSWCs5C8F0Z9m7KAHDS1zeoHEH2yUaOfnrsPfkN8MkNbXrowNu12Bfrafxn6tsOZ95qBuKE9zBAqAf+3qf712HgoiVPE2828XloP4HjIpwZ7FKslaJgDSKsCdV1g9qjVwpC+HYmbs+CMMQgZBOKuq7tHEcyz8rDeaOeK8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nu1/OFo9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="BIqgbXkg";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="EaOoDM4c"
-Received: from pps.filterd (m0279863.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64T6LMYJ562448
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:17:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QlFPCdtZLGigc27wlhIiQC/YA2l7/69jHdSprQoVZBw=; b=BIqgbXkg22cpNPPU
-	1pY0M8VNRN7Oh/5UUY+KY4rDi0rHJ5zM3AhUWS0ilyFhJVAKwzFCwikg54MO0lA1
-	ZZwErYVBCuXb2AVwZx8i4j9Ff8B7Li56H4/0kVW0y5y9o6Ei+MBSzhQryga4CZba
-	mqi80RoAbOYQLgOnyVtnU4xSFf6NZBZDbcblS2PjDw0yprxYs9JaSa+TNFA9RWCe
-	0b5BhqB4JJhVQPRo3EMgUZnSUfeb0/gUUHFeFqtcwxVFGjjQ4dcPTA0X1DvS6OX9
-	tJ2x4ztc7kyLEvWtTtJSMkMw/gTtlKloitSvx2D4Vvr1hjPFnYkzE3lHT0wmwvB0
-	Fb8lrg==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eevug3179-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 10:17:25 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-841f09a96ecso1320692b3a.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 03:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780049845; x=1780654645; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QlFPCdtZLGigc27wlhIiQC/YA2l7/69jHdSprQoVZBw=;
-        b=EaOoDM4cIm/Nwax77CEjPXaXRTNolksC2fmv1EZefd0mmUGBoWEq4+X3nCfqfgpjvH
-         KWgL3hklRSOX80C5an1AA1FtuC1u9hQ1IG7tNDtHCRBLUuG4x7P65a004gLCaJLdthGA
-         Zh/OfT6CZ0RSz2yuIQbpEhRidcWnijwb9KQoXZ1v1r944P+/ybMWxvNOHrX7sJjWctVb
-         dg4RnZIN525RykBzwj9xSiz4Rut7w037m4V/s3skOGeVoyQe/dK0O/i8mNZJbE5vUia3
-         6wNXp7JqyGpa+Z3D7+R05VMAOb3WZwwbMj9RC2R7Fpib2s+2Xidd2Vq7FNovTxKkwkxS
-         VP+A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780049845; x=1780654645;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QlFPCdtZLGigc27wlhIiQC/YA2l7/69jHdSprQoVZBw=;
-        b=JyKYEfOLu9MR5JM/Eoh4lzKHFXXP8UCiSngR+0sHJkIbTuPoDIRpR4euhEZqsZ2hVC
-         Mk8mL0PjJElqpacA+WLM10qzMO13zoMCMVhxmIg5srhCS36LaaUF6JtrQIDj7xV1uOj+
-         rVDzTEP4yK7Kx+CUA4Bs6jTB0pd54QOVtidohdETedfr9HlvImx4tPwpvxQcVLOsYuOo
-         o2YQ4yNkpP5qaAUfm+IT31OYbIsJO+eULzlJYou/iPZwX5xJAiQtYjbhAdR+h1APkzeZ
-         W+ymuZ4mE5tA9s+VaAU7O89f8mLxxYBTkCkYycyicn/qVbAa1VnTjZNDGE86igcWxdtZ
-         e82Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8x92IDzAQJWcqfuE2j/IfpakGN96CtD4ZC8dv6X46rlyjE2JrTaE29JN1iqE4RKG8hw0cydFv6o5sL@vger.kernel.org
-X-Gm-Message-State: AOJu0Yza57sU9tIgDXZCKvwIUCOiVD0s0lAm2I0J0n2lC7BlxoIAiMII
-	tSwx1VIGctbfHbhR2VPZXEaDMivSrojzU5ExGZDK1vi2igBfeKXLPCzDdTgf6aTjHpadlZsfpii
-	Hr3rJsHqoMwn/ITmCbnbHUdrJB7f0Dnz7WpanPQ+OgIoRruv0MIhBVCca7bumxbD5
-X-Gm-Gg: Acq92OEGDlJgVC7LILVKRzhR5Hs51PonANPgAbHOEXbUrxE4MED1lYMEv9cyfFcpxa1
-	J3wCZIdf2l056moYOGN02JqG4UhOF1Lgs3PMc8v7hLGFvrKD71hqaS3Rj9VuFBDbxGsnMTwHBAC
-	V3t8BzW8cOobEzM/ambSHCKYUvSapEpr4eNRNR0KpeQluKr11mCrHCBQgrsWkO17LMAMnuyf5FF
-	JmZncDmZ3XpJGa8PgYfn5D6V1HnRfrmHMbDR6IsYGFdgkh6UBLjHrZp1fj8AtkkULVA4jrlra+/
-	cQZtvKdlW9ukGuLCduvhBMjfOi0LLgVBBj/Vhn53ZgcH3/Hre/DJ0V7U+o+CUL5WjOBrsrxAtp6
-	I/uIdxHjLneu3lCgpjpPLyhkp+JOnaiOzaqBLPu514jzCE6vtVhbQzOBOLOw=
-X-Received: by 2002:a05:6a00:3690:b0:82f:3828:a01d with SMTP id d2e1a72fcca58-84212d35431mr2340226b3a.29.1780049845182;
-        Fri, 29 May 2026 03:17:25 -0700 (PDT)
-X-Received: by 2002:a05:6a00:3690:b0:82f:3828:a01d with SMTP id d2e1a72fcca58-84212d35431mr2340201b3a.29.1780049844647;
-        Fri, 29 May 2026 03:17:24 -0700 (PDT)
-Received: from [10.219.57.29] ([202.46.23.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84214b307acsm1440342b3a.21.2026.05.29.03.17.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 03:17:24 -0700 (PDT)
-Message-ID: <63794650-69d4-4ebd-91c4-89bce022c772@oss.qualcomm.com>
-Date: Fri, 29 May 2026 15:47:17 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nu1/OFo9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20A3A1F00893;
+	Fri, 29 May 2026 10:21:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780050091;
+	bh=U/ExPB57ltFByD0QzqPDgDg7H2JiggYzMtFQNveRyGI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Nu1/OFo9x2JHTKJC0GrRLm3a3EFkbHYBHNkhpuEYFij9WOMQonIdwMF1fWJVEK/zw
+	 BLfeMbB1XFVT2clA0E6bk8nMWhbbbdQOVHJMtgSh6znAa1abJWRySa+Uz3kKVYMarj
+	 lRGFD8hd7qcIIxzdKFHxrAw9k9uI60kzu3foeosVWQUfS16y9ThKavKubseLk4+Af5
+	 2Ch//vKpZtMFfOCBdkJn7BDClW95qP6PuLdpPHRdsrriNxo8uxHa7ms9LaaL29WWiT
+	 Z1Q8UKKJPHKVPn8NZARw+vnBZl5zoghcjVMkGdV74BTfFeBpKlniDPmF4guy0nEOTO
+	 sWAc6tCwkTBWA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 04/10] ACPI: APEI: GHES: move estatus cache helpers
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ahmed Tiba" <ahmed.tiba@arm.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-4-2e0500d42642@arm.com>
+References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-4-2e0500d42642@arm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 10:21:30 +0000
+Message-Id: <20260529102131.20A3A1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 10/16] arm64: dts: qcom: shikra-cqm: Enable CDSP, LPAICP
- and MPSS
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Krzysztof Kozlowski <krzk@kernel.org>,
-        Georgi Djakov <djakov@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
-        dmaengine@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
- <20260525-shikra-dt-m1-v1-10-f51a9838dbaa@oss.qualcomm.com>
- <xq6vkeer7c32fmmofhu3yxnwxns4mn7umzwjf6k575m55s5mek@zrjiuo3eiq37>
-Content-Language: en-US
-From: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-In-Reply-To: <xq6vkeer7c32fmmofhu3yxnwxns4mn7umzwjf6k575m55s5mek@zrjiuo3eiq37>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDEwMiBTYWx0ZWRfXxMMdwILYVAVC
- KTWFGlPGyG0Go2BED0uED+K8LHGcIWJ09HkW9SKzSUcfbrgzCGVXs5zFWrzotmA9rkfJPRSky5A
- gZ3zkFLe9vypbNs9t272gQoMX8NLbZ2SY52q3MPZMhY37IMp1JOcvMkL2Flse/iLlGRoTUbXy0J
- ssElXcJweuDLv5fLsV61R0bWKPW7UsFeRRdEz28IQksNOgK/D0Jm3NUE+luADgSTWEO1cn900H/
- XxCmV8f6FpmIw1ZGGOQIc4o5XlNemMu9xN96VZli5qOggpUg4GDJtzEpejv9cMs/g0ZcUS9YvCv
- 5BXSXP8YuxmaElTvT3sQ5MpqjXAJ5QnZHTe+6XdiM8+aPyBbwHVRqXVuqw6krIbaK3EGd046dmy
- Dmdu8KI4CWd496HOdqlfC6p1wnw4ycK3mbfZtBtBaD33J/xOX7og6HPEr05V2Nm9wFeSDJ3u62n
- p96HpokTgM8yZUKM43A==
-X-Authority-Analysis: v=2.4 cv=SNBykuvH c=1 sm=1 tr=0 ts=6a1967b5 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=j4ogTh8yFefVWWEFDRgCtg==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yOCtJkima9RkubShWh1s:22
- a=EUspDBNiAAAA:8 a=S9tZMReaGwYLiO49R74A:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-ORIG-GUID: pKaZvgwCiF9lpJ2lh-N5XSMuTbIXnDnF
-X-Proofpoint-GUID: pKaZvgwCiF9lpJ2lh-N5XSMuTbIXnDnF
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-29_03,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 malwarescore=0 spamscore=0 adultscore=0
- lowpriorityscore=0 phishscore=0 impostorscore=0 clxscore=1015 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290102
 
-On 5/25/2026 2:59 PM, Dmitry Baryshkov wrote:
-> On Mon, May 25, 2026 at 01:19:14AM +0530, Komal Bajaj wrote:
->> From: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->>
->> Enable CDSP, LPAICP and MPSS for Qualcomm's Shikra CQM EVK board.
->>
->> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
->> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
->> ---
->>   arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts | 19 +++++++++++++++++++
->>   1 file changed, 19 insertions(+)
->>
->> diff --git a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
->> index 0a52ab9b7a4c..b112b21b1d79 100644
->> --- a/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
->> +++ b/arch/arm64/boot/dts/qcom/shikra-cqm-evk.dts
->> @@ -23,6 +23,25 @@ chosen {
->>   	};
->>   };
->>   
->> +&remoteproc_cdsp {
->> +	firmware-name = "qcom/shikra/cdsp.mbn";
->> +
->> +	status = "okay";
->> +};
->> +
->> +&remoteproc_lpaicp {
->> +	firmware-name = "qcom/shikra/lpaicp.mbn",
->> +			"qcom/shikra/lpaicp_dtb.mbn";
-> When can we expect modem and LPAICP firmware in linux-firmware?
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
-It is anticipated to be updated in linux-firmware within next three weeks.
+Pre-existing issues:
+- [High] The macro GHES_ESTATUS_CACHE_LEN() can overflow when calculating t=
+he cache allocation size if the CPER record length is maliciously large.
+- [High] ghes_read_estatus() reads the CPER error status header from hardwa=
+re memory twice, creating a Time-of-Check to Time-of-Use (TOCTOU) vulnerabi=
+lity.
+- [High] cper_estatus_len() integer overflow bypasses length validation che=
+cks, leading to out-of-bounds reads.
+--
 
-Thanks
-Komal
+commit f4f08f05fe70448a89bd543c421db6376b61be52
+Author: Ahmed Tiba <ahmed.tiba@arm.com>
 
->
->> +
->> +	status = "okay";
->> +};
->> +
->> +&remoteproc_mpss {
->> +	firmware-name = "qcom/shikra/cqm/qdsp6sw.mbn";
->> +
->> +	status = "okay";
->> +};
->> +
->>   &sdhc_1 {
->>   	vmmc-supply = <&pm4125_l20>;
->>   	vqmmc-supply = <&pm4125_l14>;
->>
->> -- 
->> 2.34.1
->>
+ACPI: APEI: GHES: move estatus cache helpers
 
+Relocate the estatus cache allocation and lookup helpers from ghes.c into
+ghes_cper.c. This code move keeps the logic intact while making the cache
+implementation available to forthcoming users.
+
+> diff --git a/drivers/acpi/apei/ghes_cper.c b/drivers/acpi/apei/ghes_cper.c
+> index 8080e0f76dac4..0a117f478afb7 100644
+> --- a/drivers/acpi/apei/ghes_cper.c
+> +++ b/drivers/acpi/apei/ghes_cper.c
+
+[ ... ]
+
+> +static struct ghes_estatus_cache *ghes_estatus_cache_alloc(
+> +	struct acpi_hest_generic *generic,
+> +	struct acpi_hest_generic_status *estatus)
+> +{
+> +	int alloced;
+> +	u32 len, cache_len;
+> +	struct ghes_estatus_cache *cache;
+> +	struct acpi_hest_generic_status *cache_estatus;
+> +
+> +	alloced =3D atomic_add_return(1, &ghes_estatus_cache_alloced);
+> +	if (alloced > GHES_ESTATUS_CACHE_ALLOCED_MAX) {
+> +		atomic_dec(&ghes_estatus_cache_alloced);
+> +		return NULL;
+> +	}
+> +	len =3D cper_estatus_len(estatus);
+
+[Severity: High]
+This is a pre-existing issue, but does cper_estatus_len() have an integer
+overflow that bypasses length validation checks?
+
+The cper_estatus_len() function calculates the record length by adding two
+32-bit fields (such as raw_data_offset + raw_data_length or
+sizeof(*estatus) + data_length).
+
+Because the return type is u32, can an attacker controlling hardware memory
+set large values that sum to a small wrapped result?
+
+This small wrapped length could easily bypass the bounds check in
+__ghes_check_estatus(). However, downstream functions like
+cper_estatus_check() and apei_estatus_for_each_section() iterate up
+to estatus->data_length without verifying it against the actual allocated
+buffer size, which might cause the kernel to read far out-of-bounds of the
+ghes->estatus heap buffer.
+
+> +	cache_len =3D GHES_ESTATUS_CACHE_LEN(len);
+
+[Severity: High]
+This is a pre-existing issue, but could GHES_ESTATUS_CACHE_LEN() overflow
+when calculating the cache allocation size if the CPER record length is
+maliciously large?
+
+GHES_ESTATUS_CACHE_LEN(len) adds sizeof(struct ghes_estatus_cache) to the
+32-bit len. If an attacker bypasses the initial length validation, perhaps
+via the double-fetch in ghes_read_estatus(), they could supply a
+maliciously large length like 0xFFFFFFF0.
+
+The sum would wrap around a 32-bit boundary, resulting in a tiny cache_len.
+gen_pool_alloc() might successfully allocate a small buffer, but the
+subsequent memcpy(cache_estatus, estatus, len) would copy a massive amount
+of data based on the original un-truncated len.
+
+Could this lead to a heap buffer overflow?
+
+> +	cache =3D (void *)gen_pool_alloc(ghes_estatus_pool, cache_len);
+> +	if (cache =3D=3D NULL) {
+> +		atomic_dec(&ghes_estatus_cache_alloced);
+> +		return NULL;
+> +	}
+> +	cache_estatus =3D GHES_ESTATUS_FROM_CACHE(cache);
+> +	memcpy(cache_estatus, estatus, len);
+> +	cache->estatus_len =3D len;
+> +	atomic_set(&cache->count, 0);
+> +	cache->generic =3D generic;
+> +	cache->time_in =3D sched_clock();
+> +	return cache;
+> +}
+
+[ ... ]
+
+> diff --git a/include/acpi/ghes_cper.h b/include/acpi/ghes_cper.h
+> index 6b7632cfaf667..1b5dbeca9bb69 100644
+> --- a/include/acpi/ghes_cper.h
+> +++ b/include/acpi/ghes_cper.h
+
+[ ... ]
+
+> @@ -98,5 +101,8 @@ int __ghes_read_estatus(struct acpi_hest_generic_statu=
+s *estatus,
+>  			u64 buf_paddr, enum fixed_addresses fixmap_idx,
+>  			size_t buf_len);
+>  #endif
+
+[Severity: High]
+This isn't a bug introduced by this patch, but does ghes_read_estatus() read
+the CPER error status header from hardware memory twice, potentially creati=
+ng
+a Time-of-Check to Time-of-Use (TOCTOU) situation?
+
+It appears ghes_read_estatus() first copies the header via
+__ghes_peek_estatus() to validate the record length using
+__ghes_check_estatus(). It then calls __ghes_read_estatus() to copy the
+entire record, which overwrites the previously validated header with whatev=
+er
+is currently in hardware memory.
+
+Could a malicious PCIe device or firmware race the kernel, altering length
+fields between the two fetches?
+
+This might completely bypass the bounds check, allowing unvalidated
+out-of-bounds lengths to reach downstream parsing functions, which could
+lead to out-of-bounds reads and memory corruption.
+
+> +int ghes_estatus_cached(struct acpi_hest_generic_status *estatus);
+> +void ghes_estatus_cache_add(struct acpi_hest_generic *generic,
+> +			    struct acpi_hest_generic_status *estatus);
+> =20
+>  #endif /* ACPI_APEI_GHES_CPER_H */
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-topics-ahm=
+tib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com?part=3D4
