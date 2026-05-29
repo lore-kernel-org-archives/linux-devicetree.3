@@ -1,88 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 377DF3451B5
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:10:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 101D13C2D
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:14:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780085431; cv=none; b=ThdZ3nGiE6tOVpPwx+c4QjYrZzQlMrkIJj0ftUzyFYEnQCjYlwZTNF9FADaXC6bCDLM5zyVHsEh49pbwBkuJ49seza4IhBG2bpM0Ae0TFx23Qj/KMavoTnOGsZuYmcggOV0RKJJXWOUXI+Cwp8E//J6znsICAGo4DWwtvvS2EjM=
+	t=1780085663; cv=none; b=q/zACVMueR/b3dlNssSXm7ZShRK1ilNmjidj/63c6NTt7BDm/v82xZ6aB+x/rxNPknZtF+K6v6OJbCzAGeWH/3tSklu26Tghw/hSHFYhA4Eloik4JNjdwIl3XvlFQmAG20l8GHSvomiKGqWY07TAxXoLmda5xzlBzzDEzjCLMDU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780085431; c=relaxed/simple;
-	bh=oQDqTDRzNTPwZsPjGf6RDDjOef9CQeyvOpIJfJ3OCq0=;
+	s=arc-20240116; t=1780085663; c=relaxed/simple;
+	bh=R/Ayt2YjYGyvKJqdwZ8WG0Kewd/vVft4YUzx8s8EKIo=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=oLIdrxVKDKPTAlmSN5FX1hFsS+d+WcOBf7wwbw6/1Qjamk8Xth5vLR8wa6aiu3hYpptshvhAmhqc+J5HCCHHr+/GjOAFFDrRHGU0O8KPt4wNfEk/yqKnvH7XY4c8PwEKnzHAwFOynQvHq+vI0lmyNqS49uFLZYiLvj3BS07FeDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KVo1PhTv; arc=none smtp.client-ip=100.103.45.18
+	 To:Cc:Content-Type; b=iiuogGntm/hKLQsfcUYW350wZCrCaKNphp8NzXtZe8mpZNhMkja9a+fKDAbZMkMDvPVgQwrlxoDcv7WNnvo4ra/fPPUzyReg2a6luwKgzfomopLgb44fG5RJYQGiRxv48WfTlOAg5BDt7Sw9xP35laDzzw9Avl5gl1Z4EzWOOtY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtQLjXzd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KVo1PhTv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA4771F00893
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:10:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtQLjXzd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ECBC41F0089A
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:14:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780085430;
-	bh=oQDqTDRzNTPwZsPjGf6RDDjOef9CQeyvOpIJfJ3OCq0=;
+	s=k20260515; t=1780085663;
+	bh=R/Ayt2YjYGyvKJqdwZ8WG0Kewd/vVft4YUzx8s8EKIo=;
 	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=KVo1PhTvATDkn0TtM8Vr4Z4iXfOMVbDVeeq22n/t7QPUJ+3RF6y/2wYrtO/REryKn
-	 SyzxKBtpOjZNSGx1ieo8YLKTPse6do47rzLEDR8d71Il59LaeFGd9glUBBi5NF6mdn
-	 a0aPYzwMiAvVgSPFfFVHNuncXf6bXIPOe+wp7dKHbERNZ1ALq/vylayu00/NK66cJw
-	 ucyDO4UmNEsT8SoLArLLRwf3i1Vd45epAnrdKlnXjseZJJZgDgeWCNq/q33Jcg9xmz
-	 bUUZheLcqQQjFDchLkLmJRFQG3e9/o4cYjIusKU89Vgmg9XiDPP5FMg4gMIhxSa6m2
-	 UEeodnqZnjdIQ==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5a8891febd2so18770916e87.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 13:10:29 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8Bu727XuMpIRN7TDiePszmcUUMcRYDonPTwDz8mBIQbhmox19qq+yaV5bOCc5Q6F8KRa0pVIXK9Vf7@vger.kernel.org
-X-Gm-Message-State: AOJu0YwmEi87QXKTzgFa5MZYBiu+qNwlJdKi4z6Ku8eGnxBihvtP4zsw
-	DfPe3Gs4tBfQOJbgydYyWcd7avSCfU0pmP4yvAwjM70QSF8vNKfQgK3DT8fQh/Sc6tjNaDoAqIa
-	ICBUQRoe3tf9PfdyRVWDAH20QEoUjoh4=
-X-Received: by 2002:a05:6512:3d8f:b0:5a3:e7df:2396 with SMTP id
- 2adb3069b0e04-5aa607bc2admr441921e87.13.1780085428571; Fri, 29 May 2026
- 13:10:28 -0700 (PDT)
+	b=QtQLjXzd16elH/s7HSY0kSs9x2ssgBOOlqXfq476z3gDWVS0k9fQdi0HfIw+3V1Xf
+	 Pa0Y0qHpXgW+W8g8EuJKjFeGN9wuX4TRgiqCKkqEd3Kk2y+jPhNjdP3KmLWuTDxMJc
+	 6Ql+hNZL5WJlh7RNTYf/AupkRAY+Bp19acE7vQf0C8DltAGMGcxjFLxY0IQNw2cfGx
+	 JnOaPhSwFtn7wLXqquO+vwUPeCa6JezC6db10XmHAiOxmHUBAkg26fkE2j5Zm+iS9H
+	 3v373wNY8SgSnkK/bsSWKDQlAXggxhNvGWmzH0FySmbZ0Ve9sU6px3SkO4uX0riNfD
+	 I8kXS379aMK+Q==
+Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5a8ee4b703fso13062112e87.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 13:14:22 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+l87Q8pE/sJYPkC1WmBQn9/yZl74Q4tbZs9FQfkkFxawUgZEkCxeANU74rNsoxot2m32Jcz6F3p8fp@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxpaa5wSLWwzkW0Rh4+gm/L+hc937uD+icOQdy3fLUXpzZxEp8K
+	bjR8T/l+yJyTGAgwuMIfQ7CW/fM22+vCGZ/fzHZJVOL6ZPcMzB9jbEmlV5T1m3NiFItXW3zORmW
+	+PmxjaRZ5DylEFaJ1tRyphH3PljLP3lk=
+X-Received: by 2002:a05:6512:104b:b0:5a8:73c3:f27b with SMTP id
+ 2adb3069b0e04-5aa607e3500mr444278e87.15.1780085661767; Fri, 29 May 2026
+ 13:14:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260525144629.498630-1-jerrysteve1101@gmail.com> <20260525144629.498630-4-jerrysteve1101@gmail.com>
-In-Reply-To: <20260525144629.498630-4-jerrysteve1101@gmail.com>
+References: <20260525144629.498630-4-jerrysteve1101@gmail.com> <20260525154251.A0E151F000E9@smtp.kernel.org>
+In-Reply-To: <20260525154251.A0E151F000E9@smtp.kernel.org>
 From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 29 May 2026 22:10:16 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=v0fPeOmyN=rW8dqNiExogf2V4GN5jjJFJuMxA=i1rPA@mail.gmail.com>
-X-Gm-Features: AVHnY4KYuAdI5WTslUv2iX3q4rH-Di7FQSijsq0vHVgdtoE9bbcWaq0tBRNjUrc
-Message-ID: <CAD++jL=v0fPeOmyN=rW8dqNiExogf2V4GN5jjJFJuMxA=i1rPA@mail.gmail.com>
+Date: Fri, 29 May 2026 22:14:08 +0200
+X-Gmail-Original-Message-ID: <CAD++jLns_jTJT_QK0DdKj3qBdWcRcgxumC8jWb18KaYGqd+3jQ@mail.gmail.com>
+X-Gm-Features: AVHnY4LJG3_0bKFII-IM6L9e27CQ0eVZFCWIzYdaZa5bm04r346MYQHUu0H9Ed0
+Message-ID: <CAD++jLns_jTJT_QK0DdKj3qBdWcRcgxumC8jWb18KaYGqd+3jQ@mail.gmail.com>
 Subject: Re: [PATCH v2 3/6] gpiolib: of: add quirk for IS31FL319X shutdown line
-To: Jun Yan <jerrysteve1101@gmail.com>
-Cc: dmitry.baryshkov@oss.qualcomm.com, Lee Jones <lee@kernel.org>, 
-	Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Andrew Lunn <andrew@lunn.ch>, Gregory Clement <gregory.clement@bootlin.com>, 
-	Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	Vincent Knecht <vincent.knecht@mailoo.org>, Grant Feng <von81@163.com>, 
-	Andre Przywara <andre.przywara@arm.com>, Tony Lindgren <tony@atomide.com>, 
-	Sudeep Holla <sudeep.holla@kernel.org>, Romain Perier <romain.perier@gmail.com>, 
-	Jesper Nilsson <jesper.nilsson@axis.com>, Robert Marko <robert.marko@sartura.hr>, 
-	Pavel Machek <pavel@ucw.cz>, Krzysztof Kozlowski <krzk@kernel.org>, Wei Xu <xuwei5@hisilicon.com>, 
-	Geert Uytterhoeven <geert+renesas@glider.be>, Peter Rosin <peda@axentia.se>, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-gpio@vger.kernel.org
+To: sashiko-reviews@lists.linux.dev
+Cc: Jun Yan <jerrysteve1101@gmail.com>, devicetree@vger.kernel.org, 
+	conor+dt@kernel.org, robh@kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Mon, May 25, 2026 at 4:47=E2=80=AFPM Jun Yan <jerrysteve1101@gmail.com> =
-wrote:
+On Mon, May 25, 2026 at 5:42=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
 
-> According to the IS31FL319x datasheet[1], the SDB pin is active=E2=80=91l=
-ow.
-> However, existing device tree incorrectly configure it as active=E2=80=91=
-high.
->
-> Add a fixup to force the consumer active low for legacy device trees.
->
-> [1] https://lumissil.com/assets/pdf/core/IS31FL3196_DS.pdf
->
-> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [Medium] Incomplete backward compatibility quirk for IS31FL319X shutdow=
+n GPIO polarity, risking breakage for out-of-tree platforms.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Wrong: you did not look at the whole patch series, just this one in
+isolation.
+
+> - [Low] Use of non-ASCII characters (non-breaking hyphens) in source code=
+ comments.
+
+I wonder if that is because the commit message was created
+using AI...
+
+Jun, please use Assisted-by tags, because these help to evolve
+the LLM kernel reviews if the commit message was assisted
+by AI.
+https://github.com/torvalds/linux/blob/master/Documentation/process/coding-=
+assistants.rst
 
 Yours,
 Linus Walleij
