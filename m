@@ -1,162 +1,264 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 826F53BAD94
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:22:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A5F3BE162
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:23:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780046553; cv=none; b=sv/lZ/sZNQRr/4EEhPkMvrh4mTUqAhuYau8LFux/qgzPuhHchTlw0jo6eWFnIXAUuzeOJTjvSWUAKP+aoRTp7zbis/Zjygf551UaZ5PIyGATWwJ7kch6Cj6UUGjeOQlRHUdW9yOY7uXgkj52CpnAMKi0bEsTcJXyJp+wH2O0dTw=
+	t=1780046611; cv=none; b=rAsyvHvHZMEfxe764Jn72J2Ev0Nf2z4IkLNZijmUdnYB+5tEDcbsyR7lTN8XtVPiW7Cc6QvcwzQ3Av7COPeBKZRUzxKTh5pe3xHb9l4pYdqUlc09cij1UUrC4fdqMB1/8X1gs6TGUwGIgZhNtcPMnK1aOhC2+3X4bTFbvM5Mvh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780046553; c=relaxed/simple;
-	bh=tmV9dJLMu0sRKJzLUgwpdlqw+ZSXnLB7bB+l1ToG4zk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=m/qBtgrEW7ztTVfJwxZFs7L4NIVbVLeiLQ04+HG8qkZ31ntwHjpXI7z0VECyYnB864JlIvKA1FYL+DV7vOfI8QEto2tzKAk0ADS5yZOdgrLpui3AqOHhK1MUiLq+EVQ5WXf6JRPQkjxZwNSjkfDEURjwG3FM6Ag6oABIkwBjw14=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g4ybf+qK; arc=none smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780046611; c=relaxed/simple;
+	bh=yt9kofHtXymnCD3EaxDm9NSlVafZFb9BX3Ubc3k6d+s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=AZiyhwJXlN0YbRIEr1eTqh6bJPGLPQ7x5SM23KbLbXYpUrgVin/i6a/3gX6JAUkg9WDdhwPb42IBO8YwSueMQNPnnQPdS1z9sD53vqxd+sZh5KwdXnWt3t3E+4Pe9ndhx4i4hHf/FKMcfi3gMapOpqmJGwmpYstQLi9RfILRMQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=niPMPmoR; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aE0ht9vv; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g4ybf+qK"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-6896c80480cso8252921a12.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:22:31 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="niPMPmoR";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aE0ht9vv"
+Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64T4THFD4193434
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:23:27 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	3zDoPS3x/Gc4pwXs4/RNUn0CZZ7DW6X64Lr58N9+UAc=; b=niPMPmoRauZBlTrv
+	m8RfLSNlAgt7KOmoLDjYPPcT/w25mTt/xuN1Dfbvgj3lDJ8ayDRUpiwYU1BWjTxG
+	vun7H9ateoEQNeJaxeiV5DR6SCKyr5HYUm2eZPLsfjFI6KCb1y0E8xJ0OMCxtreJ
+	HhNbivdpJnvDNauPolteq+AzjNqDsC8jzD2CdOBDmByx2JrjH/zLprmfm10rLNqB
+	ICbVDqr+9z0ptyQar8RZYs8+Psspol4CgU2ayJa3tylZ9ZhDFvGvbnKwnOQ/pf4Z
+	NSa+CvenNiQqyfu3Jcn1U9DEttYgLpqe6amn4+khYDo9XxnGWDpZVUJb0Ecb430a
+	lG9DOw==
+Received: from mail-pf1-f199.google.com (mail-pf1-f199.google.com [209.85.210.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ef3te15m6-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:23:27 +0000 (GMT)
+Received: by mail-pf1-f199.google.com with SMTP id d2e1a72fcca58-82fa860e71eso7076691b3a.0
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:23:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780046550; x=1780651350; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=LPOdFtlxbAd+SCXAV1KKChh2WjDpaHhM9mfLcDgn5rk=;
-        b=g4ybf+qKa1VTMJdBG9uYTFQcTV9+jntB3Uiw0Pkbsu/W0LqdY5Y0wWybT3NyYI+cXH
-         3kEMpD/dbStEC8z0SOMbpW8Elu2J3/X4x+EvVGlY/Jef3tIayxKgb6r107VB+dZJnpE2
-         tH1Ic6eWkWh2eJyL9L76OvVtoOPL9NT2g2uyNAdwS3qVG+mU5cgNllkfNhA0rBDMdk5Y
-         ixelQYwrTHzvZwhtb5yY/NHop9umxe+JATUfe3QW95sk4fGkZODab8IplRPZHQS6nDvn
-         GM2MeCKP42gtGevcYUTzUveyvRhctLZA8NnRiRLx+4Cul4bDHgHLSglgg4PWn1l9+It+
-         q1eQ==
+        d=oss.qualcomm.com; s=google; t=1780046606; x=1780651406; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=3zDoPS3x/Gc4pwXs4/RNUn0CZZ7DW6X64Lr58N9+UAc=;
+        b=aE0ht9vvLWztZ8y0axGMIiyf+BR78iwR3CLv8tseCJ3f5Ma2jJwo4DzDcagNz1Wpap
+         b6RoJBeZLH4sOY68rSvFftnXXlJwYfR7vk3JqR+lBjcV8T/5hqdl+5SlIpCaR6EsBb45
+         mEYjVTjLeXG0r51TasJgJv0UIv1RxdpUDqtW3ONIZFHoVrYbKledbD+XiIDnSxFA4yM9
+         AmdpbPZt1BS+DrE79O1ZR6pi55ZuoAFrgy13ees/ULxXYA+g+XSCAzPiYde6TLB7SRNA
+         TRqk7vu/9+WwIbAuCKchRzFud4WEPzsPFfLyu3q0ekSV+3IgtUL80xFPkiqG245cLq0e
+         x17A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780046550; x=1780651350;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=LPOdFtlxbAd+SCXAV1KKChh2WjDpaHhM9mfLcDgn5rk=;
-        b=jPK1MXyJAJqmkz88I7VMfrQpLtbowTkQjl1KT3q0K/Rd2WMCntvIdxjelRR51Azri9
-         oMuSmHleBQDQqI990QUKnpGvbZAH9d/NAzGZgFxKVwF933aRXwe0d9A+qWTBfONalR0u
-         +kLG7jBeceCJlJ89xQcY0F1mYLVnC/qwbbLypdigeg3MlFZhqpbSx6s/EuuhabcTkhhe
-         WzFwV/n3tNco1DVA4FxfcADiHCR0jw3xsKFXmh10BhTj1xHaVqQ4SLnMOJXr1lAknuVy
-         71VP5on5sZ7dZkE7mOG0hhONlzFUUn4KewvnNjtE/P6dgTTTvKJlRGwRraUvc40CnwNW
-         1fLg==
-X-Forwarded-Encrypted: i=1; AFNElJ/pQDrGmO6TXDjLwWeEIxVBaYh9dSSfa01A64pmGiQKTCscG4MW/it0SbRp8wSl6OdVB7yQMp75lkab@vger.kernel.org
-X-Gm-Message-State: AOJu0YyyG0594YD6mslrAYHzaJDjTv2PulUTuhbbV9KbcVLN6B/RwimP
-	j3HjmxU4Go2WnV26aIXPjxiVfglvV9PC7DZwvZTnb6lmDuKQwpHL5Kg6
-X-Gm-Gg: Acq92OG7iWONsak57kOz3GVM0s7Y9jQO2mke94iAxtwXqn7bCnD342nshTL/6B6993b
-	j2I7W6C0glXFv2zZhnCUkBzdunwml3l9+T10en+mZjSHNMMkzWhZEv4ASVrINkt3OaoF7jjYICV
-	ljoKT+CuckqZ8JB7n83y9Bkjmvu911rDYO6uHCl2wCGZrqEGCqzrqoeizV7kd/VCKRMPy2qlj0O
-	/JHBZI7belkuskp16so+oOtAv/JLf3OCikElbFsQBvlmMBHpZjlWQpFUbQCa216UZ6pi5yJJAu3
-	FyoW2LRWBP2FJgM/jMBKHEcZaPJTlqlzJKIYrOS6Vso9jB7kdfC4wCxEJRYQkt96Z9uHLFda9HM
-	vcwVICjoqEvJIwTMC9ywcIP6TIBRr3ck2RRy2eo3/HS8+QE2wUhJeNcT0oSVjy3h7+k4253vfkg
-	cApyU9oYruaPlgJQqOwAlcwRM=
-X-Received: by 2002:a17:907:2d29:b0:be3:a586:8b87 with SMTP id a640c23a62f3a-be9cf69ae25mr95650466b.42.1780046549756;
-        Fri, 29 May 2026 02:22:29 -0700 (PDT)
-Received: from nsa ([45.94.208.29])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-be9d27f49a9sm49646966b.10.2026.05.29.02.22.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 29 May 2026 02:22:29 -0700 (PDT)
-Date: Fri, 29 May 2026 10:23:26 +0100
-From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
-To: Conor Dooley <conor@kernel.org>
-Cc: "Pradhan, Sanman" <sanman.pradhan@hpe.com>, 
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, "linux@roeck-us.net" <linux@roeck-us.net>, 
-	"robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org" <krzk+dt@kernel.org>, 
-	"conor+dt@kernel.org" <conor+dt@kernel.org>, "corbet@lwn.net" <corbet@lwn.net>, 
-	"skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, 
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, 
-	"Syed, Arif" <arif.syed@hpe.com>, Sanman Pradhan <psanman@juniper.net>
-Subject: Re: [PATCH v2 1/2] dt-bindings: hwmon: pmbus: Add Analog Devices
- MAX20860A
-Message-ID: <ahla7zM8f3yFYnsv@nsa>
-References: <20260528173424.87503-1-sanman.pradhan@hpe.com>
- <20260528173424.87503-2-sanman.pradhan@hpe.com>
- <20260528-paging-alfalfa-9c3837635192@spud>
+        d=1e100.net; s=20251104; t=1780046606; x=1780651406;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=3zDoPS3x/Gc4pwXs4/RNUn0CZZ7DW6X64Lr58N9+UAc=;
+        b=oibRDbj3/ZpZWk6uyOMh5Sl2v0LjHTn6X7awn1hQgw55eOVNpOWIy5wtREPNX1nM05
+         GA62Gr8HxRmRMVPvXOiRtdV2uMko/FSJ/sbPh1JT2r7+s+gMZxuQ7Jcn4+OEp2tbTQgC
+         Uo0u2OK2Uuk3QKH5nDasHHgqC6brxTGv817vduiIYyHOVXY+3KNr4GQCTqQO5S3LQoR/
+         MXZirAyUXrA4RhDShU0Rl2DQGriHlOtwwPf5ixgkT28PiM3GAKlNV8ZHjY+O9mx0wwlE
+         djVHxoG4nQukDSpD7DmP+JNdcXyGg/OohUIGIDFGGJTshg+/zdjmB1BOl9m1Hklp0Fpv
+         /Lag==
+X-Forwarded-Encrypted: i=1; AFNElJ+Dq5f+GRx8nY7Fkl3WnViXYI75WjOl/Fc2JRAzb5d+LyQ0gWWQ3D9iR181045myAy28UOKvo8fTrta@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz5+Ops8IeXcgEH2ueh6VVE4B7+8h0lFY6/du36LPpisnUPlPQL
+	Wv13yj0V63j5sz6ojBn10WaiT8dWBLZ1FQkRPVRTDeASQ1ycM2ThumBBeRLxpy6oEflvtHJrxlP
+	4l+DNmiA9B4eJepdZ1DUYVx/WSMW73UDk2NRC1S1W2lYSIuTlOLNK29yLfvAirz3p
+X-Gm-Gg: Acq92OEadN+YBAXfKzK/b2IG7O5uEELY3BpT6DJzImKoM3RVn4qGoV9bqC+xNr0OCzw
+	FkfPLVOeDCCWGhxS+3AF9Tms1Y6LWQ1poq2OmdWUZ7Q7mKVuXpCBRKmSti32/kPPxws6kBDpPbZ
+	Yl9TE5K1E81rmXC1I/H3dOhr+/FPsBhCZ3rC9ukbTvcmYoj2UMVRRsQ5D8UULENad+PD2tpYRsV
+	JkrXxfYQvrS0xz7dfod60sDjZS0Qtqr+fy/MsVpBI/3LdFojlEET2WfwPSDTbRGkqm0GbQTp76t
+	5kparwzQwJj3oe4sXL3RA2iY8kCZmgEpmaMhrhAqd2H9ucCaKWrPvB+Kew9bbJoDYDGyCCaNc8A
+	SzXjekyceYpgC2XJQj/bZ5dBJnYxwHoWVPbh4odtHwf8IpvmoQoOGwOHjMsukFg==
+X-Received: by 2002:a05:6a00:1742:b0:81f:9b4c:81c0 with SMTP id d2e1a72fcca58-84212d2ca6cmr2156396b3a.41.1780046606406;
+        Fri, 29 May 2026 02:23:26 -0700 (PDT)
+X-Received: by 2002:a05:6a00:1742:b0:81f:9b4c:81c0 with SMTP id d2e1a72fcca58-84212d2ca6cmr2156359b3a.41.1780046605769;
+        Fri, 29 May 2026 02:23:25 -0700 (PDT)
+Received: from [192.168.1.2] ([117.192.250.176])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84214affe29sm1240298b3a.3.2026.05.29.02.23.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 29 May 2026 02:23:25 -0700 (PDT)
+Message-ID: <8b911846-1001-4c20-908d-1384cc81e30b@oss.qualcomm.com>
+Date: Fri, 29 May 2026 14:52:39 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260528-paging-alfalfa-9c3837635192@spud>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/5] clk: qcom: gcc-qcm2290: Drop modelling of critical
+ clocks
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd
+ <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Loic Poulain <loic.poulain@oss.qualcomm.com>,
+        Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Taniya Das <taniya.das@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260528-shikra-dispcc-gpucc-v2-0-953f246a0fbb@oss.qualcomm.com>
+ <20260528-shikra-dispcc-gpucc-v2-1-953f246a0fbb@oss.qualcomm.com>
+ <ro6xcalsh5vwsyxi4jyyk4iebmg2p626aqw5zobbfjj5noui6r@hsjyhdko2aca>
+Content-Language: en-US
+From: Imran Shaik <imran.shaik@oss.qualcomm.com>
+In-Reply-To: <ro6xcalsh5vwsyxi4jyyk4iebmg2p626aqw5zobbfjj5noui6r@hsjyhdko2aca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-ORIG-GUID: 78xAKvd_yL72xQkb1T66DkxJFhLPFddQ
+X-Proofpoint-GUID: 78xAKvd_yL72xQkb1T66DkxJFhLPFddQ
+X-Authority-Analysis: v=2.4 cv=daSwG3Xe c=1 sm=1 tr=0 ts=6a195b0f cx=c_pps
+ a=WW5sKcV1LcKqjgzy2JUPuA==:117 a=MYhr4v4WboA43l5+MyccHQ==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
+ a=EUspDBNiAAAA:8 a=RHQwGL2yU_3FcdO5I0oA:9 a=QEXdDO2ut3YA:10
+ a=OpyuDcXvxspvyRM73sMx:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTI5MDA5MiBTYWx0ZWRfXxgDiTCXf1Hbm
+ L9Bzp5cR5LfVFfoH46s1go3WVnt4/rO4ib8S0fVzR75g2q4qHyyIRxa+a1WHP2P4mhYVPQZbjbj
+ 7F4DX6WlN3c7KScmSvuyB7AlEujUe4YnLzqZNA0ZDEbOvzPasVU+nREHPazEB8/4EOlEDuBt9xG
+ gQ1ijjykM/qfkFSYSqe0MExy/1nXYu5roWa3NQoBYR/WGFbJ7cLif+JdlvD1r9QYTDPwdA7iNSD
+ i5WGtDXdLN6f0p6CUSnwCRAX1EQEzIY6AU8q54U9ZfTtPLhplPP1CpG8g8NkYNOGmwWddVnUNZf
+ CReVC9zjPdRNtZF4okIdqpSmQa/uQpiZEmPLvdAp6/ienKiBD086WdfZUaOIhQhOtiVPhL94ue1
+ e83SFUJG7yTzn2A3b4xIkPKw6LlqMCKpSqYZDJC5wzzXxbKtjntzHRz8kZaWmhdESQVgyqxb5uZ
+ TZhA28g/1VhOGDhAVzw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-29_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
+ clxscore=1015 spamscore=0 phishscore=0 lowpriorityscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605290092
 
-On Thu, May 28, 2026 at 06:41:31PM +0100, Conor Dooley wrote:
-> On Thu, May 28, 2026 at 05:34:36PM +0000, Pradhan, Sanman wrote:
-> > From: Sanman Pradhan <psanman@juniper.net>
-> > 
-> > Add devicetree binding documentation for the Analog Devices MAX20860A
-> > step-down DC-DC switching regulator with PMBus interface.
-> > 
-> > Both "adi,max20860a" and "maxim,max20860a" compatible strings are
-> > supported. The MAX20860A was originally manufactured by Maxim Integrated,
-> > now part of Analog Devices.
-> > 
-> > Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> > ---
-> > v2:
-> >   - Added allOf regulator.yaml reference and unevaluatedProperties
-> 
-> >   - Added "maxim,max20860a" as alternative compatible
-> 
-> No, please delete this.
-> I don't remember what the policy that ADI use for things that used to be
-> maxim products, but just pick one compatible for this device. I have a
-> feeling they want adi to always be used in these cases.
 
-Yes, adi should be the prefix.
 
-- Nuno Sá
+On 28-05-2026 06:52 pm, Dmitry Baryshkov wrote:
+> On Thu, May 28, 2026 at 03:37:02PM +0530, Imran Shaik wrote:
+>> Drop the modelling of critical GCC clocks on QCM2290 SoC, and keep them
+>> enabled from probe as per the latest convention. This helps to drop the
+>> pm_clk handling in QCM2290 GPUCC driver, and the same can be re-used for
+>> Shikra SoC.
+>>
+>> Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
+>> ---
+>>   drivers/clk/qcom/gcc-qcm2290.c | 153 +++--------------------------------------
+>>   1 file changed, 11 insertions(+), 142 deletions(-)
+>>
+>> @@ -2012,19 +1936,6 @@ static struct clk_branch gcc_gpu_gpll0_div_clk_src = {
+>>   	},
+>>   };
+>>   
+>> -static struct clk_branch gcc_gpu_iref_clk = {
+>> -	.halt_reg = 0x36100,
+>> -	.halt_check = BRANCH_HALT_DELAY,
+>> -	.clkr = {
+>> -		.enable_reg = 0x36100,
+>> -		.enable_mask = BIT(0),
+>> -		.hw.init = &(struct clk_init_data){
+>> -			.name = "gcc_gpu_iref_clk",
+>> -			.ops = &clk_branch2_ops,
+>> -		},
+>> -	},
+>> -};
+> 
+> This clock is not critical. Why is it being dropped?
+> 
+>> -
+>>   static struct clk_branch gcc_gpu_memnoc_gfx_clk = {
+>>   	.halt_reg = 0x3600c,
+>>   	.halt_check = BRANCH_VOTED,
+>> @@ -2605,21 +2500,6 @@ static struct clk_branch gcc_venus_ctl_axi_clk = {
+>>   	},
+>>   };
+>>   
+>> -static struct clk_branch gcc_video_ahb_clk = {
+>> -	.halt_reg = 0x17004,
+>> -	.halt_check = BRANCH_HALT,
+>> -	.hwcg_reg = 0x17004,
+>> -	.hwcg_bit = 1,
+>> -	.clkr = {
+>> -		.enable_reg = 0x17004,
+>> -		.enable_mask = BIT(0),
+>> -		.hw.init = &(struct clk_init_data){
+>> -			.name = "gcc_video_ahb_clk",
+>> -			.ops = &clk_branch2_ops,
+> 
+> This clock isn't marked as CRITICAL, why is it being dropped?
+> 
+>> -		},
+>> -	},
+>> -};
+>> -
+>>   static struct clk_branch gcc_video_axi0_clk = {
+>>   	.halt_reg = 0x1701c,
+>>   	.halt_check = BRANCH_HALT,
+>> @@ -2686,19 +2566,6 @@ static struct clk_branch gcc_video_venus_ctl_clk = {
+>>   	},
+>>   };
+>>   
+>> -static struct clk_branch gcc_video_xo_clk = {
+>> -	.halt_reg = 0x17024,
+>> -	.halt_check = BRANCH_HALT,
+>> -	.clkr = {
+>> -		.enable_reg = 0x17024,
+>> -		.enable_mask = BIT(0),
+>> -		.hw.init = &(struct clk_init_data){
+>> -			.name = "gcc_video_xo_clk",
+>> -			.ops = &clk_branch2_ops,
+> 
+> This clock isn't marked as CRITICAL, why is it being dropped?
+> 
 
-> 
-> pw-bot: changes-requested
-> 
-> > 
-> >  .../bindings/hwmon/pmbus/adi,max20860a.yaml   | 47 ++++++++++++++++++++
-> >  1 file changed, 47 insertions(+)
-> >  create mode 100644 Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml
-> > 
-> > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml
-> > new file mode 100644
-> > index 000000000000..f7eeb30f11b3
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/adi,max20860a.yaml
-> > @@ -0,0 +1,47 @@
-> > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > +%YAML 1.2
-> > +---
-> > +$id: http://devicetree.org/schemas/hwmon/pmbus/adi,max20860a.yaml#
-> > +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> > +
-> > +title: Analog Devices MAX20860A Step-Down Converter
-> > +
-> > +maintainers:
-> > +  - Sanman Pradhan <psanman@juniper.net>
-> > +
-> > +description: |
-> > +  The MAX20860A is a fully integrated step-down DC-DC switching regulator
-> > +  with PMBus interface for monitoring input/output voltage, output current
-> > +  and temperature.
-> > +
-> > +  Datasheet: https://www.analog.com/en/products/max20860a.html
-> > +
-> > +allOf:
-> > +  - $ref: /schemas/regulator/regulator.yaml#
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - adi,max20860a
-> > +      - maxim,max20860a
-> 
-> And for future reference, please use fallback compatibles when dealing
-> with devices that have the same programming mode.
-> 
-> Cheers,
-> Conor.
+The above clocks also should have been marked as CRITICAL. Not sure why 
+those are not marked in the QCM2290. Since we are updating the critical 
+clock set, moving all the required clocks to the critical list in line 
+with the latest conventions.
 
+>> -		},
+>> -	},
+>> -};
+>> -
+>>   static struct gdsc gcc_camss_top_gdsc = {
+>>   	.gdscr = 0x58004,
+>>   	.pd = {
+>> @@ -2990,6 +2848,17 @@ static int gcc_qcm2290_probe(struct platform_device *pdev)
+>>   	if (ret)
+>>   		return ret;
+>>   
+>> +	/* Keep some clocks always-on */
+>> +	qcom_branch_set_clk_en(regmap, 0x17008); /* GCC_CAMERA_AHB_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x17028); /* GCC_CAMERA_XO_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x1700c); /* GCC_DISP_AHB_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x1702c); /* GCC_DISP_XO_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x36004); /* GCC_GPU_CFG_AHB_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x36100); /* GCC_GPU_IREF_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x79004); /* GCC_SYS_NOC_CPUSS_AHB_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x17004); /* GCC_VIDEO_AHB_CLK */
+>> +	qcom_branch_set_clk_en(regmap, 0x17024); /* GCC_VIDEO_XO_CLK */
+> 
+> If you are chancing the driver, why are you not using .clk_cbcrs?
+> 
+
+Sure, will add these to .clk_cbcrs in next series.
+
+Thanks,
+Imran
+
+>> +
+>>   	clk_alpha_pll_configure(&gpll10, regmap, &gpll10_config);
+>>   	clk_alpha_pll_configure(&gpll11, regmap, &gpll11_config);
+>>   	clk_alpha_pll_configure(&gpll8, regmap, &gpll8_config);
+>>
+>> -- 
+>> 2.34.1
+>>
+> 
 
