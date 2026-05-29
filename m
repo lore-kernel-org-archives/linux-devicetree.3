@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 410B72192F4;
-	Fri, 29 May 2026 16:17:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34B233E51FE;
+	Fri, 29 May 2026 16:18:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780071448; cv=none; b=mY7D/z6I1ev0AsKHbivUij8Sh+IpJAOJpRPGyHlCPmkQw6wcE4ocRxWYPKZqcVev/6BAkorF7eL/5WIT3+7jOOy4qgqQVhO+KhcW+TxJ+/IxSxxfj8Vk3TBLW0KHlAQzMJ5uAQX1mwjrqlQY4dno6jihdYVdfxSOlfpv/HNc3lw=
+	t=1780071502; cv=none; b=B2dbU05GlVZ9ZsbobNuIjaEjNieMfsDqjj1wkL6IVpBfTABcDh+xpUo/XzDtEqwnjnGcO/kAQOEwNynOYNNOZqhoyN0MXqQcncEFQgp2K2p5Lq3bjDYUL6C6OW/yeXuvjwRY6gSHhPL9JJY4bK4fwLRXWPfuZzAmmLlrhFzt4r8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780071448; c=relaxed/simple;
-	bh=lwNC9Y3I0TrYvzvq+NFC3+gui5Syh82KMHQTWDYy5ng=;
+	s=arc-20240116; t=1780071502; c=relaxed/simple;
+	bh=7w8IH99IIO0epu2sIYeRR33DJooxRR2w8EPfXAFoilk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=gfMu0hLC16JiNNR4GdQBrsnhLzKE1Vfway6mPmGCZKbr3mBOrdAg4UuhIYHxfAaTMg8U9Iaw9mqQDDfRfFY+zfUGSEXgUejxN6Sl2zq96Icb0WVWSUmgH33NgJ7K5rJXHKQH9K50SgP/U58r2P9H0ZBCTyZodHumAcyOkx2Adtg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hXhQpwbw; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ZvpLEtby6jSmQ8thoUkmDXyhalrdYlPniylPIZApVl9AUJk6ah8xZ1x5a2H5TbMDf2E1LdyrNxPskM9ypgLi/x917h2OCz7alyjO4kwVcE8IuZtzvyH8hV/9RJgxxkBKhMAtO/evVTiz29PMRt2idc5RWGFv6IxyQCUrhCJk4GY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYFwOSJB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hXhQpwbw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9B671F00893;
-	Fri, 29 May 2026 16:17:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYFwOSJB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D55CD1F00893;
+	Fri, 29 May 2026 16:18:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780071446;
-	bh=c1QR2LQzaSkBcrsEtlqVivrKMt9D/HuRW5WxsHgnw0g=;
+	s=k20260515; t=1780071500;
+	bh=KGn8v2jq7Ub01ZUuqZ6CdyaIBmuX1eNalYc9sbLJMfA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hXhQpwbwETVAg4ABZ1v1n/MraC+JI9PfoXQk3aYsFxMqD1Joj4z+E437V/DoE5KGD
-	 4SU149busxNl+FHWdTtQn9Gn3Vi09MmIkscxZPuc6ywNyrjh3LdO8iXkQvVMGNo+4w
-	 gW1sNdp28M7CWKzMaE5fWOKqrwQJWa1GwAq4JCe55lCS0gvTM9cIJa7FFnstj2lSRT
-	 v3vmmeztEtOlkWo243smTnEIitKK69B8AMxS2Wm9asrAp9ZsO1Qwt5n2uQ8ZSsnVUT
-	 tiI0M2EuzVg6UkH5Ko6DsLckc8kmxYOC7J2MtglS8qzPeJ2FABST6gWCeoHRzSDP+E
-	 J/hjbeyDmq4vw==
-Message-ID: <26069b3b-43c0-45fa-92ee-729d270a8b6b@kernel.org>
-Date: Fri, 29 May 2026 18:17:21 +0200
+	b=RYFwOSJB2R8uWFGJmYZvbrS4OGvNF/dip/DFzrRCRJ8L5ufY1nWRjPUm+Oy39/DAF
+	 8+aBEGY6i20k4jyZ1rNRUv5r9pwKzPBEIHcadZ2sDZq9gC5r/u+mtRXWczalvx/sXM
+	 QGhixX4LNZow4HsuYz4gRT8BG/hBlzS+f3vgT5mSlTvtoQQgxkjJ22GvxJKUB2gBjU
+	 Bwd+aO9aBlcX2DCwAeyyDriXGTTNTNlmNMRFLOt2k+/+i9LdGfx7M4t4Ge3OlmIwsg
+	 +1vBMixMroi3iUlM6KzF9z3mngZDrj/nojFzWaSHrXCO6kPBnZyjhLXGVuc+ufcT14
+	 f54jGV4AWVFJA==
+Message-ID: <53c4249e-8d6c-4bf7-86ff-b8d02117338a@kernel.org>
+Date: Fri, 29 May 2026 18:18:16 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,7 +35,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/4] accel: rocket: Add RK3568 NPU support
+Subject: Re: [PATCH v2 2/4] dt-bindings: npu: rockchip,rk3588-rknn-core: Add
+ RK3568 support
 To: MidG971 <midgy971@gmail.com>, Tomeu Vizoso <tomeu@tomeuvizoso.net>,
  Oded Gabbay <ogabbay@kernel.org>
 Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -44,6 +45,7 @@ Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
  linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
  linux-kernel@vger.kernel.org
 References: <20260529155824.3099831-1-midgy971@gmail.com>
+ <20260529155824.3099831-3-midgy971@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -89,22 +91,51 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260529155824.3099831-1-midgy971@gmail.com>
+In-Reply-To: <20260529155824.3099831-3-midgy971@gmail.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
 On 29/05/2026 17:58, MidG971 wrote:
+> From: Midgy BALON <midgy971@gmail.com>
 > 
-> This series builds against current v6.19-rc5 with no checkpatch warnings,
-> the dtb builds, and dtbs_check passes.  The April v1 series included a
-> fifth patch ("Use of_find_matching_node() instead of for_each_of_allnodes")
-> which is no longer required — upstream rocket already uses
-> for_each_compatible_node() since v6.19-rc5.
+> Add rockchip,rk3568-rknn-core to the compatible enum, document the
+> new rockchip,pmu phandle that RK3568 needs for the NPU NOC bus de-idle
+> sequence, and make sram-supply only required on RK3588 (RK3568 has no
+> NPU SRAM rail).
 > 
-> Changes since v1 (April 2026, never sent on-list):
+> The driver supports both RK3568 and RK3588 RKNN cores; the binding now
+> documents both. The rockchip,pmu phandle is consumed by the driver to
+> issue PMU register writes (BUS_IDLE_SFTCON0, NOC_AUTO_CON0,
 
-Then there was never a v1. v1 is the first version you send, regardless
-of its status.
+You need to start explaining the hardware, not drivers.
+
+> PWR_GATE_SFTCON, BUS_IDLE_ST) on RK3568 only.
+> 
+> Signed-off-by: Midgy BALON <midgy971@gmail.com>
+> ---
+>  .../npu/rockchip,rk3588-rknn-core.yaml         | 18 +++++++++++++++++-
+>  1 file changed, 17 insertions(+), 1 deletion(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+> index caca2a490..6582a0c5c 100644
+> --- a/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+> +++ b/Documentation/devicetree/bindings/npu/rockchip,rk3588-rknn-core.yaml
+> @@ -21,6 +21,7 @@ properties:
+>  
+>    compatible:
+>      enum:
+> +      - rockchip,rk3568-rknn-core
+>        - rockchip,rk3588-rknn-core
+>  
+>    reg:
+> @@ -50,6 +51,13 @@ properties:
+>  
+>    npu-supply: true
+>  
+> +  rockchip,pmu:
+> +    : /schemas/types.yaml#/definitions/phandle
+
+I don't think you tested this.
 
 Best regards,
 Krzysztof
