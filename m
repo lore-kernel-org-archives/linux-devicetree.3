@@ -1,135 +1,141 @@
-Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com [209.85.222.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E7384315F
-	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60C393BED31
+	for <devicetree@vger.kernel.org>; Fri, 29 May 2026 09:54:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780048428; cv=none; b=U1+5y3z0GgqNEDTIpJbBNBETOpvwnylMMBl7R5Z5tu/3ygJQ+bs7uSC7ww+QPwamTAMDMcGcmUFkyyPtSBBVvETD5IZv2zlIE1uVZkw8Ae8XphSypaJLGiiYwFHT5Bp6FTRveQ26x91aCmIA6quQcqDe+v4uJQOK9VIvv3QVdK0=
+	t=1780048453; cv=none; b=a+Zk2ODTJ5j9IQUBSXrPNPGWDCtoIAiKpjgAhFgEB3liHnulfHxK7V+2YQQoCajeILFXjkblurj6M9Wg5PKkFdyxbIb/f6rnHy8GVpU2j5SvzR1BesGrOjIUhTFUvIFqjhOV0VpeNO83YPXciK8nVSzWQpX5pNw3JYLGV0HTJGc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780048428; c=relaxed/simple;
-	bh=PNxZ1ZSWxQktRel0VIU9+ncnpbyTsai9GjZU4o8X9AE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=GJkokxFXIp2maR8AJ5+QkZwjNLBBrAxb8IDr/Dp+FTDTkLtIMfIKDz382r+1SXFzt5SvTWjiS7WDx0aFWEaxYwa2ZAiBBNY8TXLzFRePNZukHvzklKE/JLWJlydxmawLZhxWHZHPIwDQRwhKEBaljQntFQ1kv3Oe8kW4bILrLMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f47.google.com with SMTP id a1e0cc1a2514c-95f61c1ace0so8320779241.2
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:53:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780048426; x=1780653226;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=62xqlDQ54Tz/hWgLYE0Bl+jO+OO+Qog2TKg7daGuCMI=;
-        b=o77/wEpCgo1/SrKYOTubhU/pckgxQJ/84aqJiBg2xrV3WfcIvBGaqAWEnPYPDKOM7M
-         X7cVIMTAxbmpDkWexU8aKxvO+jX4T0zu0nNaij6+0Cuiq/QCx63UjHGj49qePhWLRUDK
-         RfTfQqbknVBf1rnNXo7IEnUEcrxJh3CMxQZHO0RSGwgQTXjTeUT+7KYnATkb30pCOcX/
-         Cx/YeZqixt1m3viam7ep28YYi8gN2RKZq01LbJzIdGGks4FbSHctfqP87MpiXypES08f
-         VkEma0wSN9mF3PJKmNIisohfuPKdBWnB295afSzgCl4vn6O+AiVrHe65XbP5zZ1KONRu
-         7WkQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/RyFE8ubbCDgdmCQAXcxUzwEMIHnyJUOVD4qP95GgDw/Sw1WVXLCGGyUXfI9748mAHn+gd72Jmcw0C@vger.kernel.org
-X-Gm-Message-State: AOJu0YxipTVTj3A6zj5hKgY+JFj86ROxOxKgVv8MOaNAb2jIrdE3V7zk
-	4t7xJ1QlixIXlTS+YkEoETIBu2ec0WWJIVc68z0Ee5AxgftnVmgCafxrp8YuOCv8+yU=
-X-Gm-Gg: Acq92OHvpWCK6GxGBKIBA7rXfsoWzrq0jmn0q2FeyPYpKLK3i7ulhH8+fF3ESftFQ2Y
-	q6VxlprBBdbWb6bSr5aCL3AwHIZxohT0OP+OUA34PYsxcy9OR317i8OUR3g1nhBJAztYVo7dVor
-	NQ+1udpVnSU/lea35bQ6qvu9u2uSEdekOakvi23Cst9VM6CV0wdh7fo0roXf0TWOHreovpuxy70
-	jbgG5+rUQdMFE/VzsJ64dQR8EEHaw1hIDh6NQs4i2f72tuzDgGg350Nfp98boHb9nLegZBgtRrW
-	Uk/Y3BXbHCBGx3jdPhWzsrcpJQFhXvASpdhQU+0C/jyoJas9Xo9gZM6hOy2bBCDOgP16JcyhddI
-	NBkwGIOTcpQApNi1tCmzkGFl1Kd26sxPmmqA7PK6kqiKGcdTf9Z5Yicu2ftCE7sXhdLI8Dw3hDg
-	nTlrInXcePZ2cWoWTrkz/LvLTrkK1cWl0EY76gkpurso7CiOiTLxiE07ncCECsiosdczR2FoM=
-X-Received: by 2002:a05:6102:26c1:b0:631:8665:3510 with SMTP id ada2fe7eead31-6bf40e862a9mr714604137.31.1780048426440;
-        Fri, 29 May 2026 02:53:46 -0700 (PDT)
-Received: from mail-vs1-f48.google.com (mail-vs1-f48.google.com. [209.85.217.48])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6bfc81ab22esm650146137.7.2026.05.29.02.53.45
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Fri, 29 May 2026 02:53:45 -0700 (PDT)
-Received: by mail-vs1-f48.google.com with SMTP id ada2fe7eead31-6c25b040555so169571137.1
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 02:53:45 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9/iuwC0aHVud8r/cTN61Sx2TY9Dwp5tmdtQjByfB/0L9Z7F7n2vYIOAasOpze7dspPzzDzT5Hu50l1@vger.kernel.org
-X-Received: by 2002:a05:6102:3e19:b0:604:f155:9374 with SMTP id
- ada2fe7eead31-6bf39268585mr788185137.15.1780048425234; Fri, 29 May 2026
- 02:53:45 -0700 (PDT)
+	s=arc-20240116; t=1780048453; c=relaxed/simple;
+	bh=sc0NLdHeRtQVhCUdF1YZQD1r7mlgwU0OR/nGIbLaEeA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=joeBS1zLUztTDkzV2+QFeo1LMTDaTU0awtXzvvtIzybV5UZZ0BBqfRpg+HCLzKRIJftyG4Yx0+snp3tsem/hQ158Lt0CpZwAx/EdqSDfyHaAt5g9gbE/WOshhjTGP4FX4Wbzkd9PCaYp0ZXI4o8VPNtvrUQTEQTkuYOZdXKdAf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YcSJKzYo; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YcSJKzYo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF341F00893;
+	Fri, 29 May 2026 09:54:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780048450;
+	bh=HNV+lvDUshqL+6Hgs8KAyNBDnGVARP82jiQKZAsMvLM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=YcSJKzYoQtTxv8r9FK3I46rsYC6wHptcLjBW0A6J7L42so6idtlmT3RGUB7wleqBE
+	 6wRdHKmOqQk1fEqy70XIr0bsU7xAKEKVb6DkQQK30QdVQ3/2nP9cEKcmRn5EsB5dM8
+	 Oz2CP7ftl2wdr+mJAFZ8SAqr4dxagO80XTPH91q6kmFo69K/3j9lKOb5pJJ7FvxYLi
+	 wBtrzqjSqO0rRIyst4eRpXEWMuVn2UjuZySCv0ApYET/DCSGP9E5H9okeCpMGotAVW
+	 faSIsqadn3h3WeDvIt6tXtO9CcPh4rhlWvshXnTuRRXIhtdwnIiBPxoxm0szjkE2YU
+	 +SB2UaNo9hzWA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 14/15] arm64: dts: ti: k3-am62p-j722s-common-main:
+ Add support for DSS
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Tomi Valkeinen" <tomi.valkeinen@ideasonboard.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260529-beagley-ai-display-v3-14-7fefdc5d1adf@ideasonboard.com>
+References: <20260529-beagley-ai-display-v3-14-7fefdc5d1adf@ideasonboard.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Fri, 29 May 2026 09:54:10 +0000
+Message-Id: <20260529095410.BDF341F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260519100022.116318-1-biju.das.jz@bp.renesas.com> <20260519100022.116318-3-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260519100022.116318-3-biju.das.jz@bp.renesas.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Fri, 29 May 2026 11:53:33 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXEnidpA01431Rqm_X1ro0XD0zRXuYEao1Y2H5dB6BF6w@mail.gmail.com>
-X-Gm-Features: AVHnY4IgytCf4g4vVvkl_DTDux6ZbuRTuEGS5daghZ0sc-QecbMVbcW5iprm0YA
-Message-ID: <CAMuHMdXEnidpA01431Rqm_X1ro0XD0zRXuYEao1Y2H5dB6BF6w@mail.gmail.com>
-Subject: Re: [PATCH 2/2] arm64: dts: renesas: r9a08g046l48-smarc: Enable
- rsci{1,2,3} nodes
-To: Biju <biju.das.au@gmail.com>
-Cc: Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Biju Das <biju.das.jz@bp.renesas.com>, linux-renesas-soc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
 
-Hi Biju,
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] Missing mandatory 'ports' node in DSS, OLDI, and DSI device tree no=
+des, which will result in `dtbs_check` validation errors.
+--
 
-On Tue, 19 May 2026 at 12:00, Biju <biju.das.au@gmail.com> wrote:
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->
-> Enable rsci{1,2,3} device nodes for the RZ/G3L SMARC EVK.
->
-> Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
+commit 7bb631a767248ada86413965c03c2ef928272cc6
+Author: Jayesh Choudhary <j-choudhary@ti.com>
 
-Thanks for your patch!
+arm64: dts: ti: k3-am62p-j722s-common-main: Add support for DSS
 
-> --- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-> +++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+This commit adds device tree nodes for the Display Subsystem (DSS), OLDI,
+and DSI blocks on TI's AM62P and J722S SoCs to
+k3-am62p-j722s-common-main.dtsi. It configures the DSS nodes with their
+required memory regions, clocks, and power domains, and maps the OLDI
+blocks as child nodes of the DSS instances.
 
-> @@ -147,6 +175,37 @@ ssi0_pins: ssi0 {
->         };
->  };
->
-> +#if SW_SER0_PMOD
-> +&rsci1 {
-> +       pinctrl-0 = <&rsci1_pins>;
-> +       pinctrl-names = "default";
+> diff --git a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi b/arc=
+h/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> index f130c7cb998d7..9f584e49ef583 100644
+> --- a/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+> +++ b/arch/arm64/boot/dts/ti/k3-am62p-j722s-common-main.dtsi
+[ ... ]
+> @@ -1111,6 +1116,113 @@ dphy0: phy@30110000 {
+>  		status =3D "disabled";
+>  	};
+> =20
+> +	dss0: dss@30200000 {
+> +		compatible =3D "ti,am62p-dss";
+> +		reg =3D <0x00 0x30200000 0x00 0x1000>, /* common */
+> +		      <0x00 0x30202000 0x00 0x1000>, /* vidl1 */
+> +		      <0x00 0x30206000 0x00 0x1000>, /* vid */
+> +		      <0x00 0x30207000 0x00 0x1000>, /* ovr1 */
+> +		      <0x00 0x30208000 0x00 0x1000>, /* ovr2 */
+> +		      <0x00 0x3020a000 0x00 0x1000>, /* vp1: Used for OLDI */
+> +		      <0x00 0x3020b000 0x00 0x1000>, /* vp2: Used as DPI */
+> +		      <0x00 0x30201000 0x00 0x1000>; /* common1 */
+> +		reg-names =3D "common", "vidl1", "vid",
+> +			    "ovr1", "ovr2", "vp1", "vp2", "common1";
+> +		power-domains =3D <&k3_pds 186 TI_SCI_PD_EXCLUSIVE>;	/* DSS0 */
+> +		clocks =3D <&k3_clks 186 6>,
+> +			 <&dss0_vp1_clk>,
+> +			 <&k3_clks 186 2>;
+> +		clock-names =3D "fck", "vp1", "vp2";
+> +		interrupts =3D <GIC_SPI 84 IRQ_TYPE_LEVEL_HIGH>;
+> +		ti,dpi-io-ctrl =3D <&main_conf 0x8300>;
+> +		status =3D "disabled";
 > +
-> +       uart-has-rtscts;
+
+[Severity: Low]
+Will this node cause dtbs_check validation errors? The device tree bindings
+for DSS (ti,am65x-dss.yaml) explicitly require the ports property to be
+present. Since dtbs_check validates nodes even when status is disabled,
+any board including this file without defining the ports might produce
+warnings.
+
+> +		oldi-transmitters {
+> +			#address-cells =3D <1>;
+> +			#size-cells =3D <0>;
 > +
-> +       status = "okay";
-> +};
-> +#endif
-> +
-> +#if (!SW_DPI_EN) && (SW_SER0_PMOD)
+> +			dss0_oldi0: oldi@0 {
+> +				reg =3D <0>;
+> +				clocks =3D <&k3_clks 186 0>;
+> +				clock-names =3D "serial";
+> +				ti,oldi-io-ctrl =3D <&dss_oldi_io_ctrl>;
+> +				status =3D "disabled";
+> +				power-domains =3D <&k3_pds 243 TI_SCI_PD_EXCLUSIVE>; /* OLDI0_VD */
+> +			};
 
-Can 't you drop the last part?
-  - If SW_SER0_PMOD is enabled, rsci2 is routed to the PMOD connector,
-  - If SW_SER0_PMOD is disabled, rsci2 is routed to the M.2 connector
-    (replacing rsci1 above)
-In both cases it is available for use.
+[Severity: Low]
+Similarly, will these OLDI nodes trigger validation warnings due to a missi=
+ng
+ports property required by the OLDI binding schemas?
 
-> +&rsci2 {
-> +       pinctrl-0 = <&rsci2_pins>;
-> +       pinctrl-names = "default";
-> +
-> +       uart-has-rtscts;
-> +
-> +       status = "okay";
-> +};
-> +#endif
+[ ... ]
+> +	dsi0: dsi@30500000 {
+> +		compatible =3D "ti,j721e-dsi";
+> +		reg =3D <0x0 0x30500000 0x0 0x100000>, <0x0 0x30270000 0x0 0x100>;
+> +		clocks =3D <&k3_clks 231 2>, <&k3_clks 231 5>;
+> +		clock-names =3D "dsi_p_clk", "dsi_sys_clk";
+> +		power-domains =3D <&k3_pds 231 TI_SCI_PD_EXCLUSIVE>;
+> +		interrupt-parent =3D <&gic500>;
+> +		interrupts =3D <GIC_SPI 86 IRQ_TYPE_LEVEL_HIGH>;
+> +		phys =3D <&dphy_tx0>;
+> +		phy-names =3D "dphy";
+> +		status =3D "disabled";
+> +	};
 
-The rest LGTM.
+[Severity: Low]
+Will the omission of the ports property here result in dtbs_check warnings
+against the cdns,dsi.yaml schema?
 
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529-beagley-ai=
+-display-v3-0-7fefdc5d1adf@ideasonboard.com?part=3D14
