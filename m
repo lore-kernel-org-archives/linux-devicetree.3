@@ -1,156 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86D372DCF61
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 00:50:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB8F26ED59
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 00:50:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780102214; cv=none; b=Vu3qruKk0+gc8fBkoj+zBgBtbLNexjcogkV62h1pimWOfXYMmZxAr6GEPqXc4ecOd5kAMS436qXFpOJ8yJB8h/iXqaxgRyzk2H6ihSCu3+ocBYma++4yxyzGPKMQ+CxkacdjXy9lqHAD0VepSU4wjFBiy5YBw7qdYNW3zz5mabY=
+	t=1780102214; cv=none; b=ARgo5yIIDqrKxAP3wvBFKRyYTTbn0nswsW2sVq2QDgsjAQ6+aJ+VhiKxj2f/0OofGMQaaBZJKGuMntHYkoEqC2g2gdlQLEx4jWdaflTJDzqx8L/nFDYTJOzdUCDuLxlNDO3tSw3VyvFOQjHcYayOt5Hzb47QWtU5zqp7HkaCg6A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780102214; c=relaxed/simple;
-	bh=FuWgd26lXyp3OMibhPJMZ5pN1pW4WakQPH9VE95NJuI=;
+	bh=ULZnykkdO/ZFXgqLi52VatwZuFZfFKgPfgettPbNSK8=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ocGTWGhDzsRuZwENengbYIkP6Bzq/mrCVUeSeZXylZ0ptXmlldqtLbxhnY35DoVi3r1Dh912nlcyGHRfRfHKhbwcFkj3VLdRJNPJrHdUZytXwZRLJDTbPelaL/indxHILvJzgqx3QpPHWF6lB5Szc1cnQeEI2yxjwvwRQQ4miyI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T1qdeJSe; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HItw87x/CqIoQ1mlUChpMzOSl2/OPgeUfeAEXTu1glwFowwg/GgYDAUMgUZSvUT++cZ2QbkAhAy/pjDVyt9rnOTtZIQXNQaaNcsKfVbvfvV33wC0tKyT9bM/Z94C52/j1DI/+iwMNly73VbbqpASSE4vyddd8yv/6dkALfqxNoE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esGKV0fQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T1qdeJSe"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 373D51F00893;
-	Sat, 30 May 2026 00:50:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esGKV0fQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9531F00899;
+	Sat, 30 May 2026 00:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780102212;
-	bh=PzrmKSBxNh7Wv/imvKh7FxNAQNlFuBn7DR5qJF2DQK8=;
+	s=k20260515; t=1780102213;
+	bh=dOywTM+CC01nkuzdcDMaKGONTL3I0BcwxaDDnmcPXDQ=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T1qdeJSeoYc54MEgua+HyepKiCjZp7pBZgDJtoUJmkz0EH6qlEHOULziQNKnw1I8O
-	 c3k1rPeiptCUM9Vk8E4X6iRFJEyflW+b3FvLIdxuWiZ2MHXzhp+FEuUTByA5UgxqFV
-	 fspPT1T0J8+Xj46R8dnu0fE3uMMlNjBWR07RMH7olrEmdKrvU4ayGZvXkSNRUxpsw2
-	 1bsSOqqhHJi/n70kL9hdadlZywDOaF0mhR/6GBGAtZI14nYbKPktjrcnBsoKeYDQod
-	 z7pYzSMLWt+qKdZ7MEIflJGRWsAZs4gSuW5yuMw7cxfnkKsRVCu94hRLC8r7xru4XB
-	 RgLuKs42SGHoA==
+	b=esGKV0fQmqljCPyQ4v+NkH9W6GQmqOitpoVLF8GxpevcGTtXY55avDJrvgFahFe8T
+	 DcP8HZL6JBkvpsesyuu2NLUcQzdisCZ+5VD6qmCAUJAn+QrtZvNKAkrw4RZPgCbfvZ
+	 8RMdsvDK5nf3LRbdvMroLtHjmb4wevD9nAZo/Azk6Jm+jQwKYpJDI86H17YbMwtEU8
+	 HdFJnigblUoNMj8eh1ycD2pfSNUDJgy/7+TSopZ9lG7whtX8mKMW/A46zfe8inui2Z
+	 UdVZNmEHYwRufblwknsBqeYx8F2ld2HI+Rd6t/mR+BngzpC8jDg83fBDjTR2OsslbB
+	 1qFMP+92GSS7A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 1/9] net: dsa: add tag driver for LAN9645X
+Subject: Re: [PATCH net-next v6 5/9] net: dsa: lan9645x: add bridge support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260527-dsa_lan9645x_switch_driver_base-v6-1-4d409ae64f3c@microchip.com>
-References: <20260527-dsa_lan9645x_switch_driver_base-v6-1-4d409ae64f3c@microchip.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260527-dsa_lan9645x_switch_driver_base-v6-5-4d409ae64f3c@microchip.com>
+References: <20260527-dsa_lan9645x_switch_driver_base-v6-5-4d409ae64f3c@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 00:50:11 +0000
-Message-Id: <20260530005012.373D51F00893@smtp.kernel.org>
+Date: Sat, 30 May 2026 00:50:13 +0000
+Message-Id: <20260530005013.8B9531F00899@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The driver fails to handle hardware-accelerated VLAN tags on trans=
-mit, leading to dropped VLAN tags.
-- [High] The driver ignores the return values of bridge VLAN functions, lea=
-ding to the use of uninitialized stack variables.
-- [High] The tag driver leaks the socket buffer (`skb`) when frame padding =
-fails.
+- [High] Failure to clear `bridge_fwd_mask` and `stp_state` when a port lea=
+ves a bridge allows a stale forwarding state to persist, creating a race co=
+ndition that can lead to temporary Layer 2 loops.
 --
 
-commit 2c0a796d85ea905a1a209fed6a3f2589d5f8409a
+commit 31a25a746a8f28de119e2a7f8f9439f1cb05b67f
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
 
-net: dsa: add tag driver for LAN9645X
+net: dsa: lan9645x: add bridge support
 
-Add tag driver for LAN9645x using a front port as CPU port. This mode
-is called an NPI port in the datasheet.
+This commit adds hardware offloading support for a single bridge device
+to the lan9645x DSA switch driver.
 
-> diff --git a/net/dsa/tag_lan9645x.c b/net/dsa/tag_lan9645x.c
-> new file mode 100644
-> index 0000000000000..0b639228215e3
-> --- /dev/null
-> +++ b/net/dsa/tag_lan9645x.c
-
+> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
+/net/dsa/microchip/lan9645x/lan9645x_main.c
+> --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
+> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 [ ... ]
-
-> +static void lan9645x_xmit_get_vlan_info(struct sk_buff *skb,
-> +					struct net_device *br,
-> +					u32 *vlan_tci, u32 *tag_type)
+> @@ -269,6 +292,278 @@ static void lan9645x_port_phylink_get_caps(struct d=
+sa_switch *ds, int port,
+[ ... ]
+> +static void lan9645x_port_bridge_leave(struct dsa_switch *ds, int port,
+> +				       struct dsa_bridge bridge)
 > +{
-> +	struct vlan_ethhdr *hdr;
-> +	u16 proto, tci;
+> +	struct lan9645x *lan9645x =3D ds->priv;
+> +	struct lan9645x_port *p;
 > +
-> +	if (!br || !br_vlan_enabled(br)) {
-> +		*vlan_tci =3D 0;
-> +		*tag_type =3D LAN9645X_IFH_TAG_TYPE_C;
-> +		return;
-> +	}
+> +	p =3D lan9645x_to_port(lan9645x, port);
 > +
-> +	hdr =3D (struct vlan_ethhdr *)skb_mac_header(skb);
-> +	br_vlan_get_proto(br, &proto);
+> +	mutex_lock(&lan9645x->fwd_domain_lock);
 > +
-> +	if (skb_headlen(skb) >=3D VLAN_ETH_HLEN &&
-> +	    ntohs(hdr->h_vlan_proto) =3D=3D proto) {
-> +		vlan_remove_tag(skb, &tci);
-> +		*vlan_tci =3D tci;
+> +	lan9645x->bridge_mask &=3D ~BIT(p->chip_port);
 
 [Severity: High]
-Does this code handle hardware-accelerated VLAN tags on transmit?
+Does leaving a port in the forwarding mask when it is removed from a bridge
+create a race condition if it rejoins the bridge later?
 
-If the networking stack passes the VLAN tag out-of-band via skb->vlan_tci,
-the payload ethertype will be the inner protocol (e.g., IPv4) and the check
-above evaluates to false. This ignores the intended VLAN tag.
+If bridge_fwd_mask and stp_state are not cleared here in=20
+lan9645x_port_bridge_leave(), the stale forwarding state persists.
 
-Could this be changed to use skb_vlan_tag_present(skb) and
-skb_vlan_tag_get(skb)?
+When the port later rejoins the bridge, lan9645x_port_bridge_join() sets the
+bridge_mask bit again. There is a small window before the DSA core calls
+port_stp_state_set() to explicitly initialize the port to BR_STATE_BLOCKING
+(which would clear the bridge_fwd_mask bit).
 
-> +	} else {
-> +		rcu_read_lock();
-> +		br_vlan_get_pvid_rcu(br, &tci);
+If a concurrent STP state change for another port in the bridge executes via
+the switchdev workqueue during this exact window, it will call
+lan9645x_update_fwd_mask(). The mask calculation bridge_mask &
+bridge_fwd_mask will falsely include the newly joined port, prematurely
+programming the hardware to forward traffic to and from it.
 
-[Severity: High]
-Does this ignore the return value of br_vlan_get_pvid_rcu()?
+Could this bypass the STP blocking phase, creating a vulnerability to
+broadcast storms and temporary Layer 2 loops?
 
-If the port has no default PVID configured, it can return an error code,
-leaving tci uninitialized. The uninitialized tci is then used to populate
-the hardware frame header, potentially injecting stack garbage into the
-packet's VLAN TCI.
-
-> +		rcu_read_unlock();
-> +		*vlan_tci =3D tci;
-> +	}
 > +
-> +	*tag_type =3D (proto !=3D ETH_P_8021Q) ? LAN9645X_IFH_TAG_TYPE_S :
-> +					     LAN9645X_IFH_TAG_TYPE_C;
+> +	/* Last port leaving clears bridge dev */
+> +	if (!lan9645x->bridge_mask)
+> +		lan9645x->bridge =3D NULL;
+> +
+> +	__lan9645x_port_set_host_flood(lan9645x);
+> +	lan9645x_update_fwd_mask(lan9645x);
+> +
+> +	mutex_unlock(&lan9645x->fwd_domain_lock);
 > +}
-> +
-> +static struct sk_buff *lan9645x_xmit(struct sk_buff *skb,
-> +				     struct net_device *ndev)
-> +{
-> +	struct dsa_port *dp =3D dsa_user_to_port(ndev);
-> +	struct dsa_switch *ds =3D dp->ds;
-> +	u32 cpu_port =3D ds->num_ports;
-> +	u32 vlan_tci, tag_type;
-> +	u32 qos_class;
-> +	void *ifh;
-> +
-> +	lan9645x_xmit_get_vlan_info(skb, dsa_port_bridge_dev_get(dp), &vlan_tci,
-> +				    &tag_type);
-> +
-> +	/* We need to make sure frame has the proper size after IFH is stripped
-> +	 * by hw.
-> +	 */
-> +	if (__skb_put_padto(skb, ETH_ZLEN, false))
-> +		return NULL;
-
-[Severity: High]
-Will this leak the socket buffer when padding fails?
-
-__skb_put_padto() is called with free_on_error set to false. If padding
-fails, this returns NULL. The DSA core transmit routine assumes a NULL retu=
-rn
-from a tagger's transmit function means the tagger has freed or consumed
-the skb, so the core won't free it. This permanently leaks the skb.
-
-Should this use true for free_on_error instead?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-dsa_lan964=
-5x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com?part=3D1
+5x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com?part=3D5
