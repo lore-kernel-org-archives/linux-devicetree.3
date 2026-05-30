@@ -1,50 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA48C39B960;
-	Sat, 30 May 2026 12:55:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E54432C187
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 13:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780145718; cv=none; b=XBFdPqyuNIl5YPgem0l0kBCwM4CLxFn4LfnrcfYdbSdLvzsq0tan/PX54Bp0suxpeYq57toVAfor2BtgP0E+y5zU0LbIK5ZoyKRLjYC98+C1iOT4eKHaAf4uhFY54WJ7m4sT+18BfD0Wuvz3aDlNwvZJDOWw97Nq3qW0+jyWn9s=
+	t=1780147068; cv=none; b=l4pVDXTwp2zwPaE5azUZ4L+XmrHOZT5KIuK/VcdTOxDLWZ+YQhiOhUG03T3IxO4S+m5WzgZsG/vbEM1m+QD4M2sZfeiIOYNKPzob6L6HbK2lE/XfOIxJXqte6/LfcmiGJ3z+jRlTG5oWvk3uiuBx9snLY/I8XmoC67CKbCIPBXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780145718; c=relaxed/simple;
-	bh=A0bOMn9XB26TRha8UtUaEiGCVtsTRl1l1r7jw3ysqhw=;
+	s=arc-20240116; t=1780147068; c=relaxed/simple;
+	bh=6lhgdaPHynf395aIFWky3glvQKAaQVBrok8WLSUt6r4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TqiIRuKCL5tva6/YvTQ+WSG5ls+CTkRib0YgL52p5mOk7EwhjrzMY58VzAhMlZKkRUbaWyV0R0DqZn3e1orUpdhWJIA5vIPZhUSu7xpA1pHJ+zo9I+a/kJZKsdV5IKIgV4D9zHUxCLnedi7/145TCylAYXZPN2Lob2SY/IdkJ2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YdQ/0S4b; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q27gd3qK5ZjcoWFIYGNx4ltxOzEegd8RgKTGmukEry6EjjG7azeecMr9uSbZRvI/GiLefvuZrxZ1e8hVmTdmMRC2uihx1/pugxpw3s6DaQ3oeXfhZsWjfImKlKM82V6V2nxbk4+QO1FYsrCmrk11UzI7YJojm2F7Hf6Xb9PPsjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AuX3B8qp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YdQ/0S4b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F25C11F00893;
-	Sat, 30 May 2026 12:55:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AuX3B8qp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2F661F00893;
+	Sat, 30 May 2026 13:17:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780145717;
-	bh=h0HrL+x9wbOX7ew2UHxPYItHL8ESuqXXvHECcppFC1Y=;
+	s=k20260515; t=1780147067;
+	bh=t2oLA32n49fw6YC2BTNEdxQuVC72zm9QzG8dufL6sQY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=YdQ/0S4bN6X76XVQKdyOOvx56+rEcuRBhTmGrl1+iJlfFsfTvBxv41dwVEbHojGpD
-	 FKgf0+4Jp27+iEHbHadlvhX9fzLS71GHSU3lLuKD9TekHFt1uZQ0fGcrmCcSsH60DX
-	 6KdS7eyuDziBWrxtM3CNLNTz25c0zGJqmpDBSNNTSekRCO6xxoI9ROUMThVwR1FZWz
-	 Tsk8OHye6K+Q7zIkJibwv3f3y6njiY40loLSfoq54lUvIdVxMt4vfh5eqn3A78sO2L
-	 Bg26NM18fTmXhKgrqgzQGYl0gqAJJvrmaGp1texT6/teNIeR73QqvoDkqKruA4izh0
-	 00xC9zcAreJCA==
-Date: Sat, 30 May 2026 20:36:07 +0800
+	b=AuX3B8qp2vK2JzGouTZHgXfIYXJvMcaIRuKiLFgBb+7iicYWZgc0cjdWjQD+sEVpV
+	 ltAftx06JlgaOc4xhYQXcHjlPVKEd5vn+gQWd/Nj8ahx0T8r1Gx5PhDtDJRnjW4foC
+	 GzYEGmJxg5oxQIiYuxpBnwaeEQLYJblpPKqAqFaxok8kDGfdw5azZdqiLfe3pJ8PU/
+	 rcF3kOd9cOUMe+GJsR463yCJjgIw+lS0jptKSlVT8USufJgzHVUJ9I1kDIV7Cn/a/F
+	 Oe4FJhplsohnWrpLK4ub+z5DRImEs/UMd74KD1VkK2aMOUVzQCzY3pmKjL0gDBkbTb
+	 Srw2OwBZMX4Kw==
+Date: Sat, 30 May 2026 20:58:35 +0800
 From: Jisheng Zhang <jszhang@kernel.org>
 To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>,
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-spi@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] spi: dt-bindings: cdns,xspi: add sdma-io-width
-Message-ID: <ahrZt5BI46oFXCBO@xhacker>
-References: <20260511031732.3199-2-jszhang@kernel.org>
- <20260515-expert-devious-cricket-faff56@quoll>
- <agz0kDsQBaeQPPQ4@xhacker>
- <21d30826-bfe6-44cd-8c89-c1986f539e48@kernel.org>
- <ag2fjCX0DuSVxubv@xhacker>
- <14719378-7bf5-4688-81e9-bccedf618d18@kernel.org>
- <de325dba-0b82-4808-910b-68f0f6426c5f@sirena.org.uk>
- <37a3e9dd-88c2-4d8d-8ae4-6037a1eeedcc@kernel.org>
- <ag20q5CuB2XsqKS_@xhacker>
- <3eaa70e0-4284-4c35-a5d5-42afa3087eea@kernel.org>
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
+Message-ID: <ahre-7YdlcOZkwS1@xhacker>
+References: <20260525140018.19598-1-jszhang@kernel.org>
+ <20260525140018.19598-3-jszhang@kernel.org>
+ <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org>
+ <ahZwl3uXjyOZRvGW@xhacker>
+ <4a8539d3-704b-4433-b4d6-e5acfe22d512@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,77 +50,50 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <3eaa70e0-4284-4c35-a5d5-42afa3087eea@kernel.org>
+In-Reply-To: <4a8539d3-704b-4433-b4d6-e5acfe22d512@kernel.org>
 
-On Wed, May 20, 2026 at 04:21:05PM +0200, Krzysztof Kozlowski wrote:
-> On 20/05/2026 15:18, Jisheng Zhang wrote:
-> > On Wed, May 20, 2026 at 03:22:07PM +0200, Krzysztof Kozlowski wrote:
-> >> On 20/05/2026 14:30, Mark Brown wrote:
-> >>> On Wed, May 20, 2026 at 02:16:21PM +0200, Krzysztof Kozlowski wrote:
-> >>>> On 20/05/2026 13:48, Jisheng Zhang wrote:
-> >>>
-> >>>>> If you mean "Why this cannot be deduced from the compatible?", I think
-> >>>>> the slave dma port is part of the cdns xspi, so its io width belongs
-> >>>>> to xSPI device property.
-> >>>>> From another side, we have seen such property in other drivers such as
-> >>>>> the reg-io-width for the dw spi DW_SPI_DR port io width.
-> >>>
-> >>>> So you mean it depends on SPI device? Then why spi-peripheral-props is
-> >>>> not applicable here?
-> >>>
-> >>> That will be controller side, not device side.
-> >>>
-> >>>> If this is not bus width, but DMA-something, is not really then SPI
-> >>>> device dependent, but rather DMA controller limitation, so either
-> >>>> deducible from compatible or something else is missing here.
-> >>>
-> >>> My understanding is that this is a connection between the SPI and DMA
-> >>> controllers so it's not as obvious as it could be which side of that
-> >>> link should have the property, eg:
-> >>>
-> >>>   https://www.cadence.com/content/dam/cadence-www/global/en_US/documents/tools/silicon-solutions/design-ip/controller-ip-qspi.pdf
-> >>>
-> >>> shows a separate direct connection between the DMA controller and the
-> >>> xSPI controller, the DMA controller isn't interacting with registers on
-> >>> the CPU visible buses.  The width is probably a design time configurable
-> >>> option on both sides of the link.
+On Wed, May 27, 2026 at 09:53:16AM +0200, Krzysztof Kozlowski wrote:
+> On 27/05/2026 06:18, Jisheng Zhang wrote:
+> > On Mon, May 25, 2026 at 05:25:45PM +0200, Krzysztof Kozlowski wrote:
+> >> On 25/05/2026 16:00, Jisheng Zhang wrote:
+> >>> Add dt-binding for support of apb reset which is to reset the APB
+> >>> interface.
 > >>
-> >> Yes and that sounds a lot specific to particular controller, thus should
-> >> be implied by / deducible from the compatible.
+> >> And this is ABI break, so you must explain WHY breaking ABI is worth
 > > 
-> > This is IP feature, so if we couple the IP's feature with platform
-> > compatible, I would see some unnecessary LoCs. For example,
-> > Let's assume the IP has 10 users, they all support 4 bytes io width,
-> > other features are the same. 
-> > 
-> > If implied by the compatible string, we need to add 10 compatible
-> > string support both in code and dt-bindings.
+> > This just adds an optional apb reset, it doesn't break any exisiting
+> > ABI. Kindly let me know whether adding new optional binding is also
+> > an ABI break.
 > 
-> You always need 10 compatible strings in bindings.
-> 
-> But driver would need only one, since devices are compatible as you
-> described.
+> It does. One reset was before. Now all devices must have two resets.
+> Clear ABI impact.
 
-Hi all,
-
-Update: after carefully reading the registers' document, I found the
-slave dma data width can be known by checking CTRL_FEATURES_REG's
-DMA_DATA_WIDTH bit, we can don't need the DT property any more. I'm
-cooking v2.
-
-Thanks for all the review comments
+I checked the dts with only one reset by manual dt_binding_check
+and dtbs_check, it still work, so I'm not sure why those dts "must have
+two resets". Kindly let me know what's wrong.
 
 > 
 > > 
-> > vs
+> >> doing that or what is the impact. Additionally you should explain which
+> >> devices have it. Does Altera have it? You really lack explanation WHY
+> >> you are doing it and which hardware you exactly describe.
 > > 
-> > If supported by "sdma-io-width", nothing is needed after this patch
-> > 
-> > IMHO, the 2nd sounds better, what do you think?
+> > I'm preparing one of synaptics SoCs support to uptream, it needs this
+> > apb reset signal for i3c. So you mean I delay this series until the SoC
+> > upstream series come, right?
 > 
-> We answered this in writing bindings. Properties are not replacement for
-> specific compatible. I don't know how to write that sentence in bindings
-> clearer - it's exactly this case.
+> No. You just sent patch which basically says that Altera has two resets,
+> without any explanation of that.
+
+I guess you mixed other series/patches with mine here, no? I didn't
+mention Altera at all ;) What my series mentioned is adding apb reset
+which is to reset the APB interface.
+
+
+> 
+> Write explicit patches with answers WHY you re doing and WHY its impact
+> is correct.
+> 
 > 
 > Best regards,
 > Krzysztof
