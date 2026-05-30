@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653C01E5201;
-	Sat, 30 May 2026 11:37:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F00C1E5201;
+	Sat, 30 May 2026 11:39:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780141080; cv=none; b=RNSwbUZvCUdFgg9V6wfKyunASW3RLqqhTlM1PK1REsyar718lXN3DKC8KfgxbEkZF9G55o0Cv0lTcusfT0UcaRqJAKu7SgnVnTyhhgp4bXRY1S3/wBQ0yQWqR9TpWkyk6Ufd1e4Y/AjLHWfBZmsqI+/fdPTuiZD7JUtgaCAD430=
+	t=1780141175; cv=none; b=XwNNPJcuNEfbFNMTAX3rjXH0Lq5MM5bg7iNykZ7B6z2AMROBVreZlHk46sToA/vjvn/oZ4YYrdykuVa+rMKji2UDJCq0bQHI2W12Hj9Xu9S7LhN9EuruM5qPKWQQe4Q1Vb1z6dMCRSzErGKrGNDqrrmOante0XkzjF+9ZIrti4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780141080; c=relaxed/simple;
-	bh=2aiI1r3zg+/0XbovJ5OQbberURXSE8VAoUFWJIamNc0=;
+	s=arc-20240116; t=1780141175; c=relaxed/simple;
+	bh=NLGejAO0gT+X0Tk/bo1I2nCHa0yRurAcFZckDPMD/Zs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=O6o76LatWQhqChcZ5XtLTWH/a7iatOLijYSBBCvYEzLXkF4Ot9zKq3PNgjKcLCQaXagr3p2NqqrbSzTFroRZdzy3JB0Dzo199t/BDAgweNCWM0tswiREtL2hrQ+RyTT7vAMsfc7E5tPbSrDRRzloenosZY4YKnIH8rmjOuXNPII=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV40RShq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=US1a+LmwkmurHlpRzBfG7zgM0TUDE7p9l8RIVBGuQbx1T1E56H/XVh2VEgG7A2zKScCu08LHBUjUhIISGik3Ya3FmrN1leG8APvujVAPCbETWPryeAu2KqAuoDHQNHSfWcP3SVNoFXao3oFHju6VnvurwuHON1TelOcoI7/ibHI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KHqC6UlA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV40RShq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817571F00893;
-	Sat, 30 May 2026 11:37:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KHqC6UlA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B263B1F00893;
+	Sat, 30 May 2026 11:39:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780141079;
-	bh=sdc9x4Y45qdWvGNfTfHjNpjsc5UtJuGGAV9/b/Q37m8=;
+	s=k20260515; t=1780141174;
+	bh=OJCH52YP9rP8RG0j3oZeKH0UGauR2RT4AzqFBNpn10o=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TV40RShqPgbGb8hwuMkMEi9WQQGcrGn7pCA0KAV4+E43kJI0GPZ0QBl3NRBC9OY0W
-	 2zBNE6fgbYM4p4lGkyzIdPk9zj6gvOyLQMhzMCcNKQ0POAK/k0yxdF2TS+2V+dusaU
-	 jtgM0p1gcG0YNZK8/wj4DnYzj5pWc9a5Cql91Bo2OoUvZouuGx2hG8HNztQGH/DehL
-	 34UIfcKsCVVHNBkTOD+wg9YTHuQVCKiYDpYg8dAAvKdYTvEaRVP4eBi/8D8SMQQSax
-	 LE5AuNPbtx7neECT6VaOtL4QvZjYRDDI7QomrS8isFm+B9JMgk0+TUZRPXoRdv24dq
-	 hlM8/M1BhNctQ==
-Date: Sat, 30 May 2026 13:37:56 +0200
+	b=KHqC6UlAMU+pNd2HcPpAKDkmbEOolghV3O/WPbhgq/seoqoAxWFYDG+U5HmOo/zQ1
+	 GSMUeHwXXKhggzcy1tUoeE5lQB45+TF5IvxmKGxOxiBdnOupvBhRU6Qke0BONGodeK
+	 CzfLVUx3JeAxKWdQqZonRd6TEvWcBDdu7fBC/QW6NUdu06mDTI5ieefiEpGWNMfipb
+	 nKMabN/mo6qNNI5J4rvLunOiq8vLx5ktQvR+2YqrMFwsR+nv/FyeULPZ5BwAJHsgIi
+	 ewBbcdk1TYsE1GMM7psna8NNNvmvyjJwX4tJX1t4bihpLBhrA2IyPKMfXP4gWIgzmM
+	 rNAnUemuXITrg==
+Date: Sat, 30 May 2026 13:39:31 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Erikas Bitovtas <xerikasxx@gmail.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>
+Cc: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
+	Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom: Add Sony Xperia M2
-Message-ID: <20260530-cordial-civet-of-enrichment-89eacd@quoll>
-References: <20260527-yukon-eagle-v1-0-98119d64a71b@gmail.com>
- <20260527-yukon-eagle-v1-1-98119d64a71b@gmail.com>
+	Abraham I <kishon@kernel.org>, Roger Quadros <rogerq@kernel.org>, 
+	Devarsh Thakkar <devarsht@ti.com>, Swamil Jain <s-jain1@ti.com>, 
+	linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 5/6] dt-bindings: soc: ti: ti,j721e-system-controller:
+ Add more compatibles
+Message-ID: <20260530-rare-spicy-catfish-657b1f@quoll>
+References: <20260528-ti-main-conf-v1-0-a54ac5c8d081@ideasonboard.com>
+ <20260528-ti-main-conf-v1-5-a54ac5c8d081@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,18 +48,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260527-yukon-eagle-v1-1-98119d64a71b@gmail.com>
+In-Reply-To: <20260528-ti-main-conf-v1-5-a54ac5c8d081@ideasonboard.com>
 
-On Wed, May 27, 2026 at 11:08:01PM +0300, Erikas Bitovtas wrote:
-> Document the Sony Xperia M2, which is a smartphone based on the
-> Qualcomm MSM8926 SoC.
+On Thu, May 28, 2026 at 03:53:46PM +0300, Tomi Valkeinen wrote:
+> Add the following to the list of accepted compatibles so that we can use
+> the same binding on these SoCs too:
 > 
-> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
-> ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+> ti,am62-system-controller
+> ti,am62a-system-controller
+> ti,am62p-system-controller
+> ti,j784s4-system-controller
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+You just copied diff - that's pointless. We can read the diff. Explain
+why - what are these? Why there is 62 and 62a? Are these different SoCs?
+
+Your commit must say WHY you are doing this, not what you are doing.
 
 Best regards,
 Krzysztof
