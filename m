@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E903AB5BB;
-	Sat, 30 May 2026 11:36:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 653C01E5201;
+	Sat, 30 May 2026 11:37:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780141000; cv=none; b=PDIo9W8+ZNnAgtkMcisyJJ/FWkxxOU6k3yUZm8ohJC+AvwipO2LvqvA4REKhf5vUFhuwyS+qZ4g1YM/f4m0oTqWzG0wm8cW2aldjU0/Ackhdpp/GAK/sTm//Rfk6PZpAf3I5Kd1FbJY8T4/GcHh+JjXn+R6/O6VNNve7WuTB45c=
+	t=1780141080; cv=none; b=RNSwbUZvCUdFgg9V6wfKyunASW3RLqqhTlM1PK1REsyar718lXN3DKC8KfgxbEkZF9G55o0Cv0lTcusfT0UcaRqJAKu7SgnVnTyhhgp4bXRY1S3/wBQ0yQWqR9TpWkyk6Ufd1e4Y/AjLHWfBZmsqI+/fdPTuiZD7JUtgaCAD430=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780141000; c=relaxed/simple;
-	bh=P8IY2LzuNiHoz9ZVBGoltK/59OemqKVU2k36y/+JBik=;
+	s=arc-20240116; t=1780141080; c=relaxed/simple;
+	bh=2aiI1r3zg+/0XbovJ5OQbberURXSE8VAoUFWJIamNc0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=am+ZVZUatnjShkARNJ0C7gcb/9LkMc60KG9RaQUoMyYSjW4wswCmEviYQLMPhsGh1FdNqeq87c0he2kngGNmvNtol7i/FPKdRSBD4jElz9ryT7/TbH4mKUYeZtSHNxXEeVbesBj2DmQhOSM9o1/x+LHDMLhQU/eFJRylISL4r44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTeQhB4m; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=O6o76LatWQhqChcZ5XtLTWH/a7iatOLijYSBBCvYEzLXkF4Ot9zKq3PNgjKcLCQaXagr3p2NqqrbSzTFroRZdzy3JB0Dzo199t/BDAgweNCWM0tswiREtL2hrQ+RyTT7vAMsfc7E5tPbSrDRRzloenosZY4YKnIH8rmjOuXNPII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV40RShq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTeQhB4m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37581F00893;
-	Sat, 30 May 2026 11:36:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV40RShq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 817571F00893;
+	Sat, 30 May 2026 11:37:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780140998;
-	bh=ASVwj8JSQW3qm8JAF74jGWlBWdyvnyVyn90w48T3iIA=;
+	s=k20260515; t=1780141079;
+	bh=sdc9x4Y45qdWvGNfTfHjNpjsc5UtJuGGAV9/b/Q37m8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MTeQhB4mmeI+sPjpKNnyb5J5CrvVt9iMSgTu2WAQAg/8Z1MMQlALunlWy+BRfBpwP
-	 t8Br2f7NLSE1YsM8EYhCmQezVQ3UKbxgGzB+6vY8C29HpC7wTOfppLp5lF+E9YU7xL
-	 iKwmOqTmUGJ4ypBwIeZmEOu+qJH92mg55RdglkHBRigDsM30yZLkI986Qf+vnvD8aN
-	 itMhxE2z+1F1ha896jae28t5koh3m7KbwfFzqBcvbzasXPnRFU3cZFigY3nVhXxLAt
-	 8B99i2UrPGCeUtPfw6czH0V9ZxcaftSJ5imY1m14wbE4skzNliQPPT4OkRjNP/CvJn
-	 m4u1uEZLP48aw==
-Date: Sat, 30 May 2026 13:36:35 +0200
+	b=TV40RShqPgbGb8hwuMkMEi9WQQGcrGn7pCA0KAV4+E43kJI0GPZ0QBl3NRBC9OY0W
+	 2zBNE6fgbYM4p4lGkyzIdPk9zj6gvOyLQMhzMCcNKQ0POAK/k0yxdF2TS+2V+dusaU
+	 jtgM0p1gcG0YNZK8/wj4DnYzj5pWc9a5Cql91Bo2OoUvZouuGx2hG8HNztQGH/DehL
+	 34UIfcKsCVVHNBkTOD+wg9YTHuQVCKiYDpYg8dAAvKdYTvEaRVP4eBi/8D8SMQQSax
+	 LE5AuNPbtx7neECT6VaOtL4QvZjYRDDI7QomrS8isFm+B9JMgk0+TUZRPXoRdv24dq
+	 hlM8/M1BhNctQ==
+Date: Sat, 30 May 2026 13:37:56 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Can Guo <can.guo@oss.qualcomm.com>
-Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com, 
-	martin.petersen@oracle.com, mani@kernel.org, linux-scsi@vger.kernel.org, 
-	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>, 
+To: Erikas Bitovtas <xerikasxx@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Zhaoming Luo <zhml@posteo.com>, Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>, 
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: ufs: Document static TX Equalization
- settings properties
-Message-ID: <20260530-invisible-pygmy-beetle-57e659@quoll>
-References: <20260527144055.2758170-1-can.guo@oss.qualcomm.com>
- <20260527144055.2758170-2-can.guo@oss.qualcomm.com>
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	~postmarketos/upstreaming@lists.sr.ht, phone-devel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: arm: qcom: Add Sony Xperia M2
+Message-ID: <20260530-cordial-civet-of-enrichment-89eacd@quoll>
+References: <20260527-yukon-eagle-v1-0-98119d64a71b@gmail.com>
+ <20260527-yukon-eagle-v1-1-98119d64a71b@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -48,32 +46,18 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260527144055.2758170-2-can.guo@oss.qualcomm.com>
+In-Reply-To: <20260527-yukon-eagle-v1-1-98119d64a71b@gmail.com>
 
-On Wed, May 27, 2026 at 07:40:54AM -0700, Can Guo wrote:
-> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
-> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
-> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
-> integrity at high speed operation.
+On Wed, May 27, 2026 at 11:08:01PM +0300, Erikas Bitovtas wrote:
+> Document the Sony Xperia M2, which is a smartphone based on the
+> Qualcomm MSM8926 SoC.
 > 
-> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
-> required depending on channel characteristics.
-> 
-> Add vendor-neutral DT properties:
-> 
-> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
-> - fixed property tx-precode-enable-g6
-> 
-> Each property is a uint32 array of per-lane tuples:
-> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
-> 
-> Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
-> are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
-> 
+> Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+> ---
+>  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
+>  1 file changed, 1 insertion(+)
 
-Why are they SIX versions within three days? I see this for the third
-time in Patchwork already.
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 
 Best regards,
 Krzysztof
