@@ -1,61 +1,63 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
+Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B55B1306752
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:58:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EA8311C36
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:58:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780153091; cv=none; b=bN0xYHjsHKoqz8lywxck3wk1X7fKZ32A53o8ovrlCBewH39z1cOftzoZclOE9Qsb3PJhW5DFasQ/cj2uVCPtbk7M1wUymT3H73BeoVyqS2Ccl/73uRdUft0+WLTPK/CB4z7fUbVF3QZ9uVGHdghegS/0La/92am1ceGMqvtbv5I=
+	t=1780153092; cv=none; b=Egt8sSe+qZtZeJodFGnUsKwW24Mib9xxicKIJzBnlT85WkeirVXENIOto/H21/+Dzr0ThnEKZqI7Hia7ONoOp3S4BUlMZzbwSXjf8X8qpfLxtCyJ/6KFbh18H7o9U6jM60zn4mNiMuy+gABnkxi6tLEALQ7S0Sub5dpF2BjgIfw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780153091; c=relaxed/simple;
-	bh=NoCwL6dQdN9+HmFTRjZInOB9QFBV1zFmLO85nr/gL64=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BAjwijlr04rKau75yiqZ3/74UY3Qo//SAmzcOb0mQX/lO9o4CeFlM1+W4dOQsYNQTQLkjOYvSdot1ZtUOSnMVY5TNPwjSwelpSeh0Sxmt776KlKObQw7Eu+xh/tPrYW+1CSbuQ7lNGPDQLcRVarR4nBioOFykP6dIoCTjfIdwRI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OkGczEAV; arc=none smtp.client-ip=209.85.221.41
+	s=arc-20240116; t=1780153092; c=relaxed/simple;
+	bh=LaSZy4tAMF/OIeKnicst81GeQ4Uzqc4SwQUQiLMnA1U=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=KI3sGzMXew+GYM+8fz0ymVe6z3jErI3Ts7e+XOKEHfXUyGHtBGnwKXtlysUTaPvHfQ6B/pJiBYqav/BOl0rE5OTUqVC8xvCHVfv39YaR7caPP0/jpkMIiARdOLnlpPHbgxzR48OHyFb0BWyHN/djPnaJX81Q/HAC0j2Wn2YLzZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=myT0clkv; arc=none smtp.client-ip=209.85.221.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OkGczEAV"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45fd45e596cso28306f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 07:58:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="myT0clkv"
+Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-441209fb77eso9106069f8f.1
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 07:58:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780153087; x=1780757887; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=gFR/U1cx5enDuXpii0x1sB2/KzICG5y6hNgK8upvP6Q=;
-        b=OkGczEAVk8gbuOu4CUv667UPruT54fw79NPd4UxGTmg/Q/mb1amj6Bj5tuvJngDirw
-         WOMCDE36eB4MHetJrvFHDA+sgmb4YZqQMyaSwcubKna6oY5nkxcoQCk0UsjDpvXpWFCZ
-         mOaF7gqktGEZBTFjkiH+YLWKOYfqAuq5D0d7zy2PDXEqV5fITIPxZ8wLDzRXJkfhDtyC
-         tHjCQHiPJoAjdtc33k42GhmbrH1fqOp2xkVBZFAeipnVXooDUrCp23QTuL5qs9k0iv4k
-         LrG0yp46KYu30uQJ6Ln0BUsf4olND7iLK5X3KSXV+oCgj1ls0rSWAtUaCxGRPVk4c9v1
-         R08A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780153087; x=1780757887;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780153089; x=1780757889; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=gFR/U1cx5enDuXpii0x1sB2/KzICG5y6hNgK8upvP6Q=;
-        b=oH1fthyVJG7Gik0CrE0SXYJ38E5GIeSuutp57rtKhFV6aa9Eg91N23cGLag/6MynU2
-         R+gNYUVecRxvwD93+7ZyZ0kYITmTXL1rn4sW6B0tS6o6Lz2yv4KnjyenYXw9jwSSZ7J1
-         n4/1AOtqb/E9mKAyQW6tUtuXJEY8EAirxcrY+Irb5a1Ntp7kPrFwhX2F7JRfeMyONHJU
-         I4EzQmJimRnGS7mlxF7l1dvY6vKZCuWJezBI4JC3oqYOSOgOzPFAnJVzNE04qT968s4V
-         CHQaLi/M9leP65ykSIyeN4BfOvgIIMDJHx3rgBT8m1B3a+At2JfcNHVnjhqMacZreASg
-         q4mg==
-X-Forwarded-Encrypted: i=1; AFNElJ+xeY4dglj2kjlzI7aqhBnpPnd1IacNGVRwGpJDiEwdtlnSSBpdS282GIPIzrN98T9CRnH35J9ckWlN@vger.kernel.org
-X-Gm-Message-State: AOJu0YzN2QnqlO1q0qvcOUxcji4wYfC1oS6Ke5Yv3FykCJpJc/jx0gqk
-	g+aI20QUvTYDoxIvx0dGWBcaIdZHSDS3/fTeDGhypTp0BJFGJdmAv1gW
-X-Gm-Gg: Acq92OGge4YRfqIinTKsC8Pik+q3KsBiiu38s0/wSd23aNYwegdntYHLiyngpChPJyF
-	c57em36Kd5sBbPe/3cB+NV8x/mDKCr35bqC2/MkQiGc07KvND9qKRaCP56vFRbGvTODakcufHpy
-	e2EhlTdwSQwr5lyD8tKkiiU/6WnbQ/Rw1XNJk7c9fGmr/gTdS+4btmjMhn6jIJhmLg5JNTxAfia
-	R2xRvyP2Iw7hsdaqIQMNI5DuTxXENKS62UsQfvSaPK0Tm7I6R4yveuC0MiDsdgYXnXYJ+/sxEdk
-	whDHY04qKajqQFa/ctyImBOWpzJPddnfQs9ifTr5pTC+esdNXf8f/CJ8Jl1ZTZ1X8vh3s/nXVym
-	wLqLOveYdMSp2YrrCeQ43uzIhBV07rFarYwdfx02+kTEM/22QoF7Whnv5M62JiwVGUBNkXrITpi
-	ymQOHgrWQT86+fsVn9TBemUSa89ChTcUY=
-X-Received: by 2002:a05:6000:e88:b0:45e:73b4:e731 with SMTP id ffacd0b85a97d-45ef6b16255mr5752925f8f.14.1780153086827;
-        Sat, 30 May 2026 07:58:06 -0700 (PDT)
+        bh=r32fsRHaMPradn/MupXc1NKlCK5+0PUCZmgy8fvmlC0=;
+        b=myT0clkvizDLtb0TsxST/nea0ocUR+ILNbklafRTLZ3rQcshEHSj04lRl5teM+JeTN
+         W1XeTDBcqLJrRO7wYYFI/ROn6af1+AQXBzEu+IXdhfXlOMkU/PRy9GtjYmoS6PcKjmaI
+         kdCn3wlMZStpHORUzom55nT4hc82aQLNrxO3s02mzi1qOvrXLTpum3o5RVntuoYcPsNB
+         MLI8f8NceBl+Xcqo/FEQTkjA9WQ77xEV3ovaxYQ0kf/PClL4W+V4n87k4ykk3ExF2UfW
+         EUZLf/+VNrIsoRvZ9InEM0Z5W5emwy/Ny0n/Op748yuO0riuOiBW4y4B4PiMUQl18ltI
+         1daA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780153089; x=1780757889;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=r32fsRHaMPradn/MupXc1NKlCK5+0PUCZmgy8fvmlC0=;
+        b=pwJr+/+yjA+LPdPuVQu9KDhmuL4UdHdqp7EOrWQ0XPC89sWMO0EGrxpbB4qZF+RBfN
+         r7WjCzuOW6LaC1DCrSvTH7O4DLpQ/3n33cc1Zy+le9DL2m64ei4GCPGRbUnj3MS2Nphj
+         GdhQktQl/+UTia6eSqBWhlZo6JNzKMALYrMeIJMmSm3A3rjtbGm2fvuv1M4962D7hwSx
+         8JRcaxZm11jKd2GzCYNu73XbkP4JhsFO49nsVCBi1FC0LQDTU7FFexyqzwyqKz3lg3xJ
+         pWYn30sCGHMGeaiqXdvpDT54PTGsgmeZcXGwL60DjPuEh7ipu1lMoJa/izH2Jgd6Mn2+
+         IUew==
+X-Forwarded-Encrypted: i=1; AFNElJ9wRgqoMW8BoQmjBkvVy5RCbRQY/QcsEfTmq3sQNp7B3K1E229DEu1ZyGxzY3/JXQrxvI/bKIOsVQNs@vger.kernel.org
+X-Gm-Message-State: AOJu0YyMN94TSa0qnPTDRj2qVzP1Qnrm1v8yuwgkBOHvilxGOoOXHdx2
+	r9Lk7YJSKMWYphepEVdGwbjKetInmvqOz4N7LOE2hbkvtAQIvTlNIQXt
+X-Gm-Gg: Acq92OFQvUDguYmZUANSfsGcLLOphCEcN8xUQ+uV1aKc5W9f+EHQVTHn56a4aEyNjIx
+	vqR/6zzQQKI26M+lJVt9UJUa03+dV/nirlCDhiRleitXRgGWCqJPzPCakm49hrNgovaegIrtI2m
+	rIF5u8uU4cRET3/x+2ITGmdTxBgzjMgWcvJ56vBuIuhDm1yuogcaCqwzO+tTnLQa9bGg3z/jb5W
+	2gt1QJlpWySDh2/B8z0C0P9eMBBxGKsagQlW44h1llxyjl17fDSHx5BEKgiOuh5pml5Of/i7d1Y
+	wn+M9LvatNXRgUwSOJYLlnnKqU6jcrlnfPT7aw211CEHAeur8iAJhIrzTld777ZONpcUkvC092H
+	nd4rgpg/L3uEYFbiEsq4VPWSVAo68ykIbiHEKO9Kl4BGCVUVQbDMzoIVkbr9pKHvl5/vCrE5thd
+	Liyv/HltgQd6jOE9mm7LVAjbCkm8qZvSE=
+X-Received: by 2002:a05:6000:40c5:b0:45a:5392:3a19 with SMTP id ffacd0b85a97d-45ef13794fcmr12535168f8f.16.1780153089159;
+        Sat, 30 May 2026 07:58:09 -0700 (PDT)
 Received: from zenbook ([31.4.224.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b5bdsm10916493f8f.21.2026.05.30.07.58.04
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b5bdsm10916493f8f.21.2026.05.30.07.58.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 May 2026 07:58:06 -0700 (PDT)
+        Sat, 30 May 2026 07:58:08 -0700 (PDT)
 From: Yassine Oudjana <yassine.oudjana@gmail.com>
 X-Google-Original-From: Yassine Oudjana <y.oudjana@protonmail.com>
 To: Sean Wang <sean.wang@kernel.org>,
@@ -72,10 +74,12 @@ Cc: Yassine Oudjana <y.oudjana@protonmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v8 0/6] MediaTek pinctrl DT binding cleanup and MT6735 pinctrl support
-Date: Sat, 30 May 2026 16:57:52 +0200
-Message-ID: <20260530145800.1029920-1-y.oudjana@protonmail.com>
+Subject: [PATCH v8 1/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Pull pinctrl node changes from MT6795 document
+Date: Sat, 30 May 2026 16:57:53 +0200
+Message-ID: <20260530145800.1029920-2-y.oudjana@protonmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260530145800.1029920-1-y.oudjana@protonmail.com>
+References: <20260530145800.1029920-1-y.oudjana@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,97 +90,103 @@ Content-Transfer-Encoding: 8bit
 
 From: Yassine Oudjana <y.oudjana@protonmail.com>
 
-These patches are part of a larger effort to support the MT6735 SoC family in
-mainline Linux. More patches (unsent or sent and pending review or revision) can
-be found here[1].
+mediatek,pinctrl-mt6795.yaml has different node name patterns which match
+bindings of other MediaTek pin controllers, ref for pinmux-node.yaml which
+has a description of the pinmux property, as well as some additional
+descriptions for some pin configuration properties. Pull those changes
+into mediatek,mt6779-pinctrl.yaml and adjust the example DTS to match in
+preparation to combine the MT6795 document into it.
 
-This series adds a driver for the pin controller found on the MediaTek MT6735
-and MT6735M SoCs. The two differ in the last 6 physical pins, which are used
-for MSDC2 on MT6735 but don't exist on MT6735M (since MSDC2 doesn't exist on it
-to begin with). In preparation to document DT bindings for this pin controller,
-the existing documents for MT67xx SoCs are combined into one in order to
-eliminate duplicate property definitions and standardize pin configuration node
-names. Necessary cleanup is done along the way.
+Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+---
+ .../pinctrl/mediatek,mt6779-pinctrl.yaml      | 38 ++++++++++++++-----
+ 1 file changed, 28 insertions(+), 10 deletions(-)
 
-[1] https://gitlab.com/mt6735-mainline/linux/-/commits/mt6735-staging
-
-Changes since v7:
- - Wrap &mtk_paris_pinctrl_pm_ops with pm_sleep_ptr to fix build error reported
-   by kernel test robot.
-Changes since v6:
- - Mention changing MT6797 DT in 1st patch commit message.
- - Squash MT6735 DT binding patches.
- - Add debounce time to eint_hw struct. MT6735 supports the same debounce
-   times as MT6765 so reuse debounce_time_mt6765.
-Changes since v5:
- - Revise and fix all register bits for all group register types (IES, SMT,
-   RDSEL, TDSEL, PUPD_R0_R1, PULLEN and PULLSEL).
- - Add pull_type array.
- - Use proper getters/setters for bias and drive.
- - Add minItems for MT6795 interrupts.
-Changes since v4:
- - Remove patches that were applied previously.
- - Define interrupts items for each variant (bringing back maxItems: 1 to the top
-   level definition then adding maxItems: 2 under the MT6795 condition causes a
-   dt_binding_check error for some reason)
- - Move example changes to the patch they belong to
- - Don't unnecessarily move the allOf block.
-Changes since v3:
- - Improve interrupts description to make clear what sysirq means.
- - Set drive-strength constraints per variant.
- - Set maxItems for reg in MT6795.
- - Add blank lines between conditionals.
- - Add ref for both pinmux-node.yaml and pincfg-node.yaml.
- - Make pinctrl subnode-related changes in separate patch.
- - Fix up some pinctrl subnode property descriptions.
- - Add interrupts items descriptions to MT6765 and MT6735.Changes since v3:
- - Improve interrupts description to make clear what sysirq means.
- - Set drive-strength constraints per variant.
- - Set maxItems for reg in MT6795.
- - Add blank lines between conditionals.
- - Add ref for both pinmux-node.yaml and pincfg-node.yaml.
- - Make pinctrl subnode-related changes in separate patch.
- - Fix up some pinctrl subnode property descriptions.
- - Add interrupts items descriptions to MT6765 and MT6735.
-Changes since v2:
- - Add interrupt descriptions.
- - Change interrupts property item limits.
- - Move pinmux examples from node description to example dts.
- - Properly add myself as maintainer for MT6735 pinctrl driver and DT bindings
-   document.
- - Remove tabs from a few defines in pinctrl-mt6735.c.
-Changes since v1:
- - Combine other documents into existing mediatek,mt6779-pinctrl.yaml
-   instead of creating a new document with wild card in its name.
- - Split first patch into smaller patches focused on specific changes.
- - Remove syscon compatible from MT6779 DT to avoid a check error.
- - Fix interrupt count for MT6795.
-
-Yassine Oudjana (6):
-  dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Pull pinctrl node
-    changes from MT6795 document
-  dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Improve pinctrl subnode
-    and property descriptions
-  dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Add MT6795
-  dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Document MT6765 pin
-    controller
-  dt-bindings: pinctrl: mediatek: Add bindings for MT6735 pin controller
-  pinctrl: mediatek: Add MT6735 pinctrl driver
-
- .../pinctrl/mediatek,mt6779-pinctrl.yaml      |  152 +-
- .../pinctrl/mediatek,mt6795-pinctrl.yaml      |  228 -
- MAINTAINERS                                   |    9 +
- drivers/pinctrl/mediatek/Kconfig              |    6 +
- drivers/pinctrl/mediatek/Makefile             |    1 +
- drivers/pinctrl/mediatek/pinctrl-mt6735.c     |  880 ++++
- drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h | 3993 +++++++++++++++++
- .../pinctrl/mediatek,mt6735-pinctrl.h         | 1148 +++++
- 8 files changed, 6172 insertions(+), 245 deletions(-)
- delete mode 100644 Documentation/devicetree/bindings/pinctrl/mediatek,mt6795-pinctrl.yaml
- create mode 100644 drivers/pinctrl/mediatek/pinctrl-mt6735.c
- create mode 100644 drivers/pinctrl/mediatek/pinctrl-mtk-mt6735.h
- create mode 100644 include/dt-bindings/pinctrl/mediatek,mt6735-pinctrl.h
-
+diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
+index f4bab7a132d3..0dcbca5ca8f9 100644
+--- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
+@@ -111,12 +111,12 @@ allOf:
+         - "#interrupt-cells"
+ 
+ patternProperties:
+-  '-[0-9]*$':
++  '-pins$':
+     type: object
+     additionalProperties: false
+ 
+     patternProperties:
+-      '-pins*$':
++      '^pins':
+         type: object
+         description:
+           A pinctrl node should contain at least one subnodes representing the
+@@ -124,7 +124,9 @@ patternProperties:
+           pins it needs, and how they should be configured, with regard to muxer
+           configuration, pullups, drive strength, input enable/disable and input
+           schmitt.
+-        $ref: /schemas/pinctrl/pincfg-node.yaml
++        allOf:
++          - $ref: pinmux-node.yaml
++          - $ref: pincfg-node.yaml
+ 
+         properties:
+           pinmux:
+@@ -135,9 +137,25 @@ patternProperties:
+ 
+           bias-disable: true
+ 
+-          bias-pull-up: true
+-
+-          bias-pull-down: true
++          bias-pull-up:
++            oneOf:
++              - type: boolean
++              - enum: [100, 101, 102, 103]
++                description: Pull up PUPD/R0/R1 type define value.
++            description: |
++              For normal pull up type, it is not necessary to specify R1R0
++              values; When pull up type is PUPD/R0/R1, adding R1R0 defines
++              will set different resistance values.
++
++          bias-pull-down:
++            oneOf:
++              - type: boolean
++              - enum: [100, 101, 102, 103]
++                description: Pull down PUPD/R0/R1 type define value.
++            description: |
++              For normal pull down type, it is not necessary to specify R1R0
++              values; When pull down type is PUPD/R0/R1, adding R1R0 defines
++              will set different resistance values.
+ 
+           input-enable: true
+ 
+@@ -221,8 +239,8 @@ examples:
+             #interrupt-cells = <2>;
+             interrupts = <GIC_SPI 204 IRQ_TYPE_LEVEL_HIGH>;
+ 
+-            mmc0_pins_default: mmc0-0 {
+-                cmd-dat-pins {
++            mmc0_pins_default: mmc0-pins {
++                pins-cmd-dat {
+                     pinmux = <PINMUX_GPIO168__FUNC_MSDC0_DAT0>,
+                         <PINMUX_GPIO172__FUNC_MSDC0_DAT1>,
+                         <PINMUX_GPIO169__FUNC_MSDC0_DAT2>,
+@@ -235,11 +253,11 @@ examples:
+                     input-enable;
+                     mediatek,pull-up-adv = <1>;
+                 };
+-                clk-pins {
++                pins-clk {
+                     pinmux = <PINMUX_GPIO176__FUNC_MSDC0_CLK>;
+                     mediatek,pull-down-adv = <2>;
+                 };
+-                rst-pins {
++                pins-rst {
+                     pinmux = <PINMUX_GPIO178__FUNC_MSDC0_RSTB>;
+                     mediatek,pull-up-adv = <0>;
+                 };
 -- 
 2.54.0
 
