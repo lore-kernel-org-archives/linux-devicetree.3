@@ -1,113 +1,77 @@
-Received: from outbound11.mail.transip.nl (outbound11.mail.transip.nl [136.144.136.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80CCE2F6188;
-	Sat, 30 May 2026 14:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041652080C1
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:06:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780149967; cv=none; b=pF5AqOVa/46mGtZYWMeNnb6szOwbhxw1TNIEC3AXDZpndEHPE6hTTNNfuf7qX/n2d9+4B8GWK/LAfAxcbBN+7Youdj1FdRWu+Xw5SbAMXQnGK0DXAPI3ZVCq0IiIv8mHtGw1PrOPr0wO/j8GRA9uzgHPBI1dyl0n4AoSVHb/pwI=
+	t=1780150009; cv=none; b=CIeKUY5ebieF16l1gtsHszxXYMZYLUwXERRvYOjQgiVDx0Se0lOc8pS2GRgKlOHjx8Ue30UxE7UqC6OHofpOJWygh7ePmDXJ2WvJ/IACDWEczddpUO8xykLQo1ZcUADhSZ4r/kjrJ2cJzUmzAvKvBhJCbM35JZPYjERHFHo9S1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780149967; c=relaxed/simple;
-	bh=K8/BKDabJLDDfOSNJkWSZ7hJ/g0gsdZHDLLgKnRqCZQ=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version; b=DdJGTkxyRnXzHS6KfetDci2UCqHEQMaY/0DpHCFIFiLYawCOX79o+pUuPIFwSbItZmFkJyN5PVuV+QR4HmSjNfk8AlhQUhP1xQAIbUW1Y1zdeeBq1XT8ABHX6VqXR/TNDLnhM1VS42zqTrt20m6VxDrL8kdSFqzK9SvzkBmKVHM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=iqpEBirg; arc=none smtp.client-ip=136.144.136.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780150009; c=relaxed/simple;
+	bh=SVadhAhCgv4GBEamqLt1PP0Aadh20JT8Hgg8g0Xbglg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JN7eGSL2SdGN68DSw/gUSV0lWQ8Jp/+fYKDxDXtettCUeJGdOWar15UjigjiHIx9iMMtZCkhMp0bpVEt2pCRGGhZ1jtQctgVBVGvZOUYgQHSF2ANMooIZYBZG3AKnUCJLA0Lvt5bO/VU4AuJo2hBiYxI7r4sL12fS1boX05LCUk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=aq3Q+QFH; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="iqpEBirg"
-Received: from submission13.mail.transip.nl (unknown [10.103.8.164])
-	by outbound11.mail.transip.nl (Postfix) with ESMTP id 4gSMKb2YXMzkQNKg;
-	Sat, 30 May 2026 15:59:31 +0200 (CEST)
-Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission13.mail.transip.nl (Postfix) with ESMTPA id 4gSMKZ5Cdkz3fCxJ8;
-	Sat, 30 May 2026 15:59:30 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Michael Turquette <mturquette@baylibre.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="aq3Q+QFH"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=jxV7
+	ngvfcwDYs3XVjbuPiw74ltU6lWm+WOr2nuykH/4=; b=aq3Q+QFHpOXBnB8eBf3c
+	XMGVv2c6YeAfcCasT57jtlGaBtFT9SgrQQ0sEl+ha6L8VE51V0O2sagjYy3lv8qI
+	lwsrcCaybcN3scUUkoy9NQIbeQ1rf19naDYryMoH8Ui4e6jjG+ylqRITqhCieHPZ
+	ioBT12l5WFwCEEwoU2cRILw4V8P6Rse0JvT7mMJvveoCOVikmcpIf2lALA2a13Pu
+	mN6kfSSXDu4/MGGQNiKTyxtvzMAm7c23kAoRa51MoXTMbjKptHwkuAWW0Vl/bCvC
+	gcnb87kNPVpw8DB8N+fdgXfKHTyViS3/1cQ7APAUiJvB4NNZIjGFG0xihAH6Y2vN
+	EA==
+Received: (qmail 1763752 invoked from network); 30 May 2026 16:06:45 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 30 May 2026 16:06:45 +0200
+X-UD-Smtp-Session: l3s3148p1@Mci0eAlTGIAqAQ4KEBW5QLbOwWyJKVt/
+Date: Sat, 30 May 2026 16:06:44 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bod@kernel.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Stephen Boyd <sboyd@kernel.org>
-Subject: [PATCH 0/3] clk: qcom: add MSM8x60 Multimedia Clock Controller
-Date: Sat, 30 May 2026 15:59:30 +0200
-Message-ID: <cover.1780148149.git.github.com@herrie.org>
-X-Mailer: git-send-email 2.43.0
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+	Andi Shyti <andi.shyti@kernel.org>,
+	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	Suresh Vankadara <quic_svankada@quicinc.com>,
+	Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Subject: Re: [PATCH 2/8] dt-bindings: i2c: qcom-cci: Document Shikra
+ compatible
+Message-ID: <ahru9MckM2pHN4m2@shikoro>
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
+ <20260526-shikra-camss-review-v1-2-645d2c8c75a7@qti.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission13.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780149570; h=from:subject:to:date:
- mime-version; bh=g6KWoP0ras78wxvA6to307pcmesEU5I0awyDC6y+AC0=;
- b=iqpEBirg/cnr3eTqNM5Nyrvt3MMQx0t4GJjPk3DT0fDFEdl/v4Kr9sj9DceiJ6DB+eY/59
- lfKz0SxcJVJkYKqrjiPzNTwdXWtaWf3gLUOSIQt09NR6SpKmLWaMXtnTVkGK6Pq8rvFZND
- WlZTkxJyapttiDOlIsGuOJuaRkiwMSOMKuXST4UDw3JcdJU5ysyjs/Mwc1gaJoqG8+k0rB
- qkKBG3bvvXbR/j6PESebxTxTLq7zSOH487ismxszED8J9dYDhjW9jTO7l+spSaRe3Wc0wf
- POBHMLCAZ0Yl2m/EMJ6zTbz3kpqAPb2ytRfLbszVCeCijvvlgbR/7AvVj8BAVw==
-X-Report-Abuse-To: abuse@transip.nl
-Message-ID: <20260530135930.HDolUgAAchvi9yDxWdOQGq1wdAyXcM2pZFwyz6wyD-M@z>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260526-shikra-camss-review-v1-2-645d2c8c75a7@qti.qualcomm.com>
 
-Hi all,
+On Tue, May 26, 2026 at 10:42:46PM +0530, Nihal Kumar Gupta wrote:
+> Add Shikra compatible consistent with CAMSS CCI interfaces.
+> It requires only two clocks.
+> 
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-This series adds the Multimedia Clock Controller (MMCC) driver for the
-MSM8x60 family of SoCs (MSM8260/MSM8660/APQ8060) - the Scorpion-class
-generation that preceded MSM8960's Krait CPUs. It also introduces the
-clock-ID and reset-ID device-tree binding headers that the MMCC consumer
-nodes will reference.
-
-The MMCC layout on MSM8x60 differs from MSM8960 in several ways that
-make a separate driver cleaner than parameterising mmcc-msm8960.c, most
-notably:
-
-  - the pix_rdi mux requires a custom set_parent op that temporarily
-    enables both parents during the glitch-free transition;
-  - the IJPEG GDSC requires releasing AXI, AHB and CORE resets;
-  - several rate-source pairs (MDP pixel, GFX2D/3D) only exist on 8x60
-    (e.g. PLL2-derived 228571000/266667000 for graphics);
-  - the camera CSI / VFE / JPEG / VPE / ROT clock topology lacks the
-    later 8960 reorganisation.
-
-Used on the HP TouchPad (Tenderloin) for graphics (Adreno A220),
-display (MDP4), camera (CSI/VFE), JPEG (Gemini), VIDC, VPE and rotator.
-
-The driver compiles cleanly against current arm-msm/for-next. The two
-new binding headers are dual-licensed (GPL-2.0-only OR BSD-2-Clause)
-per current qcom-binding convention.
-
-A companion series adds the LPASS Clock Controller (LCC) for the same
-SoC family.
-
-Tested on HP TouchPad. Full board DTS will be sent once this and the
-other foundation series (interconnect, irqchip MPM, gcc cleanup) are
-in -next.
-
-Thanks,
-Herman
-
-Herman van Hazendonk (3):
-  dt-bindings: clock: qcom: add mmcc-msm8660 clock IDs
-  dt-bindings: reset: qcom: add mmcc-msm8660 reset IDs
-  clk: qcom: add MSM8x60 MMCC driver
-
- drivers/clk/qcom/Kconfig                      |   11 +
- drivers/clk/qcom/Makefile                     |    1 +
- drivers/clk/qcom/mmcc-msm8660.c               | 2998 +++++++++++++++++
- include/dt-bindings/clock/qcom,mmcc-msm8660.h |  126 +
- include/dt-bindings/reset/qcom,mmcc-msm8660.h |   88 +
- 5 files changed, 3224 insertions(+)
- create mode 100644 drivers/clk/qcom/mmcc-msm8660.c
- create mode 100644 include/dt-bindings/clock/qcom,mmcc-msm8660.h
- create mode 100644 include/dt-bindings/reset/qcom,mmcc-msm8660.h
-
--- 
-2.43.0
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
