@@ -1,67 +1,68 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C328839B4A6
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 17:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88DB4395AEA
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 17:07:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780160824; cv=none; b=HCaTJcqV9/VCulwKxX3TEfTiIY3r2y5XTfS1pF/N6PYrXyt+DiuSo+GHbRrnS7ssIDNPKFTS49W+A/z/yl88HzE0atEvWy1AF/7tQSLvhkEkaYBCvLxKuTq74v2zN3rED81P/aaZqVYPp6yAwzHrMtSfvSRuviBTDzEojqGkucI=
+	t=1780160825; cv=none; b=buQ6so3W5rO2OrkQpSEDBnb3+/X9JP9icc0Xxiycx91+t6dIMbHDCDk1l1WKK2PBsYS7yPVCo4KLXNXC6f4uW1uB1XkUIW5xv9bvWhikoLobbXVnwMCOws7vgkY6GnN9aUrWHJG3QsUb3/Eg4DlSkAsl3KOblz9pM9HyW6LfXhI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780160824; c=relaxed/simple;
-	bh=RY9vKjjH2HPzX3+giUftwXKWi2uiyKtdg4NCl5Jc4gw=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YtUZ1175Co7o37kxPd4LASSgDnFRe3MUtMDXR9JfmjDmFDa2E9myLICWD2kcesKFtSOsng4MvADM/jYiuaB4fGxeTfLJ52qSD8JbSbxgIv6ADWEeEOTqzQlt7NxCNeKHdwL2PofSJ27HPnFzHD26/m2g4fD9GeraEfizNBh1hkU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OSRBn+ih; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1780160825; c=relaxed/simple;
+	bh=wMgstDTG3Htg8sV956v99iFXbhtolrOjZNrDTHpa1gg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=UgHKFpbTDBQxCf0PGMGr9MFrbz9qp56eWQfF22H+F6xEMDNQuMSYEAokYul2Tzv5PXGZyiginMTDPLVd4t9GpJNPO/gjqLvmMIhrWlHXr01x1eHKjZaKXgh8xJYAVFURFlCMSIU4nC5B1ClpuxgMnVOJqZflhaiFtYWgWmsK3ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Oe42Okgf; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OSRBn+ih"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490426d72f7so78130565e9.3
-        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 10:07:02 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Oe42Okgf"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso79233615e9.2
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 10:07:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780160821; x=1780765621; darn=vger.kernel.org;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=bZR+fQAcFxKrFj3YifAfsie0F74O9/87dA93BF7oVf4=;
-        b=OSRBn+ihTzS9nDvkLwHSxNZ3qakCruS+W57I6IIiOuQ8wLYJ7deJRGfiv29AbHC5zX
-         MTa3Ad43RaWmHIO23Vr7OlaLX9vWvhV7kZNbZw8JIbuTwE19hQWNkAgUN0kgDHm/b3Pw
-         KkxTjkj0BWpH2tYg2Tf13mhFGg9f202TQxd1n9mtzKKqjt7LigqpOnLV0lWjJwKCb+ot
-         xmCPlfVt3NtPvVADd1HEUwRN/bXR/WgjsfZCxHwF9xU1h1n/LkPT7cFWWIN9BDZPghTw
-         r2JRlU2sHaD421klXaq0Y6sqQEyqfdvGD44che9axqD80pxfsmBh9I1hZBFQl9QCR2Mj
-         /pQg==
+        d=gmail.com; s=20251104; t=1780160822; x=1780765622; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=auC75XiHji4m/5c8v8bWvJiaMsYrhK57f/6mbMWrQHo=;
+        b=Oe42OkgfqGsZq6fjXivRoOVeVThhwPpLde6FSKxqRi4RDRYpE/P1Ym8hTmJd2KJtdW
+         vHASFVbLKO1NE9GuTFPFT+Vpj2dkCcL50ryUThZ4oOW5PG+S4EVh+jKBzQV9fY2B5wI0
+         u1DlUo7iagudWn5UJmsdwGgaADWy6F/ab+Z9T4q+4oEIjQkmFFpAgc35Sm4zgVSd9QMO
+         X4+S20HNlBI6/mMymxVx2so425n+6LhZ+h3XG3T/uCh1M3wDwN0lqFb1UZvh+eevNPfl
+         hsGvPdUC4QWZ0gwbaMuea4yNqb380Ve/GbjYMwRPAkGFZxYoV0XG5GhvvW4kTFlGSk7x
+         BMmg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780160821; x=1780765621;
-        h=cc:to:content-transfer-encoding:mime-version:message-id:date
-         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bZR+fQAcFxKrFj3YifAfsie0F74O9/87dA93BF7oVf4=;
-        b=KnPMd3mqBIpp39RSz6qfEx7q5N64BQDLyrlowakv/qnvMx1HUtyPUxxBf7R3ycMk8z
-         4UPl/Oyz9D/5EUDwrsG6ChKdqmlCGYo70rfEs00lW6u4o4agMqU/xjJsMmrVoH/9KPLo
-         Mr+ujW6Sx5fOMlOJUcAY8OZ83X9bZKfSk+XUYNZIR3xMrdLAAMUETuerP+9lqIGYIIb3
-         sk/3tPzhHUCbC2bBrgSCIH7vWXktVMMelSrUdGumei9sMUg/HOmyrzGYQq7HEiSg89LP
-         2liiXwHM8AYlSW33b8y42Mlo8IErguey1RDagRC+5hwOyvf5mLZcqmT09eU68m40TR/X
-         1+cQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/Y8BWOF3MaCxDvUsPoh4rAi6LiWbg/UBNv8x3w2tAYlwfGtF+zSgC94QhmDFprN6jA8PjpoLd58pBJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlrIttgFmJ0AqCfFt1vZT8jOfKeMPAvlFDR//4/JQ7ybugwTRI
-	nprghEmxSzr2XmN7esUCkuhiIbt9b4OarjlLKaDHzlJY4WQ2VnOYSlLR
-X-Gm-Gg: Acq92OHrVflDRicn8iXV4GojJ96YUHkB+3vR/onauFUNmkEOgPESFRt6+UGzoIBbDcX
-	O7Uy53d2YDPKmtUODJB8tiC+kXQs9AxU3gRX68Whmne3KYi4FXNaJiIk6YA3S7c7RHVCB7CFt1A
-	TqeHyCratKOc3Dvd5jZ3CtEwu3aKeHVXwNnFrenYiYZW7o6F7So7ar3dcPUPZWnvKY60TzfMikf
-	ytEjk7SGge7mnV6YpR/mEytCYF3+FcGP4yVv+m4b6PJGid92ws4+RLxlmxbRGze13h7ZXR1Ac7d
-	Q+ONvr+lvNegyzXtTo7h9gxIZpypCg5CCCwiPY2+URyKL1KdY0Ti4oqF6CPw4LRivzg/R5rZGZb
-	iSGfHZFWU30GhZ6WRDbxjQhzvAr+uDmslN51+M6Z8T2YatWBinGnCO2w7e2oCFIBWoB1Ik1ApTd
-	TFyWoVJrD2265NWhwHda7niexWbVeuHLnXx96ehJ4pHkIacsMZ8BAgtiyc9jh0DJO+AkYukxcAy
-	c/GgyDp3otjFVrxSjPvSNBx8n+3TPidQoxuE8xsd7TinGUt/fgtlfpshA6el8gfiqBQ+nBAECrU
-	kBTjYEMNVR135TYWR64azY0DItwmkjTLVLd9EubW1lktOqItFOo=
-X-Received: by 2002:a05:600d:848a:b0:490:9d1b:f06b with SMTP id 5b1f17b1804b1-490a2943afamr54056005e9.26.1780160821033;
+        d=1e100.net; s=20251104; t=1780160822; x=1780765622;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=auC75XiHji4m/5c8v8bWvJiaMsYrhK57f/6mbMWrQHo=;
+        b=abU0j2DXs2hz+R8WElZpBGzTuLmrHO6s127TEpNj1hMQcYIbDzR6M+40w0+lsHESe5
+         vAoCJ7uPIvR612XiQKykBWogOhFtc1Buj7ozghICqT2aNWw0zwFFzk+/BzFWPR89jsyA
+         wetyhtgDqwIYjygkyV1jyabVSvZyqC+xqf8RxhSSSHFksHt2FPi59EBy1SWyxDGxES60
+         vnvvKcJg6aH1uaUkELweuAAennzm/O+l/fzzwptVHFKtlp6KzVyc9EJ+z/vL/U6LKjuC
+         kGDa+45vzC5JUL4+PBeIOfh3EIv5UI5ilW1pCECV/NOS6lnzmnBaWKOnZc8NjJvQ8PQk
+         ewUA==
+X-Forwarded-Encrypted: i=1; AFNElJ+z0nDscwYzcpTX2OCF4TtY/cEj6mEe3khj8yjl7ihpOQ/NrlnnynwM3J+QVqWVZ4xRWBe8XCipK3y7@vger.kernel.org
+X-Gm-Message-State: AOJu0YygFK1GesMEuzm2I8WuO/Awt3nu4Lcy4QZ6Bzol/OIV8ueGm7GC
+	IzRJA3yOQlMJ6LjfjSWbdqy00SpCYHocVZAUbdB3N9UHDrohme8YMevU
+X-Gm-Gg: Acq92OEdNf/c0b07Z9uOkAMkKn8UjyukLTkVpMGTNFxEkj55eairmrQNKFqLOyK/SIb
+	bGEEbwsHJRjfpDbsRhUO+nTL/pNJmQD88z3CUeof4J1OYATq7sslZHGrIsiO5FG/2IVWbGU+gmU
+	gxA64Kp0C2B1/i4NH5F4wVBvytxOSssohifCczprI5u/ppFMsxUHiqBe2+rpcFHXNCC83ctMYo5
+	4Np7f4JYkUgshFV8LnPmVjdMB+l2y6d1V+I5wCeKoqJFYEhlri/LH3rO1aNweAVvMp5FULQoM22
+	VV9VEdNopMC7TSfM3xpUf6vg+mMNlQSoX0omFz3oT/DgS87AGgRXZkHdIvL1yaZuArNw5Ft8Mky
+	rF5TZRgJPDht16MocxpuKD4kqnNsmJD3O1NiqCefvxzr3Y/koovEW3Z0lv7q8wUBb7KEgwQg9e5
+	+RCSRXgKLBLpu66828cjp7RKuKQxokmlVn7mqHbaNbDOQ2KIUtfF9dBv5dvPsWp08PHwFqFtiqa
+	YNJKI6QPCSxfB7iSqki92u5QH1YZxKaYfG7syMDDc+LdYzkZkQ+b/dsBYxukSj+OUQXpbZzSXcW
+	pVTPDZJatbqtPoGBd7aMOqiEuM5nsc/wIepc/KaOyfAcpnygl45CX1z2AUjKsg==
+X-Received: by 2002:a05:600c:2158:b0:490:58ef:ce9b with SMTP id 5b1f17b1804b1-490a293df77mr50416235e9.16.1780160821738;
         Sat, 30 May 2026 10:07:01 -0700 (PDT)
 Received: from [192.168.1.187] ([2a02:8308:4092:11f0:c287:187e:fb7a:66a4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909cab0e79sm229144675e9.13.2026.05.30.10.07.00
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909cab0e79sm229144675e9.13.2026.05.30.10.07.01
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 May 2026 10:07:00 -0700 (PDT)
+        Sat, 30 May 2026 10:07:01 -0700 (PDT)
 From: Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: [PATCH v3 0/2] iio: light: veml3328: add support for new sensor
-Date: Sat, 30 May 2026 19:06:45 +0200
-Message-Id: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
+Date: Sat, 30 May 2026 19:06:46 +0200
+Subject: [PATCH v3 1/2] dt-bindings: iio: light: veml6030: add veml3328
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -70,10 +71,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHUUlJIzE
- vPSU3UzU4B8JSMDIzMDU2MD3bLU3BxjYyML3RSj5OQkI7MUA6NkcyWg8oKi1LTMCrBR0bG1tQC
- no7UhWgAAAA==
-X-Change-ID: 20260530-veml3328-d2ccb26d02c7
+Message-Id: <20260530-veml3328-v3-1-dd562eaee8d9@gmail.com>
+References: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
+In-Reply-To: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
 To: Javier Carrasco <javier.carrasco.cruz@gmail.com>, 
  Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
  =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
@@ -84,68 +84,62 @@ Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
  linux-kernel@vger.kernel.org, Joshua Crofts <joshua.crofts1@gmail.com>, 
  Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780160820; l=2085;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780160820; l=1857;
  i=joshua.crofts1@gmail.com; s=20260530; h=from:subject:message-id;
- bh=RY9vKjjH2HPzX3+giUftwXKWi2uiyKtdg4NCl5Jc4gw=;
- b=nPIdZ7OP6yjVCIS3jbqM0ibgWAaJdqvQVXR00foy/zhZe6JV1lE94lCMfnlMTah4R40oHDgGh
- UoOk8XOQsLDBq2ee+uWk2RfXo9dlqZrn6IHyYDUE3TevXwsFZ7jRrs1
+ bh=wMgstDTG3Htg8sV956v99iFXbhtolrOjZNrDTHpa1gg=;
+ b=aiW0KkSaI1EzHq1fpZ2Hs227JRUPIyp3AMZ1jRq1ky1jyrMeKlAlTifLyOLVIclJzLphK5Rm4
+ 5vfpCsm3qdUAb0CSSGnOpCB5EmZZ0k3fW59ij1g4ynpvfnROpu/vsD6
 X-Developer-Key: i=joshua.crofts1@gmail.com; a=ed25519;
  pk=RTDOoVwgeL4oFdASj9U+cxJuIjXuXk73zkjnGOJKbEo=
 
-This patch series adds support for the Vishay VEML3328 RGBCIR light
-sensor. The sensor communicates via I2C (SMBus compatible) and provides
-5 types of 16-bit measurements: red, green, blue, clear and infrared.
+The Vishay VEML3328 is an RGBCIR light sensor that shares similar
+devicetree properties as other existing VEMLxxxx sensors in the
+kernel.
 
-Reasons for adding a new driver:
-- Existing Vishay drivers in the kernel do not cover sensors that
-  handle RGBC and IR simultaneously.
-- The register map and configuration differ from other Vishay light
-  sensors currently supported by IIO.
-
-Testing:
-- Tested on a Raspberry Pi 4 using a VEML3328 breakout board.
-
-Datasheet:
-https://www.vishay.com/docs/84968/veml3328.pdf
-
+Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
-Changes in v2:
-- Add additional IIO_LIGHT channel for ambient light sensing
-- Remove separate dt binding file and added veml3328 entry to veml6030
-  yaml
-- Move driver to PM_RUNTIME_ACQUIRE_AUTOSUSPEND() macro
-- Add missing headers
-- Remov redundant mutex as regmap handles it itself
-- Use regmap_set/clear_bits() instead of regmap_update_bits()
-- Removed redundant dev pointer
-- Edit commit messages
-- Various code style cleanups
-- Link to v1: https://patch.msgid.link/20260516-veml3328-v1-0-1d4b663e2fe3@gmail.com
+ Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Changes in v3:
-- Add 2D array of precomputed scale values based on integration time
-- Fix chan_spec masks
-- Simplify read/write/avail callbacks
+diff --git a/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml b/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+index 4ea69f1fdd63..0041e1db6838 100644
+--- a/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
++++ b/Documentation/devicetree/bindings/iio/light/vishay,veml6030.yaml
+@@ -4,7 +4,7 @@
+ $id: http://devicetree.org/schemas/iio/light/vishay,veml6030.yaml#
+ $schema: http://devicetree.org/meta-schemas/core.yaml#
+ 
+-title: VEML3235, VEML6030, VEML6035 and VEML7700 Ambient Light Sensors (ALS)
++title: VEML3235, VEML3328, VEML6030, VEML6035 and VEML7700 Ambient Light Sensors (ALS)
+ 
+ maintainers:
+   - Rishi Gupta <gupt21@gmail.com>
+@@ -21,6 +21,7 @@ description: |
+ 
+   Specifications about the sensors can be found at:
+     https://www.vishay.com/docs/80131/veml3235.pdf
++    https://www.vishay.com/docs/84968/veml3328.pdf
+     https://www.vishay.com/docs/84366/veml6030.pdf
+     https://www.vishay.com/docs/84889/veml6035.pdf
+     https://www.vishay.com/docs/84286/veml7700.pdf
+@@ -29,6 +30,7 @@ properties:
+   compatible:
+     enum:
+       - vishay,veml3235
++      - vishay,veml3328
+       - vishay,veml6030
+       - vishay,veml6035
+       - vishay,veml7700
+@@ -79,6 +81,7 @@ allOf:
+         compatible:
+           enum:
+             - vishay,veml3235
++            - vishay,veml3328
+             - vishay,veml7700
+     then:
+       properties:
 
-Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
-
----
-Joshua Crofts (2):
-      dt-bindings: iio: light: veml6030: add veml3328
-      iio: light: veml3328: add support for new device
-
- .../bindings/iio/light/vishay,veml6030.yaml        |   5 +-
- MAINTAINERS                                        |   5 +
- drivers/iio/light/Kconfig                          |  11 +
- drivers/iio/light/Makefile                         |   1 +
- drivers/iio/light/veml3328.c                       | 413 +++++++++++++++++++++
- 5 files changed, 434 insertions(+), 1 deletion(-)
----
-base-commit: 7b84b1e9dd850a5c9b55e27daa4ecdc2dd5b3431
-change-id: 20260530-veml3328-d2ccb26d02c7
-
-Best regards,
 -- 
-Joshua Crofts <joshua.crofts1@gmail.com>
+2.54.0
 
