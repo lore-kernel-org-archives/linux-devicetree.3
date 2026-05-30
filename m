@@ -1,130 +1,68 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us.padl.com (us.padl.com [216.154.215.154])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDE9686334
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 01:27:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4231E54B;
+	Sat, 30 May 2026 02:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.154.215.154
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780104453; cv=none; b=mu5P29NJ5mkmhQ4CW9IdhzuuYJ3onkcicpi49tJERVOrOGO9cWH3qC89RMK15XUjsQzEZlDZ+wn8mezf/sqUpvvz0mKQXEBIOgpPH7YjNI9ZjoLBV9OEp58Osa0GCEuKAXrZwoS8ELeByz8wSGV6W/o8XdfBzvYsJ66TGgIWDTc=
+	t=1780106500; cv=none; b=IE9t65JDS9HFZsP9aWgIBzm7gfR28fVj0yI0r9rtqpcnw8CtkUuWErue471lwWOFNW5XvCQleRlhBa0plZ/snoYuZlzthzvLlxH59vUIfyniwECGj/W3z//B/VKwQEzJ5MgFD3onLs/6ob+22kn1uXnahSlfxgveUthYchpi4JY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780104453; c=relaxed/simple;
-	bh=jexv2mNPbt+3sO/sEhJ3QqssBTUG9UWO/s7GR43HobA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jp6+tk6T2ah0/UPidzd4QUT6QpoOrc/tF0k2XQ46MJweZDse1ot9UXySe4JAfM2wFPv0Y2K5XLdrKL9w7F8ielNTc6vmdiyAVoHYCh5DdWxjB3RxhgjTidBGg7289Ey+6cRUj1dxx0GXWpRbQ9/DfDsdkOmDDYXgSG7+huRSE10=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WY/8b0Q+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780106500; c=relaxed/simple;
+	bh=tNJoCL23MG/0Sq/8Y2gZ0phbAzaIutf/W2YTfpytKc8=;
+	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
+	 Message-Id:References:To; b=G5edBtFXVk7MURgSm/Kg/pyxmo1FSivp2fDwhMWOK1h3P7FDmiTvTCaJNzFN2RCNxGbhr9skQf6iGxbizWH0HXGTowPxl3nBMTQ36LQZm2VuGlVm+ZS9H6uik328IG+eXey/WbUc+pNskJr5XZZXIBPSCe/M1N8AX3H3d/9o9to=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=padl.com; spf=pass smtp.mailfrom=padl.com; dkim=pass (2048-bit key) header.d=padl.com header.i=@padl.com header.b=Na45/tAL; arc=none smtp.client-ip=216.154.215.154
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=padl.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=padl.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WY/8b0Q+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3817C1F00893;
-	Sat, 30 May 2026 01:27:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780104452;
-	bh=vE4DkWx/euhCMYN37mKvIX/9CJ0I2J4Ct9b6GZ0VZt4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WY/8b0Q+S3wBRGErKVSiHjVqmU6FbbLt2IgZTIBs/IcHM8X6EDL2zG8GkK8U5+X10
-	 fpfq5/14EOr7EtXhC4WkWeBrdNuQ9DWtP+0C6vY79KxaZKtGsX3YYN5NiBV81M9bQv
-	 Qv87sqWqXGhUwgzlcninnGFskxY6AyQeEFulrWks6NHT/17h+jgkr2S65FXo4hfslt
-	 xnH5zRfIheui1q0F0zOwOrkFL3NfujAwxRJ1VQrK0ix6WRrtnTu/7XXLaax32TO62z
-	 teJSiToZOx2JAiTWvGnyhqIF46D9Y/vrfTUjZGsWxTVJsO8izqWrJKCw0br1GsA4U2
-	 RoRBuJ3HRwNYg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: qcom:
- qcs6490-rb3gen2-industrial-mezzanine: Add QCC2072 Bluetooth M.2 overlay
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Yepuri Siddu" <yepuri.siddu@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260529180234.3373056-1-yepuri.siddu@oss.qualcomm.com>
-References: <20260529180234.3373056-1-yepuri.siddu@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 01:27:31 +0000
-Message-Id: <20260530012732.3817C1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=padl.com header.i=@padl.com header.b="Na45/tAL"
+Received: from auth (localhost [127.0.0.1]) by us.padl.com (8.14.7/8.14.7) with ESMTP id 64U21WZb015132
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
+	Sat, 30 May 2026 03:01:35 +0100
+DKIM-Filter: OpenDKIM Filter v2.11.0 us.padl.com 64U21WZb015132
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=padl.com; s=default;
+	t=1780106496; bh=tNJoCL23MG/0Sq/8Y2gZ0phbAzaIutf/W2YTfpytKc8=;
+	h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
+	b=Na45/tALYD4V1QGCnLwWzgmcwAZ1MJFoNbsZ1ZG59eRDsR9JsDNhlOupw6Cv63xwu
+	 VuzMMyNP1BcONoP1kEUQBPJIt1T2m1n7QLlm28GpbQrQwPKk/LUEVCbjxAQdbzRPnH
+	 XfwR2HokkieZx5JuN4Mwgri194QuxeabEFouE6yBf37jAyCyM4jJeKAYJNi7rvYJO6
+	 +J/z2+V+E9nhM4g1BQk/nPXenKzgTdgfhOoZIsEJ02m0NgLM2ehJT3OBvDMbXEmzLa
+	 8rv3h0IL5l2Nrluim3Lx0vidUwl/I0QY7UZWsaVcSQ+gBlmVfuJi43d0rCG6gPT41h
+	 CoPOedo9FiuQw==
+Content-Type: text/plain;
+	charset=utf-8
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.500.181.1.5\))
+Subject: Re: [PATCH net-next 6/6] dt-bindings: net: dsa: mv88e6xxx: add
+ mv88e6xxx-avb-mode property
+From: Luke Howard <lukeh@padl.com>
+In-Reply-To: <20260530004918.C24601F00893@smtp.kernel.org>
+Date: Sat, 30 May 2026 12:01:20 +1000
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+Content-Transfer-Encoding: quoted-printable
+Message-Id: <530D4457-04AB-441A-B887-12C104A5653A@padl.com>
+References: <f0a4fc5e6918040b2c9a72da46a8cdcb43ed5049.1779841530.git.lukeh@padl.com>
+ <20260530004918.C24601F00893@smtp.kernel.org>
+To: sashiko-reviews@lists.linux.dev
+X-Mailer: Apple Mail (2.3826.500.181.1.5)
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The `sw_ctrl` pinctrl node is defined but never utilized, and the =
-required GPIO binding is missing from the bluetooth node.
-- [High] UART7 is unconditionally disabled in the base industrial mezzanine=
- overlay instead of the M.2-specific overlay, breaking onboard Bluetooth fo=
-r non-M.2 users.
---
 
-commit 9cd1abaeac0567d92c13345a6a51b9b649ec7b1e
-Author: Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
 
-arm64: dts: qcom: qcs6490-rb3gen2-industrial-mezzanine: Add QCC2072 Bluetoo=
-th M.2 overlay
+> On 30 May 2026, at 10:49=E2=80=AFam, sashiko-bot@kernel.org wrote:
+>=20
+> Thank you for your contribution! Sashiko AI review found 3 potential =
+issue(s) to consider:
+> - [Medium] Encoding runtime network configuration (traffic policy) in =
+the Device Tree.
+> - [Low] Schema validation fails for all valid inputs due to an =
+array/integer type mismatch.
+> - [Low] The Device Tree binding description violates OS-agnostic rules =
+by referencing Linux-specific netlink flags.
 
-This commit adds a DTSO overlay for the QCS6490 RB3 Gen2 industrial
-mezzanine board when the M.2 E-key slot is populated with a QCC2072
-Bluetooth module. It configures UART4, sets sleep pin states, maps
-host wakeup and power sequencing, and disables UART7 in the base overlay.
+Thank you for the comments. This commit will be removed in the next =
+revision, in favour of configuring the device using devlink.
 
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanin=
-e-m2-cologne.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mez=
-zanine-m2-cologne.dtso
-> new file mode 100644
-> index 0000000000000..905a40f4b938f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine-m2-co=
-logne.dtso
-
-[ ... ]
-
-> +	sw_ctrl: sw-ctrl-state {
-> +		pins =3D "gpio86";
-> +		function =3D "gpio";
-> +		bias-pull-down;
-> +	};
-> +};
-
-[ ... ]
-
-> +	bluetooth: bluetooth {
-> +		compatible =3D "qcom,qcc2072-bt";
-> +		max-speed =3D <3200000>;
-> +	};
-> +};
-
-[Severity: High]
-The commit message mentions "SW_CTRL is mapped to gpio86 for power
-sequencing." Are we missing a reference to the sw_ctrl pinctrl node here?
-
-It looks like the bluetooth node is missing a GPIO assignment (such as
-enable-gpios or swctrl-gpios) and the corresponding pinctrl properties to
-utilize the sw_ctrl state. Without these, will the Bluetooth driver be
-able to request gpio86 and perform the intended power sequencing?
-
-> diff --git a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanin=
-e.dtso b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> index 83908db335afa..c96c7f52ea7a0 100644
-> --- a/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-> +++ b/arch/arm64/boot/dts/qcom/qcs6490-rb3gen2-industrial-mezzanine.dtso
-
-[ ... ]
-
-> @@ -288,3 +288,7 @@ pcie1_tc9563_resx_n: pcie1-tc9563-resx-state {
->  &wifi {
->         status =3D "disabled";
->  };
-> +
-> +&uart7 {
-> +	status =3D "disabled";
-> +};
-
-[Severity: High]
-Does unconditionally disabling uart7 in the base industrial mezzanine
-overlay break the onboard Bluetooth for non-M.2 users?
-
-The commit message states this is done "as it is not used when the M.2 slot
-is populated". Should this &uart7 override be placed in the M.2-specific
-qcs6490-rb3gen2-industrial-mezzanine-m2-cologne.dtso overlay instead, so
-it only applies when the M.2 slot is actually populated?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529180234.3373=
-056-1-yepuri.siddu@oss.qualcomm.com?part=3D3
