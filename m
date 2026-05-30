@@ -1,219 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ot1-f42.google.com (mail-ot1-f42.google.com [209.85.210.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA82288D0
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 03:09:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C5C2346A0C
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 03:20:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780110601; cv=none; b=QVEs3LxM+0k7QceJ6yPKJDE7YJdgpeARw9EyL/zkdiY4EyMo/TrsYg4jG+I1T7VKDdBemlexu5PPmwWCWSR1C5GOGjSUq41K/tTyTkr3OE+LaYuxnE1xgAbl8B7R5xaIGvOAGBEk6HSS3Hihs98lvWlcbh1oqyN/ZMj6nAM8yOE=
+	t=1780111217; cv=none; b=j/xBB4ptUhtzIwEHWEhs5rskNOfKd6swsi3pSsGlhUhIPXiXKHuq9oWXU0C2wbXPr2Gu11Bxwv3VYn7D7z5eTb8fpmNPr0S8ODAg1Y4n1sNd+Yqq3T9e5+V4XqfT3uQEsBk7Y64bBuQtTx9F2VnGztYuV/O1EvdEN3kKbHGEMLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780110601; c=relaxed/simple;
-	bh=QIi8X+umvf+5WWJRqzL3XIk/bEXzOKcn7byPM5c5bQo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=p8xKjKXAtW/MKewFWrLbptzUMCKPudLDqM5ad4AV/LXdo61eL5XiJwniq8fOt2G+Z1qdIf+D19cFOMZ4d1Xo3xnbzaUdvwZNSG7SdHu8nwazwUFgANAPNY+Lr8GXsQfXQJhJm6rGtS1KQ1IUTCUYv1H1R5hOhg26qrItQabOsqQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMyjj25i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780111217; c=relaxed/simple;
+	bh=3a6HpY3mKCiozL+NetYa0YjE2lfJxogGFOuxk6859QM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jTDARehyuR1cgf5BB0CtwH26dUCCCE8MU9TIFgFNTbXB1x0IuGyTthhJwbscyAbZowjsLTc4D+jN1xohv7Zh0SeB9MN4DupFU+eqso21x5r7ASi3BGSTFSwiQ4kT0QmdryX4GAdHPOgkDUWlSQexIeZIZYYbTbHL9Wr2BCTykyA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Qvpz+VO7; arc=none smtp.client-ip=209.85.210.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMyjj25i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D071F00893;
-	Sat, 30 May 2026 03:09:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780110599;
-	bh=kMlak6Kw1RZMdjqBjJ1+3feD2782Ls/NluqoF2x4GTU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kMyjj25iAYk9KkUCzUDor/wKjI4LdimXB7Pt/1ib8RE5nvDpk6dwSsg/r9nsuY3Ht
-	 9OjLq5fhnG1lXMpH4wsFRh1B/TM84wnpeausOMhN1M1FYQF5QYlKaTaXcYkRaJezjq
-	 /msLQ+jH1H5e5Vl+zmaXfqtyWHMW0FF4vCjY+NAGf2vBjxiQ6ngMdINr3eosnTh/61
-	 geRzsx/hPNQQlPeY6QeYkpSB5lxqEhro4Ybg0MU5vq8IUcdBCCmRcjFSrlw1jWXOIR
-	 t4vjt6A0FU4Nnm7LNy9gSmSatBNHs1byT5T9OG769Ku1C4pKs6islrnKu394x2KOFl
-	 EGE3p8m8Gfarw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 2/2] platform: Add initial synology microp driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Markus Probst via B4 Relay" <devnull+markus.probst.posteo.de@kernel.org>
-Cc: ojeda@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260530-synology_microp_initial-v13-2-aa2bb9c56efc@posteo.de>
-References: <20260530-synology_microp_initial-v13-2-aa2bb9c56efc@posteo.de>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 03:09:58 +0000
-Message-Id: <20260530030959.42D071F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Qvpz+VO7"
+Received: by mail-ot1-f42.google.com with SMTP id 46e09a7af769-7df05fc49e5so14061528a34.3
+        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 20:20:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780111215; x=1780716015; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=tUr91O3haAau1lya5SbGJW5FOuVPHJMzYdG+hkCJ83I=;
+        b=Qvpz+VO73eCoksR0EMRdSNqpIdbLjht3IYSL+idRA5SxOJZ4DpemgPOq33aa/JMUD9
+         IY8KdvANHeRkRdnWsb+sZ0+tf5oxBFeTv79Rm1tIXRaHus8aj2bBDIKEAhnVEfZDHw/q
+         pUJ6TfDNhwS1g0RoQY82Zt6VYH/GcQzy4UfUjj2iCRjsuY820pMmE8GKjl3/gEPv6CK8
+         MKYcw0hf3skzPv/l0AOWLDe8NXF6oR1NgHgOn2nnUvxVyhKqc0/+SwXCGgvp99vDJY+S
+         TYRdv50PyKKiypDNpbGMjdYWxitIMjTsY9jR5lKDRZcC7HqjBkun45y3TkRMeeJS5m7J
+         VZIw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780111215; x=1780716015;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=tUr91O3haAau1lya5SbGJW5FOuVPHJMzYdG+hkCJ83I=;
+        b=r3tsMNlr/YAobSc/ihp86oNJ7SOkYe95l+NkdGNfpC8VrTVE9Q5HFAM1w6i49pkEGA
+         aGyFg9oDmwCN0d4f1vSNsfVgu2dXZkz22359c0s6U/HPRvvCH5TysOChmIQt3wq7+pfo
+         v8z9TcGvmGuRx9scn+cZ8bh7Nx69N+oPqFns6wQ0IKy8rIZ5Sp8X5Ab+2WC5tCeCTzAG
+         EHNEFLK2XpF1UaCIyXBgtV82JsYGDBU9rh1k5vJ51k6cuA7c6st9+qsuSHkxTB0oyppK
+         qbP2QhvY62I8p+QyxCVEz0dg6E5Q9pGZyt4W9Ufs/I9flUpZvH+85u8sMmw0nD+005wu
+         pfVg==
+X-Forwarded-Encrypted: i=1; AFNElJ/QRV53/Bz9JBd3L9FK+7TsREltABayj2FGoy06f5XBzQP95++Sqj5FQjjwylmr7Huiymt9VRyGrqbC@vger.kernel.org
+X-Gm-Message-State: AOJu0YxdnSYnTYti2LNsj7Y95+XV+zvtKNSxzo88lkehXbr4GYZJfGlc
+	kDr19egBgh5Uceog5qiSD9jxv7Pijdm8W53yIGI2uJxg0WQYdjMYTrEl
+X-Gm-Gg: Acq92OHE2cMCLWDGWb6xFaYp/tAovue74leRyKFjk1OJpTUyFBKV05ZCqQaktyP2oKQ
+	hTGwaDyr1tKxABDfjmEXMfy7qDaJeRVaoYzoMdXQ2Scyat1zy4i7jJLECDeUgF47cAH+A6iIaDM
+	zu4VcIXadarR1BRAmCfHDnhcDG9QYD0GPqrrf2EHlMq9gkvtTs0P0R9hSrqYkjkyArPivbrO8my
+	walrrpnPcQ201AOdmYp/InZUGZGymBCbvqfA2UTyTxzH5h+dwmX2o74D4ev54t+E7GCGWf8wJlN
+	wsj6oR9sJR7kCsbhduiOjkPt18Q2MEFUf7riCyW16Ylu0f9U951d7io+M84lsZATAGeCB8Z24UF
+	z3/P4MrBIb1QWBT9F6dsbBarw2tFDX7hWWihSIet5pvkjxlINd+DKE17prXtWC27ZegBPsbCewA
+	krd9QrDXxwFxjjdNzK7lkKiY2vhgaFkxThJphc7RLekQ==
+X-Received: by 2002:a05:6820:f01:b0:69d:7777:75a0 with SMTP id 006d021491bc7-69e10308647mr1117894eaf.24.1780111214885;
+        Fri, 29 May 2026 20:20:14 -0700 (PDT)
+Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-69e067e911csm2130737eaf.5.2026.05.29.20.20.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 29 May 2026 20:20:14 -0700 (PDT)
+From: Chris Morgan <macroalpha82@gmail.com>
+To: linux-iio@vger.kernel.org
+Cc: andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com,
+	jic23@kernel.org,
+	jean-baptiste.maneyrol@tdk.com,
+	linux-rockchip@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	heiko@sntech.de,
+	conor+dt@kernel.org,
+	krzk+dt@kernel.org,
+	robh@kernel.org,
+	andriy.shevchenko@intel.com,
+	Chris Morgan <macromorgan@hotmail.com>
+Subject: [PATCH V9 00/11] Add Invensense ICM42607
+Date: Fri, 29 May 2026 22:17:27 -0500
+Message-ID: <20260530031739.109063-1-macroalpha82@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] The dynamically allocated name for the conditionally registere=
-d alert LED is dropped prematurely, leaving a dangling pointer in the LED s=
-ubsystem.
-- [Medium] Concurrent LED operations can interleave serial commands, corrup=
-ting the communication protocol with the microcontroller.
-- [Medium] Setting an LED's brightness to a non-zero value fails to overrid=
-e and disable hardware blinking.
-- [Low] The config SYNOLOGY_MICROP depends on a non-existent symbol RUST_SE=
-RIAL_DEV_BUS_ABSTRACTIONS.
---
+From: Chris Morgan <macromorgan@hotmail.com>
 
-commit 1779a8eccc4d1fbf66dab42036dc8b8505625855
-Author: Markus Probst <markus.probst@posteo.de>
+Add support for the ICM42607 IMU. This sensor shares the same
+functionality but a different register layout with the existing
+ICM42600.
 
-platform: Add initial synology microp driver
+This driver should work with the ICM42607 and ICM42607P over both I2C
+and SPI, however only the ICM42607P over I2C could be tested.
 
-Add an initial synology microp driver, written in Rust. The driver targets a
-microcontroller found in Synology NAS devices to support controlling of the
-power led, status led, alert led and usb led.
+Changes Since V1:
+ - Instead of creating a new driver, merged with the existing inv_icm42600
+   driver. This necessitated adding some code to the existing driver to
+   permit using a different register layout for the same functionality.
+ - Split changes up a bit more to decrease the size of the individual
+   patches. Note that patch 0004 is still pretty hefty; if I need to split
+   further I may need to create some temporary stub functions.
+ - Used guard() and PM_RUNTIME_ACQUIRE_AUTOSUSPEND() on the new functions
+   per Jonathan's recommendations.
 
-> diff --git a/drivers/platform/synology_microp/Kconfig b/drivers/platform/=
-synology_microp/Kconfig
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/platform/synology_microp/Kconfig
-> @@ -0,0 +1,13 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +
-> +config SYNOLOGY_MICROP
-> +	tristate "Synology Microp driver"
-> +	depends on LEDS_CLASS && LEDS_CLASS_MULTICOLOR
-> +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
+Changes Since V2:
+ - Went back to using a new driver on advice from Invensense engineer.
+ - Further split changes up into smaller chunks of functionality. Note
+   still that the largest patch is approximately 900 lines, and that while
+   the driver compiles cleanly at each commit it is not able to drive the
+   hardware until the commit that adds the Interrupt (as it also adds the
+   Makefile).
+ - Change the error to a warning when the devicetree binding does not match
+   the hardware ID.
+ - Dropped the ack on the devicetree bindings, as I am creating a new file
+   (for a new driver) instead of modifying the existing one.
 
-[Severity: Low]
-Does RUST_SERIAL_DEV_BUS_ABSTRACTIONS exist in the kernel tree?
+Changes Since V3:
+ - Numerous small fixes (too many to list here). Thank you to everyone who
+   provided feedback.
+ - Split power management additions into an additional commit to break
+   things up further.
+ - Consolidated devicetree documentation in existing
+   invensense,icm42600.yaml file.
+ - Removed most of the FIELD_PREP from header file to c files to make code
+   easier to read.
+ - Changed scale values to 2D arrays for Gyro and Accelerometer.
+ - Removed IIO_CHAN_INFO_CALIBBIAS attribute.
 
-Kconfig guidelines state that all dependencies must correspond to a valid
-config definition.
+Changes Since V4:
+ - Additional numerous small fixes, thank you again for all the feedback.
+ - Dropped power control API and instead run device in low noise mode.
+ - Split devicetree bindings into two distinct changes.
+ - Reordered adding of enums and structs to main header file so that they
+   are only brought in when needed.
+ - Stopped using enum for driver data and instead am using pointer to
+   device specific driver data.
 
-Could this missing symbol cause silent build failures by preventing the
-driver from ever being enabled?
+Changes Since V5:
+ - Corrected use of "dev_warn_probe" to just "dev_warn".
+ - Fixed some return scenarios which would unconditionally return 0
+   when an error was present.
+ - Corrected use of max() to min() for bounds checking. max() was
+   incorrect.
+ - Fixed using "st->conf.accel.odr" in the gyroscope function. It
+   should have been "st->conf.gyro.odr" which it now is.
+ - Additional small fixes suggested by "sashiko.dev".
+ - Added a regmap cache. I used the datasheet to try and determine
+   which registers might change without explicit writes.
 
-[ ... ]
-> diff --git a/drivers/platform/synology_microp/command.rs b/drivers/platfo=
-rm/synology_microp/command.rs
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/platform/synology_microp/command.rs
-[ ... ]
-> +impl Command {
-> +    pub(crate) fn write(self, dev: &serdev::Device<Bound>) -> Result {
-> +        dev.write_all(
-> +            match self {
-[ ... ]
-> +                Self::EsataLed(led::State::Off) =3D> &[0x4C, 0x45, 0x33],
-> +            },
-> +            serdev::Timeout::Max,
-> +        )?;
-> +        dev.wait_until_sent(serdev::Timeout::Max);
-> +        Ok(())
-> +    }
-> +}
+Changes Since V6:
+ - Corrected additional errors identified by sashiko.dev, mostly
+   fixing potential deadlocks, missing calls for pm runtime, and
+   potential overflow issues.
 
-[Severity: Medium]
-Since multiple LEDs share the same serdev bus, can their operations (like
-brightness_set and blink_set) be called concurrently from different sysfs
-contexts?
+Changes Since V7:
+ - Dropped Wake on Movement patches, since some of the functionality
+   was only available for a device on which I cannot test.
+ - Dropped support for SPI 3-Wire mode, since it complicated the
+   bus setup (and I lack the hardware to test such features anyway).
+ - Fixed a few additional bugs identified by sashiko.dev bot.
 
-Without a driver-wide lock protecting the dev.write_all() and
-dev.wait_until_sent() sequence here, could concurrent calls interleave
-bytes in the UART transmit buffer and corrupt the communication protocol
-with the microcontroller?
+Changes Since V8:
+ - Added back IRQ dropped accidentally when dropping wake on movement
+   patches.
+ - Dropped "Reviewed-By" tag on patch 2 because of substantial changes
+   made to devicetree binding documentation.
+ - Additional small fixes as suggested.
 
-[ ... ]
-> diff --git a/drivers/platform/synology_microp/led.rs b/drivers/platform/s=
-ynology_microp/led.rs
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/platform/synology_microp/led.rs
-[ ... ]
-> +impl Data {
-> +    pub(super) fn register<'a>(
-> +        dev: &'a serdev::Device<Bound>,
-> +        model: &'a Model,
-> +    ) -> impl PinInit<Self, Error> + 'a {
-> +        pin_init_scope(move || {
-> +            if let Some(color) =3D model.led_alert {
-> +                let name =3D
-> +                    CString::try_from_fmt(fmt!("synology:{}:alarm", colo=
-r.as_c_str().to_str()?))?;
-> +                devres::register(
-> +                    dev.as_ref(),
-> +                    led::DeviceBuilder::new().color(color).name(&name).b=
-uild(
+Chris Morgan (11):
+  dt-bindings: iio: imu: icm42600: Add mount-matrix to icm42600
+  dt-bindings: iio: imu: icm42600: Add icm42607 binding
+  iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
+  iio: imu: inv_icm42607: Add I2C and SPI For icm42607
+  iio: imu: inv_icm42607: Add PM support for icm42607
+  iio: imu: inv_icm42607: Add Buffer support for icm42607
+  iio: imu: inv_icm42607: Add Temp Support in icm42607
+  iio: imu: inv_icm42607: Add Accelerometer for icm42607
+  iio: imu: inv_icm42607: Add IRQ for icm42607
+  iio: imu: inv_icm42607: Add Gyroscope to icm42607
+  arm64: dts: rockchip: Add icm42607p IMU for RG-DS
 
-[Severity: Critical]
-Since the name variable is a local CString scoped to the if let block, won't
-it be dropped at the end of the block?
+ .../bindings/iio/imu/invensense,icm42600.yaml |  14 +
+ .../dts/rockchip/rk3568-anbernic-rg-ds.dts    |  20 +-
+ drivers/iio/imu/Kconfig                       |   1 +
+ drivers/iio/imu/Makefile                      |   1 +
+ drivers/iio/imu/inv_icm42607/Kconfig          |  30 +
+ drivers/iio/imu/inv_icm42607/Makefile         |  14 +
+ drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 436 +++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_accel.c | 589 +++++++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.c    | 574 +++++++++++++++
+ .../imu/inv_icm42607/inv_icm42607_buffer.h    |  95 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 693 ++++++++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_gyro.c  | 559 ++++++++++++++
+ .../iio/imu/inv_icm42607/inv_icm42607_i2c.c   |  95 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_spi.c   | 107 +++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.c  |  81 ++
+ .../iio/imu/inv_icm42607/inv_icm42607_temp.h  |  33 +
+ 16 files changed, 3341 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/iio/imu/inv_icm42607/Kconfig
+ create mode 100644 drivers/iio/imu/inv_icm42607/Makefile
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_accel.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_i2c.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_spi.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.c
+ create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_temp.h
 
-The LED core doesn't copy the string, so could passing the reference &name
-leave a dangling pointer that triggers a use-after-free when sysfs,
-tracepoints, or triggers access it later?
+-- 
+2.43.0
 
-> +                        dev,
-> +                        try_pin_init!(LedHandler {
-> +                            blink <- new_mutex!(false),
-> +                            command: Command::AlertLed,
-> +                        }),
-> +                    ),
-> +                    GFP_KERNEL,
-> +                )?;
-> +            }
-[ ... ]
-> +    fn brightness_set(
-> +        &self,
-> +        dev: &Self::Bus,
-> +        _classdev: &led::Device<Self>,
-> +        brightness: u32,
-> +    ) -> Result<()> {
-> +        let mut blink =3D self.blink.lock();
-> +        (self.command)(if brightness =3D=3D 0 {
-> +            *blink =3D false;
-> +            State::Off
-> +        } else if *blink {
-> +            State::Blink
-> +        } else {
-> +            State::On
-> +        })
-
-[Severity: Medium]
-The LED subsystem API semantics normally dictate that writing a non-zero
-value to the brightness sysfs file must stop any active hardware blinking
-and turn the LED solid on.
-
-By preserving State::Blink here when brightness is greater than 0, does this
-force users to explicitly write 0 to brightness to stop the blinking before
-they can turn it solid on?
-
-> +        .write(dev)?;
-> +
-> +        Ok(())
-> +    }
-[ ... ]
-> +    fn brightness_set(
-> +        &self,
-> +        dev: &Self::Bus,
-> +        classdev: &led::MultiColorDevice<Self>,
-> +        brightness: u32,
-> +    ) -> Result<()> {
-[ ... ]
-> +        Command::StatusLed(
-> +            color,
-> +            if subled_brightness =3D=3D 0 {
-> +                State::Off
-> +            } else if *blink {
-> +                State::Blink
-> +            } else {
-> +                State::On
-> +            },
-> +        )
-
-[Severity: Medium]
-Similarly to the standard LedHandler, does preserving State::Blink here
-when setting a non-zero brightness break the LED subsystem expectation
-that brightness > 0 overrides and stops blinking?
-
-> +        .write(dev)
-> +    }
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530-synology_m=
-icrop_initial-v13-0-aa2bb9c56efc@posteo.de?part=3D2
