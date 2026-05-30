@@ -1,121 +1,70 @@
-Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680B321ABC9;
-	Sat, 30 May 2026 11:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1712FD7D3;
+	Sat, 30 May 2026 12:19:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780141980; cv=none; b=DkAm7Jr1Fy3bFvH3cY/tJ04wFK/l1EL01+nxvs2H845d1PG+G5lJCU5fPcNjL1PMhCh9gdzEWeYC7KdsPN3Uz+Nrdj1YapJI2SQ5SuBEEON68A6PaTmM2NNrSRwF/TIPOp2gpxTnNyZ0Fp9AORAmtEv0rFhGNjCnMS3IcdyW+Fo=
+	t=1780143542; cv=none; b=utcVF//4LYORVuzAGFzKW0kal8E7XN2PsHMvEy5Oy37Qowx8lEk/Qq+da2c3V/d3RgVA9A6wSPthVQdtIuLmTMRUY8x8Y28vMw3scz8R8DyftleCtyrevglm/08mlBfNXvfv5KX1BK+7CFcJi+Kws01X7o0dCU6dP9K9AnO9/q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780141980; c=relaxed/simple;
-	bh=QCcH8TSjvLI3PYzekOYwN3En7F2LWMmFPGgsI+I4udQ=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=LhagaGLHrrIhrfmEYsNB+hQ6zouVxM3ASbkWDwzhwRQJgrx7xkncdRMkLwP8p5AS949vI/CfwAAzPuhSSNSYvUAKhYqC9PcYuFbGT3VJxfProydMOst6ark68eKza+OKwNAsX7DaGvubG+Vv2qzVyEZWCYoWR1YtLuSEcPmEaKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=hgiRdsW8; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CsX373hw; arc=none smtp.client-ip=5.75.144.95
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
+	s=arc-20240116; t=1780143542; c=relaxed/simple;
+	bh=Ba4+DJc34+I6NOKgDDK+9MINHGOX+dzE+TTEAOjMkUE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jX+aNFGGfz9Pfpj1r8z6Nzjmi9zoIt6aobGQymvoxpTVm/xAQ9r1GYC3ss7UPZguuPgISzBdtSyB/XEJBDqPQNbAiK23dfPGQJuyJUqsggfUZQxuEIxQ+V/Zrie5WcVHMbMQv6asQ7nmawgsUvBKf/IQudUQSKwmxwFRWJSrS/k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OiwRNXUt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="hgiRdsW8";
-	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CsX373hw"
-DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
-	h=To:From:Subject:Date:Message-ID; t=1780141956; bh=HvwxMLevTeXB5/bB9QrrZ1i
-	NcbhD7jsSe+TWGxGnV0M=; b=hgiRdsW8bsDFsLapTLBebqwu5K98cMLdn9j2QaWKToMMKgowZu
-	ZGpbLuU2xH8NcwhMwOhMsZNNwFrmOxjNv1SS0jlYb4tmi/gh/KpUKVfPL+LgfRbrsVolL11elUm
-	0prz7cGYeluKvoaifsQE5oDcaISVFJfqJ4q7mqlEXrpHs6gdGQpunLT1mMFhu3xiQlFful4+9ue
-	PQalxNSDQUkVGruq0A0s+14oyS/ZjnYPoFGOWtlA9EWHXQWxp8pBWN8S1EtWoMyZiZOat9g6taj
-	EpSAUVvLamLAZFN09WjvTC4zNa3ShTCloU7xVkL4B4kj1Oovbi+nrMZY2owdHO08REA==;
-DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
-	h=To:From:Subject:Date:Message-ID; t=1780141956; bh=HvwxMLevTeXB5/bB9QrrZ1i
-	NcbhD7jsSe+TWGxGnV0M=; b=CsX373hw9vAgm1qji+3Z0DtXT14C7YsyxWoI/DCSNsexRZ6C2A
-	1lnAbuLvRvlgKOkzhS9vRPnp0OrNToiPC2Ag==;
-Message-ID: <f237a850-0718-4a3d-a11e-56f663e7641d@mainlining.org>
-Date: Sat, 30 May 2026 14:52:35 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OiwRNXUt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A06241F00893;
+	Sat, 30 May 2026 12:19:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780143541;
+	bh=jcAb7kozyts+b1h0rXGYQK+xZkw2WmbmCBb1u9nQJlA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OiwRNXUtgv8vu2GE3Vs7nfzsSEaqco8BB+scWl7dzI+x7NeQYl4F8HYrG9z0BTVta
+	 KrBivUXm9uMwA844Ewbdtppn8XntdVqltW+tBqyfMIsPesuMC9NDw3zWjRDVistI6M
+	 TPT4xlexzY78TBfV3blg/t1YoU/ZtFU5d/MZe9eHodzCCB36UIlndQh3z7xVPhkkYC
+	 HkOZyUpIhmKXNHHX3akIHM8daUdhXGiOzjg/zRnbBOUoIbgTUUGfVs8DPUT6PYM7kJ
+	 N5v+vTVlnazwUiNQdZ4cz9ffs8EQE12L8uyVXxH0TuWBAwOXtZAfTi42N4vUj768RX
+	 YhhtKv/RwNA+g==
+Date: Sat, 30 May 2026 14:18:58 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Denzeel Oliva <wachiturroxd150@gmail.com>
+Cc: Sylwester Nawrocki <s.nawrocki@samsung.com>, 
+	Chanwoo Choi <cw00.choi@samsung.com>, Alim Akhtar <alim.akhtar@samsung.com>, 
+	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Rob Herring <robh@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-samsung-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH] clk: samsung: exynos990: Fix PERIS gate clock parents
+ and add TMU_SUB
+Message-ID: <20260530-fuzzy-rapid-corgi-f9eb86@quoll>
+References: <20260528-exynos990-peris-fix-v1-1-5b65aa7def2d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 02/15] ASoC: dt-bindings: qcom: q6dsp: add internal
- mi2s support
-From: Nickolay Goppen <setotau@mainlining.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>,
- Richard Acayan <mailingradian@gmail.com>,
- Srinivas Kandagatla <srini@kernel.org>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
- Takashi Iwai <tiwai@suse.com>,
- Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
- Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- Adam Skladowski <a39.skl@gmail.com>,
- Vladimir Lypak <vladimir.lypak@gmail.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Wesley Cheng <quic_wcheng@quicinc.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
- Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
- Charles Keepax <ckeepax@opensource.cirrus.com>,
- Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
-References: <20260501153128.8152-1-mailingradian@gmail.com>
- <20260501153128.8152-3-mailingradian@gmail.com>
- <20260503-devout-mamba-of-sorcery-d4ecb2@quoll> <afe8bQ3SIAu9rP1S@rdacayan>
- <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
- <3fe41d7b-0e65-4937-afda-b9a9e470e638@mainlining.org>
-Content-Language: ru-RU, en-US
-In-Reply-To: <3fe41d7b-0e65-4937-afda-b9a9e470e638@mainlining.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260528-exynos990-peris-fix-v1-1-5b65aa7def2d@gmail.com>
 
+On Thu, May 28, 2026 at 08:10:39PM -0500, Denzeel Oliva wrote:
+> Correct eight PERIS gate clock parents to match the hardware clock
+> tree, reorder the GIC mux parents, and add the missing TMU_SUB_PCLK
+> gate.
+> 
+> Signed-off-by: Denzeel Oliva <wachiturroxd150@gmail.com>
+> ---
+>  drivers/clk/samsung/clk-exynos990.c           | 24 ++++++++++++++----------
+>  include/dt-bindings/clock/samsung,exynos990.h |  1 +
 
-25.05.2026 14:51, Nickolay Goppen пишет:
->
-> 14.05.2026 16:55, Krzysztof Kozlowski пишет:
->> On 03/05/2026 23:21, Richard Acayan wrote:
->>> On Sun, May 03, 2026 at 02:11:31PM +0200, Krzysztof Kozlowski wrote:
->>>> On Fri, May 01, 2026 at 11:31:15AM -0400, Richard Acayan wrote:
->>>>> The internal MI2S ports are found on devices with the internal sound
->>>>> card for Snapdragon 660. Add support for them.
->>>>>
->>>>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
->>>>> ---
->>>>>   .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  4 ++--
->>>>>   include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 14 
->>>>> ++++++++++++++
->>>>>   2 files changed, 16 insertions(+), 2 deletions(-)
->>>> Same feedback as last time. DO NOT send next versions, untill you 
->>>> reply
->>>> or address the feedback.
->>> Ok, I believe this is about [1] and [2] with reference to the patches
->>> already in v7.1-rc1 [3].
->>>
->>> My patches add INT0_MI2S_RX through INT6_MI2S_TX, which correspond to
->>> q6afe port IDs 0x102e - 0x103b. Srini's patches add LPI_MI2S_RX_0
->>> through LPI_MI2S_TX_4, but no q6afe port IDs.
->>>
->>> I asked if the LPI_MI2S ports have q6afe port IDs to check if we're
->>> referring to the same ports, but apparently q6afe is too old to have it
->>> [4]:
->>>
->>>     > Is the LPI MI2S on Q6AFE? I don't see the AFE port ID.
->>>     I think the older SOCs did not have this I guess,
->>>
->>> Even if there's already an allocation of dt-bindings ports for 
->>> LPI_MI2S,
->>> they can't just be reused for INT_MI2S. There are allegedly INT5_MI2S
->>> and INT6_MI2S (each RX and TX) but LPI_MI2S only counts to 4.
->> Then what is the difference between INT and LPI? People stuff here some
->> hardware names but this is SW ABI, so MI2S_RX_0 is only one. Just like
->> we have DISPLAY_PORT_RX_0, but no LPI_DISPLAY_PORT_RX_0 and
->> INT_DISPLAY_PORT_RX_0.
-resending since this message failed to deliver.
-> Then do you mean that LPI_MI2S ports need to have port ID's assigned 
-> like Richard done that for INT_MI2S? +Srini, Is this a good idea?
->> Best regards,
->> Krzysztof
->
--- 
+Please run scripts/checkpatch.pl on the patches and fix reported
+warnings. After that, run also 'scripts/checkpatch.pl --strict' on the
+patches and (probably) fix more warnings. Some warnings can be ignored,
+especially from --strict run, but the code here looks like it needs a
+fix. Feel free to get in touch if the warning is not clear.
+
 Best regards,
-Nickolay
+Krzysztof
 
