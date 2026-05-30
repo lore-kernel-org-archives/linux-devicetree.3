@@ -1,858 +1,102 @@
-Received: from outbound6.mail.transip.nl (outbound6.mail.transip.nl [136.144.136.128])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B76BF2F549F;
-	Sat, 30 May 2026 14:09:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.128
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED022F6911
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:09:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780150169; cv=none; b=jtWG3LZoX5+UGumULFo5gVpQ232dQRiuWZhHLDcwUe/4Fn6cpCOJD8QUQJ3tUy5H0CVHK8vNyFlhYnathuvF7Gc5Y14ciWQIW3mSLBWkRIeLv+1Ds39Wsqx2xGP/HvqUaNa+kfuAFDBHH8WM1ODE4tT34BNHcVS6cEmna9czQow=
+	t=1780150171; cv=none; b=ps+UoWBqCT/c48J5InV1VVNEoiXMDGsE7Ymlr9NAhcyQm6+aHpukQQA/vOldLvnc6pvfLJI/zddeD/ntlfwmWEYxcrgswvBJNpA5QFGtKReGDeal0vl9wn0X5o9zf6dGFmMbFoE754/w3LTfk3oj/zuWzhUsKLRqIWFBCCKVFvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780150169; c=relaxed/simple;
-	bh=c5wGkQ+XLK7Nwvye8KpxMXrtbjQpLyZtJAxtbYuRnNU=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VmD5LBCJzGKHxtBzuLlB1H4ex3jMl5NtmMp0apCoyIYnHq2WBSHETKXm1neNjE7ZSxSkCHfVTS1psPIDT+3qtrJRiRj1rjZHOAAG9TsShzefa09MWqk4+SnRfQCLxAMvcJ9L8RtEHtSFjB3JaosK1LMY2wWstE7jSlrydsdspT4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=aGoJOdAc; arc=none smtp.client-ip=136.144.136.128
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780150171; c=relaxed/simple;
+	bh=MjB4PmG9F1nMbW5nGldNc0Mw5C3dA0nRUxuoPh5AO7w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=IPFyUj2dh06FL7Q6lK7j2/rp1ztntT4JSLRRUjvn8TmP5GysJ4Rw6kVKXY0KrFa9pe87lgVD9cs2JY1Xq7QofsTiZXDONUC4c0/C3hR8Rwox3fUL1aqkUgvnr4xkcEpesiB35dWeqcQoVFFn4F84pAORh/mKUTjWDS0ptR00hF8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=WJIXh54Q; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="aGoJOdAc"
-Received: from submission13.mail.transip.nl (unknown [10.103.8.164])
-	by outbound6.mail.transip.nl (Postfix) with ESMTP id 4gSMLd6JWpzwLJ9P;
-	Sat, 30 May 2026 16:00:25 +0200 (CEST)
-Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission13.mail.transip.nl (Postfix) with ESMTPA id 4gSMLd0Pzdz3fCxJH;
-	Sat, 30 May 2026 16:00:25 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	devicetree@vger.kernel.org,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="WJIXh54Q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=MjB4
+	PmG9F1nMbW5nGldNc0Mw5C3dA0nRUxuoPh5AO7w=; b=WJIXh54QIvpyhN+0Ulho
+	5CycptCmQ0ptKEPxci5yVnlm8oFiuh0ZO/wQxP116LRMZY173FNwTLwEZHyuOuFh
+	UFdaH0B36AnkOv2zsEn6I2YegAFLCf2j1VZvpx8SYuN+M5TOozY6/YpgCeJEVhvX
+	gMAjjuvSwJ92Hyrod3Qz4m8BnIobL3uA+4ygJsuR4zQVqS28CTGh2QO/mSZLvc/7
+	cgl6Lckw03GiTezQCF2qRUyJAGiQNIF+3Bjy03PgJlxxdneiMAZ3HTDidH6JQOHW
+	QZRGPZrS6W7KCyK8AmvT7BarVdiCyTxIJjzO0zsZluI1ugWvVY4+4AMQop+e6xrt
+	jw==
+Received: (qmail 1764476 invoked from network); 30 May 2026 16:09:26 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 30 May 2026 16:09:26 +0200
+X-UD-Smtp-Session: l3s3148p1@gMhLgglTVOcqAQ4KEBW5QLbOwWyJKVt/
+Date: Sat, 30 May 2026 16:09:25 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
+Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+	Loic Poulain <loic.poulain@oss.qualcomm.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Rob Herring <robh@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	van Hazendonk <github.com@herrie.org>
-Subject: [PATCH 2/2] irqchip: add MSM8x60 MPM wakeup interrupt controller driver
-Date: Sat, 30 May 2026 16:00:23 +0200
-Message-ID: <9777c7b553b0858d4174101487330038d770fa44.1780148149.git.github.com@herrie.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1780148149.git.github.com@herrie.org>
-References: <cover.1780148149.git.github.com@herrie.org>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+	linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-i2c@vger.kernel.org,
+	Suresh Vankadara <svankada@qti.qualcomm.com>,
+	Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+Subject: Re: [PATCH 2/6] dt-bindings: i2c: qcom-cci: Document Glymur
+ compatible
+Message-ID: <ahrvlYI-WfHwUPMC@shikoro>
+References: <20260529-glymur_camss-v1-0-bee535396d22@oss.qualcomm.com>
+ <20260529-glymur_camss-v1-2-bee535396d22@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission13.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780149625; h=from:subject:to:references:
- in-reply-to:date:mime-version:content-type;
- bh=Cs8VUmyHkCCevznwlVU9J+mNTx7TjNIFN5Tn8ZXs+0w=;
- b=aGoJOdAcuEHLz+P2fvQCa4ST+G7Ir2VNxHWtbcqnQ4ArJ6gq6y8ZvSIt28kLdtasP2bECm
- REwAHn5c1yda6Kx3ul0gyS9a8LuF753FEiWHbYQTU4U55sJrLQqC99lp6XPGB7XQrxAvLX
- uHYyGi9Bb/r/18zzQuoi5vF0MDPGH7R1Scm86T89+yDPbu7l7De5dPM+Ia/T+2IoQJ75mC
- N3qVaLlsqgs8Td1M70iQfK/t49+ug4NAwGl02kwikRUrLCxNLpc9mQLvz+Ruc/keOsuqQx
- LfUHnJ+W6owhvK+lwA7dCvUiLCgJfc07NMefmGiPadYP9scuC9LnjxD/Uk5s7w==
-X-Report-Abuse-To: abuse@transip.nl
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="sbuNnDmWOaUg48ge"
+Content-Disposition: inline
+In-Reply-To: <20260529-glymur_camss-v1-2-bee535396d22@oss.qualcomm.com>
 
-Add a driver for the MSM Power Manager (MPM) on the MSM8x60 family
-(MSM8260/MSM8660/APQ8060). The MPM is a small wake-source controller
-implemented in the always-on power domain that latches edge-triggered
-interrupts during APPS power collapse and signals the RPM to wake the
-APPS back up.
 
-The driver:
-  - implements an irqchip that wraps a parent GIC SPI line and
-    overrides ->irq_set_wake() to enable the MPM mirror of the same
-    interrupt;
-  - exposes msm8660_mpm_set_pin_wake() etc. for consumers (e.g.
-    mmci's SDC4 SDIO wake) that do not flow through irq_set_wake()
-    directly;
-  - communicates with the RPM via SMSM/syscon to apply the wake
-    enable/clear bits and request a power collapse vote.
+--sbuNnDmWOaUg48ge
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Used on the HP TouchPad (Tenderloin) for SDIO-attached Wi-Fi and
-panel touch wake-from-suspend.
+On Fri, May 29, 2026 at 08:07:22PM +0530, Vikram Sharma wrote:
+> From: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+>=20
+> Add Glymur compatible consistent with CAMSS CCI interfaces.
+>=20
+> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
+> Signed-off-by: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
 
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
----
- drivers/irqchip/Kconfig           |  23 ++
- drivers/irqchip/Makefile          |   1 +
- drivers/irqchip/irq-msm8660-mpm.c | 627 ++++++++++++++++++++++++++++++
- include/soc/qcom/msm8660-mpm.h    |  80 ++++
- 4 files changed, 731 insertions(+)
- create mode 100644 drivers/irqchip/irq-msm8660-mpm.c
- create mode 100644 include/soc/qcom/msm8660-mpm.h
+Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-diff --git a/drivers/irqchip/Kconfig b/drivers/irqchip/Kconfig
-index e755a2a05209..35598a56ac79 100644
---- a/drivers/irqchip/Kconfig
-+++ b/drivers/irqchip/Kconfig
-@@ -525,6 +525,29 @@ config QCOM_MPM
- 	  MSM Power Manager driver to manage and configure wakeup
- 	  IRQs for Qualcomm Technologies Inc (QTI) mobile chips.
- 
-+config QCOM_MSM8660_MPM
-+	bool "MSM8x60 MPM wakeup interrupt controller"
-+	depends on ARCH_QCOM
-+	depends on MFD_SYSCON
-+	depends on MAILBOX
-+	select IRQ_DOMAIN_HIERARCHY
-+	default y
-+	help
-+	  Platform driver for the MSM Power Manager (MPM) wakeup interrupt
-+	  controller on the MSM8x60 family (MSM8260/MSM8660/APQ8060). The vMPM registers live inside
-+	  the RPM control block, which makes the generic QCOM_MPM driver
-+	  unusable here (it assumes a dedicated MPM SRAM region, an IPCC
-+	  mailbox, and uses IRQCHIP_DECLARE early-init that races platform
-+	  device creation).
-+
-+	  This driver replicates the legacy 2.6.35-palm arch/arm/mach-msm/
-+	  mpm.c mechanism as a regular platform driver, accessing the vMPM
-+	  registers via a syscon phandle to the RPM block and signaling the
-+	  MPM via the qcom-apcs-ipc mailbox (writing to GCC + 0x008 bit 1).
-+
-+	  Required for cpuidle deep-sleep states (SPC/PC) and for
-+	  WoWLAN-style wake-from-suspend on MSM8x60 SoCs.
-+
- config CSKY_MPINTC
- 	bool
- 	depends on CSKY
-diff --git a/drivers/irqchip/Makefile b/drivers/irqchip/Makefile
-index 26aa3b6ec99f..3e64591f0f5b 100644
---- a/drivers/irqchip/Makefile
-+++ b/drivers/irqchip/Makefile
-@@ -100,6 +100,7 @@ obj-$(CONFIG_MESON_IRQ_GPIO)		+= irq-meson-gpio.o
- obj-$(CONFIG_GOLDFISH_PIC) 		+= irq-goldfish-pic.o
- obj-$(CONFIG_QCOM_PDC)			+= qcom-pdc.o
- obj-$(CONFIG_QCOM_MPM)			+= irq-qcom-mpm.o
-+obj-$(CONFIG_QCOM_MSM8660_MPM)		+= irq-msm8660-mpm.o
- obj-$(CONFIG_CSKY_MPINTC)		+= irq-csky-mpintc.o
- obj-$(CONFIG_CSKY_APB_INTC)		+= irq-csky-apb-intc.o
- obj-$(CONFIG_RISCV_INTC)		+= irq-riscv-intc.o
-diff --git a/drivers/irqchip/irq-msm8660-mpm.c b/drivers/irqchip/irq-msm8660-mpm.c
-new file mode 100644
-index 000000000000..c579d1476e01
---- /dev/null
-+++ b/drivers/irqchip/irq-msm8660-mpm.c
-@@ -0,0 +1,627 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * MSM8x60 family (MSM8260/MSM8660/APQ8060) MPM (MSM Power Manager) wakeup interrupt controller
-+ *
-+ * The MPM is an always-on hardware block that keeps a small set of wake
-+ * sources alive while the application processor is powered down for
-+ * cpuidle Power Collapse or suspend-to-RAM. On MSM8x60 the
-+ * vMPM (virtual MPM) registers live INSIDE the RPM's 4 KB control block
-+ * at:
-+ *
-+ *   request (control) regs: RPM_BASE + 0x9d8  (ENABLE, DETECT_CTL,
-+ *                                              POLARITY, CLEAR)
-+ *   status (pending) regs:  RPM_BASE + 0xdf8  (== 0x9d8 + 0x420)
-+ *
-+ * The mainline qcom-mpm driver (drivers/irqchip/irq-qcom-mpm.c) is
-+ * fundamentally incompatible with this layout:
-+ *   - it assumes a dedicated MPM SRAM region separate from RPM;
-+ *   - it assumes a mailbox controller (IPCC) for wake notification;
-+ *   - it uses IRQCHIP_DECLARE which runs before platform devices exist,
-+ *     so of_find_device_by_node() returns NULL and the init silently
-+ *     hangs.
-+ *
-+ * This driver replicates the 2.6.35-palm `arch/arm/mach-msm/mpm.c`
-+ * mechanism as a regular platform driver: probes after platform
-+ * infrastructure is ready, accesses RPM via a syscon phandle, and uses
-+ * the qcom-apcs-ipc mailbox for wake notification (writing to
-+ * GCC + 0x008 bit 1).
-+ *
-+ * Two consumer interfaces:
-+ *
-+ *   1. Hierarchical irqdomain: for MPM pins that map to GIC SPIs (USB,
-+ *      HDMI, ...). Consumers wire their interrupts through this
-+ *      controller via interrupts-extended and the kernel manages
-+ *      enable / mask / set_type via the IRQ subsystem. This is the
-+ *      mainline-recommended path for IRQ-mappable wake sources.
-+ *
-+ *   2. Raw-pin API: for MPM pins that do NOT correspond to a GIC IRQ
-+ *      (SDC3_DAT1=21, SDC3_DAT3=22, SDC4_DAT1=23, SDC4_DAT3=24).
-+ *      These are physical wake-signal lines monitored by MPM
-+ *      directly. Consumers (mmci for SDC4 wake) call
-+ *      msm8660_mpm_set_pin_wake() etc. to twiddle the MPM enable
-+ *      register for these "raw" pins.
-+ *
-+ * Copyright (c) 2026, Herman van Hazendonk <github.com@herrie.org>
-+ * Copyright (c) 2010-2012, The Linux Foundation (legacy mpm.c reference)
-+ */
-+
-+#include <linux/interrupt.h>
-+#include <linux/io.h>
-+#include <linux/irq.h>
-+#include <linux/irqdomain.h>
-+#include <linux/mailbox_client.h>
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/of_irq.h>
-+#include <linux/platform_device.h>
-+#include <linux/regmap.h>
-+#include <linux/spinlock.h>
-+
-+#include <soc/qcom/msm8660-mpm.h>
-+
-+/* vMPM register offsets (relative to RPM base + 0x9d8). Each register is
-+ * a window of two 32-bit slots since MPM exposes 64 wake pins.
-+ */
-+#define MSM8660_MPM_REG_ENABLE		0x00
-+#define MSM8660_MPM_REG_DETECT_CTL	0x08
-+#define MSM8660_MPM_REG_POLARITY	0x10
-+#define MSM8660_MPM_REG_CLEAR		0x18
-+
-+/* Status registers at +0x420 from vMPM base (== RPM + 0xdf8). */
-+#define MSM8660_MPM_STATUS_OFFSET	0x420
-+
-+#define MSM8660_MPM_PIN_COUNT		64
-+#define MSM8660_MPM_REG_WIDTH		2
-+
-+struct msm8660_mpm_pin {
-+	int pin;
-+	int hwirq;
-+};
-+
-+struct msm8660_mpm {
-+	struct device *dev;
-+	struct regmap *regmap;
-+	unsigned int regmap_offset;
-+	struct irq_domain *domain;
-+	struct msm8660_mpm_pin *pin_map;
-+	unsigned int pin_map_count;
-+	int parent_irq;
-+	raw_spinlock_t lock;
-+	struct mbox_client mbox_client;
-+	struct mbox_chan *mbox_chan;
-+};
-+
-+/* Singleton — there is only one MPM instance per SoC. The pin-API
-+ * lookup helpers (msm8660_mpm_get()) return this.
-+ */
-+static struct msm8660_mpm *msm8660_mpm_global;
-+
-+static u32 msm8660_mpm_read(struct msm8660_mpm *mpm, unsigned int reg)
-+{
-+	u32 val;
-+	regmap_read(mpm->regmap, mpm->regmap_offset + reg, &val);
-+	return val;
-+}
-+
-+static void msm8660_mpm_write(struct msm8660_mpm *mpm, unsigned int reg,
-+			      u32 val)
-+{
-+	regmap_write(mpm->regmap, mpm->regmap_offset + reg, val);
-+}
-+
-+static int msm8660_mpm_pin_to_hwirq(struct msm8660_mpm *mpm, int pin)
-+{
-+	int i;
-+
-+	for (i = 0; i < mpm->pin_map_count; i++) {
-+		if (mpm->pin_map[i].pin == pin)
-+			return mpm->pin_map[i].hwirq;
-+	}
-+	return -ENOENT;
-+}
-+
-+/*
-+ * IPC handler: MPM fires this IRQ when one or more enabled wake pins
-+ * have pending activity. Read pending status, for each pin look up the
-+ * corresponding GIC hwirq (if mapped), replay it through the
-+ * irqdomain, then clear the pending bit.
-+ */
-+static irqreturn_t msm8660_mpm_irq(int irq, void *data)
-+{
-+	struct msm8660_mpm *mpm = data;
-+	unsigned long pending[MSM8660_MPM_REG_WIDTH];
-+	unsigned long enable[MSM8660_MPM_REG_WIDTH];
-+	int i, j;
-+
-+	for (i = 0; i < MSM8660_MPM_REG_WIDTH; i++) {
-+		pending[i] = msm8660_mpm_read(mpm,
-+			MSM8660_MPM_STATUS_OFFSET + i * 4);
-+		enable[i] = msm8660_mpm_read(mpm,
-+			MSM8660_MPM_REG_ENABLE + i * 4);
-+	}
-+
-+	for (i = 0; i < MSM8660_MPM_REG_WIDTH; i++) {
-+		unsigned long bits = pending[i] & enable[i];
-+
-+		for_each_set_bit(j, &bits, 32) {
-+			int pin = i * 32 + j;
-+			int hwirq = msm8660_mpm_pin_to_hwirq(mpm, pin);
-+
-+			if (hwirq >= 0) {
-+				dev_dbg(mpm->dev, "wake pin %d -> hwirq %d\n",
-+					pin, hwirq);
-+				generic_handle_domain_irq(mpm->domain, hwirq);
-+			}
-+		}
-+
-+		if (bits)
-+			msm8660_mpm_write(mpm,
-+				MSM8660_MPM_REG_CLEAR + i * 4, bits);
-+	}
-+
-+	return IRQ_HANDLED;
-+}
-+
-+static void msm8660_mpm_enable_hwirq(struct irq_data *d, bool enable)
-+{
-+	struct msm8660_mpm *mpm = irq_data_get_irq_chip_data(d);
-+	unsigned long flags;
-+	int i, pin = -1;
-+	u32 val;
-+
-+	for (i = 0; i < mpm->pin_map_count; i++) {
-+		if (mpm->pin_map[i].hwirq == d->hwirq) {
-+			pin = mpm->pin_map[i].pin;
-+			break;
-+		}
-+	}
-+
-+	if (pin < 0)
-+		return;
-+
-+	raw_spin_lock_irqsave(&mpm->lock, flags);
-+
-+	val = msm8660_mpm_read(mpm,
-+		MSM8660_MPM_REG_ENABLE + (pin / 32) * 4);
-+	if (enable)
-+		val |= BIT(pin % 32);
-+	else
-+		val &= ~BIT(pin % 32);
-+	msm8660_mpm_write(mpm,
-+		MSM8660_MPM_REG_ENABLE + (pin / 32) * 4, val);
-+
-+	raw_spin_unlock_irqrestore(&mpm->lock, flags);
-+}
-+
-+static void msm8660_mpm_mask_irq(struct irq_data *d)
-+{
-+	msm8660_mpm_enable_hwirq(d, false);
-+	irq_chip_mask_parent(d);
-+}
-+
-+static void msm8660_mpm_unmask_irq(struct irq_data *d)
-+{
-+	msm8660_mpm_enable_hwirq(d, true);
-+	irq_chip_unmask_parent(d);
-+}
-+
-+static int msm8660_mpm_set_type(struct irq_data *d, unsigned int type)
-+{
-+	struct msm8660_mpm *mpm = irq_data_get_irq_chip_data(d);
-+	unsigned long flags;
-+	int i, pin = -1;
-+	u32 detect, polarity;
-+
-+	for (i = 0; i < mpm->pin_map_count; i++) {
-+		if (mpm->pin_map[i].hwirq == d->hwirq) {
-+			pin = mpm->pin_map[i].pin;
-+			break;
-+		}
-+	}
-+
-+	if (pin < 0)
-+		return -ENOENT;
-+
-+	raw_spin_lock_irqsave(&mpm->lock, flags);
-+
-+	detect = msm8660_mpm_read(mpm,
-+		MSM8660_MPM_REG_DETECT_CTL + (pin / 32) * 4);
-+	polarity = msm8660_mpm_read(mpm,
-+		MSM8660_MPM_REG_POLARITY + (pin / 32) * 4);
-+
-+	switch (type) {
-+	case IRQ_TYPE_EDGE_RISING:
-+		detect |= BIT(pin % 32);
-+		polarity |= BIT(pin % 32);
-+		break;
-+	case IRQ_TYPE_EDGE_FALLING:
-+		detect |= BIT(pin % 32);
-+		polarity &= ~BIT(pin % 32);
-+		break;
-+	case IRQ_TYPE_LEVEL_HIGH:
-+		detect &= ~BIT(pin % 32);
-+		polarity |= BIT(pin % 32);
-+		break;
-+	case IRQ_TYPE_LEVEL_LOW:
-+		detect &= ~BIT(pin % 32);
-+		polarity &= ~BIT(pin % 32);
-+		break;
-+	default:
-+		raw_spin_unlock_irqrestore(&mpm->lock, flags);
-+		return -EINVAL;
-+	}
-+
-+	msm8660_mpm_write(mpm,
-+		MSM8660_MPM_REG_DETECT_CTL + (pin / 32) * 4, detect);
-+	msm8660_mpm_write(mpm,
-+		MSM8660_MPM_REG_POLARITY + (pin / 32) * 4, polarity);
-+
-+	raw_spin_unlock_irqrestore(&mpm->lock, flags);
-+
-+	return irq_chip_set_type_parent(d, type);
-+}
-+
-+static struct irq_chip msm8660_mpm_chip = {
-+	.name			= "msm8660-mpm",
-+	.irq_mask		= msm8660_mpm_mask_irq,
-+	.irq_unmask		= msm8660_mpm_unmask_irq,
-+	.irq_set_type		= msm8660_mpm_set_type,
-+	.irq_eoi		= irq_chip_eoi_parent,
-+	.irq_set_affinity	= irq_chip_set_affinity_parent,
-+	.flags			= IRQCHIP_MASK_ON_SUSPEND | IRQCHIP_SKIP_SET_WAKE,
-+};
-+
-+static int msm8660_mpm_domain_alloc(struct irq_domain *domain,
-+				    unsigned int virq,
-+				    unsigned int nr_irqs, void *data)
-+{
-+	struct msm8660_mpm *mpm = domain->host_data;
-+	struct irq_fwspec *fwspec = data;
-+	struct irq_fwspec parent_fwspec;
-+	int hwirq, ret;
-+
-+	if (fwspec->param_count != 2)
-+		return -EINVAL;
-+
-+	hwirq = fwspec->param[0];
-+
-+	parent_fwspec.fwnode = domain->parent->fwnode;
-+	parent_fwspec.param_count = 3;
-+	parent_fwspec.param[0] = 0;	/* GIC_SPI */
-+	parent_fwspec.param[1] = hwirq;
-+	parent_fwspec.param[2] = fwspec->param[1];
-+
-+	ret = irq_domain_alloc_irqs_parent(domain, virq, nr_irqs,
-+					   &parent_fwspec);
-+	if (ret)
-+		return ret;
-+
-+	irq_domain_set_hwirq_and_chip(domain, virq, hwirq,
-+				      &msm8660_mpm_chip, mpm);
-+
-+	return 0;
-+}
-+
-+static const struct irq_domain_ops msm8660_mpm_domain_ops = {
-+	.alloc	= msm8660_mpm_domain_alloc,
-+	.free	= irq_domain_free_irqs_common,
-+	.translate = irq_domain_translate_twocell,
-+};
-+
-+/* ===================================================================
-+ * Raw-pin API for wake sources without a GIC IRQ mapping (SDC3/4 DATx)
-+ * ===================================================================
-+ *
-+ * These helpers operate on MPM pins directly via the ENABLE / DETECT_CTL
-+ * / POLARITY registers. Used by consumer drivers (mmci for SDC4 wake)
-+ * that need to monitor a physical signal line via MPM but don't have a
-+ * corresponding GIC interrupt to route through the irqdomain.
-+ */
-+
-+/**
-+ * msm8660_mpm_get() - get a handle to the MPM device
-+ * @np: device node of the consumer (used for phandle lookup)
-+ * @propname: phandle property name; if NULL, returns the singleton
-+ *            without phandle verification.
-+ *
-+ * Returns the singleton MPM handle, or ERR_PTR(-EPROBE_DEFER) if the
-+ * MPM driver hasn't probed yet.
-+ */
-+struct msm8660_mpm *msm8660_mpm_get(struct device_node *np,
-+				    const char *propname)
-+{
-+	struct device_node *mpm_np;
-+
-+	if (!msm8660_mpm_global)
-+		return ERR_PTR(-EPROBE_DEFER);
-+
-+	if (np && propname) {
-+		mpm_np = of_parse_phandle(np, propname, 0);
-+		if (!mpm_np)
-+			return ERR_PTR(-ENOENT);
-+		of_node_put(mpm_np);
-+	}
-+
-+	return msm8660_mpm_global;
-+}
-+EXPORT_SYMBOL_GPL(msm8660_mpm_get);
-+
-+/**
-+ * msm8660_mpm_enable_pin() - enable/disable MPM monitoring of a pin
-+ * @mpm: handle from msm8660_mpm_get()
-+ * @pin: MPM pin index (0..63)
-+ * @enable: true to monitor, false to ignore
-+ *
-+ * Programs the ENABLE register directly. Intended for "raw" wake pins
-+ * (SDC3_DAT1=21, SDC3_DAT3=22, SDC4_DAT1=23, SDC4_DAT3=24) that have no
-+ * GIC IRQ mapping. For pins that DO have a GIC mapping (in
-+ * qcom,mpm-pin-map), use the irqdomain path instead.
-+ */
-+int msm8660_mpm_enable_pin(struct msm8660_mpm *mpm, unsigned int pin,
-+			   bool enable)
-+{
-+	unsigned long flags;
-+	u32 val;
-+
-+	if (!mpm || pin >= MSM8660_MPM_PIN_COUNT)
-+		return -EINVAL;
-+
-+	raw_spin_lock_irqsave(&mpm->lock, flags);
-+	val = msm8660_mpm_read(mpm,
-+		MSM8660_MPM_REG_ENABLE + (pin / 32) * 4);
-+	if (enable)
-+		val |= BIT(pin % 32);
-+	else
-+		val &= ~BIT(pin % 32);
-+	msm8660_mpm_write(mpm,
-+		MSM8660_MPM_REG_ENABLE + (pin / 32) * 4, val);
-+	raw_spin_unlock_irqrestore(&mpm->lock, flags);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(msm8660_mpm_enable_pin);
-+
-+/**
-+ * msm8660_mpm_set_pin_wake() - mark a pin as wake-capable
-+ * @mpm: handle
-+ * @pin: MPM pin index
-+ * @on:  true to allow this pin to wake the system, false to clear.
-+ *
-+ * Equivalent to msm8660_mpm_enable_pin() on MSM8660 — the hardware has
-+ * a single ENABLE register, not separate enable + wake masks. The name
-+ * is kept for API parity with the legacy mpm.h interface so consumers
-+ * can express the wake-source intent explicitly.
-+ */
-+int msm8660_mpm_set_pin_wake(struct msm8660_mpm *mpm, unsigned int pin,
-+			     bool on)
-+{
-+	return msm8660_mpm_enable_pin(mpm, pin, on);
-+}
-+EXPORT_SYMBOL_GPL(msm8660_mpm_set_pin_wake);
-+
-+/**
-+ * msm8660_mpm_set_pin_type() - set trigger type for a raw MPM pin
-+ * @mpm: handle
-+ * @pin: MPM pin index
-+ * @flow_type: standard IRQ_TYPE_* constants
-+ *
-+ * On MSM8660 the trigger config is split across DETECT_CTL (edge vs
-+ * level) and POLARITY (rising/high vs falling/low).
-+ */
-+int msm8660_mpm_set_pin_type(struct msm8660_mpm *mpm, unsigned int pin,
-+			     unsigned int flow_type)
-+{
-+	unsigned long flags;
-+	u32 detect, polarity;
-+	bool edge, polarity_high;
-+
-+	if (!mpm || pin >= MSM8660_MPM_PIN_COUNT)
-+		return -EINVAL;
-+
-+	edge = !!(flow_type & IRQ_TYPE_EDGE_BOTH);
-+	polarity_high = !!(flow_type & (IRQ_TYPE_EDGE_RISING |
-+					IRQ_TYPE_LEVEL_HIGH));
-+
-+	raw_spin_lock_irqsave(&mpm->lock, flags);
-+
-+	detect = msm8660_mpm_read(mpm,
-+		MSM8660_MPM_REG_DETECT_CTL + (pin / 32) * 4);
-+	polarity = msm8660_mpm_read(mpm,
-+		MSM8660_MPM_REG_POLARITY + (pin / 32) * 4);
-+
-+	if (edge)
-+		detect |= BIT(pin % 32);
-+	else
-+		detect &= ~BIT(pin % 32);
-+
-+	if (polarity_high)
-+		polarity |= BIT(pin % 32);
-+	else
-+		polarity &= ~BIT(pin % 32);
-+
-+	msm8660_mpm_write(mpm,
-+		MSM8660_MPM_REG_DETECT_CTL + (pin / 32) * 4, detect);
-+	msm8660_mpm_write(mpm,
-+		MSM8660_MPM_REG_POLARITY + (pin / 32) * 4, polarity);
-+
-+	raw_spin_unlock_irqrestore(&mpm->lock, flags);
-+
-+	return 0;
-+}
-+EXPORT_SYMBOL_GPL(msm8660_mpm_set_pin_type);
-+
-+/* ===================================================================
-+ * Platform driver
-+ * ===================================================================
-+ */
-+
-+static int msm8660_mpm_probe(struct platform_device *pdev)
-+{
-+	struct device *dev = &pdev->dev;
-+	struct device_node *np = dev->of_node;
-+	struct msm8660_mpm *mpm;
-+	struct irq_domain *parent_domain;
-+	struct device_node *parent_np;
-+	int ret, i;
-+	u32 offset;
-+
-+	if (msm8660_mpm_global) {
-+		dev_err(dev, "only one MPM instance is supported\n");
-+		return -EBUSY;
-+	}
-+
-+	mpm = devm_kzalloc(dev, sizeof(*mpm), GFP_KERNEL);
-+	if (!mpm)
-+		return -ENOMEM;
-+
-+	mpm->dev = dev;
-+	raw_spin_lock_init(&mpm->lock);
-+
-+	mpm->regmap = syscon_regmap_lookup_by_phandle(np, "qcom,rpm-syscon");
-+	if (IS_ERR(mpm->regmap)) {
-+		dev_err(dev, "failed to get RPM syscon: %ld\n",
-+			PTR_ERR(mpm->regmap));
-+		return PTR_ERR(mpm->regmap);
-+	}
-+
-+	ret = of_property_read_u32(np, "qcom,mpm-offset", &offset);
-+	if (ret) {
-+		dev_err(dev, "failed to read qcom,mpm-offset: %d\n", ret);
-+		return ret;
-+	}
-+	mpm->regmap_offset = offset;
-+
-+	dev_info(dev, "vMPM registers at RPM offset 0x%x\n", offset);
-+
-+	/* Parse pin map (IRQ-mapped wake pins; raw pins like SDC4_DAT1 are
-+	 * not listed here — they're accessed via the pin-API below).
-+	 */
-+	ret = of_property_count_u32_elems(np, "qcom,mpm-pin-map");
-+	if (ret < 0 || ret % 2) {
-+		dev_err(dev, "invalid qcom,mpm-pin-map\n");
-+		return -EINVAL;
-+	}
-+
-+	mpm->pin_map_count = ret / 2;
-+	mpm->pin_map = devm_kcalloc(dev, mpm->pin_map_count,
-+				    sizeof(*mpm->pin_map), GFP_KERNEL);
-+	if (!mpm->pin_map)
-+		return -ENOMEM;
-+
-+	for (i = 0; i < mpm->pin_map_count; i++) {
-+		u32 pin, hwirq;
-+
-+		of_property_read_u32_index(np, "qcom,mpm-pin-map",
-+					   i * 2, &pin);
-+		of_property_read_u32_index(np, "qcom,mpm-pin-map",
-+					   i * 2 + 1, &hwirq);
-+
-+		mpm->pin_map[i].pin = pin;
-+		mpm->pin_map[i].hwirq = hwirq;
-+
-+		dev_dbg(dev, "pin map: pin %d -> hwirq %d\n", pin, hwirq);
-+	}
-+
-+	parent_np = of_irq_find_parent(np);
-+	if (!parent_np) {
-+		dev_err(dev, "failed to find parent interrupt controller\n");
-+		return -ENODEV;
-+	}
-+
-+	parent_domain = irq_find_host(parent_np);
-+	of_node_put(parent_np);
-+	if (!parent_domain) {
-+		dev_err(dev, "failed to find parent IRQ domain\n");
-+		return -ENODEV;
-+	}
-+
-+	mpm->domain = irq_domain_create_hierarchy(parent_domain, 0,
-+						  MSM8660_MPM_PIN_COUNT,
-+						  of_fwnode_handle(np),
-+						  &msm8660_mpm_domain_ops,
-+						  mpm);
-+	if (!mpm->domain) {
-+		dev_err(dev, "failed to create IRQ domain\n");
-+		return -ENOMEM;
-+	}
-+
-+	mpm->parent_irq = platform_get_irq(pdev, 0);
-+	if (mpm->parent_irq < 0) {
-+		ret = mpm->parent_irq;
-+		goto err_remove_domain;
-+	}
-+
-+	ret = devm_request_irq(dev, mpm->parent_irq, msm8660_mpm_irq,
-+			       IRQF_TRIGGER_HIGH | IRQF_NO_SUSPEND,
-+			       "msm8660-mpm", mpm);
-+	if (ret) {
-+		dev_err(dev, "failed to request IRQ %d: %d\n",
-+			mpm->parent_irq, ret);
-+		goto err_remove_domain;
-+	}
-+
-+	/* Mailbox channel for poking MPM to re-read its config (writes to
-+	 * GCC + 0x008 bit 1 via the qcom-apcs-ipc mailbox).
-+	 */
-+	mpm->mbox_client.dev = dev;
-+	mpm->mbox_client.knows_txdone = true;
-+	mpm->mbox_chan = mbox_request_channel(&mpm->mbox_client, 0);
-+	if (IS_ERR(mpm->mbox_chan)) {
-+		dev_warn(dev, "no mailbox channel: %ld (continuing)\n",
-+			 PTR_ERR(mpm->mbox_chan));
-+		mpm->mbox_chan = NULL;
-+	}
-+
-+	platform_set_drvdata(pdev, mpm);
-+	msm8660_mpm_global = mpm;
-+
-+	dev_info(dev, "ready: %d pin mappings, irq=%d\n",
-+		 mpm->pin_map_count, mpm->parent_irq);
-+
-+	return 0;
-+
-+err_remove_domain:
-+	irq_domain_remove(mpm->domain);
-+	return ret;
-+}
-+
-+static void msm8660_mpm_remove(struct platform_device *pdev)
-+{
-+	struct msm8660_mpm *mpm = platform_get_drvdata(pdev);
-+
-+	msm8660_mpm_global = NULL;
-+	if (mpm->mbox_chan)
-+		mbox_free_channel(mpm->mbox_chan);
-+	irq_domain_remove(mpm->domain);
-+}
-+
-+static const struct of_device_id msm8660_mpm_of_match[] = {
-+	{ .compatible = "qcom,msm8660-mpm" },
-+	{}
-+};
-+MODULE_DEVICE_TABLE(of, msm8660_mpm_of_match);
-+
-+static struct platform_driver msm8660_mpm_driver = {
-+	.probe		= msm8660_mpm_probe,
-+	.remove		= msm8660_mpm_remove,
-+	.driver		= {
-+		.name	= "msm8660-mpm",
-+		.of_match_table = msm8660_mpm_of_match,
-+	},
-+};
-+
-+static int __init msm8660_mpm_init(void)
-+{
-+	return platform_driver_register(&msm8660_mpm_driver);
-+}
-+subsys_initcall(msm8660_mpm_init);
-+
-+static void __exit msm8660_mpm_exit(void)
-+{
-+	platform_driver_unregister(&msm8660_mpm_driver);
-+}
-+module_exit(msm8660_mpm_exit);
-+
-+MODULE_DESCRIPTION("Qualcomm MSM8x60 MPM wakeup interrupt controller");
-+MODULE_LICENSE("GPL");
-diff --git a/include/soc/qcom/msm8660-mpm.h b/include/soc/qcom/msm8660-mpm.h
-new file mode 100644
-index 000000000000..118748ad6960
---- /dev/null
-+++ b/include/soc/qcom/msm8660-mpm.h
-@@ -0,0 +1,80 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Qualcomm MSM8x60 family (MSM8260/MSM8660/APQ8060) MPM wake-source consumer interface.
-+ *
-+ * The MPM driver lives at drivers/irqchip/irq-msm8660-mpm.c. It exposes
-+ * TWO interfaces:
-+ *
-+ *  1. Hierarchical irqdomain (preferred). For wake sources that map to
-+ *     GIC SPIs (USB1_HS, HDMI, ...). Consumers wire their IRQ through
-+ *     the MPM via `interrupts-extended = <&msm8660_mpm ...>` in DT and
-+ *     the IRQ subsystem manages enable / mask / set_type via the
-+ *     irqdomain alloc path. No explicit C API call needed.
-+ *
-+ *  2. Raw-pin API (this header). For wake sources that do NOT have a
-+ *     GIC IRQ mapping: SDC3_DAT1=21, SDC3_DAT3=22, SDC4_DAT1=23,
-+ *     SDC4_DAT3=24. These are physical wake-signal lines that MPM
-+ *     monitors directly. mmci (for SDC4 WiFi wake) obtains a handle
-+ *     via msm8660_mpm_get() and uses the helpers below.
-+ */
-+
-+#ifndef __SOC_QCOM_MSM8660_MPM_H__
-+#define __SOC_QCOM_MSM8660_MPM_H__
-+
-+#include <linux/err.h>
-+#include <linux/errno.h>
-+#include <linux/irq.h>
-+
-+#define MSM8660_MPM_NR_PINS	64
-+
-+/* Well-known wake-source pin indices (from the legacy 2.6.35-palm tree). */
-+#define MSM8660_MPM_PIN_SDC3_DAT1	21
-+#define MSM8660_MPM_PIN_SDC3_DAT3	22
-+#define MSM8660_MPM_PIN_SDC4_DAT1	23
-+#define MSM8660_MPM_PIN_SDC4_DAT3	24
-+
-+struct device_node;
-+struct msm8660_mpm;
-+
-+#if IS_ENABLED(CONFIG_QCOM_MSM8660_MPM)
-+
-+struct msm8660_mpm *msm8660_mpm_get(struct device_node *np,
-+				    const char *propname);
-+
-+int msm8660_mpm_set_pin_wake(struct msm8660_mpm *mpm, unsigned int pin,
-+			     bool on);
-+int msm8660_mpm_enable_pin(struct msm8660_mpm *mpm, unsigned int pin,
-+			   bool enable);
-+int msm8660_mpm_set_pin_type(struct msm8660_mpm *mpm, unsigned int pin,
-+			     unsigned int flow_type);
-+
-+#else /* !CONFIG_QCOM_MSM8660_MPM */
-+
-+static inline struct msm8660_mpm *
-+msm8660_mpm_get(struct device_node *np, const char *propname)
-+{
-+	return ERR_PTR(-ENODEV);
-+}
-+
-+static inline int msm8660_mpm_set_pin_wake(struct msm8660_mpm *mpm,
-+					   unsigned int pin, bool on)
-+{
-+	return -ENODEV;
-+}
-+
-+static inline int msm8660_mpm_enable_pin(struct msm8660_mpm *mpm,
-+					 unsigned int pin, bool enable)
-+{
-+	return -ENODEV;
-+}
-+
-+static inline int msm8660_mpm_set_pin_type(struct msm8660_mpm *mpm,
-+					   unsigned int pin,
-+					   unsigned int flow_type)
-+{
-+	return -ENODEV;
-+}
-+
-+#endif /* CONFIG_QCOM_MSM8660_MPM */
-+
-+#endif /* __SOC_QCOM_MSM8660_MPM_H__ */
--- 
-2.43.0
 
+--sbuNnDmWOaUg48ge
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoa75UACgkQFA3kzBSg
+KbZxqg/9Ef9VbcVm4iGwE6vGGwaE3/psSXTuu3nGvOb2pWx4/ZFeXoRYNRNPNo1P
+VU4yXYh+voyaamDQ0ZzaWxZbvHC4SIgz72zNXoYyqBth0e2YyKjjrqnHo+OVtQn4
+mu1kkJscvj3JSz7guMyWuznUVrSnK8BzfpaW93VRLKIsebSD9QfbFp4r3XHgio63
+T5wjQTvAjfQgF6ur7yHLD5JTiT+Rpd9JEZvP6bLB/lTdMNhn7y1NE3Fr6uVb4g8B
+Wj0thoYp1nfyxid86bSADfDL58Os9kokBxLbTcSTDNeD1Y3ZFFZT57sPqKdarO3f
+74doMFofvvTph9s+qVAZn+oWti3HQRmok19YVx/oKmb43Ps9TqbrmCgj4ieAFnco
+6djiK/0rJT/Y9lJYFzgkxq/0sxhUEZagtyZa/in3/IpcPmZTNkTbXX7VmNDjahBY
+WEIayLPUjTvDIqovjHCo+3uFefzuvkdHWELaqpeBthIDeswkBjm9ZMh95gQXfUb4
+xlJfonlZh5CbNb9c17H7zh/XXHXCq2KBsueY3LKf+IakkDqalGEAUzcMcXxs/SHX
+4aOJbdPVDLqOqJjaIK4drq2q9FcdNcStLVHz86JMxq5+zWyonqPptpAqKt1qNOUU
+ExvvQVkKbCDBI+eoe0ZBOGdufYpcF/MfsMiXAfP7k9R/0CYdFuI=
+=S3Db
+-----END PGP SIGNATURE-----
+
+--sbuNnDmWOaUg48ge--
