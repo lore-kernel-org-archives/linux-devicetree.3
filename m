@@ -1,216 +1,135 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D80CB3093A6
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 16:18:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C0CA284896;
+	Sat, 30 May 2026 16:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780157933; cv=none; b=enUCC6EViJe1SPvUDjRIE5l40E1PxpBnMXuivAptjeqnEYrs9sg7og6xhQRyWgiAJj0YCx+JwPvZeM9OAWHOWg45dO+oN6Zx6wenMoRFT0/ntIjs7kyrg+iYSBlIv2dv0PFAuYl9qc7uXm4JkOrN3EL08X+qi79soXoJ141oA9E=
+	t=1780158335; cv=none; b=cwhWopL2xD1Umg46DC+dKvBm2pLvCozeyFFYcRsBIycvUK0Cee1xHVEqRrLo4esQTonn94CAmPJgAYcXeXABklh839YMpuWyMfbQ/aGrQOPWECespuY+HXKO9o1kAaCv7iup98QEyEUuhG2ULJ5YT5U14uCWwE6UETrGqAAtpME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780157933; c=relaxed/simple;
-	bh=zBF1aLKHpba4+Tk6vrK/wSGr8CJ1L1gSMBASkfzTUsI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M7MMBpQx/MMFD1HtzFle7e5st2JCvYLv1y/ejBIfz3K6RUcnoQfxKlE4ktvADGmqAw4iFSbBJKjUxEh0uuV7dix4B8e+vNYaYbB8tSRWdMavDKIlcivb6/ufrUhCHNKrHeN4bMjoh8MxlefjoVH9ePVnz5N95lcTS8epQ79LbcU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g0pVIO4T; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780158335; c=relaxed/simple;
+	bh=UI6qIUcdsGpcmlZEaRcN8lnF8eMeDTz+BLiIgpkN3xo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CogE72AEwKuhotX86FtgOv8pzBN12Zir3P+XaRuvQD7JucQSUj/YQvihsThgSOTyY48vsvfT0PpNlukdrKi78V/ulo92/fienGAo07k8I2dMyGk3lIleiUDlcMWqIXPQekNJ0nxe4UOzpAxugoJXfFaLrAxbdNYTK6Dc3mp4HuI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZNZulNZW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g0pVIO4T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B8F1F00893;
-	Sat, 30 May 2026 16:18:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZNZulNZW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB20F1F00893;
+	Sat, 30 May 2026 16:25:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780157932;
-	bh=/0aoasCLayw4MgcOaL1Y4hPOfu5m2a/nmXntUB4Sui0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=g0pVIO4TZdVQpLCGWMzs4F33U1xjlFZhY13mxIJTLEnZAHPj4X1VAFt3UOZ8YOmTX
-	 RLLADh5p+dTkgDKfcGmMGzGj2CMTsJcvmJrNLhbq+sTCBx6ZjaONjJw1Ffje7Qb0jl
-	 IUgB8NkAwJVpGViJFaK2lrcR48AmUMDYTgOnrJWOCuS/OZMiTb7+HZvm4Ua8D+m4fz
-	 Nkh0BI4P2BGqA4KAqLNhXUw9hK7jZMLB0GHDkLUI9WvxhbdLMtcqxfE+PKu3vyxTHr
-	 E/7zuH13YYBWGdtL5GhCU5AX9DiC43C1RVQM8QXLt9360eBjNLLc6BHotbHFteb8ZT
-	 R5yiGSBx+1N0w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588
- crypto engine binding
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dawid Olesinski" <dawidro@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260530160704.3453555-2-dawidro@gmail.com>
-References: <20260530160704.3453555-2-dawidro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 16:18:52 +0000
-Message-Id: <20260530161852.88B8F1F00893@smtp.kernel.org>
+	s=k20260515; t=1780158334;
+	bh=1suTZzjeKKm1M2CPVaqVj1nFGVAvH1OGHJ6QIFVOJpU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZNZulNZWopBoouy0/z4gcjC11VMW+fTvUrQ09qpmPKznqSj+bQDP9lcOybTNBz00u
+	 jq7ay/ejY+Cb+GCmiHvxtp2t6DeCzHRKhhyy+f5sufkOPpJR0B+nFfwxWfJvFRce2s
+	 VqGaGsio2ebJiwUKmS4D+Mr1+pnZZjeL8cHrQV8cEEaGQoQExr8ByXCCUH5EpMbUp4
+	 NNX5fsoQ/L/HfuSCRU2U4PvdPmeW8OcKs8RQkEBbDMlPiVfQTcx3Eaz1uAR/9130L6
+	 Mi2kaeXpxLG0x3MrzfXvcWrftE68RFqLXGMiYQs8S31o7y6Phs/1MZY6/armSuLsIF
+	 hk7vRncNndt8w==
+Date: Sat, 30 May 2026 19:25:22 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Will Deacon <will@kernel.org>
+Cc: Wandun Chen <chenwandun1@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	iommu@lists.linux.dev, zhaomeijing@lixiang.com,
+	catalin.marinas@arm.com, chenhuacai@kernel.org, kernel@xen0n.name,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, robh@kernel.org, saravanak@kernel.org,
+	akpm@linux-foundation.org, bhe@redhat.com,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, m.szyprowski@samsung.com,
+	robin.murphy@arm.com, quic_obabatun@quicinc.com
+Subject: Re: [PATCH v3 09/11] arm64: kdump: exclude non-dumpable reserved
+ memory regions from vmcore
+Message-ID: <ahsPcv8G1BR9rLah@kernel.org>
+References: <20260527032917.3385849-1-chenwandun1@gmail.com>
+ <20260527032917.3385849-10-chenwandun1@gmail.com>
+ <ahmr-UjoApj2j5JS@willie-the-truck>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ahmr-UjoApj2j5JS@willie-the-truck>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Shared interrupt is registered before hardware clocks are enabled =
-and driver structures are initialized, risking an unhandled bus fault.
-- [Low] The device tree example fails to compile with `dtc` and `dt_binding=
-_check` due to undefined SCMI macros.
-- [Low] The device tree example will fail validation in `dt_binding_check` =
-due to a mismatch between the `reg` property length and the default `#addre=
-ss-cells`/`#size-cells`.
---
+On Fri, May 29, 2026 at 04:08:41PM +0100, Will Deacon wrote:
+> On Wed, May 27, 2026 at 11:29:15AM +0800, Wandun Chen wrote:
+> > From: Wandun Chen <chenwandun@lixiang.com>
+> > 
+> > Reserved memory regions are excluded from vmcore by default unless
+> > marked dumpable. Honor the dumpable flag to filter out device firmware
+> > regions (e.g., GPU, DSP, modem) reserved via device tree, since they
+> > typically contain data not useful for kernel crash analysis and can
+> > significantly increase vmcore size.
+> > 
+> > Use of_reserved_mem_kdump_exclude() to perform the exclusion, and
+> > pre-size the crash_mem array via of_reserved_mem_kdump_nr_ranges().
+> > 
+> > Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> > Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
+> > ---
+> >  arch/arm64/kernel/machine_kexec_file.c | 6 ++++++
+> >  1 file changed, 6 insertions(+)
+> > 
+> > diff --git a/arch/arm64/kernel/machine_kexec_file.c b/arch/arm64/kernel/machine_kexec_file.c
+> > index e31fabed378a..1d65320c6ba4 100644
+> > --- a/arch/arm64/kernel/machine_kexec_file.c
+> > +++ b/arch/arm64/kernel/machine_kexec_file.c
+> > @@ -17,6 +17,7 @@
+> >  #include <linux/memblock.h>
+> >  #include <linux/of.h>
+> >  #include <linux/of_fdt.h>
+> > +#include <linux/of_reserved_mem.h>
+> >  #include <linux/slab.h>
+> >  #include <linux/string.h>
+> >  #include <linux/types.h>
+> > @@ -51,6 +52,7 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+> >  	nr_ranges = 2; /* for exclusion of crashkernel region */
+> >  	for_each_mem_range(i, &start, &end)
+> >  		nr_ranges++;
+> > +	nr_ranges += of_reserved_mem_kdump_nr_ranges();
+> >  
+> >  	cmem = kmalloc_flex(*cmem, ranges, nr_ranges);
+> >  	if (!cmem)
+> > @@ -75,6 +77,10 @@ static int prepare_elf_headers(void **addr, unsigned long *sz)
+> >  			goto out;
+> >  	}
+> >  
+> > +	ret = of_reserved_mem_kdump_exclude(cmem);
+> > +	if (ret)
+> > +		goto out;
+> > +
+> >  	ret = crash_prepare_elf64_headers(cmem, true, addr, sz);
+> 
+> This looks fine to me:
+> 
+> Acked-by: Will Deacon <will@kernel.org>
+> 
+> Although I do wonder whether there's scope to consolidate some of the
+> arch code here. Now that you have a helper for reserved memory, perhaps
+> the core code could also handle the crashkernel reservation itself as
+> well? If the arch code passed in its number of memory regions, the
+> core code could take care of (a) allocating the crash_mem ranges array
+> (b) excluding the crashkernel and (c) excluding the reserved regions
+> (the part you have here).
+> 
+> Obviously that would be follow-up work, but the fact that you're having
+> to apply basically the same diff to three architectures is a bit of a
+> giveaway that this could benefit from some wider cleanup.
 
-commit e90ad76061a5abfb6bd1bbdaa25b14862d6be7d3
-Author: Dawid Olesinski <dawidro@gmail.com>
+There are patches that move common code to kernel/crash_core.c:
 
-dt-bindings: crypto: rockchip: Add RK356x/RK3588 crypto engine binding
+https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com
+ 
+Review from arch maintainers would be helpful there ;-)
 
-Add a YAML device tree binding for the Rockchip second-generation (V2)
-cryptographic hardware accelerator present on the RK3568 and RK3588 SoCs.
+> Will
 
-> diff --git a/Documentation/devicetree/bindings/crypto/rockchip,rk3588-cry=
-pto.yaml b/Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.=
-yaml
-> new file mode 100644
-> index 0000000000000..4188ed8920db9
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yaml
-
-[ ... ]
-
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
-> +    crypto@fe370000 {
-> +        compatible =3D "rockchip,rk3588-crypto";
-> +        reg =3D <0x0 0xfe370000 0x0 0x2000>;
-
-[Severity: Low]
-Does this node need to be wrapped in a parent block that specifies
-#address-cells =3D <2> and #size-cells =3D <2>?
-
-Since this node is at the top level of the example, dt_binding_check defaul=
-ts
-both properties to 1, which causes a length mismatch with this 4-cell reg
-property. This will trigger a dtc invalid length warning and cause
-dt-validate to fail.
-
-> +        interrupts =3D <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH 0>;
-> +        clocks =3D <&scmi_clk SCMI_CRYPTO_CORE>,
-> +                 <&scmi_clk SCMI_ACLK_SECURE_NS>,
-> +                 <&scmi_clk SCMI_HCLK_SECURE_NS>;
-
-[Severity: Low]
-Are the SCMI clock macros defined anywhere in this example?
-
-It looks like the #include directives for the SCMI headers (e.g.,
-<dt-bindings/clock/rockchip,rk3588-cru.h>) are missing. During
-make dt_binding_check, these macros are left unexpanded, resulting in dtc
-syntax errors because bare strings are invalid inside a < > array.
-
-> +        clock-names =3D "core", "aclk", "hclk";
-> +        resets =3D <&scmi_reset SCMI_SRST_CRYPTO_CORE>;
-
-[Severity: Low]
-Are the SCMI reset macros defined anywhere in this example?
-
-Similar to the clocks property, the reset macro #include is missing
-(e.g., <dt-bindings/reset/rockchip,rk3588-cru.h>), which will cause
-dtc and dt_binding_check to fail.
-
-> +        reset-names =3D "core";
-> +    };
-
-[ ... ]
-
-Also, looking at the driver code added later in this patch series:
-
-> diff --git a/drivers/crypto/rockchip/rk2_crypto.c b/drivers/crypto/rockch=
-ip/rk2_crypto.c
-> new file mode 100644
-> index 0000000000000..df7dab4d7ca0b
-> --- /dev/null
-> +++ b/drivers/crypto/rockchip/rk2_crypto.c
-
-[ ... ]
-
-> +static int rk2_crypto_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct rk2_crypto_dev *rkc;
-> +	int err =3D 0;
-
-[ ... ]
-
-> +	err =3D devm_request_irq(dev, rkc->irq,
-> +			       rk2_crypto_irq_handle, IRQF_SHARED,
-> +			       "rk-crypto", pdev);
-> +
-> +	if (err) {
-> +		err =3D dev_err_probe(dev, err, "irq request failed.\n");
-> +		goto err_dma;
-> +	}
-> +
-> +	rkc->engine =3D crypto_engine_alloc_init(dev, true);
-> +	if (!rkc->engine) {
-> +		err =3D -ENOMEM;
-> +		goto err_dma;
-> +	}
-> +
-> +	err =3D crypto_engine_start(rkc->engine);
-> +	if (err) {
-> +		err =3D dev_err_probe(dev, err, "Failed to start crypto engine\n");
-> +		goto err_engine;
-> +	}
-> +
-> +	init_completion(&rkc->complete);
-> +
-> +	err =3D rk2_crypto_pm_init(rkc);
-> +	if (err) {
-> +		err =3D dev_err_probe(dev, err, "Failed to initialize runtime PM\n");
-> +		goto err_engine;
-> +	}
-> +
-> +	err =3D pm_runtime_resume_and_get(dev);
-
-[Severity: High]
-Is it safe to request the shared IRQ before the hardware clocks are enabled
-and rkc->complete is initialized?
-
-If another device sharing this IRQ triggers an interrupt during this window,
-rk2_crypto_irq_handle() could be invoked. Reading RK2_CRYPTO_DMA_INT_ST
-without clocks enabled would trigger a synchronous external abort (bus faul=
-t),
-leading to a kernel panic. It would also attempt to call complete() on an
-uninitialized structure.
-
-[ ... ]
-
-> +static void rk2_crypto_remove(struct platform_device *pdev)
-> +{
-> +	struct rk2_crypto_dev *rkc =3D platform_get_drvdata(pdev);
-> +
-> +	/* Stop engine to prevent new requests */
-> +	crypto_engine_stop(rkc->engine);
-> +
-> +	/* Unregister algorithms for this specific device */
-> +	rk2_crypto_unregister(rkc);
-> +
-> +#ifdef CONFIG_CRYPTO_DEV_ROCKCHIP2_DEBUG
-> +	debugfs_remove_recursive(rkc->dbgfs_dir);
-> +#endif
-> +
-> +	/* Safe to kill the engine completely */
-> +	crypto_engine_exit(rkc->engine);
-> +
-> +	rk2_crypto_pm_exit(rkc);
-> +	dma_free_coherent(rkc->dev, sizeof(struct rk2_crypto_lli) * MAX_LLI,
-> +			  rkc->tl, rkc->t_phy);
-> +}
-
-[Severity: High]
-Can rk2_crypto_pm_exit(rkc) disable runtime PM (gating clocks) while the
-devres-managed shared IRQ is still active?
-
-This would reopen the bus fault window during module unload, as the IRQ is
-not freed until devres cleanup occurs after rk2_crypto_remove() returns.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530160704.3453=
-555-1-dawidro@gmail.com?part=3D1
+-- 
+Sincerely yours,
+Mike.
