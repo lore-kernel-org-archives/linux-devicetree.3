@@ -1,101 +1,111 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8A07378D63;
-	Sat, 30 May 2026 21:40:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 373A71DDC28;
+	Sat, 30 May 2026 21:47:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.18.0.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780177233; cv=none; b=NJazxZML2/CCiVUZgg7NM46Q2U/dj1h0E1eB/FxbSzLMe3Z4mZL8cLSZef06ARF85HQnbSynx22YPDawtkqs6vcDgaGhbDF3XfDgMwJcllhZfhZuwsfqVkpoliy7XGntmDdTqDLmW3C+/5sRkf1Ps6C3/f+mVIoaQIldt8T3dtw=
+	t=1780177664; cv=none; b=S2ckr14zSSB7IP7HqlF9OL0moO/FKowVuozraSZFb6k/THZx1FQZnj0DLrseID85BW8Xd/T8GqvrowDZJPXl+XPxBdPW2tMFwUxanm0985nphFTrOTQHxXaxD5gpk5KjflBeFKbFynIUcQVYuUvkdvsfmOw9TMMIQ5TfgoX7grM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780177233; c=relaxed/simple;
-	bh=+3oUkLbhBpGLFG2o9Qg+l9rh7zW7WSrAKfm+iHX6+y4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QqHf/L0tx3tSrt4pgI6oI5nEd73d/1w89twm6qqaR2Bzsx0wNCr6Xz9+JP3j5D3YpitPNx85bkXSaATWCys6iOofsde0SRTWhcK8olAxDdA8R0HyLpluf82D2T5qYY0pZI1Mj3xg7OyIAWzJZ3iHhVVQgEfSB1Cjjisy+3uT2gM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nOwCQWhn; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nOwCQWhn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 516A11F00893;
-	Sat, 30 May 2026 21:40:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780177231;
-	bh=0tqOO6Ey8WoBe2Yp/hCytGo0ORoFcd+v8Gfopa8G1bA=;
-	h=From:To:Cc:Subject:Date;
-	b=nOwCQWhnIJSoGVStvsqVrDYAB8sSH0GiS5FnlXzTo/3ZQWd8lRQpkaP3agYzsKO/g
-	 bQuNmpR2hSUaWW6fETnSLi6UDC4btu/e67OVbYJLab2tilvKxtSqH6BJDy8eQOKHrc
-	 ONbss7T8ZfbRCeKLVzdPpD5Qj80hQXyKdMjR85D/OohwhWIXOOiJ/AS84tPIw0ggHi
-	 Ift/5HpK58wQIwS41kfjAu2wzgi020gSGGUuwGoFxH2hHYt8f+aaY9OEa51EEtW3oQ
-	 EJ4DxZaK+LZQa38uEKlT1uBzDXtY5JYqqAKv0RPUvTyv/aVE0IITua4eIeITej64vB
-	 CGrSnB0GZuPTQ==
-From: Dinh Nguyen <dinguyen@kernel.org>
-To: linux-arm-kernel@lists.infradead.org,
-	soc@lists.linux.dev
-Cc: dinguyen@kernel.org,
-	devicetree@vger.kernel.org
-Subject: [GIT PULL] arm64: dts: socfpga: updates for v7.2
-Date: Sat, 30 May 2026 16:40:27 -0500
-Message-ID: <20260530214027.161945-1-dinguyen@kernel.org>
-X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+	s=arc-20240116; t=1780177664; c=relaxed/simple;
+	bh=+OdWi9WDtXgTepnQhKQYQwYgI4l6P+St845J3qNXsrI=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=IzdtKsYHVIb1LVDs3WUkSXlt/SH9znPUGDLcePOjBARQBDdI8EjPdVj8fVbairI64MtbvSbbiSdmkJEqtkME2HAKJbcPy1yqA99DuxPPqgKaC9g0wLlY+mzArTUmziu88BiOg1PaPFhN9aITErLvi1dBdOHRbMXIF8NPn+kodGQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=nefkom.net; arc=none smtp.client-ip=212.18.0.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nefkom.net
+Received: from mail-out.m-online.net (mail-out.m-online.net [212.18.0.10])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4gSYjk41jXz1sG8Z;
+	Sat, 30 May 2026 23:47:38 +0200 (CEST)
+Received: from frontend03.mail.m-online.net (unknown [192.168.6.182])
+	by mail-out.m-online.net (Postfix) with ESMTP id 4gSYjj4CZvz1sG7h;
+	Sat, 30 May 2026 23:47:37 +0200 (CEST)
+Received: from localhost (dynscan3.mnet-online.de [192.168.6.87])
+	by mail.m-online.net (Postfix) with ESMTP id 4gSYjj2cFzz1qqlS;
+	Sat, 30 May 2026 23:47:37 +0200 (CEST)
+X-Virus-Scanned: amavis at mnet-online.de
+Received: from mail.mnet-online.de ([192.168.6.182])
+ by localhost (dynscan3.mail.m-online.net [192.168.6.87]) (amavis, port 10024)
+ with ESMTP id jhAAUe4_r901; Sat, 30 May 2026 23:47:36 +0200 (CEST)
+X-Auth-Info: VhoZGXqafEl8xd2Vn3898hxCrPZhtM4EMxNmVIF69poad4TwEdSE9C4PLgF6bHrY
+Received: from igel.home (aftr-82-135-83-65.dynamic.mnet-online.de [82.135.83.65])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mail.mnet-online.de (Postfix) with ESMTPSA;
+	Sat, 30 May 2026 23:47:36 +0200 (CEST)
+Received: by igel.home (Postfix, from userid 1000)
+	id 42A002C16CE; Sat, 30 May 2026 23:47:36 +0200 (CEST)
+From: Andreas Schwab <schwab@linux-m68k.org>
+To: Deepak Gupta <debug@rivosinc.com>
+Cc: Deepak Gupta via B4 Relay <devnull+debug.rivosinc.com@kernel.org>,
+  Thomas Gleixner <tglx@linutronix.de>,  Ingo Molnar <mingo@redhat.com>,
+  Borislav Petkov <bp@alien8.de>,  Dave Hansen
+ <dave.hansen@linux.intel.com>,  x86@kernel.org,  "H. Peter Anvin"
+ <hpa@zytor.com>,  Andrew Morton <akpm@linux-foundation.org>,  "Liam R.
+ Howlett" <Liam.Howlett@oracle.com>,  Vlastimil Babka <vbabka@suse.cz>,
+  Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,  Paul Walmsley
+ <paul.walmsley@sifive.com>,  Palmer Dabbelt <palmer@dabbelt.com>,  Albert
+ Ou <aou@eecs.berkeley.edu>,  Conor Dooley <conor@kernel.org>,  Rob Herring
+ <robh@kernel.org>,  Krzysztof Kozlowski <krzk+dt@kernel.org>,  Arnd
+ Bergmann <arnd@arndb.de>,  Christian Brauner <brauner@kernel.org>,  Peter
+ Zijlstra <peterz@infradead.org>,  Oleg Nesterov <oleg@redhat.com>,  Eric
+ Biederman <ebiederm@xmission.com>,  Kees Cook <kees@kernel.org>,  Jonathan
+ Corbet <corbet@lwn.net>,  Shuah Khan <shuah@kernel.org>,  Jann Horn
+ <jannh@google.com>,  Conor Dooley <conor+dt@kernel.org>,  Miguel Ojeda
+ <ojeda@kernel.org>,  Alex Gaynor <alex.gaynor@gmail.com>,  Boqun Feng
+ <boqun.feng@gmail.com>,  Gary Guo <gary@garyguo.net>,  =?utf-8?Q?Bj=C3=B6?=
+ =?utf-8?Q?rn?= Roy Baron
+ <bjorn3_gh@protonmail.com>,  Andreas Hindborg <a.hindborg@kernel.org>,
+  Alice Ryhl <aliceryhl@google.com>,  Trevor Gross <tmgross@umich.edu>,
+  Benno Lossin <lossin@kernel.org>,  linux-kernel@vger.kernel.org,
+  linux-fsdevel@vger.kernel.org,  linux-mm@kvack.org,
+  linux-riscv@lists.infradead.org,  devicetree@vger.kernel.org,
+  linux-arch@vger.kernel.org,  linux-doc@vger.kernel.org,
+  linux-kselftest@vger.kernel.org,  alistair.francis@wdc.com,
+  richard.henderson@linaro.org,  jim.shu@sifive.com,  andybnac@gmail.com,
+  kito.cheng@sifive.com,  charlie@rivosinc.com,  atishp@rivosinc.com,
+  evan@rivosinc.com,  cleger@rivosinc.com,  alexghiti@rivosinc.com,
+  samitolvanen@google.com,  broonie@kernel.org,
+  rick.p.edgecombe@intel.com,  rust-for-linux@vger.kernel.org,  Zong Li
+ <zong.li@sifive.com>
+Subject: Re: [PATCH v23 06/28] riscv/mm : ensure PROT_WRITE leads to VM_READ
+ | VM_WRITE
+In-Reply-To: <CAKC1njS=AHu6uHrH4ae8VxcdEbhgiPXYCAoN3F_mnppBd3SwOA@mail.gmail.com>
+	(Deepak Gupta's message of "Sat, 30 May 2026 12:40:33 -0700")
+References: <20251112-v5_user_cfi_series-v23-0-b55691eacf4f@rivosinc.com>
+	<20251112-v5_user_cfi_series-v23-6-b55691eacf4f@rivosinc.com>
+	<87jyslndo4.fsf@igel.home>
+	<CAKC1njS=AHu6uHrH4ae8VxcdEbhgiPXYCAoN3F_mnppBd3SwOA@mail.gmail.com>
+Date: Sat, 30 May 2026 23:47:36 +0200
+Message-ID: <875x44o9hj.fsf@igel.home>
+User-Agent: Gnus/5.13 (Gnus v5.13)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
 
-The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
+On Mai 30 2026, Deepak Gupta wrote:
 
-  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+> I see two ways forward:
+>
+> - It can be done in generic way where incoming PROT_WRITE means
+>   PROT_READ | PROT_WRITE irrespective of RISC-V. Although others
+>   (x86, arm, etc) would have to weigh in.
+>
+> OR
+>
+> - mmap04 LTP test can be updated to expect either of "rw-p" or "-w-p"
+>   whenever only PROT_WRITE was specified.
 
-are available in the Git repository at:
+OR
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/dinguyen/linux.git tags/socfpga_dts_updates_for_v7.2
+- Add a new PROT_ flag.
 
-for you to fetch changes up to 7557d67a6057362a65ad03a03cbefe7f03523003:
-
-  ARM: dts: socfpga: arria10: Increase JFFS2 rootfs partition size (2026-05-14 06:56:55 -0500)
-
-----------------------------------------------------------------
-SoCFPGA DTS updates for v7.2
-- dt-bindings updates:
-	- Document compatible for Agilex5 socdk debug daughter card
-	- Document compatible for Agilex7-M devkit
-
-- Add support for Agilex7-M devkit
-- Remove reg property in the PMU on 32-bit SoCFPGA
-- Set i3c alias on Agilex3 and Agilex5
-- Update data-width of DMA controller on Agilex5
-- Set phy-mode to rgmii on Agilex5
-- Increase the JFFS2 rootfs partition on the Arria10 NAND SoCDK
-
-----------------------------------------------------------------
-Adrian Ng Ho Yin (4):
-      arm64: dts: socfpga: agilex5: set alias for i3c controllers
-      arm64: dts: socfpga: agilex3: set alias for i3c controller
-      arm64: dts: socfpga: agilex5: update data-width for dmac
-      dt-bindings: altera: add compatible for agilex5 socdk debug daughter card
-
-Dinh Nguyen (3):
-      dt-bindings: arm: altera: document the Agilex7-M devkit
-      arm64: dts: socfpga: agilex7m: Add SoCFPGA Agilex7-M devkit
-      ARM: dts: socfpga: remove the reg property in the pmu
-
-Nazim Amirul (1):
-      arm64: dts: socfpga: agilex5: Fix phy-mode to rgmii as HW provides clock delay
-
-Niravkumar L Rabara (1):
-      ARM: dts: socfpga: arria10: Increase JFFS2 rootfs partition size
-
- Documentation/devicetree/bindings/arm/altera.yaml  |   7 ++
- arch/arm/boot/dts/intel/socfpga/socfpga.dtsi       |   4 +-
- .../boot/dts/intel/socfpga/socfpga_arria10.dtsi    |   4 +-
- .../intel/socfpga/socfpga_arria10_socdk_nand.dts   |   4 +-
- arch/arm64/boot/dts/intel/Makefile                 |   1 +
- .../arm64/boot/dts/intel/socfpga_agilex3_socdk.dts |   2 +
- arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi     |   4 +-
- .../arm64/boot/dts/intel/socfpga_agilex5_socdk.dts |   4 +-
- .../boot/dts/intel/socfpga_agilex5_socdk_013b.dts  |   4 +-
- .../dts/intel/socfpga_agilex5_socdk_modular.dts    |   4 +-
- .../boot/dts/intel/socfpga_agilex5_socdk_nand.dts  |   4 +-
- .../boot/dts/intel/socfpga_agilex7m_socdk.dts      | 103 +++++++++++++++++++++
- 12 files changed, 131 insertions(+), 14 deletions(-)
- create mode 100644 arch/arm64/boot/dts/intel/socfpga_agilex7m_socdk.dts
+-- 
+Andreas Schwab, schwab@linux-m68k.org
+GPG Key fingerprint = 7578 EB47 D4E5 4D69 2510  2552 DF73 E780 A9DA AEC1
+"And now for something completely different."
