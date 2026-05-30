@@ -1,142 +1,111 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34A7039F193;
-	Sat, 30 May 2026 13:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA2561EDA0F
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 13:57:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780148303; cv=none; b=YXjqTgklHxhLGVS4sIYBQu/3tj5KjZJcvRxCBVYjOiet5juNAh5DdTL+hbl6h8+zXpjyevOiF6QhqjodS8fFisSGDt7tHP2fK/c/EwOPIVQOvt22l7yDcxXiEEG/WrChM7n3DeOh3lBmyJ+5jpVmmfp0DBtxzQWcGg6aih48hzc=
+	t=1780149430; cv=none; b=hQ00YSHCMKsT/XZIEgyg6M75pxfHPoaWP3kGRnsmtCfcwHu87UQkuSnGV5RdggP3NLe58K/PMNvCQjtO/4CI/syrmUiN+03nHHbOc2y5zHxeOQv9Jii5bovV98jNO1lt/1t0HUvy3ZGAUcrVmRCqQIT9IvARq4+H8NQ1NWGVYI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780148303; c=relaxed/simple;
-	bh=wMOHpweu08FPAJHq4AE/oNWvwNOAd0wQwSZ/JG6jpNE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:To:From:Subject:Cc:
-	 References:In-Reply-To; b=Oe6nfc83eaUM/f6tj1Cim3gsWD2gofunVWak7+M1pFZWAYaED0Qcap9VHgYeVgTU/95XNvG8HyE2lBnLGh99pFPUO3cgYiFGZMMxzpHj6MZS1/IGRIXUVvQCnwyGqCgoU2l51ND4+MjeyX9sVFYwNi0b3G1eVXQU+nDfpuBRmdk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=0Ec7yLjH; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780149430; c=relaxed/simple;
+	bh=hTQKLIHnbgUGFB2HzsxgXWD3DKh8vV4oFm4pcpt/dpo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n8ygluIzDYjoGYr+yp12wWahvtzCctRa+Xuzq0/GCaNuWoop6WCvYHve0cKi396sfUrgB6aa/Euwmz6YbPFnN9KMYxAj0DhzhLwKoL42Na1OZHHzAis4uqsnTNMKEr3DG6i3FRh1hPS4L+d/9LaOTlam+V9pl0CkgvzPpTnh038=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com; spf=pass smtp.mailfrom=amarulasolutions.com; dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b=b3rH5XbC; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=amarulasolutions.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amarulasolutions.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="0Ec7yLjH"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 95B0EC6246B;
-	Sat, 30 May 2026 13:38:21 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 490586073B;
-	Sat, 30 May 2026 13:38:20 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C663610888CC8;
-	Sat, 30 May 2026 15:38:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780148298; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=HKrIBJHZD91OGHEHVz5icU8jb2dXEwclJl95UpuDS+U=;
-	b=0Ec7yLjHV7F3GfRWpGS/Jh45rOIY/RCXZ6DwjKTCVXMkdaD1xzjp6Y9XyRUkjyFtFZfuOF
-	3P9QhCvry/SyDVW4RyYe/KaOzIrbL6MJgGDQ/YmLYcItXJI0fH33gfSrAON6P+dq6a/m3r
-	JZRwfZNaYNZNdiyb5cMRN007pFtXOz6LowX1oNqXurum5rFfxcHPTmmIvDzdTI8XOanlfZ
-	cTlS4RLyJ1pv0NiT+gTpGvH4u+J6JRbm5ElJ++gnZLG/8jfkzAjakCKu/hZBH91W3Ga5nu
-	ybQ4NtweDzYbPMWJAs2u08gXQlqMmVNoiygSG7yri/prWlXLGR5JTurKvIYDRw==
+	dkim=pass (1024-bit key) header.d=amarulasolutions.com header.i=@amarulasolutions.com header.b="b3rH5XbC"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso105034f8f.2
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 06:57:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=amarulasolutions.com; s=google; t=1780149427; x=1780754227; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=pwY4UPqEIISkAfS9Cp0aAOo5zFq6rHS+7VWOfypc9Vk=;
+        b=b3rH5XbC7lIBvErkh3w0tgTzKx9fg8y94XmNk2kd4Z6/AXBFrTnqNXlWwqHXYtzCbo
+         UZtvpcQgW3hQv0o3zlVzKDol0+4F5ExcWg8NLOmU8++Jw1KKaAJbTGM1V2TNYzeA9NVU
+         K9nT5L9adYDYzE4vg5dPxgLIGBg7xRO/fdYyY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780149427; x=1780754227;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=pwY4UPqEIISkAfS9Cp0aAOo5zFq6rHS+7VWOfypc9Vk=;
+        b=NOKHnLDihbGBtcZbWFqC3GmtsMKfIgWu5BkgfteSubOOjXgCddDNi/7n27bjaov68Y
+         Lucge2DBWAF73vBpKVojJeEH3TCUe7L+fl63sSCNbLOySJa9Wvmr9nbFnTNw3UqssQCV
+         aUa+raHrJ16G/EioiTlsfbPSNoBRbh38f9d7Dy/XrYLpfalPAqbWAaHho71MstpSyest
+         deUH2VyHZCp2BIwVPBHAxMHgNdwSpGVmemiRaOJfR2OX3Evq2ujxl4pGIOv+EHWmhWyL
+         cmli45teottePVf8dMpcgMwuhDfqHfC8T9JGcpCPkWE9TcMHzR22caJO96Mvlr1c4RpV
+         qwBg==
+X-Forwarded-Encrypted: i=1; AFNElJ+DIQVq9dTLzd1i83h577Y8+68tTLGG9cqRHPLrhL5Aql/DjCI5VNj6+kM/P39qeg3fCwJ3NqqeLS7B@vger.kernel.org
+X-Gm-Message-State: AOJu0YxqylJgWJTuHaL7wSJ9RgljFqSS/cyvRRAaxmf2hnhgzMzm0Oov
+	lLd+/+Lr7GNTUHseM7qh1UyqR3L6JrZJ661/J6gKrDdbS8IVpVBmy4mbSXOpR2CNTRg=
+X-Gm-Gg: Acq92OEvf/sw0fRuqm+bQo9yZ0298eMarZCAiOdUWfLq+sp/hGglu+Ffd9dtiraGpXf
+	FLaA2ksS34+zA/x6MTkFUA9Vn+BfvJ4HIpesgTLN6WapWpgJ3sA6Q3e6fT/wptmg9YM7iRwEeRm
+	yH8qgNev04puPn5/pfceJ85teruWkC4qBCDa2SQ4VaYDPlHE8vm7zXv+RRmGfhQrl5cNLtZ2c4i
+	W6ffzrIQ0n4cO8AFwr1XYNNFVc5TXU1/22LjNLx69mhJUAR1yMzN0EPakZOov04lm+RNPcMMYEY
+	5pFnH6/KhGsRvYLSYnhpIJFg6zh/S2rwcmCkXxwo66uvKKLxnp+1+HTDcpKsZ/JdQcGaqETj/Rw
+	7hHL6JJjDJXP6bY/CDWMzlEX5QL+OF7uv81ofCsQEPhAUmuKECGxwT7G5YqYvwkqvjRHV8EZSaq
+	2L2hxubY6jW+wRCc2kTtEQto2SHIEPDkYx6f2Pv9eI9JS0gGooBrm0xGwJJqhtv/SenIltraKNC
+	FhT2OGWr895ZB+qbqVbi4BCbUVyGG1/rZWaJEsb8XtwAWxhRA9RwDa5UzsAN0YMVdKalmuj2itA
+	LzDZgsjHtqPWOXC56fhG4ftLAHQ87uXk
+X-Received: by 2002:adf:f902:0:b0:45e:a225:6dfe with SMTP id ffacd0b85a97d-45ef6b5b552mr5701275f8f.25.1780149427200;
+        Sat, 30 May 2026 06:57:07 -0700 (PDT)
+Received: from dario-ThinkPad-P14s-Gen-5.homenet.telecomitalia.it (host-87-0-96-182.retail.telecomitalia.it. [87.0.96.182])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34b47eesm12101711f8f.9.2026.05.30.06.57.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 May 2026 06:57:06 -0700 (PDT)
+From: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+To: linux-kernel@vger.kernel.org
+Cc: linux-amarula@amarulasolutions.com,
+	michael@amarulasolutions.com,
+	Dario Binacchi <dario.binacchi@amarulasolutions.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-stm32@st-md-mailman.stormreply.com
+Subject: [PATCH v2 1/2] arm64: dts: st: add power-domains to sdmmc1 on stm32mp251
+Date: Sat, 30 May 2026 15:56:54 +0200
+Message-ID: <20260530135701.3961023-1-dario.binacchi@amarulasolutions.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sat, 30 May 2026 15:38:05 +0200
-Message-Id: <DIW1WGLL0GW5.1BGU194UXN0HO@bootlin.com>
-To: "Luca Ceresoli" <luca.ceresoli@bootlin.com>, "Damon Ding"
- <damon.ding@rock-chips.com>
-From: "Luca Ceresoli" <luca.ceresoli@bootlin.com>
-Subject: Re: [PATCH v4 2/3] drm/bridge: analogix_dp: Add validation for
- samsung,lane-count property
-Cc: <hjc@rock-chips.com>, <heiko@sntech.de>, <andy.yan@rock-chips.com>,
- <maarten.lankhorst@linux.intel.com>, <mripard@kernel.org>,
- <tzimmermann@suse.de>, <airlied@gmail.com>, <simona@ffwll.ch>,
- <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
- <andrzej.hajda@intel.com>, <neil.armstrong@linaro.org>, <rfoss@kernel.org>,
- <Laurent.pinchart@ideasonboard.com>, <jonas@kwiboo.se>,
- <jernej.skrabec@gmail.com>, <nicolas.frattaroli@collabora.com>,
- <cristian.ciocaltea@collabora.com>, <sebastian.reichel@collabora.com>,
- <dmitry.baryshkov@oss.qualcomm.com>, <dianders@chromium.org>,
- <m.szyprowski@samsung.com>, <dri-devel@lists.freedesktop.org>,
- <devicetree@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
- <linux-rockchip@lists.infradead.org>, <linux-kernel@vger.kernel.org>
-X-Mailer: aerc 0.21.0
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
- <20260529040530.741336-3-damon.ding@rock-chips.com>
- <178014803941.21632.16225608049285101452.b4-review@b4>
-In-Reply-To: <178014803941.21632.16225608049285101452.b4-review@b4>
-X-Last-TLS-Session-Version: TLSv1.3
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Sat May 30, 2026 at 3:33 PM CEST, Luca Ceresoli wrote:
-> On Fri, 29 May 2026 12:05:29 +0800, Damon Ding <damon.ding@rock-chips.com=
-> wrote:
->
-> Hello Damon,
->
->>
->> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/driver=
-s/gpu/drm/bridge/analogix/analogix_dp_core.c
->> index 8cf6b73bceac..699a7f380c56 100644
->> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->> @@ -1260,8 +1261,16 @@ static int analogix_dp_dt_parse_pdata(struct anal=
-ogix_dp_device *dp)
->>  		 */
->>  		of_property_read_u32(dp_node, "samsung,link-rate",
->>  				     &video_info->max_link_rate);
->> -		of_property_read_u32(dp_node, "samsung,lane-count",
->> -				     &video_info->max_lane_count);
->> +		ret =3D of_property_read_u32(dp_node, "samsung,lane-count",
->> +					   &video_info->max_lane_count);
->> +		if (!ret) {
->> +			if (video_info->max_lane_count =3D=3D 0 ||
->> +			    video_info->max_lane_count > LANE_COUNT4) {
->
-> This sashiko report seems to me valid.
+The sdmmc1 node was introduced early in the SoC bring-up before power
+domains were systematically mapped. Add the missing power-domains
+property to align it with the rest of the peripheral nodes.
 
-Meh, messed up with 'b4 review' :-/ Apologies
+Signed-off-by: Dario Binacchi <dario.binacchi@amarulasolutions.com>
+---
 
-"This sashiko report" [0] was about an enum being signed, so '=3D=3D 0' cou=
-ld miss
-negative numbers coming from bogus DT values higher than 1^31.
+(no changes since v1)
 
->
-> But I'n no DP expert, I have no idea whether this ther one is valid.
+ arch/arm64/boot/dts/st/stm32mp251.dtsi | 1 +
+ 1 file changed, 1 insertion(+)
 
-And this was about "Additionally, does this check inadvertently allow 3,
-which is an invalid DisplayPort lane count?"
+diff --git a/arch/arm64/boot/dts/st/stm32mp251.dtsi b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+index 673fbc5632e6..b3416c928c08 100644
+--- a/arch/arm64/boot/dts/st/stm32mp251.dtsi
++++ b/arch/arm64/boot/dts/st/stm32mp251.dtsi
+@@ -1664,6 +1664,7 @@ sdmmc1: mmc@48220000 {
+ 				cap-mmc-highspeed;
+ 				max-frequency = <120000000>;
+ 				access-controllers = <&rifsc 76>;
++				power-domains = <&CLUSTER_PD>;
+ 				status = "disabled";
+ 			};
+ 
+-- 
+2.43.0
 
->> +				dev_err(dp->dev, "samsung,lane-count =3D %d is out of range\n",
->> +					video_info->max_lane_count);
->> +				return -EINVAL;
->> +			}
->> +		}
->
-> As reported by sashiko, 'count =3D=3D 0' should be 'count <=3D 0', being =
-an enum.
->
-> Additionally I'd avoid the nested if, and I think using dev_err_probe() i=
-s
-> correct here (we are only called by probe functions), so it all could
-> become:
->
->    if (ret || count <=3D 0 || count > LANE_COUNT0)
->         return dev_err_probe(...);
->
-> There are other sashiko reports to patch 3, and at least one seems valid =
-to
-> me. Can you either fix them in the next iteration or elaborate on why the
-> code is correct there?
->
-> Thanks!
-
-
-[0] https://sashiko.dev/#/patchset/20260529040530.741336-1-damon.ding%40roc=
-k-chips.com
-
-Luca
-
---
-Luca Ceresoli, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+base-commit: f5e5d3509bffb95c6648eb9795f7f236852ae62d
+branch: stm32mp251-sdmmc1-power-domains
