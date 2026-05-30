@@ -1,68 +1,144 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B7A3A3E60;
-	Sat, 30 May 2026 12:27:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AFB83ACF0B;
+	Sat, 30 May 2026 12:29:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780144033; cv=none; b=rJDsO9AQjokWS/jegMi5k4Nwcja9V6YwBpLswdXeCrPooiCYYHYC3EoAr533flp4cDcGlI5D/RlyUzDZ4WUbOT0gNmAju/iliUCNmPqM7CSW0/H6bDGSi8VyWAtmcCCK/g998aei4slpgpkIWvczrdljmpWR7QR9rC47tldEoGc=
+	t=1780144183; cv=none; b=DuPQ4loEj4Eurg3T0XhtiB65Rqx2nU468/7Z+2vDwzaDbsOUD52RZo62Abcy01aPtl2hBUoGQFVg6JwDiHYhJxX/njws0W8iltZlYU8R8uKx4Xqgc12/njsdtXpGUVDjG+Cx2N0ae46JNfjRlSyEjMWLnRzOesOnL9b0TsJ61B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780144033; c=relaxed/simple;
-	bh=9cBTXCaMO5Yt7ub4sxJOpje8YAnpNhHQH/3ibX0gR6o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eht4jm+0QVk7LJyM9781I1WLw0mqr/6axcK6BWmY5ApHvF3Uqr6zq90dvC4i0EimF8nFnRMfhAq7ZFBdmE+NU0R8CQ15JLkosPmZKiU17SVxNYJoplUuFjlhLfpmzmZQ6+YbZgbTZfdkUDdwiJ4jp5yoCwwklGGCdE01povi6iQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UQDSOBjW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780144183; c=relaxed/simple;
+	bh=2cPBEeBinS7gmhZmm4yNqvAq3gFrcxr62j/aRFTiLTM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jgLg+Shzxdyr7BvZ9AHV4e8daLqJRyej2M6Kv7v6Yybp5g2pCwv0W7K8Vm/QXhGoVNF1BCt27bIY/KpWOswA84fRXtpMnroo8MQ3JW4T9VPxfd9xGwNb6G6mVexluqvvhEPwGcv5/PQYYAMConEsRGzOyeE7GsA4uuKmNZMxw9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6R2Xfha; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UQDSOBjW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48AEE1F00893;
-	Sat, 30 May 2026 12:27:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6R2Xfha"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0506E1F00893;
+	Sat, 30 May 2026 12:29:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780144031;
-	bh=QC/a5MUWJ40rRAXloX7W4uyf34uVCenmPEBusDykpZ0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UQDSOBjW6pdjWl6ThfB03E4r3zQNcufpuMDJtZ8cPi+oGrnKqLh88R+yxiHdRKYkB
-	 kbV5Olnx6E9tiun+OiB6L73Q5ddWtLHHMOuyTE6Wzdq8vRfxQk5T004CmxXlFo3R30
-	 Nm9jWEiQXw2dTCTm4e6vrcjnKR6/gERcUMnX3WDKgfNjY/A8BJpBDy3YfyteydWiFJ
-	 +7GiyPKlmW4mm6xaTfoFpZo+rboYfzozc1gGrTHwTwiCYeoveEFvWa5h4GUlvKoDY1
-	 BeNQ0Kw00v1t/7ainFrB9E4rvWoeMvSzFIz7d7xSQV/hDKhiW/83XqsjqHnv1VBcjB
-	 L/PhuLuljdfdg==
-Date: Sat, 30 May 2026 14:27:09 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>, Robert Foss <rfoss@kernel.org>, 
-	Andi Shyti <andi.shyti@kernel.org>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	Suresh Vankadara <svankada@qti.qualcomm.com>, Prashant Shrotriya <pshrotri@qti.qualcomm.com>
-Subject: Re: [PATCH 6/6] media: qcom: camss: Enumerate resources for Glymur
-Message-ID: <20260530-efficient-inscrutable-grasshopper-40cd21@quoll>
-References: <20260529-glymur_camss-v1-0-bee535396d22@oss.qualcomm.com>
- <20260529-glymur_camss-v1-6-bee535396d22@oss.qualcomm.com>
+	s=k20260515; t=1780144182;
+	bh=SZKWZW3A914trGkLe6DorV9KM6V8FmB/2QIq7le3Srs=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=G6R2Xfhas80tIbhbOXYERcXx1OW6isLSC41ir0X9hM64srFTWDXBSyAxKU3Y/sUxa
+	 aIDLaM0J/xW/JeUanuef6FtBcn/5nOJWqVFBSv1YKuHtToi6Ls9diIawwdl62of0eT
+	 DX1FDmz0wyWe5kkrEyV7A/F35BRqH8SF9DT8BUkd9zPyVQyZobi4BOWKkvx+KIucee
+	 vJ3mfkvbg/zMyDx0VYuVhrUfl4k5ytPt3VO62sSwgJpWmr/2/d6xOjKX++LAIrYPE4
+	 YfEFRcU/L+UMLEpM3rz7XUVO9Ga9Yq3X1x65/jJSGXXV4X7V9dNprjkTpeHngRQkXc
+	 EhLgsvnqqi6HQ==
+Message-ID: <3c441940-e4e6-4626-8ff8-36db41409644@kernel.org>
+Date: Sat, 30 May 2026 14:29:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260529-glymur_camss-v1-6-bee535396d22@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] dt-bindings: power: limits: Describe Qualcomm SPEL
+ hardware
+To: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+ Gaurav Kohli <gaurav.kohli@oss.qualcomm.com>
+References: <20260519-qcom_spel_driver_upstream-v1-0-75356d1b7f94@oss.qualcomm.com>
+ <20260519-qcom_spel_driver_upstream-v1-1-75356d1b7f94@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260519-qcom_spel_driver_upstream-v1-1-75356d1b7f94@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 29, 2026 at 08:07:26PM +0530, Vikram Sharma wrote:
-> From: Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+On 19/05/2026 12:49, Manaf Meethalavalappu Pallikunhi wrote:
+> The Qualcomm SoC Power and Electrical Limits (SPEL) provides hardware
+> based power monitoring and limiting capabilities for various domains.
 > 
-> Enumerate csiphy, csid vfe and tpg resources for Glymur.
+> Add a DeviceTree binding to describe the SPEL block on Qualcomm's SoC.
+> 
+> Signed-off-by: Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+> ---
+>  .../bindings/power/limits/qcom,spel.yaml           | 47 ++++++++++++++++++++++
+>  MAINTAINERS                                        |  6 +++
+>  2 files changed, 53 insertions(+)
+> 
+> diff --git a/Documentation/devicetree/bindings/power/limits/qcom,spel.yaml b/Documentation/devicetree/bindings/power/limits/qcom,spel.yaml
+> new file mode 100644
+> index 000000000000..e9bb70c3a3aa
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/power/limits/qcom,spel.yaml
+> @@ -0,0 +1,47 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/power/limits/qcom,spel.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: Qualcomm SoC Power and Electrical Limits (SPEL)
+> +
+> +maintainers:
+> +  - Manaf Meethalavalappu Pallikunhi <manaf.pallikunhi@oss.qualcomm.com>
+> +
+> +description:
+> +  The Qualcomm SPEL (SoC Power and Electrical Limits) provides hardware-based
+> +  power monitoring and limiting capabilities for various power domains in
+> +  Qualcomm SoCs.
+> +
+> +properties:
+> +  compatible:
+> +    const: qcom,spel
 
-NAK, this is getting ridicilous. You add incomplete "compatible"
-claiming that such change as adding a compatible is a complete work,
-complete change (as explained in submitting patches).
+You don't get generic compatibles. I think I commented about this enough
+of times.
 
-Then later you add missing description of what that compatible means.
+NAK
 
-I could not stress more how WRONG this approach is.
-
-Stop inflating your patchcount.
-
+Best regards,
+Krzysztof
