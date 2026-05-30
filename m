@@ -1,169 +1,217 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7AC1233928
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 01:16:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780103789; cv=pass; b=OoINEGINs6DfTCKYxBPjO4UyfSMN8FCwNQ5IPWDbW2UJyQK8oeucmdQNFsv6HV/Dn8itCi3vw5auGJbPHakUrdQO8c73UFHKiQjyI+0PT0UJ6SkdirafP6OO+Xr26ZFZPxXE8XHZfTpaWVF2R5EGRebXy2jarry/w+R61QLbfNg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780103789; c=relaxed/simple;
-	bh=PVZJKq0QZpDBs29p42qzJsANdYgSGTjFMDU66TixMSw=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Vih5yDRAHcCyVYIZbj+fGD5Hv/7qwALvJ34Nqf8qzhbArxgS+FKi9P00pDzYMzlL1AVtTnjlVhHHlsV360MllHlWOwj/8VeZIUXA35IgLZfUcpEEbhJ3DAjJyghMCXesI7EaVOkhnvYcVD8O1u7grxv2xdKvlwySKVTIdjyWAak=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CYHBnzaC; arc=pass smtp.client-ip=209.85.128.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17C3C233934;
+	Sat, 30 May 2026 01:17:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780103839; cv=none; b=SOiYujNe6bAW+gRVnV8yXi8nBfQvbVmHeA0WKclpBc7SohzNwuGrKmdTW0CLXZu+dF/AvcOKNrBvCcaJEqMoNxp52RKzSQNJgl4kbyPZq+MhhC6unhEVKzzE2XOjVdKqaN0afKDLxaqSLZeNSG/tL/uLhagSVPfxNxEOxUabSiE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780103839; c=relaxed/simple;
+	bh=44NA6rUhVair067G7uXMUjokLii9afZLzuTWi8578y8=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=GKepqf0/nDnd3jK4N4Mx3qFdML1k22BKl/sA3oqYlckMuT2/o8oIRsGRNa9qgLhgb8iutl6QKgBbwEqxM1VCYnpVdUPH3eDJ3rflI8n+mhN5LGapYHeSzpYZ6al2H3uYSXkOw1H9biVk8kptErDLZj5o5XR4/lhTgdgvbiqFrAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iVXZ8CXS; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CYHBnzaC"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-4909def6a21so5600605e9.3
-        for <devicetree@vger.kernel.org>; Fri, 29 May 2026 18:16:27 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780103786; cv=none;
-        d=google.com; s=arc-20240605;
-        b=VH3m9zQ7ih2QX39j0OueOT9m437tFMw0zpfoeDFXhs3HaXjH/2rW/Hyg964s/3GioM
-         mxLU8B5+UIpMt9lPiQfW2OfRWnhNm6q5uAzqMHLYxCaZwvH9qVfLs+0D4tUUIXPgmU3q
-         2CcZmiDfkOREZuwDuECX/TSF6EH7bebl9eqNPnjbbqrpgYKX8CYkYgWxq16300j4YoyN
-         zgzAr277GnFqte0YSa+yM4M6qcy8YaOvsmsPqqLcTvvY5W9D+uR4MW2jgG30sZbqj+tr
-         xtn8d1R0KT3OsQJML7VYNMQQA2IyrEwVfpDllZbzU4tN52yaPXCn0XG8Y8hTL6vbJKSY
-         u2Fw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=uhtMF2ezlNaaALDfyaxkEF9+57T983SySMQAR7CATi4=;
-        fh=pRj03E1onxRqWo0+hZ3ZLMat3S0rY+gcR+BxLvEXeXo=;
-        b=hr7ZkE32HWklINC0Lele5wYb40aDZPUpRS91ZzsTgFI9dqVsE5x5G2SJl+wenrOqOX
-         cHOHiidotB8A2Qu40TozU4Gp2C/euNxz7tKXHjIw5dsbd7e4LSPxCGlUoyvotJAfou5d
-         CGC7V6DXVA2A8NbLr9WzxZhIDYbWPrQnHWIuP/cmYl3r4mFGy2r/KKBaP2syDGCDW0nc
-         rCGXp2tsbVhQvi4bANBwPQ73HmqAGvIV2Enrf7V7+u77A8/EitlZDJpi8FjWhAaTjcWU
-         c1kMVEhB4D9epD2STLGZlnogA0QuSRR4JbGuiyTGP/1CRCNdGmSUCgc+RfAF1Rk567Tk
-         J69Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780103786; x=1780708586; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uhtMF2ezlNaaALDfyaxkEF9+57T983SySMQAR7CATi4=;
-        b=CYHBnzaCY5sSGUn+lbW1M5OYqT22AsvTWcZtCbEXW6D0bGj0QtaV/8O+WFiaz/DlCY
-         zXYFHC9AKMT+izxfTFwoJr/DFgQzlOEZgmg1NjGqguCx5eRRWbHlASVv+5IZdg1XQoYK
-         z6d0T8xcZgZoMLpNA9/OIBpLm9vqzUa/Vh3zr5OAlKItz7wQzZKVkW7xjkssPOE26wDh
-         Al/37nCRYzVU26xYBypxut2LvkF+iG0HKMqu3UH43OyQjW1c0HLXRhXNOnenLHu0zZlv
-         4JfMGlTUNc/s4+GbFcGucMzlBaqJGEoZH5cKg6YwKujdrKUPpI1WQ3iJdvwDN7SFSJ+K
-         z7IQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780103786; x=1780708586;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=uhtMF2ezlNaaALDfyaxkEF9+57T983SySMQAR7CATi4=;
-        b=SWPlelxELF6+MibuRKSOJjB1QNIA0MH4V4myvRxo2rGeDcAEhyMHKTYT9lvEs5vHQ5
-         qOlFErZRkble1fkB60Bpt1RA6NHbFT7B28mHgkLgLj0p1TzUF5wRivYkAPcHLEluBwfM
-         IjTYAb7AC0cC5jpPPQDWldYxbccgo8/FN0WG5eVATzpROLUK5YzD5VtLzWZMWfyOZ6xV
-         Lyvd708A1k+u60jDs14nVGe8NGNvPL+S2sYt1LV4+IFwuD14tiYYV3Nv9lexSW35X6cc
-         8/qrBWZHc7+tQI/hOb6Q29loSBizNSoSj92SBv/dFENp8OTmP1qzTGq+MgWBj9hscZFN
-         S78Q==
-X-Forwarded-Encrypted: i=1; AFNElJ+OlgQEEbJfW8XixXJoMYh7SWu5dxeI6l0p8er5JBtBFN49SshzsBbs/Wrdxh/KSpXp8f1f4OIiLz2o@vger.kernel.org
-X-Gm-Message-State: AOJu0YySjO67bbG57mnT5FSQCkDA7T/bMX5M1fDDkTQxnODj0Ftdk8kR
-	Leis26UNP4pXgnCbZleLC0C5am4Ys6Y5S+wSkJJ1a5tF/nMjiQT7dQDK1CeDVj4g3yrSArIItGs
-	EE4IwWN7dQVkKX0tll71kceTGuVnCqqw=
-X-Gm-Gg: Acq92OEa0D4UgZ8ce1o87gM8uJcOYSVTSTkK9Dsh4tEtKT3nKCOgBEQLQyt0+CVrxZY
-	WYZ6RQWksfUcLR0SQFlYe0ZLJQFa77YEnuH/W7CCbv74tm5Zc0TCyDZbfee1Q/XH4F1EpPuJBlP
-	hKVegxRxTRUmyrKfgwgGye4Jgckm3pKdanvvFYpgGZoc/RlZHmvWNDW/pLwZGVOTHmahYSRqkcx
-	ENejm/nzFq4lp2OPnhfPtnp12El6xflOzwugN96+rRtq/pwSl/qfjcpifr2FIWKhrBFagFK6ggy
-	22vhGxSA35jN2kbH/IU9UNsIjGOt11FtZjF+jDnJ7plbVdU=
-X-Received: by 2002:a05:600c:4e92:b0:48a:7aad:4425 with SMTP id
- 5b1f17b1804b1-490a2901aefmr29792325e9.3.1780103785647; Fri, 29 May 2026
- 18:16:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iVXZ8CXS"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A0797C2BCB8;
+	Sat, 30 May 2026 01:17:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780103838;
+	bh=44NA6rUhVair067G7uXMUjokLii9afZLzuTWi8578y8=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=iVXZ8CXS5fTQxYWC7V/U45CU/xdLNDBdWnA0wWh0z2V+QD1I3MyY2EjIePUhwWSR3
+	 oJPgZgkw4NuxCDgTFwibFLMQOCr2AgSPIahGSyZzisiksKcyUNIiRml4CX5Yv6rcxZ
+	 23eqAfTt97KcyjtvhVe4XbJPKQWeXEtBCq6rnQSdnbJW18nnxDdrNCIQIZCogv2ZOb
+	 7+yz2txHyO7Uq6uHJauhEPiTCn/PHCx7Y2KZuXtfHJbysnk/JFsTcPkXxLIKu+POCn
+	 hBjUc9qopus4FSHjc3PGU3EjG5le5xSlFSfXIkHpJgSD4gZLX5/VigNrcmYAeupz+1
+	 hX/Ahv+CoXfYQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8C2D3CD6E52;
+	Sat, 30 May 2026 01:17:18 +0000 (UTC)
+From: Markus Probst via B4 Relay <devnull+markus.probst.posteo.de@kernel.org>
+Date: Sat, 30 May 2026 03:17:11 +0200
+Subject: [PATCH v13 1/2] dt-bindings: embedded-controller: Add synology
+ microp devices
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260529213506.37462-1-jbishop.dev@gmail.com> <20260529220113.CABB41F00893@smtp.kernel.org>
-In-Reply-To: <20260529220113.CABB41F00893@smtp.kernel.org>
-From: Jeremiah Bishop <jbishop.dev@gmail.com>
-Date: Fri, 29 May 2026 15:16:14 -1000
-X-Gm-Features: AVHnY4J1EQplGx6EDAXNaim1X35PETCeRy45Nv7d4cYMfuCuj0QUrBJHVErQBa0
-Message-ID: <CA+TTa56LOHAadhpVe0dcttVHHCp8m41bLLoO-DD+tLyCmLAVfg@mail.gmail.com>
-Subject: Re: [PATCH] dt-bindings: usb: convert PXA USB bindings to YAML
-To: sashiko-reviews@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260530-synology_microp_initial-v13-1-aa2bb9c56efc@posteo.de>
+References: <20260530-synology_microp_initial-v13-0-aa2bb9c56efc@posteo.de>
+In-Reply-To: <20260530-synology_microp_initial-v13-0-aa2bb9c56efc@posteo.de>
+To: Hans de Goede <hansg@kernel.org>, 
+ =?utf-8?q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Lee Jones <lee@kernel.org>, 
+ Pavel Machek <pavel@kernel.org>, Miguel Ojeda <ojeda@kernel.org>, 
+ Boqun Feng <boqun@kernel.org>, Gary Guo <gary@garyguo.net>, 
+ =?utf-8?q?Bj=C3=B6rn_Roy_Baron?= <bjorn3_gh@protonmail.com>, 
+ Benno Lossin <lossin@kernel.org>, Andreas Hindborg <a.hindborg@kernel.org>, 
+ Alice Ryhl <aliceryhl@google.com>, Trevor Gross <tmgross@umich.edu>, 
+ Danilo Krummrich <dakr@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: platform-driver-x86@vger.kernel.org, linux-leds@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ rust-for-linux@vger.kernel.org, Markus Probst <markus.probst@posteo.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4079;
+ i=markus.probst@posteo.de; h=from:subject:message-id;
+ bh=alrwaULuLrijlaEQo59qC6IZr7fepf0GBhjIrFXTxGk=;
+ b=owEBiQJ2/ZANAwAIATR2H/jnrUPSAcsmYgBqGjqcMpahqMRlzruQRKCgpppH4Tpux7t2xQMTC
+ W/1mEG5YTCJAk8EAAEIADkWIQSCdBjE9KxY53IwxHM0dh/4561D0gUCaho6nBsUgAAAAAAEAA5t
+ YW51MiwyLjUrMS4xMiwyLDIACgkQNHYf+OetQ9Kbqw/+Oy7iSMDQDR7bkSnQAlMWSvPU293oLmj
+ keubOVM1vygTA8V2Or3R5bCaucQRdQqITQ3nhC0V2WnbqSUbKNtLp+dY5Wo2AWYSU3hJz0udve7
+ F6q6LNZIXABYVxZAVZ5hx0clJ+DxriLgm0c2BnJ+fZAzL8W24HVfbjC0XaZu+g6Cdvl5aDVUAss
+ tWLsp2UEkcxThbEuYr992DuUHweSD0KHEGgudUSNOtENxAI78+Cj/2ZJqqx8dbgCPF5n/KL27Bh
+ 641q74lfoxF/E7AaZryg6naKmZXiTaWH7R+Vy3BZaZ2WfzhX+BRWjnRoWin4wMvfkV2AiaczFWa
+ jETZkK/1IRuo/QYeVObDKIOLc4v2+beqX3EA7CK7e8gXZ8wSvD7Row5Vg5OqHkVERQ2ofMSoJNR
+ AAUjRRtdrBPsWHD/QPqgW+ulGv6/c/4BFw/iFQcvM7iNkqJ4sQS1nhW0QlSlVcapY+VBuuy3942
+ JQaCNAKFgdSCKoqEgbT+6F1opJUfyKc4OdRAwb1+GcjS7bXLfhqLBw8jz6e01fvxTY/PWILIqf2
+ gf0EKLD2UC5ebogi7hdrpz6K57t987zTKekar2fbI/z1xTWctXJfruxdvJuTuVaTbvTtIdec8/Q
+ 2ABfrQIJ+mthN5TFmD9YzMyDb6M42TowxU7BXzGO6vcrFl0aelLA=
+X-Developer-Key: i=markus.probst@posteo.de; a=openpgp;
+ fpr=827418C4F4AC58E77230C47334761FF8E7AD43D2
+X-Endpoint-Received: by B4 Relay for markus.probst@posteo.de/default with
+ auth_id=680
+X-Original-From: Markus Probst <markus.probst@posteo.de>
+Reply-To: markus.probst@posteo.de
 
-Thank you, and good catch.
+From: Markus Probst <markus.probst@posteo.de>
 
-ohci-pxa27x.c does indeed explicitly request vbus1, vbus2, and vbus3
-regulators via devm_regulator_get(). I've added the corresponding
-supply properties to the schema and will include the change in v2.
+Add the Synology Microp devicetree bindings. Those devices are
+microcontrollers found on Synology NAS devices. They are connected to a
+serial port on the host device.
 
-On Fri, May 29, 2026 at 12:01=E2=80=AFPM <sashiko-bot@kernel.org> wrote:
->
-> Thank you for your contribution! Sashiko AI review found 1 potential issu=
-e(s) to consider:
-> - [Medium] The `marvell,pxa-ohci.yaml` schema omits the `vbus1-supply`, `=
-vbus2-supply`, and `vbus3-supply` properties but enforces `unevaluatedPrope=
-rties: false`, which will cause valid device trees to fail schema validatio=
-n.
-> --
->
-> commit 78f580ae03eab5d588221a2a8289471c77c1c517
-> Author: Jeremiah Bishop <jbishop.dev@gmail.com>
->
-> dt-bindings: usb: convert PXA USB bindings to YAML
->
-> This commit converts the legacy pxa-usb.txt binding documentation to
-> YAML schemas. It splits the documentation into marvell,pxa-ohci.yaml
-> and marvell,pxa270-udc.yaml to provide machine-readable validation for
-> both the host and device controllers.
->
-> > diff --git a/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yam=
-l b/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml
-> > new file mode 100644
-> > index 0000000000000..3f7935384b9f5
-> > --- /dev/null
-> > +++ b/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml
-> [ ... ]
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - interrupts
-> > +  - clocks
-> > +
-> > +unevaluatedProperties: false
->
-> [Severity: Medium]
-> Will this strict validation reject valid device trees that provide vbus
-> regulators?
->
-> The PXA OHCI driver in drivers/usb/host/ohci-pxa27x.c explicitly calls
-> devm_regulator_get() for "vbus1", "vbus2", and "vbus3" for enabled ports.
-> These requests resolve to the vbus1-supply, vbus2-supply, and vbus3-suppl=
-y
-> properties in the device tree.
->
-> Because these properties are not defined in this schema or inherited from
-> usb-hcd.yaml, and unevaluatedProperties is set to false, it appears that
-> any device tree describing the vbus supplies will falsely fail the
-> dt_binding_check validation.
->
-> Could these supply properties be added to the schema to prevent validatio=
-n
-> errors for existing users?
->
-> > +
-> > +examples:
-> > +  - |
-> [ ... ]
->
-> --
-> Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529213506.37=
-462-1-jbishop.dev@gmail.com?part=3D1
+Those devices are used to control certain LEDs, fan speeds, a beeper, to
+handle buttons, fan failures and to properly shutdown and reboot the
+device.
+
+The device has a different feature set depending on the Synology NAS
+model, like having different number of fans, buttons and leds. Depending
+on the architecture of the model, they also need a different system
+shutdown behaviour.
+
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Markus Probst <markus.probst@posteo.de>
+---
+ .../synology,ds918p-microp.yaml                    | 100 +++++++++++++++++++++
+ 1 file changed, 100 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml b/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml
+new file mode 100644
+index 000000000000..eb1c9d3fac07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds918p-microp.yaml
+@@ -0,0 +1,100 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/embedded-controller/synology,ds918p-microp.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Synology NAS on-board Microcontroller
++
++maintainers:
++  - Markus Probst <markus.probst@posteo.de>
++
++description: |
++  Synology Microp is a microcontroller found in Synology NAS devices.
++  It is connected to a serial port on the host device.
++
++  It is necessary to properly shutdown and reboot the NAS device and
++  provides additional functionality such as led control, fan speed control,
++  a beeper and buttons on the NAS device.
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - enum:
++              - synology,ds1221rpp-microp
++              - synology,rs822p-microp
++              - synology,rs422p-microp
++          - const: synology,rs1221p-microp
++
++      - items:
++          - const: synology,ds1825p-microp
++          - const: synology,ds1823xsp-microp
++
++      - items:
++          - enum:
++              - synology,ds725p-microp
++              - synology,ds225p-microp
++              - synology,ds723p-microp
++              - synology,ds710p-microp
++          - const: synology,ds214play-microp
++
++      - items:
++          - enum:
++              - synology,ds425p-microp
++              - synology,ds1525p-microp
++              - synology,ds925p-microp
++              - synology,ds923p-microp
++              - synology,ds1522p-microp
++              - synology,ds1010p-microp
++              - synology,ds411p-microp
++          - const: synology,ds918p-microp
++
++      - items:
++          - enum:
++              - synology,ds124-microp
++              - synology,ds223j-microp
++              - synology,ds223-microp
++          - const: synology,ds118-microp
++
++      - enum:
++          - synology,ds118-microp
++          - synology,ds1823xsp-microp
++          - synology,rs1221p-microp
++          - synology,ds918p-microp
++          - synology,ds214play-microp
++
++  fan-failure-gpios:
++    description: GPIOs needed to determine which fans stopped working on a fan failure event.
++    minItems: 2
++    maxItems: 3
++
++required:
++  - compatible
++
++allOf:
++  - if:
++      properties:
++        compatible:
++          contains:
++            enum:
++              - synology,ds918p-microp
++              - synology,rs422p-microp
++    then:
++      required:
++        - fan-failure-gpios
++    else:
++      properties:
++        fan-failure-gpios: false
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    embedded-controller {
++      compatible = "synology,ds923p-microp", "synology,ds918p-microp";
++
++      fan-failure-gpios = <&gpio 68 GPIO_ACTIVE_HIGH>, <&gpio 69 GPIO_ACTIVE_HIGH>;
++    };
+
+-- 
+2.53.0
 
 
-
---=20
-Regards,
-Jeremiah E. Bishop
