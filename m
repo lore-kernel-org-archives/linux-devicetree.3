@@ -1,129 +1,95 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16EF52F8EB5
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 16:42:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E57CB2F8EB5
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 16:43:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780159363; cv=none; b=UOlymKHsvRjt9qpzD1r/fJvfhaSGBvquE1w2zGRjtkLEbeajhL3z9TbEJd+xiPWO28OWih0ZMi5GBvxN/QtPXy9PQwt/ld37Rf/zr9SdpxBPpBW4VCmferKuJukF/XSIoNaKxPo+TcKSJ83nttgIM11IvkVefdgDx49R31GDOKg=
+	t=1780159399; cv=none; b=oYFgfzNb9buG3vZK8JR4+FyF0V84zIObxz+b/JhSkdtvE0HMFvm2OLJATkqFaDTHDcROtEPnOOTPhYwmV9oBeYL6kdO3ac0oMyDJ2VIZTL3kJ+KmT9wku+cn/9IXYFBBT/LMMKexP9kojtq4t5V5hPjA659YTqCZ9UEnpB53ico=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780159363; c=relaxed/simple;
-	bh=WYQwKeIiFi9/GzVWRrryK2i9eByGrY9BHtjdceUf2v4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Y1SvUtRZGDr4WdbRT+wpMtLIwSgPDk/r7NHvF34HhwSuvP3gW5PWK4xjuMD7jy9nV/Eq8tj9iWfoHQrKj9NTKcjnyHdeOohTpKC+QrU6BqcYsmn8xrQSfvbVFngDvx0gF8q58+iE6AnZJttcU+PRX88JePF6RV1zCvsOdgQuY+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ey0Ewwme; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780159399; c=relaxed/simple;
+	bh=wXrTrHg7jThfvHpbPuI4wb8lylFg+0R9kOLuU7injEI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=j1q0niWQwaJmpHXI1qA03dUXw4YA5w7da/6Jzf9D0x7JEAEuSiA57kxtZiguKAGOQYNKaEJYxdmP3nhFIh1Pw5dwglIZ4sNCf3FyJpQtL1Vca0smLkzCjygGSX82fMcblrVwRLbBHXNlcAEknEVUsKXR43moG0Bd7XyG9c4cz44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qtjxk4cT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ey0Ewwme"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72B271F00893;
-	Sat, 30 May 2026 16:42:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qtjxk4cT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46C91F008A3
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 16:43:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780159361;
-	bh=tI31eU54z/F/GsAYWKKYRz3tblKx9/zA70D/ujdTlhs=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Ey0Ewwmeh1Ia8m0eB3xEaqbLvxzZUzKgZkrulHW9eNE1igVPtOUJmVjiiesE2sye5
-	 uG/TBuqWdSbDWZZ4E7RERv7CAfMr7o8EMLLfH0ivQlm2ORZ7rrR2eawfs4TNEsPvRX
-	 65bl3Yhy/ipYoSn7HiAV1o7rhCavA/oLPX+PYfLDv6PrN4V6vIxaKYtj2GsCS95+fr
-	 tpsSl8UGK+JN0GQUxuRgWVid3Kvr4SniuyL1bHBDMFScyVjzSqoDIpLQcrxe3hQ83O
-	 z47ZhATUhX88wDewEZtiKyF8lKOR/EFXJbzW9VmTW/DSACNFs6Ulgw6VyeC0pGRxSC
-	 0Zzvv7Kkg83rg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: rockchip: Add crypto node to
- rk356x-base
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dawid Olesinski" <dawidro@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260530160704.3453555-4-dawidro@gmail.com>
-References: <20260530160704.3453555-4-dawidro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 16:42:41 +0000
-Message-Id: <20260530164241.72B271F00893@smtp.kernel.org>
+	s=k20260515; t=1780159398;
+	bh=wXrTrHg7jThfvHpbPuI4wb8lylFg+0R9kOLuU7injEI=;
+	h=References:In-Reply-To:Reply-To:From:Date:Subject:To:Cc;
+	b=Qtjxk4cTmrxuyYwRg0Gn/54Zo7PflF3XoWSNhJqxxeEtgel+rF9QJydQjc/Gyy8/Y
+	 6UkFPGzspzkdMKLOBH/k1c0T5DyaW9JxWEkEeG7gUz2ctFS8oo2JwJJbEBMKl5n/pV
+	 JegRUzdxEElfST3kpdXdyi0/ZoPS3Zo1XmRmJBRoam1hX8ajz1BIiKKJA8SdSJ+PW0
+	 9rUUUvbLFl6l/hFnHSE7Ck5KMbsS5B9u94sAoU8T0dWR+CNGqovTthKJYdpbMNWO7O
+	 puSXtHwRa5FHLCUYaq7kj3TSIYssDZk1MBoo43FU6gCALFJPo5M5KFAX4Q4GLZvAqd
+	 /Ib1a1urHIM0w==
+Received: by mail-lj1-f172.google.com with SMTP id 38308e7fff4ca-396775c2720so139051fa.2
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 09:43:18 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9g9yoUyJu9Zch8L3yTzlGq5WXad6r0STh9jzLygbIP2iMddLx1FTsMmehpMRsfWHR1G4nCqT1HIjwg@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw14DfbpcqBIYHGlpzN9Qr/EgXjOnq7TtEi+a40hH32zZhv/dMj
+	LMV5YaniqqfZUP/sH/FRKD8Al6uUbCbG83ER2A2Lfn5th+7vkgsaKVZAFRRf73xpY6BnsDkE6U+
+	nKg/Iu+l6ATV0w3g5R98VIkWvrkJqT90=
+X-Received: by 2002:a05:651c:20dc:20b0:396:5731:db22 with SMTP id
+ 38308e7fff4ca-39664edbde0mr9068591fa.23.1780159397154; Sat, 30 May 2026
+ 09:43:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260505134812.408316-1-wens@kernel.org> <20260505134812.408316-5-wens@kernel.org>
+ <JyKk48uGRMGhs1Z-wzq5pA@gmail.com>
+In-Reply-To: <JyKk48uGRMGhs1Z-wzq5pA@gmail.com>
+Reply-To: wens@kernel.org
+From: Chen-Yu Tsai <wens@kernel.org>
+Date: Sat, 30 May 2026 19:43:05 +0300
+X-Gmail-Original-Message-ID: <CAGb2v64wDvLMFn9DYs-kH1S2PpHJat-imxR5eJSQAUYjOp=Xdg@mail.gmail.com>
+X-Gm-Features: AVHnY4JPf-OCVxDr7xF6UmPyet8eqBpmFwZfdZsz7_1mZVTdUTpZyn83IUGk-ro
+Message-ID: <CAGb2v64wDvLMFn9DYs-kH1S2PpHJat-imxR5eJSQAUYjOp=Xdg@mail.gmail.com>
+Subject: Re: [PATCH 4/7] drivers: staging: media: sunxi: cedrus: add H616 variant
+To: =?UTF-8?Q?Jernej_=C5=A0krabec?= <jernej.skrabec@gmail.com>
+Cc: Maxime Ripard <mripard@kernel.org>, Paul Kocialkowski <paulk@sys-base.io>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Jernej Skrabec <jernej@kernel.org>, 
+	Samuel Holland <samuel@sholland.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-media@vger.kernel.org, 
+	linux-staging@lists.linux.dev, devicetree@vger.kernel.org, 
+	linux-sunxi@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+On Tue, May 5, 2026 at 7:18=E2=80=AFPM Jernej =C5=A0krabec <jernej.skrabec@=
+gmail.com> wrote:
+>
+> Dne torek, 5. maj 2026 ob 15:48:08 Srednjeevropski poletni =C4=8Das je Ch=
+en-Yu Tsai napisal(a):
+> > The Allwinner H616 SoC has a video engine hardware block like the one
+> > found on previous generations such as the H6. In addition to the
+> > currently supported features of the H6, it is also supposed to include
+>
+> Remove "supposed".
 
-New issues:
-- [Low] The `crypto@fe380000` device tree node is placed out of order with =
-respect to its unit address.
+I can't actually verify that, so "supposed" is accurate from my point of
+view.
 
-Pre-existing issues:
-- [High] The driver requests a shared interrupt before device clocks are en=
-abled, and its ISR does not check the power state, leading to a potential f=
-atal unclocked register access.
---
+ChenYu
 
-commit 30c6ac6a0076f1ce31fb0365a3eee2a85dadf551
-Author: Dawid Olesinski <dawidro@gmail.com>
-
-arm64: dts: rockchip: Add crypto node to rk356x-base
-
-This commit adds the device tree node for the V2 cryptographic hardware
-accelerator on RK356x SoCs. The IP block sits in the non-secure peripheral
-domain and is disabled by default.
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk356x-base.dtsi
-> index 64bdd8b7754b5..3b73a56046e77 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
-> @@ -1171,6 +1171,18 @@ gpu_leakage: gpu-leakage@1d {
->  		};
->  	};
-> =20
-> +	crypto: crypto@fe380000 {
-
-[Severity: Low]
-Is this device tree node placed out of order?
-
-Device tree nodes with unit addresses are typically sorted numerically by
-their physical base address. Would it be better to place this node before
-the rng@fe388000 node to maintain the established sorting order?
-
-> +		compatible =3D "rockchip,rk3568-crypto";
-> +		reg =3D <0x0 0xfe380000 0x0 0x2000>;
-> +		interrupts =3D <GIC_SPI 4 IRQ_TYPE_LEVEL_HIGH>;
-> +		clocks =3D <&cru CLK_CRYPTO_NS_CORE>, <&cru ACLK_CRYPTO_NS>,
-> +			 <&cru HCLK_CRYPTO_NS>;
-> +		clock-names =3D "core", "aclk", "hclk";
-> +		resets =3D <&cru SRST_CRYPTO_NS_CORE>;
-> +		reset-names =3D "core";
-> +		status =3D "disabled";
-> +	};
-
-[Severity: High]
-This isn't a bug introduced by this patch, but I noticed a potential issue
-in the driver code that this DT node enables in
-drivers/crypto/rockchip/rk2_crypto.c.
-
-The driver requests a shared interrupt in rk2_crypto_probe() before
-device clocks are enabled via runtime PM:
-
-rk2_crypto_probe() {
-    ...
-    err =3D devm_request_irq(dev, rkc->irq,
-                           rk2_crypto_irq_handle, IRQF_SHARED,
-                           "rk-crypto", pdev);
-    ...
-}
-
-If a shared device triggers the interrupt, or a spurious interrupt occurs
-while the device clocks are disabled, the ISR rk2_crypto_irq_handle()
-will execute and blindly read from the hardware status register:
-
-rk2_crypto_irq_handle() {
-    ...
-    v =3D readl(rkc->reg + RK2_CRYPTO_DMA_INT_ST);
-    ...
-}
-
-Could this cause a fatal external abort (SError) if the MMIO register
-is accessed while the clock domain is unpowered?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530160704.3453=
-555-1-dawidro@gmail.com?part=3D3
+> > a VP9 decoder. However software support for this is currently missing
+> > and still needs to be reverse engineered from the vendor BSP.
+> >
+> > Add the compatible for the H616 variant, using the H6 variant data.
+> >
+> > Signed-off-by: Chen-Yu Tsai <wens@kernel.org>
+>
+> With that:
+> Reviewed-by: Jernej Skrabec <jernej.skrabec@gmail.com>
+>
+> Best regards,
+> Jernej
+>
+>
