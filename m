@@ -1,151 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A605626ACC;
-	Sat, 30 May 2026 07:35:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CCB388E46
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 07:42:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780126543; cv=none; b=dh3ApjlE0LuBPnQY6uhmZJVuIVqm/SFaS9pDM2tUF1ZQ0Avv4BEM0j6UoQV86eB7XotRqZI896JGu13a9A5y65YCllYJxNlxN/lnmsOV94bYsPyeCmqAhEDq3DNjyhBjyctBP6lXjteg9iuXe9tK+t6XquVqYlJS7otizwZlQgU=
+	t=1780126933; cv=none; b=jbs+OrbArqtmayZvZBvxhG4V1Vl9hMxnYLKCfgY3MOGHQpmzQ/mC6LNtPbvgNcJrNbaPmFPBKRKzaXhXawWsf4UAT3ARaDdGX5RD852hGIbsQbePWjgPsLjCJh9tk/7j/OuhrFiaemA4gScd7S97UCy3WjjSa6M/2xG/XuD9TBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780126543; c=relaxed/simple;
-	bh=fz4kdclOKSBRy51d/iLLaCqas2Mv20qDCh8w8frH0mc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JcvEavBGO8V63RiFpco5KopQpYpd1Mrdc3AODKT21ejbQ3l4kt+9irEYipDWz4q12nbPv8lcUwDkHqXijv3H15qL7+5MIK+KpUebIY2lJnSguMh0vvEkCe2XflYur+fYJjK5D/Dg/7ZRXBb6KqeUY8ZEiZFk89cKZOqYBI38ET8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JGyo8Ujh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780126933; c=relaxed/simple;
+	bh=/0z+dMU04rn/b9fAduJq8vrEIO3TDrjwz5iHHrlrSFI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=lDW9Jfsv18+6XooRB+HWsYp6WUcnAb6gmWqchxxzT009AMkg3kCEiD7rOsMc+UsqNLFBkyMkY/1hDWoY0C00VNio0UPGzzRn00VvKMlt+TiDqNNyAusCVRPDhfPyA7uEtwBCqYB3fh2cn7ybiFfLudTpzIrvo9CsHeKGQ7Kncnw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=k0mDAuU8; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JGyo8Ujh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A5A491F00893;
-	Sat, 30 May 2026 07:35:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780126542;
-	bh=rDIbbdNi1ZPTfTLbF+VNsLtotcL6i/wU5AbKPo4BQ64=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JGyo8Ujh7/+5pZQcje0jWZ1okxvyqmivYsmzANrPJxwM5VOM9DRmFKOUCVLobY0Oz
-	 QJQwPydZay0rb8blSuZeM5GE/rL6j7+M1uwH3xa/BNyNqNKp7oH3tvLOeZhxYtE7nF
-	 stSptYVpiS102sxmLswqT1OnHnOXt4lVlJdamL1BQwbLRIkPRwBaml7Kg1gZ/tdlRW
-	 vE8mnRl78aoUFjjNtudZnG4QyltEfR+kRt5jr9L3qXy6ajQsnhLumQC2qf/wnRX5OI
-	 NGH/7XWhc9/bR10lfEeahEMiHvSHgHxv0IW2M0YbpepqQO4FgW61FnTjWONigEXrVE
-	 /9rxZXxxmRpxg==
-Date: Sat, 30 May 2026 09:35:39 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Udaya Kiran Challa <challauday369@gmail.com>
-Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
-	krzk+dt@kernel.org, conor+dt@kernel.org, skhan@linuxfoundation.org, 
-	me@brighamcampbell.com, linux-rtc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4] dt-bindings: clock: via,vt8500: Convert to DT Schema
-Message-ID: <20260530-academic-aspiring-sawfly-7dcfab@quoll>
-References: <20260524151110.21277-1-challauday369@gmail.com>
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="k0mDAuU8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=from:to:cc:subject:date:message-id
+	:mime-version:content-transfer-encoding; s=k1; bh=DdpzMgZwFfctrw
+	ngS5V7SlOXkXOkNpsU7Tb7EZsldE0=; b=k0mDAuU87QkKfmYs2y1IVaB/qELqmS
+	xipcSKAJTHULk+8vHbV3CLj8RLcdgiJPXX+pHQ2zRnbQUexkpB+Qoa0RW1CLDVcg
+	wPjUVligPn+iuTzNcw3+GjpRoCmbiKxxXAjudopG2lXXg2b6SdP/kVxfh34fTAhn
+	hy6KDJ+/OiWuZc2y5FfwxlX8QG1MnHEG5/swHIeKJtU4IM4gxoBkYycDpMX9bYk1
+	Vm1pTBrflV2aQONnpkJjUEgttInM50O0fbtWtfoOT7vResF0WaHLG4arMOV8IuLu
+	gqcGUl1zYsJj1+ZDAW9b9OsF32nc35a/EQtxBVGkD66l3+0OdyTQo/Lw==
+Received: (qmail 1679564 invoked from network); 30 May 2026 09:42:07 +0200
+Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 30 May 2026 09:42:07 +0200
+X-UD-Smtp-Session: l3s3148p1@/YUeGQRTOaKSAB1K
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: linux-renesas-soc@vger.kernel.org
+Cc: Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org
+Subject: [PATCH] arm64: renesas: r8a779g0: add MFIS node
+Date: Sat, 30 May 2026 09:41:15 +0200
+Message-ID: <20260530074202.24203-2-wsa+renesas@sang-engineering.com>
+X-Mailer: git-send-email 2.51.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260524151110.21277-1-challauday369@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, May 24, 2026 at 08:40:26PM +0530, Udaya Kiran Challa wrote:
-> Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clock
-> controller binding from the legacy text format to DT schema.
-> 
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> ---
-> Changelog:
-> Changes since v3
-> - Add schema select matching for via,vt8500-pmc
-> - Allow hyphen in node names under patternProperties
-> - Add dependentRequired validation for enable-reg/enable-bit
-> - Fix example validation against PMC schema
-> 
-> Link to v3:https://lore.kernel.org/all/20260524111813.39810-1-challauday369@gmail.com/
-> 
-> Changes since v2:
-> - Drop redundant description for clocks
-> - Disable reg property for device clocks
-> - Fix schema hierarchy to match actual DTS structure
-> 
-> Link to v2:https://lore.kernel.org/all/20260521170810.19702-1-challauday369@gmail.com/
-> 
-> Changes since v1:
-> - Add default value for divisor-mask
-> - Add required properties compatible and model
-> - Fix example node name
-> - Update example size cells and reg value
-> 
-> Link to v1:https://lore.kernel.org/all/20260520025131.17772-1-challauday369@gmail.com/
-> ---
->  .../bindings/clock/via,vt8500-clock.yaml      | 209 ++++++++++++++++++
->  .../devicetree/bindings/clock/vt8500.txt      |  74 -------
->  2 files changed, 209 insertions(+), 74 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
->  delete mode 100644 Documentation/devicetree/bindings/clock/vt8500.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
-> new file mode 100644
-> index 000000000000..51a68df6c2f3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/clock/via,vt8500-clock.yaml
-> @@ -0,0 +1,209 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/clock/via,vt8500-clock.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: VIA/Wondermedia VT8500 Clock Controller
+Describe the MFIS core which is used for various tasks including
+inter-processor communication. Interrupt numbers look irregular but they
+all work as expected on a Renesas R-Car V4H SparrowHawk board.
 
-How PMC is a clock controller? Really?
+Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+---
 
-> +
-> +maintainers:
-> +  - Michael Turquette <mturquette@baylibre.com>
-> +  - Stephen Boyd <sboyd@kernel.org>
+Binding extenstions for this SoC are in -next now.
 
+ arch/arm64/boot/dts/renesas/r8a779g0.dtsi | 17 +++++++++++++++++
+ 1 file changed, 17 insertions(+)
 
-Subsystem maintainers do not care about PMC. This can be platform
-maintainer.
-
-> +
-> +description:
-> +  Clock controller bindings for VIA/Wondermedia VT8500 and Wondermedia WM8xxx
-> +  series SoCs.
-> +
-> +select:
-> +  properties:
-> +    compatible:
-> +      const: via,vt8500-pmc
-> +
-> +  required:
-> +    - compatible
-
-Why do you have select?
-
-I don't understand your changes. This was not at v2 and I did not ask to
-change that.
-
-> +
-> +properties:
-> +  compatible:
-> +    const: via,vt8500-pmc
-
-
-So via,vt8500-clock.yaml or pmc? Why aren't you removing the pmc file?
-Why is this located at clocks?
-
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    type: object
-> +    additionalProperties: true
-
-No, this cannot be "true".
-
-I finished review here.
-
-Best regards,
-Krzysztof
+diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+index 82a7278836e5..9779b88b7995 100644
+--- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+@@ -603,6 +603,23 @@ tsn0: ethernet@e6460000 {
+ 			status = "disabled";
+ 		};
+ 
++		mfis: system-controller@e6260000 {
++			compatible = "renesas,r8a779g0-mfis";
++			reg = <0 0xe6260000 0 0xf000>;
++			reg-names = "common";
++			interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 916 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 918 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 920 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
++				     <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
++			interrupt-names = "ch0e",  "ch1e",  "ch2e",  "ch3e",  "ch4e",  "ch5e",  "ch6e",  "ch7e",  "ch8e",  "ch9e",
++					  "ch10e", "ch11e";
++			#hwlock-cells = <1>;
++			#mbox-cells = <2>;
++			status = "disabled";
++		};
++
+ 		i2c0: i2c@e6500000 {
+ 			compatible = "renesas,i2c-r8a779g0",
+ 				     "renesas,rcar-gen4-i2c";
+-- 
+2.51.0
 
