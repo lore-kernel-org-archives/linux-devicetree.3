@@ -1,120 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1141C5F11
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 20:05:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91D83112C1
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 20:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780171507; cv=none; b=LWvZg1cLRpmZ63WS21AX+WYKJUpafuLPCXZfod9uAgBg0xAG8GZL5Bn05WBpdOzox9oBdxwRvGjI/xvPa5SN+XCGHz6zinez9A5cp6mdxVEDDARteF4x6Wc/DkTp05XcFy3ktA71ObXKHl0Drbd7DbWcVH3P5zTIgKfJj4fZ9SE=
+	t=1780173760; cv=none; b=NfqaFz6e+5F6c0eBBiLgIqfgKtp0R0Qy9sjQz/8bQyCP4pqhmgEEqWTmIpK8rRLdeaGk31jyRS30dqcpOmaNBsi66bKbGxtTIukfroZQeoK5SlOWK/w4zj3C8OGcvLhAiLqnuijmBivT9P6kdZN7HHqU07yw/W1xaKqiLj8gQXk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780171507; c=relaxed/simple;
-	bh=PRdoQ2yE3nFcVuMZ5q1zSZ/dS6OKSPcr191FBwuiSiY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=qwr4FoiXLsSqLtGLj1Tyovz9AJjZrtpUQj3UInng0mBbJnRo3mzBbD7lIgSM9tuofTKZMvD2A+pzCg2A5Mk+ug9PCLucZgvORap8/Pb60JAvR4mR/vZM4UkPJcesQPR3i1/dfedvcH0ufSI8fs0SK4q+jzWOT6WRpIDH2MiCLZg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRJSFZXX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780173760; c=relaxed/simple;
+	bh=9JHbE4HNOkaWdA9aiO+m3bHYkQAb5mezw87RyiCnHPE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=txE3EoEx1f4w/5POBd0L1bAYwBrOdSKoQ16U8pJawmzok3cOoZzeUlrkWD9UNB56kSnbQco2ILN8w9XSf5ejLwYnRqb+RLPPDzK3nMGBL9rzZZNRaxzpizujzGaGQk9wqncx+BCwWk//XRnTMWUL2R8xNVh2BeOSgI9OrmnC7fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gfiu2Q1P; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRJSFZXX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE141F00893;
-	Sat, 30 May 2026 20:05:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780171506;
-	bh=6v2aeEiQ1NeMDwCQKrUg2PVS5AwcY9UsZtzA8l/3lYI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TRJSFZXXm8ksprnT3KNNM7vLXmookDWUBSgd9g8SvYjY89m5s2OjX4cyLZknEXpWL
-	 vnOXFGQBnq5AenEv0bPnEs3379zPag326cWD0xVwN5k9ZhpohquZ5Yj1bUqmpMULq1
-	 vDG79unoUwFcF4KkzqdESuvcr/ukc3PQC2epfbTl7/+AAmUCVPY2kVyIAWXcCbJ7pD
-	 RDbH299za2ue/GTser5CM83snI6uQ3ieIqmifyNNBDA+Pnhn95wjh15nWGH8pdxqsP
-	 fky1tXcH02r2t0d/kYiSSP3a1yctQbNAgNfyRe6IJ5GvyBEpffgdSZSe9nZCSClYH6
-	 LZd1WNB7TZDew==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v2 2/2] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <CY8PR02MB92497E67D5AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com>
-References: <CY8PR02MB92497E67D5AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 20:05:05 +0000
-Message-Id: <20260530200506.1FE141F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gfiu2Q1P"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45ef41adbc1so967229f8f.0
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 13:42:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780173757; x=1780778557; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a3tfGgufw87JlCJA1EHDdaMQtis24J507tckYXm4wyE=;
+        b=gfiu2Q1P9xBOIn1Q4VRF9t5obDLFJBpIjij4HApYiFINgfBQmwnC75/1bsKFtR8jbI
+         4dBA94cSZmTxA3E0WOdW7KfwqAUxqvuj1gcq11ZwRYhu475qILHrb9irb9fiake/TIwF
+         Dwk5A88/Ip9Ek7BGchVS7ekfLapoDpREvCcJQB2Z+S4VByU7jGZCR2i3dKTRlQqaVZ2s
+         pD3Jft8rhahz1vxtV/WsfQjRF0n9DzbJwU1Qdl2Zf8h5vANw3IU9uJpR0N84ParZdYA2
+         9IJpMl+g+UWQsRZt8k5V3dn1xT0+IJYsctPp2L7kZbelfrWBuayRNn6EGGrbQR/dpefT
+         7kxg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780173757; x=1780778557;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=a3tfGgufw87JlCJA1EHDdaMQtis24J507tckYXm4wyE=;
+        b=cl0MNbLtYyTeJuYqP5U+qHoBeY3stmdMz1ad9WK8ywCJ66QSrrUkZqK/vAYppZJj13
+         ReZrqjqBSECmO/67U05L6ui4g6/b3imVMeWeud8h0nmTaY5dRbzg5yLYyYBmEK+AtEIR
+         BRxFJva3/LUUVir+XvD+s2Wx7nPrtiLcU8tHdPVCyEeBQ8pRj9KXvCnPt1nX5odm1X+o
+         /1JnWdi5Ps02QWsKnRjrRuXPUz/wiYp1bK9Z93Ac8CW+pOnf8LvoRetj+leeKfn78M/j
+         MDHtp2YtB9rHbcvI4pi1J5ZocX+0fdK/1JegsWTmiyXervF+L5p3A6F1cErRRdYA69cv
+         0d6Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8tLpQat2g0YGplrdWkt691I5UYddsbQYsEFoIn4gBq2aXP4ztHp/fRytVUjElqfAvVpDcGBRX48bSz@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8r0vs2nvw1sFormgV3ViWJd2NGUeqRmpobUX/i28TSaoMhxLW
+	ljCkH/5U9AajQL81jaqFhRScFRoLCVtu5tsVwpaG/HOgNea+SCTzRqEg
+X-Gm-Gg: Acq92OFEC21w/np39116vNieM3WxwY8HFGKvmZyZMW+k03IoApBlljwNGFcJ7E0kYBQ
+	iS1rBwaY8fWGhpI9gGfu040Rjt6esHoycD76BwThY7ubaHFcMdVHLJLIBOciNEIbhvQTaH49P9f
+	d7sSOaU9hzMtCTYqUnbUWXKQvSjmvIAx2vkFdMDHXDi1xyhmXhzgxpv2MtcxgHjFuP0CM4rqLOU
+	93425Dof2tpKszk9/ZfdRpcpv6/0NGkfmBVOYE3b0lUhT6EN0QNlOjywkJgPgx7Ml+SPZE7CgcF
+	ErP3MbrPmBjCtdBUxrE5cqDN7in0FQLTPSJVu67OCPhgxatIbhtm+C+3Jum4Jk607S4M9SK6qDm
+	Yt/4BzDjlk1QcxjIkl9bIlvEZs0cjlCBzOxOPgPZ94SUExlHlB630w2AIdg7dH6tt99ddhW5g4r
+	Uyzq3JgGGSqSsiEQ8=
+X-Received: by 2002:a5d:58f6:0:b0:45e:e50e:3bc with SMTP id ffacd0b85a97d-45ef6b71573mr7238155f8f.29.1780173757308;
+        Sat, 30 May 2026 13:42:37 -0700 (PDT)
+Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef356a4c4sm13944636f8f.31.2026.05.30.13.42.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 May 2026 13:42:36 -0700 (PDT)
+From: Wadim Mueller <wafgo01@gmail.com>
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Wadim Mueller <wafgo01@gmail.com>,
+	linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxwell Doose <m32285159@gmail.com>
+Subject: Re: [PATCH v2 2/3] dt-bindings: iio: flow: add Sensirion SLF3S liquid flow sensor
+Date: Sat, 30 May 2026 22:42:05 +0200
+Message-ID: <binding-reply-1780172572434549738-wafgo01@gmail.com>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260528-transparent-adventurous-python-af8f69@quoll>
+References: <20260527184257.141635-1-wafgo01@gmail.com> <20260527184257.141635-3-wafgo01@gmail.com> <20260528-transparent-adventurous-python-af8f69@quoll>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Thu, May 28, 2026 at 11:07:18AM +0200, Krzysztof Kozlowski wrote:
+> Do not attach (thread) your patchsets to some other threads (unrelated
+> or older versions). [...]
 
-Pre-existing issues:
-- [High] The DT binding correctly updates the interrupt type to active low,=
- level-triggered (`IRQ_TYPE_LEVEL_LOW`), but the `oa_tc6` driver hardcodes =
-`IRQF_TRIGGER_FALLING` in its IRQ request. This mismatch causes dropped int=
-errupts, and attempting to fix the driver to use level-triggered interrupts=
- would currently result in an interrupt storm.
---
+Understood, v3 will be a new thread.
 
-commit 50f6d43fc72305690796fcff8249a6220cbe4714
-Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+> No need for cc of maintainers here which are output by
+> get_maintainers.pl. [...] Anyway, your SoB must be the last.
 
-dt-bindings: net: updated interrupt type to be active low, level triggered
+Ok, will drop the manual Cc block and put SoB last.
 
-This commit updates the LAN8650 device tree binding to specify an active
-low, level-triggered interrupt, aligning with the hardware specification.
+> > +      - const: sensirion,slf3s
+> 
+> That's confusing - why do you have generic compatible allowed to be
+> alone?
 
-> diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml=
- b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> --- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> +++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> @@ -67,7 +67,7 @@ examples:
->          pinctrl-names =3D "default";
->          pinctrl-0 =3D <&eth0_pins>;
->          interrupt-parent =3D <&gpio>;
-> -        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
-> +        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
+The driver detects the sub-type anyway, so the generic-only form
+does not add anything. Will drop it and keep only the fallback
+pair.
 
-[Severity: High]
-This is a pre-existing issue, but this DT binding update highlights a
-mismatch with the driver implementation. The hardware uses an active-low
-level-triggered interrupt, but the driver currently hardcodes an
-edge-triggered configuration:
+> > +  sensirion,medium:
+> 
+> Sounds like you configure driver probe behavior. Why this is board-level
+> static configuration (DT)?
 
-drivers/net/ethernet/oa_tc6.c:oa_tc6_init() {
-    ...
-    ret =3D devm_request_irq(&tc6->spi->dev, tc6->spi->irq, oa_tc6_macphy_i=
-sr,
-                           IRQF_TRIGGER_FALLING, dev_name(&tc6->spi->dev),
-                           tc6);
-    ...
-}
+Agreed, that is runtime config and not hardware description. Will
+drop the property and expose it as a sysfs RW attribute instead.
 
-Does the driver need to be updated to respect the device tree's interrupt
-trigger configuration instead of hardcoding IRQF_TRIGGER_FALLING?
+> Please make example complete - add all properties.
 
-If the driver is updated to use level-triggered interrupts, could this
-cause an interrupt storm? Looking at the current hardirq handler:
+Will do.
 
-drivers/net/ethernet/oa_tc6.c:oa_tc6_macphy_isr() {
-    struct oa_tc6 *tc6 =3D data;
+> > +F:drivers/iio/flow/
+> 
+> Drop, you don't maintain that directory here.
 
-    tc6->int_flag =3D true;
-    /* Wake spi kthread to perform spi transfer */
-    wake_up_interruptible(&tc6->spi_wq);
+Will drop, only the binding YAML and slf3s.c stay.
 
-    return IRQ_HANDLED;
-}
-
-Since oa_tc6_macphy_isr() returns IRQ_HANDLED without clearing the hardware
-interrupt condition (which requires a slow SPI transaction), wouldn't the
-IRQ core immediately fire the interrupt again if it were configured as
-level-triggered?
-
-Would it be safer to migrate this driver to use devm_request_threaded_irq()
-with IRQF_ONESHOT so the interrupt remains masked until the threaded handler
-can clear it, properly supporting the level-triggered configuration defined
-in this binding?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/CY8PR02MB92497E67D5=
-AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com?part=3D2
+Thanks,
+Wadim
