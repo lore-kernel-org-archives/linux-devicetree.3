@@ -1,50 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C88726A0D5;
-	Sat, 30 May 2026 11:34:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8E903AB5BB;
+	Sat, 30 May 2026 11:36:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780140899; cv=none; b=N8CMQ15PemhPOVw6suINE060ebb6GRx+fZ3srN3r0euyrO6pGJ3F8clEffvXAOS6njHzfj7IL7oAreJBQngpNh2c99hkCxtGtkTzthxyqbsFvOjR45CrRvstoS+rMi/YdwvauH1E8MI8VvRXPEneuqHOsAcrlAcxA2voyt3xsdo=
+	t=1780141000; cv=none; b=PDIo9W8+ZNnAgtkMcisyJJ/FWkxxOU6k3yUZm8ohJC+AvwipO2LvqvA4REKhf5vUFhuwyS+qZ4g1YM/f4m0oTqWzG0wm8cW2aldjU0/Ackhdpp/GAK/sTm//Rfk6PZpAf3I5Kd1FbJY8T4/GcHh+JjXn+R6/O6VNNve7WuTB45c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780140899; c=relaxed/simple;
-	bh=Ku/aFaxUgfIGXui8jRwFs/0PTJclzFiBbeu2QzFxa64=;
+	s=arc-20240116; t=1780141000; c=relaxed/simple;
+	bh=P8IY2LzuNiHoz9ZVBGoltK/59OemqKVU2k36y/+JBik=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WDCRvW4ORcCTZ8MacDPHy9kpCngnJqKBVk5StK4SnMS0tKyBIGIt8f5W2s1pyDVOslh7MYYVjY1Vtas1IdaiRNPaQTx9NVwnC9qq67ZIW10//wt1TMtq8Gwgucz46S9ESt4uFuGiHpwZfmuxYjaCPb4UyFtkk9cTxU9vnKmaknw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=imYG6wHp; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=am+ZVZUatnjShkARNJ0C7gcb/9LkMc60KG9RaQUoMyYSjW4wswCmEviYQLMPhsGh1FdNqeq87c0he2kngGNmvNtol7i/FPKdRSBD4jElz9ryT7/TbH4mKUYeZtSHNxXEeVbesBj2DmQhOSM9o1/x+LHDMLhQU/eFJRylISL4r44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTeQhB4m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="imYG6wHp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50AE61F00893;
-	Sat, 30 May 2026 11:34:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTeQhB4m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C37581F00893;
+	Sat, 30 May 2026 11:36:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780140897;
-	bh=r6iJ03g0GN7RPUEqnMX9QzrhnN3t4K3RUDcacgMvbpA=;
+	s=k20260515; t=1780140998;
+	bh=ASVwj8JSQW3qm8JAF74jGWlBWdyvnyVyn90w48T3iIA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=imYG6wHpndrIyG2kUXah98OBeOwxAQDxY+wnIJP2tmdT81J8jrlgyC9zjchdYinrp
-	 qrUwgYBT9G5apv8isIO+ZfnGbXbykqDUC1FDnE7Ay5q/2UR5W8EZyOe1i0mxgZPKIy
-	 iIPeqjCEDwKD8nsV8rhLLHL1+Ev5/QAyb3zCLONelalhQa4Lpq9RpJtoRu/3SLYSQ6
-	 UW2ecTI7wyeuNZhHfcKVjz2R1WFhmrbOJVHtcx+VcYPUS6Py/4NsxZwC+CbRiSRC4d
-	 qL01rbpeAjc9gEJmvEQSKpvHrqY+MAWqSYcPSuE7/rMcGqnz1mvNLBj+QYcfzF0z2H
-	 psI/LmsNcVEUQ==
-Date: Sat, 30 May 2026 13:34:55 +0200
+	b=MTeQhB4mmeI+sPjpKNnyb5J5CrvVt9iMSgTu2WAQAg/8Z1MMQlALunlWy+BRfBpwP
+	 t8Br2f7NLSE1YsM8EYhCmQezVQ3UKbxgGzB+6vY8C29HpC7wTOfppLp5lF+E9YU7xL
+	 iKwmOqTmUGJ4ypBwIeZmEOu+qJH92mg55RdglkHBRigDsM30yZLkI986Qf+vnvD8aN
+	 itMhxE2z+1F1ha896jae28t5koh3m7KbwfFzqBcvbzasXPnRFU3cZFigY3nVhXxLAt
+	 8B99i2UrPGCeUtPfw6czH0V9ZxcaftSJ5imY1m14wbE4skzNliQPPT4OkRjNP/CvJn
+	 m4u1uEZLP48aw==
+Date: Sat, 30 May 2026 13:36:35 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Loic Poulain <loic.poulain@oss.qualcomm.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+To: Can Guo <can.guo@oss.qualcomm.com>
+Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com, 
+	martin.petersen@oracle.com, mani@kernel.org, linux-scsi@vger.kernel.org, 
+	Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>, 
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
-	Sascha Hauer <s.hauer@pengutronix.de>, Pengutronix Kernel Team <kernel@pengutronix.de>, 
-	Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org, 
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
-	Suresh Vankadara <quic_svankada@quicinc.com>, Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Subject: Re: [PATCH 1/8] dt-bindings: media: qcom: Add Shikra CAMSS compatible
-Message-ID: <20260530-lorikeet-of-strongest-honeydew-fd9b16@quoll>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-1-645d2c8c75a7@qti.qualcomm.com>
+	Zhaoming Luo <zhml@posteo.com>, Ram Kumar Dwivedi <quic_rdwivedi@quicinc.com>, 
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+Message-ID: <20260530-invisible-pygmy-beetle-57e659@quoll>
+References: <20260527144055.2758170-1-can.guo@oss.qualcomm.com>
+ <20260527144055.2758170-2-can.guo@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,49 +48,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260526-shikra-camss-review-v1-1-645d2c8c75a7@qti.qualcomm.com>
+In-Reply-To: <20260527144055.2758170-2-can.guo@oss.qualcomm.com>
 
-On Tue, May 26, 2026 at 10:42:45PM +0530, Nihal Kumar Gupta wrote:
-> Shikra uses the same CAMSS IP as QCM2290. Extend the existing
-> qcom,qcm2290-camss binding to add the qcom,shikra-camss compatible
-> string.
+On Wed, May 27, 2026 at 07:40:54AM -0700, Can Guo wrote:
+> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+> integrity at high speed operation.
 > 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+> required depending on channel characteristics.
 > 
-> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
-> index 391d0f6f67ef5fdfea31dd3683477561516b1556..7b1469d6a1601413a1a32dc452d7d1fc85aa9eb8 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-camss.yaml
-> @@ -8,13 +8,16 @@ title: Qualcomm QCM2290 Camera Subsystem (CAMSS)
->  
->  maintainers:
->    - Loic Poulain <loic.poulain@oss.qualcomm.com>
-> +  - Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
->  
->  description:
->    The CAMSS IP is a CSI decoder and ISP present on Qualcomm platforms.
->  
->  properties:
->    compatible:
-> -    const: qcom,qcm2290-camss
-> +    enum:
-> +      - qcom,qcm2290-camss
-> +      - qcom,shikra-camss
->  
->    reg:
->      maxItems: 9
-> @@ -76,6 +79,7 @@ properties:
->        - const: sf_mnoc
->  
->    iommus:
-> +    minItems: 1
+> Add vendor-neutral DT properties:
+> 
+> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
+> - fixed property tx-precode-enable-g6
+> 
+> Each property is a uint32 array of per-lane tuples:
+> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
+> 
+> Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
+> are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
+> 
 
-No. Same feedback as before - you need to describe now the items if you
-claim that there is distinction. I already pointed this out to Qualcomm
-at least two or three times.
+Why are they SIX versions within three days? I see this for the third
+time in Patchwork already.
+
 
 Best regards,
 Krzysztof
