@@ -1,148 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com [209.85.167.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20BA93242BE
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 16:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6549B34BA42
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 16:59:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780159816; cv=none; b=OkMRJ6HEuu8Ad2VGqrsXB1en6D89meUdlBMxqycqfZgmKYkDKEj6QEL0b0o/eV6V4U5weNcult8i/r3xeysGvTaLKtPrAa5R/2nTsyyBNqOrCRcE4C5M9UX3c8s91VNFYC/BahS5NGW2n1uTOt84SWq+As16VCPa0QK40qEzUGc=
+	t=1780160369; cv=none; b=p1nBJ/qUlr6wwnIVjvMDlg1JuPNuIznxF78KHOnQwqBCBA6PggAfi3Vjne56Ety01IyMg05D4PG69BOHck4XzLHl+5NH2a5haG6gkA7AUpyrS/mAbzeDju634JOtanMeUUlmam2VllBwNwjUZ47cLMOIbD8hr354CGmCIiX0ToU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780159816; c=relaxed/simple;
-	bh=YrFVauqP4ubATuVvmo18AHIbMFklWMz82dbrFpIx5zw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nPhlrtd8kSk1hiPrA9ziUI1Hi7QSoEWawQ0/cAJi1uas3nTI35CdRcZjn4hzeXde74UE4nV0p1IC+ounEvLjZOmm8K2mgydHlCUZIAXzuOPOOIS2z/zTcQ6ivTNoys9b/3onnmbn0ViVJh9v4lJdEnuX8OxcgCRfhcZ7cFTHvYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ToidLUVI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780160369; c=relaxed/simple;
+	bh=eGB/cwwbuh9IlCcizGluwEjKXLvPqu2ERSXjTiVEsfk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G3xERp5WI7dwpAqZVMBZv69Ny+28+wx+bU2WBH0TEBNz/fS7HqAiuxVzFS08csnakgQDcZVO8/m5VbVD5PLDuwiLeVCVAndhkWrZHU4TIlh57mtNoRuLxSEXeiJb2lG3a7LUVvAIwlZtzG4OrlsJqO3HHocEop6n4fJSmKRIdEw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RPXO11JI; arc=none smtp.client-ip=209.85.167.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ToidLUVI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8ACD1F00898;
-	Sat, 30 May 2026 16:50:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780159814;
-	bh=6cjAd1b4IrUEhvOA57Ch1c1zdudYY0yJqKemPuN4dU0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ToidLUVIdkoNy4WYrkAVmNjL5BlITi3RUWdyDlIc60r5o+M2EfdNzzyK+PBSeqtWP
-	 GOHuVPAm3QclZ8RQir3cO9g/6SWLjEOnMZNHKMVfIvDEYYUTcq8Xk/RbKDlA9bt4v2
-	 7MDrGzYKToH0IghVACuS/w+hUWlFM+sA32nLGddcpYCV8D+6GpEmj89zKIwzqc2+GW
-	 8AZpQHIf/RbyHkYoY3UdAdE8qPoA5kyBf7VN+mZxZAQA3BlKEccVVYZzkUoeDv5+kO
-	 5iUVQAcTeCMf9toKwmDqTS872oclbIN485HWXtO+YAvSiboLiGU9kHqZW/asB1RZkm
-	 ZBrMQPPMLvSNw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/4] arm64: dts: rockchip: Add crypto node to
- rk3588-base
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dawid Olesinski" <dawidro@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260530160704.3453555-5-dawidro@gmail.com>
-References: <20260530160704.3453555-5-dawidro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 16:50:14 +0000
-Message-Id: <20260530165014.B8ACD1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RPXO11JI"
+Received: by mail-lf1-f48.google.com with SMTP id 2adb3069b0e04-5a8772a67bcso1401218e87.3
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 09:59:28 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780160367; x=1780765167; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=1AAtURkroLRkzkcXaL+/FSHOD+1VAnPoKiBj2776wxI=;
+        b=RPXO11JIvLcMn09HFCul2p3AKVs210bZFumyfz0MKZPfGppinxVC44cdH0oP3pMAlX
+         f6pN4+knD2eh009ConaAvnulXcX4bgRSZ3iQuNrJPazLL0QtCgg5Onjs494yQqoOzRL0
+         +khodBd53pXTWHOpE2fN/ZoYgXiwpQlU19kcMVdo3qKZu1yZu+bG1R96kaXUtO8tEjhR
+         cSqrcWeJ2cO49O+3Ib+t9kD6SvKKexRhWj4fbGaMS79KqVK+c3VVXY+1HuNJf+eZAXId
+         tR1m0DpvWgKZzFTQFH449c8xEt/NFwUz/GeTxZzgKvENTnM8q4NoBVOwyvWhPXlQjhew
+         Xp9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780160367; x=1780765167;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=1AAtURkroLRkzkcXaL+/FSHOD+1VAnPoKiBj2776wxI=;
+        b=krpenY4aYVaERKQBmk5HaieAQi+Ge76ioVtY65I3RXjqalWemlBmG9UZyTzYbx96vY
+         HsTepO8ghc7RUwt282c+eT0C8ahl7PHTCReUkuMzn8/ZBROpGWqXnafugYn+zF07k1Z0
+         RvkDbUmypotkzcy7JjhXM2czrh604FyelqQ8KqLEVN8kuuoePEv5Qw+mhcqqitVndih5
+         apFkwfve6YcJWieR9kITI075ATToRNvXQGCnWU2pSgY8l5yAD50o3u698/A4JjL1ma9S
+         2AjpESeCjgsq9U4UmvmNyHuWj6vhaPjLez2R2g8CoR1UKNkvYpwYLf33suu4p6zNb3Hc
+         ZDpQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+GEJ8hd/7bI9Zf+y5+44uXywu4VFgycz0aRIu4SzLwi6D2elOohj9mZ0GUy/J6Gl+mVfXgKNVMMMNK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwbNmbaVkbJJPijLXhkdRiOqWPeQ8FaUehxd7UWiXIwpAWMJCME
+	5bAzD9rg5atXiIelTQp+VjRZBpUO3B9DVheTO1fvYhzePP+M2tZxRq5+
+X-Gm-Gg: Acq92OFxwjlJos7qD+pQfjXjlz4/bWTZNM0tvhL+grrG68FdZvl/imV1/N1AKtBBwFR
+	rt40mp4cxfgyhy0ZuFQo9b2ZkzOGWNjp2BGsTjn+bOKAdOK+jXcqLRpQAm95SB7hN3wLexh0ofN
+	gD5AThnbDWqfSFHRurzFO/X0CUsjZOZ4VDLza6x84XWRSEuWY2o6NZWrJ7H5Tkm7YpmFlhorsSK
+	/XE+1giQCkjslY/8biqm4tmxOQok4I9KpsoHuO6+ndGqoLLaHHxWEOZSH1joprXXTPe15pCaOJJ
+	u11KgphSB16/fqR2I4q9NFH0/cQH5a+zN4kcrndj673FWKa85gRDp5JvKaknocpzGg7kSudaAP/
+	cCmt6AyaFRFEcYdA6PyGrK07oFXJXVyppNl0mSTdWNOaPrt7ugokOzP1fBldpPr622GfjhBdoSL
+	mSyhvGg4qQUa3t3B7s4iX9E9piXFX8ksk4TTm/iFT91tzk7A==
+X-Received: by 2002:a05:6512:689:b0:5aa:5bb7:ad7f with SMTP id 2adb3069b0e04-5aa6092a6d4mr649904e87.7.1780160366346;
+        Sat, 30 May 2026 09:59:26 -0700 (PDT)
+Received: from localhost ([5.124.164.24])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa5b793fd2sm1105140e87.76.2026.05.30.09.59.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 May 2026 09:59:25 -0700 (PDT)
+From: Taha Narimani <tahanarimani3443@gmail.com>
+To: Lars-Peter Clausen <lars@metafoo.de>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Taha Narimani <tahanarimani3443@gmail.com>,
+	linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Cc: linux-iio@vger.kernel.org (open list:IIO SUBSYSTEM AND DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list)
+Subject: [PATCH v3 RFC v3] dt-bindings: iio: adc: add ad7816/7/8 digital temperature sensor / ADC
+Date: Sat, 30 May 2026 16:59:15 +0000
+Message-ID: <20260530165917.55767-1-tahanarimani3443@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+Document the Analog Devices AD7816, AD7817, and AD7818 digital
+temperature sensor and ADC bindings in YAML format.
 
-Pre-existing issues:
-- [High] The shared interrupt handler accesses device registers without ens=
-uring the device's clocks are enabled, which will trigger an asynchronous b=
-us fault (SError) if a shared or spurious interrupt occurs while suspended.
-- [High] The driver dereferences the `areq->iv` byte array as a `u32 *`, wh=
-ich can cause an alignment fault.
---
+Please note that the driver for this device is currently in drivers/staging.
+This patch is sent as an RFC to clean up and standardize the device tree
+bindings prior to any major driver refactoring.
 
-commit 7f6218b80827dfe5983e50e2564e2a7bc74c81f8
-Author: Dawid Olesinski <dawidro@gmail.com>
+While reviewing the AD7816/7/8 datasheet to correctly document the properties,
+it was noted that the current staging driver attempts to request a 'busy' GPIO
+for both AD7816 and AD7817. However, the AD7816 is an 8-pin device and does
+not possess a BUSY pin (only the 16-pin AD7817 has it). Therefore, in this
+binding, busy-gpios is strictly limited to adi,ad7817.
 
-arm64: dts: rockchip: Add crypto node to rk3588-base
+This resolves the checkpatch.pl warnings regarding undocumented DT
+compatible strings.
 
-This commit adds the device tree node for the V2 cryptographic hardware
-accelerator on the RK3588. The node is disabled by default and uses the ARM
-SCMI interface for clocks and resets because the IP is in the secure domain.
+Signed-off-by: Taha Narimani <tahanarimani3443@gmail.com>
+---
+ .../bindings/iio/adc/adi,ad7816.yaml          | 105 ++++++++++++++++++
+ 1 file changed, 105 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
 
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi b/arch/arm64/b=
-oot/dts/rockchip/rk3588-base.dtsi
-> index 4fb8888c281c8..4f336741d11ff 100644
-> --- a/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-base.dtsi
-> @@ -2257,6 +2257,18 @@ rng@fe378000 {
->  		resets =3D <&scmi_reset SCMI_SRST_H_TRNG_NS>;
->  	};
-> =20
-> +	crypto: crypto@fe370000 {
-> +		compatible =3D "rockchip,rk3588-crypto";
+diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+new file mode 100644
+index 0000000..48563e4
+--- /dev/null
++++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
+@@ -0,0 +1,105 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/iio/adc/adi,ad7816.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Analog Devices AD7816/7/8 digital temperature sensor / ADC
++
++maintainers:
++  - Taha Narimani <tahanarimani3443@gmail.com>
++
++description: |
++  Analog Devices AD7816, AD7817, and AD7818 10-Bit general purpose ADC and
++  temperature sensor. The device communicates via an SPI interface.
++
++properties:
++  compatible:
++    enum:
++      - adi,ad7816
++      - adi,ad7817
++      - adi,ad7818
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    maximum: 12500000
++
++  vdd-supply:
++    description: Main power supply.
++
++  vref-supply:
++    description: |
++      Optional external reference voltage supply. If not provided, the
++      internal reference is used. Applicable for AD7816 and AD7817.
++
++  rdwr-gpios:
++    maxItems: 1
++    description: GPIO connected to the RD/WR pin.
++
++  convert-gpios:
++    maxItems: 1
++    description: GPIO connected to the CONVST (Convert Start) pin.
++
++  busy-gpios:
++    maxItems: 1
++    description: GPIO connected to the BUSY pin. Only applicable for AD7817.
++
++  interrupts:
++    maxItems: 1
++    description: OTI (Over Temperature Indicator) interrupt. Active low.
++
++required:
++  - compatible
++  - reg
++  - vdd-supply
++  - rdwr-gpios
++  - convert-gpios
++
++allOf:
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: adi,ad7817
++    then:
++      required:
++        - busy-gpios
++    else:
++      properties:
++        busy-gpios: false
++  - if:
++      properties:
++        compatible:
++          contains:
++            const: adi,ad7818
++    then:
++      properties:
++        vref-supply: false
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        adc@0 {
++            compatible = "adi,ad7817";
++            reg = <0>;
++            spi-max-frequency = <1000000>;
++            vdd-supply = <&vcc>;
++            vref-supply = <&vref>;
++            rdwr-gpios = <&gpio 5 GPIO_ACTIVE_HIGH>;
++            convert-gpios = <&gpio 6 GPIO_ACTIVE_HIGH>;
++            busy-gpios = <&gpio 7 GPIO_ACTIVE_HIGH>;
++            interrupts = <20 IRQ_TYPE_LEVEL_LOW>;
++            interrupt-parent = <&gpio>;
++        };
++    };
+-- 
+2.53.0
 
-[Severity: High]
-This isn't a bug introduced by this patch, but enabling this device exposes=
- an
-alignment fault issue in the driver.
-
-The driver dereferences the areq->iv byte array as a u32 pointer, which can
-cause an alignment fault. The block cipher algorithms set .base.cra_alignma=
-sk
-to 0, meaning the crypto subsystem makes no guarantees about the memory
-alignment of the areq->iv buffer. However, in rk2_cipher_run()
-(drivers/crypto/rockchip/rk2_crypto_skcipher.c):
-
-	writel(cpu_to_be32(riv[i]),
-	       rkc->reg + RK2_CRYPTO_CH0_IV_0 + i * 4);
-
-the driver casts areq->iv to a u32 pointer and reads from it directly via
-riv[i]. If the IV buffer is unaligned, this dereference is undefined behavi=
-or
-in C. On ARM64, if the compiler assumes alignment and emits an instruction =
-that
-strictly requires it, this will trigger an alignment fault exception and cr=
-ash
-the kernel.
-
-Should the driver be updated to either use get_unaligned() to read the IV b=
-ytes
-or set cra_alignmask =3D 3 to enforce 4-byte alignment?
-
-> +		reg =3D <0x0 0xfe370000 0x0 0x2000>;
-> +		interrupts =3D <GIC_SPI 209 IRQ_TYPE_LEVEL_HIGH 0>;
-
-[Severity: High]
-This isn't a bug introduced by this patch, but enabling this device via dev=
-ice
-tree will expose a shared interrupt handling issue in the driver.
-
-The shared interrupt handler accesses device registers without ensuring the
-device's clocks are enabled.
-
-The driver requests the interrupt with IRQF_SHARED while placing the device=
- into
-runtime suspend (disabling its clocks and asserting reset) when idle. If an=
-other
-device on the same IRQ line fires, or a spurious interrupt occurs,
-rk2_crypto_irq_handle() in drivers/crypto/rockchip/rk2_crypto.c will execut=
-e:
-
-	v =3D readl(rkc->reg + RK2_CRYPTO_DMA_INT_ST);
-	if (!v)
-		return IRQ_NONE;
-
-Accessing an unclocked APB/AHB target on Rockchip SoCs triggers an asynchro=
-nous
-bus fault (SError), crashing the kernel.
-
-Could the handler verify the device is active (e.g., via a driver-specific
-software flag) before touching hardware registers?
-
-> +		clocks =3D <&scmi_clk SCMI_CRYPTO_CORE>, <&scmi_clk SCMI_ACLK_SECURE_N=
-S>,
-> +			 <&scmi_clk SCMI_HCLK_SECURE_NS>;
-> +		clock-names =3D "core", "aclk", "hclk";
-> +		resets =3D <&scmi_reset SCMI_SRST_CRYPTO_CORE>;
-> +		reset-names =3D "core";
-> +		status =3D "disabled";
-> +	};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530160704.3453=
-555-1-dawidro@gmail.com?part=3D4
