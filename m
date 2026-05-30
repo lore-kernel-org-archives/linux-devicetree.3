@@ -1,152 +1,61 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04CB519067C
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 11:06:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FEB419067C;
+	Sat, 30 May 2026 11:08:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780139220; cv=none; b=Mzou/zzg0XylkIiZ6EjLp1gUW0DlqZjSgiGwXR440lNNHy8KzOSdVLTwLuhBE3uqPaXEsKIEJCiFTgCJlSXM7njAipYcKjSK82X+IcJflt+7H3etgUqE8XL45/2mP0boVQfLvkhyuU0hFX1RvA2c5ZQpbRhAC1zDRnI7/zdwk/8=
+	t=1780139285; cv=none; b=Yz0cDB2KBmpV2ZgpKoBFAFbBx5tB9bl0eQICQSkJJpwpxYHUGNIg0fIde/mNvsk2v32LI3PwzTTelsvTzCWwfULJ9W5hcMsz4HxqrC2ob5kOjEN/kiQVTdstzmX3myYe0vlrKnof69l0hQQDgfCmUNvYxPAxn53Jw1EeXFxjVCE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780139220; c=relaxed/simple;
-	bh=Qk6ws+2gRiRv80msip+31Qeeu0wjbvRVe1TY8KA8ltI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mk73U8LRZR6RyZ64Grs74xseIaNTkZziLVaTD0KpYeqTXscMd05O2dPK+rzGByYNJE70JfmekfJ8YG4WYT4SFvDAhQGi3SEl9j0swh7tDYQ/nrqK/FRbHoKYTTI+iqQiUNZ9j0VVvvksCsu8Ugl/usIBiNrK3gPja1r9VM3N8j0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jXoXlR8k; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780139285; c=relaxed/simple;
+	bh=OXWZos6Dle8fAOPCysJuJaxARteW8/eqIVr6Rikpmgg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Dxsk/QggmYnPQ3PhzaQUZRWsAR/MUzaHHg0KwukMIES5kEW5wLlY7lp224MOzV31oLJG7hptVwAWG64xpHuzLfFZMl8n9J0pjWBXowhrlYAzTDNetbG06B+59D1JQnztwH0j548qO5uwvPhzRoccOmRMnarahufrr8nXUsXxXSk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HSfTd5Vf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jXoXlR8k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30EB11F00893;
-	Sat, 30 May 2026 11:06:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HSfTd5Vf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EDDB1F00893;
+	Sat, 30 May 2026 11:08:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780139218;
-	bh=eN8LCCPpVYft6NeaVeDYYIMSna0MYsSd81hWjj8pJSo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jXoXlR8kPiv1PKgQ9v3MzOjBDUtWYcOPqGXq2ks0Y0eQV5l1wKXKBWemLWgjK1UUp
-	 A+bDmLYpFvNqkJ3ZHwYRbM3Ct7vJxwM2FYU84DjmQQr1YzdIUT+GR5uzv6n6hysCu9
-	 JIlHXBDoVgn1lBPK/XJyDzYXZXikK5c82Zl0+kQd4BwGZtEWU+45azGibc1QP77/6K
-	 HnWtWkT6kHAKOeIgRzKjkJrxgJQmjYGAcH33xsyUV6Bh1I9gBLwTpxhPwFGBNpI7ZW
-	 WG+x7MzHJvMfQ4OlRiITxaEUDrG2MLE1StTTil20+bcH5JoT9HwjrnDQeodvxAfsId
-	 LMDRwMHhLK5DQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] dt-bindings: iio: adc: Add schema for AD7816/7/8
- digital temperature sensor
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Taha Narimani" <tahanarimani3443@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260530135302.54688-1-tahanarimani3443@gmail.com>
-References: <20260530135302.54688-1-tahanarimani3443@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 11:06:57 +0000
-Message-Id: <20260530110658.30EB11F00893@smtp.kernel.org>
+	s=k20260515; t=1780139284;
+	bh=H60wNIlCfeQ/C3eV7ITTXXDQqIrlqopFqnGrs8jajTg=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HSfTd5VfyrBeK2P04qZjb2+KCbELHFcXPxffCPKBdDBMq+xYN7vXM7c+la/LCfwKq
+	 Df1Zm2/sDBAWGhPibAZ2LAS0CcRRFkgxSJP2TFYN22EktkGyYzfiYf+2JWG46tfGHE
+	 CaCu90635CW9kvbniX+bDY8Ree6XnT6gW1DBwALiIU62XSEJsAqM2i7MOjP/uWPuJR
+	 E9ZUXjKaJIlxFWQs5bJTJyeq6KK11pV08+A2EMYzOE9roLtUiDccW1QT8ZfeqI7Bf8
+	 YvwW+EJzEcZw6d6VhZbQOHVTzp2lsmKP4cBtuiV685ojIYXHIubZ4pVE/yC04aT7do
+	 rrsL58UAiO2WA==
+Date: Sat, 30 May 2026 13:08:01 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+Subject: Re: [PATCH 1/2] dt-bindings: interconnect: qcom,shikra-epss-l3: Add
+ EPSS L3 DT binding
+Message-ID: <20260530-victorious-resourceful-muskox-cdeadb@quoll>
+References: <20260524-shikra_epss_l3-v1-0-b1528a436134@oss.qualcomm.com>
+ <20260524-shikra_epss_l3-v1-1-b1528a436134@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260524-shikra_epss_l3-v1-1-b1528a436134@oss.qualcomm.com>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+On Sun, May 24, 2026 at 06:03:35PM +0000, Raviteja Laggyshetty wrote:
+> +  '#interconnect-cells':
+> +    const: 1
+> +
 
-Pre-existing issues:
-- [High] Missing concurrency protection during sysfs accesses.
-- [High] Stack-allocated buffers are passed directly to `spi_read()` and `s=
-pi_write()`, violating DMA mapping rules.
-- [High] Unbounded polling loop for the BUSY pin can cause a hard CPU locku=
-p.
---
+I do not see any differences against OSM L3 binding. Why isn't this
+device there?
 
-commit cb7e57cc9cdde2668abda84c0f0d3e60ebb9a962
-Author: Taha Narimani <tahanarimani3443@gmail.com>
+Best regards,
+Krzysztof
 
-dt-bindings: iio: adc: Add schema for AD7816/7/8 digital temperature sensor
-
-This commit adds a new YAML device tree binding schema for the Analog
-Devices AD7816, AD7817, and AD7818 digital temperature sensors. It
-documents the compatible strings, SPI configuration, interrupts, and
-required GPIO pins.
-
-> diff --git a/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml b/=
-Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-> new file mode 100644
-> index 0000000000000..74008c14d40c6
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/iio/adc/adi,ad7816.yaml
-> @@ -0,0 +1,87 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/iio/adc/adi,ad7816.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-
-[ ... ]
-
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - adi,ad7816
-> +      - adi,ad7817
-> +      - adi,ad7818
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is there a missing lock to
-protect concurrent sysfs accesses?
-
-Looking at ad7816_show_value() in drivers/staging/iio/adc/ad7816.c:
-
-drivers/staging/iio/adc/ad7816.c:ad7816_show_value() {
-    ...
-    ret =3D ad7816_spi_read(chip, &data);
-    ...
-}
-
-Since this is called for world-readable sysfs attributes, can multiple
-userspace processes trigger this concurrently?
-
-If so, could concurrent execution of ad7816_spi_read() interleave GPIO pin
-toggling and SPI transfers, corrupting the hardware state?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but does this code pass
-stack-allocated buffers to SPI transfers?
-
-Looking at drivers/staging/iio/adc/ad7816.c:
-
-drivers/staging/iio/adc/ad7816.c:ad7816_spi_read() {
-    ...
-    ret =3D spi_read(spi_dev, &buf, sizeof(*data));
-    ...
-}
-
-And also in ad7816_spi_write():
-
-drivers/staging/iio/adc/ad7816.c:ad7816_spi_write() {
-    ...
-    ret =3D spi_write(spi_dev, &data, sizeof(data));
-    ...
-}
-
-Since the SPI subsystem often maps these buffers for DMA, will passing
-variables from the stack cause mapping failures or crashes on architectures
-with virtually mapped kernel stacks?
-
-
-[Severity: High]
-This isn't a bug introduced by this patch, but can this unbounded polling
-loop cause a CPU lockup?
-
-Looking at ad7816_spi_read() in drivers/staging/iio/adc/ad7816.c:
-
-drivers/staging/iio/adc/ad7816.c:ad7816_spi_read() {
-    ...
-    while (gpiod_get_value(chip->busy_pin))
-        cpu_relax();
-    ...
-}
-
-If the external device malfunctions or the GPIO line gets permanently stuck
-high, will this loop block indefinitely and cause a hard lockup?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530135302.5468=
-8-1-tahanarimani3443@gmail.com?part=3D1
