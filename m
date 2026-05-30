@@ -1,77 +1,175 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACF2B384CD8;
-	Sat, 30 May 2026 10:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C150430567E;
+	Sat, 30 May 2026 10:29:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780136875; cv=none; b=lOx9ShNMoGP+BX7XsGiqbeBUy61VEtx5WcOSs+rjVXf+qVUC3E7ZZe+EWAnhsC4ovxivZ+4LhPosXqfz5PSOM2A0cuDG0CcpPq0/KXkQo2vwwwL6tY6kzXbx99zgmCzgv4yDwO/0RX4jyx+8xv2TILsm85XmOYMhMsO46POwk7I=
+	t=1780136960; cv=none; b=hnWvo/XIJ2Wvi83ajccBPf789x7VKUHwRPGSt+h47lf6MGV0hvG2dTKSaXSeCoLJ4brgI6/+pOa5lAa8GRInngaVTvI9FPOhsiB9giRIqJ3JlW7Il+RrhM9JbM2e5z6MfjTf/FXVZ7SPV5dsYQtLFzrlzguyA9ZOq4zVEgDTwfE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780136875; c=relaxed/simple;
-	bh=xIGVJHDXpcmxVhUELeooaud4zDPbQF75EH7ok2C0qKU=;
-	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
-	 To:Date:Message-ID; b=r2Hr/pCB02LEhbp0wxEEYv/bIDD/0iHt0Gs0kt6WNweDPsP9LO8XUiYcg8LouZeZrxvUw2b6kFmAuhUIOxJGHNzKs4Zx9hNQAMdF89/A33JYDY1eZJv+DUlt5XG9XSYFP8/h/m/LPUe/awrBmLTpSAClhUg3noC4CnI+LcO+GGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=oAmTDck9; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1780136960; c=relaxed/simple;
+	bh=+1XMBaxsCA0xHAFruPYs8g9g8Blv9YMSVm9QFDbq65I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=rD2Zl2t67jPAjVH/ploeDhANe152neAxEq+2Rr01ryJMOVDYrhihsujPBvGyprV71nW83DM3audYLsOvpHS7IAvOxM5T+FpEebSH5bm1+B9sdwI5lopAEqhPEB6UoeX1gqSzQcshwGu1gKqT6HsCUJDJUWJXviuYzGC3DcOLipA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Fjf4pTTM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="oAmTDck9"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:382:6f:8c15:9eec:bfe9])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 6D74B7CA;
-	Sat, 30 May 2026 12:27:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780136851;
-	bh=xIGVJHDXpcmxVhUELeooaud4zDPbQF75EH7ok2C0qKU=;
-	h=In-Reply-To:References:Subject:From:Cc:To:Date:From;
-	b=oAmTDck9dwCihc7pzbDIKdz8iRU2fvIkyf5klsPbJbEo2bQoWutWjOqAbvjx11EMO
-	 kzmpWVxdLzDD3jwk3Z8O3JU65RsXYRw0sOrMeWxR32/u/p4+P9cgIfLRZjRGl/7EWX
-	 QB+ARSCp1VoEbTZG6g9aalF/LxOzNZX88nFBXm38=
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Fjf4pTTM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D751F1F00893;
+	Sat, 30 May 2026 10:29:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780136959;
+	bh=jjpfZdY2qtJ73w7DanAQT33plGvxPTGB+G4bRF3mZTQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Fjf4pTTMZxXYxITDdr30Y6HWBeraYdqjoHSJzYZgTrsvJpCCdBOWk1pIXzgBxpHUB
+	 Eze/KcHRIxASMcjhM2Elk6DC2cMttbaM66jUzIVFPty5Tvgg1HaYmf3Wt8KPe5nIvD
+	 DtoBYn2tZxjghpTBc3c+xnENJvIaIHDOT+RQQKxPlpouxTrNapbcR0JhQgOhbGptxb
+	 APt5AX4rgtFJTUDmHWK1ZuntIjWEpeZ0hEA6EG3JE5WiDBuh6pGtd7rYiDD6Yw/elg
+	 CWimtHRy5N+Q5Rl3bE4Q1j5GRwEqjiK0IwEigPidwwdS80FKX5VU/9VhYMLc3dR0jR
+	 BlB1J9ez7Edpg==
+Date: Sat, 30 May 2026 12:29:16 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>, David Collins <david.collins@oss.qualcomm.com>, 
+	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, 
+	Maulik Shah <maulik.shah@oss.qualcomm.com>, kernel@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] dt-bindings: pinctrl: qcom,pmic-gpio: Add
+ level-shifter function
+Message-ID: <20260530-thankful-maroon-boar-be86f8@quoll>
+References: <20260528-pinctrl-level-shifter-v2-0-3a6a025392bf@oss.qualcomm.com>
+ <20260528-pinctrl-level-shifter-v2-2-3a6a025392bf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-In-Reply-To: <20260529144917.wp46oj6z3clarvft@blabber>
-References: <20260515-beagley-cameras-v2-0-f6acb66c9995@ideasonboard.com> <20260515-beagley-cameras-v2-3-f6acb66c9995@ideasonboard.com> <20260529144917.wp46oj6z3clarvft@blabber>
-Subject: Re: [PATCH v2 3/4] arm64: dts: ti: k3-am67a-beagley-ai: Add overlay for IMX219 on CSI0
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Robert Nelson <robertcnelson@gmail.com>, Andrew Davis <afd@ti.com>, Devarsh Thakkar <devarsht@ti.com>, Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-To: Nishanth Menon <nm@ti.com>
-Date: Sat, 30 May 2026 15:57:47 +0530
-Message-ID: <178013686712.933414.13519886286669092495@freya>
-User-Agent: alot/0.13.dev20+g31692a239
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260528-pinctrl-level-shifter-v2-2-3a6a025392bf@oss.qualcomm.com>
 
-Quoting Nishanth Menon (2026-05-29 20:19:17)
-> On 06:46-20260515, Jai Luthra wrote:
-> [...]
->=20
-> > +&main_i2c2 {
-> > +     status =3D "okay";
-> Comes last.. please follow:
-> https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/D=
-ocumentation/devicetree/bindings/dts-coding-style.rst#n117
->=20
+On Thu, May 28, 2026 at 06:05:36PM -0700, Fenglin Wu wrote:
+> Add the "level-shifter" function and add the required DT properties to
+> allow RPMh firmware to control the level-shifter. Introduce a custom
+> pinconf parameter "qcom,1p2v-1p8v-ls-en" for enabling or disabling the
+> level-shifter function.
 
-Oops. Will fix everywhere in v3*
+I don't get how PMIC, which is not a child of RPMh at all or not
+talking with RPMh RSC, needs to configure its pin via RPMh. It feels it
+is misrepresented.
 
-* just realized I was calling it v2 in other replies
+> 
+> Additionally, add the "groups" property with the allowed group names
+> that can be used to control the level-shifter function on pmh0101.
+> 
+> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> ---
+>  .../bindings/pinctrl/qcom,pmic-gpio.yaml           | 66 +++++++++++++++++++++-
+>  include/dt-bindings/pinctrl/qcom,pmic-gpio.h       |  1 +
+>  2 files changed, 64 insertions(+), 3 deletions(-)
+> 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+> index b8109e6c2a10..19dc61ddff2d 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+> +++ b/Documentation/devicetree/bindings/pinctrl/qcom,pmic-gpio.yaml
+> @@ -119,6 +119,21 @@ properties:
+>        The first cell will be used to define gpio number and the
+>        second denotes the flags for this gpio
+>  
+> +  qcom,rpmh:
+> +    description:
+> +      Phandle to the RPMh controller device. Required for PMICs when the
+> +      bidirectional level shifters is used (e.g., pmh0101), to enable
+> +      communication with RPMh firmware for level shifter control.
+> +    $ref: /schemas/types.yaml#/definitions/phandle
+> +
+> +  qcom,pmic-id:
+> +    description:
+> +      The ID of the PMIC which supports bidirectional level shifter function.
+> +      It is used as the RPMh resource name suffix to request control of the
+> +      level shifter to the RPMh firmware.
+> +    $ref: /schemas/types.yaml#/definitions/string
+> +    pattern: "^[A-N]_E[0-3]+$"
 
-Thanks,
-    Jai
+You do not get instance IDs (it's explcitly documented in docs).
 
-> > +     pinctrl-names =3D "default";
-> > +     pinctrl-0 =3D <&main_i2c2_pins_default>;
-> > +     clock-frequency =3D <400000>;
-> > +
-> > +     #address-cells =3D <1>;
-> > +     #size-cells =3D <0>;
-> > +
-> --=20
-> Regards,
-> Nishanth Menon
-> Key (0xDDB5849D1736249D) / Fingerprint: F8A2 8693 54EB 8232 17A3  1A34 DD=
-B5 849D 1736 249D
-> https://ti.com/opensource
+> +
+>  additionalProperties: false
+>  
+>  required:
+> @@ -330,6 +345,22 @@ allOf:
+>            contains:
+>              enum:
+>                - qcom,pmh0101-gpio
+> +    then:
+> +      properties:
+> +        gpio-line-names:
+> +          minItems: 18
+> +          maxItems: 18
+> +        gpio-reserved-ranges:
+> +          minItems: 1
+> +          maxItems: 9
+> +        qcom,rpmh: true
+> +        qcom,pmic-id: true
+> +
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            enum:
+>                - qcom,pmih0108-gpio
+>      then:
+>        properties:
+> @@ -523,6 +554,19 @@ $defs:
+>          items:
+>            pattern: '^gpio([0-9]+)$'
+>  
+> +      groups:
+> +        $ref: /schemas/types.yaml#/definitions/string-array
+> +        description:
+> +          List of GPIO groups to apply properties to. Only valid for
+> +          function "level-shifter" on pmh0101. Valid groups are
+> +          gpio11, gpio12; gpio13, gpio14; gpio15, gpio16; gpio17, gpio18.
+> +        items:
+> +          enum:
+> +            - gpio11, gpio12
+> +            - gpio13, gpio14
+> +            - gpio15, gpio16
+> +            - gpio17, gpio18
+> +
+>        function:
+>          items:
+>            - enum:
+> @@ -536,6 +580,7 @@ $defs:
+>                - dtest4
+>                - func3  # supported by LV/MV GPIO subtypes
+>                - func4  # supported by LV/MV GPIO subtypes
+> +              - level-shifter  # supported only by pmh0101
+>  
+>        bias-disable: true
+>        bias-pull-down: true
+> @@ -592,9 +637,24 @@ $defs:
+>            configured as digital input.
+>          enum: [1, 2, 3, 4]
+>  
+> -    required:
+> -      - pins
+> -      - function
+> +      qcom,1p2v-1p8v-ls-en:
+> +        $ref: /schemas/types.yaml#/definitions/uint32
+> +        description:
+> +          Enable or disable the bidirectional 1.2V/1.8V level shifter
+> +          associated with the specified GPIO group. When set to 1, an RPMh
+> +          vote is sent to AOP to enable the level shifter. When set to 0,
+> +          the vote is withdrawn. Only valid when function is "level-shifter"
+> +          and groups is a level-shifter GPIO pair (e.g., "gpio11, gpio12"
+> +          on pmh0101).
+
+And there are no generic pinconf properties defining the voltage?
+
+Best regards,
+Krzysztof
+
