@@ -1,236 +1,119 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68038350A05
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 17:16:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780161413; cv=none; b=o2aXePSEsMMxU8MnkIFfmx8XWv+9TovitJE6EAC56RsSZCnuKnALDlSJHJbZt+57Zkkl/rs5NPpX9JSDRWXmQp3O99yEM2KPs+MOQmX00fUsIKH0kDva4SeFqD14C/IgEaXcwK4xvlllpWX6CuiFmkPbxZjWYzrqqs89C+dcZho=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780161413; c=relaxed/simple;
-	bh=+4u0fHWOjIcg90EBOqOuT8iGFRKnnKWCDYzdQHUcHp0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=GDHhot/Z4yzfL1Xjop0vo9dRRYzeQXhdMBiaDo+xaKOlpNvj5E5dvP+KjAra2rpAqAkybMuIE9+KNP2M/IKULsPQhjmKGo6oBw7zUQvc3XHRHenfyr1dfh2oNN89/9TR9TLyjmCsVq2PzF8nxxMBT+QjcS3W+CfXH71eB50juVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Yaj0/ib0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D8A03AC0FA
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 17:24:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.221.51
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780161848; cv=pass; b=GtLS3suckwqgNTm0QC1dEdwh6CkZBCpsH4PYxGZUn5OQXig3BPaCubk6nX+i8OuWUb+zRqm7l+hCdHasfrUR6hTw+eKkS2oPn25pE4Xwoa2VaqJgX2XU3kCOX9DtVGDKZzzBDVbvQ/QHS+VSxXN2e+DAd1SP3HvWqvQsu+n1/mw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780161848; c=relaxed/simple;
+	bh=UkBSBLxIZCuuB74htmYnx5hF1++Wk1amY553OBJB/1s=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=P+gad9xTF6+/O03TKwyV2DUwOBvSWe2S9QreFT1vc1v9vReYHhL0NKgc78e3XHUxErI7HNSo6pQ6JqQ1dhFJ2mS9hhHpshQv+bHz90VfvOn3X7++0wZ4B/UoF8mfTEs+N2+uVvhLbdak79W4PV80QRYa8fpZ4ZoC883NunH4QxQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mhPyY83D; arc=pass smtp.client-ip=209.85.221.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Yaj0/ib0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0CE891F00899;
-	Sat, 30 May 2026 17:16:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780161412;
-	bh=NJNEYzJf64UlkAAqUl7tJ57ir0CkSQg2uCPf6X/R85U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Yaj0/ib0TD7VTK+dyJmBSKML9jT5XxydnkZ3tRQBzaKBmI63zVgQjTDkVm+hG8ymY
-	 b+E5k7e0M/6ki2vjv8yRDcnoXL9p5ATCcPNYerHS0EEWRyhqEV5D27DzJE6BYala3l
-	 GEvsKGBJfh75JlyI/l2Zr80bvMPxGKMfdZjdl/nbFDoWHm/35giD2FvHZvoxsNqw1J
-	 WKfKkrFQFR01pIEg83z8jgf1ZoBeC6xpgtrFCk0m1DzfaObiccnvprXjXOKX7JWDbY
-	 pU9vNXlD4o6Q1hFZKFHwvR0n+GuQMrFguBFoTPVpXh2OZWJobvX3rdJDJ3rnNSnQyo
-	 IjE84fsHTDuXA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 1/2] dt-bindings: iio: light: veml6030: add veml3328
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joshua Crofts" <joshua.crofts1@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260530-veml3328-v3-1-dd562eaee8d9@gmail.com>
-References: <20260530-veml3328-v3-1-dd562eaee8d9@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 17:16:51 +0000
-Message-Id: <20260530171652.0CE891F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mhPyY83D"
+Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45ef42dfb26so430583f8f.2
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 10:24:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780161844; cv=none;
+        d=google.com; s=arc-20240605;
+        b=MxDInByRAMH53cHEFPekbyQxBk/tP/+wrdS0tAJnt/GDt6VrRrW/VZQLzFbc6/aI25
+         W69tG03CEc+TKf2WnqpkNX4CIf/zON1+CqYiOmMI4Sfs/BSpsZwYA+HS4kZYbkNDQBMm
+         /khYq74DKCX9DEvZDBhKeGL2mS8jacAGiKdMfCp45XphEzJXPS97fZy+ZGa5gELB7y9O
+         SZhVY+0kgX/34vFOntMSDG/G/FrW14FE84O4zyIdjrhiXIC85/hglhDCJe/Zm8l0Ci+9
+         P/PO3fxKmAoFIleF2S/CFJu3terbHe9vgmzgsMEkS3u2J+g9p/4PBkgRtPACKyrfJrSF
+         S6mg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=AQlzPqtSzjfFVqBmEZsclhV7SR7e0gsG8goezRczdv8=;
+        fh=sbjlha6+KmY3bEYyWc4FCkkHvI8W/E/gP7CK465t7Uc=;
+        b=Jw+62IOuZ+A3kStUb5NyDnhGsWTjcZcoJLdKLq4mnk66+3Odx/DO57UUjzgBirnhWs
+         ObVlhYSevpl1slCg9y7RK2U7oqtYrbG4B36SOCXIIiOZdUKiz1eYgcMM1cG6ccpPh8uX
+         SRM9Jm8rjcPug/fOzxC5eTmBoNjG8U1CEEMXI1k/oh6fIAgks39bANu1/S1+QBfRM23L
+         r97tZMzjd4zc/UfMbgZjoxmRSO5pYf7PRQrMiiITYuPj4DitbCRu141/DRDGa7Nlu5IE
+         g3esK/Jw7z6sfX5V4+7KdwqsPdi57OWvNqGNbqnb8b1Pu7cwWgygt0HeU983f8vMoR2I
+         WMaQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780161844; x=1780766644; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=AQlzPqtSzjfFVqBmEZsclhV7SR7e0gsG8goezRczdv8=;
+        b=mhPyY83DGCwhOqJd43QnHEk0xaBYXPNaN66oZVS0F2zBsJkwdzpr6ibWpjoOnp+CN2
+         Ta7sIVqN44tSysTX8mO9w/MdKtjPAa6wk2oy3724RSb6jAG7vHdVNBuzCdj+iALLC+3B
+         Y4Gd+tTgQ+ovwT1/WbIHM8zi8GMnCk4S4lyIHKy751iBn32RSDC0t6JUy/bPY8wjXvj9
+         gQpGRbvMZ3uinxBx9ZkkFAMoBSV79qT5YIzRaWRHXuFzhnMcw4VGS83wTD0KgR1niUfl
+         BF2uOMIGyPFVjzuIzEDYMu5UpwgcnIDbweomL+hV6jMoZ0WU1nJ62C7eeHf0Yax5M31q
+         fC4w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780161844; x=1780766644;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=AQlzPqtSzjfFVqBmEZsclhV7SR7e0gsG8goezRczdv8=;
+        b=aUPCtADGS/C0Qa14KmReXkD1XOBDuY3WkprOyTbiKakngrhzc07GS0Vse8NcqSfkTu
+         8U3oiBwKg6V9MwXL41xdXuHrRtUe1YzxKAnjbrX1cd1imiotC7Z2AU7JwPqIODCiTvTS
+         CyI/ZSOe1VLf4DK1sKzj2M8tub9cAQX5uNmFbrcEQF20BhP4fB5srncaeKYWmbKhemZ9
+         RGjHFS8clOwum7oL559X/XyqvcokOlfYGaUymt1IqMkS5xDiSt5OcyXBnWKKuT/MPxPs
+         aDr9DWPq8n6uS0Z8YGcPOpjNLimGW7hIF6xAVSxccRVZzhDgTrHMLkQ2IJ4D7hHFZNPp
+         TJUQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9ghQRvpWj0/cSkX4wad81Y30/XW6H9DZxCt0y39T/9/xoqeoctxuJsj3gyC0KLjcEpzwigPgsef6KN@vger.kernel.org
+X-Gm-Message-State: AOJu0YzGRJ0G201FkmsQ58noNvMuNdjORZ7VfZTs3m6AbungLj9XO9UA
+	PkZW3D49sYHO1wH2D0et1BeBa1eRkwxLM9q+nhsFlQvQtaSuKle3qA4rnWjzzSSOn8Z5DAolGi+
+	FnSOXprUEl3V4YtKE0RhENLlNo+znvQk=
+X-Gm-Gg: Acq92OFG2C+yd33Xx3XfvIJCD3abnM4ECWSJgmY/+GW4m5Qy63G4MAgVMKt6UraXiPO
+	qQR4LrLXD89+tBIc2JHwpP/YU594Mo0cjKmsMnUXZmT94sH2vba7LdaEn8A216hox1Er0T1myN1
+	Ui4jg/kl+Vs7dkdNCM7UOCTK9leWLeUCeyYygo3OPsPB4XbLKMCtzm62KcZEMEHLL2HHQAuEATo
+	+yluOg5yN35Iw9AEpMftk7CkZRskf/nTi2ZwuDGd5WWSS+NEJ+wZ4GErX+e8o5S0Ly+djZy8BsT
+	d8q5FwJnX5/eUscF7ioXrzUtb7708L3vQjgkBqYBGkdHAM0Nl4wZJrBjvhsQIgEhd9T2GHHbcHw
+	CDcpS+F21T7V1bAtGxj5TD+qDvz/CDK2sZSH21DjYICsWEGwKw11WJWIVghB4awg33P3fIlvhZN
+	9DUNYiCpH49sD9DU+VW+JyF1gdWWhFEWb6Crv5hdOU74k4NHyh3g==
+X-Received: by 2002:a05:6000:e88:b0:45e:7c19:a328 with SMTP id
+ ffacd0b85a97d-45ef6b71568mr6258240f8f.28.1780161844477; Sat, 30 May 2026
+ 10:24:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com> <20260530-veml3328-v3-2-dd562eaee8d9@gmail.com>
+In-Reply-To: <20260530-veml3328-v3-2-dd562eaee8d9@gmail.com>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Sat, 30 May 2026 19:23:53 +0200
+X-Gm-Features: AVHnY4J9riritd-tavTskEndG6BWKdCZhIsEHM46Emg64TDdMke5aGxbGUNB_uY
+Message-ID: <CALoEA-x5h==eL_YmbZ-WV-N=ZokPRF2pC7+p2Z87KOxDAFzu4Q@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] iio: light: veml3328: add support for new device
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Medium] The runtime PM autosuspend timer is not started in probe, leavin=
-g the device powered on indefinitely.
-- [Medium] Concurrent sysfs writes to integration time and scale can leave =
-the hardware in an inconsistent state.
-- [Low] Jumping over a variable initialization with the __cleanup__ attribu=
-te in a switch statement causes a compiler error.
---
+On Sat, 30 May 2026 at 19:07, Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+>
+> Add support for the Vishay VEML3328 RGB/IR light sensor communicating
+> via I2C (SMBus compatible).
+>
+> Also add a new entry for said driver into Kconfig and Makefile.
+>
+> Assisted-by: Gemini:3.1-Pro
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
 
-commit e6504b133c6cc43d3687ab0ce437962c17f98107
-Author: Joshua Crofts <joshua.crofts1@gmail.com>
+Sashiko had a few remarks, two are bogus IMO, but it does mention
+that the device isn't put to sleep after probing...
 
-iio: light: veml3328: add support for new device
+https://sashiko.dev/#/patchset/20260530-veml3328-v3-0-dd562eaee8d9%40gmail.com
 
-Add support for the Vishay VEML3328 RGB/IR light sensor communicating
-via I2C (SMBus compatible). Also add a new entry for said driver into
-Kconfig and Makefile.
+-- 
+Kind regards
 
-> diff --git a/drivers/iio/light/veml3328.c b/drivers/iio/light/veml3328.c
-> new file mode 100644
-> index 0000000000000..1def67fd9b51d
-> --- /dev/null
-> +++ b/drivers/iio/light/veml3328.c
-
-[ ... ]
-
-> +static int veml3328_read_avail(struct iio_dev *indio_dev,
-> +			       struct iio_chan_spec const *chan,
-> +			       const int **vals, int *type, int *length,
-> +			       long mask)
-> +{
-> +	struct veml3328_data *data =3D iio_priv(indio_dev);
-> +	struct regmap *regmap =3D data->regmap;
-> +	struct device *dev =3D regmap_get_device(data->regmap);
-> +	unsigned int reg_val;
-> +	int ret, it_inx;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_INT_TIME:
-> +		*length =3D ARRAY_SIZE(veml3328_it_times) * 2;
-> +		*vals =3D (const int *)veml3328_it_times;
-> +		*type =3D IIO_VAL_INT_PLUS_MICRO;
-> +		return IIO_AVAIL_LIST;
-> +
-> +	case IIO_CHAN_INFO_SCALE:
-> +		PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
-
-[Severity: Low]
-Does this jump over a variable initialization and cause a build regression?
-
-The PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND() macro declares `pm` with the
-__cleanup__ attribute. When `mask` does not match IIO_CHAN_INFO_INT_TIME or
-IIO_CHAN_INFO_SCALE, the execution jumps to the `default:` label, which is
-physically after the `pm` declaration.
-
-Jumping over a variable initialization with the __cleanup__ attribute cause=
-s a
-compilation regression in GCC.
-
-Could we wrap this case in a scoped block { ... } to prevent this?
-
-> +		ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +		if (ret)
-> +			return ret;
-> +
-> +		ret =3D regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		it_inx =3D FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
-> +		if (it_inx >=3D ARRAY_SIZE(veml3328_it_times))
-> +			return -EINVAL;
-> +
-> +		*length =3D 8;
-> +		*vals =3D (const int *)veml3328_scale_vals[it_inx];
-> +		*type =3D IIO_VAL_INT_PLUS_MICRO;
-> +		return IIO_AVAIL_LIST;
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-[ ... ]
-
-> +static int veml3328_write_raw(struct iio_dev *indio_dev,
-> +			      struct iio_chan_spec const *chan,
-> +			      int val, int val2, long mask)
-> +{
-> +	struct veml3328_data *data =3D iio_priv(indio_dev);
-> +	struct regmap *regmap =3D data->regmap;
-> +	struct device *dev =3D regmap_get_device(regmap);
-> +	unsigned int reg_val;
-> +	int i, it_inx;
-> +	int ret;
-> +
-> +	PM_RUNTIME_ACQUIRE_IF_ENABLED_AUTOSUSPEND(dev, pm);
-> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	switch (mask) {
-
-[ ... ]
-
-> +	case IIO_CHAN_INFO_SCALE:
-> +		ret =3D regmap_read(regmap, VEML3328_REG_CONF, &reg_val);
-> +		if (ret)
-> +			return ret;
-> +
-> +		it_inx =3D FIELD_GET(VEML3328_CONF_IT_MASK, reg_val);
-
-[Severity: Medium]
-Is there a race condition here that causes a regression during concurrent s=
-ysfs
-writes?
-
-This performs a lockless read-modify-write operation for IIO_CHAN_INFO_SCAL=
-E.
-Because veml3328_write_raw() lacks driver-level locking (like a mutex), a
-concurrent sysfs write to IIO_CHAN_INFO_INT_TIME could modify the hardware's
-integration time index immediately after it is read here.
-
-If that happens, the gain index calculated and applied below will be based =
-on a
-stale `it_inx`, leaving the hardware in an inconsistent configuration.
-
-> +		if (it_inx >=3D ARRAY_SIZE(veml3328_it_times))
-> +			return -EINVAL;
-> +
-> +		for (i =3D 0; i < 4; i++) {
-> +			if (val =3D=3D veml3328_scale_vals[it_inx][i * 2] &&
-> +			    val2 =3D=3D veml3328_scale_vals[it_inx][i * 2 + 1])
-> +				break;
-> +		}
-> +
-> +		if (i =3D=3D 4)
-> +			return -EINVAL;
-> +
-> +		return regmap_update_bits(regmap, VEML3328_REG_CONF,
-> +					  VEML3328_CONF_GAIN_MASK,
-> +					  FIELD_PREP(VEML3328_CONF_GAIN_MASK, i));
-> +
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +}
-
-[ ... ]
-
-> +static int veml3328_probe(struct i2c_client *client)
-> +{
-> +	struct device *dev =3D &client->dev;
-> +	struct veml3328_data *data;
-> +	struct iio_dev *indio_dev;
-> +	unsigned int reg_val;
-> +	int ret;
-
-[ ... ]
-
-> +	pm_runtime_set_active(dev);
-> +	pm_runtime_set_autosuspend_delay(dev, 2000);
-> +	pm_runtime_use_autosuspend(dev);
-> +
-> +	ret =3D devm_pm_runtime_enable(dev);
-
-[Severity: Medium]
-Are we missing a call to start the autosuspend timer here, causing a power
-regression?
-
-The sensor is physically powered on via veml3328_power_up(), and runtime PM
-is initialized as active and enabled.
-
-Since the usage count remains at 0 and the driver does not invoke
-pm_runtime_idle() or a matched pm_runtime_get/put cycle at the end of probe,
-the autosuspend timer is never scheduled.
-
-Does this leave the device permanently powered on until a userspace applica=
-tion
-accesses it?
-
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
-> +
-> +	return devm_iio_device_register(dev, indio_dev);
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530-veml3328-v=
-3-0-dd562eaee8d9@gmail.com?part=3D1
+CJD
