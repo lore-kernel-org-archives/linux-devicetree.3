@@ -1,77 +1,245 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from outbound8.mail.transip.nl (outbound8.mail.transip.nl [136.144.136.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 041652080C1
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:06:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C901E2080C1;
+	Sat, 30 May 2026 14:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780150009; cv=none; b=CIeKUY5ebieF16l1gtsHszxXYMZYLUwXERRvYOjQgiVDx0Se0lOc8pS2GRgKlOHjx8Ue30UxE7UqC6OHofpOJWygh7ePmDXJ2WvJ/IACDWEczddpUO8xykLQo1ZcUADhSZ4r/kjrJ2cJzUmzAvKvBhJCbM35JZPYjERHFHo9S1s=
+	t=1780150085; cv=none; b=CKoLcu+9HNhELj0jDSIsMy+Mq2B5LhF7i59zBiOTutahb26n/AFUtc1anonaYa3w2P8XxtLRi8L7fIzQV6JEGTYv3B3QsqSqypoTJgn8SHB/4YX6GJjqrF8vocAmm8qZImmM+tCwWNRdRWZd9QO1PzgHtbCC6DOAsmNE5PpBEX0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780150009; c=relaxed/simple;
-	bh=SVadhAhCgv4GBEamqLt1PP0Aadh20JT8Hgg8g0Xbglg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JN7eGSL2SdGN68DSw/gUSV0lWQ8Jp/+fYKDxDXtettCUeJGdOWar15UjigjiHIx9iMMtZCkhMp0bpVEt2pCRGGhZ1jtQctgVBVGvZOUYgQHSF2ANMooIZYBZG3AKnUCJLA0Lvt5bO/VU4AuJo2hBiYxI7r4sL12fS1boX05LCUk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=aq3Q+QFH; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	s=arc-20240116; t=1780150085; c=relaxed/simple;
+	bh=w5mR+H5rPyVbSgV+adhHaSX2uDpuYP4IW4V5S+BD9ms=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=VwqpR7OKE2RC5/2k106E5bIaDrCyDC9UNb/7Fm7ShG/5TVa3V7hFfKZLZF07ebI3mCYQLoiPFjLeaTw5UykbmwtxlK0UJl6/cZ50G36COe10nVVGyluLwuzwOyXYT60czFiOCsreEX4oL/lNlHK2zdI8TWhWKJ7y7ZqwQN1eX14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=T1zCa6H1; arc=none smtp.client-ip=136.144.136.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="aq3Q+QFH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=jxV7
-	ngvfcwDYs3XVjbuPiw74ltU6lWm+WOr2nuykH/4=; b=aq3Q+QFHpOXBnB8eBf3c
-	XMGVv2c6YeAfcCasT57jtlGaBtFT9SgrQQ0sEl+ha6L8VE51V0O2sagjYy3lv8qI
-	lwsrcCaybcN3scUUkoy9NQIbeQ1rf19naDYryMoH8Ui4e6jjG+ylqRITqhCieHPZ
-	ioBT12l5WFwCEEwoU2cRILw4V8P6Rse0JvT7mMJvveoCOVikmcpIf2lALA2a13Pu
-	mN6kfSSXDu4/MGGQNiKTyxtvzMAm7c23kAoRa51MoXTMbjKptHwkuAWW0Vl/bCvC
-	gcnb87kNPVpw8DB8N+fdgXfKHTyViS3/1cQ7APAUiJvB4NNZIjGFG0xihAH6Y2vN
-	EA==
-Received: (qmail 1763752 invoked from network); 30 May 2026 16:06:45 +0200
-Received: by mail.zeus03.de with ESMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 30 May 2026 16:06:45 +0200
-X-UD-Smtp-Session: l3s3148p1@Mci0eAlTGIAqAQ4KEBW5QLbOwWyJKVt/
-Date: Sat, 30 May 2026 16:06:44 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Bryan O'Donoghue <bod@kernel.org>,
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-	Loic Poulain <loic.poulain@oss.qualcomm.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="T1zCa6H1"
+Received: from submission14.mail.transip.nl (unknown [10.103.8.165])
+	by outbound8.mail.transip.nl (Postfix) with ESMTP id 4gSMLP5NQrzY76Kg;
+	Sat, 30 May 2026 16:00:13 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission14.mail.transip.nl (Postfix) with ESMTPA id 4gSMLP1vjgz3RgQXr;
+	Sat, 30 May 2026 16:00:13 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Georgi Djakov <djakov@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
-	Andi Shyti <andi.shyti@kernel.org>,
-	Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
-	linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	Suresh Vankadara <quic_svankada@quicinc.com>,
-	Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-Subject: Re: [PATCH 2/8] dt-bindings: i2c: qcom-cci: Document Shikra
- compatible
-Message-ID: <ahru9MckM2pHN4m2@shikoro>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-2-645d2c8c75a7@qti.qualcomm.com>
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH 1/2] dt-bindings: interconnect: qcom: add msm8660 fabric IDs
+Date: Sat, 30 May 2026 16:00:11 +0200
+Message-ID: <4f08904fd8e8279abfacde03a0f7663dec674c74.1780148149.git.github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1780148149.git.github.com@herrie.org>
+References: <cover.1780148149.git.github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260526-shikra-camss-review-v1-2-645d2c8c75a7@qti.qualcomm.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission14.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780149613; h=from:subject:to:references:
+ in-reply-to:date:mime-version;
+ bh=WHmruaTq2s12LtiMejU0BWfYOqcgbgyX8/Nk2hvR4y8=;
+ b=T1zCa6H13pTUH+udukzI4AqhF2RypCqiu4Q9BIGWPYkXASA3PlHDrAliVUH0LnPsXPh8EO
+ aVo7mpnuXX1la4DdHs/8+P6dUUISdDJ+xi9lopJdXe3ImP8ouy6IAOl9R2QlLCLa53ySkf
+ cZbFobFPckb73RU03eEsXNFBSjmX+evH1eNWmRxqyBgXo/96tg51FfuhbU0FfVGkiq084p
+ 9D+glouXNC44oDTTofOwVKGwuy2Fa7DcmzLlHvcKKm8TXXN7sjtpBExVLSbTPCQOWr7WeZ
+ aQkHr+i1trXolBrONgqIyHZ/SOikxTZpqF5Gx8l+lerPHEk+faLRzja+ge5W4w==
+X-Report-Abuse-To: abuse@transip.nl
 
-On Tue, May 26, 2026 at 10:42:46PM +0530, Nihal Kumar Gupta wrote:
-> Add Shikra compatible consistent with CAMSS CCI interfaces.
-> It requires only two clocks.
-> 
-> Signed-off-by: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Add the dt-binding interconnect master/slave ID header for the
+MSM8x60 family (MSM8260/MSM8660/APQ8060) fabric mesh. The chip's
+NoC fabric is split into multiple sub-fabrics that the qnoc-msm8660
+driver models:
 
-Reviewed-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+  AFAB  - Applications fabric (Scorpion CPU + L2)
+  SFAB  - System fabric (DMA, SPS, security)
+  MMFAB - Multimedia fabric (MDP, GPU, camera, video, rotator)
+  DFAB  - Daytona fabric (SDC, ADM master/slave)
+  SFPB  - System Fast Peripheral Bridge (RPM, MPM, PMIC SSBI)
+  CFPB  - CPU Subsystem Fast Peripheral Bus (GSBI UART/QUP, USB FS,
+          TSIF, TSSC, PDM, PRNG)
+
+IDs derived from the legacy webOS msm_bus_board_8660.c master/slave
+enums, normalised to the upstream interconnect-framework naming.
+
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+ .../dt-bindings/interconnect/qcom,msm8660.h   | 156 ++++++++++++++++++
+ 1 file changed, 156 insertions(+)
+ create mode 100644 include/dt-bindings/interconnect/qcom,msm8660.h
+
+diff --git a/include/dt-bindings/interconnect/qcom,msm8660.h b/include/dt-bindings/interconnect/qcom,msm8660.h
+new file mode 100644
+index 000000000000..d2639f737a54
+--- /dev/null
++++ b/include/dt-bindings/interconnect/qcom,msm8660.h
+@@ -0,0 +1,156 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Qualcomm MSM8x60 family (MSM8260/MSM8660/APQ8060) interconnect IDs
++ *
++ * Copyright (c) 2026, Herman van Hazendonk <github.com@herrie.org>
++ *
++ * Based on webOS kernel msm_bus_board_8660.c
++ * Copyright (c) 2010-2011, Code Aurora Forum. All rights reserved.
++ */
++
++#ifndef __DT_BINDINGS_INTERCONNECT_QCOM_MSM8660_H
++#define __DT_BINDINGS_INTERCONNECT_QCOM_MSM8660_H
++
++/*
++ * MSM8x60 has a fabric-based bus architecture:
++ * - APPSS Fabric: CPU and memory interface
++ * - System Fabric: System peripherals and DMA
++ * - MMSS Fabric: Multimedia subsystem (display, camera, video)
++ * - Daytona Fabric: Peripheral bus (SDCC, ADM DMA)
++ * - System FPB: System Fast Peripheral Bus
++ * - CPSS FPB: CPU Subsystem Fast Peripheral Bus
++ */
++
++/* APPSS Fabric - Apps processor fabric */
++#define AFAB_MAS_AMPSS_M0		0
++#define AFAB_MAS_AMPSS_M1		1
++#define AFAB_SLV_EBI_CH0		2
++#define AFAB_SLV_AMPSS_L2		3
++#define AFAB_TO_MMSS			4
++#define AFAB_TO_SYSTEM			5
++
++/* System Fabric - System bus */
++#define SFAB_MAS_APPSS			0
++#define SFAB_MAS_SPS			1
++#define SFAB_MAS_ADM0_PORT0		2
++#define SFAB_MAS_ADM0_PORT1		3
++#define SFAB_MAS_ADM1_PORT0		4
++#define SFAB_MAS_ADM1_PORT1		5
++#define SFAB_MAS_LPASS_PROC		6
++#define SFAB_MAS_MSS_PROCI		7
++#define SFAB_MAS_MSS_PROCD		8
++#define SFAB_MAS_MSS_MDM_PORT0		9
++#define SFAB_MAS_LPASS			10
++#define SFAB_MAS_MMSS_FPB		11
++#define SFAB_MAS_ADM1_CI		12
++#define SFAB_MAS_ADM0_CI		13
++#define SFAB_MAS_MSS_MDM_PORT1		14
++#define SFAB_MAS_USB_HS			15
++#define SFAB_TO_APPSS			16
++#define SFAB_TO_SYSTEM_FPB		17
++#define SFAB_TO_CPSS_FPB		18
++#define SFAB_SLV_SPS			19
++#define SFAB_SLV_SYSTEM_IMEM		20
++#define SFAB_SLV_AMPSS			21
++#define SFAB_SLV_MSS			22
++#define SFAB_SLV_LPASS			23
++#define SFAB_SLV_MMSS_FPB		24
++#define SFAB_TO_DFAB			25
++
++/* MMSS Fabric - Multimedia subsystem */
++#define MMFAB_MAS_MDP_PORT0		0
++#define MMFAB_MAS_MDP_PORT1		1
++#define MMFAB_MAS_ADM1_PORT0		2
++#define MMFAB_MAS_ROTATOR		3
++#define MMFAB_MAS_GRAPHICS_3D		4
++#define MMFAB_MAS_JPEG_DEC		5
++#define MMFAB_MAS_GRAPHICS_2D_CORE0	6
++#define MMFAB_MAS_VFE			7
++#define MMFAB_MAS_VPE			8
++#define MMFAB_MAS_JPEG_ENC		9
++#define MMFAB_MAS_GRAPHICS_2D_CORE1	10
++#define MMFAB_MAS_HD_CODEC_PORT0	11
++#define MMFAB_MAS_HD_CODEC_PORT1	12
++#define MMFAB_TO_APPSS			13
++#define MMFAB_SLV_SMI			14
++#define MMFAB_SLV_MM_IMEM		15
++
++/*
++ * Daytona Fabric (DFAB) - Peripheral bus
++ *
++ * DFAB connects slower peripherals (SDCC, ADM DMA) to the system fabric.
++ * The webOS kernel managed DFAB bandwidth via voter clocks (dfab_sdc*_clk,
++ * dfab_usb_hs_clk). In mainline, this is handled by the interconnect framework.
++ *
++ * USB HS is included as a DFAB voter for compatibility with the legacy clock
++ * voting mechanism. The webOS kernel comment said: "if usb link is in sps
++ * there is no need for usb pclk as daytona fabric clock will be used instead".
++ * This keeps DFAB clock stable when USB is active.
++ */
++#define DFAB_MAS_SDC1			0
++#define DFAB_MAS_SDC2			1
++#define DFAB_MAS_SDC3			2
++#define DFAB_MAS_SDC4			3
++#define DFAB_MAS_SDC5			4
++#define DFAB_MAS_ADM0_MASTER		5
++#define DFAB_MAS_ADM1_MASTER		6
++#define DFAB_TO_SFAB			7
++#define DFAB_SLV_SDC1			8
++#define DFAB_SLV_SDC2			9
++#define DFAB_SLV_SDC3			10
++#define DFAB_SLV_SDC4			11
++#define DFAB_SLV_SDC5			12
++#define DFAB_MAS_USB_HS			13
++#define DFAB_MAS_DSPS			14
++
++/* System FPB - Slow peripheral bus for system */
++#define SFPB_MAS_SYSTEM			0
++#define SFPB_MAS_SPDM			1
++#define SFPB_MAS_RPM			2
++#define SFPB_SLV_SPDM			3
++#define SFPB_SLV_RPM			4
++#define SFPB_SLV_RPM_MSG_RAM		5
++#define SFPB_SLV_MPM			6
++#define SFPB_SLV_PMIC1_SSBI1_A		7
++#define SFPB_SLV_PMIC1_SSBI1_B		8
++#define SFPB_SLV_PMIC1_SSBI1_C		9
++#define SFPB_SLV_PMIC2_SSBI2_A		10
++#define SFPB_SLV_PMIC2_SSBI2_B		11
++
++/* CPSS FPB - CPU subsystem fast peripheral bus */
++#define CFPB_MAS_SYSTEM			0
++#define CFPB_SLV_GSBI1_UART		1
++#define CFPB_SLV_GSBI2_UART		2
++#define CFPB_SLV_GSBI3_UART		3
++#define CFPB_SLV_GSBI4_UART		4
++#define CFPB_SLV_GSBI5_UART		5
++#define CFPB_SLV_GSBI6_UART		6
++#define CFPB_SLV_GSBI7_UART		7
++#define CFPB_SLV_GSBI8_UART		8
++#define CFPB_SLV_GSBI9_UART		9
++#define CFPB_SLV_GSBI10_UART		10
++#define CFPB_SLV_GSBI11_UART		11
++#define CFPB_SLV_GSBI12_UART		12
++#define CFPB_SLV_GSBI1_QUP		13
++#define CFPB_SLV_GSBI2_QUP		14
++#define CFPB_SLV_GSBI3_QUP		15
++#define CFPB_SLV_GSBI4_QUP		16
++#define CFPB_SLV_GSBI5_QUP		17
++#define CFPB_SLV_GSBI6_QUP		18
++#define CFPB_SLV_GSBI7_QUP		19
++#define CFPB_SLV_GSBI8_QUP		20
++#define CFPB_SLV_GSBI9_QUP		21
++#define CFPB_SLV_GSBI10_QUP		22
++#define CFPB_SLV_GSBI11_QUP		23
++#define CFPB_SLV_GSBI12_QUP		24
++#define CFPB_SLV_EBI2_NAND		25
++#define CFPB_SLV_USB_FS1		26
++#define CFPB_SLV_USB_FS2		27
++#define CFPB_SLV_TSIF			28
++#define CFPB_SLV_MSM_TSSC		29
++#define CFPB_SLV_MSM_PDM		30
++#define CFPB_SLV_MSM_DIMEM		31
++#define CFPB_SLV_MSM_TCSR		32
++#define CFPB_SLV_MSM_PRNG		33
++
++#endif /* __DT_BINDINGS_INTERCONNECT_QCOM_MSM8660_H */
+-- 
+2.43.0
 
