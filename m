@@ -1,84 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B90639B489;
-	Sat, 30 May 2026 11:09:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA1E6388E55;
+	Sat, 30 May 2026 11:11:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780139400; cv=none; b=u8DOdP8rTtleQhG/Ee/T2rv99vdsniWWiN/cQRt7+DguG3M/MReICZNcVD0G3D2V1tzAiYUVESQHBujh4MXDLLKHD0sV4wIHhH48VvOQaNAvw0kU3D4J+tEbWSrnMKT67jomyJyLVG1yVoqTA3hQzO71GKFH8OtE5GDeNXupN0s=
+	t=1780139468; cv=none; b=QdRL2dB7KPn2fJtqUh5rJSQ0PsKCLX46uL6dOo3jjyY5jmayBqBHJokiO6LjfmOQL44e/p3F44G8xOlbPNOrmLZ1SgHr3idy10ORLonN6Ia3CHNHgRjtwCLMKMCxAQa6rgeRbWrmAVSeo3v6D/J4kxKTDQbm0Lp4zojWIHNXvFc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780139400; c=relaxed/simple;
-	bh=jm3kZo7bW4gzmcu/kVo2hLrOlzRCF++AvI58T7KmNXk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BfeFMcxPNidSCnP3+gudu7ifsKFfXQ6n0Aob3xHxE78mfzJAoUtxo4HjjOqzDtgewDIEOp0J35KynMBBbv+qtRttjtrPt837Ar528YxQqxKzqC6A41mEXMPnBM6bc5n6uKQ57OG6+m9KwYjT83rIcLaLqgtQxShGpRc5GvGWNj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWDd+KJE; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780139468; c=relaxed/simple;
+	bh=i5G3uriA+m2/d33oJVLWogE5tcuHLzuxDhWKm0aMi8o=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ar9L3TCQFLL/ER5ej+YKXHs5NYUOeUlRSmAM+gLz6BuUWythTmKKJXI9Tqr0N7UmsJh0UorzlkydqX2WxNr6hzZ5fIBytpGGqGIDGYggFLMaGOlKYBfA3tCGAbkNJtUnx8UMMv5Ct9VJl6nm+nke99QHcRDnQShc3CQx7SojhBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FHDaE4v7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWDd+KJE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3FA301F00893;
-	Sat, 30 May 2026 11:09:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FHDaE4v7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 959551F00893;
+	Sat, 30 May 2026 11:11:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780139398;
-	bh=v4ihZnRH/LQIFrFDKge6RyOV01oVokJMm3Pfpv1IMAE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=aWDd+KJEO5/mmvKBtgLY06r+wsbTxuKn9TQoE5o7ZlEVnX/9NURNnVFfBlTeget8A
-	 1HnqyqT/JgFtTL8KMDIg3ST/Xr8y2kjjMWSe3jYukcTMx/rypxGe+0h6ZDvgpXzzq2
-	 jQMhV3GPEI/FzEnKooOXTWbYV57wOgf2sPB/EBv7OKmm+cIyEBwwhx2ZG1RmUWiysz
-	 8a3y0SCbmUZzc5MONHzjBu2p48KKfp9IF6m2NRsykxZfsT2iAyngR/hvYynqknioEU
-	 GEmKPTbIjsliE1MhJICps2Y1DlIiqCsaVhyvVLw3O/GZ6rHsi3PHtuWES+vx9mAwpo
-	 PerjTqht0UIYg==
-Date: Sat, 30 May 2026 13:09:56 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Frank Li <Frank.Li@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Georgi Djakov <djakov@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, dmaengine@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, 
-	Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
-Subject: Re: [PATCH 07/16] arm64: dts: qcom: shikra: Add CPU OPP tables to
- scale DDR/L3
-Message-ID: <20260530-roaring-auburn-asp-70a0d7@quoll>
-References: <20260525-shikra-dt-m1-v1-0-f51a9838dbaa@oss.qualcomm.com>
- <20260525-shikra-dt-m1-v1-7-f51a9838dbaa@oss.qualcomm.com>
+	s=k20260515; t=1780139467;
+	bh=dHaGQfEzqQhkOiRUkTWVL33WQTh1X5owRhxAmZ0jp8s=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=FHDaE4v7zMSfUZVvBKS03pDQqeMLXMVBEd/l8p6XapW7VDcoI89DbrmLCewvvtqvE
+	 yDrUzbQfFzvLJxB4peWGY7orxJTsG7W+alaJTk5P649IcwbQKZwvEQ/hYRPo6hiCJ4
+	 OrXP9qIxhfUvt1L4H3vUtm6tCaI2X1iWkkbpY7LLlpUPpOyW4Lft73f8ad//K92HoA
+	 q7KaooEugz9Q0dFrtUGpozDuR1yxtf+55D35r3kYS/gNvueW3Nobt8Gbwl36pbUn4f
+	 gAm5nz+yeWMiC0b6nTOS+z0C6wU4RD3L3u6hnicx8G1St/5/hvzsJFJ4S5Ez2MXqsH
+	 rWwaEHGK1GFxQ==
+Message-ID: <c1aad046-fef0-4c2a-9e51-59e643e7966d@kernel.org>
+Date: Sat, 30 May 2026 13:11:03 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260525-shikra-dt-m1-v1-7-f51a9838dbaa@oss.qualcomm.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/2] arm64: dts: socfpga: Enable the SMMU for SoCFPGA
+ device trees
+To: muhammad.nazim.amirul.nazle.asmade@altera.com, dinguyen@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260515080014.6260-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260515080014.6260-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <20260515080014.6260-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, May 25, 2026 at 01:19:11AM +0530, Komal Bajaj wrote:
-> From: Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
+On 15/05/2026 10:00, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> Add OPP tables required to scale DDR and L3 per freq-domain on
-> Shikra SoC.
+> Enable the SMMU on the SoCFPGA board device trees where it was
+> missing. The SoC uses a different memory-mapped base address for
+> its peripherals, which requires the System Memory Management Unit
+> (SMMU) to be active so that the Secure Device Manager (SDM) can
+> correctly access those regions through address translation.
 > 
-> Signed-off-by: Sayantan Chakraborty <sayantan.chakraborty@oss.qualcomm.com>
-> Signed-off-by: Komal Bajaj <komal.bajaj@oss.qualcomm.com>
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > ---
->  arch/arm64/boot/dts/qcom/shikra.dtsi | 84 ++++++++++++++++++++++++++++++++++++
->  1 file changed, 84 insertions(+)
+> Changes in v2:
+> - Move SMMU enable into the base DTSI file instead of individual DTS files
 > 
-> diff --git a/arch/arm64/boot/dts/qcom/shikra.dtsi b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> index ebdb4bc15d76..bb1821e95248 100644
-> --- a/arch/arm64/boot/dts/qcom/shikra.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/shikra.dtsi
-> @@ -48,6 +48,11 @@ cpu0: cpu@0 {
->  			clocks = <&cpufreq_hw 0>;
->  			qcom,freq-domain = <&cpufreq_hw 0>;
->  			#cooling-cells = <2>;
-> +			operating-points-v2 = <&cpu0_opp_table>;
-> +			interconnects = <&mem_noc MASTER_AMPSS_M0 RPM_ACTIVE_TAG
-> +					 &mc_virt SLAVE_EBI_CH0 RPM_ACTIVE_TAG>,
-> +					<&epss_l3 MASTER_EPSS_L3_APPS
-> +					 &epss_l3 SLAVE_EPSS_L3_SHARED>;
+>  arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> index b06c6d5d60ee..64f3739a0c33 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -385,7 +385,7 @@ smmu: iommu@16000000 {
+>  			interrupt-names = "eventq", "gerror", "priq";
+>  			dma-coherent;
+>  			#iommu-cells = <1>;
+> -			status = "disabled";
+> +			status = "okay";
 
-No. This is not a separate commit.
+Which file disabled it?
 
 Best regards,
 Krzysztof
-
