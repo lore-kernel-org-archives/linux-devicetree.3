@@ -1,126 +1,231 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B33312DE70D
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 00:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806C830674D
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 01:14:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780102217; cv=none; b=D4eb2YZFRBGXJ79PSSmzmNIT7nGe3Kh/ioiBefpNX+EGM8w+f6aMX9iepjYYsImrhL62Ac13vT9Kx8G+QBMkoh0oZFqs2IcypEq5zjD7ox07Exf+dcEVA2m4cauf4W0mFIDDsoG+tyEgtJfrAA2MzYCGDZ1QZQjbuW21X4jjuE0=
+	t=1780103645; cv=none; b=cV1dKiQ4QF9tJZ+q1qsuzsHJwglnXCkNf5UhP9LK7x3BnS5ePHycdRL/+pdwdErGHDlgrQlOuhIQ0t/H7Bx0sFSNy+5FsSnq5a2GDitrZwKA5ceuwGXmTd3FIHZ0ZZ08tiBzSt537NL4OkWl5r0U+Bf+COsVqz68aQeWE/2+bAQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780102217; c=relaxed/simple;
-	bh=BVLwjKQa/u1bYh9jGT9GOzOBvhrL2GVNd6SDnKdhLvA=;
+	s=arc-20240116; t=1780103645; c=relaxed/simple;
+	bh=yDFaWWINWk9XI5X140QPDJZDnug3N+qh+QQt3whYLL0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KrjhZOWQpyY8cwJT44+B4njxkCmHrnSFHQ8v3kIVkK8g1+KZzDkCEK0K595UKkvVmR23oOusJ3he408R+6/y+pGKRfq7Ww8UZNgDDDG/Oia0Sc40ouGHcH7E+746yC3AlUVTjV7eP69EosIwF09wQj8yrTahTbyhlwxkfPceaik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W8nGzlUr; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=J77SpJeuhTcE+GnygdMnqXbEJ4laVr/Y3UscY4P+r5J62zmYvuuwCvuCxELuwyM8orwXGLbEQZj3IUCWRwlNiDTtA1Q4zcGj5/bsLsgW5UDIGE0J9ng+1JreiEIthwFuaRJbOIqzWLrrHEZ4eWDXbcnP2kutQW2sSyXj4ajM4dM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BFwp6m3H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W8nGzlUr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 621571F00899;
-	Sat, 30 May 2026 00:50:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BFwp6m3H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE0E11F00893;
+	Sat, 30 May 2026 01:14:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780102216;
-	bh=hkxBPDvYYRDY0mO11C9rB4GNcNfpuJtKbdU2JiI5A64=;
+	s=k20260515; t=1780103644;
+	bh=8gtnooibfgvsdEBYXfr1GLnsHNQF7Ph/RbIYsB9JTEs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=W8nGzlUrHJHYeD3bRR/X6Qb/bXdxmeyqGW1mG9t0rR2ZTEFkPZce66vfgs1yLGxmJ
-	 uCMLJy7DFSAoScMeTvBEQhguezAb4nZh0NAGZRijV3+lWztlzaVSfyDwYeSZC0GQAt
-	 DtexBpGDX+Zqzo5XVg7Ek4j2uFQeAyrvh46xQg0gQbM3Zu7W7LfpCvtMPKZFv8BW1+
-	 aYcJ1ICUnanbd4rTTShOwodh4HtyNVVp1DxwxA4mB2fnGszWCoIl09mjbZJ9EouUSm
-	 1agYPWcl9mluvHXu3C8L8mbVLnxQuYVm/o0NvTxy2rSsC/iLYOVKCag+lqG3rDO9Ev
-	 d6RKa6K/9kAYg==
+	b=BFwp6m3HMY4RkqIu2kF/L3mMRFiCTh+qOo9WZ0nWqwsabpomXzoqHfBWBMeOQdqme
+	 Z7Y0IwhduqVsnf6/HHWfDlNPuavlvfySGxtwMQshiy019cRi6l8PArTAhBfbazxBZO
+	 NC4l5uhEyEU257oROeycQ9koz+A4zeQTObzN8rDLaCwQ+6QXImJvLlzYxjlArZTNTB
+	 e+eFefSqsroU204mjK+qWMyHRu+HgLYW/Y55eDu5fuI/MF/RKemRuHIIxAsTIn6uf3
+	 MMuLzBIzv08FanqNhE2j7pYTmZWxzrXMFBFjZIvGB1byH2ZMJhBrnnnO7MDyhG/lmU
+	 IiIvTPaaPIBGQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 9/9] net: dsa: lan9645x: add port statistics
+Subject: Re: [PATCH v14 2/2] drm/bridge: Add Lontium LT7911EXC eDP to MIPI
+ DSI bridge
 Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260527-dsa_lan9645x_switch_driver_base-v6-9-4d409ae64f3c@microchip.com>
-References: <20260527-dsa_lan9645x_switch_driver_base-v6-9-4d409ae64f3c@microchip.com>
+To: syyang@lontium.com
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260529112928.873766-3-syyang@lontium.com>
+References: <20260529112928.873766-3-syyang@lontium.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 00:50:16 +0000
-Message-Id: <20260530005016.621571F00899@smtp.kernel.org>
+Date: Sat, 30 May 2026 01:14:03 +0000
+Message-Id: <20260530011403.EE0E11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
 s) to consider:
-- [High] Update process context `sw_lock` acquisitions to use `spin_lock_bh=
-()` to resolve a softirq deadlock.
-- [Medium] Remove `tx_drop` from `lan9645x_port_ethtool_stats` to fix stand=
-ard uAPI duplication.
+- [High] Using devm_drm_panel_bridge_add_typed() in the DSI host attach cal=
+lback leaks memory and leaves dangling pointers when the downstream panel u=
+nbinds.
+- [High] Potential use-after-free of the drm_device pointer in the firmware=
+ upgrade worker when the DRM display driver is unloaded.
+- [High] Using stack buffers for I2C regmap bulk reads violates DMA mapping=
+ rules and can cause memory corruption.
 --
 
-commit 1372a97790e46033dbc8d913e95a8b88e1650d02
-Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
-ip.com>
-Subject: net: dsa: lan9645x: add port statistics
+commit a175e14df601fd080297e05f4671c7c7284dc3f0
+Author: Sunyun Yang <syyang@lontium.com>
 
-This commit adds statistics support for port counters on the lan9645x switc=
-h.
-It introduces a 64-bit software cache to handle 32-bit hardware register
-overflows, updating them periodically from a workqueue, and implements both
-standard and ethtool statistics callbacks.
+drm/bridge: Add Lontium LT7911EXC eDP to MIPI DSI bridge
 
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_stats.c
+Add support for the Lontium LT7911EXC bridge chip, which converts
+eDP input to MIPI DSI output using an internal firmware-controlled
+pipeline.
+
+> diff --git a/drivers/gpu/drm/bridge/lontium-lt7911exc.c b/drivers/gpu/drm=
+/bridge/lontium-lt7911exc.c
 > new file mode 100644
-> index 0000000000000..e38f510eb8f66
+> index 0000000000000..f7cd89bcc8119
 > --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
+> +++ b/drivers/gpu/drm/bridge/lontium-lt7911exc.c
 [ ... ]
-> +static const struct lan9645x_ethtool_stat lan9645x_port_ethtool_stats[] =
-=3D {
-> +	{ "rx_cat_drop",        SCNT_RX_CAT_DROP },
-> +	{ "rx_red_prio_0",      SCNT_RX_RED_PRIO_0 },
-[ ... ]
-> +	{ "rx_green_prio_6",    SCNT_RX_GREEN_PRIO_6 },
-> +	{ "rx_green_prio_7",    SCNT_RX_GREEN_PRIO_7 },
-> +	{ "tx_drop",            SCNT_TX_DROP },
-
-[Severity: Medium]
-Is this statistic duplicating a standard kernel uAPI?=20
-
-It looks like tx_drop maps to SCNT_TX_DROP, which is already reported via
-tx_dropped in the rtnl_link_stats64 struct provided by=20
-lan9645x_stats_get_stats64(). The networking guidelines recommend only using
-the ethtool -S interface for driver-private statistics that have no standard
-representation, to avoid duplicating counters and adding maintenance burden.
-
-> +	{ "tx_yellow_prio_0",   SCNT_TX_YELLOW_PRIO_0 },
-> +	{ "tx_yellow_prio_1",   SCNT_TX_YELLOW_PRIO_1 },
-[ ... ]
-> +void lan9645x_stats_get_ethtool_stats(struct lan9645x *lan9645x, int por=
-t,
-> +				      u64 *data)
+> +static int lt7911exc_read_version(struct lt7911exc *lt7911exc)
 > +{
-> +	struct lan9645x_stats *stats =3D lan9645x->stats;
-> +	u64 *c;
-> +	int i;
+> +	struct device *dev =3D lt7911exc->dev;
+> +	u8 buf[3];
+> +	int ret;
 > +
-> +	c =3D lan9645x_stats_view_idx_update(lan9645x, LAN9645X_STAT_PORTS, por=
-t);
+> +	ret =3D regmap_write(lt7911exc->regmap, LT7911EXC_PAGE_CONTROL, 0xe0);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to switch to page 0xe0\n");
+> +		return ret;
+> +	}
 > +
-> +	spin_lock(&stats->sw_lock);
+> +	/* no need to halt MCU for this register access */
+> +	ret =3D regmap_bulk_read(lt7911exc->regmap, 0x81, buf, ARRAY_SIZE(buf));
 
 [Severity: High]
-Does this lock acquisition need to disable bottom halves?
+Can using a stack buffer for I2C regmap bulk reads cause memory corruption?
 
-Since lan9645x_stats_get_stats64() can be called in softirq context by the
-networking core and acquires sw_lock, taking sw_lock here in process context
-using a plain spin_lock() could lead to a deadlock. If a softirq interrupts
-this thread while the lock is held and attempts to take the same lock, the
-system will hang.
+If the underlying I2C adapter uses DMA, the DMA API will attempt to map this
+stack memory. The kernel forbids doing DMA on stack variables as it can sha=
+re
+cache lines with other data, resulting in memory corruption.
 
-Could spin_lock_bh() be used for all process-context sw_lock acquisitions
-(such as in the ethtool callbacks and workqueue contexts) to prevent this?
+Should buf be dynamically allocated?
 
-> +	for (i =3D 0; i < ARRAY_SIZE(lan9645x_port_ethtool_stats); i++)
-> +		*data++ =3D c[lan9645x_port_ethtool_stats[i].idx];
-> +	spin_unlock(&stats->sw_lock);
-> +}
 [ ... ]
+> +static int lt7911exc_upgrade_result(struct lt7911exc *lt7911exc, u32 crc=
+32)
+> +{
+> +	struct device *dev =3D lt7911exc->dev;
+> +	u32 read_hw_crc =3D 0;
+> +	u8 crc_tmp[4];
+> +	int ret;
+> +
+> +	ret =3D regmap_write(lt7911exc->regmap, LT7911EXC_PAGE_CONTROL, 0xe0);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to switch to page 0xe0 in prog_init: %d\n", ret);
+> +		return ret;
+> +	}
+> +	ret =3D regmap_write(lt7911exc->regmap, 0xee, 0x01);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D regmap_write(lt7911exc->regmap, 0x7b, 0x60);
+> +	if (ret)
+> +		return ret;
+> +	ret =3D regmap_write(lt7911exc->regmap, 0x7b, 0x40);
+> +	if (ret)
+> +		return ret;
+> +
+> +	msleep(150);
+> +
+> +	ret =3D regmap_bulk_read(lt7911exc->regmap, 0x22, crc_tmp, ARRAY_SIZE(c=
+rc_tmp));
+
+[Severity: High]
+Can this stack buffer also cause memory corruption if the I2C adapter uses =
+DMA?
+It looks like crc_tmp should be dynamically allocated as well.
+
+[ ... ]
+> +static void lt7911exc_firmware_upgrade_work(struct work_struct *work)
+> +{
+> +	struct lt7911exc *lt7911exc =3D container_of(work, struct lt7911exc, wo=
+rk);
+> +	struct device *dev =3D lt7911exc->dev;
+> +	const struct firmware *fw;
+> +	struct drm_device *drm_dev =3D NULL;
+[ ... ]
+> +	mutex_lock(&lt7911exc->ocm_lock);
+> +	lt7911exc_hw_mcu_run(lt7911exc);
+> +	lt7911exc->fw_version =3D lt7911exc_read_version(lt7911exc);
+> +	if (lt7911exc->bridge.dev)
+> +		drm_dev =3D lt7911exc->bridge.dev;
+> +
+> +	mutex_unlock(&lt7911exc->ocm_lock);
+> +
+> +	/* Notify DRM framework that hardware state changed/needs a modeset */
+> +	if (drm_dev)
+> +		drm_kms_helper_hotplug_event(drm_dev);
+
+[Severity: High]
+Can this sequence lead to a use-after-free of the drm_dev pointer?
+
+The drm_dev pointer is extracted under ocm_lock, but the lock is released
+before calling drm_kms_helper_hotplug_event(drm_dev) without taking a refer=
+ence.
+If the main DRM display driver is unbound concurrently right after the lock=
+ is
+released, the drm_device could be destroyed before this worker finishes.
+
+Should the worker acquire a reference with drm_dev_get() under the lock and
+drop it after the hotplug event?
+
+[ ... ]
+> +static int lt7911exc_dsi_host_attach(struct mipi_dsi_host *host, struct =
+mipi_dsi_device *dev)
+> +{
+> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
+> +	struct drm_bridge *bridge;
+> +	struct drm_panel *panel;
+> +	int ret;
+> +
+> +	if (lt7911exc->output.dev)
+> +		return -EBUSY;
+> +
+> +	ret =3D drm_of_find_panel_or_bridge(host->dev->of_node, 1, 0, &panel, &=
+bridge);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (panel) {
+> +		bridge =3D devm_drm_panel_bridge_add_typed(lt7911exc->dev, panel,
+> +							 DRM_MODE_CONNECTOR_DSI);
+
+[Severity: High]
+Does this devm allocation cause a memory leak when the downstream panel unb=
+inds?
+
+The allocated bridge is tied to the lifetime of the host device rather than=
+ the
+panel. If the panel driver is unbound, lt7911exc_dsi_host_detach() clears t=
+he
+local pointer, but the bridge remains registered and the memory is not free=
+d.
+If the panel binds again, a new bridge is allocated.
+
+Should this use drm_panel_bridge_add_typed() instead?
+
+> +		if (IS_ERR(bridge))
+> +			return PTR_ERR(bridge);
+> +	}
+> +	lt7911exc->output.dev =3D dev;
+> +	lt7911exc->output.bridge =3D bridge;
+> +	lt7911exc->output.panel =3D panel;
+> +
+> +	return 0;
+> +}
+> +
+> +static int lt7911exc_dsi_host_detach(struct mipi_dsi_host *host, struct =
+mipi_dsi_device *dev)
+> +{
+> +	struct lt7911exc *lt7911exc =3D dsi_host_to_lt7911exc(host);
+> +
+> +	if (!lt7911exc->output.dev)
+> +		return 0;
+> +
+> +	lt7911exc->output.bridge =3D NULL;
+
+[Severity: High]
+Should this explicitly remove the bridge if it is allocated in attach?
+
+Currently this clears the pointer but leaves the bridge registered in the D=
+RM
+core's global bridge list.
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-dsa_lan964=
-5x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com?part=3D9
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260529112928.8737=
+66-1-syyang@lontium.com?part=3D2
