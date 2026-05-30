@@ -1,108 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94884352038;
-	Sat, 30 May 2026 20:48:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C975D29AAFA
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 20:55:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780174115; cv=none; b=KxwUeDXcTfssAwGIrukolswMFvXYv/RxNlxDcQn8rEtmSS98PsuP5sXH3gFWx8AawB5KNzFMmooqxXef6bFrSnlTSVzuWf0bmSn/k78qba0kA29R3cAA0M15X1+Jg4YV83UeX+IosFnJ2zHmNNrV8aRNXzIIkfEbsOegCbgyznY=
+	t=1780174504; cv=none; b=GUWVQVvViZIqh/hFeCun4GPcD4zV4VEd2iqVumyaJhCfoSvPNah4S58shCEH8GA+Y+5D6EDfVHqifoOIw5ANKxjrQYL7TeaPqwnItAXuAmWLxffh0yL38ndZonjjgZji1Mu+Vm4PFZnwzGGSHa2waGh0iVSojE+kP8Ivjz6fVRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780174115; c=relaxed/simple;
-	bh=xqmU2qr6Mpk04tJ0yn2G0IrJQ4O6nidMwj1OTPu5sR4=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=Y85N7p8CO7MVe3YsQ6bSXUYMBcsIsbnRqbLzmJClGfppu7SQI9WJHVRZwannzwLvTuM/uBTHM8an6AaF69WcZHAZ9KzMi6omRnNk0h3Jrf8+QPb4JuGIzKwVy+dE36wB6f78qgxRFjzxvGKFCZfuwcRcmpcNeeWRoHQz3Gin7ts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2OtfUrl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780174504; c=relaxed/simple;
+	bh=UiqUdZNRF7eardJd3hONfjjKT3P6JjWYLeCZRDbyVpE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SwFkD9tntYq0uYOFia0yqoc7oW9yBK3O84l8uXwfv1o3+vwYnTxNPsuZ3zJRPE3dTQ7Z/Rzauer3bXJ9OLTOo/1ShBmwDQvjSbmcRg+b1M+DAxtw9NK2axHushEwTO+kmZntGwKR9p6ABAijBe7eMXuhqUnRwY+SjLtomlIO4WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YZKZoFlc; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2OtfUrl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87B51F00898;
-	Sat, 30 May 2026 20:48:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780174113;
-	bh=c9vLKWYG42FEGYkXWgIv3uwvb3u+dOyLKJzsNTX1l4A=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=a2OtfUrlXutm5ZE8Fug07AhMbKv2H+ooDEDCNjWQj7Os/kjhxrbeJYEaGpLvKB/6a
-	 YQbWhJ2wtFjeCMCUlHRkDZlkL3tyD8t+JLq6uYtmCQ2EskyuV1AUAfyhUezTSM9V6/
-	 bG+Ak7oIy0lfr0iB9SM/FKwUXVq2ctDEzne16pGErdYjLE1JME6NAbujLTXfCFImph
-	 VEFXOzAkfxac+bgbbn8iO9uOfdMbl7XoL+Z0kP38eElQC5NNbc9nJSA2IbPrZ/V0mB
-	 qtS3v266kMpKxXZAFPoCvGXKpE5BubD9bBY83omk70CmdaXpy67bChnc8yx0BL9wna
-	 Qul5ncVjOlGZQ==
-Date: Sat, 30 May 2026 15:48:31 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YZKZoFlc"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4905529b933so65861985e9.0
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 13:55:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780174501; x=1780779301; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=kyzq+icHZHQh6+UykHH+7FDE4tjYOIwMXwyjQtjbacI=;
+        b=YZKZoFlcEnQZdIKP8a+fd2cS/s2XuRxAleD6rthrYUq6O7pI9ofeXNDVOPxDxR282N
+         gUNam4BcRWG0neacbHhsd7QX+2YoAIxKy7RfUUNlpt+2Bcx+/+wURYXlUg8PGunr711A
+         eqViPW0J753Jg1sFGsBifa0sSmy4iTJz0jEtfEOMH2g5++Z7FjIU24RvThu5nF04/VkL
+         pDdml7B06MaBMD6J9JnSZt1nMfj175VP8jeoUEFAsfbFYpqopTPkPO4dNFGTywxXBUoH
+         V50srfCzFLq3Q/+zKKldXMxfrV6v54ixvkEq8llubiBelA2zqOVUhTVr8AD+yGh62Faz
+         99mA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780174501; x=1780779301;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=kyzq+icHZHQh6+UykHH+7FDE4tjYOIwMXwyjQtjbacI=;
+        b=XzYDaagTmP2IfLr5cOyHtbxgR92KO9uCD5dEJ54J/XqGt7z9aEGvFh5yAmT7Ukeedt
+         4tEAEk/nNq7vBeWW8SNkvP3XhlPNnW0/1PlXEPYdTD0LhD21bPs+ovXnhf8YVwGMr4VV
+         glVhaarNS7G0diPemWo30vbTcEyc+4P3qusec8l25ugw5RPT2aDqfxY103khcgOFkutL
+         B4xyZ2KvJ4AepZ72prh6ZysTQps6rBmM50QGndDFa48XoHfJ8+1mwZ++eGjZtdSOWoQA
+         aBRjPq55ZvdjDcSGHIxTxB/lMJ3pFtvfgrQB1p3bbtZ9aL0s76D9b5ge+2+ItfcLPwwv
+         VYTA==
+X-Forwarded-Encrypted: i=1; AFNElJ/6zVy3JPZ1GvO6WTy5vtGZonVm59TCytq3YbAenATF501EmxVRflzrusAk4a2x4KKOsxrfFoGCVZ2K@vger.kernel.org
+X-Gm-Message-State: AOJu0YxK7LxZnD7GoWfQHpMG4ibbdxy5oEZM+o0aSvtPsDmLiXGjzNX3
+	CP54MxpLQUZ1U6Bt+/q358sgDjCzgHFuyJCVwM7kBl8IN96wswBa6M8u
+X-Gm-Gg: Acq92OFIpWoAZ5hmuN5sGXXWMka4ZR3YjsLIhkN8HVb1/EnIyfFKUAAmeUDW+2rjb/Y
+	Lo8UMn5en4TEia4HQeNn/87YnvqjIcwT/YSN/QG90Z5MovwkFRF748u1EkXU5tqLv0jtY62qbPJ
+	yBELvNwFd/fOSzOW5e5kqUdyhmj92tf3LUzblWYVrlZhco30ZYjZ4aibFrLOuqjs3YqWRvTY4rA
+	R6id8NHtdcqEtZJ7ge5xEPH7EcrlT8REkB5ejTaPuSmq4r84VDVEbNcg2WApDx23NtDdarBd8xm
+	NJCPU0762d/S8rEFOmctKwKkiGU7tDJWVWpagPGFJ+jrBf00CRq5ggHzwazooLmzR6+307JHBzH
+	0asLDtjnFYas7ap5FdJ0aFv6OX/vPEV1CPtORewmpO5VTlXFlNrLKMOdEun4Ig/KAUnBPu1zpSH
+	ulWwb37qvsTcB/ufQ=
+X-Received: by 2002:a05:600c:6008:b0:488:a882:c7 with SMTP id 5b1f17b1804b1-490a2963f07mr65009115e9.25.1780174501228;
+        Sat, 30 May 2026 13:55:01 -0700 (PDT)
+Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909cab0e94sm132288225e9.12.2026.05.30.13.55.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 May 2026 13:55:00 -0700 (PDT)
+From: Wadim Mueller <wafgo01@gmail.com>
+To: Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxwell Doose <m32285159@gmail.com>
+Cc: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v3 0/3] iio: flow: Sensirion SLF3S liquid flow sensor
+Date: Sat, 30 May 2026 22:54:29 +0200
+Message-ID: <20260530205435.37326-1-wafgo01@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: devicetree@vger.kernel.org, clabbe@baylibre.com, 
- linux-rockchip@lists.infradead.org, heiko@sntech.de, 
- linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, 
- conor+dt@kernel.org, davem@davemloft.net, linux-kernel@vger.kernel.org, 
- linux-crypto@vger.kernel.org, herbert@gondor.apana.org.au
-To: Dawid Olesinski <dawidro@gmail.com>
-In-Reply-To: <20260530160704.3453555-2-dawidro@gmail.com>
-References: <20260530160704.3453555-1-dawidro@gmail.com>
- <20260530160704.3453555-2-dawidro@gmail.com>
-Message-Id: <178017410969.3710466.3951554039156108335.robh@kernel.org>
-Subject: Re: [PATCH 1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588
- crypto engine binding
+Content-Transfer-Encoding: 8bit
 
+Hi all,
 
-On Sat, 30 May 2026 17:06:42 +0100, Dawid Olesinski wrote:
-> Add a YAML device tree binding for the Rockchip second-generation (V2)
-> cryptographic hardware accelerator present on the RK3568 and RK3588 SoCs.
-> 
-> The IP block exposes AES-ECB, AES-CBC, AES-XTS block ciphers, SHA-1,
-> SHA-224, SHA-256, SHA-384, SHA-512, MD5, and SM3 hash algorithms, each
-> with a hardware DMA engine controlled via linked-list descriptors.
-> 
-> The binding covers two compatible strings:
-> 
->   - rockchip,rk3568-crypto: clocks and resets are driven directly by the
->     non-secure CRU (accessible to Linux at EL1).
->   - rockchip,rk3588-crypto: clocks and resets live in SECURECRU, a
->     register bank sandboxed to TrustZone. Linux must request them through
->     the ARM SCMI firmware interface (scmi_clk / scmi_reset), as direct
->     MMIO access to SECURECRU from EL1 triggers a bus fault.
-> 
-> Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
-> ---
->  .../crypto/rockchip,rk3588-crypto.yaml        | 69 +++++++++++++++++++
->  1 file changed, 69 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yaml
-> 
+v3 addresses the per-patch review feedback from Jonathan (driver +
+cover, https://lore.kernel.org/linux-iio/20260528124413.6c91e1bb@jic23-huawei/)
+and Krzysztof (dt-binding,
+https://lore.kernel.org/linux-iio/20260528-transparent-adventurous-python-af8f69@quoll/).
+As requested this is sent as a fresh thread, not in-reply-to v2.
 
-My bot found errors running 'make dt_binding_check' on your patch:
+The IIO_VOLUMEFLOW patch (1/3) is unchanged from v2.
 
-yamllint warnings/errors:
+Changes since v2:
 
-dtschema/dtc warnings/errors:
-Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:30.33-49 Unexpected 'SCMI_CRYPTO_CORE'
-Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:31.33-52 Unexpected 'SCMI_ACLK_SECURE_NS'
-Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:32.33-52 Unexpected 'SCMI_HCLK_SECURE_NS'
-Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:34.35-56 Unexpected 'SCMI_SRST_CRYPTO_CORE'
-FATAL ERROR: Syntax error parsing input tree
-make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dtb] Error 1
-make[2]: *** Waiting for unfinished jobs....
-make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1660: dt_binding_check] Error 2
-make: *** [Makefile:248: __sub-make] Error 2
+  * dt-bindings: drop the generic-only "sensirion,slf3s" compatible;
+    the per-variant compatibles stay (-0600F, -1300F, -4000B)
+  * dt-bindings: drop the optional interrupts property -- the driver
+    is polled-only and the binding should not advertise something we
+    do not consume
+  * dt-bindings: drop the sensirion,medium property and move medium
+    selection to the IIO sysfs in_volumeflow_medium ext_info enum;
+    the sensor starts in water mode after probe and IPA is selected
+    at runtime via that attribute
+  * dt-bindings: MAINTAINERS no longer claims drivers/iio/flow/
+  * driver: includes cleaned up per IWYU (drop property.h since no
+    DT property is read any more, add array_size.h / dev_printk.h /
+    device.h / errno.h / types.h / units.h)
+  * driver: drop the SLF3S_MEAS_LEN define in favour of ARRAY_SIZE()
+  * driver: inline SLF3S_TEMP_SCALE_MILLIC at the call site with a
+    short comment that explains the 1000/200 ratio
+  * driver: use 600 * MICRO / 30 * MICRO / 1920 * MILLI from
+    linux/units.h for the per-variant scale denominators
+  * driver: slf3s_send_cmd() takes cmd[at_least 2] (kernel idiom)
+    rather than cmd[static 2]
+  * driver: detection wins over the DT-supplied compatible; a
+    mismatch is reported with dev_info and the sensor-reported
+    variant is used
+  * driver: SLF3S_MEAS_START_DELAY_US bumped to 60 ms (datasheet
+    section 2.2, tw) and a 25 ms tPU power-up delay is observed
+    between regulator enable and the first I2C command
+  * driver: blank line before plain return statements; minor reflow
+    to 80 columns
+  * commit messages: drop the manual Cc trailers (get_maintainer.pl
+    handles those) and move Signed-off-by to the end of the trailer
+    block
 
-doc reference errors (make refcheckdocs):
+Patches:
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260530160704.3453555-2-dawidro@gmail.com
+  1/3  iio: types: add IIO_VOLUMEFLOW channel type (unchanged)
+  2/3  dt-bindings: iio: flow: add Sensirion SLF3S binding
+  3/3  iio: flow: add Sensirion SLF3S liquid flow sensor driver
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Tested with an SLF3S-0600F on a TI AM64x platform; W=1 build clean,
+checkpatch --strict clean, dt_binding_check clean.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+Thanks,
+Wadim
 
-pip3 install dtschema --upgrade
+Wadim Mueller (3):
+  iio: types: add IIO_VOLUMEFLOW channel type
+  dt-bindings: iio: flow: add Sensirion SLF3S liquid flow sensor
+  iio: flow: add Sensirion SLF3S liquid flow sensor driver
 
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
+ Documentation/ABI/testing/sysfs-bus-iio       |  11 +
+ .../bindings/iio/flow/sensirion,slf3s.yaml    |  49 +++
+ MAINTAINERS                                   |   8 +
+ drivers/iio/Kconfig                           |   1 +
+ drivers/iio/Makefile                          |   1 +
+ drivers/iio/flow/Kconfig                      |  27 ++
+ drivers/iio/flow/Makefile                     |   7 +
+ drivers/iio/flow/slf3s.c                      | 406 ++++++++++++++++++
+ drivers/iio/industrialio-core.c               |   1 +
+ include/uapi/linux/iio/types.h                |   1 +
+ tools/iio/iio_event_monitor.c                 |   2 +
+ 11 files changed, 514 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
+ create mode 100644 drivers/iio/flow/Kconfig
+ create mode 100644 drivers/iio/flow/Makefile
+ create mode 100644 drivers/iio/flow/slf3s.c
+
+-- 
+2.52.0
 
