@@ -1,120 +1,120 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F47F286D56
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 19:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E1141C5F11
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 20:05:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780170703; cv=none; b=R2IFrpJAuBP2Ml8NTU3+XmygNflp9QeiUFR0vcm2B3Bw3bJ/finTi2npHvVGWTFxw7xUZ7Qf/cpRr+oCwpF+XTE4W4P7YykGmVg73GOzJ0JK86ePF3RNJeuXYOXRUNGJzFEfCYFDFYbVgRWg7JpiKzF2Y1CAjA3uXwiEyfvFhl8=
+	t=1780171507; cv=none; b=LWvZg1cLRpmZ63WS21AX+WYKJUpafuLPCXZfod9uAgBg0xAG8GZL5Bn05WBpdOzox9oBdxwRvGjI/xvPa5SN+XCGHz6zinez9A5cp6mdxVEDDARteF4x6Wc/DkTp05XcFy3ktA71ObXKHl0Drbd7DbWcVH3P5zTIgKfJj4fZ9SE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780170703; c=relaxed/simple;
-	bh=afSC4jVwoq9wJZAIow45WnW1XZnhKA6USnmIw+3RvJ4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sIVaMy6EQC3NTkt+p5vQUkTQfcJgs1TYxvB42NjUUetH27aSTCfdn+jylYzS3R9T26jeGKiz23dfrMlPWrLQiwcGA37e+yB15GRHVs6czD3+opA15MAIPfTw57riXXBU39ujoZrTsGvmtbxQoSklSNov7sw/qE/MhrvOIA3/2ac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rb2xKjs4; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780171507; c=relaxed/simple;
+	bh=PRdoQ2yE3nFcVuMZ5q1zSZ/dS6OKSPcr191FBwuiSiY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=qwr4FoiXLsSqLtGLj1Tyovz9AJjZrtpUQj3UInng0mBbJnRo3mzBbD7lIgSM9tuofTKZMvD2A+pzCg2A5Mk+ug9PCLucZgvORap8/Pb60JAvR4mR/vZM4UkPJcesQPR3i1/dfedvcH0ufSI8fs0SK4q+jzWOT6WRpIDH2MiCLZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TRJSFZXX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rb2xKjs4"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-36babe2c4bdso1207300a91.1
-        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 12:51:42 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780170702; x=1780775502; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=KUPVDO4TuLnw66Ni1+lzz4Gz256nyEweInp7TugqCsg=;
-        b=Rb2xKjs4yH3o+5y1lEvd1A5A785gst6TlaS03qgi6hcmka45u3dC+eymsW/psu6w1g
-         0EsbjAl6ihjvSRDBrLZXIVkl7SuSZASANtp2U0H0TxR2ItanvJTub7I325GPnSLNh0NT
-         KH5tfqcX93ltlmzwSJvoDw5w/bq1rgfhIDUCYSJ0DBWH/90hmDTHskVbMLEgJUJ5zkIH
-         ZwTi9lUg8GTjxTY82QLNCGHuBeeWPLAAfciq2aCQx2AiWbuQkXIEOjzXvS4DWsL8OBxq
-         Hq3NkX3Ulwlyg+OquZ9/5xdxmElFM5aYWq+BPBuFhS4lHoZ3msx3F4WyACydOTK/nfiy
-         qgOA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780170702; x=1780775502;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=KUPVDO4TuLnw66Ni1+lzz4Gz256nyEweInp7TugqCsg=;
-        b=WDry/81oTl+gP86dCB952ZUvH4cI9G7JmjEc8ljxEnacg71p3Ir+1GCnv9m7532vaX
-         RocvSpuyTvsCKvgybJRv9wdVrHSx5APvK8mSix2iv+87hiX95/3ZRODHrSBlOO7Mr3Bf
-         zmO4pPR3sFdtMDimheC6u3a5H0AiCZVUiuMkPf+QaFcNvOe1slosCEnCa3f5RoTeR1cX
-         xjkbdkjpYz8onfxQjRz4VC0Cf4pe8wRsvHl+Hf7KQmhfJXTwPrn4hvrCuLY8RgCUG3zm
-         AhVnUI7FQ81MFvivVKHObw0jnK8iN9C4/NkV6d+vn66RXfuHm0C8WV8Lx4IIlL/w6OCX
-         Q1TA==
-X-Forwarded-Encrypted: i=1; AFNElJ/YDr/CRzVI6/ChgCBBtDUwNN5hkavokNTqXyoIXjUgxB9bfkKrlNzM45MTU/RZKT+ZJF2w5PotP75h@vger.kernel.org
-X-Gm-Message-State: AOJu0YwzEpa/QnJEbOlqM1rcpUkqijEHVNsqXQ1xyiQjRr+eDMpDi+8C
-	jUhfuMw/p5IzWztpL17ygEBKRv4G6WJigW9mnyw5R6iUDTxKgnoQge4Y
-X-Gm-Gg: Acq92OENUZWb15H1DjqzlAMIuJG8st/8p8hFcZ2txzg8ZelIFww9A7FKB1yF3JdVEnT
-	7QQuOQXwhuiTtAUBcs/CHJhtXI1H9J9FKVMbFgPDPbBLqnJDSZcJ4D+PWf8WpIWQnZr8gZrY9fM
-	fBONm+qReb/zxai0GW/Tr8LwQLTNWoi3C2eUE8XBBPrdOOUEjgvlnO3HL6FMKZ+m0jpYYU84X+O
-	nCoy4hlsPiL/x5HhtDCuA/JkIKcdZm11LPd6nNOCzJgiHg7M1QoXw3sVHvqSNfLiclwvApyMDdN
-	GYrVGtGe7/7eTUQqA04Ja5A5fP6mlN16MP0/xTZNYb4CygKGwNIM4EsA7gss7/fN/9IcACJ5SPu
-	bYvGlcVnz5TCW+GPtc1bUB6R2/yznff2LKPOaHcE3wXuzu7amiQi7p0H08LKo7wQbRgxB7G/LQv
-	bQcHQSidliJDQ7n0VJRE3eUqWRCyFb6JpUUz2AG1jPO2G+EAbq5v1ppPYHb35Kq0zAy1NQxIHGM
-	RmjxLDVNgD20Yt9tQSbu/QTXlhGzJNqku9xeNI9wvOVDQ==
-X-Received: by 2002:a17:90b:1ccb:b0:36b:ad81:c134 with SMTP id 98e67ed59e1d1-36c4ff410b9mr4361367a91.10.1780170701892;
-        Sat, 30 May 2026 12:51:41 -0700 (PDT)
-Received: from [192.168.0.101] ([103.181.54.100])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bbdb5c91bsm3439199a91.1.2026.05.30.12.51.37
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 30 May 2026 12:51:41 -0700 (PDT)
-Message-ID: <be560e03-ece5-4dc9-ad8a-907e454e9a1f@gmail.com>
-Date: Sun, 31 May 2026 01:17:44 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TRJSFZXX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FE141F00893;
+	Sat, 30 May 2026 20:05:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780171506;
+	bh=6v2aeEiQ1NeMDwCQKrUg2PVS5AwcY9UsZtzA8l/3lYI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TRJSFZXXm8ksprnT3KNNM7vLXmookDWUBSgd9g8SvYjY89m5s2OjX4cyLZknEXpWL
+	 vnOXFGQBnq5AenEv0bPnEs3379zPag326cWD0xVwN5k9ZhpohquZ5Yj1bUqmpMULq1
+	 vDG79unoUwFcF4KkzqdESuvcr/ukc3PQC2epfbTl7/+AAmUCVPY2kVyIAWXcCbJ7pD
+	 RDbH299za2ue/GTser5CM83snI6uQ3ieIqmifyNNBDA+Pnhn95wjh15nWGH8pdxqsP
+	 fky1tXcH02r2t0d/kYiSSP3a1yctQbNAgNfyRe6IJ5GvyBEpffgdSZSe9nZCSClYH6
+	 LZd1WNB7TZDew==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH net v2 2/2] dt-bindings: net: updated interrupt type to
+ be active low, level triggered
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Selvamani Rajagopal" <Selvamani.Rajagopal@onsemi.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <CY8PR02MB92497E67D5AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com>
+References: <CY8PR02MB92497E67D5AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 30 May 2026 20:05:05 +0000
+Message-Id: <20260530200506.1FE141F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: leds: bcm6358: Convert to DT schema
-To: Conor Dooley <conor@kernel.org>
-Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, jonas.gorski@gmail.com, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- me@brighamcampbell.com, linux-kernel-mentees@lists.linux.dev,
- skhan@linuxfoundation.org
-References: <20260525033258.144291-1-ninadnaik07@gmail.com>
- <20260525-wreckage-gap-9d857408445a@spud>
-Content-Language: en-US
-From: Ninad Naik <ninadnaik07@gmail.com>
-In-Reply-To: <20260525-wreckage-gap-9d857408445a@spud>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
->> +patternProperties:
->> +  "^led@(0|1?[0-9a-f])$":
->> +    type: object
->> +    $ref: common.yaml#
->> +    description: Each LED is represented as a sub-node of
->> +      this device.
->> +
->> +    properties:
->> +      reg:
->> +        description: LED pin number.
->> +        minimum: 0
->> +        maximum: 31
-> Is this missing a maxItems: 1?
-Thanks Conor for pointing this out. I will include it in v2.
->
->> +
->> +    required:
->> +      - reg
->> +
->> +    unevaluatedProperties: false
-> I wonder if this should be additionalProperties: false instead, and list
-> the three properties mentioned by the text binding explicitly?
->
->
-> Cheers,
-> Conor.
-I added unevaluatedProperties: false because my understanding was
-that explicitly listing the properties inherited from common.yaml would
-be redundant.
-I'd be interested to hear the maintainers' preference here, and can
-adjust this in v2 if needed.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
 
-Thanks,
-Ninad Naik
+Pre-existing issues:
+- [High] The DT binding correctly updates the interrupt type to active low,=
+ level-triggered (`IRQ_TYPE_LEVEL_LOW`), but the `oa_tc6` driver hardcodes =
+`IRQF_TRIGGER_FALLING` in its IRQ request. This mismatch causes dropped int=
+errupts, and attempting to fix the driver to use level-triggered interrupts=
+ would currently result in an interrupt storm.
+--
+
+commit 50f6d43fc72305690796fcff8249a6220cbe4714
+Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
+
+dt-bindings: net: updated interrupt type to be active low, level triggered
+
+This commit updates the LAN8650 device tree binding to specify an active
+low, level-triggered interrupt, aligning with the hardware specification.
+
+> diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml=
+ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> --- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> +++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> @@ -67,7 +67,7 @@ examples:
+>          pinctrl-names =3D "default";
+>          pinctrl-0 =3D <&eth0_pins>;
+>          interrupt-parent =3D <&gpio>;
+> -        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
+> +        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
+
+[Severity: High]
+This is a pre-existing issue, but this DT binding update highlights a
+mismatch with the driver implementation. The hardware uses an active-low
+level-triggered interrupt, but the driver currently hardcodes an
+edge-triggered configuration:
+
+drivers/net/ethernet/oa_tc6.c:oa_tc6_init() {
+    ...
+    ret =3D devm_request_irq(&tc6->spi->dev, tc6->spi->irq, oa_tc6_macphy_i=
+sr,
+                           IRQF_TRIGGER_FALLING, dev_name(&tc6->spi->dev),
+                           tc6);
+    ...
+}
+
+Does the driver need to be updated to respect the device tree's interrupt
+trigger configuration instead of hardcoding IRQF_TRIGGER_FALLING?
+
+If the driver is updated to use level-triggered interrupts, could this
+cause an interrupt storm? Looking at the current hardirq handler:
+
+drivers/net/ethernet/oa_tc6.c:oa_tc6_macphy_isr() {
+    struct oa_tc6 *tc6 =3D data;
+
+    tc6->int_flag =3D true;
+    /* Wake spi kthread to perform spi transfer */
+    wake_up_interruptible(&tc6->spi_wq);
+
+    return IRQ_HANDLED;
+}
+
+Since oa_tc6_macphy_isr() returns IRQ_HANDLED without clearing the hardware
+interrupt condition (which requires a slow SPI transaction), wouldn't the
+IRQ core immediately fire the interrupt again if it were configured as
+level-triggered?
+
+Would it be safer to migrate this driver to use devm_request_threaded_irq()
+with IRQF_ONESHOT so the interrupt remains masked until the threaded handler
+can clear it, properly supporting the level-triggered configuration defined
+in this binding?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/CY8PR02MB92497E67D5=
+AB4C72E7A4C12683162@CY8PR02MB9249.namprd02.prod.outlook.com?part=3D2
