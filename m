@@ -1,126 +1,219 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39705190462
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 03:06:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA82288D0
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 03:09:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780110373; cv=none; b=esZAkCts1EHPxfOCWKILvzWz1POpBKZlXxqPkarzFBZOL87Ec3zgsZ5PQoBlJsXk2DEQ99S7jc5i5K5hr8OTIvl7qJoawqTI/KYiu7xLvjOqszpCsbczTr3foBtE02S0qJfcaUvP1NU0rq/sasPxaC2LFAG2pJ3ojLCVoOT+uUE=
+	t=1780110601; cv=none; b=QVEs3LxM+0k7QceJ6yPKJDE7YJdgpeARw9EyL/zkdiY4EyMo/TrsYg4jG+I1T7VKDdBemlexu5PPmwWCWSR1C5GOGjSUq41K/tTyTkr3OE+LaYuxnE1xgAbl8B7R5xaIGvOAGBEk6HSS3Hihs98lvWlcbh1oqyN/ZMj6nAM8yOE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780110373; c=relaxed/simple;
-	bh=SYGBdqjYzj3QSdlAQhnOwThsfubv1i6GiMAQW/G1G1w=;
+	s=arc-20240116; t=1780110601; c=relaxed/simple;
+	bh=QIi8X+umvf+5WWJRqzL3XIk/bEXzOKcn7byPM5c5bQo=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=M7HE3hdU1oCg0sJ5yNf7e4CTPY6N4x9/XiEyM6DRRFLJa/ZUqBTDfGvONHoJT0CdNmKfyRIQ9DfphVBeO17HoMqcMV342BZAE3ur750/L2NDy/A55tQj6m6UZVc1md/HZk85HQLMufI5IJZz0aUzX2b0A0MRZI6FsXgWvifxI+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OCD6oduu; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=p8xKjKXAtW/MKewFWrLbptzUMCKPudLDqM5ad4AV/LXdo61eL5XiJwniq8fOt2G+Z1qdIf+D19cFOMZ4d1Xo3xnbzaUdvwZNSG7SdHu8nwazwUFgANAPNY+Lr8GXsQfXQJhJm6rGtS1KQ1IUTCUYv1H1R5hOhg26qrItQabOsqQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kMyjj25i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OCD6oduu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2B191F00893;
-	Sat, 30 May 2026 03:06:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kMyjj25i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D071F00893;
+	Sat, 30 May 2026 03:09:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780110372;
-	bh=dpR6cydLP30ZXLgbOOVsuXHCZSSkFZMvdqYR79nmJ4Y=;
+	s=k20260515; t=1780110599;
+	bh=kMlak6Kw1RZMdjqBjJ1+3feD2782Ls/NluqoF2x4GTU=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OCD6oduuSZ6Wsy7+o6AKx1ghPP3IRMqS+KbUCivQtjVp0yUKo6xjYUCcGx9WvQ8Az
-	 p7kpQ5SLNW/GwgBJAgMOtxvyeaUJUvapXRC9svJnR16k2JirMEoDU0jxua3KsgryR/
-	 C/PZJxEUYB30M3briEC5FYYKexr9I3IZtJskgn677d/Je4oQXarFz6hvEM1ZUUY4ys
-	 Z/3tw2XzbcLkqm/XcwKwGiA4tLm4t9DzBVMilmNpO7Fju54CbFe3dKtuwR4EuSGxn8
-	 AhXH4AHCt5Sz2zyC/XPlBRioYdEp8N6YE9vPGTgXf8dBGkXm/HYOPN7vQmQ+36khf0
-	 9kcZJ9fl+SBGg==
+	b=kMyjj25iAYk9KkUCzUDor/wKjI4LdimXB7Pt/1ib8RE5nvDpk6dwSsg/r9nsuY3Ht
+	 9OjLq5fhnG1lXMpH4wsFRh1B/TM84wnpeausOMhN1M1FYQF5QYlKaTaXcYkRaJezjq
+	 /msLQ+jH1H5e5Vl+zmaXfqtyWHMW0FF4vCjY+NAGf2vBjxiQ6ngMdINr3eosnTh/61
+	 geRzsx/hPNQQlPeY6QeYkpSB5lxqEhro4Ybg0MU5vq8IUcdBCCmRcjFSrlw1jWXOIR
+	 t4vjt6A0FU4Nnm7LNy9gSmSatBNHs1byT5T9OG769Ku1C4pKs6islrnKu394x2KOFl
+	 EGE3p8m8Gfarw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2] dt-bindings: usb: convert PXA USB bindings to YAML
+Subject: Re: [PATCH v13 2/2] platform: Add initial synology microp driver
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jeremiah Bishop" <jbishop.dev@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260530022955.32728-1-jbishop.dev@gmail.com>
-References: <20260530022955.32728-1-jbishop.dev@gmail.com>
+To: "Markus Probst via B4 Relay" <devnull+markus.probst.posteo.de@kernel.org>
+Cc: ojeda@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260530-synology_microp_initial-v13-2-aa2bb9c56efc@posteo.de>
+References: <20260530-synology_microp_initial-v13-2-aa2bb9c56efc@posteo.de>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 03:06:11 +0000
-Message-Id: <20260530030611.D2B191F00893@smtp.kernel.org>
+Date: Sat, 30 May 2026 03:09:58 +0000
+Message-Id: <20260530030959.42D071F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [Medium] YAML conversion incorrectly renames properties `marvell,power-se=
-nse-low` to `marvell,port-sense-low` and `marvell,power_on_delay` to `marve=
-ll,power-on-delay`, breaking validation and backward compatibility.
-- [Medium] The `clocks` property is newly enforced as strictly required for=
- `marvell,pxa-ohci`, which breaks schema validation for existing device tre=
-es.
+- [Critical] The dynamically allocated name for the conditionally registere=
+d alert LED is dropped prematurely, leaving a dangling pointer in the LED s=
+ubsystem.
+- [Medium] Concurrent LED operations can interleave serial commands, corrup=
+ting the communication protocol with the microcontroller.
+- [Medium] Setting an LED's brightness to a non-zero value fails to overrid=
+e and disable hardware blinking.
+- [Low] The config SYNOLOGY_MICROP depends on a non-existent symbol RUST_SE=
+RIAL_DEV_BUS_ABSTRACTIONS.
 --
 
-commit 64a29827cc603985850c4a4a36ae40793189e8ff
-Author: Jeremiah Bishop <jbishop.dev@gmail.com>
-   =20
-dt-bindings: usb: convert PXA USB bindings to YAML
-   =20
-Convert the legacy pxa-usb.txt binding documentation to YAML schemas. The
-original text binding documented two distinct devices, which are now split
-into marvell,pxa-ohci.yaml and marvell,pxa270-udc.yaml.
-   =20
-> diff --git a/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml =
-b/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml
+commit 1779a8eccc4d1fbf66dab42036dc8b8505625855
+Author: Markus Probst <markus.probst@posteo.de>
+
+platform: Add initial synology microp driver
+
+Add an initial synology microp driver, written in Rust. The driver targets a
+microcontroller found in Synology NAS devices to support controlling of the
+power led, status led, alert led and usb led.
+
+> diff --git a/drivers/platform/synology_microp/Kconfig b/drivers/platform/=
+synology_microp/Kconfig
 > new file mode 100644
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/usb/marvell,pxa-ohci.yaml
-[ ... ]
-> +  marvell,enable-port3:
-> +    type: boolean
-> +    description: Enable USB port 3 if present.
+> +++ b/drivers/platform/synology_microp/Kconfig
+> @@ -0,0 +1,13 @@
+> +# SPDX-License-Identifier: GPL-2.0
 > +
-> +  marvell,port-sense-low:
-> +    type: boolean
-> +    description: Port sense pin in low-active.
+> +config SYNOLOGY_MICROP
+> +	tristate "Synology Microp driver"
+> +	depends on LEDS_CLASS && LEDS_CLASS_MULTICOLOR
+> +	depends on RUST_SERIAL_DEV_BUS_ABSTRACTIONS
 
-[Severity: Medium]
-The original text binding defined this property as "marvell,power-sense-low=
-".
-Will renaming "power" to "port" here cause validation failures for existing
-device trees that use the legacy property name?
+[Severity: Low]
+Does RUST_SERIAL_DEV_BUS_ABSTRACTIONS exist in the kernel tree?
 
-> +
-> +  marvell,power-control-low:
-> +    type: boolean
-> +    description: Power control pin is low-active.
-> +
-> +  marvell,no-oc-protection:
-> +    type: boolean
-> +    description: Disable over-current protection.
-> +
-> +  marvell,oc-mode-perport:
-> +    type: boolean
-> +    description: Enable per-port over-current protection.
-> +
-> +  marvell,power-on-delay:
-> +    $ref: /schemas/types.yaml#/definitions/uint32
-> +    description: Power On to Power Good time in milliseconds.
+Kconfig guidelines state that all dependencies must correspond to a valid
+config definition.
 
-[Severity: Medium]
-The legacy binding documented this as "marvell,power_on_delay" with an
-underscore. Could changing the underscore to a hyphen break ABI compatibili=
-ty
-with older device trees and drivers expecting the original format?
+Could this missing symbol cause silent build failures by preventing the
+driver from ever being enabled?
 
 [ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
+> diff --git a/drivers/platform/synology_microp/command.rs b/drivers/platfo=
+rm/synology_microp/command.rs
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/platform/synology_microp/command.rs
+[ ... ]
+> +impl Command {
+> +    pub(crate) fn write(self, dev: &serdev::Device<Bound>) -> Result {
+> +        dev.write_all(
+> +            match self {
+[ ... ]
+> +                Self::EsataLed(led::State::Off) =3D> &[0x4C, 0x45, 0x33],
+> +            },
+> +            serdev::Timeout::Max,
+> +        )?;
+> +        dev.wait_until_sent(serdev::Timeout::Max);
+> +        Ok(())
+> +    }
+> +}
 
 [Severity: Medium]
-Is it intentional to enforce "clocks" as a strictly required property here?=
-=20
+Since multiple LEDs share the same serdev bus, can their operations (like
+brightness_set and blink_set) be called concurrently from different sysfs
+contexts?
 
-The original pxa-usb.txt binding didn't list "clocks" as required for the=20
-OHCI controller, and the original example omitted it. Since the schema uses
-unevaluatedProperties: false, will enforcing this new requirement cause=20
-existing valid device trees to fail schema validation?
+Without a driver-wide lock protecting the dev.write_all() and
+dev.wait_until_sent() sequence here, could concurrent calls interleave
+bytes in the UART transmit buffer and corrupt the communication protocol
+with the microcontroller?
+
+[ ... ]
+> diff --git a/drivers/platform/synology_microp/led.rs b/drivers/platform/s=
+ynology_microp/led.rs
+> new file mode 100644
+> --- /dev/null
+> +++ b/drivers/platform/synology_microp/led.rs
+[ ... ]
+> +impl Data {
+> +    pub(super) fn register<'a>(
+> +        dev: &'a serdev::Device<Bound>,
+> +        model: &'a Model,
+> +    ) -> impl PinInit<Self, Error> + 'a {
+> +        pin_init_scope(move || {
+> +            if let Some(color) =3D model.led_alert {
+> +                let name =3D
+> +                    CString::try_from_fmt(fmt!("synology:{}:alarm", colo=
+r.as_c_str().to_str()?))?;
+> +                devres::register(
+> +                    dev.as_ref(),
+> +                    led::DeviceBuilder::new().color(color).name(&name).b=
+uild(
+
+[Severity: Critical]
+Since the name variable is a local CString scoped to the if let block, won't
+it be dropped at the end of the block?
+
+The LED core doesn't copy the string, so could passing the reference &name
+leave a dangling pointer that triggers a use-after-free when sysfs,
+tracepoints, or triggers access it later?
+
+> +                        dev,
+> +                        try_pin_init!(LedHandler {
+> +                            blink <- new_mutex!(false),
+> +                            command: Command::AlertLed,
+> +                        }),
+> +                    ),
+> +                    GFP_KERNEL,
+> +                )?;
+> +            }
+[ ... ]
+> +    fn brightness_set(
+> +        &self,
+> +        dev: &Self::Bus,
+> +        _classdev: &led::Device<Self>,
+> +        brightness: u32,
+> +    ) -> Result<()> {
+> +        let mut blink =3D self.blink.lock();
+> +        (self.command)(if brightness =3D=3D 0 {
+> +            *blink =3D false;
+> +            State::Off
+> +        } else if *blink {
+> +            State::Blink
+> +        } else {
+> +            State::On
+> +        })
+
+[Severity: Medium]
+The LED subsystem API semantics normally dictate that writing a non-zero
+value to the brightness sysfs file must stop any active hardware blinking
+and turn the LED solid on.
+
+By preserving State::Blink here when brightness is greater than 0, does this
+force users to explicitly write 0 to brightness to stop the blinking before
+they can turn it solid on?
+
+> +        .write(dev)?;
+> +
+> +        Ok(())
+> +    }
+[ ... ]
+> +    fn brightness_set(
+> +        &self,
+> +        dev: &Self::Bus,
+> +        classdev: &led::MultiColorDevice<Self>,
+> +        brightness: u32,
+> +    ) -> Result<()> {
+[ ... ]
+> +        Command::StatusLed(
+> +            color,
+> +            if subled_brightness =3D=3D 0 {
+> +                State::Off
+> +            } else if *blink {
+> +                State::Blink
+> +            } else {
+> +                State::On
+> +            },
+> +        )
+
+[Severity: Medium]
+Similarly to the standard LedHandler, does preserving State::Blink here
+when setting a non-zero brightness break the LED subsystem expectation
+that brightness > 0 overrides and stops blinking?
+
+> +        .write(dev)
+> +    }
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530022955.3272=
-8-1-jbishop.dev@gmail.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530-synology_m=
+icrop_initial-v13-0-aa2bb9c56efc@posteo.de?part=3D2
