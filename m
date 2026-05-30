@@ -1,76 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DFCD1AC45D;
-	Fri, 29 May 2026 22:57:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC158217704
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 00:43:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780095465; cv=none; b=ARQ7OYqR7DHTTlcRB3vSPO9NthqnahNQcIqt/lZt9//BDcKybtksOOex/J7SCu1ld2YlMpN7/HvgIlKTJ3l1Z3R/d/YaykVzqX3wYKFJ0BRYC2xm4+fwFyWxMaETHr7PmgqyLH1rwYIbzVL9sW9gpI4NXBZwGvsOgnq0pIYxtLg=
+	t=1780101825; cv=none; b=JUPivkVn5Amvt5BKCi2PdkEZ7GAbBEsBjOJWUtncc+a3zU20Jccf0RavSIT8ZI3QHDQOja1YqrBWfthC+d4aAp36PjkrWBkw8ERA7W3DLV3r8+EGpz+oEfXgIoKC9v+UoCnRiEoMm6BU9rTpSvBODszEaBIOe3pQ2RWyoE7xaHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780095465; c=relaxed/simple;
-	bh=qHtiwpZ+hr3LQA/M8vOQeknAplJllI+oQpfScdkdaC0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=l8A8Tim482YGAtWEuDqP3tNw786O6rqsfema22ylEX6P2WPF7LMnOqldnuBX67ujcLAINtVzZGqFIvUoH5CMPeu/FVo14S/4YrFu4PehQlUY0I27moJUZwKhZnBpgR5drDCwOiZBciTe9GUpBT0A7NTo3V21Ul6dB21t129Sh+g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MTfZDkmd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780101825; c=relaxed/simple;
+	bh=07D24JiKbG623kAGmqZh0fxbI0I5/a5ebES8nDdgAeo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=UBIqgAHn6FRfM++Vq0qAZKDge4bdWoI1sPjN09m5MMKDknPiF7D/l+2naj3tODlZt1vyRctkU4WDdm7DyyMRR9ikqpO/UGspTm8qEnmMuwIqoJ/BPK4Ne5hylOmpgugxtWaxw4mgUSJV8W4Z8iOUzjCBaFvwhHyCukUbgm5r4cM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MMZxlbOS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MTfZDkmd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 774D91F00893;
-	Fri, 29 May 2026 22:57:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MMZxlbOS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E0441F00893;
+	Sat, 30 May 2026 00:43:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780095464;
-	bh=qHtiwpZ+hr3LQA/M8vOQeknAplJllI+oQpfScdkdaC0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MTfZDkmdKifsvJxS5issxaPsSpVdp3atWttJuQnh042nP/CAAxDPs3AXYF5CXQZM7
-	 GXnWIfnLV4oloyJK2Y+f86OdMUOackqzoQL5ogAGfanY2/It1c65Bm7mqS3b6/uwjx
-	 kRA3bFPJ7vHRBg+VvL05VeR/pYNky/n4evRZFGH89b1yBFVvn7BFw71fJrSOyHzkPX
-	 sCaTe+eE6brH4k40UNjqzwCenhZyrO5McjZRh64s9WejW63BejWSjGvMy6TC6xTptb
-	 X6Q1LValvWGpKM5GI5N+lS+QR2MoSLeb6pn4UPvoyLelgFeYWKyEoC6eJX+icoQJat
-	 Mr6g6cZx3vWPQ==
-Message-ID: <73364628-5345-4c6d-ab18-7aee6c5b579d@kernel.org>
-Date: Fri, 29 May 2026 23:57:35 +0100
+	s=k20260515; t=1780101824;
+	bh=bqWhx0nCgEs9GR44/Tq44yhHmu9e4FFUCjs1rudCJf4=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MMZxlbOSa1YwtXMjgShPvdq4EmfFnq5xyRvIb8Rx9m21EX/omghsUnU8Bt7avAi12
+	 89pMnVx5JXF3BjQm3aVskTXBucZG5howomYjFdG7JsgcoNXRlb3O/tqDYLVsnoA9ma
+	 EoBhH0s2Knyzx6LoH0aW6V7mLKlmP45wWHpzhSTdlnLKFqGkL99SfYGsK7p3zW+xOu
+	 YzjMVxGH/pk2Hm7PzxgwTLvUi0jZYNTESUqY2my9rr2XRvHYQuZWwdFuCZ+iNgJHMr
+	 YtS7LqHV8ojPqnN/BMZAMEm08UKL8a8UDg4AGiRiag0yQSX1f+ZQtOnmPA+EKRN/dR
+	 X3958Ycu+TQdw==
+From: sashiko-bot@kernel.org
+Subject: Re: [net-next v4 2/5] dt-bindings: net: starfive,jh7110-dwmac: Add
+ jhb100 support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Minda Chen" <minda.chen@starfivetech.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260519101436.111476-3-minda.chen@starfivetech.com>
+References: <20260519101436.111476-3-minda.chen@starfivetech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 30 May 2026 00:43:43 +0000
+Message-Id: <20260530004344.4E0441F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7/8] arm64: dts: qcom: shikra-cqm-evk-imx577-camera: Add
- DT overlay
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Suresh Vankadara <quic_svankada@quicinc.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-7-645d2c8c75a7@qti.qualcomm.com>
- <178000731452.4557.8537369407478321842.b4-reply@b4>
- <oiPZ6ZMRghpGaIEC7KqUDt7QZQT8w5gq0OMZzopCPkcqKOBXXVrP7-t6ZL4LY4ErAN_z1Z4tCdqn7xbxE5EE7w==@protonmail.internalid>
- <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <bc2aecf3-fedd-4b15-8e69-33ca928831d6@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 29/05/2026 18:30, Nihal Kumar Gupta wrote:
-> Happy to rename to shikra-cqm-cqs-evk-imx577-camera if that makes the
-> shared scope clearer - open to suggestions.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] Incorrect fallback compatibility for `starfive,jhb100-dwmac` and=
+ nested schema logic
+--
 
-That would sufficiently pick the nit for me.
+commit 6b46c7eda188eefbc105849442bf373d3049d603
+Author: Minda Chen <minda.chen@starfivetech.com>
 
----
-bod
+dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 support
+
+This commit adds device tree bindings for the jhb100 GMAC. It notes
+that the hardware is similar to jh7100 but only has one reset signal
+and one interrupt line.
+
+> diff --git a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.=
+yaml b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> --- a/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> +++ b/Documentation/devicetree/bindings/net/starfive,jh7110-dwmac.yaml
+> @@ -30,6 +30,10 @@ properties:
+>        - items:
+>            - const: starfive,jh7110-dwmac
+>            - const: snps,dwmac-5.20
+> +      - items:
+> +          - const: starfive,jhb100-dwmac
+> +          - const: starfive,jh7110-dwmac
+> +          - const: snps,dwmac-5.20
+
+Is it correct to use starfive,jh7110-dwmac as a fallback compatible string=
+=20
+here?=20
+
+A fallback compatible implies that an older OS driver written for the jh7110
+can successfully drive the jhb100 hardware. Since the jh7110 expects 3
+interrupts and 2 resets, won't an older driver fail to probe the jhb100
+because of missing required resources?
+
+[ ... ]
+
+> @@ -107,20 +111,39 @@ allOf:
+>            contains:
+>              const: starfive,jh7110-dwmac
+>      then:
+> -      properties:
+> -        interrupts:
+> -          minItems: 3
+> -          maxItems: 3
+> -
+> -        interrupt-names:
+> -          minItems: 3
+> -          maxItems: 3
+> -
+> -        resets:
+> -          minItems: 2
+> -
+> -        reset-names:
+> -          minItems: 2
+> +      if:
+> +        properties:
+> +          compatible:
+> +            contains:
+> +              const: starfive,jhb100-dwmac
+> +      then:
+> +        properties:
+> +          interrupts:
+> +            maxItems: 1
+
+Because of the fallback compatible, the schema patch nests the jhb100
+constraints inside the jh7110 'if' block in allOf.
+
+If starfive,jh7110-dwmac is removed from the jhb100 compatible list, could
+these constraints be defined in an independent 'if' block instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260519101436.1114=
+76-1-minda.chen@starfivetech.com?part=3D2
