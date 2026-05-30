@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E228A2367DF
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 19:02:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C311427A
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 19:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780167744; cv=none; b=SBfBrhKdJY1kEQEkLGz47oLJv3IGV0v3sm02CATutRTiAkGaAeDPGR8ACXkmbCOMu2v4j0UzxxNY5NvFNO1hWSN/opPbndhEYYV5ACR+AWSi5WoJeJ9RQcu6XcAK9VEAzR5ulrrVkmRxPr/JhAjaV+GtzOZS/lLksVyHumXbUJM=
+	t=1780168346; cv=none; b=JxX2UeBM5q+RHiJyIGJFSmeuOJSLo3I1K1w7OQ249UagVMfEplpBWqGiADhtRT5uwhVtNK1xAfg5x/2g9GYTJTSVHjKsHFUq4cq1oqYOIL8zlrjHqSeNFNizbu1y0ARec4kSogE/O3IkRbWfqqHslNMlFVmwXtN7kY7IlC05d6k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780167744; c=relaxed/simple;
-	bh=oaPFmDbv095AioPv6WkJ9c711XOEXdWTQjKA71QFVyI=;
+	s=arc-20240116; t=1780168346; c=relaxed/simple;
+	bh=YzfogH+qWAZHLHJwx5+AxYQkUUC3Sm4Jw8ZqS3JC2rg=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=r/mGoL1vfpmU7Gae7TCHNNtDdo8z0Tk57hzecT6IsypWmZYVNyyRNa2NdiLkNCos6tCL9B2ZxLYCBXMP6+JOvEslwMP+lhzNQT3+Fgjxi/hwafZfBTk/6dQICXpdK2PPkjRgvuxk4SyIM5hl7g+CLSN3uY72sfYCR1QaVHbuWqw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Bds8us6S; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=YX++AtDELJ6TGRbyfQ3pNcy6iV6PnLD6gjtzH/mVdJKbse8Kf2kj1w5PdBEgQsxdA+goNvTSAA4F10NN/3sVwqu0/w5sE1UhjYaU25ma4UVpBoMmq6Vk3pO64WU0pquMMf/dLn+EkmUwVK54xicawEXJpuOf6L0UKLCl7/bMysc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SxXHDLIu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Bds8us6S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C6B71F00893;
-	Sat, 30 May 2026 19:02:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SxXHDLIu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E461F00893;
+	Sat, 30 May 2026 19:12:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780167742;
-	bh=OEdFvpsUVgGYt9TVE80htBjVWzSZNq/kXh9pTKmAG4A=;
+	s=k20260515; t=1780168345;
+	bh=rXv4O9GkiV1lDGSgM0BFe1Fb/o47RGlNCBOedSA66ao=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Bds8us6SosUFE78etWkivLDz1ERW74vSR+KNDvumFBF+rT5ISRePDTw6fZODH2/sn
-	 hajsIb3PCmZP5IwiM6XLJiSWI7EOVjgw51bM4ypsNNZaiDGq9JBJOBiGsMUqSLn77f
-	 W7lWsFA4rXOiHWPw4CHnb58jZEKJ6Wi5wzmgaFnnS+0ZQ0dbm0LmZ0KKsyun1RWPPn
-	 58J9hF5ezOiQuulw2O+yQqzJENL0UaBJuaW5Ab2Fu7FhiVocF+aqikvKhHs43tjIuK
-	 P9ZMc+nX//XbbbHIRPGRx7eCaYdOs7lsaqAiTYgsQ8ym7hdOw1jLoDruDJBj/u0OKg
-	 IskxnixqEEWsQ==
+	b=SxXHDLIuZzJnaTYjbNzAJoA1qUZgZ2D9UgBqhknkzNZDAhV9Y8V4AZaaPTh0589vp
+	 hC+IYXJB2JR7C1gM477XWwzxzk0oQds01+9EZx9uzgqH8ywPixDWnr85SB3LVzmiCo
+	 /o975BSM3rcGpD7d1BXPvCAX5OzzEEOw4kDxsc83ruTOT9L/ftPsIlu0P/9JTGjq8V
+	 d6RuWLi6XCMRLkgZh/9e5e7UXLq+WXV6NtzTwqFhxcU50zbJ/WwlYy+p2XOqZAFUr5
+	 Xt5Fw0d3ssOI2VQZIgqQHEMyefoivMdJ5L28DZiVR4ummjX8e5AgYY4r3qUuAW5cYW
+	 kUTKDfXiW5qPg==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/4] spi: qcom-geni: Use resources helper APIs in
- runtime PM functions
+Subject: Re: [PATCH v2 4/4] spi: qcom-geni: Enable SPI on SA8255p Qualcomm
+ platforms
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Praveen Talari" <praveen.talari@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260530-enable-spi-on-sa8255p-v2-3-17574601bd63@oss.qualcomm.com>
-References: <20260530-enable-spi-on-sa8255p-v2-3-17574601bd63@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260530-enable-spi-on-sa8255p-v2-4-17574601bd63@oss.qualcomm.com>
+References: <20260530-enable-spi-on-sa8255p-v2-4-17574601bd63@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Sat, 30 May 2026 19:02:22 +0000
-Message-Id: <20260530190222.8C6B71F00893@smtp.kernel.org>
+Date: Sat, 30 May 2026 19:12:25 +0000
+Message-Id: <20260530191225.80E461F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,80 +46,65 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Performance state (OPP) vote is dropped during suspend but never r=
-estored on resume, leading to hardware operating at zero voltage.
+- [High] GPI DMA mode (`setup_gsi_xfer()`) bypasses the `set_rate` abstract=
+ion, breaking SPI transfers on the SA8255P platform.
 --
 
-commit 60a92c010d0b0fc6d9cc73f3af65a2635a04cf3c
+commit 51c1e984c5666b6d16483f6836d8eccfa71a9fa2
 Author: Praveen Talari <praveen.talari@oss.qualcomm.com>
 
-spi: qcom-geni: Use resources helper APIs in runtime PM functions
+spi: qcom-geni: Enable SPI on SA8255p Qualcomm platforms
 
-To manage GENI serial engine resources during runtime power management,
-drivers currently need to call functions for ICC, clock, and
-SE resource operations in both suspend and resume paths, resulting in
-code duplication across drivers.
+The patch enables SPI for the SA8255P platform using SCMI power and
+performance protocols. It introduces a dev_data struct with function
+pointers to abstract initialization and rate-setting operations.
 
 > diff --git a/drivers/spi/spi-geni-qcom.c b/drivers/spi/spi-geni-qcom.c
-> index 333216df922e8..7696412c6e879 100644
+> index 7696412c6e879..98e34e58fae21 100644
 > --- a/drivers/spi/spi-geni-qcom.c
 > +++ b/drivers/spi/spi-geni-qcom.c
-> @@ -1119,33 +1119,16 @@ static int __maybe_unused spi_geni_runtime_suspen=
-d(struct device *dev)
->  {
->  	struct spi_controller *spi =3D dev_get_drvdata(dev);
->  	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
-> -	int ret;
-> -
-> -	/* Drop the performance state vote */
-> -	dev_pm_opp_set_rate(dev, 0);
-> -
-> -	ret =3D geni_se_resources_off(&mas->se);
-> -	if (ret)
-> -		return ret;
+
+[ ... ]
+
+> @@ -820,7 +829,7 @@ static int setup_se_xfer(struct spi_transfer *xfer,
+>  	}
 > =20
-> -	return geni_icc_disable(&mas->se);
-> +	return geni_se_resources_deactivate(&mas->se);
->  }
-> =20
->  static int __maybe_unused spi_geni_runtime_resume(struct device *dev)
->  {
->  	struct spi_controller *spi =3D dev_get_drvdata(dev);
->  	struct spi_geni_master *mas =3D spi_controller_get_devdata(spi);
-> -	int ret;
-> -
-> -	ret =3D geni_icc_enable(&mas->se);
-> -	if (ret)
-> -		return ret;
-> -
-> -	ret =3D geni_se_resources_on(&mas->se);
-> -	if (ret)
-> -		return ret;
-> =20
-> -	return dev_pm_opp_set_rate(mas->dev, mas->cur_sclk_hz);
-> +	return geni_se_resources_activate(&mas->se);
->  }
+>  	/* Speed and bits per word can be overridden per transfer */
+> -	ret =3D geni_spi_set_clock_and_bw(mas, xfer->speed_hz);
+> +	ret =3D mas->dev_data->set_rate(&mas->se, xfer->speed_hz);
 
 [Severity: High]
-How does the performance state (OPP) rate get restored on resume?
+Should setup_gsi_xfer() also be updated to use this new set_rate abstractio=
+n?
 
-Before this patch, spi_geni_runtime_resume() explicitly restored the OPP
-rate using dev_pm_opp_set_rate(mas->dev, mas->cur_sclk_hz).
+Looking at setup_gsi_xfer(), it appears to still hardcode a call to
+get_spi_clk_cfg():
 
-While the new geni_se_resources_deactivate() helper continues to drop the
-OPP rate to 0 on suspend, geni_se_resources_activate() does not restore it.
-This seems to leave the hardware operating at zero voltage upon resume.
+drivers/spi/spi-geni-qcom.c:setup_gsi_xfer() {
+	...
+	peripheral.pack_en =3D true;
+	peripheral.word_len =3D xfer->bits_per_word - MIN_WORD_LEN;
 
-Furthermore, subsequent transfers won't reapply the rate because
-geni_spi_set_clock_and_bw() has a fast-path optimization that skips setting
-the clock if the requested frequency hasn't changed:
+	ret =3D get_spi_clk_cfg(mas->cur_speed_hz, mas,
+			      &peripheral.clk_src, &peripheral.clk_div);
+	if (ret) {
+		dev_err(mas->dev, "Err in get_spi_clk_cfg() :%d\n", ret);
+		return ret;
+	}
+	...
+}
 
-    if (clk_hz =3D=3D mas->cur_speed_hz)
-            return 0;
+Since SCMI-based platforms like SA8255P rely on geni_se_domain_attach()
+which leaves se->clk uninitialized (NULL), get_spi_clk_cfg() will fail
+when calling clk_round_rate() and geni_se_clk_freq_match().
 
-Will this lead to bus lockups or transfer timeouts due to operating without
-adequate voltage votes?
+Does this unconditional bypass of the set_rate abstraction break all
+SPI transfers using GPI DMA on the SA8255P platform?
+
+>  	if (ret)
+>  		return ret;
+>
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530-enable-spi=
--on-sa8255p-v2-0-17574601bd63@oss.qualcomm.com?part=3D3
+-on-sa8255p-v2-0-17574601bd63@oss.qualcomm.com?part=3D4
