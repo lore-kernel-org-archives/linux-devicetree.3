@@ -1,68 +1,145 @@
-Received: from us.padl.com (us.padl.com [216.154.215.154])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4231E54B;
-	Sat, 30 May 2026 02:01:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=216.154.215.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D871C31282F
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 02:14:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780106500; cv=none; b=IE9t65JDS9HFZsP9aWgIBzm7gfR28fVj0yI0r9rtqpcnw8CtkUuWErue471lwWOFNW5XvCQleRlhBa0plZ/snoYuZlzthzvLlxH59vUIfyniwECGj/W3z//B/VKwQEzJ5MgFD3onLs/6ob+22kn1uXnahSlfxgveUthYchpi4JY=
+	t=1780107274; cv=none; b=tna7CdO/ONVAZq3ybHRVYMJcX2GCV895ks65v0QtLhKIecJhXi+yUNRucFN+N/FO294P+3EqA+D9XxdylxfEzFLxB3iIvjdZvqqjOIdI7kKaJ7lpZgilMWXyFs08Bxv6VSX2OLhGjPfPw4KnH0bOxfPLEYB6+jw0fSIY8EbavwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780106500; c=relaxed/simple;
-	bh=tNJoCL23MG/0Sq/8Y2gZ0phbAzaIutf/W2YTfpytKc8=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=G5edBtFXVk7MURgSm/Kg/pyxmo1FSivp2fDwhMWOK1h3P7FDmiTvTCaJNzFN2RCNxGbhr9skQf6iGxbizWH0HXGTowPxl3nBMTQ36LQZm2VuGlVm+ZS9H6uik328IG+eXey/WbUc+pNskJr5XZZXIBPSCe/M1N8AX3H3d/9o9to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=padl.com; spf=pass smtp.mailfrom=padl.com; dkim=pass (2048-bit key) header.d=padl.com header.i=@padl.com header.b=Na45/tAL; arc=none smtp.client-ip=216.154.215.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=padl.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=padl.com
+	s=arc-20240116; t=1780107274; c=relaxed/simple;
+	bh=6RD6w6nMPWm8uMNOS7GTYbwMTpaDZ7SXbDkkzCoIBOo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CKPRdBWj0ecbYgtXKxGIlHQ1XmdEoV0ET6E7MjB688PygIgpVQewtftsFqnW7VYRypXASUnaA8oxirw9sVkd7lbiAeEQcwarD83hgAdmN3GwLrevcGIWx7RYNoGVyB+CLTsq6XQ7frLgkvVgltXid6WnkPZZ8wTvmqsk9cOhDNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltVbGei2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=padl.com header.i=@padl.com header.b="Na45/tAL"
-Received: from auth (localhost [127.0.0.1]) by us.padl.com (8.14.7/8.14.7) with ESMTP id 64U21WZb015132
-	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NO);
-	Sat, 30 May 2026 03:01:35 +0100
-DKIM-Filter: OpenDKIM Filter v2.11.0 us.padl.com 64U21WZb015132
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=padl.com; s=default;
-	t=1780106496; bh=tNJoCL23MG/0Sq/8Y2gZ0phbAzaIutf/W2YTfpytKc8=;
-	h=Subject:From:In-Reply-To:Date:Cc:References:To:From;
-	b=Na45/tALYD4V1QGCnLwWzgmcwAZ1MJFoNbsZ1ZG59eRDsR9JsDNhlOupw6Cv63xwu
-	 VuzMMyNP1BcONoP1kEUQBPJIt1T2m1n7QLlm28GpbQrQwPKk/LUEVCbjxAQdbzRPnH
-	 XfwR2HokkieZx5JuN4Mwgri194QuxeabEFouE6yBf37jAyCyM4jJeKAYJNi7rvYJO6
-	 +J/z2+V+E9nhM4g1BQk/nPXenKzgTdgfhOoZIsEJ02m0NgLM2ehJT3OBvDMbXEmzLa
-	 8rv3h0IL5l2Nrluim3Lx0vidUwl/I0QY7UZWsaVcSQ+gBlmVfuJi43d0rCG6gPT41h
-	 CoPOedo9FiuQw==
-Content-Type: text/plain;
-	charset=utf-8
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltVbGei2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F40921F00893;
+	Sat, 30 May 2026 02:14:32 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780107273;
+	bh=UIFn3arw4mZi9lo49f+fbacg10gwBBw0gApTF6fz6/o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ltVbGei23P7YYg1Tul/NGdjR/rPEuw3RutUlxzhD6t/w6LJO7itmDwunma70WpoEH
+	 N4eO5KewPep9r6AavhjEWNrqHlOVPrsFN2zTTHHtclxoXXyG7MvRYts5LOLJKH6Has
+	 7Ypta/HFUis0gYuFKf48LKYe+rkXjlrE9aFxvYU7ZbqrrXiv1QKPuhDJ9jBb+mFeDf
+	 W7YXOs04YInyCETGPWanTLIWl+3iXQKSLIq/ptuD3XrwzQnVqLe+1z7bgkQqKbregg
+	 9WvCiZ9nKIrgFCgLBDHQADMwN+qdr9njjbH19Va/6tsuXC5fClh/SfeL5GH3QD/WZR
+	 0aIp03n7NQN5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v13 1/2] dt-bindings: embedded-controller: Add synology
+ microp devices
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Markus Probst via B4 Relay" <devnull+markus.probst.posteo.de@kernel.org>
+Cc: ojeda@kernel.org, robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260530-synology_microp_initial-v13-1-aa2bb9c56efc@posteo.de>
+References: <20260530-synology_microp_initial-v13-1-aa2bb9c56efc@posteo.de>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Sat, 30 May 2026 02:14:31 +0000
+Message-Id: <20260530021432.F40921F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3826.500.181.1.5\))
-Subject: Re: [PATCH net-next 6/6] dt-bindings: net: dsa: mv88e6xxx: add
- mv88e6xxx-avb-mode property
-From: Luke Howard <lukeh@padl.com>
-In-Reply-To: <20260530004918.C24601F00893@smtp.kernel.org>
-Date: Sat, 30 May 2026 12:01:20 +1000
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <530D4457-04AB-441A-B887-12C104A5653A@padl.com>
-References: <f0a4fc5e6918040b2c9a72da46a8cdcb43ed5049.1779841530.git.lukeh@padl.com>
- <20260530004918.C24601F00893@smtp.kernel.org>
-To: sashiko-reviews@lists.linux.dev
-X-Mailer: Apple Mail (2.3826.500.181.1.5)
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] Chronological fallback inversions for older models in DT bindings
+- [Medium] Model prefix typo (DS vs RS) for `synology,ds1221rpp-microp`
+--
 
+commit 420a38b2f09dfb652dcda0d1d821575521540bff
+Author: Markus Probst <markus.probst@posteo.de>
 
-> On 30 May 2026, at 10:49=E2=80=AFam, sashiko-bot@kernel.org wrote:
->=20
-> Thank you for your contribution! Sashiko AI review found 3 potential =
-issue(s) to consider:
-> - [Medium] Encoding runtime network configuration (traffic policy) in =
-the Device Tree.
-> - [Low] Schema validation fails for all valid inputs due to an =
-array/integer type mismatch.
-> - [Low] The Device Tree binding description violates OS-agnostic rules =
-by referencing Linux-specific netlink flags.
+dt-bindings: embedded-controller: Add synology microp devices
 
-Thank you for the comments. This commit will be removed in the next =
-revision, in favour of configuring the device using devlink.
+This commit adds device tree bindings for Synology Microcontrollers (Microp=
+).
+These devices manage LEDs, fans, beepers, and handle power events via a
+serial connection on Synology NAS devices.
 
+> diff --git a/Documentation/devicetree/bindings/embedded-controller/synolo=
+gy,ds918p-microp.yaml b/Documentation/devicetree/bindings/embedded-controll=
+er/synology,ds918p-microp.yaml
+> new file mode 100644
+> index 0000000000000..eb1c9d3fac074
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/embedded-controller/synology,ds91=
+8p-microp.yaml
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    oneOf:
+> +      - items:
+> +          - enum:
+> +              - synology,ds1221rpp-microp
+
+[Severity: Medium]
+Is synology,ds1221rpp-microp a typo? Synology models with redundant power
+supplies are typically RackStations (RS) rather than DiskStations (DS), and
+this falls back to synology,rs1221p-microp.
+
+Should this be synology,rs1221rpp-microp instead to avoid establishing a ty=
+po
+in the permanent device tree ABI?
+
+> +              - synology,rs822p-microp
+> +              - synology,rs422p-microp
+> +          - const: synology,rs1221p-microp
+> +
+> +      - items:
+> +          - const: synology,ds1825p-microp
+> +          - const: synology,ds1823xsp-microp
+> +
+> +      - items:
+> +          - enum:
+> +              - synology,ds725p-microp
+> +              - synology,ds225p-microp
+> +              - synology,ds723p-microp
+> +              - synology,ds710p-microp
+> +          - const: synology,ds214play-microp
+
+[Severity: Medium]
+Is it correct for the older 2010 model synology,ds710p-microp to fall back =
+to
+the newer 2014 model synology,ds214play-microp?
+
+In Device Tree schemas, newer hardware variants typically fall back to older
+established base models if they are backward compatible, rather than the
+other way around.
+
+> +
+> +      - items:
+> +          - enum:
+> +              - synology,ds425p-microp
+> +              - synology,ds1525p-microp
+> +              - synology,ds925p-microp
+> +              - synology,ds923p-microp
+> +              - synology,ds1522p-microp
+> +              - synology,ds1010p-microp
+> +              - synology,ds411p-microp
+> +          - const: synology,ds918p-microp
+
+[Severity: Medium]
+Does this correctly map the hardware relationships? The 2010 and 2011 models
+(synology,ds1010p-microp and synology,ds411p-microp) are configured to fall
+back to the 2018 model synology,ds918p-microp.
+
+Since synology,ds918p-microp enforces fan-failure-gpios as a required
+property in the conditional block further down in the file, this inverted
+fallback forces the older hardware to satisfy constraints defined for newer
+hardware. This will cause validation failures for correct older device tree=
+s.
+
+Should these older models be listed as their own base models or fall back to
+an older base instead?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260530-synology_m=
+icrop_initial-v13-0-aa2bb9c56efc@posteo.de?part=3D1
