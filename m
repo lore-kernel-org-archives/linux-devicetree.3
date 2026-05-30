@@ -1,159 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.mainlining.org (mail.mainlining.org [5.75.144.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A50863955D3;
-	Sat, 30 May 2026 11:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 680B321ABC9;
+	Sat, 30 May 2026 11:52:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.75.144.95
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780141804; cv=none; b=s6tpCrAcZSjwLQsZFZKuDGgJmlEaroaSkiQi+wW83do7iNQjDxBTpucU8n90IRikAI5TwEafkJcww1jSUa/FJPfklHLIggTnf/MiITv7p63e+15oknpCVM+ptYzsGCoMct3TTaklHG2/QQaEEW4+A7CIyyqrRD3178BgyLt3u5s=
+	t=1780141980; cv=none; b=DkAm7Jr1Fy3bFvH3cY/tJ04wFK/l1EL01+nxvs2H845d1PG+G5lJCU5fPcNjL1PMhCh9gdzEWeYC7KdsPN3Uz+Nrdj1YapJI2SQ5SuBEEON68A6PaTmM2NNrSRwF/TIPOp2gpxTnNyZ0Fp9AORAmtEv0rFhGNjCnMS3IcdyW+Fo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780141804; c=relaxed/simple;
-	bh=1GPghIQVAUeI8K2DXi3bxs3ZioulkywxwVAgcohx/34=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VQ4ka9MINn7Hl8uitB8zY+MLTQgJ5IrH62XING408C+zCkAgW2n6mV/4xT96PJ04gEw1PNWe4j0pmlxrlHKbzPbWUOWrGTEeGJ3HbZnPvpZmaN11+ZkGS4RkhZr574w2pUIPjGzwiDCC4zgsrjc/jnJm/m3wllyXfbVOL4D6nl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BomKkdOS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780141980; c=relaxed/simple;
+	bh=QCcH8TSjvLI3PYzekOYwN3En7F2LWMmFPGgsI+I4udQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=LhagaGLHrrIhrfmEYsNB+hQ6zouVxM3ASbkWDwzhwRQJgrx7xkncdRMkLwP8p5AS949vI/CfwAAzPuhSSNSYvUAKhYqC9PcYuFbGT3VJxfProydMOst6ark68eKza+OKwNAsX7DaGvubG+Vv2qzVyEZWCYoWR1YtLuSEcPmEaKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org; spf=pass smtp.mailfrom=mainlining.org; dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=hgiRdsW8; dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b=CsX373hw; arc=none smtp.client-ip=5.75.144.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mainlining.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mainlining.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BomKkdOS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4CC61F00893;
-	Sat, 30 May 2026 11:50:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780141803;
-	bh=7vDykY6wQIKMdW6dV3P8fQxfFzf8xBVMvGruxgzJYjk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=BomKkdOS8U8MIU8eMNBY7sVB3hoVc9VJdkUjmVI3Ac/HBqLwxMkwxJfQKMT7I0GhG
-	 PP/RJvxlbgg+ZksCjj7KIoerTnJSyEi8/NeczDaF/9waIol9F9+HfxDHFMIyJLVbhE
-	 EudTXcRQHdwkVp8Ci/ssK3UqLKiDDwrkqOIC9wfbmr+iTuoMKAanuYAamAI+CGbWc2
-	 QzLxk4Z9/2Mzrgav4rnMLX3xNdtSh5C5yUERXBfv/+7VkG6nl5248DpaP33yLTTCnY
-	 +MRHeO4CrdNqahhc6KqEeXa3t3lO9L1+eGChXEx3vZBAkbzqU6x5Fw1P6/6Zqc48y9
-	 jPHMIL4cG3xNw==
-Date: Sat, 30 May 2026 13:50:00 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Alessio Ferri <alessio.ferri@mythread.it>
-Cc: =?utf-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Florian Fainelli <florian.fainelli@broadcom.com>, linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 3/4] dt-bindings: bus: add brcm,bcm6362-wlan
-Message-ID: <20260530-psychedelic-cyber-seagull-140adf@quoll>
-References: <20260529-add-bcm6362-wlan-v1-0-722242777f58@gmail.com>
- <20260529-add-bcm6362-wlan-v1-3-722242777f58@gmail.com>
+	dkim=pass (2048-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="hgiRdsW8";
+	dkim=permerror (0-bit key) header.d=mainlining.org header.i=@mainlining.org header.b="CsX373hw"
+DKIM-Signature: v=1; a=rsa-sha256; s=202507r; d=mainlining.org; c=relaxed/relaxed;
+	h=To:From:Subject:Date:Message-ID; t=1780141956; bh=HvwxMLevTeXB5/bB9QrrZ1i
+	NcbhD7jsSe+TWGxGnV0M=; b=hgiRdsW8bsDFsLapTLBebqwu5K98cMLdn9j2QaWKToMMKgowZu
+	ZGpbLuU2xH8NcwhMwOhMsZNNwFrmOxjNv1SS0jlYb4tmi/gh/KpUKVfPL+LgfRbrsVolL11elUm
+	0prz7cGYeluKvoaifsQE5oDcaISVFJfqJ4q7mqlEXrpHs6gdGQpunLT1mMFhu3xiQlFful4+9ue
+	PQalxNSDQUkVGruq0A0s+14oyS/ZjnYPoFGOWtlA9EWHXQWxp8pBWN8S1EtWoMyZiZOat9g6taj
+	EpSAUVvLamLAZFN09WjvTC4zNa3ShTCloU7xVkL4B4kj1Oovbi+nrMZY2owdHO08REA==;
+DKIM-Signature: v=1; a=ed25519-sha256; s=202507e; d=mainlining.org; c=relaxed/relaxed;
+	h=To:From:Subject:Date:Message-ID; t=1780141956; bh=HvwxMLevTeXB5/bB9QrrZ1i
+	NcbhD7jsSe+TWGxGnV0M=; b=CsX373hw9vAgm1qji+3Z0DtXT14C7YsyxWoI/DCSNsexRZ6C2A
+	1lnAbuLvRvlgKOkzhS9vRPnp0OrNToiPC2Ag==;
+Message-ID: <f237a850-0718-4a3d-a11e-56f663e7641d@mainlining.org>
+Date: Sat, 30 May 2026 14:52:35 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260529-add-bcm6362-wlan-v1-3-722242777f58@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 02/15] ASoC: dt-bindings: qcom: q6dsp: add internal
+ mi2s support
+From: Nickolay Goppen <setotau@mainlining.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+ Richard Acayan <mailingradian@gmail.com>,
+ Srinivas Kandagatla <srini@kernel.org>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>,
+ Takashi Iwai <tiwai@suse.com>,
+ Mohammad Rafi Shaik <mohammad.rafi.shaik@oss.qualcomm.com>,
+ Konrad Dybcio <konradybcio@kernel.org>, linux-sound@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ Adam Skladowski <a39.skl@gmail.com>,
+ Vladimir Lypak <vladimir.lypak@gmail.com>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Wesley Cheng <quic_wcheng@quicinc.com>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Johan Hovold <johan@kernel.org>, Kees Cook <kees@kernel.org>,
+ Charles Keepax <ckeepax@opensource.cirrus.com>,
+ Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+References: <20260501153128.8152-1-mailingradian@gmail.com>
+ <20260501153128.8152-3-mailingradian@gmail.com>
+ <20260503-devout-mamba-of-sorcery-d4ecb2@quoll> <afe8bQ3SIAu9rP1S@rdacayan>
+ <98cf25d1-7dd8-408e-98db-c60f6e8b403b@kernel.org>
+ <3fe41d7b-0e65-4937-afda-b9a9e470e638@mainlining.org>
+Content-Language: ru-RU, en-US
+In-Reply-To: <3fe41d7b-0e65-4937-afda-b9a9e470e638@mainlining.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fri, May 29, 2026 at 02:06:01AM +0200, Alessio Ferri wrote:
-> Document the binding for the SHIM bridge that gates the on-chip
-> 2.4 GHz WLAN block of the Broadcom BCM6362 SoC. The bridge owns the
-> SHIM peephole, a single clock for the macro, and two resets (the
-> SHIM macro itself and its ubus side). It is also a bus: it carries
-> one brcm,bus-axi child describing the bcma backplane behind the
-> SHIM, with a standard interrupt-map routing the d11 core's IRQ to
-> the SoC interrupt controller.
-> 
-> Assisted-by: Claude:claude-4.8-opus
-> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
-> ---
->  .../devicetree/bindings/bus/brcm,bcm6362-wlan.yaml | 106 +++++++++++++++++++++
->  1 file changed, 106 insertions(+)
-> 
-> diff --git a/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml
-> new file mode 100644
-> index 000000000000..c8d49ccdd2c1
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml
-> @@ -0,0 +1,106 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/bus/brcm,bcm6362-wlan.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Broadcom BCM6362 on-chip WLAN SHIM bridge
-> +
-> +maintainers:
-> +  - Alessio Ferri <alessio.ferri@mythread.it>
-> +
-> +description: |
-> +  The BCM6362 SoC integrates a 2.4 GHz Broadcom WLAN block whose
-> +  register backplane uses the Broadcom AMBA (bcma) architecture. The
-> +  backplane is gated by a small SHIM bridge that holds the WLAN macro
-> +  in reset and disables its clocks until released by software. CFE
-> +  does not release this block, so software bring-up is required
-> +  before bcma can enumerate the backplane.
-> +
-> +  This binding describes the SHIM bridge node. The SHIM driver brings
 
-Do not describe binding. Do not describe driver.
-Describe hardware.
-
-> +  the macro up and then populates the brcm,bus-axi child node, which
-> +  describes the bcma backplane behind the SHIM and is bound by the
-> +  bcma-host-soc driver. The SoC-specific configuration (big-endian
-> +  accessors, SHIM-attached topology, SHIM Control register peephole
-> +  pointer) is delivered to bcma via platform_data injected at
-> +  populate time, so the brcm,bus-axi child stays SoC-agnostic.
-
-How is it relevant?
-
-> +
-> +properties:
-> +  compatible:
-> +    const: brcm,bcm6362-wlan
-> +
-> +  reg:
-> +    maxItems: 1
-> +    description: SHIM peephole registers.
-
-What is SHIM?
-
-> +
-> +  reg-names:
-> +    items:
-> +      - const: shim
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  resets:
-> +    items:
-> +      - description: SHIM macro reset
-> +      - description: SHIM ubus reset
-> +
-> +  reset-names:
-> +    items:
-> +      - const: shim
-> +      - const: shim-ubus
-> +
-> +  '#address-cells':
-> +    const: 1
-> +
-> +  '#size-cells':
-> +    const: 1
-> +
-> +  ranges: true
-> +
-> +patternProperties:
-> +  "^axi@[0-9a-f]+$":
-
-Use consistent quotes.
-
-> +    type: object
-> +    description: The bcma AXI backplane behind the SHIM.
-> +    $ref: /schemas/types.yaml#
-
-Need proper ref. You could easily check instead of sending Claude slop -
-is there any binding with above syntax?
-
-You don't get subnodes for buses for devices not being the actual
-buses.
-
+25.05.2026 14:51, Nickolay Goppen пишет:
+>
+> 14.05.2026 16:55, Krzysztof Kozlowski пишет:
+>> On 03/05/2026 23:21, Richard Acayan wrote:
+>>> On Sun, May 03, 2026 at 02:11:31PM +0200, Krzysztof Kozlowski wrote:
+>>>> On Fri, May 01, 2026 at 11:31:15AM -0400, Richard Acayan wrote:
+>>>>> The internal MI2S ports are found on devices with the internal sound
+>>>>> card for Snapdragon 660. Add support for them.
+>>>>>
+>>>>> Signed-off-by: Richard Acayan <mailingradian@gmail.com>
+>>>>> ---
+>>>>>   .../bindings/sound/qcom,q6dsp-lpass-ports.yaml     |  4 ++--
+>>>>>   include/dt-bindings/sound/qcom,q6dsp-lpass-ports.h | 14 
+>>>>> ++++++++++++++
+>>>>>   2 files changed, 16 insertions(+), 2 deletions(-)
+>>>> Same feedback as last time. DO NOT send next versions, untill you 
+>>>> reply
+>>>> or address the feedback.
+>>> Ok, I believe this is about [1] and [2] with reference to the patches
+>>> already in v7.1-rc1 [3].
+>>>
+>>> My patches add INT0_MI2S_RX through INT6_MI2S_TX, which correspond to
+>>> q6afe port IDs 0x102e - 0x103b. Srini's patches add LPI_MI2S_RX_0
+>>> through LPI_MI2S_TX_4, but no q6afe port IDs.
+>>>
+>>> I asked if the LPI_MI2S ports have q6afe port IDs to check if we're
+>>> referring to the same ports, but apparently q6afe is too old to have it
+>>> [4]:
+>>>
+>>>     > Is the LPI MI2S on Q6AFE? I don't see the AFE port ID.
+>>>     I think the older SOCs did not have this I guess,
+>>>
+>>> Even if there's already an allocation of dt-bindings ports for 
+>>> LPI_MI2S,
+>>> they can't just be reused for INT_MI2S. There are allegedly INT5_MI2S
+>>> and INT6_MI2S (each RX and TX) but LPI_MI2S only counts to 4.
+>> Then what is the difference between INT and LPI? People stuff here some
+>> hardware names but this is SW ABI, so MI2S_RX_0 is only one. Just like
+>> we have DISPLAY_PORT_RX_0, but no LPI_DISPLAY_PORT_RX_0 and
+>> INT_DISPLAY_PORT_RX_0.
+resending since this message failed to deliver.
+> Then do you mean that LPI_MI2S ports need to have port ID's assigned 
+> like Richard done that for INT_MI2S? +Srini, Is this a good idea?
+>> Best regards,
+>> Krzysztof
+>
+-- 
 Best regards,
-Krzysztof
+Nickolay
 
