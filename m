@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35517352C35;
-	Sat, 30 May 2026 20:48:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94884352038;
+	Sat, 30 May 2026 20:48:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780174114; cv=none; b=bUs6hPbqw967xBJJvcQ3SRja5DtX5Y4TFLMduViAKdaF4nxvG/dtOerUlvI1zqi1Qy/zpB0qhKsZLcTpOwQOMQevPepmgcqPYs7GGNikQO/UyznX97ZgpbBo6M6IEMXw/GUSQ71Uwkf9uw7YQsaOZiZe6h+KgcIRkADxoYISm4o=
+	t=1780174115; cv=none; b=KxwUeDXcTfssAwGIrukolswMFvXYv/RxNlxDcQn8rEtmSS98PsuP5sXH3gFWx8AawB5KNzFMmooqxXef6bFrSnlTSVzuWf0bmSn/k78qba0kA29R3cAA0M15X1+Jg4YV83UeX+IosFnJ2zHmNNrV8aRNXzIIkfEbsOegCbgyznY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780174114; c=relaxed/simple;
-	bh=5+txLqFZyLzhfRSQGSDvj+oSfI9UcKA0qX4oCa6GViU=;
+	s=arc-20240116; t=1780174115; c=relaxed/simple;
+	bh=xqmU2qr6Mpk04tJ0yn2G0IrJQ4O6nidMwj1OTPu5sR4=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=piB8g+Tfo3+HH149VkOcehA+9R/hQogs7/9c+w95gDWZUz1GPDUdMmQ4RBJm7vzcjb9Bh6osH+yv4xeZR6CHGHk7LKU1bUyueBUdT6le/rye+R45jOdcwNZdctoo743hwDJWVWXe5fwH+izRi3V/xCAF8kgMKsZ8lqB79leDNYs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LyBu6SZ5; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=Y85N7p8CO7MVe3YsQ6bSXUYMBcsIsbnRqbLzmJClGfppu7SQI9WJHVRZwannzwLvTuM/uBTHM8an6AaF69WcZHAZ9KzMi6omRnNk0h3Jrf8+QPb4JuGIzKwVy+dE36wB6f78qgxRFjzxvGKFCZfuwcRcmpcNeeWRoHQz3Gin7ts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a2OtfUrl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LyBu6SZ5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F3EB1F00893;
-	Sat, 30 May 2026 20:48:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a2OtfUrl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C87B51F00898;
+	Sat, 30 May 2026 20:48:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780174111;
-	bh=zRdUXHUxNpzFpwf/HXedGTjWjMk+ypXQQ/BZbvB5q+Q=;
+	s=k20260515; t=1780174113;
+	bh=c9vLKWYG42FEGYkXWgIv3uwvb3u+dOyLKJzsNTX1l4A=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=LyBu6SZ55uxmIlpUrr+vhuMTSuWTftX5z3Mg5zBFqwssuzmXdzbphDpeKgr5e/Su/
-	 x5UxnRg9WLZMVwsOjAwXWHKWn2k03DifeEui2lacaNay2WQvXH0vvMCt/u5IQDENfm
-	 xiBcynhaoBf/sHd7pOz1d9pvLi4V+9K28OB6edUw9N0zhZiea4qO+M5wzhwTNwaPD/
-	 CBxkNauJW4NR7PsYtDZD3pZRKU+y7oCttgUIL6C0f1RYBv6Q1CaOKA4Kz/WVNrKLS3
-	 oXM0jDgBEdiVzhXs9WW8s01fyG72X0O7WuK6CHfIIWTPGmy36J6VXwnA55zPND9T+g
-	 wjh24vkRARz1Q==
-Date: Sat, 30 May 2026 15:48:29 -0500
+	b=a2OtfUrlXutm5ZE8Fug07AhMbKv2H+ooDEDCNjWQj7Os/kjhxrbeJYEaGpLvKB/6a
+	 YQbWhJ2wtFjeCMCUlHRkDZlkL3tyD8t+JLq6uYtmCQ2EskyuV1AUAfyhUezTSM9V6/
+	 bG+Ak7oIy0lfr0iB9SM/FKwUXVq2ctDEzne16pGErdYjLE1JME6NAbujLTXfCFImph
+	 VEFXOzAkfxac+bgbbn8iO9uOfdMbl7XoL+Z0kP38eElQC5NNbc9nJSA2IbPrZ/V0mB
+	 qtS3v266kMpKxXZAFPoCvGXKpE5BubD9bBY83omk70CmdaXpy67bChnc8yx0BL9wna
+	 Qul5ncVjOlGZQ==
+Date: Sat, 30 May 2026 15:48:31 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,38 +36,42 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: linux-kernel@vger.kernel.org, Thara Gopinath <thara.gopinath@gmail.com>, 
- Zhang Rui <rui.zhang@intel.com>, linux-arm-msm@vger.kernel.org, 
- linux-pm@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>, 
- "Rafael J. Wysocki" <rafael@kernel.org>, devicetree@vger.kernel.org, 
- Lukasz Luba <lukasz.luba@arm.com>, 
- Daniel Lezcano <daniel.lezcano@kernel.org>, 
- Amit Kucheria <amitk@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>
-To: Herman van Hazendonk <github.com@herrie.org>
-In-Reply-To: <386f3cef9d50d61f588f99706d9f979c56f8bab8.1780148149.git.github.com@herrie.org>
-References: <cover.1780148149.git.github.com@herrie.org>
- <386f3cef9d50d61f588f99706d9f979c56f8bab8.1780148149.git.github.com@herrie.org>
-Message-Id: <178017410406.3710254.14105347323539031701.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: thermal: qcom: add pm8901-temp-alarm
+Cc: devicetree@vger.kernel.org, clabbe@baylibre.com, 
+ linux-rockchip@lists.infradead.org, heiko@sntech.de, 
+ linux-arm-kernel@lists.infradead.org, krzk+dt@kernel.org, 
+ conor+dt@kernel.org, davem@davemloft.net, linux-kernel@vger.kernel.org, 
+ linux-crypto@vger.kernel.org, herbert@gondor.apana.org.au
+To: Dawid Olesinski <dawidro@gmail.com>
+In-Reply-To: <20260530160704.3453555-2-dawidro@gmail.com>
+References: <20260530160704.3453555-1-dawidro@gmail.com>
+ <20260530160704.3453555-2-dawidro@gmail.com>
+Message-Id: <178017410969.3710466.3951554039156108335.robh@kernel.org>
+Subject: Re: [PATCH 1/4] dt-bindings: crypto: rockchip: Add RK356x/RK3588
+ crypto engine binding
 
 
-On Sat, 30 May 2026 16:00:39 +0200, Herman van Hazendonk wrote:
-> Add the binding for the temperature-alarm block inside the Qualcomm
-> PM8901 PMIC (companion to the PM8058 on MSM8x60). The driver exposes
-> the PM8901 die-temperature trip stages (105 / 125 / 145 C) to the
-> thermal framework via a thermal-zone, with stage 3 wired as a
-> critical trip so the kernel issues orderly_poweroff() when the part
-> overheats.
+On Sat, 30 May 2026 17:06:42 +0100, Dawid Olesinski wrote:
+> Add a YAML device tree binding for the Rockchip second-generation (V2)
+> cryptographic hardware accelerator present on the RK3568 and RK3588 SoCs.
 > 
-> The binding describes the SSBI sub-node address, the GIC interrupt
-> the alarm raises on a stage transition, and the parent PMIC
-> reference.
+> The IP block exposes AES-ECB, AES-CBC, AES-XTS block ciphers, SHA-1,
+> SHA-224, SHA-256, SHA-384, SHA-512, MD5, and SM3 hash algorithms, each
+> with a hardware DMA engine controlled via linked-list descriptors.
 > 
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+> The binding covers two compatible strings:
+> 
+>   - rockchip,rk3568-crypto: clocks and resets are driven directly by the
+>     non-secure CRU (accessible to Linux at EL1).
+>   - rockchip,rk3588-crypto: clocks and resets live in SECURECRU, a
+>     register bank sandboxed to TrustZone. Linux must request them through
+>     the ARM SCMI firmware interface (scmi_clk / scmi_reset), as direct
+>     MMIO access to SECURECRU from EL1 triggers a bus fault.
+> 
+> Signed-off-by: Dawid Olesinski <dawidro@gmail.com>
 > ---
->  .../thermal/qcom,pm8901-temp-alarm.yaml       | 79 +++++++++++++++++++
->  1 file changed, 79 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.yaml
+>  .../crypto/rockchip,rk3588-crypto.yaml        | 69 +++++++++++++++++++
+>  1 file changed, 69 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.yaml
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -75,16 +79,19 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.example.dtb: pmic (qcom,pm8901): 'temp-alarm@23' does not match any of the regexes: '^pinctrl-[0-9]+$', 'gpio@[0-9a-f]+$', 'keypad@[0-9a-f]+$', 'led@[0-9a-f]+$', 'mpps@[0-9a-f]+$', 'pwrkey@[0-9a-f]+$', 'rtc@[0-9a-f]+$', 'vibrator@[0-9a-f]+$', 'xoadc@[0-9a-f]+$'
-	from schema $id: http://devicetree.org/schemas/mfd/qcom-pm8xxx.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.example.dtb: pmic (qcom,pm8901): 'oneOf' conditional failed, one must be fixed:
-	'interrupts' is a required property
-	'interrupts-extended' is a required property
-	from schema $id: http://devicetree.org/schemas/mfd/qcom-pm8xxx.yaml
+Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:30.33-49 Unexpected 'SCMI_CRYPTO_CORE'
+Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:31.33-52 Unexpected 'SCMI_ACLK_SECURE_NS'
+Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:32.33-52 Unexpected 'SCMI_HCLK_SECURE_NS'
+Lexical error: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dts:34.35-56 Unexpected 'SCMI_SRST_CRYPTO_CORE'
+FATAL ERROR: Syntax error parsing input tree
+make[2]: *** [scripts/Makefile.dtbs:140: Documentation/devicetree/bindings/crypto/rockchip,rk3588-crypto.example.dtb] Error 1
+make[2]: *** Waiting for unfinished jobs....
+make[1]: *** [/builds/robherring/dt-review-ci/linux/Makefile:1660: dt_binding_check] Error 2
+make: *** [Makefile:248: __sub-make] Error 2
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/386f3cef9d50d61f588f99706d9f979c56f8bab8.1780148149.git.github.com@herrie.org
+See https://patchwork.kernel.org/project/devicetree/patch/20260530160704.3453555-2-dawidro@gmail.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
