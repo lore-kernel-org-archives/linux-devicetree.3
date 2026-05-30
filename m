@@ -1,200 +1,160 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 264C43403F9;
-	Sat, 30 May 2026 17:33:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583C31C5799
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 17:35:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780162408; cv=none; b=Pu8AFO1jxt9NV4HRw3Ln5AkBrb5QbOgjeiK53d5NHM7u2jBPjYPn1ut6W8bCpaRT7BIExkOJlgM6f42qUy7pZQ+R0mgmPRpJKTdxue3GUTwHHCphs83/ZBwQO/rl0WQUIe/5nOzCFH8/xW8ZgUwuJ6sUi7wQI5ahD7JKq/BdCzg=
+	t=1780162524; cv=none; b=W5GQ1GVctOwJxKs+FGWiMlpAMilTfwrYLr8KgvymgjlmOm1ju5XV+TvGQ/LIyRgI9UJCDiRGRYMzNUwCKxONb0eXBV2ydKRukA9H3PQTv6w00CKaKfnm5czBy9xgxd4joYaFmbFPlzdhMlhhYMTl0PZm8yQ6NVRi51v5Gv+AzvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780162408; c=relaxed/simple;
-	bh=Cwzmcd1bXpq1ItCP3waaFojujM6EvxkPRqBPiv4+6EE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=L02waWwGwSsa5C4hkQCkWEkGMXHFdVnwDWAXbA7q4xyjR9+/Qn/pwA/lzENyJEPU2J8nQ/vNLi0ZXjU6mTxHe6wo8cf/fxxJLa8hImMbm5eLwkOCKUp4oYg6KjGLmFHRU3ypFt14ZOoiah4n+hSM3f2vi5DVYFXjHmj27hDGlx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DtB1Ks3p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780162524; c=relaxed/simple;
+	bh=oFEYEJ7SA8sUm/pXg5pC1/BYgPiYYcdFYQGF/ujaB4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iY3to5AgWLg6MZw5UTSKYbl0ACH1AgwbYZsLryZf02GmKlFyi74QcBLZEscL6x7xTGpeMrLMFJd2d7uVmn+Joeizvch1ZuxuzZxvq2FR/FVuZgqp3QgW1nm/599Gamk4RMi6zwmk3sFE2VAhUQoQrSaJcIvYrzjSGrGw4dQBBzw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Zr98FawW; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DtB1Ks3p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4BC1F00893;
-	Sat, 30 May 2026 17:33:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780162406;
-	bh=uAflBWOHLMczVAx0OqWwLrWmJzNPKJqnt7OnFqzNt6g=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=DtB1Ks3pddrvkt5ANvMit/Nr8FN17UEKfuMv2Qi/BtHKQyho9447UtfHZj+UeLCAc
-	 09J6ceCqzucIPNqZtuXbMHDjr4ws45MU4fPPOnF2nMWLDJSi7Xy9YXGzwQDii0YrUS
-	 xqSj+RKNT8jbK0/5+wUTEiPeXdH/RHgcHb/m3anLXeuAKrSoPHv4VTSq/6dykdEP47
-	 XdsWrzVjZB1mNd1igVz3RKG4798No2SYhFHLns+U3v1oUPlG9wpK3duXFV/Fc9aZsU
-	 0QIFapivknON4x62Ec46BzEa/orUxdutBwrkh0w/NOxD+N8A3O+hCnrSSx6439d7bj
-	 Ob5C2TZg2QF/g==
-Message-ID: <b445e9e3-dfda-45d6-bafb-a2deb3357144@kernel.org>
-Date: Sat, 30 May 2026 19:33:20 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Zr98FawW"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-91550dda53cso8955585a.1
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 10:35:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780162521; x=1780767321; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=VScxEqB1ufMX1zFMz0Kwtu1aZDayJH9mecM8OM4h8BQ=;
+        b=Zr98FawW1aMdpJrI4fahLOX87AXh5+zTasD7AKos47spesld85MggAKTsctYN+zfI2
+         lcHJfPTJM0zXZuQphH8h7Kfl6KjPRmQrPZP+3gkfrvGt7A4yt+M23RSslTaQXWz0POXR
+         YAndQRYYK2xv8RmVyYkxsm3g2nkmHJ5vMXn6OJ3zOfblLyQBYOhIfX8CF44kIc9KkHw3
+         JljMkviZfWwyY5EIkNImqSBJqzrGo66gd/d5VBbAV/H9Q4IrTGZivmcRT07ALvf2rf8t
+         IVXAD3r9m2ZskPIrWkEQWEmNockmh2YbWPbXuVc854+CA5c0F+87SrIcibu0ujbjCZ64
+         m8bA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780162521; x=1780767321;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=VScxEqB1ufMX1zFMz0Kwtu1aZDayJH9mecM8OM4h8BQ=;
+        b=HKGW9PT+Z9KnxwmzsE2HpzsaL9rhxkuDlQZbE4CE33Q0/Bt0B62+NqxcwbApgVFuur
+         QL8BF071Eqr6CNW9TQ0q/X9jNpOGPYoerAvvadStlISiY+fljP3e3a2V3PJL9QJ5jwBx
+         x58ELzhAwtRRnKNudxCbWT0RZ2haXn1aAQ0ehDryzHgaDlYPBTuJw9qXW07sSQfZolXY
+         jhpHWgtvN64F2PPOv9uwUOmZ8MFsvJ27ucRuEzFpN2zLlfdi7VuZO8+wGZPodc1Co3wa
+         yUZKsawgWJOvF9J0a0rZfjNPSy59khwpcIiOnWcjffFZfQf92YRPa2fdk+PC+LrHz4YB
+         x9Xw==
+X-Forwarded-Encrypted: i=1; AFNElJ+jeBrSAGjrp7bq5NTWQdPLnEDnAmQIzx15Y8l8Xhe/4+45EBhl/QKqXuzg1GTmLOI0iakZ3EgBr1fj@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw/yZN5HIbPkHdbVOKbVXrzwUilYMyUgOR1kwU+A9BHY3pIkJ1U
+	2A3FhpapXZErC+ML8KDnULD6whnyNs45wzdcltgB1Ae2Iz6l+cJFcqCt
+X-Gm-Gg: Acq92OG0TR6iEDljAQioubVPmKRPSbuHI81maSZG09uN3Ufb2cMLKzFgeCQpdFQkAK8
+	bFaSLepFu0h1h99jLM4xWgWcT1IZp99unaPs6IT3sO+nH6mCIj5CTuQQFzHSFVbngTB49FmOsqb
+	sIKXw7tbr6rtK4JSO7LMTnxgwic2dWOvGECCSxJSh6ggonlVc44s657+l7Tex8NfWC7YjG05BPW
+	8z7bRIvu2MZ7FbUrO0/SHrP/8NwNeIClt21vqL0PHO9pax0E/aD2fLZUDkKSnzq81YGzVQxaj1G
+	f2SV2sxskYhV4dSj63X3PmVnXELFkTh60gTsMXmkzGKhjAFKN7jtJ6Ekrk07tyuTO6+2ehOxIWQ
+	9du8L+88h+pzc7h0XJlt6yCX+6XZ7x/ic4+Nh4B+C2kqZNgsin63chIgEhdqvM6rG94pZoRxVGI
+	A06U7JpheUOep6pNtwfXAt4PAL0KB3sZECJf6LWnXQvgxYcJ9QWQN/rY0hssUlqavn8y8=
+X-Received: by 2002:a05:620a:708e:b0:914:c226:ecae with SMTP id af79cd13be357-9153da04456mr673431185a.24.1780162521335;
+        Sat, 30 May 2026 10:35:21 -0700 (PDT)
+Received: from sleek (d-23-244-200-70.nh.cpe.atlanticbb.net. [23.244.200.70])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-9153244e114sm565606885a.5.2026.05.30.10.35.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 30 May 2026 10:35:20 -0700 (PDT)
+From: Joshua Milas <josh.milas@gmail.com>
+To: tglx@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	samuel.holland@sifive.com,
+	unicorn_wang@outlook.com,
+	inochiama@gmail.com,
+	daniel.lezcano@linaro.org,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	liujingqi@lanxincomputing.com,
+	alexander.sverdlin@gmail.com,
+	rabenda.cn@gmail.com,
+	dlan@kernel.org,
+	chao.wei@sophgo.com,
+	anup@brainfault.org
+Cc: josh.milas@gmail.com,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	sophgo@lists.linux.dev,
+	hanguidong02@gmail.com,
+	michael.opdenacker@rootcommit.com
+Subject: [PATCH v5 RESEND 0/5] Add initial Milk-V Duo S board support
+Date: Sat, 30 May 2026 13:33:42 -0400
+Message-ID: <20260530173347.33533-1-josh.milas@gmail.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: ufs: Document static TX Equalization
- settings properties
-To: Can Guo <can.guo@oss.qualcomm.com>
-Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
- martin.petersen@oracle.com, mani@kernel.org, linux-scsi@vger.kernel.org,
- Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Matthias Brugger
- <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
- Zhaoming Luo <zhml@posteo.com>, Ram Kumar Dwivedi
- <quic_rdwivedi@quicinc.com>,
- "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>, open list <linux-kernel@vger.kernel.org>,
- "moderated list:ARM/Mediatek SoC support:Keyword:mediatek"
- <linux-arm-kernel@lists.infradead.org>,
- "moderated list:ARM/Mediatek SoC support:Keyword:mediatek"
- <linux-mediatek@lists.infradead.org>
-References: <20260529113338.984301-1-can.guo@oss.qualcomm.com>
- <20260529113338.984301-2-can.guo@oss.qualcomm.com>
- <20260529-neat-bright-shellfish-eab5e8@quoll>
- <ada65ce2-6736-44fe-9396-d3ed632274ce@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ada65ce2-6736-44fe-9396-d3ed632274ce@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 30/05/2026 14:45, Can Guo wrote:
-> 
-> 
-> On 5/30/2026 12:58 AM, Krzysztof Kozlowski wrote:
->> On Fri, May 29, 2026 at 04:33:37AM -0700, Can Guo wrote:
->>> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
->>> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
->>> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
->>> integrity at high speed operation.
->>>
->>> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
->>> required depending on channel characteristics.
->>>
->>> Add vendor-neutral DT properties:
->>>
->>> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
->>> - fixed property tx-precode-enable-g6
->>>
->>> Each property is a uint32 array of per-lane tuples:
->>> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
->>>
->>> Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
->>> are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
->>>
->>> Acked-by: Manivannan Sadhasivam <mani@kernel.org>
->>> Reviewed-by: Bean Huo <beanhuo@micron.com>
->>> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
->>> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
->>> ---
->>>   .../devicetree/bindings/ufs/ufs-common.yaml   | 45 +++++++++++++++++++
->>>   1 file changed, 45 insertions(+)
->>>
->>> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
->>> index ed97f5682509..d90cf25adfa5 100644
->>> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
->>> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
->>> @@ -105,6 +105,51 @@ properties:
->>>         Restricts the UFS controller to rate-a or rate-b for both TX and
->>>         RX directions.
->>>   
->>> +  tx-precode-enable-g6:
->>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>> +    oneOf:
->>> +      - minItems: 2
->>> +        maxItems: 2
->>> +      - minItems: 4
->>> +        maxItems: 4
->>> +    items:
->>> +      enum: [0, 1]
->>> +    description: |
->>> +      Static TX Precode enable values for HS-G6 only.
->>> +      Values are specified as per-lane tuples:
->>> +      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
->> You need to include them in any of applicable examples, otherwise
->> nothing here is validated.
-> Hi Krzysztof,
-> 
-> Thanks for the review.
-> 
-> Since no UFS5-capable SoC binding exists upstream yet (the target SoC is
+This adds an initial device tree for the Milk-V Duo S board
+with support for reading from the SD card and network over
+Ethernet. This is continued work from Michael Opdenacker's
+v6 series [1] on the ARM64 and RISCV side. It has been tested
+with ARM64 and RISCV64 to boot from an SD card, have networking,
+and read I2C slave devices over i2c4.
 
-I would imagine cover letter or commit msg would briefly mention that.
+---
 
-> still pre-CS), there is no vendor-specific YAML to attach the example to.
-> 
-> Is a synthetic example directly in ufs-common.yaml OK to you?
+v5
+- Fixes spaces at beginning of line in &usb node of DTS
 
-Skip example in such case.
+v4: https://lore.kernel.org/sophgo/20260328173450.219664-2-josh.milas@gmail.com/
+- Rebased to latest sophogo/for-next
+- Added usb node to arm64 and riscv DTS
+- Removed sg200x link in commit messages
+- Added missing change to v3 and removed link from v2
 
->>
->> Why values cannot be on or off? Or even better: why you cannot just list
->> all the lanes which has it enabled, assuming disabled is by default?
-> Thanks for the suggestions.
-> 
-> For the "just list enabled lanes" suggestion: precode must be configured
-> independently for the Host-side TX and Device-side TX transceivers within
-> the same physical lane. A lane index list alone cannot capture this
-> two-dimensional per-lane state. The tuple format <Host_LaneN Device_LaneN>
-> is the minimal encoding that covers both.
+v3: https://lore.kernel.org/sophgo/20251029001052.36774-1-josh.milas@gmail.com/
+- Added sg2000 interrupt controller and timer to documentation
+- Added sg2000.dtsi for RISCV and moved DTS over to use it
+- remove devices from DTS's to match what is available in the
+  default pinmux config. spi0-2, i2c0-3, uart1-4
+- Added i2c4 and spi3 aliases
+- Removed milkv,duo-s from sophgo,cv1812h in documentation
 
-Again, why do you need to encode '0'?
+v2: https://lore.kernel.org/sophgo/20251011014811.28521-1-josh.milas@gmail.com/
+- Made new entry in docs to avoid DTC error
+- "Milk-V DuoS" -> "Milk-V Duo S"
+- Sorting of aliases
+- Added uart*, emmc, mdio, gmac0, i2c*, spi*, dmac, saradc
+  to device tree matching what is available on the pinout
+- Removal of 'no-mmc' and 'no-sdio' for sdhci0 as it works without
+- Added riscv device tree
 
-> 
-> For the "on/off" suggestion: the on/off string pattern is used with
-> single-value properties (e.g. LED default-state) read via
-> of_property_read_string(). I am not aware of precedent for on/off as a
-> string array for per-lane tuples.
+v1: https://lore.kernel.org/sophgo/20250927173619.89768-1-josh.milas@gmail.com/
 
-git grep string-array. Plenty of precedents.
+Link: https://lore.kernel.org/linux-riscv/20240421055710.143617-1-michael.opdenacker@bootlin.com/ [1]
 
-Best regards,
-Krzysztof
+Joshua Milas (5):
+  dt-bindings: soc: sophgo: add Milk-V Duo S board compatibles
+  arm64: dts: sophgo: add initial Milk-V Duo S board support
+  dt-bindings: soc: sophgo: add sg2000 plic and clint documentation
+  riscv64: dts: sophgo: add SG2000 dtsi
+  riscv64: dts: sophgo: add initial Milk-V Duo S board support
+
+ .../sifive,plic-1.0.0.yaml                    |  1 +
+ .../bindings/soc/sophgo/sophgo.yaml           |  4 +
+ .../bindings/timer/sifive,clint.yaml          |  1 +
+ arch/arm64/boot/dts/sophgo/Makefile           |  1 +
+ .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
+ arch/riscv/boot/dts/sophgo/Makefile           |  1 +
+ .../boot/dts/sophgo/sg2000-milkv-duo-s.dts    | 85 +++++++++++++++++++
+ arch/riscv/boot/dts/sophgo/sg2000.dtsi        | 53 ++++++++++++
+ 8 files changed, 231 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+ create mode 100644 arch/riscv/boot/dts/sophgo/sg2000-milkv-duo-s.dts
+ create mode 100644 arch/riscv/boot/dts/sophgo/sg2000.dtsi
+
+
+base-commit: 9aa6068586a9b4cd34cf04f8dee72a7283ab4ae4
+-- 
+2.53.0
+
