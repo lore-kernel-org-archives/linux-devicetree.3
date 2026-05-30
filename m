@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDB8F26ED59
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 00:50:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62EE2DE70D
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 00:50:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780102214; cv=none; b=ARgo5yIIDqrKxAP3wvBFKRyYTTbn0nswsW2sVq2QDgsjAQ6+aJ+VhiKxj2f/0OofGMQaaBZJKGuMntHYkoEqC2g2gdlQLEx4jWdaflTJDzqx8L/nFDYTJOzdUCDuLxlNDO3tSw3VyvFOQjHcYayOt5Hzb47QWtU5zqp7HkaCg6A=
+	t=1780102215; cv=none; b=pX2nMGURzvIKRkdIsrfr3a/h7tK+qsdDlXfazvoLo11E6Z7U7FjcmYUsjcHI2Af9L56MsvhgSeGuRwHzeFVtl94qDq7UPQeInsNZbCfvhAsIIQNbT+G2jZVDt30br5XOeDlpB8dumNKLdb4MiyQZdnM3plvGhJsL7pv4oRvf614=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780102214; c=relaxed/simple;
-	bh=ULZnykkdO/ZFXgqLi52VatwZuFZfFKgPfgettPbNSK8=;
+	s=arc-20240116; t=1780102215; c=relaxed/simple;
+	bh=1fPAKwXdhhTOBcLOUwlEmpcLnndrxAwubswrVsAeXk0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=HItw87x/CqIoQ1mlUChpMzOSl2/OPgeUfeAEXTu1glwFowwg/GgYDAUMgUZSvUT++cZ2QbkAhAy/pjDVyt9rnOTtZIQXNQaaNcsKfVbvfvV33wC0tKyT9bM/Z94C52/j1DI/+iwMNly73VbbqpASSE4vyddd8yv/6dkALfqxNoE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=esGKV0fQ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=q66DhWj2nzTR5124qC5yzdq3ABScYgwyoZBx88MJ70gTvbhyw96psHxQGGUa6RLvC23NDrlXeRRydOFFvZBGxp6Vy/h51/c4Q5NyhH0VcNwYhf5AxwVtv75gXbUuN9F8y6R4rXV+2nw3RHFYmGw/9gX7YbHuLE+crSYDRVeIrsE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bDV1OByU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="esGKV0fQ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B9531F00899;
-	Sat, 30 May 2026 00:50:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bDV1OByU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 503F01F0089A;
+	Sat, 30 May 2026 00:50:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780102213;
-	bh=dOywTM+CC01nkuzdcDMaKGONTL3I0BcwxaDDnmcPXDQ=;
+	s=k20260515; t=1780102214;
+	bh=gnakwWo2poZ7NEmJWoSQ/yrXMnMspRwNWfVwv0dhOt8=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=esGKV0fQmqljCPyQ4v+NkH9W6GQmqOitpoVLF8GxpevcGTtXY55avDJrvgFahFe8T
-	 DcP8HZL6JBkvpsesyuu2NLUcQzdisCZ+5VD6qmCAUJAn+QrtZvNKAkrw4RZPgCbfvZ
-	 8RMdsvDK5nf3LRbdvMroLtHjmb4wevD9nAZo/Azk6Jm+jQwKYpJDI86H17YbMwtEU8
-	 HdFJnigblUoNMj8eh1ycD2pfSNUDJgy/7+TSopZ9lG7whtX8mKMW/A46zfe8inui2Z
-	 UdVZNmEHYwRufblwknsBqeYx8F2ld2HI+Rd6t/mR+BngzpC8jDg83fBDjTR2OsslbB
-	 1qFMP+92GSS7A==
+	b=bDV1OByUalTlJMhDNk/OVW4v2odyfX4xCdt/ewMhVHUTEtBYA/cyZ/35+iq6uOQwR
+	 MBZDHlYiiiBNRv8c9+Xxbdz9ThIC2jiL8fcM5ozCsKj2yh95szgDC1Q9takLIZMxAa
+	 bbD4luL44PdosvXcW2fmHmYRIH4vrao+471WDewKWxqg6cTtW9jKMZCOU2kEsHDCRO
+	 xYrp1fm9drJOhe3Oaj4uWMXxYDk/ygSGYwDnurD+a26rrCecfCY82Mapt5IjCWWa6w
+	 4Jv+gEHFr/IxkNNgP4fskRO3zJqUxMRbJjkxbxWKbXigS/1mIohodbk8IazGWyDS2b
+	 WcZJW42kDMs7w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v6 5/9] net: dsa: lan9645x: add bridge support
+Subject: Re: [PATCH net-next v6 6/9] net: dsa: lan9645x: add vlan support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260527-dsa_lan9645x_switch_driver_base-v6-5-4d409ae64f3c@microchip.com>
-References: <20260527-dsa_lan9645x_switch_driver_base-v6-5-4d409ae64f3c@microchip.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260527-dsa_lan9645x_switch_driver_base-v6-6-4d409ae64f3c@microchip.com>
+References: <20260527-dsa_lan9645x_switch_driver_base-v6-6-4d409ae64f3c@microchip.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
 Date: Sat, 30 May 2026 00:50:13 +0000
-Message-Id: <20260530005013.8B9531F00899@smtp.kernel.org>
+Message-Id: <20260530005014.503F01F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,72 +45,78 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] Failure to clear `bridge_fwd_mask` and `stp_state` when a port lea=
-ves a bridge allows a stale forwarding state to persist, creating a race co=
-ndition that can lead to temporary Layer 2 loops.
+- [High] lan9645x_port_vlan_filtering clobbers the CPU (NPI) port's egress =
+tagging configuration
 --
 
-commit 31a25a746a8f28de119e2a7f8f9439f1cb05b67f
+commit 6fffecbf30e0b6af9ee79a8cd06c0280fc266991
 Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
 ip.com>
 
-net: dsa: lan9645x: add bridge support
-
-This commit adds hardware offloading support for a single bridge device
-to the lan9645x DSA switch driver.
+    net: dsa: lan9645x: add vlan support
+   =20
+    Add VLAN support for VLAN-aware and VLAN-unaware bridges.
 
 > diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c b/drivers=
 /net/dsa/microchip/lan9645x/lan9645x_main.c
+> index 9d8f3a1b335bd..eb13dfadbd3cf 100644
 > --- a/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 > +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_main.c
 [ ... ]
-> @@ -269,6 +292,278 @@ static void lan9645x_port_phylink_get_caps(struct d=
-sa_switch *ds, int port,
+> @@ -559,11 +563,52 @@ static void lan9645x_port_bridge_leave(struct dsa_s=
+witch *ds, int port,
 [ ... ]
-> +static void lan9645x_port_bridge_leave(struct dsa_switch *ds, int port,
-> +				       struct dsa_bridge bridge)
+> +static int lan9645x_port_vlan_filtering(struct dsa_switch *ds, int port,
+> +					bool enabled,
+> +					struct netlink_ext_ack *extack)
 > +{
 > +	struct lan9645x *lan9645x =3D ds->priv;
 > +	struct lan9645x_port *p;
 > +
 > +	p =3D lan9645x_to_port(lan9645x, port);
-> +
-> +	mutex_lock(&lan9645x->fwd_domain_lock);
-> +
-> +	lan9645x->bridge_mask &=3D ~BIT(p->chip_port);
+> +	p->vlan_aware =3D enabled;
+> +	lan9645x_vlan_port_apply(p);
 
 [Severity: High]
-Does leaving a port in the forwarding mask when it is removed from a bridge
-create a race condition if it rejoins the bridge later?
+Does this code inadvertently clobber the CPU (NPI) port's egress tagging
+configuration?
 
-If bridge_fwd_mask and stp_state are not cleared here in=20
-lan9645x_port_bridge_leave(), the stale forwarding state persists.
+When VLAN filtering is toggled on a user bridge port, the DSA core
+synchronizes this state to the CPU port by calling port_vlan_filtering().
+Here, the driver unconditionally delegates to lan9645x_vlan_port_apply(),
+which executes both ingress and egress VLAN application:
 
-When the port later rejoins the bridge, lan9645x_port_bridge_join() sets the
-bridge_mask bit again. There is a small window before the DSA core calls
-port_stp_state_set() to explicitly initialize the port to BR_STATE_BLOCKING
-(which would clear the bridge_fwd_mask bit).
+lan9645x_vlan_port_apply() {
+        lan9645x_vlan_port_apply_ingress(p);
+        lan9645x_vlan_port_apply_egress(p, NULL);
+}
 
-If a concurrent STP state change for another port in the bridge executes via
-the switchdev workqueue during this exact window, it will call
-lan9645x_update_fwd_mask(). The mask calculation bridge_mask &
-bridge_fwd_mask will falsely include the newly joined port, prematurely
-programming the hardware to forward traffic to and from it.
+Because the CPU port is typically non-bridged,
+lan9645x_vlan_port_apply_egress() will overwrite the REW_TAG_CFG register
+with LAN9645X_TAG_NO_PVID_NO_UNAWARE:
 
-Could this bypass the STP blocking phase, creating a vulnerability to
-broadcast storms and temporary Layer 2 loops?
+lan9645x_vlan_port_apply_egress() {
+        ...
+        if (!lan9645x_port_is_bridged(p)) {
+                tag_cfg =3D LAN9645X_TAG_NO_PVID_NO_UNAWARE;
+        ...
+}
+
+The driver correctly avoids applying egress tagging to the CPU port in other
+places. For example, lan9645x_port_setup() explicitly skips
+lan9645x_vlan_set_hostmode() for the NPI port, and
+lan9645x_vlan_cpu_add/del() only update ingress state.
+
+Without a similar guard (such as checking p->chip_port !=3D lan9645x->npi) =
+in
+this function, toggling VLAN filtering might push unexpected 802.1Q tags
+onto frames extracted to the host, breaking DSA tag parsing and software
+forwarding.
 
 > +
-> +	/* Last port leaving clears bridge dev */
-> +	if (!lan9645x->bridge_mask)
-> +		lan9645x->bridge =3D NULL;
-> +
-> +	__lan9645x_port_set_host_flood(lan9645x);
-> +	lan9645x_update_fwd_mask(lan9645x);
-> +
-> +	mutex_unlock(&lan9645x->fwd_domain_lock);
+> +	return 0;
 > +}
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260527-dsa_lan964=
-5x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com?part=3D5
+5x_switch_driver_base-v6-0-4d409ae64f3c@microchip.com?part=3D6
