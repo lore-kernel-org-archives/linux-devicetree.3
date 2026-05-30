@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70C2F253B42;
-	Sat, 30 May 2026 10:44:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E52B0395ACB;
+	Sat, 30 May 2026 10:45:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780137890; cv=none; b=gePV8vudcOeo6WgQtrRIVOcd2F4q/la74pKk6ugLf6vDL/JPEn+qU7HN1uAAAWT9e3K+1Uoi6NCDO7gvAu8qrNkEoIJ6SmRYdTjtR0TpkZ/PWxtwUIKU5dYCjdsduTZGWEaaxMzmFi1I2N1yoEKVTpnAuwTfgpV1xUe76Bx45h4=
+	t=1780137957; cv=none; b=aUh+Vy4KeeVwghp6sHtAFirCpkS6Ubvhrwkku2TWcxmAngCPrlrKmdaFxEExWQEgpyvGcUc123GgM3gUnYmTBIs7OiR5fTyCyMh3POc95DkoQYDqQZOkoX4nLbCle7Ry82mXxOpuGzW4kCUa//luTGEIbOvF50P6EqiYqw9mOao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780137890; c=relaxed/simple;
-	bh=dOzgHxYakMLOd4CI8dc0KRhCNUyE4WgrPhWXiV83kg4=;
+	s=arc-20240116; t=1780137957; c=relaxed/simple;
+	bh=41mgkza2ssYfoIJMWXa24SoZZHPMX6psp/7XQSDOJ5o=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=SSpcUjOvtasE4jy3B27OV9XpAtZ9YKYj5SmiyYFyz8TQRdVIMxua5u70W+dskO8WDyhYHqt4pzu5A1u0sgNIfbP3ZUlufv9dVH0PKz0IMFGVhsKkC7VfXFsHrLSxYzpLWw3tHPCOfEnCJJZ3rbmgAi1P9Ksg5GLv1CK/SOkOt2Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c/Mwva5H; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ig12pXttmBZhmRgHSP5UDvndmtZ8/N/XdDYAhF597GbubZ7e/6+S7txQ+10+jesUp/9+956EQLRgu213E7lg+004Wd3n2HBevPZTyOwy007lb2D4U+hzCuD/J6G/tLDLV4EMG03qY1Qv5jti0D2OmTEV9UK0k42t54IuhiBGoUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LF9JPGAc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c/Mwva5H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81BC41F00893;
-	Sat, 30 May 2026 10:44:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LF9JPGAc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02A011F00893;
+	Sat, 30 May 2026 10:45:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780137889;
-	bh=Ah0BAmd+lwHuZO6zRBiL0+MEQYrEVAKIQyjvoixgNRI=;
+	s=k20260515; t=1780137956;
+	bh=lgysvuYQa3VryADSMxaUOkvnpUJJME8Z4Jq9WXkJPsM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=c/Mwva5Hzm5FVkloKcxpDPjbejs7gN/gCXj04ZWIkg4crNYrhY5SkWrpmG1XHjKLH
-	 qvCFZq10iibjzf7jSgKqQFJCWC1k55O4CVETgqY0IEYrFg5+gvmh8T0YrOQPsfkYyy
-	 kyIGnovk2EbYY4BZZTiUhEL7gYUFYVlIW7r3C2xYDXfK4L9GrUXVMPDMj6YYe8rYcR
-	 wyz8uTDD16ZMGu6f+QkNa+N94p8+egLsOVdqcWWEyoDLo17hKQI1qyVFbfUj1zXhJj
-	 NVzqWz8o6VTYjadhwKUzBTrep3hP1QLVy0Lris/dT790L+Qz4KIFiCL7gTNHteglom
-	 X0ZTBGk6NIMdA==
-Date: Sat, 30 May 2026 12:44:46 +0200
+	b=LF9JPGAcC6moprVYRK0U4dFljJn/TPozotuwfFii37DICafru5Y1mAAgjlhJ9e06z
+	 9SGRJEk5thzrrSB5IJNQKd6brcTQ0i/vBmArRmWoFmnG8h6IuAGYaSBDGy2KeeHqb3
+	 Sp41R1Po7GEY/ZeRbsnKV++sgd3pGQt9tUuRMhu7US3dBNO5r7CB5VyVRwJnr4Al8c
+	 MHlCGcQFBcBuwg8mWJ4NFaTiaXJr19gtPbFlA5LTJRtrez5KvxKH6r01ogiKGgWFoG
+	 FNu+9r/srmgiu5XJJG3+U9i22Hp84uOarJ1iY7Iyp6T02UirR9FKPBxgThJMe9BrRu
+	 Xszkru5qtrvfw==
+Date: Sat, 30 May 2026 12:45:54 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: phucduc.bui@gmail.com
-Cc: broonie@kernel.org, lgirdwood@gmail.com, perex@perex.cz, 
-	tiwai@suse.com, heiko@sntech.de, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, linux-rockchip@lists.infradead.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 1/3] ASoC: dt-bindings: rockchip-spdif: Correct SPDIF
- clock descriptions
-Message-ID: <20260530-adventurous-basilisk-of-happiness-def6fa@quoll>
-References: <20260522100318.73474-1-phucduc.bui@gmail.com>
- <20260522100318.73474-2-phucduc.bui@gmail.com>
+To: Laurentiu Mihalcea <laurentiumihalcea111@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, 
+	Mathieu Poirier <mathieu.poirier@linaro.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Peng Fan <peng.fan@nxp.com>, Fabio Estevam <festevam@gmail.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, linux-remoteproc@vger.kernel.org, devicetree@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/5] dt-bindings: remoteproc: imx_rproc: document
+ optional "memory-region-names"
+Message-ID: <20260530-indefinable-oriole-of-champagne-375a1e@quoll>
+References: <20260522111849.783-1-laurentiumihalcea111@gmail.com>
+ <20260522111849.783-2-laurentiumihalcea111@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,47 +49,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260522100318.73474-2-phucduc.bui@gmail.com>
+In-Reply-To: <20260522111849.783-2-laurentiumihalcea111@gmail.com>
 
-On Fri, May 22, 2026 at 05:03:16PM +0700, phucduc.bui@gmail.com wrote:
-> From: bui duc phuc <phucduc.bui@gmail.com>
+On Fri, May 22, 2026 at 04:18:45AM -0700, Laurentiu Mihalcea wrote:
+> From: Laurentiu Mihalcea <laurentiu.mihalcea@nxp.com>
 > 
-> The clock descriptions are currently swapped relative to the
-> clock names used by the driver.
+> Document the optional "memory-region-names" property.
 
-Why would order of clock names in the driver matter here? I do not
-understand that explanation.
-
-> 
-> Update the binding descriptions to match the actual clock
-> usage, where 'mclk' is the controller clock and 'hclk' is
-> the bus clock.
-
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
-
-> 
-> Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
-> ---
->  Documentation/devicetree/bindings/sound/rockchip-spdif.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-> index 502907dd28b3..b174d7498029 100644
-> --- a/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-> +++ b/Documentation/devicetree/bindings/sound/rockchip-spdif.yaml
-> @@ -45,8 +45,8 @@ properties:
->  
->    clocks:
->      items:
-> -      - description: clock for SPDIF bus
->        - description: clock for SPDIF controller
-> +      - description: clock for SPDIF bus
-
-So example is wrong?
-
-What about all the users?
+Why?
 
 Best regards,
 Krzysztof
