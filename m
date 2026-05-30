@@ -1,63 +1,63 @@
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com [209.85.221.47])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3EA8311C36
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:58:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0DE317160
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 14:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780153092; cv=none; b=Egt8sSe+qZtZeJodFGnUsKwW24Mib9xxicKIJzBnlT85WkeirVXENIOto/H21/+Dzr0ThnEKZqI7Hia7ONoOp3S4BUlMZzbwSXjf8X8qpfLxtCyJ/6KFbh18H7o9U6jM60zn4mNiMuy+gABnkxi6tLEALQ7S0Sub5dpF2BjgIfw=
+	t=1780153094; cv=none; b=KGOMCGcMFKoTIDPbqnZ+PpChUKsJXhlcT8aTASkvOJ7Ltmbo2kQcHRyxfdtCb8XrUgiu0AB2V2gjE464MX0oH51UsQJoUyPBTRakGD6Ag02DDSr+1zMsUE4sowNYs4l0WPAYYirztOwwGFbJ6kZwO/lMVFwgAgPf4vAFGkg10GQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780153092; c=relaxed/simple;
-	bh=LaSZy4tAMF/OIeKnicst81GeQ4Uzqc4SwQUQiLMnA1U=;
+	s=arc-20240116; t=1780153094; c=relaxed/simple;
+	bh=Q2dM1RFym1OfrINK+LVMiRXtIN6rihS6sLMgCqCHGOA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KI3sGzMXew+GYM+8fz0ymVe6z3jErI3Ts7e+XOKEHfXUyGHtBGnwKXtlysUTaPvHfQ6B/pJiBYqav/BOl0rE5OTUqVC8xvCHVfv39YaR7caPP0/jpkMIiARdOLnlpPHbgxzR48OHyFb0BWyHN/djPnaJX81Q/HAC0j2Wn2YLzZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=myT0clkv; arc=none smtp.client-ip=209.85.221.47
+	 MIME-Version; b=PwWaTMZvlLeisZlyYlCY4as5twUwYMj+HvQ+oh/eDafdlezGQe1YgJOL7WULJMaHwkAu7x37TcyajiYnX9wm7xS5X/ZtB+W39bTjSTxBc25yvGcS/7wm5nxek+CySmN8zvl8eH/yMAWIOJbpNBh9Pgxj27iWjVO9XN/ZPaQfpZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mHK7UGSs; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="myT0clkv"
-Received: by mail-wr1-f47.google.com with SMTP id ffacd0b85a97d-441209fb77eso9106069f8f.1
-        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 07:58:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mHK7UGSs"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490388fd0dbso91451005e9.0
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 07:58:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780153089; x=1780757889; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780153092; x=1780757892; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=r32fsRHaMPradn/MupXc1NKlCK5+0PUCZmgy8fvmlC0=;
-        b=myT0clkvizDLtb0TsxST/nea0ocUR+ILNbklafRTLZ3rQcshEHSj04lRl5teM+JeTN
-         W1XeTDBcqLJrRO7wYYFI/ROn6af1+AQXBzEu+IXdhfXlOMkU/PRy9GtjYmoS6PcKjmaI
-         kdCn3wlMZStpHORUzom55nT4hc82aQLNrxO3s02mzi1qOvrXLTpum3o5RVntuoYcPsNB
-         MLI8f8NceBl+Xcqo/FEQTkjA9WQ77xEV3ovaxYQ0kf/PClL4W+V4n87k4ykk3ExF2UfW
-         EUZLf/+VNrIsoRvZ9InEM0Z5W5emwy/Ny0n/Op748yuO0riuOiBW4y4B4PiMUQl18ltI
-         1daA==
+        bh=E1TMEZ0J6gXWQTFmjGHghmrU7hof3+Zk+ggFlB5N5pU=;
+        b=mHK7UGSs7sXfgjRCktwK71k/Ahixb0t57RsnlhYjk2flhs7ixaIytqbFez1p9u2LA3
+         S5udJpY4h+06gMkO4cvd8urOvPgGVDcFdPws9k58Ni33utFEf8U8SxnW7ara5DSvg7x6
+         0IEY/ZGVi1SVHJYS+DIcQE5TIxwFwYxgaT5/YoM635h+uG+0AybDbuY0KSBvDESvCk9c
+         zP7khnSqE8zrChlfA1qiZaldvqFFL7ZWMMcwRhbcmocdB86pEovSFXSzZwfC6simzOIM
+         dDwES8Wuv7eoICHybVkSan1x3mL5uzBDn0P9lylvDYuz4L383L+hoMO+9MrgYQKD0I8L
+         9dgg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780153089; x=1780757889;
+        d=1e100.net; s=20251104; t=1780153092; x=1780757892;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=r32fsRHaMPradn/MupXc1NKlCK5+0PUCZmgy8fvmlC0=;
-        b=pwJr+/+yjA+LPdPuVQu9KDhmuL4UdHdqp7EOrWQ0XPC89sWMO0EGrxpbB4qZF+RBfN
-         r7WjCzuOW6LaC1DCrSvTH7O4DLpQ/3n33cc1Zy+le9DL2m64ei4GCPGRbUnj3MS2Nphj
-         GdhQktQl/+UTia6eSqBWhlZo6JNzKMALYrMeIJMmSm3A3rjtbGm2fvuv1M4962D7hwSx
-         8JRcaxZm11jKd2GzCYNu73XbkP4JhsFO49nsVCBi1FC0LQDTU7FFexyqzwyqKz3lg3xJ
-         pWYn30sCGHMGeaiqXdvpDT54PTGsgmeZcXGwL60DjPuEh7ipu1lMoJa/izH2Jgd6Mn2+
-         IUew==
-X-Forwarded-Encrypted: i=1; AFNElJ9wRgqoMW8BoQmjBkvVy5RCbRQY/QcsEfTmq3sQNp7B3K1E229DEu1ZyGxzY3/JXQrxvI/bKIOsVQNs@vger.kernel.org
-X-Gm-Message-State: AOJu0YyMN94TSa0qnPTDRj2qVzP1Qnrm1v8yuwgkBOHvilxGOoOXHdx2
-	r9Lk7YJSKMWYphepEVdGwbjKetInmvqOz4N7LOE2hbkvtAQIvTlNIQXt
-X-Gm-Gg: Acq92OFQvUDguYmZUANSfsGcLLOphCEcN8xUQ+uV1aKc5W9f+EHQVTHn56a4aEyNjIx
-	vqR/6zzQQKI26M+lJVt9UJUa03+dV/nirlCDhiRleitXRgGWCqJPzPCakm49hrNgovaegIrtI2m
-	rIF5u8uU4cRET3/x+2ITGmdTxBgzjMgWcvJ56vBuIuhDm1yuogcaCqwzO+tTnLQa9bGg3z/jb5W
-	2gt1QJlpWySDh2/B8z0C0P9eMBBxGKsagQlW44h1llxyjl17fDSHx5BEKgiOuh5pml5Of/i7d1Y
-	wn+M9LvatNXRgUwSOJYLlnnKqU6jcrlnfPT7aw211CEHAeur8iAJhIrzTld777ZONpcUkvC092H
-	nd4rgpg/L3uEYFbiEsq4VPWSVAo68ykIbiHEKO9Kl4BGCVUVQbDMzoIVkbr9pKHvl5/vCrE5thd
-	Liyv/HltgQd6jOE9mm7LVAjbCkm8qZvSE=
-X-Received: by 2002:a05:6000:40c5:b0:45a:5392:3a19 with SMTP id ffacd0b85a97d-45ef13794fcmr12535168f8f.16.1780153089159;
-        Sat, 30 May 2026 07:58:09 -0700 (PDT)
+        bh=E1TMEZ0J6gXWQTFmjGHghmrU7hof3+Zk+ggFlB5N5pU=;
+        b=HhY0y0Q0Sd2cgH1qaHAiai6wxOGXHLo2H3kE1PxnvisCIgcMtlTNFqMG7rEJMaI7fW
+         EGxwpmRMpSJxbPFSs3H0b28g17+a6nflG1nrWxAT3kbhUNvDa0TH3RLCcCGN5StKiFnT
+         ULhzI4wb0mfMC6+ZNPesR3dKeXebvXSS1Ff5Rqbk94LjExFy3fdea55W6t8kAokpTu6/
+         CcVyeu27TlAj0VwEwDfO4KNm4qQn2Ak4CHy23OSCSjqCQhwbWokAtVNDB6V96MxFbwxL
+         NHG9NoR8Ox6ynoCYtxY5Rnbz0+dVnnraW2JxzaWt5TxLm1EbImSMHvyO4sMCDwz+xabC
+         5BRw==
+X-Forwarded-Encrypted: i=1; AFNElJ+pXyMGive5wsYfEiI3c8ENnEyQ3KohG1q7+RieKKrCjqshc4xsa1uIZLSNX/q7QZBNCvnO5dMkBF4H@vger.kernel.org
+X-Gm-Message-State: AOJu0YyBT5mV5I3TiC/j1mrLEZLY5FYdohFLODKBDA6CZFnsdOZVgddO
+	vHRW/kyPhaWjD4fidTTR5IRso/liq0MIuPPG0ZLyu+oLJ9PkvgPAet4Z
+X-Gm-Gg: Acq92OFo8DAMexr3ezn48zjWSQMMKpgnrlUnh5p7oUhuTXhNDXLLsTjAXLQIu+Ypum8
+	H1/tdf3NcQ1LYvou4HKIqdRZa9hrg0lsM27bBnj7j6ogsXEaqqHkSB3TNSbCgBzRfmrFR6uANPi
+	ct5jJvPpraKOhqttUceX4ZsEGsj3vT3lfU+1XJgvbMiYIqtmWdBPCVlTm+vjNeW6q3rXqNTVC3b
+	E2ZnsVtGEBwAy/zJdSB9uZViZPCxTf9l+gHYcL2tFRlInk7Zp9Ez7xGe1jblSXeWWThHULP3dHg
+	mzEjvWNY8cHMpbQFBcXSBbZp1xsbPviWjVIJd79LtBbPlWf07o/MzPXREyC6J7wm0bQGRjWIf6V
+	oyLehYpwYyF/kMEuoK66OYb4njex2F3gjc5qywNPWTv0ibCStLtWMa8s6LLcTzqAFjWDrkRbOyR
+	t9m/7kpj5a7LCU4GHKLLN8Fe20cc42RLQ=
+X-Received: by 2002:a05:600c:4f53:b0:490:3f7a:108b with SMTP id 5b1f17b1804b1-490a2958dc4mr75086275e9.16.1780153091542;
+        Sat, 30 May 2026 07:58:11 -0700 (PDT)
 Received: from zenbook ([31.4.224.70])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b5bdsm10916493f8f.21.2026.05.30.07.58.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b5bdsm10916493f8f.21.2026.05.30.07.58.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 May 2026 07:58:08 -0700 (PDT)
+        Sat, 30 May 2026 07:58:11 -0700 (PDT)
 From: Yassine Oudjana <yassine.oudjana@gmail.com>
 X-Google-Original-From: Yassine Oudjana <y.oudjana@protonmail.com>
 To: Sean Wang <sean.wang@kernel.org>,
@@ -74,9 +74,9 @@ Cc: Yassine Oudjana <y.oudjana@protonmail.com>,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org
-Subject: [PATCH v8 1/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Pull pinctrl node changes from MT6795 document
-Date: Sat, 30 May 2026 16:57:53 +0200
-Message-ID: <20260530145800.1029920-2-y.oudjana@protonmail.com>
+Subject: [PATCH v8 2/6] dt-bindings: pinctrl: mediatek,mt6779-pinctrl: Improve pinctrl subnode and property descriptions
+Date: Sat, 30 May 2026 16:57:54 +0200
+Message-ID: <20260530145800.1029920-3-y.oudjana@protonmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260530145800.1029920-1-y.oudjana@protonmail.com>
 References: <20260530145800.1029920-1-y.oudjana@protonmail.com>
@@ -90,103 +90,66 @@ Content-Transfer-Encoding: 8bit
 
 From: Yassine Oudjana <y.oudjana@protonmail.com>
 
-mediatek,pinctrl-mt6795.yaml has different node name patterns which match
-bindings of other MediaTek pin controllers, ref for pinmux-node.yaml which
-has a description of the pinmux property, as well as some additional
-descriptions for some pin configuration properties. Pull those changes
-into mediatek,mt6779-pinctrl.yaml and adjust the example DTS to match in
-preparation to combine the MT6795 document into it.
+Change "subnodes" to "subnode" in subnode description for better
+grammatical accuracy, capitalize pinmux description, wrap all descriptions
+at 80 characters, and remove literal style indicators from descriptions
+that don't need their new lines preserved.
 
 Signed-off-by: Yassine Oudjana <y.oudjana@protonmail.com>
-Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Acked-by: Rob Herring <robh@kernel.org>
 ---
- .../pinctrl/mediatek,mt6779-pinctrl.yaml      | 38 ++++++++++++++-----
- 1 file changed, 28 insertions(+), 10 deletions(-)
+ .../bindings/pinctrl/mediatek,mt6779-pinctrl.yaml | 15 ++++++++-------
+ 1 file changed, 8 insertions(+), 7 deletions(-)
 
 diff --git a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
-index f4bab7a132d3..0dcbca5ca8f9 100644
+index 0dcbca5ca8f9..4dc9504e24ad 100644
 --- a/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
 +++ b/Documentation/devicetree/bindings/pinctrl/mediatek,mt6779-pinctrl.yaml
-@@ -111,12 +111,12 @@ allOf:
-         - "#interrupt-cells"
- 
- patternProperties:
--  '-[0-9]*$':
-+  '-pins$':
-     type: object
-     additionalProperties: false
- 
-     patternProperties:
--      '-pins*$':
-+      '^pins':
+@@ -119,11 +119,11 @@ patternProperties:
+       '^pins':
          type: object
          description:
-           A pinctrl node should contain at least one subnodes representing the
-@@ -124,7 +124,9 @@ patternProperties:
-           pins it needs, and how they should be configured, with regard to muxer
-           configuration, pullups, drive strength, input enable/disable and input
-           schmitt.
--        $ref: /schemas/pinctrl/pincfg-node.yaml
-+        allOf:
-+          - $ref: pinmux-node.yaml
-+          - $ref: pincfg-node.yaml
- 
-         properties:
-           pinmux:
-@@ -135,9 +137,25 @@ patternProperties:
+-          A pinctrl node should contain at least one subnodes representing the
++          A pinctrl node should contain at least one subnode representing the
+           pinctrl groups available on the machine. Each subnode will list the
+-          pins it needs, and how they should be configured, with regard to muxer
+-          configuration, pullups, drive strength, input enable/disable and input
+-          schmitt.
++          pins it needs, and how they should be configured, with regard to
++          muxer configuration, pullups, drive strength, input enable/disable
++          and input schmitt.
+         allOf:
+           - $ref: pinmux-node.yaml
+           - $ref: pincfg-node.yaml
+@@ -133,7 +133,8 @@ patternProperties:
+             description:
+               Integer array, represents gpio pin number and mux setting.
+               Supported pin number and mux varies for different SoCs, and are
+-              defined as macros in dt-bindings/pinctrl/<soc>-pinfunc.h directly.
++              defined as macros in dt-bindings/pinctrl/<soc>-pinfunc.h
++              directly.
  
            bias-disable: true
  
--          bias-pull-up: true
--
--          bias-pull-down: true
-+          bias-pull-up:
-+            oneOf:
-+              - type: boolean
-+              - enum: [100, 101, 102, 103]
-+                description: Pull up PUPD/R0/R1 type define value.
-+            description: |
-+              For normal pull up type, it is not necessary to specify R1R0
-+              values; When pull up type is PUPD/R0/R1, adding R1R0 defines
-+              will set different resistance values.
-+
-+          bias-pull-down:
-+            oneOf:
-+              - type: boolean
-+              - enum: [100, 101, 102, 103]
-+                description: Pull down PUPD/R0/R1 type define value.
-+            description: |
-+              For normal pull down type, it is not necessary to specify R1R0
-+              values; When pull down type is PUPD/R0/R1, adding R1R0 defines
-+              will set different resistance values.
- 
-           input-enable: true
- 
-@@ -221,8 +239,8 @@ examples:
-             #interrupt-cells = <2>;
-             interrupts = <GIC_SPI 204 IRQ_TYPE_LEVEL_HIGH>;
- 
--            mmc0_pins_default: mmc0-0 {
--                cmd-dat-pins {
-+            mmc0_pins_default: mmc0-pins {
-+                pins-cmd-dat {
-                     pinmux = <PINMUX_GPIO168__FUNC_MSDC0_DAT0>,
-                         <PINMUX_GPIO172__FUNC_MSDC0_DAT1>,
-                         <PINMUX_GPIO169__FUNC_MSDC0_DAT2>,
-@@ -235,11 +253,11 @@ examples:
-                     input-enable;
-                     mediatek,pull-up-adv = <1>;
-                 };
--                clk-pins {
-+                pins-clk {
-                     pinmux = <PINMUX_GPIO176__FUNC_MSDC0_CLK>;
-                     mediatek,pull-down-adv = <2>;
-                 };
--                rst-pins {
-+                pins-rst {
-                     pinmux = <PINMUX_GPIO178__FUNC_MSDC0_RSTB>;
-                     mediatek,pull-up-adv = <0>;
-                 };
+@@ -142,7 +143,7 @@ patternProperties:
+               - type: boolean
+               - enum: [100, 101, 102, 103]
+                 description: Pull up PUPD/R0/R1 type define value.
+-            description: |
++            description:
+               For normal pull up type, it is not necessary to specify R1R0
+               values; When pull up type is PUPD/R0/R1, adding R1R0 defines
+               will set different resistance values.
+@@ -152,7 +153,7 @@ patternProperties:
+               - type: boolean
+               - enum: [100, 101, 102, 103]
+                 description: Pull down PUPD/R0/R1 type define value.
+-            description: |
++            description:
+               For normal pull down type, it is not necessary to specify R1R0
+               values; When pull down type is PUPD/R0/R1, adding R1R0 defines
+               will set different resistance values.
 -- 
 2.54.0
 
