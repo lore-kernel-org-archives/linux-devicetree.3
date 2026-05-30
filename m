@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29950156661;
-	Sat, 30 May 2026 11:18:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A6121E097;
+	Sat, 30 May 2026 11:20:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780139938; cv=none; b=OEVzBvYWCngIhyzhlLeaVInr3RPUZ66MWjq8pju/M3Ck9Kog9hGDoXs7fR9N9kv3IRM+8n0Vj+ua8JrRK2vVIyemVkSaL8cGOeyY23ZTiEt5pVrcO+Q1lig+GLyGHIcmx0OOTfAcr2X3kyAMxG6XuuLXiOi+Pyiv3V5MUPVyJso=
+	t=1780140018; cv=none; b=nu7u55SGqxpK2G29iv5efg15LI2WjKsE6Lpi2/OMBprN6Q+Cv0d6wDZqdjlv0LOxQu5tVfu4hKWIAZFmT64++6v0PSupRcO3/EXD25WG9a06s1FnQEdGb1HhLUFoVy8AA6cmfFk1gnXLcoq96dJB1dMdFNodisa458ErEjwmhCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780139938; c=relaxed/simple;
-	bh=8v+e2ZGDGrTXFpXKP5t0RjHdeCDeVVmxokNCH29rLHs=;
+	s=arc-20240116; t=1780140018; c=relaxed/simple;
+	bh=cHhx+MN9+XvSAhxRbv4CmSPSPYw4S6GSlXAs3cjago0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E9BVaEnAEfPv4Y2r+84JYNAzE4KXMG5rjgitO6CJRCTmFfFffwnYw0VK5B7P5pbwU7cokqu3K1n6Fi356oBOZlQY59YX/ItyPYlHKPiBTaJeppRoY9fK5V6RMFkZ0Je5vsr88Ebz61pFuxkpWl5czxQExH9DNjz2U0UPdNxcyT0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WSIvlAk/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oybHmuhmt8OG89zxG983HqRM7Ym0OdBfJw9cshPCRt6Okesn72PUF8a0Hs3YM/5f2DwLQ55cMGp9wzNpJ7LfEggEbgU3xA9Bd57O2+U8+zq94QrbsPGAEm/eZvRX175xKGMWxnxebCIAJd7cL2mesVW01B0ZyJTzP8kBRJqNzRk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kUhpNEzQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WSIvlAk/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B3DC1F00893;
-	Sat, 30 May 2026 11:18:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kUhpNEzQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3D2771F00893;
+	Sat, 30 May 2026 11:20:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780139936;
-	bh=Qvc4sHNsIEjfe2ZxRJAsYr7M3r1LFYtT3I1rdHEm+1M=;
+	s=k20260515; t=1780140017;
+	bh=bTTIrZBmCxm27x7l5/yVhHeLULKx99g4jNoxoWktCU0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WSIvlAk/VnoqVkiFIODjIUTOsx8myoIztBl3WAXLp9zxzchP0zGiP6YGRi8ja3dZv
-	 7rwODwpIH/GFQr9PqNm5GOccQSEgw+DOcNMlm9J7fimTGIEPc77yQUu2xgwZBSMYSp
-	 9Qta2HF7xeFZ60W1RdA1NBLaDWX12RTVXqgPpa8ohttsRgFrD1BrhiBdHloTdlf59F
-	 O6k36RLxATHKJ1a3l2l1Ue102KM28YPhbJB1sPG34cozAyXdnUwrI+pnVHab8D4fW0
-	 2UVrRpidun9a/9RKk0LtwIj2N9F6OkkAxGtrGsxrrCTyCfnlyXdZJrPaoqOXGG42Eb
-	 tAlkQ69sc5urw==
-Date: Sat, 30 May 2026 13:18:54 +0200
+	b=kUhpNEzQljMJVhIih74sco6BT6TTexle0n5qOLWlzaF/WcDqHeNdbXh9le6TwfK7k
+	 EhiH/7aoKwlzHMUTQBczQ8anKaQzi0rnNty0Ny2fyN0ssYnwoLl7lYKEMa0qvSHwod
+	 ORbzy+kNZ94VZaugFh/zoODVPbMc0n6LezqpC9K4xBMUyhjVUb0UuFxkxCFPjdq7/q
+	 lY5ctwa+t4R318JRoBWuzihIvnqtvrVe46sAPRXYz5+FlEkCeoLuAdW8LmyyWAAyF2
+	 WBz4BknRMf2+Fa0rkrD1OlxqhQ0AJqSL4vA3oNIvD2xWM6skdwWZFeQ4lpt/Ew8mhk
+	 WmjFyyULIlUQA==
+Date: Sat, 30 May 2026 13:20:15 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: lizhi2@eswincomputing.com
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	kuba@kernel.org, pabeni@redhat.com, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, ningyu@eswincomputing.com, linmin@eswincomputing.com, 
-	pinkesh.vaghela@einfochips.com, pritesh.patel@einfochips.com, weishangjuan@eswincomputing.com, 
-	sashiko-bot@kernel.org
-Subject: Re: [PATCH net v1] dt-bindings: ethernet: eswin: fix hsp-sp-csr
- backward compatibility
-Message-ID: <20260530-hysterical-oyster-of-skill-0c93cb@quoll>
-References: <20260525052441.1637-1-lizhi2@eswincomputing.com>
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Yijie Yang <yijie.yang@oss.qualcomm.com>, 
+	Srinivas Kandagatla <srini@kernel.org>, Amol Maheshwari <amahesh@qti.qualcomm.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
+ compatible
+Message-ID: <20260530-wise-discreet-woodpecker-3c7d0c@quoll>
+References: <20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com>
+ <meuxtcs3quchupl6gf4vtjiosmoig7zs2tc2vr2xthetem5hll@l4op77zr2srj>
+ <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
+ <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -47,38 +49,41 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260525052441.1637-1-lizhi2@eswincomputing.com>
+In-Reply-To: <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
 
-On Mon, May 25, 2026 at 01:24:41PM +0800, lizhi2@eswincomputing.com wrote:
-> From: Zhi Li <lizhi2@eswincomputing.com>
+On Mon, May 25, 2026 at 01:08:54PM +0300, Dmitry Baryshkov wrote:
+> On Mon, May 25, 2026 at 05:37:23PM +0800, Yijie Yang wrote:
+> > 
+> > 
+> > On 5/25/2026 4:37 PM, Dmitry Baryshkov wrote:
+> > > On Mon, May 25, 2026 at 02:21:17PM +0800, Yijie Yang wrote:
+> > > > Document compatible string for the FastRPC interface on the Qualcomm Maili
+> > > > SoC, which is compatible with the Qualcomm Kaanapali FastRPC and can
+> > > > fallback to Kaanapali.
+> > > 
+> > > Can I assume that it has the same bus width as Kaanapali?
+> > 
+> > Yes, the DMA width for CDSP and ADSP is the same. If you were referring to
+> > something other than the DMA width, please let me know.
 > 
-> The previous change added two optional cells to
-
-What is previous in this context? There is no previous commit here.
-
-> eswin,hsp-sp-csr, but omitted minItems: 4.
+> Thanks for the confirmation.
 > 
-> As a result, dt-schema implicitly required all 6 cells,
-> breaking backward compatibility with existing 4-cell
-> device trees.
-
-Please wrap commit message according to Linux coding style / submission
-process (neither too early nor over the limit):
-https://elixir.bootlin.com/linux/v6.4-rc1/source/Documentation/process/submitting-patches.rst#L597
-
+> > 
+> > > 
+> > > > 
+> > > > Assisted-by: Claude:claude-opus-4-6
+> > > 
+> > > Claude assisting to write a one-liner patch? It's becoming ridiculous.
+> > 
+> > This patch was generated alongside a set of Maili-related patches and was
+> > not created specifically on its own.
 > 
-> Add minItems: 4 to preserve backward compatibility.
-> 
-> Fixes: c36069c6f46c ("dt-bindings: ethernet: eswin: add optional TXD and RXD delay register offsets")
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260519022334.35742C2BCB7@smtp.kernel.org/
-> Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
-> ---
+> Okay...
 
+If a human cannot write and validate this one, I see as putting effort
+on maintainers.
 
-With fixed commit msg:
-
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Dropping from patchwork.
 
 Best regards,
 Krzysztof
