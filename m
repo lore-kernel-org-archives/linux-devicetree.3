@@ -1,62 +1,62 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D7C330EF77
-	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 20:55:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFC4435201D
+	for <devicetree@vger.kernel.org>; Sat, 30 May 2026 20:55:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780174507; cv=none; b=oQCc6E4tRSYxkFjIPmEs4TRrLkN+dmMJud6Mcv9QJke9+6OYHfZiVhiq1O9tnFPZU5cufPTPl1/TsLEPHxqvGHpfcP8A/55GkeA0LmOn8kQdwkTnGXD99ZLcgvNWaXc6Xzp62YkB3pKzWzWWYQnuw2aaOc1JLkZWHGqXMhL/Fz8=
+	t=1780174510; cv=none; b=T/1P79nq96mqFFhfpWTD5/2mgsIrE0sia+dUP3EXlpaTURLKo4uureZR3a4jPAT+Ttr0JQ0NtN+yjywODSE+H8ZFA6zWuFfc1nM8IYfqHffJA9qOH0RqAiryCJxEHIs4ldSih+iAFjPxjDIczNELQ1pgb//M0nI/GuhWrwIZLJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780174507; c=relaxed/simple;
-	bh=Nx8EK67/RioyI6Z4M1OApHSBUTezoml6mYEJkUAfw1E=;
+	s=arc-20240116; t=1780174510; c=relaxed/simple;
+	bh=uTRMtYQA+s0MhtyxEJpZLkWNUZft06Eg5SmnngQ+MN4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VMrvKQo94nalxL77P7rqNLdVYPgyBevSafqwffP1wls57xyElDzNS/y0SqVig9GMyxD3XqGHByV49cubqXIUEuoSOn5BzlAsPj2c4TTmy6etXfhtz7VNbPj1QC+9dwHebP3fPYvxMwAxOt6D0EwfdjsfI8hxGCWxc+uvTikqThI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HhwLfd9a; arc=none smtp.client-ip=209.85.128.48
+	 MIME-Version; b=WrDZ9K7RdJ92Fzr9jQcc3ioH6+mWtKg+8xwZX3M6EwVxXAgI2LkfDJsvvDLTFJux9DI7n/NaV/LplPH5rRgPCpud3rmJ1RWtiTjYfwLCbXE/GBq5fZDkyJISd2mD/pAInGJow61H46+fQIeDzXTanVtYjtgLrPR+yuUkHsi67qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=En1y/Ybi; arc=none smtp.client-ip=209.85.128.49
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HhwLfd9a"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490a7876f8cso846455e9.3
-        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 13:55:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="En1y/Ybi"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490a7629380so1507415e9.0
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 13:55:08 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780174503; x=1780779303; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780174507; x=1780779307; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=8qQ+HP5KO/pNape1oL4kHR1H0GGu6Zsl3upOKWiRgzM=;
-        b=HhwLfd9aV3uHZfViJud7DScv9nE+K5+hkCG9zvUYZcU01jKJ01EBOERV5vZgj4xZSO
-         BQ3+SJ5QFcr8LHlolvW8c/FLwCNaQNTZns6LjDy7CmzPVa9Du5KXuSMU1GNIjCxJ+jyr
-         Z4uLZPooULWV35QLJgrquMuJUWlEKsF2mBboLZhB6cEyjg3pFKl6pmMdq0aX1HlaGma9
-         eeYXFgIUrqLKIAKvtxa39Vv0eGNlKEnxKbsGysxNbuegnx2ZiiKHK8lNlwG8W9gPd1Zb
-         Qy4hBd04DapvuvZ3m6t/psDhAKx17tHpoE/8CkRbBAHBmX5kqLjSaK8lq2wHJnnuV3dv
-         MzBQ==
+        bh=g/r91x18F44nECj79mEs4JTmbgxq8t6M9pdhsna8uxc=;
+        b=En1y/Ybi6mqcSPz7zuM3fwJ/67+ky1qdfZE1Ply1oyndppN3DOpadzG3oUN+IrOZnu
+         taGf/6CAQgfW3wxeFX325Ba997ldIpXhIxkHCUQfjjCb52wQ6ZENmq3xobKIhonMMfV9
+         peiDG2LZm4FIJpp0EmkKpwyTLkTHykChtm/igXxEWIxQP2wGo01L9WAP1RELD/hHYTOg
+         dEUfz3Tt14FYETu0angRBvvJHbps561B9XddJxKaoknqUhHHU0Gv2kvHpiluxtH89U1x
+         c5RTS1AuSRpESC4GNebYvJRat1uSR+mNCedn+p27SAGL5w0CoCECDHIr7LgqflG4gXG6
+         CnoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780174503; x=1780779303;
+        d=1e100.net; s=20251104; t=1780174507; x=1780779307;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=8qQ+HP5KO/pNape1oL4kHR1H0GGu6Zsl3upOKWiRgzM=;
-        b=o+ekEHLCBsjrN5RgUeHBo8ze96vZTnMnX8h9QyGo2k+e3QfOJY1YRmDHFjaTvrRvmA
-         72qiqtyiejrbhCAdnpZMU78WlBehN8QkKfgtpSAlOk7ItJQ4mksNn4a+RAPpm924uHbj
-         FZFpb1AmbtidD3yxk7NyAjwU1wcnV/UPp63zmjKwLZIoWl7hWoi1iuC8X7IaqxXbqY+M
-         lH+WcsbyYBKiLZcOF3GiEpkmVIezW/64r23DTmLDZ3ymo76ywWhuaQQyonRm3qPixBel
-         eXLu1dgteyRez4e6RryquZsX8PnEgtQtMq/Wz6aJurXJQQdJgzkCzCetIQLKHAIR/wZL
-         I1EQ==
-X-Gm-Message-State: AOJu0YxEZbb/UNKTtTHE/YuXYuPXJNWfhHz4gXPT4nB/TOoUfU7idkh7
-	Y8g5u7dzP550/OzGXoCFWWnNWasFXfeYYpfkW18IZYNFn1pmpjt9ZHRh
-X-Gm-Gg: Acq92OGfu0CqKZOgovkZiM868vDg018nYF97UTnPMZjTNT0MipzIQorZ/J5e0oyFYQK
-	TvPzxoJKxdYTAes2YEzQ+b6wwQ1L4a3WmOFwDorpMlGqY0YSkieRgqcAbNk4ClTbV4CmdN/foeN
-	VP938IVsADKXGadfrXkImnvk5CxD4Rec2qyNFb8fxnVP7+lxmAcP5Rd/y3nBOwTuOMbSAMc2W+O
-	2cpQk8I0vKgtN1RXA+7yADNxl8R5Xh9tNdtc3/hfOLEFwoJVKiVxcjc5O8P8eZHXo10IcenXNLr
-	CUsXekwuPYKNHH6kJ5g9sy8TLwko57LRo9zq+OelsC0W86/GwBrI86cCb1vHHo4mEwGxyXQf2qa
-	rGGLin5Lt4ZwzdmhNERuW6TF+H7DfJ0zevLAEmE7vCFT6Iph+Rd5APiFZJ+TKFWpJw/jqjEqZPu
-	jA45jG61kQmsZSJ54=
-X-Received: by 2002:a05:600d:844f:20b0:490:4973:91a0 with SMTP id 5b1f17b1804b1-490a292191fmr65148555e9.10.1780174502753;
-        Sat, 30 May 2026 13:55:02 -0700 (PDT)
+        bh=g/r91x18F44nECj79mEs4JTmbgxq8t6M9pdhsna8uxc=;
+        b=CRFqp+O1YYV6DYGeJ3sMbyJpPa8q6ApzEEwyvBetqXJYtFFTjQD0G56TI49RGXasN2
+         Dd+m+qTyxUUNlsR30mMW0jz0cmSSRe3zavDTvkPySdmI/qnzRCw0iPnQuNOzRB/FDnO5
+         snnOk5ADgAbZ6kHSTbx+O0CgnadS7dm0a6zn5HWYS3WUvoZSXs5JC+bQAR/ujQ2DaVfY
+         jq83mOjEL9UxsqbLAFgZjXo4Tx/fPQhCntVru3XcKx4CiZ+eNSlJgBmds0IDyOAN2tJm
+         9qRz/UF8qkqUAWhibSEJAiw8Yv5lLpChwD2YPEZO9AVxKr6IToXVzBHK1JetYU4bctF3
+         jChg==
+X-Gm-Message-State: AOJu0Yy5KQxkq1/AAO/onuVglMqw1ybp8bc/yu2kUy8iWEeq4qJwFGpD
+	ElXxDSYkurVtb4/W0Moby2mVT9Ar4L9W+Uvwso/PkuT7Tgrb/ncQ5dSB
+X-Gm-Gg: Acq92OH6OL7eMyKdxF52KoTk24eTx7IBf9WpXgqq90svm3URySyuNSyoqwMiiDIgsU3
+	vfCYiGbSAdoH+rBtnoRA7bo/O5b5oCu5d21RFZB22/dN2TGRwkn8f9zSZqQxtCUPUYiiX/8zrD5
+	3uirG23uojP8xSuXsfB+Obn3swOB8UXobN/VrKQPZvfnH4949yai7wSxgXs6OVI3QGqShjZ43JZ
+	pux+GMadgrYwA7vJJ+xoh24KRCmSr79J1mIWwEQpZ55fnybLEXxvatPcz9gSC5AW/TI8zLIzCmL
+	aJGl+tu3CHeZ2ddSv6BhskXvkVkr0y0sungqXFPIF1pZ28yxpPoNennmW1S05u3W5595kSrOYRL
+	93/gFSznmLfzOuzAycN/tAbZ2CpnhfXEd4V//nIjG0BsWlErRlU+/+MRith60AAAfuM3+NuxEQQ
+	TrsnRWG7XS+pzG0PE=
+X-Received: by 2002:a05:600c:8b57:b0:490:3c15:7146 with SMTP id 5b1f17b1804b1-490a5013670mr53129565e9.19.1780174507013;
+        Sat, 30 May 2026 13:55:07 -0700 (PDT)
 Received: from sefo-laptop ([2a02:8071:50c5:5c0::361b])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909cab0e94sm132288225e9.12.2026.05.30.13.55.01
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909cab0e94sm132288225e9.12.2026.05.30.13.55.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 30 May 2026 13:55:02 -0700 (PDT)
+        Sat, 30 May 2026 13:55:06 -0700 (PDT)
 From: Wadim Mueller <wafgo01@gmail.com>
 To: Jonathan Cameron <jic23@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -66,12 +66,12 @@ To: Jonathan Cameron <jic23@kernel.org>,
 	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
 	Andy Shevchenko <andy@kernel.org>,
 	Maxwell Doose <m32285159@gmail.com>,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org
 Cc: devicetree@vger.kernel.org
-Subject: [PATCH v3 1/3] iio: types: add IIO_VOLUMEFLOW channel type
-Date: Sat, 30 May 2026 22:54:30 +0200
-Message-ID: <20260530205435.37326-2-wafgo01@gmail.com>
+Subject: [PATCH v3 3/3] iio: flow: add Sensirion SLF3S liquid flow sensor driver
+Date: Sat, 30 May 2026 22:54:32 +0200
+Message-ID: <20260530205435.37326-4-wafgo01@gmail.com>
 X-Mailer: git-send-email 2.52.0
 In-Reply-To: <20260530205435.37326-1-wafgo01@gmail.com>
 References: <20260530205435.37326-1-wafgo01@gmail.com>
@@ -83,94 +83,521 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Add a new IIO channel type for liquid volumetric flow sensors.  The
-unit exposed via the standard _scale attribute is litres per second
-(l/s), so drivers reporting smaller native units (e.g. ml/min) only
-need to set a fractional scale.
+Add a driver for the Sensirion SLF3S family of digital
+liquid-flow sensors on I2C.  Currently supported variants are
+SLF3S-0600F, SLF3S-1300F and SLF3S-4000B; they share the same
+register map and differ only in flow-scale factor and calibrated
+measurement range.  The variant (and therefore the scale) is
+auto-detected from the product-information register at probe time.
 
-Update iio-core's name table, the iio_event_monitor whitelist and
-the sysfs-bus-iio ABI document to match.  The new _scale attribute is
-folded into the existing shared _scale block; only the per-type _raw
-needs a fresh entry.
+Each measurement frame returns a 16-bit signed flow value, a
+16-bit signed temperature reading and a status word, each
+protected by a CRC-8 byte.  The driver exposes the flow rate as
+IIO_VOLUMEFLOW and the temperature as IIO_TEMP via the standard
+IIO read_raw / read_scale interface.
+
+The active calibration medium can be switched at runtime between
+the factory-calibrated water and isopropyl-alcohol modes via the
+in_volumeflow_medium sysfs attribute; the sensor starts in water
+mode after probe.
+
+This driver also creates the drivers/iio/flow/ subdirectory and
+the corresponding Kconfig/Makefile glue.
 
 Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
 ---
- Documentation/ABI/testing/sysfs-bus-iio | 11 +++++++++++
- drivers/iio/industrialio-core.c         |  1 +
- include/uapi/linux/iio/types.h          |  1 +
- tools/iio/iio_event_monitor.c           |  2 ++
- 4 files changed, 15 insertions(+)
+ drivers/iio/Kconfig       |   1 +
+ drivers/iio/Makefile      |   1 +
+ drivers/iio/flow/Kconfig  |  27 +++
+ drivers/iio/flow/Makefile |   7 +
+ drivers/iio/flow/slf3s.c  | 406 ++++++++++++++++++++++++++++++++++++++
+ 5 files changed, 442 insertions(+)
+ create mode 100644 drivers/iio/flow/Kconfig
+ create mode 100644 drivers/iio/flow/Makefile
+ create mode 100644 drivers/iio/flow/slf3s.c
 
-diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-index 5f87dcee7..2188557cb 100644
---- a/Documentation/ABI/testing/sysfs-bus-iio
-+++ b/Documentation/ABI/testing/sysfs-bus-iio
-@@ -507,6 +507,8 @@ What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_red_scale
- What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_green_scale
- What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_blue_scale
- What:		/sys/bus/iio/devices/iio:deviceX/in_concentration_co2_scale
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_scale
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_scale
- KernelVersion:	2.6.35
- Contact:	linux-iio@vger.kernel.org
- Description:
-@@ -2458,3 +2460,12 @@ Description:
- 		seconds, expressed as:
- 
- 		- a range specified as "[min step max]"
+diff --git a/drivers/iio/Kconfig b/drivers/iio/Kconfig
+index 661127aed..652557a5b 100644
+--- a/drivers/iio/Kconfig
++++ b/drivers/iio/Kconfig
+@@ -92,6 +92,7 @@ source "drivers/iio/common/Kconfig"
+ source "drivers/iio/dac/Kconfig"
+ source "drivers/iio/dummy/Kconfig"
+ source "drivers/iio/filter/Kconfig"
++source "drivers/iio/flow/Kconfig"
+ source "drivers/iio/frequency/Kconfig"
+ source "drivers/iio/gyro/Kconfig"
+ source "drivers/iio/health/Kconfig"
+diff --git a/drivers/iio/Makefile b/drivers/iio/Makefile
+index cb80ef837..f03a4100c 100644
+--- a/drivers/iio/Makefile
++++ b/drivers/iio/Makefile
+@@ -29,6 +29,7 @@ obj-y += dac/
+ obj-y += dummy/
+ obj-y += gyro/
+ obj-y += filter/
++obj-y += flow/
+ obj-y += frequency/
+ obj-y += health/
+ obj-y += humidity/
+diff --git a/drivers/iio/flow/Kconfig b/drivers/iio/flow/Kconfig
+new file mode 100644
+index 000000000..1eee131ea
+--- /dev/null
++++ b/drivers/iio/flow/Kconfig
+@@ -0,0 +1,27 @@
++# SPDX-License-Identifier: GPL-2.0-only
++#
++# Liquid / gas flow sensor drivers
++#
++# When adding new entries keep the list in alphabetical order
 +
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_raw
-+What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_raw
-+KernelVersion:	6.19
-+Contact:	linux-iio@vger.kernel.org
-+Description:
-+		Raw (unscaled) volumetric flow rate reading from the channel.
-+		To convert to standard units (litres per second) apply the
-+		channel's _scale (and _offset, when present).
-diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrialio-core.c
-index 22eefd048..aa34fcd8e 100644
---- a/drivers/iio/industrialio-core.c
-+++ b/drivers/iio/industrialio-core.c
-@@ -98,6 +98,7 @@ static const char * const iio_chan_type_name_spec[] = {
- 	[IIO_CHROMATICITY] = "chromaticity",
- 	[IIO_ATTENTION] = "attention",
- 	[IIO_ALTCURRENT] = "altcurrent",
-+	[IIO_VOLUMEFLOW] = "volumeflow",
- };
- 
- static const char * const iio_modifier_names[] = {
-diff --git a/include/uapi/linux/iio/types.h b/include/uapi/linux/iio/types.h
-index 6d269b844..49480f321 100644
---- a/include/uapi/linux/iio/types.h
-+++ b/include/uapi/linux/iio/types.h
-@@ -53,6 +53,7 @@ enum iio_chan_type {
- 	IIO_CHROMATICITY,
- 	IIO_ATTENTION,
- 	IIO_ALTCURRENT,
-+	IIO_VOLUMEFLOW,
- };
- 
- enum iio_modifier {
-diff --git a/tools/iio/iio_event_monitor.c b/tools/iio/iio_event_monitor.c
-index 03ca33869..078004750 100644
---- a/tools/iio/iio_event_monitor.c
-+++ b/tools/iio/iio_event_monitor.c
-@@ -65,6 +65,7 @@ static const char * const iio_chan_type_name_spec[] = {
- 	[IIO_CHROMATICITY] = "chromaticity",
- 	[IIO_ATTENTION] = "attention",
- 	[IIO_ALTCURRENT] = "altcurrent",
-+	[IIO_VOLUMEFLOW] = "volumeflow",
- };
- 
- static const char * const iio_ev_type_text[] = {
-@@ -193,6 +194,7 @@ static bool event_is_known(struct iio_event_data *event)
- 	case IIO_CHROMATICITY:
- 	case IIO_ATTENTION:
- 	case IIO_ALTCURRENT:
-+	case IIO_VOLUMEFLOW:
- 		break;
- 	default:
- 		return false;
++menu "Flow sensors"
++
++config SENSIRION_SLF3S
++	tristate "Sensirion SLF3S liquid flow sensor"
++	depends on I2C
++	select CRC8
++	help
++	  Say yes here to build support for the Sensirion SLF3S family
++	  of digital liquid-flow sensors:
++
++	    - SLF3S-0600F
++	    - SLF3S-1300F
++	    - SLF3S-4000B
++
++	  The driver reports the volumetric flow rate and the embedded
++	  temperature reading via the standard IIO interface.
++
++	  To compile this driver as a module, choose M here: the module
++	  will be called slf3s.
++
++endmenu
+diff --git a/drivers/iio/flow/Makefile b/drivers/iio/flow/Makefile
+new file mode 100644
+index 000000000..3cf4ab95c
+--- /dev/null
++++ b/drivers/iio/flow/Makefile
+@@ -0,0 +1,7 @@
++# SPDX-License-Identifier: GPL-2.0
++#
++# Makefile for industrial I/O flow sensor drivers
++#
++
++# When adding new entries keep the list in alphabetical order
++obj-$(CONFIG_SENSIRION_SLF3S) += slf3s.o
+diff --git a/drivers/iio/flow/slf3s.c b/drivers/iio/flow/slf3s.c
+new file mode 100644
+index 000000000..497a56f59
+--- /dev/null
++++ b/drivers/iio/flow/slf3s.c
+@@ -0,0 +1,406 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Sensirion SLF3S liquid flow sensor driver.
++ *
++ * Supports the SLF3S-0600F, SLF3S-1300F and SLF3S-4000B liquid-flow
++ * sensors over I2C.  Each measurement frame returns a 16-bit signed
++ * flow value, a 16-bit signed temperature value and a status word,
++ * each protected by a CRC-8 byte.
++ *
++ * The active calibration medium (water or isopropyl alcohol) is
++ * runtime-switchable via the in_volumeflow_medium sysfs attribute and
++ * defaults to water.
++ *
++ * Datasheet: https://sensirion.com/products/catalog/SLF3S-0600F/
++ *
++ * Copyright (C) 2026 CMBlu Energy GmbH
++ * Author: Wadim Mueller <wafgo01@gmail.com>
++ */
++
++#include <linux/array_size.h>
++#include <linux/bitops.h>
++#include <linux/crc8.h>
++#include <linux/delay.h>
++#include <linux/dev_printk.h>
++#include <linux/device.h>
++#include <linux/errno.h>
++#include <linux/i2c.h>
++#include <linux/mod_devicetable.h>
++#include <linux/module.h>
++#include <linux/regulator/consumer.h>
++#include <linux/types.h>
++#include <linux/unaligned.h>
++#include <linux/units.h>
++
++#include <linux/iio/iio.h>
++
++#define SLF3S_CRC8_POLY			0x31
++#define SLF3S_CRC8_INIT			0xff
++
++#define SLF3S_PRODUCT_ID_LEN		18
++#define SLF3S_PRODUCT_FAMILY_BYTE	1
++#define SLF3S_PRODUCT_SUBTYPE_BYTE	3
++#define SLF3S_PRODUCT_FAMILY_ID		0x03
++
++/* Datasheet section 2.2: tPU = 25 ms max from power-on to first cmd. */
++#define SLF3S_POWER_UP_DELAY_US		(25 * USEC_PER_MSEC)
++/* Datasheet section 2.2: tw = 60 ms typical until first valid sample. */
++#define SLF3S_MEAS_START_DELAY_US	(60 * USEC_PER_MSEC)
++
++static const u8 slf3s_cmd_prep_pid[]	= { 0x36, 0x7c };
++static const u8 slf3s_cmd_read_pid[]	= { 0xe1, 0x02 };
++static const u8 slf3s_cmd_start_water[]	= { 0x36, 0x08 };
++static const u8 slf3s_cmd_start_ipa[]	= { 0x36, 0x15 };
++static const u8 slf3s_cmd_stop_meas[]	= { 0x3f, 0xf9 };
++
++enum slf3s_medium {
++	SLF3S_MEDIUM_WATER,
++	SLF3S_MEDIUM_IPA,
++};
++
++static const char * const slf3s_medium_modes[] = {
++	[SLF3S_MEDIUM_WATER]	= "water",
++	[SLF3S_MEDIUM_IPA]	= "ipa",
++};
++
++/**
++ * struct slf3s_variant - per-variant calibration constants
++ * @sub_type:	product-info sub-type byte returned by the sensor
++ * @name:	name reported via @iio_dev.name
++ * @scale_num:	flow scale numerator (l/s per LSB)
++ * @scale_den:	flow scale denominator (l/s per LSB)
++ */
++struct slf3s_variant {
++	u8 sub_type;
++	const char *name;
++	int scale_num;
++	int scale_den;
++};
++
++static const struct slf3s_variant slf3s_variants[] = {
++	[0] = {
++		.sub_type	= 0x03,
++		.name		= "slf3s-0600f",
++		.scale_num	= 1,
++		.scale_den	= 600 * MICRO,
++	},
++	[1] = {
++		.sub_type	= 0x02,
++		.name		= "slf3s-1300f",
++		.scale_num	= 1,
++		.scale_den	= 30 * MICRO,
++	},
++	[2] = {
++		.sub_type	= 0x05,
++		.name		= "slf3s-4000b",
++		.scale_num	= 1,
++		.scale_den	= 1920 * MILLI,
++	},
++};
++
++/**
++ * struct slf3s_data - per-device state
++ * @client:	I2C client this instance is bound to
++ * @variant:	pointer into @slf3s_variants for the detected device
++ * @medium:	currently active calibration medium
++ * @crc_table:	pre-computed CRC-8 lookup table for SLF3S_CRC8_POLY
++ */
++struct slf3s_data {
++	struct i2c_client *client;
++	const struct slf3s_variant *variant;
++	enum slf3s_medium medium;
++	u8 crc_table[CRC8_TABLE_SIZE];
++};
++
++static bool slf3s_crc_valid(const struct slf3s_data *sf, const u8 *block)
++{
++	return crc8(sf->crc_table, block, 2, SLF3S_CRC8_INIT) == block[2];
++}
++
++static int slf3s_send_cmd(struct i2c_client *client, const u8 cmd[at_least 2])
++{
++	int ret = i2c_master_send(client, cmd, 2);
++
++	if (ret == 2)
++		return 0;
++
++	return ret < 0 ? ret : -EIO;
++}
++
++/*
++ * Read the product-info block and pick the matching variant.  The
++ * sub-type byte returned by the sensor is the source of truth; a
++ * DT-supplied compatible only seeds an initial guess and is overridden
++ * on mismatch (with an informational message so misconfigured device
++ * trees are easy to spot).
++ *
++ * Bus / CRC failures are real errors and fail probe.  An unknown
++ * sub-type byte fails probe too: we cannot publish a meaningful scale
++ * without a matching entry in slf3s_variants[].
++ */
++static int slf3s_detect_variant(struct slf3s_data *sf)
++{
++	struct i2c_client *client = sf->client;
++	u8 buf[SLF3S_PRODUCT_ID_LEN];
++	int ret;
++
++	ret = slf3s_send_cmd(client, slf3s_cmd_prep_pid);
++	if (ret)
++		return ret;
++
++	ret = slf3s_send_cmd(client, slf3s_cmd_read_pid);
++	if (ret)
++		return ret;
++
++	ret = i2c_master_recv(client, buf, sizeof(buf));
++	if (ret < 0)
++		return ret;
++	if (ret != sizeof(buf))
++		return -EIO;
++
++	for (unsigned int i = 0; i < SLF3S_PRODUCT_ID_LEN; i += 3) {
++		if (!slf3s_crc_valid(sf, &buf[i]))
++			return -EIO;
++	}
++
++	if (buf[SLF3S_PRODUCT_FAMILY_BYTE] != SLF3S_PRODUCT_FAMILY_ID)
++		dev_info(&client->dev,
++			 "unexpected family byte 0x%02x (expected 0x%02x)\n",
++			 buf[SLF3S_PRODUCT_FAMILY_BYTE],
++			 SLF3S_PRODUCT_FAMILY_ID);
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(slf3s_variants); i++) {
++		if (buf[SLF3S_PRODUCT_SUBTYPE_BYTE] !=
++		    slf3s_variants[i].sub_type)
++			continue;
++
++		if (sf->variant && sf->variant != &slf3s_variants[i])
++			dev_info(&client->dev,
++				 "DT compatible says %s but sensor reports %s; using %s\n",
++				 sf->variant->name,
++				 slf3s_variants[i].name,
++				 slf3s_variants[i].name);
++
++		sf->variant = &slf3s_variants[i];
++
++		return 0;
++	}
++
++	dev_err(&client->dev, "unknown SLF3S sub-type 0x%02x\n",
++		buf[SLF3S_PRODUCT_SUBTYPE_BYTE]);
++
++	return -ENODEV;
++}
++
++static int slf3s_read_sample(struct slf3s_data *sf, int *flow, int *temp)
++{
++	u8 buf[9];
++	int ret;
++
++	ret = i2c_master_recv(sf->client, buf, ARRAY_SIZE(buf));
++	if (ret < 0)
++		return ret;
++	if (ret != ARRAY_SIZE(buf))
++		return -EIO;
++
++	for (unsigned int i = 0; i < ARRAY_SIZE(buf); i += 3) {
++		if (!slf3s_crc_valid(sf, &buf[i]))
++			return -EIO;
++	}
++
++	*flow = sign_extend32(get_unaligned_be16(&buf[0]), 15);
++	*temp = sign_extend32(get_unaligned_be16(&buf[3]), 15);
++
++	return 0;
++}
++
++static int slf3s_get_medium(struct iio_dev *indio_dev,
++			    const struct iio_chan_spec *chan)
++{
++	struct slf3s_data *sf = iio_priv(indio_dev);
++
++	return sf->medium;
++}
++
++static int slf3s_set_medium(struct iio_dev *indio_dev,
++			    const struct iio_chan_spec *chan, unsigned int mode)
++{
++	struct slf3s_data *sf = iio_priv(indio_dev);
++	const u8 *start_cmd;
++	int ret;
++
++	if (!iio_device_claim_direct(indio_dev))
++		return -EBUSY;
++
++	ret = slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
++	if (ret)
++		goto out;
++
++	start_cmd = (mode == SLF3S_MEDIUM_IPA) ? slf3s_cmd_start_ipa
++					       : slf3s_cmd_start_water;
++
++	ret = slf3s_send_cmd(sf->client, start_cmd);
++	if (ret)
++		goto out;
++
++	fsleep(SLF3S_MEAS_START_DELAY_US);
++	sf->medium = mode;
++out:
++	iio_device_release_direct(indio_dev);
++
++	return ret;
++}
++
++static const struct iio_enum slf3s_medium_enum = {
++	.items		= slf3s_medium_modes,
++	.num_items	= ARRAY_SIZE(slf3s_medium_modes),
++	.get		= slf3s_get_medium,
++	.set		= slf3s_set_medium,
++};
++
++static const struct iio_chan_spec_ext_info slf3s_ext_info[] = {
++	IIO_ENUM("medium", IIO_SHARED_BY_TYPE, &slf3s_medium_enum),
++	IIO_ENUM_AVAILABLE("medium", IIO_SHARED_BY_TYPE, &slf3s_medium_enum),
++	{ }
++};
++
++static const struct iio_chan_spec slf3s_channels[] = {
++	{
++		.type = IIO_VOLUMEFLOW,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_SCALE),
++		.ext_info = slf3s_ext_info,
++	},
++	{
++		.type = IIO_TEMP,
++		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW) |
++				      BIT(IIO_CHAN_INFO_SCALE),
++	},
++};
++
++static int slf3s_read_raw(struct iio_dev *indio_dev,
++			  struct iio_chan_spec const *chan, int *val,
++			  int *val2, long mask)
++{
++	struct slf3s_data *sf = iio_priv(indio_dev);
++	int flow, temp, ret;
++
++	switch (mask) {
++	case IIO_CHAN_INFO_RAW:
++		if (!iio_device_claim_direct(indio_dev))
++			return -EBUSY;
++
++		ret = slf3s_read_sample(sf, &flow, &temp);
++		iio_device_release_direct(indio_dev);
++		if (ret)
++			return ret;
++
++		*val = (chan->type == IIO_VOLUMEFLOW) ? flow : temp;
++
++		return IIO_VAL_INT;
++	case IIO_CHAN_INFO_SCALE:
++		if (chan->type == IIO_VOLUMEFLOW) {
++			*val = sf->variant->scale_num;
++			*val2 = sf->variant->scale_den;
++
++			return IIO_VAL_FRACTIONAL;
++		}
++		/* Temperature LSB = 1/200 degC; IIO_TEMP wants milli-degC. */
++		*val = 1000 / 200;
++
++		return IIO_VAL_INT;
++	default:
++		return -EINVAL;
++	}
++}
++
++static const struct iio_info slf3s_info = {
++	.read_raw = slf3s_read_raw,
++};
++
++static void slf3s_stop_meas(void *data)
++{
++	struct slf3s_data *sf = data;
++
++	slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
++}
++
++static int slf3s_probe(struct i2c_client *client)
++{
++	struct device *dev = &client->dev;
++	struct iio_dev *indio_dev;
++	struct slf3s_data *sf;
++	int ret;
++
++	indio_dev = devm_iio_device_alloc(dev, sizeof(*sf));
++	if (!indio_dev)
++		return -ENOMEM;
++
++	sf = iio_priv(indio_dev);
++	sf->client = client;
++	sf->variant = i2c_get_match_data(client);
++	sf->medium = SLF3S_MEDIUM_WATER;
++	crc8_populate_msb(sf->crc_table, SLF3S_CRC8_POLY);
++
++	ret = devm_regulator_get_enable(dev, "vdd");
++	if (ret)
++		return dev_err_probe(dev, ret, "failed to enable vdd supply\n");
++
++	fsleep(SLF3S_POWER_UP_DELAY_US);
++
++	ret = slf3s_detect_variant(sf);
++	if (ret)
++		return dev_err_probe(dev, ret, "product info read failed\n");
++
++	ret = slf3s_send_cmd(client, slf3s_cmd_start_water);
++	if (ret)
++		return dev_err_probe(dev, ret,
++				     "failed to start measurement\n");
++
++	fsleep(SLF3S_MEAS_START_DELAY_US);
++
++	ret = devm_add_action_or_reset(dev, slf3s_stop_meas, sf);
++	if (ret)
++		return ret;
++
++	indio_dev->name = sf->variant->name;
++	indio_dev->channels = slf3s_channels;
++	indio_dev->num_channels = ARRAY_SIZE(slf3s_channels);
++	indio_dev->info = &slf3s_info;
++	indio_dev->modes = INDIO_DIRECT_MODE;
++
++	return devm_iio_device_register(dev, indio_dev);
++}
++
++static const struct i2c_device_id slf3s_id[] = {
++	{ .name = "slf3s-0600f",
++	  .driver_data = (kernel_ulong_t)&slf3s_variants[0] },
++	{ .name = "slf3s-1300f",
++	  .driver_data = (kernel_ulong_t)&slf3s_variants[1] },
++	{ .name = "slf3s-4000b",
++	  .driver_data = (kernel_ulong_t)&slf3s_variants[2] },
++	{ }
++};
++MODULE_DEVICE_TABLE(i2c, slf3s_id);
++
++static const struct of_device_id slf3s_of_match[] = {
++	{ .compatible = "sensirion,slf3s-0600f", .data = &slf3s_variants[0] },
++	{ .compatible = "sensirion,slf3s-1300f", .data = &slf3s_variants[1] },
++	{ .compatible = "sensirion,slf3s-4000b", .data = &slf3s_variants[2] },
++	{ }
++};
++MODULE_DEVICE_TABLE(of, slf3s_of_match);
++
++static struct i2c_driver slf3s_driver = {
++	.driver = {
++		.name		= "slf3s",
++		.of_match_table	= slf3s_of_match,
++	},
++	.probe		= slf3s_probe,
++	.id_table	= slf3s_id,
++};
++module_i2c_driver(slf3s_driver);
++
++MODULE_AUTHOR("Wadim Mueller <wafgo01@gmail.com>");
++MODULE_DESCRIPTION("Sensirion SLF3S liquid flow sensor driver");
++MODULE_LICENSE("GPL");
 -- 
 2.52.0
 
