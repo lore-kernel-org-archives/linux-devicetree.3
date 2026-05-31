@@ -1,47 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AB55335BA;
-	Sun, 31 May 2026 12:30:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E52E335BA;
+	Sun, 31 May 2026 12:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780230653; cv=none; b=Sf91ewrJfZekCAP3ESUzXwNTWqBrFffZlsfz4k9ucfGd6qTCFaO81GPWx/ZdKNHWmjdFP5t1co5QC2VnMxJeUTEWoq/EMKHyTigvux4Y+0BlOtquk8HGTZoIEuaxJAcxodTjFcLUfYYrGBuYukzgmcUxjBW/MMDoXEMnZ3qvyUY=
+	t=1780230841; cv=none; b=fWKC72d4Ol7GczEIXLZRt+LV6rmkxlYQL9sbzFaSf7UudhhwMhIkDzDQu/xJDYPLtJsNieCayVUU+71BT/Xo5IgtUNIil14/KU/UkztOTz0zvaA4V7ScRDhjymuAkHKoOpk9VwfjH9Xsp5O+VvDCYg6m7F9KgRw/NbVYXoPUIwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780230653; c=relaxed/simple;
-	bh=TnDB33wKQPTqMLKZRjSWWDqbuvRq3h8klJCKz8rStWc=;
+	s=arc-20240116; t=1780230841; c=relaxed/simple;
+	bh=o1/NV/2/xBrlmCzMxvTMtKUXL1B7POeYLmC9Djrm684=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hEqYizJkL4p7jgzzrBs84oYqLu7hIyq8bQXDgcQK8gSo22w63E88tEOi3Sd4UA6tZmuh/U3mypPM1Q/cJ43fXZJiJfSygr6iz6XeE9O0paZHT7UspjwcN6HIYRvT5hyAtLIo8E/YcGVOxcDqICg8/NaiRRx9p+N/VK4gz1m3SDM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SjOUfy3o; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=oWO9zjmHqoETgKlynzaFduxOLhmeOn9XqBwIUSUGk75FeT8p+B7GGnV+j3k1ONSEqQovhQcimryC/BbqsaKm6ifTc5nTBAAOyyf0AkS8tev0CJJcqdejkOEuGfPf5stTzNfTcnte5tNV9QiC9DWP0jr+VQNSkmyuX2kz30uT1WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D+k7/jRM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SjOUfy3o"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 719511F00893;
-	Sun, 31 May 2026 12:30:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D+k7/jRM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4ED561F00893;
+	Sun, 31 May 2026 12:33:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780230651;
-	bh=d1uPcikU+0mzVs3WcJOLd986su5Z+aCvm53jpWQgBL0=;
+	s=k20260515; t=1780230839;
+	bh=7GG6KQd5aX+5r9GRl8R9AHSJCz+bGDBDGfIlmgsIxCE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=SjOUfy3oyAA5iarNpcErwA6I7fQ9bLtYsQUXtvx6be0GcfGUUbF26dxN4q4r9XZA8
-	 E+HIcyVInLZZ+0vJh6Ghgsgl+8MQtbHOXB5kjR96FTP9OHK22tnSDExNZDc9Z1mPT8
-	 V2zUiTXugUUL/P+p5w4pDC42mJDOfeQy0KmHFABTY5eT1hHZX1rYZkOdEedPiz+5TE
-	 xKQkNNvPS46eDDVy5xoQ9cSg9LwfdRcvWutflnzz/DhXqL2DPYtYRUjklEn6fmOccb
-	 FzDKN2Zmchd9BSgHniCXVMe2Q9JYtNP6gYX8iecYLKkHJC6nriHuSgbaUgI4k1CpYV
-	 OnTyn28NntMqQ==
-Date: Sun, 31 May 2026 14:30:49 +0200
+	b=D+k7/jRMZgv6UDD+8mDBRak0bpERKAEgdl0DnOT6cEGv68m2oZZPflMWDBBXg5KWi
+	 EV1ZTasmRmvCR5K4wUnFwuxGI4UFBxTrB8VIkyoOxEMJhKm2Hdx3kXSUFWABLYa5dl
+	 R857gEWCreSSrUZSWoA1vXoNxykP5uKrmDxRXa9g8PwZ4mJ+Tj3DcZE209YZaC3qLh
+	 UrR+cW3Tzl+DZE0QoQX9HUKTlv6NiK5BwG8u3tKhIzVz417gaHdjgMCwI1Xr9/2d2T
+	 hy8MHXRUpjMrtzXg+LOvnaiOuMuTXmfVYFy9DCc8Qrr7VwPMf2feHqgDE08pj2k21Z
+	 olhv99IQCYZrQ==
+Date: Sun, 31 May 2026 14:33:41 +0200
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Joshua Milas <josh.milas@gmail.com>
-Cc: tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, pjw@kernel.org, samuel.holland@sifive.com, 
-	unicorn_wang@outlook.com, inochiama@gmail.com, daniel.lezcano@linaro.org, 
-	palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	liujingqi@lanxincomputing.com, alexander.sverdlin@gmail.com, rabenda.cn@gmail.com, 
-	dlan@kernel.org, chao.wei@sophgo.com, anup@brainfault.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	sophgo@lists.linux.dev, hanguidong02@gmail.com, michael.opdenacker@rootcommit.com
-Subject: Re: [PATCH v5 RESEND 3/5] dt-bindings: soc: sophgo: add sg2000 plic
- and clint documentation
-Message-ID: <20260531-fair-coati-of-attack-ac59b7@quoll>
-References: <20260530173347.33533-1-josh.milas@gmail.com>
- <20260530173347.33533-4-josh.milas@gmail.com>
+To: palash.kambar@oss.qualcomm.com
+Cc: vkoul@kernel.org, neil.armstrong@linaro.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, mani@kernel.org, alim.akhtar@samsung.com, 
+	bvanassche@acm.org, andersson@kernel.org, dmitry.baryshkov@oss.qualcomm.com, 
+	abel.vesa@oss.qualcomm.com, luca.weiss@fairphone.com, linux-arm-msm@vger.kernel.org, 
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-scsi@vger.kernel.org, nitin.rawat@oss.qualcomm.com
+Subject: Re: [PATCH v3 1/3] dt-bindings: phy: qcom,sc8280xp-qmp-ufs-phy: Add
+ Hawi UFS PHY compatible
+Message-ID: <20260531-rigorous-gay-sturgeon-e8cfe2@quoll>
+References: <20260526090956.2340262-1-palash.kambar@oss.qualcomm.com>
+ <20260526090956.2340262-2-palash.kambar@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,19 +48,14 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260530173347.33533-4-josh.milas@gmail.com>
+In-Reply-To: <20260526090956.2340262-2-palash.kambar@oss.qualcomm.com>
 
-On Sat, May 30, 2026 at 01:33:45PM -0400, Joshua Milas wrote:
-> Document the compatible strings for the sg2000 interrupt
-> controller and timer.
+On Tue, May 26, 2026 at 02:39:54PM +0530, palash.kambar@oss.qualcomm.com wrote:
+> From: Palash Kambar <palash.kambar@oss.qualcomm.com>
 > 
-> Signed-off-by: Joshua Milas <josh.milas@gmail.com>
-> ---
->  .../bindings/interrupt-controller/sifive,plic-1.0.0.yaml         | 1 +
->  Documentation/devicetree/bindings/timer/sifive,clint.yaml        | 1 +
->  2 files changed, 2 insertions(+)
+> Document QMP UFS PHY compatible for Hawi SoC.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Lack of compatibility is a mistake or intentional?
 
 Best regards,
 Krzysztof
