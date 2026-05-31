@@ -1,48 +1,42 @@
-Received: from outbound7.mail.transip.nl (outbound7.mail.transip.nl [136.144.136.7])
+Received: from outbound10.mail.transip.nl (outbound10.mail.transip.nl [136.144.136.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A6B82F549F;
-	Sun, 31 May 2026 04:09:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9830A275AF5;
+	Sun, 31 May 2026 04:09:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780200561; cv=none; b=qm6IK3MVZ0eqWe2zWWe/U7BlkkW03T6Qc88lYaic6Kh6oW4gS4rRz/fFnLuExywadsQXF4yysoczzhssaG3ZG9JIWQtKDWwbgYDwj1hABxObK+N2tAqjxzJXFI1fo1CISgRJFVb0rrpHHS3x2JHjDp2RIrTd7DUT0Y4cBMwFW5E=
+	t=1780200560; cv=none; b=pAaNzkNUo0lvvZZxfVxNLS1kRXtnhDTzpb8Xn1SKJnN3VkT46gNZckDEoSXQU5lnhN06FJuIfHk8vKDZxz7Nd5M5w6olrGZxyyuNGagNO5XDfriXN2DiiYKh93oQ7WDHywWTw61t6QOVLWH/BAPczLifcka8fMuWEO3VwcJH0xA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780200561; c=relaxed/simple;
-	bh=uwlX8PMjADCDQEuq4aieXUonap0uly45GgLHHNp7B8s=;
+	s=arc-20240116; t=1780200560; c=relaxed/simple;
+	bh=YmoV3AGwA/puyIqfk0XLJzavVS4zNqa4oNK/aBfU5mA=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eDFqwhyoKZ1qpB9lvqZNY5QhQIQn485WsRcsAu+JnXXof6ZK8QOflUC/vV7BDPpDSE4+eUhQPIm9aPAP3YUH+KjA/MI4Lx9JuKXrsxaMsE1bOKWuxRJmkpFoZZXm8KwWN6VfQdR3Wi5lHcJSsKZhrbDqgTx++/5IwUxve5tSLY8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=sT9FdjdF; arc=none smtp.client-ip=136.144.136.7
+	 MIME-Version; b=kgAWH6bN+6EQ8v0h/+L7NSIj1q+d2/76u5EEAgPYYeVUW2WiXgyOOw6dQrolapk4X+reLj0dZvnKDPjLydf7F832ry62XkXFMNUKc/0+dU2hmgzPqc9omyA4uW9vCTDkIlU3r7pPUA2avKMiM9GDDcbTYDHRl+PzYDW2grJEB0o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=uNpvAr3s; arc=none smtp.client-ip=136.144.136.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="sT9FdjdF"
-Received: from submission1.mail.transip.nl (unknown [10.100.4.70])
-	by outbound7.mail.transip.nl (Postfix) with ESMTP id 4gSkB16LSlzQvvWt;
-	Sun, 31 May 2026 06:09:13 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="uNpvAr3s"
+Received: from submission3.mail.transip.nl (unknown [10.100.4.72])
+	by outbound10.mail.transip.nl (Postfix) with ESMTP id 4gSk9x12KszTPNjL;
+	Sun, 31 May 2026 06:09:09 +0200 (CEST)
 Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission1.mail.transip.nl (Postfix) with ESMTPA id 4gSkB108KYzJjhXv;
-	Sun, 31 May 2026 06:09:13 +0200 (CEST)
+	by submission3.mail.transip.nl (Postfix) with ESMTPA id 4gSk9w4Msrzf52b5;
+	Sun, 31 May 2026 06:09:08 +0200 (CEST)
 From: Herman van Hazendonk <github.com@herrie.org>
-To: Bjorn Andersson <andersson@kernel.org>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
+To: Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
-	Konrad Dybcio <konradybcio@kernel.org>,
+	Georgi Djakov <djakov@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-rt-devel@lists.linux.dev,
-	Rob Herring <robh@kernel.org>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Thomas Gleixner <tglx@kernel.org>,
-	van Hazendonk <github.com@herrie.org>
-Subject: [PATCH v2 1/2] dt-bindings: interrupt-controller: qcom: add msm8660-mpm
-Date: Sun, 31 May 2026 06:09:10 +0200
-Message-ID: <4cca687dba2d1c341613a13d3e4b4a156b0d5531.1780195817.git.github.com@herrie.org>
+	linux-pm@vger.kernel.org,
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v2 1/2] dt-bindings: interconnect: qcom: add msm8660 fabric IDs
+Date: Sun, 31 May 2026 06:09:06 +0200
+Message-ID: <b8f81a5eaece97304ca78aaa54a118cfe496d064.1780197411.git.github.com@herrie.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1780195817.git.github.com@herrie.org>
-References: <cover.1780148149.git.github.com@herrie.org> <cover.1780195817.git.github.com@herrie.org>
+In-Reply-To: <cover.1780197411.git.github.com@herrie.org>
+References: <cover.1780148149.git.github.com@herrie.org> <cover.1780197411.git.github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,162 +44,202 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission1.mail.transip.nl
+X-Scanned-By: ClueGetter at submission3.mail.transip.nl
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780200553; h=from:subject:to:references:
+ s=transip-a; d=herrie.org; t=1780200548; h=from:subject:to:references:
  in-reply-to:date:mime-version;
- bh=IOnVW/3WZHj8cYeEeQr7f0EyPtew8KoJY81FvzBRJSs=;
- b=sT9FdjdFDQe4uB/WL6B6ovQc6Vy5evEw/otAMlxYkJeeo2gKJPLVNoORpXJa7VW23j+VyI
- AlQg0evTYG+cUzlp2eKkvPyfv7W5bKgjfVkRg56kGsUIqde02ScWYcAFQloXvE4IJ9qKnh
- f4kg/ckLxNqq145ClZFkP/r49OJNVzk5NwfTauA6Kz41YMV60NL/tHDfQXA1R0+X9rXsP6
- RNCU3yeEU1F7naZUllYP6LR7kUJUxIYqASE5dAZ7n7/fmDz0vMresjxqgBVrE4gDG35Lhy
- 3lGbhngyzvDdvs8mASztVhM2fvsX79aXRKx1aCevzHzUvkRyEirCD2Jhpk+KNA==
+ bh=UZ0iX3Gj77ummUnifDlRQO0HGw8lRcxgldhHGrIsmmE=;
+ b=uNpvAr3stpMDc5gWemmkagoxmoLMtsYGuyd7kZbihi+WsFKvcZ5UJGJLTGPbxna78LCbNl
+ 1i2lW+opUlOfr5p6R7yMktaY4ftVFyFuQ/uVtcnvQViqS+Poso7HYxQVDgyn5UebKAeCPS
+ Btb359qjL0JBjuvaMaDdgLe+BtfdxooQRbcZspujg2TsQbHy6ndHAlv7KiNXv1b+zgQ0gH
+ PbMXKRVP2Uk4N2+jzeTDx6lFKlILM5wtCMQ9cnEotiTZSZcxsajfpKucmvGKLTSxWos0hP
+ pNVlNogddJhncDyqCqJV0kOCyUlc6NEhtzKUaIjAsvlKdXlwUAhSmJYfOg22Dg==
 X-Report-Abuse-To: abuse@transip.nl
 
-Add the binding for the Modem Power Manager (MPM) interrupt
-controller on the MSM8x60 family (MSM8260/MSM8660/APQ8060). The MPM
-is a small wake-capable interrupt aggregator that lets the SoC stay
-in low-power states while a small set of GIC SPIs continues to be
-monitored and can wake the system on an edge.
+Add the dt-binding interconnect master/slave ID header for the
+MSM8x60 family (MSM8260/MSM8660/APQ8060) fabric mesh. The chip's
+NoC fabric is split into multiple sub-fabrics that the qnoc-msm8660
+driver models:
 
-The binding describes its register region (in the RPM syscon), the
-GIC SPI it raises on a wake event, the GIC mailbox it shares with
-the RPM, and the per-pin wake-source mapping table.
+  AFAB  - Applications fabric (Scorpion CPU + L2)
+  SFAB  - System fabric (DMA, SPS, security)
+  MMFAB - Multimedia fabric (MDP, GPU, camera, video, rotator)
+  DFAB  - Daytona fabric (SDC, ADM master/slave)
+  SFPB  - System Fast Peripheral Bridge (RPM, MPM, PMIC SSBI)
+  CFPB  - CPU Subsystem Fast Peripheral Bus (GSBI UART/QUP, USB FS,
+          TSIF, TSSC, PDM, PRNG)
+
+IDs derived from the legacy webOS msm_bus_board_8660.c master/slave
+enums, normalised to the upstream interconnect-framework naming.
 
 Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
 ---
- .../qcom,msm8660-mpm.yaml                     | 122 ++++++++++++++++++
- 1 file changed, 122 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml
+ .../dt-bindings/interconnect/qcom,msm8660.h   | 156 ++++++++++++++++++
+ 1 file changed, 156 insertions(+)
+ create mode 100644 include/dt-bindings/interconnect/qcom,msm8660.h
 
-diff --git a/Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml b/Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml
+diff --git a/include/dt-bindings/interconnect/qcom,msm8660.h b/include/dt-bindings/interconnect/qcom,msm8660.h
 new file mode 100644
-index 000000000000..1288e83d75d6
+index 000000000000..c9ce3f5a5276
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/interrupt-controller/qcom,msm8660-mpm.yaml
-@@ -0,0 +1,122 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/interrupt-controller/qcom,msm8660-mpm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
++++ b/include/dt-bindings/interconnect/qcom,msm8660.h
+@@ -0,0 +1,156 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Qualcomm MSM8x60 family (MSM8260/MSM8660/APQ8060) interconnect IDs
++ *
++ * Copyright (c) 2026 Herman van Hazendonk <github.com@herrie.org>
++ *
++ * Based on webOS kernel msm_bus_board_8660.c
++ * Copyright (c) 2010-2011, Code Aurora Forum. All rights reserved.
++ */
 +
-+title: Qualcomm MSM8x60 MPM wakeup interrupt controller
++#ifndef __DT_BINDINGS_INTERCONNECT_QCOM_MSM8660_H
++#define __DT_BINDINGS_INTERCONNECT_QCOM_MSM8660_H
 +
-+maintainers:
-+  - Herman van Hazendonk <github.com@herrie.org>
++/*
++ * MSM8x60 has a fabric-based bus architecture:
++ * - APPSS Fabric: CPU and memory interface
++ * - System Fabric: System peripherals and DMA
++ * - MMSS Fabric: Multimedia subsystem (display, camera, video)
++ * - Daytona Fabric: Peripheral bus (SDCC, ADM DMA)
++ * - System FPB: System Fast Peripheral Bus
++ * - CPSS FPB: CPU Subsystem Fast Peripheral Bus
++ */
 +
-+description: |
-+  The MSM Power Manager (MPM) on the MSM8x60 family (MSM8260/MSM8660/
-+  APQ8060) is an always-on hardware block that keeps a set of wake
-+  interrupts alive while the application processor is powered down.
++/* APPSS Fabric - Apps processor fabric */
++#define AFAB_MAS_AMPSS_M0		0
++#define AFAB_MAS_AMPSS_M1		1
++#define AFAB_SLV_EBI_CH0		2
++#define AFAB_SLV_AMPSS_L2		3
++#define AFAB_TO_MMSS			4
++#define AFAB_TO_SYSTEM			5
 +
-+  The vMPM (virtual MPM) registers live INSIDE the RPM control block:
-+  the request window (ENABLE, DETECT_CTL, POLARITY, CLEAR) starts at
-+  RPM_BASE + 0x9d8 and the status window starts 0x420 above the
-+  request window. The reg property points at this vMPM sub-region;
-+  the qcom,rpm-msm8660 driver maps the surrounding RPM control area
-+  for its own use, so the two mappings overlap but neither claims
-+  exclusive ownership of the other's range.
++/* System Fabric - System bus */
++#define SFAB_MAS_APPSS			0
++#define SFAB_MAS_SPS			1
++#define SFAB_MAS_ADM0_PORT0		2
++#define SFAB_MAS_ADM0_PORT1		3
++#define SFAB_MAS_ADM1_PORT0		4
++#define SFAB_MAS_ADM1_PORT1		5
++#define SFAB_MAS_LPASS_PROC		6
++#define SFAB_MAS_MSS_PROCI		7
++#define SFAB_MAS_MSS_PROCD		8
++#define SFAB_MAS_MSS_MDM_PORT0		9
++#define SFAB_MAS_LPASS			10
++#define SFAB_MAS_MMSS_FPB		11
++#define SFAB_MAS_ADM1_CI		12
++#define SFAB_MAS_ADM0_CI		13
++#define SFAB_MAS_MSS_MDM_PORT1		14
++#define SFAB_MAS_USB_HS			15
++#define SFAB_TO_APPSS			16
++#define SFAB_TO_SYSTEM_FPB		17
++#define SFAB_TO_CPSS_FPB		18
++#define SFAB_SLV_SPS			19
++#define SFAB_SLV_SYSTEM_IMEM		20
++#define SFAB_SLV_AMPSS			21
++#define SFAB_SLV_MSS			22
++#define SFAB_SLV_LPASS			23
++#define SFAB_SLV_MMSS_FPB		24
++#define SFAB_TO_DFAB			25
 +
-+  Notification of new wake-source configuration is delivered via the
-+  qcom-apcs-ipc mailbox (writing GCC + 0x008 bit 1).
++/* MMSS Fabric - Multimedia subsystem */
++#define MMFAB_MAS_MDP_PORT0		0
++#define MMFAB_MAS_MDP_PORT1		1
++#define MMFAB_MAS_ADM1_PORT0		2
++#define MMFAB_MAS_ROTATOR		3
++#define MMFAB_MAS_GRAPHICS_3D		4
++#define MMFAB_MAS_JPEG_DEC		5
++#define MMFAB_MAS_GRAPHICS_2D_CORE0	6
++#define MMFAB_MAS_VFE			7
++#define MMFAB_MAS_VPE			8
++#define MMFAB_MAS_JPEG_ENC		9
++#define MMFAB_MAS_GRAPHICS_2D_CORE1	10
++#define MMFAB_MAS_HD_CODEC_PORT0	11
++#define MMFAB_MAS_HD_CODEC_PORT1	12
++#define MMFAB_TO_APPSS			13
++#define MMFAB_SLV_SMI			14
++#define MMFAB_SLV_MM_IMEM		15
 +
-+  This binding is MSM8x60-specific. Newer Qualcomm SoCs (sm6375, etc.)
-+  use the qcom,mpm binding which assumes a dedicated MPM SRAM region
-+  and an IPCC mailbox - neither holds on MSM8x60. The driver lives at
-+  drivers/irqchip/irq-msm8660-mpm.c.
++/*
++ * Daytona Fabric (DFAB) - Peripheral bus
++ *
++ * DFAB connects slower peripherals (SDCC, ADM DMA) to the system fabric.
++ * The webOS kernel managed DFAB bandwidth via voter clocks (dfab_sdc*_clk,
++ * dfab_usb_hs_clk). In mainline, this is handled by the interconnect framework.
++ *
++ * USB HS is included as a DFAB voter for compatibility with the legacy clock
++ * voting mechanism. The webOS kernel comment said: "if usb link is in sps
++ * there is no need for usb pclk as daytona fabric clock will be used instead".
++ * This keeps DFAB clock stable when USB is active.
++ */
++#define DFAB_MAS_SDC1			0
++#define DFAB_MAS_SDC2			1
++#define DFAB_MAS_SDC3			2
++#define DFAB_MAS_SDC4			3
++#define DFAB_MAS_SDC5			4
++#define DFAB_MAS_ADM0_MASTER		5
++#define DFAB_MAS_ADM1_MASTER		6
++#define DFAB_TO_SFAB			7
++#define DFAB_SLV_SDC1			8
++#define DFAB_SLV_SDC2			9
++#define DFAB_SLV_SDC3			10
++#define DFAB_SLV_SDC4			11
++#define DFAB_SLV_SDC5			12
++#define DFAB_MAS_USB_HS			13
++#define DFAB_MAS_DSPS			14
 +
-+allOf:
-+  - $ref: /schemas/interrupt-controller.yaml#
++/* System FPB - Slow peripheral bus for system */
++#define SFPB_MAS_SYSTEM			0
++#define SFPB_MAS_SPDM			1
++#define SFPB_MAS_RPM			2
++#define SFPB_SLV_SPDM			3
++#define SFPB_SLV_RPM			4
++#define SFPB_SLV_RPM_MSG_RAM		5
++#define SFPB_SLV_MPM			6
++#define SFPB_SLV_PMIC1_SSBI1_A		7
++#define SFPB_SLV_PMIC1_SSBI1_B		8
++#define SFPB_SLV_PMIC1_SSBI1_C		9
++#define SFPB_SLV_PMIC2_SSBI2_A		10
++#define SFPB_SLV_PMIC2_SSBI2_B		11
 +
-+properties:
-+  compatible:
-+    const: qcom,msm8660-mpm
++/* CPSS FPB - CPU subsystem fast peripheral bus */
++#define CFPB_MAS_SYSTEM			0
++#define CFPB_SLV_GSBI1_UART		1
++#define CFPB_SLV_GSBI2_UART		2
++#define CFPB_SLV_GSBI3_UART		3
++#define CFPB_SLV_GSBI4_UART		4
++#define CFPB_SLV_GSBI5_UART		5
++#define CFPB_SLV_GSBI6_UART		6
++#define CFPB_SLV_GSBI7_UART		7
++#define CFPB_SLV_GSBI8_UART		8
++#define CFPB_SLV_GSBI9_UART		9
++#define CFPB_SLV_GSBI10_UART		10
++#define CFPB_SLV_GSBI11_UART		11
++#define CFPB_SLV_GSBI12_UART		12
++#define CFPB_SLV_GSBI1_QUP		13
++#define CFPB_SLV_GSBI2_QUP		14
++#define CFPB_SLV_GSBI3_QUP		15
++#define CFPB_SLV_GSBI4_QUP		16
++#define CFPB_SLV_GSBI5_QUP		17
++#define CFPB_SLV_GSBI6_QUP		18
++#define CFPB_SLV_GSBI7_QUP		19
++#define CFPB_SLV_GSBI8_QUP		20
++#define CFPB_SLV_GSBI9_QUP		21
++#define CFPB_SLV_GSBI10_QUP		22
++#define CFPB_SLV_GSBI11_QUP		23
++#define CFPB_SLV_GSBI12_QUP		24
++#define CFPB_SLV_EBI2_NAND		25
++#define CFPB_SLV_USB_FS1		26
++#define CFPB_SLV_USB_FS2		27
++#define CFPB_SLV_TSIF			28
++#define CFPB_SLV_MSM_TSSC		29
++#define CFPB_SLV_MSM_PDM		30
++#define CFPB_SLV_MSM_DIMEM		31
++#define CFPB_SLV_MSM_TCSR		32
++#define CFPB_SLV_MSM_PRNG		33
 +
-+  reg:
-+    maxItems: 1
-+    description: |
-+      vMPM register window inside the RPM control block. Must cover
-+      the request registers at offset 0 of the window and the status
-+      registers at offset 0x420 of the window. A length of 0x440 is
-+      sufficient for the four-word request banks and the status bank.
-+
-+  interrupts:
-+    maxItems: 1
-+    description:
-+      IPC IRQ raised by MPM when one of the enabled wake sources fires.
-+      On MSM8x60 this is wired to GIC SPI 2.
-+
-+  mboxes:
-+    maxItems: 1
-+    description:
-+      Mailbox channel used to notify MPM that the vMPM request
-+      registers have been updated. On MSM8x60 this is the
-+      qcom-apcs-ipc mailbox channel 1 (writes GCC + 0x008 bit 1).
-+
-+  interrupt-controller: true
-+
-+  '#interrupt-cells':
-+    const: 2
-+    description:
-+      First cell is the MPM pin number / parent GIC SPI; second cell
-+      is the trigger type.
-+
-+  qcom,mpm-pin-count:
-+    $ref: /schemas/types.yaml#/definitions/uint32
-+    description: Total number of MPM pins exposed.
-+
-+  qcom,mpm-pin-map:
-+    $ref: /schemas/types.yaml#/definitions/uint32-matrix
-+    items:
-+      items:
-+        - description: MPM pin number
-+        - description: GIC SPI number this pin maps to
-+    description: |
-+      List of (MPM-pin, GIC-SPI) tuples for wake sources that have a
-+      corresponding GIC IRQ. Consumers route their interrupts through
-+      the MPM hierarchical irqdomain to take advantage of these
-+      mappings.
-+
-+      Raw wake pins like SDC3/4 DATx (pins 21-24) are NOT listed
-+      here - they have no GIC SPI mapping and are accessed through
-+      the msm8660_mpm_set_pin_wake() / msm8660_mpm_enable_pin() C API
-+      by consumer drivers.
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - mboxes
-+  - interrupt-controller
-+  - '#interrupt-cells'
-+  - qcom,mpm-pin-count
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/arm-gic.h>
-+
-+    soc {
-+        #address-cells = <1>;
-+        #size-cells = <1>;
-+
-+        msm8660_mpm: interrupt-controller@1049d8 {
-+            compatible = "qcom,msm8660-mpm";
-+            reg = <0x001049d8 0x440>;
-+            interrupts = <GIC_SPI 2 IRQ_TYPE_EDGE_RISING>;
-+            mboxes = <&gcc_ipc 1>;
-+            interrupt-controller;
-+            #interrupt-cells = <2>;
-+            interrupt-parent = <&intc>;
-+            qcom,mpm-pin-count = <64>;
-+            qcom,mpm-pin-map = <25 100>,
-+                               <26 50>,
-+                               <27 79>;
-+        };
-+    };
++#endif /* __DT_BINDINGS_INTERCONNECT_QCOM_MSM8660_H */
 -- 
 2.43.0
 
