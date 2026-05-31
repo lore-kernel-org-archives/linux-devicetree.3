@@ -1,137 +1,142 @@
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com [209.85.217.42])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4D9392814
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 18:09:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF5C227F19F
+	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 19:26:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780250975; cv=none; b=be/PXNPb+VKeooKKCwZvRplAoEWAoq52y7agvuMGflUARBL3bT+7VUY43ncq5GdZdVmQO8fVUn0cFKgPVYhPffPf6x7l7lPSSW0fHmWYBwOKIMyW4zAn68jCNDh8IpJCL+NolZ04Q1BHKkUzkXJo86G1b/PJfIPkrJDt5sIEmTI=
+	t=1780255616; cv=none; b=MjKJmBjtwG0lA1m9u0s37oeBPnCRnCEcMWYZhsGjXQOeWs+P/GEwRUWWI+DoywWC3of3VWAeNaF6k3kS8RxkPVcciCQmOD6ejHP3yJbd5kMqJr2m/QCBDuzyAL63fa33wdcSKs6c8eb3YsJSiXGZZ13HHV+CNZ2GR+BMBmenmns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780250975; c=relaxed/simple;
-	bh=9/xTQ86TP9KKDpmV3juKQ+8JETyHMqjxNNbNZJQ4CFE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=A6B0kCkvtnef2C73/FRekTa1cwNmYltMsaHX7b2aocvPy0Yh7N7EuMzaF5AVChRxPoGuXO7IhiaG2gT7lkRN2s4DZ6sMsdE8C+zgJyqImQ3iXifirHSJrwHOmL6ONZO9b7nd9mkfvty83zyIMtQGreb1xlbEKRsGThdNNNkiM3g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=l2juMyc1; arc=none smtp.client-ip=209.85.217.42
+	s=arc-20240116; t=1780255616; c=relaxed/simple;
+	bh=BVgKf01OgskgygeFY43Z0W3nhM0vUepIGbcC73EKjk0=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=b3j0R8LFeXBZR6pJ2ZCt/lJxws4xKCm9vCWJQ0H6HW7EhDqqWStH2kcyM3WPOF7h2KobTetvWt4B9m8CXOiv7unXerJH7AiSdg1LcLlI/pCg620r9gxy1LmRzCNfivyuPzYZJGMAlSBEPVFIOnfWtMTEkkiN06ed9x4xG1oU4Pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pq5W56my; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="l2juMyc1"
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6cfcad4f979so602889137.1
-        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 11:09:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pq5W56my"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4903f7a90d1so83071345e9.2
+        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 12:26:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780250972; x=1780855772; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+mSzCvroumpiDFsos1xbPMHb6ldCMd++1hsQi+z4o/M=;
-        b=l2juMyc1J9PAqFVSPVnZEBF92j/U3Tfgsd9K4jDp1I0FBRq7anTPun4gtWUEvEAPWi
-         i2mzgMK91p06VdTgpST8rqwFokqC09vUa2edndK6vXVDYdnfK/CaaUd+7l29cam7lECp
-         tP/wuSXKy9N8Z8lZabHVAvqvXtva0JnSvto39CFB1iqh0w22xJih4jvcQ/9Mo98+V3zx
-         oXdd9ANYP73RohRayvZa63TwIJnVGcBSvHLDuV8AjJNh5al17qkt0OIt8fsXrd43eS1Z
-         GkswvDR4SiBFOwsLxTDUkFgvLln8SjLshsDVB+tGhZW37eh1ahoi8JU1zHfN4/LAOw71
-         on9Q==
+        d=gmail.com; s=20251104; t=1780255612; x=1780860412; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=acBxYatXtrUI34saUQ8bjI1t/UrspULYpylE92l4Z84=;
+        b=pq5W56myaRdY0FHLaSAMvxFc/SgBtatj5UKXDUrCVkbBWh8qhEhF/W5jwe8wrzwWxk
+         F5JHD8SCRrbhoLKQhGs5NIq9WBQXC1I21SRtcGwBAGtW0HFQrJMdaTmD3jItm1sV3icJ
+         yskK1vDM6G00Ll2mwConqQw5nAzDII3AyULuTnjkWXVnBWq+/enG8zuKr7D6B/rsIteD
+         kgKW70lDMdFUNoIDA0x605jDUg5shryHonGaey4qZpeUPoIviKerBAHKI04wzxGlrhni
+         zUTI2RnO77urS7WDsrdMU984OzBpnLPGD5DwVfqPc9agMP2t2jLlSbhziomwhuadp8h3
+         URug==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780250972; x=1780855772;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+mSzCvroumpiDFsos1xbPMHb6ldCMd++1hsQi+z4o/M=;
-        b=m7nn4QlB0f+iiDgfBNdTTvFeo/8wxVEiyePQhey0ey+AnQtVKZRZ5nObfj+VRZx2LR
-         Gf1uAPV4z8zShyZobQ4/BvxlTW4rYw3c6u3fX7qcV7dYfHyWYJAtkUXmjf69J4O6XS3T
-         s13QrH4n3vIsaVFA4yzb98PnoGSMTZfWEMTXkovmzXbyzmf1awFa9faia83bwUTQpckp
-         2KIttPDAP7ze3yglHLM0nRRVf2hgHwqim7nOEd55nQlwxERUYUHGbcTnIoZsp2VNvjZG
-         GlGU5uGJztUBtiqDHFWXpzNscfpzzBrPFN46XM5fMZAbyNqt4eF0A2Ln2m3+M0xsomyP
-         sDGg==
-X-Forwarded-Encrypted: i=1; AFNElJ+j2Dzhcnt64rpAqWj3xECQDv9/Fd+2LVGFVfB0Qa1l3vJJlrhpBIRYJVj5g989R8BKtmTG0m4OwGIj@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy0AfouCNe/iS66yJy3Zmt4OSwsR0EzFCo7hr7xDAISy1SVJRuy
-	yF0WCodD0v2oEudpzZJ25m77dW6ek0x/CtRBe3aYKmBcwg6l+w2E0eQL
-X-Gm-Gg: Acq92OHYQof4MeaXTgyBYJjJdd3bY5vnR97g4Q5y3YEYKxIygRjxzBga1Syu8SGfYek
-	HDoRyiROE/JpjEXaRB9g+/Wc15LngzQhG+AwShG7gti3L31PAk4CN24awztIBIs70ymqorwfQMn
-	6Ego0Q71GSAv4vKZAfxZDQWmaoXYYeLrx3rsuBt1Z2SzYVyis83o0XCxyJWEKZwj5xBRRQT7pOb
-	5Wpv63DzkyDmgye+aYbWcAHlZe/DuYgjS62zdqdXRN+2WlqyjZDWfzQynma3PM01IhQFj6LyZk4
-	FP/iklgo5uifKr9pw2Rsx3DF6/BvU+fecezDWFDrxeQepcW/QNGex+tbiMI6bfOvqwQZR92d1Vi
-	zFY/4A1AtCEZy0xxm5UsA6JUU8cj3vIzL9uhrxo6nuAI/POtt1knOrj2rQXa74dCxpZvTgwQVy9
-	Os7M/2J47i0Bge5xznBvsw60yDf6t6GGmF+WJFtu+YHww=
-X-Received: by 2002:a05:6102:3347:b0:631:b834:e051 with SMTP id ada2fe7eead31-6c6863e35e6mr3356217137.12.1780250972326;
-        Sun, 31 May 2026 11:09:32 -0700 (PDT)
-Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6bfc81ab8a5sm4854666137.9.2026.05.31.11.09.30
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 31 May 2026 11:09:30 -0700 (PDT)
-Date: Sun, 31 May 2026 15:09:54 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxwell Doose <m32285159@gmail.com>, linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 1/3] iio: types: add IIO_VOLUMEFLOW channel type
-Message-ID: <ahx5cuM1xlOVP6DT@debian-BULLSEYE-live-builder-AMD64>
-References: <20260530205435.37326-1-wafgo01@gmail.com>
- <20260530205435.37326-2-wafgo01@gmail.com>
+        d=1e100.net; s=20251104; t=1780255612; x=1780860412;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=acBxYatXtrUI34saUQ8bjI1t/UrspULYpylE92l4Z84=;
+        b=oasLP7Z9f6hrtvzEmVbPEdoVN3Gkpk5J2od7O2p4YIu19VyKDRpxUGQD6CyoJJPzWR
+         Cue8BvLYd6826v0r+f9xxHyaeld0mRxeHViuiKnFblpat4X9BVeK3GFP2C9SVKIvb037
+         sUSkzMvN84BhEwWgZFHOPvq/a+XV+HuMzXDGyF3VC72qW8iROFvLG3mwVdBPgRh1mlIK
+         y+OgRAXnmKWFR+G40Mw5fYU1k6UZ61SOxy4mdm9IjRUqEpfr7BTAVQqdBirSxsMhuvbX
+         OJ32MQ8+qCiaLiY/rOiYhVx0pR2Numg4a+wJcBex308XFnfTTfez0xrZljrQrcbgmcCf
+         l86A==
+X-Forwarded-Encrypted: i=1; AFNElJ8/3aSvl5XaduUpO06A0GbNrLVms6FAVfFC045Vly+m+SwIM4Q5vlTnhGA9WcMFfLae24mWC9cGH76d@vger.kernel.org
+X-Gm-Message-State: AOJu0YxtET1eytKZXcJQ1gUN+2xM0vUJlzkUNsGzQMdZM9KDyxXjO2YX
+	TPSc/oDcr2kNYNWwmOmChHr52vt22Te4QmZXDzKITusC1x+hTsLGfXYt
+X-Gm-Gg: Acq92OGvDDMGa/B4OA8wkrSC+4gssNqmhcD2nP2XVDmpTaIL1qjDqEx5PIMeF6hyS8X
+	3qe7o5GwMGztKvBDSYODCBwTRB/i8O7W5O5Te1UNX5ijT9T4nfD+84jCMkqiAkwm9lMhRw5N6pi
+	OJXoVqLBhUIRdkMXfRh6vfX6dm7/VQRpJtSBMWsainZVAfxHVCrnrJ/eSwipTO8Kym6XMurSWoU
+	WwwGIIe9W5e0mP0C+0WlYB6ErxyyIcJDMjQ9K284ZgUDLz+IPGghnlW0EeLlkXBzPzTzyMk0VFd
+	2x6I4lplKqcWxqZPOn0gvmrZBUGt9aRNTxPE1vYkpWOz8tFweI8q8eJ1rPi1VMzIhWfyaeVmnq+
+	sjEC0DMOLf44k6Jbsi4G9z8EN5Ad5L5AWT6C7oKmVCFp/0CCna3SH2+bk2Whd0J/OB3t4XFkEq8
+	ZWKDkNSRG2XHC0Q3MEZZ/C6CXIjE5p7WpySTD1RWp7YWtJQzM=
+X-Received: by 2002:a05:600d:848a:b0:490:9d1b:f06b with SMTP id 5b1f17b1804b1-490a2943afamr100906285e9.26.1780255612025;
+        Sun, 31 May 2026 12:26:52 -0700 (PDT)
+Received: from localhost ([2001:4bb8:152:df59:bc17:a305:8902:fb31])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c0af2d6sm69505675e9.14.2026.05.31.12.26.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 31 May 2026 12:26:51 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260530205435.37326-2-wafgo01@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 31 May 2026 21:26:49 +0200
+Message-Id: <DIX3Y0PCFW9J.14RSKP23REFBO@gmail.com>
+Subject: Re: [PATCH v4 2/2] iio: light: veml3328: add support for new device
+Cc: <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>, "Jonathan Cameron" <jic23@kernel.org>,
+ "David Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260531-veml3328-v4-0-f9b65d71d917@gmail.com>
+ <20260531-veml3328-v4-2-f9b65d71d917@gmail.com>
+In-Reply-To: <20260531-veml3328-v4-2-f9b65d71d917@gmail.com>
 
-On 05/30, Wadim Mueller wrote:
-> Add a new IIO channel type for liquid volumetric flow sensors.  The
-> unit exposed via the standard _scale attribute is litres per second
-> (l/s), so drivers reporting smaller native units (e.g. ml/min) only
-> need to set a fractional scale.
-> 
-> Update iio-core's name table, the iio_event_monitor whitelist and
-> the sysfs-bus-iio ABI document to match.  The new _scale attribute is
-> folded into the existing shared _scale block; only the per-type _raw
-> needs a fresh entry.
-> 
-> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+Hi Joshua,
+
+Just a nitpick I caught on the fly because it was missing in a driver I
+recently sent as well.
+
+On Sun May 31, 2026 at 6:56 PM CEST, Joshua Crofts wrote:
+> Add support for the Vishay VEML3328 RGB/IR light sensor communicating
+> via I2C (SMBus compatible).
+>
+> Also add a new entry for said driver into Kconfig and Makefile.
+>
+> Assisted-by: Gemini:3.1-Pro
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 > ---
->  Documentation/ABI/testing/sysfs-bus-iio | 11 +++++++++++
->  drivers/iio/industrialio-core.c         |  1 +
->  include/uapi/linux/iio/types.h          |  1 +
->  tools/iio/iio_event_monitor.c           |  2 ++
->  4 files changed, 15 insertions(+)
-> 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio b/Documentation/ABI/testing/sysfs-bus-iio
-> index 5f87dcee7..2188557cb 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio
-> @@ -507,6 +507,8 @@ What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_red_scale
->  What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_green_scale
->  What:		/sys/bus/iio/devices/iio:deviceX/in_intensity_blue_scale
->  What:		/sys/bus/iio/devices/iio:deviceX/in_concentration_co2_scale
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_scale
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_scale
->  KernelVersion:	2.6.35
->  Contact:	linux-iio@vger.kernel.org
->  Description:
-> @@ -2458,3 +2460,12 @@ Description:
->  		seconds, expressed as:
->  
->  		- a range specified as "[min step max]"
+>  MAINTAINERS                  |   5 +
+>  drivers/iio/light/Kconfig    |  11 ++
+>  drivers/iio/light/Makefile   |   1 +
+>  drivers/iio/light/veml3328.c | 422 +++++++++++++++++++++++++++++++++++++=
+++++++
+>  4 files changed, 439 insertions(+)
+>
+> +++ b/drivers/iio/light/veml3328.c
+> @@ -0,0 +1,422 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Vishay VEML3328 RGBCIR light sensor driver
+> + *
+> + * Copyright (c) 2026 Joshua Crofts <joshua.crofts1@gmail.com>
+> + *
+> + * Datasheet: https://www.vishay.com/docs/84968/veml3328.pdf
+> + */
 > +
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflow_raw
-> +What:		/sys/bus/iio/devices/iio:deviceX/in_volumeflowY_raw
-> +KernelVersion:	6.19
-This is probably only landing in kernel 7.2 (or later?), so bumping the version
-seems appropriate.
+> +#include <linux/array_size.h>
+> +#include <linux/bitfield.h>
+> +#include <linux/bits.h>
+> +#include <linux/cleanup.h>
+> +#include <linux/delay.h>
+> +#include <linux/err.h>
+> +#include <linux/i2c.h>
+> +#include <linux/module.h>
 
-> +Contact:	linux-iio@vger.kernel.org
-> +Description:
-> +		Raw (unscaled) volumetric flow rate reading from the channel.
-> +		To convert to standard units (litres per second) apply the
-> +		channel's _scale (and _offset, when present).
-Early reviews suggested to use SI units so I think we would have cubic meters
-per second. Disregard if I missed some review accepting it as liters per second.
+At least linux/mod_devicetable.h is missing to include of_device_id.
+Probably that's the only missing header, and it could be added without
+sending a new version, but that is not for me to decide :)
 
-With best regards,
-Marcelo
+> +#include <linux/mutex.h>
+> +#include <linux/pm_runtime.h>
+> +#include <linux/regmap.h>
+> +#include <linux/regulator/consumer.h>
+> +#include <linux/time.h>
+> +#include <linux/types.h>
+> +
+> +#include <linux/iio/iio.h>
+> +
+
+Best regards,
+Javier
