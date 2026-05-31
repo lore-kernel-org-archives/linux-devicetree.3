@@ -1,129 +1,272 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DE0835675A;
-	Sun, 31 May 2026 11:58:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 150FD32AAB5;
+	Sun, 31 May 2026 12:12:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780228723; cv=none; b=UgJOVVpAhywldK8RheyZHm5dGdA7YCwkIzXcRAzDXuFpZ0bXTN1FrlanOLCFEuuuDBLL+b+kddicavJzG27sF6Jk8N83Rq2ZMWhQVxt5qDxjSLavGycjRHyC1qo9D9/YaeN09RxmKnpdArJzn5+KDytqVjsQZ/XS0n7zjbqAaoU=
+	t=1780229523; cv=none; b=RQ5hmGnoeRqbohNbzILZyUa8zBNcyLsQvRHToZLt+1vk0Q6hnf4J3N3MpDBBy3JAXUbIJmvDdW5qD0i6xqrgHxx0XX2hsq/AqTrzJk+Oq6pEC5rfAnR2juH2/QNyMlkdr6vXi01D4pE6Suopa5EZgN9PDULIbO/u1fC4GTPA+WU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780228723; c=relaxed/simple;
-	bh=yYhbiDnTJpVzQzg8icy5ewB1/IAZoNu3acgwQaRmnmE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bnEDOFC4g4aU91U4pjgok4cQR72AyiKytMfSnw53Eb8o/Gq1t/cWOpwcQ11uXthky/iixuYMmOsMKmiWGQ9hJz7FBub770171IMnVdOlJ5CtCf+t7ovNNuYP0i+ew583OSdIyyUdwOH6nfDvRl6EdSNF/PQFPB4Y3I3iAJTJCAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aIv4/H7h; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780229523; c=relaxed/simple;
+	bh=rgHWHt5DY8XLQO5FBRgy9lWxPQqOmnIE7dwyb/SCwcQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ejP7RnK7xW1uNWiXT5IgGt7UxhpZUO7+DLG4HwfYR1L/iDfjWBJ5RgAhneElG2GtByazU1kHgtTHwxZlxvMZkLt3f6EpfQqHpIKp4cBJYvYPxqgGrXrx4viL2A1lgT6tfnnxrIV8QPNoRlSgOeAy2sdpf8or3ZuUo6isgCp05xo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BuI9zv7c; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aIv4/H7h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D8C1F00893;
-	Sun, 31 May 2026 11:58:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BuI9zv7c"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2301F00893;
+	Sun, 31 May 2026 12:11:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780228722;
-	bh=hMz/MQA75gOB9EAv0N+Va87HRCe5WtuAO46WIYAnbQU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=aIv4/H7hdpFd4pJmq/BBaPy2qv8JMzAfikW3hLKLRCz453AEdVG30ttENhn5ebMLf
-	 H4z39Ozvnhqs2Sc+KfmH+bjyhUN8y5PaIqSK2loPgyS5wYmjnmSefDY65TMwrJ3sJ7
-	 tNkZlN546xbZgu8EqnP4AITR2yOcQxSTOM/r9iZL/8oN2uVMly/X63UNSE4/acXf3g
-	 OFS/VMxPXdpp9pJBPN5NGhUBK6Q1S9X24i0Ca0IxDKpmiiwRY6m2xgrhtDWeUzyHey
-	 xIT9IaeDOCkJja/Dhvjm6HNerckqvfTPtXABSVqkarMgf+1h+CAmZTB5HWGEe2yQ76
-	 tJTE9AoR7Q93w==
-Message-ID: <446e7d5a-a42e-41f9-aa19-8ea4e2658cd5@kernel.org>
-Date: Sun, 31 May 2026 13:58:30 +0200
+	s=k20260515; t=1780229521;
+	bh=leqiPf+NTSbTmkKH37kvObGoIRcbRTHncXBrq9GqQm8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=BuI9zv7cJ5hxS8TPOfZweXKlE2BJ/HZlvUxZ8xqhyPvBaTZR7ryjgoNOv903e/ddr
+	 RDn9gCnRj0gLy91NP3OWoN4lAPNgEOL8fsTbnKKVeHVlOiAqmMjaPkeVwJNGeeJW0E
+	 s5YuR8zJkLDRwy3BovverP4SGGT9Ra7DGqjmnR1RMKT/4Zz9Yasu0Mu83JZZNsIw7+
+	 wUrwx92bC2jIjvCDBWy7iU0Fa1qTkQDKpPIf1I87aDi5K0xZ0fjHFJRHTN8ssuimD9
+	 k8v3q86f1lVfKXXMNcDHEJMtaf38lAwEIsPQhElCx8oACCtZReZFsMWnyzb4aiIrbZ
+	 1wXfAP/HrdCnQ==
+Date: Sun, 31 May 2026 13:11:54 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V9 03/11] iio: imu: inv_icm42607: Add inv_icm42607 Core
+ Driver
+Message-ID: <20260531131154.047f33ce@jic23-huawei>
+In-Reply-To: <20260530031739.109063-4-macroalpha82@gmail.com>
+References: <20260530031739.109063-1-macroalpha82@gmail.com>
+	<20260530031739.109063-4-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 0/5] thermal: samsung: Add support for Google GS101 TMU
-To: Tudor Ambarus <tudor.ambarus@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- Kees Cook <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260528-acpm-tmu-v6-0-b4d7ce57594b@linaro.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
- cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
- JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
- gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
- J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
- NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
- BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
- vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
- Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
- TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
- S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
- FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
- QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
- +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
- ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
- 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
- hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
- tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
- 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
- naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
- hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
- whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
- Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
- MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
- OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
- GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
- 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
- YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
- 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
- BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
- JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
- 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
- YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
- qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
- RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
- Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
- H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
- dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
- AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
- jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
- zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
- XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260528-acpm-tmu-v6-0-b4d7ce57594b@linaro.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 28/05/2026 13:36, Tudor Ambarus wrote:
-> Add support for the Thermal Management Unit (TMU) on the Google GS101
-> SoC.
+On Fri, 29 May 2026 22:17:30 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
+
+> From: Chris Morgan <macromorgan@hotmail.com>
 > 
-> The GS101 TMU implementation utilizes a hybrid architecture where
-> management is shared between the kernel and the Alive Clock and
-> Power Manager (ACPM) firmware. This hybrid ACPM TMU architecture is 
-> also present on other Samsung Exynos SoCs (e.g., AutoV920, Exynos850).
+> Add the core component of a new inv_icm42607 driver. This includes
+> a few setup functions and the full register definition in the
+> header file.
+https://sashiko.dev/#/patchset/20260530031739.109063-1-macroalpha82%40gmail.com
+Again has some feedback.  I've commented on them below to say whether I agree
+or not. Also a few other minor things inline.
+
 > 
-> Dependencies
-> ============
-> The set depends on the ACPM TMU firmware helper driver that was queued
-> via the Samsung SoC tree:
-> git://git.kernel.org/pub/scm/linux/kernel/git/krzk/linux.git, branch
-> next/drivers.
-> 
-> Krzysztof agreed to prepare a stable tag for the above in a few days
-> (after the branch is processed by linux-next).
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+> ---
+>  drivers/iio/imu/inv_icm42607/inv_icm42607.h   | 336 ++++++++++++++++++
+>  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 206 +++++++++++
+>  2 files changed, 542 insertions(+)
+>  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607.h
+>  create mode 100644 drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 > 
 
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> new file mode 100644
+> index 000000000000..4801ece28058
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 
-Pull request for SoC with shared code also for you:
-https://lore.kernel.org/r/20260531115713.19388-2-krzk@kernel.org/T/#u
+> +static int inv_icm42607_set_conf(struct inv_icm42607_state *st,
+> +				 const struct inv_icm42607_conf *conf)
+> +{
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	val = FIELD_PREP(INV_ICM42607_PWR_MGMT0_GYRO_MODE_MASK, conf->gyro.mode);
+> +	val |= FIELD_PREP(INV_ICM42607_PWR_MGMT0_ACCEL_MODE_MASK, conf->accel.mode);
+> +	/*
+> +	 * No temperature enable reg in datasheet, but BSP driver selected RC
+> +	 * oscillator clock in LP mode when temperature was disabled.
+> +	 */
+> +	if (!conf->temp_en)
+> +		val |= INV_ICM42607_PWR_MGMT0_ACCEL_LP_CLK_SEL;
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_PWR_MGMT0, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val = FIELD_PREP(INV_ICM42607_GYRO_CONFIG0_FS_SEL_MASK, conf->gyro.fs);
+> +	val |= FIELD_PREP(INV_ICM42607_GYRO_CONFIG0_ODR_MASK, conf->gyro.odr);
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_GYRO_CONFIG0, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val = FIELD_PREP(INV_ICM42607_ACCEL_CONFIG0_FS_SEL_MASK, conf->accel.fs);
+> +	val |= FIELD_PREP(INV_ICM42607_ACCEL_CONFIG0_ODR_MASK, conf->accel.odr);
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_ACCEL_CONFIG0, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val = FIELD_PREP(INV_ICM42607_GYRO_CONFIG1_FILTER_MASK, conf->gyro.filter);
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_GYRO_CONFIG1, val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	val = FIELD_PREP(INV_ICM42607_ACCEL_CONFIG1_FILTER_MASK, conf->accel.filter);
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_ACCEL_CONFIG1, val);
+> +	if (ret)
 
-Best regards,
-Krzysztof
+Sashiko points out that this is overwriting whatever is the 
+INV_ICM42607_ACCEL_CONFIG1_AVG_MASK field.  That isn't set at all yet, which is fine
+but I'd be tempted to make it clear what intent is here. Either explicitly set it
+to 0 as
+	val |= FIELD_PREP(INV_ICM42607_ACCEL_CONFIG1_AVG_MASK, 0);
+or use regmap_update_bits as sashiko suggests.
+
+> +		return ret;
+> +
+> +	st->conf = *conf;
+> +
+> +	return 0;
+> +}
+> +
+> +/**
+> + *  inv_icm42607_setup() - check and setup chip
+> + *  @st:	driver internal state
+> + *  @bus_setup:	callback for setting up bus specific registers
+> + *
+> + *  Returns 0 on success, a negative error code otherwise.
+> + */
+> +static int inv_icm42607_setup(struct inv_icm42607_state *st,
+> +			      inv_icm42607_bus_setup bus_setup)
+> +{
+> +	const struct device *dev = regmap_get_device(st->map);
+> +	unsigned int val;
+> +	int ret;
+> +
+> +	ret = regmap_read(st->map, INV_ICM42607_REG_WHOAMI, &val);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (val != st->hw->whoami)
+> +		dev_warn(dev, "Unknown whoami %#02x expected %#02x (%s)\n",
+> +			 val, st->hw->whoami, st->hw->name);
+> +
+> +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
+> +			   INV_ICM42607_SIGNAL_PATH_RESET_SOFT_RESET);
+> +	if (ret)
+> +		return ret;
+> +
+> +	fsleep(INV_ICM42607_RESET_TIME_MS * 1000);
+> +
+> +	ret = regmap_read_poll_timeout(st->map, INV_ICM42607_REG_INT_STATUS,
+> +				       val, val & INV_ICM42607_INT_STATUS_RESET_DONE,
+> +				       INV_ICM42607_RESET_TIME_MS * 100,
+> +				       INV_ICM42607_RESET_TIME_MS * 10000);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "reset error, reset done bit not set\n");
+> +
+> +	/* Sync the regcache again after a reset. */
+> +	ret = regcache_sync(st->map);
+
+I haven't checked sashiko's feedback on this but it seems plausible as
+there is a check in regcache_sync on whether the cache is dirty and no obvious
+path for it to get to that state here.
+
+
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = bus_setup(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_set_bits(st->map, INV_ICM42607_REG_INTF_CONFIG0,
+> +			      INV_ICM42607_INTF_CONFIG0_SENSOR_DATA_ENDIAN);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = regmap_update_bits(st->map, INV_ICM42607_REG_INTF_CONFIG1,
+> +				 INV_ICM42607_INTF_CONFIG1_CLKSEL_MASK,
+> +				 INV_ICM42607_INTF_CONFIG1_CLKSEL_PLL);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return inv_icm42607_set_conf(st, st->hw->conf);
+> +}
+
+> +int inv_icm42607_core_probe(struct regmap *regmap,
+> +			    const struct inv_icm42607_hw *hw,
+> +			    inv_icm42607_bus_setup bus_setup)
+> +{
+> +	struct device *dev = regmap_get_device(regmap);
+> +	struct inv_icm42607_state *st;
+> +	int irq;
+> +	int ret;
+> +
+> +	irq = fwnode_irq_get_byname(dev_fwnode(dev), "INT1");
+> +	if (irq < 0)
+> +		return dev_err_probe(dev, irq, "Unable to get INT1 interrupt\n");
+
+Sashiko comments on this and is correct that this only works on
+device tree with interrupt-names.  Which is intentional!
+
+
+> +
+> +	st = devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+> +	if (!st)
+> +		return -ENOMEM;
+> +
+> +	dev_set_drvdata(dev, st);
+
+Really small thing. Is this used yet?  I think this should be in a later
+patch. Probably patch 5.
+
+> +
+> +	ret = devm_mutex_init(dev, &st->lock);
+> +	if (ret)
+> +		return ret;
+> +
+> +	st->hw = hw;
+> +	st->map = regmap;
+> +	st->irq = irq;
+> +
+> +	ret = iio_read_mount_matrix(dev, &st->orientation);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "failed to retrieve mounting matrix %d\n", ret);
+> +
+> +	ret = devm_regulator_get_enable(dev, "vdd");
+> +	if (ret)
+> +		return dev_err_probe(dev, ret,
+> +				     "Failed to get vdd regulator\n");
+> +
+> +	st->vddio_supply = devm_regulator_get(dev, "vddio");
+> +	if (IS_ERR(st->vddio_supply))
+> +		return dev_err_probe(dev, PTR_ERR(st->vddio_supply),
+> +				     "Failed to get vddio regulator\n");
+> +
+> +	ret = inv_icm42607_enable_vddio_reg(st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = devm_add_action_or_reset(dev, inv_icm42607_disable_vddio_reg, st);
+> +	if (ret)
+> +		return ret;
+> +
+> +	/* Setup chip registers (includes WHOAMI check, reset check, bus setup) */
+> +	ret = inv_icm42607_setup(st, bus_setup);
+> +	if (ret)
+> +		return ret;
+> +
+> +	return 0;
+> +}
+> +EXPORT_SYMBOL_NS_GPL(inv_icm42607_core_probe, "IIO_ICM42607");
+> +
+> +MODULE_AUTHOR("InvenSense, Inc.");
+> +MODULE_DESCRIPTION("InvenSense ICM-42607x device driver");
+> +MODULE_LICENSE("GPL");
+> +MODULE_IMPORT_NS("IIO_INV_SENSORS_TIMESTAMP");
+
