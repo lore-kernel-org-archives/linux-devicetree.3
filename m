@@ -1,119 +1,236 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B87C2C187;
-	Sun, 31 May 2026 08:01:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C94F9379C53;
+	Sun, 31 May 2026 08:31:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780214499; cv=none; b=glR/FgQIfFiJRc/gNNGaJIp3d8kxJqhUH5MPUT//OeMAQQxXHPgR1eaH0wF2vkfuwQmxU1OugfXi7+NaiqB/NXvnV/SEyPC0NKok+8RDy1IATOHNqtKGt1X1Z1NUj1k6Zf1gWcvzTYc5/s9iSp+P66X9gdSUquocdrmzNvkd6I0=
+	t=1780216297; cv=none; b=C/lIUWK1gLq24WpFTPxe0cqNnAh7ORR91/fT6GOBnDaRmQhiMc2nb2hMB8mjcMwNOriNTZAYDsuSmQHai6sOCgtP8hGWWfPArPhmqpxV632h5eOC8bvtBAqQKxYgn3NWlrwFRltAWsTB6gyWMFWm31F1R/6XP7vxCfD4j7S+px0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780214499; c=relaxed/simple;
-	bh=1kr/1wzRV4EnpE9UbYXX/eEN3WI6rpSSDMJcARoiI8c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:References:From:
-	 In-Reply-To:Content-Type; b=poWS+Of3B8aw3phQkBtfhS6oa6mupmEfoiaaPbuFUv6Am1cR6F0dXFWGCTypX2l1HHRFNp65b32IySKXZmx1xSMVMmuuxQ25FwMN+lSC9hbFUg30DWteZflaryr/a9eIGjxdDzduEhxeDBUm2Pco1/3BbJlItzLtOXFNIllZz1E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AVbVfG69; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780216297; c=relaxed/simple;
+	bh=BwrCMJSqDqw93Kci2D9Mvk3scFE9sWiCX07UitM6pyY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=bm+VU4Fad9Fd+0++3jDsfiad5lSSvqOoqZ7luTMMxi1oU6YFFfKIiZjXyEruouLQ1b3sR6k1RDq/7CB3OtVnNGA+/RmhW84IpZ0mFS/rIjAVbSpLIlIZ6Zd6P+327icievNkMKRvc3Mz1LrW2BbKiu2nWMpzGA2mInFXXWb9lWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RKhl/WW5; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AVbVfG69"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E75A1F00893;
-	Sun, 31 May 2026 08:01:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780214497;
-	bh=T2xfHdgvb+Xgsn2jYm9B+YvKkHv/RheiyEKVUlJLZ5Q=;
-	h=Date:Subject:To:References:From:In-Reply-To;
-	b=AVbVfG69JuSdwCrEVHIdsTIedLT+sRlfvHdmwxQE7pKqHpvlui64mvf9V2vLIY+Ji
-	 DuaoRxZQaOzCmIzyAyodE6ItDnlictjMO8sXfBxgXJvBO7zDqaglywiyz7XMCN/aVd
-	 keHFARz0r/eBNIsc+YFX6JpeoytmJHeCZ0Vfc7/Fp1rsYLjPTfWqNd9B/Ao7C7d1XS
-	 Hm48wIf4dJUrIjqpXJMKzq2H6knO+N0mkQack2siaDVYCp983/i29+bcLK3t0P6ZhB
-	 sMJYkduOnLGcfK5OPhEXHIs+bskG3Ipy+MLzIa6GsDjeeVC6JtMp1vIhR9+8NdmDg4
-	 Kh1j+iSOaC3BQ==
-Message-ID: <c5e9090f-38a1-4aa3-983c-28994aaf733c@kernel.org>
-Date: Sun, 31 May 2026 10:01:32 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RKhl/WW5"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 55DAFC2BCB4;
+	Sun, 31 May 2026 08:31:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780216297;
+	bh=BwrCMJSqDqw93Kci2D9Mvk3scFE9sWiCX07UitM6pyY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=RKhl/WW5n1gd5E71EErGhWhcvz8rZrCjOCTPUxV/a3xWQ2icrodQl/jOm7sLFD9zU
+	 GapQ/aZcEYq7b0poexwxCOkruSV25FGR9J26J8/PLaMfLI6SBwiD3q3yQKZF/aU98Y
+	 1rJq4n6PNPvCiVxL5WZeD4tOz6Q6goG5rh7Mg50iQBVJoslFgOQQyyOr/sHWTUq1tW
+	 C5L/0vCAV3brWRVI0098kRw49ysr7JlgBKLVZz+GAneTwQwyat1jlBkf4fynRW+gbo
+	 KSE4fn+XSon3yJBxXQF5k73HaoJ2NNhkxEFP6Ipj94oAsgR3/CthyAnEzxshMcW204
+	 4Rbk9rBOn1jNQ==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 3908ECD6E51;
+	Sun, 31 May 2026 08:31:37 +0000 (UTC)
+From: Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org>
+Subject: [PATCH v15 00/12] ADF41513/ADF41510 PLL frequency synthesizers
+Date: Sun, 31 May 2026 09:30:43 +0100
+Message-Id: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] dt-bindings: interrupt-controller: qcom: add
- msm8660-mpm
-To: Herman van Hazendonk <github.com@herrie.org>,
- Bjorn Andersson <andersson@kernel.org>, Clark Williams
- <clrkwllms@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- devicetree@vger.kernel.org, Konrad Dybcio <konradybcio@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-rt-devel@lists.linux.dev,
- Rob Herring <robh@kernel.org>,
- Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
- Steven Rostedt <rostedt@goodmis.org>, Thomas Gleixner <tglx@kernel.org>
-References: <cover.1780148149.git.github.com@herrie.org>
- <cover.1780195817.git.github.com@herrie.org>
- <4cca687dba2d1c341613a13d3e4b4a156b0d5531.1780195817.git.github.com@herrie.org>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <4cca687dba2d1c341613a13d3e4b4a156b0d5531.1780195817.git.github.com@herrie.org>
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIALPxG2oC/33STY7UMBAF4KuMsibIVeVfVtwDsbBd5RlL0EFpF
+ IFGfXecllCCHLO0FX9OPb/36S5rlfv06eV9WmWr97rc2gLMh5cpv8Xbq8yV28aECg0AqDly0WC
+ A5lqXmde6yTrHmKOPrnjlZWonf6xS6q8n++VrW7/V+89l/f28ZYN99//eBrOakYtPogpnK5/jL
+ X5bXj/m5fu0gxseCEK4RrAhSTBET2xcoA6hv4hVoPw1QvufEAM5iFK07xB9QsBeI7ohnJJj6zw
+ iuA4xJwTpGjHPTLJ4wIjMsUPsCaFBsLYhuWiLFNp3KXeIOxAcjeP2YJUweReTMaFD/IGQGozjG
+ +KZUYPLWVvTIeGE4GCc0BAgLIqVs+R0h4A6lHZ80Da1v0+xoLRlo03/PgAHY9QgFni2NjkJIRf
+ xBXsGT8yw+3tvSceCwuhcKD1DZ8YNmL25KVmBZpFVF8ypugb1gNm7q6xHzSGDKf9G/Hg8/gBPs
+ OsIQwQAAA==
+X-Change-ID: 20251110-adf41513-iio-driver-aaca8a7f808e
+To: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-doc@vger.kernel.org
+Cc: Jonathan Cameron <jic23@kernel.org>, 
+ David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+ Lars-Peter Clausen <lars@metafoo.de>, 
+ Michael Hennerich <Michael.Hennerich@analog.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+ Steven Rostedt <rostedt@goodmis.org>, 
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+ Rasmus Villemoes <linux@rasmusvillemoes.dk>, 
+ Sergey Senozhatsky <senozhatsky@chromium.org>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Rodrigo Alencar <rodrigo.alencar@analog.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780216295; l=7207;
+ i=rodrigo.alencar@analog.com; s=default; h=from:subject:message-id;
+ bh=BwrCMJSqDqw93Kci2D9Mvk3scFE9sWiCX07UitM6pyY=;
+ b=zKYqjB9Jzts8SWcgiAa5z0EAH1ZbDQMJQw9lnbL9Y4PC7PGqkC+WQalew2NgCh3jCEy34vomY
+ 5CpM2GNMWG4DEIOJ8cCg7WvBTwn/YjOjydds/NgFjpt11Y0SFRiytfA
+X-Developer-Key: i=rodrigo.alencar@analog.com; a=ed25519;
+ pk=ULeHbgU/OYh/PG/4anHDfLgldFItQHAhOktYRVLMFRo=
+X-Endpoint-Received: by B4 Relay for rodrigo.alencar@analog.com/default
+ with auth_id=561
+X-Original-From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Reply-To: rodrigo.alencar@analog.com
 
-On 31/05/2026 06:09, Herman van Hazendonk wrote:
-> Add the binding for the Modem Power Manager (MPM) interrupt
-> controller on the MSM8x60 family (MSM8260/MSM8660/APQ8060). The MPM
-> is a small wake-capable interrupt aggregator that lets the SoC stay
-> in low-power states while a small set of GIC SPIs continues to be
-> monitored and can wake the system on an edge.
-> 
-> The binding describes its register region (in the RPM syscon), the
-> GIC SPI it raises on a wake event, the GIC mailbox it shares with
-> the RPM, and the per-pin wake-source mapping table.
-> 
-> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+This patch series adds support for the Analog Devices ADF41513 and ADF41510
+ultralow noise PLL frequency synthesizers. These devices are designed for
+implementing local oscillators (LOs) in high-frequency applications.
+The ADF41513 covers frequencies from 1 GHz to 26.5 GHz, while the ADF41510
+operates from 1 GHz to 10 GHz.
 
+Key features supported by this driver:
+- Integer-N and fractional-N operation modes
+- High maximum PFD frequency (250 MHz integer-N, 125 MHz fractional-N)
+- 25-bit fixed modulus or 49-bit variable modulus fractional modes
+- Digital lock detect functionality
+- Phase resync capability for consistent output phase
+- Load Enable vs Reference signal syncronization
 
-Dropping for the same reason as in other patches - mixed up with
-everything else.
+The series includes:
+1. PLL driver implementation
+2. Device tree bindings documentation
+3. IIO ABI documentation
+4. Parsing utils for 64-bit decimal values
+
+Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+---
+Changes in v15:
+- Set bleed value when chaging mode.
+- Link to v14: https://lore.kernel.org/r/20260524-adf41513-iio-driver-v14-0-06824d9c15f4@analog.com
+
+Changes in v14:
+- Review include headers.
+- Use named fields in spi device table.
+- Address relevant sashiko's feedback.
+- Minor tweaks to iio core changes.
+- Link to v13: https://lore.kernel.org/r/20260517-adf41513-iio-driver-v13-0-bb6e134a360f@analog.com
+
+Changes in v13:
+- Introduce _parse_integer_limit_init()
+- Better support for 0 and larger scales in kstrtodec64()
+- Increase test scope for kstrtodec64()
+- Fix LSB_P1 check at startup when going for fixed modulus mode.
+- Clear phase adjust when setting phase (It turns out sashiko was correct).
+- Make sure Load Enable is not selected when powering up.
+- Address some minor comments.
+- Link to v12: https://lore.kernel.org/r/20260510-adf41513-iio-driver-v12-0-34af2ed2779f@analog.com
+
+Changes in v12:
+- Contraint charge pump current.
+- Fix division-by-zero issues.
+- Address PM and sysfs powerdown conflicts.
+- Program proper phase resync value in clk divider mode.
+- Link to v11: https://lore.kernel.org/r/20260506-adf41513-iio-driver-v11-0-2b7e99cfe8f2@analog.com
+
+Changes in v11:
+- Cleanup ext info attribute read/write callbacks.
+- Adjust attribute names in the documentation.
+- Turn s64 compose macros into static inline functions.
+- Link to v10: https://lore.kernel.org/r/20260415-adf41513-iio-driver-v10-0-df61046d5457@analog.com
+
+Changes in v10:
+- Drop simple_strntoull() changes
+- Create kstrtodec64() and kstrtoudec64() helpers. 
+- Add IIO value format for 64-bit decimal values.
+- PLL driver code implements new decimal format for frequency attr. 
+- Link to v9: https://lore.kernel.org/r/20260320-adf41513-iio-driver-v9-0-132f0d076374@analog.com
+
+Changes in v9:
+- Expose simple_strntoull() in a safer prototype instead of new kstrntoull()
+- Link to v8: https://lore.kernel.org/r/20260303-adf41513-iio-driver-v8-0-8dd2417cc465@analog.com
+
+Changes in v8:
+- Add new function kstrntoull() to lib/kstrtox.c and tests to lib/test-kstrtox.c.
+- Drop custom iio u64 parser, replacing it for kstrntoull().
+- Dedicated MAINTAINERS entry for drivers/iio/test/iio-test-fixpoint-parse.c.
+- Link to v7: https://lore.kernel.org/r/20260216-adf41513-iio-driver-v7-0-b0ed387ab559@analog.com
+
+Changes in v7:
+- Addressed minor suggestions.
+- frequency_resolution ABI for AD4350 removed in favor of generic one.
+- Link to v6: https://lore.kernel.org/r/20260130-adf41513-iio-driver-v6-0-cf46239026bc@analog.com
+
+Changes in v6:
+- Drop usage of simple_strtoull().
+- Implement better overflow checks with iio_safe_strntou64().
+- Link to v5: https://lore.kernel.org/r/20260123-adf41513-iio-driver-v5-0-2dce812a2dda@analog.com
+
+Changes in v5:
+- Drop local parsing of 64-bit plus fractional parts
+- Add iio_str_to_fixpoint64() to iio core with parsing tests
+- Add DT property dependency for adi,charge-pump-resistor-ohms
+- Add local definition for ADF41513_HZ_PER_GHZ and drop units.h patch
+- Link to v4: https://lore.kernel.org/r/20260116-adf41513-iio-driver-v4-0-dbb7d6782217@analog.com
+
+Changes in v4:
+- Proper usage of units.h macros
+- Simplifications to DT property parsing
+- Adjustments to return value handling
+- Drop of simple DT property node example
+- Link to v3: https://lore.kernel.org/r/20260108-adf41513-iio-driver-v3-0-23d1371aef48@analog.com
+
+Changes in v3:
+- Use FIELD_MODIFY macro in driver implementation
+- Drop refin_frequency iio attribute
+- Drop muxout-select property from dt-bindings (and rename logic-level property)
+- Use -mhz suffix in power-up frequency property
+- Address documentation issues
+- Link to v2: https://lore.kernel.org/r/20251219-adf41513-iio-driver-v2-0-be29a83d5793@analog.com
+
+Changes in v2:
+- separate driver implementation from extra features and improve commit messages
+- use macros from units.h
+- explanation of custom parse function: adf41513_parse_uhz
+- reorganize driver data structures
+- drop clock framework support for now
+- reorganize documentation
+- Link to v1: https://lore.kernel.org/r/20251110-adf41513-iio-driver-v1-0-2df8be0fdc6e@analog.com
+
+---
+Rodrigo Alencar (12):
+      dt-bindings: iio: frequency: add adf41513
+      lib: kstrtox: add local _parse_integer_limit_init() helper
+      lib: kstrtox: add kstrtoudec64() and kstrtodec64()
+      lib: test-kstrtox: tests for kstrtodec64() and kstrtoudec64()
+      lib: math: div64: add div64_s64_rem()
+      iio: core: add decimal value formatting into 64-bit value
+      iio: test: iio-test-format: add test case for decimal format
+      iio: frequency: adf41513: driver implementation
+      iio: frequency: adf41513: handle LE synchronization feature
+      iio: frequency: adf41513: features on frequency change
+      docs: iio: add documentation for adf41513 driver
+      Documentation: ABI: testing: add common ABI file for iio/frequency
+
+ Documentation/ABI/testing/sysfs-bus-iio-frequency  |   11 +
+ .../ABI/testing/sysfs-bus-iio-frequency-adf4350    |   10 -
+ .../bindings/iio/frequency/adi,adf41513.yaml       |  227 ++++
+ Documentation/iio/adf41513.rst                     |  199 ++++
+ Documentation/iio/index.rst                        |    1 +
+ MAINTAINERS                                        |    9 +
+ drivers/iio/frequency/Kconfig                      |   10 +
+ drivers/iio/frequency/Makefile                     |    1 +
+ drivers/iio/frequency/adf41513.c                   | 1246 ++++++++++++++++++++
+ drivers/iio/industrialio-core.c                    |   47 +-
+ drivers/iio/test/iio-test-format.c                 |   97 +-
+ include/linux/iio/types.h                          |   30 +
+ include/linux/kstrtox.h                            |    3 +
+ include/linux/math64.h                             |   18 +
+ lib/kstrtox.c                                      |  141 ++-
+ lib/math/div64.c                                   |   15 +
+ lib/test-kstrtox.c                                 |  182 +++
+ 17 files changed, 2193 insertions(+), 54 deletions(-)
+---
+base-commit: 1548c54e9adc32a719499216f63fba14b2fc07c3
+change-id: 20251110-adf41513-iio-driver-aaca8a7f808e
 
 Best regards,
-Krzysztof
+-- 
+Rodrigo Alencar <rodrigo.alencar@analog.com>
+
+
