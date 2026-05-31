@@ -1,453 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C73E265620;
-	Sun, 31 May 2026 12:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF32831354F;
+	Sun, 31 May 2026 12:39:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780231093; cv=none; b=f6HJjCGBZFCCRmAH4vubXNYP83rm6LrKO+keSJdyCgHM1w5ePNpT9ryP426AGEDbVSRYOtylcW4sbXJU4V0kaWoaAGyfwMk9kMDP8uCpiGC9nasxba1qnrDvJZVy225u8R409aR/618u7SNx1B9RoOrTqFTX0MJ+WIUX4bd47NU=
+	t=1780231176; cv=none; b=PFC/Tklul2vibpRMm5K3SF/UyJ/At1NwwQxkIU208xORCPpcxVnPWBVKkLclKiM9g63P5AHDuwyH4HidpAzzgclmTiXGbadkfOxDAzJZU4ilSnF0bUcvLLGABClAf333LuES1bZymsIUPspas7UUxcqUL+SUaoevdWbLMWTDsxg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780231093; c=relaxed/simple;
-	bh=W5xp0CU/NTyZvY9wUz6cO/n0YK4jsmw9kR1UP5fOUes=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tOYAhz+1ZAvTLRUPV25JzeYJzRj4+ASZw/3ohoeBnXt3Kc6rf0w9OZVHjmZ0vgKIeOAlPi9l/YEIrFf0sVMg4seSQzKTWzwXMJbKDU07J/V+MGBGBoANn8D+xVY9e0NeupxEs1Tk1Qj9NjpYXJSedtnCKiD2OvG9iePBQSHOTY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ja/0qdLc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780231176; c=relaxed/simple;
+	bh=17siQYl0AOPmHdm/sYRFDr5ZPIHE+bNigfbxcxjjN6I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NCxP/VJ8pQaBtFgE5PQhyVpYp8i4bMCfVnMlc20xaeo399D41RhMHNV+L2TlPC+YEG4EEUVP+qh0j4xw7GKMJ5XQT/JdP5eJD3uKFI0bU7PKjn3I0cBnQOuZzDx49gRCXWM/OLqyTzQkJmiJ8hiTubt+5EkWgLKXfpSPXzETdOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OePxq/vW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ja/0qdLc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A295C1F00893;
-	Sun, 31 May 2026 12:38:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OePxq/vW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3BAC1F00893;
+	Sun, 31 May 2026 12:39:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780231091;
-	bh=vEaCvW3rWEf5pyqeo1Vxa8VbuvmJkDPvvIo9mJYByTI=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ja/0qdLcQ9it1FgZm5ue95r7fJwRKhtcAegSBY08XBexalhdEQw8MokUY9N0YYtOh
-	 hzR+6/S/E33IMHo4YVrxO/yYg1q9/g7idxEMjpCpka6mRjyfci3x6zkcmYqn1vJDtI
-	 0T69aM238pMhOmJrShMTzfLp44J5ycQcDDfncoAQ4Uv1wr2AjFdBmBO2GeHqNoEDTO
-	 c/mdxdNKbVjG2nj0GD7ndN8S5BpuTRz1Chyej3tIgDSZTr8BEkxU30j+UfbrSbUIOL
-	 4E/UTSvhEDzw7x6M7cRHzbH7FTvVxr1YWnlZdI930RxoJu6UsNYuqcTAyoxqXkRhnk
-	 4jwUFpsUxknsQ==
-Date: Sun, 31 May 2026 13:38:01 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V9 06/11] iio: imu: inv_icm42607: Add Buffer support for
- icm42607
-Message-ID: <20260531133801.481e173c@jic23-huawei>
-In-Reply-To: <20260530031739.109063-7-macroalpha82@gmail.com>
-References: <20260530031739.109063-1-macroalpha82@gmail.com>
-	<20260530031739.109063-7-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780231175;
+	bh=kU3C0Fe5mVTPmf2QmytRlBNptZObb7DHNb86r8nSqWY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OePxq/vWO0dyv59ea02eESX7RYIHLkeAHPNtX+O52so2zGz0j2860tEE/AQ3uFEaS
+	 5dmN26dSGYXI121RV0EnD6g3NT2dWKV4GL9PSpiTHywBVmnLRqAku6ywGslEPVdEqx
+	 drhbmvbPVm4CZQMN12+ut89VfcdnL39KrwrfTq0iXF/fcgy2LpdpphapyTux431K/v
+	 STTQH77KNoO3KRb7dKc7EmlScwcbvDUdNwMSOhxLC0vYKCYPexktLz/b7WzhgTIROk
+	 aIB/H5cz8rPQVmeFyh63aJ3d78kDvYjy04d6OW3yQUjwTX81Dm95M6EPuEfevr5BfZ
+	 ZWTPNtX9geyJQ==
+Date: Sun, 31 May 2026 14:39:32 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+	Cyril Chao <Cyril.Chao@mediatek.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+	Chen-Yu Tsai <wenst@chromium.org>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org
+Subject: Re: [PATCH v3 1/4] ASoC: dt-bindings: Add Airoha AN7581 AFE Sound
+ card.
+Message-ID: <20260531-spicy-sassy-woodlouse-b2674e@quoll>
+References: <20260528174840.28644-1-ansuelsmth@gmail.com>
+ <20260528174840.28644-2-ansuelsmth@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <20260528174840.28644-2-ansuelsmth@gmail.com>
 
-On Fri, 29 May 2026 22:17:33 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
+On Thu, May 28, 2026 at 07:48:29PM +0200, Christian Marangi wrote:
+> Add YAML schema for Airoha AN7581 AFE SoC sound card.
+>
 
-> From: Chris Morgan <macromorgan@hotmail.com>
+Nit: subject, drop final stop.
+
+
+> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> ---
+>  .../bindings/sound/airoha,an7581-afe.yaml     | 41 +++++++++++++++++++
+>  1 file changed, 41 insertions(+)
+>  create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
 > 
-> Add all FIFO parsing and reading functions to support
-> inv_icm42607 hardware.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-A few things inline.
-
-J
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> diff --git a/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml b/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
 > new file mode 100644
-> index 000000000000..e065d60ac119
+> index 000000000000..80d9e87f1470
 > --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> @@ -0,0 +1,483 @@
-> +// SPDX-License-Identifier: GPL-2.0-or-later
-> +/*
-> + * Copyright (C) 2026 InvenSense, Inc.
-> + */
+> +++ b/Documentation/devicetree/bindings/sound/airoha,an7581-afe.yaml
+> @@ -0,0 +1,41 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/sound/airoha,an7581-afe.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +#include <linux/delay.h>
-> +#include <linux/iio/buffer.h>
-> +#include <linux/iio/iio.h>
-> +#include <linux/minmax.h>
-> +#include <linux/mutex.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-> +#include <linux/unaligned.h>
+> +title: Airoha AFE PCM controller for AN7581
 > +
-> +#include <linux/iio/common/inv_sensors_timestamp.h>
+> +maintainers:
+> +  - Christian Marangi <ansuelsmth@gmail.com>
 > +
-> +#include "inv_icm42607.h"
-> +#include "inv_icm42607_buffer.h"
+> +properties:
+> +  compatible:
+> +    const: airoha,an7581-afe
 > +
-> +/* FIFO header: 1 byte */
-> +#define INV_ICM42607_FIFO_HEADER_MSG		BIT(7)
-> +#define INV_ICM42607_FIFO_HEADER_ACCEL		BIT(6)
-> +#define INV_ICM42607_FIFO_HEADER_GYRO		BIT(5)
-> +#define INV_ICM42607_FIFO_HEADER_TMST_FSYNC	GENMASK(3, 2)
-> +#define INV_ICM42607_FIFO_HEADER_ODR_ACCEL	BIT(1)
-> +#define INV_ICM42607_FIFO_HEADER_ODR_GYRO	BIT(0)
+> +  reg:
+> +    maxItems: 1
 > +
-> +struct inv_icm42607_fifo_1sensor_packet {
-> +	u8 header;
-> +	struct inv_icm42607_fifo_sensor_data data;
-> +	s8 temp;
-> +} __packed;
-> +
-> +struct inv_icm42607_fifo_2sensors_packet {
-> +	u8 header;
-> +	struct inv_icm42607_fifo_sensor_data accel;
-Good example of the need for the inner structures to be packed
+> +  interrupts:
+> +    maxItems: 1
 
-> +	struct inv_icm42607_fifo_sensor_data gyro;
-> +	s8 temp;
-> +	__be16 timestamp;
-> +} __packed;
-> +
-> +ssize_t inv_icm42607_fifo_decode_packet(const void *packet, const void **accel,
-> +					const void **gyro, const int8_t **temp,
-> +					const void **timestamp)
-> +{
-> +	const struct inv_icm42607_fifo_1sensor_packet *pack1 = get_unaligned(&packet);
-> +	const struct inv_icm42607_fifo_2sensors_packet *pack2 = get_unaligned(&packet);
+This looks incomplete - missing at least clocks. Are you sure that AFE
+here is so limited, comparing to other Mediatek designs?
 
-Hmm. Sashiko points out you are messing around with pointers here and it's not those but
-what the point to that we need to worry about alignment for.
-You could memcpy that data into local structures.
-
-
-> +	u8 header = *((const u8 *)packet);
-> +
-> +	/* FIFO empty */
-> +	if (header & INV_ICM42607_FIFO_HEADER_MSG) {
-> +		*accel = NULL;
-> +		*gyro = NULL;
-> +		*temp = NULL;
-> +		*timestamp = NULL;
-> +		return 0;
-> +	}
-> +
-> +	/* accel + gyro */
-> +	if ((header & INV_ICM42607_FIFO_HEADER_ACCEL) &&
-> +	    (header & INV_ICM42607_FIFO_HEADER_GYRO)) {
-> +		*accel = &pack2->accel;
-> +		*gyro = &pack2->gyro;
-> +		*temp = &pack2->temp;
-> +		*timestamp = &pack2->timestamp;
-> +		return INV_ICM42607_FIFO_2SENSORS_PACKET_SIZE;
-> +	}
-> +
-> +	/* accel only */
-> +	if (header & INV_ICM42607_FIFO_HEADER_ACCEL) {
-> +		*accel = &pack1->data;
-> +		*gyro = NULL;
-> +		*temp = &pack1->temp;
-> +		*timestamp = NULL;
-> +		return INV_ICM42607_FIFO_1SENSOR_PACKET_SIZE;
-> +	}
-> +
-> +	/* gyro only */
-> +	if (header & INV_ICM42607_FIFO_HEADER_GYRO) {
-> +		*accel = NULL;
-> +		*gyro = &pack1->data;
-> +		*temp = &pack1->temp;
-> +		*timestamp = NULL;
-> +		return INV_ICM42607_FIFO_1SENSOR_PACKET_SIZE;
-> +	}
-> +
-> +	/* invalid packet if here */
-> +	return -EINVAL;
-> +}
-
-> +/**
-> + * inv_icm42607_buffer_update_watermark - update watermark FIFO threshold
-> + * @st:	driver internal state
-> + *
-> + * Returns 0 on success, a negative error code otherwise.
-> + */
-> +int inv_icm42607_buffer_update_watermark(struct inv_icm42607_state *st)
-> +{
-> +	const struct device *dev = regmap_get_device(st->map);
-> +	unsigned int wm_gyro, wm_accel, watermark;
-> +	u32 latency_gyro, latency_accel, latency;
-> +	u32 period_gyro, period_accel;
-> +	size_t packet_size, wm_size;
-> +	__le16 raw_wm;
-> +	bool restore;
-> +	int ret;
-> +
-> +	packet_size = inv_icm42607_get_packet_size(st->fifo.en);
-> +
-> +	/* compute sensors latency, depending on sensor watermark and odr */
-> +	wm_gyro = inv_icm42607_wm_truncate(st->fifo.watermark.gyro, packet_size);
-> +	wm_accel = inv_icm42607_wm_truncate(st->fifo.watermark.accel, packet_size);
-> +	/* use us for odr to avoid overflow using 32 bits values */
-> +	period_gyro = inv_icm42607_odr_to_period(st->conf.gyro.odr) / 1000UL;
-> +	period_accel = inv_icm42607_odr_to_period(st->conf.accel.odr) / 1000UL;
-> +	latency_gyro = period_gyro * wm_gyro;
-> +	latency_accel = period_accel * wm_accel;
-> +
-> +	/* 0 value for watermark means that the sensor is turned off */
-> +	if (wm_gyro == 0 && wm_accel == 0)
-> +		return 0;
-> +
-> +	if (latency_gyro == 0) {
-> +		watermark = wm_accel;
-> +		st->fifo.watermark.eff_accel = wm_accel;
-> +	} else if (latency_accel == 0) {
-> +		watermark = wm_gyro;
-> +		st->fifo.watermark.eff_gyro = wm_gyro;
-> +	} else {
-> +		/* compute the smallest latency that is a multiple of both */
-> +		if (latency_gyro <= latency_accel)
-> +			latency = latency_gyro - (latency_accel % latency_gyro);
-> +		else
-> +			latency = latency_accel - (latency_gyro % latency_accel);
-> +		/* all this works because periods are multiple of each others */
-> +		watermark = latency / min(period_gyro, period_accel);
-> +		watermark = max(watermark, 1);
-> +		/* update effective watermark */
-> +		st->fifo.watermark.eff_gyro = max(latency / period_gyro, 1);
-> +		st->fifo.watermark.eff_accel = max(latency / period_accel, 1);
-> +	}
-> +
-> +	/* changing FIFO watermark requires to turn off watermark interrupt */
-> +	ret = regmap_update_bits_check(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +				       INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN,
-> +				       0, &restore);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* compute watermark value in bytes */
-> +	wm_size = watermark * packet_size;
-> +	raw_wm = INV_ICM42607_FIFO_WATERMARK_VAL(wm_size);
-> +	memcpy(st->buffer, &raw_wm, sizeof(raw_wm));
-> +	ret = regmap_bulk_write(st->map, INV_ICM42607_REG_FIFO_CONFIG2,
-> +				st->buffer, sizeof(raw_wm));
-> +	if (ret) {
-> +		dev_err(dev, "Unable to change watermark value: %d\n", ret);
-> +		if (restore)
-> +			regmap_update_bits(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +					   INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN,
-> +					   INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN);
-
-set_bits.
-
-> +		return ret;
-> +	}
-> +
-> +	/* restore watermark interrupt */
-> +	if (restore) {
-> +		ret = regmap_update_bits(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +					 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN,
-> +					 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN);
-
-set_bits
-
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-> +
-> +static int inv_icm42607_buffer_predisable(struct iio_dev *indio_dev)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	if (st->fifo.on > 1) {
-> +		st->fifo.on--;
-> +		return 0;
-> +	}
-> +
-> +	/* Set FIFO to 0 since iio core ignores teardown errors. */
-> +	st->fifo.on = 0;
-> +
-> +	/* set FIFO in bypass mode */
-> +	ret = regmap_write(st->map, INV_ICM42607_REG_FIFO_CONFIG1,
-> +			   INV_ICM42607_FIFO_CONFIG1_BYPASS);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* flush FIFO data */
-> +	ret = regmap_write(st->map, INV_ICM42607_REG_SIGNAL_PATH_RESET,
-> +			   INV_ICM42607_SIGNAL_PATH_RESET_FIFO_FLUSH);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* disable FIFO threshold interrupt */
-> +	ret = regmap_update_bits(st->map, INV_ICM42607_REG_INT_SOURCE0,
-> +				 INV_ICM42607_INT_SOURCE0_FIFO_THS_INT1_EN, 0);
-
-	regmap_clear_bits()
-
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
-> +
-> +static int inv_icm42607_buffer_postdisable(struct iio_dev *indio_dev)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	struct device *dev = regmap_get_device(st->map);
-> +	unsigned int sensor;
-> +	unsigned int *watermark;
-> +	int ret;
-> +
-> +	if (indio_dev == st->indio_gyro) {
-> +		sensor = INV_ICM42607_SENSOR_GYRO;
-> +		watermark = &st->fifo.watermark.gyro;
-> +	} else if (indio_dev == st->indio_accel) {
-> +		sensor = INV_ICM42607_SENSOR_ACCEL;
-> +		watermark = &st->fifo.watermark.accel;
-> +	} else {
-> +		return -EINVAL;
-> +	}
-> +
-> +	mutex_lock(&st->lock);
-> +
-> +	/*
-> +	 * FIFO enabled at update scan mode for accel or gyro, and
-> +	 * disabled here.
-> +	 */
-> +	ret = inv_icm42607_buffer_set_fifo_en(st, st->fifo.en & ~sensor);
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +	*watermark = 0;
-
-Add a comment on why this needs to be set to 0.  Normally that only
-matters at all if the fifo is on, so I guess something unusual here?
-
-
-> +	ret = inv_icm42607_buffer_update_watermark(st);
-> +	if (ret)
-> +		goto out_unlock;
-> +
-> +out_unlock:
-> +	mutex_unlock(&st->lock);
-> +
-> +	pm_runtime_put_autosuspend(dev);
-> +
-> +	return ret;
-> +}
-
-> +int inv_icm42607_buffer_fifo_read(struct inv_icm42607_state *st,
-> +				  unsigned int max)
-> +{
-> +	const void *accel, *gyro, *timestamp;
-> +	size_t i, max_count;
-> +	const s8 *temp;
-> +	ssize_t size;
-> +	int ret;
-> +
-> +	guard(mutex)(&st->lock);
-> +
-> +	/* reset all samples counters */
-> +	st->fifo.count = 0;
-> +	st->fifo.nb.gyro = 0;
-> +	st->fifo.nb.accel = 0;
-> +	st->fifo.nb.total = 0;
-> +
-> +	/* compute maximum FIFO read size */
-> +	if (max == 0)
-> +		max_count = sizeof(st->fifo.data);
-> +	else
-> +		max_count = min((max * inv_icm42607_get_packet_size(st->fifo.en)),
-> +				sizeof(st->fifo.data));
-> +
-> +	/* read FIFO count value */
-> +	ret = regmap_bulk_read(st->map, INV_ICM42607_REG_FIFO_COUNTH,
-> +			       st->buffer, sizeof(u8) * 2);
-> +	if (ret)
-> +		return ret;
-> +	st->fifo.count = be16_to_cpup(st->buffer);
-
-Might be ok to assume this is always a multiple of the scan size, but 
-maybe sanity check it to keep sashiko happy and remove that assumption
-of atomic update.
-
-> +
-> +	/* check and clamp FIFO count value */
-> +	if (st->fifo.count == 0)
-> +		return 0;
-> +
-> +	st->fifo.count = min(st->fifo.count, max_count);
-> +
-> +	/* read all FIFO data in internal buffer */
-> +	ret = regmap_noinc_read(st->map, INV_ICM42607_REG_FIFO_DATA,
-> +				st->fifo.data, st->fifo.count);
-> +	if (ret)
-> +		return ret;
-> +
-> +	/* compute number of samples for each sensor */
-> +	for (i = 0; i < st->fifo.count; i += size) {
-> +		size = inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
-> +				&accel, &gyro, &temp, &timestamp);
-> +		/* Make sure the size is at least 1 valid packet. */
-> +		if (size < INV_ICM42607_FIFO_1SENSOR_PACKET_SIZE)
-> +			break;
-> +		/* Error if we are going to overflow the buffer. */
-> +		if (i + size > st->fifo.count)
-> +			return -EIO;
-> +		if (gyro != NULL && inv_icm42607_fifo_is_data_valid(gyro))
-> +			st->fifo.nb.gyro++;
-> +		if (accel != NULL && inv_icm42607_fifo_is_data_valid(accel))
-> +			st->fifo.nb.accel++;
-> +		st->fifo.nb.total++;
-> +	}
-> +
-> +	return 0;
-> +}
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
-> new file mode 100644
-> index 000000000000..b77deb66f8bd
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.h
-
-> +
-> +/* FIFO data packet */
-> +struct inv_icm42607_fifo_sensor_data {
-> +	__be16 x;
-> +	__be16 y;
-> +	__be16 z;
-> +};
-
-Sashiko is probably correct that this should be packed.
-Makes not difference here but it's not aligned in the places it's embedded
-in other structs and the compiler seeing this will assume it is aligned.
-
-> +
-> +#define INV_ICM42607_FIFO_DATA_INVALID		-32768
-> +
-> +static inline bool
-> +inv_icm42607_fifo_is_data_valid(const struct inv_icm42607_fifo_sensor_data *s)
-> +{
-> +	s16 x, y, z;
-> +
-> +	x = be16_to_cpu(s->x);
-> +	y = be16_to_cpu(s->y);
-> +	z = be16_to_cpu(s->z);
-> +
-> +	if (x == INV_ICM42607_FIFO_DATA_INVALID &&
-> +	    y == INV_ICM42607_FIFO_DATA_INVALID &&
-> +	    z == INV_ICM42607_FIFO_DATA_INVALID)
-> +		return false;
-> +
-> +	return true;
-> +}
+Best regards,
+Krzysztof
 
