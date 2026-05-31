@@ -1,50 +1,42 @@
 Received: from outbound8.mail.transip.nl (outbound8.mail.transip.nl [136.144.136.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26D12301474;
-	Sun, 31 May 2026 04:09:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5F026F46F;
+	Sun, 31 May 2026 04:09:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780200584; cv=none; b=akw0N7I0VvJCHprJskKy2ftiMVjvJCPdNwCQzjGTNtqr3r9HUrFH3ILmYJiW2QPou5ZTa//AhrdTExJqhUFgbtoxe55Xd20hd/iJSzivDjcmOs1l4rL7MPKD5Q7bCJ2vuizuSawF6dFIShebENPTJFlxkWuMJcjOiI2CMVUsjYA=
+	t=1780200585; cv=none; b=Thmiel8LpXan/nzVOINrQk/BqgzS9S8Jbm37vlOHdF1JCfSpIfP8Ba3YF7saJJeiZYdo13MyV2tvh3YhvbwTo2Ydc7NEg1cSWdJsDe+Pfcb/HOMEp98cI/MgoeqgFyCs+FrG464p0NK17VYxtepHiD4sBikbNDTyL4ct8A1bsLk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780200584; c=relaxed/simple;
-	bh=mkFRdKwuUVef8l5jbZHd4TpVbtwCreqS1Vrc2PF1iTk=;
+	s=arc-20240116; t=1780200585; c=relaxed/simple;
+	bh=36NhuOVHY5OtaVczkA7Bdp6fFKvM65k1mtw8NRYVGJM=;
 	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RAl8L+tj8vdaE5+Kl7+VuojgNhlyEvJn8W4+flCgPXUfsxfndbnMkyzh7S09CKJiMROID4YNAkQG2XqYspytFMxWfrA+gqSP18/9VWg7X/VJa7dAx8bTgdg8pmK0n4OY3RJ3z3imzqyjEJPeFB6Pss9GcM2K85natVfCrzWoix8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=j3F/qH3G; arc=none smtp.client-ip=136.144.136.8
+	 MIME-Version; b=FEZmsvu61ndKFXykdYROfKSTXt7BpSxsTkUP4p30nFK4atvkDSTQ7tei6A9MrzhAviHRYCMA7C/nRNMXLEJ3VKb9NRD5NaanGBv8CorRa0NlHZV5EdXehW3BsH0VXCCneoPxHxGrbilZCBVYTpBTHbDpwXo6ICsp/xw/CL13qLM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=DztoHCe/; arc=none smtp.client-ip=136.144.136.8
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="j3F/qH3G"
-Received: from submission4.mail.transip.nl (unknown [10.103.8.155])
-	by outbound8.mail.transip.nl (Postfix) with ESMTP id 4gSkB84xfdzY75qw;
-	Sun, 31 May 2026 06:09:20 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="DztoHCe/"
+Received: from submission3.mail.transip.nl (unknown [10.100.4.72])
+	by outbound8.mail.transip.nl (Postfix) with ESMTP id 4gSk9w3ZYhzY75ZZ;
+	Sun, 31 May 2026 06:09:08 +0200 (CEST)
 Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission4.mail.transip.nl (Postfix) with ESMTPA id 4gSkB74hLfz3R3nyZ;
-	Sun, 31 May 2026 06:09:19 +0200 (CEST)
+	by submission3.mail.transip.nl (Postfix) with ESMTPA id 4gSk9v4ppGzf52b6;
+	Sun, 31 May 2026 06:09:07 +0200 (CEST)
 From: Herman van Hazendonk <github.com@herrie.org>
-To: Amit Kucheria <amitk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
+To: Conor Dooley <conor+dt@kernel.org>,
 	devicetree@vger.kernel.org,
+	Georgi Djakov <djakov@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Lee Jones <lee@kernel.org>,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-pm@vger.kernel.org,
-	Lukasz Luba <lukasz.luba@arm.com>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Satya Priya <quic_c_skakit@quicinc.com>,
-	Thara Gopinath <thara.gopinath@gmail.com>,
-	van Hazendonk <github.com@herrie.org>,
-	Zhang Rui <rui.zhang@intel.com>
-Subject: [PATCH v2 2/3] dt-bindings: thermal: qcom: add pm8901-temp-alarm
-Date: Sun, 31 May 2026 06:09:15 +0200
-Message-ID: <a6b05ef048fa94f8cbd73f612de5754f2f5733d0.1780197411.git.github.com@herrie.org>
+	Rob Herring <robh@kernel.org>
+Subject: [PATCH v2 0/2] interconnect: qcom: add MSM8x60 NoC driver
+Date: Sun, 31 May 2026 06:09:05 +0200
+Message-ID: <cover.1780197411.git.github.com@herrie.org>
 X-Mailer: git-send-email 2.43.0
-In-Reply-To: <cover.1780197411.git.github.com@herrie.org>
-References: <cover.1780148149.git.github.com@herrie.org> <cover.1780197411.git.github.com@herrie.org>
+In-Reply-To: <cover.1780148149.git.github.com@herrie.org>
+References: <cover.1780148149.git.github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -52,141 +44,86 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission4.mail.transip.nl
+X-Scanned-By: ClueGetter at submission3.mail.transip.nl
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780200560; h=from:subject:to:references:
+ s=transip-a; d=herrie.org; t=1780200547; h=from:subject:to:references:
  in-reply-to:date:mime-version;
- bh=idL6XwhXReC/2NUZIyb2R5aJeN5I6jIlHbCIEZ5aS2Y=;
- b=j3F/qH3GILh68AXwuwsdOUBCZcWNCDR3KoPHPg/rPJYAx4zAnX27ZkPCLBcSDbiXY9UZRm
- Fv7k6p8fM7Mo7rzq8DhzLcrpiEmIkC5JTGjGcAguzKxN3uKpfE87zipVKoDoZTFesVFPyy
- ZjbmPlhBEEOSFYssHpj1J2co4irXybgu71oFCrxdtbXSBhgKToSgwIX03kRzLLXQPYnQJ1
- BvI4m1cxnIO78rkcOhElKPQrYVtOTjVk5nCv29TppZXy9pVwKFzx/xmn5s/XPS+R2qkuuF
- qb1+/OjHvNGXuaUBTVzmv7DrcrKcxalf17dz50KU5Mr3GwwKmoBevITWrUsd2w==
+ bh=NlW9i/XlXywCqjlGWse0QjhnP2pj35gx6iynqe3HBOA=;
+ b=DztoHCe/hVyufbESPee0DHTn8VM3g73jwxtq6fa/KLnjMFWRzQ54Z0r9U+bdw/gAnn3Yqs
+ fcHkffhpxngFqbk3bRIj6qOTJjiaTwfciFwJ1/MTUtb0sIqSZbcn67lL/X4shqkkxZinlP
+ XccuOY+nTj7P4CStJt8HJdtIc9UD47+IlfuIRap5xDbqbiPR5SNBJ0051y+8kr6jCp/XaI
+ gy8BZBM5QGbWWUZ1f5CYxxmqJokgR2bU5SOYLRwgjjBF8vskTn5EBS4l5g89nMDW6z+YkE
+ iEFREv7JQzu6bgwvXg//XKe6R+1RgrclxxOT4LYETrJwPkZGYyLHRVaOXjkuLw==
 X-Report-Abuse-To: abuse@transip.nl
+Message-ID: <20260531040905.ZAdI1TQarTaVwyV5T3xfExjsPFLtfkVkMq5lR39VWUA@z>
 
-Add the binding for the temperature-alarm block inside the Qualcomm
-PM8901 PMIC (companion to the PM8058 on MSM8x60). The block has four
-selectable thresholds and three escalating stages; the driver maps
-these to representative millicelsius readings exposed to the
-thermal-of framework, and a board DT can wire stage 3 as a critical
-trip so the kernel issues orderly_poweroff() when the part overheats.
+Hi all,
 
-The binding describes the SSBI sub-node address (CTRL register
-offset) and the two PMIC-internal interrupts the alarm raises:
+Self-review (with Sashiko AI assist) caught five real issues in v1's
+NoC driver before the maintainer review cycle reached them, so
+re-rolling promptly. v1:
 
-  - TEMP_ALARM    (PM8901 IRQ block 6 bit 4 == hwirq 52),
-                  asserted on every stage transition;
-  - TEMP_HI_ALARM (PM8901 IRQ block 6 bit 5 == hwirq 53),
-                  asserted when the high-temperature stage is reached.
+  https://lore.kernel.org/linux-arm-msm/cover.1780148149.git.github.com@herrie.org/
 
-The interrupts are sourced from the parent qcom,pm8901 PMIC's own
-interrupt-controller (not the SoC GIC); the node references the core
-/schemas/thermal/thermal-sensor.yaml so that the standard
-#thermal-sensor-cells handling and other shared thermal-sensor
-constraints are inherited automatically.
+v2 changes (driver patch only; the binding header is unchanged from v1):
 
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
----
- .../thermal/qcom,pm8901-temp-alarm.yaml       | 90 +++++++++++++++++++
- 1 file changed, 90 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.yaml
+  - MMFAB master port collision: mmfab_to_appss claimed port 2, but
+    that port was already owned by mmfab_mas_adm1_port0. Per the
+    fabric's port table the APPS_FAB gateway lives at port 11; fix
+    the DEFINE_QNODE so ADM1 DMA's arbitration vote on MMFAB is no
+    longer overwritten by the gateway.
 
-diff --git a/Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.yaml b/Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.yaml
-new file mode 100644
-index 000000000000..5d9eaeab8326
---- /dev/null
-+++ b/Documentation/devicetree/bindings/thermal/qcom,pm8901-temp-alarm.yaml
-@@ -0,0 +1,90 @@
-+# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-+%YAML 1.2
-+---
-+$id: http://devicetree.org/schemas/thermal/qcom,pm8901-temp-alarm.yaml#
-+$schema: http://devicetree.org/meta-schemas/core.yaml#
-+
-+title: Qualcomm PM8901 PMIC Temperature Alarm
-+
-+maintainers:
-+  - Herman van Hazendonk <github.com@herrie.org>
-+
-+description: |
-+  PM8901 is a secondary PMIC paired with PM8058 on MSM8x60 family
-+  (MSM8260/MSM8660/APQ8060) platforms. It exposes an over-temperature
-+  alarm block at SSBI offset 0x23 (CTRL) with four selectable
-+  thresholds and three escalating stages.
-+
-+  Unlike PM8058, there is no raw die-temperature ADC channel - the
-+  driver decodes the stage + threshold pair into a representative
-+  millicelsius value reported via the thermal-of framework.
-+
-+  Two PMIC-internal interrupts are exposed:
-+
-+    - TEMP_ALARM    (PM8901 IRQ block 6 bit 4 == hwirq 52): asserted
-+                    on every stage transition;
-+    - TEMP_HI_ALARM (PM8901 IRQ block 6 bit 5 == hwirq 53): asserted
-+                    when the part enters the high-temperature stage.
-+
-+  Both line up on the parent qcom,pm8901 interrupt-controller.
-+
-+allOf:
-+  - $ref: /schemas/thermal/thermal-sensor.yaml#
-+
-+properties:
-+  compatible:
-+    const: qcom,pm8901-temp-alarm
-+
-+  reg:
-+    description: SSBI offset of the temp-alarm CTRL register.
-+    maxItems: 1
-+
-+  interrupts:
-+    items:
-+      - description: Stage-transition alarm interrupt (TEMP_ALARM).
-+      - description: Hi-temperature alarm interrupt (TEMP_HI_ALARM).
-+
-+  interrupt-names:
-+    items:
-+      - const: alarm
-+      - const: hi-alarm
-+
-+  "#thermal-sensor-cells":
-+    const: 0
-+
-+required:
-+  - compatible
-+  - reg
-+  - interrupts
-+  - interrupt-names
-+
-+additionalProperties: false
-+
-+examples:
-+  - |
-+    #include <dt-bindings/interrupt-controller/irq.h>
-+
-+    ssbi {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
-+
-+      pmic@0 {
-+        compatible = "qcom,pm8901";
-+        reg = <0>;
-+        #address-cells = <1>;
-+        #size-cells = <0>;
-+        #interrupt-cells = <2>;
-+        interrupt-controller;
-+        interrupt-parent = <&tlmm>;
-+        interrupts = <31 IRQ_TYPE_EDGE_RISING>;
-+
-+        temp-alarm@23 {
-+          compatible = "qcom,pm8901-temp-alarm";
-+          reg = <0x23>;
-+          interrupts = <52 IRQ_TYPE_EDGE_RISING>,
-+                       <53 IRQ_TYPE_EDGE_RISING>;
-+          interrupt-names = "alarm", "hi-alarm";
-+          #thermal-sensor-cells = <0>;
-+        };
-+      };
-+    };
+  - msm8660_rpm_commit() double-converted bandwidth units: it called
+    icc_units_to_bps() (which already returns bytes/s) and then
+    immediately divided by 8 "bits -> bytes", asking RPM for 1/8 of
+    the bandwidth that consumers had requested. Drop the spurious
+    divide.
+
+  - Fabric rate cache hoisted to provider scope and divided by the
+    fabric's own bus width rather than the triggering node's local
+    buswidth. A fabric has one shared hardware clock; using each
+    master's local buswidth makes the requested clk rate oscillate
+    depending on which master called icc_set_bw() last, and caching
+    the result on the node lets a subsequent update skip clk_set_rate
+    even though a different node has already moved the hardware. The
+    new layout adds desc->bus_width per fabric (AFAB/SFAB/DFAB=8,
+    MMFAB=16) and qp->rate as the single source of truth.
+
+  - msm8660_get_rpm() rewritten:
+      * returns ERR_PTR(-EPROBE_DEFER) when the RPM phandle resolves
+        but the device hasn't probed yet, instead of returning NULL
+        and silently disabling ARB forever;
+      * adds a device_link to the RPM device so the devres-managed
+        qcom_rpm struct can't be freed out from under us if the RPM
+        driver is unbound at runtime (previously a use-after-free
+        risk because we kept a pointer past put_device()).
+    Probe propagates IS_ERR(qp->rpm) up so the framework retries.
+
+  - devm_clk_bulk_get_optional() now distinguishes -EPROBE_DEFER
+    (propagated) from real "no clocks" (continue without scaling).
+    Previously every error was swallowed, which permanently disabled
+    clock scaling if the icc driver happened to probe before the
+    clock provider - which it usually does, given the core_initcall
+    ordering.
+
+No functional change intended on the working paths; this is purely
+correctness work.
+
+Thanks,
+Herman
+
+Herman van Hazendonk (2):
+  dt-bindings: interconnect: qcom: add msm8660 fabric IDs
+  interconnect: qcom: add MSM8x60 NoC driver
+
+ drivers/interconnect/qcom/Kconfig             |   10 +
+ drivers/interconnect/qcom/Makefile            |    2 +
+ drivers/interconnect/qcom/msm8660.c           | 1069 +++++++++++++++++
+ .../dt-bindings/interconnect/qcom,msm8660.h   |  156 +++
+ 4 files changed, 1237 insertions(+)
+ create mode 100644 drivers/interconnect/qcom/msm8660.c
+ create mode 100644 include/dt-bindings/interconnect/qcom,msm8660.h
+
 -- 
 2.43.0
 
