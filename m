@@ -1,116 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outbound9.mail.transip.nl (outbound9.mail.transip.nl [136.144.136.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE10C23ABA8;
-	Sun, 31 May 2026 01:51:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2F7323EAA0;
+	Sun, 31 May 2026 04:09:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.11
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780192273; cv=none; b=Fy+0l3O7IMVaPRhEzasK1PZf8a0S0jFpN9bZ6uUagvngbnEc72MjO/osMAtG3bE2FlBmSLG+TO+MExfHjKg0q1CNcAHcchNvKWElmaOJZ4+RErWtwwnSmm2SaJUVN+Y4APc87kGyctFnP3KU3Y/5KwhC1Tg0jEjh6IX1r9u3hhI=
+	t=1780200550; cv=none; b=Wp0FxrFc1sIDaahp+Bw8L9HqK5GN1yViQ2m9sQxKtzsXNMTiSb4lICjNtUCdzkyoKaOuVjhQPX/F531rQB86jeCebjUDEtJ2Zmck5z1NzfL6082oXwXCqst1WlQKPsBpDXBHYJyKMmMTXJuKjjUdTEf7nUFTriM5vQxGRf8P4dM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780192273; c=relaxed/simple;
-	bh=kgQ1INYmGkCFtHjfF37gquvimy7OqaTM1L0UoNYKxYk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TOQANcTBLAuCpVOZ9xn5GeuNUbrKac6hgwvH9ZlSecWYCLN3SjzfTJtXhUu7IDrUm3U0PgBsxIkHFxyyxLPX7badlvaxngIqONlufU3TI69qRExLIFWEf0j++ueT7wK2p+KGODds3ntCHliROwPsgxhzPKdCA5zLTKlPjo1wrZI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kLY60Wfh; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780200550; c=relaxed/simple;
+	bh=0pF0rhg2hHdPbQ2Luyn/7WqsTAcxwqew8Vs8I2dTWc4=;
+	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YVp4D1UOO3ZO3TKWJkIiuLjjTcvH+rmEz81T3wYevJ0QwkyDRnhkE/Vdp3n9QbI6gAh2h1Nqp8E+niMtAgjHmFETggbSmPsNc1nNaVMoS/4yB88fIGFcnmqxTTordI11CySsSwleZNKUzkfHjO0sn95WDXxWBMtCjPXwMrfNijA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=lhURLWz7; arc=none smtp.client-ip=136.144.136.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kLY60Wfh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 766BE1F00893;
-	Sun, 31 May 2026 01:51:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780192272;
-	bh=1miKEZAnGiSRcJQWtswcD5dFRkY3BK0eDKYXOh7h6zk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kLY60WfhyXnSawaNZl+ilX4Ak1L0nLfHZVo5wooZbVNLdLl6+VwBm6FBMlSa46wp2
-	 RhTtMwa0RiiIopa/dJ6a4pY7B1OWJ6JG6HV0TQp+U2W/HKI248r6TyYHbRTreyNyVz
-	 yUz2338GeKxTE6CjYYCC6b361QBAF7FbhAnXKsfdt2WOCXOxGmOr6XE4nuBsWSm68w
-	 aiWbuaU68w9QP8FiUzIoZ1Bv2H7Ru5HQw2gQGmLT2bdMaYe7+sdfPcvgs8KQZWMZpX
-	 upA3cR23f39TzrUVNIHAGvC/dbMTqphfDDHLjSUuECnm+NaeIS8qJ8xIn5Vit4bcaE
-	 MoQcXwuCuMEJw==
-Date: Sat, 30 May 2026 18:51:01 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: Sunil V L <sunilvl@oss.qualcomm.com>
-Cc: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>,
-	Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>,
-	Radim =?utf-8?B?S3LEjW3DocWZ?= <rkrcmar@ventanamicro.com>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Adrien Ricciardi <aricciardi@baylibre.com>,
-	Nicolas Pitre <npitre@baylibre.com>,
-	Kornel =?utf-8?Q?Dul=C4=99ba?= <mindal@semihalf.com>,
-	Atish Patra <atish.patra@linux.dev>,
-	Atish Kumar Patra <atishp@rivosinc.com>,
-	Vasudevan Srinivasan <vasu@rivosinc.com>,
-	Ved Shanbhogue <ved@rivosinc.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	yunhui cui <cuiyunhui@bytedance.com>,
-	Chen Pei <cp0613@linux.alibaba.com>,
-	Liu Zhiwei <zhiwei_liu@linux.alibaba.com>,
-	Weiwei Li <liwei1518@gmail.com>, guo.wenjia23@zte.com.cn,
-	Gong Shuai <gong.shuai@sanechips.com.cn>,
-	Gong Shuai <gsh517@gmail.com>, liu.qingtao2@zte.com.cn,
-	Reinette Chatre <reinette.chatre@intel.com>,
-	Tony Luck <tony.luck@intel.com>, Babu Moger <babu.moger@amd.com>,
-	Peter Newman <peternewman@google.com>,
-	Fenghua Yu <fenghua.yu@intel.com>,
-	James Morse <james.morse@arm.com>, Ben Horgan <ben.horgan@arm.com>,
-	Dave Martin <Dave.Martin@arm.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="lhURLWz7"
+Received: from submission10.mail.transip.nl (unknown [10.103.8.161])
+	by outbound9.mail.transip.nl (Postfix) with ESMTP id 4gSk9r5r6wzTPNc5;
+	Sun, 31 May 2026 06:09:04 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission10.mail.transip.nl (Postfix) with ESMTPA id 4gSk9r1WYyz1g92mX;
+	Sun, 31 May 2026 06:09:04 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: Bjorn Andersson <andersson@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,
-	Len Brown <lenb@kernel.org>, Robert Moore <robert.moore@intel.com>,
-	Sunil V L <sunilvl@ventanamicro.com>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Clark Williams <clrkwllms@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Jonathan Corbet <corbet@lwn.net>, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org, x86@kernel.org,
-	linux-acpi@vger.kernel.org, acpica-devel@lists.linux.dev,
 	devicetree@vger.kernel.org,
-	Paul Walmsley <paul.walmsley@sifive.com>,
-	Conor Dooley <conor@kernel.org>, linux-rt-devel@lists.linux.dev,
-	linux-doc@vger.kernel.org
-Subject: Re: [PATCH RFC v5 16/18] ACPI: RISC-V: Parse RISC-V Quality of
- Service Controller (RQSC) table
-Message-ID: <ahuUBV8QYo_ToOrB@gen8>
-References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-0-78d3a7ba9dbe@kernel.org>
- <20260524-ssqosid-cbqri-rqsc-v7-0-v5-16-78d3a7ba9dbe@kernel.org>
- <CAB19ukE9r_V=0eop3=f8zohhnCavd=9GjDEK1VMMbOb0ReOtDA@mail.gmail.com>
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Stephen Boyd <sboyd@kernel.org>
+Subject: [PATCH v2 2/3] dt-bindings: clock: qcom: add lcc-msm8660 LPASS clock IDs
+Date: Sun, 31 May 2026 06:09:01 +0200
+Message-ID: <be69409cac5f6b316a609e182e609f0ce6133bbe.1780197511.git.github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1780197511.git.github.com@herrie.org>
+References: <cover.1780148149.git.github.com@herrie.org> <cover.1780197511.git.github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <CAB19ukE9r_V=0eop3=f8zohhnCavd=9GjDEK1VMMbOb0ReOtDA@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission10.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780200544; h=from:subject:to:references:
+ in-reply-to:date:mime-version;
+ bh=rW2SLXzGi1/eJwT7d4iDn2tWeHOxsLuq9eRAWU8zmV8=;
+ b=lhURLWz7ZnRrHIp9Jwlh3Fardp4gWacXCQ/I+7kgXLEFqM/apkUSdsVom09GWPADEA7yf9
+ BfKWZuhi+w/5fkr49RsUONYlAV8eJxE0GskJtQOrvfIwXV64MfE8ZiJ8AI//1dnkZWfBRi
+ Hs6w3QPAlyeQPf3DlVc/FQyGrn1Si0muv4PqoJjKrCeRWT60zsnQONwjNAary4P+7PWhTd
+ ziqy8YoJfswsE9sUmSfmqLi+ZeMz6Y0WrciQSN1znriTCoKPQX/iD0Xt3aAaHntNlXRUkk
+ nFdmtCPYj5aD8ilrnROcUnHpYMoFqXB4KCYJSYGUxPvlMcaZB9qKGsIznSSHLw==
+X-Report-Abuse-To: abuse@transip.nl
 
-On Mon, May 25, 2026 at 01:53:09PM +0530, Sunil V L wrote:
-> > +               if (info.mcid_count > CBQRI_MAX_MCID) {
-> > +                       pr_warn("controller at %pa: mcid_count %u exceeds CBQRI_MAX_MCID %u, skipping\n",
-> > +                               &info.addr, info.mcid_count, CBQRI_MAX_MCID);
-> > +                       continue;
-> > +               }
-> > +
-> Do you also want to add a check for the statement in the spec "At
-> least one of RCID Count or MCID Count must be non-zero." ?
+Add the dt-binding clock-ID header for the MSM8x60 family
+(MSM8260/MSM8660/APQ8060) Low Power Audio SubSystem Clock Controller
+(LCC). The header enumerates the LPASS clocks consumed by the
+qcom,apq8060-lpaif sound card and the codec/AIF nodes downstream of
+it. It mirrors the format and ID range of the existing LCC headers
+for newer Qualcomm SoCs (lcc-msm8960, lcc-msm8974) so the
+drivers/clk/qcom/lcc-msm8660.c driver can be hooked up the same way
+once it lands.
 
-Good idea, I'll add a skip with pr_warn when both are zero.
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+ include/dt-bindings/clock/qcom,lcc-msm8660.h | 48 ++++++++++++++++++++
+ 1 file changed, 48 insertions(+)
+ create mode 100644 include/dt-bindings/clock/qcom,lcc-msm8660.h
 
-> > +/* RQSC v0.9.2 Table 4: Resource Type values for acpi_rqsc_resource.type. */
-> > +#define ACPI_RQSC_RESOURCE_TYPE_CACHE  0
-> > +#define ACPI_RQSC_RESOURCE_TYPE_MEMORY 1
-> > +
-> > +/* RQSC v0.9.2 Table 4: Resource ID Type values for .id_type. */
-> > +#define ACPI_RQSC_RESOURCE_ID_TYPE_PROCESSOR_CACHE     0
-> > +#define ACPI_RQSC_RESOURCE_ID_TYPE_MEMORY_RANGE                1
-> > +
-> Memory-Side Cache, ACPI, PCI devices missing?
+diff --git a/include/dt-bindings/clock/qcom,lcc-msm8660.h b/include/dt-bindings/clock/qcom,lcc-msm8660.h
+new file mode 100644
+index 000000000000..d5d9b0d71a78
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,lcc-msm8660.h
+@@ -0,0 +1,48 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2014, The Linux Foundation. All rights reserved.
++ */
++
++#ifndef _DT_BINDINGS_CLK_LCC_MSM8660_H
++#define _DT_BINDINGS_CLK_LCC_MSM8660_H
++
++/*
++ * MSM8x60 family (MSM8260/MSM8660/APQ8060) LPASS Clock Controller (LCC)
++ * clock IDs. These are compatible with MSM8960 LCC as MSM8x60 and
++ * MSM8960 share the same audio subsystem clock architecture.
++ */
++
++#define PLL4				0
++#define MI2S_OSR_SRC			1
++#define MI2S_OSR_CLK			2
++#define MI2S_DIV_CLK			3
++#define MI2S_BIT_DIV_CLK		4
++#define MI2S_BIT_CLK			5
++#define PCM_SRC				6
++#define PCM_CLK_OUT			7
++#define PCM_CLK				8
++#define SLIMBUS_SRC			9
++#define AUDIO_SLIMBUS_CLK		10
++#define SPS_SLIMBUS_CLK			11
++#define CODEC_I2S_MIC_OSR_SRC		12
++#define CODEC_I2S_MIC_OSR_CLK		13
++#define CODEC_I2S_MIC_DIV_CLK		14
++#define CODEC_I2S_MIC_BIT_DIV_CLK	15
++#define CODEC_I2S_MIC_BIT_CLK		16
++#define SPARE_I2S_MIC_OSR_SRC		17
++#define SPARE_I2S_MIC_OSR_CLK		18
++#define SPARE_I2S_MIC_DIV_CLK		19
++#define SPARE_I2S_MIC_BIT_DIV_CLK	20
++#define SPARE_I2S_MIC_BIT_CLK		21
++#define CODEC_I2S_SPKR_OSR_SRC		22
++#define CODEC_I2S_SPKR_OSR_CLK		23
++#define CODEC_I2S_SPKR_DIV_CLK		24
++#define CODEC_I2S_SPKR_BIT_DIV_CLK	25
++#define CODEC_I2S_SPKR_BIT_CLK		26
++#define SPARE_I2S_SPKR_OSR_SRC		27
++#define SPARE_I2S_SPKR_OSR_CLK		28
++#define SPARE_I2S_SPKR_DIV_CLK		29
++#define SPARE_I2S_SPKR_BIT_DIV_CLK	30
++#define SPARE_I2S_SPKR_BIT_CLK		31
++
++#endif
+-- 
+2.43.0
 
-I'll add the constants for the future.
-
-Thanks,
-Drew
