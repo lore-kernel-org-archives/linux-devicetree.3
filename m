@@ -1,262 +1,253 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BF711ADC83;
-	Sun, 31 May 2026 00:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A8C29993D
+	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:41:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780187922; cv=none; b=Xua4wvOOcBZ4RzxyIoUleQuyRGJ52m5nJ4Xtv6R969UWtTVbaLEwCRXTtKIw6zkJTJRQ4uI/tIwqLBO90wCU8LcdY2xU/fBhMUrgrLchbPGN7CMNbZ98XkJcESJ9baHzZ6xesDVB2bR4FERaX5ndzAWPViXijae/PgoWkkd9XjE=
+	t=1780191681; cv=none; b=gjZLZAnYAImCiFzUR3HBdypTW2crP0rKHFZ9QhrAMwueNw/BfHPJxpVcEmOkEawlHQrDEVMVOP9/5e3XPArXUNg87w/x823MilNjxNLNyKBvhogLgm9ijC55iPUJhkBvNJ1iHSJ+RML4kDqtAXh4Nt6O4tJlQKqF1FXnpPYedFo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780187922; c=relaxed/simple;
-	bh=rnu7wZR9x2neEh4rUjPwUVPOlU1lUSHvSQ24W7AE/ts=;
-	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
-	 References:Date:Message-Id; b=UCJtEAReBjnRNA25/79zm82PmIcDF2weltUISHuQXwTAZbqEF1b9Bz1jBa1TDBVlB2QBc8rUv2ZFMj3fVidEx9pn6Xnpddp6T5RG9vLaZksC9WLmO/nsvhBMOH8P4GuNnle9joumC7GUbhX7YXklg1uW47Em+nra2UJPL2U01Xo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=imR/M1Tz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780191681; c=relaxed/simple;
+	bh=XK57a8QkqCPmkZ0tZgJphFdbSEl/i6kCWvEEqnmOvME=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CrD+0v+O9TXyWY3DKhbdUv7ZevrUJhqIpd4ru9eqEBF/VfwYajLrcSTf9741MAGkhYArw42dSDAUQtkXrlukTpd0Dr48hEk/iDGzIm300DHAfjBTdDR9ppm8Er1WEYxI1VU4z4q1CQ0ri5F9tcoQk2+RAD49yKqQPhFNzhzDZp0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SBld4c93; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HfWgAf6W; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="imR/M1Tz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C3211F00893;
-	Sun, 31 May 2026 00:38:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780187920;
-	bh=ymyhzMDISc+MMKltA5c65XdEtBntFs+bkMDLRCi9mxs=;
-	h=Subject:From:To:Cc:In-Reply-To:References:Date;
-	b=imR/M1Tz3aH7Q1VgERPGGyacEwQlBXcLbe3qq3GGWADoitMmZi97fT4dtRc6eylz8
-	 JxOZgUrHwg3arzsYyB48ME2z7Z8SHQKqw4MYmNRoKxofZUwJSmdlqbkQ7QRCROWV80
-	 VfHZ4dhvbT1QeFwEN97iMFagYZ2ZgFPo8kjt0V7gRbwoUx5fjT2abwdz/zsN2oN5gB
-	 wuyRL3cc9cumKk6T5bkyuKTPUQTrNI2fVyzZXg+EqERc6Ll3OPwBEeNauxgmasFUnG
-	 O7yClVHEA3fA7mWP/CUVkHfbotlZobXmfSFLBbnum9SSY8ifLY7st41/FS1y2XVEZ5
-	 ZoLWmivXyNafA==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SBld4c93";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HfWgAf6W"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64UEOKEE250010
+	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:41:19 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	QP/YmQQpucJZRAia0geXRt1bwULI4Tj+5E1XuSKtbHk=; b=SBld4c93EtHDw6FZ
+	iqp3saJCFfg4PS1UlsS4Appqch9UUYlIFoFt/om5A4Jr/Lmvp6b8Lu/DmUCESLEF
+	3efpNJgwOhXNh5R6NbIfU1sRLlAC6rvqWpZIPpZt88etreWRicCyI5/PzgafEGFa
+	GuxUA+qEiWR7+XWXbJBaDzHIBVHw0ZRtTt0Rpxk3tUNB/iktz6nJEoYjWIyp3q/y
+	MfH8ElRHS3fZUb/49fiKauF/hYVrbCK7mdYKmEmbuqYrkooTOQgbrMCqM35psAth
+	pSQlgCX2nfOnh3Doa61hu0AKgD3bgqvsNf7O0XCFj3jylvbgPHQXMe/oP9Rnw0+p
+	Xf72Ng==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efux520sm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:41:19 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36bc54005a7so2429035a91.0
+        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 18:41:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780191678; x=1780796478; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=QP/YmQQpucJZRAia0geXRt1bwULI4Tj+5E1XuSKtbHk=;
+        b=HfWgAf6W1BcevZgUZtpA5XH/J0udvtClg0c1zNfU6aIJGISdDgInTHzd/LpYyU+5Kd
+         NySacc7IKKNYJeE/HaE0HPHLwNhmzdmf7LWRLIt+fTkjVRFJ8m+mYn+ZMJhLx7HmnHtX
+         uRHPapb0TrkTf5Dj7s8qWuW99cYYufE/Ycltm8LZ4I/cfsv7CweFpW+oCbXJmG9jNRjo
+         MsiXHCJYQdkD+WYfznEI6/xQrkttlHULBV4QzcvZJ4YnzKJZIyVEP1DbTpV7TFqQqjDV
+         Akr1ViNdbJ9mJK1nDWJm/8ow9i+iKko0Tz/+F6WEzESMMSa5aaVjdmfsB9J6ZZTe+PnW
+         hj0Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780191678; x=1780796478;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=QP/YmQQpucJZRAia0geXRt1bwULI4Tj+5E1XuSKtbHk=;
+        b=bcNWxUatve1Mkt+1PjnyVSUMbLwJ2Uq499EgOkY/ME7tPk7gA9/XpGALbK13+VLHck
+         i4P0V5nXtMB08szH6Y5OnTigJHU6CxIgCgu/xq9/R8PZWvR8xV5utjAlfr8CT5uXLItr
+         NXsox2z+Rac+6j8SWXOiRwzpoHWhoarniX+w8H7aoc4QPz5Ek7x0M0P4+ikj6p8bUmej
+         XYTuIosjvhSEOBKmLRkq6pmBB3Dh7bwMRAZ6/LVJ/5kRh0mzwG0cv3I2MWktdCNxFQBs
+         cUK3nh1UyJFpNYRlJskyvtQIRTR6p8a3IA64UTcA92efglnlVwfy3+71uwugZciPCeR8
+         ynWg==
+X-Forwarded-Encrypted: i=1; AFNElJ9u5f1MnFbx4j8m9vVjAU2Qzc5le1sGTRF4vpLqspKx0+BWRjvQprhgJRpbAL+Elt+ibrJEn8xYJwKA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxHCG3iAj4IIRs7O216Eef+zLFXX5IlC/f59KxDAJ02O083nB67
+	ct0I6CwP5tUIo2Pp5z+xo5szj6PrNlZmF5UY7hSVbx6sT6+Ll+9A7vHDKjKbZJUAZmjOsDM59Of
+	3ZCi1vkaNEhjeBpnW+JAD6gJCMexCpyYXfGmxEgVdUrzExSYbbbkgnz9ZWL7oQQ7j
+X-Gm-Gg: Acq92OEZELkzg+vtHPQ/QWLPY0avHeYJrLzVWW155HLgQOX5g0KvFe5qIM4wObJRm8r
+	znRIpGUSClq4Y8qkLUoGlcbf2zdF/qGJJosEzn0FXpRuYf3vQCopsxOWcivCLGp1dPXMM4VeKLF
+	exK/85FLH3s7EVeRU95zMjoTFDgOuRZJfndXhn8hvyQJeynGNznYbe9FII1a8d2HidenHYYPrmg
+	iPxuAABJUX13zwCcjFIMbmbK5ch3KCLli4ye6EAKJN7o+2DNERaqQ2aZbbH39OvWAFRKK8OI6WY
+	WrptsK2/w6umKIXpFybipagVaCpcAr+Fr6VTqmoptYmW0DlNCDjvy1Gu0RCVzsXjESQTqGJWb//
+	TV3QTNWk2eqCdgmTQUB0T1AOnKLGJNM5Jnpv33K0tg8uDmwMfre0eTKguNNw+D0pNLfIAuAGoKJ
+	G2nes7t4TkhLxJCoouI2H8
+X-Received: by 2002:a17:90b:4d0f:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-36c501b8fbdmr4902595a91.16.1780191678396;
+        Sat, 30 May 2026 18:41:18 -0700 (PDT)
+X-Received: by 2002:a17:90b:4d0f:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-36c501b8fbdmr4902580a91.16.1780191677869;
+        Sat, 30 May 2026 18:41:17 -0700 (PDT)
+Received: from [10.133.33.28] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bbdcd0a2dsm3670713a91.2.2026.05.30.18.41.09
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sat, 30 May 2026 18:41:17 -0700 (PDT)
+Message-ID: <7d49742a-7602-4f58-8dce-7e02664b783c@oss.qualcomm.com>
+Date: Sun, 31 May 2026 09:41:06 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v13 4/5] media: qcom: camss: csid: Add support for CSID
- gen4
-From: bod@kernel.org
-To: sashiko@lists.linux.dev
-Cc: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>, conor+dt@kernel.org, 
- robh@kernel.org, krzk+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260508212213.ED319C2BCB0@smtp.kernel.org>
-References: <20260508-kaanapali-camss-v13-4-2541d8e55651@oss.qualcomm.com>
- <20260508212213.ED319C2BCB0@smtp.kernel.org>
-Date: Sun, 31 May 2026 01:38:37 +0100
-Message-Id: <178018791720.17481.10983668954574740501.b4-reply@b4>
-X-Mailer: b4 0.16-dev-d5d98
-X-Developer-Signature: v=1; a=openpgp-sha256; l=7494; i=bod@kernel.org;
- h=from:subject:message-id; bh=rnu7wZR9x2neEh4rUjPwUVPOlU1lUSHvSQ24W7AE/ts=;
- b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqG4MO9lxWBkHRgCrz/pOdETefZdMSijXQDPqu2
- +5UBGjWDbOJAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCahuDDgAKCRAicTuzoY3I
- Ot30D/4gOXcXPvXqULYtTribkQQwloXnC52VD57lLlTkK8LhHUQWm8IVDaiRCSn8OVipIXJQt8G
- RFlDzOgoP3oJb59Nm2TlToeVef34FGtsRmIgv6yTYKwsE3tUPu2rEfFYAMmaSrCj8/9Gu+DuF0p
- kAgLdK6uj599ukhdH39ty2WQRxMlVx+B9e8h1cfl8q2wEiI0dlMsfxdnJk+jxScw3KQmDHNKiBL
- NAculvL8buKkOFQf96HXteQ4RdC1n3zw9AiFCWUmXtfjiGTh0b4TwaiKsj6yxPmgJsxM9sI1oDk
- aSoNzvvdsHNvXlgK6IQ18sd/0yLri1lvFTjmkoH87DfmJhzxa2flZLU0HWzQPWJR52OQ4BniXDH
- A8fyT/U+pSY043+fAhiYC8FmdXlOW4u/JPRmlXayPGiKgN9k7q1/15uHZLnZMizEvAYTdR1pXEv
- qLKJLPM3aSlaA4owxP1NPV9Wh9CSNxey52vz2mgdq9TLfFF/mFK9ec/g8qqxo6wrB+GJozI3Cgq
- E02+aVnLG90p83YV45q1HmdqECXtOezH+M1+So4I8THki83zK4mBs5ron+La19n3ZbMgBy88obv
- 6/ttcAz0eVF+ki7rbi4Dpr+DmOVUiwftfiSdd/t+JnUYYInZ8Iergzb/yL0jz8MQN1vt8NPhFMv
- 6ory2ip0cmvgnrw==
-X-Developer-Key: i=bod@kernel.org; a=openpgp;
- fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 1/2] dt-bindings: ufs: Document static TX Equalization
+ settings properties
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
+        martin.petersen@oracle.com, mani@kernel.org,
+        linux-scsi@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
+        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Matthias Brugger
+ <matthias.bgg@gmail.com>,
+        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+        Zhaoming Luo <zhml@posteo.com>,
+        Ram Kumar Dwivedi
+ <quic_rdwivedi@quicinc.com>,
+        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
+ <devicetree@vger.kernel.org>,
+        open list <linux-kernel@vger.kernel.org>,
+        "moderated list:ARM/Mediatek SoC support:Keyword:mediatek"
+ <linux-arm-kernel@lists.infradead.org>,
+        "moderated list:ARM/Mediatek SoC support:Keyword:mediatek"
+ <linux-mediatek@lists.infradead.org>
+References: <20260529113338.984301-1-can.guo@oss.qualcomm.com>
+ <20260529113338.984301-2-can.guo@oss.qualcomm.com>
+ <20260529-neat-bright-shellfish-eab5e8@quoll>
+ <ada65ce2-6736-44fe-9396-d3ed632274ce@oss.qualcomm.com>
+ <b445e9e3-dfda-45d6-bafb-a2deb3357144@kernel.org>
+Content-Language: en-US
+From: Can Guo <can.guo@oss.qualcomm.com>
+In-Reply-To: <b445e9e3-dfda-45d6-bafb-a2deb3357144@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-GUID: L2ta_dv5IQ0oh8wsiwJ7wyCL4kreChCy
+X-Proofpoint-ORIG-GUID: L2ta_dv5IQ0oh8wsiwJ7wyCL4kreChCy
+X-Authority-Analysis: v=2.4 cv=BdnoFLt2 c=1 sm=1 tr=0 ts=6a1b91bf cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
+ a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
+ a=VwQbUJbxAAAA:8 a=PY6Zn8H8AAAA:8 a=mpaa-ttXAAAA:8 a=EUspDBNiAAAA:8
+ a=7_JFPPHlOpLMAyv0mBMA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
+ a=ySS05r0LPNlNiX1MMvNp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTMxMDAxNSBTYWx0ZWRfX3ij7fIgwDrdi
+ ilhVJ069qiG/M9hn7DCxkz7oIZnwB7BBIsO5jNjW9PRvSXm5TNr7ewYZm0LncNCUxNiQSwsPe8t
+ NiLFUYLFP58hordMOlwAUNv0LZhCeoIXad2BsbIKeQtrarolfHfSRqTQuECweg9EoivST1RYCjh
+ jzWVUekBwl41lbf1wlkp+WL+I6zYr1q47wqfsG4/EeH4jjwnroB+is6YsiZAUS8ilr1KX4SIVAA
+ i+M6KoZpx8YAVY8iWodXMsv5TU9zgj00WPcOUOlIQG2m2BvskLymN7fBoDtYc5p6O3+mILzXi4/
+ xw2dcYy6/ccgaxLwMREdaJ6zidtC/aPSV28TfgWPEeiaswlBIULvLLsNa/AMAqmmign7CjJXgzr
+ tYh59ZR7LcSxJ5uTK6KJc7ZugmWj91YJq6TSjVWThe9L1mRQH7v8Nm54plhM08kEyMxvQJ/TU8H
+ vwkv7RAX8sry6wxaGWQ==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-05-31_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ lowpriorityscore=0 priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0
+ clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605310015
 
-On 2026-05-08 21:22 +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 6 potential issue(s) to consider:
-> - [High] Hardcoded virtual channel (VC) parameter breaks multi-VC support and leaves dead code.
-> - [High] Out-of-bounds array access on `csid->fmt` when configuring the 5th stream.
-> - [High] Concurrent read-modify-write on shared hardware update state without locking.
-> - [High] RDI and RUP_DONE interrupts are permanently masked, causing hardware update states to drift.
-> - [Medium] Integer underflow in `__csid_configure_rx()` when `lane_cnt` is zero causes severe register corruption.
-> - [Low] Meaningless back-to-back hardware command triggers due to redundant loop.
-> --
-> 
-> commit ac71c3367c14093dee35b321f0ec55ce9cc5f586
-> Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> 
-> media: qcom: camss: csid: Add support for CSID gen4
->     
-> Add more detailed resource information for CSID devices along with the
-> driver for CSID gen4 that is responsible for CSID register configuration,
-> module reset and IRQ handling for BUF_DONE events. And aggregate a common
-> definition CSI2_RX_CFG0_PHY_SEL_BASE_IDX into csid header file.
->     
-> In this CSID version, RUP and AUP update values are split into two
-> registers along with a SET register. Accordingly, enhance the CSID
-> interface to accommodate both the legacy combined reg_update and the
-> split RUP and AUP updates.
->     
-> Co-developed-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Atiya Kailany <atiya.kailany@oss.qualcomm.com>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> 
-> [ ... ]
-> 
-> > diff --git a/drivers/media/platform/qcom/camss/camss-csid-gen4.c b/drivers/media/platform/qcom/camss/camss-csid-gen4.c
-> > new file mode 100644
-> > index 0000000000000..41035352c4bb0
-> > --- /dev/null
-> > +++ b/drivers/media/platform/qcom/camss/camss-csid-gen4.c
-> > @@ -0,0 +1,376 @@
-> 
-> [ ... ]
-> 
-> > +static void __csid_aup_rup_clear(struct csid_device *csid, int port_id)
-> > +{
-> > +	/* Hardware clears the registers upon consuming the settings */
-> > +	csid->aup_update &= ~CSID_RUP_AUP_RDI(port_id);
-> > +	csid->rup_update &= ~CSID_RUP_AUP_RDI(port_id);
-> > +}
-> 
-> The variables csid->aup_update and csid->rup_update track global hardware
-> update bits and are modified via non-atomic operations here and during
-> stream configuration.
-> 
-> Since these are accessed from both process context and ISR context, could a
-> race condition occur where an interrupt firing during a read-modify-write
-> cycle corrupts the shadow states, silently dropping AUP/RUP commands for
-> other active ports?
 
-Possibly.
 
-Worth checking and flagging, there's no need to start introducing
-additional locks just for this SoC since this is a pattern we have not a
-SoC specific thing.
- 
-> [ ... ]
-> 
-> > +static void __csid_configure_rx(struct csid_device *csid,
-> > +				struct csid_phy_config *phy)
-> > +{
-> > +	int val;
-> > +
-> > +	val = (phy->lane_cnt - 1) << CSI2_RX_CFG0_NUM_ACTIVE_LANES;
-> 
-> If phy->lane_cnt is 0, will the subtraction underflow to 0xFFFFFFFF?
+On 5/31/2026 1:33 AM, Krzysztof Kozlowski wrote:
+> On 30/05/2026 14:45, Can Guo wrote:
+>>
+>> On 5/30/2026 12:58 AM, Krzysztof Kozlowski wrote:
+>>> On Fri, May 29, 2026 at 04:33:37AM -0700, Can Guo wrote:
+>>>> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
+>>>> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
+>>>> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
+>>>> integrity at high speed operation.
+>>>>
+>>>> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
+>>>> required depending on channel characteristics.
+>>>>
+>>>> Add vendor-neutral DT properties:
+>>>>
+>>>> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
+>>>> - fixed property tx-precode-enable-g6
+>>>>
+>>>> Each property is a uint32 array of per-lane tuples:
+>>>> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
+>>>>
+>>>> Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
+>>>> are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
+>>>>
+>>>> Acked-by: Manivannan Sadhasivam <mani@kernel.org>
+>>>> Reviewed-by: Bean Huo <beanhuo@micron.com>
+>>>> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
+>>>> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
+>>>> ---
+>>>>    .../devicetree/bindings/ufs/ufs-common.yaml   | 45 +++++++++++++++++++
+>>>>    1 file changed, 45 insertions(+)
+>>>>
+>>>> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+>>>> index ed97f5682509..d90cf25adfa5 100644
+>>>> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+>>>> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
+>>>> @@ -105,6 +105,51 @@ properties:
+>>>>          Restricts the UFS controller to rate-a or rate-b for both TX and
+>>>>          RX directions.
+>>>>    
+>>>> +  tx-precode-enable-g6:
+>>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+>>>> +    oneOf:
+>>>> +      - minItems: 2
+>>>> +        maxItems: 2
+>>>> +      - minItems: 4
+>>>> +        maxItems: 4
+>>>> +    items:
+>>>> +      enum: [0, 1]
+>>>> +    description: |
+>>>> +      Static TX Precode enable values for HS-G6 only.
+>>>> +      Values are specified as per-lane tuples:
+>>>> +      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
+>>> You need to include them in any of applicable examples, otherwise
+>>> nothing here is validated.
+>> Hi Krzysztof,
+>>
+>> Thanks for the review.
+>>
+>> Since no UFS5-capable SoC binding exists upstream yet (the target SoC is
+> I would imagine cover letter or commit msg would briefly mention that.
+Thanks for the clarification. Will do.
+>
+>> still pre-CS), there is no vendor-specific YAML to attach the example to.
+>>
+>> Is a synthetic example directly in ufs-common.yaml OK to you?
+> Skip example in such case.
+>
+>>> Why values cannot be on or off? Or even better: why you cannot just list
+>>> all the lanes which has it enabled, assuming disabled is by default?
+>> Thanks for the suggestions.
+>>
+>> For the "just list enabled lanes" suggestion: precode must be configured
+>> independently for the Host-side TX and Device-side TX transceivers within
+>> the same physical lane. A lane index list alone cannot capture this
+>> two-dimensional per-lane state. The tuple format <Host_LaneN Device_LaneN>
+>> is the minimal encoding that covers both.
+> Again, why do you need to encode '0'?
+The tuple is still needed because Precoding is configured per 
+transmitter-receiver pair,
+so each lane has two independent states:
+- Host_TX -> Device_RX
+- Device_TX -> Host_RX
+A lane-only enabled list cannot represent directional combinations like 
+lane0 =
+(on, off) vs (off, on).
+>
+>> For the "on/off" suggestion: the on/off string pattern is used with
+>> single-value properties (e.g. LED default-state) read via
+>> of_property_read_string(). I am not aware of precedent for on/off as a
+>> string array for per-lane tuples.
+> git grep string-array. Plenty of precedents.
+I will keep the per-lane tuple model but switch tx-precode-enable-g6 
+from 0/1 to
+"on"/"off" (string array) in v7.
 
-lane_cnt != 0 is validated long before here.
- 
-> This would result in writing all 1s to the register, potentially causing
-> hardware misconfiguration.
-> 
-> There is a fallback condition explicitly handling a 0 lane count in
-> __csid_configure_rdi_stream(), which sets lane_cnt to 4 if it is 0.
-> Should a similar check be added here?
-> 
-> [ ... ]
-> 
-> > +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
-> > +{
-> > +	u32 val;
-> > +	u8 lane_cnt = csid->phy.lane_cnt;
-> > +
-> > +	/* Source pads matching RDI channels on hardware.
-> > +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
-> > +	 */
-> > +	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
-> 
-> The macro MSM_CSID_MAX_SRC_STREAMS_GEN4 evaluates to 5 for non-lite CSID
-> hardware, meaning the loop index port can reach 4.
-> 
-> Since MSM_CSID_PAD_FIRST_SRC is 1, MSM_CSID_PAD_FIRST_SRC + port evaluates
-> to 5.
-
-That's worrying.
-
-Would appreciate some follow-up from patch authors on this one "yes we
-looked no that can't happen" "yes we looked no it can't happen"
-
-Either is acceptable.
-
-> However, the csid->fmt array is sized by MSM_CSID_PADS_NUM, which remains
-> hardcoded to 5, meaning valid indices are 0 through 4.
-> 
-> Can this result in an out-of-bounds memory read when attempting to process
-> the 5th stream?
-> 
-> [ ... ]
-> 
-> > +static void csid_configure_stream(struct csid_device *csid, u8 enable)
-> > +{
-> > +	u8 i, k;
-> > +
-> > +	__csid_configure_rx(csid, &csid->phy);
-> > +
-> > +	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS_GEN4; i++) {
-> > +		if (csid->phy.en_vc & BIT(i)) {
-> > +			__csid_configure_rdi_stream(csid, enable, i, 0);
-> > +			__csid_configure_rx_vc(csid, 0);
-> 
-> The functions __csid_configure_rdi_stream() and __csid_configure_rx_vc()
-> are invoked with a hardcoded 0 for the vc argument instead of passing the
-> actual virtual channel or the loop index i.
-> 
-> Does this force all enabled streams to capture Virtual Channel 0, breaking
-> the driver's ability to handle multiple virtual channels?
-
-No, the driver's ability to handle VCs isn't there.
- 
-> Additionally, passing 0 to __csid_configure_rx_vc() makes the internal
-> condition if (vc > 3) always evaluate to false. Is this code intended
-> to be reachable?
-> 
-> > +
-> > +			for (k = 0; k < CAMSS_INIT_BUF_COUNT; k++)
-> > +				__csid_aup_update(csid, i);
-> 
-> CAMSS_INIT_BUF_COUNT is intended for ping-pong buffer queues in the VFE.
-> Since CSID does not manage memory buffers, this loop repeatedly triggers
-> identical AUP commands to the hardware without any intervening state
-> changes.
-> 
-> Is it necessary to repeatedly trigger these commands here?
-> 
-> [ ... ]
-> 
-> > +static irqreturn_t csid_isr(int irq, void *dev)
-> > +{
-> > +	struct csid_device *csid = dev;
-> > +	u32 val, buf_done_val;
-> > +	u8 reset_done;
-> > +	int i;
-> > +
-> > +	val = readl(csid->base + CSID_TOP_IRQ_STATUS);
-> > +	writel(val, csid->base + CSID_TOP_IRQ_CLEAR);
-> > +
-> > +	reset_done = val & INFO_RST_DONE;
-> > +
-> > +	buf_done_val = readl(csid->base + CSID_BUF_DONE_IRQ_STATUS);
-> > +	writel(buf_done_val, csid->base + CSID_BUF_DONE_IRQ_CLEAR);
-> > +
-> > +	for (i = 0; i < MSM_CSID_MAX_SRC_STREAMS_GEN4; i++) {
-> > +		if (csid->phy.en_vc & BIT(i)) {
-> > +			val = readl(csid->base + CSID_CSI2_RDIN_IRQ_STATUS(i));
-> > +			writel(val, csid->base + CSID_CSI2_RDIN_IRQ_CLEAR(i));
-> > +
-> > +			if (val & INFO_RUP_DONE)
-> > +				csid_subdev_reg_update(csid, i, true);
-> 
-> The macro CSID_CSI2_RDIN_IRQ_MASK is defined in the source but never written
-> to hardware.
-> 
-> Additionally, in csid_reset() below, only INFO_RST_DONE and
-> BUF_DONE_IRQ_STATUS are unmasked in CSID_TOP_IRQ_MASK.
-> 
-> Without unmasking CSI2_RX_IRQ_STATUS at the top level and writing to
-> CSID_CSI2_RDIN_IRQ_MASK, will the INFO_RUP_DONE interrupt ever fire?
-
-Reset is 0xFFFFFFFF.
- 
-> If this interrupt is permanently masked, __csid_aup_rup_clear() won't be
-> called, which might cause the software cache of the hardware triggers
-> to permanently drift out of sync.
-> 
-> [ ... ]
-> 
-> -- 
-> Sashiko AI review · https://sashiko.dev/#/patchset/20260508-kaanapali-camss-v13-0-2541d8e55651@oss.qualcomm.com?part=4
-> 
-
+Thanks,
+Can Guo.
+>
+> Best regards,
+> Krzysztof
 
