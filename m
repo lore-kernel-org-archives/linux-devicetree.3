@@ -1,293 +1,178 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6413136EA8E
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 11:04:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 540BF372B25;
+	Sun, 31 May 2026 11:23:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780225463; cv=none; b=kpi5Z5SOYK6yDVTIoWZyjDbqT8jd0qKzSm7OwC97409vckRU25DnYwQQUGnSo2oIBBMMvyyDlKMnmYSLxQ75a6il6oPh7Cq+V9ICudwyGMPCmO3/AFz34NP3LyROUcEr1cfaKpNNGSNwIkL3z3T1pkt0vVkm5zCeZlFiyjfnpAw=
+	t=1780226609; cv=none; b=khMH1y/riqj+WWnOWRdApoA8qmww3TMwPGH/T71DtB+br1opgAXbXjeavhn8P1EhE8vYmnTRHVFvL2ybjWRFMmcAUXJsoYPbp22WKAPl4pSMU0AEx3B/YEoXODoNnktnNl1zzsEgHMHvHFozZJ/4RiWCCGytjWofseKM4oQ2uyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780225463; c=relaxed/simple;
-	bh=gQgB6pCJf+GriAx5hQxx+duECe3eb81+tPFKBekHp6A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kKkgcvlU6NU+NrC8ijRJpab5WQ4ToCd7mqoGRMri7lDBVzuTf+wCwOYOm4HYb9jnwhgo98FQE5Vnh+vg3DIX2R6w8wVzK1XDdp9Dnn4gPBOcAiyGsflSct7GgpUcDrzmNmC5SYblRMegE48u74PUUqJaJP869IgL1nq856Jet8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OlSb3CEk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Oh/mm0KG; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780226609; c=relaxed/simple;
+	bh=r+pGOm00sw2+ww5RqaL5SIcQtwCaGfXvIQvULfl0S6k=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Ljt+Wp211TahbTFFR/YYFlq7rxuSiXOElE7LxWcg816LAuYQhzCLVgMEtqZwgkksiYf4ot5ThINrH4Q5MlHw0wOZtYYaRFGQjVPD+3pRrztIiYt4KeGrArlYasVnW6y+XWNiqcTgvm1RsFXoTXenlBJa7hNI8fcz7f0YajBcyqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DG1ur1nX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OlSb3CEk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Oh/mm0KG"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64V5KCXQ1069059
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 11:04:21 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=qcppdkim1; bh=q6slP+otLsq
-	SiADYxKP8GL1dcmB9BvmpiCq+84zJwkk=; b=OlSb3CEk3mS2xYKbUtPRCdDeMaG
-	OKx2NSnDb4EdqYTG0hLc+HtNwCYS8JBRJS+qYGRKpXNv0qhFlaAr5W3SxM4ENYKO
-	nEZyC3O9KotVnwf7ejzH2dW867GBuUv9vb2GwJK/deOCfyZheXA/wUogpI5tk2pC
-	EUS/FH41CeUpQJNjnQB723oSw5LAR0W5z6gHFvROkqYfZg0AlJ8Ndn/NBlIe6Ovc
-	P90cjpnAAhjMG93i6uaakbCFE0zRCFbmyAp6vaf19o0Nd1Eq55lQYYTaNr29/fxq
-	Dcqjb82OaJsf/VQov7zFied8VUj2qPmrNPXSfKhkEDvwEQtgKZ1i6saIcLw==
-Received: from mail-qt1-f200.google.com (mail-qt1-f200.google.com [209.85.160.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efr98bajn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 11:04:21 +0000 (GMT)
-Received: by mail-qt1-f200.google.com with SMTP id d75a77b69052e-5174a236220so10541791cf.3
-        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 04:04:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780225461; x=1780830261; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=q6slP+otLsqSiADYxKP8GL1dcmB9BvmpiCq+84zJwkk=;
-        b=Oh/mm0KGbDD8vIfAFhHBSBofk3py7FcLqPXOWproJrFsQLHwRJLJdBk0TxuEFTNpHw
-         DiJul2CwcDpD1DuSReVh6dyfne3wzXLWYwUOyo8z9v/viL9+JJVOfZbwiVUnWloD2hwd
-         OQo9GN5jZ7C4mtppRxYouZ2xVJpzoqIaQ0UguJQDKf2Y/0OzwEyTKYfUW06mLwW5wTFN
-         v18cskhvWmbtdsNsVPARsWASOOPmFA5qjehPj/rtOA4ILL0vzz0+86UNqG8GI2JH/FMO
-         GGYJccTRaSb5+AtjIMylicivhprmuIu8In/+RSlv09rTwv3Vxstgu8/3UR94hymWhKRc
-         cq1g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780225461; x=1780830261;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=q6slP+otLsqSiADYxKP8GL1dcmB9BvmpiCq+84zJwkk=;
-        b=fkDnHhhZUWm/hAV0w/T+gwJ0HYdR+4ip0ocvwD06rQRckX4KLhrZ4gWvA8WXrxtCDU
-         kaKOXGmOv2wH6mN6d1N8l+dl9PVb0mSYPm+2Tz4VFFbjcHxV94PDW6blDOJdW3+7a04Q
-         9fA4rKlhnJTTiReMXMUqiqCH95yh5vgHmuIN7YwN10DmiRGSqo9n6fWSRHa3HwxlXfjO
-         xBfHqaNtx+fZsDq2zPeHJPeWrugK7zmPDt2vzMFo2UXv+kKq9X1JpERbD+rvMZ2J3wpA
-         k2ceY6Qp97wKM/svL8KveWv5WMqou5xxxnF31R99Q+dYd7AJciQhle7kFkWIoHFmJkRC
-         EeLw==
-X-Forwarded-Encrypted: i=1; AFNElJ8gno8uK/8AsvL9Vrx+HQKUrCtHZIZ2lZshFO4KZ2WfDV40N6zZH2lpVaQlK1lomfErq7SVQfxTcNrC@vger.kernel.org
-X-Gm-Message-State: AOJu0YzapEJGxc0P1yCxVxkXwL6xudkL7+wN8xC2Uv59xytv+14I2Ko5
-	RAUlAj4B8f8N7AXHZr2DoCuXlxAn4ynzLgBzLUkNmAUsohd/cxQ5Db2Z/HPRDObqhcZYwEVNM8M
-	J/TQCczLaL+Em3FbOFIc0Rh0DT92SCjQvCNbB26LH/PKDRDfAkfxtg/nXstyb/px+
-X-Gm-Gg: Acq92OHNn8OE18ZI6pZNTSaQwdXcFWJa/MH8I/vYTuRhsr0nmTeXOVFjgA214SJLG2P
-	8vfvyxo3Jhk0QJHX7Kq0+iZ+R4AqMsR2vCxRlg7py/SN3doqxJfqRcJ/HyzgzISl7rmkind0JD9
-	d59HkKHbXGjlhl/E82EiWA+3pGiIAcVRMNpUJfoCL5FqU+bfvgux9xQGH+WffLtdvy6KetIAj6Z
-	lVW/lRd4W6QGWJNLHw/hX/Vi8955TUP7dmpLch4i0Wr1JY/Dyg/oz8rLf8HJhI211umgkvc/AjE
-	vGAoLR1EEII9CMxACrvcx2QY+2am9zd1VMgdsh+KsyRofLe0cQEDhFdq2HL/r2C1w6ZIpcr09io
-	aWwDPAoRAVnuhijZ9Ug==
-X-Received: by 2002:a05:622a:8348:b0:50e:60a0:acb4 with SMTP id d75a77b69052e-5173a838046mr73270921cf.44.1780225460653;
-        Sun, 31 May 2026 04:04:20 -0700 (PDT)
-X-Received: by 2002:a05:622a:8348:b0:50e:60a0:acb4 with SMTP id d75a77b69052e-5173a838046mr73270441cf.44.1780225460123;
-        Sun, 31 May 2026 04:04:20 -0700 (PDT)
-Received: from quoll ([185.12.129.179])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef3595ef4sm16512872f8f.37.2026.05.31.04.04.16
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 31 May 2026 04:04:19 -0700 (PDT)
-From: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-To: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Aaro Koskinen <aaro.koskinen@iki.fi>,
-        Andreas Kemnade <andreas@kemnade.info>,
-        Kevin Hilman <khilman@baylibre.com>, Roger Quadros <rogerq@kernel.org>,
-        Tony Lindgren <tony@atomide.com>, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-omap@vger.kernel.org
-Cc: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: [PATCH 2/2] ARM: dts: ti: Add specific compatibles for SCM conf nodes
-Date: Sun, 31 May 2026 13:04:06 +0200
-Message-ID: <20260531110404.12768-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260531110404.12768-3-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260531110404.12768-3-krzysztof.kozlowski@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DG1ur1nX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E88361F00893;
+	Sun, 31 May 2026 11:23:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780226607;
+	bh=rA/Yuj9nIfmQaIdr3i96/J7WeUSOPMEe0JA70MiGt3s=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=DG1ur1nXBBIs0p7oI5o6ReapQPqeA5mB2Pe0d7QWC0K8OPAPRt382DUTA8GiyWejM
+	 23Q5dgjVm3LRtbpqXin13uTWfM759Krbr0+T9QOuCARCptTUENF0PvtkuLoribLLLN
+	 erq5AnQWT3DYMbUj7/u6IaiTpKLi2dIPID6QH3nyrHE+Rg3WqeZn2pPfKcedaxwj+h
+	 rUMTCMBmxlP+zvNLNv3obnyS643qJuLLNajklhxA8IROsDkZHkX2hH/u8M5HDlQHMz
+	 gzfK/etQ7nIzFfud3PWvNd8pZIXbKLgJ0xTcA/psJ7lru53N92e/XXlQ4ZDifmtH4C
+	 /ZtEhJqoJILdQ==
+Date: Sun, 31 May 2026 12:23:19 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: linux-iio@vger.kernel.org, David Lechner <dlechner@baylibre.com>, Nuno
+ Sa <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v3 5/6] iio: osf: add UART serdev transport
+Message-ID: <20260531122319.75e18062@jic23-huawei>
+In-Reply-To: <20260529121005.1470-6-kimjinseob88@gmail.com>
+References: <20260529121005.1470-1-kimjinseob88@gmail.com>
+	<20260529121005.1470-6-kimjinseob88@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=6047; i=krzysztof.kozlowski@oss.qualcomm.com;
- h=from:subject; bh=gQgB6pCJf+GriAx5hQxx+duECe3eb81+tPFKBekHp6A=;
- b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqHBWoUkdC1t00LG5Z/pDDyr0UaDVw7avJ2Fdxl
- U4fpJLzSsOJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCahwVqAAKCRDBN2bmhouD
- 153JEACQkXmZEtvMKkwxO7N45pVPZJecUTVJPS66Qh+tTXzPvPBKkpJ+AlBYCWU/VlnAILKAZMK
- zF1O4z9rgw2LLRpiNwOI3YY96aBBf76/rNCeSvcRE/iok4BPtQpzdPx4QUaLzu0N9gesVKGuNnZ
- bAgsf0QSxRcEbdL6K6oqbDjE1wWvmzpwEHZyP3HqZOQVpUzB4RSUmygBx1r+ZMlhsZrmuiqTJAF
- r4Muny6ciIS6u7tyuYZsXK1AGmRLxaBkZe8g72k6IxhAJhF5kUNVjoflHjgmsg/msfwopZPRUoP
- Sq/4kcD2FfshlQIRlo4agarZE/Miw6Q1buhjcVr/64e3pT+HsKvXR+wxvOckl3rcNk9N1QR1AOX
- B6Ls/C/ZB1GwfRUuYa6kEtJ0sIxwf2jA/SQPm1Yc6Z9eGjZWgQE7o4cUHc6yFPSKtwXdo5y+GmT
- MK52qXcGx8ECfydaH3WzVxxh08YLj0m8n9JjJJbKW14ap3f7Fu0aCS9oFgLEAbE/1fSgTkXwyLb
- 8gsRJYlA6XYwdCMWy0ICMNiiUEoBFh3vpOFcP16AFcc78SVpBJRcSI9HGoighs6W6XsG0kocQ0+
- La66zQNAVhVT7/PaN2L+FXr1wYRi4r4T+Q2l95qQM5W5NF3QM9flZMDTcrqvW6l25nvzaPNGC5n /d57FT1XegQUFaA==
-X-Developer-Key: i=krzysztof.kozlowski@oss.qualcomm.com; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
-Content-Transfer-Encoding: 8bit
-X-Authority-Analysis: v=2.4 cv=BaDoFLt2 c=1 sm=1 tr=0 ts=6a1c15b5 cx=c_pps
- a=JbAStetqSzwMeJznSMzCyw==:117 a=3CdwnVXJlszSr5aekAfjag==:17
- a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
- a=h0HYIqCiEIHQYu1o55gA:9 a=uxP6HrT_eTzRwkO_Te1X:22
-X-Proofpoint-GUID: QixX211JtGyHyra8DdVvBzOhOg45_lTJ
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTMxMDEyMiBTYWx0ZWRfX9WnS56nHX3zU
- E57ayqPtEklNJSfwbJd3ycz8Jdd/1Mho7UNI23pT3eiXCwWO2FBMDoBmmb5PKlnpGAp8SL8FsUG
- mzuRfefuKhzi0RiY9I2wNF9X6zfMJ7ww1te/QMfWhc9LpG8DKRg4qFNrH2hZ27iamT6VtsI/56c
- cI4+rQohkAIUtuGs7igEOyoe0/aINwJM3LNB6IOykVHpAoPpCVWVn3euxstMmKhFTpRGNxZTALa
- e0OwEu5bPSYi78ZVBLkCAThW2MhpTD5NZjc7s7GbMjp8kWcTeVO8GTA8uHcR5XuZhgi54vpZRQC
- OVsm8XCIWxwEdmgxqTJNbUDFIURxDY/YfadP9CbmXSsHDH//PZ7Q8dLYHU1eL+we5S0kfyxZZhA
- ce9dB0HGTu9W+P9CvsCcUL5YTBKHQCdci1jYYquk+rZ/XbVZiVeXofOd9ipaXCeilkL6ym7r4jL
- /GRNklJ92RD8xJHVZ/g==
-X-Proofpoint-ORIG-GUID: QixX211JtGyHyra8DdVvBzOhOg45_lTJ
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-31_03,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 clxscore=1015 phishscore=0 malwarescore=0 impostorscore=0
- adultscore=0 priorityscore=1501 spamscore=0 lowpriorityscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605310122
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-writing-bindings.rst rules dictate that "syscon" must come with a
-specific compatible identifying the register layout.  Add specific
-compatibles for these devices.
+On Fri, 29 May 2026 21:10:04 +0900
+Jinseob Kim <kimjinseob88@gmail.com> wrote:
 
-This also allows to solve a different problem: "syscon" is contradictory
-to "simple-bus".  A system controller with registers having their own
-functions is not really a trivial MMIO simple bus.  These two cannot be
-used together, unless listed as an exception.
+> Register the OSF serdev driver.
+> 
+> Pass received bytes into the OSF0 stream parser.
+> 
+> Signed-off-by: Jinseob Kim <kimjinseob88@gmail.com>
 
-Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
----
- arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 2 +-
- arch/arm/boot/dts/ti/omap/am437x-l4.dtsi | 2 +-
- arch/arm/boot/dts/ti/omap/dm814x.dtsi    | 2 +-
- arch/arm/boot/dts/ti/omap/dm816x.dtsi    | 2 +-
- arch/arm/boot/dts/ti/omap/dra7-l4.dtsi   | 2 +-
- arch/arm/boot/dts/ti/omap/omap2430.dtsi  | 2 +-
- arch/arm/boot/dts/ti/omap/omap3.dtsi     | 2 +-
- arch/arm/boot/dts/ti/omap/omap4-l4.dtsi  | 2 +-
- arch/arm/boot/dts/ti/omap/omap5-l4.dtsi  | 6 +++---
- 9 files changed, 11 insertions(+), 11 deletions(-)
+A few minor things inline.
 
-diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-index 89d16fcc773e..1e09d2b48925 100644
---- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-@@ -308,7 +308,7 @@ am33xx_pinmux: pinmux@800 {
- 				};
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,am3352-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x800>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi b/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-index e08f356e71cb..30fcce33f4b7 100644
---- a/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-@@ -301,7 +301,7 @@ am43xx_pinmux: pinmux@800 {
- 				};
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,am4372-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x800>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/dm814x.dtsi b/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-index 27d1f35a31fd..9e02bfa5c3a2 100644
---- a/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-@@ -432,7 +432,7 @@ control: control@140000 {
- 				ranges = <0 0x140000 0x20000>;
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,dm814-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x800>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-index a1e0e904e0f0..ee0090f7aa64 100644
---- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-@@ -100,7 +100,7 @@ dm816x_pinmux: pinmux@800 {
- 
- 			/* Device Configuration Registers */
- 			scm_conf: syscon@600 {
--				compatible = "syscon", "simple-bus";
-+				compatible = "ti,dm8168-scm-conf", "syscon", "simple-bus";
- 				reg = <0x600 0x110>;
- 				#address-cells = <1>;
- 				#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-index c8d325b0f57b..9df7648c4b79 100644
---- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-@@ -64,7 +64,7 @@ scm: scm@0 {
- 				ranges = <0 0 0x2000>;
- 
- 				scm_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,dra7-scm-conf", "syscon", "simple-bus";
- 					reg = <0x0 0x1400>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap2430.dtsi b/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-index 222613d2a4d1..01bd471f9223 100644
---- a/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-@@ -50,7 +50,7 @@ omap2430_pmx: pinmux@30 {
- 				};
- 
- 				scm_conf: scm_conf@270 {
--					compatible = "syscon",
-+					compatible = "ti,omap2-scm-conf", "syscon",
- 						     "simple-bus";
- 					reg = <0x270 0x240>;
- 					#address-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap3.dtsi b/arch/arm/boot/dts/ti/omap/omap3.dtsi
-index 959069e24730..447736d2e53c 100644
---- a/arch/arm/boot/dts/ti/omap/omap3.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap3.dtsi
-@@ -116,7 +116,7 @@ omap3_pmx_core: pinmux@30 {
- 				};
- 
- 				scm_conf: scm_conf@270 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,omap3-scm-conf", "syscon", "simple-bus";
- 					reg = <0x270 0x330>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-index 4c78a0b28fab..c1afc49f456c 100644
---- a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-@@ -681,7 +681,7 @@ omap4_pmx_core: pinmux@40 {
- 			};
- 
- 			omap4_padconf_global: omap4_padconf_global@5a0 {
--				compatible = "syscon",
-+				compatible = "ti,omap4-sysc-padconf-global", "syscon",
- 					     "simple-bus";
- 				reg = <0x5a0 0x170>;
- 				#address-cells = <1>;
-diff --git a/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-index 915870eb5c99..3350128db22d 100644
---- a/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-+++ b/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-@@ -96,8 +96,7 @@ omap5_pmx_core: pinmux@40 {
- 				};
- 
- 				omap5_padconf_global: omap5_padconf_global@5a0 {
--					compatible = "syscon",
--						     "simple-bus";
-+					compatible = "ti,omap5-scm-conf", "syscon", "simple-bus";
- 					reg = <0x5a0 0xec>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
-@@ -2311,7 +2310,8 @@ omap5_scm_wkup_pad_conf: omap5_scm_wkup_pad_conf@da0 {
- 				ranges = <0 0 0x60>;
- 
- 				scm_wkup_pad_conf: scm_conf@0 {
--					compatible = "syscon", "simple-bus";
-+					compatible = "ti,omap5-scm-wkup-conf",
-+						     "syscon", "simple-bus";
- 					reg = <0x0 0x60>;
- 					#address-cells = <1>;
- 					#size-cells = <1>;
--- 
-2.53.0
+> diff --git a/drivers/iio/opensensorfusion/osf_core.c b/drivers/iio/opensensorfusion/osf_core.c
+> new file mode 100644
+> index 000000000..c867b3158
+> --- /dev/null
+> +++ b/drivers/iio/opensensorfusion/osf_core.c
+
+> +void osf_core_init(struct osf_device *osf, struct device *dev)
+> +{
+> +	memset(osf, 0, sizeof(*osf));
+
+Looks to me like it's is already guaranteed to be zero. If so don't
+clear it again here.
+
+> +	osf->dev = dev;
+> +}
+
+> +
+> +static int osf_core_validate_capability_report(const struct osf_frame *frame)
+> +{
+> +	struct osf_capability_entry entry;
+> +	struct osf_capability_report report;
+> +	unsigned int i;
+> +	int ret;
+> +
+> +	ret = osf_protocol_decode_capability_report(frame, &report);
+> +	if (ret)
+> +		return ret;
+> +
+> +	for (i = 0; i < report.capability_count; i++) {
+
+	for (unsigned int i = 0;
+
+Is now acceptable in the kernel so use it where appropriate
+
+
+> +		ret = osf_protocol_decode_capability_entry(&report, i, &entry);
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+> +	return 0;
+> +}
+> +
+> +int osf_core_receive_frame(struct osf_device *osf, const u8 *buf, size_t len)
+> +{
+> +	struct osf_frame frame;
+> +	size_t frame_len;
+> +	int ret;
+> +
+> +	if (!osf || !buf)
+> +		return -EINVAL;
+> +
+> +	ret = osf_protocol_decode_frame(buf, len, &frame, &frame_len);
+> +	if (ret)
+> +		return ret;
+> +
+> +	if (frame_len != len)
+> +		return -EMSGSIZE;
+> +
+> +	switch (frame.message_type) {
+> +	case OSF_MSG_SENSOR_SAMPLE:
+> +		ret = osf_core_validate_sensor_sample(&frame);
+> +		break;
+> +	case OSF_MSG_DEVICE_STATUS:
+> +		ret = osf_core_validate_device_status(&frame);
+> +		break;
+> +	case OSF_MSG_CAPABILITY_REPORT:
+> +		ret = osf_core_validate_capability_report(&frame);
+> +		break;
+> +	default:
+> +		if (frame.message_type >= OSF_RESERVED_MSG_FIRST &&
+> +		    frame.message_type <= OSF_RESERVED_MSG_LAST)
+> +			ret = 0;
+> +		else if (frame.message_type >= OSF_VENDOR_PRIVATE_FIRST)
+> +			ret = 0;
+> +		else
+> +			ret = -EOPNOTSUPP;
+I'd return early on error cases so...
+> +		break;
+> +	}
+> +
+> +	if (!ret)
+
+.. you can drop this check as you know if you reach here we are in
+good path.
+
+It will mean adding a few 
+if (ret)
+	return ret;
+above, but will give a simpler code flow.  Generally, I'd split
+the bad path from the good as soon as possible.
+
+> +		osf->last_sequence = frame.sequence;
+> +
+> +	return ret;
+> +}
+
+
+> +static struct serdev_device_driver osf_serdev_driver = {
+> +	.probe = osf_serdev_probe,
+> +	.remove = osf_serdev_remove,
+> +	.driver = {
+> +		.name = "open-sensor-fusion-uart",
+> +		.of_match_table = osf_serdev_of_match,
+> +	},
+> +};
+> +
+
+Common convention to have no blank line here to keep that macro
+tightly coupled with the structure.
+
+> +module_serdev_device_driver(osf_serdev_driver);
+> +
+> +MODULE_DESCRIPTION("Open Sensor Fusion IIO driver");
+> +MODULE_LICENSE("GPL");
 
