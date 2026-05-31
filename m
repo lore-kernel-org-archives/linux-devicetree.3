@@ -1,106 +1,189 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31977335BA;
-	Sun, 31 May 2026 12:50:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6501F3BAC;
+	Sun, 31 May 2026 12:58:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780231852; cv=none; b=T9pyF1FlWj+/MGgGrutYN5S98s93j1/BZsFGd2pjH1wVHSoXDSQRNkUaa4eBVnuGtVwbmGvdlBa32veihfJXnd5RzbhvxfNn6dSOZ9tX/6cAoyJlPVqGyyPGgAUY31jZR+QzAgUIUcEv2QA0OVuaFOjq+iBTt7Bxl314veRrMOY=
+	t=1780232316; cv=none; b=qtdk6VGrK8HF8stEFlieGg3WvSgpTUIhpiQKq/SFtyZfNrQPNCgeLJ+rcyvhA5ktV2bttFiULoiTAxFSwFtdyj2nTjWkraeyMp8iKSQELVrNuxvB7dftKUWr4hj8NJeh5y5eSdlu3jAj9G34PYdipAunuBQGmrXbblutIwM6Qe4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780231852; c=relaxed/simple;
-	bh=Y0ZNGWF5ybDHA3q6v1FBavIc9knxuv0yqYP/tvODo8o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sJ/xiZ0IKJ3L4/O53RA4NUAmQNISmXIdaAbV2aC3JMwP1ob0XGo+xXoJqmsTolNE13FB+0qxYDlW7mXmLAryygUwvTdA6c88HY9wPAZEJZP+exPRvXBVFa/D+5txgNWEed0SlBu5g2rthc7Z/cnV9P6V58hmpdlbJvGxApBvgs4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wuk+tkTc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780232316; c=relaxed/simple;
+	bh=idAL3HNc/TgMamT2gmTLTexn6as+2ynGuFAnG9iqaQk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TyElD12CBx4mhkHVKVfBerQo0lOPw3tY2DnnhyFsDfKjaCOUwZ4NtLJ2XmBrYcrtoBRu1o0A6IfGo7IwRBZOwgvBWSlSzinUbxrNGLMtvSQkA4JZM/+Ex5zCDGzAu5W/cVhpMCDyLVOmIFlWfGH3JUXGc3jE/9Zoc2l2dO1B5hk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVDOQFS8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wuk+tkTc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2D31F00893;
-	Sun, 31 May 2026 12:50:50 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVDOQFS8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABBA1F00893;
+	Sun, 31 May 2026 12:58:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780231850;
-	bh=pPJtg0Wcp4MUws70XPBV+NH7akiMREPUrdzBpYNX2Ng=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Wuk+tkTcZYyZ03R1HZ+mwBnVW0r4LzTUs0k5m1n/xZfcaNxykCczgyV/Kfq1OOstP
-	 HW/ydjaxNpFY5Z9sNuZuIAB4QdjbyPJqm2rPbDIG/X7FbVgErad7treEKmI6hGZJyr
-	 75lSlu34iugMqFA9V190tlZuCPOQ938W8QXi92Lm0TkjXKt41Mow18FusAkFlawGcn
-	 7SXIBjNQmxk8M0NXseODwcMFHM5/L4Jr96jEBAcCP3udhTFFxdgOHXKXWqJN1E8wv3
-	 ngfz4X7ZfrkmmEed5Edeu3i8hU6Wds+DIrVZ0QvqXBIJXjWIM4xvuhPrwAWDZZAL3V
-	 rqsHvpxoe+ZiA==
-Date: Sun, 31 May 2026 14:50:46 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Manish Baing <manishbaing2789@gmail.com>
-Cc: claudiu.beznea@tuxon.dev, lgirdwood@gmail.com, broonie@kernel.org, 
-	robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	nicolas.ferre@microchip.com, alexandre.belloni@bootlin.com, linux-sound@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] ASoC: dt-bindings: sound: atmel_ac97c: Convert to DT
- schema
-Message-ID: <20260531-uppish-poised-potoo-4fa89b@quoll>
-References: <20260530052812.115994-1-manishbaing2789@gmail.com>
+	s=k20260515; t=1780232314;
+	bh=+CA+v+FUWBPtZ6XNzVlGy534etJ1KYmo7MXS0bn/j60=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=hVDOQFS8dc7teV5JeOSXzM8E0IQI6FyFRlxFE+w6jLBdeDMRe5fD24yI7nzMnrQ/b
+	 Sf1AJTkWEn+Abe/wJFBb0x24PbDYy3rcCufnMmGk7UALjKQRgKu1V3EZn8mvafsfoI
+	 f7iPEdEY6+fOy86hueb9Jeo3G63dRKEGuTS9xsf2AU5GWP0j0MbEZZ9Sq0stTHsQAn
+	 X8lzdjnejJ5n0dYx9okjyPVGYImAw7FKBPTCo4ZBKHhvi0I85wRY2apE1uM+DVMv84
+	 8MkhEX/iz7Ko0HIWQ8SHtUT0OcVfa12cSGx6/25xfbYRW02fJV08I1ZrQuQsxDfuC1
+	 S/Bfu8tRRf2tg==
+Date: Sun, 31 May 2026 13:58:23 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V9 10/11] iio: imu: inv_icm42607: Add Gyroscope to
+ icm42607
+Message-ID: <20260531135823.015c4fd1@jic23-huawei>
+In-Reply-To: <20260530031739.109063-11-macroalpha82@gmail.com>
+References: <20260530031739.109063-1-macroalpha82@gmail.com>
+	<20260530031739.109063-11-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260530052812.115994-1-manishbaing2789@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Sat, May 30, 2026 at 05:28:12AM +0000, Manish Baing wrote:
-> +properties:
-> +  compatible:
-> +    const: atmel,at91sam9263-ac97c
+On Fri, 29 May 2026 22:17:37 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
+
+> From: Chris Morgan <macromorgan@hotmail.com>
+> 
+> Add gyroscope functions to the icm42607 driver.
+> 
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+
+Hi Chris,
+Various things inline.
+
+Thanks,
+
+Jonathan
+
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> index 5b69bf895b35..c45239613344 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
+
+>  int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
+>  {
+> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
+>  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
+>  	struct inv_sensors_timestamp *ts;
+>  	int ret;
+> @@ -491,6 +494,16 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
+>  	if (st->fifo.nb.total == 0)
+>  		return 0;
+>  
+> +	/* handle gyroscope timestamp and FIFO data parsing */
+> +	if (st->fifo.nb.gyro > 0) {
+> +		ts = &gyro_st->ts;
+> +		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
+> +						st->timestamp.gyro);
+> +		ret = inv_icm42607_gyro_parse_fifo(st->indio_gyro);
+> +		if (ret)
+> +			return ret;
+> +	}
 > +
-> +  reg:
-> +    maxItems: 1
-> +    description: Address and length of the register set for the device.
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +    description: Should contain the AC97 interrupt.
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +  clock-names:
-> +    const: ac97_clk
-> +
-> +  ac97-gpios:
-> +    minItems: 3
+>  	/* handle accelerometer timestamp and FIFO data parsing */
+>  	if (st->fifo.nb.accel > 0) {
+>  		ts = &accel_st->ts;
+> @@ -507,12 +520,14 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
+>  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
+>  				     unsigned int count)
+>  {
+> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
+>  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
+>  	struct inv_sensors_timestamp *ts;
+> -	s64 accel_ts;
+> +	s64 gyro_ts, accel_ts;
+>  	int ret;
+>  
+>  	accel_ts = iio_get_time_ns(st->indio_accel);
+> +	gyro_ts = iio_get_time_ns(st->indio_gyro);
 
-This stays...
+Sashiko calls out correctly that there is a race with devices finishing
+coming up that might be hit here.  Probably need some sort of presence
+check and locking to be sure those are both valid.
 
-> +    maxItems: 4
 
-this drop
 
-> +    description: |
-> +      AC97 link GPIOs- sync, sdata_out, reset, and optional sdata_in.
-> +      The driver primarily uses the reset pin.a
+>  
+>  	ret = inv_icm42607_buffer_fifo_read(st, count);
+>  	if (ret)
 
-and instead list the items with description.
 
-> +
-> +  pinctrl-0: true
-> +
-> +  pinctrl-names:
-> +    const: default
-
-Drop both pinctrl properties, not needed, already core schema provides
-them. No need to mention that in commit msg.
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+> new file mode 100644
+> index 000000000000..8d59156086b1
+> --- /dev/null
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
 
 > +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - interrupts
-> +  - clocks
-> +  - clock-names
-> +
-> +unevaluatedProperties: false
+> +static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
+> +	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
+> +	{ },
+No comma. Check for any other commas after terminating entries like this one.
+> +};
 
-Best regards,
-Krzysztof
+
+> +
+> +int inv_icm42607_gyro_parse_fifo(struct iio_dev *indio_dev)
+> +{
+> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
+> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(indio_dev);
+> +	struct inv_sensors_timestamp *ts = &gyro_st->ts;
+> +	ssize_t i, size;
+> +	unsigned int no;
+> +	const void *accel, *gyro, *timestamp;
+> +	const s8 *temp;
+> +	unsigned int odr;
+> +	s64 ts_val;
+> +	struct inv_icm42607_gyro_buffer buffer = { };
+> +
+> +	guard(mutex)(&st->lock);
+Sashiko thinks there is a deadlock here as this lock will already
+be held.  Report looks correct to me + same bug in the accelerometer case.
+
+I'm surprised you didn't see them in testing as deadlocks tend to be obvious!
+
+
+> +
+> +	/* parse all fifo packets */
+> +	for (i = 0, no = 0; i < st->fifo.count; i += size, ++no) {
+> +		size = inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
+> +				&accel, &gyro, &temp, &timestamp, &odr);
+> +		/* quit if error or FIFO is empty */
+> +		if (size <= 0)
+> +			return size;
+> +
+> +		/* If the packet size could cause us to overflow, return. */
+> +		if (i + size > st->fifo.count)
+> +			return -EIO;
+> +
+> +		/* skip packet if no gyro data or data is invalid */
+> +		if (gyro == NULL || !inv_icm42607_fifo_is_data_valid(gyro))
+> +			continue;
+> +
+> +		/* update odr */
+> +		if (odr & INV_ICM42607_SENSOR_GYRO)
+> +			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
+> +							st->fifo.nb.total, no);
+> +
+> +		memcpy(&buffer.gyro, gyro, sizeof(buffer.gyro));
+> +		/* convert 8 bits FIFO temperature in high resolution format */
+> +		buffer.temp = temp ? (*temp * 64) : 0;
+> +		ts_val = inv_sensors_timestamp_pop(ts);
+> +		iio_push_to_buffers_with_ts(indio_dev, &buffer,
+> +					    sizeof(buffer), ts_val);
+> +	}
+> +
+> +	return 0;
+> +}
 
