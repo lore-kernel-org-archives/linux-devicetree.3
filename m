@@ -1,138 +1,165 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBAE61E4AF;
-	Sun, 31 May 2026 12:45:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC1974D8CE;
+	Sun, 31 May 2026 12:49:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780231532; cv=none; b=UZBaryfpYhvwcn+7hYttlV6A+bZJ65e7GpC9lGeaLP4JBhEAi86GEJK2Hetr/Qb4c+XhM6ezqyg8q3h8BMCS5KTZ9MFW5r4MZSK30BQIwB0QE5zKSFjG+V23P6seeE/2HHDJsiLavll+878/iLlmi8wB1TPRS3cml2eJ6IOu9go=
+	t=1780231789; cv=none; b=o/nRjVo05fzYoeztpmTH4K+NWCD+hrUw8qUyFceIfcZxzJKSR0uPbmTcye/OX6ynIedSLWE1mDpPgMp6Ce95qBOZbX1Z224N+yiNG7t81pCeSQs45/6R5QXHcUIbRkNeQSvTca6zu7fvgrkx2HATGaHYkh0os9Hgs2qE/l95ojg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780231532; c=relaxed/simple;
-	bh=4ddagbOmeWE4pPrSmpowbtWvnBR8pGPt/Wfx50/zMyg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MWGyMXCBrJISH3fo+R8bHv9tt5haJE/UYegyUgp6ki6deZm1HngDgNdabfYWuVbnRVJ6kqSz40uJAmbVJ2VxnwU9L5P+B9rLsWzrj804BQjbs4PjJc1Obh1PDIfhtSG+EshghqRpnLSMxCZ1DGMG2wiVV1itBufMktR4M6uQkuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MRVQANP5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780231789; c=relaxed/simple;
+	bh=5nV79P+9EglaPAg5nPezTmysnGPfiy1R3Kpp5WqIfmw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=ClZaVKtIhh2eRyBmmF+MQ0jLK8OvA7TSstXS3MCSq97Bpk0pRyKsUqst0aqeEeRRgxN/xdma5d9KJXIz48FJtuhk0mgFuP+DbsV/jNIH3TbzS/b8XyXrImwcuJtcLmNde9YpK3AaLptxsUQ5ratYY61PtgLd92UQ4jKbnq+gL+M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/BQ7x0A; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MRVQANP5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F22C71F00893;
-	Sun, 31 May 2026 12:45:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/BQ7x0A"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2CDE91F00893;
+	Sun, 31 May 2026 12:49:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780231531;
-	bh=gC7FGBCpOWE8WjlFTBs+odeMD/y+jDDq2vTzWmg11Uc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=MRVQANP5ZCmoB+ChcTpt0dfDi03BobhYrHFPntQQ18rwFD1ZgucagCxBUtSysO07u
-	 KeTnY9qLElXGoClNbK61DaR93hghI3pssrOvLl6RNZDK/Bd7XPWLj2up+4ondYl5es
-	 njSfaPcTaGkpVLT8O1lMHxTmBEqb5jSCHveBlF78RKfOX0GwoCwB3U2gOVedrxx2sr
-	 d0ZZhUiHOrV4kzWgF08zNq5YltDPy6/Sg1/Q1ipPbgCLaEbNVTDxHBoue6doCOWhrc
-	 9c2RLMKlT3y5Kzph9LAWDv+s2k4/efv1Sd5BkrO0YRw+cprm4/2sBAfgUPZnL/knIN
-	 wfEinLVCJ0sWg==
-Date: Sun, 31 May 2026 14:45:23 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Christian Marangi <ansuelsmth@gmail.com>
-Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	Conor Dooley <conor+dt@kernel.org>, Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
-	Matthias Brugger <matthias.bgg@gmail.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
-	Cyril Chao <Cyril.Chao@mediatek.com>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	Chen-Yu Tsai <wenst@chromium.org>, linux-sound@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org
-Subject: Re: [PATCH v3 2/4] ASoC: dt-bindings: Add Airoha AN7581 AFE with
- WM8960 Codec schema
-Message-ID: <20260531-chirpy-carp-of-promise-ec7dac@quoll>
-References: <20260528174840.28644-1-ansuelsmth@gmail.com>
- <20260528174840.28644-3-ansuelsmth@gmail.com>
+	s=k20260515; t=1780231787;
+	bh=0FQT6mOQRjHPoUHEtFPyGoBL6/gd6UgwcPgHmimCaC8=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=d/BQ7x0AM6FYpvv7+jiRlmdnet8xq7jq37iFPAFIDu2ll7AjI+ZijVXMZBnVgvyr2
+	 KpjMSnjcqvRrO7AGrjF5GFkbq7nSOKyIzicB5S6bBxeMpOjshpeE9z+pVWZOfmYJyn
+	 8QZ1Wz4+R2KC1Z062DJSR8avWWwIvT7U3ehPHGtBM8PaOuDz/1TQZuuL77dHjQM6Ge
+	 kW8wVHXkkAliFJKua8ycsmmeQgmRbFPmeiar9HDVKu1U9puzneD9U024dF7MP3DtG7
+	 lsFqbK2USg2sbla2PVUUrY7bWOv2VQzY+kkhgsp1YhCzr/L4I3C/8Bxg6ZLCdTALL7
+	 0vJqcqWR+l0Ew==
+Date: Sun, 31 May 2026 13:49:36 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Chris Morgan <macroalpha82@gmail.com>
+Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
+ dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
+ linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
+ heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
+ andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
+Subject: Re: [PATCH V9 09/11] iio: imu: inv_icm42607: Add IRQ for icm42607
+Message-ID: <20260531134936.051e9824@jic23-huawei>
+In-Reply-To: <20260530031739.109063-10-macroalpha82@gmail.com>
+References: <20260530031739.109063-1-macroalpha82@gmail.com>
+	<20260530031739.109063-10-macroalpha82@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260528174840.28644-3-ansuelsmth@gmail.com>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Thu, May 28, 2026 at 07:48:30PM +0200, Christian Marangi wrote:
-> Add YAML schema for Airoha AN7581 AFE with the specific WM8960 i2c Codec.
+On Fri, 29 May 2026 22:17:36 -0500
+Chris Morgan <macroalpha82@gmail.com> wrote:
 
-DT schema. There is no YAML schema.
-
-Also, looks like sound card, not AFE... but previous patch said it is
-a sound card (while it was AFE), so completely confusing...
-
+> From: Chris Morgan <macromorgan@hotmail.com>
 > 
-> This gives example on how to define and connect the AFE driver with the
-> WM9860 for full functionality.
+> Add IRQ support for the icm42607 driver.
+Note I'm only calling out a few things sashiko commented on. Make sure
+you verify any others are fixed or false positives.
+
+https://sashiko.dev/#/patchset/20260530031739.109063-1-macroalpha82%40gmail.com
+
+I didn't have anything non sashiko related to add to this patch.
 > 
-> Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 > ---
->  .../bindings/sound/airoha,an7581-wm8960.yaml  | 71 +++++++++++++++++++
->  1 file changed, 71 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/sound/airoha,an7581-wm8960.yaml
+>  .../iio/imu/inv_icm42607/inv_icm42607_core.c  | 97 ++++++++++++++++++-
+>  1 file changed, 96 insertions(+), 1 deletion(-)
 > 
-> diff --git a/Documentation/devicetree/bindings/sound/airoha,an7581-wm8960.yaml b/Documentation/devicetree/bindings/sound/airoha,an7581-wm8960.yaml
-> new file mode 100644
-> index 000000000000..b637c294657f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/sound/airoha,an7581-wm8960.yaml
-> @@ -0,0 +1,71 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/sound/airoha,an7581-wm8960.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Airoha AN7581 sound card with WM8960 codec
-> +
-> +maintainers:
-> +  - Christian Marangi <ansuelsmth@gmail.com>
-> +
-> +allOf:
-> +  - $ref: sound-card-common.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: airoha,an7581-wm8960-sound
-> +
-> +  platform:
-> +    type: object
-> +
-
-additionalProperties go here. Looks at other Mediatek sound cards.
-
-> +    properties:
-> +      sound-dai:
-> +        items:
-> +          - description: The phandle of AN7581 platform.
-> +
-> +    required:
-> +      - sound-dai
-> +
-> +    additionalProperties: false
-> +
-> +  codec:
-> +    type: object
-> +
-> +    properties:
-> +      sound-dai:
-> +        items:
-> +          - description: The phandle of WM8960 i2c codec.
-> +
-> +    required:
-> +      - sound-dai
-> +
-> +    additionalProperties: false
-> +
-> +unevaluatedProperties: false
-
-This goes after "required:".
-
+> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> index 6b623fb679f3..3c91623dffb2 100644
+> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
 
 > +
-> +required:
-> +  - compatible
+> +static irqreturn_t inv_icm42607_irq_handler(int irq, void *_data)
+> +{
+> +	struct inv_icm42607_state *st = _data;
+> +	struct device *dev = regmap_get_device(st->map);
+> +	unsigned int status;
+> +	int ret;
+> +
+> +	mutex_lock(&st->lock);
+> +
+> +	ret = regmap_read(st->map, INV_ICM42607_REG_INT_STATUS, &status);
+> +	if (ret) {
+> +		dev_err(dev, "Interrut status read error %d\n", ret);
+> +		goto out_unlock;
+> +	}
+> +
+> +	if (status & INV_ICM42607_INT_STATUS_FIFO_FULL)
+> +		dev_warn(dev, "FIFO full data lost!\n");
+> +
+> +	if (status & INV_ICM42607_INT_STATUS_FIFO_THS) {
+> +		mutex_unlock(&st->lock);
+> +		ret = inv_icm42607_buffer_fifo_read(st, 0);
+> +		if (ret) {
+> +			dev_err(dev, "FIFO read error %d\n", ret);
+> +			goto out_unlock;
+Sashiko caught this one.
 
-Best regards,
-Krzysztof
+Lock isn't held.  This dance is horrible though.  Normally we avoid this
+by having an unlocked variant of the inner function 
+__inv_icm42607_buffer_fifo_read() and a locked wrapper without the underscores.
+Or push the lock out of there in general and add a __must_hold() marking so
+we can detect any paths that don't have the lock.
+
+> +		}
+> +
+> +		mutex_lock(&st->lock);
+> +		ret = inv_icm42607_buffer_fifo_parse(st);
+> +		if (ret)
+> +			dev_err(dev, "FIFO parsing error %d\n", ret);
+> +	}
+> +
+> +out_unlock:
+> +	mutex_unlock(&st->lock);
+> +	return IRQ_HANDLED;
+> +}
+
+> +
+>  static int inv_icm42607_enable_vddio_reg(struct inv_icm42607_state *st)
+>  {
+>  	int ret;
+> @@ -367,13 +452,18 @@ int inv_icm42607_core_probe(struct regmap *regmap,
+>  {
+>  	struct device *dev = regmap_get_device(regmap);
+>  	struct inv_icm42607_state *st;
+> -	int irq;
+> +	int irq, irq_type;
+> +	bool open_drain;
+>  	int ret;
+>  
+>  	irq = fwnode_irq_get_byname(dev_fwnode(dev), "INT1");
+>  	if (irq < 0)
+>  		return dev_err_probe(dev, irq, "Unable to get INT1 interrupt\n");
+>  
+> +	irq_type = irq_get_trigger_type(irq);
+> +
+> +	open_drain = device_property_read_bool(dev, "drive-open-drain");
+> +
+>  	st = devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
+>  	if (!st)
+>  		return -ENOMEM;
+> @@ -433,6 +523,11 @@ int inv_icm42607_core_probe(struct regmap *regmap,
+>  	if (IS_ERR(st->indio_accel))
+>  		return PTR_ERR(st->indio_accel);
+>  
+> +	/* Initialize interrupt handling */
+> +	ret = inv_icm42607_irq_init(st, irq, irq_type, open_drain);
+
+Sashiko asks some stuff about ordering wrt to this call. It is relatively
+unusual to register an irq after the driver is exposed to userspace. Tends to
+lead to potentially silly races.  Can we move it before device registration
+and rely on presence checks to handle any interrupts that we see before those
+iio devices are registered?
+
+
+> +	if (ret)
+> +		return ret;
+> +
+>  	return 0;
+>  }
+>  EXPORT_SYMBOL_NS_GPL(inv_icm42607_core_probe, "IIO_ICM42607");
 
