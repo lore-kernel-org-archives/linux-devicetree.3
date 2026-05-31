@@ -1,104 +1,88 @@
-Received: from mail-ua1-f49.google.com (mail-ua1-f49.google.com [209.85.222.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69AAE3812EA
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 08:36:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C56A83822A6;
+	Sun, 31 May 2026 08:38:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780216620; cv=none; b=hyW44KURQPmpbJCxdWviNmUktPZ8ohRi/csJSPI7ZmgffnqCq2S0EdPf3f4c98VO2co42blv4aAg6tZ8cf8CdpKHtynl9sD3clL8yTBAlC7szzmcY0StMvJnVAgxnbJYhLuuDfbD33dlxMTGNS3QY2EKW9WdSNX9SVQauap/c0g=
+	t=1780216727; cv=none; b=raissSuu9c4HndIkMcGwGQSaw7vSgQhvBlLF169H6t9OPjOD3B8BmfXQkCGCc20gHRZUwA62+e0h3M/S1ZjFy7WjZRa+vf/KsKT1+STiS/92oGZCyTYTRTLKvzeEe5UxSi1cBbtHiXoXlbjLrocmwDn7430Ypmv2we7AWXFiF14=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780216620; c=relaxed/simple;
-	bh=VRoCK7u4CxDAaDhSmUkIbsYdQb82r8KYQ5s/yqVlez0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=lfLTP/2chn97WF5MtvEzqDcglgCkW9GfJYOpgU9Oz2nB12OyO2vaG6LmMpkBpjbaIaU7vgMfjiqJl0PjarmrPIHbhAVT16O4neI5Hm4fRymTpPZj2dZNl2cGha0zMuNX0D1pvnXaZMmB6AyZgLUh2GmTWMt8fvBfj2puWapMWxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.222.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ua1-f49.google.com with SMTP id a1e0cc1a2514c-96393ce9a8aso1968930241.0
-        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:36:59 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780216618; x=1780821418;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=KBvM2ORohpXQB4d5IQuHmDJKKy3F6iaCOKJvYc8ytZg=;
-        b=Q6axg2Xm0SzRBLk0d+jw0OTaphtgxNKanpHFZIVLHew4bGI3JjLzSXe0UNu6e6ej1J
-         h9przpUh0A2iVsWJeivwTYHJ3t0B8uOIirmffqa3i+XefiQWBuJo4o9986RdlrWHgux1
-         3/6uhCU9hEXFKgKCABGAtn+5fyko4C04TFe9spFYnk6QV9+OLavj8OSFoN0FOVet4Krd
-         Z/RwMW7pzkfLv8BL+B0UIueTuBOgQw8QiX9KRJ1XueU/M9MZzdAj6ddYeA+l6bGwHyS0
-         cjv3Sy2cmVMGpSjzF6cMwN4sWA+pIDg/An8wgDL1mxgb1rIDBUfHboFZLPEQX4yylyDB
-         YCdQ==
-X-Forwarded-Encrypted: i=1; AFNElJ+Azi6r6eHKTln0QYcC3GfzjcB7GImDRuVDhIAdH+UkgbXhTIe6esJL82Nldry1BgdBZ/RIb8k18MeT@vger.kernel.org
-X-Gm-Message-State: AOJu0YzRWYu2loVcRDlaMgJ7QjAEz5BR52fuGHbGmLjIjzZqvu1g71ov
-	S/SQYJS/qy1WdivuLhw3j6s7tImrUA88luKqFd2G8z+c2OKbuZq6piIWLalqCUAj
-X-Gm-Gg: Acq92OHaUxdf86Byvesjtk6vgD32+eCSGOv0LwbcAfRf1zwGjqy11Pyzgsgf0PKBZrb
-	TFgiYbn9Uq+uVoHZIjMNmqFF88VrPYccR/7qyMyc8vRkvBN0Au9YRvqiXSleiQ8WuK5/UZEljgM
-	nyADaarom/bHLQZWNTQyDKd2Yc98Bv6OO1d5zvzs/GGAZzk8zHl1P1/ZyZgguaKhG3DZv3AijkO
-	kEay4YT4b877FOygHfRlqbEdobkTyMuxElhwEW80c3034qeXudPIkEJh3EB+Z1GE+hFHGU//pAx
-	j9TcfRBRDJGmOPv1RJ7DHlw62EwKdnAGw0Vjr/PboxMP7habG5WD6Z85qcwYcUqgsZNcc3vaQr7
-	koXKLnhiWo81p82BaROab7pHaTJ7qKzyYJuNyPbfKoKag0GTywA1z0ODN8hRwEIJIYx/rIpUsfc
-	Enq8mWFy3cpb3S7G7janbhTEGPhyYDLl+aWC/2ow7c+HGrxlT1+HgmyWJ55wJU4ZUO6MTzut0=
-X-Received: by 2002:a05:6102:5344:b0:631:2973:5c2c with SMTP id ada2fe7eead31-6c693648008mr2334808137.21.1780216618312;
-        Sun, 31 May 2026 01:36:58 -0700 (PDT)
-Received: from mail-vs1-f50.google.com (mail-vs1-f50.google.com. [209.85.217.50])
-        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-963aba5f57csm4039215241.4.2026.05.31.01.36.56
-        for <devicetree@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 31 May 2026 01:36:57 -0700 (PDT)
-Received: by mail-vs1-f50.google.com with SMTP id ada2fe7eead31-6c5a522d648so1279276137.2
-        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:36:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+SkTX6z9LuR8jaIwAJUC8CRZCXjv4hr6nokCrDRawaPjm9Qm9Q0/aHUGnN7FwNHnTYsZ/C9guELpuq@vger.kernel.org
-X-Received: by 2002:a05:6102:5344:b0:631:4cda:3ebb with SMTP id
- ada2fe7eead31-6c693a257bfmr2158834137.24.1780216616348; Sun, 31 May 2026
- 01:36:56 -0700 (PDT)
+	s=arc-20240116; t=1780216727; c=relaxed/simple;
+	bh=h3s0PGewQb/N9QwZbjmKCoQ77mP3b8AyELkig03mXe4=;
+	h=MIME-Version:Content-Type:Subject:From:To:Cc:In-Reply-To:
+	 References:Date:Message-Id; b=n/fHy0BbIaYDbx4mCdINfXVtwdVqDfioSNESPsl/dxXGa/81kKLhdUKSKuySBAsjqkMHb1hjzwFh+YxyWomRijOJzyyTQUjctuDJ+RNUkdJJ2nVowuE5urWcvGiuOq8DOFSgll+JFENXWcigrWPI0LQE+ks4ygN+W8hHZ8ynlj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bny6zP/o; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bny6zP/o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA2A61F00893;
+	Sun, 31 May 2026 08:38:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780216723;
+	bh=20NxcvG1DFlI+iqIfmBFSZP1bc5BtLZIrR78bOGLTvk=;
+	h=Subject:From:To:Cc:In-Reply-To:References:Date;
+	b=bny6zP/oRKkw9rYRYhWe22N6ZOhS9c1DVXdDp5KLB0EYLYIoHuK0A3WEiLPLUC93y
+	 7otqiyWhtBkY20fuRWpDCGhRrDs6CO7WQuYLHvS1izHJe7bgU5iWYQ0Mpoq1zGHHjc
+	 bh9vB4b/N9MIUOJ31p1Ooa1vgT2AMWT8lXj8RMfRD8G9L/8cwV6BxsZmYK6B/qpMm3
+	 vk/185NMEDoClC0iMWoJp8FoQ9xJkDrMEyq3Hq4NmbkKX0I3kMJgGa+nD41hs/0l8u
+	 pLSdv/cMnYAlC2Ofczx28412wL9xCuJpaBp8c7LIsSTMzFdyvxn5437V08GChJk9Po
+	 3tKQ8ktXLscLQ==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260504144534.43745-1-marek.vasut+renesas@mailbox.org>
- <20260504144534.43745-4-marek.vasut+renesas@mailbox.org> <CAMuHMdWdqDpU+AZrwz5ccbZPjJfp5DspoVscYi=Q+w-nniuuCQ@mail.gmail.com>
-In-Reply-To: <CAMuHMdWdqDpU+AZrwz5ccbZPjJfp5DspoVscYi=Q+w-nniuuCQ@mail.gmail.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Sun, 31 May 2026 10:36:44 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdVcmFz0vr+YadbKOy111PgDFYCm6kgRMWjKxyNj4mxbWg@mail.gmail.com>
-X-Gm-Features: AVHnY4JIRr68RiPmOxbgFI01Y083MJgBCtNRl2Ceai1FVE5g6dLCk5lLsnDcPaA
-Message-ID: <CAMuHMdVcmFz0vr+YadbKOy111PgDFYCm6kgRMWjKxyNj4mxbWg@mail.gmail.com>
-Subject: Re: [PATCH v2 3/7] dt-bindings: clock: cs2000-cp: document CS2500
-To: Marek Vasut <marek.vasut+renesas@mailbox.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
-	Conor Dooley <conor.dooley@microchip.com>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Conor Dooley <conor+dt@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
-	Magnus Damm <magnus.damm@gmail.com>, Michael Turquette <mturquette@baylibre.com>, 
-	Rob Herring <robh@kernel.org>, Ulf Hansson <ulfh@kernel.org>, 
-	Wolfram Sang <wsa+renesas@sang-engineering.com>, devicetree@vger.kernel.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-mmc@vger.kernel.org, linux-renesas-soc@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH v3 3/5] media: qcom: camss: csiphy: Add support for
+ v2.3.0 two-phase CSIPHY
+From: bod@kernel.org
+To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+Cc: Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
+ Bryan O'Donoghue <bryan.odonoghue@linaro.org>, 
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, linux-media@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260508-add-support-for-camss-on-sm8750-v3-3-fc6861a65c67@oss.qualcomm.com>
+References: <20260508-add-support-for-camss-on-sm8750-v3-0-fc6861a65c67@oss.qualcomm.com>
+ <20260508-add-support-for-camss-on-sm8750-v3-3-fc6861a65c67@oss.qualcomm.com>
+Date: Sun, 31 May 2026 09:38:36 +0100
+Message-Id: <178021671689.11283.11439113636113995924.b4-reply@b4>
+X-Mailer: b4 0.16-dev-d5d98
+X-Developer-Signature: v=1; a=openpgp-sha256; l=601; i=bod@kernel.org;
+ h=from:subject:message-id; bh=h3s0PGewQb/N9QwZbjmKCoQ77mP3b8AyELkig03mXe4=;
+ b=owEBbQKS/ZANAwAKASJxO7Ohjcg6AcsmYgBqG/OO/+jDjaUrJwuOFTSfT3Rc75650AyPdHOdt
+ SlBDL0NZ3+JAjMEAAEKAB0WIQTmk/sqq6Nt4Rerb7QicTuzoY3IOgUCahvzjgAKCRAicTuzoY3I
+ OjzFD/9hZ9Vs1GrtFPb6X/nvnhCrjrcB6UoioRH6o9vhw+d9A61LA/DV5Bztvx5xb6rOFTMinHL
+ QLdg6mdMigjLtsCEoL4X0jW/JTMfdneRlX170pk2lHIFajJGdx5A6ljMt2GJVPHRXa4GfGlQnlk
+ 2+EvTzo867SqKMuABYdXQ4mKXqGSU6ynXRm+TK6n6E2hjMWR3UNDzr1CL/lDRHXBl9S+6gTWdB+
+ eh6+4BnjcVhywSGivII9OB5Jma65+B8To24NQJH+ATAW2mbZMN/tFkAXcrLpDRvWthgHNsDj3gW
+ wPKNRNmq7WIGaZJVtObIb1AqL3kS+LJ038VhWVcsRN+5xERSBTw2KIfH+g5/mEorA7tvCw99TOJ
+ 5CQ7YR7M6G5NOfnjZ3ie+9/08gAt02Op12OS3E4IA31By1x6afQ9EV6LOoHCgsb1OT3r+JLo9lH
+ 5CLdlxeilDzVymjDBzWYjrRp3t/IqOfXgfocqQ/zQI3gymSmNgmgBOD2vusmx8UMhXahzlBj1E9
+ vxBHBz6+QWEI0uOmGgLK4yhpx7eCBKeT2+q9InzyADwH0vHOHxur0x3+lsAZAE9ubojRYipB4v6
+ CLZhTRICfwuONMht8Z/bkNWIcbCalvIU+osC1Ftxk4jbu9kLPY4Wp6b+ZDc3AJX6mfkWngOIQpW
+ B2q53U5nm4kciZQ==
+X-Developer-Key: i=bod@kernel.org; a=openpgp;
+ fpr=E693FB2AABA36DE117AB6FB422713BB3A18DC83A
 
-On Wed, 6 May 2026 at 12:19, Geert Uytterhoeven <geert@linux-m68k.org> wrote:
-> On Mon, 4 May 2026 at 16:46, Marek Vasut
-> <marek.vasut+renesas@mailbox.org> wrote:
-> > Document backward compatibility support for CS2500 chip, which
-> > is a drop-in replacement for CS2000 chip.
-> >
-> > Acked-by: Conor Dooley <conor.dooley@microchip.com>
-> > Acked-by: Stephen Boyd <sboyd@kernel.org>
-> > Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
->
-> Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+On 2026-05-08 02:51 -0700, Hangxiang Ma wrote:
+> Add more detailed resource information for CSIPHY devices in the camss
+> driver along with the support for v2.3.0 in the 2 phase CSIPHY driver
+> that is responsible for the PHY lane register configuration, module
+> reset and interrupt handling.
+> 
+> Additionally, generalize the struct name for the lane configuration that
+> had been added for Kaanapali and use it for SM8750 as well as they share
+> the settings.
+> 
+> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
 
-Thanks, will queue in renesas-devel for v7.2.
+Reviewed-by: Bryan O'Donoghue <bod@kernel.org>
 
-Gr{oetje,eeting}s,
+---
+bod
 
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
