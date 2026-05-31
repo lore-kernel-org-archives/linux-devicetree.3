@@ -1,253 +1,116 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47A8C29993D
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:41:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0501E492D;
+	Sun, 31 May 2026 01:51:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780191681; cv=none; b=gjZLZAnYAImCiFzUR3HBdypTW2crP0rKHFZ9QhrAMwueNw/BfHPJxpVcEmOkEawlHQrDEVMVOP9/5e3XPArXUNg87w/x823MilNjxNLNyKBvhogLgm9ijC55iPUJhkBvNJ1iHSJ+RML4kDqtAXh4Nt6O4tJlQKqF1FXnpPYedFo=
+	t=1780192262; cv=none; b=ccbr71DYh7Ah8OAqrTZJX/czpOs+VFssVkpO1hXUZH6lY/cWlvK9zFFHS8ri/u0kA/QjiQYmx/GZNFFfjyinkiJUpO3Vo0cFEyWCqoP1zAeInTqL3lXzBCJZqfqz8AxUgaSREcdiQATPUiCgfXnfoZDqDYoW7CDxzoSupKk8VBM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780191681; c=relaxed/simple;
-	bh=XK57a8QkqCPmkZ0tZgJphFdbSEl/i6kCWvEEqnmOvME=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=CrD+0v+O9TXyWY3DKhbdUv7ZevrUJhqIpd4ru9eqEBF/VfwYajLrcSTf9741MAGkhYArw42dSDAUQtkXrlukTpd0Dr48hEk/iDGzIm300DHAfjBTdDR9ppm8Er1WEYxI1VU4z4q1CQ0ri5F9tcoQk2+RAD49yKqQPhFNzhzDZp0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SBld4c93; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HfWgAf6W; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780192262; c=relaxed/simple;
+	bh=NnCTNyOtQG8eURv+/4EoUJyvF+ComXzLWLoR+HsnLmI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kWHJbscb9Lhd93ZJgG6mjh3D3ODIxeSoVaAhZynISXnwR0NOTum++nRhIensZHdCjz6Qcrc5Nyf03nOFhj+KnS668Nw0Zc66GxfD75G2LCu6UFli6w4vVWi65CSrIjGQgfjWVrgX1ET3YESfK44+HK+Y2gpknqYuMAfeO42cpeY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPK2ca9O; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SBld4c93";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HfWgAf6W"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64UEOKEE250010
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:41:19 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	QP/YmQQpucJZRAia0geXRt1bwULI4Tj+5E1XuSKtbHk=; b=SBld4c93EtHDw6FZ
-	iqp3saJCFfg4PS1UlsS4Appqch9UUYlIFoFt/om5A4Jr/Lmvp6b8Lu/DmUCESLEF
-	3efpNJgwOhXNh5R6NbIfU1sRLlAC6rvqWpZIPpZt88etreWRicCyI5/PzgafEGFa
-	GuxUA+qEiWR7+XWXbJBaDzHIBVHw0ZRtTt0Rpxk3tUNB/iktz6nJEoYjWIyp3q/y
-	MfH8ElRHS3fZUb/49fiKauF/hYVrbCK7mdYKmEmbuqYrkooTOQgbrMCqM35psAth
-	pSQlgCX2nfOnh3Doa61hu0AKgD3bgqvsNf7O0XCFj3jylvbgPHQXMe/oP9Rnw0+p
-	Xf72Ng==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efux520sm-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 01:41:19 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36bc54005a7so2429035a91.0
-        for <devicetree@vger.kernel.org>; Sat, 30 May 2026 18:41:19 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780191678; x=1780796478; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=QP/YmQQpucJZRAia0geXRt1bwULI4Tj+5E1XuSKtbHk=;
-        b=HfWgAf6W1BcevZgUZtpA5XH/J0udvtClg0c1zNfU6aIJGISdDgInTHzd/LpYyU+5Kd
-         NySacc7IKKNYJeE/HaE0HPHLwNhmzdmf7LWRLIt+fTkjVRFJ8m+mYn+ZMJhLx7HmnHtX
-         uRHPapb0TrkTf5Dj7s8qWuW99cYYufE/Ycltm8LZ4I/cfsv7CweFpW+oCbXJmG9jNRjo
-         MsiXHCJYQdkD+WYfznEI6/xQrkttlHULBV4QzcvZJ4YnzKJZIyVEP1DbTpV7TFqQqjDV
-         Akr1ViNdbJ9mJK1nDWJm/8ow9i+iKko0Tz/+F6WEzESMMSa5aaVjdmfsB9J6ZZTe+PnW
-         hj0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780191678; x=1780796478;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=QP/YmQQpucJZRAia0geXRt1bwULI4Tj+5E1XuSKtbHk=;
-        b=bcNWxUatve1Mkt+1PjnyVSUMbLwJ2Uq499EgOkY/ME7tPk7gA9/XpGALbK13+VLHck
-         i4P0V5nXtMB08szH6Y5OnTigJHU6CxIgCgu/xq9/R8PZWvR8xV5utjAlfr8CT5uXLItr
-         NXsox2z+Rac+6j8SWXOiRwzpoHWhoarniX+w8H7aoc4QPz5Ek7x0M0P4+ikj6p8bUmej
-         XYTuIosjvhSEOBKmLRkq6pmBB3Dh7bwMRAZ6/LVJ/5kRh0mzwG0cv3I2MWktdCNxFQBs
-         cUK3nh1UyJFpNYRlJskyvtQIRTR6p8a3IA64UTcA92efglnlVwfy3+71uwugZciPCeR8
-         ynWg==
-X-Forwarded-Encrypted: i=1; AFNElJ9u5f1MnFbx4j8m9vVjAU2Qzc5le1sGTRF4vpLqspKx0+BWRjvQprhgJRpbAL+Elt+ibrJEn8xYJwKA@vger.kernel.org
-X-Gm-Message-State: AOJu0YxHCG3iAj4IIRs7O216Eef+zLFXX5IlC/f59KxDAJ02O083nB67
-	ct0I6CwP5tUIo2Pp5z+xo5szj6PrNlZmF5UY7hSVbx6sT6+Ll+9A7vHDKjKbZJUAZmjOsDM59Of
-	3ZCi1vkaNEhjeBpnW+JAD6gJCMexCpyYXfGmxEgVdUrzExSYbbbkgnz9ZWL7oQQ7j
-X-Gm-Gg: Acq92OEZELkzg+vtHPQ/QWLPY0avHeYJrLzVWW155HLgQOX5g0KvFe5qIM4wObJRm8r
-	znRIpGUSClq4Y8qkLUoGlcbf2zdF/qGJJosEzn0FXpRuYf3vQCopsxOWcivCLGp1dPXMM4VeKLF
-	exK/85FLH3s7EVeRU95zMjoTFDgOuRZJfndXhn8hvyQJeynGNznYbe9FII1a8d2HidenHYYPrmg
-	iPxuAABJUX13zwCcjFIMbmbK5ch3KCLli4ye6EAKJN7o+2DNERaqQ2aZbbH39OvWAFRKK8OI6WY
-	WrptsK2/w6umKIXpFybipagVaCpcAr+Fr6VTqmoptYmW0DlNCDjvy1Gu0RCVzsXjESQTqGJWb//
-	TV3QTNWk2eqCdgmTQUB0T1AOnKLGJNM5Jnpv33K0tg8uDmwMfre0eTKguNNw+D0pNLfIAuAGoKJ
-	G2nes7t4TkhLxJCoouI2H8
-X-Received: by 2002:a17:90b:4d0f:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-36c501b8fbdmr4902595a91.16.1780191678396;
-        Sat, 30 May 2026 18:41:18 -0700 (PDT)
-X-Received: by 2002:a17:90b:4d0f:b0:368:7c0f:ebf7 with SMTP id 98e67ed59e1d1-36c501b8fbdmr4902580a91.16.1780191677869;
-        Sat, 30 May 2026 18:41:17 -0700 (PDT)
-Received: from [10.133.33.28] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36bbdcd0a2dsm3670713a91.2.2026.05.30.18.41.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sat, 30 May 2026 18:41:17 -0700 (PDT)
-Message-ID: <7d49742a-7602-4f58-8dce-7e02664b783c@oss.qualcomm.com>
-Date: Sun, 31 May 2026 09:41:06 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPK2ca9O"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 29CF71F00893;
+	Sun, 31 May 2026 01:51:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780192261;
+	bh=3BNHN5y1NNnauAXnA0ESNUQfHiGOMABpe/PgqrZPz9E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UPK2ca9O3MgWCoGqxp50neuqc9d6Y4sMkU2di7OFQqT0H2pLCPMMXneUG87vFwh2c
+	 0j8oqZPUPksbxyRREGqx5tDjNp+6pymB4HaP6c0hNAvzEkcyTjx6Fkevj6r9IsFqKV
+	 /O3G2P9Sh4EeNBI/BdGyEnV+0SWdXK7/U5loUdusOlPu0nfUF9cmbB0SvHAy2WHaRV
+	 WOUe+h4Ea/H4uqNJl488LSJx8FvvLSPG8tGpMZG683uYgWQ19/JTTVza/0IWQ5PA2b
+	 xKAsVHy5y9rr0TnUsGXYswjthSuqcJ1Ed0/yADeoHzjKNnEA0LiiW2/Mf7Aj735DA4
+	 lBWNila1VKxig==
+Date: Sat, 30 May 2026 18:50:50 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH RFC v5 13/18] riscv_cbqri: resctrl: Add MB_MIN bandwidth
+ allocation via Rbwb
+Message-ID: <ahuT-nUeUwLpzzaR@gen8>
+References: <20260524-ssqosid-cbqri-rqsc-v7-0-v5-13-78d3a7ba9dbe@kernel.org>
+ <20260525005523.D677A1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/2] dt-bindings: ufs: Document static TX Equalization
- settings properties
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: bvanassche@acm.org, beanhuo@micron.com, peter.wang@mediatek.com,
-        martin.petersen@oracle.com, mani@kernel.org,
-        linux-scsi@vger.kernel.org, Alim Akhtar <alim.akhtar@samsung.com>,
-        Avri Altman <avri.altman@wdc.com>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Matthias Brugger
- <matthias.bgg@gmail.com>,
-        AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-        Zhaoming Luo <zhml@posteo.com>,
-        Ram Kumar Dwivedi
- <quic_rdwivedi@quicinc.com>,
-        "open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS"
- <devicetree@vger.kernel.org>,
-        open list <linux-kernel@vger.kernel.org>,
-        "moderated list:ARM/Mediatek SoC support:Keyword:mediatek"
- <linux-arm-kernel@lists.infradead.org>,
-        "moderated list:ARM/Mediatek SoC support:Keyword:mediatek"
- <linux-mediatek@lists.infradead.org>
-References: <20260529113338.984301-1-can.guo@oss.qualcomm.com>
- <20260529113338.984301-2-can.guo@oss.qualcomm.com>
- <20260529-neat-bright-shellfish-eab5e8@quoll>
- <ada65ce2-6736-44fe-9396-d3ed632274ce@oss.qualcomm.com>
- <b445e9e3-dfda-45d6-bafb-a2deb3357144@kernel.org>
-Content-Language: en-US
-From: Can Guo <can.guo@oss.qualcomm.com>
-In-Reply-To: <b445e9e3-dfda-45d6-bafb-a2deb3357144@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-GUID: L2ta_dv5IQ0oh8wsiwJ7wyCL4kreChCy
-X-Proofpoint-ORIG-GUID: L2ta_dv5IQ0oh8wsiwJ7wyCL4kreChCy
-X-Authority-Analysis: v=2.4 cv=BdnoFLt2 c=1 sm=1 tr=0 ts=6a1b91bf cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=NGcC8JguVDcA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=PY6Zn8H8AAAA:8 a=mpaa-ttXAAAA:8 a=EUspDBNiAAAA:8
- a=7_JFPPHlOpLMAyv0mBMA:9 a=QEXdDO2ut3YA:10 a=uKXjsCUrEbL0IQVhDsJ9:22
- a=ySS05r0LPNlNiX1MMvNp:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNTMxMDAxNSBTYWx0ZWRfX3ij7fIgwDrdi
- ilhVJ069qiG/M9hn7DCxkz7oIZnwB7BBIsO5jNjW9PRvSXm5TNr7ewYZm0LncNCUxNiQSwsPe8t
- NiLFUYLFP58hordMOlwAUNv0LZhCeoIXad2BsbIKeQtrarolfHfSRqTQuECweg9EoivST1RYCjh
- jzWVUekBwl41lbf1wlkp+WL+I6zYr1q47wqfsG4/EeH4jjwnroB+is6YsiZAUS8ilr1KX4SIVAA
- i+M6KoZpx8YAVY8iWodXMsv5TU9zgj00WPcOUOlIQG2m2BvskLymN7fBoDtYc5p6O3+mILzXi4/
- xw2dcYy6/ccgaxLwMREdaJ6zidtC/aPSV28TfgWPEeiaswlBIULvLLsNa/AMAqmmign7CjJXgzr
- tYh59ZR7LcSxJ5uTK6KJc7ZugmWj91YJq6TSjVWThe9L1mRQH7v8Nm54plhM08kEyMxvQJ/TU8H
- vwkv7RAX8sry6wxaGWQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-05-31_01,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 spamscore=0 phishscore=0 bulkscore=0
- clxscore=1015 malwarescore=0 adultscore=0 impostorscore=0 suspectscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2605310015
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260525005523.D677A1F000E9@smtp.kernel.org>
 
+On Mon, May 25, 2026 at 12:55:23AM +0000, sashiko-bot@kernel.org wrote:
+> > +	case RDT_RESOURCE_MB_MIN:
+> > +		/* sum(Rbwb) <= MRBWB validation runs inside cbqri_apply_rbwb(). */
+> > +		return cbqri_apply_rbwb(dom->hw_ctrl, closid, cfg_val, true);
+> 
+> Does this validation approach leak bandwidth when groups are deleted?
+> 
+> When a resctrl group is deleted via rmdir, the CLOSID is returned to the free
+> pool, but standard resctrl flows do not trigger an architecture-specific
+> callback to reset the resource's value. 
+> 
+> Because cbqri_apply_rbwb() iterates over all RCIDs (including inactive ones)
+> to enforce sum(Rbwb) <= MRBWB, the bandwidth assigned to deleted groups remains
+> permanently accounted against the global MRBWB budget.
+> 
+> If a user deletes a group to free up bandwidth and tries to assign it to an
+> active group, could it be falsely rejected with -EINVAL, effectively leaking
+> that capacity until the exact CLOSID is randomly reused?
 
+This is already listed in the open issues in the cover letter. The fix
+would require some changes to resctrl core. I would prefer to work on
+a patch series to address this issue after this series lands.
 
-On 5/31/2026 1:33 AM, Krzysztof Kozlowski wrote:
-> On 30/05/2026 14:45, Can Guo wrote:
->>
->> On 5/30/2026 12:58 AM, Krzysztof Kozlowski wrote:
->>> On Fri, May 29, 2026 at 04:33:37AM -0700, Can Guo wrote:
->>>> UFS v5.0/UFSHCI v5.0 add HS-G6 support (46.6 Gbps/lane) via UniPro v3.0
->>>> and M-PHY v6.0. In these specs, TX Equalization is defined for all High
->>>> Speed Gears (not only HS-G6) to compensate channel loss and improve signal
->>>> integrity at high speed operation.
->>>>
->>>> For HS-G6, M-PHY uses PAM4 1b1b line coding, Pre-Coding may also be
->>>> required depending on channel characteristics.
->>>>
->>>> Add vendor-neutral DT properties:
->>>>
->>>> - patternProperties for txeq-preshoot-g[1-6] and txeq-deemphasis-g[1-6]
->>>> - fixed property tx-precode-enable-g6
->>>>
->>>> Each property is a uint32 array of per-lane tuples:
->>>> <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>]
->>>>
->>>> Accept 2 or 4 values (x1/x2 lane configs). PreShoot and DeEmphasis values
->>>> are 0..7. Precode enable values are 0/1 and only applicable to HS-G6.
->>>>
->>>> Acked-by: Manivannan Sadhasivam <mani@kernel.org>
->>>> Reviewed-by: Bean Huo <beanhuo@micron.com>
->>>> Reviewed-by: Peter Wang <peter.wang@mediatek.com>
->>>> Signed-off-by: Can Guo <can.guo@oss.qualcomm.com>
->>>> ---
->>>>    .../devicetree/bindings/ufs/ufs-common.yaml   | 45 +++++++++++++++++++
->>>>    1 file changed, 45 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/ufs/ufs-common.yaml b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
->>>> index ed97f5682509..d90cf25adfa5 100644
->>>> --- a/Documentation/devicetree/bindings/ufs/ufs-common.yaml
->>>> +++ b/Documentation/devicetree/bindings/ufs/ufs-common.yaml
->>>> @@ -105,6 +105,51 @@ properties:
->>>>          Restricts the UFS controller to rate-a or rate-b for both TX and
->>>>          RX directions.
->>>>    
->>>> +  tx-precode-enable-g6:
->>>> +    $ref: /schemas/types.yaml#/definitions/uint32-array
->>>> +    oneOf:
->>>> +      - minItems: 2
->>>> +        maxItems: 2
->>>> +      - minItems: 4
->>>> +        maxItems: 4
->>>> +    items:
->>>> +      enum: [0, 1]
->>>> +    description: |
->>>> +      Static TX Precode enable values for HS-G6 only.
->>>> +      Values are specified as per-lane tuples:
->>>> +      <Host_Lane0 Device_Lane0>, [<Host_Lane1 Device_Lane1>].
->>> You need to include them in any of applicable examples, otherwise
->>> nothing here is validated.
->> Hi Krzysztof,
->>
->> Thanks for the review.
->>
->> Since no UFS5-capable SoC binding exists upstream yet (the target SoC is
-> I would imagine cover letter or commit msg would briefly mention that.
-Thanks for the clarification. Will do.
->
->> still pre-CS), there is no vendor-specific YAML to attach the example to.
->>
->> Is a synthetic example directly in ufs-common.yaml OK to you?
-> Skip example in such case.
->
->>> Why values cannot be on or off? Or even better: why you cannot just list
->>> all the lanes which has it enabled, assuming disabled is by default?
->> Thanks for the suggestions.
->>
->> For the "just list enabled lanes" suggestion: precode must be configured
->> independently for the Host-side TX and Device-side TX transceivers within
->> the same physical lane. A lane index list alone cannot capture this
->> two-dimensional per-lane state. The tuple format <Host_LaneN Device_LaneN>
->> is the minimal encoding that covers both.
-> Again, why do you need to encode '0'?
-The tuple is still needed because Precoding is configured per 
-transmitter-receiver pair,
-so each lane has two independent states:
-- Host_TX -> Device_RX
-- Device_TX -> Host_RX
-A lane-only enabled list cannot represent directional combinations like 
-lane0 =
-(on, off) vs (off, on).
->
->> For the "on/off" suggestion: the on/off string pattern is used with
->> single-value properties (e.g. LED default-state) read via
->> of_property_read_string(). I am not aware of precedent for on/off as a
->> string array for per-lane tuples.
-> git grep string-array. Plenty of precedents.
-I will keep the per-lane tuple model but switch tx-precode-enable-g6 
-from 0/1 to
-"on"/"off" (string array) in v7.
+> > +static int cbqri_attach_cpu_to_one_bw_res(struct cbqri_controller *ctrl,
+> > +					  enum resctrl_res_level rid,
+> > +					  unsigned int cpu)
+> > +{
+> > +	struct cbqri_resctrl_res *hw_res = &cbqri_resctrl_resources[rid];
+> > +	struct rdt_resource *res = &hw_res->resctrl_res;
+> > +	struct rdt_ctrl_domain *domain;
+> > +	int dom_id = ctrl->mem.prox_dom;
 
-Thanks,
-Can Guo.
->
-> Best regards,
-> Krzysztof
+> Can this alias multiple memory controllers to a single domain?
+> 
+> A single NUMA node (proximity domain) can contain multiple memory controllers.
+> If multiple bandwidth controllers share the same proximity domain, the first one
+> processed will create a domain and assign its hw_ctrl pointer to it.
+> 
+> When the second controller is processed, cbqri_find_ctrl_domain() will match
+> the existing dom_id, and simply add its CPUs to the cpu_mask without saving
+> the second controller's hw_ctrl pointer.
+> 
+> Will subsequent schemata writes to this domain exclusively program the first
+> bandwidth controller, leaving the second unmanaged by resctrl?
 
+This is a known limitation that can be addressed in a future series.
+
+> > -		err = cbqri_attach_cpu_to_cap_ctrl(ctrl, cpu);
+> > +		}
+> >  		if (err)
+> >  			break;
+> >  	}
+> 
+> This is a pre-existing issue, but does this leak domain state if an error
+> occurs here?
+> 
+> If an attachment fails, the loop breaks and returns the error immediately. The
+> CPU hotplug core catches the error and aborts the online state transition.
+> However, it does not invoke the corresponding offline teardown callback because
+> this state failed during its startup sequence.
+> 
+> Since cbqri_resctrl_online_cpu() fails to manually roll back the domain state
+> for the controllers that successfully processed the CPU in earlier iterations,
+> will the CPU remain permanently set in their cpu_mask?
+
+I will change the next rev to track the last successfully attached
+controller and detach in reverse on the error path.  
+
+-Drew
