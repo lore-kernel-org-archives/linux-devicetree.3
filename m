@@ -1,189 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx1-f47.google.com (mail-yx1-f47.google.com [74.125.224.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6501F3BAC;
-	Sun, 31 May 2026 12:58:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780232316; cv=none; b=qtdk6VGrK8HF8stEFlieGg3WvSgpTUIhpiQKq/SFtyZfNrQPNCgeLJ+rcyvhA5ktV2bttFiULoiTAxFSwFtdyj2nTjWkraeyMp8iKSQELVrNuxvB7dftKUWr4hj8NJeh5y5eSdlu3jAj9G34PYdipAunuBQGmrXbblutIwM6Qe4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780232316; c=relaxed/simple;
-	bh=idAL3HNc/TgMamT2gmTLTexn6as+2ynGuFAnG9iqaQk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TyElD12CBx4mhkHVKVfBerQo0lOPw3tY2DnnhyFsDfKjaCOUwZ4NtLJ2XmBrYcrtoBRu1o0A6IfGo7IwRBZOwgvBWSlSzinUbxrNGLMtvSQkA4JZM/+Ex5zCDGzAu5W/cVhpMCDyLVOmIFlWfGH3JUXGc3jE/9Zoc2l2dO1B5hk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hVDOQFS8; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1456D19E992
+	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 13:41:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780234879; cv=pass; b=FKeJ6Nbjet08qIKEbfjY2Rs1WjCEXtP+eIcME8sdLpUdwTqjQAPtMYekVLrEU8Nm1t6C4lkmo5D+F96CRqxm+OlCKd25EaYmo7RJ0n2Za2XRHo5XiCJBg4vHGp2aZnb5CdyKKazzBkx6DsSatP+GkLDhGu92Mx9EptccswiDE+M=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780234879; c=relaxed/simple;
+	bh=sRKrVpOBYWRz1+LYXhppMZyOZPgVxDKjQ5CHY9lps6Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=dJi+ov9pLsNnqseeB90IZB3fVg5JAnItJ4sHTXPF9Pk+jQgqSRmyIEwd+YO/LJO96E3Eu8GEqPwOiQDuhxA4xCum7MO+WCN7c5sC1lM2nkhOMEbOMLJCI+z+mBHXF/OkR9yFPJdkF2dXphUhJxNK//RrOFZlLBA4E0vqesB09c8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FtMzZ9HF; arc=pass smtp.client-ip=74.125.224.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hVDOQFS8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ABBA1F00893;
-	Sun, 31 May 2026 12:58:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780232314;
-	bh=+CA+v+FUWBPtZ6XNzVlGy534etJ1KYmo7MXS0bn/j60=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hVDOQFS8dc7teV5JeOSXzM8E0IQI6FyFRlxFE+w6jLBdeDMRe5fD24yI7nzMnrQ/b
-	 Sf1AJTkWEn+Abe/wJFBb0x24PbDYy3rcCufnMmGk7UALjKQRgKu1V3EZn8mvafsfoI
-	 f7iPEdEY6+fOy86hueb9Jeo3G63dRKEGuTS9xsf2AU5GWP0j0MbEZZ9Sq0stTHsQAn
-	 X8lzdjnejJ5n0dYx9okjyPVGYImAw7FKBPTCo4ZBKHhvi0I85wRY2apE1uM+DVMv84
-	 8MkhEX/iz7Ko0HIWQ8SHtUT0OcVfa12cSGx6/25xfbYRW02fJV08I1ZrQuQsxDfuC1
-	 S/Bfu8tRRf2tg==
-Date: Sun, 31 May 2026 13:58:23 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Chris Morgan <macroalpha82@gmail.com>
-Cc: linux-iio@vger.kernel.org, andy@kernel.org, nuno.sa@analog.com,
- dlechner@baylibre.com, jean-baptiste.maneyrol@tdk.com,
- linux-rockchip@lists.infradead.org, devicetree@vger.kernel.org,
- heiko@sntech.de, conor+dt@kernel.org, krzk+dt@kernel.org, robh@kernel.org,
- andriy.shevchenko@intel.com, Chris Morgan <macromorgan@hotmail.com>
-Subject: Re: [PATCH V9 10/11] iio: imu: inv_icm42607: Add Gyroscope to
- icm42607
-Message-ID: <20260531135823.015c4fd1@jic23-huawei>
-In-Reply-To: <20260530031739.109063-11-macroalpha82@gmail.com>
-References: <20260530031739.109063-1-macroalpha82@gmail.com>
-	<20260530031739.109063-11-macroalpha82@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FtMzZ9HF"
+Received: by mail-yx1-f47.google.com with SMTP id 956f58d0204a3-6606678420bso742465d50.1
+        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 06:41:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780234877; cv=none;
+        d=google.com; s=arc-20240605;
+        b=RxFYru2FHdt72O0q0qKD+hyL30TNBcaUKmri0VjcYwEcUsnIfn3iScbCj+3BeTFcfA
+         ZJYCj/cBW3ArjE+bmn7Pe+OYtzZ5PGDW6y+zSbvGpQvyLfhdIhQmJW7oC6Tyygt9K+vD
+         v6AwSYxIG2ghMUsipZIwEqjsPeO8g8LMB9q52ltVZNA5rHkm7FbFTRDkHNyJKpjCjrnk
+         /Ct1XFcPAORVcBCCJq9VunYxyzuKUmeDDT1vtslMbO0NSkQ12o4k9aMc4J9WkXvt5Qry
+         FbR/9un5QDPQlz0TWIGVbiy1zymfCo+TaJSeDo6Idf0+7cv5Rxoew4SjLFZ0LyUxkQJ2
+         skNQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=W8tNhRdMJuaMOTUnOf0m6tloKSSO7YrbXYFMK56eT+o=;
+        fh=gnvc2+7c1iz5e0LDLovyfFk9ldDb13iYJaDEopiEGrU=;
+        b=Q3cCn8JVLvsNTFjCLVjBx6b0LD97HG9bIxBMEAx9pEhFKk6OvSMFBJWvyOeD94oFp9
+         YU43hOWACj4fjYn3PYhXvdXjb+jnaYf+FyMTjZQUhh2b5P4g/DavI+1ZhKkPqw33VWQ5
+         j0PdA5pFpCiInOd+4KaL7hFFWYRClp8IeAVv2wdQkIy5WryU6WJqnshIhJ/GzIGyriEL
+         /ta3NmcuYYkBm0AYIjFXt2QnIV6enAGO9JB63kHBOavlhIrLNSutkq1lJbbIjnfisOXt
+         IhQOX/ItgB6Dsnd2SzewkVU5hAL9vTDsFDGeGsKQlgW+2Uj0FHQpwIC9i5q5DX44QlNk
+         GGzg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780234877; x=1780839677; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=W8tNhRdMJuaMOTUnOf0m6tloKSSO7YrbXYFMK56eT+o=;
+        b=FtMzZ9HFZDMN2kwFsjP8e0I/CBTYJ3/APA242K+sISQ/fc3isA4IZv+46x+7o++SHM
+         9WCJcm3udwJtAD9DF+emVwCch9DK2ZimfNmcCrCMxq0mjzSgMDBwxbUzuQIDa1f2J1x6
+         7IqB6L/kPzim3vg4CBuOMG1aQ2jwN0XKUCakYElGFC9pSn6TtG67yM9SvEOpJ06r0EBl
+         KJ5LwLAgVMT3VWfDjs2OJCYz1D6FiNYsRcTZ4LMdCeiQAc7cEhJQTygnhJPGJ6D40I0r
+         m4mQUEKKLwUN+/4CynkCwrterLC04XKnbDMqvD9AWSNpiWZFkO1BXMn2mQUYltwiphgN
+         0xiQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780234877; x=1780839677;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=W8tNhRdMJuaMOTUnOf0m6tloKSSO7YrbXYFMK56eT+o=;
+        b=AUgvP5YWY0A/Wl9ytajM/05HbCgFDd8nyGPm9VUgATpcRPsrtfXInW0oLNqtjhu8y5
+         nx4FDRxZ0+6Tsk18oxujd8yIm/xGKezA2OZqp1X4BhUTMMcPbsnlnIlcsWLAJJWDvZUu
+         wI9nJn5vInb53Rz2K22PZ/mZ4wuONTKFEg6f+qO6QDGX0o7iYygJ0EAKwQ/68aUbuoRJ
+         jcn+MEOKAR19/muQIEbgW59bH6NRSnhk84pZt+GaoHj+2ID1C7kM45+7BeEMMi11dqvp
+         bnA+0pts/byO5V6ogD5LtR8nwdknkxP3XOtNSqVBpdY7fS4uFVShVussa1BodgighGJi
+         vIxw==
+X-Forwarded-Encrypted: i=1; AFNElJ+S7jpOGUGVoCOpJG1Gm6uWOXg6eh6cTNWf1Oh8ff0MC3IwYjni+DmaNFMbQQG9c/RxTiAVfxlxuEiZ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCIMYb0nppIyX8dsVW3KpfW3gzNyptj+AkPJo5raGeIBw3H47b
+	lHez4JXyas+A6MypjkzTBEDAZ4TpZyzzuMoq99lgIZAFkaujKQ/9OVAtNFnKk6n6QJd1/B5sw7b
+	lBZz1NfUt4CoZWh9CE+8EkcN4+T52R8U=
+X-Gm-Gg: Acq92OGa2gw+lZN9oG9yOEsSIKwunf4k7cwvoJGT7IR0twmZV8xlkWnWg1zCeHtNF9G
+	Yrv5A9bgNqetidKPJfxv/U12mklxHixY5EN/CIECxFBmkgmXWF9F7psMIpZC97f4CmnTAJFsfA6
+	KDYD69vkWL7k+Fh9cUASn30B4ergX8GxF0ZsCVgLL62M3T5+fQ5QA2sSLbBCh2WsJPfbH+kfPjz
+	Mhblh090sJD3FRd66b7id7lPtjpxctW+yvUJ6iTKHp1uGzOX+DwcOZ6MQxSiRixDmnVBXMGeaVj
+	680Xs6DPshVmy4w21b8DWIoRTH2otoKDMjllASXvCY0n48ghBR354C2UwDfq3N0+zTIFdO/HpqD
+	Itw==
+X-Received: by 2002:a05:690c:c4d1:b0:7bd:5af9:f0a1 with SMTP id
+ 00721157ae682-7e05d3f3c57mr59371557b3.25.1780234877079; Sun, 31 May 2026
+ 06:41:17 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260525033258.144291-1-ninadnaik07@gmail.com>
+In-Reply-To: <20260525033258.144291-1-ninadnaik07@gmail.com>
+From: Jonas Gorski <jonas.gorski@gmail.com>
+Date: Sun, 31 May 2026 15:41:05 +0200
+X-Gm-Features: AVHnY4KJfn3MZPFX_KGyjh71dDrddHBfvkTmSAHTLi-XV7OebVew5E4SYYsjU94
+Message-ID: <CAOiHx=kdH5TFUxTZdyphy9Xd+i8Gh7nU1Ab9wxLvK1och=JAhQ@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: leds: bcm6358: Convert to DT schema
+To: Ninad Naik <ninadnaik07@gmail.com>
+Cc: lee@kernel.org, pavel@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
+	conor+dt@kernel.org, linux-leds@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, me@brighamcampbell.com, 
+	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org, 
+	=?UTF-8?B?w4FsdmFybyBGZXJuw6FuZGV6IFJvamFz?= <noltari@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 29 May 2026 22:17:37 -0500
-Chris Morgan <macroalpha82@gmail.com> wrote:
+Hi,
 
-> From: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Add gyroscope functions to the icm42607 driver.
-> 
-> Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
+for some reason my email filter didn't catch this ...
 
-Hi Chris,
-Various things inline.
-
-Thanks,
-
-Jonathan
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> index 5b69bf895b35..c45239613344 100644
-> --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-
->  int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
->  {
-> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
->  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
->  	struct inv_sensors_timestamp *ts;
->  	int ret;
-> @@ -491,6 +494,16 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
->  	if (st->fifo.nb.total == 0)
->  		return 0;
->  
-> +	/* handle gyroscope timestamp and FIFO data parsing */
-> +	if (st->fifo.nb.gyro > 0) {
-> +		ts = &gyro_st->ts;
-> +		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
-> +						st->timestamp.gyro);
-> +		ret = inv_icm42607_gyro_parse_fifo(st->indio_gyro);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
->  	/* handle accelerometer timestamp and FIFO data parsing */
->  	if (st->fifo.nb.accel > 0) {
->  		ts = &accel_st->ts;
-> @@ -507,12 +520,14 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
->  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
->  				     unsigned int count)
->  {
-> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
->  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
->  	struct inv_sensors_timestamp *ts;
-> -	s64 accel_ts;
-> +	s64 gyro_ts, accel_ts;
->  	int ret;
->  
->  	accel_ts = iio_get_time_ns(st->indio_accel);
-> +	gyro_ts = iio_get_time_ns(st->indio_gyro);
-
-Sashiko calls out correctly that there is a race with devices finishing
-coming up that might be hit here.  Probably need some sort of presence
-check and locking to be sure those are both valid.
-
-
-
->  
->  	ret = inv_icm42607_buffer_fifo_read(st, count);
->  	if (ret)
-
-
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+On Mon, May 25, 2026 at 5:33=E2=80=AFAM Ninad Naik <ninadnaik07@gmail.com> =
+wrote:
+>
+> Convert the brcm,bcm6358 to DT schema.
+>
+> Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
+> ---
+>
+> Referred to this thread:
+> https://lore.kernel.org/all/20250930-brcm6358-to-dt-v1-1-ba833ceb1575@the=
+goodpenguin.co.uk/
+> and added the fixes suggested.
+>
+>  .../bindings/leds/brcm,bcm6358-leds.yaml      |  98 ++++++++++++
+>  .../devicetree/bindings/leds/leds-bcm6358.txt | 143 ------------------
+>  2 files changed, 98 insertions(+), 143 deletions(-)
+>  create mode 100644 Documentation/devicetree/bindings/leds/brcm,bcm6358-l=
+eds.yaml
+>  delete mode 100644 Documentation/devicetree/bindings/leds/leds-bcm6358.t=
+xt
+>
+> diff --git a/Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yam=
+l b/Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml
 > new file mode 100644
-> index 000000000000..8d59156086b1
+> index 000000000000..a61417e5690b
 > --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
+> +++ b/Documentation/devicetree/bindings/leds/brcm,bcm6358-leds.yaml
+> @@ -0,0 +1,98 @@
+> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/leds/brcm,bcm6358-leds.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: LEDs connected to Broadcom BCM6358 controller
+> +
+> +description: |
+> +  This controller is present on BCM6358 and BCM6368.
+> +  In these SoCs there are Serial LEDs (LEDs connected to a 74x164 contro=
+ller),
+> +  which can either be controlled by software (exporting the 74x164 as sp=
+i-gpio.
+> +  See Documentation/devicetree/bindings/gpio/fairchild,74hc595.yaml), or
+> +  by hardware using this driver.
+> +
+> +maintainers:
+> +  - Jonas Gorski <jonas.gorski@gmail.com>
 
-> +
-> +static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
-> +	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-> +	{ },
-No comma. Check for any other commas after terminating entries like this one.
-> +};
+The driver and .txt schema were originally submitted by =C3=81lvaro (added
+to cc), so I would have expected him to be the (suggested) maintainer.
 
-
-> +
-> +int inv_icm42607_gyro_parse_fifo(struct iio_dev *indio_dev)
-> +{
-> +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(indio_dev);
-> +	struct inv_sensors_timestamp *ts = &gyro_st->ts;
-> +	ssize_t i, size;
-> +	unsigned int no;
-> +	const void *accel, *gyro, *timestamp;
-> +	const s8 *temp;
-> +	unsigned int odr;
-> +	s64 ts_val;
-> +	struct inv_icm42607_gyro_buffer buffer = { };
-> +
-> +	guard(mutex)(&st->lock);
-Sashiko thinks there is a deadlock here as this lock will already
-be held.  Report looks correct to me + same bug in the accelerometer case.
-
-I'm surprised you didn't see them in testing as deadlocks tend to be obvious!
-
-
-> +
-> +	/* parse all fifo packets */
-> +	for (i = 0, no = 0; i < st->fifo.count; i += size, ++no) {
-> +		size = inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
-> +				&accel, &gyro, &temp, &timestamp, &odr);
-> +		/* quit if error or FIFO is empty */
-> +		if (size <= 0)
-> +			return size;
-> +
-> +		/* If the packet size could cause us to overflow, return. */
-> +		if (i + size > st->fifo.count)
-> +			return -EIO;
-> +
-> +		/* skip packet if no gyro data or data is invalid */
-> +		if (gyro == NULL || !inv_icm42607_fifo_is_data_valid(gyro))
-> +			continue;
-> +
-> +		/* update odr */
-> +		if (odr & INV_ICM42607_SENSOR_GYRO)
-> +			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
-> +							st->fifo.nb.total, no);
-> +
-> +		memcpy(&buffer.gyro, gyro, sizeof(buffer.gyro));
-> +		/* convert 8 bits FIFO temperature in high resolution format */
-> +		buffer.temp = temp ? (*temp * 64) : 0;
-> +		ts_val = inv_sensors_timestamp_pop(ts);
-> +		iio_push_to_buffers_with_ts(indio_dev, &buffer,
-> +					    sizeof(buffer), ts_val);
-> +	}
-> +
-> +	return 0;
-> +}
-
+Best regards,
+Jonas
