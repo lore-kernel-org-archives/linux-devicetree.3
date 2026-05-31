@@ -1,297 +1,244 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com [209.85.160.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADB621A9FA0
-	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 20:43:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D9943603EF
+	for <devicetree@vger.kernel.org>; Sun, 31 May 2026 23:59:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780260226; cv=none; b=N2lQSWE2Q0zJ9YfHPvnEb4ZW/ZjxbvkRGRjlisGHIPvunRJPjqpIHy4efFj7iMGuXgLpdVQ9qlmZwTmv5k5N95VEq++m1f4DkU14clYEnwn3ky3v7FXYAcr9XcjDUY6jJ9ntJIameJiq5Wjsnn+ffV9LXij8Dsdh6TDEPbviSaQ=
+	t=1780271976; cv=none; b=L8qYbeZ6EygbsoJQ5zfhnCtPsQVGoCCYVkIPSIqVL1ngv8TQKIQkoXov12HX/NiHbYQW8g3w2eFZyCXsZ2ARsOXH5S28k0dVk1TAFTTT1tbgsiLSuSwdCl5fwJL2DC9ByF4kcHtf0640kzPhfy6neiUljVFgVDWdJLaONxlhpbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780260226; c=relaxed/simple;
-	bh=segUJ5aRuEnazookirOHEqA2b8M5w40ZClQxm8iXCzc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pQJwyBbDaHtjSFLuqiIkXjiKJhQ+ZDF9NYBp/+wCsb61GXRYZKFQ+s5XUgDVIu/3+tRLQSl3UQkQq+QcGAz7kgO2mlCMDol3AJyrtPaYvcaJvfErQwh2BwvcQsGsNH8NhduksuKc1RT1eNSGhIxxdeayfnfReFrrQ2M54Ce06dc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l2tz2wJl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780271976; c=relaxed/simple;
+	bh=g5jy42hBp/hoNV//YEAgI+RIQwM6LSbOBEP4dyQoREs=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=IDB4a/0nFy3FM7WCwEyYZf2AghF7WHmCqWCFt4H6bdGRVva9rxoM6OU4ebJD87V7FehdxOzUHcIZb0Fh4ANGEJao0gbymdmG9nSA0mzX7qAuX7JjXDNV+DYyrOJDK8y0REnV+askFij4yZDc6pi7ZG3yRGhRRubSDHbnyORDv8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DdBpnZk8; arc=none smtp.client-ip=209.85.160.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l2tz2wJl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C2A41F00893;
-	Sun, 31 May 2026 20:43:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780260225;
-	bh=rWBiNZmx3T/jBqmhwi6McdT+K+J0Jvs7lipz9oXX9wc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=l2tz2wJlWRSKjOXKv5cCc4i7OdxSRyclo7wxM7rbIsMZ7l83HxMj1aa+rKN80Ua1j
-	 OByLg9hZeTnuERsEj+lSkhU85oXrhssVoHb2psRIDZqWrt4HcIFBiHZrUUsLtEq1+B
-	 dkXYLSUP3gYERqACHuRj2b/lxsxypIc4V8mmIf+pU6DascAtVzfz4RTAhABm4rJtmo
-	 0oQxO8MLWXbsoOCYYgykasSVDK8iZ0FLFBG0LGTKDkYydtPC30xuT/pJ/FjJAju63M
-	 K7S/5YrRJkWfkPlOhPQjijsyLQ5wuSH+JBmMXAREkf/5PdoR3wSYPWL4fPn8FLuQu5
-	 62UzTXpJRiOug==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 4/4] iio: light: veml6031x00: add support for events
- and trigger
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260531-veml6031x00-v4-4-e64f7fdce38d@gmail.com>
-References: <20260531-veml6031x00-v4-4-e64f7fdce38d@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Sun, 31 May 2026 20:43:44 +0000
-Message-Id: <20260531204345.1C2A41F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DdBpnZk8"
+Received: by mail-oa1-f43.google.com with SMTP id 586e51a60fabf-43b6f782cfaso4048541fac.3
+        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 16:59:35 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780271974; x=1780876774; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jE4mCARgYwymCUjuCV4JjyAJstLarID3EgjEBx1+3V4=;
+        b=DdBpnZk8754194IacjbkGuBL40eAMVOiRBa8OLi+GHgFuUAsc3gvOIUxtQEm+MYRiK
+         ZCwVCJee6/5xySAN+DXSCog6htd+6bwEZXE/s1n6xa6rkhRfcY3KxtpC/XEfUP63XCxs
+         87CjPP131FbB7CNnLwcvZtrWRBakuPlk/m1IrDiKUHMJ12jbhC0/Yx1/ovTiTZeWN9lq
+         R6Kf1SA4Ykv0npcKaDe+gSFgFjdMcJP5lfOlVzrBrqrAuEg+Cnc2o7jpDe/n2ZWrXfOg
+         W0o+mNSvDAabVkaKRDkFzT9NInoTmdBbta6u3WwxUJF+bclV5BQkAYARzJSRweqnyQuO
+         OsNg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780271974; x=1780876774;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=jE4mCARgYwymCUjuCV4JjyAJstLarID3EgjEBx1+3V4=;
+        b=QuFC4hTlWBXUU0qatWkjUDCljPwCgK/h4eeqX1Kggph1L0Zt8lR5WLNJgLwYrmm3Gn
+         DfCcOk7lXgFoJ6awvmC50IKnTHQtwGj4d2Zpcs+ZRU1G8p76TQOTMSfQSkkVnBb2EMuA
+         yRHyDFkgKgf8N8Grwpe82OttTVRL/4Wp0ye+wW56uootFdj6UCWfWGba4q3cVCQ3+gWJ
+         Hvso2aNSXKjuTAuX+qbVdrMzKaTLvQpMkDDM+Yh7MP7I2/fmsUUvsHm//8DLlhtY2+yc
+         rzk/+/q3eIfZd37vBZ/9cEfLB1T6ySTkXjrJCcOkMVR9d3S2JF5SySFG4efauxUAGjNs
+         DH1Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8V6hqRdw7thjnBgIs86OZKZ2CsDvhgO62sFJHayj/Ymk7F1rns4/PtVQxzYz/wY/BgJIzAK3AN7yuE@vger.kernel.org
+X-Gm-Message-State: AOJu0YyxS6LfYH6lXXEc4nrEIJD5LBPKdzGfI98hhtU1l8XSMX953Kyo
+	R1nlOtePhZpg+Y4tBgQfDpgfKCMK1o5ob6Re7G5lHMQbI/V9W6mcXxQx
+X-Gm-Gg: Acq92OGF/l0Vc4uAM3uX8QipPTQ4oUwEeRUBI7z1RLEqezTGemQRNKaigdM9T9exmO5
+	rrg6VxAfK7rJBUnt02Y3Uggl9ClvAKcwf87pFK7NhAAO/glE7QePXSpGg3clt+k18S4Ful7sauW
+	EgAgdr+8xaXvTlNT6un/v+hSnL5/JL6J4QxvMwtM18nYL9w0zTDCGU598r/xiNKICo8h8UOdLqL
+	ohaGRoGql0iJdrFvxKTxaDYPSvFAm4TH4fRND+qC7Zjk9+TnLU42BYeskdJ5Vm7xY/o3LKY19I/
+	2aPcOPFKryw01NaO10EnUhCdQrljTxp+8ZnkzDuweppWM1kgZ8FsZcBYeICq+8iTwKtaY7sHFBi
+	10c2iJBKxtNun0LME7nj2xUXL6eZw0946szaejrU6r3WROcpWEI/U9wb7ayoAJa13zifRmWm4sl
+	RUVywUqB3mvg5FCESUUQzv0drzH80/uBDCanw/nrTFDMDFZwwjLD1c9eCdsQ8m+8E=
+X-Received: by 2002:a05:6870:658e:b0:417:392e:4e67 with SMTP id 586e51a60fabf-43ca4247a42mr4605423fac.20.1780271974352;
+        Sun, 31 May 2026 16:59:34 -0700 (PDT)
+Received: from linuxescape (23-88-128-2.fttp.usinternet.com. [23.88.128.2])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-43c93ae5342sm6468385fac.7.2026.05.31.16.59.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 31 May 2026 16:59:33 -0700 (PDT)
+Date: Sun, 31 May 2026 18:59:31 -0500
+From: Maxwell Doose <m32285159@gmail.com>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, Krzysztof Kozlowski
+ <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: flow: add Sensirion SLF3S liquid flow
+ sensor driver
+Message-ID: <20260531185931.1bcda47c@linuxescape>
+In-Reply-To: <20260530205435.37326-4-wafgo01@gmail.com>
+References: <20260530205435.37326-1-wafgo01@gmail.com>
+	<20260530205435.37326-4-wafgo01@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
+Hi Wadim,
 
-New issues:
-- [High] Missing `.validate_device` in trigger operations allows other devi=
-ces to attach to a sensor-specific trigger.
-- [High] The trigger handler performs an unintended I2C read from address 0=
- for the software timestamp channel.
-- [High] PM runtime usage count is leaked if the device is unbound while ev=
-ents are enabled.
-- [High] Stale values in the regmap cache for the hardware-cleared `AF_TRIG=
-` bit cause unintended triggers.
-- [Medium] Mixing `goto` error handling with `guard()` scope-based cleanup =
-in the same function.
-- [Medium] Non-functional event sysfs attributes are exposed to userspace w=
-hen the device lacks an IRQ.
+On Sat, 30 May 2026 22:54:32 +0200
+Wadim Mueller <wafgo01@gmail.com> wrote:
 
-Pre-existing issues:
-- [High] Unbalanced PM runtime usage counter due to mixing devm action with=
- manual put.
---
+> Add a driver for the Sensirion SLF3S family of digital
+> liquid-flow sensors on I2C.  Currently supported variants are
+> SLF3S-0600F, SLF3S-1300F and SLF3S-4000B; they share the same
+> register map and differ only in flow-scale factor and calibrated
+> measurement range.  The variant (and therefore the scale) is
+> auto-detected from the product-information register at probe time.
+> 
+> Each measurement frame returns a 16-bit signed flow value, a
+> 16-bit signed temperature reading and a status word, each
+> protected by a CRC-8 byte.  The driver exposes the flow rate as
+> IIO_VOLUMEFLOW and the temperature as IIO_TEMP via the standard
+> IIO read_raw / read_scale interface.
+> 
+> The active calibration medium can be switched at runtime between
+> the factory-calibrated water and isopropyl-alcohol modes via the
+> in_volumeflow_medium sysfs attribute; the sensor starts in water
+> mode after probe.
+> 
+> This driver also creates the drivers/iio/flow/ subdirectory and
+> the corresponding Kconfig/Makefile glue.
+> 
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+> ---
+>  drivers/iio/Kconfig       |   1 +
+>  drivers/iio/Makefile      |   1 +
+>  drivers/iio/flow/Kconfig  |  27 +++
+>  drivers/iio/flow/Makefile |   7 +
+>  drivers/iio/flow/slf3s.c  | 406 ++++++++++++++++++++++++++++++++++++++
+>  5 files changed, 442 insertions(+)
+>  create mode 100644 drivers/iio/flow/Kconfig
+>  create mode 100644 drivers/iio/flow/Makefile
+>  create mode 100644 drivers/iio/flow/slf3s.c
+>
 
-commit c0654b1fbfc516c85d27a7c169844b649c2a1077
-Author: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Nice code. Just have a couple of questions (+sashiko has some concerns
+as well).
 
-iio: light: veml6031x00: add support for events and trigger
-   =20
-The device provides a shared interrupt line for to notify events and
-data ready, which can be used as a trigger. The interrupt line is not a
-requirement for the device to work. Implement variants for the cases
-whether the interrupt line is provided or not.
-
-> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml6031=
-x00.c
-> index facb1b8e42418..5e79eb942f09c 100644
-> --- a/drivers/iio/light/veml6031x00.c
-> +++ b/drivers/iio/light/veml6031x00.c
-
-[ ... ]
-
-> @@ -144,6 +197,8 @@ static const struct iio_chan_spec veml6031x00_channel=
-s[] =3D {
->  		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
->  		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
->  		.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCALE),
-> +		.event_spec =3D veml6031x00_event_spec,
-> +		.num_event_specs =3D ARRAY_SIZE(veml6031x00_event_spec),
-
-[Severity: Medium]
-Will this unconditionally expose event sysfs attributes even when the device
-lacks an IRQ?=20
-
-If i2c->irq is 0, the driver uses veml6031x00_info_no_irq to omit event
-callbacks. However, the IIO core checks num_event_specs during
-iio_check_for_dynamic_events() and creates sysfs attributes anyway. If these
-attributes are accessed from userspace without the callbacks, will they
-return -EINVAL?
-
-[ ... ]
-
-> +static int veml6031x00_set_af_trig(struct veml6031x00_data *data, bool s=
-tate)
+[snip]
+> +/*
+> + * Read the product-info block and pick the matching variant.  The
+> + * sub-type byte returned by the sensor is the source of truth; a
+> + * DT-supplied compatible only seeds an initial guess and is overridden
+> + * on mismatch (with an informational message so misconfigured device
+> + * trees are easy to spot).
+> + *
+> + * Bus / CRC failures are real errors and fail probe.  An unknown
+> + * sub-type byte fails probe too: we cannot publish a meaningful scale
+> + * without a matching entry in slf3s_variants[].
+> + */
+> +static int slf3s_detect_variant(struct slf3s_data *sf)
 > +{
-> +	regcache_drop_region(data->regmap, VEML6031X00_REG_CONF0,
-> +			     VEML6031X00_REG_CONF0);
-> +
-> +	return regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +				  VEML6031X00_CONF0_AF_TRIG,
-> +				  FIELD_PREP(VEML6031X00_CONF0_AF_TRIG, state));
-> +}
-
-[Severity: High]
-Does this leave a stale AF_TRIG value in the non-volatile regmap cache?
-
-The AF_TRIG bit is cleared automatically by hardware. While this function
-drops the cache region before setting the bit, VEML6031X00_REG_CONF0 is not
-marked as volatile in veml6031x00_volatile_ranges. Because of this,
-regmap_update_bits() writes the new value to hardware and also caches it.=20
-
-Would any subsequent updates to CONF0 (such as changing AF or SD bits) read
-the cached AF_TRIG=3D1 and write it back, causing an unintended measurement
-trigger?
-
-[ ... ]
-
-> +static int veml6031x00_write_event_config(struct iio_dev *iio,
-> +					  const struct iio_chan_spec *chan,
-> +					  enum iio_event_type type,
-> +					  enum iio_event_direction dir,
-> +					  bool state)
-> +{
-> +	struct veml6031x00_data *data =3D iio_priv(iio);
+> +	struct i2c_client *client = sf->client;
+> +	u8 buf[SLF3S_PRODUCT_ID_LEN];
 > +	int ret;
 > +
-> +	guard(mutex)(&data->irq_lock);
-> +
-> +	/* avoid multiple increments/decrements from one source */
-> +	if (state =3D=3D data->ev_en)
-> +		return 0;
-> +
-> +	if (state) {
-> +		ret =3D pm_runtime_resume_and_get(data->dev);
-> +		if (ret)
-> +			return ret;
-> +	}
-
-[Severity: High]
-Is the PM runtime usage count leaked if the device is unbound while events
-are enabled?=20
-
-The pm_runtime_resume_and_get() call keeps the device powered on, but there
-does not appear to be a custom devres action or remove callback to disable
-the event and drop this reference if the driver is unbound. Could this
-prevent the parent I2C controller from ever entering runtime suspend?
-
-[ ... ]
-
-> +static int veml6031x00_set_trigger_state(struct iio_trigger *trig, bool =
-state)
-> +{
-> +	struct iio_dev *iio =3D iio_trigger_get_drvdata(trig);
-> +	struct veml6031x00_data *data =3D iio_priv(iio);
-> +	int ret;
-> +
-> +	guard(mutex)(&data->irq_lock);
-> +
-> +	if (state =3D=3D data->trig_en)
-> +		return 0;
-> +
-> +	ret =3D veml6031x00_set_interrupt(data, state);
+> +	ret = slf3s_send_cmd(client, slf3s_cmd_prep_pid);
 > +	if (ret)
 > +		return ret;
+
+Here sashiko said:
+
+"If the system goes through a warm reboot or kexec, won't the sensor
+still be running in continuous measurement mode since there is no
+.shutdown callback? If the sensor is actively measuring, will it NACK
+the 'read product ID' command sent here and cause the probe to
+unconditionally fail? Should a stop measurement command be sent before
+trying to read the product ID?"
+
+Was looking and didn't find a shutdown callback, so you'll probably
+want to add that.
+
+> +     ret = slf3s_send_cmd(client, slf3s_cmd_read_pid);
+> +     if (ret)
+> +             return ret;
 > +
-> +	/* The AF bit must be set before setting AF_TRIG */
-> +	ret =3D regmap_update_bits(data->regmap, VEML6031X00_REG_CONF0,
-> +				 VEML6031X00_CONF0_AF,
-> +				 FIELD_PREP(VEML6031X00_CONF0_AF, state));
-> +	if (ret)
-> +		goto err_disable_interrupt;
+> +     ret = i2c_master_recv(client, buf, sizeof(buf));
+> +     if (ret < 0)
+> +             return ret;
+> +     if (ret != sizeof(buf))
+> +             return -EIO;
 > +
-> +	ret =3D veml6031x00_set_af_trig(data, state);
-> +	if (ret)
-> +		goto err_clear_af;
+> +     for (unsigned int i = 0; i < SLF3S_PRODUCT_ID_LEN; i += 3) {
+> +             if (!slf3s_crc_valid(sf, &buf[i]))
+> +                     return -EIO;
+> +     }
+> +
+> +     if (buf[SLF3S_PRODUCT_FAMILY_BYTE] != SLF3S_PRODUCT_FAMILY_ID)
+> +             dev_info(&client->dev,
+> +                      "unexpected family byte 0x%02x (expected 0x%02x)\n",
+> +                      buf[SLF3S_PRODUCT_FAMILY_BYTE],
+> +                      SLF3S_PRODUCT_FAMILY_ID);
 
-[Severity: Medium]
-Is it safe to mix goto-based error handling with guard() scope-based cleanup
-in this function?=20
+This feels like something that could be dev_warn() to me (if it's
+unexpected then it means it probably shouldn't happen!)
 
-According to the cleanup subsystem guidelines, mixing goto with guard() or
-__free() in the same function can create confusing ownership semantics.
-Should this function either use goto entirely or be fully converted to
-scoped cleanups?
+> +
+> +     for (unsigned int i = 0; i < ARRAY_SIZE(slf3s_variants); i++) {
+> +             if (buf[SLF3S_PRODUCT_SUBTYPE_BYTE] !=
+> +                 slf3s_variants[i].sub_type)
+> +                     continue;
+> +
+> +             if (sf->variant && sf->variant != &slf3s_variants[i])
+> +                     dev_info(&client->dev,
+> +                              "DT compatible says %s but sensor reports %s; using %s\n",
+> +                              sf->variant->name,
+> +                              slf3s_variants[i].name,
+> +                              slf3s_variants[i].name);
 
-[ ... ]
+Same here, if the DT says it should be x and we get y, then that also
+feels like something that shouldn't have happened.
 
-> +static const struct iio_trigger_ops veml6031x00_trigger_ops =3D {
-> +	.set_trigger_state =3D veml6031x00_set_trigger_state,
+> +
+> +             sf->variant = &slf3s_variants[i];
+> +
+> +             return 0;
+> +     }
+> +
+> +     dev_err(&client->dev, "unknown SLF3S sub-type 0x%02x\n",
+> +             buf[SLF3S_PRODUCT_SUBTYPE_BYTE]);
+> +
+> +     return -ENODEV;
+> +}
+
+[snip]
+
+> +
+> +static struct i2c_driver slf3s_driver = {
+> +	.driver = {
+> +		.name		= "slf3s",
+> +		.of_match_table	= slf3s_of_match,
+> +	},
+> +	.probe		= slf3s_probe,
+> +	.id_table	= slf3s_id,
 > +};
 
-[Severity: High]
-Is a .validate_device callback needed here to prevent other devices from
-attaching to this sensor-specific trigger?=20
+Sashiko said:
 
-Without setting .validate_device to iio_trigger_validate_own_device, another
-IIO device could attach to it. If that happens, veml6031x00_set_trigger_sta=
-te()
-would enable the DRDY interrupt while the sensor is PM runtime suspended
-(since its own buffer_preenable isn't called). Would this cause the depende=
-nt
-device's buffer captures to hang?
+"Since the driver lacks power management operations, what happens when
+the system suspends and resumes?
+If power is cut to the sensor during suspend, won't it reset to the IDLE
+state and cause subsequent IIO reads to fail because the driver never
+re-issues the start command? Or if power isn't cut, will leaving it
+actively measuring waste power?"
 
-[ ... ]
+Which it has some good points, you'll just have to issue a start
+command once the system is back from suspend.
 
-> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf =3D p;
-> +	struct iio_dev *iio =3D pf->indio_dev;
-> +	struct veml6031x00_data *data =3D iio_priv(iio);
-> +	int ch, ret, i =3D 0;
-> +	struct {
-> +		__le16 chans[2];
-> +		aligned_s64 timestamp;
-> +	} scan =3D { };
-> +
-> +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
-> +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
-> +		ret =3D regmap_bulk_read(data->regmap,
-> +				       VEML6031X00_REG_ALS_L,
-> +				       &scan.chans, sizeof(scan.chans));
-> +		if (ret)
-> +			goto done;
-> +	} else {
-> +		iio_for_each_active_channel(iio, ch) {
-> +			ret =3D regmap_bulk_read(data->regmap,
-> +					       iio->channels[ch].address,
-> +					       &scan.chans[i++],
-> +					       sizeof(*scan.chans));
+I'd say it's very close, but please address those comments from
+sashiko (also you don't have to take my advice on the dev_warn()
+stuff, I'll be honest I haven't written a driver from scratch yet!)
 
-[Severity: High]
-Does this loop inadvertently perform an I2C read from address 0 for the
-software timestamp channel?=20
-
-When IIO_CHAN_SOFT_TIMESTAMP is active and the fast-path isn't taken, it
-iterates over all active channels. Since the timestamp channel does not def=
-ine
-a hardware address, its .address is 0.=20
-
-Would regmap_bulk_read() read VEML6031X00_REG_CONF0 instead of data,
-wasting I2C bandwidth and writing the configuration register's value into
-the scan buffer just before the timestamp?
-
-[ ... ]
-
-> @@ -677,12 +1102,21 @@ static int veml6031x00_probe(struct i2c_client *i2=
-c)
->  	iio->channels =3D veml6031x00_channels;
->  	iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels);
->  	iio->modes =3D INDIO_DIRECT_MODE;
-> =20
->  	ret =3D veml6031x00_hw_init(iio);
->  	if (ret)
->  		return ret;
-> =20
-> +	if (i2c->irq) {
-> +		ret =3D veml6031x00_setup_irq(i2c, iio);
-> +		if (ret)
-> +			return ret;
-> +
-> +		iio->info =3D &veml6031x00_info;
-> +	} else {
-> +		iio->info =3D &veml6031x00_info_no_irq;
-> +	}
-> +
->  	ret =3D devm_iio_triggered_buffer_setup(dev, iio, NULL,
->  					      veml6031x00_trig_handler,
->  					      &veml6031x00_buffer_setup_ops);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but is the PM runtime usage
-counter unbalanced at the end of veml6031x00_probe()?
-
-The driver acquires a reference using devm_pm_runtime_get_noresume() which
-associates a devres cleanup action. If pm_runtime_put_autosuspend() is
-called manually at the end of probe (immediately after this buffer setup),
-the devres cleanup will still fire when the device is unbound, performing a
-second put. Could this cause the PM runtime usage counter to underflow
-to -1?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260531-veml6031x0=
-0-v4-0-e64f7fdce38d@gmail.com?part=3D4
+-- 
+best regards,
+max
