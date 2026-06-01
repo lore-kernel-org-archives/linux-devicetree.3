@@ -1,147 +1,102 @@
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5034831E835
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 04:15:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A908274FE3;
+	Mon,  1 Jun 2026 04:27:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780287304; cv=none; b=CS+4/rBBJHFfVBoxg6DajDG1H0DS7znrvrLpB5PlMZDy8+f8idtMkw+vu5lGcac1wBBBcgAwHNLb7K88C5hNZyIH0M0zq6jwWa8kjmeqOZafhnxSdZ9TuICFbBcp5rtB6qPasoo7mb6O+A7F1ngLKgS2N1etpUWU1A6gLxC90DA=
+	t=1780288027; cv=none; b=Z5dhO3aUTUrkka9rFiHd1tnDG8GErq+Gy28v0WNgvG/rTOfr24X62pCjjVqmQ45Vsa/YIBwKVlLem6TkQfZsYJJJA1uSIFGsF423938b5RyQuyzZGHwdUsAvfz9CgTESMhI5IEbxp5WK4l6/fypSEr7smgZ1W4ZzkmA+A9n/QDo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780287304; c=relaxed/simple;
-	bh=qP1yh5897y52gQrS74KSiUYqrl7D3oKp/uam3uTjwNU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kge2Teuj/9U30G+lghu2nHcco8IIFkYn+Lk0sJGNJSq8DCQNwJDvjp+zWRtGtpS6FMYZhASH/d693s/edAzSNvaSDAVRAvmuKEHZPBTgZmGpKgKKtSSuMPrCLBC8smCinopA9wu0DhMbYlmQa0TasXQCeMPn6BaKPLMvLhLoeFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org; spf=pass smtp.mailfrom=quora.org; dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b=OBQu9TFU; arc=none smtp.client-ip=209.85.214.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=quora.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=quora.org
+	s=arc-20240116; t=1780288027; c=relaxed/simple;
+	bh=KZ4Ei1xUdNYa0MnzEqIxb/mkrthVEqKhnow13vDCkVo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=g7fwyZ8i+yQLZRdEwWAiYawFC9aM7a2XyrbELG5aCa/U8zyDHqTZBxxQcmBlDl5Vk8dhSi93q26gRU7Xccg2nDrmreJdbb5pZVGv5YwX+rY9275Efw6g64eXHiyNykfIkENmb+D19WNkiUJeMwZH9CK+yCGDK9cn2RGjsHKUOII=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZcaCDnFo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=quora.org header.i=@quora.org header.b="OBQu9TFU"
-Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2c0b9328c4aso7178345ad.0
-        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 21:15:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=quora.org; s=google; t=1780287301; x=1780892101; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bY0Jgb/4pMElVA1zHn/XIVXj9XsaeotvHlofGf2Tv8E=;
-        b=OBQu9TFUlrgkRa0pqSee9VE6S4ewBtzjEs5r9lxuWGntjsPgRyEpY+NQAyXv1HQxD2
-         EnFEEZtTq19D10YeRd1SbJ6H7z1eR0vOXKEjDaq1HHrsZzO5hwgTlPm9zu11KwhO4Y58
-         yQr5v/WflKgcWzALA0GOvAJxIMEzlAfF97W9Y=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780287301; x=1780892101;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=bY0Jgb/4pMElVA1zHn/XIVXj9XsaeotvHlofGf2Tv8E=;
-        b=O9TnG3m6/wWTsbtDRq5ivCt6CczjMq+w4WIOCdy7M9W/LoaHymbDsh+0TdtWHX8odS
-         HLtQpz6rfm3G+GPdiK32zK0oVqMc7HkNxezN1qSH5EaWTAw4VU0ddPOUl7YZoRrOUnSc
-         uBGtSX6VYTsnpN1naeItfiDIlkfMAxyLz8QajhYjscYyHp+/4jSQrFlRj7VJBPrhGTVU
-         O8Im+CwmyJGiq4/zejhfyLzbdcIsB8oBynGj8zRih9L+3wmpY9MmH8Vna//hU4u6giLB
-         +7D62yASg68KpCUmLnuzo/u5H9gIWUZ7hdWxMheRWQUJ9wBIcRkMF9Yc668xGbYO3PC5
-         WJ2g==
-X-Forwarded-Encrypted: i=1; AFNElJ+k0Os3HncqjBFNB1vfRJ68soFfGcy/sXGD4+yrl5VYwB6NvDa2fUD9Adg7bJijRxjGFxurx7aOSEPk@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPn/+nLAezwzRKNEQFWDE2pPheWPDM81qwWa3OoJnM6qxW9daq
-	Bjaw7FsLUQxyY3ny7FGbGURcdCEoE2IK2DNAw31aY1qK+ENYShaxo225OIfvei8KqKA=
-X-Gm-Gg: Acq92OGI87ImZ2wpiJBOvAHoZfQ8vO7iW12Unt4Pj7UpndsM/E0C0B/2RkLV+iJDgVI
-	e7U3cMWt3oWp8EFiSTW0gV8El57D25H+QVkXCBN6fCwXP7D/N9fkJz27/NiXl93VBlnD0bW/nS5
-	cAB2PDF2KNRz7aZ3/WIzEAMqYClJ+zWb/XRA1XqvwW2dJxpVu1ZU9e0hJdMMvUmDPHM1FtXaqc4
-	ZfbqZabEjwaDokj4J5H5O2nUpEzFLTWWE9s1WhQwjAvfAG4+GN928SezMVLQBKgXkKFu5AIueD0
-	PlOCI050T73LpE8agyWQczuQOj56TIQPY84pojQySWS7+NyTy3PIMBKl+J2QXeTS+EbYcxpZNDy
-	IeQmnogL8wmstPb8ZtlDi1y5xrHQaGlnZm1BuWa18gWgGO3g3rGuNNUdrVXgoAwn69dtWyQCF8h
-	AiX+uZ6SfuRns6ak1hsCVhLHpRqngETwWxVxY2+Ej28kQHMFMpGTI2tQCx/rHS88HEGTZ5/QFYT
-	8p216YB+yzRiyXSBxt/68No1RTZ7gkXrMRF9pqQRl7DdO66Q8L4IlQWj7749Ew9buvgvw3saBoB
-	ls/miJk3gqV7D49MTDID71AqQUV1RGPUkMFPBYnhXDwCVNRFUvUC5hUyJLsLS+GGgGhcRicxQJH
-	Kyik=
-X-Received: by 2002:a17:903:1207:b0:2be:bb7f:ae2f with SMTP id d9443c01a7336-2bf36846815mr104349185ad.27.1780287301511;
-        Sun, 31 May 2026 21:15:01 -0700 (PDT)
-Received: from aegis ([175.176.67.81])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23c3f496sm92980405ad.76.2026.05.31.21.14.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 31 May 2026 21:15:01 -0700 (PDT)
-From: Daniel J Blueman <daniel@quora.org>
-To: "Bryan O'Donoghue" <bod@kernel.org>,
-	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-	Abhinav Kumar <abhinav.kumar@linux.dev>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-media@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel J Blueman <daniel@quora.org>,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for Iris
-Date: Mon,  1 Jun 2026 12:13:34 +0800
-Message-ID: <20260601041336.9497-2-daniel@quora.org>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZcaCDnFo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B24C1F00893;
+	Mon,  1 Jun 2026 04:27:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780288025;
+	bh=VdUYmYY3QWK45XuawNvBUeK0jruTjAFyFmZolk4sPmQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZcaCDnFoM12N9kdhXZv4d8JNc/Uwsujg1YY1mm2Uqmh7njBBUUq51vt8mqNYbZIBu
+	 pNB8OSlVLFjuPc8pUSaSQMJw8eHQq2v+AaEODLBtum1Af4KQJagGQ1U11cQXKVTCcj
+	 r7TneFmbofou6Srqdy1DjkKMs4o0iPoZq53F7ZK6S9ihu2IMrbVc5Tqb/4S4DVbrUF
+	 1DrWo81/tqYyS4X3RcnwtuD8DUB2HMvFSazRHoxByRQ6FIlbwX6gaiE3fcBG1Pr+kY
+	 uYBj8ZI28kXOHyyZJZZjTAdrC65tG92Jd19qUmZ8dpBPfGHeaRl1lHH5l8+ktdTGqr
+	 AdWgieh1YA+zQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,sm8550-iris: Allow IOVA
+ reservation memory-region
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Daniel J Blueman" <daniel@quora.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org, conor+dt@kernel.org
 In-Reply-To: <20260601041336.9497-1-daniel@quora.org>
 References: <20260601041336.9497-1-daniel@quora.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 04:27:04 +0000
+Message-Id: <20260601042705.6B24C1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
-triggers unhandled SMMU page faults that cause spontaneous device
-reboots. This is readily reproduced with web pages that drive
-multiple concurrent video decode streams, eg ui.com.
-
-Add a reserved-memory IOVA reservation node covering [0, 0x25800000)
-and reference it from the Iris node so the IOMMU layer keeps DMA
-allocations above that boundary.
-
-This applies to all current hamoa.dtsi consumers (X1E80100/X1P42100/
-X1P64100 boards); other Iris-bearing SoCs (sm8550/sm8650/sa8775p/
-qcs8300) do not include hamoa.dtsi thus not affected.
-
-Backports also require the preceding binding patch ("dt-bindings:
-media: qcom,sm8550-iris: Allow IOVA reservation memory-region");
-without it, dtbs_check rejects the second memory-region entry.
-
-Link: https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
-Cc: stable@vger.kernel.org
-Signed-off-by: Daniel J Blueman <daniel@quora.org>
----
- arch/arm64/boot/dts/qcom/hamoa.dtsi | 11 ++++++++++-
- 1 file changed, 10 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/qcom/hamoa.dtsi b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-index 051dee076416..e2af0bc5e064 100644
---- a/arch/arm64/boot/dts/qcom/hamoa.dtsi
-+++ b/arch/arm64/boot/dts/qcom/hamoa.dtsi
-@@ -724,6 +724,15 @@ smem_mem: smem@ffe00000 {
- 			hwlocks = <&tcsr_mutex 3>;
- 			no-map;
- 		};
-+
-+		/*
-+		 * Iris DMA below IOVA 0x25800000 triggers unhandled SMMU
-+		 * faults on hamoa platforms; reserve the range so the IOMMU
-+		 * layer keeps allocations above this boundary.
-+		 */
-+		iris_iova: iris-iova {
-+			iommu-addresses = <&iris 0x0 0x0 0x0 0x25800000>;
-+		};
- 	};
-
- 	qup_opp_table_100mhz: opp-table-qup100mhz {
-@@ -5479,7 +5488,7 @@ &config_noc SLAVE_VENUS_CFG QCOM_ICC_TAG_ACTIVE_ONLY>,
- 			interconnect-names = "cpu-cfg",
- 					     "video-mem";
-
--			memory-region = <&video_mem>;
-+			memory-region = <&video_mem>, <&iris_iova>;
-
- 			resets = <&gcc GCC_VIDEO_AXI0_CLK_ARES>;
- 			reset-names = "bus";
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The binding schema fails to enforce the second `memory-region` i=
+tem (IOVA reservation) for the `qcom,x1e80100-iris` compatible, which stric=
+tly requires it to prevent system reboots.
 --
-2.53.0
 
+commit c0ad29924b6618f643fc065b86b7d5896e42b2ff
+Author: Daniel J Blueman <daniel@quora.org>
+
+dt-bindings: media: qcom,sm8550-iris: Allow IOVA reservation memory-region
+
+In addition to the firmware-loaded codec carveout, some Iris platforms
+need to declare an IOMMU IOVA reservation (a reserved-memory node with
+iommu-addresses) to keep DMA away from IOVA ranges that earlier
+firmware stages have already mapped through the SMMU.
+
+> diff --git a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yam=
+l b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> index 9c4b760508b50..0d83bb86c6c3f 100644
+> --- a/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> +++ b/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml
+> @@ -80,7 +80,11 @@ properties:
+>    dma-coherent: true
+> =20
+>    memory-region:
+> -    maxItems: 1
+> +    minItems: 1
+> +    maxItems: 2
+> +    items:
+> +      - description: Firmware-loaded codec carveout
+> +      - description: IOMMU IOVA reservation region
+
+[Severity: Medium]
+Should the schema also enforce minItems: 2 for the qcom,x1e80100-iris
+compatible in an allOf conditional block?
+
+The commit message for the subsequent patch ("arm64: dts: qcom: hamoa: Rese=
+rve
+low IOVA range for Iris") explicitly states that on X1-family hamoa platfor=
+ms
+(which use the qcom,x1e80100-iris compatible), missing the IOVA reservation
+causes unhandled SMMU page faults and spontaneous device reboots.
+
+Without an allOf constraint enforcing the second memory region item for this
+compatible, incomplete device trees missing the mandatory reservation will =
+pass
+schema validation but cause runtime failures.
+
+> =20
+>    operating-points-v2: true
+>
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601041336.9497=
+-1-daniel@quora.org?part=3D1
