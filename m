@@ -1,138 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 658AE3DB30C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAAFE3DD51E
 	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:19:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780327156; cv=none; b=BjcJ52ZFKweCU8nMVZ0z3leS9x8dLLxosJsciSGKqKbmEZZtpz5h5QbXbyCdJKkV07dF4gkOl0w40xGMyMHlXa9A/3BGykb/A57eY3IexrBbIgta0WVw0pViqdDoGTJmR3wV3pVTinZzHBlHpPPTdg4UkXjV7c4kdyw2zdfIRlc=
+	t=1780327159; cv=none; b=il/0P93UPWpiTYV7CsSKkKtqUQRXnAi63BtiLGrKQdchq6ScydrouDxZbHORMy9Q2QjI3fcy7tbsdnfu/inS/B1pSu0re4eF3d7sKW9OpS85EfSbeQG1qdyJDLmomaEj4qk3gUebJvTUta5LW/uVtNlvTVcZHQGZeQhtiDo8lwA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780327156; c=relaxed/simple;
-	bh=S4VzG7oFX94AcWmughEF+OAZqTyC+22jQMCZXp8H/bs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KuyCkdCLWndQWOKu7RNNh1j3XLcqc9NJbGHh7jGF5KVKKk+3u1yMl/Eb/9e7l4iJMflHFzpwdDmteSitUB9OHsbVSUO4CyS30V4+8SOw/hR7MLy7iPR3C7s1TxYG/u7Sa9Ux9xVJVo4NaaQKbeC+550VH4wxbIyD7jszNO7xWcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T2qtuJWD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780327159; c=relaxed/simple;
+	bh=1i1ud9qKyYnaqS2Sm7wFXRXPLupGr8dxgdr5XwdPNHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GdqP6J2uL2YsQtXhtAEETucxsBuzB4RqbTKDiapjlcoiqK+sj9ptqwjLPWDq1gs4xMkdGQZoQ+ccB5iGj10ciRZezSIp84/59A/ywbBL1Y/uLYaF7l3x/DMfYW587AT4KALh+3tEULeyKGrLDYDf50Ng8zLIB16Rbuee8qHJATk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rIfDSjI6; arc=none smtp.client-ip=209.85.221.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T2qtuJWD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD44F1F00A1B;
-	Mon,  1 Jun 2026 15:19:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780327148;
-	bh=bjgW4RMsR3bGkhLNeFhGMKQDzyGH3gHXGZT93lTFak8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=T2qtuJWDTRst04DAsSgdiffxVfypxyl3NTUDI09iyczzOn33O+W0UEe4DDyPjFWlV
-	 llIZ3OgbIzZj6wqfSrRqiq+79nsiIU5eE+G6j/ss81IIP4In0ny+ifEJDcANyPXjNP
-	 pwYrSJYI+c1I2gIsr18s8li8RCskKLUCUMMhRCWMgNamwh9zeHBkbWjd47tcT4JhYd
-	 dzYraE4Rg3jfynyYTtqO5lh4a51h0HVO1AtLTRFZiUq5JonifhKiHZJW/gwTCZ94Dl
-	 N19Gm+ylgubjsA5apuyu8GlQymhfTCPCXoeRra+zaA0ro4Yf68nAVPZ+o/G4bfbgLh
-	 1t0MYOfTvUuvA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
- DTS
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Stanislav Zaikin" <zstaseg@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260601150752.666393-3-zstaseg@gmail.com>
-References: <20260601150752.666393-3-zstaseg@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 15:19:07 +0000
-Message-Id: <20260601151907.AD44F1F00A1B@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rIfDSjI6"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45fd464d51fso796394f8f.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 08:19:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780327147; x=1780931947; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=u1lcsLIobScldpWx6WSR7/N2rSVozhhuMPVVUCbPDt4=;
+        b=rIfDSjI6/z7rwVmbqWC0I2U5pgX6TdSdLHrpyRURtet3XqpmAYtKwW8Vdlo3XdqCf4
+         W+UbSlRgSjszlfiAz3KANIuFsuuvJLxyFqO9ZtdrpiuRWGKbwe+0Kj6pCy+YV3iaeXJK
+         BkfIcd7hFMkjXtoueKHt2hEJuA4zHRSd+mwv9mGQQlNiLWMI5796uMOzPeUTZ9/AyHCg
+         AES8+CKpaGFJGqbLQPNLlEMH1tmy5Eaj3hWZGwSuP6XHZps/KvA7VFcgJtD5MUlRIrqf
+         uMlWInZ4BoWZRF5vqHxKKpVGWPIBreE8BYxFi8C5IHyvgTRAnQRwn01CreithjA9vlAY
+         JZ4g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780327147; x=1780931947;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=u1lcsLIobScldpWx6WSR7/N2rSVozhhuMPVVUCbPDt4=;
+        b=j/whLA6Ye8kWv2yO3ZMoAaLepzThuEaVAgXttrCcRJU7u4V+X+k5b/9ZZUVEZVqaNY
+         6EVLpvqmlmCMDBLUZvkEmd80XIBJ1oPHsrN3dzwqw2dSFFc0pmCYyx8PlwYvoVWSlKph
+         NmExHKZwrJf89J0MdRf0BlC0AvaTnIDx3ZfYvPCq391EL/zfGYdusQS3/NgvDGjfRGUL
+         C8zRTra7xBJ3XQoZ0WlbsNz/Pb+IialnyfiMMY9uBt33vYaOgywNfxy3KbRwM6cbgmxN
+         FqJQ88V2YSL6MXNwl1hIsDBzu4LYvpfM4oCGBMikwxTnN7VB9pPiDPrae7BQhs8N2ojm
+         ToQg==
+X-Forwarded-Encrypted: i=1; AFNElJ/mC/dQWjL4Fo+UXBk5cIiERNG6VwDtotOOEY4oFEIQR/QJYv0ge11+iBIRbWu+w0u4ZT/fvegVJye6@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmEJCW6Kfl//oC+2qgSYP20bh5YLwrK7JjRkWNfmhANrCbXn8b
+	KygOTqzoKzkoKiuBUTjbNI0AQxo50TTeIcS7y7juqajXSbDHvnME9Qjj
+X-Gm-Gg: Acq92OGdvM4ikDoFolB303Jj8hgmAT23H1umInI65bR0jB+5wBYH7pYsuyj2tyE5XcP
+	x743nVHQB1gC5LUjHw6PLF596yhFCBu40aKB/Li59qyZpI/waXet8UaYepCLb2idQt7l/+RCIB0
+	4IkibmZFih9jxlXCaAKFo4il0RtdyQq1tLJQ3nNj7rJvb+mvCIjK/exCFgydP0vGnqwA1p9tUY2
+	O9l4fUN/t/m/RLDCOmlAFNHA3xZEZ3NWp2Q6NdEubdOsxcvWizmpH1yqxpSdaiun+Ndch+JoDgZ
+	AV6Vh2AhG0oU4VcnmKS3r0Cd+WsrPDyrOn7uyASdwYcUIIEdi2Q+LqVlX1WEOtnP32CJMy44bZa
+	SJyopJGMufBYwwRul22AjpZJKy7cnc5DI3+3CV5Fxc/9/vDSZ7TAvuaQL8vDPC8QVPkzcxQ5vDA
+	/6HVx1eUm7trlTvxgWkj2hyIQ=
+X-Received: by 2002:a05:6000:40c7:b0:460:cfc:eb24 with SMTP id ffacd0b85a97d-4600cfced10mr13759481f8f.22.1780327146823;
+        Mon, 01 Jun 2026 08:19:06 -0700 (PDT)
+Received: from xeon ([188.163.112.61])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354cd7csm25753103f8f.18.2026.06.01.08.19.05
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 08:19:06 -0700 (PDT)
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Helge Deller <deller@gmx.de>,
+	Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Johan Hovold <johan@kernel.org>,
+	dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: [PATCH v3 06/11] mfd: lm3533: Add support for VIN power supply
+Date: Mon,  1 Jun 2026 18:18:26 +0300
+Message-ID: <20260601151831.76350-7-clamor95@gmail.com>
+X-Mailer: git-send-email 2.51.0
+In-Reply-To: <20260601151831.76350-1-clamor95@gmail.com>
+References: <20260601151831.76350-1-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The SBU port in the USB-C connector node has a mismatched unit-a=
-ddress and reg property (`port@2` with `reg =3D <1>`).
-- [Low] Invalid 'mem-type' property in the ramoops node.
---
+Add support for 2.7V-5.5V VIN power supply.
 
-commit 444192d5f33eb93dfce53fe410ae77991af6102e
-Author: Stanislav Zaikin <zstaseg@gmail.com>
+Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+---
+ drivers/mfd/lm3533-core.c  | 23 +++++++++++++++++++++--
+ include/linux/mfd/lm3533.h |  2 ++
+ 2 files changed, 23 insertions(+), 2 deletions(-)
 
-arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao) DTS
+diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
+index d57c2cdf11c5..4dca5641b774 100644
+--- a/drivers/mfd/lm3533-core.c
++++ b/drivers/mfd/lm3533-core.c
+@@ -17,6 +17,7 @@
+ #include <linux/mod_devicetable.h>
+ #include <linux/property.h>
+ #include <linux/regmap.h>
++#include <linux/regulator/consumer.h>
+ #include <linux/seq_file.h>
+ #include <linux/slab.h>
+ #include <linux/uaccess.h>
+@@ -113,14 +114,25 @@ static int lm3533_set_lvled_config(struct lm3533 *lm3533, u8 lvled, u8 led)
+ 	return ret;
+ }
+ 
+-static void lm3533_enable(struct lm3533 *lm3533)
++static int lm3533_enable(struct lm3533 *lm3533)
+ {
++	int ret;
++
++	ret = regulator_enable(lm3533->vin_supply);
++	if (ret) {
++		dev_err(lm3533->dev, "failed to enable vin power supply\n");
++		return ret;
++	}
++
+ 	gpiod_set_value(lm3533->hwen, 1);
++
++	return 0;
+ }
+ 
+ static void lm3533_disable(struct lm3533 *lm3533)
+ {
+ 	gpiod_set_value(lm3533->hwen, 0);
++	regulator_disable(lm3533->vin_supply);
+ }
+ 
+ enum lm3533_attribute_type {
+@@ -334,7 +346,9 @@ static int lm3533_device_init(struct lm3533 *lm3533)
+ 		}
+ 	}
+ 
+-	lm3533_enable(lm3533);
++	ret = lm3533_enable(lm3533);
++	if (ret)
++		return ret;
+ 
+ 	ret = regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
+ 				 LM3533_BOOST_FREQ_MASK,
+@@ -458,6 +472,11 @@ static int lm3533_i2c_probe(struct i2c_client *i2c)
+ 		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen),
+ 				     "failed to get HWEN GPIO\n");
+ 
++	lm3533->vin_supply = devm_regulator_get(lm3533->dev, "vin");
++	if (IS_ERR(lm3533->vin_supply))
++		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->vin_supply),
++				     "failed to get vin-supply\n");
++
+ 	device_property_read_u32(lm3533->dev, "ti,boost-ovp-microvolt",
+ 				 &lm3533->boost_ovp);
+ 
+diff --git a/include/linux/mfd/lm3533.h b/include/linux/mfd/lm3533.h
+index 3fd8d4737ea5..9ee99be93d9b 100644
+--- a/include/linux/mfd/lm3533.h
++++ b/include/linux/mfd/lm3533.h
+@@ -22,6 +22,7 @@
+ struct device;
+ struct gpio_desc;
+ struct regmap;
++struct regulator;
+ 
+ struct lm3533 {
+ 	struct device *dev;
+@@ -29,6 +30,7 @@ struct lm3533 {
+ 	struct regmap *regmap;
+ 
+ 	struct gpio_desc *hwen;
++	struct regulator *vin_supply;
+ 
+ 	u32 boost_ovp;
+ 	u32 boost_freq;
+-- 
+2.51.0
 
-This commit adds devicetree support for the Xiaomi 12 Lite 5G handset,
-including display, touchscreen, UFS, buttons, regulators, remote
-processors, and USB device mode.
-
-> diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm=
-64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-> new file mode 100644
-> index 0000000000000..ec795f8adc467
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-
-[ ... ]
-
-> +			ports {
-> +				#address-cells =3D <1>;
-> +				#size-cells =3D <0>;
-> +
-> +				port@0 {
-> +					reg =3D <0>;
-> +
-> +					pmic_glink_hs_in: endpoint {
-> +						remote-endpoint =3D <&usb_1_dwc3_hs>;
-> +					};
-> +				};
-> +
-> +				port@2 {
-> +					reg =3D <1>;
-
-[Severity: Medium]
-Is this port index correct for the SBU endpoint? The devicetree specificati=
-on
-requires the unit-address (@2) to match the first address in the reg proper=
-ty.
-
-Additionally, the usb-connector binding assigns fixed indices to ports:
-reg =3D <0> for High Speed, reg =3D <1> for SuperSpeed, and reg =3D <2> for=
- SBU.
-Using reg =3D <1> here for the SBU port violates the schema and might logic=
-ally
-miswire the SBU mux to the SuperSpeed data graph port index, breaking
-alternate mode routing. It will also generate a dtc unit_address_vs_reg
-mismatch warning.
-
-> +
-> +					pmic_glink_sbu: endpoint {
-> +						remote-endpoint =3D <&fsa4480_sbu_mux>;
-> +					};
-> +				};
-> +			};
-> +		};
-> +	};
-
-[ ... ]
-
-> +		cdsp_mem: cdsp@9c700000 {
-> +			reg =3D <0x0 0x9c700000 0x0 0x1e00000>;
-> +			no-map;
-> +		};
-> +
-> +		ramoops@a9000000 {
-> +			compatible =3D "ramoops";
-> +			reg =3D <0x0 0xa9000000 0x0 0x200000>;
-> +			mem-type =3D <2>;
-
-[Severity: Low]
-Does this mem-type property pass upstream validation? This appears to be a
-downstream addition historically used to force memory caching attributes,
-which is not supported by the upstream ramoops bindings.
-
-Leaving this in will trigger a dtbs_check validation failure. Upstream
-typically handles memory attributes via standard reserved-memory properties
-like no-map.
-
-> +			pmsg-size =3D <0x100000>;
-> +			record-size =3D <0x100000>;
-> +		};
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601150752.6663=
-93-1-zstaseg@gmail.com?part=3D2
