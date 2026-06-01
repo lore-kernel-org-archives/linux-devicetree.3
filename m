@@ -1,225 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013049.outbound.protection.outlook.com [40.107.162.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ACD76387590
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 20:58:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780347519; cv=none; b=mDZ/hVUOz2tRNUHuPD7QTHV5HQKBIlUt6QiEGOQFc/cuKY5BLJ0CjN06Lf4+gRzBrtsABIxWuaU0pc8jxh/GvhQ41Q6PHmDoT25YZKO6K5zgKNZ8yEx/85OZvcdyevWCpofh/HTKYMRyQZX+PLepkTITenaaqTgHycG9rg2zxYw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780347519; c=relaxed/simple;
-	bh=wXaKrxsGrMdEcw8lpaAFE2h9yUmpt94DXQsyo78jjww=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CczAoBk1rXq6weg3APgFWmsqR15LzAZ7DwIRf+Hfzhyu8nw5ujhFBYUxj89vRXEdgL8tt5cZlnxT7GdBamLAq13Bl1/IgcosxfIogN6m58Lrvy3zP+SxqkvNgS3BBY8ETna4tDEtI1od7+k62+zX+ICfHcY4LupSbvoENlQvXmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iDpIo0ra; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CF705375F8E;
+	Mon,  1 Jun 2026 20:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780347544; cv=fail; b=jyzE/SKEDdu+ydgmOao3ooiGw+0XT4TRy2OJFM5GXVL2sps4ukAPNbtM2XB2uurpDAQjvr0FFeBi+DA7CQJODQfXdrEakaTv03wEuLHJgHxFCvQYFwSqGDKSQpNY3SVd09nqxuqWMvTYh5opqRO5tlNAkzIDQHFFclqE53MpJ/Y=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780347544; c=relaxed/simple;
+	bh=wOSk8Ca1yRbrUlyrFIDePl5+4bxKmG63db1CStavyio=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=g0t0/FaCsP4iT1qlgfJkrFw671cc6iWcjHnckpnjipL6Ele5TDXkLLWFr45Ym/tUxZuyFSJNn7eAhiOFh+BN81VHxWHwUCiILcoJAZKqwHcaEqUie0utbU+tbC7oDPe3RACqiSzrVkmbsFKE8TqSjH1FJQTViE3FMhVqCdMX++4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=ChUo/LDt; arc=fail smtp.client-ip=40.107.162.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iDpIo0ra"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1AC91F00893;
-	Mon,  1 Jun 2026 20:58:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780347518;
-	bh=IYDRNnuROLOtVYAoatCkT4iZkFN9NGyijQWjPkqP9Rc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iDpIo0ra0Ro7xuGLZPn0ILkxA/9DgMPgzfSKsxJ/evkJMSMfy+oauVf34MDQXyvg+
-	 xYgUzkJz5Xor/cznJgzk3e0ucFISJsq02TkbghggEUOMv82HbOZeUkVgdaRckxiLkX
-	 uGrV/emnPPssN6fbgyE6Fqa4UnrE0n/ShDSyOmhsOnMGy1Qd2mVxz91cxTCkObw3FT
-	 WlntYomb+eIVaXgYobzlzFHlYhCyhGPRcQviNHa5anybtRU2YRo5hC1FMYHAuEG0EO
-	 zbJmAhxF5u8WWDKYx8m7PavLF+nv/7PyTbh0NUjf7obTcko5Ey4qizadVxp6+t7l3/
-	 3eu0ur/FG3Z5Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v6 12/18] riscv_cbqri: resctrl: Add L3 cache
- occupancy monitoring
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-12-baf00f50028a@kernel.org>
-References: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-12-baf00f50028a@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 20:58:37 +0000
-Message-Id: <20260601205837.C1AC91F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="ChUo/LDt"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=n/sGfZVfeANK2bT+ruGdox/JYipQ4Dv+sOmxJH39CSIOGVK11ntWdT+pm3HccEXTsJcrtvBevrZjuu5FhdXcpahShYmBW3LYdAdn/NvmhwHGbc5jUps609AwcPnE2B40Ni0FyhX2jfOZik/acyWsrTmgyth4QpKcFcCY/qGOACwgnG1bjI1myRx2fmq+SEHW+kfFLrSZmhChgfOStZ1pISwgYkst3fFBQCVRTPadFys0XPUovFquo3KhP/vTeL0uaCSpRQX1Wp+KGoYG42uTCz8Uj+loj226SstZMjQSE8CXwxtuZSpFWnkQI0HwH0dqyz3E8CoMGHs8WluaH+etbQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=JGYxJCjdF95DuNMbi/6jgnY885dOXC0b0B9T4ierqks=;
+ b=vMWj/b0W8H5pUTT/yAntWJM15WxuBClXgDY+42tNJR/OLGdwXWnpV46Om3md+vIA+ImUZZIDU6pn3+HZ57mhdwdYBbFMpalqlJb614ffq33LSZ2i+T5HhUihMmfJl/hsh5EDTVGDuBtmT8Jvb22t9npgU1vtjBTi7VVHWrj6AnhziZyJXyVJRRcZfx39CPE5SaPljVtDSFrKRgfjes8MUJJU0d/Pf20Q259y38t1FBfJ/BfFm9hiAve74coLhj/xHgeBV/AnxX6Cte9cvi4CVXA0RLrV/+gv56yizgGM5xhDM4c9+eG1gGrqa7DoSPlqvYSJpXxrpZ4agnGEnbezMA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=JGYxJCjdF95DuNMbi/6jgnY885dOXC0b0B9T4ierqks=;
+ b=ChUo/LDtu3H59B7hzEIleUcg66EZdBJaoXBTdRDpA9VbGKMrl/IAMQsPJLP8WDvR1DgTAUSYTddjhfWEpid/17j5g75NAOWlajCk0gkf12JZNB+XrNT1Lo08Ds0bcLwur4UHBP1bJ62MMgsn65M0o0idmXmudPOVCwZTiMxHqn94pWzYoR2+zSCundYtO3QT3DYuyd8Rai9dEq5eZvGQJ5w17U4acWzIftdV0LkGbQuPeYfQ6IoZA4Jtt1hcisyVJfv+XrgTuWQWlpDj8EcvfE4URiWJUYUllrfSUJZlPrlDH7SrGsU2jx00WJzxoXFMiCcdlbLwoKOgkQYQWwU43Q==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB12079.eurprd04.prod.outlook.com (2603:10a6:800:310::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 20:58:59 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
+ 20:58:58 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v1 1/1] arm64: dts: imx95-var-dart-sonata: add TPM reset GPIO
+Date: Mon,  1 Jun 2026 16:58:50 -0400
+Message-ID: <178034752170.574725.4565114987223878453.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260528220550.34891-1-stefano.r@variscite.com>
+References: <20260528220550.34891-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA1P222CA0174.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c3::23) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12079:EE_
+X-MS-Office365-Filtering-Correlation-Id: 143d6231-52cb-4526-19c6-08dec02099d3
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|18002099003|22082099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+ ZF5wxbB/y8HvaY1q6PuqiGQe5q+fptEAHqwiiBU+tELdRNZKl/PxaXs9ek3eFXwY7DK97qbtSRJRsXrqAIaEhhyl91TQOBfIEVIe8iTgWCme1xe7sJMTlz3T7GNxaq1dN2mt8kt/1RspFz/kybxQ1ZmeHkXR/AvikPhD/yTaNie3EVGx1FC5gY42yO1Cs4EtHBi5CbJbowOrZd2CHi9t2sieeJTGN7PXL01ZKq9JQMyLYs0SAgITBOlj44BSxSOyaE4eNnMMA6OMihUVaMPXw8mL7XyBbwVDZsWqVsUvh01v6fDTYcpLfmFfqRVHwjzC4GlA2zdswzozkogNXghYT1WW76DGe4QJKjVaMZhLqMCspyFRfJFTWBYMy/M9hPIE4O7a9e9lMsc8FDkxuu+vEfI5PB5t6QIKvO+brAONW9UZTiqFUJx4JhrOX6PSLqwGsFn2iarOSZRa4r3ibBk+yAYs6+PQlC4W678p7cx5VvAz/7rPpYQHUhOQbNo6MObDQqGJPgw1qSJ4ntiWXGYBVuy+SgEK2zU3/YYkf7Qy+RjjyvIser5uaZpTw+OWJzC1az90/rJNGIr9Mi59WPeqP1HmPoHWGF/78lVakvSijHAbOaTmlzGSuGOrNdykmWS6ADqSpwE2t5MskrIt9rb/alx1p1Sba5FQNEd3fm5uz8cRFABwrllPoI/VLDKVZQMD
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?RTMrRm9TVW5wbmZ6YmNZak5CempJTldSOWh1K0FGaENtT1FaZlVhVkJpVDAr?=
+ =?utf-8?B?c2puOC9ISlUydmdGeStJZDVFY3hZUDAvRTdTejl1bHR6a0c3ZVpGM092ZWFD?=
+ =?utf-8?B?VXVHbEY3MUN3WFd6TzFIQ2JYUkg2VnpWKzZBZkFBSlpXZGhRUEFyTWkvWmlQ?=
+ =?utf-8?B?U2pSRFZTSzhYMGM4NHY3UitGUW1UcnloUHpUbGs4VEpOa0plWUtDNWZtSGta?=
+ =?utf-8?B?djFXZUlwSC9LS3FWVUk5UHIvWXFvWUIwVFpNTnEreUtxTUhqb1g5eFNzaldr?=
+ =?utf-8?B?WWx4dk9mZXYzTzl2QklLUVIvOFBlM0R5YzJKN2pOQUZTNFRUdTFrWFdGWGcr?=
+ =?utf-8?B?TjJqcTlkSHl4YkRHdzJSKzFUVHpLOS8rWWc1ZUxZTkw1QTUvWndZa3RUcWJ0?=
+ =?utf-8?B?SXhSTjluNTVhYTQ1U0VZbXcrZ2RLaGZZc29KbE9SK1dkMU8vMFZwcmI1SWRX?=
+ =?utf-8?B?ZDI0OVY0YWVqRUZ1L25iL3F3L2F5TEhyUUdEQlh4OXBEZ3htVmFEdVNacm5p?=
+ =?utf-8?B?QnNSRUttd3QvNExoREdJRm1BVnZDRlB2b2J1T0pSTlZkK0dMM2FFOWMwOHZ6?=
+ =?utf-8?B?dlB5SXR3VE4wakFORENVRTVHWDFDc2hTTUthMk5vMXZoeXBzMWhZd2YyMjBW?=
+ =?utf-8?B?V21ZQXg2dzNWZkpzeXNabzZwbUlQanZ5Rm13SURzYjNWU0VsdkVaMDlHb1hW?=
+ =?utf-8?B?TE13UzRvNGJ5UlhCbUxXdG5hTmE0OGJPRHpqZ1RGYWxoYjRVVUpXbW9iYzhY?=
+ =?utf-8?B?K3FDblltbXFHTUpWUUNoY3pMdmNaUTVENEFQNTJ6WW4yeUQ5OE4zOXpkenJI?=
+ =?utf-8?B?WWRpV2xXNFd1ZFRUZExJc1FsdTVEZGIzdXNHNmJyTHpXMGhoMFRGNWVodDJ3?=
+ =?utf-8?B?M1EvRmpvVk9TejVVTkprMStUZjZiR21Xdk5YLzRCT0RBYnc2SWxKUFFhY1Bw?=
+ =?utf-8?B?a2x5K0w0dkloaS9WZlhxVnVlaXdxVERGTFg2bzZzUktCRXpsRFc4QVFzQnFZ?=
+ =?utf-8?B?SzhkWjdOQ1Y0NEtYNlhxY0piYmNESjNMQXRZMjM1QW12SDRDYTJOWG1hZzhz?=
+ =?utf-8?B?cmFvRHlZdWRITTNVZXd0ZUZFV0tyWFBBWkJ0VHdHdm5NL3MvaEcvVnhmYTRn?=
+ =?utf-8?B?MjZ2blRsWm0wc0pGeGlzbzBKa283NCtZa3dEUkR0b3pjRlVrMVJ2WGpnelJp?=
+ =?utf-8?B?dnErRGRzTzk0UHFrY0RIb1hTbm9vdUJRYnlQam9OMmJCV09JUC9RR2dDdndx?=
+ =?utf-8?B?aUtuWCtDcjk0TDJHZUdqclpYeXc4ckkrMnBpdkdPQlZVZkp6YU5KbFFZRnpC?=
+ =?utf-8?B?SkNoekNwMDFRdnNNOUNmeTlPenE5UUg0UFR2a0pvRGFRTkFlRE9sSGVHdFIr?=
+ =?utf-8?B?MzZlUGZOOENvanZ1Y1luaUxUbXFYS1dHdFdJMElXUXVKOUM1WDBkRlBvaDIw?=
+ =?utf-8?B?ZG5UQ0twOXZyL2pqRDNqTGYvSG1KeEM1WW00aEttc0VTSUhranFLeXl4NFpS?=
+ =?utf-8?B?MTF5S0p0a1k0UTAxUGZMc1R2V0RiRW9BTTVINlZlb2FGR2VTS0JXZ3Nucyta?=
+ =?utf-8?B?VVl1Rzh3c2lKOHNOVFdWcHUwQmxjekJhczlDMjU1ZExqN01pbllBKy9md05I?=
+ =?utf-8?B?RnlOWkFHZHE3VXFVRlBVZWNqZUR0V1hlaitMdytjYy9maWtERm9ub096NTRZ?=
+ =?utf-8?B?K2ROdVJHZlVUSkFFUEtvYmxLb01tekRkRWxyVzBsSzJuTkpzdzlFaDdvNTB0?=
+ =?utf-8?B?Z2tSeE02WHZZNExtV2RXMUNOM01aRVh6SjJJalRFNk83NnFpNWJwek1hcEtH?=
+ =?utf-8?B?d3FPV2Jab2FBRHlKYXdJTDNMY2FtU0ZiaEJPdzZ6VVdTRFlONkthV0FwczNI?=
+ =?utf-8?B?Zm9PT1FwVXhlV3V5TWxtOGxYVFd4SEtoMWZ2QUZIMHZ0cmUxaGZpaFEzZUNP?=
+ =?utf-8?B?T2dOdUJadVhyS0dtdHJFTjkwcE5kKys2SGhQSkRpbVgwR09kdkNYaGJzT0dI?=
+ =?utf-8?B?S1oySWFoY1VBYjRwdnRwNWh1OHlxR3NRRGlBTHhvZS9vWlUzUkZ0ODJrQnl1?=
+ =?utf-8?B?eGlBVXNHSGZHYTEzRFE0UDVaMU85Ym9NdnpSU05PM1diczdYcURzSjQwbmJM?=
+ =?utf-8?B?bWV4MXIxeWowaFRXdWkyTTR2NzRaaC9sMDRoVGxCWmg5WFFxQzZsdTFVUW9C?=
+ =?utf-8?B?dDJNUEtwQjFWQlB6QWNPaXRyZUJQckZHdFY0bFVZeFZYUGRDN0x5SEJiTFVn?=
+ =?utf-8?B?L29mdjlNSXlPR3V5YmFDNXBGOWs3ZDBTY21UTGpZaGRIVmR5eGxNa2I2dmlJ?=
+ =?utf-8?B?dWdtTVYycXA2aklyODNobGRVYnBhc0podGdtVldxejlpQmVTdllKV1RvM3Bh?=
+ =?utf-8?Q?cuHhyQebsX6wfTAE=3D?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 143d6231-52cb-4526-19c6-08dec02099d3
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 20:58:58.7353
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: ANSIQup86cMiDiw97nQUWa3YCBS7sylZuZVcwXMt1HRVMN+pxZ4I18POtBUsTr3Vs6YjRAZGu6DblvyO3/ZLSKUcnWRi0jnbWKHGUI8TapZa8bQGb7zcBPmagBRRoZck
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12079
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
-- [High] Non-sync cancellation of `cqm_limbo` and `mbm_over` delayed work d=
-uring CPU offline and error paths leads to a use-after-free of the `rdt_l3_=
-mon_domain` structure.
-- [High] AB-BA deadlock between `cbqri_domain_list_lock` and `rdtgroup_mute=
-x` during concurrent CPU hotplug operations and RMID reads.
-- [High] Self-deadlock on `cbqri_domain_list_lock` during CPU offline domai=
-n teardown when flushing limbo RMIDs.
-- [High] `max_rmid` remains at its uninitialized `U32_MAX` value if an L2 c=
-apacity controller is `mon_capable`, leading to a massive OOM allocation du=
-ring filesystem mount.
-- [Medium] Userspace reads of LLC occupancy will fail with `-EIO` when targ=
-eting `nohz_full` CPUs due to incorrectly registering the event with `any_c=
-pu =3D false`.
---
+From: Frank Li <Frank.Li@nxp.com>
 
-commit e556b965bbc51629bbf2d48c342592c000877b63
-Author: Drew Fustini <fustini@kernel.org>
-Subject: riscv_cbqri: resctrl: Add L3 cache occupancy monitoring
 
-Expose QOS_L3_OCCUP_EVENT_ID so userspace can read per-MCID
-llc_occupancy. The result is converted from capacity blocks to bytes
-using cache_size and ncblks. Each MCID is armed once with the Occupancy
-event by cbqri_init_mon_counters() and free runs thereafter.
+On Fri, 29 May 2026 00:05:50 +0200, Stefano Radaelli wrote:
+> Add the reset GPIO for the TPM device on the Sonata carrier board and
+> label the node accordingly.
 
-> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
-trl.c
-> --- a/drivers/resctrl/cbqri_resctrl.c
-> +++ b/drivers/resctrl/cbqri_resctrl.c
+Applied, thanks!
 
-[ ... ]
+[1/1] arm64: dts: imx95-var-dart-sonata: add TPM reset GPIO
+      commit: 821682642c519cb523206af1d04b58719aadefb0
 
-> @@ -181,6 +181,89 @@ void resctrl_arch_mon_event_config_write(void *info)
-> +int resctrl_arch_rmid_read(struct rdt_resource *r, struct rdt_domain_hdr=
- *hdr,
-> +			   u32 closid, u32 rmid, enum resctrl_event_id eventid,
-> +			   void *arch_priv, u64 *val, void *arch_mon_ctx)
-> +{
-[ ... ]
-> +	if (irqs_disabled())
-> +		return -EIO;
-> +
-> +	/*
-> +	 * cbqri_domain_list_lock serialises the list walk against
-> +	 * cbqri_detach_cpu_from_ctrl_domains().
-> +	 */
-> +	mutex_lock(&cbqri_domain_list_lock);
-
-[Severity: High]
-During CPU hotplug, cbqri_resctrl_online_cpu() acquires
-cbqri_domain_list_lock and eventually calls resctrl_online_mon_domain()
-which acquires the core framework rdtgroup_mutex.
-
-However, when reading monitoring data, the core framework acquires
-rdtgroup_mutex and then invokes resctrl_arch_rmid_read() which acquires
-cbqri_domain_list_lock here.
-
-Does this establish an AB-BA lock inversion between cbqri_domain_list_lock
-and rdtgroup_mutex?
-
-[Severity: High]
-Additionally, when a CPU goes offline, cbqri_resctrl_offline_cpu() acquires
-cbqri_domain_list_lock before initiating domain teardown.
-
-If the domain is torn down, the resctrl core flushes busy RMIDs by calling
-__check_limbo(), which invokes this resctrl_arch_rmid_read() hook.
-
-Since this hook unconditionally attempts to acquire cbqri_domain_list_lock,
-does this cause a self-deadlock when offlining a CPU with active monitoring
-traffic?
-
-[ ... ]
-
-> @@ -500,6 +582,13 @@ static int cbqri_resctrl_control_init(struct cbqri_r=
-esctrl_res *cbqri_res)
-[ ... ]
-> +		if (ctrl->mon_capable && res->rid =3D=3D RDT_RESOURCE_L3) {
-> +			res->mon_scope =3D RESCTRL_L3_CACHE;
-> +			resctrl_enable_mon_event(QOS_L3_OCCUP_EVENT_ID,
-> +						 false, 0, NULL);
-> +			res->mon_capable =3D true;
-> +		}
-
-[Severity: Medium]
-The L3 occupancy event is registered with any_cpu set to false. This
-requires the core to read the event from a specific CPU using
-smp_call_function_any().
-
-If that CPU is configured as nohz_full, the read executes in an IPI context
-with interrupts disabled. Since resctrl_arch_rmid_read() correctly returns
--EIO when irqs_disabled(), will userspace reads fail on nohz_full CPUs?
-
-Could any_cpu be true here to avoid cross-CPU IPIs, since the MMIO reads
-can be safely executed from any CPU?
-
-[ ... ]
-
-> @@ -510,6 +599,7 @@ static int cbqri_resctrl_control_init(struct cbqri_re=
-sctrl_res *cbqri_res)
-[ ... ]
-> +	l3_ctrl =3D cbqri_resctrl_resources[RDT_RESOURCE_L3].ctrl;
-> +	if (l3_ctrl && l3_ctrl->mon_capable)
-> +		max_rmid =3D min(max_rmid, l3_ctrl->mcid_count);
-> +
-> +	if (!exposed_mon_capable) {
-> +		max_rmid =3D 1;
-> +		return;
->  	}
-
-[Severity: High]
-If the hardware has an L2 monitoring controller but no L3 monitoring,
-exposed_mon_capable becomes true but max_rmid is never narrowed from its
-initial U32_MAX value.
-
-When the core framework mounts the filesystem, it will query
-resctrl_arch_system_num_rmid_idx() which returns max_rmid. Will this
-cause an immediate OOM panic when it attempts to allocate
-U32_MAX * sizeof(struct rmid_entry)?
-
-[ ... ]
-
-> @@ -560,13 +673,89 @@ static struct rdt_ctrl_domain *cbqri_create_ctrl_do=
-main(struct cbqri_controller
-[ ... ]
-> +err_offline:
-> +	/*
-> +	 * cancel_delayed_work avoids deadlocking against the cqm_limbo
-> +	 * worker which takes cpus_read_lock while this hotplug callback
-> +	 * already holds cpus_write_lock. mbm_over is only
-> +	 * INIT_DELAYED_WORK'd when MBM_TOTAL was enabled, so gate the
-> +	 * cancel on the same condition to avoid touching a zeroed work
-> +	 * struct.
-> +	 */
-> +	cancel_delayed_work(&mon_dom->cqm_limbo);
-> +	if (resctrl_is_mon_event_enabled(QOS_L3_MBM_TOTAL_EVENT_ID))
-> +		cancel_delayed_work(&mon_dom->mbm_over);
-> +	resctrl_offline_mon_domain(res, &mon_dom->hdr);
-> +err_listdel:
-> +	list_del(&mon_dom->hdr.list);
-> +err_free:
-> +	kfree(mon_dom);
-> +	return err;
-> +}
-
-[Severity: High]
-If a worker thread is currently executing but blocked waiting for
-cpus_read_lock(), cancel_delayed_work() will return immediately because
-the work is no longer pending in the queue.
-
-After the hotplug thread drops cpus_write_lock(), the worker could unblock
-and continue executing, accessing the mon_dom structure after it was freed.
-Does this create a use-after-free window?
-
-[ ... ]
-
-> +static void cbqri_detach_cpu_from_l3_mon(struct rdt_resource *res,
-> +					 unsigned int cpu)
-> +{
-[ ... ]
-> +			cancel_delayed_work(&mon_dom->cqm_limbo);
-> +			if (resctrl_is_mon_event_enabled(QOS_L3_MBM_TOTAL_EVENT_ID))
-> +				cancel_delayed_work(&mon_dom->mbm_over);
-> +			resctrl_offline_mon_domain(res, &mon_dom->hdr);
-> +			list_del(&mon_dom->hdr.list);
-> +			kfree(mon_dom);
-> +		}
-> +	}
->  }
-
-[Severity: High]
-Similarly here, if a worker thread is already executing and waiting on
-cpus_read_lock(), cancel_delayed_work() won't wait for it to finish.
-Will this lead to a use-after-free on mon_dom once the lock is dropped
-and the worker continues?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ssqosid-cb=
-qri-rqsc-v7-0-v6-0-baf00f50028a@kernel.org?part=3D12
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
