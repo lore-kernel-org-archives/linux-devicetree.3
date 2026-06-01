@@ -1,33 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010045.outbound.protection.outlook.com [52.101.201.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0DCC2E7389;
-	Mon,  1 Jun 2026 08:21:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780302097; cv=none; b=qo0RBOSGVtoetTbptuBBFawNsbWSIEqb2k8iI4qZ+uC577VKA+I0nE2DKuNPZ4UmnstX89ylsX8HHYufnx4AuQXgeWwuueyYXaZpVOBKnVw06NtCR+mZZVp2EM8PigPnfPDKsz0LAXYj052iAZglHEz/U7RMpTRAQTZR8mlrrhE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780302097; c=relaxed/simple;
-	bh=4KfAqwKtaZHhUsFCk3UJX6+lY30pS4S+yrDt08amzmY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C+2xajt/A6p75kXM1Qx+BCzzspOUslo34M47a8ShCQf0UVd8O+WFGAq0cvH0xpe3ZaA/0FMt4NIxy5yhMLEOGRZsgqp+8qUp91CEpEN0rAr1Pm+OI713HPpRSArEOiHQhBm0ZgF/HmIR1jYCIBRgoJaYnpq3b1xCSHAWy5VdS0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KtedyBDM; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D68038AC93;
+	Mon,  1 Jun 2026 08:26:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780302403; cv=fail; b=Aqjhbr9hzo+mI1XpFS/cgqhMn3VDccgaVo1ywwaMpu8zVAMmSw1SjpMG3e7l1jZo7dcbKwKU86gqxMeg1DpftDg/pwUZ6+qqOJDMO3bS++0vAbSyVQS7nn37rUuW3o9v6uVRKHaoe6vwIb5XJXNUi7pi1/1qzNErAzEEFGxfrOw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780302403; c=relaxed/simple;
+	bh=z9igVhP3VwNL6BzXLNYazL4jbK5mnEtzV9ArQ7vsdeY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=D4EhP2MJtUkDMImC12PscYPmN9Mkpw+K54+w2VNhTT0wrmW+nSSja4/zaaGYgq2/DHHYlCfdttmtzAepUi9Fyk2faonLKbf6o2k90a3UQX6GrxcY32laUFj4VQ+QfOJUQ4VwYiVTJdxJ82Ks9URVLQZoISXQY3RUWftztxcXNQc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=O0yS7Xrp; arc=fail smtp.client-ip=52.101.201.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KtedyBDM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047181F00893;
-	Mon,  1 Jun 2026 08:21:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780302096;
-	bh=gEwf6DK4DDpX8f464rLcR/JXh/kcLHGVx4z5emjwqdA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KtedyBDM6J/O/Gy3NTFLGJ+TG24SqaG5sHk+lNAzjCPWB9L1qvbfN80sJW1ZvQmka
-	 SD1dzCu0ZyZr59ulFyq9BvoWciGmOaKhGemLOHIpK001SRR/K1D7LBwkoYf00NoO/F
-	 9aWMBSExCpN8caWTQWrXo06tokGQfPLkdCjmoSl4xKpUvWENct1INz+evxK0blu5hJ
-	 trsCusRZ0fwgMetKzLg1ytE80f4ZiifLMALf/AyAowHGn9NDwC0S7S+98rNEOiMNl5
-	 K2aOv7ecTy7pmCTArcg/3ilhkeZ1A5cG12oiETre2uerhzxxroRCCBFEVxnDao0Y1F
-	 5rWA3+5b+KUxg==
-Message-ID: <fb9f6959-f9d8-4e3c-a952-5338a375fe4b@kernel.org>
-Date: Mon, 1 Jun 2026 10:21:23 +0200
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="O0yS7Xrp"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=q3wQI6nTQiSrcvc4JKatbCuptmC8qS5GeXeAJx+0t/0aqaSkCUtB2Ej89szWfnbLc4hma0jYGL/1hF2Qz9eSPzQYTuVz7tW/wUE9ihY4aq0YhTJWPGx0TYazvncYukPSeehi5GlRtWS+v5Tjn1WJfIoY2C/MJXyboX5KHDSgEi5XLW92frfjcPx+ywQhfqX5v7c14zqqnhEHdLataODn8HPjpWf2ByU+/TtFbVYUTA5smpFO7kMVD+pmc/cFIZSqgARICzdNBSLlrr42g/NdGsKNT+6s5WBmE2xVoQx4SjoLtvEOM8L7AZchUDjtktgbYrPbQrkDK7nyCeh5H9FYMA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Lh9tyOqP3lfqgyLKYeMAl1bgjVNE+BFUW/THl3D8CZk=;
+ b=kEdkdFtEgx9i2Rya5H+0SLiKZJHRqLU4yP1eGEGX8wERYTV0Ruqh3MceRZzZc4pOh1qHGUHcLwu+mt55qKhu8KW+WvrQDpgEJr4QWGS5a6GPo1PkdGt4jF/VcIRE4Pc/U6YAHRZv8atdm8PMNHJNPQnxif6i9nAOCp/yVE/SBmWwTmX7f4NpeBJY4wIKmFMIvrJkmIjykQz/9Piv0pH0JTdEKkTC5ZED9pgUiq9n9xr704HXY9JRgD87vPDRu+g/cuTO1pCdMOcdm5gPmXdD1cNYheGwvyEYWjp47FBdSzIIyCvFxYHc06Q7q3GOl5AD+YX971X6PvANdyv1T9HRjw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Lh9tyOqP3lfqgyLKYeMAl1bgjVNE+BFUW/THl3D8CZk=;
+ b=O0yS7XrpffrhhrBfHa1su7LBZe+2kmNH/VoIyRcNgWxn6NCTVqF52Ml3VI2ieOJMzMGMpRMiwZw8iL7JaPMsYe02sNJ4GUjbnycsQvnQ4njDFhZMju4dyLxwiU0je/rO0+ukz+w2P0tG6A8IWdCAW1f6bEkAg1ge05RIthiihyU=
+Received: from SJ0PR05CA0091.namprd05.prod.outlook.com (2603:10b6:a03:334::6)
+ by DS3PR10MB997726.namprd10.prod.outlook.com (2603:10b6:8:345::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.14; Mon, 1 Jun 2026
+ 08:26:39 +0000
+Received: from CO1PEPF00012E81.namprd03.prod.outlook.com
+ (2603:10b6:a03:334:cafe::e) by SJ0PR05CA0091.outlook.office365.com
+ (2603:10b6:a03:334::6) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.5 via Frontend Transport; Mon, 1
+ Jun 2026 08:26:39 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
+Received: from lewvzet201.ext.ti.com (198.47.23.195) by
+ CO1PEPF00012E81.mail.protection.outlook.com (10.167.249.56) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 08:26:38 +0000
+Received: from DLEE214.ent.ti.com (157.170.170.117) by lewvzet201.ext.ti.com
+ (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 1 Jun
+ 2026 03:26:37 -0500
+Received: from DLEE215.ent.ti.com (157.170.170.118) by DLEE214.ent.ti.com
+ (157.170.170.117) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 1 Jun
+ 2026 03:26:36 -0500
+Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE215.ent.ti.com
+ (157.170.170.118) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 1 Jun 2026 03:26:36 -0500
+Received: from [172.24.233.254] (santhoshkumark.dhcp.ti.com [172.24.233.254])
+	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6518QVrp1158396;
+	Mon, 1 Jun 2026 03:26:32 -0500
+Message-ID: <2f091813-fa28-407f-892d-bbbbe3cac4e4@ti.com>
+Date: Mon, 1 Jun 2026 13:56:31 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,99 +75,117 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 6/6] arm64: dts: marvell: armada-7040-mochabin: Fix
- is31fl3199 shutdown GPIO polarity
-To: Gregory CLEMENT <gregory.clement@bootlin.com>,
- Jun Yan <jerrysteve1101@gmail.com>, linusw@kernel.org,
- dmitry.baryshkov@oss.qualcomm.com, Lee Jones <lee@kernel.org>,
- Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
- Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
- Bartosz Golaszewski <brgl@kernel.org>,
- Vincent Knecht <vincent.knecht@mailoo.org>, Grant Feng <von81@163.com>,
- Andre Przywara <andre.przywara@arm.com>, Baruch Siach <baruch@tkos.co.il>,
- Shawn Guo <shawnguo@kernel.org>, Paul Barker <paul.barker@sancloud.com>,
- Robert Marko <robert.marko@sartura.hr>
-Cc: Pavel Machek <pavel@ucw.cz>, Wei Xu <xuwei5@hisilicon.com>,
- Geert Uytterhoeven <geert+renesas@glider.be>,
- Patrice Chotard <patrice.chotard@foss.st.com>, linux-leds@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-gpio@vger.kernel.org
-References: <20260525144629.498630-1-jerrysteve1101@gmail.com>
- <20260525144629.498630-7-jerrysteve1101@gmail.com>
- <8733z621cs.fsf@BLaptop.bootlin.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY tuning
+ pattern partition property
+To: Krzysztof Kozlowski <krzk@kernel.org>
+CC: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
+	<vigneshr@ti.com>, <pratyush@kernel.org>, <mwalle@kernel.org>,
+	<takahiro.kuwano@infineon.com>, <linux-spi@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<linux-mtd@lists.infradead.org>, <praneeth@ti.com>, <u-kumar1@ti.com>,
+	<a-dutta@ti.com>, <s-k6@ti.com>
+References: <20260527175527.2247679-1-s-k6@ti.com>
+ <20260527175527.2247679-3-s-k6@ti.com>
+ <20260530-original-peccary-of-cubism-af68ed@quoll>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <8733z621cs.fsf@BLaptop.bootlin.com>
-Content-Type: text/plain; charset=UTF-8
+From: Santhosh Kumar K <s-k6@ti.com>
+In-Reply-To: <20260530-original-peccary-of-cubism-af68ed@quoll>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
 Content-Transfer-Encoding: 7bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CO1PEPF00012E81:EE_|DS3PR10MB997726:EE_
+X-MS-Office365-Filtering-Correlation-Id: e07823c1-38cc-4fdd-8e9c-08debfb78094
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|7416014|376014|36860700016|82310400026|18002099003|22082099003|4143699003|3023799007|56012099006;
+X-Microsoft-Antispam-Message-Info:
+	l0k//yK8w4P4eKjp/aooygq+8Jn+/EaS5By7FfhEv1D64Cah+JhrrRMCebkpvLDkNfG2CBolrMXgWsJtLsLtTee9YjVzpljgwZVa8QIjFhk7VEmukRAHHolz3qnG9LaWCY7LUxIFlTyqsad987Rus1FvvA5GhL59O4+oki8KPFLaZoZbhXKgt+dpUjOlFECKhcEA2MafZUcINxfDsiLtxUJ66PuKf5RV5hYybycLeIK9roYoriSaBOLDD8ypbXCaJX1TZiKcAbYv447/KXhLF4daVQQHpkjklY7R2rYEbSrwx1sUOpjXt0QJkhxsGZyTea05C507dvAj+mpsd3EBOIpUMM22iVq7tbJnCiV+Puj2A1mX98gwcL/zUKUQ4DD9sLQnuJeqEjmDcmwOsdlFk5jMHn5cB/ojQVV1ose0bg6wLP48yQJSYd4jYr/2HNeXzO+W5J4JxnacM85dsVFe6//pPQ3o9H45tpOklDrz14x8QVQqb4j2XO4I3nznsVH6Vc7RuQHGT2lDUvbQffmeUYZRxX3/COYFeMT4jhpfgFjoOmuSW8or4reHghXiH1CG1xVuyQ8VhPr4NidWZCbvc6xOjPcy57GvSUCXk7jY0+zrll2c1qxo02e0odPdpJPTjqoGhFQresNuh2QNrU32DjYPQMOZevv5vrYY33W+MrPpX6INw2fyBEbAmn8H4TOThmEsswBzJJKNkkKxXKLKHquHGzbEBo2ElmJz6qaQWznWNxKBlrKjgaRuSraHCWgM
+X-Forefront-Antispam-Report:
+	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(36860700016)(82310400026)(18002099003)(22082099003)(4143699003)(3023799007)(56012099006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	2Q2I2gSxv559XVqw7CmLaq1dh6WbGrz4PMQtB8Xony2L80IigaM199yfyapOaSFdzS7LxSJ0TGRzpEP9mHMlWYZLTy8Qa82oRL7f5PTfwZ/klnWix2y1rnUfzyHHwEUBm+Tm/qDABUaPbDzT5BYfCK0WMRRgxdur3G8Lrl/mKWSpEAd9+09mQ8DMMeTk8J6/rp3OpuXXQwBpUcMhfMa9kr2YN63Hf035z79/n/JRRM9UFY9WmHEd91BGuw0odvA7UCLW96T9SNUJAKADdVJSmQ3+BjZ5nMTFLX9uwlszMNgbAVL9pgdvKeZQvR3KFq/+ncwQ83l+4XaPeFMmJ9u5xWXc01XhssVlK3EHBRP8UulZIrSVt7J8/58l4aE0VJY/ni1cmR/eoCcH0qMZJOPk+/R8iXahk9QZd6t/qqjnvAIZ16uQK7rFVK09JHthOLkL
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 08:26:38.8926
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: e07823c1-38cc-4fdd-8e9c-08debfb78094
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CO1PEPF00012E81.namprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS3PR10MB997726
 
-On 01/06/2026 08:58, Gregory CLEMENT wrote:
-> Hello,
-> 
->> The is31fl3199 shutdown pin is active-low [1]. Correct the GPIO flags
->> from GPIO_ACTIVE_HIGH to GPIO_ACTIVE_LOW to match the hardware.
+Hello Krzysztof,
+
+On 30/05/26 14:22, Krzysztof Kozlowski wrote:
+> On Wed, May 27, 2026 at 11:25:16PM +0530, Santhosh Kumar K wrote:
+>> PHY tuning requires a known data pattern to be readable from flash.
+>> When no partition is explicitly identified, the controller must search
+>> all available partitions to locate the pattern by label, which adds
+>> overhead and relies on label naming conventions outside the
+>> controller's control.
 >>
->> [1] https://lumissil.com/assets/pdf/core/IS31FL3199_DS.pdf
+>> Add cdns,phy-pattern-partition, a phandle property that allows the DT
+>> author to directly reference the flash partition holding the PHY tuning
+>> pattern. The controller uses this partition during calibration, avoiding
+>> the partition search entirely.
 >>
->> Fixes: 737929191283 ("arm64: dts: marvell: add Globalscale MOCHAbin")
->> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+>> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+>> ---
+>>   .../bindings/spi/cdns,qspi-nor-peripheral-props.yaml      | 8 ++++++++
+>>   1 file changed, 8 insertions(+)
+>>
+>> diff --git a/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml
+>> index 510b82c177c0..0ffcdf5b00d0 100644
+>> --- a/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml
+>> +++ b/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml
+>> @@ -39,4 +39,12 @@ properties:
+>>         Delay in nanoseconds between setting qspi_n_ss_out low and
+>>         first bit transfer.
+>>   
+>> +  cdns,phy-pattern-partition:
+>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>> +    description:
+>> +      Phandle to the flash partition containing the PHY tuning pattern.
+>> +      When present, the controller uses this partition to locate the
+>> +      pattern data during PHY tuning instead of searching all partitions
+>> +      by label.
+>> +
 > 
-> What happens if this patch is merged before the driver LED patch? Will
-> it break something?
+> This should be used in any of applicable examples.
+
+Please refer to the DT changes included in the repository linked in the
+cover letter, which should provide a clearer picture of how this
+property is intended to be used. [0]
+
+I'll also add a DT binding example in the next version to make the usage
+more explicit.
+
+> 
+> I also have doubts that this is per-device property. Your commit msg
+> suggests it is per controller.
+
+This is a per-device property. It is consumed by the controller driver
+only to locate and retrieve the offset of the PHY pattern partition
+associated with the device. If the current commit message suggests
+otherwise, I'll update the wording in the next version to better reflect
+the actual message.
+
+[0] 
+https://github.com/santhosh21/linux/commit/07e9281a6dcd2b0a01088df21e798b64d099f55c
+
+Thanks,
+Santhosh.
+
+> 
+> Best regards,
+> Krzysztof
+> 
 > 
 
-What if this patch is merged by a different maintainer, not LED? What if
-this  patch is merged by the same LED maintainer (not allowed, but let's
-discuss) but is not squashed into LED driver?
-
-IOW, entire set like breaking users.
-
-Best regards,
-Krzysztof
