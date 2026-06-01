@@ -1,172 +1,188 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013008.outbound.protection.outlook.com [52.101.83.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A57E5361656
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 20:48:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780346890; cv=none; b=D1g/VaeiTtP+XQoYV5Pq7g+TJHtG38RS+LuKnJ5gUQQT/QHocl/BQDMH7e5LkAgttQJLxzbPlCqlJqs3vo99/ZhhLNXwdlemNDJWJa7xn6v8mIvSOAWmeZqbHDyUVVPdwF0+VNJgVwziqx5EPvcx+UYWw/AS8+b9ZuFuVzLaoKk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780346890; c=relaxed/simple;
-	bh=08l0oZJROEcosOyskoo7I4EdS5/F1vuEg0gvwp94Ixw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RNre+qt+DL3lw7iGqYHNzamyHa4nihjQpE+kYv00oyqX54qyx8HG5TpbSXFk9whRPn84tXKg0kGUqmv4UVcVNk5aGMAQojx9f+/yMwjXRkHPaehhIrN+tIh+/C1vVv+Md/fD3awkovShX48OYiIfA+B1J/9l/MnSASOBGLsSSU0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YlGK8Qlb; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95C51382F1D;
+	Mon,  1 Jun 2026 20:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.8
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780346943; cv=fail; b=BzxnXs3nsvSW2E4a1S+5ROVK2Pw39A7hhxJa9/PnAqPz6hial6JTGI4o2++vJ5BkQcuublLSsn5sWHJD7fs+qUIQK3P4PpQFxMNfLkD5I8uive/hDxZNfsOyNV/0botgy8Fkt4npWOACxTK0Lv/uha6ciSSbhFGILr0TdWewoeY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780346943; c=relaxed/simple;
+	bh=IWGxj/0ok8lQvMGB2LEGQNL2ARpEPRFdgPSM/Vz8XQc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=tONF02msNdKfZMUDbgUON8hKNNX8e52cuKwLJagcFdgNlURYAFhv1/WiGiHW7j+M/RpzBPPyXpwsiMJm8Fzo1UGphDfE9yb12KfJWW9go0HU8MM5oyznEv8OvKT0UnMMz6VVDiP7sfyDx6pFDbKzIR5UD+7VxJgMsAToNvCmjZo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=BpZ+sSmo; arc=fail smtp.client-ip=52.101.83.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YlGK8Qlb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 187341F00898;
-	Mon,  1 Jun 2026 20:48:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780346889;
-	bh=J0m/ES99evNePdy+sAjfZDY/+Xkvi9xf627vp8ulFiU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YlGK8QlbKi5mLG+xpjXW9DTtvR51jeVY/LDZCwFqg0pbsBIoiV76aGuYubvZk4oUw
-	 VLdfQoRWaE9ToELdAqBQ5jbEJbhIhvlJl820vWYS3nwhHGvvKe9VKFTjspOi0oNh6J
-	 jwTAPHWaJMMX0LkKZElDtvP+E7xXbkGvUki9PgpLkck8kaJEVv33oJhoFX0yTzjjUU
-	 cQXBUX8h7bPsF9SoP9O7IkuggGu/hiDqinKpos1m0BGILopnaUwusUt0rryDrJrdEe
-	 3aSLAcdD8PTrz79KbyOUNfKFVtKxfY3TabsAByXri8994RKMf/MN3D+eI9+FH1m58R
-	 MhTU+qs72sZ+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v6 07/18] riscv_cbqri: Add capacity controller probe
- and allocation device ops
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-7-baf00f50028a@kernel.org>
-References: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-7-baf00f50028a@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 20:48:08 +0000
-Message-Id: <20260601204809.187341F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="BpZ+sSmo"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=AzuUdxnBQRq4I51Gw7wNL2mcIiV1Vf9dLfnSHzVMHjIPcGFs1VqY6fnEoJTQ+JnMdzLLgQMMpVkVa0fXpV6QyijGUnh8RdCziyJOXjh79/C/TbPnUJZtTtsvSyZZfFTtyG5IEd4U3VtD7kenBvwwQT0CWubOwBnPYiPnlMGYFLh4Z7NN53B8aB83kVXwEuxWLs+nTLqYtz+bzdfSgtZPoggyzRjZJ+wBsZRF1R1vL150Y+BPtFivyTnA3hSOaTTCfbxrQxDrKU/CFpkOamdTZGeWS/urKYnO4CVAr/xYPXrYJvFp3SnJEKPLp+yJZIDfqwdNsNI+rkhVmizq5sfNHQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=dtdvuYPoePr+9koPxqm6pZk/Sfo2YFu6eHNI3S/4xhk=;
+ b=itE+xQTNVstjBPs2Bl+WpiBFirQLkwc7TJPF7af27WTQnPq533ojoG3Xzu85smbfudKlJKUR4gacknbpKcNFumJYoRWmVMxiIODhvXfJ1dh+BzRbCAl0hr+AmnnwUGQPQknnkh1g6WgLUld4u2gA55jdT98pjpjwL9ATszvRW+buTvbZ/5sN7OIYZF0Wkhh/v2Qa5B3fxMHMFNsklSCha2tljaNtz0EVeyG5S2CgfdQlmJRlr5i0xMj71wmG3eQhHurWCvlfta5szxKuMK/SwzOpKmpl1nxGPc8hOOjiycm1S1gZYsxpiOArolsd2rW7/NKKX/toxYb/ogwuBB6hPQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=dtdvuYPoePr+9koPxqm6pZk/Sfo2YFu6eHNI3S/4xhk=;
+ b=BpZ+sSmotWrEj1EKaqdYJndDOl5vjdotfNOskLk1RFAYzhuWyzanZB82Wzgw7l2OZl7/2ThoROnwxBtiEEkAtURyxHIdM7ro+0NyEJvZml9DNI7SiwNkIN6ziKlSjelkoTpkH77QLAn5yrecp3olJY/rTRb0/G4+fZ+80603N4ZzSNGXVKLN5gtgqAi4ostIs5MZcu6Y+64yvvWo00PklB5EnsLiZWxtk/uf/LFVREYJDG6m0XsM2QvSfjAwJO1YSZ24rXSqcjrkhBMl/UfWfi3whhSnsSYVSN8GAsq/xv8xL5K2S+1uNam4ELP633PSPJilklOqwYy8EkjWvayYcQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by VI0PR04MB10976.eurprd04.prod.outlook.com (2603:10a6:800:25b::16) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 20:48:59 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
+ 20:48:57 +0000
+Date: Mon, 1 Jun 2026 16:48:50 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v2 1/4] arm64: dts: imx93-var-som-symphony: add TPM
+ support
+Message-ID: <ah3wMi6QW6DUPrS4@lizhi-Precision-Tower-5810>
+References: <cover.1780051874.git.stefano.r@variscite.com>
+ <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
+X-ClientProxiedBy: PH1PEPF00013306.namprd07.prod.outlook.com
+ (2603:10b6:518:1::13) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|VI0PR04MB10976:EE_
+X-MS-Office365-Filtering-Correlation-Id: 26b2f2c2-1689-4b86-a580-08dec01f3397
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|366016|19092799006|1800799024|52116014|376014|7416014|38350700014|3023799007|22082099003|18002099003|56012099006|11063799006|4143699003;
+X-Microsoft-Antispam-Message-Info:
+ i6ZUVZ53e1xMS6TXEiXvkRgvOp2Et1eGYpppEsrSZyewTQhdQmRAZooxcqE1BHUs6oEYlpiTo6rBmxxKQzi5HIBUxIie1FDB7T7HVQmjrzATxgddTU1MpCvKO9JAvuTgJElxERiS4MY6P0FtRKfqQO+sjlCsrWD1Tpa6vt0bPNbz3GQRrtIBYfTH7rM1mYZTwEz/xyVnXtX8gwIbBvtREu0Z1PgDYgwjJg5OO9CQ+LWKmdpe5yArC5qxZGrRmYTSYzMCJttj1t78EXCSmGq06CVRkP3Fj4yWzE1uSDMvj0rYQxA53QXvCDgZdJ2GCJ37HFFqpsakqgwoiHpqBEoWD2MPHvTzYRSjULMt+QurzedyFaFyUdbJmEAaIvLVaUcs7PiBqWxOQVo1FOTfYXfy0txAhv2jNhW/D3NuBMTRE0iCNXbT8NCcBRiT+DoSHjOMixAGSMRaL84rcvaHEUalkFHAlBvC+zkqLzP9e2N1y6evNpRAK/5E50k2NQrujrNqOBQjKryQAS6JGM/5PRfOs16OvQzay3xGcOGI5QbUMJtoQuQfTE3R8AbICKU62kovBPDeaxW/UZjk7hkSQK0zUEluwdHzf6sGapQj17n2AvbaBe8g/9Vl7yXjuLa+A0Tr8bKDQKBJuZvnZy9u67A0y0XJgeDQ89ZPtZ/UGoPT+DX3c+XZXLHVANAx/O5b4xyTXKGRFSSYy1Ijd6WXCghbUarsR6tNeBKLiFv/2MY+GRi9usIlTA2hsvGf2yIW5w3r
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(1800799024)(52116014)(376014)(7416014)(38350700014)(3023799007)(22082099003)(18002099003)(56012099006)(11063799006)(4143699003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?us-ascii?Q?jH+JDXjn4cmRQ8SlE+VZlapsoFDy9b2DeNXmF7ymoDhzH9N/V9nCz1VcMdFi?=
+ =?us-ascii?Q?BPNiFHHl6ijcup9xZZfNyzStNa8IN0H+TAwgIe4n2+T5x4HMLwdEFa2cBpfR?=
+ =?us-ascii?Q?HT6R1qQDT90HnrNgPjDvI1U0wwowERgfwWYHRGSJZOLdp5nXa31KJSXW0uGJ?=
+ =?us-ascii?Q?4VLjAc2RSnDmS+n3fEYXpGJvlNNzXcp+n87RQGeePNmSlkyowVXNt2dji2VP?=
+ =?us-ascii?Q?ixAQxQFk4piGtUbRQlRHhbV2ZNlEmtwb1yMuDML/ZEmqAYC8v8KCfnlrdXUT?=
+ =?us-ascii?Q?Xcg1353n1zctHR1WOo9k+AylxVw8kT8DjKANl3YPkTwVfwD9L3lec1X5VS3K?=
+ =?us-ascii?Q?w7m/Mm++034YCWkilKtZxuwFgkT6V7y1AYf/QYqQFkh0jfTE+V4eUdGZvcDC?=
+ =?us-ascii?Q?7vKIaa563WxZH+cr8QlJaiEb3Y11d07mPii2VC1MrCfidjcNRZDBLICJeQPB?=
+ =?us-ascii?Q?FHOmsgmE4QM7WEs3vhsSNgKasLjgMecyTqxU6wT8pRf+QyE3bhppmOAsEK3W?=
+ =?us-ascii?Q?PpXCKIoGPIw2nk8U2pKcN9v3Hh+L0pFNMnX9P2b2h0AylSwILeo0BVReaDUt?=
+ =?us-ascii?Q?+snOo+tt6rVvCG65/p7X88+slNXRjKtX0F0sCKB4gul7kkaKJHKTof3AUFXF?=
+ =?us-ascii?Q?d1RW3s+Gnqz3X8Bm8fBgU6SeG21INzHJrfqxez6vrmCHV7QHkUOOAGN6CIhM?=
+ =?us-ascii?Q?KYoq+PRnbYlrv9b4u9gl2vFu+8VwSfYQkBlTp5CZiiyW7cZnWBLgmfnkPCYR?=
+ =?us-ascii?Q?jJ7J3MsBPTIfT3GgJ3l6rXPWkng/57WVL5iFU3qurO2/B2ROZXUjWMHbDOno?=
+ =?us-ascii?Q?RB38kwBCkyIXkjpiRS0w2Jb3VQI7rZYFvxNBkfJRA8i17qKls42+JhAxXp/H?=
+ =?us-ascii?Q?74oyAzOaMzu9Kibza6G+6dOw87+RVtINFPEm6RsN1WiqNDvxyU4MykkvP/pM?=
+ =?us-ascii?Q?bwmmawOgThu53XdTOMEiouVUR+KJkxQS2uf5ha2vyoaab4nfRC8AYIhs0jOa?=
+ =?us-ascii?Q?WTcluR0SLebhnZueKjr2rLM39perXTfGn3wxWS8nnQ/sRFoeMsmdVbmV6nIr?=
+ =?us-ascii?Q?FNqS/U/NApuUZTamo2+Rs0yH1qfMJZl8WbxSonA/9suJ1UyE0guV+tsNu7TG?=
+ =?us-ascii?Q?dsLG1q2LdEfS8MWDvaguUmZ+po1zLKqscJ+/tQc4eKWJ+7aPASI2EY6BOfyr?=
+ =?us-ascii?Q?AzZXW7R5VTklJT2vIjAGheqSykOonwoiZOLgN852r9Yj52DqlN2qF2BUqV2Q?=
+ =?us-ascii?Q?VrbiPc1jo+Bea+Hh8/G1ofmJQjA9EkI9qqG1EuwrmRWbvfWd05ip656I++v2?=
+ =?us-ascii?Q?4qD1RgGUS8V1ZjYbPbYVLd9JAASrvmJdr0+5ZaFkwKs5SsKl4fXWbvY3rcOE?=
+ =?us-ascii?Q?ySq7UlhgiVfpO7QBslBE3cPrFH94GJ4QZcvbF07rKHjE/kE7ymNuOH8UXH7H?=
+ =?us-ascii?Q?TTyNkVf/F9wndJaYBwF3weuOQHfer+XWCA5z+3jSg3bwly9rdD8jo6FP245l?=
+ =?us-ascii?Q?DSLRgiQOA/kZjXrixLPcnLMmgb+4qXEKvdyREIg68057uSH8Z2PBh5Y/jBbF?=
+ =?us-ascii?Q?a2nsJKV6qWbVLki3C2DerMD0+EKuiZ3UiIV+PyI8au0FWBID4pOxbVZ8Xt+A?=
+ =?us-ascii?Q?I3lAINMZ6aDU258iS4T4AbhZ50plDzbqVMYzLtZpEwMO05c7LIIUFfRVkKM+?=
+ =?us-ascii?Q?oKgAwKSEMPoG6fH7dIdHlkTnYG7VWwkj46ynis6t3hjstIXw?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 26b2f2c2-1689-4b86-a580-08dec01f3397
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 20:48:57.6430
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: lcWAMOl3hMRD4P/W35pu8CJUZO38kDIp9z4SfZWJ9D9rst8qa4/xzUvuyi83b/v0EqOJn3mXiO0eBRdF77IHmw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB10976
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] `cache_size` permanently remains 0 because cacheinfo lookup happen=
-s synchronously during early discovery before it is populated.
---
+On Fri, May 29, 2026 at 12:52:44PM +0200, Stefano Radaelli wrote:
+> From: Stefano Radaelli <stefano.r@variscite.com>
+>
+> Add the ST33KTPM2XI2C TPM device on the Symphony carrier board.
+>
+> The TPM enable line is a board-level signal driven through the PCAL6408
+> GPIO expander. Keep it asserted with a GPIO hog so the TPM is enabled on
+> this board.
+>
+> The TPM binding does not provide a dedicated enable GPIO or supply
+> property, so this cannot currently be expressed as a direct TPM
+> dependency.
 
-commit 931d91fef2d993a3edb9eef2d3d5e5329e33655b
-Author: Drew Fustini <fustini@kernel.org>
+there are reset/reset-gpio, can you use it?
 
-riscv_cbqri: Add capacity controller probe and allocation device ops
-
-Add support for the RISC-V CBQRI capacity controller (CC). The firmware
-discovery layer is responsible for passing the cbqri_controller_info
-descriptor to riscv_cbqri_register_controller().
-
-> diff --git a/drivers/resctrl/cbqri_devices.c b/drivers/resctrl/cbqri_devi=
-ces.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/resctrl/cbqri_devices.c
-
-[ ... ]
-
-> +static int cbqri_probe_cc(struct cbqri_controller *ctrl)
-> +{
-
-[ ... ]
-
-> +	/*
-> +	 * Resolve cache_size via cacheinfo. cpus_read_lock satisfies
-> +	 * lockdep_assert_cpus_held() inside get_cpu_cacheinfo_level(). If
-> +	 * every cpu_mask member is offline, cache_size stays 0 and the
-> +	 * controller cannot back occupancy monitoring.
-> +	 */
-> +	cpus_read_lock();
-> +	if (!ctrl->cache.cache_size) {
-> +		int cpu =3D cpumask_first_and(&ctrl->cache.cpu_mask, cpu_online_mask);
+Frank
+>
+> Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+> ---
+> v1->v2:
+>  - Rename pca6408 label to pcal6408 to match the compatible
+>  - Clarify that the TPM enable line is a board-level GPIO hog
+>
+>  .../dts/freescale/imx93-var-som-symphony.dts  | 20 +++++++++++++++++++
+>  1 file changed, 20 insertions(+)
+>
+> diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> index c0842fb3cfa3..f541308ebf6b 100644
+> --- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> +++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+> @@ -208,6 +208,26 @@ &lpi2c1 {
+>  	sda-gpios = <&gpio1 1 GPIO_ACTIVE_HIGH>;
+>  	status = "okay";
+>
+> +	pcal6408: gpio@21 {
+> +		compatible = "nxp,pcal6408";
+> +		reg = <0x21>;
+> +		gpio-controller;
+> +		#gpio-cells = <2>;
+> +		status = "okay";
 > +
-> +		if (cpu < nr_cpu_ids) {
-> +			struct cacheinfo *ci;
+> +		tpm-enable-hog {
+> +			gpio-hog;
+> +			gpios = <4 GPIO_ACTIVE_HIGH>;
+> +			output-high;
+> +			line-name = "tpm_en";
+> +		};
+> +	};
 > +
-> +			ci =3D get_cpu_cacheinfo_level(cpu, ctrl->cache.cache_level);
-> +			if (ci)
-> +				ctrl->cache.cache_size =3D ci->size;
-
-[Severity: High]
-Since this lookup happens synchronously as part of the initial controller
-registration (which happens during early discovery), will
-get_cpu_cacheinfo_level() always return NULL here?
-
-If cacheinfo is unpopulated at this stage, it seems cache_size will be left
-as 0, permanently disabling occupancy monitoring for this controller.
-
-> +		}
-> +	}
-> +	cpus_read_unlock();
-
-[ ... ]
-
-> +int riscv_cbqri_register_controller(const struct cbqri_controller_info *=
-info)
-> +{
-
-[ ... ]
-
-> +	switch (info->type) {
-> +	case CBQRI_CONTROLLER_TYPE_CAPACITY: {
-> +		int level;
+> +	st33ktpm2xi2c: tpm@2e {
+> +		compatible = "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
+> +		reg = <0x2e>;
+> +	};
 > +
-> +		ctrl->cache.cache_id =3D info->cache_id;
-> +
-> +		level =3D find_acpi_cache_level_from_id(info->cache_id);
-> +		if (level < 0) {
-> +			pr_warn("Failed to resolve cache level for cache id 0x%x (%d), skippi=
-ng\n",
-> +				info->cache_id, level);
-> +			cbqri_controller_destroy(ctrl);
-> +			return level;
-> +		}
-> +		ctrl->cache.cache_level =3D level;
-> +
-> +		/*
-> +		 * cache_size stays at 0 here. cacheinfo is not populated
-> +		 * yet at acpi_arch_init time. Filled lazily during probe
-> +		 * via get_cpu_cacheinfo_level().
-> +		 */
-
-[Severity: High]
-The comment mentions that the size will be filled lazily during probe becau=
-se
-cacheinfo is not populated yet at acpi_arch_init time.
-
-However, doesn't the registration function immediately call
-cbqri_probe_controller() below, making the probe synchronous rather than la=
-zy?
-
-> +		err =3D acpi_pptt_get_cpumask_from_cache_id(info->cache_id,
-> +							  &ctrl->cache.cpu_mask);
-> +		if (err) {
-> +			pr_warn("Failed to get cpumask for cache id 0x%x (%d), skipping\n",
-> +				info->cache_id, err);
-> +			cbqri_controller_destroy(ctrl);
-> +			return err;
-> +		}
-> +		break;
-> +	}
-> +	default:
-> +		pr_warn("controller at %pa: unknown type %u, skipping\n",
-> +			&ctrl->addr, info->type);
-> +		cbqri_controller_destroy(ctrl);
-> +		return -EINVAL;
-> +	}
-> +
-> +	err =3D cbqri_probe_controller(ctrl);
-> +	if (err) {
-> +		cbqri_controller_destroy(ctrl);
-> +		return err;
-> +	}
-> +
-> +	list_add_tail(&ctrl->list, &cbqri_controllers);
-> +	return 0;
-> +}
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ssqosid-cb=
-qri-rqsc-v7-0-v6-0-baf00f50028a@kernel.org?part=3D7
+>  	/* Capacitive touch controller */
+>  	ft5x06_ts: touchscreen@38 {
+>  		compatible = "edt,edt-ft5206";
+> --
+> 2.47.3
+>
