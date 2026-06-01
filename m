@@ -1,42 +1,54 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E932F2E0901;
-	Mon,  1 Jun 2026 22:58:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4B6344DBD;
+	Mon,  1 Jun 2026 23:06:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780354687; cv=none; b=f/89ngvusGqN7Jb36YUKh17LfWRnxqKEVhnMzFV7dvuklnHZK+CY7S7RpoUbtcRXRIgd31XU5YvvDxc+5VIhVcCgnyPdl/vYs2ShbLGduxNA4nG09ydCM73+SCPK4DkeQrlHViZ1h62gG9qmlUUcLMfCaqWeFkTJAPqPtG0W+lg=
+	t=1780355201; cv=none; b=jT0lH6pEkJ32B/NBVooM9sd0VguDc7s1Sg1eOeMIns0dQwV8XIFkPQ1t2JDuhUcIqHwjAEMjhfiDz2ilMuaAdMOKPyIDIwv2mHs3Rke1nIO7pBREKzaVAApgMZMkv8H9besISxZfTq0cTNbU9qT0zj/MZXruxLejL/OzE1zBvrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780354687; c=relaxed/simple;
-	bh=uQy4LbDTBv+X0zGUTvg2hyGGkVlOpzztYoA7miqd+po=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZOfmIHLA83aekSWrI+FT3pMuWQEKDo8fzjxiOdSzGY3/ED5+X9VKMBcHaRDVix8xF7S+v49QAYG4DVnwcI4HPtcdcIzwDt1vmjrQSTKxMOHrAUWH5n4+37+8g/q13rxIjttQzrzPHwQx60uU7vRAIY7jKzd3KvmRXbjQ9tf7lmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PsSONfve; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780355201; c=relaxed/simple;
+	bh=F8YTtz/I7qlJdKNeHgBgAlnkSKSiLGNHUK9K4wlzNnI=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition; b=Aihl0cqpTeikwY4+mWzCdpNbuRom6syTXK5ApsR5el9MOSfSCSWXC1PzcpmG8b4eLlRXvOOP7ETsOIyJ/Zw8QQy9ywwGXgrWeJs2lO78UpJo5LM6shIlmhiZgjJNE9sfS4/5D7a/rzzcrB4Z4MIVeicHAKYAi7PQBQHhn/VOhMk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaggX0EN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PsSONfve"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 571081F00893;
-	Mon,  1 Jun 2026 22:58:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaggX0EN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76A81F00893;
+	Mon,  1 Jun 2026 23:06:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780354686;
-	bh=MzlIrZ2xitOElGGvcFl7v9dFMNgCf3mriv86YlPvr/U=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=PsSONfve6OOJYc+tFMyWBx8YeL/z8+OtDwdrC2ic3L9RzBOfRQJYP5R2EU7cQkTvU
-	 hcTSdNRgJWGay4ighXmn52Jv3RUOnifIMCvXDROjbR3eHmnCQpTDcuurLP3ARPN1Ft
-	 p4jPWvakR1AVlNhZ1IkZyg/wj1JPf9Xe23A5piS8pgg5bQXeIyVH+Q7IOY6os+aw/y
-	 I8MTU0bKrUXu+xGf3NiSSanr0vfgnWcGxOqAukOqpGDmquKLvXk35EBRZY85xcBJnV
-	 teMxLYCmGKhC/uoA2j7M9TGW8xaXRMSCqtaX/YCWIyZqYvpvSG6jUBj9kwuZPKnH/i
-	 tR14u2DAzwWCA==
-Date: Mon, 1 Jun 2026 17:58:05 -0500
-From: Rob Herring <robh@kernel.org>
-To: Caleb James DeLisle <cjd@cjdns.fr>
-Cc: linux-mips@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
-	krzk+dt@kernel.org, conor+dt@kernel.org,
-	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: phy: econet: Document EN751221 USB PHY
-Message-ID: <20260601225805.GA129257-robh@kernel.org>
-References: <20260518141343.401555-1-cjd@cjdns.fr>
- <20260518141343.401555-2-cjd@cjdns.fr>
+	s=k20260515; t=1780355200;
+	bh=i1Iq/t7YJ3lzwEzZSDZNa3Rv0CFkmzQDeIArbCfLbks=;
+	h=Date:From:To:Cc:Subject;
+	b=ZaggX0ENXZ/NpWeqheKbjjq2533fbiCDgwuO/RZLYpUcvYdkGvAtm8kHPLdNVNDHt
+	 M8bhgZ9I9G2az1quJHDfgku1K7qxAFZSWodmteMB1BoAJfX1VQobDaLK/W8/HnNiNN
+	 ioR4XXRs7TZoCUa75ASKMWYGKExcq7ruPqVPa1DwFWmMdHLXYWdw4BcKh9SL9wALqo
+	 BE1ImbY2tn8ljHsYP4r3+surVR2hfTnlnupB41iE1Kx9/JWMsjWGPDUdeixyxW0LBZ
+	 psvHmcS7VZblM9IKvPSp7q3eUnq8rvOUKeQUKppvrUHuUjMA+60+lOKBK7RrgDp5tT
+	 CBi4c5I308Mhg==
+Date: Mon, 1 Jun 2026 16:06:38 -0700
+From: Drew Fustini <fustini@kernel.org>
+To: soc@kernel.org
+Cc: Arnd Bergmann <arnd@arndb.de>, Paul Walmsley <paul.walmsley@sifive.com>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Daniel Lezcano <daniel.lezcano@linaro.org>,
+	Thomas Gleixner <tglx@linutronix.de>,
+	Anup Patel <anup@brainfault.org>, Joel Stanley <joel@jms.id.au>,
+	Joel Stanley <jms@oss.tenstorrent.com>,
+	Nicholas Piggin <npiggin@oss.tenstorrent.com>,
+	Michael Neuling <mikey@neuling.org>,
+	Michael Ellerman <mpe@kernel.org>, Andy Gross <agross@kernel.org>,
+	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Paul Walmsley <pjw@kernel.org>,
+	Drew Fustini <dfustini@oss.tenstorrent.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-riscv@lists.infradead.org
+Subject: [GIT PULL] RISC-V Tenstorrent devicetree changes for v7.2
+Message-ID: <ah4Qfro/wUyhByF8@x1>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,100 +57,39 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260518141343.401555-2-cjd@cjdns.fr>
 
-On Mon, May 18, 2026 at 02:13:42PM +0000, Caleb James DeLisle wrote:
-> Document the USB PHY devices which appear in EcoNet EN751221, EN751627,
-> and EN7528 based SoCs.
-> 
-> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
-> ---
->  .../bindings/phy/econet,en751221-usb-phy.yaml | 128 ++++++++++++++++++
->  MAINTAINERS                                   |   6 +
->  2 files changed, 134 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml
-> 
-> diff --git a/Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml b/Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml
-> new file mode 100644
-> index 000000000000..a44f59601747
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml
-> @@ -0,0 +1,128 @@
-> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
-> +# Copyright (C) 2024 EcoNet
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/phy/econet,en751221-usb-phy.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: EcoNet EN751221 USB PHY
-> +
-> +maintainers:
-> +  - Caleb James DeLisle <cjd@cjdns.fr>
-> +
-> +description: |
+The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
 
-Don't need '|' unless there is formatting to preserve.
+  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
 
-> +  USB PHY controller found on EcoNet EN751221 SoCs as well as on EN751627 and
-> +  EN7528. These devices generally have two ports, one of which is a USB 3.0,
-> +  and the other is USB 2.0. The USB 3.0 port is driven by one of two PHY
-> +  blocks, depending on whether the connected device has negotiated USB 3.0 or
-> +  2.0. These PHYs are also used on other EcoNet silicon in varying
-> +  configurations, such as only port 0 (the USB 3.0 port), or only port 1 (the
-> +  USB 2.0 port).
-> +
-> +properties:
-> +  compatible:
-> +    enum:
-> +      - econet,en751221-usb-phy
-> +      - econet,en751627-usb-phy
-> +      - econet,en7528-usb-phy
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  "#address-cells": true
-> +  "#size-cells": true
-> +  ranges: true
-> +
-> +  clocks:
-> +    maxItems: 1
-> +    description: |
-> +      Crystal oscillator clock source. EcoNet devices run at either 20Mhz or
-> +      25Mhz. 25Mhz devices require additional tuning in the USB 3.0 PHY.
-> +
-> +  clock-names:
-> +    items:
-> +      - const: xtal
-> +
-> +patternProperties:
-> +  "^usb-phy@[0-9a-f]+$":
-> +    type: object
-> +    description: USB 2.0 or 3.0 PHY sub-node.
-> +
-> +    properties:
-> +      compatible:
-> +        enum:
-> +          - econet,usb2-phy
-> +          - econet,usb3-phy
-> +
-> +      reg:
-> +        maxItems: 1
-> +
-> +      resets:
-> +        maxItems: 1
-> +
-> +      econet,usb-port-id:
-> +        $ref: /schemas/types.yaml#/definitions/uint32
-> +        enum: [0, 1]
-> +        description: |
-> +          Physical port number. Since USB 3.0 requires a second PHY for the 2.0
-> +          fallback, multiple PHYs can map to the same physical port.
+are available in the Git repository at:
 
-What is special about this platform needing this property. Lots of 
-platforms have 2 phys for USB 2.0 and 3.0 yet don't need a property 
-like this. Can't you figure out which phys are the same USB port by the 
-USB controller 'phys' property which would define that?
+  git://git.kernel.org/pub/scm/linux/kernel/git/tenstorrent/linux.git tags/tenstorrent-dt-for-v7.2
 
-Rob
+for you to fetch changes up to 33583baeb1ba7d328e6a9775d889036900b74cdb:
+
+  dt-bindings: iommu: riscv: Add bindings for Tenstorrent RISC-V IOMMU (2026-05-23 17:14:35 -0700)
+
+----------------------------------------------------------------
+Tenstorrent device tree for v7.2
+
+Add a riscv,pmu node to the Tenstorrent Blackhole SoC device tree. This
+enables OpenSBI to expose the SBI PMU extension, allowing Linux perf to
+use the 4 programmable counters (mhpmcounter3-6) across 3 event classes:
+instruction commit, microarchitectural, and memory system events.
+
+Extend the RISC-V IOMMU device tree bindings to document the Tenstorrent
+IOMMU used in the Tenstorrent Atlantis SoC. A second register range is
+added which contains M-mode only registers like PMAs and PMPs. The
+binding will be used by OpenSBI and potentially other M-mode software.
+
+----------------------------------------------------------------
+Michael Neuling (1):
+      riscv: dts: tenstorrent: Add PMU node to blackhole for Linux perf support
+
+Nicholas Piggin (1):
+      dt-bindings: iommu: riscv: Add bindings for Tenstorrent RISC-V IOMMU
+
+ .../devicetree/bindings/iommu/riscv,iommu.yaml     | 59 +++++++++++++++++++---
+ arch/riscv/boot/dts/tenstorrent/blackhole.dtsi     | 48 ++++++++++++++++++
+ 2 files changed, 99 insertions(+), 8 deletions(-)
