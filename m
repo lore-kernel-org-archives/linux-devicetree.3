@@ -1,71 +1,184 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A048C36C5BF;
-	Mon,  1 Jun 2026 13:03:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780319002; cv=none; b=hrznT6wEB3pVK4mVPcrSSYk2+fh5tigsJcg7O/zYKuNRr22lrXlb9eDpL/Trr7aYTKHH99LOFNhtA1mX1Q+QBs+HwPUNF5QEiGOls3IWaM9TeXXLXqsg91JK2r2hOmUVMOcvi0WUaVJCupFEHGV/6/m9vJHjiffNO3m9QmYZeGw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780319002; c=relaxed/simple;
-	bh=U591pDuWaii6wOnIcsVn1CfhpRm6Af3uNfnlk7jsJ5E=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5375837E303;
+	Mon,  1 Jun 2026 13:05:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780319117; cv=pass; b=gDpD2YnlvCzhy/5Okmc9W0/TXQjyARket00T/y+OkSvD7Nwqzv0BH1ZAzd959dzviQrgv4Rr07VSLwxCOnMqOqpaPtGMDO7VK7FMSICfL1UxP7A8FNcN1eYf3cnl3lBFGGxXNkSFQ0WouvpoaHnQD7fX0pzFRXs7t2dkcAfgVYY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780319117; c=relaxed/simple;
+	bh=fCA48FIv8u+zqewMgKJOrJk2xomQ2TRh9qwjAMbfCbo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mDzy4T19wiVWt7C2BAI0W0fnvovgB4xUPyvS4aaT40gbZLJrhw2nLcHp9Hgh61Pa7nFE2gjraB/+cjcsf8O1oFWGOUP3SGCtFKGBTF5sdcamrhTTqrDz221DWNFYo3l+r6j38nvkbdWg0Kfc41iUCXnhBS/KgI0m2Dwz2f0Ap0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hro2EzSk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=jJKKWiFCDFVsqTxrZ6/prlrZiOu86Xc2qsFv64Mlt8kZB7u1VNx71gUxv1W1HHaZdbhXNjZo18GLdvLxbvBOPaO2QBCReWL/kjq3CaHB6S3MNhr9/qUCzs4zFhIPr67po50IM+KgjetWX2PrCUrDjYTlxtlX6L2lGHJxxiOzk8U=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=PUFBf+Lc; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hro2EzSk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20C841F00899;
-	Mon,  1 Jun 2026 13:03:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780319001;
-	bh=4Qcuv6WiyFpTTR6NYZc9zcTGXOdCJ5UbWCYksTq8AEg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hro2EzSkkrgwHRQkLSvw1iWDm+KKS2NQi9QHW5cFDDP+eYjZwthbqxNpNQ9Ci7gpm
-	 gQ4lxGNJa69h5exAGHP6RQf9OK75AMpVc/bhpDGC9OdulIw40M/ZGrVYB9cCe29M5d
-	 VS8GQKfJmaG2j3THoI9HJu4Ugh/IKuIZ+Zjyia3SpmHhqTRtbETx/KAZk8GQlqHbD7
-	 iNWe4Akzk4y+TFgyNh5Mo0mV+sRhcA2cq0EbYhgZH7RDzymhP+Lqf1lEqRY0ON4a1+
-	 3wDwOz/IZYrRWeeJBSInUM0HhurF34SNe+VaYCkiT8h71jcI8mQTfe4B4j2+knTZ8Z
-	 7d8UiPGmoKADA==
-Date: Mon, 1 Jun 2026 15:03:17 +0200
-From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
-Cc: Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, 
-	Joerg Roedel <joro@8bytes.org>, Rob Herring <robh@kernel.org>, 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="PUFBf+Lc"
+ARC-Seal: i=1; a=rsa-sha256; t=1780319106; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=h/Xi+tV/IUstzM871zF6FXuh+mBGhWqnMR5DYXc8cOmtLj6+nZCsHHe/e60cJ4hr9fVRgDyEqJlq0AEjnaA0Tz54YHnpGLMOIm4om9fsAyuRTil5izjfyKovJMbfJgVFw1JGenmH158ff80l9OhnD2Pdoz8h5sENROwbH3Ntg3Q=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1780319106; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=IyP/e82RTDc5mjTrFGJGFCrf9IzlghgJ+xEuEuBH9+U=; 
+	b=SN/YZr/icpVWicqemS4HR1Q9/BaTop1LQKef6LJtbZv4aW5TdrW8Olmqmufl41B888nW5mH9FuGloMIyZOw6xkexqcOiksb2fgiD/awFOjP87EtaWlEBjHWPVnIHumxYKAbMaLxaA0JsWIZKl4cxmdM0wvU/eU2Vn0zQQtNyTQA=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780319106;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=IyP/e82RTDc5mjTrFGJGFCrf9IzlghgJ+xEuEuBH9+U=;
+	b=PUFBf+LcYyZHLDnAAcfAMKXsvhhGAK7TAOmO4AQmfWATDoY1CQ3W3obe4uR64I5E
+	ZW6XBSRpFxYermPZpZffQiX6TxRiba9jYiIPhsof6GBwbR03xrgSJfaSDj3wLFJfYOO
+	FCgxSicTrMonB5nvB1XCq0MR4vwBh45nEROf94hA=
+Received: by mx.zohomail.com with SMTPS id 1780319103851321.1828931283135;
+	Mon, 1 Jun 2026 06:05:03 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 0CF2A181D80; Mon, 01 Jun 2026 15:05:00 +0200 (CEST)
+Date: Mon, 1 Jun 2026 15:05:00 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: ricardo@pardini.net
+Cc: Rob Herring <robh@kernel.org>, 
 	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	linux-arm-kernel@lists.infradead.org, iommu@lists.linux.dev, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-Subject: Re: [PATCH v2 1/6] dt-bindings: iommu: arm,smmu: Document
- interconnects property
-Message-ID: <20260601-grumpy-crouching-baboon-9cee5a@quoll>
-References: <20260526-smmu_interconnect_addition-v2-0-2a6d8ca30d63@oss.qualcomm.com>
- <20260526-smmu_interconnect_addition-v2-1-2a6d8ca30d63@oss.qualcomm.com>
+	Heiko Stuebner <heiko@sntech.de>, devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] describe PCIe ethernet interfaces and alias
+ ethernet0/1 on NanoPC-T6
+Message-ID: <ah2BWZzNBn7pZubu@venus>
+References: <20260529-rk3588-dts-rtl-eth-describe-dt-alias-v2-0-49700248143f@pardini.net>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="ow4s4qxj472swujp"
 Content-Disposition: inline
-In-Reply-To: <20260526-smmu_interconnect_addition-v2-1-2a6d8ca30d63@oss.qualcomm.com>
+In-Reply-To: <20260529-rk3588-dts-rtl-eth-describe-dt-alias-v2-0-49700248143f@pardini.net>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.300.36
+X-ZohoMailClient: External
 
-On Tue, May 26, 2026 at 08:12:02PM +0530, Bibek Kumar Patro wrote:
-> Some SoC implementations require a bandwidth vote on an interconnect
 
-"... implementations like Qualcomm foo bar ..."
+--ow4s4qxj472swujp
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v2 0/2] describe PCIe ethernet interfaces and alias
+ ethernet0/1 on NanoPC-T6
+MIME-Version: 1.0
 
-> path before the SMMU register space is accessible. Add the optional
-> 'interconnects' property to the binding to allow platform DT nodes
-> to describe this path.
-> 
-> Signed-off-by: Bibek Kumar Patro <bibek.patro@oss.qualcomm.com>
+Hi,
+
+On Fri, May 29, 2026 at 05:31:23PM +0200, Ricardo Pardini via B4 Relay wrot=
+e:
+> This describes the two on-board Realtek RTL8125BG PCIe Ethernet
+> controllers on the FriendlyElec NanoPC-T6 (RK3588) board and aliases
+> them to ethernet0/ethernet1.
+>=20
+> Many Rockchip boards have on-board RTL8125 PCIe NICs, wired to
+> pcie2x1l0 and pcie2x1l2. The controllers were already enabled in the
+> board DT, but the Ethernet function nodes themselves are not
+> described, so the kernel (and u-boot) has no DT handle on the NICs.
+>=20
+> Adding the function nodes lets us:
+> - expose stable ethernet0/ethernet1 aliases for the two NICs, the
+>   same way other rk3588 boards alias their GMAC interfaces; and
+> - let U-Boot's fdt_fixup_ethernet() patch mac-address properties in
+>   at boot time from its ethaddr/eth1addr environment - useful on
+>   boards (like this one) whose on-NIC EEPROM is not pre-programmed
+>   with a unique MAC. The kernel and U-Boot then agree on the MAC,
+>   which matters for network-boot setups.
+
+This is the patch rationale and thus should be part of the commit
+message in the first patch.
+
+> Checkpatch warnings:
+> -  WARNING: DT compatible string "pci10ec,8125" appears un-documented
+> -  WARNING: DT compatible string vendor "pci10ec" appears un-documented
+> Both are expected. "pciVVVV,DDDD" is the Open Firmware PCI Bus
+> Binding spelling, where VVVV/DDDD are the PCI vendor and device IDs
+> allocated by the PCI-SIG (10ec =3D Realtek, 8125 =3D RTL8125). It is not a
+> DT vendor prefix.
+
+No, it is not expected. We need some binding for it :) This is
+similar to USB, see e.g.
+
+Documentation/devicetree/bindings/net/microchip,lan95xx.yaml
+
+Greetings,
+
+-- Sebastian
+
+> If this is seen as a good thing, it would apply very similarly to
+> the Radxa Rock 5 series and others.
+>=20
+> While at it, rename regulator vcc3v3_pcie2x1l0 to l1, since that is
+> what is actually powers; since only cosmetic, I did not include
+> a Fixes tag.
+>=20
 > ---
->  .../devicetree/bindings/iommu/arm,smmu.yaml        | 27 ++++++++++++++++++++++
->  1 file changed, 27 insertions(+)
+> Changes in v2:
+> - fix: pcie2x1l0, not pcie2x1l1; indirectly caught by Sashiko's review [1]
+> - while-at-it: rename regulator vcc3v3_pcie2x1l0 to l1
+> - Link to v1: https://patch.msgid.link/20260525-rk3588-dts-rtl-eth-descri=
+be-dt-alias-v1-1-a6fcda563ac7@pardini.net
+>=20
+> [1] https://sashiko.dev/#/patchset/20260525-rk3588-dts-rtl-eth-describe-d=
+t-alias-v1-1-a6fcda563ac7%40pardini.net
+>=20
+> To: Rob Herring <robh@kernel.org>
+> To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+> To: Conor Dooley <conor+dt@kernel.org>
+> To: Heiko Stuebner <heiko@sntech.de>
+> Cc: Sebastian Reichel <sebastian.reichel@collabora.com>
+> Cc: devicetree@vger.kernel.org
+> Cc: linux-arm-kernel@lists.infradead.org
+> Cc: linux-rockchip@lists.infradead.org
+> Cc: linux-kernel@vger.kernel.org
+> Signed-off-by: Ricardo Pardini <ricardo@pardini.net>
+>=20
+> ---
+> Ricardo Pardini (2):
+>       arm64: dts: rockchip: describe PCIe Ethernet controllers on NanoPC-=
+T6
+>       arm64: dts: rockchip: fix PCIe regulator name on NanoPC-T6
+>=20
+>  arch/arm64/boot/dts/rockchip/rk3588-nanopc-t6.dtsi | 36 ++++++++++++++++=
+++++--
+>  1 file changed, 33 insertions(+), 3 deletions(-)
+> ---
+> base-commit: e7ae89a0c97ce2b68b0983cd01eda67cf373517d
+> change-id: 20260524-rk3588-dts-rtl-eth-describe-dt-alias-c1ed187b7c50
+>=20
+> Best regards,
+> -- =20
+> Ricardo Pardini <ricardo@pardini.net>
+>=20
+>=20
 
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+--ow4s4qxj472swujp
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Best regards,
-Krzysztof
+-----BEGIN PGP SIGNATURE-----
 
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmodg3sACgkQ2O7X88g7
++prTPA/+LoQ3/r6pNqOp+H5gXGvl4tIIwz+BjMfIi9faHWgiRvomSoH7ql+R2rIB
+u0um5aMTELDbQvn2dRLa6yM0lCC1ve2cunI9WysPcLJ4dc+bsL9mH2Wd1UgipQ1v
+Pj1/ycyPdm9q79Y3kR6aSH3MTfsT8W2AK2Rf1RffmUhfbkz0fL4NySTIUQpBygiy
+oFyWnR3s2Ha/PJAxp46XYMuibij1SCRTlmqvxx/OR4HQsayBWlyTNNOOV7scKLnb
+fhCyAJ4+TPnr4QkIWQvo+VdMkixSsZ0Sr85eemlNnvqQuAJYbEJKwM4rYnuQQm1f
+AWo4bhz8igprUtgAwcxpxhsbnILwqaibVERLtbkwgZDC5F7n1xQDwWZStHoHp4bG
+52MC6A4QQPSmnshfnRWFI31UJnxswRAaW7aB7I7dLgp50aA6LPuWOstX+hr2Ude3
+YDRNCXU6rcVk6L9mCnKidCqjpchPxkNqNypFnWNZGLV0b67bzhs6wyMEPgbkxJmG
+NX2y0azewYMp5Vbjc5nNWcwqhLz/R5Ll2DDrBXJ20r8kHdnT3rOoYLNoAhTLZneF
+Ax0ufjlTjSwfQtmXyUP5Z4VWVOHUWqfmZS6i1TzdrLOAJpOrftv8qglMulfqneIJ
+2iAG6hGoYFlAa6nRCv2nUw2syUohJzYCLeYZ8k5heurOXH9gZpg=
+=HYxk
+-----END PGP SIGNATURE-----
+
+--ow4s4qxj472swujp--
