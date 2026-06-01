@@ -1,165 +1,271 @@
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com [209.85.218.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13B4F3DD87D
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:33:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80628248880
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:35:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780328039; cv=none; b=jsiqDxbyqZ5jmOt5auKaegw5qIQUV6+Xh29GvEa9hm1ZVUtZ2mHw9QcCtPDCr3FRzDCxaQx7tqarc6fENjDfQ0nFefEByjhHZ6JBTptdgwiGAhCdsjeEaTI8oH6cCgnnZoVIjbh1KNe0faRBTf5s5ZotaV0U3LTADtm7hjBU498=
+	t=1780328149; cv=none; b=Wtig+B522NVoZF3ISRVGkq3na3bMeFH3zG8WqPB2zzAYH60UkWWVsfMWMd6ZmHXNfWCzk1dic3tlThh4YqgqO1I7RuquiqP/KQP7qYRXbRTWQVMyY0AXU5OvFBgrF9VGWvH88jxjJD0HB2SQIByeRTsauK1+FkiqHJCI6hfdkDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780328039; c=relaxed/simple;
-	bh=rGoAurEoLA1pXl7F+SSgjSYQ9FrcIc5baVLYJPGEd/Y=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ArwdcfmtgTUtr/TD3iY8s4DA2R44AqGDQkh5TgCDTj8bgruGl6SUrrVzscNGCEooP0jAbvZDeV3h9AYiIoMzFqTa1z1cUSuS/PRQTXnqkQ+VcN8YTMsbcF7LeD9+YpgUSyrbxt5iUHgObTR7QBsQ1Ie9WLspTRhz1j+V71KWtzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D+eH5+8D; arc=none smtp.client-ip=209.85.218.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780328149; c=relaxed/simple;
+	bh=1rHE/RSkiAYhBj9IST/aUxSjxIwWRmVYSLNmuY7LxzQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=oEwVgmOXefM5CUUacon+2SlSfXs6IZO8p9n81KL91qioHR4B7HbKCf/uSQwqH0cFHvey76Uw6bpQWYOOBuJsPXFN9E4VRqzs7VhNhlaMtEwX/uHW9bt9YqRZkd/ridyAkz2H9l/D+QCJ41tGZJPWU4/cFUL1ZuQiK6429o3UtZM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEnOJxOz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D+eH5+8D"
-Received: by mail-ej1-f41.google.com with SMTP id a640c23a62f3a-bec429c2bb1so203721266b.1
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 08:33:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780328033; x=1780932833; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=e8VgCm9XB5VMkj9oTgzpT73+TANb1YKCvjZzDgyzRqo=;
-        b=D+eH5+8D5Vzl51WnNYw1gTxplbFtDQpfjERXHSs3a26NCYVo3Qj35dWVVStC3MWq0c
-         neZiAXS54jjIwMZ39rLUw286fncUn0UenpusP1RplP6qyhiMqE+sfQt1iftY2pK91GlQ
-         MevQxfxAjoiPsjdjAQB5HCNT8mDia5Jgj0Sbc4gRrUHXYuQqThhY0rpBbayLZamztrY5
-         n07vbQ+3Sah9kvOpzPp22kiyGowgVBMa615Rt/WoPfATrVuzE9Sw2MH9hk+XI+7whN15
-         j2mgwURUvwIssfmdWn5yk1ikCOIxOsb7AhA9FUJwIwoHUfuE3iCGg+C0ZlPw/Pn8Xuix
-         /GGA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780328033; x=1780932833;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e8VgCm9XB5VMkj9oTgzpT73+TANb1YKCvjZzDgyzRqo=;
-        b=B0/v7Na8y+9yYsKpcyr1rRgU/55Ha20zoDMrVqXwzEWPnIP8bw4x4u7qmlpqosXM0q
-         gPLiZzPGsUlsk2JmO0jGTxJKJWdrdOaIRkTsPMe6UIw3bit1LRHDDwT6/VDQoq1wxdDu
-         sSdEif1u8JOUMZZb6AsU6rj2ldZ+hDHxPbFkqgRpusDvUw1YAHJ/7so/rOV2ZJZ6h1DJ
-         Txbk989duh6DpuI+E6dfnGHJP4vW7ei8WuOfQZigKZEu9xyOi9wtB86UFtxMlWujHr1j
-         rJjJxUij1TLA0A/CJFNtooMBgdrrH341vV0Y06oi3DfL/fB9fslLHK4Fy432LVTXUKOF
-         9dMA==
-X-Forwarded-Encrypted: i=1; AFNElJ+8iwi7DvIF0Ht0MduotZ+qQzYso03NmJIPJ18r1iDdvFMPg7w57L/tbQflMHOIoxGB3FyupdZWEw7w@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIxO0oyS5GV5mHFYNGLPUE98H8OofG5TjmSx8qeRIwH2kksSr+
-	e8rmLfFW3ar8WoC3m+o0annzQicVAsobfnLxKwEjGsVEn9++u7+MER7l
-X-Gm-Gg: Acq92OFLfTx16spNrJ8bxWn0szmIRPAs686JkBWeoX7gBeUDaDhq/GR2uIYijdSHeN7
-	XTN/AsslbvfHWV6pkUqfIl1BhwsSohP8nz/wtO+elCnkTXDgSvGk3RwA7v9nEtGhOB4tlc/dkhJ
-	feX9GvIvgqreBjOGt4kuDsxEM8LdlKNXPCfuUHTenTDTFW6tqQVp+RtxWOt3/BJxhNqHFlFxnDt
-	NK7JPSghWYVdq5Z5QmjJ0z34jtvmQLoCcKG9TXly6YtOxdS9P0v/Jtb4l7jABc+5/5ipMtpbIR2
-	PTGlCYCEwocShkbN8NCZ/mstHe8UcpfJsGxrChvOFcf/fmDANSvf9hQ8Fr/1fCYC2l14i4I77mn
-	TMnSGbimB5uOzyQBap6kjzYbzmmsA6yIa2mJ0v7VLFBy/4Pgxr03T4vbHOSmcJNMusH6Zd3JCSA
-	AI8h2Z63MOKH5kVc8qKzglqyHsBY6VNwBeccvI8Yj+tmuIPWNOfTUcbY/KNwZhX2hQAZNO
-X-Received: by 2002:a17:906:9fc8:b0:ba1:1181:b773 with SMTP id a640c23a62f3a-beaafceff43mr619978166b.10.1780328032881;
-        Mon, 01 Jun 2026 08:33:52 -0700 (PDT)
-Received: from [192.168.1.30] (71-212-98-95.ftth.glasoperator.nl. [95.98.212.71])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bee94d11126sm43162366b.27.2026.06.01.08.33.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 08:33:52 -0700 (PDT)
-Message-ID: <4198bedb-807e-4330-9172-f12928d446a8@gmail.com>
-Date: Mon, 1 Jun 2026 17:33:51 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEnOJxOz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B8B1F0089A;
+	Mon,  1 Jun 2026 15:35:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780328148;
+	bh=xVhGI11nETQvO66XjxhlY+r2RDGl50kgjv9SprwmQUg=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=iEnOJxOzUgkf5eOOPLnKIKZyf59FGVmFF1RUyaxk8+Kq4F2ye6R99RB0ZVBKEI/bn
+	 XFhfzE3OJRnKafLTT0IhPKyB9S53Sc4bRPavXjGWEEk1L8eCbYyIHU+a4wPVC/drDs
+	 HEI52TAx3yciMkVPZDKcaAaA4Pw3AX67WoaHnL/RPaEP3ZvBJXuIj1q3zusoRh0n5x
+	 syKqkeWepMj63PCvT1ZekmUQmTs2+0aSEvVF9/5e9XoSENh0bRqWfmZRyhBmTySL2r
+	 vrvY9LKsVg7n0vQw2vcS0ucxy7uXAUCYdxZaiu4HvGfnRRJSUhkmEkdcafvMOMRzDb
+	 NCpIag/EpU2Wg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Svyatoslav Ryhel" <clamor95@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260601151831.76350-6-clamor95@gmail.com>
+References: <20260601151831.76350-6-clamor95@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 15:35:47 +0000
+Message-Id: <20260601153547.96B8B1F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao)
- DTS
-To: sashiko-reviews@lists.linux.dev
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-References: <20260601150752.666393-3-zstaseg@gmail.com>
- <20260601151907.AD44F1F00A1B@smtp.kernel.org>
-Content-Language: en-US
-From: Stanislav Zaikin <zstaseg@gmail.com>
-In-Reply-To: <20260601151907.AD44F1F00A1B@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
-On 6/1/26 5:19 PM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 2 potential issue(s) to consider:
-> - [Medium] The SBU port in the USB-C connector node has a mismatched unit-address and reg property (`port@2` with `reg = <1>`).
-> - [Low] Invalid 'mem-type' property in the ramoops node.
-> --
-> 
-> commit 444192d5f33eb93dfce53fe410ae77991af6102e
-> Author: Stanislav Zaikin <zstaseg@gmail.com>
-> 
-> arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao) DTS
-> 
-> This commit adds devicetree support for the Xiaomi 12 Lite 5G handset,
-> including display, touchscreen, UFS, buttons, regulators, remote
-> processors, and USB device mode.
-> 
->> diff --git a/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
->> new file mode 100644
->> index 0000000000000..ec795f8adc467
->> --- /dev/null
->> +++ b/arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
-> 
-> [ ... ]
-> 
->> +			ports {
->> +				#address-cells = <1>;
->> +				#size-cells = <0>;
->> +
->> +				port@0 {
->> +					reg = <0>;
->> +
->> +					pmic_glink_hs_in: endpoint {
->> +						remote-endpoint = <&usb_1_dwc3_hs>;
->> +					};
->> +				};
->> +
->> +				port@2 {
->> +					reg = <1>;
-> 
-> [Severity: Medium]
-> Is this port index correct for the SBU endpoint? The devicetree specification
-> requires the unit-address (@2) to match the first address in the reg property.
-> 
-> Additionally, the usb-connector binding assigns fixed indices to ports:
-> reg = <0> for High Speed, reg = <1> for SuperSpeed, and reg = <2> for SBU.
-> Using reg = <1> here for the SBU port violates the schema and might logically
-> miswire the SBU mux to the SuperSpeed data graph port index, breaking
-> alternate mode routing. It will also generate a dtc unit_address_vs_reg
-> mismatch warning.
+Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+s) to consider:
+- [High] Out-of-bounds array write in `lm3533_devices` when a DT child node=
+ matches multiple compatible strings.
+- [High] The ALS driver expects the 'ti,resistor-value-ohms' property, but =
+the DT binding defines 'ti,resistor-ohms'.
+- [Medium] Skipped child nodes with invalid 'reg' properties will cause 'mf=
+d_add_devices' to assign the wrong OF node to subsequent valid subdevices.
+- [Medium] The check `if (!als->irq)` in `store_thresh_either_en` fails to =
+handle negative error codes returned by `platform_get_irq_optional`, allowi=
+ng invalid IRQ configuration.
+- [Low] Incompatible pointer type passed to `device_property_read_u32()`, v=
+iolating strict C typing.
+--
 
-Right, sorry, forgot to run CHECK_DTBS=1 before sending this time. Will 
-fix in v9.
+commit 91427aa1400cfc0dbe1f634ca4391a5aa41811ec
+Author: Svyatoslav Ryhel <clamor95@gmail.com>
+Subject: mfd: lm3533: Convert to use OF bindings
 
-> 
->> +		cdsp_mem: cdsp@9c700000 {
->> +			reg = <0x0 0x9c700000 0x0 0x1e00000>;
->> +			no-map;
->> +		};
->> +
->> +		ramoops@a9000000 {
->> +			compatible = "ramoops";
->> +			reg = <0x0 0xa9000000 0x0 0x200000>;
->> +			mem-type = <2>;
-> 
-> [Severity: Low]
-> Does this mem-type property pass upstream validation? This appears to be a
-> downstream addition historically used to force memory caching attributes,
-> which is not supported by the upstream ramoops bindings.
-> 
-> Leaving this in will trigger a dtbs_check validation failure. Upstream
-> typically handles memory attributes via standard reserved-memory properties
-> like no-map.
+This commit converts the LM3533 driver stack from using platform data to
+using Device Tree bindings. It updates the core, als, backlight, and led
+drivers to parse properties directly from the device hierarchy.
 
-This one passes dtbs check.
+> diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-al=
+s.c
+> index 52136ca1abc94..55b35467a722d 100644
+> --- a/drivers/iio/light/lm3533-als.c
+> +++ b/drivers/iio/light/lm3533-als.c
+[ ... ]
+> @@ -716,30 +722,34 @@ static const struct attribute_group lm3533_als_attr=
+ibute_group =3D {
+>  	.attrs =3D lm3533_als_attributes
+>  };
+> =20
+> -static int lm3533_als_setup(struct lm3533_als *als,
+> -			    const struct lm3533_als_platform_data *pdata)
+> +static int lm3533_als_setup(struct lm3533_als *als)
+>  {
+[ ... ]
+> -	if (!pdata->pwm_mode) {
+> -		if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
+> -		    pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
+> -			dev_err(&als->pdev->dev, "invalid resistor value\n");
+> -			return -EINVAL;
+> -		}
+> +	if (!als->pwm_mode) {
+> +		ret =3D device_property_read_u32(dev, "ti,resistor-value-ohms",
+> +					       &als->r_select);
 
-Another thing that it complains about - memory-region for ipa node but 
-this relies on Dmitry's patch [0]
+[Severity: High]
+Does this use the wrong property name? The device tree binding requires
+"ti,resistor-ohms", but this attempts to read "ti,resistor-value-ohms". If a
+conformant DT is provided, this read will fail and unconditionally abort the
+driver probe when not in PWM mode.
 
-[0] - 
-https://lore.kernel.org/all/20260517-ipa-loader-v1-6-3c3764c1b4a3@oss.qualcomm.com/
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to ger resistor value\n");
+[ ... ]
+> @@ -830,25 +833,28 @@ static int lm3533_als_probe(struct platform_device =
+*pdev)
+>  	indio_dev->channels =3D lm3533_als_channels;
+>  	indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
+>  	indio_dev->name =3D dev_name(&pdev->dev);
+> -	iio_device_set_parent(indio_dev, pdev->dev.parent);
+>  	indio_dev->modes =3D INDIO_DIRECT_MODE;
+> =20
+>  	als =3D iio_priv(indio_dev);
+>  	als->lm3533 =3D lm3533;
+>  	als->pdev =3D pdev;
+> -	als->irq =3D lm3533->irq;
+> +	als->irq =3D platform_get_irq_optional(pdev, 0);
+> +
+> +	if (als->irq =3D=3D -EPROBE_DEFER)
+> +		return -EPROBE_DEFER;
 
--- 
-Best regards,
-Stanislav
+[Severity: Medium]
+Since platform_get_irq_optional() returns a negative error code (like -ENXI=
+O)
+when an IRQ is absent, does the existing check in store_thresh_either_en()
+need to be updated as well?
+
+Because store_thresh_either_en() still checks:
+    if (!als->irq)
+        return -EBUSY;
+
+A negative error code will bypass this check, allowing userspace to enable
+the interrupt mode via sysfs without a registered interrupt handler.
+
+> +
+>  	atomic_set(&als->zone, 0);
+>  	mutex_init(&als->thresh_mutex);
+[ ... ]
+> diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
+> index 45e7f7481aa0f..d57c2cdf11c51 100644
+> --- a/drivers/mfd/lm3533-core.c
+> +++ b/drivers/mfd/lm3533-core.c
+[ ... ]
+> -static int lm3533_device_init(struct lm3533 *lm3533)
+> +static int lm3533_device_init(struct lm3533 *lm3533)
+>  {
+[ ... ]
+> +	lm3533_devices =3D devm_kcalloc(dev, nchilds, sizeof(*lm3533_devices),
+> +				      GFP_KERNEL);
+> +	if (!lm3533_devices)
+> +		return -ENOMEM;
+> =20
+> -	lm3533->have_leds =3D 1;
+> +	device_for_each_child_node_scoped(lm3533->dev, child) {
+> +		if (!fwnode_device_is_available(child))
+> +			continue;
+> =20
+> -	return 0;
+> -}
+> +		if (count >=3D nchilds)
+> +			break;
+> =20
+> -static int lm3533_device_init(struct lm3533 *lm3533)
+> -{
+> -	struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->dev);
+> -	int ret;
+> +		if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
+> +			lm3533_devices[count].name =3D "lm3533-als";
+> +			lm3533_devices[count].id =3D PLATFORM_DEVID_NONE;
+> +			lm3533_devices[count].of_compatible =3D "ti,lm3533-als";
+> =20
+> -	dev_dbg(lm3533->dev, "%s\n", __func__);
+> +			lm3533->have_als =3D true;
+> +			count++;
+> +		}
+> =20
+> -	if (!pdata) {
+> -		dev_err(lm3533->dev, "no platform data\n");
+> -		return -EINVAL;
+> +		if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
+
+[Severity: High]
+Can a malformed device tree node cause a buffer overflow here? Since these
+are independent if-statements rather than mutually exclusive else-if blocks,
+a single node containing multiple matching compatible strings could execute
+multiple blocks in the same iteration. Because the bounds check against nch=
+ilds
+is only at the top of the loop, this would unconditionally increment count =
+and
+write out of bounds of the lm3533_devices array.
+
+> +			ret =3D fwnode_property_read_u32(child, "reg", &reg);
+> +			if (ret || reg >=3D LM3533_HVLED_ID_MAX) {
+> +				dev_err(dev, "invalid backlight node %s\n",
+> +					fwnode_get_name(child));
+> +				continue;
+> +			}
+> =20
+> -	lm3533->hwen =3D devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
+> -	if (IS_ERR(lm3533->hwen))
+> -		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to re=
+quest HWEN GPIO\n");
+> -	gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
+> -
+> -	lm3533_enable(lm3533);
+> +			lm3533_devices[count].name =3D "lm3533-backlight";
+> +			lm3533_devices[count].id =3D reg;
+> +			lm3533_devices[count].of_compatible =3D "ti,lm3533-backlight";
+
+[Severity: Medium]
+Will this assignment cause mfd_add_devices() to map the wrong OF node to
+subdevices if an earlier node was skipped? Since cell->use_of_reg =3D true =
+and
+cell->of_reg =3D reg are not being set here, mfd_match_of_node_to_dev() will
+simply assign the first available matching OF node to the first requested
+mfd_cell. If an earlier invalid node was skipped, the subdevice may read
+configurations from the wrong DT node.
+
+> =20
+> -	ret =3D regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
+> -				 LM3533_BOOST_FREQ_MASK,
+> -				 pdata->boost_freq << LM3533_BOOST_FREQ_SHIFT);
+> +			lm3533->have_backlights =3D true;
+> +			count++;
+> +		}
+[ ... ]
+> diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
+t/lm3533_bl.c
+> index 5c8e690878609..c70b8a3bb3014 100644
+> --- a/drivers/video/backlight/lm3533_bl.c
+> +++ b/drivers/video/backlight/lm3533_bl.c
+[ ... ]
+> @@ -296,13 +294,20 @@ static int lm3533_bl_probe(struct platform_device *=
+pdev)
+>  	bl->cb.id =3D lm3533_bl_get_ctrlbank_id(bl);
+>  	bl->cb.dev =3D NULL;			/* until registered */
+> =20
+> +	name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d",
+> +			      pdev->name, pdev->id);
+> +	if (!name)
+> +		return -ENOMEM;
+> +
+>  	memset(&props, 0, sizeof(props));
+>  	props.type =3D BACKLIGHT_RAW;
+>  	props.max_brightness =3D LM3533_BL_MAX_BRIGHTNESS;
+> -	props.brightness =3D pdata->default_brightness;
+> -	bd =3D devm_backlight_device_register(&pdev->dev, pdata->name,
+> -					pdev->dev.parent, bl, &lm3533_bl_ops,
+> -					&props);
+> +	props.brightness =3D LM3533_BL_MAX_BRIGHTNESS;
+> +	device_property_read_u32(&pdev->dev, "default-brightness",
+> +				 &props.brightness);
+
+[Severity: Low]
+Does passing &props.brightness violate strict C typing here? The brightness
+field in struct backlight_properties is an int, but device_property_read_u3=
+2()
+strictly expects a u32 pointer. This could cause build failures on modern
+kernel trees that have -Werror=3Dincompatible-pointer-types enabled.
+
+> +
+> +	bd =3D devm_backlight_device_register(&pdev->dev, name, &pdev->dev,
+> +					    bl, &lm3533_bl_ops, &props);
+>  	if (IS_ERR(bd)) {
+>  		dev_err(&pdev->dev, "failed to register backlight device\n");
+>  		return PTR_ERR(bd);
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601151831.7635=
+0-1-clamor95@gmail.com?part=3D5
