@@ -1,77 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E947338E8CD;
-	Mon,  1 Jun 2026 09:17:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6A739061C;
+	Mon,  1 Jun 2026 09:17:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780305456; cv=none; b=Q9wLxJE/wiyhrmvQTJeX2zJefMevQB/y5XkZ/T3pA/0Aj/zuo7lRab4gEgsydb+krdseQxn8d+q9uIsFrrY8X7Odzgs8V38PUUn+VTyC6GSYibxW9rb5nPAcsRFZ5z4No1/l7JlYBTqD6ry3QgS6/ZUkOEaFB0p97wmMEWNM+Wg=
+	t=1780305469; cv=none; b=X85pgJ68zAKvG1cN67GuD3DG1e3AnLwY7IpVMT/DRJspngo/1ftUcws/quJZrW/knn/6+lLKYIqRHbQ9O/JCdEOvpPvMiexqSmP5uePMmPszJSrin7cgW4o8QrGBey4zkcefoNpFJyQl2HFYiD/LPVizz67oDVrf6w0JEfai15s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780305456; c=relaxed/simple;
-	bh=qJ0sFCBGk589YHFIpAbplMP4uXTOAk9D5OAu6fM3A68=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=lelNTDFjeJPeqBe4QZQF2FMo2/LwRzXi7ra4165EhrXdlIscm+xstClWorkPPW5hKstMeq2h41ZLdiT5ogJIxIJqTDvFi0cBFumulnmGvGyXt+OPtM2kV1k2Bg7ziPg5+0gXS/eDhgGqnEnwRqGRii+RkEOwFxqExHeE+LO+WIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cFYSI8aB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780305469; c=relaxed/simple;
+	bh=5dyK72MMPz2wRuY0iUZQ/EQf6NMnrASwHShpqTcVxpI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Yl92CsN9VWS335iunsRgrg4wxWD1ZodtKrSUhA8EWkfk9gEjD++mZ984ivsby2K2YjCghTZujNgaqu/43g/cGpBQ8QNd3aQb7IJ0WDk4+Ts5Mx1I9YNftR4e26jD0IRZN3pDOZCs5JkZ5c3ndU4E0EfVjSeeOc+hi+Nidxf6WTk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJ6yPrQF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cFYSI8aB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4EC0F1F00893;
-	Mon,  1 Jun 2026 09:17:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJ6yPrQF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870AB1F00893;
+	Mon,  1 Jun 2026 09:17:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780305455;
-	bh=eZYy79LBW+6cC4Cn2CjERpCgfeb20T1aMKoGylZF7ro=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=cFYSI8aBFv507sEeWR0qkW5aG46126+HoIHWG76OOwIKjbmjxhLqfUsDytdqQg9Ya
-	 JxW6rPQRqnQnw3cx576M9CtHqoY60TZ+yS4X9A/ALaFUF7jmqTKSc+5ob1nAGx0qFN
-	 sm5vszuM6Yld5nbyzeEvSW0voGe2DIlauowWsqrrygilY3da8cAQXD9ZSBGdS731gy
-	 wWvOYY04WZptGL7bPDC6uV9aXLcxP4Bz/zZpqQ7H05b9i8x1hHjeu19SWtaU5pzY32
-	 zrjjWVp2r19JVb4pzP+939NnJhnI5Zfx5jG85+9Vgkc5LgBdnnie7+MIcRux9aZFW5
-	 /dYtSSdC/ikyw==
-Date: Mon, 1 Jun 2026 10:17:26 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi
- Gupta <gupt21@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: light: veml3328: add support for new device
-Message-ID: <20260601101726.203f56cd@jic23-huawei>
-In-Reply-To: <CALoEA-yEA5KcvXqZCCg76qFAgyNq8BQ5+gop442mju-9PiKaxg@mail.gmail.com>
-References: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
-	<20260530-veml3328-v3-2-dd562eaee8d9@gmail.com>
-	<20260531101940.037d1d7a@jic23-huawei>
-	<CALoEA-yEA5KcvXqZCCg76qFAgyNq8BQ5+gop442mju-9PiKaxg@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1780305466;
+	bh=5dyK72MMPz2wRuY0iUZQ/EQf6NMnrASwHShpqTcVxpI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=IJ6yPrQFplMdNTTBQcwK8b2B0SzZyhCLTVA46nrTyN1/8YN3MLzB/0OrKlbBZjga5
+	 z0IFQuZogwy+vRz2bnhBp4jiZ+RbluY0S5tua4z5iikF07Ok0TQkEDyegWMQLAlPbG
+	 sp89qcH5IEBBAjUds6Q5OY0wj6wCSwW/Z21EwcVZ7WEKyX/IbStQ0blQMHFaxy7Z68
+	 DeDRl/zc++XXyHMcaYKACv3hXqJO9GdurmFEiM2fQzjHfvwKHGnVCjEZis5HavVvKZ
+	 m/Gs96+pUU/LswLLCn7Y5tpYKt3Q59xludI3Un2DYmtqO6v2T2ts4RwQXpaBIM6knL
+	 94V2yBXbhWrpg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/2] hwmon:(pmbus/xdp720) Add support for efuse
+ xdp730
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "ASHISH YADAV" <ashishyadav78@gmail.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260601090925.3781-3-Ashish.Yadav@infineon.com>
+References: <20260601090925.3781-3-Ashish.Yadav@infineon.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 09:17:46 +0000
+Message-Id: <20260601091746.870AB1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
 
-On Sun, 31 May 2026 18:44:43 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+> From: Ashish Yadav <ashish.yadav@infineon.com>
+>=20
+> Adds support for the Infineon XDP730 Digital eFuse Controller by
+> updating the existing XDP720 driver.
+>=20
+> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
 
-> On Sun, 31 May 2026 at 11:19, Jonathan Cameron <jic23@kernel.org> wrote:
-> > > +     pm_runtime_set_active(dev);
-> > > +     pm_runtime_set_autosuspend_delay(dev, 2000);
-> > > +     pm_runtime_use_autosuspend(dev);  
-> >
-> > As per other thread check this results in power down.
-> > If it doesn't, try moving autosupend calls after devm_pm_runtime_enable()
-> > and see if that is enough.  Otherwise, you can either manipulate the counters
-> > or I think just call pm_runtime_idle() to force it off immediately.  
-> 
-> Just to confirm, I've tested this on the actual hardware and it did autosuspend
-> after probe, so I'm going to say that Sashiko is a bit off for once.
+Sashiko has reviewed this patch and found no issues. It looks great!
 
-If you have time to figure out the path that causes that, it would be excellent
-to have it recorded. I spent a few minutes the other day on this and couldn't
-find it.  Maybe ask AI to figure it out :)
-
-J
-> 
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601090925.3781=
+-1-Ashish.Yadav@infineon.com?part=3D2
 
