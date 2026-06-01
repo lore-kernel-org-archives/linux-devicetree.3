@@ -1,178 +1,163 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011059.outbound.protection.outlook.com [52.101.70.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C56F2F39B9
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 21:01:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780347676; cv=none; b=iVM4RH8W4Xn0LS7tPxDR/8llWaRNraN9f6rJnS4RVbccnEexfQyU0P67K9sg78Y6k4SPrm3Yg+fepsbDoGqXBxnwcsNllM1gQ9axm1Fw+oQulx73x6tDp1Os074uMAwCUf8cZxHphnykLLmjkKD1b81i6KePCSvLK7uk1ZS+ans=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780347676; c=relaxed/simple;
-	bh=690IjroTSNIPEAu3ZBT8GK2cTbewF8hY05Yuyka8ik0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pS5BkUQYsbKT13T2YBytumEjHOX99PccAgJPjHCk75+k5XWl0HqXwgPWFlfrwEVGIV2tdA6R8t8SrO7xp7/dKMPqNzIi8nSx8iU+J4ZIYT4hALH9XVO2k8ke3yBklVEJsRmuZPpNAU4xDwtSI2LDmmMxnL2up4ohGLZN72UTycA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kAv9lKkJ; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF582F39B9;
+	Mon,  1 Jun 2026 21:02:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780347763; cv=fail; b=apMj4yxYHX3NyHzVLI93bOMMRT+76z4a4ee3Ft0T3+mkntdfdW/B0h7EzHFVnDwTfQFXwN2p+c9prB/VLkzCRg3iqowAFMANupFHl3mN73q8IiNV7zjH0ii5EHX6no6o+D9l3ci5V+szYHfxP0m8Rfo5QvOP0GBOOSMPF/nQ2oo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780347763; c=relaxed/simple;
+	bh=3cZ4cf6ptTdHvo9KXgtu/0ZWSjAPMfND6MhIxrZZ5hg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sA724zvNjy6E+ahLA8dbRM6h+bjWPD1wp41uhq+isuJqG4Zahkx/FxTQ6gxpskxMnNyzEP4ZbZz8n18lt742Z9UNI/vS7xzm0zhds2tgGHFd31zbaodmxAm8qjz5O9yUJRDPrTGmikUY2bTAR6R1l5EdH2aBRCQvNj0/C/A4IqY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=nH8Hg9iX; arc=fail smtp.client-ip=52.101.70.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kAv9lKkJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88F1B1F00893;
-	Mon,  1 Jun 2026 21:01:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780347674;
-	bh=VJYITo3CSg2Xe36b2ZujeENYUyrTDK0uti7pkjE5O8w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=kAv9lKkJsIGIyXsshEnc6ZLgCathBdEyyEfyctWEFOn8eO5hZ+89UjyeTRNnocoPZ
-	 CCXd5XtRiOyV+4X0eYVJ1OcFI3GHc+jnutAB506aJ1F5j079wF/86ouaVL94/zqKRI
-	 oIIeNJFEuySiWnUdW/9edM2bMKfS1V+4HkLagwQiRMHC7rEFY/YzveAOK1dyMaG9p8
-	 rI3KyCQFJ3g0v06zK941kvLKpdFVisQiTn0YVlOMTI7uCEr0wGkjwbY/QV1/9Xj+BG
-	 pnytMBAucnNmvjc0I9hBFtL4DDqMHfnk3JGdKBcXUPOCu5HV2vm1UW9UTectnTVo62
-	 ClXES7biHsMnA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RFC v6 15/18] riscv_cbqri: resctrl: Add mbm_total_bytes
- bandwidth monitoring
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Drew Fustini" <fustini@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-15-baf00f50028a@kernel.org>
-References: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-15-baf00f50028a@kernel.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 21:01:14 +0000
-Message-Id: <20260601210114.88F1B1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="nH8Hg9iX"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=pDpAIRBuWDNYSxMQzc3oXDm69tGRUs/3tAcTk4Zgq8hPP6RT4IbzN4unGAWsQ29Ni4HbJFheGQUa3p0wB1EmESmLVJIFNxkTMV22QDIcXb4Py27gVTOs/WjtXJ4hyh2YoX5iZ1+p2tgVd0gNzf5aXm1LkqFX1YiXs8LNDfOGiJhtJiMDYHvY/DMxkG/C4sscWyeOb26fVfSA7mdA4vsdmbmZBg8smfqLGuPvUwmb9XLdi+Jtcnpd051dXndbU2Rd2yj6DAHh+yDOALW3swuhnkdBVJWXT17oIHOK1X2YC0noDKb4cjBvXU8dgUKi6qyTolU5CYDrbV9LIuS+vFCFVA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=mIdBkenJvKI0gAe/EZyIMyTEcJaCdajaAHe8PEyhDYg=;
+ b=ce2eadTJFk48K4JL0+/W71wMrpmDNKLfS6srtSugzgqs3nlpADjgVJQlaWskaUVCW0pqkAuuZcUb68n9M6qXTzLsHmHfszaF+MGWZ87aESZf9FZJHMJd1Io3ECoBj/ZgtZNY9VtsXc8glYtbpktC23xVMenIF4caXXNdQ02hR2by0rfestS0cmJHWvKq1wXSn9lwbX4aVOfzQ/l7hK83P8VPZTmIdQZ0F3QzIV2SqFn62DO6cPjCRph3amgPSPIY9jZ/v92Nuf86liX0IvOBau6hBWuuUfnIW9+fRAC8S1DupOEDP5IB8DKp4Xm9ac7sP1WQs338zhx0WfABhelmzg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=mIdBkenJvKI0gAe/EZyIMyTEcJaCdajaAHe8PEyhDYg=;
+ b=nH8Hg9iX4ymMlR9wyzI00MIPIqsmll8LIc8m1oRu3CmIVUBWi53+oDp/NvbfLgVVAb1gByJuAtE+qM4MdJ+R8sxkgQ2aFBj5Jc4OUA2UJB3M80knQ/LhSg21PF2BpyN0ode/5/sUvJTpBNIAY0ky1YZh14GmgYMTMvU896m7aaqPiQ2emy3wUYLYSskjt+nEkvBfJAf75g68nlkuqfOrnpkm6ROjH7IDNbF7uPAlKtv5pCWs4K/wAvq9Cu59eSrFdA4rpOrMcQF4ffTXIyW+1ftBv4WMWcmq8usB7ouSpN+SNfl1GpgxXGv+9pVPS7mvZZ6d8j392qeOFmKWE5Fp/A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI0PR04MB12079.eurprd04.prod.outlook.com (2603:10a6:800:310::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 21:02:39 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
+ 21:02:39 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	Stefano Radaelli <stefano.radaelli21@gmail.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v2 1/1] arm64: dts: imx95-var-dart-sonata: add CAN controller
+Date: Mon,  1 Jun 2026 17:02:32 -0400
+Message-ID: <178034774897.583570.3114832697826515081.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260528160358.19006-1-stefano.r@variscite.com>
+References: <20260528160358.19006-1-stefano.r@variscite.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA1PR05CA0024.namprd05.prod.outlook.com
+ (2603:10b6:806:2d2::27) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI0PR04MB12079:EE_
+X-MS-Office365-Filtering-Correlation-Id: dc15826f-2567-448d-5256-08dec0211d47
+X-LD-Processed: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+ BCL:0;ARA:13230040|19092799006|366016|1800799024|7416014|376014|18002099003|22082099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+ V8ZV4Od9cD6gRvJ19jswG62zCt1JPRwKaQPE1fw5h8/lin/c6ipPSv2FakVQKqDC63ibpzGgC0CP4wV2LfTb/0rWRWQ0bjg//6Lud17KuDPo+05Ip60YsA/m1djxXwAB5etXVfCebKedmwgGozT+8d8ki5WfBZw65lnvuhlyuFPoYWcW6AiEJ29TkJGhIUgIpX3PyqjMknfv8vJqUEuUHg22MDA6vrMXA/tvYftz+bpAjcWWbj98aawvH+oP0CmHb7fi86/DMncyIPMeK1XIbTEraYRj7OuR4XzdX6uSH8Sncdj3s0KFqyJzTlRuhm7C1UnQe4nE1j6+SnOlvUKBmPPHz/bTwIV/2fL/z6Hl4b30VT7sKe+rINkuzRkBFganZ/JXq9x19gKFTiEmT7fcxN+8d12Jn2hrEx8U73IuwOO/fPP0p+SWPI2dboCY/GnVzdP++eko5ElZ1f9++FfXVgVEMPbDumtfAt1FUZkVFanuuzS3uNRLiFUDhqdYRHFZFZuEohMeSJso+yYEUHPTuyjUm5NS66SptSWTBnk1cWtcGXLcSHSVoQnu87KU3E21b8Fp7lyzP4LtyUjixUfLQjr5GLQpmN5vwI9mpdyX5nLecQArPSAWAyOGcZ2hQHF9Kq06rJ5U/8c8gbiwfs9wbHGmYAdAPvjVeQiC7vZ+wzWFSuJ2rjVzghcdUy/OQooz
+X-Forefront-Antispam-Report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(1800799024)(7416014)(376014)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+ =?utf-8?B?Z3NxQjNqczBxbnViL0hxVlo3ODc5UGNjU3pNZVltSm00WHJ5V2xlcUJUcUxt?=
+ =?utf-8?B?eHFVb2J5RFZ4a2hxYi9ISE16V1RaM0NsYy9rSCtMV00xam1WMEhhQVB2T1NB?=
+ =?utf-8?B?NjV6djg0OU95TkZhRUhDZ0RROHdBanpHZVVYdkI5SzNQL2ZORm1aYnY3UGw3?=
+ =?utf-8?B?aldDRk1BZjQ2THIwMUQ4cjl5TGFOMTRGZUtvR1lXa0xZSVgxTmh1R3NobEky?=
+ =?utf-8?B?cWdUUm1nQ0EwQTVFV2xkbHRGUlMwcXh2SWRYc2FORXM1cEY4RzljWjZzVHdn?=
+ =?utf-8?B?OTJRU3ZVUmNvRVMrb0RwdXJ3a3l3NkRzc1RKenZXRXNPSUJtVjM1ZitoUHE2?=
+ =?utf-8?B?eG9uWFBxYTBFQVNza0xnUzVaMmUwRDlYUndlcnVOby9kQlVHaFAvN1RJOVB0?=
+ =?utf-8?B?MmJySHJKcW9seURIZk5mOW96MytmbGxveG5GNXRpK2gxS3pDNW1oT0w3Q3ll?=
+ =?utf-8?B?b1Foc282MnRwYmpZeHBDTVBYZmE4LzNVME16SXVNM1kvOU11NW9TSnVVTE9I?=
+ =?utf-8?B?VmRIZm1rK0hvejB3aVZ1MXg1a3FuaUJIMzFWUzE0VXVWSFBLaU9hQXNxNjM0?=
+ =?utf-8?B?VmZBbmx1aVpSakFFOXoyUGtUQUNMbFdrZTZDZHVKVGVDVkxoM2pmUjZwbVgw?=
+ =?utf-8?B?MzMxdVU5S1NtRndYRzhaR0pZcGtpOHQ5WUlSeTJVM25oVDNhRHFGSGNsejIx?=
+ =?utf-8?B?SUM0K0pEVS92bmErS0FSdnRVbHEybzRiLzRZVHQwZUFXb1VObzhlM2xvOCsr?=
+ =?utf-8?B?WDRLOStxYk0zdFNWQnJ1UGRaTHl6N1JMMWhPbGNJSllEUHVKYzErL3pnVlIy?=
+ =?utf-8?B?TktnaGsxUHhMREs5NTBBdndrRU03Q1VCdWdxaGJPMzNTYjY1ZnRmZEI3MzNC?=
+ =?utf-8?B?eUVHcnkyV3liRU5RNDFxOU1ZdTBFYTZmUGpWWXhLUUZYYzd6SFQ3UlUvTWFa?=
+ =?utf-8?B?RkZqdHFkU2FDdWVIcnRDcjRjV09sL0tNbkNMcFQvcVh6R0tkOG5jeWw0UzVk?=
+ =?utf-8?B?QTVkRmw0bW1XbjhZbW9tMXdobDVTWW12QWdpYVE1emZuKzdXVzlIVzRId1dQ?=
+ =?utf-8?B?MDVZL0dGcTc5d3lERTNlUm1FdFZ0dm1nN0FNa3ZPVUM0N0NWeW42WUFIdXdY?=
+ =?utf-8?B?RGcwbEdnV00zUW1YVTc2enZkV1BHaXZYdWVSVHJVZHpmRi90S1pRVXVjYngz?=
+ =?utf-8?B?eEs5bmF6SjBSR1RXdWNYSFFnMUlnWmdmSXN5cmVhaDZQT2pNQTU5TE5GL2F2?=
+ =?utf-8?B?NElwOXhqVk5EbVF0Z3I1RXYzNlB1Mk9aaGkxME42STQ0aDdCL2JmajAzY0xS?=
+ =?utf-8?B?clJIYTdVYkN1TVhJK3dUWjNER0NrK3U4c0ZYSG5XNWFJQzZkWlFYNkNzVFdl?=
+ =?utf-8?B?UExYQ0NkV3FZbDV6YklQSnB4a0FHOHd4QVU0dmx0ZlBuWk5VM1Q2eUJQdkxY?=
+ =?utf-8?B?b3ZvUGRndVRUSytIT3FITjFWYUJKcVJlZEJvNnRsQ2V0czAxeXBCTWZQSlV4?=
+ =?utf-8?B?Z05sdCtkclVpemo0UXZyVVJIa3ByOVEvSmlXTWlxbUNtZm5vT1hCWGlFdFVq?=
+ =?utf-8?B?VXFVeTA3cTVHRHExT3RMZnhRMks2MGY1WTM3bWpnWUk5Rkp1ZUhDTlJtRmR6?=
+ =?utf-8?B?aitTUmk1OFVFQithbGM3cTh5eW1QdG04SXdCeldYUnlXRHY2cUo2QWs0Wkgy?=
+ =?utf-8?B?ZlIrcXhPZ3Vucmh4Wnh4R3VoRHhoUUtoWmhBazFyZ3BLZzNYcklGOU1uMnJP?=
+ =?utf-8?B?RDArVTRKMHVZbG5SQkdOdzFWVzEySVBoUStjNlVrRktaNWpqNGhmb0tOVVp5?=
+ =?utf-8?B?dFQ3b0FaYkFpdHJ3YVd4dHUwVWw2MW1ya2trZzhBamViRXVmaUhXdkN5dFBk?=
+ =?utf-8?B?TDRsTm13NzVFNXlzb3BRUXlKREVxa0tUTXQ0eTUwdlM0clYyZGFqYUN4TVVn?=
+ =?utf-8?B?dy8vRGFzZzliMkRwMklWeUJUY3d4Q09mZHlxeHpGKzhhbzN4L3BFYklGS3R6?=
+ =?utf-8?B?NEdrYXNjeW9jTE9STXdZaU4wcktwWndvd1JtS21SSnJEREY1eE8vS0VuQkM1?=
+ =?utf-8?B?ZVF2dU1HR0Y1N2ZSLzh1dWt3c2xEaWU3QXZVL3ZDbnUvV0JZYU1WOEhGOFlp?=
+ =?utf-8?B?am9BelhCY3ZYZ3F0Zk0zSUVOM2J4bkU1YzVURitOVEFBdkhnL0I4M3FWM2wr?=
+ =?utf-8?B?by9xbHFQczJPbTZBbXVvbHQySVdZZ1lBMmFBRys4eEZtcTJkeFgrN1pRYUx3?=
+ =?utf-8?B?YTZ4cXdiblZidUdtUkFnWk1mUytRVldGdnQ5UUZUaXgrVjltOTZtOGpKUmZz?=
+ =?utf-8?B?R3Qyakx1SlJyMGxlbVpzQkVWUGxDU25abko5V3BYdy9idWJmbWFGa1hCMEZR?=
+ =?utf-8?Q?GZTxwp2rN+KIp1//uF0Se2bMIzllbql2KvLYc?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc15826f-2567-448d-5256-08dec0211d47
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 21:02:39.2314
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 9bDuGB95FgF1WsJ34UdZDhUmpoRQ6QX41E11VmWLaMPzfnXWXEOGpk4V0X1NwOwlVRKWxII8nEL0jhOD1fTnCfir9FGGxiqYkiLwrD1slksnxIGajCxGw8F2oV8QxgX1
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI0PR04MB12079
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+From: Frank Li <Frank.Li@nxp.com>
 
-New issues:
-- [Critical] Use-After-Free of `mon_dom` due to non-blocking `cancel_delaye=
-d_work()` in error and teardown paths.
-- [High] Passing `any_cpu =3D false` when enabling MBM_TOTAL breaks monitor=
- reads and RMID resets on nohz_full systems, as it forces execution into an=
- IRQ-disabled IPI context.
 
-Pre-existing issues:
-- [High] AB-BA deadlock between cbqri_domain_list_lock and rdtgroup_mutex d=
-ue to conflicting lock ordering in CPU hotplug and sysfs read paths.
---
+On Thu, 28 May 2026 18:03:58 +0200, Stefano Radaelli wrote:
+> Add the MCP251xFD CAN controller connected to LPSPI7 chip select 1 on
+> the Sonata carrier board.
+> 
+> Add the second SPI chip select GPIO and describe the CAN interrupt and
+> pinctrl configuration.
+> 
+> 
+> [...]
 
-commit 92a8d87e453213af4aa7b562d1f08a7080be5807
-Author: Drew Fustini <fustini@kernel.org>
+Applied, thanks!
 
-riscv_cbqri: resctrl: Add mbm_total_bytes bandwidth monitoring
+[1/1] arm64: dts: imx95-var-dart-sonata: add CAN controller
+      commit: d120bfeca4b7a284ebf977adf525f80f7ff6bb70
 
-Expose CBQRI bandwidth controller's combined read+write counter as
-the L3 mbm_total_bytes event. A software accumulator keeps the
-64-bit byte total monotonic across the 62-bit hardware counter wrap.
-
-> diff --git a/drivers/resctrl/cbqri_resctrl.c b/drivers/resctrl/cbqri_resc=
-trl.c
-> index 14b955eb79491..efd75d241122f 100644
-> --- a/drivers/resctrl/cbqri_resctrl.c
-> +++ b/drivers/resctrl/cbqri_resctrl.c
-> @@ -184,17 +191,67 @@ void resctrl_arch_mon_event_config_write(void *info)
->  void resctrl_arch_reset_rmid(struct rdt_resource *r, struct rdt_l3_mon_d=
-omain *d,
->  			     u32 unused, u32 rmid, enum resctrl_event_id eventid)
->  {
-> +	struct cbqri_resctrl_dom *hw_dom;
-> +	struct rdt_ctrl_domain *cd;
-> +
-> +	if (irqs_disabled())
-> +		return;
-> +
-> +	mutex_lock(&cbqri_domain_list_lock);
-
-[Severity: High]
-This is a pre-existing issue, but does expanding cbqri_domain_list_lock
-usage here worsen an AB-BA deadlock with rdtgroup_mutex?
-
-A deadlock can occur during CPU hotplug and sysfs reads due to conflicting
-lock ordering:
-
-Thread A (CPU Hotplug) takes cbqri_domain_list_lock in
-cbqri_resctrl_online_cpu(), then calls resctrl_online_mon_domain() via
-cbqri_attach_cpu_to_l3_mon(), which blocks waiting for rdtgroup_mutex.
-
-Thread B (Sysfs read) takes rdtgroup_mutex in rdtgroup_mondata_show(), then
-delegates the read via smp_call_on_cpu() to a worker thread.
-
-Thread C (Worker) executes resctrl_arch_rmid_read(), which blocks waiting
-for cbqri_domain_list_lock.
-
-[ ... ]
-
-> @@ -773,6 +906,61 @@ static int cbqri_resctrl_pick_bw_alloc(void)
-[ ... ]
-> +static void cbqri_resctrl_pick_counters(void)
-> +{
-[ ... ]
-> +	/*
-> +	 * mbm_total_bytes is surfaced on the L3 monitoring domain, so it
-> +	 * needs a mon-capable L3 cache controller as well as a single
-> +	 * mon-capable bandwidth controller.
-> +	 */
-> +	if (l3->ctrl && l3->ctrl->mon_capable && cbqri_find_only_mon_bc())
-> +		resctrl_enable_mon_event(QOS_L3_MBM_TOTAL_EVENT_ID, false, 0, NULL);
-
-[Severity: High]
-Does passing any_cpu =3D false here break monitor reads and RMID resets on
-nohz_full systems?
-
-When any_cpu is false, the resctrl core ensures the read executes on a CPU
-in the target domain. If all CPUs in that domain are nohz_full,
-mon_event_read() falls back from smp_call_on_cpu() (process context) to
-smp_call_function_any() (IPI hardirq context with interrupts disabled).
-
-Because drivers/resctrl/cbqri_resctrl.c checks for irqs_disabled() in both
-resctrl_arch_rmid_read() and resctrl_arch_reset_rmid() and silently aborts,
-monitor reads and resets will fail on nohz_full systems.
-
-[ ... ]
-
-> @@ -854,6 +1054,7 @@ static int cbqri_attach_cpu_to_l3_mon(struct cbqri_c=
-ontroller *ctrl,
-[ ... ]
->  err_offline:
->  	/*
->  	 * cancel_delayed_work avoids deadlocking against the cqm_limbo
->  	 * worker which takes cpus_read_lock while this hotplug callback
->  	 * already holds cpus_write_lock. mbm_over is only
->  	 * INIT_DELAYED_WORK'd when MBM_TOTAL was enabled, so gate the
->  	 * cancel on the same condition to avoid touching a zeroed work
->  	 * struct.
->  	 */
->  	cancel_delayed_work(&mon_dom->cqm_limbo);
-> +	if (resctrl_is_mon_event_enabled(QOS_L3_MBM_TOTAL_EVENT_ID))
-> +		cancel_delayed_work(&mon_dom->mbm_over);
->  	resctrl_offline_mon_domain(res, &mon_dom->hdr);
->  err_listdel:
->  	list_del(&mon_dom->hdr.list);
->  err_free:
->  	kfree(mon_dom);
->  	return err;
->  }
-
-[Severity: Critical]
-Does this non-blocking cancel_delayed_work() lead to a use-after-free of
-mon_dom?
-
-In drivers/resctrl/cbqri_resctrl.c:cbqri_attach_cpu_to_l3_mon(),
-resctrl_online_mon_domain() schedules the mbm_over delayed work. If hardware
-initialization fails later in the function, the error path executes
-cancel_delayed_work(), which is non-blocking.
-
-If the worker thread has already woken up and is actively blocked on
-cpus_read_lock() waiting for the hotplug thread to drop cpus_write_lock(),
-cancel_delayed_work() will return false.
-
-The hotplug thread will then proceed to free mon_dom and drop the lock.
-Once the lock is dropped, the worker thread resumes execution and will
-access the freed mon_dom.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ssqosid-cb=
-qri-rqsc-v7-0-v6-0-baf00f50028a@kernel.org?part=3D15
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
