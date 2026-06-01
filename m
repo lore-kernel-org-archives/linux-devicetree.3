@@ -1,149 +1,389 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A597634753B
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:48:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D878833F590
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:48:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780303709; cv=none; b=slpPROjQ1w/zyfCv5QBww9+nIQlL/vC4Y7ouCxH9+7gz3GArrNwv1cH1MybnPOJigWdlxrx2v6/fxeHVAXPn2K0CeRBsDAtbwggdyU/U8sJKdo74Vx+joN3jtuMvx3GtsUgvJrqlCv172QMwxEVJ6dd2Pzp9fd3C1rsRBLbs3hE=
+	t=1780303726; cv=none; b=rjitEvoSC3WbFVjyOdEf0yvq00YMvSMNXDoov/0RAp9uwdSduHfEh4d1NHzVDiuJMMt+HC2iuQcyIYc51Zvv5o9hlCKdAcrRVYcgxDZZfTJJ3nn9tgGEmYpbemVRNpj5UTu5KAk44RHy0mjP0Qi/m/qKOnuiTwjseL8gkj//hlo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780303709; c=relaxed/simple;
-	bh=fk629VZBGTRm9OfLwrzcQ1hhc5VKHeUR7OD/kkF1Kgw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LwlyaxdHDl2brF2Vy5DkNgQ1OV271AnwqZEfQSNZ69ms31YTWySkIeoHNtJzxaT0qIIRQfRjHjUm2ounglswpjEKySx7uw0w+q4PSr4M0rNnVqQ+PbtAcJqakQbbH87CY47VJunGdkWCwkUavS6bVwjzsjTiLpv4UqGHi75sOlA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pR5oT5Ik; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780303726; c=relaxed/simple;
+	bh=girrbNIhYiFYww2iWQ8yrcb25u0z/iMyv5OA6IPxiDk=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=nOpezKkGYePvjhu4Rm12rzntrJzhIsRYmu9UO241psVP1aPEXJsi+W2lGdzAd8JQokB6zIesHqLg/49Sl0lHjGUfHI55Ljz1NR5En2aEIyw8vke8WfiV/Pfq4znkqkVR/EekxsgY7Tdm4nWjuzIjwxiZDwExUy/fk83t7fYOZxQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZrx4IA1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pR5oT5Ik"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45eeba68948so2926949f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:48:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780303706; x=1780908506; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=e6R97isaU/cFcZ2I9WM2rO8XYaMDHSz/qiNm9k/zmx4=;
-        b=pR5oT5IkeJQ4SZNBGG4/EXkm2HmFeONoBn2YSWyyVn3gTy/vfKU7B8bGUv7Wbpq6ts
-         PYSFMY0EkGQK8UwXUOk7OWeSSgfP8aBLhFsBpZxDOQMappRG60cGDZE0aysqda65T6UR
-         WPhlwTrDG5Qq4j6TmGH8o8xEJliTdM8YYSFOA5qLsOQ5iRJm9MWyWCIP3yM2RbaQ4i5J
-         Rdv7kwUjEZEcYl58vN5v0pfP4Wbo4b4lRHZ//NzWdTZkQ25+La7zKWTUpWeafHGAPFPY
-         uvbDFZG7601ba+VVAGx/U/l6bQb+/mP5IjACDF/Q2lt2i0GeYYRRH40Ksv1TBGTzIIn2
-         SBIQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780303706; x=1780908506;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=e6R97isaU/cFcZ2I9WM2rO8XYaMDHSz/qiNm9k/zmx4=;
-        b=Pp/MddT3Uly4QXPGpQMWuHmnIPb7iVfLmRPnoWVcNz9FOJVbhzs7NOaCM4k/gqUKQ/
-         GH+k8gLxhExg7srfwXxjZLq0WHVI1wgfQo+6NW7PEpn1sMmjvsc/GL8BXAv+WKLb1nPI
-         Ez9xh6wKyWJoyqhwe29eqou9LJMIbc+tEMVuDpAkfbWXMHwAjs0IkhGpmDROSbdYU7pJ
-         /0CA4DCQuI9+jwUVRexNIskOQtFjyMpktlJ8DECA6FYgTKskeak8FrJ/QbWrd6uA+Yhk
-         wmXfQJjqdy0JQYAz7gsrE7hq5WiVJSuZAF6p1c0NjstUf9PmBZLiRS/9p3aCdoz8bauZ
-         KlkA==
-X-Forwarded-Encrypted: i=1; AFNElJ/EttCe7XQIa27pR5zTG7m6VKiekGklP14Qe81XefKXgo86Btkvk0k4ekOmYDZ/ACWQWwMIxxLgjXse@vger.kernel.org
-X-Gm-Message-State: AOJu0YyA1zclu8w68RtgXXoz0nCtgwB4YAWs8QK7ACG+QpHBVC362bVm
-	Tq3wgzTsA3sTowPgkIKiPD6MawHNPnng7711uOBaMEz+/X7lXn7JBo9W
-X-Gm-Gg: Acq92OEz2axpgJLnEN/fFhgyOIG9D2yKdqqa6+CK0AMRBeL13k8E/BGTPo3JZiQ6Xd4
-	1hLgiP7lFWU2viUMBxfKe49BxNMIbuqTLciHbMsdizjhKp7pJdvLHMmXK3X669yOZibTA1ltwTO
-	/TC92iFhg+y6QQCv5/rPRHkRa46W8X/C/TFqV0PsPrgbv7kdfoi1YFF1Asa3DK3AZo5KjVXDn3S
-	yzvmo//ps3Q/lMZ1X4Mtoaej+1dwPxUloWIeXRfG3xN6Z6875JzxoZAzUFy4/eIp+zGwRgWhV4p
-	YWchh6qlwZRGGtJG+No3HffqevKxHkZeb3Q4SeOqCLDp34Lb8u7pPewW0Udfcfu8utNA1jy4QCM
-	+Q1wjj65UVXyi+wJhs6ixNZIvVMeMshuOdckGEQkepsc6aKZ1DeTX36o1GpfliyEq2zIkXeYqlz
-	UCWxjPkDS/yHR84EslM4J0UXNUTzA+IQIA5Muq2PTx1nBOiKvAWOjQVye1KDVLt/7pB6HY1gvGp
-	EK8+O0PAQ==
-X-Received: by 2002:a5d:49c2:0:b0:455:7d77:1d25 with SMTP id ffacd0b85a97d-45ef6b75cf8mr13497273f8f.27.1780303705968;
-        Mon, 01 Jun 2026 01:48:25 -0700 (PDT)
-Received: from ?IPV6:2a00:f502:260:28a1:17cc:dada:92e7:2b6a? ([2a00:f502:260:28a1:17cc:dada:92e7:2b6a])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34a0374sm21522883f8f.2.2026.06.01.01.48.24
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 01:48:25 -0700 (PDT)
-Message-ID: <22f344ff-acc4-47f8-935b-d1c3be7073ee@gmail.com>
-Date: Mon, 1 Jun 2026 11:48:23 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZrx4IA1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A6821F0089A
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:48:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780303722;
+	bh=cLigZaKJVqblnxm+Q7w7B1ksXMtpT0SjHcOIy06ixU0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=kZrx4IA192lx27h6fgvYJu5UbGsN7RLwItfeVW9W2t7YSQfeUsC5Wats9N1b0SPq5
+	 KLTvl5udoyO17WbkiZpdMYkIZtEj6VdNP3JAkFO/hKfnEVafgUo9mP+12apx7Qo/c3
+	 6nYigYZ22hR0a0k2Rg4ntrDz5VxR7Jy4TokvxklQS0qG42DoTCXWHIHLtuqgFceTSl
+	 7+EnxPCSLMtmG9o7aTquR5Kp3Yi+8KasvA43j3R9n38ctsQsIXu3bdPUWGiHfDmmeP
+	 CO5Z+PCC0AJFKuysCI/mNZrGfZJNWp8QlcZI1rug0wWmJbu57quZNkbDRuKAWTv9DK
+	 KRlMGPTSoPZDw==
+Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aa5e9a64b4so2098679e87.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:48:42 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9SlrGNV+cnubAlzGtDCS+7hVzJuvkHRQ5cSriApot4d68dx/+8vzOaq5eJ++8sIHiQajHRcqyLuJc9@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8sDZoEDZKQbACrOmC1zJdBWK05TGbS1r9ILJvMountEMKDYFs
+	Ld1T2zK2tu/NZyR/MwK77r14N6BGWQ7s2RUCgVBfsDW8rjI0duDEWdOE2+0Q71g4sYbIGvXK9eW
+	DB8BUg6EAFY6g+m2O1uK4NuMSKfhGwlodxMoL9n0ZfQ==
+X-Received: by 2002:a05:6512:2242:b0:5aa:6a18:2b84 with SMTP id
+ 2adb3069b0e04-5aa6a182d02mr1894683e87.7.1780303721120; Mon, 01 Jun 2026
+ 01:48:41 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 1 Jun 2026 04:48:39 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 1 Jun 2026 04:48:39 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/9] clk: qcom: gcc-msm8939: mark Venus core GDSCs as
- hardware controlled
-To: Taniya Das <taniya.das@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Apitzsch?= <git@apitzsch.eu>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>
-Cc: linux-media@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-clk@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht,
- phone-devel@vger.kernel.org
-References: <20260519-msm8939-venus-rfc-v8-0-542ec7557ebc@gmail.com>
- <e7WD-tbtAA7Bx0uDnXgPHto9hACWxgblhI2eitNHX4VYEgxOOceuY0sOS6KQnGiyTaDYaKudZt4k50z_vJVpnw==@protonmail.internalid>
- <20260519-msm8939-venus-rfc-v8-2-542ec7557ebc@gmail.com>
- <608dc53d-17a8-4230-9ebb-48a94bf03675@kernel.org>
- <6ae3a89c-f205-45c5-87c0-5550f78502d6@oss.qualcomm.com>
- <01f9a303-846a-4048-8115-c94b9b78078a@gmail.com>
- <ecaa113a-02d7-48b6-a94e-9299a684b0be@oss.qualcomm.com>
- <4JzpVyRt008YHZIv34VGG-Z_etL_fh9cE8AL30d-uekLUAxGmZNV9os6xkESzPAyzDHFHA9XXyPgWxzBlEfnhQ==@protonmail.internalid>
- <d8177e27-7cd6-43f2-b88b-2dbce936421b@gmail.com>
- <82f7a200-ab07-4ff4-b84e-305351f78460@kernel.org>
- <4ab6aa28-6b0b-436f-95d3-23b54d73a992@oss.qualcomm.com>
-Content-Language: en-US
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-In-Reply-To: <4ab6aa28-6b0b-436f-95d3-23b54d73a992@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260528-pinctrl-level-shifter-v2-0-3a6a025392bf@oss.qualcomm.com>
+ <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
+Date: Mon, 1 Jun 2026 04:48:39 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MegLUYfqDNS6VMSPGiU7ChFMsA-xv=YVRNqW7R2Q=ukQg@mail.gmail.com>
+X-Gm-Features: AVHnY4Inlne_6R0FqZJ9907w49O5hF9Q9C33iWKqXezEmfJZnmmSrK2afv0df94
+Message-ID: <CAMRc=MegLUYfqDNS6VMSPGiU7ChFMsA-xv=YVRNqW7R2Q=ukQg@mail.gmail.com>
+Subject: Re: [PATCH v2 1/4] soc: qcom: rpmh: Allow non-child devices to issue
+ write commands
+To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+Cc: David Collins <david.collins@oss.qualcomm.com>, 
+	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, 
+	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
+	kernel@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
+	Konrad Dybcio <konradybcio@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bartosz Golaszewski <brgl@kernel.org>
+Content-Type: text/plain; charset="UTF-8"
 
+On Fri, 29 May 2026 03:05:35 +0200, Fenglin Wu
+<fenglin.wu@oss.qualcomm.com> said:
+> Currently, the RPMH driver only allows child devices of the RPMH
+> controller to issue commands, as it assumes dev->parent points to the
+> RSC device.
+>
+> There is a possibility that certain devices which are not children of
+> the RPMH controller want to send commands for special control at the
+> RPMH side. For example, in PMH0101 PMICs, there are bidirectional
+> level shifter (LS) peripherals, and each LS works with a pair of PMIC
+> GPIOs. The control of the LS, which is combined with the GPIO
+> configuration, is handled by RPMH firmware for sharing the resource
+> between different subsystems. From a hardware point of view, the LS
+> functionality is tied to a pair of PMIC GPIOs, so its control is more
+> suitable to be added in the pinctrl-spmi-gpio driver by adding the
+> level-shifter function. However, the pinctrl-spmi-gpio device is a
+> child device of the SPMI controller, not the RPMH controller.
+>
+> This patch extends the RPMH driver to support write commands from any
+> device that has a pointer to the RPMH controller device:
+>
+> 1. Add rpmh_get_ctrlr_dev() to lookup controller via device tree
+>    phandle "qcom,rpmh"
+> 2. Add new APIs: rpmh_write_async_ctrlr() and rpmh_write_ctrlr()
+>    that accept controller device pointer directly
+>
+> With this change, the pinctrl-spmi-gpio driver is able to issue write
+> commands to the RPMH controller by using the controller device pointer,
+> and vote for enabling the level-shifter function.
+>
+> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
+> ---
+>  drivers/soc/qcom/rpmh.c | 173 +++++++++++++++++++++++++++++++++++++++++++-----
+>  include/soc/qcom/rpmh.h |  21 ++++++
+>  2 files changed, 179 insertions(+), 15 deletions(-)
+>
+> diff --git a/drivers/soc/qcom/rpmh.c b/drivers/soc/qcom/rpmh.c
+> index ca37da3dc2b1..9dbc42b775d9 100644
+> --- a/drivers/soc/qcom/rpmh.c
+> +++ b/drivers/soc/qcom/rpmh.c
+> @@ -12,6 +12,7 @@
+>  #include <linux/lockdep.h>
+>  #include <linux/module.h>
+>  #include <linux/of.h>
+> +#include <linux/of_platform.h>
+>  #include <linux/platform_device.h>
+>  #include <linux/slab.h>
+>  #include <linux/spinlock.h>
+> @@ -76,6 +77,21 @@ static struct rpmh_ctrlr *get_rpmh_ctrlr(const struct device *dev)
+>  	return &drv->client;
+>  }
+>
+> +static struct rpmh_ctrlr *get_rpmh_ctrlr_from_dev(const struct device *ctrl_dev)
+> +{
+> +	struct rsc_drv *drv;
+> +
+> +	if (!ctrl_dev)
+> +		return ERR_PTR(-EINVAL);
+> +
+> +	drv = dev_get_drvdata(ctrl_dev);
+> +
+> +	if (!drv)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	return &drv->client;
+> +}
+> +
+>  void rpmh_tx_done(const struct tcs_request *msg)
+>  {
+>  	struct rpmh_request *rpm_msg = container_of(msg, struct rpmh_request,
+> @@ -156,23 +172,11 @@ static struct cache_req *cache_rpm_request(struct rpmh_ctrlr *ctrlr,
+>  	return req;
+>  }
+>
+> -/**
+> - * __rpmh_write: Cache and send the RPMH request
+> - *
+> - * @dev: The device making the request
+> - * @state: Active/Sleep request type
+> - * @rpm_msg: The data that needs to be sent (cmds).
+> - *
+> - * Cache the RPMH request and send if the state is ACTIVE_ONLY.
+> - * SLEEP/WAKE_ONLY requests are not sent to the controller at
+> - * this time. Use rpmh_flush() to send them to the controller.
+> - */
+> -static int __rpmh_write(const struct device *dev, enum rpmh_state state,
+> -			struct rpmh_request *rpm_msg)
+> +static int __rpmh_write_direct(struct rpmh_ctrlr *ctrlr, enum rpmh_state state,
+> +			       struct rpmh_request *rpm_msg)
+>  {
+> -	struct rpmh_ctrlr *ctrlr = get_rpmh_ctrlr(dev);
+> -	int ret = -EINVAL;
+>  	struct cache_req *req;
+> +	int ret = -EINVAL;
+>  	int i;
+>
+>  	/* Cache the request in our store and link the payload */
+> @@ -193,6 +197,25 @@ static int __rpmh_write(const struct device *dev, enum rpmh_state state,
+>  	return ret;
+>  }
+>
+> +/**
+> + * __rpmh_write: Cache and send the RPMH request
+> + *
+> + * @dev: The device making the request
+> + * @state: Active/Sleep request type
+> + * @rpm_msg: The data that needs to be sent (cmds).
+> + *
+> + * Cache the RPMH request and send if the state is ACTIVE_ONLY.
+> + * SLEEP/WAKE_ONLY requests are not sent to the controller at
+> + * this time. Use rpmh_flush() to send them to the controller.
+> + */
+> +static int __rpmh_write(const struct device *dev, enum rpmh_state state,
+> +			struct rpmh_request *rpm_msg)
+> +{
+> +	struct rpmh_ctrlr *ctrlr = get_rpmh_ctrlr(dev);
+> +
+> +	return __rpmh_write_direct(ctrlr, state, rpm_msg);
+> +}
+> +
+>  static int __fill_rpmh_msg(struct rpmh_request *req, enum rpmh_state state,
+>  		const struct tcs_cmd *cmd, u32 n)
+>  {
+> @@ -271,6 +294,126 @@ int rpmh_write(const struct device *dev, enum rpmh_state state,
+>  }
+>  EXPORT_SYMBOL_GPL(rpmh_write);
+>
+> +static void rpmh_put_device(void *data)
+> +{
 
+Can you cast it here to struct device * to make it clear what is being
+released?
 
-On 6/1/26 11:29 AM, Taniya Das wrote:
-> 
-> 
-> On 5/26/2026 4:20 AM, Bryan O'Donoghue wrote:
->> On 25/05/2026 10:56, Erikas Bitovtas wrote:
->>> +    for (; i < res->vcodec_pmdomains_num; i++) {
->>> +        pd_dev = core->pmdomains->pd_devs[i];
->>> +        ret = pm_runtime_resume_and_get(pd_dev);
->>> +        if (ret)
->>> +            goto err;
->>> +
->>> +        ret = dev_pm_genpd_set_hwmode(pd_dev, true);
->>> +        if (ret && ret != -EOPNOTSUPP) {
->>> +            pm_runtime_put_sync(pd_dev);
->>> +            goto err;
->>> +        }
->>> +    }
->>
->> In Iris we do
->>
->> - enable_power_domains
->> - enable_clocks
->> - set hwmode
->>
-> 
-> This sequence will always ensure clock can be polled as the GDSC is
-> still in SW mode.
-> 
-> 
->> Instead of
->>
->> - enable_power_domains
->> - set hwmode
->> - enable clocks
->>
-> 
-> This sequence will require the clock to have SKIP or DELAY as the GDSC
-> is moved to HW mode and it is not guaranteed to match the SW expectation.
-> 
-> 
-Thank you for the explanation. I fixed the sequence in v9 - clocks are
-now enabled before switching to HW mode, not after.
+> +	put_device(data);
+> +}
+> +
+> +/**
+> + * rpmh_get_ctrlr_dev: Get RPMH controller device from device tree
+> + *
+> + * @dev: Device with "qcom,rpmh" phandle property
+> + *
+> + * Returns: Pointer to RPMH controller device, with a devm action registered
+> + * on @dev to release the reference when @dev is unbound.
+
+Then I believe it should be called devm_rpmh_get_ctrlr_dev() with the non-devm
+variant not registering the devres action.
+
+> + */
+> +struct device *rpmh_get_ctrlr_dev(struct device *dev)
+> +{
+> +	struct device_node *rpmh_np;
+> +	struct platform_device *pdev;
+> +	struct device_link *link;
+> +	int ret;
+> +
+> +	rpmh_np = of_parse_phandle(dev->of_node, "qcom,rpmh", 0);
+> +	if (!rpmh_np)
+> +		return ERR_PTR(-ENODEV);
+> +
+> +	pdev = of_find_device_by_node(rpmh_np);
+> +	of_node_put(rpmh_np);
+> +
+> +	if (!pdev)
+> +		return ERR_PTR(-EPROBE_DEFER);
+> +
+> +	link = device_link_add(dev, &pdev->dev,
+> +			       DL_FLAG_AUTOREMOVE_CONSUMER | DL_FLAG_PM_RUNTIME);
+
+This should already be covered by driver core as there already exists a phandle
+link from dev->of_node to rpmh_np.
+
+> +	if (!link) {
+> +		put_device(&pdev->dev);
+> +		return ERR_PTR(-EINVAL);
+> +	}
+> +
+> +	ret = devm_add_action_or_reset(dev, rpmh_put_device, &pdev->dev);
+> +	if (ret)
+> +		return ERR_PTR(ret);
+> +
+> +	return &pdev->dev;
+> +}
+> +EXPORT_SYMBOL_GPL(rpmh_get_ctrlr_dev);
+> +
+> +/**
+> + * rpmh_write_async_ctrlr: Write RPMH commands with the controller device pointer
+> + *
+> + * @ctrl_dev: The RPMH controller device
+> + * @state: Active/sleep set
+> + * @cmd: The payload data
+> + * @n: The number of elements in payload
+> + *
+> + * Write a set of RPMH commands, the order of commands is maintained
+> + * and will be sent as a single shot.
+
+s/shot/batch/?
+
+> + */
+> +int rpmh_write_async_ctrlr(const struct device *ctrl_dev, enum rpmh_state state,
+> +			   const struct tcs_cmd *cmd, u32 n)
+> +{
+
+The signature of this is the same as that of rpmh_write_async() and the two
+functions share a lot of code. Can we not rework rpmh_write_async() to
+internally check if it needs to call get_rpmh_ctrlr_from_dev() and avoid
+introducing new interfaces?
+
+> +	struct rpmh_request *rpm_msg;
+> +	struct rpmh_ctrlr *ctrlr;
+> +	int ret;
+> +
+> +	ctrlr = get_rpmh_ctrlr_from_dev(ctrl_dev);
+> +	if (IS_ERR(ctrlr))
+> +		return PTR_ERR(ctrlr);
+> +
+> +	rpm_msg = kzalloc_obj(*rpm_msg, GFP_ATOMIC);
+> +	if (!rpm_msg)
+> +		return -ENOMEM;
+> +	rpm_msg->needs_free = true;
+> +
+> +	ret = __fill_rpmh_msg(rpm_msg, state, cmd, n);
+> +	if (ret) {
+> +		kfree(rpm_msg);
+> +		return ret;
+> +	}
+> +
+> +	return __rpmh_write_direct(ctrlr, state, rpm_msg);
+> +}
+> +EXPORT_SYMBOL_GPL(rpmh_write_async_ctrlr);
+> +
+> +/**
+> + * rpmh_write_ctrlr: Write RPMH commands and block until response,
+> + * with the controller device pointer
+> + *
+> + * @ctrlr_dev: The RPMH controller device
+> + * @state: Active/sleep set
+> + * @cmd: The payload data
+> + * @n: The number of elements in @cmd
+> + *
+> + * May sleep. Do not call from atomic contexts.
+
+Add might_sleep() at the top of the function?
+
+> + */
+> +int rpmh_write_ctrlr(const struct device *ctrlr_dev, enum rpmh_state state,
+> +		     const struct tcs_cmd *cmd, u32 n)
+> +{
+> +	DECLARE_COMPLETION_ONSTACK(compl);
+> +	/* dev is unused in the synchronous non-batch path; pass NULL */
+> +	DEFINE_RPMH_MSG_ONSTACK(NULL, state, &compl, rpm_msg);
+> +	struct rpmh_ctrlr *ctrlr;
+> +	int ret;
+> +
+> +	ctrlr = get_rpmh_ctrlr_from_dev(ctrlr_dev);
+> +	if (IS_ERR(ctrlr))
+> +		return PTR_ERR(ctrlr);
+> +
+> +	ret = __fill_rpmh_msg(&rpm_msg, state, cmd, n);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = __rpmh_write_direct(ctrlr, state, &rpm_msg);
+> +	if (ret)
+> +		return ret;
+> +
+> +	ret = wait_for_completion_timeout(&compl, RPMH_TIMEOUT_MS);
+> +	WARN_ON(!ret);
+> +	return (ret > 0) ? 0 : -ETIMEDOUT;
+> +}
+> +EXPORT_SYMBOL_GPL(rpmh_write_ctrlr);
+> +
+>  static void cache_batch(struct rpmh_ctrlr *ctrlr, struct batch_cache_req *req)
+>  {
+>  	unsigned long flags;
+> diff --git a/include/soc/qcom/rpmh.h b/include/soc/qcom/rpmh.h
+> index bdbee1a97d36..90ddcd7ca2fe 100644
+> --- a/include/soc/qcom/rpmh.h
+> +++ b/include/soc/qcom/rpmh.h
+> @@ -22,6 +22,14 @@ int rpmh_write_batch(const struct device *dev, enum rpmh_state state,
+>
+>  void rpmh_invalidate(const struct device *dev);
+>
+> +struct device *rpmh_get_ctrlr_dev(struct device *dev);
+> +
+> +int rpmh_write_async_ctrlr(const struct device *ctrl_dev, enum rpmh_state state,
+> +			   const struct tcs_cmd *cmd, u32 n);
+> +
+> +int rpmh_write_ctrlr(const struct device *ctrlr_dev, enum rpmh_state state,
+> +		     const struct tcs_cmd *cmd, u32 n);
+> +
+>  #else
+>
+>  static inline int rpmh_write(const struct device *dev, enum rpmh_state state,
+> @@ -42,6 +50,19 @@ static inline void rpmh_invalidate(const struct device *dev)
+>  {
+>  }
+>
+> +static inline struct device *rpmh_get_ctrlr_dev(struct device *dev)
+> +{ return ERR_PTR(-ENODEV); }
+> +
+> +static inline int rpmh_write_async_ctrlr(const struct device *ctrl_dev,
+> +					  enum rpmh_state state,
+> +					  const struct tcs_cmd *cmd, u32 n)
+> +{ return -ENODEV; }
+> +
+> +static inline int rpmh_write_ctrlr(const struct device *ctrlr_dev,
+> +				    enum rpmh_state state,
+> +				    const struct tcs_cmd *cmd, u32 n)
+> +{ return -ENODEV; }
+> +
+>  #endif /* CONFIG_QCOM_RPMH */
+>
+>  #endif /* __SOC_QCOM_RPMH_H__ */
+>
+> --
+> 2.43.0
+>
+>
+
+Bartosz
