@@ -1,77 +1,187 @@
-Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2CF3955E2;
-	Mon,  1 Jun 2026 09:45:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7111C396D19
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 09:46:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780307127; cv=none; b=u9bbeC7sTKIaMxA8AqTQMhNvK8A43Kij1dBnNR5r6tN7pc4dhEKVrlz1tn/0ZhRD9e/CYYh4AmGzhu3A3WVQbFbfH96WWsMuXcDydk8jJ6KeE+1x0/tVoLWtm2TDZWY2V+YohGq1mvaH9asE05hYtxG/Cp+fLmYAVuknPX1ntyU=
+	t=1780307223; cv=none; b=dIi98fKUyWargH5PdTHShPSDt8eqPewf5p5el/D1nh2Qmcehonl56qAK9peDFj+EIJv3I4ZVl9oRiebfvW5bzianrFuz18RYQSQLdB4Ghjtx+xab81lGiKH6tKVUv6u1Z0dA8fMoeuqVsIJ1DNgBCoTOCSAuZAyoO5mmxPhPKrw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780307127; c=relaxed/simple;
-	bh=rXhfy0OJXSHb6/IJZYenwk8mraVQ6R3qSlOb1bb7sck=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=O2EoM6l4GQ/UvS46hSib0TTtIGPYVQCs2TJ9SE0w/3dFZImkcBYPRLGt+tqpBdPVKvVpe/9S8l0gMmwHLMpoh4fre5inHcI7Zx24pR61FyZXY6Od1/XkRp7fQDBHZYM/6I7/RyjG5FSOnss8jos7nUclTruFb0RcQDuhZWaBltI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=w6hWpZGn; arc=none smtp.client-ip=194.13.80.246
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
+	s=arc-20240116; t=1780307223; c=relaxed/simple;
+	bh=7IQl5gBCstIzsB25wxagTUyFt2zOmpRhZY2BOPvDRsk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=Y9Gjpsno5SpbLuTKueVywcEssWm9d6ZKAgaG8zqLL/FXYSv+pMsd/j68FkuQ43D0pNhAcrQhG3YduaVR2AFUY/kS6sYomw4ascH9uGyZupXWnKocIVOJQ8dcj/ozCeT+8mHAMbRIZUiuL7Gpgv7RJGqSxOenVLcS+TVHtkVz9rQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fw1ENjO5; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=cz5syKpG; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="w6hWpZGn"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D053A4C09;
-	Mon,  1 Jun 2026 11:45:19 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
-	t=1780307120; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=c2lq12F95AF0fONDKT9cGLInrpieeMANpi5wpSqUpUU=;
-	b=w6hWpZGn0UR6aM5a2JDPluPYsH724FkbNFbawhFfJhmmkiRVcbwW3cI0oHH37mva6nEjLN
-	0b8UTnribARyA8LFQDN+2yADlEUz8UygW0SiX9+KkHH5vKgpy7zjHc02/8nTOyduMESBUA
-	o0R9TZvtK3WWkJRa0blYe0f9dsDyI1Pd4UNgYSVHqrt52t0u9h8cyjtKiuayTyy2qeCh7E
-	TFltM0aw/UR7wC9yxHs19QDTIZ5OXbulqfTQYEM6+5p6QRyf+F4mfKgYsgLCBjWZa4fI0W
-	8iBhIKudBxgKsEvA6tcytITuDLkKjrFBMBSURMtyR5/4pxtxlv0KAtC5v5zDLg==
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fw1ENjO5";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="cz5syKpG"
+Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6517VmQW3029821
+	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 09:46:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=bQKthfhJHJ/OKF7Yf2J7ev
+	+iNLRDR1B1zOFtNrqX460=; b=fw1ENjO5pfCylBBNsHQKFNcEffxXp7oHYd4ydD
+	J23U7GKbOFGjNNzHFJIG2ZN1mMWAmFxo6Jk0Cy8pZ1IRLRBiiQTZCEKvs0WV7WJB
+	NWZW4Sso0dfkrYFXu/WrhEnawt3xv0EJnubx2hIcNz+pOIVAinGRLyuwIdyOINnO
+	klaIG6H9xMJI34y1kAkAlub1d2EZXaIPIi3lKvKpX4shkvnOz/5iyruFYCUESust
+	M/aVEqKNej/338Os9eCUBGYtPKzGzy+rE1mkJR8mPL4YhV7MM+I4nhvg0CpMjEnJ
+	H18LM+R2dvONtm3TJ5wW03fDye5Upe8B41DzxOT/k7nMQLMg==
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com [209.85.160.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efqyuxyxp-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 09:46:54 +0000 (GMT)
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-516d38bfe83so209880631cf.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 02:46:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780307213; x=1780912013; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=bQKthfhJHJ/OKF7Yf2J7ev+iNLRDR1B1zOFtNrqX460=;
+        b=cz5syKpGNFSctP1iiLUGH9YG/N2Lp03pnCqa4o2ZDPssmgBN6XxA62gLLPNquOfzrL
+         taHNvCatkIpgV0lSzF9Py0vUlOjwvTy59WjTzFDFmf1Q8CmpixcdXbsbbKzoN96y3p9u
+         H036c3d1TEVmcbYvLQLJZu77npCvopCBjQ1vN8tA0ouLmPuVnZg8YLFPtfEHZ7NuZPOQ
+         1eAiYXWgGFWzguFxbiGz7ecrnnCxEHUd1QMCx5nX8+QpQvTQ7J6gG5snqL7R+BlBAWxH
+         Duqra/ZLzCLjCIlDPno6fuSVkXNRDQivtsw72TjQyGJBfrDhyJ4IqJpieLYNzZDFoGu6
+         fLqQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780307213; x=1780912013;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=bQKthfhJHJ/OKF7Yf2J7ev+iNLRDR1B1zOFtNrqX460=;
+        b=LAMhIUK55ux0rh5dUqsE+tuDo5vdc6PJZbwl3J9ApImW+s6HbRr6Y9aGnKA/tUnoTC
+         QVox4WroE6+rx6Lrlbfq7JjMj2f6eEbeYEUC4ziXTI05tym6UZU+vH36+xS8IcLE9zvE
+         uUy3upTjRtUL11pvoWMHIuVi/LJozou6giqfJFquJelRBXok4Jo1ACMhlk4ClINNNcg0
+         qk/DZk4B6dbjWgx7I9crrt3MrKlCSqIK+27JyF0rUhQCDNyZpEGw+98ZXLEQqeBG60Aw
+         XdJ5y6wOW0QP6+KBDOe1L8eKT7+FbkHtBkup0X1dtTR7HYN2v5329prGC8JOJtOCYvNH
+         MAaQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9LnL/JuyVfKCledIdZtjPEVqZ4XbXeyi18OWaNPxXsL5mGeX4Shq7NZ6IpWJNmU602Oy9jQPhFvNQO@vger.kernel.org
+X-Gm-Message-State: AOJu0YwmLq/ol3BrcThNpXwoYpcDOt9s3yrHZjsSXTFUIAgI2wacQqqZ
+	OZNtwRym0fsTrTCyLuH2PKNsawJ14KkA073zqIwToWQN03VQQSdiBA1QO0fCXUvT24QkpV0y+Ey
+	awYlwVH1E5qenOpqJwVSerEZgMX/ULlUCCHNpV3mfvNr/kX5R+52Dob2atv0el+tE
+X-Gm-Gg: Acq92OHtPqaC/xQFfiy87TZYZITwcqyMTrEUT5VRQxVrUhVj6h5y2qgrVuFaG4CAk2e
+	35AitvJZksnTvREdjKVUm56uHpLwaICPBvd+0n+tFvpgtKN/Ns0v3oFf/ioHaDOF4YFmhNCXo1o
+	sCDqPugWu3ZcaElE9jv3H1ptuQYpZv3LZDq4BO6YFE8yXeyL5eAQUb/wL7feJmzEjB/u5crUeYX
+	ELbBO8XgIXCDy3L5Auk/9f495fDb9JRerWrTziEv42D6ywuRaw/l8+h6mY3wNSHw1z8n8mSyleQ
+	IL5dcL3nUy9r8ayLGtdWTrKFbxsrwmAyCFO9D/dsVLmI2/KozmyAMUVnyM1K2LNSZwFliIJIGnn
+	GA7VWO4vFnLOknoSAYZrFTkFruRnbBfL28Esl3/74D9904/YBEcYAEUO33SR4qeWhWbgqOzPSM4
+	3hdWM9LR3SwP09W0pezHPFtAq3BUlpJQzNeEG9C5BL0/ErvA==
+X-Received: by 2002:a05:622a:4e98:b0:517:5aa6:acf3 with SMTP id d75a77b69052e-5175aa6ada3mr18890061cf.12.1780307213398;
+        Mon, 01 Jun 2026 02:46:53 -0700 (PDT)
+X-Received: by 2002:a05:622a:4e98:b0:517:5aa6:acf3 with SMTP id d75a77b69052e-5175aa6ada3mr18889581cf.12.1780307212935;
+        Mon, 01 Jun 2026 02:46:52 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-39672802651sm15355201fa.1.2026.06.01.02.46.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 02:46:51 -0700 (PDT)
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Subject: [PATCH 0/7] arm64: dts: qcom: enable WiFi/BT on SM8350 HDK
+Date: Mon, 01 Jun 2026 12:46:48 +0300
+Message-Id: <20260601-sm8350-wifi-v1-0-242917d88031@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Mon, 01 Jun 2026 11:45:19 +0200
-From: Nicolai Buchwitz <nb@tipi-net.de>
-To: Linus Walleij <linusw@kernel.org>
-Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
- Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
- Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
- Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, Simon Horman
- <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
- netdev@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [PATCH net-next v3 5/5] net: dsa: ks8995: Delete surplus driver
-In-Reply-To: <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org>
-References: <20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org>
- <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org>
-Message-ID: <8c81f622caa31c526fd8b00585b1cc96@tipi-net.de>
-X-Sender: nb@tipi-net.de
-Content-Type: text/plain; charset=US-ASCII;
- format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-Last-TLS-Session-Version: TLSv1.3
+X-B4-Tracking: v=1; b=H4sIAAhVHWoC/yXMyw5AMBBA0V+RWWvSair4FbHQGozEIx2vRPy7Y
+ nkW917A6AkZiugCjzsxzVOAiiNwfT11KKgJhkQmqTRaCR4zbaQ4qCWhrUxNbp3KdA2hWDy2dH6
+ 3svrNmx3Qre8C7vsBHvXkXG8AAAA=
+X-Change-ID: 20260531-sm8350-wifi-3b0659bc183a
+To: Manivannan Sadhasivam <mani@kernel.org>,
+        Lorenzo Pieralisi <lpieralisi@kernel.org>,
+        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+        Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+        Qiang Yu <qiang.yu@oss.qualcomm.com>,
+        Jeff Johnson <jjohnson@kernel.org>,
+        Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Bartosz Golaszewski <brgl@kernel.org>,
+        Marcel Holtmann <marcel@holtmann.org>,
+        Luiz Augusto von Dentz <luiz.dentz@gmail.com>,
+        Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+        Rocky Liao <quic_rjliao@quicinc.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-pci@vger.kernel.org,
+        linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
+        ath11k@lists.infradead.org, devicetree@vger.kernel.org,
+        Bartosz Golaszewski <brgl@bgdev.pl>, linux-bluetooth@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1528;
+ i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
+ bh=7IQl5gBCstIzsB25wxagTUyFt2zOmpRhZY2BOPvDRsk=;
+ b=owGbwMvMwMXYbdNlx6SpcZXxtFoSQ5ZsKFf5IqHd3afcHFRblpsxG6r91a8WNJjg1xtg1Xc+8
+ 1202rVORmMWBkYuBlkxRRafgpapMZuSwz7smFoPM4iVCWQKAxenAEwkqo79f1StnvUu9p28ewx0
+ pvAtL5unt3uFx92tDfXqV08E93y4Z7/C4NvbTW/iki7VzG5L5CtpkxT5qr1onur9l+U5Sco9UXo
+ x3ZOSOf91FtWxHAv/LbeO15PxtOKqxmTTVdu4GBhd9wSGb1yyPTvHLkqAZ9OJK/t89T89XCkQL6
+ Yi3T/pW/xv6QKug53v2vIZzjPmBPX9tt3Rt5/r8Y9/nm5vdNOTeXyNVv6RuPRejudV5e8Hn+3ky
+ 73z1D7k8H3a9erdMtcbzXYvWVxTT2+Q9VJkXyac1NGc+zpO3adZLdXYNV8nVezQ+tkbW1c6zvC7
+ xPU87lhbqGdI/EweF+0DgqwcKgm784Su2k41OLnhmy4A
+X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
+ fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA5OCBTYWx0ZWRfX+aceW6Rr6ogP
+ 7t4Ii+tqMsGHTZj4KfvxoVtXsQfNK20RIpn6jq1xP56zcFMWUkl1VIllgAi8ubpcspRxJo+9BMt
+ rND8K1+rm2ueLjvmiGQUda4Xdr7RmsyxNe8U6AsrFvFG/aEGkuxt1CUzcTCib25BRFCxNEfXTOd
+ kJmcQZNiZYobofR1aBxSVsz8mnuQ5ahXTrCA7qeIsJqyrNONYH8oaZIjqcBuT86TxfcR1K0h6Ba
+ U5ouCUNmaGfPgl8yr9wImlTpzU3inSl+MGCZwmn43cOqnPgeVxBX3paBwSj9dIK19CfXbSsLrgm
+ RpOmPKsCRc/n4JyXBcGvzX7v2ZyQTW3udhbKNkmxWiiBzlBn/JIdSipX2i9Q9zli8WtIqCK2jYf
+ 8avyMTkj/0G+2Y5XYQEsW7koL+9PmAkFpAszgAujV1TGygfbv9nJkyQM4goryMw7HhBr5ENT4p2
+ 325czdi3Zwwd3nTdWCg==
+X-Proofpoint-ORIG-GUID: yfcPZnu2uGTq04XUBvwwuAMCE8ft0gya
+X-Proofpoint-GUID: yfcPZnu2uGTq04XUBvwwuAMCE8ft0gya
+X-Authority-Analysis: v=2.4 cv=B5uJFutM c=1 sm=1 tr=0 ts=6a1d550e cx=c_pps
+ a=WeENfcodrlLV9YRTxbY/uA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22 a=EUspDBNiAAAA:8
+ a=6KS0kTMdj-vf8_meW0gA:9 a=QEXdDO2ut3YA:10 a=kacYvNCVWA4VmyqE58fU:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 priorityscore=1501 adultscore=0 impostorscore=0 spamscore=0
+ bulkscore=0 lowpriorityscore=0 phishscore=0 suspectscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606010098
 
-Hi Linus
+The SM8350 HDK has an onboard WCN6851 WiFi/BT chip, which for a long
+time was not supported. Bring up different pieces required to enable
+this SoC.
 
-On 26.5.2026 17:59, Linus Walleij wrote:
-> The Microchip ksz driver now handles all switches that the
-> old driver was handling, but better.
-> 
-> Delete the old driver.
-> 
-> Signed-off-by: Linus Walleij <linusw@kernel.org>
+Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+---
+Dmitry Baryshkov (7):
+      PCI: qcom: fix parsing of PERST# in the legacy case
+      wifi: ath11k: enable support for WCN6851
+      regulator: dt-bindings: qcom,qca6390-pmu: document WCN6851
+      dt-bindings: bluetooth: qcom,wcn6855-bt: document WCN6851
+      arm64: dts: qcom: sm8350: expand UART18 to 4 pins config
+      arm64: dts: qcom: sm8350: modernize PCIe entries
+      arm64: dts: qcom: sm8350-hdk: describe WiFi/BT chip
 
-> [...]
+ .../bindings/net/bluetooth/qcom,wcn6855-bt.yaml    |   8 +-
+ .../bindings/regulator/qcom,qca6390-pmu.yaml       |   4 +
+ arch/arm64/boot/dts/qcom/sm8350-hdk.dts            | 142 ++++++++++++++++++++-
+ arch/arm64/boot/dts/qcom/sm8350.dtsi               |  14 +-
+ drivers/net/wireless/ath/ath11k/core.c             |  92 +++++++++++++
+ drivers/net/wireless/ath/ath11k/core.h             |   1 +
+ drivers/net/wireless/ath/ath11k/mhi.c              |   1 +
+ drivers/net/wireless/ath/ath11k/pci.c              |   9 ++
+ drivers/net/wireless/ath/ath11k/pcic.c             |  11 ++
+ drivers/pci/controller/dwc/pcie-qcom.c             |  25 ++--
+ 10 files changed, 275 insertions(+), 32 deletions(-)
+---
+base-commit: 7da7f07112610a520567421dd2ffcb51beaefbcc
+change-id: 20260531-sm8350-wifi-3b0659bc183a
 
-Now that the old driver is gone and the three micrel,* compatibles are
-matched by the new ksz_spi driver, should micrel,ks8995.yaml be folded
-into microchip,ksz.yaml? Not a blocker either way.
+Best regards,
+--  
+With best wishes
+Dmitry
 
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-
-Thanks
-Nicolai
