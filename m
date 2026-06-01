@@ -1,41 +1,47 @@
 Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA49F3955F5
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 10:20:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91C0E395ADC;
+	Mon,  1 Jun 2026 10:20:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780309226; cv=none; b=W5ch1NVic6M7yNDwofGpQUXbSSDBg0mspaLQ43hbGj29R3DLOPOYOz/PUnzl2y1OANfegvgE+4UOI0SUuhIR4xOoxeEeO79ytuVyMUyPDie5aqgPS6jQuMt7L7rJX4WhzodcoFRK5soyJ9fDmxPB0JIj3SiQtpwnpecsQrB4ZYA=
+	t=1780309226; cv=none; b=U8btMLF8AW3KeYw2FN/kjxBtO2ekknAjqkSvd3OsUPZCM57rFQ9nMZUr9IhTSzJUA63SmA7c7kxfK1iY1U5qucU0pQQIA7vATiNS9SuErO13gpJ+2Ox3xLWiagjziMAU6lZcMv16K0X+6tNAbFcf6RBNQ+saRxSn72V7mIZ4DJo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780309226; c=relaxed/simple;
-	bh=GA4YbXMjtveHdd+8yDUcA9gyhW+k9Eo3bVcS+AMyWYA=;
+	bh=1zdTjK78eqlbhHUB8EOuYJDEYfbTqYlRl9cJyvTI7wk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jyhiamCizao5XPXlVXgc+92DQYOU03/9Yvhj+JhtyZAuvnKX8xP3Cv3zP1N9kd7b+iEXdPG8enS+/vVDotpFoURGAnaXaC1TbNkavvl1csFeT3NtlDNeeJkZI/xzZbYdYYGcwJXk9k3SE1YeaMoDFwt9jh9uAs+MFvNB1QuDh+0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=mMluCEb/; arc=none smtp.client-ip=185.11.138.130
+	 MIME-Version:Content-Type; b=T4vdrL0/dO3p2iPk4mqg9h39orOEDStLhY3QdpdNMHkv5mKBwH3q8V3magRvL+bNYEUxawbnKHafym62+BwKVk8yjvRo+3Dki2Nhx7hdxVucRdQ6okFuUrTPSG62+zVgPi4UKQYYQ7SWdVJNxmv5QqM6acZ0QGQahVokAGsEU3g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=k+OpxkXj; arc=none smtp.client-ip=185.11.138.130
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="mMluCEb/"
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="k+OpxkXj"
 DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
 	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
 	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=Ymdp0u8WnwkjibvzQW9yDlLGcMsLPc+DPfNnEXlgKh0=; b=mMluCEb/t9fJDBmNSQDID2jhCw
-	jDc5idq8o1U4CCPA0AD8cpbe73O/uq9yXuOzBCvOZTawrYjXx5CQ2GlO+CsKo/smYVB87ELdo1VXx
-	ux8yuWRx7NK5PzjfBxGzQnTTfewtyzk7NtU2EX0citzDgC7RoL+hPWrBBWf9B5z877LO69IB7X4Hj
-	5LfIUq8fmhlrHuE7yNbZFoR8+9ApnSpRZp0IGyRI5K4A7v2iRHSv4ZX/w9IosT9czx3lFyofKBEKD
-	nY86gGfDCkYQUrciodadbGhjKazGooqMQyNedrYE5cAfWu1+M9FavssAp31IQ2AqWSz1l6jfQGF9u
-	jOk1JFcw==;
+	bh=SrImUZyjT4lmb9BXIxXyMNGdgHElksCa33HHo6A2zRM=; b=k+OpxkXjey2Lmif/YVYJXqdS98
+	v6TZM1Wo/TjHarw8jxVT8LASmto3lUevq7IivZw9mcm8YnF9ZFC5nbxLY6AiH0kzCmMwQaXkzEIv9
+	kzC+AnOC8yktwJToXXt6qKT73ZkFENaOwpflqybM9auVh7Q6TB/lBZt8dD7mMk4fFDCpHOGlSACqa
+	hHyhALN3No0U0Jm8YDGw+JzZkQTNyhZaybYV7gL2eK2FnDVwKpM3KUm23i+2QBw0DPzwhwYjwAUsP
+	vDyRJMweGynDNNS1PdEp7XyyKbSYXE/LeUu0+71wD2c/EBd5diCLqfQtRS3Yuw92R+88G5FrzGTQ+
+	UwkpzMLg==;
 From: Heiko Stuebner <heiko@sntech.de>
-To: Chen-Yu Tsai <wens@kernel.org>
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	Gray Huang <gray.huang@wesion.com>
 Cc: Heiko Stuebner <heiko@sntech.de>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH] arm64: dts: rockchip: rk3399-nanopi-r4s-enterprise: Fix EEPROM compatible
-Date: Mon,  1 Jun 2026 12:20:03 +0200
-Message-ID: <178030918399.239725.16965452923012750982.b4-ty@sntech.de>
+	linux-kernel@vger.kernel.org,
+	nick@khadas.com
+Subject: Re: [PATCH v3 0/2] arm64: dts: rockchip: Add peripheral support for Khadas Edge 2L
+Date: Mon,  1 Jun 2026 12:20:01 +0200
+Message-ID: <178030918401.239725.2769966054558634435.b4-ty@sntech.de>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260505165244.1902-1-wens@kernel.org>
-References: <20260505165244.1902-1-wens@kernel.org>
+In-Reply-To: <20260507033541.2576335-1-gray.huang@wesion.com>
+References: <20260507033541.2576335-1-gray.huang@wesion.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,21 +52,23 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 
 
-On Wed, 06 May 2026 00:52:43 +0800, Chen-Yu Tsai wrote:
-> The EEPROM used on the R4S (enterprise) is the 24AA025E48T-I/OT from
-> MicroChip. This is a 2-Kbit EEPROM with 16-byte page size. The latter
-> half of the EEPROM is read-only, and the last 48 bits contain a globally
-> unique MAC address. That is to say this is not an ordinary EEPROM.
+On Thu, 07 May 2026 11:35:39 +0800, Gray Huang wrote:
+> This patch series adds support for several key peripherals to the
+> Khadas Edge 2L board, which is based on the Rockchip RK3576 SoC.
 > 
-> The compatible for this type of EEPROM was introduced later that the
-> board. Switch over to the correct compatible now that it is available.
+> These patches build upon the basic board support that was previously
+> applied to the rockchip tree. This series enables essential
+> functionalities including power management, RTC, wireless connectivity,
+> graphics, display output, and USB support.
 > 
 > [...]
 
 Applied, thanks!
 
-[1/1] arm64: dts: rockchip: rk3399-nanopi-r4s-enterprise: Fix EEPROM compatible
-      commit: ab1375e25ea3fef62a4a5a93abf5d03d67aaf99c
+[1/2] arm64: dts: rockchip: Enable USB for Khadas Edge 2L
+      commit: 720fe68fd9f138ada2936ffcf3dd0129a889455a
+[2/2] arm64: dts: rockchip: Add Bluetooth support for Khadas Edge 2L
+      commit: ef81db2fdd5a75e3834a4726dc7837f6d2a7229d
 
 Best regards,
 -- 
