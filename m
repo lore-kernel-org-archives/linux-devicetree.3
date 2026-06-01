@@ -1,160 +1,230 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com [209.85.222.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6649734753B
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:47:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780303634; cv=none; b=MuB8d37DBKpTshuMP0aCMy1COAjEmA05ouh9UIrWxk3hRQY/4jAzpha8w8hK/mFq2N7FHZaNgsqPuMwdsiVpfQMl+OLHCbHuUPUcMKSNNX+hy09abShsth5RF9PZFiuoDDiknMx8BPBRujLWPn+3/tPnpRcjFNj/BOMth6PK1tc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780303634; c=relaxed/simple;
-	bh=HDFTA2sdOoNmLu4sgK+uQjQ31zICDRsmsBxIHFqevCA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=g6AX/DRLoWdPsF8KR7pMI2CfO2Gb6NwQLMt+2TFLUjkzTmfr2UCXdnwEHNdHvsXWMlrIL7H4Stq2hVuh24sESg+KQYckqdp3mj2ihxQPbhpxLYf9eL/bSEr97BeNdEkW/igaml0z9+bZzbcg6caP0wnmVnKwbrEpWKz6VBq841A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IQPpez4c; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AUlibXLC; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 594F236682A
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:47:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.222.175
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780303643; cv=pass; b=i7AE4bycnP1uVCe4JQjFQ8gcmxLLvXxvDJf9792XMB42p1BLdLiPoXFZKn6DPdzDcc/6LhrzyxYAZcltTcK1zaUPHIWQ4/eGZHGYKnTEFs/HNgLUcVE0fAi7Gxrat+zcaz3uN8OrMEU2gKCs138mM/swohfxsScDxEbK72DNSK4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780303643; c=relaxed/simple;
+	bh=Lz48MYucWeck+gFRGbDt33LqAo8mtb/f0FIeJwdCjaA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=EGGst4n7kxXw/3Qx+vDnYoFRNi1MsIsk7likJiX/sdLzc+/v4wQW3JlCwSHRg8okHNKivxw8x8u90UhwikFQV7+S33uRXV1A4IjKPIizMDA963fsNTzo9vp8OaSAC5jESAVrUCcKEzmSVRBGDCuB7xgdt0TNwF5sxc6650Q/yvI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RBcM8gp/; arc=pass smtp.client-ip=209.85.222.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IQPpez4c";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AUlibXLC"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6518fT4x1258371
-	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 08:47:12 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	jyWLJBHTJApg4SyZUuUBijx04Lc4pqCdUxZ57jJVAv0=; b=IQPpez4cwac0Uh0G
-	k8Xr65k8pOkbk6VuIGD28mmHQ/OJpVWhp1LHIaopUv3037zNGB4lNMSDiEwCwPDu
-	R3IYrah2c+jIaSn6UWKtFOx2/caHfe6ktec+2qBr28XjXd5UEKTTfWUQh8CRCVqQ
-	zatckqXdvavnOBRw3+dHn/0t/eOTsBXZilOzTdW2Po1p8/hRD7VsBCHzMP9IXzDU
-	qI6Zincgo05Nwn4c90xD/+uUydLCP9vpOl2ujGucuSiz5Ph6PoeGaNHAqIBzD6oq
-	JUpDiOjLpU8wPXl8AA10+qxwHZB1DWhx2Hq4+C4cuw3VJY4kQIV034mGg/QBQ3yc
-	70E8uQ==
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6ssr0s1-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 08:47:12 +0000 (GMT)
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8423f3e4728so699396b3a.2
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:47:12 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RBcM8gp/"
+Received: by mail-qk1-f175.google.com with SMTP id af79cd13be357-91550eced6bso140149685a.1
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:47:22 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780303641; cv=none;
+        d=google.com; s=arc-20240605;
+        b=fUWFc4a/FV8v1bEjyqIoHuBWFMXCIbyI9dpVhTbVy9mMJB1svAkcFDI0RX6ie37Djc
+         ySwu3z+bmnOTGhNlxVpgeYA3aR6QXlQeaAyioCUduLIzCIwQK114+IKmzhqw3eFEoFTz
+         YZfmJsoCJjikkZ3goWTvqm2gnLQCHbNs50X7C08ICFsuRtsGbdJkSJFWYZtXlz3nMJfM
+         sMQDZZXbdZtKxe0gpcKR40q4SGIAbusXQCwxi7i6AUojGKxKtKBWUNgY5h1AlivBJj3d
+         9sqhAlkr4NreSUVku3woJL9W7TXMrUKxt8Wnbmc2jn4LLGxBZi6m9L4JlWskI9sgHyeF
+         fqYw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=CKxWnwT4qMFwN6R1bhhj9rNzN+v9rhOvJPe8dtaWsgM=;
+        fh=xFY/NWcB/S0uZX62UCecZCCIwYVlpfJXTCv0ir8fI4Q=;
+        b=LooPty9P73LkH+GFk1AfL6jB5uZAaxsQgO5s8SG84AxBGWjWdh5jC6GmtfUWdbDx0l
+         jdDC2yBC0MtoRRX7Q+mPU9Faq9iprY5xqkDs+j4GyIldBkJYjpj51jlvbZJ737Q3w0mX
+         L1DbdkpMWdUkUACB1Sjd5bK2WW6dwv1TJQH6vrDuJ8gSUjDYOZHKTgOudzAkScjiuI/V
+         Vx2ld8lpSsvW7iVw2OLOoeDvRPrg4pFsomlpj+aJIz4thMrvXq2EfRc+qXsBXnUwZW+M
+         o7MOyT3GFWwPOTi7nzIQYr22rpBdJNWYGDNtxbEknP3Vo97w/gUeaylolEIlFHepGBjm
+         dlsg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780303632; x=1780908432; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jyWLJBHTJApg4SyZUuUBijx04Lc4pqCdUxZ57jJVAv0=;
-        b=AUlibXLCtEJZSxUIH4/SM+PSVmP1PJqq/JtFDywC8b0me3QQ7acfA6ud/A1ZuVN4EJ
-         cgGnEOd2Xg6AsSFdfZ/8rYom7zDbIBkpq7VYGH/DZ/dQ0juehi7whzhtVGgbRjzjBEvC
-         21UWiBEm6FZ3dS0mNuZQlqVj2KfPrvJ/ggZIu0ArLav1WMZoLpYnJPwmci6Uo2o+rY2g
-         uIfD+1iV5JPR5MfMBDVhw9yHNDa5k2arquKWZyD6B+dKRV2X1+a6hLZbTgGa8NAmoHTi
-         AxbDVsAwFOPJTxc9T+Rg8h2DW8WzkzvkPtuz7tYjfz3ZW3hcB6+ok+LiXREFcoM+kFyz
-         7WJQ==
+        d=gmail.com; s=20251104; t=1780303641; x=1780908441; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=CKxWnwT4qMFwN6R1bhhj9rNzN+v9rhOvJPe8dtaWsgM=;
+        b=RBcM8gp/YI4K1rCXtgV7jMztswwfmoorvKQch++/6z757+E/lovWGY0sM2pEFjdUWQ
+         uM82Y+Z0fpTcqka+jdQU+r43FKXwo50YEbzo5Racg+mZh01aIyBsNFGLzsJXbEb3RCIh
+         rIMB/xFcguFCSzRB7oH6E9twQQp23MY4b12oAm8kT3kOLAWJgdIP2dItaPYnn5pmc33u
+         BRiaibmx+kGU2n3mHgtOBdIfvu3h6hCkdbcgqku36oyataHe/1horqP+I9V0v71t9/bc
+         VNZkdl293b0rboQC1p5Yh5nEAF/gTaCYvAlE0X+NHiw3jeybBMHps+WZgdg0Tq43DAoY
+         KTDA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780303632; x=1780908432;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=jyWLJBHTJApg4SyZUuUBijx04Lc4pqCdUxZ57jJVAv0=;
-        b=Al2Hv3fQkPcFZebQfMt4OAYm42mM0EBJVo1s2GyWRkQZpoW4vsURsWgibfKbt2DVHT
-         7AN1+3k1bdpaHmtfSfmgJBthR94KhVDX8/6XIWCVH7pRFwHIOnGAfVudCD3Jj2KMzS43
-         Ks3CJfKW1IDa/qjmdwYB0jCpDt47VYAKW6GbjZjxCitA9rnaddcc75kbW12e7KfGHB99
-         DY4gGO5/VS96llOXN+GfDvotyFSOyw67ZyF2kzI6yzaUoEab5/zPZv3shtWFJ7sGqmWf
-         HIv1RbaHsjYAkeDaXJkqDV//NBR0Q1MWM4yzA2NWD+L7Z2aOFQDNgb26uUwFhZbWjHWx
-         jdtQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/81DswyAgM2EjDkTwxhYX1+LN8iMLiVabre1HGGXTVnoEebe9AK57rIkJwOxJT0Sb5Ajdz8V5oIsGk@vger.kernel.org
-X-Gm-Message-State: AOJu0YzG7AtsosjGQ3D2J9gv0rALmaMmF/mVJehBjngQK/LgzP6ZfZQI
-	k901RZSa67A5EfVnBNAYbXKVIliujkQc8ldu/3Qki+vg01zm3ZaHzGndNd82YuxNGACPiSBUit4
-	M65IMlKmffiZ5Eb7C5vFAugB4Q25Y00J2jFC1dek8XqDjx6r1isW9Xj2F3EkDPvUh
-X-Gm-Gg: Acq92OE8dnwQVVpzVQeGt9BlT1h9I7mlzAirPRWXEp14EQagF/C+8CDCdR/BOjiejZg
-	lTLEqSxLyLk16qe+BMPk63eu4taLgZySQYxE18s0YAY0JOVd3UXZ0nIcxTbQRnkynRfI1WneUC5
-	ugWbeICpC8BUHWemIV0yWpWt2nmXNEMlfpG3m2hhS8o7SZ8yWE8a/NRL6Wm44OUkPgTzf6J2hYr
-	ts2SEVZQtF17bjLE99B4AQPSqpUvpTp3KrWAxh1xHxca+U6FpwFWbaOWM12vYQOX1TUdvTVZRmV
-	hx4q7/vz4bH9f+QiymicbiBhByBIAR8kQwy+t2ZrUT5UHJLhOng7PS+LyiZ75ZtM8M9yh4hQmYA
-	HPPvZoKrb8RSubPxHx5YugqoU1aDmUapVmjf0z+2LTrAVoCicSWsXmPJltPeufHt1v6+2MZOoFF
-	GcllbmC/TvxMojlasyHFyD1TzCMt4=
-X-Received: by 2002:a05:6a00:390e:b0:842:5719:455c with SMTP id d2e1a72fcca58-84257194b18mr2357044b3a.25.1780303632026;
-        Mon, 01 Jun 2026 01:47:12 -0700 (PDT)
-X-Received: by 2002:a05:6a00:390e:b0:842:5719:455c with SMTP id d2e1a72fcca58-84257194b18mr2357016b3a.25.1780303631556;
-        Mon, 01 Jun 2026 01:47:11 -0700 (PDT)
-Received: from [10.133.33.66] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8423dc9f361sm4678171b3a.24.2026.06.01.01.47.09
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 01:47:11 -0700 (PDT)
-Message-ID: <83de83e9-ad0e-4aa0-b48a-fa922c560f78@oss.qualcomm.com>
-Date: Mon, 1 Jun 2026 16:47:07 +0800
+        d=1e100.net; s=20251104; t=1780303641; x=1780908441;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=CKxWnwT4qMFwN6R1bhhj9rNzN+v9rhOvJPe8dtaWsgM=;
+        b=aYhXmPyef5WWa0HHVEHs/yb/vcIpVxFsJxmOO/7ISrYhlLKFzUaT6Xb2cicjoCTQLf
+         MIx2J2ufk7sfHBtV+h89MjzKExKZHbKtWQK6aX7lyvrnmYZGFVcYfDSXxXUzEOoxf2Uk
+         mNUluMsrDa79ceBYHDY9upQR1r9WCqPWawHv1mZ63ZAwjr/DDp1dONGUKU48ZjyTAw+S
+         QIgyM59uhFEuxDHrC59pxnQdWG9xR7VQFEmXoDAqcT//KEf6uykS86pvQCC34UcpEHzA
+         VxXWPfAYrbR+zM9OuIG8HR44Tcd1Y/IFNX6IBxqA3FnsYKe3cQpTSMe8QObDSFnz36JR
+         9trQ==
+X-Forwarded-Encrypted: i=1; AFNElJ+c3W7Xk1QGkKgJzjdrbQaTNDqq9/e38splWCUmyoVjU8VL1B2JvFuHaCnEWBWw7PtYLf/0Eq2Vr5Xw@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx76bUjvR/O7DJxQbhXoFkZn7Cfva4CYM2Fw3TWiB9qarjheTzU
+	j+w7trqS0NyOg+KqPq7QTF0TnJ3Dv5tNpqkZFWSrntOf8g5omRRQ/63G3b4yxWTPXucHGt+zkbV
+	Dw8plCN0MH+4NqO7za6pbeew/2Hen3x8=
+X-Gm-Gg: Acq92OF+Y5gtL0fYLr7fbH0x8MVGzdxq6rmK14/fF2gxnYAlaIHagNjVnYqKORqnM0A
+	NrxxRiQ4DWioWfmA7mZ5AzV9gmbunZHIFDOGLjzFdmBspZKxCxVfzvSCzoQnPXw+oKH2Ofqhxes
+	Mi8SGek64yE4MhuBjqivRMXeGIu24n6Z6yM8XcZPTzHqsAM4msyOGZ1ThL0UbVh/RScuqNdre55
+	mkxQJ++yExAqLR4QtgoNys6FjND+BhfXagWWDVq9YY40omaZcCZ9Xff0An8QlGY7lc8aCfO4Zu2
+	aftRAGyYbkAYt7vt/0xnBl9Wj0SrQr/60XdOHk/YmcIME72tiCk=
+X-Received: by 2002:a05:622a:40cd:b0:50e:60d7:b272 with SMTP id
+ d75a77b69052e-5173a7d90c7mr140328351cf.41.1780303641295; Mon, 01 Jun 2026
+ 01:47:21 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 4/5] media: qcom: camss: csid: Add support for CSID
- gen4
-To: bod@kernel.org, sashiko@lists.linux.dev
-Cc: conor+dt@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-        devicetree@vger.kernel.org
-References: <20260508-kaanapali-camss-v13-4-2541d8e55651@oss.qualcomm.com>
- <20260508212213.ED319C2BCB0@smtp.kernel.org>
- <178018791720.17481.10983668954574740501.b4-reply@b4>
-Content-Language: en-US
-From: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-In-Reply-To: <178018791720.17481.10983668954574740501.b4-reply@b4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: Ss-fgdbBaxlNGXz59TW1zLLpBVnM14dX
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA4NiBTYWx0ZWRfXyUJxvqQcLs9R
- hjaA15grgHsode9cWru6/o/UXTFprenPNNJ1vkCRiQPI4GMWfZF1v11s3LZD8G6zuCOsz4ddywS
- 4lU2FmceM7xRryNWBVH2HlI6dCMHyuLkcgUGvAH5YXnFFr9KHp1CfJRdvKyKwDPpuU9M1SP5Qz3
- GRlJU7l9iYYCA/ef8Qt80FPl+OXf3tWoNkqt/9hGz/kb8iYw9mBI8EvO2SZco/lHftjrBTT06ef
- 8S5zPhR8xIm36wo6hh7NjQMSDEE4EgC0I9o7xCPmlIopsP1SggBT4h/2qlEbTNl7iOWqgs8z5ku
- 7+z21fXc2WX2KodMLw5IV5NfugcIaTkiWwP5LzMSSigmtvPHyl8CiM+Tb/2VmCtoSMQclYXPwri
- rrEcZFlpW+uk54GSsGEpvXBTMB9X5WT2tUUYqUv8JMk3bEU9aZLyI+Urf6c+zlG0fIt4B8mX3fp
- +SYyzyTWXivqLwYKTdQ==
-X-Authority-Analysis: v=2.4 cv=O5wJeh9W c=1 sm=1 tr=0 ts=6a1d4710 cx=c_pps
- a=m5Vt/hrsBiPMCU0y4gIsQw==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=VwQbUJbxAAAA:8 a=Wx8SgOCzfKFlTRplcBcA:9 a=QEXdDO2ut3YA:10
- a=IoOABgeZipijB_acs4fv:22
-X-Proofpoint-GUID: Ss-fgdbBaxlNGXz59TW1zLLpBVnM14dX
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 impostorscore=0 clxscore=1015 lowpriorityscore=0 bulkscore=0
- phishscore=0 suspectscore=0 malwarescore=0 priorityscore=1501 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606010086
+References: <20260531171612.4536-1-challauday369@gmail.com>
+In-Reply-To: <20260531171612.4536-1-challauday369@gmail.com>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Mon, 1 Jun 2026 12:47:12 +0400
+X-Gm-Features: AVHnY4LqPWs8S4bKdnrdtTTPlTNYLqcvCvtLLp-8xKNVLphnJsWYHcJKSd7K0Fg
+Message-ID: <CABjd4YxF52YZHkbF1C+cfXkiU4LW0PTNHyEDayKn-mvk6u42Og@mail.gmail.com>
+Subject: Re: [PATCH v2] dt-bindings: arm: vt8500: via,vt8500-pmc: Convert to
+ DT Schema
+To: Udaya Kiran Challa <challauday369@gmail.com>
+Cc: krzk@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	skhan@linuxfoundation.org, me@brighamcampbell.com, linux-rtc@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 5/31/2026 8:38 AM, bod@kernel.org wrote:
->>
->> [ ... ]
->>
->>> +static void __csid_configure_rdi_stream(struct csid_device *csid, u8 enable, u8 port, u8 vc)
->>> +{
->>> +	u32 val;
->>> +	u8 lane_cnt = csid->phy.lane_cnt;
->>> +
->>> +	/* Source pads matching RDI channels on hardware.
->>> +	 * E.g. Pad 1 -> RDI0, Pad 2 -> RDI1, etc.
->>> +	 */
->>> +	struct v4l2_mbus_framefmt *input_format = &csid->fmt[MSM_CSID_PAD_FIRST_SRC + port];
->>
->> The macro MSM_CSID_MAX_SRC_STREAMS_GEN4 evaluates to 5 for non-lite CSID
->> hardware, meaning the loop index port can reach 4.
->>
->> Since MSM_CSID_PAD_FIRST_SRC is 1, MSM_CSID_PAD_FIRST_SRC + port evaluates
->> to 5.
-> 
-> That's worrying.
-> 
-> Would appreciate some follow-up from patch authors on this one "yes we
-> looked no that can't happen" "yes we looked no it can't happen"
-> 
-> Either is acceptable.
-It cannot happens as we have limited the vfe_line number to 3 due to 
-camss framework limitation.
+On Sun, May 31, 2026 at 9:16=E2=80=AFPM Udaya Kiran Challa
+<challauday369@gmail.com> wrote:
+>
+> Convert the VIA/Wondermedia VT8500 Power Management controller binding
+> from the legacy text format to DT schema.
+>
+> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
+> ---
+> Changelog:
+> Changes since v1:
+> - Make child node binding constrained
+> - Fix example to include the clock container node
+> - Fix maintainers list
+>
+> Link to v1:https://lore.kernel.org/all/20260524110047.37590-1-challauday3=
+69@gmail.com/
+> ---
+>  .../bindings/arm/vt8500/via,vt8500-pmc.txt    | 13 -----
+>  .../bindings/arm/vt8500/via,vt8500-pmc.yaml   | 53 +++++++++++++++++++
+>  2 files changed, 53 insertions(+), 13 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/arm/vt8500/via,vt85=
+00-pmc.txt
+>  create mode 100644 Documentation/devicetree/bindings/arm/vt8500/via,vt85=
+00-pmc.yaml
+>
+> diff --git a/Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.=
+txt b/Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.txt
+> deleted file mode 100644
+> index 521b9c7de933..000000000000
+> --- a/Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.txt
+> +++ /dev/null
+> @@ -1,13 +0,0 @@
+> -VIA/Wondermedia VT8500 Power Management Controller
+> ------------------------------------------------------
+> -
+> -Required properties:
+> -- compatible : "via,vt8500-pmc"
+> -- reg : Should contain 1 register ranges(address and length)
+> -
+> -Example:
+> -
+> -       pmc@d8130000 {
+> -               compatible =3D "via,vt8500-pmc";
+> -               reg =3D <0xd8130000 0x1000>;
+> -       };
+> diff --git a/Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.=
+yaml b/Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.yaml
+> new file mode 100644
+> index 000000000000..e340281e5726
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/arm/vt8500/via,vt8500-pmc.yaml
+> @@ -0,0 +1,53 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/arm/vt8500/via,vt8500-pmc.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: VIA/Wondermedia VT8500 Power Management Controller
+> +
+> +maintainers:
+> +  - Alexey Charkov <alchark@gmail.com>
+> +  - Krzysztof Kozlowski <krzk@kernel.org>
+> +
+> +description:
+> +  The VIA/Wondermedia Power Management Controller provides register acce=
+ss for
+> +  clock and power management functions on VT8500 and WM8xxx series SoCs.
+> +
+> +properties:
+> +  compatible:
+> +    const: via,vt8500-pmc
+
+Each SoC version had different registers within the PMC node (even
+though key components such as the OS timer and reset control kept the
+same offsets and function). So this really should be a SoC-versioned
+enum rather than a single "compatible", as they were never really
+mutually compatible (despite what current DTs say).
+
+> +  reg:
+> +    maxItems: 1
+> +
+> +  clocks:
+> +    type: object
+> +    description: Container node for VT8500/WM8xxx clock provider nodes.
+> +    properties:
+> +      "#address-cells":
+> +        const: 1
+> +      "#size-cells":
+> +        const: 0
+> +    required:
+> +      - "#address-cells"
+> +      - "#size-cells"
+
+#address-cells and #size-cells are automatically required once the
+subnodes have regs, so it seems that this whole section could become
+just "clocks: true" with no particular loss of meaning.
+
+> +    additionalProperties: true
+
+If the PMC binding ends up separate from the clock control bindings
+(which I'm somewhat skeptical of, see [1]), shouldn't the subnodes of
+this clocks node be explicitly specified to follow that binding? The
+fixed 25 MHz reference clock is not part of the PMC and doesn't belong
+there (despite what current device trees contain), but the rest do.
+
+[1] https://lore.kernel.org/all/CABjd4YzJoHrx1suMbhNvrMP+X=3Dd=3DthvXYwSY=
+=3DUD-4Qy=3D7-qmjw@mail.gmail.com/
 
 Best regards,
-Hangxiang
+Alexey
+
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +additionalProperties: false
+> +
+> +examples:
+> +  - |
+> +    pmc@d8130000 {
+> +        compatible =3D "via,vt8500-pmc";
+> +        reg =3D <0xd8130000 0x1000>;
+> +
+> +        clocks {
+> +            #address-cells =3D <1>;
+> +            #size-cells =3D <0>;
+> +        };
+> +    };
+> --
+> 2.43.0
