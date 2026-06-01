@@ -1,74 +1,145 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B49113D51E
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:11:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C4238330A;
+	Mon,  1 Jun 2026 08:19:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780301482; cv=none; b=cQiggZlSbawADz+nc/fJ0n/ZwAAmzAhFPannEZGf571tjg6DurNlFFrUzoWc5QUrw8qYFlMJriLkxDQISvIMNvR45kEMQwVE5504Sl2uJ89kQolimmg9emnMIV/IpFYnomFl9nq0cdHUoCSoP7sdkjPXxgnu3x405Kx9X0CzrI4=
+	t=1780301976; cv=none; b=guqlY6tJpQDC4V7izxojFgm72iEEZJM2AGZjsSOvpoEcti2hpv8+3Ap3TaLthxcF6Oi6G9qjMbyu7pMzd3ib8n86nFpk/46zv02NeTG+OU80rL/gKJDt0WL5XgwBrDBdUYK/W0pddIXr6/nqTDm4RY/yGZAwo4h/x6dCWeEGeig=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780301482; c=relaxed/simple;
-	bh=cvwCnHXYYRupaGgT6OXDm5nRfHmu20ohTaIkIL9NMtM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=FAYm1shqqb59RQqjhPt2bILu5xX2T6OVLXH8ncQviv3TrS8a67xloq6aJ8/g2d10OcCELhMTQ2p9Hx96HJRSSm+p3/BURbsqo0IqcRCGH1tQEtwK08ypPJ+KsLpf3XEmYEnKBZ3152xK88oDIIr9mnIQLwK49hXUfIFFHx6tu+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ESqOeAc/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780301976; c=relaxed/simple;
+	bh=Pg2npOcZ/Hw1cE+Yq4yl6p+iGSGhKj3iwXo5VRCiA4c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=A+/IlFQ+VFiJOFULyPTJPGmpzDWAlBaYvnM1XvKPTtPDpR2RYvI9+NzOYEEGSufz+FQ6sg3x1StYWmha2lhSG54Pv5IQCs5uGYnsAkuDu3BUR6EqKfCJH9/xWGlWKT+uSUzxRIrF8rD/WTwN4gmBNnEvzY5/LHJ7kLlgOYAJhS8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5e17AE/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ESqOeAc/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13AAC1F00893
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:11:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5e17AE/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C92B1F00893;
+	Mon,  1 Jun 2026 08:19:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780301481;
-	bh=cvwCnHXYYRupaGgT6OXDm5nRfHmu20ohTaIkIL9NMtM=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=ESqOeAc/cZ7ZbpYZOctMwBxBwvPcWoQcoVKKAUYqwfnfrqJmsWp9uNnBv3AMq6pBe
-	 Z7yUQZ41R4DtLlnRP0FVqNnqcaHy1wIAbat+esnxt/l9s5/rOipgWiL4sAN2WSqVrm
-	 tE4wUwbjxyWfWls4bo7fJoX9UuQIdHhCBQbGQ+/S4gSADRaoAahkhGJwRbTwmme3AG
-	 i2aJlzsyz2JxWJK+stiLPBGsyWIFBT7E8L+sge1aim/Q1IWhKESjYxy9PV2qVLLkCT
-	 SVMkrbc8tK+pmp8J92kHvGOUXsUyznPCFmI8BV6CwQ3wtnP3FC8sLizsN13sEAaBZd
-	 1Yb8AnEqWu0dw==
-Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aa619653e4so1695272e87.1
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:11:21 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ+urLlwS+rmfRUgpasVm8FTDVuYJdqUJwLUP/09QfR2QiOJvPZBdo//aXLrB+pwnPFqGWXCTFCZ+hme@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9IXR4W0/eMH9MUF5Q5ZVb1Mg/SQSxPlv6SEKaZgjaNkHT9bto
-	pfg/uik2J5pR5wXQEDtIG5MNf0ZyrRbz3QW9LgWEFqpEPo1NCrNO9ETyGtGXiwXGMG/zV8j2Dnv
-	6gtK9K+EL5qESqBwOCp+VjekLpS4f3rU=
-X-Received: by 2002:a05:6512:31c4:b0:5a3:ff48:f7d6 with SMTP id
- 2adb3069b0e04-5aa61425d2dmr1909482e87.13.1780301479851; Mon, 01 Jun 2026
- 01:11:19 -0700 (PDT)
+	s=k20260515; t=1780301974;
+	bh=c57dXviIjuMEChyoiV63Hb1ytsFXkGI3dXsg8IBQeec=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=R5e17AE/N7IpPn1it4oDQkNxZlh7SR+YB3Cx45LRwR9FOy2gUwWubxvgBstmyLDre
+	 fSa98rcjFqxWAM7wEotX+VGw0Z5OoXoOEHPPsOfPvuWYlaUrrsIDnE0ZkwRClfwrJS
+	 FTAK2OIgMQXNKYY1WU112uaL/IfZq2iD9F00fUR4Lt38j6OSgmHcyeMKBowogHXiUh
+	 qdqpIeDzqWxMyqnRM1Gc9BxA++8Lv0Ivq9Q9rWgN6T4+8UzkNyf8yIBGJGHngENIci
+	 nyxsUOLSYDSSpRQioXB/qXkm4AyFvtvxp7+M7XLsTylTshLjQko/6j0SVANusv11mA
+	 e0n7OXwaL7dtQ==
+Message-ID: <9448dfe8-4d9d-4344-be2b-ace371c37975@kernel.org>
+Date: Mon, 1 Jun 2026 10:19:24 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org>
-In-Reply-To: <20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 1 Jun 2026 10:11:07 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmXVKz3rUTAauohfHOK6-GGkn8__Zfory9AW4t4_M08XA@mail.gmail.com>
-X-Gm-Features: AVHnY4KOb-KcbmskCyjdRMoVJ177wKi_qKWA7G6GEqxIRgG_y6tYdsfvPOahOWI
-Message-ID: <CAD++jLmXVKz3rUTAauohfHOK6-GGkn8__Zfory9AW4t4_M08XA@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 0/5] net: dsa: microchip: Add support for KSZ8995XA/KS8995XA
-To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
-	Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
-	Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] dt-bindings: bluetooth: qcom,qcc2072-bt: add bindings
+ for QCC2072
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+ Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+ Marcel Holtmann <marcel@holtmann.org>,
+ Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>,
+ Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
+ Rocky Liao <quic_rjliao@quicinc.com>, quic_mohamull@quicinc.com,
+ quic_hbandi@quicinc.com, rahul.samana@oss.qualcomm.com,
+ harshitha.reddy@oss.qualcomm.com, dishank.garg@oss.qualcomm.com,
+ linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260529175342.3363935-1-yepuri.siddu@oss.qualcomm.com>
+ <20260530-funky-mackerel-of-current-878e2a@quoll>
+ <6c06e372-85b4-4207-9bb6-270bd654c287@oss.qualcomm.com>
+ <mcn4ysrxrfqo36tr7khsxnjase3priskimkgxuacgma7jcpa46@bgla2znqhyfl>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <mcn4ysrxrfqo36tr7khsxnjase3priskimkgxuacgma7jcpa46@bgla2znqhyfl>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Tue, May 26, 2026 at 5:59=E2=80=AFPM Linus Walleij <linusw@kernel.org> w=
-rote:
+On 01/06/2026 09:52, Dmitry Baryshkov wrote:
+> On Mon, Jun 01, 2026 at 12:50:00PM +0530, Yepuri Siddu wrote:
+>>
+>>
+>> On 5/30/2026 6:04 PM, Krzysztof Kozlowski wrote:
+>>> On Fri, May 29, 2026 at 11:23:42PM +0530, Yepuri Siddu wrote:
+>>>> Document the YAML binding schema for the Qualcomm QCC2072 UART-based
+>>>> Bluetooth controller.
+>>>
+>>> Where is the rest?
+>>>
 
-> This series breaks with the dated attempt to polish the old
-> KS8995 driver, and instead implement support for the KS8995XA
-> in the KSZ driver, and after that delete the old KS8995 driver.
+I repeat the question.
 
-Sashiko is only finding fringe stuff and hallucinations now,
-I think this is good to go.
 
-Yours,
-Linus Walleij
+>>>> +properties:
+>>>> +  compatible:
+>>>> +    enum:
+>>>> +      - qcom,qcc2072-bt
+>>>> +
+>>>> +required:
+>>>> +  - compatible
+>>>> +
+>>>
+>>> Looks heavily incomplete. Devices do not work without power for example.
+>>
+>> The module receives power through the M.2 edge connector and manages its
+>> own power sequencing internally. Unlike bare Qualcomm Bluetooth SoCs, it
+>> requires no external voltage regulators, enable GPIOs, or clock supply
+>> from the host, so no power-related properties are needed in the binding.
+> 
+> If this is a purely M.2 device, then it should not be a part of DT.
+> 
+
+Exactly. And even PCI devices need power sequencing, unless this is a
+simple (BT only) device.
+
+Best regards,
+Krzysztof
