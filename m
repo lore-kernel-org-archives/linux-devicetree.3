@@ -1,33 +1,73 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from BYAPR05CU005.outbound.protection.outlook.com (mail-westusazon11010021.outbound.protection.outlook.com [52.101.85.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9767321C9EA;
-	Mon,  1 Jun 2026 08:38:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780303122; cv=none; b=VbSP7SAwB3+YfOqBayEIiVmux/FXWIJAkNXKjz+/ADgkyv7IGt7/wLH3aDe4yyxgGIuNGK+lc2DTWvE+tQfwf3l5YZk/kTM+kNRx4ZO2/a/hViGrOUMbxJO40DzD6fp8pcX/Er//TfD9cKqOfMNC7styWxpzCYmhyg50/0eT9O0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780303122; c=relaxed/simple;
-	bh=zqRSWtfRpJmOCpaIeyA+WeDhnpZS7tkeb/BbL6NAVwQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LOiJnt9WK6LFTWKQGbfd/Grz60g7c99BGB9toiq7WHmH+caSB5BVyhRprcK35cUwVveLFQpr4uYRhlLZd5wiLLIgsWkZf22+2uOJQTUZ+fv6RB0k+Diu3TgCriTG/QaEGaUBkYD4Gmz/UvPaWmcrSGwZCtrIHKGKNyQSZwt6Hs0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcUKMEkp; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EFF14A60F;
+	Mon,  1 Jun 2026 08:40:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.85.21
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780303230; cv=fail; b=vElFpS21lpe7tVw3ARWYZimQVIcJKFLJ03D6qYVHjQY0Sitvfj8cGsq8RBwEj2yAKG6XscWtd3KKl3HU/0Q0L3CBROxby53iCpyID/rmWtFl7x/xHmioxd4f9VdRienDnoJCkx5Ej4RBF5fF8U3ydweMEFyxSopOPj3WnWWPws8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780303230; c=relaxed/simple;
+	bh=CubGhGq3URSd5o5ydXbVTUjc39buMZ7bnwnx84WG4T8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=Y78Eg/eWho/yvKlgnlZwuYsZqHtF6eerQrICzISdHL9t/htt50mH1dgeplkoDzdFjljZ5WUiyYrRuqcnmhW2T/S8VOMH7o8Kq8IV6Jrd5O/9rlxPVIkY1UeAVES0C7Aun+a2bF4uZY0rZQ0ca9lV1XNA9YJvwZFE4HSKHzwjMQc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=spH29k8V; arc=fail smtp.client-ip=52.101.85.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcUKMEkp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57801F00893;
-	Mon,  1 Jun 2026 08:38:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780303121;
-	bh=EWJQ4IcaIBmJ4eV/Rv8aEPI/dtiPh0jc9EHByr59FUc=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=JcUKMEkpzjGJUA4fVCZaK8F8w3pLYv++HlEtWymah9UBXtwKknul7GHTPas6Usi5y
-	 Nvqgq4L+Cdy2KI9lC87qiJ3ZHt+/xDL3ZPD0Pi2esww+a7Kw4ispa3J20UlFXGncrj
-	 CK20C3dMC7llEe2ooevoAKFSJBKfcb4gI9cr7xy+wUpKrf0UvRIgpBGh1bNdQ5iFwq
-	 VmSS3308Vu+XwKlMFIBUsLKmUqjHj8Mk5B0QhxP4bnqU7DHhvkNgpZJMm02Mj9okvD
-	 n8rTj6RGrwxDKp1eGyVe8+//8Wwl+Yu1isb+mocnJE1RQNkQAdEHOp8UWuewpkdvu6
-	 h3IfeR/am8Bsg==
-Message-ID: <87b24725-1c78-4830-a61c-e486c4cd4f3f@kernel.org>
-Date: Mon, 1 Jun 2026 10:38:33 +0200
+	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="spH29k8V"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=orctQkXAHNJr1B6SeqGdaHt27mfFNrTZX2Bhv1bHozYiXpjAiiDCQWa8Rzrgpme1zvlFHZ4BkTaXK6ZGgO+9XJP+KNUndCeZE4/9Z9E329UHPcW0yY/WRbKwX6v6XmB00TuaSBae4EH7E1kGrzWgBaeYghaEBRmyxTPZe79dIemeuLmB57jqvOFieVU8Sei7WzbBc2jZFiWFrUTSH0AJyL2VPnH5iUckVhQ/SxQkUHeRoScXQFdpT1j9xocHetQegMoImaAYtoG609A3sTiwxUSpQbTFiz4CCGSXbxh6yLTHEIdUGxn3JEe35knmpuUV+ODjVZWengCZ1GPYmTWC7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Oy+I3eAZ11agTmKD5M+F6/8uiqNEUh0bJnDLXMET9uQ=;
+ b=iwZ3GBTsZT1Eu2t6ZY66T9x4voSNi4RIRsrUiS5nDJ8DXAawFY+g/EHCbgi9uVzmCm6eP3x3R4i3wCgNHJokQTch89yrXCXLBYBEH1tb/w1W4Xiq0UYWfIvfe2KOeqsip/Faf3rH1rN1U2orPT6Uwy4KeXklp7RK6mIY4UE6zWnPjp5CWkgkwHomyLhYaGm1Orv5kUcJ2qlruN6ZNScNYabX2fjqZTLAGtRXZOVzQpFFHThfshQCBm/fj5Rtnpi4Pol7g2NVCkPhccKJM21TbNXqC1vmUzmOJ+882VV+ndUc0DI/G9c084ukBXoXv0FenSIC3wyu2YDlC8MyaVFsvg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 198.47.21.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
+ dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Oy+I3eAZ11agTmKD5M+F6/8uiqNEUh0bJnDLXMET9uQ=;
+ b=spH29k8Vd0ehv+ZeAPTASCTw26JG0xJ5PndirR/D9t+DQBs8OO0ZCSh14NgVWX6Z7ZOcqdLVFtyQ9aTZy4Kxm3oRe3fzuu3GS0aWEu7dYqYPl05XPDbl5dll2DWWjLUrY1wpFB+fckd1awpxCZIXFhr5cAB5VkJbDPRgxHNubFc=
+Received: from CH3P220CA0002.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:1e8::13)
+ by BLAPR10MB4964.namprd10.prod.outlook.com (2603:10b6:208:30c::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 08:40:23 +0000
+Received: from CH1PEPF0000A348.namprd04.prod.outlook.com
+ (2603:10b6:610:1e8:cafe::52) by CH3P220CA0002.outlook.office365.com
+ (2603:10b6:610:1e8::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Mon, 1
+ Jun 2026 08:40:23 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.195)
+ smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
+ action=none header.from=ti.com;
+Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
+ 198.47.21.195 as permitted sender) receiver=protection.outlook.com;
+ client-ip=198.47.21.195; helo=flwvzet201.ext.ti.com; pr=C
+Received: from flwvzet201.ext.ti.com (198.47.21.195) by
+ CH1PEPF0000A348.mail.protection.outlook.com (10.167.244.4) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Mon, 1 Jun 2026 08:40:21 +0000
+Received: from DFLE215.ent.ti.com (10.64.6.73) by flwvzet201.ext.ti.com
+ (10.248.192.32) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 1 Jun
+ 2026 03:40:03 -0500
+Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE215.ent.ti.com
+ (10.64.6.73) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Mon, 1 Jun
+ 2026 03:40:03 -0500
+Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DFLE212.ent.ti.com
+ (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
+ Transport; Mon, 1 Jun 2026 03:40:03 -0500
+Received: from [172.24.233.254] (santhoshkumark.dhcp.ti.com [172.24.233.254])
+	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6518dwid641399;
+	Mon, 1 Jun 2026 03:39:59 -0500
+Message-ID: <e2a354fe-ef25-401a-b8a9-4d51ad12f429@ti.com>
+Date: Mon, 1 Jun 2026 14:09:58 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,88 +75,240 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 0/2] pinctrl: qcom: Introduce Pinctrl for the upcoming
- Maili SoC
-To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij
- <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
- tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
- yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
- linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-References: <20260522-maili-pinctrl-v1-0-0a6636f5c277@oss.qualcomm.com>
- <20260530-primitive-encouraging-quail-ee8af1@quoll>
- <c7b5f9cb-09a4-448f-8f49-bdc9570d6b29@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
+Subject: Re: [PATCH v3 10/13] spi: cadence-quadspi: enable PHY for direct
+ reads and indirect writes
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+CC: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
+	<conor+dt@kernel.org>, <richard@nod.at>, <vigneshr@ti.com>,
+	<pratyush@kernel.org>, <mwalle@kernel.org>, <takahiro.kuwano@infineon.com>,
+	<linux-spi@vger.kernel.org>, <devicetree@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <linux-mtd@lists.infradead.org>,
+	<praneeth@ti.com>, <u-kumar1@ti.com>, <a-dutta@ti.com>, <s-k6@ti.com>
+References: <20260527175527.2247679-1-s-k6@ti.com>
+ <20260527175527.2247679-11-s-k6@ti.com> <87se7bgasn.fsf@bootlin.com>
 Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <c7b5f9cb-09a4-448f-8f49-bdc9570d6b29@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+From: Santhosh Kumar K <s-k6@ti.com>
+In-Reply-To: <87se7bgasn.fsf@bootlin.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CH1PEPF0000A348:EE_|BLAPR10MB4964:EE_
+X-MS-Office365-Filtering-Correlation-Id: 82dfa93f-9d5d-41e0-aacb-08debfb96b02
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|22082099003|18002099003|4143699003|56012099006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	SgfIoDfG/Ex17JXUoLIdd8gwcLqIHHAwxqyDQR0AgWVydTxZMJ2seIpMGqSPbnBXv39Decmi6RCWUZec2/tn7k90o40RwoVndDi8sFzFwgksOE+GUMi2L/JjpXsv4MS3uxQQ41THm/UgRAeelkbhDorD9mt9Ak2NOIghbP78Jcpa32txXn6ztJj5AH8xH1V6QTEQogIKsJW/Ar/hsQlPm1iafmYaSTPwvHEqcQRlLB5Ky+Au5HYYBdH/g+DjIWldklOPTtU9vmLJXsWEyWV4UoAN3UNUcaliMWokMEddow/vk8r4T5JNM5ZS/2l5ZISevBhjhDVR1FHzSt/hWlMqnnLWxSLPXi15urDlmROTaryPWZJl1NWoJecQusCcRl2AKRCXdteEv/X24zJnlQxFFhMmG9gEVT7LVN1U6KW+3uF2gW8wR95dCOUU0NGFBDGSX68jD4yjz+BJE+KGPQJQT29LNALo5XCfayudDMYluLW8VUbugs8f43XhO/UPigCiELB9QcVlGHvlmg/o7MBrKXMPiAqPM7/wLJ9tv16WCuK6/kXztV6sc7IXi1lzwLYZHXuxaUkz8P5Av3uaLb4pn4lV6uNsXgsgL/uMoSJabKOWk1sMl7Dm17mHmlPc2U9rQro7+ZxBoIjK4PeRiWH7KQz6abaS7M3KlcFcIVe4q0+UHUu6mbtupHLhu/pVK4BhPRTdCvg0spcFJrxr1GJdEb4tJxJxwLFP5macVc2As+I=
+X-Forefront-Antispam-Report:
+	CIP:198.47.21.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet201.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(22082099003)(18002099003)(4143699003)(56012099006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	45NxWKjXXQ3oSuRPsgfC6EdPZqertFECJvnL4s4ky6VUXLQaFI9XOFZ+us34/qfcB95mRbrHd+wuyT/1CjI46E4K4rJzDlnN5a7wrUeDY+60HKhX0OGpVe0SxN4A0kgSwV65isXNAEIqalcaDmP/bbDG6HjUC9rBM5ZfAamK8/16tXg7tuCYe1+QHbP+VU5YlqaakPTywTOKSFSxOZNPwuSYSc+TF1Kc21tb7TAk87/yDRC8zfK/93zd39oHgGll7TsiARcFUuewzRbx8iP3BoHQlOjSj6lj4iC3Gvv7QCXZaQO3bW40TtYZO8ZjDj7yEsWy7YkP7QCIA3OCCKQRz8+xwLcSK+O5FSHx/+CchaPFeiK/vqPXWl9EHE/4qcXLOy//1uMzVkCb8cbktT0j+gCtgUN9kw9Qn7D9BhRvZktSPFaX91UwnOlvbxkeOV4J
+X-OriginatorOrg: ti.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 08:40:21.7687
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 82dfa93f-9d5d-41e0-aacb-08debfb96b02
+X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.195];Helo=[flwvzet201.ext.ti.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	CH1PEPF0000A348.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BLAPR10MB4964
 
-On 01/06/2026 08:15, Jingyi Wang wrote:
+
+
+On 28/05/26 14:39, Miquel Raynal wrote:
+> On 27/05/2026 at 23:25:24 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
 > 
-> 
-> On 5/30/2026 6:42 PM, Krzysztof Kozlowski wrote:
->> On Fri, May 22, 2026 at 12:42:07AM -0700, Jingyi Wang wrote:
->>> Introduce Top Level Mode Multiplexer dt-binding and driver for the
->>> upcoming Qualcomm Maili SoC.
+>> After PHY tuning completes, data transfers still use the default
+>> read-capture path. The PHY pipeline must be activated around each
+>> eligible transfer to benefit from the calibrated delay settings.
 >>
->> This is the first patch where such name appears, so same comments as
->> before for other cases - describe what is Maili somewhere.
+>> Add cqspi_phy_enable() to toggle PHY mode. Enabling sets the calibrated
+>> read-capture delay, asserts PHY_EN and PHY_PIPELINE, and decrements the
+>> dummy cycle count by one since the PHY pipeline absorbs that latency.
+>> Disabling reverses all three. Returns cqspi_wait_idle() so callers can
+>> abort if the controller stalls on enable; disable is best-effort.
 >>
+>> Split cqspi_direct_read_execute() so PHY-eligible reads run DMA over the
+>> 16-byte-aligned middle section with PHY active, while unaligned head and
+>> tail bytes are transferred without PHY. PHY is used when use_phy is set,
+>> the transfer exceeds 16 bytes, and the frequency matches the tuned rate.
+>> cqspi_memcpy_fromio() handles small and non-DMA-able transfers, with
+>> special handling for 8D-8D-8D to ensure 2-byte-aligned I/O accesses.
+>>
+>> For indirect writes, PHY is enabled for transfers of at least 1 KB
 > 
-> Hi Krzysztof,
+> kiB :-)
 > 
-> Maili is similar to Hawi which is not announced yet, so we refer to Hawi
-> to use "upcoming Qualcomm Maili SoC" to describe it, shall we expose details
-> now or add info after announcement?
+>> where the setup overhead is amortized.
+>>
+>> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+>> ---
+>>   drivers/spi/spi-cadence-quadspi.c | 181 ++++++++++++++++++++++++++++--
+>>   1 file changed, 171 insertions(+), 10 deletions(-)
+>>
+>> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadence-quadspi.c
+>> index 72208d376305..80e7c572ab80 100644
+>> --- a/drivers/spi/spi-cadence-quadspi.c
+>> +++ b/drivers/spi/spi-cadence-quadspi.c
+>> @@ -564,6 +564,61 @@ static void cqspi_readdata_capture(struct cqspi_st *cqspi, const bool bypass,
+>>   	writel(reg, reg_base + CQSPI_REG_READCAPTURE);
+>>   }
+>>   
+>> +static int cqspi_phy_enable(struct cqspi_flash_pdata *f_pdata, bool
+>> enable)
+> 
+> I'm fine with the logic, just the naming is very "TI" specific here. Can
+> we name the helper "cqspi_tune_phy(f_pdata, enable)"?
+> 
+> [...]
+> 
+>>   static int cqspi_exec_flash_cmd(struct cqspi_st *cqspi, unsigned int reg)
+>>   {
+>>   	void __iomem *reg_base = cqspi->iobase;
+>> @@ -1191,6 +1246,7 @@ static int cqspi_indirect_write_execute(struct cqspi_flash_pdata *f_pdata,
+>>   	void __iomem *reg_base = cqspi->iobase;
+>>   	unsigned int remaining = n_tx;
+>>   	unsigned int write_bytes;
+>> +	bool use_phy_write;
+>>   	int ret;
+>>   
+>>   	if (!refcount_read(&cqspi->refcount))
+>> @@ -1226,6 +1282,15 @@ static int cqspi_indirect_write_execute(struct cqspi_flash_pdata *f_pdata,
+>>   	if (cqspi->apb_ahb_hazard)
+>>   		readl(reg_base + CQSPI_REG_INDIRECTWR);
+>>   
+>> +	/* Use PHY only for large writes where setup overhead is amortized */
+>> +	use_phy_write = n_tx >= SZ_1K && f_pdata->use_phy;
+> 
+> Maybe also "f_pdata->use_tuned_phy?
 
-Just briefly or how much you can describe above.
+Yeah, I'll rename them in v4.
 
-Best regards,
-Krzysztof
+> 
+>> +	if (use_phy_write) {
+>> +		ret = cqspi_phy_enable(f_pdata, true);
+>> +		if (ret)
+>> +			goto failwr;
+>> +	}
+>> +
+>>   	while (remaining > 0) {
+>>   		size_t write_words, mod_bytes;
+>>   
+>> @@ -1266,6 +1331,9 @@ static int cqspi_indirect_write_execute(struct cqspi_flash_pdata *f_pdata,
+>>   		goto failwr;
+>>   	}
+>>   
+>> +	if (use_phy_write)
+>> +		cqspi_phy_enable(f_pdata, false);
+>> +
+>>   	/* Disable interrupt. */
+>>   	writel(0, reg_base + CQSPI_REG_IRQMASK);
+>>   
+>> @@ -1277,6 +1345,9 @@ static int cqspi_indirect_write_execute(struct cqspi_flash_pdata *f_pdata,
+>>   	return 0;
+>>   
+>>   failwr:
+>> +	if (use_phy_write)
+>> +		cqspi_phy_enable(f_pdata, false);
+>> +
+>>   	/* Disable interrupt. */
+>>   	writel(0, reg_base + CQSPI_REG_IRQMASK);
+>>   
+>> @@ -1448,8 +1519,15 @@ static void cqspi_rx_dma_callback(void *param)
+>>   	complete(&cqspi->rx_dma_complete);
+>>   }
+>>   
+>> -static int cqspi_direct_read_execute(struct cqspi_flash_pdata *f_pdata,
+>> -				     u_char *buf, loff_t from, size_t len)
+>> +static bool cqspi_use_phy(struct cqspi_flash_pdata *f_pdata,
+>> +			  const struct spi_mem_op *op)
+>> +{
+>> +	return f_pdata->use_phy && op->data.nbytes > 16 &&
+> 
+> Why is the check looking for 16 here, and 1kiB above?
+
+Direct reads have very little per-op overhead, so enabling PHY is
+beneficial even for relatively small transfers. (> 16)
+
+Indirect writes, on the other hand, incur significantly higher setup
+cost, resulting in much larger break point. (> 1kiB)
+
+> 
+>> +	       op->max_freq == f_pdata->max_clk_rate;
+>> +}
+>> +
+>> +static int cqspi_direct_read_dma(struct cqspi_flash_pdata *f_pdata, u_char *buf,
+>> +				 loff_t from, size_t len)
+>>   {
+>>   	struct cqspi_st *cqspi = f_pdata->cqspi;
+>>   	struct device *dev = &cqspi->pdev->dev;
+>> @@ -1461,19 +1539,14 @@ static int cqspi_direct_read_execute(struct cqspi_flash_pdata *f_pdata,
+>>   	dma_addr_t dma_dst;
+>>   	struct device *ddev;
+>>   
+>> -	if (!cqspi->rx_chan || !virt_addr_valid(buf)) {
+>> -		memcpy_fromio(buf, cqspi->ahb_base + from, len);
+>> -		return 0;
+>> -	}
+> 
+> This (and changes below) don't seem to be directly related to the PHY
+> addition, could we have those changes done in a separated patch, before
+> introducing PHY tuning use?
+> 
+>> -
+>>   	ddev = cqspi->rx_chan->device->dev;
+>>   	dma_dst = dma_map_single(ddev, buf, len, DMA_FROM_DEVICE);
+>>   	if (dma_mapping_error(ddev, dma_dst)) {
+>>   		dev_err(dev, "dma mapping failed\n");
+>>   		return -ENOMEM;
+>>   	}
+>> -	tx = dmaengine_prep_dma_memcpy(cqspi->rx_chan, dma_dst, dma_src,
+>> -				       len, flags);
+>> +	tx = dmaengine_prep_dma_memcpy(cqspi->rx_chan, dma_dst, dma_src, len,
+>> +				       flags);
+> 
+> Not related to the change, isn't it?
+
+Yeah, not related I'll leave this untouched. However, the changes above
+and below are related and belong together in the same patch.
+
+> 
+>>   	if (!tx) {
+>>   		dev_err(dev, "device_prep_dma_memcpy error\n");
+>>   		ret = -EIO;
+>> @@ -1507,6 +1580,94 @@ static int cqspi_direct_read_execute(struct cqspi_flash_pdata *f_pdata,
+>>   	return ret;
+>>   }
+>>   
+> 
+> [...]
+> 
+>>   static ssize_t cqspi_read(struct cqspi_flash_pdata *f_pdata,
+>>   			  const struct spi_mem_op *op)
+>>   {
+>> @@ -1524,7 +1685,7 @@ static ssize_t cqspi_read(struct cqspi_flash_pdata *f_pdata,
+>>   
+>>   	if ((cqspi->use_direct_mode && ((from + len) <= cqspi->ahb_size)) ||
+>>   	    (cqspi->ddata && cqspi->ddata->quirks & CQSPI_NO_INDIRECT_MODE))
+>> -		return cqspi_direct_read_execute(f_pdata, buf, from, len);
+>> +		return cqspi_direct_read_execute(f_pdata, op);
+> 
+> This change could also be done in a different commit.
+> 
+
+Thanks,
+Santhosh.
+
+>>   
+>>   	if (cqspi->use_dma_read && ddata && ddata->indirect_read_dma &&
+>>   	    virt_addr_valid(buf) && ((dma_align & CQSPI_DMA_UNALIGN) == 0))
+> 
+> Thanks,
+> Miquèl
+
