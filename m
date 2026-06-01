@@ -1,150 +1,104 @@
-Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from bali.collaboradmins.com (bali.collaboradmins.com [148.251.105.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796883B8D4A
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:15:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5FB6433AD;
+	Mon,  1 Jun 2026 14:15:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.251.105.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780323337; cv=none; b=pDq9kKkEZ4rd0ZeCNNmxydGm+rt6MeZAvvpyiy7G+8oPZIjLmeY42/i3yi2rVKTXrP2N0K2issQ490Nb1gnPAI6YLS2dI6266IHICX2dxiumFvlryxx89wy4lqCVt3NFwjJydZFzMEBNG13HliJlnAAi/m4s5UTAWLRhs+jLZME=
+	t=1780323359; cv=none; b=Wh5WvTSEGeJ7qmEfiAGjd8TboRSVn/llRPc3NXIumTYMaBvbEkbtBdJF626l8juFZbwMsMULqmyOgHnH42wuU8U+VZ9+EURK1o4a8QjBvnr0moh7HXBo9xVIV4/iS3AmqarbehehYixIPJzvsFSzovXot7o9pVshq1oJe7ChTQI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780323337; c=relaxed/simple;
-	bh=IxB7Fd79A3gZ1r/a8Cr3tbT307HV68s4njAYnRINXlo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hA6mFNzh6+WtvrkjYvFTewABRVnKUainaCpWdp2yvy6SnS4oEh5L3pId2cQmgIs3Ll0m1dD0UlGj3XGHxcpwkeZVtTQenYB1SZdbzQnUKQWIloLRUqX3Ov/+vYU2pnVmxCDBi95ZzJzOSwaf4+RnY1iDqvKIcIPVST6RBx3TewQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k1vJM7tB; arc=none smtp.client-ip=209.85.221.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780323359; c=relaxed/simple;
+	bh=2mlmflu75mdtBiODN+bKBCjJEH/3vnThy91d+Mg/u+s=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=t7vqVKDYnwkMJzBRAhN8o4Q4dRMfGu6BpwDKHRzcbVJ37kzSgvbYIM5kxYv3/uRcqu0yxa5w2K+jMJcs+I1mdrJnLBK48DaeGz1EGhzZLRr8RpNiOnaZF8Mw1jLbvb7kOPhtbZIZs8T1yKusSF37nUhxJMRgMnuKv5xtrsLcSMg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b=TQqevynx; arc=none smtp.client-ip=148.251.105.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k1vJM7tB"
-Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45eee266c6cso2912689f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:15:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780323335; x=1780928135; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vaUY+wznT6I0Vd1tbKHFAPphi09g/5Uz9b/r1spWPtc=;
-        b=k1vJM7tBtva4X1Eo4pUIcjiPrNX/aL/a48xSdtVgurZlbveyp9kTVF9eG0QiOYn680
-         Cbh8OkJHXi+D8D2Ts6lpLB/ncxDzo5kzXJgvH5LGoEocqFfWf/omi9252A7HAopwBl1c
-         08OFY0NG/zPCCpIZ7Z8tCKKM12Zmd+yBNpDBH6t0hvu+CL5+Wy0j/PohhGHyRTYvI2UA
-         bv/P9AjjhOOi2s1M379z2rrOTdKttYlDCavlOgnGDDrbeW9jUBI6cKOn8c8G6QNNIz57
-         SuJZXa6D092R/pnlJP6LGzZEz+Ren9BSfsCaFlWtctwVi7OUl8ovinbDayrGc/x8gna0
-         O11A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780323335; x=1780928135;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vaUY+wznT6I0Vd1tbKHFAPphi09g/5Uz9b/r1spWPtc=;
-        b=bldIiAwmpIGRPbBnKgAFCsHZBquh15bg1rwcWK545mAJyPC9/H0DviemJQvYWADhU4
-         GHLk/gNhs9up+Yg/zUWgq7BWN+EQMNoBbNBHTwucUYAivTdCWJH+VJ/lZfSpzxsyKhlF
-         prXcbWtEvhfL6h109owAawh0czzvwJW0BnEOt09FV45KW5SeXQe8uYstjf8JPpTB+5ak
-         WX4XHqiU4y6wSWIKv9bjo5JRxpgC/byORUOLOgCUaaN/5hDNSGCyTjmi3M42MtxM0UNp
-         l2EAq5VhNLbRfhTw/TRbV67mqEy9JnJJTbEODd8LTo3vKKnOlZpwC/yjWy0J+VvTB4SJ
-         tSWg==
-X-Forwarded-Encrypted: i=1; AFNElJ9jQxErANJusPQF1rpTi2joFLD8sQPwIGMpkMKsfbGjglXHx0myTdFfiGiq4dium/ROCuFUjaZIKLG3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx6XVJAjpfbQowWbIST3A6pzdzgJyulJTNaOgpNhQkiQStHYFk3
-	ghMjPOUMM/2T94Vgu8Ymnip7rqFKoO3gw2jchjMr7qorZ3WpJdltFLlGgd5oc2dz5wo=
-X-Gm-Gg: Acq92OFTsB1+OGEtuapk0z83fmhXvy0ZAIZMgsAyZeeuY1pa5E3sn6x4Wc6gzUTnGUw
-	1kPa2/3Y/VuGGErPSTyVQPWgdH+PAt4cbiAivshuUUvadjEhKNgP4EYwiDwWO/CBhF0W+bUezrc
-	z/CFcAH3BZCCZY1EwaJ4vJaAuVHKteStnrYIoa+TZ4gZbmescy6HLlfvn36yiEjwT3P8ySo9gfO
-	DBDWoSC1mq44jhpFGVmSkCTSI+QQzM+Fr3R0diKCRZKPGh/svhUZt4lGIYnUxXq1zLBsXApkw7R
-	74y2ljwjLZBUtkvA470wKkMqqcM8m24c/eDLe18yUm1ML0CKOOcQGd8s3dn6mAD3wL4YVSQiBIF
-	RA86zHC1o0Err+U4Uh/N1iqBZla0fI1kDIlx4FWMXYJ3srYv2tC7yrsa/cKotoL4OrcuA6Eyn7v
-	2NCkIQHjO1384oCppUpAFBuFaDRzJFnatVc8wkHWz6HYdsdUcKU3oelS0w
-X-Received: by 2002:a05:6000:4610:b0:43d:50c:6f33 with SMTP id ffacd0b85a97d-45ef6b670e1mr21405913f8f.26.1780323334783;
-        Mon, 01 Jun 2026 07:15:34 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.233.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34b47eesm27847640f8f.9.2026.06.01.07.15.33
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 07:15:33 -0700 (PDT)
-Message-ID: <203e09db-ba37-4d75-b984-227298f55d80@linaro.org>
-Date: Mon, 1 Jun 2026 15:15:32 +0100
+	dkim=pass (2048-bit key) header.d=collabora.com header.i=@collabora.com header.b="TQqevynx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=collabora.com;
+	s=mail; t=1780323356;
+	bh=2mlmflu75mdtBiODN+bKBCjJEH/3vnThy91d+Mg/u+s=;
+	h=From:Subject:Date:To:Cc:From;
+	b=TQqevynxWt7ybbB9ihSdaiBs4YiYH1mkyc8Hz4bAOgPcyv/zjrVrDm8i/3jXk0eDz
+	 ILArlOCVNFnH1qCRejVHUpodlzcVyCnAnh2Qb3mw7p5Rjyvwqv/FFbVEYTuL0DmYaI
+	 e9sf4IeYIB5lCqdsmRS8KSwMm6138r50DyNRumcJh345xsDyWxIjnOGeFukFyQGGoA
+	 YGILQOn+2EEqkcl6kftQpZPi+pv2gJVREv8l6dbEvoLUv1cqsdYT9ChfpAiobSTzRC
+	 tbis/2hsJr61i5iFnRncUwC4kwWmeogzcBV32mpJpTRVhe2jr5xObnkLZH1GtXKwpV
+	 P24UwsRst1+pQ==
+Received: from yukiji.home (unknown [100.64.0.131])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: laeyraud)
+	by bali.collaboradmins.com (Postfix) with ESMTPSA id DBA5F17E06C5;
+	Mon,  1 Jun 2026 16:15:55 +0200 (CEST)
+From: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+Subject: [PATCH 0/3] Mediatek Genio EVK: add MT6365 PMIC supplies
+Date: Mon, 01 Jun 2026 16:15:44 +0200
+Message-Id: <20260601-mtk-genio-mt6359-pmic-supplies-v1-0-05750080ba59@collabora.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] arm64: dts: qcom: shikra: Add CAMSS node
-To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, bod@kernel.org
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Loic Poulain <loic.poulain@oss.qualcomm.com>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Suresh Vankadara <quic_svankada@quicinc.com>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-4-645d2c8c75a7@qti.qualcomm.com>
- <178000689150.4557.11759359941436928903.b4-reply@b4>
- <df00e8d8-21ab-415f-815e-608eb7ab0967@oss.qualcomm.com>
- <23d2a824-e894-4c26-8bd1-02bbb8a7c6d1@linaro.org>
- <f7403443-3c0c-45d2-8235-46c70883a296@oss.qualcomm.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <f7403443-3c0c-45d2-8235-46c70883a296@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWNyw6CMBBFf6WZtZOUKg3wK4ZFLSNOtA/bYkgI/
+ 24Du3vu4pwNMiWmDIPYINGPMwdfobkIsC/jZ0KeKoOSSkstG3TljTN5DnXpa9tjdGwxLzF+qge
+ 1sVJ3erop1UGVxERPXo/AfTw50XepnXKe8DCZ0AbnuAzC01rwaLWqh3Hf/wxTizyhAAAA
+X-Change-ID: 20260601-mtk-genio-mt6359-pmic-supplies-6ac0686d4228
+To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Matthias Brugger <matthias.bgg@gmail.com>, 
+ AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
+Cc: kernel@collabora.com, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+ linux-mediatek@lists.infradead.org, 
+ Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780323355; l=1490;
+ i=louisalexis.eyraud@collabora.com; s=20250113; h=from:subject:message-id;
+ bh=2mlmflu75mdtBiODN+bKBCjJEH/3vnThy91d+Mg/u+s=;
+ b=b0c7tjNI5hl4SC9H1ekB6QEqDOxB922gw9bmkdU1mRhNqWUvmbdea6cnqbX9liXfg0v6iso+J
+ 2JsHZ77q+vqAj6JqXyQTK8VcaEg/8RT4er/9LPOkao/Intv+5YU1DCf
+X-Developer-Key: i=louisalexis.eyraud@collabora.com; a=ed25519;
+ pk=CHFBDB2Kqh4EHc6JIqFn69GhxJJAzc0Zr4e8QxtumuM=
 
-On 01/06/2026 07:42, Nihal Kumar Gupta wrote:
-> Here is the full IOMMU SID list for both platforms:
-> Agatti (QCM2290):
-> - 0x0400 0x00 — VFE non-protected
-> - 0x0800 0x00 — CDM non-protected
-> - 0x0820 0x00 — OPE read non-protected
-> - 0x0840 0x00 — OPE write non-protected
-> 
-> Shikra:
-> - 0x0400 0x00 — VFE non-protected
-> - 0x0600 0x00 — CDM non-protected
-> - 0x0620 0x00 — OPE read non-protected
-> - 0x0640 0x00 — OPE write non-protected
+Several Mediatek and Radxa boards, based on MT8370, MT8390 or MT8395
+SoC, integrate the MT6365 PMIC, that is a MT6359P variant.
 
-What this tells me is that the Agatti binding is incorrect for addition 
-of OPE as a separate device.
+This PMIC dt-bindings for recently gained property definitions for the
+power inputs for its various buck and LDO regulators ([1]).
 
-> Only VFE SID (0x0400) is shared between the two platforms.
+The goal of this series is to add the supplies for this PMIC regulators
+in the following board devicetrees:
+- MTK Genio 510-EVK
+- MTK Genio 700-EVK
+- MTK Genio 1200-EVK
+- Radxa NIO-12L
 
-Both platforms have the same IOMMU list, its just that you are 
-correcting a bug in Agatti's defintion.
+The series is based on linux-next tree (tag: next-20260529) and has
+been tested on Mediatek Genio 510, 700 and 1200-EVK boards.
 
-Again only IFE SIDs should be included in CAMSS...
+[1]: https://lore.kernel.org/linux-mediatek/20260514091520.2718987-2-wenst@chromium.org/
 
-> The current Shikra submission enumerates only the VFE SID.
-
-Great, this is what we want.
-
-I think for future submissions we need to be commenting, naming, 
-something each IOMMU entry as we have a problem now in Agatti and a 
-legacy problem - already - in VIDC as a result of misallocated IOMMU 
-entries.
-> Should CDM and OPE each get a separate YAML binding like [1], or
-> should both be part of the CAMSS YAML binding? If part of CAMSS,
-> please confirm and we will add their SIDs in the DTS in the next revision.
-> [1]https://lore.kernel.org/all/20260508-camss-isp-ope-v3-9- 
-> bb1055274603@oss.qualcomm.com/
-
-Yes I think CDM should be a standalone block and BTW use standard DMA 
-APIs with its own IOMMU entry.
-
-Similarly so OPE.
-
-The CAMSS node should only contain the IFE SIDs.
-
-So, actually I think your IOMMU defintion is correct but Agatti is not.
-
-Sigh.
-
+Signed-off-by: Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
 ---
-bod
+Louis-Alexis Eyraud (3):
+      arm64: dts: mediatek: mt8390-genio-common: Add MT6365 PMIC supplies
+      arm64: dts: mediatek: mt8395-genio-common: Add MT6365 PMIC supplies
+      arm64: dts: mediatek: mt8395-radxa-nio-12l: Add MT6365 PMIC supplies
+
+ arch/arm64/boot/dts/mediatek/mt8390-genio-common.dtsi | 17 +++++++++++++++++
+ arch/arm64/boot/dts/mediatek/mt8395-genio-common.dtsi | 17 +++++++++++++++++
+ arch/arm64/boot/dts/mediatek/mt8395-radxa-nio-12l.dts | 17 +++++++++++++++++
+ 3 files changed, 51 insertions(+)
+---
+base-commit: 697a0e31ee66f5ddb929c09895139779fff33f20
+change-id: 20260601-mtk-genio-mt6359-pmic-supplies-6ac0686d4228
+
+Best regards,
+-- 
+Louis-Alexis Eyraud <louisalexis.eyraud@collabora.com>
+
