@@ -1,389 +1,173 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D878833F590
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:48:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C7EF3403E8;
+	Mon,  1 Jun 2026 08:53:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780303726; cv=none; b=rjitEvoSC3WbFVjyOdEf0yvq00YMvSMNXDoov/0RAp9uwdSduHfEh4d1NHzVDiuJMMt+HC2iuQcyIYc51Zvv5o9hlCKdAcrRVYcgxDZZfTJJ3nn9tgGEmYpbemVRNpj5UTu5KAk44RHy0mjP0Qi/m/qKOnuiTwjseL8gkj//hlo=
+	t=1780304029; cv=none; b=TjAT8SUPzbd+UdA2rqTtf1Kjo/y8vcvjvJg0qZVywLO70uX3Sv3Gek9uNVFX8nsFiQMKMqtAF53nHC6EGCbjYwy1h9b+yEARg9w6bc1We49Dy7oCqUV7xwpxeJdcnHz9HL8+XftKfPdyllkKi3QnAv0ERRhNt51rLF5Rg0TaXQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780303726; c=relaxed/simple;
-	bh=girrbNIhYiFYww2iWQ8yrcb25u0z/iMyv5OA6IPxiDk=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=nOpezKkGYePvjhu4Rm12rzntrJzhIsRYmu9UO241psVP1aPEXJsi+W2lGdzAd8JQokB6zIesHqLg/49Sl0lHjGUfHI55Ljz1NR5En2aEIyw8vke8WfiV/Pfq4znkqkVR/EekxsgY7Tdm4nWjuzIjwxiZDwExUy/fk83t7fYOZxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kZrx4IA1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780304029; c=relaxed/simple;
+	bh=DsSVLPwsghD+jL0LVJUHYWW+HUk1VORiOmwqCQCX6G0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=S1LdankaKLT1SqkgxJmihB97qR1Gt2u0gowymZckJiJZ7q0hKI+BmbFTKQvVdJd2PnuS42PNDYiVMrxIJFbiis6LSF4Bdhx1c4k6+C47y0s8OU+crWtrHGw3zsgWsZdjcLZ8RbqF5qatzLpjPgZp5VWM0eeyrYvEE9QVugneL0A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mNnTg8dJ; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kZrx4IA1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A6821F0089A
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:48:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780303722;
-	bh=cLigZaKJVqblnxm+Q7w7B1ksXMtpT0SjHcOIy06ixU0=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=kZrx4IA192lx27h6fgvYJu5UbGsN7RLwItfeVW9W2t7YSQfeUsC5Wats9N1b0SPq5
-	 KLTvl5udoyO17WbkiZpdMYkIZtEj6VdNP3JAkFO/hKfnEVafgUo9mP+12apx7Qo/c3
-	 6nYigYZ22hR0a0k2Rg4ntrDz5VxR7Jy4TokvxklQS0qG42DoTCXWHIHLtuqgFceTSl
-	 7+EnxPCSLMtmG9o7aTquR5Kp3Yi+8KasvA43j3R9n38ctsQsIXu3bdPUWGiHfDmmeP
-	 CO5Z+PCC0AJFKuysCI/mNZrGfZJNWp8QlcZI1rug0wWmJbu57quZNkbDRuKAWTv9DK
-	 KRlMGPTSoPZDw==
-Received: by mail-lf1-f51.google.com with SMTP id 2adb3069b0e04-5aa5e9a64b4so2098679e87.3
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:48:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9SlrGNV+cnubAlzGtDCS+7hVzJuvkHRQ5cSriApot4d68dx/+8vzOaq5eJ++8sIHiQajHRcqyLuJc9@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8sDZoEDZKQbACrOmC1zJdBWK05TGbS1r9ILJvMountEMKDYFs
-	Ld1T2zK2tu/NZyR/MwK77r14N6BGWQ7s2RUCgVBfsDW8rjI0duDEWdOE2+0Q71g4sYbIGvXK9eW
-	DB8BUg6EAFY6g+m2O1uK4NuMSKfhGwlodxMoL9n0ZfQ==
-X-Received: by 2002:a05:6512:2242:b0:5aa:6a18:2b84 with SMTP id
- 2adb3069b0e04-5aa6a182d02mr1894683e87.7.1780303721120; Mon, 01 Jun 2026
- 01:48:41 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 1 Jun 2026 04:48:39 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 1 Jun 2026 04:48:39 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mNnTg8dJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 29F35C2BCC6;
+	Mon,  1 Jun 2026 08:53:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780304029;
+	bh=DsSVLPwsghD+jL0LVJUHYWW+HUk1VORiOmwqCQCX6G0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=mNnTg8dJlqUNrJWix1hBMquQRH+V96l5SM1nlgftEkSSyrgOxEmXowhqXROgHTTUg
+	 NH5qjH8zvAUyfyDNlGqoeme2+klYeJvjXwBZTV7R1TevFQJdt5SDFVdmMus1NdVZbv
+	 K1c4WnPLHOGZyDlO3Wjb0XYG42Qx+1LYgtpMSVItDxip6QmQr008IAQH7m51fEaO2W
+	 tEP4JO9RTRjhgF57RhGu48bhEsuFhueo1HbfyHGxd+ST8Vj1ah/RXFJ6wY+D3ntYYq
+	 rFqHgHvIrpSzT1xlazpyjUjJx9ObZWP7pjon4ln8Mz4PLlEnwwnH2R4eRONizj2PNj
+	 NSk3/zbQC/jdg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 1B1EFCD6E56;
+	Mon,  1 Jun 2026 08:53:49 +0000 (UTC)
+From: Antony Kurniawan Soemardi via B4 Relay <devnull+linux.smankusors.com@kernel.org>
+Subject: [PATCH v3 00/10] ARM: qcom: msm8960: enable WCNSS (Bluetooth &
+ Wi-Fi)
+Date: Mon, 01 Jun 2026 15:51:13 +0700
+Message-Id: <20260601-msm8960-wifi-v3-0-fec6ac8dba02@smankusors.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260528-pinctrl-level-shifter-v2-0-3a6a025392bf@oss.qualcomm.com>
- <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
-Date: Mon, 1 Jun 2026 04:48:39 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MegLUYfqDNS6VMSPGiU7ChFMsA-xv=YVRNqW7R2Q=ukQg@mail.gmail.com>
-X-Gm-Features: AVHnY4Inlne_6R0FqZJ9907w49O5hF9Q9C33iWKqXezEmfJZnmmSrK2afv0df94
-Message-ID: <CAMRc=MegLUYfqDNS6VMSPGiU7ChFMsA-xv=YVRNqW7R2Q=ukQg@mail.gmail.com>
-Subject: Re: [PATCH v2 1/4] soc: qcom: rpmh: Allow non-child devices to issue
- write commands
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: David Collins <david.collins@oss.qualcomm.com>, 
-	Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>, 
-	Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>, 
-	kernel@oss.qualcomm.com, linux-kernel@vger.kernel.org, 
-	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>, 
-	Konrad Dybcio <konradybcio@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartosz Golaszewski <brgl@kernel.org>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAJIHWoC/2XQ20rEMBAG4FcpuXYk5x4Q8T3Ei0kytWFt6ybdq
+ iz77qZdQXQv/8B8M3/OLFOKlFlXnVmiNeY4TyWou4r5AadXghhKZpJLI6S0MOaxaS2Hj9hHcEQ
+ +tNZbqy0rI++J+vi5c88vJQ8xL3P62vVVbK8bZLkW+i+0CuDAed0HbIMVSj/lEafDKc8p3/t5Z
+ Ju2yl/B3AiyCLV3SNoEdIZuhMv1wETHU6m5XK9kI+WMe82uevihLRzLBPgIQ0ge/NvsD1CKbUs
+ EIJJvglKBI/5b8rh9gsNMUMIYl66quWq54SKIVuugybimr5WRjkTDe09OodZCyXLe5RsqozLcj
+ QEAAA==
+X-Change-ID: 20251226-msm8960-wifi-beecd96c6646
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
+ linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
+ Rudraksha Gupta <guptarud@gmail.com>, 
+ Antony Kurniawan Soemardi <linux@smankusors.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, 
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780304027; l=4535;
+ i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
+ bh=DsSVLPwsghD+jL0LVJUHYWW+HUk1VORiOmwqCQCX6G0=;
+ b=UFxuBmGAcYFNBE9kQNLgpo0vidcpULQcnVhDoLvbkYDPDSlV0aV7Alb9ACv36CvqsHx8AXLwp
+ RHNS0aXgOSVC/JnTvqVpJwxu9O4xQ/wEYpYGJNwK16Aeocv0JTzdihX
+X-Developer-Key: i=linux@smankusors.com; a=ed25519;
+ pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
+X-Endpoint-Received: by B4 Relay for linux@smankusors.com/20250609 with
+ auth_id=733
+X-Original-From: Antony Kurniawan Soemardi <linux@smankusors.com>
+Reply-To: linux@smankusors.com
 
-On Fri, 29 May 2026 03:05:35 +0200, Fenglin Wu
-<fenglin.wu@oss.qualcomm.com> said:
-> Currently, the RPMH driver only allows child devices of the RPMH
-> controller to issue commands, as it assumes dev->parent points to the
-> RSC device.
->
-> There is a possibility that certain devices which are not children of
-> the RPMH controller want to send commands for special control at the
-> RPMH side. For example, in PMH0101 PMICs, there are bidirectional
-> level shifter (LS) peripherals, and each LS works with a pair of PMIC
-> GPIOs. The control of the LS, which is combined with the GPIO
-> configuration, is handled by RPMH firmware for sharing the resource
-> between different subsystems. From a hardware point of view, the LS
-> functionality is tied to a pair of PMIC GPIOs, so its control is more
-> suitable to be added in the pinctrl-spmi-gpio driver by adding the
-> level-shifter function. However, the pinctrl-spmi-gpio device is a
-> child device of the SPMI controller, not the RPMH controller.
->
-> This patch extends the RPMH driver to support write commands from any
-> device that has a pointer to the RPMH controller device:
->
-> 1. Add rpmh_get_ctrlr_dev() to lookup controller via device tree
->    phandle "qcom,rpmh"
-> 2. Add new APIs: rpmh_write_async_ctrlr() and rpmh_write_ctrlr()
->    that accept controller device pointer directly
->
-> With this change, the pinctrl-spmi-gpio driver is able to issue write
-> commands to the RPMH controller by using the controller device pointer,
-> and vote for enabling the level-shifter function.
->
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/rpmh.c | 173 +++++++++++++++++++++++++++++++++++++++++++-----
->  include/soc/qcom/rpmh.h |  21 ++++++
->  2 files changed, 179 insertions(+), 15 deletions(-)
->
-> diff --git a/drivers/soc/qcom/rpmh.c b/drivers/soc/qcom/rpmh.c
-> index ca37da3dc2b1..9dbc42b775d9 100644
-> --- a/drivers/soc/qcom/rpmh.c
-> +++ b/drivers/soc/qcom/rpmh.c
-> @@ -12,6 +12,7 @@
->  #include <linux/lockdep.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> +#include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/spinlock.h>
-> @@ -76,6 +77,21 @@ static struct rpmh_ctrlr *get_rpmh_ctrlr(const struct device *dev)
->  	return &drv->client;
->  }
->
-> +static struct rpmh_ctrlr *get_rpmh_ctrlr_from_dev(const struct device *ctrl_dev)
-> +{
-> +	struct rsc_drv *drv;
-> +
-> +	if (!ctrl_dev)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	drv = dev_get_drvdata(ctrl_dev);
-> +
-> +	if (!drv)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	return &drv->client;
-> +}
-> +
->  void rpmh_tx_done(const struct tcs_request *msg)
->  {
->  	struct rpmh_request *rpm_msg = container_of(msg, struct rpmh_request,
-> @@ -156,23 +172,11 @@ static struct cache_req *cache_rpm_request(struct rpmh_ctrlr *ctrlr,
->  	return req;
->  }
->
-> -/**
-> - * __rpmh_write: Cache and send the RPMH request
-> - *
-> - * @dev: The device making the request
-> - * @state: Active/Sleep request type
-> - * @rpm_msg: The data that needs to be sent (cmds).
-> - *
-> - * Cache the RPMH request and send if the state is ACTIVE_ONLY.
-> - * SLEEP/WAKE_ONLY requests are not sent to the controller at
-> - * this time. Use rpmh_flush() to send them to the controller.
-> - */
-> -static int __rpmh_write(const struct device *dev, enum rpmh_state state,
-> -			struct rpmh_request *rpm_msg)
-> +static int __rpmh_write_direct(struct rpmh_ctrlr *ctrlr, enum rpmh_state state,
-> +			       struct rpmh_request *rpm_msg)
->  {
-> -	struct rpmh_ctrlr *ctrlr = get_rpmh_ctrlr(dev);
-> -	int ret = -EINVAL;
->  	struct cache_req *req;
-> +	int ret = -EINVAL;
->  	int i;
->
->  	/* Cache the request in our store and link the payload */
-> @@ -193,6 +197,25 @@ static int __rpmh_write(const struct device *dev, enum rpmh_state state,
->  	return ret;
->  }
->
-> +/**
-> + * __rpmh_write: Cache and send the RPMH request
-> + *
-> + * @dev: The device making the request
-> + * @state: Active/Sleep request type
-> + * @rpm_msg: The data that needs to be sent (cmds).
-> + *
-> + * Cache the RPMH request and send if the state is ACTIVE_ONLY.
-> + * SLEEP/WAKE_ONLY requests are not sent to the controller at
-> + * this time. Use rpmh_flush() to send them to the controller.
-> + */
-> +static int __rpmh_write(const struct device *dev, enum rpmh_state state,
-> +			struct rpmh_request *rpm_msg)
-> +{
-> +	struct rpmh_ctrlr *ctrlr = get_rpmh_ctrlr(dev);
-> +
-> +	return __rpmh_write_direct(ctrlr, state, rpm_msg);
-> +}
-> +
->  static int __fill_rpmh_msg(struct rpmh_request *req, enum rpmh_state state,
->  		const struct tcs_cmd *cmd, u32 n)
->  {
-> @@ -271,6 +294,126 @@ int rpmh_write(const struct device *dev, enum rpmh_state state,
->  }
->  EXPORT_SYMBOL_GPL(rpmh_write);
->
-> +static void rpmh_put_device(void *data)
-> +{
+Enable the WCNSS (Riva) subsystem on MSM8960-based devices to support
+Bluetooth and Wi-Fi.
 
-Can you cast it here to struct device * to make it clear what is being
-released?
+Add the required device tree nodes and resources, including memory
+regions, clocks, interconnects, and communication interfaces used by
+the WCNSS firmware and drivers.
 
-> +	put_device(data);
-> +}
-> +
-> +/**
-> + * rpmh_get_ctrlr_dev: Get RPMH controller device from device tree
-> + *
-> + * @dev: Device with "qcom,rpmh" phandle property
-> + *
-> + * Returns: Pointer to RPMH controller device, with a devm action registered
-> + * on @dev to release the reference when @dev is unbound.
+Changes:
+- Add Riva (WCNSS) nodes: firmware memory, WCN3660 iris radio,
+  Bluetooth and Wi-Fi subdevices, and pinctrl states
+- Add SMSM and SPS nodes for coordination with the WCNSS subsystem
+- Add shared memory and hardware lock for inter-processor communication
+- Add SCM node for secure channel manager interaction
+- Add RPM clock controller and required QDSS clock resource
+- Add bindings for SPS interrupt controller and RPM clocks
 
-Then I believe it should be called devm_rpmh_get_ctrlr_dev() with the non-devm
-variant not registering the devres action.
+This series supersedes the earlier dt-bindings-only submission [1] and
+includes the corresponding driver and DT integration changes.
 
-> + */
-> +struct device *rpmh_get_ctrlr_dev(struct device *dev)
-> +{
-> +	struct device_node *rpmh_np;
-> +	struct platform_device *pdev;
-> +	struct device_link *link;
-> +	int ret;
-> +
-> +	rpmh_np = of_parse_phandle(dev->of_node, "qcom,rpmh", 0);
-> +	if (!rpmh_np)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	pdev = of_find_device_by_node(rpmh_np);
-> +	of_node_put(rpmh_np);
-> +
-> +	if (!pdev)
-> +		return ERR_PTR(-EPROBE_DEFER);
-> +
-> +	link = device_link_add(dev, &pdev->dev,
-> +			       DL_FLAG_AUTOREMOVE_CONSUMER | DL_FLAG_PM_RUNTIME);
+This patch series depends on:
+  [2] "dt-bindings: usb: ci-hdrc-usb2: allow up to 3 clocks for
+  qcom,ci-hdrc"
+for fixing the USB controller clock configuration on MSM8960.
 
-This should already be covered by driver core as there already exists a phandle
-link from dev->of_node to rpmh_np.
+Tested on:
+- Sony Xperia SP
+- Samsung Galaxy Express (SGH-I437) - requires additional work for
+  firmware loading (separate series pending)
 
-> +	if (!link) {
-> +		put_device(&pdev->dev);
-> +		return ERR_PTR(-EINVAL);
-> +	}
-> +
-> +	ret = devm_add_action_or_reset(dev, rpmh_put_device, &pdev->dev);
-> +	if (ret)
-> +		return ERR_PTR(ret);
-> +
-> +	return &pdev->dev;
-> +}
-> +EXPORT_SYMBOL_GPL(rpmh_get_ctrlr_dev);
-> +
-> +/**
-> + * rpmh_write_async_ctrlr: Write RPMH commands with the controller device pointer
-> + *
-> + * @ctrl_dev: The RPMH controller device
-> + * @state: Active/sleep set
-> + * @cmd: The payload data
-> + * @n: The number of elements in payload
-> + *
-> + * Write a set of RPMH commands, the order of commands is maintained
-> + * and will be sent as a single shot.
+Known limitations (not addressed in this series):
+The wcn36xx driver appears to misclassify 2.4 GHz networks as 5 GHz
+during hardware scanning, preventing association with 2.4 GHz networks.
+This issue has also been observed on MSM8916 and MSM8953 platforms
+using WCN3620 [3][4].
 
-s/shot/batch/?
+[1] https://lore.kernel.org/all/20260218-msm8960-sps-rpm-bindings-v1-0-bbc11c0d4f24@smankusors.com/
+[2] https://lore.kernel.org/all/20260516-qcom-ci-hdrc-clock-fix-v2-1-aaec8d33d0aa@smankusors.com/
+[3] https://github.com/msm8916-mainline/linux/commit/cc4abc694fcf2c942410136bc58a61e79bf21e83
+[4] https://github.com/msm8953-mainline/linux/commit/779c9627ec0b971bf466588e64fe530cf78a414d
 
-> + */
-> +int rpmh_write_async_ctrlr(const struct device *ctrl_dev, enum rpmh_state state,
-> +			   const struct tcs_cmd *cmd, u32 n)
-> +{
+Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
+---
+Changes in v3:
+- Dropped unnecessary pxo and cxo clock validations for
+  qcom,rpmcc-msm8960
+- Dropped unnecessary example for rpmcc bindings
+- Reorder USB clock entries to match the updated ci-hdrc binding, using
+  iface, core, fs order.
+- Link to v2: https://patch.msgid.link/20260514-msm8960-wifi-v2-0-7cbae45dab5e@smankusors.com
 
-The signature of this is the same as that of rpmh_write_async() and the two
-functions share a lot of code. Can we not rework rpmh_write_async() to
-internally check if it needs to call get_rpmh_ctrlr_from_dev() and avoid
-introducing new interfaces?
+Changes in v2:
+- Updated cover letter about the previous dt-bindings only submission
+  and the dependency on the USB controller clock fix series
+- Drop the apq8064 reference from the commit message for adding msm8960
+  QDSS clock resource
+- Add fallback compatible "qcom,rpmcc-apq8064" in the rpmcc node
+- Updated qcom,rpmcc dt-bindings to allow for fallback compatible
+- Put clocks, clock-names, reg, reg-names, interrupt-names, &
+  smem-states entries one per line in the rpmcc, riva, and wifi nodes
+- Move riva pinctrl assignments to SoC DTSI
+- Renamed hwmutex to hwlock for consistency with the dt-bindings
+- Link to v1: https://patch.msgid.link/20260414-msm8960-wifi-v1-0-007fda9d6134@smankusors.com
+- Note: an incomplete v1 also exists at https://lore.kernel.org/all/20260414-msm8960-wifi-v1-0-01c081e54610@smankusors.com/
+  due to SMTP rate limit. Please ignore that thread.
 
-> +	struct rpmh_request *rpm_msg;
-> +	struct rpmh_ctrlr *ctrlr;
-> +	int ret;
-> +
-> +	ctrlr = get_rpmh_ctrlr_from_dev(ctrl_dev);
-> +	if (IS_ERR(ctrlr))
-> +		return PTR_ERR(ctrlr);
-> +
-> +	rpm_msg = kzalloc_obj(*rpm_msg, GFP_ATOMIC);
-> +	if (!rpm_msg)
-> +		return -ENOMEM;
-> +	rpm_msg->needs_free = true;
-> +
-> +	ret = __fill_rpmh_msg(rpm_msg, state, cmd, n);
-> +	if (ret) {
-> +		kfree(rpm_msg);
-> +		return ret;
-> +	}
-> +
-> +	return __rpmh_write_direct(ctrlr, state, rpm_msg);
-> +}
-> +EXPORT_SYMBOL_GPL(rpmh_write_async_ctrlr);
-> +
-> +/**
-> + * rpmh_write_ctrlr: Write RPMH commands and block until response,
-> + * with the controller device pointer
-> + *
-> + * @ctrlr_dev: The RPMH controller device
-> + * @state: Active/sleep set
-> + * @cmd: The payload data
-> + * @n: The number of elements in @cmd
-> + *
-> + * May sleep. Do not call from atomic contexts.
+---
+Antony Kurniawan Soemardi (10):
+      dt-bindings: clock: qcom,rpmcc: add msm8960 compatible
+      dt-bindings: mfd: syscon: add qcom,msm8960-sps-sic
+      mfd: qcom_rpm: add msm8960 QDSS clock resource
+      clk: qcom: clk-rpm: add msm8960 compatible
+      ARM: dts: qcom: msm8960: add RPM clock controller and fix USB clocks
+      ARM: dts: qcom: msm8960: add SCM
+      ARM: dts: qcom: msm8960: add SMEM & hwlock
+      ARM: dts: qcom: msm8960: add SMSM & SPS
+      ARM: dts: qcom: msm8960: add Riva
+      ARM: dts: qcom: msm8960: huashan: enable Wi-Fi and Bluetooth
 
-Add might_sleep() at the top of the function?
+ .../devicetree/bindings/clock/qcom,rpmcc.yaml      |  63 ++++----
+ Documentation/devicetree/bindings/mfd/syscon.yaml  |   2 +
+ .../boot/dts/qcom/qcom-msm8960-sony-huashan.dts    |  15 ++
+ arch/arm/boot/dts/qcom/qcom-msm8960.dtsi           | 170 ++++++++++++++++++++-
+ drivers/clk/qcom/clk-rpm.c                         |   1 +
+ drivers/mfd/qcom_rpm.c                             |   1 +
+ 6 files changed, 221 insertions(+), 31 deletions(-)
+---
+base-commit: 70390501d1944d4e5b8f7352be180fceb3a44132
+change-id: 20251226-msm8960-wifi-beecd96c6646
+prerequisite-message-id: <20260516-qcom-ci-hdrc-clock-fix-v2-1-aaec8d33d0aa@smankusors.com>
+prerequisite-patch-id: 37c7328450164a1a8997da541eba1e8ec144724a
 
-> + */
-> +int rpmh_write_ctrlr(const struct device *ctrlr_dev, enum rpmh_state state,
-> +		     const struct tcs_cmd *cmd, u32 n)
-> +{
-> +	DECLARE_COMPLETION_ONSTACK(compl);
-> +	/* dev is unused in the synchronous non-batch path; pass NULL */
-> +	DEFINE_RPMH_MSG_ONSTACK(NULL, state, &compl, rpm_msg);
-> +	struct rpmh_ctrlr *ctrlr;
-> +	int ret;
-> +
-> +	ctrlr = get_rpmh_ctrlr_from_dev(ctrlr_dev);
-> +	if (IS_ERR(ctrlr))
-> +		return PTR_ERR(ctrlr);
-> +
-> +	ret = __fill_rpmh_msg(&rpm_msg, state, cmd, n);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = __rpmh_write_direct(ctrlr, state, &rpm_msg);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = wait_for_completion_timeout(&compl, RPMH_TIMEOUT_MS);
-> +	WARN_ON(!ret);
-> +	return (ret > 0) ? 0 : -ETIMEDOUT;
-> +}
-> +EXPORT_SYMBOL_GPL(rpmh_write_ctrlr);
-> +
->  static void cache_batch(struct rpmh_ctrlr *ctrlr, struct batch_cache_req *req)
->  {
->  	unsigned long flags;
-> diff --git a/include/soc/qcom/rpmh.h b/include/soc/qcom/rpmh.h
-> index bdbee1a97d36..90ddcd7ca2fe 100644
-> --- a/include/soc/qcom/rpmh.h
-> +++ b/include/soc/qcom/rpmh.h
-> @@ -22,6 +22,14 @@ int rpmh_write_batch(const struct device *dev, enum rpmh_state state,
->
->  void rpmh_invalidate(const struct device *dev);
->
-> +struct device *rpmh_get_ctrlr_dev(struct device *dev);
-> +
-> +int rpmh_write_async_ctrlr(const struct device *ctrl_dev, enum rpmh_state state,
-> +			   const struct tcs_cmd *cmd, u32 n);
-> +
-> +int rpmh_write_ctrlr(const struct device *ctrlr_dev, enum rpmh_state state,
-> +		     const struct tcs_cmd *cmd, u32 n);
-> +
->  #else
->
->  static inline int rpmh_write(const struct device *dev, enum rpmh_state state,
-> @@ -42,6 +50,19 @@ static inline void rpmh_invalidate(const struct device *dev)
->  {
->  }
->
-> +static inline struct device *rpmh_get_ctrlr_dev(struct device *dev)
-> +{ return ERR_PTR(-ENODEV); }
-> +
-> +static inline int rpmh_write_async_ctrlr(const struct device *ctrl_dev,
-> +					  enum rpmh_state state,
-> +					  const struct tcs_cmd *cmd, u32 n)
-> +{ return -ENODEV; }
-> +
-> +static inline int rpmh_write_ctrlr(const struct device *ctrlr_dev,
-> +				    enum rpmh_state state,
-> +				    const struct tcs_cmd *cmd, u32 n)
-> +{ return -ENODEV; }
-> +
->  #endif /* CONFIG_QCOM_RPMH */
->
->  #endif /* __SOC_QCOM_RPMH_H__ */
->
-> --
-> 2.43.0
->
->
+Best regards,
+--  
+Antony Kurniawan Soemardi <linux@smankusors.com>
 
-Bartosz
+
