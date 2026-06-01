@@ -1,196 +1,86 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF2C36B061;
-	Mon,  1 Jun 2026 11:56:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780314989; cv=pass; b=eY2ngvMHDThFCs/BTzfMdmh60+Y5+7x7tlaKCauZrnNn9/JKaPB8luOjf2YeG9LRE0x8XKAPt/Acz8B3gCBDWZO7i4PqtPc4jUnvoAhXwfVxl/ZqahA/THgAimKp8KmPigUvm7bjAlKer5rpXron6dbida2wZSmz0y9g/xlvTMo=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780314989; c=relaxed/simple;
-	bh=qv/9LqBg1EWAsENMiXtbqdMh6zS7Nl7EX/bWFaLIF6s=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8248A36B061;
+	Mon,  1 Jun 2026 11:58:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780315094; cv=none; b=j5q5o78itTvv1YbPMXYr19SaneXGavMxUrfQ2dJ2HXiEXyrp5T6/jGDNw/xrXi71pUy8gyKsJ548qrx6Xcyj+OYLtP3qZqm86qkFNabt5g8PuNOiLNxvfFaCb2aDzk9uY+ItiLm3zUTC8CqBBPyE4RrZwSdwC3ysM1WnUEJN5R0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780315094; c=relaxed/simple;
+	bh=oMvrVfiVtG9MWcMNaKhhqdtR2sSWBNcUcTApQwLz9Ko=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fcy6LI3n2g2V3R+N37pMeTP5AiC/GexYWfXD3HXk3z7uJumph89GPu5rFGUmXHDNEeVxak49gmO8C9+dlq54LX31F2oNdp0xKnIPRJJVoowdNPNzOockYjEYb93YcwwQfxa8mR58OOgpXDDiM1n7Zc+SbB++ndWdSuBx1WaHO4M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=GF2oyKWg; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aGYu3pIhqO5B7wglj1x1y0MUL8DG7O4BrzN+AuvhE0eoZuuxj1GfQVyuSQGoRXs1MUl7FFWLSuW5gCo6a70pWbcTfR5fkaXightgipqUcCuYSIZXs4CchN2bqekFqeuspPczhIysOxCXilxV+s+ewLI8Wfl+VyRvcCt9eG7Izv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iTJFzsG5; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="GF2oyKWg"
-ARC-Seal: i=1; a=rsa-sha256; t=1780314945; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=FNRftmKnS7T4TSB+t9muQC7THXzDRm3zS59CpQmQXcfR+lD+sjK+3tcrJhNzULSvMP9iFe6zhia6Er7/3D0+ORHk/jkvrq6OqgErsItAuS0JGYtsajOfUPlgChS+89Yd/E67QrR6yXLqLSKOa5NKv55NaBJaHuYMpv0Sij0NibY=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1780314945; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=NhicfsH5K90NxOsrnACheuqKG+2D1PbU+GtDXc1tNpE=; 
-	b=UPvYofb/4uqXxIKz930hU65li2WDA/0umEcWJiCaq63BDNRizgQKDD4r4gKELhgFKIDeyOoI8TsXRqenSrhWTEvcTJIbA+DJt9dTGtNa1N9Lfxj2nAwF++/+9V0cQLkLjNbFt5autS3UbHwhMPXwmjq3lEJMp+ySzHYS6K5IIqk=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780314945;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=NhicfsH5K90NxOsrnACheuqKG+2D1PbU+GtDXc1tNpE=;
-	b=GF2oyKWgegPpU7BqIuuEq9O1/RNy2sKIo3tJI+XAAgmkFH1teZa2kBFt1ewppfhY
-	FTcXN9GE3Q9TuTAr4N8+B4lGE+E+w6nImJl+d38IyBttQEPH3y4roDTwGUaGPd51cu9
-	lRud7zprKpvKYfeeGSa6Z2/17tVg9IWskRJAhg+o=
-Received: by mx.zohomail.com with SMTPS id 178031494377259.66847238214382;
-	Mon, 1 Jun 2026 04:55:43 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id 04019181D80; Mon, 01 Jun 2026 13:55:36 +0200 (CEST)
-Date: Mon, 1 Jun 2026 13:55:36 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Damon Ding <damon.ding@rock-chips.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com, 
-	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
-	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
-	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
-	nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com, 
-	dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com, dianders@chromium.org, 
-	m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
-Message-ID: <ah1y8hRl9M40YNfF@venus>
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
- <20260529040530.741336-2-damon.ding@rock-chips.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iTJFzsG5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 028761F00893;
+	Mon,  1 Jun 2026 11:58:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780315093;
+	bh=+SI1uKcTCYm5hNuk0j9Q0dod3ydBGuJaQIkghYKeFq8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iTJFzsG5nXaiCsCiheLWVTpX+8jyCvXxIhmU6+gQdG0Ayobk2bLl+5zwiMW5Uv7qf
+	 hkItqqavKrBPLNur8NONDP84BRCLOt0mzJv561nJfeNcPMcnBo3Sfl02Kq6q8d6b9d
+	 S8tclAsg834ZlLmK3SnCU3GUsGE0MC/ZCby6idSbZxqgR/xo7UN/z/bjLI2klk6zKX
+	 WtUgV/uoOmHlwNy1ps89oY/cdcoWqWuwNlsjh3TSLm9CB7AP1Bmk+bfKGrpkhkdDcC
+	 VV81x3vHRgO7r2e80A3cyOstymQEK8aIuNNn3Fgd5vJLsSB2e8xECLpkhO0yJ2AH3r
+	 y6Psb7oMWaK+Q==
+Date: Mon, 1 Jun 2026 13:58:08 +0200
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: ASHISH YADAV <ashishyadav78@gmail.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, linux-hwmon@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	Ashish Yadav <ashish.yadav@infineon.com>
+Subject: Re: [PATCH v3 1/2] dt-bindings: hwmon/pmbus: Add Infineon xdp730
+Message-ID: <20260601-first-attentive-puffin-d7ca66@quoll>
+References: <20260601090925.3781-1-Ashish.Yadav@infineon.com>
+ <20260601090925.3781-2-Ashish.Yadav@infineon.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="l4yu2mk2qw7tpdei"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260529040530.741336-2-damon.ding@rock-chips.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.300.36
-X-ZohoMailClient: External
+In-Reply-To: <20260601090925.3781-2-Ashish.Yadav@infineon.com>
 
+On Mon, Jun 01, 2026 at 02:39:24PM +0530, ASHISH YADAV wrote:
+>  required:
+>    - compatible
+> @@ -50,10 +58,23 @@ examples:
+>          #address-cells = <1>;
+>          #size-cells = <0>;
+>  
+> -        hwmon@11 {
+> +        efuse@11 {
 
---l4yu2mk2qw7tpdei
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add
- data-lanes support for endpoint
-MIME-Version: 1.0
+Explain that in commit msg.
 
-Hi,
-
-On Fri, May 29, 2026 at 12:05:28PM +0800, Damon Ding wrote:
-> Add data-lanes property support to the port@1 endpoint for physical
-> lane mapping configuration.
->=20
-> Lane mapping is mainly used for below scenarios:
-> 1. Correct PCB lane swap and differential line routing crossover
->    without hardware changes;
-> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
-> 3. Support multiple panel hardware variants on the same board
->    by configuring data-lanes in device tree only.
->=20
-> Additionally, add data-lanes setting in Rockchip eDP DT node example
-> to show actual lane mapping usage.
->=20
-> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
->=20
-> ---
-
-Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
-
-Greetings,
-
--- Sebastian
-
-> Changes in v2:
-> - Add lane mapping application scenarios in commit message.
-> - Remove redundant deprecated property 'data-lanes' for eDP node.
-> - Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
->=20
-> Changes in v3:
-> - Squash data-lanes adjustment of Rockchip eDP DT example into this
->   commit.
-> - Add unevaluatedProperties: false to both the port@1 and endpoint
->   nodes.
-> ---
->  .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++++++++++++-----
->  .../rockchip/rockchip,analogix-dp.yaml        |  1 +
->  2 files changed, 15 insertions(+), 5 deletions(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
-=2Eyaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> index 62f0521b0924..ecf206871cdd 100644
-> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
-> @@ -42,13 +42,22 @@ properties:
->      properties:
->        port@0:
->          $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Input node to receive pixel data.
-> +        description: Input node to receive pixel data.
-> =20
->        port@1:
-> -        $ref: /schemas/graph.yaml#/properties/port
-> -        description:
-> -          Port node with one endpoint connected to a dp-connector node.
-> +        $ref: /schemas/graph.yaml#/$defs/port-base
-> +        unevaluatedProperties: false
-> +        description: Port node with one endpoint connected to sink devic=
-e node.
-> +        properties:
-> +          endpoint:
-> +            $ref: /schemas/media/video-interfaces.yaml#
-> +            unevaluatedProperties: false
-> +            properties:
-> +              data-lanes:
-> +                minItems: 1
-> +                maxItems: 4
-> +                items:
-> +                  enum: [ 0, 1, 2, 3 ]
-> =20
->      required:
->        - port@0
-> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
-analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
-hip,analogix-dp.yaml
-> index d99b23b88cc5..f690ee393fdb 100644
-> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
-x-dp.yaml
-> @@ -117,6 +117,7 @@ examples:
->            reg =3D <1>;
-> =20
->            edp_out_panel: endpoint {
-> +            data-lanes =3D <0 1>;
->              remote-endpoint =3D <&panel_in_edp>;
->            };
+>              compatible = "infineon,xdp720";
+>              reg = <0x11>;
+>              vdd-vin-supply = <&vdd_vin>;
+>              infineon,rimon-micro-ohms = <1098000000>;  /* 1.098k ohm */
 >          };
-> --=20
-> 2.34.1
->=20
+>      };
+> +
+> +  - |
+> +    i2c {
+> +        #address-cells = <1>;
+> +        #size-cells = <0>;
+> +
+> +        efuse@12 {
+> +            compatible = "infineon,xdp730";
+> +            reg = <0x12>;
+> +            vdd-vin-supply = <&vdd_vin>;
+> +            infineon,rimon-micro-ohms = <1098000000>;  /* 1.098k ohm */
 
---l4yu2mk2qw7tpdei
-Content-Type: application/pgp-signature; name="signature.asc"
+It's exactly the same as previous example, drop this hunk.
 
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmodczQACgkQ2O7X88g7
-+prqbg//W/6q4iL4Z+96KG17dC3Romdv0RIDL4hqiVccAYjIRdOxOyCXB/3Zvt1K
-v76++g9tq+K89vejb04n5m0qNsnQshLsMqpD9yS4naPQg7wIQMuGsra87qAkhozF
-lFeImUWIMSS/2dbagApnsatXBrQOkXTky+zkyBNmTe71txgkB401J/MUlBJyz70w
-9NUjYAR6bb+8I5WDJUaTbkvu8zjEsAYMQ8PW59+D3aFkn2n/bLHqBqRQDSFyP28T
-J1GZqwZhSCp3dO2PLLzs4M8tAyowz498gApB8zLo9/yG57U4yBzdrrskbx9MVYUn
-/kZMFRzbUbaqwqwwWcVjb/C19iMS5T3iTNLfbenJ7v8HHoOHDRqFXEeoMI1FdCKM
-piUuysqVp/Ub7omiD2myBAPwJ8wuEAaUaKV/bcmC76oU7yX2iCB8xZFkbKuEvVB9
-UFEpje/F4gWwP3tK+uoqRLDoQ7pxpcCg81WBWKnCNRqavfD/OfalFth4W9ClaUSQ
-UjNqx7xF5o2zrxUd5BxTuiNnJjalo3olhcD3c3nVSgdvvHQOdpU4iAp91nAU7whm
-U+9eq0CE326GKt+hQSdKH3GbqqxUSf6tQ/KypdlFIhPunpzUoARdE1HrwIYbyO5O
-GJ2sUtue3CQZ3nl0/SyuZIJB1jEGMBA5sigFw6TvOZrilwm4GyI=
-=I06R
------END PGP SIGNATURE-----
-
---l4yu2mk2qw7tpdei--
+> +        };
+> +    };
+> -- 
+> 2.39.5
+> 
