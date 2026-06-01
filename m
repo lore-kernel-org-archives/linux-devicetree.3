@@ -1,97 +1,88 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m17210.xmail.ntesmail.com (mail-m17210.xmail.ntesmail.com [45.195.17.210])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B66F39B955;
-	Mon,  1 Jun 2026 10:08:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B85B7392C2C;
+	Mon,  1 Jun 2026 10:10:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.195.17.210
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780308534; cv=none; b=DVkP44jRcIY/E3mBJcGAxKpzwo26fNAWNcvk7JK+aUbpWJLin6Yx7e/ruCowQtmYj4trhz57r2SXWCDJePHHT4fW0KYknVV6A78CLp3Iomcn2dPNyDT3Wg6/72JHugwqQHG4Q48p8HKvuXvo5BIj7b5mMe3abzixkNektUeSbrA=
+	t=1780308636; cv=none; b=gnfgyEShWf8DLdpYS02ZDnlANTgMw3f4kFr7Oe1RhhDG3dGJsNDFLnbTfz723FflIAj5vgGDp1GaimsMopUugQX5u/Mdsmqm1q9HPvw4SDYs8AQrhp5AznjahE5oTrUCDrKoEvm+X/BDnTNRYbWdR/ph+Boz5ryZQRFJeeo/6pU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780308534; c=relaxed/simple;
-	bh=R4mYYEmDJ9gTvdUtErgR622YMLcx4VlrjZvp5PSHW3w=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=cg8z2+L5RtSW10/NM2R0CAViofxBn6Y79XBF/vsoH7iqExw0cvYCx0ZdGuH3r7x7QBkR+umsQlFWCvt3aDoAhFOu+3cza2djE7jpz+lRm/WKSdW9trxL11K0i7T5ggY2BW4Yr9tO5RF03BTpoSvpul6UgS1h3JsxXpbFOC0cuqk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wzms7WvA; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wzms7WvA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780DA1F00893;
-	Mon,  1 Jun 2026 10:08:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780308527;
-	bh=LHAflIBpzNeVthrg0b+HUI1/J82M7tmuuRym7eiA+nM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Wzms7WvAbXn0HePgD1TjT3H1wPNSo3BnSaZjOP5DAWcmtSDX41PrW0oxOGh3PxUyI
-	 1Gzg2Rgip1m9ktyIBkaownjTsU0X79WyOodcTQiLFPOkkYni0YAC+JvqB/u7BtGwqR
-	 iCHyiZf3Ar8VcQTtsBsMgaDi37rOmTixNiBxlCOGXRvqYb6/UuIQL+wyshrNevfYak
-	 Lx38TC6mzGASvLf+VP2q+POYx6VX09bCwF2kC3pWDaf4TnQwKD6dEO756miPgUEOvq
-	 JV8kqee3DkwQEI9gv4RTmkYR6oPU4scKNqnRf0LszVRBBGz3mIOau1ugeZugFKPbBk
-	 KarEifAXkkfgA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/7] wifi: ath11k: enable support for WCN6851
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260601-sm8350-wifi-v1-2-242917d88031@oss.qualcomm.com>
-References: <20260601-sm8350-wifi-v1-2-242917d88031@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 10:08:47 +0000
-Message-Id: <20260601100847.780DA1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780308636; c=relaxed/simple;
+	bh=9LlT1G34vvi4a6OcxIB/TwIZ+p3e9A/iFP+WWpdlxjk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cHa23NypA2W79qRv84tIsprTaOxe8sHzr9HPfFua/b9Rnnb8B+Ovlgmg1oLBmc6BdKLqO9RzbfbwPr9Po7SZngThjr0AuDtJfbF3GzwxURVkTj62brQKgvf9jBz+ul4am/5yKW9U0rYGi5IlBUJgwF+jxgOEt0deIMCtYQNXyHs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn; spf=pass smtp.mailfrom=jmu.edu.cn; arc=none smtp.client-ip=45.195.17.210
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=jmu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jmu.edu.cn
+Received: from Vostro-3710.. (unknown [113.80.141.91])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 40955f675;
+	Mon, 1 Jun 2026 18:10:16 +0800 (GMT+08:00)
+From: Chukun Pan <amadeus@jmu.edu.cn>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Chukun Pan <amadeus@jmu.edu.cn>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/1] arm64: dts: rockchip: enable button for Radxa E25
+Date: Mon,  1 Jun 2026 18:10:00 +0800
+Message-Id: <20260601101000.2076721-1-amadeus@jmu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e82a9a5a303a2kunmcf3995f0174ea3
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTUwZVkNDQ0hOGE1NGR1NHVYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlKSkhVQ0tVSk9KVUJKWVdZFhoPEhUdFFlBWU9LSFVKS0lCQ0
+	NMVUpLS1VLWQY+
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] Missing MODULE_FIRMWARE() declaration for WCN6855 hw1.1
---
+The Radxa E25 board has an ADC button. Enable it.
 
-commit 9dd00bb0ca92daf6393c487f5ce3b3c5fb3cc6a4
-Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Chukun Pan <amadeus@jmu.edu.cn>
+---
+ arch/arm64/boot/dts/rockchip/rk3568-radxa-e25.dts | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-wifi: ath11k: enable support for WCN6851
+diff --git a/arch/arm64/boot/dts/rockchip/rk3568-radxa-e25.dts b/arch/arm64/boot/dts/rockchip/rk3568-radxa-e25.dts
+index 98cfa3abb809..a091c3a44747 100644
+--- a/arch/arm64/boot/dts/rockchip/rk3568-radxa-e25.dts
++++ b/arch/arm64/boot/dts/rockchip/rk3568-radxa-e25.dts
+@@ -1,6 +1,7 @@
+ // SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+ 
+ /dts-v1/;
++#include <dt-bindings/input/input.h>
+ #include "rk3568-radxa-cm3i.dtsi"
+ 
+ / {
+@@ -11,6 +12,19 @@ aliases {
+ 		mmc1 = &sdmmc0;
+ 	};
+ 
++	adc-keys {
++		compatible = "adc-keys";
++		io-channels = <&saradc 0>;
++		io-channel-names = "buttons";
++		keyup-threshold-microvolt = <1800000>;
++
++		button-recovery {
++			label = "Recovery";
++			linux,code = <KEY_VENDOR>;
++			press-threshold-microvolt = <0>;
++		};
++	};
++
+ 	pwm-leds {
+ 		compatible = "pwm-leds-multicolor";
+ 
+-- 
+2.34.1
 
-The WCN6851, found e.g. on SM8350 platforms, is an earlier version of
-WCN6855 platform. It identifies itself as hw1.1. Copy WCN6855 hw 2.0
-configuration to support hw1.1 version.
-
-> diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireles=
-s/ath/ath11k/core.c
-> index 3f6f4db5b7ee1..7e997016cf6e9 100644
-> --- a/drivers/net/wireless/ath/ath11k/core.c
-> +++ b/drivers/net/wireless/ath/ath11k/core.c
-[ ... ]
-> @@ -393,6 +393,98 @@ static const struct ath11k_hw_params ath11k_hw_param=
-s[] =3D {
->  		.cfr_num_stream_bufs =3D 0,
->  		.cfr_stream_buf_size =3D 0,
->  	},
-> +	{
-> +		.name =3D "wcn6855 hw1.1",
-> +		.hw_rev =3D ATH11K_HW_WCN6855_HW11,
-> +		.fw =3D {
-> +			.dir =3D "WCN6855/hw1.1",
-
-[Severity: Medium]
-Since this configures the driver to request firmware from the "WCN6855/hw1.=
-1"
-directory, does this also require a corresponding MODULE_FIRMWARE() declara=
-tion
-in drivers/net/wireless/ath/ath11k/pci.c?
-
-Without the MODULE_FIRMWARE() macro for this directory, userspace initramfs
-generation tools may not be aware of the dependency. This could result in t=
-he
-firmware being omitted from the initramfs, causing request_firmware() to fa=
-il
-if the driver is loaded during early boot.
-
-> +			.board_size =3D 256 * 1024,
-> +			.cal_offset =3D 128 * 1024,
-> +		},
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-sm8350-wif=
-i-v1-0-242917d88031@oss.qualcomm.com?part=3D2
