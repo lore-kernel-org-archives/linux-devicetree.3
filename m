@@ -1,148 +1,122 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BBB43264D2
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.179
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780302629; cv=pass; b=t9vRpqSigChcWTVhAuZIT+9t+4NlvCflUol3E8ZMKErzKw/qmEFiYK91a9mKHWWcq0tPBeRIOncMNml4gS8nOf7BGyH2iaJy5Ig2g3k4Dzxt7Nu6NwZlC5599A5JzUMyEYGApidbAimABinlLMVRX49Ub+OkvH8amCs42FR45bg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780302629; c=relaxed/simple;
-	bh=+cqA8/wuSyGM9iiBE4h0VHHPaUQIsjhmoiPddJyqEkU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WRlmsuvD1FtkiowKb8KOUOVbJ3dsytI8oY1G2wX449kiYXfEIoWjmGKjGv+PK6NnAzySNOy+ibm1DVc469Q+LulbloLeqnSD5TmBMzSZGBwH3odIGXZlMTby65IFQPw9+37Sg/aW2p9uUjpbfi5lEFQ2F6inCdClk0SoWUlhuj0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sro2ciyp; arc=pass smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9767321C9EA;
+	Mon,  1 Jun 2026 08:38:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780303122; cv=none; b=VbSP7SAwB3+YfOqBayEIiVmux/FXWIJAkNXKjz+/ADgkyv7IGt7/wLH3aDe4yyxgGIuNGK+lc2DTWvE+tQfwf3l5YZk/kTM+kNRx4ZO2/a/hViGrOUMbxJO40DzD6fp8pcX/Er//TfD9cKqOfMNC7styWxpzCYmhyg50/0eT9O0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780303122; c=relaxed/simple;
+	bh=zqRSWtfRpJmOCpaIeyA+WeDhnpZS7tkeb/BbL6NAVwQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LOiJnt9WK6LFTWKQGbfd/Grz60g7c99BGB9toiq7WHmH+caSB5BVyhRprcK35cUwVveLFQpr4uYRhlLZd5wiLLIgsWkZf22+2uOJQTUZ+fv6RB0k+Diu3TgCriTG/QaEGaUBkYD4Gmz/UvPaWmcrSGwZCtrIHKGKNyQSZwt6Hs0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JcUKMEkp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sro2ciyp"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-516e1525aa3so99419911cf.3
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:30:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780302625; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Y6ywmqbiCFTbwhWISx8SjE+1G7HX7li1ELmbQZQZRZVXaAey1yMNazRY42bMyxVkIT
-         rfAgsZTCHiI/ghWo715Ir4AoYpbT8Fi8kR5YhRTERfEro3FhRqifxQ3OwcTXIHy1zlnQ
-         nPnBbMOhojalSNVuNm2rT8ftf5d4j7pXaN1MY+e6dLiMMY32FW4RvqGQr6uC5fCe13au
-         XJSC51VAeiWUTqSWIfSb0e4Zc7Z3NIZXL1qV6r6Cyqqy7bB55nXjVe491zVxgxebb15g
-         TrJGp6UXAPUv0oKGY+WSNFnrWp3L3NoEw3x+1ISu3dCvCzaUWu/mWx/7QZopMSSh7IZD
-         QIbQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=+cqA8/wuSyGM9iiBE4h0VHHPaUQIsjhmoiPddJyqEkU=;
-        fh=0PdNcMffXCycp0hH3uSeMBS4BGO4rIH3oZFHSXssPvQ=;
-        b=cdB1BGKdH86MCbOwt1ofybPg46ai2QaXETx6Q1XNDTsAgb4rfZdiqU4yU9HP0FCFv0
-         WXphuf6ZXYg07bwX+YX+hbnGAf8TUP3LZy2a4zZOQTVUk4UcWMonJpdhW22KhLsstJoA
-         R0PpI+CWmHN0A6NvIzptOVnfk3upnvF3954CQelNUhwimDqROsj5o7HTZKwOCk2e5J0V
-         zJN+FUriwLCvoqLXEkzVrz1IwAfy4C5aHFKAvrB4qgvnobzdGCd9cutA6yGDydaKsClB
-         fThgeuA/gktNXVKR8d0TwU4wO1avu4GVdi3y+EV7WAd1mB6L9GpVYVw+aJUHT8rFWTio
-         /odg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780302625; x=1780907425; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=+cqA8/wuSyGM9iiBE4h0VHHPaUQIsjhmoiPddJyqEkU=;
-        b=Sro2ciyp3oXY60a+N26HQkBjl45fU6DbjYc+oWk9W+tW8r6acJ7AeDgICC5SWnPebV
-         uQkVn6hyID9g2fskwtVveznfvMb3yLdm8EMHTjq4AEJgoWpJDqxVXtMciqprrF+/aKvB
-         NAmCUfWlGvGYMd1qmcX6rHnJrnjUx4OxEzm2S99UsuZm10aMpYI+p1Hk1FZjW+qoQUIx
-         179tNJGHPgxdEHGiOzVqUew6DuY5RuKLBpqq+DU7NW5Rz+u+rBbcICnoeuPtMy2VKr4j
-         uNx+DfQA42sXdbfYGbCTOpNKpKGZUj81xloismkq7R60Bvn7Y+zL/AHHxjBa9reXZ1Mu
-         vkvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780302625; x=1780907425;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=+cqA8/wuSyGM9iiBE4h0VHHPaUQIsjhmoiPddJyqEkU=;
-        b=jw287VHWvpdT6wELmSUXy8RmUkGbTNwAPWaSGeLBQRHZS2TAJBq3Q6UZhhhBsnySXg
-         XybRQs16WupxIKHBkCRbXVuSDZtVyJoxVOYcoFWGbGvBNRDPL2eRpin3agEHufA8EKm9
-         bTktwnw/kh7cCT7O9Juky2IhoUAGOIebIbCxmUONmMyreZzMQDcSt5hFweVtv8H4CB6w
-         88wKZkwXfOH/7w9Wo0HegRp8yDWU/rvFLAAk+ETdjOSblwDVjeFYoLMAZDpN1urCBoUU
-         KNefcFYqbm+0c7VKGt4eTr4g06EedPpvW+59m0lQfhhaT31eh7TGAiGC0v4nNbfP/f1p
-         pJ2g==
-X-Forwarded-Encrypted: i=1; AFNElJ9ICDXWmWnfF+tPOQyMnxjAeLwPMXVrOdStAD7bSJFhkzJyVOZJduWZss0C8J7U9V010RX4e/Ev1t/c@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzmac84PlZqfILcQBEINwJJe6qLd09TiIUmbSwenzxWCjFkQOuA
-	bQcQq1nFzaDDEYF6wzi5tzH4xK1dzaIpO/TwXj9AuPUtXfgZm6HsmmjVF5Q1R70uQvLbC8q5+xQ
-	FVGfDY70GRP8OVZYdHqW+KKhntiBcgwc=
-X-Gm-Gg: Acq92OFfqv2LALeg+szE7aCXAS8xRPSEGfMWtYw54d2TdEwXWox8zDJifRC9BFvrPNN
-	tip9oumbTVdWmiBH/+c3gjd2AHGtvmFAfiUMTW/A9EOhjF/E4iElpDNkBVkxVaiV0os6HNanPWi
-	MbcSIJe0nHh5Lrd0k6quft7J7JVsoXMxrwRqauyb2wKQWuFQEeidMh1mo8mQHIQsrWhOFAI+CPc
-	DhU3RUabxrT2IdoCeEfAlxmPfa5SPxR2dD5EeLthywmL0V9+AJE/c08oWz47Z6jJeRmGG+LjbZP
-	w2hUIe1ilLKpccK0McVi/Kw5BFq0fMYHuOSrgzW5NMkaFhMVjq3wXYHxRg9m5w==
-X-Received: by 2002:a05:622a:1441:b0:517:573a:8a66 with SMTP id
- d75a77b69052e-517573a8c6dmr29832011cf.27.1780302625083; Mon, 01 Jun 2026
- 01:30:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JcUKMEkp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57801F00893;
+	Mon,  1 Jun 2026 08:38:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780303121;
+	bh=EWJQ4IcaIBmJ4eV/Rv8aEPI/dtiPh0jc9EHByr59FUc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=JcUKMEkpzjGJUA4fVCZaK8F8w3pLYv++HlEtWymah9UBXtwKknul7GHTPas6Usi5y
+	 Nvqgq4L+Cdy2KI9lC87qiJ3ZHt+/xDL3ZPD0Pi2esww+a7Kw4ispa3J20UlFXGncrj
+	 CK20C3dMC7llEe2ooevoAKFSJBKfcb4gI9cr7xy+wUpKrf0UvRIgpBGh1bNdQ5iFwq
+	 VmSS3308Vu+XwKlMFIBUsLKmUqjHj8Mk5B0QhxP4bnqU7DHhvkNgpZJMm02Mj9okvD
+	 n8rTj6RGrwxDKp1eGyVe8+//8Wwl+Yu1isb+mocnJE1RQNkQAdEHOp8UWuewpkdvu6
+	 h3IfeR/am8Bsg==
+Message-ID: <87b24725-1c78-4830-a61c-e486c4cd4f3f@kernel.org>
+Date: Mon, 1 Jun 2026 10:38:33 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260531171041.4149-1-challauday369@gmail.com>
-In-Reply-To: <20260531171041.4149-1-challauday369@gmail.com>
-From: Alexey Charkov <alchark@gmail.com>
-Date: Mon, 1 Jun 2026 12:30:17 +0400
-X-Gm-Features: AVHnY4Lwngtf-XUeNp5Z4FrKFr3R3FlI_39W44ACGsq6O9x-X34aLbBKMT_wRdE
-Message-ID: <CABjd4YzJoHrx1suMbhNvrMP+X=d=thvXYwSY=UD-4Qy=7-qmjw@mail.gmail.com>
-Subject: Re: [PATCH v5] dt-bindings: clock: via,vt8500: Convert to DT Schema
-To: Udaya Kiran Challa <challauday369@gmail.com>
-Cc: krzk@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
-	skhan@linuxfoundation.org, me@brighamcampbell.com, linux-rtc@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/2] pinctrl: qcom: Introduce Pinctrl for the upcoming
+ Maili SoC
+To: Jingyi Wang <jingyi.wang@oss.qualcomm.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Linus Walleij
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, aiqun.yu@oss.qualcomm.com,
+ tingwei.zhang@oss.qualcomm.com, trilok.soni@oss.qualcomm.com,
+ yijie.yang@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
+ linux-gpio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+References: <20260522-maili-pinctrl-v1-0-0a6636f5c277@oss.qualcomm.com>
+ <20260530-primitive-encouraging-quail-ee8af1@quoll>
+ <c7b5f9cb-09a4-448f-8f49-bdc9570d6b29@oss.qualcomm.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <c7b5f9cb-09a4-448f-8f49-bdc9570d6b29@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Sun, May 31, 2026 at 9:11=E2=80=AFPM Udaya Kiran Challa
-<challauday369@gmail.com> wrote:
->
-> Convert the VIA/Wondermedia VT8500 and Wondermedia WM8xxx series SoCs clo=
-ck
-> controller binding from the legacy text format to DT schema.
->
-> Signed-off-by: Udaya Kiran Challa <challauday369@gmail.com>
-> ---
+On 01/06/2026 08:15, Jingyi Wang wrote:
+> 
+> 
+> On 5/30/2026 6:42 PM, Krzysztof Kozlowski wrote:
+>> On Fri, May 22, 2026 at 12:42:07AM -0700, Jingyi Wang wrote:
+>>> Introduce Top Level Mode Multiplexer dt-binding and driver for the
+>>> upcoming Qualcomm Maili SoC.
+>>
+>> This is the first patch where such name appears, so same comments as
+>> before for other cases - describe what is Maili somewhere.
+>>
+> 
+> Hi Krzysztof,
+> 
+> Maili is similar to Hawi which is not announced yet, so we refer to Hawi
+> to use "upcoming Qualcomm Maili SoC" to describe it, shall we expose details
+> now or add info after announcement?
 
-Hi,
-
-I'm not sure that this separation of the clock controller binding vs.
-PMC is the right way to go (yes, I know it's been that way in the .txt
-document, but still).
-
-The clock controller is not a standalone device on these SoCs - it's
-one of the functions of the PMC (weirdly enough), with its MMIO space
-interweaved between clock statuses and enable controls,
-reset/hibernation control, system timer and watchdog, then again clock
-control. You can't run the clock controller separately from the
-resources provided in its parent PMC node, because all those *reg
-nodes are just offsets into the PMC controller's MMIO space. So the
-way it's done currently doesn't look like idiomatic DT to me.
-
-If I were to implement support for all that beauty today, I would have
-made a top-level MFD node owning the whole MMIO range of the PMC, put
-clock IDs into a dt-bindings header file and just implement all clock
-operations in code without putting those offsets and bits into the
-device tree. They are not configurable, they are not board specific,
-they just constitute the interface of a particular SoC revision which
-follows directly from a SoC versioned PMC compatible string.
-
-The only thing that would have showed up in the DT then would have
-been the PMC node with a register range and a bunch of named
-interrupts (not for clocks, but for other functions), a
-clock-controller attribute and a single clock cell to pass arbitrarily
-assigned clock IDs from a new per-SoC dt-bindings header.
-
-I'm pretty sure there are no users of these DTs outside of mainline
-Linux, because vendor kernels used board files, and no DT-enabled
-firmware has ever been created, thus the only way to boot these boards
-with a device tree has only ever been via an appended-DTB uImage (i.e.
-the DTB always comes from the currently used Linux kernel source).
-From this perspective I believe redoing the DT in a more
-hardware-aligned fashion (and breaking DT ABI) could be better than
-making the current suboptimal approach more "official" by encoding it
-in DT schema. Krzysztof will likely disagree though :)
+Just briefly or how much you can describe above.
 
 Best regards,
-Alexey
+Krzysztof
