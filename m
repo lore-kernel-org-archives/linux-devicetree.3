@@ -1,295 +1,119 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazolkn19013088.outbound.protection.outlook.com [52.103.20.88])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E07891FE471;
-	Mon,  1 Jun 2026 14:38:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.20.88
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780324682; cv=fail; b=WtV/Uj/6eFJhjhAsHhaBjXR3dN2SGs1uWiS7rfpbAy3VbRBN73oetxfo9JC4GO+w+C3lxrSbYVuOHB+4paqxRjO/si9/BYrJj2FiLLCkosGLI+iF3Spw98VBUSRCpOO7zLmoJXOVyff0boQZKLIdseYtfZhCxqShRHbYeuFhtCQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780324682; c=relaxed/simple;
-	bh=U9QfBmM2Iuai3E8XM0n5D1sUvdXKMWme5I48xfTvAqs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=uyFbIOEvvT6Hab5Q4ndzMZ0QL0eRTjm01jNDLzojs9+yvCUSTafJJsmjNhEu3/hGJ9lS6g2wtBPKpJsOaDcjjXs74HbxMffBVEW7YC+lplY3GZIty32e/A8hs/JlvIr+xAMoyDpjBJacENAHVJhPKG/KqMAnA1hFiycOHoghqu4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com; spf=pass smtp.mailfrom=hotmail.com; dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b=Ilf2Du9g; arc=fail smtp.client-ip=52.103.20.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2157F3BB9E3
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780324727; cv=none; b=nAqVFiE0G6mxYnyI6iUKXEFo1D3ev7/7s3VgTVFZW9R5S9vkzTyulixFxZwgDOm6YGGPOH2Qi8Ou51KO/s+mcQSLcYAtjc8IsJ4XmXoYb+aKPEyBLmHUE1GtLmW7U8T8c0XCLqy6waZ3/XpNP+I0dSCwPf639in30hELF+G+jLA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780324727; c=relaxed/simple;
+	bh=z7OicjXIPwnXNSvovi1vAv2Vm9ubdmiYGd9IzH02SY8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=BbQj1jQY1tM2dxgkejh3E/v0WZMWZEgbwHbNBrFWDcT+qPdgAhAjvvAqzLM/FbE+GA4IXyOPFX7jByi/bXgcJaqXjcDv9ckVktoLvkOOtfP1Z4dAMrZ3C6OlRtwEdMTzIBrEt4QgIKBVI01006TCmraInLkKX+9HaY4xV5FfifY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=ZfYOmh1H; arc=none smtp.client-ip=209.85.128.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hotmail.com header.i=@hotmail.com header.b="Ilf2Du9g"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jdtRI9OoA1KzP8DDOSWWB6ja/zzU2EsP0Nuh4z+ZcoUcQd9TK241cijDTFx/PYkewlalYThkoHsrNyxJzMLI0FSCcdQ6GuFjnsg8MLPbgi+cr4tIi1hu20dRfLUEuxr/5AtfENWP4DgTj2WXeKcnErOgraxvyrxNx+/4JTkUXMDNOvW67ggYQo1IVeIByq+YcvQjZm+eAq7J07oTBL/ZvGLBm+KjHCsYwLGXTmNv1jW8VZYjlDPZy/eP/W23TYfwIEGMkdqXmpCd8NBkAgdPbkbZdDMM0eIa47228xZ4Wb9GSmKPO7Ku0nielxQXjYKrEciszGvy2jzIS/yW2WUqqA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=prEn4Q6all3jMN9B1vhrZxQsV78j/CX3XFLtsVf0844=;
- b=x1ML82mKBjzheTVhl0kKlhbd/2hGqZ/wymqkraI1N2jU+ItKtjthejQmeiuMwjZYbDPYM2FcYPtmy2I9mf96gnYTnoQxJoThjC3+FWTbE6vfPEbeDdBhxs+iq+txKr1Y10BkxsWk6qq9quXGoqGveOoZCSMjr+UMOtWC8hI80HZz3ZFx4NBsJnViOeajQ2UF5C1kzKvGvDBhZ1U4eP+IM9MQLUWfp+zSCH4wMa4vKL5Ao1+06F6xoht3uPTNDf5OoxhhUHbbAP1M3w2Zb+25YVXewHTQB3l0bOmf67L3QdTQPxwuJtHSnhDVPILbZcJiY4We/S/cYbGCLa+SLlVBjQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hotmail.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=prEn4Q6all3jMN9B1vhrZxQsV78j/CX3XFLtsVf0844=;
- b=Ilf2Du9g8j//jU0l/My/WBaqOzOyN4vbFukJrXwkLyiHU8Ot2WwVLW0ig4mkX5bS0Vd9/am6LSHoJhYy/Qg8M4V2fbLWj/oh95NQx9aMV4ZjsTFDyvHTDmSQWkxNoWBY0rMxI8X44thpRH//zsNLME/xksdSGLzCRbAYEdFJaKpCUI4vwAtIB7qyTkG8FtJUsfF6jr8n6FRd0ZCxYROtQWtmt3YRVPpwcHntmLFzZnZsP1GcUDQY2un3Jyivql5foC31KxveIhGXdugYI3w3oz3rDvFe2isrHr791MUfmg//XGJAq5T0RMAaZA/sIG0msd29LrhwIWTxXm7HyUq/cg==
-Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18) by SA1PR19MB4975.namprd19.prod.outlook.com
- (2603:10b6:806:1a8::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
- 14:37:58 +0000
-Received: from PH0PR19MB997338.namprd19.prod.outlook.com
- ([fe80::fd22:ee23:3e25:3172]) by PH0PR19MB997338.namprd19.prod.outlook.com
- ([fe80::fd22:ee23:3e25:3172%6]) with mapi id 15.21.0071.015; Mon, 1 Jun 2026
- 14:37:58 +0000
-Date: Mon, 1 Jun 2026 09:37:56 -0500
-From: Chris Morgan <macromorgan@hotmail.com>
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Chris Morgan <macroalpha82@gmail.com>, linux-iio@vger.kernel.org,
-	andy@kernel.org, nuno.sa@analog.com, dlechner@baylibre.com,
-	jean-baptiste.maneyrol@tdk.com, linux-rockchip@lists.infradead.org,
-	devicetree@vger.kernel.org, heiko@sntech.de, conor+dt@kernel.org,
-	krzk+dt@kernel.org, robh@kernel.org, andriy.shevchenko@intel.com
-Subject: Re: [PATCH V9 10/11] iio: imu: inv_icm42607: Add Gyroscope to
- icm42607
-Message-ID:
- <PH0PR19MB997338A6EE5428FC9B058F2E07A5152@PH0PR19MB997338.namprd19.prod.outlook.com>
-References: <20260530031739.109063-1-macroalpha82@gmail.com>
- <20260530031739.109063-11-macroalpha82@gmail.com>
- <20260531135823.015c4fd1@jic23-huawei>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531135823.015c4fd1@jic23-huawei>
-X-ClientProxiedBy: SN7PR04CA0086.namprd04.prod.outlook.com
- (2603:10b6:806:121::31) To PH0PR19MB997338.namprd19.prod.outlook.com
- (2603:10b6:510:3b1::18)
-X-Microsoft-Original-Message-ID: <ah2ZRHWl2JLVjha8@wintermute.localhost.fail>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="ZfYOmh1H"
+Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490686877a1so59726545e9.0
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:38:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780324724; x=1780929524; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=4nvwED8RGbgBltkwL/n3QOtv3k8HO8bMEi70W4kuUWA=;
+        b=ZfYOmh1H0uOpAUKLYv9lX07qwTQHC9zNrdXSyRXDTx0vyf7OhtocTWuOsm/2wiOo95
+         dLDyv6B6NMJP1ePiPc+6inMC5p8aURq9SvC0E2E/KRkyDJx1gkBGmqgb8hlEJbe9SZoP
+         O0N2dErTOURqKKIP1TOVutFh6nXiAyI9sbTMNtl9F8BU4iH1UdjGFbzFwjeG4i56BSmM
+         2PIA29DIWnY9AjOiNYkMblVBo0W3hBhVtQST4QeFRmzC+HiD7xFci6N/UNnBbnEhldfx
+         mEQGByD973I2wEkc/KfeLDaZRhzL0LrVLZeKb2jYCaKUHGJLBwvFtovgzxn9ZxvwLPkl
+         IF5g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780324724; x=1780929524;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=4nvwED8RGbgBltkwL/n3QOtv3k8HO8bMEi70W4kuUWA=;
+        b=GERC7TuTQ1dgDLisNtJhL6602AzENOvmeXtfjOMlAfwh/mc6xbTmjmNxJbs5SQDV4i
+         SH7wbhcr/nQKD5i2zHScrphRS7SC2f9C5enBIe+nnCnMikMh1LJ5Wnu+4OJIMVhy4zTN
+         uhBb1D8ezdE5Vs6xlqGh4pv2pukW4kAm3t2qOL9zrheciHrUoFDgHbnjuYSBYS9GONEE
+         W9tlPSyFYvLYkYahG88cOEYe+EwgcEBE3VkjpPc5RZrDLFaCotZLmnLkEDkb8kDZkTmB
+         yQxgBqywQQqkv5PaWy7SpHpjKP9lKzlEyXe1VqOKMTXDT8CLKXyx/cR3wIcep400blp+
+         S5Iw==
+X-Forwarded-Encrypted: i=1; AFNElJ+DoBnhLJY1sTac4s6WAkbxr90r66WeM1Q2sb57gHzNrJKNaX8VjY5q6gcArwZ9fj2CUgFlR6OcR6Yv@vger.kernel.org
+X-Gm-Message-State: AOJu0Yw0Tq09Oe7K5pluRo6NOH8FqLI1nm0QJtqO/9jtF0ZWLjsaUI8j
+	lpLX9CZOP1lSidWaMeVdKgCPsRnf8+4/YNM5X1QXWR7Fg6tjAQGtzblSdP/poZQUKNA=
+X-Gm-Gg: Acq92OHdGTfh/GXZdKdDxETr8TPYjZtTjU/v9R0KDt5keobmQmAIuPh/PNU/40mdSDx
+	BZJ+8fo0v6bMsh+oDqsT/zmKn/29BpAJwhRK1E+8xKqrjijJYh/7cuLCHp6DOInLqgrwYFFL9BL
+	zg6Q20KEJRZw3t2PiXOyL9Ow89diI6H+5GLluFK3iTSdD3LFiHouTXyrwsY5vUZK0kiWrxg07tx
+	r4wvtq9B7oYSPoEoJNjLx9TpFn8LeTeN4qv1LHE5IDlRwHE790SlMCxxqDX4eP1xIXjCrfngPs0
+	gGE/yI6QXd4xDSt0lSWOLbzct90ZsjNT5LAN/LPsfq2ZCF/x2qjBsZYitlAPD2Pb2Eq3sZfdzOy
+	qCqbLA8+jDbUSGwcqMZnBzQnoMOzlcvAHVAj73W1YAZmcrHZm6H6EBgyw4qD8R5KZ0Cu2oZNqAZ
+	wpgKM3hsBYUgmtHFmNKdOblQIhnO5oWko0S7NCW5zK9t5mCCaGuGFDTi0z
+X-Received: by 2002:a05:600c:1d0f:b0:489:32b:ac0b with SMTP id 5b1f17b1804b1-490a2a22bb4mr161598635e9.6.1780324724515;
+        Mon, 01 Jun 2026 07:38:44 -0700 (PDT)
+Received: from [192.168.0.101] ([109.76.233.76])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0467957sm5620835e9.13.2026.06.01.07.38.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 01 Jun 2026 07:38:44 -0700 (PDT)
+Message-ID: <be2ee914-0c5a-4a6c-92a8-85a7bd72ed12@linaro.org>
+Date: Mon, 1 Jun 2026 15:38:42 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR19MB997338:EE_|SA1PR19MB4975:EE_
-X-MS-Office365-Filtering-Correlation-Id: 70756c0d-2cf5-4c56-3463-08debfeb5fee
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|12121999013|8060799015|6090799003|41001999006|23021999003|19110799012|5072599009|15080799012|24021099003|37011999003|25031999004|51005399006|440099028|3412199025|40105399003;
-X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?2qzd9GP3cw63iwejG7jCWmNTrnLlrCIaKB5lQakQA1nNdOqm2/2+3NeQ5/AG?=
- =?us-ascii?Q?re8aiZJvRY8hot/MGzpuv+AHOThqX66Y0Ca+k+xsP2M2cJgNTUpKNBBI3l4a?=
- =?us-ascii?Q?SdIlJPluMvvRJv/5Vq6buyEAuXD4+2ANINuuKi3DrpmqR1cMYi6mfY6fRbpK?=
- =?us-ascii?Q?lPUbi7SOWQFLMlqpn0H04I74/GwkFL0rH2LUoctf1JbKGyRRJQS0iLKy2hHg?=
- =?us-ascii?Q?kbwfOuexNyL3NNPIrLmkA5dh6oNE2PqMl7v1Xg7D4dqnq0Ynqakmv9sKHkBq?=
- =?us-ascii?Q?SWeiNd8eZskJiTYL3GJb+d3hF+lKRQm4LTwSRmf1sgDxqN2NnoHEJXbnwaHC?=
- =?us-ascii?Q?Wu0h5zGHApMkQV7X2Cqdr6akbBj9ORL4nycKGJXHs2kSiGJ2PcIgwWOSA71X?=
- =?us-ascii?Q?okaWkimIR01OJEOHQr2aGVtTLgpHT41GU55ZA/CAa7aKTp+2M+f07aQYGA83?=
- =?us-ascii?Q?vL82tqW6EEHGS6VvOkc/N4TBiHeT33RRQe8gFsedhS2camIHBnAi9gr4wako?=
- =?us-ascii?Q?gK0/I9vQIx3De8ODGAEWfeN2CzbLqTI0qsao8D2vuem9AtPsNi5stVAOYO9C?=
- =?us-ascii?Q?CFZdm9dWXWQK28ke4WdM5AYTw9l92NyRHeIpH7yk/BeS1Q0mGbJINnCTI4or?=
- =?us-ascii?Q?zjW2wNbr/KEZYr5blCWaLhMQBJAiO6B2g79LSuUN3CjjMJRlWebaVJ8Q2j0T?=
- =?us-ascii?Q?gw1tUqm+wZ78F98+SA3CCYr3CYqLRWsDA03xPiRdKWrqSpnVOT+2vyxUyxj3?=
- =?us-ascii?Q?x7Rm+H2mE5JCrBqeNOwvXN908JT1BerE2+D8y/GsENHihtWgRryYG0HZwgVM?=
- =?us-ascii?Q?GZiH3X8WGadBv56kuNN5bsjXRGALy7RSovvItI39wS9C8IggL3WVgrPGO+Mw?=
- =?us-ascii?Q?Gnrld0G6RyMK2Hr9Fb+3Av1DjpsOysliPfTZAWjGbz/9W73X+cpHxgh6wwLY?=
- =?us-ascii?Q?Yg63KpP4QI/t4t572GDVbG1tKa5UwMUS0siOySc9zBI1LKOpJhKcLz7LL67V?=
- =?us-ascii?Q?Io3c6toRnsgA+JYBtlgcK3GW20M3Bs3cRmTVJC69AsjpxAgOnCqVxuQtsfRj?=
- =?us-ascii?Q?rw2W29WSGpt8msVQVRxix1PfA+3qSQ=3D=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?k4clr1sh8B8UwsSDUqv34MIwWHWCcJgnuXAdsEhDBmcac9hIfPpjkGbGMixk?=
- =?us-ascii?Q?MJ5IH8Vksm6eYrhQXAFNRaa2z2duiHzyS3jQsj6Pl1NYbtK27cnh3wMT5XhB?=
- =?us-ascii?Q?Lywa+CpAh/defuUjQuVCp+PSslCom11tbpcaSWa242THzk4wd5DcWzfo3p9R?=
- =?us-ascii?Q?bParsDC6InsC54gPP6QFwm/tHQcSGbwGmv535bA+zecTEqULaOI5znMnyETR?=
- =?us-ascii?Q?dfImR6wciXdXdrI7paXzxDaYvmWu4W9DYba8ATM5G1JeAhrvjdCqg2VY7EFm?=
- =?us-ascii?Q?O20GXjrXuF/E6TL5uNnIWwzgpyI8BLQK0AsT8dOMRcCLPtSDiHLDzn1DhAeG?=
- =?us-ascii?Q?x7yFdbiCQxyjGdVO9uoNe2JQId2EjGpzmsk0GVYs+fxjeZFipgDwzqaYTXei?=
- =?us-ascii?Q?crBYpgPEupho2SAwkzedZVBUBgNJ0Zau04/JnVCOoqmHniYbroyV67TIw4Kd?=
- =?us-ascii?Q?rzcWFXchPx8a8B+HEZjuZ2rY6pqpSBvRQUT7Sz6ypUWgIIGD9oQ33rsn4LJs?=
- =?us-ascii?Q?GFfarsDgffiBJ0d19bO8ZMTvY0+Ncgml0ncoMpMbUD/CfLQOuLZ1pr6qSh74?=
- =?us-ascii?Q?Sv95HxMaeox2K6RoNQEGmqKKkh/heES338HP5Bd7XNuqFjAVkBtlrckhLuFF?=
- =?us-ascii?Q?xovelhzr9AKRa+BaFEc5/HfNq0KdwXLDVcYU1UP0PcjRPZ36r/fXREhUDlRK?=
- =?us-ascii?Q?SL9iwLVNhFfa9h/2GAWs4SrbJW0ds00VktwdSj3Hr4dCCNLrPTpNAbwjbTGM?=
- =?us-ascii?Q?pGEvaeBChxGhws+ZWh1sWVP/6fvkeVUve0E+tB0jLQNjZor1+K1+ONmDUUJ0?=
- =?us-ascii?Q?GCRBRPhKwVx4sBXzlEe++olAdnj2Mrkpopoog/zzdg8HUlScmVGNljmbz1zR?=
- =?us-ascii?Q?15MPJ+95g6JHRVNPQ+Pgdh1QH9Esx+bVPSWudTx1CmeCojL5Er2QmwErY3Eb?=
- =?us-ascii?Q?lKPb7+SxghD7guzS1M9lE2YTuBjnREekl2Y+GXx566zpIlETy+Ue2uTL0iSz?=
- =?us-ascii?Q?h+1IGUSiQWLjhP0JmNgOvLDBKOxdQpVpQY+y9i0CK6Ja/sheq1xt1+Vgl17v?=
- =?us-ascii?Q?D4W5IVl3UZA0kxPTv3qveAac/7WhEPl7mrbAb19sMC6xe1RD4VIWjzXKChrF?=
- =?us-ascii?Q?7EIp+C14Q9fCaX4WJ+5jiZumgGRpCCWxD261q5BhnLcRVMprG0WhXp5OnM09?=
- =?us-ascii?Q?GWLIpveNMpOjQhUYKmbfkAFnB+ymfd2azRCFQHomfd4OPBGhHZ3/4xdAlyGB?=
- =?us-ascii?Q?na3+/7AnxLOzPMBCGjieZXfgs0t619blnfuR1UuoqMUk2MHv4fABULx+juEV?=
- =?us-ascii?Q?/Z/0QuASJJjGZygiD+2jXaEMQkW27hgIFVd5o/Jf7ZJQk/GK2H4Qrw6hr666?=
- =?us-ascii?Q?80fMYVJASoYBeAWZIHmsnM4+MX8ARkXAWZ2o3WlAGYTYnT+xOw=3D=3D?=
-X-OriginatorOrg: sct-15-20-9412-4-msonline-outlook-990eb.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: 70756c0d-2cf5-4c56-3463-08debfeb5fee
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR19MB997338.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 14:37:58.2770
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR19MB4975
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/6] dt-bindings: media: Add bindings for
+ qcom,glymur-camss
+To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Cc: Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-i2c@vger.kernel.org, Suresh Vankadara <svankada@qti.qualcomm.com>,
+ Prashant Shrotriya <pshrotri@qti.qualcomm.com>
+References: <20260529-glymur_camss-v1-0-bee535396d22@oss.qualcomm.com>
+ <20260529-glymur_camss-v1-1-bee535396d22@oss.qualcomm.com>
+ <8618255e-ecbf-4f55-877d-09cb2faa6f50@linaro.org>
+ <5fdcnv3k7w2r5at3oun4eldgbmh2o25rmb234urksy72le7an5@ddl4aapbjexg>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <5fdcnv3k7w2r5at3oun4eldgbmh2o25rmb234urksy72le7an5@ddl4aapbjexg>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, May 31, 2026 at 01:58:23PM +0100, Jonathan Cameron wrote:
-> On Fri, 29 May 2026 22:17:37 -0500
-> Chris Morgan <macroalpha82@gmail.com> wrote:
-> 
-> > From: Chris Morgan <macromorgan@hotmail.com>
-> > 
-> > Add gyroscope functions to the icm42607 driver.
-> > 
-> > Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
-> 
-> Hi Chris,
-> Various things inline.
-> 
-> Thanks,
-> 
-> Jonathan
-> 
-> > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> > index 5b69bf895b35..c45239613344 100644
-> > --- a/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_buffer.c
-> 
-> >  int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
-> >  {
-> > +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
-> >  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
-> >  	struct inv_sensors_timestamp *ts;
-> >  	int ret;
-> > @@ -491,6 +494,16 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
-> >  	if (st->fifo.nb.total == 0)
-> >  		return 0;
-> >  
-> > +	/* handle gyroscope timestamp and FIFO data parsing */
-> > +	if (st->fifo.nb.gyro > 0) {
-> > +		ts = &gyro_st->ts;
-> > +		inv_sensors_timestamp_interrupt(ts, st->fifo.watermark.eff_gyro,
-> > +						st->timestamp.gyro);
-> > +		ret = inv_icm42607_gyro_parse_fifo(st->indio_gyro);
-> > +		if (ret)
-> > +			return ret;
-> > +	}
-> > +
-> >  	/* handle accelerometer timestamp and FIFO data parsing */
-> >  	if (st->fifo.nb.accel > 0) {
-> >  		ts = &accel_st->ts;
-> > @@ -507,12 +520,14 @@ int inv_icm42607_buffer_fifo_parse(struct inv_icm42607_state *st)
-> >  int inv_icm42607_buffer_hwfifo_flush(struct inv_icm42607_state *st,
-> >  				     unsigned int count)
-> >  {
-> > +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(st->indio_gyro);
-> >  	struct inv_icm42607_sensor_state *accel_st = iio_priv(st->indio_accel);
-> >  	struct inv_sensors_timestamp *ts;
-> > -	s64 accel_ts;
-> > +	s64 gyro_ts, accel_ts;
-> >  	int ret;
-> >  
-> >  	accel_ts = iio_get_time_ns(st->indio_accel);
-> > +	gyro_ts = iio_get_time_ns(st->indio_gyro);
-> 
-> Sashiko calls out correctly that there is a race with devices finishing
-> coming up that might be hit here.  Probably need some sort of presence
-> check and locking to be sure those are both valid.
+On 01/06/2026 12:24, Dmitry Baryshkov wrote:
+>> To be brutally honest, I'd rather see effort and buy-in from qcom engineers
+>> in converting to CSIPHY as a distinct sub-node.
+>>
+>> Pushing patches to hit your own internal deadlines to the detriment of
+>> upstream quality is not OK.
+> Can we please get an update of the the CSI PHY series? I think they were
+> some time ago, they received some comments and there were no updates on them.
 > 
 
-While I'm not sure how to fix this exactly, I think (attempting to)
-test deadlocks I found a bigger issue... I don't think my interrupt
-line is hooked up at all...
+There have been three versions in the interregnum v6, v7 and v8 with 
+Sashiko responses only, no carbon based lifeforms replied.
 
-Assuming I should be getting interrupts when enabling the buffer
-(and also assuming I can do that with sysfs) I'm not getting any calls
-to the IRQ routine.
+I previously agreed to take sm8750 and Kaanapali with legacy bindings 
+but those series didn't apply to -next and so will miss this cycle.
 
-Would you know a better way to test the hardware buffers? Thus far
-my tests for data correctness involved either `monitor-sensor -a`
-or reading the values directly from sysfs.
+I'd like therefore to move _all_ new submissions to CSIPHY as a separate 
+node and to stop accepting legacy bindings.
 
-Assuming I am in fact working with a device with no interrupt line, I
-can just modify this to remove the hardware buffer stuff and the IRQ
-stuff and work with an even more simplified driver. Probably going to
-miss the 7.2 merge window at this time, but still...
+Frankly instead of being pushed to accept legacy stuff by qcom tech 
+teams I would rather see them engage with moving to the new way which is 
+ultimately beneficial to them and their users.
 
-> 
-> 
-> >  
-> >  	ret = inv_icm42607_buffer_fifo_read(st, count);
-> >  	if (ret)
-> 
-> 
-> > diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> > new file mode 100644
-> > index 000000000000..8d59156086b1
-> > --- /dev/null
-> > +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_gyro.c
-> 
-> > +
-> > +static const struct iio_chan_spec_ext_info inv_icm42607_gyro_ext_infos[] = {
-> > +	IIO_MOUNT_MATRIX(IIO_SHARED_BY_ALL, inv_icm42607_get_mount_matrix),
-> > +	{ },
-> No comma. Check for any other commas after terminating entries like this one.
-> > +};
-> 
-> 
-> > +
-> > +int inv_icm42607_gyro_parse_fifo(struct iio_dev *indio_dev)
-> > +{
-> > +	struct inv_icm42607_state *st = iio_device_get_drvdata(indio_dev);
-> > +	struct inv_icm42607_sensor_state *gyro_st = iio_priv(indio_dev);
-> > +	struct inv_sensors_timestamp *ts = &gyro_st->ts;
-> > +	ssize_t i, size;
-> > +	unsigned int no;
-> > +	const void *accel, *gyro, *timestamp;
-> > +	const s8 *temp;
-> > +	unsigned int odr;
-> > +	s64 ts_val;
-> > +	struct inv_icm42607_gyro_buffer buffer = { };
-> > +
-> > +	guard(mutex)(&st->lock);
-> Sashiko thinks there is a deadlock here as this lock will already
-> be held.  Report looks correct to me + same bug in the accelerometer case.
-> 
-> I'm surprised you didn't see them in testing as deadlocks tend to be obvious!
-> 
-
-Yeah... about that... turns out my IRQ wasn't firing correctly so I was never
-hitting this path. I suspect the line isn't even hooked up!
-
-> 
-> > +
-> > +	/* parse all fifo packets */
-> > +	for (i = 0, no = 0; i < st->fifo.count; i += size, ++no) {
-> > +		size = inv_icm42607_fifo_decode_packet(&st->fifo.data[i],
-> > +				&accel, &gyro, &temp, &timestamp, &odr);
-> > +		/* quit if error or FIFO is empty */
-> > +		if (size <= 0)
-> > +			return size;
-> > +
-> > +		/* If the packet size could cause us to overflow, return. */
-> > +		if (i + size > st->fifo.count)
-> > +			return -EIO;
-> > +
-> > +		/* skip packet if no gyro data or data is invalid */
-> > +		if (gyro == NULL || !inv_icm42607_fifo_is_data_valid(gyro))
-> > +			continue;
-> > +
-> > +		/* update odr */
-> > +		if (odr & INV_ICM42607_SENSOR_GYRO)
-> > +			inv_sensors_timestamp_apply_odr(ts, st->fifo.period,
-> > +							st->fifo.nb.total, no);
-> > +
-> > +		memcpy(&buffer.gyro, gyro, sizeof(buffer.gyro));
-> > +		/* convert 8 bits FIFO temperature in high resolution format */
-> > +		buffer.temp = temp ? (*temp * 64) : 0;
-> > +		ts_val = inv_sensors_timestamp_pop(ts);
-> > +		iio_push_to_buffers_with_ts(indio_dev, &buffer,
-> > +					    sizeof(buffer), ts_val);
-> > +	}
-> > +
-> > +	return 0;
-> > +}
-> 
-
-Thank you again for all your help.
+---
+bod
