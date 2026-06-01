@@ -1,101 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ED5A2DAFBD;
-	Mon,  1 Jun 2026 22:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C033133AD99;
+	Mon,  1 Jun 2026 22:47:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780353746; cv=none; b=JB03EWMqNSuLYmsG/bCxeQ7onK/G3s+pu08FkZPrjdpR5yw3KMzewQNCL/9EUtdnWOQVg9jHCrlAtL+r9fw90PUma8n5LxGhZK1Efvyu6sRQYncgz8X6/oU8dknF6fKE94zcUvPlTe/WrVNEkkZ+wjI/EcNkjeeHswUee5DWxtk=
+	t=1780354031; cv=none; b=fb71XQfRayR8LfqQ7WXXWRRyTKjVI54KRjxagYkX6uAw5F/Q+kamGlnX2/kMJsvnXObsnhn2qDrYQiVg9xCMwXuK4QPhnjjE2GsdGlzNwNJmZt0asPOPLdh7IS+fMo2L3bNJjlKOly3rmqnUjcK2QKfomndIznKJ4o9dxOimqdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780353746; c=relaxed/simple;
-	bh=wNGLFUTn0t6+IOaCNavAkSqQlewHHI2X5Kw7kaffiGo=;
+	s=arc-20240116; t=1780354031; c=relaxed/simple;
+	bh=BygBbCOAOI7ov7eJDxV9YtWjZUBzRtNzeqw4B2lbFQo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W4mkqMjcm9jle4k75587rxU2h+c2jMTZu2xjvXUF/BRiYUh2QVU+OrvJJjtxVV7rxlDELlHgdR+yF/Att4PyoOkdGLRzfXW1IOzGe3chc2tW/QGfqO3NJPLVZ//Mol4n6pg8aVKAGnZa0v//HHOBRHOlGNWYGci19XZrsPc9JD8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WOlBjc3d; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=IKkpLDAd8vo8j+8dcm5xcya7mQ+6N4V205arGAkiQ76Q4Yz/odOpVNAs42hugGy1TOVy4ZGuz7Ahsq1e/VZ0ZM2JheafN2XzsMxLVvHLHD3BomKL6Imsz6Kt0/XMFVCBy7tefAgHONoLOwk3eg1a7Ua/ML+hAE30I11/2rQizwk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=OKToZ5+3; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WOlBjc3d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D45991F00893;
-	Mon,  1 Jun 2026 22:42:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780353745;
-	bh=VMd//81yT+NVvlnl/F76YYhKc40UAK/meNTrVFMbKP4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=WOlBjc3dm2X6zFFAE34XdTKRjaGzUdXFgKnUF/EQvnfdRHFyxN6YZDNUuFKJPsCL4
-	 H4NkZXVKMjkQBXunwR1bk6RWq7gdsLdzEalq+i0eDRhWeA1oR7g6DY2FWgt1nYDuKj
-	 15mVLGYI7I+SBKDgQyN/sakwhLUPAusdYgLOLFgib6fW8KHqSerYBmDLadPt0H9pVo
-	 FfbqkxXb7vjwrUmXsL5ouM9CmRCWzap1aJfbRsSS2dqfX/nmR+L87GF/qKVrL+kLyY
-	 R6Yct8SgnKZNJum54VnYHLPKayZ7FxrsIRPL2XKWrWsESAd08uz21qz1RgFcyTT2Vk
-	 fV989UQvpfw8A==
-Date: Mon, 1 Jun 2026 17:42:24 -0500
-From: Rob Herring <robh@kernel.org>
-To: Inochi Amaoto <inochiama@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
-	conor+dt@kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] dt-bindings: PCI: spacemit: Introduce Spacemit K3
- PCIe host controller
-Message-ID: <20260601224224.GA116470-robh@kernel.org>
-References: <20260517014841.254085-5-inochiama@gmail.com>
- <20260517024848.4F346C19425@smtp.kernel.org>
- <aglF_fbl--RgS7gQ@inochi.infowork>
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="OKToZ5+3"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 85AAB40E00BA;
+	Mon,  1 Jun 2026 22:47:07 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id WKoz_Vm_KwY2; Mon,  1 Jun 2026 22:46:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1780354017; bh=9Y4m2W3vRcXKEArbYqkHQd441LGB27Du4H5ZrkX5CSU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=OKToZ5+3gGYJPCMAps1wKEkuLcXumWvlhTdWMIlfG1ADqMef5UBqaGfQKKl3yKTh+
+	 cEs3M+PIleKF8G36t5n69E4IaZ7XYcWqKC0mvOg6/x4tPQxhpYS75qqUmbLQMOSTe1
+	 GqIgRonTFa/IZCYOV9zeKeHOcgXzv20upCjkkg4ZhHpAFd6lwiYlA6jIy7CwXGCZ6f
+	 HWnl7JIcFQJ2NjeUOmXiILSe4OqZWiSTr3Ko8uEYSuNLPhIlQzh3ofhOqmoBP3Udq0
+	 f1a0dt/fwKsIxaDBePUlTdh+yhwPSi4mbJ05BDApKZrvYlE3A+tARDICCoaXKyzVQS
+	 VzXOmpt2ZR92kE03CxEk8A05gOqzCXL8tmYH0CJE+9WC0dWQSGt2EPhS9p1HasKlBs
+	 eGTUYOuzNNofWGsqWewDE76CHwDIaQhXRJxKLIK7P96u1Vph3b1KR5wemcNkCGCJ87
+	 re8s6+lRlu/FCeaVw/cdv90bjywZEaCyvF7K83wNaWya1biZPyzeMeLTQeGGZB0gzM
+	 qDC6U+0FPIcXBO/ja3BK1n+mdPkedublg9EhRzoczftYcjopk4nWsoePN05bccbZQX
+	 m44F7z+Pvulj/uYm7Yy2fuYxrwECgnmoY1XKUfRuoCn5osJUTZ/rq/6GuOjtmtuSme
+	 Kr2SlJ34d6K0v0p1gFb2FGio=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::30])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 86AF340E0032;
+	Mon,  1 Jun 2026 22:46:24 +0000 (UTC)
+Date: Mon, 1 Jun 2026 15:46:08 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ahmed Tiba <ahmed.tiba@arm.com>
+Cc: will@kernel.org, jic23@kernel.org, xueshuai@linux.alibaba.com,
+	saket.dumbre@intel.com, mchehab@kernel.org, dave@stgolabs.net,
+	djbw@kernel.org, tony.luck@intel.com, guohanjun@huawei.com,
+	lenb@kernel.org, skhan@linuxfoundation.org,
+	vishal.l.verma@intel.com, rafael@kernel.org, corbet@lwn.net,
+	ira.weiny@intel.com, dave.jiang@intel.com, krzk+dt@kernel.org,
+	robh@kernel.org, catalin.marinas@arm.com,
+	alison.schofield@intel.com, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, Michael.Zhao2@arm.com,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-cxl@vger.kernel.org, Dmitry.Lamerov@arm.com,
+	devicetree@vger.kernel.org, linux-acpi@vger.kernel.org,
+	linux-edac@vger.kernel.org, acpica-devel@lists.linux.dev
+Subject: Re: [PATCH v5 01/10] ACPI: APEI: GHES: share macros via a private
+ header
+Message-ID: <20260601224608.GCah4LsNGp3aLjy-xE@fat_crate.local>
+References: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-0-2e0500d42642@arm.com>
+ <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-1-2e0500d42642@arm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <aglF_fbl--RgS7gQ@inochi.infowork>
+In-Reply-To: <20260529-topics-ahmtib01-ras_ffh_arm_internal_review-v5-1-2e0500d42642@arm.com>
 
-On Sun, May 17, 2026 at 12:38:39PM +0800, Inochi Amaoto wrote:
-> On Sun, May 17, 2026 at 02:48:47AM +0000, sashiko-bot@kernel.org wrote:
-> > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> > - [Medium] The binding completely omits the `interrupts` and `interrupt-names` properties for the host controller.
-> > - [Medium] The schema omits standard legacy INTx interrupt routing properties (`#interrupt-cells`, `interrupt-map`, `interrupt-map-mask`).
-> > - [Low] The `phy-names` property lacks an `items` definition to restrict valid string values.
-> > --
-> > 
-> > commit 7b8ba34456e71d6a9cf1028caa5504d64e8f58ba
-> > Author: Inochi Amaoto <inochiama@gmail.com>
-> > 
-> > dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
-> > 
-> > This commit adds device tree binding support for the PCIe controller on the
-> > SpacemiT K3 SoC. The controller is based on the Synopsys DesignWare PCIe IP
-> > with some extra link and reset state control.
-> > 
-> > > diff --git a/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
-> > > new file mode 100644
-> > > index 0000000000000..46147a37a9ce6
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
-> > [ ... ]
-> > > +  reset-names:
-> > > +    items:
-> > > +      - const: dbi
-> > > +      - const: mstr
-> > > +      - const: slv
-> > > +
-> > > +  msi-parent: true
-> > > +
-> > 
-> > The driver implementation reads and clears interrupt status registers for
-> > host-level events, and references registers for receiving INTx events from
-> > downstream devices.
-> > 
-> > Should this binding include interrupts and interrupt-names properties to
-> > document the host's interrupt routing?
-> > 
-> > Additionally, should standard legacy INTx interrupt routing properties like
-> > #interrupt-cells, interrupt-map, and interrupt-map-mask be included in the
-> > schema and example to support downstream devices that do not use MSI?
-> > 
-> 
-> The driver just does the interrupt cleanup as it requires, and no
-> additional interrupt is needed
+On Fri, May 29, 2026 at 10:50:41AM +0100, Ahmed Tiba wrote:
+> Carve the CPER helper macros out of ghes.c and place them in a private
+> header so they can be shared with upcoming helper files. This is a
+> mechanical include change with no functional differences.
 
-Unless there are no interrupts and only MSIs are supported, then you 
-need to define 'interrupts' property at least. The common schema only 
-defines all possible names, but not which ones are used and the order.
+What Sashiko said.
 
-Rob
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
