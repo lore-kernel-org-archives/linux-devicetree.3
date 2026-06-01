@@ -1,145 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7C563F0773;
-	Mon,  1 Jun 2026 18:41:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 553843EE1E7
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 18:41:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780339309; cv=none; b=mch4bApFpYLKIFlYJ/AopgYKY/2Xrr8qhTfyiPZt63NZDSMfQVxVhcQ7h67cCasjJ+dEjmJSEoua7QLGxaJxvyK1YUtpry+Bkh2mVrUw75z8pl3E/EEGBc2KV2nJzeb7kNyQQfHKwX+1fCwSu16SOyOgn3qtunUQQJIGbEZQmwg=
+	t=1780339314; cv=none; b=aKhWHgDGYpBZI2x9x3B+3CrIdNa012wogchDS0UCYEV+TCHz8AD6C9lbg+dsPEmSZQw84gDqTPHbi4tynncQ1Wd+04+19OYm9pEc+5vPq+ADfy+RniGLx1bWcym1c4tgMvz9lPR1LmPLTWTQHvza1QPxPs82wCid2fzRrc4X2GM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780339309; c=relaxed/simple;
-	bh=oAv+yOlOnZ8HXQygCAWOPVZwktiVreI6JYkUAtuqHts=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=kpBakycYGUaIBf1eMqCb5zwgnFg85zV6QDBGhsKYepmxxQuP65pNjuNeOko/wgtI1SOFc/k6xK7ASoWcLEO97V9nMgZbeflDM+PMfnIUHYaxbUakoG92x0pewdcVVh/og4qDuBn3Bp+W+Y25twPqhV+JJJkVyu0wPVskr3+b2dw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ex9uII4i; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780339314; c=relaxed/simple;
+	bh=C4XSTEssLF82Z71j54C2rEy+ymEbLRgc5gBMD8Q06g0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=ZXvRGoXr7cK7knX3bJRwcGeo8P5vh6NXP4daUO4e1oVLR96bY9N/Objf6wGZx0K2rfMWj25TfVBrvLBJ3ZxRZZ6na5caAqqQj2h44bLmw4si9/P3acpcJUS/NKDScpCoUu5eG2KEovwn/OIrleL8RnP8VMhyeomSQGcMdvbGyQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JlNdXJvQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ex9uII4i"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2033F1F00893;
-	Mon,  1 Jun 2026 18:41:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JlNdXJvQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80D0A1F00898;
+	Mon,  1 Jun 2026 18:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780339303;
-	bh=wW2I9IQOgQPeKJJKfmoCD2QasKn5Lkl/P+IL+G1Ddug=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ex9uII4irekVurRAmQj59bEAJ3EVPb5zJ7FnuwdPimG0xK9XK8aFGGUyfDkjikOuW
-	 LIJ51F7aQ/r7xBCVjEdJZ8tqUHEEUU9MDbIyFWND3/FvZ4af6bXvNDNt9/AXmOvyyQ
-	 zvPPeuPawPyr62qJtpv/FndtkMObgMItdKBFXm54N8ej7R8IoZQ1Ux1kaL5SPkukyy
-	 f0FeUwI08+XAleI0hrzAQO/ANR/HGEp4JfyQUlkDDFg6uYAn/A0rvMJF5hX5KRZUf5
-	 MV3lT4gqTkAtgeTySEHAGgeZ6e4yH9ZS4zjqiJep63xwBFZzN3w1LGGARFDijkEU0d
-	 uBgMv4ieGgYFA==
-Date: Mon, 1 Jun 2026 19:41:37 +0100
-From: Mark Brown <broonie@kernel.org>
-To: y.oudjana@protonmail.com
-Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Flora Fu <flora.fu@mediatek.com>,
-	Alexandre Mergnat <amergnat@baylibre.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, linux-input@vger.kernel.org
-Subject: Re: [PATCH v2 3/4] regulator: Add driver for MediaTek MT6328 PMIC
- regulators
-Message-ID: <c94c94b4-c3f4-4369-a110-dfb825c5f103@sirena.org.uk>
-References: <20260531-mt6735-pwrap-mt6328-pmic-v2-0-dac37bf92894@protonmail.com>
- <20260531-mt6735-pwrap-mt6328-pmic-v2-3-dac37bf92894@protonmail.com>
+	s=k20260515; t=1780339306;
+	bh=RXF7PmvdcgzP8fv2+DhB/5IfY480GgEEtJfytkgKuy0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JlNdXJvQrRM8JtXcgytnvg8YP8tSPzauFaWl+/T8xEWA/p+MMHJULZyldaKchsu0h
+	 h4kkibeXf5+XOBu/Ut4P+EDRyreXTRY6yOcLJ0DTgQ/6nUFVrfjB/u9aEtNALT6d0R
+	 xK595+godSBsiiGPJUSRaH6csGULVnqrqvG1sheyNDG5gtB0XLvSkEhkfdO8y/VGS5
+	 Mm/V29Lfp2o7Hpo6oGFBJ2WY9/MoPCpFpM+dfjO0iklEOTryaT2+u5cUlq9/FdVVjN
+	 Scv8EnWM0CpWtyNIY/Ts6d2lJxhog/H7XOjMLiAK/2oxp0mHRf6Bc2tX5W/aFDavi5
+	 uZqesfwknHBCA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 06/12] clk: qcom: dispcc-qcm2290: Switch to DT index
+ based clk lookup
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260601-shikra-dispcc-gpucc-v3-6-61c1ba3735e8@oss.qualcomm.com>
+References: <20260601-shikra-dispcc-gpucc-v3-6-61c1ba3735e8@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 18:41:46 +0000
+Message-Id: <20260601184146.80D0A1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="hTo5YyAF2wDum4dv"
-Content-Disposition: inline
-In-Reply-To: <20260531-mt6735-pwrap-mt6328-pmic-v2-3-dac37bf92894@protonmail.com>
-X-Cookie: Have a nice day!
 
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The DSI1 PHY PLL byte clock input is not wired up in the parent ma=
+ppings, making the DSI1 PHY support incomplete.
+--
 
---hTo5YyAF2wDum4dv
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+commit 6900a283b3a0edc157171145f5dc5bdc527dae67
+Author: Imran Shaik <imran.shaik@oss.qualcomm.com>
 
-On Sun, May 31, 2026 at 11:10:44AM +0200, Yassine Oudjana via B4 Relay wrote:
-> @@ -0,0 +1,500 @@
-> +// SPDX-License-Identifier: GPL-2.0
-> +/*
-> + * MediaTek MT6328 regulator driver
-> + * Based on MT6323 driver.
-> + *
-> + * Copyright (c) 2016 MediaTek Inc.
-> + * Copyright (c) 2022 Yassine Oudjana <y.oudjana@protonmail.com>
-> + */
+clk: qcom: dispcc-qcm2290: Switch to DT index based clk lookup
 
-Please make the entire comment a C++ one so things look more
-intentional.
+This commit updates the QCM2290 DISPCC driver to use DT index based
+parent clock lookups and fixes the parent data for mdss ahb/mdp clocks.
+It also introduces support for the DSI1 PHY PLL input clocks.
 
-> +static const unsigned int ldo_volt_table3[] = {
-> +	0, 0, 0, 1800000, 1900000, 2000000, 2100000, 2200000
-> +};
+> diff --git a/drivers/clk/qcom/dispcc-qcm2290.c b/drivers/clk/qcom/dispcc-=
+qcm2290.c
+> index 1c21267ae0f7a..f5dbd19d0a033 100644
+> --- a/drivers/clk/qcom/dispcc-qcm2290.c
+> +++ b/drivers/clk/qcom/dispcc-qcm2290.c
 
-Use linear_min_sel for the first three values.
+[ ... ]
 
-> +static const struct linear_range ldo_volt_range1[] = {
-> +	REGULATOR_LINEAR_RANGE(700000, 0, 0x7f, 6250)
-> +};
+> @@ -72,8 +86,8 @@ static const struct parent_map disp_cc_parent_map_0[] =
+=3D {
+>  };
+> =20
+>  static const struct clk_parent_data disp_cc_parent_data_0[] =3D {
+> -	{ .fw_name =3D "bi_tcxo" },
+> -	{ .fw_name =3D "dsi0_phy_pll_out_byteclk" },
+> +	{ .index =3D DT_BI_TCXO },
+> +	{ .index =3D DT_DSI0_PHY_PLL_OUT_BYTECLK },
+>  };
 
-If there's just one range there's no need for a lookup table, use
-regulator_map_voltage_linar().
+[Severity: High]
+The commit message mentions adding DSI1 PHY PLL input clocks support, and
+the enums for the DSI1 byte clock are added earlier in the patch.
 
-> +static int mt6328_get_status(struct regulator_dev *rdev)
-> +{
-> +	int ret;
-> +	u32 regval;
-> +	struct mt6328_regulator_info *info = rdev_get_drvdata(rdev);
-> +
-> +	ret = regmap_read(rdev->regmap, info->desc.enable_reg, &regval);
-> +	if (ret != 0) {
-> +		dev_err(&rdev->dev, "Failed to get enable reg: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	return (regval & info->qi) ? REGULATOR_STATUS_ON : REGULATOR_STATUS_OFF;
-> +}
+Should P_DSI1_PHY_PLL_OUT_BYTECLK and DT_DSI1_PHY_PLL_OUT_BYTECLK be added
+to disp_cc_parent_map_0 and disp_cc_parent_data_0 as well, similar to how
+the DSICLK was added to disp_cc_parent_map_4 below?
 
-get_status() should report the actual status of the regulator, not what
-was configured.  If the device can't report this just omit the
-operation.
+Without it, does the hardware lack the ability to select the DSI1 byte
+clock for disp_cc_mdss_byte0_clk_src?
 
-> +		if (mt6328_regulators[i].vselctrl_reg) {
-> +			if (regmap_read(mt6328->regmap,
-> +				mt6328_regulators[i].vselctrl_reg,
-> +				&regval) < 0) {
-> +				dev_err(&pdev->dev,
-> +					"Failed to read buck ctrl\n");
-> +				return -EIO;
+[ ... ]
 
-Better to return the actual error.
+> @@ -101,19 +115,21 @@ static const struct parent_map disp_cc_parent_map_3=
+[] =3D {
+>  };
+> =20
+>  static const struct clk_parent_data disp_cc_parent_data_3[] =3D {
+> -	{ .fw_name =3D "bi_tcxo" },
+> +	{ .index =3D DT_BI_TCXO },
+>  	{ .hw =3D &disp_cc_pll0.clkr.hw },
+> -	{ .fw_name =3D "gcc_disp_gpll0_clk_src" },
+> +	{ .index =3D DT_GPLL0 },
+>  };
+> =20
+>  static const struct parent_map disp_cc_parent_map_4[] =3D {
+>  	{ P_BI_TCXO, 0 },
+>  	{ P_DSI0_PHY_PLL_OUT_DSICLK, 1 },
+> +	{ P_DSI1_PHY_PLL_OUT_DSICLK, 2 },
+>  };
+> =20
+>  static const struct clk_parent_data disp_cc_parent_data_4[] =3D {
+> -	{ .fw_name =3D "bi_tcxo" },
+> -	{ .fw_name =3D "dsi0_phy_pll_out_dsiclk" },
+> +	{ .index =3D DT_BI_TCXO },
+> +	{ .index =3D DT_DSI0_PHY_PLL_OUT_DSICLK },
+> +	{ .index =3D DT_DSI1_PHY_PLL_OUT_DSICLK },
+>  };
 
-> +		rdev = devm_regulator_register(&pdev->dev,
-> +				&mt6328_regulators[i].desc, &config);
-> +		if (IS_ERR(rdev)) {
-> +			dev_err(&pdev->dev, "failed to register %s\n",
-> +				mt6328_regulators[i].desc.name);
-> +			return PTR_ERR(rdev);
-
-dev_err_probe().
-
---hTo5YyAF2wDum4dv
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmod0mAACgkQJNaLcl1U
-h9Cowgf/TR/qzesVBhChXAa4+FjLbC3YcC3giv6TuI0GVikEdxuWGTDvD2iipvAK
-p+sJYyV5B+BuTDI6NaYr4CrVsJNIpV+ci7qoXixlUV9ju7qY/L6GmjdYJY+l/XcF
-W+fZFCQfqkIRFB3V87HJPY81af0WQLJ0c9G4euXtdmzusaWOGaHhecMu2Sic1IZn
-FMjUVSMriahgusOeO6uikaa86FqoXcJtHB6aLGX654xLky6UJCNaLJJ4G/PitxEZ
-py6OsBALpjjImVOGWziwKrIsMqxdFPH8/15+N8Kv5fT8VkEG2rT0Gh+LhmBvKTA7
-j2oF8Qysg9lhLOv6gc9Aw3i+nMZ5PQ==
-=Ua+8
------END PGP SIGNATURE-----
-
---hTo5YyAF2wDum4dv--
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-shikra-dis=
+pcc-gpucc-v3-0-61c1ba3735e8@oss.qualcomm.com?part=3D6
