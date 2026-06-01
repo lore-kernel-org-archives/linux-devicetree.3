@@ -1,143 +1,182 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EB4E62809;
-	Mon,  1 Jun 2026 21:48:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA5D282F10;
+	Mon,  1 Jun 2026 21:55:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780350518; cv=none; b=pQoeFawVgJN7tPOQFwPYref0fKeN8xiFyKOeexQAUJJt1HQOI0e8xZoGtPNtl8vAYOBikmHiS3KCEPzVfkMbRvBwd0MOG2hhNWuVWDXwZIhU8qSn4YRfcmqNfCICqhZDj6Ju2p9BdFK4WWJfgh3UynvovaHYMNVIbFMKOq/0FlM=
+	t=1780350927; cv=none; b=INORgYoAnkzI+IDs1WCSwkaWwKr4sm6MBrrerT1YlLHcggiHwzQHghuuPqhU3hV17/WyCCcaSCWT67Bq8jkquX8Dv+ZCPlnhGp0j0Gkaa73PgaQS58m71NJBwKLKfuj7v2kSnfk4+miGbD1n1miZ7c2u6Vhc94d7129JphsNqJ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780350518; c=relaxed/simple;
-	bh=Pq1w+L0FLc8h6ke4UF90sRd6KnS4QdATjireSMumgXE=;
+	s=arc-20240116; t=1780350927; c=relaxed/simple;
+	bh=OPW7t2+scf7awova5FPOoTQNVM4dIqp3OEtLYGNHxRE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CPwdH/ZOdT4g0J9zKo6pf2MVfRZEs0fa/wpxyvpj2LPPEJUyYA1YSdJZOtG/D96R3OHZ+bV4uOH8vWOCiia2XhKni4g63Z7K5SOVFXyYiMT8PVUFO4EC/VDW/BUaZYWmrw5atKkLg0KZ2Fn4ZaLeaw/+wCDX4df5TpxfBmbJuvI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fRBG4Cx4; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=FjTjJ6c1MVE1mAiNCxAG9HAo3laE7Kq22O/3D6qNCFVxsfz9RzPttXXqvEx/BeeDRNKIuvU22Uw61sc3kHHuX1pfQLbvncDN/evz2+n8EEb3DAZCbkhmb30jiyzBO/XGCBbaOFEIXlsygrT+Y3BSkyBUDJigqEjr3OLKT+kO8Zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDuneMgC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fRBG4Cx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EF281F00893;
-	Mon,  1 Jun 2026 21:48:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDuneMgC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DEA1F00893;
+	Mon,  1 Jun 2026 21:55:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780350517;
-	bh=ABndK8Yqocrn8l9TWmQbfauSTjrVegcC2yyvk6FSK+c=;
+	s=k20260515; t=1780350926;
+	bh=Btd7ETiVGpwE7oNRY8Tbs8MqaEa31ijMp/j+iytSgS0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fRBG4Cx49F1b6mhbOr4R3eMGTorCocZ2HTlIYBNisMXOugHupg8U0f3zAZpjNQFKV
-	 aEqCYE5az1enhQMtoVa3TA5HXFE5S0+7aFSWQfOlEZS2HLFDBz27KAqnc+eeALEWm9
-	 iKoXXbMq4aRjFOd3kQxh1bB1b+wNx6uDm0+g6DSUANV6NUjP2DLKCGxPZG6AT0Z18Z
-	 LOda1fKD6Au6hhWOVmpuwcawh0/TijzqJjWelj3GrFoPcE1yrObhItX28jdit7S4MN
-	 OaEXmD8f1kJZ0HFAdAN2gfVCryUjfLlLCNwz4wGR7/6IntGW67+WCjcj4GfWV9vH3c
-	 lLEJa0T71IFKg==
-Date: Mon, 1 Jun 2026 16:48:36 -0500
+	b=lDuneMgCbrJYW+2aAqXGd1O172kgGoI3AnwmqFoacxgXNKX2JQlwpONWVoMyLH06Y
+	 +3fy6YDReRQBpMEhm2WmCm/MZoNqOehMyvT1L2gFsX5Tn0p33aBbRUAYITX6euXyd9
+	 UY8bgO/Gz0Ooa42fF1aHOQcEIEbM4CXYGVIxcLaJcMcMXB9HPK4OenmXy3BFuHopbw
+	 uCbLq0RxhWGu6jjiiXtRTYl3cs9gW6CM41d+0kJKWACmUm3yb3FbV+w7uKESeAngHA
+	 16GAgq3kGN5C6nVHYjo5yu5lGcWVECBprcxL5X3JnTqzy3XMxbqlD3QNNiOa95VXP9
+	 8Ygb5VrUfrDuA==
+Date: Mon, 1 Jun 2026 16:55:25 -0500
 From: Rob Herring <robh@kernel.org>
-To: Manivannan Sadhasivam <mani@kernel.org>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Ryder Lee <ryder.lee@mediatek.com>,
-	Lorenzo Pieralisi <lpieralisi@kernel.org>,
-	Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-	Bjorn Helgaas <bhelgaas@google.com>,
+To: Conor Dooley <conor@kernel.org>
+Cc: Pawel Laszczak <pawell@cadence.com>, Peter Chen <peter.chen@kernel.org>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-pci@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dt-bindings: PCI: mediatek-gen3: Allow memory-region for
- restricted DMA buffer
-Message-ID: <20260601214836.GA37779-robh@kernel.org>
-References: <20260508063633.3894348-1-wenst@chromium.org>
- <locoul5wdzuvvmm7mqpuntjqu4o75gmyd5npgfqrw3zuwsrse6@dhrjggs4cihh>
- <CAGXv+5GAaMQbaoUVr5zcwtHaofyXwHz03TxBe-QyWj_sNoQZsg@mail.gmail.com>
- <qnikqcqoiw7z2yh5wruqcli3rk56yomyymghzivlcmekp2blwc@dfhsfl3sqcla>
- <CAGXv+5GBraoTrQatQdrM5b+dOteL_Y5K7_UQBUt-2L1x=c94KA@mail.gmail.com>
- <2tq4zy3zhcrz25rl2qhdsxvoedcry4z3v2lmmropesxqgzhtlp@fn6htdl74ogu>
- <CAGXv+5GRBv8+pLbb-AyFW0cAx=c45JhWd-odzJGDdWABKQLaqg@mail.gmail.com>
- <rphuqwucr2r6gsgrkzkpzy7fn4qa7q4afzbwtzae53dtudmush@kxtzdoq426uz>
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v8 1/2] dt-bindings: usb: cdns3: Add cdns,cdnsp-no-drd
+ compatible string
+Message-ID: <20260601215525.GA4114052-robh@kernel.org>
+References: <20260515-b4-no_drd_config-v8-0-75cb05317679@cadence.com>
+ <20260515-b4-no_drd_config-v8-1-75cb05317679@cadence.com>
+ <20260515-trinity-unthawed-c5ab5d7783f2@spud>
+ <PH7PR07MB9538E14BE6778498A48FECEBDD002@PH7PR07MB9538.namprd07.prod.outlook.com>
+ <20260519-defog-spiritual-2eeebb390ba7@spud>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <rphuqwucr2r6gsgrkzkpzy7fn4qa7q4afzbwtzae53dtudmush@kxtzdoq426uz>
+In-Reply-To: <20260519-defog-spiritual-2eeebb390ba7@spud>
 
-On Tue, May 19, 2026 at 12:51:49PM +0530, Manivannan Sadhasivam wrote:
-> On Mon, May 18, 2026 at 05:02:11PM +0800, Chen-Yu Tsai wrote:
-> > On Fri, May 15, 2026 at 8:34 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
+On Tue, May 19, 2026 at 06:49:36PM +0100, Conor Dooley wrote:
+> On Tue, May 19, 2026 at 08:47:30AM +0000, Pawel Laszczak wrote:
 > > >
-> > > On Fri, May 15, 2026 at 05:16:19PM +0800, Chen-Yu Tsai wrote:
-> > > > On Thu, May 14, 2026 at 7:48 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> > > > >
-> > > > > On Thu, May 14, 2026 at 03:54:29PM +0800, Chen-Yu Tsai wrote:
-> > > > > > On Thu, May 14, 2026 at 1:23 PM Manivannan Sadhasivam <mani@kernel.org> wrote:
-> > > > > > >
-> > > > > > > On Fri, May 08, 2026 at 02:36:32PM +0800, Chen-Yu Tsai wrote:
-> > > > > > > > On some SoCs without an IOMMU behind the PCIe controller, the PCIe
-> > > > > > > > controller memory access could be limited to a small region by the
-> > > > > > > > firmware configuring a memory protection unit. This memory region
-> > > > > > > > must be assigned to the PCIe controller so that the OS knows to
-> > > > > > > > use that region. Otherwise PCIe devices would not work properly.
-> > > > > > > >
-> > > > > > >
-> > > > > > > So this means, the PCIe devices can only access a specific carveout memory
-> > > > > > > configured by MPU for DMA? If so, you should use 'dma-ranges' as suggested by
-> > > > > > > Rob.
-> > > > > > >
-> > > > > > > 'memory-region' also serves the purpose, but for PCI, we have the dedicated
-> > > > > > > 'dma-ranges' property.
-> > > > > >
-> > > > > > I think I need some sort of guide on writing the 'dma-ranges' property,
-> > > > > > because it is not working for me.
-> > > > > >
-> > > > > > I'm adding
-> > > > > >
-> > > > > >     dma-ranges = <0x42000000 0 0x00000000 0 0xc0000000 0 0x4000000>;
-> > > > > >
-> > > > >
-> > > > > So the device DMA address start from 0x0? Isn't it a 1:1 mapping?
-> > > >
-> > > > I actually don't know. But
-> > > >
-> > > > >         dma-ranges = <0x42000000 0 0xc0000000 0 0xc0000000 0 0x4000000>;
-> > > >
-> > > > this didn't work either.
+> > >On Fri, May 15, 2026 at 01:24:38PM +0200, Pawel Laszczak via B4 Relay wrote:
+> > >> From: Pawel Laszczak <pawell@cadence.com>
+> > >>
+> > >> Introduce a new compatible string 'cdns,cdnsp-no-drd' for Cadence
+> > >> USBSS/USBSSP controllers to support hardware configurations where the
+> > >> Dual-Role Device (DRD) register block is missing or inaccessible.
+> > >>
+> > >> This change follows the recommendation to imply hardware limitations
+> > >> directly from the compatible string rather than using a dedicated
+> > >> boolean property.
+> > >>
+> > >> When 'cdns,cdnsp-no-drd' is used:
+> > >> - The 'otg' register and interrupt resources are not required.
+> > >> - The 'reg' and 'interrupts' properties are restricted to 2 items
+> > >>   (host and device).
+> > >> - 'dr_mode' must be explicitly set to either 'host' or 'peripheral'.
+> > >>
+> > >> The standard 'cdns,usb3' compatible remains unchanged, maintaining
+> > >> backward compatibility by requiring all 3 resource sets (otg, host, dev).
+> > >>
+> > >> Signed-off-by: Pawel Laszczak <pawell@cadence.com>
+> > >> ---
+> > >> v8:
+> > >> - Update commit message to reflect schema changes.
+> > >> - Removed 'cdns,no-drd' boolean property as per Rob Herring's suggestion.
+> > >> - Introduced a new compatible string 'cdns,cdnsp-no-drd' for controller
+> > >>   variants that lack the DRD/OTG register block.
+> > >>
+> > >> v7:
+> > >> - Rename 'no_drd' to 'cdns,no-drd'.
+> > >> - Update commit message to reflect property renaming and schema
+> > >changes.
+> > >> - Simplify 'reg-names' using a single enum.
+> > >> - Revert 'interrupt-names' to a list of constants.
+> > >> - Move 'reg' item descriptions to if/else blocks for accuracy.
+> > >> - Clean up 'if/then' logic (remove redundant checks).
+> > >> - Add explicit 'items' list for 'interrupt-names' in the 'else' block.
+> > >>
+> > >> v6:
+> > >> - Fixed validation error for 'interrupt-names' by correcting
+> > >>   the items definition.
+> > >> - Adjusted 'minItems'/'maxItems' to properly support the optional
+> > >>  'wakeup' interrupt.
+> > >> - Fixed 'too long' schema error in examples.
+> > >>
+> > >> v5:
+> > >> - Implemented strict conditional validation using if-then-else logic.
+> > >> - Enforced 2 register/interrupt items and required 'dr_mode'
+> > >>   (host or peripheral) when 'no_drd' is present.
+> > >> - Enforced the standard 3 register/interrupt items (otg, host, dev)
+> > >>   when 'no_drd' is absent to ensure backward compatibility.
+> > >> - Updated 'reg-names' and 'interrupt-names' to use enums in the main
+> > >>   properties section to support flexible resource ordering during
+> > >>   validation.
+> > >> ---
+> > >> ---
+> > >>  .../devicetree/bindings/usb/cdns,usb3.yaml         | 60
+> > >++++++++++++++++++----
+> > >>  1 file changed, 50 insertions(+), 10 deletions(-)
+> > >>
+> > >> diff --git a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> > >b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> > >> index 2d95fb7321af..7b0aa9c4a2bd 100644
+> > >> --- a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> > >> +++ b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
+> > >> @@ -17,22 +17,22 @@ description:
+> > >>
+> > >>  properties:
+> > >>    compatible:
+> > >> -    const: cdns,usb3
+> > >> +    enum:
+> > >> +      - cdns,usb3
+> > >> +      - cdns,cdnsp-no-drd
 > > >
-> > >
-> > > Hmm. Can you print the DMA address programmed to the device? i.e., the address
-> > > returned by dma_map_single() in the driver.
+> > >I doubt this is what Rob meant, he asked for soc-specific compatibles
+> > >and this is generic. A soc-specific compatible would be something like
+> > >microchip,newsoc-usb3
 > > 
-> > On a working system still using the restricted-dma-pool memory region,
-> > it gives something like 0x00000000c0009000, so indeed it is 1:1 mapping?
+> > Hi Conor, Rob
+> > 
+> > To clarify the hardware situation: I am developing and testing this on
+> > an FPGA development board connected via pure PCI, without any Device Tree.
+> > I do not have a specific SoC platform, nor do I know what silicon target
+> > the end customers will use in the future.
+> > Introducing a fake SoC-specific compatible string just to pass the DT
+> > validation feels misleading and unnecessary.
+> > 
+> > Since cdns,usb3 is already an established generic compatible, and we
+> > cannot use a generic configuration string like cdns,cdnsp-no-drd,
+> > the cleanest way forward is to make this resource-driven instead of
+> > compatible-driven.
+> > 
+> > In v9, I propose to:
+> >  - Keep only the existing cdns,usb3 compatible.
+> >  - Update cdns,usb3.yaml to allow minItems: 2 for reg and reg-names
+> >    if dr_mode is explicitly set to "host" or "peripheral" (indicating
+> >    that the OTG register block is absent).
+> >  - In the driver code, determine the lack of DRD dynamically if the "otg"
+> >    resource/register block is missing.
+> > 
+> > This elegantly solves the issue for my PCI/FPGA platform (where I just
+> > won't pass the "otg" resource), complies with DT practices, and leaves
+> > the door open for any future customer SoC to use cdns,usb3 with
+> > standard dr_mode constraints.
+> > 
+> > Does this approach look acceptable to you?
 > 
-> It has to be 1:1 mapping.
+> Not really. I want enforcement of the correct properties in the binding,
+> not permission of multiple different combinations.
 > 
-> > These are for the RX/TX descriptors [1][2].
-> > 
-> > When using dma-ranges, the failure is from dma_alloc_coherent() [3][4],
-> > which is the descriptor ring. On a working system, this is something
-> > like 0x00000000c0c9d000, so again 1:1.
-> > 
-> > [1] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless/realtek/rtw88/pci.c#L221
-> > [2] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless/realtek/rtw88/pci.c#L829
-> > [3] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless/realtek/rtw88/pci.c#L192
-> > [4] https://elixir.bootlin.com/linux/v7.0.8/source/drivers/net/wireless/realtek/rtw88/pci.c#L265
-> > 
-> > > Also, using prefetchable flag is not correct for DMA memory. You should use:
-> > >
-> > >         dma-ranges = <0x02000000 0 0xc0000000 0 0xc0000000 0 0x4000000>;
-> > 
-> > This didn't work either. What exactly is supposed to handle dma-ranges?
-> > I see some code parsing it in the PCI core, but it just saves it to a list.
-> > 
+> Perhaps we could go back to the original cdns,usbssp compatible and
+> leave an empty slot for the soc-specific compatibles, like:
+>       - items:
+>           - {}
+>           - const: sifive,clint2        # SiFive CLINT v2 IP block
 > 
-> I think the failure is due to marking the memory as 'reserved' in DT. With
-> 'dma-ranges', the allocator will only ensure that the allocated memory stays
-> within this limit. But the allocator itself will not use this property to
-> allocate from the reserved region.
+> That way you can proceed with this effort without a soc-compatible
+> but we don't end up permitting a generic compatible.
 
-So the region should not be reserved. Reserved generally means the OS 
-shouldn't use the region (though maybe a specific driver/device can). It 
-should just be a CMA area I think.
+That sounds good to me.
 
 Rob
