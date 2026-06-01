@@ -1,115 +1,170 @@
-Received: from cheetah.cherry.relay.mailchannels.net (cheetah.cherry.relay.mailchannels.net [23.83.223.34])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3EC73DC4A2;
-	Mon,  1 Jun 2026 17:05:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=23.83.223.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2C2E282F14
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 17:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780333514; cv=none; b=Si2yzygH3BDMvycGYpabIIzzZtVwi2cQFIYT2f/QWpc9EIWwsfqQElXFDlayJcfSLuox+I3fSME1P0iO1rcnrfbgCblajV4f1bPYb2/yQQ8wqXpTHCqSPKrYNAN67bkOsNN/0KB0ltQr2OHUHnUHg0mkW7Y3gR/vPNP8sNNte74=
+	t=1780333556; cv=none; b=UhM5CSyXhGzqsFZ66kUZCXOQNhA64L9te0s2tPkLIy2qXtRW4PuxX5N+btEEvtsXUAU7s2nVFx7T2VLoiTEqfBUFxikz08XEGtH1nxIkYntJ196U+9uUgYMxtGYCLmYf3AQbMGVdTFXHSZmK2IILxEi+wmpRChES6vhFHE0D7gU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780333514; c=relaxed/simple;
-	bh=o9/3t5aWbbAT4sGsBTZI/+VJf6LBvxpKJ80lKzrLliU=;
-	h=Message-ID:MIME-Version:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:Date; b=pLbWaRMSU1a7+EoWHIj9h81I6/sIgXkFXTlsSLigu0TXhqQSHXhNJtdTtinmfjRjhrM1mIqI2gQWtfqSxig5R0DG7QbiXRrU37vB6t6cz+iAtnZ7CsW6RfyVkp7m6bTf1Omvjkix5FmExhTOP37Phq3qBSFz0IezweR7PymfTrs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com; spf=pass smtp.mailfrom=smankusors.com; dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b=XoJYBb7H; arc=none smtp.client-ip=23.83.223.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=smankusors.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smankusors.com
+	s=arc-20240116; t=1780333556; c=relaxed/simple;
+	bh=NoPhZNXKyYUVeuknIHDJEUuxBa3Q/OVNKknOuwaHHIU=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Y4sPN7k7BiqGYCA/MotNL3jISB5c7c9zyTDY1c1xMnVI3c98fcRx+asbXky1A9lBpVTVQTGaBFm9JVq6zjgNXekNtle9MeoyU8SIRQrBWbntBMjiYLdm7k8XSvTe7l/OpLrqobFBTrBbjcUpMbuVw2z55NUs1jHntx7tBCngwx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lraGhaWh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=smankusors.com header.i=@smankusors.com header.b="XoJYBb7H"
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-Received: from relay.mailchannels.net (localhost [127.0.0.1])
-	by relay.mailchannels.net (Postfix) with ESMTP id 113028C2B23;
-	Mon, 01 Jun 2026 13:36:58 +0000 (UTC)
-Received: from fr-int-smtpout29.hostinger.io (100-103-80-215.trex-nlb.outbound.svc.cluster.local [100.103.80.215])
-	(Authenticated sender: hostingeremail)
-	by relay.mailchannels.net (Postfix) with ESMTPA id B4ED48C2BB9;
-	Mon, 01 Jun 2026 13:36:54 +0000 (UTC)
-X-Sender-Id: hostingeremail|x-authuser|linux@smankusors.com
-X-MC-Relay: Bad
-X-MailChannels-SenderId: hostingeremail|x-authuser|linux@smankusors.com
-X-MailChannels-Auth-Id: hostingeremail
-X-Towering-Tart: 49787cab7e6f26d6_1780321017667_4149070711
-X-MC-Loop-Signature: 1780321017667:3849519496
-X-MC-Ingress-Time: 1780321017667
-Received: from fr-int-smtpout29.hostinger.io (fr-int-smtpout29.hostinger.io
- [148.222.54.18])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384)
-	by 100.103.80.215 (trex/7.1.5);
-	Mon, 01 Jun 2026 13:36:57 +0000
-Received: from [IPV6:2001:448a:c020:315:d8d9:5955:e1e1:fdf6] (unknown [IPv6:2001:448a:c020:315:d8d9:5955:e1e1:fdf6])
-	(Authenticated sender: linux@smankusors.com)
-	by smtp.hostinger.com (smtp.hostinger.com) with ESMTPSA id 4gTZkS5vY6z2xbP;
-	Mon,  1 Jun 2026 13:36:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smankusors.com;
-	s=hostingermail-a; t=1780321013;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=b0eRaTv1LFHSdq+CnYjSAChuDEys2xywHPYRW1l131U=;
-	b=XoJYBb7HLM5cEgOvFYynrBpuowCLbNp0nGP4uZhJ7EnBKpp/pdxqgknCRuO5u3wJW8k1K6
-	eSJ6JJtA03NyAh0If/JuoRLBYHz9ofmIzCevOn2RoGlUSMPM00lTPVgg/pX8e8kgGBYSyF
-	60FaO/akpjwEoYrIWN9efHWsg8pwYwhRovax8NKg+BjKmNxA/kzE/7GZ3nqMzhV4aDrAQ7
-	W5mct+/cn+yiFnKXxdZFv5aL7kLMIyRB0ilJ6b4yaFKfiTgEbNN2TSJD/sJc1uIoAQbpn6
-	IjZKk+RMN4ClXnWnauGjhl1re2k3FdCMdSOO5AEgKgZnyEfohF057wsKd6Siug==
-Message-ID: <4d5e1b90-5d81-4e34-a4f1-79ef1eccc0a0@smankusors.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lraGhaWh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 238711F00893;
+	Mon,  1 Jun 2026 17:05:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780333555;
+	bh=ppt7pr8oDuqNWgjj9XkQ+6liCD9+cv9tfdNmCKM/eTU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=lraGhaWhVWrz6Fi+9cS84y5gvnySoXCAgWIhfqOK32PL1HKdso5HQrbvnl4gy5YGT
+	 FbS7YKhX4MDWuIWgDOvVoJTSZ8gWLqdLVt431+KzrOzMSohjK06MRJqp3gh9/eSRQ/
+	 hV6w5sTE7gAGN6cVas5oeU+LR3LFY1Pbbdmz9SrHTwKlm6y63NVubzt3VrWQ4BWxyI
+	 vL0C0DH01fy5DSJRot0WWG+VsFKeiaKjCt6R1aYpQIAcTJbtfoQmO4TJDSyG4F2gBm
+	 GoYCJcfuUcODcsW3c4a4lGyF95jIlPEXmemHHNzpedy9u/1zjijpZ/Hn+/X5miED3a
+	 1a+7Eqegxy2pw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH V3 4/6] drm/panel: anbernic-td4310: Add RG Vita Pro
+ panel
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Chris Morgan" <macroalpha82@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260601162951.254968-5-macroalpha82@gmail.com>
+References: <20260601162951.254968-5-macroalpha82@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 17:05:52 +0000
+Message-Id: <20260601170554.238711F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 04/10] clk: qcom: clk-rpm: add msm8960 compatible
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Michael Turquette <mturquette@baylibre.com>, Stephen Boyd
- <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Krzysztof Kozlowski
- <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- phone-devel@vger.kernel.org, Rudraksha Gupta <guptarud@gmail.com>
-References: <20260601-msm8960-wifi-v3-0-fec6ac8dba02@smankusors.com>
- <20260601-msm8960-wifi-v3-4-fec6ac8dba02@smankusors.com>
- <rvs5c4shgeroxsllqtxyjtsrb2447yprucw7qtmeissbbxtvtb@24nexo4dy6r4>
-Content-Language: en-US
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-In-Reply-To: <rvs5c4shgeroxsllqtxyjtsrb2447yprucw7qtmeissbbxtvtb@24nexo4dy6r4>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-Date: Mon,  1 Jun 2026 13:36:48 +0000 (UTC)
-X-CM-Envelope: MS4xfFfNaEMvPFTihY0Ico06EK6b0IgvVdL5S1AMJ8bfvfwUl0iIAAURtEPrrQUKgCmmr41byoNMuMggKQWSeUAvAOZsXhxmwI4kO00FkKbW6Xo0czx2jcT5 SkgYN7Z/Spm6jfYqXP/7srl7p9fAddVnD6vhIyg+wp+6+BEueZ4XD6UihlSe2x39Z3edGA6DPBU+bUHydvX79XmOCdgObfV2zSb1bYq+kT7Z0l3I23+m8kZX Ke+eZEUihl5im1RZn/QH7sKPdJR4c982Nep/RxIyyUfeUtz/Jp9SYdzXlF/iycy5UR4+/71ESw8QQQ2STyh7Um3XFH/W+eX7i7LSpWhmG0YTrwaEP8Q3F8EO /s4s99DUmv65/lObT3QwNuBJcaOCqdvU9F/DD0a7xNAizP4IolJ5GVUy67hX+IbBzVsXvmwqBO+S9twlooXfub4MQZFsmhnMacAUCGq4t1GrifVuW3IrLQEN JKGi4XMdTgknlw7xQuDB7kHQut1Jx0Vo6fmJRV7XtSrw6uYHqQhiaJumhY/Hn2cIpc7xCNARWQzanhskOx2iAAB149WeyzdayoS1w6mZFjYj8o76oQqgATSV 7mPo8aSwoz3YA9IO0tTLHqYVN/xjKcRRXk6HvygqJxaEhLMfqKKOoOydIkGBGB+J2jSvCVPXBRg19KncCKp/9jND/aMsO8MC0vzPNuCy9PW6TIfAIzij6UIH b2pBNJlaVJ7tOP3RQpPzaG42CUIKJaqRpaHlzgI02bRqliC5PmUKdndD1prhgOSrB55/5IkwlytBDgIKfARI0TTxbbM4eWly
-X-CM-Analysis: v=2.4 cv=Gq4Q+V1C c=1 sm=1 tr=0 ts=6a1d8af5 a=sFzhlXDghRqO5QIJeS1uNQ==:617 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=wxLWbCv9AAAA:8 a=pGLkceISAAAA:8 a=h6FRIkA3AyYJ9ISumXAA:9 a=QEXdDO2ut3YA:10 a=QJY96suAAestDpCc5Gi9:22
-X-AuthUser: linux@smankusors.com
 
-On 6/1/2026 6:38 PM, Dmitry Baryshkov wrote:
-> On Mon, Jun 01, 2026 at 03:51:17PM +0700, Antony Kurniawan Soemardi via B4 Relay wrote:
->> From: Antony Kurniawan Soemardi <linux@smankusors.com>
->>
->> Add support for the "qcom,rpmcc-msm8960" compatible string to the
->> RPM clock driver.
->>
->> msm8960 uses the same RPM clock descriptions as apq8064, so reuse
->> rpm_clk_apq8064 for this compatible.
->>
->> Tested-by: Rudraksha Gupta <guptarud@gmail.com>
->> Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
->> ---
->>   drivers/clk/qcom/clk-rpm.c | 1 +
->>   1 file changed, 1 insertion(+)
->>
-> 
-> On the other hand... You have added APQ8064 strings as a fallback. Is
-> this change really needed until you actually have SoC-specific quirks?
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] The `enable` GPIO is incorrectly requested with an active state du=
+ring `probe()`, violating typical power sequencing.
+- [Medium] Missing cleanup of regulator and GPIOs in `prepare()` when MIPI =
+DCS commands fail.
+- [Medium] Panel-specific delay configuration fields are ignored in favor o=
+f hardcoded values.
+- [Low] The driver calls an undeclared function `devm_drm_panel_add()`, cau=
+sing a build failure.
+--
 
-The fallback was recommended by Konrad in the initial review:
-https://lore.kernel.org/all/677f1d1d-a1fe-42ec-9e82-c9e504873c98@oss.qualcomm.com/
+commit 574d8ed3e47c2bbb643d4d50b515ef3c4d8fd16e
+Author: Chris Morgan <macromorgan@hotmail.com>
 
-As for SoC specific quirks, I don't have anything planned right now 
-about it though...
+drm/panel: anbernic-td4310: Add RG Vita Pro panel
 
--- 
-Thanks,
-Antony K. S.
+This commit adds support for the TD4310 MIPI DSI panel controller
+used in the Anbernic RG Vita-Pro handheld gaming console.
+
+> diff --git a/drivers/gpu/drm/panel/panel-anbernic-td4310.c b/drivers/gpu/=
+drm/panel/panel-anbernic-td4310.c
+> new file mode 100644
+> index 0000000000000..d277682f63a3a
+> --- /dev/null
+> +++ b/drivers/gpu/drm/panel/panel-anbernic-td4310.c
+
+[ ... ]
+
+> +static int panel_anbernic_td4310_prepare(struct drm_panel *panel)
+> +{
+
+[ ... ]
+
+> +	mipi_dsi_dcs_exit_sleep_mode_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+> +	mipi_dsi_dcs_set_display_on_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 100);
+> +
+> +	return dsi_ctx.accum_err;
+
+[Severity: Medium]
+Does this code leave the vdd regulator and enable_gpio enabled if a DCS
+command fails?
+
+If dsi_ctx.accum_err is non-zero, this returns immediately instead of
+jumping to the err_reset and err_enable cleanup labels.
+
+> +
+> +err_reset:
+> +	gpiod_set_value_cansleep(ctx->enable_gpio, 0);
+> +err_enable:
+> +	regulator_disable(ctx->vdd);
+> +	return ret;
+> +}
+> +
+> +static int panel_anbernic_td4310_unprepare(struct drm_panel *panel)
+> +{
+> +	struct anbernic_panel_td4310 *ctx =3D panel_to_anbernic_panel_td4310(pa=
+nel);
+> +	struct mipi_dsi_device *dsi =3D ctx->dsi;
+> +	struct mipi_dsi_multi_context dsi_ctx =3D { .dsi =3D dsi };
+> +
+> +	mipi_dsi_dcs_set_display_off_multi(&dsi_ctx);
+> +	mipi_dsi_msleep(&dsi_ctx, 120);
+
+[Severity: Medium]
+Is it intentional to use a hardcoded 120ms delay here instead of using
+the panel-specific disable_delay or unprepare_delay fields defined in
+the panel_info struct?
+
+[ ... ]
+
+> +static int panel_anbernic_td4310_probe(struct mipi_dsi_device *dsi)
+> +{
+> +	struct device *dev =3D &dsi->dev;
+
+[ ... ]
+
+> +	ctx->reset_gpio =3D devm_gpiod_get(dev, "reset", GPIOD_OUT_LOW);
+> +	if (IS_ERR(ctx->reset_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->reset_gpio),
+> +				     "Cannot get reset gpio\n");
+> +
+> +	ctx->enable_gpio =3D devm_gpiod_get_optional(dev, "enable", GPIOD_OUT_H=
+IGH);
+
+[Severity: High]
+Could requesting this GPIO with GPIOD_OUT_HIGH drive the signal active
+before the vdd regulator is enabled in panel_anbernic_td4310_prepare()?
+
+This might violate hardware power sequencing by driving control signals
+active while the main panel IC is unpowered.
+
+> +	if (IS_ERR(ctx->enable_gpio))
+> +		return dev_err_probe(dev, PTR_ERR(ctx->enable_gpio),
+> +				     "Cannot get enable gpio\n");
+> +
+> +	ctx->vdd =3D devm_regulator_get(dev, "vdd");
+
+[ ... ]
+
+> +	ret =3D drm_panel_of_backlight(&ctx->panel);
+> +	if (ret)
+> +		return ret;
+> +
+> +	devm_drm_panel_add(dev, &ctx->panel);
+
+[Severity: Low]
+Is devm_drm_panel_add available in the DRM subsystem?
+
+It looks like this might cause a build failure due to an implicit
+function declaration.
+
+> +
+> +	ret =3D devm_mipi_dsi_attach(dev, dsi);
+> +	if (ret < 0)
+> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601162951.2549=
+68-1-macroalpha82@gmail.com?part=3D4
