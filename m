@@ -1,116 +1,148 @@
-Received: from mx0b-0016f401.pphosted.com (mx0a-0016f401.pphosted.com [67.231.148.174])
+Received: from mail-m1973188.qiye.163.com (mail-m1973188.qiye.163.com [220.197.31.88])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A8AF385D6E;
-	Mon,  1 Jun 2026 07:33:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=67.231.148.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CC2385D7D;
+	Mon,  1 Jun 2026 07:35:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.88
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780299220; cv=none; b=OTk5lbMw0auF0+VcHicQGjmOch10cQMOZ1P53lXHwVfign8qRdXTNzH3hhnfPNSyYwV7ypNW1rYW+U8IUHjgJM919vUp2ED0d6JwqGl47DRdriyto1rs/v0RBpNzYL+Q8Gwd75KmLLVKDOUflzAiuuCnUIMz6wop3uTxPCu4veI=
+	t=1780299346; cv=none; b=UQwYUG/I62zbCkpOK4v+3J5ff0kPBA/dUTZNF6USs+9xTYgjXSggq53p1rU3do3Uzjlapz5757ya/OlBADPDEliN4eqI6C2kp2segMB5g+9+lQo4g2LXW7Opzq63wbGIrtCcgmbHqbqSI/gWqF/bOv8i9BFeLLrD6WOep9O+ZxE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780299220; c=relaxed/simple;
-	bh=uS8SVGAcwmWAVe8/w13kUsNvmpdPZ7XOzo21Ab+ySqk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=vEZXjRHWPjwCW/mFc07sR1zg03Csa7XzBkHysoCamNsADHy/S5Dv2pB3LKNYBEHNERXaINkWzNBPXPbugvz1ezgZxgwf75TrLvV2cXRm4Z0vkx5mCzT+l4cPCC4ga3jzvBdeUCldnY/3wqB0MGDNMtMwT1TiweOfkSixWDzgtqc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com; spf=pass smtp.mailfrom=marvell.com; dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b=L70mGwZ6; arc=none smtp.client-ip=67.231.148.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=marvell.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=marvell.com
+	s=arc-20240116; t=1780299346; c=relaxed/simple;
+	bh=eOrRTGCMi/K69lLtifXOuIuaBbzMYghKQgGFWXL91io=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=tELJj/T4Z1RiLKfoeztALUJwJU8yrAzCrenyWEQIQ2w/FWq3kyS66ne+KNx97lQcRhLxZ4v3g+IhEUwIvMBVL68i/8nL3dpD+LutrFEyLFSC1eNuRBcdCu9ysKYDwN4jl8vRjGq739tEKLdYLW1Gc6S38oDH3ws+5Zc9UXzbz0w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=beycXQzU; arc=none smtp.client-ip=220.197.31.88
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=marvell.com header.i=@marvell.com header.b="L70mGwZ6"
-Received: from pps.filterd (m0045849.ppops.net [127.0.0.1])
-	by mx0a-0016f401.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64VLpD8M1007224;
-	Mon, 1 Jun 2026 00:33:33 -0700
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=marvell.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=pfpt0220; bh=ysX8HVe5tI0y8KixQmCJcom7R
-	XVurl7yJ/4ljZeiGh8=; b=L70mGwZ6ZGH172jiqSkJmz3SG+Rgeg8CYOf3PraLU
-	LIvQebe793ffoClrtnrdt2K9wg2alXjDJnjN1Z3pUXNY05xMHt7gVeruAdVZHjVI
-	nAcPgCFOlY41CCJ5+RiM2F7Bne2Z7UeA9JJUKzObvObysCUUKTzDbtuzihWoWpc7
-	6turwA6d+gOB+GW5L7dEIZ7gzROhF4PDdHsEOboEN8wfKYEz1L/eaAW1B3PT1WLv
-	fN/MTxs0E+s7jZhHllL1oZh/vR8JfoFfjwu5QxdP9R2UC2qT/n+CBpOh/oFHBKhM
-	ju7wZel9jurM/PHR28sy9YieaOK+b9Csan53isklEfKuw==
-Received: from dc5-exch05.marvell.com ([199.233.59.128])
-	by mx0a-0016f401.pphosted.com (PPS) with ESMTPS id 4efw8hw76b-2
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 01 Jun 2026 00:33:32 -0700 (PDT)
-Received: from DC5-EXCH05.marvell.com (10.69.176.209) by
- DC5-EXCH05.marvell.com (10.69.176.209) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.25; Mon, 1 Jun 2026 00:33:31 -0700
-Received: from maili.marvell.com (10.69.176.80) by DC5-EXCH05.marvell.com
- (10.69.176.209) with Microsoft SMTP Server id 15.2.1544.25 via Frontend
- Transport; Mon, 1 Jun 2026 00:33:31 -0700
-Received: from hyd1soter3.marvell.com (unknown [10.29.37.12])
-	by maili.marvell.com (Postfix) with ESMTP id ECE8F3F7082;
-	Mon,  1 Jun 2026 00:33:28 -0700 (PDT)
-From: Geetha sowjanya <gakula@marvell.com>
-To: <linux-perf-users@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-        <linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>
-CC: <mark.rutland@arm.com>, <will@kernel.org>, <krzk+dt@kernel.org>
-Subject: [PATCH v8 3/3] perf: marvell: Cancel CN10K DDR PMU hrtimer on device remove
-Date: Mon, 1 Jun 2026 13:03:18 +0530
-Message-ID: <20260601073318.7098-4-gakula@marvell.com>
-X-Mailer: git-send-email 2.17.1
-In-Reply-To: <20260601073318.7098-1-gakula@marvell.com>
-References: <20260601073318.7098-1-gakula@marvell.com>
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="beycXQzU"
+Received: from [172.16.12.74] (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4085afb39;
+	Mon, 1 Jun 2026 10:59:28 +0800 (GMT+08:00)
+Message-ID: <17160115-6c30-434b-9dab-b768110cd8d6@rock-chips.com>
+Date: Mon, 1 Jun 2026 10:59:27 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA3NSBTYWx0ZWRfX2k8a47EXMGhQ
- x3VEZO9QbSoe8fgA5vxrxQH8ATjXXakMeA7G/1nNomco3kkBzpMIici4EWLcq+Um95gA96TFJ3g
- /C66ZaMGhLsYt1DnZ6s724EVuhAxvzv+wz1mahfW1RKELqb1URRd1dLuqREhKPAdb69HiMNCq5W
- h2FTVEG9FSfJUARQi0FxA+ih9uK+c7fvUPt2eLCMLhbDcl5I2/nTmQ0XBM3yzgFkMvG3r82y2ri
- tNE/DDwiQeUlfRYLgKZIx8UjIjrABGKfYn/hWXN2Xh19Olsh8leRtNEciD9D4XpwBsDG5G923Vo
- JEJ+3KP9pdWOwI30hOuwYQeWS/3sFRUDYPj7fzoa7fxr7OTfywPVaOb6QFpL9ix3uV4SDC0qvg/
- GOxRZkDbeRu5ckO1WAS/5k0JYp+IC76IRfrI9bGYOEsPfXMTPoid2ne2zZTJKC4/ZaVb6vXSwbo
- Zjekkc81U4FhfW3EgYg==
-X-Proofpoint-GUID: stzZQ0fRULCmDkINP2iZGQPWSZN_R5e5
-X-Proofpoint-ORIG-GUID: stzZQ0fRULCmDkINP2iZGQPWSZN_R5e5
-X-Authority-Analysis: v=2.4 cv=F99nsKhN c=1 sm=1 tr=0 ts=6a1d35cc cx=c_pps
- a=rEv8fa4AjpPjGxpoe8rlIQ==:117 a=rEv8fa4AjpPjGxpoe8rlIQ==:17
- a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22 a=l0iWHRpgs5sLHlkKQ1IR:22
- a=EAYMVhzMl8SCOHhVQcBL:22 a=M5GUcnROAAAA:8 a=u0CBKMH8rBo-bx1LD9MA:9
- a=OBjm3rFKGHvpk9ecZwUJ:22
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_02,2026-05-28_03,2025-10-01_01
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] drm/bridge: analogix_dp: Add validation for
+ samsung,lane-count property
+To: Luca Ceresoli <luca.ceresoli@bootlin.com>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
+ maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
+ airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
+ rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
+ jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
+ cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
+ dmitry.baryshkov@oss.qualcomm.com, dianders@chromium.org,
+ m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
+ devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+References: <20260529040530.741336-1-damon.ding@rock-chips.com>
+ <20260529040530.741336-3-damon.ding@rock-chips.com>
+ <178014803941.21632.16225608049285101452.b4-review@b4>
+ <DIW1WGLL0GW5.1BGU194UXN0HO@bootlin.com>
+Content-Language: en-US
+From: Damon Ding <damon.ding@rock-chips.com>
+In-Reply-To: <DIW1WGLL0GW5.1BGU194UXN0HO@bootlin.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-HM-Tid: 0a9e811f3b2303a8kunm571bef1e23b414
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSUoYVktPSEtLQh4aSE5PS1YVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=beycXQzUpN7FPhJ+fAnFKBz1/vzWYNCiv9XZmeqLZiDZFkrCqTaI560sy9/RjK386Vd55Uvdy77o8wkoVWe8DVjcwK8gjQHQNRMKZ5MguiLr9lmkNp7QbE/7RLqe3MGSIIjEk3btRd0IeXbEkiBb4MwuEV55/9WdY+TB9L3Xc9Y=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=bTGq6JyMOqNz9AcHQ+pp9TTBnC1HlbtzjBlhQULSRac=;
+	h=date:mime-version:subject:message-id:from;
 
-cn10k_ddr_perf_remove() did not cancel the poll hrtimer before returning.
-If the device was unbound while perf events were still active the timer 
-callback could run post-free.
+Hi Luca,
 
-To fix the issue by adding hrtimer_cancel() in remove().
+On 5/30/2026 9:38 PM, Luca Ceresoli wrote:
+> On Sat May 30, 2026 at 3:33 PM CEST, Luca Ceresoli wrote:
+>> On Fri, 29 May 2026 12:05:29 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
+>>
+>> Hello Damon,
+>>
+>>>
+>>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> index 8cf6b73bceac..699a7f380c56 100644
+>>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+>>> @@ -1260,8 +1261,16 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+>>>   		 */
+>>>   		of_property_read_u32(dp_node, "samsung,link-rate",
+>>>   				     &video_info->max_link_rate);
+>>> -		of_property_read_u32(dp_node, "samsung,lane-count",
+>>> -				     &video_info->max_lane_count);
+>>> +		ret = of_property_read_u32(dp_node, "samsung,lane-count",
+>>> +					   &video_info->max_lane_count);
+>>> +		if (!ret) {
+>>> +			if (video_info->max_lane_count == 0 ||
+>>> +			    video_info->max_lane_count > LANE_COUNT4) {
+>>
+>> This sashiko report seems to me valid.
+> 
+> Meh, messed up with 'b4 review' :-/ Apologies
+> 
+> "This sashiko report" [0] was about an enum being signed, so '== 0' could miss
+> negative numbers coming from bogus DT values higher than 1^31.
+> 
 
-Signed-off-by: Geetha sowjanya <gakula@marvell.com>
----
+Ah, I agree. It would be better to add a new inline function to validate 
+that the lane count passed from DT is exactly 1, 2, or 4, just as 
+Sashiko suggested.
 
-Changes in v8:
-- perf: Cancel poll hrtimer in cn10k_ddr_perf_remove() to avoid use-after-free
-  on device unbind (pre-existing for CN10K/Odyssey).
+>>
+>> But I'n no DP expert, I have no idea whether this ther one is valid.
+> 
+> And this was about "Additionally, does this check inadvertently allow 3,
+> which is an invalid DisplayPort lane count?"
+> 
 
- drivers/perf/marvell_cn10k_ddr_pmu.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Yes, the DisplayPort specification only allows lane counts of 1, 2, or 
+4. I did miss the check for the invalid value 3 in the current code.
 
-diff --git a/drivers/perf/marvell_cn10k_ddr_pmu.c b/drivers/perf/marvell_cn10k_ddr_pmu.c
-index 6f638dfe829b..9c82bf4ee2c4 100644
---- a/drivers/perf/marvell_cn10k_ddr_pmu.c
-+++ b/drivers/perf/marvell_cn10k_ddr_pmu.c
-@@ -1284,6 +1284,12 @@ static void cn10k_ddr_perf_remove(struct platform_device *pdev)
- {
- 	struct cn10k_ddr_pmu *ddr_pmu = platform_get_drvdata(pdev);
- 
-+	/*
-+	 * Cancel the poll timer before further teardown so the handler
-+	 * cannot run after this function returns.
-+	 */
-+	hrtimer_cancel(&ddr_pmu->hrtimer);
-+
- 	cpuhp_state_remove_instance_nocalls(
- 				CPUHP_AP_PERF_ARM_MARVELL_CN10K_DDR_ONLINE,
- 				&ddr_pmu->node);
--- 
-2.25.1
+(BTW: I did not find a common helper function in drm_dp_helper.h to 
+validate valid DP lane counts (1, 2, 4). I'm not sure if it would be 
+better to add a generic lane count validation function to the DP helper 
+library instead, to avoid duplicating the same functionality across 
+individual DP drivers. Perhaps other DP experts could provide some 
+advice on this.)
+
+>>> +				dev_err(dp->dev, "samsung,lane-count = %d is out of range\n",
+>>> +					video_info->max_lane_count);
+>>> +				return -EINVAL;
+>>> +			}
+>>> +		}
+>>
+>> As reported by sashiko, 'count == 0' should be 'count <= 0', being an enum.
+>>
+>> Additionally I'd avoid the nested if, and I think using dev_err_probe() is
+>> correct here (we are only called by probe functions), so it all could
+>> become:
+>>
+>>     if (ret || count <= 0 || count > LANE_COUNT0)
+>>          return dev_err_probe(...);
+>>
+>> There are other sashiko reports to patch 3, and at least one seems valid to
+>> me. Can you either fix them in the next iteration or elaborate on why the
+>> code is correct there?
+
+Yes, I will add a helper function to validate the valid lane counts (1, 
+2, 4) and use dev_err_probe() instead in next version.
+
+> 
+> [0] https://sashiko.dev/#/patchset/20260529040530.741336-1-damon.ding%40rock-chips.com
+> 
+> 
+
+Best regards,
+Damon
 
