@@ -1,137 +1,168 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A46BB392C29;
-	Mon,  1 Jun 2026 09:51:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E905039A7F6;
+	Mon,  1 Jun 2026 09:53:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780307480; cv=none; b=UIiiLb7qVqoWE1p3bR6jK6xeTa/bwkdj7Ul0wzJmiRMLviNYbbATV9CnfrVazeIIPbLu9wisrNVWe0MSWcogGRvWKaMoNZFWT0UfhOy8MLuF6grdP9/1Nr/ggKn1KlgIulDwv5dmPRa8OYa5/khCWEmLloUVRdHHsHKkZQ1Px2A=
+	t=1780307632; cv=none; b=ZnoZ6l/vwfZDrBmIOYr3QPz1GuLfOVGhm6lG+fNMBxH5qvcuoA+MyXYOBg5QXHzV/qNfZC3eWc2meL0Wk+goYmAMNEptIzVRMgNUhguwft+l0Hy/jHfIe0VG+JibutWn7DkSgbR/PJ1s1OQ1qSQ5weEmtRTWVlDXvQwd3pGBPnQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780307480; c=relaxed/simple;
-	bh=LcHObPZOT89o12t+anbTSmOcL2opLYoYCH/ox2KGfN0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=oRFenUIsIUSEy60LIQHJ7Zb0wgk3aZ2k6gO7yFsH/9tmUZ8BE68mIa8P/GP+1NVl8QQtDu/VFW58TlC7n2Og736NLMAHqkqX7qkHa5W9NuKrxwuXG8AJae1SCro8CVvelsJWJrt5gJcQmk5csrqzbdvTE316XJhm93iNneTlSDE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=G5pfe/Xt; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qualcomm.com
+	s=arc-20240116; t=1780307632; c=relaxed/simple;
+	bh=z/WcXP9hkms60vcSW9Hmu6C+qDrYHQEnCfD0+woT+Fk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qD+wux0ETNuUIIWWjG/T9qKzEvsrtpDsEv1Wf3zGgSvpb1iJEt3145bilf0XBCvqd3wtCadHNtJD51nOpfpof9mHXBBpUfCod8r08VkElOafxN9LGbMCd9XUplLygT1ZCBz/DUgyQ0Wws9VowrBHYsqg9y3QtchLZlBSmnVWCmg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E6p/I3Jz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="G5pfe/Xt"
-Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6517Wtpf2900945;
-	Mon, 1 Jun 2026 09:51:07 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=9w5omm3ScEZ4KmStizV8/RLJ
-	v7ke2jq6+6Ar/70UJVs=; b=G5pfe/XtfUkZSDZFrXya8pIxrQNEflU7sUmxIUtx
-	IkKDdC9KByNkiySNIcLFPJjvkq3OkBquu7EFk9tGnMC8oVZiig60InA3ddoZOWCH
-	plJ67DuIKbHd2erX8zxOKVhUHSthZ+rooPF0S7ZK8bgyNSsDObnPw9GFCeCdvTVJ
-	8K4/KfWJjsq7lb+0qcvwCJeUSwm7vNOTsfn13ksvxYZVzkH47LhWjXOsID8pyQXR
-	spDNM3SQXqlwIa4qDo1o88SdnQh7CJdJ9YbFKquMKibecWC5i2DpTH4orXqjYSiW
-	dsKxf5dI78TROnLKQ0oI/KF0VCtKTdP252SCX+n6pE8JhA==
-Received: from apblrppmta01.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com [103.229.18.19])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efpw7q2kp-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 01 Jun 2026 09:51:07 +0000 (GMT)
-Received: from pps.filterd (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (8.18.1.7/8.18.1.7) with ESMTP id 6519p3Zq003158;
-	Mon, 1 Jun 2026 09:51:03 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 4efryj660m-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 01 Jun 2026 09:51:03 +0000 (GMT)
-Received: from APBLRPPMTA01.qualcomm.com (APBLRPPMTA01.qualcomm.com [127.0.0.1])
-	by pps.reinject (8.18.1.12/8.18.1.12) with ESMTP id 6519p2uL003152;
-	Mon, 1 Jun 2026 09:51:02 GMT
-Received: from hu-devc-hyd-u22-c.qualcomm.com (hu-kotarake-hyd.qualcomm.com [10.213.97.140])
-	by APBLRPPMTA01.qualcomm.com (PPS) with ESMTPS id 6519p2eP003151
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Mon, 01 Jun 2026 09:51:02 +0000 (GMT)
-Received: by hu-devc-hyd-u22-c.qualcomm.com (Postfix, from userid 2389607)
-	id CD085B2F; Mon,  1 Jun 2026 15:21:01 +0530 (+0530)
-Date: Mon, 1 Jun 2026 15:21:01 +0530
-From: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-To: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bjorn Andersson <andersson@kernel.org>, Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
-        kamal.wadhwa@oss.qualcomm.com, jishnu.prakash@oss.qualcomm.com,
-        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Subject: Re: [PATCH v3 0/2] pmdomain: qcom: rpmpd: Add support for Shikra
-Message-ID: <20260601095101.y3cmg5iyke3hc7sp@hu-kotarake-hyd.qualcomm.com>
-References: <20260522-add_rpmpd_shikra-v3-0-632838e2428a@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E6p/I3Jz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0EA9F1F00893;
+	Mon,  1 Jun 2026 09:53:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780307623;
+	bh=JWl0lw+MoxNh959GGHol6HnrW1Sk6xuc5UpJG87M1Ms=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=E6p/I3JzH3c+lFFCTSlxFieUaayOwwlWjoVveaOTfdt3oHB26w+IYlDMJpMOU8+5k
+	 Dpzq0OlcfCEItDYF+45cdTWBG3GLoMz+7nJLi1Cqp/QmBAkzvIoobeNuL3XZeMWwG+
+	 CrtzZItL6IVTjSprHQ8S1iQn9+J7+0mbmJ/Ddwshd1nOLaIFmCgtuexREJf+3pLzgP
+	 MMncv1loekecFWTAAGsfoHZeGzpeBDeOAdKIzJo3uf6wKRcxwIZtJq/HVpAk2eohb5
+	 PSqPCHaoMEUH3U0PxCTJxF10fQcYp8vVc+dlcFi4KnYiTC4VzImP3qWpKTwhdOf91f
+	 1dKh7RLBncNSg==
+Date: Mon, 1 Jun 2026 10:53:34 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
+ <andy@kernel.org>, Maxwell Doose <m32285159@gmail.com>,
+ linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: flow: add Sensirion SLF3S liquid flow
+ sensor driver
+Message-ID: <20260601105334.3956c09d@jic23-huawei>
+In-Reply-To: <20260530205435.37326-4-wafgo01@gmail.com>
+References: <20260530205435.37326-1-wafgo01@gmail.com>
+	<20260530205435.37326-4-wafgo01@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260522-add_rpmpd_shikra-v3-0-632838e2428a@oss.qualcomm.com>
-X-QCInternal: smtphost
-X-QCInternal: smtphost
-X-Proofpoint-GUID: m-A7s4xClwTeaar6oMgePOH161W99dzL
-X-Proofpoint-ORIG-GUID: m-A7s4xClwTeaar6oMgePOH161W99dzL
-X-Authority-Analysis: v=2.4 cv=bNIm5v+Z c=1 sm=1 tr=0 ts=6a1d560b cx=c_pps
- a=Ou0eQOY4+eZoSc0qltEV5Q==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22 a=VwQbUJbxAAAA:8
- a=EUspDBNiAAAA:8 a=PL_2mrZd0AI6CT4_4VgA:9 a=CjuIK1q_8ugA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA5OCBTYWx0ZWRfX47FsgCb3Jn9i
- a3pNPcdFwNrGPPYjRkOzx4NUo0/Afl3s1NlVwdTC5D1QTuACgMKRJy/9pwIzmEg5DnH0QjZzEq3
- yOOrTjmB8E56TjlxPkR4uBv3SFo5X9JUxpwcO7/TzAHW6Ie6Jwtvb73BBa4+5X1CNItlIuyhoSL
- mQlNrOZ4xGG7B9PA22h0D30gMcQPRYjeNnwmwslgP65fA2rWhxStR/SLT4jhzk4+AXfmRk3J8GR
- yxrbu1liuybAefANZlw4i85usfWvQXS0APPM8TAJNo2jskdsRuS+JMAhoglWbOKMfanlLiuK7go
- Qz3YHxKMLOnpqncGYSklPezv4OsYcFt0AEGLLY58fDoo0o1jvzPHiSQ5Ezc7n6kbcLZTHeC4A7s
- HTe65O1EXL7epnkIIJpqY9O2vKx2iX1he5+3KKg6PyeWzxMlQ/NXzqDf2K1CdhJpUHBWf2+d8Ib
- pwaA8DdW5Ou2wcSa6eQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 impostorscore=0 phishscore=0 adultscore=0 malwarescore=0
- bulkscore=0 priorityscore=1501 lowpriorityscore=0 spamscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606010098
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 22, 2026 at 01:51:53PM +0530, Rakesh Kota wrote:
-> Add rpmpd support for shikra Platform including RPM power domains.
-> 
-> Signed-off-by: Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> ---
-> Changes in v3:
-> - Updated the subject for Cover-later and Patch2.
-> - No changes in Patch1.
-> - Link to v2: https://lore.kernel.org/r/20260514-add_rpmpd_shikra-v2-0-20bbd37592b0@oss.qualcomm.com
->
-Hello @Ulf Hansson,
+On Sat, 30 May 2026 22:54:32 +0200
+Wadim Mueller <wafgo01@gmail.com> wrote:
 
-Patch 1 and Patch 2 both have the Reviewed-by tag. If there are no
-further comments or concerns, could you please help to pick the change ?
+> Add a driver for the Sensirion SLF3S family of digital
+> liquid-flow sensors on I2C.  Currently supported variants are
+> SLF3S-0600F, SLF3S-1300F and SLF3S-4000B; they share the same
+> register map and differ only in flow-scale factor and calibrated
+> measurement range.  The variant (and therefore the scale) is
+> auto-detected from the product-information register at probe time.
+> 
+> Each measurement frame returns a 16-bit signed flow value, a
+> 16-bit signed temperature reading and a status word, each
+> protected by a CRC-8 byte.  The driver exposes the flow rate as
+> IIO_VOLUMEFLOW and the temperature as IIO_TEMP via the standard
+> IIO read_raw / read_scale interface.
+> 
+> The active calibration medium can be switched at runtime between
+> the factory-calibrated water and isopropyl-alcohol modes via the
+> in_volumeflow_medium sysfs attribute; the sensor starts in water
+> mode after probe.
+> 
+> This driver also creates the drivers/iio/flow/ subdirectory and
+> the corresponding Kconfig/Makefile glue.
+> 
+> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+Hi Wadim
 
-regards
-Rakesh
+A few things inline.  Biggest one is don't use direct mode claims
+to do serialization of things that lie entirely in your driver.
+That there is a lock in that call is an implementation detail you
+should not be relying on.
 
-> Changes in v2:
-> - Collected Reviewed-by tags.
-> - reused SM6125 power domains as suggested by Konrad Dybcio.
-> - Link to v1: https://lore.kernel.org/r/20260429-add_rpmpd_shikra-v1-0-fdba28564380@oss.qualcomm.com
-> 
-> ---
-> Rakesh Kota (2):
->       dt-bindings: power: qcom,rpmpd: document the Shikra RPM Power Domains
->       pmdomain: qcom: rpmpd: Add Shikra RPM Power Domains
-> 
->  Documentation/devicetree/bindings/power/qcom,rpmpd.yaml | 1 +
->  drivers/pmdomain/qcom/rpmpd.c                           | 7 +++++++
->  2 files changed, 8 insertions(+)
-> ---
-> base-commit: 0787c45ea08a13b5482e701fabc741877cf681f6
-> change-id: 20260429-add_rpmpd_shikra-f57873b2fa7c
-> 
-> Best regards,
-> -- 
-> Rakesh Kota <rakesh.kota@oss.qualcomm.com>
-> 
+Jonathan
+
+> diff --git a/drivers/iio/flow/slf3s.c b/drivers/iio/flow/slf3s.c
+> new file mode 100644
+> index 000000000..497a56f59
+> --- /dev/null
+> +++ b/drivers/iio/flow/slf3s.c
+
+> +
+> +/*
+> + * Read the product-info block and pick the matching variant.  The
+> + * sub-type byte returned by the sensor is the source of truth; a
+> + * DT-supplied compatible only seeds an initial guess and is overridden
+> + * on mismatch (with an informational message so misconfigured device
+> + * trees are easy to spot).
+
+Wrap to 80 chars.  Also if following suggestion to 'warn' on mismatch
+make sure to update the comment as well.
+
+
+> + *
+> + * Bus / CRC failures are real errors and fail probe.  An unknown
+> + * sub-type byte fails probe too: we cannot publish a meaningful scale
+> + * without a matching entry in slf3s_variants[].
+> + */
+> +static int slf3s_detect_variant(struct slf3s_data *sf)
+> +{
+
+
+> +
+> +static int slf3s_set_medium(struct iio_dev *indio_dev,
+> +			    const struct iio_chan_spec *chan, unsigned int mode)
+> +{
+> +	struct slf3s_data *sf = iio_priv(indio_dev);
+> +	const u8 *start_cmd;
+> +	int ret;
+> +
+> +	if (!iio_device_claim_direct(indio_dev))
+
+It makes no sense to claim direct mode in a driver that doesn't
+do any other modes.  I think you are just using this to serialize
+commands, all of which occur in direct mode.  Don't do that, use
+your own local lock. 
+
+> +		return -EBUSY;
+> +
+> +	ret = slf3s_send_cmd(sf->client, slf3s_cmd_stop_meas);
+> +	if (ret)
+> +		goto out;
+> +
+> +	start_cmd = (mode == SLF3S_MEDIUM_IPA) ? slf3s_cmd_start_ipa
+> +					       : slf3s_cmd_start_water;
+> +
+> +	ret = slf3s_send_cmd(sf->client, start_cmd);
+> +	if (ret)
+> +		goto out;
+> +
+> +	fsleep(SLF3S_MEAS_START_DELAY_US);
+> +	sf->medium = mode;
+> +out:
+> +	iio_device_release_direct(indio_dev);
+> +
+> +	return ret;
+> +}
+
+
+> +static const struct i2c_device_id slf3s_id[] = {
+> +	{ .name = "slf3s-0600f",
+> +	  .driver_data = (kernel_ulong_t)&slf3s_variants[0] },
+
+	{
+		.name = "slf3s-0600f",
+		.driver_data = (kernel_ulong_t)&slf3s_variants[0],
+	},
+
+> +	{ .name = "slf3s-1300f",
+> +	  .driver_data = (kernel_ulong_t)&slf3s_variants[1] },
+> +	{ .name = "slf3s-4000b",
+> +	  .driver_data = (kernel_ulong_t)&slf3s_variants[2] },
+> +	{ }
+> +};
+> +MODULE_DEVICE_TABLE(i2c, slf3s_id);
+
