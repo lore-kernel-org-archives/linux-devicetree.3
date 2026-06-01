@@ -1,81 +1,88 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A305339E194
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 13:12:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B6E23A4513;
+	Mon,  1 Jun 2026 13:16:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780319549; cv=none; b=mdVRuarj6iLML59fi2ovkl2Rlf9zAVXmzB2MZ4m5+AS8Ekb0C9xH61L+FkyCYm+LSNMqEPG3y5/gHqCILi22F97OCfExj+XUsOQqGR+0h87ImppBd53qcq4onqgXEYAnjY/5+KTxPHAvMXXeccqb1jmG/XNsSPX8eUzXJEDKcPc=
+	t=1780319770; cv=none; b=HuHqPi9fi6ud1MWiCrAtKYAkaQXn1udZwUEu4BfheuzOmbPXOlE37LCR7yUrTvggXgP3PHeVGPo48mcnuviwdyVbs8mAkH0TtnVaZnNKQqcGi4IMYknYzExEr9cSnwfBb77gWBOXzZVl4E65eTqPo3Ja+uek8CLkhca9KPb0qP4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780319549; c=relaxed/simple;
-	bh=5dVk1Lp5I+yruMPgh3E179DUkAyiEJxxLJrxFhHEQ5I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Erx/Y154f8HX7iX0XGLMXukGuMCejdL3zDlhMNt04ZwpRUOS2+m/s6gwgunQbhdRzXUMCfywsYGafHLM8eecx46IeJMNTorefe+RKmzMsLmaEhmDMg7SgfZ7E6SamNIjV04Zml4QT9Oj1TJ8UEvqR5cYf+LIAf/34mKmEAVkln8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvOJbbaA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780319770; c=relaxed/simple;
+	bh=BWtIneBIlQhjcv6vSIMhHxV3eQvlE53NKWO7dJEV4a8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YZdYwxEg5s4jTNyBcErZgWUV3HCaUF7t5iYDzwtaVMs1jmDHelWH0hE6CLSp1gcdUSSkLn3UV0kjmP3gRJkIcXLlx7GQB6knOTbZDaQLKnKxpKHj4olmbsDkfJ5zWwAEYs0jzQgxyfZqaVtTyMwMxX4C7NxEBOtibVHPp+bv6+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WD2m4k22; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvOJbbaA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460FC1F00899
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 13:12:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WD2m4k22"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 314501F00893;
+	Mon,  1 Jun 2026 13:16:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780319548;
-	bh=5dVk1Lp5I+yruMPgh3E179DUkAyiEJxxLJrxFhHEQ5I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=dvOJbbaAttMoQQH1ju74EgrOZXYKxJM7u3oH1gYTD+UinAbKH7hQ5zqyJ7FvhPd3T
-	 ZTXH+OeOQ5Yb94JG5rcoqDzu//cEG6Jn0RgnlYvAB4EF90oHFFbnZH1D2nboJkQc0U
-	 Q6myDJ2DDbQ5tdMdldXm/dyNkCJkxmhX4akqWPbBX4qWrYGm/Rj+B/OQp5sIX5524v
-	 4JDd1XUq0G4mhlisLpHkLquMbzbTAs0mdJtR9KoL4EpuIk2ZYpUne8NQZmr0HQL0LZ
-	 xQU23X+bgNo4+sUphah9njD3jEecGCLjIWjJ6oifrKvoQoaPhW8oJlBwm9zXsHf+GD
-	 wlF2h6Ghxit6Q==
-Received: by mail-lf1-f47.google.com with SMTP id 2adb3069b0e04-5aa6cdebc33so807840e87.2
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 06:12:28 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9eVBCYj4ZzAZLssOtw+4SRfXNUkHFaC1QM6lSuiylT9/eh4DkGVPG3Y8yeDppM51GN6WHdz3isVrxr@vger.kernel.org
-X-Gm-Message-State: AOJu0YxZCX8UWuSFf+qn4Z0rt7LT3U85EtHNRQNa6VfEcjJa5F6Bxqc6
-	+ZmoudbDrDSCkjYCYlxxyC/aq3bMnAU/1tU+Kem21iDQfzxS/+SEUvIXMMFNxWvhMuqSW9iNBEv
-	kUlR4i2OT9Sn/SWm6or2DVjwlKDAyoIM=
-X-Received: by 2002:a05:6512:1504:10b0:5aa:6301:846b with SMTP id
- 2adb3069b0e04-5aa73e054b7mr19003e87.5.1780319547052; Mon, 01 Jun 2026
- 06:12:27 -0700 (PDT)
+	s=k20260515; t=1780319769;
+	bh=BWtIneBIlQhjcv6vSIMhHxV3eQvlE53NKWO7dJEV4a8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=WD2m4k22PhkVpk0bEbkTalKbbpJ2MYHUEElNlmNa4Maq/ZPJGoV8uvaMA/Qtf5gIT
+	 M1wky4nad7SMAO9zhgQrAekKrDuXZqWJurxQIQgnx6bXfQSARqJjROqTh0K5BH2le5
+	 ftEimi3lGlcYQbhNBk0RAtP1/NcZK+how9NV7pzmHg2ymlBIztZCQzXyfPPEtYv/4E
+	 khyS6PhKisPkdgkqhteL6laPYLa5l/uyZafayRJ9ZUfHYiRqonGIfRmLWPeSnyjG+M
+	 HJ1eY7ACypRFdgzhUz0f9GGlNCS9GSdyp38Ao4SgCtMguCewRCoXh74sR3+dtPyt9/
+	 E8w+j++UsPylQ==
+Date: Mon, 1 Jun 2026 14:16:03 +0100
+From: Mark Brown <broonie@kernel.org>
+To: y.oudjana@protonmail.com
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Flora Fu <flora.fu@mediatek.com>,
+	Alexandre Mergnat <amergnat@baylibre.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Dmitry Torokhov <dmitry.torokhov@gmail.com>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, linux-input@vger.kernel.org
+Subject: Re: [PATCH v2 0/4] MediaTek MT6735+MT6328 SoC/PMIC pair base support
+Message-ID: <169f4676-07f6-46d4-9478-55af4de1e6a0@sirena.org.uk>
+References: <20260531-mt6735-pwrap-mt6328-pmic-v2-0-dac37bf92894@protonmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org>
- <20260530004902.BCC381F00898@smtp.kernel.org> <CAD++jLmZoGh+o5YKfjoUCWhwiRaO+Lm-9DFUdUzd9KpydWK27g@mail.gmail.com>
- <69dfe2a0-ce0f-4a92-98b5-c4cefd30ce49@redhat.com>
-In-Reply-To: <69dfe2a0-ce0f-4a92-98b5-c4cefd30ce49@redhat.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Mon, 1 Jun 2026 15:12:14 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnZ1h4MpDEZn5FzX7yzGLYGCpt794zNf0OXQmgKnFPWew@mail.gmail.com>
-X-Gm-Features: AVHnY4LUshpVi1FlOnwrP2XEg9PLFn_Xmy8Mug-mvKbshLCGNkUUq8U-oquV09w
-Message-ID: <CAD++jLnZ1h4MpDEZn5FzX7yzGLYGCpt794zNf0OXQmgKnFPWew@mail.gmail.com>
-Subject: Re: [PATCH net-next v3 5/5] net: dsa: ks8995: Delete surplus driver
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
-	conor+dt@kernel.org, robh@kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="c2/ypeZQb3Jmpy3Y"
+Content-Disposition: inline
+In-Reply-To: <20260531-mt6735-pwrap-mt6328-pmic-v2-0-dac37bf92894@protonmail.com>
+X-Cookie: Have a nice day!
 
-On Mon, Jun 1, 2026 at 12:41=E2=80=AFPM Paolo Abeni <pabeni@redhat.com> wro=
-te:
-> On 6/1/26 10:09 AM, Linus Walleij wrote:
-> > On Sat, May 30, 2026 at 2:49=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-> >> - [Medium] Silent loss of switch driver functionality on kernel upgrad=
-e due to missing Kconfig migration.
-> >
-> > No-one cares.
->
-> Uhm... I have quite mixed opinion WRT to the above points as try to
-> avoid breaking users in any way. I'd love to ear a 2nd opinion from the
-> DSA crew.
+--c2/ypeZQb3Jmpy3Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-OK then, I can be less cowboy-coding and try to play it nice.
+On Sun, May 31, 2026 at 11:10:41AM +0200, Yassine Oudjana via B4 Relay wrote:
+> These patches are part of a larger effort to support the MT6735 SoC family in
+> mainline Linux. More patches (unsent or sent and pending review or revision)
+> can be found here[1].
 
-Would a phase-over Kconfig option making
-CONFIG_NET_DSA_KS8995 just select NET_DSA_MICROCHIP_KSZ_SPI
-cut it? (Sashiko suggest this I think.)
+Please send patches for unrelated subsystems as separate serieses to
+each subsystem unless there's a depdendency, making everything into a
+cross subsystem series just makes it harder to work out what's supposed
+to happen.
 
-Yours,
-Linus Walleij
+--c2/ypeZQb3Jmpy3Y
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmodhhIACgkQJNaLcl1U
+h9DICQf/R2lYrAwOVaBt02e0o2KXDCOg7XUNcak0rKzUO6DJv/i+DBjYEr9yT8tc
+rGMsTpjPtmINDcIZBmSo3+yMjUMusP3PofGq3KtYhS2Sw08sVOzrFoItEUcpt1do
+tgcsj3U87khkp9maizKvOi9wxe9N0g1mked+B/ejcHXmYqFcEfCpSWg/TLzUM5je
+ggYinIghnIfrE8odn66Vda4OwVITZVy3QamQwnXsrCuv11MbS3uKuzO1Xdrdwexb
+ySiGSWUKCxKqeWUsqclavQjnQQHVShAjku304mKF0uOZ3UJmsLPIbvbMr18VhMkL
+ndY1hQKyOYiBfJDe4ykrwxnVINhGng==
+=Vvm7
+-----END PGP SIGNATURE-----
+
+--c2/ypeZQb3Jmpy3Y--
