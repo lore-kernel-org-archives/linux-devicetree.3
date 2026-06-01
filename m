@@ -1,85 +1,77 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1CA963932E2;
-	Mon,  1 Jun 2026 09:44:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A2CF3955E2;
+	Mon,  1 Jun 2026 09:45:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780307083; cv=none; b=aOWhIMU22zP8jN3v9WkeMNnbEzd/Rrh56RVmYm6guITZrRkkNOu2ve0FCsVD7R4HEy4N/Ocf06G0eqyz5Th1/X05vvJfyxVouuXjqQNzVUg1tKxFq/XA2TPRVgY99TBMDCUoam/vlNAlw8XXqA4v57kAu72TVzTVeStnqEzUd6o=
+	t=1780307127; cv=none; b=u9bbeC7sTKIaMxA8AqTQMhNvK8A43Kij1dBnNR5r6tN7pc4dhEKVrlz1tn/0ZhRD9e/CYYh4AmGzhu3A3WVQbFbfH96WWsMuXcDydk8jJ6KeE+1x0/tVoLWtm2TDZWY2V+YohGq1mvaH9asE05hYtxG/Cp+fLmYAVuknPX1ntyU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780307083; c=relaxed/simple;
-	bh=tZoJma3MElFIutn9azT4FSlW5wGPlYyrXPZxkBcBLNE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hPu7XmZqMRqBlHAgZmq+Kl+bFec9zRcWkKfoIUAZRyU69DCUZlww1NpZfryt6mnBZBq8tj6nK4tSgwQgMhJRJ6avx2rikylX+asD+ff32ujGrjCxPoDIQwv/z160hIDxjvJcaqTUPiFM4EOH9Fxcp+jrUNfk+CbhVpRrNCDivZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NS6jiN9z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780307127; c=relaxed/simple;
+	bh=rXhfy0OJXSHb6/IJZYenwk8mraVQ6R3qSlOb1bb7sck=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=O2EoM6l4GQ/UvS46hSib0TTtIGPYVQCs2TJ9SE0w/3dFZImkcBYPRLGt+tqpBdPVKvVpe/9S8l0gMmwHLMpoh4fre5inHcI7Zx24pR61FyZXY6Od1/XkRp7fQDBHZYM/6I7/RyjG5FSOnss8jos7nUclTruFb0RcQDuhZWaBltI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=w6hWpZGn; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NS6jiN9z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFAAD1F00898;
-	Mon,  1 Jun 2026 09:44:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780307080;
-	bh=pRtcNLHUVksz+24fzpsR6ejp4fnlgIHfZnkaZBtYOfU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=NS6jiN9z6IRIXp+uHhRlZYvfKDiOeBT1xqNlBQVxhVfy3BC4389ZkNHsZw82zzbvs
-	 379stYmLiIfZa9GxW6OSTzt/yxP0wVU8lCwljl1zfYUnTZ757CwuXb0ykN23ix86U7
-	 9J2vcAywbMMiIgK3Nk0rsrB7UDchsCZXK0ev8QLXVASYx2AwZr+dS4zV/2gqHHlquy
-	 OnGk/mjOGbt+zRYbRuGg5Bt3I/T6dSbcRdYPsnJjq+5x4ZluPsgCxq6A+u/o3v1T7I
-	 XbTMLKM80Qr15s4xWWfHMdfBJGzfmhQpkPFzkuXfiaWmeMiNNdO5oGGo7Pp2ctQTpa
-	 5TFyChmawWxXw==
-Date: Mon, 1 Jun 2026 10:44:30 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
- Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko
- <andy@kernel.org>, Maxwell Doose <m32285159@gmail.com>,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: iio: flow: add Sensirion SLF3S
- liquid flow sensor
-Message-ID: <20260601104430.2f5c2f98@jic23-huawei>
-In-Reply-To: <20260530205435.37326-3-wafgo01@gmail.com>
-References: <20260530205435.37326-1-wafgo01@gmail.com>
-	<20260530205435.37326-3-wafgo01@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="w6hWpZGn"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 7D053A4C09;
+	Mon,  1 Jun 2026 11:45:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1780307120; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=c2lq12F95AF0fONDKT9cGLInrpieeMANpi5wpSqUpUU=;
+	b=w6hWpZGn0UR6aM5a2JDPluPYsH724FkbNFbawhFfJhmmkiRVcbwW3cI0oHH37mva6nEjLN
+	0b8UTnribARyA8LFQDN+2yADlEUz8UygW0SiX9+KkHH5vKgpy7zjHc02/8nTOyduMESBUA
+	o0R9TZvtK3WWkJRa0blYe0f9dsDyI1Pd4UNgYSVHqrt52t0u9h8cyjtKiuayTyy2qeCh7E
+	TFltM0aw/UR7wC9yxHs19QDTIZ5OXbulqfTQYEM6+5p6QRyf+F4mfKgYsgLCBjWZa4fI0W
+	8iBhIKudBxgKsEvA6tcytITuDLkKjrFBMBSURMtyR5/4pxtxlv0KAtC5v5zDLg==
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Date: Mon, 01 Jun 2026 11:45:19 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: Linus Walleij <linusw@kernel.org>
+Cc: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com,
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, "David S.
+ Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub
+ Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, Simon Horman
+ <horms@kernel.org>, Russell King <linux@armlinux.org.uk>,
+ netdev@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH net-next v3 5/5] net: dsa: ks8995: Delete surplus driver
+In-Reply-To: <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org>
+References: <20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org>
+ <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org>
+Message-ID: <8c81f622caa31c526fd8b00585b1cc96@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=US-ASCII;
+ format=flowed
 Content-Transfer-Encoding: 7bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Sat, 30 May 2026 22:54:31 +0200
-Wadim Mueller <wafgo01@gmail.com> wrote:
+Hi Linus
 
-> Document the bindings for the Sensirion SLF3S family of digital
-> liquid-flow sensors on I2C.  The family currently covers the
-> SLF3S-0600F, SLF3S-1300F and SLF3S-4000B variants.
+On 26.5.2026 17:59, Linus Walleij wrote:
+> The Microchip ksz driver now handles all switches that the
+> old driver was handling, but better.
 > 
-> The driver auto-detects the variant from the product-information
-> register at probe time; the per-variant compatible strings exist
-> for documentation and dt_binding_check purposes.
+> Delete the old driver.
 > 
-> The active calibration medium (water / IPA) is runtime-switchable
-> via the in_volumeflow_medium sysfs attribute and therefore not a
-> DT property.
-> 
-> Signed-off-by: Wadim Mueller <wafgo01@gmail.com>
+> Signed-off-by: Linus Walleij <linusw@kernel.org>
 
-> +
-> +description:
-> +  Family of digital liquid-flow sensors from Sensirion with I2C
-> +  interface.  All family members share the same register map; sub-types
-> +  differ only in the flow scale factor and the calibrated measurement
-> +  range, both of which are detected at probe time via the
-> +  product-information register.
-Slightly odd line wrap.  Can go to 80 chars. e.g. something like
+> [...]
 
-  Family of digital liquid-flow sensors from Sensirion with I2C interface. All
-  family members share the same register map; sub-types differ only in the flow
-  scale factor and the calibrated measurement range, both of which are detected
-  at probe time via the product-information register.
+Now that the old driver is gone and the three micrel,* compatibles are
+matched by the new ksz_spi driver, should micrel,ks8995.yaml be folded
+into microchip,ksz.yaml? Not a blocker either way.
 
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
+Thanks
+Nicolai
