@@ -1,271 +1,254 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80628248880
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:35:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C762749E6
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:37:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780328149; cv=none; b=Wtig+B522NVoZF3ISRVGkq3na3bMeFH3zG8WqPB2zzAYH60UkWWVsfMWMd6ZmHXNfWCzk1dic3tlThh4YqgqO1I7RuquiqP/KQP7qYRXbRTWQVMyY0AXU5OvFBgrF9VGWvH88jxjJD0HB2SQIByeRTsauK1+FkiqHJCI6hfdkDw=
+	t=1780328277; cv=none; b=HWmAuTIl5uSWCQZjxrklyotMdJuaA2pq84vV0FjPJkhxmp7sipdIOFrSftQuok0eBdrrrgD7U9QRIGOgeEbGbmZgR57GtYjPpVf4k9i9hnUKohnGO9bD+/fZ4T8//+NvzF4YmLVzo4AWCC6Jeyaq7J0iDVqAzZAgs54KFUjHf54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780328149; c=relaxed/simple;
-	bh=1rHE/RSkiAYhBj9IST/aUxSjxIwWRmVYSLNmuY7LxzQ=;
+	s=arc-20240116; t=1780328277; c=relaxed/simple;
+	bh=7McSbv1i7t6KzfpN5ly5bnnQGtb9KDUSCcLaaFPodKU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oEwVgmOXefM5CUUacon+2SlSfXs6IZO8p9n81KL91qioHR4B7HbKCf/uSQwqH0cFHvey76Uw6bpQWYOOBuJsPXFN9E4VRqzs7VhNhlaMtEwX/uHW9bt9YqRZkd/ridyAkz2H9l/D+QCJ41tGZJPWU4/cFUL1ZuQiK6429o3UtZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iEnOJxOz; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=bPDLvsDfkSLx3Hj0cx4dOdLQ6ubfiyJCaWMoNX+cBjOVMgt98EPuxvQ5Tli9c9bJgjhG51zvEa0UK+b9F7aULckZZxFR8SNPHMDWwJ/Zr6DIN/Ibw52Xc47Eb2MIyWBATrcMKVCy0VXyK8W2EuUsZKcyj5LIwmJBDFlKyUHBG7g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fJY1M5lX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iEnOJxOz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96B8B1F0089A;
-	Mon,  1 Jun 2026 15:35:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fJY1M5lX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF841F0089A;
+	Mon,  1 Jun 2026 15:37:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780328148;
-	bh=xVhGI11nETQvO66XjxhlY+r2RDGl50kgjv9SprwmQUg=;
+	s=k20260515; t=1780328275;
+	bh=mZjXFU1pGYVA8sFTSyTDcWBvjlPUmzUA48ZZRAke8hs=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=iEnOJxOzUgkf5eOOPLnKIKZyf59FGVmFF1RUyaxk8+Kq4F2ye6R99RB0ZVBKEI/bn
-	 XFhfzE3OJRnKafLTT0IhPKyB9S53Sc4bRPavXjGWEEk1L8eCbYyIHU+a4wPVC/drDs
-	 HEI52TAx3yciMkVPZDKcaAaA4Pw3AX67WoaHnL/RPaEP3ZvBJXuIj1q3zusoRh0n5x
-	 syKqkeWepMj63PCvT1ZekmUQmTs2+0aSEvVF9/5e9XoSENh0bRqWfmZRyhBmTySL2r
-	 vrvY9LKsVg7n0vQw2vcS0ucxy7uXAUCYdxZaiu4HvGfnRRJSUhkmEkdcafvMOMRzDb
-	 NCpIag/EpU2Wg==
+	b=fJY1M5lX7UWR4NHWXPwas/VJF1FROz8wsqGhjrchyfyMw8DbjM0Pr/c+LpiLWaB20
+	 a9UQVpbw4IJxnJhasbVHRcQkNsSbZWPEX08s5TMmZOHPpBl1qRufXV6GNDrTDrVmJj
+	 rhT85PE8g1NLTxNl7wg4O1gJQ8NASogUx6V1hxAASuV38a4lpLKzukDA2rrMs/T8cN
+	 5PU+0nA/QtJz7xhytGPQ27t6Szi2RZcErnBmAB2REd0GoA++4yvFNGttvTGpKpyqqh
+	 hQP0FTL4WR2PqhOF5HRmUX9adWYZHXDxg1YpxaCIwuSkLAeFJgE+RDnUqc68uEyB4g
+	 mzwf62gwaxa0w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
+Subject: Re: [PATCH v3 11/11] video: leds: backlight: lm3533: Support
+ getting LED sources from DT
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Svyatoslav Ryhel" <clamor95@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260601151831.76350-6-clamor95@gmail.com>
-References: <20260601151831.76350-6-clamor95@gmail.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260601151831.76350-12-clamor95@gmail.com>
+References: <20260601151831.76350-12-clamor95@gmail.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 15:35:47 +0000
-Message-Id: <20260601153547.96B8B1F0089A@smtp.kernel.org>
+Date: Mon, 01 Jun 2026 15:37:55 +0000
+Message-Id: <20260601153755.8DF841F0089A@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Out-of-bounds array write in `lm3533_devices` when a DT child node=
- matches multiple compatible strings.
-- [High] The ALS driver expects the 'ti,resistor-value-ohms' property, but =
-the DT binding defines 'ti,resistor-ohms'.
-- [Medium] Skipped child nodes with invalid 'reg' properties will cause 'mf=
-d_add_devices' to assign the wrong OF node to subsequent valid subdevices.
-- [Medium] The check `if (!als->irq)` in `store_thresh_either_en` fails to =
-handle negative error codes returned by `platform_get_irq_optional`, allowi=
-ng invalid IRQ configuration.
-- [Low] Incompatible pointer type passed to `device_property_read_u32()`, v=
-iolating strict C typing.
+- [High] Register Overwrite Logic Error in LED and Backlight Setup
+- [Medium] Silent failure when `led-sources` exceeds maximum supported items
 --
 
-commit 91427aa1400cfc0dbe1f634ca4391a5aa41811ec
+commit d198a595bf518d4b23e00515d642947b56c4b197
 Author: Svyatoslav Ryhel <clamor95@gmail.com>
-Subject: mfd: lm3533: Convert to use OF bindings
 
-This commit converts the LM3533 driver stack from using platform data to
-using Device Tree bindings. It updates the core, als, backlight, and led
-drivers to parse properties directly from the device hierarchy.
+video: leds: backlight: lm3533: Support getting LED sources from DT
 
-> diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-al=
-s.c
-> index 52136ca1abc94..55b35467a722d 100644
-> --- a/drivers/iio/light/lm3533-als.c
-> +++ b/drivers/iio/light/lm3533-als.c
+Add Control Bank to HVLED/LVLED muxing support based on the led-sources
+defined in the device tree.
+
+> diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
+> index f2502daf450d8..6db1c1fd2e20d 100644
+> --- a/drivers/leds/leds-lm3533.c
+> +++ b/drivers/leds/leds-lm3533.c
+
 [ ... ]
-> @@ -716,30 +722,34 @@ static const struct attribute_group lm3533_als_attr=
-ibute_group =3D {
->  	.attrs =3D lm3533_als_attributes
->  };
+
+> @@ -641,7 +651,33 @@ static const struct attribute_group *lm3533_led_attr=
+ibute_groups[] =3D {
 > =20
-> -static int lm3533_als_setup(struct lm3533_als *als,
-> -			    const struct lm3533_als_platform_data *pdata)
-> +static int lm3533_als_setup(struct lm3533_als *als)
+>  static int lm3533_led_setup(struct lm3533_led *led)
 >  {
-[ ... ]
-> -	if (!pdata->pwm_mode) {
-> -		if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
-> -		    pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
-> -			dev_err(&als->pdev->dev, "invalid resistor value\n");
-> -			return -EINVAL;
-> -		}
-> +	if (!als->pwm_mode) {
-> +		ret =3D device_property_read_u32(dev, "ti,resistor-value-ohms",
-> +					       &als->r_select);
+> -	int ret;
+> +	u32 output_cfg_shift =3D 0;
+> +	u32 output_cfg_val =3D 0;
+> +	int ret, i;
+> +
+> +	if (led->num_leds) {
+> +		for (i =3D 0; i < led->num_leds; i++) {
+> +			if (led->leds[i] >=3D LM3533_LVCTRLBANK_MAX)
+> +				continue;
+> +
+> +			output_cfg_shift =3D led->leds[i] * 2;
+> +			output_cfg_val |=3D led->id << output_cfg_shift;
+> +		}
+> +
+> +		/* LVLED1, LVLED2 and LVLED3 */
+> +		ret =3D regmap_update_bits(led->lm3533->regmap, LM3533_REG_OUTPUT_CONF=
+1,
+> +					 OUTPUT_CONF1_MASK,
+> +					 output_cfg_val << OUTPUT_CONF1_SHIFT);
 
 [Severity: High]
-Does this use the wrong property name? The device tree binding requires
-"ti,resistor-ohms", but this attempts to read "ti,resistor-value-ohms". If a
-conformant DT is provided, this read will fail and unconditionally abort the
-driver probe when not in PWM mode.
+Does this code inadvertently clear configurations for other LED strings?
+
+Because OUTPUT_CONF1_MASK is a static broad mask (GENMASK(7, 2)), the call =
+to
+regmap_update_bits() clears all LVLED1-3 fields that are not part of the
+current output_cfg_val.
+
+If multiple control banks are probed sequentially, it seems the later probe
+will overwrite and break the hardware routing of previously configured bank=
+s.
+Should the mask be dynamically generated based on the specific strings being
+configured in led-sources instead of updating all bits?
 
 > +		if (ret)
-> +			return dev_err_probe(dev, ret,
-> +					     "failed to ger resistor value\n");
-[ ... ]
-> @@ -830,25 +833,28 @@ static int lm3533_als_probe(struct platform_device =
-*pdev)
->  	indio_dev->channels =3D lm3533_als_channels;
->  	indio_dev->num_channels =3D ARRAY_SIZE(lm3533_als_channels);
->  	indio_dev->name =3D dev_name(&pdev->dev);
-> -	iio_device_set_parent(indio_dev, pdev->dev.parent);
->  	indio_dev->modes =3D INDIO_DIRECT_MODE;
-> =20
->  	als =3D iio_priv(indio_dev);
->  	als->lm3533 =3D lm3533;
->  	als->pdev =3D pdev;
-> -	als->irq =3D lm3533->irq;
-> +	als->irq =3D platform_get_irq_optional(pdev, 0);
+> +			return ret;
 > +
-> +	if (als->irq =3D=3D -EPROBE_DEFER)
-> +		return -EPROBE_DEFER;
+> +		/* LVLED4 and LVLED5 */
+> +		ret =3D regmap_update_bits(led->lm3533->regmap, LM3533_REG_OUTPUT_CONF=
+2,
+> +					 OUTPUT_CONF2_MASK,
+> +					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
+> +		if (ret)
+> +			return ret;
+> +	}
+> =20
+>  	ret =3D lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
+
+[ ... ]
+
+> @@ -716,6 +752,23 @@ static int lm3533_led_probe(struct platform_device *=
+pdev)
+>  	led->pwm =3D 0;
+>  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
+> =20
+> +	led->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
+> +
+> +	/*
+> +	 * If led-sources property is not set then either this Control Bank uses
+> +	 * its default LVLED or is not linked to any LVLED at all.
+> +	 */
+> +	if (led->num_leds > 0 && led->num_leds <=3D LM3533_LVCTRLBANK_MAX) {
+> +		ret =3D device_property_read_u32_array(&pdev->dev, "led-sources",
+> +						     led->leds, led->num_leds);
+> +		if (ret) {
+> +			dev_err(&pdev->dev, "failed to get led-sources\n");
+> +			goto err_deregister;
+> +		}
+> +	} else {
+> +		led->num_leds =3D 0;
+> +	}
 
 [Severity: Medium]
-Since platform_get_irq_optional() returns a negative error code (like -ENXI=
-O)
-when an IRQ is absent, does the existing check in store_thresh_either_en()
-need to be updated as well?
+Will this silently ignore out-of-bounds configurations?
 
-Because store_thresh_either_en() still checks:
-    if (!als->irq)
-        return -EBUSY;
+If the user provides a device tree with more items than the hardware suppor=
+ts
+(e.g., led->num_leds > LM3533_LVCTRLBANK_MAX), the check fails and the code
+falls through to the else block.
 
-A negative error code will bypass this check, allowing userspace to enable
-the interrupt mode via sysfs without a registered interrupt handler.
+Setting led->num_leds =3D 0 treats the oversized array as if the property w=
+as
+entirely omitted, masking the error. Would it be better to explicitly return
+an error like -EINVAL to alert the user of an invalid configuration?
 
 > +
->  	atomic_set(&als->zone, 0);
->  	mutex_init(&als->thresh_mutex);
-[ ... ]
-> diff --git a/drivers/mfd/lm3533-core.c b/drivers/mfd/lm3533-core.c
-> index 45e7f7481aa0f..d57c2cdf11c51 100644
-> --- a/drivers/mfd/lm3533-core.c
-> +++ b/drivers/mfd/lm3533-core.c
-[ ... ]
-> -static int lm3533_device_init(struct lm3533 *lm3533)
-> +static int lm3533_device_init(struct lm3533 *lm3533)
->  {
-[ ... ]
-> +	lm3533_devices =3D devm_kcalloc(dev, nchilds, sizeof(*lm3533_devices),
-> +				      GFP_KERNEL);
-> +	if (!lm3533_devices)
-> +		return -ENOMEM;
-> =20
-> -	lm3533->have_leds =3D 1;
-> +	device_for_each_child_node_scoped(lm3533->dev, child) {
-> +		if (!fwnode_device_is_available(child))
-> +			continue;
-> =20
-> -	return 0;
-> -}
-> +		if (count >=3D nchilds)
-> +			break;
-> =20
-> -static int lm3533_device_init(struct lm3533 *lm3533)
-> -{
-> -	struct lm3533_platform_data *pdata =3D dev_get_platdata(lm3533->dev);
-> -	int ret;
-> +		if (fwnode_device_is_compatible(child, "ti,lm3533-als")) {
-> +			lm3533_devices[count].name =3D "lm3533-als";
-> +			lm3533_devices[count].id =3D PLATFORM_DEVID_NONE;
-> +			lm3533_devices[count].of_compatible =3D "ti,lm3533-als";
-> =20
-> -	dev_dbg(lm3533->dev, "%s\n", __func__);
-> +			lm3533->have_als =3D true;
-> +			count++;
-> +		}
-> =20
-> -	if (!pdata) {
-> -		dev_err(lm3533->dev, "no platform data\n");
-> -		return -EINVAL;
-> +		if (fwnode_device_is_compatible(child, "ti,lm3533-backlight")) {
+>  	ret =3D lm3533_led_setup(led);
+>  	if (ret)
+>  		goto err_deregister;
 
-[Severity: High]
-Can a malformed device tree node cause a buffer overflow here? Since these
-are independent if-statements rather than mutually exclusive else-if blocks,
-a single node containing multiple matching compatible strings could execute
-multiple blocks in the same iteration. Because the bounds check against nch=
-ilds
-is only at the top of the loop, this would unconditionally increment count =
-and
-write out of bounds of the lm3533_devices array.
-
-> +			ret =3D fwnode_property_read_u32(child, "reg", &reg);
-> +			if (ret || reg >=3D LM3533_HVLED_ID_MAX) {
-> +				dev_err(dev, "invalid backlight node %s\n",
-> +					fwnode_get_name(child));
-> +				continue;
-> +			}
-> =20
-> -	lm3533->hwen =3D devm_gpiod_get(lm3533->dev, NULL, GPIOD_OUT_LOW);
-> -	if (IS_ERR(lm3533->hwen))
-> -		return dev_err_probe(lm3533->dev, PTR_ERR(lm3533->hwen), "failed to re=
-quest HWEN GPIO\n");
-> -	gpiod_set_consumer_name(lm3533->hwen, "lm3533-hwen");
-> -
-> -	lm3533_enable(lm3533);
-> +			lm3533_devices[count].name =3D "lm3533-backlight";
-> +			lm3533_devices[count].id =3D reg;
-> +			lm3533_devices[count].of_compatible =3D "ti,lm3533-backlight";
-
-[Severity: Medium]
-Will this assignment cause mfd_add_devices() to map the wrong OF node to
-subdevices if an earlier node was skipped? Since cell->use_of_reg =3D true =
-and
-cell->of_reg =3D reg are not being set here, mfd_match_of_node_to_dev() will
-simply assign the first available matching OF node to the first requested
-mfd_cell. If an earlier invalid node was skipped, the subdevice may read
-configurations from the wrong DT node.
-
-> =20
-> -	ret =3D regmap_update_bits(lm3533->regmap, LM3533_REG_BOOST_PWM,
-> -				 LM3533_BOOST_FREQ_MASK,
-> -				 pdata->boost_freq << LM3533_BOOST_FREQ_SHIFT);
-> +			lm3533->have_backlights =3D true;
-> +			count++;
-> +		}
 [ ... ]
+
 > diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backligh=
 t/lm3533_bl.c
-> index 5c8e690878609..c70b8a3bb3014 100644
+> index 945625c54fc43..2119433bae456 100644
 > --- a/drivers/video/backlight/lm3533_bl.c
 > +++ b/drivers/video/backlight/lm3533_bl.c
+
 [ ... ]
-> @@ -296,13 +294,20 @@ static int lm3533_bl_probe(struct platform_device *=
-pdev)
->  	bl->cb.id =3D lm3533_bl_get_ctrlbank_id(bl);
->  	bl->cb.dev =3D NULL;			/* until registered */
+
+> @@ -253,7 +259,8 @@ static struct attribute_group lm3533_bl_attribute_gro=
+up =3D {
+>  static int lm3533_bl_setup(struct lm3533_bl *bl)
+>  {
+>  	int id =3D lm3533_bl_get_ctrlbank_id(bl);
+> -	int ret;
+> +	u32 output_cfg_val =3D 0;
+> +	int ret, i;
 > =20
-> +	name =3D devm_kasprintf(&pdev->dev, GFP_KERNEL, "%s-%d",
-> +			      pdev->name, pdev->id);
-> +	if (!name)
-> +		return -ENOMEM;
+>  	ret =3D regmap_update_bits(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_B=
+CONF,
+>  				 CTRLBANK_AB_BCONF_MODE(id),
+> @@ -261,6 +268,20 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
+>  	if (ret)
+>  		return ret;
+> =20
+> +	if (bl->num_leds) {
+> +		for (i =3D 0; i < bl->num_leds; i++) {
+> +			if (bl->led_strings[i] >=3D LM3533_HVCTRLBANK_COUNT)
+> +				continue;
 > +
->  	memset(&props, 0, sizeof(props));
->  	props.type =3D BACKLIGHT_RAW;
->  	props.max_brightness =3D LM3533_BL_MAX_BRIGHTNESS;
-> -	props.brightness =3D pdata->default_brightness;
-> -	bd =3D devm_backlight_device_register(&pdev->dev, pdata->name,
-> -					pdev->dev.parent, bl, &lm3533_bl_ops,
-> -					&props);
-> +	props.brightness =3D LM3533_BL_MAX_BRIGHTNESS;
-> +	device_property_read_u32(&pdev->dev, "default-brightness",
-> +				 &props.brightness);
-
-[Severity: Low]
-Does passing &props.brightness violate strict C typing here? The brightness
-field in struct backlight_properties is an int, but device_property_read_u3=
-2()
-strictly expects a u32 pointer. This could cause build failures on modern
-kernel trees that have -Werror=3Dincompatible-pointer-types enabled.
-
+> +			output_cfg_val |=3D id << bl->led_strings[i];
+> +		}
 > +
-> +	bd =3D devm_backlight_device_register(&pdev->dev, name, &pdev->dev,
-> +					    bl, &lm3533_bl_ops, &props);
->  	if (IS_ERR(bd)) {
->  		dev_err(&pdev->dev, "failed to register backlight device\n");
->  		return PTR_ERR(bd);
+> +		ret =3D regmap_update_bits(bl->lm3533->regmap, LM3533_REG_OUTPUT_CONF1,
+> +					 OUTPUT_CONF1_MASK, output_cfg_val);
+
+[Severity: High]
+Can this similarly clobber the other backlight control bank?
+
+Since OUTPUT_CONF1_MASK is GENMASK(1, 0), it unconditionally updates all HV=
+LED
+routing fields at once. Configuring one backlight bank will overwrite the
+configuration of the other bank.
+
+Could the mask be limited only to the bits modified by the current bank?
+
+> +		if (ret)
+> +			return ret;
+> +	}
+> +
+>  	ret =3D lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
+
 [ ... ]
+
+> @@ -336,6 +357,23 @@ static int lm3533_bl_probe(struct platform_device *p=
+dev)
+>  	bl->pwm =3D 0;
+>  	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
+> =20
+> +	bl->num_leds =3D device_property_count_u32(&pdev->dev, "led-sources");
+> +
+> +	/*
+> +	 * If led-sources property is not set then either this Control Bank uses
+> +	 * its default HVLED or is not linked to any HVLED at all.
+> +	 */
+> +	if (bl->num_leds > 0 && bl->num_leds <=3D LM3533_HVCTRLBANK_COUNT) {
+> +		ret =3D device_property_read_u32_array(&pdev->dev, "led-sources",
+> +						     bl->led_strings,
+> +						     bl->num_leds);
+> +		if (ret)
+> +			return dev_err_probe(&pdev->dev, ret,
+> +					     "failed to get led-sources\n");
+> +	} else {
+> +		bl->num_leds =3D 0;
+> +	}
+
+[Severity: Medium]
+Does this have the same silent failure behavior as the LED probe?
+
+If bl->num_leds > LM3533_HVCTRLBANK_COUNT, it falls back to the else block
+setting bl->num_leds =3D 0 without producing an error, ignoring the invalid
+device tree array.
+
+> +
+>  	ret =3D lm3533_bl_setup(bl);
+>  	if (ret)
+>  		return ret;
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601151831.7635=
-0-1-clamor95@gmail.com?part=3D5
+0-1-clamor95@gmail.com?part=3D11
