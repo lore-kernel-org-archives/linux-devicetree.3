@@ -1,50 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6BA5D282F10;
-	Mon,  1 Jun 2026 21:55:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B60C137750
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 22:01:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780350927; cv=none; b=INORgYoAnkzI+IDs1WCSwkaWwKr4sm6MBrrerT1YlLHcggiHwzQHghuuPqhU3hV17/WyCCcaSCWT67Bq8jkquX8Dv+ZCPlnhGp0j0Gkaa73PgaQS58m71NJBwKLKfuj7v2kSnfk4+miGbD1n1miZ7c2u6Vhc94d7129JphsNqJ8=
+	t=1780351299; cv=none; b=hnJUaw+eaF6Y3M5omi/OIovEQHnWct8t60Kk8OOikiopVe10aEUm64cCv+kukMOllbXNLzni0lBSb2lNaegiuUB8KBx8vI9oUZVEH8gyAspooCHk5fe26cBbfnna8fpg+cCuQWhf/nd7jHPUo6HNGt5IE2zLG0lp11gmZzlqPRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780350927; c=relaxed/simple;
-	bh=OPW7t2+scf7awova5FPOoTQNVM4dIqp3OEtLYGNHxRE=;
+	s=arc-20240116; t=1780351299; c=relaxed/simple;
+	bh=IYUuPeRWAAy7/YV8EKojwr5ocBdvK1A6Ivebyk3DH70=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FjTjJ6c1MVE1mAiNCxAG9HAo3laE7Kq22O/3D6qNCFVxsfz9RzPttXXqvEx/BeeDRNKIuvU22Uw61sc3kHHuX1pfQLbvncDN/evz2+n8EEb3DAZCbkhmb30jiyzBO/XGCBbaOFEIXlsygrT+Y3BSkyBUDJigqEjr3OLKT+kO8Zs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lDuneMgC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=YpVf//ldIBaCeSBoCz5anqVUzvm6Vp/eaLBBjuufsH65CcUtSNNVmb5bVyTzciunEzoaf7wChdzrjlj2g1fr0bywiIgvUXhNLVK4Q8ela+XK0eJXjVUA9qos3pdx9fthPOzl1/LSSp0xn3X6dtCqXZyGYBOfG5+C+RkY7P29dJ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eTTmRlZX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lDuneMgC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2DEA1F00893;
-	Mon,  1 Jun 2026 21:55:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eTTmRlZX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E5BC1F00893;
+	Mon,  1 Jun 2026 22:01:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780350926;
-	bh=Btd7ETiVGpwE7oNRY8Tbs8MqaEa31ijMp/j+iytSgS0=;
+	s=k20260515; t=1780351297;
+	bh=6lqJ+fUrWkQKTv1XejGOcMluJh3tC7dfDM5eIytOFBE=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lDuneMgCbrJYW+2aAqXGd1O172kgGoI3AnwmqFoacxgXNKX2JQlwpONWVoMyLH06Y
-	 +3fy6YDReRQBpMEhm2WmCm/MZoNqOehMyvT1L2gFsX5Tn0p33aBbRUAYITX6euXyd9
-	 UY8bgO/Gz0Ooa42fF1aHOQcEIEbM4CXYGVIxcLaJcMcMXB9HPK4OenmXy3BFuHopbw
-	 uCbLq0RxhWGu6jjiiXtRTYl3cs9gW6CM41d+0kJKWACmUm3yb3FbV+w7uKESeAngHA
-	 16GAgq3kGN5C6nVHYjo5yu5lGcWVECBprcxL5X3JnTqzy3XMxbqlD3QNNiOa95VXP9
-	 8Ygb5VrUfrDuA==
-Date: Mon, 1 Jun 2026 16:55:25 -0500
+	b=eTTmRlZXuCRMHKe9NVIfANBMwLkaRDgS0BHyW53oIUHFrHck6S3HNXXF85vdMF68Y
+	 qUlSerHqUj8pGN3BJ/SJLlvKtxy8D6ics5QgvjRYjqlcM7GNosX1oco9PNjf9nj897
+	 tkEb4wlZUII6Ti/KvrYSaXcAGS18Czh8dndVijg3LrbF8MdLzrl3Ct1qkZm5B4mAhy
+	 UKxjum1XrewJ6vxp1heEZcdzU72IY+zM+mR06XtXTU1Hky0ecYGmXLB67ROTeM/bnU
+	 RetEs3+uWdc8P6Y7Af7rJwRLPRqLtZtt0YQis5ILVcBmrG0a2i8hgNKCz3w55YtHzp
+	 lGAqwKelZ7usQ==
+Date: Mon, 1 Jun 2026 17:01:37 -0500
 From: Rob Herring <robh@kernel.org>
-To: Conor Dooley <conor@kernel.org>
-Cc: Pawel Laszczak <pawell@cadence.com>, Peter Chen <peter.chen@kernel.org>,
-	Roger Quadros <rogerq@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-usb@vger.kernel.org" <linux-usb@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v8 1/2] dt-bindings: usb: cdns3: Add cdns,cdnsp-no-drd
- compatible string
-Message-ID: <20260601215525.GA4114052-robh@kernel.org>
-References: <20260515-b4-no_drd_config-v8-0-75cb05317679@cadence.com>
- <20260515-b4-no_drd_config-v8-1-75cb05317679@cadence.com>
- <20260515-trinity-unthawed-c5ab5d7783f2@spud>
- <PH7PR07MB9538E14BE6778498A48FECEBDD002@PH7PR07MB9538.namprd07.prod.outlook.com>
- <20260519-defog-spiritual-2eeebb390ba7@spud>
+To: Sang-Heon Jeon <ekffu200098@gmail.com>
+Cc: maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	chleroy@kernel.org, saravanak@kernel.org,
+	linuxppc-dev@lists.ozlabs.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/2] powerpc/prom: fix /chosen properties read from wrong
+ node
+Message-ID: <20260601220137.GA54006-robh@kernel.org>
+References: <20260510171353.1406018-1-ekffu200098@gmail.com>
+ <20260510171353.1406018-2-ekffu200098@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,130 +45,37 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260519-defog-spiritual-2eeebb390ba7@spud>
+In-Reply-To: <20260510171353.1406018-2-ekffu200098@gmail.com>
 
-On Tue, May 19, 2026 at 06:49:36PM +0100, Conor Dooley wrote:
-> On Tue, May 19, 2026 at 08:47:30AM +0000, Pawel Laszczak wrote:
-> > >
-> > >On Fri, May 15, 2026 at 01:24:38PM +0200, Pawel Laszczak via B4 Relay wrote:
-> > >> From: Pawel Laszczak <pawell@cadence.com>
-> > >>
-> > >> Introduce a new compatible string 'cdns,cdnsp-no-drd' for Cadence
-> > >> USBSS/USBSSP controllers to support hardware configurations where the
-> > >> Dual-Role Device (DRD) register block is missing or inaccessible.
-> > >>
-> > >> This change follows the recommendation to imply hardware limitations
-> > >> directly from the compatible string rather than using a dedicated
-> > >> boolean property.
-> > >>
-> > >> When 'cdns,cdnsp-no-drd' is used:
-> > >> - The 'otg' register and interrupt resources are not required.
-> > >> - The 'reg' and 'interrupts' properties are restricted to 2 items
-> > >>   (host and device).
-> > >> - 'dr_mode' must be explicitly set to either 'host' or 'peripheral'.
-> > >>
-> > >> The standard 'cdns,usb3' compatible remains unchanged, maintaining
-> > >> backward compatibility by requiring all 3 resource sets (otg, host, dev).
-> > >>
-> > >> Signed-off-by: Pawel Laszczak <pawell@cadence.com>
-> > >> ---
-> > >> v8:
-> > >> - Update commit message to reflect schema changes.
-> > >> - Removed 'cdns,no-drd' boolean property as per Rob Herring's suggestion.
-> > >> - Introduced a new compatible string 'cdns,cdnsp-no-drd' for controller
-> > >>   variants that lack the DRD/OTG register block.
-> > >>
-> > >> v7:
-> > >> - Rename 'no_drd' to 'cdns,no-drd'.
-> > >> - Update commit message to reflect property renaming and schema
-> > >changes.
-> > >> - Simplify 'reg-names' using a single enum.
-> > >> - Revert 'interrupt-names' to a list of constants.
-> > >> - Move 'reg' item descriptions to if/else blocks for accuracy.
-> > >> - Clean up 'if/then' logic (remove redundant checks).
-> > >> - Add explicit 'items' list for 'interrupt-names' in the 'else' block.
-> > >>
-> > >> v6:
-> > >> - Fixed validation error for 'interrupt-names' by correcting
-> > >>   the items definition.
-> > >> - Adjusted 'minItems'/'maxItems' to properly support the optional
-> > >>  'wakeup' interrupt.
-> > >> - Fixed 'too long' schema error in examples.
-> > >>
-> > >> v5:
-> > >> - Implemented strict conditional validation using if-then-else logic.
-> > >> - Enforced 2 register/interrupt items and required 'dr_mode'
-> > >>   (host or peripheral) when 'no_drd' is present.
-> > >> - Enforced the standard 3 register/interrupt items (otg, host, dev)
-> > >>   when 'no_drd' is absent to ensure backward compatibility.
-> > >> - Updated 'reg-names' and 'interrupt-names' to use enums in the main
-> > >>   properties section to support flexible resource ordering during
-> > >>   validation.
-> > >> ---
-> > >> ---
-> > >>  .../devicetree/bindings/usb/cdns,usb3.yaml         | 60
-> > >++++++++++++++++++----
-> > >>  1 file changed, 50 insertions(+), 10 deletions(-)
-> > >>
-> > >> diff --git a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-> > >b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-> > >> index 2d95fb7321af..7b0aa9c4a2bd 100644
-> > >> --- a/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-> > >> +++ b/Documentation/devicetree/bindings/usb/cdns,usb3.yaml
-> > >> @@ -17,22 +17,22 @@ description:
-> > >>
-> > >>  properties:
-> > >>    compatible:
-> > >> -    const: cdns,usb3
-> > >> +    enum:
-> > >> +      - cdns,usb3
-> > >> +      - cdns,cdnsp-no-drd
-> > >
-> > >I doubt this is what Rob meant, he asked for soc-specific compatibles
-> > >and this is generic. A soc-specific compatible would be something like
-> > >microchip,newsoc-usb3
-> > 
-> > Hi Conor, Rob
-> > 
-> > To clarify the hardware situation: I am developing and testing this on
-> > an FPGA development board connected via pure PCI, without any Device Tree.
-> > I do not have a specific SoC platform, nor do I know what silicon target
-> > the end customers will use in the future.
-> > Introducing a fake SoC-specific compatible string just to pass the DT
-> > validation feels misleading and unnecessary.
-> > 
-> > Since cdns,usb3 is already an established generic compatible, and we
-> > cannot use a generic configuration string like cdns,cdnsp-no-drd,
-> > the cleanest way forward is to make this resource-driven instead of
-> > compatible-driven.
-> > 
-> > In v9, I propose to:
-> >  - Keep only the existing cdns,usb3 compatible.
-> >  - Update cdns,usb3.yaml to allow minItems: 2 for reg and reg-names
-> >    if dr_mode is explicitly set to "host" or "peripheral" (indicating
-> >    that the OTG register block is absent).
-> >  - In the driver code, determine the lack of DRD dynamically if the "otg"
-> >    resource/register block is missing.
-> > 
-> > This elegantly solves the issue for my PCI/FPGA platform (where I just
-> > won't pass the "otg" resource), complies with DT practices, and leaves
-> > the door open for any future customer SoC to use cdns,usb3 with
-> > standard dr_mode constraints.
-> > 
-> > Does this approach look acceptable to you?
+On Mon, May 11, 2026 at 02:13:52AM +0900, Sang-Heon Jeon wrote:
+> Commit 60f20d84dc81 ("of/fdt: Rework early_init_dt_scan_chosen() to
+> call directly") changed early_init_dt_scan_chosen() to be called
+> directly instead of via of_scan_flat_dt(). After this change,
+> early_init_dt_scan_chosen_ppc() does not behave as intended in either
+> case below:
 > 
-> Not really. I want enforcement of the correct properties in the binding,
-> not permission of multiple different combinations.
+> - /chosen(or /chosen@0) exists: early_init_dt_scan_chosen() always 
+>   succeeds, so early_init_dt_scan_chosen_ppc() then reads properties
+>   from the root node (first iteration) instead of chosen node.
 > 
-> Perhaps we could go back to the original cdns,usbssp compatible and
-> leave an empty slot for the soc-specific compatibles, like:
->       - items:
->           - {}
->           - const: sifive,clint2        # SiFive CLINT v2 IP block
+> - /chosen does not exist:
+>   - Until commit 064e32dc5b03 ("of: fdt: Honor CONFIG_CMDLINE* even without
+>     /chosen node, take 2"), early_init_dt_scan_chosen() returns -ENOENT
+>     and early_init_dt_scan_chosen_ppc() returns 0. So of_scan_flat_dt()
+>     iterates over all remaining nodes. Not a bug but unnecessary.
+>   - After above commit, early_init_dt_scan_chosen() returns 0 and
+>     early_init_dt_scan_chosen_ppc() returns 1. So it reads properties
+>     from the root node (first iteration) instead of chosen node, same as
+>     the chosen node exist case above.
 > 
-> That way you can proceed with this effort without a soc-compatible
-> but we don't end up permitting a generic compatible.
+> Instead of using of_scan_flat_dt() for chosen node handling, first call
+> early_init_dt_scan_chosen() directly to handle common chosen node
+> properties. Then call early_init_dt_scan_chosen_ppc(), which is updated
+> to handle powerpc-specific chosen node properties.
+> 
+> Both now look up chosen node directly to avoid reading from the wrong node.
+> 
+> Fixes: 60f20d84dc81 ("of/fdt: Rework early_init_dt_scan_chosen() to call directly")
+> Signed-off-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 
-That sounds good to me.
-
-Rob
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
