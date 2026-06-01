@@ -1,118 +1,359 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D4C936167E
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 11:38:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E90EA361667;
+	Mon,  1 Jun 2026 11:39:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780313898; cv=none; b=sVvh7/3zB+aLeqSy0wQfnVdFc2VV4h+v6N7RK/RuroJc40T2s8cASw/xv+6sejPTIzQ+iKP6rKzlvm2/pOPyJuxjiIw3oRaOcc0OruekT81wGpGc17fueJ1ub5hXFSJwIXOhiCPNLS2smsPMl8VUiA5M4X8srTm4uDaOJ9JRqfw=
+	t=1780313973; cv=none; b=JuSRsNqye9vWo/ZShP1AGo0I7J/cluh5q2cpSfM5M1YOdmZr2Hhh56uVNWXp2aBAHlKK2IMyabbqM0erMdwk26bYpBk70QBoq/8r51dWsf/FWcJBC4IaEqKKFdZ0YyYjCqCtXjzyLRcU23p369+vi6Wm4qVDJqWtYAs/LNPjzAs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780313898; c=relaxed/simple;
-	bh=JYNcPU4tHWTeuvdMTIFZoV3rvC25niCjKa9uc5RRFeo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TWQ+1BrOkEBcYnHEUZHVH6Uqyj23DdFCNk0G/Cdmg4Lz2MpmLJciir7SWwhArptTF/ZmzdyoC1/1hnfao3vAj2fTEyEnOG0mOc2XjvpT02FOr6VxzX4a46l74DjEOzCXY1xNQaVvTeS8+P8NvguvTkb0VHMzbuKyaHMGRjqbOZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YoZe8lJV; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780313973; c=relaxed/simple;
+	bh=+QwsfkteYX/JnlbYItqTsDqoFVvp2e6HiYv4+oGXFUQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W3kztw9jXNJ8zO0RbsxF56JJgogAlCmtjlEmTAEsVRxTXVP0ILHLb+oUC1UWHEusn3PImh++v27H0BJP+CcDqGGI8IztCL5kDr5vtneT6cCZhNPRjAgLgXR8I/+Lchjc7EvUg3H18c8TJr2jqo9JS/9gw9MUOzkluDwsxkF5Sfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=be8wmpxd; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=WrsJPmTO; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YoZe8lJV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9821F00893;
-	Mon,  1 Jun 2026 11:38:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780313895;
-	bh=XQFpHLBDekt5OJ7qh/rrTsSM2Bbn+wP5N3lcE2lSqUQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=YoZe8lJVJzJYfafrJS+gvmpJxS1YpF2g/ds0kRwJA2z2cMTIXBVASIhdqfe6KCnPp
-	 HMi8nusKpQVGJbfw3xXGJHL+Pdd7VEtSL9umM+nYv3lSO2Dn/NblCrkoCuumZW2Pgg
-	 PU5ma/5O3vWigpEZQrVWRwWtLXU5CDsN7Ef7LsKUPcYUbQ3i/1kwnSTfFOeA+0cVEp
-	 GKsucfkw61FKavdDbrF+0mvkkGczNCSusjj77KgT0KRSKxOmA4UCgyTkeEyB9150b3
-	 ZVjsNjRcublCaj1xocBNeg4MAQuuz78x7dD2uaxCqk2FbnY9zEU+luyg6WvTW9FrUe
-	 zFeEhuOJrCEPw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/3] dt-bindings: serial: maxim,max310x: describe
- per-channel rs485 subnodes
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260601-b4-max310x-rs485-dt-v2-2-a105105f8e70@vaisala.com>
-References: <20260601-b4-max310x-rs485-dt-v2-2-a105105f8e70@vaisala.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 11:38:15 +0000
-Message-Id: <20260601113815.8A9821F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="be8wmpxd";
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="WrsJPmTO"
+Received: from smtp1.mailbox.org (smtp1.mailbox.org [IPv6:2001:67c:2050:b231:465::1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4gTX743Mcsz9vDB;
+	Mon,  1 Jun 2026 13:39:28 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1780313968;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=XxrgoZ+nc2RW0uxcOjuabHAwk7p3VP8+2bqMXrJ39Ks=;
+	b=be8wmpxdlxU7iEYeGhrAGv85VtawF3x4n6x+m9vkn0BXDKBbN9mwG9UUqmW3JuBlsApYdY
+	2e1AS3wCGeKCb+oAb8CLwnhsxbxKpXP+Kz9PlxVvcC+bpM8XBpSVMCXNhAyVgR6XMVQR23
+	vbpQRXPKggz2AEMeFTI65B485uNUObdCzJ65Q9iucWVV6Q/69oTYOavkL+i+L92Or/Tt30
+	4bMYZwlItnjC86XgLBMAtdl5fw5jUw3xm/hilLKC07uzdFpPGsnckLv9VgZ9OL59W9agvl
+	cB/0LPKPWK8pMXWNQehPAg6ZZilZ0p1eFVDhJbmFj/EEmN1I/6a9jJ/TxbZWgA==
+Authentication-Results: outgoing_mbo_mout;
+	dkim=pass header.d=mailbox.org header.s=mail20150812 header.b=WrsJPmTO;
+	spf=pass (outgoing_mbo_mout: domain of marek.vasut+renesas@mailbox.org designates 2001:67c:2050:b231:465::1 as permitted sender) smtp.mailfrom=marek.vasut+renesas@mailbox.org
+From: Marek Vasut <marek.vasut+renesas@mailbox.org>
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1780313967;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=XxrgoZ+nc2RW0uxcOjuabHAwk7p3VP8+2bqMXrJ39Ks=;
+	b=WrsJPmTO683K9T91scDLcwy7xNy7qdnCl610OhxPHPdEyCZmEBqSrzjdlQwCMN6fLGt6wd
+	h7EdVBrkMMr86n2VR4pXTELwNE96Y9PRTpczPeJ3OUTBt6x23eDgw5JVeRwHfs4a+3OJxd
+	67HEeW+UlaFpcmYLq87PNAQABFpnsvNewG2pE33JB8SAKM/wJ0Tlsaxh+2Xj9N+4pMjypB
+	7SPi4vetUOQRyGmhA6aIXvjuSYXg2R00izOi+QUsG+5lRTliZJ65OOrn/ZRqMheBKgAdZy
+	/PglDpctlLhPeZvEFrEfpdhsv91kfRrxsONrMk+iPBtJ5lEa0Yp8WNP6OehJlA==
+To: linux-arm-kernel@lists.infradead.org
+Cc: Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org
+Subject: [PATCH] arm64: dts: renesas: r8a78000: Enable application CPU cores via PSCI
+Date: Mon,  1 Jun 2026 13:38:51 +0200
+Message-ID: <20260601113919.8327-1-marek.vasut+renesas@mailbox.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-MBO-RS-ID: 0ffa117923e49be64e7
+X-MBO-RS-META: 6t6yf5ce5dbmbzistm9f7tgmeqcmfg53
+X-Rspamd-Queue-Id: 4gTX743Mcsz9vDB
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Add PSCI "enable-method" DT property to all application CPU cores.
+This allows the OS to bring application CPU cores up and down.
 
-Pre-existing issues:
-- [High] Kernel panic in error path due to uninitialized port structures in=
- `max310x_probe()`
---
+Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
+---
+Cc: Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>
+Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Magnus Damm <magnus.damm@gmail.com>
+Cc: Rob Herring <robh@kernel.org>
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org
+---
+NOTE: This depends mainline TFA 2.15 or newer (or SDK TFA version
+      which includes b950bc09f5e9 ("plat: rcar_gen5: Fix multicore
+      boot by ensuring fixed address for plat_secondary_reset"))
+      and on SDK 4.32 or newer SCP firmware.
+---
+ arch/arm64/boot/dts/renesas/r8a78000.dtsi | 32 +++++++++++++++++++++++
+ 1 file changed, 32 insertions(+)
 
-commit 8da77c1c050ab79e593fff225d7174a5db92f3bd
-Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
+diff --git a/arch/arm64/boot/dts/renesas/r8a78000.dtsi b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+index 7780fb4e8351d..fb71974ef3905 100644
+--- a/arch/arm64/boot/dts/renesas/r8a78000.dtsi
++++ b/arch/arm64/boot/dts/renesas/r8a78000.dtsi
+@@ -143,6 +143,7 @@ a720_0: cpu@0 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x0>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_0>;
+ 		};
+ 
+@@ -150,6 +151,7 @@ a720_1: cpu@100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_1>;
+ 		};
+ 
+@@ -157,6 +159,7 @@ a720_2: cpu@200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_2>;
+ 		};
+ 
+@@ -164,6 +167,7 @@ a720_3: cpu@300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_3>;
+ 		};
+ 
+@@ -171,6 +175,7 @@ a720_4: cpu@10000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x10000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_4>;
+ 		};
+ 
+@@ -178,6 +183,7 @@ a720_5: cpu@10100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x10100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_5>;
+ 		};
+ 
+@@ -185,6 +191,7 @@ a720_6: cpu@10200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x10200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_6>;
+ 		};
+ 
+@@ -192,6 +199,7 @@ a720_7: cpu@10300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x10300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_7>;
+ 		};
+ 
+@@ -199,6 +207,7 @@ a720_8: cpu@20000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x20000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_8>;
+ 		};
+ 
+@@ -206,6 +215,7 @@ a720_9: cpu@20100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x20100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_9>;
+ 		};
+ 
+@@ -213,6 +223,7 @@ a720_10: cpu@20200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x20200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_10>;
+ 		};
+ 
+@@ -220,6 +231,7 @@ a720_11: cpu@20300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x20300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_11>;
+ 		};
+ 
+@@ -227,6 +239,7 @@ a720_12: cpu@30000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x30000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_12>;
+ 		};
+ 
+@@ -234,6 +247,7 @@ a720_13: cpu@30100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x30100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_13>;
+ 		};
+ 
+@@ -241,6 +255,7 @@ a720_14: cpu@30200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x30200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_14>;
+ 		};
+ 
+@@ -248,6 +263,7 @@ a720_15: cpu@30300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x30300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_15>;
+ 		};
+ 
+@@ -255,6 +271,7 @@ a720_16: cpu@40000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x40000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_16>;
+ 		};
+ 
+@@ -262,6 +279,7 @@ a720_17: cpu@40100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x40100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_17>;
+ 		};
+ 
+@@ -269,6 +287,7 @@ a720_18: cpu@40200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x40200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_18>;
+ 		};
+ 
+@@ -276,6 +295,7 @@ a720_19: cpu@40300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x40300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_19>;
+ 		};
+ 
+@@ -283,6 +303,7 @@ a720_20: cpu@50000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x50000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_20>;
+ 		};
+ 
+@@ -290,6 +311,7 @@ a720_21: cpu@50100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x50100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_21>;
+ 		};
+ 
+@@ -297,6 +319,7 @@ a720_22: cpu@50200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x50200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_22>;
+ 		};
+ 
+@@ -304,6 +327,7 @@ a720_23: cpu@50300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x50300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_23>;
+ 		};
+ 
+@@ -311,6 +335,7 @@ a720_24: cpu@60000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x60000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_24>;
+ 		};
+ 
+@@ -318,6 +343,7 @@ a720_25: cpu@60100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x60100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_25>;
+ 		};
+ 
+@@ -325,6 +351,7 @@ a720_26: cpu@60200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x60200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_26>;
+ 		};
+ 
+@@ -332,6 +359,7 @@ a720_27: cpu@60300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x60300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_27>;
+ 		};
+ 
+@@ -339,6 +367,7 @@ a720_28: cpu@70000 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x70000>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_28>;
+ 		};
+ 
+@@ -346,6 +375,7 @@ a720_29: cpu@70100 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x70100>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_29>;
+ 		};
+ 
+@@ -353,6 +383,7 @@ a720_30: cpu@70200 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x70200>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_30>;
+ 		};
+ 
+@@ -360,6 +391,7 @@ a720_31: cpu@70300 {
+ 			compatible = "arm,cortex-a720ae";
+ 			reg = <0x0 0x70300>;
+ 			device_type = "cpu";
++			enable-method = "psci";
+ 			next-level-cache = <&L2_CA720_31>;
+ 		};
+ 
+-- 
+2.53.0
 
-dt-bindings: serial: maxim,max310x: describe per-channel rs485 subnodes
-
-The MAX310x is a family of one- (max3107, max3108), two- (max3109) and
-four-channel (max14830) UARTs. The binding pulls in
-/schemas/serial/rs485.yaml at the chip level, describing a single set of
-RS-485 properties - enough for the single-channel parts, but a
-multi-channel chip can wire RS-485 differently on each channel.
-
-> diff --git a/Documentation/devicetree/bindings/serial/maxim,max310x.yaml =
-b/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> index 889eeaca64a02..988864e795741 100644
-> --- a/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> +++ b/Documentation/devicetree/bindings/serial/maxim,max310x.yaml
-> @@ -40,6 +40,36 @@ properties:
->      minItems: 1
->      maxItems: 16
-> =20
-> +  "#address-cells":
-> +    const: 1
-
-[ ... ]
-
-[Severity: High]
-This isn't a bug introduced by this patch, but could the error path in
-max310x_probe() cause a NULL pointer dereference?
-
-In drivers/tty/serial/max310x.c, the driver allocates the port state struct=
-ure
-using devm_kzalloc(), meaning s->p[i].port.line is zero-initialized.
-
-If the probe fails early before any channels are registered, the function
-jumps to the out_uart cleanup label:
-
-drivers/tty/serial/max310x.c:max310x_probe() {
-    ...
-out_uart:
-    for (i =3D 0; i < devtype->nr; i++) {
-        if (test_and_clear_bit(s->p[i].port.line, max310x_lines))
-            uart_remove_one_port(&max310x_uart, &s->p[i].port);
-    }
-    ...
-}
-
-Because s->p[i].port.line is still 0, this tests bit 0 in max310x_lines.
-
-If another max310x device on the system has already successfully probed, it
-will have claimed line 0, so bit 0 in max310x_lines will be set.
-
-Would test_and_clear_bit(0, max310x_lines) then succeed, incorrectly clear
-the bit owned by the other device, and call uart_remove_one_port() with an
-uninitialized port?
-
-This appears to lead to a NULL pointer dereference when
-serial_core_unregister_port() calls serial_core_get_ctrl_dev(port_dev),
-dereferencing port_dev->dev.parent since port_dev is NULL for the uninitial=
-ized
-port.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-b4-max310x=
--rs485-dt-v2-0-a105105f8e70@vaisala.com?part=3D2
