@@ -1,204 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D880B388876;
-	Mon,  1 Jun 2026 08:53:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F2E340407;
+	Mon,  1 Jun 2026 08:59:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780304029; cv=none; b=u2xy/ObzvIfbs5/l0hR1OdgfpvoliDlBSRVwfKDU+JAMmdlyrEBZIqfZ3tWiw9Qebs8H7pEdOh6ZMrvwEsKqh0lcov/XcyEtI4RwLX3iCrwQgDagLh4vSjKTCDofLaRd/dOsOf9c6gV+GKIxtlbXN6H0kFMVvetG5gw1vzDhJ2s=
+	t=1780304369; cv=none; b=AKkxwmC/OY/wNc1LPcJNI6UUAdF3umdbnEh6w3N66FlIJ/jF/2rZzZThCsxyMxA2x9ymKSmKgDlMmsZfiWhhzLZM22yDnvAh3sVOhTA4eS0jBaaSGz/SvViM03uETmJ3Kca2pTuNkafOSUaZsfxyv8qBa4ruvtmGELQkpuFRUD4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780304029; c=relaxed/simple;
-	bh=7cYvqj2LxV9vZ3DA27OniB3x2tpawNfmIuO82Z6Dd/A=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=kjXHeQzzzDZixfnj9gdeZhsjHeKZCCZD78/TBSg2HPPwyLoTkeJSfgKB3H+AgJHCxDJ43BAUGfTj1KyO2MXQoIeuxb9H2URD1RRCGmXGP0mvVCJZ33sjMV6ET8JgucaUJ9nl2gGM5ZQTaTVPlhthm/THuIwGgh0usYC9NVn99e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZRfkbOP5; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780304369; c=relaxed/simple;
+	bh=+Zl2JB/QGwYJG+yjS/7uTrrW17Je/rQwo1svYHzRjls=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CsvueO+zpFu1yihYTfPLGjgUAMBKe/x97sogv7FmyQZCFw4D9fgKDpZu6u3PX8wbjpJdEH1hQ77nhyiWKF4Abdbz0SN6YXGkELfrH9irZaphxHaRh9SPOmpXrr7+HKjBsAsCywJKmVIeSw4tntG73+wN8qaLD/qQr4yyp9TWmIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=F+FqqmdE; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZRfkbOP5"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 9DB85C2BCC6;
-	Mon,  1 Jun 2026 08:53:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780304029;
-	bh=7cYvqj2LxV9vZ3DA27OniB3x2tpawNfmIuO82Z6Dd/A=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=ZRfkbOP5rDxvLgGrjjfrDBCo8tjsZbOsJQidd3kHfto7JwkvAsQfmh2R4zzl6Oebt
-	 /9P9p0Glt2pDcIwuw+M5NPnme7tE3qzFvLZnO7P3GMaO+ndLIx22b+aFOwaxVmPvNO
-	 ws2ySnlhRkMbHpS0QAGB6EI3oj/ydn1I1DeEVrTo7iMZWxBIK/3FspO7skKAUSpMMQ
-	 8FIMBso2RByshLuNsxWrPfvumls0ia+CqaMjWz+mwQCw2ENo3i+ngkSX6Y3aYGY05N
-	 nl0KwRH7ro5EuBylRs/lgX2/ovASNbWMPnxInNjzayEUvGU9CMAxSHQVnaft18QYSB
-	 8MGHzZ/pnEWGw==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 96C04CD5BD1;
-	Mon,  1 Jun 2026 08:53:49 +0000 (UTC)
-From: Antony Kurniawan Soemardi via B4 Relay <devnull+linux.smankusors.com@kernel.org>
-Date: Mon, 01 Jun 2026 15:51:22 +0700
-Subject: [PATCH v3 09/10] ARM: dts: qcom: msm8960: add Riva
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="F+FqqmdE"
+Received: from [192.168.1.71] (cpc89244-aztw30-2-0-cust6594.18-1.cable.virginm.net [86.31.185.195])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 97E43268;
+	Mon,  1 Jun 2026 10:58:56 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1780304337;
+	bh=+Zl2JB/QGwYJG+yjS/7uTrrW17Je/rQwo1svYHzRjls=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=F+FqqmdErg240MEGLTVQqYutc7iWyK+sEo4UNw+726xYjywntuhR35QYGFDnEKBlt
+	 humRjuCR4wxNBHus3FqtvzJquNsca+qAx8S+qAgcIzobX5+rSWsuwCeuGp3y2ZpwYX
+	 AeKbdVyyOXwvFxo3dyM1to9O+D0rn4EzSZr2oMQ8=
+Message-ID: <d80db00a-42cf-4d97-93e6-de3226a89fc8@ideasonboard.com>
+Date: Mon, 1 Jun 2026 09:59:16 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v6 0/2] Pinefeat cef168 lens control board driver
+To: Aliaksandr Smirnou <asmirnou@pinefeat.co.uk>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, hverkuil@xs4all.nl,
+ jacopo.mondi@ideasonboard.com, krzk+dt@kernel.org,
+ linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
+ mchehab@kernel.org, robh@kernel.org
+References: <5f239b90-79ca-4533-a39a-a5421d6920bc@ideasonboard.com>
+ <20260530114643.12795-1-asmirnou@pinefeat.co.uk>
+Content-Language: en-GB
+From: Alen Karnil <alen.karnil@ideasonboard.com>
+Autocrypt: addr=alen.karnil@ideasonboard.com; keydata=
+ xjMEafxhCxYJKwYBBAHaRw8BAQdAXswEEnvxYiHXb8Q8GsSAuaLuXqJFs3kmsMI7EWF9EuDN
+ NUFsZW4gS2FybmlsIChXb3JrIElvQikgPGFsZW4ua2FybmlsQGlkZWFzb25ib2FyZC5jb20+
+ wpkEExYKAEEWIQT0whyXpTyoVtApVAlRzoJ78NRPngUCagGrrgIbAwUJBaOagAULCQgHAgIi
+ AgYVCgkICwIEFgIDAQIeBwIXgAAKCRBRzoJ78NRPnkpDAP4kmtHsMfTtV6BC1z7GTb86BL2g
+ 9FC1EarGJDDzcafMGQEA6clsoXvRYjHPJexVebjmkI4bq1QM0X/L9Ffe0PfpdQbOOARp/GEL
+ EgorBgEEAZdVAQUBAQdAsVoGZ4IK0EgJ8HU05PQKzK15jaCi/IEA/7Cw9ZzcBmwDAQgHwn4E
+ GBYKACYWIQT0whyXpTyoVtApVAlRzoJ78NRPngUCafxhCwIbDAUJBaOagAAKCRBRzoJ78NRP
+ nqYcAP0eh3LahCDsfNa8zsiK+8QzeujWPKhc5zDcIqrDI6xufwD+Mu9e202It54rNZb8UWEy
+ V5OzTEy0JlsQfO6DYWIORwI=
+In-Reply-To: <20260530114643.12795-1-asmirnou@pinefeat.co.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-msm8960-wifi-v3-9-fec6ac8dba02@smankusors.com>
-References: <20260601-msm8960-wifi-v3-0-fec6ac8dba02@smankusors.com>
-In-Reply-To: <20260601-msm8960-wifi-v3-0-fec6ac8dba02@smankusors.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Michael Turquette <mturquette@baylibre.com>, 
- Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Lee Jones <lee@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>, linux-arm-msm@vger.kernel.org, 
- linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org, 
- Rudraksha Gupta <guptarud@gmail.com>, 
- Antony Kurniawan Soemardi <linux@smankusors.com>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780304027; l=3618;
- i=linux@smankusors.com; s=20250609; h=from:subject:message-id;
- bh=NO876SML6vSrC8ii+BaxpGZKwRLkKw+vlpNP59pPkt0=;
- b=xVkMVOdbAvinZN+rk3v5IsHzXtpXZ8++tsi+NM/3ChtPMlQALxdnCGGb815G1HKsXibMK2/6o
- 7jBSg8ycD/1Bhs08iVFvDa6GToW7RQZ5JFdHai9BWWV/wkIynjry14W
-X-Developer-Key: i=linux@smankusors.com; a=ed25519;
- pk=65wTy06fJl2/h/EJwjr704YG+yjHFhZObJBWzzK+N00=
-X-Endpoint-Received: by B4 Relay for linux@smankusors.com/20250609 with
- auth_id=733
-X-Original-From: Antony Kurniawan Soemardi <linux@smankusors.com>
-Reply-To: linux@smankusors.com
 
-From: Antony Kurniawan Soemardi <linux@smankusors.com>
 
-Add the Riva Peripheral Image Loader node to support the Wireless
-Connectivity and Networking Subsystem on MSM8960. This includes:
 
-- Reserved memory region for WCNSS firmware
-- WCN3660 iris radio controller
-- Bluetooth and Wi-Fi sub-devices exposed via the SMD edge
-- Pinctrl states for Bluetooth and Wi-Fi power management
+On 30/05/2026 12:46, Aliaksandr Smirnou wrote:
+> On Thu, 28 May 2026 09:36:13 +0100, Alen Karnil wrote:
+> 
+>>> Could you please ensure you are using the Makefile provided in the cef168
+>>> repository?
+>> ```
+>> $ make
+>> make -C "/lib/modules/`uname -r`/build" M="/home/admin/work/cef168"
+>> DTC_INCLUDE="/usr/src/linux-headers-`uname -r | sed
+>> 's/rpt-.*/rpt-common-rpi/'`/include"
+>> make[1]: Entering directory '/home/admin/linux'
+>> make[2]: Entering directory '/home/admin/work/cef168'
+>>     CC [M]  cef168.o
+>> make[4]: *** No rule to make target 'imx477.dtbo', needed by
+>> 'modules.order'.  Stop.
+>> make[3]: *** [/home/admin/linux/Makefile:2024: .] Error 2
+>> make[2]: *** [/home/admin/linux/Makefile:248: __sub-make] Error 2
+>> make[2]: Leaving directory '/home/admin/work/cef168'
+>> make[1]: *** [Makefile:248: __sub-make] Error 2
+>> make[1]: Leaving directory '/home/admin/linux'
+>> make: *** [Makefile:16: default] Error 2
+>> ```
+>>
+>> This is what I got hung up on, which is why I moved onto copying the
+>> .dts* and building it from the kernel directory, which lead into the
+>> previous issue and me needing to roll my own .dts*
+> 
+> Could you pull the latest version of the main branch from the cef168
+> repository? This issue was fixed recently, so it looks like the code
+> you pulled was from before that fix was merged.
+> 
+> The fix involved using the dtb-y target instead of obj-m in the Makefile.
 
-Tested-by: Rudraksha Gupta <guptarud@gmail.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Antony Kurniawan Soemardi <linux@smankusors.com>
----
- arch/arm/boot/dts/qcom/qcom-msm8960.dtsi | 87 ++++++++++++++++++++++++++++++++
- 1 file changed, 87 insertions(+)
+Just tested it, now it works, thanks.
+> 
+>>> Will do. Should I update the patch before or after your review?
+>>
+>> I would prefer if you were to update it before just so we are in sync,
+>> thank you.
+> 
+> Will do.
 
-diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-index 662e2e45bbb8..2ecf33078f8b 100644
---- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-+++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
-@@ -100,6 +100,11 @@ smem_region: smem@80000000 {
- 			reg = <0x80000000 0x200000>;
- 			no-map;
- 		};
-+
-+		wcnss_mem: wcnss@8f000000 {
-+			reg = <0x8f000000 0x700000>;
-+			no-map;
-+		};
- 	};
- 
- 	smem {
-@@ -321,6 +326,34 @@ i2c12-pins {
- 				};
- 			};
- 
-+			riva_bt_default_state: riva-bt-active-state {
-+				pins = "gpio28", "gpio29";
-+				function = "bt";
-+				drive-strength = <2>;
-+				bias-disable;
-+			};
-+
-+			riva_bt_sleep_state: riva-bt-sleep-state {
-+				pins = "gpio28", "gpio29";
-+				function = "bt";
-+				drive-strength = <2>;
-+				bias-pull-down;
-+			};
-+
-+			riva_wlan_default_state: riva-wlan-active-state {
-+				pins = "gpio84", "gpio85", "gpio86", "gpio87", "gpio88";
-+				function = "wlan";
-+				drive-strength = <6>;
-+				bias-pull-down;
-+			};
-+
-+			riva_wlan_sleep_state: riva-wlan-sleep-state {
-+				pins = "gpio84", "gpio85", "gpio86", "gpio87", "gpio88";
-+				function = "wlan";
-+				drive-strength = <2>;
-+				bias-pull-up;
-+			};
-+
- 			sdcc3_default_state: sdcc3-default-state {
- 				clk-pins {
- 					pins = "sdc3_clk";
-@@ -460,6 +493,60 @@ saw1_vreg: regulator {
- 			};
- 		};
- 
-+		riva: riva-pil@3200800 {
-+			compatible = "qcom,riva-pil";
-+			reg = <0x03200800 0x1000>,
-+			      <0x03202000 0x2000>,
-+			      <0x03204000 0x100>;
-+			reg-names = "ccu",
-+				    "dxe",
-+				    "pmu";
-+			pinctrl-0 = <&riva_wlan_default_state>, <&riva_bt_default_state>;
-+			pinctrl-1 = <&riva_wlan_sleep_state>, <&riva_bt_sleep_state>;
-+			pinctrl-names = "default", "sleep";
-+			interrupts-extended = <&intc GIC_SPI 199 IRQ_TYPE_EDGE_RISING>,
-+					      <&wcnss_smsm 6 IRQ_TYPE_EDGE_RISING>;
-+			interrupt-names = "wdog", "fatal";
-+			memory-region = <&wcnss_mem>;
-+
-+			status = "disabled";
-+
-+			iris {
-+				compatible = "qcom,wcn3660";
-+				clocks = <&cxo_board>;
-+				clock-names = "xo";
-+			};
-+
-+			smd-edge {
-+				interrupts = <GIC_SPI 198 IRQ_TYPE_EDGE_RISING>;
-+				label = "riva";
-+				qcom,ipc = <&l2cc 8 25>;
-+				qcom,smd-edge = <6>;
-+
-+				wcnss {
-+					compatible = "qcom,wcnss";
-+					qcom,smd-channels = "WCNSS_CTRL";
-+					qcom,mmio = <&riva>;
-+
-+					bluetooth {
-+						compatible = "qcom,wcnss-bt";
-+					};
-+
-+					wifi {
-+						compatible = "qcom,wcnss-wlan";
-+						interrupts = <GIC_SPI 203 IRQ_TYPE_LEVEL_HIGH>,
-+							     <GIC_SPI 202 IRQ_TYPE_LEVEL_HIGH>;
-+						interrupt-names = "tx",
-+								  "rx";
-+						qcom,smem-states = <&apps_smsm 10>,
-+								   <&apps_smsm 9>;
-+						qcom,smem-state-names = "tx-enable",
-+									"tx-rings-empty";
-+					};
-+				};
-+			};
-+		};
-+
- 		clock-controller@4000000 {
- 			compatible = "qcom,mmcc-msm8960";
- 			reg = <0x4000000 0x1000>;
-
--- 
-2.34.1
-
+I will continue the review once it's received.
 
