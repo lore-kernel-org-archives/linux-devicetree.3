@@ -1,159 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f48.google.com (mail-wr1-f48.google.com [209.85.221.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC12212554;
-	Mon,  1 Jun 2026 14:10:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 796883B8D4A
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:15:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780323011; cv=none; b=Hso2LhRdL+18DlL75GZBzw6wcYs51vDK0e43G9lOxk5rKvlYSnEehAFwCAg+w5itmRofWBCz1tO5uUArQWnEpjjJxiTrTqHL1TM1ZN+dZrozVN0z4Nww53XE1s33Equsk3mn9/1rXGWt3QOEMuC6fYLgKmZWQbLTdhExRfEQbb8=
+	t=1780323337; cv=none; b=pDq9kKkEZ4rd0ZeCNNmxydGm+rt6MeZAvvpyiy7G+8oPZIjLmeY42/i3yi2rVKTXrP2N0K2issQ490Nb1gnPAI6YLS2dI6266IHICX2dxiumFvlryxx89wy4lqCVt3NFwjJydZFzMEBNG13HliJlnAAi/m4s5UTAWLRhs+jLZME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780323011; c=relaxed/simple;
-	bh=7j6NV7kfXv8dtdgSgMpa5bT8s26mUNMEsiXKJCzRFcM=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=oQf2KUEExxRwzWLNkFgW34AbTiKLeuILe/SCq0oRsLICaYYlR9YSWz2IFL2PHdDc1W6ntlj4wEetjabDOQNDxMvPbPd+85MHxa14wwiGh0apquz+ZouMnRyDqmOcT1k09b8axZUiSRws90HzdqL10HnZXbFApw4ZqAS+xeBbVXc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRiVH8xL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780323337; c=relaxed/simple;
+	bh=IxB7Fd79A3gZ1r/a8Cr3tbT307HV68s4njAYnRINXlo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hA6mFNzh6+WtvrkjYvFTewABRVnKUainaCpWdp2yvy6SnS4oEh5L3pId2cQmgIs3Ll0m1dD0UlGj3XGHxcpwkeZVtTQenYB1SZdbzQnUKQWIloLRUqX3Ov/+vYU2pnVmxCDBi95ZzJzOSwaf4+RnY1iDqvKIcIPVST6RBx3TewQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=k1vJM7tB; arc=none smtp.client-ip=209.85.221.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRiVH8xL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A61F1F00893;
-	Mon,  1 Jun 2026 14:10:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780323009;
-	bh=cN67D5iV2/BkWrnjvbPCF/3VZQLDfqDjfnERusdSnUQ=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GRiVH8xLGzIYLQBZv5kQ5hZomhaS8WT/MkSSqpJMmHx9xGtrpXrAKY2vcILilBu0m
-	 hJARmuev29yWazEsKT4Hh1WKpSak8E3A5r18rH7nQYAE7c02kv7PESALJQeLWmzuJd
-	 T9gX034QIOafxT41RMF6UjmooU6tzb072Ig6FYkouhG6HtJukOVG1L+/aNUfrKx2Wz
-	 Ishms7e598n0VuOFJHBQYTfNpl03VrH2GvcuBon5guQpVzbFEeM8xODqBcqcl6nIKd
-	 PGxdESxKYof/CBHC89qIbVUYy1HNEGv+8+A7VudhRydlfZvwE4HuZXKHrFvZNyGopB
-	 JJuL9hr88kZqQ==
-Date: Mon, 1 Jun 2026 15:09:59 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: Wadim Mueller <wafgo01@gmail.com>, Krzysztof Kozlowski
- <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
- Maxwell Doose <m32285159@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: iio: flow: add Sensirion SLF3S
- liquid flow sensor
-Message-ID: <20260601150959.49bbf125@jic23-huawei>
-In-Reply-To: <20260601-banana-narwhal-of-music-0b4d3a@quoll>
-References: <20260530205435.37326-1-wafgo01@gmail.com>
-	<20260530205435.37326-3-wafgo01@gmail.com>
-	<20260601-banana-narwhal-of-music-0b4d3a@quoll>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="k1vJM7tB"
+Received: by mail-wr1-f48.google.com with SMTP id ffacd0b85a97d-45eee266c6cso2912689f8f.1
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:15:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780323335; x=1780928135; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=vaUY+wznT6I0Vd1tbKHFAPphi09g/5Uz9b/r1spWPtc=;
+        b=k1vJM7tBtva4X1Eo4pUIcjiPrNX/aL/a48xSdtVgurZlbveyp9kTVF9eG0QiOYn680
+         Cbh8OkJHXi+D8D2Ts6lpLB/ncxDzo5kzXJgvH5LGoEocqFfWf/omi9252A7HAopwBl1c
+         08OFY0NG/zPCCpIZ7Z8tCKKM12Zmd+yBNpDBH6t0hvu+CL5+Wy0j/PohhGHyRTYvI2UA
+         bv/P9AjjhOOi2s1M379z2rrOTdKttYlDCavlOgnGDDrbeW9jUBI6cKOn8c8G6QNNIz57
+         SuJZXa6D092R/pnlJP6LGzZEz+Ren9BSfsCaFlWtctwVi7OUl8ovinbDayrGc/x8gna0
+         O11A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780323335; x=1780928135;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=vaUY+wznT6I0Vd1tbKHFAPphi09g/5Uz9b/r1spWPtc=;
+        b=bldIiAwmpIGRPbBnKgAFCsHZBquh15bg1rwcWK545mAJyPC9/H0DviemJQvYWADhU4
+         GHLk/gNhs9up+Yg/zUWgq7BWN+EQMNoBbNBHTwucUYAivTdCWJH+VJ/lZfSpzxsyKhlF
+         prXcbWtEvhfL6h109owAawh0czzvwJW0BnEOt09FV45KW5SeXQe8uYstjf8JPpTB+5ak
+         WX4XHqiU4y6wSWIKv9bjo5JRxpgC/byORUOLOgCUaaN/5hDNSGCyTjmi3M42MtxM0UNp
+         l2EAq5VhNLbRfhTw/TRbV67mqEy9JnJJTbEODd8LTo3vKKnOlZpwC/yjWy0J+VvTB4SJ
+         tSWg==
+X-Forwarded-Encrypted: i=1; AFNElJ9jQxErANJusPQF1rpTi2joFLD8sQPwIGMpkMKsfbGjglXHx0myTdFfiGiq4dium/ROCuFUjaZIKLG3@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6XVJAjpfbQowWbIST3A6pzdzgJyulJTNaOgpNhQkiQStHYFk3
+	ghMjPOUMM/2T94Vgu8Ymnip7rqFKoO3gw2jchjMr7qorZ3WpJdltFLlGgd5oc2dz5wo=
+X-Gm-Gg: Acq92OFTsB1+OGEtuapk0z83fmhXvy0ZAIZMgsAyZeeuY1pa5E3sn6x4Wc6gzUTnGUw
+	1kPa2/3Y/VuGGErPSTyVQPWgdH+PAt4cbiAivshuUUvadjEhKNgP4EYwiDwWO/CBhF0W+bUezrc
+	z/CFcAH3BZCCZY1EwaJ4vJaAuVHKteStnrYIoa+TZ4gZbmescy6HLlfvn36yiEjwT3P8ySo9gfO
+	DBDWoSC1mq44jhpFGVmSkCTSI+QQzM+Fr3R0diKCRZKPGh/svhUZt4lGIYnUxXq1zLBsXApkw7R
+	74y2ljwjLZBUtkvA470wKkMqqcM8m24c/eDLe18yUm1ML0CKOOcQGd8s3dn6mAD3wL4YVSQiBIF
+	RA86zHC1o0Err+U4Uh/N1iqBZla0fI1kDIlx4FWMXYJ3srYv2tC7yrsa/cKotoL4OrcuA6Eyn7v
+	2NCkIQHjO1384oCppUpAFBuFaDRzJFnatVc8wkHWz6HYdsdUcKU3oelS0w
+X-Received: by 2002:a05:6000:4610:b0:43d:50c:6f33 with SMTP id ffacd0b85a97d-45ef6b670e1mr21405913f8f.26.1780323334783;
+        Mon, 01 Jun 2026 07:15:34 -0700 (PDT)
+Received: from [192.168.0.101] ([109.76.233.76])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34b47eesm27847640f8f.9.2026.06.01.07.15.33
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 01 Jun 2026 07:15:33 -0700 (PDT)
+Message-ID: <203e09db-ba37-4d75-b984-227298f55d80@linaro.org>
+Date: Mon, 1 Jun 2026 15:15:32 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 4/8] arm64: dts: qcom: shikra: Add CAMSS node
+To: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
+ Vikram Sharma <vikram.sharma@oss.qualcomm.com>, bod@kernel.org
+Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Loic Poulain <loic.poulain@oss.qualcomm.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
+ Andi Shyti <andi.shyti@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+ Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team <kernel@pengutronix.de>,
+ Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
+ imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+ Suresh Vankadara <quic_svankada@quicinc.com>
+References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
+ <20260526-shikra-camss-review-v1-4-645d2c8c75a7@qti.qualcomm.com>
+ <178000689150.4557.11759359941436928903.b4-reply@b4>
+ <df00e8d8-21ab-415f-815e-608eb7ab0967@oss.qualcomm.com>
+ <23d2a824-e894-4c26-8bd1-02bbb8a7c6d1@linaro.org>
+ <f7403443-3c0c-45d2-8235-46c70883a296@oss.qualcomm.com>
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+Content-Language: en-US
+In-Reply-To: <f7403443-3c0c-45d2-8235-46c70883a296@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Mon, 1 Jun 2026 13:53:23 +0200
-Krzysztof Kozlowski <krzk@kernel.org> wrote:
+On 01/06/2026 07:42, Nihal Kumar Gupta wrote:
+> Here is the full IOMMU SID list for both platforms:
+> Agatti (QCM2290):
+> - 0x0400 0x00 — VFE non-protected
+> - 0x0800 0x00 — CDM non-protected
+> - 0x0820 0x00 — OPE read non-protected
+> - 0x0840 0x00 — OPE write non-protected
+> 
+> Shikra:
+> - 0x0400 0x00 — VFE non-protected
+> - 0x0600 0x00 — CDM non-protected
+> - 0x0620 0x00 — OPE read non-protected
+> - 0x0640 0x00 — OPE write non-protected
 
-> On Sat, May 30, 2026 at 10:54:31PM +0200, Wadim Mueller wrote:
-> > Document the bindings for the Sensirion SLF3S family of digital
-> > liquid-flow sensors on I2C.  The family currently covers the
-> > SLF3S-0600F, SLF3S-1300F and SLF3S-4000B variants.
-> > 
-> > The driver auto-detects the variant from the product-information
-> > register at probe time; the per-variant compatible strings exist
-> > for documentation and dt_binding_check purposes.  
-> 
-> Here...
-> 
-> > +description:
-> > +  Family of digital liquid-flow sensors from Sensirion with I2C
-> > +  interface.  All family members share the same register map; sub-types
-> > +  differ only in the flow scale factor and the calibrated measurement
-> > +  range, both of which are detected at probe time via the
-> > +  product-information register.  
-> 
-> And here...
-> 
-> > +
-> > +properties:
-> > +  compatible:
-> > +    enum:
-> > +      - sensirion,slf3s-0600f
-> > +      - sensirion,slf3s-1300f
-> > +      - sensirion,slf3s-4000b  
-> 
-> And here something else. Confusing. Didn't you say device variants are
-> auto-detectable? So you have only one compatible sensirion,slf3s.
+What this tells me is that the Agatti binding is incorrect for addition 
+of OPE as a separate device.
 
-And then future fallback compatibles can never work. 
-Basically as far as I have ever been able to establish this is why
-generic compatibles are almost always the wrong way to go.
+> Only VFE SID (0x0400) is shared between the two platforms.
 
-If we get a future part with an unknown ID and don't have these existing
-specific compatibles, then we have no way to specify which one it is
-compatible with.  Given these are providing scaling info that means we
-can't realistically support such a future part with a fallback at all.
+Both platforms have the same IOMMU list, its just that you are 
+correcting a bug in Agatti's defintion.
 
-That would only be possible if there was feature level discovery. A single
-whoami register with no structure to the value is useless for this.
+Again only IFE SIDs should be included in CAMSS...
 
-Note for this type of device I absolutely expect there to be future
-parts with different IDs and same ranges as here, the unknown is whether
-sensiron will change the interface or not.
+> The current Shikra submission enumerates only the VFE SID.
 
-Jonathan
+Great, this is what we want.
 
-> 
-> > +
-> > +  reg:
-> > +    maxItems: 1
-> > +
-> > +  vdd-supply: true
-> > +
-> > +required:
-> > +  - compatible
-> > +  - reg
-> > +  - vdd-supply
-> > +
-> > +additionalProperties: false
-> > +
-> > +examples:
-> > +  - |
-> > +    i2c {
-> > +        #address-cells = <1>;
-> > +        #size-cells = <0>;
-> > +
-> > +        flow-sensor@8 {
-> > +            compatible = "sensirion,slf3s-0600f";
-> > +            reg = <0x08>;
-> > +            vdd-supply = <&reg_3v3>;
-> > +        };
-> > +    };
-> > diff --git a/MAINTAINERS b/MAINTAINERS
-> > index 06a8c7457..222a03b6d 100644
-> > --- a/MAINTAINERS
-> > +++ b/MAINTAINERS
-> > @@ -24187,6 +24187,14 @@ S:	Maintained
-> >  F:	Documentation/ABI/testing/sysfs-bus-iio-chemical-sgp40
-> >  F:	drivers/iio/chemical/sgp40.c
-> >  
-> > +SENSIRION SLF3S LIQUID FLOW SENSOR DRIVER
-> > +M:	Wadim Mueller <wafgo01@gmail.com>
-> > +R:	Maxwell Doose <m32285159@gmail.com>
-> > +L:	linux-iio@vger.kernel.org
-> > +S:	Maintained
-> > +F:	Documentation/devicetree/bindings/iio/flow/sensirion,slf3s.yaml
-> > +F:	drivers/iio/flow/slf3s.c  
-> 
-> Basically almost the same comment as before. Drop. There is no such file.
-> 
-> > +
-> >  SENSIRION SPS30 AIR POLLUTION SENSOR DRIVER
-> >  M:	Tomasz Duszynski <tduszyns@gmail.com>
-> >  S:	Maintained
-> > -- 
-> > 2.52.0
-> >   
-> 
+I think for future submissions we need to be commenting, naming, 
+something each IOMMU entry as we have a problem now in Agatti and a 
+legacy problem - already - in VIDC as a result of misallocated IOMMU 
+entries.
+> Should CDM and OPE each get a separate YAML binding like [1], or
+> should both be part of the CAMSS YAML binding? If part of CAMSS,
+> please confirm and we will add their SIDs in the DTS in the next revision.
+> [1]https://lore.kernel.org/all/20260508-camss-isp-ope-v3-9- 
+> bb1055274603@oss.qualcomm.com/
 
+Yes I think CDM should be a standalone block and BTW use standard DMA 
+APIs with its own IOMMU entry.
+
+Similarly so OPE.
+
+The CAMSS node should only contain the IFE SIDs.
+
+So, actually I think your IOMMU defintion is correct but Agatti is not.
+
+Sigh.
+
+---
+bod
