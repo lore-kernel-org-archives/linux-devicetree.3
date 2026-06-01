@@ -1,54 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B4B6344DBD;
-	Mon,  1 Jun 2026 23:06:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C0126B971;
+	Mon,  1 Jun 2026 23:06:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780355201; cv=none; b=jT0lH6pEkJ32B/NBVooM9sd0VguDc7s1Sg1eOeMIns0dQwV8XIFkPQ1t2JDuhUcIqHwjAEMjhfiDz2ilMuaAdMOKPyIDIwv2mHs3Rke1nIO7pBREKzaVAApgMZMkv8H9besISxZfTq0cTNbU9qT0zj/MZXruxLejL/OzE1zBvrg=
+	t=1780355211; cv=none; b=suw0RrXpvRjcicbG0N71RFH34K4wFlhEb/D+uhnJ5Gu52SZlh1hOTdMVhGtfFfPNR6POzRh0XgBv6VE9OygxjmVG+ugXka1EDW6jyIIKggkSttSnTY0A1Qa3WV4rTCApTsnA5v20BfRUcGJ3NcYA8vHhrOcUDF4JJMvxAD2bHQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780355201; c=relaxed/simple;
-	bh=F8YTtz/I7qlJdKNeHgBgAlnkSKSiLGNHUK9K4wlzNnI=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=Aihl0cqpTeikwY4+mWzCdpNbuRom6syTXK5ApsR5el9MOSfSCSWXC1PzcpmG8b4eLlRXvOOP7ETsOIyJ/Zw8QQy9ywwGXgrWeJs2lO78UpJo5LM6shIlmhiZgjJNE9sfS4/5D7a/rzzcrB4Z4MIVeicHAKYAi7PQBQHhn/VOhMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaggX0EN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780355211; c=relaxed/simple;
+	bh=ksPNto4GiLD8jh3tfYRwpiuAUrDlXU2PdsIDNh9nT5A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=YPvWeG086ZOpBOnGLjMq4kFyiQDITwZPvzsQVDKUyT0P8hyFtoVMGyqnm/f7xx8auuMOR8nDp9QEu6YXtBVs0PUDTys9MnxLdvef0OQ5NtSQfsj/7Iw/spfzm/8RERy16ex2Uow9UGC8AChXYOgBiwrNllrwjCQzDS0B/v9+D0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VZr2P6a6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaggX0EN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C76A81F00893;
-	Mon,  1 Jun 2026 23:06:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VZr2P6a6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B4E7A1F00893;
+	Mon,  1 Jun 2026 23:06:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780355200;
-	bh=i1Iq/t7YJ3lzwEzZSDZNa3Rv0CFkmzQDeIArbCfLbks=;
-	h=Date:From:To:Cc:Subject;
-	b=ZaggX0ENXZ/NpWeqheKbjjq2533fbiCDgwuO/RZLYpUcvYdkGvAtm8kHPLdNVNDHt
-	 M8bhgZ9I9G2az1quJHDfgku1K7qxAFZSWodmteMB1BoAJfX1VQobDaLK/W8/HnNiNN
-	 ioR4XXRs7TZoCUa75ASKMWYGKExcq7ruPqVPa1DwFWmMdHLXYWdw4BcKh9SL9wALqo
-	 BE1ImbY2tn8ljHsYP4r3+surVR2hfTnlnupB41iE1Kx9/JWMsjWGPDUdeixyxW0LBZ
-	 psvHmcS7VZblM9IKvPSp7q3eUnq8rvOUKeQUKppvrUHuUjMA+60+lOKBK7RrgDp5tT
-	 CBi4c5I308Mhg==
-Date: Mon, 1 Jun 2026 16:06:38 -0700
-From: Drew Fustini <fustini@kernel.org>
-To: soc@kernel.org
-Cc: Arnd Bergmann <arnd@arndb.de>, Paul Walmsley <paul.walmsley@sifive.com>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Samuel Holland <samuel.holland@sifive.com>,
-	Daniel Lezcano <daniel.lezcano@linaro.org>,
-	Thomas Gleixner <tglx@linutronix.de>,
-	Anup Patel <anup@brainfault.org>, Joel Stanley <joel@jms.id.au>,
-	Joel Stanley <jms@oss.tenstorrent.com>,
-	Nicholas Piggin <npiggin@oss.tenstorrent.com>,
-	Michael Neuling <mikey@neuling.org>,
-	Michael Ellerman <mpe@kernel.org>, Andy Gross <agross@kernel.org>,
-	Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
-	Paul Walmsley <pjw@kernel.org>,
-	Drew Fustini <dfustini@oss.tenstorrent.com>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org
-Subject: [GIT PULL] RISC-V Tenstorrent devicetree changes for v7.2
-Message-ID: <ah4Qfro/wUyhByF8@x1>
+	s=k20260515; t=1780355209;
+	bh=E7R1Z5LYo7pjeNoc7ep6ZTYiQ1+vt+nuVQVM/JRsDg8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VZr2P6a6rxEsszH9oX0SGvC5VIHiToe8P8ovQ/YysKwyMk2wC3eOWD5vo9Kw8atuv
+	 +uBYid7EKetA5r6XY/8stwJLIyPjZzSWZvrsYzUhi5Jhnbhpo6JynIcwES/u7LsGQw
+	 EflDcWw84c6+GhriFQkUk+fhEMqJ30inG/jNHT2bsvXOxLCs2jg3j05sk7Y9KJy/Yg
+	 K2jsAuE17whwOdG2qHpowhA3u1lAOMO7XeigILZaIoIht6mxw3gH3HjiTAI5+Pl8gK
+	 Bjd3wkjPgJ3v8oIfSg/lQLxM2AUEde2jWmKLHdtJfnpOp1Bfjq/3vLURYEubqYX2gm
+	 HrFAWChToPdSw==
+Date: Mon, 1 Jun 2026 18:06:49 -0500
+From: Rob Herring <robh@kernel.org>
+To: Wandun <chenwandun1@gmail.com>
+Cc: Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, zhaomeijing@lixiang.com,
+	saravanak@kernel.org
+Subject: Re: [PATCH v2 1/3] of: reserved_mem: avoid unnecessary memory
+ allocation when __reserved_mem_check_root() fails
+Message-ID: <20260601230649.GA154030-robh@kernel.org>
+References: <20260519082427.4181476-1-chenwandun@lixiang.com>
+ <20260519082427.4181476-2-chenwandun@lixiang.com>
+ <20260520-cuddly-imperial-bison-ec3c4e@quoll>
+ <0dd4546a-6133-4493-a911-41c35ec42c15@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -57,39 +47,34 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <0dd4546a-6133-4493-a911-41c35ec42c15@gmail.com>
 
-The following changes since commit 254f49634ee16a731174d2ae34bc50bd5f45e731:
+On Wed, May 20, 2026 at 04:16:23PM +0800, Wandun wrote:
+> 
+> 
+> On 5/20/26 15:44, Krzysztof Kozlowski wrote:
+> > On Tue, May 19, 2026 at 04:24:25PM +0800, Wandun Chen wrote:
+> > > total_reserved_mem_cnt will keep the init value (MAX_RESERVED_REGIONS)
+> > > in fdt_scan_reserved_mem() if __reserved_mem_check_root() fails.
+> > > 
+> > > fdt_scan_reserved_mem_late() calls alloc_reserved_mem_array() to
+> > > allocate memory according to total_reserved_mem_cnt before
+> > > __reserved_mem_check_root(), so if __reserved_mem_check_root() fails,
+> > > the allocated array has nowhere to be used, so no need to allocate
+> > > memory.
+> > > 
+> > > Move alloc_reserved_mem_array() after __reserved_mem_check_root() to
+> > > avoid potential memory waste.
+> > > 
+> > > Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> > Authorship/DCO mismatch.
+> Hi Krzysztof,
+> 
+> Thanks for your review.
+> Sorry for the mismatch. Dueto my company email server's issues with
+> community mailing lists, I sent the patch via my personal email.
+> I will add the correct 'From:' header and send a v3 patch shortly.
 
-  Linux 7.1-rc1 (2026-04-26 14:19:00 -0700)
+There is also the 'b4 relay' that can be used for this kind of issue.
 
-are available in the Git repository at:
-
-  git://git.kernel.org/pub/scm/linux/kernel/git/tenstorrent/linux.git tags/tenstorrent-dt-for-v7.2
-
-for you to fetch changes up to 33583baeb1ba7d328e6a9775d889036900b74cdb:
-
-  dt-bindings: iommu: riscv: Add bindings for Tenstorrent RISC-V IOMMU (2026-05-23 17:14:35 -0700)
-
-----------------------------------------------------------------
-Tenstorrent device tree for v7.2
-
-Add a riscv,pmu node to the Tenstorrent Blackhole SoC device tree. This
-enables OpenSBI to expose the SBI PMU extension, allowing Linux perf to
-use the 4 programmable counters (mhpmcounter3-6) across 3 event classes:
-instruction commit, microarchitectural, and memory system events.
-
-Extend the RISC-V IOMMU device tree bindings to document the Tenstorrent
-IOMMU used in the Tenstorrent Atlantis SoC. A second register range is
-added which contains M-mode only registers like PMAs and PMPs. The
-binding will be used by OpenSBI and potentially other M-mode software.
-
-----------------------------------------------------------------
-Michael Neuling (1):
-      riscv: dts: tenstorrent: Add PMU node to blackhole for Linux perf support
-
-Nicholas Piggin (1):
-      dt-bindings: iommu: riscv: Add bindings for Tenstorrent RISC-V IOMMU
-
- .../devicetree/bindings/iommu/riscv,iommu.yaml     | 59 +++++++++++++++++++---
- arch/riscv/boot/dts/tenstorrent/blackhole.dtsi     | 48 ++++++++++++++++++
- 2 files changed, 99 insertions(+), 8 deletions(-)
+Rob
