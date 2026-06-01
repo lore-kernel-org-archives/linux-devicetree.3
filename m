@@ -1,220 +1,149 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD33538D3FB
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 09:02:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4809C367B8D
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 09:09:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780304572; cv=none; b=I5yl5U6raWPWw02W+WHYFbIK7sqilW7iX0aVcjXGJwXIgQd2LF88vBuqG0krFzwS4/EKyrFCEbi+qF7n5Gmygg9f7UKADmExsVqodBeUsF2s2IQ+I/VFm4N33UgBPk3NvOBpojmfksjFzxvOZE6UdyQ1tf5vYB2yN9x1BRqarQQ=
+	t=1780304963; cv=none; b=VBAXFVVTYCsZXwhZUBDNohnjfzOOuYw0FkDy6LBajlTtv9SItbgb8lfaJjtHCuT2fz1Pjr45CRlN40IyXPJ97LnMc4UvxvINpuEV6NFkCoLQiV3W6sEDfa6qWDFwy3WY4gP8tdmsIWYkQ1fFLyLD5AVJiOJ6sHzYkYrwosp7gHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780304572; c=relaxed/simple;
-	bh=4dH6hzvTjnW+GZA3+yzP2/rz0qP6WSKvqY0caaPpiBo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=m8lWZHjGz2Jqtr6FBJLvgQnJTsbeM1nJrufibV2v41mhQUUiyXsPRW8KZ0s275Ql4XmJ2zQMtcjoF0Cq5eq537F6Xd0vl0NZWzHNqWrIBkYv89+JBdPvll2cr1zAZANFYL0Sgkr+0SfDZhTB/Y7zSbPZL7jNKGzdr+86tCXr9Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=O5ot2mph; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Uq+WGAsq; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780304963; c=relaxed/simple;
+	bh=EIS1Yl/+J4oVBpDXfQgoA1U0gn7Ky3fFACeBj1Bi588=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=fldHPtjrE5l8l+cs8A3la2S4xTE0+zT7hKMqSA5kUhLp8sHyyzCbG9sjOhhjBSTe3rYrQGPHwY3iq/9HdsF9xIfWyJ4XrrYBU91L2ptP/zVIrHbLA9RqkW/LX+Gl88V3lGcD1tAEEk9TGLZn01fDCj4vXM/oRAUhNbGiaKImxbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MKhUg6SB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="O5ot2mph";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Uq+WGAsq"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6518dtRM4111164
-	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 09:02:50 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	dS24bvMnimy4PR7Q5DeqliRbUmxNl+ULW60N717m0To=; b=O5ot2mph9Ii9OZ1U
-	7Oe6dbxnNSnS5PZbp5A6e6S6UUl9QIEjiYDWroUKON+hT86eUuwxgbqG20BV8Akv
-	b5JcP3ZNJ2+Yb/EyNDQk4WzmmAQvFkveEHj8hxzYFWpCbCsi2jw589DNiLmAbRNi
-	31277feDw4wVvRuYwZ80mewh1BUJj9qzimaW2hm7z8QzfxImfXwxJAbMTxN4VFZl
-	TEx88LR41kdS7Mq9aEj3HmDbil4FoBV0I46csYbc6GcljXDsO3ipIjvY5sAm0SfT
-	/3u4LE/h9YbGOKuTSOG4n7Rfk62GPkRVcJzJ4iyTq8Pf9Q1Tpf4F7Y3Tl2I8fkWy
-	KqEyFA==
-Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6s3r3c5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 09:02:50 +0000 (GMT)
-Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c0a99db8dfso18600145ad.3
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 02:02:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780304569; x=1780909369; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=dS24bvMnimy4PR7Q5DeqliRbUmxNl+ULW60N717m0To=;
-        b=Uq+WGAsqFGYJ5UBBrk1wtZ6trlag+645ipIXxV7Zir8rbEir9q8JRg+boG3uO78qCD
-         oO5u+SaDg0DFszmvDQ5IvCLOJrMoSlPjgZWwS/JEtckiLn12hRrXJEfbHoEfumfTDfQ5
-         1EAV/vGDPNGVcXkEcn2C3gS7lnIzRMXnHd7yizRDRyE0dMO+CJVdDyMaBVQB7MSahFjC
-         wIdjV7CWi1OumpGqTRkP0s4E3glXG4+RAq6zBaF1Od1tG0mzeB0E4+w56CrTfAy10hIT
-         zo4GlzAAaXPjRhJIkkxmKxV34jA98ViorZ6nH9igTVly3+rDuqTWK7UiRHtifmqdGri6
-         +8cA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780304569; x=1780909369;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=dS24bvMnimy4PR7Q5DeqliRbUmxNl+ULW60N717m0To=;
-        b=qxb5mGdvUYbPgK7SIL4WPc7K7NEJYIuh/P2rYSU5+Q/3PDT4dSvLH4IQ1YJRIBBWv4
-         fDAjDvsryZKZ6tG7I9/OIXjHpofMIt3+3LEDOqEo0OSf1B56oI5Zxj6GaIaygsbczEJc
-         HoKmQPt22qwU0PSMYCtOR+n13zVhVMn1Mr3c2jv1LUcbPzqH0C+agUFev4YuRpafFwGr
-         Dpfrn8oAC1uNZkFKPUUa+sSCPJ0XPlZ/uREr7AwH9Wd00Vz5R4dBRHc8hrem4PKvnJOH
-         sZWu0cBfLjkNbKtDYf26BffW5mOCmeMKJK15CAug7cm6NS3ZaA9AuzME/6IR1L1zidku
-         zllA==
-X-Gm-Message-State: AOJu0YyvK5K7dYGIyOjaFPcUViENjmb+ur9yqJuX6OzL+qfbCmkdvH2v
-	OsElsluuypc2x14S6Fsf52C9TWQzFmZr6uY+6ybkuaDmGMVv/st6riWomG1TfjCrKag5GWsrcii
-	qHxGt12Fkkr7RUlCwi5IjiMSIjOogs7SF+1CmmzTMJo/fJfIIC7eqeKdgQd1Ho6m1
-X-Gm-Gg: Acq92OGM37iC6U7bqp9SF6fW/+DkFlpzN5cLixi6xM0B6e6RcAP6qLIUhA7XJQqligb
-	tWvTCpPv6C4gvao1zN/IG+DI62MuejCrFiqWIrXD+d4r6W9xgp9sxZYHv/acKqpt8blVDcAG6Bp
-	NCFbUsR6LlWhckvo2os4EUZhxVuRWbi2uuI0NJPT+9cnivMa4IcnSmBLSerPfLvkfjCKRUE9GOC
-	Xrp9Cqhw+sK+cnWvX3yzLtjyTf1+qgellZpbuzMCtspdT4NDxQGNzEdQwXqfPHMu23gyIoN54LE
-	VXuHXNiSKE++agO2dwzimlUlpCIwzYL02j2pQEuANUSAmI2vckGB/OiXsJL4qHHfu5Ddq5c3CnX
-	2ZzmudPKCq1zWbhZPJvYFvaPz8X8J3WM/rkm17Vlniv1OYvbd9h2okeQQTngsMJl+4Q8Ikc5mDS
-	uThW8njpsGVAuSd1XK30J7
-X-Received: by 2002:a17:903:3585:b0:2bd:ba75:81c4 with SMTP id d9443c01a7336-2bf367cbd56mr111929655ad.13.1780304569356;
-        Mon, 01 Jun 2026 02:02:49 -0700 (PDT)
-X-Received: by 2002:a17:903:3585:b0:2bd:ba75:81c4 with SMTP id d9443c01a7336-2bf367cbd56mr111929095ad.13.1780304568792;
-        Mon, 01 Jun 2026 02:02:48 -0700 (PDT)
-Received: from [10.133.33.9] (tpe-colo-wan-fw-bordernet.qualcomm.com. [103.229.16.4])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23b011f7sm130112305ad.41.2026.06.01.02.02.47
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 02:02:48 -0700 (PDT)
-Message-ID: <e0a89628-84ef-4299-b25c-9d4d3c5c7b85@oss.qualcomm.com>
-Date: Mon, 1 Jun 2026 17:02:46 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MKhUg6SB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B76661F00893;
+	Mon,  1 Jun 2026 09:09:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780304962;
+	bh=vhdC4G8GWu5IwD345jCy8vRrR0MZO7ZOWWyrk4XM/ng=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=MKhUg6SB7v6WOgvEpNEntF8nqfVQFyRhD73xPevMArbAzOG52+9OYWBw/xSalIEfB
+	 W8Ha9YwpsZkDNpR1BmCUoKlhR4dgZxwydUzOvsbuZygOmkcBsr+mKc6TN3vvRuddaF
+	 MNSuUnOU162dermCKfXVYDtNmQ4RiSEsKM500fYleArDJ+zF3PC+9/5ncFHDSctiiY
+	 qCAsRd390pGxxtz9VVd5vdWB6rqm5SfN3Ksu9ZRsKypoHM4S1U09JyhjaYL/aF+Ofi
+	 aH5h6L3QLoXyePtQ+NiFD8WfhwYJI3SF8k/6ePn/4pJCLIJrHZTcqqB0ddOTASrOyC
+	 dW/4LIORbP6aQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 05/10] ARM: dts: qcom: msm8960: add RPM clock
+ controller and fix USB clocks
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Antony Kurniawan Soemardi via B4 Relay" <devnull+linux.smankusors.com@kernel.org>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260601-msm8960-wifi-v3-5-fec6ac8dba02@smankusors.com>
+References: <20260601-msm8960-wifi-v3-5-fec6ac8dba02@smankusors.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 09:09:21 +0000
+Message-Id: <20260601090921.B76661F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/7] clk: qcom: Add generic clkref_en support
-To: sashiko-reviews@lists.linux.dev
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-References: <20260527-tcsr_qref_0527-v4-2-ded83866c9d9@oss.qualcomm.com>
- <20260528030538.F0FB31F00A3D@smtp.kernel.org>
-Content-Language: en-US
-From: Qiang Yu <qiang.yu@oss.qualcomm.com>
-In-Reply-To: <20260528030538.F0FB31F00A3D@smtp.kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=AP3YypGC c=1 sm=1 tr=0 ts=6a1d4aba cx=c_pps
- a=JL+w9abYAAE89/QcEU+0QA==:117 a=nuhDOHQX5FNHPW3J6Bj6AA==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=RwAibasCBCaYvBehKCwA:9 a=QEXdDO2ut3YA:10
- a=324X-CrmTo6CU4MGRt3R:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA5MCBTYWx0ZWRfX+PR8UH4LgFb8
- /045xflaBP9/KQaKhPhFi/jXgHA8SDo6n5YWQWVX1R5kswBWJxXhjYEI2pfxGwbuTOPAPIa3FKy
- dgv3FIjSpK19fRViZSXg9jt0YyfKZi4Oj51m66t29YS5UR3ds3jRHbgz6O9MJUKBeV+zu/BIgY4
- zD0xUKoK28WOHz7BRtrzOIGPACuNxIM4RreaHLVFchfDYu0mMG9XuFyd2on4VgV2wlBlgydbg57
- zBJVmeRD78P6ckC4Ds7MvIXwr7BndIwX4OHQzbyRqHcWX05Cfa1o5cW6Wg8Vh/LkU/EsWsCNs5I
- +oSfLxAd33Y9B5R898/43CkSiACg5PzzbiIA+xS0GkrLlEZtD+85tIPw1JOFEX7jcuzNSwM229g
- xiQrdEahTU8KBfKp9M32p0YbhDSjRZzyRL144mw1k3U3PjKIzT35bYPu/ZWzccu7tFOkG2yjLcc
- tDKzuHd3viPpzhXTjpA==
-X-Proofpoint-GUID: UDR4lHND8cuZUYbZrZdlFEv1s2Te8K71
-X-Proofpoint-ORIG-GUID: UDR4lHND8cuZUYbZrZdlFEv1s2Te8K71
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 impostorscore=0 suspectscore=0 malwarescore=0 clxscore=1015
- priorityscore=1501 lowpriorityscore=0 phishscore=0 adultscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606010090
 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-On 5/28/2026 11:05 AM, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> - [High] Unbalanced regulator disable during late init for clocks left enabled by the bootloader.
-> - [Medium] Hardcoded resource mapping and OF provider registration prevent API reuse in multi-functional drivers.
-> - [Medium] `qcom_clk_ref_is_enabled` returns a negative error code on failure, which CCF interprets as true.
-> --
->
-> commit 958034c0adafc3f72b4d7e46df81935d74404f7a
-> Author: Qiang Yu <qiang.yu@oss.qualcomm.com>
->
-> clk: qcom: Add generic clkref_en support
->
-> This commit introduces a new clk_ref clock type with custom clk_ops for
-> QREF blocks. It provides a common registration and probe API intended to
-> be reused across different placements like TCSR and TLMM.
->
->> diff --git a/drivers/clk/qcom/clk-ref.c b/drivers/clk/qcom/clk-ref.c
->> new file mode 100644
->> index 0000000000000..213c0f58bb36e
->> --- /dev/null
->> +++ b/drivers/clk/qcom/clk-ref.c
-> [ ... ]
->
->> +static void qcom_clk_ref_unprepare(struct clk_hw *hw)
->> +{
->> +	struct qcom_clk_ref *rclk = to_qcom_clk_ref(hw);
->> +
->> +	if (rclk->desc.num_regulators)
->> +		regulator_bulk_disable(rclk->desc.num_regulators, rclk->regulators);
->> +}
-> [Severity: High]
-> If the bootloader leaves this clock enabled, the common clock framework
-> will call unprepare() during late init to turn off unused clocks. Since
-> prepare() was never called by the kernel, won't this
-> regulator_bulk_disable() call trigger an unbalanced disable warning and
-> permanently leak power?
->
-> Does the driver need to sync the hardware state during probe by enabling
-> the regulators if the clock is already on?
-clk_unprepare_unused_subtree() calls unprepare() only when
-clk_core_is_prepared() returns true. Since our driver has no .is_prepared
-op, the framework falls back to checking core->prepare_count, which is 0
-if the kernel never called prepare(). So unprepare() will not be called in
-that path, and the regulator imbalance you describe cannot happen via the
-unused clock cleanup.
+New issues:
+- [Low] Device Tree binding schema violation: `qcom,ci-hdrc` defines 3 cloc=
+ks, but the `ci-hdrc-usb2.yaml` schema restricts `clocks` and `clock-names`=
+ properties to a maximum of 2 items.
 
-- Qiang Yu
->
-> [ ... ]
->
->> +static int qcom_clk_ref_is_enabled(struct clk_hw *hw)
->> +{
->> +	struct qcom_clk_ref *rclk = to_qcom_clk_ref(hw);
->> +	u32 val;
->> +	int ret;
->> +
->> +	ret = regmap_read(rclk->regmap, rclk->desc.offset, &val);
->> +	if (ret)
->> +		return ret;
-> [Severity: Medium]
-> If regmap_read() fails, this returns a negative error code (e.g., -EINVAL).
-> Since the common clock framework evaluates the is_enabled callback as a
-> boolean, won't it treat this negative error code as true and incorrectly
-> assume the clock is enabled?
->
->> +
->> +	return !!(val & QCOM_CLK_REF_EN_MASK);
->> +}
-> [ ... ]
->
->> +int qcom_clk_ref_probe(struct platform_device *pdev,
->> +		       const struct regmap_config *config,
->> +		       const struct qcom_clk_ref_desc *descs,
->> +		       size_t num_clk_refs)
->> +{
->> +	struct qcom_clk_ref_provider *provider;
->> +	struct device *dev = &pdev->dev;
->> +	struct regmap *regmap;
->> +	void __iomem *base;
->> +	int ret;
->> +
->> +	base = devm_platform_ioremap_resource(pdev, 0);
->> +	if (IS_ERR(base))
->> +		return PTR_ERR(base);
-> [Severity: Medium]
-> The commit message mentions reusing this model for blocks like TLMM on SM8750.
-> If a multi-functional driver like TLMM tries to use this helper, won't
-> devm_platform_ioremap_resource() fail with -EBUSY because the parent driver
-> already maps the register region?
->
-> Since qcom_clk_ref_register() is static and callers are forced to use
-> qcom_clk_ref_probe(), does this hardcoded resource mapping prevent the
-> intended integration with multi-functional drivers?
->
+Pre-existing issues:
+- [High] The APQ8064 device tree misses the RPM fabric clock dependency for=
+ its USB nodes (`usb1`, `usb3`, `usb4`), leading to broken USB functionalit=
+y.
+--
+
+commit bf5021df5ce13a6b631bed12c18c025b975c7150
+Author: Antony Kurniawan Soemardi <linux@smankusors.com>
+
+ARM: dts: qcom: msm8960: add RPM clock controller and fix USB clocks
+
+The RPM clock controller manages clocks shared between the application
+processor and the RPM firmware, including fabric and bus clocks required
+by several peripherals.
+
+With the RPM clock controller now available in the device tree, the USB
+controller must explicitly declare its dependency on
+RPM_DAYTONA_FABRIC_CLK. Without this declaration, the clock framework
+would consider it unused and disable it, breaking USB functionality.
+
+This also corrects the previous misuse of USB_HS1_XCVR_CLK as the core
+clock. The XCVR clock is in fact used for PHY/reset handling rather than
+as the main core clock.
+
+> A similar issue has been observed on APQ8064, where missing the RPM
+> fabric clock dependency leads to broken USB.
+
+[Severity: High]
+This is a pre-existing issue, but since the commit message notes that
+APQ8064 is broken due to the missing RPM fabric clock dependency, should we
+fix the usb1, usb3, and usb4 nodes in arch/arm/boot/dts/qcom/qcom-apq8064.d=
+tsi
+as well?
+
+For example, in qcom-apq8064.dtsi the usb1 node currently looks like this:
+
+usb1: usb@12500000 {
+    ...
+    clocks =3D <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
+    clock-names =3D "core", "iface";
+}
+
+Since rpmcc is already enabled for APQ8064, the clock framework will disable
+the RPM fabric clock as unused, rendering the APQ8064 USB controller fully
+inoperable. Is it worth including a fix for qcom-apq8064.dtsi in this patch
+series to restore that functionality?
+
+> diff --git a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi b/arch/arm/boot/dts=
+/qcom/qcom-msm8960.dtsi
+> index fd28401cebb5e..1ae399c5a81f0 100644
+> --- a/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+> +++ b/arch/arm/boot/dts/qcom/qcom-msm8960.dtsi
+
+[ ... ]
+
+> @@ -507,8 +519,12 @@ usb1: usb@12500000 {
+>  			reg =3D <0x12500000 0x200>,
+>  			      <0x12500200 0x200>;
+>  			interrupts =3D <GIC_SPI 100 IRQ_TYPE_LEVEL_HIGH>;
+> -			clocks =3D <&gcc USB_HS1_XCVR_CLK>, <&gcc USB_HS1_H_CLK>;
+> -			clock-names =3D "core", "iface";
+> +			clocks =3D <&gcc USB_HS1_H_CLK>,
+> +				 <&rpmcc RPM_DAYTONA_FABRIC_CLK>,
+> +				 <&gcc USB_HS1_XCVR_CLK>;
+> +			clock-names =3D "iface",
+> +				      "core",
+> +				      "fs";
+
+[Severity: Low]
+Does adding a third clock here violate the device tree binding schema?
+
+Looking at Documentation/devicetree/bindings/usb/ci-hdrc-usb2.yaml, the clo=
+cks
+and clock-names properties are restricted to a maximum of 2 items:
+
+  clocks:
+    minItems: 1
+    maxItems: 2
+
+  clock-names:
+    minItems: 1
+    maxItems: 2
+
+Will this cause dtbs_check validation failures? Even if the ci_hdrc_msm
+driver handles the optional fs clock correctly at runtime using
+devm_clk_get_optional(), should the schema be updated to allow up to 3
+items before adding them to the device tree?
+
+>  			assigned-clocks =3D <&gcc USB_HS1_XCVR_CLK>;
+>  			assigned-clock-rates =3D <60000000>;
+>  			resets =3D <&gcc USB_HS1_RESET>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-msm8960-wi=
+fi-v3-0-fec6ac8dba02@smankusors.com?part=3D5
