@@ -1,64 +1,64 @@
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F7A2E0901
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 23:15:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B90F72E0901
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 23:16:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780355759; cv=none; b=AEMFyUwJ8yloM62IJ8Hgyyj6lGQei6P98obTVGnqmu0dUYyK5Fv0Ufekem5muGVBKaVdLTd/QY4KiFR+CmlGCZbUHXJbENezQms+PpxiJVTm/KIQqyDymid7ZKItzY1c1l3pnAbhfKjLp+wvkgVzSECS6hKp5mVTXj8qWUIcTmg=
+	t=1780355766; cv=none; b=pIdmFhCyENo6qL+49EYW/eOU6CNkRnHKZMi+CNK7s8/DDAIOyCOHlXKXcGA9eo2YGTloVFnenpaBOGtNLaaS2VXTM+SE11lkKCUVrlNjZwy8UxPwPdHZHUDh1VeBrwMiu6EmUD+i01Pgt4nuu4IDhaNwupzBJxdBaVv6Zq9ilVY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780355759; c=relaxed/simple;
-	bh=uzHEC8gmAxO8h2736QEykyhvl3Sb4cDm5wxPO1UPc5o=;
+	s=arc-20240116; t=1780355766; c=relaxed/simple;
+	bh=qVUeQWS/7OtGofvve8QyxJxwmCBOhgxcSSPO4Frh6Q8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JBxHB9cjm5SD5ipxSwXkA+qAL03KQOt+p7a3ZPDE/pITGSTNH1wOwHNSp4WW1D9HF2DGj2GjQTboq4FBSEHocPDU3VpuKmglf5eEumGXVC0chySTbdNWKAKU6/CJkuU+0pAg9v4WeBO4hzre5JRmr/G8OzXhq0KX8ccL4iEfvpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMVleSNg; arc=none smtp.client-ip=209.85.214.174
+	 MIME-Version; b=Sa1sqRaRGGbNT7tYOu2E3W3GLhb1wP5QZJnGBI6TIWYei8fhyOLuEuxvGqMsXZQaNgKpqmUiPmGvOZGQRNTkoD4FTfd+uP85OHq/vY8itWRhOoteaEMoyQ+e34J9stj79E4G1X+x8i/LEHF2fglXhSLat/nXo5e8rDzL521SV6c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hXlGpQhx; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMVleSNg"
-Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c0c3315c5dso19242905ad.3
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 16:15:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hXlGpQhx"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2bf20f6be6bso20867245ad.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 16:16:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780355757; x=1780960557; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780355765; x=1780960565; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=vEGOFfHWeLdHXhuCkKkw3VwMtN/iTVupSierNalI6tY=;
-        b=RMVleSNg7SysWCVkIwV15Cs9NIe155+C6D0hH2rdk286QD0CYLMowHSAFHOMPmTvn6
-         RjDPw2pDBBNKZ2FiSX2jVxnnCyFZlkHZxf6NJzwrQ+RHQyY8P7nj0d4T3oc/ePfKCo26
-         BZaC/9b0G7ErUrx4IHolcs513omlBQJ4exBbxyBYZD+rC64UmZTsDvPpBUjnJ+5I97b5
-         QgDA1/pjqb3zJWUZM7ZoMAs5qJdC9IlnBBGphTczAQ6mumBRlJo+FdHPk9lf+GLYXhkf
-         3S3KcdJ48E5gWZp5T6ky2J2Hqdb9SiFLTjBuoEoC05cxislC0GjnRLD2KiiJcd6YgS3T
-         dgfQ==
+        bh=Ozxx9tq3sAfLk06YmZpKiSWd0rtmuUYU/mrvthF8nNs=;
+        b=hXlGpQhxNQdWiCaI8N1fRglEohxieF4dhummgfPtcbcUTQ6dxhjCz2aPb9W5D0FjyU
+         vGB7yWsvlNZ+Jirq6I8huFjHrYBWJTU2X1zkt+koK8WWVpDBdvkozcKz0xUQ1pr/tt8C
+         MvwZR8xwkmKxNDHmSwVQ9T5DZ+CtG/lojl0N6BxKa4YEW0Aqxt2zc75ULVkR9DdMgQXH
+         BBqloJ4F3/nn7x1nCOcTgmI+ppn/zA+SS3Ssb/AHi1Iz3S3EqQK6qnr6FNySKCAZN50n
+         96xGIlxSRveE1oGimfVI5ikF7RmLk1ltUf6rX4lmtiKrtQP+63U0DTJvWN/CKEl4V1Nt
+         dDgw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780355757; x=1780960557;
+        d=1e100.net; s=20251104; t=1780355765; x=1780960565;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=vEGOFfHWeLdHXhuCkKkw3VwMtN/iTVupSierNalI6tY=;
-        b=h7ajnu0NENiw+JUFbpIfO9QIDenhAgQwnGchcnKfyYbXod6jssebwr1FS33arKR67E
-         waCvVl2K2SBzdLWhglz43MGy2SoxsBaQNqJ+T9AX3Lojkmi8n4d4kAwmlxPmIzt8I2cZ
-         lGIxUAvjF0lrU8HrWGP/P/EvlmeM8BEdM9BPy3QemQRzBdoFMhT/6577fV1znH9p/KpK
-         gS+pB31rq65gUXE8DSWULP0GzHyZf0IoLghKyESaxLCuDD5vTlkgEJOXj0TM3KUfcaid
-         5ONRDUpbLDZMdjhYA5DO/IGeJPzCJ2Vo+I/3MgJ0XfoC8tT/EkJcgdcrlSIxoFRsCdQx
-         7EFg==
-X-Forwarded-Encrypted: i=1; AFNElJ99q33SQbNuf10S59zMaxX2nhZ9Zq8HZoFwv02AL6N2jMUQt4lOGQabsS6H1cPioPZuG2N6jCYyQ9gO@vger.kernel.org
-X-Gm-Message-State: AOJu0YwDDaHDP0xiB6eqZGMSaFqWOlYKW96Zugrttrg+KxtOl+kQf5mN
-	zfa91k+EPyX06B+EpsbQsxkZpQ5hZ4LfXS8OlUz0Enpltfdn7LkYKBIj
-X-Gm-Gg: Acq92OH8iTy3uvTgsrntmwInKI3qz0kY06GR3eOn92ZdSjPrYAER+qqDkzN3WjRNL7K
-	7oECpD4okmGN3m1RAdDT2jyzZerpAN1Tt3zz6y5ejnqUuP5Li2oZ/B9vdftU+EKozxTvu2JASHL
-	WAUvP++DhfgfXyv50Hpc4XSiSX4WK/4cpJlNTj+wsWRtTJKPN0cT2u00fUUg24SbMvAuOhSP5Zu
-	k4TDxY26m05h5w3oQa+XSJefnRU1ye0jLYg3cOPpY95dR+3nzxw36pTK0nd7ATY7LhkuYTxjNos
-	VUvPJUYLQsJlxJ77mA0BGCeVpR+AdrO12Ui0KtkAUiLmTdY17P2E2jhS0niQ0uWeBUki3Cum7lB
-	MUWA6/yWwrIV55qtn2OiBQXWQN5cmCS0YinCJX02KkP85FWA7GEM02mvo3R/PATpw9vk65ZlZAq
-	UPyizt0HUyRKqr3TpJKnYrqgSw2VMiW+1sv9O+cPhVe9yINKOSNfflEOhP8gf/0WorHyUA1/GYV
-	KeE6JbBZVvyJxyQ0IoJ
-X-Received: by 2002:a17:902:cec4:b0:2c0:bb2d:a321 with SMTP id d9443c01a7336-2c0bb2db260mr104962495ad.37.1780355757465;
-        Mon, 01 Jun 2026 16:15:57 -0700 (PDT)
+        bh=Ozxx9tq3sAfLk06YmZpKiSWd0rtmuUYU/mrvthF8nNs=;
+        b=IPXlCJysAQcbB8GHMiOjZkK6QlznDPSjgLdoRw74DY1eHIVK++w7xQLZyf22GqL5wF
+         Yl99eATQKYz6Ggop/raJ/iQUzfB5nnSgMcuQ0roRPrRqNagltBpD/bXzste5wj1Z8Ghp
+         nvuWphDltT5bBqszt802KThI0mdB5CWRltG4RhaCmCmAPFaUGVTGEYNrBv9nWv5JwjWt
+         t/uSTUXQj/ogZRgkrhCyYsdKmGi2DSYwYxprRhy+yM8c1LP9yauN++sF4DCl3EhGg2s4
+         hm5mwYXA3jvxDQpMc08Y8kjJ7NZ4iHr2xxh+ATm0ML5PQ2fEU+1xuLmytYHpyk3yidzf
+         E3jA==
+X-Forwarded-Encrypted: i=1; AFNElJ+faY6Rq9qbhDl+mnKhc0iDPGm0J13+J+lH3d4yZF5o0i9f6ogiierD60hbWaGZhoKrOh4aJBOA7D2/@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx2J0H2TksVbIqHdwYIb54KhVk29D1LLXsCY6ZWZwBZWgZYyYER
+	EwvrTgtmJ2PKFIocbQjpF7/Uy6+CJTd5SqwnW+7aH/z6/QcBFb2e8VyJ
+X-Gm-Gg: Acq92OFmU/GOzf3pHxmRIS1D94eYj4IOc371JvSQYi/cb1TtQKPLlm9J34zZ76JHFuV
+	FAdXxqFkI9IzsfVuhNSVUFwLyRmgqua42VGyGS6nKvoIRQVsSkKiTCuHUURcMN3MFnuUgPj/fGv
+	jV2nyBW0DBoUiDtXBovSm0eMzksO3RsRNnlK9ww9Zx6hDX3kJ8oh1AqikDMaq/0zcCMjDmmv/pb
+	QPkaB4OoyEReN34w4Rcl3YWX/RbYXOYhc4dQ8IaeCeZ+3GNmrXp1VSkRvgxVTMIfJG6jETA/tUz
+	EXri4lEVbgd+/3OQM/Bk+sBz+/XK3XueDOybNiY6D16Ooh0w40zegWLnN56C15+lDoKG/eGg0MR
+	VhkjAbhgKMV1B4N5JJ9FWxKnA0hj0px0NDQr0CfIUooVdSbu1Y4ssFhl1tAdK2YUSUTuUO9TnUi
+	NY88wUjDpNBPtOu2pWDz0a4irtsyNLE/uWe56pRGXpr1+YZyDMjDAFET8lfPLZMUBA+B6COK+bP
+	inc1kcwMsR0CxUmLj0t
+X-Received: by 2002:a17:903:1b68:b0:2c0:bcff:e18c with SMTP id d9443c01a7336-2c0bcffe26dmr93746255ad.37.1780355764824;
+        Mon, 01 Jun 2026 16:16:04 -0700 (PDT)
 Received: from tomriddle.canterbury.ac.nz ([202.36.179.106])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fd24fsm143815355ad.20.2026.06.01.16.15.52
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fd24fsm143815355ad.20.2026.06.01.16.15.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 16:15:57 -0700 (PDT)
+        Mon, 01 Jun 2026 16:16:04 -0700 (PDT)
 From: Oliver White <oliverjwhite07@gmail.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Rob Herring <robh@kernel.org>,
@@ -73,9 +73,9 @@ Cc: Felipe Balbi <balbi@kernel.org>,
 	devicetree@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 2/3] usb: dwc3: add reinit-phy-on-resume quirk
-Date: Tue,  2 Jun 2026 11:12:35 +1200
-Message-ID: <20260601231236.20402-3-oliverjwhite07@gmail.com>
+Subject: [PATCH 3/3] arm64: dts: qcom: x1e80100-microsoft-romulus: add phy-reinit-on-resume
+Date: Tue,  2 Jun 2026 11:12:36 +1200
+Message-ID: <20260601231236.20402-4-oliverjwhite07@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260601231236.20402-1-oliverjwhite07@gmail.com>
 References: <20260601231236.20402-1-oliverjwhite07@gmail.com>
@@ -87,79 +87,28 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Some platforms gate the USB2 PHY power domain during deep sleep
-(S3) even when device_may_wakeup is set, which causes the PHY
-register state to be lost. The DWC3 fast resume path (taken when
-device_may_wakeup is true) relies on phy_pm_runtime_get_sync() to
-restore the PHY, but this is a no-op for PHY drivers that do not
-implement runtime PM (e.g. the Qualcomm eUSB2 driver).
+The Surface Laptop 7 gates the USB2 PHY power domain during deep sleep, causing the PHY register state to be lost. When the DWC3 multi-port controller resumes via the fast path (device_may_wakeup), the PHY is not re-initialized and USB2 devices (such as the wired keyboard on the USB-A port) may exhibit corrupted signalling, e.g. stuck modifier key reports.
 
-Add a new boolean quirk 'snps,reinit-phy-on-resume' that, when set,
-forces a full phy_exit() + phy_init() cycle on each USB2 PHY during
-the host-mode fast resume path. This ensures the PHY registers are
-properly re-programmed after power loss.
-
-Signed-off-by: Oliver White <oliverjwhite07@gmail.com>
+Enable the 'snps,reinit-phy-on-resume' quirk to force a full PHY re-initialization cycle on resume.
 ---
- drivers/usb/dwc3/core.c | 25 +++++++++++++++++++++++++
- drivers/usb/dwc3/core.h |  1 +
- 2 files changed, 26 insertions(+)
+ arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/usb/dwc3/core.c b/drivers/usb/dwc3/core.c
-index 161a4d58b2ce..82baaab0d1d1 100644
---- a/drivers/usb/dwc3/core.c
-+++ b/drivers/usb/dwc3/core.c
-@@ -1854,6 +1854,8 @@ static void dwc3_get_properties(struct dwc3 *dwc)
+diff --git a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+index 4356cb88e2bd..2de244ffb54d 100644
+--- a/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
++++ b/arch/arm64/boot/dts/qcom/x1e80100-microsoft-romulus.dtsi
+@@ -1731,6 +1731,10 @@ &usb_mp {
+ 	status = "okay";
+ };
  
- 	dwc->dis_split_quirk = device_property_read_bool(dev,
- 				"snps,dis-split-quirk");
-+	dwc->reinit_phy_on_resume = device_property_read_bool(dev,
-+				"snps,reinit-phy-on-resume");
- 
- 	dwc->lpm_nyet_threshold = lpm_nyet_threshold;
- 	dwc->tx_de_emphasis = tx_de_emphasis;
-@@ -2561,6 +2563,29 @@ static int dwc3_resume_common(struct dwc3 *dwc, pm_message_t msg)
- 			dwc3_writel(dwc, DWC3_GUSB2PHYCFG(i), reg);
- 		}
- 
-+		/*
-+		 * Some platforms gate USB2 PHY power during deep sleep even
-+		 * when device_may_wakeup is true, causing register state to be
-+		 * lost.  Re-initialize the PHY to ensure clean signalling.
-+		 */
-+		if (dwc->reinit_phy_on_resume && !PMSG_IS_AUTO(msg)) {
-+			for (i = 0; i < dwc->num_usb2_ports; i++) {
-+				int ret;
++&usb_mp_dwc3 {
++	snps,reinit-phy-on-resume;
++};
 +
-+				ret = phy_exit(dwc->usb2_generic_phy[i]);
-+				if (ret)
-+					dev_warn_ratelimited(dwc->dev,
-+						"failed to exit usb2 phy %d: %d\n",
-+						i, ret);
-+
-+				ret = phy_init(dwc->usb2_generic_phy[i]);
-+				if (ret)
-+					dev_warn_ratelimited(dwc->dev,
-+						"failed to init usb2 phy %d: %d\n",
-+						i, ret);
-+			}
-+		}
-+
- 		for (i = 0; i < dwc->num_usb2_ports; i++)
- 			phy_pm_runtime_get_sync(dwc->usb2_generic_phy[i]);
- 		for (i = 0; i < dwc->num_usb3_ports; i++)
-diff --git a/drivers/usb/dwc3/core.h b/drivers/usb/dwc3/core.h
-index a35b3db1f9f3..f64cf709e194 100644
---- a/drivers/usb/dwc3/core.h
-+++ b/drivers/usb/dwc3/core.h
-@@ -1403,6 +1403,7 @@ struct dwc3 {
- 	unsigned		dis_metastability_quirk:1;
- 
- 	unsigned		dis_split_quirk:1;
-+	unsigned		reinit_phy_on_resume:1;
- 	unsigned		async_callbacks:1;
- 	unsigned		sys_wakeup:1;
- 	unsigned		wakeup_configured:1;
+ &usb_mp_hsphy0 {
+ 	vdd-supply = <&vreg_l2e>;
+ 	vdda12-supply = <&vreg_l2j>;
 -- 
 2.53.0
 
