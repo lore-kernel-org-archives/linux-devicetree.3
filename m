@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65DD3E025E;
-	Mon,  1 Jun 2026 17:45:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F4F3E1694;
+	Mon,  1 Jun 2026 17:45:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780335925; cv=none; b=niOGHQy4EBdI+2pm0hJChHkTALcPfhO4CNPE/xA0sbaWiHmvJMYrb6v4udKGKgjQm+JLQJSgTkuPAl/O7/mw7IXCGM1c1mQ7vHY731Ze/ijh9Uix94Ib9fu2mDm8+asqTjo9lHM1PtFmDDpnxgPKIeSP33PWSVwZq6b/SlaLnyY=
+	t=1780335927; cv=none; b=dAPdoCCbOzom1Vkm+JOPrJrqa2fhpEjM/KovXaO3/qqvYuNm5A39/mj7qt6+qL9dE6mjN50CyrJW6U2u4y42aGoScYUcNTA2paLVzjlPfpmT8YGoV/GVhsceBh/FBrSIganPkuUL+1puSj5S8q4A9YCZc2liIlktMxjmgLVSPyc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780335925; c=relaxed/simple;
-	bh=9rGSzvVmrUy3l8fA2KbwEhQHlrI3U6G48E7KCZFO06s=;
+	s=arc-20240116; t=1780335927; c=relaxed/simple;
+	bh=xC0eNyhxKpECC6dSaSCXTHEjo6rt8dNfk6cTKHB7xG8=;
 	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=VVlaGfcQSIqG0K10QFvbaXa6P1YYOpfUVTMtqIGI99UswZIxyUImDd3viLf02z/1zzfc9hEeOJnc7pNPEWzzj1SMhabpx1zjCs6F8K/EX8ce+szkgOaCkNCjjO1e+EHevqS/B6G7kNVKUBxhkRGzH4Z4T7LjhInd6CMTFKg+vvk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ExUCI09Z; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id:Subject; b=SM5Ce86PJVrBBSwbX95VHsHxrhE7XdlUmFk99D/rPB4L1KDMfqwI0zUN3RfpI3tOCkflpEbixucRCkJcpY8NZ0R6dFbWgrI9AfGkYa5GIfvAHSkgsZkUP4OUcJP6yYENWkMwxxgsC5bYVSULpDRcpIMK+dInS3mHCKSDWI/HoZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhKqjwH8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ExUCI09Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7570F1F00893;
-	Mon,  1 Jun 2026 17:45:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhKqjwH8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B281F00898;
+	Mon,  1 Jun 2026 17:45:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780335924;
-	bh=QGg65dtps5OsZ9R2wzLue/4oCaMGv12xGoP4E9S3gs0=;
+	s=k20260515; t=1780335925;
+	bh=Sr+l9IhS+1OggHp7pGNXo1FcZicIF17+zu39AovSjBM=;
 	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=ExUCI09Z93u1IkI+k/jIpPjvzHgBBd/Zfet+MT9mGqcURiDhiyu673e8YS+E5Csa4
-	 Kp6IQnc/7qZTX/DyED3kRjOhZmS1ceSWxMokQSnYLfjDbHv1nd4+3HrZxCXJX2ZgYC
-	 QX9qzmgRCaiDLbSKxqxTdH1W9bAf41z/cRLGMIHfRXuPpWWjUGjq5tLtM7wHtDpEnV
-	 fn5Pcr0QCvkfFbBKLf0hsSu1FtxNwaBsy4itZk4ERXDYLkiyvp0omvidp3nvOp+tlT
-	 uZR8Nwl4ltg2pmHycaLKLDcPk3q5iG3zMJxG9L6jM6b0NZzKznxFkegWMdfaHYuzXj
-	 muJf78ywaLbmQ==
-Date: Mon, 01 Jun 2026 12:45:23 -0500
+	b=QhKqjwH8/hIaykq3ejrGpzbOi6RBm+E81MRxycSn+RRWBn84hywzKiYH2GuZLidtG
+	 2PfBG63Cb0RzRDbwO85O/ngaz5abvsw58vOJen7JbVDJXgoaWjDfFOXPC5UoOnVdV7
+	 PgzoL7M34uPYDTaVB2ZZgMBE+aniedFwi35XS+YzjEZ/9pIeNGY5mOMbnW2hBwYIC3
+	 qGmEHlzBM7qLyfFvEMKPA+657Mi8rS+qtKXEogIr7TuuldCzvg+J1tlO8wQk/GjDvG
+	 Wd7JDPXVXHC87yuqixuaaBAyCZqGDfX/zJ9OSl9jwX4shFdmEpBQKxtWadXNAwISL8
+	 u5qN+7Lc/PS6g==
+Date: Mon, 01 Jun 2026 12:45:25 -0500
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -36,35 +36,38 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Abhinav Kumar <abhinav.kumar@linux.dev>, 
- Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, linux-media@vger.kernel.org, 
- Konrad Dybcio <konradybcio@kernel.org>, linux-kernel@vger.kernel.org, 
- devicetree@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>, 
- Bjorn Andersson <andersson@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>, 
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-To: Daniel J Blueman <daniel@quora.org>
-In-Reply-To: <20260601041336.9497-1-daniel@quora.org>
-References: <20260601041336.9497-1-daniel@quora.org>
-Message-Id: <178033592233.3996692.3343005255061515852.robh@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: media: qcom,sm8550-iris: Allow IOVA
- reservation memory-region
+Cc: Russell King <linux@armlinux.org.uk>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
+ netdev@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-msm@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
+ Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>
+To: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com>
+References: <20260601-ipq5018-gephy-clocks-v1-0-2df8287712c3@outlook.com>
+ <20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com>
+Message-Id: <178033592356.3996739.1050010038980629699.robh@kernel.org>
+Subject: Re: [PATCH 1/3] dt-bindings: net: qca,ipq5018: Split IPQ5018 PHY
+ bindings from ar803x
 
 
-On Mon, 01 Jun 2026 12:13:33 +0800, Daniel J Blueman wrote:
-> In addition to the firmware-loaded codec carveout, some Iris platforms
-> need to declare an IOMMU IOVA reservation (a reserved-memory node with
-> iommu-addresses) to keep DMA away from IOVA ranges that earlier
-> firmware stages have already mapped through the SMMU.
+On Mon, 01 Jun 2026 17:19:08 +0400, George Moussalem wrote:
+> Move the definition for the Qualcomm IPQ5018 Internal PHY out of the
+> qca,ar803x.yaml binding file and isolate them in a dedicated
+> qca,ipq5018.yaml file. This is necessary due to the restriction of max
+> one clock in ethernet-phy.yaml which ar803x references as further
+> testing revealed that the RX and TX clocks of the IPQ5018 PHY need to
+> be explicitly enabled.
 > 
-> Permit a second memory-region phandle for this purpose, and describe
-> the meaning of each entry so the ordering is unambiguous.
-> 
-> Signed-off-by: Daniel J Blueman <daniel@quora.org>
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 > ---
->  Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  .../devicetree/bindings/net/qca,ar803x.yaml        | 43 -------------
+>  .../devicetree/bindings/net/qca,ipq5018.yaml       | 75 ++++++++++++++++++++++
+>  2 files changed, 75 insertions(+), 43 deletions(-)
 > 
 
 My bot found errors running 'make dt_binding_check' on your patch:
@@ -72,13 +75,12 @@ My bot found errors running 'make dt_binding_check' on your patch:
 yamllint warnings/errors:
 
 dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/media/qcom,sm8550-iris.yaml: properties:memory-region: {'minItems': 1, 'maxItems': 2, 'items': [{'description': 'Firmware-loaded codec carveout'}, {'description': 'IOMMU IOVA reservation region'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/qca,ipq5018.example.dtb: ethernet-phy@7 (ethernet-phy-id004d.d0c0): clocks: [[4294967295, 36], [4294967295, 37]] is too long
+	from schema $id: http://devicetree.org/schemas/net/ethernet-phy.yaml
 
 doc reference errors (make refcheckdocs):
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260601041336.9497-1-daniel@quora.org
+See https://patchwork.kernel.org/project/devicetree/patch/20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com
 
 The base for the series is generally the latest rc1. A different dependency
 should be noted in *this* patch.
