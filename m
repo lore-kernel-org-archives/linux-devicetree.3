@@ -1,114 +1,106 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5443D5241
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:06:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AD413D301B;
+	Tue,  2 Jun 2026 12:07:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780401964; cv=none; b=S722IHS1sYG06GF5IE3K5KvI9osHn40Laga2fBEzr48Z7YFHlGyhlMBapTlaRwxPIQbfEKTblWQP8+bNKVdN9pqJ1Thb32oNtemsqVnB/PQ5hhsHyyBUJVO/CSPag6I8pM34g0eoRD678cwrZaGWeJoKY2B/PhoIV7H0LdOQQlY=
+	t=1780402042; cv=none; b=MkN6aqjv7yVMYZQXtMYeZjR027m5RbDL9jby6XU3LQjUQr8MOu3LPuNYEmi2zcfpmeQEpHFwnXob+CrUdGHPoTTWxYHBeG4B4QOYOGWP09Y2vPdZXz+NCqDimAdCsnv/ySj2uW2uVaPWLRE9cT/GPphOX/1zm6QC29VZ7kmIAJA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780401964; c=relaxed/simple;
-	bh=owdZim6KsYd46rLD3GD+Jz+Use5sF9LDFtAk9cEMNaM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=NvbWPTUxr+sc6G0K3Yk9rCkGDXHA7d1AvIgmHNR+F5IyIJX/HFgy1Aws84rgHifPvkJ6zZPSRYvYyxstMJL1ov1iYBUGYinjzdPmEt0ICf1lGUsG8jpJWbbygdzK9NjDfSKBBvWOSE6s3hfonJkxML+Ox+b41MkgCVnYVnDYnh8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=WO9str+t; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780402042; c=relaxed/simple;
+	bh=hLZrVWdpgEiigLLE1L+kDHlZRBGb2UU6XAcUIO8GOa0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=dhWPacJCrYVyoEmXx34LPMi4rzC8TnIZnnyjtD0TAouEPga662gl4ICFXqz67XAMjROY/hvHRgNIQiemVVe1Yu3YklEMBwUySLdrCmt97fMwBy2a8iI/h5rYOWXXvrptULIlRxKB/PIFJUsxx1cSV3zT6PrYGMsHUQlp2U+uu/w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuZgpxr4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="WO9str+t"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id C32E51A37CD;
-	Tue,  2 Jun 2026 12:06:00 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 7DAEB603BC;
-	Tue,  2 Jun 2026 12:06:00 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4434C108883E7;
-	Tue,  2 Jun 2026 14:05:55 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780401959; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=owdZim6KsYd46rLD3GD+Jz+Use5sF9LDFtAk9cEMNaM=;
-	b=WO9str+tuV5dWyX5XyfMv+Rspu5G+WZ/YjGP5t6EmZYyVlT+YiLiYFgaD0APLZL/4wOWA1
-	X7UG2dvYSp/iFn/zMSxpEmDHpLOqrO44Wfp0fIBl+BK2Qi84TKrT9gZp1BUNi5YVNSvR1G
-	GrA45i8bXD2eB7tE39rCVFQQS/3rnboaPQmIaSmTSmwZdJuHiwS02SKZu25duSyjRfx1re
-	l8nWfMM+y+NGQudYh+tl2+iyhRFzzzsGUgg89kLbf5kl9KTnmQHpCiyyy+YGxm27GT6Ptn
-	UPu9056IVeMWKQvzTHAKX48nXH3ej34MkbgKwtMf1C/UruJJHAL707KzXNOomg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: Conor Dooley <conor@kernel.org>,  <broonie@kernel.org>,
-  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
-  <richard@nod.at>,  <vigneshr@ti.com>,  <pratyush@kernel.org>,
-  <mwalle@kernel.org>,  <takahiro.kuwano@infineon.com>,
-  <linux-spi@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>,  <linux-mtd@lists.infradead.org>,
-  <praneeth@ti.com>,  <u-kumar1@ti.com>,  <a-dutta@ti.com>
-Subject: Re: [PATCH v3 01/13] spi: dt-bindings: allow spi-max-frequency to
- specify a frequency pair
-In-Reply-To: <eaa75113-2b89-468d-aca8-932bc7e33a7d@ti.com> (Santhosh Kumar
-	K.'s message of "Mon, 1 Jun 2026 13:15:59 +0530")
-References: <20260527175527.2247679-1-s-k6@ti.com>
-	<20260527175527.2247679-2-s-k6@ti.com>
-	<20260528-clergyman-kindling-20971775ba78@spud>
-	<eaa75113-2b89-468d-aca8-932bc7e33a7d@ti.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Tue, 02 Jun 2026 14:05:53 +0200
-Message-ID: <87cxy92llq.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuZgpxr4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B1D71F00893;
+	Tue,  2 Jun 2026 12:07:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780402040;
+	bh=pEBanZXD28yLbzyFMoCw8vpjCe8PBdySKqmDHHVxhBo=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=UuZgpxr4Bz6wK4Y/umHh3809GRuLo2prrzI8tybC7jqf0MyNIYnVdCKjEJJX9Fbxf
+	 Dot6L7mXi22VU0qRQB9/uMScKzhYulT9pEzNEH6+LUoJNit2YWc6qs79tJupg4fAq5
+	 Zd66Nfp9I6aCs/D/vjLvbvR7On48YV+2X/vMH4i9/6+m5duLzdL+9k/CHc1jm3QW/i
+	 Z5MPGZ+KxfWHpBtxnV9P5Yka0g8FDMitu+twjlnNXjnW0r1tRjuSwY+RTjkGF4JJ9f
+	 rELLAHdUk/jGWBjgpoLxfUqgGjyxAypRDN4nVhC7+lcKHi81iL7SuJ7D8EYcjsAatO
+	 ggcI8/TURz6ow==
+From: Mark Brown <broonie@kernel.org>
+To: Liam Girdwood <lgirdwood@gmail.com>, Jaroslav Kysela <perex@perex.cz>, 
+ Takashi Iwai <tiwai@suse.com>, Yixun Lan <dlan@kernel.org>, 
+ Jinmei Wei <weijinmei@linux.spacemit.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Troy Mitchell <troy.mitchell@linux.spacemit.com>
+Cc: linux-sound@vger.kernel.org, linux-riscv@lists.infradead.org, 
+ spacemit@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ devicetree@vger.kernel.org
+In-Reply-To: <20260522-k3-i2s-v3-0-08e3eb811d93@linux.spacemit.com>
+References: <20260522-k3-i2s-v3-0-08e3eb811d93@linux.spacemit.com>
+Subject: Re: [PATCH v3 0/2] ASoC: spacemit: add K3 SoC support
+Message-Id: <178032605224.44654.17377992015065063925.b4-ty@b4>
+Date: Mon, 01 Jun 2026 16:00:52 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1548; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=hLZrVWdpgEiigLLE1L+kDHlZRBGb2UU6XAcUIO8GOa0=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqHsd0rI4ckJ7Hm165gVtJqeWD+VGtD9cXsVPN3
+ dejlbxrFqaJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCah7HdAAKCRAk1otyXVSH
+ 0Ie+B/9kXwOMyqDW7DQB2QR+IlYPuicwCYo7eHYZsh0vcs7GVf49egNza5+h7CGQ3u7VPy2vVyl
+ IPesk2nJs0c3CYCeZSBG7amhiSp2cAPlx2yjVW0z4AOXGaQY5KglIZRuDoJl5h4h9ACEY29QcjQ
+ 9Lnu9yCyqWbzM/Jaw9Cthe7oU7XRAgwuFWaOtW51mYmma+uO1TaR9Hs/LZ3bTwiLxO9nf53Z7yB
+ IMNLLH60ifiy7cpsx/6NZR8/szyte7mITd8zaRF4AgytSbkXeGWr/z17Cgytn40A3uFD73ONTvm
+ YRyhrUq/i6uSawoa8P9dEZYNQFi20YgYD2wqQl9BtIKYFIOM
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-Hello Conor, Santhosh,
+On Fri, 22 May 2026 21:12:13 +0800, Troy Mitchell wrote:
+> ASoC: spacemit: add K3 SoC support
+> 
+> This series adds K3 SoC support for the SpacemiT I2S controller driver.
+> 
+> Patch 1 adds the dt-bindings for the spacemit,k3-i2s compatible. The K3
+> SoC uses the same I2S IP as K1 but requires additional clocks
+> (sysclk_div, c_sysclk, c_bclk) that are shared across multiple I2S
+> controllers.
+> 
+> [...]
 
->> I also don't get the point of this property, why can't you just set
->> the
->> max that the device can do and if the controller can configure itself to
->> be fast enough it will do so, and if it can't then it'll pick whatever
->> the fastest it can actually do instead?
+Applied to
 
-If I may, this is not doable because there is always a phase at low
-speed. By low speed, I mean the speed which allows reliable data
-transfers between the host and the device. This "maximum low" speed is
-non discoverable, it is necessary to describe it. As of today, it is
-widely used (and I believe for good reasons) and covers 99.99% of the
-use cases.
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
 
->> Seems like you're abusing a peripheral property to encode information
->> about the controller.
->
-> The controller-side approach you mentioned is similar to what I had in
-> v2, where a compatible-specific base_freq is used for non-PHY ops.
->
-> Miquel,
->
-> I think we should revert to the v2 approach.
->
-> The non-PHY frequency is a controller limitation/capability rather than
-> a flash characteristic, so it seems more appropriate to keep it in the
-> controller driver as Conor suggested.
+Thanks!
 
-The non tuned frequency is the maximum frequency one could use
-reliably. It is not controller specific. It is mostly board specific,
-and to some extend may also be chip specific.
+[1/2] ASoC: dt-bindings: add SpacemiT K3 SoC compatible
+      https://git.kernel.org/broonie/sound/c/6bc6b28c0314
+[2/2] ASoC: spacemit: add K3 SoC support with additional clocks
+      https://git.kernel.org/broonie/sound/c/1c6ca2ca5c1b
 
-The tuned frequency is the maximum frequency one could use reliably
-after line a controller or chip specific training procedure. It is
-also the result of an aggregated set of non discoverable hardware
-limitations:
-- board routing
-- chip capability
-- controller capability
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
 
-We must try to think about other (non TI) possible use cases of these
-properties and also take into account the existing DT expectations. If
-turning the property into an array is too complex, we may go for a
-second property, but I believe the name should not be TI specific (but
-I'll let the final decision to the DT gurus).
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
 
 Thanks,
-Miqu=C3=A8l
+Mark
+
