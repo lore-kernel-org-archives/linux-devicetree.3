@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C93139BFEF
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 10:06:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B66F39B955;
+	Mon,  1 Jun 2026 10:08:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780308368; cv=none; b=ApUVrbZheFRC6BrMA3DfB1Hg9u0kkred8iAvgW/cTX+G04rZj1iW5yPjtVBJvLjAQrEKqidC6LHbXVWIXIdCqua8R2ukeKHjtLbGtB3uiyLpnfKh/vj1xzRGYw7E52K65PxV8s/w1AKsdvk1YjvoZMTL8XxogudBkB3Qr9nNGbo=
+	t=1780308534; cv=none; b=DVkP44jRcIY/E3mBJcGAxKpzwo26fNAWNcvk7JK+aUbpWJLin6Yx7e/ruCowQtmYj4trhz57r2SXWCDJePHHT4fW0KYknVV6A78CLp3Iomcn2dPNyDT3Wg6/72JHugwqQHG4Q48p8HKvuXvo5BIj7b5mMe3abzixkNektUeSbrA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780308368; c=relaxed/simple;
-	bh=DRuQSfdmTT4plwywUzQpVxeBS7Z6OZ/EES/qbaurygU=;
+	s=arc-20240116; t=1780308534; c=relaxed/simple;
+	bh=R4mYYEmDJ9gTvdUtErgR622YMLcx4VlrjZvp5PSHW3w=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hIQqgeOEMCY5D4W/jti6GRE2h4/AlqpWn1ZFd9HEEQnDUlcdzvTrooa7acXvc6LBcWBdUl4POmI4wGwlMT+Kib8TTQwKlH8uLHaNkM3H4dxnKZ+WPHBNb1VgRrIrds97impz4hUAWLJrBpV194ekVI6EmCxbOajtzMZJC8FZfO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jbss0VgF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=cg8z2+L5RtSW10/NM2R0CAViofxBn6Y79XBF/vsoH7iqExw0cvYCx0ZdGuH3r7x7QBkR+umsQlFWCvt3aDoAhFOu+3cza2djE7jpz+lRm/WKSdW9trxL11K0i7T5ggY2BW4Yr9tO5RF03BTpoSvpul6UgS1h3JsxXpbFOC0cuqk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wzms7WvA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jbss0VgF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A4F931F00898;
-	Mon,  1 Jun 2026 10:06:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wzms7WvA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 780DA1F00893;
+	Mon,  1 Jun 2026 10:08:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780308362;
-	bh=OzKGpcuQlwqSdJvWXebRotXcJzWT9M21VNbYnAXmfA4=;
+	s=k20260515; t=1780308527;
+	bh=LHAflIBpzNeVthrg0b+HUI1/J82M7tmuuRym7eiA+nM=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jbss0VgFGGJKIPeTOz04zzOYwLJYvRSDKmoTEmJJiAD+6owvN7G3VUeIaByL2ctBw
-	 qbOvngAXC39rBJsWpRuScjjts3p3/3dgoJfPlYwtyUWruJkphMmb/R1Y5Ah7DHVkwu
-	 EG5bR+H+VOdkOuD+xNVSYSSgyH292busIGD+ofiJeLM6xw+3EGoAbs0evz+eerhoLY
-	 IlB7PYIOK2FtQIh7OJrr8VBoJ3aSaYN/TkZqJIPDDRKeqiGHKU5VfhlyF3r4mPywbn
-	 mM/0jDZR7L8MsMIZdeYjjdztkTJxDOiZUBMl9o8FM6qwLI29sUOXGoikDuncNDzwn6
-	 EWO2whEkSx3NA==
+	b=Wzms7WvAbXn0HePgD1TjT3H1wPNSo3BnSaZjOP5DAWcmtSDX41PrW0oxOGh3PxUyI
+	 1Gzg2Rgip1m9ktyIBkaownjTsU0X79WyOodcTQiLFPOkkYni0YAC+JvqB/u7BtGwqR
+	 iCHyiZf3Ar8VcQTtsBsMgaDi37rOmTixNiBxlCOGXRvqYb6/UuIQL+wyshrNevfYak
+	 Lx38TC6mzGASvLf+VP2q+POYx6VX09bCwF2kC3pWDaf4TnQwKD6dEO756miPgUEOvq
+	 JV8kqee3DkwQEI9gv4RTmkYR6oPU4scKNqnRf0LszVRBBGz3mIOau1ugeZugFKPbBk
+	 KarEifAXkkfgA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: Add UltraRISC DP1000
- pinctrl controller
+Subject: Re: [PATCH 2/7] wifi: ath11k: enable support for WCN6851
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang via B4 Relay" <devnull+wangjia.ultrarisc.com@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
-References: <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260601-sm8350-wifi-v1-2-242917d88031@oss.qualcomm.com>
+References: <20260601-sm8350-wifi-v1-2-242917d88031@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 10:06:02 +0000
-Message-Id: <20260601100602.A4F931F00898@smtp.kernel.org>
+Date: Mon, 01 Jun 2026 10:08:47 +0000
+Message-Id: <20260601100847.780DA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,65 +45,53 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The conditional schema constraints fail to prevent non-LPC pins (Po=
-rts A-D) from being assigned the 'lpc' or 'espi' mux functions.
+- [Medium] Missing MODULE_FIRMWARE() declaration for WCN6855 hw1.1
 --
 
-commit 579eeac83b351ad50317d72079e0436d73706e08
-Author: Jia Wang <wangjia@ultrarisc.com>
+commit 9dd00bb0ca92daf6393c487f5ce3b3c5fb3cc6a4
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-dt-bindings: pinctrl: Add UltraRISC DP1000 pinctrl controller
+wifi: ath11k: enable support for WCN6851
 
-This commit adds the device tree binding documentation for the pin controll=
-er
-found on the UltraRISC DP1000 RISC-V SoC. It defines properties for ports
-A-D and LPC pins, including supported mux functions and pin configurations.
+The WCN6851, found e.g. on SM8350 platforms, is an earlier version of
+WCN6855 platform. It identifies itself as hw1.1. Copy WCN6855 hw 2.0
+configuration to support hw1.1 version.
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-p=
-inctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pi=
-nctrl.yaml
-> new file mode 100644
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.=
-yaml
-
+> diff --git a/drivers/net/wireless/ath/ath11k/core.c b/drivers/net/wireles=
+s/ath/ath11k/core.c
+> index 3f6f4db5b7ee1..7e997016cf6e9 100644
+> --- a/drivers/net/wireless/ath/ath11k/core.c
+> +++ b/drivers/net/wireless/ath/ath11k/core.c
 [ ... ]
+> @@ -393,6 +393,98 @@ static const struct ath11k_hw_params ath11k_hw_param=
+s[] =3D {
+>  		.cfr_num_stream_bufs =3D 0,
+>  		.cfr_stream_buf_size =3D 0,
+>  	},
+> +	{
+> +		.name =3D "wcn6855 hw1.1",
+> +		.hw_rev =3D ATH11K_HW_WCN6855_HW11,
+> +		.fw =3D {
+> +			.dir =3D "WCN6855/hw1.1",
 
-> +patternProperties:
-> +  '.*-pins$':
-> +    type: object
-> +    unevaluatedProperties: false
-> +    allOf:
-> +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
-> +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> +      - if:
-> +          properties:
-> +            pins:
-> +              contains:
-> +                pattern: '^LPC([0-9]|1[0-2])$'
-> +        then:
-> +          properties:
-> +            function:
-> +              enum:
-> +                - lpc
-> +                - espi
+[Severity: Medium]
+Since this configures the driver to request firmware from the "WCN6855/hw1.=
+1"
+directory, does this also require a corresponding MODULE_FIRMWARE() declara=
+tion
+in drivers/net/wireless/ath/ath11k/pci.c?
 
-[Severity: Low]
-Does this schema allow Ports A-D to incorrectly select the lpc or espi
-functions?
+Without the MODULE_FIRMWARE() macro for this directory, userspace initramfs
+generation tools may not be aware of the dependency. This could result in t=
+he
+firmware being omitted from the initramfs, causing request_firmware() to fa=
+il
+if the driver is loaded during early boot.
 
-The if-then block restricts LPC pins to the lpc or espi functions, but it
-appears to lack a reciprocal constraint preventing non-LPC pins from being
-assigned to these functions.
-
-Because lpc and espi are included in the base function enum defined later in
-the schema, an invalid device tree might silently pass schema validation if=
- it
-mistakenly assigns the lpc or espi functions to Ports A-D.
-
-Would it be helpful to add an else clause here, or a separate if-then block,
-to explicitly forbid lpc and espi on non-LPC pins?
+> +			.board_size =3D 256 * 1024,
+> +			.cal_offset =3D 128 * 1024,
+> +		},
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ultrarisc-=
-pinctrl-v2-0-07ac5130a96d@ultrarisc.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-sm8350-wif=
+i-v1-0-242917d88031@oss.qualcomm.com?part=3D2
