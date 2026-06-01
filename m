@@ -1,102 +1,71 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 36F7A37B00C
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 13:37:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACA2342C8B
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 13:40:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780321067; cv=none; b=gfDo6LkgjLfqmWZbp3tfTGtnBGMwKx7jiHT0MWfieqbLJ7xNuwgO4DEh9LOgjlRxre3h8DSyB5RLREDOMT0Ey1s+Yt7ZLs9PlEII45u+eOsuVLckofhpBCXK1gL0wAP+17a6MQg3CgRN0ovV2fCs2eu6gy3b81GJD0xNdjoA1ak=
+	t=1780321248; cv=none; b=nFMsE3laQyDK08UC4Tfwyw4CP2FUegn39mrxNb+fq5gAiYPOnHpCnulJnTVAuaz38k1T11Vmza3Z8IfwN1o2WXRbgLJCEiAYdhb/Aopi8m7yykEeIkn/PZJJKnHk7VrNjvKAeb+zCC9CmGMTcvLCMy27txUoGtbP4pDyTFYWa+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780321067; c=relaxed/simple;
-	bh=lxnV2vKDfIRUGiZcM5YCI0yjR1umK+6dZSjMsavVe5s=;
+	s=arc-20240116; t=1780321248; c=relaxed/simple;
+	bh=l7RssmTX47X4+ITK/3Di35mbpjUb1E5+lHN3Vvid/dg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=GTJB5Vy+vJ/0YuYDYaYUFQnwOVaOK5pr7Z9OKaKv5yxnXLoBPOv0XxzA/nBVIxaWXG6t/Q3cdAjqqq/E+D8mndrdGuPEZQP88t1xFY+3GoEiBc34x02WHnCfrNKPgsFFKYKhTWP+D5c1updyQZvRO9Z93oDFoAj2mn7Bsc71TrQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=MBhR3rPk; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=W/VvF1Cb; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=sqFaNJKzpSqRgPrCOxr47M8Mn8DFOQ+Jfi3ZOWjnog30vMCOvKzh2uBnhC/FWRitUQN98Vui7lIghC/l3AK9JXFcsMEGAwSO3AIIbgWI49R2vHdZt8QefdSntVi9eP0LhwcQ7yI4Ld0ce14C0/e0Rj0BUFaMFJip5qAx16N53qM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l024WfFK; arc=none smtp.client-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="MBhR3rPk";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="W/VvF1Cb"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6518fIFe144951
-	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 13:37:45 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=nOLt9jtIUA+Anbz0hnd/caAN
-	h+SYMOEW+4cc1U4NzK8=; b=MBhR3rPkEYIsAtHBTCBhFtSUVZ6GdKZIaKpHny08
-	faMpglKHfVtkUAhYagUMlfD2cQLPkHNY73D5AwuaeH1bO4Q/ECoeAD2YIsIo5vXf
-	lwWSzR6sbmkLM4nJk51thbgh206ykhxNbaZlfRLT5kZIvCw237WoWIUggjfA5Pyz
-	o+E5AJRKwAnWe3uwyi/GDL6jWRM5U8nDpDhu8u0IIUC63v7PSdG86nKBZjl26SI0
-	ppGK2CBcKyLj+N5/DddRLjEac27UWZ//45H/R4ZdjXvSRlJM1S2a4kgLbD/RA6AQ
-	DJ+m8tBb9FvRh1YWJUle/CXUP7fn/HgFKnc+CsEUT1Yqkw==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6sts4c0-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 13:37:45 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-59ebf602dbcso839361e0c.2
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 06:37:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780321064; x=1780925864; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=nOLt9jtIUA+Anbz0hnd/caANh+SYMOEW+4cc1U4NzK8=;
-        b=W/VvF1CbBkUfl6zzUqvmo9QE04PGRJlmrbZHF/izaPxjjed1clD3XS/RRdgDr5armx
-         9G+LHpSpPvnAv/McdIFFyhgQUTJxGhWkE4nBit9DXayyIy9jxhyNSa0Yf2J5zC+kG4BA
-         ivoZb1ptsNGg/G0ogPOv6t76cFqhLkMfvoR4pnWOasstWatL6Xe/joO/Jnh8/tDD7jtX
-         y0orXkHMcTb/Ac194Wlf06P2J9rB7NNitH407EEG8pv7QXZk69YD8xcx2k385WtLqcIR
-         5BNHnR99W4OrFT0QELINZS94e/f3qayL+AUCL6n3Yp+683RkgkquvS/yQeDsgJqavKuq
-         Jivg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780321064; x=1780925864;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=nOLt9jtIUA+Anbz0hnd/caANh+SYMOEW+4cc1U4NzK8=;
-        b=A1mQIMkxY9oromv6BUgJvQZjoEUdqpT4jXvA0P11g7hPcCCCDg7YfHsZhs2mPya48Y
-         B3VmXk8sZVI5lYqAxHRhlzPl56ll0TG3FI//tu67qMv7igr0AA1Q0GdoLXbfR2vBhWtk
-         PVQ7euqgVRetzoi0EwGV7gvLxeMNLLP0Zwlp8tgLQ4JFgHg8W91W8xCUK49K7NarW1fp
-         bmtv3D4dZwOFjWIzk/qKxTqpuOn+P/30/4q4vcJ8GjMiWABWFt/+pJSF/rVQi5mFvnse
-         SWP4M1duDkyo4YiJ3bYYvGiwEgue42DfA/8Pyp/YhqQ4lNUhHC2jPdjdyNbfMtYV7IIb
-         WPKw==
-X-Forwarded-Encrypted: i=1; AFNElJ97Qg6tXiWJmXRL2raQ1KelQP8EOXfzGT2J9eqiGQuf/Lw7hskVdFCqp5Wp4nF3sArzeYFnLVX/oDbT@vger.kernel.org
-X-Gm-Message-State: AOJu0YxxITBfqF8DOlx+0k4c4C24bRXN1F5UBFSWIKwXsGgbGKQnvVRS
-	oD6+sq9SRwN7zeb9mtbhdTruYhzv0n10d/op1Xu7gYBDcz4TySNGSMZx/7kNVmPhEw/1ezltGlX
-	AG0NeiMmB+mxiS9iwV1SDDObiuW1bgMSl2j6dY0IuPx9HPuVZxZaIuiF58yOZL2ss
-X-Gm-Gg: Acq92OE3m3m3k2skJi915Lyi6SDbE9w3XBjObJVXk/VsTbjDFaPOgEb9Ts1QMs/5toR
-	84dJherBgJoX4yOkq5MvKCkHE2TfoSgFRDxq3FI+z0fzLQdOGdvRKcDaL13XnkDorWdldvuHSh+
-	rmUPOjR7AaKEHDfydFuSvY4M/FiL0QhTjk8zKVwvHXG6UlTuUU0SsXYKdEYRayAQCpY6s4XZnx2
-	pFe0Ye3oKdmfgyhwFqfTko8dP1UP9np8JLianbEeEaWs4IGRu646lU+mRuUAp3MmEsCK91iRvDi
-	86O1hSQ+F/SKCVYtDzYHvf4NolTeKQFM4EznAnyW0R29nGkacvCAjPZOjLUJ9owKvT7gprIEyxn
-	LprOMhiZxhtkpS8dpE+BDkzuOaV+lhF2QSj0insCzN8oi4b7gexZpA4oIbTq6ZRkls3KDKXmD7Q
-	zfHR0VpH4LecefqGp6eDIKkn+X1WJ2ngeiR/snnUwCR1P/GQ==
-X-Received: by 2002:a05:6122:2887:b0:59e:b127:fc6f with SMTP id 71dfb90a1353d-59eb128260bmr3025292e0c.2.1780321064182;
-        Mon, 01 Jun 2026 06:37:44 -0700 (PDT)
-X-Received: by 2002:a05:6122:2887:b0:59e:b127:fc6f with SMTP id 71dfb90a1353d-59eb128260bmr3025240e0c.2.1780321063617;
-        Mon, 01 Jun 2026 06:37:43 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa631c7e9bsm1556798e87.16.2026.06.01.06.37.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 06:37:42 -0700 (PDT)
-Date: Mon, 1 Jun 2026 16:37:40 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-Cc: linux-arm-msm@vger.kernel.org, Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Bartosz Golaszewski <brgl@kernel.org>,
-        David Collins <david.collins@oss.qualcomm.com>,
-        Subbaraman Narayanamurthy <subbaraman.narayanamurthy@oss.qualcomm.com>,
-        Kamal Wadhwa <kamal.wadhwa@oss.qualcomm.com>,
-        Maulik Shah <maulik.shah@oss.qualcomm.com>, kernel@oss.qualcomm.com,
-        linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
-        devicetree@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] soc: qcom: rpmh: Allow non-child devices to issue
- write commands
-Message-ID: <4ac5hjmr6divqs4myhcw5sveuboj265sw2jwslbivrfwh5e7ce@6d7ajvgikkgt>
-References: <20260528-pinctrl-level-shifter-v2-0-3a6a025392bf@oss.qualcomm.com>
- <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l024WfFK"
+Date: Mon, 1 Jun 2026 21:40:23 +0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780321243;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=iQyez31M9+cqRzG0mNDzNeBP+DcO+f5iCUnGf0mcB+I=;
+	b=l024WfFK8H8TZslgd1la8pP0IMsoUoHk+D958dcQtK1139z2FcW6CgT8NHAq1ryBrn3ISC
+	V49yjHdscTNNkULL8sndRFN7LTiUJk2zYEHRJL798tKylrp/xi8IhXqWxmbEYljH9QzlNC
+	GwALMjU5E7e0JSkUMqYW/poOjE9natY=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Baoquan He <baoquan.he@linux.dev>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, robh@kernel.org, saravanak@kernel.org,
+	akpm@linux-foundation.org, bhe@redhat.com, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, rdunlap@infradead.org,
+	feng.tang@linux.alibaba.com, dapeng1.mi@linux.intel.com,
+	kees@kernel.org, elver@google.com, kuba@kernel.org,
+	lirongqing@baidu.com, ebiggers@kernel.org, paulmck@kernel.org,
+	sourabhjain@linux.ibm.com, thuth@redhat.com, ardb@kernel.org,
+	masahiroy@kernel.org, gshan@redhat.com, james.morse@arm.com,
+	maz@kernel.org, leitao@debian.org, yeoreum.yun@arm.com,
+	coxu@redhat.com, suzuki.poulose@arm.com, cfsworks@gmail.com,
+	osandov@fb.com, jbohac@suse.cz, ryan.roberts@arm.com,
+	tangyouling@kylinos.cn, ritesh.list@gmail.com,
+	adityag@linux.ibm.com, hbathini@linux.ibm.com, bjorn@rivosinc.com,
+	songshuaishuai@tinylab.org, vishal.moola@gmail.com,
+	junhui.liu@pigmoral.tech, djordje.todorovic@htecgroup.com,
+	austin.kim@lge.com, namcao@linutronix.de, djbw@kernel.org,
+	chao.gao@intel.com, seanjc@google.com, fuqiang.wang@easystack.cn,
+	liaoyuanhong@vivo.com, makb@juniper.net, graf@amazon.com,
+	piliu@redhat.com, rafael.j.wysocki@intel.com,
+	mario.limonciello@amd.com, jbouron@amazon.com,
+	chenjiahao16@huawei.com, guoren@kernel.org, bauerman@linux.ibm.com,
+	bgwin@google.com, takahiro.akashi@linaro.org, x86@kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org
+Subject: Re: [PATCH v15 00/23] arm64/riscv: Add support for crashkernel CMA
+ reservation
+Message-ID: <ah2Lx7KHI60tzd0v@MiWiFi-R3L-srv>
+References: <20260601094805.2928614-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -105,149 +74,175 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260528-pinctrl-level-shifter-v2-1-3a6a025392bf@oss.qualcomm.com>
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDEzNiBTYWx0ZWRfX1NZsHobmKXk5
- YqR0jGKOw+fgx9VzxW7cxw4ytTTkFcNLpkrz5ZwtAXfB0E0QZmPd7rQhgJaUUWFDno1ulJ1Eds1
- p9aZbOwuoS2lpYycyTjINSzPbXPFOOdQ1cxyhZArvGJYc7pFi2nfxPttxv6/SgaQhCHbWDxRCYE
- k+foeK+hydkF401wO/Y4/SvoaiWC4mDnvNUpopeuwTMl2VOJgLxRkQ0VBf+N6sPN5f64pxQl4Gs
- JMScZMmCTLQ85XjUUosuPy+NNjxjrumw/Jvigu3mEy+9X/7OE6aU//R514vnyjIKAHfpc3fX60A
- Xciqb/kAqgRh2Mv2LWfPYO+disDURAyKdKJdBxqIcN0kxX2j3OiERNrcIOtw9qRtM1sjaoBgJ7c
- tefqrTDAlCwcU43vSAV8VfqysgM5EFMS0PHzEyQyunIVmBHi8kOVFjsOgKRCikcNw+JsIZ1cspJ
- SKIhbmzpXcMNNpkv1Ww==
-X-Proofpoint-ORIG-GUID: j6MhQS73dJ9nUtycAZP8MlRo_LQySjLw
-X-Authority-Analysis: v=2.4 cv=HrNG3UTS c=1 sm=1 tr=0 ts=6a1d8b29 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=p6yASBmuys_a7ks585YA:9 a=CjuIK1q_8ugA:10 a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-GUID: j6MhQS73dJ9nUtycAZP8MlRo_LQySjLw
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_04,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 lowpriorityscore=0 bulkscore=0
- clxscore=1015 impostorscore=0 adultscore=0 malwarescore=0 phishscore=0
- spamscore=0 classifier=typeunknown authscore=0 authtc= authcc= route=outbound
- adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606010136
+In-Reply-To: <20260601094805.2928614-1-ruanjinjie@huawei.com>
+X-Migadu-Flow: FLOW_OUT
 
-On Thu, May 28, 2026 at 06:05:35PM -0700, Fenglin Wu wrote:
-> Currently, the RPMH driver only allows child devices of the RPMH
-> controller to issue commands, as it assumes dev->parent points to the
-> RSC device.
+Hi Jinjie,
+
+On 06/01/26 at 05:47pm, Jinjie Ruan wrote:
+...snip... 
+> Changes in v15:
+> - Unify the subject prefix formats as Huacai suggested.
+> - Fix powerpc pre-existing NULL pointer dereference [Sashiko [1]]
+> - Fix powerpc pre-existing __merge_memory_ranges() memory range
+>   truncation [Sashiko [1]].
+> - Fix pre-existing arm64 CMA page leaks [Sashiko[2]].
+> - Fix pre-existing crash_load_dm_crypt_keys() Use-After-Free and
+>   Double Free issue [Sashiko[3]].
+> - Fix vfree(headers) and uninitialized variables issue
+>   and simplify the fix [Sashiko[2]].
+> - As walk_system_ram_res() and for_each_mem_range() use different
+>   lock, unify and simplify the fix of TOCTOU buffer overflow via memory
+>   region padding [Sashiko[4]].
+> - Fix the arm64 crash dump issues in Sashiko[5].
+> - Link to v14: https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com/
+
+Do these Fixes have anything with the main target of this patch series
+you mentioned in cover-letter:"arm64/riscv: Add support for crashkernel CMA"?
+The patches become more and more in each new version, I am wondering if
+it relies on these Fixes patches to implement your adding support for
+crashkernel CMA on arm64/risc-v.
+
+If not relying on them, could you split them into different patchset
+on different purpose? 
+
+Thanks
+Baoquan
+
 > 
-> There is a possibility that certain devices which are not children of
-> the RPMH controller want to send commands for special control at the
-> RPMH side. For example, in PMH0101 PMICs, there are bidirectional
-> level shifter (LS) peripherals, and each LS works with a pair of PMIC
-> GPIOs. The control of the LS, which is combined with the GPIO
-> configuration, is handled by RPMH firmware for sharing the resource
-> between different subsystems. From a hardware point of view, the LS
-> functionality is tied to a pair of PMIC GPIOs, so its control is more
-> suitable to be added in the pinctrl-spmi-gpio driver by adding the
-> level-shifter function. However, the pinctrl-spmi-gpio device is a
-> child device of the SPMI controller, not the RPMH controller.
-
-This replicates the story of the PMIC regulators. There are two drivers,
-one SPMI and one RPMh. Why don't we add a separate, RPMh-based GPIO
-driver targeting only those paired GPIOs (and we don't even need to
-represent them as a pair, it might be just one pin).
-
-> This patch extends the RPMH driver to support write commands from any
-> device that has a pointer to the RPMH controller device:
+> [1]: https://lore.kernel.org/all/20260525092207.96B9D1F000E9@smtp.kernel.org/
+> [2]: https://lore.kernel.org/all/20260525091149.1A1E01F00A3D@smtp.kernel.org/
+> [3]: https://lore.kernel.org/all/20260525105227.3C2421F000E9@smtp.kernel.org/
+> [4]: https://lore.kernel.org/all/20260525095447.944E11F000E9@smtp.kernel.org/
+> [5]: https://lore.kernel.org/all/20260525101746.9959D1F000E9@smtp.kernel.org/
 > 
-> 1. Add rpmh_get_ctrlr_dev() to lookup controller via device tree
->    phandle "qcom,rpmh"
-> 2. Add new APIs: rpmh_write_async_ctrlr() and rpmh_write_ctrlr()
->    that accept controller device pointer directly
+> Changes in v14:
+> - Fix image->elf_headers memory leak during retry loop for arm64 as Sashiko
+>   AI code review pointed out.
+> - Solve the hotplug notifier arch_crash_handle_hotplug_event() AA
+>   self-deadlock problem as Sashiko AI code review pointed out.
+> - Fix the TOCTOU issue in prepare_elf_headers() by get_online_mems().
+> - -ENOMEM -> -EAGAIN as Breno suggested.
+> - Add support for arm64 crash hotplug.
+> - Link to v13: https://lore.kernel.org/all/20260511030454.1730881-1-ruanjinjie@huawei.com/
 > 
-> With this change, the pinctrl-spmi-gpio driver is able to issue write
-> commands to the RPMH controller by using the controller device pointer,
-> and vote for enabling the level-shifter function.
+> Changes in v13:
+> - Rebased on v7.1-rc1.
+> - Update the commit message.
+> - Add Reviewed-by.
+> - Link to v12: https://lore.kernel.org/all/20260402072701.628293-1-ruanjinjie@huawei.com/
 > 
-> Signed-off-by: Fenglin Wu <fenglin.wu@oss.qualcomm.com>
-> ---
->  drivers/soc/qcom/rpmh.c | 173 +++++++++++++++++++++++++++++++++++++++++++-----
->  include/soc/qcom/rpmh.h |  21 ++++++
->  2 files changed, 179 insertions(+), 15 deletions(-)
+> Changes in v12:
+> - Remove the unused "nr_mem_ranges" for x86.
+> - Add "Fix crashk_low_res not exclude bug" test log.
+> - Provide a separate patch for each architecture for using
+>   crash_prepare_headers(), which will make the review more convenient.
+> - Add Reviewed-by and Tested-by.
+> - Link to v11: https://lore.kernel.org/all/20260328074013.3589544-1-ruanjinjie@huawei.com/
 > 
-> diff --git a/drivers/soc/qcom/rpmh.c b/drivers/soc/qcom/rpmh.c
-> index ca37da3dc2b1..9dbc42b775d9 100644
-> --- a/drivers/soc/qcom/rpmh.c
-> +++ b/drivers/soc/qcom/rpmh.c
-> @@ -12,6 +12,7 @@
->  #include <linux/lockdep.h>
->  #include <linux/module.h>
->  #include <linux/of.h>
-> +#include <linux/of_platform.h>
->  #include <linux/platform_device.h>
->  #include <linux/slab.h>
->  #include <linux/spinlock.h>
-> @@ -76,6 +77,21 @@ static struct rpmh_ctrlr *get_rpmh_ctrlr(const struct device *dev)
->  	return &drv->client;
->  }
->  
-> +static struct rpmh_ctrlr *get_rpmh_ctrlr_from_dev(const struct device *ctrl_dev)
-> +{
-> +	struct rsc_drv *drv;
-> +
-> +	if (!ctrl_dev)
-> +		return ERR_PTR(-EINVAL);
-> +
-> +	drv = dev_get_drvdata(ctrl_dev);
-
-This is racy, because the drvdata can disappear at any point. Having the
-handle of the device doesn't help because the driver can be unbound even
-if we have the reference on the device. 
-It's not the case for RPMh (which if unbound will break a lot of
-devices), but it's still a antipattern.
-
-> +
-> +	if (!drv)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	return &drv->client;
-> +}
-> +
->  void rpmh_tx_done(const struct tcs_request *msg)
->  {
->  	struct rpmh_request *rpm_msg = container_of(msg, struct rpmh_request,
-
-> @@ -271,6 +294,126 @@ int rpmh_write(const struct device *dev, enum rpmh_state state,
->  }
->  EXPORT_SYMBOL_GPL(rpmh_write);
->  
-> +static void rpmh_put_device(void *data)
-> +{
-> +	put_device(data);
-> +}
-> +
-> +/**
-> + * rpmh_get_ctrlr_dev: Get RPMH controller device from device tree
-> + *
-> + * @dev: Device with "qcom,rpmh" phandle property
-> + *
-> + * Returns: Pointer to RPMH controller device, with a devm action registered
-> + * on @dev to release the reference when @dev is unbound.
-> + */
-> +struct device *rpmh_get_ctrlr_dev(struct device *dev)
-> +{
-> +	struct device_node *rpmh_np;
-> +	struct platform_device *pdev;
-> +	struct device_link *link;
-> +	int ret;
-> +
-> +	rpmh_np = of_parse_phandle(dev->of_node, "qcom,rpmh", 0);
-
-Ugh. I think this kind of phandle properties are not recommended.
-
-> +	if (!rpmh_np)
-> +		return ERR_PTR(-ENODEV);
-> +
-> +	pdev = of_find_device_by_node(rpmh_np);
-> +	of_node_put(rpmh_np);
-> +
-
--- 
-With best wishes
-Dmitry
+> Changes in v11:
+> - Avoid silently drop crash memory if the crash kernel is built without
+>   CONFIG_CMA.
+> - Remove unnecessary "cmem->nr_ranges = 0" for arch_crash_populate_cmem()
+>   as we use kvzalloc().
+> - Provide a separate patch for each architecture to fix the existing
+>   buffer overflow issue.
+> - Add Acked-bys for arm64.
+> 
+> Changes in v10:
+> - Fix crashk_low_res not excluded bug in the existing
+>   RISC-V code.
+> - Fix an existing memory leak issue in the existing PowerPC code.
+> - Fix the ordering issue of adding CMA ranges to
+>   "linux,usable-memory-range".
+> - Fix an existing concurrency issue. A Concurrent memory hotplug may occur
+>   between reading memblock and attempting to fill cmem during kexec_load()
+>   for almost all existing architectures.
+> - Link to v9: https://lore.kernel.org/all/20260323072745.2481719-1-ruanjinjie@huawei.com/
+> 
+> Changes in v9:
+> - Collect Reviewed-by and Acked-by, and prepare for Sashiko AI review.
+> - Link to v8: https://lore.kernel.org/all/20260302035315.3892241-1-ruanjinjie@huawei.com/
+> 
+> Changes in v8:
+> - Fix the build issues reported by kernel test robot and Sourabh.
+> - Link to v7: https://lore.kernel.org/all/20260226130437.1867658-1-ruanjinjie@huawei.com/
+> 
+> Changes in v7:
+> - Correct the inclusion of CMA-reserved ranges for kdump kernel in of/kexec
+>   for arm64 and riscv.
+> - Add Acked-by.
+> - Link to v6: https://lore.kernel.org/all/20260224085342.387996-1-ruanjinjie@huawei.com/
+> 
+> Changes in v6:
+> - Update the crash core exclude code as Mike suggested.
+> - Rebased on v7.0-rc1.
+> - Add acked-by.
+> - Link to v5: https://lore.kernel.org/all/20260212101001.343158-1-ruanjinjie@huawei.com/
+> 
+> Jinjie Ruan (22):
+>   riscv: kexec_file: Fix crashk_low_res not exclude bug
+>   powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
+>   powerpc/kexec_file: Fix NULL pointer dereference in
+>     kexec_extra_fdt_size_ppc64()
+>   powerpc/kexec_file: Fix memory range truncation in
+>     __merge_memory_ranges()
+>   kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
+>   arm64: kexec_file: Fix CMA page leaks during segment placement retry
+>     loops
+>   arm64: kexec_file: Fix image->elf_headers memory leak during retry
+>     loop
+>   kexec: Fix UAF and Double Free in crash_load_dm_crypt_keys()
+>   crash_core: Introduce CRASH_HOTPLUG_SAFETY_PADDING for memory hotplug
+>     safety
+>   x86: kexec_file: Fix TOCTOU buffer overflow via memory region padding
+>   arm64: kexec_file: Fix TOCTOU buffer overflow via memory region
+>     padding
+>   riscv: kexec_file: Fix TOCTOU buffer overflow via memory region
+>     padding
+>   LoongArch: kexec_file: Fix TOCTOU buffer overflow via memory region
+>     padding
+>   crash: Add crash_prepare_headers() to exclude crash kernel memory
+>   arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
+>   x86: kexec_file: Use crash_prepare_headers() helper to simplify code
+>   riscv: kexec_file: Use crash_prepare_headers() helper to simplify code
+>   LoongArch: kexec_file: Use crash_prepare_headers() helper to simplify
+>     code
+>   powerpc/kexec_file: Use crash_exclude_core_ranges() helper
+>   arm64: kexec_file: Add support for crashkernel CMA reservation
+>   riscv: kexec_file: Add support for crashkernel CMA reservation
+>   arm64: crash: Add crash hotplug support
+> 
+> Sourabh Jain (1):
+>   powerpc/crash: sort crash memory ranges before preparing elfcorehdr
+> 
+>  .../admin-guide/kernel-parameters.txt         |  16 +-
+>  arch/arm64/Kconfig                            |   3 +
+>  arch/arm64/include/asm/kexec.h                |  13 ++
+>  arch/arm64/kernel/Makefile                    |   2 +-
+>  arch/arm64/kernel/crash.c                     | 152 ++++++++++++++++++
+>  arch/arm64/kernel/kexec_image.c               |  34 ++++
+>  arch/arm64/kernel/machine_kexec_file.c        |  78 ++-------
+>  arch/arm64/mm/init.c                          |   5 +-
+>  arch/loongarch/kernel/machine_kexec_file.c    |  44 ++---
+>  arch/powerpc/include/asm/kexec_ranges.h       |   1 -
+>  arch/powerpc/kexec/crash.c                    |   7 +-
+>  arch/powerpc/kexec/file_load_64.c             |   3 +
+>  arch/powerpc/kexec/ranges.c                   | 113 ++-----------
+>  arch/riscv/kernel/machine_kexec_file.c        |  43 ++---
+>  arch/riscv/mm/init.c                          |   5 +-
+>  arch/x86/kernel/crash.c                       |  92 ++---------
+>  drivers/of/fdt.c                              |   9 +-
+>  drivers/of/kexec.c                            |   9 ++
+>  include/linux/crash_core.h                    |  15 ++
+>  include/linux/crash_reserve.h                 |   4 +-
+>  include/linux/kexec.h                         |   2 +
+>  kernel/crash_core.c                           |  89 +++++++++-
+>  kernel/crash_dump_dm_crypt.c                  |   4 +-
+>  kernel/kexec_core.c                           |  25 +--
+>  24 files changed, 430 insertions(+), 338 deletions(-)
+>  create mode 100644 arch/arm64/kernel/crash.c
+> 
+> -- 
+> 2.34.1
+> 
