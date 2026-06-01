@@ -1,214 +1,126 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1759392C32
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 10:29:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D27B349CFE
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 10:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780309771; cv=none; b=rN0lwsjvdNLIN66IDC01QYi2ms1LECaHRgtqXKj/aTrs05oBjuKaQ4sZBBhb4aCWw/YZEbE8xuN6SEh4YTs/oORROQbtOpmjK2DskOXGPPUgRVqd+ufzO1BQg9cro+jzg8WMSdfIAw2ITr5zSccDQ6749fQTVTGVzTPS4UAfOIg=
+	t=1780309828; cv=none; b=qkzGzE1dR9palyepErGK8TKYZN3qkzQGh1HjgvWccfYD43S420vgpTxVfOyzCuUKs+vas6mu3st92og3T/NtMXe07KvAECdx/gWa146ZF+eGAd/OT4eoZREZnzlJSoGDC4z+CFSwtH3XhkUPkRb52hRVkngEkESGxZ8OmafSzc0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780309771; c=relaxed/simple;
-	bh=WlP+XHSIQsix5un3Kur/aHv0tezstUKc8ArO/pNwSvQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=C/7kmuZS8f6PgFf+M2TQOjtKMMzO5f3e+PskpYBQUj/ZGnHhodMRrulXd59SMOZsk/llXAAPgzza/0HCHz6yJJ+JGFbdH8DJp8xLvCHfUSvXtuikxLLfqjqaHWpUxfFwPGMe+1NvaZZc6ZY/xrauQjTPF9WoK9tdk4KfqNKgtNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VB9K9joL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780309828; c=relaxed/simple;
+	bh=MBwOgbgAEgMPfLyydXuXFSj6sMutCvNP/2Fnwvx0eiI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Nz4ZSkopkuWyjqry2ouo3D6BrE8tm4I4o2HuqkHvSMZ9Oj7/zgbslH2RBdcSlNtbXqyS5V81J+GaY4KY66xB0kmElVpzTakkPGE0Ql6dxN2CdLAIJnhPOCIiRt0nW/6Q/cn+v88Jmp+nnPt3K6fmE2qBxMBNZ5nVb53bJQSez9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=fe2QPHrk; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=lovjWF2Y; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VB9K9joL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7133B1F00893;
-	Mon,  1 Jun 2026 10:29:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780309769;
-	bh=dGcW4dVMT0Gi8DM+Zhzs/MD2Asuu4oRwknBtGBOZ9lw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VB9K9joLVYReZaQajVv26UmKBe3zkkSLX1tBfIOdx54k17vNzXPq2sTrJ5JZtzAco
-	 zZzV/JvqZx/bMKRJkTftNkbjRZNRghOMTNxGwE3PwEPRCaW4PizNzN/ATA0+BvECIm
-	 aJstI6hgg6IhsVhuQ9dpOa6+f/x5PY8u3HX+mnU+zSaoxsL3pb3s5K4MAjhP+euw+Q
-	 cks5TSRmn0R0A7kzRKe/rJNPSU3A52K/5tPBEkbLtghF5O/6fjX1TBReTIXGTlSO47
-	 LpHx0O8cIYXeMk+4ELeDV69I4DIl3w27oosBLTUQW123P4ZMeIBodgfFoXuBGe2Xpu
-	 qbO0DORABAv1A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v15 09/23] kexec: Fix UAF and Double Free in
- crash_load_dm_crypt_keys()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jinjie Ruan" <ruanjinjie@huawei.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260601094805.2928614-10-ruanjinjie@huawei.com>
-References: <20260601094805.2928614-10-ruanjinjie@huawei.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 10:29:29 +0000
-Message-Id: <20260601102929.7133B1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="fe2QPHrk";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="lovjWF2Y"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1780309826;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=Y62kcYp7lTf6WUC3Smiih8ZORr7i9aLk8qruViyqnYg=;
+	b=fe2QPHrkCb5xbqYzVzrGTjST0p8xSet8jM80oELwjk5vo7ulJ0rOM6KA2tseXzATvXPJ4a
+	TmmT0TBSvrLImbHpFpHG1muq4R2F5t2ER3UgS0dgud6dXCnC0S3pvUZbjpv+npBQzVhCi7
+	jeUH6+uGU8LuRviK8QwB/D4Lh1Xs3t8=
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-629-ZQqhSlaQOa6eh8XbSWBUAg-1; Mon, 01 Jun 2026 06:30:22 -0400
+X-MC-Unique: ZQqhSlaQOa6eh8XbSWBUAg-1
+X-Mimecast-MFC-AGG-ID: ZQqhSlaQOa6eh8XbSWBUAg_1780309821
+Received: by mail-wr1-f69.google.com with SMTP id ffacd0b85a97d-45ef6417092so1570187f8f.2
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 03:30:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1780309821; x=1780914621; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Y62kcYp7lTf6WUC3Smiih8ZORr7i9aLk8qruViyqnYg=;
+        b=lovjWF2YQIWxwd1gfh1EQf+dR/fXlLYT3gpzC0yI5yVJLHa6SvCtOutE8HiBz3tDfj
+         /YIdQ947F4Dy2Poky7R6eOhyPA9cB3+a6gTLDEgX7UnfJtOM7Dy2EXdizwuOI8PA3k4H
+         V5lXaQqjC1qzoM9Sfq0LRek1b++fitulki+RDPm+FJrByn+M1SERMMTw8cdc2pZ+wuN1
+         mSC1fFro8uYNktAEYxewj1NZF2///4K+4ef5YcKFnkCEL93VkiWOehqPvhPDAzn3Rd9e
+         qEUvUDNI+QEyVLuN9LXm11jZAm7oA2gm2meOytMLSVV6wye3FNdcy/yY35qtBvTZsxGn
+         +rqA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780309821; x=1780914621;
+        h=content-transfer-encoding:in-reply-to:content-language:from
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Y62kcYp7lTf6WUC3Smiih8ZORr7i9aLk8qruViyqnYg=;
+        b=BlASo/ejpu92ZnH9xMfOpEp6d7Cy4jqpizFt3mThicf5ivGj/IS89Ea0Uvm5nNfqFr
+         tRyVOOXphr9/XtVc+C6tqoJGz4dR930RR9QvHWKlX+e2EpZdy9UZMttFhkBsixWQYL1H
+         F+76eq7HLSmeMWz8mexpF+eg1L0UWQnLvab/bIGZRBaUBPHuUQBiyrZZ7L0V16eaIvXM
+         rbdCXBQjAGMEtrEXMgotTcejgin+MogGu9Lj3T6TcC9hFg6SbCU7x+VJD3fbhPXonk1f
+         0Hpk4d3WHBDLh7gNaEOeAnDKA8v22+W/HAIrxCymhngRgw15ayZ96yYyQuKwGY2wzwnQ
+         TXDg==
+X-Forwarded-Encrypted: i=1; AFNElJ9oIoqGEeO491wJyDr8jRAwFCGnTWhLnSvt2Vcyj9RADkiwNa9AK4h0TefIOC3LV7p7fMqg0Fv00Qb1@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnVHhw+chIemEiPZz8L63KWHxwmy29vK+7Xb9VkkSziEBa6WSN
+	wyIiRxY7nf5TsVkeABB121hXWvBXuz7ZJRMeeWvtYhTwUEv1svGSgA1yEkvwcD38iQckt0u2OrC
+	difEV17k6TwLUJ/e0GK4/Ge97fxnkdQevMb4+wwNt836tcBRaVDf/frnllxS/Hl0=
+X-Gm-Gg: Acq92OHWd2dPVTrEfNvYqPw47maiZn1t8DHY1uSBzD5uoo2xSPkwAbeSbZIQGdO6tak
+	yrJkwCnZBUhRSleQJ4Nw+t+CeonXPO1xAxEqwQEr/9vp9TEvr5btd774v+rOlqFI+A2mr6vi551
+	KCLlhZUQHagSr27YMXk7XyElelgjEq/7foJLAp6WSFhTwbOQYBP/pO4FQs1+RQJxUH2wqbjaATu
+	Q94aYWQS3FWgK7ocyBsMQRvvc36+rqm2ooUyprm4dCq+aWlOxG6duNRoMWIN+aCNRm8YJO6FTR+
+	MAlo3RaZPyQnIAAm4Z1JoK9qg97swT3NVOdgSMigVV18HLCkxVau3cRUOC6LNuou7fwndZ+7POI
+	TV4r9d4mSyC7oaImg5oaGxeUmrn5+xeLaHi6TOA0s2o91vIqbiU6XMrfSHMhNbhapwVtK
+X-Received: by 2002:a5d:4387:0:b0:452:bc55:c684 with SMTP id ffacd0b85a97d-45ef6b5a7c6mr14476373f8f.19.1780309821501;
+        Mon, 01 Jun 2026 03:30:21 -0700 (PDT)
+X-Received: by 2002:a5d:4387:0:b0:452:bc55:c684 with SMTP id ffacd0b85a97d-45ef6b5a7c6mr14476319f8f.19.1780309821038;
+        Mon, 01 Jun 2026 03:30:21 -0700 (PDT)
+Received: from [192.168.88.32] ([169.155.232.197])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354b7edsm24174472f8f.22.2026.06.01.03.30.20
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 01 Jun 2026 03:30:20 -0700 (PDT)
+Message-ID: <a4293c1e-88ad-4d95-bf03-78923660a2dc@redhat.com>
+Date: Mon, 1 Jun 2026 12:30:19 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net-next v3 3/5] net: dsa: tag_ks8995: Add the KS8995 tag
+ handling
+To: Linus Walleij <linusw@kernel.org>, sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+References: <20260526-ks8995-to-ksz8-v3-3-c530f651989f@kernel.org>
+ <20260530004901.49E6C1F00898@smtp.kernel.org>
+ <CAD++jLn8LD9nnUg4emLDLJ7vdF5x1gOZzowfnsui+KCjTVEUew@mail.gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
+Content-Language: en-US
+In-Reply-To: <CAD++jLn8LD9nnUg4emLDLJ7vdF5x1gOZzowfnsui+KCjTVEUew@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+On 6/1/26 9:47 AM, Linus Walleij wrote:
+> On Sat, May 30, 2026 at 2:49 AM <sashiko-bot@kernel.org> wrote:
+> 
+>> Thank you for your contribution! Sashiko AI review found 4 potential issue(s) to consider:
+>> - [High] Double free in ks8995_xmit() error path when vlan_insert_tag() fails.
+>> - [High] Double free in ks8995_rcv() error path when skb_vlan_untag() fails.
+>> - [High] Undefined behavior from ilog2(0) when receiving standard 802.1Q frames.
+>> - [High] Failure to push non-802.1Q hardware-accelerated VLAN tags into the payload.
+> 
+> I have already looked at this.
+> 
+> Sashiko is missing context, in this case comparing this code to
+> other taggers in net/dsa/tag_* and realizing this tagger is doing
+> exactly what other taggers do.
+> 
+> If there is an issue with that there is an issue with DSA tagging
+> in general and not with individual taggers.
 
-New issues:
-- [High] The patch breaks the `is_dm_key_reused` feature by erroneously dis=
-carding recovered keys and silently falling back to the user keyring on kex=
-ec placement retries.
+FTR, I agree with the above. It looks like sashiko is consistently
+tripping on this pattern, so I'm wondering if something at the DSA core
+level could/should actually be done.
 
-Pre-existing issues:
-- [Critical] A severe heap buffer overflow occurs in `get_keys_from_kdump_r=
-eserved_memory()` due to the allocation size of `keys_header` becoming desy=
-nchronized with a dynamically updated `key_count`.
-- [Critical] A Time-Of-Check to Time-Of-Use race between reading the global=
- `key_count` and iterating the unlocked configfs list allows a heap buffer =
-overflow when populating `keys_header`.
-- [High] A race condition exists between the configfs `reuse` attribute sto=
-re and the `kexec_file_load` syscall, allowing a Use-After-Free dereference=
- of the `kexec_crash_image` pointer.
-- [High] The `build_keys_header` function iterates over the configfs `cg_ch=
-ildren` list without holding the required subsystem mutex, leading to a Use=
--After-Free or list corruption.
-- [High] The `config_keys_restore_store` function lacks synchronization and=
- unconditionally reallocates the global `keys_header` when toggled, causing=
- a memory leak.
---
+/P
 
-commit 5c3cfda384c3afc1b8e6d5155bf696ea37a80c9b
-Author: Jinjie Ruan <ruanjinjie@huawei.com>
-
-kexec: Fix UAF and Double Free in crash_load_dm_crypt_keys()
-
-This commit attempts to fix a use-after-free and double free in the
-dm-crypt keys handling path during arm64 kexec image placement retries.
-It zeroes the keys_header global pointer after it is freed in the failure
-path and updates the header regeneration check to trigger a fresh build
-if keys_header is missing.
-
-> diff --git a/kernel/crash_dump_dm_crypt.c b/kernel/crash_dump_dm_crypt.c
-> index cb875ddb6ba68..2c54628763377 100644
-> --- a/kernel/crash_dump_dm_crypt.c
-> +++ b/kernel/crash_dump_dm_crypt.c
-> @@ -412,13 +412,12 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->  	};
->  	int r;
-> =20
-> -
->  	if (key_count <=3D 0) {
->  		kexec_dprintk("No dm-crypt keys\n");
->  		return 0;
->  	}
-> =20
-> -	if (!is_dm_key_reused) {
-> +	if (!is_dm_key_reused || unlikely(!keys_header)) {
-[Severity: High]
-If kexec_add_buffer() fails and we retry, does this new condition
-unintentionally discard the recovered keys?
-
-When is_dm_key_reused is true, falling back to build_keys_header() here
-appears to overwrite the intended configuration by fetching keys from the
-current user keyring instead of reusing the recovered dm-crypt keys.
-
->  		image->dm_crypt_keys_addr =3D 0;
->  		r =3D build_keys_header();
->  		if (r) {
-[ ... ]
-> @@ -437,6 +436,7 @@ int crash_load_dm_crypt_keys(struct kimage *image)
->  	if (r) {
->  		pr_err("Failed to call kexec_add_buffer, ret=3D%d\n", r);
->  		kvfree((void *)kbuf.buffer);
-> +		keys_header =3D NULL;
-[Severity: High]
-Nulling the pointer here triggers the faulty fallback mentioned above on
-the next iteration of the retry loop.
-
->  		return r;
->  	}
->  	image->dm_crypt_keys_addr =3D kbuf.mem;
-
-[Severity: Critical]
-This is a pre-existing issue, but is there a risk of a heap buffer overflow
-during reuse?
-
-kernel/crash_dump_dm_crypt.c:get_keys_from_kdump_reserved_memory() {
-    ...
-    memcpy(keys_header, keys_header_loaded, get_keys_header_size(key_count)=
-);
-    ...
-}
-
-If a user adds more keys via configfs after the initial allocation, key_cou=
-nt
-increments. When reuse is triggered, this copies data based on the new
-key_count into a keys_header buffer that was sized for the old key_count,
-writing past the allocated bounds.
-
-[Severity: High]
-This is a pre-existing issue, but can this lead to a use-after-free?
-
-kernel/crash_dump_dm_crypt.c:config_keys_reuse_store() {
-    ...
-    if (!kexec_crash_image || !kexec_crash_image->dm_crypt_keys_addr) {
-    ...
-}
-
-Since kexec_crash_image is checked without synchronization, a concurrent
-kexec_file_load syscall could swap and free the old image. The configfs
-thread might then dereference the freed pointer when calculating the page
-frame in get_keys_from_kdump_reserved_memory().
-
-[Severity: High]
-This is a pre-existing issue, but does this loop traverse the configfs list
-unsafely?
-
-kernel/crash_dump_dm_crypt.c:build_keys_header() {
-    ...
-    list_for_each_entry(item, &config_keys_subsys.su_group.cg_children,
-                        ci_entry) {
-    ...
-}
-
-The cg_children list is dynamically modified via mkdir/rmdir and is normally
-protected by su_mutex. Since this runs during kexec load without that lock,
-a concurrent rmdir could mutate the list, leading to list corruption or a
-use-after-free.
-
-[Severity: Critical]
-This is a pre-existing issue, but is there a time-of-check to time-of-use
-race that causes an out-of-bounds write?
-
-kernel/crash_dump_dm_crypt.c:build_keys_header() {
-    ...
-    keys_header =3D kzalloc(get_keys_header_size(key_count), GFP_KERNEL);
-    ...
-    list_for_each_entry(item, &config_keys_subsys.su_group.cg_children,
-                        ci_entry) {
-        ...
-        r =3D read_key_from_user_keyring(&keys_header->keys[i]);
-    ...
-}
-
-If a concurrent process adds a new configfs key after the allocation but
-during the loop, the unlocked traversal will iterate over more items than
-allocated. Without bounds checking against the original key_count, this
-overflows the keys array.
-
-[Severity: High]
-This is a pre-existing issue, but does this unconditionally leak memory?
-
-kernel/crash_dump_dm_crypt.c:config_keys_restore_store() {
-    ...
-    if (!restore)
-        restore_dm_crypt_keys_to_thread_keyring();
-    ...
-}
-
-kernel/crash_dump_dm_crypt.c:restore_dm_crypt_keys_to_thread_keyring() {
-    ...
-    keys_header =3D kzalloc(keys_header_size, GFP_KERNEL);
-    ...
-}
-
-There is no check if keys_header is already allocated, nor is the existing
-pointer freed. A user could repeatedly write '0' to the restore attribute
-to trigger the allocation and exhaust memory.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601094805.2928=
-614-1-ruanjinjie@huawei.com?part=3D9
