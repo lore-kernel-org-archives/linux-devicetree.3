@@ -1,131 +1,101 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89FAD3976AD;
-	Mon,  1 Jun 2026 09:59:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85A1B3A382D
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 10:00:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780307985; cv=none; b=jlEVNnHyF63QHbqdV7wb153npRlbVKcVCM+UQklq8BtXKQ8NFcPops5Gt0rwsyrHu401mEYEZwB2W+65EntssGFki2ofsBuLdoSgeq6YcUbV37cAPy/B3u9sZ33Gqbpf/PrTkm/Mu1JwV+ZAdrzY13cd88XWf60+pl6FCgiRyas=
+	t=1780308049; cv=none; b=Shub6kOF8DySSkMYM8KAPF7X4VYmjJvmZbh71ACSYCnU6YkrGNDv3aBsP03eMM3NxqySgRKNL2y74xQAXJI+gpX2rCLLQKwHbnaSROM5mXiV5n5zjGVKbl6ITmS74hx8J7oYNT0XQyhpoOhLMEw2yf9sIYTHE5IP25z6yqZBKBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780307985; c=relaxed/simple;
-	bh=89xgpt+YKdbbNhSEQq5/ciuxQwkDFS7EU6vCTaz15fA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jIYPmdutz5fxAuHY7pHE2U06V8a+M6TMBQuokNhWLwXmEUI3AOpxrF/bb6FyWeZBJHk8OMF/4zGvDlkyflHToe1N3CH5UiCubTbIfBChhWc2w4s9O51Uk3dSNQXmnA8anIFo04CYvBcyz1P/nMwz3BtVve+QUCcpE1SQZjo9GFs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqiA5y9O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780308049; c=relaxed/simple;
+	bh=vPHP8I/UX0j5aOvf9jNZTi5aFwiw7oTpOGmLMTGnmyc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Ovuk3edKAQbpjzr8mT//EfqIhbMvlQ73n+vSBo2/Q6KMJ0VwdkL0S6r6YgfahuQYNdk5ENwGfCdyNSWJxv9nLH6fsvZy1FwWbJmRTXzGEDmMNuOuqwnQQOmKL80PlawMFwXqxkz0s3hMMJHAvhBbdIM5bxlccTkdG+puEik82To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZPEvFuex; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqiA5y9O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 579BC1F00898;
-	Mon,  1 Jun 2026 09:59:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZPEvFuex"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B12111F00893;
+	Mon,  1 Jun 2026 10:00:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780307976;
-	bh=oXpXPYTM/iT+KpypqwBxjU716QAjrBpdfpoXXBX+vJE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=eqiA5y9OELP64EOrE9rjznhcC09/EzxQ0gq9mwgLGX5Bn6StQq1PQkxp4/zKIzS0v
-	 R0tVQPojl2SgjrZ0gJH49BAioZPwsogYeQIq8DWiWaEmEPSl1nkLFkoQg/JsGCFGw5
-	 4gTn6i+tr1k/kovnNVAB859L8u6a1U0btT715PtKeovT5HvxV8zZMoUdcIaL5fIRHm
-	 u8amPdd1Yr52S6qXeOQ5Syu8MQW8aEYBU/WqOqprkt7ZOqYSodbLP7E0LfvwjShrnY
-	 aRUw9GRAqW+wpSJF2Iq4VlkPqqMERmO+l61YbLbF95d0lM/SKMyl4OlBSWHC9eCtvq
-	 pNicZoHXVPesg==
-Message-ID: <c9aacef4-d10d-4f9f-8bf3-fd53501a1831@kernel.org>
-Date: Mon, 1 Jun 2026 11:59:27 +0200
+	s=k20260515; t=1780308040;
+	bh=8PoILybRUN2udAjVN9PUzUr7LuJILxbVeBmD/H5DF0o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ZPEvFuexmd8Xr++W8SJlOACUs4fSG6D24v7rEQ0lueBeQ1+s0oMTSZvTHG4pcSeJf
+	 cxa5IvOwYN/fTV42mWR35pCFRUL+9qS04rxDzQrJk0la4KdA7rS/OVdJyelb78o3vg
+	 ygT280phCoxHip7AUqtGTJgQ++/Cnk9LGqm6VuQGkVy7Eoe66jOx+BlQuTlRkzsoWe
+	 /yfbUQAyR9eSBVm9Cu9VxzeOaXK81eQ9i0SYPubvx0G5vupN7z9johR7v6etjyfEYr
+	 GJeHe5pHnhkp3MI9rFd92cjSg5pXsoSUXQydzXOPSuH5GdfT5o4NzFnUyhVdIUu6H2
+	 KEEx6cgYRZXBg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v15 03/23] powerpc/kexec_file: Fix NULL pointer
+ dereference in kexec_extra_fdt_size_ppc64()
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Jinjie Ruan" <ruanjinjie@huawei.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260601094805.2928614-4-ruanjinjie@huawei.com>
+References: <20260601094805.2928614-4-ruanjinjie@huawei.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 10:00:39 +0000
+Message-Id: <20260601100039.B12111F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] dt-bindings: misc: qcom,fastrpc: Add Maili FastRPC
- compatible
-To: Yijie Yang <yijie.yang@oss.qualcomm.com>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Srinivas Kandagatla <srini@kernel.org>,
- Amol Maheshwari <amahesh@qti.qualcomm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260525-fastrpc-v1-1-ae9add881952@oss.qualcomm.com>
- <meuxtcs3quchupl6gf4vtjiosmoig7zs2tc2vr2xthetem5hll@l4op77zr2srj>
- <a7b4c0ea-0e02-4ede-8d51-a4c038d55a5a@oss.qualcomm.com>
- <moeb7zqqhengrd2nrqyuqydyq4pk4imd2uylmr4tf2ypn65h34@z33iifvtf7al>
- <20260530-wise-discreet-woodpecker-3c7d0c@quoll>
- <e00a4089-021b-4c26-8a6e-ba1faf86218f@oss.qualcomm.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <e00a4089-021b-4c26-8a6e-ba1faf86218f@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 01/06/2026 03:23, Yijie Yang wrote:
->>>
->>> Okay...
->>
->> If a human cannot write and validate this one, I see as putting effort
->> on maintainers.
->>
->> Dropping from patchwork.
-> 
-> I will write and validate this myself and then remove this tag.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] FDT Buffer Under-allocation due to logic error in kexec_extra_fdt_=
+size_ppc64()
+--
 
-Upstream maintainer's task is not to review AI generated code, but
-review people's code. I have no clue which case is here and
-unfortunately I make assumptions, usually in favor of less work for me.
+commit 78687759639490ab63d0d6924f151d698ff15bbc
+Author: Jinjie Ruan <ruanjinjie@huawei.com>
 
-If contributors send us AI code, then basically contributors are proxies
-between the AI model and maintainer. I don't want to talk with your AI
-through you, I have no such interests (and such process would not
-scale). Reviewing AI code does not give me actual pleasure of work - I
-have zero emotional connection to such code, no pleasure, I simply do
-not care and decide to spend my time on something else.
+powerpc/kexec_file: Fix NULL pointer dereference in kexec_extra_fdt_size_pp=
+c64()
 
-Whether you actually use AI is a different thing, just like using other
-tools, but if a trivial patch is done with AI, I don't believe it was
-reviewed by you, because writing it is a similar amount of effort, so
-obvious choice for me would be to write it by myself.
+This commit adds an early return to kexec_extra_fdt_size_ppc64() to prevent
+a NULL pointer dereference if the rmem pointer is not allocated.
 
-Best regards,
-Krzysztof
+> diff --git a/arch/powerpc/kexec/file_load_64.c b/arch/powerpc/kexec/file_=
+load_64.c
+> index 8c72e12ea44e5..fdeedf102c38e 100644
+> --- a/arch/powerpc/kexec/file_load_64.c
+> +++ b/arch/powerpc/kexec/file_load_64.c
+> @@ -649,6 +649,9 @@ unsigned int kexec_extra_fdt_size_ppc64(struct kimage=
+ *image, struct crash_mem *
+>  	struct device_node *dn;
+>  	unsigned int cpu_nodes =3D 0, extra_size =3D 0;
+> =20
+> +	if (!rmem)
+> +		return 0;
+> +
+
+[Severity: High]
+Does this early return improperly short-circuit the rest of the FDT extra
+size calculation for independent components when no reserved memory regions
+are present?
+
+The get_reserved_memory_ranges() function can legitimately return 0 with a
+NULL rmem on platforms lacking reserved memory regions. Returning 0 here
+entirely bypasses other size estimations, such as plpks passwords,
+hotplugged CPU nodes, and especially kdump_extra_fdt_size_ppc64().
+
+Because kdump_extra_fdt_size_ppc64() calculates linux,drconf-usable-memory
+entries which can exceed 32KB on systems with large hotpluggable memory
+configurations, the baseline 4KB extra space cannot accommodate this missing
+size. This could lead to FDT setup failing with -FDT_ERR_NOSPACE during
+setup_new_fdt_ppc64() and prevent kexec/kdump from successfully loading.
+
+Would it be better to conditionally guard only the rmem->nr_ranges access
+further down in the function instead of returning early?
+
+>  	// Budget some space for the password blob. There's already extra space
+>  	// for the key name
+>  	if (plpks_is_available())
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601094805.2928=
+614-1-ruanjinjie@huawei.com?part=3D3
