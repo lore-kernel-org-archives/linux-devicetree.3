@@ -1,137 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E49E23B9956
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:38:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780324738; cv=none; b=DYMFTYD1x8/vRGNCojivXmgHub43kHjybuwZxLi46JnoVl1xSTxJ4bf97vTV3ntEYFqDy6Iwj5jes7pe4MUZLRbOtYVv3lCBWIlE9LXx1Na1nFVLduByHbDPg3ElW0r02LIH0xSYvCzdK9cFxGJ9rnq+7AovoT6q4p4OfTaYXlQ=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780324738; c=relaxed/simple;
-	bh=+CnGQ9TO70FOcTY4MRKaNNO36huxITPaBaCyxApkKOs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hshIHJ90kiLcKppnB029YeFEuyKZM+RjqhBz0QYw5+GVeIo12Uof5gPNzP4XhJliBiTMJ7HQmEIKPBcGdeXDnuM5MDDdTqO78Ja9TzmaRMDaMkD/ReFKrUgG+0UNorXD5FsB+R5TGpAkktlOEKlH7wLWW31AxSWR2gI6q6S72kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=S4oKHrqn; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IftaV4Bf; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C0F3BE645
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:43:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.50
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780325033; cv=pass; b=rVZI/NrvfKv8tj/kBPFXXmTUIJGT1gra+O6rLijMAFvolwsxXGx/h/KdVyFCAbF+Nf0IJbacycr+d9WJD8q1JJ4of9i8x8eLl1lO5FyXIVQEZuENZoIo8XmDssssDbR0dOyMkVvQciEyszHwyl9pj0hnGhAsbiz+6b6TEgj8wnA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780325033; c=relaxed/simple;
+	bh=SjbsHlFy9x0kgDl+4/irECvQxHpJEXXlnDbBP4VzqKQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cOlUBmwfghDXcxICYHv8qa0jTb9skZNLB5f8XxrBjpQuw9ElOQYG8rlaE3w1cWZ+j52Vi9MmhXv/5RdjwbFQmsxGHZTNpHUGr+VQS7+YUGNnqtHkFqnQ7+yXwC9KIw480Q/atpYppLxZeuLNabwkPa3aafDPpoJeW0pspr9rRDY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nd0yk7CX; arc=pass smtp.client-ip=209.85.128.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="S4oKHrqn";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IftaV4Bf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1780324735;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=etk1wl0EQA40zfC85KF843N3y3SYchLVXHGTkLkJ2Ts=;
-	b=S4oKHrqnEJM7vi5asdyK18umkUFlijuYOVQqIMuHw8qJMEWpdtv99DRtamNiiDmJLMsGBf
-	dvC/4+vEmZ+oIHV84J3i+FNo6ofZUVvezVDauQ4ZgaYFAy8a54ATkkoyEnE4GfzPn2czYb
-	khaIkG2l7MWoFgnA4D799u8MgkztySs=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-93-qYoCOK5nPeCvnSJg5Vw5hw-1; Mon, 01 Jun 2026 10:38:54 -0400
-X-MC-Unique: qYoCOK5nPeCvnSJg5Vw5hw-1
-X-Mimecast-MFC-AGG-ID: qYoCOK5nPeCvnSJg5Vw5hw_1780324733
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-45eef10d5ebso1869871f8f.0
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:38:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nd0yk7CX"
+Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-4904c1ce4c1so114319635e9.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:43:52 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780325031; cv=none;
+        d=google.com; s=arc-20240605;
+        b=BOG60zyVq6YnFyc4P0W5pvgon1jleNHa3zWy+ILecv1rv8kULBwnm1S0ZaqkB69jZo
+         P9IIsRnol4i50GT/PDihei57qzVxaG0KDkQihMG7EdNzKylqZMVbho4jFYBM/UqD8qdE
+         4MErgO1+x5lGc3TJR/8NWVx5lvhrbmn5EJtlXnYxwPGQGL2UOF66RwqFeTFCxTiBh05l
+         GfQQrm4TRgW+fGSDlqbn1aHrQp3qr1ZAggQ3ZDIfBqqhh7ZK+YhCBtup5x9F2nFZGr20
+         UpYviaijJjGXQD5C6EMz1A5qogSq36+vyd5x6V2rAcsgs2Ba5iqRarEEGHk0bDItI/S0
+         CBFw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=FaJ3M/Cax1Tl8C/6XQMVNUNdMZtIFF89XnpPr7Qd2Vk=;
+        fh=cx46FAvR5bfq6IwkRdPuI4U3L8bSpvGepBTMCV/F7cA=;
+        b=eeNhW+AzyFKYrmvp0JH3cumYoF5wjHt6uT9mM/qSBOE45UsiPcYe1hIkV/8hv903Dn
+         vi+HbQzuQAwGpd1wGItIXosLeYbjsJebxpX97BuFrXrYt7f17r0EqVj9paSyORqSCYni
+         L2ZtrBmUD7+kfoYUxO/VmZhTljZFXx1k+1EvqKFS70WUpUQkMomw2PkT/qj2S5w59pQ1
+         7HP+oR+QmMOdwGZAfZEHeEmMzMtlP58rqtg9LcMVOfcHMZG18LUu0Q7fgR89Gh1JBDo0
+         aAlZZKb1JjysunGHTH6rUo11UHGnRC0Qbj1zyrhlYE6pKlpex7pxNYrdpvq5GD8fsQH8
+         deNg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1780324733; x=1780929533; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=etk1wl0EQA40zfC85KF843N3y3SYchLVXHGTkLkJ2Ts=;
-        b=IftaV4BftOHOO2bTtbGhg7BuqHHojqHftmlx+gMBI8ylke0LCFlSPkkrd7uudSZz+p
-         RqdSzCuXwn7sXSwTQ15MUv9TMpzkymBD9SvARYgC2U/jKx05L1IYhVnrggsveqcZveRc
-         K4//BawgTIQS7f4lMKWF6rMnx1+x11lGibALNopYLJ5o9tBYsQ4hnTBlw8CZYEzOTH5g
-         roDSWQuSqLBBJ3AgLg50pzBysQ+xxkYsCZjf+wwIQRym/JguGurO26BiHiOobMP2beqE
-         gNQlLyzG+PExw+qP3XvfmSnzHfuz9M42kw5fLnXU4UiK+s0AsJz1taHhS3Ouax6Eb5pu
-         bQnQ==
+        d=gmail.com; s=20251104; t=1780325031; x=1780929831; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=FaJ3M/Cax1Tl8C/6XQMVNUNdMZtIFF89XnpPr7Qd2Vk=;
+        b=Nd0yk7CXMkSnlXp99V5xmUSkaCfg37tSayX45ze7MuDWiBsLVzshKoH2fJ/GV59540
+         ZY3BORToO9cgRUSbqtyMcmd5c79G0X4RME8YnHQz52YF5QxmRtfeekfp8Wq07u3unUHn
+         Ec0FN/+Z2uN1tlpiKJweo0xzpLTZV9ZEwiDJmCCLg//4GLWuXB4mCylydEBUKLx/eC+Q
+         ejfE41y5oPFa/QPTTEn6A9nn6uafZAB8yyUC8hi4EFEG2vewQmWI4FZcWpRrYNYmjAg+
+         ipUvfJVexkdC234JQfKrb6TwxyV8+zlx8O9m325y4loXUb5i1xjjtOJrnl2p+80NHVph
+         yKTw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780324733; x=1780929533;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=etk1wl0EQA40zfC85KF843N3y3SYchLVXHGTkLkJ2Ts=;
-        b=JYmpvjSLjD2xYd6OWEsP/fLp/ZhVZRKtbAheM3hCnea1S3IvxGxUjudA4abZXIBXJV
-         ySLO7w/6P1VSQMEdMMg1Wq1uoXhVJk4nlBzMXsYAhWLON/0xDjA4/jA9nJr6NsTZyCQp
-         RBW54A2WWO+Q0dtGs57JJO1sKfoIHSV/oVU6jZGwvs3wz6qADCAFt0BuEXpfyIA1UHWm
-         bOTtpjaKIm0g/Kxwn4wj/Im7P1l8BaEXZ95QPV0qTp0nJ5XpjgyoKr+hK45xgjlCok5C
-         wdyNWJaArul3aRJwNHRwWtz7zmhOGq4yYwiv1mD23TXTSXxEmhYJ6LAHcf/0nXq2MS3m
-         DytA==
-X-Forwarded-Encrypted: i=1; AFNElJ88khzwIiA/3OrtCDSoUUC47ZG0gUesLsAYJo5c0n1XpzpqkSg3XAlvWZyMBB2XPlZsRubJVEo91kN3@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx4HMneFCbbzjoauV/IH+tfNn08l0KSJVQKBmyaq6eM7xxsEsUK
-	GxawwFl2c2rQIrULID2M76MGKIQuQxH3UltLGqnvsknkNlHnUvY7nvJHOcUWktxvDlIJEiLQFdC
-	cwbDxYg7Xr6eqXC5E7lDuP0zl7nsGZ27pmh+/+4dRAd8ssaysLMC8bxNsJhOD/KM=
-X-Gm-Gg: Acq92OH2LcEF6jmiT7EKqShXZGJ0C46N/oaq0O3pLJFX9CiETqHSO2JqG733bha4FSQ
-	3ci55F61To1gxp8/7JHIvO2EW9j8PkTvHvaB7Z5eMXY4/WER6AAaemqtNVmtuenSpZcWx+QNaoS
-	HLgrPLMqzG1RpmIcFwMg2ChLKHHCIH9wQR0xVx/iyRU6UkkdkoPTPspyrr/VjbGVSQtjWsmR0+6
-	M11/U7eEH37YAcZzGTSHNU2KgfZixLJoQsgyveyX+F8i/1EBanGBBPzv5UQdpcqNgzmIHLFFH8Q
-	PwEjoIxcfFbegUK/LpCrJi814G/1yggQRRaoDZQLfGuD5R29H7Z/wsdeBUEEbZOQEVawH8MXYJf
-	XQhWpZ5DjnMRVoazq/slgdns0wGFabBemKm9NtihzsR9WoS2UN8kqsrsaQiaYbV0Mm/mY
-X-Received: by 2002:a05:6000:26cf:b0:460:1695:89be with SMTP id ffacd0b85a97d-46016958be4mr2527479f8f.17.1780324732790;
-        Mon, 01 Jun 2026 07:38:52 -0700 (PDT)
-X-Received: by 2002:a05:6000:26cf:b0:460:1695:89be with SMTP id ffacd0b85a97d-46016958be4mr2527437f8f.17.1780324732403;
-        Mon, 01 Jun 2026 07:38:52 -0700 (PDT)
-Received: from [192.168.88.32] ([169.155.232.197])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354cd7csm25549035f8f.18.2026.06.01.07.38.51
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 07:38:51 -0700 (PDT)
-Message-ID: <4bf036ed-cf48-49ef-94df-8d7a03b0cda4@redhat.com>
-Date: Mon, 1 Jun 2026 16:38:50 +0200
+        d=1e100.net; s=20251104; t=1780325031; x=1780929831;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=FaJ3M/Cax1Tl8C/6XQMVNUNdMZtIFF89XnpPr7Qd2Vk=;
+        b=KHDb+CgWW0rR6Z0y1C3UisIR9NIaUZxCVjHnVQyrQugw/sBN/0JFmuZZQyD2ke7Dnt
+         7sEQVqo3ePvCEqkM0li61fm8wwq0HlJ68utL1lhFKgbvfhU6KgdhnVCqrxu1UACKdjGn
+         CwB9kzWPbU6Z3QyhCugOZVrdL06oKfL2+gAkfwxLBuBYU710RJhPklE6UFl4BcYsYfSV
+         MDfDDtjgH0kKF5en00Pyqg7Suk3vEFRI6/THg+mhzdKTAKFsChK0m/drJ+veyeU5hIJB
+         QI0rVpKbUPYn6MeAg8mdoWXDXMJVKxFiVXWFqdrxh/bcmztRIzyB1jLght2DjQprhiQa
+         /Xhg==
+X-Forwarded-Encrypted: i=1; AFNElJ/Bq5uerNvhyirgybmnMqCEZ7QDg70StzkFQXbnT0XdlZZvSfl0HR2AT0YdBd8tsRk3cs8sHIdyTKHD@vger.kernel.org
+X-Gm-Message-State: AOJu0YxCILrAngJnaKe+EjC5pOo9MuwyuGaC7EPE1Pr1h7gsz4MapbJt
+	kIQdTIk5tUJVvw0Om063GNMrcHVpg+p6sCdoXYThfALCuUAIL6L6ZU9esi7dXXLWM7jOo+1DcOe
+	knBVdDJ+utJL+h83oATO+aTNPo9ApyrQ=
+X-Gm-Gg: Acq92OFTvh6y9NGNJy1bcsxQJWfzwAPzUiyej7Zhk3UoTfHd+RIk/ETQJ1ITnaiis4D
+	hGKDRlUMn3KPhPUBPJ6/xF31joiCZHiW7U7wxbkaK1x+GqnoEaZfvuWhntn8iRGnPoiIPWt0cZz
+	bFLbkY4rM4V5qk4/5muoaCZiPe/1zBO07NVUatyFeC5hvnjLEGz9YMdN1LvVjfhEvtk3PlM7atR
+	LeeIQOuV441VX4XblAn517RTbs2Oy9/fd674fvkLpFsqbB6Tjzskaq7BadKJFqlW7D9cZZ/gMLu
+	pE0cWlfzWZPMAxl8J6pBTNBgGZ43+6sJ379pnJNNHIOZuppIUuv4oUj/6e//atg1onlf/oUgxPb
+	hVtiuje6/fM4+l+Od6rBAiv6h+NO4VnNaJcrTeymVyCbNf3UhoKxQ4NyZS3IzQG2VLH0TFARXuN
+	IKYSe6b1sBmbqcd7R6
+X-Received: by 2002:a05:600c:c3ce:20b0:48f:e230:2a21 with SMTP id
+ 5b1f17b1804b1-490a2975173mr158041835e9.32.1780325030803; Mon, 01 Jun 2026
+ 07:43:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net-next v3 5/5] net: dsa: ks8995: Delete surplus driver
-To: Linus Walleij <linusw@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org,
- conor+dt@kernel.org, robh@kernel.org,
- "netdev@vger.kernel.org" <netdev@vger.kernel.org>
-References: <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org>
- <20260530004902.BCC381F00898@smtp.kernel.org>
- <CAD++jLmZoGh+o5YKfjoUCWhwiRaO+Lm-9DFUdUzd9KpydWK27g@mail.gmail.com>
- <69dfe2a0-ce0f-4a92-98b5-c4cefd30ce49@redhat.com>
- <CAD++jLnZ1h4MpDEZn5FzX7yzGLYGCpt794zNf0OXQmgKnFPWew@mail.gmail.com>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <CAD++jLnZ1h4MpDEZn5FzX7yzGLYGCpt794zNf0OXQmgKnFPWew@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+References: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
+ <20260530-veml3328-v3-2-dd562eaee8d9@gmail.com> <20260531101940.037d1d7a@jic23-huawei>
+ <CALoEA-yEA5KcvXqZCCg76qFAgyNq8BQ5+gop442mju-9PiKaxg@mail.gmail.com> <20260601101726.203f56cd@jic23-huawei>
+In-Reply-To: <20260601101726.203f56cd@jic23-huawei>
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+Date: Mon, 1 Jun 2026 16:43:39 +0200
+X-Gm-Features: AVHnY4Jx9jpFwIQ3QFkofnO6yXaTKK95j63cGKSeFtD73y_KSpdW0rK083otLxo
+Message-ID: <CALoEA-w8zX+bzpEfvGoafDaOr6Kd-USgsyZ6SRpV08Yw6MaVrg@mail.gmail.com>
+Subject: Re: [PATCH v3 2/2] iio: light: veml3328: add support for new device
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>, 
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi,
+On Mon, 1 Jun 2026 at 11:17, Jonathan Cameron <jic23@kernel.org> wrote:
+>
+> If you have time to figure out the path that causes that, it would be excellent
+> to have it recorded. I spent a few minutes the other day on this and couldn't
+> find it.  Maybe ask AI to figure it out :)
 
-I'm re-adding netdev to the CC-list which was stripped by the sashiko
-bot. I should have checked better in my first reply.
-On 6/1/26 3:12 PM, Linus Walleij wrote:
-> On Mon, Jun 1, 2026 at 12:41 PM Paolo Abeni <pabeni@redhat.com> wrote:
->> On 6/1/26 10:09 AM, Linus Walleij wrote:
->>> On Sat, May 30, 2026 at 2:49 AM <sashiko-bot@kernel.org> wrote:
-> 
->>>> - [Medium] Silent loss of switch driver functionality on kernel upgrade due to missing Kconfig migration.
->>>
->>> No-one cares.
->>
->> Uhm... I have quite mixed opinion WRT to the above points as try to
->> avoid breaking users in any way. I'd love to ear a 2nd opinion from the
->> DSA crew.
-> 
-> OK then, I can be less cowboy-coding and try to play it nice.
-> 
-> Would a phase-over Kconfig option making
-> CONFIG_NET_DSA_KS8995 just select NET_DSA_MICROCHIP_KSZ_SPI
-> cut it? (Sashiko suggest this I think.)
+Maybe, just maybe if I'm not lazy enough to do it :)
 
-Yes, will do for me.
+-- 
+Kind regards
 
-Just wait a bit for Andrew's or other DSA maintainer feedback for
-confirmation.
-
-Thanks,
-
-Paolo
-
+CJD
