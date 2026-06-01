@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28C4238330A;
-	Mon,  1 Jun 2026 08:19:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 971C031A572;
+	Mon,  1 Jun 2026 08:20:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780301976; cv=none; b=guqlY6tJpQDC4V7izxojFgm72iEEZJM2AGZjsSOvpoEcti2hpv8+3Ap3TaLthxcF6Oi6G9qjMbyu7pMzd3ib8n86nFpk/46zv02NeTG+OU80rL/gKJDt0WL5XgwBrDBdUYK/W0pddIXr6/nqTDm4RY/yGZAwo4h/x6dCWeEGeig=
+	t=1780302025; cv=none; b=I7NmxaFP7e4x6ViWL0KpJ9uxq8bYAYk+gECZc7wjkGOMaDRsE2gW1eJJ1N5voUFfzsumNRwePhNREiLw4c180ZlfczE5Ilry8B1c7hIyRI76mDc+FQWUZRZ1ptT82VNq/MlmiTnkf6z/5Lb1u8v/nZD5gF/ZDFt/u+JaF6AnPaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780301976; c=relaxed/simple;
-	bh=Pg2npOcZ/Hw1cE+Yq4yl6p+iGSGhKj3iwXo5VRCiA4c=;
+	s=arc-20240116; t=1780302025; c=relaxed/simple;
+	bh=GeLoWk3E8TJ+EbOVSt/PLdVBxkncMw60ftT6OPoTyRs=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=A+/IlFQ+VFiJOFULyPTJPGmpzDWAlBaYvnM1XvKPTtPDpR2RYvI9+NzOYEEGSufz+FQ6sg3x1StYWmha2lhSG54Pv5IQCs5uGYnsAkuDu3BUR6EqKfCJH9/xWGlWKT+uSUzxRIrF8rD/WTwN4gmBNnEvzY5/LHJ7kLlgOYAJhS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5e17AE/; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Exwok39FgV29WJVCL+MlfVfDlq7tD2dAdWchV4ujw0J9ENUqj8hANkD6xPR7P1fOeFrFL20q9H5yE2t7iZmXxX+1LmgS949rfav24pzdrPajup39WrpfdPaV/LoxFRml9GOetz/9W89M5DYrp1sEWZ+txzE/T6nRW6aKh1xzXQ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lR6pwctG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5e17AE/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C92B1F00893;
-	Mon,  1 Jun 2026 08:19:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lR6pwctG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D33CB1F00893;
+	Mon,  1 Jun 2026 08:20:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780301974;
-	bh=c57dXviIjuMEChyoiV63Hb1ytsFXkGI3dXsg8IBQeec=;
+	s=k20260515; t=1780302024;
+	bh=Gx69hvLqO7Iq+reOjxvgeItjgoqp4W1U2TCI06K/nr0=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=R5e17AE/N7IpPn1it4oDQkNxZlh7SR+YB3Cx45LRwR9FOy2gUwWubxvgBstmyLDre
-	 fSa98rcjFqxWAM7wEotX+VGw0Z5OoXoOEHPPsOfPvuWYlaUrrsIDnE0ZkwRClfwrJS
-	 FTAK2OIgMQXNKYY1WU112uaL/IfZq2iD9F00fUR4Lt38j6OSgmHcyeMKBowogHXiUh
-	 qdqpIeDzqWxMyqnRM1Gc9BxA++8Lv0Ivq9Q9rWgN6T4+8UzkNyf8yIBGJGHngENIci
-	 nyxsUOLSYDSSpRQioXB/qXkm4AyFvtvxp7+M7XLsTylTshLjQko/6j0SVANusv11mA
-	 e0n7OXwaL7dtQ==
-Message-ID: <9448dfe8-4d9d-4344-be2b-ace371c37975@kernel.org>
-Date: Mon, 1 Jun 2026 10:19:24 +0200
+	b=lR6pwctGRKEPmciGTRkvsIh2kTaQLjsZIZuuM85DAdJxHg84XDMhysIKnHs/pnIUB
+	 pIoQ2VsbnfF/ia47yGAT9WHSxy6r8ITUGE+VXzYdWo6uAf8DCPrIThkIo77fveDX9f
+	 61GTuykUutfzCsLMzZR6vTOVgHwTgHtHTjIA0agjVVVSLs+3uTS0Ix3TtjwS9uS/IJ
+	 scANRSunH07mrnBOiw2bgNVmzAz+WKL1FwcDHncsVcSY0mHQ592paAk7cBoe9t72Gy
+	 fPDqNttvrsqYoS46BDdnkv0/3xCeMFPf9z6qsSQmRlFBASeUHL9nJxGTE/zWpSZ7+H
+	 cP1pKAgER5GOw==
+Message-ID: <6aa6061c-1b87-4322-9abe-ad5bd1c74a70@kernel.org>
+Date: Mon, 1 Jun 2026 10:20:13 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,26 +35,30 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/4] dt-bindings: bluetooth: qcom,qcc2072-bt: add bindings
- for QCC2072
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Yepuri Siddu <yepuri.siddu@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
- Marcel Holtmann <marcel@holtmann.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>,
- Balakrishna Godavarthi <quic_bgodavar@quicinc.com>,
- Rocky Liao <quic_rjliao@quicinc.com>, quic_mohamull@quicinc.com,
- quic_hbandi@quicinc.com, rahul.samana@oss.qualcomm.com,
- harshitha.reddy@oss.qualcomm.com, dishank.garg@oss.qualcomm.com,
- linux-arm-msm@vger.kernel.org, linux-bluetooth@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260529175342.3363935-1-yepuri.siddu@oss.qualcomm.com>
- <20260530-funky-mackerel-of-current-878e2a@quoll>
- <6c06e372-85b4-4207-9bb6-270bd654c287@oss.qualcomm.com>
- <mcn4ysrxrfqo36tr7khsxnjase3priskimkgxuacgma7jcpa46@bgla2znqhyfl>
+Subject: Re: [PATCH v2 2/6] leds: is31fl319x: Fix shutdown GPIO initial state
+ and remove redundant startup pulse
+To: Jun Yan <jerrysteve1101@gmail.com>, linusw@kernel.org,
+ dmitry.baryshkov@oss.qualcomm.com, Lee Jones <lee@kernel.org>,
+ Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Andrew Lunn <andrew@lunn.ch>,
+ Gregory Clement <gregory.clement@bootlin.com>,
+ Sebastian Hesselbarth <sebastian.hesselbarth@gmail.com>,
+ Bartosz Golaszewski <brgl@kernel.org>,
+ Vincent Knecht <vincent.knecht@mailoo.org>, Grant Feng <von81@163.com>,
+ Andre Przywara <andre.przywara@arm.com>,
+ Geert Uytterhoeven <geert+renesas@glider.be>,
+ Viresh Kumar <viresh.kumar@linaro.org>,
+ Florian Fainelli <f.fainelli@gmail.com>,
+ Robert Marko <robert.marko@sartura.hr>
+Cc: Pavel Machek <pavel@ucw.cz>, Shawn Guo <shawnguo@kernel.org>,
+ Michal Simek <michal.simek@amd.com>, Heiko Stuebner <heiko@sntech.de>,
+ linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org
+References: <20260525144629.498630-1-jerrysteve1101@gmail.com>
+ <20260525144629.498630-3-jerrysteve1101@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -100,46 +104,51 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <mcn4ysrxrfqo36tr7khsxnjase3priskimkgxuacgma7jcpa46@bgla2znqhyfl>
+In-Reply-To: <20260525144629.498630-3-jerrysteve1101@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 01/06/2026 09:52, Dmitry Baryshkov wrote:
-> On Mon, Jun 01, 2026 at 12:50:00PM +0530, Yepuri Siddu wrote:
->>
->>
->> On 5/30/2026 6:04 PM, Krzysztof Kozlowski wrote:
->>> On Fri, May 29, 2026 at 11:23:42PM +0530, Yepuri Siddu wrote:
->>>> Document the YAML binding schema for the Qualcomm QCC2072 UART-based
->>>> Bluetooth controller.
->>>
->>> Where is the rest?
->>>
-
-I repeat the question.
-
-
->>>> +properties:
->>>> +  compatible:
->>>> +    enum:
->>>> +      - qcom,qcc2072-bt
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +
->>>
->>> Looks heavily incomplete. Devices do not work without power for example.
->>
->> The module receives power through the M.2 edge connector and manages its
->> own power sequencing internally. Unlike bare Qualcomm Bluetooth SoCs, it
->> requires no external voltage regulators, enable GPIOs, or clock supply
->> from the host, so no power-related properties are needed in the binding.
+On 25/05/2026 16:46, Jun Yan wrote:
+> 1. Per IS31FL319x datasheet [1], the hardware shutdown pin (SDB) is
+> active-low.
 > 
-> If this is a purely M.2 device, then it should not be a part of DT.
+> Fix incorrect initial GPIO level to properly release the chip from shutdown
+> state.
 > 
+> 2. According to datasheet [1] definition:
+>   Shutdown mode can either be used as a means of
+>   reducing power consumption or generating a flashing
+>   display (repeatedly entering and leaving shutdown
+>   mode). During shutdown mode all registers retain their
+>   data.
+> shutdown mode does NOT perform chip reset.A dedicated software reset is
+> already implemented in driver by writing 0 to reset chip.
+> 
+> Remove redundant unnecessary toggling of the shutdown GPIO.
+> 
+> [1] https://lumissil.com/assets/pdf/core/IS31FL3193_DS.pdf
+> 
+> Fixes: dddb4e38c6ba ("leds: is31fl319x: Add shutdown pin and generate a 5ms low pulse when startup")
+> Signed-off-by: Jun Yan <jerrysteve1101@gmail.com>
+> ---
+>  drivers/leds/leds-is31fl319x.c | 11 ++++-------
+>  1 file changed, 4 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/leds/leds-is31fl319x.c b/drivers/leds/leds-is31fl319x.c
+> index e411cee06dab..41087ed262cb 100644
+> --- a/drivers/leds/leds-is31fl319x.c
+> +++ b/drivers/leds/leds-is31fl319x.c
+> @@ -396,7 +396,10 @@ static int is31fl319x_parse_fw(struct device *dev, struct is31fl319x_chip *is31)
+>  	int count;
+>  	int ret;
+>  
+> -	is31->shutdown_gpio = devm_gpiod_get_optional(dev, "shutdown", GPIOD_OUT_HIGH);
+> +	/* Driving this GPIO line low (in fact high) takes the chip out of shutdown,
+> +	 * as it is flagged as GPIO_ACTIVE_LOW in provider (such as the device tree).
+> +	 */
+> +	is31->shutdown_gpio = devm_gpiod_get_optional(dev, "shutdown", GPIOD_OUT_LOW);
 
-Exactly. And even PCI devices need power sequencing, unless this is a
-simple (BT only) device.
+That's ABI break.
 
 Best regards,
 Krzysztof
