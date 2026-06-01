@@ -1,144 +1,169 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com [209.85.208.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16963BF676
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:58:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 050403D25C2
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:07:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780325928; cv=none; b=kCj3y1/ctH2p57c2S1XgwfKJNteJuzuVcIWBOkNW//F3uAeqfhjtWEiVXgvK/Dj4SeRTS2iv/11NsvIDssHQ8KjRSjrbB+3mrRA/9ws+fbfSrYB02Cx21hBHDlUeOSCZUy5C02RFZcq8JVHA37amooAfjTDJMufJ2eqcAKd0Y2M=
+	t=1780326479; cv=none; b=ZmrYO2fR59kePmfqx/vK3Q6feKtSE0K8gNknwp1r46p752uj7PJy9HwW3o3kgeHPPmP2VEnZZPg7zXznnJ5wa/HfknVn1Xp3xXoleiTpdYtdrb6QhU7bXW8wsJDV5cYxSmRBE4LxDESezdzedYhxbJqzYXelcYI0YuQoCpLusBo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780325928; c=relaxed/simple;
-	bh=rqBnj7fgbdJlTrVFKmmoGA6nL2axLMyCnfR2JX+G2hA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R/x3TvAF63iEKSK3kGjG7VXp2oT2lBM+48L2Rao2z0LcMREso6lG01tG/Z991TCU3NtdX2iChEyJeDkIkq2eaERSxA3BxL/kVeJHs518mKX+goD/B+Uz77I3zbAbrKWhpd/1H4n0+/on49dmPCZjAcY+EKJgXGi8717aZ8snByM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=uLSd/+xL; arc=none smtp.client-ip=209.85.128.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780326479; c=relaxed/simple;
+	bh=3VVaulGMeplgtqgpL4n/uqk2CVZZytxplVZEn/dOXxA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qzMgpP+5mIV1m5ObVw8VJ5oSf6ayldzLVgU1Mg6D+UtqLKyv/jcee9ust5/XjWkV7x8zH+L2qKvLUvzH/dgnV0zoHQclNMtWwQN8x2fWP2t8cEzRSq3a9wfQ4jEEgAcLdFnkq83ZRTVGSVd9nOC0YfbV1D+BcfhI8ZIFFhL8gg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QuwN8PGP; arc=none smtp.client-ip=209.85.208.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="uLSd/+xL"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49041e84237so83949195e9.1
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:58:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QuwN8PGP"
+Received: by mail-ed1-f54.google.com with SMTP id 4fb4d7f45d1cf-68bd9fce347so5670267a12.2
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 08:07:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780325925; x=1780930725; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=Qq6eAfjOAZ4Lfq7LauQf4bjJ3RlF5Fcl+6rJ1tXLLa4=;
-        b=uLSd/+xL4an32vfrEaURSqZ5jxrxDf+Je5BlMeEWRtFjYbPTxG3qwo2molySdmCNar
-         ySHXibbXz8tiHssk9PIHOyolAOy7OU2eiCfdWIsZImKYw8tjwJsPOMkcYc5SW8psaEXM
-         OQ75ak3pmVXlznsgExz+mhv6sxxqgnzcHHkLiWQuRzqvG2X/T/BpGPlMgvWlq8Arl3oe
-         rMnHBO3SIkoLsLSTlVjsavPkJOH78fF/VYBvRQJGgLob1NulcMXFXTN9IRhw39sL7ucH
-         KOROkYsY1v4+pI3CTdoUJcsn/pewlnaOYjs5MQsu/2ewKhZMzppKraLeS4Rw2U3N8LBf
-         R8lw==
+        d=gmail.com; s=20251104; t=1780326476; x=1780931276; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=v/xePLwzWpzxbmPIhpf8UeZQgMntn3mfOmofUFvGYSM=;
+        b=QuwN8PGP+YJpm6DkJqF3uBgKASBTF+5TmW68HoM2FzuoeP3ZRNd0Ss+MwJyFsrGEH3
+         b6U7aX1gylGFllnANst+JMZdmXdlVuO8n06PNKUlmgh3fAVmlFIZ2iDrbcL65K3u/3a/
+         5287lOuBalwuGVQJRCH5+FfuGshxHOOZazJpVFCToPvLLvtryNWKsnmfNIwkmAkqwNF0
+         t99zTbHjud6n1qhRteFFXOaNa25vEq0iCjXTbiKkISjkSD7gVb2ACsiJm29SzxkTZrCT
+         noPl7mlfibpBbxT8NojpmbTqBISFWExXvKD/In2idBITmPk/1lpPRtjiWWaqPoYgBIih
+         +7WA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780325925; x=1780930725;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=Qq6eAfjOAZ4Lfq7LauQf4bjJ3RlF5Fcl+6rJ1tXLLa4=;
-        b=XrGEPnxtloeqHIa9XO89dAALkvvtnjoQFvBezprluF1OE6zRvhBHp5s54uTh+xiq0P
-         BV8F1AqLrSROc10iRSwtxXhJ5FRkJrHV1iT2LJfFaVjZX7pmN/eb01UOa9KESYl3m1Nc
-         VJSxECezs/KmTdJ/W0lu7a0092/7MymQZsJq3aa9SFLZBnx7q/Ufx/U3l0TuwxHP4nUh
-         UtqIIgN+XEswJl0O18FzthQZ4SimeCjE5ehXiowmvfyi4KNJj8WOKNgRbTRXnpNdi56h
-         YagDDRpcRRBykk+Pa/ui7rTr/qTOVDQsJ8gohleL2OYbS2Zmqc2UQgjp/ooDpZYNDvuT
-         7SGw==
-X-Forwarded-Encrypted: i=1; AFNElJ+xxb1hzZgavrZMALo5C2noonhJJcZu/KL7kpacG4E82NEbf8v0sEjGXwciFRSDN4l16yF30JnUM46d@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyxk+0MAnoFu9ePhQxBjc3RQY4c9I7ZpycVfmaYfqdklXPnoghN
-	7PQTeMZWNTbI72uB4CZ9meA2vMrg8HCJBaewB/l8D8cEjGzIJYm8aFJoLUU6awiNojQ=
-X-Gm-Gg: Acq92OH3Kcq1zP37FaemsHMkZfxduyQPSU7MaxSqz/S3VS6Tys0bSGauIty995sDPfv
-	3kdOj9LuPQcRZESjPh1PJoGILyLDSY2NT7hLeZi0cleOa/VMG/pqjTWbK/NxXgve+A9nn6n0G62
-	P7PEpZAMgok+Vki7GVoB9oCCVg23aju0gtC8nFYHMe2k07Bhy7HNA2WSFisaQGM3n1kwgFfGZkG
-	t1+raFM5YJFxvWZAiZHrMYcdOUXuTXckFeSi6s+dexZzBV5vHGVimAxX2Fhn1OLQGy2r004eTvW
-	REPo6USfP139tQ6uEditp7lp7UxUCAB/ld1hKMd46vxCe8WHn3zqY2hFU+/LPxwbB2jqii2fVuq
-	7CaU4KECE/OCLyar/753LAdy50Y6avJM+ahep9RjRPpUJ0V+XQhMYEMUzmhTrtWB8TtwnhCE/6z
-	3fyc8cQFU5l2sea/6hWM+S6bmOJjzuaTmEvlZOF9sawlLh8w==
-X-Received: by 2002:a05:600c:564a:b0:490:53b0:9e5a with SMTP id 5b1f17b1804b1-4909c11c15cmr174298335e9.5.1780325925446;
-        Mon, 01 Jun 2026 07:58:45 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.233.76])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef32fabcasm25172652f8f.0.2026.06.01.07.58.44
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 01 Jun 2026 07:58:45 -0700 (PDT)
-Message-ID: <2d7430bc-1bb5-47ff-95c7-c5c4d880cdf2@linaro.org>
-Date: Mon, 1 Jun 2026 15:58:43 +0100
+        d=1e100.net; s=20251104; t=1780326476; x=1780931276;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=v/xePLwzWpzxbmPIhpf8UeZQgMntn3mfOmofUFvGYSM=;
+        b=a5pJs4x9piuFiX3vQCRPwazbtxOg96E/7iv2DiGnNyLciwKKYkgMHTaTzRZTcReKTt
+         3V/KorVznMQleDk25Qj+r2npvu2ziu9YcVBrP4i8LC49mRC1p1v8/rG/GjhDb1OBmIym
+         7BSeTQku6WI7uVi+FEEgguaeRM1/QQ+Ptz7/JA5KSG6pJvyf/UfRa9Yo5Vqip3/rT0Fg
+         mZPgBss4ZwFPk4krkzvS8pUmcQ0I5kYDlDp2mbJAhOxbkj7J56sFhlyjrWo4bu+Vjroy
+         fo13h6XNJpODYwQHyYlrFhjaBLSs+RGzuc5yA55kIt863DhFq9k6ELSSqIXda94BvALa
+         MtWg==
+X-Gm-Message-State: AOJu0Yx1kTjkSa1pmFTOL7o4iihZc4uv8rrZZiZpdAco/tbJOY5oI6N7
+	gChwICojpSgEqlG2gT7HubfB9MpdyFyl0Vcepv1zHfABVRAkUuUuj7rUDunLFAuq
+X-Gm-Gg: Acq92OGUSyoJ1ayosPdX8kn6iRzb73Mg6kEQyDFIfkbtCBZdTqyQSJSo9Na99/MgN2c
+	AvvF4sZCMTgiPqcL1+RqDN7g369tMg/RHLaj949y+VSS6v2dTMp/fHX3GGO/lXJ783dgcHF9ASo
+	3v8jbZYMchbj4kmBWI0Gh155GnnPJ1zuHiQIECAnZbsDL4/IGhtpy1gqHI6UjsrL3LykXgDfSh0
+	6gnusjaHXHKBB4n42Yaaq5RLU3o6TiP7VyU6wq+OuTq0G34zmI5uRpAm09vasNtc5b/Rgzr/LY6
+	afdOSyqfbLSY7uAfLrpYcKjAe6zxlzaMd3KaKUun1te41bJWvqGrShL4XkosRAXCQhcAh/3Uf1m
+	YGHaAEh9G5P9DKgCFe7dJHEAcbLWps4dtbcNcXQXuasLSDzAdR1A1yNYlSdM/p19las15SfFRTd
+	GhJOVIoXl+knx5GeZAmEK3ilZyFobVQ79pvdYBF6YmFxHoXb0M3yoOzknVoQuUGy4QvdIEo8Q=
+X-Received: by 2002:a05:6402:3554:b0:683:5306:d41b with SMTP id 4fb4d7f45d1cf-68c8ab2d864mr5521619a12.7.1780326476054;
+        Mon, 01 Jun 2026 08:07:56 -0700 (PDT)
+Received: from workstation.home (71-212-98-95.ftth.glasoperator.nl. [95.98.212.71])
+        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68ceb852272sm2085659a12.20.2026.06.01.08.07.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 08:07:54 -0700 (PDT)
+From: Stanislav Zaikin <zstaseg@gmail.com>
+To: devicetree@vger.kernel.org
+Cc: linux-arm-msm@vger.kernel.org,
+	andersson@kernel.org,
+	konradybcio@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-kernel@vger.kernel.org,
+	dmitry.baryshkov@oss.qualcomm.com,
+	Stanislav Zaikin <zstaseg@gmail.com>
+Subject: [PATCH v8 0/2] Add Xiaomi 12 Lite 5G (taoyao) device tree
+Date: Mon,  1 Jun 2026 17:07:50 +0200
+Message-ID: <20260601150752.666393-1-zstaseg@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/8] arm64: dts: qcom: shikra: Add CAMSS node
-To: Loic Poulain <loic.poulain@oss.qualcomm.com>
-Cc: Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
- Vikram Sharma <vikram.sharma@oss.qualcomm.com>, bod@kernel.org,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Andi Shyti <andi.shyti@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Frank Li <Frank.Li@nxp.com>,
- Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-i2c@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- Suresh Vankadara <quic_svankada@quicinc.com>
-References: <20260526-shikra-camss-review-v1-0-645d2c8c75a7@qti.qualcomm.com>
- <20260526-shikra-camss-review-v1-4-645d2c8c75a7@qti.qualcomm.com>
- <178000689150.4557.11759359941436928903.b4-reply@b4>
- <df00e8d8-21ab-415f-815e-608eb7ab0967@oss.qualcomm.com>
- <23d2a824-e894-4c26-8bd1-02bbb8a7c6d1@linaro.org>
- <f7403443-3c0c-45d2-8235-46c70883a296@oss.qualcomm.com>
- <203e09db-ba37-4d75-b984-227298f55d80@linaro.org>
- <CAFEp6-3prh88NTK5U1HAARmQr203LVcbW4hoo_zuK4Qof4BAzg@mail.gmail.com>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <CAFEp6-3prh88NTK5U1HAARmQr203LVcbW4hoo_zuK4Qof4BAzg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 01/06/2026 15:27, Loic Poulain wrote:
->> Yes I think CDM should be a standalone block and BTW use standard DMA
->> APIs with its own IOMMU entry.
-> Interesting, so CDM should be a dedicated subnode as well, and not
-> part of the OPE?
-> Then, If we want to use it from OPE at some point we would need some
-> 'cdm' phandle in OPE node.
+This series adds device tree support for the Xiaomi 12 Lite 5G (taoyao),
+based on the Qualcomm SM7325 SoC.
 
-Your question makes me think again.
+The display panel model is unknown, so bootloader-initialized
+simple-framebuffer is therefore used to expose the display.
 
-CAMSS:
-- IFE/CDM
-- IFE Lite/CDM
+Changes in v8:
+- Patch no. 1 - no changes
+- Drop dr_mode = "otg" as it is the default value (patch no. 2)
+- Drop usb-role-switch as it is already defined in kodiak.dtsi (patch
+  no. 2)
+- Fix USB Type-C SBU endpoint port number: port@1 -> port@2 to comply
+  with usb-connector.yaml bindings (patch no. 2)
+- Use downstream adsp_rpc_remote_heap_mem memory region to avoid
+  overlapping with cdsp_mem (patch no. 2)
+- Link to v7:
+  https://lore.kernel.org/all/20260528152011.376711-1-zstaseg@gmail.com/
 
-HFI/BPS/IPE
-- BPS/CDM
-- IPE/CDM
+Changes in v7:
+- Patch no. 1 - no changes
+- Patch no. 3 removed. Dmitry Baryshkov addressed that in a separate
+  patchset
+- Added record-size for ramoops node (reduced pmsg-size by 0x100000)
+  (patch no. 2)
+- Fixed unit address for rmtfs_mem (patch no. 2)
+- Link to v6:
+  https://lore.kernel.org/all/20260516090853.2873223-1-zstaseg@gmail.com/
 
-OPE:
-- OPE/CDM
+Changes in v6:
+- Patch no. 1 - no changes
+- Added a comment about reserved gpio ranges (patch no. 2)
+- Removed "output-low" property from "hst_bt_en" node (patch no. 2)
+- Moved common IPA properties for sm7325 devices to soc's dtsi (patch
+  no. 3)
+- Link to v5:
+  https://lore.kernel.org/all/20260417084749.253242-1-zstaseg@gmail.com/
 
-I believe those are the mappings of the various SIDs too.
+Changes in v5:
+- Patch no. 1 - no changes
+- Change vccq-supply to vccq2-supply in ufs node as it's ufs2.2 (patch no. 2)
+- Val's patch for goodix-berlin didn't have effect on my touchscreen,
+  therefore keep the touchscreen szie (no changes in this regard in
+  patch no. 2)
+- Link to v4:
+  https://lore.kernel.org/all/20260305093941.305122-1-zstaseg@gmail.com/
 
-Come to think of it there is every reason to model the CDM block as
+Changes in v4:
+- Patch no. 1 - no changes
+- Removed Konrad's R-b tag, please take a look again (patch no. 2)
+- Fixed vreg_s2b_0p7 regulator name to spmb2 (patch no. 2)
+- Switched bluetooth to wcn6750-pmu (patch no. 2)
+- Dropped qcom,local-bd-address-broken as it has no effect (patch no. 2)
+- Added wifi calibration variant "Xiaomi_taoyao" (also sent board-2.bin
+  files to ath11k) (patch no. 2)
+- Link to v3:
+  https://lore.kernel.org/all/20260224114424.1966947-1-zstaseg@gmail.com/
 
-cdm-ife0@ {
-     iommus = <IFE0_SID>;
-};
+Changes in v3:
+- Patch no. 1 - no changes
+- Drop unit address for framebuffer node (patch no. 2)
+- Add Konrad's R-b tag (patch no. 2)
+- Link to v2:
+  https://lore.kernel.org/all/20260216120715.3432191-1-zstaseg@gmail.com/
 
-cdm-ope0@ {
-     iommus = <etc>;
-}
+Changes in v2:
+- Add Rob's A-b tag (patch no. 1)
+- Add explicit framebuffer_reserved label (patch no. 2)
+- Use memory-region for simple-framebuffer (patch no. 2)
+- Fix reserved-memory naming: make node names consistent with labels
+  and intended subsystem (CVP/camera/video) (patch no. 2)
+- Convert mem-type value from <0x02> to <2> (patch no. 2)
+- Fix s2b regulator comment style (patch no. 2)
+- Remove unused gpio-reserved-ranges entry (<32 2>) (patch no. 2)
+- Link to v1:
+  https://lore.kernel.org/all/20260204115645.1343750-1-zstaseg@gmail.com/
 
-And then do use the dma engine API to shift data. I don't see why the 
-IFE, OPE or BPS needs to map the IOMMUs and if you are using the BPS via 
-HFI you'd simply leave the cdm-bps@ {} disabled in your dtsi anyway.
+Stanislav Zaikin (2):
+  dt-bindings: arm: qcom: Add SM7325 Xiaomi 12 Lite 5G (taoyao)
+  arm64: dts: qcom: Add Xiaomi 12 Lite 5G (taoyao) DTS
 
-We should excise CDM IOMMUs unless/until we come to implement CDMs as 
-standalone nodes.
+ .../devicetree/bindings/arm/qcom.yaml         |   1 +
+ arch/arm64/boot/dts/qcom/Makefile             |   1 +
+ .../boot/dts/qcom/sm7325-xiaomi-taoyao.dts    | 913 ++++++++++++++++++
+ 3 files changed, 915 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/qcom/sm7325-xiaomi-taoyao.dts
 
-I'm open to being corrected of course :)
----
-bod
+-- 
+2.53.0
+
