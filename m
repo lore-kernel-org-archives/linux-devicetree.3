@@ -1,123 +1,116 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8230833ADAD
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:08:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4A89388886
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:09:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780301289; cv=none; b=V/Rkoa3i484WqgYPQflk1yyiw+zPANbFFKXd7PIPoK6e5fOpHVhX/Pp5YKBhAwXC8d1zDGLpZmlpHvfEgXLxbuOMEHMKgx4Lh2spmjr4uJHZW/ZZVZp4xsdF+Noi1cidvMFF28KeMqyoVWBKwzYM0/BCZZts4IsKpF1xtahDvZE=
+	t=1780301387; cv=none; b=j5OWSTxbcNuLNutEjyiHNA9lglHDKzTVOfNnjTD/LMLfluKN0FzhZhbVPrV+yFrUnvKlXEFqpjBephFv0AEa8mVLOaoj5WjQosTBWqhqWDmJJVsU8UGjOqrx62Dd7jk+IuslTjNB2vN6qLvzIm118q9R4Q87aAU9qlijVsCQwS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780301289; c=relaxed/simple;
-	bh=PSXfO/IcWwSo3e3tzUFIFNZzInz67sy+6t6mf/M69LM=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=pFDTOrfDidfTC5CMToi+HaVBEkW4KhqATmuI6HcsW+CE2SAqBDkeFn85DTzCCJqGc5YOZZtjmpZAkvDvIfEiTw/SViIBzNCCSPcwY1KGqrnw/j/vIsdnYXcm+N2lfM7m0FHmBEPjVb0GbyJ3V3KFqlPHVz09O6v9BGck1MWRI4c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=VP4ResRh; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780301387; c=relaxed/simple;
+	bh=/gF4meNxP3tZd7bAVd9ynE3Nae3TsywwTPfmtSKlIho=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=J3u/TlASJ4J7oxEFUmQIOHoIzXc03jWBxqVYEBeljnmNXtzIulImwrCLdgwJy2Jgl43kFDRvIQGFGxYLWVgsk2GsDR68u33vrLSi1V5QnWbfZYA3EDL0Pj2rDNxqgQUm7oyMIr1W2cmCouhHhpnNQVcma0P87cr+0S6O9+qcPFE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QUodbKsa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="VP4ResRh"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 04B48C6247E;
-	Mon,  1 Jun 2026 08:08:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 153D2602AB;
-	Mon,  1 Jun 2026 08:08:06 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 8C7ED1088805A;
-	Mon,  1 Jun 2026 10:08:01 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780301285; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=7TivDAliLqNja1df1hxZ5aF3MEDj9hFJr+hYTLChCQM=;
-	b=VP4ResRhgkhmp7jlvX1TMKeoc+wG63phGoZfOIqZdqtI2Yn9HiUetRA1gu0OBzMtaPC5iE
-	5z7pCWJ3dy0WIDQ31MZ9Ympy55M28K0LRZx9z1OGdmw/XPa1ucvcH4uYwk5u/u67Xpw87R
-	KfwIivyR6A1Gs3Q5vXbSS4Oy7nC3ed2N639JPmFnRP+lNE+8Sun6Otcm2+7aeT+D0l0/Oz
-	Y1PGRzHY4yfXP2KwniHe3CP2ClgbRoN6wTQTmd5YMpRt0RIXKwLincQldg7D7ScxruOBvN
-	nLQ2lAEXzOrA6WHBy76+dqfWHAs2XHyjVyHQVOybYjL6Qq2k4YC/Q1DlsrQ0AQ==
-From: Gregory CLEMENT <gregory.clement@bootlin.com>
-To: Aleksander Jan Bajkowski <olek2@wp.pl>, andrew@lunn.ch,
- sebastian.hesselbarth@gmail.com, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Cc: Aleksander Jan Bajkowski <olek2@wp.pl>
-Subject: Re: [PATCH] arm64: dts: marvell: armada-37xx: mark EIP97 as
- dma-coherent
-In-Reply-To: <20260524124456.350659-1-olek2@wp.pl>
-References: <20260524124456.350659-1-olek2@wp.pl>
-Date: Mon, 01 Jun 2026 10:08:00 +0200
-Message-ID: <87zf1eznrz.fsf@BLaptop.bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QUodbKsa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AAD81F00899
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 08:09:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780301386;
+	bh=ZqSwAQlD8oM7EAZmvH7V6mlqg4Gz6sLRYvv8xidwzlY=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=QUodbKsaCkSw3QMRkLSoadkN8hH4YOLzK8lVUnBPdViAD9Yz4kNF9GDQ69xk6zkKv
+	 Xf5Uz6+B5Bap5NgRpzKX7s35zga+u896VPEOS77hOkSf7eK3fguv+ilkeec00Mpk0e
+	 PGLQnv7oImNll3DjRgvMz65vIaJx0GJt/iRr26J+826ETnTEDGs1STRhCINA0E0QDH
+	 pF+QRDBMWNr82b2hhVMmWa/REJjWym5oVXMbKh+yDdjz2Zbqj2SAkRmWAtCYScskOe
+	 w6XDAWUdBtz1CJuw6Ydxw3NJnI5I1jthmIqGZEVlx54j9PoJcV43+TRVrqABARVd8R
+	 0uo0lRYSDmA1A==
+Received: by mail-lf1-f49.google.com with SMTP id 2adb3069b0e04-5aa68cfc182so932350e87.0
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 01:09:46 -0700 (PDT)
+X-Gm-Message-State: AOJu0YwXouWAi9ZWOhl3se7qcNaNL7HFT8LK0axr2fZG/ehukIVisPVt
+	zm5v/wtzd3+wA08uMqUF8aXMyMxkWtvC76D6IPVyoLxSqNaW71cXyKkkaBM394l6x+bydQ9Z1nJ
+	SWP5/LRBsA9LSuxERXtsHLuShhHA39XA=
+X-Received: by 2002:a05:6512:6181:b0:5aa:6395:9a00 with SMTP id
+ 2adb3069b0e04-5aa63959b8cmr2096101e87.45.1780301385240; Mon, 01 Jun 2026
+ 01:09:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+References: <20260526-ks8995-to-ksz8-v3-5-c530f651989f@kernel.org> <20260530004902.BCC381F00898@smtp.kernel.org>
+In-Reply-To: <20260530004902.BCC381F00898@smtp.kernel.org>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 1 Jun 2026 10:09:33 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmZoGh+o5YKfjoUCWhwiRaO+Lm-9DFUdUzd9KpydWK27g@mail.gmail.com>
+X-Gm-Features: AVHnY4I-Fce43HRszqsDnice1JnVb6cU0myB4eNuyBJaUrbAvABJ0FTEkMAMTyY
+Message-ID: <CAD++jLmZoGh+o5YKfjoUCWhwiRaO+Lm-9DFUdUzd9KpydWK27g@mail.gmail.com>
+Subject: Re: [PATCH net-next v3 5/5] net: dsa: ks8995: Delete surplus driver
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
 
-Hello Aleksander,
+On Sat, May 30, 2026 at 2:49=E2=80=AFAM <sashiko-bot@kernel.org> wrote:
 
-> Armada 37xx has coherent bus, similar to Armada 7k/8k. Cache
-> synchronization consumes a lot of CPU cycles. Enabling coherent DMA
-> increases IOPS performance up to 4 times. Some numbers:
-> 					Data length
-> Algo		MB	   16	  64	 128	 256	1024	1424	4096
-> DES-ECB		1	+21 %	+5 %	+5 %	+7 %	+7 %	+3 %	+20 %
-> AES-ECB-128	1	+21 %	+6 %	+6 %	+6 %	+9 %	+8 %	+22 %
-> AES-CBC-128	1	+21 %	+5 %	+5 %	+5 %	+6 %	+7 %	+23 %
-> AES-CBC-256	1	+23 %	+7 %	+8 %	+6 %	+11 %	+13 %	+20 %
->
-> 					Data length
-> Algo		MB	    16	    64	   256	  512	  1024	 1420	 4096	 8192
-> AES-GCM-128	1	 +44 %	 +42 %	 +31 %	 +32 %	 +27 %	+30 %	+32 %	+30 %
-> AES-GCM-128	8	+319 %	+326 %	+163 %	+148 %	 +75 %	+72 %	+74 %	+41 %
-> AES-GCM-128	4096	+123 %	+128 %	 +90 %	 +83 %	+116 %	+59 %	+38 %	+28 %
->
-> 					Data length
-> Algo		MB	   16	   64	  256	 1024	 2048	 4096	 8192
-> MD5		1	+21 %	+15 %	+29 %	+25 %	+50 %	+16 %	+20 %
-> SHA1		1	+24 %	+22 %	+27 %	+22 %	+18 %	+20 %	+20 %
-> SHA256		1	+30 %	+24 %	+25 %	+26 %	+21 %	+41 %	+19 %
-> SHA512		1	 +4 %	 +3 %	 +8 %	+10 %	+24 %	+10 %	+11 %
->
-> Tested on Armada 3720. Platform passes testmgr selftests.
->
-> Signed-off-by: Aleksander Jan Bajkowski <olek2@wp.pl>
+> - [Medium] Silent loss of switch driver functionality on kernel upgrade d=
+ue to missing Kconfig migration.
 
-I'm surprised that we didn't enable it when submitting the support for
-Armada 3700, but indeed the datasheet mentions I/O coherency support. I
-didn't see any specific register to configure it. Moreover, if none of
-the tests failed, we can assume that the bus is indeed coherent.
+No-one cares.
 
-Applied on mvebu/dt64
+> Pre-existing issues:
+> - [High] The replacement driver (ksz_spi) fails to probe for devices inst=
+antiated via platform data (non-DT) because it lacks driver_data in its spi=
+_device_id table.
 
-Thanks,
+There are no upstream consumers of the platforms data registration path.
+This is easy to verify. We don't care about outoftree users of ages
+old drivers.
 
-Gregory
+> - [High] The replacement driver fails to explicitly enable the Port 5 PHY=
+ mode, a required initialization step performed by the old driver.
+
+No it does not. It has a special callback for the CPU port and it works
+like a charm.
+
+> - [High] The MTU limit logic in ksz8863_change_mtu is completely inverted=
+ for packet sizes between 1523 and 1536 bytes, causing hardware packet drop=
+s.
+
+No. You are misreading the code.
+
+#define KSZ8863_HUGE_PACKET_SIZE        1916
+#define KSZ8863_NORMAL_PACKET_SIZE      1536
+#define KSZ8_LEGAL_PACKET_SIZE          1518
+#define KSZ8995XA_LEGAL_PACKET_SIZE     1522
+
+static int ksz8863_change_mtu(struct ksz_device *dev, int frame_size)
+{
+        u8 ctrl2 =3D 0;
+        unsigned int legalsz;
+
+        if (ksz_is_ksz8995xa(dev))
+                legalsz =3D KSZ8995XA_LEGAL_PACKET_SIZE;
+        else
+                legalsz =3D KSZ8_LEGAL_PACKET_SIZE;
+
+        if (frame_size <=3D legalsz)
+                ctrl2 |=3D KSZ8863_LEGAL_PACKET_ENABLE;
+
+^ If this is cleared, it enables packets larger than normal size.
+
+        else if (frame_size > KSZ8863_NORMAL_PACKET_SIZE)
+                ctrl2 |=3D KSZ8863_HUGE_PACKET_ENABLE;
 
 
-> ---
->  arch/arm64/boot/dts/marvell/armada-37xx.dtsi | 1 +
->  1 file changed, 1 insertion(+)
->
-> diff --git a/arch/arm64/boot/dts/marvell/armada-37xx.dtsi b/arch/arm64/bo=
-ot/dts/marvell/armada-37xx.dtsi
-> index 360fc24fdde2..8418777042b8 100644
-> --- a/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-> +++ b/arch/arm64/boot/dts/marvell/armada-37xx.dtsi
-> @@ -437,6 +437,7 @@ crypto: crypto@90000 {
->  				interrupt-names =3D "ring0", "ring1", "ring2",
->  						  "ring3", "eip", "mem";
->  				clocks =3D <&nb_periph_clk 15>;
-> +				dma-coherent;
->  			};
->=20=20
->  			rwtm: mailbox@b0000 {
-> --=20
-> 2.53.0
->
+^ This additionally enables packets larger than legal size (jumbo frames)
 
---=20
-Gr=C3=A9gory CLEMENT, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+
+        return ksz_rmw8(dev, REG_SW_CTRL_2, KSZ8863_LEGAL_PACKET_ENABLE |
+                        KSZ8863_HUGE_PACKET_ENABLE, ctrl2);
+}
+
+
+Linus Walleij
