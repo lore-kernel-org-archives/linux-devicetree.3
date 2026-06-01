@@ -1,87 +1,87 @@
 Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167AE32B103
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 04:29:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08229315D3E
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 04:29:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780288169; cv=none; b=Crp8PRsq0/aov9+qrveLt+ZEGx2qTSR29OzF0midToS7W9UXvWbV6T33QmbUK1S0mhbLrUv03Yxdd6sfLfXHZzGJ94DX39rModsUqH2MGCxWIZO6uFnyqfCmXDXvEb2tQ6sTgqpXIdYjJrEBeaNEpQ0EegwspFdS79yjRvcjMaM=
+	t=1780288175; cv=none; b=Yxkhqczb7LPtD3ovsKiRRlb4Jc4rtrHcOwslnd8CbMUriAcFaqpK70chzYgFmOJDUwUqQsQ7LmdytKd54TSQ4yI61L+EjGzpyP70cZA3kW+RzJqFIa7/UI/F9UJ0t6U/+PJnAyQZG7wyIc3xjzIWeYhOZ9LVK23mUAdwTSoXTPs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780288169; c=relaxed/simple;
-	bh=Qt2kstaKGrB1yY49mZjobtR/4AMzw9aIfR3UkFARmBY=;
+	s=arc-20240116; t=1780288175; c=relaxed/simple;
+	bh=yLAhiDn0TxgFXYbEMSZ21ewKhKqyCrxym96bpcjMQyo=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=B/YA9jl9xmz3Onrw6j7DJ1ESqbkm4tau3POG/oR6ETuV/35kVsdKoBac6mY+juwaw1FJFRe6YndBGMZQjV5UQeCkLDQ6T5M/Id3mhlWFJGFwbbWTGTEJB3gtrREIma7wV4EhbIgZP8u0WcOxQ9ePd5g6dzDXlYDPvSix90RiYRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=IVc0eLdK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=V2Tz0W/m; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=Iwe5e7WljCGeAq9FlfKAawp4IEIn4vCtB/+m669th5yFgvSs4k7PsAofY1UW2MYRUF8D41seGwduDQsffZ5dtVK+UMNL3D5Wf8zxsPruqMztOOqAa06/JZsXckDdl946IXDerkuTLKxWGK/P13WiPNTLO98vjDLyLQQqmesKmrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=N1iYLA6R; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=aYSZG48E; arc=none smtp.client-ip=205.220.168.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="IVc0eLdK";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="V2Tz0W/m"
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="N1iYLA6R";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="aYSZG48E"
 Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64VHFNov2164759
-	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 04:29:27 GMT
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 64VJF1EO2402731
+	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 04:29:33 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aqRYynkSRgvqP9sDhmtCs8Xxd+0USAewY/2Or+/Dk4Q=; b=IVc0eLdK1B17gW0m
-	Qn1SfzqlkAoAgwwO5/bqEqTCWwM/zeTi02Tqckh2GdQKLyZaBMeNgIeb9T3DElMZ
-	n2bm1a8ZtwbEVZGlzJkENGCYu4DsCbfTJm+zXcq/qsDro8ApyormCn0b7zluYRmw
-	5zyIMIuPUQ+8uYrG6eULHgJOPrTTdkJB59XUeDpOY4L2CFB1dJEbKPwO7ezTVc56
-	icLu4wmstubr83mW7lVPHcAMx0SmPmlLIABUQKOMsgdXK7x2OPwd/daPG0nJWKM8
-	DNZYALdCEThn9n41vK9MiL3lsl9QTAjJTji4Vk+j/ZOaU9M134n2UWOmU80+0bcz
-	ie7gNA==
-Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com [209.85.214.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efxy7vvvs-1
+	eTWDxBuWyNKct2rjVP0PVZRb5Kz9GuUlQA8QIoN9hVE=; b=N1iYLA6RnhJXFvIQ
+	6GMm14uBa0J3C6zJR3r3Id760FgfGAlt5Zh+1LNXbpXi5jxxckGmsRBT9Xy2quDV
+	9G9mnbJzMo/AwaJjunIiFWw4cRrFEm6WwzTcyGM5URA8uYOujcr8LOKFW7K+yr8M
+	9ycqpzpDLdlVP8YHAxLStSArt6IlI8FgRVKMQSXJBENPRFGFAPOO04K8Q60M4RTo
+	lN0ZJXZy1OWmL3iKk90OnmfXQX6NKKpt4Jm6b23B3ERy22UeaLHdROv/suy74+Qp
+	fcSuGE4icfmaaOp9mqjEtkM9TUVVM2JDTTLqzwr5+gPXZe1Igkp5oWapIClQHmwt
+	Hcoa3Q==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efxy7vvw7-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 04:29:27 +0000 (GMT)
-Received: by mail-pl1-f200.google.com with SMTP id d9443c01a7336-2c0c32faa62so17709105ad.2
-        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 21:29:27 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 04:29:33 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2c0c20f7581so10159945ad.0
+        for <devicetree@vger.kernel.org>; Sun, 31 May 2026 21:29:33 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780288167; x=1780892967; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780288173; x=1780892973; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=aqRYynkSRgvqP9sDhmtCs8Xxd+0USAewY/2Or+/Dk4Q=;
-        b=V2Tz0W/mhWyu/ifAW0+gTIKzO96xislM8crI8J2RTKmzx+21yik0cUwO+i9GVHHh9O
-         UNTW6SZsqe6kBaUfirD72PtKAV/dUwK4+QKxvNANhxpoakJryNWefrQHWhTZK+4QuY4U
-         Y//iPHa/zYwXyX6PQl6N0MDakkuNe3r6HaHnRK4X3e3EYDXMoeAD+7VIOwUlf0DNC3AI
-         P8N+dQDSEMUCZRRDWajxu/QFEHBGNZVnJ3g+JHD3GYUtsflj2NrT3Ba9Az7qMHNhaNz+
-         gFVGinYYOk0rC3hyZcdZUxZScoXl9wpPYwwf1MGP0Bsyxf6PEpfbFGNTXLycN9X/asLm
-         6yWg==
+        bh=eTWDxBuWyNKct2rjVP0PVZRb5Kz9GuUlQA8QIoN9hVE=;
+        b=aYSZG48EEiUPmXH3L7IGq8+pDQEf6YOlHLVjCdWfAC4GMhxwLvp4lOaBl/0RUARklO
+         Y6EjBA/tvx+BuhyquBoSotci3a3GfkIeAVcJCkXhEDFjipVCLb/L8iWXwWxwA+HgcQyM
+         6n4kmoXz4+GIQx7ejSPVsulxftfgPXMzwmfyooRaENRVXvI5gGJNhpNsYWi7gEVR6AOG
+         nHk4C6MA6M+W5onBYUWas5/eWky0AyTljJ8+JL/ki+4aQ9fY3kWIbG14Zy/JKolC/eQ9
+         EnmyDjv6OrMhx8sr6Xl4ol9y3FqM1s+zJaCf00Qbjyqzn0sQ4OyAH2UQcNoz12i5F2H2
+         3Cdw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780288167; x=1780892967;
+        d=1e100.net; s=20251104; t=1780288173; x=1780892973;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=aqRYynkSRgvqP9sDhmtCs8Xxd+0USAewY/2Or+/Dk4Q=;
-        b=h8axfxALXxUjqgjPsAdUQhpwzy8HlyAwu6WJWaSs/cJ9rtX54Ze2iTGdT0fik8NC1i
-         31gdZnEb3qB8xV20i7wPP//1VGEKFWM7+R6Oepn4woS6CKQbXhjFml1iKFZIhB0wldIr
-         iMLCcY3dnBwWoKzeLTh+9h5/szpvwrOt1YJpi1sBqGqIH4uSyFWJcDeQ/026sGi7HWfw
-         HXFwTsmC/q+BndP4/1znmy4kN3fawgMFZCjqWWT8HmZIETEbITOaNShZzJRdb0mOcnRJ
-         Jz3v+q14hX70gyrj0fXj7hs4OuX5O+WVA2de9AknpI2AT5Ugj3+jwhC7kKSZzRHKGIdr
-         Q7Sg==
-X-Forwarded-Encrypted: i=1; AFNElJ/YMgult4lU0ueYO9qy7WL1PxVDUCh3rEG5UBejLZtSoDTkRZXbW2dJvlR+K5wMi3iKrn3U4Rh6J5jG@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQealgOdNgquwm6R2dMOhmaKG9TP1Egt20QK+2KFJGm937iF+g
-	4+i7t+UlEsqOnM4fE84pWx89Xv3TF2bP5jAov8+YhQ1nzN3Y51+TUh/6cgaHGTIV+j+57yJVph8
-	ckfeYUqTdFNA8Cd7EXJ0AfUGT0+lXYE9TARyJF0JhNqF1w8+5j/579WWZScIT9u/w
-X-Gm-Gg: Acq92OHN0U9e/4Gu0ZrQZ8IT3J2tJFlnbM5frLzOo/MGVidXHIJ0ZK3cOg6OuqrsKI0
-	TW1Uyjeuvu1CIi+zzlOuL7DKQwUGEiv11Qt+hSc/wBmfcS9wvsxEwTwUkQrXQVIox+bW/1AcjmJ
-	j0QbTO++bry+kHg9mnR9TP05I9phSENFIF0cQzrVecKls6azq/PhdwzQr5HwRhkmtZ8mHaXKKZl
-	wHAOEpD/m7Jnve8U61nz/Ikymts5oybJsGNBu175a3M7xrbWH7q7rWpE1paBy7DTghwsK0WPUWt
-	bYD+tZm3/Bd72/+3vIc11X702RFtYCLg+qtpQj50ASM1FfKR8X7nSzWgUgDGdagUA9zSD3ejaSV
-	ZLA34lzvsd1girwauLFnFj3mdpK8tweqru1RWNhNOSIRC7+Bzhy/K97k+Bz9oPeE=
-X-Received: by 2002:a17:902:fc43:b0:2c0:a555:80e6 with SMTP id d9443c01a7336-2c0a555946cmr74635785ad.6.1780288166893;
-        Sun, 31 May 2026 21:29:26 -0700 (PDT)
-X-Received: by 2002:a17:902:fc43:b0:2c0:a555:80e6 with SMTP id d9443c01a7336-2c0a555946cmr74635565ad.6.1780288166496;
-        Sun, 31 May 2026 21:29:26 -0700 (PDT)
+        bh=eTWDxBuWyNKct2rjVP0PVZRb5Kz9GuUlQA8QIoN9hVE=;
+        b=QBS1VhmTe2/YU6XireLYpm8iNt2pup6zzenTfhTkgId9yWJ6THwFxXvHs+UjjeILUd
+         QhePkckkSrSp8AJ5RWsjp41ZXT+gQj5Qzm2k7kgYdgT0iPb3BPI0r/17mRXD/In7fjlh
+         tD586M3I/CboLgDp5VgGiVsY+3pNf47zHCogKadcWL0qZbE/QLUQtGRDg36BCM0KgmZD
+         R/YnU4FFn5LdujKijst0vUxrbcZUr/4K+Iui7n440TS89aAVoBsO5wdjG+2d8TsrmClF
+         CqU3E8qro0W8kP9OfXZgAgfA5P9s0bP3U1OHno4MSTEudNJp53GFvYvLTmwMl5x2vYRa
+         BaGg==
+X-Forwarded-Encrypted: i=1; AFNElJ+1O5Z/ZFfA0ay+RT1d9BM02Y9bQ/UJA/VckzHj/dB0uiSIn/3fh9F/rpiGlLet5zKYtttIrizi6Z9D@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy3y1uYls8XGY2JnBkDZGuMy1GQrkJrZqED+iAbbPsPgwSA6Qdc
+	YXVNuHcBN8dQat5gAVB1yujSmeNUidCbxY8UGqJ3SNrMymm54BgNTVC/UA/jC4J+lfV/KCoN5lN
+	lu4FL72pPDnLPdxh8bFhxKlwUn515OMsQOOH3TrOKeLziS5BZt/BeDsE3U/HoCMuU
+X-Gm-Gg: Acq92OGJxTMAaT6XL0nlryxXdV0/872vg0WItLMobVqKgqP7CUIdJJN278VF1hLKrE+
+	iSu6soF9ksksyDR5eemkBtHJMOsAs2dv8AVAg+XM7GLKXXJ9ouP2wadKU6f2fI8Z7nHcCeLi7Wt
+	6P4wMXhIJH53kJOPsnujHkvnT7sU8vuwG4/84rFtBUCoTCq9xNmPZzYZX7vn/TJPE7Awd0F3x1S
+	ToUV0Sanxq4jzO51RcXdb/m8JCxNlDMQds2hsNtaX7bTItW5j7Ge9eFeFp++OeAX+Hv1bUOCe5g
+	2atuoZDP3UX1Aj04nCIbLDQpRLGpI/SJhIDDiaY3neNdST1i8s5UGWaiHyjKqAKU6U1xaZogGY6
+	PQE9nrzx15u7aV30BWGQX2kcNS2hLRtD/SPQtK7vBcq3hctIJNP7UdJLtsFMH35s=
+X-Received: by 2002:a17:903:1983:b0:2bf:23cf:3e4 with SMTP id d9443c01a7336-2bf367d9da0mr100131285ad.17.1780288172615;
+        Sun, 31 May 2026 21:29:32 -0700 (PDT)
+X-Received: by 2002:a17:903:1983:b0:2bf:23cf:3e4 with SMTP id d9443c01a7336-2bf367d9da0mr100131075ad.17.1780288172092;
+        Sun, 31 May 2026 21:29:32 -0700 (PDT)
 Received: from hu-imrashai-hyd.qualcomm.com ([202.46.22.19])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23b011f7sm117215715ad.41.2026.05.31.21.29.21
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23b011f7sm117215715ad.41.2026.05.31.21.29.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 31 May 2026 21:29:26 -0700 (PDT)
+        Sun, 31 May 2026 21:29:31 -0700 (PDT)
 From: Imran Shaik <imran.shaik@oss.qualcomm.com>
-Date: Mon, 01 Jun 2026 09:59:13 +0530
-Subject: [PATCH v3 1/4] dt-bindings: clock: qcom,rpmcc: Add Qualcomm Shikra
- SoC RPMCC
+Date: Mon, 01 Jun 2026 09:59:14 +0530
+Subject: [PATCH v3 2/4] dt-bindings: clock: qcom: Add Qualcomm Shikra SoC
+ Global Clock Controller
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +90,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260601-shikra-gcc-rpmcc-clks-v3-1-76c455f5d579@oss.qualcomm.com>
+Message-Id: <20260601-shikra-gcc-rpmcc-clks-v3-2-76c455f5d579@oss.qualcomm.com>
 References: <20260601-shikra-gcc-rpmcc-clks-v3-0-76c455f5d579@oss.qualcomm.com>
 In-Reply-To: <20260601-shikra-gcc-rpmcc-clks-v3-0-76c455f5d579@oss.qualcomm.com>
 To: Bjorn Andersson <andersson@kernel.org>,
@@ -108,22 +108,22 @@ Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
         Imran Shaik <imran.shaik@oss.qualcomm.com>,
         Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 X-Mailer: b4 0.14.2
-X-Authority-Analysis: v=2.4 cv=POg/P/qC c=1 sm=1 tr=0 ts=6a1d0aa7 cx=c_pps
- a=IZJwPbhc+fLeJZngyXXI0A==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+X-Authority-Analysis: v=2.4 cv=POg/P/qC c=1 sm=1 tr=0 ts=6a1d0aad cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
  a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=5MG6tTDo7b5tcJehnegA:9 a=QEXdDO2ut3YA:10
- a=uG9DUKGECoFWVXl0Dc02:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA0MiBTYWx0ZWRfX5lBmoUXd0HFm
- 8AC30T8UH0aRPl/Coro/HSmdveiTJ4/TL2/azq2nbjbBUrkuTJmRSVHbwLe59lNKJkw/S+n/QWi
- AG2o6bMEe0EArhW2ugnVIEHTD/G7bv58wZn5jzJUn20AEvp4Zr+nK0h+/X1sJBo26eZIPObEQfk
- SfuZql/RdP0LljYtDwjsNSVQhNYIp/g3gUuoPU2z+2JrSajFUW0BA2k7cwlLMn9Dfcz3gx6n9di
- SjD0CgmtpAjMqoQotdeCC7fuRzhCJPMf+M3+GjbsZLgopg9+x9iNs2FNn9ZnczUmTka5bozA3Lz
- 4oE4og5xG+zLEOHrK7OrsHPq0gSQKrXnJdywZvi0w6juF90nfvYb3xntr/dzPh8k1kcVDJ+5PHK
- B1TcF/u0O+OXuaDJouoClyg9UCJMOndCc1yEToOgmh/MwmEqPeEX+zvNY/0QUYhT22EdABfsrQJ
- 5Khl6mQqmKHRjVta1nw==
-X-Proofpoint-ORIG-GUID: hf0EFOr1uCAuOiPDig1WxXOkPAzzOJT6
-X-Proofpoint-GUID: hf0EFOr1uCAuOiPDig1WxXOkPAzzOJT6
+ a=gEfo2CItAAAA:8 a=EUspDBNiAAAA:8 a=rEY_huOQuSSvoCxIK_IA:9 a=QEXdDO2ut3YA:10
+ a=1OuFwYUASf3TG4hYMiVC:22 a=sptkURWiP4Gy88Gu7hUp:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA0MiBTYWx0ZWRfX9QKPs2uDjZfi
+ 3XdL5R8kBbqMZkovfH9/XgFPW2OJzgJ7O5QFKvC/kXzJUPfzdPnsFrLnP96B4AIdpew6k99FOaX
+ f5dOtfMGS1YkdPm9kmYpPFzssTv6+q9iPwFrOe4wi1Z0IoXIbjKQFygGMkg6ZtBEtnl7bIzn9EQ
+ 3JYoV8pLs8MN4ti17pe1zYhDgymqiJA4CRzWUaZ652OG8G8knQRVOU4LqHwnY4/UasmxRKdQjPj
+ ezGabINkQAY+yiZHzBVo3YBgvFWVezsu9sKM22gU/PxA5vSShF+3E9NS+NlPer6jOX4d0/soMLN
+ oH/kdBp9dM8BDxJsiZLyUHU2JK45dMZcK6TFuqnd7AeMHfwVDGtvR8xBl+gYsgb7FZNK/INCN+H
+ 40v2TPa9SXDXkjvajMR5lf8RLZvUmagV3HYW5jh2A5zFzlHpuAbaQllYVmsVyvjMSbIXJ/+X3vc
+ B4Jo2EHhizIEYWItY1g==
+X-Proofpoint-ORIG-GUID: KzNJ4HPIITYSWdrtI-YGNLmtXDiQK6b0
+X-Proofpoint-GUID: KzNJ4HPIITYSWdrtI-YGNLmtXDiQK6b0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-01_01,2026-05-28_03,2025-10-01_01
@@ -133,34 +133,361 @@ X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
  classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
  reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606010042
 
-Add bindings documentation for RPM clock controller on Qualcomm Shikra SoC.
+Add device tree bindings for the global clock controller on Qualcomm
+Shikra SoC.
 
 Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
 Signed-off-by: Imran Shaik <imran.shaik@oss.qualcomm.com>
 ---
- Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml | 2 ++
- 1 file changed, 2 insertions(+)
+ .../devicetree/bindings/clock/qcom,shikra-gcc.yaml |  70 ++++++
+ include/dt-bindings/clock/qcom,shikra-gcc.h        | 263 +++++++++++++++++++++
+ 2 files changed, 333 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-index ab97d4b7dba8bc8d38903b399d2bd4bda087db8a..b8aea98b00bc22c4ab6da1e6235ad676f200b44e 100644
---- a/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-+++ b/Documentation/devicetree/bindings/clock/qcom,rpmcc.yaml
-@@ -46,6 +46,7 @@ properties:
-           - qcom,rpmcc-qcs404
-           - qcom,rpmcc-sdm429
-           - qcom,rpmcc-sdm660
-+          - qcom,rpmcc-shikra
-           - qcom,rpmcc-sm6115
-           - qcom,rpmcc-sm6125
-           - qcom,rpmcc-sm6375
-@@ -126,6 +127,7 @@ allOf:
-               - qcom,rpmcc-qcs404
-               - qcom,rpmcc-sdm429
-               - qcom,rpmcc-sdm660
-+              - qcom,rpmcc-shikra
-               - qcom,rpmcc-sm6115
-               - qcom,rpmcc-sm6125
- 
+diff --git a/Documentation/devicetree/bindings/clock/qcom,shikra-gcc.yaml b/Documentation/devicetree/bindings/clock/qcom,shikra-gcc.yaml
+new file mode 100644
+index 0000000000000000000000000000000000000000..da6eebfa84c22c1b287c194992c04a54ca0aabf9
+--- /dev/null
++++ b/Documentation/devicetree/bindings/clock/qcom,shikra-gcc.yaml
+@@ -0,0 +1,70 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/clock/qcom,shikra-gcc.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Global Clock & Reset Controller on Qualcomm Shikra SoC
++
++maintainers:
++  - Imran Shaik <imran.shaik@oss.qualcomm.com>
++  - Taniya Das <taniya.das@oss.qualcomm.com>
++
++description: |
++  Global clock control module provides the clocks, resets and power
++  domains on Qualcomm Shikra SoC platform.
++
++  See also: include/dt-bindings/clock/qcom,shikra-gcc.h
++
++properties:
++  compatible:
++    const: qcom,shikra-gcc
++
++  clocks:
++    items:
++      - description: Board XO source
++      - description: Sleep clock source
++      - description: EMAC0 sgmiiphy mac rclk source
++      - description: EMAC0 sgmiiphy mac tclk source
++      - description: EMAC1 sgmiiphy mac rclk source
++      - description: EMAC1 sgmiiphy mac tclk source
++      - description: PCIE Pipe clock source
++      - description: USB3 phy wrapper pipe clock source
++
++  power-domains:
++    items:
++      - description: CX domain
++
++required:
++  - compatible
++  - clocks
++  - power-domains
++  - '#power-domain-cells'
++
++allOf:
++  - $ref: qcom,gcc.yaml#
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/clock/qcom,rpmcc.h>
++    #include <dt-bindings/power/qcom-rpmpd.h>
++    clock-controller@1400000 {
++        compatible = "qcom,shikra-gcc";
++        reg = <0x01400000 0x1f0000>;
++        clocks = <&rpmcc RPM_SMD_XO_CLK_SRC>,
++                 <&sleep_clk>,
++                 <&emac0_sgmiiphy_rclk>,
++                 <&emac0_sgmiiphy_tclk>,
++                 <&emac1_sgmiiphy_rclk>,
++                 <&emac1_sgmiiphy_tclk>,
++                 <&pcie_pipe_clk>,
++                 <&usb3_phy_wrapper_gcc_usb30_pipe_clk>;
++        power-domains = <&rpmpd RPMPD_VDDCX>;
++        #clock-cells = <1>;
++        #power-domain-cells = <1>;
++        #reset-cells = <1>;
++    };
++
++...
+diff --git a/include/dt-bindings/clock/qcom,shikra-gcc.h b/include/dt-bindings/clock/qcom,shikra-gcc.h
+new file mode 100644
+index 0000000000000000000000000000000000000000..656c959c7e1251ed9af8fd04285fe616dfe9ecdc
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,shikra-gcc.h
+@@ -0,0 +1,263 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
++ */
++
++#ifndef _DT_BINDINGS_CLK_QCOM_GCC_SHIKRA_H
++#define _DT_BINDINGS_CLK_QCOM_GCC_SHIKRA_H
++
++/* GCC clocks */
++#define GPLL0							0
++#define GPLL0_OUT_AUX2						1
++#define GPLL1							2
++#define GPLL10							3
++#define GPLL11							4
++#define GPLL12							5
++#define GPLL12_OUT_AUX2						6
++#define GPLL3							7
++#define GPLL3_OUT_MAIN						8
++#define GPLL4							9
++#define GPLL5							10
++#define GPLL6							11
++#define GPLL6_OUT_MAIN						12
++#define GPLL7							13
++#define GPLL8							14
++#define GPLL8_OUT_MAIN						15
++#define GPLL9							16
++#define GPLL9_OUT_MAIN						17
++#define GCC_AHB2PHY_CSI_CLK					18
++#define GCC_AHB2PHY_USB_CLK					19
++#define GCC_BOOT_ROM_AHB_CLK					20
++#define GCC_CAM_THROTTLE_NRT_CLK				21
++#define GCC_CAM_THROTTLE_RT_CLK					22
++#define GCC_CAMERA_AHB_CLK					23
++#define GCC_CAMERA_XO_CLK					24
++#define GCC_CAMSS_AXI_CLK					25
++#define GCC_CAMSS_AXI_CLK_SRC					26
++#define GCC_CAMSS_CAMNOC_ATB_CLK				27
++#define GCC_CAMSS_CAMNOC_DRAGONLINK_ATB_CLK			28
++#define GCC_CAMSS_CAMNOC_NTS_XO_CLK				29
++#define GCC_CAMSS_CCI_0_CLK					30
++#define GCC_CAMSS_CCI_CLK_SRC					31
++#define GCC_CAMSS_CPHY_0_CLK					32
++#define GCC_CAMSS_CPHY_1_CLK					33
++#define GCC_CAMSS_CSI0PHYTIMER_CLK				34
++#define GCC_CAMSS_CSI0PHYTIMER_CLK_SRC				35
++#define GCC_CAMSS_CSI1PHYTIMER_CLK				36
++#define GCC_CAMSS_CSI1PHYTIMER_CLK_SRC				37
++#define GCC_CAMSS_MCLK0_CLK					38
++#define GCC_CAMSS_MCLK0_CLK_SRC					39
++#define GCC_CAMSS_MCLK1_CLK					40
++#define GCC_CAMSS_MCLK1_CLK_SRC					41
++#define GCC_CAMSS_MCLK2_CLK					42
++#define GCC_CAMSS_MCLK2_CLK_SRC					43
++#define GCC_CAMSS_MCLK3_CLK					44
++#define GCC_CAMSS_MCLK3_CLK_SRC					45
++#define GCC_CAMSS_NRT_AXI_CLK					46
++#define GCC_CAMSS_OPE_AHB_CLK					47
++#define GCC_CAMSS_OPE_AHB_CLK_SRC				48
++#define GCC_CAMSS_OPE_CLK					49
++#define GCC_CAMSS_OPE_CLK_SRC					50
++#define GCC_CAMSS_RT_AXI_CLK					51
++#define GCC_CAMSS_TFE_0_CLK					52
++#define GCC_CAMSS_TFE_0_CLK_SRC					53
++#define GCC_CAMSS_TFE_0_CPHY_RX_CLK				54
++#define GCC_CAMSS_TFE_0_CSID_CLK				55
++#define GCC_CAMSS_TFE_0_CSID_CLK_SRC				56
++#define GCC_CAMSS_TFE_1_CLK					57
++#define GCC_CAMSS_TFE_1_CLK_SRC					58
++#define GCC_CAMSS_TFE_1_CPHY_RX_CLK				59
++#define GCC_CAMSS_TFE_1_CSID_CLK				60
++#define GCC_CAMSS_TFE_1_CSID_CLK_SRC				61
++#define GCC_CAMSS_TFE_CPHY_RX_CLK_SRC				62
++#define GCC_CAMSS_TOP_AHB_CLK					63
++#define GCC_CAMSS_TOP_AHB_CLK_SRC				64
++#define GCC_CFG_NOC_USB2_PRIM_AXI_CLK				65
++#define GCC_CFG_NOC_USB3_PRIM_AXI_CLK				66
++#define GCC_DDRSS_GPU_AXI_CLK					67
++#define GCC_DDRSS_MEMNOC_PCIE_SF_CLK				68
++#define GCC_DISP_AHB_CLK					69
++#define GCC_DISP_GPLL0_CLK_SRC					70
++#define GCC_DISP_GPLL0_DIV_CLK_SRC				71
++#define GCC_DISP_HF_AXI_CLK					72
++#define GCC_DISP_THROTTLE_CORE_CLK				73
++#define GCC_DISP_XO_CLK						74
++#define GCC_EMAC0_AHB_CLK					75
++#define GCC_EMAC0_AXI_CLK					76
++#define GCC_EMAC0_AXI_CLK_SRC					77
++#define GCC_EMAC0_AXI_SYS_NOC_CLK				78
++#define GCC_EMAC0_CC_SGMIIPHY_RX_CLK				79
++#define GCC_EMAC0_CC_SGMIIPHY_RX_CLK_SRC			80
++#define GCC_EMAC0_CC_SGMIIPHY_TX_CLK				81
++#define GCC_EMAC0_CC_SGMIIPHY_TX_CLK_SRC			82
++#define GCC_EMAC0_PHY_AUX_CLK					83
++#define GCC_EMAC0_PHY_AUX_CLK_SRC				84
++#define GCC_EMAC0_PTP_CLK					85
++#define GCC_EMAC0_PTP_CLK_SRC					86
++#define GCC_EMAC0_RGMII_CLK					87
++#define GCC_EMAC0_RGMII_CLK_SRC					88
++#define GCC_EMAC1_AHB_CLK					89
++#define GCC_EMAC1_AXI_CLK					90
++#define GCC_EMAC1_AXI_CLK_SRC					91
++#define GCC_EMAC1_AXI_SYS_NOC_CLK				92
++#define GCC_EMAC1_CC_SGMIIPHY_RX_CLK				93
++#define GCC_EMAC1_CC_SGMIIPHY_RX_CLK_SRC			94
++#define GCC_EMAC1_CC_SGMIIPHY_TX_CLK				95
++#define GCC_EMAC1_CC_SGMIIPHY_TX_CLK_SRC			96
++#define GCC_EMAC1_PHY_AUX_CLK					97
++#define GCC_EMAC1_PHY_AUX_CLK_SRC				98
++#define GCC_EMAC1_PTP_CLK					99
++#define GCC_EMAC1_PTP_CLK_SRC					100
++#define GCC_EMAC1_RGMII_CLK					101
++#define GCC_EMAC1_RGMII_CLK_SRC					102
++#define GCC_GP1_CLK						103
++#define GCC_GP1_CLK_SRC						104
++#define GCC_GP2_CLK						105
++#define GCC_GP2_CLK_SRC						106
++#define GCC_GP3_CLK						107
++#define GCC_GP3_CLK_SRC						108
++#define GCC_GPU_CFG_AHB_CLK					109
++#define GCC_GPU_GPLL0_CLK_SRC					110
++#define GCC_GPU_GPLL0_DIV_CLK_SRC				111
++#define GCC_GPU_IREF_CLK					112
++#define GCC_GPU_MEMNOC_GFX_CLK					113
++#define GCC_GPU_SMMU_VOTE_CLK					114
++#define GCC_GPU_SNOC_DVM_GFX_CLK				115
++#define GCC_GPU_THROTTLE_CORE_CLK				116
++#define GCC_LPASS_CONFIG_CLK					117
++#define GCC_LPASS_CORE_AXIM_CLK					118
++#define GCC_MMU_TCU_VOTE_CLK					119
++#define GCC_PCIE_AUX_CLK					120
++#define GCC_PCIE_AUX_CLK_SRC					121
++#define GCC_PCIE_AUX_PHY_CLK_SRC				122
++#define GCC_PCIE_CFG_AHB_CLK					123
++#define GCC_PCIE_CLKREF_EN					124
++#define GCC_PCIE_MSTR_AXI_CLK					125
++#define GCC_PCIE_PIPE_CLK					126
++#define GCC_PCIE_PIPE_CLK_SRC					127
++#define GCC_PCIE_RCHNG_PHY_CLK					128
++#define GCC_PCIE_RCHNG_PHY_CLK_SRC				129
++#define GCC_PCIE_SLEEP_CLK					130
++#define GCC_PCIE_SLV_AXI_CLK					131
++#define GCC_PCIE_SLV_Q2A_AXI_CLK				132
++#define GCC_PCIE_TBU_CLK					133
++#define GCC_PCIE_THROTTLE_CORE_CLK				134
++#define GCC_PCIE_THROTTLE_XO_CLK				135
++#define GCC_PCIE_TILE_AXI_SYS_NOC_CLK				136
++#define GCC_PDM2_CLK						137
++#define GCC_PDM2_CLK_SRC					138
++#define GCC_PDM_AHB_CLK						139
++#define GCC_PDM_XO4_CLK						140
++#define GCC_PWM0_XO512_CLK					141
++#define GCC_QMIP_CAMERA_NRT_AHB_CLK				142
++#define GCC_QMIP_CAMERA_RT_AHB_CLK				143
++#define GCC_QMIP_DISP_AHB_CLK					144
++#define GCC_QMIP_GPU_CFG_AHB_CLK				145
++#define GCC_QMIP_PCIE_CFG_AHB_CLK				146
++#define GCC_QMIP_VIDEO_VCODEC_AHB_CLK				147
++#define GCC_QUPV3_WRAP0_CORE_2X_CLK				148
++#define GCC_QUPV3_WRAP0_CORE_CLK				149
++#define GCC_QUPV3_WRAP0_S0_CLK					150
++#define GCC_QUPV3_WRAP0_S0_CLK_SRC				151
++#define GCC_QUPV3_WRAP0_S1_CLK					152
++#define GCC_QUPV3_WRAP0_S1_CLK_SRC				153
++#define GCC_QUPV3_WRAP0_S2_CLK					154
++#define GCC_QUPV3_WRAP0_S2_CLK_SRC				155
++#define GCC_QUPV3_WRAP0_S3_CLK					156
++#define GCC_QUPV3_WRAP0_S3_CLK_SRC				157
++#define GCC_QUPV3_WRAP0_S4_CLK					158
++#define GCC_QUPV3_WRAP0_S4_CLK_SRC				159
++#define GCC_QUPV3_WRAP0_S5_CLK					160
++#define GCC_QUPV3_WRAP0_S5_CLK_SRC				161
++#define GCC_QUPV3_WRAP0_S6_CLK					162
++#define GCC_QUPV3_WRAP0_S6_CLK_SRC				163
++#define GCC_QUPV3_WRAP0_S7_CLK					164
++#define GCC_QUPV3_WRAP0_S7_CLK_SRC				165
++#define GCC_QUPV3_WRAP0_S8_CLK					166
++#define GCC_QUPV3_WRAP0_S8_CLK_SRC				167
++#define GCC_QUPV3_WRAP0_S9_CLK					168
++#define GCC_QUPV3_WRAP0_S9_CLK_SRC				169
++#define GCC_QUPV3_WRAP_0_M_AHB_CLK				170
++#define GCC_QUPV3_WRAP_0_S_AHB_CLK				171
++#define GCC_SDCC1_AHB_CLK					172
++#define GCC_SDCC1_APPS_CLK					173
++#define GCC_SDCC1_APPS_CLK_SRC					174
++#define GCC_SDCC1_ICE_CORE_CLK					175
++#define GCC_SDCC1_ICE_CORE_CLK_SRC				176
++#define GCC_SDCC2_AHB_CLK					177
++#define GCC_SDCC2_APPS_CLK					178
++#define GCC_SDCC2_APPS_CLK_SRC					179
++#define GCC_SYS_NOC_CPUSS_AHB_CLK				180
++#define GCC_SYS_NOC_USB2_PRIM_AXI_CLK				181
++#define GCC_SYS_NOC_USB3_PRIM_AXI_CLK				182
++#define GCC_TSCSS_AHB_CLK					183
++#define GCC_TSCSS_CLK_SRC					184
++#define GCC_TSCSS_CNTR_CLK					185
++#define GCC_TSCSS_ETU_CLK					186
++#define GCC_UFS_CLKREF_EN					187
++#define GCC_USB20_MASTER_CLK					188
++#define GCC_USB20_MASTER_CLK_SRC				189
++#define GCC_USB20_MOCK_UTMI_CLK					190
++#define GCC_USB20_MOCK_UTMI_CLK_SRC				191
++#define GCC_USB20_MOCK_UTMI_POSTDIV_CLK_SRC			192
++#define GCC_USB20_SLEEP_CLK					193
++#define GCC_USB30_PRIM_MASTER_CLK				194
++#define GCC_USB30_PRIM_MASTER_CLK_SRC				195
++#define GCC_USB30_PRIM_MOCK_UTMI_CLK				196
++#define GCC_USB30_PRIM_MOCK_UTMI_CLK_SRC			197
++#define GCC_USB30_PRIM_MOCK_UTMI_POSTDIV_CLK_SRC		198
++#define GCC_USB30_PRIM_SLEEP_CLK				199
++#define GCC_USB3_PRIM_CLKREF_EN					200
++#define GCC_USB3_PRIM_PHY_AUX_CLK_SRC				201
++#define GCC_USB3_PRIM_PHY_COM_AUX_CLK				202
++#define GCC_USB3_PRIM_PHY_PIPE_CLK				203
++#define GCC_USB3_PRIM_PHY_PIPE_CLK_SRC				204
++#define GCC_VCODEC0_AXI_CLK					205
++#define GCC_VENUS_AHB_CLK					206
++#define GCC_VENUS_CTL_AXI_CLK					207
++#define GCC_VIDEO_AHB_CLK					208
++#define GCC_VIDEO_AXI0_CLK					209
++#define GCC_VIDEO_THROTTLE_CORE_CLK				210
++#define GCC_VIDEO_VCODEC0_SYS_CLK				211
++#define GCC_VIDEO_VENUS_CLK_SRC					212
++#define GCC_VIDEO_VENUS_CTL_CLK					213
++#define GCC_VIDEO_XO_CLK					214
++
++/* GCC power domains */
++#define GCC_CAMSS_TOP_GDSC					0
++#define GCC_EMAC0_GDSC						1
++#define GCC_EMAC1_GDSC						2
++#define GCC_PCIE_GDSC						3
++#define GCC_USB20_GDSC						4
++#define GCC_USB30_PRIM_GDSC					5
++#define GCC_VCODEC0_GDSC					6
++#define GCC_VENUS_GDSC						7
++
++/* GCC resets */
++#define GCC_CAMSS_OPE_BCR					0
++#define GCC_CAMSS_TFE_BCR					1
++#define GCC_CAMSS_TOP_BCR					2
++#define GCC_EMAC0_BCR						3
++#define GCC_EMAC1_BCR						4
++#define GCC_GPU_BCR						5
++#define GCC_MMSS_BCR						6
++#define GCC_PCIE_BCR						7
++#define GCC_PCIE_PHY_BCR					8
++#define GCC_PDM_BCR						9
++#define GCC_QUPV3_WRAPPER_0_BCR					10
++#define GCC_QUSB2PHY_PRIM_BCR					11
++#define GCC_QUSB2PHY_SEC_BCR					12
++#define GCC_SDCC1_BCR						13
++#define GCC_SDCC2_BCR						14
++#define GCC_TSCSS_BCR						15
++#define GCC_USB20_BCR						16
++#define GCC_USB30_PRIM_BCR					17
++#define GCC_USB3PHY_PHY_PRIM_SP0_BCR				18
++#define GCC_USB3_DP_PHY_PRIM_BCR				19
++#define GCC_USB3_PHY_PRIM_SP0_BCR				20
++#define GCC_USB_PHY_CFG_AHB2PHY_BCR				21
++#define GCC_VCODEC0_BCR						22
++#define GCC_VENUS_BCR						23
++#define GCC_VIDEO_INTERFACE_BCR					24
++
++#endif
 
 -- 
 2.34.1
