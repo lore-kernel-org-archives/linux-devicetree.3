@@ -1,223 +1,206 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B86318287E
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 12:48:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01AE2378D96;
+	Mon,  1 Jun 2026 12:51:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780318140; cv=none; b=f+y2LEMem03/IcF6kV4s4lZoKjDl5F0Yqmu4b+gd6kwPr2bfRRftuE9bdvdxfI/u+ZnRoQWWX08e+C6DQSt4U9LL5E/N4aXDY2Zs45LnuARjEMiLIh4v24tSOi8kjpXqJDOOKk4j0Z+i30Hy0+00CqS1Xq8LLKxPuCR4/PkE+l0=
+	t=1780318292; cv=none; b=KDuh+z01h67TJo3OFT4nyOign7X5pFIybScOzBEtnAyOHFtMqSQmTuEfZnX0c7YG3D48ukrsh493HXmYOsUSJacQnQiRRaYS8JUwU4df1mnzqKwBPd8Q6Vjl7vxrNvJWI8Q3yzPAVEE2NDu39VctUSdFnLujAbNzE5jVVb3qKS4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780318140; c=relaxed/simple;
-	bh=Bos//kkPLqaJJxGqQzc6ii7MmkoxDRXRsCu1O63zpB8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=j6TXQe6qQWiZs1/1ok17FFe5l58eGVwRDCqzFZBZjyRXqfwocNx0ZWMpbXZSHoHZsMfea7gYK61FyTLQk0VWGsyxRe3VlcKzzprkO9hd+qJPsE3mYh3kfbg5h0kHdp7gf+q67G1EPkn4LFwIjLEt4Pe37igtqU5dXqem4VFI+Ww=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TZpE1mrt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780318292; c=relaxed/simple;
+	bh=XsDgrG1wwlJKbmhtx/bHUnEpUtio2Vl8dsYGbDpKQes=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mGY5jxryho/GB9Tg+ugxM57a0+sk9rKI5vauT7e/FqKrHWVdR5p6ra8O1ChHxcA3oL7Em5dtGu8jjlfrBW9T+nr5JzHkk4OMjharHKQZqbXluLskMaa/Jn3HTP4eVOzHVbRw6Xps5My46eIeKwnAWa0+0CwEVbR5+w7pFGcoCps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=o5DN2HeW; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TZpE1mrt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0009B1F00893;
-	Mon,  1 Jun 2026 12:48:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780318139;
-	bh=z9fkFBDWbhL6B4BjyoenPcpprUUKYmyj8zNZbnOrOX8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TZpE1mrttxIUcuooIwlXLJm8jBczATk4C75E6EcLuDIkWpshNo+I67J5BnHC8XLwk
-	 OfDtYfmy6WRVyKG0gQYQlN4eeCoYY6ZXIBtw+Mk0Cp+CGk6wfz7aQXEhZtbclU7RK9
-	 B4EC0fKzQXmMxzna0W2v/Shpid5Xj4zCE5f5AixQWIHeA1/EeZ69cgsPrmuafXmzei
-	 yYcjNT4w/U0geS5RJAjMwWXOCkg1z+HvV7lo9eDRdjQIGa5U9/2wnjA7WagjaChZ7T
-	 qCmHrTI429AQnVmpRmTDNSphSoZde9M3W7TLFj8S+HlQa3TcinU9CoOlF1VraME99a
-	 l1NVaAb67Bejg==
-From: sashiko-bot@kernel.org
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="o5DN2HeW"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=ipOTjP7LXkH4pE0+RZI23Zur3lgBYVWldPcYkb4vemU=; b=o5DN2HeWo+QQqsoPWET0z5Yz2u
+	PVYCdJAu1TR+65E60gMED+5VJhdwoQ44aFFfChAG4LLZTmd0y3WFaHp/QCkcmLH0/fiO3AHo177sB
+	F83N8esdzgVidMGWbOIuN1MSDHBwHsxs9BZ88rN8abPfl5E4I7YigqjOUxSkSu5NB86jSsp3tnSEf
+	Oa/okvRtx+yYJ4UFg2BMyBfnk8JNFlYaAiSdHanIr0DY3QpR3i/kzx3tricLhrjajNfbYcQCEfPPH
+	8peeTD0vvDRQW7Ta7jfHwJaq7bVPVQYI5hPIT3zKl8USKZ8MhKTFX5fmK+OmjCSfZjliFjNCbUrJ1
+	Og3s3lZQ==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org,
+ linux-kernel@vger.kernel.org, Hrushiraj Gandhi <hrushirajg23@gmail.com>
 Subject: Re: [PATCH 1/1] arm64: dts: rockchip: add Vicharak Axon board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hrushiraj Gandhi" <hrushirajg23@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Date: Mon, 01 Jun 2026 14:51:22 +0200
+Message-ID: <10605990.5OynTdThKG@phil>
 In-Reply-To: <20260601123603.129679-2-hrushirajg23@gmail.com>
-References: <20260601123603.129679-2-hrushirajg23@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 12:48:58 +0000
-Message-Id: <20260601124859.0009B1F00893@smtp.kernel.org>
+References:
+ <20260601123603.129679-1-hrushirajg23@gmail.com>
+ <20260601123603.129679-2-hrushirajg23@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] Hardware resource conflict on combphy0_ps between SATA and PCIe.
-- [High] Unsupported `enable-gpios` property will leave HDMI ports unpowere=
-d.
-- [Medium] Voltage mismatch in the `pcie20_avdd0v85` fixed regulator.
-- [Medium] Missing sound card node and disabled I2S controller for the `es8=
-388` audio codec.
-- [Low] Missing `vpcie3v3-supply` property in PCIe nodes.
-- [Low] `enable-active-high` property used without a corresponding `gpio` p=
-roperty in fixed regulators.
-- [Low] Use of obsolete `regulator-compatible` property in I2C regulator no=
-des.
---
+Hi,
 
-commit f0c2d80408904803253db0f7fedd438665749143
-Author: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Am Montag, 1. Juni 2026, 14:36:03 Mitteleurop=C3=A4ische Sommerzeit schrieb=
+ Hrushiraj Gandhi:
+> Add initial support for the Vicharak Axon single-board computer based on
+> the Rockchip RK3588 SoC.
+>=20
+> The board supports:
+>=20
+> - eMMC storage
+> - microSD card
+> - Gigabit Ethernet
+> - HDMI output (dual HDMI)
+> - HDMI input
+> - USB 2.0 host ports
+> - PCIe 2.0 slots
+> - PCIe 3.0 x4 slot
+> - SATA
+> - RTC
+> - Status LEDs
+>=20
+> The board uses an RK806 PMIC and provides the regulators required by
+> the RK3588 SoC.
+>=20
+> Signed-off-by: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+> ---
+>  arch/arm64/boot/dts/rockchip/Makefile        |    1 +
+>  arch/arm64/boot/dts/rockchip/rk3588-axon.dts | 1069 ++++++++++++++++++
 
-arm64: dts: rockchip: add Vicharak Axon board
+this is missing the addition of the board dt binding.
+(in a separate patch)
 
-Add initial support for the Vicharak Axon single-board computer based on
-the Rockchip RK3588 SoC.
+Please see how other boards are handled in the git histoy.
 
+
+>  2 files changed, 1070 insertions(+)
+>  create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-axon.dts
+>=20
+> diff --git a/arch/arm64/boot/dts/rockchip/Makefile b/arch/arm64/boot/dts/=
+rockchip/Makefile
+> index cb55c6b70d0e..503927ffa849 100644
+> --- a/arch/arm64/boot/dts/rockchip/Makefile
+> +++ b/arch/arm64/boot/dts/rockchip/Makefile
+> @@ -179,6 +179,7 @@ dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3576-rock-4d.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3582-radxa-e52c.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-armsom-sige7.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-armsom-w3.dtb
+> +dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-axon.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-coolpi-cm5-evb.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-coolpi-cm5-genbook.dtb
+>  dtb-$(CONFIG_ARCH_ROCKCHIP) +=3D rk3588-edgeble-neu6a-io.dtb
 > diff --git a/arch/arm64/boot/dts/rockchip/rk3588-axon.dts b/arch/arm64/bo=
 ot/dts/rockchip/rk3588-axon.dts
+
+please name that
+rk3588-vicharak-axon.dts
+
+
 > new file mode 100644
+> index 000000000000..dcab9462f51b
 > --- /dev/null
 > +++ b/arch/arm64/boot/dts/rockchip/rk3588-axon.dts
-[ ... ]
+> @@ -0,0 +1,1069 @@
+> +// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
+> +
+> +/dts-v1/;
+> +
+> +#include <dt-bindings/gpio/gpio.h>
+> +#include <dt-bindings/input/linux-event-codes.h>
+> +#include <dt-bindings/leds/common.h>
+> +#include <dt-bindings/pinctrl/rockchip.h>
+> +#include <dt-bindings/soc/rockchip,vop2.h>
+> +#include <dt-bindings/usb/pd.h>
+> +#include "rk3588.dtsi"
+> +
+> +/ {
+> +	model =3D "Vicharak Axon";
+> +	compatible =3D "vicharak,axon", "rockchip,rk3588";
+> +
+> +	aliases {
+> +		mmc0 =3D &sdmmc;
+> +		mmc1 =3D &sdhci;
+> +		mmc2 =3D &sdio;
+> +		serial2 =3D &uart2;
+> +	};
+> +
+> +	chosen {
+> +		stdout-path =3D "serial2:1500000n8";
+> +	};
+> +
+> +	hdmi0-con {
+> +		compatible =3D "hdmi-connector";
+> +		type =3D "a";
+> +
+> +		port {
+> +			hdmi0_con_in: endpoint {
+> +				remote-endpoint =3D <&hdmi0_out_con>;
+> +			};
+> +		};
+> +	};
+> +
+> +	hdmi1-con {
+> +		compatible =3D "hdmi-connector";
+> +		type =3D "a";
+> +
+> +		port {
+> +			hdmi1_con_in: endpoint {
+> +				remote-endpoint =3D <&hdmi1_out_con>;
+> +			};
+> +		};
+> +	};
+> +
+> +	leds {
+> +		compatible =3D "gpio-leds";
+> +		status =3D "okay";
+> +
+> +		power_led: power-led {
+> +			color =3D <LED_COLOR_ID_GREEN>;
+> +			function =3D LED_FUNCTION_STATUS;
+> +			gpios =3D <&pca9554 0 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger =3D "heartbeat";
+> +		};
+> +
+> +		status_led: status-led {
+> +			color =3D <LED_COLOR_ID_RED>;
+> +			function =3D LED_FUNCTION_STATUS;
+> +			gpios =3D <&pca9554 1 GPIO_ACTIVE_HIGH>;
+> +			linux,default-trigger =3D "none";
+> +		};
+> +	};
+> +
 > +	pcie20_avdd0v85: pcie20-avdd0v85-regulator {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "pcie20_avdd0v85";
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +		regulator-min-microvolt =3D <850000>;
-> +		regulator-max-microvolt =3D <850000>;
-> +		vin-supply =3D <&vdd_0v75_s0>;
 
-[Severity: Medium]
-Will this regulator fail to satisfy constraints during probe? The min and
-max microvolt are set to 850mV, but the vin-supply is linked to
-vdd_0v75_s0, which provides only 750mV. Since this fixed linear regulator
-cannot step up the voltage, should this reference an 850mV supply like
-vdd_0v85_s0 instead?
+regulator nodes, should be like "pcie20_avdd0v85: regulator-pcie20-avdd0v85=
+ {"
 
-> +	};
-[ ... ]
-> +	sata_vcc_5v0: sata-vcc-5v0 {
-> +		compatible =3D "regulator-fixed";
-> +		regulator-name =3D "sata_vcc_5v0";
-> +		startup-delay-us =3D <5000>;
-> +		regulator-boot-on;
-> +		regulator-always-on;
-> +		enable-active-high;
+> +&cpu_b0 {
+> +	cpu-supply =3D <&vdd_cpu_big0_s0>;
+> +	mem-supply =3D <&vdd_cpu_big0_mem_s0>;
 
-[Severity: Low]
-Does this node trigger a dtbs_check schema warning? The enable-active-high
-property is used here to denote polarity, but there is no corresponding
-gpio or gpios property defined. This same pattern also appears in the
-vcc3v3_io_expander and vcc5v0_usb20_host regulator nodes.
+mem-supply for cpu-cores is vendor-kernel stuff (and it's the same
+regulator anyway), so please
+=2D drop those properties,
+=2D drop the phandle
 
-> +		regulator-min-microvolt =3D <5000000>;
-> +		regulator-max-microvolt =3D <5000000>;
-> +		vin-supply =3D <&vcc12v_dcin>;
-> +	};
-[ ... ]
-> +&hdmi0 {
-> +	enable-gpios =3D <&gpio1 RK_PB0 GPIO_ACTIVE_HIGH>;
+and run
+make ARCH=3Darm64 CHECK_DTBS=3Dy rockchip/rk3588-axon.dtb
 
-[Severity: High]
-Will these HDMI ports remain unpowered? The Rockchip DesignWare HDMI driver
-does not parse or support the enable-gpios property, so these GPIOs will
-never be asserted.=20
+and fix all the reported issues please.
 
-If these GPIOs are required to enable power to the transmitters, should
-they be modeled as regulator-fixed nodes and linked properly so the power
-domains are actually enabled?
 
-> +	status =3D "okay";
-> +};
-[ ... ]
-> +&hdmi1 {
-> +	enable-gpios =3D <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
+Thanks
+Heiko
 
-[Severity: High]
-Is this subject to the same enable-gpios issue as hdmi0 above?
 
-> +	status =3D "okay";
-> +};
-[ ... ]
-> +&i2c0 {
-> +	pinctrl-0 =3D <&i2c0m2_xfer>;
-> +	pinctrl-names =3D "default";
-> +	status =3D "okay";
-> +
-> +	vdd_cpu_big0_s0: vdd_cpu_big0_mem_s0: regulator@42 {
-> +		compatible =3D "rockchip,rk8602";
-> +		fcs,suspend-voltage-selector =3D <1>;
-> +		reg =3D <0x42>;
-> +		regulator-always-on;
-> +		regulator-boot-on;
-> +		regulator-compatible =3D "rk860x-reg";
 
-[Severity: Low]
-Is the regulator-compatible property needed here? This property is obsolete
-and not parsed by the modern regulator driver, which relies exclusively on
-the standard compatible string. Leaving it in might generate dtbs_check
-warnings. This also appears in the vdd_cpu_big1_s0 node.
 
-> +		regulator-max-microvolt =3D <1050000>;
-[ ... ]
-> +&i2c3 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&i2c3m0_xfer>;
-> +	status =3D "okay";
-> +
-> +	es8388: audio-codec@11 {
-> +		compatible =3D "everest,es8388";
-> +		reg =3D <0x11>;
-> +		clocks =3D <&cru I2S0_8CH_MCLKOUT>;
-
-[Severity: Medium]
-Is it expected that this audio codec will be unusable? It is instantiated
-on the i2c3 bus, but there is no sound card node (such as
-simple-audio-card) defined, and the i2s0_8ch controller it connects to
-is not enabled.=20
-
-Will the Linux audio subsystem fail to create an audio device without
-those nodes?
-
-> +		clock-names =3D "mclk";
-[ ... ]
-> +&pcie2x1l0 {
-> +	reset-gpios =3D <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie2_0_rst>;
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-Will this cause a hardware resource conflict with sata0? In the RK3588 SoC,
-both sata0 and pcie2x1l0 are hardwired to use the combphy0_ps Combo PHY by
-default.=20
-
-Since the device tree enables both of them without remapping the PHY, and
-the PHY can only be configured in one mode at a time, won't probing both
-cause a failure or overwrite the PHY configuration? Should one of these use
-combphy2_psu instead?
-
-[Severity: Low]
-Is the vpcie3v3-supply property missing from this PCIe controller node?
-The board configures 3.3V power via the vcc3v3_pcie20_sata30 regulator, but
-without the supply association, the PCIe framework might not be able to
-logically manage slot power during resets or suspend/resume cycles.
-
-[ ... ]
-> +&pcie3x4 {
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie3_reset>;
-> +	reset-gpios =3D <&gpio4 RK_PB6 GPIO_ACTIVE_HIGH>;
-> +	status =3D "okay";
-> +};
-
-[Severity: Low]
-Is this node also missing its vpcie3v3-supply property for the slot power?
-
-[ ... ]
-> +&sata0 {
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-Is this the SATA controller that will conflict with pcie2x1l0 over
-combphy0_ps?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601123603.1296=
-79-2-hrushirajg23@gmail.com?part=3D1
