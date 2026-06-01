@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DFEC367B9D;
-	Mon,  1 Jun 2026 20:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 082E9334692
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 20:55:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780347147; cv=none; b=tDFomFmFhwPw3A3MMdCUkcEjgDBhr5mPBe5WZR1p5IFupm99MuCze3qMPhg1tuvxaSfOQanPdm5CF7K4JmpFC/wSYygKPNSrS1G2dCWtPAef3PBuXI405foM9m/vGOn/MLxvCkvdIeuutIFi7TvNgZHwqejBFfYd71d6sLwVhEw=
+	t=1780347318; cv=none; b=GWQ6t8wmQ+F2NlFP3zhS5XrDg6uYRBbVJ/A92P/CMF4vrz36IAEuKUpk/VEbgribYNyNYTr9bUakpV8Hgp2jsxnzuhi7th3EIlvwG1wzibf7s/uS1rQhl2AI26Jl8mF5OMESVUe9Onz2h/8sVQFF4Uu+lgTiIahgjKm1MmDmWXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780347147; c=relaxed/simple;
-	bh=I705dylY35MxKeizsajtXy4srBJWJrFurXUT/EwVMQY=;
+	s=arc-20240116; t=1780347318; c=relaxed/simple;
+	bh=B1OC+F+84LZ2bs4MIjM8ll8XRLD4w7brpsFj4GSbCjk=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=hFTghz39RXy+uCSHLqFgfANFSDQWZC8pcDM3pzwTC34asetsZfScORE6r+1IxoOqzzqNAN8Uakz/QEDPpMsUxNo47eOfRXgKPX3pSG88yV3EHGA/mfH09ivqwOLPqcR2e2IZXho6cmnmY+MRsMvHXdnbYKWFQQWXOD6eWemS3n0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BbaSCAm4; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=DYfiEJL58m/oyJ0GkRIsZSpGX6ikZF5ehfg2hfgAvBnOq/SL6Sech6HocFeS8hoys3zNof3/j9UP6udG5zvKDgfbhAm5dQ7skP1oUFRk8EWWxhnvSv7Dlg1ao9OPXZ7QIwwmUJn7JQOtYMs68LXfSvLA0aakVk1lT1APU4miggo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DIAJP0tH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BbaSCAm4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 049BA1F00893;
-	Mon,  1 Jun 2026 20:52:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DIAJP0tH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AAAC1F00893;
+	Mon,  1 Jun 2026 20:55:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780347146;
-	bh=ZuvCiP5PaeoUjYAC7X+rXL0KsNzopeMuNsrHG+vNZRo=;
+	s=k20260515; t=1780347317;
+	bh=bp48UHw2VpvGSTEXG8+XyIsw8wXpu7Oo261IBvBx86I=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BbaSCAm426vsMqQpf2dQERPMMWAgQntH9E0rV5raR7j1jT0TpQRZ0BULB4+p7gLfh
-	 88Pa29k7Ra57u0go4UKq7HfKIAJ8CAfKz/MWvrTf45cUbTSZgXKZbQEclFuj58IJqh
-	 CvH6CKHwpa4yEUnQn5DKKV8of7q/8K90XM/dOmiJrHiYeuplH+ru8OoaFXGOJ0aopG
-	 V4t/OANfxaRuWdRrpnv6d2k1jIHY+TtXUd1xza2u9QyxgBjczzADI9cJFiBEBbh/4j
-	 7BZgYBhpAOF2Q3+dWFaEAWDyQhyFXjb7wzj/BvCBkXlGYvGlrfrC3cHJp2+UwTwxGg
-	 +rX9K0bSdivOg==
+	b=DIAJP0tHAhN4Z2pMozrv6VZOtomEq2XsiUQ80yQ9sG0AjNO6yU9wX3efhHWU5tAeD
+	 wHWugFXItIDwkhIB0glebZHnuO/FUP9/eReUYswEORaOfsVtVUlhPduiNgyChKQ6ye
+	 cLc5whL9MyQ3Kz7cekY+qhi2kqnQn0ieZ4ecT9y79wog7NnPl2C4/zeTKO857P8aN8
+	 h+gNmmNfcXp8461Ghvj4SQTyfytZWL/hanw7viQyXDjHBItIz7fRGGTSXKNt6i30l7
+	 x63XZ9SbXDeZhxHfcELzAWusx31ZYRlP97Nduavw0GBzHEETO7r62H6yiQdFP4M6iV
+	 O99UahK2Zfj4w==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 1/2] dt-bindings: Pinefeat cef168 lens control board
+Subject: Re: [PATCH RFC v6 06/18] fs/resctrl: Let bandwidth resources
+ default to min_bw at reset
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Aliaksandr Smirnou" <asmirnou@pinefeat.co.uk>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601204814.19148-2-asmirnou@pinefeat.co.uk>
-References: <20260601204814.19148-2-asmirnou@pinefeat.co.uk>
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-6-baf00f50028a@kernel.org>
+References: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-6-baf00f50028a@kernel.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 20:52:25 +0000
-Message-Id: <20260601205226.049BA1F00893@smtp.kernel.org>
+Date: Mon, 01 Jun 2026 20:55:17 +0000
+Message-Id: <20260601205517.7AAAC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -45,66 +46,56 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Low] The Device Tree schema describes software rather than the physical =
-hardware, violating Device Tree design principles. The title explicitly cal=
-ls the binding a 'driver' instead of the hardware device, and the commit me=
-ssage intentionally omits power supply definitions because 'the driver does=
- not manage any regulator', which couples the hardware description to curre=
-nt software limitations.
+
+Pre-existing issues:
+- [High] Incorrect generation of default cache allocation bitmask using BIT=
+_MASK on 32-bit architectures.
 --
 
-commit 5752dd4b724a501f53ddad43b87fa9c0328d6fb5
-Author: Aliaksandr Smirnou <asmirnou@pinefeat.co.uk>
+commit f1fc8abd972980fe11863cf1116bc25deb926540
+Author: Drew Fustini <fustini@kernel.org>
 
-dt-bindings: Pinefeat cef168 lens control board
+fs/resctrl: Let bandwidth resources default to min_bw at reset
 
-This commit adds the Device Tree schema and examples for the Pinefeat
-cef168 lens control board. It supports controlling Canon EF and EF-S
-lenses via V4L2.
+This commit modifies bandwidth resources to default to min_bw instead of
+max_bw upon reset and group creation when the hardware enforces a
+sum-constrained reservation. The default_to_min flag is introduced in
+struct resctrl_membw for this purpose.
 
-> Power supply is derived from fixed supplies via connector or GPIO
-> header. Therefore, the driver does not manage any regulator, so
-> representing any supply in the binding is redundant.
-
-[Severity: Low]
-Device tree is intended to describe the physical hardware independent of
-the operating system or current driver features. Shouldn't the physical
-power rails be described in the binding, even if the current driver does
-not actively manage them?
-
-> diff --git a/Documentation/devicetree/bindings/media/i2c/pinefeat,cef168.=
-yaml b/Documentation/devicetree/bindings/media/i2c/pinefeat,cef168.yaml
-> new file mode 100644
-> index 0000000000000..1295b1f4edebc
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/media/i2c/pinefeat,cef168.yaml
-> @@ -0,0 +1,47 @@
-[ ... ]
-> +$id: http://devicetree.org/schemas/media/i2c/pinefeat,cef168.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Pinefeat cef168 lens driver
-
-[Severity: Low]
-Does this title reflect a conceptual mismatch by referring to a software
-driver rather than the hardware device? Would it be better to title this
-"Pinefeat cef168 lens control board" to match standard device tree naming
-practices?
+> diff --git a/include/linux/resctrl.h b/include/linux/resctrl.h
+> index 9529ed0d1fdf2..bcbc166412ef1 100644
+> --- a/include/linux/resctrl.h
+> +++ b/include/linux/resctrl.h
 
 [ ... ]
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +additionalProperties: false
 
-[Severity: Low]
-Because physical power supplies are omitted from the schema, does setting
-additionalProperties to false prevent creating a complete, hardware-accurate
-device tree? If someone describes the board's actual power rails in their
-device tree, it will fail schema validation. Should the physical supply
-properties be added here to allow accurate hardware descriptions?
+> @@ -405,7 +412,7 @@ static inline u32 resctrl_get_default_ctrl(struct rdt=
+_resource *r)
+>  	case RESCTRL_SCHEMA_BITMAP:
+>  		return BIT_MASK(r->cache.cbm_len) - 1;
+[Severity: High]
+This is a pre-existing issue, but does the use of BIT_MASK cause an incorre=
+ct
+default mask to be generated on 32-bit architectures?
+
+If a system has a maximum cache bitmask length of 32, which is
+architecturally allowed by the Intel CAT specification, BITS_PER_LONG is 32
+on 32-bit systems. The BIT_MASK macro evaluates to=20
+(1UL << ((nr) % BITS_PER_LONG)).
+
+For a cbm_len of 32, 32 % 32 evaluates to 0, which makes BIT_MASK(32) equal
+to 1. Subtracting 1 results in a default cache allocation mask of 0 instead
+of the expected 0xFFFFFFFF. Could this functionally break the cache
+allocation mechanism by starving groups of L3/L2 cache on group creation
+and reset?
+
+>  	case RESCTRL_SCHEMA_RANGE:
+> -		return r->membw.max_bw;
+> +		return r->membw.default_to_min ? r->membw.min_bw : r->membw.max_bw;
+>  	}
+> =20
+>  	return WARN_ON_ONCE(1);
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601204814.1914=
-8-1-asmirnou@pinefeat.co.uk?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ssqosid-cb=
+qri-rqsc-v7-0-v6-0-baf00f50028a@kernel.org?part=3D6
