@@ -1,24 +1,24 @@
-Received: from mail-m32123.qiye.163.com (mail-m32123.qiye.163.com [220.197.32.123])
+Received: from mail-m1973181.qiye.163.com (mail-m1973181.qiye.163.com [220.197.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C1B73822A2;
-	Mon,  1 Jun 2026 06:56:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FA61383C97;
+	Mon,  1 Jun 2026 06:56:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780296995; cv=none; b=EBMx2mpxx/G8AoUkrphBcI6IrTw7xaZH3ZtuzvsqMO33pyRcHZwPnzOmYl8V1y203YUi50o0EUlWsKomYu6SJNZGTJaTHywvHH2hSlq831WUX6ZQrF897d6lxLqXPaQsuvi3L19NEU85DhA4bS2mrX5CINqbgMvS08h0cTkOSyQ=
+	t=1780297000; cv=none; b=cHv8lLZtYpW1ycgFbVXkFsxaJbL1XTzpY7VPEiZA4Xx45VExsteHmCGkErb07fbQx0k9eOO7RTKH5oJ4wsfu5FoDN0Oa6sNbiwGBZjv6Xgf3AfBbhlNpcm9JgNJXjZCVVv3rPOvo7ctsKQi0O3KqMkXz4Dir4n756plQaqekF3g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780296995; c=relaxed/simple;
-	bh=rXPzhdx3TNyffecCGe0qNpwi1Rwwg/sWBvYXjRoCFd4=;
+	s=arc-20240116; t=1780297000; c=relaxed/simple;
+	bh=ixP9bbtfLm9n7b7rZTtXkiyTh2jKzvPSeDG46z1FnrA=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=X9x3SeRwMtp+342pQm/kUJBPuYQOEu6GLtZdapWA/tMkEJqq9nPoXZmblI8fqV+5u7numwMd2vpOIo2FHcLjGmZFqVkC7wgmBF52ES68mm3oYMe5BV3LhV4dbkfqWwfrgsK6AOextZYBCssCSxcYkL5NMUoRu36oESMYG6FLdLk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=PfM7bM8r; arc=none smtp.client-ip=220.197.32.123
+	 MIME-Version; b=NDjhaKBSrCrw92ANAZSjDobljJW73Gmqe2kYpUmTlpyAYMkjRrMRpl02+iqwoJzkGGQ9DGt4AKUuucNro6WOKxUlRAf2sK57tr4YTkhrxm6DKtwIqIzhmksJaWsN7nhOg+N4ER75+phXQM6vaNBFIRIpv4bQVatFVoTBvLSXw60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=W1jocCCO; arc=none smtp.client-ip=220.197.31.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="PfM7bM8r"
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="W1jocCCO"
 Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 408ded08d;
-	Mon, 1 Jun 2026 14:51:13 +0800 (GMT+08:00)
+	by smtp.qiye.163.com (Hmail) with ESMTP id 408ded0a3;
+	Mon, 1 Jun 2026 14:51:16 +0800 (GMT+08:00)
 From: Damon Ding <damon.ding@rock-chips.com>
 To: hjc@rock-chips.com,
 	heiko@sntech.de,
@@ -49,11 +49,10 @@ Cc: Laurent.pinchart@ideasonboard.com,
 	linux-arm-kernel@lists.infradead.org,
 	linux-rockchip@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	Damon Ding <damon.ding@rock-chips.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v10 07/11] dt-bindings: display: rockchip: analogix-dp: Add support for RK3576
-Date: Mon,  1 Jun 2026 14:50:56 +0800
-Message-Id: <20260601065100.1103873-8-damon.ding@rock-chips.com>
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v10 09/11] drm/bridge: analogix_dp: Rename and simplify is_rockchip()
+Date: Mon,  1 Jun 2026 14:50:58 +0800
+Message-Id: <20260601065100.1103873-10-damon.ding@rock-chips.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260601065100.1103873-1-damon.ding@rock-chips.com>
 References: <20260601065100.1103873-1-damon.ding@rock-chips.com>
@@ -64,57 +63,158 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0a9e81f3693b03a8kunm111da268257e42
+X-HM-Tid: 0a9e81f3738003a8kunm111da268257e71
 X-HM-MType: 1
 X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDSUweVk8fHh1NSBhDHk1JH1YVFA
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCThlKVktLGUkeTkxIHh5MSFYVFA
 	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
 	pKQk1VSktLVUpCWQY+
 DKIM-Signature: a=rsa-sha256;
-	b=PfM7bM8rKmmZGPVUHuXkL7XkpUyupH+mGejk9zrYgheqkhr7ci+WORGqOJNVP8w5cPPTw0IE0WEE77Fru6xJwyAbCWVcGCs0IC43Ih/t3ojpdsaIvdzUyBnuSnqFg37c73OXgMBileK0DBmIVEu2UtylGUAlLjoPPiNOTz8ZdFc=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=L7BWWruHRLZlJcC+r2h5wBipdDLTE8Qif+DZ/KL3zR0=;
+	b=W1jocCCOnlGYN7PqD5J/jIAztLvgHD663bjdcbd+TJPS6F3kvZ7glVAwZ60FG46aJ/iAZpQ+X/IuqHcxo/tWcT/+lXjSHFvGC3T5KIQkx7qT1b4HLojekkLA6MEcwShM0pWSFrHlN6H8dTSez4oL2rA6SKnGqGkS7Cp8pcz7HAA=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=LOMeAIx+KSl1dkBA7xVs1jEHQ7IWNjTCWlPoHezWkhE=;
 	h=date:mime-version:subject:message-id:from;
 
-RK3576 integrates an eDP TX controller compatible with the existing
-RK3588 hardware design, reuse the same binding configuration directly.
+Rename inline helper is_rockchip() to analogix_dp_is_rockchip()
+to follow driver namespace convention consistently across code.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Replace chained equality comparisons with switch-case layout
+to improve readability and simplify adding new SoC entries later.
+
 Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+Suggested-by: Nicolas Frattaroli <nicolas.frattaroli@collabora.com>
+Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
 
 ---
 
-Changes in v2:
-- Split out a separate patch to add the "hclk" clock reference.
+Changes in v3:
+- Add Reviewed-by tag.
 
-Chanegs in v4:
+Changes in v4:
 - Modify the commit msg.
-
-Changes in v5:
-- Add Acked-by tag.
 ---
- .../bindings/display/rockchip/rockchip,analogix-dp.yaml         | 2 ++
- 1 file changed, 2 insertions(+)
+ .../gpu/drm/bridge/analogix/analogix_dp_core.c |  2 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c  | 18 +++++++++---------
+ include/drm/bridge/analogix_dp.h               | 11 +++++++++--
+ 3 files changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-index 1ef1d56ef6e2..6548f157fd96 100644
---- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-+++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogix-dp.yaml
-@@ -15,6 +15,7 @@ properties:
-     enum:
-       - rockchip,rk3288-dp
-       - rockchip,rk3399-edp
-+      - rockchip,rk3576-edp
-       - rockchip,rk3588-edp
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 8cf6b73bceac..116de3bd83a3 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -870,7 +870,7 @@ static int analogix_dp_bridge_atomic_check(struct drm_bridge *bridge,
+ 	struct drm_display_info *di = &conn_state->connector->display_info;
+ 	u32 mask = BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR444) | BIT(DRM_OUTPUT_COLOR_FORMAT_YCBCR422);
  
-   clocks:
-@@ -99,6 +100,7 @@ allOf:
-         compatible:
-           contains:
-             enum:
-+              - rockchip,rk3576-edp
-               - rockchip,rk3588-edp
-     then:
-       properties:
+-	if (is_rockchip(dp->plat_data->dev_type)) {
++	if (analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+ 		if ((di->color_formats & mask)) {
+ 			DRM_DEBUG_KMS("Swapping display color format from YUV to RGB\n");
+ 			di->color_formats &= ~mask;
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index 38fd8d5014d2..6207ded7ffd5 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -72,7 +72,7 @@ void analogix_dp_init_analog_param(struct analogix_dp_device *dp)
+ 	reg = SEL_24M | TX_DVDD_BIT_1_0625V;
+ 	writel(reg, dp->reg_base + ANALOGIX_DP_ANALOG_CTL_2);
+ 
+-	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type)) {
++	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+ 		reg = REF_CLK_24M;
+ 		if (dp->plat_data->dev_type == RK3288_DP)
+ 			reg ^= REF_CLK_MASK;
+@@ -123,7 +123,7 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
+ 	analogix_dp_stop_video(dp);
+ 	analogix_dp_enable_video_mute(dp, 0);
+ 
+-	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
++	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+ 		reg = RK_VID_CAP_FUNC_EN_N | RK_VID_FIFO_FUNC_EN_N |
+ 			SW_FUNC_EN_N;
+ 	else
+@@ -233,7 +233,7 @@ void analogix_dp_set_pll_power_down(struct analogix_dp_device *dp, bool enable)
+ 	u32 mask = DP_PLL_PD;
+ 	u32 pd_addr = ANALOGIX_DP_PLL_CTL;
+ 
+-	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type)) {
++	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+ 		pd_addr = ANALOGIX_DP_PD;
+ 		mask = RK_PLL_PD;
+ 	}
+@@ -254,12 +254,12 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ 	u32 phy_pd_addr = ANALOGIX_DP_PHY_PD;
+ 	u32 mask;
+ 
+-	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
++	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+ 		phy_pd_addr = ANALOGIX_DP_PD;
+ 
+ 	switch (block) {
+ 	case AUX_BLOCK:
+-		if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
++		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+ 			mask = RK_AUX_PD;
+ 		else
+ 			mask = AUX_PD;
+@@ -317,7 +317,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ 		 * to power off everything instead of DP_PHY_PD in
+ 		 * Rockchip
+ 		 */
+-		if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
++		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+ 			mask = DP_INC_BG;
+ 		else
+ 			mask = DP_PHY_PD;
+@@ -329,7 +329,7 @@ void analogix_dp_set_analog_power_down(struct analogix_dp_device *dp,
+ 			reg &= ~mask;
+ 
+ 		writel(reg, dp->reg_base + phy_pd_addr);
+-		if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
++		if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+ 			usleep_range(10, 15);
+ 		break;
+ 	case POWER_ALL:
+@@ -465,7 +465,7 @@ void analogix_dp_init_aux(struct analogix_dp_device *dp)
+ 	analogix_dp_reset_aux(dp);
+ 
+ 	/* AUX_BIT_PERIOD_EXPECTED_DELAY doesn't apply to Rockchip IP */
+-	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type))
++	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type))
+ 		reg = 0;
+ 	else
+ 		reg = AUX_BIT_PERIOD_EXPECTED_DELAY(3);
+@@ -837,7 +837,7 @@ void analogix_dp_config_video_slave_mode(struct analogix_dp_device *dp)
+ 	u32 reg;
+ 
+ 	reg = readl(dp->reg_base + ANALOGIX_DP_FUNC_EN_1);
+-	if (dp->plat_data && is_rockchip(dp->plat_data->dev_type)) {
++	if (dp->plat_data && analogix_dp_is_rockchip(dp->plat_data->dev_type)) {
+ 		reg &= ~(RK_VID_CAP_FUNC_EN_N | RK_VID_FIFO_FUNC_EN_N);
+ 	} else {
+ 		reg &= ~(MASTER_VID_FUNC_EN_N | SLAVE_VID_FUNC_EN_N);
+diff --git a/include/drm/bridge/analogix_dp.h b/include/drm/bridge/analogix_dp.h
+index 854af692229b..7b670dd769e9 100644
+--- a/include/drm/bridge/analogix_dp.h
++++ b/include/drm/bridge/analogix_dp.h
+@@ -19,9 +19,16 @@ enum analogix_dp_devtype {
+ 	RK3588_EDP,
+ };
+ 
+-static inline bool is_rockchip(enum analogix_dp_devtype type)
++static inline bool analogix_dp_is_rockchip(enum analogix_dp_devtype type)
+ {
+-	return type == RK3288_DP || type == RK3399_EDP || type == RK3588_EDP;
++	switch (type) {
++	case RK3288_DP:
++	case RK3399_EDP:
++	case RK3588_EDP:
++		return true;
++	default:
++		return false;
++	}
+ }
+ 
+ struct analogix_dp_plat_data {
 -- 
 2.34.1
 
