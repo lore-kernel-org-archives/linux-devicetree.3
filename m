@@ -1,157 +1,381 @@
-Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013051.outbound.protection.outlook.com [52.101.83.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BFB37D131;
-	Mon,  1 Jun 2026 19:55:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.51
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780343722; cv=fail; b=A5a8oxN2yxhCrJw4cLaZEvghIcZ3TOoQZeuaRbISxImsejmLG7pE1XGDqeqRDgjRqliJhKlTkz5u1GxPAa0rmxTi+FZ+kAaSRLMbtjkPPK5YI2gfTlqlwKgwE+61x+5RoikDMrBl/s3l691KkIrphA/O6JSk5Y0Cth/WjwJQB7k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780343722; c=relaxed/simple;
-	bh=wtT3P1d+Ac8EXIga2ybJwAmeQtLys9OgRR+RjmrXCwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=szk6Q1gMY4irGR9CEES1p7NdhVNXQzwmCoPvjAhcwu0xLF6Yd6YdWQQPOOcuEPJXTfFOq9zN6UU5UxKFRi/+LKbTALG0AtGR3btHIYAu6dqYhTMUb+lUDYS+HyTjn2DodmeSaoOO1J9+gW5B5CxxpidJ9UdRAv6DOoNe8wLknQs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=muSW2j05; arc=fail smtp.client-ip=52.101.83.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40BAE298CAF
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 20:07:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780344470; cv=none; b=MaGhtBr1RnlhEOI3JS4dU+OdEYleYLTFt1PEss5LBp/XDgnIXtiRUXaebD/zCPnKm0I2kTKU0nurDWzN47vcnE7G9dtOggVmNimEHHvo34PD/OLOPD93ZvFZnN1uTJVeg9JsScBVuA4MZpttGyI8AjodM7f3Y/3Qg9sd32x+PeQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780344470; c=relaxed/simple;
+	bh=oUCgstZ8zCfnP4PRe5raGDzvXLICfUsc+ixmNQQV9KU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
+	 References:In-Reply-To; b=ZZEZzbhYKZ0rt9RFsKBUzk04V5WFQB5nM7Bg9imLDik7EeN2Dv+6HUwLq8LYQih41mJsEfflgockhhEQAcG99lhwKr7ZdIj6QGF+OXgTsayc82fo+7QHmp97dWbgdCJgoD1a95iU6PGxcivbiElj4h9XJyhusDvpO16kJYFum+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=No5dZJ46; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="muSW2j05"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=umUrRdvlZrKN/SMBrmrfHsvFvLqwfUS/fJ+1+mgGzWfyOH5i/3a8zQVVDlHhswPFJE3vuZ2/5Jg5BAhzH2xhgCHc+Jsoxwgd49//b1nllbX6iAjHFAzCGIjDt/e4fT9FkY+wfxCqFXUz6jFwVoCnPXlmFMt0bHHdJGFec1ft/sCzU5f4e02iM35dygQf9zFfEgaiem+CvIHF3UCl3WmFHVsUBo9hsWGEf6PxozwiuSNM2IRmM8V/12CBPyeitoPC+XQDxag3iqxgJ6HNk61iL05gi0NA542EVHmbyZ3zl86TzlufVlytCFHxs+9WlshwL6AGGjGxISW410YTd3ljMA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=plxSKFYZvx1Xp+2MCHwerTLeBAwUtX1i5Q9CGvJoskA=;
- b=IwjejtYiPvkqPyob5enKUIhH0pXHqihQhw28NgKWpJMlvaG0+m+gYdRSWPQkLAS7mktpcq8hHZvL3wv9Wwasm0AFsF+31yJBmBBlvJQYVoF9uzZql0FULckDXqA/oR9CWE0Lov4f0TvrtbcYb13JMbq7v43I+2JVsQT3X6IEByeurlW0mOi3NswTJ1UIGEMeSkOm//IhaRrdTJL5TcLji11XqfU9jLWn7ZxS2MjlSe3qdg76MKLzLzQ5MOcJCX8FevKwWA79miEX60uJrNb23bHLAKscIE+jozTcAH4YXCpJNRT8qiv5N8oRbaJjBfW+DMZyYjfugIZFJuVcYcyeMw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=plxSKFYZvx1Xp+2MCHwerTLeBAwUtX1i5Q9CGvJoskA=;
- b=muSW2j05IaN0Yf8sMpZusvMpqctiys1/S6z56efpSX/2oTP/ZcIlIUpvqCYZMEOmXWZXk+va9cmWCwLZRSnQBPS0+LwPSV1701rTu8yJJtRWesQ9Fwn8t/LK2wmzgUv5NnyFbN90v3lh9G3f/6GuDKd1PvmyZ9STmmWVnGXMyCZj54s/XmMPNPM8XKfT7CEoNCG1QoXkbbpxA6nRrg39820fH210SbM9CTdIxGieAIZMZjfiDh6oDiuTVjY5G1ua59nOvQtZqQg+NFv5/WbA0Aak6DegHa3OKr5fTW8b6/U3w01yrR33xN1AmmYMR2h1NhwEH2uyKmEhw0tVm6MzuA==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by AM9PR04MB8796.eurprd04.prod.outlook.com (2603:10a6:20b:40b::23) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.9870.25; Mon, 1 Jun
- 2026 19:55:14 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
- 19:55:14 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH 1/1] arm64: dts: tqma8mpql-mba8mpxl: configure sai clock in sound card as well
-Date: Mon,  1 Jun 2026 15:55:06 -0400
-Message-ID: <178034369688.425543.4889711119103789584.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260522112247.1046944-1-alexander.stein@ew.tq-group.com>
-References: <20260522112247.1046944-1-alexander.stein@ew.tq-group.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SA1PR02CA0019.namprd02.prod.outlook.com
- (2603:10b6:806:2cf::12) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="No5dZJ46"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490a762db7aso12850765e9.0
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 13:07:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780344466; x=1780949266; darn=vger.kernel.org;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=I8KTi/gy6XvJGr5oRI81A7XAgQpzQe+KpvHOKKQoJ8s=;
+        b=No5dZJ465DIB5st5EPvsOCLC1vb1P13oi8D1nJsa8zkPek7NXTZCyBLAOUy2/gtxNN
+         UvfplrpGjbpdFGQzkkO0IktpoG5K44yCYYocbKKhi+zE7pUk0Tl/Vhj5xHnpID+yiI6u
+         Wx6GuOaaFPCngBD333WT2xrEy0DWFkQbmkrL1YGgv7+yyt8/yzgEDU7BMT50uk1rC4mQ
+         OMy5vXtvB9BCzTUgRlbhS8qTcOb5TTkNiUC7ZGbiA4QXmtkvMUXhiyhg3IV/J5pQJxVk
+         bikqg210ixofjbwfoEpQAKSYLuhhBJe9nJCbj4qAWeoEPq0rkBwFhADLLbgoyfNJGyTY
+         kuHQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780344466; x=1780949266;
+        h=in-reply-to:references:to:cc:subject:from:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=I8KTi/gy6XvJGr5oRI81A7XAgQpzQe+KpvHOKKQoJ8s=;
+        b=TcpVZ0mbeyz5jbgr4phecY2nIwXtqcp3bODzZIstWfvC2PVEw6c6Sk9xKFIRDOeBF7
+         yu+pYceyXyxcHquP3JxbGWsvPTeBH3SqHKEjpIXo8VpDvhSWKeqUwHfJvRvGSHQcaC9y
+         UZYtwerdk4HgPJKRJZsEUPlmX6pMd7w+ZxtCABlYfhclw1XXiNT0I00ywCkriK7KjGZi
+         xgqElBmIqZ9AZJzrxDpuGhsvzCHA72qcVuy9mZu/Ihe4B3/5eDJqtHOuIwZPooy/HIlB
+         2kG5fV/6x8T/vfoVlm0ajvfz8kLMPqWBntyHN33HWGZrVN8SrQbSiDTHzNdnjDwHqIZo
+         Xy3Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/HWCqSuESe4BJ5MnByI+ISjSSBdKeq/jFiaEfKhFVliJly4x/VGPnfnAIzEHeVHtzNrcQsGj23jbzK@vger.kernel.org
+X-Gm-Message-State: AOJu0YwIJ1x1Hy8tOqAOY8ssa6e3FTjmFdhToSEeaFDrcc+1T63qNtRK
+	v9GBKHAh+8O/k9+r8alLFAmqMxnYO4Z8quYAQtrDvQyAW/xAZnWEdwG4
+X-Gm-Gg: Acq92OFOxAdpLXCLuNERYpjqyHXqHLT59pd5tgI7XTGCeHX0Mk0B0rKb4rNps6WH5k3
+	0OoHyD+f8ObTg9S1c6kH2wQu0jeoAkzOUzA7Y6UVvIyrtJB6y1JfT8rsvb9QvF9bGU2LQFH84el
+	gbxhEblx5rGqtZ+OlowaxL/evyfYJnV42xs2P+LZhZ93PxnR/YR/drFsqOxZocTk9cGHlioMzSE
+	R/UH4K+xGoqBtgBHZ/AbGyJumexj2r8Ju47C1HS6nr4gy5mzwf1qEm3F92dN18FW5CRIzxd7RsX
+	MBZJQPy2LLpS2n3WyR1pAhlTBzOjiLunv5a5Df6CcyMkUwXXMOCZC1jhhL5T7NwBFe1Hbzo1Phz
+	mq0H1Q6WvjPPze4mx/6t07FU/Uv/QDVYwER+DxC3X2Ndf6Wv+eimuW4dmAofnAj8wzINv/U8y2r
+	GLpHmzDx/s9iDJjWcEqD7kt3QiK9simP1veZ8k5kMiLizbb1Q=
+X-Received: by 2002:a5d:49cb:0:b0:45e:ef2e:25a8 with SMTP id ffacd0b85a97d-45ef6b9a95bmr18082524f8f.32.1780344465234;
+        Mon, 01 Jun 2026 13:07:45 -0700 (PDT)
+Received: from localhost ([2001:4bb8:152:df59:90ee:310f:9ad4:9858])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef356b129sm34737190f8f.32.2026.06.01.13.07.43
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Mon, 01 Jun 2026 13:07:44 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM9PR04MB8796:EE_
-X-MS-Office365-Filtering-Correlation-Id: 003be6af-355c-4537-a3a2-08dec017b23c
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|19092799006|366016|11063799006|6133799003|22082099003|18002099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	zBrJwLVvgJ+zhgMeOZHmHP1puaSUSTa6Zxbnrzc1+QmNMifGGxeCS9tBhrurJeLwMr1AJsd5fZKeGnxuxBDVF53FaI3vJ1qTaSaG+qY1D5tBkWHfLVsDGv9b4Zl6bmg5ymKjpBDO7sFXAvfjKqNNz4OzvYA9T2jG0x/m62pEXyNz2V5ITIXPZ3zIGL7gaqcJrLRsBOSVuqHDvSANqKK2xASwcoCZClPk3GrnSZGpcazp8AHM8roQQl7f6CQXBR6GYE9EP7d/x1liWT0AdUzloNGvvgrGq7yi/Skrsg/mK3hajrHKGhbMPqD+dmRoQK6rRDow1lSSGnzC4tR2X86Mapis5r9Kx4KKR4q4aLK14gT6a0ZP5or0z4v8ZpKpq5b4E5tGCQO3TDJcO9JHcIH2QL6Y2y7MeDYo487/Y/gdGSV2fihw9Xtt2/lBqGd9PqJLE3heyNDgJWhsSToq3/vWzQd3ej+OmVzmF2jzdU7SR7LvWNLFEg+VVyykOaHHUagN2RUG2/huAwBXoT3Oyfe62YIwTLDsduvYcr+AvILwgRKbLTcwKHhkc52Tf5+gJJWSDwuDJb+m9bKju0pPqQaBSnjwz6gU3w7YFeO1Z4i1ewtSDM0hjBzWS/9KJd6v3pf82D0IBDCfZd0POMvrGX8XnNNnt1XMh/cnL47/qLKEnRmfbQYRuHOUn3JQZW4+tgHV
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(19092799006)(366016)(11063799006)(6133799003)(22082099003)(18002099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?ckpVNGtxR1gyYnpUQ2N4VGJ6MFZIQXRmZjV4amdPazBvaVIxOTVLbkRlYnd5?=
- =?utf-8?B?T2FaM0h4S3V4WFExcXJqZFk2RnR1bVFvby9PTzJWOEtWelZXUmIrRERpOHRV?=
- =?utf-8?B?QXFSMklzdHkxSjJQS1JCOU9Zdk1YWnM3aTVkTVlub3JBbzlWQytCZERBZXds?=
- =?utf-8?B?NitNWG1hV3FSSUoxYzJ1RTFTejhxVWIwbXo3b3dEdTNoc3hPMkszMVY2MHhw?=
- =?utf-8?B?eHpWcUtTVzVranE0a0ZCcEticVliOEYwQm5maVdrdXJhcjg0aC9DN2VwQUVi?=
- =?utf-8?B?Rktxa2l6RlFtZmhVRURZQTg3U3drSmRjQUd1eUdtbmJkYmR4eVRjOTIxeGcr?=
- =?utf-8?B?NjBxa3NUMzN2aXF2dS8zZ0hZN3Rsays0R1NRZk1sdlhldGhHWEkyemFmV2hh?=
- =?utf-8?B?anJkd0creURoVWh4cjAxRGMybXdkYXJLMjQzK3RKcWJ0L2ttd0dRWjJDVklV?=
- =?utf-8?B?TUFoZlVmUlVLRVUxcUFLUkg3VEpTQk1ZMzlLaWVPN1phOHQwdU9rbWh5Yk9x?=
- =?utf-8?B?aHJNY0xMOUYyYXhMMzZjZHc0Rk0rdHRxMEQvZU9RY2hGVkY1RE5xa092dGpv?=
- =?utf-8?B?TGRqZmpWd29OTWt2UkxzVG5tTVpGZnB0cGRiM245eEV2amVUMC94WTVaTjQw?=
- =?utf-8?B?eXlUdDJsNnRnQmN6ZGtlcnhWZjJzUm05OG9aWEdmUkk0VHZqN01lL2luS0F2?=
- =?utf-8?B?VEV0NGNZSEEvT291ZVF6a1E5OVdZNjl4OTNFRlRiSStSZDNkanZ1eDB0d0lE?=
- =?utf-8?B?TEJMVndEaExndzg3OWtWMWtsYldsNU5mTXlVenI3bnpiRDZ4RmdQcTJ3b2xT?=
- =?utf-8?B?Z0JVZ2M4QlpoQWN0cGt6SE5JWm1tN3YyMTlaRGN0YzRDamY1MUkzeWVIWDlX?=
- =?utf-8?B?bzhCbXNEa0UyRG5WZkR6a2o0UXUwb3VRWC96dXpNSnRpbFdiOHNyQVJOWldh?=
- =?utf-8?B?QU82U2t6RnpoVjMyTGorL1U2S3Q3RE82N0w2cXlIRHFtbHJWbE5JR1VzTTBk?=
- =?utf-8?B?VXN6RXB2bjlVYmszZm5WaXQ1Wlk4MkFaaFE0R0tGNlloM1lxTEs1OUhaaUJS?=
- =?utf-8?B?bmo3RTBORG1vMldycGM3MytWTk9ZZnRGVVN2YkNhdHhtMFF3cWRSbjJXSnln?=
- =?utf-8?B?TE5Vd2h2VU81UE8rWjJJd294UndERnNZcEcvRG1mTXRRSGxwSjBsbit2cDhU?=
- =?utf-8?B?a3Y4V3lTWUhJWGo2RFRJZnRMNXh3ZHV1SENCS2kvQ2xqaFpUQzkvdE4wS0Vw?=
- =?utf-8?B?ZDk3WkF6V1NPVFpNOHdUWmNia2hEbVZKMW52YkVHeWx3c29Rek5ZNnE0SnJq?=
- =?utf-8?B?c1NWZjdteGEzOEswZldocWZzWU5NdDVHb2tSWWlsR2RtcHBuM0E2VmRCd3Mz?=
- =?utf-8?B?a1BSclZycTNwRnpENDI5WlV1QXkzV05Ja2JWUWlZYkJFTGRqMG4yUXU1aWY0?=
- =?utf-8?B?Y25vU0pKREVEVjQ4cFFZSU1sZnlMOXdyMGlTc1hBVlZuQkIwK21uK3FBdSt5?=
- =?utf-8?B?VHJnbEwwbk81bmZaMmR2MFVHNWs2LzVOWmQrWjZ6T1Z3VjBOQUM0NzRmMnp0?=
- =?utf-8?B?WUZCVGZhZHB6c29rQmtoS2J4YjNaaVdLTWVVU3VDZU9IbzcxM2lUMU5hQUpU?=
- =?utf-8?B?N2RWbWNiM0V1UzV3SHQ0d2lVTmpXTGF1RlJ2Zzk5MHRYL0FRNDROaFdtRVV1?=
- =?utf-8?B?NHA1eXgvQVNEelNnaXlHS2N5RlJzcGFvV1d4QzNpajRkVnpRVk1jTGhDN21O?=
- =?utf-8?B?R0FYemNHdnMycjBtNEptTTFnV1haT1dJRjlPSWFMY1ZnQmZtVHp5Q0ZKb3dL?=
- =?utf-8?B?TE5URzlMcWs3cUl6SXYwOS9FZmc3WFJzckNBWUREYTEvZ2hPUm1QTHRQRUtR?=
- =?utf-8?B?NlRaS2tVL01Ha3NzUzYyR0ZsUUJsZjMvYXQ5TVJucjRkNmNJRjUrQnFkRE1R?=
- =?utf-8?B?NGpPd2RUSnVKcG9NVkw2b1l1UThoTEpPUk1JK2Rvajd0NEl6d2tlRkt2eVM2?=
- =?utf-8?B?RG5Sa2ZQNkx3K1ZuOXF4UVA1WTFIZlJjYnArOW45S0lWVTZDaFBLbTJtcU9s?=
- =?utf-8?B?cXZrcy91THJkbUFYWVZnZ1RJc2gxOENWbWNlNmMyK3pISnl2STZCRnBwdVp0?=
- =?utf-8?B?VllScVpva1ZoUkhnTzZUYkowY0h1RDFxcmVxdThOVnFaU0k0MlFVeWMxYzRj?=
- =?utf-8?B?WUxSaldGWnptS2hWQjRyWFJOczhSVWJSTmE1YzZWaXFXY1JYVDdNdkg5dGpp?=
- =?utf-8?B?emtzQTlIbmxRSUVQVFY4S0FpRkp4U3VaV3psV0hUU1VLOTVZRlVNVXFWcEF0?=
- =?utf-8?B?cm9YR3BOS1hlNXhtNFNxRUo0V3JRWnIzZjk2L3oreXloSEs1QmxQbE1xcDZO?=
- =?utf-8?Q?Ebetsoikv/mGC6ctqFAXmAXj69hLBb3FkBdEl?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 003be6af-355c-4537-a3a2-08dec017b23c
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 19:55:14.2472
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: DRiTE222XjqAKM+aATHl+ZUYKdELpZHO4pYZlBpRr+SxVnCmgvPOH5n/bMbnxdA0Uf9bAmwzDAlpGMZJ5S/9KoHeBsuJuwI9upc/ixrc8757vlu5qC4IrBudKD3p4f8g
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8796
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 01 Jun 2026 22:07:42 +0200
+Message-Id: <DIXZFV822HRI.2SBIT7ADW9LUK@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Matti Vaittinen"
+ <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
+ <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
+ <20260601112103.281387ee@jic23-huawei>
+In-Reply-To: <20260601112103.281387ee@jic23-huawei>
 
-From: Frank Li <Frank.Li@nxp.com>
+Hi Jonathan, thanks again for your review.
 
+On Mon Jun 1, 2026 at 12:21 PM CEST, Jonathan Cameron wrote:
+> On Sun, 31 May 2026 21:58:22 +0200
+> Javier Carrasco <javier.carrasco.cruz@gmail.com> wrote:
+>
+>> These sensors provide two light channels (ALS and IR), I2C communication
+>> and a multiplexed interrupt line to signal data ready and configurable
+>> threshold alarms.
+>>
+>> This first implementation provides basic functionality (measurement
+>> configuration, raw reads and ID validation) and defines the different
+>> register regions in preparation for extended features in the subsequent
+>> patches of the series.
+>>
+>> Signed-off-by: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+> A few comments from sashiko and a couple from me based on a fresh read.
+>
+>
+>> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml603=
+1x00.c
+>> new file mode 100644
+>> index 000000000000..6f9a7bad44d4
+>> --- /dev/null
+>> +++ b/drivers/iio/light/veml6031x00.c
+>
+>> +
+>> +static const struct iio_chan_spec veml6031x00_channels[] =3D {
+>> +	{
+>> +		.type =3D IIO_LIGHT,
+>> +		.address =3D VEML6031X00_REG_ALS_L,
+>> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>> +				      BIT(IIO_CHAN_INFO_SCALE),
+>> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>> +		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>> +		.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCALE),
+>> +	},
+>> +	{
+>> +		.type =3D IIO_INTENSITY,
+>> +		.address =3D VEML6031X00_REG_IR_L,
+>> +		.modified =3D 1,
+>> +		.channel2 =3D IIO_MOD_LIGHT_IR,
+>> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>> +				      BIT(IIO_CHAN_INFO_SCALE),
+>
+> Can we move scale to shared_by_type?
+>
+> Thinking on some of the others, they should probably be shared_by_type as=
+ well
+> rather than shared_by_all. If we ever add buffered support and a timestam=
+p
+> the integration_time doesn't apply to that.
+>
+> shared_by_all tends to only include things that are truely universal like
+> sampling_frequency.
+>
 
-On Fri, 22 May 2026 13:22:46 +0200, Alexander Stein wrote:
-> With deferrable card binding the sound card driver tries to
-> get the mclk configuration before it is setup in sai3 node.
-> Fix this by setting the mclk config for the sound card as well.
+I am not sure if I get this point. This device has a single IIO_LIGHT
+channel, and the scale only applies to it. Are info_mask_separate and
+info_mask_shared_by_type not the same in that case? I have seen that
+some drivers use both info_mask_separate for INFO_RAW, and
+info_mask_shared_by_type for INFO_INT_TIME and/or INFO_SCALE, but that
+could make more sense if there were multiple channels of the same type.
+What am I missing here?
 
-Applied, thanks!
+On the other hand, the integration time applies to both the IIO_LIGHT
+and IIO_INTENSITY channels, so I guess you are suggesting to add it
+to both channels as info_mask_shared_by_type because the timestamp
+is a channel itself. Moving it form shared_by_all to shared_by_type is
+alright, and I will add it to V5.
 
-[1/1] arm64: dts: tqma8mpql-mba8mpxl: configure sai clock in sound card as well
-      commit: 9abd06007c314cfd065ac13b0f382d624befcf23
+>> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>> +		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>> +	},
+>> +};
+>
+>> +
+>> +static int veml6031x00_get_it(struct veml6031x00_data *data, int *val2)
+>> +{
+>> +	int ret, it_idx;
+>> +
+>> +	scoped_guard(mutex, &data->scale_lock) {
+>
+> Given below I suggest you need an unlocked variant of this, maybe
+> think about whether we care if the scope includes the table search.
+>
+> I'd just take the lock for the whole function.
+>
+>> +		ret =3D regmap_field_read(data->rf.it, &it_idx);
+>> +		if (ret)
+>> +			return ret;
+>> +	}
+>> +
+>> +	ret =3D iio_gts_find_int_time_by_sel(&data->gts, it_idx);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	*val2 =3D ret;
+>> +
+>> +	return IIO_VAL_INT_PLUS_MICRO;
+>> +}
+>
+>> +
+>> +static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_t=
+ype type,
+>> +				   int *val)
+>> +{
+>> +	struct veml6031x00_data *data =3D iio_priv(iio);
+>> +	int addr, it_usec, ret;
+>> +	__le16 reg;
+>> +
+>> +	switch (type) {
+>> +	case IIO_LIGHT:
+>> +		addr =3D VEML6031X00_REG_ALS_L;
+>> +		break;
+>> +	case IIO_INTENSITY:
+>> +		addr =3D VEML6031X00_REG_IR_L;
+>> +		break;
+>> +	default:
+>> +		return -EINVAL;
+>> +	}
+>> +
+>> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(data->dev, pm);
+>> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	ret =3D veml6031x00_get_it(data, &it_usec);
+>> +	if (ret < 0)
+>> +		return ret;
+>> +
+>> +	/* integration time + 10 % to ensure completion */
+>> +	fsleep(it_usec + (it_usec / 10));
+>> +
+>> +	ret =3D regmap_bulk_read(data->regmap, addr, &reg, sizeof(reg));
+>> +	if (ret)
+>> +		return ret;
+>
+> https://sashiko.dev/#/patchset/20260531-veml6031x00-v4-0-e64f7fdce38d%40g=
+mail.com
+>
+> Hmm. Sashiko shouts race here. It is kind of correct in that we don't kno=
+w
+> if we have a matching pair of integration time and reading. Thus we might
+> have
+> Thread 1                           Thread 2
+> Power on.
+> Get small integration time
+>                                    Set large integration time
+> read before new integration done.
+>
+> Whether this is bug kind of depends on the device when the integration ti=
+me
+> is updated.  Does it finish current integration with old one, or does it =
+just
+> update some register against which a comparator is running. So if we are
+> already integrating, do we just integrate for longer before stopping?
+>
+> I haven't checked but this smells like kind of thing a datasheet won't te=
+ll
+> us.  Hence I'd be tempted to throw use of data->mutex to serialize single
+> reads and integration time updates + anything related to that).  It's
+> harmless at worst and makes it easier to reason about this code.
+> You'll need an unlocked  __veml6031x00_get_it() variant to call though
+> given that takes the same lock.
+>
+
+You are right assuming that the datasheet will not give us an answer
+about that. I suspect by my measurements that the measurement is carried
+out with the first integration time, which would make this issue
+harmless. But as I am not 100% sure, I contacted the manufacturer to
+have a reliable answer. I will wait for a few days while I fix all the
+stuff for V5, and if I don't get an answer, or the new integration time
+is used, I will use the mutexes as you suggested. I don't like using
+mutexes to protect sections of code "just in case" without a real reason
+behind, but if there is no way to know, then it will have to be that
+way...
+
+>> +
+>> +	*val =3D le16_to_cpu(reg);
+>> +	return IIO_VAL_INT;
+>> +}
+>
+>> +
+>> +static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
+>> +{
+>> +	int part_id, ret;
+>> +	__le16 reg;
+>> +
+>> +	ret =3D regmap_bulk_read(data->regmap, VEML6031X00_REG_ID_L, &reg,
+>> +			       sizeof(reg));
+>> +	if (ret)
+>> +		return dev_err_probe(data->dev, ret, "Failed to read ID\n");
+>> +
+>> +	part_id =3D le16_to_cpu(reg);
+>> +	if (part_id !=3D data->chip->part_id)
+>> +		dev_warn(data->dev, "Unknown ID %04x\n", part_id);
+>
+> Maybe relax to dev_info() given we expect this to happen if fallback
+> compatibles get used in future. Warn is a little strong.
+>
+
+Ack.
+
+>> +
+>> +	return 0;=C3=A4
+>> +}
+>
+>> +static int veml6031x00_probe(struct i2c_client *i2c)
+>> +{
+>
+>> +	pm_runtime_set_autosuspend_delay(dev, 2000);
+>> +	pm_runtime_use_autosuspend(dev);
+>> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
+>> +
+>> +	ret =3D devm_pm_runtime_get_noresume(dev);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to get runtime PM\n");
+>> +
+>> +	ret =3D veml6031x00_validate_part_id(data);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	iio->name =3D data->chip->name;
+>> +	iio->channels =3D veml6031x00_channels;
+>> +	iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels);
+>> +	iio->modes =3D INDIO_DIRECT_MODE;
+>> +	iio->info =3D &veml6031x00_info;
+> This block doesn't need to happen in the runtime pm region.
+
+Ack.
+
+>> +
+>> +	ret =3D veml6031x00_hw_init(iio);
+>> +	if (ret)
+>> +		return ret;
+>> +
+>> +	pm_runtime_put_autosuspend(dev);
+>
+> As sashiko shouts, this looks like runtime pm will underflow on remove.
+> Check it by removing your driver.  It doesn't actually result in any
+> problem, as the runtime pm subsystem just saturates at 0 on decrement.
+> Given that's tear down anyway maybe we don't care.  However, it's easy
+> enough to fix by using pm_runtime_get_no_resume() and a couple of
+> explicit calls to put it in error paths.
+>
+
+I took some time to audit this in detail, because although my
+expectations are that atomic_add_unless(usage_count, -1, 0) should make
+this shout a false positive. Expectations don't always meet reality. My
+expectations were based on the code, so I have added tracepoints to know
+exactly what's going on.
+
+Scenario 1: Successful probe -> unbind driver.
+
+devm_pm_runtime_get_noresume() increases usage_count, and the call to
+pm_runtime_put_autosuspend() decreases it. That is balanced, giving us
+usage_count =3D 0 and putting the device in power down mode as desired. If
+the device is then unbound, the devres action (a call to
+pm_runtime_put_noidle_action, which only calls pm_runtime_put_noidle)
+triggers a call to atomic_add_unless(&dev->power.usage_count, -1, 0).
+Given that the usage count is 0, nothing happens and there is no
+underflow. In fact, the underflow is not possible this way, and adding a
+remove function to check if usage_count is 0 and calling
+pm_runtime_put() is basically repeating what the devres action already
+offers for free.
+
+Scenario 2: write_event_config -> unbind driver.
+
+Sashiko says that pm_runtime_resume_and_get() increases usage_count, and
+there is no devres action associated to it. That is only partially
+correct, because the devres action from devm_pm_runtime_get_noresume()
+will be triggered when the driver is unbound. Actually, this is great
+because then pm_runtime_resume_and_get() gets balanced, and there is no
+need for a remove function to check again if usage_count is 0 or not. In
+this case, usage_count =3D 1 before unbinding the driver, and then the
+devres action is triggered when it gets unbound. Exactly what we want to
+have usage_count =3D 0.
+
+>> +
+>> +	ret =3D devm_iio_device_register(dev, iio);
+>> +	if (ret)
+>> +		return dev_err_probe(dev, ret, "Failed to register iio device\n");
+>> +
+>> +	return 0;
+>> +}
+>
+>>
 
 Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+Javier
