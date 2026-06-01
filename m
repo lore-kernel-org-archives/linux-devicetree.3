@@ -1,109 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6512F3DFC80;
-	Mon,  1 Jun 2026 20:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3A95361656
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 20:49:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780346967; cv=none; b=YOKg7ejWk/3NL9gc3dsqpFz/y3kkO8EwqWYQvongrEpvcfkmGmNdgHIMLqx+lIqc1i1q/p6JQp/3dk1lb+Ojw5qCJP/E6MTqHp9AlQLCnmGPcMHPjEE5Mcteo3UEVtbc+wUcCeb+fGisVx/1qycGYMAPARxtqEgMS4Q+6xSPrVg=
+	t=1780346972; cv=none; b=VnxRb2o9/8Ky5Zht/tSMqx5Cjf7ATnjOHQ4jdAJ5sWaY85l6V4kGMj38IBPiJvBHlv35+M/J75SKemHO4Z4+BUfjt+n6uUwdv/S9JqdlbU9vOoYljkmHoNZMESNeNiSDOvX3lCKaZ2O6iiw8sxlPywnJE5JKSQA5plxaMaijpKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780346967; c=relaxed/simple;
-	bh=BK2YJnNawqh+NLgg8Srzx+aDkFgs44fvkyfUqUbQZZE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qxZdwsMHexTlMNUBfiN2JEIOGwnjMB4Lh2ZkQlGIEIqmF704UUT37Xi5vy2buCjJiun2mjUPxnDH25wHr/I0Ei+EgbygLKQFA2pEuyKW7xyQBJmTOdR6slTAa10sfFp0M3BTt+HeM7Rk/b7nxO+vLZGEhBTI6Ybz9lTJTWfMuVM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KIdpZfLX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780346972; c=relaxed/simple;
+	bh=XzoNiEoq1efEspU+Wa/WFdP72jW0jTqXt8hvpiStz4s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Sd72DbGa3O7pCv3DKMC8M4yTxQ82wyxq7ofyMsURwpJ6js6LEjpmMUm4N5GWavrEifd4U5fXc07nQRfA7uDGPZP8IMevOOluUoQ2IxnVcco4xD+OZHicFeVdqqtK0eo4hy2Ut0B6txnKbFqkqHHwXRGrHEdiKONh+52UrwfKwGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Txo7jaH4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KIdpZfLX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A6EA1F00893;
-	Mon,  1 Jun 2026 20:49:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Txo7jaH4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A9481F00893;
+	Mon,  1 Jun 2026 20:49:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780346966;
-	bh=V0GxQtKPGi3kWe/Wbl8JqBVlQ2w58REmREm7T00tv9o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=KIdpZfLXMaB0usR/CM8uvtd7GOrP9K4gFtmZwU4SIbL6yXUYHL7HGL2cYa5YvBwup
-	 COWyYTNNlav1QjSFvsWVojFeGPmxs61QE7v5sLJrWE0ShlcQFCJEFAIAn5eEzpl0QX
-	 Bg2hwchpdEp/a0PgcYI9BbqRJM2fNVD4mG1U8fXUEmTBm9QA+TEynvto6LfRcp4o3z
-	 tCmHzjeFfmSlMDhdvuHUEVBeizuo2yBaW/NjUzkOTiCRhfze43nG8FGm1GHtT5JiFI
-	 LhWKLxNyl9GWuqmU0Pl9QPa7yk5Yd85gO0LnH0mTiCixjfjhMbSRIf5SGZ96MQvojP
-	 vQR/d/bm+m8QQ==
-Date: Mon, 1 Jun 2026 15:49:25 -0500
-From: Rob Herring <robh@kernel.org>
-To: George Moussalem <george.moussalem@outlook.com>
-Cc: Russell King <linux@armlinux.org.uk>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Florian Fainelli <f.fainelli@gmail.com>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>, netdev@vger.kernel.org,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Konrad Dybcio <konradybcio@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: net: qca,ipq5018: Split IPQ5018 PHY
- bindings from ar803x
-Message-ID: <20260601204925.GA4132990-robh@kernel.org>
-References: <20260601-ipq5018-gephy-clocks-v1-0-2df8287712c3@outlook.com>
- <20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com>
- <178033592356.3996739.1050010038980629699.robh@kernel.org>
+	s=k20260515; t=1780346971;
+	bh=dmPUeRJnK95d8VsPX4SaMEJhi1b22huQy5RXkRNdKyw=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Txo7jaH4jtX9tU8b9vvbq7TlUOmENHlgyveq2pesP0Ceme5X1iH0FrRPcLyOMEIZc
+	 QpX7dH/WwyIu6YwWjco86MF1m1J1RbyFuwgqlQ6v8132KqEfd+EkUqMb11PZEkwqzx
+	 cl2F3Vug3v3muhtQi0VrHwKQXi3b5OSHOpWEh2vbn9qTLvpmA/q1fPjE61Kj5b0cXT
+	 9qMukSPx1VoBchquqJh30H79hgiUrD3x9QsXm0jMCs4QsBDYI5PF+tUm+dEjt2Y8vL
+	 RGLxepLqo8Cgj/uFRdc0QoqoRoAp47uJrIVC8y/eetE9kRWrVaxjrM97FaRRGxPnrj
+	 5UEgbPnVQeS5Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH RFC v6 03/18] riscv: add support for srmcfg CSR from
+ Ssqosid extension
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Drew Fustini" <fustini@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-3-baf00f50028a@kernel.org>
+References: <20260601-ssqosid-cbqri-rqsc-v7-0-v6-3-baf00f50028a@kernel.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 20:49:30 +0000
+Message-Id: <20260601204931.3A9481F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <178033592356.3996739.1050010038980629699.robh@kernel.org>
 
-On Mon, Jun 01, 2026 at 12:45:25PM -0500, Rob Herring (Arm) wrote:
-> 
-> On Mon, 01 Jun 2026 17:19:08 +0400, George Moussalem wrote:
-> > Move the definition for the Qualcomm IPQ5018 Internal PHY out of the
-> > qca,ar803x.yaml binding file and isolate them in a dedicated
-> > qca,ipq5018.yaml file. This is necessary due to the restriction of max
-> > one clock in ethernet-phy.yaml which ar803x references as further
-> > testing revealed that the RX and TX clocks of the IPQ5018 PHY need to
-> > be explicitly enabled.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [High] CPU hotplug cache invalidation in riscv_srmcfg_offline() is overwr=
+itten before the CPU halts.
+- [High] PM exit notifier invalidates software cache but fails to eagerly r=
+estore the hardware CSR.
+- [Medium] Failure in cpuhp_setup_state() skips PM notifier registration, s=
+ilently breaking suspend/resume QoS tracking.
+--
 
-Just splitting does not solve this problem as you can see with the 
-error. You will need to drop this constraint from ethernet-phy.yaml and 
-add it (1 clock) to every specific phy binding (that uses 'clocks').
+commit bc4841378eac220040a12e4f7c694dde12285eb1
+Author: Drew Fustini <fustini@kernel.org>
 
-> > 
-> > Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> > ---
-> >  .../devicetree/bindings/net/qca,ar803x.yaml        | 43 -------------
-> >  .../devicetree/bindings/net/qca,ipq5018.yaml       | 75 ++++++++++++++++++++++
-> >  2 files changed, 75 insertions(+), 43 deletions(-)
-> > 
-> 
-> My bot found errors running 'make dt_binding_check' on your patch:
-> 
-> yamllint warnings/errors:
-> 
-> dtschema/dtc warnings/errors:
-> /builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/qca,ipq5018.example.dtb: ethernet-phy@7 (ethernet-phy-id004d.d0c0): clocks: [[4294967295, 36], [4294967295, 37]] is too long
-> 	from schema $id: http://devicetree.org/schemas/net/ethernet-phy.yaml
-> 
-> doc reference errors (make refcheckdocs):
-> 
-> See https://patchwork.kernel.org/project/devicetree/patch/20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com
-> 
-> The base for the series is generally the latest rc1. A different dependency
-> should be noted in *this* patch.
-> 
-> If you already ran 'make dt_binding_check' and didn't see the above
-> error(s), then make sure 'yamllint' is installed and dt-schema is up to
-> date:
-> 
-> pip3 install dtschema --upgrade
-> 
-> Please check and re-submit after running the above command yourself. Note
-> that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-> your schema. However, it must be unset to test all examples with your schema.
-> 
-> 
+riscv: add support for srmcfg CSR from Ssqosid extension
+
+This patch adds support for the srmcfg CSR defined in the Ssqosid ISA
+extension, tracking resource allocation (RCID) and usage (MCID). It adds
+a per-task thread_struct field and per-CPU cached variables to update the
+CSR during context switches.
+
+Link: https://github.com/riscv/riscv-ssqosid/releases/tag/v1.0
+
+[ ... ]
+
+> diff --git a/arch/riscv/kernel/qos.c b/arch/riscv/kernel/qos.c
+> new file mode 100644
+> index 0000000000000..d18b99b195e79
+> --- /dev/null
+> +++ b/arch/riscv/kernel/qos.c
+
+[ ... ]
+
+> +/*
+> + * Invalidate the cache on offline too. The sentinel persists across the
+> + * offline period, so a CPU brought back online finds the cache already
+> + * invalidated before it is schedulable. This closes the window where a
+> + * task scheduled before riscv_srmcfg_online() runs could match a stale
+> + * cache and skip the CSR write while the hardware CSR was reset across
+> + * hart stop/start.
+> + */
+> +static int riscv_srmcfg_offline(unsigned int cpu)
+> +{
+> +	per_cpu(cpu_srmcfg, cpu) =3D U32_MAX;
+
+[Severity: High]
+Will this U32_MAX sentinel be overwritten before the CPU actually halts?
+
+Because riscv_srmcfg_offline() executes at CPUHP_AP_ONLINE_DYN, the dying C=
+PU
+continues tearing down and eventually context switches to the idle thread to
+physically offline.
+
+This context switch invokes __switch_to_srmcfg(), which writes the hardware
+CSR and overwrites the cpu_srmcfg cache with the idle task's value,
+permanently losing the U32_MAX sentinel.
+
+When the CPU comes back online, its hardware CSR is in an implementation
+defined reset state, but the software cache holds a valid value. Any early
+tasks sharing this stale value might skip the CSR write and execute with
+incorrect QoS tags until riscv_srmcfg_online() is reached.
+
+> +	return 0;
+> +}
+> +
+> +/*
+> + * CPU PM notifier: invalidate the cached srmcfg on resume from a deep
+> + * idle / suspend. Ssqosid v1.0 leaves CSR_SRMCFG state across low-power
+> + * transitions implementation-defined, and the boot CPU never goes
+> + * through the cpuhp online callback during system suspend, so without
+> + * this hook __switch_to_srmcfg() would skip the CSR write when the
+> + * outgoing task happens to share its srmcfg with the pre-suspend cache.
+> + */
+> +static int riscv_srmcfg_pm_notify(struct notifier_block *nb,
+> +				  unsigned long action, void *unused)
+> +{
+> +	switch (action) {
+> +	case CPU_PM_EXIT:
+> +	case CPU_PM_ENTER_FAILED:
+> +		__this_cpu_write(cpu_srmcfg, U32_MAX);
+
+[Severity: High]
+Does this notifier need to eagerly restore the hardware CSR for the current=
+ly
+executing thread?
+
+It sets cpu_srmcfg to U32_MAX to force a CSR write on the next context
+switch. However, upon waking from low-power states like suspend-to-RAM, the
+CPU does not immediately context switch.
+
+It unwinds the suspend stack, resumes executing the interrupted thread, and
+services pending interrupts.=20
+
+Because the hardware CSR is not explicitly restored here, all code executing
+between wakeup and the first context switch might run with the hardware's
+implementation defined reset value for CSR_SRMCFG instead of the task's
+assigned QoS tags.
+
+> +		break;
+> +	}
+> +	return NOTIFY_OK;
+> +}
+> +
+> +static struct notifier_block riscv_srmcfg_pm_nb =3D {
+> +	.notifier_call =3D riscv_srmcfg_pm_notify,
+> +};
+> +
+> +static int __init riscv_srmcfg_init(void)
+> +{
+> +	int err;
+> +
+> +	if (!riscv_has_extension_unlikely(RISCV_ISA_EXT_SSQOSID))
+> +		return 0;
+> +
+> +	/*
+> +	 * cpuhp_setup_state() invokes the startup callback locally on every
+> +	 * already-online CPU, so no separate seed loop is needed here.
+> +	 */
+> +	err =3D cpuhp_setup_state(CPUHP_AP_ONLINE_DYN, "riscv/srmcfg:online",
+> +				riscv_srmcfg_online, riscv_srmcfg_offline);
+> +	if (err < 0) {
+> +		pr_warn("srmcfg cpuhp registration failed (%d), cpus brought online af=
+ter boot will not invalidate the CSR_SRMCFG cache\n",
+> +			err);
+> +		return err;
+
+[Severity: Medium]
+Is it intentional to skip PM notifier registration if CPU hotplug setup fai=
+ls?
+
+This early return skips cpu_pm_register_notifier() entirely.=20
+
+While cpuhp_setup_state() failures are rare, PM notifiers do not strictly
+depend on CPU hotplug registration. If this error path is taken, tasks waki=
+ng
+from suspend could run with incorrect QoS tags because the PM notifier is n=
+ever
+registered.
+
+> +	}
+> +
+> +	cpu_pm_register_notifier(&riscv_srmcfg_pm_nb);
+> +	return 0;
+> +}
+> +arch_initcall(riscv_srmcfg_init);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ssqosid-cb=
+qri-rqsc-v7-0-v6-0-baf00f50028a@kernel.org?part=3D3
