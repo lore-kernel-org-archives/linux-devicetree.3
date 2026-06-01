@@ -1,201 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F4C03672AF
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 11:56:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780314969; cv=none; b=Opb6y3CeLPsbeAXPQOytT+vwOW7IG9csTnFPpkJnSIKqptSVRk5qNGHLXDEKQ7XIwSI6HCcItvAUafScbfQJK6Y10p66IhuYx99+xmk2LM6ArlNZrPBRU0kKQ5XQRgKGOhB9sCoDgZno3CUHnm5pyQ744qyFa14uo3BcM3uM/Rs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780314969; c=relaxed/simple;
-	bh=eTvLj2MdmCimta1L85xpO05ZuVEAmJXP2qJhDrSsZns=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mBGX8CtpLgq1LNekN0U/T+rthagm+/jS8SumQqN6AUlQf4om6LURN9J0YxAI2uGTNkNYOeuvNVXZ+r4/yNGgLtLLCCz2NoD47feEUBj3ZdUnbvp2VjPEsfnrEdEh06YVUIqCWX6FRNG1PYUL+oC3Rni0z9Wp7gthdzY2UNyt/k8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ihUu91TN; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BF2C36B061;
+	Mon,  1 Jun 2026 11:56:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780314989; cv=pass; b=eY2ngvMHDThFCs/BTzfMdmh60+Y5+7x7tlaKCauZrnNn9/JKaPB8luOjf2YeG9LRE0x8XKAPt/Acz8B3gCBDWZO7i4PqtPc4jUnvoAhXwfVxl/ZqahA/THgAimKp8KmPigUvm7bjAlKer5rpXron6dbida2wZSmz0y9g/xlvTMo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780314989; c=relaxed/simple;
+	bh=qv/9LqBg1EWAsENMiXtbqdMh6zS7Nl7EX/bWFaLIF6s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fcy6LI3n2g2V3R+N37pMeTP5AiC/GexYWfXD3HXk3z7uJumph89GPu5rFGUmXHDNEeVxak49gmO8C9+dlq54LX31F2oNdp0xKnIPRJJVoowdNPNzOockYjEYb93YcwwQfxa8mR58OOgpXDDiM1n7Zc+SbB++ndWdSuBx1WaHO4M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=GF2oyKWg; arc=pass smtp.client-ip=136.143.188.112
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ihUu91TN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C55FA1F00893;
-	Mon,  1 Jun 2026 11:56:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780314968;
-	bh=zon9RtQ+UB095tg0cZKlTlsvKIcb5kYID/Cyf2ns1Jg=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=ihUu91TNcNUaUaUAdZP7x5/HxktIHV7wvBpLW2Bzi4YRwNn46Loae4PkdVMVB4GhB
-	 ATaLSlyXU7o0ssnThGg5W09/z6GghZxH0gfo+IyssjbDZmyp5hX/WkQXryk9R3F17s
-	 Z5cVSkvC6+AfOHOCnS5xpSQGWijrxcSkTBTgTnUqCV1sDgK0ePXoorLbzHmU4R0Ays
-	 bc8/DGmFztu2qJaR0fhSepV54jp3RFLbSUDddhLw7S6eB4EP5ds+rXF7rbiA8JgixA
-	 JWHEbpGUXnEyzRJAQ2Lh796UlBMhsLahiH+PygUvpPy25P4zGOW9l2SAgbX5Fi6WVW
-	 JDf+ty0GpEa5g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 3/3] serial: max310x: honour rs485 properties from
- per-channel DT subnode
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Tapio Reijonen" <tapio.reijonen@vaisala.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-b4-max310x-rs485-dt-v2-3-a105105f8e70@vaisala.com>
-References: <20260601-b4-max310x-rs485-dt-v2-3-a105105f8e70@vaisala.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 11:56:07 +0000
-Message-Id: <20260601115607.C55FA1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="GF2oyKWg"
+ARC-Seal: i=1; a=rsa-sha256; t=1780314945; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=FNRftmKnS7T4TSB+t9muQC7THXzDRm3zS59CpQmQXcfR+lD+sjK+3tcrJhNzULSvMP9iFe6zhia6Er7/3D0+ORHk/jkvrq6OqgErsItAuS0JGYtsajOfUPlgChS+89Yd/E67QrR6yXLqLSKOa5NKv55NaBJaHuYMpv0Sij0NibY=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1780314945; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=NhicfsH5K90NxOsrnACheuqKG+2D1PbU+GtDXc1tNpE=; 
+	b=UPvYofb/4uqXxIKz930hU65li2WDA/0umEcWJiCaq63BDNRizgQKDD4r4gKELhgFKIDeyOoI8TsXRqenSrhWTEvcTJIbA+DJt9dTGtNa1N9Lfxj2nAwF++/+9V0cQLkLjNbFt5autS3UbHwhMPXwmjq3lEJMp+ySzHYS6K5IIqk=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780314945;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=NhicfsH5K90NxOsrnACheuqKG+2D1PbU+GtDXc1tNpE=;
+	b=GF2oyKWgegPpU7BqIuuEq9O1/RNy2sKIo3tJI+XAAgmkFH1teZa2kBFt1ewppfhY
+	FTcXN9GE3Q9TuTAr4N8+B4lGE+E+w6nImJl+d38IyBttQEPH3y4roDTwGUaGPd51cu9
+	lRud7zprKpvKYfeeGSa6Z2/17tVg9IWskRJAhg+o=
+Received: by mx.zohomail.com with SMTPS id 178031494377259.66847238214382;
+	Mon, 1 Jun 2026 04:55:43 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 04019181D80; Mon, 01 Jun 2026 13:55:36 +0200 (CEST)
+Date: Mon, 1 Jun 2026 13:55:36 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Damon Ding <damon.ding@rock-chips.com>
+Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com, 
+	maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de, airlied@gmail.com, 
+	simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	andrzej.hajda@intel.com, neil.armstrong@linaro.org, rfoss@kernel.org, 
+	Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se, jernej.skrabec@gmail.com, 
+	nicolas.frattaroli@collabora.com, cristian.ciocaltea@collabora.com, 
+	dmitry.baryshkov@oss.qualcomm.com, luca.ceresoli@bootlin.com, dianders@chromium.org, 
+	m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add
+ data-lanes support for endpoint
+Message-ID: <ah1y8hRl9M40YNfF@venus>
+References: <20260529040530.741336-1-damon.ding@rock-chips.com>
+ <20260529040530.741336-2-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="l4yu2mk2qw7tpdei"
+Content-Disposition: inline
+In-Reply-To: <20260529040530.741336-2-damon.ding@rock-chips.com>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.300.36
+X-ZohoMailClient: External
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
 
-New issues:
-- [High] Temporarily retargeting `dev->of_node` on a registered device caus=
-es TOCTOU race
+--l4yu2mk2qw7tpdei
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH v4 1/3] dt-bindings: display: bridge: analogix-dp: Add
+ data-lanes support for endpoint
+MIME-Version: 1.0
 
-Pre-existing issues:
-- [Critical] Error path blindly processes uninitialized ports, causing NULL=
- pointer dereference
-- [High] Unprotected concurrent access to global `max310x_lines` causes rac=
-e condition during probe
-- [High] Missing `cancel_work_sync()` in error path leads to Use-After-Free
-- [High] Interrupt handler requested after port registration causes unhandl=
-ed interrupt storm
---
+Hi,
 
-commit 3cfa2d1749d3467560c6e80f4881b8af12a9e51e
-Author: Tapio Reijonen <tapio.reijonen@vaisala.com>
+On Fri, May 29, 2026 at 12:05:28PM +0800, Damon Ding wrote:
+> Add data-lanes property support to the port@1 endpoint for physical
+> lane mapping configuration.
+>=20
+> Lane mapping is mainly used for below scenarios:
+> 1. Correct PCB lane swap and differential line routing crossover
+>    without hardware changes;
+> 2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+> 3. Support multiple panel hardware variants on the same board
+>    by configuring data-lanes in device tree only.
+>=20
+> Additionally, add data-lanes setting in Rockchip eDP DT node example
+> to show actual lane mapping usage.
+>=20
+> Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
+>=20
+> ---
 
-serial: max310x: honour rs485 properties from per-channel DT subnode
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
 
-The MAX310x driver is modified to read rs485 properties from per-channel DT
-subnodes for multi-port variants. It walks the child nodes for a matching
-"serial@N" node and temporarily retargets the parent device's fwnode so
-uart_get_rs485_mode() picks up the subnode properties.
+Greetings,
 
-> diff --git a/drivers/tty/serial/max310x.c b/drivers/tty/serial/max310x.c
-> index 5cb7d01e40466..aee3b75fff000 100644
-> --- a/drivers/tty/serial/max310x.c
-> +++ b/drivers/tty/serial/max310x.c
-> @@ -1426,6 +1426,9 @@ static int max310x_probe(struct device *dev, const =
-struct max310x_devtype *devty
-[ ... ]
->  	for (i =3D 0; i < devtype->nr; i++) {
-> +		struct fwnode_handle *saved_fwnode =3D dev_fwnode(dev);
-> +		struct device_node *port_np =3D NULL;
-> +		struct device_node *child;
->  		unsigned int line;
+-- Sebastian
+
+> Changes in v2:
+> - Add lane mapping application scenarios in commit message.
+> - Remove redundant deprecated property 'data-lanes' for eDP node.
+> - Update port@1 $ref to /schemas/graph.yaml#/$defs/port-base.
+>=20
+> Changes in v3:
+> - Squash data-lanes adjustment of Rockchip eDP DT example into this
+>   commit.
+> - Add unevaluatedProperties: false to both the port@1 and endpoint
+>   nodes.
+> ---
+>  .../bindings/display/bridge/analogix,dp.yaml  | 19 ++++++++++++++-----
+>  .../rockchip/rockchip,analogix-dp.yaml        |  1 +
+>  2 files changed, 15 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/display/bridge/analogix,dp=
+=2Eyaml b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> index 62f0521b0924..ecf206871cdd 100644
+> --- a/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/bridge/analogix,dp.yaml
+> @@ -42,13 +42,22 @@ properties:
+>      properties:
+>        port@0:
+>          $ref: /schemas/graph.yaml#/properties/port
+> -        description:
+> -          Input node to receive pixel data.
+> +        description: Input node to receive pixel data.
 > =20
->  		line =3D find_first_zero_bit(max310x_lines, MAX310X_UART_NRMAX);
-
-[Severity: High]
-This is a pre-existing issue, but does this code leave max310x_lines open to
-a race condition?
-
-The line number is allocated here using find_first_zero_bit(), but set_bit()
-is not called until after uart_add_one_port() completes successfully later =
-in
-the function.
-
-If two max310x devices probe concurrently, could they observe the same zero
-bit, assign the same line, and attempt to register it?
-
->  		if (line =3D=3D MAX310X_UART_NRMAX) {
->  			ret =3D -ERANGE;
->  			goto out_uart;
->  		}
->  		s->p[i].port.line =3D line;
+>        port@1:
+> -        $ref: /schemas/graph.yaml#/properties/port
+> -        description:
+> -          Port node with one endpoint connected to a dp-connector node.
+> +        $ref: /schemas/graph.yaml#/$defs/port-base
+> +        unevaluatedProperties: false
+> +        description: Port node with one endpoint connected to sink devic=
+e node.
+> +        properties:
+> +          endpoint:
+> +            $ref: /schemas/media/video-interfaces.yaml#
+> +            unevaluatedProperties: false
+> +            properties:
+> +              data-lanes:
+> +                minItems: 1
+> +                maxItems: 4
+> +                items:
+> +                  enum: [ 0, 1, 2, 3 ]
 > =20
-> +		/* Locate the matching "serial@i" DT subnode, if any. */
-[ ... ]
-> +		/*
-> +		 * Temporarily retarget dev's fwnode to the per-port subnode
-> +		 * so uart_get_rs485_mode() picks up the per-port properties.
-> +		 * For single-port variants, fall back to the chip's own
-> +		 * fwnode so legacy DTs that declare rs485 properties at the
-> +		 * top level keep working.
-> +		 */
-> +		if (port_np) {
-> +			device_set_node(dev, of_fwnode_handle(port_np));
-
-[Severity: High]
-The commit message states "Probe is serialised, so the swap is safe."
-Is this swap safe against lockless readers in other subsystems?
-
-Since the parent device is already registered and globally visible to the
-device model, could a concurrent lockless lookup via of_find_device_by_node=
-()
-or bus_find_device_by_of_node() observe the temporarily swapped dev->of_nod=
-e?
-
-If so, this might cause a concurrent lookup for the parent device's phandle
-to spuriously fail, or a lookup for the child node to erroneously return the
-parent device.
-
-Would it be better to read subnode properties by explicitly passing the tar=
-get
-fwnode rather than temporarily replacing the parent device's identity?
-
-> +			ret =3D uart_get_rs485_mode(&s->p[i].port);
-> +			device_set_node(dev, saved_fwnode);
-> +			of_node_put(port_np);
-> +			if (ret)
-> +				goto out_uart;
-
-[Severity: Critical]
-This isn't a bug introduced by this patch, but does the out_uart cleanup
-path handle partially initialized devices correctly if we goto out_uart her=
-e?
-
-The out_uart cleanup loop unconditionally iterates over all devtype->nr por=
-ts.
-For ports that haven't been initialized yet, s->p[i].port.line evaluates to=
- 0.
-Could test_and_clear_bit(0, max310x_lines) return true if line 0 is current=
-ly
-in use by another instance?
-
-If it does, this would call uart_remove_one_port() on an unregistered port.
-Could this lead to a NULL pointer dereference in serial_core_unregister_por=
-t()
-since port->port_dev would be NULL?
-
-[Severity: High]
-This is also a pre-existing issue, but is it safe to let devres free the
-device context without canceling pending work if we take this goto?
-
-The driver initializes md_work, tx_work, and rs_work for each port. During
-uart_add_one_port(), the serial core synchronously invokes callbacks like
-set_mctrl() and rs485_config(), which can schedule these work items.
-
-If an error occurs and the ports are removed in out_uart, there is no call =
-to
-cancel_work_sync(). Could asynchronously executing work items dereference t=
-he
-freed memory?
-
-> +		} else if (devtype->nr =3D=3D 1) {
-> +			ret =3D uart_get_rs485_mode(&s->p[i].port);
-> +			if (ret)
-> +				goto out_uart;
-> +		}
+>      required:
+>        - port@0
+> diff --git a/Documentation/devicetree/bindings/display/rockchip/rockchip,=
+analogix-dp.yaml b/Documentation/devicetree/bindings/display/rockchip/rockc=
+hip,analogix-dp.yaml
+> index d99b23b88cc5..f690ee393fdb 100644
+> --- a/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> +++ b/Documentation/devicetree/bindings/display/rockchip/rockchip,analogi=
+x-dp.yaml
+> @@ -117,6 +117,7 @@ examples:
+>            reg =3D <1>;
 > =20
->  		/* Register port */
->  		ret =3D uart_add_one_port(&max310x_uart, &s->p[i].port);
+>            edp_out_panel: endpoint {
+> +            data-lanes =3D <0 1>;
+>              remote-endpoint =3D <&panel_in_edp>;
+>            };
+>          };
+> --=20
+> 2.34.1
+>=20
 
-[Severity: High]
-This isn't a bug introduced by this patch, but could this registration order
-cause an unhandled interrupt storm?
+--l4yu2mk2qw7tpdei
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Calling uart_add_one_port() exposes the TTY device to userspace. If a
-userspace program opens it immediately, max310x_startup() can enable TX/RX
-interrupts on the device.
+-----BEGIN PGP SIGNATURE-----
 
-Because devm_request_threaded_irq() is called outside and after this loop,
-there is a window where the device can generate interrupts without a
-registered handler.
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmodczQACgkQ2O7X88g7
++prqbg//W/6q4iL4Z+96KG17dC3Romdv0RIDL4hqiVccAYjIRdOxOyCXB/3Zvt1K
+v76++g9tq+K89vejb04n5m0qNsnQshLsMqpD9yS4naPQg7wIQMuGsra87qAkhozF
+lFeImUWIMSS/2dbagApnsatXBrQOkXTky+zkyBNmTe71txgkB401J/MUlBJyz70w
+9NUjYAR6bb+8I5WDJUaTbkvu8zjEsAYMQ8PW59+D3aFkn2n/bLHqBqRQDSFyP28T
+J1GZqwZhSCp3dO2PLLzs4M8tAyowz498gApB8zLo9/yG57U4yBzdrrskbx9MVYUn
+/kZMFRzbUbaqwqwwWcVjb/C19iMS5T3iTNLfbenJ7v8HHoOHDRqFXEeoMI1FdCKM
+piUuysqVp/Ub7omiD2myBAPwJ8wuEAaUaKV/bcmC76oU7yX2iCB8xZFkbKuEvVB9
+UFEpje/F4gWwP3tK+uoqRLDoQ7pxpcCg81WBWKnCNRqavfD/OfalFth4W9ClaUSQ
+UjNqx7xF5o2zrxUd5BxTuiNnJjalo3olhcD3c3nVSgdvvHQOdpU4iAp91nAU7whm
+U+9eq0CE326GKt+hQSdKH3GbqqxUSf6tQ/KypdlFIhPunpzUoARdE1HrwIYbyO5O
+GJ2sUtue3CQZ3nl0/SyuZIJB1jEGMBA5sigFw6TvOZrilwm4GyI=
+=I06R
+-----END PGP SIGNATURE-----
 
-Since the interrupt line is shared, would the kernel forcefully disable the
-IRQ line if an interrupt fires during this window?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-b4-max310x=
--rs485-dt-v2-0-a105105f8e70@vaisala.com?part=3D3
+--l4yu2mk2qw7tpdei--
