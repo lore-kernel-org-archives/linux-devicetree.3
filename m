@@ -1,168 +1,163 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5505277C88
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 11:24:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB2293A425B;
+	Mon,  1 Jun 2026 11:26:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780313053; cv=none; b=b85mxoy+uX/nAwI2cKHog/HTWUfXupJi1PmwKeXuiwXDxcam54qqJ53AfYhVEllGXzV1JZV9q3FhAE2Vvi5FS+ViVA3F7JW7IJJcO2E6x+KCoaiDWfa9KS2VRphem0WwvuKadln0/UZ3tlyhXFU13bBv/sAdUaJZyY+AukoFv8k=
+	t=1780313199; cv=none; b=PQXgP7p/ld9NLDGDFJnACwOOWaKR6ihtJNBs2z04M93z10Zxv/pj/5wN+LVVi4tcaK+0Wlp5+tnxToO6vwe5nadTrxSr+Wsf1DTF/lQJzH1JtBoWYRXapzwmZ4htAVgNHOzmw93uE/lTFK56PXfgS7f12VwJB79xD0XIDtU/hIU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780313053; c=relaxed/simple;
-	bh=qF0Ufo/CjIRzKBzBQQtd19XCtcP1aSRWrtVrk1k3Gg8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z78p+IR5DjonW8RP4PF3G673bXgCUMS10hHb5V8RmotROEn2anwkxbh2Nhdz9PIF5MDP0Vne1ZjJ8TpGvNoBYg9qvkmSr7KMtk14DmbcQQalDriIM5XoNirDKs/voevWG1jJB/KE4gOeVpGYJR16o2R0BzLGwjMpnxpaYLTFawU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kGfffAwe; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=UuM9Nhmj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780313199; c=relaxed/simple;
+	bh=o6pwL8tFEwcdcvIaw8jewqS5JpVWtXKDjGDqT4YDUPQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=FuOMXOS5vllxKbeH24ejU0RNxJgV5ODyyA3QTA1WnPpgmV8UtmzlPpxx/oPOtL6y/M3DXQ+56WPyUMzXxOE8s3360Kntnn2UrkoWr4T9VDTIt6hHdcdZD5En8QRzzkYh6oVijBTnRaeTsu4UUhvtaZTJQWnfx4sgAl3b7BkHD/E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQw1Zkm0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kGfffAwe";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="UuM9Nhmj"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6518dPOv3563524
-	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 11:24:10 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=ArCUJSu0p5Rr7kXoBPCR6AQJ
-	dxQ3plRaRNA21LoO2vQ=; b=kGfffAweEuFI61ksMVOgeMQXVInhen1UNYG1849B
-	gwrE6W77PzXJ55F0VIo/G6QE4UFr4VkNBqcNCgraI/1O9owetKwsDe+zvxq7xoQR
-	JYDcjuMt1IauhlADNOZsoSQaXTCXxeXtFXSOXr4Yig5qYSbSkYDYlSiSl+IYoTrg
-	jMrVGCQesGyfSSSgReb1/L0IAgdQvm2ohB2TTzFN5ulheYqsCVycPI5x19OlXZUJ
-	5dN3mHud3khZdJe/Co/J2rlGF+fRWBWFwcVan5WhgZDEXoXgvhzRgN+zGj3ljH6k
-	x9rhNv4aGp3tYB5iT8vrovY39fBM4dC0tMc5/RiBrRS8bQ==
-Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4eh6rxrpd7-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 11:24:10 +0000 (GMT)
-Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6cfd441619aso369440137.3
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 04:24:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780313050; x=1780917850; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=ArCUJSu0p5Rr7kXoBPCR6AQJdxQ3plRaRNA21LoO2vQ=;
-        b=UuM9NhmjQwFH0QXyrNFau22D62X8VV6XPvsz0TbQXI444ON8Yb+JXzSemBat1rTFwV
-         k3nDhRL0+dfSVirRraP8G4nh5o0z9VlGA2BhMSXGLatpkbFMR2XGoFIoFnr1EvOMdP/l
-         +Jt+ZZSnWo1MsqL7uhFWByNFQGLfh+TC2jBLIq2c6hPELkItmYxN2/dDs83YTts1htQl
-         /ZwwmekKx26Qv0ZkRK2HMVG/WXmYodAb7jZb37MBRJNiK979I+nOtr3kQPHMzf99EEyt
-         JhxT8WSVpX0NdUtPW4PneWZP1jBrAoPRdd96+u8aGaHQoLpbuH3gbg2yXG8ug76aYcmt
-         QJ8A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780313050; x=1780917850;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=ArCUJSu0p5Rr7kXoBPCR6AQJdxQ3plRaRNA21LoO2vQ=;
-        b=qr5mshZI2uGaqLCEynifVe4hZPFydeShnDV7p3RfrAY8btiduWX1RZxJjoUot3kVee
-         f7VmLnbDtW1iN7LswQK/xjML+jJRG3fpEl16uCQfULOTDwr+Uutw2gawUmysuC0xAcYf
-         3ZAEJgUkB9XBoSqi/R1BgmflrV4FuraCWmsBKmUo5LFtZ5RdKecW/bV8Qza8C35qveaX
-         odClKSXw7806XpI8XKmWbaai0KCRF2bvEIJYe1TOUhtr/JGOxg4Fy3DorpSbIgAxJkmN
-         japIuhw2vNfD9Oyc2Bpm6JAwSDys6ZAA8MXtOXpRw3O6sYIGLhfaetbDvh0Qc/GF7hSS
-         xwBQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/wUrz+M4c6XlRQK4BAvCXsmUZwfmvCJaLOR/yZkjWv5tBX65Q16jWqlCRkGrgTr7ru1DCNTnuUnH30@vger.kernel.org
-X-Gm-Message-State: AOJu0YwL1srHlbvjadFzUOW5nhZLaRh9et6XtJa7/SQhD09lah2QTptt
-	GMhGXJzO4A5Vjz6ep8x2ZPgxIWx3fEIYY7Z7pWzOIjfWUi/t/OYUYtq64+zE1gsyN1jzw7I33jN
-	q3gjYCeRhy/xNOIvZ5zReQosyWkRHd7pbqAjSvlJRHkMGsHjnIlXGsGY3Q3ohZAa/
-X-Gm-Gg: Acq92OEkQOsa1PLhWhokjljeCjYZFabQfl1ALjoIfjucuao3LR/01Ax4QEv7MxUlL3B
-	Gj6zrdS094vFu4gw63tLQ+A6yKa910hBH+1HAAEsam9oDiObfdTY0VMX0zkCn+4mwGefxHuBQBv
-	YdRrHuU0x27AzTPOxTEDLDMcUmCFkBn00kZkuM93UMqIuGFZI23FkAbqs2MDF0Yk5dH882vyu6r
-	oEdgrSXtlZvJcRSztqSr+lveGFdpYx/XwccrQlzmc0XKezUOxlCWAvlmWyPvVnWqiDUxEZjiCNE
-	IpV44j6KJegtdWYoWgCOyCoLBuZnY5kgpeX0/ntbvEU7xINL9rRsspehmVTZdYo2fqacew1wwud
-	Uyi0uKaF+SfLIvDQfDI4Di/XfDHeiTJ//HmR3vZ9Z+GX10x3yvVwWs0ZlgVJ8K1PLDZJV8F2G0d
-	AVUFluMqJHfC9baku6RdmtlmsDhYBWnO9veQwAQSGC18kQYw==
-X-Received: by 2002:a05:6102:5049:b0:607:4fde:1921 with SMTP id ada2fe7eead31-6c6976d1327mr2867667137.24.1780313050088;
-        Mon, 01 Jun 2026 04:24:10 -0700 (PDT)
-X-Received: by 2002:a05:6102:5049:b0:607:4fde:1921 with SMTP id ada2fe7eead31-6c6976d1327mr2867647137.24.1780313049688;
-        Mon, 01 Jun 2026 04:24:09 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa70b75865sm182056e87.18.2026.06.01.04.24.08
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 04:24:08 -0700 (PDT)
-Date: Mon, 1 Jun 2026 14:24:06 +0300
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Vikram Sharma <vikram.sharma@oss.qualcomm.com>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Loic Poulain <loic.poulain@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Nihal Kumar Gupta <nihal.gupta@oss.qualcomm.com>,
-        Robert Foss <rfoss@kernel.org>, Andi Shyti <andi.shyti@kernel.org>,
-        linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-i2c@vger.kernel.org,
-        Suresh Vankadara <svankada@qti.qualcomm.com>,
-        Prashant Shrotriya <pshrotri@qti.qualcomm.com>
-Subject: Re: [PATCH 1/6] dt-bindings: media: Add bindings for
- qcom,glymur-camss
-Message-ID: <5fdcnv3k7w2r5at3oun4eldgbmh2o25rmb234urksy72le7an5@ddl4aapbjexg>
-References: <20260529-glymur_camss-v1-0-bee535396d22@oss.qualcomm.com>
- <20260529-glymur_camss-v1-1-bee535396d22@oss.qualcomm.com>
- <8618255e-ecbf-4f55-877d-09cb2faa6f50@linaro.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQw1Zkm0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3905C1F00893;
+	Mon,  1 Jun 2026 11:26:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780313198;
+	bh=8fzOkWbeJ42VtDXVbRsgq4BOgF3ms6OGA9UaeuBoOqE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=lQw1Zkm0vxnt9LDCSvFK7HHztHAJMwA1TX5kMJir9a7Ch+iJsEPUJ6sO7d2lpHTVf
+	 JAnljh4jOBeezj34btuKIM6wEDCIkzF09XfY3xqTQqMUgIFWPk0+2D/Si3mxkzACrk
+	 pU95cSS117aLO2/UmThKnJzsZi4CgTl7ICfCChWdk37jKr2fppHuzwFwWFnVHLQJp6
+	 1Ex4HywfoJ0nHMpeSFSYRFS71PgidOJGuvgHVhY/h3dY9WWlOh7+g4EeWeJrNirpL4
+	 vGF9bNfc+zYL0Jw2hgL5E8jpXpbS5lyYR0shYDYeL+nxjowz8Y6Yy/fihCQRNVEiGi
+	 IhpUr/z/7H3Ig==
+Message-ID: <063fe976-9a28-4670-90df-921fbc1c3a8c@kernel.org>
+Date: Mon, 1 Jun 2026 13:26:27 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8618255e-ecbf-4f55-877d-09cb2faa6f50@linaro.org>
-X-Proofpoint-GUID: i0iq3vdIW2zcGG4XKGVIiQN3W93ueEWG
-X-Authority-Analysis: v=2.4 cv=dsfrzVg4 c=1 sm=1 tr=0 ts=6a1d6bda cx=c_pps
- a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22 a=YcgPmG4jwsFezTXk2NgA:9
- a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDExNCBTYWx0ZWRfX/oKMOVkNfScb
- Z7FgTidZZB+Mp+nAH3W15CKVdS3WZwopBAOwt50JaAX6DnMVAyt0VTVEftWmQB3M5JjJbf6X0p3
- 777L2LQu2d+sLUyvV7VdcrJNhOfxuOunTMWJ842UHbY/iMfKSeohhpRm+E7yhYt4f4G+PLizkax
- vsRvSCrTZkumfgOdgwYYTJlz+PsQ8w0qon/JVEvXljo0jioFKPRuKWo3RnNNA/ZAedu23iyMVyy
- BTvxLGlHwHtnzUGdlGkfsPjqwTE5R2bbwQaEibLZk3cgix2R7Nba65ejrsUAXgThToe/5gFTH5Y
- u1ifgbJBXkAQwu0tKXjuAf7TGTlaHsLvyAYK2fap1paSb7F/MgJB+JiIxE+qedeCRUxF9j8mu2Z
- njXGIX7kCCZO/sCrOuiXwuz2ueu0+E+xZTP3Ac0bgBZVdyl06hxTMthy6ChdlB1iP/I9aooz1KN
- jZlLjbxz9x70pZu0KmQ==
-X-Proofpoint-ORIG-GUID: i0iq3vdIW2zcGG4XKGVIiQN3W93ueEWG
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-01_03,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 priorityscore=1501 lowpriorityscore=0 bulkscore=0
- clxscore=1015 adultscore=0 impostorscore=0 malwarescore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606010114
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY tuning
+ pattern partition property
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, miquel.raynal@bootlin.com, richard@nod.at,
+ vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org,
+ takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, praneeth@ti.com, u-kumar1@ti.com,
+ a-dutta@ti.com
+References: <20260527175527.2247679-1-s-k6@ti.com>
+ <20260527175527.2247679-3-s-k6@ti.com>
+ <20260530-original-peccary-of-cubism-af68ed@quoll>
+ <2f091813-fa28-407f-892d-bbbbe3cac4e4@ti.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <2f091813-fa28-407f-892d-bbbbe3cac4e4@ti.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, May 29, 2026 at 04:07:38PM +0100, Bryan O'Donoghue wrote:
-> On 29/05/2026 15:37, Vikram Sharma wrote:
-> > +
-> > +  vdd-csiphy-0p8-supply:
-> > +    description:
-> > +      Phandle to 0.8V regulator supply to CSI PHYs.
-> > +
-> > +  vdd-csiphy-1p2-supply:
-> > +    description:
-> > +      Phandle to a 1.2V regulator supply to CSI PHYs pll block.
-> > +
+On 01/06/2026 10:26, Santhosh Kumar K wrote:
+> Hello Krzysztof,
 > 
-> To be brutally honest, I'd rather see effort and buy-in from qcom engineers
-> in converting to CSIPHY as a distinct sub-node.
+> On 30/05/26 14:22, Krzysztof Kozlowski wrote:
+>> On Wed, May 27, 2026 at 11:25:16PM +0530, Santhosh Kumar K wrote:
+>>> PHY tuning requires a known data pattern to be readable from flash.
+>>> When no partition is explicitly identified, the controller must search
+>>> all available partitions to locate the pattern by label, which adds
+>>> overhead and relies on label naming conventions outside the
+>>> controller's control.
+>>>
+>>> Add cdns,phy-pattern-partition, a phandle property that allows the DT
+>>> author to directly reference the flash partition holding the PHY tuning
+>>> pattern. The controller uses this partition during calibration, avoiding
+>>> the partition search entirely.
+>>>
+>>> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+>>> ---
+>>>   .../bindings/spi/cdns,qspi-nor-peripheral-props.yaml      | 8 ++++++++
+>>>   1 file changed, 8 insertions(+)
+>>>
+>>> diff --git a/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml b/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml
+>>> index 510b82c177c0..0ffcdf5b00d0 100644
+>>> --- a/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml
+>>> +++ b/Documentation/devicetree/bindings/spi/cdns,qspi-nor-peripheral-props.yaml
+>>> @@ -39,4 +39,12 @@ properties:
+>>>         Delay in nanoseconds between setting qspi_n_ss_out low and
+>>>         first bit transfer.
+>>>   
+>>> +  cdns,phy-pattern-partition:
+>>> +    $ref: /schemas/types.yaml#/definitions/phandle
+>>> +    description:
+>>> +      Phandle to the flash partition containing the PHY tuning pattern.
+>>> +      When present, the controller uses this partition to locate the
+>>> +      pattern data during PHY tuning instead of searching all partitions
+>>> +      by label.
+>>> +
+>>
+>> This should be used in any of applicable examples.
 > 
-> Pushing patches to hit your own internal deadlines to the detriment of
-> upstream quality is not OK.
+> Please refer to the DT changes included in the repository linked in the
+> cover letter, which should provide a clearer picture of how this
+> property is intended to be used. [0]
+> 
+> I'll also add a DT binding example in the next version to make the usage
+> more explicit.
 
-Can we please get an update of the the CSI PHY series? I think they were
-some time ago, they received some comments and there were no updates on them.
+Why do you new a new example? Why existing examples are not applicable?
 
 > 
-> This binding should be predicated on separate CSIPHY nodes. I've
-> published... three perhaps four versions of that patch to radio silence on
-> your side.
+>>
+>> I also have doubts that this is per-device property. Your commit msg
+>> suggests it is per controller.
 > 
-> ---
-> bod
+> This is a per-device property. It is consumed by the controller driver
+> only to locate and retrieve the offset of the PHY pattern partition
 
--- 
-With best wishes
-Dmitry
+So with two devices on a bus, you need two separate partitions for tuning?
+
+
+
+Best regards,
+Krzysztof
