@@ -1,85 +1,132 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF41C39021B;
-	Mon,  1 Jun 2026 09:21:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 729FD390985
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 09:22:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780305685; cv=none; b=B4wZkibfunFt3n6D/Ov9CbzopK2Wimyq5d/7yxjzkDh/RuCvGIF/GGRbfznt8z9SBBvZ6MlrSTRDZ53mF/XkqBPxYE9o1TPdKhLiM6cfkXg+tRQ/HdBJWLYZgwpZ281RJHjKYho8jaEHATEMK0ayLpEvjfoEyXe3kDpaUzWHvxk=
+	t=1780305778; cv=none; b=qGoIrtD5adJGRmJSvITIFVrR9x4VetZksXpX4pBRFgWwuavXl3JYpug+v+VSxmtND5rObkyWTc2WgqJMdPUdCmOd/Xgd1InCU5Li+aVKAhkiZQAEg9yP4bP09zKFlkLESryue4bb2290GVfGALCmeucKK6m2wuzgjCDjTcKnVEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780305685; c=relaxed/simple;
-	bh=auAF5Zd2qnn5gsldNA88VTQwjnq8GgXXiOwJi6POC/g=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=NEo3ctd0xra+A0E1eGDmmBp6XhcSyE35a0vrsJnhLso+aTWoeMBsGd+L1u7ZB/UBu3398teKswSdfVf+bzf8eorDazFBGPylDMt5qRnxTRgg2jTdfF4ZlgPdcmAURVfCqG1zWFn3xrHEMAYkVA0oPdFFpOCOAg5gfzV1QytJsv4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMBOMZ97; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780305778; c=relaxed/simple;
+	bh=rpfwfbxapnDb7Or8/44PpYyEbjlKfqUuWiCVwRD+Tzk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=K3cjheqifHUxpx5V0pGE3wa08nb2wU9ZgRxuDsUT16N6JW8jt7fXVuCWZGyFAAozEYhgfeFuSZwr2yaEy0+g7amKOuxE00AXcGM0ch9sdyxvS4p98KXDME14mcHAqOFTLETMPY6qO0W2iEgJpRks0dZp7OkESXARP290M+223EE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hV4xS2nx; arc=none smtp.client-ip=209.85.128.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMBOMZ97"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642251F00893;
-	Mon,  1 Jun 2026 09:21:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780305684;
-	bh=zT6Sjt8F9s7eqsMkwTydE5UJsr5P5YGKXUj0wFFLMOM=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=FMBOMZ97wcMRBNrCLjFPSy97SEkuoNIItTTe3Yeoe0UKeI9o1Iz7w2Mydry5Bz8pX
-	 c35sK0lf9zUKjNayHPZMQVs+h4yOh77ctecv4YOl3u46jnNG0os7Lb3LC/a8aTcVXc
-	 IVkLIcl/4OKtRXVaR4FfM6EboJko4U61xjtmYS5Nq1guqCCMI5ed04jJmyYYdT16yL
-	 uxpUILTPKVXB72WLFxu455x5uXl61aEVovye7Pvq5lgN1Wo4KucmpPv63+3JME+Kc0
-	 VKzzbLUUdy9qFiqfVWfP7nbjeY6+s1U07bDmIvqQW7rSDQOQjpNQ3xzVoQ93McKgWh
-	 Q+/XT1QzS/NWQ==
-Date: Mon, 1 Jun 2026 10:21:16 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi
- Gupta <gupt21@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/2] iio: light: veml3328: add support for new device
-Message-ID: <20260601102116.3e7dc661@jic23-huawei>
-In-Reply-To: <CALoEA-wtEVO0+GaabshH03FLGBJu0JkyQi_FjSETzcAySAKERQ@mail.gmail.com>
-References: <20260531-veml3328-v4-0-f9b65d71d917@gmail.com>
-	<20260531-veml3328-v4-2-f9b65d71d917@gmail.com>
-	<DIX3Y0PCFW9J.14RSKP23REFBO@gmail.com>
-	<CALoEA-wtEVO0+GaabshH03FLGBJu0JkyQi_FjSETzcAySAKERQ@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hV4xS2nx"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-490ac357c55so5059215e9.1
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 02:22:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780305775; x=1780910575; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=yQQS7y81H0NDGPMnprb/jA6ybDLaFKle7kIHgxmBOFw=;
+        b=hV4xS2nxY5vBFw0bqgMY7DV6JJOqu6qq2mKWg7MPySOczZA/V6Sb614qtI8eTrB/kW
+         i7Lt1eoRGPU5Kx1Fbqs8UhdQDlsKe+SAPrCNLs4hVLpbWnMb1BbdDWgVHZm7ZnWJujBH
+         ZFx6C0iJNXCzxzGpicruap5u4083vIrxoIUf6l5ExdKQr/+C4jMGoBU/KLB3mzDtvqJB
+         ESw5E1M+wMyTnGZZCMkhrQs0hWxjBi4jOOMcLXNd9H6r85GTo96khVkAXpYmqSjHm5zi
+         dZRNVWYw+s6v5cGAwMifq4b27/vI/CecWKEEBQPOQE8OyChx8gpqYz4Os9AofiWvo3zI
+         wvng==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780305775; x=1780910575;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=yQQS7y81H0NDGPMnprb/jA6ybDLaFKle7kIHgxmBOFw=;
+        b=SoWaLTlxevQJRhKDYEnMOf1f/sb4P/XuZRPatU9eANv0kztEO07zmXJ7BmVZneYhoi
+         /5GV02ZR65elXiMGIKC5q0JIgGmPbrtR9493bzH6C/vvGkEBpNIxR82inQFZrtMUmUr/
+         wOPwb9BBO36n1YjBtJ7fdRiiXqZMzA9yZmIXTlpSQFXJX53jNZTowUtCVnYy50BeLQk6
+         egKGvarisaVDCIVOnIQf89iK27rnY2dB8s0xFBwCoK3s5+vk54+65wV8Ebhe/xXF7MIA
+         8fqAOM+FOoVegaZmq7rfeh0OgEsucJNNHJzBpUweK776MOV2NmU7z7RPjovGI/IHWaNC
+         VqsQ==
+X-Forwarded-Encrypted: i=1; AFNElJ84/mnRPxoi5j1Sp/7zZP8JmpdZ+NvFudIqAknEbRZwrp7q1fmOaKnwtOnugZrhY7Od+MSAHUn1kKZ0@vger.kernel.org
+X-Gm-Message-State: AOJu0YySx4cE6gMCxyDaSdU1D8CYnH9A2g+GZMbaOtScaljMEapPU6ov
+	9Rx6Hw5VW8iarSRXYliAPSU22DqmfrlSo0OUXuVTRheKSk3be+bRxE1D
+X-Gm-Gg: Acq92OFrg5yWihuNz57Fqm/2TRywqEDbvWuSMGIGqERia37RFSgGO/OUDVHch4EDiTN
+	0KIMtNXqrErFhEmGoZs7TB/2pb77HWZknkbNQZtB0ujiC2o2+TOn5rAdH9zvlFOJCPFN8I2VHcH
+	84spx0dPhIRnc7MsW5xXK7EJ+QXoLrNejVgKNgajPSxOMPe/9Up2EbZ3OOSo0hfj364LJU8ZzH+
+	+D1bgZlW2Er3baQZnvROgKz+ZFWBpRAuVO7meOdpTsZ5QfnqqEdVxH/1FtMXh2gb92FNQPt/3hL
+	xx8b4JCERJ75+4cYqNLpJE+y+uXzXxGjCsgf70w+EzgdrDy0sWTtEbQYm9ecxMi5V9dnRdNm1UN
+	kgAq+KTd4WPcvkr7xgxj0P9nH3b5qmFTaKvFXQSaW6BkkP72FUbYhh+X7uPUDakdTUPTfk+DvL/
+	3QU2saOoXhPgBEJ6zW7pIHcbSbPA==
+X-Received: by 2002:a05:600c:2a8a:b0:490:9588:bdae with SMTP id 5b1f17b1804b1-490a293bf4amr128209045e9.18.1780305774554;
+        Mon, 01 Jun 2026 02:22:54 -0700 (PDT)
+Received: from nsa ([148.63.225.166])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c0af2d6sm83225405e9.14.2026.06.01.02.22.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 02:22:54 -0700 (PDT)
+Date: Mon, 1 Jun 2026 10:23:52 +0100
+From: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>, 
+	"linux@roeck-us.net" <linux@roeck-us.net>, "robh@kernel.org" <robh@kernel.org>, 
+	"krzk+dt@kernel.org" <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>, 
+	"corbet@lwn.net" <corbet@lwn.net>, "skhan@linuxfoundation.org" <skhan@linuxfoundation.org>, 
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>, 
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "Syed, Arif" <arif.syed@hpe.com>, 
+	Sanman Pradhan <psanman@juniper.net>
+Subject: Re: [PATCH v3 2/2] hwmon: (pmbus/max20860a) Add driver for Analog
+ Devices MAX20860A
+Message-ID: <ah1OwT0s21LTSsZI@nsa>
+References: <20260529001903.625737-1-sanman.pradhan@hpe.com>
+ <20260529001903.625737-3-sanman.pradhan@hpe.com>
+ <ahlcnlJJnLfmCZNH@nsa>
+ <20260529165132.678448-1-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260529165132.678448-1-sanman.pradhan@hpe.com>
 
-On Mon, 1 Jun 2026 08:56:17 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-
-> On Sun, 31 May 2026 at 21:26, Javier Carrasco
-> <javier.carrasco.cruz@gmail.com> wrote:
+On Fri, May 29, 2026 at 04:51:40PM +0000, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
+> 
+> On Fri, May 29, 2026 at 10:31:20 +0100, Nuno Sá wrote:
+> > > +static struct pmbus_driver_info max20860a_info = {
+> > > +	.pages = 1,
+> > > +	.format[PSC_VOLTAGE_IN] = linear,
+> > > +	.format[PSC_VOLTAGE_OUT] = linear,
+> > > +	.format[PSC_CURRENT_OUT] = linear,
+> > > +	.format[PSC_TEMPERATURE] = linear,
+> > > +	.func[0] = PMBUS_HAVE_VIN | PMBUS_HAVE_VOUT |
+> > > +		PMBUS_HAVE_STATUS_VOUT |
+> > > +		PMBUS_HAVE_IOUT | PMBUS_HAVE_STATUS_IOUT |
+> > > +		PMBUS_HAVE_TEMP | PMBUS_HAVE_TEMP2 |
+> > > +		PMBUS_HAVE_STATUS_TEMP | PMBUS_HAVE_STATUS_INPUT,
+> > > +};
 > >
-> > Hi Joshua,
-> >
-> > Just a nitpick I caught on the fly because it was missing in a driver I
-> > recently sent as well.
-> >
-> > At least linux/mod_devicetable.h is missing to include of_device_id.
-> > Probably that's the only missing header, and it could be added without
-> > sending a new version, but that is not for me to decide :)  
+> > Any reason not to add regulator support? Given that the device seems to
+> > be a regulator...
 > 
-> Hi Javier,
+> Thanks for the review, Nuno.
 > 
-> Good catch, I completely forgot about mod_devicetable!
+> The driver was submitted as monitoring-only to start with, and I was
+> planning to add regulator support as a follow-up patch. 
+> 
+> I think the DT binding already includes the regulator.yaml $ref
+> so, in that case adding regulator support later won't require
+> a binding change.
+> 
+> If you'd prefer regulator support included from the start,
+> happy to add it in a v4.
 
-Tweaked.
+You should be able to easily support regulators through pmbus. I meant
+something like:
 
-Applied to the testing branch of iio.git.
+https://elixir.bootlin.com/linux/v7.0.10/source/drivers/hwmon/pmbus/mp2975.c#L986
 
-Thanks,
-
-Jonathan
+- Nuno Sá
 
 > 
-> Thanks!
+> Thank you.
 > 
-
+> Regards,
+> Sanman Pradhan
