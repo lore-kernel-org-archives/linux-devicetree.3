@@ -1,97 +1,99 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45F4F3E1694;
-	Mon,  1 Jun 2026 17:45:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C6BC3E1230
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 17:53:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780335927; cv=none; b=dAPdoCCbOzom1Vkm+JOPrJrqa2fhpEjM/KovXaO3/qqvYuNm5A39/mj7qt6+qL9dE6mjN50CyrJW6U2u4y42aGoScYUcNTA2paLVzjlPfpmT8YGoV/GVhsceBh/FBrSIganPkuUL+1puSj5S8q4A9YCZc2liIlktMxjmgLVSPyc=
+	t=1780336403; cv=none; b=nCynPunr7WJkeeLl0d9ujRw3axShQ3rYcUQFql10C2LNyuVi6orwTMehRyWXQlE/dRPu9P4rPUpqhPxpRvJjL3xFKLocZxzgtWdvpJygX5vY5lyVAdbF5xAtg75P3Torgjcd10lr90i+ltdRmbx0sayMVGWLlvFHwKFRNApOESk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780335927; c=relaxed/simple;
-	bh=xC0eNyhxKpECC6dSaSCXTHEjo6rt8dNfk6cTKHB7xG8=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=SM5Ce86PJVrBBSwbX95VHsHxrhE7XdlUmFk99D/rPB4L1KDMfqwI0zUN3RfpI3tOCkflpEbixucRCkJcpY8NZ0R6dFbWgrI9AfGkYa5GIfvAHSkgsZkUP4OUcJP6yYENWkMwxxgsC5bYVSULpDRcpIMK+dInS3mHCKSDWI/HoZY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QhKqjwH8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780336403; c=relaxed/simple;
+	bh=V1EbFq5erPeyXncRrSFiwv4PphZGsI2aYofs95Fqt1Q=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uUjTSXl3RE3r3FNTd9HVG/1BVC2FVbgAHhvRVVED4CO6YetWTpuLJl0PMWjNr5Bkgbfnni5gWPbL+bpz7P8iUN64ddQgPB242jaFBpSb8xPIvUaoqyfBWc2ggii368CBeP54Sb8Pd3lGq5h6UXueIRjQujUlJn+dWwtXw9k+EbA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nr+gO/iR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QhKqjwH8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B281F00898;
-	Mon,  1 Jun 2026 17:45:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nr+gO/iR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB551F0089E
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 17:53:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780335925;
-	bh=Sr+l9IhS+1OggHp7pGNXo1FcZicIF17+zu39AovSjBM=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=QhKqjwH8/hIaykq3ejrGpzbOi6RBm+E81MRxycSn+RRWBn84hywzKiYH2GuZLidtG
-	 2PfBG63Cb0RzRDbwO85O/ngaz5abvsw58vOJen7JbVDJXgoaWjDfFOXPC5UoOnVdV7
-	 PgzoL7M34uPYDTaVB2ZZgMBE+aniedFwi35XS+YzjEZ/9pIeNGY5mOMbnW2hBwYIC3
-	 qGmEHlzBM7qLyfFvEMKPA+657Mi8rS+qtKXEogIr7TuuldCzvg+J1tlO8wQk/GjDvG
-	 Wd7JDPXVXHC87yuqixuaaBAyCZqGDfX/zJ9OSl9jwX4shFdmEpBQKxtWadXNAwISL8
-	 u5qN+7Lc/PS6g==
-Date: Mon, 01 Jun 2026 12:45:25 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1780336400;
+	bh=WZ/IhhKarGkjsev1ebvJY6DbVpgdipumlxcq7yohLJc=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=nr+gO/iRezHfQIb24kdU3vqS4vOhiseSZ6xa7VjdriTDL9IbS2aIb/ojqPcIAIVZJ
+	 qWxMunqkAm0wsMP6jrIO/7UlDOaNeH7hF27BB4N0afm/wO9bfvems0F28Ck8HW4I+I
+	 1VZF0t3infumq2ZX4u/zQHt/PMjvFZ4IZqx4HURNlzc9NZpclnCutWKA5Cokv/j6kG
+	 ELynKCEyyuody05IlXgmfcbAQ6oOGK+gk/WUOluQn2EVVq+2EAE+oJyrNgd7hIwZCm
+	 jMB+R6lwKZxxHw05OWX4JAKdOMWqYxmirNq7GgfqF9+TPyFy45+DAFZj52CCaauQaz
+	 rQpGjHtF9aadw==
+Received: by mail-lf1-f41.google.com with SMTP id 2adb3069b0e04-5aa63daf2a5so2009860e87.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 10:53:20 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ/NVHPobD0KNzEBZlzsJZlF0KUPHW3DQi51zFD9jTGa/WdPs7nDtD+d1x6Ry//mmf6d4mlrVMDVJnia@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrJVwF1J3Fp8VzNk9sTpYcZLU3hBmIKtGJCI0idfMpD+yB3Lc8
+	ccdL/+V+0V+/i3fpvPwpb57h3G+XbCAF2t15nw6VGAJ24Ucd5o+hUOSlGiGfPC3TpSFjqE2gSz+
+	9jJ0IsNoRQkIPnrOpIS13X+Gtqhg1THo=
+X-Received: by 2002:a05:6512:3094:b0:5aa:6f47:32a0 with SMTP id
+ 2adb3069b0e04-5aa6f47362cmr1141285e87.11.1780336399508; Mon, 01 Jun 2026
+ 10:53:19 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Russell King <linux@armlinux.org.uk>, 
- Heiner Kallweit <hkallweit1@gmail.com>, 
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>, 
- Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- netdev@vger.kernel.org, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, Andrew Lunn <andrew@lunn.ch>, 
- Paolo Abeni <pabeni@redhat.com>, Konrad Dybcio <konradybcio@kernel.org>
-To: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com>
-References: <20260601-ipq5018-gephy-clocks-v1-0-2df8287712c3@outlook.com>
- <20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com>
-Message-Id: <178033592356.3996739.1050010038980629699.robh@kernel.org>
-Subject: Re: [PATCH 1/3] dt-bindings: net: qca,ipq5018: Split IPQ5018 PHY
- bindings from ar803x
+References: <20260601152707.29039-1-l.scorcia@gmail.com>
+In-Reply-To: <20260601152707.29039-1-l.scorcia@gmail.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Mon, 1 Jun 2026 19:53:06 +0200
+X-Gmail-Original-Message-ID: <CAD++jL=oF_43jwV830p42yOke_tZb-MKomp9fVoQ5EtnQHGzNA@mail.gmail.com>
+X-Gm-Features: AVHnY4I49xiJB05RGboGIRNa8JpcA6v3sUBoiJTKtDzGmvM3jaAvFsRby97G7MQ
+Message-ID: <CAD++jL=oF_43jwV830p42yOke_tZb-MKomp9fVoQ5EtnQHGzNA@mail.gmail.com>
+Subject: Re: [PATCH] dt-bindings: pinctrl: mediatek: mt6795: document the
+ slew-rate property
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Matthias Brugger <matthias.bgg@gmail.com>, 
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, Sean Wang <sean.wang@kernel.org>, 
+	linux-gpio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Luca,
 
-On Mon, 01 Jun 2026 17:19:08 +0400, George Moussalem wrote:
-> Move the definition for the Qualcomm IPQ5018 Internal PHY out of the
-> qca,ar803x.yaml binding file and isolate them in a dedicated
-> qca,ipq5018.yaml file. This is necessary due to the restriction of max
-> one clock in ethernet-phy.yaml which ar803x references as further
-> testing revealed that the RX and TX clocks of the IPQ5018 PHY need to
-> be explicitly enabled.
-> 
-> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
-> ---
->  .../devicetree/bindings/net/qca,ar803x.yaml        | 43 -------------
->  .../devicetree/bindings/net/qca,ipq5018.yaml       | 75 ++++++++++++++++++++++
->  2 files changed, 75 insertions(+), 43 deletions(-)
-> 
+thanks for your patch!
 
-My bot found errors running 'make dt_binding_check' on your patch:
+On Mon, Jun 1, 2026 at 5:27=E2=80=AFPM Luca Leonardo Scorcia
+<l.scorcia@gmail.com> wrote:
 
-yamllint warnings/errors:
+> The driver for MT6795 pinctrl already supports the slew-rate property.
+> Add its description to the documentation.
+>
+> Signed-off-by: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+(...)
+> +          slew-rate:
+> +            description: |
+> +              Set the slew rate. Valid arguments are described as below:
+> +              0: Normal slew rate
+> +              1: Slower slew
+> +            $ref: /schemas/types.yaml#/definitions/uint32
+> +            enum: [0, 1]
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/net/qca,ipq5018.example.dtb: ethernet-phy@7 (ethernet-phy-id004d.d0c0): clocks: [[4294967295, 36], [4294967295, 37]] is too long
-	from schema $id: http://devicetree.org/schemas/net/ethernet-phy.yaml
+Ideally slew-rate is V/s (or V/us, any suitable prefixes).
 
-doc reference errors (make refcheckdocs):
+Of course that would vary for any capacitance on the output line,
+so that value would be for an infinite impedance (open circuit).
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260601-ipq5018-gephy-clocks-v1-1-2df8287712c3@outlook.com
+Do you know that value for the SoC to you can express it like
+this and translate it in the driver?
 
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
+Maybe we should even invent something like
+slew-rate-volt-per-microsecond =3D <...>; to push this into
+SI units.
 
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
+That said, there are many SoC:s doing what you're doing
+above so it's no strict requirement.
 
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+Yours,
+Linus Walleij
