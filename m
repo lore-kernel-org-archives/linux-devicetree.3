@@ -1,59 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6A739061C;
-	Mon,  1 Jun 2026 09:17:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF41C39021B;
+	Mon,  1 Jun 2026 09:21:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780305469; cv=none; b=X85pgJ68zAKvG1cN67GuD3DG1e3AnLwY7IpVMT/DRJspngo/1ftUcws/quJZrW/knn/6+lLKYIqRHbQ9O/JCdEOvpPvMiexqSmP5uePMmPszJSrin7cgW4o8QrGBey4zkcefoNpFJyQl2HFYiD/LPVizz67oDVrf6w0JEfai15s=
+	t=1780305685; cv=none; b=B4wZkibfunFt3n6D/Ov9CbzopK2Wimyq5d/7yxjzkDh/RuCvGIF/GGRbfznt8z9SBBvZ6MlrSTRDZ53mF/XkqBPxYE9o1TPdKhLiM6cfkXg+tRQ/HdBJWLYZgwpZ281RJHjKYho8jaEHATEMK0ayLpEvjfoEyXe3kDpaUzWHvxk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780305469; c=relaxed/simple;
-	bh=5dyK72MMPz2wRuY0iUZQ/EQf6NMnrASwHShpqTcVxpI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Yl92CsN9VWS335iunsRgrg4wxWD1ZodtKrSUhA8EWkfk9gEjD++mZ984ivsby2K2YjCghTZujNgaqu/43g/cGpBQ8QNd3aQb7IJ0WDk4+Ts5Mx1I9YNftR4e26jD0IRZN3pDOZCs5JkZ5c3ndU4E0EfVjSeeOc+hi+Nidxf6WTk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IJ6yPrQF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780305685; c=relaxed/simple;
+	bh=auAF5Zd2qnn5gsldNA88VTQwjnq8GgXXiOwJi6POC/g=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=NEo3ctd0xra+A0E1eGDmmBp6XhcSyE35a0vrsJnhLso+aTWoeMBsGd+L1u7ZB/UBu3398teKswSdfVf+bzf8eorDazFBGPylDMt5qRnxTRgg2jTdfF4ZlgPdcmAURVfCqG1zWFn3xrHEMAYkVA0oPdFFpOCOAg5gfzV1QytJsv4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FMBOMZ97; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IJ6yPrQF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870AB1F00893;
-	Mon,  1 Jun 2026 09:17:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FMBOMZ97"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 642251F00893;
+	Mon,  1 Jun 2026 09:21:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780305466;
-	bh=5dyK72MMPz2wRuY0iUZQ/EQf6NMnrASwHShpqTcVxpI=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IJ6yPrQFplMdNTTBQcwK8b2B0SzZyhCLTVA46nrTyN1/8YN3MLzB/0OrKlbBZjga5
-	 z0IFQuZogwy+vRz2bnhBp4jiZ+RbluY0S5tua4z5iikF07Ok0TQkEDyegWMQLAlPbG
-	 sp89qcH5IEBBAjUds6Q5OY0wj6wCSwW/Z21EwcVZ7WEKyX/IbStQ0blQMHFaxy7Z68
-	 DeDRl/zc++XXyHMcaYKACv3hXqJO9GdurmFEiM2fQzjHfvwKHGnVCjEZis5HavVvKZ
-	 m/Gs96+pUU/LswLLCn7Y5tpYKt3Q59xludI3Un2DYmtqO6v2T2ts4RwQXpaBIM6knL
-	 94V2yBXbhWrpg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] hwmon:(pmbus/xdp720) Add support for efuse
- xdp730
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "ASHISH YADAV" <ashishyadav78@gmail.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, linux-hwmon@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260601090925.3781-3-Ashish.Yadav@infineon.com>
-References: <20260601090925.3781-3-Ashish.Yadav@infineon.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 09:17:46 +0000
-Message-Id: <20260601091746.870AB1F00893@smtp.kernel.org>
+	s=k20260515; t=1780305684;
+	bh=zT6Sjt8F9s7eqsMkwTydE5UJsr5P5YGKXUj0wFFLMOM=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=FMBOMZ97wcMRBNrCLjFPSy97SEkuoNIItTTe3Yeoe0UKeI9o1Iz7w2Mydry5Bz8pX
+	 c35sK0lf9zUKjNayHPZMQVs+h4yOh77ctecv4YOl3u46jnNG0os7Lb3LC/a8aTcVXc
+	 IVkLIcl/4OKtRXVaR4FfM6EboJko4U61xjtmYS5Nq1guqCCMI5ed04jJmyYYdT16yL
+	 uxpUILTPKVXB72WLFxu455x5uXl61aEVovye7Pvq5lgN1Wo4KucmpPv63+3JME+Kc0
+	 VKzzbLUUdy9qFiqfVWfP7nbjeY6+s1U07bDmIvqQW7rSDQOQjpNQ3xzVoQ93McKgWh
+	 Q+/XT1QzS/NWQ==
+Date: Mon, 1 Jun 2026 10:21:16 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi
+ Gupta <gupt21@gmail.com>, linux-iio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 2/2] iio: light: veml3328: add support for new device
+Message-ID: <20260601102116.3e7dc661@jic23-huawei>
+In-Reply-To: <CALoEA-wtEVO0+GaabshH03FLGBJu0JkyQi_FjSETzcAySAKERQ@mail.gmail.com>
+References: <20260531-veml3328-v4-0-f9b65d71d917@gmail.com>
+	<20260531-veml3328-v4-2-f9b65d71d917@gmail.com>
+	<DIX3Y0PCFW9J.14RSKP23REFBO@gmail.com>
+	<CALoEA-wtEVO0+GaabshH03FLGBJu0JkyQi_FjSETzcAySAKERQ@mail.gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-> From: Ashish Yadav <ashish.yadav@infineon.com>
->=20
-> Adds support for the Infineon XDP730 Digital eFuse Controller by
-> updating the existing XDP720 driver.
->=20
-> Signed-off-by: Ashish Yadav <ashish.yadav@infineon.com>
+On Mon, 1 Jun 2026 08:56:17 +0200
+Joshua Crofts <joshua.crofts1@gmail.com> wrote:
 
-Sashiko has reviewed this patch and found no issues. It looks great!
+> On Sun, 31 May 2026 at 21:26, Javier Carrasco
+> <javier.carrasco.cruz@gmail.com> wrote:
+> >
+> > Hi Joshua,
+> >
+> > Just a nitpick I caught on the fly because it was missing in a driver I
+> > recently sent as well.
+> >
+> > At least linux/mod_devicetable.h is missing to include of_device_id.
+> > Probably that's the only missing header, and it could be added without
+> > sending a new version, but that is not for me to decide :)  
+> 
+> Hi Javier,
+> 
+> Good catch, I completely forgot about mod_devicetable!
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601090925.3781=
--1-Ashish.Yadav@infineon.com?part=3D2
+Tweaked.
+
+Applied to the testing branch of iio.git.
+
+Thanks,
+
+Jonathan
+
+> 
+> Thanks!
+> 
 
