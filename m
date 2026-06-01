@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D16A36BCDE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D0E4361667;
 	Mon,  1 Jun 2026 13:19:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780319953; cv=none; b=YreBlpW9lzi3V6p7HEAZKEnRF3OoKxOpXWM92/B1eDTcmp9c5BAo/tcgw1aFfDgHmSyXhBTapD0opDoXy78R8HXGcAOw2/W73j9nz/qU0tF8JXP632StwxE39T+MzY9f4xPHllgkkeujIiTdNKvSxkKe8D/M2DsZrgD9sR+pNqE=
+	t=1780319953; cv=none; b=MhQ69PR7Sl0Wolo6iQVuy476Z81kgSrRTi9JyaRawE6hAxMHw/hLqhcIVQxC9v47iHzScZTKMrJ9c5wurn+GoyGfo0nJhRhCZjhVKMP0dAwhymzl7uY+pUE0A87EA+3fiUP4CTcBdMlYVzzJunzfCCeM0OGPugbA31i+TJzsPgs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780319953; c=relaxed/simple;
-	bh=97pdXoZiUaNbUg/dCgG8k67el3mw2yrvAWwxG2/xB7E=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=W3oRGk2Y20pDLG9R0V6Iv14dYcFozKFXQ+/IC5gxXlAxFDZ35FRQh/AEmbMsjhusO7bwJqVir2Fj9K38sLSJPghepfdZ5A/FQ29potizMCm1Zff08H00PloETB0MK2yTaPKoqFiCb1XDUJooAgPCUT/WUTxuZXD/44eeKSeS/Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=rNVnAzal; arc=none smtp.client-ip=10.30.226.201
+	bh=QG4Z1lJud/2m0d4pUKcPCuFCd9HmCmJz7ekPrVHzQfQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=TewIUvhIfeRgmeaPCkhTpiIjvBs5gnbNutE6irJVHI27/FUpp42j5d0bASSNVmwxVVc2NBq2plW1HCkhiVyPdo0DFWMMogxd5i0KxQsGB31FDRtPGnS8X2hBVOujHAN3OXYWTEnUUUHVZkAMptLOSn0Sawue8slpUB53UEUlG4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyTYEJcf; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="rNVnAzal"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id CBD2AC2BCB8;
-	Mon,  1 Jun 2026 13:19:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyTYEJcf"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 12871C2BCFB;
+	Mon,  1 Jun 2026 13:19:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780319953;
-	bh=97pdXoZiUaNbUg/dCgG8k67el3mw2yrvAWwxG2/xB7E=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=rNVnAzallyb+NlbQL9+9CQ/jp+KfGxZUiIJa10QmYquSsARgjBOSBXER2nlAPs5Cv
-	 fiQb90KMcorm4qXLRCoX7NmgiIA3k9fbGqX5lINH1waSFegBV9CjhpAQiJ0eUcvjhv
-	 4GNViKxdbuzedwq3bNkhhsUWgFzuVwZhNfHnHVdsjaHuHa/rWVNVj9UwVq01plWJXZ
-	 89T/7JH4av+wWxkX9kx16iNJ4W6mjkciZT12uFa/JgZ6TMuadVZfLJ39UHPcZJqaNM
-	 zor1WdXCcbeB9XH0BzWwgyVUJ7bnzl55Sw+jRrWQWLvqLetY99T906Ry2QVQJ+UEAl
-	 /Ibe3L1qq81Gg==
+	bh=QG4Z1lJud/2m0d4pUKcPCuFCd9HmCmJz7ekPrVHzQfQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=lyTYEJcf0znSNvYI5iUXHNfcy4IKKsCG4Wb0kAG4SaTpVAqTdqZuoV/MVgPIJAusw
+	 tKp/ubcIwITADIuqFVk/17z5bkUgS6/immX7G/FBAA6u+LRHK3AyGOln1NQ6u0s2iq
+	 Voqes7gge/v1i7J/npqzQTPSwIAiw9XC74erTyH7ncNisyk7ajyrADRf0W2qVmdkmF
+	 2GpTqsM0P4pn6HsjmjThHVwBodmDruX8AQ13nuXC0sU461WUkXqbU6mfqEEDAmsZOo
+	 eCcmqO65lEb+3XZHA4X8p6Wc+0yo1eVIoo+VLzrABYJ/jUp63sXGHhWTDMrI87naag
+	 eguWlo3IZh5TQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id A8A59CD6E55;
-	Mon,  1 Jun 2026 13:19:12 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 03AE3CD6E64;
+	Mon,  1 Jun 2026 13:19:13 +0000 (UTC)
 From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
-Subject: [PATCH 0/3] IPQ5018: Add and enable GEPHY RX and TX clocks
-Date: Mon, 01 Jun 2026 17:19:07 +0400
-Message-Id: <20260601-ipq5018-gephy-clocks-v1-0-2df8287712c3@outlook.com>
+Date: Mon, 01 Jun 2026 17:19:10 +0400
+Subject: [PATCH 3/3] net: phy: qca,at803x: add RX and TX clock management
+ for IPQ5018 PHY
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -40,10 +41,9 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/x3MQQqAIBBA0avErBsYxUq6SrQQm2ooyhSiiO6et
- HyL/x9IHIUTtMUDkU9Jsm8ZqizAz26bGGXIBk26ppoUSjgqUhYnDvONft39kpCt08aQaqwjyGm
- IPMr1b7v+fT8UZsxAZgAAAA==
-X-Change-ID: 20260601-ipq5018-gephy-clocks-e8a2440178a0
+Message-Id: <20260601-ipq5018-gephy-clocks-v1-3-2df8287712c3@outlook.com>
+References: <20260601-ipq5018-gephy-clocks-v1-0-2df8287712c3@outlook.com>
+In-Reply-To: <20260601-ipq5018-gephy-clocks-v1-0-2df8287712c3@outlook.com>
 To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
  Russell King <linux@armlinux.org.uk>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -58,11 +58,11 @@ Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org,
  linux-arm-msm@vger.kernel.org, 
  George Moussalem <george.moussalem@outlook.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780319950; l=2139;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780319950; l=2335;
  i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
- bh=97pdXoZiUaNbUg/dCgG8k67el3mw2yrvAWwxG2/xB7E=;
- b=NlWHkSLpvAxs/YmwWdPWhmxX66Jul+YmsKCW5EBMAYOgKHG7r/f6ZLNRlKX8EBD4I2V2bcMSf
- TyI9Kk35NwFDwxTdmAO3aF8TzLdJz7Jva0N9C9gWzyE6dXUhdTe9Zfj
+ bh=k3J1uSCRHsxM9xs2etq4AynajTAyY7ew0xbYTGGX5vo=;
+ b=T1QR/m5s94c/CPkXHvBNE2KhtPL7PM1qxAywEQga6mFxr+JUiu9n+jBVP6FSfepUu5C0nvxuv
+ pu3taMBlZx8CHsA39HzlvDSNypDiHadRKmlsOptmUKgoPNigkbaDPgl
 X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
  pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
 X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
@@ -70,52 +70,76 @@ X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
 X-Original-From: George Moussalem <george.moussalem@outlook.com>
 Reply-To: george.moussalem@outlook.com
 
-Greetings,
+From: George Moussalem <george.moussalem@outlook.com>
 
-This patch series addresses a missing hardware description issue for the
-Qualcomm IPQ5018 Internal Ethernet PHY, where the data paths fail to
-function correctly unless their dedicated RX and TX clocks are
-explicitly enabled.
+Acquire and enable the RX and TX clocks for the IPQ5018 PHY. These
+clocks are required for the PHY's datapath to function correctly.
+In addition, gate the clocks upon link state changes for improved power
+management.
 
-Further testing revealed that leaving these clocks unmanaged by the
-kernel, they were inadvertently left enabled by the bootloader / QSDK
-platform, which masked the issue. Testing a fresh network configuration
-path exposed that the data link fails to work without explicit software
-gating.
-
-To correctly introduce the required multi-clock properties, the IPQ5018
-binding definition must first be split away from the shared
-qca,ar803x.yaml schema. This isolation is required because ar803x
-references the generic ethernet-phy.yaml, which enforces a strict
-single-clock limit constraint. 
-
-- Patch 1: Splits the IPQ5018 definitions to its own bindings schema 
-           to accommodate the multi-clock requirement.
-- Patch 2: Appends the missing RX/TX clock definitions into the IPQ5018
-           device tree before driver modification to avoid the driver
-	   failing to probe.
-- Patch 3: Updates the Qualcomm AT803x PHY driver framework to safely
-	   acquire, enable, and gate these clocks upon link state
-	   changes for runtime power optimization.
-
+Fixes: d46502279a11 ("net: phy: qcom: at803x: Add Qualcomm IPQ5018 Internal PHY support")
 Signed-off-by: George Moussalem <george.moussalem@outlook.com>
 ---
-George Moussalem (3):
-      dt-bindings: net: qca,ipq5018: Split IPQ5018 PHY bindings from ar803x
-      arm64: qcom: ipq5018: Add GEPHY RX and TX clocks
-      net: phy: qca,at803x: add RX and TX clock management for IPQ5018 PHY
+ drivers/net/phy/qcom/at803x.c | 23 +++++++++++++++++++++++
+ 1 file changed, 23 insertions(+)
 
- .../devicetree/bindings/net/qca,ar803x.yaml        | 43 -------------
- .../devicetree/bindings/net/qca,ipq5018.yaml       | 75 ++++++++++++++++++++++
- arch/arm64/boot/dts/qcom/ipq5018.dtsi              |  3 +
- drivers/net/phy/qcom/at803x.c                      | 23 +++++++
- 4 files changed, 101 insertions(+), 43 deletions(-)
----
-base-commit: 7da7f07112610a520567421dd2ffcb51beaefbcc
-change-id: 20260601-ipq5018-gephy-clocks-e8a2440178a0
+diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
+index 63726cf98cd4..b7361a14220d 100644
+--- a/drivers/net/phy/qcom/at803x.c
++++ b/drivers/net/phy/qcom/at803x.c
+@@ -19,6 +19,7 @@
+ #include <linux/regulator/consumer.h>
+ #include <linux/of.h>
+ #include <linux/phylink.h>
++#include <linux/clk.h>
+ #include <linux/reset.h>
+ #include <linux/phy_port.h>
+ #include <dt-bindings/net/qca-ar803x.h>
+@@ -176,6 +177,8 @@ struct at803x_context {
+ };
+ 
+ struct ipq5018_priv {
++	struct clk *rx_clk;
++	struct clk *tx_clk;
+ 	struct reset_control *rst;
+ 	bool set_short_cable_dac;
+ };
+@@ -1062,6 +1065,16 @@ static int ipq5018_config_init(struct phy_device *phydev)
+ 
+ static void ipq5018_link_change_notify(struct phy_device *phydev)
+ {
++	struct ipq5018_priv *priv = phydev->priv;
++
++	if (phydev->link) {
++		clk_enable(priv->rx_clk);
++		clk_enable(priv->tx_clk);
++	} else {
++		clk_disable(priv->rx_clk);
++		clk_disable(priv->tx_clk);
++	}
++
+ 	/*
+ 	 * Reset the FIFO buffer upon link disconnects to clear any residual data
+ 	 * which may cause issues with the FIFO which it cannot recover from.
+@@ -1084,6 +1097,16 @@ static int ipq5018_probe(struct phy_device *phydev)
+ 	priv->set_short_cable_dac = of_property_read_bool(dev->of_node,
+ 							  "qcom,dac-preset-short-cable");
+ 
++	priv->rx_clk = devm_clk_get_enabled(dev, "rx");
++	if (IS_ERR(priv->rx_clk))
++		return dev_err_probe(dev, PTR_ERR(priv->rx_clk),
++				     "failed to get and enable RX clock\n");
++
++	priv->tx_clk = devm_clk_get_enabled(dev, "tx");
++	if (IS_ERR(priv->tx_clk))
++		return dev_err_probe(dev, PTR_ERR(priv->tx_clk),
++				     "failed to get and enable TX clock\n");
++
+ 	priv->rst = devm_reset_control_array_get_exclusive(dev);
+ 	if (IS_ERR(priv->rst))
+ 		return dev_err_probe(dev, PTR_ERR(priv->rst),
 
-Best regards,
 -- 
-George Moussalem <george.moussalem@outlook.com>
+2.53.0
 
 
