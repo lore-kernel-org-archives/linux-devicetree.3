@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63FAF36A023;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F263403EA;
 	Mon,  1 Jun 2026 16:55:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780332950; cv=none; b=TV76HftRF5jXZaKBEK77aMp5VsdYll48+lfWcB8h1yXIB1JkbHknGbw2dxziCeuVJVBhqDH0xpWA0rtjEN1jWcQrJAFRzoA91+7K17CUxrPVk6NdV0LvhHX7W7sfCfSUz8wNXdLhfr337PK4cZyagNdlHv4aaOfmfvMEG25fY4Y=
+	t=1780332950; cv=none; b=ES4ORFpxdMO+SjcNzwRtE9wjWR5To5PbvlRar6uvRKN9ZXXzjkw4SRANQ9d6kdoLhc9vjqnmM5oaS53AK8ehuISw1xqo4djsEJOi89LaA6v+tN1axjYTWItiCTV0hw8gChW8D6mh59X/ySZbn/NE3XqU+CFypJMTCxY8FuBXAQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780332950; c=relaxed/simple;
-	bh=pcXsxP4PYk7iPgPnNq3O7JW++OaxXAlshcFnAw5oheo=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=eblvOhqdSEwh3kEGnvW91N8A1ZWXVIubojXAo4szvBohsQfUiqLU7h0559RlAeOmfIe/BaWvgETeu4dThG/VOHJZ723nGTpjW6qyzav+U9zxWzoOAP6OP0/tIuwo0Yr8Z3viZbdpP9ec6eKOfUZ4VwLR2iWSBHlL9A/liGaSHUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PUQxRjRU; arc=none smtp.client-ip=10.30.226.201
+	bh=6v7pnbHEqhl+JmazKgM2s3MkutECEkPUWqCabk1RSmU=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=YbJsbocK/VxWhcg2gmS49+2LyfvxjN18JgFlXBbLq3On0yN/CyBPmeVDm6Wuht3/nJbsOAp9/ad9uiWPX1xSkPEt79M7p/uDTfZE5OMTk6gdKKhb+aF3xijzEG/utYN015EjOvGW76GdqLuIebWuKzaTtgmIwVi0jw6XuP9UaGY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H2aY9A2w; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PUQxRjRU"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3692AC2BCFA;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H2aY9A2w"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 08F94C2BCB8;
 	Mon,  1 Jun 2026 16:55:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1780332950;
-	bh=pcXsxP4PYk7iPgPnNq3O7JW++OaxXAlshcFnAw5oheo=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=PUQxRjRUbtKJEFEtB6XHk5ZdpFNUU8CMFl9pHFec9+UhFp064Nq/NkfPb0SZTRsau
-	 w5seO8DS/mpYv5fpYslZAKRT5yVk58ofTDDkuMGLT2KZelcFAV+tgrBF6h2bmB6DbC
-	 LyMoltDsm0KPsuU4fRSm2Inros3q+RzG/j66uGICWRbmcJT7LXP5ACRlB8Eurg9r4M
-	 JYAM1fWWC7u8AhvNnyYSeJe8VaEotkT5zNecaHrA9OtudjHCkOkjaIBQqXo0o6klOy
-	 pxfeXV1tlg8xvE66z4xcHKeNy241yrOtyDE/+eytG1p7HmY+W6k6RkgD+OQ+KevdBb
-	 OgrEOkHElScNw==
+	bh=6v7pnbHEqhl+JmazKgM2s3MkutECEkPUWqCabk1RSmU=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=H2aY9A2wGRvsrpJeehqdIubFVGyRFCMrGC+ecz6NY4AiACeX+xe48l/YUDYpMA+I9
+	 5dDoLOAx60hOJ1gjJObnb/uTnY0Ncdsjmg6gQ7xrnXAQkdfeCyYWMig7o97F4hV6Hl
+	 bwGzMbbE8x8yRmo3IbnJIgaHTW9FdpJOizksHPiuJuqB2QfTYKjmIXoPH54pVSIYpL
+	 KdfYu0VfXdqeGahyrd18ZV1M3IiBGNkDSwQBfoP2ViA8yhqeYUXHUliUk/avF4bCYJ
+	 G6ny5XoDIOBH3RGiXVX0ApekswPN9N8ouPF9xjehZUDkgzxe8U185nPiPuIPrWTqM5
+	 4Pi2KkWzUyOUw==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 2E18ECD6E5D;
-	Mon,  1 Jun 2026 16:55:50 +0000 (UTC)
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 00268CD6E5D;
+	Mon,  1 Jun 2026 16:55:49 +0000 (UTC)
 From: =?utf-8?q?Pablo_Correa_G=C3=B3mez_via_B4_Relay?= <devnull+pabloyoyoista.postmarketos.org@kernel.org>
-Date: Mon, 01 Jun 2026 18:55:38 +0200
-Subject: [PATCH v4 3/3] arm64: dts: qcom: sdm670-google-common: enable
- debug uart
+Subject: [PATCH v4 0/3] Add support and enable the debug UART in the Pixel
+ 3a and Pixel 3a XL
+Date: Mon, 01 Jun 2026 18:55:35 +0200
+Message-Id: <20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v4-0-c5d51dd96ca0@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -41,9 +41,12 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v4-3-c5d51dd96ca0@postmarketos.org>
-References: <20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v4-0-c5d51dd96ca0@postmarketos.org>
-In-Reply-To: <20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v4-0-c5d51dd96ca0@postmarketos.org>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/53Oz07EIBAG8FfZcHYMhRZbT76H8TDA0MU/UIE22
+ 2z67tLVZC96cDOnbzKZ33dmmZKnzB4PZ5Zo8dnHUEN7d2DmiGEk8LZmJrhQXIoeJtTvca3jc0G
+ wpOcRZkwFYoBk0eCKAQKdCqhBPLSy6w25ltV/UyLnTxfr+eU751m/kik78HOR6HOuJcr17Fihm
+ NZLw6XZt7eUWRrgwDVq1/UtGqufppjLB6Y3KjHfxzSyHVvEzYCoQCdR28Hq3nH8A5BXQPHmP4C
+ sgHLWWKUGqVr6Bdi27QuLEa3o0gEAAA==
+X-Change-ID: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
 To: Bjorn Andersson <andersson@kernel.org>, 
  Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
  Krzysztof Kozlowski <krzk+dt@kernel.org>, 
@@ -55,21 +58,21 @@ Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
  Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
  Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 X-Mailer: b4 0.15.1
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1380;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1490;
  i=pabloyoyoista@postmarketos.org; h=from:subject:message-id;
- bh=4SCoeppOpCMNCW9QJaC0akZ1S9kuDZvEwTxAmO1MfSw=;
- b=owEBbQKS/ZANAwAKAXo0JWX/Y195AcsmYgBqHbmU3k/6IGECCjmflfHZE/w7gi0Do/A89M1wk
- X0BiEzlKV6JAjMEAAEKAB0WIQS9CheUSi6o/ykTCaJ6NCVl/2NfeQUCah25lAAKCRB6NCVl/2Nf
- eQWQD/4r65jyRvzbZVAsy2CIKafE6k1sNmU1l4dLeOIQvK1OftMoxYlTT3xFcSdretQVlpuW8vJ
- fOUY/6IZRLc+5FI/sycKyxURLi1qb9mIdkI5+QxIJULzlreZEn9ZHspZZ077IK1zlsajYBDYbkB
- 9fvvcH+QZAx/WE3gWELmV2ZCLIsSYV+vFdGfGrYnRkjuKUaAps9Y5yT7kyUmJZGuFdfbud0Dl0G
- XT0X8PlX7eg1L7x9oS8OJjGI8wvYGGOOiIvC+SkpHFfc/kgyPifAvdQ4DfWsgLByWt64D+I/Ktu
- 39FksOmDglSb3q1lhJ70QbIZcTGRIHafT9BiYtG7V3riJoGY2yLJpoEHP1P5rZWjEodqItWgUdE
- al1IYpJE6wXYidEZols4gODJTGUfZvvgFi6G02R8trJTSDwWnQxi+wxnsIm00b9+4cQPNcpDoP6
- VYaqbjzg0Ac7WJ+ARV1PHmNmW40LqdHYKKIJHrOj0jn0sAOMoJe4o+YtbEfEmd3SxPPfnmQQnzc
- HBSZABfwEX6CrE+/5YlMuCskEoWz6lKRM21/wjqJ9p6RiU45W02VH7pKspW1Er13ld2Xb7+0Nf+
- C6jODEuPcWVrs5FjqQP0/aIwM8s/ah59JhVSaTXXQuLH+L/R8zs2YuO7yWPvID7UhMvncJUXzBQ
- LEthcwKJ9DcO9SA==
+ bh=6v7pnbHEqhl+JmazKgM2s3MkutECEkPUWqCabk1RSmU=;
+ b=owEBbQKS/ZANAwAKAXo0JWX/Y195AcsmYgBqHbmUlpMWuavpjbrdQjFyXUapD9LCdvOcV+MZ4
+ kpBj1fAzTqJAjMEAAEKAB0WIQS9CheUSi6o/ykTCaJ6NCVl/2NfeQUCah25lAAKCRB6NCVl/2Nf
+ eavtD/9G8We3Cij1iJa5rONvtJ1/dXXRDm7VEDpKtuXLvuqH61ahri9hyiWn3NdppeuurJpPJxQ
+ ftw1kTg9baQqArC+4lspnUwmj1sod7GbKNuw7VD17a1trQFVm25cIwN5rPMHLibppzM/SxxQzY+
+ bwONh1q9WqjcXhfVj6QArF0lw07cVuyb8zwKYK4AIMn5kpiKFIjaF1++GoJw0uD/va7rHhXyx//
+ tNQzYTIBW2+htUHINQ33zPx9J0zLaV3708mak/LVaTyFD2Zfuxq2rCpGSgZitAflw1TVR3Dge08
+ zZbPxEkwhnJpzzKe4S0c5yZBTRUna02qCTHNgkj7aDEVps359jishDN2TYynr7o5CpZy1cgfZwH
+ wJIqNlEKWVDPc73siXpAMVfQOe16gROrL2+ZkJYuGZDEHMAkwyZU2YP9U/HmYUjOlVXyZNBGjfz
+ INPSBsv+lje8zCufMJsd/i2nUblwOaje/fI687Bxv0gcRZnDnAS5QeXSCBTQTzI031rBhmZ3ICW
+ 0EMca/GGWLXYpH4U+9F6CERP+bxjZD1B2IwgUvcayygJNXE7ubDR+SpmvKCChUsGqT+IMsi9Ers
+ L9HVVN2W5g5sjFGPNzoznrV4rt7yITXVFpBfZbUadMuQh1oO+8Flf9sQdY7G+moFL35xYJMyc32
+ n2Q8gQ9oOq2mkZA==
 X-Developer-Key: i=pabloyoyoista@postmarketos.org; a=openpgp;
  fpr=BD0A17944A2EA8FF291309A27A342565FF635F79
 X-Endpoint-Received: by B4 Relay for pabloyoyoista@postmarketos.org/default
@@ -77,65 +80,40 @@ X-Endpoint-Received: by B4 Relay for pabloyoyoista@postmarketos.org/default
 X-Original-From: =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>
 Reply-To: pabloyoyoista@postmarketos.org
 
-From: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
+In order to get logs through the SBU pins in Google Pixel devices, it is
+necessary to add support to the devicetree, and enable the corresponding
+UART. With this code and an USB-Cereal board, I was able to get full kernel
+logs through serial.
 
-This has been tested on the Pixel 3a with USB Cereal board
-
-Depends on
-https://lore.kernel.org/all/20260310002606.16413-5-mailingradian@gmail.com/
-
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 Signed-off-by: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
 ---
- arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+Changes in v4:
+- Picked Reviewed-by tags
+- Link to v3: https://patch.msgid.link/20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v3-0-6fdcd669364e@postmarketos.org
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-index 0f57b915186b..711664c83b5f 100644
---- a/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi
-@@ -26,7 +26,9 @@
- /delete-node/ &gpu_mem;
- 
- / {
--	aliases { };
-+	aliases {
-+		serial0 = &uart12;
-+	};
- 
- 	battery: battery {
- 		compatible = "simple-battery";
-@@ -622,6 +624,16 @@ &qupv3_id_1 {
- 	status = "okay";
- };
- 
-+&qup_uart12_rx {
-+	drive-strength = <2>;
-+	bias-pull-up;
-+};
-+
-+&qup_uart12_tx {
-+	drive-strength = <2>;
-+	bias-disable;
-+};
-+
- &sdhc_1 {
- 	supports-cqe;
- 	mmc-hs200-1_8v;
-@@ -688,6 +700,10 @@ ts-switch-pins {
- 	};
- };
- 
-+&uart12 {
-+	status = "okay";
-+};
-+
- &usb_1_hsphy {
- 	vdd-supply = <&vreg_l1b_0p925>;
- 	vdda-pll-supply = <&vreg_l10a_1p8>;
+Changes in v3:
+- Drop dependency on already-picked patches
+- Link to v2: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-0-53abd9db8f0a@postmarketos.org
 
--- 
-2.54.0
+Changes in v2:
+- Fix typo in (3/3) commit message
+- Link to v1: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v1-0-0babf584acdb@postmarketos.org
+
+---
+Pablo Correa Gómez (3):
+      arm64: dts: qcom: sdm670: add default uart pinctrl nodes
+      arm64: dts: qcom: sdm670: add debug uart soc node
+      arm64: dts: qcom: sdm670-google-common: enable debug uart
+
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi |  18 +-
+ arch/arm64/boot/dts/qcom/sdm670.dtsi               | 207 +++++++++++++++++++++
+ 2 files changed, 224 insertions(+), 1 deletion(-)
+---
+base-commit: be0cd82a9f584e562b243684303054134c8f6583
+change-id: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
+
+Best regards,
+--  
+Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
 
 
