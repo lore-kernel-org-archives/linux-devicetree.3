@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D7B439A054
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 10:22:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4AD0368D70;
+	Mon,  1 Jun 2026 10:24:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780309358; cv=none; b=Hstevf/SG8S7F3PDaz1ViTBha/AIrDt49xk/CN8rVH0Q019/eDxL46bZV5SwBAskj6/Hiu8TuCmMrxfDA0vYtwNkNzu87F//sFG8BPQeqNEvtIW/vNNWFEkMcy/JZ171egNrqVCbIiyAItFqoLBaCbwTQsc5ezR3uXorx3Ittd0=
+	t=1780309498; cv=none; b=nxFVrFUXOiJCp2y0pMzu0fEnSs9pDEV71RG/VG6Uu8LMlH5fcHNmev2DL4CsYJ0CMvPYqlxBVYgQa7r2vWCd9RgCKvR6JR0tBuiMJgoimP77hFp+5YDi6ucguiCI2tPmOG14USgUJ4WllEE95iZi4giSd3U6PyAcz9VPmG2b8Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780309358; c=relaxed/simple;
-	bh=g3lcVT3E2frj3iZhFfneYuOmXU4BZAnnV9R9z35Z9TA=;
+	s=arc-20240116; t=1780309498; c=relaxed/simple;
+	bh=6iRgNS09sQ4do+x5OhkNqeXNF21+tFdLPObDSIdnjOU=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=pHh5lZMgbAlVFdwMfu/0mkfY0GD9ItmXuzf5jas16vHN1N1rza8HZFsbwUfLJfdlyXBhtVcllVmmWiZGjwFXbkMTvMWR9x8Foh0hMj0C+XLggru++iMt85HDVXzw+xHcVVRRvf0AIapHhMMo1yCXVQRLgjVIbT8G4yXXayMAgJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HdLgAt+k; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=pvql/F/N6cPai2F2S2MrVczZEFazcTUObkgNia21zr4/Rctslo5+E9aBZ+bEGDyAI92O47DvcJwSpyVak4vZ0WZZjpiAwe0iCzH1dpJgXbrP0/p0MN9KUSbvkW3ZF4Wd+Ket6gYN3Hkg2IcRSm0tCheQTuOu4VmcbtAcjWgLTac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dy/CDZTH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HdLgAt+k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2E711F00898;
-	Mon,  1 Jun 2026 10:22:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dy/CDZTH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 223FF1F00893;
+	Mon,  1 Jun 2026 10:24:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780309354;
-	bh=7eCr9VVqTGvp44y9pSa/iX2t35Tz2D5C/lfbwnWZxes=;
+	s=k20260515; t=1780309497;
+	bh=Kd+b7IPMvghSHa1qWGJjseRqfRO2oSR4soYgR7GjtZc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=HdLgAt+kA1YFir8XNmPpKWudpV8hjWpOiyPWmO1N+ugnXEDoImPS8b/U2FrvL7hMo
-	 GAMtthhBYmnD13yfyiRq5n5a5ilIYJCyTH5aNE/xlCSzrsWFKVwB9xbC8Az6UBvYDE
-	 y5Epp9UCHaJkGAdVN+n6x5lmDHebDaEZF5GRHqxbdcWngIRZMszjEavdGoc3Qs3C6q
-	 p+t7/2e7UaKDEEvGa7SmxJqYfHq0zmyirr3bpuNXfOc3J70fjAW9JtZC0dNluXe5Gq
-	 12K0rHZQeNCJEGNWObFzZtPhPrNK4ZUiUu5WwVZ1oPt/y3NWp2Jsy3IIeupwgP/kHg
-	 zO85UIkbCxYUg==
+	b=Dy/CDZTHTrFBIPrjJFwQOKC6TyWG+L7yXV7N4fDSuNq5xB7jpIz0SnTR6L1wCAR72
+	 k7EHz63NQUHgk1Wi8bSSAqBzgnxNvUdU5ErvH0yyl/OqtWOR0tyL0hXeq/+C3cXIDI
+	 DxTwAFCpxhjS17ug1Bfey7EEzlyEhUrBqjciYVxXDZwH9UrYX/5uiNQBobeER4eth2
+	 eN6+shYTkxtGBxlUOQ521pw17Z72H7INt1lB8W3QeqpnBwZDpdzKjOZ39w0UnPFjmC
+	 /nQ6b5IlLIlZEGIICDUN6LXbUwL/I59Hco+V0ETJHBfiZBhoHeohlrsnZ5tT0R3v/2
+	 kIP51JhfGr2Aw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 2/2] pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl
- driver
+Subject: Re: [PATCH 6/7] arm64: dts: qcom: sm8350: modernize PCIe entries
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Jia Wang via B4 Relay" <devnull+wangjia.ultrarisc.com@kernel.org>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260601-ultrarisc-pinctrl-v2-2-07ac5130a96d@ultrarisc.com>
-References: <20260601-ultrarisc-pinctrl-v2-2-07ac5130a96d@ultrarisc.com>
+To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
+Cc: linux-pci@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260601-sm8350-wifi-v1-6-242917d88031@oss.qualcomm.com>
+References: <20260601-sm8350-wifi-v1-6-242917d88031@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 10:22:33 +0000
-Message-Id: <20260601102233.F2E711F00898@smtp.kernel.org>
+Date: Mon, 01 Jun 2026 10:24:56 +0000
+Message-Id: <20260601102457.223FF1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,60 +45,83 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [Medium] The Kconfig symbol ARCH_ULTRARISC is referenced in 'depends on' =
-and 'default' but is not defined anywhere in the kernel tree.
+
+Pre-existing issues:
+- [High] This problem wasn't introduced by this patch, but moving the reset=
+ GPIO lookup to the root port node exposes a pre-existing resource leak in =
+`qcom_pcie_parse_port()`. The function initializes the PHY via `phy_init(ph=
+y)`. Immediately afterward, it calls `qcom_pcie_parse_perst()` to acquire t=
+he reset GPIO. If `qcom_pcie_parse_perst()` fails (e.g., returning `-EPROBE=
+_DEFER` because the GPIO controller is not yet ready), `qcom_pcie_parse_por=
+t()` exits immediately and returns the error without calling `phy_exit(phy)=
+`. Because the `port` structure is only added to the `pcie->ports` list at =
+the very end of the function, the cleanup block in the caller `qcom_pcie_pa=
+rse_ports()` skips this newly allocated port and fails to execute `phy_exit=
+()`. This results in leaked PHY initialization references.
 --
 
-commit ae98cd11bdead29c422db358de808560e3f3ab23
-Author: Jia Wang <wangjia@ultrarisc.com>
+commit d344e05b9227f3ae995aa63413819de4bd38ce62
+Author: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
 
-pinctrl: ultrarisc: Add UltraRISC DP1000 pinctrl driver
+arm64: dts: qcom: sm8350: modernize PCIe entries
 
-This commit adds support for the pin controller on the UltraRISC DP1000 SoC.
-It provides mux selection for pins in ports A, B, C, D, and LPC, as well as
-basic pin configuration controls.
+This commit modernizes the device tree for the SM8350 platform by moving
+the PERST# / WAKE pins and PHYs to the PCIe port instead of the RC device
+to resolve recent kernel warnings.
+
+> diff --git a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts b/arch/arm64/boot/dt=
+s/qcom/sm8350-hdk.dts
+> index 5f975d0094658..4973a3eb11b5b 100644
+> --- a/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
+> +++ b/arch/arm64/boot/dts/qcom/sm8350-hdk.dts
 
 [ ... ]
 
-> diff --git a/drivers/pinctrl/ultrarisc/Kconfig b/drivers/pinctrl/ultraris=
-c/Kconfig
-> new file mode 100644
-> index 0000000000000..a9257dda5d656
-> --- /dev/null
-> +++ b/drivers/pinctrl/ultrarisc/Kconfig
-> @@ -0,0 +1,23 @@
-> +# SPDX-License-Identifier: GPL-2.0-only
-> +
-> +config PINCTRL_ULTRARISC
-> +	tristate
-> +	depends on OF
-> +	depends on ARCH_ULTRARISC || COMPILE_TEST
+> @@ -493,12 +493,14 @@ &pcie0 {
+>  	pinctrl-names =3D "default";
+>  	pinctrl-0 =3D <&pcie0_default_state>;
+> =20
+> -	perst-gpios =3D <&tlmm 94 GPIO_ACTIVE_LOW>;
+> -	wake-gpios =3D <&tlmm 96 GPIO_ACTIVE_HIGH>;
+> -
+>  	status =3D "okay";
+>  };
+> =20
+> +&pcie0_port0 {
+> +	reset-gpios =3D <&tlmm 94 GPIO_ACTIVE_LOW>;
+> +	wake-gpios =3D <&tlmm 96 GPIO_ACTIVE_HIGH>;
+> +};
 
-[Severity: Medium]
-Does ARCH_ULTRARISC exist in the kernel tree? I couldn't find a definition =
-for
-this Kconfig symbol. If it's missing, this driver will only be selectable
-when COMPILE_TEST is enabled, leaving it disabled for its actual hardware
-target.
+[Severity: High]
+This is a pre-existing issue, but moving the reset GPIO lookup to the root
+port node exposes a resource leak in the driver's error handling.
 
-> +	select PINMUX
-> +	select GENERIC_PINCTRL_GROUPS
-> +	select GENERIC_PINCONF
-> +	select GENERIC_PINMUX_FUNCTIONS
-> +	select GPIOLIB
-> +
-> +config PINCTRL_ULTRARISC_DP1000
-> +	tristate "UltraRISC DP1000 SoC Pinctrl driver"
-> +	select PINCTRL_ULTRARISC
-> +	depends on OF && HAS_IOMEM
-> +	depends on ARCH_ULTRARISC || COMPILE_TEST
-> +	default ARCH_ULTRARISC
+If the GPIO controller is not yet ready and qcom_pcie_parse_perst() defers,
+does the driver leak the PHY initialization reference?
 
-[Severity: Medium]
-Similarly here, ARCH_ULTRARISC is used in the depends on and default direct=
-ives
-but appears to be undefined.
+Looking at drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_parse_port(),
+the function initializes the PHY:
+
+    ret =3D phy_init(phy);
+    if (ret)
+        return ret;
+   =20
+    INIT_LIST_HEAD(&port->perst);
+   =20
+    ret =3D qcom_pcie_parse_perst(pcie, port, node);
+    if (ret)
+        return ret;
+
+When qcom_pcie_parse_perst() returns an error, the function returns
+immediately without calling phy_exit(phy). Because the port structure is on=
+ly
+added to the pcie->ports list at the very end of the function, the cleanup
+block in the caller qcom_pcie_parse_ports() skips this newly allocated port
+and fails to execute phy_exit().
+
+Could this keep the PHY permanently enabled across probe deferrals, and
+should the error path be updated to ensure phy_exit() is called?
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ultrarisc-=
-pinctrl-v2-0-07ac5130a96d@ultrarisc.com?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-sm8350-wif=
+i-v1-0-242917d88031@oss.qualcomm.com?part=3D6
