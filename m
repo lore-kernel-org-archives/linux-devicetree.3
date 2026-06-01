@@ -1,164 +1,137 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com [209.85.216.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C40E3DB62B;
-	Mon,  1 Jun 2026 15:59:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A28F32BEC34
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 16:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780329563; cv=none; b=D2PfF8PzVJhWVZ8eC+PfCGF/1znavqTjFMAafUpCjkLngwNsuUJLpk8l7DhyhQOV4PK+A3qWj1PVlqkdRn1eH3/7U+7oev1MepG/2VgeczNMnEGAIGB+4DestiUUyrIwjS40956Y/Mlsz3u8fyTJsm7ETxSwGp589HTm2nqkGXI=
+	t=1780329985; cv=none; b=Nkp0QJPn2kwGs2Dw6yZzuNcIpb+caSEXD7Og8Cad4MWY9znEuNee2gY4yztJYP8NJN9XYbxLBd+PnyE2LRFct4UjNQF/OLd4tLJYUg5Tte0IoHRl26haNjd8VUG6QHwr4OblzBWbx3hk4ZbLfK3fwThRyXWIW0dNS8/T9NvoiVk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780329563; c=relaxed/simple;
-	bh=its+NUAFJlfI9jj9HeTz3x2xZwU5AlYMg6//UzEIgq4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DewHCzdghyxGMmRkTgyt+31rmFlUrqirIM1/S9L+1x3l1jl8TGcZynb58rDEoHtjwj8FP3D/uJBG7t9UZLi16aS/JnKlRNYuu0Yr1UwvFteW5MG3cRGyVXGmKaVHgMOO5WhXWy4OMDUinEyQprzqie0/rESx91Jv6hN+ez8nFdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B3bY5xB7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780329985; c=relaxed/simple;
+	bh=EqPRWYRbW+5NmsiADfzLRBs1bcFAEqtSjGxiXNa1OZs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=l52oVqrESPhyWI/9+C7DCaVifGXZkTpJiPRx8F599wK0W6xepDXydgb0o9XZ4w295uhdlhv/58k9bq2+GVjfKyLBSsN9SIuuqsx4R3T0i5nAxSS2gRiEXoQTybbuPUjV74eF3uxPQITbEdCOdjRuK4hGn/yuVhCxrwF/f/XAzAg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZeDyfMg; arc=none smtp.client-ip=209.85.216.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B3bY5xB7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2A9831F00893;
-	Mon,  1 Jun 2026 15:59:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780329561;
-	bh=+RAELjVRNHHYYcAlSvJKT8PWv0+nvS+P2HQHN/BppXw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B3bY5xB7TCkQZnWQpBpEdVrYoeDYHRkoD4fy/g7Dh7q7RaActuVRHKtv1rqPmWzr4
-	 0SOInacSF0hHYQZuiefqi6URHS6zP1rMLEO6OiLylEj33ZKAU3vIDy6b5uD5GlrG48
-	 s/OfkX0m9pLyM8uhUvN0JOfsl0v5MqjzfI1/vyxoNdhsSZOywcgKr7HVTnb/kch5uG
-	 WKjso0mHPo7KhMZobBDrtj+B0b3Ti8CYkUURUEgbEd/GYF0G092AwmOYHb+tV/gt9V
-	 L9f2SiP6sFnMmffKq7wTCrZ2fp0EMrpDFewAmEpSXDKpyXOlH03oLcIEULWg1EB5Vh
-	 EGXv+Xj2EB2gw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 2/5] media: qcom: camss: Add Kaanapali compatible
- camss driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: robh@kernel.org, linux-media@vger.kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260601-kaanapali-camss-v14-2-e76f26aa6691@oss.qualcomm.com>
-References: <20260601-kaanapali-camss-v14-2-e76f26aa6691@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 15:59:20 +0000
-Message-Id: <20260601155921.2A9831F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZeDyfMg"
+Received: by mail-pj1-f52.google.com with SMTP id 98e67ed59e1d1-36d98b9aa9aso1485310a91.3
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 09:06:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780329984; x=1780934784; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZOW9HKlKoTKY1oUKJi7UP051gVLaLxiL0BRWcGTFTec=;
+        b=GZeDyfMgpQfjYGFvJ23h0gImHoDA7adD85OcqnxoExDeytZqjGp2uoq+bHN3GFOAuO
+         tqeFiuQJeme/arEUNltUjyJE+QqtIuRG/Iv8rHXuhQrg/PN0wl/BrM4mWZi6kbHsWC3b
+         Ar/Egv48WVt0NjCWjWoIyxh4A3HiDWuQToIRCbjGUWCQLfv0laVrLXJpRnIJdM1tAlWd
+         fppxN9BlmIujDrckGAmPdIi+RvWubcyl6g81jdwBs4+sYphqMHFoK9IaCgv7FP/d5KS5
+         skn7EP+RrxxHj1GIpi8M4Yb1mLvXZuqILZGLDfEOjp0V9q7mUiQr1GjO0p9ltvVI2DWk
+         3k2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780329984; x=1780934784;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZOW9HKlKoTKY1oUKJi7UP051gVLaLxiL0BRWcGTFTec=;
+        b=L50Gtz9MUkAdaTDqbRpBzST801cK0SE2J90y4lO7xjPLhPOzF+Yxzq4LBdca7YUg6N
+         chq1FstgIOHn7XHs+ERncVysTsY/KhxelQvoiPTLjCteRGKtIR98HVgtj6ANnb/F7LPx
+         6DRoca5GpK3NDp4Qf/F97oN8M1B9uJK334HTVancVNn89bC2p0K/LmXYzvohchYR5Zvj
+         ebItwk/ZDQdGYQGjuuFWS6xgP/LaQFXuuPvLGf2LMWJrJnCdGxLEnpnZFHVepPWgMrDx
+         u9K+juAlGXZkIBpuCdxY5JRhKy0+ZuwodqMIYEtQQMXIZPDJIAefuPLAGm69nHFqGe4k
+         +9yw==
+X-Forwarded-Encrypted: i=1; AFNElJ/g/p/8NVop63iKpqhkVX7CbLdKmBN+P/bZ8w+t7oGGUOwMFS3keHn2fkVPaEsbsOO51wNkNh273I07@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx1VEa2VntbjUZE/a//BAhifYvJKvi20PaYVRpm7W2Epdn8mjBS
+	xMHii2Zfb/i88D0wAY+Ebc8iYmLQIzhLSEIt0Bv+tsNV5FavUHxKDUwyItTGBAclC2Q=
+X-Gm-Gg: Acq92OEbdDLDOWx7DDu5XIKjEafXn4lxXptS4+R4nPlRwFWzxQGhsst81WVHzFIhoTf
+	hKpQd63BFc8uegnrbKos9zRuGAZf/f4Y3hODVtLF2zcrmGHUaoPXUBMO9zJkOYr4oE25csz1AXd
+	4mc+UQE6mzzfpPiC4HuuNCxNif8PeJz/UQwHkCOfN92Wd/e3o/J055hT9Ei3D98xmpBwX520o2O
+	QNeJS9itv/++JDCVLNbMEUDYihCoxlEjv9zvcEEOrMDGuFNmO0MSjAMOj+s3+6ZlLrAFhY7ix4r
+	IOAum/PXUbU0osUu6WQwpT5m7nmckC5THK2W7um4VUu4Lgpen0hLiP4tET0glqZcUb+GJ05wMoi
+	V6cDf5SwDxzcQyrEhO5iXBnaZqr0ZEIHkZ2IDFeEviyokFtt3aaJCo0aIq3Fat//ry/OiskeWrJ
+	W8vvNj1n2oZ8fVlD2PPo1vcmE6JvlpHdXmGpI4SQiP
+X-Received: by 2002:a17:90b:4cc8:b0:366:1172:597e with SMTP id 98e67ed59e1d1-36c4ff6496dmr11193976a91.9.1780329983689;
+        Mon, 01 Jun 2026 09:06:23 -0700 (PDT)
+Received: from i386.168.1.127 ([2402:a00:163:2ce9:9c6f:e28:3da8:7980])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36dd9205ddasm64218a91.14.2026.06.01.09.06.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 09:06:23 -0700 (PDT)
+From: Hrushiraj Gandhi <hrushirajg23@gmail.com>
+To: Heiko Stuebner <heiko@sntech.de>
+Cc: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Hrushiraj Gandhi <hrushirajg23@gmail.com>
+Subject: [PATCH v5 0/3] arm64: dts: rockchip: add Vicharak Axon board support
+Date: Mon,  1 Jun 2026 21:36:00 +0530
+Message-ID: <20260601160603.167706-1-hrushirajg23@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
+This series adds initial device tree support for the Vicharak Axon
+single-board computer, which is based on the Rockchip RK3588 SoC.
 
-Pre-existing issues:
-- [High] Unconditional dereference of `camss->genpd` during error handling =
-and driver unbind when the PM domain was not successfully attached.
-- [High] devm_ managed lifetime of driver structures conflicts with V4L2 vi=
-deo device file descriptor lifetime, causing a Use-After-Free on sysfs unbi=
-nd.
---
+The Vicharak Axon is a feature-rich SBC targeting developer and embedded
+use cases. It ships with:
 
-commit d11af4da6f46342576374344948cc4914a3b8685
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+  - Rockchip RK3588 (4x Cortex-A76 + 4x Cortex-A55)
+  - RK806 PMIC providing all SoC power domains
+  - eMMC 5.1 (on-board) and microSD slot
+  - Gigabit Ethernet via RGMII (RTL8211F)
+  - Dual HDMI 2.1 output and one HDMI 2.0 input (receiver)
+  - PCIe 3.0 x4 and two PCIe 2.0 slots
+  - SATA 3.0
+  - USB 2.0 host ports (EHCI/OHCI)
+  - NXP PCA9554 I/O expander for status LEDs
+  - Haoyu HYM8563 RTC
 
-media: qcom: camss: Add Kaanapali compatible camss driver
-   =20
-Add support for Kaanapali in the camss driver. Add high level resource
-information along with the bus bandwidth votes. Module level detailed
-resource information will be enumerated in the following patches of the
-series.
+Changes since v4:
+- Re-enabled `combphy2_psu` which is a required PHY for `pcie2x1l1`. (It was incorrectly removed in v4 during the unused PHY cleanup).
+- Fixed alphabetical sorting of `rk3588-vicharak-axon.dtb` in the Makefile.
 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/pl=
-atform/qcom/camss/camss.c
-> index 2123f6388e3d7..40d74966ef9b6 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
+Changes since v3:
+- Completely removed `sdio_pwrseq` and `wireless-wlan` pinctrl nodes as Wi-Fi/SDIO was already removed.
+- Removed unused `u2phy0`, `u2phy0_otg`, `u2phy1`, `u2phy1_otg` nodes to fix orphaned PHY warnings, since the USB 2.0 host ports utilize `u2phy2` and `u2phy3`.
 
-[ ... ]
+Changes since v2:
+- Split the dt-bindings patch into two separate patches: one for the vendor prefix and one for the board binding as requested by Heiko.
+- Removed invalid `enable-gpios` property from HDMI nodes (ignored by dw-hdmi-qp binding)
+- Fixed copy-paste error in `rk806_dvs1_null` pinctrl node (gpio_pwrctrl2 -> gpio_pwrctrl1)
 
-> @@ -5507,6 +5521,13 @@ static void camss_remove(struct platform_device *p=
-dev)
->  	camss_genpd_cleanup(camss);
+Changes since v1:
+- Renamed the dts file from rk3588-axon.dts to rk3588-vicharak-axon.dts
+- Added binding patches for the board (rockchip.yaml) and vendor (vendor-prefixes.yaml)
+- Renamed regulator nodes to the standard `regulator-name` pattern
+- Removed `mem-supply` properties and phandles from cpu nodes (vendor-kernel specific)
+- Fixed pcie20_avdd0v85 vin-supply mismatch
+- Removed obsolete `regulator-compatible` property
+- Removed invalid `regulator-init-microvolt` property
+- Removed dangling `enable-active-high` properties from fixed regulators
+- Cleaned up unneeded i2c3 / es8388 nodes
+- Added missing `vpcie3v3-supply` properties to PCIe nodes
 
-[Severity: High]
-This isn't a bug introduced by this patch, but does this unconditionally
-dereference camss->genpd during error handling and driver unbind when the p=
-ower
-domain was not successfully attached?
+Hrushiraj Gandhi (3):
+  dt-bindings: vendor-prefixes: add vicharak
+  dt-bindings: arm: rockchip: add Vicharak Axon board
+  arm64: dts: rockchip: add Vicharak Axon board
 
-In camss_configure_pd(), if camss->genpd_num > 1 but camss->genpd_num <=3D
-vfepd_num, it returns 0 early without attaching top power domains, leaving
-camss->genpd as null:
+ .../devicetree/bindings/arm/rockchip.yaml     |   5 +
+ .../devicetree/bindings/vendor-prefixes.yaml  |   2 +
+ arch/arm64/boot/dts/rockchip/Makefile         |   1 +
+ .../dts/rockchip/rk3588-vicharak-axon.dts     | 983 ++++++++++++++++++
+ 4 files changed, 991 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
 
-drivers/media/platform/qcom/camss/camss.c:camss_configure_pd() {
-    ...
-	if (!(camss->genpd_num > vfepd_num))
-		return 0;
-    ...
-}
+-- 
+2.47.3
 
-Later, during cleanup in camss_genpd_cleanup(), the code skips cleanup only=
- if
-camss->genpd_num =3D=3D 1:
-
-drivers/media/platform/qcom/camss/camss.c:camss_genpd_cleanup() {
-    ...
-	if (camss->genpd_num =3D=3D 1)
-		return;
-    ...
-	dev_pm_domain_detach(camss->genpd, true);
-    ...
-}
-
-dev_pm_domain_detach() does not check for a null device pointer and immedia=
-tely
-dereferences dev->pm_domain, which can cause a panic on probe failure or dr=
-iver
-unbind for valid hardware configurations where genpd_num > 1.
-
-[Severity: High]
-This is a pre-existing issue, but does the devm_ managed lifetime of driver
-structures conflict with the v4l2 video device file descriptor lifetime her=
-e?
-
-The driver allocates its core state using devm_kzalloc and devm_kcalloc:
-
-drivers/media/platform/qcom/camss/camss.c:camss_probe() {
-    ...
-	camss =3D devm_kzalloc(dev, sizeof(*camss), GFP_KERNEL);
-    ...
-	camss->vfe =3D devm_kcalloc(dev, camss->res->vfe_num,
-				  sizeof(*camss->vfe), GFP_KERNEL);
-    ...
-}
-
-When the driver is unbound via sysfs, camss_remove() executes and returns,
-causing devres to immediately free all devm_ memory. However, if a user pro=
-cess
-holds an open file descriptor to the video node during unbind, the v4l2 core
-retains a reference to the video_device.
-
-When the user later closes the file descriptor, v4l2_release() calls
-msm_video_release(), which accesses video->camss->ref_count within the alre=
-ady
-freed memory:
-
-drivers/media/platform/qcom/camss/camss-video.c:msm_video_release() {
-    ...
-	if (atomic_dec_and_test(&video->camss->ref_count))
-		camss_delete(video->camss);
-    ...
-}
-
-Can this lead to a use-after-free?
-
->  }
-> =20
-> +static const struct camss_resources kaanapali_resources =3D {
-> +	.version =3D CAMSS_KAANAPALI,
-> +	.pd_name =3D "top",
-> +	.icc_res =3D icc_res_kaanapali,
-> +	.icc_path_num =3D ARRAY_SIZE(icc_res_kaanapali),
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-kaanapali-=
-camss-v14-0-e76f26aa6691@oss.qualcomm.com?part=3D2
