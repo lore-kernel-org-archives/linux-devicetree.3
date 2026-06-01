@@ -1,148 +1,167 @@
-Received: from mail-m1973188.qiye.163.com (mail-m1973188.qiye.163.com [220.197.31.88])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 22CC2385D7D;
-	Mon,  1 Jun 2026 07:35:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.88
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D60932F748
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 07:42:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780299346; cv=none; b=UQwYUG/I62zbCkpOK4v+3J5ff0kPBA/dUTZNF6USs+9xTYgjXSggq53p1rU3do3Uzjlapz5757ya/OlBADPDEliN4eqI6C2kp2segMB5g+9+lQo4g2LXW7Opzq63wbGIrtCcgmbHqbqSI/gWqF/bOv8i9BFeLLrD6WOep9O+ZxE=
+	t=1780299754; cv=none; b=jSjO0fQ05EGv5/Cy/smGXswmxlYYcwT72lufFbRum5ssx2+G3GjVB6vZwnQjuZI+l10fDEMie/iV5UZ7oiG6S24PsmDyOwBZSw96unJoo3hgz4mjG14+82G+d9Me5WxT+jOmF24/p26KCuoYHDcNn1+fHWBOM2dVE9BypzABkqk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780299346; c=relaxed/simple;
-	bh=eOrRTGCMi/K69lLtifXOuIuaBbzMYghKQgGFWXL91io=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=tELJj/T4Z1RiLKfoeztALUJwJU8yrAzCrenyWEQIQ2w/FWq3kyS66ne+KNx97lQcRhLxZ4v3g+IhEUwIvMBVL68i/8nL3dpD+LutrFEyLFSC1eNuRBcdCu9ysKYDwN4jl8vRjGq739tEKLdYLW1Gc6S38oDH3ws+5Zc9UXzbz0w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=beycXQzU; arc=none smtp.client-ip=220.197.31.88
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
+	s=arc-20240116; t=1780299754; c=relaxed/simple;
+	bh=DYK+sYUL7Av8uBu1CqHUoleYd0NACg90m/0uUKoAfOY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ONdpv+/npFV8LsGNXl/dY/p1iNS9zCXWfMyhqe+wQeiy1ZopNNudPMiOaoj1iik7yX5OJrt8e94d/oJ0K+u9XZONeqjI8nmEAGDkPGMBmw0Swcc6LfAJ3E1ce87C6xJoKOXFDAOiX9g485RmmXtHuDNJBxXZ860z8cEguoibC8g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UX60/lja; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HvWTUt7V; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="beycXQzU"
-Received: from [172.16.12.74] (unknown [61.154.14.86])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4085afb39;
-	Mon, 1 Jun 2026 10:59:28 +0800 (GMT+08:00)
-Message-ID: <17160115-6c30-434b-9dab-b768110cd8d6@rock-chips.com>
-Date: Mon, 1 Jun 2026 10:59:27 +0800
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UX60/lja";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HvWTUt7V"
+Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 65150Wkm1642824
+	for <devicetree@vger.kernel.org>; Mon, 1 Jun 2026 07:42:32 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=UXkAj/ayfqpLe8vFJe2VET2p
+	ub3Jm3brorN1VW1Aky8=; b=UX60/ljaTl3beZFRxSI/JZXOkoOGbKxZ/l9q5qcm
+	X0PCIblOwd2YJ3e4fKcscSrIc6Eytmb05K3+JWaqUDALGeoxrvBRcZMVHSKklOD0
+	QM3npE4zI3LT7iT4UY7zo4KBq7ViM8TT8nDsCGVqT0lQaXKt89ytbL4jpCJzdJJN
+	VqI8kCAR3G38LYrWrLfz7S2VoLqmbRH5CFMcnAX3aOOU8Nrwo5YuhNhzuLc9n6m/
+	H7VIbS+eEjPAVBhYGqmlnwj0HNoCkQUKoyoxig5vGDhAx6Is8+g5qqBqDFNNeXz/
+	taH4Vy0vWyOgnxgrRvrSdKZFY5+CNSdCjdxdp9+sGa9BpQ==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4efq7fefyq-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 07:42:31 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c0532a6588so16586755ad.0
+        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 00:42:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780299751; x=1780904551; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=UXkAj/ayfqpLe8vFJe2VET2pub3Jm3brorN1VW1Aky8=;
+        b=HvWTUt7V0RYrzKtO4pf1mtSF8cIR6TyVNm6BK0D8elTcFeV+VTvMYh8bA8LvvOdtE5
+         z143LwmvVLJE9Vz4WweRn7hBezumvRdXJzJqYqOvAeaYiPQ7Xu38puB6eg2RyU1nP0XR
+         rOv9QOET/tPtaVBaN037KendwtlwSo9XljVbLhhC/Kw9RpFovB2EgXiMamOLKBeZmvRa
+         u04u2g3SAF2nus1OxDf/zRl8XCRguewPOmgoQVnsM86oJSq21yiSxs6WfIs11xRTGzT7
+         kLtUMBysYutsZHuFVlwIa9vrHK7YIraTSd6lxpkwNyN0XdKtwbjyUDtKe4bYJF2JSpor
+         Vb2w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780299751; x=1780904551;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=UXkAj/ayfqpLe8vFJe2VET2pub3Jm3brorN1VW1Aky8=;
+        b=XHDktQKfb9yoz037m5wJqcPDH+zf4bJCrjFi/VTcxURQ+eLiQFevXH396+qMzsmBOK
+         SZbQqJ7wxxeI5uYm+kTDN/rwnD2w82vq1b4O6Dlu1IGt5jlmfMaJ1UQwDP9uXW1A8N9N
+         NboOD+rrDd2BbCbYOUrrd3xbZ2j5yDUAUEIP6DYIi5uIZXgsmcOVfcnpwBqY+qtWTVgG
+         tEV/8szbpjgfTcHHJW3uIEN8+oJZBsxbduhODh9OoQmm102+UYzFuOCC5yF90lYn6tIR
+         oXrr+Yvyz2EgVTxQ6vtDvfEvuWpKRxUBQSpYR65XHZubGCtpA0iGhS/VHu9pjmyQQ+q8
+         2VtQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9tE8SYN52eNYHnUai6muoLc9TlrwlBnKQCJGsi73KDeNAAqL3qjZXkGlwDk7ikGk7fW62P20sFLshY@vger.kernel.org
+X-Gm-Message-State: AOJu0YxTCclk7OwcMl/TosDYm4X8Bm4Iq3ENz0cIi2N4cZBqgvNQjGOh
+	glZIaWZKV92EvvNLvDbcKIxzADh2y3i01TZu4tgzzsGSGHdKYODrlO8WkfbY0SDT6iXrU3sW26v
+	Pw6v3XXJEkGZv7mUgc65EPl6NtYjuosdffnghuEDWK1qrlss6EMJY5MtyVff1glwA
+X-Gm-Gg: Acq92OG4rrF1HgRg1Jrii0cuQ7f7zy9g6J6T+huY44o7CpXMkBnCSPSTFPPFbSiAKnH
+	teUzWG0AV8KdmeUXXrm0pzj8BtNfh89WnBc1UDzB/ZVJ91Qb52N1j8lOCeT50VbAVYQo7juyVtK
+	FByHxIJZQsAkOzd5gDoPTccBkK/t6RX9KUV0CnEMgSThl5S0NIr7OrqkAtlpUEtxRwu+Uu9nwF0
+	1pVtbryvJ6BighjGnIm0gIKZiNJ+vpoPueyR/J1cBoEwnVB27AVVgR5CLhCCQWzoUtBwVTRx09X
+	i4fqXd4E+PXHfpZX+Q5m/Oi6LvGK23XTYtohWvwrb/D9vO6sgA43GcoYGgD3ETMw5PNcdkHw72i
+	PFGx9YjJL2t2vol4InSTIY88X+EkO5fHQqjm1sDCgIiozRAkSaw0lwkp9p30=
+X-Received: by 2002:a17:902:f641:b0:2c0:baaa:db94 with SMTP id d9443c01a7336-2c0baaadf6cmr78918255ad.22.1780299750793;
+        Mon, 01 Jun 2026 00:42:30 -0700 (PDT)
+X-Received: by 2002:a17:902:f641:b0:2c0:baaa:db94 with SMTP id d9443c01a7336-2c0baaadf6cmr78917845ad.22.1780299750231;
+        Mon, 01 Jun 2026 00:42:30 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23c26b3bsm96095185ad.64.2026.06.01.00.42.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 01 Jun 2026 00:42:29 -0700 (PDT)
+Date: Mon, 1 Jun 2026 13:12:23 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Manivannan Sadhasivam <mani@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: remoteproc: qcom,sm8550-pas: Add Hawi
+ ADSP compatible
+Message-ID: <20260601074223.hit3f7mkgj3mqamg@hu-mojha-hyd.qualcomm.com>
+References: <20260427190614.3679937-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] drm/bridge: analogix_dp: Add validation for
- samsung,lane-count property
-To: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Cc: hjc@rock-chips.com, heiko@sntech.de, andy.yan@rock-chips.com,
- maarten.lankhorst@linux.intel.com, mripard@kernel.org, tzimmermann@suse.de,
- airlied@gmail.com, simona@ffwll.ch, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, andrzej.hajda@intel.com, neil.armstrong@linaro.org,
- rfoss@kernel.org, Laurent.pinchart@ideasonboard.com, jonas@kwiboo.se,
- jernej.skrabec@gmail.com, nicolas.frattaroli@collabora.com,
- cristian.ciocaltea@collabora.com, sebastian.reichel@collabora.com,
- dmitry.baryshkov@oss.qualcomm.com, dianders@chromium.org,
- m.szyprowski@samsung.com, dri-devel@lists.freedesktop.org,
- devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org
-References: <20260529040530.741336-1-damon.ding@rock-chips.com>
- <20260529040530.741336-3-damon.ding@rock-chips.com>
- <178014803941.21632.16225608049285101452.b4-review@b4>
- <DIW1WGLL0GW5.1BGU194UXN0HO@bootlin.com>
-Content-Language: en-US
-From: Damon Ding <damon.ding@rock-chips.com>
-In-Reply-To: <DIW1WGLL0GW5.1BGU194UXN0HO@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-HM-Tid: 0a9e811f3b2303a8kunm571bef1e23b414
-X-HM-MType: 1
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSUoYVktPSEtLQh4aSE5PS1YVFA
-	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pKQk1VSktLVUpCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=beycXQzUpN7FPhJ+fAnFKBz1/vzWYNCiv9XZmeqLZiDZFkrCqTaI560sy9/RjK386Vd55Uvdy77o8wkoVWe8DVjcwK8gjQHQNRMKZ5MguiLr9lmkNp7QbE/7RLqe3MGSIIjEk3btRd0IeXbEkiBb4MwuEV55/9WdY+TB9L3Xc9Y=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
-	bh=bTGq6JyMOqNz9AcHQ+pp9TTBnC1HlbtzjBlhQULSRac=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260427190614.3679937-1-mukesh.ojha@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: hxHbHSwCzi9IPKT8NdPiaYFfYy3Sfumq
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAxMDA3NiBTYWx0ZWRfX3R/7+8daSlY0
+ rjswtOD7fj4MPywka3z4UC8uNg8doSDtYAlE8D9T9eoY2j9+K58j7U7TuO/gSIb9LEZ+wxAjKhv
+ W/UUd50jtmrLFdocoVpAVwudGcipJa10zeX+wessotDOiq8m/+44zi6Uh3d0confk1H+OR/UmZA
+ IgSmnTUn7jEZa9CxSAVj7MoMWmn+vcqZVZOOomfT/Z3yjddlJG5lqXPE+KGjq1iAlRz8S1OIGtq
+ W7NJfJcQISJqZNN856X/vg56Pr9rkQhB45b9rAR3/COI7S3okn+T2hncGG4g3R9o8Hlar95zOUO
+ RbjZOm4dgqeYmQQuDELYwYIt7/9HR91ggFjPFEges5rrmFerqX0fMoporqAubtv3sAXj9/VIDqB
+ R65QZDFaf30fuPZafz8q2EdJbwkIhrmAz7uxp4V7f8EBaaTgLSPup2o6fBPZf8CV2Ket/duEO7W
+ BBba08jIiS/RnY9YfoQ==
+X-Proofpoint-GUID: hxHbHSwCzi9IPKT8NdPiaYFfYy3Sfumq
+X-Authority-Analysis: v=2.4 cv=XqzK/1F9 c=1 sm=1 tr=0 ts=6a1d37e7 cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
+ a=EUspDBNiAAAA:8 a=JSqdKX-yHs5N7urRZRQA:9 a=CjuIK1q_8ugA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 bulkscore=0 adultscore=0 clxscore=1015 phishscore=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ suspectscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606010076
 
-Hi Luca,
-
-On 5/30/2026 9:38 PM, Luca Ceresoli wrote:
-> On Sat May 30, 2026 at 3:33 PM CEST, Luca Ceresoli wrote:
->> On Fri, 29 May 2026 12:05:29 +0800, Damon Ding <damon.ding@rock-chips.com> wrote:
->>
->> Hello Damon,
->>
->>>
->>> diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> index 8cf6b73bceac..699a7f380c56 100644
->>> --- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> +++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
->>> @@ -1260,8 +1261,16 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
->>>   		 */
->>>   		of_property_read_u32(dp_node, "samsung,link-rate",
->>>   				     &video_info->max_link_rate);
->>> -		of_property_read_u32(dp_node, "samsung,lane-count",
->>> -				     &video_info->max_lane_count);
->>> +		ret = of_property_read_u32(dp_node, "samsung,lane-count",
->>> +					   &video_info->max_lane_count);
->>> +		if (!ret) {
->>> +			if (video_info->max_lane_count == 0 ||
->>> +			    video_info->max_lane_count > LANE_COUNT4) {
->>
->> This sashiko report seems to me valid.
+On Tue, Apr 28, 2026 at 12:36:13AM +0530, Mukesh Ojha wrote:
+> Document compatible string for the ADSP Peripheral Authentication
+> Service on the Hawi SoC, which is compatible with the Qualcomm SM8550
+> ADSP PAS and can fallback to SM8550 except for the one additional
+> interrupt ("shutdown-ack").
 > 
-> Meh, messed up with 'b4 review' :-/ Apologies
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> ---
+>  .../devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml         | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> "This sashiko report" [0] was about an enum being signed, so '== 0' could miss
-> negative numbers coming from bogus DT values higher than 1^31.
+> diff --git a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> index 1e4db0c9fcf9..161e9b55cb3e 100644
+> --- a/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> +++ b/Documentation/devicetree/bindings/remoteproc/qcom,sm8550-pas.yaml
+> @@ -30,6 +30,7 @@ properties:
+>        - items:
+>            - enum:
+>                - qcom,glymur-adsp-pas
+> +              - qcom,hawi-adsp-pas
+>                - qcom,kaanapali-adsp-pas
+>                - qcom,sm8750-adsp-pas
+>            - const: qcom,sm8550-adsp-pas
+> @@ -104,6 +105,7 @@ allOf:
+>              enum:
+>                - qcom,glymur-adsp-pas
+>                - qcom,glymur-cdsp-pas
+> +              - qcom,hawi-adsp-pas
+>                - qcom,kaanapali-adsp-pas
+>                - qcom,kaanapali-cdsp-pas
+>                - qcom,sm8750-adsp-pas
+> -- 
+> 2.53.0
 > 
 
-Ah, I agree. It would be better to add a new inline function to validate 
-that the lane count passed from DT is exactly 1, 2, or 4, just as 
-Sashiko suggested.
+Floating this up, if there is still a chance to get this series picked
+up.
 
->>
->> But I'n no DP expert, I have no idea whether this ther one is valid.
-> 
-> And this was about "Additionally, does this check inadvertently allow 3,
-> which is an invalid DisplayPort lane count?"
-> 
-
-Yes, the DisplayPort specification only allows lane counts of 1, 2, or 
-4. I did miss the check for the invalid value 3 in the current code.
-
-(BTW: I did not find a common helper function in drm_dp_helper.h to 
-validate valid DP lane counts (1, 2, 4). I'm not sure if it would be 
-better to add a generic lane count validation function to the DP helper 
-library instead, to avoid duplicating the same functionality across 
-individual DP drivers. Perhaps other DP experts could provide some 
-advice on this.)
-
->>> +				dev_err(dp->dev, "samsung,lane-count = %d is out of range\n",
->>> +					video_info->max_lane_count);
->>> +				return -EINVAL;
->>> +			}
->>> +		}
->>
->> As reported by sashiko, 'count == 0' should be 'count <= 0', being an enum.
->>
->> Additionally I'd avoid the nested if, and I think using dev_err_probe() is
->> correct here (we are only called by probe functions), so it all could
->> become:
->>
->>     if (ret || count <= 0 || count > LANE_COUNT0)
->>          return dev_err_probe(...);
->>
->> There are other sashiko reports to patch 3, and at least one seems valid to
->> me. Can you either fix them in the next iteration or elaborate on why the
->> code is correct there?
-
-Yes, I will add a helper function to validate the valid lane counts (1, 
-2, 4) and use dev_err_probe() instead in next version.
-
-> 
-> [0] https://sashiko.dev/#/patchset/20260529040530.741336-1-damon.ding%40rock-chips.com
-> 
-> 
-
-Best regards,
-Damon
-
+-- 
+-Mukesh Ojha
