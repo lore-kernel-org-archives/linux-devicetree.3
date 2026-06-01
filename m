@@ -1,248 +1,110 @@
-Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ACA2342C8B
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 13:40:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A92F3ACA5F
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 13:42:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780321248; cv=none; b=nFMsE3laQyDK08UC4Tfwyw4CP2FUegn39mrxNb+fq5gAiYPOnHpCnulJnTVAuaz38k1T11Vmza3Z8IfwN1o2WXRbgLJCEiAYdhb/Aopi8m7yykEeIkn/PZJJKnHk7VrNjvKAeb+zCC9CmGMTcvLCMy27txUoGtbP4pDyTFYWa+s=
+	t=1780321339; cv=none; b=ubwhpSp/LdJKeoEAR0uicsdAdk4wVndua3Q3NnEjWgTRm/uHXP/7BlrhPMXxf7YDgJz7xqRVz0YRsltlPrm8AiqCmvhhxS160I7ysXelsmuVYZ3IJ/kuwoqKU4WqII7Lcz+iAc1EroKQHZq4mS7s0fmzR18ffZZ07y7r93G+wvY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780321248; c=relaxed/simple;
-	bh=l7RssmTX47X4+ITK/3Di35mbpjUb1E5+lHN3Vvid/dg=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=sqFaNJKzpSqRgPrCOxr47M8Mn8DFOQ+Jfi3ZOWjnog30vMCOvKzh2uBnhC/FWRitUQN98Vui7lIghC/l3AK9JXFcsMEGAwSO3AIIbgWI49R2vHdZt8QefdSntVi9eP0LhwcQ7yI4Ld0ce14C0/e0Rj0BUFaMFJip5qAx16N53qM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=l024WfFK; arc=none smtp.client-ip=95.215.58.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1780321339; c=relaxed/simple;
+	bh=AaXgyiufmG2txv/z4DS9BokgtnIeBwBe4qDLjnk9FDc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=XMzn2X9M0NakKVQsujhP3HVUtZ16waUSx2OE7IztL0tA1skfFLDYu1X8BjUJis5Si0ACPGQDF8LOvajuQN2uOC/EHjHvXyFWxFn7dsul5SiQkaISwPZL7WiL2X972gkhYE8dht/H+wabU1SDFNCBJrXZ2Wdq7Qza7GUu8Vw6gN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Td4RxYmw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="l024WfFK"
-Date: Mon, 1 Jun 2026 21:40:23 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780321243;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=iQyez31M9+cqRzG0mNDzNeBP+DcO+f5iCUnGf0mcB+I=;
-	b=l024WfFK8H8TZslgd1la8pP0IMsoUoHk+D958dcQtK1139z2FcW6CgT8NHAq1ryBrn3ISC
-	V49yjHdscTNNkULL8sndRFN7LTiUJk2zYEHRJL798tKylrp/xi8IhXqWxmbEYljH9QzlNC
-	GwALMjU5E7e0JSkUMqYW/poOjE9natY=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Baoquan He <baoquan.he@linux.dev>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	hpa@zytor.com, robh@kernel.org, saravanak@kernel.org,
-	akpm@linux-foundation.org, bhe@redhat.com, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, rdunlap@infradead.org,
-	feng.tang@linux.alibaba.com, dapeng1.mi@linux.intel.com,
-	kees@kernel.org, elver@google.com, kuba@kernel.org,
-	lirongqing@baidu.com, ebiggers@kernel.org, paulmck@kernel.org,
-	sourabhjain@linux.ibm.com, thuth@redhat.com, ardb@kernel.org,
-	masahiroy@kernel.org, gshan@redhat.com, james.morse@arm.com,
-	maz@kernel.org, leitao@debian.org, yeoreum.yun@arm.com,
-	coxu@redhat.com, suzuki.poulose@arm.com, cfsworks@gmail.com,
-	osandov@fb.com, jbohac@suse.cz, ryan.roberts@arm.com,
-	tangyouling@kylinos.cn, ritesh.list@gmail.com,
-	adityag@linux.ibm.com, hbathini@linux.ibm.com, bjorn@rivosinc.com,
-	songshuaishuai@tinylab.org, vishal.moola@gmail.com,
-	junhui.liu@pigmoral.tech, djordje.todorovic@htecgroup.com,
-	austin.kim@lge.com, namcao@linutronix.de, djbw@kernel.org,
-	chao.gao@intel.com, seanjc@google.com, fuqiang.wang@easystack.cn,
-	liaoyuanhong@vivo.com, makb@juniper.net, graf@amazon.com,
-	piliu@redhat.com, rafael.j.wysocki@intel.com,
-	mario.limonciello@amd.com, jbouron@amazon.com,
-	chenjiahao16@huawei.com, guoren@kernel.org, bauerman@linux.ibm.com,
-	bgwin@google.com, takahiro.akashi@linaro.org, x86@kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org
-Subject: Re: [PATCH v15 00/23] arm64/riscv: Add support for crashkernel CMA
- reservation
-Message-ID: <ah2Lx7KHI60tzd0v@MiWiFi-R3L-srv>
-References: <20260601094805.2928614-1-ruanjinjie@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Td4RxYmw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C666F1F00893;
+	Mon,  1 Jun 2026 13:42:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780321338;
+	bh=wvXmsgXbmxMgWI5WYjbGUdcRaBPTRrfZOEOUEqEXRag=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Td4RxYmwVegNLx8vtkB44SPl85Kc22KNu10Eo8TYFyfWVobVOS97K+SF04RHj95Uz
+	 oSk2674yeCSn33sNbr7HSdkbl4wgorvQrpdRs3eTW4YlNlVm902Ubaz6Lh4mxcUzvi
+	 PSYSNJxbYSeC9i02pxK3wTMBGBsul1He0Sn93wSy2ZQG3lAQoznEa/wrKWhNgnAvbf
+	 3taNpAMkEzXZFjzDAZwJYCLD8Gq73SqM3S5DVNbd9fWBZth5sZs7neq0rMiPi7IP2W
+	 F6+CStFp/hqh/A4qur/UqFKMRcBcfVMrsl2A6/bab1HR/Y9qkGRVZP6iDHlDoCMmju
+	 NumxNfulL++fA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] arm64: dts: rockchip: add Vicharak Axon board
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Hrushiraj Gandhi" <hrushirajg23@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260601132529.139172-2-hrushirajg23@gmail.com>
+References: <20260601132529.139172-2-hrushirajg23@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 01 Jun 2026 13:42:17 +0000
+Message-Id: <20260601134217.C666F1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601094805.2928614-1-ruanjinjie@huawei.com>
-X-Migadu-Flow: FLOW_OUT
 
-Hi Jinjie,
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] The `enable-gpios` property is invalid for the `rockchip,rk3588-dw=
+-hdmi-qp` compatible binding and is ignored by the driver, leaving the HDMI=
+ ports unpowered.
+- [High] The `rk806_dvs1_null` pinctrl node incorrectly configures `gpio_pw=
+rctrl2` instead of `gpio_pwrctrl1` due to a copy-paste error.
+--
 
-On 06/01/26 at 05:47pm, Jinjie Ruan wrote:
-...snip... 
-> Changes in v15:
-> - Unify the subject prefix formats as Huacai suggested.
-> - Fix powerpc pre-existing NULL pointer dereference [Sashiko [1]]
-> - Fix powerpc pre-existing __merge_memory_ranges() memory range
->   truncation [Sashiko [1]].
-> - Fix pre-existing arm64 CMA page leaks [Sashiko[2]].
-> - Fix pre-existing crash_load_dm_crypt_keys() Use-After-Free and
->   Double Free issue [Sashiko[3]].
-> - Fix vfree(headers) and uninitialized variables issue
->   and simplify the fix [Sashiko[2]].
-> - As walk_system_ram_res() and for_each_mem_range() use different
->   lock, unify and simplify the fix of TOCTOU buffer overflow via memory
->   region padding [Sashiko[4]].
-> - Fix the arm64 crash dump issues in Sashiko[5].
-> - Link to v14: https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com/
+commit 9e5cc3349cf78765922014a014dd0a775c777bef
+Author: Hrushiraj Gandhi <hrushirajg23@gmail.com>
 
-Do these Fixes have anything with the main target of this patch series
-you mentioned in cover-letter:"arm64/riscv: Add support for crashkernel CMA"?
-The patches become more and more in each new version, I am wondering if
-it relies on these Fixes patches to implement your adding support for
-crashkernel CMA on arm64/risc-v.
+arm64: dts: rockchip: add Vicharak Axon board
 
-If not relying on them, could you split them into different patchset
-on different purpose? 
+Add initial support for the Vicharak Axon single-board computer based on
+the Rockchip RK3588 SoC.
 
-Thanks
-Baoquan
+> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts b/arch=
+/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
+> new file mode 100644
+> index 0000000000000..fecd13a52e88a
+> --- /dev/null
+> +++ b/arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
+[ ... ]
+> +&hdmi0 {
+> +	enable-gpios =3D <&gpio1 RK_PB0 GPIO_ACTIVE_HIGH>;
+[Severity: High]
+The dw-hdmi-qp binding does not support the enable-gpios property, so the
+driver will not parse this.
 
-> 
-> [1]: https://lore.kernel.org/all/20260525092207.96B9D1F000E9@smtp.kernel.org/
-> [2]: https://lore.kernel.org/all/20260525091149.1A1E01F00A3D@smtp.kernel.org/
-> [3]: https://lore.kernel.org/all/20260525105227.3C2421F000E9@smtp.kernel.org/
-> [4]: https://lore.kernel.org/all/20260525095447.944E11F000E9@smtp.kernel.org/
-> [5]: https://lore.kernel.org/all/20260525101746.9959D1F000E9@smtp.kernel.org/
-> 
-> Changes in v14:
-> - Fix image->elf_headers memory leak during retry loop for arm64 as Sashiko
->   AI code review pointed out.
-> - Solve the hotplug notifier arch_crash_handle_hotplug_event() AA
->   self-deadlock problem as Sashiko AI code review pointed out.
-> - Fix the TOCTOU issue in prepare_elf_headers() by get_online_mems().
-> - -ENOMEM -> -EAGAIN as Breno suggested.
-> - Add support for arm64 crash hotplug.
-> - Link to v13: https://lore.kernel.org/all/20260511030454.1730881-1-ruanjinjie@huawei.com/
-> 
-> Changes in v13:
-> - Rebased on v7.1-rc1.
-> - Update the commit message.
-> - Add Reviewed-by.
-> - Link to v12: https://lore.kernel.org/all/20260402072701.628293-1-ruanjinjie@huawei.com/
-> 
-> Changes in v12:
-> - Remove the unused "nr_mem_ranges" for x86.
-> - Add "Fix crashk_low_res not exclude bug" test log.
-> - Provide a separate patch for each architecture for using
->   crash_prepare_headers(), which will make the review more convenient.
-> - Add Reviewed-by and Tested-by.
-> - Link to v11: https://lore.kernel.org/all/20260328074013.3589544-1-ruanjinjie@huawei.com/
-> 
-> Changes in v11:
-> - Avoid silently drop crash memory if the crash kernel is built without
->   CONFIG_CMA.
-> - Remove unnecessary "cmem->nr_ranges = 0" for arch_crash_populate_cmem()
->   as we use kvzalloc().
-> - Provide a separate patch for each architecture to fix the existing
->   buffer overflow issue.
-> - Add Acked-bys for arm64.
-> 
-> Changes in v10:
-> - Fix crashk_low_res not excluded bug in the existing
->   RISC-V code.
-> - Fix an existing memory leak issue in the existing PowerPC code.
-> - Fix the ordering issue of adding CMA ranges to
->   "linux,usable-memory-range".
-> - Fix an existing concurrency issue. A Concurrent memory hotplug may occur
->   between reading memblock and attempting to fill cmem during kexec_load()
->   for almost all existing architectures.
-> - Link to v9: https://lore.kernel.org/all/20260323072745.2481719-1-ruanjinjie@huawei.com/
-> 
-> Changes in v9:
-> - Collect Reviewed-by and Acked-by, and prepare for Sashiko AI review.
-> - Link to v8: https://lore.kernel.org/all/20260302035315.3892241-1-ruanjinjie@huawei.com/
-> 
-> Changes in v8:
-> - Fix the build issues reported by kernel test robot and Sourabh.
-> - Link to v7: https://lore.kernel.org/all/20260226130437.1867658-1-ruanjinjie@huawei.com/
-> 
-> Changes in v7:
-> - Correct the inclusion of CMA-reserved ranges for kdump kernel in of/kexec
->   for arm64 and riscv.
-> - Add Acked-by.
-> - Link to v6: https://lore.kernel.org/all/20260224085342.387996-1-ruanjinjie@huawei.com/
-> 
-> Changes in v6:
-> - Update the crash core exclude code as Mike suggested.
-> - Rebased on v7.0-rc1.
-> - Add acked-by.
-> - Link to v5: https://lore.kernel.org/all/20260212101001.343158-1-ruanjinjie@huawei.com/
-> 
-> Jinjie Ruan (22):
->   riscv: kexec_file: Fix crashk_low_res not exclude bug
->   powerpc/crash: Fix possible memory leak in update_crash_elfcorehdr()
->   powerpc/kexec_file: Fix NULL pointer dereference in
->     kexec_extra_fdt_size_ppc64()
->   powerpc/kexec_file: Fix memory range truncation in
->     __merge_memory_ranges()
->   kexec: Extract kexec_free_segment_cma() from kimage_free_cma()
->   arm64: kexec_file: Fix CMA page leaks during segment placement retry
->     loops
->   arm64: kexec_file: Fix image->elf_headers memory leak during retry
->     loop
->   kexec: Fix UAF and Double Free in crash_load_dm_crypt_keys()
->   crash_core: Introduce CRASH_HOTPLUG_SAFETY_PADDING for memory hotplug
->     safety
->   x86: kexec_file: Fix TOCTOU buffer overflow via memory region padding
->   arm64: kexec_file: Fix TOCTOU buffer overflow via memory region
->     padding
->   riscv: kexec_file: Fix TOCTOU buffer overflow via memory region
->     padding
->   LoongArch: kexec_file: Fix TOCTOU buffer overflow via memory region
->     padding
->   crash: Add crash_prepare_headers() to exclude crash kernel memory
->   arm64: kexec_file: Use crash_prepare_headers() helper to simplify code
->   x86: kexec_file: Use crash_prepare_headers() helper to simplify code
->   riscv: kexec_file: Use crash_prepare_headers() helper to simplify code
->   LoongArch: kexec_file: Use crash_prepare_headers() helper to simplify
->     code
->   powerpc/kexec_file: Use crash_exclude_core_ranges() helper
->   arm64: kexec_file: Add support for crashkernel CMA reservation
->   riscv: kexec_file: Add support for crashkernel CMA reservation
->   arm64: crash: Add crash hotplug support
-> 
-> Sourabh Jain (1):
->   powerpc/crash: sort crash memory ranges before preparing elfcorehdr
-> 
->  .../admin-guide/kernel-parameters.txt         |  16 +-
->  arch/arm64/Kconfig                            |   3 +
->  arch/arm64/include/asm/kexec.h                |  13 ++
->  arch/arm64/kernel/Makefile                    |   2 +-
->  arch/arm64/kernel/crash.c                     | 152 ++++++++++++++++++
->  arch/arm64/kernel/kexec_image.c               |  34 ++++
->  arch/arm64/kernel/machine_kexec_file.c        |  78 ++-------
->  arch/arm64/mm/init.c                          |   5 +-
->  arch/loongarch/kernel/machine_kexec_file.c    |  44 ++---
->  arch/powerpc/include/asm/kexec_ranges.h       |   1 -
->  arch/powerpc/kexec/crash.c                    |   7 +-
->  arch/powerpc/kexec/file_load_64.c             |   3 +
->  arch/powerpc/kexec/ranges.c                   | 113 ++-----------
->  arch/riscv/kernel/machine_kexec_file.c        |  43 ++---
->  arch/riscv/mm/init.c                          |   5 +-
->  arch/x86/kernel/crash.c                       |  92 ++---------
->  drivers/of/fdt.c                              |   9 +-
->  drivers/of/kexec.c                            |   9 ++
->  include/linux/crash_core.h                    |  15 ++
->  include/linux/crash_reserve.h                 |   4 +-
->  include/linux/kexec.h                         |   2 +
->  kernel/crash_core.c                           |  89 +++++++++-
->  kernel/crash_dump_dm_crypt.c                  |   4 +-
->  kernel/kexec_core.c                           |  25 +--
->  24 files changed, 430 insertions(+), 338 deletions(-)
->  create mode 100644 arch/arm64/kernel/crash.c
-> 
-> -- 
-> 2.34.1
-> 
+If this GPIO controls power to the HDMI port, will the port remain unpowered
+and non-functional? If this is meant to enable FRL, should this use the
+frl-enable-gpios property instead?
+
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +&hdmi1 {
+> +	enable-gpios =3D <&gpio1 RK_PA7 GPIO_ACTIVE_HIGH>;
+[Severity: High]
+Similarly to hdmi0 above, does this enable-gpios property need to be changed
+since it is not parsed by the dw-hdmi-qp driver?
+
+> +	status =3D "okay";
+> +};
+[ ... ]
+> +	pmic@0 {
+> +		reg =3D <0>;
+> +		compatible =3D "rockchip,rk806";
+[ ... ]
+> +		rk806_dvs1_null: rk806_dvs1_null {
+> +			pins =3D "gpio_pwrctrl2";
+[Severity: High]
+Is this pins assignment correct? It configures gpio_pwrctrl2 instead of
+gpio_pwrctrl1 for rk806_dvs1_null, which looks like a copy-paste error.
+
+This could leave the actual DVS1 pin unconfigured and susceptible to
+unintentional voltage scaling from floating signals.
+
+> +			function =3D "pin_fun0";
+> +		};
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601132529.1391=
+72-1-hrushirajg23@gmail.com?part=3D1
