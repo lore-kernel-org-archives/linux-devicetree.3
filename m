@@ -1,287 +1,176 @@
-Received: from mail-wr1-f41.google.com (mail-wr1-f41.google.com [209.85.221.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012005.outbound.protection.outlook.com [52.101.66.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50BB13DB630
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 15:19:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780327174; cv=none; b=kTiOAi0SZ8DX4x2vPChNU5insgrudwbINsF3XNy5z8DCulsB6jDZnGfSdQ6jyajna9AyGNosrx4hi7qceQMiOKahGlMOCDeWTJYTzAWzEKlWBPuOLLM2eymMd67TyRMXzEz/suLk6Y5QJXHmNUl+O8UOS6fWem88OwZks/ZR5GM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780327174; c=relaxed/simple;
-	bh=RZTQ2H/zzNTFrVxP5f5192LTONxSh/ltoz3RRhQzsG0=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DFCA3DB30E;
+	Mon,  1 Jun 2026 15:19:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.5
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780327190; cv=fail; b=K0maodd7o0N+ZR5cB7DKcVMcTU5aOO9lxdY1fGLPCYO6mDEJ/59a+b22GBCWyAbdyE01IAk0jh30cM6Pnj/nc6vLehb99aEQDUv6yh1rbpxYAqxzKOLSJGSb1go2CzKRn4sW8idAeBB1K5ceSnmYY4QH/2O2Tf3fWY2PtdUwmKw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780327190; c=relaxed/simple;
+	bh=Op5px9PyfxUiVENmGC7XzsH03BPl4zvDfQt/pVzjRlg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RX8KIpbrZm0uffqR5e8V0KMXS/ttIBuwKhOVXvbP8jsVxOHPsSQ8KpIQd/LyZOmkc8EJZm9JnhB6hQxV69V03lKJ70SMIZb5Eh/Sdkrws4fBbP1loBhwstHvPi03Exka0SCr88jejjiUc9lePt959uIFZqa1VcQNMliL48vBQQE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1/4O/gP; arc=none smtp.client-ip=209.85.221.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:MIME-Version; b=srbfi9bXQdHV49UWAB+lmP/yWbYsJeB7rqrqP3yzjvPDyb6cAhStsyU46X/JqE4oU8avJUfhyl8UgHMGCX/fZru7mGT8ctdMo+ESImnxAMUHI89UMBGH5gv7yqvBO0l7Z8G2CChsCeGBfDrZwpXEPa9nYKy5mvP8lOGtFY1Hbkw=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=HxAKJdyz; arc=fail smtp.client-ip=52.101.66.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1/4O/gP"
-Received: by mail-wr1-f41.google.com with SMTP id ffacd0b85a97d-45ef779c1c2so1806491f8f.1
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 08:19:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780327154; x=1780931954; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=fl3qFf3690+fE50JY3SQOXjzJEQ1bfcjE1YgTovPA6E=;
-        b=h1/4O/gPfRv/HHJqc/lQyR287miEaJngBhbvey0jCYwGsUUUF05RtFdcwvDFn+z6Zj
-         6FWGRME/fTf4SFB3c3DR7hQBjG3CiAiVbPMDh/SRyM3GykIxJUGB/MbJMTzn5btjcazo
-         e8y+ByQORZZP5U0QfLffflTrIv5drS6KYIWtDZYBOTAwSbgS/jvjsM1G0L8Se3EqCbk7
-         Gbv41GbC1+SFKHFWKK0E5S7yOdCrhGgPP5+6s1nXkjy8yuEvORbscLTFDhd+dVKFCWhw
-         yinQbg/1FXZte3lPlRoKDbBDCJ8BE8tIbe46fofSQ6mbERohk9e/zQqSSZIvUmy+ClK3
-         JPOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780327154; x=1780931954;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=fl3qFf3690+fE50JY3SQOXjzJEQ1bfcjE1YgTovPA6E=;
-        b=k6xthoe7G/mqmE5UrHSmfAV8Yk/8pZ/B4Xfc+R3AkmJ/1SkAoZ/qNjeliipVDPbUJf
-         Z2Pu3SqCaNS74H9T9Szj4xKEhUe6FHRrQFBWbsctO8cQBMTog/8fbYBMWsSSK6aJNuQo
-         AjhgFP/c3aq9pmAm/UEr6eas4VG+x1sbgiX+mtl4YV017ShihYt+fcszVSYuFvOzlwCv
-         MOuz/uEPSm4SWszZbSbTJqRRAOo7EI7mkBc5HmVz7/70ZbemjOS1YNnDRIZInyMfrwqR
-         3LXc8MySCFuY8uMWrayzZ6cYYU1fw3Vm8YjlycWHnIiXrlpJjQeRx4DTuSm2SGdBMrw0
-         1cXg==
-X-Forwarded-Encrypted: i=1; AFNElJ8EBzCTKdXJm4pFGzkfSy3qorC98Bj0blBG63ffkwhThqGKEp2kWWkiKIvPutT0UWD5Jwb/CCrq72JZ@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxfg0zR0i54h4AQfsx78a2VVkrNZ6Uz7HGmGN2mDsvfajTjG5jN
-	B44JWPLGdQGLSfZ59nFY1zSes1p1y/lzBiv2dzSOXdJAGOPU81pbbO3B
-X-Gm-Gg: Acq92OG7XeLrtaRaZHwNDINRDNE9YPCjRXCD93F4KQCmXVKVT1xGgYmQRLR0aLjL+v+
-	0VWPAvCcZhnuh5dAxyztHkseFtbOJmhDxfPFN+dCUwmNHx2bTUDEnkgEQeIWi77D1N42hH024b8
-	FsxkhS+TWVeJ0x1ouFf+yF6raSouG2Nq/lbk4Jmn5e8BB6MokkJ6xcK9PDmk0u1LbB06gYFEC5h
-	O6CJO1pXBu5ax+WJhsTOd1uBA+cJsXUfiAQvV0GzxVNEj/FZU5+zg/lzSAbE9gJsOprI2fxkn6z
-	A8IqY0rNhSJO5XbO9IOQ6d03klZcSXqbBcTka2F7SHiUTjbkog9C3pF0buqcvkOiG0MmfKr5mj7
-	fAb8BiHgMxud6TruaTCMuTnvvZO10EUftqyeYbi1svCGVzaiVrC8VjagOlr1bpa8JeD4SuEUaPo
-	H/7Sbyp4csl/OnDbpcbJIhmyg=
-X-Received: by 2002:a05:6000:1376:b0:43d:7868:21f0 with SMTP id ffacd0b85a97d-45ef6afc537mr16294468f8f.9.1780327154150;
-        Mon, 01 Jun 2026 08:19:14 -0700 (PDT)
-Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef354cd7csm25753103f8f.18.2026.06.01.08.19.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 01 Jun 2026 08:19:13 -0700 (PDT)
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Daniel Thompson <danielt@kernel.org>,
-	Jingoo Han <jingoohan1@gmail.com>,
-	Pavel Machek <pavel@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Helge Deller <deller@gmx.de>,
-	Svyatoslav Ryhel <clamor95@gmail.com>
-Cc: Johan Hovold <johan@kernel.org>,
-	dri-devel@lists.freedesktop.org,
-	linux-leds@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="HxAKJdyz"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=slmq4KWm08YWgJN480mX7sci09mHnXcSWuj+x78d9NN4t/oVPzzD2DBLVt74Ii4Oo/jqbVknNcVcvgmhNKdKpG+h5i8a3Ib9u+SHzj73uBJVTz3xWostMfE5hiSghm8kCandls4SEnJI1bEk2FQhOwYhYKNDQbbAlhAliu1CwfspsAjPVeXBD1jTw+zzhFJzhp8wzbNBJn8xWcCkewaHLRPjdON3jmZeWtGLBmDqhKF2WM+f3uYMs+exmrsGa4hRDumH7GMtR7aQfMKmGIj0vlr901yz4q5gmJWP6J+2CwN7ctNXIww5iqQyVRvY1A5wBjPj1gRhRxAyo2McyoPdKQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1etm8en4GWdbh/YzCETPYWp+z2nzzuuJBZwYek7Hn2U=;
+ b=ej1R5+TOtB3FhJ+e6xkUUquRCYiVapndalwroSqgtBkuPWmfjg7Rh+T2fx/tR9gz4a53tNh9MtCBAC/IWiyj7xXRz9RBUhawPyrb4wq4DyyJE1Ue0/sJ9uA6YfT4NwpoxfwMhse573+Db25RwNLhCzrakm5HRCYtFFVWHzjcisamoMjMGbOtPPQfEJ0SupPbCPQOWxwoNLJfhEIa4fcoOmdKq7hcb6cqY6zA1EX3FJZnx6F2X7KugRyxr1g8iBkrHwFek1wv5A5URvm37ajdB/KzE8kLJf1P3d70CYa6iFpA/HADfvDKSX2uihkd2iWAAYZEj4UCFR5sDy7wfVgLaA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1etm8en4GWdbh/YzCETPYWp+z2nzzuuJBZwYek7Hn2U=;
+ b=HxAKJdyzqbxB00kHcitEbZqXEESZz5MxObmWafQprNSUNJD6vhLF567WnG0Q4xvKT3KYC0uWNUj3f8qy1YDn+8BqbeGL2pE4fTOrTcUIdCaXJmQkJ97iKHWchtvzAwg5pZ2IeMySFK3dRwwdGJN7xUceHRimHUw+2tCsQFo4IImPs0PlscsvqKRFH5Ztdn9G+gB/rmVcjbMxubfoLF2Mw6DI86HNE+xxopplqh2W+ax56wWMqf1Rofk50nLI1qZw8hLmPpSWccty4MJhaspZ8WhABGxhtScY342HE3hFrWugDTveo3PaQjuQvt3gPd4nWxLvfs8ayxCi28jPzgxcsQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by AM0PR04MB12143.eurprd04.prod.outlook.com (2603:10a6:20b:744::9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Mon, 1 Jun 2026
+ 15:19:38 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
+ 15:19:38 +0000
+From: Frank.Li@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	bhelgaas@google.com,
+	hongxing.zhu@nxp.com,
+	l.stach@pengutronix.de,
+	Sherry Sun <sherry.sun@nxp.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	imx@lists.linux.dev,
+	linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-fbdev@vger.kernel.org
-Subject: [PATCH v3 11/11] video: leds: backlight: lm3533: Support getting LED sources from DT
-Date: Mon,  1 Jun 2026 18:18:31 +0300
-Message-ID: <20260601151831.76350-12-clamor95@gmail.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <20260601151831.76350-1-clamor95@gmail.com>
-References: <20260601151831.76350-1-clamor95@gmail.com>
+	linux-kernel@vger.kernel.org
+Subject: Re: (subset) [PATCH V14 00/12] pci-imx6: Add support for parsing the reset property in new Root Port binding
+Date: Mon,  1 Jun 2026 11:19:30 -0400
+Message-ID: <178032715479.3978899.9154220521965066495.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260422093549.407022-1-sherry.sun@nxp.com>
+References: <20260422093549.407022-1-sherry.sun@nxp.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: PH5P220CA0011.NAMP220.PROD.OUTLOOK.COM
+ (2603:10b6:510:34a::11) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|AM0PR04MB12143:EE_
+X-MS-Office365-Filtering-Correlation-Id: 580f0118-f93c-43d8-d9be-08debff13250
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|19092799006|7416014|376014|1800799024|921020|18002099003|22082099003|56012099006|11063799006|6133799003;
+X-Microsoft-Antispam-Message-Info:
+	Ex/htieCqU5PIj+Q8kHicnzGOmdDKAOE0ojMQgheDT//y18tRjxueQgFP11fJ3AEZAkTmthabkrdKUnVnWTPvITRIlYTrYiCkuuSUqT5Vbuq7aNG6uC6E9AfVa6R7ZzI0SqYref2fEhaOiPGD0cq7Sh8Dzp8HweCCMYFvy0qbm/fssLWhbrGS6ti4OSFiXL+BFwD3a1nHHlWBZp2QW3zPVigyK7TsrpyuAkBVa/NVirUdkZbqTSnkbs3XgWkngS/YjyNKTh1iN3sukMiwIV/QuSwD73xxkZhS9BUEAjlrpU7atB3nc3EZtCYvbRiIsj5cZkJD3r/CC7wgGyIogQiXC9wCrkENdTUiR300P/YTIzE5pQQ1wnCO+0ZfhI+hdm1joMR7nDdIeBnbSJ/AWm4X5yg/jzgP9CZ7roMMnoFwNGRPpBlOkQ2W9QbGKNYPfQ80fEz55knkk1oCqWXA67scgF6vxoG2OriAL5U5etqttriP6d+ONMFwYrNnvl8G9h2y3UiSkoCoCypXIAKa+NMr8dYXB5MMUOsFTCPzTy/gOIJpJFjvc95WXcrBmnAxLhHLlp1gIR9YO2bD4TWQu8Y3s+jajfD11lCunSetxgqn5gO8zkxEpsKSCCTWVrTSHUz/0q5s/T8v9E8WbpXPenN8+OkZnhrn+c/gdi0BnbPQe8BIRGYhtEEf57c+5JlRwBeFnB7s4ceOVSJ8b7m4L0xbc+yzb1SzqJWZnuY0Qd1ulU=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(19092799006)(7416014)(376014)(1800799024)(921020)(18002099003)(22082099003)(56012099006)(11063799006)(6133799003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?cWRJUmhZcXFkZ2NVQ0lkSUtyMmpGZjJxNnJJZ2JSQjViOXpGUlVvdHJaMUp1?=
+ =?utf-8?B?ZTNOMy8zcCtEWDBjR0dqK2NOL09oeEFPYVpQZlhOOGZYbHB4UDVVYzUrME81?=
+ =?utf-8?B?blMvMUkwUkFIV3AvZ3ZxV21LeTM3V1VxQThTWWFVRnRCcjVUREdlNFhMbWtO?=
+ =?utf-8?B?eG5GcW82VlVBd3RnclIxV01lR3V3cUc4MkRZa3ROSm9abXkzTmxrWDVLM0Ry?=
+ =?utf-8?B?YUY4WkhYQW4rZDhxclhuS2Z6a1NFZ2VpWllzYmtheUNjQTc3dnBFWWRaRmMv?=
+ =?utf-8?B?ZG5JazA5UVNtWnk3UnhRT1NKWkNlUGl3TzlnS2ZZN0JSdlNnbHk4SWNLT1Zp?=
+ =?utf-8?B?RlJVNWNDeXpmTXk4L1hjZ04wWkR1YnRUeDFrL1JjTndMb3JqTHc0VjBha1Rt?=
+ =?utf-8?B?RnNTWE1YZTJwb1NQRmVrSWhIcTBwanc2MHNGV2xKOVVXZlpYN05RY0F5bkVt?=
+ =?utf-8?B?VlVmUUdtN0R1S2dyaFhMQm4rS3hEd2ZkbFJrWGR3ZUJzMEswdkRpK0VMYTVK?=
+ =?utf-8?B?MDVZVVZFVWZRYUFhUFRiNGxDQ2hLMnVoNzJpa0JPRGc3WHo0WmlPaCs2UlA1?=
+ =?utf-8?B?K0Y1M3hYd2JoZlZ0SitPVFFLSUVLbXFPN0s2UzIwOXlWNkRmZ3kwOXpMZFZM?=
+ =?utf-8?B?cmtweWtmcXJmMmNCMUVnNXZOcXdDZS9LWk0rWHFOWGViWEsrTXJOOUFOUGlB?=
+ =?utf-8?B?cVMvK3JmZVdIaENKa1dpM0lIUW4ySTl1dC9NQ05BSExkcTBSMVFlQzZxekFa?=
+ =?utf-8?B?djZCYXdWNTFvSzNsNjdBZmV3TUJnZVNkc2NyK1RHLzluSjQvV29ZVm5DOXdn?=
+ =?utf-8?B?SXA1djdBYlBsSDEwS014NFNSZHliRUFFaDE3VSt2aG5TWUdFNzV3d0djVUZC?=
+ =?utf-8?B?aHdTdFBnVEVCeXJiTjFILytMNnlJZS92QThWZGhYS1k5VnJFUnpXK1BpS1Rn?=
+ =?utf-8?B?R1NscEFYZE9zT3FJYUZNVEFRM2ZYd0lNdUhFY3pRYkVnL3FzNk1BVU5NclMx?=
+ =?utf-8?B?MktRUExVQWRQejNWTG83OVpqVk8rL3lVYlArRjFScDdHOFdxbUVKNnhVWmpw?=
+ =?utf-8?B?NjZDcS9hL082WHk3MUVIN3JvSVhKMEQyRHFBQ3BtYm5LSE9lZ1RSRVNXMnU0?=
+ =?utf-8?B?bUltcnlObE5EK3JZTzM1ZDBSWms3NVZqTFJhNldIUVlhWC91aFZuZUFlS1lX?=
+ =?utf-8?B?bkNwL3FXakZGeHpUK0IrSXVWMWc5WmVHNGRsOWNnUmdnMDQ1VWVLRUkzamQ5?=
+ =?utf-8?B?UjdJZUNFQW55Z3VUOWFXSUtibEVGNXM5LzJvVjA1SnZhZUNqaDJjZ3VRZmRY?=
+ =?utf-8?B?aDBzZGQ1dWtSYU5ubGREMWFQbXNQeUs0S29pdlRDYWVMeFRXWjVHYzVZYWFy?=
+ =?utf-8?B?QVlZcVdXbERtSGFvVmhtVENkaUx4ODNlMUdNZURLVFhPMjAyWnZGOWFDUEIw?=
+ =?utf-8?B?UmxyRVdBY0pGY3BTNTAzMGUxamV2SDlXTUMxWURZdHhLczNwa013RXFlMDVZ?=
+ =?utf-8?B?MUxsSThKcDlWQW5DRkl2aXg2WEdRNHVlTVdnMjJ5aUkxTU9pcGVuY3cyOVlI?=
+ =?utf-8?B?MStSNE1YSzRVaWhQeHpXV3lUUGNUZ0pGVDZlTzh6Uy90M2JwVm5heURBYUtt?=
+ =?utf-8?B?TXNrakQ3THJIK3Z6alNiSzNjc1ZIUGxxNThDby9YWUVFYWo5UHlNWkVpSW1u?=
+ =?utf-8?B?VlV6ektudS96dld4Qk9uY1ZjNzdZR2NYWGpTOFJwSUNRNWoyZS9uRyszT0ln?=
+ =?utf-8?B?UGFQRFltcGJBK3k1VVRxdytIVjMwVDF2UVdKN3BCMnlrL09xR0J0eEo0cWdq?=
+ =?utf-8?B?Mmk3QVpoOVE3S1BWZGgrYUdVYUxtaGpaL3ZCVTNFbFZ4VWNraWxVZXlVcEtE?=
+ =?utf-8?B?c0xCbW11bTRneWRnaGg3VmN4OGlENkdsUXRtWkNhUHRlOVUvbG5EVW5qRjhq?=
+ =?utf-8?B?M3gwSEt6RGQ4L0UyVzJjdWFGNEtsS3VQSmpzVlluU2RXZG1kNDRBdDhDeFp2?=
+ =?utf-8?B?Z3BpUUpUVEVHazBqYXBYYmJsYkxZUzVlaFVhdjFNTWdtOGJwSVdVYmxKdk9W?=
+ =?utf-8?B?K01kczlGT2x1NWhyQUYrekFJbTNBRjNXQ2dZWEpiRTNDd2pNMlNSZ2IwaXZI?=
+ =?utf-8?B?UkZaVlhpVkVhclBQcnBzKzlUdXkrd2FjQXVETTBHUnR4cmFlZ0NKbUdZVE5r?=
+ =?utf-8?B?VE1XakFsOTY1NlpKR3hCSG9ZTzArY2ppM3RGM0t2d09LRjRqOEZJSWNvbmpQ?=
+ =?utf-8?B?ZjJaRTZHK01uUVFSUW54NWxiWmdJdm0zNXVPVG1vNjBDT0JTd0pHT3RESC8w?=
+ =?utf-8?B?bUdtR0M4N2pEU2dxbkNnRk5tRUdYQzdNUDdZRytnRGhHZ1J4SG13WTg0dlhI?=
+ =?utf-8?Q?GCkNmmHsno6lYv86LcACqi5O1DGBJiAT5U2RH?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 580f0118-f93c-43d8-d9be-08debff13250
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 15:19:38.7391
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: bErgjCcsUvNwMOldNCsCD1PbYjLBW1dxf1xvRAUJtbfTf9ECx9789MAPrgu2pePDqlfziT/nb73MNEENFqiJnr3nAmDK0LY//y4zDl4dHDQNlyVhCq/sV++OURB7GmA9
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM0PR04MB12143
 
-Add Control Bank to HVLED/LVLED muxing support based on the led-sources
-defined in the device tree.
+From: Frank Li <Frank.Li@nxp.com>
 
-Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
----
- drivers/leds/leds-lm3533.c          | 55 ++++++++++++++++++++++++++++-
- drivers/video/backlight/lm3533_bl.c | 40 ++++++++++++++++++++-
- 2 files changed, 93 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/leds/leds-lm3533.c b/drivers/leds/leds-lm3533.c
-index f2502daf450d..6db1c1fd2e20 100644
---- a/drivers/leds/leds-lm3533.c
-+++ b/drivers/leds/leds-lm3533.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/leds.h>
- #include <linux/mfd/core.h>
-@@ -27,6 +28,12 @@
- #define LM3533_ALS_CHANNEL_LV_MIN	1
- #define LM3533_ALS_CHANNEL_LV_MAX	2
- 
-+#define LM3533_REG_OUTPUT_CONF1			0x10
-+#define   OUTPUT_CONF1_MASK			GENMASK(7, 2)
-+#define   OUTPUT_CONF1_SHIFT			2
-+#define LM3533_REG_OUTPUT_CONF2			0x11
-+#define   OUTPUT_CONF2_MASK			GENMASK(3, 0)
-+#define   OUTPUT_CONF2_SHIFT			6
- #define LM3533_REG_CTRLBANK_BCONF_BASE		0x1b
- #define LM3533_REG_PATTERN_ENABLE		0x28
- #define LM3533_REG_PATTERN_LOW_TIME_BASE	0x71
-@@ -54,6 +61,9 @@ struct lm3533_led {
- 
- 	u32 max_current;
- 	u32 pwm;
-+
-+	int num_leds;
-+	u32 leds[LM3533_LVCTRLBANK_MAX];
- };
- 
- 
-@@ -641,7 +651,33 @@ static const struct attribute_group *lm3533_led_attribute_groups[] = {
- 
- static int lm3533_led_setup(struct lm3533_led *led)
- {
--	int ret;
-+	u32 output_cfg_shift = 0;
-+	u32 output_cfg_val = 0;
-+	int ret, i;
-+
-+	if (led->num_leds) {
-+		for (i = 0; i < led->num_leds; i++) {
-+			if (led->leds[i] >= LM3533_LVCTRLBANK_MAX)
-+				continue;
-+
-+			output_cfg_shift = led->leds[i] * 2;
-+			output_cfg_val |= led->id << output_cfg_shift;
-+		}
-+
-+		/* LVLED1, LVLED2 and LVLED3 */
-+		ret = regmap_update_bits(led->lm3533->regmap, LM3533_REG_OUTPUT_CONF1,
-+					 OUTPUT_CONF1_MASK,
-+					 output_cfg_val << OUTPUT_CONF1_SHIFT);
-+		if (ret)
-+			return ret;
-+
-+		/* LVLED4 and LVLED5 */
-+		ret = regmap_update_bits(led->lm3533->regmap, LM3533_REG_OUTPUT_CONF2,
-+					 OUTPUT_CONF2_MASK,
-+					 output_cfg_val >> OUTPUT_CONF2_SHIFT);
-+		if (ret)
-+			return ret;
-+	}
- 
- 	ret = lm3533_ctrlbank_set_max_current(&led->cb, led->max_current);
- 	if (ret)
-@@ -716,6 +752,23 @@ static int lm3533_led_probe(struct platform_device *pdev)
- 	led->pwm = 0;
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
- 
-+	led->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default LVLED or is not linked to any LVLED at all.
-+	 */
-+	if (led->num_leds > 0 && led->num_leds <= LM3533_LVCTRLBANK_MAX) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     led->leds, led->num_leds);
-+		if (ret) {
-+			dev_err(&pdev->dev, "failed to get led-sources\n");
-+			goto err_deregister;
-+		}
-+	} else {
-+		led->num_leds = 0;
-+	}
-+
- 	ret = lm3533_led_setup(led);
- 	if (ret)
- 		goto err_deregister;
-diff --git a/drivers/video/backlight/lm3533_bl.c b/drivers/video/backlight/lm3533_bl.c
-index 945625c54fc4..2119433bae45 100644
---- a/drivers/video/backlight/lm3533_bl.c
-+++ b/drivers/video/backlight/lm3533_bl.c
-@@ -7,6 +7,7 @@
-  * Author: Johan Hovold <jhovold@gmail.com>
-  */
- 
-+#include <linux/bits.h>
- #include <linux/module.h>
- #include <linux/init.h>
- #include <linux/mod_devicetable.h>
-@@ -22,6 +23,8 @@
- #define LM3533_HVCTRLBANK_COUNT		2
- #define LM3533_BL_MAX_BRIGHTNESS	255
- 
-+#define LM3533_REG_OUTPUT_CONF1		0x10
-+#define   OUTPUT_CONF1_MASK		GENMASK(1, 0)
- #define LM3533_REG_CTRLBANK_AB_BCONF	0x1a
- #define   CTRLBANK_AB_BCONF_MODE(n)	BIT(2 * (n) + 1)
- 
-@@ -35,6 +38,9 @@ struct lm3533_bl {
- 	u32 max_current;
- 	u32 pwm;
- 	bool linear;
-+
-+	int num_leds;
-+	u32 led_strings[LM3533_HVCTRLBANK_COUNT];
- };
- 
- 
-@@ -253,7 +259,8 @@ static struct attribute_group lm3533_bl_attribute_group = {
- static int lm3533_bl_setup(struct lm3533_bl *bl)
- {
- 	int id = lm3533_bl_get_ctrlbank_id(bl);
--	int ret;
-+	u32 output_cfg_val = 0;
-+	int ret, i;
- 
- 	ret = regmap_update_bits(bl->lm3533->regmap, LM3533_REG_CTRLBANK_AB_BCONF,
- 				 CTRLBANK_AB_BCONF_MODE(id),
-@@ -261,6 +268,20 @@ static int lm3533_bl_setup(struct lm3533_bl *bl)
- 	if (ret)
- 		return ret;
- 
-+	if (bl->num_leds) {
-+		for (i = 0; i < bl->num_leds; i++) {
-+			if (bl->led_strings[i] >= LM3533_HVCTRLBANK_COUNT)
-+				continue;
-+
-+			output_cfg_val |= id << bl->led_strings[i];
-+		}
-+
-+		ret = regmap_update_bits(bl->lm3533->regmap, LM3533_REG_OUTPUT_CONF1,
-+					 OUTPUT_CONF1_MASK, output_cfg_val);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	ret = lm3533_ctrlbank_set_max_current(&bl->cb, bl->max_current);
- 	if (ret)
- 		return ret;
-@@ -336,6 +357,23 @@ static int lm3533_bl_probe(struct platform_device *pdev)
- 	bl->pwm = 0;
- 	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &bl->pwm);
- 
-+	bl->num_leds = device_property_count_u32(&pdev->dev, "led-sources");
-+
-+	/*
-+	 * If led-sources property is not set then either this Control Bank uses
-+	 * its default HVLED or is not linked to any HVLED at all.
-+	 */
-+	if (bl->num_leds > 0 && bl->num_leds <= LM3533_HVCTRLBANK_COUNT) {
-+		ret = device_property_read_u32_array(&pdev->dev, "led-sources",
-+						     bl->led_strings,
-+						     bl->num_leds);
-+		if (ret)
-+			return dev_err_probe(&pdev->dev, ret,
-+					     "failed to get led-sources\n");
-+	} else {
-+		bl->num_leds = 0;
-+	}
-+
- 	ret = lm3533_bl_setup(bl);
- 	if (ret)
- 		return ret;
+On Wed, 22 Apr 2026 17:35:37 +0800, Sherry Sun wrote:
+> This patch set adds support for parsing the reset property in new Root Port
+> binding in pci-imx6 driver, similar to the implementation in the qcom pcie
+> driver[1].
+> 
+> Also introduce generic helper functions to parse Root Port device tree
+> nodes and extract common properties like reset GPIOs. This allows multiple
+> PCI host controller drivers to share the same parsing logic.
+> 
+> [...]
+
+Applied, thanks!
+
+[08/12] arm64: dts: imx8mm: Add Root Port node and PERST property
+        commit: 99a2249e2ac51680eb6c314e7c50dada030614fc
+[09/12] arm64: dts: imx8mp: Add Root Port node and PERST property
+        commit: 34f8f8aa932cb7f7e625dfb0fc32a944f8f1cef3
+[10/12] arm64: dts: imx8mq: Add Root Port node and PERST property
+        commit: c1c74c6df0c4dfbdf10de14ef22d559682eee542
+[11/12] arm64: dts: imx8dxl/qm/qxp: Add Root Port node and PERST property
+        commit: f0920daf45f7f619a34cd433b85d33b67fa1dd6f
+[12/12] arm64: dts: imx95: Add Root Port node and PERST property
+        commit: 83c22f27115f1800d447ebc1401f9af08075fda8
+
+Best regards,
 -- 
-2.51.0
-
+Frank Li <Frank.Li@nxp.com>
