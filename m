@@ -1,175 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011044.outbound.protection.outlook.com [52.101.70.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787833C13E9
-	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 14:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780325359; cv=none; b=iwYXAyzQuxSBY6gRSRpEXgC9pdbUeQaz1cdYYhIbFu4Q0X99bT4cTyHWoV7P+etaea5zSf/Wp52pewrWRh4p1bgzE+h/qwASyrhExhmq0oMDrMRiMVDCeYfUVz7ZSC4VhzvxyfXCUBOxcKYQ0raypF/WmWFHFzCnYX5/4y8o3do=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780325359; c=relaxed/simple;
-	bh=W02wGjPKNVjJpsmQtopt+ea2aaY8rMb4gI74zvi/8mw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=myZlfVzx2XSjhj+auAVyJpWUEUXUNDqXpnem+kKxzqJzrIKmAIZwrxoHEC2b6A4LfGUl+j+oZXCOUzMvZ7+1AGF7OjfvGHPKBH5Ud3p3d+D7Nm/z12w5v4mNKBq3DmbMvfNcrI00f5Azf1ucGQVafK1IKLHSMNF1NQORqSj5N2Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G9vS07fk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D0593C9893;
+	Mon,  1 Jun 2026 14:52:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.44
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780325535; cv=fail; b=Edao6YRSEr0KZs7WGMi5jNLSUM2I0LWlaSukiHEt1n22a8aaIGevP/tVqVjv7tdFq1Rbp36uR6qZ9FDaCC2bitAHqXnYzAjTnaqJGw987/2UlhlDqE08cKttsNPWylGXZkRX7xMH8hed11FKDJkyrFp/dKquev4ZROYkEFZ1Z74=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780325535; c=relaxed/simple;
+	bh=7UgeYyKsKt7suksZevYS/a5nDvcBkO1CKa18uWHtiC0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Xp37v6DwHlsA8LVGC9b9wTz2b/sTr43EMVT6IUOul6bjGl/tdUAk8a7l7SFxk2/83RYAt5FMZumA43EWSNNagm1AYuYPpBrv/EmqSUUHcUZDCwlhdGcFK12GwnrA/IEzoULRMelljtbXBRzrhShnfqba6CPMczzcndYXxJoKs7I=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=QLOePfdV; arc=fail smtp.client-ip=52.101.70.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G9vS07fk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DACAF1F00893;
-	Mon,  1 Jun 2026 14:49:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780325358;
-	bh=9a6wP+QG3KEw+tP/SJtstjOS6nC870MnoPw94948lEw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=G9vS07fkIes1tWBe/QqUyGOff1b8t66N25wOAt877h0jN7wl2F29b9k/ruBrvc6re
-	 LecEPlzoQWgRu2qElkDqPY1Vz0Fy65mYs842Yc/IAJxAoa8p9dVqoct+Or88oA2O9s
-	 vC2PjC/hpV0sZUXhCUAwAuujNYnIswmzQt75FN1Rwg8Ce10qCgME7TacQKSi2rZHU7
-	 LLe6vMS873GEAVJP7SWJ2Y3RH0ClUMA6+WRBw4Zs9oil+9hG+ObNkaFWelwJpy3SRd
-	 /MJZcwOJpWd2FxbW+K+Rgc7osBLcaLMDrx1cLhpBe8EEx2yjWmjPc7fPkpNHrxDDVS
-	 6tsryEY78/0HA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 3/3] arm64: dts: rockchip: add Vicharak Axon board
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hrushiraj Gandhi" <hrushirajg23@gmail.com>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601143022.153941-4-hrushirajg23@gmail.com>
-References: <20260601143022.153941-4-hrushirajg23@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 14:49:17 +0000
-Message-Id: <20260601144917.DACAF1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="QLOePfdV"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=jik/RmzvS0pdpg3nY8EH1d1SLX3GFR5Blvo5gSLEVk10x5ZuWXly1xa8MdLKD2XYvV/qfRdcQnPcrpDQKTDW8oVd/VbZSvGuLgpb33skX5wrZg/DKEBcJtSWpb27oJBqO+anWbMmLwW93aYc/9ed1+JlV9N92F+Q97TxLRlka3CREO4+4xJ5DmwAhj8367GNa+55cViixgYrwgYDZLS1gOOi6DjbCJePGHbNVW+UvDZ4xhA89w4JK60CyKOmBF2iP0GOtaqUPLvwQrFlyT9uJMFs2xjY8whxzRe9AhR4xqHSGUeMQgp7aMDOmHZcwZufegLr3aHMHrEA8+b0HK4G0w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=l4FbC88icyep+r7/dP5/Scb/Nd+NdsLND46gzlO9XhM=;
+ b=SP788MAFK58GacNoBLXaKGa0X+EyUKv/rkwbEeWjaHfCEG9T59HYYQpPJHWRJ2erfD7asPzAMCBBpu3Dr4iZl1tJk0POgBu2xmD5xDU4xBfNk1P6h9h0LTRl0dxPsdxE43bNWbjp+7YcferAtb/sfA8y9UReWHCG7fM0ybjBkSX852AYEKw516bZKtdCYLX12OLp0dzDncMB6WUz7dyWt2HleKaYSr/PQRvk7bVdXeEeHpBZcvzbAa/zYw/rCT+YqDmsCZwp/6fp6CvuqZVYMHRWdoJIC7AUN2DArOrOKYeWW3flXeP/Lm/lO8XBk/vfd+G7aV+6XTUsPS0iZnelUg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=l4FbC88icyep+r7/dP5/Scb/Nd+NdsLND46gzlO9XhM=;
+ b=QLOePfdVUaWAj5u/OhW6nr9Nh0K0z3yFmVmr/Zr1xUIN3uU1rUdQyY66IaQfZ4mMKYvHTELAKZdfgM4C9FE+0xtQOVJ1oDK1gA++kdCoqW/cSxR1qdNzaVY4LQOoSZuJgM7PGwrGxrIDqTB1knr5ja3ngzekDMcsaINHW/RFtFERBulr0a+zs1b9zu+kGe0ovdEGd7RwZkK7L4Pe05JTwPd/Eq8q/zjHDgYEx1BkEiW2oNBAA6b7crfBccXcNC70CiB+NwSZFtVMvNVwO2m68wrdMRygW0SJsC3xiCRKq0zxqErYOPbICDB5C/UTEVncE0+PUdumXSh1NZzCvPANbQ==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by VI1PR04MB10026.eurprd04.prod.outlook.com (2603:10a6:800:1df::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.15; Mon, 1 Jun 2026
+ 14:52:10 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0071.014; Mon, 1 Jun 2026
+ 14:52:09 +0000
+From: Frank.Li@oss.nxp.com
+To: linux-arm-kernel@lists.infradead.org,
+	Marek Vasut <marex@nabladev.com>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Christoph Niedermaier <cniedermaier@dh-electronics.com>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Fabio Estevam <festevam@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	kernel@dh-electronics.com,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus DHCOM SoM and boards
+Date: Mon,  1 Jun 2026 10:51:58 -0400
+Message-ID: <178032549988.3914057.11721734182930821482.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260324190544.74531-1-marex@nabladev.com>
+References: <20260324190544.74531-1-marex@nabladev.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SN7PR04CA0080.namprd04.prod.outlook.com
+ (2603:10b6:806:121::25) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|VI1PR04MB10026:EE_
+X-MS-Office365-Filtering-Correlation-Id: b49c1386-0fb0-4805-53fc-08debfed5b55
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|7416014|376014|19092799006|1800799024|56012099006|11063799006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	hIYptQOQ7dWWV9503TuhHT07deiuYEt1QSHsS7Pm8QRdRnI9uT5rRk/TjTdAjgdUZi7/0uFECt6ti3K05Yu7hxHNPhbdxy7NQNuJKUI5Igr9/LrqgzBETRVjUCs1Re9OQYCNjPmYFUjwO8NaqLsYOtNekkdpBXNkLPaC8wVPdxEwdqCCuDh2qS6PruPHr2KvIRGb8hZybxn/8P6Yiir4n1fiOFBI7sqwD9QxPFJB+VPpw4wER+Z2HOLwP7NHZhxTJUlgN2hqBi+kgKG7cSAHrTvfDeHY1V5Ct5p7TSPW2FszbsH3P+CVXZTUhlopZfUVqiC1yJySvHxh7Y4VntJCyqOBr4KXhM6TpasepMNVeYDTj2AmRDuVmKbpEsxLWodRzoXuYuClBOaqhn9HHuxPU2kCB6ZB8MjZwwVFCPWyjfC/NkJdIySPtcApaDD8lDz0FSG+VQoNIxyFOoHfQyMqmKIWQMPP3g0BbNnKWikxxgIJeM9Q83NduMoszysZn7IYtbBTXYMkL9i2dDE+uekN7CkIVVbiPGjK5S1VfwwcKmjo1BM2iesmutk+jfsgC0S3y7ySCfrJcMAWPn43HaMu1ulwd2/I0KcxWw9aitx9C4jwuf+d0STkR5w31ZzCk9OOk4VgoogwXdCWqdlAPJiJV+5wYq+vWlaaikXQbJ0Kwf+9ZLjX46/TQIFUUwNAYTqI
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(7416014)(376014)(19092799006)(1800799024)(56012099006)(11063799006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?a2QyTWhVK3pJc0ZyVVNwa2NDNE81alo0OXdzRnZNOWg2TWdnTzdiSXhtd3c1?=
+ =?utf-8?B?aHFINU0yZGU2T3dvR0tFajN6L0pHU3pYRjYzeVRlVXlORE5MaEhhVzBQM2FQ?=
+ =?utf-8?B?T2Q5NWhUalNtSEtKcmVkVCs1dGk1NGhqNmxua3VBd1B5RHM5TG01TGpPbDVL?=
+ =?utf-8?B?T016ZW1HOFFQeXZobDRrb0c0ZlltMUFzbXhDVzEvZUNIQWp4eFJFTjQzN1JZ?=
+ =?utf-8?B?UDVqMjNiOUhhbDFsZWp4K1NkSFR2TWF0S1M0aHhDSytoWmNUdi9qL2xBWVpS?=
+ =?utf-8?B?S3Y5eWZ1Z0h3a2xpS0hUR1hZdWs3UlYwS0E3UUZZZWRDaUJHeS9rYzEyUDRP?=
+ =?utf-8?B?ZGJLd05WNXNCMkdVUzVzQU13WjJPdm5pNW9vUUVCRHRLSGdGTjY2ZDRreUZN?=
+ =?utf-8?B?TUJQWUd0bUhlMGpKM0hzbHRrTHdObEV5V1pSNy80VVJUQm1RcDNXajVuSExu?=
+ =?utf-8?B?NEZLNUY5Wng4K2RUcDlpU0hNZ3BtYjI4RXVtQzMzNmZnQVdhREo3RW5EOHNl?=
+ =?utf-8?B?N0IwL3YvQ2hlVmtrVFhBTmVNQVZVTFgzcnRKbm5RcG5PV3pzbEQvcUd0cWZ5?=
+ =?utf-8?B?YWxpZWlGQkhrOGZINW9iWjV5dDJKcWdXcHZSYnNERkdZbXlIclJyTlhQTEc5?=
+ =?utf-8?B?QldzaXh5VkJBOWV0bkx1MXFQTFdsWXAzeXhRdzhiVFQyS2ZsYmNyOWFWQXhK?=
+ =?utf-8?B?YXl0NmNIbVpHWDAzNHZtYTJXaVJpR2sva1lNT2ZobXNZSS9RLy9MSnM1bVE0?=
+ =?utf-8?B?U2xKbS9obzlqQU5SUXNTb1FhRG80ZDczaVA2MWE0NFVtbFNlb0oyVWxzdG1a?=
+ =?utf-8?B?RUM4U1R1N0piZnBJTnEzM1c0UVgwdWliVjBvOHVEY2hPTU5qbGRDQVBaenY4?=
+ =?utf-8?B?dGZ1TlptV3B4VFRkc2JyODU2OGNBZ2dwTkdPay9CZEc2UjAxM0J0QjdQRmZF?=
+ =?utf-8?B?ZjFkODFMUFN5RTJodHpWNWQwejJKbHcvY0pjdmZ3VkZHUVFZbFM2U2hLTGwv?=
+ =?utf-8?B?d0E5c1F2bWhDZ3h5cXczTGFBbzRIUmRybnBFR29IUjRpQlJ6ZjlsY2dkeUh0?=
+ =?utf-8?B?VG40OExJRDlxQjJUYXdHdDhETW1IZWtwcWQxREtaaStEcVVOQVYvNm5LTEFT?=
+ =?utf-8?B?Z01aNXgyWlQralZQeVFNZU4ySDlYakNlRVllRnl2RDZndXdUL0lXSE14SUh1?=
+ =?utf-8?B?TjBIR2c0aDJQdDB3RnhpckljZkFLVVFwUlhYU3ZyUGQ5TmI0eFpBaE1UcTBP?=
+ =?utf-8?B?NzdVdkREZG5vUzZ3VEVWbEo4Y3Q0N0JXOGN5NnoxcGxneXRDM0ZFQ2l2YlAz?=
+ =?utf-8?B?RG0zMEt4aUIyekVYZGVCWHNCa1ltVTUrZS9oaVFJeDV6L1VJbUUvS0M1OTUx?=
+ =?utf-8?B?VGszVjFhVlUwOXNkUEhRMmFkRittUDVCQkcwaGc4cmxBZ3RZK0NpN0dOVFNU?=
+ =?utf-8?B?S2VOZEp6ajJOWHVqWXFWVU1Ob1F0QWpkb002aWhjUk1aUHFFMDRsUDJXc2xM?=
+ =?utf-8?B?NS9IaEV2cDluVE9oSkFXN1BGTHRlZ2t6V3J2Rnh2S0JISkc3bGJQeFNJTGJH?=
+ =?utf-8?B?aldJMnFKUEVyT3J5d2EzQTIyQUI1WGRlVE14dXdNelhjUENRYnczbHRUaXJ1?=
+ =?utf-8?B?TGM1T0pPL2JSM3FKbjZwekRFelY2NElrTkpsSGtYeGVmWTBENWQ3dXJ3alVK?=
+ =?utf-8?B?TC9SSjFjV0JFY3NqUlhkTnJCb3NZQjE4Q29IVGwwb1dZU1NJNVltdXFjMlBZ?=
+ =?utf-8?B?Vkp5WlJVc1dTa3JXT2F6eHIraHVWVnVSUUI5MnltSDNZaEp5Q3dzNUFtcGxj?=
+ =?utf-8?B?dk44ZVBKWFJIZlpiTE1pVTRuN04rRWtIUHBVdlB2NzJlbWZHWjVZbEpicHFW?=
+ =?utf-8?B?T2gvK09wbWY2cFhvRzZsblc5dU16RDdaRi8zV3p5MzIrdllGYnZXRzZLWVhs?=
+ =?utf-8?B?MVhiMmo5My84SzVpMklyc3FOZEluYjJoYkRUVVlINzhvb2E5RVJMRGFqSlJU?=
+ =?utf-8?B?SkMwaE1TNWJCR2xwS0QyMC9kaUUyaEJXVGNxMC9QWFc5S3RoamZKdzZzak4x?=
+ =?utf-8?B?N1hCaHdJUmhJcnZZR3h2eWF4RkUrSHZlcUdTTGdOVGt4dlFkT2lwZmcwY2xt?=
+ =?utf-8?B?M2cxSEVNbXY4Vm0xN1dPYXVqRjFzNWNSMUZDMDJTYkZpcm1Oa3RyZ0VucHJ6?=
+ =?utf-8?B?TGQwbkkyZVlMMDRoN3dsc1p2dVdsSGpoSXlBRVhsRjNWL3ZoaVZvU1h0ZFRo?=
+ =?utf-8?B?RjZObm9HS1hOeE03bk5pbGZIaVFzWlBtRGxGakVyTlJLT2MzVk44bTFoc2JJ?=
+ =?utf-8?B?bUc4eTRiTzdiVHZuTEgrRUpFeENZK1J2K2o4bDNPNHB6TmdWQStldmR4YXoy?=
+ =?utf-8?Q?0+4IvOvpRuHeEe5+Yip79+Y8okFPTv9W/Ouo7?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b49c1386-0fb0-4805-53fc-08debfed5b55
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 01 Jun 2026 14:52:09.8171
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Esqv17z9CdfIjn/snb1JvR77Nz7Ht/2hvrDELfolE3iozYF5ttQg8dxfQRPB649017hpjwB7SV72zvpIuA8Aq92+wBesM+aFG18XAu8Y7C8QxXE0XWTRenm0x0bE6cpe
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB10026
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [High] Hardware conflict: both `pcie2x1l0` and `sata0` are enabled, but t=
-hey share the same single-lane PHY (`combphy0_ps`).
-- [Medium] The SDIO node lacks UHS capability properties, limiting the Wi-F=
-i interface to 50MHz.
-- [Medium] Incomplete configuration: USB PHYs and `combphy2` are enabled bu=
-t their respective controllers are disabled.
-- [Low] Undocumented Wi-Fi interface configuration.
---
+From: Frank Li <Frank.Li@nxp.com>
 
-commit 395e8a5adb0ca626a634aafea8c647363459acf1
-Author: Hrushiraj Gandhi <hrushirajg23@gmail.com>
 
-arm64: dts: rockchip: add Vicharak Axon board
+On Tue, 24 Mar 2026 20:04:19 +0100, Marek Vasut wrote:
+> Add DT overlays to support DH i.MX8M Plus DHCOM SoM variants and carrier
+> board expansion modules. The following DT overlays are implemented:
+> - SoM:
+>   - DH 660-x00 SoM with 1xRMII PHY
+>   - DH 660-x00 SoM with 2xRMII PHY
+> - PDK2:
+>   - DH 505-200 Display board in edge connector X12 via direct LVDS
+>   - DH 531-100 SPI/I2C board in header X21
+>   - DH 531-200 SPI/I2C board in header X22
+>   - DH 560-200 Display board in edge connector X12
+> - PDK3:
+>   - DH 505-200 Display board in edge connector X36 via direct LVDS
+>   - DH 531-100 SPI/I2C board in header X40
+>   - DH 531-200 SPI/I2C board in header X41
+>   - DH 560-300 Display board in edge connector X36
+>   - EA muRata 2AE M.2 A/E-Key card in connector X20
+>   - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X31
+>   - NXP SPF-29853-C1 MINISASTOCSI with OV5640 sensor in connector X29
+> - PicoITX:
+>   - DH 626-100 Display board in edge connector X2
+> 
+> [...]
 
-Add initial support for the Vicharak Axon single-board computer based on
-the Rockchip RK3588 SoC.
+Applied, thanks!
 
-> The board supports:
->=20
-> - eMMC storage
-> - microSD card
-> - Gigabit Ethernet
-> - HDMI output (dual HDMI)
-> - HDMI input
-> - USB 2.0 host ports
-> - PCIe 2.0 slots
-> - PCIe 3.0 x4 slot
-> - SATA
-> - RTC
-> - Status LEDs
+[1/1] arm64: dts: imx8mp: Add DT overlays for DH i.MX8M Plus DHCOM SoM and boards
+      commit: 244b25e43c15b6d9e5b5c0f5187743eb2fe7a5b8
 
-[Severity: Low]
-The commit message lists the board's supported features but omits Wi-Fi.
-
-However, the device tree includes an &sdio node configured for a Wi-Fi modu=
-le,
-along with an sdio_pwrseq.
-
-Could the commit message be updated to include Wi-Fi, or is the Wi-Fi
-configuration leftover code from a reference design?
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts b/arch=
-/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
-> new file mode 100644
-> index 0000000000000..9d1e61e1857ae
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3588-vicharak-axon.dts
-> @@ -0,0 +1,1036 @@
-[ ... ]
-> +&combphy2_psu {
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Are the controllers for this PHY supposed to be enabled as well?
-
-combphy2_psu is explicitly enabled here, but all of its potential consumers
-(pcie2x1l2, sata2, usb_host2_xhci) appear to be disabled.
-
-Does this leave the PHY initialized but orphaned, potentially wasting power?
-
-[ ... ]
-> +&sdio {
-> +	max-frequency =3D <150000000>;
-> +	no-sd;
-> +	no-mmc;
-> +	bus-width =3D <4>;
-> +	disable-wp;
-> +	cap-sd-highspeed;
-> +	cap-sdio-irq;
-> +	keep-power-in-suspend;
-
-[Severity: Medium]
-Does this node need UHS capability properties to achieve the requested 150M=
-Hz?
-
-Without properties like sd-uhs-sdr104, the Linux MMC core might assume the
-host does not support SDR104/UHS speeds and artificially cap the interface =
-to
-High-Speed mode (50MHz).
-
-Could this severely throttle the Wi-Fi bandwidth?
-
-[ ... ]
-> +&pcie2x1l0 {
-> +	reset-gpios =3D <&gpio4 RK_PA5 GPIO_ACTIVE_HIGH>;
-> +	pinctrl-names =3D "default";
-> +	pinctrl-0 =3D <&pcie2_0_rst>;
-> +	vpcie3v3-supply =3D <&vcc3v3_pcie20_sata30>;
-> +	status =3D "okay";
-> +};
-
-[ ... ]
-> +&sata0 {
-> +	status =3D "okay";
-> +};
-
-[Severity: High]
-Will enabling both pcie2x1l0 and sata0 create a hardware conflict?
-
-In rk3588-base.dtsi, both pcie2x1l0 and sata-port@0 (in sata0) are hardcoded
-to use combphy0_ps. combphy0_ps is a single-lane PHY that can only operate =
-in
-one mode at a time.
-
-If both controllers are enabled without reassigning the PHY for either, will
-one interface fail to link or corrupt the PHY configuration of the other?
-
-[ ... ]
-> +&u2phy0 {
-> +	status =3D "okay";
-> +};
-> +
-> +&u2phy0_otg {
-> +	status =3D "okay";
-> +};
-
-[Severity: Medium]
-Are the USB host controllers for these PHYs intended to be enabled?
-
-u2phy0 and u2phy0_otg (along with u2phy1) are enabled, but their consumers
-like usb_host0_xhci remain disabled.
-
-Could this result in non-functional USB ports and wasted power?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601143022.1539=
-41-1-hrushirajg23@gmail.com?part=3D3
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
