@@ -1,170 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 269762EA72A;
-	Mon,  1 Jun 2026 16:44:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0575837F74A;
+	Mon,  1 Jun 2026 16:54:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780332245; cv=none; b=gWRMmR8NGq5I5atrRpeM5xt94Oo4wuhV1ia8Ib7YmkEfSKEZuzpqjboV1E5cvgCwr16U53I+pIylfxHBicHeqAfa+qIXSanU5fuOjtAl6j0tDAtuGj9HoYA49H6RxtkLPFFB6wp2tCsNE5Z007T//FGMl9xYCxo6z0KMew7x/TU=
+	t=1780332854; cv=none; b=W97tVu0TUriR11ifFksJa7yQssejSxa5k+ChyPP0KyteUHoI9LA7bS1Ig09i+nJ4g6jyPINyxu+xqdU5CI8rmmHJjNqgXxZeR+hN9uWFGBcsWqy02sWKucVwsDUeZvsSiE3ot4YLV3IkWFhreYUTltIKhVpljORyeYTV1d+ocQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780332245; c=relaxed/simple;
-	bh=0V6wKVE5UM9luDzIOm7uAI+Rhb1JbIKjWFdughNxhko=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iIFdK9cC60q5USMQHAOBmpPTB68ayft2wSQTW/P59Ig/mgfhfCevSvWJHwi7aEHnLg2exDkKaOc+sOFiA/bOxK1EAWNB3c3+9sp52bwCIwyhq0C0nE5zRFsic0k+c0q5Ty0nNVx/X1rr+0SGId6H2BbqCbEofr332Qb2Hb9qbLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OUV0elJt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780332854; c=relaxed/simple;
+	bh=O2pCDokgZ3DXKuGnRSIwijCq5J/0NOJdQ50dy8sFUeM=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=i6zo+RyCjkpoSrD3vyxKy5X0oYgW5FJiX4Gs2e2s377WqiczkJRLN7C60w1iHW+EFuBW6GvfZpeL7dmZQRnrPyw7I2HCkUeOVR67oU5M7gLopS8KgtLKbP1JDiokgZytqO2wcw8D71iXKkmYwW7Rqs3o+eL5AKzCRhddMMNYUAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hjuxVO5z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OUV0elJt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CE831F00893;
-	Mon,  1 Jun 2026 16:44:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780332243;
-	bh=mbYgnj8yBGdyA6uHH8MliJ0lbjB8x4igY0Zs1aSm5ow=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=OUV0elJtIcThM3eH/93mvkd0E8WLb9pzpjD98ZQAJ5UJNkwGy48FVHpgIPNtu/ccH
-	 IyaFRFMRMoktFw/zU9hjZXbUVGdOw1M+xtq8KcECJWyUQicTsefVlmV14BUmu1E7fA
-	 N7LG3lUVEnXXKhccZ/wjL6EA28KAgQvPj3bRRZIhuZrvyutGrBYaf5ZJndaOMs82Fc
-	 8S4af0UfQGz7B+umOHmNxWDmCu1IEQa2lqrpJuR2LvYb1OF/AuxyVPWRoExSqullls
-	 CtTyv+MpC/P0PHdvkqR6fzjq4XGYhQKFVxz+Sb5llrf5SBQrdRfbFuerEt9nujMRO4
-	 vCqpKp3l2DQ+w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v14 5/5] media: qcom: camss: vfe: Add support for VFE
- gen4
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Hangxiang Ma" <hangxiang.ma@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260601-kaanapali-camss-v14-5-e76f26aa6691@oss.qualcomm.com>
-References: <20260601-kaanapali-camss-v14-5-e76f26aa6691@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Mon, 01 Jun 2026 16:44:03 +0000
-Message-Id: <20260601164403.8CE831F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hjuxVO5z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A4829C2BCB8;
+	Mon,  1 Jun 2026 16:54:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780332853;
+	bh=O2pCDokgZ3DXKuGnRSIwijCq5J/0NOJdQ50dy8sFUeM=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=hjuxVO5zKfYGyGTwbACI1HudQbS7KfGZmJwM7y14hUtGiHUXjTdAhW/o4wkej9KUX
+	 XCxz38oAt5ca+7rmI2Z7OySut9VcV36Qg+UcO8U6fVbEiFMBSxlWY5Nzqbur7p0Q7S
+	 EKd4ikSANh6Hz9EKpBO2ouiI99TEZcewsUrG7+MTCavtONMB/fnwv+KOKza8ZGp84O
+	 PGawjVpkm+K0NbuamYgyW15JC3tK7aw/12pBfVUAWSAk7l3wdK74OGPJtpo5ap4047
+	 u39NLax7BJvFidaRprCVgzGKR7JpF/TEn7aXlAm3VEsaV54r8fGrtw7XQxgPu/adiZ
+	 IZko3DZeDYQnw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8A19ECD6E5D;
+	Mon,  1 Jun 2026 16:54:13 +0000 (UTC)
+From: =?utf-8?q?Pablo_Correa_G=C3=B3mez_via_B4_Relay?= <devnull+pabloyoyoista.postmarketos.org@kernel.org>
+Subject: [PATCH v3 0/3] Add support and enable the debug UART in the Pixel
+ 3a and Pixel 3a XL
+Date: Mon, 01 Jun 2026 18:53:59 +0200
+Message-Id: <20260601-pabloyoyoista-debug-uart-on-rdacayan-next-v3-0-6fdcd669364e@postmarketos.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/53OQY7CMAwF0KugrMcopC0UVtwDsXAStwSGpDhpR
+ YV6d1IYaTaskFffsvz+Q0RiR1HsFg/BNLjogs+h+FkIc0LfEjibs1BSrWWhauhQ/4Yxj4sJwZL
+ uW+iREwQPbNHgiB483ROst2pTFlVtqClF/tcxNe7+sg7Hd469PpNJM/B3wXTrc4n0f3bKUODx1
+ XBYzdtvygwrkCA16qaqSzRW77sQ0xX5QinEZeBWzNigvgZUBqoCtd1aXTcSPwDTND0B6ipNr3E
+ BAAA=
+X-Change-ID: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, Richard Acayan <mailingradian@gmail.com>, 
+ ~postmarketos/upstreaming@lists.sr.ht, 
+ =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>
+X-Mailer: b4 0.15.1
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1319;
+ i=pabloyoyoista@postmarketos.org; h=from:subject:message-id;
+ bh=O2pCDokgZ3DXKuGnRSIwijCq5J/0NOJdQ50dy8sFUeM=;
+ b=owEBbQKS/ZANAwAKAXo0JWX/Y195AcsmYgBqHbk0nlT9oDrwgIlS4Y8YvL9kz9oommsGrD8Cy
+ xFZLzZ48T+JAjMEAAEKAB0WIQS9CheUSi6o/ykTCaJ6NCVl/2NfeQUCah25NAAKCRB6NCVl/2Nf
+ eTDJD/0dbwV6sH9Y4IDn/C58x2AbIlbHOyIbWiquQWksdrJobyk9zXRzmEVi4D9BwZM7ey5CGKY
+ DbP6TXb20djN5rpTJzB+j3Gq6mtR8QMJQHZWH6gDh51JOwcpeqNejp4X4A12bC068PuRxpGTshm
+ QOCc2jiq42Ei5c4iBPqCTDDbIImUUS9J1LISI/Zxj5qn/3gOYHb8FA+O4QYtJE8IvRkM4kziaDs
+ 6NHv7/hypRuBkPpgQVRIGsep4TwkFYitUvqj1WdAdARaIQFm1nWdXMhZzqZzBQgfzvSO0rD5usx
+ OuoktzkB9MhZTcSVQ41fUnDLAyOG4DNlace8XeMBIn7B6nfSIzLbdNXGvg0vpEHxE5GvxV73Vdk
+ XKnHSnuAykIHqtyGTAyIPafz5b8SoZKT9zIEUXLpV8KPkv6B6REHKLr4Ob71QrNAOGN7EwFTmPB
+ o5iR7pe5HAULyqWuhO93sE72DJL1EBhGG8UlpjxYdcyIo4NyRbuEtJJCkAlr4Jse8JiYtSf7x01
+ qdTFOFuulYZOapQYWWwUVKe/CVEQ0Ni14MQOinfDQI55neltcZf/VPyoIENcyujU+K6FjDU7t3Z
+ 7eEyhnQBk2xgUacnSCxFO8JhIUrv91owZM9t3w4RUdrGMogvX9n9st1ghfvszGMg60tcO3PtXVt
+ n4YhrAEr29b0w2w==
+X-Developer-Key: i=pabloyoyoista@postmarketos.org; a=openpgp;
+ fpr=BD0A17944A2EA8FF291309A27A342565FF635F79
+X-Endpoint-Received: by B4 Relay for pabloyoyoista@postmarketos.org/default
+ with auth_id=698
+X-Original-From: =?utf-8?q?Pablo_Correa_G=C3=B3mez?= <pabloyoyoista@postmarketos.org>
+Reply-To: pabloyoyoista@postmarketos.org
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
+In order to get logs through the SBU pins in Google Pixel devices, it is
+necessary to add support to the devicetree, and enable the corresponding
+UART. With this code and an USB-Cereal board, I was able to get full kernel
+logs through serial.
 
-New issues:
-- [High] Unconditional issue of `CAMSS_INIT_BUF_COUNT` AUP_UPDATEs in CSID =
-stream configuration violates the Kaanapali hardware constraint, mismatchin=
-g the actual number of enqueued VFE buffers.
+Signed-off-by: Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
+---
+Changes in v3:
+- Drop dependency on already-picked patches
+- Link to v2: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v2-0-53abd9db8f0a@postmarketos.org
 
-Pre-existing issues:
-- [High] Cross-linked VFE and CSID pipelines will write `reg_update` comman=
-ds to the wrong CSID instance.
-- [High] Concurrent read-modify-write of `csid->aup_update` and `csid->rup_=
-update` across process and interrupt contexts without synchronization.
---
+Changes in v2:
+- Fix typo in (3/3) commit message
+- Link to v1: https://patch.msgid.link/20260328-pabloyoyoista-debug-uart-on-rdacayan-next-v1-0-0babf584acdb@postmarketos.org
 
-commit 961118b5c346fbca24b27d8e33cf75e4120aa72e
-Author: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+---
+Pablo Correa Gómez (3):
+      arm64: dts: qcom: sdm670: add default uart pinctrl nodes
+      arm64: dts: qcom: sdm670: add debug uart soc node
+      arm64: dts: qcom: sdm670-google-common: enable debug uart
 
-media: qcom: camss: vfe: Add support for VFE gen4
+ arch/arm64/boot/dts/qcom/sdm670-google-common.dtsi |  18 +-
+ arch/arm64/boot/dts/qcom/sdm670.dtsi               | 207 +++++++++++++++++++++
+ 2 files changed, 224 insertions(+), 1 deletion(-)
+---
+base-commit: be0cd82a9f584e562b243684303054134c8f6583
+change-id: 20260328-pabloyoyoista-debug-uart-on-rdacayan-next-69274358cef4
 
-Add Video Front End (VFE) version gen4 as found on the Kaanapali SoC.
-The FULL front end modules in Kaanapali camera subsystem are called TFEs
-(Thin Front End), however, retaining the name VFE at places to maintain
-consistency and avoid unnecessary code changes.
+Best regards,
+--  
+Pablo Correa Gómez <pabloyoyoista@postmarketos.org>
 
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe-gen4.c b/drivers=
-/media/platform/qcom/camss/camss-vfe-gen4.c
-> new file mode 100644
-> index 0000000000000..d73d70898710a
-> --- /dev/null
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe-gen4.c
-[ ... ]
-> +static void vfe_reg_update(struct vfe_device *vfe, enum vfe_line_id line=
-_id)
-> +{
-> +	int port_id =3D line_id;
-> +
-> +	camss_reg_update(vfe->camss, vfe->id, port_id, false);
-> +}
 
-[Severity: High]
-This isn't a bug introduced by this patch, but cross-linked VFE and CSID
-pipelines will write reg_update commands to the wrong CSID instance.
-
-When this callback executes to commit buffer addresses during runtime, it
-passes vfe->id as the hw_id to camss_reg_update(). In camss_reg_update(), t=
-his
-hw_id is used to index into the CSID array:
-
-    csid =3D &camss->csid[hw_id];
-    csid->res->hw_ops->reg_update(csid, port_id, is_clear);
-
-If the media graph cross-links a CSID source pad to a mismatched VFE sink p=
-ad
-(e.g., CSID 0 to VFE 1), the register update is erroneously dispatched to
-CSID 1. Could this starve the active CSID of necessary buffer updates and
-trigger an unclocked register access (and panic) if CSID 1 is powered off?
-
-[Severity: High]
-This is a pre-existing issue, but there appears to be a data race when upda=
-ting
-the CSID register bitmasks across process and interrupt contexts.
-
-When userspace queues a buffer during an active stream, vfe_queue_buffer_v2=
-()
-runs in process context and delegates to __csid_aup_update() via this
-reg_update callback. In __csid_aup_update(), a read-modify-write operation
-is performed:
-
-    csid->aup_update |=3D CSID_RUP_AUP_RDI(port_id);
-
-Concurrently, a hardware interrupt can fire on another CPU, executing
-csid_isr() in hardirq context. This delegates to __csid_aup_rup_clear() whi=
-ch
-modifies the exact same bitmask:
-
-    csid->aup_update &=3D ~CSID_RUP_AUP_RDI(port_id);
-
-Because neither context acquires a shared lock to protect csid->aup_update,
-can this data race silently corrupt the bitmask and cause hardware commands=
- to
-be dropped or repeatedly dispatched?
-
-> diff --git a/drivers/media/platform/qcom/camss/camss-vfe.c b/drivers/medi=
-a/platform/qcom/camss/camss-vfe.c
-> index 319d191589884..826ab85a44a14 100644
-> --- a/drivers/media/platform/qcom/camss/camss-vfe.c
-> +++ b/drivers/media/platform/qcom/camss/camss-vfe.c
-[ ... ]
-> @@ -552,7 +554,9 @@ int vfe_enable_output_v2(struct vfe_line *line)
->  		output->gen2.active_num++;
->  		ops->vfe_wm_update(vfe, output->wm_idx[0],
->  				   output->buf[i]->addr[0], line);
-> -		ops->reg_update(vfe, line->id);
-> +
-> +		if (!vfe->res->reg_update_after_csid_config)
-> +			ops->reg_update(vfe, line->id);
->  	}
-
-[Severity: High]
-The commit message documents a Kaanapali hardware constraint: "the number of
-AUP_UPDATEs should match the number of buffers enqueued to the write master
-while it's being enabled."
-
-Here in vfe_enable_output_v2(), active_num is accurately populated based on
-available buffers, but since reg_update_after_csid_config is true, the regi=
-ster
-update is deferred to the CSID.
-
-However, csid_configure_stream() unconditionally loops CAMSS_INIT_BUF_COUNT
-times:
-
-for (k =3D 0; k < CAMSS_INIT_BUF_COUNT; k++)
-    __csid_aup_update(csid, i);
-
-If userspace queues fewer than CAMSS_INIT_BUF_COUNT buffers (since
-min_queued_buffers defaults to 0), this unconditional loop will violate the
-hardware constraint. Does this mismatch instruct the hardware to ingest more
-frames than there are configured buffer addresses, potentially causing the
-hardware to process uninitialized memory or trigger IOMMU faults?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-kaanapali-=
-camss-v14-0-e76f26aa6691@oss.qualcomm.com?part=3D5
