@@ -1,78 +1,37 @@
-Received: from canpmsgout04.his.huawei.com (canpmsgout04.his.huawei.com [113.46.200.219])
+Received: from Atcsqr.andestech.com (unknown [60.248.187.195])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A034396D03;
-	Mon,  1 Jun 2026 09:49:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.219
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 534643A1E92
+	for <devicetree@vger.kernel.org>; Mon,  1 Jun 2026 09:49:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=60.248.187.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780307350; cv=none; b=ShXEEqC+6VMxPrN0aPsMM/w5/8K7XeZEufPsYF5x/nOXdCSC4Zjq3auUjPsGEpz4DBpvwaeq7qGPor2yMgqbAtaDnYnk6RPOxqEVBcm7bu8L+XP1gEUzW947kXsfNk5/QwpIWUrJPnJ0xALpsUbu/0SRcrtNfq8GMJyTEo+AHLI=
+	t=1780307354; cv=none; b=AWAlNyUwhwFzB+LjedXOJYZbLREWmB60IywwwYeWZPWo9qQ/w2elDDqEAPfz8m8ARw51NFwVGBdY8vtjrlIdsAZq/lVqRt+on+vv24tZmB2FhhH78kqZfDh4qUvCYY57BObYfBpriZOjVSK2p6HfUkPYTQBtPULVr4PG6mnTueo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780307350; c=relaxed/simple;
-	bh=Exmh6s7DbZm7DfwGbfrT4EM0TPc/Tf5FsQ/Pr51c6k8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=N6ClxQwT5KkxWW/KC9m6efM1oycN+uIWlF/n6yOwVW8GA3wdIn2K3lq4WLWW2cg2PJY+qJeaHWThOdRc3u0e6iPM8vrTceKhPy6KuoNOFqEmHUYddRXRyrPBxnwvFGlKiZThmrMUxp/8L8AxhI4s/RlawddfsWBfoyYghFw4qU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=LSORrdH1; arc=none smtp.client-ip=113.46.200.219
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="LSORrdH1"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=dtc4/NrtG2M2/NTu9Dfj4w1EdTwFqK3w2EGmJt3YJfk=;
-	b=LSORrdH1lNoFWXXQS9gOPZ3GNVa3ecvXGMA9ld+M6rLgHx2sr5j7Fq2G0Wi2rHMgU+0UGbsOM
-	dS8uEqVPnjdLyyFxwclLxewkwC9sqLElnsjtJmnFBkcp9voEWnKOmHq5Vy30shiuwvA3BSKUFr0
-	oyz/nZ4BOYaUsS8XJXrrKsw=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout04.his.huawei.com (SkyGuard) with ESMTPS id 4gTTVQ4JpJz1prM3;
-	Mon,  1 Jun 2026 17:41:02 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id CD07140561;
-	Mon,  1 Jun 2026 17:48:53 +0800 (CST)
-Received: from huawei.com (10.90.53.73) by dggpemf500011.china.huawei.com
- (7.185.36.131) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.1544.11; Mon, 1 Jun
- 2026 17:48:49 +0800
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-To: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <feng.tang@linux.alibaba.com>,
-	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
-	<kuba@kernel.org>, <lirongqing@baidu.com>, <ebiggers@kernel.org>,
-	<paulmck@kernel.org>, <sourabhjain@linux.ibm.com>, <thuth@redhat.com>,
-	<ardb@kernel.org>, <masahiroy@kernel.org>, <gshan@redhat.com>,
-	<james.morse@arm.com>, <maz@kernel.org>, <leitao@debian.org>,
-	<yeoreum.yun@arm.com>, <coxu@redhat.com>, <suzuki.poulose@arm.com>,
-	<cfsworks@gmail.com>, <osandov@fb.com>, <jbohac@suse.cz>,
-	<ryan.roberts@arm.com>, <tangyouling@kylinos.cn>, <ritesh.list@gmail.com>,
-	<adityag@linux.ibm.com>, <hbathini@linux.ibm.com>, <bjorn@rivosinc.com>,
-	<songshuaishuai@tinylab.org>, <vishal.moola@gmail.com>,
-	<junhui.liu@pigmoral.tech>, <djordje.todorovic@htecgroup.com>,
-	<austin.kim@lge.com>, <namcao@linutronix.de>, <djbw@kernel.org>,
-	<chao.gao@intel.com>, <seanjc@google.com>, <fuqiang.wang@easystack.cn>,
-	<liaoyuanhong@vivo.com>, <makb@juniper.net>, <graf@amazon.com>,
-	<piliu@redhat.com>, <rafael.j.wysocki@intel.com>,
-	<mario.limonciello@amd.com>, <jbouron@amazon.com>, <chenjiahao16@huawei.com>,
-	<guoren@kernel.org>, <bauerman@linux.ibm.com>, <bgwin@google.com>,
-	<takahiro.akashi@linaro.org>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-CC: <ruanjinjie@huawei.com>
-Subject: [PATCH v15 05/23] powerpc/crash: sort crash memory ranges before preparing elfcorehdr
-Date: Mon, 1 Jun 2026 17:47:47 +0800
-Message-ID: <20260601094805.2928614-6-ruanjinjie@huawei.com>
+	s=arc-20240116; t=1780307354; c=relaxed/simple;
+	bh=rGAs5By7HiLAckjcsP7AQSq6DT8KeI08ba9MVp2EVYw=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=GgiNCI2OgSgdmg6KiKeCx+U5tEWZe8JdPqfcW9V07Z7SKKRBy29bwyB3px7DMbVQb/ZAI6//LRkaAHuNb+z2rYTEaK3nXq/fGXZ6r5N9jS4zlpj+bnx0x1V+93xmjlY/O+XO6giOtWwzTYxBjM7QqWtBTKLWt3/t5shqVmdUQLk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com; spf=pass smtp.mailfrom=andestech.com; arc=none smtp.client-ip=60.248.187.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=andestech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=andestech.com
+Received: from mail.andestech.com (ATCPCS34.andestech.com [10.0.1.134])
+	by Atcsqr.andestech.com with ESMTPS id 6519mqLp065051
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=OK);
+	Mon, 1 Jun 2026 17:48:52 +0800 (+08)
+	(envelope-from cl634@andestech.com)
+Received: from swlinux02.andestech.com (10.0.15.183) by ATCPCS34.andestech.com
+ (10.0.1.134) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.39; Mon, 1 Jun
+ 2026 17:48:52 +0800
+From: CL Wang <cl634@andestech.com>
+To: <vkoul@kernel.org>, <Frank.Li@kernel.org>, <robh@kernel.org>,
+        <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
+        <dmaengine@vger.kernel.org>
+CC: <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+        <tim609@andestech.com>, <cl634@andestech.com>
+Subject: [PATCH v4 0/3] dmaengine: atcdmac300: Add Andes ATCDMAC300 DMA driver
+Date: Mon, 1 Jun 2026 17:48:43 +0800
+Message-ID: <20260601094846.1097678-1-cl634@andestech.com>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260601094805.2928614-1-ruanjinjie@huawei.com>
-References: <20260601094805.2928614-1-ruanjinjie@huawei.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,194 +40,57 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+X-ClientProxiedBy: ATCPCS33.andestech.com (10.0.1.100) To
+ ATCPCS34.andestech.com (10.0.1.134)
+X-DKIM-Results: atcpcs34.andestech.com; dkim=none;
+X-DNSRBL: 
+X-SPAM-SOURCE-CHECK: pass
+X-MAIL:Atcsqr.andestech.com 6519mqLp065051
 
-From: Sourabh Jain <sourabhjain@linux.ibm.com>
+This patch series adds support for the Andes ATCDMAC300 DMA controller,
+a memory-to-memory and peripheral DMA controller that provides
+scatter-gather, cyclic, and slave transfer capabilities.
 
-During a memory hot-remove event, the elfcorehdr is rebuilt to exclude
-the removed memory. While updating the crash memory ranges for this
-operation, the crash memory ranges array can become unsorted. This
-happens because remove_mem_range() may split a memory range into two
-parts and append the higher-address part as a separate range at the end
-of the array.
+The ATCDMAC300 IP is embedded in AndesCore-based platforms or SoCs
+such as AE350 and Qilai.
 
-So far, no issues have been observed due to the unsorted crash memory
-ranges. However, this could lead to problems once crash memory range
-removal is handled by generic code, as introduced in the upcoming
-patches in this series.
+Changes in v4:
+  - Use items list format with descriptions for reg property in DT binding
+    as suggested by Conor Dooley
+  - Re-add Acked-by from Conor Dooley for DT binding patch
 
-Currently, powerpc uses a platform-specific function,
-remove_mem_range(), to exclude hot-removed memory from the crash memory
-ranges. This function performs the same task as the generic
-crash_exclude_mem_range() in crash_core.c. The generic helper also
-ensures that the crash memory ranges remain sorted. So remove the
-redundant powerpc-specific implementation and instead call
-crash_exclude_mem_range_guarded() (which internally calls
-crash_exclude_mem_range()) to exclude the hot-removed memory ranges.
+Changes in v3:
+  - Rename DT binding file from andestech,qilai-dma.yaml to
+    andestech,ae350-dma.yaml
+  - Deprecate IP-core-based compatible and align with SoC/platform-based
+    compatible strings
+  - Dropped Acked-by from Conor Dooley due to the above binding change
+  - Remove "andestech,atcdmac300" from of_device_id table
+  - Replace deprecated tasklet with threaded IRQ using
+    devm_request_threaded_irq() and IRQF_ONESHOT
+  - Update locking from spin_lock_bh() to spin_lock_irqsave()
+  - Use builtin_platform_driver() instead of module_platform_driver()
+  - Remove "select DMATEST" from Kconfig
+  - Add separate MAINTAINERS patch (patch 3/3)
 
-Cc: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baoquan he <bhe@redhat.com>
-Cc: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: Hari Bathini <hbathini@linux.ibm.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Mahesh Salgaonkar <mahesh@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Cc: Shivang Upadhyay <shivangu@linux.ibm.com>
-Cc: linux-kernel@vger.kernel.org
-Acked-by: Baoquan He <bhe@redhat.com>
-Reviewed-by: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Sourabh Jain <sourabhjain@linux.ibm.com>
-Signed-off-by: Jinjie Ruan <ruanjinjie@huawei.com>
----
- arch/powerpc/include/asm/kexec_ranges.h |  4 +-
- arch/powerpc/kexec/crash.c              |  5 +-
- arch/powerpc/kexec/ranges.c             | 87 +------------------------
- 3 files changed, 7 insertions(+), 89 deletions(-)
+Please kindly review.
 
-diff --git a/arch/powerpc/include/asm/kexec_ranges.h b/arch/powerpc/include/asm/kexec_ranges.h
-index 14055896cbcb..ad95e3792d10 100644
---- a/arch/powerpc/include/asm/kexec_ranges.h
-+++ b/arch/powerpc/include/asm/kexec_ranges.h
-@@ -7,7 +7,9 @@
- void sort_memory_ranges(struct crash_mem *mrngs, bool merge);
- struct crash_mem *realloc_mem_ranges(struct crash_mem **mem_ranges);
- int add_mem_range(struct crash_mem **mem_ranges, u64 base, u64 size);
--int remove_mem_range(struct crash_mem **mem_ranges, u64 base, u64 size);
-+int crash_exclude_mem_range_guarded(struct crash_mem **mem_ranges,
-+				    unsigned long long mstart,
-+				    unsigned long long mend);
- int get_exclude_memory_ranges(struct crash_mem **mem_ranges);
- int get_reserved_memory_ranges(struct crash_mem **mem_ranges);
- int get_crash_memory_ranges(struct crash_mem **mem_ranges);
-diff --git a/arch/powerpc/kexec/crash.c b/arch/powerpc/kexec/crash.c
-index a520f851c3a6..d634db67becc 100644
---- a/arch/powerpc/kexec/crash.c
-+++ b/arch/powerpc/kexec/crash.c
-@@ -493,7 +493,7 @@ static void update_crash_elfcorehdr(struct kimage *image, struct memory_notify *
- 	struct crash_mem *cmem = NULL;
- 	struct kexec_segment *ksegment;
- 	void *ptr, *mem, *elfbuf = NULL;
--	unsigned long elfsz, memsz, base_addr, size;
-+	unsigned long elfsz, memsz, base_addr, size, end;
- 
- 	ksegment = &image->segment[image->elfcorehdr_index];
- 	mem = (void *) ksegment->mem;
-@@ -512,7 +512,8 @@ static void update_crash_elfcorehdr(struct kimage *image, struct memory_notify *
- 	if (image->hp_action == KEXEC_CRASH_HP_REMOVE_MEMORY) {
- 		base_addr = PFN_PHYS(mn->start_pfn);
- 		size = mn->nr_pages * PAGE_SIZE;
--		ret = remove_mem_range(&cmem, base_addr, size);
-+		end = base_addr + size - 1;
-+		ret = crash_exclude_mem_range_guarded(&cmem, base_addr, end);
- 		if (ret) {
- 			pr_err("Failed to remove hot-unplugged memory from crash memory ranges\n");
- 			goto out;
-diff --git a/arch/powerpc/kexec/ranges.c b/arch/powerpc/kexec/ranges.c
-index eb45e89502ca..b2fb78562cdc 100644
---- a/arch/powerpc/kexec/ranges.c
-+++ b/arch/powerpc/kexec/ranges.c
-@@ -551,7 +551,7 @@ int get_usable_memory_ranges(struct crash_mem **mem_ranges)
- #endif /* CONFIG_KEXEC_FILE */
- 
- #ifdef CONFIG_CRASH_DUMP
--static int crash_exclude_mem_range_guarded(struct crash_mem **mem_ranges,
-+int crash_exclude_mem_range_guarded(struct crash_mem **mem_ranges,
- 					   unsigned long long mstart,
- 					   unsigned long long mend)
- {
-@@ -639,89 +639,4 @@ int get_crash_memory_ranges(struct crash_mem **mem_ranges)
- 		pr_err("Failed to setup crash memory ranges\n");
- 	return ret;
- }
--
--/**
-- * remove_mem_range - Removes the given memory range from the range list.
-- * @mem_ranges:    Range list to remove the memory range to.
-- * @base:          Base address of the range to remove.
-- * @size:          Size of the memory range to remove.
-- *
-- * (Re)allocates memory, if needed.
-- *
-- * Returns 0 on success, negative errno on error.
-- */
--int remove_mem_range(struct crash_mem **mem_ranges, u64 base, u64 size)
--{
--	u64 end;
--	int ret = 0;
--	unsigned int i;
--	u64 mstart, mend;
--	struct crash_mem *mem_rngs = *mem_ranges;
--
--	if (!size)
--		return 0;
--
--	/*
--	 * Memory range are stored as start and end address, use
--	 * the same format to do remove operation.
--	 */
--	end = base + size - 1;
--
--	for (i = 0; i < mem_rngs->nr_ranges; i++) {
--		mstart = mem_rngs->ranges[i].start;
--		mend = mem_rngs->ranges[i].end;
--
--		/*
--		 * Memory range to remove is not part of this range entry
--		 * in the memory range list
--		 */
--		if (!(base >= mstart && end <= mend))
--			continue;
--
--		/*
--		 * Memory range to remove is equivalent to this entry in the
--		 * memory range list. Remove the range entry from the list.
--		 */
--		if (base == mstart && end == mend) {
--			for (; i < mem_rngs->nr_ranges - 1; i++) {
--				mem_rngs->ranges[i].start = mem_rngs->ranges[i+1].start;
--				mem_rngs->ranges[i].end = mem_rngs->ranges[i+1].end;
--			}
--			mem_rngs->nr_ranges--;
--			goto out;
--		}
--		/*
--		 * Start address of the memory range to remove and the
--		 * current memory range entry in the list is same. Just
--		 * move the start address of the current memory range
--		 * entry in the list to end + 1.
--		 */
--		else if (base == mstart) {
--			mem_rngs->ranges[i].start = end + 1;
--			goto out;
--		}
--		/*
--		 * End address of the memory range to remove and the
--		 * current memory range entry in the list is same.
--		 * Just move the end address of the current memory
--		 * range entry in the list to base - 1.
--		 */
--		else if (end == mend)  {
--			mem_rngs->ranges[i].end = base - 1;
--			goto out;
--		}
--		/*
--		 * Memory range to remove is not at the edge of current
--		 * memory range entry. Split the current memory entry into
--		 * two half.
--		 */
--		else {
--			size = mem_rngs->ranges[i].end - end + 1;
--			mem_rngs->ranges[i].end = base - 1;
--			ret = add_mem_range(mem_ranges, end + 1, size);
--		}
--	}
--out:
--	return ret;
--}
- #endif /* CONFIG_CRASH_DUMP */
+CL Wang (3):
+  dt-bindings: dmaengine: Add support for ATCDMAC300 DMA engine
+  dmaengine: atcdmac300: Add driver for Andes ATCDMAC300 DMA controller
+  MAINTAINERS: Add entry for Andes ATCDMAC300
+
+ .../bindings/dma/andestech,ae350-dma.yaml     |   67 +
+ MAINTAINERS                                   |    6 +
+ drivers/dma/Kconfig                           |   11 +
+ drivers/dma/Makefile                          |    1 +
+ drivers/dma/atcdmac300.c                      | 1505 +++++++++++++++++
+ drivers/dma/atcdmac300.h                      |  296 ++++
+ 6 files changed, 1886 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/dma/andestech,ae350-dma.yaml
+ create mode 100644 drivers/dma/atcdmac300.c
+ create mode 100644 drivers/dma/atcdmac300.h
+
 -- 
 2.34.1
 
