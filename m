@@ -1,187 +1,109 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3E5F1E515;
-	Tue,  2 Jun 2026 01:43:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [52.175.55.52])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 138F227442;
+	Tue,  2 Jun 2026 01:46:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.175.55.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780364618; cv=none; b=L5IRlXXDCR/ULhDie5oJR+orIJEbxYJfyTTu3IQ4NEJgtUe8efF0fSRG3jjLaMOtCtAfwitYkE6+89y8bZHfqeRhW6tnJMYHhsemh4X1dRLF3dE2pWpE+u7sgptmgKSK/xbQrGRySHbj/JM7G7eLaF7UpeoXhxhw50zHamGHY1s=
+	t=1780364769; cv=none; b=nHJHxBiFgqpte3yN3IN+zH/cypmJzQ6FgRbR9Fcnp1wrCBJXByIsE0QXBhE1taxxRCVvd23ojz+1aWG8mmll8vLUIDxNzvOMuEeIGx9jX5jDm1Po5chjb3kx9tOam/Qi2ko1VVxCYINIiCWWy0DJbWAe7v1zv7FZ7BV+P4oeEeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780364618; c=relaxed/simple;
-	bh=Is74unXW3WLzqATS41lpUgNaFD3it4MLsOw3+TT8G4M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=CljaYJdloAy4eCJgbZIigWiLZyq47Y4v1tQ6pCPtU2LWXCVbj9inIVBgKQGkMlK+LIqdGJD+2zdPP555P6KDqqZe7KwPl6fyDSUl6/HkNrxbTYv8cMSwKM+yclAQuJzgQMbygsm0a3fS0PqdD1fue8V+H8kIFDDhreW5a5AmDMk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=rHaZ8PNG; arc=none smtp.client-ip=113.46.200.218
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="rHaZ8PNG"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=lSyN8uzwXhmY7DMOaiH5+32B3ctfvf5QTlFldSqrORg=;
-	b=rHaZ8PNGA+gISgwgik10XoynkWfz7ayOHWp5pYg2DR9+kM7LRE6sFvvbCwY7WZuExcMNMQCQS
-	XuZ/RD3H3jG0SNieTYmEXXudVXbblnFxAcsCDvSXYCJwK6nxFw20KYn+MN8CS9fgZgl4GqZ8Sc9
-	+cBgIb8sYmtBRoiL2hN8lbA=
-Received: from mail.maildlp.com (unknown [172.19.162.223])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4gTthC4T77zpStZ;
-	Tue,  2 Jun 2026 09:35:55 +0800 (CST)
-Received: from dggpemf500011.china.huawei.com (unknown [7.185.36.131])
-	by mail.maildlp.com (Postfix) with ESMTPS id A94E940561;
-	Tue,  2 Jun 2026 09:43:31 +0800 (CST)
-Received: from [10.67.109.254] (10.67.109.254) by
- dggpemf500011.china.huawei.com (7.185.36.131) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Tue, 2 Jun 2026 09:43:27 +0800
-Message-ID: <1a459706-80db-43d8-b163-76fc09da338d@huawei.com>
-Date: Tue, 2 Jun 2026 09:43:26 +0800
+	s=arc-20240116; t=1780364769; c=relaxed/simple;
+	bh=a7Yz3qdl38krnr4pSkSfcrU5L/RK9rTLPoX9j9MHDsQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W9xIhYbKE82D39p7vYbt6EKxyZ3A0iGKw0Ryt4aWcvPNmWIxRR8T2Udqdd1HcQFJiY3QD2c6iyb4N33kHMTLoVABKYUFdHzkCgUwOz4yAHhVQhouLwmnetCOiDcGJzVPcjFww+4/4IopIHtt8HWKCeLYgIv79nYC891J5+dn7Ks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com; spf=pass smtp.mailfrom=eswincomputing.com; arc=none smtp.client-ip=52.175.55.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=eswincomputing.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=eswincomputing.com
+Received: from E0004057DT.eswin.cn (unknown [10.11.96.26])
+	by app2 (Coremail) with SMTP id TQJkCgAnO568NR5qcGcgAA--.15328S2;
+	Tue, 02 Jun 2026 09:45:34 +0800 (CST)
+From: lizhi2@eswincomputing.com
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	netdev@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: ningyu@eswincomputing.com,
+	linmin@eswincomputing.com,
+	pinkesh.vaghela@einfochips.com,
+	pritesh.patel@einfochips.com,
+	weishangjuan@eswincomputing.com,
+	sashiko-bot@kernel.org,
+	Zhi Li <lizhi2@eswincomputing.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: [PATCH net v3] dt-bindings: ethernet: eswin: fix hsp-sp-csr backward compatibility
+Date: Tue,  2 Jun 2026 09:45:28 +0800
+Message-ID: <20260602014528.2076-1-lizhi2@eswincomputing.com>
+X-Mailer: git-send-email 2.52.0.windows.1
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 00/23] arm64/riscv: Add support for crashkernel CMA
- reservation
-To: Baoquan He <baoquan.he@linux.dev>
-CC: <corbet@lwn.net>, <skhan@linuxfoundation.org>, <catalin.marinas@arm.com>,
-	<will@kernel.org>, <chenhuacai@kernel.org>, <kernel@xen0n.name>,
-	<maddy@linux.ibm.com>, <mpe@ellerman.id.au>, <npiggin@gmail.com>,
-	<chleroy@kernel.org>, <pjw@kernel.org>, <palmer@dabbelt.com>,
-	<aou@eecs.berkeley.edu>, <alex@ghiti.fr>, <tglx@kernel.org>,
-	<mingo@redhat.com>, <bp@alien8.de>, <dave.hansen@linux.intel.com>,
-	<hpa@zytor.com>, <robh@kernel.org>, <saravanak@kernel.org>,
-	<akpm@linux-foundation.org>, <bhe@redhat.com>, <rppt@kernel.org>,
-	<pasha.tatashin@soleen.com>, <pratyush@kernel.org>, <ruirui.yang@linux.dev>,
-	<rdunlap@infradead.org>, <feng.tang@linux.alibaba.com>,
-	<dapeng1.mi@linux.intel.com>, <kees@kernel.org>, <elver@google.com>,
-	<kuba@kernel.org>, <lirongqing@baidu.com>, <ebiggers@kernel.org>,
-	<paulmck@kernel.org>, <sourabhjain@linux.ibm.com>, <thuth@redhat.com>,
-	<ardb@kernel.org>, <masahiroy@kernel.org>, <gshan@redhat.com>,
-	<james.morse@arm.com>, <maz@kernel.org>, <leitao@debian.org>,
-	<yeoreum.yun@arm.com>, <coxu@redhat.com>, <suzuki.poulose@arm.com>,
-	<cfsworks@gmail.com>, <osandov@fb.com>, <jbohac@suse.cz>,
-	<ryan.roberts@arm.com>, <tangyouling@kylinos.cn>, <ritesh.list@gmail.com>,
-	<adityag@linux.ibm.com>, <hbathini@linux.ibm.com>, <bjorn@rivosinc.com>,
-	<songshuaishuai@tinylab.org>, <vishal.moola@gmail.com>,
-	<junhui.liu@pigmoral.tech>, <djordje.todorovic@htecgroup.com>,
-	<austin.kim@lge.com>, <namcao@linutronix.de>, <djbw@kernel.org>,
-	<chao.gao@intel.com>, <seanjc@google.com>, <fuqiang.wang@easystack.cn>,
-	<liaoyuanhong@vivo.com>, <makb@juniper.net>, <graf@amazon.com>,
-	<piliu@redhat.com>, <rafael.j.wysocki@intel.com>,
-	<mario.limonciello@amd.com>, <jbouron@amazon.com>, <chenjiahao16@huawei.com>,
-	<guoren@kernel.org>, <bauerman@linux.ibm.com>, <bgwin@google.com>,
-	<takahiro.akashi@linaro.org>, <x86@kernel.org>, <linux-doc@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <linux-arm-kernel@lists.infradead.org>,
-	<loongarch@lists.linux.dev>, <linuxppc-dev@lists.ozlabs.org>,
-	<linux-riscv@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<kexec@lists.infradead.org>
-References: <20260601094805.2928614-1-ruanjinjie@huawei.com>
- <ah2Lx7KHI60tzd0v@MiWiFi-R3L-srv>
-From: Jinjie Ruan <ruanjinjie@huawei.com>
-In-Reply-To: <ah2Lx7KHI60tzd0v@MiWiFi-R3L-srv>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- dggpemf500011.china.huawei.com (7.185.36.131)
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:TQJkCgAnO568NR5qcGcgAA--.15328S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tw15Xr48Zr43JF17XFy7KFg_yoW8CrWkpa
+	1kGrykJ3WfZr12q397t3W0kF1fXanrCr4YkFykAa4Igwn8ua4YqrySgr15W3W5ArWkuFW5
+	WFW3Ca1Fy3yqyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBj14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVWxJr0_GcWl84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7M4kE6xkIj40Ew7xC0wCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwI
+	xGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0pRkwIhUUUUU=
+X-CM-SenderInfo: xol2xx2s6h245lqf0zpsxwx03jof0z/
 
+From: Zhi Li <lizhi2@eswincomputing.com>
 
+Commit c36069c6f46c ("dt-bindings: ethernet: eswin: add optional TXD and
+RXD delay register offsets") added two optional cells to eswin,hsp-sp-csr
+but omitted minItems: 4.
 
-On 6/1/2026 9:40 PM, Baoquan He wrote:
-> Hi Jinjie,
-> 
-> On 06/01/26 at 05:47pm, Jinjie Ruan wrote:
-> ...snip... 
->> Changes in v15:
->> - Unify the subject prefix formats as Huacai suggested.
->> - Fix powerpc pre-existing NULL pointer dereference [Sashiko [1]]
->> - Fix powerpc pre-existing __merge_memory_ranges() memory range
->>   truncation [Sashiko [1]].
->> - Fix pre-existing arm64 CMA page leaks [Sashiko[2]].
->> - Fix pre-existing crash_load_dm_crypt_keys() Use-After-Free and
->>   Double Free issue [Sashiko[3]].
->> - Fix vfree(headers) and uninitialized variables issue
->>   and simplify the fix [Sashiko[2]].
->> - As walk_system_ram_res() and for_each_mem_range() use different
->>   lock, unify and simplify the fix of TOCTOU buffer overflow via memory
->>   region padding [Sashiko[4]].
->> - Fix the arm64 crash dump issues in Sashiko[5].
->> - Link to v14: https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com/
-> 
-> Do these Fixes have anything with the main target of this patch series
-> you mentioned in cover-letter:"arm64/riscv: Add support for crashkernel CMA"?
-> The patches become more and more in each new version, I am wondering if
-> it relies on these Fixes patches to implement your adding support for
-> crashkernel CMA on arm64/risc-v.
-> 
-> If not relying on them, could you split them into different patchset
-> on different purpose? 
+As a result, dt-schema implicitly required all 6 cells, which broke
+backward compatibility with existing 4-cell device trees.
 
-Hi Baoquan,
+Add minItems: 4 to preserve backward compatibility.
 
-Thank you for your valuable guidance.
+Fixes: c36069c6f46c ("dt-bindings: ethernet: eswin: add optional TXD and RXD delay register offsets")
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260519022334.35742C2BCB7@smtp.kernel.org/
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Signed-off-by: Zhi Li <lizhi2@eswincomputing.com>
+---
+Changes in v3:
+  - Fix commit reference format reported by checkpatch.pl.
+  - No functional change.
+  - Link to v2:
+    https://lore.kernel.org/lkml/20260601032852.961-1-lizhi2@eswincomputing.com/
+---
+ Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-You are absolutely right. Most of these fix patches are indeed not
-strictly related to the core implementation of the crashkernel CMA
-support. They are pre-existing bugs in the surrounding kexec/crash code
-that were flagged during our review.
-
-Previously, Andrew suggested taking a look at the code review comments
-from the Sashiko AI system, which is why these fixes kept expanding. I
-completely agree with your advice that there is no need to keep them
-together. I will split them into two completely different patchsets
-based on their purpose:
-
-1. A cleaner version of this series, strictly focused on adding the core
-crashkernel CMA support for arm64/riscv.
-
-2. One standalone bugfix patchset dedicated entirely to fixing these
-pre-existing issues.
-
-By the way, I would also appreciate some advice on how to handle further
-AI reviews. It seems that the more code we touch or refactor to fix
-these pre-existing issues, the more tangential bugs the AI flags in the
-newly exposed areas, making the series extremely difficult to converge.
-
-Should I continue to address all AI-reported bugs associated with the
-surrounding code in this series, or should we draw a strict line
-and only focus on the core CMA logic moving forward?
-
-I will prepare the split patchsets shortly. Thanks again for
-straightening this out!
-
-Best regards,
-Jinjie Ruan
-
-
-> 
-> Thanks
-> Baoquan
-> 
->>
->> [1]: https://lore.kernel.org/all/20260525092207.96B9D1F000E9@smtp.kernel.org/
->> [2]: https://lore.kernel.org/all/20260525091149.1A1E01F00A3D@smtp.kernel.org/
->> [3]: https://lore.kernel.org/all/20260525105227.3C2421F000E9@smtp.kernel.org/
->> [4]: https://lore.kernel.org/all/20260525095447.944E11F000E9@smtp.kernel.org/
->> [5]: https://lore.kernel.org/all/20260525101746.9959D1F000E9@smtp.kernel.org/
->>
->> Changes in v14:
->> - Fix image->elf_headers memory leak during retry loop for arm64 as Sashiko
->>   AI code review pointed out.
->> - Solve the hotplug notifier arch_crash_handle_hotplug_event() AA
->>   self-deadlock problem as Sashiko AI code review pointed out.
->> - Fix the TOCTOU issue in prepare_elf_headers() by get_online_mems().
->> - -ENOMEM -> -EAGAIN as Breno suggested.
->> - Add support for arm64 crash hotplug.
->> - Link to v13: https://lore.kernel.org/all/20260511030454.1730881-1-ruanjinjie@huawei.com/
->>
-
-[...]
->>  24 files changed, 430 insertions(+), 338 deletions(-)
->>  create mode 100644 arch/arm64/kernel/crash.c
->>
->> -- 
->> 2.34.1
->>
+diff --git a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+index b66ae6300faf..65882ff79d8d 100644
+--- a/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
++++ b/Documentation/devicetree/bindings/net/eswin,eic7700-eth.yaml
+@@ -84,7 +84,8 @@ properties:
+       This reference is provided for background information only.
+     $ref: /schemas/types.yaml#/definitions/phandle-array
+     items:
+-      - items:
++      - minItems: 4
++        items:
+           - description: Phandle to HSP(High-Speed Peripheral) device
+           - description: Offset of phy control register for internal
+                          or external clock selection
+-- 
+2.25.1
 
