@@ -1,78 +1,68 @@
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com [209.85.216.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327D23B992F
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:22:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 830AD19D8AC;
+	Tue,  2 Jun 2026 08:24:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388544; cv=none; b=YPZL0zN0Wv1eLAqRc8xS0CeCDQAMx9nNQFr5DlFCFeOgaS/z/bAM7D+i/MZDLqAxrh5HaZ8a6VsdWybZkRULd31PibxLNqN0kOe9Rph1Ff1gnOmPoRsYoKdoYB9fKPcHhSiPaiWM1P5FeRFZAAota6zt/ZEptSh/8JW6nuQ2HdU=
+	t=1780388642; cv=none; b=q1FOdNl/Q2sSKzXT0QQcbsuU1A+HhhN3hXCVIFwf3x3W02QMtul8OCLFOMCqsDAbcnTd0ja+Y+N0KlPXrWcGmADKeJafFaMeglqgwGer7aOiwd+oAvdPxOsMqkrTK4HrCanUYfdwB41iB4Hg8O4R2sl2Wm9XQpGlmBf4gVQ2eGw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388544; c=relaxed/simple;
-	bh=EJikaUMJCTIOu24FQfnsiP8Ha+Alj5V2JdWUXPbDzPE=;
+	s=arc-20240116; t=1780388642; c=relaxed/simple;
+	bh=6mIZQksu9gsOvaTRiSt+HQWtZhwTIx9SmiAsWepUatk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fO4X0fTbiehw6CbA1gXF8NwhXhthllHkFU0nRer9F1lMuXfcA/G5qHpJ1L4LLojkRfMudGnLuyZ7liUfCETgKMOPPuHNXWjuEU1QA/aqOYkp1iSk4qbI+pwcOvBa/3fHNp0wIn4UKqvIqZ6Gcuteu5w2uEKaNvRhfXyZ6H2g40s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I26RfAfL; arc=none smtp.client-ip=209.85.216.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=XxKX1raTwQ2X/ADhTyo1zXb6b8+MuHarP6BWezuzyOGTfDwQfAt4eY0fAiUF/rUlX6pVwr6BsRXPvzzuIOEi3ao9axf/02fPndYiTx7EPx1vVezXYNEB5lakDmI5B20XBJC8H7c2LH+G7OQSzmY/vznvIAJg40TtltFYniuChVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=gRru3k6D; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I26RfAfL"
-Received: by mail-pj1-f54.google.com with SMTP id 98e67ed59e1d1-36b9033d230so2416647a91.1
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 01:22:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780388541; x=1780993341; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=evjuzAv8DSTdE0Ve2B6VtbgLhoX9BoKz8McLMZToRaA=;
-        b=I26RfAfLfB6+dqTlsdbErRAwuCbPyt4XVRRls4J45JgBcIBEiIB8v9xTSgQiCBROfQ
-         MlpBvkPYX1LLcSvIpbOIDh/cwHZlheTWB5j/CReakDBcDAke2qNu90xXD2GpnRD10Umy
-         jKdCdbDJtK0aYZa9pendkCiK2Hf2AjNgJkQj6iyR7yXTHX7JM2HubKjTfX5i2aXELUhd
-         IpMuKwsHaXwwO0cyUvBrFmceCBXTOxTsV/IVpR+idSHVpAgfjFi+SVkWPrFWK6Ohcnd0
-         YQza5JCjHlScyM455LqUCB8FNt+8cKkJ/wMO5Hd8yfkDWmxdBcjZvlRBNgsWPBLtOHjb
-         OltQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780388541; x=1780993341;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=evjuzAv8DSTdE0Ve2B6VtbgLhoX9BoKz8McLMZToRaA=;
-        b=Wbxjo3IDpU9q9OijQA1xb/ESi+a0QTGeGJmAPXRIrsSaHQxYGZlPga5uYi7VlWFqMc
-         qk+50j1LC8Tvdo/opglpldERREahFbP338YNMJzQttcT9TRy/0LUWjTcz0JfGQmLrd+N
-         nt5zCIz4nHK0QqUAF5oEP537oFEvlA5/RKkIYpSzh+XrZ+M9hs5NBILtP9sf18fhfvrU
-         7uPw8689Sm5qEZc4hKqN0HJ2qYes/cww0psoztDFOtcymy+WBJIZ0+l0skghr+ANmCCF
-         EL6pa1SYIClmKOt5cBOH8HqCoQMFxWQhzDYaHqVVPGuC18aHgah42OScu/Jx3Sj3Vah+
-         /5TA==
-X-Forwarded-Encrypted: i=1; AFNElJ/0Rakt5NrC0MB2/vEieVCpeq41Ac35LA8At1PDmSrcMQ7p8owbVl8pe/a+enMoup8yFeDVRLfgK09c@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx3U4jKtsChf6Vz9KZtQtDjGSADWWSaPS5NOaJCb0nRCNfJvdxC
-	ptirkcdcbeCqBg9aV4/FCpstDyrR5ZZv7y9lgcvGBy8hbB3REaTz9vz8
-X-Gm-Gg: Acq92OFW68nQ2aVHrdNvFra0vyx1NGiPr6IJAiGQHKu+FfTBPgnMPVB5nCa6fo3K2JB
-	WkrKv7XnWVQqU5ntDzEP7HbJdTWnLu2uMJ9AUjxzwf622yl26nXNErAoTo33Mt91hc1HvFxJH6x
-	ARzTSkeKsiipNldK29KWugsW/sK7KJqvWnrTxYqsE/NnrYZcPjn1xI8yGQ99EP9q7QZ9aLgOirR
-	7fAFL6jHpjZR2I7Pbfq2X1/X17bY9Mx/nfafZotsJ28W0l/Gf3dRRV/5PzaBzXMyCtPaoBjbLhK
-	woEtfpoICCT43oszat+JUgBflxLQsatW4kEM3sl6JRWfJPqdnCnqNKOC/+CKXhFQEN53awWAR29
-	zWBK5YvZl0Po8jozIeHa5hWw3oa55EMPNol2x0xSH5UnOg6vQ85Z3hsf1ldp02CnukCLSuOwcYY
-	1XznNZc8sRLeyGTBa7Og58c4mDeGusUMbWQg==
-X-Received: by 2002:a17:90a:d006:b0:36a:caf2:3815 with SMTP id 98e67ed59e1d1-36dd98883ebmr2740656a91.15.1780388541458;
-        Tue, 02 Jun 2026 01:22:21 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36dd931ab67sm1864181a91.16.2026.06.02.01.22.20
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 01:22:20 -0700 (PDT)
-Date: Tue, 2 Jun 2026 16:22:02 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, 
-	conor+dt@kernel.org, pjw@kernel.org, samuel.holland@sifive.com, 
-	unicorn_wang@outlook.com, palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr, 
-	liujingqi@lanxincomputing.com, alexander.sverdlin@gmail.com, rabenda.cn@gmail.com, 
-	dlan@kernel.org, chao.wei@sophgo.com, anup@brainfault.org, 
-	Daniel Lezcano <daniel.lezcano@kernel.org>, Joshua Milas <josh.milas@gmail.com>
-Cc: Inochi Amaoto <inochiama@gmail.com>, linux-kernel@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, sophgo@lists.linux.dev, 
-	hanguidong02@gmail.com, michael.opdenacker@rootcommit.com
-Subject: Re: (subset) [PATCH v5 RESEND 0/5] Add initial Milk-V Duo S board
- support
-Message-ID: <ah6Se6TJM-wS8UVP@inochi.infowork>
-References: <20260530173347.33533-1-josh.milas@gmail.com>
- <178038833103.2088679.3632311874557644565.b4-ty@b4>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="gRru3k6D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780388641; x=1811924641;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=6mIZQksu9gsOvaTRiSt+HQWtZhwTIx9SmiAsWepUatk=;
+  b=gRru3k6D0IMRTyInP3SLrGyNQECSLRfn1ew6YY+pvTimk6ktJO/gpt/O
+   unTYcYEwDliL1O/PnyVBqDwzyU0TIY20nnJ/Xu2WsJfK6iCcLELiY55km
+   DB0Oqdy/rDvvRKzgs/441sVb70DV7/PIsFpFrpKDFW3C9MKKA+4bbH1Rl
+   e/bFVEvNwf6pebGBLhUuEbydxEjxc5ZuzphcOG63ZU311PpDKE9LTn+sj
+   xeo7k/zb32HfPLhKEQ9E8c2tNmykb0YtvHbUvbExwoXa7AogH+B2BLTTm
+   zC4P8rtbAN7Fn4+xWtNfcNQUeJ5eJ9g1C3P0ncB0d0rqjvN+hKzvXsGvH
+   w==;
+X-CSE-ConnectionGUID: fFuQTO34Sce4JtJ+2LnbGg==
+X-CSE-MsgGUID: hsaJ9qH5RWGQXoqcc1QkAA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81195634"
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; 
+   d="scan'208";a="81195634"
+Received: from fmviesa004.fm.intel.com ([10.60.135.144])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 01:24:01 -0700
+X-CSE-ConnectionGUID: yEgoAATaT6q0PeBlcsXiag==
+X-CSE-MsgGUID: qzCimZX+SwK+A2t6n47VrQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; 
+   d="scan'208";a="245647814"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
+  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 01:23:56 -0700
+Date: Tue, 2 Jun 2026 11:23:54 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
+Message-ID: <ah6TGjRNnDpQGO60@ashevche-desk.local>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-6-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,32 +71,111 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178038833103.2088679.3632311874557644565.b4-ty@b4>
+In-Reply-To: <20260601151831.76350-6-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Tue, Jun 02, 2026 at 04:19:05PM +0800, Inochi Amaoto wrote:
-> On Sat, 30 May 2026 13:33:42 -0400, Joshua Milas wrote:
-> > This adds an initial device tree for the Milk-V Duo S board
-> > with support for reading from the SD card and network over
-> > Ethernet. This is continued work from Michael Opdenacker's
-> > v6 series [1] on the ARM64 and RISCV side. It has been tested
-> > with ARM64 and RISCV64 to boot from an SD card, have networking,
-> > and read I2C slave devices over i2c4.
-> > 
-> > [...]
-> 
-> Applied to for-next, thanks!
-> 
-> [1/5] dt-bindings: soc: sophgo: add Milk-V Duo S board compatibles
->       https://github.com/sophgo/linux/commit/eeec80c3ce36ead24e2f53d88a24dac1e3de8041
-> [4/5] riscv64: dts: sophgo: add SG2000 dtsi
->       https://github.com/sophgo/linux/commit/2145cd2f0082c11177b062e1ecbce121c3b50b43
-> 
-> Thanks,
-> Inochi
-> 
+On Mon, Jun 01, 2026 at 06:18:25PM +0300, Svyatoslav Ryhel wrote:
+> Since there are no users of this driver via platform data, remove the
+> platform data support and switch to using Device Tree bindings.
 
-Please ignore this, I apply the wrong patch, A new thanks will be sent 
-after I fix this. Sorry for the noise.
+...
 
-Regards,
-Inochi
+> @@ -57,6 +60,9 @@ struct lm3533_als {
+>  
+>  	atomic_t zone;
+>  	struct mutex thresh_mutex;
+> +
+> +	bool pwm_mode;
+> +	u32 r_select;
+>  };
+
+Have you run `pahole`? Does it agree with the layout you made here?
+
+...
+
+> -	als->irq = lm3533->irq;
+> +	als->irq = platform_get_irq_optional(pdev, 0);
+
+> +
+
+Redundant blank line.
+
+> +	if (als->irq == -EPROBE_DEFER)
+> +		return -EPROBE_DEFER;
+
+What about other error codes when IRQ is found by can't be retrieved for some
+reasons? IIRC we check against ENXIO in similar cases
+
+	als->irq = platform_get_irq_optional(pdev, 0);
+	if (als->irq == -ENXIO)
+		als->irq = 0;
+	if (als->irq < 0)
+		return als->irq;
+
+...
+
+> +	led->pwm = 0;
+
+Isn't it 0 by zalloc ?
+
+> +	device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->pwm);
+
+...
+
+>  #define LM3533_BOOST_FREQ_MASK		0x01
+>  #define LM3533_BOOST_FREQ_SHIFT		0
+> +#define LM3533_BOOST_FREQ_MIN		500000
+> +#define LM3533_BOOST_FREQ_MAX		1000000
+
+HZ_PER_KHZ  (since you included units.h)?
+
+...
+
+> +	nchilds = device_get_child_node_count(dev);
+> +	if (!nchilds || nchilds > LM3533_CELLS_MAX) {
+> +		dev_err(dev, "num of child nodes is not supported\n");
+> +		return -ENODEV;
+
+Why not dev_err_probe() here and elsewhere? It looks inconsistent with this
+patch.
+
+>  	}
+
+...
+
+> +	device_for_each_child_node_scoped(lm3533->dev, child) {
+
+> +		if (!fwnode_device_is_available(child))
+> +			continue;
+
+Do we need this check?
+
+...
+
+> +				dev_err(dev, "invalid LED node %s\n",
+> +					fwnode_get_name(child));
+
+%pfw
+
+...
+
+> +	ret = sysfs_create_group(&dev->kobj, &lm3533_attribute_group);
+
+No way. You should use .dev_groups.
+
+> +	if (ret) {
+> +		dev_err(dev, "failed to create sysfs attributes\n");
+>  		goto err_unregister;
+>  	}
+
+...
+
+Can you think on how to split this change to smaller steps? I believe it's
+possible.
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
+
