@@ -1,61 +1,63 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C1223E92AC
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 14:13:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 028633EA97A
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 14:13:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780409609; cv=none; b=EqjNBQP3z6NaJLSeYv/bx3kmqHm0CT7Q4GjbUG8zBpjw2/ot6LG9X/5oxX6VzuKteJTDoehwlFwkU1VJHN+CF6AbByjkgEBozFfbrqeG9Etdgrc5uvtViV2scfrVwxbL66vRzb4Fi4B9fw7HDa13dWcaAmBAo3Q4ZSU0W/nOW3c=
+	t=1780409611; cv=none; b=erQ1nvmhl360jPqLk6OHh8agV9vkrT0OIBRsV/G8Ios3Bk5BEfvKaflDiyqPksFGzAOxVPmqwq6d2jUbC+kvHesiQFeO8gy6n0el64+eaEoOZIn765XgIhYnEozh45dGA/lcbvAdmXTwwckGHKW3Ey/DLhFscqYvMNx/ypRDVOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780409609; c=relaxed/simple;
-	bh=NAKH44qt2oTNzlxm4XgXcV4lpZYmcZSpQkmfeS751Ew=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UxaWv6qtyLyPjOEJmzwxKlFW6Vy+5rsAtnBP1ImCx7N8M+wxRn86Wdx5WdWwIDgvz9YYsaLOm3l6DcdMUG3OHuvt7xMDGRqwopnxYga0THSE4P7WMNh5TDxq33jIIIM01mwir21RKFBDhpu8k/vyxNZjaauFSIYAYPe85PCphbw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HN7rsOjo; arc=none smtp.client-ip=209.85.128.43
+	s=arc-20240116; t=1780409611; c=relaxed/simple;
+	bh=YqgJiMQjllXS9qLJFTvhe1JGrg+iUao/l6DVe+SLAa0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HN/qWF1pgLhlpxQyesIgCmFe1nX3r+IUepvBZ9buEvkx0QC+WYlgqfENiKzXrIqbRfrx2A9SLeVYJQM9YhjQKGCDiZv9zyijvpeGsUGX6KmeoXhWd3PckDjFBK9hQyHFCJLVl7/OGbD6ibvjY2JUKhOrRrLVYINeaLkxWNvBbno=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sTyNefAp; arc=none smtp.client-ip=209.85.128.54
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HN7rsOjo"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490a7876f8cso25604075e9.3
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 07:13:28 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sTyNefAp"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490b09e4cccso8998755e9.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 07:13:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780409607; x=1781014407; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=jxxG3sxLN/Uuk+t7td4zwCVsz76654fGw3zkw6fR8J4=;
-        b=HN7rsOjoA2snU1JGa1ONqIco91+Dp6q9f34TtcWhN08GAbNC+UxSJq1lV5lUSW8mmP
-         auo7UuEoZyA+ptMPBcHDm7RdFrRYrv/Cjq0Aj6/GYC+iP63zdNRbz5A0H5i0WbpI6mSj
-         jzeXwmap5TL7WEfKlOuNUGfFP8PadmCVCvmccy1HxRLnU6PjsUxPJ+pMl6/fok5SuPih
-         BZvca3yT5MsxwxPLog8yfvgh3Cox9iiaT26Eo6XCx2MsPpBraKNsydN0Xrbc+i44HtA9
-         5NoCR4ks/71bIbiLlkKkh7+QUuYU3anSL600BYJetoRlzi+ZPpOeieaJ2OxGdHLjhs7g
-         vwiw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780409607; x=1781014407;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780409608; x=1781014408; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=jxxG3sxLN/Uuk+t7td4zwCVsz76654fGw3zkw6fR8J4=;
-        b=LzwQeDEzljo5uYbq8U9LIdrN+j1K1lz+/2/H/zEuCwDR7L/8pOCGNAeoNtufT9UhHX
-         O5p/WZCJ9h4z/YsdOrh0QfO56ryMRHsgkB9j4ygh4LFjFRj2wH+eFtmZKL3L8DSwjOwI
-         3OCx8tWzU1AtpNuOCtH1PLBNYyKe4mOjyQ8P0hgihMutMHrJxzyBgaagVvz5GZ4Ap3g2
-         4032c+Ri76zTJzivpD4yx9x1BCvnQ1WPg3kFACyAXqO7BDounWCJSkDlTC4WFIj+dFRr
-         T07jKBsm8PzMhR0yh+zwZHXw6GQ7FGwdaVkHovbp0QQUpn69pPk3fyoUNZSDIFuuCXM/
-         330A==
-X-Forwarded-Encrypted: i=1; AFNElJ/fsPsoZAWu3nHsRlg4GkhdWGBYDiBVRaK7ckA2RMeMU2Ni9YL0U8MsArvdJpE8DRxyQjA/q9h76wYH@vger.kernel.org
-X-Gm-Message-State: AOJu0YyA6cSOQliQvFoP3TFH42ReYE+XOXLKiWYMNr+/ol2PyDOSFPpg
-	4R1tVjNyKox7Xa4PSAIxx12XrhjtQAqw4WxBrYlRcSuJ7fewPccVerlI
-X-Gm-Gg: Acq92OHt5oiTdi0aWk+Z5YLYtJzs3oL8/EuwWcb7rAmixM5Uy6EcaUJDiDameo5euiT
-	UQwtDN0Ffe3P6EV/Cy5k+R73D4ypacVr/GlO7hOsZV23cJU+RDta6sfXGpnE8eNxIQWkuQlWDG/
-	VXA8pBuV4HVhJqqqVBE/UqZ4E855LLoQcGicDACCKcGy0woaS1zSEP0HeChQv7mS9aqhZ4klET4
-	RJ98pqLekdDpaPbSV4fvHQTkdYGw1NVnrV/wSgZgVncHXLyQ/HPrUWDemHNVd4Foy94kVqjneUt
-	iliRmnnrnGoYdsBkk/t4wHrVAbAttqf/4irDHgEwXsI3BRSyhHCA9/S2vsclX0+PufzcdBLMHvr
-	NQvNnsoqGlqScCb4PDOic6YlnI3mRE5AJ/YQ5H4emyR+Xj8CvTFBZhR5KDk78FtajW47dN+1puj
-	T1PXr4r3xLE5NE8tZemRY7aIG1s7868s9zDAkd
-X-Received: by 2002:a05:600c:8582:b0:48f:d1c0:721e with SMTP id 5b1f17b1804b1-490a2921e1fmr225702915e9.12.1780409606574;
-        Tue, 02 Jun 2026 07:13:26 -0700 (PDT)
+        bh=GnWXzQAZ0Vo/VANt7mtlbu3rnPUwPJXrj9Dado/eFQI=;
+        b=sTyNefApM2GPnKx8p0J7d6pCRn7eH/E0v1ux00EMAbQAS9Guh0BZymG+yVBDfx+9gg
+         +XcxJrFK1e3BCQcPRxJ73W9d3+wAzbezgPdrzQ5GdOV0WX6Zc9dHwZArbQBsNPnjzlQA
+         vcCD8/0k64Dd27+yrbnYnuFIPc5gDPbvdoEPmTx142K1GlumKbWKFYcnoy9wMTBzgDbL
+         bQO6N/cELX5yXriSJEomvgtOCsbiYU4YTpoLKngDfz07bGnkVAUKBLiOzzlf7Qp4bgBB
+         Xf/nEHBHkzETuf//3iJo8YKPYWp269fLO4TrQuHYejao+QVbZUVxxH8PVLl5gswuVq8N
+         kpkw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780409608; x=1781014408;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=GnWXzQAZ0Vo/VANt7mtlbu3rnPUwPJXrj9Dado/eFQI=;
+        b=TwAy/+OyG/AkkW721q2EbX6x7Q5ExQp2gd/dch2Gz3Ap91ITVKvZnCF+h9brmAXCzV
+         gazxQ3rWDWxQJxZZB2ufYYyUzsmH8AshM1Z+UWLgnilS2IgYG/0QkfHA6uBaC7Y18wrT
+         G+JnQB/zXN+oyqmQqXFPLSSQnXj0//RXCO00piQ++3caLXkdIhQmdkHYkabGTG/dtmnE
+         DgMhQDVVKGJNMCvgdWWl+gvjZVx8PpvsAO4Q+folb1ZqGSWjFjH0vomi2EE3jE89BR1D
+         G+8JeP4wv/fpq6sEXuMqI8AfwcpSCzfiHRAUEI5HhS2TTLEBCztWvxtyUdf3U43H2O0O
+         y9RQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9Uw+Z2p9g5yfum5Pu9J/880CCsN8Cqcc103Gxt+zNTb3/QbWVHLt+ppUR0QibgjmYBzzQ4fd6BNwNv@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHl/6KIWXJ0MbffoQWSp5F7Lf4koET/P6XrTgB9bDYwWPMlzp/
+	n7aV+Ospa2bwZrNMzjBCfEjvQERy1t9w7AEDW9KapBSy2TOIORpkUb65
+X-Gm-Gg: Acq92OG2/mcWONrTuf8gQmSQT96mgfGL4Kzn1OyH7vD85XRQAO6JbOXcSkMuYs9CNIr
+	gzzEBP3U28PmJW/UvzgUsNv2rKET90Eqxp4cFAvHsBibsFAj7ff1FzvYZjV8WxhMmYedLq1k1G6
+	ElqcJ0BNRqa2lfqYh/dHUPhGIKwWrAP3nNcRU5+/6MGBh4FGQdoiYI7Qbd+U6a7eQ2YRNRENsop
+	r3Xfrx14E4+lq7zDkFuLd3pErVzrX2soMsXe+8QN2u1IOAFxpA0FYNLTS0Axm9pgZYNvGpTjmoG
+	D5iRkCCArS4cnMHQvz1zscsLJtWha2UCT43M6op6fFqOBPs7BMPY06PidwJ5scdnkeAmmqnb2Ye
+	cGzMf15hz3XTkhF44I2m5cXxuw2sGIOkf7wJo0h1QPr5qF1eXcNYRF37iVDUpuEvg5RVjIsLFRD
+	SYIuYkwA8E/ehrYsMh015TVPGv2w==
+X-Received: by 2002:a05:600d:8495:20b0:490:44eb:c1dc with SMTP id 5b1f17b1804b1-490a292fbbdmr208200895e9.20.1780409608315;
+        Tue, 02 Jun 2026 07:13:28 -0700 (PDT)
 Received: from vitor-nb ([2001:8a0:c4c6:f00:e8c3:a961:5b26:a2c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e0de7bsm60816345e9.3.2026.06.02.07.13.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e0de7bsm60816345e9.3.2026.06.02.07.13.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 07:13:25 -0700 (PDT)
+        Tue, 02 Jun 2026 07:13:27 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>,
@@ -67,10 +69,12 @@ Cc: Vitor Soares <vitor.soares@toradex.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH 0/3] arm64: dts: ti: k3-am62p-verdin: Add device tree overlays
-Date: Tue,  2 Jun 2026 15:13:10 +0100
-Message-ID: <20260602141311.1366818-5-ivitro@gmail.com>
+Subject: [PATCH 1/3] arm64: dts: ti: k3-am62p-verdin: Add NAU8822 Bridge Tied Load
+Date: Tue,  2 Jun 2026 15:13:11 +0100
+Message-ID: <20260602141311.1366818-6-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260602141311.1366818-5-ivitro@gmail.com>
+References: <20260602141311.1366818-5-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,39 +85,67 @@ Content-Transfer-Encoding: 8bit
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-This series adds device tree overlays for the Toradex Verdin AM62P,
-bringing it in line with the overlay support already present for the
-Verdin AM62.
+Add a device tree overlay enabling Bridge Tied Load (BTL) mode on the
+Nuvoton NAU8822 audio codec present on the Verdin Development Board.
+In BTL mode, the two loudspeaker outputs are bridged to deliver higher
+output power on the X28 speaker connector.
 
-The first patch enables Bridge Tied Load (BTL) mode on the Nuvoton
-NAU8822 audio codec present on the Verdin Development Board, combining
-the two loudspeaker outputs for higher output power.
-
-The second patch reserves the AM62P MCU_UART0 (Verdin UART_4) for use
-by the Cortex-R5F co-processor as its debug UART.
-
-The third patch adds OV5640 CSI camera support on Verdin CSI_1 in two
-variants: the current CSI Camera Set 5MP OV5640 with a 27 MHz oscillator
-and the legacy CSI Camera Module 5MP OV5640 with a 24 MHz oscillator.
-
-Vitor Soares (3):
-  arm64: dts: ti: k3-am62p-verdin: Add NAU8822 Bridge Tied Load
-  arm64: dts: ti: k3-am62p-verdin: Reserve UART_4 for Cortex-R5F
-  arm64: dts: ti: k3-am62p-verdin: Add Toradex OV5640 CSI Cameras
-
- arch/arm64/boot/dts/ti/Makefile               | 16 +++++
- .../ti/k3-am62p5-verdin-dev-nau8822-btl.dtso  | 14 ++++
- .../dts/ti/k3-am62p5-verdin-ov5640-24mhz.dtso | 17 +++++
- .../boot/dts/ti/k3-am62p5-verdin-ov5640.dtsi  | 72 +++++++++++++++++++
- .../boot/dts/ti/k3-am62p5-verdin-ov5640.dtso  | 18 +++++
- .../dts/ti/k3-am62p5-verdin-uart4-mcu.dtso    | 13 ++++
- 6 files changed, 150 insertions(+)
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
+---
+ arch/arm64/boot/dts/ti/Makefile                    |  4 ++++
+ .../dts/ti/k3-am62p5-verdin-dev-nau8822-btl.dtso   | 14 ++++++++++++++
+ 2 files changed, 18 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-dev-nau8822-btl.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-ov5640-24mhz.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-ov5640.dtsi
- create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-ov5640.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am62p5-verdin-uart4-mcu.dtso
 
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 371f9a043fe5..f2db3c878993 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -78,6 +78,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-am62l3-evm.dtb
+ # Boards with AM62Px SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-var-som-symphony.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-dev-nau8822-btl.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-dahlia.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-dev.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am62p5-verdin-nonwifi-ivy.dtb
+@@ -274,6 +275,8 @@ k3-am62p5-sk-csi2-ov5640-dtbs := k3-am62p5-sk.dtb \
+ 	k3-am62x-sk-csi2-ov5640.dtbo
+ k3-am62p5-sk-csi2-tevi-ov5640-dtbs := k3-am62p5-sk.dtb \
+ 	k3-am62x-sk-csi2-tevi-ov5640.dtbo
++k3-am62p5-verdin-wifi-dev-nau8822-btl-dtbs := k3-am62p5-verdin-wifi-dev.dtb \
++	k3-am62p5-verdin-dev-nau8822-btl.dtbo
+ k3-am642-evm-icssg0-dtbs := \
+ 	k3-am642-evm.dtb k3-am642-evm-icssg0.dtbo
+ k3-am642-evm-icssg1-dualemac-dtbs := \
+@@ -372,6 +375,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am62p5-sk-csi2-imx219.dtb \
+ 	k3-am62p5-sk-csi2-ov5640.dtb \
+ 	k3-am62p5-sk-csi2-tevi-ov5640.dtb \
++	k3-am62p5-verdin-wifi-dev-nau8822-btl.dtb \
+ 	k3-am642-evm-icssg0.dtb \
+ 	k3-am642-evm-icssg1-dualemac.dtb \
+ 	k3-am642-evm-icssg1-dualemac-mii.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am62p5-verdin-dev-nau8822-btl.dtso b/arch/arm64/boot/dts/ti/k3-am62p5-verdin-dev-nau8822-btl.dtso
+new file mode 100644
+index 000000000000..e4b662519a6b
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am62p5-verdin-dev-nau8822-btl.dtso
+@@ -0,0 +1,14 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Enable Bridge Tied Load (BTL) speaker mode on the Verdin Development Board,
++ * combining the two loudspeaker outputs for higher output power.
++ */
++
++/dts-v1/;
++/plugin/;
++
++&nau8822_1a {
++	nuvoton,spk-btl;
++};
 -- 
 2.54.0
 
