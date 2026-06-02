@@ -1,83 +1,127 @@
-Received: from outbound2.mail.transip.nl (outbound2.mail.transip.nl [149.210.149.73])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 908662571DA;
-	Tue,  2 Jun 2026 06:49:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.210.149.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96523A05C2;
+	Tue,  2 Jun 2026 06:50:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780382979; cv=none; b=NTaxjGkc/uezDmQmt6q4+R83NVLbnm+hluROW1tpjasOypQyvUVjvyVTpuZ406JfpAe/7vyDTdT9Rg8NA3//W2jngJMV3UVs62nm2EPOhLIGdknM9rL+aczhZLCMg+B0idnVKJW0BrEvfk7ufb+4kSmH8lLI9rsH981fS7vRvPI=
+	t=1780383047; cv=none; b=Fkkn+6pwthRSG1nwsga2ptG5lQzdLUoOZGZM2mC6UBL9DtWjpnmgaE+U7bCzmPe1vk2E7MFfLmfX9/HysLO4eGgqZV+pr5Jlczik9nAaqvJzPUpuyUWg5I5hJObmescurzYlIgYXGZQQNBuioFdb3kLneGA87o0jXQVn/dIFbeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780382979; c=relaxed/simple;
-	bh=Pi5ioL7+QlwhK2xj+V87banDOdI/HytqblsE8PVdBww=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MSD0H6NTYG1IgHWE/aiYMKMqSI+9NdF0SReEmbS4A/KEuC1BuvLAubCmUwKYfJNtgd6R48hRDOMkyTJAcHkckkof0G6JIxegQSbZUfFVNa9rlTaFvJAfvy/v3frcJzg+rf27lNfIdoxunUPoja/TTcpBLg9MQ7gozrYMrx1K5tw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=EDQEy4eg; arc=none smtp.client-ip=149.210.149.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780383047; c=relaxed/simple;
+	bh=kIefg/1GFOBugtxjwANZjrxgWJw8zIE16yRu6PaEZ6I=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=DQNiK6FobdAXump1YCaefEVUnYdbAXM0APvdD3z980CxB+LJiywJhQ5DPIZz4nkeRVXgIiQaBheBkuj6MnJ7kSiDp1gsXeM7gG75vxKpyOARSYuO3ZxSs6eNMEaUkVFuMblRHqn/XW8laoHaYETB1EjoSNx9WwMpceDGEY0RRjk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ByfxNs6z; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="EDQEy4eg"
-Received: from submission6.mail.transip.nl (unknown [10.103.8.157])
-	by outbound2.mail.transip.nl (Postfix) with ESMTP id 4gV1dy1Fl8zYdx2;
-	Tue,  2 Jun 2026 08:49:26 +0200 (CEST)
-Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission6.mail.transip.nl (Postfix) with ESMTPA id 4gV1dw5XZmz3ZVDrf;
-	Tue,  2 Jun 2026 08:49:24 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-To: sboyd@kernel.org
-Cc: Bjorn Andersson <andersson@kernel.org>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-arm-msm@vger.kernel.org,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Herman van Hazendonk <github.com@herrie.org>
-Subject: Re: [PATCH 2/2] clk: qcom: gcc-msm8660: register PLL4_VOTE for LPASS
-Date: Tue,  2 Jun 2026 08:49:23 +0200
-Message-ID: <20260602064923.877894-1-github.com@herrie.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260602054643.452049-1-github.com@herrie.org>
-References: <20260602054643.452049-1-github.com@herrie.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ByfxNs6z"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 688E6C2BCF6;
+	Tue,  2 Jun 2026 06:50:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780383047;
+	bh=kIefg/1GFOBugtxjwANZjrxgWJw8zIE16yRu6PaEZ6I=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=ByfxNs6zvTKxwN2P1uUJZf/V2cfF0O3x5Gb4TWJU33UHKp5GlOMsFgUWR0g4cGAb8
+	 WmrMAzHwFZ9YPdPYIY8OkTvtOstxvbHx7KU5sq/eJ6wrNOXUlCgKH7abbAWG+0dQfw
+	 8yOBOLWoUVA/Il01Qh0/9NJoFXWBGU300mpL5MH/70Mpj2LAedyj2jBI3M8eqQs+ME
+	 CNGhupECmWGlXxwj7bMtCfg/a0/R+wgsQfTKXULxkTpVOsbz7GxeQii43eW/hvAfAL
+	 guaiHbY4DJ4ydJf+P6sUT5mhAjGMtZwQQrZYLr3pTf3yeud/+iUhInPBUk50ZXa4M6
+	 4hj0KBgVG5/Vg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 5E3CBCD6E4A;
+	Tue,  2 Jun 2026 06:50:47 +0000 (UTC)
+From: George Moussalem via B4 Relay <devnull+george.moussalem.outlook.com@kernel.org>
+Date: Tue, 02 Jun 2026 10:50:38 +0400
+Subject: [PATCH v2 2/4] dt-bindings: net: qca,ar803x: Add clocks property
+ for IPQ5018 PHY
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission6.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780382965; h=from:subject:to:cc:
- references:in-reply-to:date:mime-version;
- bh=DwGPgZw0x+TRPp6LTlJJ324kksikw7sHJ9OQ2L+/eME=;
- b=EDQEy4egoOReHmEEzJZatwxtKWiaOx7OWdUUNupCG5oyOUX+m8XIW2M61M8fe/+LwHo9XL
- sZ+Pl9faQioEc8GpKUFKijOvqTn4vkIPb9YvexEwWzQxkEf7KO1QDdwECW/NpurhnBlFbY
- cCYNYa3FPy+t2wvN1Vh7vNBR2o9DouBCjpcQ7eYHBOV5L6Vm4+LOpw00vboOfxgvgwBRNq
- lsj1YVzEb1UGV/IYDPryb8S9UrZGliwm/yeQjfpcLhAplHgTZV8qp+VsZ4vODPJpIa/PoA
- fkGu6pqqASY6ISXUFNKca7gqY9q4NZyVA5KJTnznzLuLW/hdTw4pl2gAZLE5XQ==
-X-Report-Abuse-To: abuse@transip.nl
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260602-ipq5018-gephy-clocks-v2-2-65a1f1d881f3@outlook.com>
+References: <20260602-ipq5018-gephy-clocks-v2-0-65a1f1d881f3@outlook.com>
+In-Reply-To: <20260602-ipq5018-gephy-clocks-v2-0-65a1f1d881f3@outlook.com>
+To: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>, 
+ Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>
+Cc: netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, 
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ linux-arm-msm@vger.kernel.org, 
+ George Moussalem <george.moussalem@outlook.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780383045; l=1550;
+ i=george.moussalem@outlook.com; s=20250321; h=from:subject:message-id;
+ bh=rp75ghzSXcjDqIvT5opgDmpxqQkfyYFvfhT3Z1yNuHo=;
+ b=Usttx2e8YKj6zXboagFAnbpDINjy3YqTzY2if/dIYtg3G4sMensrQbZYOGUT1lOykjyPhygM5
+ NY8rA1NJG3sDWI7ObRa3WovAWDWe/MKbUPmlyx/iCNx/zG72OMrrrd5
+X-Developer-Key: i=george.moussalem@outlook.com; a=ed25519;
+ pk=/PuRTSI9iYiHwcc6Nrde8qF4ZDhJBlUgpHdhsIjnqIk=
+X-Endpoint-Received: by B4 Relay for george.moussalem@outlook.com/20250321
+ with auth_id=364
+X-Original-From: George Moussalem <george.moussalem@outlook.com>
+Reply-To: george.moussalem@outlook.com
 
-Hi,
+From: George Moussalem <george.moussalem@outlook.com>
 
-The promised clk-pll.c NULL-check fix is on linux-clk now:
+Further testing revealed that the RX and TX clocks of the IPQ5018 PHY
+need to be explicitly enabled. As such, add the clocks property to the
+schema.
 
-  https://lore.kernel.org/linux-clk/20260602062927.467249-1-github.com@herrie.org/
+Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+---
+ Documentation/devicetree/bindings/net/qca,ar803x.yaml | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
 
-  [PATCH] clk: qcom: clk-pll: reject vote enable on orphan parent
+diff --git a/Documentation/devicetree/bindings/net/qca,ar803x.yaml b/Documentation/devicetree/bindings/net/qca,ar803x.yaml
+index 7ae5110e7aa2..07615640b0ed 100644
+--- a/Documentation/devicetree/bindings/net/qca,ar803x.yaml
++++ b/Documentation/devicetree/bindings/net/qca,ar803x.yaml
+@@ -28,6 +28,16 @@ allOf:
+         reg:
+           const: 7  # This PHY is always at MDIO address 7 in the IPQ5018 SoC
+ 
++        clocks:
++          items:
++            - description: RX clock
++            - description: TX clock
++
++        clock-names:
++          items:
++            - const: rx
++            - const: tx
++
+         resets:
+           items:
+             - description:
+@@ -162,6 +172,7 @@ examples:
+         };
+     };
+   - |
++    #include <dt-bindings/clock/qcom,gcc-ipq5018.h>
+     #include <dt-bindings/reset/qcom,gcc-ipq5018.h>
+ 
+     mdio {
+@@ -172,6 +183,9 @@ examples:
+             compatible = "ethernet-phy-id004d.d0c0";
+             reg = <7>;
+ 
++            clocks = <&gcc GCC_GEPHY_RX_CLK>,
++                     <&gcc GCC_GEPHY_TX_CLK>;
++            clock-names = "rx", "tx";
+             resets = <&gcc GCC_GEPHY_MISC_ARES>;
+         };
+     };
 
-Single hunk in drivers/clk/qcom/clk-pll.c::clk_pll_vote_enable():
-resolve clk_hw_get_parent() first, return -ENODEV when it is NULL,
-only then call wait_for_pll() with the resolved parent. Same change
-benefits gcc-msm8960/apq8064/msm8660 and any future cross-controller
-pll4_vote pattern.
+-- 
+2.53.0
 
-Once that lands I will roll v2 of this gcc-msm8660 series with the
-yaml maxItems=3 + pll4 clock-name addition (replied earlier in this
-thread) as PATCH 1/3, the existing CE2 + PLL4_VOTE driver patches as
-PATCH 2/3 and 3/3, and a cover-letter pointer to the clk-pll.c fix
-as the parent-orphan precondition.
 
-Thanks,
-Herman
