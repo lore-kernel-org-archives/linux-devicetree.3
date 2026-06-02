@@ -1,66 +1,66 @@
-Received: from mail-lj1-f179.google.com (mail-lj1-f179.google.com [209.85.208.179])
+Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D56038AC79
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:14:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E28356758
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:15:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780438449; cv=none; b=pheublg4kGgukMfl6t+w580xf1YxF30lIGD1filkDH/TYVHkOI9Qen7rpyZN5vBESMBLgV+pZLnPUhc32UbqwnqioQuwklrSRJc5kSmr/xcv4yamQNA3QmyZ8Fmglm7cg8+xiUiv0hz2VuX+rB4omymQMZSezIfldB3/7KRm2NE=
+	t=1780438529; cv=none; b=ldCl2CFABpT/ggb8oLTOUHj2qCh829ce96rG6a6UvJ2clWo0afCZvtVy4/SpMa51lpHQpFjRkYBOZh4cAFJswZVUWsKWFv4GuZCgrfFqaxJhB4DT03prZ5BhX7UQ8Fux39+5d2KixhZ8gSpF57y57vZMJBrQYB6pDtXfIR8VFtY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780438449; c=relaxed/simple;
-	bh=AKxmpzI5wH9I9UZcIsNESrl/eKnb5r5nsYZfUB/Ku6o=;
+	s=arc-20240116; t=1780438529; c=relaxed/simple;
+	bh=0l2ZoBsNnuodhMPRW4K78PbcurismS2rK+dwCagNV1I=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=j/MJmWXaQxuVEw/s4weCpKiCYQ5aKWD+FYSSuX9fNvOQtYwDHaMY6FMn7cTANYz4QFiv+UbbPU5V5Nl9aoB2WFVVgmmZRGz+Cb/z+qcgW07TBvmT4f9Pij3Qv6Tqevnb0DnVo8uLSn1+ssH7dINCTT/pqGTSLbDmCewTNqMg9Mc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=yYct3THR; arc=none smtp.client-ip=209.85.208.179
+	 In-Reply-To:Content-Type; b=hg1x52+/FFAy830U6cEZQVVS3UuN3QJQ6xPBtp4hSmT23lcNr5lhcXq4o/Urb8Tnwx1c2aQ9+n6BPCZeiTqqrQjq7cD8L/ZJgjvQrn9Ng31hyUWO5rLMFakOIUGv++NEgczLJihfubvcjfEFea5y66//Zyn+sn3WK/DpkfUrBfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=e8rHw67s; arc=none smtp.client-ip=209.85.167.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="yYct3THR"
-Received: by mail-lj1-f179.google.com with SMTP id 38308e7fff4ca-3966e5e7cebso4973961fa.2
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:14:08 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="e8rHw67s"
+Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aa679cc2c9so393861e87.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:15:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780438447; x=1781043247; darn=vger.kernel.org;
+        d=linaro.org; s=google; t=1780438526; x=1781043326; darn=vger.kernel.org;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=uM8Sf7FodSx2cPHTZjl3hS8JtasGDXRm7zk3IkDqzNA=;
-        b=yYct3THRY/kWpfS5Rq/CqRl2eej+YGTBDtCDGC4f4YqnWmoeekjCmQIl5KCHGZIzPt
-         gzGDs1dV80ma/CueoK803YzRvPUrRseByF6R23DTopRHBeC0I7srHOR+61QrtBeS7sma
-         VnySkcA3tIErvDx7LkzmpgswRfJ806lh6g4X8efmqln8WMl1/jVOPraWmBmNzMqs//2h
-         kyJ2o0i++zwhrHwXWfFRRNDWGCWIoNHiebC5ur4ZCtUAPh9ko6aJFzEmjDe4vG4k1TnB
-         FFP/pltZuXeSfJqmcnpHEemBwGg7rx4fw/ORu6dbHlT120Z0E/yQYBi9i33FmBVFr3cd
-         t/Cw==
+        bh=jgy25aO5siADmjOHA8m8ArvPv18ukgqv39s8uxTpK68=;
+        b=e8rHw67skHmOQ8kPoTe6+oocv4OUg/IB2nEMr+0fpK4i5Gb2Ty7tk+7gOoSVPyFYkj
+         cz/rgfHDQo3o4q3rgEEfot2bUDKa/U5IhhwM60C5H2eqV32hKrWQOizcVhOhjldx6VFJ
+         7Gy4PbKz6Q7O/j43kO62HDI6B7Dm9I/BhUsVtrgQs8+vW8MS+68ML1f+aJtRoQF9neUF
+         zzQ86WLaAsy6UcFJiXMskcb3xNHNAzDElazx1IwJinN183bynJ6KCOrm/AZFplO8LuF5
+         XlprvD1OHBrBF0IoOIm+TDoV/lCxVXfly3/xY8SPgMXRqMLKXSVRvtXy4sdy9o+7QAsW
+         4e7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780438447; x=1781043247;
+        d=1e100.net; s=20251104; t=1780438526; x=1781043326;
         h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
          :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
          :from:to:cc:subject:date:message-id:reply-to;
-        bh=uM8Sf7FodSx2cPHTZjl3hS8JtasGDXRm7zk3IkDqzNA=;
-        b=aKHLQbDwid6W+mjRWgiuN7lSVRKr6bXdWFKXm4rRPFty4dVdQGlMZtrIqGUDkUom40
-         809iU2dDD4YxfOrCcgKQDB8mfabajhG+6KTXN9rq6UxN1MSH81vYF3svHBVW8VrnHGth
-         SO3102uyx17zXsswQtNBBQ80IGtj0esUZzLvlx869XnsIzwxu/tmswMI6g+3av94TEe9
-         evfbMTyyXagr2nyDqnBzRKy1XVWQHmQa2KbsaTxPW9PgW1T8SsPJH+OyFDhueAb4BcdG
-         Znvtc4EzRPKoeJmJTV2oSg3xuntkp09FN2lhBpufMT3zvG43aFklMBF/aWsMfPWkTw9R
-         D3tA==
-X-Forwarded-Encrypted: i=1; AFNElJ/me7YdeIT5bhyAzdivW+FNLNB0qiy9Kxm7nLuIYiNCv4W8gjH42tdtjeVr1uy11RN2TYxEijGCUamW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzd17kXPmAgY546r3xdwtv7mHjdovYuDjaIysSBP2dUkFex3u8B
-	mqSx4w0wXyqoqrzYUDxeZ0FcPsYpxEtSaMSwV3M7Y3RPDi9ajngEeymkQPnyrVMUzb0=
-X-Gm-Gg: Acq92OGWZDU0lma3hbnPpZj2hUEI6BcSa8JVeDfh5cKWTiB5TVIxvcslzK2iBCkS3HS
-	SC7pfDJOUwXoClFBKoJX/0BebotDOV9HB4OcEHYjMsbQRQhN/0KU+xvbe1BB+S1AsmaSnIlOb5f
-	TFY05PYsbvGy8Brt/W50JQK+BqH8z7SW+3S15sNSCUqIP2mhQjgrrHxgS2hQryjacceT8jQvxqK
-	+3FqpH8hBxdlVJFzi3ya9+FYGcfkMXTZ/y6+J7dPR8Jp/JuunbW6cOBvbhLswPibo533h1NbclV
-	g8cRcth12K1Fnb+zJsAVRN4IThBinTwbtB8a79yaAxjOd1qDTVbiP94Y8M0HySGcCfIo+6IXTyK
-	09Ubap4bwHlioYmiuunP7giFKGgsYiOfU4cECvYoh+TvgL76wyBT52eebtB/Wj6u/UTdkUgz990
-	ziz4+leDpLl9WAEJQEZeR12JgaXu7tcm4noJvIIZcXZpciEOLZtiXKjKRqMlVPRn6q4zhTFqE86
-	44IfMQuaAeCVvc7
-X-Received: by 2002:a05:6512:1316:b0:5aa:68ca:7aff with SMTP id 2adb3069b0e04-5aa7bf55528mr141785e87.6.1780438446511;
-        Tue, 02 Jun 2026 15:14:06 -0700 (PDT)
+        bh=jgy25aO5siADmjOHA8m8ArvPv18ukgqv39s8uxTpK68=;
+        b=r2MoLMvD1eoPafmcKrJZRHwZ28UrXhqc+yFRyTfe3psO8w1aHlcgDGBMKRHcTUhTkj
+         Y3zu56pPuvJu93xAfYvBLqZ9cSBsP7pZbKfN4aPzf/c624dXF+fpNeBru4Ap5PmxDCpW
+         xTCPX53MOuJ/wR3lFcKlRWzWuc1SMD78AzDCeEUyRxbRSfqW4tbnEjN3snJbWCLb+s9I
+         jetXNUPhlDsojgT13HY0bFojRy3+J0QkSnLu03FBJViV3UF9ufORMT2VV5xenGzgSCKn
+         9izClob9RjY9QofedArULCpOchNOZF6SWNdW7k/DUk9TqjUwaBBabgsj6Sc5ITYEkPQX
+         6bGg==
+X-Forwarded-Encrypted: i=1; AFNElJ+8dRAjWda869JSAZ+Boum7pWElqnSvHGkt/lvvmnuTqaQZejHjjl/OHI8PfKQ/3ad+0ywyOrip0WEW@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx0n1F91uxvUD0fVceudCzaxmqLF0wd3kl+E+jGj3DH/3is6msC
+	eNr7TiA6rPFkjiupM8HWmEj62G8t/vC2MMPLESz0R8I/o0RNqAPz25bTQTvvYRurkDw=
+X-Gm-Gg: Acq92OHAbaeIS8DT3kGni47kg60lqnRwKiA9wt29RZ54sdhcb37jUO6W+qdpnGmVJ0X
+	RGgX9tW/ABJ8O/V+1f2003eJkHmyqditb/GB9qXHByDmEpjABftVLr3x5OEjKOWmO7/MLh/AFru
+	UquW/JQXFlaxXdk0yBJKZi4VBvkC9bqP5M11OQJU8OaUaxWsu9aX5XACUJr1qQ34PRpoh5OpTQm
+	JCEeZ5DkZCo5q2pw60lWxWeRn9ACpx+5oNaKkyX78NNkCosMQj3BEHNoSt84WqhCQCNIXFq5fiW
+	UWplZ9WOyjo/+P4v70JOq/QfZzmjRylmymnVS5jFdu/zopQa2yKBN1J024n+IeauqccmWwwh/fP
+	MQpUI/DML34I2GOzAHnQmT4DmpTXdVfaqwxJdmTSuWjU/JJqbsUtfHR4PPc20wJ0rzlrDkd9sWO
+	sRw3EepkzeRDTP+H+beQ49e17sDxYWu2Xp0tQs7hzg4vQpdB5M3pOO6dzdjT9yrAHQtsiVCtXzR
+	JAlC42VCfz40ZjI
+X-Received: by 2002:a05:6512:3c95:b0:5aa:7126:c62e with SMTP id 2adb3069b0e04-5aa7beaff61mr128839e87.2.1780438525691;
+        Tue, 02 Jun 2026 15:15:25 -0700 (PDT)
 Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b985a4esm209129e87.56.2026.06.02.15.14.05
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed2d3sm217245e87.5.2026.06.02.15.15.21
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 15:14:05 -0700 (PDT)
-Message-ID: <92ac522e-e8b3-4257-bd4a-24b9cea8b6da@linaro.org>
-Date: Wed, 3 Jun 2026 01:14:05 +0300
+        Tue, 02 Jun 2026 15:15:22 -0700 (PDT)
+Message-ID: <d9564f1e-0b5e-4c69-88c5-b57ab2e0b543@linaro.org>
+Date: Wed, 3 Jun 2026 01:15:20 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -68,8 +68,8 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/5] media: qcom: camss: Add Kaanapali compatible
- camss driver
+Subject: Re: [PATCH v13 3/5] media: qcom: camss: csiphy: Add support for
+ v2.4.0 two-phase CSIPHY
 To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
  Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
  Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
@@ -81,85 +81,20 @@ Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
  jeyaprakash.soundrapandian@oss.qualcomm.com,
  Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
 References: <20260508-kaanapali-camss-v13-0-2541d8e55651@oss.qualcomm.com>
- <20260508-kaanapali-camss-v13-2-2541d8e55651@oss.qualcomm.com>
+ <20260508-kaanapali-camss-v13-3-2541d8e55651@oss.qualcomm.com>
 From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260508-kaanapali-camss-v13-2-2541d8e55651@oss.qualcomm.com>
+In-Reply-To: <20260508-kaanapali-camss-v13-3-2541d8e55651@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
 On 5/8/26 11:05, Hangxiang Ma wrote:
-> Add support for Kaanapali in the camss driver. Add high level resource
-> information along with the bus bandwidth votes. Module level detailed
-> resource information will be enumerated in the following patches of the
-> series.
+> Add more detailed resource information for CSIPHY devices in the camss
+> driver along with the support for v2.4.0 in the 2 phase CSIPHY driver
+> that is responsible for the PHY lane register configuration, module
+> reset and interrupt handling.
 > 
 > Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 > Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
-> ---
->   drivers/media/platform/qcom/camss/camss.c | 22 ++++++++++++++++++++++
->   drivers/media/platform/qcom/camss/camss.h |  1 +
->   2 files changed, 23 insertions(+)
-> 
-> diff --git a/drivers/media/platform/qcom/camss/camss.c b/drivers/media/platform/qcom/camss/camss.c
-> index 9335636d7c4d..ffaeeb9d1797 100644
-> --- a/drivers/media/platform/qcom/camss/camss.c
-> +++ b/drivers/media/platform/qcom/camss/camss.c
-> @@ -34,6 +34,20 @@
->   
->   static const struct parent_dev_ops vfe_parent_dev_ops;
->   
-> +static const struct resources_icc icc_res_kaanapali[] = {
-> +	{
-> +		.name = "ahb",
-> +		.icc_bw_tbl.avg = 150000,
-> +		.icc_bw_tbl.peak = 300000,
-> +	},
-> +	/* Based on 4096 x 3072 30 FPS 2496 Mbps mode */
-> +	{
-> +		.name = "hf_mnoc",
-> +		.icc_bw_tbl.avg = 471860,
-> +		.icc_bw_tbl.peak = 925857,
-> +	},
-> +};
-> +
->   static const struct camss_subdev_resources csiphy_res_8x16[] = {
->   	/* CSIPHY0 */
->   	{
-> @@ -5102,6 +5116,13 @@ static void camss_remove(struct platform_device *pdev)
->   	camss_genpd_cleanup(camss);
->   }
->   
-> +static const struct camss_resources kaanapali_resources = {
-> +	.version = CAMSS_KAANAPALI,
-> +	.pd_name = "top",
-> +	.icc_res = icc_res_kaanapali,
-> +	.icc_path_num = ARRAY_SIZE(icc_res_kaanapali),
-> +};
-> +
->   static const struct camss_resources msm8916_resources = {
->   	.version = CAMSS_8x16,
->   	.csiphy_res = csiphy_res_8x16,
-> @@ -5316,6 +5337,7 @@ static const struct camss_resources x1e80100_resources = {
->   };
->   
->   static const struct of_device_id camss_dt_match[] = {
-> +	{ .compatible = "qcom,kaanapali-camss", .data = &kaanapali_resources },
->   	{ .compatible = "qcom,msm8916-camss", .data = &msm8916_resources },
->   	{ .compatible = "qcom,msm8939-camss", .data = &msm8939_resources },
->   	{ .compatible = "qcom,msm8953-camss", .data = &msm8953_resources },
-> diff --git a/drivers/media/platform/qcom/camss/camss.h b/drivers/media/platform/qcom/camss/camss.h
-> index 6d048414c919..2820c687e066 100644
-> --- a/drivers/media/platform/qcom/camss/camss.h
-> +++ b/drivers/media/platform/qcom/camss/camss.h
-> @@ -93,6 +93,7 @@ enum camss_version {
->   	CAMSS_8550,
->   	CAMSS_8650,
->   	CAMSS_8775P,
-> +	CAMSS_KAANAPALI,
->   	CAMSS_X1E80100,
->   };
->   
-> 
 
 Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
 
