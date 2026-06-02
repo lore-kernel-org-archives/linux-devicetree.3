@@ -1,253 +1,148 @@
-Received: from mail-dy1-f173.google.com (mail-dy1-f173.google.com [74.125.82.173])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 11BBA3D5C12
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:31:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.173
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780396317; cv=pass; b=FL/989TPKcWnNLPhRkfcW+G+EbzeTYzUTnkSMoV69MvZok9HpwsQI2EgcsOsVCigAuIo4FoD2T3AfzjC1cDitFj0IZ2fZ7Uu09dbV9eHOr4RTyFtw15YcgX0SoZpR1dBh7guByym6uYatxnR54f17iYZd6GMtDDGSUPzvc9x+PY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780396317; c=relaxed/simple;
-	bh=FrPJKUKAeNpDp2O8s3b0xd97pGYPIKC59ry1jtVER0Q=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=XTyFvXpxmKYTwwkTxTgi05igA5mvd09iFGIFHoBR+EUwhHQjWKYk/hQaxU2Y1Zsrnu3BNvLyTm0JeQ/BO/7JNC8eWwS1UowD3wwlFXoIg/xhS8UhqQF1RlxCRV9EcVFv8ix8SM9gjkDjqvnGT1R6ugj04dPU6ziRNk9dOHd4b30=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kgdcvLgs; arc=pass smtp.client-ip=74.125.82.173
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AC86246781
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:36:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780396570; cv=none; b=tEqvqtv+62U0SPE4jrRp09j/nhxczS3gpXHsFG0cWfzhqIBKrPqUYLfhayRkZV660ytmmnucP9skuCZNjRs1KgGEQcl0Xt93xM73B+J4g/2vVQ0jE7cwMGCPzvpi9bgLkHb7N54ON4DBfHbBvcKXPRoCdUPdNbrw6LQ5UEiCzVA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780396570; c=relaxed/simple;
+	bh=tUtpikAk5VkIuOfgp7Z6Q6hzwGmU4rW1P9KSv8BwMmw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=EoFp+oR/JR30lvX/ky3ZCaSHHSQEjofDY/JS6HUTHpdwWa05FqJUEC6XlA1bKLyI3aWakkchSJAjufPlvY4M/uKiwYVDk3EH56KjF3KOqPW9xtuyrnmcoMau5hCDQhx0jGOvT59GNJgFc8EbiqUQ+ap8sTBsQCo4TSmvPShd8lw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XYRLG+1X; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kgdcvLgs"
-Received: by mail-dy1-f173.google.com with SMTP id 5a478bee46e88-307263ad0cbso2140682eec.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:31:55 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780396315; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Phajgbm2NSQBfBiAZuJ7xC/tDa4CXN310B/egKEn7YRPIdXrh4XN8hTzLZhxVWbxsG
-         xtb4zxRAXMFLvwlmpsehtPGhemdLfmsxoNxjK2+iYkJ6gZaW81RFfzCGC4BUGGcwtgI3
-         Z4L3rWM+Pa47rc8pzYMU+1JahkjTT5bW71uvfdQAKsx7zJBJNVqRA1X0/p1cfMbuPhmH
-         qa75VDi3ulsnt2ACCbrSCTx5BLjgNrQ43rANdkjWxL1T5APXcBemvdf6Xef4AMBrprQk
-         aNNyTKOgyAyYmTl7mH8/w4ZlPlkTbfhzZCU5a0fR8LQsoJCihd2By8tVzHPP5BopESa6
-         xkcQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=lDdI0YPykfuK0xhOe7sArc4RNqAa0Hyds1kbH01jcws=;
-        fh=XxDiF7bfiWNQ0+Qy+fn8nqLfh2pAyd6znxKZGz7ZbAQ=;
-        b=KZT8tMweyaViH7n4tbFYkr2AnDoqv6YK96xR995RRpoGzbA0/i9EY33TM63QXJUARW
-         6fa1n5OaznanM4GJmkv3jvRLg73cCZeps/mh/uFnIXzYlyrURS03pQF0P7KiKKBT5MFQ
-         60eF7IT6sOxE5Mal9GARmnzAeYO2nbjMU26923uBqnAQelsvpExqvO1c/Tr8bmK7M9+q
-         /c6M4peG/4oSdaNz0pWVGeQQg9VQzHmESE1mENlFi5xkdSPpZHVGd0fTQi4mJdR3IEyO
-         qsJSXzNmeVKLgyoCJ2b1SkSZwSB0L1HBgKCj8e621EnaxaPBtoNUfdZUxk1ioEM0nQ0B
-         31sA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780396315; x=1781001115; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=lDdI0YPykfuK0xhOe7sArc4RNqAa0Hyds1kbH01jcws=;
-        b=kgdcvLgsZ3uILaWfcIBvtHl1005DoEY8tGo67hlFEfjapWwGze3khJCdXZVrRKnA5h
-         37CEtBPX6b8X0AaK1mntR77AtOfQ7CnhjfrTLJkgB7WDAz4Y/g/BYmJIegvqnORr9bq5
-         n4OWtbMTtq/mjZcJIJcbF+jusrW4PmKgWNJhp8HOEGxYqPKN/UJEzHEriS9U5IkVSd/X
-         a+n0v00qp7WOv4PuvEdollon2e7UV0qZEw4J8/TKa/gk16Yk+R6ZtCJeo0qvmGh4xIYN
-         My3s/VQXDMREfLQ0j0hnhT0u5c0lkmltuEnWw+FvVO2NdGut68L28anjbQPSB74A/WSt
-         icGg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780396315; x=1781001115;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=lDdI0YPykfuK0xhOe7sArc4RNqAa0Hyds1kbH01jcws=;
-        b=Hpav/GGQ6xNJ2wcu3WIqdqh18z7cpJPhJDoy4MVqRWcbpzquT5yGc7YL2KH27yYZgS
-         xzunHJGV6jysINTP1xTYWfvaC6DY/+Vnes84a4vUgx8TPbd8U8TYJd1rU+MOV99R2VWY
-         VQkqCIaNkSZ2BsqwlL0oIK082DK1WqRy5EgvcSGKZqCSjkdXOWmU2KgMnHv4dDXstGZj
-         crSuwVAB4B7UFZZVMpDDLIBXnGxyvW7bVr2WAbWznr1iiLe4iKEt2I9FraHYE/xZS9aB
-         AiH11p7gFCooxK8GiM6hwGBreABAQSRGxaKVoWAuTPKVXsIw3KbJAOH6DfzDnw++azAL
-         uzjg==
-X-Forwarded-Encrypted: i=1; AFNElJ9q9IuR6ABN0bS03T9UpUTezotMOx56we96uzgrCgwRGqthqUZPilfKnIlhaqnrimDrzeU8hIpzUges@vger.kernel.org
-X-Gm-Message-State: AOJu0YxIyQwGWd7OyMVlic2UIdp5BPcDJ6eYiKVo9S/RpvGJDY4CAetI
-	W/YM9E+hBxZ44TVAzgTlfEfo4TgTrWK9ns6cuKcvWud1jYB1ON6wmJY8KwXUhUncaYGWnZ4lOxG
-	suAESLCuAolaf+N0Y8/CLaSzNracnvis=
-X-Gm-Gg: Acq92OHsgi1atXcroRI4rvUS9SKJ14E7kZVG2sqCj64rC+MI+kCbYVoNy8QeGtQiOsc
-	NrRRw4Qv2gKDM7R3XRTn0G814W8y264rj/iEPmgPdW4/1avbtpuCvEaQNCkJnkeG0bMiiL7ldgE
-	s/dz9PqDBZFdQS1BUBruQulLuwRQXu54ATPQxIH8Iqu/XOAC5/LIQQf0b4lBzfWC44JiHm9ViBH
-	H1iVWYFXVKQPsY7wJ2dIEMhZfGcq1SNsNHNaV9Pz6Ytw83U14P8RyXndj2XeNjCvd9Rn9tcMUyI
-	lv3BwwyFPBM0wXv+6K7OY9SSkf+H+g==
-X-Received: by 2002:a05:693c:2c86:b0:2c1:7793:7bbb with SMTP id
- 5a478bee46e88-304fa64c553mr7093613eec.27.1780396315135; Tue, 02 Jun 2026
- 03:31:55 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XYRLG+1X"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 938EC1F00893;
+	Tue,  2 Jun 2026 10:36:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780396568;
+	bh=BCLqZANaSCrSSKStHfFpttQ6d+mH1z4LZ7RLwzDwu1I=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XYRLG+1XSNbKyckwGQoWED4GIU44UD4IE8NSPhGifc7wH2RkKuYHrGrJwQlFoYfNr
+	 0uZ2QyE6ULb7bPOmEkn/b/qQXGVtJCg1lxcBuIAkcu83L/yeUfMy+9D0i2Nq/ENeTQ
+	 tsvllGMWB4jv/2InGDN/o9jVL7X2H3COAvHbESp1WXN4UDsteR0UlCze2XZc7bTHNg
+	 MlsiDZNmAWL6CFSiVi2ou7N01lWzYLyF1gdEN04SVEPq0Z7OR8aifyXAmvSFxb/2L6
+	 tfbi2+6im/0YjjCklNv2f6TunbW9utizBi3EZgMZIJ4Aa0BkCdnxi69SARHyKBrHLx
+	 6XyU51CL5dZDg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/5] ASoC: rockchip: spdif: Reorder clock enable
+ sequence
+Reply-To: sashiko-reviews@lists.linux.dev
+To: phucduc.bui@gmail.com
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260602101608.45137-3-phucduc.bui@gmail.com>
+References: <20260602101608.45137-3-phucduc.bui@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jun 2026 10:36:08 +0000
+Message-Id: <20260602103608.938EC1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260601151831.76350-1-clamor95@gmail.com> <20260601151831.76350-6-clamor95@gmail.com>
- <ah6TGjRNnDpQGO60@ashevche-desk.local>
-In-Reply-To: <ah6TGjRNnDpQGO60@ashevche-desk.local>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 2 Jun 2026 13:31:44 +0300
-X-Gm-Features: AVHnY4LWQiJbbknL3YlvePeYbIxJnooafI1v7YVQtfA6307ubpWpYRL37q4rijM
-Message-ID: <CAPVz0n21RGAaJc1sda4xyp1h0z+6R6FJ4=XWdOtB1mgtV8=RUA@mail.gmail.com>
-Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:24=
- Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon, Jun 01, 2026 at 06:18:25PM +0300, Svyatoslav Ryhel wrote:
-> > Since there are no users of this driver via platform data, remove the
-> > platform data support and switch to using Device Tree bindings.
->
-> ...
->
-> > @@ -57,6 +60,9 @@ struct lm3533_als {
-> >
-> >       atomic_t zone;
-> >       struct mutex thresh_mutex;
-> > +
-> > +     bool pwm_mode;
-> > +     u32 r_select;
-> >  };
->
-> Have you run `pahole`? Does it agree with the layout you made here?
->
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
 
-Noted.
+Pre-existing issues:
+- [High] Reading channel status bytes via a u16 pointer causes unaligned me=
+mory accesses and endianness bugs.
+- [High] The MCLK domain reset bit is asserted but never de-asserted, which=
+ poisons the regmap cache and causes unintended resets on resume.
+--
 
-> ...
->
-> > -     als->irq =3D lm3533->irq;
-> > +     als->irq =3D platform_get_irq_optional(pdev, 0);
->
-> > +
->
-> Redundant blank line.
->
+commit d98bc7bb278e4f820ed1d93795c2185544cad12b
+Author: bui duc phuc <phucduc.bui@gmail.com>
 
-Simplifies code perception, whatever.
+ASoC: rockchip: spdif: Reorder clock enable sequence
 
-> > +     if (als->irq =3D=3D -EPROBE_DEFER)
-> > +             return -EPROBE_DEFER;
->
-> What about other error codes when IRQ is found by can't be retrieved for =
-some
-> reasons? IIRC we check against ENXIO in similar cases
->
+This commit reorders the clock enable sequence during runtime resume for the
+rockchip spdif driver. It enables the hclk bus clock before the mclk
+controller clock, keeping the clock ordering consistent with the suspend
+sequence.
 
-Then we treat it as no IRQ. Original implementation cares only if IRQ
-is present or no.
+> diff --git a/sound/soc/rockchip/rockchip_spdif.c b/sound/soc/rockchip/roc=
+kchip_spdif.c
+> index 581624f2682ef..8de5b76cfe791 100644
+> --- a/sound/soc/rockchip/rockchip_spdif.c
+> +++ b/sound/soc/rockchip/rockchip_spdif.c
+> @@ -76,16 +76,16 @@ static int rk_spdif_runtime_resume(struct device *dev)
+[ ... ]
+> -	ret =3D clk_prepare_enable(spdif->hclk);
+> +	ret =3D clk_prepare_enable(spdif->mclk);
+>  	if (ret) {
+> -		clk_disable_unprepare(spdif->mclk);
+> -		dev_err(spdif->dev, "hclk clock enable failed %d\n", ret);
+> +		clk_disable_unprepare(spdif->hclk);
+> +		dev_err(spdif->dev, "mclk clock enable failed %d\n", ret);
+>  		return ret;
+>  	}
+> =20
+>  	regcache_cache_only(spdif->regmap, false);
+>  	regcache_mark_dirty(spdif->regmap);
+> =20
+>  	ret =3D regcache_sync(spdif->regmap);
 
->         als->irq =3D platform_get_irq_optional(pdev, 0);
->         if (als->irq =3D=3D -ENXIO)
->                 als->irq =3D 0;
->         if (als->irq < 0)
->                 return als->irq;
->
-> ...
->
-> > +     led->pwm =3D 0;
->
-> Isn't it 0 by zalloc ?
+[Severity: High]
+This is a pre-existing issue, but does this regcache_sync() call cause
+unintended resets due to a poisoned regmap cache?
 
-It is, thanks.
+In rk_spdif_hw_params(), the driver sets the SPDIF_CFGR_CLR_EN bit to clear
+the MCLK domain logic:
 
->
-> > +     device_property_read_u32(&pdev->dev, "ti,pwm-config-mask", &led->=
-pwm);
->
-> ...
->
-> >  #define LM3533_BOOST_FREQ_MASK               0x01
-> >  #define LM3533_BOOST_FREQ_SHIFT              0
-> > +#define LM3533_BOOST_FREQ_MIN                500000
-> > +#define LM3533_BOOST_FREQ_MAX                1000000
->
-> HZ_PER_KHZ  (since you included units.h)?
->
+sound/soc/rockchip/rockchip_spdif.c:rk_spdif_hw_params()
+	...
+	regmap_update_bits(spdif->regmap, SPDIF_CFGR, SPDIF_CFGR_CLR_MASK,
+			   SPDIF_CFGR_CLR_EN);
+	udelay(1);
 
-500 * HZ_PER_KHZ
-1000 * HZ_PER_KHZ
+	ret =3D regmap_update_bits(spdif->regmap, SPDIF_CFGR,
+	...
 
-You meant this? Sure.
+This bit is never explicitly de-asserted.
 
-> ...
->
-> > +     nchilds =3D device_get_child_node_count(dev);
-> > +     if (!nchilds || nchilds > LM3533_CELLS_MAX) {
-> > +             dev_err(dev, "num of child nodes is not supported\n");
-> > +             return -ENODEV;
->
-> Why not dev_err_probe() here and elsewhere? It looks inconsistent with th=
-is
-> patch.
->
+Because SPDIF_CFGR is a cached register, the cache permanently stores the
+value with the clear bit set.
 
-I must have overlooked it, thanks. WDYM elsewhere, this is the only occuran=
-ce.
+During pm_runtime_resume(), does writing this cached value back to the
+hardware unintentionally re-trigger the MCLK domain reset and corrupt the
+hardware state?
 
-> >       }
->
-> ...
->
-> > +     device_for_each_child_node_scoped(lm3533->dev, child) {
->
-> > +             if (!fwnode_device_is_available(child))
-> > +                     continue;
->
-> Do we need this check?
->
 
-This is nice to have if the node is disabled. If we assume that there
-are no disabled nodes, I can remove it.
+Also, looking elsewhere in the same file, there is another pre-existing iss=
+ue
+in rk_spdif_hw_params():
 
-> ...
->
-> > +                             dev_err(dev, "invalid LED node %s\n",
-> > +                                     fwnode_get_name(child));
->
-> %pfw
->
+sound/soc/rockchip/rockchip_spdif.c:rk_spdif_hw_params()
+	...
+	ret =3D snd_pcm_create_iec958_consumer_hw_params(params, cs, sizeof(cs));
+	if (ret < 0)
+		return ret;
 
-Noted.
+	fc =3D (u16 *)cs;
+	for (i =3D 0; i < CS_BYTE / 2; i++)
+		regmap_write(spdif->regmap, SPDIF_CHNSRn(i), CS_FRAME(fc[i]));
+	...
 
-> ...
->
-> > +     ret =3D sysfs_create_group(&dev->kobj, &lm3533_attribute_group);
->
-> No way. You should use .dev_groups.
->
+[Severity: High]
+This isn't a bug introduced by this patch, but does casting the u8 array to=
+ a
+u16 pointer cause unaligned memory accesses and endianness bugs?
 
-I did not change how driver does this, just swapped lm3533->dev to
-dev. I will set is back as it was.
+The 6-byte cs array is cast to a u16 pointer and directly dereferenced.
 
-> > +     if (ret) {
-> > +             dev_err(dev, "failed to create sysfs attributes\n");
-> >               goto err_unregister;
-> >       }
->
-> ...
->
-> Can you think on how to split this change to smaller steps? I believe it'=
-s
-> possible.
->
+Can this trigger alignment faults or undefined behavior depending on the
+architecture and compiler optimizations?
 
-No, I am done with tinkering with this patchset. It is broken enough
-and it has inflated enough.
+Additionally, since it performs a host-endian read of the byte stream, does
+this cause the IEC958 channel status bits to be incorrectly swapped when
+running on big-endian architectures?
 
-> --
-> With Best Regards,
-> Andy Shevchenko
->
->
+Could get_unaligned_le16() be used here instead?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602101608.4513=
+7-1-phucduc.bui@gmail.com?part=3D2
