@@ -1,97 +1,133 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com [209.85.214.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F31B3D410B
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:16:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C17A3D8902
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:16:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395372; cv=none; b=g57Cvbpa0JOe1ALYt4v6FMP4ZZHv4B4jL7cZDJDABpMyksj43BqAheiG033DFemkYc+SjvH9d05a/o+5q/SYd5texzYpAv/zo+/J8G/ZEwsXGYIRSOruDyXJO98x5DJJrPzw7iDxGZJe67l4DAmOgiaMJPlWBpqyQEZXGx5dJro=
+	t=1780395396; cv=none; b=YiDqRQLZihohElvW+T3537T18dmrhKaN934ylBoOYnB5fzKP5jlnAYNa3deun2qL9SuLFotvPnMuVPRaQ4H97aTCtEIaGQwWA7whnc06/k4K2WnnaS6q6KWIaWY5pjNZqju4LCogYxkvHlLzBM01JEBFUeePeTZkmT/s9bCox10=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395372; c=relaxed/simple;
-	bh=f84VhQa/St2+evr4TtwcBCBAVfxHSYOs3xw1PSgUknk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FmPXWaOTs4f3r2WuAsLvi99fkGCandvW/5GkaSf4uIJr1Me2TGet0rpEcRtwbz/EAvxe6CmM+KSYK87tzw6Teadkn0FI3UPBGEXnDVx4wv0mmP2TZpcCQsVo6/52HN1zu0k1AP4DW48GFIhj/VCDZXtnNCNu1IObsgfQSDngl9Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlwLhYeP; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780395396; c=relaxed/simple;
+	bh=38/Zl5XdWU3WE6drEyc9KjDkqO0LDYBqDFG4G2evA7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CzPQq06O/bzN/yzfhh6zZAr4u+oOtzEF1AlydEhlW53SHFYUxVRvwl0RuywNv6CFKG4Y35B4R5WDnHSe3NGo0rh8JpEmSc4+0yz7No3GWKFkr8VWSSjifersFpzkrfeBPCPWvb69fJroJrkAh51INShoNpSdMTziI90pPpkZ0Ys=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jhni2arO; arc=none smtp.client-ip=209.85.214.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlwLhYeP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0971F00898;
-	Tue,  2 Jun 2026 10:16:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780395371;
-	bh=F+Nk+ceO0alfZGjD8Y4fftB4La0hJqtLUjdGIzsLjO0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=BlwLhYePlqgHrTK2Jqqu6xpAwlw4J2a6UPAetKrJlhxF/j8sS6tVKqkbrgzShUsPj
-	 sS6ezbuSAhMayG1MNhg1cUh1UaUGAN0yH7Uud3l+5zByu2tmj6LR65dD0lnzstCfO9
-	 g5Cs0njN7NyIZ13y1RUdh8tz9XkSjj+bhevQnzcGyAFaWIp27APJzP5QVYFRbhea2C
-	 b5gS/V7gTH3lQPcQ6Xs83rLSwy17E02+4RJsZtk/IPMMgHomFA0JLPvfLy8tyddPv5
-	 tT0TMfOIgIfjdkV01NvJnaDj4nVf4RCVzPiJzPXmFnjTHjDQHbIpQ4BjPTtBrnx7WY
-	 yCVm4gKAjPrZQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: ti,tas2781: Add TAS2573
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Baojun Xu" <baojun.xu@ti.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260602100532.6463-1-baojun.xu@ti.com>
-References: <20260602100532.6463-1-baojun.xu@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 10:16:07 +0000
-Message-Id: <20260602101608.5B0971F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jhni2arO"
+Received: by mail-pl1-f179.google.com with SMTP id d9443c01a7336-2bf22d29dabso30497635ad.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:16:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780395393; x=1781000193; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=4FJlifkRqPEqQqgwEVL3qsdnCft9gZAAhkwAUUbqYm4=;
+        b=jhni2arO+NqIV/BXipl433F7rgNA+dpqyOGW41L9jXjB14DeRFMZ3tpJq6NLKJfXQ3
+         DzHhIYtNZlWKINZuJ9+/x/xaQuSPkVKOht/JjAAG4q+nV5l/sJChrfgScgiChVho4eAw
+         BDe7ikPBudgqNmWJZ6IL8Lg420Ueq5inE6oti2YSa+C88lKGciJDZBCfK0dmegFGYxeY
+         X5awYn3K34/GxisN6n+dDmNLxpvxbImDb+R3AgcyWp8jzo/bS/yOAZOtMV0PZrPULivD
+         6zl8ZaYkln/c7s6I9lg8BWrTnXGs8i1JU3g+HpVBhb0xjaIYGvrfldhAgceSjxbwVQN7
+         G0Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780395393; x=1781000193;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=4FJlifkRqPEqQqgwEVL3qsdnCft9gZAAhkwAUUbqYm4=;
+        b=M0CLGdijH0pb7Aj9GEJ+x6fBwiyiVktL0I+LqmALq/voNwwFaiUa202Dkqufmst3SQ
+         Zy5BdWiwiyr+HZ6Vw4JwhBCdAo8wwDL1Hl6L9r3V/d/UaZoV9MgLfacg2A0pxMncEb9T
+         wTEynlEUpr1BnEwamSF9amsSKEqwXMGWdPRKiWS4aHzLMpzdurQW9PG37/eGvafh8yRu
+         k2y+p9bb2KRA7kJYOJwJo8mvb5oZtHg1GEmgGw2z0UTFyeMoMBHR/NN0ZAf7TehJBU0d
+         ILAKMjzta4k3f9mRaZN7S8ZDV+CoScGfPu+bXDsscUO+Rr/2AL9mVmcswLLzCsTMJe6v
+         4qpg==
+X-Forwarded-Encrypted: i=1; AFNElJ+eYIUcOOPy7W7O6tUoAk1Bd8OzdOZqFnWYuotN1JFCi+b9S3zRaKTpmwj9O2xOzG20PhrHPCiLSnmO@vger.kernel.org
+X-Gm-Message-State: AOJu0YylhiUSw97Gtk96oqmu/oT8ej3A3W2TCEVADUCtaaRYd360Lscc
+	gjk4cJQ1XQYCNVTChEvMgt4LjMLF/QTBCubWJ73298Q/+FPM0OZbnGAx
+X-Gm-Gg: Acq92OF2V2MXQ51tpQVgBQvgqPRtWn/5BNFRkWuX4c/qdNPcL0uFCoJq/pJkGENdleR
+	BaL8trmW5j0s+SyVFaoOyhrXF0X53RqN1MZO1lCj4I3qJdq+FtpjRNdK2+l3eOj5H5gPO7km83L
+	6FqJXIaXKZWkdMVVspGgxwFHCTLEOBwTlI4+hk/sJUlfZj2bUp+tt1ssVan12sVwDypqjxrMCE9
+	+IwvhRwY1sCm5OTrwNuQSCGTpCVJbAlFkNs2VMjXExgDY7b8wqXS5Tjp5Qll728H0acgi7rErkf
+	fRxpXxhO93m9YIZNDj1tRzDVvmeyAMtMgsZPHROhK/hZo4zHjwtOXw43pgeq/IjLf+6VRdIn3yA
+	DlQkTyozspK1Hm70W3MmnhwiFLOQ9WF2vqqUoN+QZ/qFD9Dm3sO4ySJ4PGFg3NfLHdhZv47hmxZ
+	w1Z0WB3iysCt3Q1SIflTC8tXoxDo1I/sX6B1JWSUUup3QwoXQyVUNVCdxXan4YoSMh7Emy
+X-Received: by 2002:a17:902:ef49:b0:2c0:db23:4c9 with SMTP id d9443c01a7336-2c0db23074dmr97094065ad.20.1780395393395;
+        Tue, 02 Jun 2026 03:16:33 -0700 (PDT)
+Received: from phuc-desktop.. ([183.91.15.56])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fd84fsm132766305ad.23.2026.06.02.03.16.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 03:16:32 -0700 (PDT)
+From: phucduc.bui@gmail.com
+To: Heiko Stuebner <heiko@sntech.de>,
+	Mark Brown <broonie@kernel.org>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>
+Cc: Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	devicetree@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	bui duc phuc <phucduc.bui@gmail.com>
+Subject: [PATCH v2 0/5] ASoC: rockchip: Reorder clock enable sequence
+Date: Tue,  2 Jun 2026 17:16:03 +0700
+Message-ID: <20260602101608.45137-1-phucduc.bui@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The dt-binding schema enforces mutually exclusive `reg` constrai=
-nts for `ti,tas2573`, causing schema validation to always fail for this dev=
-ice.
---
+From: bui duc phuc <phucduc.bui@gmail.com>
 
-commit fae137d4c240a643a606f184ad877663a7719392
-Author: Baojun Xu <baojun.xu@ti.com>
+Hi all,
 
-ASoC: dt-bindings: ti,tas2781: Add TAS2573 support
+This series reorders the runtime resume clock enable sequence in the 
+Rockchip SPDIF and PDM drivers to enable the bus clock before the 
+functional controller clock.
 
-The TAS2573 belongs to the TAS257x device family, featuring an integrated
-DSP and IV sensing capability. This commit adds support for the TAS2573
-to the ti,tas2781 dt-binding schema.
+It also updates the SPDIF DT binding clock descriptions to match the 
+actual clock usage in the driver.
 
-> diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Do=
-cumentation/devicetree/bindings/sound/ti,tas2781.yaml
-> index b21466bb0730a..aa5a317b5a361 100644
-> --- a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-> +++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
-[ ... ]
-> @@ -183,6 +187,7 @@ allOf:
->            contains:
->              enum:
->                - ti,tas2563
-> +              - ti,tas2573
->                - ti,tas5825
->      then:
->        properties:
+Additionally, this v2 adds two new patches addressing issues reported 
+by the Sashiko AI Review tool regarding regcache sync failure handling 
+and runtime PM resume status validation.
 
-[Severity: Medium]
-Will these mutually exclusive reg constraints cause a regression during
-schema validation for ti,tas2573?
+Testing:
+  - Patch 1: Verified (dt_binding_check passed).
+  - Patches 2 to 5: Compile tested only. Please help test if you have 
+    the relevant Rockchip hardware.
 
-Since the schema requires ti,tas2573 to have ti,tas2781 as a fallback in the
-compatible array, a device tree node will typically have:
-compatible =3D "ti,tas2573", "ti,tas2781";
+Changes in v2:
+  - Include two new patches to handle runtime PM resume and regcache sync 
+    failures based on Sashiko AI Review.
+  - Update commit message based on Krzysztof's review
+  - Clarify in the commit message that the resume sequence becomes the
+    reverse of the suspend sequence.
 
-This triggers the conditional block here, restricting reg addresses to
-0x4c-0x4f.
 
-However, it also triggers the later conditional block for ti,tas2781, which
-restricts reg addresses to 0x38-0x3f.
+Best Regards,
+Phuc
 
-Since reg cannot satisfy both disjoint ranges simultaneously, will
-dt_binding_check always fail for valid ti,tas2573 device trees?
+bui duc phuc (5):
+  ASoC: dt-bindings: rockchip-spdif: Correct SPDIF clock descriptions
+  ASoC: rockchip: spdif: Reorder clock enable sequence
+  ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+  ASoC: rockchip: spdif: Restore regcache cache-only mode on sync
+    failure
+  ASoC: rockchip: rockchip_pdm: Handle runtime PM resume failures in
+    set_fmt
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602100532.6463=
--1-baojun.xu@ti.com?part=3D1
+ .../bindings/sound/rockchip-spdif.yaml           |  2 +-
+ sound/soc/rockchip/rockchip_pdm.c                | 16 ++++++++++------
+ sound/soc/rockchip/rockchip_spdif.c              | 11 ++++++-----
+ 3 files changed, 17 insertions(+), 12 deletions(-)
+
+-- 
+2.43.0
+
