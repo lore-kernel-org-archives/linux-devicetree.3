@@ -1,469 +1,149 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com [209.85.214.173])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F8FB366831;
-	Tue,  2 Jun 2026 10:01:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780394497; cv=none; b=o+lJ+UOL+HuOqfBnhfUS9FWGmUDGxHZmb1H+nMK1og6V6uTTnDAZHhg1jxnHv6MO+BpXWRD5JjlVa07qOnzQy7Yz+hrBYKC+4Jjyc/I+BgmZSJRxV/GovOSVhWQtDKXNXmlgXC9RSY7dwQ6Qf8iVuoF01pi93ecsEPacMmRlqpk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780394497; c=relaxed/simple;
-	bh=SFyMNzUfBCHT31dKiixHE7meQZN1GE/AcyU3Ysm426I=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tI6ZTRL5FnA84+plxCZZgybvkVIhN+kdON1d2TZMYz9Ob4wonSger5IPuYGI85Fh44SuPEjqlBxE3kliw2x9RqqPrKxAyagXEa1vCCiQ3k9374+KQmGlUU+4SGLsHqu5KHEIpz+CZBvTo09gmbAdS8qEFwAZuyinN5reilvkTnc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WijiYFD5; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 867EC3438BA
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:02:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.214.173
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780394542; cv=pass; b=OsxeGa/vI1KI8jt0eeTIwn/9LyJY+mpk9gwngmXHz5LEBcJ0HEyl/8Aq/IWuJ9f/rlRkU+zsHMK7sN4MwqCHKlVWEgcQrYBeSyYIiROGmvn+JwYuAD7LzUNDxdypj/d/N3U9crB/WCRL6DBRUncmCMAj9q3qr96ZdnYX3x4NvnE=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780394542; c=relaxed/simple;
+	bh=0gvLGFThv2lHT+nyPjifExNtH/ts5i70ONfWfPnWqh4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BPQY5qpcxYlqAucfBjOzDZaT1sbN/gAAXJIAXSm/XKuUBWLPQX56v7GwQW4ug6Iv1B5z4enrePJybwq55DKXNLs8r7V9Oe5moqlSwpBfEV2Gf1EXx4S3GArMatXWvAWAv3ftwWGuBZwiRChZbhK6ECfAvAuxY691pp7y9gH5Kd8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MfOlSLaA; arc=pass smtp.client-ip=209.85.214.173
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WijiYFD5"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780394495; x=1811930495;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=SFyMNzUfBCHT31dKiixHE7meQZN1GE/AcyU3Ysm426I=;
-  b=WijiYFD542SOGbeBS/uBnHwUOPJqc8W2ov6hM9jUGgFegYko3h7Y5yJQ
-   UVQe0QQSoAhpY7eRDaCdPSjoOE7raWFULFEl7T4J+6GeGsCwBlCh4XN6H
-   U87IC7vKtaBDDI1Zf+9xSwkNBCS/4d2wptkwIIcJFIyE0dFfDONdnathU
-   9NlwtMfvXXaNm6jVjujIRr/bhdJjAeILp7p46JVKuCM+D6aI2mPaiR9m/
-   6Iw1T1+EUx3lkMUcDUSB2Gy9/blZstfrLnAEBEDs/0yGNNYBp36eUh/tf
-   jZ0YbjQzb15vfL8VI9ZLu7K6dUilQcvmGcDp7pBRWceNjob8YKwvzRPo7
-   w==;
-X-CSE-ConnectionGUID: oJteJz5gT0KRzbLnUl10iQ==
-X-CSE-MsgGUID: c3xKpC2fQjKx4my9224pHA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="92557243"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="92557243"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 03:01:34 -0700
-X-CSE-ConnectionGUID: BO7QTNWQSVaWLn4HXKkPKQ==
-X-CSE-MsgGUID: qiN/LRtDRFmXmWAbaecHag==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="267509848"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 03:01:31 -0700
-Date: Tue, 2 Jun 2026 13:01:29 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS series
-Message-ID: <ah6p-f2RCW8VcuDR@ashevche-desk.local>
-References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
- <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MfOlSLaA"
+Received: by mail-pl1-f173.google.com with SMTP id d9443c01a7336-2bf20f6be6bso23677795ad.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:02:21 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780394541; cv=none;
+        d=google.com; s=arc-20240605;
+        b=O1romf9pLUiDejVMUxV0Z+Ja+THwdNHFChCnZ30stHn/vVdZWDrG52TnzL/8umz6iv
+         JNgQGNRinohdL1KJPc93YemxGn1zboFjzbU0tBT8XoQ/t7898+U+q0oAWeoWnqS3wZYW
+         KvwARJUWNQTblvLiMpbSuLzFq/ZrnkXIMFXrmT0hTdJLub36pSA7X8RKzLC45YgSllY9
+         YsxlFRxwFlagNNJR9Dx08IFdfeMQ/Sert0AGQfiufFM1eXEtA3uJVWLTXWszTS4weE5R
+         foIExkW1vQPFO+tF//+woM5w/LcuMcVbWP9GJ9ZsKyPm33sUq14ZQE2s3GDghmXOM5aO
+         nD5A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=0gvLGFThv2lHT+nyPjifExNtH/ts5i70ONfWfPnWqh4=;
+        fh=+Kn94FVzl6rE7mDhn4pFvEHlRshbQ57dQ5o19v04Oyg=;
+        b=ADu4YZQqbZjNXb0L8zdk9LeBmB4+mhKyddKkTLipIM6Lu22dLRBplueusDB9bNVUap
+         /y5Ep2/fMgmBPoeM2A5BbAlHFrDjvbEqKz/ag20HSI8Gq6uiJvYsB7M+7UC5BHG1xc2m
+         FeyRDXDJof7jvV+zWtOkLZCZKfOc4OkrQT7J2nXNLix/sMq5mOTBmiC3fmN+7SjYLcHI
+         dNLChVguOBUEIw5O06pV4cFsxUMxVorDvc7QgSpYPQLCyOYuIE3SklfdQ4r8B6Ffmqwm
+         t6gxnGUeASk8kl285zWtD0GylgD5/ybuWygtyYkgzE863sRd6399boyXwid7B7rAMRkn
+         YuWw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780394541; x=1780999341; darn=vger.kernel.org;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:from:to:cc:subject:date:message-id:reply-to;
+        bh=0gvLGFThv2lHT+nyPjifExNtH/ts5i70ONfWfPnWqh4=;
+        b=MfOlSLaAx1rH7WZs2AdXNTNItSL5qWS16AM0RybIUmHkafOqFIRJMA8gKHR0p0bi6I
+         bs/cTiO6Yb0gHX7MH9aICgG0GB6Htz0CUJK1+4vqF17rPYCqYAWq0SVEhsCSivYMrrRb
+         5jttTHseUdiptc77em74SzHR413PocIzUcx8pJEt7KnCl8p2SK7b9opL+d0sa6TCMOol
+         YJARD9vwuIxq0m5yaFBeQdlnkh+T3/2TfCM4iCeSDCP4WUCqEo/EaCahHUDksx2tPTo+
+         JWt3uXmjLnDgF3JutyFzBR1yzn5IeJbpf+9o2F7I019poxjj6PUHBop+Y0HwsYYPoIL7
+         E8qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780394541; x=1780999341;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=0gvLGFThv2lHT+nyPjifExNtH/ts5i70ONfWfPnWqh4=;
+        b=YRE+7eo1ko2k6B1oFO8J3eZXmuf2ak3ljmpIfEqKOs2gyojA5Nx185OKliFQXTk80f
+         JaqcqvjeUFR5izUAz0uUMFTtpux7X9q798RbHHupZk3pBc0vv5K28D7Nou6r78Pow4wy
+         +vr1qgxOvdo795xihoS8BBhj2/ZJeV0bCCH8cjjJ8F5EBBulXGr+ifvhbK816od4fmGj
+         b8c6N9vz26N62lVAysm7B4FeEqz+WvSShH/Q6kapi9q/qU7LOHEfLGdKbl/Y4DzMsCO9
+         RLLJ/ZAJ//nmcfeR191rFGKYdKUqmYnYJ6qFk245nNCSVk27ewfpPXFQDFQhQnoWMofh
+         vOcQ==
+X-Gm-Message-State: AOJu0YxZfN7tQTOg5I7OaN/SLIZEH6ILa8Uve/ad++1/aTF2NYCDTqwX
+	+4JPfwPf24hXjFeJsjGm6Wsjdq9i4pA3jTkQcFunGVb4/XDG81fQs4JXbFa3wB96oUZya3XYZPv
+	3UpnkGbJmMrbY3HEHlZbWkCl2MyvAfcOXO7Gb
+X-Gm-Gg: Acq92OH8AQYzQbJQbOrAPdbSR7tjb4GcvuAtxugPrp1jireKobZ48EDS8x1wgqRU1y/
+	SzihsIBSTZ5r2kAkyVT3FiBjvq2tl3pZVxBB+vmSexVT/5LvsQEY+M5yLvT+wBZX6Fcm9wdwG/r
+	qJds/bzqZCLiOL199sgSBakPMGuTUeon8nMtdsS/Eks6Ot2zX+TZtn8HZNTZRUsWDVHBRotahm2
+	7Z3Z1qZJoRgBTwXv75piXBn5VhzdLtnDNjnAUeKoY1BtWafObQJOXxtLce0cpQu+qLN/xxuz9uU
+	MLyj9xxdOIvUhA0VZi6pueVZv+L64kGfrZzGEjF2LKz+SY6p
+X-Received: by 2002:a17:903:1983:b0:2bf:23cf:3e4 with SMTP id
+ d9443c01a7336-2bf367d9da0mr163447475ad.17.1780394540758; Tue, 02 Jun 2026
+ 03:02:20 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
-
-On Sun, May 31, 2026 at 09:58:22PM +0200, Javier Carrasco wrote:
-> These sensors provide two light channels (ALS and IR), I2C communication
-> and a multiplexed interrupt line to signal data ready and configurable
-> threshold alarms.
-> 
-> This first implementation provides basic functionality (measurement
-> configuration, raw reads and ID validation) and defines the different
-> register regions in preparation for extended features in the subsequent
-> patches of the series.
-
-...
-
-+ array_size.h
-
-> +#include <linux/bitfield.h>
-> +#include <linux/bits.h>
-> +#include <linux/i2c.h>
-
-> +#include <linux/module.h>
-> +#include <linux/mod_devicetable.h>
-
-In C locale it seems wrong order.
-
-> +#include <linux/mutex.h>
-> +#include <linux/pm_runtime.h>
-> +#include <linux/regmap.h>
-
-+ types.h
-
-> +#include <linux/units.h>
-
-+ Blank line.
-
-> +#include <linux/iio/iio.h>
-> +#include <linux/iio/iio-gts-helper.h>
-
-...
-
-> +struct veml6031x00_data {
-
-Have you run `pahole`? Does it agree with your layout?
-
-> +	struct device *dev;
-> +	struct iio_gts gts;
-> +	struct regmap *regmap;
-
-Do you need dev and regmap? One may be derived from the other in case regmap
-uses the same dev on initialisation as the one stored here.
-
-> +	struct veml6031x00_rf rf;
-> +	const struct veml6031x00_chip *chip;
-> +	/*
-> +	 * Serialize access to scale register fields scattered across multiple
-> +	 * registers (rf.gain, rf.pd_div4, rf.it) to read and write them as a
-> +	 * consistent set.
-> +	 */
-> +	struct mutex scale_lock;
-> +};
-
-...
-
-> +/*
-> + * The gain selector encodes (PD_D4 << 2) | GAIN to identify each gain setting.
-> + * Gains are multiplied by 8 to work with integers. The values in the iio-gts
-> + * tables don't need corrections because the maximum value of the scale refers
-> + * to GAIN = x1, and the rest of the values are obtained from the resulting
-> + * linear function.
-> + * TODO: add support for MILLI_GAIN_X165 and MILLI_GAIN_X660
-> + */
-> +#define VEML6031X00_SEL_MILLI_GAIN_X125  0x07
-> +#define VEML6031X00_SEL_MILLI_GAIN_X250  0x04
-> +#define VEML6031X00_SEL_MILLI_GAIN_X500  0x03
-> +#define VEML6031X00_SEL_MILLI_GAIN_X1000 0x00
-> +#define VEML6031X00_SEL_MILLI_GAIN_X2000 0x01
-
-Not sure if these one-time use definitions improve or not the readability
-of the code. Up to Jonathan.
-
-> +static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
-> +	GAIN_SCALE_GAIN(1, VEML6031X00_SEL_MILLI_GAIN_X125),
-> +	GAIN_SCALE_GAIN(2, VEML6031X00_SEL_MILLI_GAIN_X250),
-> +	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_MILLI_GAIN_X500),
-> +	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_MILLI_GAIN_X1000),
-> +	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_MILLI_GAIN_X2000),
-> +};
-
-...
-
-> +{
-> +	struct regmap *regmap = data->regmap;
-> +	struct device *dev = data->dev;
-
-In case you really need a 'dev' here, pass via function parameter, no need to
-keep it in the 'data'.
-
-> +	struct regmap_field *rm_field;
-> +	struct veml6031x00_rf *rf = &data->rf;
-> +
-> +	rm_field = devm_regmap_field_alloc(dev, regmap, veml6031x00_rf_gain);
-> +	if (IS_ERR(rm_field))
-> +		return PTR_ERR(rm_field);
-> +	rf->gain = rm_field;
-> +
-> +	rm_field = devm_regmap_field_alloc(dev, regmap, veml6031x00_rf_it);
-> +	if (IS_ERR(rm_field))
-> +		return PTR_ERR(rm_field);
-> +	rf->it = rm_field;
-> +
-> +	rm_field = devm_regmap_field_alloc(dev, regmap, veml6031x00_rf_pd_div4);
-> +	if (IS_ERR(rm_field))
-> +		return PTR_ERR(rm_field);
-> +	rf->pd_div4 = rm_field;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static int veml6031x00_get_it(struct veml6031x00_data *data, int *val2)
-> +{
-> +	int ret, it_idx;
-
-Why is 'it_idx' signed?
-
-> +
-> +	scoped_guard(mutex, &data->scale_lock) {
-> +		ret = regmap_field_read(data->rf.it, &it_idx);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	ret = iio_gts_find_int_time_by_sel(&data->gts, it_idx);
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	*val2 = ret;
-> +
-> +	return IIO_VAL_INT_PLUS_MICRO;
-> +}
-
-...
-
-> +static int veml6031x00_set_it(struct iio_dev *iio, int val, int val2)
-> +{
-> +	struct veml6031x00_data *data = iio_priv(iio);
-> +	int ret, gain_sel, gain_reg, pd_div4, it_idx, new_gain, prev_gain, prev_it;
-
-Similar question here and so on...
-
-> +	bool in_range;
-
-> +}
-
-...
-
-> +	ret = regmap_field_write(data->rf.pd_div4, gain_sel >> 2);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return regmap_field_write(data->rf.gain, gain_sel & 0x03);
-
-Looks like repetitive piece of code, shouldn't be a helper?
-
-...
-
-> +static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_type type,
-> +				   int *val)
-> +{
-> +	struct veml6031x00_data *data = iio_priv(iio);
-> +	int addr, it_usec, ret;
-> +	__le16 reg;
-> +
-> +	switch (type) {
-> +	case IIO_LIGHT:
-> +		addr = VEML6031X00_REG_ALS_L;
-> +		break;
-> +	case IIO_INTENSITY:
-> +		addr = VEML6031X00_REG_IR_L;
-> +		break;
-> +	default:
-> +		return -EINVAL;
-> +	}
-> +
-> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(data->dev, pm);
-> +	ret = PM_RUNTIME_ACQUIRE_ERR(&pm);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = veml6031x00_get_it(data, &it_usec);
-> +	if (ret < 0)
-> +		return ret;
-
-> +	/* integration time + 10 % to ensure completion */
-
-fsleep() adds up to 25%, isn't it enough?
-
-> +	fsleep(it_usec + (it_usec / 10));
-> +
-> +	ret = regmap_bulk_read(data->regmap, addr, &reg, sizeof(reg));
-> +	if (ret)
-> +		return ret;
-> +
-> +	*val = le16_to_cpu(reg);
-> +	return IIO_VAL_INT;
-> +}
-
-...
-
-> +static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
-> +{
-> +	int part_id, ret;
-> +	__le16 reg;
-> +
-> +	ret = regmap_bulk_read(data->regmap, VEML6031X00_REG_ID_L, &reg,
-> +			       sizeof(reg));
-> +	if (ret)
-> +		return dev_err_probe(data->dev, ret, "Failed to read ID\n");
-> +
-> +	part_id = le16_to_cpu(reg);
-> +	if (part_id != data->chip->part_id)
-> +		dev_warn(data->dev, "Unknown ID %04x\n", part_id);
-
-dev_warn_probe() for the sake of consistency?
-
-> +	return 0;
-> +}
-
-...
-
-> +static int veml6031x00_hw_init(struct iio_dev *iio)
-> +{
-> +	struct veml6031x00_data *data = iio_priv(iio);
-> +	struct device *dev = data->dev;
-> +	int ret;
-> +
-> +	/* Max resolution = 6.9632 lx/cnt for gain = 0.125 and IT = 3.125ms */
-> +	ret = devm_iio_init_iio_gts(dev, 6, 963200000,
-> +				    veml6031x00_gain_sel,
-> +				    ARRAY_SIZE(veml6031x00_gain_sel),
-> +				    veml6031x00_it_sel,
-> +				    ARRAY_SIZE(veml6031x00_it_sel),
-> +				    &data->gts);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "failed to init iio gts\n");
-
-IIO GTS
-
-> +	return 0;
-> +}
-
-...
-
-> +static int veml6031x00_probe(struct i2c_client *i2c)
-> +{
-> +	struct device *dev = &i2c->dev;
-> +	struct veml6031x00_data *data;
-> +	struct iio_dev *iio;
-> +	struct regmap *regmap;
-> +	int ret;
-> +
-> +	regmap = devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
-> +	if (IS_ERR(regmap))
-
-> +		return dev_err_probe(dev, PTR_ERR(regmap),
-> +				     "Failed to set regmap\n");
-
-One line is okay.
-
-> +	iio = devm_iio_device_alloc(dev, sizeof(*data));
-> +	if (!iio)
-> +		return -ENOMEM;
-> +
-> +	data = iio_priv(iio);
-> +	i2c_set_clientdata(i2c, iio);
-
-> +	data->dev = dev;
-> +	data->regmap = regmap;
-
-As I said, one of these two is redundant.
-
-> +	ret = devm_mutex_init(dev, &data->scale_lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret = veml6031x00_regfield_init(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to init regfield\n");
-> +
-> +	ret = devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
-
-> +	data->chip = i2c_get_match_data(i2c);
-> +	if (!data->chip)
-> +		return dev_err_probe(dev, -EINVAL, "Failed to get chip data\n");
-
-I would move this closer to the point when we have data allocated. This is
-a cheap check and it's better to boil out without need to allocate resources,
-touch regulators (that might be undesired from power consumption and physical
-processes due to the dragging them on and off), et cetera.
-
-> +	/* The device starts in power down mode by default */
-> +	ret = veml6031x00_als_power_on(data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to power on the device\n");
-> +
-> +	ret = devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action, data);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
-> +
-> +	pm_runtime_set_autosuspend_delay(dev, 2000);
-> +	pm_runtime_use_autosuspend(dev);
-> +	ret = devm_pm_runtime_set_active_enabled(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
-> +
-> +	ret = devm_pm_runtime_get_noresume(dev);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to get runtime PM\n");
-> +
-> +	ret = veml6031x00_validate_part_id(data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	iio->name = data->chip->name;
-> +	iio->channels = veml6031x00_channels;
-> +	iio->num_channels = ARRAY_SIZE(veml6031x00_channels);
-> +	iio->modes = INDIO_DIRECT_MODE;
-> +	iio->info = &veml6031x00_info;
-> +
-> +	ret = veml6031x00_hw_init(iio);
-> +	if (ret)
-> +		return ret;
-
-> +	pm_runtime_put_autosuspend(dev);
-
-Hmm... But why? Wouldn't this be problematic with reference count on the failed
-devm_iio_device_register() below?
-
-> +	ret = devm_iio_device_register(dev, iio);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret, "Failed to register iio device\n");
-> +
-> +	return 0;
-> +}
-
-...
-
-> +static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops, veml6031x00_runtime_suspend,
-> +				 veml6031x00_runtime_resume, NULL);
-
-Wrap this logically:
-
-static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops,
-				 veml6031x00_runtime_suspend,
-				 veml6031x00_runtime_resume,
-				 NULL);
-
-OR
-
-static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops,
-				 veml6031x00_runtime_suspend, veml6031x00_runtime_resume, NULL);
-
-...
-
-> +static const struct i2c_device_id veml6031x00_id[] = {
-> +	{
-> +		.name = "veml6031x00",
-> +		.driver_data = (kernel_ulong_t)&veml6031x00_chip
-
-In the similar (to OF ID table) way, leave trailing commas.
-
-> +	},
-> +	{
-> +		.name = "veml6031x01",
-> +		.driver_data = (kernel_ulong_t)&veml6031x01_chip },
-
-Broken indentation, should be a new line somewhere.
-
-> +	{
-> +		.name = "veml60311x00",
-> +		.driver_data = (kernel_ulong_t)&veml60311x00_chip
-> +	},
-> +	{
-> +		.name = "veml60311x01",
-> +		.driver_data = (kernel_ulong_t)&veml60311x01_chip
-> +	},
-
-> +};
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+References: <20260522100318.73474-4-phucduc.bui@gmail.com> <20260522110302.349421F000E9@smtp.kernel.org>
+In-Reply-To: <20260522110302.349421F000E9@smtp.kernel.org>
+From: Bui Duc Phuc <phucduc.bui@gmail.com>
+Date: Tue, 2 Jun 2026 17:02:09 +0700
+X-Gm-Features: AVHnY4IKu4cfANumj7wmqQvDtssDhq3TpxXIjIHmGdj6XFJ_23uSlD1EG9gmtw8
+Message-ID: <CAABR9nEHn7Fz2RNz2ttp-3NmHX8pAMtVQPuP+z2Qi1v9FLT9+g@mail.gmail.com>
+Subject: Re: [PATCH 3/3] ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+To: sashiko-reviews@lists.linux.dev
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+Content-Type: text/plain; charset="UTF-8"
+
+>
+> [Severity: High]
+> This is a pre-existing issue, but can manually disabling the clocks and PM
+> runtime before the devm teardown cause bus faults?
+>
+> The driver registers the ASoC component using
+> devm_snd_soc_register_component() in rockchip_pdm_probe(), which defers
+> unregistration until after the remove() callback returns.
+>
+> If the device is unbound via sysfs while an audio stream is active, ALSA
+> will attempt to tear down the stream during the deferred devres
+> unregistration. This triggers operations like
+> rockchip_pdm_trigger(SNDRV_PCM_TRIGGER_STOP), which writes to the
+> hardware registers.
+>
+> Since the clocks and power domains were already forcibly disabled in
+> remove(), this could result in a bus fault and kernel panic.
+>
+> Should the driver use devm_pm_runtime_enable() with a devres action for
+> clock disable, or unregister the component manually before turning off
+> resources?
+>
+
+Thank you for pointing this out.
+
+I agree that your concern makes sense, and the teardown ordering may
+indeed deserve further investigation.
+However, addressing it appears to require a relatively significant change
+to the driver's resource management and lifecycle handling. Since I do
+not have the hardware on hand, I am not able to validate either the reported
+scenario or a potential fix.
+Given that, I don't feel comfortable submitting a speculative patch that
+I cannot test properly. For now, I'll leave this issue to someone with the
+hardware or with more familiarity with the expected teardown sequence
+in this driver.
+
+
+>
+> [Severity: High]
+> This isn't a bug introduced by this patch, but is it safe to ignore the
+> return value of pm_runtime_get_sync() here?
+>
+> If the runtime resume fails (for example, if clock enablement or power
+> domain restoration fails), the function ignores the negative error code
+> and proceeds to call regmap_update_bits().
+>
+> Accessing hardware registers when the hardware is powered down or unclocked
+> can lead to a synchronous external abort (bus fault) and a kernel panic.
+>
+> Should pm_runtime_resume_and_get() be used instead, and the error handled?
+>
+
+I agree this looks like a valid issue. The proposed fix is relatively
+ small and localized, and does not affect the overall resource lifetime
+ handling of the driver. I'll prepare a follow-up patch for it, although
+I can only perform compile testing since I don't have the hardware
+on hand.
