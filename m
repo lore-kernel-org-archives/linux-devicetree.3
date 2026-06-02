@@ -1,250 +1,173 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865973FE36A
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 17:54:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 825D82E62A4
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 18:01:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780422892; cv=none; b=YDG1TqMDuYHIqKuDDLtaGZaG8Mj8TjvbXvFRu/KYcD+/pJXW2XOSTraf1q4fRU1+9ECg0pStJHrF0ru/i9x1iPtWR17lwi6DfWiH8aT16rQJiHyDqlqI+EPxNTaY4GGc8CwaT5m1nqgsZqjjcXz2xvEf8GX+45c+mLx7WdRfV48=
+	t=1780423283; cv=none; b=cBXErHPhvJ/7KWQlMiV+rL+qvPWUCYXQdGVYrJU5CpfpDMP+R/g43MvcMHod2HcYpedPX0MsXWz0qcEigT0kklc+C2Q41GaDWW6b80JqjL5aX8j9NGP0NtHgHsc5VzPE5Kacb80bj0ohPEuU1uuwmyxjOW7JD0tvTV9+cHGm9Gg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780422892; c=relaxed/simple;
-	bh=1cRWuA7CYRnjUrDrA88KiIVqyalvj7E0eefInPFai4g=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=QjGH03T5RAS8cwUXZjHevhGUjz+EpWmtb/IJWHLsAy8ze04SUKUfLG7WByHEl4gtDU1UfYE6tM7/LEMYP/04fFyW80q6kbycQXQK9p3rWd2JTjFYtu4HIZKyhlyWS0nAWZk3Od8Md91mQ3y9QbSNyt7Lav5AP+zdsZ78KppOsOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HEKctNh6; arc=none smtp.client-ip=209.85.128.48
+	s=arc-20240116; t=1780423283; c=relaxed/simple;
+	bh=pMK4F5JXOaNego5dsQW/mmVI0cNAEvb+FpVfLcnYlko=;
+	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=swuErb4DjYwd4Q5VIz/UxBu9AUxQkSPU0eI7kwpCbHIntLz2Ja47FVmXSw+bG8uLwbdUgPclJnSb1QlT7xfP1jYqvOPzfZIWiCcKwYGOXGJwwoNJqpzl7q+EilRJqOx12/hAuuC/VS6OdsfZ5w5uFsu2VRHxOvAB7j0SStmB+bE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P7GXmf4s; arc=none smtp.client-ip=209.85.128.47
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HEKctNh6"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490acbb0f89so13420575e9.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 10:54:50 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P7GXmf4s"
+Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490a765d410so32034865e9.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 11:01:21 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780422889; x=1781027689; darn=vger.kernel.org;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=/y3VfIHXupfD9Wrr+gIYVpG9u9vvvf2stdsP3kfUmSU=;
-        b=HEKctNh6kxRzP6fnuggwJ15RB9GZwWfirEIgWZL7UEPQ9UJPz9SJREr0VAU+i/MHcX
-         QcdV7QuzSwmjxiSZ2DD0D3kuFWRIvl4/nLXJx2uRntlTOPRZDARLK2hT02QM7JoqDbnW
-         bkGyeJ4wvDPIxOnF0Xi+DMcU8A+EXMHSueyUSWbVZyvpUIyaPimwGgurM7jdLFDpyEPO
-         1R3PsILsqrb28J96ZCR2Gr84xDt+DbwAUh/XzT1XJfAS1138U7Sk5kGEuEWus94/M5bH
-         xptgOueG80DFR40y4wbmeHbKaPYjzUfe+VI2PIw8uXipcsK7379AlTdaP4731Rk2bxWB
-         +ucw==
+        d=gmail.com; s=20251104; t=1780423280; x=1781028080; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=zFJSYsO0JFeEyCCRMXy0mw71+xPt4H8G/88CSXi29Qc=;
+        b=P7GXmf4sCPxjh+7yt3CxdbwU91pqvXQ4KKxYwB7/TWqDm7uUq0/i6TCCe+AmaBSgOs
+         qsUZUTWBb9dAcq6CaJ/+Rf2mhRTCwEQaD5xflIpYlRZxIuMxOgYKx2HZbCCeIjm1DIpZ
+         d83St11k+sf1DQKykclsvtbcGOCoHDEdg7Ej5+fSHpFeQ0g3vmMnDh1+3ks+PAYJzMR3
+         dbx6SZ4uoZPWjaAEnux6kwsUeEHqtB8gA8kWC9awMeWO9uprAO+wuUr2P3xb5ItlgiqA
+         QH6LSsMh2tQVrZFcY/1zZmGmq8fiYcDxDspSQCxVPxjUjsSuz6E3+a/gvsrtW+CBXqjo
+         kODg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780422889; x=1781027689;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=/y3VfIHXupfD9Wrr+gIYVpG9u9vvvf2stdsP3kfUmSU=;
-        b=Y5cdwIahDXuSYLlJf4S+puHIFg4S20BxEpyaU4sCI91mJ5s/wUk0JLCtukYWODh71n
-         qQLagKAuYiZQQ8i8cmLE54zjyoMlWM5DVT/O1uFKM6XkiEuJunhnuJxw4FrfQb2h9jCV
-         PdQPH2A+J1eltZYWLDakbSp+rPMOVu5QJm3H2DL0fP9N5fM/7+VA4kvRNY9NmXbpyGxO
-         mEBzHLJotW+ydFog15KkK8zWqviJ/z1+b2P9vy+oYM00iBzAw0q5jm8WP/uFSN6wY4lR
-         eu7T5/LzdO02j0fOjE2r27Q8/RMpD7PazNrzJPG3xOmrWj+cQLV1qwcef4thmymEbvl8
-         B7DA==
-X-Forwarded-Encrypted: i=1; AFNElJ89IAGO4NJA3u3R2L8ctnacCneNGNFRAQcLOv5puofMmMerSqXqShKW7bAkn/IEbh5QjkqOYUosCwUd@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSdrusl+OCagHilnjqVdnXsDPWWWnky8yMSTH1eQULXeGKHAxF
-	7o2S6Iyd3mKKeo9poc7I7yYEcj23Iesu++RKryIMscLmi3sHKBTHzr8c
-X-Gm-Gg: Acq92OGQ906FUJ1cFuGx8hMziGuQkaxBIbvwBnNhf9LF3TVsN4zQVBJLK4qaYCwIvlK
-	sS6pDVnUKNHiJvbWMVC0bES6JWyZX4025Z6rioelAuL9v99dShbUfojv4j0IQMy7NqZ2HDMMAf6
-	SfFo6y5r8W72T/nJSw6U+yZvV8+1fJfQRO/0mehSbhWnI5a1wj7RRVb6BpP4fND/bVqxMqaaNGh
-	4kUGF02LJ1fkcHvsZFzrHMJiXi1YmeAMyWOTr7nSefkwBdPFVT47UtVXlopzGjePZ3Dz65ZfXi7
-	17KEWtBU4I//52Q8ujOzCdm6tyA2pMKR60EP29wROfr3DlZu/QzEUbdcmyN+WpXkg/OBW2ntAg5
-	+ZlJ2a2Snf0Ta1OS4m2H66JmLjw7PA3ihT8Vzl4bLRLX+qlAGyXKAwRPB988BaQzwSM2B4P/NSz
-	JvvANcvYW/+WSRUhxm5c8VZJAQxj4sdt7GlVT+HgAfH9r1Fv8=
-X-Received: by 2002:a05:600c:a41:b0:490:a964:14f8 with SMTP id 5b1f17b1804b1-490b505560dmr14093255e9.8.1780422888581;
-        Tue, 02 Jun 2026 10:54:48 -0700 (PDT)
-Received: from localhost ([2001:4bb8:152:df59:3b69:56ea:a39b:adb4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344541sm788685f8f.22.2026.06.02.10.54.46
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 10:54:48 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780423280; x=1781028080;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:date:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zFJSYsO0JFeEyCCRMXy0mw71+xPt4H8G/88CSXi29Qc=;
+        b=DahltIdtM4Ts8hE1+lXy7CuRylhx+zkngB2j9nXJKneR5PXIRPPfT+y9NgEyMgGC5U
+         MUdSMZDrLlS08ZRd1vinMwHnl3SS5tJWPpvsHIic1qZ0Grw1NEcY54zlkWjWs4qGCWIA
+         F/VXrcl1roFfToERt5sB/6aCubYFmsxwcoxvnuqIqHIoA7XDeC4GIJW+4JErrUd2xU7L
+         ufCt+oTcFSVLRwEw+sBpJMvSun1aoJzjSVrXAP43GdpT//av4ID+P28bx/d7pupnqbZ8
+         oGIBFpuNy+VeedXCcCmXS7Rus7+jgy7ulwGy1rjgeCxux89HZXMvjBl5+PWR1LLxFycu
+         vjMw==
+X-Forwarded-Encrypted: i=1; AFNElJ+4gtOoledXmXHoI/XlzKI/bZrPPFvsoAlojxyDUez4vinx/eJA/p91SWEsryCgdJVLY8CKYhE7CaJA@vger.kernel.org
+X-Gm-Message-State: AOJu0YxESwxcyc5vG6xdk9kkSYihhGIXnE1Ek/ervn8ioWT3jEu8HcSO
+	qCtA2l8phJA6KdinnXTvYkGWLUT1jyqBIkxnE+mjQz7FHPpHCIVkUqkv
+X-Gm-Gg: Acq92OEkEZWCxHZvy521EZ0719o+Pl3d9ABvVCV3uqQ2L0OEK/mS1N3lFaDp7MtMlVJ
+	4WqkQ8Jgo/2hlS++7OkQK1de2SoNzZnT/S19/fKo2YcF34CeRE5aa0eaYXvI6HVRWo0vov0u0Pk
+	kfDlhrpDcOy8MF7sflsIlcplU02NW5TLV4PpcHLr28sQO4SUN69zFPkVJ5KLEyYDymw/7zZyIc5
+	JFUDHXsZjkMipg+tw3/2RtkC/s1YfyqWWlfRSTX07Z8dVnJEBzHVyFwnUFSlX42nOYVqDbTSaNd
+	q6I5B/hb0Ko+5d3/wajOyahislfmBjA2WoUqkWAH0AUmOTatNQLb6VMmGO/zg88AD4POmkD2pr0
+	mycpV6y8hadywYTS23R65kd7jRyfTxArLDatPDL7CVSbO33kLwRbbhKA2nwlYnsv18Al3adpeNx
+	MS4LIRdEdlfOeu6sLaM58GPzPCz7DprsE/I23QgQ+zACkyyV6Qpd7xEuGB2aohHXuEsT0XOsfEQ
+	4VUu+Zi6tOhSMkV+uU8JpDJ4SKikWh7caHA6hA0dKZ7nyxZ7A==
+X-Received: by 2002:a05:600c:3590:b0:490:b11f:2560 with SMTP id 5b1f17b1804b1-490b5058412mr15287225e9.9.1780423279671;
+        Tue, 02 Jun 2026 11:01:19 -0700 (PDT)
+Received: from RDEALENC-L01.ad.analog.com (24.206.116.103.netskope-rdns.com. [24.206.116.103])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f35f2e6sm875371f8f.32.2026.06.02.11.01.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 11:01:19 -0700 (PDT)
+From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
+X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
+Date: Tue, 2 Jun 2026 19:01:17 +0100
+To: Nuno =?utf-8?B?U8Oh?= <noname.nuno@gmail.com>, 
+	Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, rodrigo.alencar@analog.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>, 
+	David Lechner <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, 
+	Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich <Michael.Hennerich@analog.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+	Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+	Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, 
+	Steven Rostedt <rostedt@goodmis.org>, Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+	Rasmus Villemoes <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>, 
+	Shuah Khan <skhan@linuxfoundation.org>
+Subject: Re: [PATCH v15 06/12] iio: core: add decimal value formatting into
+ 64-bit value
+Message-ID: <m7q5ne6tp2b4e34e5tn3wiimbcmihbunni2hoc6wylseuxsqji@mz7sgo7omxg6>
+References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
+ <20260531-adf41513-iio-driver-v15-6-da09adf1c0dd@analog.com>
+ <ah1SUD_QpRLD2WGV@nsa>
+ <u7p5ndqqh3ngnmmzoir37yuc3hfm2llenaihuekwuwoji743mf@itbbdxfo4qan>
+ <a607ff15c5a9c6edd6be1a40182b16b5dc48c151.camel@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 02 Jun 2026 19:54:45 +0200
-Message-Id: <DIYR8LZ64A9E.3JQG25Z0TJ06@gmail.com>
-Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
- series
-Cc: "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
- <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>, "David Lechner"
- <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
- "Andy Shevchenko" <andy@kernel.org>, "Matti Vaittinen"
- <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
- <javier.carrasco.cruz@gmail.com>
-From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
-References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
- <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
- <20260601112103.281387ee@jic23-huawei>
- <DIXZFV822HRI.2SBIT7ADW9LUK@gmail.com>
- <20260602133313.1d5afc51@jic23-huawei>
-In-Reply-To: <20260602133313.1d5afc51@jic23-huawei>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <a607ff15c5a9c6edd6be1a40182b16b5dc48c151.camel@gmail.com>
 
-On Tue Jun 2, 2026 at 2:33 PM CEST, Jonathan Cameron wrote:
->> >> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml=
-6031x00.c
->> >> new file mode 100644
->> >> index 000000000000..6f9a7bad44d4
->> >> --- /dev/null
->> >> +++ b/drivers/iio/light/veml6031x00.c
->> >
->> >> +
->> >> +static const struct iio_chan_spec veml6031x00_channels[] =3D {
->> >> +	{
->> >> +		.type =3D IIO_LIGHT,
->> >> +		.address =3D VEML6031X00_REG_ALS_L,
->> >> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
->> >> +				      BIT(IIO_CHAN_INFO_SCALE),
->> >> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
->> >> +		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME)=
-,
->> >> +		.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCALE),
->> >> +	},
->> >> +	{
->> >> +		.type =3D IIO_INTENSITY,
->> >> +		.address =3D VEML6031X00_REG_IR_L,
->> >> +		.modified =3D 1,
->> >> +		.channel2 =3D IIO_MOD_LIGHT_IR,
->> >> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
->> >> +				      BIT(IIO_CHAN_INFO_SCALE),
->> >
->> > Can we move scale to shared_by_type?
->> >
->> > Thinking on some of the others, they should probably be shared_by_type=
- as well
->> > rather than shared_by_all. If we ever add buffered support and a times=
-tamp
->> > the integration_time doesn't apply to that.
->> >
->> > shared_by_all tends to only include things that are truely universal l=
-ike
->> > sampling_frequency.
->> >
->>
->> I am not sure if I get this point. This device has a single IIO_LIGHT
->> channel, and the scale only applies to it. Are info_mask_separate and
->> info_mask_shared_by_type not the same in that case? I have seen that
->> some drivers use both info_mask_separate for INFO_RAW, and
->> info_mask_shared_by_type for INFO_INT_TIME and/or INFO_SCALE, but that
->> could make more sense if there were multiple channels of the same type.
->> What am I missing here?
->
-> Ah. I've been reading too many drivers. For some reason I thought this
-> had more intensity channels. My comment clearly garbage as you point out.
-> I maybe got thrown by how ALS sensors used to work.  They used IR only
-> and a clear window that covered both IR and the frequencies we need for
-> illumiance measurement. The light channel was then some combination of
-> the two. I guess they've figured out how to filter that IR out of that
-> these days.  That leaves me a little curious as to what applications actu=
-ally
-> use the IR channel.
->
+On 26/06/02 05:56PM, Nuno Sá wrote:
+> On Mon, 2026-06-01 at 16:12 +0100, Rodrigo Alencar wrote:
+> > On 26/06/01 10:43AM, Nuno Sá wrote:
+> > > On Sun, May 31, 2026 at 09:30:49AM +0100, Rodrigo Alencar via B4 Relay wrote:
+> > > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > > 
+> > > > Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
+> > > > defines the representation of fixed decimal point values into a single
+> > > > 64-bit number. This new format increases the range of represented values,
+> > > > allowing for integer parts greater than 2^32, as bits are not "wasted"
+> > > > in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO and
+> > > > IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 64-bit
+> > > > decimals into integer values used in IIO formatting interfaces, which
+> > > > creates consistency and avoid error-prone manual assignments when using
+> > > > wordpart macros. When doing the parsing, kstrtodec64() is used with the
+> > > > scale defined by the specific decimal format type.
 
-According to the application note:
+...
 
-It can be helpful for an application to be able to differentiate between li=
-ght
-sources and react accordingly. The additional IR channel offers the
-possibilities to do a light source differentiation based on the IR content
-measured with the IR channel. A ratio between the IR and ALS channel can
-be calculated to determine the amount of IR light within the light source=
-=E2=80=99s
-spectrum. This easily allows, for example halogen bulb to be kept apart fro=
-m
-an LED light.
+> > > > @@ -707,8 +707,25 @@ static ssize_t __iio_format_value(char *buf, size_t
+> > > > offset, unsigned int type,
+> > > >  	case IIO_VAL_CHAR:
+> > > >  		return sysfs_emit_at(buf, offset, "%c", (char)vals[0]);
+> > > >  	case IIO_VAL_INT_64:
+> > > > -		tmp2 = (s64)((((u64)vals[1]) << 32) | (u32)vals[0]);
+> > > > +		tmp2 = iio_val_s64_from_s32s(vals);
+> > > 
+> > > I might be missing something but can't we just call
+> > > iio_val_s64_compose()? Likely even inline in sysfs_emit_at()?
+> > 
+> > There is a compose() already.
+> > 
+> 
+> Yes and I was suggesting using that one instead iio_val_s64_from_s32s() :). To be
+> consistent to what you use in the other path (which is decompose() if I'm not
+> mistaken).
+> 
+> >  
+> > > It would match your call to iio_val_s64_decompose() below.
+> > 
+> > here are the helpers prototype:
+> > 
+> > 	s64 iio_val_s64_compose(s32 val0, s32 val1);
+> > 	s64 iio_val_s64_from_s32s(const s32 *vals);
+> > 
+> > 	void iio_val_s64_decompose(s64 dec64, s32 *val0, s32 *val1);
+> > 	void iio_val_s64_to_s32s(s64 dec64, s32 *vals);
+> >  
+> 
+> Yes and it feels that iio_val_s64_compose() and iio_val_s64_decompose() are the only
+> ones we really need? (Maybe with other naming if you prefer iio_val_s64_from_s32s()
+> and iio_val_s64_to_s32s()).
+> 
+> > > And the above makes me wonder if the compose()/decompose() are not the
+> > > only helpers we need? At least in terms of parameters? I mean, just
+> > > assuming we only have two integers instead of allowing s32* and opening
+> > > the door for misbehave :)?
+> > 
+> > I suppose we would really need some sort of:
+> > 
+> > union iio_val {
+> > 	s32 val32[2];
+> > 	s64 val64;
+> > };
+> > 
+> > or even add a:
+> > 
+> > 	struct { void *ptr, size_t size }
+> 
+> I just meant using two where we just have (s32 val1, s32 vals2) given that is
+> what IIO has anyways. No need to overthinking it for now IMO.
 
-Probably not the most useful IR channel out there, but there's still
-something you could do with it :D
+Understood. will drop iio_val_s64_from_s32s() and iio_val_s64_to_s32s()!
 
->>
->> >> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
->> >> +		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME)=
-,
->> >> +	},
->> >> +};
->
->>
->> >> +
->> >> +	ret =3D veml6031x00_hw_init(iio);
->> >> +	if (ret)
->> >> +		return ret;
->> >> +
->> >> +	pm_runtime_put_autosuspend(dev);
->> >
->> > As sashiko shouts, this looks like runtime pm will underflow on remove=
-.
->> > Check it by removing your driver.  It doesn't actually result in any
->> > problem, as the runtime pm subsystem just saturates at 0 on decrement.
->> > Given that's tear down anyway maybe we don't care.  However, it's easy
->> > enough to fix by using pm_runtime_get_no_resume() and a couple of
->> > explicit calls to put it in error paths.
->> >
->>
->> I took some time to audit this in detail, because although my
->> expectations are that atomic_add_unless(usage_count, -1, 0) should make
->> this shout a false positive. Expectations don't always meet reality. My
->> expectations were based on the code, so I have added tracepoints to know
->> exactly what's going on.
->>
->> Scenario 1: Successful probe -> unbind driver.
->>
->> devm_pm_runtime_get_noresume() increases usage_count, and the call to
->> pm_runtime_put_autosuspend() decreases it. That is balanced, giving us
->> usage_count =3D 0 and putting the device in power down mode as desired. =
-If
->> the device is then unbound, the devres action (a call to
->> pm_runtime_put_noidle_action, which only calls pm_runtime_put_noidle)
->> triggers a call to atomic_add_unless(&dev->power.usage_count, -1, 0).
->> Given that the usage count is 0, nothing happens and there is no
->> underflow. In fact, the underflow is not possible this way, and adding a
->> remove function to check if usage_count is 0 and calling
->> pm_runtime_put() is basically repeating what the devres action already
->> offers for free.
->
-> Agreed on this analysis. From a readability point of view it is nice
-> to have balanced calls but as long as we only underflow / get clamped
-> in a path where we never increment again that's fine.  I'd add a comment
-> somewhere to say that's intentional.
->
->>
->> Scenario 2: write_event_config -> unbind driver.
->>
->> Sashiko says that pm_runtime_resume_and_get() increases usage_count, and
->> there is no devres action associated to it. That is only partially
->> correct, because the devres action from devm_pm_runtime_get_noresume()
->> will be triggered when the driver is unbound. Actually, this is great
->> because then pm_runtime_resume_and_get() gets balanced, and there is no
->> need for a remove function to check again if usage_count is 0 or not. In
->> this case, usage_count =3D 1 before unbinding the driver, and then the
->> devres action is triggered when it gets unbound. Exactly what we want to
->> have usage_count =3D 0.
->
-> This one I'm more dubious on.  Basically you are saying on remove we happ=
-en
-> to have an extra decrement for largely unrelated reasons so we are fine.
-> That to me smells fragile even if it works.  For instance someone tidying
-> up the imbalance in scenario 1 (which would seem reasonable to do from
-> a code understandability point of view) would break scenario 2.
-> I'd rather we had something explicit for this. Probably an devm action
-> that just checks for events being enabled at exit and disables them as pa=
-rt of
-> the tear down.
->
-> So not bugs as such, but fragile which is not good from maintainability
-> point of view.
->
-> Jonathan
+-- 
+Kind regards,
 
-I will add a devm action for the events to decrement the usage count if
-events are enabled i.e. the usage count was incremented.
-
-Best regards,
-Javier
+Rodrigo Alencar
