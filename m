@@ -1,158 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D84233D51A;
-	Tue,  2 Jun 2026 08:06:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 554E93BB68F;
+	Tue,  2 Jun 2026 08:07:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780387612; cv=none; b=fB412oHNu3oBSLLtn/QGIcSqgQ5Lx+PclOEFODFQAd8/LkknJMWkiR8540OdIxIJPtSHXa+BZYuMff+G5+VxGD5FqoCSQKo++0Kuy+il0SJ8GGXRzsXoOz6rQ0wE9RyMXH7CHaN9qNVaci6XODsmFc1BZAjOBfDFMs31yN10xTc=
+	t=1780387650; cv=none; b=nTnEVBSeX2F4Kk2t0dYd7vkIqzIm+dnRFIuhx+3rjjAkm7wXaMcBynNVwUIjBSvcBBoQrkXaCxuSzMgMWlI+XjuNAyJrD17lfKTDqAxjDlkn/yC9T6661RquTiw9TfwnuZLuv3T2CUPD02kkA8DrjCFFfs2XqVa4FaMWih0gIgI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780387612; c=relaxed/simple;
-	bh=SA3/YKlab2TVUKqjNO+G2x5l+v2KK5/dVdR8g1uIGZM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=KjoCOhf/JtKTLwNk6E6pwKccQZzzsFcwhEEm1A8i/KfMrY6LI4JjycrpOaJa9xdU7vx84wCEckeZ9wQH7ZXrB95IKs37GVMKDyHg2RMOQJvENH+Zfu9G9fLw+91tQ/9vpI/HlnPH5dgDWsF89Rv+YSi6CPw8vC5vLLAjRkPVsyc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=flu+JdQb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780387650; c=relaxed/simple;
+	bh=QeRLT4nVGcn0FGb2agv9AHWg3M49O/B8jVmKTpZqt6Q=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fVhIrafRGHKYwAe37ysy4f6HX+h9NawqZYRgJa3+py3Dlu1kq39DRzs7aKVJYWncuvh1nxgWRWey7T/fz0WVtQMD7bYPtS1DRdvhxWr0FEQMkhRL6PDAnPgeiKyAJhAx8KOl6nRWJTsqz3PMs25T1YCAMoyhQZ0m65LWDrO/yCM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HgVU5AEo; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="flu+JdQb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8EC861F00893;
-	Tue,  2 Jun 2026 08:06:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780387610;
-	bh=B+QTt9O0bWTfpiutZRk92oLuXwC7p/addxsH7yIaxBA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=flu+JdQbRAlqXvaahphORXLBZ9mJYP/UqV7o09tL50QE6EgL49J7ZLc1goWcuI8hR
-	 82gtosU99AH+fdPFqGbk7oxuKm+Qn2+vBocvcoPfrHb4M5iuXqwCpaeQ3uD5EQuqtg
-	 UFR+zlF6LDQpOwyeKjQeXcUCLxObKtnW2HJSjh8hK0xAZJKHIRnjsXXyrM8dabSN/3
-	 PYLXBwIHOFXXyRlVGTAfzyqmJm240ph/NxHEFgf4u/N+6Dwtn7qxK5+G63oLD0uDaG
-	 zB6CldykVm6Kl9a9VeTyDEy884gYD/rXafNUyk0TxQ1WlLgxW4zmH/XuTGErGzGGlK
-	 SAdZchAOAvVpA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 1/6] pinctrl: s32cc: add/fix some comments
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
-Cc: conor+dt@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260602080132.3256239-2-khristineandreea.barbulescu@oss.nxp.com>
-References: <20260602080132.3256239-2-khristineandreea.barbulescu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 08:06:50 +0000
-Message-Id: <20260602080650.8EC861F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HgVU5AEo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780387650; x=1811923650;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=QeRLT4nVGcn0FGb2agv9AHWg3M49O/B8jVmKTpZqt6Q=;
+  b=HgVU5AEokOMB87KJmTo1g8Q4foTFqDkFPeTjR9Ih3Ad1SzOTAc8AhtBr
+   3RSMZuFHwvReT0KIc5dKG+7CezggllmeQ5GfYN9+m73eQA7/9zmwCW6lA
+   G7E4bDSh6LtXKkmggaDHQLVjYp2HlBIUVoeDVXz63cdyyhK8Q+z7ZH3VT
+   XPQb8PKGziRUhPoTeMrpsUIURJobog5aU2aPXqeWLzrj1s9fEsS6+y8O0
+   5iu4efDErc6iZLpKJZk3ezlb1YkJcKglTkp05C4jnuJKyVvmn1YYP3c4J
+   wyvC7EWBTXSPpd3qP/Hq2KP1g3NV76eDh+reHVXpaWW/LVSJJW+BQuRqx
+   Q==;
+X-CSE-ConnectionGUID: 1+EkimwGSu6djYfABC+MJQ==
+X-CSE-MsgGUID: nLzYoo3XTeWzf/T/WhIFgw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81347944"
+X-IronPort-AV: E=Sophos;i="6.24,182,1774335600"; 
+   d="scan'208";a="81347944"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 01:07:29 -0700
+X-CSE-ConnectionGUID: mgksFXFCTzmnmm35dce/mA==
+X-CSE-MsgGUID: zKU2EH9+S5GVvGNF3pQm8A==
+X-ExtLoop1: 1
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
+  by fmviesa003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 01:07:24 -0700
+Date: Tue, 2 Jun 2026 11:07:22 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 03/11] iio: light: lm3533-als: Remove redundant pdata
+ helpers
+Message-ID: <ah6POiAiwmc7FVUu@ashevche-desk.local>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-4-clamor95@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260601151831.76350-4-clamor95@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [Low] Typo in the newly added documentation for `struct s32_pinctrl_conte=
-xt`.
-- [Low] Invalid kernel-doc comment block syntax.
-- [Low] Inconsistent error message capitalization.
---
+On Mon, Jun 01, 2026 at 06:18:23PM +0300, Svyatoslav Ryhel wrote:
+> The lm3533_als_set_input_mode and lm3533_als_set_resistor functions are
+> used only in lm3533_als_setup. Incorporate their code into
+> lm3533_als_setup directly to simplify driver readability.
 
-commit a7822dc8d9c7d5010c39b80aee179b5ec0735e03
-Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
-om>
+Same comments as per previous patch.
+I stop my review here as it seems may be more of this.
 
-pinctrl: s32cc: add/fix some comments
+-- 
+With Best Regards,
+Andy Shevchenko
 
-Add/fix some comments and print statements.
 
-> diff --git a/drivers/pinctrl/nxp/pinctrl-s32cc.c b/drivers/pinctrl/nxp/pi=
-nctrl-s32cc.c
-> index fe7cd641fddd0..4f88c24e62a21 100644
-> --- a/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> +++ b/drivers/pinctrl/nxp/pinctrl-s32cc.c
-> @@ -60,6 +60,12 @@ static u32 get_pin_func(u32 pinmux)
->  	return pinmux & GENMASK(3, 0);
->  }
-> =20
-> +/*
-
-[Severity: Low]
-This isn't a bug, but should this start with /** instead of /*?
-
-The newly added comment for struct s32_pinctrl_mem_region follows the
-kernel-doc format, but because it begins with /* rather than /**, the
-kernel-doc scripts will likely ignore it.
-
-> + * struct s32_pinctrl_mem_region - memory region for a set of SIUL2 regi=
-sters
-> + * @map: regmap used for this range
-> + * @pin_range: the pins controlled by these registers
-> + * @name: name of the current range
-> + */
->  struct s32_pinctrl_mem_region {
-
-[ ... ]
-
-> @@ -67,7 +73,7 @@ struct s32_pinctrl_mem_region {
->  };
-> =20
->  /*
-> - * Holds pin configuration for GPIO's.
-> + * struct gpio_pin_config - holds pin configuration for GPIO's
-
-[Severity: Low]
-This isn't a bug, but this comment also follows the kernel-doc format
-without starting with /**. Should it be updated to /** so it can be picked =
-up
-by the documentation tools?
-
->   * @pin_id: Pin ID for this GPIO
->   * @config: Pin settings
->   * @list: Linked list entry for each gpio pin
-
-[ ... ]
-
-> @@ -79,20 +85,22 @@ struct gpio_pin_config {
->  };
-> =20
->  /*
-> - * Pad config save/restore for power suspend/resume.
-> + * struct s32_pinctrl_context - pad config save/restore for suspend/resu=
-me
-> + * @pads: saved values for the pards
-
-[Severity: Low]
-This isn't a bug, but there's a typo here (pards instead of pads).
-
-Additionally, this comment block also lacks the /** prefix required for
-kernel-doc.
-
->   */
->  struct s32_pinctrl_context {
->  	unsigned int *pads;
->  };
-> =20
->  /*
-> + * struct s32_pinctrl - private driver data
->   * @dev: a pointer back to containing device
-
-[Severity: Low]
-This isn't a bug, but this comment block is also missing the /** prefix.
-
->   * @pctl: a pointer to the pinctrl device structure
->   * @regions: reserved memory regions with start/end pin
-
-[ ... ]
-
-> @@ -974,7 +982,7 @@ int s32_pinctrl_probe(struct platform_device *pdev,
->  					    ipctl);
->  	if (IS_ERR(ipctl->pctl))
->  		return dev_err_probe(&pdev->dev, PTR_ERR(ipctl->pctl),
-> -				     "could not register s32 pinctrl driver\n");
-> +				     "Could not register s32 pinctrl driver\n");
-
-[Severity: Low]
-This isn't a bug, but does changing "could" to "Could" break consistency
-with the rest of this file?
-
-Other error messages in s32_pinctrl_probe() start with lowercase letters
-(e.g., "wrong pinctrl info", "fail to probe dt properties"). Should this be
-kept lowercase to match the rest of the file and standard kernel practice?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602080132.3256=
-239-1-khristineandreea.barbulescu@oss.nxp.com?part=3D1
