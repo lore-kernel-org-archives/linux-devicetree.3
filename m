@@ -1,63 +1,63 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com [209.85.214.180])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B7D33D968D
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:16:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25CF3DA5B9
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:16:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.180
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395409; cv=none; b=j+88rZaYI7ymSORG+akIKKCVqhKZ5uFSETyc9aJ4hXhG2Pra9F1h0tpEhGXcqs8fm7PkEbGgIDoAmOVxn1j/UwcQveQBkRRIRq17NWG0bAmCUDVe8algsNjrRoTPOkosaQMPwsQ4e6/dyLnngbZA2U0NvBhUu8A75NEW0+jLXWM=
+	t=1780395414; cv=none; b=fkDN3GaN9zNyRagOXVbn8kP3TMK/PHvta3A6M7JVd2/9W3fdl1SAtuujD+D3XI89ZEIu3BYbUbm9rw5M2lDv2hjnXnp0IsOFS16VCdNuint1MF8NN5Ru7JyDm3RmLP3jDlPHxFdKssAMAMci2mS4Ultmj7uQ3m2GGwIeyUxKv7k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395409; c=relaxed/simple;
-	bh=jLLJS63DmaW6/N5p/t3mdPzRbOoNEcIP/BNYCgIzYbM=;
+	s=arc-20240116; t=1780395414; c=relaxed/simple;
+	bh=vhEkZTw4QlzQZ3n04KU8Ww88nfpYBe6Oem2sU6WQQ/g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=C3AH6Nb/Iz7a/26Qm6lw+MjV9al3jSV2FHElYzM26p3LkSqLaRXXipo742LoZzfjguS1oJyWMGwdYcAFXSZ8aILmNz/dwINJbT+FXrnKcz+K08mZCx2kvIAHeLTL6Zlex5nCG+wTxyZXOEmZ3eZstMZMPAxHK/IvlIh8Fa2yINI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OCO5KFgs; arc=none smtp.client-ip=209.85.214.172
+	 MIME-Version; b=fJmenSqnUg2A4/+SxRm1l/ejh4SBLEXXN27TYTlp66C63klRPg6ZhvlCjN7UhnqiNIBRPYPJ+Gx1EBzYdluodYR7Xnr9IEpDZlOIz0fKgu8l3Bcj8+2/W4zRj3WDe8+yhFIFiz9n4lELSwmigpR/hOQNnLmVUKSolpwP/4YdXLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AKUOceib; arc=none smtp.client-ip=209.85.214.180
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OCO5KFgs"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2bf20f6be6bso23755305ad.3
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:16:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AKUOceib"
+Received: by mail-pl1-f180.google.com with SMTP id d9443c01a7336-2bf18c30bb2so33406435ad.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:16:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780395406; x=1781000206; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780395412; x=1781000212; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=zlqWTxvd2nybMb9oOkq3B+WZ2+KSO9DV36s9D60SrZ0=;
-        b=OCO5KFgsWDtTd/4CHl4JEMzWtt5h8mWhi9Bz2OnEzsi12PddUsNjjLjTunolulKAdS
-         pqGxgoglTPnQeTap04YEXV+0Rvzg6pWiCk9NdMCUnjLDOEiagk2wGf1h8EWiv4X56fF2
-         fzId7wy5xMBmr3AV6Tg5DUF1CZiiIc8qXzXoB6qPbsiqy4h3o90s3eLx8EzGFXV0XlOE
-         GI+DO+UUGAUT9AM5fXlmnN3PFAFAAO9RjZLgNLZ6raysWQeirKAz9mcCou2/Gk0O7y+T
-         Lh2EZ/E+s9WXrLSjYBH4GBjHB14c6oyhodWgqaUvVjnTEg+XG6zyONL9GkBZwcYc8cIn
-         SrJg==
+        bh=rCb8DxBgLNYKl2se7nFRUFkwYJO2PqG9toAr7Dgva9M=;
+        b=AKUOceibMMmAKWnzXZzBgWiyiwi/+OxZoPWK36atW27zLbhPRMVx0xhWqR0yFRTlaM
+         RUjS+/5ukYAmwFeliiiJzgjsYcRhmzJXeAseByAuWKiias3jIWcjHYrWVO77VqA++mfR
+         LVn2n1+C0eN7goUADfuE5eYtk3Od7gXzFGbw7uFz57RUtX9rHQraym7Qi5tqt42kr09e
+         NlUcQ6eqxVNRHg3jdvFmWhBsFhqSJnd23wz3vRjO26Dqp/3zyd8vHxc+aO7/K0tzwxK8
+         I8n+r2uVICI4UWzDS7/t2O157yRryCQHMTyxQCz236IO6J1HInXp8byUy4abFdCw+ei6
+         BDCQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780395406; x=1781000206;
+        d=1e100.net; s=20251104; t=1780395412; x=1781000212;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=zlqWTxvd2nybMb9oOkq3B+WZ2+KSO9DV36s9D60SrZ0=;
-        b=LasLZ4SHtCsNauWIlVfaDZzVRvia5hWWoI7Dlv2Eq3pwV9wUjNeUEbJ042+wlsBBOx
-         bFtYhLbzFa85xDd9D269Jx8oxmalM9v9etakzlap8yrS4P6r23iZPqkj/PTNyJ2M3A7a
-         qja/rGjt4JyFDBwOMB+1Yu+h6/dvDn0BG91Gu5lKQetFb+uqGTFvtf0a1tE4Dv7Ydrdp
-         I+8i9OQyr7+rkOBc8LNXOV5vWhewNVoPecfXgZm3nphd4thf6dk2U6a62FXp0d4ivykc
-         v4eSo12oMMvJa6Nd/UZQBgYajYJd8NllWD3Kk/fOWvakI4TpLuTXtJIddz5v9waEct/Y
-         twUQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9WVL2x4nZKM1HJ0kjoqsyOvEVme+BoMVMi+UX0TQG/iBopCLvV6mhJvngJ0kYgOXxpqwwcMm57Zm+b@vger.kernel.org
-X-Gm-Message-State: AOJu0YxEeoFP0KdyI5REYy0f4TQBMgbx1sOTEdwmjPlt1G/vugCjyiKV
-	9YCZAUIg7/Ha7axMVf7B5lkCo6SJdTuAlItpK438xExPMhcSyQbXTFro
-X-Gm-Gg: Acq92OE9UN2E8ZYlch5A3w6u77t0zNlJId9P8Uu5T9tQ3DTbMcUD+uBjG3GlW88el4F
-	VJFXHnOdj5t/ALNCtPIotRhBkkknb0OoU8bOgVIf3IDe1zXNvLfVbenuKwnBidta+CaJBQp1NVH
-	+6/aepG7h9i0jWxujIQU6JgOG5NPM+OJatxHSichSJ8gV9fCtfOawFVl1llrn6o3g/Whxcg2aWD
-	TtAv1TZbr6mXSNc/SkKIZ0bRQ0fI+PdirSp0J9NYkwdgU+HK5MvBoObfux9Lx9HXo4UBqlP1Ndp
-	7zQkxd1SBqc4lS7KrGSa4ylCvLI9xBb6uS9ccOkdU592SEZnsJ5MdEuqyUgEiipigBK+Lv/FC8E
-	MfxDaP9faKBuaQD0qdRMeXj+124OGWZdsPjrMxaYELuNT+3S9sebq/PhedhvQZ2b9F3M9zIwInI
-	/X5SW/SjSd1vhHLp+gLK5nmL6NIYRBjLcYdrN6yNy0XImej6AD6EWsLJAVo5sL3C+apVIt
-X-Received: by 2002:a17:903:1983:b0:2bf:23cf:3e4 with SMTP id d9443c01a7336-2bf367d9da0mr164110925ad.17.1780395406357;
-        Tue, 02 Jun 2026 03:16:46 -0700 (PDT)
+        bh=rCb8DxBgLNYKl2se7nFRUFkwYJO2PqG9toAr7Dgva9M=;
+        b=qHrZWfryFZmbuvzJoJ482bVZlmIZK6OfexcC8S5p/EGXD5HLfZt4f8RHrq8vQWGg9K
+         dNIY5dF1ex/7nK8lM5d79uTTTd+8iU0Zl146lrlhEE53edfBzKaXopuzY47IDYj9LWa5
+         Z8LVaQy3/hOntOZcO68QvqaCmkG1a7VV61RzrGVJMDGdKWgM1VhgWOXVJg+jC9eESyAA
+         aGzzmr6TcFcViox8D2iDYLr5d7On0ZOj0y/O6UVEszF124ck+OTBfWEThG/47jvNe73e
+         oWSOxXW7vk4IQf++75csGo7Hom+wBd3fBQy+I/TsDRmPk/gbhnyPIxI7rAu7w3JDwZzF
+         4H0w==
+X-Forwarded-Encrypted: i=1; AFNElJ8+oQwArNIrXxyp11UcXiKAVh4ELZNqvQVRi4vaF6tfA+8h5fmZShCTgVvNmvkcGocq1GW3qv/LIq9g@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyvbgi9rQYkP+EXkvemvIY0T++cJREO9Sn9JWqdpsfnCMq6GHoY
+	OSDg9KAFN+eSy5fHmLYfvpkS+Pdd0bzwyZUHVwtE2Uike4CwgkbgTMRG
+X-Gm-Gg: Acq92OFkeyu3p9bpuBBfykh8mOda4h9/H8mzfLGN+V/LK/uWT44I6kO++fJGWC0uq17
+	KS7Z5bwfskc6WtGUExJJ49lGN/7a5I/y5uord0HDx7EWc+Bpi23o5A7UGoe6qjWAIMNnI1SWEfs
+	itpPVoLJydcyWByN7gjKBZNlX9JWRn2PUt+Er7u3o1xAnD3/7PYywvCYraEBh1yL2eA2yMFwiKJ
+	vWH/yQnnotiQR/l8gKhn7ULMVCB0sFahSggkYUtP5fh4H2jLL+50UGugbMzaPMrr3AAnSYAnNmw
+	TmAGyDb9NNkLHi8O2/qQZtBrIIP8WCvM4Y8i/ez9DK2Rvns06HT4oH48D3vqrI7WSrf279DbsWg
+	p7BsdCgtQbjP3oTbQPhBWiL/MQl17yMfxdkMESkv6UP/H1VIDeirkWTNpMDbSlsMtCpMUZ3tHJI
+	QzObDyLSW4cKJW4yypMrseWmYrRKpoHLZUpIM7SPKWnFjbTKOQgBaZD8vgUl9hXvmfqN0v
+X-Received: by 2002:a17:903:46cf:b0:2c0:c625:400d with SMTP id d9443c01a7336-2c0c6254383mr111686365ad.37.1780395411951;
+        Tue, 02 Jun 2026 03:16:51 -0700 (PDT)
 Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fd84fsm132766305ad.23.2026.06.02.03.16.42
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fd84fsm132766305ad.23.2026.06.02.03.16.48
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 03:16:45 -0700 (PDT)
+        Tue, 02 Jun 2026 03:16:51 -0700 (PDT)
 From: phucduc.bui@gmail.com
 To: Heiko Stuebner <heiko@sntech.de>,
 	Mark Brown <broonie@kernel.org>,
@@ -73,9 +73,9 @@ Cc: Rob Herring <robh@kernel.org>,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	bui duc phuc <phucduc.bui@gmail.com>
-Subject: [PATCH v2 2/5] ASoC: rockchip: spdif: Reorder clock enable sequence
-Date: Tue,  2 Jun 2026 17:16:05 +0700
-Message-ID: <20260602101608.45137-3-phucduc.bui@gmail.com>
+Subject: [PATCH v2 3/5] ASoC: rockchip: rockchip_pdm: Reorder clock enable sequence
+Date: Tue,  2 Jun 2026 17:16:06 +0700
+Message-ID: <20260602101608.45137-4-phucduc.bui@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260602101608.45137-1-phucduc.bui@gmail.com>
 References: <20260602101608.45137-1-phucduc.bui@gmail.com>
@@ -89,7 +89,7 @@ Content-Transfer-Encoding: 8bit
 
 From: bui duc phuc <phucduc.bui@gmail.com>
 
-Enable the 'hclk' bus clock before the 'mclk' controller clock during
+Enable the 'hclk' bus clock before the 'clk' controller clock during
 runtime resume.
 The bus clock provides the register access interface, so enable it before
 the controller clock. This also makes the resume sequence the reverse of
@@ -104,32 +104,32 @@ Changes in v2:
   - Clarify in the commit message that the resume sequence becomes the
     reverse of the suspend sequence.
 
- sound/soc/rockchip/rockchip_spdif.c | 10 +++++-----
+ sound/soc/rockchip/rockchip_pdm.c | 10 +++++-----
  1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/rockchip/rockchip_spdif.c b/sound/soc/rockchip/rockchip_spdif.c
-index 581624f2682e..8de5b76cfe79 100644
---- a/sound/soc/rockchip/rockchip_spdif.c
-+++ b/sound/soc/rockchip/rockchip_spdif.c
-@@ -76,16 +76,16 @@ static int rk_spdif_runtime_resume(struct device *dev)
- 	struct rk_spdif_dev *spdif = dev_get_drvdata(dev);
+diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
+index c69cdd6f2499..8f78f7bc1806 100644
+--- a/sound/soc/rockchip/rockchip_pdm.c
++++ b/sound/soc/rockchip/rockchip_pdm.c
+@@ -422,16 +422,16 @@ static int rockchip_pdm_runtime_resume(struct device *dev)
+ 	struct rk_pdm_dev *pdm = dev_get_drvdata(dev);
  	int ret;
  
--	ret = clk_prepare_enable(spdif->mclk);
-+	ret = clk_prepare_enable(spdif->hclk);
+-	ret = clk_prepare_enable(pdm->clk);
++	ret = clk_prepare_enable(pdm->hclk);
  	if (ret) {
--		dev_err(spdif->dev, "mclk clock enable failed %d\n", ret);
-+		dev_err(spdif->dev, "hclk clock enable failed %d\n", ret);
+-		dev_err(pdm->dev, "clock enable failed %d\n", ret);
++		dev_err(pdm->dev, "hclock enable failed %d\n", ret);
  		return ret;
  	}
  
--	ret = clk_prepare_enable(spdif->hclk);
-+	ret = clk_prepare_enable(spdif->mclk);
+-	ret = clk_prepare_enable(pdm->hclk);
++	ret = clk_prepare_enable(pdm->clk);
  	if (ret) {
--		clk_disable_unprepare(spdif->mclk);
--		dev_err(spdif->dev, "hclk clock enable failed %d\n", ret);
-+		clk_disable_unprepare(spdif->hclk);
-+		dev_err(spdif->dev, "mclk clock enable failed %d\n", ret);
+-		clk_disable_unprepare(pdm->clk);
+-		dev_err(pdm->dev, "hclock enable failed %d\n", ret);
++		clk_disable_unprepare(pdm->hclk);
++		dev_err(pdm->dev, "clock enable failed %d\n", ret);
  		return ret;
  	}
  
