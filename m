@@ -1,121 +1,121 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EFC3C4141
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:26:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273173C4542
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:26:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388768; cv=none; b=CzxFGi959KF4VOb6gfprh+4F6DE849AZT3Iu5187mocB3aDMhzwZABwFx56E2h3k8x55WKVmquQDMFkxJaGUAcM6Kj/zXWh+PsBKaFEu1TY0/85RtYsfj3ZexbL4pipGMpx0W4X0FiDOtGhyfikCiv8l6LVGhkOkJf4f4Mo21Qs=
+	t=1780388810; cv=none; b=DMaxusoP3qZU12JQmQwPIcZU4lSV0Q/THI6XqeEVZtVi2UHmQcqOqGFsxRIeUhX2eNminkL73yBumT2dgkpkNUlRPlrUl/5PvD3Rn8Y1NrlGqfr6x5XGM0sDXvZqXb1nVTqHsWw+IR/ash1qq0Qrh96GMU019tnW2wKx/XPmwP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388768; c=relaxed/simple;
-	bh=ZQkpBhdyPFX8K1AgwsbSqD6e4PBbKm/F+6uEvcBzPyk=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=bPxHRAbkg4SEiVKQwCD6GDhp0kEXqomIxB0XSj+iU8Db5PeLukb6u7DbbBlZHyp0x0jCp0agEOTOPILc19CFDUPl9qpJd013nTuSr6dBsJkcyWIaHMNdKZN2J8CXba57g1vm9jzSgG0l7fJYKVYt/W8/MV/IrXN3lNSfQ688mQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUKQZ-0001Gf-0T; Tue, 02 Jun 2026 10:24:47 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUKQT-000iZa-13;
-	Tue, 02 Jun 2026 10:24:41 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUKQT-000000003ba-0TqR;
-	Tue, 02 Jun 2026 10:24:41 +0200
-Message-ID: <6af284545729f03a60d06479339862a2f08c6b7e.camel@pengutronix.de>
-Subject: Re: [PATCH 22/23] reset: rzg2l: use
- platform_device_set_of_node_from_dev()
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Lee Jones	
- <lee@kernel.org>, Mark Brown <broonie@opensource.wolfsonmicro.com>, Thierry
- Reding <thierry.reding@avionic-design.de>, Sebastian Hesselbarth	
- <sebastian.hesselbarth@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>, Greg
- Kroah-Hartman	 <gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich
- <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Saravana Kannan
- <saravanak@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
- Ellerman	 <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
- "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Andi Shyti
- <andi.shyti@kernel.org>, Andy Shevchenko	
- <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will
- Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger
- <opendmb@gmail.com>,  Florian Fainelli <florian.fainelli@broadcom.com>,
- Broadcom internal kernel review list	
- <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team	 <kernel@pengutronix.de>, Fabio Estevam
- <festevam@gmail.com>, Matthew Brost	 <matthew.brost@intel.com>, Thomas
- =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>, Rodrigo
- Vivi <rodrigo.vivi@intel.com>,  David Airlie <airlied@gmail.com>, Simona
- Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>,  Paul
- Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, Maximilian Luz
- <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
- =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,  Krzysztof
- Kozlowski	 <krzk@kernel.org>, Benjamin Herrenschmidt
- <benh@kernel.crashing.org>
-Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
-	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
-	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
- iommu@lists.linux.dev, 	linux-pm@vger.kernel.org, imx@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
-	linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
-Date: Tue, 02 Jun 2026 10:24:41 +0200
-In-Reply-To: <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
-References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
-	 <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1780388810; c=relaxed/simple;
+	bh=GFo7eyr+k93doRn4+DluxLJbNFu/w/tMJvyS/O89sYk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=VNC/LwvO2h/nR1SGZ4FHBgy+X/NkZ2mTMIzJFz80oR09YP3CdTT4mehWv00HYrHdkMvuwMAENB9kF2uXwWPaQPzat+LKeEEjpg9Op58FDGf6LFKR9Xz0VKFzrcoJcX2TzkIhva7Av5E55cIrIvf2z3xkw9RzMLD/wJtyS3kjMqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qAoBadVH; arc=none smtp.client-ip=209.85.210.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qAoBadVH"
+Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8423f420455so888600b3a.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 01:26:47 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780388807; x=1780993607; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=gOUthwrtbXM+y6Tz2Zof/YPxQsVutrNjHKZLo6oqW54=;
+        b=qAoBadVHqc0l4nMADc8wLR4cqj64OHpLeQCC4/KmlFxenETMwXL6qPVFNiEh6eRUEt
+         7Wo7MjwBdYLTOSlXUnTB0DF4/hUdzPL25pFqWTPleiRwOM72o1D7k3OgN/aTqbl/Hc6w
+         lZJjUhHzoUglGc66oHgaeS2FlRNFDoOryZraZ9V8zbjiC1IcQj1awBiVSxaxV8KVRg7s
+         4K8JJd+KePMcSGKvQmbSpUpG8XmOfg5GOw+reriPffqjeC59bgpWVO+XcsJV7VcHbncV
+         ZtYwPjKCY9hPLVBBQXlY4OceJuE+FxDKbBygX6mb7i55fFiEVZNLqdzDSNrN4J0JynSn
+         iYZA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780388807; x=1780993607;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=gOUthwrtbXM+y6Tz2Zof/YPxQsVutrNjHKZLo6oqW54=;
+        b=pv+GtRuM9B/+8Biyr+c0Miz6bMAQtRe/A1Bq6zxQtPWnche2ArjFYkNseMKBDnYgE5
+         Ib96jukjT2a8QJCOneDJJYZYOdeJXn+DIWqx4VjxXTc2yYRDQEd+rfkqBdXmyODwsyJI
+         8RAZ8cfyt2V/XHnMz9K2N8cewdMMiGmQObxF9B5MQFhmRfmU13A2rTWjvGC9kmig9wuZ
+         sP+9TB7MtF442X8+yJmucR2lHh8vM5zkt/7ROzyhNVAezjdIA5OM9Me5e2myfbrtjK0J
+         z9wv2uXElyN0Gk0kqReJRPiFbYeU7iQMUo77EOqr9exdBBXNiQKggydDn9v+0ilslSLG
+         12Tw==
+X-Forwarded-Encrypted: i=1; AFNElJ+hTZexjUzmQjKhMlADlLvMShwz/9tjzZ2czTd4xKh2SFgRmuPG2gcBcZayPpPtRVdx8I85KANey69+@vger.kernel.org
+X-Gm-Message-State: AOJu0YxiJQTSYebJ/gAszi5QMZbOzM87zTsF1FOnFH+mQF4nh92ZOwPC
+	KSSnGLkTAz1q0fZc/Uw/piXx82i1LVFG1KBss5wbt56NTv+CCOcUnijf
+X-Gm-Gg: Acq92OH0Z9o6TLy6L9H58R/R24crPn30LthSgszZx4hhTrOL9kwW6qBry+mIN/EI6h1
+	1prPLZ73MSe50BKG8ikcz6rLfjfS6fB6bbb5uCaLj7kiw9PbtMTpSBuWSX8cvDsjYLdXlOKX88V
+	P8zM7EtzYnNt85POFL7rDji5viiPQggNgIE5qgXEqDC+E96kfH+f4ZipAKAOIxuQH3zxzYK5EHI
+	twVpj45e9zZyr5Jm3YtLs0LaC3ETlsE10+FXporfuU3/6c22P/2aLi1dF4jtXCesGiOlQKn/DSs
+	Rq0xAw+KbDYXXRViV61+531Bkr1kZRCtVuCwMqEgvwwu62tO4n8uJGTBGz/Xuz/vo2a/KLe/tbw
+	VwF75+hsyfSVfycdEq/cD84dZygpuKuPYuNwLNAiWJ9h7Kg9fyQ2U1EEHWrKpHNkd2x6fLotpO/
+	/3xfJCeU4RC+3Jsvx2OhjsMfloC59+isId+w==
+X-Received: by 2002:a05:6a00:9457:b0:842:2f28:4e53 with SMTP id d2e1a72fcca58-8422f28a4ffmr11145495b3a.47.1780388807111;
+        Tue, 02 Jun 2026 01:26:47 -0700 (PDT)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842498819e3sm7025142b3a.34.2026.06.02.01.26.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 01:26:46 -0700 (PDT)
+From: Inochi Amaoto <inochiama@gmail.com>
+To: tglx@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	pjw@kernel.org,
+	samuel.holland@sifive.com,
+	unicorn_wang@outlook.com,
+	palmer@dabbelt.com,
+	aou@eecs.berkeley.edu,
+	alex@ghiti.fr,
+	liujingqi@lanxincomputing.com,
+	alexander.sverdlin@gmail.com,
+	rabenda.cn@gmail.com,
+	dlan@kernel.org,
+	chao.wei@sophgo.com,
+	anup@brainfault.org,
+	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	Joshua Milas <josh.milas@gmail.com>
+Cc: Inochi Amaoto <inochiama@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	sophgo@lists.linux.dev,
+	hanguidong02@gmail.com,
+	michael.opdenacker@rootcommit.com
+Subject: Re: (subset) [PATCH v5 RESEND 0/5] Add initial Milk-V Duo S board support
+Date: Tue,  2 Jun 2026 16:26:23 +0800
+Message-ID: <178038877400.2114604.9271390665852626517.b4-ty@b4>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260530173347.33533-1-josh.milas@gmail.com>
+References: <20260530173347.33533-1-josh.milas@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-On Do, 2026-05-21 at 10:36 +0200, Bartosz Golaszewski wrote:
-> Ahead of reworking the reference counting logic for platform devices,
-> encapsulate the assignment of the OF node from another device for
-> dynamically allocated platform devices with the provided helper.
->=20
-> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-> ---
->  drivers/reset/reset-rzg2l-usbphy-ctrl.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/reset/reset-rzg2l-usbphy-ctrl.c b/drivers/reset/rese=
-t-rzg2l-usbphy-ctrl.c
-> index fd75d9601a3bfde7b7e3f6db287ec8c5c45a20ab..f003b360629c90bb37ed0ade7=
-a675b5b0f28fa7e 100644
-> --- a/drivers/reset/reset-rzg2l-usbphy-ctrl.c
-> +++ b/drivers/reset/reset-rzg2l-usbphy-ctrl.c
-> @@ -249,7 +249,7 @@ static int rzg2l_usbphy_ctrl_probe(struct platform_de=
-vice *pdev)
->  	vdev->dev.parent =3D dev;
->  	priv->vdev =3D vdev;
-> =20
-> -	device_set_of_node_from_dev(&vdev->dev, dev);
-> +	platform_device_set_of_node_from_dev(vdev, dev);
->  	error =3D platform_device_add(vdev);
->  	if (error)
->  		goto err_device_put;
+On Sat, 30 May 2026 13:33:42 -0400, Joshua Milas wrote:
+> This adds an initial device tree for the Milk-V Duo S board
+> with support for reading from the SD card and network over
+> Ethernet. This is continued work from Michael Opdenacker's
+> v6 series [1] on the ARM64 and RISCV side. It has been tested
+> with ARM64 and RISCV64 to boot from an SD card, have networking,
+> and read I2C slave devices over i2c4.
+> 
+> [...]
 
-Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
+Applied to for-next, thanks!
 
-regards
-Philipp
+[1/5] dt-bindings: soc: sophgo: add Milk-V Duo S board compatibles
+      https://github.com/sophgo/linux/commit/efe66eed43ef507a5b3784d988842d2e621806e1
+[3/5] dt-bindings: soc: sophgo: add sg2000 plic and clint documentation
+      https://github.com/sophgo/linux/commit/972e8823d93866bc39cf6270bd5ec26d055b9d6f
+
+Thanks,
+Inochi
+
