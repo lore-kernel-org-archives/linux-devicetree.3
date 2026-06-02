@@ -1,150 +1,104 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B942E2C029D;
-	Tue,  2 Jun 2026 08:21:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3291039DBF7;
+	Tue,  2 Jun 2026 08:21:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388496; cv=none; b=gz2ylEESfYU8lQv2iz88KuxysRvTJTf5YpWo/OI3nsYPs6BiAWPpzreSnKMDYdMT7GaZMwjRrsdZFvsmzbV03CQihRzlBV5Ox0/jCXwCIi7/48nBrkzevZMuWgM6o7PLXlKpIaidqzAjuIbtFrMYZK1RTZwm5OZQufGFLa2Ea3s=
+	t=1780388504; cv=none; b=j3w1TPI7UH2LqmSwfHK93IqfJURsNnVGP7QtM3mJ+qifaezFkBiaDmEw2Ei513FNm7tX2jvesG+g9gEziuI1iPnfP43jDQKQrrCeCIaTeOxVeCl6c4KEEmR6qOne0WLAriutaGqAK1HkmfnDsa7juMseTp07Iu3FHM+Hv5rbbBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388496; c=relaxed/simple;
-	bh=c/2cZtD9sP8z3cs75tkWfygYjcrazGNL/FvaGM4hCaw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=TikKHi6ran8k4lBdJ9f7tJGVouSa6aJduBnX8k8kF0wlzLaYRld/sccZXeLy19IKx2dhCAcK+pgjllzRTszn1+xa8+XsYtWAyGKSlofTTbPiSzFCxvLTwk17NODXyj0l45629voW//h3Bb2Iktfzu6JcV2PMGBy1K9unJad6Da0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPg1Qixm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPg1Qixm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0709B1F00893;
-	Tue,  2 Jun 2026 08:21:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780388495;
-	bh=PtBNk0g8mRGl4pTTJm0gNHPYAvl9kFi7i5BTDgauKoA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=VPg1QixmnDHJZRhjJyfttTRk7X7FZD+Cieh/oKEmGZntBCMP/tvnDwbS6mWHe5AFE
-	 ojGLreC9dTpU4LnHnErtmpTyTK/2LxE6WKBZaOCnrVRpZfgBEP+VqZ41wkFL9fD1nA
-	 EvkqbrPjx35tfTNFkLENeupEQ6eFac0kkj9GTHx3V8QPSAdcDPFkHpdoWcyCAa8Dt8
-	 bdEUIGj2/xyOJ/zk8dgNRWPUIbNI1QpAH9HGoJQe8BJhmun3iYEBdoVKDR+jhweaq/
-	 MNMEf+2p6l7FwXuzW8/wns+7/0MPpEyrMpucgvCRtlVMTYNYD047KQp8/7YFZsQimx
-	 +QZ90Uk2SEiLQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v10 4/6] dt-bindings: pinctrl: s32g2-siul2: describe
- GPIO and EIRQ resources
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260602080132.3256239-5-khristineandreea.barbulescu@oss.nxp.com>
-References: <20260602080132.3256239-5-khristineandreea.barbulescu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 08:21:34 +0000
-Message-Id: <20260602082135.0709B1F00893@smtp.kernel.org>
+	s=arc-20240116; t=1780388504; c=relaxed/simple;
+	bh=t0ICf3QNinKsFsTA8Fz564MNjOGOXSQkEdwQAHNazvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Cw1XzcGTcSU11tBvAALARUCWjNIcpBetY0E+3y2GWdZD0Tm2d44W+p+0VWA5SKZONfxiDOh7E6B/ZysTSCyrT9mHO+g5czux5wFVWcsbRxErY3VdthNNNgX870A/oaR8nqJL/cLwZats9ND8kdds5m/IGgBVWxp7jkdSZk/nyIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.15])
+	by APP-01 (Coremail) with SMTP id qwCowAAnzNQHkR5q1DNrAA--.3395S7;
+	Tue, 02 Jun 2026 16:15:13 +0800 (CST)
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Icenowy Zheng <zhengxingda@iscas.ac.cn>
+Subject: [PATCH 5/6] arm64: dts: qcom: sc8280xp-microsoft-blackrock: set GPI DMA channels
+Date: Tue,  2 Jun 2026 16:14:50 +0800
+Message-ID: <20260602081451.3808833-6-zhengxingda@iscas.ac.cn>
+X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAAnzNQHkR5q1DNrAA--.3395S7
+X-Coremail-Antispam: 1UD129KBjvJXoWrtF45Kw4kuFW3JrW8ur1UAwb_yoW8Jr4Upw
+	48AFWkGryfWF45Ga4DGF4Yva1Yv395Jry8Cr92k340kw4kKr92qr1ft39rCa1UAFyfWw4r
+	Wr409r18XF1q9rJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBE14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
+	kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
+	z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr
+	1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
+	M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
+	v20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
+	F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q6r
+	43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_
+	Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x
+	0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWx
+	JVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+	IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUQFxUUUUUU
+	=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Medium] The legacy fallback branch in the `oneOf` block fails to explici=
-tly forbid newly added capability properties (`gpio-controller`, `interrupt=
--controller`), creating a schema validation loophole.
-- [Low] The device tree example will fail `dt_binding_check` compilation du=
-e to an unresolved phandle reference to the undeclared label `&pinctrl`.
---
+It's found that some GPI interfaces shouldn't be touched by HLOS,
+otherwise system hang / reset happens.
 
-commit 055c2d417b67cea0bcdcafe1444e526610028d07
-Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
-om>
+The GPI interface availability information is available via the ACPI
+DSDT table, as interrupt resources for \_SB_.QGP* devices.
 
-dt-bindings: pinctrl: s32g2-siul2: describe GPIO and EIRQ resources
+Add such information to the device tree file.
 
-This commit extends the S32G2 SIUL2 pinctrl binding to describe GPIO data
-and external interrupt resources. It adds GPIO and interrupt controller
-properties and expands the reg property ranges. It also provides a oneOf
-construct to support legacy and new node layouts.
+The DSDT table is acquired at [1].
 
-> diff --git a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pi=
-nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinc=
-trl.yaml
-> index a24286e4def62..e4cc1a3a795c8 100644
-> --- a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.y=
-aml
-> +++ b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.y=
-aml
-[ ... ]
-> @@ -86,10 +118,32 @@ required:
->    - compatible
->    - reg
-> =20
-> +oneOf:
-> +  - description: Legacy pinctrl-only node
-> +    properties:
-> +      reg:
-> +        minItems: 6
-> +        maxItems: 6
+[1] https://github.com/aarch64-laptops/build/blob/db5150edc30c108662d85fa06bedf962f70e8d1e/misc/microsoft-devkit-2023/DSDT.dsl
 
-[Severity: Medium]
-Since gpio-controller and interrupt-controller are allowed at the top level,
-does this legacy branch need to explicitly forbid them?
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Without setting gpio-controller: false and interrupt-controller: false here,
-could a node matching this legacy branch declare these capabilities without
-providing the 11 reg items and gpio-ranges required to actually use them,
-thereby bypassing schema validation?
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+index 00bbeeef6f14d..02075671316bd 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts
+@@ -561,14 +561,17 @@ &dispcc0 {
+ };
+ 
+ &gpi_dma0 {
++	dma-channel-mask = <0x3>;
+ 	status = "okay";
+ };
+ 
+ &gpi_dma1 {
++	dma-channel-mask = <0x3>;
+ 	status = "okay";
+ };
+ 
+ &gpi_dma2 {
++	dma-channel-mask = <0x23>;
+ 	status = "okay";
+ };
+ 
+-- 
+2.52.0
 
-> +
-> +  - description: Pinctrl node with GPIO and external interrupt support
-> +    required:
-> +      - gpio-controller
-> +      - "#gpio-cells"
-> +      - gpio-ranges
-> +      - interrupt-controller
-> +      - "#interrupt-cells"
-> +      - interrupts
-> +    properties:
-> +      reg:
-> +        minItems: 11
-> +        maxItems: 11
-> +
->  additionalProperties: false
-> =20
->  examples:
->    - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +
->      pinctrl@4009c240 {
->          compatible =3D "nxp,s32g2-siul2-pinctrl";
-
-[Severity: Low]
-Does this node need a pinctrl: label?
-
-The gpio-ranges property added below attempts to reference &pinctrl, which
-will cause dt_binding_check to fail with a 'reference to non-existent node
-or label' error.
-
-[ ... ]
->                /* IMCR119-IMCR397 registers on siul2_1 */
->                <0x44010c1c 0x45c>,
->                /* IMCR430-IMCR495 registers on siul2_1 */
-> -              <0x440110f8 0x108>;
-> +              <0x440110f8 0x108>,
-> +              /* PGPDO registers on siul2_0 */
-> +              <0x4009d700 0x10>,
-> +              /* PGPDI registers on siul2_0 */
-> +              <0x4009d740 0x10>,
-> +              /* PGPDO registers on siul2_1 */
-> +              <0x44011700 0x18>,
-> +              /* PGPDI registers on siul2_1 */
-> +              <0x44011740 0x18>,
-> +              /* EIRQ registers on siul2_1 */
-> +              <0x44010010 0x34>;
-> +
-> +        gpio-controller;
-> +        #gpio-cells =3D <2>;
-> +        gpio-ranges =3D <&pinctrl 0 0 102>,
-> +                      <&pinctrl 112 112 79>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602080132.3256=
-239-1-khristineandreea.barbulescu@oss.nxp.com?part=3D4
