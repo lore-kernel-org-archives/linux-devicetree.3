@@ -1,170 +1,176 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f181.google.com (mail-lj1-f181.google.com [209.85.208.181])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E7FF25228C
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01943383985
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:07:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780437999; cv=none; b=Dd3h7IXkGizDk//y0fpIeYwxDwV2UylczKq9WdW1v0PFG7UVBe/l0yCA2GD1Yoq6M4vBXRIVMlY11szUG916GUc7KUKslB4+bSf2ZG7RbTAJdupnwg+bUU4Qou5NAXUFiLWwDJf+oMYY6g/LxmBOjWhR5xNO5F/oAekh4X1CcTk=
+	t=1780438041; cv=none; b=a4GHgRLaEnzcTwV78sKP7ckdYpM+cWBto17u45ZqLky7Mb+sPIjHibny7ETTiZVNDnBUmVh49GWv99oaX9URhbGuHdfnSgAe5fyXr+zjjAwI2KSWxYbJq2YWKGbupWslDRQ+yvJ5Wf4yunQYZfOtjBVdWdgSLM49Qb3kKNqOQag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780437999; c=relaxed/simple;
-	bh=sU0j/qKTGNy7mFx3pTa6I/UWYnUlQPKGcYUskhvVJf8=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QQGWbd2M8/CqGBZuRNht//lgdJpBJHqT38+ihBtP+CNRCTOXiU+4NE/wNbTqhe6FaMKxUbvR8ZJKf/U11x9bD8Y4dZQaUMIEfooUJ+8sxnQ26zm2EkYt3IjHykNA9s4YlddINjhl26iR76sodBrST90Xqp7TYpxTsKQs4rfcp/E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h94dpuEr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780438041; c=relaxed/simple;
+	bh=6x9fMJ7t6HJunG2X30tVVOCMTH7Bh31dGiwtTPzjvGo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=F5jBgDYwzukIJHiiYcuVwgicJEXzKplsjoyyOqPSLuZtIHU3kqqX/n3ctuHBdOXFpq0Xg0YPJDEtR3uGPV+ZtsmrChXsj1FFec/rGOzioyxyh8/nx82SwqYrurUwF/PMsGND8m1MYVREzyIH/168U9UncYga2CLJuAVGTGiKREM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=t5LcHcZS; arc=none smtp.client-ip=209.85.208.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h94dpuEr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FA331F00893;
-	Tue,  2 Jun 2026 22:06:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780437997;
-	bh=IIRZjKPLG2j0kM34I1bzdbyjrZCMHhLGCHDAD4iOg4w=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=h94dpuEr/xC9DbjrrRwoqxzOvLP7uRQCxFhE9VlhtzsQUqzc1N1wjk6Rb7h5RrYhg
-	 jvsL42rvQ6fum37Xt0ZxjWQbGfqz1jH3mPLyJf3OuaxMwrv755vXyk/UgMjYCJLKiE
-	 t2SRTXbwdrxTkGHgHqXtStFYZ/mjf2dAYS1+V1eA6OobIPwZV/OX4VHYmhr/ynHm+T
-	 DKz6fkay2Ia/a5bTEWfIQpkqPuoFXhl3Z1HlOhrN9qUs2e6l/SMRke/jLqknXRTa/s
-	 2K0tJSMd1QziYOEkfswjeC+BM9N4Wn6tdvQcFbWx/1t+rBwu0GOk/3iImOz9x2ndTP
-	 7DXOikG3QUE8g==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V4 6/6] arm64: dts: rockchip: Add Anbernic RG Vita-Pro
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260602212512.418166-7-macroalpha82@gmail.com>
-References: <20260602212512.418166-7-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 22:06:37 +0000
-Message-Id: <20260602220637.8FA331F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="t5LcHcZS"
+Received: by mail-lj1-f181.google.com with SMTP id 38308e7fff4ca-396773734e8so4625611fa.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:07:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780438038; x=1781042838; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=7SRIMl3FmmdDZgXTjOCnwja2kX4Az8p1cvuxpefmzXA=;
+        b=t5LcHcZSENbyyLkEdcs6i69kMQJUXbGtascfl+o5b0hklk1lowJhY/wzrsrQQFPPE9
+         yfzUbLzOTem79ZLgDz22snf0bkyYDuCpwBEUn0O0YcXtivKq042OgRWDxbhpDdmLmzvo
+         zPd9oBLvmPC9SeyBxj/Zu6dewc/fOcTFDXc1u79qXJS/d9GAPdT4UUPXCMxNTuRA2C8Y
+         n57h+0lOCoRpoubZF65txza/LU/6ZwYY1IEAs/eOYrvB4prXzUEiGZbtf9duY/spKwjP
+         v7+WQtvRU6sIo6EngzngmN9PBjXuQSqs051SheGPNeutSTto8giYLiP/10VqynW6ctKn
+         V9Vw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780438038; x=1781042838;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=7SRIMl3FmmdDZgXTjOCnwja2kX4Az8p1cvuxpefmzXA=;
+        b=B8wgQT10xVITD4W+M075UzAAU1oM3/DuSGobj5grM9khZjM0/l15Ou/z8adlqdcrjJ
+         v+fY3nTmBc5XJamBhIulp9cfePISax0UmqIqV/E9FSo9gjFJ1PX3Ifn4X6rrUhXdqH9U
+         RU/UKpygNqWZtULvbqSWybp77KH06p4yW4mFMUYAmZ/MuP+oe03Swo/LCD0v70f109fT
+         /uvKegEX3a9AhjBQawxFKZC5OeDvXSQj+WOLdSz56eQjatyfAZjOAqDRsAADQGR6l0iZ
+         BR0k51H5xwgnWqF3xeC5U/9fM9FtTrFutucEfiHizm+6YZOh0It/WoLc5q/nxnM4wBVk
+         FvXQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9yph5soEev2y4h8LuVXlW/us8X959/0rgxG+SCnKp1e/5rGug27c9oxunrZYMiYv03AOZUdfUnCMBe@vger.kernel.org
+X-Gm-Message-State: AOJu0YwhqwQrvO8VzbaHTY6+UajXb64JORy5lP8v82bJ4rzQxeQRcsaa
+	YzDflF8r1L1au4rN2iCpk5pZ+S7m84dJ/ab057mf/89wuLlaovM8AkMYIlMz5v6yxqk=
+X-Gm-Gg: Acq92OFwCpmfOsYXcmRlpKF2vwLQaC2olSCJAhGL+UqvzR6sSgR0IqbsB+PXl/YYqpf
+	PF4ofJr0UUyJAAPvziRhnKwJNxUiTb8ZoI2XIziWIqZCkKHZaJGVBDi620hU5jyqToQGjPGSgss
+	P4RGCNa/RAoD9OdpXaoA8WZZJXPmOSN4Ae+QRu5ww7jRhJ8dShFkoDL0q+oCV32Opg4QAPurREU
+	guHx/Nl8+q3cKjOWGDXuLikNvdub1snhtFcNKwECyy9nzA+wme9126Jy/1y1LcohTaamAhFbyGm
+	euiMD7X6oZtewM3h8aY9gdV6u5JID1YBM4Mi9o5ByDQSyukTD0XBsfst84fZcuajowXmRl9AK2s
+	E/wxe47B7sV3FfkaRdO4U7xjsbOMBZpv8WQwYs0DTu3scFHwhhZ6HVuJTFdOIfBUWLjrQsvkgW3
+	ouIzBUH6pmCM+TvEowJGuhSv84wVDa3K0q1JGOfZ9Or2Nu0f8y69gbO9eEsRv5+NcTaOGHWBwnV
+	C78ZhRAbDKPfddu
+X-Received: by 2002:a2e:bc2a:0:b0:396:975f:c384 with SMTP id 38308e7fff4ca-396ac314d06mr1902761fa.6.1780438038099;
+        Tue, 02 Jun 2026 15:07:18 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396abf66ea9sm3570671fa.2.2026.06.02.15.07.16
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 15:07:17 -0700 (PDT)
+Message-ID: <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
+Date: Wed, 3 Jun 2026 01:07:16 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Hardware Description Mismatch for Bluetooth Controller
-- [Medium] Incomplete Device Tree description for SPI Joysticks
-- [Medium] Contradictory Suspend States for PMIC Regulators
---
+On 5/23/26 05:48, Bryan O'Donoghue wrote:
+> Add a new MIPI CSI2 driver in DPHY mode initially. The entire set of
+> existing CAMSS CSI PHY init sequences are imported in order to save time
+> and effort in later patches.
+> 
+> The following devices are supported in this drop:
+> "qcom,x1e80100-csi2-phy"
+> 
+> In-line with other PHY drivers the process node is included in the name.
+> Data-lane and clock lane positioning and polarity selection via newly
+> amended struct phy_configure_opts_mipi_dphy{} is supported.
+> 
+> The Qualcomm 3PH class of PHYs can do both DPHY and CPHY mode. For now only
+> DPHY is supported.
+> 
+> In porting some of the logic over from camss-csiphy*.c to here its also
+> possible to rationalise some of the code.
+> 
+> In particular use of regulator_bulk and clk_bulk as well as dropping the
+> seemingly useless and unused interrupt handler.
+> 
+> The PHY sequences and a lot of the logic that goes with them are well
+> proven in CAMSS and mature so the main thing to watch out for here is how
+> to get the right sequencing of regulators, clocks and register-writes.
+> 
+> The register init sequence table is imported verbatim from the existing
+> CAMSS csiphy driver. A follow-up series will rework the table to extract
+> the repetitive per-lane pattern into a loop.
+> 
+> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
 
-commit 79a0a3133515f64c6cd7697921d2b225d5dc8aa8
-Author: Chris Morgan <macromorgan@hotmail.com>
-Subject: arm64: dts: rockchip: Add Anbernic RG Vita-Pro
+<>
 
-This commit adds the device tree for the Anbernic RG Vita-Pro handset,
-based on the Rockchip RK3576 SoC. It includes initial hardware descriptions
-for the display, audio, buttons, networking, and power management.
-
->  - RTL8852BE WiFi/Bluetooth combo
-
-[Severity: High]
-The commit message mentions an RTL8852BE combo chip, but the device tree
-configures the Bluetooth controller using the realtek,rtl8822cs-bt compatib=
-le
-over a UART bus below.
-
-Is this compatible string correct for this hardware? The RTL8852BE typically
-interfaces its Bluetooth module via USB rather than UART. If the hardware is
-indeed RTL8822CS, should the commit message be updated to reflect the corre=
-ct
-chipset?
-
-> diff --git a/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts=
- b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-> new file mode 100644
-> index 0000000000000..344ba18705338
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/rockchip/rk3576-anbernic-rg-vita-pro.dts
-> @@ -0,0 +1,1327 @@
-
-[ ... ]
-
-> +			vdd_cpu_lit_s0: dcdc-reg3 {
-> +				regulator-always-on;
-> +				regulator-boot-on;
-> +				regulator-min-microvolt =3D <550000>;
-> +				regulator-max-microvolt =3D <950000>;
-> +				regulator-name =3D "vdd_cpu_lit_s0";
-> +				regulator-ramp-delay =3D <12500>;
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +					regulator-suspend-microvolt =3D <750000>;
-> +				};
-> +			};
-
-[Severity: Medium]
-Is it intentional to set both regulator-off-in-suspend and
-regulator-suspend-microvolt here?
-
-These properties appear to contradict each other, as turning the regulator =
-off
-would make the target suspend voltage meaningless. Would it be better to use
-regulator-on-in-suspend if the voltage needs to be maintained during sleep?
-
-[ ... ]
-
-> +			vdd_gpu_s0: dcdc-reg5 {
-> +				regulator-boot-on;
-> +				regulator-enable-ramp-delay =3D <400>;
-> +				regulator-min-microvolt =3D <550000>;
-> +				regulator-max-microvolt =3D <900000>;
-> +				regulator-name =3D "vdd_gpu_s0";
-> +				regulator-ramp-delay =3D <12500>;
-> +				regulator-state-mem {
-> +					regulator-off-in-suspend;
-> +					regulator-suspend-microvolt =3D <850000>;
-> +				};
-> +			};
-
-[Severity: Medium]
-Does this GPU regulator have the same contradictory suspend state issue as
-vdd_cpu_lit_s0 above?
-
-[ ... ]
-
-> +&spi1 {
-> +	num-cs =3D <1>;
-> +	pinctrl-0 =3D <&spi1m2_pins>, <&spi1m2_csn0>;
-> +	status =3D "okay";
+> +static int phy_qcom_mipi_csi2_parse_routing(struct mipi_csi2phy_device *csi2phy)
+> +{
+> +	struct mipi_csi2phy_stream_cfg *stream_cfg = &csi2phy->stream_cfg;
+> +	u32 lane_polarities[CSI2_MAX_DATA_LANES + 1];
+> +	u32 data_lanes[CSI2_MAX_DATA_LANES];
+> +	struct device *dev = csi2phy->dev;
+> +	struct fwnode_handle *ep;
+> +	int num_polarities;
+> +	int num_data_lanes;
+> +	u32 clock_lane;
+> +	int i, ret;
 > +
-> +	/* SPI controlled MCU for joystick and joystick LEDs. */
-> +};
-
-[Severity: Medium]
-The commit message notes the analog joysticks are controlled via userspace.
-Since there is no child node defined on this SPI bus, how does the kernel
-instantiate the userspace interface?
-
-Should there be a spidev node or another specific child device defined here
-to allow userspace to communicate with the MCU?
-
-[ ... ]
-
-> +&uart6 {
-> +	pinctrl-0 =3D <&uart6m1_xfer>, <&uart6m1_ctsn>, <&uart6m1_rtsn>;
-> +	pinctrl-names =3D "default";
-> +	uart-has-rtscts;
-> +	status =3D "okay";
+> +	ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 1, 0,
+> +					     FWNODE_GRAPH_ENDPOINT_NEXT);
+> +	if (ep) {
+> +		fwnode_handle_put(ep);
+> +		dev_err(dev, "DPHY split mode is not supported\n");
+> +		return -EOPNOTSUPP;
+> +	}
 > +
-> +	bluetooth {
-> +		compatible =3D "realtek,rtl8822cs-bt";
-> +		device-wake-gpios =3D <&gpio2 RK_PB6 GPIO_ACTIVE_HIGH>;
-> +		enable-gpios =3D <&gpio2 RK_PB5 GPIO_ACTIVE_HIGH>;
-> +		host-wake-gpios =3D <&gpio2 RK_PC1 GPIO_ACTIVE_HIGH>;
-> +		pinctrl-0 =3D <&bt_reset_gpio>, <&bt_wake_gpio>, <&bt_wake_host_irq>;
-> +		pinctrl-names =3D "default";
-> +	};
-> +};
+> +	ep = fwnode_graph_get_endpoint_by_id(dev_fwnode(dev), 0, 0, 0);
+> +	if (!ep) {
+> +		dev_err(dev, "Missing port@0\n");
+> +		return -ENODEV;
+> +	}
+> +
+> +	num_data_lanes = fwnode_property_count_u32(ep, "data-lanes");
+> +	if (num_data_lanes < 1 || num_data_lanes > CSI2_MAX_DATA_LANES) {
+> +		ret = -EINVAL;
+> +		dev_err(dev, "Invalid data-lanes count: %d\n", num_data_lanes);
+> +		goto out_put;
+> +	}
+> +	stream_cfg->num_data_lanes = num_data_lanes;
+> +
+> +	ret = fwnode_property_read_u32_array(ep, "data-lanes", data_lanes,
+> +					     stream_cfg->num_data_lanes);
+> +	if (ret) {
+> +		dev_err(dev, "Failed to read data-lanes: %d\n", ret);
+> +		goto out_put;
+> +	}
+> +
+> +	ret = fwnode_property_read_u32(ep, "clock-lanes", &clock_lane);
+> +	if (ret) {
+> +		clock_lane = CSI2_DEFAULT_CLK_LN;
+> +		dev_info(dev, "Using default clock-lane %d\n",
+> +			 CSI2_DEFAULT_CLK_LN);
 
-[Severity: High]
-This is the UART bus configuration mentioned earlier where the bluetooth
-controller is defined. Could you clarify if the RTL8852BE mentioned in the
-commit message is accurate, or if this rtl8822cs-bt compatible string is
-the correct hardware description?
+Why CSI2_DEFAULT_CLK_LN is set to 7, what does it mean and how is it used?
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602212512.4181=
-66-1-macroalpha82@gmail.com?part=3D6
+Since "7" is a meaningless number in the context, I believe it's practically
+not used at all, and if so, 'clock-lanes' property should be just removed.
+
+> +	}
+
+-- 
+Best wishes,
+Vladimir
