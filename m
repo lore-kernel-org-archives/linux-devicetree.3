@@ -1,139 +1,191 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73F49388862
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:15:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.128.47
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388113; cv=pass; b=EDuBVYmz3lxrKzida/Q4/7AGIK87zB8PwEd9gOScS+RCwz+Cwh8u3XqT9sEXJw48gWHXCkVOyL7HWCJ84hlWa4Lxr5paYZhTiT1vHXMiA/53gYzytdWM1KGFMr5K6y6Oe01B/Ld3QEEYYXbzhjjumBZsJ6MRS3XmsPOMl+f5n0I=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388113; c=relaxed/simple;
-	bh=SlCJhBylOzlkOPgNxa4vipn9yPxx3vthybfgaVRd4sc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H7lO8r46Tj11mWqSSlrVu1NX4hPEO3249cJDe1A83q3+fqQD0HCguIWV7CBmkmM1IY5N8ijdllvZIS4y4MUNSlbsQ3FjmF0G8MVemgKD5MZntkHKeeDNJ6b6N9shNC5mCxv9L+dEUChKc0dFRHCKhd7hENz0MjmLfy2lQZ5evgs=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JcrCovYn; arc=pass smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A85434A797
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:15:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780388119; cv=none; b=mwhQ+UPl4gOaeQWcwUdBVZlOnzIVF5d+FlGwUrLZcZ3fvTy1zuiQjlGjcZJrDNcuRNbUGzF41vpaR3+5mDQ5HtPQi8nnXRmq7yX1mxPyRdHaML9ZiMQBFZslyUycySzOHcPO0OAv3HL6sC4HxX1vSNYZEIemB0TDqYXAj87X3gM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780388119; c=relaxed/simple;
+	bh=vaGwUG7gr9h2YOrM5Mtbn+7T9ugZo8gjzRulD7csVD4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=n10szS20PwOrTcJAY2NU8CwUmg/OzY2OwFZSkvAJAxvanTsrc9gF1dlbquq9WBGb3i2OPq6Sa/DFLeg77RFc6U69OT5r01G/lanaYuIvIQqM0EiTv2VUcqQoDcCq+ID5esTtAQYuMdRI0lBHV0QBQxeEjFWBRpfF5mDYCz2suWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Np6pJObp; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JcrCovYn"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490a765d410so24886765e9.1
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 01:15:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780388111; cv=none;
-        d=google.com; s=arc-20240605;
-        b=LdbmPsJygKiK+QxWs+VdA0Fxe4Se5C28QDJXJZj79FX102HsxEfce/pKZHsEJOPKCx
-         NYdzr/kCRshYUF+QiMuebTwVbY1YWG7w2jO9/MO0AjsTwWAyoz98FH3zdryOfaMPFUXa
-         STAhyixdve1oHeznUNZkUi3F5GdWtAchPQcbtbKd4ahETgkz2/wY1oCzbUEYIwErmvdm
-         bu/FWpSvNMFpu3Y0Y97Ke8qewPYdmvy6tWTnZ0nqcBbMEogtZFn6xf6liNFhSKELo802
-         99CVVb4l1iHoVRh0qu8pAQomgtn0Ca8xixKSiQ4OWGgXAU4A5cPASkA0HZJDH/+Sg2yE
-         Q8Zg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=dViNr93X/dYoXRtlltH7nsrecEamX34qdglxK6qZs60=;
-        fh=QMW5FuBFqVR0gKR4VMxXJzbSpE22m+knHAy9EmJEbj0=;
-        b=Kgmfs9MR/Dvy1DUQjnaRCJezSZc8W/xS21r6RX4rOhDHReVmOzCkOOa11gJ+qWBAe+
-         WWnzEX0tFKOUuIlwMaDop4VzHOTKRBH54R6ZvEdviP50EujO1ex54D8UaYcs75FjK25j
-         5atSQ7EXSkuFZ2pDXfOPvfrcREBF9sZ2+W2Cc3Dvi1s119/DQaLYG886/laQ1hfoEMlK
-         AlS5529Ejvi7H/fuou3C28G4j9l3sS8eTzPM2mbRsuIBo5Q5eu1VcIMGmqxnRgCeSzi7
-         Ksq5HTivwfmVKpqAFDe46gxIm53URkenwxS95oy/Thee3ZNniXf7xqpzlr3WBi9L3RF+
-         dA7w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Np6pJObp"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45eeea039ebso2176388f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 01:15:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780388111; x=1780992911; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=dViNr93X/dYoXRtlltH7nsrecEamX34qdglxK6qZs60=;
-        b=JcrCovYn50G1LvKq0dVbeymKfPpOUC1b84sETUS+hEOAhWMOPrf4wm++U3oIvBxKtb
-         aXkqwTJlXsxx7hXigcpWdcOLkGnhzHAwVerSyqyE2OI7rukze49lM5uAI5oGMFg5UXZE
-         pMuWCyAeaMDPzRLWjml6jgyRywrpkmzpfdIVgRwox/pGZwX7qeANa8FYCN3uREtz67Ho
-         e4LGFplOQti8k7d/UfzL96Mc7H9iqsYCc3AllDE/QLc0/S7h1zrMWCDD2Q/Fm0MUetvZ
-         x9tq4FfIkcAc27ugsZmFUPFbScktSSlFmoDNPstO9nw0Mg9Mb+egHKtSwgsMfTni2ziW
-         vBWw==
+        d=gmail.com; s=20251104; t=1780388116; x=1780992916; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=R0tri8tCsiy74EQNFulBrakDi/+0isJeRmm5jzNUg/I=;
+        b=Np6pJObpgw0TvYkM021FfL2AoONCArGEOV0EDGhzV/M8QqwSmUOwB6T4IlBiHq6Ot9
+         BlzIDQ7nmzPXVgPSqtzUnL8OG0VTbV4VKDXsWu7XEva4ghsccQKnpD2CFParE0zftSQW
+         GS8U9oRv3gEMlqVygGV+Ruwr+M+q7+ku5OPDu+pqh7WDXb++WJWvlp/80A3WHhSjIbfX
+         5yQSgKrDF5wwsGsCAtsvphv60LXMmzkTDYgmbrbJOSbO5RvEyjNUKZJTG0q1saKy/KON
+         shA//FceVKhF7kHyJnkaibcQ1J68xE80JtFtdGErWRdj2vfT6gkUZrGIiFt1K6hiSqCC
+         Fslg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780388111; x=1780992911;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=dViNr93X/dYoXRtlltH7nsrecEamX34qdglxK6qZs60=;
-        b=eSXAxFexRPq/FWGrKZOV37AXt8uTN4OKq8p9Wwkjq1aJKVqZvVpJbJv5eVvLHzItSZ
-         TnQwsCllNM4uDOmAMqJ7gEzyIsYYsoVDMm9QkfbXAFA507dg+BqOE6bU6MbVOZiO+bIo
-         m22RD2IotfQ60Om5NgHYREsikcxEv8sgP3Msc8T0rhxeOhOvmYwHsfs4PzI19HYwaiMJ
-         R8VejXyoEW+mmb3+1sGV+TpUHDkjvbxmE9t7ecrqJ4M7LrL/CzqiSRQqL1F37wOaRasu
-         ywC2skPe84LRFw5CqkwQc4N7Vz/SMbD6UYReCZySDlUPfI+uSGhxAyVQ6akxGkiLLZO+
-         Qf5g==
-X-Forwarded-Encrypted: i=1; AFNElJ85NGTZoqYqjjFrhTKtRntebvOxM7S3I4oPTQeBZRH8jwPIBHb71YBSLnVDIW108gvsuJRsV2U6Ekgm@vger.kernel.org
-X-Gm-Message-State: AOJu0YwSgk7m2dJust32c7iYBryPKFE8U/D4o62cRbZ5nDtMg6VTZCmc
-	+62TC9AnRqRuiK3ejH9Ueo9c1xxD4Lat82JdO9j3wTb9cyJ+9E814QMHDzmnRHsosV6HjaMkcwN
-	oOo3f3BqlatG3aHBckqc1tKNwgvj73uI=
-X-Gm-Gg: Acq92OF5NeuPr+X0UZwCwmfCngmWUT8aYSDvtBe8eredxU5zDWVbgeWEkx+fD1yJ+Dm
-	2yL/mrDbemvPlojI3W3qGAntazHRU/v07tfbOqUrHFUotMALO2aC/QOs6qh/9XC/S4QO+BlLb33
-	jHJagnZ7Uj+RKbLcsWgkftZPPGcRhpjLVEopZRykC9wuAiApBM84HbKFx8GXRFPH7shYmFoJyxK
-	zYFyUeC6sZuZcurwaYuEFn/4FKSKgWwb6PFLw58uVk9gKnFeRVbfI/nqG8QGKKptyhfg1PQi8Xp
-	D7PMCwP47ii0BY/AfhUMT0oxVXq8hkSREt/d4ecuoVsh9qIqOTrpf7cDh3b/VnKceWSCh8QqMw+
-	xe+n0Uhk3T22zZdZiZt6X/OqhlBY9Nhc5FALqeGEhbSSS9YkQfO2/9Zp4nm8czUlY3Dhn4YPTu0
-	ABOkAtS6j2LfVZPwaV
-X-Received: by 2002:a05:600c:6091:b0:490:6237:521b with SMTP id
- 5b1f17b1804b1-490a2b6b21cmr270415925e9.27.1780388110635; Tue, 02 Jun 2026
- 01:15:10 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780388116; x=1780992916;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :mime-version:references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=R0tri8tCsiy74EQNFulBrakDi/+0isJeRmm5jzNUg/I=;
+        b=tRMY9sGgLv1KmSEaV2pqR3fKk8SHcHPjt1pBUOnoipTZNiGg99hA3Vo5r1d2c97CVp
+         pEVk3D9TiwZnJFMoRnEy9fnBjdIqjENmwSXnJc/RHGJk7aO4lfnQwHyoxXh/1yw2tJ8/
+         MtN0QWaOON0QUePOs4I+QEPdOaAg5IMDyIqEIs+lcWE54aU8Rs73pkDWhpfEVSmZx8Xs
+         qOMMwosCZH/EQmCmt700psJoERW0mHmV8tTas9Yph3O/v4jE3Cs6oTzXPns3ZptETEN2
+         8yDDWELKsnToiaaSpHVPZybu3CcEm1iqjuc9574XnvS4Mxeo7v8Nsj0UgVHETbFqmzHB
+         h68Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8CVPyzlIOpkdSrJ/dqt03UfitwyG2xAVe//LXSHLqhgudQ2Sbp67W/GF7TzsGT33Six3KzbyE1wVt3@vger.kernel.org
+X-Gm-Message-State: AOJu0YxIBJHBDXLK1yX72a3aUdoyeUtixDAmDW1oZP/+Da+k1MAZjL8e
+	x72sWPy/oI2T1Q5RybNX4IMRDEhKVzW38Q3EGb3c6N8AQMqKhgDPtP9E
+X-Gm-Gg: Acq92OErM0rN2eM3W7gqS7pLtbWVVC4UwzEJH+D4Y7z4WCRd1l5JXo5Pui1XMb31Kbg
+	hjr22lgBmFdmILKmbydsimU8y9e/n3Pj/xPcmL4U++2SnsxyM7kZ5xBsfA6Z1VoKGCoOAisuR0F
+	gJwQHq3eEksv4JKIm0fyqSFKYEttACHTP90toCXVsc5z+BbCTvz1b16T4RcwZL9YuPZ43Ahq16f
+	l3Lb51ZAYw7gLt75q/tHXLzDuHsEYvjCVjwstJP3/JerUPEArDNSL7Ks12zVoqdb7mEEAIoIb29
+	iANkPTlLp9C98OwiDlsUr0bVCTw8MOHzlag+qxCZUfjzB5G8BPuHahJBgT3UexAR6MRTrVQyD+J
+	ON88KSTf7F9nFPIQ7KqR8Dwlekwf3ToGGoBY80Fv+G0WaCWh2VnDaPd6ClG5mrQaqfW3d1K/WIh
+	Tqv5v4bubc7CrnjjHD0m2qyTdEqClL+xA=
+X-Received: by 2002:a5d:5cce:0:b0:441:1cf9:4f06 with SMTP id ffacd0b85a97d-45ef6b8c844mr20729418f8f.31.1780388115957;
+        Tue, 02 Jun 2026 01:15:15 -0700 (PDT)
+Received: from legfed1 ([2a00:79c0:606:f600:1ebe:eb51:3a97:3b47])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34a065esm32352694f8f.5.2026.06.02.01.15.14
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 01:15:15 -0700 (PDT)
+Date: Tue, 2 Jun 2026 10:15:13 +0200
+From: Dimitri Fedrau <dima.fedrau@gmail.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Dimitri Fedrau via B4 Relay <devnull+dimitri.fedrau.liebherr.com@kernel.org>,
+	olteanv@gmail.com, krzk+dt@kernel.org, vkoul@kernel.org,
+	linux-phy@lists.infradead.org, conor+dt@kernel.org, robh@kernel.org,
+	devicetree@vger.kernel.org, neil.armstrong@linaro.org
+Subject: Re: [PATCH v5 2/2] phy: add basic support for NXPs TJA1145 CAN
+ transceiver
+Message-ID: <20260602081513.GA227859@legfed1>
+References: <20260513-tja1145-support-v5-2-38720a7ee63e@liebherr.com>
+ <20260514054447.A59AFC2BCB7@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
- <20260530-veml3328-v3-2-dd562eaee8d9@gmail.com> <20260531101940.037d1d7a@jic23-huawei>
- <CALoEA-yEA5KcvXqZCCg76qFAgyNq8BQ5+gop442mju-9PiKaxg@mail.gmail.com>
- <20260601101726.203f56cd@jic23-huawei> <CALoEA-w8zX+bzpEfvGoafDaOr6Kd-USgsyZ6SRpV08Yw6MaVrg@mail.gmail.com>
-In-Reply-To: <CALoEA-w8zX+bzpEfvGoafDaOr6Kd-USgsyZ6SRpV08Yw6MaVrg@mail.gmail.com>
-From: Joshua Crofts <joshua.crofts1@gmail.com>
-Date: Tue, 2 Jun 2026 10:14:59 +0200
-X-Gm-Features: AVHnY4JQOM4EWly35TPs2fbGJO-3-8pJdZj8RhArbOwKKDnqvspDzMSHGCRlGgQ
-Message-ID: <CALoEA-xDSVOj0qkr6fYnQt0s1Xqh6acsVs7c7QKemWRaRh1i6A@mail.gmail.com>
-Subject: Re: [PATCH v3 2/2] iio: light: veml3328: add support for new device
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, David Lechner <dlechner@baylibre.com>, 
-	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260514054447.A59AFC2BCB7@smtp.kernel.org>
 
-On Mon, 1 Jun 2026 at 16:43, Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+Am Thu, May 14, 2026 at 05:44:47AM +0000 schrieb sashiko-bot@kernel.org:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> - [High] The driver fails to enable the hardware power supplies (`vcc-supply`, `vio-supply`, `vbat-supply`) before communicating with the device.
+> - [High] The driver does not observe the required mode transition delay when powering on the PHY.
+> - [Medium] Missing rollback to standby mode in the error path of `tja1145_phy_power_on`.
+> --
+> 
+> commit 288134e179992cb2e690ff7a97502e72f04e9d5a
+> Author: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+> 
+> phy: add basic support for NXPs TJA1145 CAN transceiver
+> 
+> This commit adds basic driver support for the NXP TJA1145 CAN transceiver.
+> It implements the PHY operations to bring the hardware up and down by
+> switching between normal and standby modes using SPI commands.
+> 
+> > diff --git a/drivers/phy/phy-nxp-tja1145.c b/drivers/phy/phy-nxp-tja1145.c
+> > new file mode 100644
+> > index 0000000000000..1e8bd169743ab
+> > --- /dev/null
+> > +++ b/drivers/phy/phy-nxp-tja1145.c
+> 
+> [ ... ]
+> 
+> > +static int tja1145_phy_power_on(struct phy *phy)
+> > +{
+> > +	struct regmap *map = phy_get_drvdata(phy);
+> > +	int ret;
+> > +
+> > +	/*
+> > +	 * Switch operating mode to normal which is the active operating mode.
+> > +	 * In this mode, the device is fully operational.
+> > +	 */
+> > +	ret = regmap_update_bits(map, TJA1145_MODE_CTRL, TJA1145_MODE_CTRL_MC,
+> > +				 TJA1145_MODE_CTRL_NORMAL);
+> > +	if (ret)
+> > +		return ret;
+> 
+> According to the hardware datasheet, transitioning the transceiver to normal
+> mode can take up to 40 us. Does this sequence need a hardware transition
+> delay before sending the active mode command?
 >
-> On Mon, 1 Jun 2026 at 11:17, Jonathan Cameron <jic23@kernel.org> wrote:
-> >
-> > If you have time to figure out the path that causes that, it would be excellent
-> > to have it recorded. I spent a few minutes the other day on this and couldn't
-> > find it.  Maybe ask AI to figure it out :)
+Cannot find anything related in the datasheet.
 
-Briefly analyzing this with AI (Gemini 3.1 Pro, just like Sashiko). I
-noticed that
-in drivers/base/dd.c the specific driver probe function is called and then
-pm_request_idle() is called after it in _driver_probe_device(), which
-is probably
-the reason the sensor is suspended after probe even though I didn't
-explicitly call
-pm_runtime_put_autosuspend() (odd that this behaviour in the actual
-driver base).
+> With a fast SPI bus, the next command might arrive before the hardware state
+> machine finishes transitioning, which could cause the active mode command to
+> be ignored.
+> 
+> > +
+> > +	/*
+> > +	 * Switch to CAN operating mode active where the PHY can transmit and
+> > +	 * receive data.
+> > +	 */
+> > +	return regmap_update_bits(map, TJA1145_CAN_CTRL, TJA1145_CAN_CTRL_CMC,
+> > +				  TJA1145_CAN_CTRL_ACTIVE);
+> 
+> If this second regmap_update_bits() fails, the function returns an error
+> without reverting the device to standby mode.
+> 
+Don't see a second regmap_update_bits().
 
-To err on the side of caution, I'd add a pm_runtime_get_noresume() call before
-setting up autosuspend and a
-pm_runtime_mark_last_busy()/pm_runtime_get_autosupend()
-combo before registering the device. Technically Sashiko is correct, this isn't
-explicitly done in the driver, nevertheless the driver base actually
-handles this
-if pm_runtime is correctly set up and callbacks are defined.
+> Since the PHY framework keeps the power_count at 0 on an error return,
+> phy_power_off() will not be called during shutdown or suspend. Could this
+> leave the hardware permanently stuck in normal mode, drawing power
+> unintentionally?
+> 
+> > +}
+> 
+> [ ... ]
+> 
+> > +static int tja1145_probe(struct spi_device *spi)
+> > +{
+> > +	struct phy_provider *phy_provider;
+> > +	struct device *dev = &spi->dev;
+> > +	struct regmap *map;
+> > +	struct phy *phy;
+> > +	int ret;
+> > +
+> > +	map = devm_regmap_init_spi(spi, &tja1145_regmap_config);
+> > +	if (IS_ERR(map))
+> > +		return dev_err_probe(dev, PTR_ERR(map), "failed to init regmap\n");
+> > +
+> > +	ret = tja1145_check_ident(dev, map);
+> 
+> Will this fail to communicate with the hardware on platforms where power
+> supplies are dynamically controlled?
+>
 
-Jonathan - up to you if you want to fix up the driver since it's
-already committed
-or if I should send a patch (I guess it isn't that critical, but it
-keeps Sashiko quiet
-in future patches).
+Yes, but dyamically controlled power supplies are not implemented yet.
+Support has to wait until there is need for it.
 
--- 
-Kind regards
-
-CJD
+> The device tree binding defines vcc-supply, vio-supply, and vbat-supply as
+> power sources, but they do not appear to be requested or enabled in this
+> function before tja1145_check_ident() is called.
+> 
+> This might leave the PHY unpowered, causing the SPI read to return garbage
+> data and fail the probe with -ENODEV.
+> 
+> > +	if (ret)
+> > +		return dev_err_probe(dev, ret, "failed to identify device\n");
+> 
+> -- 
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260513-tja1145-support-v5-0-38720a7ee63e@liebherr.com?part=2
+> 
+> -- 
+> linux-phy mailing list
+> linux-phy@lists.infradead.org
+> https://lists.infradead.org/mailman/listinfo/linux-phy
