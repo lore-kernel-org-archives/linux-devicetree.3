@@ -1,93 +1,181 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.cjdns.fr (mail.cjdns.fr [5.135.140.105])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3791537F724;
-	Tue,  2 Jun 2026 12:38:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB26A385D6E;
+	Tue,  2 Jun 2026 12:40:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=5.135.140.105
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780403898; cv=none; b=Eoe5kuf1h0SgSGpG7g0dEaAuPIxqAs/16vgXR0Be1Jmy6GkoqpFJa9tPhkPQIeZaaj70fEzaQJZp5ozLmAHqQAYW4g/oCeA4hrCgESat71sZxQE+Li5ij5/WZG5qPWRbhJJ73bMlp5A+LvaeBKc3V26cz02yhE1O19+sCJ61lsk=
+	t=1780404016; cv=none; b=Z8//+ZXRWfahhN22Xc/gGTpgNg6EMnIvj38VMaYI1djcTHnhyZczoHkId65A1UIa7+31Pdk28g/7bO/owNpWYq7UHXBvxecj3GwRyRYuXxQ+ySLyYSxmxFlw6C4jjEp8RpZC9jjRMZCy/VuDDExt2sJZ18JDGgj6v7z6Sz1Z6lY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780403898; c=relaxed/simple;
-	bh=mysM/UMNaPDBpCRsJJMna0v79scT5CRSOxuxf9/9Mrk=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=q/kKQ7x2lE5hX07xLl/CsdhbWK+FiEyfKVtgNsEkPnE6nB2LwEOxvKLrPP7Ndf/eFdjdv/6jVZovXqz5M9AoN3viUxfcYnyXH19bVplBDZLzm0D6f1ef7qIXHVGcGRWLQskXUW45Xs8LP9GvL82MdT3rMh0yCZyfxN7rVGlgGls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AoIneWsI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780404016; c=relaxed/simple;
+	bh=uj0wvH/x+kf/1PkMN1Ix8AhaMS/I5Rn0IwRRA14b7F8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dHIq4HiG7lU1tSumpLBUqkR9ZCtx9brjJR3R0mSmfvu9JDUxf9FFlACyGGnMynnLIiQD2odjd2u/FT3y9D7GQriOcRSp1p3JptHyc025H/fgdBi2VCtq1ThWvjiTeocWPISmPVwMINB0cpS3tsvTXls2giJWpiuWDq1HN5DWbic=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr; spf=pass smtp.mailfrom=cjdns.fr; dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b=MNReIQGn; arc=none smtp.client-ip=5.135.140.105
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cjdns.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cjdns.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AoIneWsI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30101F00898;
-	Tue,  2 Jun 2026 12:38:11 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780403896;
-	bh=mqteGhjy+xwcz4PbOrCU9N8F+pg/FZYg/qOU0tH1ZjU=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=AoIneWsIH3D/QiwCUVaDb8iglTjh9vBHPary57jgZ/D3KED0lhj2jnL4YcrjV8U+A
-	 QKrRnPIrdSYGHn9bWfU+arRkb+uq0Yqs9NsLN5HWLj90c3qlf7ZyhNqYNjJeL2ob9x
-	 1L26NBlGF4mymaexBQLw7zOA066cjaG4PcoR08P+zXiiE7x0zcpaDwBj1GQFlJYqKR
-	 2CsU1nTJfJOyuPxv5FO3uLdf3Usnh+8mb5t7h676eh90YrjzqqehzhfPh/5s+yZEGr
-	 aDrLlpx2qDNdJyGqaNVs6Z2vfTRSiYaXvNQOTTUgDu9DBr8jxJUI+3+fUW2lUyEUMY
-	 RHI30pCQ1ZXcg==
-Date: Tue, 2 Jun 2026 13:38:06 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Lars-Peter Clausen"
- <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rishi Gupta"
- <gupt21@gmail.com>, "David Lechner" <dlechner@baylibre.com>, Nuno
- =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
- "Matti Vaittinen" <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
- series
-Message-ID: <20260602133806.53590943@jic23-huawei>
-In-Reply-To: <DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
-References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
-	<20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
-	<ah6p-f2RCW8VcuDR@ashevche-desk.local>
-	<DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=cjdns.fr header.i=@cjdns.fr header.b="MNReIQGn"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B6D5250B5AE;
+	Tue,  2 Jun 2026 14:40:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=cjdns.fr; s=dkim;
+	t=1780404005; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:content-language:in-reply-to:references;
+	bh=R2nfexBzeT3y69ffHG5mi+zUFQP+2uBFKJLddW+7WaM=;
+	b=MNReIQGnhOFsrTtxcvpE449+11XiJa5LVLE+tlgqpLGvVrd/T97k7T61/85DLXXvTzy9kb
+	ctOPnuJsFG8OrKYZi0Zpa00HuLCwpCP2LMhXAAL6Ee2FEXZRlMWUshFExHZbg3CnNDmjyO
+	gh9aI7w2n/QyOxHpcRAp6XCj9/2l/1HOhImQKYComSkAenB8KLAH7PE87DnwxvJcUhvryn
+	nFYvhWXnFYbfOOSIcoU8g8be5uph6cBbl0IECPkABQ2BFUBf7xHo8MqZAz/fPg6INBCrKy
+	VjL0+1ajfp+P2P7OaFmZamgK3Fq/W5Nu5544gspLeKWhWboInmWigbbVPXoqaQ==
+Message-ID: <373aaeff-ca95-4e45-8e1a-ce7e79e91f42@cjdns.fr>
+Date: Tue, 2 Jun 2026 14:40:01 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+User-Agent: Mozilla Thunderbird Beta
+Subject: Re: [PATCH 1/2] dt-bindings: phy: econet: Document EN751221 USB PHY
+To: Rob Herring <robh@kernel.org>
+Cc: linux-mips@vger.kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-phy@lists.infradead.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260518141343.401555-1-cjd@cjdns.fr>
+ <20260518141343.401555-2-cjd@cjdns.fr>
+ <20260601225805.GA129257-robh@kernel.org>
+Content-Language: en-US
+From: Caleb James DeLisle <cjd@cjdns.fr>
+In-Reply-To: <20260601225805.GA129257-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-> >> +/*
-> >> + * The gain selector encodes (PD_D4 << 2) | GAIN to identify each gain setting.
-> >> + * Gains are multiplied by 8 to work with integers. The values in the iio-gts
-> >> + * tables don't need corrections because the maximum value of the scale refers
-> >> + * to GAIN = x1, and the rest of the values are obtained from the resulting
-> >> + * linear function.
-> >> + * TODO: add support for MILLI_GAIN_X165 and MILLI_GAIN_X660
-> >> + */
-> >> +#define VEML6031X00_SEL_MILLI_GAIN_X125  0x07
-> >> +#define VEML6031X00_SEL_MILLI_GAIN_X250  0x04
-> >> +#define VEML6031X00_SEL_MILLI_GAIN_X500  0x03
-> >> +#define VEML6031X00_SEL_MILLI_GAIN_X1000 0x00
-> >> +#define VEML6031X00_SEL_MILLI_GAIN_X2000 0x01  
-> >
-> > Not sure if these one-time use definitions improve or not the readability
-> > of the code. Up to Jonathan.
-> >  
-> 
-> I prefer these definitions, and a similar pattern is used in multiple
-> drivers in IIO, but I have no strong feelings about it.
 
-Looking again at this, what do the numbers in the defines actually mean?
-Seems a bit odd to have the base gain of 1 being called X125.
-Maybe a comment on that would be useful.  I don't mind either way
-on defines for this but if that number is useful to have I'd rather
-have a define than a comment on each line.
+On 02/06/2026 00:58, Rob Herring wrote:
+> On Mon, May 18, 2026 at 02:13:42PM +0000, Caleb James DeLisle wrote:
+>> Document the USB PHY devices which appear in EcoNet EN751221, EN751627,
+>> and EN7528 based SoCs.
+>>
+>> Signed-off-by: Caleb James DeLisle <cjd@cjdns.fr>
+>> ---
+>>   .../bindings/phy/econet,en751221-usb-phy.yaml | 128 ++++++++++++++++++
+>>   MAINTAINERS                                   |   6 +
+>>   2 files changed, 134 insertions(+)
+>>   create mode 100644 Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml
+>>
+>> diff --git a/Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml b/Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml
+>> new file mode 100644
+>> index 000000000000..a44f59601747
+>> --- /dev/null
+>> +++ b/Documentation/devicetree/bindings/phy/econet,en751221-usb-phy.yaml
+>> @@ -0,0 +1,128 @@
+>> +# SPDX-License-Identifier: GPL-2.0-only OR BSD-2-Clause
+>> +# Copyright (C) 2024 EcoNet
+>> +%YAML 1.2
+>> +---
+>> +$id: http://devicetree.org/schemas/phy/econet,en751221-usb-phy.yaml#
+>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+>> +
+>> +title: EcoNet EN751221 USB PHY
+>> +
+>> +maintainers:
+>> +  - Caleb James DeLisle <cjd@cjdns.fr>
+>> +
+>> +description: |
+> Don't need '|' unless there is formatting to preserve.
+>
+>> +  USB PHY controller found on EcoNet EN751221 SoCs as well as on EN751627 and
+>> +  EN7528. These devices generally have two ports, one of which is a USB 3.0,
+>> +  and the other is USB 2.0. The USB 3.0 port is driven by one of two PHY
+>> +  blocks, depending on whether the connected device has negotiated USB 3.0 or
+>> +  2.0. These PHYs are also used on other EcoNet silicon in varying
+>> +  configurations, such as only port 0 (the USB 3.0 port), or only port 1 (the
+>> +  USB 2.0 port).
+>> +
+>> +properties:
+>> +  compatible:
+>> +    enum:
+>> +      - econet,en751221-usb-phy
+>> +      - econet,en751627-usb-phy
+>> +      - econet,en7528-usb-phy
+>> +
+>> +  reg:
+>> +    maxItems: 1
+>> +
+>> +  "#address-cells": true
+>> +  "#size-cells": true
+>> +  ranges: true
+>> +
+>> +  clocks:
+>> +    maxItems: 1
+>> +    description: |
+>> +      Crystal oscillator clock source. EcoNet devices run at either 20Mhz or
+>> +      25Mhz. 25Mhz devices require additional tuning in the USB 3.0 PHY.
+>> +
+>> +  clock-names:
+>> +    items:
+>> +      - const: xtal
+>> +
+>> +patternProperties:
+>> +  "^usb-phy@[0-9a-f]+$":
+>> +    type: object
+>> +    description: USB 2.0 or 3.0 PHY sub-node.
+>> +
+>> +    properties:
+>> +      compatible:
+>> +        enum:
+>> +          - econet,usb2-phy
+>> +          - econet,usb3-phy
+>> +
+>> +      reg:
+>> +        maxItems: 1
+>> +
+>> +      resets:
+>> +        maxItems: 1
+>> +
+>> +      econet,usb-port-id:
+>> +        $ref: /schemas/types.yaml#/definitions/uint32
+>> +        enum: [0, 1]
+>> +        description: |
+>> +          Physical port number. Since USB 3.0 requires a second PHY for the 2.0
+>> +          fallback, multiple PHYs can map to the same physical port.
+> What is special about this platform needing this property.
 
-> 
-> >> +static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
-> >> +	GAIN_SCALE_GAIN(1, VEML6031X00_SEL_MILLI_GAIN_X125),
-> >> +	GAIN_SCALE_GAIN(2, VEML6031X00_SEL_MILLI_GAIN_X250),
-> >> +	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_MILLI_GAIN_X500),
-> >> +	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_MILLI_GAIN_X1000),
-> >> +	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_MILLI_GAIN_X2000),
-> >> +};  
-> >
-> > ...
+For measuring the frequency to set the slew rate, we need to know which 
+port we're working with. Also the hardware revision has to be set 
+differently on port 1 than port 0.
+
+> Lots of
+> platforms have 2 phys for USB 2.0 and 3.0 yet don't need a property
+> like this.
+I copied the idea from google,extcon-usbc-cros-ec which uses 
+google,usb-port-id.
+> Can't you figure out which phys are the same USB port by the
+> USB controller 'phys' property which would define that?
+
+Unfortunately the Mediatek driver handles all of the ports and only uses 
+one DT node. I suppose I could encode the information in the compatible 
+of the subnode, something like:
+
+
+usb-phy@1fa80000 {
+       compatible = "econet,en751221-usb-phy";
+
+       ...
+
+       usb-phy@1fa80800 {
+           compatible = "econet,usb2-port0-phy";
+           ...
+       };
+       ...
+};
+
+I'm not really sure which way is more correct. If you have an opinion on this, let me know.
+
+Thanks,
+Caleb
+
+>
+> Rob
+>
