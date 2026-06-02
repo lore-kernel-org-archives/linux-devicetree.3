@@ -1,239 +1,120 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F7337204C
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:42:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460CF373C0B;
+	Tue,  2 Jun 2026 16:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780418537; cv=none; b=rtrZATBS/DxCA4azKg4uMdpa20nYumyXQVZdP8baER3SRcY0isCynAgSnjp4WhySDhtiUGny6prZy0KTddLXVioBP7qWbXaTvL/cVMrpXfsdaMPElQyvxBl130WBrNVgHdlAgQBV1F5fW/GbLBR8Q3QexW5FoIdQQ6i4nhPkauY=
+	t=1780418545; cv=none; b=La6UGB5bq6fymIBPzfEuLWm913S4l+lwnJt+SqZb4E3UN3OvmKeD70VUcE+LyG8IC2lRLLPkEcvUns0hSj/ijH9/z7aCLGZb+64sKMKPcVf4KN30j6dao5v0AuFvyz/bEfmcV2E03BtzzocEMjUItRgkwggqMe2uauVd+8u9szY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780418537; c=relaxed/simple;
-	bh=s6aDIM5T4K9eEgStPnqzEH7yFVm5qbwDjPGc76UY+L4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=SAgnuQhO31ccJIBpq+4La9jTCaws3xSTaijdbZVGqpfgJyHmQ2Mk8C5zlzK5J2h7cf3DBSBdoXz2Sgk/2Q1lKWH7+0qFyEk3Yi7zstcr6F7i4FGd2197Sk/7hlSFfHx+wEYZ5peRAOnw90s00CDqHTTffm/WpsDVZODUu59Js+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PBa81a4/; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780418545; c=relaxed/simple;
+	bh=yLdicBgS31OJfnOdnD0/nzXfokLDi5J65GXJQ4Bg20E=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tMSCzN7o25FADF4wUpLaUgQHpo7zfBg6EHuLzGokAr0Z01/VoPHMx28wlUh876WcyQ4ZrDYEhUo1VaulUixq4cSR+p93PTPMiXHy3Np39gF1iUbZuMFoe+rBDSumYnngE4dm4gi5SiPCSUhyll4PtwmQ8bpcKK4ZJTomh8FJjSA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iv46Vtxk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PBa81a4/"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4903997fcb5so118765365e9.2
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:42:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780418535; x=1781023335; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=zCciMA4f/2leknE0hevkJM9c0pFZpflJQvPHBF72s8k=;
-        b=PBa81a4/OEWRqHeaosFr/rcSVB57ibcd7SCnyTwVa1d80Uy0ihbUMC6wUw+cenAQ+c
-         +pAo3Sh2L6y5xWaeVMvSfsodjk/7kuGvbkGkmH/Z0jagEOmpxMTSF7qTS5nLQenw0Zmt
-         WP5daLAXhIi/2InIleN9JRNiKZdJUkzG6MlG5/g8ebJUW4GM+C8gxJzxJFDUSdHIy6bU
-         7Zd3K48GS/u91WgVg6gLzHU0d28VOmqSPTZVI3/9/FDzfuONyLRoOq6lAXbXmZIQg0dU
-         AFgJypGrCXX1YQuCr15NNJ9hxXXFlRzFm440AT2RooldbCbNUqVdnONhuGpK7EXkT6jH
-         VDqw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780418535; x=1781023335;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=zCciMA4f/2leknE0hevkJM9c0pFZpflJQvPHBF72s8k=;
-        b=OQHv+QFJhbHf2Zvn/Vqu9slv2emJhgq0B3MMXouRS1R7xkvSwKDDj5Iw5Y3zcsg755
-         E2nLYuaSaIuqTY5NKwD0v9xwhVE0XHG1Yl/c0IpnC02PGdHRUcB2Lvf2cIkePsQxVI0j
-         5iTSf5nzkFdE6HfGcgKjXFihJTFGRSVS0Dw7UQrgANaxkvF9Cw9n0q/RiwB9f2ALdM6o
-         KSoNidW1sm9GgFvs0cVQNuCgdZbkdaQgmi3pS+v+09XeA0IGuvky1ZRNFOXURA5zT869
-         UVBAvkWPz2n7xRGoYLt/RemitFpSeLDg1myZKCJhyqblsSJsiGIFqlFwpQ4MHDmLrOks
-         j4VA==
-X-Forwarded-Encrypted: i=1; AFNElJ8Wd5dd3D+2Efr3QAix+Scihc9Q10emQ+GQ5Wwz83hohpirXU8jQTXYpTqEFB5zFtHL0i5zbZrh0xhT@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyyxz1ZReV5R0HyMErgtfej8EmUGCTENFpQ83ZHqZaFmtgO5XoI
-	xISlN6eDdZdRH6nfCELnOvS4DHgvdPWkBL/LZFeMsw6Z5sPRG3Z6lSZH
-X-Gm-Gg: Acq92OFRHFWqUxmmbJ1a5NLqGNAlKrm5E3x+0EOy+aTmBt3IaQRuAp/wvOhJjVymsIx
-	Q4I+9UbEjs6m/cdBZWTrQ9ZLXq+bfiljUsqIjGcF+32DMuLE5cEbm+ah2XLrHXbecAZuDb3H71W
-	HIwi3jtKnho7SqW8VGbPks5uypNl7s/AqQtCqFfDlTsdJxCjZFBeiwqWU5/TsDBY7hcE0Sq3HkO
-	EzMnYFC6ovVIwww6j7npgS7Qy7E6eAXVBulwA31Sm+E7UwJL3w2oF3WQ79po5Ns0uiuNXXg5HR9
-	Q9QwhsiBAcIg3cOpyerFevEyQTFdlg7JIzqxHLrasRuIaF9l4bdSmsP1v6PaAwqtw1ZJJ7r2LOa
-	e8ZseJQIECxQopndJp6hhPjIKOWcwW8JJ3HC0Acgv19ACpGdCaJ1Pa1A693f6R+Tl1eIlTjPqoN
-	ES2ZnNrAaCekI6ea52cZErHJ0F5GrX9qo2vyTscz8olHvp248GUoh1RdXpJpfjLbglIQrKG6O7G
-	GKtBkMmz0MyeJxsIJBYs4Q=
-X-Received: by 2002:a05:600c:35c9:b0:490:3d62:f5e1 with SMTP id 5b1f17b1804b1-490b50b972amr8330945e9.22.1780418534540;
-        Tue, 02 Jun 2026 09:42:14 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e20bacsm74368025e9.6.2026.06.02.09.42.13
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 09:42:14 -0700 (PDT)
-Message-ID: <2df4cad5e29fbcb4c5c5f59ea0bf322c7a301bdc.camel@gmail.com>
-Subject: Re: [PATCH 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
- driver
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: rva333@protonmail.com, Jonathan Cameron <jic23@kernel.org>, David
- Lechner	 <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
- <nuno.sa@analog.com>,  Andy Shevchenko	 <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
- AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Lee
- Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>
-Date: Tue, 02 Jun 2026 17:43:18 +0100
-In-Reply-To: <20260602-mt6323-adc-v1-2-68ec737508ee@protonmail.com>
-References: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
-	 <20260602-mt6323-adc-v1-2-68ec737508ee@protonmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iv46Vtxk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BED21F00893;
+	Tue,  2 Jun 2026 16:42:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780418544;
+	bh=h2HNNcTXQQ1ElFj6ti8K+wpHo4Vef84XqqU/ALIDgeY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=Iv46VtxkDFnHUaiUstW8bszL/YRknzjeFzxwmdL3NeMojogpjQYuGgWcwn4sOTHgI
+	 /lKjFOWWkZieiR/Hi70x/EmUxb3bW6ND3OvEmPkga13x4G+wPSM1Ca32RevnE78P/z
+	 BhwoqfxXftRIR1qd6cGCr+pHPfrDdPlY29esXIJCu5Ov+coXjMajaFyisiQapNNsrB
+	 qEyR84Y1DLSspywklJV5MYNBBBSPRVyaU6SwB0m6/7eujPRJ3+2/COz4b1ppR0aCza
+	 sVYoVcOAiNC4uN1vXlzadhtiwsOxp3Ojh/J7fXqEu+P5umfAC9PhrGi6T1QazD9UL0
+	 /IN5MRbdE1MhQ==
+Date: Tue, 2 Jun 2026 17:42:19 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Selvamani.Rajagopal@onsemi.com
+Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Piergiorgio Beruto <pier.beruto@onsemi.com>,
+	Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
+ be active low, level triggered
+Message-ID: <20260602-rebel-snide-5036c97e410d@spud>
+References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
+ <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="HZ1WWXngKVTnQZQS"
+Content-Disposition: inline
+In-Reply-To: <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
 
-On Tue, 2026-06-02 at 15:46 +0300, Roman Vivchar via B4 Relay wrote:
-> From: Roman Vivchar <rva333@protonmail.com>
+
+--HZ1WWXngKVTnQZQS
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, Jun 01, 2026 at 09:07:19AM -0700, Selvamani Rajagopal via B4 Relay =
+wrote:
+> From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 >=20
-> The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
-> provides support for reading various channels including battery and
-> charger voltages, battery and chip temperature, current sensing and
-> accessory detection.
+> According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
+> specification, interrupt type is active low, level triggered interrupt.
+
+Have you checked the documentation for this device etc to make sure that
+the device actually follows the spec?
+Maybe Parthiban can confirm this for us?
+
+Cheers,
+Conor.
+
 >=20
-> Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
->=20
-> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd
-> Generation)
-> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1=
+S MACPHY")
+> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 > ---
-> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
-=C2=A0 8 ++
-> =C2=A0drivers/iio/adc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 |=C2=A0 11 ++
-> =C2=A0drivers/iio/adc/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
-|=C2=A0=C2=A0 1 +
-> =C2=A0drivers/iio/adc/mt6323-auxadc.c | 299 +++++++++++++++++++++++++++++=
-+++++++++++
-> =C2=A04 files changed, 319 insertions(+)
+>  Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 >=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index d1cc0e12fe1f..c9ad2417a3ef 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -16256,6 +16256,14 @@ S:	Maintained
-> =C2=A0F:	Documentation/devicetree/bindings/mmc/mtk-sd.yaml
-> =C2=A0F:	drivers/mmc/host/mtk-sd.c
-> =C2=A0
-> +MEDIATEK MT6323 PMIC AUXADC DRIVER
-> +M:	Roman Vivchar <rva333@protonmail.com>
-> +L:	linux-iio@vger.kernel.org
-> +L:	linux-mediatek@lists.infradead.org=C2=A0(moderated for non-subscriber=
-s)
-> +S:	Maintained
-> +F:	drivers/iio/adc/mt6323-auxadc.c
-> +F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
-
-The above file was not added in this patch
-
-...
-
-> +
-> +static const struct iio_chan_spec mt6323_auxadc_channels[] =3D {
-> +	MTK_PMIC_IIO_CHAN(baton2,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_BATON2,=C2=A0=
-=C2=A0=C2=A0 MT6323_AUXADC_ADC6,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(ch6,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXAD=
-C_CH6,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ADC11,
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(bat_temp,=C2=A0 MT6323_AUXADC_BAT_TEMP,=C2=A0 MT6323_=
-AUXADC_ADC5,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(chip_temp, MT6323_AUXADC_CHIP_TEMP, MT6323_AUXADC_ADC=
-4,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(vcdt,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_VCD=
-T,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ADC2,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(baton1,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_BATON1,=C2=A0=
-=C2=A0=C2=A0 MT6323_AUXADC_ADC3,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(isense,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ISENSE,=C2=A0=
-=C2=A0=C2=A0 MT6323_AUXADC_ADC1,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(batsns,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_BATSNS,=C2=A0=
-=C2=A0=C2=A0 MT6323_AUXADC_ADC0,=C2=A0
-> IIO_VOLTAGE),
-> +	MTK_PMIC_IIO_CHAN(accdet,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ACCDET,=C2=A0=
-=C2=A0=C2=A0 MT6323_AUXADC_ADC7,=C2=A0
-> IIO_VOLTAGE),
-> +};
-
-All of the above are IIO_VOLTAGE. Just remove _ch_type then.
-
-> +
-> +/**
-> + * struct mt6323_auxadc - Main driver structure
-> + * @regmap:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Regmap from PWRAP
-> + * @lock:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Mutex to=
- serialize AUXADC reading vs configuration
-> + *
-> + * The MediaTek MT6323 (as well as a lot of other PMICs) has the followi=
-ng
-> hierarchy:
-> + * PMIC AUXADC <- PMIC MFD <- SoC PWRAP (wrapper for PWRAP FSM)
-> + *
-> + * Therefore, PWRAP regmap should be obtained using dev->parent->parent.
-> + */
-
-The above kerneldoc seems unnecessary to me.
-
-> +struct mt6323_auxadc {
-> +	struct regmap *regmap;
-> +	struct mutex lock;
-> +};
-
-...
-
+> diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml=
+ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> index 61e11d4a07c4..766ff58147ae 100644
+> --- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> +++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> @@ -67,7 +67,7 @@ examples:
+>          pinctrl-names =3D "default";
+>          pinctrl-0 =3D <&eth0_pins>;
+>          interrupt-parent =3D <&gpio>;
+> -        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
+> +        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
+>          local-mac-address =3D [04 05 06 01 02 03];
+>          spi-max-frequency =3D <15000000>;
+>        };
 >=20
-> +
-> +static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
-> +				=C2=A0 const struct iio_chan_spec *chan,
-> +				=C2=A0 int *val, int *val2, long mask)
-> +{
-> +	struct mt6323_auxadc *auxadc =3D iio_priv(indio_dev);
-> +	int ret, mult;
-> +
-> +	switch (mask) {
-> +	case IIO_CHAN_INFO_SCALE:
-> +		if (chan->channel =3D=3D MT6323_AUXADC_ISENSE ||
-> +		=C2=A0=C2=A0=C2=A0 chan->channel =3D=3D MT6323_AUXADC_BATSNS)
-> +			mult =3D 4;
-> +		else
-> +			mult =3D 1;
-> +
-> +		/* 1800mV full range with 15-bit resolution. */
-> +		*val =3D mult * 1800;
-> +		*val2 =3D 15;
-> +
-> +		return IIO_VAL_FRACTIONAL_LOG2;
-> +	case IIO_CHAN_INFO_RAW:
-> +		scoped_guard(mutex, &auxadc->lock) {
-> +			ret =3D mt6323_auxadc_prepare_channel(auxadc);
-> +			if (ret)
-> +				return ret;
-> +
-> +			ret =3D mt6323_auxadc_request(auxadc, chan->channel);
-> +			if (ret)
-> +				return ret;
-> +
-> +			/* Hardware limitation: the AUXADC needs a delay to become
-> ready. */
-> +			fsleep(300);
-> +
-> +			ret =3D mt6323_auxadc_read(auxadc, chan, val);
-> +			if (ret)
-> +				return ret;
-
-Could be return mt6323_auxadc_read(...)
-
-- Nuno S=C3=A1
+> --=20
+> 2.43.0
 >=20
-> +
-> +MODULE_LICENSE("GPL");
-> +MODULE_DESCRIPTION("MediaTek MT6323 PMIC AUXADC Driver");
+>=20
+
+--HZ1WWXngKVTnQZQS
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8H6gAKCRB4tDGHoIJi
+0pUqAP0fkQ62LhS6blqCX8hY60sRpZKoie/VLRfv42S128j1ZwEAmBOhV1ChSOm6
+A9xNSy+Fi+Um/tjHu605U8g+8yZF1AU=
+=nOV4
+-----END PGP SIGNATURE-----
+
+--HZ1WWXngKVTnQZQS--
