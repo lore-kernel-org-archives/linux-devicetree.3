@@ -1,231 +1,196 @@
-Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012032.outbound.protection.outlook.com [52.101.66.32])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6B6387361
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:55:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780419331; cv=none; b=B2oux8jZswgpf0kPzEhIyAeJ5n7nQu+Ry/Q14GdSR7A7W/LOaNM/IudERpAhdg0HI2t39QIBNcbaVhPcjK+/mVD+PvnlS+J4f8kzcx4S8dTCUTvkeyVIMAa7vqrFBQBEmsmA6F+eqb2nMtQdI7sIOXp3xnIpBrF5K/mJfb2lXEw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780419331; c=relaxed/simple;
-	bh=7M6qQwSwD+XrHhy1JS5GMZiaeqWwjrdH7qVYXbsQEsU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Yjps0/cH+roHk4KIhL/0eKlalXVQw10guQjEXlZEAfaWt2mWtYAgNmnXHjDe91PnmuzOXZ/uG0DsGS3qViH12qXQM0G9Z2i1tcdtP0ht81LnldLhFNlXuBkmZGjN97U7bQPCZjTk4nXT9/OIUg5AM44QPERAO4TQPow7pgmJCGc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YbUN5+uK; arc=none smtp.client-ip=209.85.128.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017E93630B9
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.32
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780419476; cv=fail; b=JkFItHMg6M9GLEBSfuTiSTdYbUcZ0gApXt6QEzD8HBUTAcnhfT29t63GOFhI7KnRq/ifu7I0brn2HlY82K52kxoAE+N+Ir26ZSxInpn/NdViMHiatnFVZWmH74e6UKUZCfyRtio2PIVqm6cVXE8gU3n81YFvukm544XXZ15NbC4=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780419476; c=relaxed/simple;
+	bh=Ux57kPd/LgUCwapPW/erhTjuLpKVGSMqw9z6Po8Oazk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=B6wBdbvbZ91KkkTnpp9qLZ23wI6iwylQvin9/elzeBe0hXMwrhxj34Kxg6cCC5Y2UP3m11pRHBTrwSxLXG7LzM92cmu7C072bka5L7cqr/afdYvhWsJdL4I8jtJKuc4y3irrMQCqAUgphY7X5XcYk1q95PJ2+puLT4vCRwTEt5M=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=fail (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=HOqqVZ1/ reason="signature verification failed"; arc=fail smtp.client-ip=52.101.66.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YbUN5+uK"
-Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490aebf33e9so11868735e9.3
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:55:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780419329; x=1781024129; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=lR1aiUfHvK9pACcDS8heDpRLK9T5JqYjX9U4vnMG5Yk=;
-        b=YbUN5+uKTXcpMd9xhLVeeQZGG5docKseXHF5TmwoxiE4nMYMAJxfsKQTg37mwoJYcH
-         xaU3G4ehkfD32MKuXv+mfyhUx0ifb6S2jMfccJFIoqCmCLw1dP8cFu5vzQmcEwBIYgli
-         K93N/VnsTsn8sPFrtA7Ft125FayhLyryQqncEA0D8fn+oetH3feBHqVsozFJQaXMTjS6
-         taA+0vLN6tDMFI3Lbj7QFOPwreLZMj3WyX/NtTesXV955YiafHWhDjfhgNVJjNy1ViTh
-         s4JN0xytM+5k/+qwiukNaJpMkgp0pePOS+DjUHMInIyDgLUJGWc6gaLZgjKQfNdeYtxo
-         sbnw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780419329; x=1781024129;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=lR1aiUfHvK9pACcDS8heDpRLK9T5JqYjX9U4vnMG5Yk=;
-        b=prizHTrCAUJ+eG7ejWWcTlIEPzb7vq445zenEd3wNdF5ZkCEGxuuUZBwk5hwzErpzb
-         M+HEQWmfLrZnGz8z1Ob1JC789xrqW+fBTAsp9tbI5+91OCgTS3oWQxlI3mGCiMtjmuXx
-         +sgC43ZrnVcsGrt7LtPep7b/KBFbezRX8RirhrFtSA+EgZNxovweJ9ufEMoOGxTeeCCL
-         wVrbQjMh0RGmI0F3a1seNYoxXVCsPACGc1w/t03Lo9xzJLWh8zVRTlxjK1ucnoT2Lv3f
-         NNDUmBIwwkSVE20DYfrX9QRRagwhiOhIaBpmSVT1IZo1nwoDhrWsXIUYmXcfb3+Z0AYI
-         2d6A==
-X-Forwarded-Encrypted: i=1; AFNElJ9CBAZmTnECivvlZyoUETHGc7udJQFScVqGxKGKtYdnIdpZWsuu99ZXuF/aoYq7v+7mBlwiSj/zVO2G@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxdq15KrMJLUw+U/xTHTrZPin6Leut+v0yy7PsvmSwodDTloipY
-	0Ut39Rj8suSvvS9zRSsEN0+NDS8o1q4SzpMP6ACCLnipnA7K6sr1FfNZ
-X-Gm-Gg: Acq92OENxX3YsKA9Twwo88gQmtdNWRqpo3CklcVu+qatFhOJr+CarDyCyKgyVYDCAxH
-	i1BwdFHQeFo//K8M/El+D2IcjltMAkn4qBkMIxzSlMBGoh+ep05dwv54x0RFncNVggmFPTFQJxt
-	faxxYAho14jfTXzyrDNc5tIuk6NwaGiKSG3oR+XaBXeqIKYUaInlR5svMbpTaavbspAgD5uziWQ
-	tJzgctRmU2JPhmA/JPdK6s3hfbkpdFBUfstQnOWSFdcZ877Etd0qop88maJ5py2u3ruXPJ4J+EK
-	cuY+CN7f7Kyel66az2thVl3J23KCrNEI5bgpMU7aebrVHI7S8Qajm6RzNQxwXGR6GjmHSzBVMyv
-	+Bt/rhRIda8lO4i55AgFxw0VX9igN22LQG/DRtVo3Miu1jWYaHnd/xYDjTB5XpPaAsgO9HuxGo3
-	UrOElVVT57rpbc9OvexXWc1bSUon7KO6BRfDOLlWMnhhkKVZC6X2S+fqfhhJFDONB/eU4DHlAC8
-	fRsRZ76ACrh
-X-Received: by 2002:a05:600c:c3db:20b0:48e:5fb8:f80f with SMTP id 5b1f17b1804b1-490b50bfabdmr7086835e9.24.1780419328608;
-        Tue, 02 Jun 2026 09:55:28 -0700 (PDT)
-Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e0f343sm82850455e9.1.2026.06.02.09.55.27
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 09:55:28 -0700 (PDT)
-Message-ID: <a607ff15c5a9c6edd6be1a40182b16b5dc48c151.camel@gmail.com>
-Subject: Re: [PATCH v15 06/12] iio: core: add decimal value formatting into
- 64-bit value
-From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
-	rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron	
- <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko	
- <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich	
- <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>,  Andrew Morton
- <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
- <rostedt@goodmis.org>,  Andy Shevchenko
- <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
- <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Shuah Khan <skhan@linuxfoundation.org>
-Date: Tue, 02 Jun 2026 17:56:32 +0100
-In-Reply-To: <u7p5ndqqh3ngnmmzoir37yuc3hfm2llenaihuekwuwoji743mf@itbbdxfo4qan>
-References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
-	 <20260531-adf41513-iio-driver-v15-6-da09adf1c0dd@analog.com>
-	 <ah1SUD_QpRLD2WGV@nsa>
-	 <u7p5ndqqh3ngnmmzoir37yuc3hfm2llenaihuekwuwoji743mf@itbbdxfo4qan>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
+	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="HOqqVZ1/"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=lYwvkNFgy5kn5J/IMGJ9/00JjXHexUPzB6WFzExX2P+xPddgFNckHan0MXUF8BqgRf5KuQtz8YPrIPnFF60LpWW8Hth1ZqC0mJmAZ4Oq+2FYbHyqp1bCpXYf8xOHSo/Qzz74hU/xttq8n+QhsY4aV1lefcMIafWZmsJKY1rSfz1eTe9wejNaqcoausCdU//eDsZZqpC0/DB1rs41fSc0siEs6aL34okGNjOYwdgm2jyR6BSHyeXvrNnf4VIIc0tBRSFJt34b+V0SgGhGdqRDLFdVQHSK745GOK9u365MFEQ+DcUaxnWa4Ztu5hFbt9O9ofbb/t/X8F3TZ/B5+DFrag==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=b/zsQfJ8QqLNvMfzBnxuFa2SvvpBX4AziJ1V52wTh3U=;
+ b=V6wOzf2N4IFMBzGpi4x3lNFxjxCWxIeoBz3+Q/dS0RdKyt5dRUKtYHhfmRH9uf9CEA9hOVBw3TKVbVLVsXypH6g6HE3QlzSl4h3xTsjWtzpyIsz5+YqRBv1rIgyKRJPPF+FNz5Esqu+gxXcWWvuL6N2Q6X0WIVuU2aK6xrIGrpLtj5C9FVr+qKi24LinEmXACpZ6MyKLsox0u8uKV8BuT4QiI7jokBoll2wuwnaak+X0DNUDbzTlkebBQP9kuJkqHWboUfeb4SauS783y5Z64LYA4uiArtrQdpj9JNW9a4tuEBtV0Gz3UvvToIgE4AbUrDYkanznmE0SoDZrntbvlQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=b/zsQfJ8QqLNvMfzBnxuFa2SvvpBX4AziJ1V52wTh3U=;
+ b=HOqqVZ1/ziiEyKnrU2omPmjeK4fQrloHZkQfs+Wba4vi1fsRMsiqFOf1oBz4WXTUSsG9Pm8pJluUIYXzQ1u8x7h9/NnhjWrOPDMdigsVC1zaje+/xCzaIyIeoEqpbN1YMXBDruYfXzzs67DI3FJm29zmv2vzFIbBN/+JypMpqtJrGA6N60fobD3Gz5nc68i4FTGhGhqQZ5vXKbxzo/VSjX0OyPpmhbOt4s4Opcw57EUFYkkbBTvKHzmqJd+dCmAdajuRiWtR2HrfvMS/ZGUba1yjJwk0peJr759a7RHzgzyE4zcmLAJ6aYUWpwzvPutmRIGG7lEAbmzY2loSdm4Mqg==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
+ by VI2PR04MB10979.eurprd04.prod.outlook.com (2603:10a6:800:277::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
+ 16:57:51 +0000
+Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
+ ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
+ 16:57:50 +0000
+Date: Tue, 2 Jun 2026 12:57:44 -0400
+From: Frank Li <Frank.li@nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: Manikandan Muralidharan <manikandan.m@microchip.com>,
+	conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+Subject: Re: [PATCH v7 3/5] i3c: mipi-i3c-hci: add microchip sama7d65 SoC
+ compatible with the required quirk
+Message-ID: <ah8LiLPXssB5VYjm@lizhi-Precision-Tower-5810>
+References: <20260525092405.1514213-4-manikandan.m@microchip.com>
+ <20260525102331.8AE921F00A3A@smtp.kernel.org>
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260525102331.8AE921F00A3A@smtp.kernel.org>
+X-ClientProxiedBy: PH5P222CA0006.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:510:34b::6) To PA4PR04MB9366.eurprd04.prod.outlook.com
+ (2603:10a6:102:2a9::8)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|VI2PR04MB10979:EE_
+X-MS-Office365-Filtering-Correlation-Id: 21a544b7-3e1c-4195-763a-08dec0c814a5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|52116014|366016|19092799006|1800799024|38350700014|18002099003|22082099003|6133799003|56012099006|5023799004|4143699003|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	y3ht+crFMQp98mNB1S9ICgbOQrMEz+6DT1/bbhYVr+SzvZLGfHcR9Ape1TYL4/A8DgWBmXAQ+L0oGuBPrmQTWroLfO4lZM2Zwileidc49OEwGce/GtAVMrbnwKY7jy3fH/S5ggHkqL4mphVmp2m8jdK2Q0jfwxllWb5G/JmGMPOfg7PBJQaD3WgCLML6Z0teiy0GIOdPuI4cTmFyTnq3MJjxk72R+A8BZpC9FYa06k6FawGiwQbYiv0yB7PWqhZVrnplsbBpQjXOuoVtyEQ9xtcr5IEp+MJ5m6NysmiDpoPVkXd2ET2ETKnK91ynJ2hCScV/nEv/3IAiqs02Z6ZqwxhAKVPZeNOC4+tzGzatkWwcNjKUAO04RKsd+NTAlaAbgmVOTQwglcV0KFnJDYoK7xMVvSd9wPqMkoDzzIIOuINfAYrnIdBMb7OgvWWdmmby5m9WyNn9FBbjfQRrmCQNqIOzkB/xn2WeAfDcANP5JCRO6sKox0Qg99SkRidTslThG26/86pDEpD+Pep4v3wQ024MKWxEDO3IqKrW4igFjE8fHDS/itVVjzCd/1onx09JZ9ls1zq59TvuPnJY5U1DiZBYJteU2KgCnynmeBvoINDS8KN+3yP94J2TiQQd1QjVFPBjpW/gyRCxT973Lj2O9X2CTg/hkbzS20/2IA75o7ia/ebY6dc4CbLZVZQnT7jr
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(52116014)(366016)(19092799006)(1800799024)(38350700014)(18002099003)(22082099003)(6133799003)(56012099006)(5023799004)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?iso-8859-1?Q?G+FfI3OPDeH6kekIIzg80Pl3dedbQpXlkOknihuolH43fhuzExYHDOOUhH?=
+ =?iso-8859-1?Q?6i56fyF2+JS9v6WCQ+bJuq2P1g+Syoev4TPA6Br52EJTaULpjKLeqXBUBr?=
+ =?iso-8859-1?Q?OvKj0HtoaI88um0ifgCNWppQWDxHV0VRJJafbOFYBN4DHCFP4QNGHDloRt?=
+ =?iso-8859-1?Q?DLJaCy8VQSYIljn7QcU0KQeKfvwvrawL1xJmgS8g10Igs98c1zU2wPrtr9?=
+ =?iso-8859-1?Q?psDrfe6WCIouBf21y4cWes2DGKvD12NSW+qgk8GHdFpfTH68F0IQkIs/Fz?=
+ =?iso-8859-1?Q?wwYocIy2CeeNt8FTsOfO4jhdlAdEkSEYiW7L2Aw7SSqQbYdYcRHeTN9RWB?=
+ =?iso-8859-1?Q?zAhTngU/MVXh5K9/Bz6iaB8fMylfeDfhmgTbhdEgVX9BXZQuU/ZldIgWzf?=
+ =?iso-8859-1?Q?erWZATI9AriVBWSOGbXtXwdpQgotZV4vEVs11u6ILDSngsspCl90ZFRK7y?=
+ =?iso-8859-1?Q?LnPTGfOIuKVbr8UL3qvtcihl5Lp4z2URqOObqvc1ARqTyB2CiG96MYTx9b?=
+ =?iso-8859-1?Q?vVYEOXP9wreLfLegL4hH0G8JT6oJQZWCo8XGbFTyrk/cC9ERv/vRKrXztW?=
+ =?iso-8859-1?Q?hvpRWXFyoy1h78z9fpWTAjPjPffCG1LKPsfvhIB88OP5wSApHx01PwZbFJ?=
+ =?iso-8859-1?Q?aTndYA6OiM7pywGh0SMn3C2ps7aEn/AgQAqa2edkI1m+RuBoRNLEQmywOJ?=
+ =?iso-8859-1?Q?msqKYJfrL/G9dNFO0n0R/TjEQ+I5siXd/tmNadOleIOhMtXFSJoNvW5jg6?=
+ =?iso-8859-1?Q?FfyT+zeXCVI68n6+Y5lfqafXpj0p9Aw2wcGHY1Yo797UhbEURJu+iboCi1?=
+ =?iso-8859-1?Q?kg+VqEMCtEi8yOEFwgXptoJZbpFlWWOdiHcAJGPVLMqacFQjNHpTlL7gV7?=
+ =?iso-8859-1?Q?QlDn67vlsOPZgFq0sTWdJcFBNKhRvgLzC0YXz8U9RIGAInh4Nb2ry8uktn?=
+ =?iso-8859-1?Q?J90/HklfiRVU+Wj1VYXLFfsnunTKBJFnwiSMP6V5szAwcc+qEfZRnrOIR2?=
+ =?iso-8859-1?Q?l1qWA7/YB12ckQ/Nxoz0GcYrODdtKrT2f/e+dYui6mftql4c7SlKw113yo?=
+ =?iso-8859-1?Q?45k4hIEIPZm8swyJ+/6Y9RzlSMJKSnqTz82sCFAbZQpiOjjBrCYYZTLTMA?=
+ =?iso-8859-1?Q?j2r7j5IURI+VqTiNzQTNYdwODfNlV5avEcmOl8DoS8pNbV10Z8Ky29z2L2?=
+ =?iso-8859-1?Q?YOmmdQ//Z/NQrdUfNOcZf4MmR1bRcX5uCpoLnrVHb4lOc8/uwddrli7Xkn?=
+ =?iso-8859-1?Q?ISfKTZrdoQ+YQUTIqIkxo+I9EhhcMRLT0ClD7xxIFvxeCJ0vs88CFPlZ0j?=
+ =?iso-8859-1?Q?hefqsmE2fsRGJ+Xm5inq5VkEIcoCPlCsKF8O9b/Z7PY8G1BO1kokgwhQOs?=
+ =?iso-8859-1?Q?Bhm0g2LfXg9qpsK8r1z9wvWsLaQTofgB92wLtJ8fJNREwdK6Qsp0RfFIQf?=
+ =?iso-8859-1?Q?mCnGxcxM6cNi5e5yJ8/qrVVmtYM0quxoCntwjslyvFU+Kg2BV3Iw0DiQ3c?=
+ =?iso-8859-1?Q?d0vU0+eyTpk2e68mJR+PO1DV3Xq5virvLLjvZ677c1v3SO1eT6NAdldXvQ?=
+ =?iso-8859-1?Q?gm5Jw/L/6aH7LCvBzQRCP3388NTtTPHKGsW4rH1jH4y2lbq6P7I8e+uLgB?=
+ =?iso-8859-1?Q?uwyvY1/wwihsT2rnK2O749GjkE5o4k1f3NXYYVecRL7Tb7bmQJNlMsROMu?=
+ =?iso-8859-1?Q?gFatSFLch3pzguZnl1/Dblku7BeQ6mT8pLCAw4kS45Z/OJP8tLgM5bxhPa?=
+ =?iso-8859-1?Q?GyvlKRmjOw2NY1tsg1FWJeM1+UI/CqzHH41BUUr4i1JdFphCoHgDNI/e0Z?=
+ =?iso-8859-1?Q?MOOoOg7NLA=3D=3D?=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 21a544b7-3e1c-4195-763a-08dec0c814a5
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:57:50.7034
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: 8nMrvgPSG47us8bYbg4cbxWMX5tKyJqUc5Rmt/L0JtJpcL2XgFZxQhgdEvBNM9RHAQWtb+Qj03N1vZ5tAQwSew==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI2PR04MB10979
 
-On Mon, 2026-06-01 at 16:12 +0100, Rodrigo Alencar wrote:
-> On 26/06/01 10:43AM, Nuno S=C3=A1 wrote:
-> > On Sun, May 31, 2026 at 09:30:49AM +0100, Rodrigo Alencar via B4 Relay =
-wrote:
-> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > >=20
-> > > Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
-> > > defines the representation of fixed decimal point values into a singl=
-e
-> > > 64-bit number. This new format increases the range of represented val=
-ues,
-> > > allowing for integer parts greater than 2^32, as bits are not "wasted=
-"
-> > > in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO a=
-nd
-> > > IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 6=
-4-bit
-> > > decimals into integer values used in IIO formatting interfaces, which
-> > > creates consistency and avoid error-prone manual assignments when usi=
-ng
-> > > wordpart macros. When doing the parsing, kstrtodec64() is used with t=
-he
-> > > scale defined by the specific decimal format type.
-> > >=20
-> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> > > ---
-> > > =C2=A0drivers/iio/industrialio-core.c | 47 ++++++++++++++++++++++++++=
-+++++++--------
-> > > =C2=A0include/linux/iio/types.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
- 30 ++++++++++++++++++++++++++
-> > > =C2=A02 files changed, 68 insertions(+), 9 deletions(-)
-> > >=20
-> > > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrial=
-io-core.c
-> > > index bd6f4f9f4533..a88088cac641 100644
-> > > --- a/drivers/iio/industrialio-core.c
-> > > +++ b/drivers/iio/industrialio-core.c
-> > > @@ -19,6 +19,7 @@
-> > > =C2=A0#include <linux/idr.h>
-> > > =C2=A0#include <linux/kdev_t.h>
-> > > =C2=A0#include <linux/kernel.h>
-> > > +#include <linux/math64.h>
-> > > =C2=A0#include <linux/module.h>
-> > > =C2=A0#include <linux/mutex.h>
-> > > =C2=A0#include <linux/poll.h>
-> > > @@ -26,7 +27,6 @@
-> > > =C2=A0#include <linux/sched.h>
-> > > =C2=A0#include <linux/slab.h>
-> > > =C2=A0#include <linux/wait.h>
-> > > -#include <linux/wordpart.h>
-> > > =C2=A0
-> > > =C2=A0#include <linux/iio/buffer.h>
-> > > =C2=A0#include <linux/iio/buffer_impl.h>
-> > > @@ -655,6 +655,7 @@ static ssize_t __iio_format_value(char *buf, size=
-_t offset,
-> > > unsigned int type,
-> > > =C2=A0				=C2=A0 int size, const int *vals)
-> > > =C2=A0{
-> > > =C2=A0	int tmp0, tmp1;
-> > > +	int l =3D 0;
-> > > =C2=A0	s64 tmp2;
-> > > =C2=A0	bool scale_db =3D false;
-> > > =C2=A0
-> > > @@ -698,7 +699,6 @@ static ssize_t __iio_format_value(char *buf, size=
-_t offset,
-> > > unsigned int type,
-> > > =C2=A0	case IIO_VAL_INT_MULTIPLE:
-> > > =C2=A0	{
-> > > =C2=A0		int i;
-> > > -		int l =3D 0;
-> > > =C2=A0
-> > > =C2=A0		for (i =3D 0; i < size; ++i)
-> > > =C2=A0			l +=3D sysfs_emit_at(buf, offset + l, "%d ", vals[i]);
-> > > @@ -707,8 +707,25 @@ static ssize_t __iio_format_value(char *buf, siz=
-e_t
-> > > offset, unsigned int type,
-> > > =C2=A0	case IIO_VAL_CHAR:
-> > > =C2=A0		return sysfs_emit_at(buf, offset, "%c", (char)vals[0]);
-> > > =C2=A0	case IIO_VAL_INT_64:
-> > > -		tmp2 =3D (s64)((((u64)vals[1]) << 32) | (u32)vals[0]);
-> > > +		tmp2 =3D iio_val_s64_from_s32s(vals);
-> >=20
-> > I might be missing something but can't we just call
-> > iio_val_s64_compose()? Likely even inline in sysfs_emit_at()?
->=20
-> There is a compose() already.
->=20
+On Mon, May 25, 2026 at 10:23:31AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [High] Reusing AMD-specific hardcoded timing quirks for a Microchip SoC will result in incorrect I3C bus frequencies.
+> --
+>
+> commit 8dab9b9edc49c0214800ec48372900ae0b5bbae4
+> Author: Manikandan Muralidharan <manikandan.m@microchip.com>
+>
+> i3c: mipi-i3c-hci: add microchip sama7d65 SoC compatible with the required quirk
+>
+> This commit adds support for the Microchip sama7d65 SoC I3C HCI master IP.
+> It introduces clock acquisition during probe and applies specific quirks
+> to the new compatible string.
+>
+> > diff --git a/drivers/i3c/master/mipi-i3c-hci/core.c b/drivers/i3c/master/mipi-i3c-hci/core.c
+> > index b781dbed21650..4cdf2abd42197 100644
+> > --- a/drivers/i3c/master/mipi-i3c-hci/core.c
+> > +++ b/drivers/i3c/master/mipi-i3c-hci/core.c
+> [ ... ]
+> > @@ -969,6 +970,7 @@ static int i3c_hci_init(struct i3c_hci *hci)
+> >  static int i3c_hci_probe(struct platform_device *pdev)
+> >  {
+> >  	const struct mipi_i3c_hci_platform_data *pdata = pdev->dev.platform_data;
+> > +	struct clk_bulk_data *clks;
+> >  	struct i3c_hci *hci;
+> >  	int irq, ret;
+> [ ... ]
+> > @@ -1001,6 +1003,11 @@ static int i3c_hci_probe(struct platform_device *pdev)
+> >  	if (!hci->quirks && platform_get_device_id(pdev))
+> >  		hci->quirks = platform_get_device_id(pdev)->driver_data;
+> >
+> > +	ret = devm_clk_bulk_get_all_enabled(&pdev->dev, &clks);
+> > +	if (ret < 0)
+> > +		return dev_err_probe(&pdev->dev, ret,
+> > +				     "Failed to get clocks\n");
+> > +
+> >  	ret = i3c_hci_init(hci);
+> [ ... ]
+> > @@ -1031,6 +1038,9 @@ static void i3c_hci_remove(struct platform_device *pdev)
+> >
+> >  static const __maybe_unused struct of_device_id i3c_hci_of_match[] = {
+> >  	{ .compatible = "mipi-i3c-hci", },
+> > +	{ .compatible = "microchip,sama7d65-i3c-hci",
+> > +	  .data = (void *)(ulong)(HCI_QUIRK_PIO_MODE | HCI_QUIRK_OD_PP_TIMING |
+> > +				  HCI_QUIRK_RESP_BUF_THLD) },
+>
+> [Severity: High]
+> Will applying HCI_QUIRK_OD_PP_TIMING to this Microchip SoC result in
+> incorrect I3C bus frequencies?
+>
+> This quirk typically invokes amd_set_od_pp_timing(), which writes hardcoded
+> timing divisors (0x00cf00cf for Open Drain and 0x00160016 for Push-Pull) to
+> the controller's vendor-specific registers. These fixed values were
+> calculated for a 9MHz I3C bus frequency assuming an AMD platform's specific
+> fixed input clock of roughly 400 MHz.
 
-Yes and I was suggesting using that one instead iio_val_s64_from_s32s() :).=
- To be
-consistent to what you use in the other path (which is decompose() if I'm n=
-ot
-mistaken).
+Look like make sense. Is it true?
 
-> =C2=A0
-> > It would match your call to iio_val_s64_decompose() below.
->=20
-> here are the helpers prototype:
->=20
-> 	s64 iio_val_s64_compose(s32 val0, s32 val1);
-> 	s64 iio_val_s64_from_s32s(const s32 *vals);
->=20
-> 	void iio_val_s64_decompose(s64 dec64, s32 *val0, s32 *val1);
-> 	void iio_val_s64_to_s32s(s64 dec64, s32 *vals);
-> =C2=A0
-
-Yes and it feels that iio_val_s64_compose() and iio_val_s64_decompose() are=
- the only
-ones we really need? (Maybe with other naming if you prefer iio_val_s64_fro=
-m_s32s()
-and iio_val_s64_to_s32s()).
-
-> > And the above makes me wonder if the compose()/decompose() are not the
-> > only helpers we need? At least in terms of parameters? I mean, just
-> > assuming we only have two integers instead of allowing s32* and opening
-> > the door for misbehave :)?
->=20
-> I suppose we would really need some sort of:
->=20
-> union iio_val {
-> 	s32 val32[2];
-> 	s64 val64;
-> };
->=20
-> or even add a:
->=20
-> 	struct { void *ptr, size_t size }
-
-I just meant using two where we just have (s32 val1, s32 vals2) given that =
-is
-what IIO has anyways. No need to overthinking it for now IMO.
-
-- Nuno S=C3=A1
-
-> > - Nuno S=C3=A1
-> >=20
+Frank
+>
+> Since the Microchip SoC acquires its clocks dynamically via
+> devm_clk_bulk_get_all_enabled() as seen above, its input clock rate could
+> differ and vary based on the system's clock tree configuration.
+>
+> Should these timing divisors be calculated dynamically against the actual
+> input clock rate obtained from the clock framework rather than blindly
+> reusing the fixed AMD divisors?
+>
+> >  	{},
+> >  };
+> >  MODULE_DEVICE_TABLE(of, i3c_hci_of_match);
+>
+> --
+> Sashiko AI review · https://sashiko.dev/#/patchset/20260525092405.1514213-1-manikandan.m@microchip.com?part=3
