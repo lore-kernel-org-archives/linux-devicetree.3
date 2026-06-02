@@ -1,171 +1,113 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74C91B4138;
-	Tue,  2 Jun 2026 21:00:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35548395D8E
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 21:00:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780434021; cv=none; b=s0bkjcP0ZT8UJ5uDwF6Q4vXWtBzkXNQhrKTHAfmxrgXX89Asa/OidMDsOVjylKsRjUSMLRPfgfNeFTEKtiJ7uAFklNJzHGduB0so4XQR6hfsSYMb461TDOnQjUO1aMqSyrl20+FfvBOxeJIv9WMFFtOBrF65gvEI3S2gTZn59ww=
+	t=1780434031; cv=none; b=G9iXdTbQTMyVbGk3PU06M14cYJjs30ikcZVy/Q5jChCskn8DFoMZ7MZudlibKdnH/NryMO5Q4eY/2tLq319Wi3cgcp+2DhDzah10VudPBO/yCtCu3+XsG5w9HjFqgpSb1fYrsOU/bZOD5e+V5If9VJIChFVFuyYfH4whV4TuxRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780434021; c=relaxed/simple;
-	bh=DjWzZbt2IRB8RfbyspIxQTHfC/bhFQZ3cqPYf193Jc0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=mVzoH7vwPZB2DeIjFf/Be7/YIzzRHIPz7mEhSrFoVB9SYdP5PHoHKdNqrIgzyE72rwhL4/QfkD6Up2bCVNABvQculxEADrUts2aVM7uYe06KLyJrybXmb5qZmfK2i9nXK/L/+UqwyVQKiP4YPaPuIrQ/iE36ld4iqdE3/wRa+tQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LFy3e/He; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780434031; c=relaxed/simple;
+	bh=uvhufSHkS27pkk5zPIVNeG5TbVytzxmiQf16IumQwvY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DItYtQ2vhQZcDoHn5FtLKVh5ZuaMiKZpd8kCmoz8LDM7hBTee9qS8X+dtSZQuZEktcZfz3ulJYluTinCUhr6eVyQPVoABHgWAKeQmeGLI2mqq+Besr2CXlwfpHrk1rfrlGGyWSh/O/k2aenPTOXiqGpfQaVPysCvOx/cRghIus8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YF2xCCuJ; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LFy3e/He"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780434020; x=1811970020;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=DjWzZbt2IRB8RfbyspIxQTHfC/bhFQZ3cqPYf193Jc0=;
-  b=LFy3e/Heb8/1VU+00Ba7BzTQHS+0UaiQZI0QV8Y6khDWaeMAFYxTaaQT
-   XhNe0/LyNHtbm5ucVM5cfyq+MsDFFJBEvx2m0QDTRrZocpKVi7h61rumP
-   m6tMB+sFWrkIQ/qabtgbNprq5Lh/Ncb+lr5d77D58tWTZyuql9D70FUc6
-   0IR6KTk9Y035OW2bWpxESaP1TAZNDyNgUfC/cHnea2O32hIpv69qSY8cV
-   UDDLUkGcNdUSy2kI5rN7QcGlKHoFcVBBAHrsaUikvQ3vKzua3wCZZYYNc
-   psdNLa0sg4+N3/vDCQLyJZUKIVyaaaNRih8wO4D901y/qNwyj+x4KVnZC
-   w==;
-X-CSE-ConnectionGUID: jxQHk5p9SEKi/dJDyLR2eA==
-X-CSE-MsgGUID: LqX0evIkT5CAy3o5U2KUCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="80373765"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="80373765"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 14:00:19 -0700
-X-CSE-ConnectionGUID: /xxe5FilRvqaG+sb9fp5oA==
-X-CSE-MsgGUID: vJQgfoRETruV1exjT7MU5w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="267885994"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 14:00:15 -0700
-Date: Wed, 3 Jun 2026 00:00:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v15 03/12] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <ah9EXNnutqk1FoV2@ashevche-desk.local>
-References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
- <20260531-adf41513-iio-driver-v15-3-da09adf1c0dd@analog.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YF2xCCuJ"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45e9f4a3510so6917207f8f.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 14:00:29 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780434029; x=1781038829; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=o3xo5dhddNfd1GteqLJrkhqAoPlpEA1sqWA6MOtGTrE=;
+        b=YF2xCCuJxynz08ycnNg6UkGnNlwN05tSjivjUi6jtdz29GiqQFZJScpt1NiN4daywK
+         bJzpU7BKkgtjHO0/WDpfCQBHm9+Y4mOt5Zkzggh8aXQgojDIrr8SlZImvuI/rEmU+k/N
+         dsY8DchWBwumWwSe4RDNVzDjOZ7A/A3rwWmPO9vtIrAWhw6PZDVexwu85JyBuk6s34T6
+         XEdGt6WD67CL5/X5TRlymbFq41L/kdsx4i6Wt1TP8/4jZJoXihOJU2lba3CwkO5S28Jd
+         TMrw06kE7NntZRrgMS1lE8bf6rbDBERJEklUaTnkLOpvqDCHZ6ur3rM6HsSs3IqheaK7
+         cppg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780434029; x=1781038829;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=o3xo5dhddNfd1GteqLJrkhqAoPlpEA1sqWA6MOtGTrE=;
+        b=TTvU8PYhWP6sUvD3KBCI6M8ujw/jt8mkN2lmB1U1z7YlJ6aUJ1fSn7JMxjzZoxVihI
+         IK8Jn0BRBh/xQrDKVkK47O3QNqNqx/S0cngXqFfxPX5o0VGYix3FNlFuIJZgAS4hTjzA
+         dchgwP+GzMrD+5mVPL+nLFwMTeFh9W4TveynZNYvoKZXiyPXnwEBVwmvKuIRgG4Ae+wz
+         ppZV0fyOGiPCnMldWwlIDIBmeKcCguVC1yMMFWrqchS1FdwyH+RyBeBavGVg0ZJKNbJA
+         6ukD+4b6dMJkSFfPnE4brO2Irs+MqYU/cITxOcf1pwg/mc6V8wqEcldYxpH6lxSRftY9
+         z2xA==
+X-Forwarded-Encrypted: i=1; AFNElJ/PF8LQl0KAwgqf12xonV3YOB9rQfa242n37C4KUm/2m1ti2RD/JOiMk6LBllYqOt/SK11RWoLjpMW0@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPrA1/Sdrq6bEh/NPDeLepvUXIrTCrTSaP04dvYdkaEMXRxYrG
+	59RPQLm5sbViMdDWbe3yDrgkqxcUQy6Z/Y/9O9UiVuJoywM/MvbOR3C0rTiFtXz8spU=
+X-Gm-Gg: Acq92OE04u0CjMmkEaHamK1UMimqgL3jhMwo6LivFU6vUSy3BZ8po3DnLfxJCyWP6Ec
+	+rjhz07ORs42z+xLHk6pZvveJCCZmg0x93JNdqv00iARzlW1WQ3iSpiSVIVTAv5Bpfj46UmqKQP
+	ezNNI4KPUtbGtKp0siZ6JGaUeGb9BW0kS51dUCarobp+fQiX7KCe+LjXEEseN/q1LQaie3sm2og
+	SWCYkUri4FB68QllczQIjKBs8Zn3vqvygB4xx3gQnPE4BNWatT6z0CozOqtALtnLmhZ8VoPH5Om
+	8jVQZyYEPnFMwdtkrsaSzV2JnCH1GL9vcMsaG9YgTpayJ4HRsW9JHxP938As9jstq3Z3eSoWcDc
+	+Hd7NoVQdY1DTj6LP6TvUsGG3yEEqphJO/86WacCije3jI1npyFmPvRoinNHCmiYzUYL/Xu077E
+	EfmPKeQDbWb41U4D2ObOHGRbfpMtxJvCevGxIJtsKyjGcZ
+X-Received: by 2002:a05:600c:4513:b0:48e:7854:1608 with SMTP id 5b1f17b1804b1-490b5fe9bd8mr6349125e9.25.1780434028575;
+        Tue, 02 Jun 2026 14:00:28 -0700 (PDT)
+Received: from [192.168.0.35] ([109.77.42.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b6d16f0csm1316135e9.15.2026.06.02.14.00.26
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 14:00:27 -0700 (PDT)
+Message-ID: <d45f3000-35e7-4f65-b9fe-5348105abb0f@linaro.org>
+Date: Tue, 2 Jun 2026 22:00:26 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531-adf41513-iio-driver-v15-3-da09adf1c0dd@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Frank Li <Frank.li@nxp.com>
+Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
+ <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <ah9DMPcKUaTm324I@lizhi-Precision-Tower-5810>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <ah9DMPcKUaTm324I@lizhi-Precision-Tower-5810>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, May 31, 2026 at 09:30:46AM +0100, Rodrigo Alencar via B4 Relay wrote:
+On 02/06/2026 21:55, Frank Li wrote:
+> phy {
+> 	...
+> }
 > 
-> Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> precision). After the decimal point, digits beyond the specified scale
-> are ignored.
+> csi2 {
+> 	phy=<&phy>;
+> 
+> 	port@0: {
+> 	}
+> 	...
+> }
 
-...
+Agreed.
 
-> +static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-> +{
-> +	u64 _res = 0;
-> +	unsigned int rv_int, rv_frac;
-> +
-> +	rv_int = _parse_integer(s, 10, &_res);
-> +	if (rv_int & KSTRTOX_OVERFLOW)
-> +		return -ERANGE;
-> +	s += rv_int;
-> +
-> +	if (*s == '.')
-> +		s++; /* skip decimal point */
-> +
-> +	rv_frac = _parse_integer_limit_init(s, 10, _res, &_res, scale);
-> +	if (rv_frac & KSTRTOX_OVERFLOW)
-> +		return -ERANGE;
-> +	s += rv_frac;
+However, we also want to support "split-mode" which is a special mode of 
+this PHY where two sensors can be connected to one CSIPHY.
 
-> +	if (!rv_int && !rv_frac && !isdigit(*s))
+After a lot of debate adding ports/endpoints to the CSIPHY itself has 
+been pretty much settled on.
 
-Do we care about isdigit() here? Why?
-
-> +		return -EINVAL; /* no digits at all */
-
-> +	while (isdigit(*s)) /* truncate digits */
-> +		s++;
-
-> +	if (*s == '\n')
-> +		s++;
-> +	if (*s)
-> +		return -EINVAL;
-> +
-> +	if (_res && (scale > (19 + rv_frac) || /* log10(2^64) = 19.26 */
-
-It's better to make comment closer to the operand
-
-	if (_res && (scale > (19 + rv_frac) /* log10(2^64) = 19.26 */ ||
-
-> +	    check_mul_overflow(_res, int_pow(10, scale - rv_frac), &_res)))
-
-Can we deduplicate the scale - rv_frac?
-I mean, would it be possible to do
-
-	if (_res && ((scale - rv_frac) > 19 /* log10(2^64) = 19.26 */ ||
-
-without possible wraparound?
-
-> +		return -ERANGE;
-> +
-> +	*res = _res;
-> +	return 0;
-> +}
-
-...
-
-> +/**
-> + * kstrtoudec64() - Convert a string to an unsigned 64-bit value that represents
-> + *		    a scaled decimal number.
-> + * @s: The start of the string. The string must be null-terminated, and may also
-> + *  include a single newline before its terminating null. The first character
-> + *  may also be a plus sign, but not a minus sign. Digits beyond the specified
-> + *  scale are ignored.
-> + * @scale: The number of digits to the right of the decimal point. For example,
-> + *  a scale of 2 would mean the number is represented with two decimal places,
-> + *  so "123.45" would be represented as 12345.
-> + * @res: Where to write the result of the conversion on success.
-
-I believe it's better to leave short descriptions short and describe the
-examples and other considerations here, in the description section.
-
-All the same for the second one below.
-
-> + * Return: 0 on success, -ERANGE on overflow and -EINVAL on parsing error.
-> + */
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+---
+bod
