@@ -1,130 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 767C41DF73C
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 13:19:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546533BB66E;
+	Tue,  2 Jun 2026 13:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780406364; cv=none; b=tgxHo9pYBnGNJ2W7mNEscBc5+xZ9FuV0LElL4RdPapH1PeqvfFANrD+uPDdjDioGdgy3E68JEbF65R/sAMORv6Z/d0WByqzLn4nwT/5AtH3sIHVXrad1uKPA268+ba+nnP7hbbkIT7rVQ3DBh48m4EwJqtdrRREj7kC7+GOXI3Q=
+	t=1780406500; cv=none; b=gwth/kxMnkCw/sZeqyaCoKBEtats/+SZUE4IyzACsHnFgNgQfbLE6oNoSiKjmyuzfB6E5BIV6D9EqEln3e/q5qUuOfbhMRCSqESC+TdDhfUu1oEURdY4XL7eyXcxmglqIXERHBrQpFISMjUhlxyh6ZO+KTPADnp8wczIkiB5oBs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780406364; c=relaxed/simple;
-	bh=o3d1bHFw56gmF0ju75wNfx8s6SgffzgLZu0PLHaqi5A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=EP5p2yNqG8dHrTi5C6wXWt9bVxmWf17xPxL1MTQWtPYVBPtl1auOCjTPaSx9qy0W5juu5E+OkgQUflcifs8w1vpGd8wm8YMPrDKpE2njtn5V4T7AnmwP8UIGIMvf2iRST4DzPsCUItuIsgJ5d7e8jYidaSJBRMOJFJy4MiI4V5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aW5xJGjv; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aW5xJGjv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBF3C1F0089A;
-	Tue,  2 Jun 2026 13:19:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780406363;
-	bh=qjKwJjnPjclKRv6ciOxVYAUR7Joywo8ZaUuK8ISG5ak=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aW5xJGjv6NM4hVwIp+YQKFXyvjr05UIJVY0HJCgOOaVXuwtxsiZtCEkIxNYoFXOOu
-	 G1aQgdNtKsSy3xNEFDyGMyiZSZtjKliQPixzEEzbLWDmskRvEEj5VF0M4I3hXnIemc
-	 IYFmpPtEABdap9aYXsX6oUfiUyAAnLeG80utQLZtqQ6lBOVoKQ4NGnIZ2Yg6bLJVpL
-	 XVwlLs1Vkwe8M7KHQK53P3sSbyNXH4Nj3omcdjj+0zIxkpC3bVRIJKXkel3MRmcoFt
-	 bQWFeCdYEOGbxuZvhJS4OI/eR7g3lvYulS7ZgArQjHJZOahU7UiK5IbqhOZlkv1C/W
-	 yp40wQkRw0Idw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/3] net: phy: qca,at803x: add RX and TX clock
- management for IPQ5018 PHY
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "George Moussalem via B4 Relay" <devnull+george.moussalem.outlook.com@kernel.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-ipq5018-gephy-clocks-v1-3-2df8287712c3@outlook.com>
-References: <20260601-ipq5018-gephy-clocks-v1-3-2df8287712c3@outlook.com>
-Content-Type: text/plain; charset=utf-8
+	s=arc-20240116; t=1780406500; c=relaxed/simple;
+	bh=hWlMEGxkqVHW9eu1wc/fnzwEnWDAfiD9lkWM7LRTMTE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=hrEmSiJbshkqlB/QWSfGJGNJ23X9lZN8wicHi7L4B5VfndJ/kyA5x3ISvvZcJ2B/BZw/b2kABID3r3MPbybT8PBpa5joNREkjsziCzBsWuEhnaK2/EEwqcoVsqzU0439mKDIR+ka8qq2JMMx1HpZp6tMgD5CvuFApIQqP1vxGvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.15])
+	by APP-05 (Coremail) with SMTP id zQCowABXr9LX2B5qKdInEg--.1119S2;
+	Tue, 02 Jun 2026 21:21:27 +0800 (CST)
+Message-ID: <bc4644a6c1e30a99f1ed5d967c64ba7f5da77fbc.camel@iscas.ac.cn>
+Subject: Re: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels
+ according to DSDT
+From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+To: Pengyu Luo <mitltlatltl@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio	
+ <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Date: Tue, 02 Jun 2026 21:21:27 +0800
+In-Reply-To: <178040480680.1778078.1165164069560552075.b4-review@b4>
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+	 <178040480680.1778078.1165164069560552075.b4-review@b4>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 13:19:22 +0000
-Message-Id: <20260602131922.DBF3C1F0089A@smtp.kernel.org>
+User-Agent: Evolution 3.58.3 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-CM-TRANSID:zQCowABXr9LX2B5qKdInEg--.1119S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4DJFW8AryruF1UuF43Awb_yoW8Wry3pF
+	WfWayS9ws0ga1fGrykKw1UZFySgrZ5Arn0kFn5ur18uFy5Ar1vgrWS9a17u3Wayr1FkrWj
+	v34I9rn2vFWUZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkFb7Iv0xC_Kw4lb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I2
+	0VC2zVCF04k26cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rw
+	A2F7IY1VAKz4vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xII
+	jxv20xvEc7CjxVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4
+	A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IE
+	w4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMc
+	vjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwCY1x0262kKe7AKxVWUtVW8ZwCF04k2
+	0xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI
+	8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41l
+	IxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Jr0_Gr1lIx
+	AIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
+	jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07betCcUUUUU=
+X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Unbalanced clock reference counting causing CCF underflow warnings
---
+=E5=9C=A8 2026-06-02=E4=BA=8C=E7=9A=84 20:53 +0800=EF=BC=8CPengyu Luo=E5=86=
+=99=E9=81=93=EF=BC=9A
+> On Tue, 02 Jun 2026 16:14:45 +0800, Icenowy Zheng
+> <zhengxingda@iscas.ac.cn> wrote:
+> > Some bugs of the GPI driver exhibits a fact that some GPI
+> > interfaces
+> > aren't available to HLOS, and accessing them leads to system stucks
+> > /
+> > resets [1] [2].
+> >=20
+> > This patchset sets the DMA channel mask of sc8280xp device trees to
+> > the
+> > values indicated by the DSDTs of the corresponding devices.
+> >=20
+> > As different devices seem to have different allowed DMA channels,
+> > the
+> > value in the SoC DTSI file is removed, to prevent new DTS's from
+> > directly using these broken values.
+> >=20
+> > [1] https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142403
+> > [2]
+> > https://discussion.fedoraproject.org/t/fedora-43-44-beta-aarch64-wont-b=
+oot-on-thinkpad-x13s/183074/13
+> >=20
+>=20
+> I don't focus on the upstream for a while, was this problem still
+> here
+> recently? Could you attach the base commit, so I can reproduce it.
 
-commit 05a5fab6d0a0c9ba1c5e411c7e94bc9ff8040850
-Author: George Moussalem <george.moussalem@outlook.com>
+I tested on v7.0.10 (with some extra patches, but not related to
+sc8280xp).
 
-net: phy: qca,at803x: add RX and TX clock management for IPQ5018 PHY
+It seems that raid456 module will lead to the hang because improper
+usage of GPI DMA, and without it loaded it seems to be working fine.
 
-This patch acquires and enables the RX and TX clocks for the IPQ5018
-PHY datapath. It also gates these clocks upon link state changes to
-improve power management.
+Could you check whether you have any problems with CONFIG_MD_RAID456=3Dy
+set?
 
-> diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
-> index 63726cf98cd42..b7361a14220d8 100644
-> --- a/drivers/net/phy/qcom/at803x.c
-> +++ b/drivers/net/phy/qcom/at803x.c
+Thanks,
+Icenowy
 
-[ ... ]
+> About one months ago, gaokun3 worked well with Linux 7.0.0. I enabled
+> i2c4(gpi_dma0, seid=3D4), spi6(gpi_dma0, seid=3D6), i2c15(gpi_dma1,
+> seid=3D7)
+>=20
+> I thought this commit should have fixed the issue in [1]
+> https://lore.kernel.org/all/20251013115506.103649-1-mitltlatltl@gmail.com
 
-> @@ -1062,6 +1065,16 @@ static int ipq5018_config_init(struct phy_device *=
-phydev)
-> =20
->  static void ipq5018_link_change_notify(struct phy_device *phydev)
->  {
-> +	struct ipq5018_priv *priv =3D phydev->priv;
-> +
-> +	if (phydev->link) {
-> +		clk_enable(priv->rx_clk);
-> +		clk_enable(priv->tx_clk);
-> +	} else {
-> +		clk_disable(priv->rx_clk);
-> +		clk_disable(priv->tx_clk);
-> +	}
-> +
-
-[Severity: High]
-Will this lead to unbalanced clock reference counts and Common Clock
-Framework (CCF) underflow warnings?
-
-Because ipq5018_link_change_notify() is invoked on every PHY state
-transition, it can be called multiple times consecutively while
-phydev->link remains false (for example, transitioning from PHY_NOLINK
-to PHY_HALTED). This would result in multiple calls to clk_disable()
-without corresponding clk_enable() calls.
-
->  	/*
->  	 * Reset the FIFO buffer upon link disconnects to clear any residual da=
-ta
->  	 * which may cause issues with the FIFO which it cannot recover from.
-
-[ ... ]
-
-> @@ -1084,6 +1097,16 @@ static int ipq5018_probe(struct phy_device *phydev)
->  	priv->set_short_cable_dac =3D of_property_read_bool(dev->of_node,
->  							  "qcom,dac-preset-short-cable");
-> =20
-> +	priv->rx_clk =3D devm_clk_get_enabled(dev, "rx");
-> +	if (IS_ERR(priv->rx_clk))
-> +		return dev_err_probe(dev, PTR_ERR(priv->rx_clk),
-> +				     "failed to get and enable RX clock\n");
-> +
-
-[Severity: High]
-If the driver unbinds while the link is down, won't the unconditional
-cleanup registered by devm_clk_get_enabled() trigger another CCF
-underflow warning?
-
-The initial devm_clk_get_enabled() sets the enable count to 1. If the
-link goes down, the count drops to 0. When devres cleans up on unbind,
-it will attempt to disable the clock again. Should state tracking be
-added, or should this use devm_clk_get() instead if the clock state
-is going to be managed dynamically?
-
-> +	priv->tx_clk =3D devm_clk_get_enabled(dev, "tx");
-> +	if (IS_ERR(priv->tx_clk))
-> +		return dev_err_probe(dev, PTR_ERR(priv->tx_clk),
-> +				     "failed to get and enable TX clock\n");
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-ipq5018-ge=
-phy-clocks-v1-0-2df8287712c3@outlook.com?part=3D3
