@@ -1,102 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E3BD3D9DBC;
-	Tue,  2 Jun 2026 12:46:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4DF62765DF;
+	Tue,  2 Jun 2026 12:48:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780404416; cv=none; b=eGfZRcS74VL1wFMgQOKHXPehOkzQihGV+2ogA/8MO5wgpBcpYILPpzgUW2mK598S9W/sqMtIXeianV0siBFov42U5BOa4Z0sVBecRcGeqFUvXjug8AWXSuGpX8Ga+G4AvKCWo+wbllLvsVRBAqbDkUO5gwTG7lTMNafOruWXd0s=
+	t=1780404487; cv=none; b=hYkK8nwCQoHh3Nl5OvjL8Q+CXTCMN8e01FWWfS71eRyBXUpIABd4jr4IdJ82VgmOtdwlp6+uzUWxum+GXGyqap/EeMLslDBD/WnjRgGvIzhH9Z0crf4wnueb6Ril3qsv/0yweEsQfFS/xrEuD3tVlipp1sb5cV+NMlGWKguIMgY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780404416; c=relaxed/simple;
-	bh=6Uru3oiN+KUnWcz/gv4yCW62HmXWPmwm2tqYSe5EbcY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nhs6ymCDUvcMuFMLXRTZcfn8tem2s/N8G3SBbNEh88TFxlNts7pkNhfeD4fmQ8XTLkfJ2WseoYa+Ia8wYOdODI8AswBs0HEkkUUpQcee9OdsjPZHxBU5/iuh10nklRb5QN2KDOiJgkQUEDRdrUb7VK6UO7QHt0QwyFXfB6zMhj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IeaFb349; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1780404487; c=relaxed/simple;
+	bh=hxB82OwR/c2b5AF1j39uyClP13FSUWRKhi3oip7J4bo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kkXP6yucm3B3ruUOY3TSuhOKRYDDx6XI2/HyZXs/696DKGoWTSrhq+8K5NrBD5GZYuclOg0don/AQc36pM6nP+gFVC5rYOY3xIphlNSAZ78HBYM99sS3OIHqQUai3nL1AILZyHipK6rNnO1oDpu684F0PHSFhXMRBeaj6i1PIWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZcnb3Ne; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IeaFb349"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 4CABDC2BD01;
-	Tue,  2 Jun 2026 12:46:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780404416;
-	bh=6Uru3oiN+KUnWcz/gv4yCW62HmXWPmwm2tqYSe5EbcY=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=IeaFb349Q+HRYXRQlupaSln8P+/YmYDtWARL5hQtpDhS6+qZj4GqkJIQxw0auVClp
-	 U9rjEw7ufl+JdnoWeeLBng63EzFdu7oH/Sh7dEX46Xrl0f2e8//6a5sKTZ3De1pg8o
-	 xtfA56FyOa/hjwnauGWzREwA5K3AxExzVf+rL1YTLydvgZBGslImwpFJJ+sqblixWn
-	 3W16917Th+gNpr3WyFkMcsf+QtKCoa+nmJNPwWVxWLUZ7nbRWw8+NBUH0OpDG2iEZQ
-	 YOVHFM/8HhufELzA+goCgi6frXpFCnZFd6W637cTPBagZylhdQWgWXz9Dt09Iu4wZD
-	 zIughF6fl+T9g==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 3E64DCD6E64;
-	Tue,  2 Jun 2026 12:46:56 +0000 (UTC)
-From: Roman Vivchar via B4 Relay <devnull+rva333.protonmail.com@kernel.org>
-Date: Tue, 02 Jun 2026 15:46:57 +0300
-Subject: [PATCH 4/4] ARM: dts: mediatek: mt6323: add AUXADC support
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZcnb3Ne"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7B511F00898;
+	Tue,  2 Jun 2026 12:48:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780404486;
+	bh=iCZKbEEGJwyGjbTw3VbjcJ0aH82ATivE84+H+5iwvjg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=BZcnb3Nebu4GuTulLEBMCdckbcc/FKFhUO0BIPGuDrQOmqVvI8dStqzOjSmXLa3iG
+	 tx3jsarm7muLQB16y2j3nsqkJZg6Yz4OWd+FkHIEFRQlIS6SIfBqL3ZAYxl9EAtbUt
+	 O3W7Eu5jsGe4DnXmxCUmCBnJdd9SlJcp2Ejpa2W+aYFLWpwiWb/UYRO547pWB5gKYQ
+	 Z0QIopr89UhlZKfVHYSMT3C7ubCMMrDWH1u0AeDkLlH4tP/izVMZybkt5fBHzvfgXB
+	 6+MyaFn3LSS/CHwSGtZ441/6z+tiCUcrQpnhSWcaGO0J2yp+uaZkNmEmIPAnm+2Yjm
+	 zNKPlBVpvb49g==
+Message-ID: <385c0e3c-f131-4d38-8d82-0e0b4ab8e96a@kernel.org>
+Date: Tue, 2 Jun 2026 15:48:01 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 0/7] pinctrl: renesas: rzg2l: Add support for RZ/G3S
+ I3C
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com,
+ prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
+ linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
+References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
+ <ah7AAgK0plmNfL5C@ninjato>
+Content-Language: en-US
+From: Claudiu Beznea <claudiu.beznea@kernel.org>
+In-Reply-To: <ah7AAgK0plmNfL5C@ninjato>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-mt6323-adc-v1-4-68ec737508ee@protonmail.com>
-References: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
-In-Reply-To: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Matthias Brugger <matthias.bgg@gmail.com>, 
- AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, 
- Lee Jones <lee@kernel.org>
-Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>, 
- Roman Vivchar <rva333@protonmail.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780404414; l=814;
- i=rva333@protonmail.com; s=20260510; h=from:subject:message-id;
- bh=WC9jUSlABoGBdBqPU8PZ4ZIU5LJl1TAO11/EPH3tS8U=;
- b=p6K4bcmO7oG7L8/cv4DP5Dy2KGtC5QitgkODob+PUEPUi2NsUMycmvhmjhl7+oEORuDECXnQb
- 8wpeVkby3ogCqga99duGgN2KLBpDFhGoKg+mv/CV+vo4Uu2lvvRjKli
-X-Developer-Key: i=rva333@protonmail.com; a=ed25519;
- pk=zww/nWjBGoQ4POXCG0BV6fx2iuXK6jx77rsKPA5YK5Y=
-X-Endpoint-Received: by B4 Relay for rva333@protonmail.com/20260510 with
- auth_id=777
-X-Original-From: Roman Vivchar <rva333@protonmail.com>
-Reply-To: rva333@protonmail.com
-
-From: Roman Vivchar <rva333@protonmail.com>
-
-Add the devicetree node for the mt6323 AUXADC.
-
-Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd Generation)
-Signed-off-by: Roman Vivchar <rva333@protonmail.com>
----
- arch/arm/boot/dts/mediatek/mt6323.dtsi | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/arch/arm/boot/dts/mediatek/mt6323.dtsi b/arch/arm/boot/dts/mediatek/mt6323.dtsi
-index c230c865116d..c070f4b0936c 100644
---- a/arch/arm/boot/dts/mediatek/mt6323.dtsi
-+++ b/arch/arm/boot/dts/mediatek/mt6323.dtsi
-@@ -14,6 +14,11 @@ pmic: mt6323 {
- 		interrupt-controller;
- 		#interrupt-cells = <2>;
- 
-+		mt6323_adc: adc {
-+			compatible = "mediatek,mt6323-auxadc";
-+			#io-channel-cells = <1>;
-+		};
-+
- 		mt6323_leds: leds {
- 			compatible = "mediatek,mt6323-led";
- 			#address-cells = <1>;
-
--- 
-2.54.0
 
 
+On 6/2/26 14:35, Wolfram Sang wrote:
+> 
+>> Series adds pinctrl support for the I3C on Renesas RZ/G3S SoC. For a
+>> clean I3C support, cleanup patches for the pinctrl driver were also
+>> included.
+> 
+> I am ready to test but this series doesn't apply on neither master nor
+> -next of today. Could you kindly push a branch to pull from somewhere?
+> That would be great. Thank you!
+> 
+
+I pushed it at [1] along with the v2 that I'm preparing for the i3c driver.
+
+Thank you for checking this,
+Claudiu
+
+[1] https://github.com/claudiubeznea/linux/commits/next-20260601%2Bi3c-upstream-v2/
