@@ -1,35 +1,35 @@
 Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44F7A30FC1B
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 20:51:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2AB6380FF2
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 20:53:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780433465; cv=none; b=JdohM3+0ODKN4z7cAkKtUlNB4hmR7EYladMSeTd123jH2q9f0rsbekQbhDueS656Pnoc38Whk5fcWGp3dfDPAetcT4HRBGSCKoRjYGAoFWaw8qRtHGzSQRFR++XWqXXbsDEUNDj31uYXCnEcnWJ/UEYnVkOm+g7IwSOyXzw5cu0=
+	t=1780433616; cv=none; b=F70/BVIBgy1s1DaxU2o+vZ95laFBQmB98OCnk97JylcLGN7A5cbsO0OGpmw9wDQwUyLjhWLjb2a9Kfnm6rEQL79FJf6RPNnsbf9vztwvo+Gyz+wgE+yZ40NH+fPyI4E9Lqlziu+qWoe7Bibf6xDfFmpixwUBiifITvTP7SL7qPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780433465; c=relaxed/simple;
-	bh=t0XhOPPzbBBjRUYZlPIVdjtdSD7UwN/nSJ/GWX223zY=;
+	s=arc-20240116; t=1780433616; c=relaxed/simple;
+	bh=GG3yd9a/ofQvxgRx7PTZU6BVVGmdh7Cf50F3OjopV9Q=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bcT2MwBdAANzDhqehh22hdF+L8RUs2MRnQvXNPB2Qk29BnOdIO/ZpVXYeXg+DR6vFGyIa6kBP/ZaDnV1+K6d4VNdSch0rwYTyEDTM9PdGdxG0374vzyNk+6IGUHZSZLaW5fKciTVvLK4EHuhWx7BQnkeUq6LLoP4hOJt3sn0GwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=EwbirL4/; arc=none smtp.client-ip=194.117.254.33
+	 Content-Type:Content-Disposition:In-Reply-To; b=qMDpOkFfcX8GCOYQW4uxQANwb4+UbLccFTQKOinbSCIweBr9OH6tKDVbc6g/k++CCmgEUppVP5S6dKsSn3ulG/Vpa/Fq2fjmav+GcU5CtgiVRH7FtTGyylS2C0SXwRo6xgUfkMhiwvDzaqGrsaUmBveXddMLdkFRcKUK4tu77B8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=hAeuQM4x; arc=none smtp.client-ip=194.117.254.33
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="EwbirL4/"
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="hAeuQM4x"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=t0Xh
-	OPPzbBBjRUYZlPIVdjtdSD7UwN/nSJ/GWX223zY=; b=EwbirL4/E/LMUEqYs5MC
-	6GJqZiSm7DByKw3SeKwV89eAzSJE+iB/kWeoBxqSmNJq0OSGWZFevIGtZY9xu+gU
-	0Q58OGabcdGMLcl82xOVtbxVPjd6ugoOv5oIh7q646XY2O5/wdr0ouowSxrMvcfX
-	+D+mnglUDnIYdpMhA+ThL/XoDK5Y0n6gkA2e3HmrZL2NnllifPQS0xgwooprlabh
-	GET+zjQcBUcXl9KjXIF0AO9oiujZAK72pa64Ixh458+IMJXq7wp54qqNV+4hgDZ1
-	zYPek4kzwESDaB15CDyAfwnhAzs/7WM6hazhnlszpzALA1tDn8oyop+Kvhfi0XYy
-	4Q==
-Received: (qmail 3020255 invoked from network); 2 Jun 2026 22:51:00 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Jun 2026 22:51:00 +0200
-X-UD-Smtp-Session: l3s3148p1@+uHud0tTItkujnv7
-Date: Tue, 2 Jun 2026 22:50:59 +0200
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=GG3y
+	d9a/ofQvxgRx7PTZU6BVVGmdh7Cf50F3OjopV9Q=; b=hAeuQM4xm+KSg56kcXSl
+	L0AtObz7ir3xfDpo0b+26uC19GQsbCBiHG50HQN0mPq2ghch1lnEHDnpwzlA+5zn
+	asiwJ54xapW/vf2e2tJEijBowd5mzbqBlAbiLP1BH2tGmkrHi7CtYdHd7FgCQLAh
+	YzdtND+y76FfoLvB5bgQOTS+hpRiO1fxIGxdli1arvqx+q+30JQqS00Bu8N5CMqQ
+	3KabSkMfcaaz9WZtk8Nqfo0VAV5yhgsRTGJYJqOhOq3ulP5YlzFrYHNeq5C4nw5W
+	V8U/yGD1RBdPiGUVbCmZ2NuRpth5ym/kW2tW94vsAJnYmQoa8Gj/uU9gqADZSpF1
+	tQ==
+Received: (qmail 3020695 invoked from network); 2 Jun 2026 22:53:31 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Jun 2026 22:53:31 +0200
+X-UD-Smtp-Session: l3s3148p1@jAL2gEtTXpMujnv7
+Date: Tue, 2 Jun 2026 22:53:30 +0200
 From: Wolfram Sang <wsa+renesas@sang-engineering.com>
 To: Claudiu Beznea <claudiu.beznea@kernel.org>
 Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
@@ -38,11 +38,10 @@ Cc: geert+renesas@glider.be, linusw@kernel.org, robh@kernel.org,
 	linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
 	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
 	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Subject: Re: [PATCH v2 6/7] pinctrl: renesas: rzg2l: Add RZ/G3S support for
- selecting the I3C power source
-Message-ID: <ah9CMwvwU-5-xGxx@ninjato>
+Subject: Re: [PATCH v2 7/7] arm64: dts: renesas: rzg3s-smarc-som: Enable I3C
+Message-ID: <ah9Cypt70WLMYLEF@ninjato>
 References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
- <20260528080439.615958-7-claudiu.beznea@kernel.org>
+ <20260528080439.615958-8-claudiu.beznea@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -50,49 +49,45 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qQeUdzF8kAPxjjhC"
+	protocol="application/pgp-signature"; boundary="lxJajlOGLMQkz4kx"
 Content-Disposition: inline
-In-Reply-To: <20260528080439.615958-7-claudiu.beznea@kernel.org>
+In-Reply-To: <20260528080439.615958-8-claudiu.beznea@kernel.org>
 
 
---qQeUdzF8kAPxjjhC
+--lxJajlOGLMQkz4kx
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, May 28, 2026 at 11:04:38AM +0300, Claudiu Beznea wrote:
+On Thu, May 28, 2026 at 11:04:39AM +0300, Claudiu Beznea wrote:
 > From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 >=20
-> The Renesas RZ/G3S I3C pins can be powered at either 1.8V or 1.2V. The
-> pin controller provides a register to select between these two options.
-> Update the Renesas RZ/G2L pin controller driver to allow selecting the
-> I3C power source on RZ/G3S SoC.
+> The Renesas RZ/G3S SMARC SoM board has a connector for I3C interface.
+> Enable I3C.
 >=20
 > Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
 
 Tested-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-I don't have 1.2V targets here, but my 1.8V setup works fine.
 
-
---qQeUdzF8kAPxjjhC
+--lxJajlOGLMQkz4kx
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmofQjMACgkQFA3kzBSg
-Kbb/xg//a8+JvrsX08NvY6X6rc5nFsZd8qfjokKYeieark5f6L5XhWBqPbMDxTX6
-7CdGJJ/lga2n4SiiO+l/rq8e97khKXix2psIdhOx8x+5KlMNySD1ZDiEBiHr9pSc
-jtxx6jTUHSvuhchZI7oEL3WVZcJo/yiTCiuNx7pZas1xvGQlOMONANkaajNqmHTf
-jHgxi2YS0biE25h2AvgmQaoVWCQFse6o+FsqsuGfmw7t9NsHDyBBj+DpW16gs9P3
-chAWyniV8zyjQbMdiVl3mEkOBxB4TrdbVUciKzW37qB3MVfvmuop2rHDy16oGDGz
-r8f6g5AzK/ogwtG9FwKfq1QVuGxjUDeAYz6UShkls7xAhqpMwO0Y0qJ2rs6nl44m
-4fsrxN4TZFttbgK6MdkR2ha9IJdgVFyo0L78QddLBCu/UzL8L673qY4mSk1Z/HWD
-pu2a0HRSRugtjpNl6/sLV1ntkkDnFTmzd30TxWgv6RMlKvMIqB3X1CNxPeYuJd7C
-yUcVc5YXmhBiUPH4/kYKwrgs4m3bU62By5JyPOQNMeNgAAH1uyFtMdbtKTCS1QkX
-NTik/iLPqs32gJdaqE62J18E/JIGmf+gpVbNNYcBjWPT3eT5IPgEDF/1u7oNq48k
-VcoraWXlpTsCf/7BmWZtxX7xLOZU+/usMA9d5OqiPSISPJ3D4G4=
-=RDpf
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmofQsoACgkQFA3kzBSg
+KbYY9BAApIlsHQkUMd81mi8lYST6dKvVcboNq6UEvMvJ5Zwz70YRw8SYioLhuGjr
+sQ1VQ/TryoRGmkh80Qn2pO0rM3F/iwpHGC28CQhAbm3XoX6h5cC4v3LIj2Co3HLx
+exOImd4qMtntzIoFHpmOhqekwiGmAum2gJcytoIyI7TrniXAEM0kTcMC4nb7Zk5g
+KRFgoK4hW9M0aTaF7iexARkk1OK/vVB/smL3bRFuPaFzFvShYKdlZl/pxzBdmo0J
+TaZHVWAlDHpDKrsaWgVYME3+UMci3QOC5OQHBmylgV/gqdfChxMEI+FbMZitu65P
+HvxafQigU/a6InUo8hfBu87xA1nSEK3kXWtTUgnyoVI2pa5EYIm4Im5RREszoOUa
+QoFrfiXZ5BUQxHbCBlHk4ngxsC9ak9kAv03m5hO00gITornj1x9uPwEs/zo7R20N
+bO4J6IRiIQGKxcYDlJbJFzfJVx4mvRnzx6uL0R6+w8pMd0GX+MfZhybKO43nyuWU
+ZxetzG3oxl6OdHauhNKQOYBb1d4qI1Zw5Wl4YW2m2CLEIhQpHgmRT4uDy1v10Qfx
+CCYFbM6Hfv1tJIlJkxcdt9aL3qBbbh/e17OFrOoX0ZfU9moVlLW/Q9iuqJ3epXtZ
+woJ9unaJgcZNIBHUFQESK9NJfqsoPIDYnAaO4tpbbndzEka00IM=
+=VAsA
 -----END PGP SIGNATURE-----
 
---qQeUdzF8kAPxjjhC--
+--lxJajlOGLMQkz4kx--
