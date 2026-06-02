@@ -1,73 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 032441DF73C;
-	Tue,  2 Jun 2026 19:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29024183CC3;
+	Tue,  2 Jun 2026 19:46:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780429392; cv=none; b=mhhiRBS/5wfJRey8u95cWq1AMF2wV4IpmF5sEaIS7iE+4MjgUBgOzogWOVxcTGCEdJkgaqj+9XsplC86TaXeL9L9Ikp7IDQxCVzprvttkoTgA3Kd9/UiL45eUZyxQ173CTfoG2TbfkuVWmX0Tqb3dxYUpicbbviPjZTvT21NSYA=
+	t=1780429569; cv=none; b=UnJ9Kzyi8FvomiaF6y7jVgzGxZcSr67lVWzH1FwTd5Rn9XPU7YU0mnWXZJdQlm+9PU0jM5m94qaSW1wdHOo5M+TZ0xT5KqRaD/vL8wygS+vKFWVng/Md5uC30kPZx3VPaBWcPaR5chPB5z3IA400bg2ha/R925U1SwZl1ji4C+I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780429392; c=relaxed/simple;
-	bh=gMr1z32Fe9bVRotM8G9d9TWLVOlwDGCHucb/wxnUKM0=;
+	s=arc-20240116; t=1780429569; c=relaxed/simple;
+	bh=z3qmunTjQCTFibnWGcF0LuJ4zhe83D3cuLD+x/yWAlw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=h2yq1hla4rw9TMauHijLXc8yKMr8aeKDi6G7Snr5n8cmrv+fpN2cAgtRvM4v8+zrBPpMA3mFO/UAivegB1onumzGWNYLfNv/XAiIAhJZedTatmf+5KP4BTXTDPg2ZISVf7LFsu9FcPMnzz9fP7DQvd+D2sN03p8JwXwXvBhOX9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Hn99b9IT; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=NAsda8coTFgla9T0liUMD7lQdE9KtFSQKqElJOugdoT8homgu2j4fHd/H0JVMiIqcaywwjQkQwcfKD7hWv1CHZa0pIlSTeHOwrcJyyv1jE3g7kDfrK20Vkxx2IRRc3g33rYMJgobgJ6Zy6TfB3Yi2snLCiJPkd4oGV4amoScntk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ftskL0vw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Hn99b9IT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780429391; x=1811965391;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=gMr1z32Fe9bVRotM8G9d9TWLVOlwDGCHucb/wxnUKM0=;
-  b=Hn99b9ITzX0ObLjo5WozsW6o9ppzYWABGwLdywzUjQzIKTk+DhRtMbnJ
-   IkvTZWwsdhT8wq30x3FK+3iyvtxWkgUypluBVjsLLBO0VuN6/Uh3whSwX
-   a8VPJi3w8acFp3l6ptO6BzkyB2Yf6C8e3Me6/20AL/tV+VRyk6xvO+uGG
-   y4cEQ+B2cOlwqFlEnWjTZWDpZyngnafcR4WftLXT7uRnzTp/ba5Rf13KD
-   wW/tXA8kL3uBQp2I1Luy00815yFWGBpmk3G/P/GvD0jQwxUlw2eWyJtIp
-   V8UG/difCz/ALDzgeeOE/9d1LjP1Pb0KRIPiRM9zlFJxAYEMRMCe1zGO5
-   g==;
-X-CSE-ConnectionGUID: d7w8yqpoQkWXOTTkJ8NPAA==
-X-CSE-MsgGUID: mhdcstt9Sr+BWBNnj8A8kQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92712200"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="92712200"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 12:43:10 -0700
-X-CSE-ConnectionGUID: dHMUEn4ITCSkBb4SIKHeaw==
-X-CSE-MsgGUID: D6zO8JWPTAy8dvwBtEzkoQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="244107628"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
-  by orviesa007-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 12:43:06 -0700
-Date: Tue, 2 Jun 2026 22:43:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ftskL0vw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9415A1F00893;
+	Tue,  2 Jun 2026 19:46:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780429566;
+	bh=FK+MzLh50k4KgIQIJX2KAuivt6XGuoiQBPlt2hCLlsw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ftskL0vwH9XUbViZ3GXIeCx3ef2akjJZ/roPPniGDZUzamobfFZmVCE/e65438GjC
+	 LsYfUf5sJSl+D+LD4ICxhjim03UQ5NKIHgZzeQlxyebeP1vHc7860uz+r7Z1Toy0rN
+	 IqGKOX1BfjIDkArZOmYbS75KyXcQSFaZFHxqkmxuiZ8XoWZcUn5CCbE7z1VjmKZYqV
+	 +K50W9uJaA1sW3viTYurNanm+1iSbzxVMY/uUgG2Z4aJdBsu7gAnYjp/Ox5SBe1fGO
+	 Ro6eq6xwr3o7xOapAqvsfnLMYY+cFTRma/FPPbA7FA0ADa5BF+f0ewS8sqvdSRBxHu
+	 KTt0toQdM85iQ==
+Date: Tue, 2 Jun 2026 14:46:06 -0500
+From: Rob Herring <robh@kernel.org>
+To: Kaustabh Chakraborty <kauschluss@disroot.org>
+Cc: Lee Jones <lee@kernel.org>, Pavel Machek <pavel@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
+	MyungJoo Ham <myungjoo.ham@samsung.com>,
+	Chanwoo Choi <cw00.choi@samsung.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	=?iso-8859-1?Q?Andr=E9?= Draszik <andre.draszik@linaro.org>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
 	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v15 02/12] lib: kstrtox: add local
- _parse_integer_limit_init() helper
-Message-ID: <ah8yR3Os8NDNll27@ashevche-desk.local>
-References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
- <20260531-adf41513-iio-driver-v15-2-da09adf1c0dd@analog.com>
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Nam Tran <trannamatk@gmail.com>,
+	=?utf-8?B?xYF1a2FzeiBMZWJpZWR6acWEc2tp?= <kernel@lvkasz.us>,
+	Yassine Oudjana <y.oudjana@protonmail.com>,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org,
+	linux-samsung-soc@vger.kernel.org, linux-rtc@vger.kernel.org,
+	linux-doc@vger.kernel.org,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 02/10] dt-bindings: extcon: document Samsung S2M
+ series PMIC extcon device
+Message-ID: <20260602194606.GA1043828-robh@kernel.org>
+References: <20260516-s2mu005-pmic-v7-0-73f9702fb461@disroot.org>
+ <20260516-s2mu005-pmic-v7-2-73f9702fb461@disroot.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,42 +62,21 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260531-adf41513-iio-driver-v15-2-da09adf1c0dd@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260516-s2mu005-pmic-v7-2-73f9702fb461@disroot.org>
 
-On Sun, May 31, 2026 at 09:30:45AM +0100, Rodrigo Alencar via B4 Relay wrote:
+On Sat, May 16, 2026 at 03:08:34AM +0530, Kaustabh Chakraborty wrote:
+> Certain Samsung S2M series PMICs have a MUIC device which reports
+> various cable states by measuring the ID-GND resistance with an internal
+> ADC. Document the devicetree schema for this device.
+> 
+> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+> Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> Signed-off-by: Kaustabh Chakraborty <kauschluss@disroot.org>
+> ---
+>  .../bindings/extcon/samsung,s2mu005-muic.yaml      | 40 ++++++++++++++++++++++
+>  1 file changed, 40 insertions(+)
 
-> Add parsing helper that accepts an initial value for the accumulated
-> result when parsing an 64-bit integer. It reuses current implementation
-> for _parse_integer_limit(), which now consumes the new function with
-> init = 0. The diff algorithm would have the documentation header and
-> prototype of _parse_integer_limit() moved around so it is adjusted
-> according to guidelines.
+As the rest of the series was applied without this, I've applied it to 
+fix errors in dt_binding_check.
 
-...
-
-> +static unsigned int _parse_integer_limit_init(const char *s, unsigned int base,
-> +					      unsigned long long init,
-
-Why not name it res...
-
-> +					      unsigned long long *p,
-> +					      size_t max_chars)
->  {
->  	unsigned long long res;
-
-...and drop this one...
-
->  	unsigned int rv;
->  
-> -	res = 0;
-> +	res = init;
-
-...and this one?
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Rob
