@@ -1,98 +1,88 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B058F36BCF2;
-	Tue,  2 Jun 2026 09:33:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCA7380FDA;
+	Tue,  2 Jun 2026 09:34:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780392824; cv=none; b=h7Qf+ogx+r193i/3uBh9cu6fvH6DgkV4f+MtJDUM9CZ/elu2UboNMNM4D4Dpl2RNJdACbTvHUyHFTEdtuqeGndAz/Zl9uPfl6y/7/AYK5OXbvrWvWeKrIBKfvnQ+0V1kUHjqYlbrwuv+jBF+9jvFIDcfOLzpa6VPxFfDdpbO4ek=
+	t=1780392852; cv=none; b=c+crEMAxneZp+H3Ljraw9KWBqTL2d5pBWr2X2L0tnZXr7dD8R0u/i+l/egHemI46NAPyIOEFKXKYm4FXLTiuu+Gu/lg4qw9zce35VymFlSpgOFTEacWYDpZJ6bGfIYLo9kw/kt+Co9hrM7+5aR5gWthQ//Q+Jtqb6q21hUs14u0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780392824; c=relaxed/simple;
-	bh=7RqS4ISGXx337rqqvPNoI5WHXN20jmjPh3AlPaGp16w=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n7qHZch95Ecs3nZBVj+dqCu+U498egfjys30YpzGkIDOcjHmSPXTbvJ0E74ujhZJSM6AtYCE9BkhfclzZ6OVssjGBIkUrKeVZ1smenxM195R0IZrXzSt3ggNlUSzDd2/UMe5hexajPXGPw7X63aT47er5eEUFcpkSD9VrnJhL7c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=O/35tX7G; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	s=arc-20240116; t=1780392852; c=relaxed/simple;
+	bh=Th7aC8Ea06bRC4u5rMBdbBfiE7jS2gJ2dyJAvmcLwOk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=V34Ooq+DOWbGZ5X92fpcpR+BY+b8whMz7Fc/dpP8+LSGIPcoqxnEyw34cHZGbSHygi4YwY8hy7b0qH1M8dnut5t9QMLzTi/MT+K6T1C4hY0HNX7GXWkua9KKydKLmQtV+StDp4z8ddpW6WOxoir67uy++RgM43UgTueXt4I8Aik=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KH5cT3/d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="O/35tX7G"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
-	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
-	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
-	:Resent-Message-ID:In-Reply-To:References;
-	bh=ll7wsI/Em/Jn1sDgGc7GNu+RMvSzQcPU87sVEyRKPIs=; b=O/35tX7GuXF/+1DjOrDR+8DuZd
-	clwUabfnWXg7PoWht4TLnZzlrTF6Bo6WFicrWHs4ue+yPICeMGPb6r48LMcMd93Jmuq7fkOXy+kh4
-	ny66V1r6q2ck9SUosZ2A8WEbJnhH37IzGxEd6dtvkwyDeYF3iPCeVnZW4RyQGxQMEdfg+QF2jJlOK
-	C/BEpGLVcARGzYyim+id3eNSgxnxk8HSrTzgKiVCkBYdgScpCdVRwcofrBtiWS9d2WvqUZgIwx0v1
-	AnA37WpgzJAZUcGZY9ateRit5Bh30caPp2hqJhPgYOOkBSztLMKUW9wJdPQBLks9vstEpe6fV7/7v
-	C948ogZw==;
-Received: from sslproxy06.your-server.de ([78.46.172.3])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wULV8-0000ZI-2W;
-	Tue, 02 Jun 2026 11:33:34 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wULV7-000HOK-1r;
-	Tue, 02 Jun 2026 11:33:34 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Alexander Stein <alexander.stein@ew.tq-group.com>,
-	Shawn Guo <shawnguo@kernel.org>
-Cc: linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 1/1] arm64: dts: tqma8mpql-mba8mpxl: configure sai clock in audio codec as well
-Date: Tue,  2 Jun 2026 11:33:30 +0200
-Message-ID: <20260602093331.1698756-1-alexander.stein@ew.tq-group.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KH5cT3/d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CDA81F00893;
+	Tue,  2 Jun 2026 09:34:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780392851;
+	bh=0PgKu/MhXV92fdaOPawC1vOXdcv4sVC0hsvmah/4e8Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KH5cT3/d1fW7mKTPUXP2hJf3hqjzw8svhzdezKnm8uDo4NbITku1tcc4lgSDjgCnQ
+	 LzoUKYJhDN2BgKJZVqXrTz9wXYbOVdWAntoJqPrxf4WCHj/PeYLX9uMDR7+GZolZr5
+	 68FAvxXuuSkAlZZ5ixjIEQEXa/aiyQmCfunPFE2j+qmVfSBZl0YJC8GFWOwYBNsFHg
+	 FIsTovKWHP0jaHKp91YmXvpwbu27upGLBcRgjel2izDC/4xZY4FGhFLHlDig1d8Ibf
+	 ipIx7HBOjEWNbarMhA7Z8LcEl9VRxhvrmOho3XVlzdpNJGdgt2fiEYoNBjjc9/8g4j
+	 BjoxvWi8ygLNQ==
+Date: Tue, 2 Jun 2026 12:34:01 +0300
+From: Mike Rapoport <rppt@kernel.org>
+To: Baoquan He <baoquan.he@linux.dev>
+Cc: Will Deacon <will@kernel.org>, Wandun Chen <chenwandun1@gmail.com>,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org,
+	iommu@lists.linux.dev, zhaomeijing@lixiang.com,
+	catalin.marinas@arm.com, chenhuacai@kernel.org, kernel@xen0n.name,
+	pjw@kernel.org, palmer@dabbelt.com, aou@eecs.berkeley.edu,
+	alex@ghiti.fr, robh@kernel.org, saravanak@kernel.org,
+	akpm@linux-foundation.org, bhe@redhat.com,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, m.szyprowski@samsung.com,
+	robin.murphy@arm.com, quic_obabatun@quicinc.com
+Subject: Re: [PATCH v3 09/11] arm64: kdump: exclude non-dumpable reserved
+ memory regions from vmcore
+Message-ID: <ah6jiWwwC6DDSJXd@kernel.org>
+References: <20260527032917.3385849-1-chenwandun1@gmail.com>
+ <20260527032917.3385849-10-chenwandun1@gmail.com>
+ <ahmr-UjoApj2j5JS@willie-the-truck>
+ <ahsPcv8G1BR9rLah@kernel.org>
+ <ah0R8pEIyuk4N2Is@MiWiFi-R3L-srv>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28019/Tue Jun  2 08:33:27 2026)
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ah0R8pEIyuk4N2Is@MiWiFi-R3L-srv>
 
-With deferrable card binding the sound card driver tries to
-get the mclk configuration before it is setup in sai3 node.
-Fix this by setting the sai clock config for the audio codec as well.
+Hi Baoquan,
 
-Fixes: d8f9d8126582 ("arm64: dts: imx8mp: Add analog audio output on i.MX8MP TQMa8MPxL/MBa8MPxL")
-Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
----
-Changes in v2:
-* Set the clock source in the audio codec instead
+On Mon, Jun 01, 2026 at 01:00:34PM +0800, Baoquan He wrote:
+> On 05/30/26 at 07:25pm, Mike Rapoport wrote:
+> > On Fri, May 29, 2026 at 04:08:41PM +0100, Will Deacon wrote:
+> > > On Wed, May 27, 2026 at 11:29:15AM +0800, Wandun Chen wrote:
+> ...snip...
+> > There are patches that move common code to kernel/crash_core.c:
+> > 
+> > https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com
+> >  
+> > Review from arch maintainers would be helpful there ;-)
+> 
+> Before, Andrew would put patch candidates into his mm tree and trigger
+> testing. If any adjustment, he would take them off. Can we do the
+> similar thing for kexec/kdump patches, unless the patches are objected
+> explicitly?
 
- arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
-index 890d1e525a489..6b0f944095e7c 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
-@@ -609,6 +609,9 @@ tlv320aic3x04: audio-codec@18 {
- 		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
- 		iov-supply = <&reg_vcc_1v8>;
- 		ldoin-supply = <&reg_vcc_3v3>;
-+		assigned-clocks = <&clk IMX8MP_CLK_SAI3>;
-+		assigned-clock-parents = <&clk IMX8MP_AUDIO_PLL1_OUT>;
-+		assigned-clock-rates = <12288000>;
- 	};
+Yes, we can add patches that look reasonable and expose them in -next.
+Now is too late in the release cycle, let's start with it after -rc1.
  
- 	se97_1c: temperature-sensor@1c {
--- 
-2.43.0
+> Thanks
+> Baoquan
 
+-- 
+Sincerely yours,
+Mike.
