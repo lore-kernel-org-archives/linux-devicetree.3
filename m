@@ -1,89 +1,98 @@
-Received: from out-170.mta1.migadu.com (out-170.mta1.migadu.com [95.215.58.170])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55123C456A
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 15:04:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B063E866C;
+	Tue,  2 Jun 2026 15:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780412665; cv=none; b=tMVYH/YUItyQ7ryPoQnU3tSvToemlJy4xGn4BhDYSquOk8kdRwnu4jJr4qklmnh3LwXwkWLL8DtWbckHEY9quzWou4Ye/543Y+0GdSsThplNIY4ORYi1DR4otE8OENQDDNxvr9YySEcs9+Y1drPWLAlEOHtK2argSyCgLyPw6lM=
+	t=1780412780; cv=none; b=AM5z3+3FVwTbxC3CBYT/cEPc3aoSU6NAFtsRX+R7EPnAmj9FxAYbK73tLei3ndhrmwVrsl6QXCq3OOTH/3IRmi0/utQGzYpxXmgvGvycZ7c2nFC3gPiyw1tYjPOYxdS0r38Fag2B2EKSTGEiEJ7EbnM49dZw4Twcio7EfUHy67Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780412665; c=relaxed/simple;
-	bh=hhLyU1suKqRemMZ3uMjdPzeVwrqN8+HIhvS6Kah3daM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=aycr/ZFTeH3DWRjFFubWe4n3VtMonxHroFIyPOG82EwBzORLCQQWj/Y18u1qmgb0UeOn5hQCR7H0s/anHyrGPgkFRTpahmAynPpqmzBNfSk7PUKnYAKVrcwgAz6rcIpXq+Q0tmt09xQuVysBJBUMRR5WKBq6BAnFEV1xsn7cmos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool; spf=pass smtp.mailfrom=packett.cool; dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b=BFgAAH/x; arc=none smtp.client-ip=95.215.58.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=packett.cool
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=packett.cool
+	s=arc-20240116; t=1780412780; c=relaxed/simple;
+	bh=/qDh6glUqJG9/CGdc2rsf6urAuT/oRosIX/vQk+S0Qw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j2ZuQBbjamcA+PoPChVnpoR1qK+Qxo47p9re50iMonT9RxAZz06/sPfXvAIVWK9KMIlYceHhrwuGTGJMJDTHlZIZRQbnlgwxXmLxD0xgifqf2MwFC7kqHXO7n9qdWk//iTAzsiDROKTIbybTU662RMXup+84sVEw0599IIh9G/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NnCevYMK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=packett.cool header.i=@packett.cool header.b="BFgAAH/x"
-Message-ID: <809635d9-6e66-4ace-8f47-4a5a268f4f18@packett.cool>
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=packett.cool;
-	s=key1; t=1780412652;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=qHszsEN8PB3ekey0lEf70Vm5pm7eZsuxWjxfuJZ2+RI=;
-	b=BFgAAH/xcynmV8UeSdeG6LKfgfP4MDNJFZp6R2gs0qShyj4nudTtq4HPYoLRzSCxM9Q07h
-	S1Bs1hlDJFHvewK5FG2GtTvPu6On7jrT47U9dCsObZJ4qcmTaYpELOFFDop47C1nUjkdKp
-	4p7LeOgwfHBZmMNNdAtTmnCfVnAO1hS2FmTw9rsw9MUR/HRiPwHhL4aZinED5PCg04yoiX
-	8il1U+Dw6dtacMog5D3eXtfu0UsCocDvUxBGFAFRLycFYJaPCl0kQt/ARiekfRIXJy36bl
-	lF0nMon19m8s8y3wQlA7IqUh9deLu1ALcxMtcXUaDeH3BVHO7Xbjo4pfwMyoKA==
-Date: Tue, 2 Jun 2026 12:03:53 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NnCevYMK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A04011F00893;
+	Tue,  2 Jun 2026 15:06:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780412779;
+	bh=6pKmZ/dzoUsp0qMEiTbEP3JNPcfP6yeX1skgJisax60=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NnCevYMKe3vepac/omn2XU8h8dP4YVML0a+aXS1aBG6L21OGpNRroEkZcE1v8IWcY
+	 Jr8GigbO2ydOsupOwgEYVRH4KxEhEll+rUkbmYf1e8BG80wHC/Kysccw4pKGE8i8KP
+	 0Xh9GHB56tTDoflogwpC7WVMebaJUJYUG+9ufOFt0OHT7cN1Ip2bu8ffakMw32r9y1
+	 AShcnvWkD2n2ioO1O9rAxmAmgkpwL8BDNDa/Tv6uuDtTUsVUx/DcUlsKWyz+YfeDr1
+	 jMlO6yvdjc2H6MPVUK7kBp9l1DuoqhPz4WiaM0XeoynwTiyQwx4kR5cE44t/KWisZq
+	 YHxFbQreG0vvw==
+Date: Tue, 2 Jun 2026 16:06:13 +0100
+From: Mark Brown <broonie@kernel.org>
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Rob Herring <robh@kernel.org>,
+	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
+	"magnus.damm" <magnus.damm@gmail.com>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	"Claudiu.Beznea" <claudiu.beznea@tuxon.dev>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	"john.madieu@gmail.com" <john.madieu@gmail.com>,
+	"linux-sound@vger.kernel.org" <linux-sound@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v7 01/18] ASoC: dt-bindings: sound: Add DT binding for
+ RZ/G3E sound
+Message-ID: <e4eb9d9d-9bc5-464e-a73e-f6871c5e0582@sirena.org.uk>
+References: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
+ <20260525110230.4014435-2-john.madieu.xa@bp.renesas.com>
+ <20260602145527.GA211368-robh@kernel.org>
+ <987befcc-2fd2-4d4f-8293-72df4dbc03f3@sirena.org.uk>
+ <TY6PR01MB173772D84C91DA67CDD557D66FF122@TY6PR01MB17377.jpnprd01.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: hamoa: Reserve low IOVA range for
- Iris
-To: Bryan O'Donoghue <bod@kernel.org>, Daniel J Blueman <daniel@quora.org>,
- Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
- Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
- Abhinav Kumar <abhinav.kumar@linux.dev>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260601041336.9497-1-daniel@quora.org>
- <ecavEnqJTDXvfFykc9uJb5No7ioighpjrCdw2CFZ4c8Izr5DxpTs-606Bg7K0RtHTaOqksWivHxWQLzMBP6qow==@protonmail.internalid>
- <20260601041336.9497-2-daniel@quora.org>
- <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
-Content-Language: en-US
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Val Packett <val@packett.cool>
-In-Reply-To: <ec7c564e-745a-4998-af9a-e9632fe063f7@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Migadu-Flow: FLOW_OUT
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="rCN1v4T/e48+g5p5"
+Content-Disposition: inline
+In-Reply-To: <TY6PR01MB173772D84C91DA67CDD557D66FF122@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+X-Cookie: The wages of sin are unreported.
 
 
-On 6/2/26 7:26 AM, Bryan O'Donoghue wrote:
-> On 01/06/2026 05:13, Daniel J Blueman wrote:
->> On X1-family hamoa platforms, Iris DMA below IOVA 0x25800000 (600MB)
->> triggers unhandled SMMU page faults
->
-> How do we know that is a correct address - does it come from qcom 
-> documentation or trial and error ? 
+--rCN1v4T/e48+g5p5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
+On Tue, Jun 02, 2026 at 03:01:19PM +0000, John Madieu wrote:
 
-If you follow the Link:, you can see that it does come from qcom..
+> > Please delete unneeded context from mails when replying.  Doing this makes
+> > it much easier to find your reply in the message, helping ensure it won't
+> > be missed by people scrolling through the irrelevant quoted material.
 
-https://github.com/qualcomm-linux/kernel-topics/issues/1157#issuecomment-4458933574
+> Noted.
 
-This series is basically a "hotfix" version of a more complicated series:
+That was more for Rob than for you.
 
-https://lore.kernel.org/linux-media/20250627-video_cb-v3-0-51e18c0ffbce@quicinc.com/
+--rCN1v4T/e48+g5p5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-that introduced an extra subnode that let the driver only use that 
-restricted IOVA range for non-pixel buffers (only those actually need 
-the restriction) but that resulted in a very long discussion and was 
-kinda shelved because of that.. x_x
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoe8WQACgkQJNaLcl1U
+h9ARVwf/aiY9DSoMbmhzDZg0L79q/J6m0X/uNlaRb6HTBXNl2X3ghP6UT4MHxCPl
+WgHOqnNbwOySPtnNmWKLA9DPDAATJmfC6OJYnHXA63wo26vpAdlRF2MTu8s2CBxx
+DChE7MGiaRb2OazQfDIbCjWZD/ur6MQ9cCiXmelV2jIvGVcK3HZsQGSeboiEcsGp
+lthsQlRF09hjqWy9Hggf34Xc6LM3wf7jHUJPQljS8Sp5LwVzknURcTtO4So/fD6q
+zLpryzonhScF3jZBtICV4cEBsS85W1pzkt7C3i68JaUBWkgoJNS1npSz3SU6V2dS
+unZL5o1QGczFU4yygdFXF15z+64yEQ==
+=9QJJ
+-----END PGP SIGNATURE-----
 
-~val
-
+--rCN1v4T/e48+g5p5--
