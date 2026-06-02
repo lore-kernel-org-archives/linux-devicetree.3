@@ -1,53 +1,49 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1454326E706;
-	Tue,  2 Jun 2026 16:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780417053; cv=pass; b=c+xDqOosQtaqr8+NBbrHRMgNCLZ5bAOQd9ScE48cJT0vAklYA0sJvKLQR5kK01Mp6D5Fe8N9HJdMwhmtNwaVpii4oXydlmIqhSKt8ZDo99PaJLkWOo2x3Pk7P2GWzeh8x3mmcb45OW9nTg728R3EhgEdtsOp9pCY2O4u7JFU1I0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780417053; c=relaxed/simple;
-	bh=kGL5GoSrxxNYelyQVOL7P+pk8TKiBY5rgX6SEgPGHkA=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D403E2F3C07;
+	Tue,  2 Jun 2026 16:18:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780417101; cv=none; b=f5f5YKCRGBSi1SaRXrt3zf2fEIBhh+8T/97G+E4uS0CewuhF/ersyKVWhEKbJiX6ZCV9juj8qusEvhuBlonU0S7Sb1RyAeSO1DXfrjsSwcjKIAE9xFkQWMwnzZfamtoUwN5t9IeyOpqelzI0LKhRM3/MKaXUdKg5N3cZKwCosEs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780417101; c=relaxed/simple;
+	bh=E5lBZBn/6XyQaGLUjyr5xRIhIu6ddOyB1ZKhOi4w6SY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fXL48ysny48aH/3Sou57G1o8e/K1MHqxzHM7P803lHbyK+jlKnOdnZx8ew1+8mdk+yVLBZplPnrmL0RPRTMfhDueI57GN8m4Q5IuDw1zGVfbTuI2sPeNVFjwrgXqVMIbaq5QNjEUyyTfSwWxjdlYE4YUXq2ojbs5Jdf1/s07L5w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=Y6Ua1359; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=m6+fIAOC7ImBQDr/r2vLDGlXYpQSXa/0RWVtu/AdeQ0CfMOz5QNysb0c1sNpJW2Yo8iBF12wMVZJy5WStM0qwC0AvJeYd8R4DP3BG1H3/34enIcdyPDAAEOBav0pbm2wauJlU7AyEgZub74buX3l4cJ6hxKhn7U4rX17SGyCDC0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OzTqAnWv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="Y6Ua1359"
-ARC-Seal: i=1; a=rsa-sha256; t=1780417045; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=KjOZoU/X7ci5/8cLfRMiibLbuZBr5/LdQ2ALqjHaziiLdlnQJu8Y5tNU5XYqpXbFlOyro5kJmSgBChDXIZ+bNpnds8CigMZZf/QtUvTs2aQ/aKIO5hvRhY5Jk/eCCemZeur4ffKZOoOWZUC2ubxbPQmIQUx3esrAg5SQPTuTv+Y=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1780417045; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=gsqbAdhGzXllXxa+Bt8LLJa7hDfPuUC2XB/tua45DFQ=; 
-	b=bQVRTcv5uAxkA3u2s1bSmgnkmX/3/WbjBWYynfO5TtEDBrnQDFgkqfH6li7GrmpU/1YQ+BGlLrco387fSSmVoKeSUozuth8B2tYWU5EBcJ5NJmB1pZo2FrKeqXdKCJFMM/+fvzuy0cnGwUBVXchofSxF5d/wMgOYQo3oJU6rSiY=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780417045;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=gsqbAdhGzXllXxa+Bt8LLJa7hDfPuUC2XB/tua45DFQ=;
-	b=Y6Ua13596afGMYN5I+lx/ePez3DSLrMN8bXCVmcbcjWC5yyNqlX/A1/eyMjO33+2
-	SQwVa5jxVIVBapo+kb6vr73sieR71MvQPO7ioH41P4d9g1HwnWKG/qrES1QEdRT6Fm0
-	4Db6BULkql3x+rPPpLD3oZ8l5pavI6LIoSoIR0k4=
-Received: by mx.zohomail.com with SMTPS id 1780417043324202.710623861592;
-	Tue, 2 Jun 2026 09:17:23 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id D081018094C; Tue, 02 Jun 2026 18:17:16 +0200 (CEST)
-Date: Tue, 2 Jun 2026 18:17:16 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Waqar Hameed <waqar.hameed@axis.com>
-Cc: Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, kernel@axis.com, 
-	linux-kernel@vger.kernel.org, linux-pm@vger.kernel.org, devicetree@vger.kernel.org
-Subject: Re: [RFC PATCH 0/2] Add driver for TI BQ25630 charger
-Message-ID: <ah72aPNg-psfHrHi@venus>
-References: <cover.1772201049.git.waqar.hameed@axis.com>
- <pnda4tunkrx.a.out@axis.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OzTqAnWv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 782C41F00893;
+	Tue,  2 Jun 2026 16:18:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780417100;
+	bh=E5lBZBn/6XyQaGLUjyr5xRIhIu6ddOyB1ZKhOi4w6SY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OzTqAnWvhREs7kN0FRcFz4cNP22b8RALpcnJfUsvHX9ZgANlP8wEgvF8Inwnk8WFK
+	 6qh65PJZtP8YT4c/C+JaUf874b2joMoJdaZwNd/3+pqO0nqOjJmsitgG1E+FkYL/Pl
+	 kO0EENlj9mkH/iGsQqFUA5hQAWR4NJrMfIr6YgfvCtRmeSKLwF0yj3eshsyodsCzRz
+	 udHklaals+GNTGEc5mDiFbC65Vp260NwpA5hflI87my2ePxdlrtIexTEGxT8A6fUzJ
+	 EUjDiID7e8SCBkm0mg5VuK63PVI7SDh5Z19n2VXMWXYY+QAZ3RRPMSYyf+tnM5Y95B
+	 N7D0dXYKBiDDQ==
+Date: Tue, 2 Jun 2026 17:18:15 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Santhosh Kumar K <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, richard@nod.at,
+	vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org,
+	takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, praneeth@ti.com, u-kumar1@ti.com,
+	a-dutta@ti.com
+Subject: Re: [PATCH v3 01/13] spi: dt-bindings: allow spi-max-frequency to
+ specify a frequency pair
+Message-ID: <20260602-aptly-bunkbed-1bd3a8d63d54@spud>
+References: <20260527175527.2247679-1-s-k6@ti.com>
+ <20260527175527.2247679-2-s-k6@ti.com>
+ <20260528-clergyman-kindling-20971775ba78@spud>
+ <eaa75113-2b89-468d-aca8-932bc7e33a7d@ti.com>
+ <87cxy92llq.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -55,126 +51,93 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oybkq5ntld5gkntk"
+	protocol="application/pgp-signature"; boundary="AJLPS9b34NY10SeL"
 Content-Disposition: inline
-In-Reply-To: <pnda4tunkrx.a.out@axis.com>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.1.0.1.4.3/280.384.96
-X-ZohoMailClient: External
+In-Reply-To: <87cxy92llq.fsf@bootlin.com>
 
 
---oybkq5ntld5gkntk
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+--AJLPS9b34NY10SeL
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Subject: Re: [RFC PATCH 0/2] Add driver for TI BQ25630 charger
-MIME-Version: 1.0
 
-Hi,
-
-On Wed, May 20, 2026 at 05:49:38PM +0200, Waqar Hameed wrote:
-> On Fri, Feb 27, 2026 at 16:35 +0100 Waqar Hameed <waqar.hameed@axis.com> =
-wrote:
-> > This patch series contains a fully working driver for the basic
-> > functionality for the new TI BQ25630 charger (see datasheet [1]).
-
-Driver itself LGTM. I think it would be sensible to merge that while
-the extra features are being prepared, but the DT binding must be
-fixed first :)
-
-> > However, some functionality has no straightforward implementation. The
-> > following features have therefore been left out and hopefully we can
-> > have some design discussions to reach a clear resolution for the next
-> > patch version (hence the RFC tag):
+On Tue, Jun 02, 2026 at 02:05:53PM +0200, Miquel Raynal wrote:
+> Hello Conor, Santhosh,
+>=20
+> >> I also don't get the point of this property, why can't you just set
+> >> the
+> >> max that the device can do and if the controller can configure itself =
+to
+> >> be fast enough it will do so, and if it can't then it'll pick whatever
+> >> the fastest it can actually do instead?
+>=20
+> If I may, this is not doable because there is always a phase at low
+> speed. By low speed, I mean the speed which allows reliable data
+> transfers between the host and the device. This "maximum low" speed is
+> non discoverable, it is necessary to describe it. As of today, it is
+> widely used (and I believe for good reasons) and covers 99.99% of the
+> use cases.
+>=20
+> >> Seems like you're abusing a peripheral property to encode information
+> >> about the controller.
 > >
-> >   1. The USB OTG functionality (i.e. power *out* from the device) would
-> >      probably need a minor refactorization to use the MFD sub-system to
-> >      also register a regulator driver. Looking at the bq257xx driver,
-> >      this should be the preferred design?
-
-If the regulator is the only part making this a MFD, just create it
-in the charger driver itself. There are a few examples, just grep
-for 'struct regulator_ops' in drivers/power/supply.
-
-> >   2. Other drivers add a custom `sysfs` attributes for BATFET control.
-> >      See for example rt9471 and bq24190. Is this the preferred approach?
-> >      Should we add a new power `sysfs` class ABI for this? (There is a
-> >      TODO left in the code for this.)
-> >     =20
-> >      I reckon it is quite common to have BATFET control for chargers,
-> >      i.e. being able to set them in "ship mode", "stand-by mode",
-> >      "shutdown mode" or "idle mode" (example values taken from the
-> >      `BATFET_CTRL` register field from datasheet [1])?
-
-Yes. I usually ask to use custom properties until there are a few
-users to avoid cluttering the general ABI. I think BATFET is a good
-candidate. Please add a new property for that one.
-
-> >   3. This device has liquid detection and corrosion mitigation. I
-> >      couldn't find any existing device driver with this kind of
-> >      functionality. The datasheet [1] even mentions "patent pending",
-> >      although it refers to the USB type-C Specification 2.3... :)
-
-This is something I also expect to see in more devices; I know a
-couple of Android devices offer this. But indeed nothing has been
-submitted so far.
-
-> >      When liquid is detected in the charging port, an interrupt is
-> >      fired. Likewise, an interrupt can be fired when the port is dry
-> >      enough (according to some configured threshold value). My initial
-> >      thought was that maybe we can add "liquid detected" to the `health`
-> >      `sysfs` ABI?
-
-Sounds good to me.
-
-> >      However, the question still remains though how one
-> >      should enable/disable and set threshold values for this (new power
-> >      class `sysfs` ABI or a custom one only for this driver)?
+> > The controller-side approach you mentioned is similar to what I had in
+> > v2, where a compatible-specific base_freq is used for non-PHY ops.
 > >
-> > [1] https://www.ti.com/lit/gpn/bq25630
+> > Miquel,
+> >
+> > I think we should revert to the v2 approach.
+> >
+> > The non-PHY frequency is a controller limitation/capability rather than
+> > a flash characteristic, so it seems more appropriate to keep it in the
+> > controller driver as Conor suggested.
+>=20
+> The non tuned frequency is the maximum frequency one could use
+> reliably. It is not controller specific. It is mostly board specific,
+> and to some extend may also be chip specific.
+>=20
+> The tuned frequency is the maximum frequency one could use reliably
+> after line a controller or chip specific training procedure. It is
+> also the result of an aggregated set of non discoverable hardware
+> limitations:
+> - board routing
+> - chip capability
+> - controller capability
 
-I had a quick look at the datasheet. I think a new standard property
-would be sensible:
+Right, and this I guess is what scuppers letting the controller driver
+sort the configuration out itself and leaving the property as-is.
+It could be that the speed in spi-max-frequency is lower than the "base
+speed" of the controller but because of board routing or device
+capability that the tuned mode is still required, right?
 
-LIQUID_DETECTION_CONTROL with possible values
-    off =3D Not liquid detection is being performed
-    auto =3D Periodic liquid detection checks are being done
-    once =3D Writing this will perform a single check (and return to off)
+>=20
+> We must try to think about other (non TI) possible use cases of these
+> properties and also take into account the existing DT expectations. If
+> turning the property into an array is too complex, we may go for a
 
-For the other controls I'm not sure how generalized they are. E.g.
-for TLQD and ILQD it offers 4 steps, but not explicit current
-(seconds and amps). OTOH for the voltage explicit values are listed.
-Maybe just leave them to the default until somebody actually need
-this configurable?
+I don't think it is "too complex", but it requires removing the
+definitions of spi-max-frequency from the 4 or 5 bindings that redefine
+it and making a mechanical change to all spi device bindings that
+specify a limit. It's not complex, but it will be annoying without
+tooling doing it for you.
 
-> Friendly ping incoming!
+> second property, but I believe the name should not be TI specific (but
+> I'll let the final decision to the DT gurus).
 
-Sorry for being slow with reviews, I was quite busy and out of
-office in the whole May. I suggest that the 3 things are being
-send on top of the updaed base driver :)
+Yeah, I concur. If not doing the 2 cell spi-max-frequency, then
+something like spi-max-post-tuning-frequency or w/e I think should be
+used. Doesn't seem like TI would be the only people that end up doing
+something like this.
 
-Greetings,
-
--- Sebastian
-
---oybkq5ntld5gkntk
+--AJLPS9b34NY10SeL
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmofAggACgkQ2O7X88g7
-+pqhyg/+NRhgP5w48z5MfRA5UnpQ4swNmWs0oiwK8CiZQkQJ5OZd82pGm/8ICYSo
-Qxx/EfNochHhZv+R02xUDvabU7Ua77GXYXAXDsdlGzWjuFxFJmx9VA9gDLmHXl8o
-BtiauwMhx4M7s6u1rAgbAJeMAOteUAWcM2HQ/t+Crjst0g7kxPMImuks+LijRQ9e
-Q/lInQ8+zMMWK1+OIOuYTJTqTpuXIrBWIVgV0h7TlQXFUh6+fHKox1fRIAHqzOwI
-y6mAAREtHi8B/w+kvmub/9KU8xiMTGueLcbLWOztZFCmroVIJFa+OCtgC+iqBxa6
-+4avc3TT3HwD6cflMGVUhNDWDRw17yXdPP/pz7A6BYTQdvE0krz7JKtkQ+tuwHFK
-LRAaq/nqFJlpIrgfG/7M9jAGMzXTPUZwV3EyktVo8DCOQAzN/+d1guxxgZtrjqqn
-ON2WqVgh+XrDmVIpKzmb+Rih1nROIkhka5CZsNdIW4HzDsX6/58q4V/edLKxi49y
-mnljdhmmv24/+UEHseNW4uj0NOjOxqD9PJUErJmPrjXW18HcYGKlmZKFD4yQt9Xq
-wl1sTv2G5eyT+zY/fDVMqDU3y4XqiBqzzJaYfhSHJlx1EqFghuqcl8ehXiU3oJOm
-bC/RMoEXG6mocJSK8iD0n8VFwddPCfEVzELbMvF8dnuTUC/Ffkc=
-=ql5j
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8CRAAKCRB4tDGHoIJi
+0owGAQDo4OJ+lanJzDDiAy24r90RjmLY345XbhNb35eu9nR4pQD/bylNWRFr8zIC
+ieLJyX/nv5hK66XKGg37ALalXfCBCws=
+=ETpe
 -----END PGP SIGNATURE-----
 
---oybkq5ntld5gkntk--
+--AJLPS9b34NY10SeL--
