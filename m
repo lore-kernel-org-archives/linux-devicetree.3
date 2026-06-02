@@ -1,63 +1,63 @@
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F2FC3C8C5E
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 11:51:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0AD13DA7FF
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 11:51:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780401113; cv=none; b=Hu3hC34fQKQkGnauYa9J6Tmrvc9l1ORAGV9Q4wbfGJa3xEsD9X91NuGSvHh0TiMNg8znEN18If5SXJcLY/iI2s2HmpkDC731Tihh0BxkRlDX+DomoBc+Z1rcpZXHyqZ2LeXAjZRWZ5He3Aj2dj5dO+cS/xKqCKpXINYrocTsd50=
+	t=1780401114; cv=none; b=ZcBBYsqBPYKXupxhZCbtNYfavbZUWR+sdv8pjkHc9Iqe+MDEG+FNAD6vUF1q0niLXrN4K1te1hwFIDmIzuoXUH53+RzaTRLHqz+Pz3Q+PtmqBCiUsfFb9ZMu+npiswSzVprBnF+3bO7PyxqR0YDEpHPoLYyqLh87jP+YeD6ZL3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780401113; c=relaxed/simple;
-	bh=huJSha/vBHDgVvprsuUDvcbacjXmFi6mxRwgk4rmUSk=;
+	s=arc-20240116; t=1780401114; c=relaxed/simple;
+	bh=CBnTBF2b8ru+ARGKY0BL/auQy3YbEtK08w2Gn946fo8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LoMj1lppWFG2h5gpe5fS/FU4uw9Iy0iRENG/+DKCszYF4xNcpTzvJSbz4/GoQWDymkEP4kqaMwsfGwiE48cebnQ/nSp5VU9LxR5bEk0t/7MINcoL5lftse96UZss3lBQ9q+XDxIndEA2GxPcIW05dvzlQBernpC3eTY2CbMt8IA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aLS2RVZH; arc=none smtp.client-ip=209.85.128.53
+	 MIME-Version; b=m+K2oIwBzy9pOrEoIDoIiGJDmlozbVeeufO4Ox509gyUscd6tX0lFmDM/iIRiyKhgY5NGna+2Ew+43rpA7mHXWTpejk04HSid9n+damJ/C+N12YhEaVVvMvRUmBc7J/lQ2HuGygZBTgaEEf9D2O7JuOUcCXj/f0B5+MZC6xu05Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XhSuWa+8; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aLS2RVZH"
-Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49041e84237so92116815e9.1
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 04:51:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XhSuWa+8"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490a765d410so27487085e9.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 04:51:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780401106; x=1781005906; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780401103; x=1781005903; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=rW3dGwAqiUruHWn/0Ai/AGMfG26DoRiScxLbS+CHlR8=;
-        b=aLS2RVZH+5RQmkpq4+5tC9rs9s8bYcAKOubOOTB5ZNwa5zDZkR1vemu3ZGWs+G6Qyl
-         9qEr0HiQrfa41N1gnIJt61VZ/AbKNrq8sot5z4RiQduYn7KTyt9u6F3rHGs4I2R/SyVx
-         v+AtnJyt5eR9N4LA0Q+BIqiFnMd8d8gIt7LGcEIXJqRHDaZx9vVDfyBNML9haEEjVRo7
-         UQYd6UagdYfSc56xLwBz7e6vBEPBvbTSrbcYwzPFklHVs/BUIZO8hd1nu+B0wyY/dbAL
-         7aEbzthFahct9vzqNuYy+oZR8SJ1WSIRu8OUvHQY/u1o3AHIXAiAwcL6npusS6OrXL1N
-         bMBw==
+        bh=S6nMamazsyQtYMLkplyeZLnOvImIi25TqQ6cMt5t+/U=;
+        b=XhSuWa+8QnfPm7cWQsdDZCPRlLF+JJVX1MbfEXlLRZJsSeD9IUdFSZgn2GoeX6Z11Z
+         cy5+k0H3PWFAH01mT66vSqqPuXCuaa3AOGNq60UBC7VQ2JcaKlUvN6tkus/5vmHQIYtQ
+         ILYcVonNjY7Mju8IT/PGBinipIuCzFG5uxi9AluBJqNTZIIL2BLz41svQM0JhLSbry5b
+         YdHA0Zy7nxqiUMctcb8/DsHZhYAfD+c7nuIzldrRMKXZ7BDSQatOvyaNshBFhpBEI68S
+         NeXzUPA4p5AJs7FmAW/94eczS/EbRe5Iu5Hx7IrPRjTcuDbhIsxcQYKbzJR6RkbrdXXF
+         ojSw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780401106; x=1781005906;
+        d=1e100.net; s=20251104; t=1780401103; x=1781005903;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=rW3dGwAqiUruHWn/0Ai/AGMfG26DoRiScxLbS+CHlR8=;
-        b=k3+cjzhOCpHsXB2mmiscQPoKAEap9Wq7pVZ9m9Ke9BfOfyPyEXxuBBFU9MZnaG59H5
-         2cBsxyloKg80xTayjR6pjsaIapk1z/rUjYybprlSGVM749uj/1G3xYgXlGk8RoCB7b4o
-         aCxugkJbaD3kF64RlQXuCwyywOt4InwvaOgeu+fCrho2MMBnQEWRYpz0sFkG4tJ5AUC3
-         InoA7Wu+C1JxG8M114+l8fqyry3HDEJIAzHeGXQMsQqlAakA8miVfwt4z2yqaML1KoQ+
-         WdfOY57SCt+CC8b2qHbZ86PVH+mfS4FkDpWtnyPACQJBo8zgddbEPPCe0LTEcE+loWgo
-         q3YA==
-X-Forwarded-Encrypted: i=1; AFNElJ+CxaKAjfPIvGvkzliJn3Hp7YyJE0tHCQ9/wE+TeiJuB6mNsi2KHxkkjhG5RE5J/jKLhF48ob68gNKJ@vger.kernel.org
-X-Gm-Message-State: AOJu0YywXX59PnSprVHGSYNUDcXIRFgHdKV9u2b4lqY8ZTW7AkiCsVch
-	poGDUO0oIpgD024cY/XybEwMK3FML/U/hifoLLtSQWbcDisRQcL4FrbI
-X-Gm-Gg: Acq92OHOuXyoCq+12ZHEsAbGgSxJZBB8tSf5jmoDbZ7RR4+GBTF5v3Pl+oONnT+WrhV
-	Bbq0pb48XflwjrE77aLWf1XhWdS4hJl3I1fYX01vMkRuVbAkLi48evxzQbohxEaGyrGCSmR53oe
-	1zI4ERuOCc2ZrCjAwgWySg4PPoxQ7BEd4pE0gXYgiAvAv6Z5qxvTX5lkkRpaG1UXA8EbL1PTGzw
-	S0KapKzMnnhDmjiM/xPQwwbcT0IzjwIYOCpmuHCOvmvTkwk/02Sxm6wbAZTMvVzDZcfRT6YlNnx
-	d28SeEubVvbd4fSVqyv8MW43z6TYt6v0SobjDPG5fO9NlRez9+K+ZKHD/+JXzLAWmjWPlbFO33F
-	icy/qzGIoa3apH8oH2e9EQsJp9CZi3rH5e0jIzw9MWy+Sa91klTEkuaKXqFiXD079RUe2g3FrRd
-	sD1/1M2m1eEg/Ah/IRuR/Fjre3uw==
-X-Received: by 2002:a05:600d:8488:10b0:490:9dc3:3483 with SMTP id 5b1f17b1804b1-490b0e373a0mr40839215e9.2.1780401106125;
-        Tue, 02 Jun 2026 04:51:46 -0700 (PDT)
+        bh=S6nMamazsyQtYMLkplyeZLnOvImIi25TqQ6cMt5t+/U=;
+        b=GrR3n+ljM/exy4uE3opEmrebCr5ajcomEFLR3kX9LKf6hbza1VtjVJ46dJU6bi0Qk2
+         pWwZQkrQXRTIii9byheTDH8J/mmy85JDZJCGkci6tB9I9rQE2E5ZkMXt576hEl5ZxoDX
+         9iyG8Uy5sXvu6qON9U5HU5S1aaaQ3Eb399jB58fd6frOnd57DFDMXzYQ/w/6Tp/qR0bf
+         xGH8j6+/gaNvqLBbOyW/AYdxe0FpD7OrbaG36unHzxuC8HpkajbPOVrBiI70eBejlTSw
+         OQKE/lq5NjSo25xljLkF9/eG/QS2EeSk14Jg0kNFw9yxAis+aAFB1HwHfZyi43iBuFO3
+         ocrA==
+X-Forwarded-Encrypted: i=1; AFNElJ+06TDHf8P6Ua9tt2tEZobT4w2psu51QRXfULD39iYElTR7xG2pX/CbG3D/6PxYh4tjnkZ4Rj/CYGOP@vger.kernel.org
+X-Gm-Message-State: AOJu0YznZcxroN0E1heBw5aCiO/2wWdCKjHdEdweMVpnH8GidYTO1pUx
+	7SYHAWX17TraUSdqAFIEs6VqsXbZizyZxbDPuSHxMwAbyg7tCa7g846rr2hu3Q==
+X-Gm-Gg: Acq92OGS6cqdqzgVKpMw1xmWQrWCFObKupk58XmptBXYeMIYch762Ez7wExJ3Y2FnBT
+	QeZzzuH07L1NyLCHFeLB9xy4vtb11y8owFPTXwkkA4K9CC1yXhi1yjjQQwsp7UidRQFJ7pQW86S
+	r2+9hhvWu5HeNU5EFjPiEYX5KHtqF+UGuH+j5MVOHpRx791f8KgC6uvP3RtxjZ7nEq60a8yqO8c
+	c39Ak6ximBM9XF3Kpu1rm4O/APY5WbcyrrzeL1KKb6Z4/HnShzzt/U5TyiSiTzWqzitOljEcZzm
+	n7sMpAKhtmAjreT8sdB8LFmG8ZpjneSnSCf9FSDWuA8ZuuUE9/ck+ujRQm/KQvU1yIbuZ/qTTlY
+	Hb7TxFnWPNQdiA2+ILmE6VLsxAv99L/on6DQ6Tk/BvT0s35AcKMX6/O9fniZvRisX41kXwrRT4I
+	wpQXVqAtwDn19OomKMeP4hjJsDuw==
+X-Received: by 2002:a05:600c:a111:b0:490:469c:556b with SMTP id 5b1f17b1804b1-490a2933355mr220673185e9.12.1780401103218;
+        Tue, 02 Jun 2026 04:51:43 -0700 (PDT)
 Received: from vitor-nb ([2001:8a0:c4c6:f00:e8c3:a961:5b26:a2c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c152570sm139480015e9.9.2026.06.02.04.51.44
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c152570sm139480015e9.9.2026.06.02.04.51.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 04:51:45 -0700 (PDT)
+        Tue, 02 Jun 2026 04:51:42 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>,
@@ -69,9 +69,9 @@ Cc: Vitor Soares <vitor.soares@toradex.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 5/7] arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 10.1" DSI
-Date: Tue,  2 Jun 2026 12:51:28 +0100
-Message-ID: <20260602115123.1324474-14-ivitro@gmail.com>
+Subject: [PATCH v2 3/7] arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 10.1" DSI with adapter
+Date: Tue,  2 Jun 2026 12:51:26 +0100
+Message-ID: <20260602115123.1324474-12-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
 In-Reply-To: <20260602115123.1324474-9-ivitro@gmail.com>
 References: <20260602115123.1324474-9-ivitro@gmail.com>
@@ -86,67 +86,72 @@ Content-Transfer-Encoding: 8bit
 From: Vitor Soares <vitor.soares@toradex.com>
 
 Add a device tree overlay for the Toradex Capacitive Touch Display 10.1"
-DSI on the Aquila DSI_1 interface. Used on the Clover Board (J12), where
-DSI_1 is exposed via a FFC/FPC connector.
+DSI used with the Toradex DSI Display Adapter on the Aquila Development
+Board. On this board, DSI_1 is exposed on connector J44 through a Samtec
+LSS-130 connector, and the adapter converts it to an FFC/FPC connector.
 
 The display includes an internal Texas Instruments SN65DSI83 DSI-to-LVDS
 bridge driving a Riverdi RVT101HVLNWC00 10.1" WXGA IPS TFT LCD panel.
 Touch input is provided by an Ilitek ILI2132 capacitive touch controller.
 
-The overlay is also combined with the Aquila AM69 Clover carrier board
-device tree to provide a ready-to-use DTB.
-
 Link: https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-dsi
+Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-display-adapter
 Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
-Changes in v2:
-- Enable main_ehrpwm5 for Clover board
-
  arch/arm64/boot/dts/ti/Makefile               |   5 +
- ...m69-aquila-panel-cap-touch-10inch-dsi.dtso | 158 ++++++++++++++++++
- 2 files changed, 163 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso
+ ...la-adapter-panel-cap-touch-10inch-dsi.dtso | 155 ++++++++++++++++++
+ 2 files changed, 160 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso
 
 diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index c145cc4ca7fc..bf50b7a72973 100644
+index d216b1e1e8f6..966cec4c5b6e 100644
 --- a/arch/arm64/boot/dts/ti/Makefile
 +++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -190,15 +190,20 @@ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
- 
+@@ -192,6 +192,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
  # Boards with J784s4 SoC
-+k3-am69-aquila-clover-panel-cap-touch-10inch-dsi-dtbs := \
-+	k3-am69-aquila-clover.dtb \
-+	k3-am69-aquila-panel-cap-touch-10inch-dsi.dtbo
  k3-am69-aquila-dev-dsi-to-hdmi-dtbs := k3-am69-aquila-dev.dtb \
  	k3-am69-aquila-dsi-to-hdmi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover-panel-cap-touch-10inch-dsi.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtbo
  dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
  dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-hdmi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-sk.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-pcie0-ep.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm.dtb
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso
+@@ -311,6 +312,9 @@ k3-am68-sk-base-board-csi2-dual-imx219-dtbs := k3-am68-sk-base-board.dtb \
+ 	k3-j721e-sk-csi2-dual-imx219.dtbo
+ k3-am68-sk-base-board-pcie1-ep-dtbs := k3-am68-sk-base-board.dtb \
+ 	k3-am68-sk-base-board-pcie1-ep.dtbo
++k3-am69-aquila-dev-adapter-panel-cap-touch-10inch-dsi-dtbs := \
++	k3-am69-aquila-dev.dtb \
++	k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtbo
+ k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
+ 	k3-am69-aquila-dev.dtb \
+ 	k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
+@@ -397,6 +401,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am68-phyboard-izar-peb-av-15.dtb \
+ 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
+ 	k3-am68-sk-base-board-pcie1-ep.dtb \
++	k3-am69-aquila-dev-adapter-panel-cap-touch-10inch-dsi.dtb \
+ 	k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
+ 	k3-am69-sk-csi2-dual-imx219.dtb \
+ 	k3-am69-sk-pcie0-ep.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso
 new file mode 100644
-index 000000000000..c5d597873440
+index 000000000000..a5ee6c867fb1
 --- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso
-@@ -0,0 +1,158 @@
++++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso
+@@ -0,0 +1,155 @@
 +// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
 +/*
 + * Copyright (c) Toradex
 + *
 + * Toradex Capacitive Touch Display 10.1" on Aquila DSI_1.
-+ * Used on Clover Board (J12), DSI_1 is exposed via a FFC/FPC connector.
++ * Used on Development Board (J44), DSI_1 is exposed via a Samtec LSS-130
++ * connector, and requires the Toradex DSI Display Adapter to convert to
++ * FFC/FPC connector.
 + *
 + * https://developer.toradex.com/hardware/accessories/displays/capacitive-touch-display-101inch-dsi
 + * https://www.toradex.com/accessories/capacitive-touch-display-10.1-inch-dsi
++ * https://developer.toradex.com/hardware/accessories/add-ons/dsi-display-adapter
++ * https://www.toradex.com/accessories/verdin-dsi-display-adapter
 + */
 +
 +/dts-v1/;
@@ -237,17 +242,10 @@ index 000000000000..c5d597873440
 +	};
 +};
 +
-+/* Aquila PWM_3_DSI */
-+&main_ehrpwm5 {
-+	status = "okay";
-+};
-+
-+/* Aquila I2C_3_DSI1 */
-+&main_i2c0 {
++/* I2C on DSI Connector Pin #52 and #54 */
++&i2c_dsi_1 {
 +	#address-cells = <1>;
 +	#size-cells = <0>;
-+
-+	status = "okay";
 +
 +	bridge@2c {
 +		compatible = "ti,sn65dsi83";
