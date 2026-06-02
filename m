@@ -1,103 +1,119 @@
-Received: from mail-lf1-f42.google.com (mail-lf1-f42.google.com [209.85.167.42])
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com [209.85.216.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50E28356758
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:15:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1BC2936657B
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:15:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780438529; cv=none; b=ldCl2CFABpT/ggb8oLTOUHj2qCh829ce96rG6a6UvJ2clWo0afCZvtVy4/SpMa51lpHQpFjRkYBOZh4cAFJswZVUWsKWFv4GuZCgrfFqaxJhB4DT03prZ5BhX7UQ8Fux39+5d2KixhZ8gSpF57y57vZMJBrQYB6pDtXfIR8VFtY=
+	t=1780438530; cv=none; b=Qp1J/0EGe5NqHUmqDyvvn8dYLvlsqbGwK6tCJ4yoSEFimR3ncqWxcIz1bsrPuiczxECheO2Nz18dh6r9bxmwL9EB/Ff16RoV8xu23a3kjpxpf8Wj/b/ZyI/uA+DVfPUfPX2875oAVbmCaTEoeTQSh3CoQ/gZCpga7QLzHTIV+IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780438529; c=relaxed/simple;
-	bh=0l2ZoBsNnuodhMPRW4K78PbcurismS2rK+dwCagNV1I=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=hg1x52+/FFAy830U6cEZQVVS3UuN3QJQ6xPBtp4hSmT23lcNr5lhcXq4o/Urb8Tnwx1c2aQ9+n6BPCZeiTqqrQjq7cD8L/ZJgjvQrn9Ng31hyUWO5rLMFakOIUGv++NEgczLJihfubvcjfEFea5y66//Zyn+sn3WK/DpkfUrBfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=e8rHw67s; arc=none smtp.client-ip=209.85.167.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780438530; c=relaxed/simple;
+	bh=PkFkKBkasyNkfpdY3psVfIwGsVxbjYhDPSzlbu1Zp/w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HxRS2vEFdN+kNyHjlFa2Do1t1yW+zo2gkP6/TMm1StOyFON9FySy2xKA+8XY7AQdpBZKwnlZwhmnVSbwiEJYsjZwMoPEUXsTNlqpltjCWCVOvsTa3cOklL/lQwpMQE1Q7mQqyp7Yuzw3svm2rxALSSA1y+KQ/25sHs41OfUedGA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jTYOmuHG; arc=none smtp.client-ip=209.85.216.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="e8rHw67s"
-Received: by mail-lf1-f42.google.com with SMTP id 2adb3069b0e04-5aa679cc2c9so393861e87.1
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:15:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jTYOmuHG"
+Received: by mail-pj1-f53.google.com with SMTP id 98e67ed59e1d1-36d6bb38b44so2222668a91.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:15:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780438526; x=1781043326; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=jgy25aO5siADmjOHA8m8ArvPv18ukgqv39s8uxTpK68=;
-        b=e8rHw67skHmOQ8kPoTe6+oocv4OUg/IB2nEMr+0fpK4i5Gb2Ty7tk+7gOoSVPyFYkj
-         cz/rgfHDQo3o4q3rgEEfot2bUDKa/U5IhhwM60C5H2eqV32hKrWQOizcVhOhjldx6VFJ
-         7Gy4PbKz6Q7O/j43kO62HDI6B7Dm9I/BhUsVtrgQs8+vW8MS+68ML1f+aJtRoQF9neUF
-         zzQ86WLaAsy6UcFJiXMskcb3xNHNAzDElazx1IwJinN183bynJ6KCOrm/AZFplO8LuF5
-         XlprvD1OHBrBF0IoOIm+TDoV/lCxVXfly3/xY8SPgMXRqMLKXSVRvtXy4sdy9o+7QAsW
-         4e7g==
+        d=gmail.com; s=20251104; t=1780438528; x=1781043328; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=Wyg13nmb1cl4XVRXyc9+1Xf9pv1Lvsh32cV5wFSbV18=;
+        b=jTYOmuHGSIBX9DfJAMz0WxP0meWF9ha79aFb3GomCFAjsUWxMze7GsZJolFPUDZbKn
+         4fpn/BoLCWezVoIlVQcQgfYy0d2FBpLjbKyy1h6JPp929X2PYDqt9n51tTzLkFTm8aMM
+         Cy88PMmDINZSXu2zw6wpsywHpPkzMCtHm/P7kGXGa/1hS8Xu7kVT60q7+F7/1Xozpzpy
+         8wxerHJEGbvlWnqjpQX2myKgbtvPOYi8qC+/PYmGdeMQ7IoGJ7y856bsueeOnRXZAdaO
+         Cv2r88j8UxVkfTr1eFkoeUI1exZB795/w/Y5iEy4T04TycfgCcgs+UjLoyaayewa/zYz
+         RJOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780438526; x=1781043326;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=jgy25aO5siADmjOHA8m8ArvPv18ukgqv39s8uxTpK68=;
-        b=r2MoLMvD1eoPafmcKrJZRHwZ28UrXhqc+yFRyTfe3psO8w1aHlcgDGBMKRHcTUhTkj
-         Y3zu56pPuvJu93xAfYvBLqZ9cSBsP7pZbKfN4aPzf/c624dXF+fpNeBru4Ap5PmxDCpW
-         xTCPX53MOuJ/wR3lFcKlRWzWuc1SMD78AzDCeEUyRxbRSfqW4tbnEjN3snJbWCLb+s9I
-         jetXNUPhlDsojgT13HY0bFojRy3+J0QkSnLu03FBJViV3UF9ufORMT2VV5xenGzgSCKn
-         9izClob9RjY9QofedArULCpOchNOZF6SWNdW7k/DUk9TqjUwaBBabgsj6Sc5ITYEkPQX
-         6bGg==
-X-Forwarded-Encrypted: i=1; AFNElJ+8dRAjWda869JSAZ+Boum7pWElqnSvHGkt/lvvmnuTqaQZejHjjl/OHI8PfKQ/3ad+0ywyOrip0WEW@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx0n1F91uxvUD0fVceudCzaxmqLF0wd3kl+E+jGj3DH/3is6msC
-	eNr7TiA6rPFkjiupM8HWmEj62G8t/vC2MMPLESz0R8I/o0RNqAPz25bTQTvvYRurkDw=
-X-Gm-Gg: Acq92OHAbaeIS8DT3kGni47kg60lqnRwKiA9wt29RZ54sdhcb37jUO6W+qdpnGmVJ0X
-	RGgX9tW/ABJ8O/V+1f2003eJkHmyqditb/GB9qXHByDmEpjABftVLr3x5OEjKOWmO7/MLh/AFru
-	UquW/JQXFlaxXdk0yBJKZi4VBvkC9bqP5M11OQJU8OaUaxWsu9aX5XACUJr1qQ34PRpoh5OpTQm
-	JCEeZ5DkZCo5q2pw60lWxWeRn9ACpx+5oNaKkyX78NNkCosMQj3BEHNoSt84WqhCQCNIXFq5fiW
-	UWplZ9WOyjo/+P4v70JOq/QfZzmjRylmymnVS5jFdu/zopQa2yKBN1J024n+IeauqccmWwwh/fP
-	MQpUI/DML34I2GOzAHnQmT4DmpTXdVfaqwxJdmTSuWjU/JJqbsUtfHR4PPc20wJ0rzlrDkd9sWO
-	sRw3EepkzeRDTP+H+beQ49e17sDxYWu2Xp0tQs7hzg4vQpdB5M3pOO6dzdjT9yrAHQtsiVCtXzR
-	JAlC42VCfz40ZjI
-X-Received: by 2002:a05:6512:3c95:b0:5aa:7126:c62e with SMTP id 2adb3069b0e04-5aa7beaff61mr128839e87.2.1780438525691;
-        Tue, 02 Jun 2026 15:15:25 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8ed2d3sm217245e87.5.2026.06.02.15.15.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 15:15:22 -0700 (PDT)
-Message-ID: <d9564f1e-0b5e-4c69-88c5-b57ab2e0b543@linaro.org>
-Date: Wed, 3 Jun 2026 01:15:20 +0300
+        d=1e100.net; s=20251104; t=1780438528; x=1781043328;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=Wyg13nmb1cl4XVRXyc9+1Xf9pv1Lvsh32cV5wFSbV18=;
+        b=hF14ztbgnzntWn5rkb8I97FMZ+dtkUF7UWPdXWw8PNT0143o2pwfoqEOYQjSHgyhTc
+         6WBuMARCW6jcx4jwS7qAPuZ0zQy4CEn6kfX+E9Y2HmxI2EC0ABjR3tfLzKSHnNBOxWVF
+         wpcFj15Iw+NLqJQOkBYKPixfN2hpoPyPXWu3RpiI/yg0ufti6gK3dkAfXfTXx+lH/LNS
+         6QXFxurPjlEPYQqGUSP3K8pfuaLDBt1yzyPWYcM5RAV+JwS0a4xKRz0CWvAw0WNvwQ2O
+         g5ZbQn4xF/45Hx+8am9Ig1blYctSts7h4eNXFPiFJvDCcsNqJAZkc759XBXvqHXqFNy2
+         W52w==
+X-Forwarded-Encrypted: i=1; AFNElJ9SviVe+8aok5j0YsrF/oFqkDtctF50KNxwdO+oKRSzmpzjYy/+p80X+3APKnn4ddPDRvwaDKG/kqvT@vger.kernel.org
+X-Gm-Message-State: AOJu0YyIzhTrpNwlIWghEoU7VGe4DwyC/Fh80/92UpIR/DSbje+FWvIc
+	k9xmSDRDGkEanGFpn0+RirQC7gTuzYZjWjKtqDeGLGd1haj72eamS7af
+X-Gm-Gg: Acq92OFGren7fR1P5DIqCXEzaUYJgRm7eR4DQItF2i33/yyp+KVfG7hL8Olwf/0lWcO
+	wfxEbyscQIjgHmuL2Yxz4v58GWuOC7qu13pyMvcgW/bZmyKgUa/2xB51sukfJyaqi7PoGxrGNtm
+	zmoO2k3n+sk0KNj5mqvHjQVqYcHxFzja6RqYXEI9cGaq2u3fcGogJVpoZXHeevi09P2o9reHhrN
+	e3aE4QmH0tUXUrrFKW71ZTUQPLpch9esR3TbAjAuluEm/3g+JBg4S+jFgKAD8yLSEFQlllThOVz
+	xW3ZA0AvYML+wE5cgjyHgrw4b5yIvdeJGA2pIHsWJ0SwYoxXVlRnicfvI/SQBDu8NHEnytR9Xkk
+	KNTmfCmYVyq3S5tMxMHo7Zbth8Rc52OP9P8nKejZ+MGKvU2rmDZ8fGbfK3OgNOr7r83+KeU9LrR
+	PdHhs9FSTQEBIvoeaL3rFjY75EORsvQcKb/hBVbBV1Yrx1
+X-Received: by 2002:a17:90b:1d87:b0:368:a297:bd38 with SMTP id 98e67ed59e1d1-36e2f3c11dcmr712758a91.7.1780438528332;
+        Tue, 02 Jun 2026 15:15:28 -0700 (PDT)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36e174db6afsm287366a91.2.2026.06.02.15.15.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 15:15:27 -0700 (PDT)
+Date: Wed, 3 Jun 2026 06:15:08 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Bjorn Helgaas <bhelgaas@google.com>, 
+	Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
+	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Chen Wang <unicorn_wang@outlook.com>, Paul Walmsley <pjw@kernel.org>, 
+	Palmer Dabbelt <palmer@dabbelt.com>, Albert Ou <aou@eecs.berkeley.edu>, 
+	Alexandre Ghiti <alex@ghiti.fr>, Zixian Zeng <sycamoremoon376@gmail.com>, 
+	Han Gao <gaohan@iscas.ac.cn>
+Cc: Inochi Amaoto <inochiama@gmail.com>, linux-pci@vger.kernel.org, 
+	devicetree@vger.kernel.org, sophgo@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	linux-riscv@lists.infradead.org, Han Gao <rabenda.cn@gmail.com>
+Subject: Re: (subset) [PATCH 0/2] riscv: sophgo: sg2042: Enable PCIe DMA
+ coherence
+Message-ID: <ah9VwHZbIuDSqmbe@inochi.infowork>
+References: <20260331171248.973014-1-gaohan@iscas.ac.cn>
+ <178028263198.557087.6386925175219722340.b4-ty@b4>
+ <ah6gcvKQlHlrW1qn@inochi.infowork>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 3/5] media: qcom: camss: csiphy: Add support for
- v2.4.0 two-phase CSIPHY
-To: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>,
- Bryan O'Donoghue <bod@kernel.org>, Robert Foss <rfoss@kernel.org>,
- Todor Tomov <todor.too@gmail.com>, Mauro Carvalho Chehab
- <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- jeyaprakash.soundrapandian@oss.qualcomm.com,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-References: <20260508-kaanapali-camss-v13-0-2541d8e55651@oss.qualcomm.com>
- <20260508-kaanapali-camss-v13-3-2541d8e55651@oss.qualcomm.com>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <20260508-kaanapali-camss-v13-3-2541d8e55651@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ah6gcvKQlHlrW1qn@inochi.infowork>
 
-On 5/8/26 11:05, Hangxiang Ma wrote:
-> Add more detailed resource information for CSIPHY devices in the camss
-> driver along with the support for v2.4.0 in the 2 phase CSIPHY driver
-> that is responsible for the PHY lane register configuration, module
-> reset and interrupt handling.
+On Tue, Jun 02, 2026 at 05:21:32PM +0800, Inochi Amaoto wrote:
+> On Mon, Jun 01, 2026 at 10:57:24AM +0800, Inochi Amaoto wrote:
+> > On Wed, 01 Apr 2026 01:12:46 +0800, Han Gao wrote:
+> > > The SG2042 hardware design supports cache-coherent PCIe.
+> > > 
+> > > With recent firmware updates [1], it allows to use DMA coherent.
+> > > 
+> > > [1] https://github.com/sophgo/edk2-non-osi/commit/017a5aea26a066fd2bf501b7893937183165af36
+> > > 
+> > > Han Gao (2):
+> > >   dt-bindings: pci: sophgo: Add dma-coherent property for SG2042
+> > >   riscv: dts: sophgo: Add dma-coherent to SG2042 PCIe controllers
+> > > 
+> > > [...]
+> > 
+> > Applied to for-next, thanks!
+> > 
+> > [2/2] riscv: dts: sophgo: Add dma-coherent to SG2042 PCIe controllers
+> >       https://github.com/sophgo/linux/commit/e728a57834d06b9bbf9bbed69e3ea16416d257d5
+> > 
+> > Thanks,
+> > Inochi
+> > 
 > 
-> Reviewed-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-> Signed-off-by: Hangxiang Ma <hangxiang.ma@oss.qualcomm.com>
+> Revoke this apply due to https://lore.kernel.org/sophgo/ahu57vcS0oOFmCI9@mertle/
+> 
 
-Reviewed-by: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+Reapply this as this error is resolved.
 
--- 
-Best wishes,
-Vladimir
+Regards,
+Inochi
