@@ -1,95 +1,115 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4483B35B63D;
-	Tue,  2 Jun 2026 14:57:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1051635E955;
+	Tue,  2 Jun 2026 14:58:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780412252; cv=none; b=DlRq8O/i/ThifMk6mSnkIC42DKNZowjrSXB23a56Krw6eUrNB9L8RW0y9yV17SaDYvBlVeG3e2OYYFfRBs0TPfNntZb4GdJB3+UqYHqvT2tw1oCAKcjTsDMKCPfugEcFj2WFfhmjX646qYMbDaw6PVYIPMJymTYTbdI8A2Y5VfA=
+	t=1780412295; cv=none; b=lvAGyCDI9Eg8k8xWwiE5r+pxnkYGqJ7w0DpvaaLqa2zdsJbh+UndvQcltAbNRXFA6tPZflygenLXc0Rt4NM8WwmeK4CaPjlhJ+SHiH6bldRqsgKWxrJI9pJLvuq2canEkeFUxAsLNeFeaZ0nKSNPxC+neoCV+KKWlzZ+Ao0S7Ks=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780412252; c=relaxed/simple;
-	bh=eqpH0nyL53s/21n69fGW1x8ZHBGKlYJaeY4mUd9dFj4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bXfsMaPir5MtGTW7m0qeN1g/bSLX+sTgGlDSUux5L24B35LdHsYJgKELfNhbEOq7Y/MgaLWjKX73Me9d+d5PUQzMBd338WLCdSSzJc9i5lUNj0gJKQTnNQDpHHQI3+uAfxpS3Hk/2yfwaNhCWFibnH2FrN9aRR5xW0lcnwlYbis=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npJJyFao; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780412295; c=relaxed/simple;
+	bh=vvMxxFVLVeAlxiZc6cIUu1pEXq21KZqE9RkIAmXu/og=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MsAJ1hF1f6pHi1mj8c2iKnvn3RSWNl06nPDxRHkkxIWhhJOrtz9HIuEBMlAfzzMr+vaAV1W3KUbtNoCVCt/SpEYBbUIL4Hn3L3sxj2JWvzRn0M8YkxJ+WzLhK2aNMoAYhDHtB7jRT6HXe00mZpP1YMFEOAH4GGTxrS7Gx963zXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dUjAXOVA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npJJyFao"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 440DD1F00893;
-	Tue,  2 Jun 2026 14:57:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dUjAXOVA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957A71F00893;
+	Tue,  2 Jun 2026 14:58:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780412250;
-	bh=QwDMgOgpL3mVlYn34KX0TOu+AZpH5iwZqb0/XkZgXTU=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=npJJyFaoLZ7ytddVQ8aR6rJB7jVbR0rA7aPCeDcr0BvlhFQnPYLeGgcNgZBSeccae
-	 AjRFMhTlYuU8PvAX/JLTMKakNBIb6Lywpxh9ECdmZQOx9UHn0sBtTM/2o0nokNYnp4
-	 LztgVUSdzA35V3iQ683tJd01klq60X6JvR61IspCzSRkAW6H9ZtmZRby0M9slBFyKM
-	 hJ0ta2/Spu3J6xTTtSXYmiYUxCdK7yb3LlP51MB1SOcDjRLSl9ilvcvsFzoQBBDwLm
-	 pjMQ+RwKTrw28kYLNzKLKbUON5OHSw7b3OV8OEPHvnDDpQCKafsIlCIvFGBF+eSCNa
-	 jhuzLWw8GzY+g==
-Date: Tue, 2 Jun 2026 15:57:24 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Rob Herring <robh@kernel.org>
-Cc: John Madieu <john.madieu.xa@bp.renesas.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
-	Biju Das <biju.das.jz@bp.renesas.com>, john.madieu@gmail.com,
-	linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v7 01/18] ASoC: dt-bindings: sound: Add DT binding for
- RZ/G3E sound
-Message-ID: <987befcc-2fd2-4d4f-8293-72df4dbc03f3@sirena.org.uk>
-References: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
- <20260525110230.4014435-2-john.madieu.xa@bp.renesas.com>
- <20260602145527.GA211368-robh@kernel.org>
+	s=k20260515; t=1780412293;
+	bh=DnM2hO41RX1ZjYT2K0TjVIZOoePCgu/n2TLpxGi/ANw=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=dUjAXOVAK+ks3hrv+Xa685ts0MW2Cl+aSZOl+l2Szs7WY1c9D6SvOlw3sE9mYacz0
+	 n43WjYamFByyiiCExlI5ilvpZHWIGxqrMKsmokFnr5mw8+Y7DSUPTffryjzWlW741p
+	 pqgU1q19ny15e1j228qYReoiHWBTzmggf4ohzcjbZqFcOk2+yCOA4Nf2bsi/y8OMem
+	 a8/gKXDQrAFQwza0edc/eiefAzd70BZvfONWdljFPhtsL05epaN907a4idbsqUzy3Z
+	 iwH/fqeAp2wNJ2h9/dBHnfxz7aY9KCBsZGPdZSE+iBSdiYxJUqDA7ctTm4MV199biX
+	 FOIEZHiyz2Iig==
+Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
+	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.98.2)
+	(envelope-from <maz@kernel.org>)
+	id 1wUQZG-00000008e1B-22sE;
+	Tue, 02 Jun 2026 14:58:10 +0000
+Date: Tue, 02 Jun 2026 15:58:09 +0100
+Message-ID: <8633z5ugzi.wl-maz@kernel.org>
+From: Marc Zyngier <maz@kernel.org>
+To: 	Daniel Lezcano <daniel.lezcano@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,	Hanjun Guo
+ <guohanjun@huawei.com>,	Sudeep Holla <sudeep.holla@kernel.org>,	Catalin
+ Marinas <catalin.marinas@arm.com>,	Will Deacon <will@kernel.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark Rutland
+ <mark.rutland@arm.com>,	Thomas Gleixner <tglx@kernel.org>,	Rob Herring
+ <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
+ <conor+dt@kernel.org>,	Chen-Yu Tsai <wens@kernel.org>,	Jernej Skrabec
+ <jernej.skrabec@gmail.com>,	Samuel Holland <samuel@sholland.org>,	Neil
+ Armstrong <neil.armstrong@linaro.org>,	Kevin Hilman <khilman@baylibre.com>,
+	Jerome Brunet <jbrunet@baylibre.com>,	Martin Blumenstingl
+ <martin.blumenstingl@googlemail.com>,	Ge Gordon <gordon.ge@bst.ai>,	BST
+ Linux Kernel Upstream Group <bst-upstream@bstai.top>,	Jesper Nilsson
+ <jesper.nilsson@axis.com>,	Lars Persson <lars.persson@axis.com>,	Alim
+ Akhtar <alim.akhtar@samsung.com>,	Ivaylo Ivanov
+ <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,	Sascha Hauer
+ <s.hauer@pengutronix.de>,	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen <dinguyen@kernel.org>,
+	Matthias Brugger <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
+ <angelogioacchino.delregno@collabora.com>,	Thierry Reding
+ <thierry.reding@kernel.org>,	Jonathan Hunter <jonathanh@nvidia.com>,	Bjorn
+ Andersson <andersson@kernel.org>,	Konrad Dybcio <konradybcio@kernel.org>,
+	Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNo?=
+ =?UTF-8?B?dW4gTGluIFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko
+ Stuebner <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson
+ Zhai <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Michal Simek <michal.simek@amd.com>
+Subject: Re: [PATCH v3 00/17] arm64: Use EL2 virtual timer when running VHE
+In-Reply-To: <20260523140242.586031-1-maz@kernel.org>
+References: <20260523140242.586031-1-maz@kernel.org>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
+ FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
+ (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="IbneGTeFWohgL8Hm"
-Content-Disposition: inline
-In-Reply-To: <20260602145527.GA211368-robh@kernel.org>
-X-Cookie: The wages of sin are unreported.
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-SA-Exim-Connect-IP: 185.219.108.64
+X-SA-Exim-Rcpt-To: daniel.lezcano@kernel.org, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kernel.org, afaerber@suse.de, 
+ eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
+X-SA-Exim-Mail-From: maz@kernel.org
+X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
 
+On Sat, 23 May 2026 15:02:25 +0100,
+Marc Zyngier <maz@kernel.org> wrote:
+> 
+> This is the third version of the series initially posted at [1],
+> which
+> 
+> - updates the ACPI GTDT parsing to deal the v3 layout and the EL2
+>   virtual timer,
+> - moves the architected timer driver to use it when running VHE,
+> - fixes a number of DTs to reflect the reality of the HW.
+> 
+> This results in significant performance uplift in deeper nested virt
+> scenarios, at no overhead to the host.
+> 
+> Patches based on -rc3, tested on Amlogic SM1, QC X1E, Ampere Altra,
+> and Apple M2, as well as KVM NV guests.
 
---IbneGTeFWohgL8Hm
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+[...]
 
-On Tue, Jun 02, 2026 at 09:55:27AM -0500, Rob Herring wrote:
-> On Mon, May 25, 2026 at 11:02:13AM +0000, John Madieu wrote:
-> > Add a standalone device tree binding for the Renesas RZ/G3E (R9A09G047)
-> > sound controller.
+Daniel, can you please pick the first 3 patches? Or would you rather
+have them routed via the arm64 tree?
 
-Please delete unneeded context from mails when replying.  Doing this
-makes it much easier to find your reply in the message, helping ensure
-it won't be missed by people scrolling through the irrelevant quoted
-material.
+Thanks,
 
-John, please send incremental fixes for the issues Rob identified.
+	M.
 
---IbneGTeFWohgL8Hm
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmoe71MACgkQJNaLcl1U
-h9DsLQf+J8JQb4gwc+Wk63U2sM3edMRillwnhFj0hOJPDffuGkyE4z07HScO5V9T
-GU3jSoQ28vSqr1sJfB6kFkblBltbB0oOi+/iPrMEHo/YyF9A0M4RPcJpQXnf2mmv
-JOB8UDvqih5T0zfzwb0GzB3wkQ3DvU3knwSO3wgXSXqzMvTfOXp0CA1OyDj+F52y
-/Z2S3wAd7U81wsGvRbsrS7x4dEB9IpvgUhZhQCndmngxnsX+zJWe4qq52aSPB29Q
-UEOQrnvrm8MnrmkSLooD5pyw8BW4YyPTGesLrt/0aeMafKXyC0p0A2mrmXk2EQPO
-Zx/WEn6i47M5aQ4U4gWEjPyNB6QTvQ==
-=TaIU
------END PGP SIGNATURE-----
-
---IbneGTeFWohgL8Hm--
+-- 
+Without deviation from the norm, progress is not possible.
