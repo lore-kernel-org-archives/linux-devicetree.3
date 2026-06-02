@@ -1,115 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from TYVP286CU001.outbound.protection.outlook.com (mail-japaneastazon11011053.outbound.protection.outlook.com [52.101.125.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1051635E955;
-	Tue,  2 Jun 2026 14:58:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780412295; cv=none; b=lvAGyCDI9Eg8k8xWwiE5r+pxnkYGqJ7w0DpvaaLqa2zdsJbh+UndvQcltAbNRXFA6tPZflygenLXc0Rt4NM8WwmeK4CaPjlhJ+SHiH6bldRqsgKWxrJI9pJLvuq2canEkeFUxAsLNeFeaZ0nKSNPxC+neoCV+KKWlzZ+Ao0S7Ks=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780412295; c=relaxed/simple;
-	bh=vvMxxFVLVeAlxiZc6cIUu1pEXq21KZqE9RkIAmXu/og=;
-	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MsAJ1hF1f6pHi1mj8c2iKnvn3RSWNl06nPDxRHkkxIWhhJOrtz9HIuEBMlAfzzMr+vaAV1W3KUbtNoCVCt/SpEYBbUIL4Hn3L3sxj2JWvzRn0M8YkxJ+WzLhK2aNMoAYhDHtB7jRT6HXe00mZpP1YMFEOAH4GGTxrS7Gx963zXY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dUjAXOVA; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AA8D38E8A2;
+	Tue,  2 Jun 2026 15:01:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.125.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780412486; cv=fail; b=jrvRkPAlOXoSleYNwlfrrwH13XVmjO7o0UXJQaJ3notaFDw92OGhyySOxLz1teE3XEmLcytzMjHnZz7CXpAenfCdk2UJAItE8n+hF2Mao6AakX/zoKa6jXvIvfnZASs6EJGoVQ3OxcN53eDCxAfKoUN7cuXpGjsU29izKviFRHQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780412486; c=relaxed/simple;
+	bh=/HWzSPoepdPRjczs7S/lcjAcS0z7gHgPdWnoWxaUsb0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=SNG//tVm9wvVFJUCWrPySIBtuCBfkVc8yb5RkJtO5CiXeonfu0PsRoT7xPibjMbuh8HrRXukQZR8/h7bP8JFBVr5rfM8XQe+ugIluKYxmeJUmLy7h16bsxerb1nDWqbUnLgehf7TSCYT61TVlvEm9lkRdpDHjMh2SWL4MBunOZY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=VVLCy9gF; arc=fail smtp.client-ip=52.101.125.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dUjAXOVA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 957A71F00893;
-	Tue,  2 Jun 2026 14:58:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780412293;
-	bh=DnM2hO41RX1ZjYT2K0TjVIZOoePCgu/n2TLpxGi/ANw=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=dUjAXOVAK+ks3hrv+Xa685ts0MW2Cl+aSZOl+l2Szs7WY1c9D6SvOlw3sE9mYacz0
-	 n43WjYamFByyiiCExlI5ilvpZHWIGxqrMKsmokFnr5mw8+Y7DSUPTffryjzWlW741p
-	 pqgU1q19ny15e1j228qYReoiHWBTzmggf4ohzcjbZqFcOk2+yCOA4Nf2bsi/y8OMem
-	 a8/gKXDQrAFQwza0edc/eiefAzd70BZvfONWdljFPhtsL05epaN907a4idbsqUzy3Z
-	 iwH/fqeAp2wNJ2h9/dBHnfxz7aY9KCBsZGPdZSE+iBSdiYxJUqDA7ctTm4MV199biX
-	 FOIEZHiyz2Iig==
-Received: from sofa.misterjones.org ([185.219.108.64] helo=goblin-girl.misterjones.org)
-	by disco-boy.misterjones.org with esmtpsa  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.98.2)
-	(envelope-from <maz@kernel.org>)
-	id 1wUQZG-00000008e1B-22sE;
-	Tue, 02 Jun 2026 14:58:10 +0000
-Date: Tue, 02 Jun 2026 15:58:09 +0100
-Message-ID: <8633z5ugzi.wl-maz@kernel.org>
-From: Marc Zyngier <maz@kernel.org>
-To: 	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,	Hanjun Guo
- <guohanjun@huawei.com>,	Sudeep Holla <sudeep.holla@kernel.org>,	Catalin
- Marinas <catalin.marinas@arm.com>,	Will Deacon <will@kernel.org>,
-	"Rafael J. Wysocki" <rafael@kernel.org>,	Mark Rutland
- <mark.rutland@arm.com>,	Thomas Gleixner <tglx@kernel.org>,	Rob Herring
- <robh@kernel.org>,	Krzysztof Kozlowski <krzk+dt@kernel.org>,	Conor Dooley
- <conor+dt@kernel.org>,	Chen-Yu Tsai <wens@kernel.org>,	Jernej Skrabec
- <jernej.skrabec@gmail.com>,	Samuel Holland <samuel@sholland.org>,	Neil
- Armstrong <neil.armstrong@linaro.org>,	Kevin Hilman <khilman@baylibre.com>,
-	Jerome Brunet <jbrunet@baylibre.com>,	Martin Blumenstingl
- <martin.blumenstingl@googlemail.com>,	Ge Gordon <gordon.ge@bst.ai>,	BST
- Linux Kernel Upstream Group <bst-upstream@bstai.top>,	Jesper Nilsson
- <jesper.nilsson@axis.com>,	Lars Persson <lars.persson@axis.com>,	Alim
- Akhtar <alim.akhtar@samsung.com>,	Ivaylo Ivanov
- <ivo.ivanov.ivanov1@gmail.com>,	Frank Li <Frank.Li@nxp.com>,	Sascha Hauer
- <s.hauer@pengutronix.de>,	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,	Dinh Nguyen <dinguyen@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,	AngeloGioacchino Del Regno
- <angelogioacchino.delregno@collabora.com>,	Thierry Reding
- <thierry.reding@kernel.org>,	Jonathan Hunter <jonathanh@nvidia.com>,	Bjorn
- Andersson <andersson@kernel.org>,	Konrad Dybcio <konradybcio@kernel.org>,
-	Andreas =?UTF-8?B?RsOkcmJlcg==?= <afaerber@suse.de>,	=?UTF-8?B?Ill1LUNo?=
- =?UTF-8?B?dW4gTGluIFvmnpfnpZDlkJtdIg==?= <eleanor.lin@realtek.com>,	Heiko
- Stuebner <heiko@sntech.de>,	Shawn Lin <shawn.lin@rock-chips.com>,	Orson
- Zhai <orsonzhai@gmail.com>,	Baolin Wang <baolin.wang@linux.alibaba.com>,
-	Michal Simek <michal.simek@amd.com>
-Subject: Re: [PATCH v3 00/17] arm64: Use EL2 virtual timer when running VHE
-In-Reply-To: <20260523140242.586031-1-maz@kernel.org>
-References: <20260523140242.586031-1-maz@kernel.org>
-User-Agent: Wanderlust/2.15.9 (Almost Unreal) SEMI-EPG/1.14.7 (Harue)
- FLIM-LB/1.14.9 (=?UTF-8?B?R29qxY0=?=) APEL-LB/10.8 EasyPG/1.0.0 Emacs/30.1
- (aarch64-unknown-linux-gnu) MULE/6.0 (HANACHIRUSATO)
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="VVLCy9gF"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ILOsip1lIpBjEW3BPFT9DUfYw4uoY4bRBCtNpJ24SeXRO1IcbqCyN34KiEX6PobBZcAhKwSYkXobzNO9dCC0ejZ2SSrKXj4KhmVC3paGdfj7ehNjrMRtlPVrti3F2DsQwG/MQ3Y91Wc/7H+DytjAN10IjL7hBjDe2EF5cvnezyKebEwYGFWvXdNezvY+mqkISudzdVPGa7z5Izd4D0fkb0kb3OTXnoPnqGb2A8S89fjQ5H4XHlny1OQpkeQbnXk7Qqv6YK+THdZLcEz8PYUKhZOPDAcfEicotXvHWQAutHqw/r4FNx1dXHde1DkLvbba45b+GHADKM4Ul3hLyO8v/w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=gTvXcLgx3Ark36V2QTS2w0Hp50PYtAlGytxkj+2NGW0=;
+ b=gwQneaUOwM5T98ol1KhOslQDkmRTyEztolEq/Rr3uEWGSxW8II89JlqVIYRObBoMoz98fvnQvOOisD2hwI9cb1TwW7/qUIFkQX5HyOR+hROMIBYauTaHHBSLEaKLo9Msb+KGac4ucyj/UHA1yD4tysE1yEIBIJth4TYfn5QRhs8kgtZ/sejqYdWLOoIv+KLiYEKybWcfeAgs3sAGZ4JUy7YoR3YqPXn73ctGN/82WEWV1jG6kEnUVSC2Sfeaf7FcTIxfvHW3wOe26fi1Y+vbNysngFn02LOUAJ+7/u+vlp+cr1n+gt4HxDMyiBmfMNcVD4s7km0WZvqaVPAC/StTYQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=gTvXcLgx3Ark36V2QTS2w0Hp50PYtAlGytxkj+2NGW0=;
+ b=VVLCy9gFEF45Is4na9rbfVYGY4gGFiNzOwDWIfRVsgkk5HFC3+dOEYGo3R0O4XvkUlbHLiiPDlB6YnnfF182UWOnCRaye0j3Dw/sjey1Sz/13ZxKQW0claczqyueyRgNA+UQ18BQ5c7YlUU4lSA5ydf7ZsL2Kg0ZUMTc9KfIg6w=
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by OS3PR01MB7264.jpnprd01.prod.outlook.com (2603:1096:604:149::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Tue, 2 Jun 2026
+ 15:01:20 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.21.0071.015; Tue, 2 Jun 2026
+ 15:01:19 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: Mark Brown <broonie@kernel.org>, Rob Herring <robh@kernel.org>
+CC: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, Liam Girdwood
+	<lgirdwood@gmail.com>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+	<conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>, Jaroslav
+ Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, magnus.damm
+	<magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Claudiu.Beznea <claudiu.beznea@tuxon.dev>, Biju Das
+	<biju.das.jz@bp.renesas.com>, "john.madieu@gmail.com"
+	<john.madieu@gmail.com>, "linux-sound@vger.kernel.org"
+	<linux-sound@vger.kernel.org>, "linux-renesas-soc@vger.kernel.org"
+	<linux-renesas-soc@vger.kernel.org>, "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>
+Subject: RE: [PATCH v7 01/18] ASoC: dt-bindings: sound: Add DT binding for
+ RZ/G3E sound
+Thread-Topic: [PATCH v7 01/18] ASoC: dt-bindings: sound: Add DT binding for
+ RZ/G3E sound
+Thread-Index: AQHc7DYddwMFGG2riUi+3cPkRSmpfLYrZ0WAgAAAjACAAAAngA==
+Date: Tue, 2 Jun 2026 15:01:19 +0000
+Message-ID:
+ <TY6PR01MB173772D84C91DA67CDD557D66FF122@TY6PR01MB17377.jpnprd01.prod.outlook.com>
+References: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
+ <20260525110230.4014435-2-john.madieu.xa@bp.renesas.com>
+ <20260602145527.GA211368-robh@kernel.org>
+ <987befcc-2fd2-4d4f-8293-72df4dbc03f3@sirena.org.uk>
+In-Reply-To: <987befcc-2fd2-4d4f-8293-72df4dbc03f3@sirena.org.uk>
+Accept-Language: en-US, en-GB
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY6PR01MB17377:EE_|OS3PR01MB7264:EE_
+x-ms-office365-filtering-correlation-id: 1e5728df-bf7c-4df7-1816-08dec0b7cdc2
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|376014|7416014|366016|38070700021|22082099003|18002099003|56012099006|4143699003|11063799006;
+x-microsoft-antispam-message-info:
+ GRvKpS4BVEID7n19JFhC6zWfm3oSq0DgvvzJEKpZsXuG+E88yZCm1KG47yIVeqll5CWKGh1Z29IWBgHXajGF4T/xVqKAsdPwePXzVmT6f+7SxieNhyQL/ekSXKgNCDRSOkS8RGbuQVd/XlcIHOzWM/gulNhfMFF7cY7xWeHOv2vMatD8P4mG7Jz9UMdfT+ab1AHirfUSs3svLgJFds2OWOorBzZ/xRTVRfLaa/bChZ8bQsXODhJSUHqz+CHMyN9likMP5xRCHKytJpfTztrVJ6rqKHryxuKzBzS9YOmfHoFHDJQzvGq3faaV7s6ldPtKVzIoQMjVaACdF0JIu1zGBWwPW/c87hIxbxNs7nIT0ZOFdNBDM4XV8qzTCNYxvIJcoNr0S7nM45jk4bVp5C1mzsiQsrLSxreTzD/ogDRoit2zosU3zwgjStEuTZDsqZXTLDlGvj1AbkDeAAIf50/GBdt3jARld401fmpGOqAY518W1323zjZm+KC+E98cNHyEkBro5WWq4+GvKv1BUAiJx6RloOrAprgWWE6WmZzu2vy+fbx8SzBrnV6teAEqaqwNWmoB8ACdW2I8qu8ZarWBPuZq+WrhNjhBcc5oSjnBFA8NKW98Yc8k4Z63nXYEXZyI3lu7kVH8kE8XzlqavT6xrJkMCIbKHYq0BnwQ40YGmADB9tc6vx3NegIBFXnP3THPchZxXXApOhyRl5SuyoSitMTLuV/VU3ZmOOMIwzKk54GfhXmMxxL1Vw772+SKPdIW
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(7416014)(366016)(38070700021)(22082099003)(18002099003)(56012099006)(4143699003)(11063799006);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?Ggfsbg4p8WGQF0SQJbpEyAxlH40Py0clxKtw+UXNNkzSbuc2ce5o5zfUv/zG?=
+ =?us-ascii?Q?LR26cQeyD9zsU37EeSoIXCthwkiQlhltB0rzQBe7j+CrDgaIs4WO+xPw8hcl?=
+ =?us-ascii?Q?HdoflmF9RiJ8q6YYOt9gWwOfoN/VypoJ4+2Ij7GpxzK0ckvOKC2FoeedgLAY?=
+ =?us-ascii?Q?yIVh1BkqsZOtlIXnZqSnsLEgBUpkC1x0XguRzzBR3OM1sTJ+7sHBaYmFJJme?=
+ =?us-ascii?Q?kfy/+Youzz3f/xHy+JBtYeH0zC7s39qDSDDQ3Ymj/xInEEcR41r52V3BhomN?=
+ =?us-ascii?Q?xRoarzVXNtiANUAZEGc5Sbd0GUL86XHqLjrGQX3+LUItn+brDtBugvWuKtnO?=
+ =?us-ascii?Q?q9h+4FLxaKO9s2+JoS3YNjpxpd72gdi+U1uB2tnYWuKac+NxJjC20GL+ec61?=
+ =?us-ascii?Q?tDq4nWzPVVjRD3SV7DDR9qZMbWa+oZ/0tnSp/pjvRhu9eoQ5gV9QFHwpPeaJ?=
+ =?us-ascii?Q?z+E0wn2Gr8B+I1fTibCbncxVbNc9QU4J5hec7M/kSN9huQyuVfGYOgtNlQsj?=
+ =?us-ascii?Q?GaH3YmnLlnOffOBE6aBK0vxeTBkvTsu6UKQjkvB6sS+dOWXSAIW1yjmKrsII?=
+ =?us-ascii?Q?qCBE6+70KFAqmVDJCeUZxvTejlujs8cmFi0P/aeL10eyovRNpeeBR/26Cov3?=
+ =?us-ascii?Q?ICLExcjICGOTJ8NJ2p3diNuT2Q/L5vwHyMISeSyaNo4bEfA9jRabUe/aHmzK?=
+ =?us-ascii?Q?6nEbNMc81QKeK+nSgpAjQ/pCgSTa4E/U2xTCMRBfeCxZEvwUNGQoj2kmtFGc?=
+ =?us-ascii?Q?tEVM4R/m4zBZzMswO6k6zX35dIxxZbSFsZrTou7gXSOYkkj+xwvhJRcVNH3r?=
+ =?us-ascii?Q?ef4i4vOc1guegxWt+9xLKZxpENpvvQMoIssrTJGk0gNMuhyfGeek+tXS4vwy?=
+ =?us-ascii?Q?P8JFVzFPshWHcvmYIYOaxVyzh98danjFerYz2pKnCceVYgKxyGwYQk9B73Ak?=
+ =?us-ascii?Q?MKwIyEQjpJ5BWMdYdMJws+aj3wP1PDQXdK66RHZ7lR3KTtCFOGQ2jZzOWSIQ?=
+ =?us-ascii?Q?rlRenLlJ2PRkCGpcyFAFq17wNeO8HJ3lhjn7j8L7sbnZW3ukS5ZAs5lAyfo7?=
+ =?us-ascii?Q?9nudWai1DRuoUeJkwr33MVcb9x4mBrkU2Eou2wZRpwxUE/KDtdtdxIm7u9Jg?=
+ =?us-ascii?Q?dmOm4lRJs+uW7oDEQ6KXvxAiZQ/K3mnpd/b+f240kbguDnRvOGoNcDdDTODU?=
+ =?us-ascii?Q?JoGSKs54zF1a8bdlpNr+caBt2SlsyDS0IGSgVMHqb/TG8k3ZuBAufromW2Zn?=
+ =?us-ascii?Q?AeGE5gsfXuPMSJx6GIfc/5kcUXbTwAUlA/SdWdWVNLbzk7N1YSKC2H5BcQse?=
+ =?us-ascii?Q?KWEkRb4bOM1kXj3XzBXqGt4NZ8vFMaCyOxwRyxWYPELT8gvC+mlwYUpy+FmH?=
+ =?us-ascii?Q?cKDsIKX+6fQX9sX3z4fJVYRIyhqdnDeDm/oqWcsps2CiEesDvSRQ8ryu395l?=
+ =?us-ascii?Q?+PBSItHBFzhX4BN/IQTtLRZ6BgDwOhbT8fAQD/Vqn6Cx5Pb5Y4XUk77dhSB9?=
+ =?us-ascii?Q?FYdp/c4KGm5ce9rXDB+q+oZVj2ZtI3IAO3ItpYwN8hV9ip0hlKWhx80IV5xJ?=
+ =?us-ascii?Q?dozdJObjIcR8ZrgM761kI7f3ELgllwapPnhMcDfJZzDWnDicDfG9JNFCAy5o?=
+ =?us-ascii?Q?l9qfGaMlwX9m8zyP7eEmuP8f4Xmqm/7EAXqeGa3Yuhy/1idG7cuZZlq1yZVY?=
+ =?us-ascii?Q?mQnK0G6v0DIpOS7mw4S5Adt9C3Km4aBrqdjYbEAVyk9kKYSPajzTMl08izJp?=
+ =?us-ascii?Q?Z1Tjgi5VmHXgAV+v9JJWLgxN1QtlQUs=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
-Content-Type: text/plain; charset=US-ASCII
-X-SA-Exim-Connect-IP: 185.219.108.64
-X-SA-Exim-Rcpt-To: daniel.lezcano@kernel.org, linux-arm-kernel@lists.infradead.org, linux-acpi@vger.kernel.org, linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, lpieralisi@kernel.org, guohanjun@huawei.com, sudeep.holla@kernel.org, catalin.marinas@arm.com, will@kernel.org, rafael@kernel.org, mark.rutland@arm.com, tglx@kernel.org, robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, wens@kernel.org, jernej.skrabec@gmail.com, samuel@sholland.org, neil.armstrong@linaro.org, khilman@baylibre.com, jbrunet@baylibre.com, martin.blumenstingl@googlemail.com, gordon.ge@bst.ai, bst-upstream@bstai.top, jesper.nilsson@axis.com, lars.persson@axis.com, alim.akhtar@samsung.com, ivo.ivanov.ivanov1@gmail.com, Frank.Li@nxp.com, s.hauer@pengutronix.de, kernel@pengutronix.de, festevam@gmail.com, dinguyen@kernel.org, matthias.bgg@gmail.com, angelogioacchino.delregno@collabora.com, thierry.reding@kernel.org, jonathanh@nvidia.com, andersson@kernel.org, konradybcio@kernel.org, afaerber@suse.de, 
- eleanor.lin@realtek.com, heiko@sntech.de, shawn.lin@rock-chips.com, orsonzhai@gmail.com, baolin.wang@linux.alibaba.com, michal.simek@amd.com
-X-SA-Exim-Mail-From: maz@kernel.org
-X-SA-Exim-Scanned: No (on disco-boy.misterjones.org); SAEximRunCond expanded to false
+MIME-Version: 1.0
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1e5728df-bf7c-4df7-1816-08dec0b7cdc2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 15:01:19.6580
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: jy/JJtInkHW0vr8QRnwq+1pjWT//5IPqfVgk+Sh99k2jlZUSBWJOD7pThIuyWvEx4TGVzKSPugnD1cTJDJkkh41J5KMVZnaWvJiUaooAI5Y=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS3PR01MB7264
 
-On Sat, 23 May 2026 15:02:25 +0100,
-Marc Zyngier <maz@kernel.org> wrote:
-> 
-> This is the third version of the series initially posted at [1],
-> which
-> 
-> - updates the ACPI GTDT parsing to deal the v3 layout and the EL2
->   virtual timer,
-> - moves the architected timer driver to use it when running VHE,
-> - fixes a number of DTs to reflect the reality of the HW.
-> 
-> This results in significant performance uplift in deeper nested virt
-> scenarios, at no overhead to the host.
-> 
-> Patches based on -rc3, tested on Amlogic SM1, QC X1E, Ampere Altra,
-> and Apple M2, as well as KVM NV guests.
+Hi Mark, Rob,
 
-[...]
+Thanks for the review.
 
-Daniel, can you please pick the first 3 patches? Or would you rather
-have them routed via the arm64 tree?
+> -----Original Message-----
+> From: Mark Brown <broonie@kernel.org>
+> Sent: Dienstag, 2. Juni 2026 16:57
+> To: Rob Herring <robh@kernel.org>
+> Subject: Re: [PATCH v7 01/18] ASoC: dt-bindings: sound: Add DT binding fo=
+r
+> RZ/G3E sound
+>=20
+> Please delete unneeded context from mails when replying.  Doing this make=
+s
+> it much easier to find your reply in the message, helping ensure it won't
+> be missed by people scrolling through the irrelevant quoted material.
 
-Thanks,
+Noted.
 
-	M.
+>=20
+> John, please send incremental fixes for the issues Rob identified.
 
--- 
-Without deviation from the norm, progress is not possible.
+Will send it as soon as possible.
+
+Regards,
+John
