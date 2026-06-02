@@ -1,196 +1,167 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.151.120])
+Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011049.outbound.protection.outlook.com [52.101.70.49])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DF5D3815CC
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 17:36:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.151.120
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780421793; cv=none; b=luYGwXltCbdnHmOpCwwwKUX9Do6dUSzkY41mQr8V2rlra9lu2bXt4ZueEEhmNOTNv8jmnesymvn/fnKfBrvXVpMK8smKUECKLi6w0ARjCsqFqQ59CP4EtCsULXyPo42fDz5nwXPnkHRPHjBDdxTkCXJXqhr4bjgrbT40uU9UcUs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780421793; c=relaxed/simple;
-	bh=kU44ua9zCp8ll1fLBy15XMwJwYdnGmtNusO0OU6ty+U=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=FGNFt5t4wv40wLYE4dijPXQ9RD+4gh9yM1FBGdfhisFGqCARRCeq+iOHm7z2Lxj65Dp14eqQhswO8Bnw6abQ5sTIkzeft+dHf+3Zf4ZlvvAwnzyO641EZ8wf8yz1UzP9D4sxtjrE4MmOc0R8S0mysl6FVxR/fAPuuhBArQah+0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=NWVYn8MS; arc=none smtp.client-ip=170.10.151.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 835FF3FBEC4;
+	Tue,  2 Jun 2026 17:36:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780421818; cv=fail; b=m7RFecfTC9gU2GY/Bd1J2AydsIfL/Hy8g6mu+H0qR/XPx26vFh/UJWr8iWvYm0dvYMchpb9jka0AcY79DWz7cMwjkeAde3cv/F4V3n9mIP4xIv5/KENFrpcomoJ8Jg6lRHI04e/lXkSojez50stIW6NYeoYpoAHr++zw5D8fZL0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780421818; c=relaxed/simple;
+	bh=VPm+QMapBkI/dfqdly1EoURiEdHrBqvFvWdEB2R/2gM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RXc6zXO5m/eEzi6KXTTg0CsjWOl9aNDEsFJTylucJtTrZHcHbbt/XvqTuZYjdBpRsI1P762Y0Z+JwAXndpgSOF2/tL1dGQrZ60XYOFXg3gVc1/OeQquIaQRI9Y33zONBBBdGn3yPQCZUMEWUtPv7fL8n75EA6Ke7wM1YLHSwtEI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=V1Ds3I9v; arc=fail smtp.client-ip=52.101.70.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="NWVYn8MS"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1780421785;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=Zk5vOx05IzPipW4sWH/3wDxd/uENlbEQbtAA/VkpEpM=;
-	b=NWVYn8MSJrsIj/1I6xoNLEE/YJ7C66v33LJ8tG8fRqqwzuFiKqxDCBAwX9WxUdUmmMX69C
-	iK3WQpw/hBjPNoTbtX+REn0Gi8w2xTVxwCgoDIcwjGMnnz3Xv1ohR/r6oJKKCAU6buJZpS
-	HNFTuho0FihSY7t2q3WycpkoR/fWZilKjZz0TGgNGNLj5IMmrGX1gf4L4jfHa9AHI7PTpn
-	gWBC+seAE2JAaF7ztS3iln1u+xBOqoUqsMtuGyqCQjdOJfN+sDP5wZqOpDJz4RQAj4mU+o
-	x1y0LQbtZQl5vZkmyEshNGhwAUPs8nHmGNHPBZCsmbqqb5wZ3Mf3OUKOmnmB5g==
-Received: from SA9PR02CU001.outbound.protection.outlook.com
- (mail-southcentralusazon11013011.outbound.protection.outlook.com
- [40.93.196.11]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- usb-mta-61-Uef7MDb4OBup4M0QNzpsPA-1; Tue, 02 Jun 2026 10:36:21 -0700
-X-MC-Unique: Uef7MDb4OBup4M0QNzpsPA-1
-X-Mimecast-MFC-AGG-ID: Uef7MDb4OBup4M0QNzpsPA_1780421779
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
- by SJ0PR02MB7549.namprd02.prod.outlook.com (2603:10b6:a03:329::6) with
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="V1Ds3I9v"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Gb6dd6HXSgqJ+fKVWWHIhkgxVDQW6VKE6Vk1LyZBOMFvoE0uhXK6lJ7Zjfv8OCU12YkKE+jYEEkTCoNq9pG21Jio17NGNbXSynH9K8oV/hJjjS91FGqEONbyDyjxhfsUwuAt/pRL4I/+aZX10En+/AcHFCpe8I3GO0VcWLqd4TLV8HJ+lk7kYyplko7denyR771+tYrRwhSUY3EcO/FJFflC0PkFOkCbuqqJQ2v0bcoJA9KyTiSEQIM3pkhwtm1Nv58o8lSQvtFEYrcyKZmmHCVBvAmoMQxRw/I2wSkTLgNg+HptbTlF/NDewYXBdaYrqzNrgi3AN+DduhF910jkbA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=XJVQe5c3M68rzvstWyGpnAxfYFDg9kzXXrAJjm0/A4s=;
+ b=nrfiC/QKfZwPhdJnry1kq8kujZf/PkIijPJqUIAfM8lt3sSaNwNZNzsB6JqdP+buDlBkYVIu5ovR9zKcsw5Ty3Up6zc0DJSvNph1pyZeXZDLr/OsAi8fPEgx1ozHxhJUguVTyV3XlsRyIeLF2nxqgWl6GrSK7WqLM0GyBy9KQeR8/d9CVHO63fJi8VtPLsQZcR43oJHL23Ii1wZKltKb0PjmhX3W2ToM1tc2GV/CmY4SqNuSeLLokCTMh+RT4TQ6TnHHLyZBmTiAu7aMSHLIE865miHERdAOEohxXNbcE4nT8tzaA3Y7PGlsUWUQKGncnzI/kuB7cHNst1YkfIR4Xw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=XJVQe5c3M68rzvstWyGpnAxfYFDg9kzXXrAJjm0/A4s=;
+ b=V1Ds3I9v3P7Z/ZEgcKqMMcHYR95SmKZHl++oJg2nCD9z5tyhJigYlVPK5ze1djzOVBPVkSn0I5y3vvZxQH1SSLxeW3umhZK9GLBd9Rg/FCuR1nx8SMxKRV9KTZfggHUazifWtW7x68U+c5YqXd8iuuJHFBndg7R4sjSjuBcI+h+v2Eruf1a1o+uTeVKZmX7e3al3YtlODbkuR3fJ6tBgAOszFP/ECV4DpvrvJLPu7CIRyyCwFQ0saKG1XZ2rOlYnOGFcCZI369er/7xNKl1GTWbkso7x03zMy3lojc9vlG/CoQ918i/6pyWWJrgYDqDnMEKzNLcbMYRlPcRGmXP9XA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB10702.eurprd04.prod.outlook.com (2603:10a6:150:211::21) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 17:36:17 +0000
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 17:36:17 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Conor Dooley <conor@kernel.org>
-CC: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
- Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Piergiorgio Beruto
-	<Pier.Beruto@onsemi.com>, Andrew Lunn <andrew@lunn.ch>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Conor Dooley
-	<conor.dooley@microchip.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to be
- active low, level triggered
-Thread-Topic: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Thread-Index: AQHc8eDLvWzkHnbXI0KmrY/VvMfuDrYrecyAgAALlpA=
-Date: Tue, 2 Jun 2026 17:36:16 +0000
-Message-ID: <CY8PR02MB92493D2E5491AAE5416C05A283122@CY8PR02MB9249.namprd02.prod.outlook.com>
-References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
- <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
- <20260602-rebel-snide-5036c97e410d@spud>
-In-Reply-To: <20260602-rebel-snide-5036c97e410d@spud>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|SJ0PR02MB7549:EE_
-x-ms-office365-filtering-correlation-id: 5a2e7b49-d4d4-4023-a2f6-08dec0cd7368
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|1800799024|366016|376014|7416014|38070700021|56012099006|4143699003|11063799006|18002099003|22082099003|6133799003
-x-microsoft-antispam-message-info: 2ZsOy/u17ptcB/hnoWJ821mU5G8G51N/a+5EL9kuyuGN+5NtwaGQ/AnQdvuRgQnvcrhXJarXp4iLKCqDA58uEC/SRw14Qs/CycZvIbSlL6n9y54Cri+hINvj7nU56hi7DMOM7MRq6dc7ILR3Lc9EFj0RO7u3BfJntUk7hygS9PdRulr1pjVJocFHW0rqg0Gf3GLV5q3s4qIRkN8HnatQFzvByhDtDLC3r4r+CXI/dB0Ui/3NoUurIOZ5H1rKCjds2T2sZpmn9+gHCuW4pDmh9glMs6JnwliDfXdFi8AVhqlZiVSsyTLAEZ0qCYh5N3dwKoeHE+7nTHhzYfp3kALFhfVAUF+7L1JcgItk84Wsl9Wmk7gpT7BYBSAcg1SgJooEhkLwmXvmKomJhtr/ElwHgegMMIJv+lB7CPjKieIV0t8jBpX09l/jiSrgL8W552AbmYSz7KRS8WOXoAjBjoBYy6oU7vzG1q7Tp1FYW7DH6/V2AAUh+C0uIazu97ZKxJqB/T9D0hwxQxCRnGxebwJhPSYOkUt/CWsoNV84giaYZZmTm2LQOxQzdrU2YcjR3q5EzCEppZD41Xlg4NKARoY4FlYkSzftD2aq0a9Icn5Y6ZHQHzCVGQhvlx7jx4dZR+eeTdafKpHJzceFkwItlIOLOJ29OrVtnWta00OM0MjKBPy+Opo78GZ1mPo1XFrRBMSnKfpCfnCFLMgC8zyVToREfhjNaMcAyygKApmtxqcPq50gA1uguxH9H9Mopbl2bS+L
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(38070700021)(56012099006)(4143699003)(11063799006)(18002099003)(22082099003)(6133799003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?ZuBFIxFqQZjKWclrSozTrVNCtsTSjVugLEw0wVxCmwMG13VE2SBUAAvTq1kG?=
- =?us-ascii?Q?hRCBAmCVDn/AbrBIp+Y3lbkWGF8tav+1S5t+AkhFJrX80Ba0kVmtwowYAhf9?=
- =?us-ascii?Q?zVg+jpSNLxp2Eiv7bQGBqkW28uUcC3f9/ZTJR6JrRMm42JrM/XH7yaQb9ZkP?=
- =?us-ascii?Q?UzQsLcVXWTyfgQuBykdjlsaPgCcG1d+/fEBpZWLErR8s5P/cRwJsLi9ck6Ho?=
- =?us-ascii?Q?8gLFtdwKF4/Qv6ln0EoZcXU3h7VWRJasTw4hXACIe4o0v4YS8yz5qyMC6KT4?=
- =?us-ascii?Q?Xrq5hu+Akoc1YKfOtkAw0Ol0++vVCOi+hsXYaQ/zF1zV1HMQhnJZaX09pDwK?=
- =?us-ascii?Q?yRF5XpRRJKPRX0EXRA8RqNZyKfWVmBteNAQKR9xFsshcuoM47S4zHbQkARKT?=
- =?us-ascii?Q?7kcN9JFiGF+LalMcmPSVjlzoD22FF+bpxAYS7J9sjmGVcnS2wFf0aqah031i?=
- =?us-ascii?Q?u7PC+YzxQcwV+TxF4hieWaK93GEevpdxH9jzGMjB6NX+IS5KJjYP9ZMlnW0M?=
- =?us-ascii?Q?/pbJ8g92bvykbZnVnn7qJVHHOSnZnusSIF/5JwIMxXzANqiWDPodAnQ18l+A?=
- =?us-ascii?Q?cd8OT8wI+vzJcKFuBlFPpc/9PczjtgULfnkxvcgGO4lDq6B/YXMp8je4iR58?=
- =?us-ascii?Q?TPBhHYPlo83IY9BMtP/kmwd956qYzZvOmUzKk+NQy1u3s9W0l0OFPBpshYHl?=
- =?us-ascii?Q?MuNBFZdkX6h/Tfh4FzP6Y/tq6PPJc17+qI529KSfgUEe3nZXos0l7Uk3RkUs?=
- =?us-ascii?Q?kHMGF4dj/zflYjV6llha0QxEo2ATSHFHb8G11qg4KD+Ax17pt6ysAIDKyrGc?=
- =?us-ascii?Q?f+U2hOfUee1aYcQ4WiHHBUy16mMSZkRdumqPf1ry9XFZ9+yUYqP9TkIYeW1z?=
- =?us-ascii?Q?NHHbzI5DTrqHXhRLc2CvBeqZpBeLbUE4YMNmdQa8+38u8aQyIXT+Bv+h1fNV?=
- =?us-ascii?Q?WR3bE22jV/nUz0s3oELB4mRNI8MqRzXS+Pz76pdB73c4006KJSOxSnOyi7Vv?=
- =?us-ascii?Q?UHEnjHPhXBgcyM3RKvvwpoV0Zf6sGABd6KPbeI91cppGPcEEV+s0CnrQgMND?=
- =?us-ascii?Q?OP/zMyI0nI1cBNfaYNew/nYmYJEspuJClO3/FWoAWdaDp/C3yNMDQRO6e30M?=
- =?us-ascii?Q?LUzibjYZDh0MGZicURCMY2ExnP9a1CNM5+ByVK/V36Ol/PjX12C+1zzicr1x?=
- =?us-ascii?Q?OMoy8g2TP506Ne1me/OoXJSS3NfOjccRPYEus9lJzEfSUVbxIR9yfp/3WAwu?=
- =?us-ascii?Q?yChlWwo+IKyVlag2p7LUMmHBU0S4nZjj3CWuUrRyqK09WiN4mJQJ859F+1Wu?=
- =?us-ascii?Q?GLZtIvDwBPXk8SJthdKcd8necznKMiDI40Rza6EwJcpz867LdnFGJivnSBLV?=
- =?us-ascii?Q?M228zxRz/+EH7K68hsjJ+VGFpYdLjpqafVCQKWYu6wQS8l+E89DYY27Pz1Uv?=
- =?us-ascii?Q?sXcaKyh9XNawJf93lQRWwa3ZOYEmngureplQv9UIhqc2iOwDaBuCQfCJsbVY?=
- =?us-ascii?Q?lhrl/RH0cyeJnvIc/BDgqeJ0rTNYhUYA4xgnnbtMrWYiliW4tKOVtDW8FRQw?=
- =?us-ascii?Q?v1GUSZrZdCXRM+VdeKQxvNHb2nAx2hoU5OCgxbsOTYyebR3Dz9L3awudGhk+?=
- =?us-ascii?Q?14uoR3yvioZsEPpHzLN5TU2quAKUzyX7qNpwqR9zQEWfBkvhKBYT9hgfZEMi?=
- =?us-ascii?Q?W/etNrYmAQjW+q+Hx/dRSAFg20DO2gX2Jm79sgnwjINFHzo6lkLBlUkQ/IdM?=
- =?us-ascii?Q?jeR7Sif4wdCQI8Pv+TIEPsTngCfZuQM=3D?=
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 17:36:53 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
+ 17:36:53 +0000
+From: Frank.Li@oss.nxp.com
+To: Conor Dooley <conor+dt@kernel.org>,
+	devicetree@vger.kernel.org,
+	Frieder Schrempf <frieder.schrempf@kontron.de>,
+	imx@lists.linux.dev,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Rob Herring <robh@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Frieder Schrempf <frieder@fris.de>
+Cc: Frank Li <Frank.Li@nxp.com>,
+	Annette Kobou <annette.kobou@kontron.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>
+Subject: Re: [PATCH] arm64: dts: imx8mp-kontron: Fix GPIO for display power switch
+Date: Tue,  2 Jun 2026 13:36:45 -0400
+Message-ID: <178042180222.3440036.9442732960327112305.b4-ty@b4>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260528101556.75926-1-frieder@fris.de>
+References: <20260528101556.75926-1-frieder@fris.de>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SA1P222CA0137.NAMP222.PROD.OUTLOOK.COM
+ (2603:10b6:806:3c2::6) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: sQNQtz0z65nceJbO3UC11/CeYRaMzNsZeRKP80QSgGNbAD5sXejyudoWXiEQXiz2bpMrs81q0APuSE5GjQIZncjCuj4mKRLynNJgVdilCapa3qsNvLZjIu0qounr6nrG4JKHQL5aG+E4ZUAMUR+2vloeW4pqPYOaS0XZuC1Qx7Idc+ynmL5xdqzhn9TifZBMj8vEdnypWLFyILkshYQmoYRPq/aX25HtJwjVZ5FyfW/qdNVkllbmTjJsMn/XvJs07JXacdi030ABflbvL6gf1M1y4Z5oBtyBTr/ig6YN8EEgVVpf8mmYgYy0WRn7cQf/YFcfOFh9YqsBSea/h8z7VQ==
-X-OriginatorOrg: onsemi.com
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10702:EE_
+X-MS-Office365-Filtering-Correlation-Id: b39092bd-eb13-4fc5-2023-08dec0cd88ad
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|366016|22082099003|18002099003|11063799006|56012099006|921020;
+X-Microsoft-Antispam-Message-Info:
+	6QbAQouUyFaVTvhpWn2l9v9HE+dLBx1wJb9NIbGZ/61BEJ6shaE3BxGJ/Csu+T81NzZhKTLjRk/rK/eHMjd3XZbH61XnUaakK+h8cpFz6MEF0hJMFQJVdE1X/OWQMTZ2tBIzN6xau106QH1TjfXqses97HQ69LrkcRxmNuhhDFU97K6hn91v8vKpuyS5B1HWx6YQZkxAU7basiPNMuZSH9OV0r4lQRM3AkFYwD4tsrgkAI3ifk5C7CJ5PW9zKkPY927qYje6R6WmgYsSh8ehOoZ1kTmZT86C6EH/8+DjZh/7yNWjgPJ0SrHdJ3rd1Jv1CdNydkoJQNyX5WGz2uaBMIaM6UnxZseXvGTTr50u/tVgdQ4pRhGWG0jdvFEz8/dNzYMTnBEEI2BcwsoPZc3BjdzB9pjKk9sDwv8trrJ8bVJbWJH2zXJ28oQp/mOkaR0G12BPhXJNUyCUKGuGxDXZY8UDgYw0DY3n2vdcsubluQ7+EvWmaI4uvPUUmoJ3TcxR1kUcCcEU82RX228itzPrqnere0m6pKrIsSReCEImGIrYndH3Gz6beY4wcnX1Qs0D6W60GNafLoCrVuudl/0Xh8hXeiaA9oCS19wZrF3S76jztFIXSbTNIuNLpMLrASZqZ2UbRfsQ/T8h6z3PnyB8uyatGiOn3Vf0lPTdMe4rk+gs0CaDdaGfyDZ7jLdOSucXBIIpAYOdiuUaHj9rNZe9wzAfRODbyttuhRv/DUAH8ow=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(366016)(22082099003)(18002099003)(11063799006)(56012099006)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?QkhDWHp5VUQwYk9VSlU1Q2RKSnBlQVh5dXdzcjVFb3Jld2Z1OXo0NnRQWmdB?=
+ =?utf-8?B?Umw3VHYrUGxzbVQycHNZTlkxcVUwbGRhRUU5RnJKdy9lZlNxSElIRG5zaEFq?=
+ =?utf-8?B?c2tVUzRXa3plVWV4NjcxWDNkNkx2L0Uwei80S1RYTnh1VGNIcGF4bXI0RFNs?=
+ =?utf-8?B?aDVIcjlJTDR6Tmo2WnpJcWVRZ1pQSUNOZWx3ZmY3RXlVQUJ1SVFzWDlwTGJw?=
+ =?utf-8?B?ZnBZR1pLVVRETUdJdytaZWFTdUtxMnhzSVFLYmlhcWlaVHc2VWRXM3hRV2xu?=
+ =?utf-8?B?bE5PY2l2SmUwK05pRDhhOHF1MXVLM3FEQnYwbHI2S01GWFhxQ0R0dHpjR2FT?=
+ =?utf-8?B?YmlkVncwTlJBK3RJTHU4VGNaR0w4NGlJc1VBWmdsOVZuTFEySlpabURqS2hJ?=
+ =?utf-8?B?VjFPY3ppZlA4VlU1MlVXdm50SGJ3VVVESWFvcWJpZ2FyOEVKcVpxRDhBTHRk?=
+ =?utf-8?B?QUZSS21oMFVvTTVXODBBbmhlZlYvbGRGQ1NvSjNOTXBqYVI3eHNEWlJkZnJI?=
+ =?utf-8?B?V3d5MTk2SVRjOWNoL1VuUDlmczFEVEZ4TUxscXNuU0ZrNG5pKzFOeTl3eEFS?=
+ =?utf-8?B?YVNuS3JrdzVJUmZ2cHRFN1VPbnFLTDA2aEdXbTc1bXNFclA2ckIzUTBUaU1W?=
+ =?utf-8?B?bXFBM2c5N2lNWk5CbGxsMnF3Wm11L1BGZkRudVZjUENaM1FSazhBU3gyV3ZC?=
+ =?utf-8?B?YkNjSmYzS2o1Q0hhUERraFNPY1Q3aFdrMjVQUk1FN1VyT3ZUdWkwMGJNSm85?=
+ =?utf-8?B?OWdnNFJHU2YvWHJtN0Z2TTZZUzVXSFdNejdwMzdCVUNkdWE2cW9vS08zdG5h?=
+ =?utf-8?B?aUhaZHlmb1JYTTF5a1BFMjJQS1BpYmxuYnBKK2VFYm1vVndNeUxvSUl3ZkE3?=
+ =?utf-8?B?NThMUVNMWEZ1WjB6V3p1cm94bFBiNVF4TGJScjRBRGxWMGpIeFZ6Mm84N3Fw?=
+ =?utf-8?B?dVljZXBFY1hBTWlrTzE5TzNkSFVKOGJDWUZDYmJtbkFaSEdVK09YTnFJOVR1?=
+ =?utf-8?B?ZU1PRnBCdkxYY2k1OXVBZ0tXNVpGL1pjMnlmcjgyRDZXTFh0cDYrVjJrSGFj?=
+ =?utf-8?B?dXVoRWxwdng1K0ZlcXRiZjE1cWpOMGptUnF4cFZ3ZWtmT3lNdzNHS0xaRFRI?=
+ =?utf-8?B?VytJY0xUMkI2RGRsWWU2MGcxaENKV1Vac3haM2JjSDdUQ3ovQ0I0SVhqYUhY?=
+ =?utf-8?B?amxwQkQ5Smxnc09Ocmh4QUdNTGVQMG9KTEFVMlJ5Tk5UNWlxbzdBV1dMeHJx?=
+ =?utf-8?B?bHJjbnFsZFR3WmFLQVBhRmJkMGFVYXh3NHY0eW1CQmtvRWo1ZjBUdXV3Y0hU?=
+ =?utf-8?B?UGxHTkF3MWxjd1JPZUNzWWcyblFQS05jTGNLR3dUNHVyUXhicHYvcHlJWUx3?=
+ =?utf-8?B?RHZ0NlNvZXRPTmhIRlo2Rm1yOVRiVUdFZzYwT29kdjEvdVMyMmoyZzFKYmFt?=
+ =?utf-8?B?eUZVN0Q1R0JKV2ljUHlQQW51TU9aSzR3aDM5eGRqVWR6dHhTdDIxRG5TKzQw?=
+ =?utf-8?B?Q2VOU1BmV0c5VWxxK1d0ZVh4SWpFcGYraWhzWW1sZzVXZ1gzWXY4ZkliVnNH?=
+ =?utf-8?B?M3B1cWVIdkpQSHM2OGcyb2g2Z1FKblFyTFl5TkxNN0lkMlhKcWxPb2FTVFRV?=
+ =?utf-8?B?aWNJRGRhME0rNUM0ZlZOZzlZTi9tZHF5VmpQK25JRnJKeGxTeFlXOEg2UU95?=
+ =?utf-8?B?cVhtRzh2Z1Y1T2g0eU9UVmhvRVlxdDlra0NVa1NtSVdUZmM1WnZlSFM2WWlK?=
+ =?utf-8?B?akw0dERPUGM1VmNIVGtyNWtTUEpBVzRWY3Z1U2lUMzBCQzB6aGZMSG81ZHFV?=
+ =?utf-8?B?MTlDUVhaQ1lqaWs5Z2h5SHJGdUxEdVh2bFB6NU5ETjc1SUdBVU1NUWxQUnpO?=
+ =?utf-8?B?SGdlVWU2bm5ua2FtRitBYUpyZnY0S0QrdjBCVUNtL0ZxQXJtVi9qc2hhUlpw?=
+ =?utf-8?B?Z1U0MkxEZ29wVEZQVldtcyswTWYySFFIdUlMM1JuMDZ5Vi9QdzVnM1JldlBy?=
+ =?utf-8?B?L1RVZ041d1NkcFdTRHZTWENzTnk4cnVWVXFvL3B0aUcxK1pjdldYcU1hamJG?=
+ =?utf-8?B?NSsrMG9Na1FvZXVsYTQyZEZIUXVPYy9sUGtpeTRvUXF3RjBEYjJqUnFGUHU2?=
+ =?utf-8?B?SG16ZzlwRWlxNnA1dW1IL21makZJWW1mRGJQYXR0cVlndG81Sy9QQjdXLzF4?=
+ =?utf-8?B?OWlpb2VPZEd0a2ZkNE5ia2Y2UEJIaGE4NUoyMFMzeUlkZ0VSZ1pXakMzbnhw?=
+ =?utf-8?B?R0Y5THQ3cTJVaUlmUWhrRnpoVGZ5S1VzNnRneHhsbTFNdVE5SHlLcjNkRnVw?=
+ =?utf-8?B?WjJmMEllS1RCb1JBblN1aStpNGZXVENQUXhJQnZqSUt2aFk4Mi95VUYwZUhS?=
+ =?utf-8?Q?rA+LKRrEf+xqw2TU3PfcuOQRbvBWKI3bNTxiQ?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b39092bd-eb13-4fc5-2023-08dec0cd88ad
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5a2e7b49-d4d4-4023-a2f6-08dec0cd7368
-X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 17:36:16.9912
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 17:36:53.0247
  (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: hYj1NVfNQttkzEtDKWXF449YBK8Sjs51YKc6G5C+Mdx054ywjHbaG/noPx2B/Il+fHNuD7Nx1nfxA9QT4MDuxMyFzLnFach3vaHMsHpXZCM=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR02MB7549
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: QINbTZxaTBxkWyRxnhrX2Ytb0lgMObopq2xj6nJzQJE_1780421779
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=WINDOWS-1252
-Content-Transfer-Encoding: quoted-printable
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: PjYaagklYnNZFvkSv7JIp8R4PkWL+zGNPJvF7CZSES7ObQco/YGVbD+/2Rsdy8jvH/as7gTjMKuXtWqGb92eb72cfhwCddEyVi/UiTvH7HijOKYb/2lXwgIw85S+U9TA
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10702
+
+From: Frank Li <Frank.Li@nxp.com>
 
 
+On Thu, 28 May 2026 12:15:56 +0200, Frieder Schrempf wrote:
+> The GPIO that controls the power supply for the LVDS display
+> connector has changed between early prototypes and the current
+> production design of the hardware. Reflect this change in the
+> devicetree to properly switch on the panel supply.
+> 
+> This was working before even with the wrong GPIO due to the
+> bidirectional level shifter used on the board which drives the EN
+> signal high even when the input has a (weak) pull down configured as
+> reset condition of the SoC pad. As a result the display was working
+> but the supply was always on.
+> 
+> [...]
 
-> -----Original Message-----
-> Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type =
-to be active low,
-> level triggered
->=20
-> > According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
-> > specification, interrupt type is active low, level triggered interrupt.
->=20
-> Have you checked the documentation for this device etc to make sure that
-> the device actually follows the spec?
-> Maybe Parthiban can confirm this for us?
+Applied, thanks!
 
-Though I coordinated with Parthiban well ahead about this change, He is the=
- one who could confirm.=20
+[1/1] arm64: dts: imx8mp-kontron: Fix GPIO for display power switch
+      commit: ef64f97227a44177d68206cb88a9015897e34571
 
-To answer your question, I looked at the datasheet. In one occasion, it men=
-tions "once RESET_N is deasserted, device asserts IRQ_N.
-When software clears RESETC bit of OA_STATUS0, device deasserts IRQ_N. This=
- gives me an indication that the interrupt is level triggered.
-
-From our side, I checked with our engineer, who is part of the team that pu=
-t together the specification, Pier, copied in this email, confirmed that it=
- is level triggered.
-
->=20
-> Cheers,
-> Conor.
->=20
-> >
-> > Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-=
-T1S
-> MACPHY")
-> > Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-> > ---
-> >  Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
-> >  1 file changed, 1 insertion(+), 1 deletion(-)
-> >
-> > diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.ya=
-ml
-> b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> > index 61e11d4a07c4..766ff58147ae 100644
-> > --- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> > +++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> > @@ -67,7 +67,7 @@ examples:
-> >          pinctrl-names =3D "default";
-> >          pinctrl-0 =3D <&eth0_pins>;
-> >          interrupt-parent =3D <&gpio>;
-> > -        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
-> > +        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
-> >          local-mac-address =3D [04 05 06 01 02 03];
-> >          spi-max-frequency =3D <15000000>;
-> >        };
-> >
-> > --
-> > 2.43.0
-> >
-> >
-
+Best regards,
+-- 
+Frank Li <Frank.Li@nxp.com>
