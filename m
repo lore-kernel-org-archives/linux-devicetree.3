@@ -1,240 +1,171 @@
-Received: from mail-dy1-f177.google.com (mail-dy1-f177.google.com [74.125.82.177])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDCFC3E6DF4
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 13:50:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.177
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780408230; cv=pass; b=ryG4hf8KargMXx1S219rpNvsrkPRFSfvx9FsEOGnmpcUMALBNpgbmFKKIFj8kAafcJ+A3EoXC1TtsSE/U8mIlzAITkvqlqCI9CoKN4jciFfNKYGwKGksMnjyN8KAEytR0TTBbF3DIP8ToFu8swwIHezwG3lz72mjsIro++f8I1k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780408230; c=relaxed/simple;
-	bh=NVI4xF0q0eE4RXQugggAMrzJxldQ0dmIPoc43HTpsWs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Q9LtVU4BfCqWSjPXbjogBt6DY1sqa6YWz1H1HRj59uLDf6VRb+qWoaDOJCj/klDEsQcb5U1l3L3B+dBXk0HvRfcE5krP1eMa0dNlDQ10LWLljaWpC1nIqowus2U/z/GQCsvodhbAAW5N6F28UgJ0o6eAXBOEQT5b/xZ/euJtOf0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=WpZfRNzI; arc=pass smtp.client-ip=74.125.82.177
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DA2F3E274B
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 13:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780408428; cv=none; b=cak3MKyQAHJui3VYkKeNCvX+FlqRoRm5Pf+NlBBR7WkfP46SClXcJZFW1OxsK+eQss1Ydss17f3S0td8y23PpRvQDt/QG8p/rDMVqBKEmYu+HPQc5P0nx6oQ5gUZqR5n5Uctr9xQsSlO/SesULRrMQfg+Od3aA4OxPwRx8I6J64=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780408428; c=relaxed/simple;
+	bh=g0W1PyzooAtJ3scJ3oC1HLYrSZOEKQZ6lGmXblvMhfo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=XF5Ja9PxzUiApsdNsmgXQaGVGdavt11GaB4zOl2B08FLvUNqijbulkHy3OuDjEbRAPP1oT186iBA+TqXj5bnbRZ9AGmiAKM8lbbP+WbVsB/ekm477oUTKv4Bv9y2v/WhKdMKvhMSyh4HxgQNQueqSJ3T+D1Sxmomv0SMMcFNE4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oCo7FMfK; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=HcqhnA8c; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="WpZfRNzI"
-Received: by mail-dy1-f177.google.com with SMTP id 5a478bee46e88-3045c195251so11829525eec.1
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 06:50:28 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780408228; cv=none;
-        d=google.com; s=arc-20240605;
-        b=K95JncoicbqmDph0oM7HNfIwkqK2mM6mBHqX4NmMsHtSAyoVs9Rxcapj/gP+bmdxKM
-         crePGY2Yp2bLN3WWrtGRZPrI1OZ4kzHEAVcjjckwTfB33lqAr5fRpxcqleN3UTPUi7ZZ
-         fjWTZzcQUpVcWA5Y1jHg5sH2tJHXCYenm/ruyKsuIbOUI8ECrTl+CMJEVKYxLw5DZjNe
-         KJ8Mr1LDpDYz845JilNqlJzDrXBh6KI+8AWATg8sKlWmrGqk5kVwMGPD0EiFd8PMtCFZ
-         4X+F9m+e+WJFTg2osyK4/syb5CNyBhYHmQVJxaXBO3agRh0sPsxgyX+YjE60wxNlc6iV
-         L8aA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=JXMEIdkpX0PMnnSFu3HxJtEnPHLXb+fgf1w6HULmKpc=;
-        fh=oRM6gFRyWy0UsNzUBe5w2JMnmmxNgzRmh1QqFyI43nY=;
-        b=P48LffELxVGBSttCUaVr7LHObRs8/bCVd8vMzC3iT5YhE/zNq7ds+AyFnUrYr/wEED
-         xftCSnfFxjuOV1DVKSt8p34zLpWcDHvPhKhRR/ffjpESGSTSh/9cWZvvMTt8sD8phehT
-         ismy0ZRtHv45YF6KGtMBWQI7tFHpO1LDbsY8nD+bR45ekgBNQCnBduhg+GsSO969HBWB
-         cHLkr70l+eT8gzSy/HU1qMOXU0ROFr8j3Uhhqo6Z51ygnpUi6hLJzghOKz4nyavnmRsO
-         qZsw93+HLc6jdLnO9DpYv4x5v+cd901Nbq0jb0aIr2x71Zz+qvULAHwGajYA06fQ/CnO
-         pkTw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oCo7FMfK";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="HcqhnA8c"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 652CiRFp2688155
+	for <devicetree@vger.kernel.org>; Tue, 2 Jun 2026 13:53:46 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
+	Mb77+VbDY/WZt4TrGoR5MtuoBG8W9yZaYbwMG3StSPI=; b=oCo7FMfKvLe7P1eJ
+	Rx9fCO46e8PCGH3r9O3boH+fhY6YKQnWiuB+8eboaHIdSMVt3ZSaoc814+VDTdID
+	10D37B5+yJT9HdjaFGABToADZQaZdXMFJvvAUsAGpv8chaKTB9OcG1d21fnjkEY0
+	rzEwz6oK5ug7AF18VVUhHbDCwkKUcbcgH0fBGskr0GVOW7BrJjf5kShYv0BhOyJl
+	HCRv2hNQyTpkp3wP6/3kjmx4YqWlvUd3lj+Vw5fDp1wx2CC42kjnjTEmhnktceJE
+	IFCLSGtiJVjiF3yMgDGCvmmF4/Fs6tDS/TUiGUXv6vzIOZrDEYVHsQgxTB3evCj1
+	+M70VA==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehsja9rmc-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 13:53:46 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2bf2bc4371bso28524965ad.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 06:53:46 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780408228; x=1781013028; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=JXMEIdkpX0PMnnSFu3HxJtEnPHLXb+fgf1w6HULmKpc=;
-        b=WpZfRNzII18pq3ZL6sObbH7QWDzG/lwUsSm8R/EAPn49vOM6x1YnRY6lU1kTrje/+r
-         eH1unkYQWCB+UfaNlov/e1KTvzTuYaFPA/pPk64cte29X9zLnBYnEWHGNcXZ7rm1fUBj
-         5IUcMifVOylKCBkbih3OuxCp3VDepMzqAIzuShWO23K0Sl/eNKptkHdhvBYNtrBbh5fc
-         q2MDTkpjchmjAFZSofQzH/erjQ3z/41mVDrlemVKUXyyopDZCB2gMWNpwOWUGIQkbGe+
-         Z/sbV+NH1e9evdm/MEbXdTxdYzmfDPlZVjnWqpv3JHvuBqaqk5ZKEKMqK4gFCmuQmsex
-         Ijgg==
+        d=oss.qualcomm.com; s=google; t=1780408426; x=1781013226; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=Mb77+VbDY/WZt4TrGoR5MtuoBG8W9yZaYbwMG3StSPI=;
+        b=HcqhnA8cGLsHB06IpptwCiur8LN3oYl18LsXm7nmSci8wbVTlX7BNMSJCy5L7F6EG2
+         4QriLWXg5CRwqN+3icSK/vjJropmQ6LeZ1jf8vsHFsyk6e5OE5pwD0j75mlBsy+sttSt
+         fmW+BFeMTtCARiNsKUfL3RVsKct9AViVWB1g0xfnH/FiPfH/OB6pR7fA2dFUH/YFj0CY
+         AhvQ6tb1hFdldHHqkJ6qA62Sbm0zpSAspaMUvTiiawWF4s0wLIiM8AEHm7EMsvbLSQS7
+         rpV33g2cCnaeYTf1NuXmaykhk0RD/wNKNUlFrI9qWF4V+adLrTYE36Co8sl/leCAt0o8
+         UCBA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780408228; x=1781013028;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=JXMEIdkpX0PMnnSFu3HxJtEnPHLXb+fgf1w6HULmKpc=;
-        b=PhZpH7noDHxpF8lQ3Vzywt3Kft2xtUPnORutKA7uu3ObsW3BXCXCvTKIGY2W9rPofn
-         tfAygp9zg6Y5U51dptuQBOrrwQjt1oYBhtSUp21mBttXJzxVsmIp9qeBVRwsQA8W73Rm
-         bWvrAYWYh2h3zF3UyyYx3D8mYKs49Uo7Ed3UHpuI1rp+K7gT1wTFvMoGvuXITv35Yc4R
-         vB8f0CcbWgMyndfs2UsjkXrS1l4jXdoEzy1tonTptBuvtHP7P92FoXnYI7pLZuOjHqgl
-         Xt2SWm3PfUDvanQDMnY4T9F3Ca9KJk1n4hUG0LnKIqDVTNGLkn44dgXOXi1nMaiFmXY0
-         ApKg==
-X-Forwarded-Encrypted: i=1; AFNElJ/Bj2jHR9qE1bnz95T4jJ03wkgwtzM7IUG7SC0akhYPlwhwyxVIzE3EbugDddcM6gJDiH5PVI29q5dB@vger.kernel.org
-X-Gm-Message-State: AOJu0YwRbKuD780kSB6azAHvDrt7pJ0yc1YiYbZogGPbu/eMy+/YbSYr
-	HEG0XtZ6jfIhUxaREVVh8Gdei2wSrbOxkuvFd8nggvDzyp9yOwfW8OKwB+Fb5f8vfN5kddD6nLX
-	WOcYhkTyotgY4YH/3pbSDCAHFK0F3Tow=
-X-Gm-Gg: Acq92OGzLguU29ZiBuiAb1u3X4+xh9bTjjyoYjjGTPoLSIUsendcrwvQbXnKegdTUEz
-	37OYb400JBtxg86TLKWSm2w/6H42SISbywRverx2y/C5VxSEBd3+j/4kfTHdLV29+d4Br/BNUmY
-	3Oh30vORe1kgoHYMoMhhl69qLU+eK6fojzhvWIuhOjvYlkCaP68T364NDEUHjoHkkUlnfGrtQDr
-	LjBuNEw40Lg928GcOxqGCZvxBDS3GkhQsHcM/XYp1auOSNncYjVyyxG2RkmVbvGQcDFrs1NZHZv
-	hsfZ0Ne7hrJlvL+sw+Y=
-X-Received: by 2002:a05:7301:1f0d:b0:2ed:e14:42e9 with SMTP id
- 5a478bee46e88-304fa693628mr8033250eec.34.1780408227938; Tue, 02 Jun 2026
- 06:50:27 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780408426; x=1781013226;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=Mb77+VbDY/WZt4TrGoR5MtuoBG8W9yZaYbwMG3StSPI=;
+        b=RYBT2CXCu4cFEHBOMvUJVUVX9Mxso17Bh7krnKdf/ZthrigktePA/Oyi8aHGl/oaoY
+         gCULdMSCGG0oKUOWH2rA2w72iWKDGJhbgefYYuY896XqxeI6WNnY3q6WFnAVxi2oX6wV
+         yQOEXPnac0cfF3hp6SGDgd4vmFgv2Bz+Nb9v1idYLHlCf/Q0XYo0uXYZe4gQk3OPnAeN
+         DiUJ30Q6POLOz87unSZKo6AseZjmPcAQg6gZ6AQwfMt9A4f4o4ydv7FLddGeh2wrQWoG
+         P5NfEvqwHDpMC86jZXBGqRK7DyzPiTQcdfmoQCudlGh6dW4cCbiJ/uZM9g9C2N6P5Ncq
+         4kdg==
+X-Forwarded-Encrypted: i=1; AFNElJ+Gr6l9bCmxWqagdz58qMyZsxclmHuk5Vyw5KDUHdN14KXh7j3PMH98w3l0F4n3fa1lbXN9xJiPCUzs@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx9gy9SkskxhWYmtdRzkyTcEx5Ni3bTtEUuCY+BNCw2IDCk48Kb
+	vivN3Y3KV2Fanwni0mwPOEHrDYGlcpYMifod6ti9nRl/5m9OIetemcnZOsuIm+TeiQtRBZBgSC/
+	a6g/LGr9TsRBT4Q4mtVAdYT/eVkYDmlY7xJ0RT3txiSuzlOFJ5OQf0Ni3CFbh9NLK
+X-Gm-Gg: Acq92OGrahq+uJJZUwAP9ntLpdJUm6JF+/7oP/4trqbTwgUcoZBTud4nbd86LKBE1Sm
+	PhirwO9q+TB7M5nRasdPEttyQRkqAHPEyT5M+/dPxlbC2wcY63hWoDhBkK/gWVQJMELmnMZobAJ
+	BjX4li6KNqTDyJyVYTRrqhSiz2hpDVPMCb/Px1M7X5tBncRk+8NH9VNDFF7d4Oohr7UU/TO1At5
+	7v8ooR2eu2Qgye8b8W9LN9bi9IaBMngPJLEGUFFgNS7MdivvdJk7jp5V/EbDoUACNVVmSF2uQk8
+	DaxbF1riKmlFuK2WqNkOJYFOiT6XfjONtGqTtxlPs5nFRwzxqctWktskK345G7jYqL2dYje4Vcd
+	JyPN61LyKxdtoCfirukPlXBJkRu13joWPZOT0aNJiM81DORn0C0qlTswPy0fsCB/Hs+6gsbBJhd
+	lipDbUaRFwscR/xPXGSey59PdlaJAK30Al
+X-Received: by 2002:a17:903:4b4f:b0:2bf:2398:6009 with SMTP id d9443c01a7336-2c10ccbc173mr33528905ad.14.1780408425512;
+        Tue, 02 Jun 2026 06:53:45 -0700 (PDT)
+X-Received: by 2002:a17:903:4b4f:b0:2bf:2398:6009 with SMTP id d9443c01a7336-2c10ccbc173mr33528655ad.14.1780408424988;
+        Tue, 02 Jun 2026 06:53:44 -0700 (PDT)
+Received: from ?IPV6:2405:201:c416:5052:81a2:4375:a071:12a2? ([2405:201:c416:5052:81a2:4375:a071:12a2])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf23c0751asm143976745ad.55.2026.06.02.06.53.40
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 06:53:44 -0700 (PDT)
+Message-ID: <4bf2e9eb-f015-48fa-bef2-ba1a58413e3f@oss.qualcomm.com>
+Date: Tue, 2 Jun 2026 19:23:39 +0530
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260601151831.76350-1-clamor95@gmail.com> <20260601151831.76350-6-clamor95@gmail.com>
- <20260602144640.433b4d35@jic23-huawei>
-In-Reply-To: <20260602144640.433b4d35@jic23-huawei>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Tue, 2 Jun 2026 16:50:16 +0300
-X-Gm-Features: AVHnY4KYcv6nkoqF49he0KoddQyJUPiBV8YuVyKK6U5KG-s9hQUTG1_wCFFBKFE
-Message-ID: <CAPVz0n1r97d8-uzhPGBx0LFSp75A3_2mMXDQQ30utT-6NtpHNA@mail.gmail.com>
-Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
-To: Jonathan Cameron <jic23@kernel.org>
-Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
-	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	David Lechner <dlechner@baylibre.com>, =?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
-	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
-	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: interconnect: qcom,shikra-epss-l3: Add
+ EPSS L3 DT binding
+To: Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Georgi Djakov <djakov@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley
+ <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-pm@vger.kernel.org, devicetree@vger.kernel.org,
+        linux-kernel@vger.kernel.org,
+        Odelu Kukatla <odelu.kukatla@oss.qualcomm.com>
+References: <20260524-shikra_epss_l3-v1-0-b1528a436134@oss.qualcomm.com>
+ <20260524-shikra_epss_l3-v1-1-b1528a436134@oss.qualcomm.com>
+ <20260530-victorious-resourceful-muskox-cdeadb@quoll>
+ <afeab8fd-6951-46a3-8b92-9c3b7075949e@oss.qualcomm.com>
+ <709428ff-e732-47b6-a6db-b26cd9149c98@kernel.org>
+Content-Language: en-US
+From: Raviteja Laggyshetty <raviteja.laggyshetty@oss.qualcomm.com>
+In-Reply-To: <709428ff-e732-47b6-a6db-b26cd9149c98@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDEzMyBTYWx0ZWRfX52iJBxrgVdxm
+ jkbIMfqpphM16GZwvLxkb//W7i+7m/u395IFwjRI6E+xWUZ+XzRWlx68bsvLGCkSs7jgxRAul0q
+ YuGS8IOqRpuTdTtozeQgj9qhaYpM7CaGTXLHOUnwNSmR2pIcLjKER4yHUa5rBeFUQr2j8L0Kv/c
+ Qvz7/ATcj+0NgdpTozXp//Q83QthQX9aI+U14C/OGMvtYjwgcQKlzWi77Jlt11QsIQuCMvPC12b
+ XnhPgvJJG7TTiPC6UKse57IQbaKvPvUdwmoAz+A5XpN9nyHSZI8QjmVlE9T66IncFpSECuXkpxA
+ sHMspBcqsO7AGczU9a2p+ktAG80YcsST4fsIOthTWl7YLZ2zQVP4/N12aayZ4nuc61AKfZlEOTt
+ EAqYctCARvZhK5JdWhZtLk9BLn0ERD+TjwypRNfMw8JGYkU80EilPzgeNJ0yBXGmOJg/ixchBpF
+ 3FdTIzVNh8nlIZc+l4A==
+X-Authority-Analysis: v=2.4 cv=Ld4MLDfi c=1 sm=1 tr=0 ts=6a1ee06a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22 a=FhBE5UMFHDhWvMFztzwA:9
+ a=QEXdDO2ut3YA:10 a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: d1HxZzyjMFEokTdC45XnKQFYoLHUV1Ux
+X-Proofpoint-ORIG-GUID: d1HxZzyjMFEokTdC45XnKQFYoLHUV1Ux
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 lowpriorityscore=0 priorityscore=1501 malwarescore=0 adultscore=0
+ clxscore=1015 impostorscore=0 phishscore=0 spamscore=0 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020133
 
-=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 16:46=
- Jonathan Cameron <jic23@kernel.org> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> On Mon,  1 Jun 2026 18:18:25 +0300
-> Svyatoslav Ryhel <clamor95@gmail.com> wrote:
->
-> > Since there are no users of this driver via platform data, remove the
-> > platform data support and switch to using Device Tree bindings.
-> >
-> > Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
->
->
-> > index 52136ca1abc9..55b35467a722 100644
-> > --- a/drivers/iio/light/lm3533-als.c
-> > +++ b/drivers/iio/light/lm3533-als.c
-> > @@ -16,16 +16,19 @@
-> >  #include <linux/module.h>
-> >  #include <linux/mutex.h>
-> >  #include <linux/mfd/core.h>
-> > +#include <linux/mod_devicetable.h>
-> >  #include <linux/platform_device.h>
-> > +#include <linux/property.h>
-> >  #include <linux/regmap.h>
-> >  #include <linux/slab.h>
-> >  #include <linux/uaccess.h>
-> > +#include <linux/units.h>
-> >
-> >  #include <linux/mfd/lm3533.h>
-> >
-> >
-> > -#define LM3533_ALS_RESISTOR_MIN                      1
-> > -#define LM3533_ALS_RESISTOR_MAX                      127
-> > +#define LM3533_ALS_RESISTOR_MIN                      1575
-> > +#define LM3533_ALS_RESISTOR_MAX                      200000
-> >  #define LM3533_ALS_CHANNEL_CURRENT_MAX               2
-> >  #define LM3533_ALS_THRESH_MAX                        3
-> >  #define LM3533_ALS_ZONE_MAX                  4
-> > @@ -57,6 +60,9 @@ struct lm3533_als {
-> >
-> >       atomic_t zone;
-> >       struct mutex thresh_mutex;
-> > +
-> > +     bool pwm_mode;
-> > +     u32 r_select;
-> >  };
-> >
-> >
-> > @@ -411,7 +417,7 @@ static ssize_t show_thresh_either_en(struct device =
-*dev,
-> >       int enable;
-> >       int ret;
-> >
-> > -     if (als->irq) {
-> > +     if (als->irq > 0) {
-> >               ret =3D lm3533_als_get_int_mode(indio_dev, &enable);
-> >               if (ret)
-> >                       return ret;
-> > @@ -716,30 +722,34 @@ static const struct attribute_group lm3533_als_at=
-tribute_group =3D {
-> >       .attrs =3D lm3533_als_attributes
-> >  };
-> >
-> > -static int lm3533_als_setup(struct lm3533_als *als,
-> > -                         const struct lm3533_als_platform_data *pdata)
-> > +static int lm3533_als_setup(struct lm3533_als *als)
-> >  {
-> >       struct device *dev =3D &als->pdev->dev;
-> >       int ret;
-> >
-> > +     als->pwm_mode =3D device_property_read_bool(dev, "ti,pwm-mode");
-> > +
-> >       ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
-NF,
-> >                                LM3533_ALS_INPUT_MODE_MASK,
-> > -                              pdata->pwm_mode ? LM3533_ALS_INPUT_MODE_=
-MASK : 0);
-> > +                              als->pwm_mode ? LM3533_ALS_INPUT_MODE_MA=
-SK : 0);
-> >       if (ret)
-> >               return dev_err_probe(dev, ret, "failed to set input mode =
-%d\n",
-> > -                                  pdata->pwm_mode);
-> > -
-> > +                                  als->pwm_mode);
-> >
-> >       /* ALS input is always high impedance in PWM-mode. */
-> > -     if (!pdata->pwm_mode) {
-> > -             if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
-> > -                 pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
-> > -                     dev_err(&als->pdev->dev, "invalid resistor value\=
-n");
-> > -                     return -EINVAL;
-> > -             }
-> > +     if (!als->pwm_mode) {
-> > +             ret =3D device_property_read_u32(dev, "ti,resistor-value-=
-ohms",
-> > +                                            &als->r_select);
-> > +             if (ret)
-> > +                     return dev_err_probe(dev, ret,
-> > +                                          "failed to ger resistor valu=
-e\n");
-> > +
-> > +             als->r_select =3D clamp(als->r_select, LM3533_ALS_RESISTO=
-R_MIN,
-> > +                                   LM3533_ALS_RESISTOR_MAX);
->
-> If we are getting garbage from DT I think I'd rather error out that paper=
- over
-> that problem.  So similar to before, check valid value and if not fail pr=
-obe
-> so that hopefully someone goes and fixes it!
->
 
-sure
 
-> > +             als->r_select =3D DIV_ROUND_UP(2 * MICRO, 10 * als->r_sel=
-ect);
-> Why do we need this when we didn't before?  The range checks are the same
-> so it smells like it shouldn't need transforming. I'd also rather we didn=
-'t do
-> rewriting of the meaning of r_select like this.  Just use a local variabl=
-e for
-> the intermediate result.
->
+On 6/2/2026 5:29 PM, Krzysztof Kozlowski wrote:
+> On 02/06/2026 11:27, Raviteja Laggyshetty wrote:
+>>
+>>
+>> On 5/30/2026 4:38 PM, Krzysztof Kozlowski wrote:
+>>> On Sun, May 24, 2026 at 06:03:35PM +0000, Raviteja Laggyshetty wrote:
+>>>> +  '#interconnect-cells':
+>>>> +    const: 1
+>>>> +
+>>>
+>>> I do not see any differences against OSM L3 binding. Why isn't this
+>>> device there?
+>>>
+>>
+>> The EPSS L3 on Shikra is similar to EPSS/OSM L3 on other Qualcomm SoCs,
+>> but supports only twelve LUT entries. Due to this hardware difference,
+>> the generic compatibles are not applicable, so a new SoC specific
+>> binding is introduced.
+>>
+> 
+> This I understood, but the binding would be exactly the same, no? Kind
+> of repeating the question....
+> 
+Yes, Though the hardware is slightly different, it can be still described 
+using the existing qcom,osm-l3.yaml binding and can be added as OneOf the 
+compatible enum in the properties.
 
-before pdata passed resistor value as actual register value, not we
-are getting the actual resistance in ohms from the tree and must
-convert it into register value.
+Just to differentiate the hardware difference with existing L3, separate 
+SoC specific binding is added.
 
-> >
-> >               ret =3D regmap_write(als->lm3533->regmap, LM3533_REG_ALS_=
-RESISTOR_SELECT,
-> > -                                pdata->r_select);
-> > +                                als->r_select);
-> >               if (ret)
-> >                       return dev_err_probe(dev, ret, "failed to set res=
-istor\n");
+
+> Best regards,
+> Krzysztof
+
