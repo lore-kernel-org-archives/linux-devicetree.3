@@ -1,97 +1,196 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FA0360EFF;
-	Tue,  2 Jun 2026 15:18:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00DF738911E
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 15:22:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780413495; cv=none; b=hSFQHwtAWznxW03sG3KAOXqn04WbbjhVSa+CNN3ucn/lFs0jo5NNMUWeNp7jhsV9/PO6hAOi3SFV9E/BW8kt6ETYf2F3x8D6KRFdWdZlqe4Gx0fiVMylgN+2egLl/HTBZfwxmf+wVimZ4p3G/V1Z+FQAu6t/7E5R7mPqhGqEGKA=
+	t=1780413724; cv=none; b=EAf1LmC1TA8uF6S70MOG55lp+pCC8b/pZN6sgI4lkavI3CfZ9Uwo9LRVhRp8BQXEWNu0Cg4O4u8j2QOeBmflAM7iJPVoeBkECU4/9EAH1T1ANx6ipm8/N8dLW55fpJGrZY0BJyBRpnqCBxcC7rR57+sz7b2cbEQLcmoDFmiNzUw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780413495; c=relaxed/simple;
-	bh=A+YZoYMkSIKXQ2ydh8tGwbrRQanTt6JX3dFD8Wswidc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CmWCbbQMohCFUPx7ohECDVmGxoOThkFxWtSOnu3sVqw1izi05sjCDfUl9bxHAuu6kcBX3m6ZcRy0RQyqg4hzgzDp37jC6C3Wtc562cSofaXBmxGuQ1y9Hg3cEFgG6p3Zq3p5RUGaQVYsIobj0iGNEvoRU2yjTw6+xfbkg5evueI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B0qA0WE7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780413724; c=relaxed/simple;
+	bh=lh8FZMX2soQdqCvJUlCXyl979Qmo/LQaCjt7G5Tzax8=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KQYv+wA/RttJslm1EZb6VNou81VhNhiq0ukx4LOyen3XUTNMU6IuHDD+tE4NZ0QNA6g0AR1wFxGmCrSEK8DlhwYIt79d44K3kQZMs35Q/B285yVpbYo/eaChy79SO6k0Cp88be0y5e9Rf1k0m9DUup7b6WKiFu2zdFyqe+LCvM0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=OK8hFhbB; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=AHCRHi9M; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B0qA0WE7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72FC21F00893;
-	Tue,  2 Jun 2026 15:18:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780413493;
-	bh=8lZiucNBdfcVM/fyiIvBK0be1Pkkk47CqnYhRaryo4o=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=B0qA0WE7LWlrFe51ogEMvTF9jRHVIKKqegVmpaq1Nj18Ow6bregW34n7DDtlBc/sg
-	 tFnh7YmbYuMmjf2SnZZLfwJKn7fWwAq+dL9JEqn0KkUN+DdIeAvw8GfJ3k3Q2/zgGw
-	 S8QDu4ggFzQuxA3bY7Eb7nOn/s24dFUFIAT3yg+YMiKGmNvvz6JN7Tg2d23Yrz9KQB
-	 kIbj4XnTxwcMu70rnVg8Y96aKBKs5sPdDzAzhORj8YWd9t4IjJieS26W9jspHMZIfd
-	 KOxrVVJwseAttDYD9R/3hrvyNsKI9VvozFTtRj9bqHvQdgyY5ZRJAuOpblllzGDjN2
-	 KWGwkURe6mfgA==
-Date: Tue, 2 Jun 2026 10:18:12 -0500
-From: "Rob Herring (Arm)" <robh@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: linux-kernel@vger.kernel.org, saravanak@kernel.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3] of: reserved_mem: only support one <base size> entry
- in reg property
-Message-ID: <178041345940.355357.208300843136248973.robh@kernel.org>
-References: <20260525121700.2706141-1-chenwandun1@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="OK8hFhbB";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="AHCRHi9M"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 652CkPwG2767770
+	for <devicetree@vger.kernel.org>; Tue, 2 Jun 2026 15:22:02 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=rula0vxp21DSEXYbt5FICL
+	GmSa3GjueuuDLvkBfCxeA=; b=OK8hFhbBaTiNv1PaGBM6TcxK30wb64QPRVRHwk
+	8C6+vFuMBZwa2GPPCOeuIvGH/YROzmtmK2NZSFRHTLjLlmK+3P3ZpvqjAM95tvNM
+	YiHWk9QFm9o1FphvLWpekBEFFf8hwZAN+1QMRtpGDla6IeyndmyGWZILaTDm3LDq
+	Oz7rcjc5/RFaOOQrFffTq2ggFx6BeSUcU8ZvG+OHOXEOYc5qKnGlUnEchVtf2mbo
+	fUcHlQKGEi9000V6YQi9rHpgTn0mohXLOLHfWYB/Frdfys50/W4TlpOezhwvMoTA
+	M5xVwMQ6kP4Z5CH+hU4Cb3r0zPOnlu6h00DeyFgxaldb0w4w==
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehsus25y9-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:22:02 +0000 (GMT)
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2c10cd7df22so19227745ad.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 08:22:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780413722; x=1781018522; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=rula0vxp21DSEXYbt5FICLGmSa3GjueuuDLvkBfCxeA=;
+        b=AHCRHi9MbRZEU9Eehx5BQ3tRHFlurQRtbkmJUQnCGyrUIoQ0B6fKdH+HlErN7qy1NC
+         PxJN5mjE7krBVDoBLjqWrrArV4BuyBC2LY4KUpuwFUHqo305PjNlojyFyDpJXiKE0DXV
+         liLzjoXGP/GQPnWv4BP8GvBtcQBO7qpCftOarwqKrfPiOXsRclDTVZD54rPyvlE8kd9s
+         Y08CQ7x+416F4neB3kHS/InJsWkWuJIXLG5a0pncTuYcVixSMKDJRS9ndYKNXLeJ2CIP
+         pao9uj+7otjme2o1E3QKackvcUWAK2yefGiSz8S1wkbUCDBvFNGtCFHysGNXOXc53hmL
+         qPHg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780413722; x=1781018522;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=rula0vxp21DSEXYbt5FICLGmSa3GjueuuDLvkBfCxeA=;
+        b=dC19ZU/FuqYGEYTplnkTUo0RkNSBG0b2eyrI55Cs+YlKtwY4RvgMOsarrgSZm5doHx
+         XYCwHMmWPkQmTEFK8Wdk+KgaxW9Poa31Mqw9Zkunb/UJ9GY4G+gmSBSi+PcZ9tLlphgP
+         2v1eIwPEP4OV9rOvQuNDmCHAATU976YM5gvNmzlZb0V1e2fENVx1iEjze85ek1KlsYJ7
+         DAh3dLfIwR/l7e09OSG7E7rEOf5ZeQlroShYek4oBlv7BgI5HvMLoRcH28pvg+SUGawL
+         llO6xqcjjiP7GLVSXgstFUfroJD4M6fKf+4qJoFvF2aRapl+sPM8/iNks4lvQSH7NeuS
+         6GJw==
+X-Forwarded-Encrypted: i=1; AFNElJ9P8a3QhZsjqrKUrGvVUT1mPj+jLQTixuxRKcCRz8ZUVvT/zVPqwHyd1xWA8IDSVwkyH+LxocbE4sb4@vger.kernel.org
+X-Gm-Message-State: AOJu0YxIORngOJcQIRVF4RA96Ko6paZ1kEk4kXxjBBo/UPjsN+J2vwuf
+	c3hlC1Vfq1KLo/7ojOofxl0y9p9nDoOSaonL7YheCEMv0E3ZxA/eP33g0a3LoET0FpWEyJuRQH0
+	j4yat/FP9qGxzE7eFYXfDsHSIZkgwjFvDZWf387oQTVDND1mH1NehW+khhRHpDDwVSK9A7CNz
+X-Gm-Gg: Acq92OF6IVzZrhxf6ygV5WGIHSPBqxI/Htx/abvJVqN57Cbr/5hNxkEbLt94in+7+o8
+	khe4uHlROk5mTOKcMMUva5NiK5lLhpKlyFn7H9DRTJ9/8e864NM4ymiv8Rkp085+4zFMuCxGdB1
+	u85rMN6EglDFKu7AwOBJ9WPAW2k2zNIsiP2ufGa8Lu/pFdKfuNljHXbZEN9WzmiLkbYSP4o2PtE
+	PwoBuFU+o3G4wT08K8mUJxd5BXG93lHEB2VoguOoV9CeGelzXRTEj5++JG2K6ritA4SZH6FCTJv
+	Kvc2lLaZE9MuL/i2Epa6Nl26+DEB6PYVBsdEKq9HzyE2jVT/JrZu5LJFfOi5aRZmJCr9Ub3JaBW
+	pGUQLqUL4DCz/bZrmaPXwvUNof2uQKtTlW8kcpsUCdPm/cB8/EYZOzCjw
+X-Received: by 2002:a17:903:230b:b0:2c0:af09:f3c7 with SMTP id d9443c01a7336-2c0af09f5d4mr156636055ad.30.1780413721686;
+        Tue, 02 Jun 2026 08:22:01 -0700 (PDT)
+X-Received: by 2002:a17:903:230b:b0:2c0:af09:f3c7 with SMTP id d9443c01a7336-2c0af09f5d4mr156635555ad.30.1780413721216;
+        Tue, 02 Jun 2026 08:22:01 -0700 (PDT)
+Received: from hu-tdas-hyd.qualcomm.com ([202.46.22.19])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239e71cbsm135136465ad.15.2026.06.02.08.21.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 08:22:00 -0700 (PDT)
+From: Taniya Das <taniya.das@oss.qualcomm.com>
+Subject: [PATCH 0/5] clk: qcom: Add PDM GP_MN fractional clock divider
+ driver and DT support
+Date: Tue, 02 Jun 2026 20:51:48 +0530
+Message-Id: <20260602-pdm_clk_gp_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260525121700.2706141-1-chenwandun1@gmail.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAz1HmoC/x3MTQqAIBBA4avErBPUwKirRIg/Uw2ViUIE4d2Tl
+ t/ivRcyJsIMY/NCwpsyXaFCtA24zYQVGflqkFwqrrhk0Z/aHbteoz6D17dgPQ5OOmG7wVioXUy
+ 40PM/p7mUD4Ugca9jAAAA
+X-Change-ID: 20260602-pdm_clk_gp_mnd_v1-7e9c2c1b39ab
+To: Bjorn Andersson <andersson@kernel.org>,
+        Michael Turquette <mturquette@baylibre.com>,
+        Stephen Boyd <sboyd@kernel.org>, Brian Masney <bmasney@redhat.com>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>,
+        Richard Cochran <richardcochran@gmail.com>,
+        Konrad Dybcio <konradybcio@kernel.org>
+Cc: Ajit Pandey <ajit.pandey@oss.qualcomm.com>,
+        Imran Shaik <imran.shaik@oss.qualcomm.com>,
+        Jagadeesh Kona <jagadeesh.kona@oss.qualcomm.com>,
+        linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        linux-gpio@vger.kernel.org, netdev@vger.kernel.org,
+        Taniya Das <taniya.das@oss.qualcomm.com>
+X-Mailer: b4 0.15-dev-aa3f6
+X-Proofpoint-ORIG-GUID: 6Q8YKBx414FHLnaCKWveOsVEB2fMazri
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE0OCBTYWx0ZWRfX/85ksMdj7c/f
+ k44tKbAfel6KQwQMYlG89pEifGPUxnFvLibOswWtOmRucRAvsP7WhCQuVxPeYKlF9+6JCVVoJKE
+ nznUMla2JZ0YWFJ7sf0dmReBbnhNLfRorOkyHbvNLDiW4ICzSRpHM/0rYk9wgg1vl5Xls2rcVlV
+ UW8YCrTHjjQGhDrMSzZnRndULjRiOBapE9XsxxBELDu/zsGRrj7KbnM6pzlnKJrsdM87AQoK6LM
+ W74nSuqyMS69bhCHCLNAoi9tObjUFfaOwFGC5dq7RHBL/CU2UGdhXYwkT5FAbebkwJMYEtRTkIK
+ KJPQ/1aXyZASsxE/zTywEKfEO5zysaAXTbz4WPVH29LX4Hs0VA6yTHRFrdi+RfN8F3kY5Zpv21t
+ eTYmKtmDG+X1zw9jdUjjQTHnDdXiBM643QP6sK89s8NGDVsOVX2854GFe/hlfb/idP/2C7wIqnR
+ 0aKDBCqkOUohe/q6ibQ==
+X-Authority-Analysis: v=2.4 cv=ZYAt8MVA c=1 sm=1 tr=0 ts=6a1ef51a cx=c_pps
+ a=JL+w9abYAAE89/QcEU+0QA==:117 a=fChuTYTh2wq5r3m49p7fHw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=EUspDBNiAAAA:8 a=7twCsXJWkRLxYzWIcc4A:9 a=QEXdDO2ut3YA:10
+ a=324X-CrmTo6CU4MGRt3R:22
+X-Proofpoint-GUID: 6Q8YKBx414FHLnaCKWveOsVEB2fMazri
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 impostorscore=0
+ spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020148
 
+The Peripheral Web's PDM hardware block on several Qualcomm SoCs
+contains a GP_MN clock divider that generates a fractional output
+frequency from a fixed input clock (typically TCXO4):
 
-On Mon, 25 May 2026 20:17:00 +0800, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> A /reserved-memory child node may have multiple <base size> tuples in
-> 'reg' property, but multiple entries in 'reg' have never been fully
-> functional:
->  - fdt_scan_reserved_mem() in the early pass loops over every
->    tuple and reserves them all.
-> 
->  - fdt_scan_reserved_mem_late() reads 'reg' by
->    of_flat_dt_get_addr_size(), which returns false if entries != 1.
->    So 'reg' property with multiple <base size> entries will be
->    skipped, no reserved_mem entry is created in reserved_mem[].
-> 
-> Supporting multiple <base size> tuples is not a good idea:
->   - It requires reserved_mem_ops->node_init support. Currently,
->     CMA(rmem_cma_setup) and DMA(rmem_dma_setup) are not supported.
-> 
->   - of_reserved_mem_lookup() is name-based, only the first entry in
->     multiple <base size> tuples will be found.
-> 
-> So change to support one <base size> entry in 'reg' property.
-> 
-> Also update dt binding:
->   https://github.com/devicetree-org/dt-schema/pull/197
-> 
-> Suggested-by: Rob Herring <robh@kernel.org>
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
-> Tested-by: Meijing Zhao <zhaomeijing@lixiang.com>
-> Link: https://lore.kernel.org/all/20260506014752.GA280279-robh@kernel.org/
-> 
-> ---
-> v2 --> v3:
-> 1. Fix out-of-bounds issue in v2 if device tree contains an empty reg
->    property [1].
-> 
-> v1 --> v2:
-> 1. Support only one entry in reg property, suggested by
->    Rob Herring [2].
-> 
-> [1] https://sashiko.dev/#/patchset/20260519082427.4181476-1-chenwandun%40lixiang.com?part=3
-> [2] https://lore.kernel.org/all/20260429065831.1510858-1-chenwandun@lixiang.com/T/#m29fa0f1c22c23e6343070e70f905c9482f930901
-> ---
->  drivers/of/of_reserved_mem.c | 43 ++++++++++++++++++++----------------
->  1 file changed, 24 insertions(+), 19 deletions(-)
-> 
+  Fout = Fin * (M / N)
 
-Applied, thanks!
+The output is routed to an external GPIO pin via a dedicated pin mux
+function, making it useful as a reference clock for external devices.
+
+The hardware uses three registers:
+  - MDIV: holds M (9-bit numerator)
+  - NDIV: holds the 1's complement of (N - M) (13-bit period)
+  - DUTY: holds D, the low-phase count, constrained to M < D < (N - M)
+
+This series adds full upstream support for the block:
+
+  Patch 1: dt-bindings YAML schema for qcom,clk-gp-mnd
+  Patch 2: standalone platform driver using rational_best_approximation()
+           to find the closest M/N pair, with full clk_ops coverage
+           (determine_rate, set_rate, recalc_rate, get_duty_cycle,
+           set_duty_cycle) and AHB bus clock gating around register
+           accesses
+  Patch 3: gp_mn pin mux function for QCS8300, SA8775P and SC7280
+           TLMM pin controllers
+  Patch 4: pinctrl state nodes for the GP_MN output pin in the
+           kodiak (SA8775P), lemans (SA8775P) and monaco (QCS8300)
+           SoC device trees
+  Patch 5: GP_MN clock controller DT nodes for SA8775P (kodiak,
+           lemans) and QCS8300 (monaco), clocked from GCC PDM XO4
+           and AHB clocks with the XO4 pre-assigned to 4.8 MHz
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+
+Signed-off-by: Taniya Das <taniya.das@oss.qualcomm.com>
+---
+Taniya Das (5):
+      dt-bindings: clock: qcom: Add bindings for PDM GP_MN clock divider
+      clk: qcom: Add a driver for PDM GP_MN fractional clock divider
+      pinctrl: qcom: Add gp_mn mux function for QCS8300, SA8775P and SC7280
+      arm64: dts: qcom: Add gp_mn pin state for GP M/N clock output
+      arm64: dts: qcom: Add GP M/N clock controller node for SA8775P and QCS8300
+
+ .../devicetree/bindings/clock/qcom,clk-gp-mnd.yaml | 105 +++++++
+ arch/arm64/boot/dts/qcom/kodiak.dtsi               |  21 ++
+ arch/arm64/boot/dts/qcom/lemans.dtsi               |  21 ++
+ arch/arm64/boot/dts/qcom/monaco.dtsi               |  21 ++
+ drivers/clk/qcom/Kconfig                           |  15 +
+ drivers/clk/qcom/Makefile                          |   1 +
+ drivers/clk/qcom/clk-gp-mnd.c                      | 333 +++++++++++++++++++++
+ drivers/pinctrl/qcom/pinctrl-qcs8300.c             |   9 +-
+ drivers/pinctrl/qcom/pinctrl-sa8775p.c             |   8 +-
+ drivers/pinctrl/qcom/pinctrl-sc7280.c              |   8 +-
+ 10 files changed, 539 insertions(+), 3 deletions(-)
+---
+base-commit: 08484c504b55a98bd100527fbe10a3caf55ff3ff
+change-id: 20260602-pdm_clk_gp_mnd_v1-7e9c2c1b39ab
+
+Best regards,
+-- 
+Taniya Das <taniya.das@oss.qualcomm.com>
 
