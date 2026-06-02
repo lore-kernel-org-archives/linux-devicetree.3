@@ -1,113 +1,107 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35548395D8E
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 21:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6337C395D8E
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 21:01:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780434031; cv=none; b=G9iXdTbQTMyVbGk3PU06M14cYJjs30ikcZVy/Q5jChCskn8DFoMZ7MZudlibKdnH/NryMO5Q4eY/2tLq319Wi3cgcp+2DhDzah10VudPBO/yCtCu3+XsG5w9HjFqgpSb1fYrsOU/bZOD5e+V5If9VJIChFVFuyYfH4whV4TuxRc=
+	t=1780434104; cv=none; b=Dl7E1vWMOGso/JSWhagY1xwyjSY7y67W4ZxsMkkM+RCauyiOkx6Z/3XteVB4FFifs0FrOvjkE0QWe5uFpDUsijZbT00Ym6Cxy0shqYTb0nDHseM0BP9tLp5IrGuwjh5aSAAuW4EGDVS8PyTi+kgUQLcLTvU5IiGzaGxLinsLhvc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780434031; c=relaxed/simple;
-	bh=uvhufSHkS27pkk5zPIVNeG5TbVytzxmiQf16IumQwvY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=DItYtQ2vhQZcDoHn5FtLKVh5ZuaMiKZpd8kCmoz8LDM7hBTee9qS8X+dtSZQuZEktcZfz3ulJYluTinCUhr6eVyQPVoABHgWAKeQmeGLI2mqq+Besr2CXlwfpHrk1rfrlGGyWSh/O/k2aenPTOXiqGpfQaVPysCvOx/cRghIus8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=YF2xCCuJ; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780434104; c=relaxed/simple;
+	bh=xGSBBdZRO7z7VI/FAZc2A0j9OplvL/xNRGdcbNke2nw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TPIYANY4CVWXMvQ0Yo+VPhjsOqWGTJOZkKbK+VmHd6r+ctUR07fKJ+hOfeEQWD0ywDxPlCc9f1G6gKdMEbzfSty4/aa9VCyKDmXGQ+hDyC4XZBKAznHWAoAicy5ZawGsiA37R/do5cbCL4iuXjX5sW0GOFyiijSp3nfoskTuoVg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=OQ5k6o0S; arc=none smtp.client-ip=194.117.254.33
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="YF2xCCuJ"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-45e9f4a3510so6917207f8f.1
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 14:00:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780434029; x=1781038829; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=o3xo5dhddNfd1GteqLJrkhqAoPlpEA1sqWA6MOtGTrE=;
-        b=YF2xCCuJxynz08ycnNg6UkGnNlwN05tSjivjUi6jtdz29GiqQFZJScpt1NiN4daywK
-         bJzpU7BKkgtjHO0/WDpfCQBHm9+Y4mOt5Zkzggh8aXQgojDIrr8SlZImvuI/rEmU+k/N
-         dsY8DchWBwumWwSe4RDNVzDjOZ7A/A3rwWmPO9vtIrAWhw6PZDVexwu85JyBuk6s34T6
-         XEdGt6WD67CL5/X5TRlymbFq41L/kdsx4i6Wt1TP8/4jZJoXihOJU2lba3CwkO5S28Jd
-         TMrw06kE7NntZRrgMS1lE8bf6rbDBERJEklUaTnkLOpvqDCHZ6ur3rM6HsSs3IqheaK7
-         cppg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780434029; x=1781038829;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=o3xo5dhddNfd1GteqLJrkhqAoPlpEA1sqWA6MOtGTrE=;
-        b=TTvU8PYhWP6sUvD3KBCI6M8ujw/jt8mkN2lmB1U1z7YlJ6aUJ1fSn7JMxjzZoxVihI
-         IK8Jn0BRBh/xQrDKVkK47O3QNqNqx/S0cngXqFfxPX5o0VGYix3FNlFuIJZgAS4hTjzA
-         dchgwP+GzMrD+5mVPL+nLFwMTeFh9W4TveynZNYvoKZXiyPXnwEBVwmvKuIRgG4Ae+wz
-         ppZV0fyOGiPCnMldWwlIDIBmeKcCguVC1yMMFWrqchS1FdwyH+RyBeBavGVg0ZJKNbJA
-         6ukD+4b6dMJkSFfPnE4brO2Irs+MqYU/cITxOcf1pwg/mc6V8wqEcldYxpH6lxSRftY9
-         z2xA==
-X-Forwarded-Encrypted: i=1; AFNElJ/PF8LQl0KAwgqf12xonV3YOB9rQfa242n37C4KUm/2m1ti2RD/JOiMk6LBllYqOt/SK11RWoLjpMW0@vger.kernel.org
-X-Gm-Message-State: AOJu0YxPrA1/Sdrq6bEh/NPDeLepvUXIrTCrTSaP04dvYdkaEMXRxYrG
-	59RPQLm5sbViMdDWbe3yDrgkqxcUQy6Z/Y/9O9UiVuJoywM/MvbOR3C0rTiFtXz8spU=
-X-Gm-Gg: Acq92OE04u0CjMmkEaHamK1UMimqgL3jhMwo6LivFU6vUSy3BZ8po3DnLfxJCyWP6Ec
-	+rjhz07ORs42z+xLHk6pZvveJCCZmg0x93JNdqv00iARzlW1WQ3iSpiSVIVTAv5Bpfj46UmqKQP
-	ezNNI4KPUtbGtKp0siZ6JGaUeGb9BW0kS51dUCarobp+fQiX7KCe+LjXEEseN/q1LQaie3sm2og
-	SWCYkUri4FB68QllczQIjKBs8Zn3vqvygB4xx3gQnPE4BNWatT6z0CozOqtALtnLmhZ8VoPH5Om
-	8jVQZyYEPnFMwdtkrsaSzV2JnCH1GL9vcMsaG9YgTpayJ4HRsW9JHxP938As9jstq3Z3eSoWcDc
-	+Hd7NoVQdY1DTj6LP6TvUsGG3yEEqphJO/86WacCije3jI1npyFmPvRoinNHCmiYzUYL/Xu077E
-	EfmPKeQDbWb41U4D2ObOHGRbfpMtxJvCevGxIJtsKyjGcZ
-X-Received: by 2002:a05:600c:4513:b0:48e:7854:1608 with SMTP id 5b1f17b1804b1-490b5fe9bd8mr6349125e9.25.1780434028575;
-        Tue, 02 Jun 2026 14:00:28 -0700 (PDT)
-Received: from [192.168.0.35] ([109.77.42.178])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b6d16f0csm1316135e9.15.2026.06.02.14.00.26
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 14:00:27 -0700 (PDT)
-Message-ID: <d45f3000-35e7-4f65-b9fe-5348105abb0f@linaro.org>
-Date: Tue, 2 Jun 2026 22:00:26 +0100
+	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="OQ5k6o0S"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	sang-engineering.com; h=date:from:to:cc:subject:message-id
+	:references:mime-version:content-type:in-reply-to; s=k1; bh=xGSB
+	BdZRO7z7VI/FAZc2A0j9OplvL/xNRGdcbNke2nw=; b=OQ5k6o0Sun3RP1zH8B7n
+	wvkGP3siNud8Q0w8mbWkBk/gRODeUL96RfpqVgLGnJxDgGcDyiGvwziMd1OSKRjY
+	qHyAjrzvbnmrQdZrGEAfX22iFPTcAeI2RBlA7KrWOR+4k04e/tthjLq4uRuuHw63
+	btJM+0RbyU3hrZ4UGp4EJpJrvyXchPmsNulbtBPBF506F9HzDcU95erJJOBTErFU
+	IzQQ2KXDjmpA8w/D2KjnA988XyeJuu1A7JntNpBtn/s4vmZ3egeb6FHBggFOCeVg
+	uuQAfPR2bKQT0EZkBBUqXoFXdFjYm843sDQqjlEhYQCy/OZnXiSStOa9GHSYqeLd
+	7A==
+Received: (qmail 3022471 invoked from network); 2 Jun 2026 23:01:41 +0200
+Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Jun 2026 23:01:41 +0200
+X-UD-Smtp-Session: l3s3148p1@TssknktTwugujnv7
+Date: Tue, 2 Jun 2026 23:01:41 +0200
+From: Wolfram Sang <wsa+renesas@sang-engineering.com>
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>, linux-mmc@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 00/17] Add Renesas RZ/G3L SD/eMMC support
+Message-ID: <ah9EtYNGBiyms_KY@ninjato>
+References: <20260530160823.130907-1-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Frank Li <Frank.li@nxp.com>
-Cc: Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I
- <kishon@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <ah9DMPcKUaTm324I@lizhi-Precision-Tower-5810>
-Content-Language: en-US
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-In-Reply-To: <ah9DMPcKUaTm324I@lizhi-Precision-Tower-5810>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="kmXOm/pm/MaYEqtK"
+Content-Disposition: inline
+In-Reply-To: <20260530160823.130907-1-biju.das.jz@bp.renesas.com>
 
-On 02/06/2026 21:55, Frank Li wrote:
-> phy {
-> 	...
-> }
-> 
-> csi2 {
-> 	phy=<&phy>;
-> 
-> 	port@0: {
-> 	}
-> 	...
-> }
 
-Agreed.
+--kmXOm/pm/MaYEqtK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-However, we also want to support "split-mode" which is a special mode of 
-this PHY where two sensors can be connected to one CSIPHY.
+On Sat, May 30, 2026 at 05:07:54PM +0100, Biju wrote:
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G3L SoC has:
+>=20
+> Channel 0 supports SD and eMMC (including HS400/HS400ES).
+> Channel 1 supports SD and eMMC (except for HS400).
+> Channel 2 supports SD.
+>=20
+> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does
+> not support IOVS and PWEN in the SDHI register (no internal regulator),
+> unlike SD1 and SD2. It has an internal divider for all modes except HS400.
+> It also has a 2048-bit divider compared to 512 on others. Moreover
+> RZ/G3L supports HS400 enhanced strobe mode.
 
-After a lot of debate adding ports/endpoints to the CSIPHY itself has 
-been pretty much settled on.
+Sigh, so many HW changes again...
 
----
-bod
+I want to review it but I won't have time before the next merge window
+ends. In the meantime, could you resend the series properly in just one
+thread, please? From patch 14 on, it gets messy...
+
+
+--kmXOm/pm/MaYEqtK
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmofRLQACgkQFA3kzBSg
+KbYUGxAAmN83rTxKy+OCAttjLLPMw6hdhokpkjA7yY1gwiAB/WpP0KH1JOG4+E4p
+5aaJYTpLdY0/t1LXELQM0GWjDgPXiQ3qlUUOrtDcDYYaFIYp+S+QbIW2iX8kcppG
+ZMVl/FthfXXwSAm/3qm/RL0+whmBxjTe2uzeZB/Ptrp09xOIdRYTo/lCIdhI0ig/
+j39xSoj22xrvady0lkIfHJfnHnxs82Qmj5CXvmUFJ9idypKQVSwMOT56oF+Fd3lZ
+ks6JzW6Lq+uTOb8OqKvN2SP6gduBUMx21SSXgVP5MfEGEdeNYxn8yDS/rShlYKP9
+2Az1z+qiT7T45j0xBe7scH8yOxKU1FS4JKWgr/Spnojk3/B5S0Yi1Kcja28UvRx1
+fD7eC6ApMwCOc5SkeansUuxRDHjbI5zo4au1kkzbQn8kVbMV7gZ8KagWxqKNimiK
+oCKhAjJ30mnrHZOcCfxIKm698E4ZOwpGmtBaxUVieFyVZwf8IGNynNY8v6WsRj+L
+uNh452vvAEhluQCtsjBsYvnng5Go6bBZ34//rwYHUSXpFdcsY019E7b8EBGPfqX0
+nSsbD3QC5MS37NcYffcrBRNi6gNCyU4KIS1kLn2M/5KGPvL6ptncqtpWIkl6zFK2
+wTuHpJ8s+dIlZhJht6dZ1Ek9AaN2qw2tVb4NLSJ4V8s7QaI28/k=
+=xUEP
+-----END PGP SIGNATURE-----
+
+--kmXOm/pm/MaYEqtK--
