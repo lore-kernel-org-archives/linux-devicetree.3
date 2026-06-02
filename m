@@ -1,111 +1,75 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m3283.qiye.163.com (mail-m3283.qiye.163.com [220.197.32.83])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 998CC201278
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:42:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DBC530E0CC;
+	Tue,  2 Jun 2026 08:43:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.32.83
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780389746; cv=none; b=Ln1iWDcmGeTYyc91ca/1Cenuckm9ZFTWZTYpSoZEBP/aq1I75Bn0TjasprNjXQ0rq8VeISQtmIzqSsNnsE/6FHAq4lZCvgd+S2vaBy40jNZBFHOwjN6PictZUkMpMgKo/ivObbu+qKm0ja88XhQUu56cbKchRRH8z0l+QK+rFsY=
+	t=1780389801; cv=none; b=jMiLGzy6n/SklKvzvEX3mEfzS+Unm7lr0HV3/8uNIj0MXnENJpam1FrXyMesepm/3eHh7y7j6PBopDkq+YPWraxsUYPaPZasjTwC1O1oUcI1Wc1gF24456rTzFNKRPrrpI1+I15Y36FEjqhFA1nGQmD/szp08c4bPPJkCwqEnco=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780389746; c=relaxed/simple;
-	bh=vgeNc5exBaUs5k7Cq0UKj0OGXv+iWZtUwMePQeqEwZs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=tZ0M4g1ukJqncnh8vQJdtDzVzqehejXi6VOCn8vn4NJ7MCKPpbAis0/EV2/cSal1imPxXFyeOn3Kog+Q64QOzG38R1if8vGu75UliwfIo+1D8uBgeJBLkfnWiF9X4uqaP3GjwbLjlQDsHihKzPLQEb0DTnZu0gBTqDSKyhQLR7U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fxJbAh6s; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780389801; c=relaxed/simple;
+	bh=OJeQdj+r1ZFu2vWzwbCWQs5gW8jjy5Mm335Q34E1WTQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=jssTZSe11vTTAOt1qeg+0yNC/DFgn6KEPidkawfHywr6CEXMM53QuPJo87VbkTz1aTqzSZt38BbuXPD9ZEjE0mVp2RpGNUaduM3S5er95rlEkHt4VlpOoMY9apKyz1DZLtUYM4EwwNooWA3G+VR6pQDC8optMAZ2U7xVphmz/oQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com; spf=pass smtp.mailfrom=thundersoft.com; dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b=AE6I+cDs; arc=none smtp.client-ip=220.197.32.83
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=thundersoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=thundersoft.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fxJbAh6s"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 13E201F00893;
-	Tue,  2 Jun 2026 08:42:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780389745;
-	bh=hPgx69AvwKXqC6RCK9xac8Bb47l2nUsL+mqF53bI0U4=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fxJbAh6sqD0XLh6y4iR+SqlJq8XFQO0qVdd2Ypuj1xEmDxyHVJxExXGI0IZ+L6UQ8
-	 8MWDGz5qp6Lblk59S2zBa9GatpPx8QPhkwkdRhmA5wbfUeBIouUJU6sOx3LyDC8xKP
-	 nx7CQJ+qATtPRhnfp8rE41CaThK4rCIXxIOe7Mynnuhol+c0onebRYC0nZe2k/tb+2
-	 CBhrJJg9gs7VES7UV5LIrh8Ddidy6+TtVpgDOXSfLAoragcC6mfezetxANwRClYNQo
-	 iLkmAsBhn/A77EADXgcQsNrvpXz5lf9V436ODFx5UwEq0SpuyXr1iAxoQe1U1kinzr
-	 NWmZIvyhR8NWw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/6] arm64: dts: qcom: sc8280xp-lenovo-thinkpad-x13s:
- set GPI DMA channels
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Icenowy Zheng" <zhengxingda@iscas.ac.cn>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260602081451.3808833-4-zhengxingda@iscas.ac.cn>
-References: <20260602081451.3808833-4-zhengxingda@iscas.ac.cn>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 08:42:24 +0000
-Message-Id: <20260602084225.13E201F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=thundersoft.com header.i=@thundersoft.com header.b="AE6I+cDs"
+Received: from albert-OptiPlex-7080.. (unknown [112.65.126.162])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 40bcd4a9c;
+	Tue, 2 Jun 2026 16:43:03 +0800 (GMT+08:00)
+From: Albert Yang <yangzh0906@thundersoft.com>
+To: arnd@arndb.de
+Cc: yangzh0906@thundersoft.com,
+	bst-upstream@bstai.top,
+	catalin.marinas@arm.com,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	gordon.ge@bst.ai,
+	krzk+dt@kernel.org,
+	krzk@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	will@kernel.org
+Subject: Re: [PATCH v8 0/2] arm64: dts/defconfig: enable BST C1200 eMMC
+Date: Tue,  2 Jun 2026 16:43:01 +0800
+Message-ID: <20260602084302.2101364-1-yangzh0906@thundersoft.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
+References: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e8780271c09cdkunme64f759f430087
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDGR0aVkIfGkJDQxpNS01MQlYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlKSklVTU5VSklNVUpNSVlXWRYaDxIVHRRZQVlPS0hVSk
+	tJT09PSFVKS0tVSkJLS1kG
+DKIM-Signature: a=rsa-sha256;
+	b=AE6I+cDs3Te8sSPwLPNmXaZFtJPNpU0siz6kaUMLNLom0SAuoJD8g7D/+tG5bnhrcW3GjB3yfJ257soMoJbmvriokAH0MPQxNbSoHXj57R6Yrk2CeMXJu1G4JVCL+IMmhwSYSl0DdRbIotL5h59SjwLx4Tv6ebluQ/PSpanga7s=; c=relaxed/relaxed; s=default; d=thundersoft.com; v=1;
+	bh=OJeQdj+r1ZFu2vWzwbCWQs5gW8jjy5Mm335Q34E1WTQ=;
+	h=date:mime-version:subject:message-id:from;
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+Hi Arnd,
 
-Pre-existing issues:
-- [High] Incorrect channel reference in error cleanup path of gpi_ch_init c=
-auses resource leaks and hardware state inconsistency.
---
+Gentle ping on this series. It has been about 5 weeks since v8 was posted.
 
-commit de0b4a765a18a5d7af04a98b890d09dd31cb2362
-Author: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+The MMC driver patches from the original series were merged via mmc-next
+in v7.1-rc1. These remaining 2 patches (DTS + defconfig) are still pending.
 
-arm64: dts: qcom: sc8280xp-lenovo-thinkpad-x13s: set GPI DMA channels
+Both patches have Acked-by: Gordon Ge <gordon.ge@bst.ai>.
 
-This commit adds GPI interface availability information to the device tree =
-by
-setting the dma-channel-mask and marking the status as okay. This ensures
-that HLOS does not touch restricted GPI interfaces, preventing system hangs.
+No code changes needed — still applies cleanly.
 
-> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts b=
-/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> index d84ca010ab9dc..119eeb1560e16 100644
-> --- a/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts
-> @@ -704,14 +704,17 @@ &dispcc0 {
->  };
-> =20
->  &gpi_dma0 {
-> +	dma-channel-mask =3D <0x3>;
+Would you be able to pick this up via soc tree?
 
-[Severity: High]
-This is a pre-existing issue, but since this patch enables GPI DMA interfac=
-es
-that might fail to initialize, it could expose an error cleanup bug in the
-GPI driver itself.
-
-Looking at the error paths in drivers/dma/qcom/gpi.c:gpi_ch_init():
-
-    error_start_chan:
-        for (i =3D i - 1; i >=3D 0; i--) {
-            gpi_stop_chan(&gpii->gchan[i]);
-            gpi_send_cmd(gpii, gchan, GPI_CH_CMD_RESET);
-        }
-        i =3D 2;
-    error_alloc_chan:
-        for (i =3D i - 1; i >=3D 0; i--)
-            gpi_reset_chan(gchan, GPI_CH_CMD_DE_ALLOC);
-
-Are these loops referencing the correct channel during cleanup?
-
-By using the fixed function argument gchan instead of the iterated channel
-&gpii->gchan[i] in gpi_send_cmd() and gpi_reset_chan(), it appears this path
-would repeatedly issue reset and de-alloc commands to the same fixed channel
-while entirely skipping the cleanup for the successfully allocated or start=
-ed
-channels.
-
-Could this leak the previously initialized DMA channels and leave their
-hardware state active, potentially causing hardware lockups?
-
->  	status =3D "okay";
->  };
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602081451.3808=
-833-1-zhengxingda@iscas.ac.cn?part=3D3
+Thanks,
+Albert
