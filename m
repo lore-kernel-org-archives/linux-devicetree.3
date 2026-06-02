@@ -1,112 +1,147 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB5E223DEA
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:45:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7451A680C
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:48:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780375552; cv=none; b=IcP+QL+vMpJSvsD1fjQ+1ULHYn6HTMEinVsR+BDxWmUkJpWQZqyfVQecdPZBRikcZJv7uECsAGuuQXUFe2uWqPHEsGGzx9rFLbBkJ3ztpOA7+CMfUBwrKTfNu5gJ2VuZPVWrYePBHU5bP9UM1cfRy+hy05XTXOqO3/WrMBPsWaU=
+	t=1780375695; cv=none; b=rn2CEWxfkusz57FT00QvyWtxAXcJdqvoKx+Iyt9fzjODFc5HlQ7GzhfxRjookCCkwO7n02zFfYA43w4+crl5hczRADEJIGnzv1n0j2xEjhzLavoM52baI8M0fD6s2xHIiMGxxF9HPCxwaCcuu+BDSR/qDtrrs0LVLwEY5xOndzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780375552; c=relaxed/simple;
-	bh=f41RFI+99iM+6JqS3IqWKwirkuDj/LxERNSmmDMfF6s=;
+	s=arc-20240116; t=1780375695; c=relaxed/simple;
+	bh=zjA9PZg1JePTVVrE4TANTF7XvpXH7PXf7onxqW5MbOM=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=nr/HB5xWtK5ivAaa/kHSUypDnV0ZWWbN9pc26Kj2lZzxCDJfQrfc4FdaT36lb1/URhFqLMStZdgvdQi3+KJNlqtdP3Uqc+Yttu7Rm/1uHbXchnIObJTBURFl/0f6YjOr6EG3Xc5l5OmmhiRjXuVayIp8yXLxoKWUo1KHeI6x85Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8mKF0NI; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=Mdo++gh4wLFyU44eTjbXwHDqjz5NAMxq8WJqR/DnBDc3tjQS9n10mQ84ryjrQtppqgzQAMlQxWMo9imAI/CnZNYuNPoM+wJF7OsuE6GVZGXZsdqGQhbvDqdmiZejbAmbatmEx2qzOHS+uZGP+IFVbLPipJi526E13XtMIP75h1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PU1UOZVs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8mKF0NI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4D41F00893;
-	Tue,  2 Jun 2026 04:45:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PU1UOZVs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 69FDE1F00893;
+	Tue,  2 Jun 2026 04:48:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780375551;
-	bh=ZQBls5XmcKbNFB4Rbr0xGtLRx0ycLwq7LTRJ3+XadqU=;
+	s=k20260515; t=1780375693;
+	bh=JD8NXfGHftRpkaD7cLNv3lEwbp8T/wAlya1cCzx1LMw=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=C8mKF0NIthgwgM+W46iULJbjTW+4rsYkRsiS0Zvxks4FT3xaLJsVpuT7xBuhwIPGT
-	 JbCRAUrKYBbREsBxjdfucOd1jRFFPYu2VyEdKV9J1YQ+fle6xmuVP6XovUzsoY3kYy
-	 wJWu3Gy8Wv0hOWqcq/5EG2Sa2i1uoEHavBRNqFp2ITnpjTthXwEVbpe8Twrr99VMX5
-	 A3dfXp5qCHlAkWyzYTRwxw/WaXWHn7qm+xGG7tduxQ3oqMWxxA8jFHo0LS/d1uXmtV
-	 fLviegSHUNFbiAk4jHq98KpJWOV94aDpHkNeme0AtVraawzouINDLc0lZQZ9LOQ4nT
-	 JUD+QEt8s2AWQ==
+	b=PU1UOZVsXndi3TJXpXdMJHTA3MgtWGPWPzlFFXJGMfVeej2LwW0iN0IwNTVhpa0TD
+	 8AHLdNX4agJx1NjrDxQ7ABVuc3QRQeglg1uSxm/emM5BqsvWZkE9pu8PeZx3AsJkxr
+	 zno/++2dDlEUK+q980yFcL9N+FfaG5Ekhe9nhWsQOgOx1hPT7hCFm3FNL75qsbtJmL
+	 UFoZM0/J6sVSMmzxIc+USgZcqYL8XuDAGZsexHOsXq6A/jYJ28tv64ynr8wgRYCEKs
+	 lisE3iYycTX7eKeOdOMAMXD28Hlgp9QjgXh7/aI88j/MWNTRjSKShaO5I4JxXgA1JN
+	 9LOANRYAJJJAw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom: add mmcc-msm8660 clock
- IDs
+Subject: Re: [PATCH 2/2] clk: qcom: gcc-msm8660: register PLL4_VOTE for
+ LPASS
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Herman van Hazendonk" <github.com@herrie.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260602043623.285901-2-github.com@herrie.org>
-References: <20260602043623.285901-2-github.com@herrie.org>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260602042747.277270-3-github.com@herrie.org>
+References: <20260602042747.277270-3-github.com@herrie.org>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 04:45:51 +0000
-Message-Id: <20260602044551.6E4D41F00893@smtp.kernel.org>
+Date: Tue, 02 Jun 2026 04:48:12 +0000
+Message-Id: <20260602044813.69FDE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] Silent failure to unhalt MMSS fabric if qcom_rpm is not bound yet.
+
+New issues:
+- [Medium] DT Binding Schema mismatch due to missing input clock documentat=
+ion.
+
+Pre-existing issues:
+- [High] NULL pointer dereference when enabling an orphan `pll4_vote` clock.
 --
 
-commit 7a52c01ee4faffcac27f221b8547899fcd741b7b
+commit 7c30a11d991e96ae79ebcc182c62453a708e5ec5
 Author: Herman van Hazendonk <github.com@herrie.org>
 
-clk: qcom: add MSM8x60 MMCC driver
+clk: qcom: gcc-msm8660: register PLL4_VOTE for LPASS
 
-Add a clock driver for the Multimedia Clock Controller (MMCC) on the
-MSM8x60 family (MSM8260/MSM8660/APQ8060) - the Scorpion-class
-generation that preceded MSM8960's Krait CPUs.
+Add the CPU-side software vote register for LPASS PLL4. PLL4 itself
+lives in the LCC (Low Power Audio Subsystem clock controller); GCC
+holds the apps-processor vote in PLL_ENA_SC0 (0x34c0) BIT(4).
 
-> diff --git a/drivers/clk/qcom/mmcc-msm8660.c b/drivers/clk/qcom/mmcc-msm8=
-660.c
-> new file mode 100644
-> index 0000000000000..50781a63e65fe
-> --- /dev/null
-> +++ b/drivers/clk/qcom/mmcc-msm8660.c
+> diff --git a/drivers/clk/qcom/gcc-msm8660.c b/drivers/clk/qcom/gcc-msm866=
+0.c
+> index e81b8851a7861..cd392e140e95c 100644
+> --- a/drivers/clk/qcom/gcc-msm8660.c
+> +++ b/drivers/clk/qcom/gcc-msm8660.c
 [ ... ]
-> +static void mmcc_msm8660_unhalt_fabric_ports(struct device *dev)
-> +{
-> +	struct device_node *rpm_node;
-> +	struct platform_device *rpm_pdev;
-> +	struct device_link *link;
-> +	struct qcom_rpm *rpm;
-> +	/* halt_data[0]=3D0 =3D CLK_UNHALT for all bits; halt_data[1] =3D port =
-mask */
-> +	u32 mmss_halt[2] =3D {0, GENMASK(13, 0)};
-> +	int rc;
-[ ... ]
-> +	rpm =3D dev_get_drvdata(&rpm_pdev->dev);
-> +	if (!rpm) {
-> +		/*
-> +		 * Supplier exists but has not bound yet -- skip the
-> +		 * unhalt rather than blocking mmcc probe; downstream
-> +		 * MMSS clients will be enabled on demand.
-> +		 */
-> +		put_device(&rpm_pdev->dev);
-> +		return;
-> +	}
+> @@ -54,6 +54,20 @@ static struct clk_regmap pll8_vote =3D {
+>  	},
+>  };
+> =20
+> +/* PLL4 is the LPASS PLL, defined in LCC. This is the voting clock. */
+> +static struct clk_regmap pll4_vote =3D {
+> +	.enable_reg =3D 0x34c0,
+> +	.enable_mask =3D BIT(4),
+> +	.hw.init =3D &(struct clk_init_data){
+> +		.name =3D "pll4_vote",
+> +		.parent_data =3D &(const struct clk_parent_data){
+> +			.fw_name =3D "pll4", .name =3D "pll4",
 
 [Severity: High]
-Does this code silently fail to unhalt the MMSS fabric if the qcom_rpm driv=
-er
-has not yet probed?
+This is a pre-existing issue, but will this cause a NULL pointer dereference
+if the LCC driver is not loaded or the DT node is disabled, leaving pll4_vo=
+te
+as an orphan?
 
-If dev_get_drvdata() returns NULL because the RPM driver hasn't bound yet,
-this function returns without an error. Since mmcc_msm8660_probe() calls th=
-is
-and ignores any failure, it will complete probe successfully but leave the
-MMSS fabric permanently halted.
+The Common Clock Framework permits clk_enable() to be called on orphan cloc=
+ks.
+If this happens, clk_pll_vote_enable() fetches the parent via
+clk_hw_get_parent(), which returns NULL.
 
-The comment here states "downstream MMSS clients will be enabled on demand",
-but this contradicts the block comment above indicating that mainline GDSC
-does not implement on-demand unhalting. When multimedia hardware later powe=
-rs
-on and attempts DMA, the hardware queues will freeze and stall the system.
+It then unconditionally casts this NULL to struct clk_pll using to_clk_pll(=
+).
+Because clkr is the last member of struct clk_pll, this yields a non-NULL
+invalid pointer offset:
 
-Should mmcc_msm8660_unhalt_fabric_ports() return an int so we can pass
--EPROBE_DEFER back to the probe function to wait for the RPM driver?
+drivers/clk/qcom/clk-pll.c:clk_pll_vote_enable() {
+    struct clk_pll *p =3D to_clk_pll(clk_hw_get_parent(hw));
+    ...
+    return wait_for_pll(p);
+}
+
+This pointer is passed to wait_for_pll(), which calls
+clk_hw_get_name(&pll->clkr.hw). The &pll->clkr.hw calculation perfectly
+reverses the offset, yielding exactly NULL:
+
+drivers/clk/qcom/clk-pll.c:wait_for_pll() {
+    const char *name =3D clk_hw_get_name(&pll->clkr.hw);
+    ...
+}
+
+clk_hw_get_name() then dereferences NULL->core->name, causing a panic. This
+patch exposes this pre-existing flaw by introducing the first clk_pll_vote_=
+ops
+clock with an external parent.
+
+[Severity: Medium]
+Will this fw_name direct the clock framework to look for a clock named pll4
+in the clock-names property of the qcom,gcc-msm8660 device tree node?
+
+The YAML schema for this binding
+(Documentation/devicetree/bindings/clock/qcom,gcc-msm8660.yaml) strictly
+enforces maxItems: 2 for the clocks property and only permits pxo and cxo
+in clock-names.
+
+Any device tree that correctly supplies pll4 to satisfy this lookup will fa=
+il
+dt_binding_check validation. Should the DT binding schema be updated alongs=
+ide
+this patch to accommodate the new input clock?
+
+> +		},
+> +		.num_parents =3D 1,
+> +		.ops =3D &clk_pll_vote_ops,
+> +	},
+> +};
+> +
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602043623.2859=
-01-1-github.com@herrie.org?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602042747.2772=
+70-1-github.com@herrie.org?part=3D2
