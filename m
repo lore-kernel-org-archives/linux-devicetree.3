@@ -1,250 +1,160 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011037.outbound.protection.outlook.com [52.101.65.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC3473DE430;
-	Tue,  2 Jun 2026 13:01:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780405284; cv=none; b=CoIv00Dx4gX9H9S7kB5BB5wNUHz6gNK+i+Gi2hoC87BC8mfi/h+wXCYAcKz35feUOyYi+T6zjM7UUuV4ivYUiqTV/wbznLhrvP0xhGf0vexd2M0ptpsN9WT9YvFhrVBbTyCdgQa/tPx99fB6lNVad62CsJnM16Bg8CZwO60cFC4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780405284; c=relaxed/simple;
-	bh=GT4w4gtqjY0VcKrqe3C/0fAMkIWcAPHxwpTVBPjzcFk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mZjZGgEcQK0ODB/r69ibSNWxgHeOB9iBnf6OmFiwmhCnlRXSXzGCieSkfpCdmtji808XsnCctYP3j0cN4GH+4yU0lPwzLUIddpOWqFeca61fLjIA+jyT/hjKLmtCRFqtYijSOCE5kg/8HwHh0IxXC4ScQz+tawTEKYbOzNc16FQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=BZ1bk+L5; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5BC0D3E63A6;
+	Tue,  2 Jun 2026 13:03:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780405425; cv=fail; b=o81IHqYfQ4S4J547/PaPEhQjsAK807haeR+FJoEUZTcHx3upadG6L7r9eJwDXGCzKjEKU0wpWqPy4JUqFcgEUEAqmcKLFNP7+WGnLOfBMa7MatB1vPPq2joVVGWjFvTPC3WXDtuPXKeXyYJ523g6OoCOydRBy5fclS9ILWG+UYA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780405425; c=relaxed/simple;
+	bh=WNFDfk7IM4HeP4yJWYiAuuv35Zgu+UGfAxKeJKO3FuE=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Eyv9lTSJ+r8Sk0u5Vi9OPkku1C/rPviz8SoCnM5YhiMAAITZ1c7+ptrXoqmaWelf5SvafeRq+A3loH4nVD3i31L0G3esc0S73rYGqDKlAiTuJvy4fidKz8vC+AxTZU6aq0h+dadOw3bQGSlQtQXUhPSGjvwBMZSxilYH3HYUPuA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=NI8wEIUD; arc=fail smtp.client-ip=52.101.65.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="BZ1bk+L5"
-Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:476d:c684:fe78:389f:7375])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id EF5E1103F;
-	Tue,  2 Jun 2026 15:00:57 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780405258;
-	bh=GT4w4gtqjY0VcKrqe3C/0fAMkIWcAPHxwpTVBPjzcFk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=BZ1bk+L5g++f6XN/GdgcDpbdkMt3+UDubkBAyMBUhopJIC6wB+YDXk4GNod6PHxOx
-	 B+SPQqiWRWFVbXLx3rj8YUf4B+ZpZ5oee0PdDgtC1Bp1unLFgWd1MppUl4/eVhncC8
-	 2kahMMTkpPnlX3iWezrCWXt7SeNmaQ207wG7Ej8g=
-From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Tue, 02 Jun 2026 18:29:30 +0530
-Subject: [PATCH v3 4/4] arm64: dts: ti: k3-am67a-beagley-ai: Add overlay
- for IMX219 on CSI1
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="NI8wEIUD"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=JIcuGOG9xL5lZtXURPaGH1tSNXDtY6EeMUOu2I11cuDi3cmYk+W1KGxqIoIDV6UOw2fMF9mnsXQeLXWgaOD6YTCgkt0ReqHF7/jr9kJ3at5kTJfy9xRpwFWxdwG3hxk68krZGTZ7zLZW9Z9iBzXIETrzCROyOayQr+3QgqRzuS0CmVvbmnHAPwKMJdPq11lMmeyVH8D2wdj25sBY6ERPzi7k2yaPgIfa/GV4iA8TadVb0HSwTdGTLtgT8dklsNJ/SHuJs2xOYwNw/S2IeaULP4C0mrbNu99IR/pQ0RXSHlCc0yUfR5KYIRXX6bHi7CXva9t2pDGcHf5p5rfiobJN8w==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=vwWwQR9P8Ympgw+kQz4842HILDOyHmzShXCwxSRrcg8=;
+ b=lwyoP/0OmTEsf1fNgE7Ak7juVsrJ0qhhvJMm3gNYniPTUIgulIVRFBwt3gTMw6RDuBcdiQWSVRxZMMkB8NE8Txd14InHBSRFAA5e1qszm4inmw38DeqwNrr1W8Y2bCPAJ3n2HMrAAXXNr0ej0DNC/7p8ImCPt/qlIw21ep2+ovwx25mzqzcvNrr8JvISjem+/IchhgtVsQky1Agd6pKXUwxC8DW+AWvLb4mVzS8bH+p7e5dIvByf3pxa7d/xUNr0rHfIYPlxQOINmkAVThb6MfC7vUnhKPbkl1fGYcKt3ksYQfkLUxKklci9tshwI4nwawlTg5SUH0dJ8EiXuhNbIw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=kernel.org smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=vwWwQR9P8Ympgw+kQz4842HILDOyHmzShXCwxSRrcg8=;
+ b=NI8wEIUDnGlHzXkJQy6i4GOwTPSqDsgr/hPgDJwRLWDQWg2tIzFrJWM1BJoZNvl/JV8FqpUuHAFQ1YjGwnWcVL3pUzMx3RmCU8Wnk00LeGq557H6+WPUQ2DTsqggApftkUHrODF/vAQiHKU5OkWuPk5vV38TbHaWzuP+uY/5ymfiZskr0ormpZ5denr5eSOn5221m3BUrV5C59ag/TU9KHQ2WA0JOco+iYc27lINyO7+hjkdNDt/sOuolj0CrfLjWXT/vqrKcpJSF709gSLncFausnDehHkPE+vis6nTY9Lp710a3iBdkzDRlmUieXJaN4uoL5ZkCK4C477bFr5lNA==
+Received: from DB7PR05CA0027.eurprd05.prod.outlook.com (2603:10a6:10:36::40)
+ by VI1PR10MB3184.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:803:12f::14) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
+ 13:03:36 +0000
+Received: from DU2PEPF0001E9C0.eurprd03.prod.outlook.com
+ (2603:10a6:10:36:cafe::e) by DB7PR05CA0027.outlook.office365.com
+ (2603:10a6:10:36::40) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Tue, 2
+ Jun 2026 13:03:36 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ DU2PEPF0001E9C0.mail.protection.outlook.com (10.167.8.69) with Microsoft SMTP
+ Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 13:03:35 +0000
+Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
+ 2026 15:07:44 +0200
+Received: from gnbcxd0016.gnb.st.com (10.130.77.119) by STKDAG1NODE2.st.com
+ (10.75.128.133) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.35; Tue, 2 Jun
+ 2026 15:03:33 +0200
+Date: Tue, 2 Jun 2026 15:03:20 +0200
+From: Alain Volmat <alain.volmat@foss.st.com>
+To: "Rob Herring (Arm)" <robh@kernel.org>
+CC: Liu Ying <victor.liu@nxp.com>, Philipp Zabel <p.zabel@pengutronix.de>,
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
+	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
+	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Frank Li
+	<Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, "Pengutronix
+ Kernel Team" <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, Rob
+ Clark <robin.clark@oss.qualcomm.com>, Sean Paul <sean@poorly.run>, Konrad
+ Dybcio <konradybcio@kernel.org>, Akhil P Oommen <akhilpo@oss.qualcomm.com>,
+	"Dmitry Baryshkov" <lumag@kernel.org>, Abhinav Kumar
+	<abhinav.kumar@linux.dev>, Jessica Zhang <jesszhan0024@gmail.com>, Marijn
+ Suijten <marijn.suijten@somainline.org>, Vinod Koul <vkoul@kernel.org>, Nas
+ Chung <nas.chung@chipsnmedia.com>, Jackson Lee <jackson.lee@chipsnmedia.com>,
+	"Mauro Carvalho Chehab" <mchehab@kernel.org>, Mirela Rabulea
+	<mirela.rabulea@nxp.com>, Detlev Casanova <detlev.casanova@collabora.com>,
+	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>, Heiko Stuebner
+	<heiko@sntech.de>, Hugues Fruchet <hugues.fruchet@foss.st.com>, "Maxime
+ Coquelin" <mcoquelin.stm32@gmail.com>, Alexandre Torgue
+	<alexandre.torgue@foss.st.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David
+ S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, "Jakub
+ Kicinski" <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, MD Danish Anwar
+	<danishanwar@ti.com>, Roger Quadros <rogerq@kernel.org>, Parvathi Pudi
+	<parvathi@couthit.com>, Mohan Reddy Putluru <pmohan@couthit.com>, "Bjorn
+ Andersson" <andersson@kernel.org>, Mathieu Poirier
+	<mathieu.poirier@linaro.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+	Kevin Hilman <khilman@baylibre.com>, Jerome Brunet <jbrunet@baylibre.com>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Michal Simek
+	<michal.simek@amd.com>, Mark Brown <broonie@kernel.org>, Matthias Brugger
+	<matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
+	<angelogioacchino.delregno@collabora.com>, Linus Walleij <linusw@kernel.org>,
+	Lorenzo Bianconi <lorenzo@kernel.org>, Felix Fietkau <nbd@nbd.name>, "Andrew
+ F. Davis" <afd@ti.com>, Hussain Khaja <basharath@couthit.com>, Suman Anna
+	<s-anna@ti.com>, Ben Levinsky <ben.levinsky@amd.com>, Tanmay Shah
+	<tanmay.shah@amd.com>, Erwan Leray <erwan.leray@foss.st.com>, Fabrice Gasnier
+	<fabrice.gasnier@foss.st.com>, Roger Quadros <rogerq@ti.com>,
+	<dri-devel@lists.freedesktop.org>, <devicetree@vger.kernel.org>,
+	<imx@lists.linux.dev>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <linux-arm-msm@vger.kernel.org>,
+	<freedreno@lists.freedesktop.org>, <dmaengine@vger.kernel.org>,
+	<linux-media@vger.kernel.org>, <linux-rockchip@lists.infradead.org>,
+	<linux-stm32@st-md-mailman.stormreply.com>, <netdev@vger.kernel.org>,
+	<linux-remoteproc@vger.kernel.org>, <linux-amlogic@lists.infradead.org>,
+	<linux-spi@vger.kernel.org>, <linux-mediatek@lists.infradead.org>
+Subject: Re: [PATCH] dt-bindings: Consolidate "sram" property definition
+Message-ID: <ah7UmMC9fbWuyopl@gnbcxd0016.gnb.st.com>
+References: <20260511165942.2774868-1-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-beagley-cameras-v3-4-fe6ae35b7eda@ideasonboard.com>
-References: <20260602-beagley-cameras-v3-0-fe6ae35b7eda@ideasonboard.com>
-In-Reply-To: <20260602-beagley-cameras-v3-0-fe6ae35b7eda@ideasonboard.com>
-To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
- Tero Kristo <kristo@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: Robert Nelson <robertcnelson@gmail.com>, Andrew Davis <afd@ti.com>, 
- Devarsh Thakkar <devarsht@ti.com>, 
- Tomi Valkeinen <tomi.valkeinen@ideasonboard.com>, 
- Rishikesh Donadkar <r-donadkar@ti.com>, 
- Yemike Abhilash Chandra <y-abhilashchandra@ti.com>, 
- linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5227;
- i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=GT4w4gtqjY0VcKrqe3C/0fAMkIWcAPHxwpTVBPjzcFk=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqHtQF+YigSfKXhmo/zTgVNURHOJLZRcBFCEobz
- iUQLVMzBqCJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCah7UBQAKCRBD3pH5JJpx
- RVfUD/0QcIz4oS625+mHXIKUYRDlZBuUfPmyKToyu/5xjsI5v5+hnL0XzxeEjaqc5oQSxZ3DwSk
- QC6894WggPjApQH8sInFdtpaBnKEVoR7c5ZbrJ9WLhxV+z1pu4QhRIflk1qlfI0ueTy7nw54T8Y
- lqlnSS1pF8OWUtPVUbIrlF+2rYO/IWzqQk7c+5FaCXNyimpngFW1zUWZpQ5iCzTBqWCJFoU/jgL
- Ycmsz1bg2/M9fWIRfReZcBawF1s/KRELHPMB/zRSSuV/28scptanXoSI+qF+At9yWnSIgFvsNsn
- peQeOivC8QC1+L5CYuVd3IikIqZg8+Dw3NGbiAUrkWfMnljOW0Zw4niUR9r0aCZdje1S2TPM66s
- P5t8cWKF8eoYakgc0vOOnFAkG6k/Vomzo7Ub8ldefChXqOl4fMsiuACP8ileuaIDVt4zMPVU92M
- 5ioZqL/QSa5ljUSk/ZnySVqir3/1peFJ22CvIcy8EO/cO5f/Oc5ZYEjav7iP+ZsdoR0FqzjxBtF
- 6jQQ45L4lSNMC+1TGyCl9ZrBG6GU00DxTzv7wGuTRhuFXetZ+x3L6ARQyjYIfZfjUSaNZqYbr4F
- a13fl4cDpepEQPYw4+VOEQA+UxF4n57PKGMz9YX11ZSaj46W6OmZ7deGMTE06swWUvDHZSVik9U
- j7cbhA9F+/MN9pQ==
-X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
- fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <20260511165942.2774868-1-robh@kernel.org>
+X-Disclaimer: ce message est personnel / this message is private
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE2.st.com
+ (10.75.128.133)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DU2PEPF0001E9C0:EE_|VI1PR10MB3184:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41804fca-f1aa-4c97-6843-08dec0a75b71
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|36860700016|82310400026|376014|7416014|22082099003|18002099003|3023799007|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	nBtSLCyV1zNaj4AYS9TljJxgu9LjuqDypvz6s5q1mmtaP3SSLxCZQEWwIxiLS+VAVYAuA7oDf7K6+m40o/xOcVrotpYE/XqihZn3zsWUweEhW7kSyL3bEKN/7Y97ZY3DngopwbPo3TmdNeggBqYoDcZH+6rwDRKAMGhtmXoXidU/Q/psey30ZPXNRfuLe79Vwm5HNIdcmkulv9ymbhMEYodX8fMDNeCqzsi1lv+ekv0eBBRJ8ZzqsHGRCblhFnHO2voSiJCE+UQBFF8QDZYGMl8pVRO6Op9dZpr3mh/FWSXy1atXlI561urKBhAZEudJgsL1JocV44jQC+WzgojHZF2kh1h54yHxNJJTo90ct800Hmv5cRnEAJGdgvKUNnUMoCFPG2SxEnxQ/8YtrESRvrQalllwW4hmLuHIV6/MGFF5DGlcqPIJ2zT9vfT1M6xVyWvgZu5G6e9W5JpRns0oU8z9hx0TtYQa7FVdlfgYEGBIazv7YVFu91/eodjxRlJdrwMyO8uKkXNvqvBdgF9l2S5fZoek0ekxeULffTEBEYvVCt7AOyS9V2w9771i+gHQEJjoHn00LaVMkkGeaQY3W/aOEQCAB23In41sol9GPCJsw6oCce43TyO82Hhxq81xMeakW1CvhEVyDzKUGfo/t+RxPZflg8io4Jgs6ku3KaRZkGhOMFtqkXss3wtALDhqb4FoEPEVm1qsACJ/HnWniCNXJaf3Q8IeIqu4OJA54Yk=
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(36860700016)(82310400026)(376014)(7416014)(22082099003)(18002099003)(3023799007)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	aBmJ6MlgTmzNChnBehDqv9+4//tdizL6JKnMkyfjk9H+924t2l28f906bO2GWyks5L9F1PgGV4iLcesLKLL52YfzYULyiGhkgtdagr2OpLLMD3s3hTq1UXnNF1iyxFGmqherFoLIF8dWYUpD23kPWEHFY8bP1iXQVK1Nwx5UoaUuXaGb6/vNFMmp8Wym3c/Lvc5zhWgoXrFvcpLFgeH0/kpOtWEGmzbjQStWW0Isg1VqBJqlcZtRn8/8R0vZfUcT4lTpYUyZdT/FJFUnDkpbOr3oAfTbWC9097HNmAsr098j/dLKnVWY667H4QS/F1JqXOIIHyds4oI9YvtJoSyAqw3l7+893pU5Wd14tvmPY13WZr23xdEa9BZeEGaQhxaULqhZeklPswj9/zo74DOw3Q8TIu7OXH1r+PBsVTcLbaBdHLyCkdRjPSTk4Tp8zyIZ
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 13:03:35.8611
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41804fca-f1aa-4c97-6843-08dec0a75b71
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	DU2PEPF0001E9C0.eurprd03.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR10MB3184
 
-RPi v2 Camera (IMX219) is an 8MP camera that can be used with BeagleY AI
-through the 22-pin CSI-RX connectors. Add a DT overlay to enable use of
-this camera sensor through the CSI1 connector.
+On Mon, May 11, 2026 at 11:59:36AM -0500, Rob Herring (Arm) wrote:
+> The "sram" property has become a de facto standard property, so create a
+> common schema for it and drop all the duplicated definitions.
+> 
+> Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+> ---
+>
+>  .../bindings/media/st,stm32-dcmi.yaml         |  6 ++---
 
-The CSI1 connector is muxed with DSI0, so ensure that we route it to
-CSI1 (DSI_CSI_OE=0 and DSI_CSI_SEL=1).
-
-Link: https://pip.raspberrypi.com/categories/1205-drawings-and-schematics
-Link: https://docs.beagle.cc/boards/beagley/ai/03-design.html#id60
-Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
----
-Changes in v3:
-- Now that I2C node is defined by the board DTS, only set status = okay
-  here
-- Add schematic links for the v2 camera module and BeagleY CSI connector
----
- arch/arm64/boot/dts/ti/Makefile                    |   4 +
- .../dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso    | 118 +++++++++++++++++++++
- 2 files changed, 122 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index 68a82e161c20..51e74f26c803 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -153,6 +153,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-usb0-type-a.dtbo
- # Boards with J722s SoC
- dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai-csi0-imx219.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai-csi1-imx219.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
-@@ -248,6 +249,8 @@ k3-am642-tqma64xxl-mbax4xxl-wlan-dtbs := \
- 	k3-am642-tqma64xxl-mbax4xxl.dtb k3-am64-tqma64xxl-mbax4xxl-wlan.dtbo
- k3-am67a-beagley-ai-csi0-imx219-dtbs := k3-am67a-beagley-ai.dtb \
- 	k3-am67a-beagley-ai-csi0-imx219.dtbo
-+k3-am67a-beagley-ai-csi1-imx219-dtbs := k3-am67a-beagley-ai.dtb \
-+	k3-am67a-beagley-ai-csi1-imx219.dtbo
- k3-am68-sk-base-board-csi2-dual-imx219-dtbs := k3-am68-sk-base-board.dtb \
- 	k3-j721e-sk-csi2-dual-imx219.dtbo
- k3-am68-sk-base-board-pcie1-ep-dtbs := k3-am68-sk-base-board.dtb \
-@@ -322,6 +325,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am642-tqma64xxl-mbax4xxl-sdcard.dtb \
- 	k3-am642-tqma64xxl-mbax4xxl-wlan.dtb \
- 	k3-am67a-beagley-ai-csi0-imx219.dtb \
-+	k3-am67a-beagley-ai-csi1-imx219.dtb \
- 	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
- 	k3-am68-phyboard-izar-peb-av-15.dtb \
- 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-new file mode 100644
-index 000000000000..cf3729f5ae60
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi1-imx219.dtso
-@@ -0,0 +1,118 @@
-+// SPDX-License-Identifier: GPL-2.0-only OR MIT
-+/*
-+ * RPi Camera V2.1 on BeagleY AI CSI1 port
-+ *
-+ * Copyright (C) 2026 Ideas On Board Oy
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include <dt-bindings/gpio/gpio.h>
-+#include "k3-pinctrl.h"
-+
-+&{/} {
-+	clk_imx219_csi1: imx219-csi1-xclk {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+		clock-frequency = <24000000>;
-+	};
-+
-+	reg_2p8v_csi1: regulator-2p8v-csi1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "2P8V_CSI1";
-+		regulator-min-microvolt = <2800000>;
-+		regulator-max-microvolt = <2800000>;
-+		vin-supply = <&vdd_3v3>;
-+		regulator-always-on;
-+	};
-+
-+	reg_1p8v_csi1: regulator-1p8v-csi1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1P8V_CSI1";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <1800000>;
-+		vin-supply = <&vdd_3v3>;
-+		regulator-always-on;
-+	};
-+
-+	reg_1p2v_csi1: regulator-1p2v-csi1 {
-+		compatible = "regulator-fixed";
-+		regulator-name = "1P2V_CSI1";
-+		regulator-min-microvolt = <1200000>;
-+		regulator-max-microvolt = <1200000>;
-+		vin-supply = <&vdd_3v3>;
-+		regulator-always-on;
-+	};
-+};
-+
-+&main_pmx0 {
-+	cam1_reset_pins_default: cam1-default-reset-pins {
-+		pinctrl-single,pins = <
-+			J722S_IOPAD(0x01d8, PIN_OUTPUT, 7) /* (D22) MCAN0_TX.GPIO1_24 */
-+		>;
-+	};
-+};
-+
-+&dsi_csi_mux {
-+	idle-state = <1>;
-+};
-+
-+&main_i2c0 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	status = "okay";
-+
-+	imx219_1: sensor@10 {
-+		compatible = "sony,imx219";
-+		reg = <0x10>;
-+
-+		clocks = <&clk_imx219_csi1>;
-+
-+		VANA-supply = <&reg_2p8v_csi1>;
-+		VDIG-supply = <&reg_1p8v_csi1>;
-+		VDDL-supply = <&reg_1p2v_csi1>;
-+
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&cam1_reset_pins_default>;
-+
-+		reset-gpios = <&main_gpio1 24 GPIO_ACTIVE_HIGH>;
-+
-+		port {
-+			csi2_cam1: endpoint {
-+				remote-endpoint = <&csi2rx1_in_sensor>;
-+				link-frequencies = /bits/ 64 <456000000>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
-+&cdns_csi2rx1 {
-+	ports {
-+		#address-cells = <1>;
-+		#size-cells = <0>;
-+
-+		csi1_port0: port@0 {
-+			reg = <0>;
-+			status = "okay";
-+
-+			csi2rx1_in_sensor: endpoint {
-+				remote-endpoint = <&csi2_cam1>;
-+				bus-type = <4>; /* CSI2 DPHY. */
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
-+&ti_csi2rx1 {
-+	status = "okay";
-+};
-+
-+&dphy1 {
-+	status = "okay";
-+};
-
--- 
-2.54.0
-
+Acked-by: Alain Volmat <alain.volmat@foss.st.com>
