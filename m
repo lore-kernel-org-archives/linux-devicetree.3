@@ -1,121 +1,304 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E0B92192F9;
-	Tue,  2 Jun 2026 16:24:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A555B36309B;
+	Tue,  2 Jun 2026 16:28:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780417492; cv=none; b=GcHXFQ/5V/Od+MqNQj5BKmzZaapH+bx4uioKKKHtdi2M5V35SFjlM7tBNewh1FRaOFBHTGwuzrngdj2qfGEfZ8cU/NKxCuUcuNrXzQ7aHAlIMHUEtk53WbVJlct+ETrQzbicyYu/VEFKxqVQz0EbcHRaQBg7BhRlS6SX/EgZGRI=
+	t=1780417739; cv=none; b=Cw9A0ocBD8C6dKuW6E77Ke3a2gsVCDfb0NIq8xnvyCP9smtx8hK9Dlel7Z9r4GzReqgCn0Fn/59L61czdEOZuZxDwSZf+SPZHvkOKDSBQBk1U/evjYGF3nebXjwYXidKH7RWPD94gl4QJ5v5zo3uoPclVhi7z2B6ocrYKh+NeZs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780417492; c=relaxed/simple;
-	bh=Ulo3FgHC4z/nNBW5LOUpZTDZp261YFmHHWqLTwWxWkk=;
+	s=arc-20240116; t=1780417739; c=relaxed/simple;
+	bh=dWBVNkaWH+cn7KtJoq3Qn1frM9TTm76BpGSXA/NleEw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ugoxjgql8gHGs6a6PZk9Ey2ukYAJpXsTwzQq09l31jTYUg+wm6TpbXOn90ElpvTAEOqFLXE5l76aIO3XhJrX4sDyBdPll1PancwdE4a3kkx8dyo/v7D2ALJ6c/YNSic5NiOmvmv+svvK+N+1deARxVWh2y27HwFJtB9mn67f3ao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hWgXm3gq; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=lGLrQU7l/NhH1ij24e/gUDaCBUZbgJiz8tQak9W7ro/lrXYtMVitCjHS9M71QrRy1CqyIKIjtYBFKa0XHxvglQ5ov8OqCQ99cTv3YE2wSDXU9+0R6net0N3kJ1vB/F9V6hTpRXGn5+DSusa/BoydwK7c06reCH/WBnFgEl9flSQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iDHlwG0b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hWgXm3gq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 112731F00893;
-	Tue,  2 Jun 2026 16:24:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iDHlwG0b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1A461F00893;
+	Tue,  2 Jun 2026 16:28:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780417491;
-	bh=ARchzyUNZAbw3oM5o7JzGNUTWxidv0kmAjA3GG9Rj+I=;
+	s=k20260515; t=1780417738;
+	bh=fX3mxaloZXVdfONlQnBRTNrtTT6d9pOvEBlD8qfbPpk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hWgXm3gqMKY1cga0sOGDmfX5tuur2FyZ2+UBKReLheii8J6pYT4NdM8Jm0IdJQTQn
-	 YWb5GtNBHGO5azMu8v0S2CijL/q9nO0etmifndyKMg/5hUFS6st/r1flJP8/8tttch
-	 THCbDFAXfUiokcjRZ8qLXphB/uxFsMKIq/qqcvhpFYvqfilke+/F4bnb9zSexfdfMJ
-	 PBW5qll4e5sf/7LoTMSvRxiI3pFmz3IHO5uXBSfN1L/ZrofDyZuS5elvTeSfdzxzJ/
-	 QHyYqEaWl9xKmA0OOuDM8nLNcMlZp52JjLzyOmS/xiU9ZsWzbevIAWWlCjMz0sBFvA
-	 xnlna8VtJdPPA==
-Date: Tue, 2 Jun 2026 11:24:50 -0500
-From: Rob Herring <robh@kernel.org>
-To: Wandun Chen <chenwandun1@gmail.com>
-Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org,
-	iommu@lists.linux.dev, zhaomeijing@lixiang.com,
-	catalin.marinas@arm.com, will@kernel.org, chenhuacai@kernel.org,
-	kernel@xen0n.name, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, saravanak@kernel.org,
-	akpm@linux-foundation.org, bhe@redhat.com, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, m.szyprowski@samsung.com,
-	robin.murphy@arm.com, quic_obabatun@quicinc.com
-Subject: Re: [PATCH v3 03/11] of: reserved_mem: avoid post-init UAF when
- alloc_reserved_mem_array() fails
-Message-ID: <20260602162450.GA442759-robh@kernel.org>
-References: <20260527032917.3385849-1-chenwandun1@gmail.com>
- <20260527032917.3385849-4-chenwandun1@gmail.com>
+	b=iDHlwG0bzuh0CFILnENYRBJ3yxmdq0tICesnt1nNqQcdEFTN2Zc2JBchLvWI2WGKo
+	 m1EwYKqPw9GrWCg9PhftjYBVq45dMyHN/nk9ZOMtY7URwMiB5O3wWSWKgPHj/H2ov/
+	 izi+mBVaQgqh1uCAjurlLHnlodWdhUXd2HZtadgTzVqDsd0lH9XcOU1GOKM038fcHy
+	 5KIHFrh4HTQ/BI7bmQcs4DAGLke2MxdrqGALzbEWEB00p2aMJ5bXVNRFCLXImO1TXw
+	 Yxpvzqul5pR0R200cUcUjohjuSQZ0vK1za646xfMp+KiWe38EDRz7uSWptdYUWKPxM
+	 YzbbnPTU5Eozw==
+Date: Tue, 2 Jun 2026 17:28:50 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.com>
+Cc: Linus Walleij <linusw@kernel.org>, Bartosz Golaszewski <brgl@bgdev.pl>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Chester Lin <chester62515@gmail.com>,
+	Matthias Brugger <mbrugger@suse.com>,
+	Ghennadi Procopciuc <ghennadi.procopciuc@nxp.com>,
+	Larisa Grigore <larisa.grigore@nxp.com>, Lee Jones <lee@kernel.org>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Dong Aisheng <aisheng.dong@nxp.com>, Jacky Bai <ping.bai@nxp.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	"Rafael J. Wysocki" <rafael@kernel.org>,
+	Srinivas Kandagatla <srini@kernel.org>,
+	Alberto Ruiz <aruizrui@redhat.com>,
+	Christophe Lizzi <clizzi@redhat.com>, devicetree@vger.kernel.org,
+	Enric Balletbo <eballetb@redhat.com>,
+	Eric Chanudet <echanude@redhat.com>, imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, NXP S32 Linux Team <s32@nxp.com>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Vincent Guittot <vincent.guittot@linaro.org>
+Subject: Re: [PATCH v10 4/6] dt-bindings: pinctrl: s32g2-siul2: describe GPIO
+ and EIRQ resources
+Message-ID: <20260602-casualty-overstuff-b46f9c7d7d12@spud>
+References: <20260602080132.3256239-1-khristineandreea.barbulescu@oss.nxp.com>
+ <20260602080132.3256239-5-khristineandreea.barbulescu@oss.nxp.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Lx2mHOuNnTOuI0LO"
+Content-Disposition: inline
+In-Reply-To: <20260602080132.3256239-5-khristineandreea.barbulescu@oss.nxp.com>
+
+
+--Lx2mHOuNnTOuI0LO
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260527032917.3385849-4-chenwandun1@gmail.com>
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, May 27, 2026 at 11:29:09AM +0800, Wandun Chen wrote:
-> From: Wandun Chen <chenwandun@lixiang.com>
-> 
-> The global pointer 'reserved_mem' continues to reference the
-> reserved_mem_array which lives in __initdata if
-> alloc_reserved_mem_array() fails. of_reserved_mem_lookup() is
-> exported for post-init use, that would dereference freed memory
-> and trigger a use-after-free.
-> 
-> So reset reserved_mem_count to 0 when alloc_reserved_mem_array()
-> fails.
-> 
-> Fixes: 00c9a452a235 ("of: reserved_mem: Add code to dynamically allocate reserved_mem array")
-
-Fixes should come first in a series.
-
-> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+On Tue, Jun 02, 2026 at 10:01:30AM +0200, Khristine Andreea Barbulescu wrot=
+e:
+> Extend the S32G2 SIUL2 pinctrl binding to describe the GPIO data and
+> external interrupt resources present in the same SIUL2 hardware block.
+>=20
+> Besides the MSCR and IMCR registers used for pin multiplexing and pad
+> configuration, SIUL2 also contains PGPDO and PGPDI registers
+> for GPIO data and EIRQ registers for external interrupt control.
+>=20
+> Add GPIO controller properties because the SIUL2 block also provides
+> GPIO functionality, and gpio-ranges are needed to describe the
+> mapping between GPIO lines and pin controller pins.
+>=20
+> Document the interrupt controller properties. The SIUL2 block
+> contains EIRQ hardware as part of the same register space. IRQ support
+> itself will be added in a follow-up patch series.
+>=20
+> Update the example accordingly to show the complete SIUL2 register
+> layout, including the GPIO data and EIRQ register windows.
+>=20
+> Signed-off-by: Khristine Andreea Barbulescu <khristineandreea.barbulescu@=
+oss.nxp.com>
 > ---
->  drivers/of/of_reserved_mem.c | 20 ++++++++++++++------
->  1 file changed, 14 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
-> index 313cbc57aa45..6d479381ff1f 100644
-> --- a/drivers/of/of_reserved_mem.c
-> +++ b/drivers/of/of_reserved_mem.c
-> @@ -69,29 +69,31 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
->   * the initial static array is copied over to this new array and
->   * the new array is used from this point on.
->   */
-> -static void __init alloc_reserved_mem_array(void)
-> +static bool __init alloc_reserved_mem_array(void)
->  {
->  	struct reserved_mem *new_array;
->  	size_t alloc_size, copy_size, memset_size;
->  
-> +	if (!total_reserved_mem_cnt)
-> +		return true;
+>  .../pinctrl/nxp,s32g2-siul2-pinctrl.yaml      | 83 +++++++++++++++++--
+>  1 file changed, 78 insertions(+), 5 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pi=
+nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinc=
+trl.yaml
+> index a24286e4def6..e4cc1a3a795c 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.y=
+aml
+> +++ b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.y=
+aml
+> @@ -1,5 +1,5 @@
+>  # SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> -# Copyright 2022 NXP
+> +# Copyright 2022, 2026 NXP
+>  %YAML 1.2
+>  ---
+>  $id: http://devicetree.org/schemas/pinctrl/nxp,s32g2-siul2-pinctrl.yaml#
+> @@ -17,8 +17,10 @@ description: |
+>      SIUL2_0 @ 0x4009c000
+>      SIUL2_1 @ 0x44010000
+> =20
+> -  Every SIUL2 region has multiple register types, and here only MSCR and
+> -  IMCR registers need to be revealed for kernel to configure pinmux.
+> +  Every SIUL2 region has multiple register types. MSCR and IMCR registers
+> +  need to be revealed for kernel to configure pinmux. PGPDO and PGPDI
+> +  registers are used for GPIO output/input operations. EIRQ registers
+> +  are used for external interrupt configuration.
+> =20
+>    Please note that some register indexes are reserved in S32G2, such as
+>    MSCR102-MSCR111, MSCR123-MSCR143, IMCR84-IMCR118 and IMCR398-IMCR429.
+> @@ -29,14 +31,22 @@ properties:
+>        - nxp,s32g2-siul2-pinctrl
+> =20
+>    reg:
+> +    minItems: 6
+>      description: |
+> -      A list of MSCR/IMCR register regions to be reserved.
+> +      A list of MSCR/IMCR/PGPDO/PGPDI/EIRQ register regions to be reserv=
+ed.
+>        - MSCR (Multiplexed Signal Configuration Register)
+>          An MSCR register can configure the associated pin as either a GP=
+IO pin
+>          or a function output pin depends on the selected signal source.
+>        - IMCR (Input Multiplexed Signal Configuration Register)
+>          An IMCR register can configure the associated pin as function in=
+put
+>          pin depends on the selected signal source.
+> +      - PGPDO (Parallel GPIO Pad Data Out Register)
+> +        A PGPDO register is used to set the output value of a GPIO pin.
+> +      - PGPDI (Parallel GPIO Pad Data In Register)
+> +        A PGPDI register is used to read the input value of a GPIO pin.
+> +      - EIRQ (External Interrupt Request)
+> +        EIRQ registers are used to configure and manage external interru=
+pts.
 > +
->  	alloc_size = array_size(total_reserved_mem_cnt, sizeof(*new_array));
->  	if (alloc_size == SIZE_MAX) {
->  		pr_err("Failed to allocate memory for reserved_mem array with err: %d", -EOVERFLOW);
-> -		return;
-> +		goto fail;
->  	}
->  
->  	new_array = memblock_alloc(alloc_size, SMP_CACHE_BYTES);
->  	if (!new_array) {
->  		pr_err("Failed to allocate memory for reserved_mem array with err: %d", -ENOMEM);
-> -		return;
-> +		goto fail;
->  	}
->  
->  	copy_size = array_size(reserved_mem_count, sizeof(*new_array));
->  	if (copy_size == SIZE_MAX) {
->  		memblock_free(new_array, alloc_size);
-> -		total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
->  		pr_err("Failed to allocate memory for reserved_mem array with err: %d", -EOVERFLOW);
+>      items:
+>        - description: MSCR registers group 0 in SIUL2_0
+>        - description: MSCR registers group 1 in SIUL2_1
+> @@ -44,6 +54,28 @@ properties:
+>        - description: IMCR registers group 0 in SIUL2_0
+>        - description: IMCR registers group 1 in SIUL2_1
+>        - description: IMCR registers group 2 in SIUL2_1
+> +      - description: PGPDO registers in SIUL2_0
+> +      - description: PGPDI registers in SIUL2_0
+> +      - description: PGPDO registers in SIUL2_1
+> +      - description: PGPDI registers in SIUL2_1
+> +      - description: EIRQ registers in SIUL2_1
+> +
+> +  gpio-controller: true
+> +
+> +  "#gpio-cells":
+> +    const: 2
+> +
+> +  gpio-ranges:
+> +    minItems: 1
+> +    maxItems: 4
+> +
+> +  interrupt-controller: true
+> +
+> +  "#interrupt-cells":
+> +    const: 2
+> +
+> +  interrupts:
+> +    maxItems: 1
+> =20
+>  patternProperties:
+>    '-pins$':
+> @@ -86,10 +118,32 @@ required:
+>    - compatible
+>    - reg
+> =20
+> +oneOf:
+> +  - description: Legacy pinctrl-only node
+> +    properties:
+> +      reg:
+> +        minItems: 6
 
-These prints could be moved to 'fail'. Perhaps instead of just printing 
-an error value, you can return the error value instead of boolean.
+drop minItems here, since it matches the outer minItems.
 
-If you respin just this patch, I can pick it up for 7.2.
+> +        maxItems: 6
 
-Rob
+You're missing having
+properties:
+   gpio-controller: false
+etc here, the condition you have doesn't prevent having them without the
+reg properties to support them. E.g. with a diff like this applied:
+diff --git a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinc=
+trl.yaml b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctr=
+l.yaml
+index e4cc1a3a795c..f0fc6a771f32 100644
+--- a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.yaml
++++ b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.yaml
+@@ -158,17 +158,7 @@ examples:
+               /* IMCR119-IMCR397 registers on siul2_1 */
+               <0x44010c1c 0x45c>,
+               /* IMCR430-IMCR495 registers on siul2_1 */
+-              <0x440110f8 0x108>,
+-              /* PGPDO registers on siul2_0 */
+-              <0x4009d700 0x10>,
+-              /* PGPDI registers on siul2_0 */
+-              <0x4009d740 0x10>,
+-              /* PGPDO registers on siul2_1 */
+-              <0x44011700 0x18>,
+-              /* PGPDI registers on siul2_1 */
+-              <0x44011740 0x18>,
+-              /* EIRQ registers on siul2_1 */
+-              <0x44010010 0x34>;
++              <0x440110f8 0x108>;
+
+> +
+> +  - description: Pinctrl node with GPIO and external interrupt support
+> +    required:
+> +      - gpio-controller
+> +      - "#gpio-cells"
+> +      - gpio-ranges
+> +      - interrupt-controller
+> +      - "#interrupt-cells"
+> +      - interrupts
+> +    properties:
+> +      reg:
+> +        minItems: 11
+> +        maxItems: 11
+
+And the same here for maxItems.
+
+Cheers,
+Conor.
+
+> +
+>  additionalProperties: false
+> =20
+>  examples:
+>    - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+>      pinctrl@4009c240 {
+>          compatible =3D "nxp,s32g2-siul2-pinctrl";
+> =20
+> @@ -104,7 +158,26 @@ examples:
+>                /* IMCR119-IMCR397 registers on siul2_1 */
+>                <0x44010c1c 0x45c>,
+>                /* IMCR430-IMCR495 registers on siul2_1 */
+> -              <0x440110f8 0x108>;
+> +              <0x440110f8 0x108>,
+> +              /* PGPDO registers on siul2_0 */
+> +              <0x4009d700 0x10>,
+> +              /* PGPDI registers on siul2_0 */
+> +              <0x4009d740 0x10>,
+> +              /* PGPDO registers on siul2_1 */
+> +              <0x44011700 0x18>,
+> +              /* PGPDI registers on siul2_1 */
+> +              <0x44011740 0x18>,
+> +              /* EIRQ registers on siul2_1 */
+> +              <0x44010010 0x34>;
+> +
+> +        gpio-controller;
+> +        #gpio-cells =3D <2>;
+> +        gpio-ranges =3D <&pinctrl 0 0 102>,
+> +                      <&pinctrl 112 112 79>;
+> +
+> +        interrupt-controller;
+> +        #interrupt-cells =3D <2>;
+> +        interrupts =3D <GIC_SPI 210 IRQ_TYPE_LEVEL_HIGH>;
+> =20
+>          llce-can0-pins {
+>              llce-can0-grp0 {
+> --=20
+> 2.34.1
+>=20
+--
+pw-bot: changes-requested
+
+--Lx2mHOuNnTOuI0LO
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8EwgAKCRB4tDGHoIJi
+0rDoAQDdONXb61PReEftXDCleOh95uWQWsiptxxVevCmx/K4vwEAgTlvIEH7BXpy
+jTnkORdiRCEP/mgQ7e3y9iz6VwD/Dwg=
+=2hLs
+-----END PGP SIGNATURE-----
+
+--Lx2mHOuNnTOuI0LO--
