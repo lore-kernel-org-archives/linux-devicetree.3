@@ -1,218 +1,181 @@
-Received: from mail-lj1-f182.google.com (mail-lj1-f182.google.com [209.85.208.182])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 676582DB7BF
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:53:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.182
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780376030; cv=pass; b=uneqLE3dXou6LHYkgk6AJ0xvuTplH/rYGWnsjJ1Gy/BvA9O70buYL2BvunAZZT5P3P+YNvl+L49wUKT3KhQTY9KFQXC3GyafCsorAqoalxpoxpEoduf+xuLE7jlKBQSpxxY7d2CVxn1PwVV6FX6wIg2spJzk0qQN+t0YtWrPZgA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780376030; c=relaxed/simple;
-	bh=+g9u+TubkywUHekxS11qDKNi0RpRAXGuXqJT9m66I94=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mVckwHZqcU3TGZEDDdoaaHeTSPnFMYbMH2FgDh+KljfOE33fG/jtEV5i9geXS0Qaipk4VCnAPBVswdrecPdZADva/ysMtYfSFIV/yqqFsux3GhcVehP0vSSoBR32QTJLpkvdA/e9uho8gBJ6Xh3U9LU+h7mrPM1EcAfeD7DmndM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bMSq5qHi; arc=pass smtp.client-ip=209.85.208.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386982DB7B7
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780376240; cv=none; b=XuGrXTCsJYIkMAK/p5ekQPmHQ/395HzH8KhTWhzKnFHujWePm+G9/GTeEHm4WHWXqClXM5WAAJ3NzP2vreg/B1DvJc4rIWw+RD5NLu8+P99KoEL7zSbq2fQNEfSrDL7llxwqUsP+qsse7WRgaSs+nrd9LBzqmlrXNE0gJ4wOuXg=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780376240; c=relaxed/simple;
+	bh=NNioFCPgqr8s8DtiUSUz3/PkPG6B8w9kqaXTNX1JIoY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=mbqXpRm/Nr8rF/l3n6eiLYkauvm9XjirnKjq/zduSV1YmQE5FJuNwbwwRu+nnsB5hPNFEGKBfEYBWKFOVOvPteSiCpSEKk11oYcNgePOd5tlE4vLNOAv3eWQDfHE9vXVnEXxGfdvvpvIbWt/+/4SQqIDxJ2jWSJS0NQ6bWLzZhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LsO+bQr8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bMSq5qHi"
-Received: by mail-lj1-f182.google.com with SMTP id 38308e7fff4ca-39661ba5d7eso29971471fa.3
-        for <devicetree@vger.kernel.org>; Mon, 01 Jun 2026 21:53:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780376027; cv=none;
-        d=google.com; s=arc-20240605;
-        b=Qa0IHiFKIMzylJUBRkJlLNHc72o0lsm2VfEkbnu7VeqZkJ3TFsnbA024x2ORfAp+u5
-         DAH80Or0/k1rZNELHFkPT7uIkBnn0ai5iOTSjECIofFYfrwNc6PbF+SqIv0d3OJSC3OV
-         5CcJfxIW2GxwvgDawroO4ZhcamVsmymxs6V9SVaagWsc9Y3ZVZ4CPn7fjNLyWgkEWu+R
-         6g727Er6g82JKkmK57DqoW3Qp08C7y0ifUzxTW3CvW2Yyo+dua02T4YngB0MBMY8EBKS
-         qg1A7dLezy/yexx1zTMTNmzVsR0/ZhTIy0k15JvoyROqHHLTKapF860LodqUslVyFB5s
-         OLCw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=DzcleAmV5w1y7JF/G8eR6YBhK1L7hto1eyE5epBS/Gs=;
-        fh=Ps2U1wHsnxn5Mu8LFFpfpmNg4kaB+6cE4U4N3fPvKyc=;
-        b=RYk2Z3ykSiOhSuylOGHuN6+6mZKjZsnw0gc7BRsOmSZAX+RqsPVgF6n4bJnIoR9VMS
-         1v77Nm75/rA2Zvq+9mZvci9l6/eHQx//UUA93DfDb1zlnsXM4pFeniFrD8sagrEAlovc
-         4gaGM6A6OCifJrgVIdmM3p9voMPf9Gzm+ANbHeVllMoCdWIoYcqnLO0grdhOCLQiBNdK
-         GHpvq51U+UNcH1wvxPEJ6qSwc1IBsKdlNhzSJxu9uhU3ixHYvn5j0IKXHCtBrkiyo7U0
-         4p9QaATEBj2u/5CHApsQnCiKX4qqKwqAEg5Qn8Tj9RXvuDXER12X4LNF1QJRINZJ9AIJ
-         34Yw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780376027; x=1780980827; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=DzcleAmV5w1y7JF/G8eR6YBhK1L7hto1eyE5epBS/Gs=;
-        b=bMSq5qHikbYbm8fIPw3X8GLguRaW4wNvWDlXqLUl+cSZWbH1EIM7WujGJ1EOuYW40X
-         3VXvfZzY5FmV7nFthlAMqx8ucc6M9w2ru0H6TFRXITLCRyiYVpND+b6hPNtHhOZi1VsE
-         oCzzzn999B+TdZrK0DY4FYXG2e+Opc7iIO00yNZM4CigvY/lUa1ZzJPsduEycyv3v/kS
-         jfhUgO0QvLqp2UPOkoPKjXfE0bfI1Q1/I3gbGiqwz5WWIR+t5nEtEfGLSwSG3OvRB16d
-         PEYaJXyjEXUqowaS26bI8eaeXJ95j8TUaZHOT+ZfGfzoOrAo3YBTgS7S41lN2vfl89yu
-         000w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780376027; x=1780980827;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=DzcleAmV5w1y7JF/G8eR6YBhK1L7hto1eyE5epBS/Gs=;
-        b=OknZLXYpuDekvr9sY9D6xpNWQaOau7fYkn91AEdz6YWnBGcbN+BxAfKOImHIQbskB7
-         C075SELG8rOqZEDtJmfEj8bnEVxFZBJbPldUn1ntaOKXJfSa5E7rz6mCiMR680u78vYm
-         E3C6+MmlOjDKT2EXCz1suXk0RwQRVL7EmizVTcoSEq/Q42g906lZ96OcxiiEj4LuK+uS
-         wqas0jQ5OP6Ls86WqKiIiD9igfm0xzCD4ebcyQnH9wzl0Au0BMVZA4ob2qxWwe+dmH5E
-         xDxo3ZS55MBaq+b7hjV+YHzMuWZRNUFRW25v+t8I2ltZt2XrIGjE1VQBkokTqnkob5jG
-         n7xw==
-X-Forwarded-Encrypted: i=1; AFNElJ8ZSLFCDJTYn1VkyqWIbS7u18fVSvxkLQNeSeBSSQgRWZXB6CnJ5NeKenoT8zEKKPV52PLvC7PSZkO8@vger.kernel.org
-X-Gm-Message-State: AOJu0YxCYnOccdAQfwNrvOzM/qMcjpdDRa3bk714TxDvS1+qH89oJTUx
-	Jxzy0rr6g5rwX0+wmmIM4+U/tBIgjMwW0XKJKvpAIl8AyW5b7R9IeVJHP1AfiDEZq6arlCY5Uu6
-	ay0nMAzKOUHIE7Ewbr+hYSgmIv59+p+CNgDpD
-X-Gm-Gg: Acq92OGg2+b+SgZkXFqznITKWJisUSCwL39ENu7jpSzOhiVuz2hxcG8Ienf9fBbZ7g6
-	j4+pgDiTwlyYicKGSdyai6RkHEf4rBYyj14i0bXIWslVBhASvYHOySU8KzJBpiWu/lu+srpyNlh
-	8ezfW4nttJL78Qz1X/Nb33t8nY1PYOggD2NH63Vh3iLwW4RQ+o1Mkeiq5LQNRb9Yi/rEJeAhzWu
-	F06URwZIMn9OS1tgl2FKPUSm15KsXdrwajiL3Lo1/479/CVezmtKJh1kNAkhAY6uRszBjeeYyFL
-	eARPQH36/24X7QsCu26FCn9Fusmbh85OD+FEt3AiEOeCM4nHln+Y6gl5Tetwbx+qrYRISsSF/we
-	ZA3Q=
-X-Received: by 2002:a2e:a581:0:b0:396:9b1f:a8b9 with SMTP id
- 38308e7fff4ca-3969b1fb305mr8272821fa.6.1780376026322; Mon, 01 Jun 2026
- 21:53:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LsO+bQr8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC0151F00893;
+	Tue,  2 Jun 2026 04:57:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780376238;
+	bh=PgRLJExLk9a4MzJWkNhg8d6cl8XBbYiePZTAcntT//g=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=LsO+bQr8OxOefjowP61mPEk9eHxrHqWpmQK5lzyjEitvo8Tedj8cPWkP3a8/LkoE8
+	 0rHdFDF3zWEKsF6zF1LmMfIn/nEhpy10eHCaDvjOweysezvIZAtHuYgFn+7sh2yYmF
+	 aBdWdNtdNvxc8Y80U7Nw1pL88q4OEFkQKyFW8e3iYB46GAk1g6pmKed24n4Fjn2vK2
+	 CAoJNSDYMUhfXMDEMFSp6aRosforle4s3XL0fQmVwES+4Aa/R+NpWF+MDFZsJawrce
+	 xQFex5lgYDBTKu16KUren5Fev/QRMbTZauavc8culZ/dojDWv0gq+kmFc/OInpRH+4
+	 PYLSXItlbNqfw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: reset: qcom: add mmcc-msm8660 reset
+ IDs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Herman van Hazendonk" <github.com@herrie.org>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260602043623.285901-3-github.com@herrie.org>
+References: <20260602043623.285901-3-github.com@herrie.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jun 2026 04:57:18 +0000
+Message-Id: <20260602045718.AC0151F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260503-ayn-qcs8550-v8-0-d733f5e57446@gmail.com>
-In-Reply-To: <20260503-ayn-qcs8550-v8-0-d733f5e57446@gmail.com>
-From: Aaron Kling <webgeek1234@gmail.com>
-Date: Mon, 1 Jun 2026 23:53:34 -0500
-X-Gm-Features: AVHnY4KOzXuQ2WwXnqwu7y8wMADauWr4edG7ap6TzZFhdLtizRu9gamU-oya8Lc
-Message-ID: <CALHNRZ-pTNGjm4S22VwAbwSyUw7+_LkE48QnssVDLALYi5Mx6g@mail.gmail.com>
-Subject: Re: [PATCH v8 0/6] arm64: dts: qcom: Support AYN QCS8550 Devices
-To: webgeek1234@gmail.com
-Cc: Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Xilin Wu <wuxilin123@gmail.com>, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>, Teguh Sobirin <teguh@sobir.in>, 
-	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Sun, May 3, 2026 at 4:49=E2=80=AFPM Aaron Kling via B4 Relay
-<devnull+webgeek1234.gmail.com@kernel.org> wrote:
->
-> This specifically includes:
-> * Odin 2 Mini
-> * Odin 2 Portal
-> * Thor
->
-> The original Odin 2 dts is not currently included as it has not yet
-> been verified.
->
-> The initial port was done by Teguh Sobirin for ROCKNIX and was made
-> available on the AYN github [0].
->
-> Support has been removed for things not yet supported by the upstream
-> kernel, these will be added later when the related drivers are submitted
-> and picked up. Such includes:
->
-> * All panels
-> * The Odin 2 Mini backlight and touch
-> * All rgb leds
-> * The built-in uart gamepad
->
-> [0] https://github.com/AYNTechnologies/linux/commits/sm8550/v6.17.5/
->
-> Signed-off-by: Aaron Kling <webgeek1234@gmail.com>
-> ---
-> Changes in v8:
-> - Properly order and format amplifier properties
-> - Set amplifiers name prefix to Amplifier L/R
-> - Link to v7: https://lore.kernel.org/r/20260430-ayn-qcs8550-v7-0-591a967=
-35fa3@gmail.com
->
-> Changes in v7:
-> - Add back pinmuxes dropped last revision, but without output-low
-> - Link to v6: https://lore.kernel.org/r/20260430-ayn-qcs8550-v6-0-06a7e7b=
-54aaa@gmail.com
->
-> Changes in v6:
-> - Fix comment style in patch 3
-> - Drop a pair of unnecessary pinmuxes in patch 3
-> - Lower usb sbu pins drive strength in patch 3
-> - Link to v5: https://lore.kernel.org/r/20260408-ayn-qcs8550-v5-0-c90abeb=
-7a152@gmail.com
->
-> Changes in v5:
-> - Fix some style reviews in patch 6 which required matching labels in
->   patch 3
-> - Drop hdmi support in patch 4, since it doesn't work
-> - Link to v4: https://lore.kernel.org/r/20260323-ayn-qcs8550-v4-0-33a8ac3=
-d53fa@gmail.com
->
-> Changes in v4:
-> - Fold vendor description patch into the series
-> - Link to v3: https://lore.kernel.org/r/20260322-ayn-qcs8550-v3-0-4afa89c=
-20888@gmail.com
->
-> Changes in v3:
-> - Drop unused backlight regulator in patch 3
-> - Move zap shader firmware to standalone reference
-> - Move i2c controller enables from common to devices
-> - Add ABL dtbo workarounds to patch 2 as per:
->   https://lore.kernel.org/linux-arm-msm/dczz4uvcq4hc6p3zb6xnrsgmfeomwliag=
-whf36tewdz4z6mndp@afbxzhjziiwv/
-> - Fix multiple property alphabetical order issues in patch 2
-> - Use interrupts-extended for pwm-fan in patch 2
-> - Ensure blank line before status in patches 2-5
-> - Rename spk_amp_l/r to amplifier in patch 2
-> - Remove a few properties that are already in the soc dtsi in patch 2
-> - Order tlmm nodes by pin index in patch 2
-> - Drop qcom,dll-config from sdhc node in patch 2
-> - Drop dtbo support, convert common to dtsi, and include it directly in
->   device specific dts'
-> - Link to v2: https://lore.kernel.org/r/20260311-ayn-qcs8550-v2-0-e66986e=
-0f0cb@gmail.com
->
-> Changes in v2:
-> - Drop awinic bindings dep as a duplicated patch already exists
-> - Change Co-authored-by tags to Co-developed-by
-> - Drop alias to currently unused uart15 in patch 2
-> - Link to v1: https://lore.kernel.org/r/20260311-ayn-qcs8550-v1-0-fe8b2fa=
-ad1ea@gmail.com
->
-> ---
-> Aaron Kling (1):
->       dt-bindings: arm: qcom: Add AYN QCS8550 Devices
->
-> Teguh Sobirin (4):
->       arm64: dts: qcom: Add AYN QCS8550 Common
->       arm64: dts: qcom: Add AYN Odin 2 Mini
->       arm64: dts: qcom: Add AYN Odin 2 Portal
->       arm64: dts: qcom: Add AYN Thor
->
-> Xilin Wu (1):
->       dt-bindings: vendor-prefixes: Add AYN Technologies
->
->  Documentation/devicetree/bindings/arm/qcom.yaml    |    9 +
->  .../devicetree/bindings/vendor-prefixes.yaml       |    2 +
->  arch/arm64/boot/dts/qcom/Makefile                  |    3 +
->  .../arm64/boot/dts/qcom/qcs8550-ayntec-common.dtsi | 1764 ++++++++++++++=
-++++++
->  .../boot/dts/qcom/qcs8550-ayntec-odin2mini.dts     |   44 +
->  .../boot/dts/qcom/qcs8550-ayntec-odin2portal.dts   |   84 +
->  arch/arm64/boot/dts/qcom/qcs8550-ayntec-thor.dts   |  227 +++
->  7 files changed, 2133 insertions(+)
-> ---
-> base-commit: b9303e6bff706758c167af686b5315ad00233bf8
-> change-id: 20260217-ayn-qcs8550-16c07b63de26
->
-> Best regards,
-> --
-> Aaron Kling <webgeek1234@gmail.com>
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Unmapped GDSC reset IDs (GFX2D0_AHB_RESET, GFX2D1_AHB_RESET) cause=
+ memory corruption at register 0x0.
+- [Low] Typographical errors in newly defined reset ID macro names.
+--
 
-Is there anything else I need to do for this series? Or is it just
-waiting to be picked up now?
+commit 318183bccf1215fa02d8a5a344be5c0173d40944
+Author: Herman van Hazendonk <github.com@herrie.org>
 
-Aaron
+dt-bindings: reset: qcom: add mmcc-msm8660 reset IDs
+
+This commit adds the dt-binding reset-ID header for the MSM8x60 family
+(MSM8260/MSM8660/APQ8060) MMCC reset lines. It exposes per-IP software-reset
+bits with IDs matching the numeric values from the mmcc-msm8960.h bindings.
+
+> diff --git a/include/dt-bindings/reset/qcom,mmcc-msm8660.h b/include/dt-b=
+indings/reset/qcom,mmcc-msm8660.h
+> new file mode 100644
+> index 0000000000000..c3ffd57834c97
+> --- /dev/null
+> +++ b/include/dt-bindings/reset/qcom,mmcc-msm8660.h
+> @@ -0,0 +1,88 @@
+> +/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
+> +/*
+> + * Copyright (c) 2013, The Linux Foundation. All rights reserved.
+> + *
+> + * Reset bindings for the MSM8x60 family (MSM8260/MSM8660/APQ8060) Multi=
+media Clock
+> + * Controller (MMCC).
+> + *
+> + * MSM8260, MSM8660 and APQ8060 are the same Scorpion-class MSM8x60 SoC
+> + * with different bin/feature labels. MSM8960 is a newer generation (Kra=
+it)
+> + * =E2=80=94 its reset bindings live in
+> + * <dt-bindings/reset/qcom,mmcc-msm8960.h> and must not be reused here.
+> + *
+> + * IDs intentionally match the numeric values used by the original shared
+> + * mmcc-msm8960.h so the driver's qcom_reset_map array indexing is prese=
+rved;
+> + * only the resets actually implemented by mmcc-msm8660.c are defined.
+> + */
+> +
+> +#ifndef _DT_BINDINGS_RESET_MSM_MMCC_8660_H
+> +#define _DT_BINDINGS_RESET_MSM_MMCC_8660_H
+> +
+> +#define VPE_AXI_RESET					0
+> +#define IJPEG_AXI_RESET					1
+> +#define MPD_AXI_RESET					2
+
+[Severity: Low]
+This isn't a bug, but should this be MDP_AXI_RESET instead of MPD? Propagat=
+ing
+misspelled macro names from the older platform might create confusion witho=
+ut
+providing any ABI benefits.
+
+> +#define VFE_AXI_RESET					3
+> +#define SP_AXI_RESET					4
+> +#define VCODEC_AXI_RESET				5
+> +#define ROT_AXI_RESET					6
+> +#define VCODEC_AXI_A_RESET				7
+> +#define VCODEC_AXI_B_RESET				8
+> +#define FAB_S3_AXI_RESET				9
+> +#define FAB_S2_AXI_RESET				10
+> +#define FAB_S1_AXI_RESET				11
+> +#define FAB_S0_AXI_RESET				12
+> +#define SMMU_GFX3D_ABH_RESET				13
+
+[Severity: Low]
+This isn't a bug, but should this be SMMU_GFX3D_AHB_RESET instead of ABH?
+
+> +#define SMMU_VPE_AHB_RESET				14
+> +#define SMMU_VFE_AHB_RESET				15
+> +#define SMMU_ROT_AHB_RESET				16
+> +#define SMMU_VCODEC_B_AHB_RESET				17
+> +#define SMMU_VCODEC_A_AHB_RESET				18
+> +#define SMMU_MDP1_AHB_RESET				19
+> +#define SMMU_MDP0_AHB_RESET				20
+> +#define SMMU_JPEGD_AHB_RESET				21
+> +#define SMMU_IJPEG_AHB_RESET				22
+> +#define APU_AHB_RESET					25
+> +#define CSI_AHB_RESET					26
+> +#define TV_ENC_AHB_RESET				27
+> +#define VPE_AHB_RESET					28
+> +#define FABRIC_AHB_RESET				29
+> +#define GFX2D0_AHB_RESET				30
+> +#define GFX2D1_AHB_RESET				31
+
+[Severity: High]
+Are these reset IDs missing from the mmcc_msm8660_resets array in the drive=
+r?
+
+Looking at drivers/clk/qcom/mmcc-msm8660.c, gfx2d0_gdsc and gfx2d1_gdsc spe=
+cify
+.resets using GFX2D0_AHB_RESET (30) and GFX2D1_AHB_RESET (31):
+
+drivers/clk/qcom/mmcc-msm8660.c:gfx2d0_gdsc
+    .resets =3D (unsigned int []){ GFX2D0_AHB_RESET },
+
+However, indices 30 and 31 appear to be skipped in the mmcc_msm8660_resets =
+array:
+
+drivers/clk/qcom/mmcc-msm8660.c:mmcc_msm8660_resets() {
+    ...
+    [FABRIC_AHB_RESET] =3D { 0x020c, 13 },
+    [GFX3D_AHB_RESET] =3D { 0x020c, 10 },
+    ...
+}
+
+Because omitted indices in a static array are implicitly zero-initialized,
+accesses to rst->reset_map[30] and rst->reset_map[31] would yield { .reg =
+=3D 0,
+.bit =3D 0 }.
+
+During GDSC power-on/off, qcom_reset_set_assert() uses these zeroed entries=
+ to
+perform a read-modify-write that erroneously toggles bit 0 of register 0x00=
+00.
+Could this regression silently corrupt clock controller state instead of
+resetting the intended block?
+
+> +#define GFX3D_AHB_RESET					32
+> +#define HDMI_AHB_RESET					33
+> +#define MSSS_IMEM_AHB_RESET				34
+
+[Severity: Low]
+This isn't a bug, but would it make sense to name this MMSS_IMEM_AHB_RESET
+instead of MSSS?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602043623.2859=
+01-1-github.com@herrie.org?part=3D2
