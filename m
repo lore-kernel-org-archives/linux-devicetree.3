@@ -1,126 +1,151 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E17D36828D;
-	Tue,  2 Jun 2026 02:58:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9A823EAAF
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 03:06:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780369131; cv=none; b=U5GvmlgE4ZoRwS8HqmLLEeBKmpBCe4p7s8mHzG4wCLp+kAzO7I9bccd8b++nSpU82NpasiJgEugcLGeXGsfIARu/9s+stR7JbwuNmCRRIE3YuGlzZLbdjaKJ7oY9BNlgIm5tUeThF4K/V3n52LpA3lMJWjMplIEqN11Ne7Eryeg=
+	t=1780369596; cv=none; b=Ee2hZEvz+UdmS+UPnGwGnLiBsmu3v7REKQdx0iRfteHw4TIWVp0AEjMP4Vq5KyGrU3AtSir9nz/Whk9mUf8TKrtvH/KPdAzJ4Xjf4QB1vX33t/4Gqay5jSXtauqOSUHvpYFv8pRbVVJTLfo8bLmqwyfG1xVhrYPAzQiYcAwDhlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780369131; c=relaxed/simple;
-	bh=UNMkoy3z15TroakKSzBmQOpIHp5A2mzHqvr2w0eOtDs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SQjkNcK4SKIJePqGyK5lW4lIR9+SoQKENN7GWRNfquuodfAYKPhJAJpu4S6tkiyb0BWYTMssjiEGdV9o+IOyLRvWoGHrsjE63nlzLvq6MmeQb4x18oVn3amT61PXE+qe4hyBeQNS4lVaidE/4fxuZ3T0fDdkzO1GAkteboV61SY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=tfB7ZBKR; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1780369596; c=relaxed/simple;
+	bh=quBqK+pAfJg8IQ6QPWniQxuzvmKmI37+PJNOoXvhQms=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bxsnLWIb89RRn9VXNNMz+EY/qQFLhE1nRa6cRcB4mBvRuf8XKqp6ndOdlonfT0loc/Gz8kuEo+1sVkFY8APhj736+X8WumrGsTt5KALkfzkHMA+GQKA2HFWNfuVq0OagAtzrPvJhxK0YpJTRbfjbYyjqvC7BQ2CxZtUmcfgP8Wo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FfbPNmSq; arc=none smtp.client-ip=95.215.58.189
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="tfB7ZBKR"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=Content-Transfer-Encoding:
-	Content-Type:In-Reply-To:From:References:Cc:To:Subject:MIME-Version:Date:
-	Message-ID:Sender:Reply-To:Content-ID:Content-Description;
-	bh=wl/6s07fOIxt1sNU5e5pf7Qzlm0rqHckHAAOOhcPFd0=; b=tfB7ZBKRWIw2MR/XjoZpw8+NnL
-	Ccgk3KNXqi89uNhLI5bX9W4KlA7s5rp6F+ck5/s2BSry0Stk/idT23k7MRcNZY62dKcSuV3EiMvrD
-	0HQUg02Es2m6e3ONtqc5OOqKgeHhiM1jszQeBDaWdPlYT03i/o50h5tEQ/VF8Xs0T5vuTFQVr71Wg
-	Q8s7StbqIeXcE/9WiLDJVY7dnGf+0zaH0769wBew8Rbo5Ip2xy4bdPZ6Ltt/QVm3rmvpuInacso4W
-	SU8sgzw/S+/cujPdCIADUzxH23v34/g1MUgWKYA6rHVyqDQEYHWwVVPiNLMtpwQaelDTZmzgVGyL7
-	wM6TVCUQ==;
-Received: from [50.53.43.113] (helo=[192.168.254.34])
-	by bombadil.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1wUFL6-0000000CCc9-2wwn;
-	Tue, 02 Jun 2026 02:58:48 +0000
-Message-ID: <e8e385e0-8ffa-4401-b676-f4c6d28f559a@infradead.org>
-Date: Mon, 1 Jun 2026 19:58:47 -0700
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FfbPNmSq"
+Date: Tue, 2 Jun 2026 11:06:11 +0800
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
+	t=1780369591;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=P70qjRmAyMymwJPTMfOq+4DYcvFmuGavpK8tS3QAMZ8=;
+	b=FfbPNmSqGFBVUXMW60W8WZklD/5OswTsE3vOOKJWBoPQkE+ieiKrsI/w+0/boUf1oyoQTr
+	a6KYsX23L/elGm5bXPqfLcPYLugymhGemNGpdBX9bswHkYCZ207Y83Ojwb0HZ4Gy7cbZDl
+	Ei0P5PYrgBGvOUgIoJMhYqqLwwkMndo=
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
+From: Baoquan He <baoquan.he@linux.dev>
+To: Jinjie Ruan <ruanjinjie@huawei.com>
+Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
+	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
+	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
+	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
+	aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
+	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
+	hpa@zytor.com, robh@kernel.org, saravanak@kernel.org,
+	akpm@linux-foundation.org, bhe@redhat.com, rppt@kernel.org,
+	pasha.tatashin@soleen.com, pratyush@kernel.org,
+	ruirui.yang@linux.dev, rdunlap@infradead.org,
+	feng.tang@linux.alibaba.com, dapeng1.mi@linux.intel.com,
+	kees@kernel.org, elver@google.com, kuba@kernel.org,
+	lirongqing@baidu.com, ebiggers@kernel.org, paulmck@kernel.org,
+	sourabhjain@linux.ibm.com, thuth@redhat.com, ardb@kernel.org,
+	masahiroy@kernel.org, gshan@redhat.com, james.morse@arm.com,
+	maz@kernel.org, leitao@debian.org, yeoreum.yun@arm.com,
+	coxu@redhat.com, suzuki.poulose@arm.com, cfsworks@gmail.com,
+	osandov@fb.com, jbohac@suse.cz, ryan.roberts@arm.com,
+	tangyouling@kylinos.cn, ritesh.list@gmail.com,
+	adityag@linux.ibm.com, hbathini@linux.ibm.com, bjorn@rivosinc.com,
+	songshuaishuai@tinylab.org, vishal.moola@gmail.com,
+	junhui.liu@pigmoral.tech, djordje.todorovic@htecgroup.com,
+	austin.kim@lge.com, namcao@linutronix.de, djbw@kernel.org,
+	chao.gao@intel.com, seanjc@google.com, fuqiang.wang@easystack.cn,
+	liaoyuanhong@vivo.com, makb@juniper.net, graf@amazon.com,
+	piliu@redhat.com, rafael.j.wysocki@intel.com,
+	mario.limonciello@amd.com, jbouron@amazon.com,
+	chenjiahao16@huawei.com, guoren@kernel.org, bauerman@linux.ibm.com,
+	bgwin@google.com, takahiro.akashi@linaro.org, x86@kernel.org,
+	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
+	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org, kexec@lists.infradead.org
+Subject: Re: [PATCH v15 00/23] arm64/riscv: Add support for crashkernel CMA
+ reservation
+Message-ID: <ah5Ioxs9aLxKIKWg@MiWiFi-R3L-srv>
+References: <20260601094805.2928614-1-ruanjinjie@huawei.com>
+ <ah2Lx7KHI60tzd0v@MiWiFi-R3L-srv>
+ <1a459706-80db-43d8-b163-76fc09da338d@huawei.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v15 12/12] Documentation: ABI: testing: add common ABI
- file for iio/frequency
-To: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
- linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-doc@vger.kernel.org
-Cc: Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>,
- Lars-Peter Clausen <lars@metafoo.de>,
- Michael Hennerich <Michael.Hennerich@analog.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Jonathan Corbet <corbet@lwn.net>,
- Andrew Morton <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>,
- Steven Rostedt <rostedt@goodmis.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- Sergey Senozhatsky <senozhatsky@chromium.org>,
- Shuah Khan <skhan@linuxfoundation.org>
-References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
- <20260531-adf41513-iio-driver-v15-12-da09adf1c0dd@analog.com>
-Content-Language: en-US
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <20260531-adf41513-iio-driver-v15-12-da09adf1c0dd@analog.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <1a459706-80db-43d8-b163-76fc09da338d@huawei.com>
+X-Migadu-Flow: FLOW_OUT
 
-
-
-On 5/31/26 1:30 AM, Rodrigo Alencar via B4 Relay wrote:
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+On 06/02/26 at 09:43am, Jinjie Ruan wrote:
 > 
-> Add ABI documentation file for PLL/DDS devices with frequency_resolution
-> sysfs entry attribute used by both ADF4350 and ADF41513.
 > 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> ---
->  Documentation/ABI/testing/sysfs-bus-iio-frequency         | 11 +++++++++++
->  Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350 | 10 ----------
->  2 files changed, 11 insertions(+), 10 deletions(-)
+> On 6/1/2026 9:40 PM, Baoquan He wrote:
+> > Hi Jinjie,
+> > 
+> > On 06/01/26 at 05:47pm, Jinjie Ruan wrote:
+> > ...snip... 
+> >> Changes in v15:
+> >> - Unify the subject prefix formats as Huacai suggested.
+> >> - Fix powerpc pre-existing NULL pointer dereference [Sashiko [1]]
+> >> - Fix powerpc pre-existing __merge_memory_ranges() memory range
+> >>   truncation [Sashiko [1]].
+> >> - Fix pre-existing arm64 CMA page leaks [Sashiko[2]].
+> >> - Fix pre-existing crash_load_dm_crypt_keys() Use-After-Free and
+> >>   Double Free issue [Sashiko[3]].
+> >> - Fix vfree(headers) and uninitialized variables issue
+> >>   and simplify the fix [Sashiko[2]].
+> >> - As walk_system_ram_res() and for_each_mem_range() use different
+> >>   lock, unify and simplify the fix of TOCTOU buffer overflow via memory
+> >>   region padding [Sashiko[4]].
+> >> - Fix the arm64 crash dump issues in Sashiko[5].
+> >> - Link to v14: https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com/
+> > 
+> > Do these Fixes have anything with the main target of this patch series
+> > you mentioned in cover-letter:"arm64/riscv: Add support for crashkernel CMA"?
+> > The patches become more and more in each new version, I am wondering if
+> > it relies on these Fixes patches to implement your adding support for
+> > crashkernel CMA on arm64/risc-v.
+> > 
+> > If not relying on them, could you split them into different patchset
+> > on different purpose? 
 > 
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency b/Documentation/ABI/testing/sysfs-bus-iio-frequency
-> new file mode 100644
-> index 000000000000..5af31b5b3a19
-> --- /dev/null
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency
-> @@ -0,0 +1,11 @@
-> +What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_resolution
-> +KernelVersion:	3.4.0
-> +Contact:	linux-iio@vger.kernel.org
-> +Description:
-> +		Stores channel Y frequency resolution/channel spacing in Hz for PLL
-> +		devices. The given value directly influences the operating mode when
-> +		fractional-N synthesis is required, as it derives values for
-> +		configurable modulus parameters used in the calculation of the output
-> +		frequency. It is assumed that the algorithm that is used to compute
-> +		the various dividers, is able to generate proper values for multiples
-
-Unneeded comma                      ^
-although you can find many varying opinions on the internet.
-I agree with https://www.grammarly.com/blog/punctuation-capitalization/comma/
-
-> +		of channel spacing.
-> diff --git a/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350 b/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
-> index 1254457a726e..76987a119feb 100644
-> --- a/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
-> +++ b/Documentation/ABI/testing/sysfs-bus-iio-frequency-adf4350
-> @@ -1,13 +1,3 @@
-> -What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_frequency_resolution
-> -KernelVersion:	3.4.0
-> -Contact:	linux-iio@vger.kernel.org
-> -Description:
-> -		Stores channel Y frequency resolution/channel spacing in Hz.
-> -		The value given directly influences the MODULUS used by
-> -		the fractional-N PLL. It is assumed that the algorithm
-> -		that is used to compute the various dividers, is able to
-> -		generate proper values for multiples of channel spacing.
-> -
->  What:		/sys/bus/iio/devices/iio:deviceX/out_altvoltageY_refin_frequency
->  KernelVersion:	3.4.0
->  Contact:	linux-iio@vger.kernel.org
+> Hi Baoquan,
 > 
+> Thank you for your valuable guidance.
+> 
+> You are absolutely right. Most of these fix patches are indeed not
+> strictly related to the core implementation of the crashkernel CMA
+> support. They are pre-existing bugs in the surrounding kexec/crash code
+> that were flagged during our review.
+> 
+> Previously, Andrew suggested taking a look at the code review comments
+> from the Sashiko AI system, which is why these fixes kept expanding. I
+> completely agree with your advice that there is no need to keep them
+> together. I will split them into two completely different patchsets
+> based on their purpose:
+> 
+> 1. A cleaner version of this series, strictly focused on adding the core
+> crashkernel CMA support for arm64/riscv.
+> 
+> 2. One standalone bugfix patchset dedicated entirely to fixing these
+> pre-existing issues.
+> 
+> By the way, I would also appreciate some advice on how to handle further
+> AI reviews. It seems that the more code we touch or refactor to fix
+> these pre-existing issues, the more tangential bugs the AI flags in the
+> newly exposed areas, making the series extremely difficult to converge.
+> 
+> Should I continue to address all AI-reported bugs associated with the
+> surrounding code in this series, or should we draw a strict line
+> and only focus on the core CMA logic moving forward?
 
-Tested-by: Randy Dunlap <rdunlap@infradead.org>
+Then please post patches to focus on the core implementation of the
+crashkernel CMA support. If any AI reported bugs are raised but not
+relatd to it, you can add note in cover-letter or explain somewhere
+to tell whehter it's caused by the core code and how you want
+to deal with it. Otherwise, you could go round and round of new posting
+and still can't see when it ends up.
 
--- 
-~Randy
