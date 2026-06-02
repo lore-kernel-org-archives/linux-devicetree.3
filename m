@@ -1,35 +1,35 @@
 Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF2E33DB647;
-	Tue,  2 Jun 2026 13:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9462F3DE430;
+	Tue,  2 Jun 2026 13:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780405273; cv=none; b=pxVuSwfWSuddZB/LrssOL05Pl25F3viGTrVDRVs8u1zgdohehcvs9M2jf6aMKi0fh1p5Go7ZAQSbLuunZoG6jChLCzZjqTMRZQ5reoz2iYvahkxS9YC2QjSKRn/KjePAxZ4jQbfhoNrHOkOaPuYkFb2/hq3MohcMgckHsfP5nYw=
+	t=1780405278; cv=none; b=EQyuJElC4ZsNcSv4cc1spAAKLOU9H/yKPXHzlTgVojzd+idgwov6R3J6RvdSC2/tg/j/eqG/oAit+PPCc7Z0DGBxbAs3YalQLXMkZyiv7t6s8U8TRonOYKvteWTUwvBtribs2H7t7LQN9Aac+w52VoeJVnwQSIrZdknhxsUUevc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780405273; c=relaxed/simple;
-	bh=1IoQSXUWgYTEVd953ETp499G6a1vtRSc22m4J2jdDQU=;
+	s=arc-20240116; t=1780405278; c=relaxed/simple;
+	bh=YxVQ1DUhT9+NRjCyoBIkk+IeqRLqbHraYqHIX2FNh3I=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=nWz+R+kzOP160pYD3hQl7jIhENpayqTdBjX28yH4T5k5IXgibMTU0WgoIFMNbL60OCcYwGyyGUoCncCKqQx9VH6v7cZ73/OIjCx8+XWt7f21AyP0zrPEooqxj6xPbDeLCMdFbWuQCRftSpdqkxsm8NABJomXgtJ3wchbSV97JV4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=rG7h38c+; arc=none smtp.client-ip=213.167.242.64
+	 In-Reply-To:To:Cc; b=lylgTpk5NyPNGBkaj1UEJ3PKCD/WgdoKqVC0eIpFXguVZ4VvI6+kqWRGIErvLg/1VkdLgq1hyOWN8xH/BNFe8z8rc80JyVJeoqNwaSFNYDhfO0jII5hBt2dreCnsaRAl9QvKMTV3lqAEVdD5IdXe+OLOwoxCaA8xHuh++w7dPh8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=vNpJMMBc; arc=none smtp.client-ip=213.167.242.64
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="rG7h38c+"
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="vNpJMMBc"
 Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c66:476d:c684:fe78:389f:7375])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id DD856103F;
-	Tue,  2 Jun 2026 15:00:46 +0200 (CEST)
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id 5C26D103F;
+	Tue,  2 Jun 2026 15:00:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1780405247;
-	bh=1IoQSXUWgYTEVd953ETp499G6a1vtRSc22m4J2jdDQU=;
+	s=mail; t=1780405252;
+	bh=YxVQ1DUhT9+NRjCyoBIkk+IeqRLqbHraYqHIX2FNh3I=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc:From;
-	b=rG7h38c+vMd0Ib16WyhDsKk6qnxiYaBxxlZduj5hhJpQbVVIXTWpgYxp2Off2WXQM
-	 BMuirNiMKu0iJaUAbyQFwP/m+ZXVKFlpGHzw/4xv8QbI5EJti3AV+IglMR0YgmvxAQ
-	 9FgDb5OEpwNelaEquu/+RtII0ch8hFvSnmynVtuE=
+	b=vNpJMMBca+4N+qhegxxijA+iPxPeOIbDIgUslddGJtj3SkftekrYK72XTvp3i5lRK
+	 OQig0Tk729+aX+HSOIW+d+8okK6RU8t7OD36ZmI8GI+L2Rg0W9r++H5q3OTyulrul3
+	 7K4DVQykUZDwfM0dfrzjeQzhf5YtSrR6vdzjcbmU=
 From: Jai Luthra <jai.luthra@ideasonboard.com>
-Date: Tue, 02 Jun 2026 18:29:28 +0530
-Subject: [PATCH v3 2/4] arm64: dts: ti: k3-am67a-beagley-ai: Add DSI0/CSI1
- mux
+Date: Tue, 02 Jun 2026 18:29:29 +0530
+Subject: [PATCH v3 3/4] arm64: dts: ti: k3-am67a-beagley-ai: Add overlay
+ for IMX219 on CSI0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -38,7 +38,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-beagley-cameras-v3-2-fe6ae35b7eda@ideasonboard.com>
+Message-Id: <20260602-beagley-cameras-v3-3-fe6ae35b7eda@ideasonboard.com>
 References: <20260602-beagley-cameras-v3-0-fe6ae35b7eda@ideasonboard.com>
 In-Reply-To: <20260602-beagley-cameras-v3-0-fe6ae35b7eda@ideasonboard.com>
 To: Nishanth Menon <nm@ti.com>, Vignesh Raghavendra <vigneshr@ti.com>, 
@@ -53,78 +53,194 @@ Cc: Robert Nelson <robertcnelson@gmail.com>, Andrew Davis <afd@ti.com>,
  linux-arm-kernel@lists.infradead.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, Jai Luthra <jai.luthra@ideasonboard.com>
 X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1833;
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5087;
  i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
- bh=1IoQSXUWgYTEVd953ETp499G6a1vtRSc22m4J2jdDQU=;
- b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqHtQD8e+Qn7Exk8nQGthzX0JeBnZTt8f6Wf+63
- feVLEpGkbiJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCah7UAwAKCRBD3pH5JJpx
- RV+pEADQRDG4llqs4sWLC7epusLmybE+P1he8AjvpbEXFM5aSda3HDcEABL7J4dycoSeri0tQiG
- dGCqOZ1JuKNXjBCBkhyF/1knNbQNnSy0aPJ4Ii0CcBiFGq0iWwFRo+YpqJ0z6pb7rutTfMwPoFQ
- Rm4IjOaRvaIa4rTdu6Nu0B3r7FogEOA/ADLkKSH8VYVe5IaCxnLrLlCTv81x8v1OdPae3ey3cHR
- j/a2v1ZZTRU3/HwftcA0uYHDl7ffODRBOB/ByHMVPt21JU527YESEQ5AiCXGLKUWWAODKUaBnqo
- Gyh2LKBSYeFxwOkorDNg/6OF6lqfI1VBNEgJT/doN0GflMCDwG9JjvebZyrHewm3ufwnbO1rgPx
- cC9JI6IJ354NX9iLuNxy1/3NM4q9uXmG3m5s8DeEzq3bsNAP158SMoRTtEysl5hElt8rp2ne29B
- O9SOnBfwYBwIx1uBqS429GCQHQZc7g7DI7CfvpQ0J8RpPUe5XESZKd1NiatJSXONcqvo0lrZdRG
- GeQHDkgIhwkx23qhNw8H3so9NeCJLDLQFPIQWI9EiG9xPH48C+kCSCDaqvyDPu3KQVrnXuOu96L
- LsLkgtdnbeicZ9A6UjpO2SDtPrC3NeFIqXkkko6+Of+7NLU0AcQJ2ryy4R5mMI+3JIPq5/YGLIT
- PlFcsVBM5HBqF5w==
+ bh=YxVQ1DUhT9+NRjCyoBIkk+IeqRLqbHraYqHIX2FNh3I=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqHtQESKhJcNzc0bN0O2IwLsK0sG+XVmiQ6DKJ1
+ hZBFN40YvmJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCah7UBAAKCRBD3pH5JJpx
+ RRZpD/0YevXomcTEv+IZWNQ86LAU/aIs3JoCLlz2LWviqVO6UU26KbweKK+t/KeORRGh2CmfNPU
+ F2BBqCVdcyIvYNrTobitdRgsLwNxhOzbtFNS+iyHc5nU2WO5erSBUaTW2xRYl2L55GJzWW3edCT
+ 9KZO7UIZfWv4oJ22nwhcHvkljXwR89iu1KG1ZKOaNcAnnvkT2qcGRLdSoS4WuoiSKkz66Odgfx7
+ mSqXfKxPqUTVrrak3XH8YtVis2bENb34Bm5IHvR4uO7rL4LFcJwlQQ+xa5VW5M32SNrnOfF8KOV
+ EpHvsUtdoPZ4P/KQKeJM1Mic4Q5fpnWM5cZaK9QnObFWdPyu5oBjCEy8yb32Sp46scVSCAjX0L1
+ cttLi+s/6CTp8THQdljcgul8eoKhVAganFLUE3pIjBCxlHB98loVUiT9CpChDDw+h++muuLBSFW
+ r78fgDBOQYvIF6toFbi5LHdlYwLGPQmncs++5uWpmlVddZT7zlc0SDnE44q+Cof9OCHsXt7ufZp
+ uMgWYnnu6LeOWlqDp6tbyPcu8OHh6QS+KaQrCbOJRJ40hgsKEsP7u4jSD2goASntZ+7jRxIbIsy
+ Nc5a23BRA7Z//1AyjnF+rbbDiYfnG8BBs6IxFDluDIIe11s0/qHUqs+q4aFtT+U36qaieWkEX5m
+ qjgOs/9he195m9Q==
 X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
  fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-The DSI0 connector is shared with the CSI1 and selectable via the
-TMUX646 switch present on the board. Model it using a gpio-mux so that
-camera sensor or DSI panel overlays can override it.
+RPi v2 Camera (IMX219) is an 8MP camera that can be used with BeagleY AI
+through the 22-pin CSI-RX connectors. Add a DT overlay to enable use of
+this camera sensor through the CSI0 connector.
 
-Link: https://docs.beagle.cc/boards/beagley/ai/03-design.html#dsi
-Reviewed-by: Rishikesh Donadkar <r-donadkar@ti.com>
+Link: https://pip.raspberrypi.com/categories/1205-drawings-and-schematics
+Link: https://docs.beagle.cc/boards/beagley/ai/03-design.html#csi
 Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
 Changes in v3:
-- Add Rishikesh's R-by
-- Add Link to BeagleY schematics for the DSI0 connector and mux
-- No changes in the patch itself
+- Now that I2C node is defined by the board DTS, only set status = okay
+  here
+- Add schematic links for the v2 camera module and BeagleY CSI connector
 ---
- arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts | 20 ++++++++++++++++++++
- 1 file changed, 20 insertions(+)
+ arch/arm64/boot/dts/ti/Makefile                    |   4 +
+ .../dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso    | 118 +++++++++++++++++++++
+ 2 files changed, 122 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-index 890d3a745375..bb1db8c6a91f 100644
---- a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-+++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai.dts
-@@ -146,6 +146,19 @@ led-1 {
- 			default-state = "on";
- 		};
- 	};
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 5269c9619b65..68a82e161c20 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -152,6 +152,7 @@ dtb-$(CONFIG_ARCH_K3) += k3-j721s2-evm-usb0-type-a.dtbo
+ 
+ # Boards with J722s SoC
+ dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am67a-beagley-ai-csi0-imx219.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
+@@ -245,6 +246,8 @@ k3-am642-tqma64xxl-mbax4xxl-sdcard-dtbs := \
+ 	k3-am642-tqma64xxl-mbax4xxl.dtb k3-am64-tqma64xxl-mbax4xxl-sdcard.dtbo
+ k3-am642-tqma64xxl-mbax4xxl-wlan-dtbs := \
+ 	k3-am642-tqma64xxl-mbax4xxl.dtb k3-am64-tqma64xxl-mbax4xxl-wlan.dtbo
++k3-am67a-beagley-ai-csi0-imx219-dtbs := k3-am67a-beagley-ai.dtb \
++	k3-am67a-beagley-ai-csi0-imx219.dtbo
+ k3-am68-sk-base-board-csi2-dual-imx219-dtbs := k3-am68-sk-base-board.dtb \
+ 	k3-j721e-sk-csi2-dual-imx219.dtbo
+ k3-am68-sk-base-board-pcie1-ep-dtbs := k3-am68-sk-base-board.dtb \
+@@ -318,6 +321,7 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
+ 	k3-am642-phyboard-electra-x27-gpio1-spi1-uart3.dtb \
+ 	k3-am642-tqma64xxl-mbax4xxl-sdcard.dtb \
+ 	k3-am642-tqma64xxl-mbax4xxl-wlan.dtb \
++	k3-am67a-beagley-ai-csi0-imx219.dtb \
+ 	k3-am68-phyboard-izar-lvds-ph128800t006.dtb \
+ 	k3-am68-phyboard-izar-peb-av-15.dtb \
+ 	k3-am68-sk-base-board-csi2-dual-imx219.dtb \
+diff --git a/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso
+new file mode 100644
+index 000000000000..1b1c68f23cc3
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am67a-beagley-ai-csi0-imx219.dtso
+@@ -0,0 +1,118 @@
++// SPDX-License-Identifier: GPL-2.0-only OR MIT
++/*
++ * RPi Camera V2.1 on BeagleY AI CSI0 port
++ *
++ * Copyright (C) 2026 Ideas On Board Oy
++ */
 +
-+	dsi_csi_mux: mux-controller {
-+		compatible = "gpio-mux";
-+		#mux-state-cells = <1>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&dsi_csi_mux_pins_default>;
++/dts-v1/;
++/plugin/;
 +
-+		mux-gpios = <&main_gpio0 2 GPIO_ACTIVE_HIGH>,
-+			    <&main_gpio0 1 GPIO_ACTIVE_HIGH>;
++#include <dt-bindings/gpio/gpio.h>
++#include "k3-pinctrl.h"
 +
-+		/* state = SEL + 2*OE : 0 = DSI0, 1 = CSI1, 2,3 = off */
-+		idle-state = <2>;
++&{/} {
++	clk_imx219_csi0: imx219-csi0-xclk {
++		compatible = "fixed-clock";
++		#clock-cells = <0>;
++		clock-frequency = <24000000>;
 +	};
- };
- 
- &main_pmx0 {
-@@ -199,6 +212,13 @@ J722S_IOPAD(0x015c, PIN_INPUT, 0) /* (AD25) MDIO0_MDIO */
- 		>;
- 	};
- 
-+	dsi_csi_mux_pins_default: dsi-csi-mux-default-pins {
++
++	reg_2p8v_csi0: regulator-2p8v-csi0 {
++		compatible = "regulator-fixed";
++		regulator-name = "2P8V_CSI0";
++		regulator-min-microvolt = <2800000>;
++		regulator-max-microvolt = <2800000>;
++		vin-supply = <&vdd_3v3>;
++		regulator-always-on;
++	};
++
++	reg_1p8v_csi0: regulator-1p8v-csi0 {
++		compatible = "regulator-fixed";
++		regulator-name = "1P8V_CSI0";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <1800000>;
++		vin-supply = <&vdd_3v3>;
++		regulator-always-on;
++	};
++
++	reg_1p2v_csi0: regulator-1p2v-csi0 {
++		compatible = "regulator-fixed";
++		regulator-name = "1P2V_CSI0";
++		regulator-min-microvolt = <1200000>;
++		regulator-max-microvolt = <1200000>;
++		vin-supply = <&vdd_3v3>;
++		regulator-always-on;
++	};
++};
++
++&mcu_pmx0 {
++	cam0_reset_pins_default: cam0-default-reset-pins {
 +		pinctrl-single,pins = <
-+			J722S_IOPAD(0x0004, PIN_OUTPUT, 7) /* (L23) OSPI0_LBCLKO.GPIO0_1 */
-+			J722S_IOPAD(0x0008, PIN_OUTPUT, 7) /* (L22) OSPI0_DQS.GPIO0_2 */
++			J722S_MCU_IOPAD(0x003c, PIN_OUTPUT, 7) /* (C1) MCU_MCAN1_TX.MCU_GPIO0_15 */
 +		>;
 +	};
++};
 +
- 	rgmii1_pins_default: rgmii1-default-pins {
- 		pinctrl-single,pins = <
- 			J722S_IOPAD(0x014c, PIN_INPUT, 0) /* (AC25) RGMII1_RD0 */
++&mcu_gpio0 {
++	status = "okay";
++};
++
++&main_i2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	status = "okay";
++
++	imx219_0: sensor@10 {
++		compatible = "sony,imx219";
++		reg = <0x10>;
++
++		clocks = <&clk_imx219_csi0>;
++
++		VANA-supply = <&reg_2p8v_csi0>;
++		VDIG-supply = <&reg_1p8v_csi0>;
++		VDDL-supply = <&reg_1p2v_csi0>;
++
++		pinctrl-names = "default";
++		pinctrl-0 = <&cam0_reset_pins_default>;
++
++		reset-gpios = <&mcu_gpio0 15 GPIO_ACTIVE_HIGH>;
++
++		port {
++			csi2_cam0: endpoint {
++				remote-endpoint = <&csi2rx0_in_sensor>;
++				link-frequencies = /bits/ 64 <456000000>;
++				clock-lanes = <0>;
++				data-lanes = <1 2>;
++			};
++		};
++	};
++};
++
++&cdns_csi2rx0 {
++	ports {
++		#address-cells = <1>;
++		#size-cells = <0>;
++
++		csi0_port0: port@0 {
++			reg = <0>;
++			status = "okay";
++
++			csi2rx0_in_sensor: endpoint {
++				remote-endpoint = <&csi2_cam0>;
++				bus-type = <4>; /* CSI2 DPHY. */
++				clock-lanes = <0>;
++				data-lanes = <1 2>;
++			};
++		};
++	};
++};
++
++&ti_csi2rx0 {
++	status = "okay";
++};
++
++&dphy0 {
++	status = "okay";
++};
 
 -- 
 2.54.0
