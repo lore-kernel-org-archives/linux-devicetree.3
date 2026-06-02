@@ -1,310 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9903B8D78;
-	Tue,  2 Jun 2026 08:25:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8EFC3C4141
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:26:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388748; cv=none; b=j2urwqHPGGrz2kIqFw56czXQA7xzrY9kZZIS8Uh86OYbteT6uK13uFMTAMR2bNBddtAuHbuT8bmqo0vYDtI/kO4pLQ6Ddq0iQJFSLJUFSd/NOxDWsvjS67i/NUh5zGy8G7MagzZAdZEJD2CzQYE8f+vK0wILOjy726i0L+s7gkg=
+	t=1780388768; cv=none; b=CzxFGi959KF4VOb6gfprh+4F6DE849AZT3Iu5187mocB3aDMhzwZABwFx56E2h3k8x55WKVmquQDMFkxJaGUAcM6Kj/zXWh+PsBKaFEu1TY0/85RtYsfj3ZexbL4pipGMpx0W4X0FiDOtGhyfikCiv8l6LVGhkOkJf4f4Mo21Qs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388748; c=relaxed/simple;
-	bh=vfgwnBG+lxpWKDMp5Hl71qaLhmM4qDpidcG1oLR1LMU=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=lycJ47zFmfS4hlABE+zg1N561XQ36ngnF2eme5T32FCyGsrRBaK+HeMkg20Ro/HbuQmjQ/sf3QquzpH5PAYwR/728iDUHBT5Oa1K05iDotJsNqz4AiCsOb8B37FGGTYJmLt/EGsLHGYO4mpZtOsKTTGnu+fRerp3jm9HOc+JFSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DpEelpDs; arc=none smtp.client-ip=10.30.226.201
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DpEelpDs"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 1A223C2BCF7;
-	Tue,  2 Jun 2026 08:25:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1780388748;
-	bh=vfgwnBG+lxpWKDMp5Hl71qaLhmM4qDpidcG1oLR1LMU=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=DpEelpDs3FgGxRvdtjX+qJZSRtaTRbUv6P6hp2QGKaloPtTAHFSXSXNcuHC6fN9Mf
-	 RHmFTPUS21xwfkvXb7QRx21uhyC5ump2WL9flE95DPiefjC+3AkutUees+d7TaTjbS
-	 EdZNIMzo/UBnPQklJYnFeO9W66GLgsE67DuKy6cwY+F5jzfxORKxfwkxDOsaCz9gWQ
-	 oSnkLLKAAiBGIMC2lgVzzN5/oLsZab5FMKwriuw54NxVvuw1sneD6erigw1/myvaZM
-	 uIe7aMZRUqiHkpuu0chSmQBBum0kg77QNkfwGOFvFNkSx6FKILjMfIl/4Pj/haMfFp
-	 AMKD3drTqAjnA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 12DADCD6E57;
-	Tue,  2 Jun 2026 08:25:48 +0000 (UTC)
-From: Dimitri Fedrau via B4 Relay <devnull+dimitri.fedrau.liebherr.com@kernel.org>
-Date: Tue, 02 Jun 2026 10:25:38 +0200
-Subject: [PATCH v6 2/2] phy: add basic support for NXPs TJA1145 CAN
- transceiver
+	s=arc-20240116; t=1780388768; c=relaxed/simple;
+	bh=ZQkpBhdyPFX8K1AgwsbSqD6e4PBbKm/F+6uEvcBzPyk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=bPxHRAbkg4SEiVKQwCD6GDhp0kEXqomIxB0XSj+iU8Db5PeLukb6u7DbbBlZHyp0x0jCp0agEOTOPILc19CFDUPl9qpJd013nTuSr6dBsJkcyWIaHMNdKZN2J8CXba57g1vm9jzSgG0l7fJYKVYt/W8/MV/IrXN3lNSfQ688mQI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUKQZ-0001Gf-0T; Tue, 02 Jun 2026 10:24:47 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUKQT-000iZa-13;
+	Tue, 02 Jun 2026 10:24:41 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUKQT-000000003ba-0TqR;
+	Tue, 02 Jun 2026 10:24:41 +0200
+Message-ID: <6af284545729f03a60d06479339862a2f08c6b7e.camel@pengutronix.de>
+Subject: Re: [PATCH 22/23] reset: rzg2l: use
+ platform_device_set_of_node_from_dev()
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>, Lee Jones	
+ <lee@kernel.org>, Mark Brown <broonie@opensource.wolfsonmicro.com>, Thierry
+ Reding <thierry.reding@avionic-design.de>, Sebastian Hesselbarth	
+ <sebastian.hesselbarth@gmail.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Srinivas Kandagatla <srini@kernel.org>, Greg
+ Kroah-Hartman	 <gregkh@linuxfoundation.org>, Vinod Koul <vkoul@kernel.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, Danilo Krummrich
+ <dakr@kernel.org>, Rob Herring <robh@kernel.org>,  Saravana Kannan
+ <saravanak@kernel.org>, Madhavan Srinivasan <maddy@linux.ibm.com>, Michael
+ Ellerman	 <mpe@ellerman.id.au>, Nicholas Piggin <npiggin@gmail.com>,
+ "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>, Andi Shyti
+ <andi.shyti@kernel.org>, Andy Shevchenko	
+ <andriy.shevchenko@linux.intel.com>, Joerg Roedel <joro@8bytes.org>, Will
+ Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>, Doug Berger
+ <opendmb@gmail.com>,  Florian Fainelli <florian.fainelli@broadcom.com>,
+ Broadcom internal kernel review list	
+ <bcm-kernel-feedback-list@broadcom.com>, Ulf Hansson <ulfh@kernel.org>, 
+ Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
+ Pengutronix Kernel Team	 <kernel@pengutronix.de>, Fabio Estevam
+ <festevam@gmail.com>, Matthew Brost	 <matthew.brost@intel.com>, Thomas
+ =?ISO-8859-1?Q?Hellstr=F6m?=	 <thomas.hellstrom@linux.intel.com>, Rodrigo
+ Vivi <rodrigo.vivi@intel.com>,  David Airlie <airlied@gmail.com>, Simona
+ Vetter <simona@ffwll.ch>, Peter Chen <peter.chen@kernel.org>,  Paul
+ Cercueil <paul@crapouillou.net>, Bin Liu <b-liu@ti.com>, Maximilian Luz
+ <luzmaximilian@gmail.com>, Hans de Goede <hansg@kernel.org>, Ilpo
+ =?ISO-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,  Krzysztof
+ Kozlowski	 <krzk@kernel.org>, Benjamin Herrenschmidt
+ <benh@kernel.crashing.org>
+Cc: brgl@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org, 
+	driver-core@lists.linux.dev, devicetree@vger.kernel.org, 
+	linuxppc-dev@lists.ozlabs.org, linux-i2c@vger.kernel.org,
+ iommu@lists.linux.dev, 	linux-pm@vger.kernel.org, imx@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, intel-xe@lists.freedesktop.org, 
+	dri-devel@lists.freedesktop.org, linux-usb@vger.kernel.org, 
+	linux-mips@vger.kernel.org, platform-driver-x86@vger.kernel.org
+Date: Tue, 02 Jun 2026 10:24:41 +0200
+In-Reply-To: <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
+References: <20260521-pdev-fwnode-ref-v1-0-88c324a1b8d2@oss.qualcomm.com>
+	 <20260521-pdev-fwnode-ref-v1-22-88c324a1b8d2@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-tja1145-support-v6-2-0e0ffc8ee63d@liebherr.com>
-References: <20260602-tja1145-support-v6-0-0e0ffc8ee63d@liebherr.com>
-In-Reply-To: <20260602-tja1145-support-v6-0-0e0ffc8ee63d@liebherr.com>
-To: Vinod Koul <vkoul@kernel.org>, 
- Kishon Vijay Abraham I <kishon@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Neil Armstrong <neil.armstrong@linaro.org>, 
- Dimitri Fedrau <dima.fedrau@gmail.com>
-Cc: linux-phy@lists.infradead.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, Dimitri Fedrau <dimitri.fedrau@liebherr.com>, 
- lee.lockhey@gmail.com, Marc Kleine-Budde <mkl@pengutronix.de>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780388746; l=7419;
- i=dimitri.fedrau@liebherr.com; s=20241202; h=from:subject:message-id;
- bh=cTwa7LJ4WYrfE9uhGBTMXWFXb7E3Zcyu/daqVib881Q=;
- b=Yz82mMFTB5TxVPWH+Mg/B3dArRXDIOaccHem8sjAnpdNTOHXQUXUQz2Cvfo8gAJbbXMr1bK6r
- XKtqS9OfXbvBMHF4Ow0H9N1xURiDym8SLviI05fqZ2Wj9Tv35cjJ+Ok
-X-Developer-Key: i=dimitri.fedrau@liebherr.com; a=ed25519;
- pk=rT653x09JSQvotxIqQl4/XiI4AOiBZrdOGvxDUbb5m8=
-X-Endpoint-Received: by B4 Relay for dimitri.fedrau@liebherr.com/20241202
- with auth_id=290
-X-Original-From: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
-Reply-To: dimitri.fedrau@liebherr.com
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
+On Do, 2026-05-21 at 10:36 +0200, Bartosz Golaszewski wrote:
+> Ahead of reworking the reference counting logic for platform devices,
+> encapsulate the assignment of the OF node from another device for
+> dynamically allocated platform devices with the provided helper.
+>=20
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+>  drivers/reset/reset-rzg2l-usbphy-ctrl.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/reset/reset-rzg2l-usbphy-ctrl.c b/drivers/reset/rese=
+t-rzg2l-usbphy-ctrl.c
+> index fd75d9601a3bfde7b7e3f6db287ec8c5c45a20ab..f003b360629c90bb37ed0ade7=
+a675b5b0f28fa7e 100644
+> --- a/drivers/reset/reset-rzg2l-usbphy-ctrl.c
+> +++ b/drivers/reset/reset-rzg2l-usbphy-ctrl.c
+> @@ -249,7 +249,7 @@ static int rzg2l_usbphy_ctrl_probe(struct platform_de=
+vice *pdev)
+>  	vdev->dev.parent =3D dev;
+>  	priv->vdev =3D vdev;
+> =20
+> -	device_set_of_node_from_dev(&vdev->dev, dev);
+> +	platform_device_set_of_node_from_dev(vdev, dev);
+>  	error =3D platform_device_add(vdev);
+>  	if (error)
+>  		goto err_device_put;
 
-Add basic driver support for NXPs TJA1145 CAN transceiver which brings the
-PHY up/down by switching to normal/standby mode using SPI commands.
+Acked-by: Philipp Zabel <p.zabel@pengutronix.de>
 
-Tested-by: <lee.lockhey@gmail.com>
-Reviewed-by: Marc Kleine-Budde <mkl@pengutronix.de>
-Signed-off-by: Dimitri Fedrau <dimitri.fedrau@liebherr.com>
----
- drivers/phy/Kconfig           |  10 +++
- drivers/phy/Makefile          |   1 +
- drivers/phy/phy-nxp-tja1145.c | 184 ++++++++++++++++++++++++++++++++++++++++++
- 3 files changed, 195 insertions(+)
-
-diff --git a/drivers/phy/Kconfig b/drivers/phy/Kconfig
-index ab96ee5858c1a9dee2aea3a896c09b397cc30c7f..a3f9a05e222002e23d5080aa22b56f2a822a4b97 100644
---- a/drivers/phy/Kconfig
-+++ b/drivers/phy/Kconfig
-@@ -124,6 +124,16 @@ config PHY_NXP_PTN3222
- 	  schemes. It supports all three USB 2.0 data rates: Low Speed, Full
- 	  Speed and High Speed.
- 
-+config PHY_NXP_TJA1145
-+	tristate "NXP TJA1145 CAN transceiver PHY"
-+	select GENERIC_PHY
-+	select REGMAP_SPI
-+	depends on SPI
-+	help
-+	  This option enables support for NXPs TJA1145 CAN transceiver as a PHY.
-+	  This driver provides function for putting the transceiver in various
-+	  functional modes using SPI commands.
-+
- config PHY_PISTACHIO_USB
- 	tristate "IMG Pistachio USB2.0 PHY driver"
- 	depends on MIPS || COMPILE_TEST
-diff --git a/drivers/phy/Makefile b/drivers/phy/Makefile
-index f31767745123773757e84b0b5fb85ec286c1d977..65ea9f0bc7f151378caa6e161f8b8a5c6884d7e5 100644
---- a/drivers/phy/Makefile
-+++ b/drivers/phy/Makefile
-@@ -14,6 +14,7 @@ obj-$(CONFIG_PHY_GOOGLE_USB)		+= phy-google-usb.o
- obj-$(CONFIG_USB_LGM_PHY)		+= phy-lgm-usb.o
- obj-$(CONFIG_PHY_LPC18XX_USB_OTG)	+= phy-lpc18xx-usb-otg.o
- obj-$(CONFIG_PHY_NXP_PTN3222)		+= phy-nxp-ptn3222.o
-+obj-$(CONFIG_PHY_NXP_TJA1145)		+= phy-nxp-tja1145.o
- obj-$(CONFIG_PHY_PISTACHIO_USB)		+= phy-pistachio-usb.o
- obj-$(CONFIG_PHY_SNPS_EUSB2)		+= phy-snps-eusb2.o
- obj-$(CONFIG_PHY_XGENE)			+= phy-xgene.o
-diff --git a/drivers/phy/phy-nxp-tja1145.c b/drivers/phy/phy-nxp-tja1145.c
-new file mode 100644
-index 0000000000000000000000000000000000000000..1e8bd169743abfaeee6948d200e6ac320cd616ff
---- /dev/null
-+++ b/drivers/phy/phy-nxp-tja1145.c
-@@ -0,0 +1,184 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) 2025 Liebherr-Electronics and Drives GmbH
-+ */
-+#include <linux/module.h>
-+#include <linux/regmap.h>
-+
-+#include <linux/phy/phy.h>
-+#include <linux/spi/spi.h>
-+
-+#define TJA1145_MODE_CTRL		0x01
-+#define TJA1145_MODE_CTRL_MC		GENMASK(2, 0)
-+#define TJA1145_MODE_CTRL_STBY		BIT(2)
-+#define TJA1145_MODE_CTRL_NORMAL	TJA1145_MODE_CTRL_MC
-+
-+#define TJA1145_CAN_CTRL		0x20
-+#define TJA1145_CAN_CTRL_CMC		GENMASK(1, 0)
-+#define TJA1145_CAN_CTRL_ACTIVE		BIT(1)
-+
-+#define TJA1145_IDENT			0x7e
-+#define TJA1145_IDENT_TJA1145T		0x70
-+
-+#define TJA1145_SPI_READ_BIT		BIT(0)
-+#define TJA1145T_MAX_BITRATE		1000000
-+
-+static int tja1145_phy_power_on(struct phy *phy)
-+{
-+	struct regmap *map = phy_get_drvdata(phy);
-+	int ret;
-+
-+	/*
-+	 * Switch operating mode to normal which is the active operating mode.
-+	 * In this mode, the device is fully operational.
-+	 */
-+	ret = regmap_update_bits(map, TJA1145_MODE_CTRL, TJA1145_MODE_CTRL_MC,
-+				 TJA1145_MODE_CTRL_NORMAL);
-+	if (ret)
-+		return ret;
-+
-+	/*
-+	 * Switch to CAN operating mode active where the PHY can transmit and
-+	 * receive data.
-+	 */
-+	return regmap_update_bits(map, TJA1145_CAN_CTRL, TJA1145_CAN_CTRL_CMC,
-+				  TJA1145_CAN_CTRL_ACTIVE);
-+}
-+
-+static int tja1145_phy_power_off(struct phy *phy)
-+{
-+	struct regmap *map = phy_get_drvdata(phy);
-+
-+	/*
-+	 * Switch to operating mode standby, the PHY is unable to transmit or
-+	 * receive data in standby mode.
-+	 */
-+	return regmap_update_bits(map, TJA1145_MODE_CTRL, TJA1145_MODE_CTRL_MC,
-+				  TJA1145_MODE_CTRL_STBY);
-+}
-+
-+static const struct phy_ops tja1145_phy_ops = {
-+	.power_on = tja1145_phy_power_on,
-+	.power_off = tja1145_phy_power_off,
-+	.owner = THIS_MODULE,
-+};
-+
-+static const struct regmap_range tja1145_wr_holes_ranges[] = {
-+	regmap_reg_range(0x00, 0x00),
-+	regmap_reg_range(0x02, 0x03),
-+	regmap_reg_range(0x05, 0x05),
-+	regmap_reg_range(0x0b, 0x1f),
-+	regmap_reg_range(0x21, 0x22),
-+	regmap_reg_range(0x24, 0x25),
-+	regmap_reg_range(0x30, 0x4b),
-+	regmap_reg_range(0x4d, 0x60),
-+	regmap_reg_range(0x62, 0x62),
-+	regmap_reg_range(0x65, 0x67),
-+	regmap_reg_range(0x70, 0xff),
-+};
-+
-+static const struct regmap_access_table tja1145_wr_table = {
-+	.no_ranges = tja1145_wr_holes_ranges,
-+	.n_no_ranges = ARRAY_SIZE(tja1145_wr_holes_ranges),
-+};
-+
-+static const struct regmap_range tja1145_rd_holes_ranges[] = {
-+	regmap_reg_range(0x00, 0x00),
-+	regmap_reg_range(0x02, 0x02),
-+	regmap_reg_range(0x05, 0x05),
-+	regmap_reg_range(0x0b, 0x1f),
-+	regmap_reg_range(0x21, 0x21),
-+	regmap_reg_range(0x24, 0x25),
-+	regmap_reg_range(0x30, 0x4a),
-+	regmap_reg_range(0x4d, 0x5f),
-+	regmap_reg_range(0x62, 0x62),
-+	regmap_reg_range(0x65, 0x67),
-+	regmap_reg_range(0x70, 0x7d),
-+	regmap_reg_range(0x7f, 0xff),
-+};
-+
-+static const struct regmap_access_table tja1145_rd_table = {
-+	.no_ranges = tja1145_rd_holes_ranges,
-+	.n_no_ranges = ARRAY_SIZE(tja1145_rd_holes_ranges),
-+};
-+
-+static const struct regmap_config tja1145_regmap_config = {
-+	.reg_bits = 8,
-+	.reg_shift = -1,
-+	.val_bits = 8,
-+	.wr_table = &tja1145_wr_table,
-+	.rd_table = &tja1145_rd_table,
-+	.read_flag_mask = TJA1145_SPI_READ_BIT,
-+	.max_register = TJA1145_IDENT,
-+};
-+
-+static int tja1145_check_ident(struct device *dev, struct regmap *map)
-+{
-+	unsigned int val;
-+	int ret;
-+
-+	ret = regmap_read(map, TJA1145_IDENT, &val);
-+	if (ret)
-+		return ret;
-+
-+	if (val != TJA1145_IDENT_TJA1145T) {
-+		dev_err(dev, "Expected device id: 0x%02x, got: 0x%02x\n",
-+			TJA1145_IDENT_TJA1145T, val);
-+		return -ENODEV;
-+	}
-+
-+	return 0;
-+}
-+
-+static int tja1145_probe(struct spi_device *spi)
-+{
-+	struct phy_provider *phy_provider;
-+	struct device *dev = &spi->dev;
-+	struct regmap *map;
-+	struct phy *phy;
-+	int ret;
-+
-+	map = devm_regmap_init_spi(spi, &tja1145_regmap_config);
-+	if (IS_ERR(map))
-+		return dev_err_probe(dev, PTR_ERR(map), "failed to init regmap\n");
-+
-+	ret = tja1145_check_ident(dev, map);
-+	if (ret)
-+		return dev_err_probe(dev, ret, "failed to identify device\n");
-+
-+	phy = devm_phy_create(dev, dev->of_node, &tja1145_phy_ops);
-+	if (IS_ERR(phy))
-+		return dev_err_probe(dev, PTR_ERR(phy), "failed to create PHY\n");
-+
-+	phy->attrs.max_link_rate = TJA1145T_MAX_BITRATE;
-+	phy_set_drvdata(phy, map);
-+	phy_provider = devm_of_phy_provider_register(dev, of_phy_simple_xlate);
-+
-+	return PTR_ERR_OR_ZERO(phy_provider);
-+}
-+
-+static const struct spi_device_id tja1145_spi_id[] = {
-+	{ "tja1145" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(spi, tja1145_spi_id);
-+
-+static const struct of_device_id tja1145_of_match[] = {
-+	{ .compatible = "nxp,tja1145" },
-+	{ }
-+};
-+MODULE_DEVICE_TABLE(of, tja1145_of_match);
-+
-+static struct spi_driver tja1145_driver = {
-+	.driver = {
-+		.name = "tja1145",
-+		.of_match_table = tja1145_of_match,
-+	},
-+	.probe = tja1145_probe,
-+	.id_table = tja1145_spi_id,
-+};
-+module_spi_driver(tja1145_driver);
-+
-+MODULE_DESCRIPTION("NXP TJA1145 CAN transceiver PHY driver");
-+MODULE_AUTHOR("Dimitri Fedrau <dimitri.fedrau@liebherr.com>");
-+MODULE_LICENSE("GPL");
-
--- 
-2.39.5
-
-
+regards
+Philipp
