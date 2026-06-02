@@ -1,165 +1,97 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029FE3D45E9;
-	Tue,  2 Jun 2026 10:10:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F31B3D410B
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:16:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395009; cv=none; b=LMVDgG7NFiwLs3i+Iwhg8pr6Rcge34B4wAVqwsYc3opNw3xY+XHX0aMA7MQb5q332nKgrnYphv0DigEF3Dt/paXK7BE6XZQqbQCghJL1G5yAoMQbwUTqtV7e7KWpZGUJL3Akc+GJi+mq1Ka6Dw0cyXvr368gg2Xjjz4XfnkRUOM=
+	t=1780395372; cv=none; b=g57Cvbpa0JOe1ALYt4v6FMP4ZZHv4B4jL7cZDJDABpMyksj43BqAheiG033DFemkYc+SjvH9d05a/o+5q/SYd5texzYpAv/zo+/J8G/ZEwsXGYIRSOruDyXJO98x5DJJrPzw7iDxGZJe67l4DAmOgiaMJPlWBpqyQEZXGx5dJro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395009; c=relaxed/simple;
-	bh=PSupo4XG5wJE3VdT2NoXu7XsQnHKRm0bDvhLxERvChI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fRSU7oN9fpswGytEmsN8ktBlmktvqyT8084AV/d/DyxAhLwctyxygOQY4GcvMNQOAtJd0K0f4XoTT+VObYxq/KlLWZg0/vWRrj4DWL04MNdwSHO6OUqfLLr1pvqYJeQ6TJLhuI0rSKYaZf9gLH8+Ap60rEWQdQnJuEiYC90mwtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eibFwWAM; arc=none smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780395372; c=relaxed/simple;
+	bh=f84VhQa/St2+evr4TtwcBCBAVfxHSYOs3xw1PSgUknk=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FmPXWaOTs4f3r2WuAsLvi99fkGCandvW/5GkaSf4uIJr1Me2TGet0rpEcRtwbz/EAvxe6CmM+KSYK87tzw6Teadkn0FI3UPBGEXnDVx4wv0mmP2TZpcCQsVo6/52HN1zu0k1AP4DW48GFIhj/VCDZXtnNCNu1IObsgfQSDngl9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BlwLhYeP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eibFwWAM"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780395009; x=1811931009;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=PSupo4XG5wJE3VdT2NoXu7XsQnHKRm0bDvhLxERvChI=;
-  b=eibFwWAMFs5iXsARM7qkpn4UwEgk4AAZ1eyt28hgkzbAn6pJ3X2kTtuC
-   d/10U7vQg09MlB6XgJu7WFMPYK6FjhF4HOPkULYe8BLuTg0lg3jrt39VN
-   v/DQfphNLwCnN5XUQD0WNXLPXmrLbJgLZOVJim2CRhC+872LToV7ncBB1
-   FbOGvcYnsLL1lWmVaglCO9oqeUJmP5IIt3zzsXK7J/6oIb5MYDZ5K2ZZ8
-   ZKny9fKrX//hNFqL5nmtV37bjY9hx+woPMw8h1PqeYPm0G5oFJ6Lyv/4S
-   VfEfERj8VNSLuGauPK+1j1Hc1POx5bPIbGt/C0SaCXrj7KOwP1wgvt25t
-   Q==;
-X-CSE-ConnectionGUID: JfVxaPB9ThmqGht7/6oSYw==
-X-CSE-MsgGUID: aJ+QmhT9Q5SxSSj4WSaUCA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81076672"
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="81076672"
-Received: from orviesa002.jf.intel.com ([10.64.159.142])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 03:10:08 -0700
-X-CSE-ConnectionGUID: gdjoF3+US4CG7At2JRbilQ==
-X-CSE-MsgGUID: aNhtmc3DT+OyjVVfYw9dIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
-   d="scan'208";a="274129105"
-Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
-  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 03:10:04 -0700
-Date: Tue, 2 Jun 2026 13:10:01 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Matti Vaittinen <mazziesaccount@gmail.com>,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v4 3/4] iio: light: veml6031x00: add support for
- triggered buffers
-Message-ID: <ah6r-ZnAb_zIZfeY@ashevche-desk.local>
-References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
- <20260531-veml6031x00-v4-3-e64f7fdce38d@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BlwLhYeP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B0971F00898;
+	Tue,  2 Jun 2026 10:16:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780395371;
+	bh=F+Nk+ceO0alfZGjD8Y4fftB4La0hJqtLUjdGIzsLjO0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BlwLhYePlqgHrTK2Jqqu6xpAwlw4J2a6UPAetKrJlhxF/j8sS6tVKqkbrgzShUsPj
+	 sS6ezbuSAhMayG1MNhg1cUh1UaUGAN0yH7Uud3l+5zByu2tmj6LR65dD0lnzstCfO9
+	 g5Cs0njN7NyIZ13y1RUdh8tz9XkSjj+bhevQnzcGyAFaWIp27APJzP5QVYFRbhea2C
+	 b5gS/V7gTH3lQPcQ6Xs83rLSwy17E02+4RJsZtk/IPMMgHomFA0JLPvfLy8tyddPv5
+	 tT0TMfOIgIfjdkV01NvJnaDj4nVf4RCVzPiJzPXmFnjTHjDQHbIpQ4BjPTtBrnx7WY
+	 yCVm4gKAjPrZQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 1/2] ASoC: dt-bindings: ti,tas2781: Add TAS2573
+ support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Baojun Xu" <baojun.xu@ti.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260602100532.6463-1-baojun.xu@ti.com>
+References: <20260602100532.6463-1-baojun.xu@ti.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jun 2026 10:16:07 +0000
+Message-Id: <20260602101608.5B0971F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531-veml6031x00-v4-3-e64f7fdce38d@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On Sun, May 31, 2026 at 09:58:23PM +0200, Javier Carrasco wrote:
-> Add triggered buffer functionality for the two channels the device
-> provides (ALS and IR).
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The dt-binding schema enforces mutually exclusive `reg` constrai=
+nts for `ti,tas2573`, causing schema validation to always fail for this dev=
+ice.
+--
 
-...
+commit fae137d4c240a643a606f184ad877663a7719392
+Author: Baojun Xu <baojun.xu@ti.com>
 
-> +static int veml6031x00_buffer_preenable(struct iio_dev *iio)
-> +{
-> +	struct veml6031x00_data *data = iio_priv(iio);
-> +	int ret, it_usec;
+ASoC: dt-bindings: ti,tas2781: Add TAS2573 support
 
-Can it_usec be negative?
+The TAS2573 belongs to the TAS257x device family, featuring an integrated
+DSP and IV sensing capability. This commit adds support for the TAS2573
+to the ti,tas2781 dt-binding schema.
 
-> +	ret = pm_runtime_resume_and_get(data->dev);
-> +	if (ret)
-> +		return ret;
+> diff --git a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml b/Do=
+cumentation/devicetree/bindings/sound/ti,tas2781.yaml
+> index b21466bb0730a..aa5a317b5a361 100644
+> --- a/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+> +++ b/Documentation/devicetree/bindings/sound/ti,tas2781.yaml
+[ ... ]
+> @@ -183,6 +187,7 @@ allOf:
+>            contains:
+>              enum:
+>                - ti,tas2563
+> +              - ti,tas2573
+>                - ti,tas5825
+>      then:
+>        properties:
 
-Wouldn't be better to use respective ACQUIRE() macros from pm_runtime.h?
+[Severity: Medium]
+Will these mutually exclusive reg constraints cause a regression during
+schema validation for ti,tas2573?
 
-> +	ret = veml6031x00_get_it(data, &it_usec);
-> +	if (ret < 0) {
-> +		pm_runtime_put_autosuspend(data->dev);
-> +		return ret;
-> +	}
-> +
-> +	/*
-> +	 * Wait one integration period + 10% margin so the first triggered
-> +	 * read does not race with the sensor completing its first conversion
-> +	 * after power-on.
-> +	 */
-> +	fsleep(it_usec + (it_usec / 10));
+Since the schema requires ti,tas2573 to have ti,tas2781 as a fallback in the
+compatible array, a device tree node will typically have:
+compatible =3D "ti,tas2573", "ti,tas2781";
 
-fsleep() adds up to 25% of margin, wouldn't be that enough?
+This triggers the conditional block here, restricting reg addresses to
+0x4c-0x4f.
 
-> +	return 0;
-> +}
+However, it also triggers the later conditional block for ti,tas2781, which
+restricts reg addresses to 0x38-0x3f.
 
-...
+Since reg cannot satisfy both disjoint ranges simultaneously, will
+dt_binding_check always fail for valid ti,tas2573 device trees?
 
-> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf = p;
-> +	struct iio_dev *iio = pf->indio_dev;
-> +	struct veml6031x00_data *data = iio_priv(iio);
-> +	int ch, ret, i = 0;
-
-Make 'i' unsigned and split the assignment so it goes closer to the user, makes
-maintenance easier.
-
-> +	struct {
-> +		__le16 chans[2];
-> +		aligned_s64 timestamp;
-> +	} scan = { };
-> +
-> +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
-> +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
-
-I hope everyone understands that this testing may be immediately false here
-(without any additional protection added). Even more, the _ALS bit may be
-cleared just before checking the _IR one.
-
-> +		ret = regmap_bulk_read(data->regmap,
-> +				       VEML6031X00_REG_ALS_L,
-> +				       &scan.chans, sizeof(scan.chans));
-> +		if (ret)
-> +			goto done;
-> +	} else {
-> +		iio_for_each_active_channel(iio, ch) {
-> +			ret = regmap_bulk_read(data->regmap,
-> +					       iio->channels[ch].address,
-> +					       &scan.chans[i++],
-> +					       sizeof(*scan.chans));
-> +			if (ret)
-> +				goto done;
-> +		}
-> +	}
-> +
-> +	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), pf->timestamp);
-> +
-> +done:
-> +	iio_trigger_notify_done(iio->trig);
-> +
-> +	return IRQ_HANDLED;
-> +}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602100532.6463=
+-1-baojun.xu@ti.com?part=3D1
