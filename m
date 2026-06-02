@@ -1,156 +1,144 @@
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151422848AA
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 19:49:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C95AB2F3632
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 19:50:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780429774; cv=none; b=VB4+ZRIopDBbvIrAvHKAQ9ZrN6W+NgTI+95jvWAtlQzY3GN5H4vz3nUOLrDoXsAP3ovYxz6iFyoCj378HN2NY9TXROGaD6VUBDdkeTarVQEtiYgtqYVH1nIE3Z9KnBv8Bq48cgbDdSLVT06w8g1tuTbxACfxN/ChfZp20H6mz9k=
+	t=1780429828; cv=none; b=ous+BlmvXYHhY6BWTr2bbVER+5s+F2QCVNzyq9obCqRLEE7Ybadxhxsyxs5o358UPc9oTZ4epyVfLtW11dzfVh7afwxdKly1rLv0FiVfsALPHJu7+9+ZchoWSUQjmjaIWEXw+e/tCdftEebxHvTW1iGrve9TN9phdpFGjEuFycg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780429774; c=relaxed/simple;
-	bh=oBaTI4c79O6vpTgtjlM41+/n4xq+WnG2e+IzVNiDbJU=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=Pxs/PDZLAsElB+tAz7J1Q/Ew1UumM7coYUkaWBwbEU2mv+Rrwiiq/TRC3oj2W41xLPaLa19qmNlXC6nJ5ew1wj9/5rVbIZK9jc+ha8DVfBbmQhPNnfnqEDKxVDRJymXh+xDIDm8kSyURS4PJkNlkvDY+zipPY9l6vMqsx0XaVnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UIZL/+P2; arc=none smtp.client-ip=209.85.128.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780429828; c=relaxed/simple;
+	bh=wQyQbCXJyDcxuF7T/MfPTZburTY0O5Do2c1AzrMLeKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=r388zpkWb2YQReKRrUK+++F8xbwdCylmv7gETOdXyOMEomWzHYRmHwT1GkLTYnxHXexv6/xqgmdCgScM0xs5r4A760hvG8wykqACBB5NqYybSmaHKh7kSXN/X/5R4bsN8yibJH4vDc9olZvCfqdiYqXNbPzFAcFzL5CmCul/hNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EhfMz0yV; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UIZL/+P2"
-Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b613a17bso549145e9.3
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 12:49:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EhfMz0yV"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4903997fcb5so120622235e9.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 12:50:25 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780429771; x=1781034571; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uspwVvtiltCsqTff8wL3whaP7rrxXxnCkwg5ui4E/K8=;
-        b=UIZL/+P2j+ObC1TFknmKvWW+pvVGOvQ65357KvL2WrRK7JuPiejBSgMapE/rDxmsf9
-         vQILcjVvuz9mcx6E1ICApAYYjMFzlGOOWQbqcmi76iNBm42WCJHP90Gker3mFVCZO2Nn
-         V659XeY3viIK9N55O9XUVVUFkj4O5rNzkGG9cI26Uf9LsxZtNJJf+uMWQNJw8YEsRTXw
-         HywqDmVGAihaT2UNIbCuZlxrwfuw7wyA0Zb1HNSORb0bzPaP7Y9uOLd1KIf0xhlpe2GR
-         1b+vT2YJZXOtMmWE3fLkOIX0ZmJUW6NV+7Cz9ANpq3NDWCSDl034azL3vulPAmexINHS
-         5jlw==
+        d=gmail.com; s=20251104; t=1780429824; x=1781034624; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=ZT80MAX+bO9RoRC5OjSLZM3wOHAxfoWPS2zpj0XDIqY=;
+        b=EhfMz0yVXQFyZBia98YnCSqkZIwDEozMM+GzthUQybr1FySOyuKxKV0/T/0dkHuQ4b
+         WasqgoUdtpKDCxcKcsuCrCDIT8HUclWJEBPitKRTFqRxREJFmKX6VkehfzgQP+Uo5cY1
+         45LS22UO/1Llrec9bGkhnYVJP4n+btzSnEGBNhpe7D8KO/gOCZeotl6NG9k4lgjePObU
+         ifprfnjKy9oOqSdC3k5Z7EsVT28OaXQtvDAJoI4QK3AZTR8MsapIl9gHyTumeJLnDzG5
+         28MiNMCpqVOAGwac5Cbp+8FiGNYzQ1+VWJEFAER0jX0IQmfWAdp2piqdvMjGxcCoUsTK
+         zRfQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780429771; x=1781034571;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=uspwVvtiltCsqTff8wL3whaP7rrxXxnCkwg5ui4E/K8=;
-        b=GNhotYKsnBqdtVqziqpSlJ49NCODLBn1D1310MPIlkyosK78nLRrake+/CVIWjFQqp
-         CooGDNvOBq9GUfsLsGlDIdzh6FzwuIzHxyHXK498XI5jwPQj9jsLLS2mc9rBy0q1/X15
-         Vy4egzhaVASbSE47VdG4GoIF92H1snMDgB2Yw2JgIIOJdxvOIQ3Pjb1XEVRJy65aEPD1
-         vP8s83dpHyyppkVVFe05okWQ3PwgWWR8U20Mb5yh/yax1p0i8/QLehUE6LEYDbPWQ6wg
-         WNto99dmvumWNYcNFbj9B2ChYeuYYwqyuTyv9X5QnJ6svEPmAAyauD74V0lnRuN9YJPG
-         drhw==
-X-Forwarded-Encrypted: i=1; AFNElJ9r7vrWRYjtr33MRrstkM4R5xWB05EAYpPCup6b3sl/WlvAZVhG5Iv6IG52h+DVP2ElgXSwsPOuhXSU@vger.kernel.org
-X-Gm-Message-State: AOJu0YwNXJxtfvGssX4P6Tf8mwKcUtBTBLOAIfy0bNVxvaMusUVxBz43
-	wfR/2u+MwGu+3+WRYrWeJEv97JV48FsigTYy38aALTd4lA0fAkjNZXW72Qva3warusQ=
-X-Gm-Gg: Acq92OGQVm+PR57VnsCM1HzqBGwif5/t7ld/Jj8Eu6bZiF/ZcEVaxUOmBwtgWMQJtgv
-	6BJu9PYCtIcIovcbCXfxQU7MI/XDVz9KS1Pw8Oq7eVN8nxNZULAddqBmQIA5G9xzDAil3FklpQB
-	wTK30tHOPQzXgrh8969V+6rxR2oE5aI3hkX80Nl2umByQqom74wovzXeQRXmen2+9okLxmksNuy
-	WaPQr9e6+ACVVGNINut1TTE9L7GB4F47RxOpCsuZThv1IdfMz161GRMzESOiEQdf149sbW33K7h
-	zwuvDtDOESWjRVMTEoM+JjwJ+FmdB2KnJ5gKqpH0lKviFU+//MFPfV2yYwlC4+r0C22gCywr4dy
-	JoW5EkMzMzG0S4bjskknVCOJK2QttLZUVmrBVp3ITB1XEQTxQNHMYLLfXutE87eWyhu8J3GQZmc
-	lQCEqNwWdBDDYgvFpPslA3buGgTI95/aeDHkfLTRQA4WspCjyhX+L1Eq1YUGngnuBE91Vh5mZgE
-	p8yhmN9qEelA+XV1MmL1yzpLs6l06T+Es4=
-X-Received: by 2002:a05:600c:8b61:b0:490:b1b4:d437 with SMTP id 5b1f17b1804b1-490b5d3e1d5mr4934545e9.0.1780429771536;
-        Tue, 02 Jun 2026 12:49:31 -0700 (PDT)
-Received: from localhost ([94.4.195.193])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b60f6d5asm3064455e9.0.2026.06.02.12.49.30
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 12:49:31 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780429824; x=1781034624;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=ZT80MAX+bO9RoRC5OjSLZM3wOHAxfoWPS2zpj0XDIqY=;
+        b=A5bumJcQA6Pv5iKQJe8G0Qd2hibvrhDgJ2PddBjTAYGUkf316S0CHATBo1f1WaCKlR
+         15CIfpJWzVOaHIwrmbJK3WPLfOaCTgfSEVjBXmcuSU8U3R1d5PrxJ5c328ItqEEz2Y2s
+         ikLjnDWnUydcnST15DubGBa26IYTHei/rFQXZMvdKzu8IQz6TyJjl8nsy8v8tNz/6bKt
+         krZzkPL8r5ASawxKV2NMwdVKRT+0HNnL4o9KfckKBSn/yCaG+mhjMR400hccF8MuRN6l
+         sf285dD75ztZccCS4BqF7MBOB+TalOsGZGHsmqT6TnHF1RbNH8VkuB/G5rSEyAAU0uEl
+         6Seg==
+X-Forwarded-Encrypted: i=1; AFNElJ9UBPae+L4H4hLv/s3sYBIdgMHyooZI5FViSyoCMRCTz9Ico4yFpzJfHU+FXKvw2deSZsdvn6fO/SGe@vger.kernel.org
+X-Gm-Message-State: AOJu0YxPvgPIn8asCm5WChTOyGvF1S/XeHb9JeMs4Bo6v6TyV8c1xcNu
+	04tb9RxCw6HpEzvPYaiOuycgh5gnmMO8+sq6qOG/ndmvbKzhy5qzEJFn
+X-Gm-Gg: Acq92OESWMVXFOf4n2cMwc1r0mXgFB6rAMvyambreHQdv5oyxCvkz5Pt3ghOSnjmP4H
+	JOdWB7cDYR0olJwWuj+RJxzRwke4dBRuP5pRAiB0d9RCBC1Ku+skh0NeRL9fMQYj9yVhrR+01Yi
+	K5iBoZR0zSQVVG1CRibxWk3WrxjbAfEbUowcoKzuGzR8d7cFYjq9VZBR5LXLHcggonLeuOFzcab
+	rQIJ4S9B1FQmu++DbO2r6su6PTqeRnVJZmIPC1sRfmuES0pDQap2E/WdATc5geR+jBmHgs1qFA2
+	KZH/la4dp8TmZdQcPIi7Pv+OAZrU1rsZI7w9VGJsxRQ0SaB1sKPjuOX5N0udMUwFOh4Z0gnJYrf
+	fC+OALqMORsgCQr5tpOBB2Gj0Q+ylnca3fp/EVTqaXnH8Xt/xKjQ6ojCHtRHsyBY/OCgPJfZngk
+	YPNuxWjXBbHlhXFfRndWM78rGH/WNwRF/MyZuswyHLkM3m+hZMWpVDh11ywsg81Rm1Fhauuf9tq
+	RMK7960fPAIgZ9PGAsrjjzoEzXsX5i13oZs/JAo9DjSGdiuLwQ0NHUt
+X-Received: by 2002:a05:600c:314e:b0:490:45bb:8dd9 with SMTP id 5b1f17b1804b1-490b5d2f857mr5228945e9.8.1780429824002;
+        Tue, 02 Jun 2026 12:50:24 -0700 (PDT)
+Received: from iku.example.org ([2a06:5906:61b:2d00:5ef:9913:4a77:3bcf])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e13eefsm87353395e9.2.2026.06.02.12.50.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 12:50:23 -0700 (PDT)
+From: Prabhakar <prabhakar.csengg@gmail.com>
+X-Google-Original-From: Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+To: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	linux-pci@vger.kernel.org
+Cc: linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar <prabhakar.csengg@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Fabrizio Castro <fabrizio.castro.jz@renesas.com>,
+	Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: [PATCH v4 0/4] Add PCIe support for RZ/V2H(P) SoC
+Date: Tue,  2 Jun 2026 20:50:15 +0100
+Message-ID: <20260602195019.1798126-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
+X-Mailer: git-send-email 2.54.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 02 Jun 2026 20:49:29 +0100
-Message-Id: <DIYTOGU8I2DV.1GKZ59F7AJWTE@linaro.org>
-Cc: <jyescas@google.com>, <linux-kernel@vger.kernel.org>,
- <linux-samsung-soc@vger.kernel.org>, <linux-pm@vger.kernel.org>,
- <devicetree@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
- <linux-arm-kernel@lists.infradead.org>, "Krzysztof Kozlowski"
- <krzysztof.kozlowski@oss.qualcomm.com>
-Subject: Re: [PATCH v7 2/5] thermal: samsung: Add Exynos ACPM TMU driver
- GS101
-From: "Alexey Klimov" <alexey.klimov@linaro.org>
-To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Rafael J. Wysocki"
- <rafael@kernel.org>, "Daniel Lezcano" <daniel.lezcano@kernel.org>, "Zhang
- Rui" <rui.zhang@intel.com>, "Lukasz Luba" <lukasz.luba@arm.com>, "Rob
- Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>, "Bartlomiej Zolnierkiewicz"
- <bzolnier@gmail.com>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Kees Cook"
- <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, "Peter
- Griffin" <peter.griffin@linaro.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
- <andre.draszik@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>
-X-Mailer: aerc 0.21.0
-References: <20260602-acpm-tmu-v7-0-8047dd54b0e9@linaro.org>
- <20260602-acpm-tmu-v7-2-8047dd54b0e9@linaro.org>
-In-Reply-To: <20260602-acpm-tmu-v7-2-8047dd54b0e9@linaro.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue Jun 2, 2026 at 6:00 PM BST, Tudor Ambarus wrote:
-> Add driver for the Thermal Management Unit (TMU) managed via the Alive
-> Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
-> Google GS101 (and Exynos850, autov920, etc.).
->
-> The TMU on utilizes a hybrid management model shared between the
-> Application Processor (AP) and the ACPM firmware. The driver maintains
-> direct memory-mapped access to the TMU interrupt pending registers to
-> identify thermal events, while delegating functional tasks - such as
-> sensor initialization, threshold configuration, and temperature
-> acquisition - to the ACPM firmware via the ACPM IPC protocol.
->
-> Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
->  drivers/thermal/samsung/Kconfig    |  19 ++
->  drivers/thermal/samsung/Makefile   |   2 +
->  drivers/thermal/samsung/acpm-tmu.c | 618 +++++++++++++++++++++++++++++++=
-++++++
->  3 files changed, 639 insertions(+)
->
-> diff --git a/drivers/thermal/samsung/Kconfig b/drivers/thermal/samsung/Kc=
-onfig
-> index f4eff5a41a84..383ae3f56cbb 100644
-> --- a/drivers/thermal/samsung/Kconfig
-> +++ b/drivers/thermal/samsung/Kconfig
-> @@ -9,3 +9,22 @@ config EXYNOS_THERMAL
->  	  the TMU, reports temperature and handles cooling action if defined.
->  	  This driver uses the Exynos core thermal APIs and TMU configuration
->  	  data from the supported SoCs.
-> +
-> +config EXYNOS_ACPM_THERMAL
-> +	tristate "Exynos ACPM thermal management unit driver"
-> +	depends on THERMAL_OF
-> +	depends on HAS_IOMEM
-> +	depends on EXYNOS_ACPM_PROTOCOL || (COMPILE_TEST && !EXYNOS_ACPM_PROTOC=
-OL)
-> +	default ARCH_EXYNOS
-> +	help
-> +	  Support for the Thermal Management Unit (TMU) on Samsung Exynos SoCs
-> +	  (such as Google GS101 and Exynos850).
+From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
 
-This driver doesn't support Exynos850. There is no initialisation sequence
-and etc, moreover the next section is also not entirely correct for Exynos8=
-50.
-Not sure why it is mentioned here in such way.
-(Not even mentioning that ACPM TMU part is not aligned for Exynos850)
+Hi all,
 
-> +	  The TMU on these platforms is managed through a hybrid architecture.
-> +	  This driver handles direct register access for thermal interrupt stat=
-us
-> +	  monitoring and communicates with the Alive Clock and Power Manager
-> +	  (ACPM) firmware via the ACPM IPC protocol for functional sensor contr=
-ol
-> +	  and configuration.
+This series adds support for the PCIe host controllers found on the
+Renesas RZ/V2H(P) SoCs. The RZ/V2H(P) controller includes additional
+features for PCIe lane control and supports multilink operation with
+two independent controllers.
 
-> +	  Select this if you want to monitor device temperature and enable
-> +	  thermal mitigation on Samsung Exynos ACPM based devices.
+v3->v4:
+- In rzv2h_pcie_setup_lanes() returned early in case of error
+- Added RB/TB tags
 
-[..]
+v2->v3:
+- Dropped using linux,pci-domain property.
+- Switched property to phandle-array for renesas,sysc
+  to support multiple controllers with different SYSC register sets.
+- Parsed controller-id from the "renesas,sysc" property instead of
+  using linux,pci-domain.
+- Updated commit message for clarity in patch #1
 
-BR,
-Alexey
+v1->v2:
+- Dropped RZ/V2N DT binding patch as it has been merged in the
+  pci/dt-binding branch.
+- Dropped un-necessary new line in schema.
+- Renamed RZG3S_PCIE_CHANNEL_ID* to RZG3S_PCIE_CONTROLLER_ID* for clarity.
+- Added locks to protect shared lane configuration state and
+  prevent concurrent access issues during probe.
+- Added cleanup action to release lanes on driver removal.
+- Reconfigured RZG3S_SYSC_FUNC_ID_LINK_MASTER in resume path.
+- Renamed num_channels to num_pcie_controllers for clarity.
+- Updated commit messages for clarity in patches 1-4.
+
+Cheers,
+Prabhakar
+
+Lad Prabhakar (4):
+  dt-bindings: PCI: renesas,r9a08g045-pcie: Add RZ/V2H(P) support
+  PCI: rzg3s-host: Use shared reset controls for power domain resets
+  PCI: rzg3s-host: Prepare System Controller handling for multiple
+    controllers
+  PCI: rzg3s-host: Add support for RZ/V2H(P) SoC
+
+ .../bindings/pci/renesas,r9a08g045-pcie.yaml  |  34 ++-
+ drivers/pci/controller/pcie-rzg3s-host.c      | 233 ++++++++++++++++--
+ 2 files changed, 247 insertions(+), 20 deletions(-)
+
+
+base-commit: 3a97877d13e1a29c50ab15ed0a0aba87b75061dd
+-- 
+2.54.0
+
