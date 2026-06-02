@@ -1,108 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96CC978F2E
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B67D2DFA4A
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:34:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780403658; cv=none; b=qgvhWAl8Xg/+j6hZyK3H707JJtqwdSlI5SDH27fhfFX73S4nzu5tYqKdJlemdT/Fx2tTZsqK26DqCGi4YQ+ZMH2oTr6x5lhZ44KEag/+XqRMb5xQGwEMsCQXtfSiDiy2srQxFkM0twnNY0PP0wxScOtpwUTwakKqfgicD6dunjU=
+	t=1780403695; cv=none; b=s7GkB3duU6NPDFREBpVzIkaY66+9x47zO91K600Y9bW+NFiZvZwAU8jPAeSCcM33lsLv91bQ21gb6VyOduu37OXT1iRzWEYZBMyRxmWxyXtT/kC/8S2jD2/IJaql7hm07zpq6YRQBd0TFc6Jz0/kRDS3dtxtJu9Da/R7qJV8HYc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780403658; c=relaxed/simple;
-	bh=IjcM2ARSoH3MXCqS1RpctEJDHXWomCdKOat0PXAKjlY=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=IyoTx6369WuQ1D7FXF3JoVvLBSupJibBAR9KA0oi+xFgfJ1tF/9GDRIiyOW6xqKpBRrP/2Ive/9DyQBAv3sSGCIO+1avi8hHT1OmeUXqKVmPfJVrBglD6Gvarslm2/ubecQ1w5VZvpQFOng2/P8sw7GdIOIuJw3dN3iI8uFLP2U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=n6SHnosM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780403695; c=relaxed/simple;
+	bh=g3+PolSFTvl+Dbxqo7LBVuF4Wk/ljZfu9PhVMO+r3Uk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=ZkYkjwl+BE3ReZ9MIAFxAWZTQwkiiDJyMAK1KtGpmlHDwGIJ/qh5r9sF9/jjtgYd6LO3w/kA86rVCUbpzPDNcoAd3KXnMBmNBxyCY3MEvjZtha3Z9lh/LvdDOOy/0rWTHMQ6PlRQaangyIg/jDCJ4zuuiLLb1jzU+OhOLbVx67g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CAcko4UU; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="n6SHnosM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113441F00893;
-	Tue,  2 Jun 2026 12:34:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780403657;
-	bh=odzJiIqsgqbVcz7JN1F3bcop5Ex9i5UbZP743UlB+Uk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=n6SHnosMfKRMMKoLMlqAXscVvqZFV6tZe191i4cO+OCdSZ98SeLaQYMngHobh6kAC
-	 jaQPt2rhowd+mLc/ZWiBm6w9zIqLFuRZF+DT9J+YJgrW/9Qy5J7woWmte5oLDRQsHd
-	 TpaPfbfeIrSC2j7o3UkqBBapS4BxMyxsH1o9Rr2OMB67RSnOx5gcw+o4eBY+kQQZgG
-	 RPA8JgN4c6N2ojbuj+fdoDab/YwfE3VTQtBt/fUNIqmbkeTH7nB8gEhUw+SGTQz39F
-	 XM/YJcCHjyKYSia4jytdZy0ZGcmeOCmy7MoIhSUaxSv+EHzohsbVAIgumrTn2a7Wm3
-	 jQV6ZVAyBlcoA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v2 5/7] arm64: dts: ti: k3-am69-aquila: Add Toradex
- Capacitive Touch Display 10.1" DSI
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vitor Soares" <ivitro@gmail.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260602115123.1324474-14-ivitro@gmail.com>
-References: <20260602115123.1324474-14-ivitro@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 12:34:16 +0000
-Message-Id: <20260602123417.113441F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CAcko4UU"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-49068493267so65006485e9.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 05:34:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780403693; x=1781008493; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=g3+PolSFTvl+Dbxqo7LBVuF4Wk/ljZfu9PhVMO+r3Uk=;
+        b=CAcko4UUMDxvlDsleuegKtUOyjZCBwIlzUUbqhHjZwbDvuSW6lDgClh8WYh8DjkrJm
+         9s/jeMp5xLRNbYYHz567f8aibGlAzJ2fCLCKtn3K65Um5JhYu70uORRpazGA23jLrtd9
+         w56WifPZ2Kkd9qdV2KYeK1Ojy4A0oID1OMwLBdQXu4576uoe5JP3mcDflRbat8yvIlkV
+         vHBc+LQMhRe2d3e8Xp7l8OAo94GWWTX8w3Ytgps5zyqIY7Bg89PwGhcfpNgUIvImFLM4
+         dliUqn5zS2AtdIXWyy0dm2vgiIgF6Gpl3gMpfvM9C07BP3/qIAlxF74/gHk98y+JcqFk
+         ATzw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780403693; x=1781008493;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=g3+PolSFTvl+Dbxqo7LBVuF4Wk/ljZfu9PhVMO+r3Uk=;
+        b=N550UlsL9dxatKPbPmIpEZWPaXRZmXiSLIMevndVWLYNOU31H0V1q6XhZnSziF9q5B
+         G1UYk278hHbgAo8odOjfHE8eINvWrFmYwa3DGI90zdTipI1BPXnEYlHCADwYV+uzA3rN
+         JVregRlw/QnWUZpFApC31odWv41qq2+iYf6tsKET6AOY85EuJwvgMfPgT/is5oS+tOf7
+         8c9SdImrKq0kmVWdsUqS1CrFGdiU0TkHcZf2sTXpJ+LgGmslJeTR2BbT/V6KHFpj5gfH
+         fHMVu6qgqe2WS8K5cVlmB+BK+FyjR3LZlfpnkp2sE+M0sx7A6a90q1Ia58fHH/aExz4/
+         OQIw==
+X-Forwarded-Encrypted: i=1; AFNElJ/44+iK9mlKjCYRTqW6je9I0NtGG3VYxoBWyivELdCormP+PzyJBDloGXjaX/Glj+QqLT7kpbqfwuw7@vger.kernel.org
+X-Gm-Message-State: AOJu0YxOY00xdBY4lgLVUjZLFQR6staCSuCAgy4WtZWwmlQSRjZPM9Qo
+	PsXvU/Hz060cFYoF0UkPRrNSs8A/M/IZy5U82bmq2xe6vF2GwuRQWR1D
+X-Gm-Gg: Acq92OFWfMEv6ls0Nmg7qjnSWafK17vWj/535/eAMkdL7wd3f89sSM06qWMrQN5Y7Om
+	r/8PJKcNKdgxhOs6tfhv5cw2hXnLmf6B8K2onISLbPeyIeEUwDnZnJGDKlAF3009NSuOo7FFVmB
+	Qp9fRqqR1wZfqzGsB4PTafz7XTlyFRq9hMIxVow0bSCYrA3sXChky1tlHtNlbaecbxMf/Fjwx3G
+	t3TvkCDs75YyfEyrmxI7a6ohVJqu95ec4O6WhfqoNKMvF2XoDKWAxFGP6+Xjq9xIUPrRCDBJ7gY
+	NnI/HmCmCWKYXeKWGkAD0zMHyksWZQ1RmTXrtC0Qp4fP2pGWgx26XH+JyfTE93+LLYee+VBacWI
+	OVCpPNBx5t7AEdBFVHUNvpwJbR0YITNgdaGqDxXHXLKotkpopA+cqDb6sbFAbxL/5YsiFbNge0d
+	Frr8bFqo4in3J4Uhlc1bGD4tgEY7PczJxhXZZjmuxH1TSIpL0=
+X-Received: by 2002:a05:600c:8b2e:b0:490:6889:1ff with SMTP id 5b1f17b1804b1-490a2940dd2mr275892015e9.28.1780403692736;
+        Tue, 02 Jun 2026 05:34:52 -0700 (PDT)
+Received: from localhost ([2001:4bb8:152:df59:3b69:56ea:a39b:adb4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c0e8c1bsm137133085e9.3.2026.06.02.05.34.50
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 05:34:52 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 02 Jun 2026 14:34:50 +0200
+Message-Id: <DIYKFNVUW1RR.1KP94ER0FKNES@gmail.com>
+Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Jonathan Cameron"
+ <jic23@kernel.org>, "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring"
+ <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor
+ Dooley" <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>, "David
+ Lechner" <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, "Matti
+ Vaittinen" <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Joshua Crofts" <joshua.crofts1@gmail.com>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
+ <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
+ <ah6p-f2RCW8VcuDR@ashevche-desk.local>
+ <DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
+ <ah66ljSiIc0ywFC2@ashevche-desk.local>
+ <CALoEA-wdakU-Ei2FE3WpGR+CYRDN1bjv2sZ=XJ01ZeH3NP8xeA@mail.gmail.com>
+ <DIYJ5ZACTWVS.13T8L275VHTKM@gmail.com>
+ <CALoEA-w3TqD=2YP36=ScmRttmmG3BBCKvtfSqeJL0PVxRxEbuQ@mail.gmail.com>
+ <DIYK6APQQX6S.2KLGTD0G5GCDA@gmail.com>
+ <CALoEA-wXRhiTr1gA8GdLAmt2PO29N9S9FrX4ueab7P7FJ+HOPw@mail.gmail.com>
+In-Reply-To: <CALoEA-wXRhiTr1gA8GdLAmt2PO29N9S9FrX4ueab7P7FJ+HOPw@mail.gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The patch introduces undocumented compatible strings ('riverdi,rvt1=
-01hvlnwc00' and 'riverdi,rvt70hslnwca0') and a new vendor prefix ('riverdi'=
-), violating DT schema constraints.
---
+On Tue Jun 2, 2026 at 2:33 PM CEST, Joshua Crofts wrote:
+> On Tue, 2 Jun 2026 at 14:22, Javier Carrasco
+> <javier.carrasco.cruz@gmail.com> wrote:
+>>
+>> On Tue Jun 2, 2026 at 1:47 PM CEST, Joshua Crofts wrote:
+>> > On Tue, 2 Jun 2026 at 13:35, Javier Carrasco
+>> > <javier.carrasco.cruz@gmail.com> wrote:
+>> >> Thank you, Joshua. One question, though: maybe you remember that your
+>> >> last driver was missing one header (which I am not criticizing at all=
+,
+>> >> as you can see I missed some too!), and I am wondering if it was beca=
+use
+>> >> iwyu missed it and if so, how that could be avoided.
+>> >
+>> > About that - I didn't actually run iwyu on my driver, I recently migra=
+ted to
+>> > Fedora and forgot to set up LLVM and iywu-tool :-)
+>>
+>> I installed IWYU and added your mapping for a quick test, and it wants
+>> to add a million headers or so:
+>> If that is correct, I bet there is almost no driver prior to IWYU that
+>> has all the headers :D
+>
+> Well, as Andy said - it's still far from ideal. It generates unnecessary =
+noise.
+>
+> Question: did you run `make compile_commands.json` before running iwyu?
+>
+> iwyu_tool -p compile_commands.json drivers/iio/magnetometer/ak8975.c -- \
+> -Xiwyu --no_default_mappings -Xiwyu --mapping_file=3D/home/josh/iio.imp
+>
+> This was the command I used when I did some cleaning up on the ak8975.
 
-commit f3ae8be063492bba7bf6849a36601078aae31f5f
-Author: Vitor Soares <vitor.soares@toradex.com>
+I used the compile_commands.json generated by
+scripts/clang-tools/gen_compile_commands.py, which I always use to have
+a better experience with clangd and Neovim.
 
-arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display 10.1" =
-DSI
-
-This patch adds a device tree overlay for the Toradex Capacitive Touch
-Display 10.1" DSI on the Aquila DSI_1 interface. The display uses a TI
-SN65DSI83 bridge driving a Riverdi RVT101HVLNWC00 10.1" TFT LCD panel.
-It also includes an ILI2132 capacitive touch controller.
-
-Link: https://developer.toradex.com/hardware/accessories/displays/capacitiv=
-e-touch-display-101inch-dsi
-
-> diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch=
--dsi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-ds=
-i.dtso
-> new file mode 100644
-> index 0000000000000..c5d597873440f
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dt=
-so
-
-[ ... ]
-
-> +&{/} {
-> +	backlight_pwm3: backlight-pwm3 {
-> +		compatible =3D "pwm-backlight";
-> +		brightness-levels =3D <0 45 63 88 119 158 203 255>;
-> +		default-brightness-level =3D <4>;
-> +		/* Aquila PWM_3_DSI (AQUILA B46) */
-> +		pwms =3D <&main_ehrpwm5 0 6666667 0>;
-> +	};
-> +
-> +	panel-lvds-bridge {
-> +		compatible =3D "riverdi,rvt101hvlnwc00", "panel-lvds";
-[Severity: Low]
-Are the new vendor prefix and compatible strings documented in the device
-tree bindings?
-
-The vendor prefix riverdi does not appear to be documented in
-Documentation/devicetree/bindings/vendor-prefixes.yaml.
-
-Also, since panel-lvds uses a strict enum for compatible strings, using
-riverdi,rvt101hvlnwc00 will cause make dtbs_check to report validation
-errors unless it is added to the allowed list.
-
-> +		backlight =3D <&backlight_pwm3>;
-> +		data-mapping =3D "vesa-24";
-> +		height-mm =3D <136>;
-> +		width-mm =3D <217>;
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602115123.1324=
-474-9-ivitro@gmail.com?part=3D5
+Should it make any difference?
