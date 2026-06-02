@@ -1,130 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33C6719CD1D;
-	Tue,  2 Jun 2026 13:45:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8E7C184540;
+	Tue,  2 Jun 2026 13:46:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780407954; cv=none; b=O3qvFAZE3D+vcEehHPurKX+XHkENL3S3yrlLd/hAnW3oXHiN2wowNlzjoBknoKSgD3vceISvy3zALxr0KpSAwwt2OFI32vt3t4m51pui3fNb5cr5YZyLUUYRRJbdHA5WM47y2Urhnh9/xHOlNEAVK03iwF8dh1rHWGQvnTe2JJo=
+	t=1780408009; cv=none; b=BZ3tQr57C1l5ItOcQyNyHOt4snkhBPMGEsdIUgxKFPuwP4WdGoqtTauwrE6H4TLnvrf0EMNf4dyDnmoTvmTFSyFnpFyFDiEzAHQ4LPA/6c0oCoxVVMybft6qBBIBNrFoEziRVoaL4YgnwzXxqnwuenJFPppCLfiK6IxSRFC4gwg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780407954; c=relaxed/simple;
-	bh=i2F2xxA4N6W+L727x7k9zcmhj1x+y0qs/OqbqJewpmE=;
-	h=Date:Content-Type:MIME-Version:From:Cc:To:In-Reply-To:References:
-	 Message-Id:Subject; b=lJ/pbu5wSwnNHvd+mvG5wUzphtC/UXJHtLe5nLKa7plOMwcJoLz8BPzhNmSESHuL/8cJOIaMijQteyVkTrKAEEGz4+imJDxPZtHvELNsqIcO46QugwwHbozGFk2jtz7xcxmdAGSjL3/1wSeFMxlgnLUebsUYav6Ml8aZYn7kjos=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B98OVdpJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780408009; c=relaxed/simple;
+	bh=/rFMl+t/sgIOPn5QzW96gzwP6SekZR6pe/WyeBDqoC4=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mKFmZeGrJ9BZ08yVSnFzuQ1/8XBYn9plY8HaiMHNxj8GRtZ/0jVK4aAS4WYmWCHIeUh9tDWDJoAmr5N1bLwm5ahPZsgZAIPLzIvDSwoPCh3tuO47YAQXBPyyj5rsVRxDUn0Z+Evc0A5zZ8E/IW94h74KuUCZmRnmzL6rMJehcMo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWUHG1qS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B98OVdpJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24AE1F00893;
-	Tue,  2 Jun 2026 13:45:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWUHG1qS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E97DE1F00893;
+	Tue,  2 Jun 2026 13:46:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780407952;
-	bh=M9+6BaKxCtZ2oRdla2ck1apQ7Hfje/TDxTyYeJJkXPM=;
-	h=Date:From:Cc:To:In-Reply-To:References:Subject;
-	b=B98OVdpJWUZAnFL1XvRYfwcafAsY8Qj0f7Suj/5iVWCuVw8xd59E+1gcLe/h2RJJO
-	 r/PYoiWBfSmNDftOOJ0Y0B2n3RBwMrt58D34mIPQosd/3h3wOvsu/eUUzZ5TSSQe12
-	 8QFAX4Yhzjt5aOHRTS8F5Z0I48MLo9jUjAikSnP5c/2ttsX7sAgVbFYAw2+y4eh2pr
-	 DRGkB8gDqMu56oW20Oi+vzJcVnvZSMsRiovmHk0Keg+LxYamuHL36YfdPBSDSxSYOL
-	 57HWDb3FHotn1jXRUpvoRnUT8wd9Qy9XCyhAGsyNnKXMdCbdPf7X9kqx6aWHlAJZDR
-	 KIWb+xj137gOw==
-Date: Tue, 02 Jun 2026 08:45:52 -0500
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1780408008;
+	bh=GgeCHMOQLe7sziJLA5PC7VCAR6QFsAiheuuHn0qTd64=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=aWUHG1qS7mkth6CXBwpvSXYjBb1mcBxf/mTnTn8YApkbS84Ww7v9tkqSycJnQ1FoF
+	 u0bJ0cITis94bgo0251eNpPSEWBBT7nStcjYqWHr2+Vi+R2xragrvI95L4n0ymf3R/
+	 W7MhrtQS5doAZefjwSYdVJhHIHM7YtvNDK6w6L7Hiduo602lmhZO4+eGNYmaGaxCkL
+	 /BsvDewnbkOgNvdOdJXQ2kyTqRGoEpl7chl+hL6jIByooAFN2QfeemARFuTLgmYKpE
+	 hnhQYNCwa6S0ug5OX2CCXQSd39OxKK/gAWx9JkgTHwYat7rHU57hnNeOIh3pUNYn7j
+	 yANrkBsMoO1Ow==
+Date: Tue, 2 Jun 2026 14:46:40 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
+ Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
+Message-ID: <20260602144640.433b4d35@jic23-huawei>
+In-Reply-To: <20260601151831.76350-6-clamor95@gmail.com>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+	<20260601151831.76350-6-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: "Rob Herring (Arm)" <robh@kernel.org>
-Cc: Karthikeyan Mitran <m.karthikeyan@mobiveil.co.in>, 
- Thierry Reding <thierry.reding@gmail.com>, linux-kernel@vger.kernel.org, 
- Jonathan Hunter <jonathanh@nvidia.com>, 
- =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
- Michal Simek <michal.simek@amd.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Lorenzo Pieralisi <lpieralisi@kernel.org>, 
- linux-arm-kernel@lists.infradead.org, 
- Kevin Xie <kevin.xie@starfivetech.com>, Bjorn Helgaas <bhelgaas@google.com>, 
- linux-tegra@vger.kernel.org, Manivannan Sadhasivam <mani@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, devicetree@vger.kernel.org, 
- Thierry Reding <treding@nvidia.com>, linux-pci@vger.kernel.org, 
- Hou Zhiqiang <Zhiqiang.Hou@nxp.com>, Aksh Garg <a-garg7@ti.com>, 
- =?utf-8?q?Pali_Roh=C3=A1r?= <pali@kernel.org>
-To: Thierry Reding <thierry.reding@kernel.org>
-In-Reply-To: <20260602-tegra264-pcie-v6-1-edbcfa7a78fe@nvidia.com>
-References: <20260602-tegra264-pcie-v6-0-edbcfa7a78fe@nvidia.com>
- <20260602-tegra264-pcie-v6-1-edbcfa7a78fe@nvidia.com>
-Message-Id: <178040795218.231197.636617303245801505.robh@kernel.org>
-Subject: Re: [PATCH v6 1/4] dt-bindings: pci: Strictly distinguish C0 from
- C1-C5
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Mon,  1 Jun 2026 18:18:25 +0300
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-On Tue, 02 Jun 2026 13:33:23 +0200, Thierry Reding wrote:
-> From: Thierry Reding <treding@nvidia.com>
+> Since there are no users of this driver via platform data, remove the
+> platform data support and switch to using Device Tree bindings.
 > 
-> Instead of using the ECAM registers as the first entry, strictly make a
-> distinction between C0 and C1-C5. This is needed because otherwise the
-> unit address doesn't match the first "reg" entry. We also cannot change
-> the ordering of these nodes to follow the ECAM addresses because that
-> would put them outside of their "control bus" hierarchy since the ECAM
-> address space is a global one outside of any of the control busses.
-> 
-> Signed-off-by: Thierry Reding <treding@nvidia.com>
-> ---
-> Changes in v6:
-> - add maxItems as suggested by Sashiko
-> 
-> Changes in v5:
-> - rebase on top of v7.1-rc1, make it into a fix
-> 
-> Changes in v4:
-> - ECAM is outside of the controller's region, so it cannot be the first
->   reg entry, otherwise we get warnings because it doesn't match the
->   unit-address, so revert back to oneOf construct
-> 
-> Changes in v2:
-> - move ECAM region first and unify C0 vs. C1-C5
-> - move unevaluatedProperties to right before the examples
-> - add description to clarify the two types of controllers
-> - add examples for C0 and C1-C5
-> ---
->  .../bindings/pci/nvidia,tegra264-pcie.yaml         | 79 +++++++++++++++-------
->  1 file changed, 54 insertions(+), 25 deletions(-)
-> 
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 
-My bot found errors running 'make dt_binding_check' on your patch:
 
-yamllint warnings/errors:
+> index 52136ca1abc9..55b35467a722 100644
+> --- a/drivers/iio/light/lm3533-als.c
+> +++ b/drivers/iio/light/lm3533-als.c
+> @@ -16,16 +16,19 @@
+>  #include <linux/module.h>
+>  #include <linux/mutex.h>
+>  #include <linux/mfd/core.h>
+> +#include <linux/mod_devicetable.h>
+>  #include <linux/platform_device.h>
+> +#include <linux/property.h>
+>  #include <linux/regmap.h>
+>  #include <linux/slab.h>
+>  #include <linux/uaccess.h>
+> +#include <linux/units.h>
+>  
+>  #include <linux/mfd/lm3533.h>
+>  
+>  
+> -#define LM3533_ALS_RESISTOR_MIN			1
+> -#define LM3533_ALS_RESISTOR_MAX			127
+> +#define LM3533_ALS_RESISTOR_MIN			1575
+> +#define LM3533_ALS_RESISTOR_MAX			200000
+>  #define LM3533_ALS_CHANNEL_CURRENT_MAX		2
+>  #define LM3533_ALS_THRESH_MAX			3
+>  #define LM3533_ALS_ZONE_MAX			4
+> @@ -57,6 +60,9 @@ struct lm3533_als {
+>  
+>  	atomic_t zone;
+>  	struct mutex thresh_mutex;
+> +
+> +	bool pwm_mode;
+> +	u32 r_select;
+>  };
+>  
+>  
+> @@ -411,7 +417,7 @@ static ssize_t show_thresh_either_en(struct device *dev,
+>  	int enable;
+>  	int ret;
+>  
+> -	if (als->irq) {
+> +	if (als->irq > 0) {
+>  		ret = lm3533_als_get_int_mode(indio_dev, &enable);
+>  		if (ret)
+>  			return ret;
+> @@ -716,30 +722,34 @@ static const struct attribute_group lm3533_als_attribute_group = {
+>  	.attrs = lm3533_als_attributes
+>  };
+>  
+> -static int lm3533_als_setup(struct lm3533_als *als,
+> -			    const struct lm3533_als_platform_data *pdata)
+> +static int lm3533_als_setup(struct lm3533_als *als)
+>  {
+>  	struct device *dev = &als->pdev->dev;
+>  	int ret;
+>  
+> +	als->pwm_mode = device_property_read_bool(dev, "ti,pwm-mode");
+> +
+>  	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
+>  				 LM3533_ALS_INPUT_MODE_MASK,
+> -				 pdata->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : 0);
+> +				 als->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : 0);
+>  	if (ret)
+>  		return dev_err_probe(dev, ret, "failed to set input mode %d\n",
+> -				     pdata->pwm_mode);
+> -
+> +				     als->pwm_mode);
+>  
+>  	/* ALS input is always high impedance in PWM-mode. */
+> -	if (!pdata->pwm_mode) {
+> -		if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
+> -		    pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
+> -			dev_err(&als->pdev->dev, "invalid resistor value\n");
+> -			return -EINVAL;
+> -		}
+> +	if (!als->pwm_mode) {
+> +		ret = device_property_read_u32(dev, "ti,resistor-value-ohms",
+> +					       &als->r_select);
+> +		if (ret)
+> +			return dev_err_probe(dev, ret,
+> +					     "failed to ger resistor value\n");
+> +
+> +		als->r_select = clamp(als->r_select, LM3533_ALS_RESISTOR_MIN,
+> +				      LM3533_ALS_RESISTOR_MAX);
 
-dtschema/dtc warnings/errors:
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml: allOf:1:oneOf:0:properties:reg-names: {'maxItems': 4, 'items': [{'const': 'xal'}, {'const': 'xtl'}, {'const': 'xtl-pri'}, {'const': 'ecam'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml: allOf:1:oneOf:0:properties:reg: {'maxItems': 4, 'items': [{'description': 'application layer registers'}, {'description': 'transaction layer registers'}, {'description': 'privileged transaction layer registers'}, {'description': 'ECAM compatible configuration space'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml: allOf:1:oneOf:1:properties:reg-names: {'maxItems': 5, 'items': [{'const': 'xal'}, {'const': 'xtl'}, {'const': 'xtl-pri'}, {'const': 'xpl'}, {'const': 'ecam'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
-/builds/robherring/dt-review-ci/linux/Documentation/devicetree/bindings/pci/nvidia,tegra264-pcie.yaml: allOf:1:oneOf:1:properties:reg: {'maxItems': 5, 'items': [{'description': 'application layer registers'}, {'description': 'transaction layer registers'}, {'description': 'privileged transaction layer registers'}, {'description': 'data link/physical layer registers'}, {'description': 'ECAM compatible configuration space'}]} should not be valid under {'required': ['maxItems']}
-	hint: "maxItems" is not needed with an "items" list
-	from schema $id: http://devicetree.org/meta-schemas/items.yaml
+If we are getting garbage from DT I think I'd rather error out that paper over
+that problem.  So similar to before, check valid value and if not fail probe
+so that hopefully someone goes and fixes it!
 
-doc reference errors (make refcheckdocs):
+> +		als->r_select = DIV_ROUND_UP(2 * MICRO, 10 * als->r_select);
+Why do we need this when we didn't before?  The range checks are the same
+so it smells like it shouldn't need transforming. I'd also rather we didn't do
+rewriting of the meaning of r_select like this.  Just use a local variable for
+the intermediate result.
 
-See https://patchwork.kernel.org/project/devicetree/patch/20260602-tegra264-pcie-v6-1-edbcfa7a78fe@nvidia.com
-
-The base for the series is generally the latest rc1. A different dependency
-should be noted in *this* patch.
-
-If you already ran 'make dt_binding_check' and didn't see the above
-error(s), then make sure 'yamllint' is installed and dt-schema is up to
-date:
-
-pip3 install dtschema --upgrade
-
-Please check and re-submit after running the above command yourself. Note
-that DT_SCHEMA_FILES can be set to your schema file to speed up checking
-your schema. However, it must be unset to test all examples with your schema.
-
+>  
+>  		ret = regmap_write(als->lm3533->regmap, LM3533_REG_ALS_RESISTOR_SELECT,
+> -				   pdata->r_select);
+> +				   als->r_select);
+>  		if (ret)
+>  			return dev_err_probe(dev, ret, "failed to set resistor\n");
