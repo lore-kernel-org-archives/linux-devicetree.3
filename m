@@ -1,47 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 978613EDE67;
-	Tue,  2 Jun 2026 17:10:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E08A2E63C;
+	Tue,  2 Jun 2026 17:14:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780420235; cv=none; b=DuFwpjB7fdFQtiWNaXUvotqZtb5+SfmYw34ovgMykfPQabvd6PtFpzFX1SEFcmBpXbIFXT8++OjjmVYYnZZJbq9Rg7YKdbtbpx5QeZ0qXKJktAxVIJjHyF6po2FJqWG2g+J/b3EoujE9kpOMN7rv8veE01ymG2uUJ4csT1AU6/4=
+	t=1780420453; cv=none; b=iKnAh4psUEHCQ+u4f78T3PA50nuclwBYQCjD5Fkwzv6mpWT3YYIaiitnqabfPy05agk2vsB1x2Ky4o4wKKU1wmLWGfscKAU55osk8oISJ62f09dvdsK5QaBHGTN8OQo06r+fK4SjPhY3EJxmCKePaWtOBrLGIIR15ffgA/VLwUQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780420235; c=relaxed/simple;
-	bh=iqDCkkZHRgIwxenGQ3uxwpZE1rmCnXlYDR4oQYFN08g=;
+	s=arc-20240116; t=1780420453; c=relaxed/simple;
+	bh=yCyclw1XDLzYh3iyecBsuH6KsMy/DBUklWIs+kKHd9I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bCBlhQBlQQjJx9cBYKKmp2q2B+o+ieN5mGcO8+BSPsTEWeTReRo0FbEARU5i3gbapAB3ENGtaU2OZQWg9G/IUhSWVqg4/f2Ohd4rafunKiaA2rJLBam0OVnqhvpmlxQukN6UiFeGol0V3CEF4O/ueNY2mvsc2KU9eHGNEB38oAM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LAd3CSwk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=Hdyp5LrOp20F3I7/lW48vJNbsQ7Sxarx1icCPuMlsRN7v03lztZn+lYGSgJX7SUfSrQcb3sDmEMmuPrQg2ifsX0bZixKZa8vplKTvik1tZZdp1RQ9A0wnNjpyQgftF3NUePkH8JYeB4Ghql2IdIF23c0y9IAB/lnNziLz5WDTQg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dk8IwpgR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LAd3CSwk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FCDD1F00893;
-	Tue,  2 Jun 2026 17:10:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dk8IwpgR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B2F8A1F00893;
+	Tue,  2 Jun 2026 17:14:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780420234;
-	bh=i/en7+8HojSHi0MvEHGr86FSHPB5AGR4O71fxPEOlyE=;
+	s=k20260515; t=1780420451;
+	bh=8Hfk+YuJU3cySOD2k3I/Y1bxSYg7Hrv/A7IKCc7Juwo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=LAd3CSwk9yVv/liyVbi2R3k1568YMkE3t58cyMLeXYOUYU6009lirHYfRR4HSWDyM
-	 Yjg+6Fdju5QzBVbvyg3lexS/BqDBzqWqkmzJCvPt9UGWSPCpd2S6iooU4lXt7JH+rI
-	 Gjy991apsysCaFo9p0WTzVHkc5GkYqTjtoWRN3e9twwWGg8Jsjn3tZ4z8VDiJYWuDx
-	 XuVsyFvle7yACeSRAdPmUk55pfAXZgQH7vEjMODbxB+s8Wg9WBmRNlwaE+z7N1/9VU
-	 yf1LM7YvajrGa8Cw+RjBz0AR69lY6eZuQ4FbAbFpkhXzuY8HRCCE6CB2jovJwEGX7x
-	 9+Ra5c+7gUW1Q==
-Date: Tue, 2 Jun 2026 18:10:30 +0100
+	b=Dk8IwpgRtPfCqVjzQEVKHFWDGwNMZmE2xOUf5Ng3eI6tJudE8ASXwWo8nkx3yBX2s
+	 F390wLmFC4QL0HVOCURQ5jTLEoCsBvHB/GrHyDz3fEeK3GulfH1NCT3EZdEsn+xO4e
+	 HxaErS3sZcMGq5BqkaF44n221xAxJEC+vew9nD1B+cPToolICE/iKqHNq1+vbWwJGo
+	 Kj3Fw0LFDOXqzUr61LaQYIWxTzjQAZQPbn772Dwvn3wVGQ/JjOc2KaQs2ZArZWnvwR
+	 AdOVxAR653PPseiOBPJRD9MMWKzIrosjZp8gJVQjYq3xsyc4X9iCQhbORLYAM0Zl9Z
+	 uynNkG1ULJjdg==
+Date: Tue, 2 Jun 2026 18:14:07 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: linux-phy@lists.infradead.org, Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Vinod Koul <vkoul@kernel.org>,
-	Neil Armstrong <neil.armstrong@linaro.org>,
-	Tanjeff Moos <tanjeff.moos@westermo.com>,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	Conor Dooley <conor+dt@kernel.org>,
+To: Eduard Bostina <egbostina@gmail.com>
+Cc: daniel.baluta@nxp.com, simona.toaca@nxp.com, goledhruva@gmail.com,
+	m-chawdhry@ti.com, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>
-Subject: Re: [PATCH v2 phy-next 13/15] dt-bindings: phy: lynx-10g: initial
- document
-Message-ID: <20260602-reviving-aging-a7d066d2448b@spud>
-References: <20260529171509.1163787-1-vladimir.oltean@nxp.com>
- <20260529171509.1163787-14-vladimir.oltean@nxp.com>
+	Conor Dooley <conor+dt@kernel.org>, Mark Brown <broonie@kernel.org>,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dt-bindings: arm: omap: Convert Counter-32K to DT schema
+Message-ID: <20260602-turkey-carwash-97b8641bfb3a@spud>
+References: <20260528165853.15510-1-egbostina@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -49,210 +44,129 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="n43cmaynV/qxZXqy"
+	protocol="application/pgp-signature"; boundary="iOmrs0KdPxAlP68+"
 Content-Disposition: inline
-In-Reply-To: <20260529171509.1163787-14-vladimir.oltean@nxp.com>
+In-Reply-To: <20260528165853.15510-1-egbostina@gmail.com>
 
 
---n43cmaynV/qxZXqy
+--iOmrs0KdPxAlP68+
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-On Fri, May 29, 2026 at 08:15:07PM +0300, Vladimir Oltean wrote:
-> Add a schema for the 10G Lynx SerDes. This is very similar to the modern
-> form of the 28G Lynx SerDes, which is very much the intention.
+On Thu, May 28, 2026 at 07:58:50PM +0300, Eduard Bostina wrote:
+> Convert the Texas Instruments OMAP Counter-32K bindings to DT schema.
 >=20
-> We allow both forms of #phy-cells =3D <1> in the top-level provider
-> and #phy-cells =3D <0> in the per-lane provider for more flexibility to
-> consumers, and because the kernel code is shared with the 28G Lynx which
-> already has that support for compatibility reasons.
+> During the conversion, two updates were made to reflect actual hardware
+> usage and resolve dtbs_check warnings:
+> - 'ti,hwmods' has been made optional. While a search confirms it is no
+>   longer used, it is kept to maintain backwards compatibility.
+> - Added the 'ti,am4372-counter32k' compatible string, as an AM437x
+>   device tree uses this instead of the generic 'ti,omap-counter32k'.
 >=20
-> Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
+> Signed-off-by: Eduard Bostina <egbostina@gmail.com>
 > ---
-> Cc: devicetree@vger.kernel.org
-> Cc: Conor Dooley <conor+dt@kernel.org>
-> Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> Cc: Rob Herring <robh@kernel.org>
+>  .../devicetree/bindings/arm/omap/counter.txt  | 15 -------
+>  .../bindings/arm/omap/ti,omap-counter32k.yaml | 41 +++++++++++++++++++
+>  2 files changed, 41 insertions(+), 15 deletions(-)
+>  delete mode 100644 Documentation/devicetree/bindings/arm/omap/counter.txt
+>  create mode 100644 Documentation/devicetree/bindings/arm/omap/ti,omap-co=
+unter32k.yaml
 >=20
-> v1->v2:
-> - move patch later in series, right before driver
-> - deliberately ignoring this Sashiko feedback:
->   https://lore.kernel.org/linux-phy/20260529125017.ifqunh52gdzhthdg@skbuf/
-> ---
->  .../devicetree/bindings/phy/fsl,lynx-10g.yaml | 131 ++++++++++++++++++
->  1 file changed, 131 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/phy/fsl,lynx-10g.ya=
-ml
->=20
-> diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml b/Do=
-cumentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> diff --git a/Documentation/devicetree/bindings/arm/omap/counter.txt b/Doc=
+umentation/devicetree/bindings/arm/omap/counter.txt
+> deleted file mode 100644
+> index 5bd8aa091..000000000
+> --- a/Documentation/devicetree/bindings/arm/omap/counter.txt
+> +++ /dev/null
+> @@ -1,15 +0,0 @@
+> -OMAP Counter-32K bindings
+> -
+> -Required properties:
+> -- compatible:	Must be "ti,omap-counter32k" for OMAP controllers
+> -- reg:		Contains timer register address range (base address and length)
+> -- ti,hwmods:	Name of the hwmod associated to the counter, which is typic=
+ally
+> -		"counter_32k"
+> -
+> -Example:
+> -
+> -counter32k: counter@4a304000 {
+> -	compatible =3D "ti,omap-counter32k";
+> -	reg =3D <0x4a304000 0x20>;
+> -	ti,hwmods =3D "counter_32k";
+> -};
+> diff --git a/Documentation/devicetree/bindings/arm/omap/ti,omap-counter32=
+k.yaml b/Documentation/devicetree/bindings/arm/omap/ti,omap-counter32k.yaml
 > new file mode 100644
-> index 000000000000..993f076bba4e
+> index 000000000..aadb5ea1b
 > --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-> @@ -0,0 +1,131 @@
+> +++ b/Documentation/devicetree/bindings/arm/omap/ti,omap-counter32k.yaml
+> @@ -0,0 +1,41 @@
 > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 > +%YAML 1.2
 > +---
-> +$id: http://devicetree.org/schemas/phy/fsl,lynx-10g.yaml#
+> +$id: http://devicetree.org/schemas/arm/omap/ti,omap-counter32k.yaml#
 > +$schema: http://devicetree.org/meta-schemas/core.yaml#
 > +
-> +title: Freescale Lynx 10G SerDes PHY
+> +title: Texas Instruments OMAP Counter-32K
 > +
 > +maintainers:
-> +  - Vladimir Oltean <vladimir.oltean@nxp.com>
-> +
-> +description:
-> +  The 10G Lynx is a multi-protocol SerDes block which handles networking=
-, PCIe,
-> +  SATA and other high-speed interfaces. It is present on most QorIQ and
-> +  Layerscape SoCs. The register map is common, but the integration is
-> +  SoC-specific, with the differences consisting in register endianness, =
-the
-> +  number of lanes, protocol converters available per lane and their loca=
-tion in
-> +  the PCCR registers. Some SoCs have multiple SerDes blocks and those di=
-ffer in
-> +  their protocol capabilities per lane.
+> +  - Eduard Bostina <egbostina@gmail.com>
 > +
 > +properties:
 > +  compatible:
-> +    description:
-> +      There is intentionally no generic fsl,lynx-10g compatible string d=
-ue to
-> +      the hardware inability to report its capabilities, despite having a
-> +      common register map.
-
-I think you can probably drop this from the diff, and put it in the
-commit message.
-
-> +    enum:
-> +      - fsl,ls1028a-serdes
-> +      - fsl,ls1046a-serdes1
-> +      - fsl,ls1046a-serdes2
-> +      - fsl,ls1088a-serdes1
-> +      - fsl,ls1088a-serdes2
-> +      - fsl,ls2088a-serdes1
-> +      - fsl,ls2088a-serdes2
+> +    oneOf:
+> +      - const: ti,omap-counter32k
+> +      - items:
+> +          - const: ti,am4372-counter32k
+> +          - const: ti,omap-counter32k
 > +
 > +  reg:
 > +    maxItems: 1
 > +
-> +  big-endian: true
-
-This isn't a required property, but should it be made required for the
-specific compatibles that are big endian? Or are we not that lucky, and
-devices can be either?
-
-Cheers,
-Conor.
-
-> +
-> +  "#phy-cells":
-> +    const: 1
-> +
-> +  "#address-cells":
-> +    const: 1
-> +
-> +  "#size-cells":
-> +    const: 0
-> +
-> +patternProperties:
-> +  "^phy@[0-7]$":
-> +    type: object
-> +    description: SerDes lane (single RX/TX differential pair)
-> +
-> +    properties:
-> +      reg:
-> +        minimum: 0
-> +        maximum: 7
-> +        description: Lane index as seen in register map
-> +
-> +      "#phy-cells":
-> +        const: 0
-> +
-> +    required:
-> +      - reg
-> +      - "#phy-cells"
-> +
-> +    additionalProperties: false
+> +  ti,hwmods:
+> +    description: Name of the hwmod associated to the counter
+> +    $ref: /schemas/types.yaml#/definitions/string-array
+> +    items:
+> +      - const: counter_32k
 > +
 > +required:
 > +  - compatible
 > +  - reg
-> +  - "#phy-cells"
-> +  - "#address-cells"
-> +  - "#size-cells"
-> +
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - fsl,ls1028a-serdes
-> +              - fsl,ls1046a-serdes1
-> +              - fsl,ls1046a-serdes2
-> +              - fsl,ls1088a-serdes1
-> +              - fsl,ls1088a-serdes2
-> +    then:
-> +      patternProperties:
-> +        "^phy@[0-7]$":
-> +          properties:
-> +            reg:
-> +              minimum: 0
-> +              maximum: 3
 > +
 > +additionalProperties: false
 > +
 > +examples:
 > +  - |
-> +    soc {
-> +      #address-cells =3D <2>;
-> +      #size-cells =3D <2>;
-> +
-> +      serdes@1ea0000 {
-> +        compatible =3D "fsl,ls1028a-serdes";
-> +        reg =3D <0x0 0x1ea0000 0x0 0xffff>;
-> +        #address-cells =3D <1>;
-> +        #size-cells =3D <0>;
-> +        #phy-cells =3D <1>;
-> +
-> +        phy@0 {
-> +          reg =3D <0>;
-> +          #phy-cells =3D <0>;
-> +        };
-> +
-> +        phy@1 {
-> +          reg =3D <1>;
-> +          #phy-cells =3D <0>;
-> +        };
-> +
-> +        phy@2 {
-> +          reg =3D <2>;
-> +          #phy-cells =3D <0>;
-> +        };
-> +
-> +        phy@3 {
-> +          reg =3D <3>;
-> +          #phy-cells =3D <0>;
-> +        };
-> +      };
+> +    counter32k: counter@4a304000 {
+
+Drop the label here if you respin. In examples, there's no reason to
+have labels with no users.
+
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
+
+Cheers,
+Conor.
+
+> +        compatible =3D "ti,omap-counter32k";
+> +        reg =3D <0x4a304000 0x20>;
+> +        ti,hwmods =3D "counter_32k";
 > +    };
 > --=20
-> 2.34.1
+> 2.54.0
 >=20
 
---n43cmaynV/qxZXqy
+--iOmrs0KdPxAlP68+
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8OhgAKCRB4tDGHoIJi
-0jTqAP9uJkBzy69VGT2auMd4hx6xT/BKOZEXAUBGygySolIGXAD+JF9xbx2hIJkG
-SxA0ONlLt2s32aARx9lck5Xxwud3SQc=
-=EkQN
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8PXwAKCRB4tDGHoIJi
+0sEDAP9MhEKrEAJcmfn2LMf4TvsUNjqXZ2NUC+RfCMLIs38RvgEAhBOuUDnYiidA
+KtRKzTSmjSqoWhichCY0LpdvZHX7IA4=
+=odTr
 -----END PGP SIGNATURE-----
 
---n43cmaynV/qxZXqy--
+--iOmrs0KdPxAlP68+--
