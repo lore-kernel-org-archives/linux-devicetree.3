@@ -1,21 +1,22 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327683876C4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328133890E7;
 	Tue,  2 Jun 2026 08:21:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388504; cv=none; b=gXk1mEQ6fEZoac2bplZpr23qmHt8u/DMAvvfhiAXxtPyc2oWT0WoF+mj210Jyi6IIsr/T8k/2yXZe2OxCt/qrNDccxS3sL0bmvJWCszr3Q5ipIcSZHHEME8AqFhOMgwHm2eYey7orAH5kC6jbqs2RVG3ASJG7+OCc4hpCX7Wktw=
+	t=1780388505; cv=none; b=IKbaiER8WtZPWAVSN2F5cAo3kPmdSEF2z2UKWY+6fNSS58QnCiz3u4rzEgfObM0aFfr0Qj4aWHAt320g1l1d4Ak6K7l+LYMaAPorkE/VT67GvB0vClRA0Hu0HLO078l/uH2s5PCK9Jq4qggpKuHzdS+dAWM2IKBp60Q7TlsME+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388504; c=relaxed/simple;
-	bh=ZXHDAK2tWuvFPoSMz1po5WuKZys8THR540gKspSREeE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=VDHSvV8dN5kNIYhil+T/TMUeI51JUdtjFqotQfn6vzF4j7XCcM9WbJtg6y5fSehK1OKHn8mtoSoEF/8qZJYR/SBeZxoqJJo7RIPqIyFSiUbUj8eTbvU1oD6v/iBv+eRO6VHi6XcF+Sipd5fzL1ilI/DcMhP5xU1Iq/8JazLHLlQ=
+	s=arc-20240116; t=1780388505; c=relaxed/simple;
+	bh=b+kG3v+Pmd3g0FP5jfSItEutoleL7/pD31CuoBxmwn0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=CS9HPA+O6BchltIBKnkXoQUk0S1PLQg/hlztD5Bc39Vr/32a5ozHTPjjKSBNZif4V5Qijk/yhzxujjXWqOO6AJs4jXyEGaEoxlREfUs7pnOLbbH4cNidsYeMNfVChYfEfKdKTjpZ7Lp7VnPwEqbfj+sis/tBIO0Pia2oL/0Z5UU=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from edelgard.fodlan.icenowy.me (unknown [112.94.101.15])
-	by APP-01 (Coremail) with SMTP id qwCowAAnzNQHkR5q1DNrAA--.3395S2;
-	Tue, 02 Jun 2026 16:15:05 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAAnzNQHkR5q1DNrAA--.3395S4;
+	Tue, 02 Jun 2026 16:15:09 +0800 (CST)
 From: Icenowy Zheng <zhengxingda@iscas.ac.cn>
 To: Bjorn Andersson <andersson@kernel.org>,
 	Konrad Dybcio <konradybcio@kernel.org>,
@@ -26,10 +27,12 @@ Cc: linux-arm-msm@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Icenowy Zheng <zhengxingda@iscas.ac.cn>
-Subject: [PATCH 0/6] arm64: dts: qcom: sc8280xp: set GPI DMA channels according to DSDT
-Date: Tue,  2 Jun 2026 16:14:45 +0800
-Message-ID: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+Subject: [PATCH 2/6] arm64: dts: qcom: sc8280xp-huawei-gaokun3: set GPI DMA channels
+Date: Tue,  2 Jun 2026 16:14:47 +0800
+Message-ID: <20260602081451.3808833-3-zhengxingda@iscas.ac.cn>
 X-Mailer: git-send-email 2.52.0
+In-Reply-To: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
+References: <20260602081451.3808833-1-zhengxingda@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,55 +40,64 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowAAnzNQHkR5q1DNrAA--.3395S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KF1UWr1xtw13Cw1fAw4kCrg_yoW8XFWrpa
-	1kuFZrWrn5ua13Ga40g348Zw1Syws5JrZ5ur1qk34F9ryrAryvqw1ftrWIka15Jr1fuw4F
-	vw1FqryIqFyYvaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkl14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
-	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v26r1q
-	6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
-	0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
-	0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
-	WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1l
-	IxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbGQ6JUUUU
-	U==
+X-CM-TRANSID:qwCowAAnzNQHkR5q1DNrAA--.3395S4
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF45Kw4kuFW3JrW8Wry7GFg_yoWktrg_K3
+	WS93yrJrWfCryFkw1rZan0yrsFq3yDZr17Wan2qrZYg3yFv398AFWqqan7Cr1xArWFgr93
+	GrsxtF45Zw1xGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbhkFF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUXwA2048vs2IY02
+	0Ec7CjxVAFwI0_Gr0_Xr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xv
+	wVC0I7IYx2IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwA2z4
+	x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS0I0E
+	0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67
+	AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48I
+	cxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCF04
+	k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18
+	MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr4
+	1lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1l
+	IxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4
+	A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUczV8UUUUU=
 X-CM-SenderInfo: x2kh0wp0lqwv3d6l2u1dvotugofq/
 
-Some bugs of the GPI driver exhibits a fact that some GPI interfaces
-aren't available to HLOS, and accessing them leads to system stucks /
-resets [1] [2].
+It's found that some GPI interfaces shouldn't be touched by HLOS,
+otherwise system hang / reset happens.
 
-This patchset sets the DMA channel mask of sc8280xp device trees to the
-values indicated by the DSDTs of the corresponding devices.
+The GPI interface availability information is available via the ACPI
+DSDT table, as interrupt resources for \_SB_.QGP* devices.
 
-As different devices seem to have different allowed DMA channels, the
-value in the SoC DTSI file is removed, to prevent new DTS's from
-directly using these broken values.
+Add such information to the device tree file.
 
-[1] https://bugs.launchpad.net/ubuntu/+source/linux/+bug/2142403
-[2] https://discussion.fedoraproject.org/t/fedora-43-44-beta-aarch64-wont-boot-on-thinkpad-x13s/183074/13
+The DSDT table is acquired at [1].
 
-Icenowy Zheng (6):
-  arm64: dts: qcom: sc8280xp-crd: set GPI DMA channels
-  arm64: dts: qcom: sc8280xp-huawei-gaokun3: set GPI DMA channels
-  arm64: dts: qcom: sc8280xp-lenovo-thinkpad-x13s: set GPI DMA channels
-  arm64: dts: qcom: sc8280xp-microsoft-arcata: set GPI DMA channels
-  arm64: dts: qcom: sc8280xp-microsoft-blackrock: set GPI DMA channels
-  arm64: dts: qcom: sc8280xp: remove GPI DMA channel masks
+[1] https://github.com/aarch64-laptops/build/blob/2e71c8f36d0d565f01a737e9e0cd0ce3c43db0e6/misc/huawei-matebooke-go/dsdt.dsl
 
- arch/arm64/boot/dts/qcom/sc8280xp-crd.dts                  | 3 +++
- arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts       | 3 +++
- arch/arm64/boot/dts/qcom/sc8280xp-lenovo-thinkpad-x13s.dts | 3 +++
- arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts     | 3 +++
- arch/arm64/boot/dts/qcom/sc8280xp-microsoft-blackrock.dts  | 3 +++
- arch/arm64/boot/dts/qcom/sc8280xp.dtsi                     | 3 ---
- 6 files changed, 15 insertions(+), 3 deletions(-)
+Signed-off-by: Icenowy Zheng <zhengxingda@iscas.ac.cn>
+---
+ arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
+diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
+index 9819454abe131..f8171bd292e2a 100644
+--- a/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
++++ b/arch/arm64/boot/dts/qcom/sc8280xp-huawei-gaokun3.dts
+@@ -582,14 +582,17 @@ &dispcc0 {
+ };
+ 
+ &gpi_dma0 {
++	dma-channel-mask = <0xb>;
+ 	status = "okay";
+ };
+ 
+ &gpi_dma1 {
++	dma-channel-mask = <0x3>;
+ 	status = "okay";
+ };
+ 
+ &gpi_dma2 {
++	dma-channel-mask = <0xb>;
+ 	status = "okay";
+ };
+ 
 -- 
 2.52.0
 
