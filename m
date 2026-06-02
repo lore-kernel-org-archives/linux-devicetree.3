@@ -1,137 +1,273 @@
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com [209.85.214.172])
+Received: from mail-dy1-f170.google.com (mail-dy1-f170.google.com [74.125.82.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CEE83D6462
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:17:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.172
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780395425; cv=none; b=h/edrDiAPqJj53i5inqTnFRdSo7Bksezqw/KOP8XUipJpsSr/oIXbMRwDNi3sShAujWGaPcOB5w0xPcoUPtHVVZxwzJh9itbTNc9DqmaR8yJt0QqlcU8kGJlyxbA+T6eeBjKMMlua6WmtXNqyJvL94zx7xnv/Y9sfOCZrdYXe68=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780395425; c=relaxed/simple;
-	bh=FTgoAa+xu/joTesi8Jf6xXuDhGFQReh7G4WALnJ4OLw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fJybxf4T66fPpnxMLHLTF2VnTkSWeuVFbEY6RiXJqqw8zpvwgz8qv3YrqeozcuNtncRTX+PxU1JgVeDNNp9z38uJqLWaAw21WCb9R8smtDwnIUuVBJYSaBvUAxZUjDQUBZxmQ1Pr7ZXB4NGJhYzDO7GBanJzZihN3wtM41kbe3s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s4w3B3nd; arc=none smtp.client-ip=209.85.214.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4456E3D349A
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:18:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.170
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780395514; cv=pass; b=RuytiAYbQ2tSqdWILI5MS0za2tQqwLidzbyR+ZIrH8ZNrBdgQhx235puEE0j5wHq0VA66q+dk4wwSuVQl0ydmoeDf4iDpafqINS3RZ4LUa6pPfhcj2djzZIQKRrC4bbaVFkMYGaNAJdULbrPlsoLeTNrmZwqPF+iLm01g3iI6k8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780395514; c=relaxed/simple;
+	bh=tsb+ShdNHjPhqRT+1y1ob/npW7bqLOA6CccHz+MAA/Y=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T+qvpnqwlfoxk/S4c9SgVuyqGPJ6J6xKd7/j2QmIUERmvi0mP1DdImESdRJhvoFttPtkv9Afn7Q0UeuvdA0EXrfkfctgHykS+3DeyTUc/u3xAYRYjcNNSSoguz38g8cFeeUbQ9lOO7HK8633Ck0YglPap1RjbTMlqorFKLwmT50=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LylQJDHM; arc=pass smtp.client-ip=74.125.82.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s4w3B3nd"
-Received: by mail-pl1-f172.google.com with SMTP id d9443c01a7336-2c0a5354da1so20894485ad.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:17:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LylQJDHM"
+Received: by mail-dy1-f170.google.com with SMTP id 5a478bee46e88-304e58292d3so392100eec.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:18:33 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780395512; cv=none;
+        d=google.com; s=arc-20240605;
+        b=HFXEGJFP98Ln5J9CGbnNNNDf84qxFwFxLJIy9pidLRsPTECDdDjZTioF9va6OrZvOW
+         /6iiDRdaakPay0hja63ENmk8KH+O5RNycf/8LQ1sJOdhvc2UMTJle8Al3ARt9T+IheDG
+         hs2PgAmRWE4BrQIycjth5HimYBbl97HYBxHl8+6vm7VN+dKdG0+a2tF9HXGkMxImUm0m
+         p6IW0L0B5omlDe4TjZ5Woca1gpHQ2PJ8WSBVsfTFE415KLJRIUnLC7uJ+GdM3eZHSLRV
+         st8XXk5qRFeDHMjWoQ/aJY2qhTA5t6PjCIMLybcq9ewXz6JpL8/NJ+Wg4vHxpMbte+IW
+         ykJw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=OFZUuzZ+0IS+9EDZyoznNJZXjuYIGtdVqC67r/Z0ScE=;
+        fh=GCQZRiQLYCs7uEGTLbUxD4JukDvVCvpWrkr4hOjJqKE=;
+        b=jNaMWhBwhhXoKC8796UVtR7f8b923FEAphszOZK7pT98JLHQe6EuJgC/swrqkgq/fL
+         5g9yTYlkgDdVtToWqbjavlUQNnP2dV8Qyqv/bGeJCw8+77uCZ+5CiIxRFklUhzHovDOR
+         bBfYdLdZ1xNkfclys9Kn/qyhsk6fkyO9OuPAnoP5umSHjM4eMo2g9lJ8uAdnfnmsy4ij
+         cEGukVGCsTuE6LX05/r1mcgkOaDMJBa1q7zzgG+SIS7JjAw28Gk5X8AUHTsIDOehiUm4
+         /C7sdosoE2DcfLsoFgZx/OO7JheTFQlNZxKizAqfImWlYURFBfN60zD3KRSQ/uLpHyFw
+         GJag==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780395424; x=1781000224; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780395512; x=1781000312; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lT+JLRZTXmUkizcf52XaQYhGVpogr5HSaG3W4C826mA=;
-        b=s4w3B3ndAsTBMJgGpJqRtyTgA8iCBV6fHNIWsezzuCsvkeh/o6FsfvDPaBdT4g1f/s
-         VOoFrenophzfqWGpU2BJXOSoEolOutg7nhwGOLtmWbfeUol+u7vkTOL/ArZBJhJ0pz5V
-         AMOFuFuzjh8sDHnlKti8xEKAKUl3XH1Mxh/m/Lvn31SoLsZtaVoPIu1gi6znlYwUe102
-         rsFKtT70FVJb/2h3pjrNm4Dm6oUdJOtBnyu6KB/CHXBxfmr6nFXLHvIr53kRTLYLWVUG
-         2EswZi0H0p4hImdROVcCX7psy5CgqKNkOS1MFvG7J4eS/YHhW5d8h156LQkYRUDAEw8h
-         6pMw==
+        bh=OFZUuzZ+0IS+9EDZyoznNJZXjuYIGtdVqC67r/Z0ScE=;
+        b=LylQJDHM7J3/c/sYuUUvJyKb0EF1e5Rl9EUfysxJVUAuGxlqlY7a+pI9K6pjiG4X6J
+         q/3cWwz79o2Qxuir0eyyzKacKHOnNhh4k6bNnUrL1XZFRqgVAPYcuWDH9vw7Z2ZYFUms
+         v62n8tEG782bboDoZdrAnJKQweTrNEgVMUyF7yo4ZQWk5Z3gtVUnFqYXQM+6bxci/yNw
+         1riH9bioEJi/Vj3THhDWpzOkP06fmWgFm1tP6hV4hF/V2CDUofxrvycCfEX8sEZ05dBh
+         zVHBYXWqsq7+r7CIW+5ZehlYiO+OLcqmHBWMKTKzB6NB8L5c5E1i3MzFm2ZSQLOSnMWa
+         iwaA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780395424; x=1781000224;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+        d=1e100.net; s=20251104; t=1780395512; x=1781000312;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lT+JLRZTXmUkizcf52XaQYhGVpogr5HSaG3W4C826mA=;
-        b=MrSTIbyF2VtfjXH0W8z9h70WZu8Ar2+O650KHnj+Ip7DC4pk6hhQVIzWPq3gGo/ICG
-         ChpMghJIILNXoKd3WhOq4umu/B5foe0UmxW2BVzKcyETyjd65ECxS/F92hR+yuARyLys
-         U2whWDt4o26AEAnUUtkXJNo+U8POZDUy+1go+MsO6QcNPre5wqtr1r8P65VvdpBtJxev
-         NHzvwO6LDfY7UOi+Ua0cdG1BgdTMMp+RXDju9XbJ/0e0mrgTxVHSUm4KR3C0fiNchcK/
-         CET6bzsgfnDS/WlSJIs8/27eGsAdekjt+JOD0CH7nDU259WiDjOpVRcQDspo6rYkagWq
-         iOfw==
-X-Forwarded-Encrypted: i=1; AFNElJ+mMZ1YM23IousQlJm5qrB0tE6Wum1W7XMTIhREas6DYLE4vqRiEodxpxdB76WKoMLaQU3RB/wrExnI@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw1HvTV3pOWi+GFDB6hyMrBwlaokT9diHAt59GoSZDCZ0uSJsz0
-	0FQXrTd+iueUyABOsLCOWszq/f2GTnI8o2ykFfvsjRnSt4loxzQ6Enho
-X-Gm-Gg: Acq92OFVYYie3qVYMMH0G1bErOdLCnIQr9FOg00VYyjpsenRwdlW2ZqyIsdt8NDa0F2
-	hzKs4VkWqco03x5fS0lSniTh7hDaPSXkhAEYou61jd9RW05U7ajWhLuhTHY62C6EkSyICgZw+Xh
-	J19H9HnqLOQBB26Un0Ba7UwMAntPF4emgx664qqgWHKV5g1biGJDO3XLUTtX1bmiG6w3tMljTJF
-	DO4PQ3tZygmd8ASiqCVt0+fItN5mU+tSWYw6G7WsxZxDPLOU9/EaLjfsun8st+akhhpwzx+M1BA
-	33WCKTMlKDlwMIN7uqsFyyrlxXvUclS7TVTg2I+1ZX0hNVAARecaEYKSJ05ADNzHOG7lhLoOyiP
-	xK1Td1Oi/yomobLO+CSMh0edicMygzdepDytSWTv1CwAEhqTSbU0P7n+g+musVbMdlXQ/P+ahaV
-	MlHkIi1KgdUnTLG44Z0ph7mA9yR/wT78NJ+FHGV6v13pLjrpUfkCkPRbHHA8nW0aeGqyVG
-X-Received: by 2002:a17:903:3848:b0:2c0:a4c3:d7a with SMTP id d9443c01a7336-2c10ccfb095mr31503255ad.26.1780395423749;
-        Tue, 02 Jun 2026 03:17:03 -0700 (PDT)
-Received: from phuc-desktop.. ([183.91.15.56])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2bf239fd84fsm132766305ad.23.2026.06.02.03.16.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 03:17:03 -0700 (PDT)
-From: phucduc.bui@gmail.com
-To: Heiko Stuebner <heiko@sntech.de>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>
-Cc: Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Sashiko AI Review <sashiko-bot@kernel.org>
-Subject: [PATCH v2 5/5] ASoC: rockchip: rockchip_pdm: Handle runtime PM resume failures in set_fmt
-Date: Tue,  2 Jun 2026 17:16:08 +0700
-Message-ID: <20260602101608.45137-6-phucduc.bui@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260602101608.45137-1-phucduc.bui@gmail.com>
-References: <20260602101608.45137-1-phucduc.bui@gmail.com>
+        bh=OFZUuzZ+0IS+9EDZyoznNJZXjuYIGtdVqC67r/Z0ScE=;
+        b=qlfNNer54iHCoojHw9jRdz54x2NQ0hx+VXhs9kS6bzUV6RgyrM7O68HO3Rfa1YjuIJ
+         lV4jj7mzJPTnW0JORyqO6gSKOMg4srN3lMcmEpuDDCBvd7WXLCrGdXQNeZcu+Bz7htCw
+         KmMd/qlQzY4qWP6yq63WjzZzXLMfflKqcbkFPfYM1sBM1GKSx4okjAURRMzdyGh3hmRn
+         53rZ3WXYgM3RgghZT+rH5r/I10zqAD7a0UqbxHA1tD5BqpJxmSW/wY9YVJ2GetVBMfo1
+         uRVHdqVeQ9VMiPgmXGuhLc6DvvyqZIydUgLvI4rB52MhSletYlTVYSGVrnQY5nQYQy0N
+         S79w==
+X-Forwarded-Encrypted: i=1; AFNElJ8gh4D0RowO/SNCTlx20mzSEV7HyGTxYkd9OkMRvlOgvnJvzJAHnX20T03d65cb7EBhL8kNpywgXo7F@vger.kernel.org
+X-Gm-Message-State: AOJu0YwUR+ScP6Sthmh2V/1ZNmD0PlYOrcKJ1GIw0koIUKDXolWOS+OA
+	cWEIUfyYvZRKnTnO7Bj5Eh93ArwWTDg/RLR3gN/AZpyzX8esdHoR600t9tiR3H7e7WYE9nJCYhF
+	wW6MEAr1AtSdtK3R/nwbyOMYDs+/8ZXI=
+X-Gm-Gg: Acq92OHg79ev6Y+ciXskcVjEQH3V+Z9ZbAhsHlk3AuezIPsG4Nhl6T1Ka53AVAH0UhB
+	eXcuORtvNx6oi7aEnXdD5BIpOdkM4AVHy3hBA9IH+zPd7QBsUQ0ZISXd/q66eqJyNNKPbQJcABQ
+	EOtcsdn8svyXjISp4bA3NTksnfqyeSz3MD/Yjz30rmT41u6kS1Gbdi29fNOWrBbYBpg+NXHboSC
+	vCBaFI1sEtmi0R/fa68PjRaqAqEpeSTeK9ecccgnsghW9cuIoWojXj16yPyNoNQoMWj7KGrBetI
+	lKPPwVl71KI21XUbANgtjeJj1wDMLA==
+X-Received: by 2002:a05:7300:5726:b0:2e2:3381:2fba with SMTP id
+ 5a478bee46e88-304fa523d3amr7629148eec.3.1780395512175; Tue, 02 Jun 2026
+ 03:18:32 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260601151831.76350-1-clamor95@gmail.com> <20260601151831.76350-3-clamor95@gmail.com>
+ <ah6O1h8SPwjf3rV1@ashevche-desk.local>
+In-Reply-To: <ah6O1h8SPwjf3rV1@ashevche-desk.local>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Tue, 2 Jun 2026 13:18:20 +0300
+X-Gm-Features: AVHnY4JHC1yQblwim_AIT-fQGP6xAd5YIyw3Q9PUntQ6X-j1sNWq1k3TeFJP-_c
+Message-ID: <CAPVz0n2vRFMKagLP+Ssq7n0ECp4_4mT6k7Bo9z=rxrSNCfCRKg@mail.gmail.com>
+Subject: Re: [PATCH v3 02/11] mfd: lm3533: Remove driver specific regmap wrappers
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
+	=?UTF-8?B?TnVubyBTw6E=?= <nuno.sa@analog.com>, 
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>, 
+	dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: bui duc phuc <phucduc.bui@gmail.com>
+=D0=B2=D1=82, 2 =D1=87=D0=B5=D1=80=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 11:05=
+ Andy Shevchenko <andriy.shevchenko@intel.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> On Mon, Jun 01, 2026 at 06:18:22PM +0300, Svyatoslav Ryhel wrote:
+> > Remove driver-specific regmap wrappers in favor of using regmap helpers
+> > directly. The wrappers are mostly equivalent to the standard helpers, w=
+ith
+> > two exceptions: regmap_read requires an unsigned int pointer, and
+> > regmap_update_bits has the mask and value arguments swapped. These
+> > differences were accounted for and adjusted accordingly.
+>
+> We refer to functions as func(), exempli gratia, regmap_read().
+>
 
-rockchip_pdm_set_fmt() calls pm_runtime_get_sync() before accessing
-hardware registers, but ignores its return value.
-If the runtime resume fails, the function continues to perform register
-accesses while the device state is undefined.
-Replace pm_runtime_get_sync() with pm_runtime_resume_and_get() and
-return early on failure to avoid unpowered register accesses.
+Noted.
 
-Reported-by: Sashiko AI Review <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260522110302.349421F000E9@smtp.kernel.org/
-Signed-off-by: bui duc phuc <phucduc.bui@gmail.com>
----
+> ...
+>
+> > static int lm3533_als_get_current(struct iio_dev *indio_dev, unsigned c=
+hannel,
+> >                                                               int *val)
+> >  {
+> >       u8 zone;
+> > -     u8 target;
+> > +     u32 target;
+> >       int ret;
+>
+> While at it, move towards reversed xmas tree order
+>
+>         u32 target;
+>         u8 zone;
+>         int ret;
+>
 
-NOTE: This patch is compile-tested only. Please help test if you have 
-    the relevant Rockchip hardware.
+Noted.
 
- sound/soc/rockchip/rockchip_pdm.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+>
+> ...
+>
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, val,=
+ mask);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZO=
+NE_INFO,
+> > +                              val, mask);
+>
+> It's better to replace this to use _set_bits()/_clear_bits() or even move=
+ from
+> the above conditional (not in this context) to _assign_bits().
+>
 
-diff --git a/sound/soc/rockchip/rockchip_pdm.c b/sound/soc/rockchip/rockchip_pdm.c
-index 8f78f7bc1806..115e90d3bbfe 100644
---- a/sound/soc/rockchip/rockchip_pdm.c
-+++ b/sound/soc/rockchip/rockchip_pdm.c
-@@ -321,6 +321,7 @@ static int rockchip_pdm_set_fmt(struct snd_soc_dai *cpu_dai,
- {
- 	struct rk_pdm_dev *pdm = to_info(cpu_dai);
- 	unsigned int mask = 0, val = 0;
-+	int ret;
- 
- 	mask = PDM_CKP_MSK;
- 	switch (fmt & SND_SOC_DAIFMT_INV_MASK) {
-@@ -334,7 +335,10 @@ static int rockchip_pdm_set_fmt(struct snd_soc_dai *cpu_dai,
- 		return -EINVAL;
- 	}
- 
--	pm_runtime_get_sync(cpu_dai->dev);
-+	ret = pm_runtime_resume_and_get(cpu_dai->dev);
-+	if (ret)
-+		return ret;
-+
- 	regmap_update_bits(pdm->regmap, PDM_CLK_CTRL, mask, val);
- 	pm_runtime_put(cpu_dai->dev);
- 
--- 
-2.43.0
+I will take a look.
 
+> ...
+>
+> >       else
+> >               val =3D 0;        /* analog input */
+> >
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, val, mask=
+);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+> > +                              mask, val);
+>
+> Ditto.
+>
+> >       if (ret) {
+> >               dev_err(&als->pdev->dev, "failed to set input mode %d\n",
+> >                                                               pwm_mode)=
+;
+>
+> ...
+>
+> >       /* Make sure interrupts are disabled. */
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_ZONE_INFO, 0, m=
+ask);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_ZO=
+NE_INFO,
+> > +                              mask, 0);
+>
+> _clear_bits().
+>
+> >       if (ret) {
+> >               dev_err(&als->pdev->dev, "failed to disable interrupts\n"=
+);
+> >               return ret;
+>
+> ...
+>
+> >       u8 mask =3D LM3533_ALS_ENABLE_MASK;
+> >       int ret;
+> >
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, mask, mas=
+k);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+> > +                              mask, mask);
+>
+> _set_bits()
+>
+> >       if (ret)
+> >               dev_err(&als->pdev->dev, "failed to enable ALS\n");
+> >
+>
+> ...
+>
+> >       u8 mask =3D LM3533_ALS_ENABLE_MASK;
+> >       int ret;
+> >
+> > -     ret =3D lm3533_update(als->lm3533, LM3533_REG_ALS_CONF, 0, mask);
+> > +     ret =3D regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CO=
+NF,
+> > +                              mask, 0);
+>
+> _clear_bits()
+>
+> >       if (ret)
+> >               dev_err(&als->pdev->dev, "failed to disable ALS\n");
+>
+> ...
+>
+> >       else
+> >               val =3D 0;
+> >
+> > -     ret =3D lm3533_update(led->lm3533, LM3533_REG_PATTERN_ENABLE, val=
+, mask);
+> > +     ret =3D regmap_update_bits(led->lm3533->regmap,
+> > +                              LM3533_REG_PATTERN_ENABLE, mask, val);
+>
+> _assign_bits() and so on...
+>
+> >       if (ret) {
+> >               dev_err(led->cdev.dev, "failed to enable pattern %d (%d)\=
+n",
+> >                                                       pattern, enable);
+>
+> ...
+>
+> >  extern int lm3533_ctrlbank_set_brightness(struct lm3533_ctrlbank *cb, =
+u8 val);
+> > -extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, =
+u8 *val);
+> > +extern int lm3533_ctrlbank_get_brightness(struct lm3533_ctrlbank *cb, =
+u32 *val);
+>
+> We don't need to keep 'extern' for ages.
+>
+
+I will no inflate this patchset further
+
+> >  extern int lm3533_ctrlbank_set_max_current(struct lm3533_ctrlbank *cb,
+> >                                                               u16 imax)=
+;
+> >  extern int lm3533_ctrlbank_set_pwm(struct lm3533_ctrlbank *cb, u8 val)=
+;
+> > -extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u8 *val=
+);
+> > -
+> > -extern int lm3533_read(struct lm3533 *lm3533, u8 reg, u8 *val);
+> > -extern int lm3533_write(struct lm3533 *lm3533, u8 reg, u8 val);
+> > -extern int lm3533_update(struct lm3533 *lm3533, u8 reg, u8 val, u8 mas=
+k);
+> > +extern int lm3533_ctrlbank_get_pwm(struct lm3533_ctrlbank *cb, u32 *va=
+l);
+>
+> --
+> With Best Regards,
+> Andy Shevchenko
+>
+>
