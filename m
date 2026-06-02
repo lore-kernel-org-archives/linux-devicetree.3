@@ -1,106 +1,146 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13D903191D0
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:07:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6DAD7262A
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:07:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780416463; cv=none; b=RSweD/7RPjtdHoxBN+fV93s1AoVqGJJVg6FSm8sSqwSz5Ply2GPW3C1bncTQ2TfW3estcPAn1OXceatev1PYnbsYp86o/mQn5asm5m2Bv0bY/xF2qnOUkcgDVQU+wQK7UADiYtCyRGDMc3y3m9/0W/S9oGc02ALS7q2ynJRf4OQ=
+	t=1780416463; cv=none; b=Kf+CK8rGTScxTwXxUTqwEQBhxysyUvN6i5NW60CcfQefotaUBE7ObsTYTjukphrsc9GXluSJZKsggV5snAVpbG1CpfzYKAKDtOyu6f00VTVdkrWeho0ZbYmkhsRfQdlVCbc3Up030vX+UdHzDFJ3j7zEj5P0BjtchnVrBJdLZf8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780416463; c=relaxed/simple;
-	bh=ntAhRvG3Gp4tV4huVVbtnkxfG+aJzqzjFTuasyDAsZc=;
+	bh=c2+2qpYzMoaetgdE5Wz8W+f8ivw2kVpsVRQwFHLOIog=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=FpiRIL6bDmeP9vSF487yoTcoFE/UbO1gBo5dSG2WhVk6nD4K2fkAkLtbni+ep6ArzfJfJ/EKXp0CrhO2YWHfqxHskwLcxV8TNyAr/64N9ixvxPuA6xQlF0JuxC93PsrRuMXCuM7AhncE/WqPg17icfs4GusCHs2O3JlILDLjOyo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBgPckQF; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=WVO6taz34FJlg4+/wKUKmO5IlnCkMTi0icJBHjk1YbBfFREdbp1n5LAGJg14u/tKXphMTfmwvVItrfyX7EWEhsiF+V3JoVOT8TsDRZwdwU50sXpAQ2A8DaaBBfmO9yD8lCiQvTJG1CXrUeWpNjT6DqP2CBP5pI/jnUs5J/NbSZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F8yHWlJn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBgPckQF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7E27D1F00893;
-	Tue,  2 Jun 2026 16:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F8yHWlJn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7104F1F00898;
+	Tue,  2 Jun 2026 16:07:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780416461;
-	bh=fePFFKqlKEgOnoKoBdx5c03ySeO9cFptckODkOOynww=;
+	s=k20260515; t=1780416462;
+	bh=ZmeV7RWPbNec7/O6deSn9JKTc859oOQ6ASyRTmiaMJo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=jBgPckQFAaqy9leZoMjaEZdR37tW8Rp5fOvnAx2KkOv6BXS4ZunLILqu5labC51ze
-	 ra1tk7lQQ5NCxaJSVOSHXF5+ugf1LpGn2XFs03wvTCSVgy0CMReTbnmL/yEyujAXEc
-	 yJmhltOKTr/LMxAjmJbxkNqh+U8p6h9I2gd0zcJhqCI6rn2ENb7pTRFGMLpA1cny+y
-	 PnMlALAGQISgk6xS3eTvxgQ3iqC2gtk0UqFcZ6bOdYlNATkj/OqH5t7xK6KMe6o5au
-	 d/eE3LEYCqbIDRDYa4HNKeo/EG++P5q+/xc2nObfkeyXPg8BcC6nCktEY2FIPs5spe
-	 6x/xtYnSrn8rw==
+	b=F8yHWlJnzjAqfRh2i3iYdKtNLRvugWHFDzmTR6Rz6WqKU+V0FffOLeHv3Lub23wLd
+	 frEH+IaTorsKpm0ZRUJWdQMeNix+reIo8wLDWnHo6qMR9gqscEj08CHq2hSC6nUJGi
+	 31d9YRhQqnfIE5YGc+0Ymmpa9Oc6xRXd4Q65fPC54oX3hJA3DOe+4ekk6r8I4C3XYq
+	 cTKXIm9inpzO7AJBtd/aKVSbQO5NRmvafcGi+72AJceRjEhuwA7E/G2YuaM5E2fjtn
+	 22HvKeeLRB9E1XlzWGh7Amk8zKjyEzKpHO/YxbT8vm9BFYyxxOApNZ8p+AdWTYFowl
+	 TPP13ySk9yUcw==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net v3 1/2] net: ethernet: oa_tc6: Interrupt is active
- low, level triggered.
+Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
+ be active low, level triggered
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Selvamani Rajagopal via B4 Relay" <devnull+Selvamani.Rajagopal.onsemi.com@kernel.org>
 Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-level-trigger-v3-1-da73e7010532@onsemi.com>
-References: <20260601-level-trigger-v3-1-da73e7010532@onsemi.com>
+In-Reply-To: <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
+References: <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 16:07:41 +0000
-Message-Id: <20260602160741.7E27D1F00893@smtp.kernel.org>
+Date: Tue, 02 Jun 2026 16:07:42 +0000
+Message-Id: <20260602160742.7104F1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-- [High] IRQ storm and starvation caused by level-triggered interrupt witho=
-ut IRQF_ONESHOT or manual masking.
+
+Pre-existing issues:
+- [High] The driver incorrectly handles a level-triggered interrupt without=
+ using threaded IRQs or masking the interrupt, which will cause an infinite=
+ interrupt storm.
+- [High] The custom SPI kthread is stopped before the interrupt handler is =
+disabled, leading to a guaranteed interrupt storm if an interrupt is assert=
+ed during module removal.
 --
 
-commit 3908a29ac2b1392995dbf0f4228af86bbddb0261
+commit 7ca880f8acfa2e8b17a55026e4eceb0ac7d436f9
 Author: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
 
-net: ethernet: oa_tc6: Interrupt is active low, level triggered.
+dt-bindings: net: updated interrupt type to be active low, level triggered
 
-According OPEN Alliance 10BASET1x MAC-PHY Serial Interface
-specification, interrupt is active low, level triggered.
+This commit updates the lan8650 device tree binding interrupt type to
+active low, level triggered, to match the TC6 specification.
 
-> diff --git a/drivers/net/ethernet/oa_tc6.c b/drivers/net/ethernet/oa_tc6.c
-> index 91a906a7918a2..667faf1554053 100644
-> --- a/drivers/net/ethernet/oa_tc6.c
-> +++ b/drivers/net/ethernet/oa_tc6.c
-> @@ -1323,7 +1323,7 @@ struct oa_tc6 *oa_tc6_init(struct spi_device *spi, =
-struct net_device *netdev)
->  	sched_set_fifo(tc6->spi_thread);
-> =20
->  	ret =3D devm_request_irq(&tc6->spi->dev, tc6->spi->irq, oa_tc6_macphy_i=
-sr,
-> -			       IRQF_TRIGGER_FALLING, dev_name(&tc6->spi->dev),
-> +			       IRQF_TRIGGER_LOW, dev_name(&tc6->spi->dev),
->  			       tc6);
+> diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml=
+ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> index 61e11d4a07c40..766ff58147ae3 100644
+> --- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> +++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
+> @@ -67,7 +67,7 @@ examples:
+>          pinctrl-names =3D "default";
+>          pinctrl-0 =3D <&eth0_pins>;
+>          interrupt-parent =3D <&gpio>;
+> -        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
+> +        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
 
 [Severity: High]
-Does changing this to a level-triggered interrupt cause an IRQ storm?
+This is a pre-existing issue, but updating the device tree to use a
+level-triggered interrupt exposes a problem in the oa_tc6 driver's interrupt
+handling.
 
-Looking at the primary hardirq handler:
+The driver explicitly requests a hard-IRQ for a level-triggered interrupt
+without IRQF_ONESHOT:
+
+drivers/net/ethernet/oa_tc6.c:oa_tc6_init() {
+    ...
+    ret =3D devm_request_irq(&tc6->spi->dev, tc6->spi->irq, oa_tc6_macphy_i=
+sr,
+                           IRQF_TRIGGER_LOW, dev_name(&tc6->spi->dev),
+                           tc6);
+    ...
+}
+
+The hard-IRQ handler returns IRQ_HANDLED without masking the interrupt or
+clearing the hardware state:
 
 drivers/net/ethernet/oa_tc6.c:oa_tc6_macphy_isr() {
     ...
     tc6->int_flag =3D true;
+    /* Wake spi kthread to perform spi transfer */
     wake_up_interruptible(&tc6->spi_wq);
+
     return IRQ_HANDLED;
 }
 
-Since the handler returns IRQ_HANDLED without clearing the hardware conditi=
-on
-on the device, the IRQ core will immediately unmask the line. Because the
-MAC-PHY is still holding the line low (waiting for the SPI kthread to run a=
-nd
-clear it), the interrupt will instantly re-trigger.
+Since the interrupt is active-low and level-triggered, won't returning
+IRQ_HANDLED without masking it or clearing it over SPI immediately trigger
+an interrupt storm? Does the driver need to use request_threaded_irq() with
+IRQF_ONESHOT to keep the interrupt masked until the thread can clear it?
 
-Could this starve the awakened spi_wq kthread and lead to a CPU lockup or t=
-he
-kernel permanently disabling the interrupt line? Should this use a threaded
-IRQ with IRQF_ONESHOT, or explicitly disable the IRQ in the handler until t=
-he
-kthread completes the SPI transfer?
+[Severity: High]
+This is also a pre-existing issue, but relying on a level-triggered
+interrupt exposes a teardown race condition during module removal.
 
->  	if (ret) {
->  		dev_err(&tc6->spi->dev, "Failed to request macphy isr %d\n",
+The driver delegates kthread shutdown to oa_tc6_exit(), stopping the SPI
+kthread without explicitly disabling the devm-managed interrupt first:
+
+drivers/net/ethernet/microchip/lan865x/lan865x.c:lan865x_remove() {
+    ...
+    oa_tc6_exit(priv->tc6);
+    free_netdev(priv->netdev);
+}
+
+drivers/net/ethernet/oa_tc6.c:oa_tc6_exit() {
+    ...
+    oa_tc6_phy_exit(tc6);
+    kthread_stop(tc6->spi_thread);
+}
+
+If the MAC-PHY asserts a level-triggered interrupt after the kthread is
+stopped, the hard-IRQ handler will run, call wake_up_interruptible() on the
+dead kthread's waitqueue, and return IRQ_HANDLED.
+
+Because the kthread is dead and cannot clear the interrupt, and the ISR does
+not mask it, could this result in an unrecoverable system lockup during
+driver removal?
+
+>          local-mac-address =3D [04 05 06 01 02 03];
+>          spi-max-frequency =3D <15000000>;
+>        };
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-level-trig=
-ger-v3-0-da73e7010532@onsemi.com?part=3D1
+ger-v3-0-da73e7010532@onsemi.com?part=3D2
