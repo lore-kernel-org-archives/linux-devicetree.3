@@ -1,115 +1,252 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67B75384CEC
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:52:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC8437DEBC;
+	Tue,  2 Jun 2026 16:53:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780419163; cv=none; b=ULDlvRoIFAXjjzqTOewTViKfloUCIf2C33+4JoKtzYbCXWlLAm3dYK8rHaTaoLnebRfH4p9vYuHYUKOcwSl1DkmDnV2KsJiSyMGGovXqnzeugcHpOxQvwS9sBxzJDFi9UD7+9lvMJzY0Zsj4WPwSD8Q5ua3nZnz10eGdNT9Tp3g=
+	t=1780419228; cv=none; b=igAVCLNI8fvAhs9p9DU9M+jdBbbGCG8ZrSAhV+M1s1nFvv7bBLBqZvk5kRz8+p7y0GF+NDfYPAkKlputUeaLJDz/pBelbaYfHteASGLG66kllKNe4F7iqc/Dbzr/aehGmpJDv2gscnVXS9MGIZx4J9CeYX5so10KaEjrGEJn0Q4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780419163; c=relaxed/simple;
-	bh=E3/XLNGhhZ+B9PSFxTDv1xtISeB418fs10roFY31efI=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=N2habp1SbGuvF5ezcI4UbhcNdRIVLFPSwz3iaAlF0MxZMJepTzRaxSKoKC2mcZ2Lzlg6rbb1m0YZhu/c715YyKC+usxXOEwhHq0iuM8PUEcJlcLBOkXDncX2bz4YkerdRcU4GhgAIEdVy0XGPyoVJJRdfGisGDXCZLcZP3BYntg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MXWOAFfy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780419228; c=relaxed/simple;
+	bh=kRUqhA6CT8jYevxAj3eLidl85jth0GnIztFZmis9UIs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WAYHDlRiXAMmUTXQqOSWVpZGiXGU4xyPv0Iws2YxmkH/bQNqmL+5MtSPQBPuntI9dwEfCs1qXqFo28aqb3A3gIeehay2eExfe5dsAuZi1G5qZj79dcozP0/VmL8UvJ2Vi1Wq2OKdG7jitAcaP7Z/IVnFVnq6Pr9DxIPJT4jz+oM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iXzF5zb4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MXWOAFfy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D8821F00898;
-	Tue,  2 Jun 2026 16:52:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iXzF5zb4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CF01F00893;
+	Tue,  2 Jun 2026 16:53:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780419162;
-	bh=kV/U9dvZGpRojDmlblB60y8ZruC209hHfHok4hE4dIo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MXWOAFfyMNNGkQWvPEmSIqnbsbiG2F/rZngZuxDABHLoVjYxxxO8lyqCEfxBL63Kg
-	 qBkACLcCgj6rU32xMCXxGoL/63PKdRLBTpmfTHEMgUa2gRQ5H7Me2NrE7Q74PJxHt3
-	 xLPO9SeXuhfFAwsxqAoYscIOk5djFhBByU0wehnZ/VO3sU/yAtyffUHT8SLIsh4l1n
-	 G+cEfdXW3mIlT2OX7INs6Y4WpNCjO8WropmjvQb3UWv8amK2coovNBlZhPWWallXO5
-	 6/ay+eaclmYyHJ5/jp7kiFb9DmzfK5xPRUIIcmnBThHt2m1iXvgbmw2d8qKjpIaDCu
-	 B3/uElW9DtZFw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] arm64: dts: qcom: ipq5424: Move PHYs and PERST# to
- Root Port node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260602-move_perst_to_rp-v1-2-8ee5b80316da@oss.qualcomm.com>
-References: <20260602-move_perst_to_rp-v1-2-8ee5b80316da@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 16:52:40 +0000
-Message-Id: <20260602165241.5D8821F00898@smtp.kernel.org>
+	s=k20260515; t=1780419227;
+	bh=sNR6m5slCh5aFrIej8LtoAl6ZQkku+eb1lZYSXVxYb0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=iXzF5zb4/73OrDVlXopSph0rNOJ3R3aEpSI68VTT5VW/0N6uK72WAouNuZmC3YN53
+	 1xszAGiLoabHaspu8CGH+LQ57NCPgqjkT0L/+yJ5YRPHNRoeDfHVuqDAzIkzFJ2o5M
+	 glEjSenZjlf+f7/wGH6asmOf6oQhYAx4hhqKabNku/6mMfa6iJjgdAC23rwAQJXzNB
+	 5Gsv6jdJBfBRZDZQXLWy56zq4BMhbsD9ZyGwVPYXI/yDd/DQzd91TypKhYbI/QicNy
+	 9GpE6nLJTRIRhqokn5PjxvkvatFw2tXcKGK7yMjKM7Ff0z3nCnR9isUERO8ntVs6uW
+	 UAQ97CKuLv1Zw==
+Date: Tue, 2 Jun 2026 17:53:43 +0100
+From: Conor Dooley <conor@kernel.org>
+To: wangjia@ultrarisc.com
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: Add UltraRISC DP1000
+ pinctrl controller
+Message-ID: <20260602-clause-mortify-a0e474334cfe@spud>
+References: <20260601-ultrarisc-pinctrl-v2-0-07ac5130a96d@ultrarisc.com>
+ <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="GMF3Sr7spSBp+L7u"
+Content-Disposition: inline
+In-Reply-To: <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
 
-Pre-existing issues:
-- [Critical] Legacy device trees fail to probe with -EBUSY because the 'per=
-st' GPIO descriptor is requested twice without being released.
---
+--GMF3Sr7spSBp+L7u
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-commit f286f42842ba6bb45e869489bbe2830fdd9be93c
-Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+On Mon, Jun 01, 2026 at 05:56:34PM +0800, Jia Wang via B4 Relay wrote:
+> From: Jia Wang <wangjia@ultrarisc.com>
+>=20
+> Add doc for the pinctrl controllers on the UltraRISC DP1000 RISC-V SoC.
+>=20
+> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
+> ---
+>  .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 128 +++++++++++++++=
+++++++
+>  MAINTAINERS                                        |   6 +
+>  2 files changed, 134 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-p=
+inctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pi=
+nctrl.yaml
+> new file mode 100644
+> index 000000000000..5100033c18c3
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.=
+yaml
+> @@ -0,0 +1,128 @@
+> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
+> +%YAML 1.2
+> +---
+> +$id: http://devicetree.org/schemas/pinctrl/ultrarisc,dp1000-pinctrl.yaml#
+> +$schema: http://devicetree.org/meta-schemas/core.yaml#
+> +
+> +title: UltraRISC DP1000 Pin Controller
+> +
+> +maintainers:
+> +  - Jia Wang <wangjia@ultrarisc.com>
+> +
+> +description: |
+> +  UltraRISC RISC-V SoC DP1000 pin controller.
+> +  The controller manages ports A, B, C, D and LPC. Ports A-D default to
+> +  GPIO and provide additional SPI, UART, I2C, and PWM mux functions.
+> +  LPC pins default to the LPC interface and can be muxed to eSPI.
+> +  All pins also support pin configuration, including drive strength,
+> +  pull-up, and pull-down settings.
+> +
+> +properties:
+> +  compatible:
+> +    const: ultrarisc,dp1000-pinctrl
+> +
+> +  reg:
+> +    items:
+> +      - description: pin controller registers
+> +
+> +required:
+> +  - compatible
+> +  - reg
+> +
+> +patternProperties:
+> +  '.*-pins$':
+> +    type: object
+> +    unevaluatedProperties: false
+> +    allOf:
+> +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
+> +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
+> +      - if:
+> +          properties:
+> +            pins:
+> +              contains:
+> +                pattern: '^LPC([0-9]|1[0-2])$'
+> +        then:
+> +          properties:
+> +            function:
+> +              enum:
+> +                - lpc
+> +                - espi
+> +
+> +    properties:
+> +      pins:
+> +        description: List of pins affected by this state node.
+> +        minItems: 1
+> +        uniqueItems: true
+> +        items:
+> +          type: string
+> +          oneOf:
+> +            - pattern: '^PA([0-9]|1[0-5])$'
+> +            - pattern: '^PB[0-7]$'
+> +            - pattern: '^PC[0-7]$'
+> +            - pattern: '^PD[0-7]$'
+> +            - pattern: '^LPC([0-9]|1[0-2])$'
+> +
+> +      function:
+> +        description: |
+> +          Mux function to select for the listed pins. Supported functions
+> +          depend on the selected pins and match the DP1000 hardware mux
+> +          table.
+> +        enum:
+> +          - gpio
+> +          - i2c0
+> +          - i2c1
+> +          - i2c2
+> +          - i2c3
 
-arm64: dts: qcom: ipq5424: Move PHYs and PERST# to Root Port node
+Why do you need to know which i2c, pwm etc is being used here?
+If don't need to differentiate, then drop the numeric.
+Only spi and uart seem to have more than one "UR_FUNC" associated with
+them.
 
-This commit updates the device tree to define PHYs and the PERST#=20
-(reset-gpios) under the PCIe Root Port node instead of the main controller=
-=20
-node. This aligns with the new binding style.
+Cheers,
+Conor.
 
-> diff --git a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts b/arch/arm64/boo=
-t/dts/qcom/ipq5424-rdp466.dts
-> index de71b72ae6dcc..be8657239c46b 100644
-> --- a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-> +++ b/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-> @@ -86,8 +86,6 @@ &pcie2 {
->  	pinctrl-0 =3D <&pcie2_default_state>;
->  	pinctrl-names =3D "default";
+> +          - pwm0
+> +          - pwm1
+> +          - pwm2
+> +          - pwm3
+> +          - spi0
+> +          - spi1
+> +          - uart0
+> +          - uart1
+> +          - uart2
+> +          - uart3
+> +          - lpc
+> +          - espi
+> +
+> +      bias-disable: true
+> +      bias-high-impedance: true
+> +      bias-pull-up: true
+> +      bias-pull-down: true
+> +
+> +      drive-strength:
+> +        description: Output drive strength in mA.
+> +        enum: [20, 27, 33, 40]
+> +
+> +    required:
+> +      - pins
+> +      - function
+> +
+> +unevaluatedProperties: false
+> +
+> +examples:
+> +  - |
+> +    soc {
+> +      #address-cells =3D <2>;
+> +      #size-cells =3D <2>;
+> +
+> +      pinctrl@11081000 {
+> +        compatible =3D "ultrarisc,dp1000-pinctrl";
+> +        reg =3D <0x0 0x11081000 0x0 0x1000>;
+> +
+> +        i2c0-pins {
+> +          pins =3D "PA12", "PA13";
+> +          function =3D "i2c0";
+> +          bias-pull-up;
+> +          drive-strength =3D <33>;
+> +        };
+> +
+> +        uart0-pins {
+> +          pins =3D "PA8", "PA9";
+> +          function =3D "uart0";
+> +          bias-pull-up;
+> +          drive-strength =3D <33>;
+> +        };
+> +      };
+> +    };
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 461a3eed6129..6fd7ce6365fb 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -27356,6 +27356,12 @@ S:	Maintained
+>  F:	drivers/usb/common/ulpi.c
+>  F:	include/linux/ulpi/
 > =20
-> -	perst-gpios =3D <&tlmm 31 GPIO_ACTIVE_LOW>;
-> -
+> +ULTRARISC DP1000 PINCTRL DRIVER
+> +M:	Jia Wang <wangjia@ultrarisc.com>
+> +L:	linux-gpio@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.ya=
+ml
+> +
+>  ULTRATRONIK BOARD SUPPORT
+>  M:	Goran Ra=C4=91enovi=C4=87 <goran.radni@gmail.com>
+>  M:	B=C3=B6rge Str=C3=BCmpfel <boerge.struempfel@gmail.com>
+>=20
+> --=20
+> 2.34.1
+>=20
+>=20
 
-[Severity: Critical]
-This is a pre-existing issue, but does moving these properties expose a
-probe failure on legacy device trees?
+--GMF3Sr7spSBp+L7u
+Content-Type: application/pgp-signature; name="signature.asc"
 
-When parsing a legacy DT, qcom_pcie_parse_ports() successfully requests the
-"perst" GPIO:
+-----BEGIN PGP SIGNATURE-----
 
-drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_parse_ports() {
-...
-	pcie->reset =3D devm_gpiod_get_optional(dev, "perst",
-					      GPIOD_OUT_HIGH);
-	if (IS_ERR(pcie->reset))
-		return PTR_ERR(pcie->reset);
-...
-}
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8KlwAKCRB4tDGHoIJi
+0vPKAP48/a1vhgqvE4w51hesZUJ3dFjRzgvajavKJI3IeIVpLQEAsnuVhZF/FaVc
+Oym4doNCanYj9DEAT8mxijXS+/ypyAU=
+=Zjp9
+-----END PGP SIGNATURE-----
 
-But it then returns -ENODEV due to the lack of a "phys" property on the chi=
-ld
-node. The probe function then falls back to qcom_pcie_parse_legacy_binding(=
-),
-which attempts to request the same "perst" GPIO again:
-
-drivers/pci/controller/dwc/pcie-qcom.c:qcom_pcie_parse_legacy_binding() {
-...
-	reset =3D devm_gpiod_get_optional(dev, "perst", GPIOD_OUT_HIGH);
-	if (IS_ERR(reset))
-		return PTR_ERR(reset);
-...
-}
-
-Because the first request was never released using devm_gpiod_put(), will
-the second devm_gpiod_get_optional() fail with -EBUSY and fatally abort the
-probe, breaking backwards compatibility for older platforms?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602-move_perst=
-_to_rp-v1-0-8ee5b80316da@oss.qualcomm.com?part=3D2
+--GMF3Sr7spSBp+L7u--
