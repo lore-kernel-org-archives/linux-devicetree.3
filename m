@@ -1,130 +1,159 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91FD03DC4CD;
-	Tue,  2 Jun 2026 12:23:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89E183D9DD4
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:25:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780403002; cv=none; b=Aa17thTRxIHnRJ6xXPXSkmbGZdUTz3HoOmHBad5r0I0rtRbS7b1Gx7sMQZgzbNEH0bmTgDrE8xGCg2QAOH5nu96O5Gs2aTeK5jiqdciHl8+JOkKImIcrjM1CAs11I/yf3367c0ofUpRk4XHtW4op6jCW3H6rBCj7lpmHcxqJrLI=
+	t=1780403158; cv=none; b=FM5sXk3aN1ZKW0dDSpviqfoshPQQ8qBkmyFHNENV+nD4JK3Q/HBOV8dvrvSryoypaWN5cxQm7XWicIktPMJdFWIj3i2CSJkna0VP2Az4X1HMdwtlXUNALirIH6NPO3m/VAsVUUpaCD2z53WCXKvAcuZb2N+MyQUcY3tycfm8WDk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780403002; c=relaxed/simple;
-	bh=Z95sJuQCTgajvOD0RfQFxhKPMT4RoY6/+AzQrFXJPPA=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=IM/CnyVye9Uxje7pRYUHBAYfxaakfVmYdKHvqXli3IEuh59afCi+2F5MaLLxK5Fj4RZkz3OsXiyrqzenJootb3/4ujRKbRagjiHPseP0aulDj8w8fF/EglgE4u+oD00dY0IgCji1KinLag7dwehxmwUiNfCtepgozxULVzJLw5U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de; spf=pass smtp.mailfrom=arndb.de; dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b=QtyRN8j2; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=jTHPM8Kd; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arndb.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arndb.de
+	s=arc-20240116; t=1780403158; c=relaxed/simple;
+	bh=j3oIU2/U7axjXxSszD3SA/6udOQmDJjkHrDTm0ibtYA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=V+awgsEc8WCRpVp8j+xKWmeCPTrvv0/3sNxScSafe5bwes8Vbn17oAIsUzrArp3eyyWU73R1HvGpT7p7cgdcNrqDhGn/nwCJXYPgt7Tke/wYFdSCdggcq+SR4PXXJD2jHuNBJ8WOyYfnXlcZ4189rSZUgDx/cKTHyW8YbN2XUR8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=KOpeSiC1; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=arndb.de header.i=@arndb.de header.b="QtyRN8j2";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="jTHPM8Kd"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 3B8267A00A5;
-	Tue,  2 Jun 2026 08:23:19 -0400 (EDT)
-Received: from phl-imap-05 ([10.202.2.95])
-  by phl-compute-04.internal (MEProxy); Tue, 02 Jun 2026 08:23:19 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=arndb.de; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1780402998;
-	 x=1780489398; bh=hRhE2JS8VMDtVgLzaO+li85xbKbuR8ESfHzz9aiWT/c=; b=
-	QtyRN8j29GKZF5IDSW+WQT8pgLgcy4Q3xWxOTXVQTcf4PpjHarj0ZnFQScY83XqT
-	G4l8D2xHL7Xfz2vxSMdglyFs9bQNZVNgpjDjQYz2V3+4eH16hmxHsfvkpmhA40vF
-	cHvVCuVjO/ANV8SnU+DBZy4L/IfqaS3EIaY6zCLzY+RwoBBiiCMsIX0hVZHzJsFG
-	5UyRymkDkenHAIYmylagZ+SqcdrnGpaNPPA7NV9LTpBZ3/vVHJVxwABICowShD39
-	gy2qOQ/n0SnbcsEk/tbY8TN2DkzYHrdKdFIF91ZvVc4OdukLK7QFVTtJ+ZvIgVfB
-	/BLtzso/+vt/dLHD7L3LDw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780402998; x=
-	1780489398; bh=hRhE2JS8VMDtVgLzaO+li85xbKbuR8ESfHzz9aiWT/c=; b=j
-	THPM8Kd7XTbXh3mZCXz4Fb/3SeDY0VprvCEbWlpXDVGK6tn+4jJfNnrfyzYdLexj
-	JQUxMCgb8yh35vdun56MWoc+l8uTuGtVXMkDi7ggHBOtELsg5z0C/Ay1URRslPd/
-	sbBjPDNxSMYR7sB1MjjgFK03X+T7ZK/7hvgzxH58Ii7ZFCJM9Dm1P5PhFjjfsQp0
-	2dkas3HdaJPw6F25mGobI07+3W64nGs9dCCG1JRDQ1g+BPJFyltRDr6ZEUsluvz3
-	hwUo2IqbjuobdVbF7HJJ8WamQ1tr9NY4W+T23qoM3GaLJwoliZQmpJU9V3kAbABf
-	8qgrv5uVTlo1zb+yPyJlQ==
-X-ME-Sender: <xms:Ncseasli4_R4W3QDYJhW6D38Gy6GqnBetSbVdAG5xsL4JOaODOfyGQ>
-    <xme:Ncseamp5bMq5Xy8b_gbBuehb_kcN5n5FE0YIFwmf9e9trU_4tBE2raiCBkX8ER__y
-    D8iD2cVce8InU5N1E9yyw7Ee8C5iX5ZDobhShydyhAvejdSxqhxEyE>
-X-ME-Proxy-Cause: dmFkZTESgYyi6e4cEOd4bw/XAYmop9bp+Es/eLhRIz5HZQlg/9EMr78/xnJGNo1+hXDWsG
-    HTKPM/336wDCh4Yzisnqt6fAwQYJimc26yQovtKNsvcUirJ30fMPswJyTBY9zr1mg+ejEw
-    1mqoYpt/rfadcy6R0oEywDm97ts7NMZYeyx9CrKGOKQJPvkXsP8znJaqa88PTLyYdOQ1LE
-    xlWDAUqB4umgEl4aTqGGOF9eFS1J6wMDT97kvzM/VCUPBCQObrb2RZJncpZzUjplexsjsB
-    8mYTUaEHGHbCmIGDeFmoZYCc+kxrN4c2tNAF+TaQt88zs02gbllA2BK3v1un5gRgAfD1JJ
-    dOJYz82z1UeYLXrFxVwlMsvxYzENqiZ4TLd2DQU2k5MPEmm2VuzAuWuGejlrvFsVVl4c+w
-    LcoKCKuJBOdaDQV4aTJ/fdBfNGZaWB5XhYw9buY6QbkrzuSlLQg0QgHSnIrhenLb6Qv+J3
-    +EaYk2rEzFam+7x8wEb5XGzg6+NdiN3MZP9Cx1zaZzovc0VEP6xn1LxPr8aOy+HsFQJ/6P
-    ChtKluJeJdX74hfTjQC4emnYSUYbjuS+ZkU8RNImujGUf3WHpJrpj9TdYLgFwnbQv8y4It
-    EF5tHitX3AJAOVBZ2lePP4txZSzdAxRnVWQ6Wkh/APzprwu4BsfB2CS2S3aA
-X-ME-Proxy: <xmx:NcseakhJfhRJSqT1yYXRv96xxYAF8Z0uLI7BRiFSNFl4ZIN6wSqbYw>
-    <xmx:NcseajZiZoAmHyRY8naS5-3ZEY3D8ad2N_MQpTJu0ff4EwBMi7DHKA>
-    <xmx:NcseaoV2jILX7zbU7dane6jIkdvKUCOvAxpRFcNQanl1GcW8VpdBQw>
-    <xmx:NcseajGUU8bRCkhiNQIrY4dbBS9lgZMBYgcyIhBF7DYCL-wEoGRHYw>
-    <xmx:Nsseagr5NT5Vs_mvZCrzcOsoNkOUOqrFy3slKR94V_adQ4e2pYcqqDC_>
-Feedback-ID: i56a14606:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 4D44A182007A; Tue,  2 Jun 2026 08:23:17 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="KOpeSiC1"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 2C9281A37CE;
+	Tue,  2 Jun 2026 12:25:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id F370A603BC;
+	Tue,  2 Jun 2026 12:25:54 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 66F401088838A;
+	Tue,  2 Jun 2026 14:25:50 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780403154; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=nY+lVPySUSaxoE8xcu7moT/k9ChClkx3Yw1+iU/k0qs=;
+	b=KOpeSiC1AuTg5rFIO0WlcgkJjyz9gOaISm6vXGZb3m9UwJhVgLJvwg2rwaPZAoO+Oa1xvw
+	4id7ZmJy1g0tUJk+bcH9D06ZhwJNe15Q6as+alG50DVARSYEk14wMQ/jHhQbo7N5+BHlM3
+	/M9DFYhbD1HBiAOG0pXZkQRsJ2dCPQYjCdgV55eiGsAiA5ui8aUZz3WaoZ9ofqcQoSFb2V
+	6jcAfIJe5njQhsGJj/hmi4qubujRPG7Uhua6No9aAQjxdqrvqM6BMJFgKOc33mViepqsGI
+	HxuafeCdtSVNhGrKfcAFLrQOOP/rAUa0A9iqc2l0sUhnt97tknFD3JAwR1BD3A==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
+  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
+  <a-dutta@ti.com>
+Subject: Re: [PATCH v3 09/13] spi: cadence-quadspi: reject 2-byte-address
+ DDR ops on PHY-tunable hardware
+In-Reply-To: <0ee42621-f970-451c-82cd-9a1a63ce197e@ti.com> (Santhosh Kumar
+	K.'s message of "Mon, 1 Jun 2026 14:57:20 +0530")
+References: <20260527175527.2247679-1-s-k6@ti.com>
+	<20260527175527.2247679-10-s-k6@ti.com> <87y0h3gb6o.fsf@bootlin.com>
+	<0ee42621-f970-451c-82cd-9a1a63ce197e@ti.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Tue, 02 Jun 2026 14:25:49 +0200
+Message-ID: <87se751642.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: AkPwN-kLRsNN
-Date: Tue, 02 Jun 2026 14:22:36 +0200
-From: "Arnd Bergmann" <arnd@arndb.de>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "yangzh0906@thundersoft.com" <yangzh0906@thundersoft.com>
-Cc: bst-upstream <bst-upstream@bstai.top>,
- "Catalin Marinas" <catalin.marinas@arm.com>,
- "Conor Dooley" <conor+dt@kernel.org>, devicetree@vger.kernel.org,
- "gordon.ge" <gordon.ge@bst.ai>, krzk+dt@kernel.org,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- "Rob Herring" <robh@kernel.org>, "Will Deacon" <will@kernel.org>
-Message-Id: <24f942db-ec50-4716-9a1b-11ae07923479@app.fastmail.com>
-In-Reply-To: <c6e0a027-38c3-4054-b971-033f021dcff4@kernel.org>
-References: <20260427062329.3715925-1-yangzh0906@thundersoft.com>
- <20260602084302.2101364-1-yangzh0906@thundersoft.com>
- <c6e0a027-38c3-4054-b971-033f021dcff4@kernel.org>
-Subject: Re: [PATCH v8 0/2] arm64: dts/defconfig: enable BST C1200 eMMC
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Jun 2, 2026, at 14:00, Krzysztof Kozlowski wrote:
-> On 02/06/2026 10:43, Albert Yang wrote:
->>=20
->> Gentle ping on this series. It has been about 5 weeks since v8 was po=
-sted.
->>=20
->> The MMC driver patches from the original series were merged via mmc-n=
-ext
->> in v7.1-rc1. These remaining 2 patches (DTS + defconfig) are still pe=
-nding.
->>=20
->> Both patches have Acked-by: Gordon Ge <gordon.ge@bst.ai>.
->>=20
->> No code changes needed =E2=80=94 still applies cleanly.
->>=20
->> Would you be able to pick this up via soc tree?
+On 01/06/2026 at 14:57:20 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
+
+> Hello Miquel,
 >
-> This is not a patchset for soc tree. This is patchset for BST - you are
-> waiting on BST maintainers. I recommend reading soc maintainer profile
-> doc, it describes the process.
+> On 28/05/26 14:31, Miquel Raynal wrote:
+>> On 27/05/2026 at 23:25:23 +0530, Santhosh Kumar K <s-k6@ti.com> wrote:
+>>=20
+>>> Erratum i2383 affects the AM654 OSPI controller: in PHY DDR mode,
+>>> operations with a 2-byte address cause an internal state machine to
+>>> mis-compare the transmitted address byte count against 1 instead of 2,
+>>> locking up the address phase. [0]
+>>>
+>>> Add a CQSPI_NO_2BYTE_ADDR_PHY_DDR quirk flag and set it on the am654_os=
+pi
+>>> platform data. In cqspi_supports_mem_op(), when a controller carries th=
+is
+>>> quirk and has PHY tuning support, reject DDR operations that use 2-byte
+>>> addressing.
+>>>
+>>> [0] https://www.ti.com/lit/er/sprz544c/sprz544c.pdf
+>>>
+>>> Signed-off-by: Santhosh Kumar K <s-k6@ti.com>
+>>> ---
+>>>   drivers/spi/spi-cadence-quadspi.c | 15 ++++++++++++++-
+>>>   1 file changed, 14 insertions(+), 1 deletion(-)
+>>>
+>>> diff --git a/drivers/spi/spi-cadence-quadspi.c b/drivers/spi/spi-cadenc=
+e-quadspi.c
+>>> index 508bc5bc4ab5..72208d376305 100644
+>>> --- a/drivers/spi/spi-cadence-quadspi.c
+>>> +++ b/drivers/spi/spi-cadence-quadspi.c
+>>> @@ -49,6 +49,7 @@ static_assert(CQSPI_MAX_CHIPSELECT <=3D SPI_DEVICE_CS=
+_CNT_MAX);
+>>>   #define CQSPI_DISABLE_RUNTIME_PM	BIT(10)
+>>>   #define CQSPI_NO_INDIRECT_MODE		BIT(11)
+>>>   #define CQSPI_HAS_WR_PROTECT		BIT(12)
+>>> +#define CQSPI_NO_2BYTE_ADDR_PHY_DDR	BIT(13)
+>>>     /* Capabilities */
+>>>   #define CQSPI_SUPPORTS_OCTAL		BIT(0)
+>>> @@ -1627,6 +1628,18 @@ static bool cqspi_supports_mem_op(struct spi_mem=
+ *mem,
+>>>   		if (op->data.nbytes && op->data.buswidth !=3D 8)
+>>>   			return false;
+>>>   +		/*
+>>> +		 * Erratum i2383: In PHY DDR mode, 2-byte addressing causes an
+>>> +		 * internal state machine to mis-compare the transmitted
+>>> +		 * address byte count against 1 instead of 2, locking up the
+>>> +		 * address phase. Reject such ops on controllers that need it.
+>>> +		 */
+>>> +		if (cqspi->ddata &&
+>>> +		    (cqspi->ddata->quirks & CQSPI_NO_2BYTE_ADDR_PHY_DDR)) {
+>>> +			if (op->addr.nbytes =3D=3D 2 && cqspi->ddata->execute_tuning)
+>>> +				return false;
+>>> +		}
+>> I don't think this is a valid approach. What we want is to prevent
+>> tuning in octal DTR mode with 2 bytes addressing, instead of preventing
+>> reads/writes in octal DTR modes after tuning. Have you tried on an AM62A=
+ LP
+>> SK? I bet probe fails..
+>> The quirk should be handled at the beginning of the tuning procedure,
+>> so
+>> we skip tuning entirely in this case.
+>
+> I see your point. However, in my testing on AM62Ax LP SK, the controller
+> and the flash probes and operates correctly in 8S PHY mode.
+>
+> The reason I handled this in supports_op() is that, for these devices,
+> simply skipping tuning when a 2-byte DDR operation is selected may not
+> lead to the best achievable operating point. The performance ordering I
+> measured is:
+>
+> 8S non-PHY < 8D non-PHY < 8S PHY
 
-What's odd here is that Albert authored and sent all the BST patches
-so far, including the one that adds Gordon as the sole maintainer.
-I merged these from patches in the initial merge and expected to
-see future work get routed through Gordon.
+Maybe this is not totally generic and cannot be used as a solid ground:
+it highly depends on the base frequency. If the base frequency is rather
+high (typically > 85MHz)n then 8D non-PHY might be faster. But maybe
+this is not the typical case and is rare enough to ignore.
 
-Albert and Gordon, please figure out between yourselves how you
-want to handle this in the future. You can both be listed as
-maintainers if you want, but to make everybody's life easier,
-make sure that only a person who is listed in the MAINTAINERS
-files is responsible for collecting patches and forwarding
-them to soc@lists.linux.dev for inclusion.
+> So falling back from 8D PHY to 8D non-PHY would leave performance on the
+> table compared to selecting and tuning an 8S operation.
+>
+> That said, I agree that encoding this as an operation support
+> restriction is probably not the right place to handle it. I'll rework
+> the initialization flow so that operation selection can take
+> PHY-achievable frequencies and controller-specific restrictions such as
+> i2383 into account when choosing the final operations.
 
-        Arnd
+Very interesting.
+
+> Let me prototype this approach and will report back with the results.
+
+I'm eager to see the result!
+
+Thanks,
+Miqu=C3=A8l
