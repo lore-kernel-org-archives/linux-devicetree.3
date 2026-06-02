@@ -1,375 +1,169 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36703A7597;
-	Tue,  2 Jun 2026 22:51:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16803806D5;
+	Tue,  2 Jun 2026 23:07:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780440704; cv=none; b=QA/DwzaH6qglkK4jLrz+Pwm2jwwEU2pstLqCGMmp64e3ZIwv6T6AD7SPK1YYH7LABD7kq2jkLbzftU2SNd75NyHShsc0vCXEI3pMGN9/oCrqwjnKlkPC1Ch8BFvz+C33uFw4vbV327OzBCbG1q4IqZAVJ5Yzp7WUf+KNJrlV/vk=
+	t=1780441665; cv=none; b=uQlyZbf4Kri3XsdwJUEI2RuLxTg5sTb82SizlF7san9Zi0gKD3m+k3bNEKKOj+2JswEFke+Di9+V2A5x8eRjkmT6kLBOPR4pgGInk8VY19DWmO88rNr+3fnuXfBPiMhvCHZV9T6pJs2fLBfFAR49/WHtUntiZBsXbGVBYg/VI9c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780440704; c=relaxed/simple;
-	bh=T7S14RzSTS2wo8K1Bljh4WEg7901q+Yr6AGAL7BZMd8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=F28pCThj0uDLcVqq78klAkWeHrXLX8PHpY+3l+RCeE8GtdTRFba6C9RB2RzEsRUaYsTeoZWGTcDpvzoVtfgH+38yZlbe10GUnyRpl+MyMPlswJj4POp8VqvaoMekFAk9iPzIqKgByLAFCr+Ajmy0dUYYeOlWc7cVD5ad9592ego=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nSNBrbGU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780441665; c=relaxed/simple;
+	bh=jNTwgEfJn0Krge+rJ80oGgi7nITBPlSkLBHlfbqDoaU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=qZz2LMc7t22rrorBxb5yvqJj/2BqFgTERJ5QV7Gy3x4GxInv+LtwwHpSeBX/z02eEV4mQ96kJW+gYSuUXZpeafBEI3VYlfj4iPIdnK+6X7cNeaaKSvf6QvdBLSbDqRpr9faS+1IbgbABqnckaWaofhTF+BY+amMEvDQ3AxinETQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FrHynRdg; arc=none smtp.client-ip=198.175.65.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nSNBrbGU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F168F1F00893;
-	Tue,  2 Jun 2026 22:51:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780440702;
-	bh=Sz5/MvLLQbOnGXSnuWO8WURL3Y3h66L7BNfbnbvuQXM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=nSNBrbGULN/CxYwstnK7Mu/aTW9axi+Q90F4q/3PIM70imp7NJagf8KyKdhje2GAp
-	 0wlpTcsKT9HlfYOlwu6zAvyh5QICGf7tWD8PaSf+fc72eaatdfBG6+XaDXh5Nl02XQ
-	 nCYV8DNEGnAar89v9R4PCOZSxgAF4d+1rFr01LCIEjJbruq4ys0m2i7iOwVsP1xOGt
-	 9ekAdH3m9IRjVNPXfqpydIy677A1OXz/KkNl4CSF9RottHPlUu8lVNcOzc+L4Dgi7L
-	 5u3D2egPrSXuNojY6cwX0XPQy/Q4rYi/DQQiot63hwQlB5KEyGIPvVUCAdIscp9wE3
-	 8fE7KbiW9Z3DQ==
-Message-ID: <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
-Date: Tue, 2 Jun 2026 23:51:38 +0100
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FrHynRdg"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780441665; x=1811977665;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jNTwgEfJn0Krge+rJ80oGgi7nITBPlSkLBHlfbqDoaU=;
+  b=FrHynRdgKuz0SW1C6KmEueu+d8noe3qLSXeawBZn26FOYeZtienE2Vcy
+   A+Ln6RIk1ChHFB19ZHRRs8/WwdWo9j/TvQ54ksrkQWmtttampl+/WO934
+   PryLWXP7MUhbR/g0cgBW8lfMBvBnTvHbWpzg2y8VRK3yTrn1hYvOMtkaV
+   fPyLbzANjqy51wrmt3lOz1Sqnldvnbhi3qQwpcbFiD1PjS3mz2DkkzmVH
+   8AkA2H7ZQIOQwCnOSj1bdDF6N1n2WEJKNTU/L7aR0dqlRDjzQ69inrjap
+   5TD3kajzHypkdz15yTF2sv2Ylo9oWZ4ZZgluJn/N2AIGRceg+RQbKLxXP
+   w==;
+X-CSE-ConnectionGUID: dhUn5BuiTNqaJ9m3AIGepw==
+X-CSE-MsgGUID: HJ5TRZ0DSGeKwK/7SqBl7g==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92724646"
+X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
+   d="scan'208";a="92724646"
+Received: from orviesa003.jf.intel.com ([10.64.159.143])
+  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 16:07:44 -0700
+X-CSE-ConnectionGUID: qoSNqjJcRGWVDBlYak/iDg==
+X-CSE-MsgGUID: IOMgFuRjSdeWmIALETiVpw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
+   d="scan'208";a="247994467"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
+  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 16:07:40 -0700
+Date: Wed, 3 Jun 2026 02:07:38 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Jinseob Kim <kimjinseob88@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
+	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH RFC v3 3/6] iio: osf: add protocol v0 decoding
+Message-ID: <ah9iOlsELRUGNLxv@ashevche-desk.local>
+References: <20260529121005.1470-1-kimjinseob88@gmail.com>
+ <20260529121005.1470-4-kimjinseob88@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
-Content-Language: en-US
-From: Bryan O'Donoghue <bod@kernel.org>
-In-Reply-To: <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260529121005.1470-4-kimjinseob88@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-On 02/06/2026 22:59, Vladimir Zapolskiy wrote:
-> On 5/23/26 05:48, Bryan O'Donoghue wrote:
->> Add a base schema initially compatible with x1e80100 to describe MIPI CSI2
->> PHY devices.
->>
->> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
->>
->> The schema here defines three ports:
->>
->> port@0:
->>       The first input port where a sensor is always required.
->>
->> port@1:
->>       A second optional input port which if present implies DPHY split-mode.
->>
->> port@2:
->>       A third always required output port which connects to the controller.
->>
-> 
-> This port numeration is imperfect, because port@0 and port@2 are required,
-> while middle port@1 is optional.
-> 
-> Like it was stated before a number of times, it seems natural to operate
-> with two ports, where input port may have two endpoints rather than 3 ports,
-> also that approach solves the problem of a hole in the port numeration.
+On Fri, May 29, 2026 at 09:10:02PM +0900, Jinseob Kim wrote:
+> Add OSF0 frame validation and payload decoders.
 
-Can you confirm this is what you are after ?
+> Extend MAINTAINERS to cover the protocol decoder.
 
-port@0 {
-     #address-cells = <1>;
-     #size-cells = <0>;
+Unneeded detail in the commit message. It's implied that MAINTAINERS is updated
+accordingly.
 
-     endpoint@0 {              /* primary sensor */
-         reg = <0>;
-         data-lanes = <0 1 2 3>;
-         remote-endpoint = <&sensor0_out>;
-     };
+...
 
-     endpoint@1 {              /* split-mode second sensor, optional */
-         reg = <1>;
-         data-lanes = <0>;
-         remote-endpoint = <&sensor1_out>;
-     };
-};
+> +int osf_protocol_decode_frame(const u8 *buf, size_t len,
+> +			      struct osf_frame *frame, size_t *frame_len)
+> +{
+> +	u32 expected_crc;
+> +	u32 actual_crc;
+> +	u32 payload_len;
+> +	size_t total_len;
+> +	u8 major;
+> +
+> +	if (!buf || !frame || !frame_len)
+> +		return -EINVAL;
+> +
+> +	if (len < OSF_FRAME_MIN_LEN)
+> +		return -EMSGSIZE;
 
-port@1 {                     /* output to CAMSS, was port@2 */
-     endpoint { remote-endpoint = <&controller_in>; };
-};
+> +	if (buf[0] != 'O' || buf[1] != 'S' || buf[2] != 'F' || buf[3] != '0')
+> +		return -EPROTO;
 
-This works for me BTW.
+It's FourCC, define it as integer and compare as integer
 
->> The CSIPHY devices have their own pinouts on the SoC as well as their own
->> individual voltage rails.
->>
->> The need to model voltage rails on a per-PHY basis leads us to define
->> CSIPHY devices as individual nodes.
->>
->> Two nice outcomes in terms of schema and DT arise from this change.
->>
->> 1. The ability to define on a per-PHY basis voltage rails.
->> 2. The ability to require those voltage.
->>
->> We have had a complete bodge upstream for this where a single set of
->> voltage rail for all CSIPHYs has been buried inside of CAMSS.
->>
->> Much like the I2C bus which is dedicated to Camera sensors - the CCI bus in
->> CAMSS parlance, the CSIPHY devices should be individually modelled.
->>
->> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->> ---
->>    .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 209 +++++++++++++++++++++
->>    1 file changed, 209 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> new file mode 100644
->> index 0000000000000..270375f949880
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->> @@ -0,0 +1,209 @@
->> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Qualcomm CSI2 PHY
->> +
->> +maintainers:
->> +  - Bryan O'Donoghue <bod@kernel.org>
->> +
->> +description:
->> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI CSI2 sensors
->> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and D-PHY
->> +  modes.
->> +
->> +properties:
->> +  compatible:
->> +    const: qcom,x1e80100-csi2-phy
->> +
->> +  reg:
->> +    maxItems: 1
->> +
->> +  "#phy-cells":
->> +    const: 1
->> +    description:
->> +      The single cell specifies the PHY operating mode.
-> 
-> #phy-cells should be 0, because the PHY operating mode is well defined
-> by 'bus-type' property of an endpoint on the sensor side, the opposite
-> side of CAMSS/CSID as a CSIPHY "consumer" should not dictate the PHY type.
+#define ..._MAGIC	0xhhhhhhhh	/* OSF0 */
 
-Rob said consumer but, I'm also not very bothered about that. bus-type 
-is perfectly acceptable to me.
+	if (get_unaligned_le32() != _MAGIC)
 
->> +
->> +  clocks:
->> +    maxItems: 2
->> +
->> +  clock-names:
->> +    items:
->> +      - const: core
->> +      - const: timer
->> +
->> +  interrupts:
->> +    maxItems: 1
->> +
->> +  operating-points-v2:
->> +    maxItems: 1
->> +
->> +  power-domains:
->> +    items:
->> +      - description: MMCX voltage rail
->> +      - description: MXC or MXA voltage rail
-> 
-> Only "qcom,x1e80100-csi2-phy" device is supported so far, unlikely it's
-> the case that "MXC or MXA voltage rail" should be specified, it'd be
-> just one of two or both.
 
-Hmm. I'm not being clear here if this is your take, I will reword it to 
-make it clearer this generation of PHY _must_ have either
+> +	major = buf[4];
+> +	if (major != OSF_PROTOCOL_MAJOR)
+> +		return -EPROTO;
+> +
+> +	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
+> +		return -EPROTO;
+> +
+> +	payload_len = get_unaligned_le32(buf + 10);
+> +	if (payload_len > len - OSF_FRAME_MIN_LEN)
+> +		return -EMSGSIZE;
+> +
+> +	if (get_unaligned_le32(buf + 34))
+> +		return -EPROTO;
+> +
+> +	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
+> +	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
+> +	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
+> +
+> +	if (actual_crc != expected_crc)
+> +		return -EBADMSG;
+> +
+> +	frame->protocol_minor = buf[5];
+> +	frame->message_type = get_unaligned_le16(buf + 8);
+> +	frame->payload_len = payload_len;
+> +	frame->sequence = get_unaligned_le64(buf + 14);
+> +	frame->timestamp_us = get_unaligned_le64(buf + 22);
+> +	frame->flags = get_unaligned_le32(buf + 30);
+> +	frame->payload = buf + OSF_FRAME_HEADER_LEN;
+> +	frame->crc = actual_crc;
+> +	*frame_len = total_len;
+> +
+> +	return 0;
+> +}
 
-- MMCX and MXC
-or
-- MMCX and MXA
+...
 
->> +
->> +  power-domain-names:
->> +    items:
->> +      - const: mmcx
->> +      - const: mx
->> +
->> +  vdda-0p9-supply:
->> +    description: Phandle to a 0.9V regulator supply to a PHY.
->> +
->> +  vdda-1p2-supply:
->> +    description: Phandle to 1.2V regulator supply to a PHY.
->> +
->> +  ports:
->> +    $ref: /schemas/graph.yaml#/properties/ports
->> +
->> +    properties:
->> +      port@0:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->> +        description: Sensor input. Always present.
->> +        unevaluatedProperties: false
->> +
->> +        properties:
->> +          endpoint:
->> +            $ref: /schemas/media/video-interfaces.yaml#
->> +            unevaluatedProperties: false
->> +            properties:
->> +              data-lanes:
->> +                minItems: 1
->> +                maxItems: 4
->> +              clock-lanes:
->> +                maxItems: 1
->> +              remote-endpoint: true
->> +            required:
->> +              - data-lanes
->> +              - remote-endpoint
->> +
->> +      port@1:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->> +        description:
->> +          Second sensor input. When present, indicates DPHY split mode.
->> +        unevaluatedProperties: false
->> +
->> +        properties:
->> +          endpoint:
->> +            $ref: /schemas/media/video-interfaces.yaml#
->> +            unevaluatedProperties: false
->> +            properties:
->> +              data-lanes:
->> +                maxItems: 1
->> +              clock-lanes:
->> +                maxItems: 1
->> +              remote-endpoint: true
->> +            required:
->> +              - data-lanes
->> +              - clock-lanes
->> +              - remote-endpoint
-> 
-> As it's stated above, it should be converted to a single port with two
-> endpoints, it'd be done in accordance to video-interfaces.yaml.
-> 
->> +
->> +      port@2:
->> +        $ref: /schemas/graph.yaml#/$defs/port-base
->> +        description: Output to CAMSS controller.
->> +        unevaluatedProperties: false
->> +
->> +        properties:
->> +          endpoint:
->> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
->> +            unevaluatedProperties: false
->> +            properties:
->> +              remote-endpoint: true
->> +            required:
->> +              - remote-endpoint
->> +
->> +    required:
->> +      - port@0
->> +      - port@2
->> +
->> +required:
->> +  - compatible
->> +  - reg
->> +  - "#phy-cells"
->> +  - clocks
->> +  - clock-names
->> +  - interrupts
->> +  - operating-points-v2
->> +  - power-domains
->> +  - power-domain-names
->> +  - vdda-0p9-supply
->> +  - vdda-1p2-supply
->> +  - ports
->> +
->> +additionalProperties: false
->> +
->> +examples:
->> +  - |
->> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
->> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
->> +    #include <dt-bindings/power/qcom,rpmhpd.h>
->> +
->> +    csiphy4: csiphy@ace4000 {
->> +        compatible = "qcom,x1e80100-csi2-phy";
->> +        reg = <0x0ace4000 0x2000>;
->> +        #phy-cells = <1>;
->> +
->> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
->> +        clock-names = "core",
->> +                      "timer";
->> +
->> +        operating-points-v2 = <&csiphy_opp_table>;
->> +
->> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->> +
->> +        power-domains = <&rpmhpd RPMHPD_MMCX>,
->> +                        <&rpmhpd RPMHPD_MX>;
->> +        power-domain-names = "mmcx",
->> +                             "mx";
->> +
->> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
->> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
->> +
->> +        ports {
->> +            #address-cells = <1>;
->> +            #size-cells = <0>;
->> +
->> +            port@0 {
->> +                reg = <0>;
->> +                csiphy0_in_ep: endpoint {
->> +                    data-lanes = <0 1>;
->> +                    clock-lanes = <2>;
->> +                    remote-endpoint = <&sensor_out>;
->> +                };
->> +            };
->> +
->> +            port@2 {
->> +                reg = <2>;
->> +                csiphy0_out_ep: endpoint {
->> +                    remote-endpoint = <&controller_in>;
->> +                };
->> +            };
->> +        };
->> +    };
->> +
->> +    csiphy_opp_table: opp-table {
->> +        compatible = "operating-points-v2";
->> +
->> +        opp-300000000 {
->> +            opp-hz = /bits/ 64 <300000000>;
->> +            required-opps = <&rpmhpd_opp_low_svs_d1>,
->> +                            <&rpmhpd_opp_low_svs_d1>;
->> +        };
->> +
->> +        opp-400000000 {
->> +            opp-hz = /bits/ 64 <400000000>;
->> +            required-opps = <&rpmhpd_opp_low_svs>,
->> +                            <&rpmhpd_opp_low_svs_d1>;
->> +        };
->> +
->> +        opp-480000000 {
->> +            opp-hz = /bits/ 64 <480000000>;
->> +            required-opps = <&rpmhpd_opp_low_svs>,
->> +                            <&rpmhpd_opp_low_svs_d1>;
->> +        };
->> +    };
->>
-> 
-> --
-> Best wishes,
-> Vladimir
+> +int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
+> +				     unsigned int index, s32 *value)
+> +{
+> +	if (!sample || !sample->samples || !value)
+> +		return -EINVAL;
+> +
+> +	if (index >= sample->channel_count)
+> +		return -ERANGE;
+> +
+> +	*value = (s32)get_unaligned_le32(sample->samples + index * sizeof(s32));
+
+Why casting?
+
+> +	return 0;
+> +}
+
+...
+
+> +#define OSF_CAPABILITY_FLAGS_MASK	0x00000003U
+
+GENMASK() ?
+
+
+-- 
+With Best Regards,
+Andy Shevchenko
+
 
