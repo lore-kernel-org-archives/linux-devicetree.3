@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DE26357D00
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:21:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FE93403F8
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:21:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780384899; cv=none; b=BVIhsUVt1/iNbOhMqaPomR1fya4TfPCewn1WdDJFYwpsQSKj4Z4I1iPvl01AyG5w3GaS57B/gixJmVIBqtGE56f72DmscYwwcVIjmcjoVYsFSEjDwMIeAxxpBRxD8bIURBE2v4KflLmwMKvll/+EqVS8i1im+Cb0pp5WS4rWooI=
+	t=1780384914; cv=none; b=POJSPD7qldd/sVfvDGDz8u3W6P1GBHJrOKWIBv1s2Ilvc1R69Icxn+vBw2be+LCliXZ7rxBiOUiBM1gd45fQPUKBcDdGemza31/jTfQ+KaqsxIkymB1F8pMRxfz0lTsbqRCzhiWlDZVh9ogjUbkZqCHxXiOh3+GvNXxV8u2D5MM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780384899; c=relaxed/simple;
-	bh=cjrLxYchXQcPaQHM+Lhvu4F3VSXGLC1m0zZkgygJxJc=;
+	s=arc-20240116; t=1780384914; c=relaxed/simple;
+	bh=h0YyLcTI1ervzdhwapk6OfypGB3hZoj+T8ThjFnFAdQ=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ht+hS8KicquLXJXfncC2lwe9hCfXCV4ee9WBvYXEFRhVEtyCFUwd2DvVByVcS+2M+VenT9voDtv+qgi8C+iuJQb8PR/uYFXORmJlw0R3hZ4G4zRGmrHozyE/iDvCKN4FLp6wMTzCRlHlLtKAXDTaZ0TLTgHFCXqRchxjaE8SQGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DTyASTVJ; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=iSqEWtzaO6OUhwQ7UBFxUpipVw7mH0W11BfC2ZQMYQ/mv7khLtcdhZ6Sm8stjv04XPrMOy8teawbqezjurDXRBFJqitQZKbh4PwbbJYSbmEJuDcTwHim+oChp0dbxMorv9VI0J399Jb9JP8AiBlXrt/bxcTIUtfsqOt/N2i6ajM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4xN1UNI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DTyASTVJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 794E61F00893;
-	Tue,  2 Jun 2026 07:21:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4xN1UNI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338AA1F00893;
+	Tue,  2 Jun 2026 07:21:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780384897;
-	bh=7alHm+0pNGEnvuuOF36yE/uoKtsAm/tnoACStuqp38k=;
+	s=k20260515; t=1780384913;
+	bh=Z/pOJhQcSMLZ2hxmYBySGcMeFDbyYrNmTT+8pI2b5kY=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DTyASTVJ1KDsnuIWvUxXrhR467RmOqPb4uXOzPUTw1oSejHX2KoNruklxEZlh+0Tc
-	 cQodU9dd3Rwmx2J+yoAlv0Bh7Ts1qwBZhqr16xc3QKC8mSOQ7Sqsf6oOCH7oz72cTK
-	 SQZKE8gDv4rmuHR5JbeXLRiD4sr8YzZUKe3FlF2Q/DEOLJ4y4K7Fki4HJCP26xwgyr
-	 7Ek1YvmpU8qfeV4fDsv99ZuLKHsVWWJR+xKMV97TQJU7uDoHDXj6INYomS2icrASk0
-	 5/qB8uvRmdFyD91iXehCC7FYQgOErtvyEVY1ePrFTz7zfptC+R6Czms6GR0l2P6qjC
-	 MGSowxt5EHnzg==
+	b=B4xN1UNIva4z3r88ZqszSs5UH2LxDEGhzFGhUOfMZ3yBeauBdVM2ydw5/6Bzb2Gbv
+	 MtuwkUDLScb0chEU940lNYi2meTr0cvz4Z1tKRuOL3fJS0Xg3oECDm7+3SHggw3Y7k
+	 Pka6bjX/7yJX1idqDGbqNthN1yvaqNSvmvErh+8xTev7EC6zCxD8761FC5b5hwtCbh
+	 F1KfEL9Mqr/LV0BwOGvTtfgrhOdq2/hmyDU/028tY7pyMHrkGtIdwB6yUm+GVXJYVh
+	 hQpNgqdirYoRAEzPUkN+ywIsyH3358N1r7jX/eykD7ZZVH9nLT6K0gZegev2xf2X/l
+	 LmkjzABl8Vu+A==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] arm64: dts: qcom: monaco-arduino-monza: Add
- QCNFA725B support
+Subject: Re: [PATCH] arm64: dts: qcom: monaco-arduino-monza: Add QCNFA725B
+ support
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Qian Zhang" <qian.zhang@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260602070530.4194262-1-qian.zhang@oss.qualcomm.com>
-References: <20260602070530.4194262-1-qian.zhang@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260602071028.3810-1-qian.zhang@oss.qualcomm.com>
+References: <20260602071028.3810-1-qian.zhang@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 07:21:37 +0000
-Message-Id: <20260602072137.794E61F00893@smtp.kernel.org>
+Date: Tue, 02 Jun 2026 07:21:52 +0000
+Message-Id: <20260602072153.338AA1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -46,20 +46,19 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
 Thank you for your contribution! Sashiko AI review found 1 potential issue(=
 s) to consider:
-- [High] The `shutdown-gpios` polarity in the `wlan-rfkill` node is logical=
-ly inverted, permanently disabling the WLAN radio during normal operation.
+- [High] The `shutdown-gpios` property for `wlan-rfkill` is incorrectly con=
+figured as `GPIO_ACTIVE_LOW`, which will invert the rfkill logic and disabl=
+e the hardware radio when the subsystem attempts to enable it.
 --
 
-commit c96c608f286f34bcc2c474aeeb078a7d4cf17161
+commit fef17fc3948ff81196d4df1a40b32c0d905e0ab7
 Author: Qian Zhang <qian.zhang@oss.qualcomm.com>
 
 arm64: dts: qcom: monaco-arduino-monza: Add QCNFA725B support
 
-This commit adds support for the QCNFA725B M.2 module on the Arduino VENTUN=
-O Q
-board. It models the W_DISABLE# line using rfkill-gpio and handles the modu=
-le
-power supply routing through the PMCA6850 PMIC.
+This commit adds device tree support for the QCNFA725B M.2 module connected
+to PCIe0 on the Arduino VENTUNO Q board. It configures the rfkill shutdown
+and wlan enable GPIOs, and defines the internal PMIC regulators.
 
 > diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm=
 64/boot/dts/qcom/monaco-arduino-monza.dts
@@ -78,25 +77,26 @@ power supply routing through the PMCA6850 PMIC.
 > +		shutdown-gpios =3D <&tlmm 54 GPIO_ACTIVE_LOW>;
 
 [Severity: High]
-The commit message states that pulling GPIO54 low disables the transmitter
-at the hardware level.
+The commit message mentions that pulling GPIO54 low disables the radio
+transmitter. Will configuring this as GPIO_ACTIVE_LOW cause the rfkill-gpio
+driver to inadvertently disable the radio when it intends to enable it?
 
-Since the rfkill-gpio driver treats shutdown-gpios as an active enable
-signal, won't setting this to GPIO_ACTIVE_LOW cause the driver to physically
-drive the pin low when the radio is supposed to be unblocked?
+Looking at the rfkill-gpio driver, it treats shutdown-gpios as an enable li=
+ne.
+It calls gpiod_set_value_cansleep() passing '!blocked' as the value. So when
+the radio is meant to be enabled (!blocked =3D=3D 1), the driver logically =
+asserts
+the GPIO.
 
-When the radio is unblocked, the driver asserts the GPIO logically. Because
-the device tree defines the pin as active low, a logical 1 translates to a
-physical 0. This would disable the radio during normal operation and enable
-it during airplane mode.
+If the GPIO is configured as GPIO_ACTIVE_LOW in the device tree, a logical 1
+will drive the physical wire LOW, triggering the hardware kill switch. Shou=
+ld
+this be configured as GPIO_ACTIVE_HIGH instead to match the driver's intern=
+al
+logic?
 
-Should this polarity be specified as GPIO_ACTIVE_HIGH instead?
-
-> +
-> +		pinctrl-names =3D "default";
-> +		pinctrl-0 =3D <&wlrfkill_default_state>;
-> +	};
+[ ... ]
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602070530.4194=
-262-1-qian.zhang@oss.qualcomm.com?part=3D1
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602071028.3810=
+-1-qian.zhang@oss.qualcomm.com?part=3D1
