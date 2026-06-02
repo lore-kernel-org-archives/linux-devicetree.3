@@ -1,121 +1,156 @@
-Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com [209.85.128.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87BB921A434;
-	Tue,  2 Jun 2026 19:48:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 151422848AA
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 19:49:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780429736; cv=none; b=Q6rcrkAM/mzC2P52IqawydlG2UiBxOers7Uog701qtRxJ1Ja10ZecrRKfiQO0LB3dxmmLk7G3BaIaUeuLMGwFq/vKyhhg+YTkPOINwSANv/SiMlfyQFzemxfRP/DPfhXA2vJI5Mzd3CvyBm0tlHFxhy5ZJ8UZFjtmebxvwfDzpY=
+	t=1780429774; cv=none; b=VB4+ZRIopDBbvIrAvHKAQ9ZrN6W+NgTI+95jvWAtlQzY3GN5H4vz3nUOLrDoXsAP3ovYxz6iFyoCj378HN2NY9TXROGaD6VUBDdkeTarVQEtiYgtqYVH1nIE3Z9KnBv8Bq48cgbDdSLVT06w8g1tuTbxACfxN/ChfZp20H6mz9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780429736; c=relaxed/simple;
-	bh=eI2SY4vAWBUcVI4Itia0BmwBL3S8+RC/4OG0UhuQZT8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Vl6tOvPW1Rgj0NFhZb3MsgOdtbhjWDCoIVx5iUsac5PsHvP8e7aIw9rAIHZrxSwTKzKiL80IVLW3l187WLwEXIOsOQbFsmM4Yjg1S+hPj4pE2ijlaDCLrvZUkUZVPhdrbipt+1buF9xpBJW49l0GAZ3I+HAkWFBt2q4IydiQJWY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=XgLezGzW; arc=none smtp.client-ip=185.11.138.130
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
+	s=arc-20240116; t=1780429774; c=relaxed/simple;
+	bh=oBaTI4c79O6vpTgtjlM41+/n4xq+WnG2e+IzVNiDbJU=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
+	 References:In-Reply-To; b=Pxs/PDZLAsElB+tAz7J1Q/Ew1UumM7coYUkaWBwbEU2mv+Rrwiiq/TRC3oj2W41xLPaLa19qmNlXC6nJ5ew1wj9/5rVbIZK9jc+ha8DVfBbmQhPNnfnqEDKxVDRJymXh+xDIDm8kSyURS4PJkNlkvDY+zipPY9l6vMqsx0XaVnk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=UIZL/+P2; arc=none smtp.client-ip=209.85.128.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="XgLezGzW"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
-	s=gloria202408; h=Content-Type:Content-Transfer-Encoding:MIME-Version:
-	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
-	bh=HenCZbg2uScNOk5ldzqOmgfKvZAoY5QZcekhLhVnths=; b=XgLezGzWa4cupGlPwOHDrGp6+a
-	anmGz58rjZwST/QbDnD6luLY6rIiojNIK4QmJzMxOhdmP9MM3GOFLiOApS0XbbN/qS93ScW9LHsZd
-	qFoxthq9wziBXEFVHnDHyf4spCfl/Xbf7jiSq/xR6cs2aYUNBryzRI2BYr+5H9vIMoMXcLqS8LnFM
-	u1I7t9cJUkB/U0iH3vcPnUb6Q6zZbPaGEFUepK0KB15PX030sm55TVbB2NiJx9z1YeIMf10nYM7qr
-	fQn4zBKkKgdwr1a+Uu1eRgTeaZ4K0MwoKhUDR2QAvUWobjAHBYFz9onUD8ye01qgXQLUIXK2bBYVV
-	cpd8ObhA==;
-From: Heiko Stuebner <heiko@sntech.de>
-To: Sandy Huang <hjc@rock-chips.com>, Andy Yan <andy.yan@rock-chips.com>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
- Andrzej Hajda <andrzej.hajda@intel.com>,
- Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>,
- Laurent Pinchart <Laurent.pinchart@ideasonboard.com>,
- Jonas Karlman <jonas@kwiboo.se>, Jernej Skrabec <jernej.skrabec@gmail.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
- Luca Ceresoli <luca.ceresoli@bootlin.com>,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Cc: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>,
- Damon Ding <damon.ding@rock-chips.com>, Dmitry Baryshkov <lumag@kernel.org>,
- Alexey Charkov <alchark@gmail.com>, dri-devel@lists.freedesktop.org,
- linux-rockchip@lists.infradead.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, kernel@collabora.com,
- linux-arm-kernel@lists.infradead.org,
- Sebastian Reichel <sebastian.reichel@collabora.com>
-Subject: Re: [PATCH v2 02/12] drm/rockchip: dw_dp: Release core resources
-Date: Tue, 02 Jun 2026 21:48:35 +0200
-Message-ID: <27595863.kmuVQn2iE0@phil>
-In-Reply-To:
- <20260501-synopsys-dw-dp-improvements-v2-2-d7e7f6bac77f@collabora.com>
-References:
- <20260501-synopsys-dw-dp-improvements-v2-0-d7e7f6bac77f@collabora.com>
- <20260501-synopsys-dw-dp-improvements-v2-2-d7e7f6bac77f@collabora.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="UIZL/+P2"
+Received: by mail-wm1-f44.google.com with SMTP id 5b1f17b1804b1-490b613a17bso549145e9.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 12:49:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780429771; x=1781034571; darn=vger.kernel.org;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=uspwVvtiltCsqTff8wL3whaP7rrxXxnCkwg5ui4E/K8=;
+        b=UIZL/+P2j+ObC1TFknmKvWW+pvVGOvQ65357KvL2WrRK7JuPiejBSgMapE/rDxmsf9
+         vQILcjVvuz9mcx6E1ICApAYYjMFzlGOOWQbqcmi76iNBm42WCJHP90Gker3mFVCZO2Nn
+         V659XeY3viIK9N55O9XUVVUFkj4O5rNzkGG9cI26Uf9LsxZtNJJf+uMWQNJw8YEsRTXw
+         HywqDmVGAihaT2UNIbCuZlxrwfuw7wyA0Zb1HNSORb0bzPaP7Y9uOLd1KIf0xhlpe2GR
+         1b+vT2YJZXOtMmWE3fLkOIX0ZmJUW6NV+7Cz9ANpq3NDWCSDl034azL3vulPAmexINHS
+         5jlw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780429771; x=1781034571;
+        h=in-reply-to:references:to:from:subject:cc:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=uspwVvtiltCsqTff8wL3whaP7rrxXxnCkwg5ui4E/K8=;
+        b=GNhotYKsnBqdtVqziqpSlJ49NCODLBn1D1310MPIlkyosK78nLRrake+/CVIWjFQqp
+         CooGDNvOBq9GUfsLsGlDIdzh6FzwuIzHxyHXK498XI5jwPQj9jsLLS2mc9rBy0q1/X15
+         Vy4egzhaVASbSE47VdG4GoIF92H1snMDgB2Yw2JgIIOJdxvOIQ3Pjb1XEVRJy65aEPD1
+         vP8s83dpHyyppkVVFe05okWQ3PwgWWR8U20Mb5yh/yax1p0i8/QLehUE6LEYDbPWQ6wg
+         WNto99dmvumWNYcNFbj9B2ChYeuYYwqyuTyv9X5QnJ6svEPmAAyauD74V0lnRuN9YJPG
+         drhw==
+X-Forwarded-Encrypted: i=1; AFNElJ9r7vrWRYjtr33MRrstkM4R5xWB05EAYpPCup6b3sl/WlvAZVhG5Iv6IG52h+DVP2ElgXSwsPOuhXSU@vger.kernel.org
+X-Gm-Message-State: AOJu0YwNXJxtfvGssX4P6Tf8mwKcUtBTBLOAIfy0bNVxvaMusUVxBz43
+	wfR/2u+MwGu+3+WRYrWeJEv97JV48FsigTYy38aALTd4lA0fAkjNZXW72Qva3warusQ=
+X-Gm-Gg: Acq92OGQVm+PR57VnsCM1HzqBGwif5/t7ld/Jj8Eu6bZiF/ZcEVaxUOmBwtgWMQJtgv
+	6BJu9PYCtIcIovcbCXfxQU7MI/XDVz9KS1Pw8Oq7eVN8nxNZULAddqBmQIA5G9xzDAil3FklpQB
+	wTK30tHOPQzXgrh8969V+6rxR2oE5aI3hkX80Nl2umByQqom74wovzXeQRXmen2+9okLxmksNuy
+	WaPQr9e6+ACVVGNINut1TTE9L7GB4F47RxOpCsuZThv1IdfMz161GRMzESOiEQdf149sbW33K7h
+	zwuvDtDOESWjRVMTEoM+JjwJ+FmdB2KnJ5gKqpH0lKviFU+//MFPfV2yYwlC4+r0C22gCywr4dy
+	JoW5EkMzMzG0S4bjskknVCOJK2QttLZUVmrBVp3ITB1XEQTxQNHMYLLfXutE87eWyhu8J3GQZmc
+	lQCEqNwWdBDDYgvFpPslA3buGgTI95/aeDHkfLTRQA4WspCjyhX+L1Eq1YUGngnuBE91Vh5mZgE
+	p8yhmN9qEelA+XV1MmL1yzpLs6l06T+Es4=
+X-Received: by 2002:a05:600c:8b61:b0:490:b1b4:d437 with SMTP id 5b1f17b1804b1-490b5d3e1d5mr4934545e9.0.1780429771536;
+        Tue, 02 Jun 2026 12:49:31 -0700 (PDT)
+Received: from localhost ([94.4.195.193])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b60f6d5asm3064455e9.0.2026.06.02.12.49.30
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 12:49:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="utf-8"
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 02 Jun 2026 20:49:29 +0100
+Message-Id: <DIYTOGU8I2DV.1GKZ59F7AJWTE@linaro.org>
+Cc: <jyescas@google.com>, <linux-kernel@vger.kernel.org>,
+ <linux-samsung-soc@vger.kernel.org>, <linux-pm@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-hardening@vger.kernel.org>,
+ <linux-arm-kernel@lists.infradead.org>, "Krzysztof Kozlowski"
+ <krzysztof.kozlowski@oss.qualcomm.com>
+Subject: Re: [PATCH v7 2/5] thermal: samsung: Add Exynos ACPM TMU driver
+ GS101
+From: "Alexey Klimov" <alexey.klimov@linaro.org>
+To: "Tudor Ambarus" <tudor.ambarus@linaro.org>, "Rafael J. Wysocki"
+ <rafael@kernel.org>, "Daniel Lezcano" <daniel.lezcano@kernel.org>, "Zhang
+ Rui" <rui.zhang@intel.com>, "Lukasz Luba" <lukasz.luba@arm.com>, "Rob
+ Herring" <robh@kernel.org>, "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>, "Bartlomiej Zolnierkiewicz"
+ <bzolnier@gmail.com>, "Krzysztof Kozlowski" <krzk@kernel.org>, "Kees Cook"
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>, "Peter
+ Griffin" <peter.griffin@linaro.org>, =?utf-8?q?Andr=C3=A9_Draszik?=
+ <andre.draszik@linaro.org>, "Alim Akhtar" <alim.akhtar@samsung.com>
+X-Mailer: aerc 0.21.0
+References: <20260602-acpm-tmu-v7-0-8047dd54b0e9@linaro.org>
+ <20260602-acpm-tmu-v7-2-8047dd54b0e9@linaro.org>
+In-Reply-To: <20260602-acpm-tmu-v7-2-8047dd54b0e9@linaro.org>
 
-Am Freitag, 1. Mai 2026, 00:20:29 Mitteleurop=C3=A4ische Sommerzeit schrieb=
- Sebastian Reichel:
-> From: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
->=20
-> Core resources such as the DisplayPort AUX channel get initialized and
-> registered during dw_dp_bind(), but are never unregistered, which may
-> lead to memory leaks and/or use-after-free:
->=20
-> [  224.661371] BUG: KASAN: slab-use-after-free in device_is_dependent+0xe=
-0/0x2b0
-> [  224.662015] Read of size 8 at addr ffff00011aee8550 by task modprobe/6=
-58
-> [  224.662612]
-> [  224.662752] CPU: 7 UID: 0 PID: 658 Comm: modprobe Not tainted 7.0.0-rc=
-2-next-20260305 #14 PREEMPT
-> [  224.662759] Hardware name: Radxa ROCK 5B (DT)
-> [  224.662762] Call trace:
-> [  224.662764]  show_stack+0x20/0x38 (C)
-> [  224.662772]  dump_stack_lvl+0x6c/0x98
-> [  224.662777]  print_report+0x160/0x4b8
-> [  224.662783]  kasan_report+0xb4/0xe0
-> [  224.662790]  __asan_report_load8_noabort+0x20/0x30
-> [  224.662796]  device_is_dependent+0xe0/0x2b0
-> [  224.662802]  device_is_dependent+0x108/0x2b0
-> [  224.662808]  device_link_add+0x1f8/0x10b0
-> [  224.662813]  devm_of_phy_get_by_index+0x120/0x200
-> [  224.662819]  dw_dp_bind+0x34c/0xb10 [dw_dp]
-> [  224.662830]  dw_dp_rockchip_bind+0x194/0x250 [rockchipdrm]
-> [  224.662864]  component_bind_all+0x3a8/0x720
-> [  224.662869]  rockchip_drm_bind+0x120/0x390 [rockchipdrm]
-> [  224.662899]  try_to_bring_up_aggregate_device+0x76c/0x838
-> [  224.662904]  component_master_add_with_match+0x1f4/0x230
-> [  224.662909]  rockchip_drm_platform_probe+0x420/0x538 [rockchipdrm]
-> [  224.662939]  platform_probe+0xe8/0x168
-> [  224.662945]  really_probe+0x340/0x828
-> [  224.662950]  __driver_probe_device+0x2e0/0x350
-> [  224.662954]  driver_probe_device+0x80/0x140
-> [  224.662959]  __driver_attach+0x398/0x460
-> [  224.662964]  bus_for_each_dev+0xe0/0x198
-> [  224.662968]  driver_attach+0x50/0x68
-> [  224.662972]  bus_add_driver+0x2a0/0x4c0
-> [  224.662977]  driver_register+0x294/0x360
-> [  224.662982]  __platform_driver_register+0x7c/0x98
-> [  224.662987]  rockchip_drm_init+0xc4/0xff8 [rockchipdrm]
->=20
-> Since a previous commit exported dw_dp_unbind() function in DW DP core
-> library to take care of the necessary cleanup, use this in the
-> component's unbind() callback, as well as in its bind() error path.
->=20
-> Fixes: d68ba7bac955 ("drm/rockchip: Add RK3588 DPTX output support")
-> Signed-off-by: Cristian Ciocaltea <cristian.ciocaltea@collabora.com>
-> Signed-off-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+On Tue Jun 2, 2026 at 6:00 PM BST, Tudor Ambarus wrote:
+> Add driver for the Thermal Management Unit (TMU) managed via the Alive
+> Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
+> Google GS101 (and Exynos850, autov920, etc.).
+>
+> The TMU on utilizes a hybrid management model shared between the
+> Application Processor (AP) and the ACPM firmware. The driver maintains
+> direct memory-mapped access to the TMU interrupt pending registers to
+> identify thermal events, while delegating functional tasks - such as
+> sensor initialization, threshold configuration, and temperature
+> acquisition - to the ACPM firmware via the ACPM IPC protocol.
+>
+> Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+> ---
+>  drivers/thermal/samsung/Kconfig    |  19 ++
+>  drivers/thermal/samsung/Makefile   |   2 +
+>  drivers/thermal/samsung/acpm-tmu.c | 618 +++++++++++++++++++++++++++++++=
+++++++
+>  3 files changed, 639 insertions(+)
+>
+> diff --git a/drivers/thermal/samsung/Kconfig b/drivers/thermal/samsung/Kc=
+onfig
+> index f4eff5a41a84..383ae3f56cbb 100644
+> --- a/drivers/thermal/samsung/Kconfig
+> +++ b/drivers/thermal/samsung/Kconfig
+> @@ -9,3 +9,22 @@ config EXYNOS_THERMAL
+>  	  the TMU, reports temperature and handles cooling action if defined.
+>  	  This driver uses the Exynos core thermal APIs and TMU configuration
+>  	  data from the supported SoCs.
+> +
+> +config EXYNOS_ACPM_THERMAL
+> +	tristate "Exynos ACPM thermal management unit driver"
+> +	depends on THERMAL_OF
+> +	depends on HAS_IOMEM
+> +	depends on EXYNOS_ACPM_PROTOCOL || (COMPILE_TEST && !EXYNOS_ACPM_PROTOC=
+OL)
+> +	default ARCH_EXYNOS
+> +	help
+> +	  Support for the Thermal Management Unit (TMU) on Samsung Exynos SoCs
+> +	  (such as Google GS101 and Exynos850).
 
-picked the same one from Cristian's series
+This driver doesn't support Exynos850. There is no initialisation sequence
+and etc, moreover the next section is also not entirely correct for Exynos8=
+50.
+Not sure why it is mentioned here in such way.
+(Not even mentioning that ACPM TMU part is not aligned for Exynos850)
 
+> +	  The TMU on these platforms is managed through a hybrid architecture.
+> +	  This driver handles direct register access for thermal interrupt stat=
+us
+> +	  monitoring and communicates with the Alive Clock and Power Manager
+> +	  (ACPM) firmware via the ACPM IPC protocol for functional sensor contr=
+ol
+> +	  and configuration.
 
+> +	  Select this if you want to monitor device temperature and enable
+> +	  thermal mitigation on Samsung Exynos ACPM based devices.
+
+[..]
+
+BR,
+Alexey
