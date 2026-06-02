@@ -1,252 +1,231 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CC8437DEBC;
-	Tue,  2 Jun 2026 16:53:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6B6387361
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:55:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780419228; cv=none; b=igAVCLNI8fvAhs9p9DU9M+jdBbbGCG8ZrSAhV+M1s1nFvv7bBLBqZvk5kRz8+p7y0GF+NDfYPAkKlputUeaLJDz/pBelbaYfHteASGLG66kllKNe4F7iqc/Dbzr/aehGmpJDv2gscnVXS9MGIZx4J9CeYX5so10KaEjrGEJn0Q4=
+	t=1780419331; cv=none; b=B2oux8jZswgpf0kPzEhIyAeJ5n7nQu+Ry/Q14GdSR7A7W/LOaNM/IudERpAhdg0HI2t39QIBNcbaVhPcjK+/mVD+PvnlS+J4f8kzcx4S8dTCUTvkeyVIMAa7vqrFBQBEmsmA6F+eqb2nMtQdI7sIOXp3xnIpBrF5K/mJfb2lXEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780419228; c=relaxed/simple;
-	bh=kRUqhA6CT8jYevxAj3eLidl85jth0GnIztFZmis9UIs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WAYHDlRiXAMmUTXQqOSWVpZGiXGU4xyPv0Iws2YxmkH/bQNqmL+5MtSPQBPuntI9dwEfCs1qXqFo28aqb3A3gIeehay2eExfe5dsAuZi1G5qZj79dcozP0/VmL8UvJ2Vi1Wq2OKdG7jitAcaP7Z/IVnFVnq6Pr9DxIPJT4jz+oM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iXzF5zb4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780419331; c=relaxed/simple;
+	bh=7M6qQwSwD+XrHhy1JS5GMZiaeqWwjrdH7qVYXbsQEsU=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=Yjps0/cH+roHk4KIhL/0eKlalXVQw10guQjEXlZEAfaWt2mWtYAgNmnXHjDe91PnmuzOXZ/uG0DsGS3qViH12qXQM0G9Z2i1tcdtP0ht81LnldLhFNlXuBkmZGjN97U7bQPCZjTk4nXT9/OIUg5AM44QPERAO4TQPow7pgmJCGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YbUN5+uK; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iXzF5zb4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CF01F00893;
-	Tue,  2 Jun 2026 16:53:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780419227;
-	bh=sNR6m5slCh5aFrIej8LtoAl6ZQkku+eb1lZYSXVxYb0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=iXzF5zb4/73OrDVlXopSph0rNOJ3R3aEpSI68VTT5VW/0N6uK72WAouNuZmC3YN53
-	 1xszAGiLoabHaspu8CGH+LQ57NCPgqjkT0L/+yJ5YRPHNRoeDfHVuqDAzIkzFJ2o5M
-	 glEjSenZjlf+f7/wGH6asmOf6oQhYAx4hhqKabNku/6mMfa6iJjgdAC23rwAQJXzNB
-	 5Gsv6jdJBfBRZDZQXLWy56zq4BMhbsD9ZyGwVPYXI/yDd/DQzd91TypKhYbI/QicNy
-	 9GpE6nLJTRIRhqokn5PjxvkvatFw2tXcKGK7yMjKM7Ff0z3nCnR9isUERO8ntVs6uW
-	 UAQ97CKuLv1Zw==
-Date: Tue, 2 Jun 2026 17:53:43 +0100
-From: Conor Dooley <conor@kernel.org>
-To: wangjia@ultrarisc.com
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] dt-bindings: pinctrl: Add UltraRISC DP1000
- pinctrl controller
-Message-ID: <20260602-clause-mortify-a0e474334cfe@spud>
-References: <20260601-ultrarisc-pinctrl-v2-0-07ac5130a96d@ultrarisc.com>
- <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YbUN5+uK"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-490aebf33e9so11868735e9.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:55:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780419329; x=1781024129; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=lR1aiUfHvK9pACcDS8heDpRLK9T5JqYjX9U4vnMG5Yk=;
+        b=YbUN5+uKTXcpMd9xhLVeeQZGG5docKseXHF5TmwoxiE4nMYMAJxfsKQTg37mwoJYcH
+         xaU3G4ehkfD32MKuXv+mfyhUx0ifb6S2jMfccJFIoqCmCLw1dP8cFu5vzQmcEwBIYgli
+         K93N/VnsTsn8sPFrtA7Ft125FayhLyryQqncEA0D8fn+oetH3feBHqVsozFJQaXMTjS6
+         taA+0vLN6tDMFI3Lbj7QFOPwreLZMj3WyX/NtTesXV955YiafHWhDjfhgNVJjNy1ViTh
+         s4JN0xytM+5k/+qwiukNaJpMkgp0pePOS+DjUHMInIyDgLUJGWc6gaLZgjKQfNdeYtxo
+         sbnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780419329; x=1781024129;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=lR1aiUfHvK9pACcDS8heDpRLK9T5JqYjX9U4vnMG5Yk=;
+        b=prizHTrCAUJ+eG7ejWWcTlIEPzb7vq445zenEd3wNdF5ZkCEGxuuUZBwk5hwzErpzb
+         M+HEQWmfLrZnGz8z1Ob1JC789xrqW+fBTAsp9tbI5+91OCgTS3oWQxlI3mGCiMtjmuXx
+         +sgC43ZrnVcsGrt7LtPep7b/KBFbezRX8RirhrFtSA+EgZNxovweJ9ufEMoOGxTeeCCL
+         wVrbQjMh0RGmI0F3a1seNYoxXVCsPACGc1w/t03Lo9xzJLWh8zVRTlxjK1ucnoT2Lv3f
+         NNDUmBIwwkSVE20DYfrX9QRRagwhiOhIaBpmSVT1IZo1nwoDhrWsXIUYmXcfb3+Z0AYI
+         2d6A==
+X-Forwarded-Encrypted: i=1; AFNElJ9CBAZmTnECivvlZyoUETHGc7udJQFScVqGxKGKtYdnIdpZWsuu99ZXuF/aoYq7v+7mBlwiSj/zVO2G@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxdq15KrMJLUw+U/xTHTrZPin6Leut+v0yy7PsvmSwodDTloipY
+	0Ut39Rj8suSvvS9zRSsEN0+NDS8o1q4SzpMP6ACCLnipnA7K6sr1FfNZ
+X-Gm-Gg: Acq92OENxX3YsKA9Twwo88gQmtdNWRqpo3CklcVu+qatFhOJr+CarDyCyKgyVYDCAxH
+	i1BwdFHQeFo//K8M/El+D2IcjltMAkn4qBkMIxzSlMBGoh+ep05dwv54x0RFncNVggmFPTFQJxt
+	faxxYAho14jfTXzyrDNc5tIuk6NwaGiKSG3oR+XaBXeqIKYUaInlR5svMbpTaavbspAgD5uziWQ
+	tJzgctRmU2JPhmA/JPdK6s3hfbkpdFBUfstQnOWSFdcZ877Etd0qop88maJ5py2u3ruXPJ4J+EK
+	cuY+CN7f7Kyel66az2thVl3J23KCrNEI5bgpMU7aebrVHI7S8Qajm6RzNQxwXGR6GjmHSzBVMyv
+	+Bt/rhRIda8lO4i55AgFxw0VX9igN22LQG/DRtVo3Miu1jWYaHnd/xYDjTB5XpPaAsgO9HuxGo3
+	UrOElVVT57rpbc9OvexXWc1bSUon7KO6BRfDOLlWMnhhkKVZC6X2S+fqfhhJFDONB/eU4DHlAC8
+	fRsRZ76ACrh
+X-Received: by 2002:a05:600c:c3db:20b0:48e:5fb8:f80f with SMTP id 5b1f17b1804b1-490b50bfabdmr7086835e9.24.1780419328608;
+        Tue, 02 Jun 2026 09:55:28 -0700 (PDT)
+Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e0f343sm82850455e9.1.2026.06.02.09.55.27
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 09:55:28 -0700 (PDT)
+Message-ID: <a607ff15c5a9c6edd6be1a40182b16b5dc48c151.camel@gmail.com>
+Subject: Re: [PATCH v15 06/12] iio: core: add decimal value formatting into
+ 64-bit value
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>, 
+	rodrigo.alencar@analog.com
+Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-doc@vger.kernel.org, Jonathan Cameron	
+ <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, Andy Shevchenko	
+ <andy@kernel.org>, Lars-Peter Clausen <lars@metafoo.de>, Michael Hennerich	
+ <Michael.Hennerich@analog.com>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+ Jonathan Corbet <corbet@lwn.net>,  Andrew Morton
+ <akpm@linux-foundation.org>, Petr Mladek <pmladek@suse.com>, Steven Rostedt
+ <rostedt@goodmis.org>,  Andy Shevchenko
+ <andriy.shevchenko@linux.intel.com>, Rasmus Villemoes
+ <linux@rasmusvillemoes.dk>, Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Shuah Khan <skhan@linuxfoundation.org>
+Date: Tue, 02 Jun 2026 17:56:32 +0100
+In-Reply-To: <u7p5ndqqh3ngnmmzoir37yuc3hfm2llenaihuekwuwoji743mf@itbbdxfo4qan>
+References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
+	 <20260531-adf41513-iio-driver-v15-6-da09adf1c0dd@analog.com>
+	 <ah1SUD_QpRLD2WGV@nsa>
+	 <u7p5ndqqh3ngnmmzoir37yuc3hfm2llenaihuekwuwoji743mf@itbbdxfo4qan>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="GMF3Sr7spSBp+L7u"
-Content-Disposition: inline
-In-Reply-To: <20260601-ultrarisc-pinctrl-v2-1-07ac5130a96d@ultrarisc.com>
 
-
---GMF3Sr7spSBp+L7u
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Mon, Jun 01, 2026 at 05:56:34PM +0800, Jia Wang via B4 Relay wrote:
-> From: Jia Wang <wangjia@ultrarisc.com>
+On Mon, 2026-06-01 at 16:12 +0100, Rodrigo Alencar wrote:
+> On 26/06/01 10:43AM, Nuno S=C3=A1 wrote:
+> > On Sun, May 31, 2026 at 09:30:49AM +0100, Rodrigo Alencar via B4 Relay =
+wrote:
+> > > From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > >=20
+> > > Create new format types for iio values (IIO_VAL_DECIMAL64_*), which
+> > > defines the representation of fixed decimal point values into a singl=
+e
+> > > 64-bit number. This new format increases the range of represented val=
+ues,
+> > > allowing for integer parts greater than 2^32, as bits are not "wasted=
+"
+> > > in the fractional part, which can be seen in IIO_VAL_INT_PLUS_MICRO a=
+nd
+> > > IIO_VAL_INT_PLUS_NANO. Helpers are created to compose and decompose 6=
+4-bit
+> > > decimals into integer values used in IIO formatting interfaces, which
+> > > creates consistency and avoid error-prone manual assignments when usi=
+ng
+> > > wordpart macros. When doing the parsing, kstrtodec64() is used with t=
+he
+> > > scale defined by the specific decimal format type.
+> > >=20
+> > > Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> > > ---
+> > > =C2=A0drivers/iio/industrialio-core.c | 47 ++++++++++++++++++++++++++=
++++++++--------
+> > > =C2=A0include/linux/iio/types.h=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=
+ 30 ++++++++++++++++++++++++++
+> > > =C2=A02 files changed, 68 insertions(+), 9 deletions(-)
+> > >=20
+> > > diff --git a/drivers/iio/industrialio-core.c b/drivers/iio/industrial=
+io-core.c
+> > > index bd6f4f9f4533..a88088cac641 100644
+> > > --- a/drivers/iio/industrialio-core.c
+> > > +++ b/drivers/iio/industrialio-core.c
+> > > @@ -19,6 +19,7 @@
+> > > =C2=A0#include <linux/idr.h>
+> > > =C2=A0#include <linux/kdev_t.h>
+> > > =C2=A0#include <linux/kernel.h>
+> > > +#include <linux/math64.h>
+> > > =C2=A0#include <linux/module.h>
+> > > =C2=A0#include <linux/mutex.h>
+> > > =C2=A0#include <linux/poll.h>
+> > > @@ -26,7 +27,6 @@
+> > > =C2=A0#include <linux/sched.h>
+> > > =C2=A0#include <linux/slab.h>
+> > > =C2=A0#include <linux/wait.h>
+> > > -#include <linux/wordpart.h>
+> > > =C2=A0
+> > > =C2=A0#include <linux/iio/buffer.h>
+> > > =C2=A0#include <linux/iio/buffer_impl.h>
+> > > @@ -655,6 +655,7 @@ static ssize_t __iio_format_value(char *buf, size=
+_t offset,
+> > > unsigned int type,
+> > > =C2=A0				=C2=A0 int size, const int *vals)
+> > > =C2=A0{
+> > > =C2=A0	int tmp0, tmp1;
+> > > +	int l =3D 0;
+> > > =C2=A0	s64 tmp2;
+> > > =C2=A0	bool scale_db =3D false;
+> > > =C2=A0
+> > > @@ -698,7 +699,6 @@ static ssize_t __iio_format_value(char *buf, size=
+_t offset,
+> > > unsigned int type,
+> > > =C2=A0	case IIO_VAL_INT_MULTIPLE:
+> > > =C2=A0	{
+> > > =C2=A0		int i;
+> > > -		int l =3D 0;
+> > > =C2=A0
+> > > =C2=A0		for (i =3D 0; i < size; ++i)
+> > > =C2=A0			l +=3D sysfs_emit_at(buf, offset + l, "%d ", vals[i]);
+> > > @@ -707,8 +707,25 @@ static ssize_t __iio_format_value(char *buf, siz=
+e_t
+> > > offset, unsigned int type,
+> > > =C2=A0	case IIO_VAL_CHAR:
+> > > =C2=A0		return sysfs_emit_at(buf, offset, "%c", (char)vals[0]);
+> > > =C2=A0	case IIO_VAL_INT_64:
+> > > -		tmp2 =3D (s64)((((u64)vals[1]) << 32) | (u32)vals[0]);
+> > > +		tmp2 =3D iio_val_s64_from_s32s(vals);
+> >=20
+> > I might be missing something but can't we just call
+> > iio_val_s64_compose()? Likely even inline in sysfs_emit_at()?
 >=20
-> Add doc for the pinctrl controllers on the UltraRISC DP1000 RISC-V SoC.
->=20
-> Signed-off-by: Jia Wang <wangjia@ultrarisc.com>
-> ---
->  .../bindings/pinctrl/ultrarisc,dp1000-pinctrl.yaml | 128 +++++++++++++++=
-++++++
->  MAINTAINERS                                        |   6 +
->  2 files changed, 134 insertions(+)
->=20
-> diff --git a/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-p=
-inctrl.yaml b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pi=
-nctrl.yaml
-> new file mode 100644
-> index 000000000000..5100033c18c3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.=
-yaml
-> @@ -0,0 +1,128 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/pinctrl/ultrarisc,dp1000-pinctrl.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: UltraRISC DP1000 Pin Controller
-> +
-> +maintainers:
-> +  - Jia Wang <wangjia@ultrarisc.com>
-> +
-> +description: |
-> +  UltraRISC RISC-V SoC DP1000 pin controller.
-> +  The controller manages ports A, B, C, D and LPC. Ports A-D default to
-> +  GPIO and provide additional SPI, UART, I2C, and PWM mux functions.
-> +  LPC pins default to the LPC interface and can be muxed to eSPI.
-> +  All pins also support pin configuration, including drive strength,
-> +  pull-up, and pull-down settings.
-> +
-> +properties:
-> +  compatible:
-> +    const: ultrarisc,dp1000-pinctrl
-> +
-> +  reg:
-> +    items:
-> +      - description: pin controller registers
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +patternProperties:
-> +  '.*-pins$':
-> +    type: object
-> +    unevaluatedProperties: false
-> +    allOf:
-> +      - $ref: /schemas/pinctrl/pincfg-node.yaml#
-> +      - $ref: /schemas/pinctrl/pinmux-node.yaml#
-> +      - if:
-> +          properties:
-> +            pins:
-> +              contains:
-> +                pattern: '^LPC([0-9]|1[0-2])$'
-> +        then:
-> +          properties:
-> +            function:
-> +              enum:
-> +                - lpc
-> +                - espi
-> +
-> +    properties:
-> +      pins:
-> +        description: List of pins affected by this state node.
-> +        minItems: 1
-> +        uniqueItems: true
-> +        items:
-> +          type: string
-> +          oneOf:
-> +            - pattern: '^PA([0-9]|1[0-5])$'
-> +            - pattern: '^PB[0-7]$'
-> +            - pattern: '^PC[0-7]$'
-> +            - pattern: '^PD[0-7]$'
-> +            - pattern: '^LPC([0-9]|1[0-2])$'
-> +
-> +      function:
-> +        description: |
-> +          Mux function to select for the listed pins. Supported functions
-> +          depend on the selected pins and match the DP1000 hardware mux
-> +          table.
-> +        enum:
-> +          - gpio
-> +          - i2c0
-> +          - i2c1
-> +          - i2c2
-> +          - i2c3
-
-Why do you need to know which i2c, pwm etc is being used here?
-If don't need to differentiate, then drop the numeric.
-Only spi and uart seem to have more than one "UR_FUNC" associated with
-them.
-
-Cheers,
-Conor.
-
-> +          - pwm0
-> +          - pwm1
-> +          - pwm2
-> +          - pwm3
-> +          - spi0
-> +          - spi1
-> +          - uart0
-> +          - uart1
-> +          - uart2
-> +          - uart3
-> +          - lpc
-> +          - espi
-> +
-> +      bias-disable: true
-> +      bias-high-impedance: true
-> +      bias-pull-up: true
-> +      bias-pull-down: true
-> +
-> +      drive-strength:
-> +        description: Output drive strength in mA.
-> +        enum: [20, 27, 33, 40]
-> +
-> +    required:
-> +      - pins
-> +      - function
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    soc {
-> +      #address-cells =3D <2>;
-> +      #size-cells =3D <2>;
-> +
-> +      pinctrl@11081000 {
-> +        compatible =3D "ultrarisc,dp1000-pinctrl";
-> +        reg =3D <0x0 0x11081000 0x0 0x1000>;
-> +
-> +        i2c0-pins {
-> +          pins =3D "PA12", "PA13";
-> +          function =3D "i2c0";
-> +          bias-pull-up;
-> +          drive-strength =3D <33>;
-> +        };
-> +
-> +        uart0-pins {
-> +          pins =3D "PA8", "PA9";
-> +          function =3D "uart0";
-> +          bias-pull-up;
-> +          drive-strength =3D <33>;
-> +        };
-> +      };
-> +    };
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 461a3eed6129..6fd7ce6365fb 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -27356,6 +27356,12 @@ S:	Maintained
->  F:	drivers/usb/common/ulpi.c
->  F:	include/linux/ulpi/
-> =20
-> +ULTRARISC DP1000 PINCTRL DRIVER
-> +M:	Jia Wang <wangjia@ultrarisc.com>
-> +L:	linux-gpio@vger.kernel.org
-> +S:	Maintained
-> +F:	Documentation/devicetree/bindings/pinctrl/ultrarisc,dp1000-pinctrl.ya=
-ml
-> +
->  ULTRATRONIK BOARD SUPPORT
->  M:	Goran Ra=C4=91enovi=C4=87 <goran.radni@gmail.com>
->  M:	B=C3=B6rge Str=C3=BCmpfel <boerge.struempfel@gmail.com>
->=20
-> --=20
-> 2.34.1
->=20
+> There is a compose() already.
 >=20
 
---GMF3Sr7spSBp+L7u
-Content-Type: application/pgp-signature; name="signature.asc"
+Yes and I was suggesting using that one instead iio_val_s64_from_s32s() :).=
+ To be
+consistent to what you use in the other path (which is decompose() if I'm n=
+ot
+mistaken).
 
------BEGIN PGP SIGNATURE-----
+> =C2=A0
+> > It would match your call to iio_val_s64_decompose() below.
+>=20
+> here are the helpers prototype:
+>=20
+> 	s64 iio_val_s64_compose(s32 val0, s32 val1);
+> 	s64 iio_val_s64_from_s32s(const s32 *vals);
+>=20
+> 	void iio_val_s64_decompose(s64 dec64, s32 *val0, s32 *val1);
+> 	void iio_val_s64_to_s32s(s64 dec64, s32 *vals);
+> =C2=A0
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8KlwAKCRB4tDGHoIJi
-0vPKAP48/a1vhgqvE4w51hesZUJ3dFjRzgvajavKJI3IeIVpLQEAsnuVhZF/FaVc
-Oym4doNCanYj9DEAT8mxijXS+/ypyAU=
-=Zjp9
------END PGP SIGNATURE-----
+Yes and it feels that iio_val_s64_compose() and iio_val_s64_decompose() are=
+ the only
+ones we really need? (Maybe with other naming if you prefer iio_val_s64_fro=
+m_s32s()
+and iio_val_s64_to_s32s()).
 
---GMF3Sr7spSBp+L7u--
+> > And the above makes me wonder if the compose()/decompose() are not the
+> > only helpers we need? At least in terms of parameters? I mean, just
+> > assuming we only have two integers instead of allowing s32* and opening
+> > the door for misbehave :)?
+>=20
+> I suppose we would really need some sort of:
+>=20
+> union iio_val {
+> 	s32 val32[2];
+> 	s64 val64;
+> };
+>=20
+> or even add a:
+>=20
+> 	struct { void *ptr, size_t size }
+
+I just meant using two where we just have (s32 val1, s32 vals2) given that =
+is
+what IIO has anyways. No need to overthinking it for now IMO.
+
+- Nuno S=C3=A1
+
+> > - Nuno S=C3=A1
+> >=20
