@@ -1,121 +1,214 @@
-Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com [209.85.210.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 273173C4542
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:26:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BCC73C585E;
+	Tue,  2 Jun 2026 08:31:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388810; cv=none; b=DMaxusoP3qZU12JQmQwPIcZU4lSV0Q/THI6XqeEVZtVi2UHmQcqOqGFsxRIeUhX2eNminkL73yBumT2dgkpkNUlRPlrUl/5PvD3Rn8Y1NrlGqfr6x5XGM0sDXvZqXb1nVTqHsWw+IR/ash1qq0Qrh96GMU019tnW2wKx/XPmwP0=
+	t=1780389113; cv=none; b=ou9fOm2BTCT06VMRIttVOS9WfVY7lJ7T35Zj5ZQc5Wbsn3gXdngOaC2gimxzoH1do3R4VrBVCF02eIFMXiAjZuxAF5qqWdIAE8ZomvAUI/0Pgo/QH+L8YYl6PlPp+yueCt+vOmL1UsWBh++Fet74IAFKHigIsGs6F3Q23WQSV54=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388810; c=relaxed/simple;
-	bh=GFo7eyr+k93doRn4+DluxLJbNFu/w/tMJvyS/O89sYk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=VNC/LwvO2h/nR1SGZ4FHBgy+X/NkZ2mTMIzJFz80oR09YP3CdTT4mehWv00HYrHdkMvuwMAENB9kF2uXwWPaQPzat+LKeEEjpg9Op58FDGf6LFKR9Xz0VKFzrcoJcX2TzkIhva7Av5E55cIrIvf2z3xkw9RzMLD/wJtyS3kjMqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qAoBadVH; arc=none smtp.client-ip=209.85.210.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780389113; c=relaxed/simple;
+	bh=izSHkkm7d7GlDsbfJwRs+TozxNUIHPfw0qxeD8ynKdE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SSw9HSwZt4nrSiYsI59KdDbHxpzyRONXwsdZyVhIunk6ObFtBwyMDZKDMzN0dxCslyjptIbTU3/1jyOorCOvkjqQp73wRyiDXoSHTGP1Py0M3OryMd5P8NOdyeGUtEADnZ7kWlb0llODzAT9aDCJUIrxJptHJCshAdHO4/QBB4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EwzIHx4v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qAoBadVH"
-Received: by mail-pf1-f179.google.com with SMTP id d2e1a72fcca58-8423f420455so888600b3a.3
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 01:26:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780388807; x=1780993607; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=gOUthwrtbXM+y6Tz2Zof/YPxQsVutrNjHKZLo6oqW54=;
-        b=qAoBadVHqc0l4nMADc8wLR4cqj64OHpLeQCC4/KmlFxenETMwXL6qPVFNiEh6eRUEt
-         7Wo7MjwBdYLTOSlXUnTB0DF4/hUdzPL25pFqWTPleiRwOM72o1D7k3OgN/aTqbl/Hc6w
-         lZJjUhHzoUglGc66oHgaeS2FlRNFDoOryZraZ9V8zbjiC1IcQj1awBiVSxaxV8KVRg7s
-         4K8JJd+KePMcSGKvQmbSpUpG8XmOfg5GOw+reriPffqjeC59bgpWVO+XcsJV7VcHbncV
-         ZtYwPjKCY9hPLVBBQXlY4OceJuE+FxDKbBygX6mb7i55fFiEVZNLqdzDSNrN4J0JynSn
-         iYZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780388807; x=1780993607;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=gOUthwrtbXM+y6Tz2Zof/YPxQsVutrNjHKZLo6oqW54=;
-        b=pv+GtRuM9B/+8Biyr+c0Miz6bMAQtRe/A1Bq6zxQtPWnche2ArjFYkNseMKBDnYgE5
-         Ib96jukjT2a8QJCOneDJJYZYOdeJXn+DIWqx4VjxXTc2yYRDQEd+rfkqBdXmyODwsyJI
-         8RAZ8cfyt2V/XHnMz9K2N8cewdMMiGmQObxF9B5MQFhmRfmU13A2rTWjvGC9kmig9wuZ
-         sP+9TB7MtF442X8+yJmucR2lHh8vM5zkt/7ROzyhNVAezjdIA5OM9Me5e2myfbrtjK0J
-         z9wv2uXElyN0Gk0kqReJRPiFbYeU7iQMUo77EOqr9exdBBXNiQKggydDn9v+0ilslSLG
-         12Tw==
-X-Forwarded-Encrypted: i=1; AFNElJ+hTZexjUzmQjKhMlADlLvMShwz/9tjzZ2czTd4xKh2SFgRmuPG2gcBcZayPpPtRVdx8I85KANey69+@vger.kernel.org
-X-Gm-Message-State: AOJu0YxiJQTSYebJ/gAszi5QMZbOzM87zTsF1FOnFH+mQF4nh92ZOwPC
-	KSSnGLkTAz1q0fZc/Uw/piXx82i1LVFG1KBss5wbt56NTv+CCOcUnijf
-X-Gm-Gg: Acq92OH0Z9o6TLy6L9H58R/R24crPn30LthSgszZx4hhTrOL9kwW6qBry+mIN/EI6h1
-	1prPLZ73MSe50BKG8ikcz6rLfjfS6fB6bbb5uCaLj7kiw9PbtMTpSBuWSX8cvDsjYLdXlOKX88V
-	P8zM7EtzYnNt85POFL7rDji5viiPQggNgIE5qgXEqDC+E96kfH+f4ZipAKAOIxuQH3zxzYK5EHI
-	twVpj45e9zZyr5Jm3YtLs0LaC3ETlsE10+FXporfuU3/6c22P/2aLi1dF4jtXCesGiOlQKn/DSs
-	Rq0xAw+KbDYXXRViV61+531Bkr1kZRCtVuCwMqEgvwwu62tO4n8uJGTBGz/Xuz/vo2a/KLe/tbw
-	VwF75+hsyfSVfycdEq/cD84dZygpuKuPYuNwLNAiWJ9h7Kg9fyQ2U1EEHWrKpHNkd2x6fLotpO/
-	/3xfJCeU4RC+3Jsvx2OhjsMfloC59+isId+w==
-X-Received: by 2002:a05:6a00:9457:b0:842:2f28:4e53 with SMTP id d2e1a72fcca58-8422f28a4ffmr11145495b3a.47.1780388807111;
-        Tue, 02 Jun 2026 01:26:47 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842498819e3sm7025142b3a.34.2026.06.02.01.26.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 01:26:46 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: tglx@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	samuel.holland@sifive.com,
-	unicorn_wang@outlook.com,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	liujingqi@lanxincomputing.com,
-	alexander.sverdlin@gmail.com,
-	rabenda.cn@gmail.com,
-	dlan@kernel.org,
-	chao.wei@sophgo.com,
-	anup@brainfault.org,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Joshua Milas <josh.milas@gmail.com>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	sophgo@lists.linux.dev,
-	hanguidong02@gmail.com,
-	michael.opdenacker@rootcommit.com
-Subject: Re: (subset) [PATCH v5 RESEND 0/5] Add initial Milk-V Duo S board support
-Date: Tue,  2 Jun 2026 16:26:23 +0800
-Message-ID: <178038877400.2114604.9271390665852626517.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260530173347.33533-1-josh.milas@gmail.com>
-References: <20260530173347.33533-1-josh.milas@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EwzIHx4v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5E3AF1F00898;
+	Tue,  2 Jun 2026 08:31:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780389111;
+	bh=Dae3SFAVqrlmw/bPllmrei9FrFcBsPbVdSp13m5Zpkc=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=EwzIHx4vaCPDzuinlzsOErYLkUo04nM9OgA3hNIYl9o5slG7Fcwi8A+u2T7hSNdiQ
+	 3K8kdTHLfMnXcRnLIVMZ3xue8ZzsPgA+bKQ1fx9A537KDlPIA/VxvMTfqZ0WXkDdkv
+	 nTyuUMJtz2g2+3lBA7O0Ss88FTjfGhmmUMiHG5eFd/rBBVKLy+xt7InH0xPQXdf+l7
+	 0kr4oplGgiRI3D8DotP1rYEIPRATDakcLk4+y3pduuGxEVGL42unAoLoYlxzcyEWki
+	 K3S4KtY8KMn5xlGXmRb6fzfSNE3ei/Y8FldxSBgG3iNFaKeawd9P1r92iwP1loHVId
+	 DxLAnQTpNrQRQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 5/6] pinctrl: s32cc: implement GPIO functionality
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, imx@lists.linux.dev, devicetree@vger.kernel.org, Frank.Li@kernel.org
+In-Reply-To: <20260602080132.3256239-6-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260602080132.3256239-6-khristineandreea.barbulescu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jun 2026 08:31:50 +0000
+Message-Id: <20260602083151.5E3AF1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Sat, 30 May 2026 13:33:42 -0400, Joshua Milas wrote:
-> This adds an initial device tree for the Milk-V Duo S board
-> with support for reading from the SD card and network over
-> Ethernet. This is continued work from Michael Opdenacker's
-> v6 series [1] on the ARM64 and RISCV side. It has been tested
-> with ARM64 and RISCV64 to boot from an SD card, have networking,
-> and read I2C slave devices over i2c4.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [High] Removal of error checks for `s32_regmap_read()` causes uninitializ=
+ed kernel stack memory to be saved during suspend and printed via debugfs.
+- [High] The driver does not save and restore the PGPDO (Parallel GPIO Pad =
+Data Out) registers across suspend and resume, causing output GPIOs to lose=
+ their state.
+- [Medium] `PINCTRL_S32CC` selects `GPIO_REGMAP` without fulfilling its dep=
+endency on `GPIOLIB`, potentially causing build failures.
+- [Medium] The virtual `s32-gpio` regmap forces GPIO operations to be sleep=
+able, preventing usage from interrupt handlers.
+--
 
-Applied to for-next, thanks!
+commit 065b0eb13249298984a661238d8ddad54d7f31a4
+Author: Andrei Stefanescu <andrei.stefanescu@oss.nxp.com>
+Subject: pinctrl: s32cc: implement GPIO functionality
 
-[1/5] dt-bindings: soc: sophgo: add Milk-V Duo S board compatibles
-      https://github.com/sophgo/linux/commit/efe66eed43ef507a5b3784d988842d2e621806e1
-[3/5] dt-bindings: soc: sophgo: add sg2000 plic and clint documentation
-      https://github.com/sophgo/linux/commit/972e8823d93866bc39cf6270bd5ec26d055b9d6f
+The patch updates the S32CC SIUL2 driver to operate as a monolithic
+pinctrl/GPIO driver. It adds GPIO data access and direction handling using
+the gpio-regmap library backed by a virtual regmap. Support is also added
+for both legacy pinctrl-only and extended bindings.
 
-Thanks,
-Inochi
+Link: https://lore.kernel.org/linux-gpio/20260120115923.3463866-4-khristine=
+andreea.barbulescu@oss.nxp.com/T/#m543c9edbdde74bdc68b6a2364e8b975356c33043
+Link: https://lore.kernel.org/all/20260504131148.3622697-7-khristineandreea=
+.barbulescu@oss.nxp.com/
 
+> diff --git a/drivers/pinctrl/nxp/Kconfig b/drivers/pinctrl/nxp/Kconfig
+> index abca7ef97003d..59fc6adf5b0bb 100644
+> --- a/drivers/pinctrl/nxp/Kconfig
+> +++ b/drivers/pinctrl/nxp/Kconfig
+> @@ -5,6 +5,7 @@ config PINCTRL_S32CC
+>  	select GENERIC_PINCTRL_GROUPS
+>  	select GENERIC_PINMUX_FUNCTIONS
+>  	select GENERIC_PINCONF
+> +	select GPIO_REGMAP
+>  	select REGMAP_MMIO
+
+[Severity: Medium]
+Does PINCTRL_S32CC also need to select or depend on GPIOLIB here?
+
+Since GPIO_REGMAP is enclosed in an "if GPIOLIB" block in drivers/gpio/Kcon=
+fig,
+it implicitly depends on GPIOLIB. If a user disables GPIOLIB, Kconfig will
+report an unmet direct dependency warning.=20
+
+Because drivers/gpio/Makefile is gated by CONFIG_GPIOLIB, gpio-regmap.c
+won't compile in that case, potentially leading to linker errors for
+devm_gpio_regmap_register() in the pinctrl driver.
+
+> diff --git a/drivers/pinctrl/nxp/pinctrl-s32cc.c b/drivers/pinctrl/nxp/pi=
+nctrl-s32cc.c
+> index 89a4eb2000ee7..8843926345ec8 100644
+> --- a/drivers/pinctrl/nxp/pinctrl-s32cc.c
+> +++ b/drivers/pinctrl/nxp/pinctrl-s32cc.c
+[ ... ]
+> @@ -662,15 +717,13 @@ static void s32_pinconf_group_dbg_show(struct pinct=
+rl_dev *pctldev,
+>  	struct s32_pin_group *grp;
+>  	unsigned int config;
+>  	const char *name;
+> -	int i, ret;
+> +	int i;
+> =20
+>  	seq_puts(s, "\n");
+>  	grp =3D &info->groups[selector];
+>  	for (i =3D 0; i < grp->data.npins; i++) {
+>  		name =3D pin_get_name(pctldev, grp->data.pins[i]);
+> -		ret =3D s32_regmap_read(pctldev, grp->data.pins[i], &config);
+> -		if (ret)
+> -			return;
+> +		s32_regmap_read(pctldev, grp->data.pins[i], &config);
+>  		seq_printf(s, "%s: 0x%x\n", name, config);
+>  	}
+>  }
+
+[Severity: High]
+Is it safe to remove the return value check for s32_regmap_read() here?
+
+If s32_regmap_read() fails, it returns a negative error code and leaves
+config unmodified. Because config is an uninitialized local variable, this
+could leak kernel stack memory to userspace via seq_printf().
+
+[ ... ]
+> +static const struct regmap_config s32_gpio_regmap_config =3D {
+> +	.name =3D "s32-gpio",
+> +	.reg_bits =3D 32,
+> +	.val_bits =3D 32,
+> +	.reg_stride =3D 1,
+> +	.max_register =3D S32_GPIO_OP_SET | S32_GPIO_BANK_MASK | S32_GPIO_REG_M=
+ASK,
+> +	.cache_type =3D REGCACHE_NONE,
+> +};
+
+[Severity: Medium]
+Should this virtual regmap configuration specify .disable_locking =3D true?
+
+Without .fast_io =3D true or .disable_locking =3D true, devm_regmap_init()
+protects the map with a mutex. When gpio-regmap registers this, it detects
+the mutex and unconditionally sets chip->can_sleep =3D true.
+
+Consumers typically expect an on-SoC MMIO GPIO controller to be fast and
+non-sleeping for use in interrupt contexts. Using a mutex breaks this
+assumption and might trigger might_sleep() warnings.
+
+[ ... ]
+> @@ -710,7 +1207,6 @@ int s32_pinctrl_suspend(struct device *dev)
+>  	const struct s32_pinctrl_soc_info *info =3D ipctl->info;
+>  	struct s32_pinctrl_context *saved_context =3D &ipctl->saved_context;
+>  	int i;
+> -	int ret;
+>  	unsigned int config;
+> =20
+>  	for (i =3D 0; i < info->soc_data->npins; i++) {
+> @@ -719,9 +1215,7 @@ int s32_pinctrl_suspend(struct device *dev)
+>  		if (!s32_pinctrl_should_save(ipctl, pin->number))
+>  			continue;
+> =20
+> -		ret =3D s32_regmap_read(ipctl->pctl, pin->number, &config);
+> -		if (ret)
+> -			return -EINVAL;
+> +		s32_regmap_read(ipctl->pctl, pin->number, &config);
+> =20
+>  		saved_context->pads[i] =3D config;
+>  	}
+
+[Severity: High]
+Can this save uninitialized stack garbage into the suspend context?
+
+By removing the error check, if s32_regmap_read() fails, the uninitialized
+config variable is stored in saved_context->pads[i] and will be written
+back to the hardware during system resume.
+
+[Severity: High]
+Does this suspend/resume implementation also need to save and restore the
+PGPDO (Parallel GPIO Pad Data Out) registers?
+
+Currently, only the MSCR configuration (direction/pull state) via
+mem_pin_ranges appears to be saved. If power is lost during suspend, the
+PGPDO registers will reset to 0. Any GPIO configured as an output and driven
+HIGH before suspend might glitch LOW upon resume since its output line
+value is lost.
+
+> @@ -736,7 +1230,7 @@ int s32_pinctrl_resume(struct device *dev)
+>  	const struct s32_pinctrl_soc_info *info =3D ipctl->info;
+>  	const struct pinctrl_pin_desc *pin;
+>  	struct s32_pinctrl_context *saved_context =3D &ipctl->saved_context;
+> -	int ret, i;
+> +	int i;
+> =20
+>  	for (i =3D 0; i < info->soc_data->npins; i++) {
+>  		pin =3D &info->soc_data->pins[i];
+> @@ -744,10 +1238,8 @@ int s32_pinctrl_resume(struct device *dev)
+>  		if (!s32_pinctrl_should_save(ipctl, pin->number))
+>  			continue;
+> =20
+> -		ret =3D s32_regmap_write(ipctl->pctl, pin->number,
+> -					 saved_context->pads[i]);
+> -		if (ret)
+> -			return ret;
+> +		s32_regmap_write(ipctl->pctl, pin->number,
+> +				 saved_context->pads[i]);
+>  	}
+> =20
+>  	return 0;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602080132.3256=
+239-1-khristineandreea.barbulescu@oss.nxp.com?part=3D5
