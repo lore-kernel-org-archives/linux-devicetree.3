@@ -1,162 +1,97 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012005.outbound.protection.outlook.com [52.101.66.5])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 391E3306757;
-	Tue,  2 Jun 2026 16:37:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.5
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780418255; cv=fail; b=oq0BfXzMXjzHxxF8xm+QUXjwSXH99W8ea6xdXOyWOwCSl7J8e/8W2L/Xs+bUp6HOI3vC8brO4Rntfstz1zUkR/hIkjGYWHcBrVzilVO3wPOeGPsHQc1h81ruTHuqgBNOBvkpwCwRll8ya2uS1XcmwSvrzcgl6uG5aHPMzDYpFBA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780418255; c=relaxed/simple;
-	bh=QaWgNen5KwL1VNAglk9QsEql24oGkVUkJmbbNaAfT9k=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=k9UZV/aEdM3W/dVkbx4jYj8ECTchP0fVNPLgIxnK9Ce4iOMuestID/V7cLSgY/993uQN5MMp9jw1TfpT2oXRYhZSpw5xECB18rInH2wRYcBQkIVBcZ6OnSZErCtTAaEaSFpYANvd/AwJmlDjaUBgwXqieLg/uTmDaraHPzZl1js=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=q97EAhAl; arc=fail smtp.client-ip=52.101.66.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBA236F42B;
+	Tue,  2 Jun 2026 16:38:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780418303; cv=none; b=SwRrYKWx3oDiOatMbW1UlzCDGET7FriFSB8rfAma3/H3TKhOddVByDQQ9uWD+uOum48aEavp/tQWStaUJHlqsQohYnea104nSaf60I/AQ0k3PYvDM/Dgl3L2OcG2mOh4W54ZxG0Vm7KmZE1XWHL994oUmIcN2Gde5vg105Q4ibI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780418303; c=relaxed/simple;
+	bh=lHu0TpGq3/jU8FS/W2Pz8bvT5ZnOWU6+vWAH3B7YbPo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bG2ig05IxyX/p/lnY5ZakMywZaJ0yrqiYQk7TQYeJN+3YOXHjGe2XScH41AHQUkG9EDHqUV1l5fOzsTU4j8jr2LbTTCz6b83HSX7XNF8vDENRuFH1/wJ3h7GUvWOxhXi7XBuVMyQL7h/fbUiy6z1deN48iX/8ll3Tx58mz/7r78=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HiadBLa/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="q97EAhAl"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=eEgelJA98TlaNu+wU13wJsy6AOt0BaaNWamkhosLXXN3Gi24ihvKs8r+yxPBQWTui1LIAY/yBCv6FbHWjrABKbMeyLHh1DIE6ARy/HBBenlIqpsDe5pev+qmyDDcA+Eb0E7LccI7+2bqHF21ABLI28aKL5XdwCci2i+yq9BwLuSqN4qfdxgIEk4c976e5Ud353G8Gf7cEt1vixr4XKnR9OMZAjns/gEg/mMastesdUEdWd389r6cWeaD0SHInmB5nu1UwJ8lWQxjhdunllehlPN7/bCXw7OoTzWTiKo6VpgXU6TAjD4kJQBmv6k+FIYUlzVrVED2gjt1y9i0BWwovg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=gh85EoJo6pELRM+1xeT1YdAErpxBLmWdwPjc/LvX10E=;
- b=RYj7TYvulipWvuUSgb6j4ph49RsVu+AHeeDGFnlobel1XGCSdmqQbxHDokN+bmDwqhSLGzLZk8Iiy6u2p5+AD9b4ruwmXdM67FvAzBcl3qFYBM1ej6h3rWN9HqrNCyV48a24a/3hi3MA29YWmVrhnx3DJ9e74vcSWpzmZZwLx6xkboSozh8bwoiM/1KlYe+tuYkeKIUFfPCHLgYmQ4ZRVEYFSx+6O+eBZpHql03p0c81/Ao9euSqzpVRRDXydR9MNabp4RwdSckP20qUZqrnqXy/atjXzM/Phz0jB0Qizq5J1h3hN9h0aKGQ+P4WGs2E/U9XUviZOycyxrLUxgHc8w==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=gh85EoJo6pELRM+1xeT1YdAErpxBLmWdwPjc/LvX10E=;
- b=q97EAhAlSKnq399px4BAOTYXsPAJQTFyWFC1aNs+HKj1hCsMM2GCqcpKvZlaasYiItuhpDqWwrkZi05oO/0ADguDE4EBsIuvmXMe8FIS/6NSXX189O/+Q5NYtlSLyIngUDMEu3ukr7U9QljNnIUR6PPN+9Bz4a+I3sO71KIfmNQ5lFZqarm8VbwmwpYjA4VoycjEHY9PXlv9SPH0N3RHc3U6a+K1USjZA9TUEssvwGPoZ03+btj0YpP68E2HElITFrGn/Dzk3zC/G6S54K1Hc0ST7u9rS+OybxrbmB8lO6uYwSOs0DcIouJd/F+p9Rw7Bcofnw7pcbtkOLhdQlxegw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by DU2PR04MB9049.eurprd04.prod.outlook.com (2603:10a6:10:2e4::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 16:37:31 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 16:37:30 +0000
-From: Frank.Li@oss.nxp.com
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Joseph Guo <qijian.guo@nxp.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	xinyu.chen@nxp.com,
-	qijian.guo@oss.nxp.com,
-	justin.jiang@nxp.com,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: Re: [PATCH v5 0/2] Add NXP FRDM-IMX95-PRO board support
-Date: Tue,  2 Jun 2026 12:37:23 -0400
-Message-ID: <178041823858.3298677.15592777075186697331.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260602-imx95_frdm_pro-v5-0-44ca5dc30a14@nxp.com>
-References: <20260602-imx95_frdm_pro-v5-0-44ca5dc30a14@nxp.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0104.namprd04.prod.outlook.com
- (2603:10b6:806:122::19) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HiadBLa/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6B61F00893;
+	Tue,  2 Jun 2026 16:38:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780418301;
+	bh=Zs4cdke05EVfkqMGjWx9MxeR85QMJRd9IoXX4EBzIBY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=HiadBLa/MDEXKxVuEGCIHFRUMf6UdZUA+mIuQbg8lrlsJQayNJgnlXbgSmf69BzQD
+	 UgoGOIsWrSJT3zRHmFHq39NmVY7fMlVxCpDCwtZNKs99jTovsPNunXZ4dPAzhaSA/f
+	 FLysjOFdGQyqs3Bzd5ANjBdPhOMbex5HE8s1xXjHOjh7/ee3IOGoxnpmbaTxLmbJRA
+	 KgC0rA/6ChbY1tdHX/ELxPJEaAtVAdS/vWSNQPGQj+V+fbjyBj8c/OjI5g0iF1AzQJ
+	 c7PnebAGttK9J+l6zGQCfhP0P2z5ycdYhWRgitdaJmFpaB4tjK9aIKQWUhI6oXWqjn
+	 htXImV4k8ZJow==
+Date: Tue, 2 Jun 2026 11:38:21 -0500
+From: Rob Herring <robh@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, devicetree@vger.kernel.org,
+	conor+dt@kernel.org
+Subject: Re: [PATCH v2 14/24] arm64: dts: qcom: sm4450: Reduce OS PDC DRV
+ span to 0x10000
+Message-ID: <20260602163821.GA464439-robh@kernel.org>
+References: <20260527094333.2311731-15-mukesh.ojha@oss.qualcomm.com>
+ <20260527095343.9192E1F000E9@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|DU2PR04MB9049:EE_
-X-MS-Office365-Filtering-Correlation-Id: 189bd341-1595-481a-e21a-08dec0c53d58
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|376014|7416014|19092799006|11063799006|56012099006|18002099003|22082099003;
-X-Microsoft-Antispam-Message-Info:
-	ir1MBJhRJEd/sNNubpriC1WeOlbvX4x2Y1kCqO8AyoyVgeo8oUxGuZ8GTIeqJwsecLqdRi5jRKa9T8G/rUjykKOFPAWtCHsGV/nzOYdiwWGPu8t42nGiWZFYmUbJWqtALUmLTYb7cCLSvdpkqIPBcS2KPPLzR6SoSXOtv37N/kYudXrcUToAa7NVINkfSiHNcj2kDTR/8bc1HtB+ZGUOmatvZNP3wltATHy9MLgkTK6yoqklPYWpETBy/yZRR8EV722fDAi/BsH7WwPcLCZE40FbBFt8Ae6Swi/ErvafS0tmv3e2Edgh/JsbgvGx2F7MsOv7FhkxojG+ic0ZIx7RTdbiQdUiX5W2xPLqs+haVzxU1l9eNBbVn7/evjk7MlG5GiqzV5U0xHaZDeivdlMRm3s7N+s3U49WkYtMeTqfdUKkwwvtCwm5JQhYh8Vcik8AiGdXnlhTxlr7Rpeel82ekGU4qbI2k0pDjVIz7FW0baH86qTktfVqmTsed8GQUUyl19bHlNVUIB2cdxHdG4/qkvS4lBdigehhpk9Ogd+noMAnk1NKunImrb/bENZr1WmuhCgzi2oI0/hC+vMv24ude4f5izwgrkmcoJKmksqgkfSNL/MuACQvRzmJJHG5urHAzHlZeTQG/vPMbF0evdA8eraIbfHGhjTroZjyL+1tuOYVlunJUe3jgQfmtQF2SR33
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(376014)(7416014)(19092799006)(11063799006)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?eTA5M3VKTzd6TFE0RmI2S0FZcmdnSlp3cGdUeDRyODJjT3JURW1OSmpVbm5l?=
- =?utf-8?B?Znk4WEJHamtxZVQ1QTNMOFlZWGEvc001cENhaHZmSnl1U3U0UUxtenZiOTZZ?=
- =?utf-8?B?cXAwenlvNTVqOGdGVGxjWTVHL2xEMWhzYS9TOWlndkZkTVdvRmNPdGFMd2o5?=
- =?utf-8?B?WEVKZk9aandjR1hUVGVQTTRzL2djZUp2NXRFM2lvTTNqOHpFbjhZY1F2NS9O?=
- =?utf-8?B?cUZZd08vck1yRVJEMmx4WERXZ2VjMHRsVXU1VGhhM3NBYnZZbUJTOXNQS3NL?=
- =?utf-8?B?enFxNFJCWVhlR2hycEJBa0w5NlFWS2RJKy8wRWkxSTV2amFxWndsVVlBa0Nz?=
- =?utf-8?B?WEFYSDZpOGp5Sk00ZlR6bGVSWjg1Y0sva1hDQVRvY0V1V2N3QVVBWHd3U3BM?=
- =?utf-8?B?ajdEWEdBVUlQZG5BQzFBakMxZ08vWldVY0JEOXVGT04rWGxQMzMxc0J3a0tN?=
- =?utf-8?B?WFZURFJ2eEE2L2doR2ZNMmNyakhRWmtJT0lma3U4NXN1T2wzZGpWVUozZFoz?=
- =?utf-8?B?NUtNYmRuMGNPcUx5ZUEzOHNsdHNrSUJaSW1FZS9sbjBuZ0hTV2VzMlk2QzF2?=
- =?utf-8?B?cldMRE10YmdnNTRkdlE0cVEzeS9FRlQzVmdoZ1RzNHp4YS9VNmRkQ1AvWnln?=
- =?utf-8?B?TnlCMFF2L29kUW9jTXJzaDVZMXNiZTB6R3FOUGJVY3U3aEtYMk9oVXFTcjE5?=
- =?utf-8?B?TWp3UDZjSitvUFJleUxHNHRpUXZlcExGaEgwU3NCVmNNSERKVnFuQVhQdjRJ?=
- =?utf-8?B?TFZsdkFxcnRLMDcvMUNxR3krVXpWM0JZa2NzcFZVb0U4R3A5TEFDQjJwNm1N?=
- =?utf-8?B?TVoxUWFZZzZOckNqZ0YyQzkyNzFlZFp0aFBQUmsvazBRNzhnWVN0L2dkSHM1?=
- =?utf-8?B?K0t1bzBaZzhGMjRKOFpNYTZTRG9KV2g2Q2ZuSys4dXZlVm9iRTAreEgyY0ov?=
- =?utf-8?B?Wk0vck1VcThZNG9YTkFMT0JEeWpzY3RrMThBVVZlM0hBZGdFQTMwNHpJWUdE?=
- =?utf-8?B?Qzk3eEVneUJFS3RQSEszSU1OQ0g1T3Z5QXZUUEdWMjhydWdyWUNESmVSeEMw?=
- =?utf-8?B?bFlSTGpFNXpYLzFqVVFUOEpYZzJ0bSthTGtWaWFPRW9Ec0hJUXRHMjZwLzlE?=
- =?utf-8?B?Z0VFcUVVSWsvZklaMTNnZWlxcWxrclpaQk82WUVIaUhMVW5telYzNTd3anJL?=
- =?utf-8?B?NVpKdGJvR2J0ampzbXNIc3c3MnV0b2NDYjZqYTRQSHJCbjJyNUl0UDB2ejdo?=
- =?utf-8?B?MnR1MGM3VU1DaXBMaXpCZ0EyQ3Nsb1JaYk9BSEJiR0NYTmFLMmRjVG5QN0xG?=
- =?utf-8?B?UWJFSjFQNHEyb1VpSnJmeEJwNHFsNkg3eWRUbEEzbG5oYWtFb2JubmptaGIz?=
- =?utf-8?B?bjJWNElwc01LbnFGTlZNaWRtMmNGMzhGUmJOdGxIYmFqZGxCTHVYWEtjTWQw?=
- =?utf-8?B?L29Ka0ptQTRHcEJ2ek1NUFB3RW5pdXE0anNaWi9RWkZXMno1MFlweTJ6Q0xY?=
- =?utf-8?B?SEFoaEhEMHgrRmZJZnJRem5KOFVla1JFM0tQdk9qM2FMUnZ6b0swTTBDN0h4?=
- =?utf-8?B?ZU5KZ21uMGdxV2ZQUWxBZkszVnFaZjRKcDZhUG1vWGNGOXlFY1pwMlJvUkU3?=
- =?utf-8?B?QTB6c25EOTlNUnNnbFpKUmZEdU5mVlNMTi9rZEZvOGlMcVpUMERyV0JUMnVs?=
- =?utf-8?B?bEJxUnpUK2Q2OU9PM2ozSVVEcEp2QkIzQkZYdGRYY2VxZnROWllTSVhPczlp?=
- =?utf-8?B?V0pRT0lVcnBwYWd5cTJUSXZST0g5L3hBQXZwM3FqdGkvTGpEek1WVG1CUXlG?=
- =?utf-8?B?ZmFzd0I3VWptVVNFNkdMc0pJdHNnTHlxNlh5anRWTmVEUUpKYXI3RFNYaUJ6?=
- =?utf-8?B?cTc2WkxiQ0xvR1IvMVd4TjdLZ05lZEN3dzhpV1dYbjlBUFF1NVU3NEdPUWU0?=
- =?utf-8?B?U1RqclZ3VmF6WGhsQ3dHYkdoQ0lMYnAzUUQ2K0x3M0JBZnJQblNlOVdwVjdP?=
- =?utf-8?B?Q0c3SXRrdjBOR0gra2hNeUJiT0F0SDNaVW5uOE9adW93T1podGJYL3ZkQUVY?=
- =?utf-8?B?WStEWTR5QStyV2g1NzZPcHFCQ3FLT1FmLzgvWDBYQmxIVG1STjVwRU1oY0RD?=
- =?utf-8?B?eWRjQStkeldubFlGUW1FZmdieXpPZmNwQWtXWitQdXAxU0UvUHZSSkk2WnNO?=
- =?utf-8?B?QUhpZTYzN0RGc1l5VDZhclFJZnBsbjVNczFpb01jL2RFMU12alZnT29Xa2t3?=
- =?utf-8?B?b1F0b1g1aDlIckZVRk40dGp6VGloclBMYUNKUHFzM2hYbGpVMkV4MDFqdHZL?=
- =?utf-8?B?djlhaFdiTk9SVi9pb2NSNndlOU5BcXJxNHU2TENrODc1eG1yekR1Qnd4NGIz?=
- =?utf-8?Q?H+SN6UTU2j6qutNE=3D?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 189bd341-1595-481a-e21a-08dec0c53d58
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 16:37:30.5978
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ibT+1hN31EZwgNikOZpzkggBr3g00ITIFltx53wuiF6/GrtFbLT9Beo85dQYZrIYt+yJXTt0AoKehIYi+uYx6LGyPG7E9+NLbG0NZsSZb+bZiKtGAzSvmQpQKdsOPdoK
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU2PR04MB9049
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260527095343.9192E1F000E9@smtp.kernel.org>
 
-From: Frank Li <Frank.Li@nxp.com>
+On Wed, May 27, 2026 at 09:53:42AM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] Reducing the `reg` span to 0x10000 in the device tree is futile without an accompanying driver change and will intentionally trigger a boot warning.
+> --
+> 
+> commit befb5e3c3aa5e0f54a7fff3d0f4a5e96013f4a7e
+> Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+> 
+> arm64: dts: qcom: sm4450: Reduce OS PDC DRV span to 0x10000
+> 
+> The OS PDC DRV register window on sm4450 spans 0x10000 bytes, so this
+> commit reduces the size of the first reg entry from 0x30000 to 0x10000.
+> 
+> > diff --git a/arch/arm64/boot/dts/qcom/sm4450.dtsi b/arch/arm64/boot/dts/qcom/sm4450.dtsi
+> > --- a/arch/arm64/boot/dts/qcom/sm4450.dtsi
+> > +++ b/arch/arm64/boot/dts/qcom/sm4450.dtsi
+> > @@ -464,7 +464,7 @@ dispcc: clock-controller@af00000 {
+> >  
+> >  		pdc: interrupt-controller@b220000 {
+> >  			compatible = "qcom,sm4450-pdc", "qcom,pdc";
+> > -			reg = <0 0x0b220000 0 0x30000>, <0 0x174000f0 0 0x64>;
+> > +			reg = <0 0x0b220000 0 0x10000>, <0 0x174000f0 0 0x64>;
+> 
+> [Severity: Medium]
+> Will this change cause a boot warning and fail to actually reduce the mapping
+> size?
+> 
+> Looking at the qcom-pdc driver in drivers/irqchip/qcom-pdc.c, it enforces a
+> minimum mapping size of QCOM_PDC_SIZE (0x30000) for all devices to maintain
+> backward compatibility. In qcom_pdc_probe(), it calculates the size as:
+> 
+> 	res_size = max_t(resource_size_t, resource_size(&res), QCOM_PDC_SIZE);
+> 
+> If the device tree provides a size smaller than 0x30000 (like 0x10000), the
+> driver automatically expands the mapping back to 0x30000 and logs a warning:
+> "%pOF: invalid reg size, please fix DT".
+> 
+> Since there are no accompanying driver changes to gracefully accept the smaller
+> size for newer compatibles like "qcom,sm4450-pdc", does this patch introduce a
+> spurious warning on every boot without achieving the intended mapping
+> reduction?
 
+Seems valid to me. Even if you did change the driver, it would be an ABI 
+break (though if only introducing a spurious warning for existing OS).
 
-On Tue, 02 Jun 2026 12:45:14 +0900, Joseph Guo wrote:
-> This patchset add Devicetree support for NXP FRDM-IMX95-PRO
-> development board based on i.MX95 19x19 SoC.
+Please reply to sashiko reports because the maintainers are not going to 
+analyze them for you.
 
-Applied, thanks!
-
-[1/2] dt-bindings: arm: fsl: Add i.MX95 19x19 FRDM PRO board
-      commit: 9cec2ca7c81520fbdf552e918381417789db9049
-[2/2] arm64: dts: freescale: add i.MX95 19x19 FRDM PRO board dts
-      commit: 60b19c01105fd303980dd50e0aa1dce8b1560c08
-
-Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+Rob
