@@ -1,169 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F16803806D5;
-	Tue,  2 Jun 2026 23:07:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00AF83C873B;
+	Tue,  2 Jun 2026 23:10:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780441665; cv=none; b=uQlyZbf4Kri3XsdwJUEI2RuLxTg5sTb82SizlF7san9Zi0gKD3m+k3bNEKKOj+2JswEFke+Di9+V2A5x8eRjkmT6kLBOPR4pgGInk8VY19DWmO88rNr+3fnuXfBPiMhvCHZV9T6pJs2fLBfFAR49/WHtUntiZBsXbGVBYg/VI9c=
+	t=1780441850; cv=none; b=KmfB+sib6eIXURHvMVSvkssPpM1qPt29fLGDVOzwvIQjScVZhy4U5aij+zsm/+tEd+LLz/FFXSIjsTi5o/qS+rBlEYB9XKltoWC8oHC09UDJ4dHjbSKxADimCUzUIWVq/5FPFPwLpfYKJVu6yxLGOyYyk+2+lSiBCNnUjUiWJAE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780441665; c=relaxed/simple;
-	bh=jNTwgEfJn0Krge+rJ80oGgi7nITBPlSkLBHlfbqDoaU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qZz2LMc7t22rrorBxb5yvqJj/2BqFgTERJ5QV7Gy3x4GxInv+LtwwHpSeBX/z02eEV4mQ96kJW+gYSuUXZpeafBEI3VYlfj4iPIdnK+6X7cNeaaKSvf6QvdBLSbDqRpr9faS+1IbgbABqnckaWaofhTF+BY+amMEvDQ3AxinETQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FrHynRdg; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1780441850; c=relaxed/simple;
+	bh=3pzpK0BhcukEjX5uUD46kCcyRMN0l4LQ8gzMxHRxFZA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=EHIj3xtTkLIu4Kiy04my4lnwn1Cb+XTPQK+Cr5oSn1HoNVoFGcsFLZe19NbOjbxEIJavA95tor/rsHdSjHGP8NMaH0TiNI6znOhV24WUJxepR/PRdiW5vv/B7J5Z8ipIEmBdO07ASNLwII6vq1X0DNsajACeSbZQCYhxAqXPzqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jcmk8jDp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FrHynRdg"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780441665; x=1811977665;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jNTwgEfJn0Krge+rJ80oGgi7nITBPlSkLBHlfbqDoaU=;
-  b=FrHynRdgKuz0SW1C6KmEueu+d8noe3qLSXeawBZn26FOYeZtienE2Vcy
-   A+Ln6RIk1ChHFB19ZHRRs8/WwdWo9j/TvQ54ksrkQWmtttampl+/WO934
-   PryLWXP7MUhbR/g0cgBW8lfMBvBnTvHbWpzg2y8VRK3yTrn1hYvOMtkaV
-   fPyLbzANjqy51wrmt3lOz1Sqnldvnbhi3qQwpcbFiD1PjS3mz2DkkzmVH
-   8AkA2H7ZQIOQwCnOSj1bdDF6N1n2WEJKNTU/L7aR0dqlRDjzQ69inrjap
-   5TD3kajzHypkdz15yTF2sv2Ylo9oWZ4ZZgluJn/N2AIGRceg+RQbKLxXP
-   w==;
-X-CSE-ConnectionGUID: dhUn5BuiTNqaJ9m3AIGepw==
-X-CSE-MsgGUID: HJ5TRZ0DSGeKwK/7SqBl7g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92724646"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="92724646"
-Received: from orviesa003.jf.intel.com ([10.64.159.143])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 16:07:44 -0700
-X-CSE-ConnectionGUID: qoSNqjJcRGWVDBlYak/iDg==
-X-CSE-MsgGUID: IOMgFuRjSdeWmIALETiVpw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="247994467"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
-  by ORVIESA003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 16:07:40 -0700
-Date: Wed, 3 Jun 2026 02:07:38 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Jinseob Kim <kimjinseob88@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>, linux-iio@vger.kernel.org,
-	David Lechner <dlechner@baylibre.com>, Nuno Sa <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH RFC v3 3/6] iio: osf: add protocol v0 decoding
-Message-ID: <ah9iOlsELRUGNLxv@ashevche-desk.local>
-References: <20260529121005.1470-1-kimjinseob88@gmail.com>
- <20260529121005.1470-4-kimjinseob88@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jcmk8jDp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 970DD1F00893;
+	Tue,  2 Jun 2026 23:10:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780441848;
+	bh=eZla307qi7URVgkXjVPBSU2R4a5offjxZ+vdElW9STI=;
+	h=From:Subject:Date:To:Cc;
+	b=jcmk8jDpAAj7xhKa7MENAp7nul88qPILP22AXaPPLiCereqfD1pcaSrBcL5wkd9MI
+	 +OPsBcb0/tG3Yd3222Nyyljgwh5cnbKXmlqqWLiFtWo7674q+c+9HmiJ0WZde0DlXB
+	 S37mPUtUudjr1NDdGDADcOhneZRRQqaS3t3dEDhuQ7y3IEl9It3mqpPgB7+F7RGS1o
+	 HDNSVULR5OFfUemr9qh0OAaVEkLq1rsPhU7AQLutzhpIerDr80MK/9r7PNFSTJOz84
+	 iW13Vr05JSBCIQfusScQCzgZPhYXaJG7kNcQWbuAB3E0tgHP7edAVDo9MdTCLiNP/x
+	 kTXi+ZxGalPTw==
+From: Linus Walleij <linusw@kernel.org>
+Subject: [PATCH net-next v4 0/5] net: dsa: microchip: Add support for
+ KSZ8995XA/KS8995XA
+Date: Wed, 03 Jun 2026 01:10:39 +0200
+Message-Id: <20260603-ks8995-to-ksz8-v4-0-e15149ef21e7@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260529121005.1470-4-kimjinseob88@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/2XNwRKCIBAG4FdxOEcDKCqdeo+mg+GiZAMNkGM5v
+ nuoF8vb7ux+/z8iD06DR6dkRA567bU1cckOCZJtZRrAuo47YoTlhBOBO18KwXGwcfqUmHKVKiF
+ LVlCFIno6UHpYAi/IQMAGhoCu68W/bneQYc6bf1vtg3Xvpbuni1hraP5f01NMcEFqAiqrKq6yc
+ wfOwONoXbOk92zjGdt5Fj0vKJOklgIKvvPp1u/70+glT4nKORWlUD9+mqYvSQrnp0kBAAA=
+X-Change-ID: 20260509-ks8995-to-ksz8-15f3f9c8271f
+To: Woojung Huh <woojung.huh@microchip.com>, UNGLinuxDriver@microchip.com, 
+ Andrew Lunn <andrew@lunn.ch>, Vladimir Oltean <olteanv@gmail.com>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+ Simon Horman <horms@kernel.org>, Russell King <linux@armlinux.org.uk>
+Cc: netdev@vger.kernel.org, Woojung Huh <Woojung.Huh@microchip.com>, 
+ devicetree@vger.kernel.org, Linus Walleij <linusw@kernel.org>, 
+ Nicolai Buchwitz <nb@tipi-net.de>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-On Fri, May 29, 2026 at 09:10:02PM +0900, Jinseob Kim wrote:
-> Add OSF0 frame validation and payload decoders.
+This series breaks with the dated attempt to polish the old
+KS8995 driver, and instead implement support for the KS8995XA
+in the KSZ driver, and after that delete the old KS8995 driver.
 
-> Extend MAINTAINERS to cover the protocol decoder.
+The hardware clearly has the same ancestry, the KSZ8995XA is
+just a rebrand of the much older Micrel KX8995XA switch.
 
-Unneeded detail in the commit message. It's implied that MAINTAINERS is updated
-accordingly.
+The old drivers referce to "KS8995" was actually KS8995XA only,
+it never supported the sibling devices KS8995E or KS8995MA.
+This is reflected in this patch set.
 
-...
+Add new compatibles, add special code paths for the KSZ8995XA
+and add a new tagger for the special front tag found in the
+KSZ8995XA.
 
-> +int osf_protocol_decode_frame(const u8 *buf, size_t len,
-> +			      struct osf_frame *frame, size_t *frame_len)
-> +{
-> +	u32 expected_crc;
-> +	u32 actual_crc;
-> +	u32 payload_len;
-> +	size_t total_len;
-> +	u8 major;
-> +
-> +	if (!buf || !frame || !frame_len)
-> +		return -EINVAL;
-> +
-> +	if (len < OSF_FRAME_MIN_LEN)
-> +		return -EMSGSIZE;
+The patches were tested with the Actiontec MI424WR rev D (which
+has the KS8995XA) and OpenWrt as userspace.
 
-> +	if (buf[0] != 'O' || buf[1] != 'S' || buf[2] != 'F' || buf[3] != '0')
-> +		return -EPROTO;
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+---
+Changes in v4:
+- Create a stub symbol for NET_DSA_KS8995 to phase over users to
+  the new driver.
+- Link to v3: https://patch.msgid.link/20260526-ks8995-to-ksz8-v3-0-c530f651989f@kernel.org
 
-It's FourCC, define it as integer and compare as integer
+Changes in v3:
+- Rebase on net-next again, moving target!
+- Fix a netdev_info() print in the tagger to be netdev_debug()
+- Add net/dsa/tag_ks8995.c to MAINTAINERS
+- Link to v2: https://patch.msgid.link/20260522-ks8995-to-ksz8-v2-0-5712c0dc9e75@kernel.org
 
-#define ..._MAGIC	0xhhhhhhhh	/* OSF0 */
+Changes in v2:
+- Avoid trying to configure TOS priority settings (DCB) on the KSZ8995XA.
+  It does have some support for this, but let's add that later.
+- Pick up Krzysztof's ACK on the new DT bindings.
+- Reset the KSZ8995XA by disabling and enabling the switch like the old
+  driver does.
+- Move mutually exclusive Kconfig over to the patch introducing the
+  old Micrel compatibles to the Microchip ksz_spi driver.
+  (this complaint from Sashiko.)
+- Use __be16 instead of u16 when casting into the SKB in the tagger
+  (this complaint from Sashiko.)
+- Do not modify the hdr->h_vlan_TCI if no hardware accelerated tag
+  is detected, it would get nullified. Use whatever the Linux network stack
+  assigned to TCI there.
+  (this complaint from Sashiko.)
+- Avoid dereference of NULL in debug prints in the tagger.
+  (this complaint from Sashiko.)
+- Ignored comment: Sashiko complains about ilog2(0) being potentially
+  undefined but that is clearly defined as 0 in the Linux kernel.
+- Link to v1: https://patch.msgid.link/20260516-ks8995-to-ksz8-v1-0-70d0ef4aa5f4@kernel.org
 
-	if (get_unaligned_le32() != _MAGIC)
+---
+Linus Walleij (5):
+      net: dsa: microchip: Add fallback Micrel compatibles
+      dt-bindings: net: dsa: microchip: Add KSZ8995XA
+      net: dsa: tag_ks8995: Add the KS8995 tag handling
+      net: dsa: microchip: Support Microchip KSZ8995XA / KS8995XA
+      net: dsa: ks8995: Delete surplus driver
 
+ .../devicetree/bindings/net/dsa/microchip,ksz.yaml |   1 +
+ MAINTAINERS                                        |   1 +
+ drivers/net/dsa/Kconfig                            |  11 +-
+ drivers/net/dsa/Makefile                           |   1 -
+ drivers/net/dsa/ks8995.c                           | 857 ---------------------
+ drivers/net/dsa/microchip/Kconfig                  |   1 +
+ drivers/net/dsa/microchip/ksz8.c                   | 170 +++-
+ drivers/net/dsa/microchip/ksz8.h                   |   2 +
+ drivers/net/dsa/microchip/ksz8_reg.h               |   7 +
+ drivers/net/dsa/microchip/ksz_common.c             |  58 +-
+ drivers/net/dsa/microchip/ksz_common.h             |  11 +-
+ drivers/net/dsa/microchip/ksz_spi.c                |  33 +-
+ include/linux/platform_data/microchip-ksz.h        |   1 +
+ include/net/dsa.h                                  |   2 +
+ net/dsa/Kconfig                                    |   6 +
+ net/dsa/Makefile                                   |   1 +
+ net/dsa/tag_ks8995.c                               | 132 ++++
+ 17 files changed, 394 insertions(+), 901 deletions(-)
+---
+base-commit: 18b9f739d3f292925ca7f67ad63f3a4c0bbfad3d
+change-id: 20260509-ks8995-to-ksz8-15f3f9c8271f
 
-> +	major = buf[4];
-> +	if (major != OSF_PROTOCOL_MAJOR)
-> +		return -EPROTO;
-> +
-> +	if (get_unaligned_le16(buf + 6) != OSF_FRAME_HEADER_LEN)
-> +		return -EPROTO;
-> +
-> +	payload_len = get_unaligned_le32(buf + 10);
-> +	if (payload_len > len - OSF_FRAME_MIN_LEN)
-> +		return -EMSGSIZE;
-> +
-> +	if (get_unaligned_le32(buf + 34))
-> +		return -EPROTO;
-> +
-> +	total_len = OSF_FRAME_HEADER_LEN + payload_len + OSF_FRAME_CRC_LEN;
-> +	expected_crc = osf_crc32_ieee(buf, OSF_FRAME_HEADER_LEN + payload_len);
-> +	actual_crc = get_unaligned_le32(buf + OSF_FRAME_HEADER_LEN + payload_len);
-> +
-> +	if (actual_crc != expected_crc)
-> +		return -EBADMSG;
-> +
-> +	frame->protocol_minor = buf[5];
-> +	frame->message_type = get_unaligned_le16(buf + 8);
-> +	frame->payload_len = payload_len;
-> +	frame->sequence = get_unaligned_le64(buf + 14);
-> +	frame->timestamp_us = get_unaligned_le64(buf + 22);
-> +	frame->flags = get_unaligned_le32(buf + 30);
-> +	frame->payload = buf + OSF_FRAME_HEADER_LEN;
-> +	frame->crc = actual_crc;
-> +	*frame_len = total_len;
-> +
-> +	return 0;
-> +}
-
-...
-
-> +int osf_protocol_sensor_sample_value(const struct osf_sensor_sample *sample,
-> +				     unsigned int index, s32 *value)
-> +{
-> +	if (!sample || !sample->samples || !value)
-> +		return -EINVAL;
-> +
-> +	if (index >= sample->channel_count)
-> +		return -ERANGE;
-> +
-> +	*value = (s32)get_unaligned_le32(sample->samples + index * sizeof(s32));
-
-Why casting?
-
-> +	return 0;
-> +}
-
-...
-
-> +#define OSF_CAPABILITY_FLAGS_MASK	0x00000003U
-
-GENMASK() ?
-
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+--  
+Linus Walleij <linusw@kernel.org>
 
