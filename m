@@ -1,200 +1,165 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azon11010044.outbound.protection.outlook.com [52.101.201.44])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 44410366060;
-	Tue,  2 Jun 2026 10:06:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.201.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780394805; cv=fail; b=SR9OT9N23DXAFtMijpUoKXEUUPEaiMBGTDios+IiH5wj+qF+goIgzsI/+o27nAM0F6ZArsNjAdat6lcWyUqRl1Bruj2TZHj4lEHfGEyf9Mm3dJP0W1kKVmRDRWOWrym0qCKu4lV3sMeg3/G+kUvikAaM9w7kLZPUuOeS8+1jABQ=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780394805; c=relaxed/simple;
-	bh=J2uJPfinvxNT5FIAvuROdTv4WUrYBtflSkSfKyqejyg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=BEg0RNgZmOVpe7xuLWTsMs173eCzfUCeTeKeX2KP/45/7GwMb8Akt2K6a9inPRxLUAJJWB0ifTjUtERo0ml3VT22YC0tXS2fWCoFjoBIGVW9et/5PCy3HBCDLkaF6ZTU7fBLX0J+l0iaaAcI8HGgvtSXASVMU8fqU2ORqu9VTFA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=he2Q8x+v; arc=fail smtp.client-ip=52.101.201.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 029FE3D45E9;
+	Tue,  2 Jun 2026 10:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.21
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780395009; cv=none; b=LMVDgG7NFiwLs3i+Iwhg8pr6Rcge34B4wAVqwsYc3opNw3xY+XHX0aMA7MQb5q332nKgrnYphv0DigEF3Dt/paXK7BE6XZQqbQCghJL1G5yAoMQbwUTqtV7e7KWpZGUJL3Akc+GJi+mq1Ka6Dw0cyXvr368gg2Xjjz4XfnkRUOM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780395009; c=relaxed/simple;
+	bh=PSupo4XG5wJE3VdT2NoXu7XsQnHKRm0bDvhLxERvChI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fRSU7oN9fpswGytEmsN8ktBlmktvqyT8084AV/d/DyxAhLwctyxygOQY4GcvMNQOAtJd0K0f4XoTT+VObYxq/KlLWZg0/vWRrj4DWL04MNdwSHO6OUqfLLr1pvqYJeQ6TJLhuI0rSKYaZf9gLH8+Ap60rEWQdQnJuEiYC90mwtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=eibFwWAM; arc=none smtp.client-ip=198.175.65.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="he2Q8x+v"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mPEDO1hOM8KQWATZD5IO/NH80hQ7XO4eA7FmxlVyST3x1UT+2rPYBE1m2a6VgFRjLFiBoV/xOOkVqcVUqnEHuhDnE017T2LwJ/S+yJgznS6C3+xopRfRKhK6L/1JyFRM+ms2f0iRYDwwG+KBH4VBad2I2jeCNsbXw0cRM4vBRZedXma/SqnQ6khf3soJ86bcjqrbYZhN3imZmgVfhM95oDOCpTwBeejQsO2vyEyBemMzQoY3BTVmYHH0SwwF3aVc+WXpmv88PYQIlONnq3zOVJ1gFZ1p97MlISqfZsJqXwNlsw5fZIW1XK6kaNdKW5nVegB9AxErXNJMEc2TRYrkfQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=mMXgao/GU0XsqVWeLvBmZUYH8s0Jn+kbVQxM74w+7aw=;
- b=kBPIcEfQ1xthsnQqYD31ps/7JNNtx8TCXpDkfoPGodglu/VmqmF9G8hCQjrrSCS1cfjiZYFlEdNDga+RW+Mgkr5f5mmWoD3I1VFit+Hls/+eJhqs7EmLaJ+qXQiH5xMM24HFnBPIHPikukFXiyqKuXaZ4bDFEIm8fPr25MBNVZ4Sm2oVSwIGvVvafa9xm4nOsHVdaAjwpBTGbf45byHHUyEdyREIjn79f43hM7xc1hsHksBUxxzEFgiIz8+EUOB9U3hpa0sXWZRfST44W4jDDQzTGI0f3OO3a362hvpgbwi3+aOXsDmt9KqBOf5akhNCzWK3qKToPTsmREYoK2PY4A==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.21.194) smtp.rcpttodomain=google.com smtp.mailfrom=ti.com; dmarc=pass
- (p=quarantine sp=none pct=100) action=none header.from=ti.com; dkim=none
- (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=mMXgao/GU0XsqVWeLvBmZUYH8s0Jn+kbVQxM74w+7aw=;
- b=he2Q8x+vWGpvNpf0B1EB9V0/9JxbEs2XKzw/Xh872FtgkBONvTxKzeXX7lCd3upzOY/Pw7qS46823s0xEs4bKA8a62vFTuKqSgJjMMn8bKars/KimxW8Tpye4ezUJ8rAMU3DGj8zY5F4+rYrVUfI0gsxQqvjKQaTt2QL3LWQEa0=
-Received: from DM6PR21CA0020.namprd21.prod.outlook.com (2603:10b6:5:174::30)
- by MW5PR10MB5828.namprd10.prod.outlook.com (2603:10b6:303:190::19) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 10:06:41 +0000
-Received: from CY4PEPF0000FCC2.namprd03.prod.outlook.com
- (2603:10b6:5:174:cafe::85) by DM6PR21CA0020.outlook.office365.com
- (2603:10b6:5:174::30) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Tue, 2
- Jun 2026 10:06:40 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.21.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.21.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.21.194; helo=flwvzet200.ext.ti.com; pr=C
-Received: from flwvzet200.ext.ti.com (198.47.21.194) by
- CY4PEPF0000FCC2.mail.protection.outlook.com (10.167.242.104) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 10:06:38 +0000
-Received: from DFLE209.ent.ti.com (10.64.6.67) by flwvzet200.ext.ti.com
- (10.248.192.31) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
- 2026 05:06:14 -0500
-Received: from DFLE212.ent.ti.com (10.64.6.70) by DFLE209.ent.ti.com
- (10.64.6.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
- 2026 05:06:14 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DFLE212.ent.ti.com
- (10.64.6.70) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 2 Jun 2026 05:06:14 -0500
-Received: from lelvem-mr06.itg.ti.com ([10.250.165.105])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 652A5uYT3539205;
-	Tue, 2 Jun 2026 05:06:06 -0500
-From: Baojun Xu <baojun.xu@ti.com>
-To: <broonie@kernel.org>, <tiwai@suse.de>
-CC: <andriy.shevchenko@linux.intel.com>, <13916275206@139.com>,
-	<shenghao-ding@ti.com>, <baojun.xu@ti.com>, <linux-sound@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <lgirdwood@gmail.com>, <robh@kernel.org>,
-	<krzk+dt@kernel.org>, <conor+dt@kernel.org>, <devicetree@vger.kernel.org>,
-	<k-yi@ti.com>, <henry.lo@ti.com>, <robinchen@ti.com>, <will-wang@ti.com>,
-	<jim.shil@goertek.com>, <toastcheng@google.com>, <chinkaiting@google.com>,
-	<riyo@ti.com>, <a0393308@india.ti.com>
-Subject: [PATCH v2 2/2] ASoC: tas2781: Add TAS2573 support
-Date: Tue, 2 Jun 2026 18:05:32 +0800
-Message-ID: <20260602100532.6463-2-baojun.xu@ti.com>
-X-Mailer: git-send-email 2.43.0.windows.1
-In-Reply-To: <20260602100532.6463-1-baojun.xu@ti.com>
-References: <20260602100532.6463-1-baojun.xu@ti.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="eibFwWAM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780395009; x=1811931009;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=PSupo4XG5wJE3VdT2NoXu7XsQnHKRm0bDvhLxERvChI=;
+  b=eibFwWAMFs5iXsARM7qkpn4UwEgk4AAZ1eyt28hgkzbAn6pJ3X2kTtuC
+   d/10U7vQg09MlB6XgJu7WFMPYK6FjhF4HOPkULYe8BLuTg0lg3jrt39VN
+   v/DQfphNLwCnN5XUQD0WNXLPXmrLbJgLZOVJim2CRhC+872LToV7ncBB1
+   FbOGvcYnsLL1lWmVaglCO9oqeUJmP5IIt3zzsXK7J/6oIb5MYDZ5K2ZZ8
+   ZKny9fKrX//hNFqL5nmtV37bjY9hx+woPMw8h1PqeYPm0G5oFJ6Lyv/4S
+   VfEfERj8VNSLuGauPK+1j1Hc1POx5bPIbGt/C0SaCXrj7KOwP1wgvt25t
+   Q==;
+X-CSE-ConnectionGUID: JfVxaPB9ThmqGht7/6oSYw==
+X-CSE-MsgGUID: aJ+QmhT9Q5SxSSj4WSaUCA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="81076672"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="81076672"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 03:10:08 -0700
+X-CSE-ConnectionGUID: gdjoF3+US4CG7At2JRbilQ==
+X-CSE-MsgGUID: aNhtmc3DT+OyjVVfYw9dIg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="274129105"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 03:10:04 -0700
+Date: Tue, 2 Jun 2026 13:10:01 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Javier Carrasco <javier.carrasco.cruz@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Rishi Gupta <gupt21@gmail.com>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Matti Vaittinen <mazziesaccount@gmail.com>,
+	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v4 3/4] iio: light: veml6031x00: add support for
+ triggered buffers
+Message-ID: <ah6r-ZnAb_zIZfeY@ashevche-desk.local>
+References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
+ <20260531-veml6031x00-v4-3-e64f7fdce38d@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CY4PEPF0000FCC2:EE_|MW5PR10MB5828:EE_
-X-MS-Office365-Filtering-Correlation-Id: b9fa5048-4d30-4c98-709f-08dec08ea342
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|36860700016|82310400026|7416014|1800799024|376014|18002099003|22082099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	5X3AyBblM89wGvIa03pbQ+xvae/aNAKMIW4zd6Hnq2/E/7HoJ0posIy0aGaw+Z4ahheDp+UZ1p7Vnmc4bLHaKLyBDYf8se9Uj4pxqJECliSHO4AImNDleXR0OctQYxph/tu6t6ZuuAGfmcVNYkwQoRfEQX2iKPbvN9KMRRUFXQeOQae4e0FEAI5v8hpmgR/MIhNshtVZDLNQE0KTmlECipk5anJ7wMB7Kqk/y3jtsd+EUzfrF1R6e6Tg4/EAmQ3JnRafA2t4+Fav7fDY8UG98NnZWhyd+UMQ6/VSWAo28VWw0x1LxoU3ygZ1PatBSxpJlBw6NqCIF4bYcHaJbBV2PB8uKYQCsRjdy9id4DfBE636RC5IrIs2dvFyKLCQuId07zv29TwmrKclbHUyjVn66FzZEnZPDEwmncbLuGgeY2pezwLgA20L2/LxAH//FjRzjwF1NYvPrcMkDyzqO9U6Qp5cEFzrXO6Fmgu+nW0L9CHI9c0Sx4oVwuDurHgNFNEyqPnP4TAgbvRvEWrDAe/Ag+v1JQZwk+spcb15rkTQrqvYQRrDKNwLEjismT2lwbrwtRTfw86+3CA8Jcgq0QefGIat6e7gj+hxcogy0lQFwSclZBJvZ9DIOg8prkIVbldqx1LxzkHV78qm6LpowBMY5jJEspTrPXgd+IvU+O3Ofbc7OQkIsNAPDfPK0oxwkLxiN88g3wJ/OpLE0olokgTUJpYF9I+bIqUxDOkY+u0YsJ8=
-X-Forefront-Antispam-Report:
-	CIP:198.47.21.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:flwvzet200.ext.ti.com;PTR:ErrorRetry;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(7416014)(1800799024)(376014)(18002099003)(22082099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Q/B0Sa6jhT0gJ4UXol3Z1r44oeBZiQdDux8zqH72gMji7+M1sYn8EcyF7zBvcMOHQzdGPIABHWoThTfer5AexWzIHxFFduNOHm94M0p9cFVkWu4+yhuRBS6rJhtYMEEUxx/LnlFfNvdV/2vjCrE1Be8CSv0HklyNgSkrjZ12Hl1f83UUyS5r0pHzaGD2HDhvV2k53TH9EMObfyG/abCFrFWr/Z4qJo/kK3jar+vrC4Iv50O3S5OWqZKIIRH7yma2NhHNkLt8fb+daq6+CwgPolwAcUa7dIRYYpI4krzm1vMNXE3aFxE+SQdzoZRqmeG6w6o8EICsrFyOmsf7FqD3n2rYmCOqdjCoXndplOTqmK/krDtQcdTZcbt+1xpL9VWlQbIi8QaYYD4L95HBKumR7I2JOjIcBnpXNi+0x+zFbyuZzn07IIBur+QBYlTfEGO7
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 10:06:38.9255
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b9fa5048-4d30-4c98-709f-08dec08ea342
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.21.194];Helo=[flwvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CY4PEPF0000FCC2.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW5PR10MB5828
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260531-veml6031x00-v4-3-e64f7fdce38d@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-The TAS2573 belongs to the TAS257x device family, featuring an integrated
-DSP and IV sensing capability.
+On Sun, May 31, 2026 at 09:58:23PM +0200, Javier Carrasco wrote:
+> Add triggered buffer functionality for the two channels the device
+> provides (ALS and IR).
 
-Signed-off-by: Baojun Xu <baojun.xu@ti.com>
----
-v2:
- - Skip TAS2573 calibration; assign calibration kcontrol to TAS2563 and
-   TAS2781
----
- include/sound/tas2781.h        | 1 +
- sound/soc/codecs/tas2781-i2c.c | 7 ++++++-
- 2 files changed, 7 insertions(+), 1 deletion(-)
+...
 
-diff --git a/include/sound/tas2781.h b/include/sound/tas2781.h
-index 95296bb4a33a..d45f805b5d18 100644
---- a/include/sound/tas2781.h
-+++ b/include/sound/tas2781.h
-@@ -120,6 +120,7 @@ enum audio_device {
- 	TAS2568,
- 	TAS2570,
- 	TAS2572,
-+	TAS2573,
- 	TAS2574,
- 	TAS2781,
- 	TAS5802,
-diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2c.c
-index 620ed4ef577d..9e6f0ad5f05d 100644
---- a/sound/soc/codecs/tas2781-i2c.c
-+++ b/sound/soc/codecs/tas2781-i2c.c
-@@ -108,6 +108,7 @@ static const struct i2c_device_id tasdevice_id[] = {
- 	{ .name = "tas2568", .driver_data = TAS2568 },
- 	{ .name = "tas2570", .driver_data = TAS2570 },
- 	{ .name = "tas2572", .driver_data = TAS2572 },
-+	{ .name = "tas2573", .driver_data = TAS2573 },
- 	{ .name = "tas2574", .driver_data = TAS2574 },
- 	{ .name = "tas2781", .driver_data = TAS2781 },
- 	{ .name = "tas5802", .driver_data = TAS5802 },
-@@ -132,6 +133,7 @@ static const struct of_device_id tasdevice_of_match[] = {
- 	{ .compatible = "ti,tas2568", .data = &tasdevice_id[TAS2568] },
- 	{ .compatible = "ti,tas2570", .data = &tasdevice_id[TAS2570] },
- 	{ .compatible = "ti,tas2572", .data = &tasdevice_id[TAS2572] },
-+	{ .compatible = "ti,tas2573", .data = &tasdevice_id[TAS2573] },
- 	{ .compatible = "ti,tas2574", .data = &tasdevice_id[TAS2574] },
- 	{ .compatible = "ti,tas2781", .data = &tasdevice_id[TAS2781] },
- 	{ .compatible = "ti,tas5802", .data = &tasdevice_id[TAS5802] },
-@@ -1683,7 +1685,7 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	tas_priv->fw_state = TASDEVICE_DSP_FW_ALL_OK;
- 
- 	/* There is no calibration required for TAS58XX. */
--	if (tas_priv->chip_id < TAS5802) {
-+	if (tas_priv->chip_id == TAS2563 || tas_priv->chip_id == TAS2781) {
- 		ret = tasdevice_create_cali_ctrls(tas_priv);
- 		if (ret) {
- 			dev_err(tas_priv->dev, "cali controls error\n");
-@@ -1736,6 +1738,7 @@ static void tasdevice_fw_ready(const struct firmware *fmw,
- 	if (tas_priv->fw_state == TASDEVICE_RCA_FW_OK) {
- 		switch (tas_priv->chip_id) {
- 		case TAS2563:
-+		case TAS2573:
- 		case TAS2781:
- 		case TAS5802:
- 		case TAS5806M:
-@@ -1900,6 +1903,7 @@ static int tasdevice_codec_probe(struct snd_soc_component *codec)
- 	case TAS2568:
- 	case TAS2570:
- 	case TAS2572:
-+	case TAS2573:
- 	case TAS2574:
- 		p = (struct snd_kcontrol_new *)tas2x20_snd_controls;
- 		size = ARRAY_SIZE(tas2x20_snd_controls);
-@@ -2094,6 +2098,7 @@ static const struct acpi_device_id tasdevice_acpi_match[] = {
- 	{ "TXNW2568", (kernel_ulong_t)&tasdevice_id[TAS2568] },
- 	{ "TXNW2570", (kernel_ulong_t)&tasdevice_id[TAS2570] },
- 	{ "TXNW2572", (kernel_ulong_t)&tasdevice_id[TAS2572] },
-+	{ "TXNW2573", (kernel_ulong_t)&tasdevice_id[TAS2573] },
- 	{ "TXNW2574", (kernel_ulong_t)&tasdevice_id[TAS2574] },
- 	{ "TXNW2781", (kernel_ulong_t)&tasdevice_id[TAS2781] },
- 	{ "TXNW5802", (kernel_ulong_t)&tasdevice_id[TAS5802] },
+> +static int veml6031x00_buffer_preenable(struct iio_dev *iio)
+> +{
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	int ret, it_usec;
+
+Can it_usec be negative?
+
+> +	ret = pm_runtime_resume_and_get(data->dev);
+> +	if (ret)
+> +		return ret;
+
+Wouldn't be better to use respective ACQUIRE() macros from pm_runtime.h?
+
+> +	ret = veml6031x00_get_it(data, &it_usec);
+> +	if (ret < 0) {
+> +		pm_runtime_put_autosuspend(data->dev);
+> +		return ret;
+> +	}
+> +
+> +	/*
+> +	 * Wait one integration period + 10% margin so the first triggered
+> +	 * read does not race with the sensor completing its first conversion
+> +	 * after power-on.
+> +	 */
+> +	fsleep(it_usec + (it_usec / 10));
+
+fsleep() adds up to 25% of margin, wouldn't be that enough?
+
+> +	return 0;
+> +}
+
+...
+
+> +static irqreturn_t veml6031x00_trig_handler(int irq, void *p)
+> +{
+> +	struct iio_poll_func *pf = p;
+> +	struct iio_dev *iio = pf->indio_dev;
+> +	struct veml6031x00_data *data = iio_priv(iio);
+> +	int ch, ret, i = 0;
+
+Make 'i' unsigned and split the assignment so it goes closer to the user, makes
+maintenance easier.
+
+> +	struct {
+> +		__le16 chans[2];
+> +		aligned_s64 timestamp;
+> +	} scan = { };
+> +
+> +	if (test_bit(VEML6031X00_SCAN_ALS, iio->active_scan_mask) &&
+> +	    test_bit(VEML6031X00_SCAN_IR, iio->active_scan_mask)) {
+
+I hope everyone understands that this testing may be immediately false here
+(without any additional protection added). Even more, the _ALS bit may be
+cleared just before checking the _IR one.
+
+> +		ret = regmap_bulk_read(data->regmap,
+> +				       VEML6031X00_REG_ALS_L,
+> +				       &scan.chans, sizeof(scan.chans));
+> +		if (ret)
+> +			goto done;
+> +	} else {
+> +		iio_for_each_active_channel(iio, ch) {
+> +			ret = regmap_bulk_read(data->regmap,
+> +					       iio->channels[ch].address,
+> +					       &scan.chans[i++],
+> +					       sizeof(*scan.chans));
+> +			if (ret)
+> +				goto done;
+> +		}
+> +	}
+> +
+> +	iio_push_to_buffers_with_ts(iio, &scan, sizeof(scan), pf->timestamp);
+> +
+> +done:
+> +	iio_trigger_notify_done(iio->trig);
+> +
+> +	return IRQ_HANDLED;
+> +}
+
 -- 
-2.25.1
+With Best Regards,
+Andy Shevchenko
+
 
