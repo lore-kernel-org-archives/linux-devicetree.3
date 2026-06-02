@@ -1,422 +1,166 @@
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010037.outbound.protection.outlook.com [52.101.229.37])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A94A63DDDB6
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 11:51:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780401122; cv=none; b=bzujkrJwvXqHqGifKBCIc59SrQoFvSHZo+yGWgC1a89cQhvnPZ/gOkygZLx4Nm6hNATISqh/VufqITVsto8j9bbKcMvXFHFKI8XSmfbn2mqJRoKNQuHbCYfL2KZ3yMGuBZICXp090ZlCGY8jS6G09jf2Ov25p2smm0+dGrpxERs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780401122; c=relaxed/simple;
-	bh=II/gGO5V8sFjmKlCpyva7fLUs65Yks5u4HZLgIjluug=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ij+apUHT/yYb0pfyZlz65EHo6WYTeA50aA/kQK6VnDejs44u8Sxr5yBT9ewqwomwMsZKoqe04yktwzxo0yMALbk2YveupOkUyRS32Am6vfM/k7ywis5F/RRK6ut4JC4AI2xX6ot5a82pfM65uLGzPWcwJVWW4YUvi4zZ83Tpt5g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sJaJxsP9; arc=none smtp.client-ip=209.85.128.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 447983A1CD;
+	Tue,  2 Jun 2026 11:55:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.37
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780401321; cv=fail; b=tdz8+ObsxyQeIhxkyw25gfCDKoJTZnRTEV7Z3Xc8voRzgHGBcbevRANJqflUuIoxQhTpoIyLPF5YfGh4AyO6ZjTac86OyCzVwiHKYDqblJy5UA1Cvxw+KKGhDF55BbZ6vzfxzSgO/ZNHvbXW+vgCW18w+09wT3eMWbDD915b2y8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780401321; c=relaxed/simple;
+	bh=1HvC5QJrrO6yYhAr7YV6I9UTfzMkUCBSa7g7X2ditwI=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=EfiOasqy/rd3nO0av3i55EEvhm4qsnyHm7Q04jpqCkg+Nidr0Witf/9SVRmY7l22epYL1RBmCfRUdCiz3d6CmszSSu0kx+wxobeoVLV2bi4zzZqePL8S75CqKILFjXR/NNTDillNXWpfLG9f3AqSe1gsmnN/UYQu9EZ8D7z7hC8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=R6ayvFiy; arc=fail smtp.client-ip=52.101.229.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sJaJxsP9"
-Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-4905529b933so87923035e9.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 04:51:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780401109; x=1781005909; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9szoMkSekqXZjHQ58B9YIx1uhfdOHkq/yPwrYOOb5tU=;
-        b=sJaJxsP99+ftNbuF41gdbKuTAnOK+ye4mjazX94H/J+50czR+FCzcLOoYV6YQKx1jN
-         bEPoNq769DV16bmSUL2IRBfKwiDoRB/Hs123vL6EEWrE8QMm8kRz55ivBkHygA8FoNs8
-         zXnnmiGf1CTi9Ec7gNbDFAsr4TeJIHOyzCL1ujjYExB4p08VbqNE2FvSjL1xwonnBr4e
-         RLZa/hZQ1jZ/7TTGafZMfaWX620wCj+W+IzPTS4VT9YFAr6UdC//if1lmd79qcUkQOKs
-         KkQIh5rThoKdyEdkJLa+rNvpwKV2iljP/s2o3vNnDBoVd0ibX1/zfBdDvaRgUxF3gmmM
-         0o4g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780401109; x=1781005909;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9szoMkSekqXZjHQ58B9YIx1uhfdOHkq/yPwrYOOb5tU=;
-        b=Cg6tjXkINS1ZCAPqsBcOI5GhWxkmNAqVyAxmcHKL+VFqaz5R/v9UVCMY/YKdC24L1Z
-         aF0FDm6StQZ4RDSw/0NEWRRDeJZC5lkWbwP9bMggL5fMaNTiDoN5lvvH7ZHstDpaFjYY
-         oxdvGOEzvh51IFQCRmaK2gKxZSEsr/HoUIcfq8DB61HxaS9xvbCSUPuvKJY7WlFvwuVR
-         dPKY8PF4dgf7ZzqwprMo+k2fL/kcKkhHYWqUkofsiLhvC5tQtzj8xPaCHTBKzfR22Ckx
-         rjXJjk9abDosDiPQQw2yzD7uf738GK+DdXAZHvtAqV6YApz/SuGxe8FPgRj8hFIqIFFx
-         IlSg==
-X-Forwarded-Encrypted: i=1; AFNElJ8XIaKR86i0/nx1wMBHVlqO8FQ4LMMW2CPScPZyp3vduKzEOghwR7YeKzmcnhaUQaCRzjuo9uw0g/Dz@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywlzuk5sSy43aLdw/H13ThgjfduKMs/6wPUPlboAxC6Eo2HMEYE
-	1qWGQXkAUhaXxC0xmvrxek8pmaKhx3/e11sfQjVl4rMfD0ph8c6o7t1n
-X-Gm-Gg: Acq92OEuboFVTtMvULBB2XE8XzQS1ZW1ixsHMdcExmfg1JxzRZeHg5CvyzKG6LuU6UC
-	GubaY+qibKFzoMO4wNxv+5MVzj/zTDDqMYQe0Ll29VHAFoekF3PXwff1szQUNqiu2qz86/HJ8eE
-	CPTXpjBsA9PWDr6D3DaIsSVVxmkyygqzsUyeSr1lTnRMFRgDj4pCpUl2BAHED0oFdBTY5T3r7vQ
-	l0aMZIrm4iCkjONvB+hqmqrlp/Mrvd+a1OsIgsbaji81BwqmchSb+YCLhnnHsuILySw8BpNt6ht
-	HeLbUFLs2oFgVDdP9xQVru76/I5g0DSvoUUd0Lvqq7l2Zgf0eZdxBtti60juygoS7S9fqtdvUmz
-	k4fc+LA57Jk8etrrORSQHenw7jbgpJQA/dhj1FB6bhtxEohA0sMp/i++o+TUffzZlku/0v7fi0L
-	JabMY8OCI70Oqez5Dj0KY0QfXbTQ==
-X-Received: by 2002:a05:600c:8216:b0:490:b28d:a6f9 with SMTP id 5b1f17b1804b1-490b28da915mr41764595e9.8.1780401108861;
-        Tue, 02 Jun 2026 04:51:48 -0700 (PDT)
-Received: from vitor-nb ([2001:8a0:c4c6:f00:e8c3:a961:5b26:a2c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c152570sm139480015e9.9.2026.06.02.04.51.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 04:51:48 -0700 (PDT)
-From: Vitor Soares <ivitro@gmail.com>
-To: Nishanth Menon <nm@ti.com>,
-	Vignesh Raghavendra <vigneshr@ti.com>,
-	Tero Kristo <kristo@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Vitor Soares <vitor.soares@toradex.com>,
-	linux-arm-kernel@lists.infradead.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 7/7] arm64: dts: ti: k3-am69-aquila: Add Toradex OV5640 CSI cameras
-Date: Tue,  2 Jun 2026 12:51:30 +0100
-Message-ID: <20260602115123.1324474-16-ivitro@gmail.com>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260602115123.1324474-9-ivitro@gmail.com>
-References: <20260602115123.1324474-9-ivitro@gmail.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="R6ayvFiy"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=PB3SMhhEOb3J8a4WsWHjEW60DiF9hyHQmbFgSvShWlH16gdgOXvWMAF9v0vy6xp8Hm5IptmWYjNGGcvRuBJYrUizO+kkBZO8QQQxrWBSSNj18lKVaTc5nww8zT0WDosd4cyH7lqk5jDOnfIRAAwJigE2S2Yr0IBl06mCygXZRVDHmkAEwP7TtMV+d5KRSZFiifMlW0/+ncrcIbx8+b7X6GpP6+zo1xGL3VfwVputrF75us4TRu9cdYbhCttJ+njOOKYjcw8zkK0Zkb3sIsqvq648WxJI7PijMyTlygrJsSYpLaarOwPjQ3kdJxaB02bxpE7Y5EUTyR/sVIdHiNg9Ww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=1HvC5QJrrO6yYhAr7YV6I9UTfzMkUCBSa7g7X2ditwI=;
+ b=C1A1GcL7ZJVUbtl2mc69JHVJKL44amflTrETVchsIAF2NqnTpa9YEQWqZ3H2vmiagjkAKjXIFG9lr5OkVTyMtCpmqwTtKLkDvziojk4csNop37JB28lMq387HoSZGwMm9lzF8O8jmtMa5THp6Wqf6fX2lVBF44NDflHo7BxF2h4vjXobl3SU0PMVWEOI/YV1VpzgcfP3ZYJx2qrAkSj/7ski/TKoJ5UDvHGjZyPU6VB/D5nKDPmKouErUhG6KkE5GGFv//zsFrZijrllwA3ZRSgyIFEJ9bqbwMOfjjqmc6eJ7i5mNQD2bzdzzOhTgs0COrL3MJ8U9hEd+tANIEe+RQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=1HvC5QJrrO6yYhAr7YV6I9UTfzMkUCBSa7g7X2ditwI=;
+ b=R6ayvFiyQq819hi10TJ4MkYoqDWpNgv29bznM0PUrjgrsuOwYJaosG/U7L8PVCpZ+DYrRIjUuUMoqHGiAAkXvsgN1jIaC9fQBAwR4S9J9InOG+RrZGgpWTkkQuHuaMLJhgSl+FuoiLEeaZ/EZibvr1sC/jjWL0kvvE6n6Xg9h6o=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by OS9PR01MB15621.jpnprd01.prod.outlook.com (2603:1096:604:3bd::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
+ 11:55:17 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
+ 11:55:17 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: geert <geert@linux-m68k.org>, biju.das.au <biju.das.au@gmail.com>
+CC: magnus.damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Prabhakar
+ Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: RE: [PATCH 0/2] Enable RSPI support on RZ/G3L SMARC EVK
+Thread-Topic: [PATCH 0/2] Enable RSPI support on RZ/G3L SMARC EVK
+Thread-Index: AQHc54Fx80PElU5BYUqMiFfoYcohALYrMOiAgAALSBA=
+Date: Tue, 2 Jun 2026 11:55:16 +0000
+Message-ID:
+ <TY3PR01MB11346B016AA3E50961867AB7786122@TY3PR01MB11346.jpnprd01.prod.outlook.com>
+References: <20260519111958.233194-1-biju.das.jz@bp.renesas.com>
+ <CAMuHMdUYxOu5fpyGMRACsBQtAMwJrxt9nPiEN-9UhPVY1h3vwQ@mail.gmail.com>
+In-Reply-To:
+ <CAMuHMdUYxOu5fpyGMRACsBQtAMwJrxt9nPiEN-9UhPVY1h3vwQ@mail.gmail.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|OS9PR01MB15621:EE_
+x-ms-office365-filtering-correlation-id: c26aadb1-841b-44b4-b77c-08dec09dd04a
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|376014|366016|1800799024|38070700021|56012099006|11063799006|3023799007|4143699003|22082099003|18002099003;
+x-microsoft-antispam-message-info:
+ xfDYPl5nczzp6nLJ2HUaAVx9L4q80Pnnad9+lC7yZFjF+MV0t/nz250QNnVkpdYqGla/0UqXyZcrCPzEkoWs2Wm1Wh3f2bE3knWbHKQgNXZhDPEe/h3CViGbqK7ddQFWxeDvYW0YJUlaX6eH9Mom0tGnfRfi14MUWAsNLBMvVICBifgY2rzifQ3TO7evAq0NuSdS1OivX2Y9rj1XJwXRfUdYJst1i8yUdJ8KRWuX3mECsdUYKOn3Cqeu07hPzQuKQcXseaZ4REgA+VL3Ml+el6AnFqHldPZBIDuK3NK3EBbmCWH61hXECimm2fCMmBXC0Quugm9UOjmyb9SI84VLDJxfdxRWcdDrJ3YcyqKS9klBwh5fyi8PEosKJ/dUE6qJGh4Vclrz8NquvwkC8uoyglQv6Eg0tcj24g4V735EIhNbMoVmsBt/TdIQyP0hFTaEC7B5vvmfaQ0YLgV4XBN2KkMyn9WYqBgPGFjUPJhrGGqJ/BVnVzCbdf/TCOxHB3yeGPdEBHiovaGPq7+/9g4IhFW2YX8oX1QsDWsCfmMhI3hZ9MdsJ/vS4grPjhj5NwdgeHGlTo/QPmP+ibfelDLxMpA1J2rozDdlAm0dLnzUAGqXqpL6clCHNaQmIugOoFsoLcw828JfcjUZaKYro97RdpCfbueR4qByxU4od3Rs3Vy1PxpsfyOQJXyZOUfkXNnUCq2vWhgS/e2Jv1/+IJfUSxmq0NA69uBwsOdoDuz9DpOR76loVsflSq85MqtS9brY
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(38070700021)(56012099006)(11063799006)(3023799007)(4143699003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?utf-8?B?OFZXWDQvRkd3aXhib2U2eEJ4SDc1YXdvbUNFbjh3cWlqbStLU2pES1paZFdr?=
+ =?utf-8?B?MGt2dHJuK20xalNyclVpOHlCL1ZXU2ZRQ252ZDFzaFV1QkVaRVVsV1dQbnUx?=
+ =?utf-8?B?cjFWOFUrTWNtODZWOWFWZFNBeWVpM29SU2R5VVlRd0tiWDc2MGQ4U095TFFT?=
+ =?utf-8?B?aWhtM1NtWTVtemQvVmh5Mk5VU1N4Zm1BMFk4Q0RpbEc5U2had3BBa0l5c0tH?=
+ =?utf-8?B?endsWVI4L2hpUUZTS2svVGs5M1pOZlpsQlk0S3JicXpwWTBjYWVJM0hER0Zq?=
+ =?utf-8?B?VWFQOUhBb0Z0blhqNFlVNTB6MUJxNDIxdzE5R29yRGdLa3gyR1NWS2QyR0RV?=
+ =?utf-8?B?NjlxaEZwUzhtTk1LZ3lxWE5sNHIvRDdSSkRHSjlQM3lqT0tncWcyakdrRThj?=
+ =?utf-8?B?dm9wUmtaLy83MFJaQnRJRTNFL2RhS0FCQjMrNDVZblJNOVRsYngzVmxpaHQ2?=
+ =?utf-8?B?eDU4VXVjNnZoTnowYXJOOWV6S2luS1hWdXo1cDF6eVJ4UlYza25VSEs4Y05H?=
+ =?utf-8?B?OHdubUxZYi8raUc5Y0VDY2Q4SEhDeDFzY2luMnNjcGZjYTlBQWIzcnhBbkdC?=
+ =?utf-8?B?QzZ1UWpjVWcwWEFhZ01ReFVJSkpkbTRNbGhMUzZ1MDA5bExqSkVuNWoyZ1hm?=
+ =?utf-8?B?cjhIZzhYTGFWdm1OUkdlc1ZSMHdyK2xCdTc4MFpFcjZFREIzRFFIQ0NsRGxH?=
+ =?utf-8?B?NXc0YmpWSnhsQU1hZ3UxOU9sS2wreHgvL0NFMkIzV1NNa2hoUGhOZUVGR3Vh?=
+ =?utf-8?B?ZU5rUzlhYTFZQWlMWGM5cDRqVGt3SEhkVzJubmpwWlVIQ3EzS0hEWmE5cEpO?=
+ =?utf-8?B?NStaQis5SEdmeGhGMlpWWUJnRllOQko1Yk9SVzFrYnJHODgrcUlQckZNOEEz?=
+ =?utf-8?B?b1BOYXFRQUVkVlhhZnE5REpoRFU5K2JBTVp3OXp1R1JzeVlXVWFLckpkSEdn?=
+ =?utf-8?B?QUlYNEpoQ3U1MWlOeUJPblZmaE8xc0JCTFRpSHU4b0R0cnFxbERRNStsazZN?=
+ =?utf-8?B?VGRab25oS0tXL2Q4dUQ2eUsrVW1KakVVc05Hdkh2cVhndm5iUTJXaEVzdVpv?=
+ =?utf-8?B?NC9qSWlNb2JpYTBVdlhHMmt2STVab0Y0YkdKUCtYc0RSWkRWRm1MQWdoY0Vm?=
+ =?utf-8?B?YUZBUUF5b2xOL3lNcEk3UGhIUytVNVVhSkl2TGkrbTYwL0xNbytGTWtVK2J4?=
+ =?utf-8?B?Sll0TW9XQnh1QWFHMkRkeTgxeFFrYmIwbVkyL1I3dDU3MnhRTkU0cmN3WWYx?=
+ =?utf-8?B?bnVrbWpCbGJzQVV3OU1RU29hRUlKK3NqaG9Zb2d0a0FvMnVpRkhTQk5DRnZa?=
+ =?utf-8?B?ZUxuUjNLTnJYUFQrSUUrMk1BeFJFYnlLV2RMZ3BrMlVLaklVWFlydHpZV01Q?=
+ =?utf-8?B?NEc5VHYyWWdVLy9BVHVTb2hJY1VKUVZWemtOc2phUVBDTXhjWGtBSS93a1pk?=
+ =?utf-8?B?dnUydTVHY0laZ05MZlBMTityY0svZlczYTRJSjFKZVpMbEVrVTl3dDl2bGx4?=
+ =?utf-8?B?VVRVNnJOS2ljOVpkbmlWc3hTdlA5MFlwblFVUkdKelFIV09KM2hraWRPVVVE?=
+ =?utf-8?B?RW95RzVTM1BuSFNob0VLajNud04yT0hSMjRKbFp2U1Vad01TVlRlYndQUTYx?=
+ =?utf-8?B?N1pHWTRsQkpud1c4ZitHN1NpTkppaGhjc2tYWmszVnc3RmxMaHhSRk1iVURP?=
+ =?utf-8?B?VXFpcThCRWtKNVk2NG1wanpvUDNHMTh5UCtIdlgzbkhodnNIZGhOSWFQVnN1?=
+ =?utf-8?B?a25Ka3QwQzJUb3NPdHJEczVrbm91SzY4b0ozNDdVemMxamdBTFpkM0gwOE8x?=
+ =?utf-8?B?UUs3RUpycmtpcUdwa3EzR1pMV2tUbGRNcHdBaVUzZHZBRkxlTlpJSTVXblBO?=
+ =?utf-8?B?UVp1ZWJkSVlNbnk0TmJ5cmNCK0VhWktDQnJqMERHd3Zvd0lYbDB4QjlGbFRC?=
+ =?utf-8?B?byt4N1p3QThPZnB5WmIwWVdVenZZNHdBOUdZdE1CNEZLNlUwbDdaWGlGU0Qz?=
+ =?utf-8?B?VmllRnRoQ0F1TUpqU0JDcXBDUHRZeUF6ODVneFNnUDlockhrbzI1SmVFWVJi?=
+ =?utf-8?B?SWhLVHBISGlBQVZWQTNoODJxek8wNUhqSFY5Zm4yRTQyUlpwU0xqMmo0a2g0?=
+ =?utf-8?B?dkRGa3dUS1daZjNmQjI1NU9iSk9pMEpTdm5OcHZYSkk4dFdIbmJ0bnYzcmdN?=
+ =?utf-8?B?Q3BUNWZ5YjFydHh1TWczQkhpaDgwbFBBc1JlZ1JIMk53ejJ3UUNSOGh1M2Jr?=
+ =?utf-8?B?VFJkdm9lUDhLMTZvNEw5UXBHVDRXbWlCRHFjOXZ4YjMzNEFlYWEzbGdPUUQ3?=
+ =?utf-8?B?a3BxWExURVpQeWxmL0R1cEdzZXVMa2F3NE1BL2lMR1FkdVlUZUtDQT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: c26aadb1-841b-44b4-b77c-08dec09dd04a
+X-MS-Exchange-CrossTenant-originalarrivaltime: 02 Jun 2026 11:55:16.8254
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Xoi8QyKm3Hz31PeWsZz/fdYM3FxmHGJGbfYISRdWxGJSaeM1LsCMioTAcA3gc6TZgkzWCHEbetf/2q0bQg9eFs1/eAp+kVNLEQk7KuouNLM=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OS9PR01MB15621
 
-From: Vitor Soares <vitor.soares@toradex.com>
-
-Add device tree overlays for the Toradex OV5640 CSI cameras on Aquila
-CSI_1 and CSI_2. Two variants are supported for each interface: the
-current CSI Camera Set 5MP OV5640 with a 27 MHz oscillator and the legacy
-CSI Module 5MP OV5640 with a 24 MHz oscillator.
-
-On the Aquila AM69 Development Board, CSI_1 is exposed on connector J70
-and CSI_2 is exposed on connector J71.
-
-Link: https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-Link: https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
----
-Changes in v2:
-- Reorder supply properties in OV5640 CSI camera nodes and rename clock
-  node to match binding preferred node name pattern.
-
- arch/arm64/boot/dts/ti/Makefile               | 14 ++++
- .../ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso  | 18 +++++
- .../dts/ti/k3-am69-aquila-csi1-ov5640.dtsi    | 76 +++++++++++++++++++
- .../dts/ti/k3-am69-aquila-csi1-ov5640.dtso    | 19 +++++
- .../ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso  | 18 +++++
- .../dts/ti/k3-am69-aquila-csi2-ov5640.dtsi    | 76 +++++++++++++++++++
- .../dts/ti/k3-am69-aquila-csi2-ov5640.dtso    | 19 +++++
- 7 files changed, 240 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtsi
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtsi
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtso
-
-diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
-index a8c2fae6a212..4f1a8375e554 100644
---- a/arch/arm64/boot/dts/ti/Makefile
-+++ b/arch/arm64/boot/dts/ti/Makefile
-@@ -199,6 +199,10 @@ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover-panel-cap-touch-10inch-dsi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover.dtb
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi1-ov5640-24mhz.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi1-ov5640.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi2-ov5640-24mhz.dtbo
-+dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-csi2-ov5640.dtbo
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev-dsi-to-hdmi.dtb
- dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-hdmi.dtbo
-@@ -328,6 +332,14 @@ k3-am69-aquila-dev-adapter-panel-cap-touch-10inch-dsi-dtbs := \
- k3-am69-aquila-dev-adapter-panel-cap-touch-7inch-dsi-dtbs := \
- 	k3-am69-aquila-dev.dtb \
- 	k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtbo
-+k3-am69-aquila-dev-csi-ov5640-24mhz-dtbs := \
-+	k3-am69-aquila-dev.dtb \
-+	k3-am69-aquila-csi1-ov5640-24mhz.dtbo \
-+	k3-am69-aquila-csi2-ov5640-24mhz.dtbo
-+k3-am69-aquila-dev-csi-ov5640-dtbs := \
-+	k3-am69-aquila-dev.dtb \
-+	k3-am69-aquila-csi1-ov5640.dtbo \
-+	k3-am69-aquila-csi2-ov5640.dtbo
- k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch-dtbs := \
- 	k3-am69-aquila-dev.dtb \
- 	k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtbo
-@@ -417,6 +429,8 @@ dtb- += k3-am625-beagleplay-csi2-ov5640.dtb \
- 	k3-am69-aquila-clover-panel-cap-touch-7inch-dsi.dtb \
- 	k3-am69-aquila-dev-adapter-panel-cap-touch-10inch-dsi.dtb \
- 	k3-am69-aquila-dev-adapter-panel-cap-touch-7inch-dsi.dtb \
-+	k3-am69-aquila-dev-csi-ov5640-24mhz.dtb \
-+	k3-am69-aquila-dev-csi-ov5640.dtb \
- 	k3-am69-aquila-dev-dsi-to-lvds-panel-cap-touch-10inch.dtb \
- 	k3-am69-sk-csi2-dual-imx219.dtb \
- 	k3-am69-sk-pcie0-ep.dtb \
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso
-new file mode 100644
-index 000000000000..e7d238da8bef
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Module 5MP OV5640 on Aquila CSI_1.
-+ * Used on Development Board (J70). Uses a 24 MHz oscillator.
-+ *
-+ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "k3-am69-aquila-csi1-ov5640.dtsi"
-+
-+&clock_camera_csi_1 {
-+	clock-frequency = <24000000>;
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtsi b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtsi
-new file mode 100644
-index 000000000000..668658d32111
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtsi
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Common device tree include for Toradex OV5640 CSI Camera on Aquila CSI_1.
-+ * Used on Development Board (J70).
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	clock_camera_csi_1: clock-camera-csi-1 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+	};
-+
-+	regulator_camera_csi_1: regulator-camera-csi-1 {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_12_csi_1>;
-+		/* Aquila GPIO_12_CSI_1 - Camera Connector 24 */
-+		gpio = <&main_gpio0 48 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-name = "V_CSI_1";
-+		startup-delay-us = <5000>;
-+	};
-+};
-+
-+&csi0_port0 {
-+	status = "okay";
-+
-+	csi0_port0_in: endpoint {
-+		remote-endpoint = <&csi0_port0_cam_out>;
-+		bus-type = <4>; /* CSI2 DPHY. */
-+		clock-lanes = <0>;
-+		data-lanes = <1 2>;
-+	};
-+};
-+
-+&dphy0 {
-+	status = "okay";
-+};
-+
-+/* Aquila I2C_4_CSI1 */
-+&main_i2c1 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_09_csi_1>, <&pinctrl_gpio_10_csi_1>;
-+		clocks = <&clock_camera_csi_1>;
-+		clock-names = "xclk";
-+		AVDD-supply = <&regulator_camera_csi_1>;
-+		DOVDD-supply = <&regulator_camera_csi_1>;
-+		DVDD-supply = <&regulator_camera_csi_1>;
-+		/* Aquila GPIO_10_CSI_1 - Camera Connector 22 */
-+		powerdown-gpios = <&main_gpio0 2 GPIO_ACTIVE_HIGH>;
-+		/* Aquila GPIO_09_CSI_1 - Camera Connector 11 */
-+		reset-gpios = <&main_gpio0 1 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			csi0_port0_cam_out: endpoint {
-+				remote-endpoint = <&csi0_port0_in>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
-+&ti_csi2rx0 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtso
-new file mode 100644
-index 000000000000..76807176e288
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtso
-@@ -0,0 +1,19 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Set 5MP OV5640 on Aquila CSI_1.
-+ * Used on Development Board (J70). Uses a 27 MHz oscillator.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-+ * https://www.toradex.com/accessories/csi-camera-ov5640
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "k3-am69-aquila-csi1-ov5640.dtsi"
-+
-+&clock_camera_csi_1 {
-+	clock-frequency = <27000000>;
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso
-new file mode 100644
-index 000000000000..607e1c76c86d
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso
-@@ -0,0 +1,18 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Module 5MP OV5640 on Aquila CSI_2.
-+ * Used on Development Board (J71). Uses a 24 MHz oscillator.
-+ *
-+ * https://developer.toradex.com/hardware/legacy-products/other/csi-camera-module-5mp-ov5640/
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "k3-am69-aquila-csi2-ov5640.dtsi"
-+
-+&clock_camera_csi_2 {
-+	clock-frequency = <24000000>;
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtsi b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtsi
-new file mode 100644
-index 000000000000..454ac120337c
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtsi
-@@ -0,0 +1,76 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Common device tree include for Toradex OV5640 CSI Camera on Aquila CSI_2.
-+ * Used on Development Board (J71).
-+ */
-+
-+#include <dt-bindings/gpio/gpio.h>
-+
-+&{/} {
-+	clock_camera_csi_2: clock-camera-csi-2 {
-+		compatible = "fixed-clock";
-+		#clock-cells = <0>;
-+	};
-+
-+	regulator_camera_csi_2: regulator-camera-csi-2 {
-+		compatible = "regulator-fixed";
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_16_csi_2>;
-+		/* Aquila GPIO_16_CSI_2 - Camera Connector 24 */
-+		gpio = <&wkup_gpio0 39 GPIO_ACTIVE_HIGH>;
-+		enable-active-high;
-+		regulator-name = "V_CSI_2";
-+		startup-delay-us = <5000>;
-+	};
-+};
-+
-+&csi1_port0 {
-+	status = "okay";
-+
-+	csi1_port0_in: endpoint {
-+		remote-endpoint = <&csi1_port0_cam_out>;
-+		bus-type = <4>; /* CSI2 DPHY. */
-+		clock-lanes = <0>;
-+		data-lanes = <1 2>;
-+	};
-+};
-+
-+&dphy1 {
-+	status = "okay";
-+};
-+
-+/* Aquila I2C_5_CSI2 */
-+&main_i2c2 {
-+	#address-cells = <1>;
-+	#size-cells = <0>;
-+
-+	camera@3c {
-+		compatible = "ovti,ov5640";
-+		reg = <0x3c>;
-+		pinctrl-names = "default";
-+		pinctrl-0 = <&pinctrl_gpio_13_csi_2>, <&pinctrl_gpio_14_csi_2>;
-+		clocks = <&clock_camera_csi_2>;
-+		clock-names = "xclk";
-+		AVDD-supply = <&regulator_camera_csi_2>;
-+		DOVDD-supply = <&regulator_camera_csi_2>;
-+		DVDD-supply = <&regulator_camera_csi_2>;
-+		/* Aquila GPIO_14_CSI_2 - Camera Connector 22 */
-+		powerdown-gpios = <&wkup_gpio0 33 GPIO_ACTIVE_HIGH>;
-+		/* Aquila GPIO_13_CSI_2 - Camera Connector 11 */
-+		reset-gpios = <&wkup_gpio0 32 GPIO_ACTIVE_LOW>;
-+
-+		port {
-+			csi1_port0_cam_out: endpoint {
-+				remote-endpoint = <&csi1_port0_in>;
-+				clock-lanes = <0>;
-+				data-lanes = <1 2>;
-+			};
-+		};
-+	};
-+};
-+
-+&ti_csi2rx1 {
-+	status = "okay";
-+};
-diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtso
-new file mode 100644
-index 000000000000..d3279f373d32
---- /dev/null
-+++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtso
-@@ -0,0 +1,19 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
-+/*
-+ * Copyright (c) Toradex
-+ *
-+ * Toradex CSI Camera Set 5MP OV5640 on Aquila CSI_2.
-+ * Used on Development Board (J71). Uses a 27 MHz oscillator.
-+ *
-+ * https://developer.toradex.com/hardware/accessories/cameras/csi-camera-module-5mp-ov5640-arducam
-+ * https://www.toradex.com/accessories/csi-camera-ov5640
-+ */
-+
-+/dts-v1/;
-+/plugin/;
-+
-+#include "k3-am69-aquila-csi2-ov5640.dtsi"
-+
-+&clock_camera_csi_2 {
-+	clock-frequency = <27000000>;
-+};
--- 
-2.54.0
-
+SGkgR2VlcnQsDQoNCj4gLS0tLS1PcmlnaW5hbCBNZXNzYWdlLS0tLS0NCj4gRnJvbTogR2VlcnQg
+VXl0dGVyaG9ldmVuIDxnZWVydEBsaW51eC1tNjhrLm9yZz4NCj4gU2VudDogMDIgSnVuZSAyMDI2
+IDEyOjA3DQo+IFN1YmplY3Q6IFJlOiBbUEFUQ0ggMC8yXSBFbmFibGUgUlNQSSBzdXBwb3J0IG9u
+IFJaL0czTCBTTUFSQyBFVksNCj4gDQo+IEhpIEJpanUsDQo+IA0KPiBPbiBUdWUsIDE5IE1heSAy
+MDI2IGF0IDEzOjIwLCBCaWp1IDxiaWp1LmRhcy5hdUBnbWFpbC5jb20+IHdyb3RlOg0KPiA+IFRo
+ZXJlIGlzIGFuIGludGVybmFsIGRpc2N1c3Npb24gYWJvdXQgZHJvcHBpbmcgcGF0Y2gjMiwgYXMg
+UlNQSSBpcw0KPiA+IHVzZWxlc3Mgd2l0aG91dCBhIGRldmljZSBjb25uZWN0ZWQgdG8gdGhhdCBp
+bnRlcmZhY2UuIEhvd2V2ZXIsIGFzIHBlcg0KPiA+IHRoZSBzY2hlbWF0aWMsIFJTUEkgc2lnbmFs
+cyBhcmUgd2lyZWQgdXAgdG8gdGhlIFBNT0QgY29ubmVjdG9yLg0KPiA+IEN1cnJlbnRseSwgaXQg
+aXMgZW5hYmxlZCBvbiBSWi9HMkwgYW5kIFJaL0czRS4gUGxlYXNlIHNoYXJlIHlvdXIgdGhvdWdo
+dHMgb24gdGhpcy4NCj4gDQo+IFNvcnJ5LCBJIGhhZCBtaXNzZWQgdGhpcyBxdWVzdGlvbiBiZWZv
+cmUuDQo+IFJaL0czRSBTTUFSQyBFVksgKHdoaWNoIHNoYXJlcyB0aGUgc2FtZSBjYXJyaWVyIGJv
+YXJkKSBoYXMgaXQgZW5hYmxlZCwgdG9vLCBhcyB0aGUgY29ubmVjdG9yIGlzDQo+IGxhYmVsbGVk
+ICJUeXBlLTJBIiwgaS5lLiBtZWFudCBmb3IgZXhwYW5kZWQgU1BJLiAgT2J2aW91c2x5IGl0IHJl
+YWxseSBkZXBlbmRzIG9uIHRoZSB1c2UgY2FzZTogb25lDQo+IG1pZ2h0IHdhbnQgdG8gdXNlIHRo
+ZSBwaW5zIGFzIEdQSU9zPyAgV2UgY2FuIHJldmlzaXQgdGhpcyB3aGVuIHdlIGdldCByZWFsIGNv
+bm5lY3RvciBzdXBwb3J0Lg0KDQpPSywgdGhhdCBtYWtlcyBzZW5zZS4NCg0KQ2hlZXJzLA0KQmlq
+dQ0KDQo+IA0KPiA+IEJpanUgRGFzICgyKToNCj4gPiAgIGFybTY0OiBkdHM6IHJlbmVzYXM6IHI5
+YTA4ZzA0NjogQWRkIFJTUEl7MC4uMn0gbm9kZXMNCj4gPiAgIGFybTY0OiBkdHM6IHJlbmVzYXM6
+IHI5YTA4ZzA0Nmw0OC1zbWFyYzogRW5hYmxlIFJTUEkyDQo+IA0KPiBHcntvZXRqZSxlZXRpbmd9
+cywNCj4gDQo+ICAgICAgICAgICAgICAgICAgICAgICAgIEdlZXJ0DQo+IA0KPiAtLQ0KPiBHZWVy
+dCBVeXR0ZXJob2V2ZW4gLS0gVGhlcmUncyBsb3RzIG9mIExpbnV4IGJleW9uZCBpYTMyIC0tIGdl
+ZXJ0QGxpbnV4LW02OGsub3JnDQo+IA0KPiBJbiBwZXJzb25hbCBjb252ZXJzYXRpb25zIHdpdGgg
+dGVjaG5pY2FsIHBlb3BsZSwgSSBjYWxsIG15c2VsZiBhIGhhY2tlci4gQnV0IHdoZW4gSSdtIHRh
+bGtpbmcgdG8NCj4gam91cm5hbGlzdHMgSSBqdXN0IHNheSAicHJvZ3JhbW1lciIgb3Igc29tZXRo
+aW5nIGxpa2UgdGhhdC4NCj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAtLSBMaW51
+cyBUb3J2YWxkcw0K
