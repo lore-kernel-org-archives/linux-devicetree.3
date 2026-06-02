@@ -1,141 +1,149 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 074EB3CBE8F
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:40:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C494131F98D;
+	Tue,  2 Jun 2026 12:44:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780404053; cv=none; b=t9nWfnxaE/I7Z8lnyMoXx8d4qErb+jTNE6YqP1el8ZXrH/bXRrlGtqkdhLqQ+GkcACmU5lYouel3F2KSlC4taAMxlzirvLCfiX3bRFXb8ezeGfhwWgbnUBNukgLswN0kZxu4jGPXt4Sv+Y+w/NhOEXpqmuJGchF3xE7i0TU9GG4=
+	t=1780404258; cv=none; b=RHHFln6bwcIZUE50ei14LFcFIfbUOzG8apQFGRIO1Cf+GxHv1CFda8bKKVVQK7mHoKCeTwEEi9arrEzkZ2wyAvtudUVYQcxF/RJxzkPhCjBazBXa23VCD9WLkkGpKxNteTYELAh0z93/aInoaC8kB/7hLoX0TRN4udOLLle4QUg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780404053; c=relaxed/simple;
-	bh=lVzbY7ZQf4ZHAgWFWTG/ATbgM/HylQrcyBz+MPl+tvs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
-	 References:In-Reply-To; b=aBjzE9Pymp1D3YbHYb9CSYGP3eA2Q6oVA1VWghpEtSf5mkUPLXTEKIVeisp9rE3O8aUktHoq/DGmRAF4ILjyxwnKHaAJuSgu7BozW32cn7rPCaebwrceNYf4WGkEtdgUdsELl2AYlesT+2RozXZDmFLVn9s1eigrxKxtw4M1C/c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N/bT/NPL; arc=none smtp.client-ip=209.85.128.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780404258; c=relaxed/simple;
+	bh=PsmwG6ZhRtKSko1LER9ksVd4m+49ryYomLkrL8qW77w=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=qDAGogiqFJ5WHlg1iwj03Oz9FBjcy4taDYvu8wec+cTxLdY/5VSCwMA+S/NOZgQK0n+PTceL1M1zSWz9sVTmn8ls8PrE0DunOwMKX2D6WUk09lZUW1cS0U95nmO4kqSnAkjls2Y4GfpE1tOagj7ewB0Cjf3YfN5iWFDNWuJq9mc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qe/FI0H3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N/bT/NPL"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490b43e2b95so1159655e9.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 05:40:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780404050; x=1781008850; darn=vger.kernel.org;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=FC/oGgXfgkM39LoHP/4Q+MJLr6VB9M/zzchAiEgk6p4=;
-        b=N/bT/NPLUQyZi+np95fDIj+5bXx9Uv7+Au/LhN3pE/xq5Bj8MVB7yzqOyYRALuRFWB
-         MVyw2qaAZiXespPUwXu0odgPs/iyuwcCewRhHXITyAh6BpncNr4Yv9d5YMcRcSpiNNrg
-         y6SRVMYMq3C4mbgoyaEAYR+9MVEbxjMbUUomTZ9lTO7Jsf+q4UILlB/yz3wWAfYcbSIi
-         4BIoftv6JMD+jhX1ZyGuzUPr9IUDtNxRcJGTb1MVguuSWALkLdBX7vx7dIGaf5ZbGi/t
-         YY5rwNVroWsJ6pqaaewkWzXdlbZOZWF5DymIzVfLwqrfelShlQEf/LU4K/novsIAZfsu
-         ir1w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780404050; x=1781008850;
-        h=in-reply-to:references:from:to:cc:subject:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=FC/oGgXfgkM39LoHP/4Q+MJLr6VB9M/zzchAiEgk6p4=;
-        b=DizBdzF3TrCrsjnPbW9RcJBFRq3DwVkzLV0fi9CtsTFiJLkiylAbD065zxOD9ins0E
-         FSVzWLbkaGGYz3pBGaa7tgZF8ywWPhDQZRnT1QBt4f0ELj8bQTrIojr/7bbjckifwCf+
-         lwV71jOVX32sjxWf7UKEvJi2Zqz4gtXbxmZJSSyzZhe78zg24jz5KaHGbcr5XdgzS/IM
-         rIQRJoS486o/FDjoicSU6VS1vlxxBDdi6zArCcmS8kjmWuZGgS4LBQNbMXDH0C0VirNz
-         7gCbHQUg5H0ZgYSmSeBLHYQ4AUPWMeVSuEOqq/stGjXdjAh5YAOXRslWOxNLa1USO6lF
-         r45g==
-X-Forwarded-Encrypted: i=1; AFNElJ8l0CriUz8dydIElHcSQ4k+JP9dYMbfxbyYT1Y6uNZiISvtlSRe6Bjjd7RBelCntTfYj9Heq9vx2kb5@vger.kernel.org
-X-Gm-Message-State: AOJu0YwVXkTxF9scfiAv0nqfPT+WQPbUGgRotN6SQqlZhZPg01Nwub0b
-	2zECWc7xJwea4+yrIdRtCzowfn0vLMMs+ixCH++aNpICrtExQcyrXAjy
-X-Gm-Gg: Acq92OE+fKjaLnzZEKRbkG8Woeq63UGi1FEsf23ZDkCTB38ckPQjOmAJilQlc/KPSOo
-	VYUocU6hFo/jhUf6YfwI5h/M+ax6/myZpFvgZbBVsp57FMMScFjqTd6GSS4KI0mR37a9MAXEDTU
-	HyTsFr6YWjZdTXbJSBZrOBaXm39J3qcZ5qP16D1MkJtjwSyaymjU4e1fZ4SX9skhSgvh/dCK0PL
-	9XAnfU6qWspBTnGUPj7R64BiFuagkUL6o/FxpYpTtp+Fodv2uvNwNS0ZgKDMUg5OEzTv2tiQgrK
-	VjZiu7xBiee+m9DL8A9DKQp9nhRLwFvb0Rmxg1JY9hB8Z+9TXxjGKYCZ1Ro/ejpwC+CiJsBNu4H
-	PnUi732/YSXjDEOhHsaGS5te0a6xMKI0NfIeWiwJutMPr2yIFGoPuYW4fbdcjqr3SXRyDkdY1aL
-	Y0Jr9uKxBL/wqa5BBiVDXubBG/IEv5Gn4CWURllrtDKSEwrAw=
-X-Received: by 2002:a05:600c:a11:b0:490:b0f1:c27e with SMTP id 5b1f17b1804b1-490b0f1ce6dmr64690285e9.24.1780404050209;
-        Tue, 02 Jun 2026 05:40:50 -0700 (PDT)
-Received: from localhost ([2001:4bb8:152:df59:3b69:56ea:a39b:adb4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490af60e03esm59078855e9.2.2026.06.02.05.40.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 05:40:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qe/FI0H3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E5051F00893;
+	Tue,  2 Jun 2026 12:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780404257;
+	bh=XmSDqS5doeHURK/Q5K7xJlW3vJVpvtlzzxQyo8gvrZ0=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Date;
+	b=Qe/FI0H37dmdEvh0APEdjUcJU44wvQ8X/ejU3va5a1eFxuYP5ZKAW3yi49msgZPV3
+	 /kf3axtTnX161vu5VL34N7HymBGChX7t0h9QijHc9+l/PEF0icMXMVwhQxPKTyT0VB
+	 8mN9az0zDIKOkfMMhvRh5Fvb8vnuJDaKOV1KDJG4Ct9WJ4/h150z6xuD+jRuww6yMi
+	 cm73Gy63mCgDyoFTgDAuc0hyUg4hC0JQ/a5DpBRFq8WLe9Y6yr6DKEqMO0xRF1ed53
+	 QNzcLrWkW/Zbcx+ZtH0iENpp2i9b//SkTto2kuDvcppI2xrx+75PjzNelqFZtCzv9C
+	 kR5WeLyb6Xs/A==
+From: Mark Brown <broonie@kernel.org>
+To: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>, 
+ Liam Girdwood <lgirdwood@gmail.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Geert Uytterhoeven <geert+renesas@glider.be>, 
+ John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: Jaroslav Kysela <perex@perex.cz>, Takashi Iwai <tiwai@suse.com>, 
+ Magnus Damm <magnus.damm@gmail.com>, Philipp Zabel <p.zabel@pengutronix.de>, 
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, 
+ Biju Das <biju.das.jz@bp.renesas.com>, john.madieu@gmail.com, 
+ linux-sound@vger.kernel.org, linux-renesas-soc@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+In-Reply-To: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
+References: <20260525110230.4014435-1-john.madieu.xa@bp.renesas.com>
+Subject: Re: [PATCH v7 00/18] ASoC: rsnd: Add RZ/G3E audio driver support
+Message-Id: <178040423936.61081.3832922625019742059.b4-ty@b4>
+Date: Tue, 02 Jun 2026 13:43:59 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 02 Jun 2026 14:40:47 +0200
-Message-Id: <DIYKK894ZZW5.26RO6S0GL2201@gmail.com>
-Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
- series
-Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Lars-Peter Clausen"
- <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rishi Gupta"
- <gupt21@gmail.com>, "David Lechner" <dlechner@baylibre.com>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Matti Vaittinen" <mazziesaccount@gmail.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
- <javier.carrasco.cruz@gmail.com>
-From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
-References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
- <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
- <ah6p-f2RCW8VcuDR@ashevche-desk.local>
- <DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
- <20260602133806.53590943@jic23-huawei>
-In-Reply-To: <20260602133806.53590943@jic23-huawei>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.16-dev
+X-Developer-Signature: v=1; a=openpgp-sha256; l=4028; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=PsmwG6ZhRtKSko1LER9ksVd4m+49ryYomLkrL8qW77w=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqHtAdezEQIVl/DPbvK36GazMkNvIb797f/j+g5
+ hhTJYKz5WKJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCah7QHQAKCRAk1otyXVSH
+ 0KJuB/9TcCGrkPo86Tp6nxva0GnswAgqsqrlUNa6Oauk/HDFwgGX5Ua8oQbl5oQvyU3LHAqD8K0
+ O6uc2hz9NzPenW3yCIYL/To2vIDIKpj1Ss0relChTyLmrJ5nRL+VtW2WMaGSlXTxcgonPC1DzK+
+ xHahvBDNNN2MSgM62tWtGshIADfncoiDxU4J4q0fiH5s0bU7I7cp6C6S5/IeZ+lVnd8rcFjsVzQ
+ /0TJKvtNztGaP85GbzWzBBDdudPumCE+9tjkM9a2tTA2TXDt3C49/N0AScjtGvXysOz3xrACwv5
+ 2/yn2FKtBCzWkJfiCBMhApsBL8KV8kNyjTbcXrJSqjCJ+LHF
+X-Developer-Key: i=broonie@kernel.org; a=openpgp;
+ fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Tue Jun 2, 2026 at 2:38 PM CEST, Jonathan Cameron wrote:
->> >> +/*
->> >> + * The gain selector encodes (PD_D4 << 2) | GAIN to identify each ga=
-in setting.
->> >> + * Gains are multiplied by 8 to work with integers. The values in th=
-e iio-gts
->> >> + * tables don't need corrections because the maximum value of the sc=
-ale refers
->> >> + * to GAIN =3D x1, and the rest of the values are obtained from the =
-resulting
->> >> + * linear function.
->> >> + * TODO: add support for MILLI_GAIN_X165 and MILLI_GAIN_X660
->> >> + */
->> >> +#define VEML6031X00_SEL_MILLI_GAIN_X125  0x07
->> >> +#define VEML6031X00_SEL_MILLI_GAIN_X250  0x04
->> >> +#define VEML6031X00_SEL_MILLI_GAIN_X500  0x03
->> >> +#define VEML6031X00_SEL_MILLI_GAIN_X1000 0x00
->> >> +#define VEML6031X00_SEL_MILLI_GAIN_X2000 0x01
->> >
->> > Not sure if these one-time use definitions improve or not the readabil=
-ity
->> > of the code. Up to Jonathan.
->> >
->>
->> I prefer these definitions, and a similar pattern is used in multiple
->> drivers in IIO, but I have no strong feelings about it.
->
-> Looking again at this, what do the numbers in the defines actually mean?
-> Seems a bit odd to have the base gain of 1 being called X125.
-> Maybe a comment on that would be useful.  I don't mind either way
-> on defines for this but if that number is useful to have I'd rather
-> have a define than a comment on each line.
->
+On Mon, 25 May 2026 11:02:12 +0000, John Madieu wrote:
+> ASoC: rsnd: Add RZ/G3E audio driver support
+> 
+> Add audio support for the Renesas RZ/G3E SoC to the R-Car Sound
+> driver. The RZ/G3E audio subsystem is based on R-Car Sound IP but
+> has several differences requiring dedicated handling:
+> 
+>   - SSI operates exclusively in BUSIF mode (no PIO)
+>   - 2-4 BUSIF channels per SSI (layout differs from R-Car)
+>   - Separate register regions for SCU, ADG, SSIU, SSI accessed by name
+>   - Per-SSI ADG and SSIF supply clocks
+>   - Dedicated audmapp clock/reset for Audio DMAC peri-peri
+>   - Per-SSI and per-module reset controllers via CPG
+>   - Unprefixed DT sub-node names (ssi, ssiu, src, ...) instead of
+>     rcar_sound,xxx
+>   - Hyphenated indexed clock/reset names (ssi-0, src-0, adg-ssi-0,
+>     audio-clka, ...) instead of the legacy dotted form
+> 
+> [...]
 
-I thought that MILLI_GAIN was already documenting what x125 is: 0.125 =3D
-125 milli. More than the base gain of 1, it is the lowest gain you can
-configure.
+Applied to
 
->>
->> >> +static const struct iio_gain_sel_pair veml6031x00_gain_sel[] =3D {
->> >> +	GAIN_SCALE_GAIN(1, VEML6031X00_SEL_MILLI_GAIN_X125),
->> >> +	GAIN_SCALE_GAIN(2, VEML6031X00_SEL_MILLI_GAIN_X250),
->> >> +	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_MILLI_GAIN_X500),
->> >> +	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_MILLI_GAIN_X1000),
->> >> +	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_MILLI_GAIN_X2000),
->> >> +};
->> >
->> > ...
+   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.2
 
+Thanks!
+
+[01/18] ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound
+        https://git.kernel.org/broonie/sound/c/a86fd3c20218
+[02/18] ASoC: rsnd: Fix RSND_SOC_MASK width to single nibble
+        https://git.kernel.org/broonie/sound/c/c0758279367e
+[03/18] ASoC: rsnd: Add reset controller support to rsnd_mod
+        https://git.kernel.org/broonie/sound/c/83c9631e974f
+[04/18] ASoC: rsnd: Support hyphen or dot in indexed clock and reset names
+        https://git.kernel.org/broonie/sound/c/22622faf8120
+[05/18] ASoC: rsnd: Add RZ/G3E SoC probing and register map
+        https://git.kernel.org/broonie/sound/c/948b075ebc95
+[06/18] ASoC: rsnd: Add audmapp clock and reset support for RZ/G3E
+        https://git.kernel.org/broonie/sound/c/fb859f6fc43b
+[07/18] ASoC: rsnd: Refactor DMA address tables with named structs
+        https://git.kernel.org/broonie/sound/c/e870c10f8bb6
+[08/18] ASoC: rsnd: Add RZ/G3E DMA address calculation support
+        https://git.kernel.org/broonie/sound/c/1cd10dab6702
+[09/18] ASoC: rsnd: ssiu: Add shared SSI reset controller support
+        https://git.kernel.org/broonie/sound/c/b4ef837a28a1
+[10/18] ASoC: rsnd: ssiu: Add RZ/G3E BUSIF support
+        https://git.kernel.org/broonie/sound/c/80f43c521771
+[11/18] ASoC: rsnd: Add SSI reset support for RZ/G3E platform
+        https://git.kernel.org/broonie/sound/c/692f03422f0e
+[12/18] ASoC: rsnd: Add ADG reset support for RZ/G3E
+        https://git.kernel.org/broonie/sound/c/9267b89985de
+[13/18] ASoC: rsnd: adg: Add per-SSI ADG and SSIF supply clock management
+        https://git.kernel.org/broonie/sound/c/47899d53f86f
+[14/18] ASoC: rsnd: adg: Look up RZ/G3E clkin under audio-clk{a,b,c,i}
+        https://git.kernel.org/broonie/sound/c/16593532c47a
+[15/18] ASoC: rsnd: src: Acquire shared SCU clocks for RZ/G3E
+        https://git.kernel.org/broonie/sound/c/799836bc37ac
+[16/18] ASoC: rsnd: src: Add SRC reset support for RZ/G3E
+        https://git.kernel.org/broonie/sound/c/33a3500a34b8
+[17/18] ASoC: rsnd: Support unprefixed DT node names for RZ/G3E
+        https://git.kernel.org/broonie/sound/c/ec1b5ebf6d8b
+[18/18] ASoC: rsnd: Add system suspend/resume support
+        https://git.kernel.org/broonie/sound/c/ef19ecf042b4
+
+All being well this means that it will be integrated into the linux-next
+tree (usually sometime in the next 24 hours) and sent to Linus during
+the next merge window (or sooner if it is a bug fix), however if
+problems are discovered then the patch may be dropped or reverted.
+
+You may get further e-mails resulting from automated or manual testing
+and review of the tree, please engage with people reporting problems and
+send followup patches addressing any issues that are reported if needed.
+
+If any updates are required or you are submitting further changes they
+should be sent as incremental updates against current git, existing
+patches will not be replaced.
+
+Please add any relevant lists and maintainers to the CCs when replying
+to this mail.
+
+Thanks,
+Mark
 
