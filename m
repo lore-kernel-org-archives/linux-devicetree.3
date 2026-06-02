@@ -1,35 +1,66 @@
-Received: from smtpcmd14161.aruba.it (smtpcmd14161.aruba.it [62.149.156.161])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D2C53B6C1D
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:21:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=62.149.156.161
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC7AE38331D
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 22:22:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780438913; cv=none; b=qRXPLuRv0FX+S3aELyLlBPl0Kpw46w/eM1sEWzndsO6n54UiKxcTH+2ukqOW3uoVxvMy+7OotoHAYvvLek/q88TEnJvK9NxcOVuy/GYIuPgrZdd198775M6N7g5vUWEMfEaaRqyIjxSbdwjSDY7l53QdjcVGcmSuNZOk+qzssDA=
+	t=1780438966; cv=none; b=CFr8cqNgVvuOwOzUhLd7j4Lbhd6nLZ+5VdYhUQOGg/X5dv/EyWbxmODSUOWlv/vuTQtqcubcBrwHqfhAjdgw5gl6bWvfEP40+MBBQgn1zkOBpgJEzzX1MqKy9dqA2UUvEU5bG00HPkLunZFZduMMrzk1vahQ/BwWwvpD098dEZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780438913; c=relaxed/simple;
-	bh=yxylBBvHC4MI+/sGio2ZTsDA9f+yXeKuTPj/6M7xbMU=;
+	s=arc-20240116; t=1780438966; c=relaxed/simple;
+	bh=XNUExCvA+WARuUW8BQZoPl41BM6NXl/RrTpIJO+J1zA=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=odiC5RvaLemd3+baJmr7WIPUuBBljg1gi1ofRbWpo3CLcp/k2GJ/2uUdlbV+tpW/+mCzWzk0CtQktbjZz4iebULIrZ29x5Txx5FQgcEkW12WKNSGpDLinJ/432AmKUkLDwiP8SgN6I459PsJQiw26BuCQoe+on2aeDyki91PKoU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it; spf=pass smtp.mailfrom=mythread.it; dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b=cYZYEU8W; arc=none smtp.client-ip=62.149.156.161
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mythread.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mythread.it
+	 In-Reply-To:Content-Type; b=cXVo6xrj7DAtSn2e8NvoANuvIJc/ymur9ATfMbN2E3xYbtsykLEpDtdKzr/bcJFocGAy8yw0P8X7ukVpZ0zMFWB8ZJRabrOd4Wn64PZJLEoCvb7LfdrZ62NTFayZFyadkH3M9zi+Sj1P8o3ZZFeFXjRqeTsGc6x2YExHmBToybk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=dL3AdcYA; arc=none smtp.client-ip=209.85.128.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mythread.it header.i=@mythread.it header.b="cYZYEU8W"
-Received: from [192.168.1.83] ([79.20.159.46])
-	by Aruba SMTP with ESMTPSA
-	id UXRXwqUS14OeoUXRXw4OV7; Wed, 03 Jun 2026 00:18:39 +0200
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mythread.it; s=a1;
-	t=1780438719; bh=yxylBBvHC4MI+/sGio2ZTsDA9f+yXeKuTPj/6M7xbMU=;
-	h=Date:MIME-Version:Subject:To:From:Content-Type;
-	b=cYZYEU8WsHsqr2FKt/wWxrqohSucPl7S1xEd0xNDKIkYyC+0pmhA39QP3FQVpmvib
-	 PsY3gcCbVMVCe/4sGn7s5BkW61F6VKRlq/Ub2R8cXGwTTZOcpFlgU18xSRI2pMD3ZV
-	 Zg+d1HfGFY5QltQGVMk2O3ul6m3d9SfMBJv6y7t4GUWSEB/I0DyKn5oA6Kwtvc47rk
-	 AZoQ1LL0BQLcJfMSUcXQd8hWAHNWiBKLxrgFAFU4/5ve5KgOeK4A6DJG1PDqhaR7Oh
-	 R739akBDqnps/PUAA5VR6ROfiPGKFh1DkDE7huxWZkA2XEaoWyYjhPQGOWgW/LNf95
-	 6P1mL0Ofs+YyA==
-Message-ID: <d2b62530-2f9b-4ac3-8de6-dabe70994e97@mythread.it>
-Date: Wed, 3 Jun 2026 00:18:39 +0200
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="dL3AdcYA"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-4905529b933so94419315e9.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 15:22:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780438963; x=1781043763; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=C5YMLNp4uCEpkwe9D6P+mENG3LiY0e9ha51X9dT+gkc=;
+        b=dL3AdcYA6/iHoD9LfCqAVpxuTI4KVU1glkBFbUTSAWJQdeOoym93DIDSGAoAx8/J8a
+         GDejkzXlm7y39wOEeGvs+NFVJBNkYB8P7oH4EiFJqyLlHLP+YgakLnrnCET7SXLEgx+A
+         2Z8aEZlnxZUUkdGeD6b6Z1PoSYnO+vOjtDkz2wVZWJY+vdw2FtMnuZRejCDNpbk8XM9v
+         6z0x2rrihVglxdvSx7O2CtrUpyygcbo5SKiNl/WOfEraTcXLeHpWVv1O7lZZFOWwEZcZ
+         YRN7DzhmXRbsrPu6JjbLChMrEpAUJFjwjcvxIsOiBhy8wrmN79zXvuQc8FOHsPvP1TOC
+         2PIA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780438963; x=1781043763;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=C5YMLNp4uCEpkwe9D6P+mENG3LiY0e9ha51X9dT+gkc=;
+        b=iwz2Yk5nbUOiHZ8asYPcDJ98j9zrXXEln8MmvBI5o2JrsLisxWysz5tCsWZh3HXcpo
+         7xRWSVW1mmR6wY8Akc011h41HEyENoZyXrXTYdr1q73Ns+k7eo0XFLpsw8zkjR0fdSnm
+         cghCxE8foyHRWh/vobAKk+bTYIHhH448dhI8L+mu/pPNTCZxKkSKu7iMsATquE31Ve+v
+         6+AQuIvfYSKY3p35Cz+7l1KrE/TlWXFQDwZk7CuEVo2OG7QvxI160WrD0Zn9lHEbYBhx
+         i4pqxKfPEh0pHhpt3WBeLwttg0VaNhb2t1Hq1jt7Rv1meQhm3H1uFaPW26iV/ASDL0HM
+         Jj+A==
+X-Forwarded-Encrypted: i=1; AFNElJ+fExcxc7FE9vvgexX9lIUefEwcA+vtsQtZVRON+VpLO8jrFOXXhIsll7o1pibXBOf2468M4lRRxn9O@vger.kernel.org
+X-Gm-Message-State: AOJu0YxJotbUgWwHmG5JkdU6hfbwqiPXmcgUxXzJb8uNLhP5+N7aZdFK
+	TCllfHcUciB370L7YPPZ3EooLrPwzDaJnpUqxeaF2H5PSBwt3UMHvhxhA98c8ZyVLFc=
+X-Gm-Gg: Acq92OGhGkPxITXieM4uWAQpOVCiqytEfr/GXGsGYTrzygoBSR56ftaJmrAzzYPnPLl
+	LnQFaEyYpLSKyFO4uQJM6/3EQSlJsa+Ra+4BPF75Q/4w/nRPwEF1EdBf3FEvKDv5pl0/WCQg88o
+	kNuKbWymWNe9Ebsip3em7dS49vz2kTTGviVvXH31dkCtvhxAMOdoa4/MsvNWnvbSXC2eSFtp97j
+	mzbXyUpB4dx4U1i7o2jCoz5HxVKFtXbtSKirgu5x/KrJFXHtjqNi7MivEF/3PR3JeHgl/r0VkkA
+	jt2oS0N6dCkptLGzGubwaUv5QpXSbNC1segIfhZj1XNBuMxbha8nuueUMMmmnDaLm3CT3loDsme
+	Bw1hS7jPrqan+9utUe72hQXIZik3UYWV66+oFuCKquFzdLjx83sEuP8pS+uBalBGEJDMr103Mxg
+	wJzqlvYIoW+qIoOy0llhZGWhlpZvz3t6kW/QLb9vwQIk0x
+X-Received: by 2002:a05:600c:1c1e:b0:48e:6db3:ff3a with SMTP id 5b1f17b1804b1-490b5eb137bmr11597745e9.16.1780438963385;
+        Tue, 02 Jun 2026 15:22:43 -0700 (PDT)
+Received: from [192.168.0.35] ([109.77.42.178])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b5885c26sm5064835e9.10.2026.06.02.15.22.42
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 15:22:42 -0700 (PDT)
+Message-ID: <be3e1abe-5148-4247-930b-2e23164eea73@linaro.org>
+Date: Tue, 2 Jun 2026 23:22:41 +0100
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -37,148 +68,44 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 3/4] dt-bindings: bus: add brcm,bcm6362-wlan
-To: Krzysztof Kozlowski <krzk@kernel.org>
-Cc: =?UTF-8?B?UmFmYcWCIE1pxYJlY2tp?= <zajec5@gmail.com>,
+Subject: Re: [PATCH v8 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
+To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- Florian Fainelli <florian.fainelli@broadcom.com>,
- linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org,
- devicetree@vger.kernel.org
-References: <20260529-add-bcm6362-wlan-v1-0-722242777f58@gmail.com>
- <20260529-add-bcm6362-wlan-v1-3-722242777f58@gmail.com>
- <20260530-psychedelic-cyber-seagull-140adf@quoll>
-Content-Language: it
-From: Alessio Ferri <alessio.ferri@mythread.it>
-In-Reply-To: <20260530-psychedelic-cyber-seagull-140adf@quoll>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-CMAE-Envelope: MS4xfKbqOYmpd1hiin7c3dRXZOyWZ9VpWySOYT0P0im5FE7DcsG/9wDEYC8ELRB+03jLaRTQ+H/pZc/g8ee1BV+E8criswdsvpBuiqfpa+tOEMcPGZ7r222q
- SmHh7TyDhH6mYRcj9aPmhGO3MKXCcitceWyccoKiUQfKLNRGkdyM1qfQXZr79dMTlbwPySGNeUFQAP948L8yZbKIOPKjSCOc3anAEXTUHqHoM7i5JkEXuK8s
- ZEgYZ+GDdSvM3F85/7bJcP0C1qA7jiTZv6GdlTvuOZ7uWBRx3aEcF47YDGDNOKAsFVP+AdRD+F+83A8jssAMYRACNp7R7t+L6/LNY5fSAJeS8FtCyfl10yva
- rbHqv/EU7joKpjlxRCWPhtMDhUcRgTOJzKXeKE0Tu0rVOa4ed/cGDjc0dC6DmSn3kTrh1/TCrZ6gpLnMuGuDnLtgVtvrJCKqnMcTSZL46NQbJtZA11WuN6by
- izTLL8EC5ZVfXg26fvEJKsTa6AXT6VOwv4uVNg==
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: Bryan O'Donoghue <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
+ linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
+ <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
+Content-Language: en-US
+From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+In-Reply-To: <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 02/06/2026 23:07, Vladimir Zapolskiy wrote:
+>> +    ret = fwnode_property_read_u32(ep, "clock-lanes", &clock_lane);
+>> +    if (ret) {
+>> +        clock_lane = CSI2_DEFAULT_CLK_LN;
+>> +        dev_info(dev, "Using default clock-lane %d\n",
+>> +             CSI2_DEFAULT_CLK_LN);
+> 
+> Why CSI2_DEFAULT_CLK_LN is set to 7, what does it mean and how is it used?
+> 
+> Since "7" is a meaningless number in the context, I believe it's 
+> practically
+> not used at all, and if so, 'clock-lanes' property should be just removed.
 
-Il 30/05/2026 13:50, Krzysztof Kozlowski ha scritto:
-> On Fri, May 29, 2026 at 02:06:01AM +0200, Alessio Ferri wrote:
->> Document the binding for the SHIM bridge that gates the on-chip
->> 2.4 GHz WLAN block of the Broadcom BCM6362 SoC. The bridge owns the
->> SHIM peephole, a single clock for the macro, and two resets (the
->> SHIM macro itself and its ubus side). It is also a bus: it carries
->> one brcm,bus-axi child describing the bcma backplane behind the
->> SHIM, with a standard interrupt-map routing the d11 core's IRQ to
->> the SoC interrupt controller.
->>
->> Assisted-by: Claude:claude-4.8-opus
->> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
->> ---
->>  .../devicetree/bindings/bus/brcm,bcm6362-wlan.yaml | 106 +++++++++++++++++++++
->>  1 file changed, 106 insertions(+)
->>
->> diff --git a/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml
->> new file mode 100644
->> index 000000000000..c8d49ccdd2c1
->> --- /dev/null
->> +++ b/Documentation/devicetree/bindings/bus/brcm,bcm6362-wlan.yaml
->> @@ -0,0 +1,106 @@
->> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
->> +%YAML 1.2
->> +---
->> +$id: http://devicetree.org/schemas/bus/brcm,bcm6362-wlan.yaml#
->> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->> +
->> +title: Broadcom BCM6362 on-chip WLAN SHIM bridge
->> +
->> +maintainers:
->> +  - Alessio Ferri <alessio.ferri@mythread.it>
->> +
->> +description: |
->> +  The BCM6362 SoC integrates a 2.4 GHz Broadcom WLAN block whose
->> +  register backplane uses the Broadcom AMBA (bcma) architecture. The
->> +  backplane is gated by a small SHIM bridge that holds the WLAN macro
->> +  in reset and disables its clocks until released by software. CFE
->> +  does not release this block, so software bring-up is required
->> +  before bcma can enumerate the backplane.
->> +
->> +  This binding describes the SHIM bridge node. The SHIM driver brings
-> 
-> Do not describe binding. Do not describe driver.
-> Describe hardware.
-> 
->> +  the macro up and then populates the brcm,bus-axi child node, which
->> +  describes the bcma backplane behind the SHIM and is bound by the
->> +  bcma-host-soc driver. The SoC-specific configuration (big-endian
->> +  accessors, SHIM-attached topology, SHIM Control register peephole
->> +  pointer) is delivered to bcma via platform_data injected at
->> +  populate time, so the brcm,bus-axi child stays SoC-agnostic.
-> 
-> How is it relevant?
-> 
->> +
->> +properties:
->> +  compatible:
->> +    const: brcm,bcm6362-wlan
->> +
->> +  reg:
->> +    maxItems: 1
->> +    description: SHIM peephole registers.
-> 
-> What is SHIM?
-> 
->> +
->> +  reg-names:
->> +    items:
->> +      - const: shim
->> +
->> +  clocks:
->> +    maxItems: 1
->> +
->> +  resets:
->> +    items:
->> +      - description: SHIM macro reset
->> +      - description: SHIM ubus reset
->> +
->> +  reset-names:
->> +    items:
->> +      - const: shim
->> +      - const: shim-ubus
->> +
->> +  '#address-cells':
->> +    const: 1
->> +
->> +  '#size-cells':
->> +    const: 1
->> +
->> +  ranges: true
->> +
->> +patternProperties:
->> +  "^axi@[0-9a-f]+$":
-> 
-> Use consistent quotes.
-> 
->> +    type: object
->> +    description: The bcma AXI backplane behind the SHIM.
->> +    $ref: /schemas/types.yaml#
-> 
-> Need proper ref. You could easily check instead of sending Claude slop -
-> is there any binding with above syntax?
-> 
-> You don't get subnodes for buses for devices not being the actual
-> buses.
-> 
-> Best regards,
-> Krzysztof
-> 
+Documentation shows clock lane at lane 7.
 
-Sorry for letting AI-slop pass through in this patch and excessive 
-descriptions. 
+Truthfully it makes no sense that the clock lane would genuinely be 
+locked to lane 7 but the documentation does seem to suggest it.
 
-SHIM is just the control block for the integrated wlan. Copied verbatim 
-from the original broadcom 96362 code.
+Yes in fact I agree. clock-lanes can be reintroduced if someone can show 
+hardware that supports/depends on it.
 
-For the last sentence, how should i map it? At the very least I need to 
-tell bcma that this is big-endian before it touches anything, otherwise 
-it will read/write garbage or even cause a panic. If necessary i can 
-pick up the quirks after reading the chip-id from the bus, skipping the
-new driver and the new bindings.
+---
+bod
