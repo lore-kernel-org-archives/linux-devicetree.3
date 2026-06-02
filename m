@@ -1,112 +1,118 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECF5A3D9DC7;
-	Tue,  2 Jun 2026 12:18:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAFC13C81A9
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:18:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780402721; cv=none; b=s5TdRAKiK9PAh53iP19YnsOxUQOoEkb2XtfZeVia0UeDSX9KDHQMXnxvGBOyKGNnYlBCqgBeW7Fdd7RELAOnqcu7kPCP0+Hb6CQ4Md+f+WLcOjU2IxnkwDs1GVoX5hIhkvfrtt/d9CToXUHyuy3xP8eXGo5PwZ1smvbKxq0htP0=
+	t=1780402733; cv=none; b=CkDRuaPOqN3XrePPULMtf9fHOr3kk8TlCMTpDPFncPkSxomdCGa9dhTMam1fyYjNY+u3p+8E6rmFOXwHuZm5GzWj8uedC1ugIrim19b/if/kIIVwZ+W6ZpdiPkE5GMDbhk/rFMiXu/2XmXmMjx86m0XRYZq+BQ4vfKt8e4D3rPE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780402721; c=relaxed/simple;
-	bh=z7JOGxH+HnsSBaqYX1QWBrmBLuqirw2iDXE3bDXzFuc=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iStXOkVbmLbBAavSBSLlZZIb16J3HZjEurUm1tLgpbTB2tRf0jqQXxll1kl5+TOBjnAXEJkthr6AgBUf9KlfkzH7Pi7EIh/a/+gGHUKAKoFJpgGcWRXnZBrDnhi7B4YeCEQrJLMZ30XWQP/0GvuvGPPP6VSNsxwFbQCcc99fCcc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lH257MTD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780402733; c=relaxed/simple;
+	bh=kGsKCEXO0ZUzl+8w3uTBJNuhgkcJWQGWwJRl+g4zDAA=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=VB7YyAxdjs8JC+B5QCNRxj1+dGqatVW/k3ZFNpy2/ADY79EfJcWxtJlLDFYFeNiUJoS9t+pAU9ZV//5h0DnQQVW24fz513WhSPSyJ1g77ghUBVmNzetgga1kF8z9UfY4tnKTdR2LB1USnfwxdppQqHxN/Cxk7p8kGwdWdjxcScA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=F4ukxueR; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lH257MTD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 220E21F00893;
-	Tue,  2 Jun 2026 12:18:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780402719;
-	bh=Ss7ojY/nLgTQfI5mOUTQBO8O5dUcKHmNe7UXFbpE0lE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=lH257MTDFI6DryJ8fj8OaVA3qjmRDorOJ+bisaieFGCHqR/vDZCKcIRwLp128EY/b
-	 KhdzIPUtyB0sgKGSr0A6OFsU7wUxdRUcFLEl+/oTn7A4cdNokaBHxid4CVgDcn4VPC
-	 ifQ9MAnBM+9aboyuLUdZRbH54+JREtrwLO7ugWAE44tgJxUBKPdsCQc1Fx87s2FlDC
-	 86oZplAZsbpP+l2sLMGR4FsL2ze7zmqAXFxbhPDt9hinIfYItwYR5hnEhT4XiG5Len
-	 qt6RelxK6UFhEI8I21CPGQBd15KH/s8IKThtSRxocAtWP4nXr5zFDhveqRokBgGeGe
-	 sKX08EaX3LRjQ==
-Date: Tue, 2 Jun 2026 13:18:34 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Javier Carrasco <javier.carrasco.cruz@gmail.com>, David Lechner
- <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
- Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Rishi
- Gupta <gupt21@gmail.com>, linux-iio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/2] iio: light: veml3328: add support for new device
-Message-ID: <20260602131834.2fe5677e@jic23-huawei>
-In-Reply-To: <CALoEA-xDSVOj0qkr6fYnQt0s1Xqh6acsVs7c7QKemWRaRh1i6A@mail.gmail.com>
-References: <20260530-veml3328-v3-0-dd562eaee8d9@gmail.com>
-	<20260530-veml3328-v3-2-dd562eaee8d9@gmail.com>
-	<20260531101940.037d1d7a@jic23-huawei>
-	<CALoEA-yEA5KcvXqZCCg76qFAgyNq8BQ5+gop442mju-9PiKaxg@mail.gmail.com>
-	<20260601101726.203f56cd@jic23-huawei>
-	<CALoEA-w8zX+bzpEfvGoafDaOr6Kd-USgsyZ6SRpV08Yw6MaVrg@mail.gmail.com>
-	<CALoEA-xDSVOj0qkr6fYnQt0s1Xqh6acsVs7c7QKemWRaRh1i6A@mail.gmail.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="F4ukxueR"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id B2273C6220B;
+	Tue,  2 Jun 2026 12:18:52 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 41356603BC;
+	Tue,  2 Jun 2026 12:18:50 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id B693110888429;
+	Tue,  2 Jun 2026 14:18:44 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1780402729; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=LDb4o52DTUweCNoaveunh0r8+3SLZ3VLRjrgEU8ebf0=;
+	b=F4ukxueRbcpmWVLMtCyjP8pu5HOz/aIu4z/6QeJu7cdoxhQ7cJDhxIu1oMOrZM1UAFwyob
+	aTrZLusfl8KLnYxou0aIsz+BGN9PSb3Pqg3A3ygNJA0a3jXyyT2lXVAFsT9Tv4uNat8J0H
+	b8Gc8eB+y6OiTIU8WL1Wk65mX2Bjv02CyJWSbw34U0xrtBn1PDJwVFjiReZfeRbdTeJwMC
+	mgtmwgZj422X0cAIdfUxSuvPhljWjKxGy5pzSANENbAISkYtAonhN+xiodHUC0pT7OkQWx
+	2ZYqxq58hl545Fg1Jx/v6CsgOfHznY3XwrdzKKvZZ1m6YJ8N6RdCO/99a04X3g==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Santhosh Kumar K <s-k6@ti.com>
+Cc: <broonie@kernel.org>,  <robh@kernel.org>,  <krzk+dt@kernel.org>,
+  <conor+dt@kernel.org>,  <richard@nod.at>,  <vigneshr@ti.com>,
+  <pratyush@kernel.org>,  <mwalle@kernel.org>,
+  <takahiro.kuwano@infineon.com>,  <linux-spi@vger.kernel.org>,
+  <devicetree@vger.kernel.org>,  <linux-kernel@vger.kernel.org>,
+  <linux-mtd@lists.infradead.org>,  <praneeth@ti.com>,  <u-kumar1@ti.com>,
+  <a-dutta@ti.com>
+Subject: Re: [PATCH v3 11/13] mtd: spinand: run PHY tuning after init and
+ update dirmap frequencies
+In-Reply-To: <2f509130-491c-4a66-9156-39b01b40e65f@ti.com> (Santhosh Kumar
+	K.'s message of "Mon, 1 Jun 2026 14:46:44 +0530")
+References: <20260527175527.2247679-1-s-k6@ti.com>
+	<20260527175527.2247679-12-s-k6@ti.com> <87mrxjg9zi.fsf@bootlin.com>
+	<2f509130-491c-4a66-9156-39b01b40e65f@ti.com>
+User-Agent: mu4e 1.12.7; emacs 30.2
+Date: Tue, 02 Jun 2026 14:18:37 +0200
+Message-ID: <87y0gx16g2.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, 2 Jun 2026 10:14:59 +0200
-Joshua Crofts <joshua.crofts1@gmail.com> wrote:
+Hello Santhosh,
 
-> On Mon, 1 Jun 2026 at 16:43, Joshua Crofts <joshua.crofts1@gmail.com> wrote:
-> >
-> > On Mon, 1 Jun 2026 at 11:17, Jonathan Cameron <jic23@kernel.org> wrote:  
-> > >
-> > > If you have time to figure out the path that causes that, it would be excellent
-> > > to have it recorded. I spent a few minutes the other day on this and couldn't
-> > > find it.  Maybe ask AI to figure it out :)  
-> 
-> Briefly analyzing this with AI (Gemini 3.1 Pro, just like Sashiko). I
-> noticed that
-> in drivers/base/dd.c the specific driver probe function is called and then
-> pm_request_idle() is called after it in _driver_probe_device(), which
-> is probably
-> the reason the sensor is suspended after probe even though I didn't
-> explicitly call
-> pm_runtime_put_autosuspend() (odd that this behaviour in the actual
-> driver base).
+>>> +	/*
+>>> +	 * Dirmaps were set up in spinand_init() before tuning ran; update
+>>> +	 * their op templates to use the validated frequency.
+>>> +	 */
+>>> +	if (!ret) {
+>>> +		struct nand_device *nand =3D spinand_to_nand(spinand);
+>>> +		int i;
+>>> +
+>>> +		for (i =3D 0; i < nand->memorg.planes_per_lun; i++) {
+>>> +			if (spinand->dirmaps[i].rdesc) {
+>>> +				spinand->dirmaps[i].rdesc->info.primary_op_tmpl.max_freq =3D
+>>> +					spinand->max_read_op.max_freq;
+>>> +				spinand->dirmaps[i].rdesc->info.secondary_op_tmpl.max_freq =3D
+>>> +					spinand->max_read_op.max_freq;
+>>> +			}
+>>> +			if (spinand->dirmaps[i].wdesc)
+>>> +				spinand->dirmaps[i].wdesc->info.primary_op_tmpl.max_freq =3D
+>>> +					spinand->max_write_op.max_freq;
+>>> +		}
+>>> +	}
+>> Unfortunately, hot fixing the dirmaps is invalid. When we take the
+>> best
+>> variant, we select a maximum speed that may be lower than the tuned PHY
+>> speed. We cannot just overwrite that value without consequence, because
+>> depending on the boundaries we cross, extra dummy cycles may be
+>> required.
+>> I believe spinand_select_op_variant() shall be aware of the different
+>> possible speeds. It should look for the max_speed_hz capability and not
+>> for the base_speed_hz, and fallback to base_speed_hz in case of
+>> issue.
+>> Or otherwise, maybe we could go through the whole I/O variant
+>> selection again after tuning, with the actual maximum speed set.
+>
+> Good catch. Updating the dirmap templates after they have already been
+> created is indeed not correct, as the operation selection may depend on
+> the final frequency and associated parameters such as dummy cycles.
+>
+> Instead of patching the dirmaps after tuning, I'll move the
+> _execute_tuning() call before dirmap creation. This way, the validated
+> frequency can be written back into the selected read/write variant, and
+> the dirmaps will then be created using the final ops.
+>
+> I'll rework the flow accordingly and let you know the results once I've
+> tested it.
 
-It kind of makes sense as it's basically a now you are finished, should this
-be going to sleep call.  I never thought of looking there.
-I did some archaeology and via 3 refactors / bug fixes that call goes all the
-way back to the introduction of runtime PM 17 years ago.
+If this is doable, it is clearly the best approach, but on the other
+side you might need to know what is the read variant before running the
+tuning algorithm, so I am not sure it is feasible. I'll let you dig the
+topic and propose the best approach you find!
 
-
-> 
-> To err on the side of caution, I'd add a pm_runtime_get_noresume() call before
-> setting up autosuspend and a
-> pm_runtime_mark_last_busy()/pm_runtime_get_autosupend()
-> combo before registering the device. Technically Sashiko is correct, this isn't
-> explicitly done in the driver, nevertheless the driver base actually
-> handles this
-> if pm_runtime is correctly set up and callbacks are defined.
-> 
-> Jonathan - up to you if you want to fix up the driver since it's
-> already committed
-> or if I should send a patch (I guess it isn't that critical, but it
-> keeps Sashiko quiet
-> in future patches).
-It is fine as it stands - lets just keep replying to tell sashiko it is wrong
-until it learns :)
-
-Arguably we should be ripping out some of the dance that is going on in current
-drivers so as to remove unnecessary complexity.  I'm nervous to do that on anything
-we can't test.
-
-Thanks for looking into this!
-
-
-Jonathan
-
-> 
-
+Thanks,
+Miqu=C3=A8l
