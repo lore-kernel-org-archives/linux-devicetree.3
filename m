@@ -1,49 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 788793F23CF;
-	Tue,  2 Jun 2026 17:05:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 360983630B9;
+	Tue,  2 Jun 2026 17:06:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780419950; cv=none; b=LC/i5oOVD+2UCclBtnHe18PtKvO3FjFPwJ0w2sz47p1h959vx+LIuK5mLqmW1ZS6opnTkS3tTK5rxCUX8WAynIQUcrkcE3ssAiTeACEFelNphqlMWvoev57LJtnnwrZ5sbBq8xKiXdX8zIdn/pAkojGXzV3c5f7yfx2mgHgPAIQ=
+	t=1780420012; cv=none; b=AKTQzNwau6SmFkCUdrv4lBVPFEh1KOn3+OEnSTC9V+Qt0IB6RsdwOwRMjc0yIZWvhdpCSd2fXqXoBaW7fbiWm1OgZaQo7SLLiOmNzKS1iIY7R9UaC38nAa8JpwE1apcz4iArSgTuVlv7rV4smj9hr28EZo16/uK/XU8Q9js2XUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780419950; c=relaxed/simple;
-	bh=xyKCGJQZDGK3G2FCJl/YKe7tptgZeQVMQaGdQ+b+itY=;
+	s=arc-20240116; t=1780420012; c=relaxed/simple;
+	bh=JvxaA6wLGak/yScDoDzmcGWAWYWevX6q0IePQv9L8z4=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H0d/CxswCmZqqIYUbpLW8MzWm4xHedponFNjd6PD6Dl1tEr1v7ynnLlJMzH7dO3PFWbF+/lyufKVhoWbYJpUMuEVgxpnz+dcgzkGrRvLhrpE2k85saHhjnAVgyNW8uUQDgd9sPueXEd/86QBVNLHkI2QIXHToYPRrFDCAUfs0dM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A0ZwNhhE; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=WvT1rQipIgyPz1+BF0/o268ps6GrZcTw5V+LOeLA37ppN5e+n/0S3YnIIk7Ra2+3i/I1qiwTuu95GTwNTmDfmifCJv8HVkUTlmMxT5oO0f5mMckOUdxbEONkcbY10c/sFnVNH8dUDr7pK6pkrZmfBUk6YzffjjVD+9553vWOTlU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=de7iioJ7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A0ZwNhhE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E2C71F00893;
-	Tue,  2 Jun 2026 17:05:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="de7iioJ7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42A211F00893;
+	Tue,  2 Jun 2026 17:06:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780419949;
-	bh=xyKCGJQZDGK3G2FCJl/YKe7tptgZeQVMQaGdQ+b+itY=;
+	s=k20260515; t=1780420010;
+	bh=JvxaA6wLGak/yScDoDzmcGWAWYWevX6q0IePQv9L8z4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=A0ZwNhhEIQx/twahR0Vw8Cylrj0LTdm4cFnujxL4vF9Tzluz93wabOPISL7YAOdCC
-	 /Xep2829dWVTOLCMC8uWQ2WGHVUxviZ1njn/GfUcKvkuUNlvJrTsnciDgnWyU6SBRG
-	 zd3o1974m7ERc+z0bLvFl6zm4TT/D8XGPklnP8maLQdrueY/nI6oSSzj2IMQLCPfme
-	 PskLTrFefpGo/PgXLqjwWyMmvfedE5ENbbQJ2q6YJsK57uV+owmlXab+wGsRWSyXus
-	 L6oUegbyM5EQKz/xBrJiUdRqoF1aANSVHX9M5VWucvDVyCbYuCBbBzR1Z9PZZE0P2f
-	 y0lGtWyhhzzkA==
-Date: Tue, 2 Jun 2026 18:05:44 +0100
+	b=de7iioJ7xSO3IExCUfBkzcWLtfP29drdiVXjTMUQym0gjcgHsMrJVlI/NbCviNM2U
+	 NvCPFg16YNWudw0QSBb58CS+VLKbA/gbE94MdXP7hMvuTE/GtTGwx/mHakKt/OPYeW
+	 C0k5i6rANfaNemqCOvvorEXtGNhn5OG/Oyprjq7fvhY0FBI9cKZ6dHKIGGkA44Cd0y
+	 Of0aC/O5TDI8j+IOWFWRdUqsfnDOLYbGfSEUHYmLfET6fT7iQ21gr1G3EpXIFgli9n
+	 pf4V4xNihF5PFgGM7RW7RwsEh3hc3EiGuY7LbGeV72RJnQKtXBw82E5rA2ucIP7Em7
+	 kdNjiY5/n1lxw==
+Date: Tue, 2 Jun 2026 18:06:46 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Taha Narimani <tahanarimani3443@gmail.com>
-Cc: Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Biju <biju.das.au@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	"open list:IIO SUBSYSTEM AND DRIVERS" <linux-iio@vger.kernel.org>,
-	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
-	open list <linux-kernel@vger.kernel.org>
-Subject: Re: [PATCH v3 RFC v3] dt-bindings: iio: adc: add ad7816/7/8 digital
- temperature sensor / ADC
-Message-ID: <20260602-pork-unsightly-fd091c88e5a3@spud>
-References: <20260530165917.55767-1-tahanarimani3443@gmail.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Biju Das <biju.das.jz@bp.renesas.com>,
+	Wolfram Sang <wsa+renesas@sang-engineering.com>,
+	linux-mmc@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>
+Subject: Re: [PATCH 01/17] dt-bindings: mmc: renesas,sdhi: Document RZ/G3L
+ (r9a08g046) SoC
+Message-ID: <20260602-rogue-deliverer-a31566cfe35b@spud>
+References: <20260530160823.130907-1-biju.das.jz@bp.renesas.com>
+ <20260530160823.130907-2-biju.das.jz@bp.renesas.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -51,50 +51,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="CpDupIcLePCtqUOU"
+	protocol="application/pgp-signature"; boundary="bYqJ8tXxQoBZPBpW"
 Content-Disposition: inline
-In-Reply-To: <20260530165917.55767-1-tahanarimani3443@gmail.com>
+In-Reply-To: <20260530160823.130907-2-biju.das.jz@bp.renesas.com>
 
 
---CpDupIcLePCtqUOU
+--bYqJ8tXxQoBZPBpW
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Sat, May 30, 2026 at 04:59:15PM +0000, Taha Narimani wrote:
-> Document the Analog Devices AD7816, AD7817, and AD7818 digital
-> temperature sensor and ADC bindings in YAML format.
->=20
-> Please note that the driver for this device is currently in drivers/stagi=
-ng.
-> This patch is sent as an RFC to clean up and standardize the device tree
-> bindings prior to any major driver refactoring.
->=20
-> While reviewing the AD7816/7/8 datasheet to correctly document the proper=
-ties,
-> it was noted that the current staging driver attempts to request a 'busy'=
- GPIO
-> for both AD7816 and AD7817. However, the AD7816 is an 8-pin device and do=
-es
-> not possess a BUSY pin (only the 16-pin AD7817 has it). Therefore, in this
-> binding, busy-gpios is strictly limited to adi,ad7817.
->=20
-> This resolves the checkpatch.pl warnings regarding undocumented DT
-> compatible strings.
->=20
-> Signed-off-by: Taha Narimani <tahanarimani3443@gmail.com>
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-This seems probably okay, but I'm not willing to ack it as an RFC.
-
---CpDupIcLePCtqUOU
+--bYqJ8tXxQoBZPBpW
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8NaAAKCRB4tDGHoIJi
-0oc8AP9VR5xZ4NU7c4XPZ38IdL+eybEQw3mnkqkSYza17qw8bQEAlLXVFe96Nk9m
-321vYPoyGK+lBVqnqCtQAodz7uekNg0=
-=y12F
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8NpgAKCRB4tDGHoIJi
+0l6QAQCYjEsal5suzX4C1XiCUsI466bNWYMUQPuZkulex7BguAD+PQC629ifFQKL
+mM0ycGlv5ihKJxQWSvYUBJLlctuRTQc=
+=6++B
 -----END PGP SIGNATURE-----
 
---CpDupIcLePCtqUOU--
+--bYqJ8tXxQoBZPBpW--
