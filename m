@@ -1,151 +1,89 @@
-Received: from out-189.mta1.migadu.com (out-189.mta1.migadu.com [95.215.58.189])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC9A823EAAF
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 03:06:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.189
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42D622C234A;
+	Tue,  2 Jun 2026 03:10:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780369596; cv=none; b=Ee2hZEvz+UdmS+UPnGwGnLiBsmu3v7REKQdx0iRfteHw4TIWVp0AEjMP4Vq5KyGrU3AtSir9nz/Whk9mUf8TKrtvH/KPdAzJ4Xjf4QB1vX33t/4Gqay5jSXtauqOSUHvpYFv8pRbVVJTLfo8bLmqwyfG1xVhrYPAzQiYcAwDhlY=
+	t=1780369818; cv=none; b=OGmCjn3MT4zc3PmXIFOB/jho1otYvxUFCD19dU1QBTj0YRSn8V+oXXi3gVcwvAQKDAZ03HVCmQY2uJWjVopVc+7YEOVAsGrqjKCktG1SBFgxaTpnWmho4QvpKxmPvwnQoABZn8FYCYZLea96iHWQF38MJlxdtypI0H3usuezwsU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780369596; c=relaxed/simple;
-	bh=quBqK+pAfJg8IQ6QPWniQxuzvmKmI37+PJNOoXvhQms=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bxsnLWIb89RRn9VXNNMz+EY/qQFLhE1nRa6cRcB4mBvRuf8XKqp6ndOdlonfT0loc/Gz8kuEo+1sVkFY8APhj736+X8WumrGsTt5KALkfzkHMA+GQKA2HFWNfuVq0OagAtzrPvJhxK0YpJTRbfjbYyjqvC7BQ2CxZtUmcfgP8Wo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FfbPNmSq; arc=none smtp.client-ip=95.215.58.189
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1780369818; c=relaxed/simple;
+	bh=CdPXZbD5j9q9+fmaCC4wnqSPQZ6cpYJ3q7fRXnDN7lA=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=T2VEbcKtsjTVmOHQ8TRvNXJ1bL58RsLpZ69lY7M4LMhq/hWyr4QhV3ej8lnT9s5iT/tNKqIT27amw3ytagS7aXVBuZtmpjRQnBSOlYgmMS0cuwy0D3GXIYDg8ojH4jXHCJfSHBf5vXoZA+4SF385J/gm5X0cduZq3oRVuAAchco=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YqPyqP/6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FfbPNmSq"
-Date: Tue, 2 Jun 2026 11:06:11 +0800
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.dev; s=key1;
-	t=1780369591;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=P70qjRmAyMymwJPTMfOq+4DYcvFmuGavpK8tS3QAMZ8=;
-	b=FfbPNmSqGFBVUXMW60W8WZklD/5OswTsE3vOOKJWBoPQkE+ieiKrsI/w+0/boUf1oyoQTr
-	a6KYsX23L/elGm5bXPqfLcPYLugymhGemNGpdBX9bswHkYCZ207Y83Ojwb0HZ4Gy7cbZDl
-	Ei0P5PYrgBGvOUgIoJMhYqqLwwkMndo=
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and include these headers.
-From: Baoquan He <baoquan.he@linux.dev>
-To: Jinjie Ruan <ruanjinjie@huawei.com>
-Cc: corbet@lwn.net, skhan@linuxfoundation.org, catalin.marinas@arm.com,
-	will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name,
-	maddy@linux.ibm.com, mpe@ellerman.id.au, npiggin@gmail.com,
-	chleroy@kernel.org, pjw@kernel.org, palmer@dabbelt.com,
-	aou@eecs.berkeley.edu, alex@ghiti.fr, tglx@kernel.org,
-	mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com,
-	hpa@zytor.com, robh@kernel.org, saravanak@kernel.org,
-	akpm@linux-foundation.org, bhe@redhat.com, rppt@kernel.org,
-	pasha.tatashin@soleen.com, pratyush@kernel.org,
-	ruirui.yang@linux.dev, rdunlap@infradead.org,
-	feng.tang@linux.alibaba.com, dapeng1.mi@linux.intel.com,
-	kees@kernel.org, elver@google.com, kuba@kernel.org,
-	lirongqing@baidu.com, ebiggers@kernel.org, paulmck@kernel.org,
-	sourabhjain@linux.ibm.com, thuth@redhat.com, ardb@kernel.org,
-	masahiroy@kernel.org, gshan@redhat.com, james.morse@arm.com,
-	maz@kernel.org, leitao@debian.org, yeoreum.yun@arm.com,
-	coxu@redhat.com, suzuki.poulose@arm.com, cfsworks@gmail.com,
-	osandov@fb.com, jbohac@suse.cz, ryan.roberts@arm.com,
-	tangyouling@kylinos.cn, ritesh.list@gmail.com,
-	adityag@linux.ibm.com, hbathini@linux.ibm.com, bjorn@rivosinc.com,
-	songshuaishuai@tinylab.org, vishal.moola@gmail.com,
-	junhui.liu@pigmoral.tech, djordje.todorovic@htecgroup.com,
-	austin.kim@lge.com, namcao@linutronix.de, djbw@kernel.org,
-	chao.gao@intel.com, seanjc@google.com, fuqiang.wang@easystack.cn,
-	liaoyuanhong@vivo.com, makb@juniper.net, graf@amazon.com,
-	piliu@redhat.com, rafael.j.wysocki@intel.com,
-	mario.limonciello@amd.com, jbouron@amazon.com,
-	chenjiahao16@huawei.com, guoren@kernel.org, bauerman@linux.ibm.com,
-	bgwin@google.com, takahiro.akashi@linaro.org, x86@kernel.org,
-	linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org, loongarch@lists.linux.dev,
-	linuxppc-dev@lists.ozlabs.org, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org, kexec@lists.infradead.org
-Subject: Re: [PATCH v15 00/23] arm64/riscv: Add support for crashkernel CMA
- reservation
-Message-ID: <ah5Ioxs9aLxKIKWg@MiWiFi-R3L-srv>
-References: <20260601094805.2928614-1-ruanjinjie@huawei.com>
- <ah2Lx7KHI60tzd0v@MiWiFi-R3L-srv>
- <1a459706-80db-43d8-b163-76fc09da338d@huawei.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YqPyqP/6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E398A1F00893;
+	Tue,  2 Jun 2026 03:10:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780369816;
+	bh=MVK+ez5S2h1Xv9Lonr2tNkxvedzyuxQASoNieH4/EYg=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=YqPyqP/60tv2uyAFgYdzz7jaGWJRnWBVlMjNMsmz1lQOuI4I0deSQQKOts3XB1Dkz
+	 zITfa5yzWyGjZLK8EsvUwJWsG1eeejTLRxVmHF5V3mpAtuAVtUQvsjv+fpl1g11IDh
+	 0mBVtn+v0o90ic5uWHZVhTns3W6LAvmgetb8r4oykt/9Rh0CFo4ph+fPsK0tdwtLcB
+	 4yjmujjZMgVwIH4W1/rbNImAuRamPkrZKYkosrCjxQk0q4S9FcQzsG6Fx1O1BDQdUx
+	 0crfvLRfn2exVJSkNbQr5A0I8X8JG74bG870l6ODXWjsFwBYclmCYxPhNHCot2fyrf
+	 0UdvjHsHuQcTw==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 56AB938119F9;
+	Tue,  2 Jun 2026 03:10:20 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <1a459706-80db-43d8-b163-76fc09da338d@huawei.com>
-X-Migadu-Flow: FLOW_OUT
+Content-Transfer-Encoding: 8bit
+Subject: Re: [net-next v5 0/4] Add StarFive jhb100 soc SGMII GMAC support
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178036981914.224606.5617424802966318344.git-patchwork-notify@kernel.org>
+Date: Tue, 02 Jun 2026 03:10:19 +0000
+References: <20260527084108.121416-1-minda.chen@starfivetech.com>
+In-Reply-To: <20260527084108.121416-1-minda.chen@starfivetech.com>
+To: Minda Chen <minda.chen@starfivetech.com>
+Cc: alexandre.torgue@foss.st.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ mcoquelin.stm32@gmail.com, emil.renner.berthing@canonical.com,
+ robh+dt@kernel.org, krzk+dt@kernel.org, conor@kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com, devicetree@vger.kernel.org
 
-On 06/02/26 at 09:43am, Jinjie Ruan wrote:
-> 
-> 
-> On 6/1/2026 9:40 PM, Baoquan He wrote:
-> > Hi Jinjie,
-> > 
-> > On 06/01/26 at 05:47pm, Jinjie Ruan wrote:
-> > ...snip... 
-> >> Changes in v15:
-> >> - Unify the subject prefix formats as Huacai suggested.
-> >> - Fix powerpc pre-existing NULL pointer dereference [Sashiko [1]]
-> >> - Fix powerpc pre-existing __merge_memory_ranges() memory range
-> >>   truncation [Sashiko [1]].
-> >> - Fix pre-existing arm64 CMA page leaks [Sashiko[2]].
-> >> - Fix pre-existing crash_load_dm_crypt_keys() Use-After-Free and
-> >>   Double Free issue [Sashiko[3]].
-> >> - Fix vfree(headers) and uninitialized variables issue
-> >>   and simplify the fix [Sashiko[2]].
-> >> - As walk_system_ram_res() and for_each_mem_range() use different
-> >>   lock, unify and simplify the fix of TOCTOU buffer overflow via memory
-> >>   region padding [Sashiko[4]].
-> >> - Fix the arm64 crash dump issues in Sashiko[5].
-> >> - Link to v14: https://lore.kernel.org/all/20260525084932.934910-1-ruanjinjie@huawei.com/
-> > 
-> > Do these Fixes have anything with the main target of this patch series
-> > you mentioned in cover-letter:"arm64/riscv: Add support for crashkernel CMA"?
-> > The patches become more and more in each new version, I am wondering if
-> > it relies on these Fixes patches to implement your adding support for
-> > crashkernel CMA on arm64/risc-v.
-> > 
-> > If not relying on them, could you split them into different patchset
-> > on different purpose? 
-> 
-> Hi Baoquan,
-> 
-> Thank you for your valuable guidance.
-> 
-> You are absolutely right. Most of these fix patches are indeed not
-> strictly related to the core implementation of the crashkernel CMA
-> support. They are pre-existing bugs in the surrounding kexec/crash code
-> that were flagged during our review.
-> 
-> Previously, Andrew suggested taking a look at the code review comments
-> from the Sashiko AI system, which is why these fixes kept expanding. I
-> completely agree with your advice that there is no need to keep them
-> together. I will split them into two completely different patchsets
-> based on their purpose:
-> 
-> 1. A cleaner version of this series, strictly focused on adding the core
-> crashkernel CMA support for arm64/riscv.
-> 
-> 2. One standalone bugfix patchset dedicated entirely to fixing these
-> pre-existing issues.
-> 
-> By the way, I would also appreciate some advice on how to handle further
-> AI reviews. It seems that the more code we touch or refactor to fix
-> these pre-existing issues, the more tangential bugs the AI flags in the
-> newly exposed areas, making the series extremely difficult to converge.
-> 
-> Should I continue to address all AI-reported bugs associated with the
-> surrounding code in this series, or should we draw a strict line
-> and only focus on the core CMA logic moving forward?
+Hello:
 
-Then please post patches to focus on the core implementation of the
-crashkernel CMA support. If any AI reported bugs are raised but not
-relatd to it, you can add note in cover-letter or explain somewhere
-to tell whehter it's caused by the core code and how you want
-to deal with it. Otherwise, you could go round and round of new posting
-and still can't see when it ends up.
+This series was applied to netdev/net-next.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Wed, 27 May 2026 16:41:04 +0800 you wrote:
+> jhb100 is a Starfive new RISC-V SoC for datacenter BMC (BaseBoard
+> Managent Controller). Similar with Aspeed 27x0.
+> 
+> The jhb100 minimal system upstream is in progress:
+> https://patchwork.kernel.org/project/linux-riscv/cover/20260508053632.818548-1-changhuang.liang@starfivetech.com/
+> 
+> jhb100 GMAC still using designware GMAC core like JH7100 and JH7110,
+> and contains 2 SGMII interfaces, 1 RGMII/RMII interface, 1 RMII
+> interface. In JH7100/JH7110 dwmac-starfive.c have supported RGMII/RMII
+> interface. So require to add SGMII support to dwmac-starfive.c for JHB100.
+> 
+> [...]
+
+Here is the summary with links:
+  - [net-next,v5,1/4] dt-bindings: net: starfive,jh7110-dwmac: Remove jh8100
+    https://git.kernel.org/netdev/net-next/c/106ce4a01c17
+  - [net-next,v5,2/4] dt-bindings: net: starfive,jh7110-dwmac: Add jhb100 support
+    https://git.kernel.org/netdev/net-next/c/64772e4d06a5
+  - [net-next,v5,3/4] net: stmmac: starfive: Add jhb100 SGMII interface
+    https://git.kernel.org/netdev/net-next/c/98182c748125
+  - [net-next,v5,4/4] net: stmmac: starfive: Add STMMAC_FLAG_SPH_DISABLE flag
+    https://git.kernel.org/netdev/net-next/c/7e9ea8de277a
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
