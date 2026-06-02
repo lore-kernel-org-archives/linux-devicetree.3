@@ -1,155 +1,250 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011020.outbound.protection.outlook.com [52.101.70.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7209233F5A7;
-	Tue,  2 Jun 2026 17:38:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.20
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780421934; cv=fail; b=ZHK8fv5WYuFZEPw1xXUQrDm6Stt3DWRfmIwnT1mCQ897cQY9N8/TPlf6IV0UIwGoAiL40xkiz7Hz8ZZdt7wnOdiJnpQH71m5qy2QW1RUhWoOrIeig87IqsjHV/PLEeYOpqyzKFLwETZkimBn8LNbjjn2cFaNAku0Jm7o3baKvi0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780421934; c=relaxed/simple;
-	bh=8gBWW9zv4Z3QCX5Mi3ZeSp1IrBrHw2hRl1Q/HVEzOBQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=FcpSZiwhuXuUi7lSaiwAXYdeLWBJvAYkLGD8upQXVHZqhQOhAqIQmh1T2uIWPyUaRzrljquhe3Utjg1HqwTJ1O4kbwep6abhw+FMNF+rMBw3yOoL0hquFij5S2cJW7S5xYefKS6iF1GQw6YBopGMMZOgvDWQD06Bhx8cAIteDvQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=MtcIGtvG; arc=fail smtp.client-ip=52.101.70.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 865973FE36A
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 17:54:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780422892; cv=none; b=YDG1TqMDuYHIqKuDDLtaGZaG8Mj8TjvbXvFRu/KYcD+/pJXW2XOSTraf1q4fRU1+9ECg0pStJHrF0ru/i9x1iPtWR17lwi6DfWiH8aT16rQJiHyDqlqI+EPxNTaY4GGc8CwaT5m1nqgsZqjjcXz2xvEf8GX+45c+mLx7WdRfV48=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780422892; c=relaxed/simple;
+	bh=1cRWuA7CYRnjUrDrA88KiIVqyalvj7E0eefInPFai4g=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Subject:Cc:To:From:
+	 References:In-Reply-To; b=QjGH03T5RAS8cwUXZjHevhGUjz+EpWmtb/IJWHLsAy8ze04SUKUfLG7WByHEl4gtDU1UfYE6tM7/LEMYP/04fFyW80q6kbycQXQK9p3rWd2JTjFYtu4HIZKyhlyWS0nAWZk3Od8Md91mQ3y9QbSNyt7Lav5AP+zdsZ78KppOsOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HEKctNh6; arc=none smtp.client-ip=209.85.128.48
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="MtcIGtvG"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=WpBCoZq0WbrQey7UvxXcBCYWpbdhgWXcQz3aPdSfYHb7oifM3+MZr0+sWfDh6vOIFvTXC6XqqNwdymt+b2Y3uFzohgJQ3RbusRtLjWyaEKHNYua9rbu2OHqcfaUR03qxRxyH7ulUit25UDjionjzHfff6qkK9fsab/fA+NqfI8B7Qqe8z3kZZnkUe+RBvIJJH9F3jTNl2lS4D0Ati2b/ILft71lH743TzFppG6FBkYDG0phtbWnCNsyEOGj5bsv6sOthXBEA3I2Ugnq8LYTwb3UV5VvSiLvNewKFahvkC0SrGfevf2snxtASvL91BVnyspof9u7TgtHKWlgHstL7og==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=s+bjb8pBuGzZ0gB+ramnibklBUi8/zdxzYrcccrO2/A=;
- b=dekWn7FnBha1ldpet8EexedKhCJ8jQXzW1UwmLeqxApvocPtreT3ZV4hbBoh+aymXnfx9ELAA759Ao93G32p7OC1uYsniKjSZ5AtbJlJdEG0aBqYhZ8ULFtBeNzyVwt+FVPZAgwjbb1tCXWj4z063YYEewou8k040byo2kYPEaGhc+SjNhruvXh9RkAqk/piRXNvvWLe3+cQjsZjaTD1fNFuOevFiXRf55ccdnzLMxjkiRNj/f4sQjkOw+WtoYTZNoNvJ3mFiFE9rXdHDKmyDSszYBEHU+5NCWDsC1z2EQyWHq3c6TnqjVrXju2gzB3N7nqKS/qKh4pflxxE7X9tYQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=s+bjb8pBuGzZ0gB+ramnibklBUi8/zdxzYrcccrO2/A=;
- b=MtcIGtvGRZFtJ7LHq8lkvil4MDqmRoHFH8KIv/KoLKE9wEUsxzCBYBC6YMnmR3CGID/OALPy+daKvnQCue6/G2+ZrANeXt+frd4g4BVXoAr6CyggeTYbhHJGciooo1g9MCd9iWHrhiy9FvhjTNcnlPMwzOLrnunBf5aeGhNfdUv7fpe5Mj3y2bmTOgMEyHY6bDuNf5aV6XlCZp42DWyNypJP//ns9/Gi7NCqmoi6cOhUxZQg5qaTkgJrIFwGE7rb7VRiQ+kU4/Y3uWqLSc85Wamc+yRnQrd62N4rNgCbndE9MaGZgbuzfj02rWwIjzS4nodLY5XjDzwKFI9TL1GmOQ==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by GV1PR04MB10702.eurprd04.prod.outlook.com (2603:10a6:150:211::21) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.16; Tue, 2 Jun 2026
- 17:38:50 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0092.006; Tue, 2 Jun 2026
- 17:38:50 +0000
-From: Frank.Li@oss.nxp.com
-To: Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	linux@ew.tq-group.com,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Alexander Feilke <Alexander.Feilke@ew.tq-group.com>
-Cc: Frank Li <Frank.Li@nxp.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Sascha Hauer <s.hauer@pengutronix.de>
-Subject: Re: [PATCH] ARM: dts: imx7: add nvmem-layout
-Date: Tue,  2 Jun 2026 13:38:42 -0400
-Message-ID: <178042191833.3444635.17578938563345180383.b4-ty@b4>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260527093719.160777-1-Alexander.Feilke@ew.tq-group.com>
-References: <20260527093719.160777-1-Alexander.Feilke@ew.tq-group.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
-X-ClientProxiedBy: SN7PR04CA0192.namprd04.prod.outlook.com
- (2603:10b6:806:126::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HEKctNh6"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490acbb0f89so13420575e9.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 10:54:50 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780422889; x=1781027689; darn=vger.kernel.org;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=/y3VfIHXupfD9Wrr+gIYVpG9u9vvvf2stdsP3kfUmSU=;
+        b=HEKctNh6kxRzP6fnuggwJ15RB9GZwWfirEIgWZL7UEPQ9UJPz9SJREr0VAU+i/MHcX
+         QcdV7QuzSwmjxiSZ2DD0D3kuFWRIvl4/nLXJx2uRntlTOPRZDARLK2hT02QM7JoqDbnW
+         bkGyeJ4wvDPIxOnF0Xi+DMcU8A+EXMHSueyUSWbVZyvpUIyaPimwGgurM7jdLFDpyEPO
+         1R3PsILsqrb28J96ZCR2Gr84xDt+DbwAUh/XzT1XJfAS1138U7Sk5kGEuEWus94/M5bH
+         xptgOueG80DFR40y4wbmeHbKaPYjzUfe+VI2PIw8uXipcsK7379AlTdaP4731Rk2bxWB
+         +ucw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780422889; x=1781027689;
+        h=in-reply-to:references:from:to:cc:subject:message-id:date
+         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=/y3VfIHXupfD9Wrr+gIYVpG9u9vvvf2stdsP3kfUmSU=;
+        b=Y5cdwIahDXuSYLlJf4S+puHIFg4S20BxEpyaU4sCI91mJ5s/wUk0JLCtukYWODh71n
+         qQLagKAuYiZQQ8i8cmLE54zjyoMlWM5DVT/O1uFKM6XkiEuJunhnuJxw4FrfQb2h9jCV
+         PdQPH2A+J1eltZYWLDakbSp+rPMOVu5QJm3H2DL0fP9N5fM/7+VA4kvRNY9NmXbpyGxO
+         mEBzHLJotW+ydFog15KkK8zWqviJ/z1+b2P9vy+oYM00iBzAw0q5jm8WP/uFSN6wY4lR
+         eu7T5/LzdO02j0fOjE2r27Q8/RMpD7PazNrzJPG3xOmrWj+cQLV1qwcef4thmymEbvl8
+         B7DA==
+X-Forwarded-Encrypted: i=1; AFNElJ89IAGO4NJA3u3R2L8ctnacCneNGNFRAQcLOv5puofMmMerSqXqShKW7bAkn/IEbh5QjkqOYUosCwUd@vger.kernel.org
+X-Gm-Message-State: AOJu0YxSdrusl+OCagHilnjqVdnXsDPWWWnky8yMSTH1eQULXeGKHAxF
+	7o2S6Iyd3mKKeo9poc7I7yYEcj23Iesu++RKryIMscLmi3sHKBTHzr8c
+X-Gm-Gg: Acq92OGQ906FUJ1cFuGx8hMziGuQkaxBIbvwBnNhf9LF3TVsN4zQVBJLK4qaYCwIvlK
+	sS6pDVnUKNHiJvbWMVC0bES6JWyZX4025Z6rioelAuL9v99dShbUfojv4j0IQMy7NqZ2HDMMAf6
+	SfFo6y5r8W72T/nJSw6U+yZvV8+1fJfQRO/0mehSbhWnI5a1wj7RRVb6BpP4fND/bVqxMqaaNGh
+	4kUGF02LJ1fkcHvsZFzrHMJiXi1YmeAMyWOTr7nSefkwBdPFVT47UtVXlopzGjePZ3Dz65ZfXi7
+	17KEWtBU4I//52Q8ujOzCdm6tyA2pMKR60EP29wROfr3DlZu/QzEUbdcmyN+WpXkg/OBW2ntAg5
+	+ZlJ2a2Snf0Ta1OS4m2H66JmLjw7PA3ihT8Vzl4bLRLX+qlAGyXKAwRPB988BaQzwSM2B4P/NSz
+	JvvANcvYW/+WSRUhxm5c8VZJAQxj4sdt7GlVT+HgAfH9r1Fv8=
+X-Received: by 2002:a05:600c:a41:b0:490:a964:14f8 with SMTP id 5b1f17b1804b1-490b505560dmr14093255e9.8.1780422888581;
+        Tue, 02 Jun 2026 10:54:48 -0700 (PDT)
+Received: from localhost ([2001:4bb8:152:df59:3b69:56ea:a39b:adb4])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f344541sm788685f8f.22.2026.06.02.10.54.46
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 10:54:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB10702:EE_
-X-MS-Office365-Filtering-Correlation-Id: 0181f631-9dc6-46d0-be3e-08dec0cdce92
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|19092799006|376014|7416014|366016|22082099003|18002099003|11063799006|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	ycktSpLPRkjx+vUAKr94C2ZT7hX4RMMbZAW/3W6YbptaFI9RRnpYKaCUrSfjE89G3YaJjxn0K0c/qWOlihI70y5rE78dES11xwFnBuMiYxxOiudSnGS3iYmggifVeLKczUDY8jW9RXwuhIBxcKBtJLG5A5u40lVRUJLBrGYryAmAi9IxYdZX5GSSWYgiX+1FA/V2rJ+cF06rTNpCIp9NXPwmCSW8zraumKob5rJyYGRrdE5vxGNI9ruOyGa+H+0/ZRmtl82Boi8Z/pPWUZXzOMgo8AFtK4vDTfhNxA3gg48KoopPl1ye06yJT/YxMw7B/aPYQ6CYRHLoi/8ZP4yd6Y6lvxBu+xqzyRQQqZqeWVhNSsx9SzCAQ6qCqeEBSEkjbREAUkoQM73NRn9jY5RCUdr3UpxtetlEPAIRlI2qTXeZ6FYLABsJfk1exWgxcWGPP9jsfJiBDNzluYU0W+mLkwUIMMSrxNq+LSIKPEPvhnbrDwkemU0O1rGdWutKVQkm3+8mZG2DkIJ5K9Wre0EYYXD828YGRYQd0B4Guy1W4uvCosQbncv5EZMpXJ3xmzdnpmMXgPz94ac75J0Gc6YrzNQx9qHpySG0w5/l3NyE2rjHNcGRFDrm7/e3Hc64eXq03KkmShSArQZTagEme0OVf+O5TOGev1Orpdv8LkN2d5JC7CNkA17hgXsRsiWFlUuy
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(19092799006)(376014)(7416014)(366016)(22082099003)(18002099003)(11063799006)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WnN0UVJxeVpRdnE4SmxhSVVFVm16allmVUpxTGRBTmd6MmdVUEtORys1MGZM?=
- =?utf-8?B?Si9jQkVwUGVSQXlHZ3JSb2dGK1hXQnhUSC9sL0dBWFRSWU1BS1VVMDlIN3Jq?=
- =?utf-8?B?Um5nK29IY25MY3FtYzFlQVcxcTdaSW0vUVlPQ2lrSjllTmtFbHZzeUNaOHFz?=
- =?utf-8?B?RUQycTJjb1AvSXlLSTJ5MGUvaTRIdlBTN0xaNmZzR1pxM202VjhGcHB2d3dp?=
- =?utf-8?B?QjhqYXZtTVIyTmZLRk56akZNYUhEejVNelFaSFU5Z0t4OHY1MXpJY1BZbUln?=
- =?utf-8?B?bTZzYk9hK0Z5RzZHdVZOazBoVjJtdDhoNjZzUXR0eTZjTVlqZnRJaVZjbzNP?=
- =?utf-8?B?aG0yWDV2MU9kRmNOT2RSSlRnNXl3MmlHV3ZiL1hTNlZUUE1xeGc2Mk1aU2Rn?=
- =?utf-8?B?eHdhVHZCSnVIS0oyNTdMMkxuaWlmSnBHL2l5aHkvOHRYRlFvTWpXR0l4aG53?=
- =?utf-8?B?K1V0ZzBoRjZCTUZUN0VZb3Y1WWNvLzh1TFNJWEsyMjZCWjEzT3FqcTNqTzhZ?=
- =?utf-8?B?djBQUU9PN1RUL2x1R0xpV3RlUUJvemxxVGMwZC9FWDdyWFVyemcvM0ZHT2Z0?=
- =?utf-8?B?MTVISjMvUjExRGg1U2NwUW1tZ29QSUtFUDZTekpZemlVYytpRXpuNEQ3cmdi?=
- =?utf-8?B?L00xZ21FQ2FVcjUxY0FOeUh6TXBJZDBLbTJjMmR6bVdQY2RhTlFiZTFvSjkx?=
- =?utf-8?B?S2J4MVBrOUo3V3NqcEY3eWZnZ2dWblRJcWVEZ0wrOTFGZDlNTHVaNEppVGdH?=
- =?utf-8?B?V0YrK3ZEMGpkamxUR29Ea2xFUFZFdlBYeElqOFF4MTFnV2lsM1VSZG4rc3hp?=
- =?utf-8?B?ekh6ZlNFenNTTXJhUDZtTkhzYmd0Q0picVdiWW5uS0Z0UDdYQTkzRlFqOFBQ?=
- =?utf-8?B?Qms2TVpNSWhQZkFteDZ0a0ROSFVOSjFQNnJFa2QzdzB0bDNqQkIrbzFVaklk?=
- =?utf-8?B?VFEzeUNEUzdoWXg1RzhvN0lLY2dNNTZuR0E5b0kzb1ZnRm1rZ1duUFNLWWJu?=
- =?utf-8?B?SGJxWHIyTWxkQ2JZVkxDdE1DSWJsdDdEaXVwOHkwSVJCZ2JvM0hHbGNIb3Nu?=
- =?utf-8?B?SVp2NUx5UTFBRXpGa1VISlJ4cmlTaEhvTWhObDYzRi9aWlNFZytqVmNrc2ha?=
- =?utf-8?B?RGxvc1lnMXBnWGczbXhWSUxjcXlrbTZXbUZuRVowTXNSMWRrV3ZQMEtEMUFk?=
- =?utf-8?B?OThmT002eE5FUC9xTWg5Z2dMQ3Nsa1JuQkpUbWtDQ2RjNmFsbWduVkxScTRG?=
- =?utf-8?B?b210bU5Ia0M3a0tyM1R5LzA3bHNlNmFzd0NBRWZxQnFKZ0ZpRHoyRXZLNXpK?=
- =?utf-8?B?MnUyK1k3U3NWS0Z6cmpPTjdxSlBtU3ZRTndSTDZwUURraHRiZTdoazFLcFZG?=
- =?utf-8?B?VmtQU21rSktyRDZENnNuNktPVDBvUjZTeTc1MjlvMTZwUkVSRC9xNlNnd2hD?=
- =?utf-8?B?L1ZCb3hQaWRpa2o1L2J5ZHlZZGF6UTlLa1dxT0pvRk5QWVZLSHRuQWdjMnkz?=
- =?utf-8?B?US9aRHMxLzBVdkJkMjBSekIydUJ2b0xSUXUyc2QwRjhjRFZ5dGRkZlJ2K0ZG?=
- =?utf-8?B?Qnk2OWMwRzYxUWoxNDV6YkFLVEhFMi90M2RaQ3AvSVFZUTZoajlMcjcxVDIr?=
- =?utf-8?B?NVplR0NzV05aT1JFSmFPLzdoUHB2d3pSVzlWVjFodW1IbFVFUkN5UkVLUEVy?=
- =?utf-8?B?MU80NzArcjVXL05Pc0gyaDFxNzc4bUdGTXA0dXhMWHh0M2dsUzBFMHNvVUhY?=
- =?utf-8?B?UzJWSjRsdzNwMS9LRzV4TDRuYkVYRzB3dEVHdlhWVGx6M2hnaHl2dVRtd1V5?=
- =?utf-8?B?Wm9mbmx2Y01DWHZoWldUNU9uYTg3TEx5dnFvRXA4Q0kwYzROb05iVGlNMjc0?=
- =?utf-8?B?WHFPY1JWT1p5dXBQbU52RHN1TU0vMm14VThpNzhrd1RpRW1qbGY0WklRTy9T?=
- =?utf-8?B?SnoycS93d0tXM2dMTVU1WmdmY05qc1R5Mmw1emltN0xCNUtkcEw5cEJjSStV?=
- =?utf-8?B?SGgrTUxSSTlQdi9NdkJUcmkreGZnQzFyemh4Y3FBQzl5N0RlQlpPemtUTEE1?=
- =?utf-8?B?YUU5c1d3TDNSZmlvenMweHdtamdyWjJPdFFFUGZvQjRTT3BmSFVOWlVidUh5?=
- =?utf-8?B?bW8vZkdrVHBQTEg1bFYyTEh0Nk9ScEEzMk1xSnNRRGFYWXBYMSsrZ0lqNDd4?=
- =?utf-8?B?eVUzZTNJVlA2THlsTVMvZmNmTXVmQjBMYTNzaUFrVnlOZnVxUzFVS2c3VXM4?=
- =?utf-8?B?Qk5XVzJBUnB1TWx5MW1lY282RkRvWEVFQ01JTlBHalFEQ1UvK1h2Q0JnQ0xL?=
- =?utf-8?B?NTE4R1ZHekNSS3lMU2NyZm1ZR0lqMEdsVzA0U2RjVUZpMXRoK1JiUThBbEVz?=
- =?utf-8?Q?92kgPzVpWBLs+iAMQ2F+wOsvxDxr36m4IOPqP?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 0181f631-9dc6-46d0-be3e-08dec0cdce92
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 17:38:50.2767
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Axr0XwO8rPscFcdxa5ewSwviXMuprFpNBmHGs3q72gBKH8jca9k7RBVuv1CCEcS0nhidL7Fy9IKhYBZsezwLqwVYXZHVD4ju5aqOatK7CeQJkDDLUrglmRmnMsutolpM
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB10702
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Tue, 02 Jun 2026 19:54:45 +0200
+Message-Id: <DIYR8LZ64A9E.3JQG25Z0TJ06@gmail.com>
+Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Cc: "Lars-Peter Clausen" <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>, "Conor Dooley"
+ <conor+dt@kernel.org>, "Rishi Gupta" <gupt21@gmail.com>, "David Lechner"
+ <dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ "Andy Shevchenko" <andy@kernel.org>, "Matti Vaittinen"
+ <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+To: "Jonathan Cameron" <jic23@kernel.org>, "Javier Carrasco"
+ <javier.carrasco.cruz@gmail.com>
+From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
+References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
+ <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
+ <20260601112103.281387ee@jic23-huawei>
+ <DIXZFV822HRI.2SBIT7ADW9LUK@gmail.com>
+ <20260602133313.1d5afc51@jic23-huawei>
+In-Reply-To: <20260602133313.1d5afc51@jic23-huawei>
 
-From: Frank Li <Frank.Li@nxp.com>
+On Tue Jun 2, 2026 at 2:33 PM CEST, Jonathan Cameron wrote:
+>> >> diff --git a/drivers/iio/light/veml6031x00.c b/drivers/iio/light/veml=
+6031x00.c
+>> >> new file mode 100644
+>> >> index 000000000000..6f9a7bad44d4
+>> >> --- /dev/null
+>> >> +++ b/drivers/iio/light/veml6031x00.c
+>> >
+>> >> +
+>> >> +static const struct iio_chan_spec veml6031x00_channels[] =3D {
+>> >> +	{
+>> >> +		.type =3D IIO_LIGHT,
+>> >> +		.address =3D VEML6031X00_REG_ALS_L,
+>> >> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>> >> +				      BIT(IIO_CHAN_INFO_SCALE),
+>> >> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>> >> +		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME)=
+,
+>> >> +		.info_mask_separate_available =3D BIT(IIO_CHAN_INFO_SCALE),
+>> >> +	},
+>> >> +	{
+>> >> +		.type =3D IIO_INTENSITY,
+>> >> +		.address =3D VEML6031X00_REG_IR_L,
+>> >> +		.modified =3D 1,
+>> >> +		.channel2 =3D IIO_MOD_LIGHT_IR,
+>> >> +		.info_mask_separate =3D BIT(IIO_CHAN_INFO_RAW) |
+>> >> +				      BIT(IIO_CHAN_INFO_SCALE),
+>> >
+>> > Can we move scale to shared_by_type?
+>> >
+>> > Thinking on some of the others, they should probably be shared_by_type=
+ as well
+>> > rather than shared_by_all. If we ever add buffered support and a times=
+tamp
+>> > the integration_time doesn't apply to that.
+>> >
+>> > shared_by_all tends to only include things that are truely universal l=
+ike
+>> > sampling_frequency.
+>> >
+>>
+>> I am not sure if I get this point. This device has a single IIO_LIGHT
+>> channel, and the scale only applies to it. Are info_mask_separate and
+>> info_mask_shared_by_type not the same in that case? I have seen that
+>> some drivers use both info_mask_separate for INFO_RAW, and
+>> info_mask_shared_by_type for INFO_INT_TIME and/or INFO_SCALE, but that
+>> could make more sense if there were multiple channels of the same type.
+>> What am I missing here?
+>
+> Ah. I've been reading too many drivers. For some reason I thought this
+> had more intensity channels. My comment clearly garbage as you point out.
+> I maybe got thrown by how ALS sensors used to work.  They used IR only
+> and a clear window that covered both IR and the frequencies we need for
+> illumiance measurement. The light channel was then some combination of
+> the two. I guess they've figured out how to filter that IR out of that
+> these days.  That leaves me a little curious as to what applications actu=
+ally
+> use the IR channel.
+>
 
+According to the application note:
 
-On Wed, 27 May 2026 11:37:17 +0200, Alexander Feilke wrote:
-> TQMa7 has board-information located in EEPROM at offset 0x20.
-> Add necessary nodes and properties for nvmem cell.
+It can be helpful for an application to be able to differentiate between li=
+ght
+sources and react accordingly. The additional IR channel offers the
+possibilities to do a light source differentiation based on the IR content
+measured with the IR channel. A ratio between the IR and ALS channel can
+be calculated to determine the amount of IR light within the light source=
+=E2=80=99s
+spectrum. This easily allows, for example halogen bulb to be kept apart fro=
+m
+an LED light.
 
-Applied, thanks!
+Probably not the most useful IR channel out there, but there's still
+something you could do with it :D
 
-[1/1] ARM: dts: imx7: add nvmem-layout
-      commit: da6662e9933880124ff6e8eea73e73a775d9ac65
+>>
+>> >> +		.info_mask_shared_by_all =3D BIT(IIO_CHAN_INFO_INT_TIME),
+>> >> +		.info_mask_shared_by_all_available =3D BIT(IIO_CHAN_INFO_INT_TIME)=
+,
+>> >> +	},
+>> >> +};
+>
+>>
+>> >> +
+>> >> +	ret =3D veml6031x00_hw_init(iio);
+>> >> +	if (ret)
+>> >> +		return ret;
+>> >> +
+>> >> +	pm_runtime_put_autosuspend(dev);
+>> >
+>> > As sashiko shouts, this looks like runtime pm will underflow on remove=
+.
+>> > Check it by removing your driver.  It doesn't actually result in any
+>> > problem, as the runtime pm subsystem just saturates at 0 on decrement.
+>> > Given that's tear down anyway maybe we don't care.  However, it's easy
+>> > enough to fix by using pm_runtime_get_no_resume() and a couple of
+>> > explicit calls to put it in error paths.
+>> >
+>>
+>> I took some time to audit this in detail, because although my
+>> expectations are that atomic_add_unless(usage_count, -1, 0) should make
+>> this shout a false positive. Expectations don't always meet reality. My
+>> expectations were based on the code, so I have added tracepoints to know
+>> exactly what's going on.
+>>
+>> Scenario 1: Successful probe -> unbind driver.
+>>
+>> devm_pm_runtime_get_noresume() increases usage_count, and the call to
+>> pm_runtime_put_autosuspend() decreases it. That is balanced, giving us
+>> usage_count =3D 0 and putting the device in power down mode as desired. =
+If
+>> the device is then unbound, the devres action (a call to
+>> pm_runtime_put_noidle_action, which only calls pm_runtime_put_noidle)
+>> triggers a call to atomic_add_unless(&dev->power.usage_count, -1, 0).
+>> Given that the usage count is 0, nothing happens and there is no
+>> underflow. In fact, the underflow is not possible this way, and adding a
+>> remove function to check if usage_count is 0 and calling
+>> pm_runtime_put() is basically repeating what the devres action already
+>> offers for free.
+>
+> Agreed on this analysis. From a readability point of view it is nice
+> to have balanced calls but as long as we only underflow / get clamped
+> in a path where we never increment again that's fine.  I'd add a comment
+> somewhere to say that's intentional.
+>
+>>
+>> Scenario 2: write_event_config -> unbind driver.
+>>
+>> Sashiko says that pm_runtime_resume_and_get() increases usage_count, and
+>> there is no devres action associated to it. That is only partially
+>> correct, because the devres action from devm_pm_runtime_get_noresume()
+>> will be triggered when the driver is unbound. Actually, this is great
+>> because then pm_runtime_resume_and_get() gets balanced, and there is no
+>> need for a remove function to check again if usage_count is 0 or not. In
+>> this case, usage_count =3D 1 before unbinding the driver, and then the
+>> devres action is triggered when it gets unbound. Exactly what we want to
+>> have usage_count =3D 0.
+>
+> This one I'm more dubious on.  Basically you are saying on remove we happ=
+en
+> to have an extra decrement for largely unrelated reasons so we are fine.
+> That to me smells fragile even if it works.  For instance someone tidying
+> up the imbalance in scenario 1 (which would seem reasonable to do from
+> a code understandability point of view) would break scenario 2.
+> I'd rather we had something explicit for this. Probably an devm action
+> that just checks for events being enabled at exit and disables them as pa=
+rt of
+> the tear down.
+>
+> So not bugs as such, but fragile which is not good from maintainability
+> point of view.
+>
+> Jonathan
+
+I will add a devm action for the events to decrement the usage count if
+events are enabled i.e. the usage count was incremented.
 
 Best regards,
--- 
-Frank Li <Frank.Li@nxp.com>
+Javier
