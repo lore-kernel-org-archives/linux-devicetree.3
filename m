@@ -1,95 +1,93 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1074C3D75CD
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 12:36:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3791537F724;
+	Tue,  2 Jun 2026 12:38:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780403795; cv=none; b=dac0z4o3BJtF4PPOKlfCpIE1GikcsS1UG3h/yJ7tPwW2elxBe8Nbo21aILXT/PHZH7JGADmdOZEemZJx9QWpIjS2XRDiAEz01fXOu0gFM0bhaUv39/eYPpyuDoUfz4soqN7O9dojwdemHXf+KEmc+725dq2/19wZFjo62XdO9Hg=
+	t=1780403898; cv=none; b=Eoe5kuf1h0SgSGpG7g0dEaAuPIxqAs/16vgXR0Be1Jmy6GkoqpFJa9tPhkPQIeZaaj70fEzaQJZp5ozLmAHqQAYW4g/oCeA4hrCgESat71sZxQE+Li5ij5/WZG5qPWRbhJJ73bMlp5A+LvaeBKc3V26cz02yhE1O19+sCJ61lsk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780403795; c=relaxed/simple;
-	bh=SRPRaAh+bKL/wfIfWcgbiLpj4JaAtntWVoPHMgKJ5hk=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=mgBBiWE8F8lZVSuz5NwErAz6xlHl6KqY9iJfrMZvaauXRYCMqC9gF3Ucdz1QYQcvsXt8QxYRdhPUyqC0Eue95YSJVrAm81kKtyDaQi/SA3x+5Ew3j4vB+bFFx5cH019jBhzwDQ/d1/jhKovwtyue//IW0PzG4G+acRRA/lLFRDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=IzdBcF7K; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1780403898; c=relaxed/simple;
+	bh=mysM/UMNaPDBpCRsJJMna0v79scT5CRSOxuxf9/9Mrk=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=q/kKQ7x2lE5hX07xLl/CsdhbWK+FiEyfKVtgNsEkPnE6nB2LwEOxvKLrPP7Ndf/eFdjdv/6jVZovXqz5M9AoN3viUxfcYnyXH19bVplBDZLzm0D6f1ef7qIXHVGcGRWLQskXUW45Xs8LP9GvL82MdT3rMh0yCZyfxN7rVGlgGls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AoIneWsI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="IzdBcF7K"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id DE735C6220A;
-	Tue,  2 Jun 2026 12:36:33 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 43069603BC;
-	Tue,  2 Jun 2026 12:36:23 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 5CE99108883E7;
-	Tue,  2 Jun 2026 14:36:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1780403782; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=SRPRaAh+bKL/wfIfWcgbiLpj4JaAtntWVoPHMgKJ5hk=;
-	b=IzdBcF7KMuSb7rZ5XB+aZYiM0E5ckcEKMIFaaFmESlAG2XXd/oPBYuAePWkIA+1XVt8AnE
-	Uaae1GYa00ns3rwjBIIHI8NNiSRjpJ/HlnFxpC3VQjR21RTIaezCw4oUPpdI0Vb4S8sBE+
-	9YG3xXTIGSm/2KP05PNUZNU5X1zOOayandiof2fO57ZKW4Cna75LUsxYSzHOF4SSldoRgs
-	XZMzpGuHNAMXLxwgIKqtuZPCl1GVYEweyOfHNkDN699VQawnNiUZabi3YJ79OVIGpwCqRZ
-	PDPoMjuKitoxIWOn2lQn18DJxCtPkpODwqQcIjYPub9VBM+0aypiC4umizGmHQ==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Santhosh Kumar K <s-k6@ti.com>
-Cc: Krzysztof Kozlowski <krzk@kernel.org>,  <broonie@kernel.org>,
-  <robh@kernel.org>,  <krzk+dt@kernel.org>,  <conor+dt@kernel.org>,
-  <richard@nod.at>,  <vigneshr@ti.com>,  <pratyush@kernel.org>,
-  <mwalle@kernel.org>,  <takahiro.kuwano@infineon.com>,
-  <linux-spi@vger.kernel.org>,  <devicetree@vger.kernel.org>,
-  <linux-kernel@vger.kernel.org>,  <linux-mtd@lists.infradead.org>,
-  <praneeth@ti.com>,  <u-kumar1@ti.com>,  <a-dutta@ti.com>
-Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY
- tuning pattern partition property
-In-Reply-To: <4a570d36-dda6-4f3d-9c16-d3e57ac55f1c@ti.com> (Santhosh Kumar
-	K.'s message of "Tue, 2 Jun 2026 12:00:36 +0530")
-References: <20260527175527.2247679-1-s-k6@ti.com>
-	<20260527175527.2247679-3-s-k6@ti.com>
-	<20260530-original-peccary-of-cubism-af68ed@quoll>
-	<2f091813-fa28-407f-892d-bbbbe3cac4e4@ti.com>
-	<063fe976-9a28-4670-90df-921fbc1c3a8c@kernel.org>
-	<20260601-stirring-tested-mayfly-e97c14@quoll>
-	<4a570d36-dda6-4f3d-9c16-d3e57ac55f1c@ti.com>
-User-Agent: mu4e 1.12.7; emacs 30.2
-Date: Tue, 02 Jun 2026 14:36:17 +0200
-Message-ID: <87mrxd15mm.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AoIneWsI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B30101F00898;
+	Tue,  2 Jun 2026 12:38:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780403896;
+	bh=mqteGhjy+xwcz4PbOrCU9N8F+pg/FZYg/qOU0tH1ZjU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=AoIneWsIH3D/QiwCUVaDb8iglTjh9vBHPary57jgZ/D3KED0lhj2jnL4YcrjV8U+A
+	 QKrRnPIrdSYGHn9bWfU+arRkb+uq0Yqs9NsLN5HWLj90c3qlf7ZyhNqYNjJeL2ob9x
+	 1L26NBlGF4mymaexBQLw7zOA066cjaG4PcoR08P+zXiiE7x0zcpaDwBj1GQFlJYqKR
+	 2CsU1nTJfJOyuPxv5FO3uLdf3Usnh+8mb5t7h676eh90YrjzqqehzhfPh/5s+yZEGr
+	 aDrLlpx2qDNdJyGqaNVs6Z2vfTRSiYaXvNQOTTUgDu9DBr8jxJUI+3+fUW2lUyEUMY
+	 RHI30pCQ1ZXcg==
+Date: Tue, 2 Jun 2026 13:38:06 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
+Cc: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Lars-Peter Clausen"
+ <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
+ <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rishi Gupta"
+ <gupt21@gmail.com>, "David Lechner" <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>,
+ "Matti Vaittinen" <mazziesaccount@gmail.com>, <linux-iio@vger.kernel.org>,
+ <devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>
+Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
+ series
+Message-ID: <20260602133806.53590943@jic23-huawei>
+In-Reply-To: <DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
+References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
+	<20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
+	<ah6p-f2RCW8VcuDR@ashevche-desk.local>
+	<DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Hello,
+> >> +/*
+> >> + * The gain selector encodes (PD_D4 << 2) | GAIN to identify each gain setting.
+> >> + * Gains are multiplied by 8 to work with integers. The values in the iio-gts
+> >> + * tables don't need corrections because the maximum value of the scale refers
+> >> + * to GAIN = x1, and the rest of the values are obtained from the resulting
+> >> + * linear function.
+> >> + * TODO: add support for MILLI_GAIN_X165 and MILLI_GAIN_X660
+> >> + */
+> >> +#define VEML6031X00_SEL_MILLI_GAIN_X125  0x07
+> >> +#define VEML6031X00_SEL_MILLI_GAIN_X250  0x04
+> >> +#define VEML6031X00_SEL_MILLI_GAIN_X500  0x03
+> >> +#define VEML6031X00_SEL_MILLI_GAIN_X1000 0x00
+> >> +#define VEML6031X00_SEL_MILLI_GAIN_X2000 0x01  
+> >
+> > Not sure if these one-time use definitions improve or not the readability
+> > of the code. Up to Jonathan.
+> >  
+> 
+> I prefer these definitions, and a similar pattern is used in multiple
+> drivers in IIO, but I have no strong feelings about it.
 
->>>>> I also have doubts that this is per-device property. Your commit msg
->>>>> suggests it is per controller.
->>>>
->>>> This is a per-device property. It is consumed by the controller driver
->>>> only to locate and retrieve the offset of the PHY pattern partition
->>>
->>> So with two devices on a bus, you need two separate partitions for tuni=
-ng?
->
-> Each SPI NOR flash device needs a partition to store PHY tuning
-> pattern.
+Looking again at this, what do the numbers in the defines actually mean?
+Seems a bit odd to have the base gain of 1 being called X125.
+Maybe a comment on that would be useful.  I don't mind either way
+on defines for this but if that number is useful to have I'd rather
+have a define than a comment on each line.
 
-If I may try to explain a bit what is behind, the read tuning procedure
-is about reading data from the spi memory cache (some kind of internal
-SRAM) over and over again, while tuning the controller parameters until
-we get the best stability (the controller driver knows the pattern it
-must get). While SPI NAND chips have "write to cache" opcodes that could
-be used to load the pattern into the chip without any actual read from
-the memory array, this is not possible with SPI NOR devices which do not
-have such capability. Since we want to keep this training procedure
-memory agnostic (and also somewhat simple), we shall expect one pattern
-per memory.
-
-Thanks,
-Miqu=C3=A8l
+> 
+> >> +static const struct iio_gain_sel_pair veml6031x00_gain_sel[] = {
+> >> +	GAIN_SCALE_GAIN(1, VEML6031X00_SEL_MILLI_GAIN_X125),
+> >> +	GAIN_SCALE_GAIN(2, VEML6031X00_SEL_MILLI_GAIN_X250),
+> >> +	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_MILLI_GAIN_X500),
+> >> +	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_MILLI_GAIN_X1000),
+> >> +	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_MILLI_GAIN_X2000),
+> >> +};  
+> >
+> > ...
