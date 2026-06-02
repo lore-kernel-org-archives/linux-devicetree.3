@@ -1,97 +1,239 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EBA236F42B;
-	Tue,  2 Jun 2026 16:38:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 34F7337204C
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:42:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780418303; cv=none; b=SwRrYKWx3oDiOatMbW1UlzCDGET7FriFSB8rfAma3/H3TKhOddVByDQQ9uWD+uOum48aEavp/tQWStaUJHlqsQohYnea104nSaf60I/AQ0k3PYvDM/Dgl3L2OcG2mOh4W54ZxG0Vm7KmZE1XWHL994oUmIcN2Gde5vg105Q4ibI=
+	t=1780418537; cv=none; b=rtrZATBS/DxCA4azKg4uMdpa20nYumyXQVZdP8baER3SRcY0isCynAgSnjp4WhySDhtiUGny6prZy0KTddLXVioBP7qWbXaTvL/cVMrpXfsdaMPElQyvxBl130WBrNVgHdlAgQBV1F5fW/GbLBR8Q3QexW5FoIdQQ6i4nhPkauY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780418303; c=relaxed/simple;
-	bh=lHu0TpGq3/jU8FS/W2Pz8bvT5ZnOWU6+vWAH3B7YbPo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bG2ig05IxyX/p/lnY5ZakMywZaJ0yrqiYQk7TQYeJN+3YOXHjGe2XScH41AHQUkG9EDHqUV1l5fOzsTU4j8jr2LbTTCz6b83HSX7XNF8vDENRuFH1/wJ3h7GUvWOxhXi7XBuVMyQL7h/fbUiy6z1deN48iX/8ll3Tx58mz/7r78=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HiadBLa/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780418537; c=relaxed/simple;
+	bh=s6aDIM5T4K9eEgStPnqzEH7yFVm5qbwDjPGc76UY+L4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=SAgnuQhO31ccJIBpq+4La9jTCaws3xSTaijdbZVGqpfgJyHmQ2Mk8C5zlzK5J2h7cf3DBSBdoXz2Sgk/2Q1lKWH7+0qFyEk3Yi7zstcr6F7i4FGd2197Sk/7hlSFfHx+wEYZ5peRAOnw90s00CDqHTTffm/WpsDVZODUu59Js+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PBa81a4/; arc=none smtp.client-ip=209.85.128.52
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HiadBLa/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6B61F00893;
-	Tue,  2 Jun 2026 16:38:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780418301;
-	bh=Zs4cdke05EVfkqMGjWx9MxeR85QMJRd9IoXX4EBzIBY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HiadBLa/MDEXKxVuEGCIHFRUMf6UdZUA+mIuQbg8lrlsJQayNJgnlXbgSmf69BzQD
-	 UgoGOIsWrSJT3zRHmFHq39NmVY7fMlVxCpDCwtZNKs99jTovsPNunXZ4dPAzhaSA/f
-	 FLysjOFdGQyqs3Bzd5ANjBdPhOMbex5HE8s1xXjHOjh7/ee3IOGoxnpmbaTxLmbJRA
-	 KgC0rA/6ChbY1tdHX/ELxPJEaAtVAdS/vWSNQPGQj+V+fbjyBj8c/OjI5g0iF1AzQJ
-	 c7PnebAGttK9J+l6zGQCfhP0P2z5ycdYhWRgitdaJmFpaB4tjK9aIKQWUhI6oXWqjn
-	 htXImV4k8ZJow==
-Date: Tue, 2 Jun 2026 11:38:21 -0500
-From: Rob Herring <robh@kernel.org>
-To: sashiko-reviews@lists.linux.dev
-Cc: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>, devicetree@vger.kernel.org,
-	conor+dt@kernel.org
-Subject: Re: [PATCH v2 14/24] arm64: dts: qcom: sm4450: Reduce OS PDC DRV
- span to 0x10000
-Message-ID: <20260602163821.GA464439-robh@kernel.org>
-References: <20260527094333.2311731-15-mukesh.ojha@oss.qualcomm.com>
- <20260527095343.9192E1F000E9@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PBa81a4/"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-4903997fcb5so118765365e9.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:42:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780418535; x=1781023335; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
+         :date:message-id:reply-to;
+        bh=zCciMA4f/2leknE0hevkJM9c0pFZpflJQvPHBF72s8k=;
+        b=PBa81a4/OEWRqHeaosFr/rcSVB57ibcd7SCnyTwVa1d80Uy0ihbUMC6wUw+cenAQ+c
+         +pAo3Sh2L6y5xWaeVMvSfsodjk/7kuGvbkGkmH/Z0jagEOmpxMTSF7qTS5nLQenw0Zmt
+         WP5daLAXhIi/2InIleN9JRNiKZdJUkzG6MlG5/g8ebJUW4GM+C8gxJzxJFDUSdHIy6bU
+         7Zd3K48GS/u91WgVg6gLzHU0d28VOmqSPTZVI3/9/FDzfuONyLRoOq6lAXbXmZIQg0dU
+         AFgJypGrCXX1YQuCr15NNJ9hxXXFlRzFm440AT2RooldbCbNUqVdnONhuGpK7EXkT6jH
+         VDqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780418535; x=1781023335;
+        h=mime-version:user-agent:content-transfer-encoding:references
+         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+        bh=zCciMA4f/2leknE0hevkJM9c0pFZpflJQvPHBF72s8k=;
+        b=OQHv+QFJhbHf2Zvn/Vqu9slv2emJhgq0B3MMXouRS1R7xkvSwKDDj5Iw5Y3zcsg755
+         E2nLYuaSaIuqTY5NKwD0v9xwhVE0XHG1Yl/c0IpnC02PGdHRUcB2Lvf2cIkePsQxVI0j
+         5iTSf5nzkFdE6HfGcgKjXFihJTFGRSVS0Dw7UQrgANaxkvF9Cw9n0q/RiwB9f2ALdM6o
+         KSoNidW1sm9GgFvs0cVQNuCgdZbkdaQgmi3pS+v+09XeA0IGuvky1ZRNFOXURA5zT869
+         UVBAvkWPz2n7xRGoYLt/RemitFpSeLDg1myZKCJhyqblsSJsiGIFqlFwpQ4MHDmLrOks
+         j4VA==
+X-Forwarded-Encrypted: i=1; AFNElJ8Wd5dd3D+2Efr3QAix+Scihc9Q10emQ+GQ5Wwz83hohpirXU8jQTXYpTqEFB5zFtHL0i5zbZrh0xhT@vger.kernel.org
+X-Gm-Message-State: AOJu0Yyyxz1ZReV5R0HyMErgtfej8EmUGCTENFpQ83ZHqZaFmtgO5XoI
+	xISlN6eDdZdRH6nfCELnOvS4DHgvdPWkBL/LZFeMsw6Z5sPRG3Z6lSZH
+X-Gm-Gg: Acq92OFRHFWqUxmmbJ1a5NLqGNAlKrm5E3x+0EOy+aTmBt3IaQRuAp/wvOhJjVymsIx
+	Q4I+9UbEjs6m/cdBZWTrQ9ZLXq+bfiljUsqIjGcF+32DMuLE5cEbm+ah2XLrHXbecAZuDb3H71W
+	HIwi3jtKnho7SqW8VGbPks5uypNl7s/AqQtCqFfDlTsdJxCjZFBeiwqWU5/TsDBY7hcE0Sq3HkO
+	EzMnYFC6ovVIwww6j7npgS7Qy7E6eAXVBulwA31Sm+E7UwJL3w2oF3WQ79po5Ns0uiuNXXg5HR9
+	Q9QwhsiBAcIg3cOpyerFevEyQTFdlg7JIzqxHLrasRuIaF9l4bdSmsP1v6PaAwqtw1ZJJ7r2LOa
+	e8ZseJQIECxQopndJp6hhPjIKOWcwW8JJ3HC0Acgv19ACpGdCaJ1Pa1A693f6R+Tl1eIlTjPqoN
+	ES2ZnNrAaCekI6ea52cZErHJ0F5GrX9qo2vyTscz8olHvp248GUoh1RdXpJpfjLbglIQrKG6O7G
+	GKtBkMmz0MyeJxsIJBYs4Q=
+X-Received: by 2002:a05:600c:35c9:b0:490:3d62:f5e1 with SMTP id 5b1f17b1804b1-490b50b972amr8330945e9.22.1780418534540;
+        Tue, 02 Jun 2026 09:42:14 -0700 (PDT)
+Received: from ?IPv6:2001:818:ea56:d000:56e0:ceba:7da4:6673? ([2001:818:ea56:d000:56e0:ceba:7da4:6673])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e20bacsm74368025e9.6.2026.06.02.09.42.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 09:42:14 -0700 (PDT)
+Message-ID: <2df4cad5e29fbcb4c5c5f59ea0bf322c7a301bdc.camel@gmail.com>
+Subject: Re: [PATCH 2/4] iio: adc: mt6323-auxadc: add mt6323 PMIC AUXADC
+ driver
+From: Nuno =?ISO-8859-1?Q?S=E1?= <noname.nuno@gmail.com>
+To: rva333@protonmail.com, Jonathan Cameron <jic23@kernel.org>, David
+ Lechner	 <dlechner@baylibre.com>, Nuno =?ISO-8859-1?Q?S=E1?=
+ <nuno.sa@analog.com>,  Andy Shevchenko	 <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski	 <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Matthias Brugger	 <matthias.bgg@gmail.com>,
+ AngeloGioacchino Del Regno	 <angelogioacchino.delregno@collabora.com>, Lee
+ Jones <lee@kernel.org>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	linux-mediatek@lists.infradead.org, Ben Grisdale <bengris32@protonmail.ch>
+Date: Tue, 02 Jun 2026 17:43:18 +0100
+In-Reply-To: <20260602-mt6323-adc-v1-2-68ec737508ee@protonmail.com>
+References: <20260602-mt6323-adc-v1-0-68ec737508ee@protonmail.com>
+	 <20260602-mt6323-adc-v1-2-68ec737508ee@protonmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2 (3.56.2-2.fc42) 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260527095343.9192E1F000E9@smtp.kernel.org>
 
-On Wed, May 27, 2026 at 09:53:42AM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Medium] Reducing the `reg` span to 0x10000 in the device tree is futile without an accompanying driver change and will intentionally trigger a boot warning.
-> --
-> 
-> commit befb5e3c3aa5e0f54a7fff3d0f4a5e96013f4a7e
-> Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
-> 
-> arm64: dts: qcom: sm4450: Reduce OS PDC DRV span to 0x10000
-> 
-> The OS PDC DRV register window on sm4450 spans 0x10000 bytes, so this
-> commit reduces the size of the first reg entry from 0x30000 to 0x10000.
-> 
-> > diff --git a/arch/arm64/boot/dts/qcom/sm4450.dtsi b/arch/arm64/boot/dts/qcom/sm4450.dtsi
-> > --- a/arch/arm64/boot/dts/qcom/sm4450.dtsi
-> > +++ b/arch/arm64/boot/dts/qcom/sm4450.dtsi
-> > @@ -464,7 +464,7 @@ dispcc: clock-controller@af00000 {
-> >  
-> >  		pdc: interrupt-controller@b220000 {
-> >  			compatible = "qcom,sm4450-pdc", "qcom,pdc";
-> > -			reg = <0 0x0b220000 0 0x30000>, <0 0x174000f0 0 0x64>;
-> > +			reg = <0 0x0b220000 0 0x10000>, <0 0x174000f0 0 0x64>;
-> 
-> [Severity: Medium]
-> Will this change cause a boot warning and fail to actually reduce the mapping
-> size?
-> 
-> Looking at the qcom-pdc driver in drivers/irqchip/qcom-pdc.c, it enforces a
-> minimum mapping size of QCOM_PDC_SIZE (0x30000) for all devices to maintain
-> backward compatibility. In qcom_pdc_probe(), it calculates the size as:
-> 
-> 	res_size = max_t(resource_size_t, resource_size(&res), QCOM_PDC_SIZE);
-> 
-> If the device tree provides a size smaller than 0x30000 (like 0x10000), the
-> driver automatically expands the mapping back to 0x30000 and logs a warning:
-> "%pOF: invalid reg size, please fix DT".
-> 
-> Since there are no accompanying driver changes to gracefully accept the smaller
-> size for newer compatibles like "qcom,sm4450-pdc", does this patch introduce a
-> spurious warning on every boot without achieving the intended mapping
-> reduction?
+On Tue, 2026-06-02 at 15:46 +0300, Roman Vivchar via B4 Relay wrote:
+> From: Roman Vivchar <rva333@protonmail.com>
+>=20
+> The mt6323 AUXADC is a 15-bit ADC used for system monitoring. This driver
+> provides support for reading various channels including battery and
+> charger voltages, battery and chip temperature, current sensing and
+> accessory detection.
+>=20
+> Add a driver for the AUXADC found in the MediaTek mt6323 PMIC.
+>=20
+> Tested-by: Ben Grisdale <bengris32@protonmail.ch> # Amazon Echo Dot (2nd
+> Generation)
+> Signed-off-by: Roman Vivchar <rva333@protonmail.com>
+> ---
+> =C2=A0MAINTAINERS=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 |=C2=A0=
+=C2=A0 8 ++
+> =C2=A0drivers/iio/adc/Kconfig=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 |=C2=A0 11 ++
+> =C2=A0drivers/iio/adc/Makefile=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 =
+|=C2=A0=C2=A0 1 +
+> =C2=A0drivers/iio/adc/mt6323-auxadc.c | 299 +++++++++++++++++++++++++++++=
++++++++++++
+> =C2=A04 files changed, 319 insertions(+)
+>=20
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index d1cc0e12fe1f..c9ad2417a3ef 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -16256,6 +16256,14 @@ S:	Maintained
+> =C2=A0F:	Documentation/devicetree/bindings/mmc/mtk-sd.yaml
+> =C2=A0F:	drivers/mmc/host/mtk-sd.c
+> =C2=A0
+> +MEDIATEK MT6323 PMIC AUXADC DRIVER
+> +M:	Roman Vivchar <rva333@protonmail.com>
+> +L:	linux-iio@vger.kernel.org
+> +L:	linux-mediatek@lists.infradead.org=C2=A0(moderated for non-subscriber=
+s)
+> +S:	Maintained
+> +F:	drivers/iio/adc/mt6323-auxadc.c
+> +F:	include/dt-bindings/iio/adc/mediatek,mt6323-auxadc.h
 
-Seems valid to me. Even if you did change the driver, it would be an ABI 
-break (though if only introducing a spurious warning for existing OS).
+The above file was not added in this patch
 
-Please reply to sashiko reports because the maintainers are not going to 
-analyze them for you.
+...
 
-Rob
+> +
+> +static const struct iio_chan_spec mt6323_auxadc_channels[] =3D {
+> +	MTK_PMIC_IIO_CHAN(baton2,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_BATON2,=C2=A0=
+=C2=A0=C2=A0 MT6323_AUXADC_ADC6,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(ch6,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXAD=
+C_CH6,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ADC11,
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(bat_temp,=C2=A0 MT6323_AUXADC_BAT_TEMP,=C2=A0 MT6323_=
+AUXADC_ADC5,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(chip_temp, MT6323_AUXADC_CHIP_TEMP, MT6323_AUXADC_ADC=
+4,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(vcdt,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_VCD=
+T,=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ADC2,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(baton1,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_BATON1,=C2=A0=
+=C2=A0=C2=A0 MT6323_AUXADC_ADC3,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(isense,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ISENSE,=C2=A0=
+=C2=A0=C2=A0 MT6323_AUXADC_ADC1,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(batsns,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_BATSNS,=C2=A0=
+=C2=A0=C2=A0 MT6323_AUXADC_ADC0,=C2=A0
+> IIO_VOLTAGE),
+> +	MTK_PMIC_IIO_CHAN(accdet,=C2=A0=C2=A0=C2=A0 MT6323_AUXADC_ACCDET,=C2=A0=
+=C2=A0=C2=A0 MT6323_AUXADC_ADC7,=C2=A0
+> IIO_VOLTAGE),
+> +};
+
+All of the above are IIO_VOLTAGE. Just remove _ch_type then.
+
+> +
+> +/**
+> + * struct mt6323_auxadc - Main driver structure
+> + * @regmap:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Regmap from PWRAP
+> + * @lock:=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 Mutex to=
+ serialize AUXADC reading vs configuration
+> + *
+> + * The MediaTek MT6323 (as well as a lot of other PMICs) has the followi=
+ng
+> hierarchy:
+> + * PMIC AUXADC <- PMIC MFD <- SoC PWRAP (wrapper for PWRAP FSM)
+> + *
+> + * Therefore, PWRAP regmap should be obtained using dev->parent->parent.
+> + */
+
+The above kerneldoc seems unnecessary to me.
+
+> +struct mt6323_auxadc {
+> +	struct regmap *regmap;
+> +	struct mutex lock;
+> +};
+
+...
+
+>=20
+> +
+> +static int mt6323_auxadc_read_raw(struct iio_dev *indio_dev,
+> +				=C2=A0 const struct iio_chan_spec *chan,
+> +				=C2=A0 int *val, int *val2, long mask)
+> +{
+> +	struct mt6323_auxadc *auxadc =3D iio_priv(indio_dev);
+> +	int ret, mult;
+> +
+> +	switch (mask) {
+> +	case IIO_CHAN_INFO_SCALE:
+> +		if (chan->channel =3D=3D MT6323_AUXADC_ISENSE ||
+> +		=C2=A0=C2=A0=C2=A0 chan->channel =3D=3D MT6323_AUXADC_BATSNS)
+> +			mult =3D 4;
+> +		else
+> +			mult =3D 1;
+> +
+> +		/* 1800mV full range with 15-bit resolution. */
+> +		*val =3D mult * 1800;
+> +		*val2 =3D 15;
+> +
+> +		return IIO_VAL_FRACTIONAL_LOG2;
+> +	case IIO_CHAN_INFO_RAW:
+> +		scoped_guard(mutex, &auxadc->lock) {
+> +			ret =3D mt6323_auxadc_prepare_channel(auxadc);
+> +			if (ret)
+> +				return ret;
+> +
+> +			ret =3D mt6323_auxadc_request(auxadc, chan->channel);
+> +			if (ret)
+> +				return ret;
+> +
+> +			/* Hardware limitation: the AUXADC needs a delay to become
+> ready. */
+> +			fsleep(300);
+> +
+> +			ret =3D mt6323_auxadc_read(auxadc, chan, val);
+> +			if (ret)
+> +				return ret;
+
+Could be return mt6323_auxadc_read(...)
+
+- Nuno S=C3=A1
+>=20
+> +
+> +MODULE_LICENSE("GPL");
+> +MODULE_DESCRIPTION("MediaTek MT6323 PMIC AUXADC Driver");
