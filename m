@@ -1,121 +1,150 @@
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com [209.85.215.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2B57373BE0
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 08:19:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B942E2C029D;
+	Tue,  2 Jun 2026 08:21:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780388368; cv=none; b=tuvZvt0rt7ZVVSKgiFcoyvAd2N/Mo273QGGNu/u1aAbqG8NeD3LaZStzowAPZsk2TRIsKcdHNmBQ8Ze8UZbaHahN5O6d2H18FN1r47vjkZ7oQS4JIyNXQa7oO1TVcE+KU+RGW/kvxmKOWBuZ1lynTq/Vq6d9YKoPwssrdfGH06o=
+	t=1780388496; cv=none; b=gz2ylEESfYU8lQv2iz88KuxysRvTJTf5YpWo/OI3nsYPs6BiAWPpzreSnKMDYdMT7GaZMwjRrsdZFvsmzbV03CQihRzlBV5Ox0/jCXwCIi7/48nBrkzevZMuWgM6o7PLXlKpIaidqzAjuIbtFrMYZK1RTZwm5OZQufGFLa2Ea3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780388368; c=relaxed/simple;
-	bh=a7FQgUNWApzW4RhPeXmT/dWcitDUF58z6lXLLcsZjdU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=JymlKWWbaqcHCZqJDRQ9TOkwePW5eW7xnTGRu2gu2iLCK4xddGSQ9+O0x+w25aMMLnC7eXch9UNIm9cI88mwRvstauDT2Q/tAooG2i1l7V02A44VE7OqH47S2GiqW0A44qxrpaF3aQ+3KlWvvkTKPlimmOfCx0+IPLxJjLhxwZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nbwp+cer; arc=none smtp.client-ip=209.85.215.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780388496; c=relaxed/simple;
+	bh=c/2cZtD9sP8z3cs75tkWfygYjcrazGNL/FvaGM4hCaw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=TikKHi6ran8k4lBdJ9f7tJGVouSa6aJduBnX8k8kF0wlzLaYRld/sccZXeLy19IKx2dhCAcK+pgjllzRTszn1+xa8+XsYtWAyGKSlofTTbPiSzFCxvLTwk17NODXyj0l45629voW//h3Bb2Iktfzu6JcV2PMGBy1K9unJad6Da0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VPg1Qixm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nbwp+cer"
-Received: by mail-pg1-f176.google.com with SMTP id 41be03b00d2f7-c8585ecdd71so1108060a12.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 01:19:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780388367; x=1780993167; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=9sHA0a5BnMK9iNWfr+zrxwSYBSacMq9cdFigCfIzgg0=;
-        b=nbwp+cer1/ME+fTEWOTz7kEJEW+sPHc9dBlqqAbl/7bnKnOOo2JI9wz9e0/W1PzMGE
-         MkUzLHdBByyUWCWKw/3zPoPmapu9y9p2IOaTmBxfYVcueEJdUNBkU0Z80FsjwHeZRQKf
-         1v7/FLhfc1bmXSw7v2eGMc1ho0n2+gWCU66nddTQzPway+3zuHxCZjlyGy82LujS2lUr
-         17KY8aBkrsHi5MqjFYzTgktcY49bsCll7JGpYKO6GRvnOkst+lRDZ2vy0d+aTWTnQTzI
-         WbYqHp9YIlwkMu2iDZjCZw/35cWlMXGrKIkeXrzdVJSo4yTRKTFNTzLZ2wxOVJl0sKD6
-         N9SA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780388367; x=1780993167;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=9sHA0a5BnMK9iNWfr+zrxwSYBSacMq9cdFigCfIzgg0=;
-        b=Z3TX/Ega/LmSUiaaQWQtyiIt3IJHqAYLOXiYQYeQzaQJjLGghkar4MH4QoM6MS4hzf
-         uXsHZ3kPRS67arDh1xuR1jPm3JZnmIgYnARegCm+nZomnk/90ml9fNCz7YYxRfkh9QBl
-         bTOgIfnzv4WFE3hPU/RPm2nvcndcVIj6tU84vwvKLGaNjUnwORlSfAa8Z7lgPj8GQhoD
-         CX5DA4xD3g24dhC8iJdUC88UusH1wx/zaQiVK17N9ps+dhnWdgfKWhoUv8xdzJyMyyMM
-         CRQ7OhYLLmohO/MVRxGvMU7vxDmCzD/sT0cDosbSCsjcu1ICaxJon25qjsotrD/Y7m9X
-         lluw==
-X-Forwarded-Encrypted: i=1; AFNElJ/0j/AsUfZ/nuHgfw1GLlvzQnN42qxSWYNXjXjFRv0eXD4tfJAUSFSmNzRuDDdu9PlAw2if9ngnOeuv@vger.kernel.org
-X-Gm-Message-State: AOJu0YxSddfXZT1bX5JAozulV4RSOwx88p2PhubLD8/LgaVvT+eXO77l
-	Ada8htwfoNA5q6iIFdYqNarM48tFo5fBx3DPD2VHcLXnDeZPZIVMi5u5
-X-Gm-Gg: Acq92OFlkoe2+HAfCcgQ69eqg3kywtlueSIij1xJIKq9nO7tLsRhMXdBuo/8jC+dTn0
-	jNsE9gsFDK4t1HfPe10qBIxDFPufYosSlLhWLP4RZ0Rp2LdQmXfDvFfrJV7gkNUGKVx1ncynlqb
-	1MARu2hpOnKCzsTHSAY8TiD1xrB2rqlgKwRRowLIKsNDhbnlEMeo7y+uksUZA7qWdCdQwpSIjNz
-	fujRRlvDdCRZ2uk38pLiNCCaykBbB3SHHVebeptc+UoNlcIjLEdvkI85me4p60TS2FmAm8a5SXw
-	RMb7uCQ4ClnFd6b2Z07hZjgaiC8Fs1Ki0Ly+eMQgxnv6M167Qlc6jNFehfoy+MEMJS+xavSJ5eX
-	dRCV0Z2Em9TVTHCnSDxAlIbKxn7gO7JlikFR4gnZRTu3FK77KQdIyew9kPmV9XkIvdR73mpnGmo
-	nGv9n3O2Z4dDbKWCUWLtAKOpT0os5yTWyYqge7HMRKzPUx
-X-Received: by 2002:a05:6a20:9595:b0:39b:8905:4e13 with SMTP id adf61e73a8af0-3b427be8514mr16806476637.6.1780388366793;
-        Tue, 02 Jun 2026 01:19:26 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-c858108940bsm10413308a12.5.2026.06.02.01.19.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 01:19:25 -0700 (PDT)
-From: Inochi Amaoto <inochiama@gmail.com>
-To: tglx@kernel.org,
-	robh@kernel.org,
-	krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	pjw@kernel.org,
-	samuel.holland@sifive.com,
-	unicorn_wang@outlook.com,
-	palmer@dabbelt.com,
-	aou@eecs.berkeley.edu,
-	alex@ghiti.fr,
-	liujingqi@lanxincomputing.com,
-	alexander.sverdlin@gmail.com,
-	rabenda.cn@gmail.com,
-	dlan@kernel.org,
-	chao.wei@sophgo.com,
-	anup@brainfault.org,
-	Daniel Lezcano <daniel.lezcano@kernel.org>,
-	Joshua Milas <josh.milas@gmail.com>
-Cc: Inochi Amaoto <inochiama@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	sophgo@lists.linux.dev,
-	hanguidong02@gmail.com,
-	michael.opdenacker@rootcommit.com
-Subject: Re: (subset) [PATCH v5 RESEND 0/5] Add initial Milk-V Duo S board support
-Date: Tue,  2 Jun 2026 16:19:05 +0800
-Message-ID: <178038833103.2088679.3632311874557644565.b4-ty@b4>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260530173347.33533-1-josh.milas@gmail.com>
-References: <20260530173347.33533-1-josh.milas@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VPg1Qixm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0709B1F00893;
+	Tue,  2 Jun 2026 08:21:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780388495;
+	bh=PtBNk0g8mRGl4pTTJm0gNHPYAvl9kFi7i5BTDgauKoA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=VPg1QixmnDHJZRhjJyfttTRk7X7FZD+Cieh/oKEmGZntBCMP/tvnDwbS6mWHe5AFE
+	 ojGLreC9dTpU4LnHnErtmpTyTK/2LxE6WKBZaOCnrVRpZfgBEP+VqZ41wkFL9fD1nA
+	 EvkqbrPjx35tfTNFkLENeupEQ6eFac0kkj9GTHx3V8QPSAdcDPFkHpdoWcyCAa8Dt8
+	 bdEUIGj2/xyOJ/zk8dgNRWPUIbNI1QpAH9HGoJQe8BJhmun3iYEBdoVKDR+jhweaq/
+	 MNMEf+2p6l7FwXuzW8/wns+7/0MPpEyrMpucgvCRtlVMTYNYD047KQp8/7YFZsQimx
+	 +QZ90Uk2SEiLQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v10 4/6] dt-bindings: pinctrl: s32g2-siul2: describe
+ GPIO and EIRQ resources
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Khristine Andreea Barbulescu" <khristineandreea.barbulescu@oss.nxp.com>
+Cc: devicetree@vger.kernel.org, robh@kernel.org, imx@lists.linux.dev, Frank.Li@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260602080132.3256239-5-khristineandreea.barbulescu@oss.nxp.com>
+References: <20260602080132.3256239-5-khristineandreea.barbulescu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jun 2026 08:21:34 +0000
+Message-Id: <20260602082135.0709B1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
 
-On Sat, 30 May 2026 13:33:42 -0400, Joshua Milas wrote:
-> This adds an initial device tree for the Milk-V Duo S board
-> with support for reading from the SD card and network over
-> Ethernet. This is continued work from Michael Opdenacker's
-> v6 series [1] on the ARM64 and RISCV side. It has been tested
-> with ARM64 and RISCV64 to boot from an SD card, have networking,
-> and read I2C slave devices over i2c4.
-> 
-> [...]
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The legacy fallback branch in the `oneOf` block fails to explici=
+tly forbid newly added capability properties (`gpio-controller`, `interrupt=
+-controller`), creating a schema validation loophole.
+- [Low] The device tree example will fail `dt_binding_check` compilation du=
+e to an unresolved phandle reference to the undeclared label `&pinctrl`.
+--
 
-Applied to for-next, thanks!
+commit 055c2d417b67cea0bcdcafe1444e526610028d07
+Author: Khristine Andreea Barbulescu <khristineandreea.barbulescu@oss.nxp.c=
+om>
 
-[1/5] dt-bindings: soc: sophgo: add Milk-V Duo S board compatibles
-      https://github.com/sophgo/linux/commit/eeec80c3ce36ead24e2f53d88a24dac1e3de8041
-[4/5] riscv64: dts: sophgo: add SG2000 dtsi
-      https://github.com/sophgo/linux/commit/2145cd2f0082c11177b062e1ecbce121c3b50b43
+dt-bindings: pinctrl: s32g2-siul2: describe GPIO and EIRQ resources
 
-Thanks,
-Inochi
+This commit extends the S32G2 SIUL2 pinctrl binding to describe GPIO data
+and external interrupt resources. It adds GPIO and interrupt controller
+properties and expands the reg property ranges. It also provides a oneOf
+construct to support legacy and new node layouts.
 
+> diff --git a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pi=
+nctrl.yaml b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinc=
+trl.yaml
+> index a24286e4def62..e4cc1a3a795c8 100644
+> --- a/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.y=
+aml
+> +++ b/Documentation/devicetree/bindings/pinctrl/nxp,s32g2-siul2-pinctrl.y=
+aml
+[ ... ]
+> @@ -86,10 +118,32 @@ required:
+>    - compatible
+>    - reg
+> =20
+> +oneOf:
+> +  - description: Legacy pinctrl-only node
+> +    properties:
+> +      reg:
+> +        minItems: 6
+> +        maxItems: 6
+
+[Severity: Medium]
+Since gpio-controller and interrupt-controller are allowed at the top level,
+does this legacy branch need to explicitly forbid them?
+
+Without setting gpio-controller: false and interrupt-controller: false here,
+could a node matching this legacy branch declare these capabilities without
+providing the 11 reg items and gpio-ranges required to actually use them,
+thereby bypassing schema validation?
+
+> +
+> +  - description: Pinctrl node with GPIO and external interrupt support
+> +    required:
+> +      - gpio-controller
+> +      - "#gpio-cells"
+> +      - gpio-ranges
+> +      - interrupt-controller
+> +      - "#interrupt-cells"
+> +      - interrupts
+> +    properties:
+> +      reg:
+> +        minItems: 11
+> +        maxItems: 11
+> +
+>  additionalProperties: false
+> =20
+>  examples:
+>    - |
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +
+>      pinctrl@4009c240 {
+>          compatible =3D "nxp,s32g2-siul2-pinctrl";
+
+[Severity: Low]
+Does this node need a pinctrl: label?
+
+The gpio-ranges property added below attempts to reference &pinctrl, which
+will cause dt_binding_check to fail with a 'reference to non-existent node
+or label' error.
+
+[ ... ]
+>                /* IMCR119-IMCR397 registers on siul2_1 */
+>                <0x44010c1c 0x45c>,
+>                /* IMCR430-IMCR495 registers on siul2_1 */
+> -              <0x440110f8 0x108>;
+> +              <0x440110f8 0x108>,
+> +              /* PGPDO registers on siul2_0 */
+> +              <0x4009d700 0x10>,
+> +              /* PGPDI registers on siul2_0 */
+> +              <0x4009d740 0x10>,
+> +              /* PGPDO registers on siul2_1 */
+> +              <0x44011700 0x18>,
+> +              /* PGPDI registers on siul2_1 */
+> +              <0x44011740 0x18>,
+> +              /* EIRQ registers on siul2_1 */
+> +              <0x44010010 0x34>;
+> +
+> +        gpio-controller;
+> +        #gpio-cells =3D <2>;
+> +        gpio-ranges =3D <&pinctrl 0 0 102>,
+> +                      <&pinctrl 112 112 79>;
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602080132.3256=
+239-1-khristineandreea.barbulescu@oss.nxp.com?part=3D4
