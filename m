@@ -1,88 +1,88 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 786B21F2380
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 09:22:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45E0D3CFF49
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 09:22:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780392133; cv=none; b=uKoWJwS56mxrLrmdHVQWe9LXrLNLEZqEXiAW92F/UQTLMv8G9JpNGE7aiEl6oxt6FwY3+l7v9623kb6cmdg6U7ppZM4sXizUM1G712uMRAeYfp2jVZ/5rP0+l+N49fJjZZ3iFllrwA+IH/p/9jY/dHO484eli3EDFN8E4NnMc2w=
+	t=1780392137; cv=none; b=CCMOIF7fsXe3+JGKexPS0V4Jg9VYsl4LNIb5VjiQpQOd8QtZIDUhMzzhrGgW7rLOk5msYJFXKW4FUqy5e4egv26Fa/BZFQ01hysUvwmlPcT48phikIhQ+cenuE7vv1YFPDIbZ97Hk/MAN0gyJl9l4dCLndKb8guiSan3y0ecsDs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780392133; c=relaxed/simple;
-	bh=tJlShdbumFRNUNuWAJFM3tKrMWOngt5fm4kXwp3JGks=;
+	s=arc-20240116; t=1780392137; c=relaxed/simple;
+	bh=nJr0f2i5H2A5VVRNHa2M0Oo/CaVCv4/HnDg5AdP6qa4=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=RqoAn3TbstS9A7eyrU89OV3pCjy5DfNfyX6Q5dT6nlp1sjV+kyBT7mOQsp+E1wYvfrCJn6gPaj/Sadp9lOO987P0kfeoGokYaaLihNtl1ajoBB1Y6wvDllAtyk8geB8UYliRRDetpJQmoin50Zcl0XIkiCWL8Lem3zUdz1+6GDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=AW6imkDD; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=XcH983Li; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=rkNRFZXF9qU473i5LPF5KL6K39ksgQ1ST0NKllkSgUPPKJNyy8dKlph+AYP3TmPXimd1MXB1fZN0XXz8yCXBgjAVMHToFgBHjwuzHM4IjWjwBRDTsm6GvWZg3bmKrBCxeOwmE72gm2CRPx171f86BaFgpLFeV6FS4Pb12pVzPfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=GwpH7FzZ; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MZmhbltG; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="AW6imkDD";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="XcH983Li"
-Received: from pps.filterd (m0279862.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6525tiJV4012749
-	for <devicetree@vger.kernel.org>; Tue, 2 Jun 2026 09:22:11 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="GwpH7FzZ";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MZmhbltG"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6527hDLd1639570
+	for <devicetree@vger.kernel.org>; Tue, 2 Jun 2026 09:22:15 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	4afBpKCHguRLWF6qmYAwFjXJL2LZxHraIR/uPgmNLCc=; b=AW6imkDDwrRZmj43
-	yZ6ZEauqto41+32DGMhBbNKoAESf8YnVBmYTa0kezv5xW+ZvznfTC2QKHBjuInFJ
-	Z9MNBPJKod7CKtF7sAm2F1niwcKDML/pYS7YEYGrRiPDNnl9+oKzduCvggZf79O2
-	YMqFU6GV64VFB+X0A/+k0SZVSFHTJMkhL7sryxO/TNheHELcvMtJbY1QNcLjAEpK
-	8fDaCsfFu5l+c/kxOXOnL8Vifr7AmgxCi46cd+ihuHVGF3Z1JwiiG8wf1HXPpe+T
-	o41X3nkTPdpXI9v3+h2yzpki9JU9EDBPSA5ZqiAM0EdpDaLqOOUcIXIRx03bxgV6
-	DQ8BIQ==
-Received: from mail-pj1-f69.google.com (mail-pj1-f69.google.com [209.85.216.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehsf4gunv-1
+	PCOE5vNKdTDdBmQCrOJcOWEluMHOBRxEstM1XYLtgTU=; b=GwpH7FzZv8y8u6lj
+	iRBzfvO/0r0rVLC+l7jxF2DtKyX3X+HjVw14Q76NqMBaxGZauTy9OyBpMgQ+Co69
+	BKXHN9qAMs0VTMjTArxOx1we94iYlpw5+TDLnUSR+yU0p7Qqd+J5J+KOz7Y5dQ+2
+	Y5V04yeKq4ga4BxyC4fXWp27NWaLr1AwtRyEPKe6xOw0kHjiY//RMMqU9Of6CxRB
+	f2JBncVfgYKRbl0bSSy2SbaEcNIF1aWR1rw1x8Sj6XSAOuU6EtTnLM+E/2SF3Pf/
+	otsXtEPEAiPUjM+rsrrylC8O7baLqvLLtwofezzA8NHBwz6YbAi7ItSkoTvThlO3
+	QrG8/Q==
+Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehu1cgdgt-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:22:10 +0000 (GMT)
-Received: by mail-pj1-f69.google.com with SMTP id 98e67ed59e1d1-36bbdcf36f0so3175588a91.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 02:22:10 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:22:15 +0000 (GMT)
+Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36d97a4e08fso2079087a91.0
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 02:22:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780392130; x=1780996930; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780392134; x=1780996934; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=4afBpKCHguRLWF6qmYAwFjXJL2LZxHraIR/uPgmNLCc=;
-        b=XcH983LiDj1eJ8+qkp8bV1TtIwPCHHaU+EIvTV53QI9iMgYp+5N/hSJlI+6X83s8bp
-         yH0VobF6WtDVhJGYtAhfZl8Z+TFl9cj7c+czZp7KwvE9vL71Mc511ZR1q8zcXBkrXaGS
-         lDotb7hZZY7/t0yB7fz7JIk+OLZVkO8bpUqvmlhjuekrvZyVRb7+dHRHx5ccCzfxEbmy
-         4UOsToi26RixrDLmddSpoWqH9Au+47z34XOUf4e4eIJ6QuVhlfF7rMHitMPqyWsfxFmy
-         ReVl0Ti/Rg8llhMH/L+8h/h+2Kng6EK5+aP+vfr6GNQZNG/a9iQmcWQ3nfpTZqpurt/E
-         GYPA==
+        bh=PCOE5vNKdTDdBmQCrOJcOWEluMHOBRxEstM1XYLtgTU=;
+        b=MZmhbltGH1+s1ovO1hp9qdPYl/lyYA6eX7wk3a5xx2AXXpSFWAft4UJyfcTiqP53dV
+         AfNEw/kVIG1WNHfY0Z7rXSZ9Xy/gxp7d8eVEz33jQUfgkZ1p4opf4lwjqkcrwbzVYKXO
+         hWlkIb/QbkY93Id6HFLHUoCO8UdutmYXk9Q8fnj1/AliQckj3VXfbhGtyai1IjNxmbaa
+         JBSWCBgxgzBTvwwBRYLIl5hfoy3TdT5kBBnqbDYDPPx2YCrJCB0/2FsWdlYi84aPygnh
+         SzEcQ5B3dhG1dy3H8XSlTtcjNsXLCwM51EnrvKvTmIFqgp2+l99+wdaB8yICx7bhp1Lm
+         lMoQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780392130; x=1780996930;
+        d=1e100.net; s=20251104; t=1780392134; x=1780996934;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=4afBpKCHguRLWF6qmYAwFjXJL2LZxHraIR/uPgmNLCc=;
-        b=PpmpINdW4SiCiD+8acLd9hCEYKPHKtcAtw1x6LiUjAVyl9tuAoV4PJxUC4E4Q0sO0A
-         nMez1eNOi57sMcAmfVxAvJ9zDaeCvqn8BY0wr/wsrndgYw8+pSzUtS0hUcKcFrsLA2so
-         mzUwruMfnhXW0u608TFETbP5N43HJXEbalXiE9ty2R8k5INVr3q00TKpQu8IuZ67A8AX
-         ZJ5yIz2f1ib7togYhNkcvWGHEaqDaQn9KNSjfhS6zOjZsq7jR08g9JNn5+9AOIY35kyg
-         tqltnKCVQ+oSMq3WA6dtsXOebWcCadgn7Stx4qDioiH4BtfKUcbD3oMG28OWB7dZvVDK
-         Kycg==
-X-Forwarded-Encrypted: i=1; AFNElJ8kad6KXX0JF5h6mvkEV9mV3MGVsicmBr8dkuOzx49qLLDaqjDqzennV1PnquGINT6TtCYgU3rsxBBk@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzpu013YT71OBZyMLLq5PdlU8DuEMuBwQwEdYETLRbqhLUJCQdP
-	cJmPRG5x+Alf0LzBDT8MfA4InYFoYshU5yl+9qK7pMoxjgAWs6GBboyoh23o0ZsQXTbjGYA5572
-	dHtiKiRNrUpLGeHtV+lRvsAtfrG+3tF78NqgI+megXvZNsaXL8HJVdEEbO+XXXYuF
-X-Gm-Gg: Acq92OHlA22TzB+JWgxz3xTuZdN+S1V//3lpU9fTKkTCtEa6yRicXPezdZkeqq/78Vy
-	x5LIo9YkRpFhhI3oF7rMlEKMcDM8eUijwHHZTVQr6Ze577gRsD3hswKJvCl0yxJLWQ3AzzYH6Y/
-	uN9fTUfDMj90XjK89tCDqHXZqI1SUTl98fuoRwxHSqS/n/DxWLQlpk9cMcgoo09kVe+1+4P3Y7k
-	PxcqBxVh4U0K/OwaLFTm89W332zezEOg7E5gythgTp1yXg2Ugjhapz0LrosfeDoaxrKUD3amwAZ
-	kYSJxro5KVJ6n+XgXZScxBy06nmSvo0s2MVTcgWzY0idUHOe4p1Mil2SyAqo6ZfVy2fzC7v7uKW
-	C8R8ZbhSHEBacuvaDj3jUokGHWrT7z1TbssbXHgXTG9zok/Amj6jiv9cF1ZGIJEvUcp2FKzP/UU
-	u54HNYetygY1vgDW0RFy/suW05IF8Ki7LE7Wwm2ZpStltzYR3Q2JyAcnnZXjIhru6bLD8=
-X-Received: by 2002:a17:90b:4a89:b0:36b:d40e:2cf9 with SMTP id 98e67ed59e1d1-36dd95082bemr2396345a91.7.1780392130087;
-        Tue, 02 Jun 2026 02:22:10 -0700 (PDT)
-X-Received: by 2002:a17:90b:4a89:b0:36b:d40e:2cf9 with SMTP id 98e67ed59e1d1-36dd95082bemr2396325a91.7.1780392129588;
-        Tue, 02 Jun 2026 02:22:09 -0700 (PDT)
+        bh=PCOE5vNKdTDdBmQCrOJcOWEluMHOBRxEstM1XYLtgTU=;
+        b=N/Or3TShcPJm0BsBqJiTmI7BdU2O0barsqxrloobtU9TuQd0sQlMBtrJuS0uE+FCjZ
+         tmAuDr6kyLKZVCnViAU4uZ3qVoebKMRi7P76K37Sdx24BTZ7N+nFhjn0XgzRgiaW0NbL
+         rseIIUK4otcm4XRNrtle3KRiKpgW8qCbSQ+GPfmoimOG1n93AlZTSd5ZdjY22yykjUmk
+         dJGcf888wyJl3cHe0vwNz4GkBdAqrObquRNd7riFQmzunMiSMTk/E6bJFWPdjwW6tRkG
+         xRH9/eqweyAJOb2wBlDFSm9fOqsMLU890idddbA1qAUxD9fTBUvdZCpgylY56u8jcPZb
+         hY6g==
+X-Forwarded-Encrypted: i=1; AFNElJ9vIKd3j1HlwpU2VbkKuexndf+x3j5c1WdVmqxyLL+M4CRWJ8I/BfHQjHPQMwHgN9tXXXgMobIDBQCb@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz7epp5SGfpXgYg5PNE7Id+p+H3RnPmW5iOMIYg7Pl5hpmYLoFz
+	GUbksppYb3ed7+DweGh2K/m1pVEG7+jSCOIo1WsMrLw0jh+ov8HFQxeX10UM56bGumVZCICMlkE
+	Xkq9/a16LH2+bJlKEGrzF97jO4ccSbrz/t/IQcH4BSB2y/kRm0Iy8UOucHO9Ong+P
+X-Gm-Gg: Acq92OGsanes/2X0IC0ivletFMLCxiO2ktV2yY+yKFyyznsYjx6R/Fihb934IYdvXz+
+	iwc/AlhiIkgKa6gV1IyS3rlSj/Iw2iH28IiKYD3beW5JzFJPfhmxIyHzG+4PGFSmGV7Litn33Of
+	QhohYaYdrHTYG5JCBhvdGj60yHK8u64nJ9cpA3mdmpnDToZzpp++1q3Mch9smZJb41C8wtEVF1W
+	asNxreNK5fj3/oFwYJJMJUqqPdQE7eub/id4I2rUsyHrLrAAugxzjkahZY1XB85su3ANjmyVR2d
+	vZMyxa2PocWfdjicN+MDFL1XBj/aFBrpbRdUZq6/x+ve+WrQzGO88YgaDtR9w28UhFTu/LQdlbj
+	MBQ/ghYpKeb0W8vbQMvGUzh5c4KWrg+HB10Z2/jjhiOb6QGgkf1ct1gC/9aSO+n3umpeA7ywYGZ
+	MFa9dFmo/8fsNIawkYssm82O/9ie3p3WpLVahYEWKr6aOMv1fbntfG1/6ncQyubi7b2qc=
+X-Received: by 2002:a17:90b:498d:b0:36b:98a3:4a85 with SMTP id 98e67ed59e1d1-36c685a8b24mr15601022a91.27.1780392133920;
+        Tue, 02 Jun 2026 02:22:13 -0700 (PDT)
+X-Received: by 2002:a17:90b:498d:b0:36b:98a3:4a85 with SMTP id 98e67ed59e1d1-36c685a8b24mr15600991a91.27.1780392133436;
+        Tue, 02 Jun 2026 02:22:13 -0700 (PDT)
 Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36dd91f1affsm2154028a91.11.2026.06.02.02.22.06
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36dd91f1affsm2154028a91.11.2026.06.02.02.22.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 02:22:09 -0700 (PDT)
+        Tue, 02 Jun 2026 02:22:13 -0700 (PDT)
 From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Tue, 02 Jun 2026 14:51:59 +0530
-Subject: [PATCH 1/2] regulator: dt-bindings: qcom,sdm845-refgen-regulator:
- Document IPQ9650
+Date: Tue, 02 Jun 2026 14:52:00 +0530
+Subject: [PATCH 2/2] regulator: qcom-refgen: add support for the IPQ9650
+ SoC
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -91,7 +91,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
+Message-Id: <20260602-ipq9650_refgen-v1-2-55e2afa5ff64@oss.qualcomm.com>
 References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
 In-Reply-To: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
 To: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
@@ -103,89 +103,207 @@ Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
         devicetree@vger.kernel.org,
         Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA4NyBTYWx0ZWRfXyut/9Fm3LBgZ
- RNVOBhJW1qhHGjYngzqnModtPehfwQFLSL3WeCHO3Lrk8qGj5NnKlIO8K1OVT/XPX8ccsNf7Pe0
- uCN/BFiYOKoc+JCehFnvLJBo7/61/sPB7DBd+IYBFgHTDftSTvMy2jlEOhzwNuERLa/daTgXFT/
- N+vE5VtCFq/a48a3NC+2+ai6Qfh4kLhqpcRyk7AMWb+eprHuTP6gEZvFTzhpFeuneQVtK/r5yZT
- JDsjN55Aqo1IktW4vvxq7kLL6NtJR2yk0talIuk31ZwMFnp/M3ZFko/5igpN0EIhXyW5TyipYcz
- qWdpfSqp0V7ohPsMmk4OUdbkypK8DRod4lRS06nBfmywsSHV0CS/2Xv76wGmI+0uJYZOK2HqkjD
- 4u4SqDMOIMlZ5Y094wxMpXTz6j7+WCCgtOccxzSxYxif/5K2xPqZ2/3KEEWOwO1wssJqrcQSyIf
- uiKMyxYPY83kp3DBSLQ==
-X-Proofpoint-GUID: RMwg-jVo20ebMgiR3WiuVbeeAPApFCEs
-X-Authority-Analysis: v=2.4 cv=AJZ7LEvz c=1 sm=1 tr=0 ts=6a1ea0c2 cx=c_pps
- a=vVfyC5vLCtgYJKYeQD43oA==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
+X-Proofpoint-ORIG-GUID: EAi_3vkCOOhCfrkGS0qeI5XzjTdVdWNp
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA4NyBTYWx0ZWRfX5gWYnaOul6cx
+ jU5WzhX/1TSPstM8qECqlj4ABXHwnxCZB9q23NubuFHsLSYXM7oTxuQ/x0cdIP/rzsGprjBAs5W
+ LNGFN02u2PmsBmk2yOOohmb+di32jJDmO5Dd843kYKxV4rgCfn0GCLpsJBfEc7J7vYJYfOLgmWy
+ eMf38yJ1o+wHJlM/3WGGRzhK17FJM5HByqa4KXl0rEeDR/xZfitczLrRFSMyL4BwXM1tFr0O0AY
+ nCNjnv25OPCiewKWCaLkQtbEQQQmPX5a6jKInDaPWvTxAiYWer6x5Ay6l10TYF7eJYRgwjYHlmC
+ 8nD2sx26ENj+LkkQkjgGXEsbnsBsMl+bs8sXi4Vrgpy4Pogmrjh3RfgJz/4O8Hx7Uvlx5yz4VnA
+ XG+hxVC1jolKaAUZ09YG6Er/8LxYl48HAmBLQoSKee4fpK7hq6oKtFWwpJm5dFo9msDKvpOWet/
+ f8OXmM+SCEyjKrU5qtg==
+X-Proofpoint-GUID: EAi_3vkCOOhCfrkGS0qeI5XzjTdVdWNp
+X-Authority-Analysis: v=2.4 cv=O6IJeh9W c=1 sm=1 tr=0 ts=6a1ea0c7 cx=c_pps
+ a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_K5XuSEh1TEqbUxoQ0s3:22
- a=EUspDBNiAAAA:8 a=VjL3xhqMjkKYvgIonoEA:9 a=QEXdDO2ut3YA:10
- a=rl5im9kqc5Lf4LNbBjHf:22
-X-Proofpoint-ORIG-GUID: RMwg-jVo20ebMgiR3WiuVbeeAPApFCEs
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=mehsi33qI3AhlkpvdBkA:9 a=QEXdDO2ut3YA:10
+ a=uKXjsCUrEbL0IQVhDsJ9:22
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-01_07,2026-05-28_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- adultscore=0 suspectscore=0 malwarescore=0 phishscore=0 bulkscore=0
- impostorscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0
- priorityscore=1501 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606020087
+ clxscore=1015 suspectscore=0 bulkscore=0 malwarescore=0 lowpriorityscore=0
+ impostorscore=0 spamscore=0 adultscore=0 phishscore=0 priorityscore=1501
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020087
 
-IPQ9650 has two REFGEN blocks which provide reference current to the PCIe,
-USB and UNIPHY PHYs. Unlike other supported platforms, IPQ9650 requires the
-REFGEN clocks to be enabled explicitly.
+IPQ9650 SoC has 2 REFGEN blocks providing the reference current to the
+PCIe and USB, UNIPHY PHYs. For the other SoCs, clocks for this block is
+enabled on power up but that's not the case for IPQ9650 and we have to
+enable those clocks explicitly to bring up the PHYs properly.
 
-Document the IPQ9650 compatible and the required clocks for it.
+As per the design team, REFGEN block provides the reference current.
+Hence marked the regulator type as REGULATOR_CURRENT.
 
 Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 ---
- .../regulator/qcom,sdm845-refgen-regulator.yaml     | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ drivers/regulator/qcom-refgen-regulator.c | 94 +++++++++++++++++++++++++++++--
+ 1 file changed, 90 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
-index 40f9223d4c27..2686569ca060 100644
---- a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
-+++ b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
-@@ -16,6 +16,16 @@ description:
- allOf:
-   - $ref: regulator.yaml#
+diff --git a/drivers/regulator/qcom-refgen-regulator.c b/drivers/regulator/qcom-refgen-regulator.c
+index 299ac3c8c3bc..2858792acba8 100644
+--- a/drivers/regulator/qcom-refgen-regulator.c
++++ b/drivers/regulator/qcom-refgen-regulator.c
+@@ -3,6 +3,7 @@
+ // Copyright (c) 2023, Linaro Limited
  
-+  - if:
-+      properties:
-+        compatible:
-+          contains:
-+            const: qcom,ipq9650-refgen-regulator
-+    then:
-+      required:
-+        - clocks
-+        - clock-names
-+
- properties:
-   compatible:
-     oneOf:
-@@ -29,6 +39,7 @@ properties:
+ #include <linux/bitfield.h>
++#include <linux/clk.h>
+ #include <linux/module.h>
+ #include <linux/of.h>
+ #include <linux/platform_device.h>
+@@ -10,6 +11,7 @@
+ #include <linux/regulator/driver.h>
+ #include <linux/regulator/machine.h>
+ #include <linux/regulator/of_regulator.h>
++#include <linux/slab.h>
  
-       - items:
-           - enum:
-+              - qcom,ipq9650-refgen-regulator
-               - qcom,qcs8300-refgen-regulator
-               - qcom,sa8775p-refgen-regulator
-               - qcom,sc7280-refgen-regulator
-@@ -45,6 +56,16 @@ properties:
-   reg:
-     maxItems: 1
+ #define REFGEN_REG_BIAS_EN		0x08
+ #define REFGEN_BIAS_EN_MASK		GENMASK(2, 0)
+@@ -25,6 +27,17 @@
+ #define REFGEN_PWRDWN_CTRL5_MASK	BIT(0)
+  #define REFGEN_PWRDWN_CTRL5_ENABLE	0x1
  
-+  clocks:
-+    items:
-+      - description: Core reference clock
-+      - description: AHB interface clock
++struct qcom_refgen_regulator_data {
++	const struct regulator_desc *rdesc;
++	bool has_clocks;
++};
 +
-+  clock-names:
-+    items:
-+      - const: core
-+      - const: hclk
++struct qcom_refgen_drvdata {
++	struct clk_bulk_data *clks;
++	int num_clks;
++	unsigned int enable_count;
++};
 +
- required:
-   - compatible
-   - reg
+ static int qcom_sdm845_refgen_enable(struct regulator_dev *rdev)
+ {
+ 	regmap_update_bits(rdev->regmap, REFGEN_REG_BG_CTRL, REFGEN_BG_CTRL_MASK,
+@@ -62,6 +75,49 @@ static int qcom_sdm845_refgen_is_enabled(struct regulator_dev *rdev)
+ 	return 1;
+ }
+ 
++static int qcom_ipq9650_refgen_enable(struct regulator_dev *rdev)
++{
++	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
++	int ret;
++
++	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
++	if (ret)
++		return ret;
++
++	drvdata->enable_count++;
++
++	return 0;
++}
++
++static int qcom_ipq9650_refgen_disable(struct regulator_dev *rdev)
++{
++	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
++
++	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
++	drvdata->enable_count--;
++
++	return 0;
++}
++
++static int qcom_ipq9650_refgen_is_enabled(struct regulator_dev *rdev)
++{
++	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
++
++	return drvdata->enable_count > 0;
++}
++
++static const struct regulator_desc ipq9650_refgen_desc = {
++	.enable_time = 5,
++	.name = "refgen",
++	.owner = THIS_MODULE,
++	.type = REGULATOR_CURRENT,
++	.ops = &(const struct regulator_ops) {
++		.enable		= qcom_ipq9650_refgen_enable,
++		.disable	= qcom_ipq9650_refgen_disable,
++		.is_enabled	= qcom_ipq9650_refgen_is_enabled,
++	},
++};
++
+ static const struct regulator_desc sdm845_refgen_desc = {
+ 	.enable_time = 5,
+ 	.name = "refgen",
+@@ -90,6 +146,19 @@ static const struct regulator_desc sm8250_refgen_desc = {
+ 	},
+ };
+ 
++static const struct qcom_refgen_regulator_data ipq9650_data = {
++	.rdesc = &ipq9650_refgen_desc,
++	.has_clocks = true,
++};
++
++static const struct qcom_refgen_regulator_data sdm845_data = {
++	.rdesc = &sdm845_refgen_desc,
++};
++
++static const struct qcom_refgen_regulator_data sm8250_data = {
++	.rdesc = &sm8250_refgen_desc,
++};
++
+ static const struct regmap_config qcom_refgen_regmap_config = {
+ 	.reg_bits = 32,
+ 	.reg_stride = 4,
+@@ -98,6 +167,8 @@ static const struct regmap_config qcom_refgen_regmap_config = {
+ 
+ static int qcom_refgen_probe(struct platform_device *pdev)
+ {
++	const struct qcom_refgen_regulator_data *data;
++	struct qcom_refgen_drvdata *drvdata = NULL;
+ 	struct regulator_init_data *init_data;
+ 	struct regulator_config config = {};
+ 	const struct regulator_desc *rdesc;
+@@ -106,10 +177,23 @@ static int qcom_refgen_probe(struct platform_device *pdev)
+ 	struct regmap *regmap;
+ 	void __iomem *base;
+ 
+-	rdesc = of_device_get_match_data(dev);
+-	if (!rdesc)
++	data = of_device_get_match_data(dev);
++	if (!data)
+ 		return -ENODATA;
+ 
++	if (data->has_clocks) {
++		drvdata = devm_kzalloc(dev, sizeof(*drvdata), GFP_KERNEL);
++		if (!drvdata)
++			return -ENOMEM;
++
++		drvdata->num_clks = devm_clk_bulk_get_all(dev, &drvdata->clks);
++		if (drvdata->num_clks < 0)
++			return dev_err_probe(dev, drvdata->num_clks,
++					     "failed to get clocks\n");
++	}
++
++	rdesc = data->rdesc;
++
+ 	base = devm_platform_ioremap_resource(pdev, 0);
+ 	if (IS_ERR(base))
+ 		return PTR_ERR(base);
+@@ -126,6 +210,7 @@ static int qcom_refgen_probe(struct platform_device *pdev)
+ 	config.init_data = init_data;
+ 	config.of_node = dev->of_node;
+ 	config.regmap = regmap;
++	config.driver_data = drvdata;
+ 
+ 	rdev = devm_regulator_register(dev, rdesc, &config);
+ 	if (IS_ERR(rdev))
+@@ -135,8 +220,9 @@ static int qcom_refgen_probe(struct platform_device *pdev)
+ }
+ 
+ static const struct of_device_id qcom_refgen_match_table[] = {
+-	{ .compatible = "qcom,sdm845-refgen-regulator", .data = &sdm845_refgen_desc },
+-	{ .compatible = "qcom,sm8250-refgen-regulator", .data = &sm8250_refgen_desc },
++	{ .compatible = "qcom,ipq9650-refgen-regulator", .data = &ipq9650_data },
++	{ .compatible = "qcom,sdm845-refgen-regulator", .data = &sdm845_data },
++	{ .compatible = "qcom,sm8250-refgen-regulator", .data = &sm8250_data },
+ 	{ }
+ };
+ MODULE_DEVICE_TABLE(of, qcom_refgen_match_table);
 
 -- 
 2.34.1
