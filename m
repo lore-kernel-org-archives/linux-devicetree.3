@@ -1,288 +1,161 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E25C36EAA4
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 16:34:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EB2237D12F;
+	Tue,  2 Jun 2026 16:34:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780418060; cv=none; b=KV+N3Jy3k8k4dr4gh8dgfsGZ20BK8vf8GJ/NQSV6KEfwthyBOJJH3Be+llKJ0J8LWrkOYZtWmqhXTwEAkxiSfpgGUWbvfV4H/CvEg9bUbbLCvRkaQl7AxCgCghEUoYR1VpcQ8EjaR3JoVQEmMCujgqYEBp01MmtFSaxg1KjgIno=
+	t=1780418102; cv=none; b=bWAP3cPcbAWBaIedA/N8x94NsUqf2oZQxqcTMU51JaWctsuk4lFZqOiICqq/xd6aAzHydMJOzF7hLfdvHQrXcjUTUPvZOKA/sqg4deI4A9j/roCzccXW+8AZTs8D6OWY9px4A4cOWBZ1N+brc0HrTzc8hhfWMkfKY3644YlH0dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780418060; c=relaxed/simple;
-	bh=vPRuCmZhkBUOBh0DpMYjVuvAm1ugsgfsEoyTKkJ4wh0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=Mis9VCjZ/ArMuHC4tU3bzzyB9JLc4hxJhT6yM4qvlHqH2hV/XSvOjAMmn8elN1LAj29Q6S+bb0jHRU9m4KQImBzUxLWh9U613izWBga6NwwpmOd9wFW7/aOCU+80uQB4qN29005a0sMPsVTiwMtNpuTu3/+5xKmfdlCAPfq5ALM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=oozikyH+; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=OwrmrCuT; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780418102; c=relaxed/simple;
+	bh=yBJPaVs5ETs7Akb3mVYgvet2veeAz3t/zv0w2kevtIY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UYo/wswSyD12ceBLX/QYaoXb/hYJYb1Ueymwu+tYuiAG0TrExM6DgSLgtdSs1WIuVimhe4CE4UKqPlEeImmdJqgbRSMVU8DXrhRlbRYNCGaHQesPnQK2Xc7noCMkvOMQS4G0LxaEeBBIlNoo2yjkXDmZWNqEF2IU82O570rhovI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oiQJ1BQP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="oozikyH+";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="OwrmrCuT"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 652CGSxq2767712
-	for <devicetree@vger.kernel.org>; Tue, 2 Jun 2026 16:34:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cIEaA2LUGN5ay8u6k98AA4kkSKHcmpA2O4YQp3JwowY=; b=oozikyH+x/N680dA
-	P0tdpxSE/hgCFS55VorVJJT/7fyS4iu57ifr+oQOGM0i5jeyes5BmGQIk9woUfxB
-	2KltE9yeQfX8JphzmsxuFe7PsaliWKEOZ0haof/QD0ntRKyJhCWX2tJ10y+NhDEm
-	A08QqZLg7VJ/7m2fhnlQu8x25RoLfFn6Ba2USFaV8CiX7KJCUBFjit5rt/T2dAVE
-	4iykF3gF/MZ7+XQAtj5co5o98Ue8yGNsqfRpSDL26qF7C51hd5j8UNsW/wpRQTLb
-	mtdjHZccp+Z+zeWb1N3vl2WLnAPOduevj5VJn85iPn03EDnXS32oqrcbsq43Bnfv
-	QN7pYQ==
-Received: from mail-pf1-f200.google.com (mail-pf1-f200.google.com [209.85.210.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ehsus2hkb-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 16:34:18 +0000 (GMT)
-Received: by mail-pf1-f200.google.com with SMTP id d2e1a72fcca58-8424aac207eso2382636b3a.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 09:34:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780418058; x=1781022858; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=cIEaA2LUGN5ay8u6k98AA4kkSKHcmpA2O4YQp3JwowY=;
-        b=OwrmrCuT+z0f1Q6j/enjKz00Teujbnen9dWN3H8Midt/zl5WkD+q12q7xJZmBWdc16
-         7JDriyhKNmYUw4VVX6ePWQulXYzArSvguq0ilC/XNHn0BriduwZFcWaq8/hsdP9Rfyth
-         tmJUr5Zz+bdGNdrWR/2/OXVhXNl8neQJXg0W5LSog42QErfTUjUQNkr26/XnEb/AoxHU
-         0P+NR73vid0GRXjdvVG5uGx+o/tbFa6puHxlgIMlXgjuUuZGNEzFd8GyCdt0hHMZG3yk
-         Fap9GsB/RqrJ0h3O6iq1qU+nnJRqMfaXWrPOsgKbjc79ymOVPJomt4TEsGQq6Vy4t9qT
-         BpXg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780418058; x=1781022858;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=cIEaA2LUGN5ay8u6k98AA4kkSKHcmpA2O4YQp3JwowY=;
-        b=VgJEb//Qsb9CYpBVTbItLn7R2NNf3Z1h4P75qEziC0YuBPNeuhAk4n4DiAP8/3W7Ug
-         LfwoZajxvS2XhQWmsLBuit3oR3S6ckCwhxrhw4MwM7vTiL+G9kQ7EaS6mLa0f/hdGtnr
-         EF546if9y+2/OlTk/SVk29noRTViReh0teYHYqvReO3jboy9QSweTXQVjnqCG5EitJq/
-         9PqpQW1Pf5UQDtoUOw77AIL3t3qU1udHZ3bS3iHmRPSUsqzQHzMrBvhhxLrB9ka6p69G
-         /m6OU1rpZ6D81oskzjx5iQxYO/B0v1U+yvm95UNeZrS1uHszqkt1kAKMzjxX0oh0ll8P
-         oTwQ==
-X-Forwarded-Encrypted: i=1; AFNElJ9PCpjINssHy1HlY0iUhePp2IZPVKXLRRQUOVrWxq5ggE6+z5vgy7HbE6GT4m5GPyFowT4QB2JIIuru@vger.kernel.org
-X-Gm-Message-State: AOJu0YxICCchactBKXr6A8USig9qReqJ/oUFzDanGaM5vHCGvdOzZW4K
-	RheUYyK3TZW1/jRzdVhP6SWuSfhPYwgaaX3OBMCG+Pp5bOXGI+10qD9JCNIj1OeZpJ2B7X9XVpl
-	Z7kbUwrrsNUmI5geaOFYZx4q6ejVlb1DBT0O0glPX2CRrBTghrjuOJd4c9nhFEPGl
-X-Gm-Gg: Acq92OENkaOj7dTWNEgOHp/jw1gqhsG9ZUG3L1NUuScfdeQwV702Tr1fRcRf9dV/Duw
-	+93R6T4xBWNxdLhqniZBe5sETsU+fH2oeXDNW386fVD6gZB/Shcf5wpo1jNreO7aUaXxkm1jg11
-	lnjiNRZEMufXFcIDp3bHu6QBxKgdsTGqfMklDcB6vIFd91SdmtbvSX1hYe+DROCCuwHndn3ZDzx
-	9RJyx9x90R8qHoV+EOI2hg1H3HWjT321mg6YKUvFXgg/Ery1UUIA8kZXVnXg/whp63LMhawgoBA
-	CwrBCOR6FiTGuX1FFfdb3H6GSSmig/A4VlqZERve+Q/DJKwx4WQ3TGEwNv/c2SXBT0ww8a325FS
-	ppDbAGjLtnN67aBeJzRcv9JSWPOKn+JbXOYClRWSy/2bEn76sbVoIbS+X9bQ5U2a/4RkfRcfURW
-	lI6joyFPRaqJHs4qmCozFSTiG+E+DOxTM2q2dpFkO0rGGc5NkiRlo1WHDsY290a/IZcuo=
-X-Received: by 2002:a05:6a00:1d8a:b0:842:50fd:4c0c with SMTP id d2e1a72fcca58-84282ec21demr325675b3a.16.1780418057985;
-        Tue, 02 Jun 2026 09:34:17 -0700 (PDT)
-X-Received: by 2002:a05:6a00:1d8a:b0:842:50fd:4c0c with SMTP id d2e1a72fcca58-84282ec21demr325648b3a.16.1780418057342;
-        Tue, 02 Jun 2026 09:34:17 -0700 (PDT)
-Received: from hu-kathirav-blr.qualcomm.com (blr-bdr-fw-01_GlobalNAT_AllZones-Outside.qualcomm.com. [103.229.18.19])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282221059sm292181b3a.7.2026.06.02.09.34.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 09:34:16 -0700 (PDT)
-From: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-Date: Tue, 02 Jun 2026 22:04:05 +0530
-Subject: [PATCH 2/2] arm64: dts: qcom: ipq5424: Move PHYs and PERST# to
- Root Port node
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oiQJ1BQP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 008AE1F00893;
+	Tue,  2 Jun 2026 16:34:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780418098;
+	bh=eEcEHQ23xuObQYJYFo7xuxK/0FfVAbiKTSP/MzlKuOE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=oiQJ1BQPRtQ7HKTMAW6ngza9IxWv4fH+7a91+rcvkfzRGqd86H9HRkhZv8D/koDMo
+	 6hBvXlTUALwLGQJ3E0GNKFrIChYjINYIOhPwyPrx1EA/UtcMWy/aju5TYa/P+xyPpP
+	 u1lvGMPzDchlifHNepyPqXR+p1XnKrM6wgkcZTi1aMgCbBxcOnuC9sIFb2KEOKFSgh
+	 lbEGZSt0j9HMZG0Q9lJoTpYwmM29yDvXzAyAGUZr8eeGjQgRKVlFm0xLHx3SGfxYoe
+	 bYhTU9eYR1etB752f9/AEeQtRK7i+QC0jtz+Gv8mEzIpK/UFGKPK0fG7SnNgAnr3Ks
+	 5ApKGQIJy9k7Q==
+Date: Tue, 2 Jun 2026 17:34:52 +0100
+From: Conor Dooley <conor@kernel.org>
+To: george.moussalem@outlook.com
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+	Russell King <linux@armlinux.org.uk>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Florian Fainelli <f.fainelli@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org
+Subject: Re: [PATCH v2 1/4] dt-bindings: net: ethernet-phy: move clocks
+ property to invidivual PHY bindings
+Message-ID: <20260602-defense-diabetic-8a8e8e03a536@spud>
+References: <20260602-ipq5018-gephy-clocks-v2-0-65a1f1d881f3@outlook.com>
+ <20260602-ipq5018-gephy-clocks-v2-1-65a1f1d881f3@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260602-move_perst_to_rp-v1-2-8ee5b80316da@oss.qualcomm.com>
-References: <20260602-move_perst_to_rp-v1-0-8ee5b80316da@oss.qualcomm.com>
-In-Reply-To: <20260602-move_perst_to_rp-v1-0-8ee5b80316da@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org,
-        Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Proofpoint-ORIG-GUID: M15XgpISNwS0a16PvXABQdCvi9M9NpX3
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDE2MCBTYWx0ZWRfX+Jr7p4e4MOrd
- TyUji7+BoGYNVVTBhgHjYXOSXiGIKXSMtea/yqN7SHFhK69IjWnDsmzIXhbXXWCfmZtjIrdX9jV
- 8uXR1qryNgEdTEp5IxQCqRaQy3ccWiDfNGZ6T/4kxSZw82XanCLbQOvASqjGPk5c1pVSIHTk9ss
- 0RgQ5cDxI9WYGv0S4rAN6CKNuB6/qFd8n/f/MXQTM6rjylBaQrXKoOlud4hrdMODQs7emMdG3Bf
- 43lQiKHhYRUETq+gYdTu2//fb7uQfx4dV7EYz8ltRxRVZYv+elbNGwxxFquZ6by/0UqXq3mgKwV
- VuZoT5VN/IUdP+wEk47sd+bww6wjxhDs0kVnXmvzsfL5vcu0EKeZYvCpbSZaR2yS3oUVbE9yLQd
- FDN7/kJbriZOt/BMI++mY95Q8qD+M6r7VdgUlc1Gug9a9D4lKTTaI+8u+dSMujaqFZH2iFa5zrv
- Yas3X4YOk3ju6p5XDtg==
-X-Authority-Analysis: v=2.4 cv=ZYAt8MVA c=1 sm=1 tr=0 ts=6a1f060a cx=c_pps
- a=mDZGXZTwRPZaeRUbqKGCBw==:117 a=Ou0eQOY4+eZoSc0qltEV5Q==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
- a=EUspDBNiAAAA:8 a=_Idibcdv6X5oFpS-TOoA:9 a=QEXdDO2ut3YA:10
- a=zc0IvFSfCIW2DFIPzwfm:22
-X-Proofpoint-GUID: M15XgpISNwS0a16PvXABQdCvi9M9NpX3
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-02_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 clxscore=1015 adultscore=0 impostorscore=0
- spamscore=0 phishscore=0 suspectscore=0 malwarescore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020160
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="/b2Lutmla4cZLwpI"
+Content-Disposition: inline
+In-Reply-To: <20260602-ipq5018-gephy-clocks-v2-1-65a1f1d881f3@outlook.com>
 
-Follow the new binding style by defining PHYs and PERST# (now RESET#)
-under the Root Port node. Avoid mixing styles and move these properties
-to the RP node.
 
-Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts | 12 ++++++++----
- arch/arm64/boot/dts/qcom/ipq5424.dtsi       | 20 ++++++++------------
- 2 files changed, 16 insertions(+), 16 deletions(-)
+--/b2Lutmla4cZLwpI
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-diff --git a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts b/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-index de71b72ae6dc..be8657239c46 100644
---- a/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-+++ b/arch/arm64/boot/dts/qcom/ipq5424-rdp466.dts
-@@ -86,8 +86,6 @@ &pcie2 {
- 	pinctrl-0 = <&pcie2_default_state>;
- 	pinctrl-names = "default";
- 
--	perst-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
--
- 	status = "okay";
- };
- 
-@@ -95,12 +93,14 @@ &pcie2_phy {
- 	status = "okay";
- };
- 
-+&pcie2_port0 {
-+	reset-gpios = <&tlmm 31 GPIO_ACTIVE_LOW>;
-+};
-+
- &pcie3 {
- 	pinctrl-0 = <&pcie3_default_state>;
- 	pinctrl-names = "default";
- 
--	perst-gpios = <&tlmm 34 GPIO_ACTIVE_LOW>;
--
- 	status = "okay";
- };
- 
-@@ -108,6 +108,10 @@ &pcie3_phy {
- 	status = "okay";
- };
- 
-+&pcie3_port0 {
-+	reset-gpios = <&tlmm 34 GPIO_ACTIVE_LOW>;
-+};
-+
- &qusb_phy_0 {
- 	vdd-supply = <&vreg_misc_0p925>;
- 	vdda-pll-supply = <&vreg_misc_1p8>;
-diff --git a/arch/arm64/boot/dts/qcom/ipq5424.dtsi b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-index 876bf6a8b8ff..6635f9259bbb 100644
---- a/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-+++ b/arch/arm64/boot/dts/qcom/ipq5424.dtsi
-@@ -968,15 +968,13 @@ pcie3: pcie@40000000 {
- 				      "aux",
- 				      "ahb";
- 
--			phys = <&pcie3_phy>;
--			phy-names = "pciephy";
- 			interconnects = <&gcc MASTER_ANOC_PCIE3 &gcc SLAVE_ANOC_PCIE3>,
- 					<&gcc MASTER_CNOC_PCIE3 &gcc SLAVE_CNOC_PCIE3>;
- 			interconnect-names = "pcie-mem", "cpu-pcie";
- 
- 			status = "disabled";
- 
--			pcie@0 {
-+			pcie3_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
-@@ -984,6 +982,7 @@ pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+				phys = <&pcie3_phy>;
- 			};
- 		};
- 
-@@ -1071,15 +1070,13 @@ pcie2: pcie@50000000 {
- 				      "aux",
- 				      "ahb";
- 
--			phys = <&pcie2_phy>;
--			phy-names = "pciephy";
- 			interconnects = <&gcc MASTER_ANOC_PCIE2 &gcc SLAVE_ANOC_PCIE2>,
- 					<&gcc MASTER_CNOC_PCIE2 &gcc SLAVE_CNOC_PCIE2>;
- 			interconnect-names = "pcie-mem", "cpu-pcie";
- 
- 			status = "disabled";
- 
--			pcie@0 {
-+			pcie2_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
-@@ -1087,6 +1084,7 @@ pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+				phys = <&pcie2_phy>;
- 			};
- 		};
- 
-@@ -1174,15 +1172,13 @@ pcie1: pcie@60000000 {
- 				      "aux",
- 				      "ahb";
- 
--			phys = <&pcie1_phy>;
--			phy-names = "pciephy";
- 			interconnects = <&gcc MASTER_ANOC_PCIE1	&gcc SLAVE_ANOC_PCIE1>,
- 					<&gcc MASTER_CNOC_PCIE1	&gcc SLAVE_CNOC_PCIE1>;
- 			interconnect-names = "pcie-mem", "cpu-pcie";
- 
- 			status = "disabled";
- 
--			pcie@0 {
-+			pcie1_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
-@@ -1190,6 +1186,7 @@ pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+				phys = <&pcie1_phy>;
- 			};
- 		};
- 
-@@ -1277,15 +1274,13 @@ pcie0: pcie@70000000 {
- 				      "aux",
- 				      "ahb";
- 
--			phys = <&pcie0_phy>;
--			phy-names = "pciephy";
- 			interconnects = <&gcc MASTER_ANOC_PCIE0 &gcc SLAVE_ANOC_PCIE0>,
- 					<&gcc MASTER_CNOC_PCIE0	&gcc SLAVE_CNOC_PCIE0>;
- 			interconnect-names = "pcie-mem", "cpu-pcie";
- 
- 			status = "disabled";
- 
--			pcie@0 {
-+			pcie0_port0: pcie@0 {
- 				device_type = "pci";
- 				reg = <0x0 0x0 0x0 0x0 0x0>;
- 				bus-range = <0x01 0xff>;
-@@ -1293,6 +1288,7 @@ pcie@0 {
- 				#address-cells = <3>;
- 				#size-cells = <2>;
- 				ranges;
-+				phys = <&pcie0_phy>;
- 			};
- 		};
- 	};
+On Tue, Jun 02, 2026 at 10:50:37AM +0400, George Moussalem via B4 Relay wro=
+te:
+> From: George Moussalem <george.moussalem@outlook.com>
+>=20
+> Move the clock property and restriction from the ethernet-phy.yaml file
+> to the individual PHY binding files. This allows each PHY to manage its
+> own clock requirements.
+>=20
+> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+> ---
+> Commit 350b7a258f20 introduced the clocks property with a restriction to
+> maximum 1 to the main ethernet-phy.yaml binding for Realtek to add an
+> optional external clock source. This is restrictive to all PHY bindings,
+> as some PHYs may require more than 1 clock such as the IPQ5018 PHY which
+> requires 2 clocks (for RX and TX).
+>=20
+> There are three other PHY drivers that require clock management:
+> - Micrel: requires 1 optional clock and the micrel.yaml file already
+> accomodates for the clock property.
+> - SMSC: requires an optional clock and the legacy bindings file
+> (smsc-lan87xx.txt) already accomodates for the clock property.
+> - BCM7xxx: requires an optional clock. I could not find a bindings file
+> for this PHY family.
 
--- 
-2.34.1
+Have you done a large-scale dtbs_check run with this patch applied and
+checked that it does not ban having a clock for phys with no dedicated
+bindings?
+I feel like weakening the limit of a single clock is probably more
+accurate than outright banning clocks for ethernet phys without a
+dedicated binding?
 
+Cheers,
+Conor.
+
+> ---
+>  Documentation/devicetree/bindings/net/ethernet-phy.yaml    | 6 ------
+>  Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml | 6 ++++++
+>  2 files changed, 6 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Do=
+cumentation/devicetree/bindings/net/ethernet-phy.yaml
+> index 21a1a63506f0..709ea976ef79 100644
+> --- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+> +++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+> @@ -105,12 +105,6 @@ properties:
+>        1BR-10 names. The PHY must be configured to operate in BroadR-Reac=
+h mode
+>        by software.
+> =20
+> -  clocks:
+> -    maxItems: 1
+> -    description:
+> -      External clock connected to the PHY. If not specified it is assumed
+> -      that the PHY uses a fixed crystal or an internal oscillator.
+> -
+>    enet-phy-lane-swap:
+>      $ref: /schemas/types.yaml#/definitions/flag
+>      description:
+> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b=
+/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> index 45033c31a2d5..8a26f6941dc4 100644
+> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+> @@ -38,6 +38,12 @@ properties:
+>        - ethernet-phy-id001c.cad0
+>        - ethernet-phy-id001c.cb00
+> =20
+> +  clocks:
+> +    maxItems: 1
+> +    description:
+> +      External clock connected to the PHY. If not specified it is assumed
+> +      that the PHY uses a fixed crystal or an internal oscillator.
+> +
+>    leds: true
+> =20
+>    realtek,aldps-enable:
+>=20
+> --=20
+> 2.53.0
+>=20
+>=20
+
+--/b2Lutmla4cZLwpI
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8GLAAKCRB4tDGHoIJi
+0kHpAP9XjyB3K4pLGi+bkJK8VTGY12FvgdCVw0NwHTYP1isRFwEA9JZhVCKzNpWL
+65BkW3Tcg16zRXaTc/ZxdWJLm2tYGww=
+=C6w/
+-----END PGP SIGNATURE-----
+
+--/b2Lutmla4cZLwpI--
