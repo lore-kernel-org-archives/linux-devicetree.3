@@ -1,52 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 460CF373C0B;
-	Tue,  2 Jun 2026 16:42:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD1D373BF4;
+	Tue,  2 Jun 2026 16:43:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780418545; cv=none; b=La6UGB5bq6fymIBPzfEuLWm913S4l+lwnJt+SqZb4E3UN3OvmKeD70VUcE+LyG8IC2lRLLPkEcvUns0hSj/ijH9/z7aCLGZb+64sKMKPcVf4KN30j6dao5v0AuFvyz/bEfmcV2E03BtzzocEMjUItRgkwggqMe2uauVd+8u9szY=
+	t=1780418583; cv=none; b=fu/NaojEWXoloZKhdpx1hvouEYmqrp6iFU+DVjvWnb3h0/2WSWYjqGtnhWcjvdGQMu2i0Z6quplLIvZMxilhq2T7ZLDgLR0kcQYYSww1avpIgSyEkrBFU/udVLNSJBq0d3oHnk9oRnl151gXoe5BWo5hzU13Ih4UcQWSxiaDu6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780418545; c=relaxed/simple;
-	bh=yLdicBgS31OJfnOdnD0/nzXfokLDi5J65GXJQ4Bg20E=;
+	s=arc-20240116; t=1780418583; c=relaxed/simple;
+	bh=Xqkn7EVchcMbjnDkgwOZm7cACncjKcFv9E/ppH9FXzw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tMSCzN7o25FADF4wUpLaUgQHpo7zfBg6EHuLzGokAr0Z01/VoPHMx28wlUh876WcyQ4ZrDYEhUo1VaulUixq4cSR+p93PTPMiXHy3Np39gF1iUbZuMFoe+rBDSumYnngE4dm4gi5SiPCSUhyll4PtwmQ8bpcKK4ZJTomh8FJjSA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Iv46Vtxk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=VCg+rBwtdXOSMEqQUvnM8MZgV7w9nths62IRVzq4PHBmp8rAHOqcbWOXLgUfmZLe+tQ1NZkyVscZTsCnOxOBaJev52EMUqVzACSL17+tsZmd7VowYAo7dP1uXYYaO3GEj1oEyINxN9QcTAJIQLCmPWif8smiieLh+Bt7ocwQ6Pw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKviLg/r; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Iv46Vtxk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BED21F00893;
-	Tue,  2 Jun 2026 16:42:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKviLg/r"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D0B801F00893;
+	Tue,  2 Jun 2026 16:42:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780418544;
-	bh=h2HNNcTXQQ1ElFj6ti8K+wpHo4Vef84XqqU/ALIDgeY=;
+	s=k20260515; t=1780418582;
+	bh=Xqkn7EVchcMbjnDkgwOZm7cACncjKcFv9E/ppH9FXzw=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Iv46VtxkDFnHUaiUstW8bszL/YRknzjeFzxwmdL3NeMojogpjQYuGgWcwn4sOTHgI
-	 /lKjFOWWkZieiR/Hi70x/EmUxb3bW6ND3OvEmPkga13x4G+wPSM1Ca32RevnE78P/z
-	 BhwoqfxXftRIR1qd6cGCr+pHPfrDdPlY29esXIJCu5Ov+coXjMajaFyisiQapNNsrB
-	 qEyR84Y1DLSspywklJV5MYNBBBSPRVyaU6SwB0m6/7eujPRJ3+2/COz4b1ppR0aCza
-	 sVYoVcOAiNC4uN1vXlzadhtiwsOxp3Ojh/J7fXqEu+P5umfAC9PhrGi6T1QazD9UL0
-	 /IN5MRbdE1MhQ==
-Date: Tue, 2 Jun 2026 17:42:19 +0100
+	b=AKviLg/r7qZbVLQFlONrui5T3HKU3u5SJinZ/i4rswLVf0PJoqKWfti1xFXq19gFA
+	 Sc8BIfY1giSDKsy+EK+S2mAIiHyKKT4Zg/dj0/gi1kPZ1+MKRe+ZqfPKQ+8Nkppotj
+	 fhi/K/sltLjjH/kvzyEH3H9EfPCB8t2XlgIrf7xv4Xfq09b1WOcOiieFUpuiJUi+cF
+	 HNo0uznHWlzhAoSjct4xx3TLT3ET+K17CKYvhPY8AjB2tOxLxU34FgVR2Ss/dOuOIR
+	 K/YjcFr4JMcgJ1Z5OnLv9zkcajPE8Mcw7sLC+/LujQyJIEB5d3xEmZhSuhRVPd8RBE
+	 3ZMVvpM83VIcQ==
+Date: Tue, 2 Jun 2026 17:42:57 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Selvamani.Rajagopal@onsemi.com
-Cc: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+To: Luca Leonardo Scorcia <l.scorcia@gmail.com>
+Cc: linux-mediatek@lists.infradead.org, Linus Walleij <linusw@kernel.org>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Piergiorgio Beruto <pier.beruto@onsemi.com>,
-	Andrew Lunn <andrew@lunn.ch>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Conor Dooley <conor.dooley@microchip.com>,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH net v3 2/2] dt-bindings: net: updated interrupt type to
- be active low, level triggered
-Message-ID: <20260602-rebel-snide-5036c97e410d@spud>
-References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
- <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Sean Wang <sean.wang@kernel.org>, linux-gpio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH] dt-bindings: pinctrl: mediatek: mt6795: document the
+ slew-rate property
+Message-ID: <20260602-chaos-jersey-50f60b1b4070@spud>
+References: <20260601152707.29039-1-l.scorcia@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -54,67 +49,27 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HZ1WWXngKVTnQZQS"
+	protocol="application/pgp-signature"; boundary="qIydSbG4bdZw6d2c"
 Content-Disposition: inline
-In-Reply-To: <20260601-level-trigger-v3-2-da73e7010532@onsemi.com>
+In-Reply-To: <20260601152707.29039-1-l.scorcia@gmail.com>
 
 
---HZ1WWXngKVTnQZQS
+--qIydSbG4bdZw6d2c
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
 
-On Mon, Jun 01, 2026 at 09:07:19AM -0700, Selvamani Rajagopal via B4 Relay =
-wrote:
-> From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
->=20
-> According to OPEN Alliance 10BASE-T1x MACPHY Serial Interface (TC6)
-> specification, interrupt type is active low, level triggered interrupt.
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-Have you checked the documentation for this device etc to make sure that
-the device actually follows the spec?
-Maybe Parthiban can confirm this for us?
-
-Cheers,
-Conor.
-
->=20
-> Fixes: ac49b950bea9 ("dt-bindings: net: add Microchip's LAN865X 10BASE-T1=
-S MACPHY")
-> Signed-off-by: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-> ---
->  Documentation/devicetree/bindings/net/microchip,lan8650.yaml | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml=
- b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> index 61e11d4a07c4..766ff58147ae 100644
-> --- a/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> +++ b/Documentation/devicetree/bindings/net/microchip,lan8650.yaml
-> @@ -67,7 +67,7 @@ examples:
->          pinctrl-names =3D "default";
->          pinctrl-0 =3D <&eth0_pins>;
->          interrupt-parent =3D <&gpio>;
-> -        interrupts =3D <6 IRQ_TYPE_EDGE_FALLING>;
-> +        interrupts =3D <6 IRQ_TYPE_LEVEL_LOW>;
->          local-mac-address =3D [04 05 06 01 02 03];
->          spi-max-frequency =3D <15000000>;
->        };
->=20
-> --=20
-> 2.43.0
->=20
->=20
-
---HZ1WWXngKVTnQZQS
+--qIydSbG4bdZw6d2c
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8H6gAKCRB4tDGHoIJi
-0pUqAP0fkQ62LhS6blqCX8hY60sRpZKoie/VLRfv42S128j1ZwEAmBOhV1ChSOm6
-A9xNSy+Fi+Um/tjHu605U8g+8yZF1AU=
-=nOV4
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8IEQAKCRB4tDGHoIJi
+0mrTAPwJtBLGBMldX25YoduFYOFABADCaCaWjt7yB0qRp8rY7wD+NIaskGXV1A/N
+bLPvbwapWDo+tLidhEhl0hnA5+hl+AE=
+=DwBB
 -----END PGP SIGNATURE-----
 
---HZ1WWXngKVTnQZQS--
+--qIydSbG4bdZw6d2c--
