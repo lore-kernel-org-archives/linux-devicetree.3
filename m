@@ -1,61 +1,63 @@
-Received: from mail-wr1-f46.google.com (mail-wr1-f46.google.com [209.85.221.46])
+Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6BBA3939B5
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 11:51:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 344EA392C4C
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 11:51:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780401101; cv=none; b=hun1YZkB2EUK53RR82SQRCicpRtwqXt4pgxyqZ7rvJqc8GFuHBF+t31VFvNKBGIFUvI6cNX/QEW33FXTUrTFNXZB/iu751lJULgoBgR/a4u/4fjW9QyHYbUg30PRUTpq80l0z57OZVcJk9GeA/Eel/vBHrrVVeasayuHK6FYqDA=
+	t=1780401103; cv=none; b=ToXk2+//GqO8EejrOzKdIoIn7zIXmMzVdOXbFBC4D58P+Hen8mBRkZbbzRc8J1ga5JoLpQl5ondnJpFVphe8EiECWCJfXfIeu99adKm0Ra6NpN2+UyitbBGCd9b76WqR9wFddTOEySdkyprJYvslX6XJPiRXZJfflDRN6mraYVc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780401101; c=relaxed/simple;
-	bh=Hm7lcbuEa3gIiNAfgN5UVderGHMXjjcL7M0W+ZyYo00=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kg8JBmrOFv7eErY8tI4g4dGihosD29xoLXEpXIOudWP1PkdbCoxVHs0FLGaNm7Fnk2ErGcWuovHWA27jXudn9eb5EqJZHS3TeGHokMpUketeFwDmt3Qup9QKwZfEQu0xHFyxQDwVBDu5aANnezgNwGoozvxNuecvvNambPqapeA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CpLzbMRx; arc=none smtp.client-ip=209.85.221.46
+	s=arc-20240116; t=1780401103; c=relaxed/simple;
+	bh=OIAKL0DArDeyQDNH8mMGVPy5Gif1KPaX02sUABsVbbw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PNsk1N0JLKo8OMEruocyjuw4+Q6eW3XSS36K3BeoxAAsVttIArX85GjrsaazfOH7fFXC3tBmri7vMtn6bCyv11v77Yy+RFo832A3cWH4yo3ePBqAKHD4KolkySM1djTSNwwIP2X/qOuzil0JZJoO/KNvPLAR/HRqjNrwi0cF8iY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=six6pZhu; arc=none smtp.client-ip=209.85.128.48
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CpLzbMRx"
-Received: by mail-wr1-f46.google.com with SMTP id ffacd0b85a97d-45eecb8bf67so3829253f8f.2
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 04:51:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="six6pZhu"
+Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso5707635e9.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 04:51:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780401098; x=1781005898; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=7im3CUG3zSzSawz5dX5Ezc+o8cBVuqZtJiTJ2Y8aJ68=;
-        b=CpLzbMRxwHQfcnaWyekPcl65fB1rdxxUvnfBUhYCUmSwzexBZ7CgHJhHXhv/VhDFs0
-         +O0nRdZbIr3jq6NX8CmRq8O/8+YhQ83nt79Eo8lI+0CE/67kpXcHFUx1N/q5mzZ/r1zN
-         GXSjkmITTT3m9uMcn1yveEyZnAJH+/oUO7GPGOjHaYrxLGN3MphBTI2S3XWlwZDhjFAW
-         QfjxH5hmjPB+C4otPQWavjDQ155ygwy+WzSz/Pw+/t6yK0I6BBeFGwfQbYDuZ5hYqv5J
-         RcApcmCCoHl79hCP391G9BCHxsLP8uRjGVcq2CanL+e9bGZkLZMKq0m8GvctMr0WfqeW
-         SOgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780401098; x=1781005898;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780401100; x=1781005900; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=7im3CUG3zSzSawz5dX5Ezc+o8cBVuqZtJiTJ2Y8aJ68=;
-        b=bFs1qG2xUFpaoBar5xwVjLBrFUUCCNLuzUAMwH3pmuwkurd+4F1HJOIp/O3PIhrwnC
-         SkvX77mC7jvaOgtHWy5/eyoX5grjTeoHP2z/kTpMv4cabskW2ZW5qNWdFGASW7KgvBI4
-         Is1oMI1XHbIto4z5e1gKTXkm5JqsPhSdocDpjzRwr0WYoKOyqVq0DXQYpVOnDKR8cDI6
-         qwGOIyNCoyyikOxkNFOF0cX4LykHPqtZR0bs6SL1fapJwhLSuKiFeVctW8Ie2zDIelFR
-         7PnCtxvXYay03g+XCRvXzGHmRWAM0Dc+tI1TC0GUAaQPKwzLBdpSOONOUJv3VXrdqBx0
-         IPDg==
-X-Forwarded-Encrypted: i=1; AFNElJ+y2e1dX+sIm1I+26dDApMTwar3Bl5JSniAWnqBnUDK/Co0+fZSYKUzKn/egL1U8sxI6wqcVmJde0V+@vger.kernel.org
-X-Gm-Message-State: AOJu0Yw+ksg1DJZe2rK4gC6JaCvcJWP9FukXnCFpzSHvElRE8KHRyFTt
-	A6WBcZvGTBegSe2p+5sYw8SRJd0sBSrvqO2lFOswjqZhGa0U+hMydrgq
-X-Gm-Gg: Acq92OGT25MfBgE+K8jtSz/606+1AjElTdfUPabUC+gKyKz1bJR/RgqaGhGds46kWw3
-	4NQhdMW/LuFwl6cu4K4Pe2mGTAKwenuiDb63JS5dCB+4IyANIkNBaBdCuKxxwJTEnYyfonxKEdn
-	NUdND8s4yK4Lvbk1EmQtqLO1I40CqSeXFwkIDOH+UBOC8KF/Pj4D/GoCUThZbGcuq7Q9iM1WSte
-	EgZMDjZHcTt6FwzlDgF83yusKy1/FJ0nbxriQRuJCDj2OW5b8opPthCgPr6XuC2jKy7Tc9nUVPO
-	V6eI1cW3IFXL1sP1KJs89auy5C2fXKeHrt0swaufRFv2J1wflxN7/IGj3ZhduR3SqpI/etIvZPh
-	a2iwMOgHseeN/zNNRCvi81R1Zy3ZSebgCsl2ukCzx3B+ye+t7Q0gA8/5Ezl9BJYEBhvT8JbSqBo
-	wrWdwymCshFKW3hZW10wqmxMpPQfQYTQGBPaxZ
-X-Received: by 2002:a05:600c:3b10:b0:490:b0df:9eac with SMTP id 5b1f17b1804b1-490b0dfa72bmr59783675e9.3.1780401097928;
-        Tue, 02 Jun 2026 04:51:37 -0700 (PDT)
+        bh=8VnZ67Mn9rpXh6zYkRstzvXdwxleOKYbVtvyQUHqOxM=;
+        b=six6pZhui0A9JzGHxnIcPv9q/sfQEy4s0PAqMvhOrkE2D1hI/Pe8K+U9ZLv0TGd4gJ
+         TdzcGBgWEQKaudHD4CxxyQvdEe4BRUdu9XeLJgk2DJmLAuDR3uRlewCG5m8WvyaKT2cU
+         ZWv/8Wz15IPxyU754/1i6iQLV0VnrhZ1UW5fzFV/bLvBGmtxlok0TMSaYVL3hzf6eycE
+         9Vr/QSS2vuH9eCJtOMHSnTyoa14eAjBUtwbvjOHDJUh+OZKOs+DGnTdTOdM9nc8aRAQe
+         MjmqdJ2H/aJ8Ncm0skIwHsDF6NQRPTIvEgFXYvfPFlXKVP87WN8VEgXI7RH7wQM0CvXf
+         OpYA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780401100; x=1781005900;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=8VnZ67Mn9rpXh6zYkRstzvXdwxleOKYbVtvyQUHqOxM=;
+        b=CIgIMsMi/rBlGdsgQmCc2Tq/6tu5PrRcrTBEAtVTiKZS9YF1uuzcsf/Qwxh/eCXGn/
+         aOLQIDQFjtR2nw2uOcHyrNnhW1JNVKX0TX5hLoccAum1HP8mfwJnn2CFhau6SXCpkhKP
+         MjhJrCjt4AlvW/zUdCU7bPYTGVvfJt12iYQzbpMKB9XoW+OVBmr6XAYe/Vx5O9r0To9+
+         dPIlNqXF+Ezbo3gAH4avmm2kWUkldmzus67h8yBNgwu3xddb0rEfzE2OM6MG5BqkXmx2
+         czEVpMwLbYngIeTW4frZ1SjOyzQsdxStSZdPSC980XhAEF4+tSLGDIEVgiqdK5cKSaY/
+         O2sQ==
+X-Forwarded-Encrypted: i=1; AFNElJ9DTx9oc678lCiw9vcIxqYCGfLyytgpvHd+q+XuHoidUWSM0Ny/SNvrF4t1hkwjKvxKJ6nYJVEgj2IW@vger.kernel.org
+X-Gm-Message-State: AOJu0YwWiU2zlDd81yjsDURJDfVy2xJUUyog7yNM7CLqt5qY5CVcirIw
+	7xISkWxgndKA9OkUYTCbdnfr0ssIsdwmAAA7eea6q+MSs6l3Zphecb/I
+X-Gm-Gg: Acq92OEO94rluSQRBtb8ZH///X+M8+vFE4JfG+GGNQSP/FjMrF6T5vijfnKq8stqX3M
+	ol/LIhtss+GB3DXF7U4aQt7kJRRvlQJBe5AZhikOlE0eFuTouCpR+3MrWuoKPBmqV9zb6HUcV4h
+	6zOVClDjCD5YUSEQNv7atEL/MBITMMV2+v6g7zsq/Zixe58c0Xb+36FTK8zGT3qmwrwfjxWitEd
+	jJgFUdl+AvAXkUlMehtJAVo8Z3Fdt/G7ZhXvDrScFdRfCRwFnwUcw3WVVaBbyDLast4zBJE1aWM
+	HAF0K9Wwlu4875QKCL8WeKDYgPu5a6PQ+F8MdvJgyEd12DIiQSm9KUWPRIvhYWH5eZ4dFKCBQTa
+	bohdFBIcCymEnlFDn8rMogALq3bcu8XsOSTGggPVP70WDKkGyUjeuncOPFDgU/ikkWpLAUJsmKe
+	kh82ov4Bvyb13ZPr//ZP2PJCACag==
+X-Received: by 2002:a05:600c:2242:b0:490:5321:2466 with SMTP id 5b1f17b1804b1-490a2941ea3mr185811465e9.20.1780401099423;
+        Tue, 02 Jun 2026 04:51:39 -0700 (PDT)
 Received: from vitor-nb ([2001:8a0:c4c6:f00:e8c3:a961:5b26:a2c6])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c152570sm139480015e9.9.2026.06.02.04.51.36
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-4909c152570sm139480015e9.9.2026.06.02.04.51.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 04:51:37 -0700 (PDT)
+        Tue, 02 Jun 2026 04:51:38 -0700 (PDT)
 From: Vitor Soares <ivitro@gmail.com>
 To: Nishanth Menon <nm@ti.com>,
 	Vignesh Raghavendra <vigneshr@ti.com>,
@@ -67,10 +69,12 @@ Cc: Vitor Soares <vitor.soares@toradex.com>,
 	linux-arm-kernel@lists.infradead.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v2 0/7] arm64: dts: ti: k3-am69-aquila: Add display and peripheral overlays
-Date: Tue,  2 Jun 2026 12:51:23 +0100
-Message-ID: <20260602115123.1324474-9-ivitro@gmail.com>
+Subject: [PATCH v2 1/7] arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to HDMI Adapter
+Date: Tue,  2 Jun 2026 12:51:24 +0100
+Message-ID: <20260602115123.1324474-10-ivitro@gmail.com>
 X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260602115123.1324474-9-ivitro@gmail.com>
+References: <20260602115123.1324474-9-ivitro@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -81,76 +85,158 @@ Content-Transfer-Encoding: 8bit
 
 From: Vitor Soares <vitor.soares@toradex.com>
 
-This series adds device tree overlays for the Toradex Aquila AM69
-platform. The overlays cover display adapters, DSI displays, and OV5640
-CSI camera modules available through the Toradex accessory ecosystem.
+Add a device tree overlay for the Toradex DSI to HDMI Adapter on the
+Aquila AM69 DSI_1 interface. Used on Aquila Development Board (J44),
+where DSI_1 is exposed via a Samtec LSS-130 connector.
 
-Display additions cover three configurations:
-- DSI-to-HDMI adapter based on the LT8912B
-- DSI-to-LVDS adapter based on the SN65DSI84 with the Toradex Capacitive
-  Touch Display 10.1" LVDS
-- DSI driving the Toradex Capacitive Touch Display 7" and 10.1" DSI
+The adapter is based on the Lontium LT8912B DSI-to-HDMI bridge.
 
-For the OV5640 camera overlays, both the current Toradex CSI Camera Set
-5MP OV5640 with a 27 MHz oscillator and the legacy CSI Module 5MP OV5640
-with a 24 MHz oscillator are supported.
-
-This series depends on the Riverdi vendor prefix and panel-lvds binding
-patches, which have been applied to drm-misc-next:
-
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3764568dd2e621850c8c2a34dd8a88096ae73e72
-https://gitlab.freedesktop.org/drm/misc/kernel/-/commit/3c3c5fb9b36836d279ebe370189d68a0a3387362
-
+Link: https://developer.toradex.com/hardware/accessories/add-ons/dsi-hdmi-adapter
+Signed-off-by: Vitor Soares <vitor.soares@toradex.com>
 ---
-Changes in v2:
-- Fix missing main_ehrpwm5 enable in Capacitive Touch Display 10.1" and
-  7" DSI overlays for the Clover board.
-- Reorder remote-endpoint property in DSI-to-LVDS bridge endpoint.
-- Reorder supply properties in OV5640 CSI camera nodes and rename clock
-  node to match binding preferred node name pattern.
-- Link v1: https://lore.kernel.org/all/20260529120853.636015-9-ivitro@gmail.com/
-
-Vitor Soares (7):
-  arm64: dts: ti: k3-am69-aquila: Add Toradex DSI to HDMI Adapter
-  arm64: dts: ti: k3-am69-aquila: Add DSI to LVDS adapter with 10.1"
-    display
-  arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display
-    10.1" DSI with adapter
-  arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display
-    7" DSI with adapter
-  arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display
-    10.1" DSI
-  arm64: dts: ti: k3-am69-aquila: Add Toradex Capacitive Touch Display
-    7" DSI
-  arm64: dts: ti: k3-am69-aquila: Add Toradex OV5640 CSI cameras
-
- arch/arm64/boot/dts/ti/Makefile               |  43 +++++
- ...la-adapter-panel-cap-touch-10inch-dsi.dtso | 155 +++++++++++++++++
- ...ila-adapter-panel-cap-touch-7inch-dsi.dtso | 155 +++++++++++++++++
- .../ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso  |  18 ++
- .../dts/ti/k3-am69-aquila-csi1-ov5640.dtsi    |  76 +++++++++
- .../dts/ti/k3-am69-aquila-csi1-ov5640.dtso    |  19 +++
- .../ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso  |  18 ++
- .../dts/ti/k3-am69-aquila-csi2-ov5640.dtsi    |  76 +++++++++
- .../dts/ti/k3-am69-aquila-csi2-ov5640.dtso    |  19 +++
- .../dts/ti/k3-am69-aquila-dsi-to-hdmi.dtso    | 115 +++++++++++++
- ...la-dsi-to-lvds-panel-cap-touch-10inch.dtso | 142 ++++++++++++++++
- ...m69-aquila-panel-cap-touch-10inch-dsi.dtso | 158 ++++++++++++++++++
- ...am69-aquila-panel-cap-touch-7inch-dsi.dtso | 158 ++++++++++++++++++
- 13 files changed, 1152 insertions(+)
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-10inch-dsi.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-adapter-panel-cap-touch-7inch-dsi.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640-24mhz.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtsi
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi1-ov5640.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640-24mhz.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtsi
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-csi2-ov5640.dtso
+ arch/arm64/boot/dts/ti/Makefile               |   4 +
+ .../dts/ti/k3-am69-aquila-dsi-to-hdmi.dtso    | 115 ++++++++++++++++++
+ 2 files changed, 119 insertions(+)
  create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-hdmi.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-lvds-panel-cap-touch-10inch.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-10inch-dsi.dtso
- create mode 100644 arch/arm64/boot/dts/ti/k3-am69-aquila-panel-cap-touch-7inch-dsi.dtso
 
+diff --git a/arch/arm64/boot/dts/ti/Makefile b/arch/arm64/boot/dts/ti/Makefile
+index 371f9a043fe5..7709bb58d4ca 100644
+--- a/arch/arm64/boot/dts/ti/Makefile
++++ b/arch/arm64/boot/dts/ti/Makefile
+@@ -190,8 +190,12 @@ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-rpi-cam-imx219.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j722s-evm-csi2-quad-tevi-ov5640.dtbo
+ 
+ # Boards with J784s4 SoC
++k3-am69-aquila-dev-dsi-to-hdmi-dtbs := k3-am69-aquila-dev.dtb \
++	k3-am69-aquila-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-clover.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dev-dsi-to-hdmi.dtb
++dtb-$(CONFIG_ARCH_K3) += k3-am69-aquila-dsi-to-hdmi.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-am69-sk.dtb
+ dtb-$(CONFIG_ARCH_K3) += k3-am69-sk-pcie0-ep.dtbo
+ dtb-$(CONFIG_ARCH_K3) += k3-j784s4-evm.dtb
+diff --git a/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-hdmi.dtso b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-hdmi.dtso
+new file mode 100644
+index 000000000000..d8e4dd69599e
+--- /dev/null
++++ b/arch/arm64/boot/dts/ti/k3-am69-aquila-dsi-to-hdmi.dtso
+@@ -0,0 +1,115 @@
++// SPDX-License-Identifier: GPL-2.0-or-later OR MIT
++/*
++ * Copyright (c) Toradex
++ *
++ * Toradex DSI to HDMI Adapter on Aquila AM69 DSI_1.
++ * Used on Development Board (J44), DSI_1 is exposed via a Samtec LSS-130 connector.
++ *
++ * https://developer.toradex.com/hardware/accessories/add-ons/dsi-hdmi-adapter
++ */
++
++/dts-v1/;
++/plugin/;
++
++#include <dt-bindings/gpio/gpio.h>
++
++&{/} {
++	hdmi-connector {
++		compatible = "hdmi-connector";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_pwm3_dsi_gpio>;
++		ddc-i2c-bus = <&i2c_dsi_1>;
++		/* Aquila PWM_3_DSI (AQUILA B46) */
++		hpd-gpios = <&main_gpio0 33 GPIO_ACTIVE_HIGH>;
++		type = "a";
++
++		port {
++			hdmi_connector_in: endpoint {
++				remote-endpoint = <&dsi_hdmi_bridge_out>;
++			};
++		};
++	};
++};
++
++&dphy_tx0 {
++	status = "okay";
++};
++
++&dsi0 {
++	status = "okay";
++};
++
++&dsi0_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	port@0 {
++		reg = <0>;
++
++		dsi0_out: endpoint {
++			remote-endpoint = <&dsi_hdmi_bridge_in>;
++		};
++	};
++
++	port@1 {
++		reg = <1>;
++
++		dsi0_in: endpoint {
++			remote-endpoint = <&dpi2_out>;
++		};
++	};
++};
++
++&dss_ports {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	port@2 {
++		reg = <2>;
++
++		dpi2_out: endpoint {
++			remote-endpoint = <&dsi0_in>;
++		};
++	};
++};
++
++/* Aquila PWM_3_DSI (AQUILA B46) repurposed as HDMI HPD GPIO */
++&main_ehrpwm5 {
++	status = "disabled";
++};
++
++&i2c_dsi_0 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	hdmi@48 {
++		compatible = "lontium,lt8912b";
++		reg = <0x48>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_gpio_20_dsi_1>;
++		/* Aquila GPIO_20_DSI_1 (AQUILA B45) */
++		reset-gpios = <&main_gpio0 18 GPIO_ACTIVE_LOW>;
++
++		ports {
++			#address-cells = <1>;
++			#size-cells = <0>;
++
++			port@0 {
++				reg = <0>;
++
++				dsi_hdmi_bridge_in: endpoint {
++					remote-endpoint = <&dsi0_out>;
++					data-lanes = <1 2 3 4>;
++				};
++			};
++
++			port@1 {
++				reg = <1>;
++
++				dsi_hdmi_bridge_out: endpoint {
++					remote-endpoint = <&hdmi_connector_in>;
++				};
++			};
++		};
++	};
++};
 -- 
 2.54.0
 
