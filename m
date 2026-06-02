@@ -1,83 +1,59 @@
-Received: from mta-64-140.flowmailer.net (mta-64-140.flowmailer.net [185.136.64.140])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E746B357D05
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F9D357D01
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:24:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780385008; cv=none; b=eb5B5Z9wse1w2w16G3YEZIduRmYLmm1HtgO33Hm3wnpMhJlTjNDJTfP9Y74pInpUstaFqJ+nJR2ogC8Rc8KLMw9B9zUgwN7QCBJAFXTv2KD3DhtLc8RjaAyiuGhZaUOpmbYrEZtZVmIFDZ4Q5g4KYLjKWkSKtnYaSvxHi5YnTxY=
+	t=1780385069; cv=none; b=SVjSySyS2YDov0eCn7jw+jfR/z1Pjv6tplBOgv4p3chxt7cpFR+HQH3fe+wdvp7JjvhaGObp9B3Wti4F8IYS/Pu5RrMZds3cFgC4iK5eT5IQ/c3RJFMQYzkTC3IqsLgXTuHxdiemJsf1/583+R/LlgTSte0dE2iEKJLSlrIQsIk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780385008; c=relaxed/simple;
-	bh=rTMmvdqLn8XGVIbwx6QxILaPnIKuu93HhNdO2BLhr54=;
+	s=arc-20240116; t=1780385069; c=relaxed/simple;
+	bh=xVR6i/wkZm3v1BlOY7VOhc/ASssNk/Yg64LnnL3f0pw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=It46gSDzu/p1UaIvelGnjWK1gQ49wfhyq6z0wMZ5pzwHz9F04Wiu5sfJgMfxEfJszFcapsIPsbDsLSP3Ga3DCn3DG5QA5QpsAlvYB3NyfhQkCVVX/KF4SU4kQOhTcu2ippHBAYMjLOzu/IWt302h6/lrTYGc4gh1eK8WY9GXBSc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com; dkim=pass (1024-bit key) header.d=flowmailer.net header.i=@flowmailer.net header.b=Toge8bLz; dkim=pass (2048-bit key) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.b=ec+PfJIe; arc=none smtp.client-ip=185.136.64.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=flowmailer.net header.i=@flowmailer.net header.b="Toge8bLz";
-	dkim=pass (2048-bit key) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.b="ec+PfJIe"
-Received: by mta-64-140.flowmailer.net with ESMTPSA id 20260602071314b4ba37cb630019fd4b
-        for <devicetree@vger.kernel.org>;
-        Tue, 02 Jun 2026 09:13:14 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
- d=flowmailer.net;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=rTMmvdqLn8XGVIbwx6QxILaPnIKuu93HhNdO2BLhr54=;
- b=Toge8bLz2dyLab0qL8rkthmm38M0DIbWMwxIZTkHCglUndNKtXlsEFzupMzU1i/vzCdijc
- miocQZzlL9bzz0ZuwDfASqzdjU/d6NY+xy09C5rIOtPgu1bTsWHtrNYMYexJC33Ow7Pw9BIh
- 4PggmgbDjvYm9EN9UTfgesMkNvRAg=;
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm3;
- d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
- h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
- bh=rTMmvdqLn8XGVIbwx6QxILaPnIKuu93HhNdO2BLhr54=;
- b=ec+PfJIeqY0XmjF70C+uM3vKHeUzZAh1oTg2/qKJ7kPp6hfzDsi97fQ48IoGRskdwuz7Cu
- BGbuFZJ1Q9hHZckYImkEVD3l7jGDitagbUlrsjtMZGp7BQq6QWHs2rCwJGEOP6xEi685QNoj
- Dhxnc4HYfsbAg8Fm/fRfi0hYIxCejI2QpzVxqaXoytvcWrW15vVIQ9nYgGgotDILZbmKgedc
- b8LJKCIxu/nklS6gM/yKotmExl+J8oVb93bKKA61U9r3GprrFfQDONQGoXo5/evBr8Iz8wW4
- xRQAllgjoeOQIpdd6p46Xuo84qL1JvVLvPqgCUmzpiwzXycLeLiQhrYQ==;
-Date: Tue, 2 Jun 2026 09:13:11 +0200
-From: Simon Schuster <schuster.simon@siemens-energy.com>
-To: Andy Shevchenko <andriy.shevchenko@intel.com>
-Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Ethan Nelson-Moore
- <enelsonmoore@gmail.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>,
- Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Dinh
- Nguyen <dinguyen@kernel.org>, linux-doc@vger.kernel.org,
- devicetree@vger.kernel.org, workflows@vger.kernel.org, Linux-Arch
- <linux-arch@vger.kernel.org>, dmaengine@vger.kernel.org,
- linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org, Netdev
- <netdev@vger.kernel.org>, linux-pci@vger.kernel.org,
- linux-pwm@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-kbuild@vger.kernel.org, "linux-csky@vger.kernel.org"
- <linux-csky@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
- <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel
- Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
- Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang
- Mu <dzm91@hust.edu.cn>, Hu Haowen <2023002089@link.tyut.edu.cn>, Kees Cook
- <kees@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Will Deacon
- <will@kernel.org>, "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
- Andrew Morton <akpm@linux-foundation.org>, Nicholas Piggin
- <npiggin@gmail.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
- <Frank.Li@kernel.org>, Dave Penkler <dpenkler@gmail.com>, Andi Shyti
- <andi.shyti@kernel.org>, Jonathan Cameron <jic23@kernel.org>, David Lechner
- <dlechner@baylibre.com>, =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
- Andy Shevchenko <andy@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
- "David S . Miller" <davem@davemloft.net>, Eric Dumazet
- <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
- <pabeni@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof
- WilczyDski <kwilczynski@kernel.org>, Andreas Oetken
- <andreas.oetken@siemens-energy.com>
-Subject: Re: [PATCH] nios2: remove the architecture
-Message-ID: <20260602071311.gtvif43wcjyulphh@dev-vm-schuster>
-References: <20260518042833.272221-1-enelsonmoore@gmail.com>
- <d40b1e80-37fc-4c88-9d7f-dae6458efe6c@app.fastmail.com>
- <20260518105735.GW3126523@noisy.programming.kicks-ass.net>
- <20260518172444.zyd47mcagrcwu7wt@dev-vm-schuster>
- <CADkSEUjhq6HSdg4ignzbuJiN5uXATsTdxFbRJ3BMxs5=WUWLDg@mail.gmail.com>
- <20260519103012.blot4bssgiqfer6p@dev-vm-schuster>
- <CANiq72=6oYtHf0Q1NaLXZ+25uQyYbej2xnvUhtgpHyvozhP7_Q@mail.gmail.com>
- <ah3TN93e7lRpVihW@ashevche-desk.local>
+	 Content-Type:Content-Disposition:In-Reply-To; b=EqPb3B3bDaQmI1QZHVWX2bUdw3O8SSXy5Mx9tCQYQZ1pmzpQfdO0sYEUO5gq/2BOOnW2ojW+OkU3dNzUlkJm+JodWgvABUsGAhwer9Hukbp9lBtELvGonLANfNcEmDYSyP6LHpuM/Gka8BdAeDHQbqmqWB96AW3K/6XRaibGflY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wUJTe-0001hd-Bf; Tue, 02 Jun 2026 09:23:54 +0200
+Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wUJTc-000i8j-2h;
+	Tue, 02 Jun 2026 09:23:52 +0200
+Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
+	(envelope-from <mfe@pengutronix.de>)
+	id 1wUJTc-0000000Futw-2umF;
+	Tue, 02 Jun 2026 09:23:52 +0200
+Date: Tue, 2 Jun 2026 09:23:52 +0200
+From: Marco Felsch <m.felsch@pengutronix.de>
+To: Rob Herring <robh@kernel.org>
+Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
+	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
+	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
+	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
+	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
+	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
+	victor.liu@nxp.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
+Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
+ reg property"
+Message-ID: <n6akxiayi3g6gxcqhreb4iaohmeokoalnqup6h5r2fwdt4zijt@u2wyps55ayqm>
+References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
+ <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
+ <20260505141538.GA2547282-robh@kernel.org>
+ <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
+ <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
+ <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
+ <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
+ <uyh5s6g7bvuufnhfjrmungp5dbyllxfrgfzaxno22knpxxojmj@qqvh75ezblpp>
+ <20260601222941.GA101404-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -86,15 +62,107 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <ah3TN93e7lRpVihW@ashevche-desk.local>
+In-Reply-To: <20260601222941.GA101404-robh@kernel.org>
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: mfe@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-Hello Andy,
+On 26-06-01, Rob Herring wrote:
+> On Wed, May 13, 2026 at 12:26:40PM +0200, Marco Felsch wrote:
 
-On Mon, Jun 01, 2026 at 09:45:11PM +0300, Andy Shevchenko wrote:
-> Supported implies that one gets real money for the job. Is this the case here?
+...
 
-Thank you for caring about NIOSII. I'm doing so as part of my
-employment at Siemens Energy; if this is real enough then yes :)
+> > Please see the below full example, is this allowed?
+> > 
+> > system-controller@4ac10000 {
+> > 	compatible = "fsl,imx93-media-blk-ctrl", "syscon";
+> > 	reg = <0x4ac10000 0x10000>;
+> > 	#address-cells = <1>;
+> > 	#size-cells = <1>;
+> > 
+> > 	...
+> > 
+> > 	bridge@5c {
+> > 		compatible = "fsl,imx8mp-ldb";
+> > 		reg = <0x5c 0x4>, <0x128 0x4>;
+> > 		reg-names = "ldb", "lvds";
+> > 		clocks = <&clk IMX8MP_CLK_MEDIA_LDB_ROOT>;
+> > 		clock-names = "ldb";
+> > 		assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>;
+> > 		assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
+> > 		status = "disabled";
+> > 
+> > 		ports {
+> > 			#address-cells = <1>;
+> > 			#size-cells = <0>;
+> > 
+> > 			port@0 {
+> > 				reg = <0>;
+> > 
+> > 				ldb_from_lcdif2: endpoint {
+> > 					remote-endpoint = <&lcdif2_to_ldb>;
+> > 				};
+> > 			};
+> > 
+> > 			port@1 {
+> > 				reg = <1>;
+> > 
+> > 				ldb_lvds_ch0: endpoint {
+> > 				};
+> > 			};
+> > 
+> > 			port@2 {
+> > 				reg = <2>;
+> > 
+> > 				ldb_lvds_ch1: endpoint {
+> > 				};
+> > 			};
+> > 		};
+> > 	};
+> > 
+> > 	dpi-bridge {
+> > 		compatible = "nxp,imx93-pdfc";
+> > 		status = "disabled";
+> > 
+> > 		ports {
+> > 			#address-cells = <1>;
+> > 			#size-cells = <0>;
+> > 
+> > 			port@0 {
+> > 				reg = <0>;
+> > 
+> > 				dpi_from_lcdif: endpoint {
+> > 					remote-endpoint = <&lcdif_to_dpi>;
+> > 				};
+> > 			};
+> > 
+> > 			port@1 {
+> > 				reg = <1>;
+> > 
+> > 				dpi_to_panel: endpoint {
+> > 				};
+> > 			};
+> > 		};
+> > 	};
+> > };
+> 
+> Yes, this seems fine.
 
-Best regards
-Simon
+Thanks for the clarification!
+
+Regards,
+  Marco
+
+> 
+> Rob
+> 
+
+-- 
+#gernperDu 
+#CallMeByMyFirstName
+
+Pengutronix e.K.                           |                             |
+Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
+31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
+Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
