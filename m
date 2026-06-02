@@ -1,540 +1,130 @@
-Received: from mail-wm1-f48.google.com (mail-wm1-f48.google.com [209.85.128.48])
+Received: from mail-vk1-f169.google.com (mail-vk1-f169.google.com [209.85.221.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7823806AF
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.48
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D73E38C2A7
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 10:45:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780397142; cv=none; b=Lu0eFKZsvGVzN/1Gy36c290Dp2yYc2aGBPJqy2Fm3h1WKZ4mJx0+qzC2dMoI/TN+XcSMKcMYZpyD0cipHKJ6TfF7CkK7EJ33u5BYTKgfuD2HdKPpkK4W9vIh6PAue2nBtfUjH1PFCKpj4BZa/tXEt277YteA94WZj8o2hWWUXqk=
+	t=1780397159; cv=none; b=C6w4s5sfEFv3SvgO+v0B8pOZgz+JAJXwBI/bOUKRul7qRzeaKWCOhI2zGTi8kFjhkocti0073eKysziWnmKaMzUH/gx2NVMw0qg9J6jI8OavlhyQj0dhi+W/Nozwka1r3CZgQb6zeUKL7rYoKnv9Qk4BtI9cklVN2DQdC4Lzxts=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780397142; c=relaxed/simple;
-	bh=krmbOe9KZiZf9SjrTGYg6OBtTzNanfyWe9ELGz8vfxs=;
-	h=Mime-Version:Content-Type:Date:Message-Id:From:Subject:Cc:To:
-	 References:In-Reply-To; b=YkLWK8L1bBPTVy2xteZfUvegFYBPsLJXp2nZX0o2YTM7nyaGrM8nN1F6RsLt9h5myFsdx67Q2Cnvrd2Mf58yMWC18zKaWTmGYvg9mVELQs1KloiWg1fwhb62QwdCfugLNKxweNFNwCJJ+nKzFzQe+BJMej3wJgbiM8+qttsXwwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=M/mrVXxd; arc=none smtp.client-ip=209.85.128.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	s=arc-20240116; t=1780397159; c=relaxed/simple;
+	bh=m2OLyRHEzfiH1If3842QvlE2x2DkDa+BCMu7OEfVKso=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=cppEhtdQu9kHeTa6is6WtbhXVKVMkF6tA9eVK1lJghDdnHUdQ7B/GB/9VnhZx+Vx6u66kzLh2osUQ02QGxusqmpDx1IDpNAUm3TLX203ogIuTsI7rzQvD/p0/nogrXMDFHsxQr33JTWr7RcqguTDtQOo9iMvObMWvCnPIWzkfsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="M/mrVXxd"
-Received: by mail-wm1-f48.google.com with SMTP id 5b1f17b1804b1-490ac10e337so11682955e9.3
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:45:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780397139; x=1781001939; darn=vger.kernel.org;
-        h=in-reply-to:references:to:cc:subject:from:message-id:date
-         :content-transfer-encoding:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=xa1ijz/+jsCBRkiCFPbs9qjTyJXRBGgnSyJho0OJaY4=;
-        b=M/mrVXxdrkHINJA5wT6SySdtdzfs5+mx8Dq4r70nPXoX2F8cT/SORp334kMUf1xZ2t
-         AjCPdt1VTLj0lelIIPgHI9es82SDl8OtKjR6IeUPpiTIvi/yAskd4PNkw6D1TZIPz3BU
-         6Eoh1OToGrsLcrS6NIt/Ist8xe3Lrfd0oTEdo6Dl4g8HCOFETNEjrVvzH9+uVuU6Po8l
-         VGpcQ4UZXbWVilsKoHLsVk8uciUG9yl69xpFzB7YCpCuZxnLUxdtEeAr6La9vDt0QbhR
-         X3Oc0qoGe3sm7LRVjVgMpVn441Clz+zobp+OUOo6CpXyp+/5OSdG5XvaT65DfYucMSsI
-         Fuug==
+Received: by mail-vk1-f169.google.com with SMTP id 71dfb90a1353d-59dc1714d44so937439e0c.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:45:57 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780397139; x=1781001939;
-        h=in-reply-to:references:to:cc:subject:from:message-id:date
-         :content-transfer-encoding:mime-version:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=xa1ijz/+jsCBRkiCFPbs9qjTyJXRBGgnSyJho0OJaY4=;
-        b=jFIx8huWUwAyjTN8deFB9RFBAf59JagYtK+fW744zk14pkmPIA5wTNLmMg35HEUTTF
-         TQijU9DCJZjRr6yWOE/28j2sIAdPRFzwLsCRBcbfP703C0cUG0jTl4G8G1OivPM+tcW3
-         QHfhHDZeJOVL3U/ro9sEScKFyrBwDPBeQhdtpl3iAFA7cuwfnc29UQ5/11peG++C4Tn9
-         WgUWeiXOFc+4DZgJR1IwkuYwB7AfeSkrfUPPeuOYk2AxVc7Zulj/nebU4wLlGRI0UnSd
-         1AoUG4tHNpUJjaotodwuWLeScHJdMl3SwXHl6mE3F48StAz0J1BmBIOVYO2xc1Jgo1Q6
-         NaTg==
-X-Forwarded-Encrypted: i=1; AFNElJ/ubYlQYwhLFAj7X/1SyHwiGoNmzsT2E2lGHfFOOGEyKawxlb4GamxoM68xomK99x5L4WwpmSBFTeyl@vger.kernel.org
-X-Gm-Message-State: AOJu0YxsaRVjan20SG9XVe/RLBwO/CU6zG1YZ+PxHmEgxrt1yM3smocd
-	0hq/J2H0wEJXGd8gS9Mr5mvUb/xiuxvTI8MW6gwgbnnKN47Ws5ksGm6v
-X-Gm-Gg: Acq92OGcYF8bMXLz/NreBHu00GFMfqb2wJt7Q9MJtKZE3aPMDwNu/AOJsnbIT7V26oz
-	SuVdHLDqSj+w0MlUBcdc4bUhfiL8Intq8Y1ThpBtF6aGSkjcovDnS2f5Cn24HXk2NgVkRlDCzMJ
-	lnTOnOwI5349gls5Tt6t/wim5Mi9wTmF19B8sRrW85l5DDEaPSAEXd/Wb0DugPY53S2aOQodCiD
-	/AMDajj/kC3lU0RExq/UrSX51OH3pXRos2HrBdI0mfKeFGyxDtSR0Tj4fgKtGwf1CC4sDcTqWwE
-	+EV9LC9QY6t8vSyWIfPCdMYioqyN4tyut7z1bbUFqHP4ymo9bAsIrzgNRgPEu2B4NnCOIaRw6nu
-	4jSn3tX1u77GTcBq/U4joZ4nE2IA24/m7occPJ4vcgvTzD7jXoZV1AVyzRmNfll6CIq+mjL2c54
-	XCKiibBSvRh8nMd4uvWDUswSJMTdwLPjDNlaLjiOirrOxYlU4=
-X-Received: by 2002:a05:600c:3acb:b0:490:aef9:aa3b with SMTP id 5b1f17b1804b1-490aef9ab5cmr94462275e9.32.1780397138637;
-        Tue, 02 Jun 2026 03:45:38 -0700 (PDT)
-Received: from localhost ([2001:4bb8:152:df59:3b69:56ea:a39b:adb4])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-45ef34a03f8sm34033694f8f.7.2026.06.02.03.45.36
+        d=1e100.net; s=20251104; t=1780397157; x=1781001957;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=k13AOr7bxtlzRyNR5p/riJSVMmAVP/2fDxhyixHG370=;
+        b=UFF8Wi/TewPc6KL6iwm+vklEykbW2KOn+PTP2beRiyOsUkzwJ5F/821+Y9yyHUNSF8
+         naATX5NPIrPwsZmgvg72n/ksFPaQzJNEL5I505ZwtFvlUnPW/cF7CbCc+tfucBDAwtHA
+         2b7wwjxo0fdbqEkOWCmrDvVgUfyjN7v8eHfABbdWKYiG2hah3VzST85ekT2mRV5p0krQ
+         ulFA95VZ7Rjvyg/G4+B+sDYYMTmkrRWNP5LBQtw5LH5HnR4c6U/Etd62nIj8qO/8KpGa
+         /27CdCIlrkpZuWxR6huRRq/sRlxLDn89jpoAec2S2ARQPte3tSDgkB84PxhKqZBrAieu
+         rR6w==
+X-Forwarded-Encrypted: i=1; AFNElJ+0tQ96VHbPclWpoENt2n30GpUbUqe1SMlannSGqX+eipsmIuhUL9AXIIliXpU2Oy7V5FopeZL7P61h@vger.kernel.org
+X-Gm-Message-State: AOJu0YynnZUhGBHIFU0OQb5bLDCYnJ08KILX/s8I708mQy6C7b8Nkxu+
+	tpXO+IcdIRFWwt/4f+5qVCxi1+bpQ6co85qeEm4EUDnsXgOh33cNPO1xwhB49kXf
+X-Gm-Gg: Acq92OGil2Bw7pR79LE6/cA3sNb9J6R0gdKAU8PI3hQ/1cOqYCDqa5GjFkKPVZR3Vgn
+	cJQSBnSol3Ihqm3imjvOXfRKPn9yKlit+m2z+YD1clXinmPO2044c/8H2iSAV3vyCbtZJ14EeVn
+	aCBmPBSi15njPK4Jj7zX8FjbsNhYP7P91ly87CWb7yXq748NIyywKzNFufqiIf0GKTqJRNQnWDT
+	LTuUJ4mEsHYhVTTzfsQlDcUD2J941di5SDAZ0sdoyiCBN0FIDPxpZe/ZzAm891tZYWQJf4pyj3T
+	zmXsDQ4VyZUw0sRWhOcYgfsI8u2Xd8YNJgjye6hrkcuz1dA3Jxxj3C2ptjARjuITIlcgfnlNEnt
+	DLHcOutTHUd8OC3+DKdvl9FgTLr4JUWh4oloTTgfhs2AoGqRfreA/6uN+3oidtW3IBPNaJNOoCQ
+	v53N5/mO8Pn7orb+WO7MZCdCytfYuaIA5B57JGRWjq2QYhKm3ELZxgTEv5roqCefR1oktgBc4=
+X-Received: by 2002:a05:6122:4f83:b0:5a4:5605:c681 with SMTP id 71dfb90a1353d-5a45605d58emr1304203e0c.0.1780397156888;
+        Tue, 02 Jun 2026 03:45:56 -0700 (PDT)
+Received: from mail-ua1-f43.google.com (mail-ua1-f43.google.com. [209.85.222.43])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5a3b68647c7sm3162237e0c.6.2026.06.02.03.45.56
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 02 Jun 2026 03:45:38 -0700 (PDT)
+        Tue, 02 Jun 2026 03:45:56 -0700 (PDT)
+Received: by mail-ua1-f43.google.com with SMTP id a1e0cc1a2514c-9640111c168so175085241.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 03:45:56 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9f68pC74HVqNATBknNPsYfQ9t82xm3WB++l1/mjzjqisaiK8OFf4jHH6QSJyxXi5MqRuG1y5L635BE@vger.kernel.org
+X-Received: by 2002:a67:f0cc:0:b0:6d4:ba3e:bf97 with SMTP id
+ ada2fe7eead31-6d4ba3ec953mr3380461137.4.1780397156313; Tue, 02 Jun 2026
+ 03:45:56 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Tue, 02 Jun 2026 12:45:35 +0200
-Message-Id: <DIYI40YK6CSX.2P4017PHVJHCT@gmail.com>
-From: "Javier Carrasco" <javier.carrasco.cruz@gmail.com>
-Subject: Re: [PATCH v4 2/4] iio: light: add support for veml6031x00 ALS
- series
-Cc: "Jonathan Cameron" <jic23@kernel.org>, "Lars-Peter Clausen"
- <lars@metafoo.de>, "Rob Herring" <robh@kernel.org>, "Krzysztof Kozlowski"
- <krzk+dt@kernel.org>, "Conor Dooley" <conor+dt@kernel.org>, "Rishi Gupta"
- <gupt21@gmail.com>, "David Lechner" <dlechner@baylibre.com>,
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy Shevchenko"
- <andy@kernel.org>, "Matti Vaittinen" <mazziesaccount@gmail.com>,
- <linux-iio@vger.kernel.org>, <devicetree@vger.kernel.org>,
- <linux-kernel@vger.kernel.org>
-To: "Andy Shevchenko" <andriy.shevchenko@intel.com>, "Javier Carrasco"
- <javier.carrasco.cruz@gmail.com>
-X-Mailer: aerc 0.21.0-143-g2f3a2e260c09
-References: <20260531-veml6031x00-v4-0-e64f7fdce38d@gmail.com>
- <20260531-veml6031x00-v4-2-e64f7fdce38d@gmail.com>
- <ah6p-f2RCW8VcuDR@ashevche-desk.local>
-In-Reply-To: <ah6p-f2RCW8VcuDR@ashevche-desk.local>
+MIME-Version: 1.0
+References: <20260530080340.24715-2-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260530080340.24715-2-wsa+renesas@sang-engineering.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Tue, 2 Jun 2026 12:45:44 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdX8gGvjTPat-7=r3q-bXgQJU=A2DsDEPXZy6k20_JKx9w@mail.gmail.com>
+X-Gm-Features: AVHnY4L7BRTCvrScNJxSzK89y_cx_oaLMyrwYaCieTPGajQeUgjKit7WoEbSICA
+Message-ID: <CAMuHMdX8gGvjTPat-7=r3q-bXgQJU=A2DsDEPXZy6k20_JKx9w@mail.gmail.com>
+Subject: Re: [PATCH v2] arm64: renesas: r8a779g0: add MFIS node
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, 
+	Geert Uytterhoeven <geert+renesas@glider.be>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Hi Andy, thanks for your review.
+Hi Wolfram,
 
-On Tue Jun 2, 2026 at 12:01 PM CEST, Andy Shevchenko wrote:
-> On Sun, May 31, 2026 at 09:58:22PM +0200, Javier Carrasco wrote:
->> These sensors provide two light channels (ALS and IR), I2C communication
->> and a multiplexed interrupt line to signal data ready and configurable
->> threshold alarms.
->>
->> This first implementation provides basic functionality (measurement
->> configuration, raw reads and ID validation) and defines the different
->> register regions in preparation for extended features in the subsequent
->> patches of the series.
+On Sat, 30 May 2026 at 10:03, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> Describe the MFIS core which is used for various tasks including
+> inter-processor communication. Interrupt numbers look irregular but they
+> all work as expected on a Renesas R-Car V4H SparrowHawk board.
 >
-> ...
->
-> + array_size.h
->
->> +#include <linux/bitfield.h>
->> +#include <linux/bits.h>
->> +#include <linux/i2c.h>
->
->> +#include <linux/module.h>
->> +#include <linux/mod_devicetable.h>
->
-> In C locale it seems wrong order.
->
->> +#include <linux/mutex.h>
->> +#include <linux/pm_runtime.h>
->> +#include <linux/regmap.h>
->
-> + types.h
->
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
 
-Do you know any tool to automate this beyond asking an AI? Manual
-auditing is not very reliablo and it is not that difficult to miss a
-header that has been indirectly included. Building with W=3D1 and similar
-stuff did not help.
+Thanks for your patch!
 
->> +#include <linux/units.h>
+> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
+> @@ -589,6 +589,23 @@ tmu4: timer@ffc00000 {
+>                         status = "disabled";
+>                 };
 >
-> + Blank line.
->
->> +#include <linux/iio/iio.h>
->> +#include <linux/iio/iio-gts-helper.h>
->
-> ...
->
->> +struct veml6031x00_data {
->
-> Have you run `pahole`? Does it agree with your layout?
->
->> +	struct device *dev;
->> +	struct iio_gts gts;
->> +	struct regmap *regmap;
->
-> Do you need dev and regmap? One may be derived from the other in case reg=
-map
-> uses the same dev on initialisation as the one stored here.
->
-Ack.
->> +	struct veml6031x00_rf rf;
->> +	const struct veml6031x00_chip *chip;
->> +	/*
->> +	 * Serialize access to scale register fields scattered across multiple
->> +	 * registers (rf.gain, rf.pd_div4, rf.it) to read and write them as a
->> +	 * consistent set.
->> +	 */
->> +	struct mutex scale_lock;
->> +};
->
-> ...
->
->> +/*
->> + * The gain selector encodes (PD_D4 << 2) | GAIN to identify each gain =
-setting.
->> + * Gains are multiplied by 8 to work with integers. The values in the i=
-io-gts
->> + * tables don't need corrections because the maximum value of the scale=
- refers
->> + * to GAIN =3D x1, and the rest of the values are obtained from the res=
-ulting
->> + * linear function.
->> + * TODO: add support for MILLI_GAIN_X165 and MILLI_GAIN_X660
->> + */
->> +#define VEML6031X00_SEL_MILLI_GAIN_X125  0x07
->> +#define VEML6031X00_SEL_MILLI_GAIN_X250  0x04
->> +#define VEML6031X00_SEL_MILLI_GAIN_X500  0x03
->> +#define VEML6031X00_SEL_MILLI_GAIN_X1000 0x00
->> +#define VEML6031X00_SEL_MILLI_GAIN_X2000 0x01
->
-> Not sure if these one-time use definitions improve or not the readability
-> of the code. Up to Jonathan.
->
+> +               mfis: system-controller@e6260000 {
+> +                       compatible = "renesas,r8a779g0-mfis";
+> +                       reg = <0 0xe6260000 0 0xf000>;
 
-I prefer these definitions, and a similar pattern is used in multiple
-drivers in IIO, but I have no strong feelings about it.
+Why 0xf000 and not 0x10000?
 
->> +static const struct iio_gain_sel_pair veml6031x00_gain_sel[] =3D {
->> +	GAIN_SCALE_GAIN(1, VEML6031X00_SEL_MILLI_GAIN_X125),
->> +	GAIN_SCALE_GAIN(2, VEML6031X00_SEL_MILLI_GAIN_X250),
->> +	GAIN_SCALE_GAIN(4, VEML6031X00_SEL_MILLI_GAIN_X500),
->> +	GAIN_SCALE_GAIN(8, VEML6031X00_SEL_MILLI_GAIN_X1000),
->> +	GAIN_SCALE_GAIN(16, VEML6031X00_SEL_MILLI_GAIN_X2000),
->> +};
->
-> ...
->
->> +{
->> +	struct regmap *regmap =3D data->regmap;
->> +	struct device *dev =3D data->dev;
->
-> In case you really need a 'dev' here, pass via function parameter, no nee=
-d to
-> keep it in the 'data'.
->
-Ack.
->> +	struct regmap_field *rm_field;
->> +	struct veml6031x00_rf *rf =3D &data->rf;
->> +
->> +	rm_field =3D devm_regmap_field_alloc(dev, regmap, veml6031x00_rf_gain)=
-;
->> +	if (IS_ERR(rm_field))
->> +		return PTR_ERR(rm_field);
->> +	rf->gain =3D rm_field;
->> +
->> +	rm_field =3D devm_regmap_field_alloc(dev, regmap, veml6031x00_rf_it);
->> +	if (IS_ERR(rm_field))
->> +		return PTR_ERR(rm_field);
->> +	rf->it =3D rm_field;
->> +
->> +	rm_field =3D devm_regmap_field_alloc(dev, regmap, veml6031x00_rf_pd_di=
-v4);
->> +	if (IS_ERR(rm_field))
->> +		return PTR_ERR(rm_field);
->> +	rf->pd_div4 =3D rm_field;
->> +
->> +	return 0;
->> +}
->
-> ...
->
->> +static int veml6031x00_get_it(struct veml6031x00_data *data, int *val2)
->> +{
->> +	int ret, it_idx;
->
-> Why is 'it_idx' signed?
->
-I'll make it unsigned int.
->> +
->> +	scoped_guard(mutex, &data->scale_lock) {
->> +		ret =3D regmap_field_read(data->rf.it, &it_idx);
->> +		if (ret)
->> +			return ret;
->> +	}
->> +
->> +	ret =3D iio_gts_find_int_time_by_sel(&data->gts, it_idx);
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	*val2 =3D ret;
->> +
->> +	return IIO_VAL_INT_PLUS_MICRO;
->> +}
->
-> ...
->
->> +static int veml6031x00_set_it(struct iio_dev *iio, int val, int val2)
->> +{
->> +	struct veml6031x00_data *data =3D iio_priv(iio);
->> +	int ret, gain_sel, gain_reg, pd_div4, it_idx, new_gain, prev_gain, pre=
-v_it;
->
-> Similar question here and so on...
->
-Ack.
->> +	bool in_range;
->
->> +}
->
-> ...
->
->> +	ret =3D regmap_field_write(data->rf.pd_div4, gain_sel >> 2);
->> +	if (ret)
->> +		return ret;
->> +
->> +	return regmap_field_write(data->rf.gain, gain_sel & 0x03);
->
-> Looks like repetitive piece of code, shouldn't be a helper?
->
-> ...
->
-Ack.
->> +static int veml6031x00_single_read(struct iio_dev *iio, enum iio_chan_t=
-ype type,
->> +				   int *val)
->> +{
->> +	struct veml6031x00_data *data =3D iio_priv(iio);
->> +	int addr, it_usec, ret;
->> +	__le16 reg;
->> +
->> +	switch (type) {
->> +	case IIO_LIGHT:
->> +		addr =3D VEML6031X00_REG_ALS_L;
->> +		break;
->> +	case IIO_INTENSITY:
->> +		addr =3D VEML6031X00_REG_IR_L;
->> +		break;
->> +	default:
->> +		return -EINVAL;
->> +	}
->> +
->> +	PM_RUNTIME_ACQUIRE_AUTOSUSPEND(data->dev, pm);
->> +	ret =3D PM_RUNTIME_ACQUIRE_ERR(&pm);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret =3D veml6031x00_get_it(data, &it_usec);
->> +	if (ret < 0)
->> +		return ret;
->
->> +	/* integration time + 10 % to ensure completion */
->
-> fsleep() adds up to 25%, isn't it enough?
->
+> +                       reg-names = "common";
+> +                       interrupts = <GIC_SPI 123 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 125 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 127 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 129 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 916 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 918 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 920 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 922 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>,
+> +                                    <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>, <GIC_SPI 137 IRQ_TYPE_LEVEL_HIGH>;
+> +                       interrupt-names = "ch0e",  "ch1e",  "ch2e",  "ch3e",  "ch4e",  "ch5e",  "ch6e",  "ch7e",  "ch8e",  "ch9e",
 
-The problem is that it adds UP to 25%, but that is not guaranteed. If
-almost no extra delay is added, it will be below the margin I added,
-which was necessary when I tested this delay with real hardware.
+This is way too longer for a single line, and the double spacing
+doesn't really help (yeah, it does align ch1e and ch11e...).
 
->> +	fsleep(it_usec + (it_usec / 10));
->> +
->> +	ret =3D regmap_bulk_read(data->regmap, addr, &reg, sizeof(reg));
->> +	if (ret)
->> +		return ret;
->> +
->> +	*val =3D le16_to_cpu(reg);
->> +	return IIO_VAL_INT;
->> +}
->
-> ...
->
->> +static int veml6031x00_validate_part_id(struct veml6031x00_data *data)
->> +{
->> +	int part_id, ret;
->> +	__le16 reg;
->> +
->> +	ret =3D regmap_bulk_read(data->regmap, VEML6031X00_REG_ID_L, &reg,
->> +			       sizeof(reg));
->> +	if (ret)
->> +		return dev_err_probe(data->dev, ret, "Failed to read ID\n");
->> +
->> +	part_id =3D le16_to_cpu(reg);
->> +	if (part_id !=3D data->chip->part_id)
->> +		dev_warn(data->dev, "Unknown ID %04x\n", part_id);
->
-> dev_warn_probe() for the sake of consistency?
->
+> +                                         "ch10e", "ch11e";
+> +                       #hwlock-cells = <1>;
+> +                       #mbox-cells = <2>;
+> +                       status = "disabled";
+> +               };
+> +
+>                 tsn0: ethernet@e6460000 {
+>                         compatible = "renesas,r8a779g0-ethertsn", "renesas,rcar-gen4-ethertsn";
+>                         reg = <0 0xe6460000 0 0x7000>,
 
-Jonathan would like this to be a dev_info().
+Gr{oetje,eeting}s,
 
->> +	return 0;
->> +}
->
-> ...
->
->> +static int veml6031x00_hw_init(struct iio_dev *iio)
->> +{
->> +	struct veml6031x00_data *data =3D iio_priv(iio);
->> +	struct device *dev =3D data->dev;
->> +	int ret;
->> +
->> +	/* Max resolution =3D 6.9632 lx/cnt for gain =3D 0.125 and IT =3D 3.12=
-5ms */
->> +	ret =3D devm_iio_init_iio_gts(dev, 6, 963200000,
->> +				    veml6031x00_gain_sel,
->> +				    ARRAY_SIZE(veml6031x00_gain_sel),
->> +				    veml6031x00_it_sel,
->> +				    ARRAY_SIZE(veml6031x00_it_sel),
->> +				    &data->gts);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "failed to init iio gts\n");
->
-> IIO GTS
->
-Ack.
->> +	return 0;
->> +}
->
-> ...
->
->> +static int veml6031x00_probe(struct i2c_client *i2c)
->> +{
->> +	struct device *dev =3D &i2c->dev;
->> +	struct veml6031x00_data *data;
->> +	struct iio_dev *iio;
->> +	struct regmap *regmap;
->> +	int ret;
->> +
->> +	regmap =3D devm_regmap_init_i2c(i2c, &veml6031x00_regmap_config);
->> +	if (IS_ERR(regmap))
->
->> +		return dev_err_probe(dev, PTR_ERR(regmap),
->> +				     "Failed to set regmap\n");
->
-> One line is okay.
->
-Ack.
->> +	iio =3D devm_iio_device_alloc(dev, sizeof(*data));
->> +	if (!iio)
->> +		return -ENOMEM;
->> +
->> +	data =3D iio_priv(iio);
->> +	i2c_set_clientdata(i2c, iio);
->
->> +	data->dev =3D dev;
->> +	data->regmap =3D regmap;
->
-> As I said, one of these two is redundant.
->
-Ack.
->> +	ret =3D devm_mutex_init(dev, &data->scale_lock);
->> +	if (ret)
->> +		return ret;
->> +
->> +	ret =3D veml6031x00_regfield_init(data);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to init regfield\n");
->> +
->> +	ret =3D devm_regulator_get_enable(dev, "vdd");
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to enable regulator\n");
->
->> +	data->chip =3D i2c_get_match_data(i2c);
->> +	if (!data->chip)
->> +		return dev_err_probe(dev, -EINVAL, "Failed to get chip data\n");
->
-> I would move this closer to the point when we have data allocated. This i=
-s
-> a cheap check and it's better to boil out without need to allocate resour=
-ces,
-> touch regulators (that might be undesired from power consumption and phys=
-ical
-> processes due to the dragging them on and off), et cetera.
->
+                        Geert
 
-Ack.
+-- 
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
->> +	/* The device starts in power down mode by default */
->> +	ret =3D veml6031x00_als_power_on(data);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to power on the device\n");
->> +
->> +	ret =3D devm_add_action_or_reset(dev, veml6031x00_als_shutdown_action,=
- data);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to add shutdown action\n");
->> +
->> +	pm_runtime_set_autosuspend_delay(dev, 2000);
->> +	pm_runtime_use_autosuspend(dev);
->> +	ret =3D devm_pm_runtime_set_active_enabled(dev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to enable runtime PM\n");
->> +
->> +	ret =3D devm_pm_runtime_get_noresume(dev);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to get runtime PM\n");
->> +
->> +	ret =3D veml6031x00_validate_part_id(data);
->> +	if (ret)
->> +		return ret;
->> +
->> +	iio->name =3D data->chip->name;
->> +	iio->channels =3D veml6031x00_channels;
->> +	iio->num_channels =3D ARRAY_SIZE(veml6031x00_channels);
->> +	iio->modes =3D INDIO_DIRECT_MODE;
->> +	iio->info =3D &veml6031x00_info;
->> +
->> +	ret =3D veml6031x00_hw_init(iio);
->> +	if (ret)
->> +		return ret;
->
->> +	pm_runtime_put_autosuspend(dev);
->
-> Hmm... But why? Wouldn't this be problematic with reference count on the =
-failed
-> devm_iio_device_register() below?
->
-
-I could move this a bit further down after devm_iio_device_register(),
-but as I replied to a Sashiko complaint, the reference count will never
-underflow in this configuration.
-
->> +	ret =3D devm_iio_device_register(dev, iio);
->> +	if (ret)
->> +		return dev_err_probe(dev, ret, "Failed to register iio device\n");
->> +
->> +	return 0;
->> +}
->
-> ...
->
->> +static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops, veml6031x00_runtim=
-e_suspend,
->> +				 veml6031x00_runtime_resume, NULL);
->
-> Wrap this logically:
->
-> static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops,
-> 				 veml6031x00_runtime_suspend,
-> 				 veml6031x00_runtime_resume,
-> 				 NULL);
->
-> OR
->
-> static DEFINE_RUNTIME_DEV_PM_OPS(veml6031x00_pm_ops,
-> 				 veml6031x00_runtime_suspend, veml6031x00_runtime_resume, NULL);
->
-> ...
->
-
-Ack.
-
->> +static const struct i2c_device_id veml6031x00_id[] =3D {
->> +	{
->> +		.name =3D "veml6031x00",
->> +		.driver_data =3D (kernel_ulong_t)&veml6031x00_chip
->
-> In the similar (to OF ID table) way, leave trailing commas.
->
-Ack.
->> +	},
->> +	{
->> +		.name =3D "veml6031x01",
->> +		.driver_data =3D (kernel_ulong_t)&veml6031x01_chip },
->
-> Broken indentation, should be a new line somewhere.
->
-Ack.
->> +	{
->> +		.name =3D "veml60311x00",
->> +		.driver_data =3D (kernel_ulong_t)&veml60311x00_chip
->> +	},
->> +	{
->> +		.name =3D "veml60311x01",
->> +		.driver_data =3D (kernel_ulong_t)&veml60311x01_chip
->> +	},
->
->> +};
-
-Best regards,
-Javier
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
