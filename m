@@ -1,74 +1,117 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D35A121B191;
-	Tue,  2 Jun 2026 13:39:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6781F218E91;
+	Tue,  2 Jun 2026 13:42:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780407559; cv=none; b=neb7WhB45B9MuYVQACDbrGcrelLc04zcIRjG8SNlUu4z7rWCVnexO+W1nyWvsEEsDdjpEUysTVt9xF7GU5j1bwsUz5UuzuPFTQeS9g3MG1aa6LP8eT6TDvMZGsC+2wVJl2+K4IuiRAd9ZStEn/yEc2yNEkboxCxlZYSDppnaJgs=
+	t=1780407755; cv=none; b=E1iwYOuFz68mns4wjOg4POLBF6qkhxiY9EUbUfPqyz/SzC0yHF1PfAkg7gxwXCGgaGp2zoqc8B/U/6mZ5225tPvsD73hZU3qhAHwQAt9lGt3lCq5uNesK9EB3NkPk5lC0LbCDFawZvGhh1g/uKMu6VFusM/CKZU3xXESU1uu81M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780407559; c=relaxed/simple;
-	bh=3EQxzVNztSTsOS2ipwUXb+4AS9Osy8Vos05K7d2cAjA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=OvKE5vHJjKX6Vvwx6OiOC5gIjEL0KDW5G8Xl2kd7wjp8iMzBrCs6ul/86Xh0lByWj2uIC64HYj8o1ZWUS4IFBe9ldJ9eamQYmQk1EfBS8YT1ll1e66PGZmr4dRNRhvMzcusJRVftD7jeF5z8jkf5zdBmg+00AHC6tZCscdgfG6c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qxuw9XC1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780407755; c=relaxed/simple;
+	bh=Yb7daYDsVq36BbcozNedyFxELYgKgIyx0p22hMyRMkw=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=G3/MqvvM+cLQczO465pjVDMeg9K6OTwlEaLnxl83nndr6jOhsvOUiB5rg5ZipTOzH6l4VeHQbcrXkgnFTb3ukwxmNWaotlQySDE6dR0GoqKNrlOYnplbtlBMEFO0L/bFXA53gAXEoLKFm2yniijOodZcgUrciuxHgQzkbUTCe9g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QkQaNHIK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qxuw9XC1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7887D1F00893;
-	Tue,  2 Jun 2026 13:39:15 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QkQaNHIK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE6291F00893;
+	Tue,  2 Jun 2026 13:42:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780407558;
-	bh=Q4CWuADEj6EQIjdM4cIi9b+k6O1l1w5BcfrVRUqAyZw=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Qxuw9XC1NKit4Or3T2FNSI9QvKU9ivyay2D5rCtpvV6hQOtOZDOw3aGRpF0KzxpLv
-	 DuKdal+JYJCuGL/fY80OV/fxMM3jztfpFrnP+rbXCT6chIqmKJwAjie1p+ixOJDSQI
-	 Bpr9iWfJ0205E81XzhoiFMYki7zWQcQ2EZ+NVlL7zTX2SiK55BTMTU1mh4ecS3CAhM
-	 apk4DhsapB10mLkWhMXg2fc4GEKjN7u5+jXoaHibwUh9m1R65jVYkpbP6+2lWs9MCV
-	 tYPuq+lMjwKiHIw5nUaXnfQBdO6+KcPe5JVCEUG9LFKKYUOONl6eeE30LJWz/mBIQJ
-	 YZ6ZT1ULwmvjA==
-Message-ID: <7a72ebf7-a8de-4ea8-bae3-382aa5eff18f@kernel.org>
-Date: Tue, 2 Jun 2026 16:39:13 +0300
+	s=k20260515; t=1780407754;
+	bh=+NOwv3nIu/Ot0KxPJsgbaT8KLyjfpqdRwQOPFZyGDyo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=QkQaNHIKyHnxMEEHWFbu6OWHwnFZgNn0fwEiT2qDWJ5O1QLY9A3iMv7cwzbppdQoN
+	 820Oo4HpnFSOU0L/FP6lp/cFc3ZUXGm/X520P0Gke8BIFOJkMqHe3yveARrrH6irRh
+	 39y3QNs6j0FZIs6sy9U1ulKhOrUvnOMKLbuEiBTfm5nWAN3J3xn6Yi0gbnna0gh1D9
+	 TQg/YW88ip7M0Cki+Jpdo/nJtZ3KeRpp7h7gi9kEYi+sydK5gPl//Eo9iu8jSrSZyL
+	 vE+KhsNX+C5rkpNSQWADDGZY4KOfKXZQFs8Imh0rVGTOg8OpdamhgQxy/oIt3cwxlt
+	 OyVgr5uekFYEg==
+Date: Tue, 2 Jun 2026 14:42:22 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, Jingoo
+ Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>, Nuno
+ =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Helge Deller <deller@gmx.de>, Johan Hovold <johan@kernel.org>,
+ dri-devel@lists.freedesktop.org, linux-leds@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-iio@vger.kernel.org, linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 03/11] iio: light: lm3533-als: Remove redundant pdata
+ helpers
+Message-ID: <20260602144222.7a50a041@jic23-huawei>
+In-Reply-To: <20260601151831.76350-4-clamor95@gmail.com>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+	<20260601151831.76350-4-clamor95@gmail.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 0/7] pinctrl: renesas: rzg2l: Add support for RZ/G3S
- I3C
-To: "geert+renesas@glider.be" <geert+renesas@glider.be>
-Cc: linusw@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
- conor+dt@kernel.org, magnus.damm@gmail.com,
- prabhakar.mahadev-lad.rj@bp.renesas.com, claudiu.beznea@tuxon.dev,
- linux-renesas-soc@vger.kernel.org, linux-gpio@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
- Wolfram Sang <wsa+renesas@sang-engineering.com>
-References: <20260528080439.615958-1-claudiu.beznea@kernel.org>
- <ah7AAgK0plmNfL5C@ninjato>
-Content-Language: en-US
-From: Claudiu Beznea <claudiu.beznea@kernel.org>
-In-Reply-To: <ah7AAgK0plmNfL5C@ninjato>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-Hi, Geert,
+On Mon,  1 Jun 2026 18:18:23 +0300
+Svyatoslav Ryhel <clamor95@gmail.com> wrote:
 
-On 6/2/26 14:35, Wolfram Sang wrote:
+> The lm3533_als_set_input_mode and lm3533_als_set_resistor functions are
+> used only in lm3533_als_setup. Incorporate their code into
+> lm3533_als_setup directly to simplify driver readability.
+Minor stuff inline.
+
+
 > 
->> Series adds pinctrl support for the I3C on Renesas RZ/G3S SoC. For a
->> clean I3C support, cleanup patches for the pinctrl driver were also
->> included.
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
+>  drivers/iio/light/lm3533-als.c | 61 +++++++++-------------------------
+>  1 file changed, 16 insertions(+), 45 deletions(-)
 > 
-> I am ready to test but this series doesn't apply on neither master nor
-> -next of today.
+> diff --git a/drivers/iio/light/lm3533-als.c b/drivers/iio/light/lm3533-als.c
+> index fb61904f110f..52136ca1abc9 100644
+> --- a/drivers/iio/light/lm3533-als.c
+> +++ b/drivers/iio/light/lm3533-als.c
 
-That would be because patches 3, 4 have already been taken. Applying 1, 2, 5-7 
-individually still works. Please let me know if you would like me to send a new 
-series containing only the unapplied patches.
+>  static int lm3533_als_setup(struct lm3533_als *als,
+>  			    const struct lm3533_als_platform_data *pdata)
+>  {
+> +	struct device *dev = &als->pdev->dev;
+>  	int ret;
+>  
+> -	ret = lm3533_als_set_input_mode(als, pdata->pwm_mode);
+> +	ret = regmap_update_bits(als->lm3533->regmap, LM3533_REG_ALS_CONF,
 
--- 
-Thank you,
-Claudiu
+Maybe a local struct regmap pointer given dereferenced in a couple of places.
+
+> +				 LM3533_ALS_INPUT_MODE_MASK,
+> +				 pdata->pwm_mode ? LM3533_ALS_INPUT_MODE_MASK : 0);
+
+Andy raised this in previous patch but in the interests of being specific
+regmap_assign_bits() is going to be cleaner here.
+
+>  	if (ret)
+> -		return ret;
+> +		return dev_err_probe(dev, ret, "failed to set input mode %d\n",
+> +				     pdata->pwm_mode);
+> +
+>  
+>  	/* ALS input is always high impedance in PWM-mode. */
+>  	if (!pdata->pwm_mode) {
+> -		ret = lm3533_als_set_resistor(als, pdata->r_select);
+> +		if (pdata->r_select < LM3533_ALS_RESISTOR_MIN ||
+> +		    pdata->r_select > LM3533_ALS_RESISTOR_MAX) {
+> +			dev_err(&als->pdev->dev, "invalid resistor value\n");
+> +			return -EINVAL;
+> +		}
+> +
+> +		ret = regmap_write(als->lm3533->regmap, LM3533_REG_ALS_RESISTOR_SELECT,
+> +				   pdata->r_select);
+>  		if (ret)
+> -			return ret;
+> +			return dev_err_probe(dev, ret, "failed to set resistor\n");
+>  	}
+>  
+>  	return 0;
 
