@@ -1,169 +1,178 @@
-Received: from BL0PR03CU003.outbound.protection.outlook.com (mail-eastusazon11012002.outbound.protection.outlook.com [52.101.53.2])
+Received: from mx0b-00128a01.pphosted.com (mx0a-00128a01.pphosted.com [148.163.135.77])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B2BF3A7F62;
-	Tue,  2 Jun 2026 06:30:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.53.2
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780381849; cv=fail; b=pY02Xh12JsI9cDHUAJZ8NwKraATUCJglizZShahA4YTR8qqUJgx/JWYvbIkoy9UuH/b28aTVTeIODbHolx536QVvVww7A8mWV0Q1Z2LNfXuBwKptATvyHLP6KQ4O82iGC7WX06EnZDPGLMtVmOH2csLJb8eyyJbmrZBqt1PJlZg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780381849; c=relaxed/simple;
-	bh=gAgV20Wgm2SPtvEXOrQ/1tCkyvEMWV77LojkDP6jDSw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=dmKHL9TDMhPAaf1S/asRiR2S3e+I+U/tBeeIToR0zZ4NbXn535uLa6iXH8FqocjFdOXq+fIqdHAzzB1/ubZncbPo8pMEn2xESI413e6NTHqhTYSUMHYPsWZabek+FWRs10MAYX0Q7HqYU49nub7wtxtulno7FHKfc2Dr0i4VPO8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=mwcTQQXM; arc=fail smtp.client-ip=52.101.53.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E65B424BBEB;
+	Tue,  2 Jun 2026 06:39:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.135.77
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780382381; cv=none; b=fC76x46Gg9nS89o6m3xUllBS1DSBnusOAOusE5DQWIaG+D2JOthQ1clkemWAmiptP0hoxI9KvEP7hlpNePgnE6pPFtiNSLNaLlPWDfAk8LL9VvswvumQDCU/1CElbXckVJugrDOUJ53/DvyJMKYsPjABrLDbsjRgwg0uiGFX/08=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780382381; c=relaxed/simple;
+	bh=Ld8iduNde6GKNr22MJMInfKqIYti0iqNR4hSxFhoSxg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=gYgDfvmITKZs8S2tke9rF2VnDwzbLOR0W96moLKdXBR42+rC3IzNre7FWy0+cuS6Znb3VvZ9EykFQeQPJH7l+qExDYo/7tgqvruuR+5hu096nZtJCzfeKW+1IFv3yGNZQwAQ/FN3Hkkd+K8abbVxpvOv06PiBXOxrDKILiZvHqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com; spf=pass smtp.mailfrom=analog.com; dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b=dbINqjWy; arc=none smtp.client-ip=148.163.135.77
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=analog.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=analog.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="mwcTQQXM"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=dN0OiTvybep+jh+YSW5+WjCpQCozxqTP60d0YDL8B6Lh2p4qKZnCQjlv044Jst71d2LT5p6Ey4fw93ItuiOgCbaMrq49fA+0uZRi3pSWL0GZ1CoqA4bL1oePzr10IRvnS5pI6vCTslt+2ImG9wbrNO3hwzVbsAs2MZmNTAxjFojxlUaHSTri08/v0wY6N22Xb244yP5QF71bfV2nTPnloK06YCXVaq8hlrutB1Qnou1L2Hvy1e++ZkQ7jfJZWEda980FKymV9O8JBC9O+pKfBPK9C+eONSUNzjx3poDAvp80CmekdHI7eMxiD96zif8eI0LX4TaG+NmSM115s9jTyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=L/mEPqm32SSRg80uzcOFEqv4ap05/oZLpL4aUJGzfD8=;
- b=vZYoFbJyxpIxClOydUdmVfiw3/rzhdrag/5SHWfsPMRf4y2/18i9l07PT5WOS7kBSKG6uch20v2jT08WucTPLg7Y3ZO6EWE0lhQfGH/E4ZAXxfU7mOWjnau4DWlisz5LIFG2hwnYmMegaxOkJb5aaMTYntzLDb4F6HpaHqKcRR9hNcVxrDuH1owS9oiEU5SDxYG05Zyz5jjYQ4o23tZOuysC6ztMXoptgeMepRRWotZd1lT02mvVkPBqKy/RFhi/mgefLqCdp3DCMzsL6AXC9KIeXKOc54ELl6U2283QdQJHVBu2jJPNdFBPs8z1X2EdxPqE29bOJdRCgdCtQk+8mg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.195) smtp.rcpttodomain=lists.infradead.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=L/mEPqm32SSRg80uzcOFEqv4ap05/oZLpL4aUJGzfD8=;
- b=mwcTQQXMqCRCjqYdjx6jiv8E6677cMT6X5JHq2FUl9iNXd8Od38z0Yxllkh+XhFVDZQiLL5R8Bc6b07nFplCodqDXl9VIc6N6iK6g7PaYsAHaVl9tLCNUGqJ/ohEVztJS1jY5A+UsT0ybGzkBNy5J7lvKqmc5AYxhQoXNCt3bws=
-Received: from CH0PR04CA0070.namprd04.prod.outlook.com (2603:10b6:610:74::15)
- by DM6PR10MB4121.namprd10.prod.outlook.com (2603:10b6:5:21d::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Tue, 2 Jun 2026
- 06:30:44 +0000
-Received: from CH3PEPF00000009.namprd04.prod.outlook.com
- (2603:10b6:610:74:cafe::85) by CH0PR04CA0070.outlook.office365.com
- (2603:10b6:610:74::15) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.71.16 via Frontend Transport; Tue, 2
- Jun 2026 06:30:43 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.195)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.195 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.195; helo=lewvzet201.ext.ti.com; pr=C
-Received: from lewvzet201.ext.ti.com (198.47.23.195) by
- CH3PEPF00000009.mail.protection.outlook.com (10.167.244.36) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.92.5 via Frontend Transport; Tue, 2 Jun 2026 06:30:43 +0000
-Received: from DLEE210.ent.ti.com (157.170.170.112) by lewvzet201.ext.ti.com
- (10.4.14.104) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
- 2026 01:30:42 -0500
-Received: from DLEE206.ent.ti.com (157.170.170.90) by DLEE210.ent.ti.com
- (157.170.170.112) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37; Tue, 2 Jun
- 2026 01:30:42 -0500
-Received: from lelvem-mr06.itg.ti.com (10.180.75.8) by DLEE206.ent.ti.com
- (157.170.170.90) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.37 via Frontend
- Transport; Tue, 2 Jun 2026 01:30:42 -0500
-Received: from [172.24.233.254] (santhoshkumark.dhcp.ti.com [172.24.233.254])
-	by lelvem-mr06.itg.ti.com (8.18.1/8.18.1) with ESMTP id 6526Ub3j2665621;
-	Tue, 2 Jun 2026 01:30:37 -0500
-Message-ID: <4a570d36-dda6-4f3d-9c16-d3e57ac55f1c@ti.com>
-Date: Tue, 2 Jun 2026 12:00:36 +0530
+	dkim=pass (2048-bit key) header.d=analog.com header.i=@analog.com header.b="dbINqjWy"
+Received: from pps.filterd (m0375855.ppops.net [127.0.0.1])
+	by mx0b-00128a01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6520v0EB1251258;
+	Tue, 2 Jun 2026 02:39:25 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=analog.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=DKIM; bh=ucaNj
+	VD33cEHVZpUmvebqvzYKsXoifNX7q+4EkOy8/U=; b=dbINqjWyQlQIGOg1KKjix
+	zP0mApm5FocDcAsy4/9hcWrRhiHPHENIHzWNIUzik3YkA4g/2ojQsUzsjC8i5VlH
+	rUiDKwk/OP9LqNQUJdtx8bZg3pLNcfstU+BEfi7BSWAdYYWzOZ1pI+HuRSYM1Bln
+	l2sh8RvEhB+YK4q46MvVT/Wx4kf6nQMRo4GbrmrL35nsUrXbEGarf/ZEJ6R9lrVA
+	cOWTPCdt0WgK58YVeEGytNVmZ8RyJGMWdhv46cHW/o1feA/kQ1lCJqyNciLy2EIQ
+	H2t5SSS/mzQaU94jVVyc8wJ503aoYDKZyKFlUw4YQVkmma59BLP7OuSaV7+NElfL
+	g==
+Received: from nwd2mta4.analog.com ([137.71.173.58])
+	by mx0b-00128a01.pphosted.com (PPS) with ESMTPS id 4ege7dqv8b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 02 Jun 2026 02:39:24 -0400 (EDT)
+Received: from ASHBMBX8.ad.analog.com (ASHBMBX8.ad.analog.com [10.64.17.5])
+	by nwd2mta4.analog.com (8.14.7/8.14.7) with ESMTP id 6526dNuj044271
+	(version=TLSv1/SSLv3 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Tue, 2 Jun 2026 02:39:23 -0400
+Received: from ASHBCASHYB5.ad.analog.com (10.64.17.133) by
+ ASHBMBX8.ad.analog.com (10.64.17.5) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 2 Jun 2026 02:39:23 -0400
+Received: from ASHBMBX8.ad.analog.com (10.64.17.5) by
+ ASHBCASHYB5.ad.analog.com (10.64.17.133) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.1748.37; Tue, 2 Jun 2026 02:39:23 -0400
+Received: from zeus.spd.analog.com (10.66.68.11) by ashbmbx8.ad.analog.com
+ (10.64.17.5) with Microsoft SMTP Server id 15.2.1748.37 via Frontend
+ Transport; Tue, 2 Jun 2026 02:39:23 -0400
+Received: from HYB-MkYHBcJRSnh.ad.analog.com ([10.32.226.85])
+	by zeus.spd.analog.com (8.15.1/8.15.1) with ESMTP id 6526d5Hk009442;
+	Tue, 2 Jun 2026 02:39:07 -0400
+From: Liviu Stan <liviu.stan@analog.com>
+To: Jonathan Cameron <jic23@kernel.org>
+CC: Liviu Stan <liviu.stan@analog.com>, David Lechner <dlechner@baylibre.com>,
+        =?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+        Andy Shevchenko
+	<andy@kernel.org>,
+        Michael Hennerich <Michael.Hennerich@analog.com>,
+        "Rob
+ Herring" <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        "Conor
+ Dooley" <conor+dt@kernel.org>,
+        Antoniu Miclaus <antoniu.miclaus@analog.com>,
+        Francesco Lavra <flavra@baylibre.com>, <linux-iio@vger.kernel.org>,
+        <linux-kernel@vger.kernel.org>, <linux@analog.com>,
+        <devicetree@vger.kernel.org>
+Subject: Re: [PATCH v4 9/9] iio: temperature: ltc2983: Add support for ADT7604
+Date: Tue, 2 Jun 2026 09:38:39 +0300
+Message-ID: <20260602063841.404648-1-liviu.stan@analog.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260527174931.55eaaa69@jic23-huawei>
+References:
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 02/13] spi: dt-bindings: cdns,qspi-nor: add PHY tuning
- pattern partition property
-To: Krzysztof Kozlowski <krzk@kernel.org>
-CC: <broonie@kernel.org>, <robh@kernel.org>, <krzk+dt@kernel.org>,
-	<conor+dt@kernel.org>, <miquel.raynal@bootlin.com>, <richard@nod.at>,
-	<vigneshr@ti.com>, <pratyush@kernel.org>, <mwalle@kernel.org>,
-	<takahiro.kuwano@infineon.com>, <linux-spi@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-mtd@lists.infradead.org>, <praneeth@ti.com>, <u-kumar1@ti.com>,
-	<a-dutta@ti.com>, <s-k6@ti.com>
-References: <20260527175527.2247679-1-s-k6@ti.com>
- <20260527175527.2247679-3-s-k6@ti.com>
- <20260530-original-peccary-of-cubism-af68ed@quoll>
- <2f091813-fa28-407f-892d-bbbbe3cac4e4@ti.com>
- <063fe976-9a28-4670-90df-921fbc1c3a8c@kernel.org>
- <20260601-stirring-tested-mayfly-e97c14@quoll>
-Content-Language: en-US
-From: Santhosh Kumar K <s-k6@ti.com>
-In-Reply-To: <20260601-stirring-tested-mayfly-e97c14@quoll>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-C2ProcessedOrg: 333ef613-75bf-4e12-a4b1-8e3623f5dcea
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: CH3PEPF00000009:EE_|DM6PR10MB4121:EE_
-X-MS-Office365-Filtering-Correlation-Id: 96916397-fad0-43d4-314b-08dec070790a
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|376014|1800799024|36860700016|82310400026|4143699003|56012099006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	rDI4v8CAnrWvndT9c5RlqoWp7tEWUyqHFuwvPR0/yrtRLFq2isxICCRqFMLQR+J6gI1BlmkNg4X+2U6Wg+iXyBxif6r5tf26MnR7dCjit2MJAxMmwk6PJjTExuj7Dne7IM89HKyldHXT7oRve0hmdLROvw4AEb/+lxek5odby4s2UETGwRtA71FvlNlSRAcPgTsvjZXGZCIb0S+pMvldVpK9L5dYmx+w3XkHAcsS3cE0TThSGpcVnldHQdDYwsO1q8zRVHK0bC/GzSJjiLPnY6hEdSiVEAIC0TjpC+uxwEue1UmAqbWNSkXGZGEINROM1CYlB3TwZC9+bsuNOyhlVUARABmNlcTVDH//IbDUEtvc1+gbQuv8H8bkR/mVFTey6wEUtl9va5fRfI0GivjL4/wSvrQ1CKSfAq4JZtZp9imBeKc6ucz5OkRVzbz5ieANu57XDEZA+rFxjJFaWAyBVf0u5UyrVduvZru9+p6+QetxZ+BdG1wV7qnzSAdOs6K5HmFLIvf2YlRxzkVqFVpaA+cPqy5oFBTzk2Rl3wxkH0CNGJwOq5bbrhYMYZFY8NfE2TvLfkOEE57AlrXtexMCLSdOf38UwvgXZDSkS8tFDyLSZPQuRCXP0CveEDxV8aHAa+DecvoMR9gtfS6GNNzvcEzzP3e9mIl4SpEFTiwIL6tbOOcMxxcNwZX9fIfHTABkQEED0/QfwIOD6tO2qW4fgXSL+JGrTXeM3yXfe12gwsQ=
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.195;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet201.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(376014)(1800799024)(36860700016)(82310400026)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	/DSPLaJY/5KYuZF+cdScMQyJfWZphFUPVIO+Y8Z2rD0vYEzR59tBzecpxekeQJnJqzrJy6FhKK915+ijJipOD1a5e7mWWHJCVnuydpcIbyzvJdRtsFWy0g9DMjk2lFefLpRvZndjfLls2nZpXVC4jXeIAtauDJXKuagaMRIG5dWFfShMbWJkj6RKffSL9+nSQ81FMkNU9mqFcmK8v38T4N1zpdl9XCqVf5DPBTgbT+lGhqIvCr2zCccVcJCj9cu4kmCcE3g0m/5SfGEEk5EC+SI0CKBmFHTRm+deEQ8X6XSJoJhEVHOm58fcr/++NkBlA3pf26PT5WKl4syaZpveKpA4CWxl4laN8EwF+Yl+H7sqdpjfmZAgrxbn7tGu2Jm1UdUuE8uVb5PENK9l/H1T6m6215/AwLCOvyGHYV9OwQdZ/S583GDoFLWx3w4F5vg6
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 02 Jun 2026 06:30:43.1736
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 96916397-fad0-43d4-314b-08dec070790a
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.195];Helo=[lewvzet201.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	CH3PEPF00000009.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB4121
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ADIRuleOP-NewSCL: Rule Triggered
+X-Authority-Analysis: v=2.4 cv=aITAb79m c=1 sm=1 tr=0 ts=6a1e7a9d cx=c_pps
+ a=3WNzaoukacrqR9RwcOSAdA==:117 a=3WNzaoukacrqR9RwcOSAdA==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=0sLvza09kfJOxVLZPwjg:22 a=N--XFCr6TIEc_64PeIT2:22 a=c92rfblmAAAA:8
+ a=gAnH3GRIAAAA:8 a=VwQbUJbxAAAA:8 a=2KgOL9551wsClh4SOmoA:9 a=3ZKOabzyN94A:10
+ a=QEXdDO2ut3YA:10 a=GvGzcOZaWPEFPQC_NcjD:22
+X-Proofpoint-ORIG-GUID: vxfVRPV3BNyV5eaemPQElflbP1MCFgjR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAyMDA2MCBTYWx0ZWRfX2/Yaah7OUuJ+
+ YlcuAUz7rsaWzvtvx5CGa2xgEDSmqE8CQezrmNw2VDQ8tXXSh6y7TOLguNtwpiMlbVGJnQq2v4E
+ 4YPUyDUptKXKJoG0DQLDLIHwi4HSU5iFYtO7KrwdZNks3SLfZ3xE+lQVOVmkvuE8HnmDQLW0+M9
+ hgA8VIEcoBP+qyDEe3Xg7gGWuMgWPL+GqZMjXQfVk8FdzIALnRqawbXuzQVifVQMVZAAfokTAVb
+ KEb/c7c9EWkPT1pbwvJOp9z7pAfTXOYLR04aceZnHQcE0v6xH6jsN3JkZc0BimcOdFbGtI0zm71
+ YTVeWI1bnnj/USMOKNhuzVr3G9F/nWnay58dsZLEFKjpZhrKy3yU9regUFBqSxP4dlv0Zw97DmI
+ yBIR5ByB6YASlCUQUzHiWBgs7HzMdy5UYuc2Iij2jebG+gviZkmYJFcnjz2Ylpq5jC8WyRWLrFL
+ wxqoQrs6VobliKYV51g==
+X-Proofpoint-GUID: vxfVRPV3BNyV5eaemPQElflbP1MCFgjR
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-01_07,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 suspectscore=0 malwarescore=0 clxscore=1015 lowpriorityscore=0
+ priorityscore=1501 impostorscore=0 bulkscore=0 adultscore=0 spamscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606020060
 
+On Wed, 27 May 2026 17:49:31 +0100 Jonathan Cameron <jic23@kernel.org> wrote:
 
-
-On 01/06/26 17:17, Krzysztof Kozlowski wrote:
-> On Mon, Jun 01, 2026 at 01:26:27PM +0200, Krzysztof Kozlowski wrote:
->   >>
->>>> This should be used in any of applicable examples.
->>>
->>> Please refer to the DT changes included in the repository linked in the
->>> cover letter, which should provide a clearer picture of how this
->>> property is intended to be used. [0]
->>>
->>> I'll also add a DT binding example in the next version to make the usage
->>> more explicit.
->>
->> Why do you new a new example? Why existing examples are not applicable?
+> On Tue, 26 May 2026 11:47:01 +0300
+> Liviu Stan <liviu.stan@analog.com> wrote:
 > 
-> typo: "Why do you need a new example?"
-
-No, I  wasn't planning to add a new example. I'll extend one of the
-existing binding examples.
-
+> > On Mon, 25 May 2026 19:06:14 +0000 sashiko-bot@kernel.org wrote:
+> > 
+> > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> > > 
+> > > Pre-existing issues:
+> > > - [High] Integer truncation of `num_channels` leads to an out-of-bounds write on the heap when parsing device tree children.
+> > > --
+> > > 
+> > > commit 482bc8c51e04185002511817885173bd265542d8
+> > > Author: Liviu Stan <liviu.stan@analog.com>
+> > > 
+> > > iio: temperature: ltc2983: Add support for ADT7604
+> > > 
+> > > This commit adds support for the ADT7604 sensor, repurposing custom RTD
+> > > and thermistor sensor types as copper trace and leak detectors. It
+> > > introduces new structs, parser functions, and hardware register mappings
+> > > to handle these new types.
+> > >   
+> > > > diff --git a/drivers/iio/temperature/ltc2983.c b/drivers/iio/temperature/ltc2983.c
+> > > > index 130ab7fddc2fe..fc65d8352d120 100644
+> > > > --- a/drivers/iio/temperature/ltc2983.c
+> > > > +++ b/drivers/iio/temperature/ltc2983.c  
+> > > 
+> > > [ ... ]
+> > >   
+> > > > @@ -1348,7 +1672,7 @@ static int ltc2983_parse_fw(struct ltc2983_data *st)
+> > > >  	if (!st->sensors)
+> > > >  		return -ENOMEM;
+> > > >  
+> > > > -	st->iio_channels = st->num_channels;
+> > > > +	st->iio_channels = 0;  
+> > > 
+> > > [Severity: High]
+> > > This is a pre-existing issue, but does st->num_channels silently truncate
+> > > the number of child nodes since it is defined as a u8?
+> > > 
+> > > If a device tree is provided with 256 or more child nodes (e.g., 257
+> > > nodes via DT overlays), device_get_child_node_count() returns 257, but
+> > > st->num_channels truncates this to 1. This causes devm_kcalloc() to
+> > > allocate only a 1-element array for st->sensors.
+> > > 
+> > > The device_for_each_child_node_scoped() loop directly following this will
+> > > then iterate over the children and write into st->sensors[chan], resulting
+> > > in out-of-bounds writes on the heap. Could num_channels be changed to an
+> > > unsigned int to prevent this memory corruption?
+> > >   
+> > > >  	device_for_each_child_node_scoped(dev, child) {
+> > > >  		struct ltc2983_sensor sensor;  
+> > > 
+> > > -- 
+> > > Sashiko AI review · https://sashiko.dev/#/patchset/20260525164013.118614-1-liviu.stan@analog.com?part=9
+> > >   
+> > 
+> > The hardware has 20 channels maximum, so num_channels as u8 can never overflow in practice.
+> > 
+> All looks good to me so applied to the testing branch of iio.git.
 > 
->>
->>>
->>>>
->>>> I also have doubts that this is per-device property. Your commit msg
->>>> suggests it is per controller.
->>>
->>> This is a per-device property. It is consumed by the controller driver
->>> only to locate and retrieve the offset of the PHY pattern partition
->>
->> So with two devices on a bus, you need two separate partitions for tuning?
-
-Each SPI NOR flash device needs a partition to store PHY tuning pattern.
-
-Regards,
-Santhosh.
-
+> Thanks,
 > 
-> Best regards,
-> Krzysztof
-> 
+> Jonathan
 
+Thank you!
+
+Liviu
