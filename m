@@ -1,173 +1,112 @@
-Received: from outbound9.mail.transip.nl (outbound9.mail.transip.nl [136.144.136.11])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E60AF2DA74C;
-	Tue,  2 Jun 2026 04:36:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.11
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB5E223DEA
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:45:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780374998; cv=none; b=HqPrK4T0A3Bqi9CYvnkd/MWjEiKY+/r2/xXy9HIEc4oT7lJwDUW0Ws8JbZ8Q/dP5umNKFlJbSQa/aPEz5Q3Zp7INat9M7jav0P1LAptBIgrNwURf73JOBfxAhdIVlmyIA+Hhr7dkhSFD5UXuV/eyS/LHOhnT9WNZvNmXTI819Lg=
+	t=1780375552; cv=none; b=IcP+QL+vMpJSvsD1fjQ+1ULHYn6HTMEinVsR+BDxWmUkJpWQZqyfVQecdPZBRikcZJv7uECsAGuuQXUFe2uWqPHEsGGzx9rFLbBkJ3ztpOA7+CMfUBwrKTfNu5gJ2VuZPVWrYePBHU5bP9UM1cfRy+hy05XTXOqO3/WrMBPsWaU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780374998; c=relaxed/simple;
-	bh=+QjWqsNdohmngZFGvCvaNMAp/lHvrU1j4TeLxIbajXk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=YGxU/ncRL1F4wKrbavQ7w6Js5kM4tKO0S9a0RWHMqBH2f7DyQ37o9o4UVNdL58AtKak81T7NmtuhCdPLLen+hjAkmZAkS1xbN7ZIr0MD26qikyGAjzclnwk5ysDEgQtWA/pOkPZvjSXE+JEh9yfVIgpeg1GZ0uFfVKAM7rcVBlU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=ExmAN2Tu; arc=none smtp.client-ip=136.144.136.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780375552; c=relaxed/simple;
+	bh=f41RFI+99iM+6JqS3IqWKwirkuDj/LxERNSmmDMfF6s=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=nr/HB5xWtK5ivAaa/kHSUypDnV0ZWWbN9pc26Kj2lZzxCDJfQrfc4FdaT36lb1/URhFqLMStZdgvdQi3+KJNlqtdP3Uqc+Yttu7Rm/1uHbXchnIObJTBURFl/0f6YjOr6EG3Xc5l5OmmhiRjXuVayIp8yXLxoKWUo1KHeI6x85Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C8mKF0NI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="ExmAN2Tu"
-Received: from submission4.mail.transip.nl (unknown [10.103.8.155])
-	by outbound9.mail.transip.nl (Postfix) with ESMTP id 4gTyhT74G0zTPNND;
-	Tue,  2 Jun 2026 06:36:25 +0200 (CEST)
-Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission4.mail.transip.nl (Postfix) with ESMTPA id 4gTyhT30Xbz3R3nyZ;
-	Tue,  2 Jun 2026 06:36:25 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-To: sboyd@kernel.org
-Cc: Herman van Hazendonk <github.com@herrie.org>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	linux-arm-msm@vger.kernel.org,
-	devicetree@vger.kernel.org
-Subject: [PATCH 2/3] dt-bindings: reset: qcom: add mmcc-msm8660 reset IDs
-Date: Tue,  2 Jun 2026 06:36:18 +0200
-Message-ID: <20260602043623.285901-3-github.com@herrie.org>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260602043623.285901-1-github.com@herrie.org>
-References: <20260602043623.285901-1-github.com@herrie.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C8mKF0NI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E4D41F00893;
+	Tue,  2 Jun 2026 04:45:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780375551;
+	bh=ZQBls5XmcKbNFB4Rbr0xGtLRx0ycLwq7LTRJ3+XadqU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=C8mKF0NIthgwgM+W46iULJbjTW+4rsYkRsiS0Zvxks4FT3xaLJsVpuT7xBuhwIPGT
+	 JbCRAUrKYBbREsBxjdfucOd1jRFFPYu2VyEdKV9J1YQ+fle6xmuVP6XovUzsoY3kYy
+	 wJWu3Gy8Wv0hOWqcq/5EG2Sa2i1uoEHavBRNqFp2ITnpjTthXwEVbpe8Twrr99VMX5
+	 A3dfXp5qCHlAkWyzYTRwxw/WaXWHn7qm+xGG7tduxQ3oqMWxxA8jFHo0LS/d1uXmtV
+	 fLviegSHUNFbiAk4jHq98KpJWOV94aDpHkNeme0AtVraawzouINDLc0lZQZ9LOQ4nT
+	 JUD+QEt8s2AWQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 1/3] dt-bindings: clock: qcom: add mmcc-msm8660 clock
+ IDs
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Herman van Hazendonk" <github.com@herrie.org>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260602043623.285901-2-github.com@herrie.org>
+References: <20260602043623.285901-2-github.com@herrie.org>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 02 Jun 2026 04:45:51 +0000
+Message-Id: <20260602044551.6E4D41F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission4.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780374985; h=from:subject:to:cc:
- references:in-reply-to:date:mime-version:content-type;
- bh=d7Er86HmzNP/oc6nFqyXAKLhnVQcyD+0JXnIczziOdo=;
- b=ExmAN2TuAt5amQymOx2ndHR8LNzdxA+U9MwKCk3LApHFuy0i7KKgpT/iuOxgZG1bbtBqPJ
- jQJEAgqHz5NdqfbzJwLwoYlTcEffHhPTgMsTQMrojts6oPy550Jr392WC56Zl5r7NddH6D
- YUqWlJcVt9KuWnuHJhvRyaTiE1lBK13J0x+ruaCzIcSHqonnBYu83BycY0Dgx/Ma+y8d/B
- MlCubDLfCOy+vEoNB/YFyZWNuxj0Wa/LWzvqd1N4Dfd/M20sMPLZ5QQJjSdTkQPURhQIDf
- 2mKq9edcBs04bdj7/XQj7W45TbW5ydQb42r7Am7dz1TktCxAe5o7+8wYL83WMw==
-X-Report-Abuse-To: abuse@transip.nl
 
-Add the dt-binding reset-ID header for the MSM8x60 family
-(MSM8260/MSM8660/APQ8060) MMCC reset lines. The MMCC exposes per-IP
-software-reset bits used by MDP4 (display), CAMSS / VFE (camera),
-Gemini (JPEG), rotator, VPE and the GFX2D / GFX3D blocks; each gets a
-matching reset-controller ID here.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] Silent failure to unhalt MMSS fabric if qcom_rpm is not bound yet.
+--
 
-IDs match the numeric values used by the original shared
-mmcc-msm8960.h reset bindings; only the resets actually implemented
-by mmcc-msm8660.c are defined.
+commit 7a52c01ee4faffcac27f221b8547899fcd741b7b
+Author: Herman van Hazendonk <github.com@herrie.org>
 
-Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
----
- include/dt-bindings/reset/qcom,mmcc-msm8660.h | 88 +++++++++++++++++++
- 1 file changed, 88 insertions(+)
- create mode 100644 include/dt-bindings/reset/qcom,mmcc-msm8660.h
+clk: qcom: add MSM8x60 MMCC driver
 
-diff --git a/include/dt-bindings/reset/qcom,mmcc-msm8660.h b/include/dt-bindings/reset/qcom,mmcc-msm8660.h
-new file mode 100644
-index 000000000000..c3ffd57834c9
---- /dev/null
-+++ b/include/dt-bindings/reset/qcom,mmcc-msm8660.h
-@@ -0,0 +1,88 @@
-+/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
-+/*
-+ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
-+ *
-+ * Reset bindings for the MSM8x60 family (MSM8260/MSM8660/APQ8060) Multimedia Clock
-+ * Controller (MMCC).
-+ *
-+ * MSM8260, MSM8660 and APQ8060 are the same Scorpion-class MSM8x60 SoC
-+ * with different bin/feature labels. MSM8960 is a newer generation (Krait)
-+ * — its reset bindings live in
-+ * <dt-bindings/reset/qcom,mmcc-msm8960.h> and must not be reused here.
-+ *
-+ * IDs intentionally match the numeric values used by the original shared
-+ * mmcc-msm8960.h so the driver's qcom_reset_map array indexing is preserved;
-+ * only the resets actually implemented by mmcc-msm8660.c are defined.
-+ */
-+
-+#ifndef _DT_BINDINGS_RESET_MSM_MMCC_8660_H
-+#define _DT_BINDINGS_RESET_MSM_MMCC_8660_H
-+
-+#define VPE_AXI_RESET					0
-+#define IJPEG_AXI_RESET					1
-+#define MPD_AXI_RESET					2
-+#define VFE_AXI_RESET					3
-+#define SP_AXI_RESET					4
-+#define VCODEC_AXI_RESET				5
-+#define ROT_AXI_RESET					6
-+#define VCODEC_AXI_A_RESET				7
-+#define VCODEC_AXI_B_RESET				8
-+#define FAB_S3_AXI_RESET				9
-+#define FAB_S2_AXI_RESET				10
-+#define FAB_S1_AXI_RESET				11
-+#define FAB_S0_AXI_RESET				12
-+#define SMMU_GFX3D_ABH_RESET				13
-+#define SMMU_VPE_AHB_RESET				14
-+#define SMMU_VFE_AHB_RESET				15
-+#define SMMU_ROT_AHB_RESET				16
-+#define SMMU_VCODEC_B_AHB_RESET				17
-+#define SMMU_VCODEC_A_AHB_RESET				18
-+#define SMMU_MDP1_AHB_RESET				19
-+#define SMMU_MDP0_AHB_RESET				20
-+#define SMMU_JPEGD_AHB_RESET				21
-+#define SMMU_IJPEG_AHB_RESET				22
-+#define APU_AHB_RESET					25
-+#define CSI_AHB_RESET					26
-+#define TV_ENC_AHB_RESET				27
-+#define VPE_AHB_RESET					28
-+#define FABRIC_AHB_RESET				29
-+#define GFX2D0_AHB_RESET				30
-+#define GFX2D1_AHB_RESET				31
-+#define GFX3D_AHB_RESET					32
-+#define HDMI_AHB_RESET					33
-+#define MSSS_IMEM_AHB_RESET				34
-+#define IJPEG_AHB_RESET					35
-+#define DSI_M_AHB_RESET					36
-+#define DSI_S_AHB_RESET					37
-+#define JPEGD_AHB_RESET					38
-+#define MDP_AHB_RESET					39
-+#define ROT_AHB_RESET					40
-+#define VCODEC_AHB_RESET				41
-+#define VFE_AHB_RESET					42
-+#define CSIPHY0_RESET					47
-+#define CSIPHY1_RESET					48
-+#define VFE_CSI_RESET					50
-+#define MDP_RESET					51
-+#define AMP_RESET					52
-+#define JPEGD_RESET					53
-+#define CSI1_RESET					54
-+#define VPE_RESET					55
-+#define MMSS_FABRIC_RESET				56
-+#define VFE_RESET					57
-+#define GFX3D_RESET					60
-+#define HDMI_RESET					61
-+#define MMSS_IMEM_RESET					62
-+#define IJPEG_RESET					63
-+#define CSI0_RESET					64
-+#define DSI_RESET					65
-+#define VCODEC_RESET					66
-+#define MDP_TV_RESET					67
-+#define MDP_VSYNC_RESET					68
-+#define ROT_RESET					69
-+#define TV_HDMI_RESET					70
-+#define TV_ENC_RESET					71
-+#define GFX3D_AXI_RESET					75
-+#define CSI_RDI_RESET					79
-+#define CSI_PIX_RESET					80
-+
-+#endif
--- 
-2.43.0
+Add a clock driver for the Multimedia Clock Controller (MMCC) on the
+MSM8x60 family (MSM8260/MSM8660/APQ8060) - the Scorpion-class
+generation that preceded MSM8960's Krait CPUs.
 
+> diff --git a/drivers/clk/qcom/mmcc-msm8660.c b/drivers/clk/qcom/mmcc-msm8=
+660.c
+> new file mode 100644
+> index 0000000000000..50781a63e65fe
+> --- /dev/null
+> +++ b/drivers/clk/qcom/mmcc-msm8660.c
+[ ... ]
+> +static void mmcc_msm8660_unhalt_fabric_ports(struct device *dev)
+> +{
+> +	struct device_node *rpm_node;
+> +	struct platform_device *rpm_pdev;
+> +	struct device_link *link;
+> +	struct qcom_rpm *rpm;
+> +	/* halt_data[0]=3D0 =3D CLK_UNHALT for all bits; halt_data[1] =3D port =
+mask */
+> +	u32 mmss_halt[2] =3D {0, GENMASK(13, 0)};
+> +	int rc;
+[ ... ]
+> +	rpm =3D dev_get_drvdata(&rpm_pdev->dev);
+> +	if (!rpm) {
+> +		/*
+> +		 * Supplier exists but has not bound yet -- skip the
+> +		 * unhalt rather than blocking mmcc probe; downstream
+> +		 * MMSS clients will be enabled on demand.
+> +		 */
+> +		put_device(&rpm_pdev->dev);
+> +		return;
+> +	}
+
+[Severity: High]
+Does this code silently fail to unhalt the MMSS fabric if the qcom_rpm driv=
+er
+has not yet probed?
+
+If dev_get_drvdata() returns NULL because the RPM driver hasn't bound yet,
+this function returns without an error. Since mmcc_msm8660_probe() calls th=
+is
+and ignores any failure, it will complete probe successfully but leave the
+MMSS fabric permanently halted.
+
+The comment here states "downstream MMSS clients will be enabled on demand",
+but this contradicts the block comment above indicating that mainline GDSC
+does not implement on-demand unhalting. When multimedia hardware later powe=
+rs
+on and attempts DMA, the hardware queues will freeze and stall the system.
+
+Should mmcc_msm8660_unhalt_fabric_ports() return an int so we can pass
+-EPROBE_DEFER back to the probe function to wait for the RPM driver?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602043623.2859=
+01-1-github.com@herrie.org?part=3D1
