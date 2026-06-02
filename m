@@ -1,137 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outbound10.mail.transip.nl (outbound10.mail.transip.nl [136.144.136.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CD02280CE5
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:17:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013B36C598;
+	Tue,  2 Jun 2026 04:27:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780373853; cv=none; b=C2Xd22rh4gqfZvJ7gBB7J+aLp2chRb9mUUOZCV45pQGfqpkXBwQVgh7ZrfR6/TVuMbrqChKET7U5mRu0buykZy83k0zmLbI0Sjak2JTHQRgUe3zhPRzTAxWCrnI6rToUGigg7fCRFcbqoTwrIkWeGk9mO6kPZml0qVPayihdRDs=
+	t=1780374483; cv=none; b=YCAp4no/lvxj1ibvhVRlb6fUojB+iQpYwYv5MNiOs25Dg80ijW7TQfni3zwKkTLgqd7Lj3vypNiOmILY+D9hhT9A4thnZ2wnDWAmjMEBswti6sAhW5neXOVMtwlFbMr3mppROi2vJ9B+imIJyqfpLAEbmuaPXGK7nGvu0DOv+lg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780373853; c=relaxed/simple;
-	bh=eXm/IAvqJb9l8A9hBtw8yR27Wy8mEble9YaSK4/HQLw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ohg8+ii+l4qHcqNoCm0z3oOg3FZ9dIN9OTqnphpOz7HGA6vZL55LPAjBVOQVkpaB9QMU/q/s/sR96JUWsOZiUNNrhYeQwgaHP6goCH3efuDrM1KBR82jWAd3snb7rMlOZLTrt1CdW5QXDZOrtPsRD/nhk7CymZhjZ8zB+Vi7rjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WvxAxM1d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780374483; c=relaxed/simple;
+	bh=VSSf7JsYhPtkpa4irpQThN2KbJrXq0Gamlkn9rF9B/w=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=M3JoQ8SPnvC6e8ll7HDBcZtwcijS7FJ/UiKmpAUbyUfsZp2OkfPjiT6azIrd44TQF0bqhV8IS44zODctlOy5UPBvZmaEWmI3W9kvcP2/jeylwZWmCZs7dpNq1ZHvHCjkZJx0fnU0DTar4YoP/VNuSUcByxuoxP5FHzbQ2WMe6+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=TVjmjVox; arc=none smtp.client-ip=136.144.136.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WvxAxM1d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93A2A1F00893;
-	Tue,  2 Jun 2026 04:17:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780373851;
-	bh=XprDdVT0IobfOVFWw0vu+4j3qm9dN1b/wWz7l5J0QjU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=WvxAxM1dLPPiG2XFQesaSabeg5r1KB/UoF7k45QiB3uN29G2V4cinFE9Y3ZDWwQYD
-	 7gqIxV+WxkUh0G65p5IVb+FjFRfjrAG/Xcpz/qs1CnRT7tlU9o4nEyRKT/LyU1ZLE+
-	 dwtsNjycwv/pj44GRPqI0I4vSlOwHUi0U9esgW9sBSe8hrt7epFowuaJpP1HTZXX7i
-	 7QdJjOgTemns7jogFMoh/mr8appIHG+p5sgZX0XiUnky+8jp9GZowmBmDpA73Mz5WO
-	 LHykPauZZKkHl8AVsdisCeDhKht4N1u7s+v90UfXIy7SKML+FyouKtXAIEj767QA/V
-	 60NC6EWxXfE6A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v1 2/2] ASoC: tas2781: Add TAS2573 support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Baojun Xu" <baojun.xu@ti.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260602035322.5029-2-baojun.xu@ti.com>
-References: <20260602035322.5029-2-baojun.xu@ti.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 04:17:31 +0000
-Message-Id: <20260602041731.93A2A1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="TVjmjVox"
+Received: from submission15.mail.transip.nl (unknown [10.103.8.166])
+	by outbound10.mail.transip.nl (Postfix) with ESMTP id 4gTyVZ746bzTPNW8;
+	Tue,  2 Jun 2026 06:27:50 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission15.mail.transip.nl (Postfix) with ESMTPA id 4gTyVZ2qhtz3R3nyb;
+	Tue,  2 Jun 2026 06:27:50 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: sboyd@kernel.org
+Cc: Herman van Hazendonk <github.com@herrie.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 2/2] clk: qcom: gcc-msm8660: register PLL4_VOTE for LPASS
+Date: Tue,  2 Jun 2026 06:27:45 +0200
+Message-ID: <20260602042747.277270-3-github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260602042747.277270-1-github.com@herrie.org>
+References: <20260602042747.277270-1-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission15.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780374470; h=from:subject:to:cc:
+ references:in-reply-to:date:mime-version;
+ bh=g3ROW7hBNhkKFHDQavHcox1vYNkJIWsOzzdzMxdC0i0=;
+ b=TVjmjVox6kZxVyyiiLost18MWfUNz9ZIB9vn5FiWh8G50PnJ5Hsm6l3m9ImMYknx0Xml88
+ lGL/8VI0Rj2ux3mS8uCUYi7/22TMJlCvrxkwXZFJnbR+w/NY5yJjhVpRk0Dr9aOwrx6JqC
+ FuFDOkA0vcwvtmAJflvS3DlMNLTv01chohqo3kJCleVd9Xu1QB/6yErd/SRl4PhCgRCj9W
+ U8qwVZoQTC4o3+//1pXUHYPeMwI/eKRtZ2XI/AFsGzBS+yOTvqyInjgN+MIF22q3dOhyZV
+ KfRSg2hnq6ObnNVHSgdfFj/BpcmP0DXgMKpX14znj6JYlyRajr9tSEr6axb+4w==
+X-Report-Abuse-To: abuse@transip.nl
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] TAS2573 is incorrectly handled in calibration paths, leading to an=
- out-of-bounds array read, garbage I2C writes, and a completely broken 'Cal=
-ibration Start' feature.
---
+Add the CPU-side software vote register for LPASS PLL4. PLL4 itself
+lives in the LCC (Low Power Audio Subsystem clock controller); GCC
+holds the apps-processor vote in PLL_ENA_SC0 (0x34c0) BIT(4). The
+LCC driver references "pll4" as the parent of its slimbus / SAIF /
+audio mclk roots, so without this vote PLL4 is gated off when the
+apps processor is the only consumer and LCC clocks silently fail to
+enable.
 
-commit 1b9d7a08e2f73c048345d48ae6d05ec08133fcc8
-Author: Baojun Xu <baojun.xu@ti.com>
+Expose it as a single clk_regmap with clk_pll_vote_ops and append
+the dt-binding ID at the next free slot (258) after the existing
+PLL12 (257), so DT ABI for boards already using the prior header is
+preserved.
 
-ASoC: tas2781: Add TAS2573 support
-   =20
-The TAS2573 belongs to the TAS257x device family, featuring an integrated
-DSP and IV sensing capability.
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+ drivers/clk/qcom/gcc-msm8660.c               | 15 +++++++++++++++
+ include/dt-bindings/clock/qcom,gcc-msm8660.h |  1 +
+ 2 files changed, 16 insertions(+)
 
-> diff --git a/sound/soc/codecs/tas2781-i2c.c b/sound/soc/codecs/tas2781-i2=
-c.c
-> index 620ed4ef577da..a400bf3e10854 100644
-> --- a/sound/soc/codecs/tas2781-i2c.c
-> +++ b/sound/soc/codecs/tas2781-i2c.c
+diff --git a/drivers/clk/qcom/gcc-msm8660.c b/drivers/clk/qcom/gcc-msm8660.c
+index e81b8851a786..cd392e140e95 100644
+--- a/drivers/clk/qcom/gcc-msm8660.c
++++ b/drivers/clk/qcom/gcc-msm8660.c
+@@ -54,6 +54,20 @@ static struct clk_regmap pll8_vote = {
+ 	},
+ };
+ 
++/* PLL4 is the LPASS PLL, defined in LCC. This is the voting clock. */
++static struct clk_regmap pll4_vote = {
++	.enable_reg = 0x34c0,
++	.enable_mask = BIT(4),
++	.hw.init = &(struct clk_init_data){
++		.name = "pll4_vote",
++		.parent_data = &(const struct clk_parent_data){
++			.fw_name = "pll4", .name = "pll4",
++		},
++		.num_parents = 1,
++		.ops = &clk_pll_vote_ops,
++	},
++};
++
+ enum {
+ 	P_PXO,
+ 	P_PLL8,
+@@ -2543,6 +2557,7 @@ static struct clk_branch rpm_msg_ram_h_clk = {
+ static struct clk_regmap *gcc_msm8660_clks[] = {
+ 	[PLL8] = &pll8.clkr,
+ 	[PLL8_VOTE] = &pll8_vote,
++	[PLL4_VOTE] = &pll4_vote,
+ 	[GSBI1_UART_SRC] = &gsbi1_uart_src.clkr,
+ 	[GSBI1_UART_CLK] = &gsbi1_uart_clk.clkr,
+ 	[GSBI2_UART_SRC] = &gsbi2_uart_src.clkr,
+diff --git a/include/dt-bindings/clock/qcom,gcc-msm8660.h b/include/dt-bindings/clock/qcom,gcc-msm8660.h
+index 4777c002711a..51d2e97441c8 100644
+--- a/include/dt-bindings/clock/qcom,gcc-msm8660.h
++++ b/include/dt-bindings/clock/qcom,gcc-msm8660.h
+@@ -264,5 +264,6 @@
+ #define PLL10					255
+ #define PLL11					256
+ #define PLL12					257
++#define PLL4_VOTE				258
+ 
+ #endif
+-- 
+2.43.0
 
-[ ... ]
-
-> @@ -1736,6 +1738,7 @@ static void tasdevice_fw_ready(const struct firmwar=
-e *fmw,
->  	if (tas_priv->fw_state =3D=3D TASDEVICE_RCA_FW_OK) {
->  		switch (tas_priv->chip_id) {
->  		case TAS2563:
-> +		case TAS2573:
-
-[Severity: High]
-Since TAS2573 features an integrated DSP, it bypasses the early exit in
-tasdevice_fw_ready() and proceeds to tasdevice_create_cali_ctrls(). Does th=
-is
-cause problems in the calibration paths?
-
-In tasdevice_create_cali_ctrls(), since the chip_id is not TAS2781, TAS2573
-falls into the else block and is allocated an 11-element backup array:
-
-sound/soc/codecs/tas2781-i2c.c:tasdevice_create_cali_ctrls() {
-    ...
-    } else {
-        cali_ctrls =3D (struct snd_kcontrol_new *)tas2563_cali_controls;
-        nctrls =3D ARRAY_SIZE(tas2563_cali_controls);
-        for (i =3D 0; i < priv->ndev; i++) {
-            tasdev[i].cali_data_backup =3D
-                kmemdup(tas2563_cali_start_reg,
-                sizeof(tas2563_cali_start_reg), GFP_KERNEL);
-    ...
-}
-
-However, the kcontrol callbacks for calibration rely on hardcoded chip ID
-checks that do not account for TAS2573. In tas2563_calib_start_put(), it
-unconditionally returns -1 for any chip other than TAS2563, breaking the
-calibration start feature:
-
-sound/soc/codecs/tas2781-i2c.c:tas2563_calib_start_put() {
-    ...
-    if (tas_priv->chip_id !=3D TAS2563)
-        return -1;
-    ...
-}
-
-Furthermore, when userspace triggers 'Calibration Stop', tasdev_calib_stop_=
-put()
-checks for TAS2563 and mistakenly routes TAS2573 to tas2781_calib_stop_put(=
-):
-
-sound/soc/codecs/tas2781-i2c.c:tasdev_calib_stop_put() {
-    ...
-    if (priv->chip_id =3D=3D TAS2563)
-        tas2563_calib_stop_put(priv);
-    else
-        tas2781_calib_stop_put(priv);
-    ...
-}
-
-This results in tas2781_calib_stop_put() looping over 13 elements from the
-11-element array allocated for TAS2573. This out-of-bounds read leads to
-garbage memory being interpreted as register addresses, lengths, and values,
-which are then written over I2C, potentially corrupting the chip state or
-hanging the I2C bus.
-
-Could the calibration functions be updated to handle TAS2573 properly?
-
->  		case TAS2781:
->  		case TAS5802:
->  		case TAS5806M:
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602035322.5029=
--1-baojun.xu@ti.com?part=3D2
