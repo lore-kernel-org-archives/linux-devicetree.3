@@ -1,138 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from outbound0.mail.transip.nl (outbound0.mail.transip.nl [149.210.149.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F93338E5D4
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 04:29:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C101726FDBF;
+	Tue,  2 Jun 2026 04:36:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.210.149.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780374599; cv=none; b=Gn/AyGckHhty5t79Tzjw4nqGjQ+yM+YGU4/UoZ46gu8bD51WouAUuOUUEQ4bb6F2KSPhOJo6DwYpa2VfAF+yX83/MO+XrUqEMnD6+ljaQ5zmZipF5h7sQy86nHsZJfOpoo6+KxGExiSBOlaIG9Q8YuHJ/vOrAaCEsPHsjRtOClg=
+	t=1780374993; cv=none; b=sA9zIaunS8LYDnSAKlP8brrhZhZ5EzF11Pi+2mpCt/ICXulGmRphUt4kCSntun8O5bk4LdKeWHbMGkZ7aguhKwDJML9PVxiE9OOohATy1Aw0u0S7t2GYb15+WkNU4RGWSG3ELdMKjVxJgEXocfZzenfAYi1Ym2tWGDBA2KB9pL0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780374599; c=relaxed/simple;
-	bh=NGo0h+02Adc/D4xoyAteRBgqqXY0wpdTQPi4aVX/K6A=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=JwXq5+mVuzLL/4vEfwkwbwxD8gweLT2Pe6kCXhnZouq1FLZmcuUIeGK0uWBMv/rNZhiKgn0MfX/hrl2vPQX22NFdOUW+7hiHhphPGLEw+Ho9aCrWrYaGIdAm6V+BkgtBvEIUkOJVOnk9yh/BudTl8rtbmD6sSSGSzaKGpVs6x4Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f/2BwWpi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780374993; c=relaxed/simple;
+	bh=7GVEU4din37FjDdBmZSuCuPSKPUqbKeNE/zhEIn25T8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=LGSUuX7HfXSeV6OkZcXDoNZsqLl5NnVzCER7BTdeo7g9BeJio2zK/06DO6f18oqe2E2kGfS65JmUqJT84fxMS3tpZ/UShINjajes8nQ5yWfABxQFO3lI2TnPKZ7b/SR+CzMVbMb+b+pSuXe45hWYuVyWnpXhm9YSf36bF/fORd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=FHLeFLcl; arc=none smtp.client-ip=149.210.149.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f/2BwWpi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E670A1F00893;
-	Tue,  2 Jun 2026 04:29:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780374598;
-	bh=m2tpJxYw8PZgd808gezc+7iRsL2lTcJqpVfv+l3B4Kk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=f/2BwWpijOL2NanagURC+A9NzAbHeTx5ukJrJIRZxY8Y1iXMqwxJ+dYD1pcflHxtd
-	 bmClAi7bihHv/ugb5QdGXOWzs70PBjuQTdWZWbIpB2kuJnhygDCdiF12sS1QmlnLNW
-	 USS/zQoTVFqas9BU4L31BMm1ANh/bCBHBGuqtuLL04F1RDDLb70kKDn29sbO+t9xXX
-	 wJI04k3ZXetlynp9HTalSyt7K+kChLWrv8TGka7YndUMmob16I4NPCEunVVqxSZbVJ
-	 t/B0oVk7auz+8ZRL0T0aljhuTPMTqhIAdpYZwhQaAqPZ+ovHIfO44LqNtw47LNdpuj
-	 uwIPjvP9h23eQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 4/4] clk: qcom: Add Global clock controller support
- on Qualcomm Shikra SoC
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Imran Shaik" <imran.shaik@oss.qualcomm.com>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260601-shikra-gcc-rpmcc-clks-v3-4-76c455f5d579@oss.qualcomm.com>
-References: <20260601-shikra-gcc-rpmcc-clks-v3-4-76c455f5d579@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 04:29:57 +0000
-Message-Id: <20260602042957.E670A1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="FHLeFLcl"
+Received: from submission4.mail.transip.nl (unknown [10.103.8.155])
+	by outbound0.mail.transip.nl (Postfix) with ESMTP id 4gTyhS6gVlzxPQ7;
+	Tue,  2 Jun 2026 06:36:24 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission4.mail.transip.nl (Postfix) with ESMTPA id 4gTyhS2JXXz3R3nyf;
+	Tue,  2 Jun 2026 06:36:24 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: sboyd@kernel.org
+Cc: Herman van Hazendonk <github.com@herrie.org>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	linux-kernel@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-clk@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 1/3] dt-bindings: clock: qcom: add mmcc-msm8660 clock IDs
+Date: Tue,  2 Jun 2026 06:36:17 +0200
+Message-ID: <20260602043623.285901-2-github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260602043623.285901-1-github.com@herrie.org>
+References: <20260602043623.285901-1-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission4.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780374984; h=from:subject:to:cc:
+ references:in-reply-to:date:mime-version:content-type;
+ bh=S+oVwmky282VbH+PAA7JnEpBKm9iw52aNdvDCKXBJ+w=;
+ b=FHLeFLcl5n1YABkTk4XGkzIo2BibfMmCfCRuVfVegMumWVx3nGjgVbF0W6uI/Uvc11sfZQ
+ rFCvQpUgh3M6YYSBAG+xVh8rZVXTkPfYar3WzU0jhV74Z3Y07V8+PNAthrGhu/APTJXifj
+ V3ua6pNZe9mtAW0TDUjsa1A2r/+Ea6lhbstCiMkg3j3T8eoIYxwvMgwhCOXhqQF9Vyp741
+ njC5weEVFldecpp6M5NWGQQGbtLUwpa4bJi2Nnp1nUzen/XUTnXBRk0dU8LwTAz2ENz8TL
+ 3gb+t+7Q7pjl4BHEuYN/tSqvbl47MICJqaswkYhOvCwDL5gf2EmcmVdIDQxoJQ==
+X-Report-Abuse-To: abuse@transip.nl
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] P_GPLL9_OUT_MAIN is incorrectly mapped to `&gpll9.clkr.hw` instead=
- of `&gpll9_out_main.clkr.hw` in multiple parent_data arrays.
---
+Add the dt-binding clock-ID header for the MSM8x60 family
+(MSM8260/MSM8660/APQ8060) Multimedia Clock Controller (MMCC). The
+header enumerates the clocks and power-domains consumed by the
+multimedia subsystem (MDP4 display, Adreno A220 GPU, CAMSS image
+pipeline, VFE, Gemini JPEG, video codec, rotator, VPE and the GFX2D
+Z180 cores).
 
-commit 8df3ccae480064b5a00fac346690547cc25ca9a3
-Author: Imran Shaik <imran.shaik@oss.qualcomm.com>
+IDs intentionally match the numeric values used by the original
+shared mmcc-msm8960.h so the driver's clk array indexing is preserved;
+only the clocks actually implemented by mmcc-msm8660.c are defined.
 
-clk: qcom: Add Global clock controller support on Qualcomm Shikra SoC
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+---
+ include/dt-bindings/clock/qcom,mmcc-msm8660.h | 126 ++++++++++++++++++
+ 1 file changed, 126 insertions(+)
+ create mode 100644 include/dt-bindings/clock/qcom,mmcc-msm8660.h
 
-Add support for Global clock controller (GCC) on Qualcomm Shikra SoC.
+diff --git a/include/dt-bindings/clock/qcom,mmcc-msm8660.h b/include/dt-bindings/clock/qcom,mmcc-msm8660.h
+new file mode 100644
+index 000000000000..00c3a75e8b71
+--- /dev/null
++++ b/include/dt-bindings/clock/qcom,mmcc-msm8660.h
+@@ -0,0 +1,126 @@
++/* SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause) */
++/*
++ * Copyright (c) 2013, The Linux Foundation. All rights reserved.
++ *
++ * Clock and power-domain bindings for the MSM8x60 family (MSM8260/MSM8660/APQ8060)
++ * Multimedia Clock Controller (MMCC).
++ *
++ * MSM8260, MSM8660 and APQ8060 are the same Scorpion-class MSM8x60 SoC
++ * with different bin/feature labels. MSM8960 is a newer generation (Krait)
++ * — its bindings live in
++ * <dt-bindings/clock/qcom,mmcc-msm8960.h> and must not be reused here.
++ *
++ * IDs below intentionally match the numeric values used by the original
++ * shared mmcc-msm8960.h so the driver's clk array indexing is preserved;
++ * only the clocks actually implemented by mmcc-msm8660.c are defined.
++ */
++
++#ifndef _DT_BINDINGS_CLK_MSM_MMCC_8660_H
++#define _DT_BINDINGS_CLK_MSM_MMCC_8660_H
++
++#define TV_ENC_AHB_CLK					3
++#define AMP_AHB_CLK					4
++#define JPEGD_AHB_CLK					6
++#define GFX2D0_AHB_CLK					7
++#define DSI_S_AHB_CLK					8
++#define VPE_AHB_CLK					10
++#define SMMU_AHB_CLK					11
++#define HDMI_M_AHB_CLK					12
++#define VFE_AHB_CLK					13
++#define ROT_AHB_CLK					14
++#define VCODEC_AHB_CLK					15
++#define MDP_AHB_CLK					16
++#define DSI_M_AHB_CLK					17
++#define CSI0_AHB_CLK					18
++#define MMSS_IMEM_AHB_CLK				19
++#define IJPEG_AHB_CLK					20
++#define HDMI_S_AHB_CLK					21
++#define GFX3D_AHB_CLK					22
++#define GFX2D1_AHB_CLK					23
++#define JPEGD_AXI_CLK					28
++#define GMEM_AXI_CLK					29
++#define MDP_AXI_CLK					30
++#define MMSS_IMEM_AXI_CLK				31
++#define IJPEG_AXI_CLK					32
++#define GFX3D_AXI_CLK					33
++#define VCODEC_AXI_CLK					34
++#define VFE_AXI_CLK					35
++#define VPE_AXI_CLK					36
++#define ROT_AXI_CLK					37
++#define VCODEC_AXI_A_CLK				38
++#define VCODEC_AXI_B_CLK				39
++#define CSI0_SRC					47
++#define CSI0_CLK					48
++#define CSI0_PHY_CLK					49
++#define CSI1_SRC					50
++#define CSI1_CLK					51
++#define CSI1_PHY_CLK					52
++#define DSI_SRC						56
++#define DSI_CLK						57
++#define CSI_PIX_CLK					58
++#define CSI_RDI_CLK					59
++#define MDP_VSYNC_CLK					60
++#define HDMI_APP_CLK					62
++#define GFX2D0_SRC					66
++#define GFX2D0_CLK					67
++#define GFX2D1_SRC					68
++#define GFX2D1_CLK					69
++#define GFX3D_SRC					70
++#define GFX3D_CLK					71
++#define IJPEG_SRC					72
++#define IJPEG_CLK					73
++#define JPEGD_SRC					74
++#define JPEGD_CLK					75
++#define MDP_SRC						76
++#define MDP_CLK						77
++#define MDP_LUT_CLK					78
++#define DSI1_BYTE_SRC					83
++#define DSI1_BYTE_CLK					84
++#define DSI1_ESC_SRC					87
++#define DSI1_ESC_CLK					88
++#define ROT_SRC						91
++#define ROT_CLK						92
++#define TV_ENC_CLK					93
++#define TV_DAC_CLK					94
++#define HDMI_TV_CLK					95
++#define MDP_TV_CLK					96
++#define TV_SRC						97
++#define VCODEC_SRC					98
++#define VCODEC_CLK					99
++#define VFE_SRC						100
++#define VFE_CLK						101
++#define VFE_CSI0_CLK					102
++#define VPE_SRC						103
++#define VPE_CLK						104
++#define DSI_PIXEL_SRC					105
++#define DSI_PIXEL_CLK					106
++#define CAMCLK0_SRC					107
++#define CAMCLK0_CLK					108
++#define CAMCLK1_SRC					109
++#define CAMCLK1_CLK					110
++#define CSIPHYTIMER_SRC					113
++#define CSIPHY1_TIMER_CLK				115
++#define CSIPHY0_TIMER_CLK				116
++#define PLL2						118
++#define MDP_PIXEL_SRC					129
++#define MDP_PIXEL_CLK					130
++#define MDP_LCDC_CLK					131
++#define VFE_CSI1_CLK					132
++#define CSI1_AHB_CLK					133
++
++/*
++ * MSM8x60 legacy footswitch power domains.
++ * Used with the MMCC power-domain provider (#power-domain-cells = <1>).
++ * Numbering is independent of the clock ID space above.
++ */
++#define GFX2D0_GDSC					0
++#define GFX2D1_GDSC					1
++#define GFX3D_GDSC					2
++#define IJPEG_GDSC					3
++#define MDP_GDSC					4
++#define ROT_GDSC					5
++#define VED_GDSC					6
++#define VFE_GDSC					7
++#define VPE_GDSC					8
++
++#endif
+-- 
+2.43.0
 
-> diff --git a/drivers/clk/qcom/gcc-shikra.c b/drivers/clk/qcom/gcc-shikra.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/clk/qcom/gcc-shikra.c
-[ ... ]
-> +static const struct parent_map gcc_parent_map_7[] =3D {
-> +	{ P_BI_TCXO, 0 },
-> +	{ P_GPLL0_OUT_EARLY, 1 },
-> +	{ P_GPLL8_OUT_EARLY, 2 },
-> +	{ P_GPLL10_OUT_MAIN, 3 },
-> +	{ P_GPLL8_OUT_MAIN, 4 },
-> +	{ P_GPLL9_OUT_MAIN, 5 },
-> +	{ P_GPLL3_OUT_EARLY, 6 },
-> +};
-> +
-> +static const struct clk_parent_data gcc_parent_data_7[] =3D {
-> +	{ .index =3D DT_BI_TCXO },
-> +	{ .hw =3D &gpll0.clkr.hw },
-> +	{ .hw =3D &gpll8.clkr.hw },
-> +	{ .hw =3D &gpll10.clkr.hw },
-> +	{ .hw =3D &gpll8_out_main.clkr.hw },
-> +	{ .hw =3D &gpll9.clkr.hw },
-
-[Severity: High]
-Should P_GPLL9_OUT_MAIN map to &gpll9_out_main.clkr.hw instead of
-&gpll9.clkr.hw here in gcc_parent_data_7?
-
-The gpll9 clock represents the early BRAMMO PLL output running at 1152 MHz,
-while gpll9_out_main is explicitly defined with a fixed div-2 post-divider,
-running at 576 MHz. By mapping P_GPLL9_OUT_MAIN to the early gpll9 output,
-the clock framework might assume the source frequency is 1152 MHz instead
-of 576 MHz.
-
-This could cause the CCF to calculate a hardware divider that is twice as
-large as intended, which would make the physical clock supplied to subsyste=
-ms
-run at exactly half of its requested frequency.
-
-[ ... ]
-> +static const struct clk_parent_data gcc_parent_data_8[] =3D {
-> +	{ .index =3D DT_BI_TCXO },
-> +	{ .hw =3D &gpll0.clkr.hw },
-> +	{ .hw =3D &gpll8.clkr.hw },
-> +	{ .hw =3D &gpll10.clkr.hw },
-> +	{ .hw =3D &gpll8_out_main.clkr.hw },
-> +	{ .hw =3D &gpll9.clkr.hw },
-
-[Severity: High]
-Does this also need to map to &gpll9_out_main.clkr.hw to ensure the correct
-clock frequency is calculated for gcc_parent_data_8?
-
-[ ... ]
-> +static const struct clk_parent_data gcc_parent_data_9[] =3D {
-> +	{ .index =3D DT_BI_TCXO },
-> +	{ .hw =3D &gpll0.clkr.hw },
-> +	{ .hw =3D &gpll8.clkr.hw },
-> +	{ .hw =3D &gpll10.clkr.hw },
-> +	{ .hw =3D &gpll6_out_main.clkr.hw },
-> +	{ .hw =3D &gpll9.clkr.hw },
-
-[Severity: High]
-Is the same P_GPLL9_OUT_MAIN mapping issue present in gcc_parent_data_9?
-
-[ ... ]
-> +static const struct clk_parent_data gcc_parent_data_14[] =3D {
-> +	{ .index =3D DT_BI_TCXO },
-> +	{ .hw =3D &gpll0.clkr.hw },
-> +	{ .hw =3D &gpll0_out_aux2.clkr.hw },
-> +	{ .hw =3D &gpll10.clkr.hw },
-> +	{ .hw =3D &gpll8_out_main.clkr.hw },
-> +	{ .hw =3D &gpll9.clkr.hw },
-
-[Severity: High]
-Could you check if this entry in gcc_parent_data_14 should point to
-&gpll9_out_main.clkr.hw as well?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260601-shikra-gcc=
--rpmcc-clks-v3-0-76c455f5d579@oss.qualcomm.com?part=3D4
