@@ -1,102 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mta-64-140.flowmailer.net (mta-64-140.flowmailer.net [185.136.64.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C8FE93403F8
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:21:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E746B357D05
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:23:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780384914; cv=none; b=POJSPD7qldd/sVfvDGDz8u3W6P1GBHJrOKWIBv1s2Ilvc1R69Icxn+vBw2be+LCliXZ7rxBiOUiBM1gd45fQPUKBcDdGemza31/jTfQ+KaqsxIkymB1F8pMRxfz0lTsbqRCzhiWlDZVh9ogjUbkZqCHxXiOh3+GvNXxV8u2D5MM=
+	t=1780385008; cv=none; b=eb5B5Z9wse1w2w16G3YEZIduRmYLmm1HtgO33Hm3wnpMhJlTjNDJTfP9Y74pInpUstaFqJ+nJR2ogC8Rc8KLMw9B9zUgwN7QCBJAFXTv2KD3DhtLc8RjaAyiuGhZaUOpmbYrEZtZVmIFDZ4Q5g4KYLjKWkSKtnYaSvxHi5YnTxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780384914; c=relaxed/simple;
-	bh=h0YyLcTI1ervzdhwapk6OfypGB3hZoj+T8ThjFnFAdQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=iSqEWtzaO6OUhwQ7UBFxUpipVw7mH0W11BfC2ZQMYQ/mv7khLtcdhZ6Sm8stjv04XPrMOy8teawbqezjurDXRBFJqitQZKbh4PwbbJYSbmEJuDcTwHim+oChp0dbxMorv9VI0J399Jb9JP8AiBlXrt/bxcTIUtfsqOt/N2i6ajM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B4xN1UNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780385008; c=relaxed/simple;
+	bh=rTMmvdqLn8XGVIbwx6QxILaPnIKuu93HhNdO2BLhr54=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=It46gSDzu/p1UaIvelGnjWK1gQ49wfhyq6z0wMZ5pzwHz9F04Wiu5sfJgMfxEfJszFcapsIPsbDsLSP3Ga3DCn3DG5QA5QpsAlvYB3NyfhQkCVVX/KF4SU4kQOhTcu2ippHBAYMjLOzu/IWt302h6/lrTYGc4gh1eK8WY9GXBSc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com; dkim=pass (1024-bit key) header.d=flowmailer.net header.i=@flowmailer.net header.b=Toge8bLz; dkim=pass (2048-bit key) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.b=ec+PfJIe; arc=none smtp.client-ip=185.136.64.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens-energy.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=errorhandling.siemens-energy.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B4xN1UNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 338AA1F00893;
-	Tue,  2 Jun 2026 07:21:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780384913;
-	bh=Z/pOJhQcSMLZ2hxmYBySGcMeFDbyYrNmTT+8pI2b5kY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=B4xN1UNIva4z3r88ZqszSs5UH2LxDEGhzFGhUOfMZ3yBeauBdVM2ydw5/6Bzb2Gbv
-	 MtuwkUDLScb0chEU940lNYi2meTr0cvz4Z1tKRuOL3fJS0Xg3oECDm7+3SHggw3Y7k
-	 Pka6bjX/7yJX1idqDGbqNthN1yvaqNSvmvErh+8xTev7EC6zCxD8761FC5b5hwtCbh
-	 F1KfEL9Mqr/LV0BwOGvTtfgrhOdq2/hmyDU/028tY7pyMHrkGtIdwB6yUm+GVXJYVh
-	 hQpNgqdirYoRAEzPUkN+ywIsyH3358N1r7jX/eykD7ZZVH9nLT6K0gZegev2xf2X/l
-	 LmkjzABl8Vu+A==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH] arm64: dts: qcom: monaco-arduino-monza: Add QCNFA725B
- support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Qian Zhang" <qian.zhang@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260602071028.3810-1-qian.zhang@oss.qualcomm.com>
-References: <20260602071028.3810-1-qian.zhang@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 07:21:52 +0000
-Message-Id: <20260602072153.338AA1F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=flowmailer.net header.i=@flowmailer.net header.b="Toge8bLz";
+	dkim=pass (2048-bit key) header.d=siemens-energy.com header.i=schuster.simon@siemens-energy.com header.b="ec+PfJIe"
+Received: by mta-64-140.flowmailer.net with ESMTPSA id 20260602071314b4ba37cb630019fd4b
+        for <devicetree@vger.kernel.org>;
+        Tue, 02 Jun 2026 09:13:14 +0200
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=s1;
+ d=flowmailer.net;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=rTMmvdqLn8XGVIbwx6QxILaPnIKuu93HhNdO2BLhr54=;
+ b=Toge8bLz2dyLab0qL8rkthmm38M0DIbWMwxIZTkHCglUndNKtXlsEFzupMzU1i/vzCdijc
+ miocQZzlL9bzz0ZuwDfASqzdjU/d6NY+xy09C5rIOtPgu1bTsWHtrNYMYexJC33Ow7Pw9BIh
+ 4PggmgbDjvYm9EN9UTfgesMkNvRAg=;
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm3;
+ d=siemens-energy.com; i=schuster.simon@siemens-energy.com;
+ h=from:from:sender:to:to:cc:cc:subject:subject:content-type:content-type:content-transfer-encoding:References:In-Reply-To:Date:Message-ID:MIME-Version;
+ bh=rTMmvdqLn8XGVIbwx6QxILaPnIKuu93HhNdO2BLhr54=;
+ b=ec+PfJIeqY0XmjF70C+uM3vKHeUzZAh1oTg2/qKJ7kPp6hfzDsi97fQ48IoGRskdwuz7Cu
+ BGbuFZJ1Q9hHZckYImkEVD3l7jGDitagbUlrsjtMZGp7BQq6QWHs2rCwJGEOP6xEi685QNoj
+ Dhxnc4HYfsbAg8Fm/fRfi0hYIxCejI2QpzVxqaXoytvcWrW15vVIQ9nYgGgotDILZbmKgedc
+ b8LJKCIxu/nklS6gM/yKotmExl+J8oVb93bKKA61U9r3GprrFfQDONQGoXo5/evBr8Iz8wW4
+ xRQAllgjoeOQIpdd6p46Xuo84qL1JvVLvPqgCUmzpiwzXycLeLiQhrYQ==;
+Date: Tue, 2 Jun 2026 09:13:11 +0200
+From: Simon Schuster <schuster.simon@siemens-energy.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Miguel Ojeda <miguel.ojeda.sandonis@gmail.com>, Ethan Nelson-Moore
+ <enelsonmoore@gmail.com>, Wolfram Sang <wsa+renesas@sang-engineering.com>,
+ Peter Zijlstra <peterz@infradead.org>, Arnd Bergmann <arnd@arndb.de>, Dinh
+ Nguyen <dinguyen@kernel.org>, linux-doc@vger.kernel.org,
+ devicetree@vger.kernel.org, workflows@vger.kernel.org, Linux-Arch
+ <linux-arch@vger.kernel.org>, dmaengine@vger.kernel.org,
+ linux-i2c@vger.kernel.org, linux-iio@vger.kernel.org, Netdev
+ <netdev@vger.kernel.org>, linux-pci@vger.kernel.org,
+ linux-pwm@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-kbuild@vger.kernel.org, "linux-csky@vger.kernel.org"
+ <linux-csky@vger.kernel.org>, Jonathan Corbet <corbet@lwn.net>, Shuah Khan
+ <skhan@linuxfoundation.org>, Rob Herring <robh@kernel.org>, Krzysztof
+ Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Daniel
+ Lezcano <daniel.lezcano@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Alex Shi <alexs@kernel.org>, Yanteng Si <si.yanteng@linux.dev>, Dongliang
+ Mu <dzm91@hust.edu.cn>, Hu Haowen <2023002089@link.tyut.edu.cn>, Kees Cook
+ <kees@kernel.org>, Oleg Nesterov <oleg@redhat.com>, Will Deacon
+ <will@kernel.org>, "Aneesh Kumar K.V (Arm)" <aneesh.kumar@kernel.org>,
+ Andrew Morton <akpm@linux-foundation.org>, Nicholas Piggin
+ <npiggin@gmail.com>, Vinod Koul <vkoul@kernel.org>, Frank Li
+ <Frank.Li@kernel.org>, Dave Penkler <dpenkler@gmail.com>, Andi Shyti
+ <andi.shyti@kernel.org>, Jonathan Cameron <jic23@kernel.org>, David Lechner
+ <dlechner@baylibre.com>, =?ISO-8859-1?Q?Nuno_S=E1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>,
+ "David S . Miller" <davem@davemloft.net>, Eric Dumazet
+ <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof
+ WilczyDski <kwilczynski@kernel.org>, Andreas Oetken
+ <andreas.oetken@siemens-energy.com>
+Subject: Re: [PATCH] nios2: remove the architecture
+Message-ID: <20260602071311.gtvif43wcjyulphh@dev-vm-schuster>
+References: <20260518042833.272221-1-enelsonmoore@gmail.com>
+ <d40b1e80-37fc-4c88-9d7f-dae6458efe6c@app.fastmail.com>
+ <20260518105735.GW3126523@noisy.programming.kicks-ass.net>
+ <20260518172444.zyd47mcagrcwu7wt@dev-vm-schuster>
+ <CADkSEUjhq6HSdg4ignzbuJiN5uXATsTdxFbRJ3BMxs5=WUWLDg@mail.gmail.com>
+ <20260519103012.blot4bssgiqfer6p@dev-vm-schuster>
+ <CANiq72=6oYtHf0Q1NaLXZ+25uQyYbej2xnvUhtgpHyvozhP7_Q@mail.gmail.com>
+ <ah3TN93e7lRpVihW@ashevche-desk.local>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ah3TN93e7lRpVihW@ashevche-desk.local>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] The `shutdown-gpios` property for `wlan-rfkill` is incorrectly con=
-figured as `GPIO_ACTIVE_LOW`, which will invert the rfkill logic and disabl=
-e the hardware radio when the subsystem attempts to enable it.
---
+Hello Andy,
 
-commit fef17fc3948ff81196d4df1a40b32c0d905e0ab7
-Author: Qian Zhang <qian.zhang@oss.qualcomm.com>
+On Mon, Jun 01, 2026 at 09:45:11PM +0300, Andy Shevchenko wrote:
+> Supported implies that one gets real money for the job. Is this the case here?
 
-arm64: dts: qcom: monaco-arduino-monza: Add QCNFA725B support
+Thank you for caring about NIOSII. I'm doing so as part of my
+employment at Siemens Energy; if this is real enough then yes :)
 
-This commit adds device tree support for the QCNFA725B M.2 module connected
-to PCIe0 on the Arduino VENTUNO Q board. It configures the rfkill shutdown
-and wlan enable GPIOs, and defines the internal PMIC regulators.
-
-> diff --git a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts b/arch/arm=
-64/boot/dts/qcom/monaco-arduino-monza.dts
-> index ca14f0ea4dae6..b90397c7000e3 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> +++ b/arch/arm64/boot/dts/qcom/monaco-arduino-monza.dts
-> @@ -153,6 +153,78 @@ vreg_nvme: regulator-3p3-m2 {
->  		enable-active-high;
->  		startup-delay-us =3D <20000>;
->  	};
-> +
-> +	wlan-rfkill {
-> +		compatible =3D "rfkill-gpio";
-> +		label =3D "wlan";
-> +		radio-type =3D "wlan";
-> +		shutdown-gpios =3D <&tlmm 54 GPIO_ACTIVE_LOW>;
-
-[Severity: High]
-The commit message mentions that pulling GPIO54 low disables the radio
-transmitter. Will configuring this as GPIO_ACTIVE_LOW cause the rfkill-gpio
-driver to inadvertently disable the radio when it intends to enable it?
-
-Looking at the rfkill-gpio driver, it treats shutdown-gpios as an enable li=
-ne.
-It calls gpiod_set_value_cansleep() passing '!blocked' as the value. So when
-the radio is meant to be enabled (!blocked =3D=3D 1), the driver logically =
-asserts
-the GPIO.
-
-If the GPIO is configured as GPIO_ACTIVE_LOW in the device tree, a logical 1
-will drive the physical wire LOW, triggering the hardware kill switch. Shou=
-ld
-this be configured as GPIO_ACTIVE_HIGH instead to match the driver's intern=
-al
-logic?
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602071028.3810=
--1-qian.zhang@oss.qualcomm.com?part=3D1
+Best regards
+Simon
