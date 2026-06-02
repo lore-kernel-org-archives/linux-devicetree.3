@@ -1,103 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0EBC26FD97
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 09:29:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B058F36BCF2;
+	Tue,  2 Jun 2026 09:33:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780392566; cv=none; b=PrVGhx23qGEz9xDQx7OoLfat7G5TJDocHLLP5tPGERd8Jp5p9rCDFDyXyAHjVyIXvQ7/oFCHdth9BTY+iK3A2V4MXO8LCmQKA0Esx8b97gdIj37gLL1VLEicfOSiTI7rfomJlNwIyYCdz6ZmJZ9K04oNttnIpFcNS4Ky87Nprmo=
+	t=1780392824; cv=none; b=h7Qf+ogx+r193i/3uBh9cu6fvH6DgkV4f+MtJDUM9CZ/elu2UboNMNM4D4Dpl2RNJdACbTvHUyHFTEdtuqeGndAz/Zl9uPfl6y/7/AYK5OXbvrWvWeKrIBKfvnQ+0V1kUHjqYlbrwuv+jBF+9jvFIDcfOLzpa6VPxFfDdpbO4ek=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780392566; c=relaxed/simple;
-	bh=3lj6WnxCG3PCY5X83ET4Od2/Tkn5dMud92hPcPArfHA=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OIhsKDWKvL9q6TFErViH8omEqZZREQDgJEQMu35xQTOu4fwBfuT6T7rnatOnZuDkT58n+hhWWv9Q3B3cRmnuH0RpuJZTcZckdbeA/9n9qBakHYJmi6CqMQGUGFn3wlMleBn//O+MDF8bNXm+TujRQhjt6CgmmOv+dqH5wqKxQzI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kbcs/3m1; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780392824; c=relaxed/simple;
+	bh=7RqS4ISGXx337rqqvPNoI5WHXN20jmjPh3AlPaGp16w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n7qHZch95Ecs3nZBVj+dqCu+U498egfjys30YpzGkIDOcjHmSPXTbvJ0E74ujhZJSM6AtYCE9BkhfclzZ6OVssjGBIkUrKeVZ1smenxM195R0IZrXzSt3ggNlUSzDd2/UMe5hexajPXGPw7X63aT47er5eEUFcpkSD9VrnJhL7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=O/35tX7G; arc=none smtp.client-ip=188.40.3.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kbcs/3m1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24AA01F00893;
-	Tue,  2 Jun 2026 09:29:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780392564;
-	bh=WLxrNYCA1pO3ApejdfWVZDBjpGfOF8ToFWTVki0FAX0=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kbcs/3m1N1UbD2lE4Rk11Owxw2ZAbqASd33YzzILrPV/2llMaRawcKZoFxf2/6QBB
-	 hXliUUgcLK6YSXXUExk2soqlEFf6qEXZdYzGPrBXoY0RYNvEoJ1ViV17ohIf4Ifmfh
-	 kOgIjC1zjRr/mENiZUeoVUrsendow4rBhFbdLocipanDYfiZE15mLkQzWBoeF6yjC8
-	 2U5YNoRCDlhftoksS2P3MBvMAq3GHfW8hSfBvD/OP5Ko9QMDdymju056MnDVuLDxvZ
-	 0IsetksdhWNcjL3cvgKT8mKBCGTJk5WZBS2uqrBbx144dIFiDkHhiCEJni3/sZL3Ua
-	 0p29bcyGUV8VA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] regulator: dt-bindings:
- qcom,sdm845-refgen-regulator: Document IPQ9650
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kathiravan Thirumoorthy" <kathiravan.thirumoorthy@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
-References: <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 09:29:22 +0000
-Message-Id: <20260602092924.24AA01F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="O/35tX7G"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=ew.tq-group.com; s=default2602; h=Content-Transfer-Encoding:MIME-Version:
+	Message-ID:Date:Subject:Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:
+	Content-Description:Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc
+	:Resent-Message-ID:In-Reply-To:References;
+	bh=ll7wsI/Em/Jn1sDgGc7GNu+RMvSzQcPU87sVEyRKPIs=; b=O/35tX7GuXF/+1DjOrDR+8DuZd
+	clwUabfnWXg7PoWht4TLnZzlrTF6Bo6WFicrWHs4ue+yPICeMGPb6r48LMcMd93Jmuq7fkOXy+kh4
+	ny66V1r6q2ck9SUosZ2A8WEbJnhH37IzGxEd6dtvkwyDeYF3iPCeVnZW4RyQGxQMEdfg+QF2jJlOK
+	C/BEpGLVcARGzYyim+id3eNSgxnxk8HSrTzgKiVCkBYdgScpCdVRwcofrBtiWS9d2WvqUZgIwx0v1
+	AnA37WpgzJAZUcGZY9ateRit5Bh30caPp2hqJhPgYOOkBSztLMKUW9wJdPQBLks9vstEpe6fV7/7v
+	C948ogZw==;
+Received: from sslproxy06.your-server.de ([78.46.172.3])
+	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96.2)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wULV8-0000ZI-2W;
+	Tue, 02 Jun 2026 11:33:34 +0200
+Received: from localhost ([127.0.0.1])
+	by sslproxy06.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <alexander.stein@ew.tq-group.com>)
+	id 1wULV7-000HOK-1r;
+	Tue, 02 Jun 2026 11:33:34 +0200
+From: Alexander Stein <alexander.stein@ew.tq-group.com>
+To: Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Alexander Stein <alexander.stein@ew.tq-group.com>,
+	Shawn Guo <shawnguo@kernel.org>
+Cc: linux@ew.tq-group.com,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v2 1/1] arm64: dts: tqma8mpql-mba8mpxl: configure sai clock in audio codec as well
+Date: Tue,  2 Jun 2026 11:33:30 +0200
+Message-ID: <20260602093331.1698756-1-alexander.stein@ew.tq-group.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: Clear (ClamAV 1.4.3/28019/Tue Jun  2 08:33:27 2026)
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `qcom,ipq9650-refgen-regulator` compatible incorrectly defin=
-es `qcom,sm8250-refgen-regulator` as a fallback, falsely asserting backward=
-s compatibility and creating a crash risk for older kernels.
---
+With deferrable card binding the sound card driver tries to
+get the mclk configuration before it is setup in sai3 node.
+Fix this by setting the sai clock config for the audio codec as well.
 
-commit 53a9f2cc53f31d4f470e020ea803a060c384000b
-Author: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Fixes: d8f9d8126582 ("arm64: dts: imx8mp: Add analog audio output on i.MX8MP TQMa8MPxL/MBa8MPxL")
+Signed-off-by: Alexander Stein <alexander.stein@ew.tq-group.com>
+---
+Changes in v2:
+* Set the clock source in the audio codec instead
 
-regulator: dt-bindings: qcom,sdm845-refgen-regulator: Document IPQ9650
+ arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
-This commit adds the qcom,ipq9650-refgen-regulator compatible and documents
-its requirement for explicit core and AHB clocks.
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
+index 890d1e525a489..6b0f944095e7c 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-tqma8mpql-mba8mpxl.dts
+@@ -609,6 +609,9 @@ tlv320aic3x04: audio-codec@18 {
+ 		reset-gpios = <&gpio4 29 GPIO_ACTIVE_LOW>;
+ 		iov-supply = <&reg_vcc_1v8>;
+ 		ldoin-supply = <&reg_vcc_3v3>;
++		assigned-clocks = <&clk IMX8MP_CLK_SAI3>;
++		assigned-clock-parents = <&clk IMX8MP_AUDIO_PLL1_OUT>;
++		assigned-clock-rates = <12288000>;
+ 	};
+ 
+ 	se97_1c: temperature-sensor@1c {
+-- 
+2.43.0
 
-> diff --git a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refg=
-en-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,sdm845=
--refgen-regulator.yaml
-> index 40f9223d4c272..2686569ca0606 100644
-> --- a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regu=
-lator.yaml
-> +++ b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regu=
-lator.yaml
-
-[ ... ]
-
-> @@ -29,6 +39,7 @@ properties:
-> =20
->        - items:
->            - enum:
-> +              - qcom,ipq9650-refgen-regulator
->                - qcom,qcs8300-refgen-regulator
->                - qcom,sa8775p-refgen-regulator
->                - qcom,sc7280-refgen-regulator
-
-[Severity: Medium]
-The commit message states IPQ9650 explicitly requires its AHB and core cloc=
-ks
-to be enabled. However, adding the compatible string to this specific enum
-block defines qcom,sm8250-refgen-regulator as its fallback.
-
-The qcom,sm8250-refgen-regulator fallback driver does not handle clock
-management. If an older kernel binds to this device using the fallback, it
-will attempt to access the peripheral's MMIO registers without enabling the
-AHB interface clock.
-
-Since accessing unclocked AHB registers typically triggers a synchronous
-external abort on these platforms, does this fallback definition create a f=
-atal
-system crash risk?
-
-Should qcom,ipq9650-refgen-regulator be defined as a standalone compatible
-string without a fallback instead?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602-ipq9650_re=
-fgen-v1-0-55e2afa5ff64@oss.qualcomm.com?part=3D1
