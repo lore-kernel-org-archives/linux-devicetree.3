@@ -1,168 +1,239 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from out30-110.freemail.mail.aliyun.com (out30-110.freemail.mail.aliyun.com [115.124.30.110])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04F9D357D01
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 07:24:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 556C73939D7;
+	Tue,  2 Jun 2026 07:29:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780385069; cv=none; b=SVjSySyS2YDov0eCn7jw+jfR/z1Pjv6tplBOgv4p3chxt7cpFR+HQH3fe+wdvp7JjvhaGObp9B3Wti4F8IYS/Pu5RrMZds3cFgC4iK5eT5IQ/c3RJFMQYzkTC3IqsLgXTuHxdiemJsf1/583+R/LlgTSte0dE2iEKJLSlrIQsIk=
+	t=1780385372; cv=none; b=my5wZEi9/NCxf1Imi6S2EiReIzkxtBT6OT79SPujJs1Lifyvwbi37uW5tCK/28a9Oy0UOfP/MHTo7SLUcBkaK9xUw6rzLqCH3iAPVp9B0T0IiiqzSa8vuri9ttD2XW8+B+ijgNt1EM9zKH9z5K4WyDrcqG5o1UifrK7sjITzS7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780385069; c=relaxed/simple;
-	bh=xVR6i/wkZm3v1BlOY7VOhc/ASssNk/Yg64LnnL3f0pw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=EqPb3B3bDaQmI1QZHVWX2bUdw3O8SSXy5Mx9tCQYQZ1pmzpQfdO0sYEUO5gq/2BOOnW2ojW+OkU3dNzUlkJm+JodWgvABUsGAhwer9Hukbp9lBtELvGonLANfNcEmDYSyP6LHpuM/Gka8BdAeDHQbqmqWB96AW3K/6XRaibGflY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wUJTe-0001hd-Bf; Tue, 02 Jun 2026 09:23:54 +0200
-Received: from pty.whiteo.stw.pengutronix.de ([2a0a:edc0:2:b01:1d::c5])
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wUJTc-000i8j-2h;
-	Tue, 02 Jun 2026 09:23:52 +0200
-Received: from mfe by pty.whiteo.stw.pengutronix.de with local (Exim 4.98.2)
-	(envelope-from <mfe@pengutronix.de>)
-	id 1wUJTc-0000000Futw-2umF;
-	Tue, 02 Jun 2026 09:23:52 +0200
-Date: Tue, 2 Jun 2026 09:23:52 +0200
-From: Marco Felsch <m.felsch@pengutronix.de>
-To: Rob Herring <robh@kernel.org>
-Cc: Andrzej Hajda <andrzej.hajda@intel.com>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Robert Foss <rfoss@kernel.org>, 
-	Laurent Pinchart <Laurent.pinchart@ideasonboard.com>, Jonas Karlman <jonas@kwiboo.se>, 
-	Jernej Skrabec <jernej.skrabec@gmail.com>, Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, 
-	Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Marek Vasut <marex@denx.de>, 
-	Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, laurentiu.palcu@oss.nxp.com, 
-	victor.liu@nxp.com, dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org
-Subject: Re: [PATCH 2/4] Revert "dt-bindings: display: bridge: ldb: Fill in
- reg property"
-Message-ID: <n6akxiayi3g6gxcqhreb4iaohmeokoalnqup6h5r2fwdt4zijt@u2wyps55ayqm>
-References: <20260504-v7-1-topic-ldb-fixes-v1-0-0125d937ff7f@pengutronix.de>
- <20260504-v7-1-topic-ldb-fixes-v1-2-0125d937ff7f@pengutronix.de>
- <20260505141538.GA2547282-robh@kernel.org>
- <2bl2mwpk57xgkuye2gydliymjkzikiovnb7ovnb73olwtfkjwn@byn3732grvnh>
- <CAL_JsqLYS1sgU680KNR60+OvtNwEVKWovht7K2APO3sqeJe6Nw@mail.gmail.com>
- <zbbez4lpme7szgnsd7fqufbuhmvcftw4sqrmwwwzyxu64i2ppb@fh2fgdkc6tat>
- <CAL_JsqJWyRPh_hmJW8p7+VvtcqpS0a_azjMO-PyQgkqQUfLAGA@mail.gmail.com>
- <uyh5s6g7bvuufnhfjrmungp5dbyllxfrgfzaxno22knpxxojmj@qqvh75ezblpp>
- <20260601222941.GA101404-robh@kernel.org>
+	s=arc-20240116; t=1780385372; c=relaxed/simple;
+	bh=ABzbBfzvuGEu8UqK91ZJZkV+nNBoQnXXsiSvBfp5FMI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=R6It5SU/xiujwcdSl2WRfTVMW33UO/B7qObPUo+XaiDkQtDgk+lSrJU5ct7uIUj5JFxjnt2cDPst0lsrgPM2qld36rvCHJt94NOYqA/ej3SMckUm4tsAhQG5aRz5HES9VHF0X70L59hi4amcWNLP+BfLmIGiMwsNegz6FLVYVsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=QH3J6HXZ; arc=none smtp.client-ip=115.124.30.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="QH3J6HXZ"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1780385364; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=d/SQYrTXfJA8D3bWLFflbV8dobWMR1lk7pHzJ8tjx1s=;
+	b=QH3J6HXZRL7vvuMVjclM3k5wrZ1aZ7UBmqtAk955avTLakEB6FfW5nH9Nzs2hP8VldRSXfTo5PcBrzrtzYCAHcPaFLOpZ5pSd+w8lAjv8m/Rwlm6Yl1dtHv+Ub+gjfXfwCjGDl/Vuv6UB/zqr3Pg9aFDU2kvLVb0v5WBwdG7KHQ=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R491e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037026112;MF=tianruidong@linux.alibaba.com;NM=1;PH=DS;RN=22;SR=0;TI=SMTPD_---0X43YUFg_1780385363;
+Received: from 30.74.145.41(mailfrom:tianruidong@linux.alibaba.com fp:SMTPD_---0X43YUFg_1780385363 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 02 Jun 2026 15:29:23 +0800
+Message-ID: <4eeeef74-8a27-470c-b516-095f029b9e9e@linux.alibaba.com>
+Date: Tue, 2 Jun 2026 15:29:22 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601222941.GA101404-robh@kernel.org>
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: mfe@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/8] ras: aest: extend AEST support to Device Tree
+ frontend
+To: Umang Chheda <umang.chheda@oss.qualcomm.com>,
+ Ruidong Tian <tianruidond@linux.alibaba.com>, Tony Luck
+ <tony.luck@intel.com>, Borislav Petkov <bp@alien8.de>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, catalin.marinas@arm.com,
+ will@kernel.org, lpieralisi@kernel.org, rafael@kernel.org,
+ mark.rutland@arm.com, Sudeep Holla <sudeep.holla@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-acpi@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-edac@vger.kernel.org,
+ linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+ Faruque Ansari <faruque.ansari@oss.qualcomm.com>
+References: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
+From: Ruidong Tian <tianruidong@linux.alibaba.com>
+In-Reply-To: <20260505-aest-devicetree-support-v1-0-d5d6ffacf0a5@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 26-06-01, Rob Herring wrote:
-> On Wed, May 13, 2026 at 12:26:40PM +0200, Marco Felsch wrote:
+Hi Umang,
 
-...
+I have sent out v7, and I wanted to highlight a few changes to make it 
+easier for you to adapt the devicetree support:
 
-> > Please see the below full example, is this allowed?
-> > 
-> > system-controller@4ac10000 {
-> > 	compatible = "fsl,imx93-media-blk-ctrl", "syscon";
-> > 	reg = <0x4ac10000 0x10000>;
-> > 	#address-cells = <1>;
-> > 	#size-cells = <1>;
-> > 
-> > 	...
-> > 
-> > 	bridge@5c {
-> > 		compatible = "fsl,imx8mp-ldb";
-> > 		reg = <0x5c 0x4>, <0x128 0x4>;
-> > 		reg-names = "ldb", "lvds";
-> > 		clocks = <&clk IMX8MP_CLK_MEDIA_LDB_ROOT>;
-> > 		clock-names = "ldb";
-> > 		assigned-clocks = <&clk IMX8MP_CLK_MEDIA_LDB>;
-> > 		assigned-clock-parents = <&clk IMX8MP_VIDEO_PLL1_OUT>;
-> > 		status = "disabled";
-> > 
-> > 		ports {
-> > 			#address-cells = <1>;
-> > 			#size-cells = <0>;
-> > 
-> > 			port@0 {
-> > 				reg = <0>;
-> > 
-> > 				ldb_from_lcdif2: endpoint {
-> > 					remote-endpoint = <&lcdif2_to_ldb>;
-> > 				};
-> > 			};
-> > 
-> > 			port@1 {
-> > 				reg = <1>;
-> > 
-> > 				ldb_lvds_ch0: endpoint {
-> > 				};
-> > 			};
-> > 
-> > 			port@2 {
-> > 				reg = <2>;
-> > 
-> > 				ldb_lvds_ch1: endpoint {
-> > 				};
-> > 			};
-> > 		};
-> > 	};
-> > 
-> > 	dpi-bridge {
-> > 		compatible = "nxp,imx93-pdfc";
-> > 		status = "disabled";
-> > 
-> > 		ports {
-> > 			#address-cells = <1>;
-> > 			#size-cells = <0>;
-> > 
-> > 			port@0 {
-> > 				reg = <0>;
-> > 
-> > 				dpi_from_lcdif: endpoint {
-> > 					remote-endpoint = <&lcdif_to_dpi>;
-> > 				};
-> > 			};
-> > 
-> > 			port@1 {
-> > 				reg = <1>;
-> > 
-> > 				dpi_to_panel: endpoint {
-> > 				};
-> > 			};
-> > 		};
-> > 	};
-> > };
+1. I stopped passing device information to the driver through the 
+acpi_aest_node structure. Instead, I switched to using the device 
+property infrastructure and removed the aest_device abstraction layer 
+(which was originally introduced to support CMN). This should provide 
+good compatibility between ACPI and devicetree and avoid the need to 
+write extra adaptation code for devicetree (such as aest_of). In the 
+ideal case, adding just one of_match_id should be enough to make it 
+work, although this will require you to update the DTB file accordingly.
+
+2. I removed the use of genpool. The current AEST driver only needs 
+memory in interrupt context, so genpool is not needed.
+
+3.The driver has been renamed to arm64_ras.
+
+I have already applied some of your previous fix patches and added your 
+Signed-off-by.
+
+
+Best regards,
+Ruidong
+
+
+在 2026/5/5 20:23, Umang Chheda 写道:
+> This series extends Tian Ruidong’s [1] ACPI-based AEST support series
+> to also cover Device Tree based platforms.
 > 
-> Yes, this seems fine.
-
-Thanks for the clarification!
-
-Regards,
-  Marco
-
+> While the existing AEST driver relies on the AEST ACPI table [3], many
+> embedded Arm platforms use Device Tree exclusively and cannot use the
+> driver today. This series adds a DT frontend that mirrors the ACPI
+> implementation and feeds the same core driver, keeping ACPI and DT
+> paths functionally equivalent.
 > 
-> Rob
+> Along the way, several correctness issues were identified in the core
+> driver and are fixed in the first part of this series.
+> 
+> The DT frontend is mutually exclusive with ACPI and does not introduce
+> any DT-specific logic into the core.
+> 
+> How to test with QEMU
+> --------------------------
+> Tian Ruidong's QEMU fork [2] emulates AEST MMIO error records on the
+> virt machine.  To test the DT frontend:
+> 
+> 1. Build QEMU:
+> 
+>       git clone https://github.com/winterddd/qemu.git
+>       cd qemu
+>       git checkout c5e2d5dec9fd62ba622314c40bff0fbecb4dfb34
+>       ./configure --target-list=aarch64-softmmu
+>       make -j$(nproc)
+> 
+> 2. Build the kernel with:
+> 
+>       CONFIG_OF_AEST=y
+>       CONFIG_AEST=y
+>       CONFIG_ARM64_RAS_EXTN=y
+>       CONFIG_RAS=y
+> 
+> 3. Add the following DT node to your virt machine DTB.  The QEMU
+>     fork maps DRAM error records at 0x090d0000 (SPI 44) and CMN
+>     vendor records at 0x090e0000 (SPI 45):
+> 
+>       aest {
+>           compatible = "arm,aest";
+>           #address-cells = <2>;
+>           #size-cells = <2>;
+>           ranges;
+>           interrupt-parent = <&gic>;
+> 
+>           /* DRAM memory node — MMIO at 0x090d0000, SPI 44 */
+>           aest-dram0@90d0000 {
+>               compatible               = "arm,aest-memory";
+>               arm,interface-type       = <1>;
+>               arm,group-format         = <0>;
+>               arm,interface-flags      = <0x22>;
+>               arm,num-records          = <4>;
+>               arm,record-impl          = /bits/ 64 <0x0>;
+>               arm,status-report        = /bits/ 64 <0x0>;
+>               arm,addr-mode            = /bits/ 64 <0x0>;
+>               arm,proximity-domain     = <0>;
+>               reg                      = <0x0 0x090d0000 0x0 0x1000>,
+>                                          <0x0 0x090d0800 0x0 0x200>,
+>                                          <0x0 0x090d0e00 0x0 0x100>;
+>               reg-names                = "errblock", "fault-inject",
+>                                          "err-group";
+>               interrupts               = <GIC_SPI 44 IRQ_TYPE_LEVEL_HIGH>;
+>               interrupt-names          = "fhi";
+>           };
+> 	};
+> 
+> 4. Boot QEMU with acpi=off:
+> 
+>       ./qemu-system-aarch64 \
+>         -machine virt,accel=tcg,gic-version=3 \
+>         -cpu cortex-a57 -m 2G -smp 4 \
+>         -kernel Image -dtb virt-aest.dtb \
+>         -append "console=ttyAMA0 acpi=off earlycon" \
+>         -nographic
+> 
+> 5. Verify probe:
+> 
+>       dmesg | grep "DT AEST"
+>       # Expected: DT AEST: registered 1 AEST error source(s) from DT
+>       ls /sys/kernel/debug/aest/
+> 
+> 6. Inject a CE error via the QEMU MMIO fault injection registers.
+>     The QEMU device accepts 64-bit accesses only (use devmem with
+>     the 64-bit width flag):
+> 
+>       devmem 0x090d0808 64 0x80000040   # CDOFF | CE inject
+> 
+>     This triggers QEMU's error_record_inj_write() which sets
+>     ERR<n>STATUS.V=1 and asserts the IRQ.  The kernel driver's
+>     aest_irq_func() fires, reads the status, and logs:
+> 
+>       AEST: {1}[Hardware Error]: Hardware error from AEST memory.90d0000
+>       AEST: {1}[Hardware Error]: Error from memory at SRAT proximity domain 0x0
+> 
+> Testing
+> -------
+> - Validated on Qualcomm's lemans-evk and monaco-evk board with DT boot.
+> - Validated CE and UE injection via debugfs soft_inject.
+> - Tested ACPI path is unaffected: ACPI boot continues to use
+>    drivers/acpi/arm64/aest.c unchanged.
+> 
+> [1] https://lore.kernel.org/lkml/20260122094656.73399-1-tianruidong@linux.alibaba.com/
+> [2] https://github.com/winterddd/qemu/tree/error_record
+> [3] https://developer.arm.com/documentation/den0085/0200/
+> 
+> Signed-off-by: Umang Chheda <umang.chheda@oss.qualcomm.com>
+> ---
+> Umang Chheda (8):
+>        ras: aest: Fix shared processor node handling and error log messages
+>        ras: aest: Fix CE/UE error counts not incrementing in debugfs
+>        ras: aest: Skip unimplemented records in debugfs
+>        ras: aest: Add panic_on_ue module parameter
+>        dt-bindings: arm: ras: Introduce bindings for ARM AEST
+>        ras: aest: Add DT frontend for ARM AEST RAS error sources
+>        arm64: dts: qcom: lemans: add AEST error nodes
+>        arm64: dts: qcom: monaco: add AEST error nodes
+> 
+>   .../devicetree/bindings/arm/arm,aest.yaml          | 406 +++++++++++++
+>   arch/arm64/boot/dts/qcom/lemans.dtsi               |  41 ++
+>   arch/arm64/boot/dts/qcom/monaco.dtsi               |  41 ++
+>   drivers/ras/aest/Kconfig                           |  15 +-
+>   drivers/ras/aest/Makefile                          |   2 +
+>   drivers/ras/aest/aest-core.c                       |  63 +-
+>   drivers/ras/aest/aest-of.c                         | 673 +++++++++++++++++++++
+>   drivers/ras/aest/aest-sysfs.c                      |  27 +-
+>   drivers/ras/aest/aest.h                            |  15 +-
+>   include/dt-bindings/arm/aest.h                     |  43 ++
+>   10 files changed, 1310 insertions(+), 16 deletions(-)
+> ---
+> base-commit: a67b7fd0dd1f6ccf3d128dc2099cdb07af1f6a09
+> change-id: 20260505-aest-devicetree-support-a3722d90e1f5
+> prerequisite-message-id: <20260122094656.73399-1-tianruidong@linux.alibaba.com>
+> prerequisite-patch-id: c5a7c6431c6c1e6351241e694ee053800039d41d
+> prerequisite-patch-id: 1f6e2c20829eee41a210dd8a538f1e8efcc65872
+> prerequisite-patch-id: 5556287e3f46c2ed2c0431c53c7782e87bcbd866
+> prerequisite-patch-id: 2edae0a136d7779b8f686181720e71d044a73311
+> prerequisite-patch-id: b5190b2844dcb01e72f87a59f3a29548795fdb82
+> prerequisite-patch-id: 7ba848583708b2ae776a7ce847bb056e3de7f77b
+> prerequisite-patch-id: 397e5b22802b67942435f4f2968f0b1e210ba0e8
+> prerequisite-patch-id: 2169f4b65537eecbd0ccbd2ad6b28c64ec44655d
+> prerequisite-patch-id: b626f85d98747595b3240bc49e6ad9c9dd5c0fa9
+> prerequisite-patch-id: 1323dfd2eebad2ef6514dbbce58ba08e8859f894
+> prerequisite-patch-id: 95b826e5e329408437a3ef336c4f45d4d74f82bb
+> prerequisite-patch-id: b60ff489a5a33c5d5220fa8144af7b7511769cba
+> prerequisite-patch-id: 43f35a52b8a3d13c938ff08083403c1d3bd0df8b
+> prerequisite-patch-id: c55d4e9117ca36d3c2cba82d550a618cb82bb745
+> prerequisite-patch-id: 3885e10f318ae8101d6909b35d92a976cc359e3c
+> prerequisite-patch-id: 92958cde05577f069c5659018a274bb39cfb6b24
+> 
+> Best regards,
+> --
+> Umang Chheda <umang.chheda@oss.qualcomm.com>
 > 
 
--- 
-#gernperDu 
-#CallMeByMyFirstName
-
-Pengutronix e.K.                           |                             |
-Steuerwalder Str. 21                       | https://www.pengutronix.de/ |
-31137 Hildesheim, Germany                  | Phone: +49-5121-206917-0    |
-Amtsgericht Hildesheim, HRA 2686           | Fax:   +49-5121-206917-9    |
