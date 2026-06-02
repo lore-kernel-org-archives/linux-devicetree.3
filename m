@@ -1,83 +1,66 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from gloria.sntech.de (gloria.sntech.de [185.11.138.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4FDB396585
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 18:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 216CA372056;
+	Tue,  2 Jun 2026 18:48:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.11.138.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780425128; cv=none; b=MD+kbP3BcLOkhnSFnzuWFU7zDi74+VHlBRSqYhutP/u4hTopBaK+AHURLhmT6W2tDeMBiZlAEmdv0bD5DtsavhmL+4eXnTSs4KifZKNZDnKOLk8capvSGBjJv1wv9Wh+CyiOkrWx+0laStXtr085E0eFHjpdlMm7PYhvjUGWmmE=
+	t=1780426124; cv=none; b=hxNPHXiecxYK96MpIncAyl1d7ckWVassNAHOSwTccTyGyvR+UOOe1DzJUZo4e2ZeuDAT/g3J3XuG+SX9e0MoUHLxaS1JR/sb8Po6Uuhe2XAPNtL2KyCnMXmyWWdY/f7RdtCW2OSzZqED2aZTm5YZBiagoXSNj3cmHucHZ4najzg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780425128; c=relaxed/simple;
-	bh=CQSYuECG9EefKD0YtNkUZwSrtj6hxQDo4zKaaqWZsFw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=eR8mq1aJ5KVk7ouCq4kbK7pqpV5i6YUQt9xsWmcAjZD1SneBvOmLT6zUzB8voGatwN62Wv0PaHt0Tk6lSXIDGWcNCtbaeJixJMiOQEQqV1kZ6NPVqwOU0yPs9mrlKHjMu9A/pkUgLFkwn2wGCfHu56v8XGn4io4Dl/Dv9IQwO+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dvvXgf+d; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780426124; c=relaxed/simple;
+	bh=C7jcWsCoDxMib2WPuCJeJn5VGHypERJema709z7ZOfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=e4IcuGdEbV7U0KjmlU+j4n7sIWX74v5asYesmsbdyr1AC4S5JFhLudOHXeN9vVz2iXi7KAeQAdvs7J9GXHAyaE0Az8T2AWWThRHyPzgaZHNsAlpiD0MaHrT4osQywTLsujw4tSRuyCkGov4igUU2ceuiqMcSTT72O1l9XR54VhU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de; spf=pass smtp.mailfrom=sntech.de; dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b=RtevXQnJ; arc=none smtp.client-ip=185.11.138.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=sntech.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sntech.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dvvXgf+d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 40FAB1F00898;
-	Tue,  2 Jun 2026 18:32:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780425127;
-	bh=UxJ571fSRUxUH36Ap2QIHASwYXWKj9EU/H9x1gnKshA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dvvXgf+d4HtspVB12gRR7xla6L62BvcEcC5mebYy6bm/HObIwfnkFkToA/VFav+4e
-	 qrsDc8mnHsmhCLoNPpLEbrsPpgHemATSPvHOulae8eLe/ejCE/TOH8uhD2K1XiS7e7
-	 EvGgF4mGxvxaJTYMeD0gz6/B2tAyWNg3YnZU5dooZmL6yXkNxAPrkokdsX2bI8viMr
-	 78E2X4o4otbERCpdqXjxUiwDNGTBkRkKRGvDVCWN7frFT/UmgKJU4PZjujiQLiU55U
-	 4bxUB7lHFI/wo7tpUI1o+/ANiXT51WTPw1lPEZ/Di/g/AX5ngkxK3BpS3rFQzwVrNp
-	 0/NUOQTfqB5qQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4] arm64: renesas: r8a779g0: add MFIS node
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Wolfram Sang" <wsa+renesas@sang-engineering.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, wsa+renesas@sang-engineering.com, robh@kernel.org
-In-Reply-To: <20260602182157.304964-2-wsa+renesas@sang-engineering.com>
-References: <20260602182157.304964-2-wsa+renesas@sang-engineering.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 02 Jun 2026 18:32:06 +0000
-Message-Id: <20260602183207.40FAB1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=sntech.de header.i=@sntech.de header.b="RtevXQnJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=sntech.de;
+	s=gloria202408; h=Content-Transfer-Encoding:Content-Type:MIME-Version:
+	References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Reply-To;
+	bh=7t8xpC2Gxg1/a7tRUHOdz+cAWyjmba/5I1131NwRPwI=; b=RtevXQnJEupgna/t1cryNL51nL
+	QE1dJsLsSaPtEpHaoKVwHDdtSNKLrInOY0dpzA5f5y0T9+brriRqSMoKyeQl9Ppa5xgWbzbMFQ7zn
+	isA2qHcGnQFLiF3KJ3wCQs08TtKaM50hvDMPJ4l6duzc+tft3ZJErZnz8iUFWCJjwQ1c4zabBnQdu
+	AspqR0kJgK/TiTydibe6VnsuWMC1xxXgJiAmAVRom1E8H10fr4rbJOmM1xchdGY2efwMTWcEbRt/m
+	BaOfy5uAKFfyS8i/a5OJRctOFfh1afjyXW135jcMURA6cLAT0JAbju/a5PYvNHpR21KSvutrb4CFj
+	OfrQVXSA==;
+From: Heiko Stuebner <heiko@sntech.de>
+To: Chukun Pan <amadeus@jmu.edu.cn>
+Cc: Heiko Stuebner <heiko@sntech.de>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 1/1] arm64: dts: rockchip: enable button for Radxa E25
+Date: Tue,  2 Jun 2026 20:48:29 +0200
+Message-ID: <178042610721.614536.13908287937215191728.b4-ty@sntech.de>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260601101000.2076721-1-amadeus@jmu.edu.cn>
+References: <20260601101000.2076721-1-amadeus@jmu.edu.cn>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The newly introduced `renesas,r8a779g0-mfis` compatible string lack=
-s corresponding device tree binding documentation.
---
 
-commit 115f5a17688f2c0823c49f8d37bc7d1f7b1d6a27
-Author: Wolfram Sang <wsa+renesas@sang-engineering.com>
+On Mon, 01 Jun 2026 18:10:00 +0800, Chukun Pan wrote:
+> The Radxa E25 board has an ADC button. Enable it.
+> 
+> 
 
-arm64: renesas: r8a779g0: add MFIS node
+Applied, thanks!
 
-This commit adds the MFIS core node, which is used for tasks such as
-inter-processor communication, to the r8a779g0 device tree.
+[1/1] arm64: dts: rockchip: enable button for Radxa E25
+      commit: dc98bd71f41db3666aa8505cc8c72d02653d2980
 
-> diff --git a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi b/arch/arm64/boot/=
-dts/renesas/r8a779g0.dtsi
-> index 82a7278836e57..8846bac990864 100644
-> --- a/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-> +++ b/arch/arm64/boot/dts/renesas/r8a779g0.dtsi
-[ ... ]
-> @@ -589,6 +589,23 @@ tmu4: timer@ffc00000 {
->  			status =3D "disabled";
->  		};
-> =20
-> +		mfis: system-controller@e6260000 {
-> +			compatible =3D "renesas,r8a779g0-mfis";
-
-[Severity: Low]
-Does this new compatible string have corresponding device tree binding
-documentation?
-
-This isn't a bug, but introducing "renesas,r8a779g0-mfis" without an
-accompanying schema update will trigger dtbs_check and checkpatch.pl
-warnings.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602182157.3049=
-64-2-wsa+renesas@sang-engineering.com?part=3D1
+Best regards,
+-- 
+Heiko Stuebner <heiko@sntech.de>
