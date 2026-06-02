@@ -1,74 +1,199 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f53.google.com (mail-wr1-f53.google.com [209.85.221.53])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D26893750B9;
-	Tue,  2 Jun 2026 17:00:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5BC63F39E7
+	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 17:00:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780419603; cv=none; b=llH94rzdBuvPq+/mcEx4LRILNBvHh1BODG3viRNutAsr1j4v/ddB3Q6D2S8yKZJ9vv2q4/10pzxDRuqHGf1UD3/tIqUeHmiljn4Buj+nfH/zQEs7+roQ3j19g2gagYvzUeOF7PxKACzuoiSdgHHxI1iFKBj4RVJpLNRb5E0lmKs=
+	t=1780419655; cv=none; b=MjmI62g9rzw9StuxXDO3PPvwcHf2nPIyCuoYdMyiJdJnXgfU0HlGNpbu8HQHkp5IX9ZVeHpcsxzZlpv6ECPhiU0VT4lPzLwdp3IXOLYOBVM0hIIe541UE0r/pKojjBKCpqww3Rs280qndq2CYBJ6FM575YFj5EO3dfavNVPxm0k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780419603; c=relaxed/simple;
-	bh=aXEL4pwfPMVz7iJb43Gvy4V5PhxsUFD/gCBxQEtwy8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Hj7tsHw3/zZu+dI97TUQI/5JQ/iCrVG65Rd3zBH4Jii4/I7cPH+4zv70EhgIg9oPc96YMMS+QIQWkX57puc1xIVPC2qk2iVmFLjc3VLVmOp8xmC6IBeHQD2NEMo+sOLZhE5OI1kpRjddQLwn6sEStpZD8smaw5yEPDBD8mqTaBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eqn5sFCk; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780419655; c=relaxed/simple;
+	bh=2NgviHNZdxpicEM9rd/dWgHY01rnKmCVPlo7M+lrE2E=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=Ygrwuix8TE6zuqLlrANJmgj4oomrLqwHPe1BLDhmpgRXKhqaHVLuwPn7Z/vrcTu72jMzNY/xy1tZfir/J6LUIeinwlaWiheX58jqre5C3mNYhnwKFhglhWeLKc0BbhIBJX5BXG54j/DB+VVaPH+R7CtdBVGo1/f9ZMsAAPmEhcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=E9xgj1dt; arc=none smtp.client-ip=209.85.221.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eqn5sFCk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 95A6B1F00893;
-	Tue,  2 Jun 2026 16:59:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780419602;
-	bh=aXEL4pwfPMVz7iJb43Gvy4V5PhxsUFD/gCBxQEtwy8g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eqn5sFCk9Gvk5MQ7a/oBBQ1+0KnpNVzVsNgERJHir3cW8slvMQ+h7DfI5X3owfXWD
-	 yaoVqBHOnyep+/kld0J65qgMHBPo8MxXdXBzXcRPgP0f666v/1lXt2hemMLszNKK5o
-	 bSOqyunDtFpKXL9T3vZwPHr3zV4+T7wiXsDr5DQeeubDFYlxh9zAr5ICEhwEMI5CGP
-	 RstELcE6izDm6itOOogAcqL766P6clMh5X/O6NnSaUrnTKdGK3dYR20jtq5Zu4Pa44
-	 eDr1YobTBhfQ/QCxqw4JxlpO0VvDONJv11f8L0FzBTdeeRGcF9zkckWecb/xveAOgz
-	 tGNlOtjyzw7zw==
-Date: Tue, 2 Jun 2026 17:59:57 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Tommy Huang <tommy_huang@aspeedtech.com>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, Joel Stanley <joel@jms.id.au>,
-	Andrew Jeffery <andrew@codeconstruct.com.au>,
-	linux-rtc@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-aspeed@lists.ozlabs.org
-Subject: Re: [PATCH 1/2] dt-bindings: rtc: add ASPEED AST2700 compatible
-Message-ID: <20260602-refresh-crawling-e6852feb9dcb@spud>
-References: <20260601-ast2700-rtc-v1-0-15d4ca46500a@aspeedtech.com>
- <20260601-ast2700-rtc-v1-1-15d4ca46500a@aspeedtech.com>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="E9xgj1dt"
+Received: by mail-wr1-f53.google.com with SMTP id ffacd0b85a97d-45f3cf907ceso1639316f8f.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 10:00:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780419652; x=1781024452; darn=vger.kernel.org;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=0UJRcwfUx7m4tQO0H7dzGL7l03jX+wNFvSSTwQ2iw18=;
+        b=E9xgj1dttyOCoRx4fLU171x2jZ8S7/Tededy9gNT3NAIWETMhll1rW/RAZ5NagJgjw
+         zN7B4MDSCEpfWf99Q/hxVGIdhjPyIV0qIUFJWpdFxzkriCGADLdt3EVf8Y9ezDP8c9BY
+         /0B+e5yBhOgYwnMhp4eq7ww9sC8KpljUCFFt2XQM6xKGHTE6D3vnRcnZ465uBWVh3XHk
+         oq6a/WbgpfzVcNiGXt4q1zU6tjRTvwJqwGkUfmTYRRSB+sYmdYhvtznhEZrmUJY0BK+h
+         k1/UnOTCOy4DeFGeDZi+MsxUzEl7aDx1o+s2kOwaZ/DJHEoHMz2TxoG2c0Ld7TJN+sEu
+         CFMw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780419652; x=1781024452;
+        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
+         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
+         :cc:subject:date:message-id:reply-to;
+        bh=0UJRcwfUx7m4tQO0H7dzGL7l03jX+wNFvSSTwQ2iw18=;
+        b=I2Dmum6eF791D3O5JaUnUnuur/b+yVXE6PXrRvUZmV+Wyb0jVIgBe32t9eZkS17uo2
+         OPFQJe+KqOBjTmQ6x9wzE90TafOTAnrg+vQOvmWnZXN/cabdRLuoRu7XwAL5yoyph9sV
+         0P54ewwr6fes1e1kAQbMjWKQbIWqbI0uZJ5DIt80xyyn5qvQoDECAaSqOEJFOSYJS3TA
+         ht6JrutkGXkcH9vRo8IUxsVkPfT1nYoh/Lxti+cCN5CX3ggZklIHf5x2P5ddKh3UhhmV
+         3OMTpPHrWF4p/peMlIoWiqGGfk3ZQMxg9JKL4a5b1Suo6poFXz98Uo9s0QVB/aUcHXtO
+         Dq3w==
+X-Forwarded-Encrypted: i=1; AFNElJ+96uTW9zKqZ750Gxbg6tvPqLZUE26Vk7iQM5k//biTf2qGIWZheC4RdjlquusDUL5Ty6hiDn3Umehi@vger.kernel.org
+X-Gm-Message-State: AOJu0YyHyTwrVOfYpujLfkSl4g0I7ZifxjI5bCqMw55ZzGjZll7Lh8sN
+	v7PDK4QUAUHBe+OstPaMIPDjebToEFH0BhzANG7llkCzw5EDPgMkdLPuc+mVmySMUqc=
+X-Gm-Gg: Acq92OEsJYRLlTO1cTkyPn8gGZicf2uTcWb/hMWbCm4e67GjRm/oK28n9GgOV0Uebma
+	MTvEE1TDasymCoR07qMRBJh0C3fU4UJ1LHoHpWpn+6+Lx50x4JXETjyPtdBWiqyPlHojoIUccKT
+	bo7Hp7Kg3mN02P4eomxH4uNAebZ07bTv4P9/tlE5wz+Fe1+VqhSx37i5MrkIqMJBm4yEPZqn9Nj
+	pejiGJ4m1hJHgnXE0RFuAQeCWps3v/3gvvFV++VqXLPUT+Dkoltrf9jr5nBi6blGzYjwbkvtEHN
+	47azVGVZmSGefEF/+ie9NotN2FFd7o1rqUqupV+dq0cgN9jr3yYkCOgMVLLlZN9/NForvhwp3wb
+	CLxbIM37/5I6yt5xQcd9qAmkFRxzcex9np3UhVKNFOYGqps/Y1fSzivZZVv6+bdum/muIPRW5NT
+	jnPn5MuR+33CzSGan4KLwQLkqEipy/+bLzHwXM9ch8Yk+iDCbhO19mOHyZaqdmt9jjQxbamhBSC
+	0tnOjKRu3NNFAA=
+X-Received: by 2002:a5d:51c6:0:b0:45e:93b2:37bb with SMTP id ffacd0b85a97d-4601f4ea1a5mr208717f8f.6.1780419652096;
+        Tue, 02 Jun 2026 10:00:52 -0700 (PDT)
+Received: from ta2.c.googlers.com (213.53.77.34.bc.googleusercontent.com. [34.77.53.213])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f360bd6sm541156f8f.36.2026.06.02.10.00.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 02 Jun 2026 10:00:51 -0700 (PDT)
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+Date: Tue, 02 Jun 2026 17:00:47 +0000
+Subject: [PATCH v7 1/5] dt-bindings: thermal: Add Google GS101 TMU
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="sSlNZiJes0XynWvQ"
-Content-Disposition: inline
-In-Reply-To: <20260601-ast2700-rtc-v1-1-15d4ca46500a@aspeedtech.com>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260602-acpm-tmu-v7-1-8047dd54b0e9@linaro.org>
+References: <20260602-acpm-tmu-v7-0-8047dd54b0e9@linaro.org>
+In-Reply-To: <20260602-acpm-tmu-v7-0-8047dd54b0e9@linaro.org>
+To: "Rafael J. Wysocki" <rafael@kernel.org>, 
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>, 
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, 
+ Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, 
+ Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>, 
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>, 
+ Peter Griffin <peter.griffin@linaro.org>, 
+ =?utf-8?q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: jyescas@google.com, linux-kernel@vger.kernel.org, 
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, 
+ Tudor Ambarus <tudor.ambarus@linaro.org>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780419650; l=3395;
+ i=tudor.ambarus@linaro.org; s=20241212; h=from:subject:message-id;
+ bh=2NgviHNZdxpicEM9rd/dWgHY01rnKmCVPlo7M+lrE2E=;
+ b=fD6jATngc9u3E3ols1PmAttEJTrcCe8gC9fW9moXNR1OvAfins8hGD/WQRDyS6sJ0LSvCIReP
+ IvQf1p31+B/DjI6lJVup2Qf5ydjcO0jdeRoqPTRob7Mhz/fSXkAa3wM
+X-Developer-Key: i=tudor.ambarus@linaro.org; a=ed25519;
+ pk=uQzE0NXo3dIjeowMTOPCpIiPHEz12IA/MbyzrZVh9WI=
 
+Document the Thermal Management Unit (TMU) found on the Google GS101 SoC.
 
---sSlNZiJes0XynWvQ
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+The GS101 TMU utilizes a hybrid control model shared between the
+Application Processor (AP) and the ACPM (Alive Clock and Power Manager)
+firmware. This hybrid ACPM TMU architecture is also present on other
+Samsung Exynos SoCs (e.g., AutoV920, Exynos850).
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
-pw-bot: not-applicable
+While the TMU is a standard memory-mapped IP block, on this platform
+the AP's direct register access is restricted to the interrupt pending
+(INTPEND) registers for event identification. High-level functional
+tasks, such as sensor initialization, threshold programming, and
+temperature reads, are delegated to the ACPM firmware.
 
---sSlNZiJes0XynWvQ
-Content-Type: application/pgp-signature; name="signature.asc"
+Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+---
+ .../bindings/thermal/google,gs101-tmu-top.yaml     | 69 ++++++++++++++++++++++
+ 1 file changed, 69 insertions(+)
 
------BEGIN PGP SIGNATURE-----
+diff --git a/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+new file mode 100644
+index 000000000000..75560ebca48d
+--- /dev/null
++++ b/Documentation/devicetree/bindings/thermal/google,gs101-tmu-top.yaml
+@@ -0,0 +1,69 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/thermal/google,gs101-tmu-top.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: Samsung Exynos ACPM Thermal Management Unit (TMU)
++
++maintainers:
++  - Tudor Ambarus <tudor.ambarus@linaro.org>
++
++description:
++  The Samsung Exynos ACPM TMU is a thermal sensor block found on Exynos
++  based platforms (such as Google GS101 and Exynos850). It supports
++  both direct register-level access and firmware-mediated management
++  via the ACPM (Alive Clock and Power Manager) firmware.
++
++  On these platforms, the hardware is managed in a hybrid fashion. The
++  Application Processor (AP) maintains direct memory-mapped access
++  exclusively to the interrupt pending registers to identify thermal
++  events. All other functional aspects - including sensor
++  initialization, threshold configuration, and temperature acquisition
++  - are handled by the ACPM firmware. The AP coordinates these
++  operations through the ACPM IPC protocol.
++
++properties:
++  compatible:
++    const: google,gs101-tmu-top
++
++  reg:
++    maxItems: 1
++
++  clocks:
++    items:
++      - description: APB peripheral clock (PCLK) for TMU register access.
++
++  interrupts:
++    maxItems: 1
++
++  "#thermal-sensor-cells":
++    const: 1
++
++  samsung,acpm-ipc:
++    $ref: /schemas/types.yaml#/definitions/phandle
++    description: Phandle to the ACPM IPC node.
++
++required:
++  - compatible
++  - reg
++  - clocks
++  - interrupts
++  - "#thermal-sensor-cells"
++  - samsung,acpm-ipc
++
++additionalProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/arm-gic.h>
++    #include <dt-bindings/clock/google,gs101.h>
++
++    thermal-sensor@100a0000 {
++        compatible = "google,gs101-tmu-top";
++        reg = <0x100a0000 0x800>;
++        clocks = <&cmu_misc CLK_GOUT_MISC_TMU_TOP_PCLK>;
++        interrupts = <GIC_SPI 769 IRQ_TYPE_LEVEL_HIGH 0>;
++        #thermal-sensor-cells = <1>;
++        samsung,acpm-ipc = <&acpm_ipc>;
++    };
 
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah8MDQAKCRB4tDGHoIJi
-0srpAQC+gmj4JJGrXIWGVt27womZpP49QqQ/L1k3k5X9ws77DAEAt4Hn4w2ksqmf
-SI39dQOHYZ0+bCvn00VuAoOoxWr/Bww=
-=kyAk
------END PGP SIGNATURE-----
+-- 
+2.54.0.1013.g208068f2d8-goog
 
---sSlNZiJes0XynWvQ--
