@@ -1,108 +1,142 @@
-Received: from mail.zeus03.de (zeus03.de [194.117.254.33])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76756390985
-	for <devicetree@vger.kernel.org>; Tue,  2 Jun 2026 11:03:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.117.254.33
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 845ED2E36F8;
+	Tue,  2 Jun 2026 11:05:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780398192; cv=none; b=nQJgyXoMo6ciY9ZFSm2UZQWBkvfBzKChhSQ09ntypjjnYlqJe/jXgkxpTzhfJQxil6pxdGB8yfSKYhSfoiwz0DtP0rlszGPKYDVB80WvnaHLwdL/+TzThed5Rmk8bIH7BUiEb597FUqaGdTkjT8qWNhU+/GYcKV01lQTxoPAKeU=
+	t=1780398329; cv=none; b=mnN7HkQytnpShAmXsYP4/BwAI34p8LhixyDKI8eiYxeurtFptnFOkeRRs9kbzI3+fmCrOkKYR74iKFobMUtMcn/br6nPWokaKBQDYPZXz6zDzYf3FVf7gyDgyIi+pRQaUwLuNgKZ/rpopTBN4ILDOB93D03YmED1uw/C4uV4g2k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780398192; c=relaxed/simple;
-	bh=iJzGnyRLwsxHH4s41J2VuHW84Pbq7X1/Onyw00BlB6A=;
+	s=arc-20240116; t=1780398329; c=relaxed/simple;
+	bh=334jL2lAPjuPlqw0djaN2J2L0UdWoI+uZoHt6zyLO1c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tjR2E+a4FgOZBqed9qYMQej/RpGfEVzdBoPnqv677289EzOXnxr3iOidIO146kOh2KFVRyDe79s5lBxwUjljXctxR1p6ZdHkX/cyeAKrwfmKI17T6+XPKJmXLsdaUp0Z2yHpCGC8ymAGiHtOiyrTw2/84tmkbObAUl+5RjIumk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com; spf=pass smtp.mailfrom=sang-engineering.com; dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b=Cgw5+mSH; arc=none smtp.client-ip=194.117.254.33
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=sang-engineering.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sang-engineering.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=IlNp2PS91aWNQMgXGX1xdKxjfUZ9V3uoLjB2ZZ7wD2gMKP/+3f8U9ZoJu+1heWhitWCVVJmW5nO28BH/GU0iNFNu+YX/PLrQA6WX4PWm0vnSzon4+bPWwGwYbIl7Et0VoA73aBo5fkO0I0MT3hh2bBAWrPTmfV/0ZRpU3oTZ4p4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=i9wS+XhQ; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=sang-engineering.com header.i=@sang-engineering.com header.b="Cgw5+mSH"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	sang-engineering.com; h=date:from:to:cc:subject:message-id
-	:references:mime-version:content-type:in-reply-to; s=k1; bh=O58A
-	IA4ZdiUl4I2/DkiC9LBTCIlTtcLsjIsPJCeYj28=; b=Cgw5+mSHosiijmagAa02
-	mphk1zWFbZOU1zbr2qeIBSVDZvNFIO45f53S+tl5mPKngjuAr94FIsptTN67EiBo
-	LPmbkT+aYxEu664WwBj6Ky2TSDHvhm9WwvlJPLWXXeCuXlzNMOwfIGhbH8Fd8Kcj
-	QLyfo7lO4u03pJgUPUMwj+twaVaMt1Y5v8JQ+CoM1s331KDEFYxPnYewPTYyMu/L
-	6VdQzjTsbZ3QCJnONQIkPeIM+qAm2tV+6IHRKMpiVcJGZMs/mgm2Tw1A/pi3Pbht
-	dkS4JxHg0cGN/jFbRVz4ug3fy8deh1JOu2eMtjjU+b1tBycdIoFp2H4ClJ5utDd9
-	pQ==
-Received: (qmail 2857182 invoked from network); 2 Jun 2026 13:03:00 +0200
-Received: by mail.zeus03.de with UTF8SMTPSA (TLS_AES_256_GCM_SHA384 encrypted, authenticated); 2 Jun 2026 13:03:00 +0200
-X-UD-Smtp-Session: l3s3148p1@N9ISQUNTvLcujnv7
-Date: Tue, 2 Jun 2026 13:02:59 +0200
-From: Wolfram Sang <wsa+renesas@sang-engineering.com>
-To: Geert Uytterhoeven <geert@linux-m68k.org>
-Cc: linux-renesas-soc@vger.kernel.org,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>, Rob Herring <robh@kernel.org>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="i9wS+XhQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780398327; x=1811934327;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=334jL2lAPjuPlqw0djaN2J2L0UdWoI+uZoHt6zyLO1c=;
+  b=i9wS+XhQxWjMPUM2zuh8A6KQPchyKLj1Hq4UCVSyast7a+3cTl7uiS3d
+   ODtqt5jgCY478osJiJU+jO7nSMu63hGg7gCEZnUVVxyWcskhYIClITAeK
+   eL8QSUAfelyanCwlVnV2kAZ7JtfLsQOy1Wx+Da8IuPGnzkeEvaIPkSiVd
+   kRDOxsSMKUTdmsguMGkzhVz6fMMYbapZIMK1a3mXsXQvkYkxNdsGxASsL
+   FLCvZKfL4vdqx32u/WLTYSW/RiDIM9ofLsCEitIj3eaCJjD5gJmBTpQy2
+   KHUV4+SItX23g1yD6oVkUW7GYiYnDwTynJxtwZsskEBQ/sqEKX1xT35QZ
+   g==;
+X-CSE-ConnectionGUID: 7w4miiwdSuOaJOfV2ohMYg==
+X-CSE-MsgGUID: pau65ajjS8O/lFrW2kzKZw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11804"; a="85035811"
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="85035811"
+Received: from fmviesa010.fm.intel.com ([10.60.135.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 04:05:26 -0700
+X-CSE-ConnectionGUID: 3MDQwoTqTGO+0B9MM5EZIQ==
+X-CSE-MsgGUID: F/HgBAMISWmlXhvc9MCs9A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,183,1774335600"; 
+   d="scan'208";a="239709107"
+Received: from mkosciow-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.229])
+  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 04:05:22 -0700
+Date: Tue, 2 Jun 2026 14:05:20 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Svyatoslav Ryhel <clamor95@gmail.com>
+Cc: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>,
+	Jingoo Han <jingoohan1@gmail.com>, Pavel Machek <pavel@kernel.org>,
+	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org
-Subject: Re: [PATCH v2] arm64: renesas: r8a779g0: add MFIS node
-Message-ID: <ah64Y3fuO2ofgsDG@ninjato>
-References: <20260530080340.24715-2-wsa+renesas@sang-engineering.com>
- <CAMuHMdX8gGvjTPat-7=r3q-bXgQJU=A2DsDEPXZy6k20_JKx9w@mail.gmail.com>
+	Conor Dooley <conor+dt@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>, Helge Deller <deller@gmx.de>,
+	Johan Hovold <johan@kernel.org>, dri-devel@lists.freedesktop.org,
+	linux-leds@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
+	linux-fbdev@vger.kernel.org
+Subject: Re: [PATCH v3 05/11] mfd: lm3533: Convert to use OF bindings
+Message-ID: <ah648F2plc4UHTM1@ashevche-desk.local>
+References: <20260601151831.76350-1-clamor95@gmail.com>
+ <20260601151831.76350-6-clamor95@gmail.com>
+ <ah6TGjRNnDpQGO60@ashevche-desk.local>
+ <CAPVz0n21RGAaJc1sda4xyp1h0z+6R6FJ4=XWdOtB1mgtV8=RUA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="X0II2Dw27eDwVkdW"
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <CAMuHMdX8gGvjTPat-7=r3q-bXgQJU=A2DsDEPXZy6k20_JKx9w@mail.gmail.com>
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <CAPVz0n21RGAaJc1sda4xyp1h0z+6R6FJ4=XWdOtB1mgtV8=RUA@mail.gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Tue, Jun 02, 2026 at 01:31:44PM +0300, Svyatoslav Ryhel wrote:
+> вт, 2 черв. 2026 р. о 11:24 Andy Shevchenko <andriy.shevchenko@intel.com> пише:
+> > On Mon, Jun 01, 2026 at 06:18:25PM +0300, Svyatoslav Ryhel wrote:
 
 
---X0II2Dw27eDwVkdW
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+...
 
-Hi Geert,
+> > > +     device_for_each_child_node_scoped(lm3533->dev, child) {
+> >
+> > > +             if (!fwnode_device_is_available(child))
+> > > +                     continue;
+> >
+> > Do we need this check?
+> 
+> This is nice to have if the node is disabled. If we assume that there
+> are no disabled nodes, I can remove it.
 
-thanks for the review!
+It's already implied. See
 
-> > +               mfis: system-controller@e6260000 {
-> > +                       compatible =3D "renesas,r8a779g0-mfis";
-> > +                       reg =3D <0 0xe6260000 0 0xf000>;
->=20
-> Why 0xf000 and not 0x10000?
+static struct fwnode_handle *
+of_fwnode_get_next_child_node(const struct fwnode_handle *fwnode, struct fwnode_handle *child)
+{
+        return of_fwnode_handle(of_get_next_available_child(to_of_node(fwnode), to_of_node(child)));
+}
 
-The sheet listing the memory map has a "MFI - Region 14" entry for
-0xe626e000, but no region 15 for 0xe626f000. I thought I play safe.
-Can change if you want...
+And I believe it's written somewhere in the documentation (if not, feel free to
+patch that).
 
-> > +                       interrupt-names =3D "ch0e",  "ch1e",  "ch2e",  =
-"ch3e",  "ch4e",  "ch5e",  "ch6e",  "ch7e",  "ch8e",  "ch9e",
->=20
-> This is way too longer for a single line, and the double spacing
-> doesn't really help (yeah, it does align ch1e and ch11e...).
+...
 
-You are right, will fix this.
+> > > +     ret = sysfs_create_group(&dev->kobj, &lm3533_attribute_group);
+> >
+> > No way. You should use .dev_groups.
+> 
+> I did not change how driver does this, just swapped lm3533->dev to
+> dev. I will set is back as it was.
 
-Happy hacking,
+This is a serious race condition that needs to be addressed. Since you are
+touching this driver the fixes against known issues probably are the first
+things that have to be done.
 
-   Wolfram
+> > > +     if (ret) {
+> > > +             dev_err(dev, "failed to create sysfs attributes\n");
+> > >               goto err_unregister;
+> > >       }
+
+...
+
+> > Can you think on how to split this change to smaller steps? I believe it's
+> > possible.
+> 
+> No, I am done with tinkering with this patchset. It is broken enough
+> and it has inflated enough.
+
+Probably you don't want this to be reviewed then? I believe other kernel
+developers and maintainers will ask you the same.
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---X0II2Dw27eDwVkdW
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEEOZGx6rniZ1Gk92RdFA3kzBSgKbYFAmoeuF8ACgkQFA3kzBSg
-KbYNPg//etTWAorgY0vWDPfjdJ7sK5zFG9jYQaul2hufRkx5KMu+lGZj05yuYVDa
-DRUThc7thAFvnYjHQpyRKkarnlmXxD13aWiPZcmR1Ckruwn2/MoI8Nib5qLX39Ik
-L68DNMlCstZZuBB/ELm2TchZq77W7EaSKXetej1o9+D+660urFFxNkCRYD4b3Au1
-7e7FpGRROzCLG3UoLozYLpg0dSuwS97t/0Ov5EL6YeAHwdyXsHL9cwZvDqqpQPf2
-KOOz9sZPUxpPXer9Mtdoqmwk7RLEq0Jsu9Q+XGWmFVf0vGXLe7JypPbPPLxgBXB9
-TeyiUa9NdjrD3PB4nwQYhrA+q25GOutFueveRACwes9t7YsJMPm9JoPuoNqOEpOX
-NbeWX7i2XkTdkW0WDMByXF1GnY7kPfm50eB1q0i+4NjWShsTgljymhKHK/cjVDpR
-HunQjXXydDn59lNJzTu8iOA0CVNIjgrextgkPoum7sey8ma0GxnCPvHZaW4ZNK8X
-xZoKly+cVAlHtcIRr+ew08l1Lmru0IKRH6XFbz2GXaxSgbOkWQr6DN6cbTvhdL31
-eWlK8CT8SOECRQ2voiPCOWPE4G0A/du/7BfvO/djXPbBX0yoCDUs++WxI/x5wHx2
-/J0qb3ydw3M0r7kL7UoujHSURrekr9fPw5qmQ641fwYeGrabCgg=
-=IhjB
------END PGP SIGNATURE-----
-
---X0II2Dw27eDwVkdW--
