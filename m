@@ -1,126 +1,128 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DB6736A36E;
-	Wed,  3 Jun 2026 09:05:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E932D12F3;
+	Wed,  3 Jun 2026 09:07:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780477503; cv=none; b=qXrGWnKct0RBMVnIWHIgJaRJM4Y9tk1FkvExd7tPUOSWmA10bGICpLQg36hCtvROFr+nYRR+cGzgbP8f85sA9tL5fCxBJmWUEBsIQcuvQLfZ8ZsQ9zAMRgqkpzWw1y4Z9c70Z51kd6lRNRj+OYSMik2eO1C5U8rKuGcUBMSKWa8=
+	t=1780477651; cv=none; b=gFyQLDsiU/KR49hBpMZK38FDBWtrGGw2J2hfCHkEVN8ibfRm3/kpkMdWgQ80pvZUW4CV3y3h6fpIKBCQH1qRtiJQWMcfhYBdc3BU5K/h6VriWwV8/UTZm74QhVCotO1SUm2RxQ1R+U0Y8Nn6vWW9eeTFTbbp/ZAX2karBLznQdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780477503; c=relaxed/simple;
-	bh=HxldAff/4Pxj6IFeKMxms8dDi0QFV22v2tPe8P6kMLY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ucwOmzmtSyGOegWwIz3/BushP2Pp2jHitjeXQsYPuUNeZtds+sQc+cRS9fLbO7LVIt3pKbbcGiICbD2VfxT0NKTiiDF5/RWMUwhv22q4t3ChLAL3cJtIPWL5ZfnQKbWbEBFsHV40tI4EeC9U945cwgBwtTG9XRSZjzYFGhg4yEY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dmFDoASZ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780477651; c=relaxed/simple;
+	bh=nctRHHM91Q3KfGygv1sBqhdOIKga/wuB4pkU3G09zXE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=t0plavQx7vvUIdMNrIws94ss0Ge4j9nmHwVFXeYGAHX44yOoam7F/8ojco30vvoCIE69hGQq1VuREm7hq4v4t1jIrym99Hx4DFMq8OqelxoFGLaxnbcx8tP1jV160S25okS1d8WKslty4mWhlpN2mhjUpdp76KSf+Ptw5rHE8J0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jl+On8uF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dmFDoASZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E53E1F00893;
-	Wed,  3 Jun 2026 09:04:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jl+On8uF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4036F1F00893;
+	Wed,  3 Jun 2026 09:07:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780477502;
-	bh=eRTBLDMmxO3KN70i0D2BO9g1Dk3UAuQDRb5bZ2lLMHI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=dmFDoASZ2KMqTeROIdjxiiKy2lHUHeOiYkxtz/Y1+bx6R18wv8namMZUTHitw9Fpv
-	 udW7h38kMUFOPp2pG6kqgloJZEvX9YZvKx1MJNBK25TKrpIyz8Oaocrpjx31H1ZJr8
-	 zvm+RaJloclFKWwIlRz8+uWNcdnBZPigr2myt5XcZbincJQmaNyswwgfSNThhtg9kz
-	 B69RHklNH6xiR8rEzeiAv8V3VIqJ8uzwgN9Ytjk5lV4/VMBUuEeJhmclyDF7WvT9Y3
-	 JqOcHiqDEKhzTX/poYidQXYDs8aVIxi/EJAFY5Eq28OSCXRx8jd9kK6zx/YZy4tUdN
-	 PTFTagtwohu3w==
-Message-ID: <1f9bd9fc-e482-494a-b923-abfa01c510c6@kernel.org>
-Date: Wed, 3 Jun 2026 11:04:25 +0200
+	s=k20260515; t=1780477650;
+	bh=DQTwL5So4VqJUGhWgGKdh4W3c6TR4XvB1Lfu7Mv4d1o=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Jl+On8uFAF8grUALQmbWmkrSYYrQ5IDDqDS0cOIS1Iw4xeXFKdybsZkYJ2nB1oswg
+	 MeY7llwQ9ZsKyV3JqYM+eQuAvoxK5qPfXbm0MF4CQN0lIO4sXx4eefCLbKxRYbisv5
+	 ev+xS56+3zLygRxSVjUYdnnm/8cIwI3pKKYe/RSl/CAQsJtvR9d32SZ7MiiR/a1r5B
+	 PHyfV3Gi050EydNqMMCKOhcKjuV0HwhjRIt1h6+5TQgb7pEBrBZasoHONRlzZC7DG4
+	 SH9faUiNJRFWkYWateWjAte7JUArF4GrPIi8Mf8F/vQBAEwevTMaz5j+89/ft2zY+9
+	 +QYUqh1dR9Zmw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 13/14] media: mediatek: decoder: fill av1 buffer size
+ with picinfo
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260603084045.17488-14-kyrie.wu@mediatek.com>
+References: <20260603084045.17488-14-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 09:07:29 +0000
+Message-Id: <20260603090730.4036F1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 7/8] ARM: dts: qcom: pm8921: Add USB ID extcon
-To: MINETTE Alexandre <contact@alex-min.fr>
-Cc: Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, MyungJoo Ham <myungjoo.ham@samsung.com>,
- Chanwoo Choi <cw00.choi@samsung.com>, Guru Das Srinagesh
- <linux@gurudas.dev>, Linus Walleij <linusw@kernel.org>,
- Rob Clark <robin.clark@oss.qualcomm.com>, Joerg Roedel <joro@8bytes.org>,
- Will Deacon <will@kernel.org>, Robin Murphy <robin.murphy@arm.com>,
- Kees Cook <kees@kernel.org>, Tony Luck <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
- phone-devel@vger.kernel.org
-References: <20260427-mainline-send-v1-sending-v2-0-dcaa9178007b@alex-min.fr>
- <20260427-mainline-send-v1-sending-v2-7-dcaa9178007b@alex-min.fr>
- <20260428-jumping-discerning-oarfish-d2caf1@quoll>
- <50c433df-d737-45da-93dc-76d365052a6c@app.fastmail.com>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <50c433df-d737-45da-93dc-76d365052a6c@app.fastmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 03/06/2026 10:39, MINETTE Alexandre wrote:
-> Thanks for the feedback, Krzysztof.
-> 
-> Do you mean that the PM8921 USB ID handling should be exposed by the
-> PM8921 parent node itself, so USB consumers would reference the PMIC
-> directly, e.g.:
-> 
->   	extcon = <&muic>, <&pm8921>;
-> 
-> I am fine with that model, but it would require more driver changes: the
-> current extcon driver binds to a separate platform device, while the
-> PM8921 parent node is already handled by the PM8xxx MFD driver.
-> 
-> Is that the direction you would prefer for v4?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] The C plane buffer size (`vref->c.size`) is completely missing ini=
+tialization for reference frames, leaving it as zero in the shared hardware=
+ structure.
+--
 
+commit a2c9dc4836cf2314c45a5c3f24634d8cb307be25
+Author: Yunfei Dong <yunfei.dong@mediatek.com>
 
-Unfortunately, I do not get what you refer to. There is no context - no
-comments from me.
+media: mediatek: decoder: fill av1 buffer size with picinfo
 
-Best regards,
-Krzysztof
+The buffer size of y and c plane has been calculated in vcp/scp,
+and this commit fills each frame buffer size directly using picinfo.
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
+_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
+1_req_lat_if.c
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
+t_if.c
+> @@ -1811,18 +1811,19 @@ static int vdec_av1_slice_setup_core_buffer(struc=
+t vdec_av1_slice_instance *inst
+>  {
+>  	struct vb2_buffer *vb;
+>  	struct vb2_queue *vq;
+> -	int w, h, plane, size;
+> +	int plane;
+>  	int i;
+> =20
+>  	plane =3D instance->ctx->q_data[MTK_Q_DATA_DST].fmt->num_planes;
+> -	w =3D vsi->frame.uh.upscaled_width;
+> -	h =3D vsi->frame.uh.frame_height;
+> -	size =3D ALIGN(w, VCODEC_DEC_ALIGNED_64) * ALIGN(h, VCODEC_DEC_ALIGNED_=
+64);
+> =20
+>  	/* frame buffer */
+>  	vsi->fb.y.dma_addr =3D fb->base_y.dma_addr;
+> +
+> +	vsi->fb.y.size =3D instance->ctx->picinfo.fb_sz[0];
+> +	vsi->fb.c.size =3D instance->ctx->picinfo.fb_sz[1];
+> +
+>  	if (plane =3D=3D 1)
+> -		vsi->fb.c.dma_addr =3D fb->base_y.dma_addr + size;
+> +		vsi->fb.c.dma_addr =3D fb->base_y.dma_addr + vsi->fb.y.size;
+>  	else
+>  		vsi->fb.c.dma_addr =3D fb->base_c.dma_addr;
+
+[ ... ]
+
+> @@ -1845,8 +1846,9 @@ static int vdec_av1_slice_setup_core_buffer(struct =
+vdec_av1_slice_instance *inst
+>  		}
+> =20
+>  		vref->y.dma_addr =3D vb2_dma_contig_plane_dma_addr(vb, 0);
+> +		vref->y.size =3D vsi->fb.y.size;
+>  		if (plane =3D=3D 1)
+> -			vref->c.dma_addr =3D vref->y.dma_addr + size;
+> +			vref->c.dma_addr =3D vref->y.dma_addr + vsi->fb.y.size;
+>  		else
+>  			vref->c.dma_addr =3D vb2_dma_contig_plane_dma_addr(vb, 1);
+>  	}
+
+[Severity: High]
+Are we missing an assignment for vref->c.size here?
+
+Earlier in vdec_av1_slice_setup_core_buffer(), vsi->fb.c.size is explicitly
+initialized, but here for the reference frames only vref->y.size is assigne=
+d.
+
+Because the underlying vsi structure is backed by zero-initialized memory,
+the C plane size for all reference frames will be left as zero.
+
+Could this missing initialization cause visual corruption or trigger a
+coprocessor fault when the firmware uses these reference buffer sizes for D=
+MA
+configuration and bounds checking?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603084045.1748=
+8-1-kyrie.wu@mediatek.com?part=3D13
