@@ -1,62 +1,64 @@
-Received: from mail-wm1-f50.google.com (mail-wm1-f50.google.com [209.85.128.50])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 129DF39A063
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:37:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 926952B9A4
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:37:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497448; cv=none; b=kkOoGQCNI8qUsM6jF3kSDHu7psHeuNZUoGRVdMs5Du4Vq4eh0kmpb1xcrEnGxCn70v6iDG+DOuIWlTak1FlyqAaK0VznkS7VXmOSL4Hn2qMul51GOmidIN6zantQkeDYIAR2SOu68ixY7Xl5U2Yo9oXnzkkNebzhPPSDjOgXsc4=
+	t=1780497451; cv=none; b=MztEEaLQQfLPQmc5xZaJ0oZoVn0naHqnC/C9dcCL+Oq42OGcfgd3dwnZVp38K6CoQkGkS1mTRNXCBp5XkoWsfue7QRW8+h9OaVo48VoEJ+o4l+UXLa87mSnS1uEVihrQTnjpfWlLLnwl5DQXXGT9tIwYJAI+WUts9wHD4XyR8zc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497448; c=relaxed/simple;
-	bh=qfh3435JgKkQxsJ7o+S2GAaDXfNus9x1IXuHe/oW5HE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KeIl8pbpOkxkamVNo50y5/CaUdgA3ttEJ/maOSdb5/zPceF4nEQ127345D9NXOImjTtVN7ooX1RIoi6sA+aJ9EqbqTUnFUOyf+Q+ogAg8cUkYOvLKq+5/Tf4l9S+8REizixrFiYCAt58gAK2trk5UwMtgKdQPswHWwWdnE8tQhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Gh9P3pFJ; arc=none smtp.client-ip=209.85.128.50
+	s=arc-20240116; t=1780497451; c=relaxed/simple;
+	bh=9xTuhM3rXQsKDiaRmFu8cpOscVPQZRyOPkfxie7Kp6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BJhNRfhZTKqYDCasSNgvqUX9dMSYUxqe32vxukuCNfgaif3RnOGjrEY5REeOdGFj6PzFZ0vlLw9tg4l9KfLobHhkJl1Z9G1Qhs0bX/G5kzcRWrmZSJseOKB2sN9eN04JztnV4ijyCgcs/jpTE2WV5BiYbnvPwoX/sJVDDbQAkU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=dGG7dfFG; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Gh9P3pFJ"
-Received: by mail-wm1-f50.google.com with SMTP id 5b1f17b1804b1-490b12270b3so14474545e9.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:37:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="dGG7dfFG"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490ace40f4bso40052985e9.3
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:37:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780497445; x=1781102245; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=hJAlGRz75xEq17uv2UlpRAl3s1Z0RM73GiaeFljbD9I=;
-        b=Gh9P3pFJ/XEgsbZMjrQKoQzta40N/+8AlXVQFsyxsuO/d5P1Tw/mXSAM62xcIzPpZw
-         7Wr3qo1Fy6mVzQCdXkPwfvJjO49Qbm5jzWUA0+YjdrK8IcyZK/nOPOPoqLwNnMM9SpXI
-         5jam7l5g+6i60yfJsWdPGC1G4DolAdZtZ6hP5rTL7az/Bw2H4uutViA2X0OeX1CdUpxN
-         +nDZLhxTwnLQCB4ajY9icgyXDnPp0rbJfPeAsdfrVEoxiulVfqKjXGm9gYeZHtYOPpK1
-         jN8ce3MqZfD3qSy161aHDWtRYdhAcBBMm/r/54/9/VyCiHlxB/ZbNJOkZnatteDCP64q
-         6rXQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780497445; x=1781102245;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1780497448; x=1781102248; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=hJAlGRz75xEq17uv2UlpRAl3s1Z0RM73GiaeFljbD9I=;
-        b=Z07MjpREROlxEI1sSBT1U8s5u3lHwh0rGL3RmvXUwAs+8fMHkves9amY7fC5L555SN
-         ARsd0eMqtpZtf5de8LKAVtUhXVW4dMAsOH/byjITKvavrav0gBCOBAET4SGZipbNYi1e
-         gzDZz1Bze8Ro+PWq7Q4sDzqmCfa5RY3mIxfnljBzBtnCOuwsUk1EaL/aELDY+6QTrOwy
-         OTuDJTYzozSCgcSwqItstQQANF5z28TBZE3bFZNLLPP78hiWSfsuWzsoWLCYktoQuDPU
-         WPoTGnEv/qpdsQ8Ah7C/HIjlQVu/JWdsfhrDbLcDScPN3KT8DDzjyTyB3Nty7Kv752M+
-         CBLA==
-X-Forwarded-Encrypted: i=1; AFNElJ+bN2s2hh7EIc1wzS1wU7kslyOzUMyHbg1Hc9+f51/SRUBOtHTKTcj8v1VUO2/luzkt/NCXr2cHWVZX@vger.kernel.org
-X-Gm-Message-State: AOJu0YyPIwOgvYw0BxygPHHoaslhrWzXmVQHP9cRBYsPFvWEDAgs/VFw
-	vzYYxrcFoapOSr8YP6wZW9HBf3pAtVXpUGy+8YTqe0SPwfdbIRWcSelh661+JQ==
-X-Gm-Gg: Acq92OEGUtL7Y7FyXiULwjnFHtG3o9gcOPNq766Z2z1yj8nd7KhLgZA+ddl1chzxOOb
-	KwJ1ZsHlxwO1PdsafVNhUoIqvSiVcK5GvkLrPpydI4+y50nXCAmcbUSo20yiejZ+XMTjYHVV3UH
-	pj9xIKJjdN7PLV4/uaZTvt2672h34iUTJCpHBxwhyvtF8ATWNSreym6AZj8THwMN2U11EzO5E4p
-	efyzSF0/8MC3pyMz5v5FvKRyltWpNesE2XqvD4jMeyNCu6uh89/CSCdlIlvDXDbdgxUL5CxBLP1
-	ZkcOAnTO2cfRmhqs0e8gyC5aWAiragnUbuIoB6ULjPSnivX64vpzQILFAQa12cvpwdSh6p4J6F2
-	YohZyp2l1Tgyz2yqmmTOEjWerN+H5EYp8kGm+JIWPsdj5hziQawK/fCNwR8FO3k65PjffsUDmfL
-	fLjDav+8G0jZwnP+uXOH1bm1flQLMhOxT36aNHL4QDtrvRYU4jZwvU3ZoTJIIQFqY6M9Bv1xU0d
-	f5CTI5amxkrMoE1N3/8zqKHEg/Bcrbs+NmnwJpUZRxvTQv5
-X-Received: by 2002:a05:600c:3107:b0:490:bad8:329c with SMTP id 5b1f17b1804b1-490bad833b6mr28402275e9.12.1780497445402;
-        Wed, 03 Jun 2026 07:37:25 -0700 (PDT)
+        bh=zNJJ9kwWhZqeENPGzU0YRnOooYzBFcKz0B9dMRj627o=;
+        b=dGG7dfFGOrDD+f+Z4Bxcp6ZsC/oEMfNHKrJTStoiW8kUY5Nvh4NlDhJGc8SkBU6qpk
+         tzPvJ3tS7CaIlwX5Iy6DT+WPw0J4tCgW+YimO55q4mjIuBL6Oc1Lsu8cMvyI5k2aRCBx
+         zLT9E6RWlEct7if/jgNuFlB2t0VuLvV6+Dtd5RR9cPmAzRx0QndxuEIr2SJBGGs3bVdO
+         ohQTs26dkkKUxajv6Cfb5PmeDfe/73Ws99V6PRXpBdUQw6zvg5UmZcRKJfMA1eAAglcz
+         S4grxhh66sPGhbZlmJQ7WVHHEDkP2V7yoIZ5RGvg16zfzL3PzjBqBCB2qTLqVF0z1UAX
+         9o9A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780497448; x=1781102248;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=zNJJ9kwWhZqeENPGzU0YRnOooYzBFcKz0B9dMRj627o=;
+        b=ce/24Zh3UOYrVLBG1B9jAj0H7liPql0I+66BC9fyZDWNH3sWmfzNM6D9KYgAfDsAoL
+         RCT+ZaMRvuJ65RSZJKHyCscPWAcQamrCbZpFCqlxcQTH9LklSuQ40uNbNa7AwZYAXFxe
+         lChnsYqGVfAGToDnbIk0OnUIwOtrnpy4MDtj4aFSqAdbjcWqWEWClXJ0YeQ+ked6KHM6
+         O8MbbIMBPJI6c4CRO/b7PyTC786DvC1b20boLECFpE9R1JIBNVPPPpnDruGG0NvMo1l4
+         WRBj4rXsM76rgswAbP4TvzxmYhxjAiBG01f0Am0cASufdU6lJySPg18nVz1Q+iKiFQNI
+         Lgfw==
+X-Forwarded-Encrypted: i=1; AFNElJ95EaQoR+AnzWxyNda8yJ7H2ljcND4HqholdU/cr3RnZ0zq/e/ROo8Sc8LEM1+q8A9I8YJjwJR/xse+@vger.kernel.org
+X-Gm-Message-State: AOJu0YyquebiwmNPzbolvSjPSbjJ3TuisqJkfSqov5YhhOUOUhEdPWcQ
+	OlqWCCpobrU+f99Vwc2+HF+/ppBFCiOV/Z1fRzWBFb6s8LvhVxJnwQG/
+X-Gm-Gg: Acq92OGasXfpiPRERn11Zb+qicU191Y1V/O9GV9QwCgw/hXL0McQjc9IWS4vEe0ivez
+	bkvdBb7WH9/b1PeuxoNmQO2TPk3QUEAq+4/NoiYDyQwaSSAnQcwb2V/J8La3nMMvONeMyuTEYe/
+	B5ain5BUjghldOsBkG5B3TnX23uNjOFPf9+S3+eylf2eo9eocmU6Qc00kt/VGfNRmLfT8VBZLGG
+	8sXTfh6TnFx7NCBHB1v2XPM8rusI7PLybm0A0sc5BS/h8i8eh3YkhUR/H6ShEUzRm5LlynXpmH3
+	auXD8hvT447VXwL+LLW9pieONqiRCjRc+DyZLRsE9+u2RCmSzcnaXc4bP2a6zHmarWl+OSy+kvh
+	Qwe1U+g3F4dMl053cryqfomNRUmQ3K3o/0upklywLmh4CJ9tG4WgTyg5gYvm2ATSBGW3huSJSnR
+	YNDwn04QfdGkz8bDt+Bk9rOTmehEMP+MN9/TAhp908tdPJEdfKpjbO+4/+fthJSaDrDKWV7THKc
+	DIy/Afsm+uwq7NWcfBnpR5dEDhvm/5bBHlnag5eAvve/4hr
+X-Received: by 2002:a05:600c:1392:b0:490:52fb:12dd with SMTP id 5b1f17b1804b1-490b5e8cb8amr58453575e9.10.1780497447770;
+        Wed, 03 Jun 2026 07:37:27 -0700 (PDT)
 Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b6150bfcsm120267855e9.3.2026.06.03.07.37.24
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b6150bfcsm120267855e9.3.2026.06.03.07.37.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 07:37:25 -0700 (PDT)
+        Wed, 03 Jun 2026 07:37:27 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: linux-kernel@vger.kernel.org,
@@ -72,10 +74,12 @@ Cc: pierluigi.p@variscite.com,
 	Sascha Hauer <s.hauer@pengutronix.de>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v3 00/14] arm64: dts: imx8mp-var-som-symphony: align DTS with hardware revision
-Date: Wed,  3 Jun 2026 16:37:07 +0200
-Message-ID: <cover.1780497188.git.stefano.r@variscite.com>
+Subject: [PATCH v3 01/14] arm64: dts: imx8mp-var-som-symphony: add input keys
+Date: Wed,  3 Jun 2026 16:37:08 +0200
+Message-ID: <2a02e17dd1cf516332e2f86e733620d58b9a73b9.1780497188.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1780497188.git.stefano.r@variscite.com>
+References: <cover.1780497188.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -84,45 +88,69 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-This series updates the i.MX8MP VAR-SOM and Symphony device trees to
-better align them with the current hardware configuration.
+Add the Back, Home and Menu keys connected through the GPIO expander on
+the Symphony carrier board.
 
-It adds the missing board peripherals and completes the related pinctrl,
-GPIO and bus configuration.
+Also enable the SNVS power key.
 
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
 v2->v3:
- - Add FlexCAN2 controller support
- - Add FEC controller and MaxLinear MXL86110 PHY support
- - Describe PCIe PERST# reset GPIO
+ - 
 
 v1->v2:
- - Add missing HDMI pinctrl configuration
- - Enable LCDIF3 for the HDMI display pipeline
- - Adjust PCIe controller configuration
- - Update PTN5150 interrupt trigger type
+ - 
 
-Stefano Radaelli (14):
-  arm64: dts: imx8mp-var-som-symphony: add input keys
-  arm64: dts: imx8mp-var-som-symphony: enable USB support
-  arm64: dts: imx8mp-var-som-symphony: add TPM support
-  arm64: dts: imx8mp-var-som-symphony: add external RTC
-  arm64: dts: imx8mp-var-som-symphony: enable header UARTs
-  arm64: dts: imx8mp-var-som-symphony: enable PCIe
-  arm64: dts: imx8mp-var-som-symphony: add HDMI support
-  arm64: dts: imx8mp-var-som-symphony: add capacitive touchscreen
-  arm64: dts: imx8mp-var-som-symphony: enable ECSPI2
-  arm64: dts: imx8mp-var-som-symphony: keep RGB_SEL low
-  arm64: dts: imx8mp-var-som-symphony: enable PWM1
-  arm64: dts: imx8mp-var-som-symphony: enable CAN
-  arm64: dts: imx8mp-var-som-symphony: add second Ethernet port
-  arm64: dts: freescale: imx8mp-var-som: add I2C1 bus recovery GPIOs
+ .../dts/freescale/imx8mp-var-som-symphony.dts | 29 +++++++++++++++++++
+ 1 file changed, 29 insertions(+)
 
- .../dts/freescale/imx8mp-var-som-symphony.dts | 394 +++++++++++++++++-
- .../boot/dts/freescale/imx8mp-var-som.dtsi    |  12 +-
- 2 files changed, 404 insertions(+), 2 deletions(-)
-
-
-base-commit: b3c1d1631f097619f8091f0293e027c4301285d6
+diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+index 291f65e36865..25f707012f62 100644
+--- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
++++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
+@@ -13,6 +13,31 @@ chosen {
+ 		stdout-path = &uart2;
+ 	};
+ 
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		button-back {
++			label = "Back";
++			linux,code = <KEY_BACK>;
++			gpios = <&pca9534 1 GPIO_ACTIVE_LOW>;
++			wakeup-source;
++		};
++
++		button-home {
++			label = "Home";
++			linux,code = <KEY_HOME>;
++			gpios = <&pca9534 2 GPIO_ACTIVE_LOW>;
++			wakeup-source;
++		};
++
++		button-menu {
++			label = "Menu";
++			linux,code = <KEY_MENU>;
++			gpios = <&pca9534 3 GPIO_ACTIVE_LOW>;
++			wakeup-source;
++		};
++	};
++
+ 	gpio-leds {
+ 		compatible = "gpio-leds";
+ 
+@@ -72,6 +97,10 @@ usb3-sata-sel-hog {
+ 	};
+ };
+ 
++&snvs_pwrkey {
++	status = "okay";
++};
++
+ /* Console */
+ &uart2 {
+ 	pinctrl-names = "default";
 -- 
 2.47.3
 
