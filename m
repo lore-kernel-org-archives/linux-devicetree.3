@@ -1,126 +1,104 @@
-Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B73001F4631
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 12:17:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.53
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF8F71F4631;
+	Wed,  3 Jun 2026 12:17:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780489050; cv=none; b=ht00aZwd1NIi1tS2BayD/a9dNC3zwjsd6Ba2c36tON7DqkX+AaZc4VJ3Y1WNcKFd1OC26lcY/oR6NCrUi81zHBB228oDpIrC92aUCVusDPCuZlf+al16shqGFOiXfE8s4C/fU1mZbwI1HqwdwIlzX+noIJfxmeWTUnkwU3RiuF8=
+	t=1780489075; cv=none; b=FwcmM2v0KxGtP+bGix7mwZMpeM/Ca0PEWhxduxGGhJ9R4L/OBNBqAN+FZdhV1Ras3d3vH9ET5k7p/PkHoDqfBTKcPlL9d/dsR4W4P9Qy8ww2QA25/pW6AfryMGmOUdWvG7kWMUpogbdAOvhPDAUS1Dz25esf3UG8YIVp7coiDBw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780489050; c=relaxed/simple;
-	bh=DAw4JxnUtGkEQZ+K5aXpb9DlfRjujHomzxjuX2PxS0Y=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UItymPVjin3R8IU8WfAwul9XKOK16zW6JhHsJoC8qiqrnIwHBFut2vC3DsupVAvp+ugopRlDj+VXx0of4k8y4rDL+rmRC1QKzrQxMe5ff/Y1PfPwGknzX99LwRw8cL25JP2XTczTZt90MhPT8jfBMjmMul+jYLsQBdExQH76VLQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N22U0sio; arc=none smtp.client-ip=209.85.218.53
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780489075; c=relaxed/simple;
+	bh=3b8ojS+wH3roAMNHRcDrF0wXOLt4aC7rq6QhspbwGeA=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=jRkzGF6gxldyQ6HeoHYv99Rmib/bOvvZCGhecm79otieZ/4Kq3c435ZlYxqs9tgDgFCaMnh51HaoReia2cKcoe9jdRLbIIIX+wWmb6gqRDqao0/Ngd5pWSvEB2SruqKlw/fDzy7q2HDDdo1GrEkuvBgxZ6Kjm7Ki2Fkl1txibrk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=b3q7tFjP; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N22U0sio"
-Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-bec43ee8ff0so102131066b.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 05:17:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780489048; x=1781093848; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=mqHxoYQzLKR/tGoWFgMeS9pXy4BlkN8McTt2BqpaK9U=;
-        b=N22U0sioPS90X6oMviNw6Rvq+i6r658Md4yi2s09qkdDNir8emH7yBVMXQKCFPHefO
-         PmLC1SRP63/Ra7yglSf/LwmMVgslqlWEJhlSLtWzhIEv3Yo3a2eaqTBtBnlrvKTGB9aP
-         4zExIGAoxexzrgPNTIajBWxgAlICvgRQjfkgborUDYgMIu6RrLCOxiVONWbom4kle9k/
-         Zdnug/MLCwOsu70dQLJ+p2bu73qAAB5L3sUpWVn0Okqgng+AJh3VBywTWjDbeaa0Vh98
-         Yymp/NywvS2yoGB421Qkw1zHi3rWTvT+mDh1BY4NMGWhwTSdeevrtwR2pHIn80ndhKFH
-         wKhQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780489048; x=1781093848;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:date:from:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=mqHxoYQzLKR/tGoWFgMeS9pXy4BlkN8McTt2BqpaK9U=;
-        b=niArR7prWJPYtkgDcjMgRFQgdg6PemKkz6gkctkqRA1E6ua/d3Zq+5261mvBjXwCg/
-         Zh8dNhDzz23zdp0tNl9eGh3dlqLimr3WQ+fRL0BtC6a3ummNixGqqZgp+ZXB3pPcomUg
-         BReu+ODMosShH6SaV0pi7qrhql+EljOYGJzDiSgjuQZIICpL93u9kCYL7iUFDulWuBv4
-         rkzcR3Pi405Ns05nIMAmWuObb6TqvXZ4CMkMEBqLEL2lXIuJVFvMmIGUem6dxiSVqKFh
-         9IJ9OOg4iT4r8zeHm4Geh80DjlzWKD6KQAiK3HUSmQj3oj+DYZZE4NAUFcQPAr6XcHex
-         HDXQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8z9MV0vFDszILUF+lBkQkFFNt/gocDLWz2YZFKCfBJkJHIsOX1DUbVkm1ktaJ2Vqx0FXNdlc7kaOr/@vger.kernel.org
-X-Gm-Message-State: AOJu0YzxTULWGYzW08VQBjJl3Bv4EOzL9jpNz3Ap3F+MsuOy9swGYhOH
-	itpg7H6Umu+CFiYYrBOAViFFi7ZqVhmTxTzFJ4GZRUD99lQNoto+VGKS
-X-Gm-Gg: Acq92OFhD/WuZpnbxUjYCq93XwAPeGuI6eBvxEULaLvxTXqqWT1f8IuVk8rAHLyUr1d
-	/7c3OsbyQZyuq3cqOIpNSgw24eh2eqe/EWfggvT+hbfnMIxVfUAWHcpzFYfcliC1/0zD5bojYiw
-	8Y5MIftqFIWjXXkmBoVgGxdabYT+0iUDqJ1djmPBUC5gXUdN/Rfu3kTUBbVPSDoQQBlJen7JJ+X
-	7ezeMUkwK+zFvumF23FPi3nFgy4rAYseOz/8tA/tZBwddVCW8PeMm8oaGzVgXSn2K7zK1Qqkp2q
-	y1B2axPvSbaqCZ3ua42m5eb3gz2tJ1TjTMk0Ic1SB7WV3Nr6FcTFhidElDuCc2eftrEgvgOTxb8
-	2+ljdtuEWU13eyMfsjXD6sxjpr1FnBUmWuqagFGu7tEDVTLampDIp4BVJNHTtSHH+la7scHyDW6
-	922dceru0n5pCOM/68NkYIsTC782kF968O0qYHU3J0eQ+oj+qywrh8JHm8vzQ7gBgTicDX2GLZ7
-	Vpx6BM7Ye1t1701E+fc6B23F3lDiGFet+RwziGMV+EhQke/+w==
-X-Received: by 2002:a17:906:6a13:b0:bc1:d3d2:9348 with SMTP id a640c23a62f3a-bf09ea6587emr146364666b.20.1780489047981;
-        Wed, 03 Jun 2026 05:17:27 -0700 (PDT)
-Received: from RDEALENC-L01.ad.analog.com (24.206.116.131.netskope-rdns.com. [24.206.116.131])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf055500875sm139987966b.53.2026.06.03.05.17.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 05:17:27 -0700 (PDT)
-From: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-X-Google-Original-From: Rodrigo Alencar <rdealenc@rdealenc-l01.ad.analog.com>
-Date: Wed, 3 Jun 2026 13:17:25 +0100
-To: Andy Shevchenko <andriy.shevchenko@intel.com>, 
-	rodrigo.alencar@analog.com
-Cc: Michael Auchter <michael.auchter@ni.com>, linux@analog.com, 
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-hardening@vger.kernel.org, Michael Hennerich <Michael.Hennerich@analog.com>, 
-	Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>, 
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 05/12] iio: dac: ad5686: add support for missing power
- supplies
-Message-ID: <p3ydzrkizeysxlzc355xzgeboipihgo45w34uwn7a4lb63jgek@kr5r5hgjh354>
-References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
- <20260602-ad5686-new-features-v1-5-691e01883d27@analog.com>
- <ah8oz29R8mem6H5X@ashevche-desk.local>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="b3q7tFjP"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 8E24FC2BCC4;
+	Wed,  3 Jun 2026 12:17:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780489075;
+	bh=3b8ojS+wH3roAMNHRcDrF0wXOLt4aC7rq6QhspbwGeA=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=b3q7tFjP0DPfgMaZXA4I59zMm2oI+NgqnoVZqn0fqjEu9ip7iTWIyuV3l8BAr0yqi
+	 NHVKg2Ka0lD0SWBdRK4lVl2juTpxdL3jBP87m7eGqYwGO/pz9m+CQURHvr1F7T2GHn
+	 0ajoAICm8rTwPDV/XMpjTnDkZOwOpuDB5dKmTZLvkX7/OFVKcjEPYL0+gYbBkJ0wzv
+	 k2v1Zy0uKxLk5GiArSn4MmS6hpbic2uaKW0U3u1aZ8wMCuy/mY9ODfatBNutjfdjNq
+	 3rWo24pso3l02WE1xK76c/oAdPQ4k+7rlrOZx/+JIRmqCPeZfSx1X7SAam+Eu+fNta
+	 UKlf+q25KxL4g==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 71438CD6E4A;
+	Wed,  3 Jun 2026 12:17:55 +0000 (UTC)
+From: Jian Hu via B4 Relay <devnull+jian.hu.amlogic.com@kernel.org>
+Subject: [PATCH v2 0/2] clk: amlogic: Add A9 AO clock controller
+Date: Wed, 03 Jun 2026 20:17:51 +0800
+Message-Id: <20260603-a9_aoclk-v2-0-f47ea616ee78@amlogic.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <ah8oz29R8mem6H5X@ashevche-desk.local>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAG8bIGoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyjHQUlJIzE
+ vPSU3UzU4B8JSMDIzMDMwNj3UTL+MT85Jxs3aSkNFNjw6TElGQzYyWg8oKi1LTMCrBR0bG1tQB
+ R02h7WgAAAA==
+X-Change-ID: 20260603-a9_aoclk-bbf531badc63
+To: Neil Armstrong <neil.armstrong@linaro.org>, 
+ Jerome Brunet <jbrunet@baylibre.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Xianwei Zhao <xianwei.zhao@amlogic.com>, 
+ Kevin Hilman <khilman@baylibre.com>, 
+ Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+Cc: linux-amlogic@lists.infradead.org, linux-clk@vger.kernel.org, 
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-arm-kernel@lists.infradead.org, Jian Hu <jian.hu@amlogic.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780489074; l=1192;
+ i=jian.hu@amlogic.com; s=20260415; h=from:subject:message-id;
+ bh=3b8ojS+wH3roAMNHRcDrF0wXOLt4aC7rq6QhspbwGeA=;
+ b=ssW7h1gUuATez6aWv+fBCRGzJntpeuLBQ4A8Vrptr7WNRt9/TrgwUOWc2LEco4uYitv/MDWiX
+ KpgiwDA5gRBAqTptP6F69TKi1eT8yDuGO/BaNym0agsgG+nAx6cSItU
+X-Developer-Key: i=jian.hu@amlogic.com; a=ed25519;
+ pk=zHUE+rNtH9z+Sb8au1/elWknjFQmy5QDVkBoxleuOIA=
+X-Endpoint-Received: by B4 Relay for jian.hu@amlogic.com/20260415 with
+ auth_id=735
+X-Original-From: Jian Hu <jian.hu@amlogic.com>
+Reply-To: jian.hu@amlogic.com
 
-On 26/06/02 10:02PM, Andy Shevchenko wrote:
-> On Tue, Jun 02, 2026 at 05:33:52PM +0100, Rodrigo Alencar via B4 Relay wrote:
-> > 
-> > Get and enable regulators for vdd, vlogic and vref input power pins. Vdd
-> > is the input power supply, while vlogic powers the digital side. vref is
-> > replacing vcc, which is being deprecated, but still supported. The value
-> > of vref_mv is checked so that a device without internal voltage reference
-> > cannot proceed without an explicit supply. For correct operation, vdd and
-> > vlogic are required, then devm_regulator_get_enable() is used so the
-> > driver can still work without them by using the stub/dummy regulators.
-> > Error report uses dev_err_probe(), which helps debugging an init issue.
-> 
-> ...
-> 
-> > +	ret = devm_regulator_get_enable_read_voltage(dev, "vref");
-> > +	if (ret == -ENODEV) /* vcc-supply is deprecated, but supported still */
-> > +		ret = devm_regulator_get_enable_read_voltage(dev, "vcc");
-> 
-> >  	if (ret < 0 && ret != -ENODEV)
-> 
-> It can be deduplicated now with
-> 
-> 	else if (ret < 0)
+This series adds Amlogic A9 AO clock support, including dt-binding and AO clock driver.
 
-Not really, because ret is overwritten with
+Signed-off-by: Jian Hu <jian.hu@amlogic.com>
+---
+Changes in v2:
+- Split the A9 clock driver and send the AO clock separately.
+- Rename aobus to soc
+- Use CLK_HW_INIT_FW_NAME to describe clk_init_data
+- Use CLK_HW_INIT_PARENTS_DATA to describe clk_init_data
+- Use a9_ao prefix for MESON_COMP_SEL
+- Correct duandiv name
+- Fix pwm b reg
+- Link to v1: https://lore.kernel.org/all/20260511-b4-a9_clk-v1-0-41cb4071b7c9@amlogic.com/
 
-	ret = devm_regulator_get_enable_read_voltage(dev, "vcc")
+---
+Jian Hu (2):
+      dt-bindings: clock: Add Amlogic A9 AO clock controller
+      clk: amlogic: Add A9 AO clock controller driver
 
-so the check for if (ret < 0 && ret != -ENODEV) is intentional
- 
-> > -		return ret;
-> > +		return dev_err_probe(dev, ret, "failed to read vref voltage\n");
+ .../bindings/clock/amlogic,a9-aoclkc.yaml          |  76 ++++
+ drivers/clk/meson/Kconfig                          |  13 +
+ drivers/clk/meson/Makefile                         |   1 +
+ drivers/clk/meson/a9-aoclk.c                       | 419 +++++++++++++++++++++
+ include/dt-bindings/clock/amlogic,a9-aoclkc.h      |  76 ++++
+ 5 files changed, 585 insertions(+)
+---
+base-commit: ca89c88bcf69daca829044c638a8163d5ce47af0
+change-id: 20260603-a9_aoclk-bbf531badc63
 
+Best regards,
 -- 
-Kind regards,
+Jian Hu <jian.hu@amlogic.com>
 
-Rodrigo Alencar
+
