@@ -1,182 +1,198 @@
-Received: from www537.your-server.de (www537.your-server.de [188.40.3.216])
+Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013045.outbound.protection.outlook.com [52.101.72.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CD1F3DD51C;
-	Wed,  3 Jun 2026 06:14:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.40.3.216
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780467279; cv=none; b=WZTOlyulN3YCgsZ29FXIB4Rp1nOOm0AFh/+Iv5df4LTuS++vN7JChkSJvJ4TO1sYl+QGJ7QZC+YnkZT1oTTypUjaEfJE7czC7OyvLE4P4yA2qp3C3qUTrQPtrH1ROF7TC21Dz3qoaEIksMAyDmUNhoHdpUiuNrBCUm09Ktc+A0w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780467279; c=relaxed/simple;
-	bh=+EkKV6fRcL8CNzedG2Xv5DSrKE4UUBiPO3WTBuC8mLc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Pvq0NquHt1VDnu4Wcf6/OhYq/j4545E243x/me+Ijfx8gHOTOXhLwcrgT39VU0qzx9bsvzifkc9U6o7cfqHOGxRwl2x9zJ6jXSM0CM3DAG5e7Sz3QjOBvmA/Z+IJS0L24jXbF3w9mVPxyeNP6YjtJvXGZ5o8SJMwMMQedkGsIeU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com; spf=pass smtp.mailfrom=ew.tq-group.com; dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b=mybKwaa6; arc=none smtp.client-ip=188.40.3.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ew.tq-group.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ew.tq-group.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 53B40391E7E;
+	Wed,  3 Jun 2026 06:22:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.45
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780467740; cv=fail; b=NJ6y2d9CVPxCVlE/verWcKiO9IoROJcY9P1OfeUuGRw5FTzpG8oxfChsniWfiq+B/pkIN/nERQ+jIRYc6esF1iFoVOjJNjE5ekLf2nlAkNF6asH40vjzfsfyZRrOpiCs5ZNOOYouFFoICK+mtT/2j9gx8Jzi3gQg+/8AkeQ/RTk=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780467740; c=relaxed/simple;
+	bh=UUX2AQZoqVvr1kJajfr3XtLK1VVRhO9glx3O3OQzoiw=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=OWajlEW9FtiLfgn+QP0tgY5TpRuExYBKIIRBj9O4VmZUvz8cxJsxFqeX1NFmqCkY/WEu/3uUlb2g/8AjiCr7VyZFJ6w/S706fnLCnTJSCCHP5N7z53hAIs3e0hDXTIY9CP7MXMl/EmVO96dLRtP3ONLKqtUvHh954L5lVwIw258=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Q+X5c+ot; arc=fail smtp.client-ip=52.101.72.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ew.tq-group.com header.i=@ew.tq-group.com header.b="mybKwaa6"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=ew.tq-group.com; s=default2602; h=Content-Type:Content-Transfer-Encoding:
-	MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:Cc:To:From:Sender
-	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:
-	Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=y607uulUmr2CvX+maPSBeo2KBP9xki0r6+5VJWHdYvU=; b=mybKwaa6U1ItEswUwSRZmjRCrw
-	iHrrj57zxLf+hUxQJy+HH9Ywpsa7ffWFIGHADkkytXwUpe3XAPBPvLC4jo57NT2tuFKPsG4fdF40M
-	v9isdzBXg9tEMl86O9+3xEcLrBNd1uM4ncEan7sNI+G38H6z3i2zpCk9ZApUZrkiIuTXNGztXLHDj
-	f4Ck1hkHHdozzSvuDoDb4mjUrG30Lok8O79K50sHRsa9jLNOGLttCQpbQNKyChWHdNrwelblB/RD7
-	PllGwaowjA/aCPtnmPBf/7P5ShYIyz76XKmPlQi36ERgnsZkwNNhgodUUT1Gy+CdPWcM2ZhjuJbDS
-	h6u4a12w==;
-Received: from sslproxy05.your-server.de ([78.46.172.2])
-	by www537.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96.2)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wUes4-000Goq-1Q;
-	Wed, 03 Jun 2026 08:14:32 +0200
-Received: from localhost ([127.0.0.1])
-	by sslproxy05.your-server.de with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <alexander.stein@ew.tq-group.com>)
-	id 1wUes3-0000R1-18;
-	Wed, 03 Jun 2026 08:14:32 +0200
-From: Alexander Stein <alexander.stein@ew.tq-group.com>
-To: Vladimir Oltean <vladimir.oltean@nxp.com>
-Cc: linux-phy@lists.infradead.org, Ioana Ciornei <ioana.ciornei@nxp.com>,
- Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
- Tanjeff Moos <tanjeff.moos@westermo.com>, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, Conor Dooley <conor+dt@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>
-Subject:
- Re: [PATCH v2 phy-next 13/15] dt-bindings: phy: lynx-10g: initial document
-Date: Wed, 03 Jun 2026 08:14:31 +0200
-Message-ID: <5829252.LvFx2qVVIh@steina-w>
-Organization: TQ-Systems GmbH
-In-Reply-To: <20260602090356.ewl5bezjxyqys6ee@skbuf>
-References:
- <20260529171509.1163787-1-vladimir.oltean@nxp.com>
- <2842502.mvXUDI8C0e@steina-w> <20260602090356.ewl5bezjxyqys6ee@skbuf>
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Q+X5c+ot"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ITelHt/Dlactkc2VocHAvDt/R//z2rbNRsIrJgy7iGWeS+SAFZBWeOzTNAIyAVgxo4kSHQDKcyv9ONYTVrA6pVRsi1N1mrnT7lzuLImlikdmxROpbwEsbK/7EjDqK8xiGQrJhE06puJaKS9eWPKG40ehCZ9WdPk8MIQago3R/xRMHhifad7vHUS2qhdmK/cLKzJUzod1OT3YXXEDf8RNOflnxqE6PmvAvscR/vagyErg0vOyqxiMKELusOy/sezBJbMR/prOal7n0Lv6kJ8AE8pbjriICUXFHasCkfDMYWSyUZPhTQ78LVtXq9TI3trPYpSuLybVJzVDGVdjMx6SvQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=WNrz8O+DKJMeDpCP0o5zRwZfo8TFuydf8s9R099zxUE=;
+ b=Y8Tgx2lDJrrtYwoPi9VXHJ1rbLWWnk+H8V3GT8FZEKkI0ZP6xxo9iIRKrNRh/GRloxB1PwqkQV9IMANJeP2oaUu63gQgwGxqhMHBt+8WG2axhSLSCdShGbHv8a5nvAylcFrsgdc4CaZCPySLWzkZIyV5GrQnxTJHfn8KTiPdVrwUCrR6jxNbVicHLknG9ALAqJHOdJzv3vrd5wLEZbVaV6mZrpItQ6DmEjMqtBD4tqtzB/sHwjyvPNCXnFXB4u/irewo75qnAKYosWYVlF4jBpfqdt1aJYx4XBFEqXbEK1eo0Y3BBd8GrKJdLxXLovf1HpmoEgk90ZuypQdEKOunxw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=WNrz8O+DKJMeDpCP0o5zRwZfo8TFuydf8s9R099zxUE=;
+ b=Q+X5c+ot718HGPJ8NelEe9fqVKygJLJuT9PyXNWhfBR9vVdVS8mcJKABbFZNaCo/EWHA61Kvsn+3Utbk+cJdzxbaALp7dfahjq872HtffVTe6DCLqRyV6JCE3Bp4VtivfN0Kbysz/vBdZ5x5+0fv0K+1FZNtfvUorD1j1oSVFryOkYWp8NtJLas8FT5dLy01ncygdh5NVy2VqBTMyQz32Ri2qoVm/r2YppK9gkYq+aro12GazKnU988nPj0hmz+sCjc+Haey+nXbWUWBBSwNdT8Ddc01Fv7mWKCk4A6A7iw2aQTptzrOg64lTNm6z1xcuRD4enaLPLF8fFqaz9d4aw==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from PAXPR04MB8096.eurprd04.prod.outlook.com (2603:10a6:102:1c7::19)
+ by PA2PR04MB10311.eurprd04.prod.outlook.com (2603:10a6:102:413::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 06:22:16 +0000
+Received: from PAXPR04MB8096.eurprd04.prod.outlook.com
+ ([fe80::68be:f721:5000:3f2d]) by PAXPR04MB8096.eurprd04.prod.outlook.com
+ ([fe80::68be:f721:5000:3f2d%6]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 06:22:16 +0000
+From: hongxing.zhu@oss.nxp.com
+To: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	bhelgaas@google.com,
+	frank.li@nxp.com,
+	l.stach@pengutronix.de,
+	lpieralisi@kernel.org,
+	kwilczynski@kernel.org,
+	mani@kernel.org,
+	s.hauer@pengutronix.de,
+	kernel@pengutronix.de,
+	festevam@gmail.com
+Cc: linux-pci@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v6 0/3] Add root port reset to support link recovery
+Date: Wed,  3 Jun 2026 14:25:07 +0800
+Message-Id: <20260603062510.3767610-1-hongxing.zhu@oss.nxp.com>
+X-Mailer: git-send-email 2.34.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: MA5P287CA0316.INDP287.PROD.OUTLOOK.COM
+ (2603:1096:a01:21a::13) To PAXPR04MB8096.eurprd04.prod.outlook.com
+ (2603:10a6:102:1c7::19)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset="iso-8859-1"
-X-Virus-Scanned: Clear (ClamAV 1.4.3/28019/Tue Jun  2 08:33:27 2026)
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PAXPR04MB8096:EE_|PA2PR04MB10311:EE_
+X-MS-Office365-Filtering-Correlation-Id: cbd361d6-f349-4bd3-5e38-08dec13874f7
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|7416014|921020|6133799003|3023799007|18002099003|56012099006|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	E+BagWV7SH3iGSyaPjgtbOxYNbRsWu5+2VEqb3sjJCsL4PRQlf1z5yfsTJe9ZmvbFldizpYBFmZ8yeM2T0vtUyrwRbAjzoIWfGEnLB/7OoVvt9XxJXRj1nzppxSAR25sPqOqrcJDTBF/S2HefdYKJkUoMJz8kZB8czrBRrWhfa9z/LBnyVqlX2haqQ76oeBLzibvjEle5pq0h+AgpJGwNhgndJ19qcRDXkSr1xqoBhKlP/uXizVHSwngcC7M8fmTatvb5J+jCOuJTcPRs3hYabmQaeTfwoKhy/y8ik7OGC2J0NjBS4K/FF9S68w3/JAPRg95fK/LNaUUhQQ7VkAvTGtAFD+vLbI/4G14Zfb829l5w4PI8kY+U5yjptAoqEWhDa5aWaVKTI5vB0Gpg+746GJ7FNHrm2/JciXlNMCSRobAQaoVnDpjcFSQZDZTlaFQ/IE2R2VA9mX2pOdZDIgJ9mK2dBA6bFlYWWmVfMp/3FAHOWh/u8OxdYvuXNOlV8nP9LbVaACfbEYRoS3wCXCJ/goKkCBRB34CIQ1FWrqr9uu8rbEdumNhNJJ55oFIkyFmn0h4rX8eH6pxG0nQ+yVQ1hvdqWRN3tVWLhU/lEEHbHAU+ZV3GQ5l39iEqXIzToIxqeCRdYF91QuUJ+u7BVmUEKbGHEdhpusFH+eEeH0GPKcffBtRLaxPdB/3rnjsQ4CF77GWeF2LuHmGBAZ7x/CrrzKz5QujS0uGzjN8o507uOo=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PAXPR04MB8096.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(7416014)(921020)(6133799003)(3023799007)(18002099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?5wQcCk5TQImVR3fVX013DbVnqrr9r0cWQYnZkEnhKy5DJbXnl1rhYqTMMODt?=
+ =?us-ascii?Q?Z0KHC2+Ok4QlrcQ4Hl8SMQDSDVBG1Q9qL4Ve7sBqrFQIcZtCcPKlrukzsowq?=
+ =?us-ascii?Q?hwKs2zrx+gi3WoDgeGBZTy+rwDXv8r71elEPm8lUzei1/PxmtyOYWB3SUBOb?=
+ =?us-ascii?Q?JBaqRWAlgcliOpFVvGu6RIaFSVGxX9P+oG7DJlYOqhJ84RFsB7qwMGMiq02C?=
+ =?us-ascii?Q?FLePzxRhrc6b8PyHQt44RCLAqML9AYBzcX6dfPL67SKahncXiMoa1Y0vZVS7?=
+ =?us-ascii?Q?i95x0NX8PiVzoGQWvz/GAusSl53DxfwTpApi7j7wiKB7zEMWJ7EZCJEkUhF+?=
+ =?us-ascii?Q?wAY05QtI3Ml9vRSbRj5MpxgxfHx2/OHtRVLTIdF4/XJ9gOtHPbzjX+/IjL5Z?=
+ =?us-ascii?Q?v6p2dEfrQz84ue4lS9x4wlOZCceUBTHJ/2a9Qfuv0FbJNlfHx9YXQPkoYrhc?=
+ =?us-ascii?Q?fhj/anCfgNroO5lVTf6lH5fIyzZiX6CxRPTQhcFAbfAWq2Ti91g7O3+HfSd2?=
+ =?us-ascii?Q?iP6OqzwImI16AZjLUZlxVXXsmd3DH5EYqwehkyiR+VsWr+TYPjqjp43aOCta?=
+ =?us-ascii?Q?MPMEQyL1M567M9wri0NvRLkwV52PT5nXjl8IM+v/Hwvpl6Rca0qmY0sUZ66w?=
+ =?us-ascii?Q?A/pffi7cy6FvvrHJ23FnhfwvXNpTUEGqIya/IeNUc0Hs5OERiVlgBK2/bPFs?=
+ =?us-ascii?Q?16ifH1DcAO0K+mZ/SRxfdRCEvlo7Kq+4vKV2k8fufgYrzQAWeiC2K20rliDR?=
+ =?us-ascii?Q?fhpe+yfl0zHeJY5VWEgICsivA1J1YeJnuUKgFSQFN11y40r473Ig9Zu30S26?=
+ =?us-ascii?Q?Vd+ssK96W4mfLTdqvjJpMOt7fhFPq7nZxp1jkhovwxJp5Vy3VIXNXEIaX5cX?=
+ =?us-ascii?Q?cV//+XteVAemRGN3ldVgG3q5FblWdMypq9ll5qV1KwbJMDERxgTWbEhlZkqR?=
+ =?us-ascii?Q?dJqNVu8qmWczvDqXWKsN+JVzpLACDze7ZQE1wjn15YmI8ybbn5ZXEfQbDOO+?=
+ =?us-ascii?Q?leSo0MrQHIwdP7PgPZYgJvPplyYtEpQM0ohLuuOIZAOEKWewOpAoXuNXgOIO?=
+ =?us-ascii?Q?WzkwfKs9DtnPYhLzDp4Fy9Ws5PKtjn2j6KS3cpQzbcznP79eBqDjbYVcB5a4?=
+ =?us-ascii?Q?a5K0YtetqOVErRsIDvV/sOAaNITHAbCb8O41YWze83H72RPU07OcFVW6ox/d?=
+ =?us-ascii?Q?624MtiOqEoVA3yAv+tbmKiD+0GJ2Qo6oN2l4jV7T4x4iclt90nipC4PYBXnx?=
+ =?us-ascii?Q?tVF2bxgdnKHE6mfOu7vfRBusf7F3xaTmvPbvB6p64fAYmKE+A4nzp17mxpxa?=
+ =?us-ascii?Q?2GRWd5+OWsQXHzws3NkBr/dqHiwgJbOECig1mrcV8gRwS1u5qSdhSkHfaDmH?=
+ =?us-ascii?Q?DLNDiBPLc1zTnBxWXfB1ps/0qQr7hocwP+iz4Pa9xFGFyzZKesj9Ksv5kTW2?=
+ =?us-ascii?Q?5slRhYbKzngPIh93GRAWTAJ98ak1Kc1tAH1KCXdnTZO22HZUgNRdjAg08EMK?=
+ =?us-ascii?Q?d+YBnxt/tSKb/OmojFZ9VVDNs+AQfrv25fzMu4IACuCRAKkX2vY5Z1vozncJ?=
+ =?us-ascii?Q?6NAExP/C/uCTZcbEuMdbULYAuYYcyj+hB/xMZ6UrvEi3FpnnRsuqFrS9YDt4?=
+ =?us-ascii?Q?G2A/XIio7cqklLwC80ryBZkHLc6R9wS7Lv8YnUHu+KBeCiBmddI4hOU1VVbF?=
+ =?us-ascii?Q?c2ebL94KpiAQnsJmvibpAJ93q9+ouTKzzoripHMWqCw7UEFRujAhk6JKc++6?=
+ =?us-ascii?Q?AU7v9LsW09AA544Pgb1Ek1sqlviP39G1hLO7lbsRKKscdnj1I9Hb?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cbd361d6-f349-4bd3-5e38-08dec13874f7
+X-MS-Exchange-CrossTenant-AuthSource: PAXPR04MB8096.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 06:22:16.1142
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: vqU4DmcKVbyzXx1NwX0/rpFQ3d9TPpfBRolxmozFRrUIU4ovGuGUYq8cSjq/hXYuGlz/DKUFZkY7iRknIXJ8pRreEV98WA9PvfHzQ6ULSIPEEayqqF7FQcYUAHXy7/pz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA2PR04MB10311
 
-Hi Valdimir,
+Based on the following patch-set[1] issued by Mani.
+Add support for resetting the Root Port for i.MX PCIe to enable link recovery.
 
-Am Dienstag, 2. Juni 2026, 11:03:56 CEST schrieb Vladimir Oltean:
-> Hi Alexander,
->=20
-> On Mon, Jun 01, 2026 at 08:34:25AM +0200, Alexander Stein wrote:
-> > Hi,
-> >=20
-> > Am Freitag, 29. Mai 2026, 19:15:07 CEST schrieb Vladimir Oltean:
-> > > Add a schema for the 10G Lynx SerDes. This is very similar to the mod=
-ern
-> > > form of the 28G Lynx SerDes, which is very much the intention.
-> > >=20
-> > > We allow both forms of #phy-cells =3D <1> in the top-level provider
-> > > and #phy-cells =3D <0> in the per-lane provider for more flexibility =
-to
-> > > consumers, and because the kernel code is shared with the 28G Lynx wh=
-ich
-> > > already has that support for compatibility reasons.
-> > >=20
-> > > Signed-off-by: Vladimir Oltean <vladimir.oltean@nxp.com>
-> > > ---
-> > > Cc: devicetree@vger.kernel.org
-> > > Cc: Conor Dooley <conor+dt@kernel.org>
-> > > Cc: Krzysztof Kozlowski <krzk+dt@kernel.org>
-> > > Cc: Rob Herring <robh@kernel.org>
-> > >=20
-> > > v1->v2:
-> > > - move patch later in series, right before driver
-> > > - deliberately ignoring this Sashiko feedback:
-> > >   https://lore.kernel.org/linux-phy/20260529125017.ifqunh52gdzhthdg@s=
-kbuf/
-> > > ---
-> > >  .../devicetree/bindings/phy/fsl,lynx-10g.yaml | 131 ++++++++++++++++=
-++
-> > >  1 file changed, 131 insertions(+)
-> > >  create mode 100644 Documentation/devicetree/bindings/phy/fsl,lynx-10=
-g.yaml
-> > >=20
-> > > diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml =
-b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-> > > new file mode 100644
-> > > index 000000000000..993f076bba4e
-> > > --- /dev/null
-> > > +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-> > > @@ -0,0 +1,131 @@
-> > > +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> > > +%YAML 1.2
-> > > +---
-> > > +$id: http://devicetree.org/schemas/phy/fsl,lynx-10g.yaml
-> > > +$schema: http://devicetree.org/meta-schemas/core.yaml
-> > > +
-> > > +title: Freescale Lynx 10G SerDes PHY
-> > > +
-> > > +maintainers:
-> > > +  - Vladimir Oltean <vladimir.oltean@nxp.com>
-> > > +
-> > > +description:
-> > > +  The 10G Lynx is a multi-protocol SerDes block which handles networ=
-king, PCIe,
-> > > +  SATA and other high-speed interfaces. It is present on most QorIQ =
-and
-> > > +  Layerscape SoCs. The register map is common, but the integration is
-> > > +  SoC-specific, with the differences consisting in register endianne=
-ss, the
-> > > +  number of lanes, protocol converters available per lane and their =
-location in
-> > > +  the PCCR registers. Some SoCs have multiple SerDes blocks and thos=
-e differ in
-> > > +  their protocol capabilities per lane.
-> > > +
-> > > +properties:
-> > > +  compatible:
-> > > +    description:
-> > > +      There is intentionally no generic fsl,lynx-10g compatible stri=
-ng due to
-> > > +      the hardware inability to report its capabilities, despite hav=
-ing a
-> > > +      common register map.
-> > > +    enum:
-> > > +      - fsl,ls1028a-serdes
-> > > +      - fsl,ls1046a-serdes1
-> > > +      - fsl,ls1046a-serdes2
-> > > +      - fsl,ls1088a-serdes1
-> > > +      - fsl,ls1088a-serdes2
-> > > +      - fsl,ls2088a-serdes1
-> > > +      - fsl,ls2088a-serdes2
-> >=20
-> > Silly question: What about LS1043A? AFAIK it has a single serdes block.
-> >=20
-> > Best regards
-> > Alexander
->=20
-> My understanding is that hardware validation for LS1043A was not
-> budgeted for the main two features why the lynx-10g driver is necessary:
-> RCW override for 1G <-> 10G dynamic protocol switching and KR link
-> training. As such, this SoC isn't supported by the SerDes driver in the
-> NXP BSP either. With the exception of 1G <-> 2.5G minor protocol
-> switching, having a lynx-10g driver would not be very useful for the
-> LS1043A as is, without a procedure from h/w validation to do RCW
-> override.
+[1] [PATCH v8 0/5] PCI: Add support for resetting the Root Ports in a platform specific way
 
-Thanks for the explanation. If there is no need for serdes driver then good.
-I was just wondering why ls1043a was not in the list, although it's quite
-similar to ls1046a.
+PCIe links can go down due to various unexpected circumstances. This patch series
+adds root port reset support for link recovery on i.MX PCIe controllers when the
+optional "intr" interrupt is present.
 
-Thanks and best regards,
-Alexander
-=2D-=20
-TQ-Systems GmbH | M=FChlstra=DFe 2, Gut Delling | 82229 Seefeld, Germany
-Amtsgericht M=FCnchen, HRB 105018
-Gesch=E4ftsf=FChrer: Detlef Schneider, R=FCdiger Stahl, Stefan Schneider
-http://www.tq-group.com/
+When a link down event is detected, the root port reset uninitializes and
+reinitializes the PCIe controller, then restarts the PCIe link.
 
+On i.MX95 platforms, link events and PME share the same interrupt line.
+Link event interrupts cannot use only an IRQ thread handler because the PME
+driver uses request_irq() to bind the PME interrupt directly with only the
+IRQF_SHARED flag set.
+
+To address this, we register one handler with IRQF_SHARED for link event
+interrupts and manipulate the enable bits of link events to ensure the same
+interrupt source is triggered only once at a time.
+
+Additionally, this series adds 'intr', 'aer', and 'pme' interrupt entries to
+the i.MX6Q PCIe binding to support PCIe event-based interrupts for general
+controller events, Advanced Error Reporting, and Power Management Events
+respectively.
+
+Changes in v6:
+- Use conditional constraints (if/then schema) to specify that these three
+optional interrupts are only valid for the i.MX95 variant, while other
+variants like imx6q should not have them.
+- Change lnk_intr data type from u32 to int to properly handle negative
+error codes returned by platform_get_irq_byname_optional().
+- Replace platform_get_irq_byname() with platform_get_irq_byname_optional()
+to suppress unnecessary error messages when the optional link event IRQ is
+not present in the device tree.
+- To avoid inadvertently clear the pending W1C status bit, clear the W1C
+bit firstly, then do the regmap_clear_bits().
+
+Changes in v5:
+- Update the commit message of the first dt-binding patch for clarity.
+- Add explicit comment explaining that writing 1 to IMX95_LINK_DOWN_INT_STS
+clears the bit
+
+Changes in v4:
+- Set these new added three interrupts as optional interrupt.
+
+Changes in v3:
+- Don't add a new if:block; Drop the maxItems constraint of the interrupts
+  property for i.MX95 PCIe.
+- Add constraints for the interrupts property for other variants.
+- Regarding the ABI break: add descriptions explaining why these new
+  interrupts are mandatory and required by i.MX95 PCIe.
+
+Changes in v2:
+- Constrain the new added three interrupt entries to be valid only for the
+  i.MX95 variant using conditional schemas
+
+
+[PATCH v6 1/3] dt-bindings: imx6q-pcie: Add optional intr/aer/pme
+[PATCH v6 2/3] arm64: dts: imx95: Add dma, intr, aer and pme
+[PATCH v6 3/3] PCI: imx6: Add root port reset to support link
+
+Documentation/devicetree/bindings/pci/fsl,imx6q-pcie.yaml |  29 +++++++++++++++++++++
+arch/arm64/boot/dts/freescale/imx95.dtsi                  |  16 +++++++++---
+drivers/pci/controller/dwc/pci-imx6.c                     | 123 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+3 files changed, 164 insertions(+), 4 deletions(-)
 
