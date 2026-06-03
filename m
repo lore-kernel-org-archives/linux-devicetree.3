@@ -1,210 +1,293 @@
-Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010016.outbound.protection.outlook.com [52.101.228.16])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B486939A809;
-	Wed,  3 Jun 2026 07:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.16
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780470030; cv=fail; b=KUnpvLk49H9q03cQH/Tgcd4siYaL7ZaoIjR09+jfruQMZ6WdQIedRTLodGzPF3BKksNBVm+J+MazE1EmsEoFG+r537n4qoXDezj1QZCdZFfYKnuf/DhoKG2daow1taIu4N12kznH6agEIUr5ZWEFsyRziqZPAaEckpzjN1ESCvw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780470030; c=relaxed/simple;
-	bh=K2b33TFMYP/mGQaBoJ/2twkoVauU6XmQezDClIXL+2g=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=XeV+XoCA6gim9ZGfcDo3XHn+ReAxPJSljeFQ7Dxe4CmFovrrBG31DTC+wvArWhOLpPVyovVGvoEOC4LBheTHpFgLPuIldPOGJHzMHX8xcZi5An5dVEyelTwsSprZlA1ZWeAsQDjuB7zmUUQRIjldYNCqZ8fKKd74f+4ElhAMLbc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=DLP2LTlj; arc=fail smtp.client-ip=52.101.228.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA0F2C08BC;
+	Wed,  3 Jun 2026 07:05:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780470335; cv=none; b=gJirvYo0Vm3Q/gZ+4D3CcCs0ZKoB+PrzjnIDNsvGNkcj2N0Ialy36Svwf+brysZ/6juoeVPFxOycOPkawMH6MhfDoxu1PG8VhnXJoKWaBvA07+HyRVFIzbQPL/HL0qcsE+/KwKOmsowEDpUfrGELuYgkKiIk10tjLXeyl94JN2U=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780470335; c=relaxed/simple;
+	bh=obhaxkDBbofL2T3y02WGHzlUpfinhZPfwomPxGaN1FQ=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=K9zqILxPlbmQjyDsT12YNeZwk8VjodL5zKX+CH58KtlyKGcm8p7AJkNClAg0zDNFOfQoFQ+wiTGgeSLIBBuKhXpfPe/QGz+ITWF4r+JSTNp3ygcE62tDqS85sJFAGV/9WubHzMdTCLt/tGlJ/7w2/LudO2HuChJeyW+qwFZLdfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JPasc9NF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="DLP2LTlj"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=BQ1KajVozkY2QqdQmfpNld9C/DXKIGdgRnNbbNGl3CzxDNW7KfhpzYdMDUgld9DITtPy3wlCux83U/vJp+q73dKlbl3iziG54FQ8yGcjmjXKYkEzFCgcvZkezblDaGlLxubqb08hKso0Cpr2bleuk4t2vwINgWvAn4j4jzzPeOYgkTNJdezWm2sHBG11qOkZH3p54okUaW0yXsJ5PvuGA+VELg27iWq+cbzFGkPh2aUXw3+O4ROgyWvzS/sLBvVsqI/kHVdv++DoBMkhjV3+zLDZYIRtRhIqsmKf0b18b7bpdCX/PPywUIjbejBD++Zsf/7InQLysi3Ta2L7165lFQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DiIxKhKrGdKIkro4B5UKPgxa2hFzFr/eewdMG3IWG2Y=;
- b=HHeGT//Oa3lOyTQFldQB6beleAQHNVgSU2qThifsirdZOhiL/TAYTuhxlVJGFqxh3qBUIdQz39J2pu56jpN6RVbrv1T1YoFhnQE1bEzoaKYXs7KIDp774gF4ky/jx8iIjl4psn0v3a27YDVAe6Pju8todmkIfHRZ8d9xniPmDadBQWDYuAVegcI3z87cC34ka4SRW+7GvuUSEg++3NrigTwG+AfWxsw9VByJfHJ04yD/QpN3wU44IvqjkJVGW0d4ne9YPzg0RmAz7LTsp6nyOkF1VnQWRw5uT6sqNBluSelFXq8VsFisVwVLh25Sxl3ZGuqliaeu0o6DxpMzQ1HHgA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
- header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DiIxKhKrGdKIkro4B5UKPgxa2hFzFr/eewdMG3IWG2Y=;
- b=DLP2LTljYCMQy3fTd/6HR7dmISBQ/BXMV5jshGqD+KETY25qpBuhGudLOnx5Nl1oP04XkGOrxzyzkyEdTf64mFPuNyHLUWIgS8ZrHO5mXYR0+YafvByp4Ap4YziVDRxtbPM23Ic/X1la5bKUVYw1UoD2soi6CQ2RBo2+Ftl4qxg=
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
- by TYVPR01MB10700.jpnprd01.prod.outlook.com (2603:1096:400:2ad::7) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Wed, 3 Jun 2026
- 07:00:17 +0000
-Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
- ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 07:00:17 +0000
-From: Biju Das <biju.das.jz@bp.renesas.com>
-To: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
-	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>
-CC: wsa+renesas <wsa+renesas@sang-engineering.com>,
-	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
-	<biju.das.au@gmail.com>
-Subject: RE: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
-Thread-Topic: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
-Thread-Index: AQHc8yZFMuP1bVIRGUixq2TgdBuPhLYsZmtg
-Date: Wed, 3 Jun 2026 07:00:16 +0000
-Message-ID:
- <TY3PR01MB11346485C16AFB6299B1711FD86132@TY3PR01MB11346.jpnprd01.prod.outlook.com>
-References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
-In-Reply-To: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
-Accept-Language: en-GB, en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=bp.renesas.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYVPR01MB10700:EE_
-x-ms-office365-filtering-correlation-id: b36f8cdb-c7ea-46de-330e-08dec13dc489
-x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|1800799024|366016|7416014|376014|18002099003|22082099003|11063799006|56012099006|38070700021;
-x-microsoft-antispam-message-info:
- GVJqJyBQjkRrkcnYHhHL3ffXz/4NWyiancB4lC+GfRyEv9wCgGKyxHJFz5oESQl0L3nNrxjvao/tIjQ85w6HVZyA9aElhML+fuSv3xLvs9IR52zPU+2y0++VTsCtLBp5dWiwpt0FT0dn4yfgeY2ibmQ2FHQufqeyDrN/n8UcLNGwrNaGxrIECMIJBANm2u5bI8abok+YPpxdvHrrDOM/6OiENOhOXuOFvL1oq13ZYRRFJXwKD6imGAPsJF9keSS9OfRwxa27evhDWu19hlr2Ol1oNPoky4Nch/azaBsG7dGBoMsIyEATt2bd6lxU2iTXQZcNJuh0XlJCqL1ba/oJRLpZ5xbs6Ipcpxt9OaZmNpDSV/kh8YTKh80sY0yG+9kf2zzW0dQz2SEarp6hlxbuZHKDeagZFaVMFuJs/yWLF63dUJkyf+uIKXKKliUCGVlkmj4I5PLcIH9WAZioW4Iqsc9J4YLWJy21xKoVmWbB2mWpxnxooE8c/yQ31U7sguzqKlTKp+C4jepv6ojquNHi7A4cnEe+Flth1a5xaHHnJvlxfeliY/t7HrE7tMRYem35Y4QigDZSfupOja3NurPyeMWjFf2miHNMFT9cTGAnS/61A4N9LrxFaebe74KaiOc9yHpLaroWQ8faNGTs7rNLzfK0HOnc/gk7m72UUMnzqo+rFzS0QXvG9d2wxI/WLXuI9CWLx/mHANHc2Rm7/vAETVr/GRBk7FpPyp5pok8um2iNWGFQLGNUNoo3zD/IG9Cj
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?us-ascii?Q?tKfdwOVIidh0Alxq+yugujhFtRuHnAJfhtvgSJOETP4WWgmuK18JVIjch8Jf?=
- =?us-ascii?Q?3505sId9keyR+5FK4c3xiKSLzLM7Rand8AZRFgl6aj0L0yrIu9pZHOfSG10K?=
- =?us-ascii?Q?VcGFdavfOmr1loi+lpnmqgbmreqJP053kwCXmzO+pGRc8NP+QujpUiC/baXp?=
- =?us-ascii?Q?Yd2W0+nSuX19Pv9iC+heGOuq2kB0NjAX8bHv1NvaccAhWcQjxp466kJCN/my?=
- =?us-ascii?Q?q5aYBmyMKSqE7sLYeulB02516Hs9SprtjLZNqthUqIxHMbljuyqRJTYcQb7B?=
- =?us-ascii?Q?Sf52RtWvR1/D0uVZOJvPBmT0oKeY4bOylXljDx3s5hud6uRrWXW4TypOpI3q?=
- =?us-ascii?Q?DmYZDBX4eedS/hYtq3oMdLSA+LfMPy6P+QnF0cWWa64+Hlp7MVdvyXMeA8Qf?=
- =?us-ascii?Q?g0fiwJxoJgGPS8LTFlnQAY0dZjyGfYnTdBC69KUj9poSlngCGQRxfrUp6MIr?=
- =?us-ascii?Q?Izu0q7sUQMTRCXYvpTloNhsZOw+mGjOhC5hkpzJgaecd5UbtMkyAZukuWgtA?=
- =?us-ascii?Q?BdYnaee/x4cQFIv36LwlE/2ig9w4Cw3WG9C6s5vdUpgVMX7KaIdmuO42u440?=
- =?us-ascii?Q?mk4R0YTQm5RCTzThDiB5cM94jUY9psfl7gSrKk6uZLjUKAdBG42p5yf2rXWO?=
- =?us-ascii?Q?BE9oLxHepAFULd0Vw9+AM9mqISf1QaKp3vslh6jpVKd7XVKEFXEAv/e1f6hT?=
- =?us-ascii?Q?3DGp8v5BxGivejsqV5wOLsNKKTpoJ5VDfcPU74r5k1HW7cfSesas01vjk09a?=
- =?us-ascii?Q?bLZs3EyhcdLJDw0nkaj/XAWW7UHzf1yge18rM+UXL2Nhdp18KmkIS/8u6JP6?=
- =?us-ascii?Q?CWZUHWg1Ys7OJE4WKdPI20tiz9w2XGoXGMyp4wj7SGb1jmufllw080Dly/T/?=
- =?us-ascii?Q?56r56TtKMc3RRm6I36kJHJS/hEnDvYpiP1sEzvO9ApObdNJV+f/AmoMO19hy?=
- =?us-ascii?Q?5pz5uAw/mNBayOOE0UAi6BReXJ2OIv+5O99LGMN1ce/TFoJqTU1Tcf/eJlws?=
- =?us-ascii?Q?h1LHlyffMh+2utmaTxj/qylFaW/t2C+tDELP4P+FA2sHc2cAUgVYXqNaGs9k?=
- =?us-ascii?Q?K5h02WjxoLeGGBCA0/Ue3ZRe/MCFvoMIhMjk9dKZ+rviltGxIyQRjcOtSwgi?=
- =?us-ascii?Q?MNFcbf7Av8VoGG1H3UfRmccDM72M2lXwa7U9IEz25oQQ+x/4P29XJQ7hBWOT?=
- =?us-ascii?Q?XSHfkQ0qgupIomN2VBirqiU+uQwZSCLoso/dO2mDoCHspbIwCrC8LGK79fpo?=
- =?us-ascii?Q?fqyyfOhnJAeoBuhwYbqcwNuTV2uvdf9UnQsMWSiChUnFwCSBKN3GAq1naR3x?=
- =?us-ascii?Q?m0Vh0Zms+tAQAqvpgVjJ0h+/beLukUvCUOSqXfL2Aqp9rMT5X0YL2JU9qMde?=
- =?us-ascii?Q?A/hd01ZBY+tPcWZe1zpFLrSTcTOJJR7oJBlzs0xj9eWTiaabWwsFAWZuTTT7?=
- =?us-ascii?Q?mmgEsZbmZXbpeUFwGK/GXJSns0gCLpNfuiTs3v94023O66Ee14rI9p5rJVl9?=
- =?us-ascii?Q?SPiblHyTKJD5sNfmg5jwMBfEguxSfZmyVo+sKwwLD1p2rkygCAOne5AHwG59?=
- =?us-ascii?Q?etJzKIMfVG6TQnkVrnGy1m4JWj2QjCZqZj52F4SMmrCbnScCZzeQQ2bjuVm7?=
- =?us-ascii?Q?ziw9KmLNmql1mdGlReR1S2oQYZA+w2jQukYb28FW/mMcJMeNP+bdHHZkktS5?=
- =?us-ascii?Q?oNf1ibja2Z5bOxdB6+45Z/UJWPE77004pCblzLrpe/hb6oBJRlHMe2q2PHvZ?=
- =?us-ascii?Q?LP/eYVyhbw=3D=3D?=
-Content-Type: text/plain; charset="us-ascii"
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JPasc9NF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641461F00893;
+	Wed,  3 Jun 2026 07:05:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780470333;
+	bh=1KSrGaZqDQ3Mx4+dmtoKcc8eUVkR3wqHBa3kGRLwpZU=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=JPasc9NFlnGw3KzoaiNRW9/m/7zcCXDe+xo36qT6yyoqnSVgQELmvw2zDc9R+IINL
+	 LJ5ORgr4sbFZ8sQSo6v+UK/vPzBt2HG3vrbr4CMd7Fj9wQYAgXQar/1S8gxQE/aM/a
+	 7xJuKgIic+5xqxNrOHlAwd0vXAuqu4A/hyhuQKvk6yxO93NegGC7AVQI8LfdcJQcFX
+	 1P+84QPcS71aDTeFN/AtpmZpB/neKZRljmeX06/HHkyVkp16ttF3E7Ps/3ZwuFIc4x
+	 ZwRjn3gZn1jZe4ptANtPQ6/gZlIo/4imlVrRJmxQVZTN5/z0ORUbTOo5MzxGvr9JTj
+	 0c76M5DHbaHqA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v6 3/3] PCI: imx6: Add root port reset to support link
+ recovery
+Reply-To: sashiko-reviews@lists.linux.dev
+To: hongxing.zhu@oss.nxp.com
+Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, linux-pci@vger.kernel.org
+In-Reply-To: <20260603062510.3767610-4-hongxing.zhu@oss.nxp.com>
+References: <20260603062510.3767610-4-hongxing.zhu@oss.nxp.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 07:05:32 +0000
+Message-Id: <20260603070533.641461F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-OriginatorOrg: bp.renesas.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: b36f8cdb-c7ea-46de-330e-08dec13dc489
-X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2026 07:00:16.6904
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: heey/y1ha56ZBEGrswOYiiqtFh/UMLAxlYWa5flyCdknJ/SK5Le/pi+iCWMoapGZafZAD8Pk9tZ7BJ07+B1uS10h5POxsdY2rNxcaXuCJ/E=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB10700
 
-Hi all,
+Thank you for your contribution! Sashiko AI review found 9 potential issue(=
+s) to consider:
+- [High] Read-modify-write operations on mixed RW/W1C register silently dro=
+p interrupts.
+- [High] Shared interrupt handler checks status but fails to verify if the =
+interrupt is enabled.
+- [High] Ignored return value of `dw_pcie_wait_for_link()` hides downstream=
+ link recovery failures.
+- [High] Lockless traversal of PCI bus devices in an asynchronous IRQ threa=
+d exposes the kernel to Use-After-Free and list corruption.
+- [High] Link down interrupt is not disabled during system shutdown, causin=
+g an AXI bus fault and system hang.
+- [High] Failed root port reset leaves the controller unclocked while still=
+ active, causing a crash on subsequent PM suspend.
+- [High] Unprotected hardware indirect register access during root port res=
+et.
+- [Medium] Ignored negative error codes from `platform_get_irq_byname_optio=
+nal()` break probe deferral.
+- [Low] Build failure due to undefined functions and struct members.
+--
 
-Please ignore this series as by mistake instead of patch series 2
-I mentioned it as Patch series 17.
+commit 5bee25b25210b0bc28349bc8474d10204a25cd72
+Author: Richard Zhu <hongxing.zhu@nxp.com>
 
-I will fix the issue soon.
+PCI: imx6: Add root port reset to support link recovery
 
-Sorry for the inconvenience.
+The PCIe link can go down due to various unexpected circumstances. Add
+root port reset support to enable link recovery for the i.MX PCIe
+controller when the optional "intr" interrupt is present.
 
-Cheers,
-Biju
+> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controll=
+er/dwc/pci-imx6.c
+> index 773ab65b2afac..aa5c90be23df8 100644
+> --- a/drivers/pci/controller/dwc/pci-imx6.c
+> +++ b/drivers/pci/controller/dwc/pci-imx6.c
 
-> -----Original Message-----
-> From: Biju <biju.das.au@gmail.com>
-> Sent: 03 June 2026 07:57
-> Subject: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
->=20
-> From: Biju Das <biju.das.jz@bp.renesas.com>
->=20
-> RZ/G3L SoC has:
->=20
-> Channel 0 supports SD and eMMC (including HS400/HS400ES).
-> Channel 1 supports SD and eMMC (except for HS400).
-> Channel 2 supports SD.
->=20
-> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does n=
-ot support IOVS and PWEN in
-> the SDHI register (no internal regulator), unlike SD1 and SD2. It has an =
-internal divider for all
-> modes except HS400.
-> It also has a 2048-bit divider compared to 512 on others. Moreover RZ/G3L=
- supports HS400 enhanced
-> strobe mode.
->=20
-> v1->v2:
->  * Collected tag for binding patch.
->  * Resending the series as there is an issue with patch threading from
->    patch #14.
->=20
-> Biju Das (17):
->   dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
->   clk: renesas: r9a08g046: Add clock and reset entries for SDHI
->   pinctrl: renesas: rzg2l: Add SD channel POC support for RZ/G3L
->   mmc: renesas_sdhi: Fix whitespace alignment in struct
->     renesas_sdhi_of_data
->   mmc: renesas_sdhi_internal_dmac: Fix whitespace alignment in struct
->     initializer
->   mmc: renesas_sdhi: Introduce renesas_sdhi_hw_info to abstract clock
->     mask
->   mmc: renesas_sdhi: Add max_divider to renesas_sdhi_hw_info
->   mmc: renesas_sdhi: Add tuning_delay hw_info flag
->   mmc: renesas_sdhi: Add internal_divider hw_info flag for clk rate
->     adjustment
->   mmc: renesas_sdhi: Add optional axis/axim reset controls
->   mmc: renesas_sdhi: Add RZ/G3L SDHI support
->   mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
->   mmc: renesas_sdhi: Add RZ/G3L HS400 support
->   mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
->   arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and
->     SDHI1 pincontrol on SMARC EVK
->   arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
->   arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
->=20
->  .../devicetree/bindings/mmc/renesas,sdhi.yaml | 101 ++++++--
->  arch/arm64/boot/dts/renesas/r9a08g046.dtsi    |  73 +++++-
->  .../boot/dts/renesas/r9a08g046l48-smarc.dts   |  89 +++++++
->  .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 199 +++++++++++++++
->  drivers/clk/renesas/r9a08g046-cpg.c           |  92 +++++++
->  drivers/mmc/host/renesas_sdhi.h               |  25 +-
->  drivers/mmc/host/renesas_sdhi_core.c          | 226 +++++++++++++-----
->  drivers/mmc/host/renesas_sdhi_internal_dmac.c |  71 +++++-
->  drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  67 ++++--
->  drivers/pinctrl/renesas/pinctrl-rzg2l.c       |  74 ++++--
->  10 files changed, 889 insertions(+), 128 deletions(-)
->=20
-> --
-> 2.43.0
+[ ... ]
 
+> @@ -1394,6 +1401,13 @@ static int imx_pcie_host_init(struct dw_pcie_rp *p=
+p)
+> =20
+>  	imx_setup_phy_mpll(imx_pcie);
+> =20
+> +	/*
+> +	 * Callback invoked by PCI core when link down is detected and
+> +	 * recovery is needed.
+> +	 */
+> +	if (pp->bridge)
+> +		pp->bridge->reset_root_port =3D imx_pcie_reset_root_port;
+
+[Severity: Low]
+Does the reset_root_port member actually exist in struct pci_host_bridge?=20
+This appears to cause a build failure since the struct member is undefined.
+
+[ ... ]
+
+> @@ -1661,6 +1675,9 @@ static int imx_pcie_suspend_noirq(struct device *de=
+v)
+>  	if (!(imx_pcie->drvdata->flags & IMX_PCIE_FLAG_SUPPORTS_SUSPEND))
+>  		return 0;
+> =20
+> +	if (imx_pcie->lnk_intr > 0)
+> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
+> +				  IMX95_LINK_DOWN_INT_EN);
+
+[Severity: High]
+Since IMX95_LINK_INT_CTRL_STS mixes an RW enable bit and a write-1-to-clear=
+=20
+status bit, will using regmap_clear_bits perform a read-modify-write cycle=
+=20
+that inadvertently clears pending status bits if they are latched during th=
+e=20
+read?
+
+[ ... ]
+
+> +static irqreturn_t imx_pcie_lnk_irq_isr(int irq, void *priv)
+> +{
+> +	struct imx_pcie *imx_pcie =3D priv;
+> +	struct dw_pcie *pci =3D imx_pcie->pci;
+> +	struct device *dev =3D pci->dev;
+> +	u32 val;
+> +
+> +	regmap_read(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS, &val);
+> +	if (val & IMX95_LINK_DOWN_INT_STS) {
+
+[Severity: High]
+Is it possible for this shared interrupt handler to be invoked while the=20
+interrupt is disabled, see the latched status bit, and erroneously return=20
+IRQ_WAKE_THREAD?=20
+
+If a PME interrupt fires while the link down interrupt is intentionally=20
+disabled, the ISR will still claim it. Would it be safer to check if=20
+IMX95_LINK_DOWN_INT_EN is also set before proceeding?
+
+> +		dev_dbg(dev, "PCIe link down detected, initiating recovery\n");
+> +		/* Clear link down interrupt status by writing 1b'1 to it */
+> +		regmap_set_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
+> +				IMX95_LINK_DOWN_INT_STS);
+
+[Severity: High]
+Similar to the regmap_clear_bits call above, could using regmap_set_bits he=
+re=20
+perform a read-modify-write cycle that inadvertently clears other pending=20
+write-1-to-clear bits in the same register?
+
+> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
+> +				  IMX95_LINK_DOWN_INT_EN);
+> +
+> +		return IRQ_WAKE_THREAD;
+> +	}
+> +
+> +	return IRQ_NONE;
+> +}
+> +
+> +static irqreturn_t imx_pcie_lnk_irq_thread(int irq, void *priv)
+> +{
+> +	struct imx_pcie *imx_pcie =3D priv;
+> +	struct dw_pcie *pci =3D imx_pcie->pci;
+> +	struct dw_pcie_rp *pp =3D &pci->pp;
+> +	struct pci_dev *port;
+> +
+> +	for_each_pci_bridge(port, pp->bridge->bus)
+
+[Severity: High]
+Is it safe to iterate the bus list locklessly in this IRQ thread?=20
+Could concurrent modifications to the PCI bus list cause a use-after-free=20
+since the pci_bus_sem is not held?
+
+> +		if (pci_pcie_type(port) =3D=3D PCI_EXP_TYPE_ROOT_PORT)
+> +			pci_host_handle_link_down(port);
+
+[Severity: Low]
+Does the pci_host_handle_link_down function exist in the tree? This appears=
+=20
+to be an undefined function call which will cause a build failure.
+
+> +
+> +	regmap_set_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
+> +			IMX95_LINK_DOWN_INT_EN);
+> +
+> +	return IRQ_HANDLED;
+> +}
+> +
+> +static int imx_pcie_reset_root_port(struct pci_host_bridge *bridge,
+> +				    struct pci_dev *pdev)
+> +{
+> +	struct pci_bus *bus =3D bridge->bus;
+> +	struct dw_pcie_rp *pp =3D bus->sysdata;
+> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
+> +	struct imx_pcie *imx_pcie =3D to_imx_pcie(pci);
+> +	int ret;
+> +
+> +	imx_pcie_msi_save_restore(imx_pcie, true);
+> +	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT))
+> +		imx_pcie_lut_save(imx_pcie);
+
+[Severity: High]
+The i.MX95 PCIe hardware uses an indirect access mechanism for LUTs. Since=
+=20
+this reset executes asynchronously in a threaded IRQ, should imx_pcie->lock=
+=20
+be acquired before calling imx_pcie_lut_save to prevent concurrent=20
+operations from clobbering the shared indirect address indices?
+
+> +	imx_pcie_stop_link(pci);
+> +	imx_pcie_host_exit(pp);
+> +
+> +	ret =3D imx_pcie_host_init(pp);
+> +	if (ret) {
+> +		dev_err(pci->dev, "Failed to re-init PCIe\n");
+> +		return ret;
+> +	}
+> +	ret =3D dw_pcie_setup_rc(pp);
+> +	if (ret)
+> +		goto err_host_deinit;
+> +
+> +	imx_pcie_start_link(pci);
+> +	dw_pcie_wait_for_link(pci);
+
+[Severity: High]
+Should the return value of dw_pcie_wait_for_link be checked here?=20
+By ignoring it, the function might falsely report success to the PCI core=20
+even if downstream link recovery fails, which could lead to unsupported=20
+request aborts when accessing downstream devices.
+
+> +
+> +	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT))
+> +		imx_pcie_lut_restore(imx_pcie);
+> +	imx_pcie_msi_save_restore(imx_pcie, false);
+> +
+> +	dev_dbg(pci->dev, "Root port reset completed\n");
+> +	return 0;
+> +
+> +err_host_deinit:
+> +	imx_pcie_host_exit(pp);
+
+[Severity: High]
+If the re-initialization fails and imx_pcie_host_exit disables the clocks,=
+=20
+the device still remains bound. If the system later initiates a suspend,=20
+will imx_pcie_suspend_noirq execute unconditionally and trigger a fatal=20
+external abort by attempting to read from the unclocked DBI registers?
+
+> +
+> +	return ret;
+> +}
+> +
+
+[ ... ]
+
+> @@ -1919,9 +2018,33 @@ static int imx_pcie_probe(struct platform_device *=
+pdev)
+>  			val |=3D PCI_MSI_FLAGS_ENABLE;
+>  			dw_pcie_writew_dbi(pci, offset + PCI_MSI_FLAGS, val);
+>  		}
+> +
+> +		/* Get link event irq if it is present */
+> +		imx_pcie->lnk_intr =3D platform_get_irq_byname_optional(pdev, "intr");
+> +		if (imx_pcie->lnk_intr > 0) {
+
+[Severity: Medium]
+If the interrupt controller is not yet ready, the platform irq function=20
+returns -EPROBE_DEFER. Does checking strictly for > 0 cause the driver to=20
+silently ignore this error code and fail to defer the probe, permanently=20
+disabling the link recovery functionality?
+
+[ ... ]
+
+> +err_host_deinit:
+> +	dw_pcie_host_deinit(&pci->pp);
+> +
+> +	return ret;
+>  }
+> =20
+>  static void imx_pcie_shutdown(struct platform_device *pdev)
+
+[Severity: High]
+The patch enables the link down interrupt during probe, but looking at=20
+imx_pcie_shutdown(), it does not disable it before asserting core reset.=20
+Does asserting the core reset drop the link and trigger the interrupt?=20
+If so, this could wake the threaded handler to access DBI registers while=20
+the core is in reset, causing a synchronous external abort.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603062510.3767=
+610-1-hongxing.zhu@oss.nxp.com?part=3D3
