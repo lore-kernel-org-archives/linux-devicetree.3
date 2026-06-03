@@ -1,184 +1,127 @@
-Received: from AS8PR04CU009.outbound.protection.outlook.com (mail-westeuropeazon11011013.outbound.protection.outlook.com [52.101.70.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C9D93E16BB
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 16:35:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.70.13
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780504558; cv=fail; b=i/C9v4bB4ocsMxRV2468OuZgsPiHWseJsvdWuO+iCbJGtxV7hPQWnZXJFRk7VhQBXmFyXFnQiT4b8QxaI/Y1Eily7dhzOZvM/yQbuqt/3YzJUIUwQfnpA9igwU8ztSWN9TIY+NCnXykX0VpqApoqsMBKb1iE6Zrq4XUdUX4xIcY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780504558; c=relaxed/simple;
-	bh=/o7M6NKDmp96cU4EQLg4AyK3cKATbUDWgWd2mgkE74o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=eMk+0vMbUbTTPYnqMcbCIBtmJMbFIj0Udjzc8Be3M5xQDDNofRmo06RY056VjC86Vq2AL8G3/8V47Nti7A7E9Vb4RY2N2bFAE+vFgSRDoO/YfZ62lFu6dQWbLp2RFtmua1lj1RRcoxDKULHvRc8KLAlYFi89b+/MPlgA7JqnPNY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=fail (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=PPxy+0eh reason="signature verification failed"; arc=fail smtp.client-ip=52.101.70.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D1EF3DA5B4;
+	Wed,  3 Jun 2026 16:40:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780504822; cv=none; b=gArXqTU7Hh4HF6aqWLSlMexQvkMMZMOXyLtSv7gExgeG5cd8u9wJJuBiEoaUgq3lpEJX61JTD0zg/vu73/DUihqyj/e6eA5UeduXJmWzW5HVJi2V5gV6jn0TcbXUPKIgVa9DH9oht4JPuGEOvo0S18IkYqk4miH8LXdgF1cXIM4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780504822; c=relaxed/simple;
+	bh=luc4L6XhnT5LeMOhHEbjH+HurAt5HycuPtqvc7Gzf1g=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tz1XbOixbPkYLRIq/wa+cJLrFsowiiFsVzxMRo0H/5LbsfOI7zUdRG7acPRYhFVdHaXDuG1xc10LJplhRK+lATbGkl0LNlrp7/UgichAx6plsciGApLQR2w4IIBKTt8li5AsTYbjfWwni20qT39vcyHYnrW/rKhaW41znHxtu6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MF/0kdZd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="PPxy+0eh"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=mHdzdQMay3bnDDYlIx9eYAdjMf6SC3EaPgE1V4l5zbUiCKoko3DiFit8aOGRCgLvW0vjLptf04kfwaI+iE1Io0RUI60lsiom0GIa20QylP3BM5hhMS6Wg73/5pVV2wY/89//bybrRFB+5TcQmQmsWFCqgvhQ4lWYA19ssSrbiQsHHcLROK6UMjbmqWRz5d/jt8EyKSl9PwguYqfcntgEl9EqTeGidNKJkAh4GUu8MViWCC3lS69U2fb0FPYiRqLCCtfGcVriGKsuGODmIjEhWuzI/mJAoywQ+/Lh63IjuwpF7baPqP1Mq2eCzSb8o9YoDNVgqYf0E3Jh5F35iALCNQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=tXC5Fq86Sh58je59qAisVGyBdogM6HIiHI5C4jo1EbU=;
- b=haaDzjZ4QxLBp3iM4kKso1GoBKE2yHHqg8v8TUF/FB5y5791hpURrnQllBEwJIOtinOsTbaxbJeRUpp2zbEyRIowa+Z9ExTp7YhQWywqIQeQHJCYMjKqzgYFO1i2AcLPx7y7C8cP4ey11yw24t5OfaHqp59kqTkG5iB2GMTH1xuQ/1oRACt22g0+6XVUx4NhAA3LWns4313/vB4LL0JIc6Fd0jiOPcGITk+Y174Ywmkc73Idnwpu1mwpug+qyN72bex5aD99zj+kzCKeKB2an84CqLoHRZNWGZi3lykb9hvKJn1Q6LFLZiu3JPwnIEHOk8FuPCcp0dOzQG7sA/9Vzw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=tXC5Fq86Sh58je59qAisVGyBdogM6HIiHI5C4jo1EbU=;
- b=PPxy+0ehRnnfBDwJD0Io+qApminfnj0cVKsOq+HOi9DY2RpRIbCQWrNQnAk7sLZTEHlZQuJgOehbXtUms6+9DC2J1bUkxqRufWH/ITzZ0OcSGLgGIi2EX2Vp3pSZ7jRFDScG3fVrRMwdXXji2usoJEXqUmOchif2r1oA3LnUmqvzPKLbWZNAZlGVpXg+VWg2rdALgl4lliRs8YSYzuH0sNdoLAgnsH+LfwROnDlRP6ntS+JakH5Smg42kbgTsKMlJa8bhmcBiFO2zWSd3jvM6tn5gKEWw7C6/MqIceQyuzVbb/Bmtm1S+xwoab+aIQnV6B27rY3mpolg38rBeSQIdw==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by GVUPR04MB12194.eurprd04.prod.outlook.com (2603:10a6:150:33f::11) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 16:35:53 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 16:35:53 +0000
-Date: Wed, 3 Jun 2026 12:35:47 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: sashiko-reviews@lists.linux.dev
-Cc: Stefano Radaelli <stefano.radaelli21@gmail.com>, conor+dt@kernel.org,
-	robh@kernel.org, Frank.Li@kernel.org, imx@lists.linux.dev,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH v3 02/14] arm64: dts: imx8mp-var-som-symphony: enable USB
- support
-Message-ID: <aiBX4zz2y5vzX3wF@lizhi-Precision-Tower-5810>
-References: <7d8b29b9a29b1976cafc3d279482012efae1a994.1780497188.git.stefano.r@variscite.com>
- <20260603145019.C62B11F00893@smtp.kernel.org>
-Content-Type: text/plain; charset=iso-8859-1
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260603145019.C62B11F00893@smtp.kernel.org>
-X-ClientProxiedBy: SA0PR11CA0081.namprd11.prod.outlook.com
- (2603:10b6:806:d2::26) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MF/0kdZd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D35DE1F00893;
+	Wed,  3 Jun 2026 16:40:17 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780504821;
+	bh=luc4L6XhnT5LeMOhHEbjH+HurAt5HycuPtqvc7Gzf1g=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=MF/0kdZdsTn0ndmOwHBtYvNd9WB3YZ/gujPrpBgp8Cc3chrki7SHBBuctzf3/wq55
+	 tzub1mNw9M2c6YNkjtqJHxdTU3d66x+gwYX6YimJNJtPfBPX8gGDFX0jLdpEw+G7jz
+	 ppBjus1OthH9JzY+nFRolUHeXgyG73FlALmTvWwS/RrdVSRk2q28MO4TWwP8c/8U2j
+	 dZS6X7BCovo64YOazj/wBcx7p4sYa/YPCuQUkcH14aKlVl3LErL8b6hjTK8xiW94FP
+	 JasSEsKJ9TgxdEFgN1RHQahxdf/KX6/X2RXW4bcUBzDNuaywhNXMWjrOwtUhN1K5aP
+	 3jZKJ92hLF0Wg==
+Date: Wed, 3 Jun 2026 17:40:15 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Miquel Raynal <miquel.raynal@bootlin.com>
+Cc: Santhosh Kumar K <s-k6@ti.com>, broonie@kernel.org, robh@kernel.org,
+	krzk+dt@kernel.org, conor+dt@kernel.org, richard@nod.at,
+	vigneshr@ti.com, pratyush@kernel.org, mwalle@kernel.org,
+	takahiro.kuwano@infineon.com, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org, praneeth@ti.com, u-kumar1@ti.com,
+	a-dutta@ti.com
+Subject: Re: [PATCH v3 01/13] spi: dt-bindings: allow spi-max-frequency to
+ specify a frequency pair
+Message-ID: <20260603-balance-encounter-94f69e1577f3@spud>
+References: <20260527175527.2247679-1-s-k6@ti.com>
+ <20260527175527.2247679-2-s-k6@ti.com>
+ <20260528-clergyman-kindling-20971775ba78@spud>
+ <eaa75113-2b89-468d-aca8-932bc7e33a7d@ti.com>
+ <87cxy92llq.fsf@bootlin.com>
+ <20260602-aptly-bunkbed-1bd3a8d63d54@spud>
+ <875x3zzkji.fsf@bootlin.com>
+ <20260603-neatly-twine-e89b923f5cb6@spud>
+ <87o6hry4d4.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|GVUPR04MB12194:EE_
-X-MS-Office365-Filtering-Correlation-Id: facfdd88-cef5-4e07-06e3-08dec18e2dde
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|366016|19092799006|376014|52116014|6133799003|4143699003|22082099003|18002099003|11063799006|56012099006|38350700014;
-X-Microsoft-Antispam-Message-Info:
-	lTa9XUW2GsG1OawHJkE0RxX3GgOailGr9DM5jF0s0m/SqZOMqBdt9sQnp+PKzEml/cY+ewkVZHHt5Ll67YGC/bQ8dzKbtDhp5joHnNVnucNgSV7Cjb18XOCmPAuxWoNMQiD6SRReyIWVfLjX6YG/HewJEewl8W/fSQDbl6DM8kse/KcMFGhktTlEacMezeFkWwxrjNuAmhsFQlla4CPWlXjssl4L60eMwLAJCOX2o5syQjBxZytnXpTFU5rZUVTj3lQc8+AE+ZEY2tldtbf28sT/dO+gTwgV1UM0x2eZwocLszfSMIcDiz49Vv7FuLyLs/PoC2SFoPIPrg8gEIdTKz448RWTS1cpBUslRBEykO2IPqZcrvIf6zsY4VmLlLuc9sY22Nvac17XSCdMlajnph70p6TOupa7x/5r0slZdFQovjD60vg8zCzH97++pQuaz/9vowgoweWtz4NUSxufmBXxEE8FHuSc2L/3LgV1/yUTCyNk0iXYiHES7JI2aZiVP++C/SgmUtEbNsWtr8+LlEoSa7heExbXD45QKe5oMsuA/dpYh4HA9AhyLqgWZkA7N1zZuOA70hRWZfKukcwhvnbzTkftA2YHQc0I1+gaX0Bwx3zkm+9stdbzLWUJFf7i2Bsu7Tj5x2gCTnKP0Q4IOLH/sRoo0on5Vp4QyExqLmMKQnnI1p9XTMndEMJ6HP2s
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(19092799006)(376014)(52116014)(6133799003)(4143699003)(22082099003)(18002099003)(11063799006)(56012099006)(38350700014);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?iso-8859-1?Q?4O0U/eNIBpNiMr1vv/l1BAgezjmWD/wbYiKvjGeXV+G+YtoszfcxA0OUf4?=
- =?iso-8859-1?Q?DWEu7lf92XAlo8p1BOy6pEgHSlYaaMQXvX/48cX4CuQeVzHTLLcJ5ZgOr9?=
- =?iso-8859-1?Q?gAwvjVdGd/HSWXPKIT+2D2IAiBwm0ubCDkkYpsAAfADhAlEZkK8K9T93P4?=
- =?iso-8859-1?Q?NW8mM+LJRHizC2y+7QRUCguS0JmTH1PT1XFB5dIrWSJplMgRFvuqGCVBja?=
- =?iso-8859-1?Q?vFEJmKf5b3Fmyffz8QLjkF0KXWShWEFM+ODmuHQj+IuyvBPNAzcWnBc3jq?=
- =?iso-8859-1?Q?S0sbcLq7AaFD7uPXWqZWM1VJYTpsLTD1DPrWCyW+6r15RDiJzQ2h0+GIel?=
- =?iso-8859-1?Q?p1FF9u+8vBLGdqRQSQCuQClnH+GHylm+aQceo8uhuD+pI7v3/1xz5qhznN?=
- =?iso-8859-1?Q?otUuKnls6a/9B4ejsihzvQfEMLnLBExTrMyfly2l8h59SpscTkepoSV/pb?=
- =?iso-8859-1?Q?07RxHeivIv41tR8Az1SNz/7XIifbzGlDhGrDz9p+nu0+pfujPe71RdXkx/?=
- =?iso-8859-1?Q?NAweAPsG0riZWGJrnCMzAP5Ps5I+YNm+ydxu/fYQzUNIcpOfu27b/l4RA5?=
- =?iso-8859-1?Q?2PAs82Y9pllPDuhnrCu+4xNsv/wfwotgAK96IF9TIjnOjnc8cF522tXLhS?=
- =?iso-8859-1?Q?QZ8Qdelp+aUo4qrS7DVE3Wp3Ej7aNZF0wY+kiY8iRMIMOqOPkVJuGDhCaN?=
- =?iso-8859-1?Q?Ot7UcOApE1ZW129dWB+cD5h82PtCJ9HTJFw/ICJnbBhyV2ib6yUB+KjYtX?=
- =?iso-8859-1?Q?Jf3zOXwO4vC/FBMNAYVFGMGFWgY05PcEKJeavR/rAu61nMz5Xjec5PK75E?=
- =?iso-8859-1?Q?IxuHIYcezbfqrcG9WXGsmMoGE7akoROri8m8oNeL+6FE/Z/DGw/B7bEBTq?=
- =?iso-8859-1?Q?xJtB0I8QsJulk6pZAluzQeNL0lwFNuGs6g01RX/SpyMRHqD07teSe+5Bqg?=
- =?iso-8859-1?Q?Rz2tKs8UK+do1Hpo09+useIllST66unfemrL3WRIanUnAProvYJLK1u5Ag?=
- =?iso-8859-1?Q?MmPzxwjXVEFZtGFMpiMGPZ+ObLIGeortGjbjkKC3bD4ucjuBFyzL48v2P3?=
- =?iso-8859-1?Q?TLlPbiQAUz+iCmqLY0lyZHN5gmOOG9/6tKC3EARSq12hjXnYfPaVns2Tw5?=
- =?iso-8859-1?Q?l2vLhJErvoCktaiqHsZVByIObRxaO0QLla5hCAhTes72JZdOzGcqz7nd5R?=
- =?iso-8859-1?Q?DQX0V8vr8BqZoVdAxvjD7oPy+WIZpKFVJ2QIWxcuGkK50EOGqz6IUOSeqI?=
- =?iso-8859-1?Q?9MUwv4LPoX048LIsAWX+PGe7z3hbyoweKx+6LvxWeD8PpFc1JI8N971eu/?=
- =?iso-8859-1?Q?Q543tyX5tavRDj7FIshCA6laiUwLurvvmoQVYNPkHZQFdBOglK17aDZrra?=
- =?iso-8859-1?Q?ySiZC6crlaK8hIUHWm2yldp8ipArgVw6gaOFviBCV+97eU1LoqKI8qY9zO?=
- =?iso-8859-1?Q?UFv/QpzqiFp60girixFoTcmRmJcRn2TmiiV8rjJcmWYJOyNpwdUTzDdMqQ?=
- =?iso-8859-1?Q?4re4k9iITtyd/aihVJrOVyVhiHZpLUtWsaW3wGxKgszCHEd6De2GtpBKQm?=
- =?iso-8859-1?Q?2jAR2xrRYkGlejpE275sHbl70GdimCJrPyUtou3jjbcy/B0SEIS/DVC1sE?=
- =?iso-8859-1?Q?LDaHvZ6DOHfldigGluRjekVpVntCUt4Xju2go+xKvQCKABZlO1E+ah9nfq?=
- =?iso-8859-1?Q?Xqcp5Ledv2Z6Xkpr+2jTcT9hCFyPWXjgx4QwJByN+LPRwA0N2m6zb9k7cu?=
- =?iso-8859-1?Q?zLR955saNAjG2guVhx6J7N4H/gcMtcVI+xz8dHdnT59fkN?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: facfdd88-cef5-4e07-06e3-08dec18e2dde
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 16:35:53.4211
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: xA/RH9av0lY2ztXpIKKP7fJhj7EiyPTstXKUxIA2S+aCKQn2m/ExZia1/GpXBHEnr8fIuxLsJO9spPKRZxRZqw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GVUPR04MB12194
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="jfR/k67CoFQAEo41"
+Content-Disposition: inline
+In-Reply-To: <87o6hry4d4.fsf@bootlin.com>
 
-On Wed, Jun 03, 2026 at 02:50:18PM +0000, sashiko-bot@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> - [Low] Invalid interrupt trigger type (IRQ_TYPE_NONE) specified for the PTN5150 Type-C controller.
-> --
->
-> commit 5a2bed0fe2fb89d900dd21def4f8d915e89c7039
-> Author: Stefano Radaelli <stefano.r@variscite.com>
->
-> arm64: dts: imx8mp-var-som-symphony: enable USB support
->
-> This commit enables USB support on the Symphony carrier board. It configures
-> the PTN5150 Type-C controller, enables the USB3 controllers and PHYs, and sets
-> up the appropriate I2C and GPIO bindings.
->
-> > diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-> > index 25f707012f62c..76928b0058265 100644
-> > --- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-> > +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
->
-> [ ... ]
->
-> > @@ -95,6 +98,22 @@ usb3-sata-sel-hog {
-> >  			line-name = "usb3_sata_sel";
-> >  		};
-> >  	};
-> > +
-> > +	/* USB Type-C Controller */
-> > +	typec@3d {
-> > +		compatible = "nxp,ptn5150";
-> > +		reg = <0x3d>;
-> > +		pinctrl-names = "default";
-> > +		pinctrl-0 = <&pinctrl_ptn5150>;
-> > +		interrupt-parent = <&gpio1>;
-> > +		interrupts = <5 IRQ_TYPE_NONE>;
->
-> [Severity: Low]
-> Is IRQ_TYPE_NONE the correct trigger type to describe this hardware?
->
-> While the extcon-ptn5150 driver hardcodes IRQF_TRIGGER_FALLING when requesting
-> the interrupt (which mitigates this on Linux), device trees should accurately
-> describe the hardware independently of driver defaults.
->
-> Would it be better to explicitly specify the active-low or falling-edge
-> interrupt trigger (e.g., IRQ_TYPE_LEVEL_LOW or IRQ_TYPE_EDGE_FALLING) in
-> the typec@3d node instead of leaving it unconfigured?
 
-Looks make sense, why use IRQ_TYPE_NONE?
+--jfR/k67CoFQAEo41
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Frank
+On Wed, Jun 03, 2026 at 06:29:27PM +0200, Miquel Raynal wrote:
+>=20
+> >> >> > The non-PHY frequency is a controller limitation/capability rathe=
+r than
+> >> >> > a flash characteristic, so it seems more appropriate to keep it i=
+n the
+> >> >> > controller driver as Conor suggested.
+> >> >>=20
+> >> >> The non tuned frequency is the maximum frequency one could use
+> >> >> reliably. It is not controller specific. It is mostly board specifi=
+c,
+> >> >> and to some extend may also be chip specific.
+> >> >>=20
+> >> >> The tuned frequency is the maximum frequency one could use reliably
+> >> >> after line a controller or chip specific training procedure. It is
+> >> >> also the result of an aggregated set of non discoverable hardware
+> >> >> limitations:
+> >> >> - board routing
+> >> >> - chip capability
+> >> >> - controller capability
+> >> >
+> >> > Right, and this I guess is what scuppers letting the controller driv=
+er
+> >> > sort the configuration out itself and leaving the property as-is.
+> >> > It could be that the speed in spi-max-frequency is lower than the "b=
+ase
+> >> > speed" of the controller but because of board routing or device
+> >> > capability that the tuned mode is still required, right?
+> >>=20
+> >> I do not actually expect any tuned mode/frequency to be mandatory.
+> >
+> > I think you misunderstood my use of "required", I meant that the new
+> > property/information was needed in the scenario I described, not that it
+> > should be a required property in a binding.
+>=20
+> Yes I misunderstood the term indeed. However I still fail to catch what
+> you meant here, I'm sorry. Would you mind rephrasing?
 
->
-> > +
-> > +		port {
-> > +			typec_dr_sw: endpoint {
-> > +				remote-endpoint = <&usb3_drd_sw>;
-> > +			};
-> > +		};
-> > +	};
-> >  };
->
-> --
-> Sashiko AI review · https://sashiko.dev/#/patchset/cover.1780497188.git.stefano.r@variscite.com?part=2
+I was talking about a scenario where you want to use the tuned mode to
+achieve the maximum rate because of the device and/or board configuration,
+but the rate is below the point where the controller would need tuning.
+Say the controller needs tuning above 8 Hz but the conditions require
+tuning to achieve more than 5 Hz. In this example, if the device can do
+6 Hz, spi-max-frequency (in the current form) would be set to 6 Hz, and
+the controller would not enable the tuned mode, leading to problems
+because the inflection point determined from the controller compatible
+of 8 Hz would not have been reached.
+
+--jfR/k67CoFQAEo41
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBY7wAKCRB4tDGHoIJi
+0gfaAP0RkM4eZhjmrtl+tS3WyfzVSDCbOdy5h+wDJtvyjB/fyAEA5L95wFVM8cTS
+9cLHUtafen8uIvPf2HFXeFNdH9wCjwM=
+=/26Q
+-----END PGP SIGNATURE-----
+
+--jfR/k67CoFQAEo41--
