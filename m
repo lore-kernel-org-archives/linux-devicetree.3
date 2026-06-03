@@ -1,108 +1,76 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F53F3ADBA5
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:34:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A795E3A48C2;
+	Wed,  3 Jun 2026 15:34:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500848; cv=none; b=YVHDvQgu+veM1j8+MlyrSGJONGNjs02TjmnwjJUkJawCYRc0M/rMDB/M9vSEpdm3PjE9lvj8PRUDD5k9R+xXUCUsa9pnmpadufWAyU/4Sy/kvGLKvbbWz7bhaTXq+zs/vpQoBiAWfUhLsvB46PinMx0diY0YIcSwIT/8ZD0mX4U=
+	t=1780500869; cv=none; b=DzGCYiF7Zs2TgUjeiVKTPD0l6g6oVXJm7VA9PKb8DdK5I73DFRkd3B1QvEw6HCsMfYPahXX49nHMGaCNKZgE2DO6sJLwfDWhvvVte5c86764jyyiGfS3fyE4YiZQ1inrdoYKDEud/zF5Sfz/E3Zn1/HiYzEGB6ldkaU8sD+Xn1w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500848; c=relaxed/simple;
-	bh=Its1H5nI6E8qUlk8j2QQvWbXs3zNNHJyy5c+hvQ2H5U=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=WaM45WmUjycE/RZ69S+V/F+3tBpTNfnPG9/OZKUftH8DMt86kbGDckd8r45zGXwByP1ciIYerQiE7ChV17wztuJZKKV/Lp4aYARgj+d3uwt5FjdKy+jbjVqgVUvAO47BqfvIVniBOmE+6kG5okFIFwGE7yO5yDSDtj973eWCyCE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SXjfFupL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780500869; c=relaxed/simple;
+	bh=lkqp4IcVnRoBGsFQcPvmYUMsFoW092uXDpIVveBct0Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F6JFxpYYc4bOEe7PE7sNcl4e4q9LsJBdYYLHGp6Sk11C6ZRzchlN7MdcGglRPCHKflwaZ8CYQLlqHmPS+TgcMaOrXkNlEZvt2AX3eNKkb468X3wV7BDYWmPtY0R1Gb2HjEVR7q4Q4N0n/Tc4XW2L2vOJuOtHzAoq9cdOf9mxjZY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KN9vwYVA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SXjfFupL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50DAD1F00893;
-	Wed,  3 Jun 2026 15:34:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KN9vwYVA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9D61F00893;
+	Wed,  3 Jun 2026 15:34:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780500847;
-	bh=gYU+Qc4IrqllSzoAiGqla9i/6scWPnuswUNLU5Ihnoo=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SXjfFupLiohELCPynvmZ8Pibo5+Ayz6eqbSN5aukkCv1AQ5XqVkFQTZcmGQbqcDRZ
-	 eOm5SJD2DkNd0uoUCyP4cRQz5kbSfFl6fheA6GnJbxp89Clj32RJHkQRzXL3F/HmP0
-	 sophXh7QCc953508mIQW68QTuWGXOiteV+0yiC40od7LtvWLPk+qgbfSC7D1vo+6cr
-	 BvEiryheAfSKS2+PJCNouIMGr081s8tgDWqoDJomm5RdX0/yPE6uXgxVNYoyd/M2bi
-	 UXyajjI/vYGIfWwrJo05F5XrVKR7/vB6LTGzFQ59tVko1RHJKSj73obkswtWahnlT1
-	 m4zxl9Xw92qkw==
-From: sashiko-bot@kernel.org
+	s=k20260515; t=1780500868;
+	bh=lkqp4IcVnRoBGsFQcPvmYUMsFoW092uXDpIVveBct0Y=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=KN9vwYVAZNQ5KY8cV/u5jM2ET1669txiTgrE5Ve1RU60xMxt3mber9I1vmP0piZiH
+	 tU0dXR64asXnOihn5JjgVUDcIDhfl3ut/1IdE9LwSli1VSStiskKDUf/12sfR4CcFW
+	 DHoM3vUYkalqmb4bE+kA+P/0B8Uvi4v1XarnzcnUbM59iQtilVE5wUNTIW2fEPkR2X
+	 6qCUVs+/iw5Kti0q+BfBhClDIUBDkC66Ku4MbFzgse5lIu4VH/u1IGx1FUiVPviwjT
+	 ADL/OK0hxbXqjSQCh665Mu3Cg7uLNQMAfmR23Kfh+Zm2ElVfxhMHrbnljjsGQTCzGq
+	 xCK4CojjyQr1A==
+Date: Wed, 3 Jun 2026 16:34:23 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	kishore Manne <nava.kishore.manne@amd.com>,
+	"moderated list:ARM/ZYNQ ARCHITECTURE" <linux-arm-kernel@lists.infradead.org>,
+	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>
 Subject: Re: [PATCH v3 3/5] dt-bindings: clock: Move xlnx,zynqmp-clk to its
  own schema
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michal Simek" <michal.simek@amd.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
-References: <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 15:34:04 +0000
-Message-Id: <20260603153405.50DAD1F00893@smtp.kernel.org>
+Message-ID: <20260603-revocable-unearned-413d8c943ad7@spud>
+References: <cover.1780499520.git.michal.simek@amd.com>
+ <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="eTmVpuXs8nEdW++5"
+Content-Disposition: inline
+In-Reply-To: <23d848e29176706548612c4a0751481d46176f11.1780499520.git.michal.simek@amd.com>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The dt-bindings example in `xlnx,versal-clk.yaml` fails schema vali=
-dation (`dt_binding_check`) because it incorrectly pairs an `xlnx,zynqmp-fi=
-rmware` parent with an `xlnx,versal-clk` clock controller.
---
 
-commit eb45bdb29d194f45db74a8a016c6af5c112a380b
-Author: Michal Simek <michal.simek@amd.com>
+--eTmVpuXs8nEdW++5
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-dt-bindings: clock: Move xlnx,zynqmp-clk to its own schema
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-This commit moves the ZynqMP clock controller binding to a dedicated=20
-xlnx,zynqmp-clk.yaml schema, separating it from the Versal bindings. It=20
-updates the xlnx,zynqmp-firmware.yaml schema to enforce the appropriate=20
-clock-controller child node based on the selected firmware compatibility.
+--eTmVpuXs8nEdW++5
+Content-Type: application/pgp-signature; name="signature.asc"
 
-> diff --git a/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqm=
-p-firmware.yaml b/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zy=
-nqmp-firmware.yaml
-> index 680082c29f016..72af37cdb103b 100644
-> --- a/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmw=
-are.yaml
-> +++ b/Documentation/devicetree/bindings/firmware/xilinx/xlnx,zynqmp-firmw=
-are.yaml
+-----BEGIN PGP SIGNATURE-----
 
-[ ... ]
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBJfwAKCRB4tDGHoIJi
+0mnjAQC/Pct3fOY5WkSqAMSrA1C8cufBn47nb5Sr5nSzVU2miAEAtdK0HJy5G1TO
+Mi1WJUc/nfD2DhTR0hLArYkytkDxxAI=
+=52Y4
+-----END PGP SIGNATURE-----
 
-> @@ -113,10 +112,14 @@ allOf:
->              const: xlnx,zynqmp-firmware
->      then:
->        properties:
-> +        clock-controller:
-> +          $ref: /schemas/clock/xlnx,zynqmp-clk.yaml#
-
-[Severity: Low]
-Will this new rule cause the example in xlnx,versal-clk.yaml to fail=20
-dt_binding_check?=20
-
-The remaining example in=20
-Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml defines a=20
-clock-controller with compatible =3D "xlnx,versal-clk" under a firmware=20
-node with compatible =3D "xlnx,zynqmp-firmware":
-
-    firmware {
-      zynqmp_firmware: zynqmp-firmware {
-        compatible =3D "xlnx,zynqmp-firmware";
-        ...
-        versal_clk: clock-controller {
-          compatible =3D "xlnx,versal-clk";
-
-Because this new conditional rule enforces that an xlnx,zynqmp-firmware=20
-parent must have an xlnx,zynqmp-clk child, the xlnx,versal-clk example=20
-might now be invalid. Does the example need to be updated to use=20
-compatible =3D "xlnx,versal-firmware" to match the child controller?
-
->          pinctrl:
->            $ref: /schemas/pinctrl/xlnx,zynqmp-pinctrl.yaml#
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780499520.gi=
-t.michal.simek@amd.com?part=3D3
+--eTmVpuXs8nEdW++5--
