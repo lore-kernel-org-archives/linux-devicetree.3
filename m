@@ -1,86 +1,121 @@
-Received: from outbound1.mail.transip.nl (outbound1.mail.transip.nl [149.210.149.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83C1A408002;
-	Wed,  3 Jun 2026 08:03:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.210.149.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B4B803FE355
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:04:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780473789; cv=none; b=giKHwZb/Rasn92cY1A3QmgT0jEjPNLwF6hLcYGMzo8hnbZKSdCe+pbYKFgI5K9Vni2Tgk1A/8DIUcBuLiuH+bm+4wHuBRL7nMc6cypCK0ra5k4HrIW3fDS8XznnODyewCQDPRi+8Zti8WzdTSBOFl1X3mng2DPrbZiYykCni6W4=
+	t=1780473883; cv=none; b=FuuYvyRub0C+X0SXrvp/6sLzRaKCJhM8yaVzLXiSzPxQJqhYt9IMELdNznODHWuceG02Agph8HkUI0YG6/wZw5gZo9M21HEGusTiLxV485HVAY27r35O36kfhiP6+OnacqHOxMOcgBHUMsxdASGOA9UZDBtDSOPN7zn5Dis1x38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780473789; c=relaxed/simple;
-	bh=Agw9l21ZtDb/MAz5yYuOB8V3CbVUpSoO0z5f/WfepzE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=C+nty1RtgYNFQUza/0yV+Kdvgha7zP9cvBKld/Y9wDAe5ngseNA4aXPaThYTDQCfejL+o0H/KNaXBsrkMKg4puETrnmxzpxlWIaLCPfr0FW4nuo/LXu2lFNoHJxANxe4ULzDfgawuSrtrIYh7KIhDK7dmiIpLIR1X59NgQqYy0o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=c43LUuV1; arc=none smtp.client-ip=149.210.149.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780473883; c=relaxed/simple;
+	bh=mE0KHMz1UZ6AwsYWxEvlMI8alTghmshuPzlP4hZQeNY=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QTZz420wbMP16QLDc0aFGNUw9imGezTtYmGshGhck03EQfsr3Aa0Kjk9npjUTzW0s3cdsCyLxNyajATzldZ+IN21xfed7Qear2Cu/jwaMnQXMn+vSo6FqvDZPqMeK+QNoPHep3XIqA2QnCmfGxP658VidXNyOvBv6yNVvE9gSHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KheXFfaJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="c43LUuV1"
-Received: from submission2.mail.transip.nl (unknown [10.100.4.71])
-	by outbound1.mail.transip.nl (Postfix) with ESMTP id 4gVgDK18Q9zRjgD;
-	Wed,  3 Jun 2026 10:02:57 +0200 (CEST)
-Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
-	by submission2.mail.transip.nl (Postfix) with ESMTPA id 4gVgDJ3sKGzJjhXx;
-	Wed,  3 Jun 2026 10:02:56 +0200 (CEST)
-From: Herman van Hazendonk <github.com@herrie.org>
-To: lee@kernel.org,
-	robh@kernel.org
-Cc: krzk+dt@kernel.org,
-	conor+dt@kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Herman van Hazendonk <github.com@herrie.org>
-Subject: [PATCH 0/1] dt-bindings: mfd: add ti,lm8502 LED + haptic controller
-Date: Wed,  3 Jun 2026 10:02:55 +0200
-Message-ID: <20260603080256.853037-1-github.com@herrie.org>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KheXFfaJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E6CB1F00893;
+	Wed,  3 Jun 2026 08:04:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780473882;
+	bh=DLhmHy6z9ws0/Kgv4gl6cEBJsMu3IJfYKNSRK9KZye0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KheXFfaJ0jmXs6mhyNaQyHT8OfusnmakiRncMf4yuBBhjQwQlK5CtKX9m1G24+CLt
+	 jtymA7Q0KnXbqcx1dciJqd5ddzOvY2i6+mspjL2AlzEuWRnUrDcKls+KX4Fcf1nwtU
+	 aUuifie6hSuDrljiZ0wzaZbnoro5/gMYbJ/VXY1DKHLBelFDw98uvBCJ71W/DX+q/o
+	 gK+lYdzp3hPui9MOu+NYfK42PTv/+Q2hF8km9BYU5kMa22NJgsUz8WTN9OrdJIn1oc
+	 cVlGdvRDDK+9Mdn2kEjLjw1ihyuMC+hRkzf5xwJWHiFYz9e6JpglXVVh4HaullS6P7
+	 cSX8vSbDjMsWw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 7/7] riscv: dts: tenstorrent: Add Atlantis platform
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joel Stanley" <joel@jms.id.au>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260603074222.593243-8-joel@jms.id.au>
+References: <20260603074222.593243-8-joel@jms.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 08:04:41 +0000
+Message-Id: <20260603080442.1E6CB1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission2.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780473776; h=from:subject:to:cc:date:
- mime-version; bh=XpxoOXypKujHEFaS0dmObAuWtYIwFBV0BkETqy+dGpk=;
- b=c43LUuV1/zBi3lzbPy1NQKTu48jENmH3wb8eiBEbOmvSO7nwmYwtJHuCT35EMI70N5p2z7
- tKWUFdYtB4DzqGubB4WIVQt4nPjcWRUvOVvpOXKQrOVw7zbQ5IUy0OTGxYWszV8Z/PeFw8
- 7Q2u1/x8pf2UFDI4F1lFikRqCYVsnFmA/yoa10cta8T1nOsxG15ZiuQcdPPae+OD+Jt+tn
- xLvk1gnnL2zEbkBxxivEt9vS2c8mCWRzsog/oGRAGGoFJPP05Qrmz1tmQdhG/dMSt5NDsI
- olyngxJs1xLhtCQ9JPOC0YK6+OQP2xwrNSkjyh+jm1yst8PxW4DHdwdJUZNyOQ==
-X-Report-Abuse-To: abuse@transip.nl
 
-Add a YAML binding for the TI LM8502, an I2C combo LED + haptic
-controller used in the HP TouchPad (MSM8x60 / APQ8060) tablet.
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Circular clock parent assignment for CLK_RCPU_ROOT creates a circu=
+lar dependency.
+- [Medium] The machine-level IMSIC (`imsic_m`) incorrectly declares guest f=
+iles (`riscv,guest-index-bits`) and an oversized `reg` mapping.
+--
 
-The LM8502 exposes ten constant-current LED outputs (D1..D10) and an
-internal H-bridge for driving a vibrator motor. Pin D10 is shared
-between the tenth LED channel and the haptic output; the haptic child
-driver mux's D10 to the H-bridge path at each FF_RUMBLE event.
+commit 049e98b3d4ab535b3e1fedc8df666805cb9e6805
+Author: Joel Stanley <joel@jms.id.au>
 
-The device is modelled as an MFD with two child sub-nodes:
+riscv: dts: tenstorrent: Add Atlantis platform
 
-  ti,lm8502-leds   - LED-class outputs D1..D10 (per-LED reg +
-                     led-max-microamp properties)
-  ti,lm8502-haptic - EV_FF / FF_RUMBLE input device for the
-                     internal H-bridge, with optional
-                     ti,invert-direction property
+Add initial support for the Tenstorrent Atlantis platform, based on the
+Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
 
-The MFD core driver was already sent separately:
-  "[PATCH v2 0/1] mfd: lm8502: add core MFD driver for TI LM8502"
-  Message-ID: <20260603040026.398009-1-github.com@herrie.org>
+> diff --git a/arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi b/arch/ris=
+cv/boot/dts/tenstorrent/atlantis-soc.dtsi
+> new file mode 100644
+> --- /dev/null
+> +++ b/arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
 
-Child drivers (leds-lm8502, input-lm8502-haptic) will follow as
-separate series once the binding and core are accepted.
+[ ... ]
 
-Herman van Hazendonk (1):
-  dt-bindings: mfd: add ti,lm8502 combo LED + haptic controller
+> +	soc {
+> +		#address-cells =3D <2>;
+> +		#size-cells =3D <2>;
+> +		compatible =3D "simple-bus";
+> +		interrupt-parent =3D <&aplic_s>;
+> +		ranges;
+> +
+> +		imsic_m: interrupt-controller@a0000000 {
+> +			compatible =3D "tenstorrent,atlantis-imsics", "riscv,imsics";
+> +			riscv,num-ids =3D <255>;
+> +			riscv,guest-index-bits =3D <6>;
+> +			reg =3D <0x0 0xa0000000 0x0 0x200000>;
 
- .../devicetree/bindings/mfd/ti,lm8502.yaml    | 160 ++++++++++++++++++
- 1 file changed, 160 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/mfd/ti,lm8502.yaml
+[Severity: Medium]
+Does this incorrectly declare guest files for the machine-level IMSIC?
 
--- 
-2.43.0
+The RISC-V Advanced Interrupt Architecture specifies that Guest Interrupt
+Files exist exclusively in supervisor-level IMSICs. Since machine-level
+IMSICs only contain one interrupt file per hart, would having
+riscv,guest-index-bits =3D <6> and an identically oversized 2MB reg space
+violate AIA semantics?
 
+> +			interrupts-extended =3D <&cpu0_intc 11>, <&cpu1_intc 11>,
+
+[ ... ]
+
+> +		prcm_rcpu: clock-controller@d0000000 {
+> +			compatible =3D "tenstorrent,atlantis-prcm-rcpu";
+> +			reg =3D <0x00 0xd0000000 0x00 0x10000>;
+> +			clocks =3D <&osc_24m>;
+> +			#clock-cells =3D <1>;
+> +			#reset-cells =3D <1>;
+> +			assigned-clocks =3D <&prcm_rcpu CLK_RCPU_ROOT>, <&prcm_rcpu CLK_NOCC_=
+CLK>;
+> +			assigned-clock-parents =3D <&prcm_rcpu CLK_RCPU_ROOT>, <&prcm_rcpu CL=
+K_NOC_PLL>;
+> +		};
+
+[Severity: High]
+Will this circular clock parent assignment create a dependency issue in
+the Common Clock Framework?
+
+The assigned-clocks and assigned-clock-parents map CLK_RCPU_ROOT to itself.
+Could this cause of_clk_set_defaults() to fail or silently abandon
+reparenting, leaving the system running on an uninitialized default
+hardware clock source?
+
+[ ... ]
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603074222.5932=
+43-1-joel@jms.id.au?part=3D7
