@@ -1,274 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E0DE30594F
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 07:33:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780472002; cv=none; b=II0CXoaeJB9/DhZDH2CUIPW6Ghd//8oncX7twcYevbvZfB8e2nc96RJFVtDaLgYJAKvFwoPhctEwXRTb6b487VNuCPeSGp8/PLCrJvORSuULtzHmnLfyeK1JaageyotbpnauItb67hDFmvsU7bJTAnXEL/4wAWYO3uKa8tl9nfw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780472002; c=relaxed/simple;
-	bh=UpdF3IRRrg9XVHbdMoGU6ASW6goYD89gVgypcsuPiCk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=jRjkfEmUnF79ECv1uWQV2alM2dzSIMQnvKtbYodNCsf6NcStkww+YOA7g64MqevJLJj2kTNX+y5zU6Mf/ICBabWyMqT86BahlRmzNOPG3T2StqpSwl9YbWKS3BueNnYVNlLtNOlE5E/wjdEr1dfgxAncbVYER96RJLaAUzuQoRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M36xNn/c; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75893A641F
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 07:42:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.49
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780472547; cv=pass; b=WUMvFJfEUg/76IeMpV+Ym5JZHvjbYzTSxh+wUXLGWwznqqI3Ph6z3BdpU9b8k7t5JUgEt4fLYPgrH++XKM0bwZWkyhMdU8o2ybBQLEtFDYhOsqw+89BF/BridPVfNXHE4mH7Iw4u7gz9ClYuXNTWVLPJwPZWS7HhmSzEWWMAioA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780472547; c=relaxed/simple;
+	bh=kPEaoQ8OjP+EXnYI8JRzPvxllsKR3GiBChaozvD7CNU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=mMFm6b8r0MFnV85gtRjwx+JwKNQuJL90umLeIe7eVurl636FcyGhrPbUieTB4s5KE/lENKVfkMtUeH/pYkPPGZTZ/qOXdCjtTnWDN2Ckd+EMUo+MPhI/sPP1Lh2S0BDKFKIUK1rievSwYpnyjygFVwJT8qDSqtHewlh9+fzm8cM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qh4xtAy+; arc=pass smtp.client-ip=74.125.82.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M36xNn/c"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A90AF1F00893;
-	Wed,  3 Jun 2026 07:33:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780472000;
-	bh=SderxonXwFmWDc2/aGp/cUBwjfknf4pdhKRMHHel5gk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=M36xNn/c1d6w44CuqknbKnzazduzBUdpUtxvW4tCgxo0GbJqvmRdV01xOFGrMZIW+
-	 FqtbMicAReZx+Eq42aJ+vLGRiOSGAj19LRe2PS/S2N+58YPEY3jwZYwEA/YnxuhkHU
-	 oNadv2TCmw6L4uXUyT1jqKBCNSpBnqqU0Rwhkj2RvgRRXFAetjNVj7GBst1f2jFOPe
-	 aefPherX6YfbMj7vWJtOSwlYy2lnGBzxt3LYI1oKwnAgNIKF076dsrpEcd/XI8tNG2
-	 GZ/ZDos3fqe45FbbZ3nMiTLwKdZl/tWlb/dmrKZ8XNyw8lEs2Ez6nSnizT/MvlTKLr
-	 Rqo4m/nysQVzw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] power: supply: max8903: add DC and USB input
- current-limit GPIO controls
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk" <github.com@herrie.org>
-Cc: robh@kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260603071519.807604-3-github.com@herrie.org>
-References: <20260603071519.807604-3-github.com@herrie.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 07:33:20 +0000
-Message-Id: <20260603073320.A90AF1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qh4xtAy+"
+Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-137dd523634so5397438c88.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 00:42:24 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1780472544; cv=none;
+        d=google.com; s=arc-20240605;
+        b=ZdMBzJufrdMs3DQRURtCIBw2X1c1SAUHWjvCXDnVKjfnlx7+X0uuXAF6b9qxQuHfXr
+         1rD0RnZYycf95zMhDq5f0IgE+9jyQg9YC5c77HfHVzyXycHmSbCUOCOu5As4F/vshabG
+         H+DMtI5rTKX/d0KjhNOyiGj+7jLpYCiIH0dfACDCISOw5A5EsOBp39VFM6QIaRaQf50B
+         FxCgabcn+KSlVS2MJB29K9eiZ9byu1EExhj3Hr4POe2xpnha02v9cz4hzI1ZeQ6y7xKP
+         W6E12lNTzw5B993Bwvj4AkR3CEhib6TbutqWuFTVIdsHglRmM7+haJEa2oQxQE6baaL/
+         +Gbg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=a7XYs6K6ZH353PwGbbI2rOqTKDPXN26s6rlYcbF9OO8=;
+        fh=YkPaZEzRCeQPtLF0UBEHzgvvzZrlma59DdEItUrmgwk=;
+        b=f9fWFAEzfjr9NYm3J4MCIlbqq7DjszGaqAQeoYtmJlvHBCxQ2TPOuLqwyZXEUgU0Si
+         HMzncZCJxMa88A8fbusXNUoSHyKubLiIrwNfYpDgPnAjRXnEDG6SIHZF1nDiBQcbKvut
+         +t0zFZUlwFz1OVWTec35r7Y2ZPTjhsJVOS8EUjl9L2ATqZnleLfllE4vrArPkFlpm6le
+         /02YoJOv8d+A2XUZVGLM/YhXIogaQ5x+7fAu18JQFrTttAHFJFgA9jwKFFS5uHkhnV7K
+         j/3p5JCHuXQL9PMnrTI5yBD5Gw40EbEvZqrJNR2E/wjmO3FwyAfZoujAEpqY3TslAfBD
+         bS1w==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780472544; x=1781077344; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=a7XYs6K6ZH353PwGbbI2rOqTKDPXN26s6rlYcbF9OO8=;
+        b=qh4xtAy+sTSvNUJcGqNqTqb8ubhlk6Nx4W0oPyijq71XdjrCwRoEGtv/xa9e7Sg2Xe
+         +It0GQIQOFZoYXXm99XudycaVZ1e0FWurvdFt0YTqdz0eKe4j4xANbag939vyOjzPEe+
+         Bk3CtpxB3DdQrjjkNUJE1kjnEr4DR8oCNPkgJT9x0KQD/pFE5IhxLbPI5G5sGapJyUm+
+         GGmKFBqWU51moK3lhIxHUryM/CzgZDeLMAaiG8gXuT6LkArtE8QlWQd4s6MtyY1GmQc7
+         xXkK1dn8TEQb1PWCGEZzcjo5bygwOeib6SD+TpCBndHTisPdUrxiu0rsPtvwzHMTEUSG
+         QMZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780472544; x=1781077344;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=a7XYs6K6ZH353PwGbbI2rOqTKDPXN26s6rlYcbF9OO8=;
+        b=GohlAUmf0x/mpvjU3P5UFYtLuR7O2FnWNh4Dv7twuhd76ecd4l6m1Ie9M0bCWeThcN
+         r03i77MqzhUeq3LuYRmqrqZOuuVfYZhDyc2f3BMkaq7TLtDNP3OFIC9JkNud+b1MkoA6
+         0WUctKKg58ZifIHSu4eunbOCC2j90msjVuQGo/B2jw7OsRmIIdkrUg8VdKBV5pUHbgk2
+         wY5BCnBAGMgqCsqlTmsmdfVpOrfAAoDe/GQM6Kb6RU31yuTMHwsDQYgm+ARLk0BKBrD9
+         0T+bh5j+kdosJw3l/dJnLZ4naQJYEnLD9Cu+4JEzZC2AvAUYzVqH6U6dWlccFn5U1n5Z
+         XU8w==
+X-Forwarded-Encrypted: i=1; AFNElJ9f9f2wypwMr6ec9Um+zg7cj8j9Ec/OBk0XWQj1WK+BV4hkD+3IEAE/G7u9YKqLSpH/ECVFlDFT+Nir@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx8hE9vns4d4NYr9hyqrtFnFhvUwv9D5eRQsLMrnqUMdmMHi6oK
+	fEXulW9q96x068BWJa8IJOAMEU+o6nHT31E6d6RGMuayJ2U7oHbzJjNmCOY82ZoxhukLiSsoNxe
+	C9kSQIq3o6adTHY76hb4uV8C+q7P5Sso=
+X-Gm-Gg: Acq92OFQ3BVxxmhjTQQrK4AUQHmmOBv0czV4PD80aKFfTgWxG9UqO8mKCueq0uUhD3N
+	kkuhAwINgW1Ty1oP809clTNNakpsVPgtPH7eUtGDP20d8MLD8tNg7fQrvstsWToxkth/+dmcyWF
+	jrvsncbj12IUm9Dir5w4whibhJxWLQT+kbebyafufM42vngGx6+lkHI+slw9PZ95nHKii+BWx4N
+	ZRcs0iKqhIiYC0RC9QNm3gc8jXoyjVuD7Vtb6rerMNq3zBiK1N+OaTdkufj1G3FkjXh7QRB8vGa
+	6xx56VLomVunVtfF9fc/WE6YCwStyQ==
+X-Received: by 2002:a05:693c:300a:b0:304:4f23:457e with SMTP id
+ 5a478bee46e88-3074fb684ffmr1181310eec.22.1780472543899; Wed, 03 Jun 2026
+ 00:42:23 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260531092924.12929-1-clamor95@gmail.com> <20260531092924.12929-2-clamor95@gmail.com>
+In-Reply-To: <20260531092924.12929-2-clamor95@gmail.com>
+From: Svyatoslav Ryhel <clamor95@gmail.com>
+Date: Wed, 3 Jun 2026 10:42:12 +0300
+X-Gm-Features: AVHnY4Ieen8ZoYHKJxqaa_bowmUWca3QV_nYMrOeqjf0cKthQQdJ7zZR2Kop0oE
+Message-ID: <CAPVz0n12a5XjoFbCYDuwa8gzYeyg9jcjOzKRArqFZBSgMkjCkg@mail.gmail.com>
+Subject: Re: [PATCH v1 1/1 RESEND] dt-bindings: media: mt9m114: document
+ common video device properties
+To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Svyatoslav Ryhel <clamor95@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+=D0=BD=D0=B4, 31 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:2=
+9 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
+>
+> Document common video interface device properties, such as rotation and
+> orientation.
+>
+> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
+> ---
 
-New issues:
-- [High] Stack out-of-bounds read and endianness corruption due to `bitmap_=
-from_arr32` with a 4-byte `u32`.
-- [High] Missing upper-bound validation on `dc-current-limit-gpios` array l=
-ength leads to out-of-bounds read and undefined behavior.
-- [Medium] Incorrect source selection in get/set properties when DC is acti=
-ve but only USB has a configured GPIO.
-- [Medium] Negative current limit requests bypass the minimum bounds check =
-due to a signedness bug.
-- [Low] Memory leak of temporary parsing buffer `map` due to devm_kcalloc.
+I have forgot to include ack and review tags from pre-resend patch.
 
-Pre-existing issues:
-- [High] TOCTOU data race between IRQ handlers due to prematurely dropped `=
-source_lock`.
---
+Acked-by: Rob Herring (Arm) <robh@kernel.org>
+Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
 
-commit e36685a3d0ef54240804ea29cb948b482e9cc91e
-Author: Herman van Hazendonk <github.com@herrie.org>
+Hopefully, these can be added without resending.
 
-power: supply: max8903: add DC and USB input current-limit GPIO controls
-   =20
-This commit adds optional current-limit controls for both DC and USB power
-inputs via the POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT property. It parses
-device tree nodes for GPIO values and limits, then dynamically steers
-requests to the currently active source (DC or USB) while introducing a
-mutex to serialize source state changes.
-
-> diff --git a/drivers/power/supply/max8903_charger.c b/drivers/power/suppl=
-y/max8903_charger.c
-> index 45fbaad6c6470..19c2b348a0456 100644
-> --- a/drivers/power/supply/max8903_charger.c
-> +++ b/drivers/power/supply/max8903_charger.c
-
-[ ... ]
-
-> @@ -47,6 +76,24 @@ static int max8903_get_property(struct power_supply *p=
-sy,
->  		union power_supply_propval *val)
->  {
-
-[ ... ]
-
-> +	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
-> +		if (ta_in && data->dc_current_limit_gpios)
-> +			val->intval =3D dc_limit;
-> +		else if (usb_in && data->usb_current_limit_gpio)
-> +			val->intval =3D usb_limit;
-> +		else
-> +			return -ENODATA;
-> +		break;
-
-[Severity: Medium]
-If both sources are active (where hardware prioritizes DC) but the device
-tree only configures USB GPIOs, won't this fall through to the USB branch?
-
-This could result in reporting the inactive USB limit while the hardware
-continues drawing unmanaged power from the DC input. Should the code reject
-requests for the active source if its GPIOs are missing instead of falling
-back to the inactive source?
-
-[ ... ]
-
-> +static int max8903_set_dc_current_limit(struct max8903_data *data, u32 l=
-imit_ua)
-> +{
-> +	int i, best_idx =3D -1;
-> +	u32 best_gpio_value;
-> +	/*
-> +	 * gpio_value is a u32 in the DT mapping and is parse-time
-> +	 * validated to fit in BIT(ndescs); size the bitmap to the full
-> +	 * width of the source u32 so a DT with up to 32 dc-current-limit
-> +	 * GPIOs cannot overflow this stack buffer.
-> +	 */
-> +	DECLARE_BITMAP(values, BITS_PER_TYPE(u32));
-
-[ ... ]
-
-> +	best_gpio_value =3D data->dc_current_limit_map[best_idx].gpio_value;
-> +	bitmap_from_arr32(values, &best_gpio_value, BITS_PER_TYPE(u32));
-
-[Severity: High]
-Can this cause a stack out-of-bounds read and endianness corruption?
-
-The bitmap_from_arr32() macro casts the 4-byte pointer to best_gpio_value
-to an 8-byte unsigned long pointer on 64-bit systems. This would pull
-4 bytes of adjacent uninitialized stack memory into the values bitmap.
-
-On big-endian 64-bit systems, this could incorrectly interpret the value,
-placing the intended value in the upper 32 bits and garbage in the lower.
-
-> +	gpiod_set_array_value_cansleep(data->dc_current_limit_gpios->ndescs,
-> +				       data->dc_current_limit_gpios->desc,
-> +				       data->dc_current_limit_gpios->info,
-> +				       values);
-
-[ ... ]
-
-> +static int max8903_set_property(struct power_supply *psy,
-> +		enum power_supply_property psp,
-> +		const union power_supply_propval *val)
-> +{
-> +	struct max8903_data *data =3D power_supply_get_drvdata(psy);
-> +	int ret;
+>  .../devicetree/bindings/media/i2c/onnn,mt9m114.yaml          | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+>
+> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yam=
+l b/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yaml
+> index e896f4db2421..2b39614f5cbf 100644
+> --- a/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yaml
+> +++ b/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yaml
+> @@ -15,6 +15,9 @@ description: |-
+>    an I2C interface and outputs image data over a 8-bit parallel or 1-lan=
+e MIPI
+>    CSI-2 connection.
+>
+> +allOf:
+> +  - $ref: /schemas/media/video-interface-devices.yaml#
 > +
-> +	switch (psp) {
-> +	case POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT:
-> +		/*
-> +		 * Hold source_lock across the source check and the
-> +		 * resulting hardware write so the IRQ handler cannot
-> +		 * flip ta_in/usb_in between them and have us program the
-> +		 * limit for a source that has just gone offline.
-> +		 */
-> +		mutex_lock(&data->source_lock);
-> +		if (data->ta_in && data->dc_current_limit_gpios)
-> +			ret =3D max8903_set_dc_current_limit(data, val->intval);
-> +		else if (data->usb_in && data->usb_current_limit_gpio)
-> +			ret =3D max8903_set_usb_current_limit(data, val->intval);
-> +		else
-> +			ret =3D -EINVAL;
-> +		mutex_unlock(&data->source_lock);
-> +		return ret;
-
-[Severity: Medium]
-Could a negative requested limit bypass the minimum bounds check here?
-
-The requested limit in val->intval is a signed integer, but it is passed
-to functions like max8903_set_usb_current_limit() which expect an unsigned
-u32 limit_ua. If a negative value is requested, the implicit cast to u32
-would create a very large unsigned value. This would bypass the upper bounds
-check and silently configure the maximum possible current instead of
-returning -EINVAL.
-
-[ ... ]
-
-> @@ -91,12 +272,21 @@ static irqreturn_t max8903_dcin(int irq, void *_data)
->  	 * library as the line should be flagged GPIO_ACTIVE_LOW in the device
->  	 * tree.
->  	 */
-> +	/*
-> +	 * Sample the line under source_lock so a concurrent
-> +	 * max8903_set_property() observes either the old or the new
-> +	 * state consistently, never a torn read where the lock is held
-> +	 * but the cached flag is about to be updated.
-> +	 */
-> +	mutex_lock(&data->source_lock);
->  	ta_in =3D gpiod_get_value(data->dok);
-> -
-> -	if (ta_in =3D=3D data->ta_in)
-> +	if (ta_in =3D=3D data->ta_in) {
-> +		mutex_unlock(&data->source_lock);
->  		return IRQ_HANDLED;
-> +	}
-> =20
->  	data->ta_in =3D ta_in;
-> +	mutex_unlock(&data->source_lock);
-> =20
->  	/* Set Current-Limit-Mode 1:DC 0:USB */
-
-[Severity: High]
-This is a pre-existing issue, but does dropping the lock before evaluating
-data->usb_in and calculating the charger enable state expose a race conditi=
-on?
-
-If DC and USB states change simultaneously, the threads could interleave.
-For example, a DC unplug could evaluate the charger enable state using a
-stale data->usb_in =3D 0, while a concurrent USB plug updates usb_in =3D 1.
-Could this result in writing the wrong enable state to the hardware?
-
-Should the mutex coverage be extended over the entire state evaluation block
-in both max8903_dcin() and max8903_usbin()?
-
-[ ... ]
-
-> +static int max8903_parse_dc_current_limit(struct platform_device *pdev,
-> +					  struct max8903_data *data)
-> +{
-
-[ ... ]
-
-> +	map =3D devm_kcalloc(dev, map_size, sizeof(*map), GFP_KERNEL);
-> +	if (!map)
-> +		return -ENOMEM;
-
-[Severity: Low]
-Does this leak the temporary map buffer?
-
-The array map is allocated using devm_kcalloc() to temporarily hold device
-tree properties for parsing. Once parsed, the buffer isn't explicitly freed,
-meaning the devres allocation will persist and waste memory until the
-device is unbound.
-
-Would it be better to use kcalloc() and explicitly kfree() it at the end
-of the function?
-
-[ ... ]
-
-> +	for (i =3D 0; i < data->dc_current_limit_map_size; i++) {
-> +		u32 gpio_value =3D map[i * 2 + 1];
-> +
-> +		/*
-> +		 * gpio_value is the bitmap programmed across the
-> +		 * dc-current-limit GPIOs, so it cannot represent more
-> +		 * bits than the GPIO array width. A larger value would
-> +		 * be silently truncated by gpiod_set_array_value() and
-> +		 * select the wrong limit; reject it at parse time so
-> +		 * the bogus DT is visible to the integrator.
-> +		 */
-> +		if (gpio_value >=3D BIT(data->dc_current_limit_gpios->ndescs)) {
-
-[Severity: High]
-Does this missing bounds check on ndescs lead to undefined behavior?
-
-The ndescs value is populated from the device tree, and the stack values
-array is sized to 32 bits. If the device tree provides an ndescs value of
-32 or greater, the BIT(ndescs) macro would trigger undefined behavior on
-32-bit systems.
-
-Additionally, passing an unvalidated ndescs to gpiod_set_array_value_cansle=
-ep()
-could read out of bounds from the values stack array. Should we ensure
-ndescs is strictly less than 32 during initialization?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603071519.8076=
-04-1-github.com@herrie.org?part=3D2
+>  properties:
+>    compatible:
+>      enum:
+> @@ -90,7 +93,7 @@ required:
+>    - vaa-supply
+>    - port
+>
+> -additionalProperties: false
+> +unevaluatedProperties: false
+>
+>  examples:
+>    - |
+> --
+> 2.51.0
+>
