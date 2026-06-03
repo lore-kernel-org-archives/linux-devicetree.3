@@ -1,106 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C67C3932DC
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:35:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45DE53B47CF;
+	Wed,  3 Jun 2026 15:36:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500957; cv=none; b=mrIwjVERnsIULY6dtVNnEKDyoRoNsZbTzFrVI6fdg0nrT0cEHHhhqM74dE+jUq01gphwfsCC4gc/q32pNEUfQIx+FA62z8t2zF2SzX+44DWx2qP3qyiVQERCVWQu8rAKaQrS7f52e1hX7l/00P29b5CDX7hHunGvRzzdY5SXpSw=
+	t=1780500987; cv=none; b=hMcfzwGGWTuUf7+b4CpKef2D4JcTnlyLV4uRiM5/of9/UTXnJ35g7rhORYliPh+uvGi1Xzh8KDG4LFKSLv1/7UDvCpkaPN87tIWkFuQQS3t6Hp21AfZwi/hFW4aZlQUFaN7P8bEK79yKmRPeRiPNlGyLgZTg+jCctIWjpJnvLSA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500957; c=relaxed/simple;
-	bh=SLZYUd1GQ2vSSwaE8yqpvHIlLGm41bqfHGlzVMFJnLM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oo7Fzpcs2qjwK1teC+GKJx6+F9KnX9U1nYZ4DWGQgUZxejv/2ypZJCN9mAb28R5tSGPjjjS5iiWRdt+XhQixBCBXs1tF5rMEjVddJnHX2nj0MW27LMDVGN+D+Ugq43qau9DhTSVQA+E5lG98C3Fuj/qrdI26fJsN7VOALEaEvFE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R875jDan; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780500987; c=relaxed/simple;
+	bh=WWl0wCb3pfPSLTyKbZGLBc+OPYdYxOFfCypVd82uDUk=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=VQWmtvwy726Xw3nsv0QsjErA2RGCCxyQ78h0ujnn7MXaVGBEiWMAGXBoaw549FbeGawaj69XhlYpNs3oTdhl5pdPIMkPBGW87C6ZK8QvLnNkeetZxmyQ8AlijdwIARpoCgHeTJyRpH0xwgNJUPugtwOEuufXzGkr0N2GIgUJJFs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hHrV/x+P; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R875jDan"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 194381F00893;
-	Wed,  3 Jun 2026 15:35:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hHrV/x+P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1E2391F00893;
+	Wed,  3 Jun 2026 15:36:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780500956;
-	bh=Usd5TqPq1Z0ZNN2YYf7nDHlQfCbTXIKf+xjffJhIC3g=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=R875jDanQMxj0HU+Nx5KW4TCA7AX1pXPkMTiUMHGoAlUMagixgk04YM+qrd4gmmIS
-	 jqo0V6wSbKC3yHb4U/uHh0mr9KYdY/bhRmQ3Ak7z/fI/TAifRZzb6wKaz5KxjPpbcy
-	 w4Det5Y4eFBXp8XdwPeJp36x6SD/PPESuu3TL8YqSsdrKBxBm8mH1mYiZ8MYnDBgu/
-	 bxPN4RZSBujZNO9jMcYrbgxuvhJrQnxbjVcntaHWiYpfdaTYZ9YHFb84xtwKqHRTQs
-	 GQfebWB2jZJzFmXSifYnlGe+X/ccxcvyQHtuvO3SgyCHM+zHDZwBUjVv68jyUj6UTn
-	 qb46P5elK8UBQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 5/5] iommu/arm-smmu: Add qcom,shikra-mdss to Qualcomm
- SMMU client tables
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Nabige Aala" <nabige.aala@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260603-shikra-display-v1-5-aeac1b94faa7@oss.qualcomm.com>
-References: <20260603-shikra-display-v1-5-aeac1b94faa7@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 15:35:54 +0000
-Message-Id: <20260603153555.194381F00893@smtp.kernel.org>
+	s=k20260515; t=1780500985;
+	bh=SAkb5V6NtcCPmSvzm4+V97K1xoD0UopH40bZ8VjeIHw=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=hHrV/x+PdTiushR0xNqUS/JtV+j0xltOIxRB/FiBKo8zKJqcILCvPurAh/xvON40n
+	 u+c9irCJKkqd+80iJHfmqbSmgruuIYUJ6jA3gzKSiQ+HIU9g7EN5I4JILM3K6Tb4Ck
+	 eztfJYNQ24L9nQfdBXFuMi1Pah/sGCuxpRBR19+Roiq9lg5ixmMBlL2TSZHBeQ5I3s
+	 T40/FZMFy8rSO8qe08cLSvV+N7zXUEqtJlo6d81GCQMIPLthC0ygGDF7u6ghhPkeoE
+	 nQOiXUrlRIx+YayPEXXy1EuwT3xdMSqguvCuFgOoOGke8omCS7ONP6mAW0oec1Jxnf
+	 IEW/cmQKGPNqQ==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, Sneh Mankad
+ <sneh.mankad@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>
+Subject: Re: [PATCH v2 5/8] irqchip/qcom-pdc: Configure PDC to pass through
+ mode
+In-Reply-To: <20260526-hamoa_pdc-v2-5-f6857af1ce91@oss.qualcomm.com>
+References: <20260526-hamoa_pdc-v2-0-f6857af1ce91@oss.qualcomm.com>
+ <20260526-hamoa_pdc-v2-5-f6857af1ce91@oss.qualcomm.com>
+Date: Wed, 03 Jun 2026 17:36:22 +0200
+Message-ID: <87zf1b63gp.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The entries for `qcom,shikra-mdss` are inserted out of alphabetical=
- order in the device match tables.
---
+On Tue, May 26 2026 at 16:24, Maulik Shah wrote:
+ 
+> +static inline bool pdc_pin_uses_seconary_mode(int pin_out)
+> +{
+> +	if (pdc->mode == PDC_SECONDARY_MODE && pin_out >= pdc->num_spis)
+> +		return true;
 
-commit c3b00b57dda4a11308898354c0f31b116dd3d96c
-Author: Nabige Aala <nabige.aala@oss.qualcomm.com>
+  return pdcc>mode == ... && ...;
 
-iommu/arm-smmu: Add qcom,shikra-mdss to Qualcomm SMMU client tables
-   =20
-Register the Shikra MDSS display subsystem in both the SMMU ACTLR
-client table and the SMMU client match table.
+Perhaps?
 
-> diff --git a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c b/drivers/iommu/a=
-rm/arm-smmu/arm-smmu-qcom.c
-> index e2c914fccd6fc..3dfee947e2c9f 100644
-> --- a/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> +++ b/drivers/iommu/arm/arm-smmu/arm-smmu-qcom.c
-> @@ -45,6 +45,8 @@ static const struct of_device_id qcom_smmu_actlr_client=
-_of_match[] =3D {
->  			.data =3D (const void *) (PREFETCH_DEFAULT | CMTLB) },
->  	{ .compatible =3D "qcom,qcm2290-mdss",
->  			.data =3D (const void *) (PREFETCH_SHALLOW | CPRE | CMTLB) },
-> +	{ .compatible =3D "qcom,shikra-mdss",
-> +			.data =3D (const void *) (PREFETCH_SHALLOW | CPRE | CMTLB) },
+> +static void qcom_pdc_ack(struct irq_data *d)
+> +{
+> +	if (pdc_pin_uses_seconary_mode(d->hwirq) && !irqd_is_level_type(d))
+> +		pdc->clear_gpio(d->hwirq);
+> +}
+> +
+> +static void qcom_pdc_gic_eoi(struct irq_data *d)
+> +{
+> +	if (pdc_pin_uses_seconary_mode(d->hwirq) && irqd_is_level_type(d))
+> +		pdc->clear_gpio(d->hwirq);
+> +
+> +	irq_chip_eoi_parent(d);
+> +}
 
-[Severity: Low]
-This isn't a bug, but should this entry be placed in alphabetical order?
+Not that I care about the performance of your SoC, but those
+conditionals can be completely avoided with separate irq chips.
 
-It looks like it was inserted right after qcm2290-mdss because it mirrors t=
-he
-hardware prefetch settings. However, it seems these match tables are usually
-kept in strict alphabetical order to prevent merge conflicts and duplicates.
-Would it be better placed between sc8280xp-mdss and sm6115-mdss?
-
->  	{ .compatible =3D "qcom,sa8775p-mdss",
->  			.data =3D (const void *) (PREFETCH_DEFAULT | CMTLB) },
->  	{ .compatible =3D "qcom,sc7280-mdss",
-
-[ ... ]
-
-> @@ -410,6 +412,7 @@ static const struct of_device_id qcom_smmu_client_of_=
-match[] __maybe_unused =3D {
->  	{ .compatible =3D "qcom,mdp4" },
->  	{ .compatible =3D "qcom,mdss" },
->  	{ .compatible =3D "qcom,qcm2290-mdss" },
-> +	{ .compatible =3D "qcom,shikra-mdss" },
-
-[Severity: Low]
-Similarly, should this be placed alphabetically between sdm845-mss-pil and
-sm6115-mdss to maintain the list ordering?
-
->  	{ .compatible =3D "qcom,sar2130p-mdss" },
->  	{ .compatible =3D "qcom,sc7180-mdss" },
->  	{ .compatible =3D "qcom,sc7180-mss-pil" },
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-shikra-dis=
-play-v1-0-aeac1b94faa7@oss.qualcomm.com?part=3D5
