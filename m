@@ -1,143 +1,84 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from outbound0.mail.transip.nl (outbound0.mail.transip.nl [149.210.149.69])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D52D40913C
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:16:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC55D421A09;
+	Wed,  3 Jun 2026 08:17:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.210.149.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780474621; cv=none; b=lUBFARbr+I+Qq1qwI+6o5sEeTsWj3B0TgqYih5F/p+AKEGq73y0KYPH23X0SPUzmG4cPjUzgmBG3T5Wqm6VxbQtrnn6Gg4DwUT92UUc9/QtffFMqp1HwTfdws2n0dMHsMrR5eqsdR1czyb4EZ4vYFHHdK3qZRWhPgxJPe4aUSYU=
+	t=1780474679; cv=none; b=FhmImLbKOW+9AziS+7WLTJPNASed/YYDPDNrwxFYkcTofmet/1OKq1s0Nf7WfEzCKJPS7EMlQ0RZMcR6vDrgxdKcZhYLoo3l1gQ/x7lFBR/hF6Ba37sg+c1+Ay77b5zJTJofJhMWKyR2lOVjb18aXXYhZ1frhyJ9BkjuvYFbRmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780474621; c=relaxed/simple;
-	bh=NRGp7ciKl4RNiUi+iulN7hzq/FhBMMKaYzGB9VRrhxU=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=KFk0pdOqvirOv2sQ8J6sN6g3oWmhnvKQXLCmuj6dpiGYWGqZA/nd7hT1uE113a+LzJehYcN7tttcchGSs6613IP8yqXYdeyTYSaXQm6joWLAJPkDv/EmK+gVaqbk5TGcdOkztnHpA2uEc62BB+zimugGicnHEAHXpnHRSEe59us=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUgmJ-0001Xn-Ca; Wed, 03 Jun 2026 10:16:43 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUgmI-000sok-30;
-	Wed, 03 Jun 2026 10:16:42 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUgmI-000000002l3-3UCX;
-	Wed, 03 Jun 2026 10:16:42 +0200
-Message-ID: <50a908557bb3ce5f14b67396d1e73e70289a583a.camel@pengutronix.de>
-Subject: Re: [PATCH v4 2/4] PCI: rzg3s-host: Use shared reset controls for
- power domain resets
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Prabhakar <prabhakar.csengg@gmail.com>, Claudiu Beznea	
- <claudiu.beznea.uj@bp.renesas.com>, Manivannan Sadhasivam
- <mani@kernel.org>,  Lorenzo Pieralisi <lpieralisi@kernel.org>, Krzysztof
- =?UTF-8?Q?Wilczy=C5=84ski?= <kwilczynski@kernel.org>, Rob Herring
- <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Geert
- Uytterhoeven	 <geert+renesas@glider.be>, Magnus Damm
- <magnus.damm@gmail.com>, 	linux-pci@vger.kernel.org
-Cc: linux-renesas-soc@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Biju Das <biju.das.jz@bp.renesas.com>,
- Fabrizio Castro <fabrizio.castro.jz@renesas.com>, Lad Prabhakar
- <prabhakar.mahadev-lad.rj@bp.renesas.com>
-Date: Wed, 03 Jun 2026 10:16:42 +0200
-In-Reply-To: <20260602195019.1798126-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-References: 
-	<20260602195019.1798126-1-prabhakar.mahadev-lad.rj@bp.renesas.com>
-	 <20260602195019.1798126-3-prabhakar.mahadev-lad.rj@bp.renesas.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1780474679; c=relaxed/simple;
+	bh=oBKV6LyjynghyhkhfEqiKMnROJH+Ew21FK35o5B1ne0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pL0ImyzJGIV0uemOh/v4RQkOG3AYFB1ufEgbTHmDQ8dkOM7ts7l3Zixj3aGFaLjxWlXLcAjPDZY/oKvx2UGDpOyCJjvV17mLSxxgrqQNrs1Cer0Vbvnnx5yvPaz/yanB7NCscpuDiG56bn+++cxsAbznI9NHRL3FYezyEB6T8QM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=iHI9q+fQ; arc=none smtp.client-ip=149.210.149.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="iHI9q+fQ"
+Received: from submission7.mail.transip.nl (unknown [10.103.8.158])
+	by outbound0.mail.transip.nl (Postfix) with ESMTP id 4gVgYR0g7tzxPYv;
+	Wed,  3 Jun 2026 10:17:47 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission7.mail.transip.nl (Postfix) with ESMTPA id 4gVgYQ3Hqbz3fqYsP;
+	Wed,  3 Jun 2026 10:17:46 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: lee@kernel.org,
+	robh@kernel.org
+Cc: krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Herman van Hazendonk <github.com@herrie.org>
+Subject: Re: [PATCH 1/1] dt-bindings: mfd: add ti,lm8502 combo LED + haptic controller
+Date: Wed,  3 Jun 2026 10:17:45 +0200
+Message-ID: <20260603081746.932652-1-github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260603080256.853037-2-github.com@herrie.org>
+References: <20260603080256.853037-2-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission7.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780474666; h=from:subject:to:cc:
+ references:in-reply-to:date:mime-version:content-type;
+ bh=oBKV6LyjynghyhkhfEqiKMnROJH+Ew21FK35o5B1ne0=;
+ b=iHI9q+fQrFIjggI7y7Ru+ZqZGGBffQjcOOHfLaQ/DrLxBMXUFsdkuy8M8xrT0vkLpOA+Qd
+ 5tj4VkeliAQ3BDOLFbY52DUGqEHo0te7oTLfj9//hobwrmHZCt3Qa2Rh+U6WvuHdGxobMw
+ LdHQPMXEYUNp6vhAdQpn7xyE/Cuk3O1BVmmYyQ7EjH5mPHYVr971EkIk/4UyRXhdODArFF
+ zeD7WMMKnDlF0S2QQKw/tV1L46K7Rcf7EL1leEoScLf7jJaLqEuGDgLmvMB8x7Ig+m6bp4
+ iWvPieEsmB3nivzVc/2haL/QTbPJUdbQWEVEPNDRk/IbMCe2hq8IUT/BD9eEHw==
+X-Report-Abuse-To: abuse@transip.nl
 
-On Di, 2026-06-02 at 20:50 +0100, Prabhakar wrote:
-> From: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
->=20
-> Switch to shared reset controls for PCIe power resets to prepare for
-> RZ/V2H(P) support. On this platform, multiple PCIe controllers share
-> the same reset line, requiring shared ownership of the reset control.
->=20
-> Signed-off-by: Lad Prabhakar <prabhakar.mahadev-lad.rj@bp.renesas.com>
-> Reviewed-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> Tested-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-> ---
-> v3->v4:
-> - Added RB/TB tags.
->=20
-> v2->v3:
-> - No change.
->=20
-> v1->v2:
-> - Updated commit message.
-> ---
->  drivers/pci/controller/pcie-rzg3s-host.c | 6 +++---
->  1 file changed, 3 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/pci/controller/pcie-rzg3s-host.c b/drivers/pci/contr=
-oller/pcie-rzg3s-host.c
-> index d86e7516dcc2..a5192e4b58df 100644
-> --- a/drivers/pci/controller/pcie-rzg3s-host.c
-> +++ b/drivers/pci/controller/pcie-rzg3s-host.c
-> @@ -1276,9 +1276,9 @@ static int rzg3s_pcie_resets_prepare_and_get(struct=
- rzg3s_pcie_host *host)
->  	for (i =3D 0; i < data->num_cfg_resets; i++)
->  		host->cfg_resets[i].id =3D data->cfg_resets[i];
-> =20
-> -	ret =3D devm_reset_control_bulk_get_exclusive(host->dev,
-> -						    data->num_power_resets,
-> -						    host->power_resets);
-> +	ret =3D devm_reset_control_bulk_get_shared(host->dev,
-> +						 data->num_power_resets,
-> +						 host->power_resets);
->  	if (ret)
->  		return ret;
-> =20
+Thank you for the review feedback.
 
-I have a few questions about this.
+Acknowledged — the ti,lm8502-leds / ti,lm8502-haptic compatible strings
+are a Linux MFD driver artifact rather than a hardware description. The
+description text also mentions the OS split, which should be removed.
 
-Can you move rzg3s_pcie_resets_prepare_and_get() and
-rzg3s_pcie_power_resets_deassert() up before setting
-RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B in
-rzg3s_pcie_probe() without ill effect?
+Before preparing v2 I wanted to ask how you would prefer this structured:
 
-Can you move rzg3s_pcie_power_resets_deassert() up before setting
-RZG3S_SYSC_FUNC_ID_MODE and RZG3S_SYSC_FUNC_ID_RST_RSM_B
-rzg3s_pcie_resume_noirq()?
+Option A — LP55xx style (no sub-node compatibles):
+Individual led@N nodes (reg 0..9 = D1..D10) go directly on the parent,
+following leds-lp55xx.yaml. The haptic function is a plain haptic sub-node
+(config container for ti,invert-direction) with no compatible. The parent
+driver instantiates children via mfd_cells[] keyed on platform device name;
+DT parsing is done in the parent driver. This requires companion changes to
+the MFD core and child drivers.
 
-Those would have the same effect as the reset already being deasserted
-by the other controller.
+Option B — Single flat node:
+Fold everything into the parent node. LED channels and haptic described via
+properties directly on the I2C device node, no sub-nodes at all. Simpler
+binding, but per-LED led-max-microamp config becomes a list property rather
+than per-node, which is less readable for a 10-channel device.
 
-Is the "power-on" mentioned in the comment about the delay in
-rzg3s_pcie_power_resets_deassert() the same for both controllers or are
-they powered on individually? Specifically, when the first controller
-deasserts the resets during resume, is it guaranteed that the necessary
-delay has also passed for the second controller, which is resumed
-later?
+My inclination is Option A as it matches the LP55xx precedent, but happy to
+follow your preference or any third approach you have in mind.
 
-Can the reset_control_bulk_assert(..., host->power_resets) be moved
-down past setting RZG3S_SYSC_FUNC_ID_RST_RSM_B in
-rzg3s_pcie_suspend_noirq() and in the rzg3s_pcie_resume_noirq() error
-path without issue? That would have the same effect as the reset still
-being held deasserted by the other controller.
-
-The power_resets are initially deasserted in rzg3s_pcie_probe(), but
-never asserted in .remove. This unbalances the deassertion counter if
-one controller is unbound and rebound while the other still holds the
-reset requested, which would cause the reset to never be asserted
-during suspend.
-
-regards
-Philipp
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
