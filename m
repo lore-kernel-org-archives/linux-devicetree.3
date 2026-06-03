@@ -1,342 +1,188 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2105.outbound.protection.partner.outlook.cn [139.219.17.105])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 221903F8EC2;
-	Wed,  3 Jun 2026 05:55:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.105
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780466141; cv=fail; b=lKkmLmYhkDCBSxt3urIr76g4DvQcv4JKdceiYA1NdIiIJqwmlQ9BVexnmkiPqDrAJDloxl9DOyF/gbwfmSn27Iq+hawAZMMtl4pOpoUouXHJmSq+Q7i3M/idJsypGxiwvfPyuHWsIAWEMEvrMEtTV/Zoquu4d94pGtzgdxA48xI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780466141; c=relaxed/simple;
-	bh=6pWRsCWbJDlED32ExP7kFEY5RclA+iEA8hEo6bpmdg4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=EeAIVKYHULhOGmPFBaD2StCpO6/izxH55rEfNxPCCt68oIVBEbVjKgv1CIYW1lmgaIfwoix3pzAsPav9WK32dENb4WBjthUmSwkLasPaBTwVCfL+9aTlJ48OmIipUw0rMogGL+g02kmjhPWLKDkg+G7sIvElM+xIpcQfHPjgHeM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.105
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=MwMBasDWA9eKmakN7OQCQj0IhIMJm3hwychlN7liHiQCmsjLSnPlmv4NVHh3n10xsMtOZLouNky0p8c81dpHkkTRhVtPXLIt8p4SHC0SNCAWLT3/FGv/MYXSuBI0XIejWywyjoxpp+3RW1iewuTS9STMOJN1hbg39CgGG9PBi6gVn3nxhc/brb9Ls6UEySFy9qqNiRzVCoDUQLOoc4P9CzsKLdPkaAlXwN7/s+Q6okN1eD1M9COcUqSMcL9kLv54sxll/hb4rMKtYkEPujSCazArVCjfXV8QRmnpBCESh5Thx4q6Hr9oyTfqkpGxPNg8ZydZBDgE4oXOR+vJDUFYeg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=YA7Nzo5z2sMG7Q+oDuElsZaNB++kqRi1wcj18uba+8E=;
- b=e2KAkKzFas8qf0jz2gzAT+H6b1GJgNFguBXdwQ3MENBddGItZypE+WkzfPFkfTbnCI5GbbZJavJaVCP2BzMl7BZb3vzfcrLdFq3cBCWT/EL0KHHRpg1N6WITtB5PMqzXLjcB9MT2T1DIDW7ek5jTFZ0vx8Stcr4eJNXb92mJZXXYGpVewTR5cNZBFLaVI691N4OOIzlBKzAliV7lJlG15cx3E3DSEXFw6BwhC4jC9RuzyfQZ0j1n1M2MbNtakqyBf03SYtfNTVqpDI4GD9IgZvlZj2SaMLF8J/rkdV76biJOSaCnAYHE2csIyviFEmFiiz4RjaZQ8tBw0A/Y50OE+g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1154.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 05:54:27 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.21.0092.006; Wed, 3 Jun 2026 05:54:27 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v3 21/21] riscv: dts: starfive: jhb100: Add pinctrl nodes
-Date: Tue,  2 Jun 2026 22:53:47 -0700
-Message-Id: <20260603055347.66845-22-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0002.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::14) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F7423F44D3;
+	Wed,  3 Jun 2026 06:01:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780466462; cv=none; b=f0DjusZyMto+mJFsI2qbNdaUoXeQV5AdrWqneig8DWRjP08cgbBdtJOYjTE5JAbNIklhaEZFOzWqN+Z5Hzl2WhO3BM4IvYKXWWI+PZ4DZb3n6UsyZmmupChnM6rq8fOeDKQds4ONxmmdFXslHslZqLy0IPFdsIsPNDITXVh5WMc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780466462; c=relaxed/simple;
+	bh=pp9HcY2xS66toHNxbB7sr3vXGCzSt2XLjnl7od/onoQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=g812IOS9Rdi+Ihoi+V4yG5lx86J7JgIdDTzQ1FHAFRz+pVU0lYZ9T0J2oJqqMzkzDb3ObwisYtKSsCcJOAA1UdMjw9Jx71oKd6ePuC7zwy3T9L3A61WNOWh/jtfAGNCkWe5+Q+7Xs5x+ycnRnGyuunqh1QWkdf9pNX3OLqXPT1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D4BWVMxy; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D4BWVMxy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD51E1F00893;
+	Wed,  3 Jun 2026 06:01:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780466461;
+	bh=iIDbnu+hln/EA7ynrMKJhtLipUKdalEJHgUvmnSOonw=;
+	h=From:Subject:Date:To:Cc;
+	b=D4BWVMxyAgWppCpi4bvzqMJ4AIDUZxqBAU22i0RzX1a45PJPKzI5Ds+Ov9YJ4Rjwf
+	 dTwpB4gOMSH28nKGKfZqLZ7YoXlf6Bz7cGFVUqxaJcuK6NaC1qwSaZThoy7EWt9tSn
+	 D1srZz0Z+JtH+Ar/9iFyPUG217PLpTmPZa6IKSZpCookmaR6sXqrAFkCjnzrXoVTl4
+	 fhAASpCyoqKqfwfymk+5Pv/IfCkBCPybMSwBh3CdwS8WDY6QYQwrUlWtrJN7UasygI
+	 4dcLiOtPguoM/MFFziTZ6aAmQrkUeOflkdJYH1iwdlKPXevF5Tc3vD92+yP1FUUMQE
+	 WLccJ2II+F3lA==
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+Subject: [PATCH net-next v9 0/6] net: airoha: Support multiple net_devices
+ connected to the same GDM port
+Date: Wed, 03 Jun 2026 08:00:14 +0200
+Message-Id: <20260603-airoha-eth-multi-serdes-v9-0-5d476bc2f426@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 400d55fe-d236-4074-9f0a-08dec1349262
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|366016|22082099003|18002099003|56012099006|38350700014|921020;
-X-Microsoft-Antispam-Message-Info:
-	WMyVJ/Njo7v3gZ8NKuefB7adp9X+Mm72dINKntHk4+2wTjCyuMOPTkOGkqynQEkDVMToPmuuYIim+dryEpjtw2ENhLKXnr2M8ZLcB6qR2NHZqIXGqKumavWh4CHTTbj7/qjWZjNxpuHRh9f895vU+rj9kFhhSfB6phQVVhFcdwW/DyuAUr8UTebvQnZFrd6Dps+dSunEuAC6QyIHqLwirWRDevVUtkh4QRZedcWx8e3zAPntc7mRCBlFYLUt0HqtDl1wIrY23qLYMSt5wK5KMUAlrfWgvPH44MgWM9j02XNufDg1fY7uI4jHtg6e9c9khW23KgLwhyQbm0UPn+7GdB9ong/d27Keu1iFOgP2IVdbjJwKzC6O0tSwQehknfRIPgsowO83y8WNQvoSJ99tVZDeMISNe4rpeGRkb7vzfuKRFiDY0R3L/HVdrrz+WLSZ0Q8kAN7GtAek7cRpbs4x1bpoWfWRL0U8Wokm88p0H0vaoJMo/axey/e2zMMDtwQceG5ARAfUMFazsIJiXcRobBq3LdJ80YW77NvQe5U7qSj4EAYjhJV4UshK6AhmQ4KXnWcEAQr7kO/TddC628AYAw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(366016)(22082099003)(18002099003)(56012099006)(38350700014)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?CMYBxmglo+oBTf8reMufq2tTZeexZP/VbX6Rgva52Y19u/zVlgy4qPVXM15X?=
- =?us-ascii?Q?BuKpml74GhQV8BMKpUKqq+MKKOJiRZGl9AytFKysbZKUmbVebLVslKNJwuwB?=
- =?us-ascii?Q?Or1ko47Mr7RpwIEaJZPHaXGR1NvaIKgpl0OPVAx5Y3SDlxorxcSRJB4XrI+x?=
- =?us-ascii?Q?f6qJFPZB5Kc4SCu477oicWcYKFTDUp9H6DoMaCYx12sWemGqBNX1Oei1nivt?=
- =?us-ascii?Q?hk6ZjCIO0oC73wB1Y6/4DId7e5H28MalkZX/x7ZU6dkz5AsYiQ5H8NaTmL7q?=
- =?us-ascii?Q?dmQmrVq1j9m8AfcsBltHsuH5sWsybKkYc48xlJ+sgatbLCVylTiHFtlRL+Xw?=
- =?us-ascii?Q?awNVxu2O76Kh1YoPfPpT1H5dhSRhoyH9fVPuqaxc16Q8NppNiFzeU8o5SJeg?=
- =?us-ascii?Q?CiQyG/R0rD009pHpQtspmljJpJpA5BIxQ3pwTC1svI6jeD+wosHrIt8Tknj9?=
- =?us-ascii?Q?KWBafm9jjxTalHQyycsq1QjhscUlINd1+tbY7AlkK4qlWK0zD5HjGULfZkDx?=
- =?us-ascii?Q?Yy4ti4QrW9SwP39lj6fGNgGpyTkIArb8rEpXwpEgf2pUYsXhkXyIlY6CyiMB?=
- =?us-ascii?Q?AMRsZE9MovBiqXNX1V2UcgXey3G/gsIPwPSK1EIcwtAinnD5L9r7MfmxCENZ?=
- =?us-ascii?Q?tAlQzGXEGU9AfKC1qnbECZRYm0GqlcDPx9vpvQ3yWvph87/W61IsLioCzdM8?=
- =?us-ascii?Q?Y09JRWVUNlhGk7NrrFoS991zIhyrbr4ZRMLKV55FQmcxknGgwqPJ0LiX/pYu?=
- =?us-ascii?Q?OoDbaO3TIHmhFQaKIg8g3BUd7Cl/qaF2udlWsSwMrO++61LwIHN9ryOy572P?=
- =?us-ascii?Q?+g+7QXuQrZUglORuPKS3i7rjVszaWXlc89sYAPCTCcE7DGTrqc8UB/EdnzTb?=
- =?us-ascii?Q?qWaiitEZD4ObHtCb4LvyCfzEFY3T1v+3L4sHwFuJoiWybcWtAKi3mhwg2cYr?=
- =?us-ascii?Q?AgzoMAqY7RkheqTu7abp8p+edrjaIuE0tKnmC1sp25rEl+RKQNTTNN5VSzpA?=
- =?us-ascii?Q?mEkZqInSNggV6N7NsOJ1woxOSjM4L/li7mnD1lCIrMZkHyME/B7xL8pVtOa0?=
- =?us-ascii?Q?PK/8yZGeKG/4kGKlxhVNEdjZIeRlvsCgY599R7aHQi4kuBV+8jXs6a8B6IMr?=
- =?us-ascii?Q?ddl+eieekaomDonH8olXTboXcKBlPdKc1FneZN7a2rnpQEeWin7BzI9UrW0K?=
- =?us-ascii?Q?hHoMlRZXE+NK2VD5lgajUKW8MXs53NVOfxlStXK0VlbgeS+1/y/sjMdbbonp?=
- =?us-ascii?Q?o9jAT5ftyo8H7Mc2WMfNPRfVrxk0H3vnyd5sx2/E8cehUJzPCxZDgQDO9ZEZ?=
- =?us-ascii?Q?KEFYbdTcCtNUn9MSMD2ePJNDJ6INt9d9h4dY04fAp5er9+gez/s+r0c3GnuX?=
- =?us-ascii?Q?/e4OLGF4krmh+awZ6vlAw+flAkf+Bj/PlmcT+RT0NV2ta0cE2po1kzIXQE2g?=
- =?us-ascii?Q?Yh9PYlMDMTOCf9rqeSCyrbr9fMIS9HBM1sAYMXXdDX8cmO7n8PK92BPMWVQu?=
- =?us-ascii?Q?ME3rfXbuJGibU0/Y0pdQ5yOaa0Fjpe3Q0c/O4ILTMCQwsQxRsQ9KO4t9OVkO?=
- =?us-ascii?Q?OOhQ/Sxb2m8cxiXtRe4g7rU8ma96o4uNHgZbLULKO7T38sHZ38X6DbltdQ8h?=
- =?us-ascii?Q?IDAQQ/RpVi0/MpaSM0nWAu0LE4TUSwOy+y9QBazlKnaSuWXKrgjMjhTrncYs?=
- =?us-ascii?Q?j9zynVihXhUKNikSFt6IJhD2qmxbuI2vnJXQIkfLx2cbjVOunYZMstpVEHC9?=
- =?us-ascii?Q?j1wgZnVZhhhYwOrq+r+Wu5aXnwCIzQ9uOOUatW+Dv5znWhtOUINO?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 400d55fe-d236-4074-9f0a-08dec1349262
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 05:54:27.2396
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ORMriaDURR8/UJqCX5XW9RC67UXZYRBngnBE3//G4sVbYMXJVbIHxd7Ato62yXpI8+9cG98cExJTuSYHeQFaGcWIzP5FLgLtJU7foNVdOLcJPWKYx86jQYgQ0XYsowD2
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1154
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/33SS2rEMAwG4KsMXtdF8TPuqvcoXfghT0ynSXHSM
+ GXI3esJhUkxyVIIfUI/upERc8KRvJxuJOOcxjT0pTBPJ+I725+RplBqwoAp4ExQm/LQWYpTRz+
+ /L1OiBQg40uiEk1IhaqlImf7KGNN1ld9IjxPt8TqR99Lp0jgN+WddOTdr/083u/rcUKAAUbLgu
+ QJvXz8w93h5HvJ5RWf2gAQ0+xArkPWCaYvCIboK4ltI7UP8DjmFVpggTYwVJB6QBL0PiTsUVcO
+ daiwCqyC5hQ4ykgVqQSJvMXhm64zUBmoOMlIF8q0xQjEvopYVpLfQQUa6QMYggOEcONantVvo4
+ LS2QMoFDVi+JET1D1qW5RcsUjGkyAIAAA==
+X-Change-ID: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+To: Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>, Lorenzo Bianconi <lorenzo@kernel.org>
+Cc: Christian Marangi <ansuelsmth@gmail.com>, 
+ Benjamin Larsson <benjamin.larsson@genexis.eu>, 
+ linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
+ netdev@vger.kernel.org, devicetree@vger.kernel.org, 
+ Xuegang Lu <xuegang.lu@airoha.com>, 
+ Madhur Agrawal <madhur.agrawal@airoha.com>
+X-Mailer: b4 0.14.3
 
-Add pinctrl nodes for starfive JHB100 SoC. They contain
-pinctrl_per0/pinctrl_per1/pinctrl_per2/pinctrl_per2pok/pinctrl_per3/
-pinctrl_sys0/pinctrl_sys0h/pinctrl_sys1/pinctrl_sys2.
+EN7581 or AN7583 SoCs support connecting multiple external SerDes (e.g.
+Ethernet or USB SerDes) to GDM3 or GDM4 ports via a hw arbiter that
+manages the traffic in a TDM manner. As a result multiple net_devices can
+connect to the same GDM{3,4} port and there is a theoretical "1:n"
+relation between GDM ports and net_devices.
 
-Simultaneously add the pinctrl reference for uart6.
+           ┌─────────────────────────────────┐
+           │                                 │    ┌──────┐
+           │                         P1 GDM1 ├────►MT7530│
+           │                                 │    └──────┘
+           │                                 │      ETH0 (DSA conduit)
+           │                                 │
+           │              PSE/FE             │
+           │                                 │
+           │                                 │
+           │                                 │    ┌─────┐
+           │                         P0 CDM1 ├────►QDMA0│
+           │  P4                     P9 GDM4 │    └─────┘
+           └──┬─────────────────────────┬────┘
+              │                         │
+           ┌──▼──┐                 ┌────▼────┐
+           │ PPE │                 │   ARB   │
+           └─────┘                 └─┬─────┬─┘
+                                     │     │
+                                  ┌──▼──┐┌─▼───┐
+                                  │ ETH ││ USB │
+                                  └─────┘└─────┘
+                                   ETH1   ETH2
 
-Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+This series introduces support for multiple net_devices connected to the
+same Frame Engine (FE) GDM port (GDM3 or GDM4) via an external hw
+arbiter. Please note GDM1 or GDM2 does not support the connection with
+the external arbiter.
+
 ---
- arch/riscv/boot/dts/starfive/jhb100-evb1.dts  |   3 +
- .../boot/dts/starfive/jhb100-pinctrl.dtsi     |  23 ++++
- arch/riscv/boot/dts/starfive/jhb100.dtsi      | 110 ++++++++++++++++++
- 3 files changed, 136 insertions(+)
- create mode 100644 arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi
+Changes in v9:
+- Do not stop device probe if mac address are misconfigured but just
+  report the warning
+- Rebase on top of net-next main branch
+- Remove redundant net_device pointer inside airoha_gdm_dev struct.
+- Link to v8: https://lore.kernel.org/r/20260519-airoha-eth-multi-serdes-v8-0-6bd70e329df6@kernel.org
 
-diff --git a/arch/riscv/boot/dts/starfive/jhb100-evb1.dts b/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
-index 462b6fb7953b..8ad2b30a4e0b 100644
---- a/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
-+++ b/arch/riscv/boot/dts/starfive/jhb100-evb1.dts
-@@ -4,6 +4,7 @@
-  */
- 
- #include "jhb100.dtsi"
-+#include "jhb100-pinctrl.dtsi"
- 
- / {
- 	model = "StarFive JHB100 EVB-1";
-@@ -29,4 +30,6 @@ memory@40000000 {
- 
- &uart6 {
- 	status = "okay";
-+	pinctrl-names = "default";
-+	pinctrl-0 = <&uart6_pins>;
- };
-diff --git a/arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi b/arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi
-new file mode 100644
-index 000000000000..acc357e98548
---- /dev/null
-+++ b/arch/riscv/boot/dts/starfive/jhb100-pinctrl.dtsi
-@@ -0,0 +1,23 @@
-+// SPDX-License-Identifier: GPL-2.0 OR MIT
-+/*
-+ * Copyright (c) 2025-2026 StarFive Technology Co., Ltd.
-+ */
-+
-+#include <dt-bindings/pinctrl/starfive,jhb100-pinctrl.h>
-+
-+&pinctrl_sys2 {
-+	uart6_pins: uart6-grp {
-+		uart6-tx-pins {
-+			pins = <PADNUM_SYS2_GPIO_A38>;
-+			function = "uart";
-+			power-source = <JHB100_PINVREF_3_3V>;
-+		};
-+
-+		uart6-rx-pins {
-+			pins = <PADNUM_SYS2_GPIO_A39>;
-+			function = "uart";
-+			input-enable;
-+			power-source = <JHB100_PINVREF_3_3V>;
-+		};
-+	};
-+};
-diff --git a/arch/riscv/boot/dts/starfive/jhb100.dtsi b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-index 943324b3b2fd..f9a7fa9d37e3 100644
---- a/arch/riscv/boot/dts/starfive/jhb100.dtsi
-+++ b/arch/riscv/boot/dts/starfive/jhb100.dtsi
-@@ -428,6 +428,19 @@ per0crg: clock-controller@11a08000 {
- 				#reset-cells = <1>;
- 			};
- 
-+			pinctrl_per0: pinctrl@11a0a000 {
-+				compatible = "starfive,jhb100-per0-pinctrl";
-+				reg = <0x0 0x11a0a000 0x0 0x1000>;
-+				resets = <&per0crg JHB100_PER0RST_GPIO_IOMUX_PRESETN>;
-+				interrupts = <60>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_per0 0 0 0 32>,
-+					      <&pinctrl_per0 1 0 32 28>;
-+			};
-+
- 			per1crg: clock-controller@11b40000 {
- 				compatible = "starfive,jhb100-per1crg";
- 				reg = <0x0 0x11b40000 0x0 0x1000>;
-@@ -443,6 +456,19 @@ per1crg: clock-controller@11b40000 {
- 				#reset-cells = <1>;
- 			};
- 
-+			pinctrl_per1: pinctrl@11b42000 {
-+				compatible = "starfive,jhb100-per1-pinctrl";
-+				reg = <0x0 0x11b42000 0x0 0x800>;
-+				resets = <&per1crg JHB100_PER1RST_IOMUX_PRESETN>;
-+				interrupts = <61>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_per1 0 0 0 32>,
-+					      <&pinctrl_per1 1 0 32 4>;
-+			};
-+
- 			per2crg: clock-controller@11bc0000 {
- 				compatible = "starfive,jhb100-per2crg";
- 				reg = <0x0 0x11bc0000 0x0 0x1000>;
-@@ -464,6 +490,30 @@ per2crg: clock-controller@11bc0000 {
- 				#reset-cells = <1>;
- 			};
- 
-+			pinctrl_per2: pinctrl@11bc2000 {
-+				compatible = "starfive,jhb100-per2-pinctrl";
-+				reg = <0x0 0x11bc2000 0x0 0x400>;
-+				resets = <&per2crg JHB100_PER2RST_IOMUX_PRESETN>;
-+				interrupts = <62>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_per2 0 0 0 31>;
-+			};
-+
-+			pinctrl_per2pok: pinctrl@11bc2400 {
-+				compatible = "starfive,jhb100-per2pok-pinctrl";
-+				reg = <0x0 0x11bc2400 0x0 0x400>;
-+				resets = <&per2crg JHB100_PER2RST_POK_IOMUX_PRESETN>;
-+				interrupts = <63>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_per2pok 0 0 0 18>;
-+			};
-+
- 			per3crg: clock-controller@11c40000 {
- 				compatible = "starfive,jhb100-per3crg";
- 				reg = <0x0 0x11c40000 0x0 0x1000>;
-@@ -483,6 +533,18 @@ per3crg: clock-controller@11c40000 {
- 				#reset-cells = <1>;
- 			};
- 
-+			pinctrl_per3: pinctrl@11c42000 {
-+				compatible = "starfive,jhb100-per3-pinctrl";
-+				reg = <0x0 0x11c42000 0x0 0x1000>;
-+				resets = <&per3crg JHB100_PER3RST_IOMUX_PRESETN>;
-+				interrupts = <64>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_per3 0 0 0 11>;
-+			};
-+
- 			sys0crg: clock-controller@13000000 {
- 				compatible = "starfive,jhb100-sys0crg";
- 				reg = <0x0 0x13000000 0x0 0x4000>;
-@@ -517,6 +579,54 @@ sys2crg: clock-controller@13008000 {
- 				#reset-cells = <1>;
- 			};
- 
-+			pinctrl_sys0: pinctrl@13080000 {
-+				compatible = "starfive,jhb100-sys0-pinctrl";
-+				reg = <0x0 0x13080000 0x0 0x800>;
-+				resets = <&sys0crg JHB100_SYS0RST_SYS0_IOMUX_PRESETN>;
-+				interrupts = <56>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_sys0 0 0 0 4>;
-+			};
-+
-+			pinctrl_sys0h: pinctrl@13080800 {
-+				compatible = "starfive,jhb100-sys0h-pinctrl";
-+				reg = <0x0 0x13080800 0x0 0x800>;
-+				resets = <&sys0crg JHB100_SYS0RST_SYS0H_IOMUX_PRESETN>;
-+				interrupts = <57>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_sys0h 0 0 0 12>;
-+			};
-+
-+			pinctrl_sys1: pinctrl@13081000 {
-+				compatible = "starfive,jhb100-sys1-pinctrl";
-+				reg = <0x0 0x13081000 0x0 0x1000>;
-+				resets = <&sys1crg JHB100_SYS1RST_SYS1_IOMUX_PRESETN>;
-+				interrupts = <58>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_sys1 0 0 0 8>;
-+			};
-+
-+			pinctrl_sys2: pinctrl@13082000 {
-+				compatible = "starfive,jhb100-sys2-pinctrl";
-+				reg = <0x0 0x13082000 0x0 0x1000>;
-+				interrupts = <59>;
-+				interrupt-controller;
-+				#interrupt-cells = <3>;
-+				gpio-controller;
-+				#gpio-cells = <3>;
-+				gpio-ranges = <&pinctrl_sys2 0 0 0 32>,
-+					      <&pinctrl_sys2 1 0 32 5>;
-+			};
-+
- 			intc: interrupt-controller@13220000 {
- 				compatible = "starfive,jhb100-intc";
- 				reg = <0x0 0x13220000 0x0 0x80>;
+Changes in v8:
+- Fix dts schema issues reported by sashiko.
+- Fix possible NULL-pointer dereference in patch 2/10.
+- Fix max mtu computation in airoha_dev_change_mtu().
+- Link to v7: https://lore.kernel.org/r/20260516-airoha-eth-multi-serdes-v7-0-99e0093303e2@kernel.org
+
+Changes in v7:
+- Fix dma_sync_single_for_cpu() size in airoha_qdma_rx_process().
+- Fix hw stats reset.
+- Fix typos.
+- Add fix for airoha_tc_remove_htb_queue queue index.
+- Fix dts schema issues.
+- Remove hw stats patch from the series.
+- Link to v6: https://lore.kernel.org/r/20260511-airoha-eth-multi-serdes-v6-0-c899462c4f75@kernel.org
+
+Changes in v6:
+- Reconfigure REG_GDM_LEN_CFG() whit max 'running' MTU in
+  airoha_dev_stop().
+- Fix port staring MIB counters in airoha_update_hw_stats().
+- Fix regression in TC_HTB_NODE_MODIFY command.
+- Fix length check in airoha_qdma_rx_process().
+- Fix dts schema.
+- Link to v5: https://lore.kernel.org/r/20260509-airoha-eth-multi-serdes-v5-0-805e38edc2aa@kernel.org
+
+Changes in v5:
+- Move qos_sq_bmap bitmap in airoha_gdm_dev struct.
+- Unregister netdevice before running of_node_put().
+- Move stat MIB counters in airoha_gdm_dev struct.
+- Fix airoha_ppe_init_upd_mem() mac address configuration.
+- Do not return -EBUSY if we try to decrease configured MTU of a shared
+  GDM port, just skip hw configuration.
+- use int instead of atomic_t for GDM port users.
+- Add patch "net: airoha: Reserve RX headroom to avoid skb reallocation"
+- Fix typos.
+- Link to v4: https://lore.kernel.org/r/20260507-airoha-eth-multi-serdes-v4-0-af613b61ae02@kernel.org
+
+Changes in v4:
+- Make ethernet-port property available just for GDM3 and GDM4 in DTS
+  specification
+- Move cpu_tx_packets, fwd_tx_packets qos_sq_bmap fields in airoha_qdma
+  struct
+- Fix of_node leak removing the net_device in airoha_remove() or
+  airoha_probe() error path
+- Fix nbq backward compatibility
+- Link to v3: https://lore.kernel.org/r/20260406-airoha-eth-multi-serdes-v3-0-ab6ea49d59ff@kernel.org
+
+Changes in v3:
+- Fix MTU and VIP configuration when the GDM port is shared between
+  multiple net_devices.
+- Add sanity check for nbq parameter.
+- Add missing of_node_get() for net_device np node.
+- Check if GDM port is shared before decresing device MTU.
+- Move port forward configuration in airoha_dev_stop() before
+  configuring DMA tx/rx engine.
+- Introduce PRIV_FLAG_WAN parameter.
+- Link to v2: https://lore.kernel.org/r/20260401-airoha-eth-multi-serdes-v2-0-ac427ae4beeb@kernel.org
+
+Changes in v2:
+- Rename multiplexer in arbiter in the commit logs.
+- Rebase on top of net-next main branch.
+- Add missing PPE cpu port configuration for GDM2 when loopback is
+  enabled.
+- Link to v1: https://lore.kernel.org/r/20260329-airoha-eth-multi-serdes-v1-0-00f52dc360ca@kernel.org
+
+---
+Lorenzo Bianconi (6):
+      dt-bindings: net: airoha: Add GDM port ethernet child node
+      net: airoha: Remove private net_device pointer in airoha_gdm_dev struct
+      net: airoha: Support multiple net_devices for a single FE GDM port
+      net: airoha: Do not stop GDM port if it is shared
+      net: airoha: Introduce WAN device flag
+      net: airoha: Support multiple LAN/WAN interfaces for hw MAC address configuration
+
+ .../devicetree/bindings/net/airoha,en7581-eth.yaml |  56 ++-
+ drivers/net/ethernet/airoha/airoha_eth.c           | 490 ++++++++++++++++-----
+ drivers/net/ethernet/airoha/airoha_eth.h           |  25 +-
+ drivers/net/ethernet/airoha/airoha_ppe.c           |  32 +-
+ 4 files changed, 480 insertions(+), 123 deletions(-)
+---
+base-commit: dfcc2ff12925d99e858eaf539eaa4aaaf81fe2a6
+change-id: 20260324-airoha-eth-multi-serdes-fb4b556ee756
+
+Best regards,
 -- 
-2.25.1
+Lorenzo Bianconi <lorenzo@kernel.org>
 
