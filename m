@@ -1,280 +1,244 @@
-Received: from CHN02-BJS-obe.outbound.protection.partner.outlook.cn (mail-bjschn02on2102.outbound.protection.partner.outlook.cn [139.219.17.102])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEFD1305662;
-	Wed,  3 Jun 2026 06:27:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.17.102
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780468059; cv=fail; b=EJWuml9kMpinYwVvBqoJYRHj/KDnMhuwbs9wRchwvDz1fCMz+uUSl2Y9ARTyLppHo+JCzntQFs5kUAxPlCSluRJuW1qFSzwsl9IRxrmiGQPWPiRL7cUrYT5vzbUhbsinfwDJ0hPBP+NNU/zG9eKlv8pi8qDz7gR+GUbtBzu1U8k=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780468059; c=relaxed/simple;
-	bh=VhMjsyauWsWta9QHsGBm9/U40FDRow5CvXV2Fo3MenQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Xs+Ij0Jr1ueKryzLqWgK4NtUewxEMy2OXwb1DjFNZfwbS0euFYbxuPDfrohP4mJPIDSoYBj/SOb73TcinMtHYZUhwqKSVNr/4sDGa6WHgVabPeSU5tSCL3k42n7BsibVABX/7dbQvA1wG1ebY0n/oDBg8forLqPD1SgHUAS7Tf8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.17.102
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
- b=RYEdU+FP4ELoDrEam1AY6bTBa1u4xrAHdlclgM4iGkR6RAnvPLhmM/ss3tEtnSWldCENY/Fqt/RS9yhS9k3MqdAqW/HDTdDA0UxfsnPcmEhIqo9yNQnyNT6JNUKCsciKycc7Qvcfo2smahpbnS2IY91DVagApbYE8Ly5ORl9ZShv61v/sKbCagprKpT1+fSAwtGJ2s6c8XwQg0k/XyZoDssn3cYIvbTZ+L57zbgwjpClTZqrIQ66OEnH4PA7hDQSDodaWBEmrlJm1hfky9J7D+gtLvHNrE7ZyWQiQ8Ok3A/EpdldM+HBwomjje50nuWNcIjkV75bWiE9rKCu4yEh6Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector9901;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=+y664snwcNOdRJMs9N6HdldGQYkJVBWduxyJc3itTuM=;
- b=gWK+tOJf3NdkzLExdzt2AeU9DohldIUW2V3EXpFnbMt7CErx0vCbDknE8xD6i04OiCJ/04lQloOkL2wOjagqUTo+WRIUP06yJw31zuOUmMoeIHi5MBJjWUyKmC/nOIu+FwsX8j04VT7jWuNNX9RNv5X/pxGT2Lee+0PDZ8+0F2Q+JCPoOifBOpJw79czWE052zJJ2ijYLfhXD7FmUV23SQsYRWghilxcb0VgOW8H0vkcMPw9yXnqOHN7CTf5ExPFIfxFAZ6JlJZ/mwlv6Al95OYZ/3nL92rvv4iDVwk6uDdRa7m1yVncts5hts8zAIN0mGg/JQXSz8pCUPxiwq0GaA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=starfivetech.com; dmarc=pass action=none
- header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=starfivetech.com;
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6) by ZQ4PR01MB1154.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::9) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 05:54:23 +0000
-Received: from ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- ([fe80::e7d4:256c:b066:850d]) by
- ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn ([fe80::e7d4:256c:b066:850d%5])
- with mapi id 15.21.0092.006; Wed, 3 Jun 2026 05:54:23 +0000
-From: Changhuang Liang <changhuang.liang@starfivetech.com>
-To: Linus Walleij <linusw@kernel.org>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>,
-	Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>
-Cc: linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
-	Changhuang Liang <changhuang.liang@starfivetech.com>
-Subject: [PATCH v3 18/21] pinctrl: starfive: Add StarFive JHB100 per2pok controller driver
-Date: Tue,  2 Jun 2026 22:53:44 -0700
-Message-Id: <20260603055347.66845-19-changhuang.liang@starfivetech.com>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: SH0PR01CA0002.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c311:5::14) To ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
- (2406:e500:c550:17::6)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC32330F534
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:38:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780468734; cv=none; b=VG1VfJbYN1UX1Osf5YXQueLya9wV6xoxKew7RzpezibZ/Jrfp0djeO1vHZHWi6o+fkvTfMcBcqolm+0n8BmYAcLsGZGpt/hvN3X0LDwgRaW1ajenJH2CHN8XsDNT19sN/ebDaGs42f/jApQUYZbloKenYhpFmXM0VGwJvqdwHAQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780468734; c=relaxed/simple;
+	bh=fMjE8bz78lSvhegJztlU3rVzJFmdf8imzASUe0CSXeI=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=HNzEsye0kolH0vfSrlIzcoqtgbyz/Nk6cr1gdI5E2g7a3NNofx3FPJ6juyPMmGV/FQlDl6O33ktv4LGZRp2iQ0DKKlpxrHvU7zQLEUPZtY1SoQ3aJy5u/NPvxSOasds9PaxDNoBmnnNGyawOJnh4877FBfTed+MT95hOPUNb+Rk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAuEos40; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAuEos40"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 330301F00893;
+	Wed,  3 Jun 2026 06:38:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780468732;
+	bh=XNVmdbtFOERVtVIseI4bEblSMCgSwUCx69WpFo+sSwQ=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=TAuEos40Pq6u7pjY2lGslcOb4Tzk9f5e0XgyXughtZS2tLCltXA1OMeO86krPIOMn
+	 MZKq0Y67hXL7f/sMks1ZeebwLBKLqC76UDFXMSDNMSmIf51oY14gW+1xbRYktqBdcD
+	 hwGOKKfsNC4GJDRc8AM250TT/HSbTXVMgTrt3f+HuAvUdrIVX9F75wwPeyDpuYIp7i
+	 XISvMD56CjOSLryfTyDttSVEvDvG2t5W6tqheT8itllEeLQfJwNdZx32S9AQs+Dym9
+	 kECNOVpBzCZt5Dymh9xYYFk2ErKN4yDf6sc24U5KCGiNzufjcpR8uyX6chb4ub/pLu
+	 e7HbgT6cpko1w==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v31 5/5] i2c: ast2600: Add target mode support
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260603-upstream_i2c-v31-5-ba7a02714f22@aspeedtech.com>
+References: <20260603-upstream_i2c-v31-5-ba7a02714f22@aspeedtech.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 06:38:51 +0000
+Message-Id: <20260603063852.330301F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: ZQ4PR01MB1202:EE_|ZQ4PR01MB1154:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2b1d6816-1c73-42e8-3614-08dec1349021
-X-MS-Exchange-SenderADCheck: 1
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|52116014|366016|3023799007|22082099003|18002099003|6133799003|5023799004|56012099006|38350700014|921020;
-X-Microsoft-Antispam-Message-Info:
-	5UXB+nqutnDhQ4KwtgA+oTu3H29GWZ7zrp5bjlGMgBPALKWnxqZpNKN2h0JSQZnkZwR1L4ROE5+QxIi2bgXbX18YZYHHV69mfLfltc/qxc7URL4oj6JE9uEe7h35TYktElRfCOxtplW6oGOSMfTxpefE/AFWQuc9HoIO0Qju25RjNwnqVDbdhXqOLKU5nSOKc+K456mJlT8n4C+MDHk4j1Ki8/eh3FtqJuKPG0CuKcdx0diSLKGq0XlJtP+KeVsaRiQ0IqX2lKCj0Be0tQkd7bKX4KBnub9e9AASzsv1po5ZhbJGa24tN8tKohDgnHGrCMxZNKWDgvvWvLjDstDkj3uzHiOOT7xBMEhPtDuVj8vsbRraHcFMG0zv6ztbFB4PFjeUK3BPW/G48LfWoMgtl38aEfynlhm25rtTaomqAoUrYHlXpMt0ZRXh/Bcn8D2Y2q94YbhDkQsLyAE2J6Tv3ipapeZbxhCvGQuxbOojh8Jh1IC9fqJWAS2vh3o3BLh/koqgvhvQr2Wdp1gyF85JaCHdRDPH9WJkJWuhgenKiZe7eHD+QFUUVswD1k5OVbHjvaQhdTMZTimEGsZAC+fVhw==
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(52116014)(366016)(3023799007)(22082099003)(18002099003)(6133799003)(5023799004)(56012099006)(38350700014)(921020);DIR:OUT;SFP:1102;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?9ap/JlCS05+9kJ5aO6Do9HAT9VC4LerG6l7zYKbhGb58gLzNObDih1RJbgiS?=
- =?us-ascii?Q?i9VgVA2b0RFLYC61RATxeVWA9Zd7RBBl2LTOCr4ln4JXdDVvHZF0kcF/x1WL?=
- =?us-ascii?Q?3bHU6l2WcWffs7jvjmpCpBhFE9P2N7Gc3gL6boUiXXHWenghRXt3ygkkWi3Y?=
- =?us-ascii?Q?BTp16Agytosf8Q5F0Mbqfazeq7KY3ZALN21Vj46TgqK6mUpIdZjeS2YHH8LW?=
- =?us-ascii?Q?pUKXAN6FOcgkId9yzp5VdYPtqJRWSpoRgnuwZQ3ey5+OPkldW1uDpWOF8KXB?=
- =?us-ascii?Q?4zRg0wndEiLoR/UqCh5BmTfLYPQYRi8UYsIYW9UVj/4hoA6TcBju6LrFn/Na?=
- =?us-ascii?Q?KOaQqykGqaT9R02zYPInUlYUvnq3e6R8CxAMkYM+yMPglDaOKwTNWZISmHT+?=
- =?us-ascii?Q?K2cGr2kk56z8v/jwc3JclVCBG6tEvOSOpGA0tp49QCfeMC0LTKkywYnKHDb/?=
- =?us-ascii?Q?5GB24QYf28cX/QJ/WIY8I4j87E3PjNuX7dO52FlZ8oqbGfuaED+k2U7QDits?=
- =?us-ascii?Q?UDAMQG7Ljm/xTxmo6Ul6aecqV4FJ30YT576ooTNnH2CWfDdK32PmmELuOoAW?=
- =?us-ascii?Q?1Oy1Giey0SC5zBWfnT+rEqgeQyQKYUKXEPh9oy8VRBQRBdBZKJb4dvIya1NZ?=
- =?us-ascii?Q?Tuvq///Qf2qaQWnmtHYFpdOiSjIM9QCoJN6PzGGIWOHllGaRWQzYVLtATHME?=
- =?us-ascii?Q?pmIKPH1Pe6hXJp/eLI4p4ChK6LF6Jvccue7MM8rOtc6gLX5x8sIzDv+Tmcnj?=
- =?us-ascii?Q?636brIeGZxOkBLf8gk6HrOSuj05sg76sXwIlMhy9mnWdWhbh59ecs36VrCRF?=
- =?us-ascii?Q?5oGFEUBSdvbI70ewRORgfvXUTqE5g05tu1JfJFljKidj6utuPT471dxAc6tQ?=
- =?us-ascii?Q?dbxYP4Erud8yeT0ute+OwngkVdx7jx2HU3RxH0rIOEAiqMUmPTAcEIHld/cv?=
- =?us-ascii?Q?knFXOJa0i1wgZesKNf6V8FAR+T6RuAvxN/iUpjvwo1K0xd7z8TtoI/YZ3oUh?=
- =?us-ascii?Q?xdN7qlwwXUV3+1CDmwBKiif/QVUn8unCfM+GRhx1jH1Wo0hTAAxyvBp6RLlF?=
- =?us-ascii?Q?XG2Zbad3FKk1O6b5HxcLT8jja00tCB/7BgifcbWEmQ3F3Df8ZKY3cyqmdPYa?=
- =?us-ascii?Q?WE+DVYwA1tdkXV93fPX/wnUGX1xkcvuUggct1yU3g2YrykGnS/oqQN8lqufZ?=
- =?us-ascii?Q?snFOfHzFcK75S+EjGsu7FMIG7Bmw6MCFiZUCqXXlIQkzdq7ytli7RwedR+WL?=
- =?us-ascii?Q?mU6ud4mbUcMi4HYXTVbx/A5bIJrXTPLLYRxFmLDTs2Ai1Nh3//RwU9IJrUtR?=
- =?us-ascii?Q?qs5x87vdYHhj690aNLZCL8OKaPDHQ3q4sl2fNlwjfxm3MF2Bva5QbRLGNA3I?=
- =?us-ascii?Q?IUX+THoAnoMHw0QCHuFXP308DmsgsZE2ZRg7kwlDzDOpWVzdIuq76ipl8GJQ?=
- =?us-ascii?Q?pk8935PbGPGmYf6Jmqe+C6x8HP7DK9y8FISzwyLfebro+TNHz1A1SOV/sRs8?=
- =?us-ascii?Q?Iue95gnPnHrOfheHZBbfxcQQcG5vmAlWM/tdlaakAK35N6GHYN4WS4togNId?=
- =?us-ascii?Q?d5NYvFUWwYIPVZ0cBn6VnJqtzqeHrIdSs+EKw9belcQONsS1kzdhyunylXo9?=
- =?us-ascii?Q?WyOlWJ5JjZy3JRyQDBlPL8iLkzo4xb1iJZCkOaQH9p4HHW7FY/B9pHSFD8RF?=
- =?us-ascii?Q?G8m+M+cN3ktMoHahA78e2JYNgk3XtT4Ck1lB4a0dPkTBPT2kUUlPR9LJkR1Z?=
- =?us-ascii?Q?9Ds+UPsdNDW0SWNTsEVvIb5QzNlsne3a7bznkBt+HtONapKm1Dvn?=
-X-OriginatorOrg: starfivetech.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2b1d6816-1c73-42e8-3614-08dec1349021
-X-MS-Exchange-CrossTenant-AuthSource: ZQ4PR01MB1202.CHNPR01.prod.partner.outlook.cn
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 05:54:23.4461
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5NUhsU16roayPxStoIcwcemPHMc21Fgrn9zj7ByyyhDsXU/h6bBW9Z8F2ywzS7Bh2YqM+fs3szJvftcBicF/3qBQi14NJvYxRV2o7Ax+TONgbqyXqWtL0aA2AdceE2ZG
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ4PR01MB1154
 
-Add pinctrl driver for StarFive JHB100 SoC Peripheral-2 Power OK
-(per2pok) pinctrl controller.
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] Target RX data is discarded when a target interrupt aborts a concu=
+rrent controller transfer due to premature zeroing of `AST2600_I2CC_BUFF_CT=
+RL`.
+- [High] Incorrect I2C slave event ordering and generation of spurious even=
+ts.
+- [High] Missing clamp on target RX buffer length causes out-of-bounds MMIO=
+ reads.
+- [High] `target_active` is incorrectly set to `false` when a STOP conditio=
+n and a new transaction start are coalesced, leading to shared buffer corru=
+ption.
+- [High] Failing to explicitly W1C-clear error status bits permanently dead=
+locks the controller.
+- [High] Use-After-Free (UAF) of i2c_bus->msgs due to premature re-enabling=
+ of master interrupts.
+--
 
-Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
----
- drivers/pinctrl/starfive/Kconfig              | 12 +++
- drivers/pinctrl/starfive/Makefile             |  1 +
- .../pinctrl-starfive-jhb100-per2pok.c         | 97 +++++++++++++++++++
- 3 files changed, 110 insertions(+)
- create mode 100644 drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per2pok.c
+commit d29dcb5ac45f9953b386f06cfe1a4604787fdc18
+Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
-diff --git a/drivers/pinctrl/starfive/Kconfig b/drivers/pinctrl/starfive/Kconfig
-index edc3b6d9c8d7..bf5915e0a5f2 100644
---- a/drivers/pinctrl/starfive/Kconfig
-+++ b/drivers/pinctrl/starfive/Kconfig
-@@ -91,6 +91,18 @@ config PINCTRL_STARFIVE_JHB100_PER2
- 	  peripherals supporting inputs, outputs, configuring pull-up/pull-down
- 	  and interrupts on input changes.
- 
-+config PINCTRL_STARFIVE_JHB100_PER2POK
-+	tristate "StarFive JHB100 SoC Peripheral-2 Power OK pinctrl and GPIO driver"
-+	depends on ARCH_STARFIVE || COMPILE_TEST
-+	depends on OF
-+	select PINCTRL_STARFIVE_JHB100
-+	default ARCH_STARFIVE
-+	help
-+	  Say yes here to support Peripheral-2 Power OK pin control on the StarFive JHB100 SoC.
-+	  This also provides an interface to the GPIO pins not used by other
-+	  peripherals supporting inputs, outputs, configuring pull-up/pull-down
-+	  and interrupts on input changes.
-+
- config PINCTRL_STARFIVE_JHB100_SYS0
- 	tristate "StarFive JHB100 SoC System-0 pinctrl and GPIO driver"
- 	depends on ARCH_STARFIVE || COMPILE_TEST
-diff --git a/drivers/pinctrl/starfive/Makefile b/drivers/pinctrl/starfive/Makefile
-index 33213bd1919f..213002da9cdd 100644
---- a/drivers/pinctrl/starfive/Makefile
-+++ b/drivers/pinctrl/starfive/Makefile
-@@ -10,6 +10,7 @@ obj-$(CONFIG_PINCTRL_STARFIVE_JHB100)		+= pinctrl-starfive-jhb100.o
- obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER0)	+= pinctrl-starfive-jhb100-per0.o
- obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER1)	+= pinctrl-starfive-jhb100-per1.o
- obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER2)	+= pinctrl-starfive-jhb100-per2.o
-+obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_PER2POK)	+= pinctrl-starfive-jhb100-per2pok.o
- obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS0)	+= pinctrl-starfive-jhb100-sys0.o
- obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS0H)	+= pinctrl-starfive-jhb100-sys0h.o
- obj-$(CONFIG_PINCTRL_STARFIVE_JHB100_SYS1)	+= pinctrl-starfive-jhb100-sys1.o
-diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per2pok.c b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per2pok.c
-new file mode 100644
-index 000000000000..abeeee2e7a00
---- /dev/null
-+++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100-per2pok.c
-@@ -0,0 +1,97 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Pinctrl / GPIO driver for StarFive JHB100 SoC Peripheral-2 Power OK domain
-+ *
-+ * Copyright (C) 2024 StarFive Technology Co., Ltd.
-+ * Author: Alex Soo <yuklin.soo@starfivetech.com>
-+ *
-+ */
-+
-+#include <dt-bindings/pinctrl/starfive,jhb100-pinctrl.h>
-+#include <linux/mod_devicetable.h>
-+#include <linux/platform_device.h>
-+
-+#include "pinctrl-starfive-jhb100.h"
-+
-+static const struct jhb100_pin_layout_desc jhb100_per2pok_pl_desc[] = {
-+	{ .pin_start = 0, .pin_cnt = 10, .name = "gpio", .gpio_func_sel = 0 },
-+	{ .pin_start = 10, .pin_cnt = 8, .name = "pwm_channel", .gpio_func_sel = 1 },
-+	{ 0xff },
-+};
-+
-+static struct config_reg_layout_desc jhb100_per2pok_pinctrl_rl_desc[] = {
-+	{
-+		.pin_start			= 0,
-+		.pin_cnt			= 18,
-+		.drive_strength_2bit		= { .shift = 0, .width = 2 },
-+		.input_enable			= { .shift = 2, .width = 1 },
-+		.pull_down			= { .shift = 3, .width = 1 },
-+		.pull_up			= { .shift = 4, .width = 1 },
-+		.slew_rate			= { .shift = 5, .width = 1 },
-+		.schmitt_trigger_select		= { .shift = 6, .width = 1 },
-+		.reserved			= { .shift = 7, .width = 8 },
-+		.debounce_width			= { .shift = 15, .width = 17 },
-+	},
-+	{ 0xff },
-+};
-+
-+struct starfive_pinctrl_regs jhb100_per2pok_pinctrl_regs = {
-+	.func_sel		= { .reg = 0x58, .width_per_pin = 2 },
-+	.config			= 0x04,
-+	.output			= 0x4c,
-+	.output_en		= 0x50,
-+	.gpio_status		= 0x54,
-+	.irq_en			= 0x60,
-+	.irq_status		= 0x64,
-+	.irq_clr		= 0x68,
-+	.irq_trigger		= 0x6c,
-+	.irq_level		= 0x70,
-+	.irq_both_edge		= 0x74,
-+	.irq_edge		= 0x78,
-+};
-+
-+static const struct jhb100_pinctrl_func_maps jhb100_func_maps_per2pok[] = {
-+	{ .func = "can",		.val = 1 },
-+	{ .func = "gpio",		.val = 0,
-+	  .max_pin = JHB100_FUNC_MAPS_MAX_PIN(PADNUM_PER2POK_GPIO_D40) },
-+	{ .func = "gpio",		.val = 1,
-+	  .max_pin = JHB100_FUNC_MAPS_MAX_PIN(PADNUM_PER2POK_GPIO_D48) },
-+	{ .func = "host0_port80",	.val = 2 },
-+	{ .func = "host1_port80",	.val = 3 },
-+	{ .func = "passthru",		.val = 2,
-+	  .max_pin = JHB100_FUNC_MAPS_MAX_PIN(PADNUM_PER2POK_GPIO_D36) },
-+	{ .func = "passthru",		.val = 1,
-+	  .max_pin = JHB100_FUNC_MAPS_MAX_PIN(PADNUM_PER2POK_GPIO_D40) },
-+	{ .func = "pwm",		.val = 0 },
-+};
-+
-+static const struct jhb100_pinctrl_domain_info jhb100_per2pok_pinctrl_info = {
-+	.name			= "jhb100-per2pok",
-+	.pl_desc		= jhb100_per2pok_pl_desc,
-+	.crl_desc		= jhb100_per2pok_pinctrl_rl_desc,
-+	.regs			= &jhb100_per2pok_pinctrl_regs,
-+	.fmaps			= jhb100_func_maps_per2pok,
-+	.num_maps		= ARRAY_SIZE(jhb100_func_maps_per2pok),
-+};
-+
-+static const struct of_device_id jhb100_per2pok_pinctrl_of_match[] = {
-+	{
-+		.compatible = "starfive,jhb100-per2pok-pinctrl",
-+		.data = &jhb100_per2pok_pinctrl_info,
-+	},
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, jhb100_per2pok_pinctrl_of_match);
-+
-+static struct platform_driver jhb100_per2pok_pinctrl_driver = {
-+	.probe = jhb100_pinctrl_probe,
-+	.driver = {
-+		.name = "starfive-jhb100-per2pok-pinctrl",
-+		.of_match_table = jhb100_per2pok_pinctrl_of_match,
-+	},
-+};
-+module_platform_driver(jhb100_per2pok_pinctrl_driver);
-+
-+MODULE_DESCRIPTION("Pinctrl driver for StarFive JHB100 SoC Peripheral-2 Power OK domain");
-+MODULE_AUTHOR("Alex Soo <yuklin.soo@starfivetech.com>");
-+MODULE_LICENSE("GPL");
--- 
-2.25.1
+i2c: ast2600: Add target mode support
 
+This commit adds target mode support to the AST2600 I2C driver.
+It implements target interrupt handling and address match and
+response logic to enable dual-role capability.
+
+> diff --git a/drivers/i2c/busses/i2c-ast2600.c b/drivers/i2c/busses/i2c-as=
+t2600.c
+> --- a/drivers/i2c/busses/i2c-ast2600.c
+> +++ b/drivers/i2c/busses/i2c-ast2600.c
+[ ... ]
+> @@ -346,6 +351,253 @@ static int ast2600_i2c_recover_bus(struct ast2600_i=
+2c_bus *i2c_bus)
+>  	return ret;
+>  }
+> =20
+> +#if IS_ENABLED(CONFIG_I2C_SLAVE)
+> +static void ast2600_i2c_target_packet_buff_irq(struct ast2600_i2c_bus *i=
+2c_bus, u32 sts)
+> +{
+> +	u8 value =3D 0;
+> +	int target_rx_len =3D 0;
+> +	u32 cmd =3D 0;
+> +	int i;
+> +
+> +	/* due to controller target is common buffer, need force the master sto=
+p not issue */
+> +	if (readl(i2c_bus->reg_base + AST2600_I2CM_CMD_STS) & GENMASK(15, 0)) {
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_CMD_STS);
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CM_IER);
+> +		writel(readl(i2c_bus->reg_base + AST2600_I2CM_ISR),
+> +		       i2c_bus->reg_base + AST2600_I2CM_ISR);
+> +		i2c_bus->cmd_err =3D -EBUSY;
+> +		writel(0, i2c_bus->reg_base + AST2600_I2CC_BUFF_CTRL);
+
+[Severity: High]
+Does zeroing AST2600_I2CC_BUFF_CTRL here discard the target's received RX
+buffer length?=20
+
+When the handler subsequently reads this register to determine the target RX
+length, it will get 0, potentially dropping any received target data.
+
+> +		complete(&i2c_bus->cmd_complete);
+> +		writel(AST2600_I2CM_PKT_DONE | AST2600_I2CM_BUS_RECOVER,
+> +		       i2c_bus->reg_base + AST2600_I2CM_IER);
+
+[Severity: High]
+Could this cause a use-after-free of i2c_bus->msgs?=20
+
+Waking the master thread with complete() before re-enabling master interrup=
+ts
+allows the thread to resume and clear msgs to NULL. If a hardware master
+interrupt fires concurrently, the racing IRQ handler might access
+i2c_bus->msgs before it is NULLed out.
+
+> +	}
+> +
+> +	/* Handle i2c target timeout condition */
+> +	if (sts & AST2600_I2CS_INACTIVE_TO) {
+> +		/* Reset timeout counter */
+> +		u32 ac_timing =3D readl(i2c_bus->reg_base + AST2600_I2CC_AC_TIMING) &
+> +				AST2600_I2CC_AC_TIMING_MASK;
+> +
+> +		writel(ac_timing, i2c_bus->reg_base + AST2600_I2CC_AC_TIMING);
+> +		ac_timing |=3D AST2600_I2CC_TTIMEOUT(i2c_bus->timeout);
+> +		writel(ac_timing, i2c_bus->reg_base + AST2600_I2CC_AC_TIMING);
+> +		writel(TARGET_TRIGGER_CMD, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +		writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
+
+[Severity: High]
+Is it possible for the controller to permanently deadlock here?
+
+The AST2600_I2CS_ISR register uses write-1-to-clear bits, but only
+AST2600_I2CS_PKT_DONE is written. The AST2600_I2CS_INACTIVE_TO error bit
+remains set, which might cause subsequent controller transfers to
+unconditionally evaluate readl(I2CS_ISR) as true and return -EBUSY.
+
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
+> +		WRITE_ONCE(i2c_bus->target_active, false);
+> +		return;
+> +	}
+> +
+> +	sts &=3D ~(AST2600_I2CS_PKT_DONE | AST2600_I2CS_PKT_ERROR);
+> +
+> +	if (sts & AST2600_I2CS_SLAVE_MATCH)
+> +		WRITE_ONCE(i2c_bus->target_active, true);
+> +
+> +	switch (sts) {
+> +	case AST2600_I2CS_SLAVE_PENDING | AST2600_I2CS_WAIT_RX_DMA |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX_DONE | AST2600_I2CS_STOP:
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_STOP:
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_STOP, &value);
+> +		fallthrough;
+
+[Severity: High]
+Will emitting I2C_SLAVE_STOP before falling through to emit
+I2C_SLAVE_WRITE_REQUESTED and I2C_SLAVE_WRITE_RECEIVED break backend state
+machines?=20
+
+Some backends, like i2c-slave-eeprom, rely on the STOP event to commit writ=
+es,
+so the order here might cause them to mishandle the transaction.
+
+> +	case AST2600_I2CS_SLAVE_PENDING |
+> +		 AST2600_I2CS_WAIT_RX_DMA | AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_RX=
+_DONE:
+> +	case AST2600_I2CS_WAIT_RX_DMA | AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS=
+_RX_DONE:
+> +	case AST2600_I2CS_WAIT_RX_DMA | AST2600_I2CS_SLAVE_MATCH:
+> +		i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_REQUESTED, &value);
+> +		cmd =3D TARGET_TRIGGER_CMD;
+> +		if (sts & AST2600_I2CS_RX_DONE) {
+> +			target_rx_len =3D AST2600_I2CC_GET_RX_BUF_LEN(readl(i2c_bus->reg_base=
+ +
+> +						       AST2600_I2CC_BUFF_CTRL));
+> +			for (i =3D 0; i < target_rx_len; i++) {
+> +				value =3D readb(i2c_bus->buf_base + i2c_bus->buf_size + i);
+
+[Severity: High]
+Could this loop read out-of-bounds mapped I/O memory?=20
+
+The target_rx_len extracted from the hardware register is not clamped to the
+software-defined i2c_bus->buf_size. If the hardware reports a length up to =
+63,
+iterating up to target_rx_len directly could cause an out-of-bounds MMIO re=
+ad
+from i2c_bus->buf_base.
+
+> +				i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_RECEIVED, &value);
+> +			}
+> +		}
+[ ... ]
+> +	case AST2600_I2CS_SLAVE_MATCH | AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS=
+_RX_DONE:
+> +	case AST2600_I2CS_WAIT_TX_DMA | AST2600_I2CS_RX_DONE:
+> +	case AST2600_I2CS_WAIT_TX_DMA:
+> +		if (sts & AST2600_I2CS_SLAVE_MATCH)
+> +			i2c_slave_event(i2c_bus->target, I2C_SLAVE_WRITE_REQUESTED, &value);
+
+[Severity: High]
+Does emitting I2C_SLAVE_WRITE_REQUESTED for a read match (WAIT_TX_DMA) corr=
+upt
+backend state?=20
+
+This appears to generate a spurious write request before properly requesting
+the read data.
+
+> +
+> +		if (sts & AST2600_I2CS_RX_DONE) {
+[ ... ]
+> +	if (cmd)
+> +		writel(cmd, i2c_bus->reg_base + AST2600_I2CS_CMD_STS);
+> +
+> +	writel(AST2600_I2CS_PKT_DONE, i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +	readl(i2c_bus->reg_base + AST2600_I2CS_ISR);
+> +
+> +	if (sts & AST2600_I2CS_STOP)
+> +		WRITE_ONCE(i2c_bus->target_active, false);
+
+[Severity: High]
+Could clearing target_active unconditionally on AST2600_I2CS_STOP lead to
+shared buffer corruption?
+
+If the hardware coalesces a STOP condition from a previous transaction with=
+ a
+SLAVE_MATCH for a new transaction, target_active is set to false while the
+target hardware is still transmitting. A concurrent controller transfer mig=
+ht
+then see the bus as free and overwrite the shared I2C buffer.
+
+> +}
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-upstream_i=
+2c-v31-0-ba7a02714f22@aspeedtech.com?part=3D5
