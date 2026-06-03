@@ -1,66 +1,67 @@
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com [209.85.221.51])
+Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4341E3E1D15
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:49:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A67F3E1D15
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:49:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780501752; cv=none; b=eFA2rRPX/GGNtiZIFeKG01yHLWlxYDHwmht6hAL4KD2F2voxz3E1LZkOnlI17TKmy0uANZWLCIwHGxA8IoDmyTfSe0+B6o6P5iWcxIWDJoNorBuK2ZqJW9cNw4rOk0eSBsS3odgQtFVJTiNPZJ0CH8X0edCtKEWHjw7gWKYNUJc=
+	t=1780501755; cv=none; b=sI4uHWPAQRMRXOlXi9e8ThxBSJqDGo9MhsnNxM0oBKUnMyjp3MfezTlZRN722KeZSOnFUAljhOhaUcqku7V516/VvDOPjKIqSYpFGuhrp2Htd83fvzPpUbBdddbctvO7pj7KM115Yy3mhdXtwbEJPzbI0rXVpUoOF4On4NIta20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780501752; c=relaxed/simple;
-	bh=yWzPcHOx9Y0l0sp44ZHSshHjrd7t8NWvm/wcwRs+4y8=;
+	s=arc-20240116; t=1780501755; c=relaxed/simple;
+	bh=ySh33wutmbZ5iVOabdfg/J07oPwEj+oqxH12+J3TS5w=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=f4SoGgNm6zfilURJvOBaSYrr1EW4LlLQT4LtyQ4rCX2r1rUutvy9NeEQ5TRG0i41FLpBG9P6AeDp5xoJcNyP8hrrx9SY1SqshDwM9u96mz7UxT48Gp+sr6TtG+xGsQh1WFqZgIU64FOEZq13n5exglPzf+F1pSubOpCArDzAV9E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=o95pM6xt; arc=none smtp.client-ip=209.85.221.51
+	 In-Reply-To:To:Cc; b=DPxXSmYy262MaGbJ2yDi1wDcpHXKz6afhGNJsq/g+lCvwGimxwJjndo/yF8nkq9H1I4YXf8HOtdoy3mVkGcemraK3jLQsc1iMGanMsAb0fxq9cWkdj7tInGncS1hcOrVk8fIVP1z3DkXQeGt3wcF9DVFHTmZThS9oPI6ff3ib4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BGErSJaO; arc=none smtp.client-ip=209.85.221.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="o95pM6xt"
-Received: by mail-wr1-f51.google.com with SMTP id ffacd0b85a97d-45fd464d51fso2300679f8f.3
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 08:49:11 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BGErSJaO"
+Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45eeba68948so5083780f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 08:49:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780501750; x=1781106550; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780501752; x=1781106552; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=K7SvbeeXWrfwUxsbhsnjjrs0zVBJg/7m9sutmS4WppM=;
-        b=o95pM6xtY6vPEo24o9E6GJmBYR3iaf1uIW1wbwi8XilBsQbtrrvFDNB46JoVzydlo6
-         b7vdSzUbR/IiE7xQwAzpIsGjP0nRtlMz9SgY/T1aGsR+FD71QxoBCvNKmKCu+qkUctep
-         1oSeHwX6HAeQ6/yVhn8RC5HjgMuffPuJ7kUS0fBZwvaQJirIv1PMpOZWIfL/IHFKn5qy
-         Cd3cVHI7wTalWdlnCXudseuxREY1UGfRnAaEzODNdDO1OMCiszqCV13HdazApuyqtlFs
-         d2ctreF0SmJxT8cQQ1J2pNphk3m5uS0/fu6Xn6ZTTePfepVq15i5X0i6NoNkQOk5OeDX
-         zHIA==
+        bh=OjGdyVecCEjJ7bgAij4ZWnfiWhj3pQUXtFRn8jOj/9E=;
+        b=BGErSJaO+unIphq7jh3biQBUOYKBmbf+woArDr7U+b3572pj3INt04Luh8L4J94jYh
+         R8XgYycJynRLqwNaCtqmNEgkRpScU6jWYfXmC2y0fRCTeAznSE1Tn0aa0SqdfGLa1JIh
+         4OVD5R7KSdrI35ZfnaHvbW5v88InYZd9cs02R/9iODjmovVIQamMANf4lZzOhqqf/e4N
+         WINUc+Jlqku9uoiCfLBowuSBNRZs2ZfEjzOIvJHS+7diwy250g82gYgXJEk5/uCiJe5n
+         FY1K6z4rZaZfYURwmQK8vIXKF2sP4iB6p32R99SIk+2Dq/5iALsAAlwJEe0uIIbcgTCY
+         7djQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780501750; x=1781106550;
+        d=1e100.net; s=20251104; t=1780501752; x=1781106552;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=K7SvbeeXWrfwUxsbhsnjjrs0zVBJg/7m9sutmS4WppM=;
-        b=lbiNulVdlqDODG+i5HH/vp2cg70xuns3prFEB8RuP01ofbkxLJzZ1EuOl+VbHMA2PA
-         KcrsDJqIw+EmovGqSIL1yNVk6toJasEr6xHL2gxgu+BM3PikdVqFrLk8BRPBFCKKGQ/Z
-         47/xPftZnCv1lVvx20R30w+NQy9yLTUel4coUwj4j0s51HpY/4yDrA/SvHyprDmNrcf1
-         evm7z9Zrr3g2QdvogHywkCrlzMTgQRMUEJSxAFTcaf/IZqS6fXob4WFjGGh1ONXHiCSn
-         8oDbzunD2r8T5O4A18T0rdR8/6I+h1eUDNOGXQaTj/W2fUf5buGONnz/pMlqGEev1sKr
-         vfnQ==
-X-Forwarded-Encrypted: i=1; AFNElJ/VWZceb9Yw3alit+IFn1bMTFo92NpNRTtRgBj9m0C7xiZykzYjlYiuz+J3d9XfPlHaY6QTHivapcMC@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxc1TUCjYbMaoaOFyuI5mCAhH1j+Vcf71BnTwgGTwKC3KLJGJwT
-	KPU+eiwLs0wLvPAUbXxVE2Xa9LSgZFEjJ0jh1dba33mnfpxwCPE1ZVkH
-X-Gm-Gg: Acq92OETuZM2nS/1w+/xH2Nuqro5bFzJVkZRz63doie+LEYUSz2G3KXNlAoTv12bKjU
-	F6BbtblkA8DuCq+/48z3G11SLCoNRG5atJW4blikh3nEuLZOkVMH0MTw3sJ15smhDvNbWL3sC5g
-	A5Eqj8dB24DU6f+j7eaFPROOZ+Mj20yQkrIidQWLVanqtB6ejKMIwvQtI1Ez9IDOQWfy/c75UfJ
-	QLQsrIrrfMHtJs5aU3hOGSyk5bhy699SQ119Zu38SR3erT6wd+up5AJRa5lYZyIs4Iwwk3MZAHX
-	YkhwUZkGzjvsDDiAWY4dPBLSwbyLlr6REplRNJ4SV5BrAunz37L4GzyNydvqFcj8t8t9gSxvKPd
-	NjIYX3pYY9kF5RkhWijof94blwRUh7lJdgKxmQR/mPoXPG6r+98zAon2Pn7D/aAOr1c1+l3kFKv
-	R0PgekJCgn9DxLhI1hDcGKzpGLsSfcs1Q6FJHQHg==
-X-Received: by 2002:a05:600c:528b:b0:490:b297:89b with SMTP id 5b1f17b1804b1-490b5ed6482mr79101105e9.21.1780501749614;
-        Wed, 03 Jun 2026 08:49:09 -0700 (PDT)
+        bh=OjGdyVecCEjJ7bgAij4ZWnfiWhj3pQUXtFRn8jOj/9E=;
+        b=KaIFN+od7gqDXPoj72dBb1UoilKWStSbrDIfQGmu/wIMzo+8hISz/QhiOCAlTDWLoj
+         BE3RZqOAkuLObXxocjj6XiZJo1uT2pywC1f3BXiBKgN/O/kVlkW88uAyIqw00dPr76HA
+         AfND4lWjiDcWO0mrjoUKyAkOqIwaegVqo9x/9K48SlyqlyQ75R2PSsbCruR/mGadhDjW
+         N0tTZSXYAGoxeI7Nc25OZ1/cQDvSPzJDN/xZKJoh5Ikr64wZ7DzKdDeWGZEMPzU3QIAH
+         B30U5U5lFiLQTTekJr1NHSOUZJQcKlJFxAw27EDMwSp13ZS13fSPKUS4FPO38vfDRMk5
+         P6Vw==
+X-Forwarded-Encrypted: i=1; AFNElJ/AThZNl5ujhLCM+g5AxBQmJvxLK60YlHZgomr91Qcyw6E/wlSuoh/7qEsDyLS9y6Jc62qBX8IxhUz1@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywksqad63f0F/MkxnIx12nw89dRQ3LVfUYOh356u92X2WDg3K7V
+	RH6VRUDELs3hr/GfXdxcbq3wihEAxmjBIFBPEJknfAyYKAgvD4C7NSMd
+X-Gm-Gg: Acq92OEYoeu0SVYNM7TrqgtPel7YQSF+EnXmAy+12oGK0xdDbftkPblVGp6pv4hQl39
+	e/S9o7MbPb1w5fhEEiQVpQZPOG4FTRUFVYk6woCp7gvH6jzBXdgNz1g1w4c/VB5GgIq1Akhcgnx
+	r9Jxnclc6RvcA8GaJrafx1BOvGJ4bFTJ5Hq/+irLKdc7OgT8ITbAtCrDPpWBFe4TKOQH61oH42N
+	fj9gTkspDsBhTlyKAN1v9USajBHooyHGMDgPfbYi6rcyaE/My0hT91Cl6T+zSXS5W6u9PkvSnBc
+	noReta/NvAS92RNawdvy8pYesLz0Z9GQo11EtyfOpFHN935dWmqjbZSocL4G0VZRW2Vkrzj7+Qm
+	yOq+o7Sw6t8GdKP88l4S8jTI4QDb7uUbCotdpx5LxHOASznTgQrAiYUWSvGMkZXK9OQqLxBi/ZK
+	dcrmZ+nnWdQbsBiFxuWyswk+fibfw/YsQJMM8ttA==
+X-Received: by 2002:adf:efd2:0:b0:45e:f381:cd8a with SMTP id ffacd0b85a97d-46021781a7dmr4113017f8f.2.1780501751615;
+        Wed, 03 Jun 2026 08:49:11 -0700 (PDT)
 Received: from [192.168.8.79] ([2a00:f502:160:43ff:9a39:ef13:72e0:8f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc412sm8886008f8f.4.2026.06.03.08.49.07
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc412sm8886008f8f.4.2026.06.03.08.49.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 08:49:09 -0700 (PDT)
+        Wed, 03 Jun 2026 08:49:11 -0700 (PDT)
 From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Wed, 03 Jun 2026 18:48:21 +0300
-Subject: [PATCH v2 1/2] dt-bindings: arm: qcom: Add Sony Xperia M2
+Date: Wed, 03 Jun 2026 18:48:22 +0300
+Subject: [PATCH v2 2/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
+ add initial device tree
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -69,7 +70,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-yukon-eagle-v2-1-f86b440583f5@gmail.com>
+Message-Id: <20260603-yukon-eagle-v2-2-f86b440583f5@gmail.com>
 References: <20260603-yukon-eagle-v2-0-f86b440583f5@gmail.com>
 In-Reply-To: <20260603-yukon-eagle-v2-0-f86b440583f5@gmail.com>
 To: Bjorn Andersson <andersson@kernel.org>, 
@@ -78,31 +79,452 @@ To: Bjorn Andersson <andersson@kernel.org>,
  Conor Dooley <conor+dt@kernel.org>
 Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
  linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>, 
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+ phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
 X-Mailer: b4 0.15.2
 
-Document the Sony Xperia M2, which is a smartphone based on the
-Qualcomm MSM8926 SoC.
+Add device tree for Sony Xperia M2 (sony-eagle) smartphone
+based on the Qualcomm MSM8926 SoC.
 
-Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Initial features:
+- Framebuffer
+- GPIO buttons (Volume Down and Camera)
+- Regulators
+- Internal storage
+- SD card
+- Accelerometer
+- Magnetometer
+- Ambient Light/Proximity sensor
+- NFC
+- pm8226_resin (Volume Up)
+- USB/Charger
+
 Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
 ---
- Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm/boot/dts/qcom/Makefile                    |   1 +
+ .../dts/qcom/msm8926-sony-xperia-yukon-eagle.dts   | 403 +++++++++++++++++++++
+ 2 files changed, 404 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-index 50cc18a6ec5e..851d1b4d74eb 100644
---- a/Documentation/devicetree/bindings/arm/qcom.yaml
-+++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-@@ -99,6 +99,7 @@ properties:
-               - microsoft,tesla
-               - motorola,peregrine
-               - samsung,matisselte
-+              - sony,eagle
-           - const: qcom,msm8926
-           - const: qcom,msm8226
- 
+diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
+index 32a44b02d2fa..6b471a346d82 100644
+--- a/arch/arm/boot/dts/qcom/Makefile
++++ b/arch/arm/boot/dts/qcom/Makefile
+@@ -1,6 +1,7 @@
+ # SPDX-License-Identifier: GPL-2.0
+ dtb-$(CONFIG_ARCH_QCOM) += \
+ 	msm8226-motorola-falcon.dtb \
++	msm8926-sony-xperia-yukon-eagle.dtb \
+ 	qcom-apq8016-sbc.dtb \
+ 	qcom-apq8026-asus-sparrow.dtb \
+ 	qcom-apq8026-huawei-sturgeon.dtb \
+diff --git a/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+new file mode 100644
+index 000000000000..8ca834796e2c
+--- /dev/null
++++ b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+@@ -0,0 +1,403 @@
++// SPDX-License-Identifier: BSD-3-Clause
++/*
++ * Copyright (c) 2026 Erikas Bitovtas <xerikasxx@gmail.com>
++ */
++
++/dts-v1/;
++
++#include "msm8926.dtsi"
++#include "pm8226.dtsi"
++
++/delete-node/ &adsp_region;
++/delete-node/ &mba_region;
++/delete-node/ &mpss_region;
++/delete-node/ &smem_region;
++
++/ {
++	model = "Sony Xperia M2";
++	compatible = "sony,eagle", "qcom,msm8926", "qcom,msm8226";
++	chassis = "handset";
++
++	aliases {
++		mmc0 = &sdhc_1;
++		mmc1 = &sdhc_2;
++		display0 = &framebuffer0;
++	};
++
++	chosen {
++		#address-cells = <1>;
++		#size-cells = <1>;
++		ranges;
++
++		stdout-path = "display0";
++
++		framebuffer0: framebuffer@3201000 {
++			compatible = "simple-framebuffer";
++			reg = <0x03201000 0x800000>;
++			width = <540>;
++			height = <960>;
++			stride = <(540 * 3)>;
++			format = "r8g8b8";
++
++			clocks = <&mmcc MDSS_AHB_CLK>,
++				 <&mmcc MDSS_AXI_CLK>,
++				 <&mmcc MDSS_BYTE0_CLK>,
++				 <&mmcc MDSS_MDP_CLK>,
++				 <&mmcc MDSS_PCLK0_CLK>,
++				 <&mmcc MDSS_VSYNC_CLK>;
++			power-domains = <&mmcc MDSS_GDSC>;
++		};
++	};
++
++	gpio-keys {
++		compatible = "gpio-keys";
++
++		button-camera-focus {
++			label = "Camera Focus";
++			gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_CAMERA_FOCUS>;
++			debounce-interval = <15>;
++		};
++
++		button-camera-snapshot {
++			label = "Camera Snapshot";
++			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_CAMERA>;
++			debounce-interval = <15>;
++		};
++
++		button-volume-down {
++			label = "Volume Down";
++			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
++			linux,code = <KEY_VOLUMEDOWN>;
++			debounce-interval = <15>;
++		};
++	};
++
++	reserved-memory {
++		framebuffer@3201000 {
++			reg = <0x03201000 0x800000>;
++			no-map;
++		};
++
++		mpss_region: mpss@8000000 {
++			reg = <0x08000000 0x4d00000>;
++			no-map;
++		};
++
++		reserved@cd00000 {
++			reg = <0x0cd00000 0x200000>;
++			no-map;
++		};
++
++		mba_region: mba@d100000 {
++			reg = <0x0d100000 0x3a000>;
++			no-map;
++		};
++
++		reserved@d13a000 {
++			reg = <0x0d13a000 0xc6000>;
++			no-map;
++		};
++
++		wcnss_region: wcnss@d200000 {
++			reg = <0x0d200000 0x5ae000>;
++			no-map;
++		};
++
++		reserved@d850000 {
++			reg = <0x0d850000 0x3b0000>;
++			no-map;
++		};
++
++		adsp_region: adsp@dc00000 {
++			reg = <0x0dc00000 0x1400000>;
++			no-map;
++		};
++
++		reserved@f000000 {
++			reg = <0x0f000000 0x500000>;
++			no-map;
++		};
++
++		venus_region: venus@f500000 {
++			reg = <0x0f500000 0x500000>;
++			no-map;
++		};
++
++		smem_region: smem@fa00000 {
++			reg = <0x0fa00000 0x100000>;
++			no-map;
++		};
++
++		reserved@fb00000 {
++			reg = <0x0fb00000 0x280000>;
++			no-map;
++		};
++
++		rmtfs@fd80000 {
++			compatible = "qcom,rmtfs-mem";
++			reg = <0x0fd80000 0x180000>;
++			no-map;
++
++			qcom,client-id = <1>;
++		};
++	};
++};
++
++&blsp1_i2c2 {
++	status = "okay";
++
++	accelerometer@f {
++		compatible = "kionix,kxtj21009";
++		reg = <0x0f>;
++
++		interrupts-extended = <&tlmm 49 IRQ_TYPE_EDGE_RISING>;
++
++		vdd-supply = <&pm8226_l19>;
++		vddio-supply = <&pm8226_lvs1>;
++
++		mount-matrix = "0", "1", "0",
++			      "-1", "0", "0",
++			      "0", "0", "1";
++	};
++
++	magnetometer@2e {
++		compatible = "yamaha,yas532";
++		reg = <0x2e>;
++
++		vdd-supply = <&pm8226_l19>;
++		iovdd-supply = <&pm8226_lvs1>;
++	};
++
++	light-sensor@48 {
++		compatible = "sensortek,stk3310";
++		reg = <0x48>;
++
++		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
++
++		proximity-near-level = <1700>;
++	};
++};
++
++&blsp1_i2c3 {
++	status = "okay";
++
++	nfc@28 {
++		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
++		reg = <0x28>;
++
++		interrupts-extended = <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
++
++		enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
++		firmware-gpios = <&tlmm 22 GPIO_ACTIVE_HIGH>;
++	};
++};
++
++&pm8226_resin {
++	linux,code = <KEY_VOLUMEUP>;
++
++	status = "okay";
++};
++
++&pm8226_vib {
++	status = "okay";
++};
++
++&rpm_requests {
++	regulators {
++		compatible = "qcom,rpm-pm8226-regulators";
++
++		pm8226_s3: s3 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1300000>;
++		};
++
++		pm8226_s4: s4 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2200000>;
++		};
++
++		pm8226_s5: s5 {
++			regulator-min-microvolt = <1150000>;
++			regulator-max-microvolt = <1150000>;
++		};
++
++		pm8226_l1: l1 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8226_l2: l2 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l3: l3 {
++			regulator-min-microvolt = <750000>;
++			regulator-max-microvolt = <1287500>;
++		};
++
++		pm8226_l4: l4 {
++			regulator-min-microvolt = <1200000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l5: l5 {
++			regulator-min-microvolt = <1050000>;
++			regulator-max-microvolt = <1200000>;
++		};
++
++		pm8226_l6: l6 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l7: l7 {
++			regulator-min-microvolt = <1850000>;
++			regulator-max-microvolt = <1850000>;
++		};
++
++		pm8226_l8: l8 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l9: l9 {
++			regulator-min-microvolt = <2050000>;
++			regulator-max-microvolt = <2050000>;
++		};
++
++		pm8226_l10: l10 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l12: l12 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <1800000>;
++		};
++
++		pm8226_l14: l14 {
++			regulator-min-microvolt = <2750000>;
++			regulator-max-microvolt = <2750000>;
++		};
++
++		pm8226_l15: l15 {
++			regulator-min-microvolt = <2800000>;
++			regulator-max-microvolt = <2800000>;
++		};
++
++		pm8226_l16: l16 {
++			regulator-min-microvolt = <3000000>;
++			regulator-max-microvolt = <3350000>;
++		};
++
++		pm8226_l17: l17 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l18: l18 {
++			regulator-min-microvolt = <2950000>;
++			regulator-max-microvolt = <2950000>;
++
++			regulator-system-load = <200000>;
++			regulator-allow-set-load;
++		};
++
++		pm8226_l19: l19 {
++			regulator-min-microvolt = <2850000>;
++			regulator-max-microvolt = <2850000>;
++		};
++
++		pm8226_l20: l20 {
++			regulator-min-microvolt = <3075000>;
++			regulator-max-microvolt = <3075000>;
++		};
++
++		pm8226_l21: l21 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++			regulator-allow-set-load;
++		};
++
++		pm8226_l22: l22 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l23: l23 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_l24: l24 {
++			regulator-min-microvolt = <1300000>;
++			regulator-max-microvolt = <1350000>;
++		};
++
++		pm8226_l25: l25 {
++			regulator-min-microvolt = <1775000>;
++			regulator-max-microvolt = <2125000>;
++		};
++
++		pm8226_l26: l26 {
++			regulator-min-microvolt = <1225000>;
++			regulator-max-microvolt = <1225000>;
++		};
++
++		pm8226_l27: l27 {
++			regulator-min-microvolt = <2100000>;
++			regulator-max-microvolt = <2100000>;
++		};
++
++		pm8226_l28: l28 {
++			regulator-min-microvolt = <1800000>;
++			regulator-max-microvolt = <2950000>;
++		};
++
++		pm8226_lvs1: lvs1 {};
++	};
++};
++
++&smbb {
++	qcom,fast-charge-current-limit = <1500000>;
++	qcom,fast-charge-safe-voltage = <4250000>;
++	qcom,minimum-input-voltage = <4200000>;
++
++	status = "okay";
++};
++
++&sdhc_1 {
++	vmmc-supply = <&pm8226_l17>;
++	vqmmc-supply = <&pm8226_l6>;
++
++	bus-width = <8>;
++	non-removable;
++
++	status = "okay";
++};
++
++&sdhc_2 {
++	vmmc-supply = <&pm8226_l18>;
++	vqmmc-supply = <&pm8226_l21>;
++
++	bus-width = <4>;
++	cd-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
++
++	status = "okay";
++};
++
++&usb {
++	extcon = <&smbb>;
++	dr_mode = "peripheral";
++
++	status = "okay";
++};
++
++&usb_hs_phy {
++	extcon = <&smbb>;
++	v1p8-supply = <&pm8226_l10>;
++	v3p3-supply = <&pm8226_l20>;
++};
 
 -- 
 2.54.0
