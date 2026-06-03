@@ -1,145 +1,181 @@
-Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C8040910D;
-	Wed,  3 Jun 2026 08:59:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC243403F8;
+	Wed,  3 Jun 2026 09:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780477190; cv=none; b=r/48zY1OExHfR6H/DfiyqW7NUqHdngHi3jkttTXhjpCnbMKvKX698Fspj/6WHhryQ36umJGJU2Sbx50Yec7+8CKo4ALQ+cWtNE9QTaHO2e9Tt+MFvc7CiNmd8ibFexDkKBRjb4IABR8s1HgMCBQd9CPEv++RF4KW5vw57dYzTS8=
+	t=1780477411; cv=none; b=eEDWiV7FU+uwFVH241eVExktMW+Dy9Sh+7fbr0q8ui5GISveX/Rm1mCTU6lTvPOOZH/muOqS5agbMSaJqFnygaHrd/tG0vUgn1YXcEzSw2MRMbyyzb37UR2XfQeiYn4B2whx5X80NHlmbttdFdBSw+qucs5YZibvdeqkaiHhw8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780477190; c=relaxed/simple;
-	bh=ztF4BT8IElW1EAM/iUON2PhtHHt3jm5Fed4urA0d4bY=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=CgoVW/ez4XMaUzJDdHMfQvp1SGDHnI6rM9W6hqZWaOzm6wXlK/ztN/IEosf0JqiV9qKvX3RY95//kWScX0IEkS8G6EW42KWRHEtA2NlJJtaCnfjLvKdGrZYvL10ZSbkuxizZUFX9eFueP/j7p617c/fLxMFx+dzHxWREEGsv7dI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=NP31gjgb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MJJu0O99; arc=none smtp.client-ip=103.168.172.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+	s=arc-20240116; t=1780477411; c=relaxed/simple;
+	bh=Cn4HqPEzDSKR1VFwEsa1F7fqAGHoPRocDLTYVL+3LSw=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=QNCm4nTx+aLVP2kxW2L4KK9MdGPQXJB4GfMLDJNzozKj9a21euig79G6vFspMqkYQz3sf46qlZ1ruMlyQw6Emki24bgWN22D9bdj+Sfa2SBTRIpgb2xq6GEM1AlFY8omzKMlLgFIUxvjAwD2B6cQemP5zSwyFSbuwWe9HUbv1zg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfM3kdVz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="NP31gjgb";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MJJu0O99"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id 8062AEC0143;
-	Wed,  3 Jun 2026 04:59:48 -0400 (EDT)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-04.internal (MEProxy); Wed, 03 Jun 2026 04:59:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1780477188;
-	 x=1780563588; bh=R1Luc/aCcjuMXa/T7EwpzALBWVDdnlVy5kkRX84+U+c=; b=
-	NP31gjgbIgevccQrrzt+pHO6DNbMEDXbovqL00yLhEcwsVcOiopH3zkpkQQcSYy7
-	70vc7AMKe4l2d2hAbJech94LF9Wg/cwk6RJqbyGQL6z8gMjKl3hPhdMsj37U2RJE
-	sX4dZrw9Cf+J0c8uuQ2trzjABgoqaz/FHf/JkHUuIqsMsEMI6Yj0fupIpKs0zwH7
-	rEQcjcVjAWrLRRImy+0na+cYtNAFIKBLBpwVpJ4dFmv1IWNECX+K5ibVuO+vYxUU
-	+B7Ffa4d4LsnVD/14p/IvaM1R1iFU8vgpWTo80Y5+UqCEU5+MxqgFtVjNAY+XS95
-	Je6SKaK5m+5SSIzjnHPjFQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780477188; x=
-	1780563588; bh=R1Luc/aCcjuMXa/T7EwpzALBWVDdnlVy5kkRX84+U+c=; b=M
-	JJu0O99bA2f7xQ418KgOl/UV31AmRfJfsjegbRJjA/u8EHt2AuljdpF3QtVomOEE
-	XCaWdSoNve/2zCAj926ODXmm9XM75U0MP7tmS3rx5LyALgxDEUK3Y0tnYdJF/5ED
-	Wh/HX4C+WIfFXPjvuOKRcHrXIRZxhuMZWew9FFPs22fWjEQPAFfd9uU+vu0hSeFJ
-	tD01AloNAbPH+G8mGOkIp24EXYgJIqMH4JAivtXOj6fYLVlzszZxgt4wLMqpuWd8
-	mtG6eCHQo/lmdmFoyN1rrdtAJKpzywO56YTK3xR/TWxhETBY5Yg8oSj7BrRgjQ/8
-	g3Ossyo27KUw3CYue34JQ==
-X-ME-Sender: <xms:A-0fag7oca7qikHhl0CUlyQ_53SWDB-q2wFdji-Vs03jMoC-a-HxQA>
-    <xme:A-0fass1c4lY-jFyIIejqJycqgwJMLoAy1EUXIga89fG-BiCUSKY83woRZSoHpxGr
-    Of2QSTrH7Z9URV9VTKpsGSXG7igZNIqMB7HsL4dhVCYN4FM9TQgiQ>
-X-ME-Proxy-Cause: dmFkZTFEF1p3KY1NI3DS2ef3AXrVnrQiXettYjJNovNV+TA2YH9EdcHk0MqZ3oV56NdzN0
-    dTAKPjcvgZhId6ng7Q7btgM/a1BfqL5ySqk7elTgQKa6D+uaqSDBpMabDcWgOSZqAe4cbS
-    KNKPcsz1ZMoTzI/Xn1nfYU/M0xfTbeacep83OJnEB6HVMbAeTovgL7l9dX03eghfWf4nCE
-    G2pMY0/IjA92D/9AHm9m7xCGQ9o1y+1XWy12Ns4tw+sii6/EmcIKAUNdcQheVNVYdPiOK8
-    EEQ9MAd5Jp8FJkSva58L7zgj7h9FZCxttbf2IoK8Jr8GNq7hUL/LVYiWloIUc99h99lJG2
-    3MUxtLAdX4qJmjgBVLj5jn/A439aoTViYV6hd4sqfI6FXF3NG9mgrWW4WXTdsgW05Gjftp
-    lkELPwCAn0DJ+qgJ13sER550EkSkx8YQNPVa513pWyf2BbY6IciWnRdqN+uDV/0trW9Mty
-    2crlmLnb5W2h1kfMDpmCj96YPZnRhCujfsWaGjr773QDoVm/dYA+Ti/H1VH0vaQywnusZW
-    3GCRuJhL3yfTGzqgZrcTikg+RcsOQMmAepSe8TDpzmuOE+b1+Fz0HCk63f/CGKL1Vmi1JR
-    RjIdhP4zB43gz+ZB21Deq+fFZIwJTmymzKZMw1aBSnS45EtrHwIphvc+tHbg
-X-ME-Proxy: <xmx:A-0falU_FTpjDg238smBDQJz02CoF2cadVuCUA6R8agbzy-yipebNg>
-    <xmx:A-0faglmKlwi37cTbjl1oSNIrLtSzIOLY6YL91Puqg3ASxvLZmrWpA>
-    <xmx:A-0faoDazQIU68o916ZPKciFCPk7o5VJVAUIhbUBVuh45lFpABJrlA>
-    <xmx:A-0fal8aPpF2IdqYVglSw29VfVI4GlkkDiIYe2knCXa3xRORw56mKQ>
-    <xmx:BO0fav02tdSAa5_psnn6ISbiQ3n-1LGZL7gAoC72F8j1om3cVFyLJAPF>
-Feedback-ID: i72694427:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id ACAD018E0074; Wed,  3 Jun 2026 04:59:47 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfM3kdVz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4B21F00893;
+	Wed,  3 Jun 2026 09:03:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780477410;
+	bh=fhVQNZwpYP4K7hTWOnVpXeyvnNRq1RJzmb44ElB8KJM=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=XfM3kdVz25wn30leUWbR/YQJVxUOr9LqMMvCxP2pl/TlFKUPOPQuV19T18WHrbxET
+	 hYOL36JU+fewX+ySOSkROLkFPcr/eZFU/3q9Wnl1fKOu+XQzcm7zMfjK/DhyDlmlUe
+	 UdjH6S+2SsdJ8hSYTDADxjyyl0XJ8ZGVTZLSTDWdj5qgzRp07ZNNBPX+P6z3qGHlb7
+	 P8VXokCEvNsaBPB4D3cRUgKxWUnFHqN4T20WoVjP+yHS25k0nrlM2kw+qFUZeEC6nP
+	 vcXYE2D+zcjgN30O/bssAjlil0drbrDwMJ/BpZmYTsrjxcyLMyNlUFb7hlWTyov2Ho
+	 vrUMba2QiuAyg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 11/14] dt-bindings: media: mediatek: vcodec: add
+ decoder dt-bindings for mt8196
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org
+In-Reply-To: <20260603084045.17488-12-kyrie.wu@mediatek.com>
+References: <20260603084045.17488-12-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 09:03:29 +0000
+Message-Id: <20260603090329.7C4B21F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-ThreadId: A511MZycEBGs
-Date: Wed, 03 Jun 2026 10:58:24 +0200
-From: "MINETTE Alexandre" <contact@alex-min.fr>
-To: "David Heidelberg" <david@ixit.cz>, "Linus Walleij" <linusw@kernel.org>
-Cc: "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Guru Das Srinagesh" <linux@gurudas.dev>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
- "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
- "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
- phone-devel@vger.kernel.org
-Message-Id: <48cfedcb-a9f5-402e-9973-f5c175fd2740@app.fastmail.com>
-In-Reply-To: <4b797a3f-01c9-4b02-be98-7b82099c2e0e@ixit.cz>
-References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
- <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
- <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
- <298550eb-1bdf-4d7c-8111-8b8f0b5dc056@app.fastmail.com>
- <4b797a3f-01c9-4b02-be98-7b82099c2e0e@ixit.cz>
-Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling pinctrl
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
 
-Thanks David.
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
+s) to consider:
+- [Critical] The VCP message queue processing thread uses the untrusted `ob=
+j->id` directly as an array index without bounds checking, leading to out-o=
+f-bounds memory access and potential arbitrary code execution.
+- [High] The VCP message queue kthreads spawned during firmware load are le=
+aked, leading to a fatal Use-After-Free kernel panic on driver unbind.
+- [High] The `ipi_id_ack` array stores negative error codes into `bool` ele=
+ments, truncating them to `1`, and is never reset on success, which breaks =
+error handling and permanently poisons the IPC state.
+- [Medium] The patch adds the MT8196 compatible string but completely omits=
+ the corresponding hardware constraints mentioned in the commit message, br=
+eaking device tree validation for this SoC.
+--
 
-I initially considered adding a Fixes: tag, but I do not have a commit I
-can point to. This looks like a latent ordering issue in the
-Qualcomm pinctrl probe path and could have happened at any time until no=
-w.=20
+commit f686f0ab8d134aa32615f005292674ee98cf9fb9
+Author: Yunfei Dong <yunfei.dong@mediatek.com>
 
-The failure became visible on APQ8064 boards such as this jflte, and I a=
-lso
-have a report that the same change helps flo/deb, but I do not want to
-add a misleading Fixes tag as we don't really know which commit really t=
-riggered the race condition.
+dt-bindings: media: mediatek: vcodec: add decoder dt-bindings for mt8196
+
+This commit adds the device tree binding compatible string for the MT8196
+decoder. The commit message outlines hardware changes, including 12 clock
+inputs, 2 power domains, and the use of VCP instead of SCP.
+
+> The MT8196 decoder differs from previous generations in several
+> key aspects, most notably in its use of VCP instead of SCP.
+> Additionally, the MT8196 enhances codec capabilities by supporting
+> HEVC Main10 profile decoding. To accommodate these hardware changes,
+> the binding constraints specify a total of 12 clock inputs,
+> consisting of 9 decoder clocks and 3 VCP interface clocks,
+> along with 2 power domains covering both the decoder and VCP
+> subsystems.
+
+[Severity: Medium]
+The commit message mentions that the binding constraints specify a total of=
+ 12
+clock inputs, 2 power domains, and the use of VCP instead of SCP. However,
+are these constraints actually added in this patch?
+
+> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subd=
+ev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-s=
+ubdev-decoder.yaml
+> index bf8082d87ac03..74e1d88d30568 100644
+> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-deco=
+der.yaml
+> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-deco=
+der.yaml
+> @@ -76,6 +76,7 @@ properties:
+>        - mediatek,mt8186-vcodec-dec
+>        - mediatek,mt8188-vcodec-dec
+>        - mediatek,mt8195-vcodec-dec
+> +      - mediatek,mt8196-vcodec-dec
+
+Looking at the diff, it appears only the compatible string is added. The
+required conditional blocks and property constraints for the clocks, power
+domains, and the mediatek,vcp property seem to be missing. Would this cause
+valid MT8196 device tree files to falsely fail schema validation?
+
+I also have some questions regarding the VCP message queue handling in the
+related C driver files.
+
+In drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c:
+
+[Severity: High]
+Does this code leak the vcp_enc_msq_thread kthread?
+
+mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_load_firmware() {
+    ...
+    kthread_run(mtk_vcodec_vcp_msg_process_thread, fw, "vcp_enc_msq_thread"=
+);
+    ...
+}
+
+It seems the task_struct pointer returned by kthread_run() is discarded, so
+kthread_stop() cannot be called later in mtk_vcodec_vcp_release().
+
+If the thread is leaked, could this lead to a use-after-free crash on driver
+unbind? The leaked thread appears to block indefinitely on the waitqueue in=
+side
+the devres-managed fw->vcp struct:
+
+mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_msg_process_thread() {
+    ...
+    ret =3D wait_event_interruptible(fw->vcp->msg_queue.wq,
+                                   atomic_read(&fw->vcp->msg_queue.cnt) > 0=
+);
+    ...
+}
+
+
+[Severity: Critical]
+Can an invalid firmware payload trigger an out-of-bounds memory access here?
+
+mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_msg_process_thread() {
+    ...
+    mtk_vcodec_vcp_ipi_lock(fw->vcp, obj->id);
+    handler =3D fw->vcp->ipi_desc[obj->id].handler;
+    ...
+    handler(msg, obj->len, fw->vcp->ipi_desc[obj->id].priv);
+    ...
+}
+
+The obj->id value comes from the firmware IPC message payload. If this value
+exceeds the VCP_IPI_MAX bound, it looks like it could directly index outside
+the ipi_desc array, fetching an unvalidated function pointer and immediately
+executing it. Should we add a bounds check for obj->id?
+
+
+[Severity: High]
+Are standard negative error codes truncated in this structure?
+
+drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h:struct mt=
+k_vcp {
+    ...
+    bool ipi_id_ack[VCP_IPI_MAX];
+    ...
+}
+
+Because ipi_id_ack is declared as a boolean array, assigning negative error
+codes to it will truncate them to 1 (true).
+
+Additionally, it seems the flag is never reset to false on success:
+
+mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_msg_ipi_send() {
+    ...
+    return vcp->ipi_id_ack[id];
+}
+
+If a single error or timeout sets this flag to true, won't all subsequent
+successful IPC sends falsely report failure because they read the stale true
+state?
+
 --=20
-  MINETTE Alexandre
-  contact@alex-min.fr
-
-Mar 19 mai 2026, =C3=A0 23:03, David Heidelberg a =C3=A9crit=E2=80=AF:
-> On 19/05/2026 10:48, MINETTE Alexandre wrote:
->> Thanks a lot Linus!
->>=20
->> This patch is required for my Samsung Galaxy S4 GT-I9505 to boot but =
-I also
->> have confirmation from another contributor that the same pinctrl patch
->> helped boot the ASUS Nexus 7 (2013), codenamed flo, which is also bas=
-ed
->> on APQ8064.
->>=20
->
-> Hello Alex,
->
-> if what you wrote about asus-flo/deb is true, then this patch should h=
-ave=20
-> `Fixes: ` tag, as I remember it was booting with few limited patches ~=
-5 years=20
-> back then (only one serious was hack for proper clock bringup).
->
-> David
->
-> --=20
-> David Heidelberg
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603084045.1748=
+8-1-kyrie.wu@mediatek.com?part=3D11
