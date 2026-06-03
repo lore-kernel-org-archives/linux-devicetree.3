@@ -1,248 +1,106 @@
-Received: from BN8PR05CU002.outbound.protection.outlook.com (mail-eastus2azolkn19011030.outbound.protection.outlook.com [52.103.12.30])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B428224F3;
-	Wed,  3 Jun 2026 14:33:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.12.30
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497197; cv=fail; b=C828b53M/ybrPy+cNEEDdRNP8JO9Iu93YIRrtxtmeKVsbrWTqULVVECfq5E8ZJh6QhbWko0luhTvd4JhC894TCHjlfZvBFx30e5OreY4F/5ri7E/Rpn714r98OqJOShNgMngYjkTrDUIaZNQA861mur6FcSYyCtyqLopWBUxRvU=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497197; c=relaxed/simple;
-	bh=rZ7VB/8WOIyzYsNV/pRH+g9bkCQ4DNpuvnPsVBANhC0=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=qDEokue0yW5cgK3xhHBR3hZNlNPuV8dQNgDQQbU+716Mndx6OPTe31rhZhOea7Bq84kcoEl1vb3+KcaMpRUsRzC5nJ+EjJWufv2zCm8hqIzYi3/WlWCy0JzQVntKGdQtcaRa3VY9A55+2J1Pxg5RBrBaz8BCTGYrbR23LpS1MkQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=MVbcBjrr; arc=fail smtp.client-ip=52.103.12.30
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A0283385BC
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:33:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780497225; cv=none; b=FBuVdXlpTdqMVCqn9mAGgtGSEoNAxFm/7U50DDZThxiW9oBYDEAwDW0r1E1n2EcI3JyrRgwU0Vhf1D/evEhl1bq6eXgbHKiRTBo7Mqtai5W03WZrjSVo+9X9Hl2L0elpWLtPdEIp9UG4E0zwf6gLsQWa4aXXn8kRmsVohUXJ8NE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780497225; c=relaxed/simple;
+	bh=nvrltdpc60saNI7UcS08/7LPNY7tUi4OaUtWoXm2MHI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Ao4cu27m07keS/mKk1kYiH4lyvaZVFfDXLB109T9RvK3SHxNNTlzZHL4P+zmx/iyyufna8FznNmx/IJxZsndySb+E7VaaL716T5VkoBb0EWLRm17Ku/Y5JiQeLP4pljac8IIiyKQ4i0X8jjX0hjvBuYndtJWoj2ygjRfv21VvMQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QYKGB0pY; arc=none smtp.client-ip=209.85.128.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="MVbcBjrr"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=pQSzRcpZiUGDRxwQXhTBFFTYgFM7ZrZbUyLDn7bWHgh3wHcsx9GbXrw1AC/GWWBbxwJGsrTb6BXJvNIaHtzxn0pv3zYyL2as61VQ0PJXN+kf6jxBb495ikMyKdzc0qvKb5LNTzi48/pGD0Fa7di+HSlD0CEkDZ/qeEGF1d6Yz9JK+QccIukP6+ZWYu3eB+5xeECTt3nuFGN8Of8/QW512zR0GLrjsb/B8YHvOu+sJWEAtiHzlYfoqPyWSjyAFNX/TdVGrdtYDcY3dWN37sRyOmPXJ9ErZncQlJyOnO76UzdLNs4SFJ6hedTz4cpX78fW+zqjBXKbVUhwSNvGXc40CQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eXkBvoeoRCN4znqhRsBzMtJTpdHGbKWN36Ewv3XRad0=;
- b=KFgrNAmUA2wLpNVe8M1eZYsWpQFMvuzPILYE3XwWQJWalBQO/3txkPJWU2NMKrOO5otHkdDSUtNP+ezhz0xY9h7OVv2tdU2Id1t8mOlnfM2Wlk5BnIuIqvvhxBr8L+TQ7iS06WvH+05AXDGs/sTBDfamhSioWvawNiA5C/KS19WBCBWsPB/HH+qcw6OffFb/wlGLJ69KLY3lCpuGbp+SiPoRwIrWmQgioNCnYbv+aW/f03EnLne4I8yAqETa+DhjBD924bOJxYM9rJUNfznbi0tprsDtsqrsZ4Dp5FFJoBA2aibGym723EtC+AgJhiFThnm9txYm89H/xI+o9MANKg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eXkBvoeoRCN4znqhRsBzMtJTpdHGbKWN36Ewv3XRad0=;
- b=MVbcBjrr9LiSVUJq7hXVEJy6RjhGGcORYN4/zjtB11GZXoWB1U/15XXNrOf3hVJ5Yq3GDHWwykxpoc0o5EvwEHEu7IsItSzK5LvbPiA4J0LleV3cfgUJXVa7EzzMdm+NWaJg99oMTMna/Ymd0B/0NDVzOcl5IzX7uNKsTDRj7QK6OXC2XZKIlLNm6u+LkMngAWTmRGuKItAF8/L6/0GPqaT4zAnaVhmRk2+DDeBaZyl90qPAlPdmvfbUFVkiaz3VW6hTcDShc5IlY72vT1YLCdH6jNGxvEttopxEMuAZ8ZZK0iRfE/p4OeowBaTlrIKdblu1JlFwDiOdeyFrYpiWxQ==
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
- by DM4PR19MB5737.namprd19.prod.outlook.com (2603:10b6:8:60::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
- 14:33:11 +0000
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 14:33:10 +0000
-Message-ID:
- <SN7PR19MB6736DAE904C978C82B95334E9D132@SN7PR19MB6736.namprd19.prod.outlook.com>
-Date: Wed, 3 Jun 2026 18:33:00 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 4/4] net: phy: at803x: add RX and TX clock management
- for IPQ5018 PHY
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
-References: <20260602-ipq5018-gephy-clocks-v2-0-65a1f1d881f3@outlook.com>
- <20260602-ipq5018-gephy-clocks-v2-4-65a1f1d881f3@outlook.com>
- <o4a5xuxznwkgpdj46w3xi7ouvktkwziedkbkdmd5aqdzd444qm@ggkfcgyzjk6i>
-Content-Language: en-US
-From: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <o4a5xuxznwkgpdj46w3xi7ouvktkwziedkbkdmd5aqdzd444qm@ggkfcgyzjk6i>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MI3PEPF00007542.ITAP293.PROD.OUTLOOK.COM
- (2603:10a6:298:1::4d0) To SN7PR19MB6736.namprd19.prod.outlook.com
- (2603:10b6:806:263::12)
-X-Microsoft-Original-Message-ID:
- <a38214f6-c11d-43be-b028-b69d86a2cd0b@outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QYKGB0pY"
+Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490b1bbcf3aso19092695e9.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:33:44 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780497223; x=1781102023; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=XHnyZnS+fqlQALxl3qFob5dnW2yNrlaDTB0OvsnizSk=;
+        b=QYKGB0pYnP/RyBr16ytWBAzcc5eZpwnE5MIXgTn92vkZMnaE8hjT/1oKT7dsMY+DGO
+         BNY8WBdid0m4OKIiqhf1DQne/H4mbRPocIM9EjGpk4LKz3dxhAv+FbnPI8aFfEwZ62uX
+         rZbKHjgesIUVE0qQxgenFzRWAk3eqUB1wkmToCbvGQL8faoPI/SJaGDp12hiZeyttrNb
+         s7vF2ShmGZBp2BtdN88Q9UjbCNYIYwJ/6132XFULlrjd6ITmePuqMR7i0dXBVPyiFBXr
+         60AziPbpHpdz54tdNG7moKivHUEF7KylTWy03u2d9rvy/bvHEIanm59lqWUsJRjk2LAt
+         FxGA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780497223; x=1781102023;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XHnyZnS+fqlQALxl3qFob5dnW2yNrlaDTB0OvsnizSk=;
+        b=gYceMEmSdZ54pNAqiobnKJQwpnIo9bxoaN064a+DMuOMr7HWnoM/H+1yWF+pp4bTYc
+         lxDrTFnRKpSf1ycVnLlbhg7e+A+LMM++4zxqxrwpnIufTIiTfgMOWRVlvSidjTAsDiZz
+         35CxwQQKXkYK4GaH8pCEmOgZa5jtDNGelNAt3FCG++n8nT1P06M2Qs/73wFzhdn0IAZp
+         eD0KiMPjZpvISVjEdcmJSK2nfX+Yr8II+h39vBV/oJIQZ7ThvZxf5VVlaK8gO+YiK8m3
+         eocuR4sLJh9GgTaz5VMd3D5SwZ/G+7vDUs+i2FhFQnbhvJ95uuunNtltlGOyQ3Dgg8no
+         kDrg==
+X-Forwarded-Encrypted: i=1; AFNElJ/E2CvtvM3oXoswRfaHznTUlVdxybDLJSfpoSWqV0BEwfHW0kUZs7AbVEqjQQTCHS8YmveL6tGpG62i@vger.kernel.org
+X-Gm-Message-State: AOJu0YxnGKzJt049Be5XPoBVZF/LvmJ+/rcC61ZVQJ+/S9895aAzXsuc
+	BKlTUS+ADJ/lbVFpCS1Hcl8LfOKDQLCA55m9PhaJD9upam/buLIgS2bP
+X-Gm-Gg: Acq92OEo1dTXE+XlZwJl8eIEXRbDx9Dunr6qjgrtj84XJG3nXbe0YMRha2NiY0NDcGC
+	OyOefFJa4gkm2NtI5BSYhA/1vNCeaD9bqEVg/lzQtf5diSNiADPVjKRYsGbH2NR03FqQYIguFAI
+	5dhR6qtuKYzUd4QupDtpVx7kP6tjdh0uZoLwwjt4D5mwTi8SytaUsgpPGriTXbcZURYhn5LcCSs
+	bKxuMb6gp1G355bjiPw+dhIL4XHhUUZ7Q1mSrIGcr3DgtpkhQhOYOdWgwNxrOZo/5x0gOfdlnH4
+	aWVMzgaFPiB64sC4cOpkLxxpAi7bFTbQMuj59BM+fkG9mPEXa3G+ojkmj/DvWQB8u2ooc99Veul
+	v5oRUSeNMV/gU+ThNRbJqu21YV0y2nQSyyzm8gXxagqPYosrntjICkjZDlF2BQ+R5pWt45s9hda
+	Hx5kptJ1nYR6XcbTBQInPEfUG5HeAW6MZ1TvjkCCvZtj7Y4QUdfFf4qMF+5MY=
+X-Received: by 2002:a05:600c:8b23:b0:490:b115:e03f with SMTP id 5b1f17b1804b1-490b5e893admr60436345e9.8.1780497222723;
+        Wed, 03 Jun 2026 07:33:42 -0700 (PDT)
+Received: from localhost.localdomain ([2a00:23c4:a700:7301:179c:89ab:19f6:9ba4])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e823f7sm160147395e9.13.2026.06.03.07.33.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 07:33:42 -0700 (PDT)
+From: Biju <biju.das.au@gmail.com>
+X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>,
+	linux-renesas-soc@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH 0/2] Subject: [PATCH 0/2] arm64: dts: renesas: RZ/G3E DTS fixes and updates
+Date: Wed,  3 Jun 2026 15:33:34 +0100
+Message-ID: <20260603143340.162457-1-biju.das.jz@bp.renesas.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|DM4PR19MB5737:EE_
-X-MS-Office365-Filtering-Correlation-Id: 1e643dbd-7e05-438d-4366-08dec17d08fa
-X-MS-Exchange-SLBlob-MailProps:
-	znQPCv1HvwUXBahuwteIkfrsZE+qvEGYsfp0Cjh0VCHVMEoCk2GizosNHJfFKpgfg64Qc55wA584rpLYDCVuJriXotFBl7feAMACj2tqeDp2XAxCU5cfTiHViZvRBivINL6NigFhIllbmlKefkHSIdZOMVTBIZ0y2Q2Dv0mnEeH6oHLMKIVjZ5ZeUcHMx88BEcb/PwAzafDkiLd5sklb9hS7hbzO+YWA/Wn4oexhBLwPE9lkMNSR6kVHWHWR2jHXLeKDYcY8sxdq7l7Ze5p7mDhSIl+41tqMH/wws13TQ2hE+KwWQknKbpZYw+fW//rZ2NXJGzH7rGWXt0jn//jblttpop/dZhVmvDMQh/FfyywvyBGxTCChhsjfczyDMNt+J8yhDLkFfWr3EwzIOeGP2/fqwKS4yZGrNVeaINq6IkzwDqgkK0N029VoU/H7iiKx1CZGU/Af1wQ4NQh6Cf5BVP3yd2BkQLwFS0BWDR6IHLtXs3VySokwGZOw5rkxr3t9jLNnRvFWuFEldpQ/a2JFXX2HcEHLl1QODPCMdgDM2oEp+nZ2nznyLsSETrWa4mtzDlruage50VBYPiXU8dMKgGFWX499wUU2woHObN7sdNFGNjPRq9ax4+wGDiszmdCR1E72ejXKpbZD2jeHIvka9D6L7PS1ZikW1p8sEt4Bh0P9CKt7Y4/cOCo7LAKzGmnTKqAPhjTGoayBqcYL/PnTgtylNZD2jexwpF9K6h9t3/F7t0K7vazrORKK+vXcuXlvsw3bwQChBq8=
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|55001999006|6090799003|37011999003|24021099003|41001999006|51005399006|5072599009|12121999013|19110799012|23021999003|8060799015|15080799012|40105399003|3412199025|12091999003|440099028;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?MkFYQlZ0ZU5XbW93Tk1COTdjOWhaVUZNYjN3WGV0di9XOVNzc3QxbDdZOHpy?=
- =?utf-8?B?NVJJZFFQVExuOFlaeDJHOUk2M0FVOWhuZkV1ZFJXT1ZLaFRtaXE3RVZaQ2Jy?=
- =?utf-8?B?VEl1NHJPeVc4eVh0QWZkczd1RjJLcWUzbVZwdGlzd1RDbDBLUnp2Qmx4bW1p?=
- =?utf-8?B?NzkwS1ZOMEEzdnFsd0hYRzV2T1ZLQzlpYW41VElod1Y3NkhUSjdYNnphVmlK?=
- =?utf-8?B?NGFFZ0NiQ1BSV1VqUHAzRWxrbGVkVzA1bDI4cU5RbHYydnlOWGpNdm5ZMXFN?=
- =?utf-8?B?Q3hhenRXRXFubWx3czVzSW8xaVlyOTAxYjgvQy9rK1lmSVFGNFZpNnBGdnl5?=
- =?utf-8?B?S2NqT3I0a1A2SSs1N2Y2VEdtMHBpUm1qQXEyZXJLMFcvSlV0V1N3OVZLMXR6?=
- =?utf-8?B?OXh2V2RvQkxGN0E2YjRFaktXUmlRaWVqUzNiUEhtdkVMcENjcWJqakpKd0ZI?=
- =?utf-8?B?eUF2d1hRSXB2TWlpVVdyMnpKc1QwSTZzaDg0S1FGYmRtS3lxN212VUJWZ3h3?=
- =?utf-8?B?WHJGZ0pzSmRhaGpKYWNKOFo3bURSRGNPTlJQVnBSNmtnczExSzdNZVZ3SVdn?=
- =?utf-8?B?SkpMeEhoVXNtUWluWjhCdnljRy9nQWZoRk5xOE1iZkdOMVZEci9BallQSlR5?=
- =?utf-8?B?N1VsRS9KdnY0SDdLYlFHbml1bFFrSUVocjRTTmMvZjdmTlJBYjB5T0NGcjZG?=
- =?utf-8?B?NWtUTU1zbkVzVUM3NC9rYVc3Y1V6NWpUYzhQeVRBWmg1aGRTVkxDOXMrYzV3?=
- =?utf-8?B?Y0RmdGI3MGp6b0RDR0ZYa2Z2M0ZyT0Y4YjJpZytGK05LeU8ydWVTRFNzWExx?=
- =?utf-8?B?MVZEaU42Nkl4ZmVZSVo0OTlhYnZlS0hUVlJwZkJmTlZ5TjZyalZNZG1LSlZG?=
- =?utf-8?B?c3FNM0h5UUNiRjQ1cFRRRDFaMjQ4SEtDc0grY1ZEREo3NVppck9YMlZZSitC?=
- =?utf-8?B?SGNWRkRkaVVVaHhRMG9EV3lMKzIzQzc2MVcrNnNocHZaYTZKbStjM0N1bXhJ?=
- =?utf-8?B?MmQyMHpJQWtBRFBRMFVQaGY1QVpYeUdsc1dNV3VIMDdFWE9nZm9KZzREa3VF?=
- =?utf-8?B?bmtOZmcwQmg0M002MmhqVm9NdHhRNkYrWVJlR3VhcllQenNncFVRTStpeHk2?=
- =?utf-8?B?SkdwQzQvUFF1bms0elFuNlZHeDg3K3U1MzJlVjVMRWIzc2lqVHRVSmxUNFVD?=
- =?utf-8?B?RHRDK01ZM3J3S1VHaGVibWdXa2RWT2R6b01FcGhJNnVhNGNvbzZZZkk5UXdl?=
- =?utf-8?B?LzdyOE9Ub2JUM0VWODNYSmp1WmJTMmpHVGNjV2dDR0wreTlINEFSVGFVQ3ZH?=
- =?utf-8?B?bmJIN2haanBpQUxmRFZNTlY1ODdnc21Ua0pVMUZkUnBkT2tIaHBSaTZ6N2xo?=
- =?utf-8?B?a1VvVEcyb29uM0owb2F4TUsySUpQTWlzcm5HWXpOZTZvWTlEWG9rY091Q0sr?=
- =?utf-8?B?TzJOTGlZMkpQMmd5Z2djZWtVOWpvT2xQaGY3aGpFem14RWhVaDBnNVBreEM4?=
- =?utf-8?Q?+V1y7MU6NXi/jn1qV2JbjM1cYSZ?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?Um1udk8wZGFGMmlyVTR3M21BRFdBWC9oNFEyeWVwTnU1SEg5dUMyb1RxMmY1?=
- =?utf-8?B?NkNabWtXNnZjVmNCeWxyTmY2UkdmSm45cmQ0UGtTQXJKN3BlKysrU1lCYzNt?=
- =?utf-8?B?dmRHbVNiVE1qTkF4U1hmczdBUGxzZlU5VXp2d2Jjc29ucFY5aTFNNU05eFhM?=
- =?utf-8?B?WkM0WGdBWW9FRE5OSzVWZTdmVzdmbDVhRCtmbk9xQlFJKzF6S0VBWnRmRUEv?=
- =?utf-8?B?SnUvY3NPckNjNHhVQWVJNU1jQU8zakg2eGR4aXA3ckVKcllMMDlPTlVFV2cv?=
- =?utf-8?B?TjcySGw5NG44Wi9Id0pCczY5eTZZdnBvVDZ4aHh2aUNLRXNOSENTRm9WNjRP?=
- =?utf-8?B?Sm5FSjExdDFZdnBJUGUwSmdmVGpNbGx2eEExQVNIdmpEUnVlM0NQZi9FOE1D?=
- =?utf-8?B?UHJ3emtlbi9zOGVSUTR0b1hpL0wyL3pqM3R0a0JPTnlVNE4reU5kaUdoNk9j?=
- =?utf-8?B?bDJpN1A2VFhEanhRQ0Q3Wm1aYWtmd3VPRkY2WGRTR1JqYzYzNEx5VEI3ZkdY?=
- =?utf-8?B?N2l3cXgzdEtBRlJWeENtOFZFczFFODNXMG1BRFlWTnBtY3dndEYvVzVXbjZu?=
- =?utf-8?B?UVE0QXVpMlltdWQ2VThXTXN2TnExd2cvb01qc3FWK2FIYjRxTkN3bnJkOE1x?=
- =?utf-8?B?QUJHN01OVC9xOUJHQmh2MkNPcEZtR2EzVlhWMFpOZmNDSFpsd3JJenAvaWFh?=
- =?utf-8?B?Y0wyaHNvaWtEdTRVRGFzUVVtTWRGeXBPRlc0bStVemozeTdST3REcTgvMEpG?=
- =?utf-8?B?anR4d3RqMGwyWGpqdXVNLzdpY1JPYU9IRWRIYnRFZFJQMlRRT3VMaDlJSnVh?=
- =?utf-8?B?K0dJc05Sd2s3SmRKRWFCRU9OYytzeHE5dUV5L3pCdjBHS0hxN1dvT3RmdDl3?=
- =?utf-8?B?bUFZWWxnMitBWldBR0hCZEx1UVh3WU8wMGFZNnVyRGlTanlRNGs3d2NxQlNB?=
- =?utf-8?B?em5zY0JxSFpkTWVaallwcDlQREhyQ3BGbUVCZXlaSTFyYzZqS2FXYnk2Q24x?=
- =?utf-8?B?M0pQVEh3NUVMTHR3OVF3NXIwb0VKVzRxcHBESVF6aGg5ck96WHRxRWYzTVNS?=
- =?utf-8?B?TFlQdkFibGhUYlltT2RJSExmM2dwN2Y3VEpCMmVtSExXSU5MWTk3OFZOazJw?=
- =?utf-8?B?eFRNZkxCbEJxOVVjcHBLeFNYR3NzeHk4RTNyVVV5VDdCZTdZN0w1azk5enM4?=
- =?utf-8?B?NjdONVN6SVFNVy9xUnFSUFFCU1prUEpwVXN4QUt6d2Q1R2FHamFXNXBIdmp4?=
- =?utf-8?B?dFR3RlhtUWVXTGRTdEFLbTlCMmZQTlpVblBQMHFFRWdXemlPeFUrT3hRZHps?=
- =?utf-8?B?OVNsVWprdjgrTXdLWHNyMWdHd3JlL0xjWmtteWRNM2JPL3MrN2lhRk5VOXZZ?=
- =?utf-8?B?TXIyV2tYSFhobFpBMWdYYUJENGtDNEVZelY2c3VlM1JkK0N0bEJweXYyQzFN?=
- =?utf-8?B?TlZ6L2MvZXFXd2NBSVNqMDJnOUtuUUtLNDMwZFJnZTJzZXEvQzQrT0g5djd2?=
- =?utf-8?B?VC9GeW9uVXJFc2NzQWlQS2tpeGtsRHpHc3BVQXUxNmlRN2szejVoanY1SUkr?=
- =?utf-8?B?Yjlhdm9PdmtHUXliUDVsRXdtWU42aHNLcVM1T0FhdTZiSlMyZlF3YUpuekF4?=
- =?utf-8?B?c0FZOXdHVlVVZ0pWN3h1VVlHZ0JVSWhBSDhhRENvNWtkMzVKSHhTTCtVRGRv?=
- =?utf-8?B?cG9EY1kxbWxRNDNyVU9KL1NVakhkZjNKMmZVbmdOVUFCY2JxeXA3b3I1OXRT?=
- =?utf-8?B?UHMwQVN6M2hrMnN6aDM4QW1oa1ZXaGlxekpyR3RnejIzUUJ3V2lsSzhBUUZh?=
- =?utf-8?B?MjEyM2w4alR6T0hFQlM3dFFGMFlqYlIxelZjME53RjM0dStVWXBMdXRVODZO?=
- =?utf-8?B?b2ZhQ2NEcERWQ2NGREhsb3JjZGY2WHN5WDRNS2trSVQreUE9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1e643dbd-7e05-438d-4366-08dec17d08fa
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 14:33:10.5966
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR19MB5737
+Content-Transfer-Encoding: 8bit
 
-On 6/3/26 17:53, Dmitry Baryshkov wrote:
-> On Tue, Jun 02, 2026 at 10:50:40AM +0400, George Moussalem via B4 Relay wrote:
->> From: George Moussalem <george.moussalem@outlook.com>
->>
->> Acquire and enable the RX and TX clocks for the IPQ5018 PHY. These
->> clocks are required for the PHY's datapath to function correctly.
->> In addition, gate the clocks upon link state changes for improved power
->> management.
->>
->> Fixes: d46502279a11 ("net: phy: qcom: at803x: Add Qualcomm IPQ5018 Internal PHY support")
->> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
->> ---
->>  drivers/net/phy/qcom/at803x.c | 23 +++++++++++++++++++++++
->>  1 file changed, 23 insertions(+)
->>
->> diff --git a/drivers/net/phy/qcom/at803x.c b/drivers/net/phy/qcom/at803x.c
->> index 63726cf98cd4..b7361a14220d 100644
->> --- a/drivers/net/phy/qcom/at803x.c
->> +++ b/drivers/net/phy/qcom/at803x.c
->> @@ -19,6 +19,7 @@
->>  #include <linux/regulator/consumer.h>
->>  #include <linux/of.h>
->>  #include <linux/phylink.h>
->> +#include <linux/clk.h>
->>  #include <linux/reset.h>
->>  #include <linux/phy_port.h>
->>  #include <dt-bindings/net/qca-ar803x.h>
->> @@ -176,6 +177,8 @@ struct at803x_context {
->>  };
->>  
->>  struct ipq5018_priv {
->> +	struct clk *rx_clk;
->> +	struct clk *tx_clk;
->>  	struct reset_control *rst;
->>  	bool set_short_cable_dac;
->>  };
->> @@ -1062,6 +1065,16 @@ static int ipq5018_config_init(struct phy_device *phydev)
->>  
->>  static void ipq5018_link_change_notify(struct phy_device *phydev)
->>  {
->> +	struct ipq5018_priv *priv = phydev->priv;
->> +
->> +	if (phydev->link) {
->> +		clk_enable(priv->rx_clk);
->> +		clk_enable(priv->tx_clk);
->> +	} else {
->> +		clk_disable(priv->rx_clk);
->> +		clk_disable(priv->tx_clk);
->> +	}
->> +
->>  	/*
->>  	 * Reset the FIFO buffer upon link disconnects to clear any residual data
->>  	 * which may cause issues with the FIFO which it cannot recover from.
->> @@ -1084,6 +1097,16 @@ static int ipq5018_probe(struct phy_device *phydev)
->>  	priv->set_short_cable_dac = of_property_read_bool(dev->of_node,
->>  							  "qcom,dac-preset-short-cable");
->>  
->> +	priv->rx_clk = devm_clk_get_enabled(dev, "rx");
-> 
-> Why are you enabling it here? Won't you get the notification to enable
-> it if required?
+From: Biju Das <biju.das.jz@bp.renesas.com>
 
-it was mainly to cater for the case of a bootloader enabling the clocks
-beforehand (especially during testing) and increase the enable count so
-the CCF doesn't complain and spits out a stack dump when trying to
-disable. Perhaps better to add if statements in link_change_notify to
-check whether the clocks are enabled and then act accordingly?
+This series contains two DTS fixes/updates for the R9A09G047 SoC.
 
-> 
->> +	if (IS_ERR(priv->rx_clk))
->> +		return dev_err_probe(dev, PTR_ERR(priv->rx_clk),
->> +				     "failed to get and enable RX clock\n");
->> +
->> +	priv->tx_clk = devm_clk_get_enabled(dev, "tx");
->> +	if (IS_ERR(priv->tx_clk))
->> +		return dev_err_probe(dev, PTR_ERR(priv->tx_clk),
->> +				     "failed to get and enable TX clock\n");
->> +
->>  	priv->rst = devm_reset_control_array_get_exclusive(dev);
->>  	if (IS_ERR(priv->rst))
->>  		return dev_err_probe(dev, PTR_ERR(priv->rst),
->>
->> -- 
->> 2.53.0
->>
->>
-> 
+Patch 1 drops the unnecessary SW_SER0_PMOD condition for rsci4 on the
+R9A09G047E57 SMARC board, as rsci4 is available regardless of whether
+it is routed to the PMOD or M.2 connector.
 
-Best regards,
-George
+Patch 2 adds the max-frequency property of 200MHz to the sdhi0, sdhi1,
+and sdhi2 MMC controllers in the R9A09G047 SoC DTSI.
+
+Biju Das (2):
+  arm64: dts: renesas: r9a09g047e57-smarc: Drop SW_SER0_PMOD condition
+    for rsci4
+  arm64: dts: renesas: r9a09g047: Add max-frequency for SDHI controllers
+
+ arch/arm64/boot/dts/renesas/r9a09g047.dtsi         | 3 +++
+ arch/arm64/boot/dts/renesas/r9a09g047e57-smarc.dts | 2 +-
+ 2 files changed, 4 insertions(+), 1 deletion(-)
+
+-- 
+2.43.0
+
