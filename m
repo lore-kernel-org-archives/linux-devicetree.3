@@ -1,246 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0018346A1E;
-	Wed,  3 Jun 2026 14:39:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EF13D6488
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497565; cv=none; b=TsYPl63uiVyLo12QvW/wjM8LWlprrXKXOVEkiS5k2BA157B8emZUbCUVjDBn8/oHC6SVIdkLq4kr2K0jNdU7eYOBZtPcFqskrym3Lz1IOGbazQJrIjMiCEqhZybJvMXSyg4kLkw95Pc0HoxVk53jeuv0KXPr1hbqQYI2E5BwWWk=
+	t=1780497770; cv=none; b=snO+Ft/SMDOPRIzWzPytk6fMuNWpah8EvnZMt11qqxr9/pQAebou8z661n556YrZaA2QR9GFZu7acGvwJ3t7dpbdG32HaFjeI/G7FN5Y/0xozKO/LKY+z3pO974pFDHkuGV0r3/umbFtFe+S812xNa5639Z+MNuW57QL+qCRcXQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497565; c=relaxed/simple;
-	bh=F37+84OPHLgri3lzv/+vjUaGfjeQZRQhdnN8AYEzO2Q=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=XZ1ujgA/tzEIdhLPydSP5YHddfjmu67g5vkqm2wYtgMZDXgPrRClWtjHbjeV51KYIZ+qYI96DgkkMBAc9TpBKthiNg9Br6frwakLuv7SD4UrQeryki8AcU6xpxT+dJtA/1vyY8zfIomPjSVd+Bzrn4SwGdwkTdEx+3kNMP+Zos0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DVUiDpun; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780497770; c=relaxed/simple;
+	bh=TElSRUVHBNGTnko5oEEDBAu/L+B9LgigDWbZewSLW9w=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CLGDYvFRrcoBcZD9bEIotq402ZKCdtTVv4Ad7qdClJrCHQb0F29cymQxJgLkrjTCU1tTEU0xjMcnZB7X2sHW4ggWXQ44xJLX4t7DDbfOBFG+xn48abRr07sJxhi3+86VJCykWFoDGff3t7iKyDXgNMaHPq4OxLVMmpLHCjXvNkw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nBx/fM1y; arc=none smtp.client-ip=209.85.128.176
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DVUiDpun"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58E1E1F00893;
-	Wed,  3 Jun 2026 14:39:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780497563;
-	bh=kmImnxP6p8j/9w7MJ2J14WM4Q/TEsNPPlUi1alFraKM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DVUiDpunh30RZwYt0895qeC6EIg8TmxLOOoy6Twot3GWBGGAdTBepUUL8XAR7zR6F
-	 w9/E+P5m2+h3D3dtA/MwIHLjeeE+og5MZLigfEi1NCUQAZjTElGhUytze6ZzLxUvc/
-	 IZzG5O7dxIQTBuk9UNDzaTaMrzcPZcXs1WxY+49IrXv6evX4HK2XVLtEddHjcrhItF
-	 H68Z851VBv1uYhDkjljUbaZRthR90STscY+25AVwmEjy10f6Kx8nklnKk+3xEm1T49
-	 F3XKnyeavzUjY30PmYhiWfqLzboCNJqDOKrE15nU6mU5bvklMq0DnqRxs1WzreOthP
-	 OxeEhbiEo2i7Q==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v7 05/12] media: iris: Enable Secure PAS support with
- IOMMU managed by Linux
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260603-glymur-v7-5-afaa55d11fe0@oss.qualcomm.com>
-References: <20260603-glymur-v7-5-afaa55d11fe0@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 14:39:22 +0000
-Message-Id: <20260603143923.58E1E1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nBx/fM1y"
+Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7e0fc8ead7eso54202607b3.2
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:42:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780497768; x=1781102568; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=rHKWer5YzIktM08gYTN/IYle79QxK5fXHWRMtT9CjIU=;
+        b=nBx/fM1yzPAqi/VuwUplae+U9iBBMedtRsHNR0VBATfa1ALwrC/UNy+sjVLchIS+zk
+         gfTFe0j2c1gyNRDOM1A3Q7G3mTceA6br3d+eZWazFG4OkyuevsChAwRqCuHtaZXMO1v7
+         4lpw2f6GOxBTlpW8bQR/+d3kVSQEayXOv1Jkqvjosb8+KuyNp9uFCmKlv7C7KKb6byM3
+         kJNUVNxkmLxaYCH5kBW8nsml9VMMhmhDjpw0j40DE7HfdObWbdlDZJaD+YwzG7y+0KT8
+         i7RFf/88m/5vbU0L+pHbjeP11TWLpFpcBxpSKwGdDNVxjZ01ciZzV4VXbzXUv0H2POMA
+         XV9Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780497768; x=1781102568;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=rHKWer5YzIktM08gYTN/IYle79QxK5fXHWRMtT9CjIU=;
+        b=BRJFfbTOeohQmfT91BaKX/py70mgukGEyOd9vcuKa8Fyc2XS8s5vo0Zp0cN1SNdTH0
+         fg2pIRt7pz77KzNcpJYSS/dyGrPefydfQZxNNzmRpZoSAYTQIVnflLywQ4GKFG6H3u0G
+         7Quhm16eR9WlxjdsBVXu1VjCfPXIrG832LvCoT1thz70FuMMhf6DX7v8/cEYIMRVbazs
+         f+YiOkVgRTDS1GUegXmHoOifbgxq5pqiqni4RapstwS0QJQ9Djhd9yAcO83AwcnkVQ6w
+         cZECq5jse+Lg1OE58mKDJIRhiqC/oIUGCCNVghsVQoUefzdPYSZkU/YiAr0WTI3rMpdI
+         qbTw==
+X-Forwarded-Encrypted: i=1; AFNElJ/Q5uZ2hcGWfZXdGLgVIpqR+4qwv3+2iR39Nu+IpaAQJ5aoulOrxnG5XOzvzFFwjPykWZcYTiyot41v@vger.kernel.org
+X-Gm-Message-State: AOJu0YwlYmFN4N8ska0zOFf7KFItIDhScD+nAUiXnR8jcALXnHrzrx1I
+	2xkY/jFceWeT7QHU98FPFp3+jfELVpCC3Z2J7pdQkOhIWDOIDhDGv8pZ
+X-Gm-Gg: Acq92OHKmR3tVguRVc9eIc4RV5umMSM37sdQ9zBlnYeo6lNmc9DXzRN5YJIjUQRdgUh
+	XXMo2DyS37mGsb7runnDZPTPXTJT7cT8UM4UeDSzce7W9FvFZAi4wOpVliNMx/4LlobNcU/gS+h
+	v7HfT3aiOO5nq7OW73F50ZRigtyY/OxLQ1YxCzWNlH7eOKzLd0FcijXPSj1zNNHMMCLW2OO2Qaj
+	WbIbOSHW+p/M54k4/SQhQgdB3+5VHig8twhrXiZBvKxmj5XjanuKBZfNpCnhJkLRNB4OqLi8rSS
+	kgYL6dF1VL+tKuGdjyWsocJNHzDjZjmvtP+KnUMrt0+KYRGWp6tRtzL3XNpOBkvgKx3JPgjFxHo
+	TJMCEQfZ3qn9AlFYolpFScRFFB42JtVnA3Hg8SPBJ8WavQVkQxui/Ts/4xmBKcT7fCNJ7CZEHr0
+	2xbvcb6UiiXrl6yDO4gXvWRgB7rSSrNUQDLjGc3pQEgySFoQkv4OmYug==
+X-Received: by 2002:a05:690c:6806:b0:7d0:261a:692 with SMTP id 00721157ae682-7ea4b7e7289mr36006357b3.44.1780497767939;
+        Wed, 03 Jun 2026 07:42:47 -0700 (PDT)
+Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-7ea2148b48fsm17466527b3.12.2026.06.03.07.42.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 07:42:46 -0700 (PDT)
+Date: Wed, 3 Jun 2026 11:43:14 -0300
+From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
+To: Wadim Mueller <wafgo01@gmail.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	Krzysztof Kozlowski <krzk@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxwell Doose <m32285159@gmail.com>, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 2/3] dt-bindings: iio: flow: add Sensirion SLF3S
+ liquid flow sensor
+Message-ID: <aiA9gjJzWuX6taWv@debian-BULLSEYE-live-builder-AMD64>
+References: <20260530205435.37326-1-wafgo01@gmail.com>
+ <20260530205435.37326-3-wafgo01@gmail.com>
+ <ahxzpBcqN6o6q4a4@debian-BULLSEYE-live-builder-AMD64>
+ <20260602-slf3s-v3-reply-08-wafgo01@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602-slf3s-v3-reply-08-wafgo01@gmail.com>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
-s) to consider:
+On 06/03, Wadim Mueller wrote:
+> On Sun, 31 May 2026 14:45:08 -0300
+> Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
+> 
+> > We could add a mention to the IRQ pin to make the doc more complete.
+> >   interrupts:
+> >     maxItems: 1
+> 
+> I would let interrupts out for now. The driver is polled and in v2 the
+> feedback was to not put properties in the binding which we do not use. If
+> later a board uses the IRQ pin we can add it. Ok for you?
+> 
 
-New issues:
-- [High] Unconditional devm_qcom_scm_pas_context_alloc of pas_ctx causes a =
-memory leak during repeated iris_core_init failures.
-- [High] Double invocation of qcom_scm_pas_shutdown in the qcom_scm_mem_pro=
-tect_video_var error path.
-- [High] PAS metadata memory is permanently leaked upon every firmware load.
-- [Medium] iris_fw_unload() skips iris_fw_iommu_unmap() if qcom_scm_pas_shu=
-tdown() fails, leaking the IOMMU mapping.
+Well, okay for me. I suggested that because of the guidelines for dt-bindings [1].
 
-Pre-existing issues:
-- [High] The sys_error_handler delayed work is never canceled during driver=
- removal, risking use-after-free and locking crashes.
---
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/writing-bindings.rst?h=v7.1-rc6#n17
 
-commit 85711dbb43a8f02c3f39064784fe37381f80c2c5
-Author: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+Though, TBH, I'm also frequently tempted to leave interrupt properties out of
+bindings. It's not uncommon to have IIO drivers that don't support interrupt
+lines and, for those cases, having to describe the interrupts in dt ends up
+becoming just an extra task. Even though I don't know/recall the reason why dt
+maintainers have such guideline, they probably have a good reason to have that
+(right?). If the guidance has changed, then maybe we can update the guidelines
+for writing bindings?
 
-media: iris: Enable Secure PAS support with IOMMU managed by Linux
-
-On platforms without a hypervisor, Linux drives the firmware loading and
-authentication steps directly. This commit extends the Iris driver to suppo=
-rt
-Secure Peripheral Authentication Service (PAS) on such platforms by creating
-the firmware context device and mapping the IOMMU when the firmware device
-SID is present.
-
-Link: https://lore.kernel.org/lkml/20260105-kvmrprocv10-v10-0-022e96815380@=
-oss.qualcomm.com/
-
-> diff --git a/drivers/media/platform/qcom/iris/iris_firmware.c b/drivers/m=
-edia/platform/qcom/iris/iris_firmware.c
-> index 1a476146d7580..8bdc9273036ce 100644
-> --- a/drivers/media/platform/qcom/iris/iris_firmware.c
-> +++ b/drivers/media/platform/qcom/iris/iris_firmware.c
-
-[ ... ]
-
-> @@ -30,14 +34,18 @@ static int iris_load_fw_to_memory(struct iris_core *c=
-ore, const char *fw_name)
->  	if (strlen(fw_name) >=3D MAX_FIRMWARE_NAME_SIZE - 4)
->  		return -EINVAL;
-> =20
-> -	ret =3D of_reserved_mem_region_to_resource(dev->of_node, 0, &res);
-> +	ret =3D of_reserved_mem_region_to_resource(core->dev->of_node, 0, &res);
->  	if (ret)
->  		return ret;
-> =20
->  	mem_phys =3D res.start;
->  	res_size =3D resource_size(&res);
-> =20
-> -	ret =3D request_firmware(&firmware, fw_name, dev);
-> +	pas_ctx =3D devm_qcom_scm_pas_context_alloc(fw_dev, IRIS_PAS_ID, mem_ph=
-ys, res_size);
-
-[Severity: High]
-Does this unconditional devm_qcom_scm_pas_context_alloc() cause a memory le=
-ak
-during repeated iris_core_init() failures?
-
-If a subsequent step in the firmware load fails (e.g., request_firmware()
-returning an error), iris_core_init() returns an error, but the device rema=
-ins
-bound.
-
-Because iris_core_init() is called upon opening the V4L2 device, userspace
-could repeatedly open the device, failing each time and allocating a new
-pas_ctx without freeing the previous one.
-
-> +	if (IS_ERR(pas_ctx))
-> +		return PTR_ERR(pas_ctx);
-> +
-> +	ret =3D request_firmware(&firmware, fw_name, fw_dev);
->  	if (ret)
->  		return ret;
-
-[ ... ]
-
-> @@ -77,13 +115,13 @@ int iris_fw_load(struct iris_core *core)
->  	ret =3D iris_load_fw_to_memory(core, fwpath);
->  	if (ret) {
->  		dev_err(core->dev, "firmware download failed\n");
-> -		return -ENOMEM;
-> +		return ret;
->  	}
-> =20
-> -	ret =3D qcom_scm_pas_auth_and_reset(IRIS_PAS_ID);
-> +	ret =3D qcom_scm_pas_prepare_and_auth_reset(core->pas_ctx);
-
-[Severity: High]
-Does this permanently leak the PAS metadata memory upon every successful
-firmware load?
-
-qcom_mdt_pas_load() delegates to qcom_scm_pas_init_image(), which allocates
-DMA or TZ memory for the firmware metadata (ELF header and hashes).
-
-The SCM API requires the caller to free this memory using
-qcom_scm_pas_metadata_release() once authentication is complete.=20
-
-It appears the iris driver never invokes this release function.
-
->  	if (ret)  {
->  		dev_err(core->dev, "auth and reset failed: %d\n", ret);
-> -		return ret;
-> +		goto err_unmap;
->  	}
-> =20
->  	for (i =3D 0; i < core->iris_platform_data->tz_cp_config_data_size; i++=
-) {
-
-[ ... ]
-
-> @@ -95,16 +133,31 @@ int iris_fw_load(struct iris_core *core)
->  		if (ret) {
->  			dev_err(core->dev, "qcom_scm_mem_protect_video_var failed: %d\n", ret=
-);
->  			qcom_scm_pas_shutdown(IRIS_PAS_ID);
-> -			return ret;
-> +			goto err_pas_shutdown;
->  		}
->  	}
-> =20
-> +	return 0;
-> +
-> +err_pas_shutdown:
-> +	qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
-
-[Severity: High]
-Does this result in a double invocation of qcom_scm_pas_shutdown() on the
-qcom_scm_mem_protect_video_var() error path?
-
-The code calls qcom_scm_pas_shutdown(IRIS_PAS_ID) explicitly before jumping=
- to
-the err_pas_shutdown label, which calls qcom_scm_pas_shutdown() again.
-
-Since core->pas_ctx->pas_id is initialized to IRIS_PAS_ID, this results in =
-the
-shutdown function being called twice consecutively for the same PAS ID, whi=
-ch
-could trigger TrustZone errors or corrupt Secure Monitor state.
-
-> +err_unmap:
-> +	iris_fw_iommu_unmap(core);
-> +
->  	return ret;
->  }
-> =20
->  int iris_fw_unload(struct iris_core *core)
->  {
-> -	return qcom_scm_pas_shutdown(IRIS_PAS_ID);
-> +	int ret;
-> +
-> +	ret =3D qcom_scm_pas_shutdown(core->pas_ctx->pas_id);
-> +	if (ret)
-> +		return ret;
-
-[Severity: Medium]
-Will this early return skip the required IOMMU unmap logic if
-qcom_scm_pas_shutdown() fails?
-
-Since the caller (iris_core_deinit()) ignores the return value of
-iris_fw_unload(), the driver proceeds with teardown while permanently leaki=
-ng
-the firmware's IOMMU IOVA mapping.
-
-Software resource cleanup should likely continue even if a hardware/SCM
-command fails.
-
-> +
-> +	iris_fw_iommu_unmap(core);
-> +
-> +	return ret;
->  }
-
-[Severity: High]
-This is a pre-existing issue, but I noticed that the sys_error_handler dela=
-yed
-work is never canceled during driver removal.
-
-Looking at iris_remove() in drivers/media/platform/qcom/iris/iris_probe.c:
-
-static void iris_remove(struct platform_device *pdev)
-{
-    ...
-
-The driver initializes core->sys_error_handler on a delayed workqueue in
-iris_probe(), but iris_remove() unregisters devices and destroys core->lock
-without calling cancel_delayed_work_sync(&core->sys_error_handler).
-
-If the delayed work executes concurrently with or after iris_remove(), will=
- it
-access freed driver state and attempt to acquire the destroyed mutex, leadi=
-ng
-to a use-after-free?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-glymur-v7-=
-0-afaa55d11fe0@oss.qualcomm.com?part=3D5
+With best regards,
+Marcelo
