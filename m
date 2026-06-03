@@ -1,319 +1,210 @@
-Received: from mail-wr1-f50.google.com (mail-wr1-f50.google.com [209.85.221.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from OS0P286CU011.outbound.protection.outlook.com (mail-japanwestazon11010016.outbound.protection.outlook.com [52.101.228.16])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 205E13FF881
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:57:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.50
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780469877; cv=none; b=AhcaoYyYUXeYF+8+Tm4t95Bb6GcLiRXwwRqujg6/WjarACj2idSOffzcsvI26FZkD7bl1kQaAZU44PHpoH4nDlLKU7gH8/MxQj4jQWh+LysXNlcHqNeHCYrYbXmJ3QoJs6aR1DLD20PmfDbHShAs8WSSjaKK6nos+1eU8bKqIrk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780469877; c=relaxed/simple;
-	bh=HUrr1zYXCk+B5C+SJcg6So9l2lVX0UVjsoKggM5azRo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D11wPcpcmor9C//fES1bTWPCFiMFvT5Ymx0wcCIEovJTHTLyOZoFMme3X2Hz69Ix5hLvsHAttmqNGMVGH8J4PIqTmeRK57K8QLYVZOIqknYRHoi1O/jx0nmbIN2ATXf3yLiei4qOoEepdDlCZxzjCECiGok5+n9m2oY9atgM4Ek=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QygJwiFF; arc=none smtp.client-ip=209.85.221.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B486939A809;
+	Wed,  3 Jun 2026 07:00:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.228.16
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780470030; cv=fail; b=KUnpvLk49H9q03cQH/Tgcd4siYaL7ZaoIjR09+jfruQMZ6WdQIedRTLodGzPF3BKksNBVm+J+MazE1EmsEoFG+r537n4qoXDezj1QZCdZFfYKnuf/DhoKG2daow1taIu4N12kznH6agEIUr5ZWEFsyRziqZPAaEckpzjN1ESCvw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780470030; c=relaxed/simple;
+	bh=K2b33TFMYP/mGQaBoJ/2twkoVauU6XmQezDClIXL+2g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=XeV+XoCA6gim9ZGfcDo3XHn+ReAxPJSljeFQ7Dxe4CmFovrrBG31DTC+wvArWhOLpPVyovVGvoEOC4LBheTHpFgLPuIldPOGJHzMHX8xcZi5An5dVEyelTwsSprZlA1ZWeAsQDjuB7zmUUQRIjldYNCqZ8fKKd74f+4ElhAMLbc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=DLP2LTlj; arc=fail smtp.client-ip=52.101.228.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QygJwiFF"
-Received: by mail-wr1-f50.google.com with SMTP id ffacd0b85a97d-4600ddc4017so2768271f8f.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:57:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780469870; x=1781074670; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=TEEUSg3rLsKkTyFaKCScJDMRwpPsVPhzNbl9bAytBJY=;
-        b=QygJwiFFq/tDx8Zj7THHIlN8K6yVQNOrXaEn0l+KUlaJ7AiT6L5xfdxjj4/33VdRsC
-         QK2QBv2KO8sxSEpVUguDLEZ1p0NO817Ku/lKZek/M/+jfaA3NyCyffnPbhCMFTrkrWix
-         wkQYeJ5LqBFb+XE+BEZGbnTfdgZ+5Oof2orANWG8KLmZZD2UT1pdnzF7A4VoUGhzk+0A
-         z9Ul5TJVBr9GnZ5/OY9EQlBq4wqZgFwblInacfbvAwyErvXso9Xpl6dLVVeXL/tVkwPd
-         kmmgCmdkRrft2AgMn0kFbyGVW/jD7h70CZz5Nr21PtIDIjOrGn9eCu6hjexODGHDQF3X
-         tPNQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780469870; x=1781074670;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=TEEUSg3rLsKkTyFaKCScJDMRwpPsVPhzNbl9bAytBJY=;
-        b=a/Ug3NTxqLgHRxxHLmVzcFVOhbLyHzajgLhNDeMCjrrOsTwKhpXfgkrPOxU+wacn+V
-         wViA11e4/1y9aIJKiQEwAJ9AZM7qItYOdAYz688NJ77ge0iKu9pYEOLVes2J0904ZWY0
-         n7g3/t4TBx0WrLN+CMITRn7JAA6vaNU9wwBF9xoaYZrui2GCr2kxP0wGyJj1j3/Oru13
-         HGk4PTnF0TfDJQHwAIG89I0RP+l8RwY4JuTwwCUGngdqGgQxfnwegz9YTj62bZdHjfHb
-         +xZl1EksG+gsVr1//u9Dnx2LHBrLckaPEUY/BryTKTUfTtxkezEgLsClViVvHGY/bEYl
-         m+8g==
-X-Forwarded-Encrypted: i=1; AFNElJ9PutFjfaoMcVpyBP0kcFNWQYxgOLjaobNWsSw4hjvkHrRIq5gfFJ7W3r3ImqqYR+WXeGMWdJiZ/ufx@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywi3MrwtPXPcGILROrWswp35BXVboIAE8KuYVw5XUqIE3ZQNf2V
-	GWeS2ZoklPHJhbR5jejJrWxO2ohkpZHwFsllKEN7/HjOidBhGoR2S9ZyBcOYDw==
-X-Gm-Gg: Acq92OEFNdM9OjNpeblZzYSsHOXs7v98TcbMJhArXHeJl+cXnLNgPIW93WfGfha7PnD
-	XfLrdbOUrcT5aAmnV5Z5i6rtsb9WMjast2Q64377s7nU71ma8gQmhr3vpgtAejil0RWM+o1a36y
-	NxurjUmtkBH3dHGyfYFdo1ihw8+6lSZEypNbsNZUkjqp8XIAcCkIkOyl1ZpOu2k2Udm0g8EWwFX
-	4fNSYCtOvAvEUQhnP1fN8CSckImG8My49i1jVJ876OKyVeXGHBj5y+QOxU8dDXva4sEkuwUjq+a
-	YSaT55pCT1kCyEwUu88WSCl8CCLYrgPsevHcDdrbXy/ZhbkrDhbbr8eWigYAyevkLu3HSaVD9H5
-	SrelPLhMbUgLyL0d+5YM2b5u5tnOKYlG1C52Y4k8I355vc8n2iN3HgcLY3/EKCMxPKxla6pIZ3K
-	qixvpZGC3I+fys7ld5srw0ybtPi+T7fvpdJtXvwftr8dmogHX4eYCdgrgRhvg=
-X-Received: by 2002:a05:600c:c490:b0:490:b0df:9eac with SMTP id 5b1f17b1804b1-490b5e94d73mr32631975e9.3.1780469870410;
-        Tue, 02 Jun 2026 23:57:50 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a700:7301:179c:89ab:19f6:9ba4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d90bdsm9001855e9.0.2026.06.02.23.57.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 23:57:50 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v17 15/17] arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and SDHI1 pincontrol on SMARC EVK
-Date: Wed,  3 Jun 2026 07:57:15 +0100
-Message-ID: <20260603065731.93243-16-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="DLP2LTlj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=BQ1KajVozkY2QqdQmfpNld9C/DXKIGdgRnNbbNGl3CzxDNW7KfhpzYdMDUgld9DITtPy3wlCux83U/vJp+q73dKlbl3iziG54FQ8yGcjmjXKYkEzFCgcvZkezblDaGlLxubqb08hKso0Cpr2bleuk4t2vwINgWvAn4j4jzzPeOYgkTNJdezWm2sHBG11qOkZH3p54okUaW0yXsJ5PvuGA+VELg27iWq+cbzFGkPh2aUXw3+O4ROgyWvzS/sLBvVsqI/kHVdv++DoBMkhjV3+zLDZYIRtRhIqsmKf0b18b7bpdCX/PPywUIjbejBD++Zsf/7InQLysi3Ta2L7165lFQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DiIxKhKrGdKIkro4B5UKPgxa2hFzFr/eewdMG3IWG2Y=;
+ b=HHeGT//Oa3lOyTQFldQB6beleAQHNVgSU2qThifsirdZOhiL/TAYTuhxlVJGFqxh3qBUIdQz39J2pu56jpN6RVbrv1T1YoFhnQE1bEzoaKYXs7KIDp774gF4ky/jx8iIjl4psn0v3a27YDVAe6Pju8todmkIfHRZ8d9xniPmDadBQWDYuAVegcI3z87cC34ka4SRW+7GvuUSEg++3NrigTwG+AfWxsw9VByJfHJ04yD/QpN3wU44IvqjkJVGW0d4ne9YPzg0RmAz7LTsp6nyOkF1VnQWRw5uT6sqNBluSelFXq8VsFisVwVLh25Sxl3ZGuqliaeu0o6DxpMzQ1HHgA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DiIxKhKrGdKIkro4B5UKPgxa2hFzFr/eewdMG3IWG2Y=;
+ b=DLP2LTljYCMQy3fTd/6HR7dmISBQ/BXMV5jshGqD+KETY25qpBuhGudLOnx5Nl1oP04XkGOrxzyzkyEdTf64mFPuNyHLUWIgS8ZrHO5mXYR0+YafvByp4Ap4YziVDRxtbPM23Ic/X1la5bKUVYw1UoD2soi6CQ2RBo2+Ftl4qxg=
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com (2603:1096:400:3d0::7)
+ by TYVPR01MB10700.jpnprd01.prod.outlook.com (2603:1096:400:2ad::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Wed, 3 Jun 2026
+ 07:00:17 +0000
+Received: from TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de]) by TY3PR01MB11346.jpnprd01.prod.outlook.com
+ ([fe80::87d1:4928:d55:97de%4]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 07:00:17 +0000
+From: Biju Das <biju.das.jz@bp.renesas.com>
+To: biju.das.au <biju.das.au@gmail.com>, Ulf Hansson <ulfh@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Geert Uytterhoeven <geert+renesas@glider.be>,
+	Philipp Zabel <p.zabel@pengutronix.de>, magnus.damm <magnus.damm@gmail.com>
+CC: wsa+renesas <wsa+renesas@sang-engineering.com>,
+	"linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"linux-renesas-soc@vger.kernel.org" <linux-renesas-soc@vger.kernel.org>,
+	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>, biju.das.au
+	<biju.das.au@gmail.com>
+Subject: RE: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+Thread-Topic: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+Thread-Index: AQHc8yZFMuP1bVIRGUixq2TgdBuPhLYsZmtg
+Date: Wed, 3 Jun 2026 07:00:16 +0000
+Message-ID:
+ <TY3PR01MB11346485C16AFB6299B1711FD86132@TY3PR01MB11346.jpnprd01.prod.outlook.com>
 References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
+In-Reply-To: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
+Accept-Language: en-GB, en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: TY3PR01MB11346:EE_|TYVPR01MB10700:EE_
+x-ms-office365-filtering-correlation-id: b36f8cdb-c7ea-46de-330e-08dec13dc489
+x-ld-processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|1800799024|366016|7416014|376014|18002099003|22082099003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info:
+ GVJqJyBQjkRrkcnYHhHL3ffXz/4NWyiancB4lC+GfRyEv9wCgGKyxHJFz5oESQl0L3nNrxjvao/tIjQ85w6HVZyA9aElhML+fuSv3xLvs9IR52zPU+2y0++VTsCtLBp5dWiwpt0FT0dn4yfgeY2ibmQ2FHQufqeyDrN/n8UcLNGwrNaGxrIECMIJBANm2u5bI8abok+YPpxdvHrrDOM/6OiENOhOXuOFvL1oq13ZYRRFJXwKD6imGAPsJF9keSS9OfRwxa27evhDWu19hlr2Ol1oNPoky4Nch/azaBsG7dGBoMsIyEATt2bd6lxU2iTXQZcNJuh0XlJCqL1ba/oJRLpZ5xbs6Ipcpxt9OaZmNpDSV/kh8YTKh80sY0yG+9kf2zzW0dQz2SEarp6hlxbuZHKDeagZFaVMFuJs/yWLF63dUJkyf+uIKXKKliUCGVlkmj4I5PLcIH9WAZioW4Iqsc9J4YLWJy21xKoVmWbB2mWpxnxooE8c/yQ31U7sguzqKlTKp+C4jepv6ojquNHi7A4cnEe+Flth1a5xaHHnJvlxfeliY/t7HrE7tMRYem35Y4QigDZSfupOja3NurPyeMWjFf2miHNMFT9cTGAnS/61A4N9LrxFaebe74KaiOc9yHpLaroWQ8faNGTs7rNLzfK0HOnc/gk7m72UUMnzqo+rFzS0QXvG9d2wxI/WLXuI9CWLx/mHANHc2Rm7/vAETVr/GRBk7FpPyp5pok8um2iNWGFQLGNUNoo3zD/IG9Cj
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY3PR01MB11346.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(366016)(7416014)(376014)(18002099003)(22082099003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?us-ascii?Q?tKfdwOVIidh0Alxq+yugujhFtRuHnAJfhtvgSJOETP4WWgmuK18JVIjch8Jf?=
+ =?us-ascii?Q?3505sId9keyR+5FK4c3xiKSLzLM7Rand8AZRFgl6aj0L0yrIu9pZHOfSG10K?=
+ =?us-ascii?Q?VcGFdavfOmr1loi+lpnmqgbmreqJP053kwCXmzO+pGRc8NP+QujpUiC/baXp?=
+ =?us-ascii?Q?Yd2W0+nSuX19Pv9iC+heGOuq2kB0NjAX8bHv1NvaccAhWcQjxp466kJCN/my?=
+ =?us-ascii?Q?q5aYBmyMKSqE7sLYeulB02516Hs9SprtjLZNqthUqIxHMbljuyqRJTYcQb7B?=
+ =?us-ascii?Q?Sf52RtWvR1/D0uVZOJvPBmT0oKeY4bOylXljDx3s5hud6uRrWXW4TypOpI3q?=
+ =?us-ascii?Q?DmYZDBX4eedS/hYtq3oMdLSA+LfMPy6P+QnF0cWWa64+Hlp7MVdvyXMeA8Qf?=
+ =?us-ascii?Q?g0fiwJxoJgGPS8LTFlnQAY0dZjyGfYnTdBC69KUj9poSlngCGQRxfrUp6MIr?=
+ =?us-ascii?Q?Izu0q7sUQMTRCXYvpTloNhsZOw+mGjOhC5hkpzJgaecd5UbtMkyAZukuWgtA?=
+ =?us-ascii?Q?BdYnaee/x4cQFIv36LwlE/2ig9w4Cw3WG9C6s5vdUpgVMX7KaIdmuO42u440?=
+ =?us-ascii?Q?mk4R0YTQm5RCTzThDiB5cM94jUY9psfl7gSrKk6uZLjUKAdBG42p5yf2rXWO?=
+ =?us-ascii?Q?BE9oLxHepAFULd0Vw9+AM9mqISf1QaKp3vslh6jpVKd7XVKEFXEAv/e1f6hT?=
+ =?us-ascii?Q?3DGp8v5BxGivejsqV5wOLsNKKTpoJ5VDfcPU74r5k1HW7cfSesas01vjk09a?=
+ =?us-ascii?Q?bLZs3EyhcdLJDw0nkaj/XAWW7UHzf1yge18rM+UXL2Nhdp18KmkIS/8u6JP6?=
+ =?us-ascii?Q?CWZUHWg1Ys7OJE4WKdPI20tiz9w2XGoXGMyp4wj7SGb1jmufllw080Dly/T/?=
+ =?us-ascii?Q?56r56TtKMc3RRm6I36kJHJS/hEnDvYpiP1sEzvO9ApObdNJV+f/AmoMO19hy?=
+ =?us-ascii?Q?5pz5uAw/mNBayOOE0UAi6BReXJ2OIv+5O99LGMN1ce/TFoJqTU1Tcf/eJlws?=
+ =?us-ascii?Q?h1LHlyffMh+2utmaTxj/qylFaW/t2C+tDELP4P+FA2sHc2cAUgVYXqNaGs9k?=
+ =?us-ascii?Q?K5h02WjxoLeGGBCA0/Ue3ZRe/MCFvoMIhMjk9dKZ+rviltGxIyQRjcOtSwgi?=
+ =?us-ascii?Q?MNFcbf7Av8VoGG1H3UfRmccDM72M2lXwa7U9IEz25oQQ+x/4P29XJQ7hBWOT?=
+ =?us-ascii?Q?XSHfkQ0qgupIomN2VBirqiU+uQwZSCLoso/dO2mDoCHspbIwCrC8LGK79fpo?=
+ =?us-ascii?Q?fqyyfOhnJAeoBuhwYbqcwNuTV2uvdf9UnQsMWSiChUnFwCSBKN3GAq1naR3x?=
+ =?us-ascii?Q?m0Vh0Zms+tAQAqvpgVjJ0h+/beLukUvCUOSqXfL2Aqp9rMT5X0YL2JU9qMde?=
+ =?us-ascii?Q?A/hd01ZBY+tPcWZe1zpFLrSTcTOJJR7oJBlzs0xj9eWTiaabWwsFAWZuTTT7?=
+ =?us-ascii?Q?mmgEsZbmZXbpeUFwGK/GXJSns0gCLpNfuiTs3v94023O66Ee14rI9p5rJVl9?=
+ =?us-ascii?Q?SPiblHyTKJD5sNfmg5jwMBfEguxSfZmyVo+sKwwLD1p2rkygCAOne5AHwG59?=
+ =?us-ascii?Q?etJzKIMfVG6TQnkVrnGy1m4JWj2QjCZqZj52F4SMmrCbnScCZzeQQ2bjuVm7?=
+ =?us-ascii?Q?ziw9KmLNmql1mdGlReR1S2oQYZA+w2jQukYb28FW/mMcJMeNP+bdHHZkktS5?=
+ =?us-ascii?Q?oNf1ibja2Z5bOxdB6+45Z/UJWPE77004pCblzLrpe/hb6oBJRlHMe2q2PHvZ?=
+ =?us-ascii?Q?LP/eYVyhbw=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: TY3PR01MB11346.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b36f8cdb-c7ea-46de-330e-08dec13dc489
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2026 07:00:16.6904
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: heey/y1ha56ZBEGrswOYiiqtFh/UMLAxlYWa5flyCdknJ/SK5Le/pi+iCWMoapGZafZAD8Pk9tZ7BJ07+B1uS10h5POxsdY2rNxcaXuCJ/E=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: TYVPR01MB10700
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+Hi all,
 
-Add device tree nodes for the three SDHI controllers (SDHI{0,1,2})
-on the RZ/G3L SoC (r9a08g046) and enable SDHI1 on the RZ/G3L SMARC
-EVK platform with pincontrol and GPIO-based voltage switching
-regulator support.
+Please ignore this series as by mistake instead of patch series 2
+I mentioned it as Patch series 17.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
-v1->v2:
- * No change.
----
- arch/arm64/boot/dts/renesas/r9a08g046.dtsi    | 73 ++++++++++++++-
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   | 88 +++++++++++++++++++
- 2 files changed, 160 insertions(+), 1 deletion(-)
+I will fix the issue soon.
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-index c63a857f0e5b..ff2de3f192b5 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046.dtsi
-@@ -762,9 +762,80 @@ dmac: dma-controller@11820000 {
- 			dma-channels = <16>;
- 		};
- 
-+		sdhi0: mmc@11c00000 {
-+			compatible = "renesas,sdhi-r9a08g046";
-+			reg = <0x0 0x11c00000 0 0x10000>;
-+			interrupts = <GIC_SPI 130 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 131 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI0_CLK_HS>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI0_IMCLK2>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI0_IACLKS>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI0_IACLKM>;
-+			clock-names = "core", "clkh", "cd", "aclk", "aclkm";
-+			max-frequency = <150000000>;
-+			resets = <&cpg R9A08G046_SDHI0_IXRST>,
-+				 <&cpg R9A08G046_SDHI0_IXRSTAXIM>,
-+				 <&cpg R9A08G046_SDHI0_IXRSTAXIS>;
-+			reset-names = "rst", "axim", "axis";
-+			power-domains = <&cpg>;
-+			status = "disabled";
-+		};
-+
- 		sdhi1: mmc@11c10000 {
-+			compatible = "renesas,sdhi-r9a08g046";
- 			reg = <0x0 0x11c10000 0 0x10000>;
--			/* placeholder */
-+			interrupts = <GIC_SPI 132 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 133 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI1_CLK_HS>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI1_IMCLK2>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI1_IACLKS>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI1_IACLKM>;
-+			clock-names = "core", "clkh", "cd", "aclk", "aclkm";
-+			max-frequency = <150000000>;
-+			resets = <&cpg R9A08G046_SDHI1_IXRST>,
-+				 <&cpg R9A08G046_SDHI1_IXRSTAXIM>,
-+				 <&cpg R9A08G046_SDHI1_IXRSTAXIS>;
-+			reset-names = "rst", "axim", "axis";
-+			power-domains = <&cpg>;
-+			status = "disabled";
-+
-+			sdhi1_vqmmc: vqmmc-regulator {
-+				regulator-name = "SDHI1-VQMMC";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <1200>;
-+				status = "disabled";
-+			};
-+		};
-+
-+		sdhi2: mmc@11c20000 {
-+			compatible = "renesas,sdhi-r9a08g046";
-+			reg = <0x0 0x11c20000 0 0x10000>;
-+			interrupts = <GIC_SPI 134 IRQ_TYPE_LEVEL_HIGH>,
-+				     <GIC_SPI 135 IRQ_TYPE_LEVEL_HIGH>;
-+			clocks = <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI2_CLK_HS>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI2_IMCLK2>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI2_IACLKS>,
-+				 <&cpg CPG_MOD R9A08G046_SDHI2_IACLKM>;
-+			clock-names = "core", "clkh", "cd", "aclk", "aclkm";
-+			max-frequency = <150000000>;
-+			resets = <&cpg R9A08G046_SDHI2_IXRST>,
-+				 <&cpg R9A08G046_SDHI2_IXRSTAXIM>,
-+				 <&cpg R9A08G046_SDHI2_IXRSTAXIS>;
-+			reset-names = "rst", "axim", "axis";
-+			power-domains = <&cpg>;
-+			status = "disabled";
-+
-+			sdhi2_vqmmc: vqmmc-regulator {
-+				regulator-name = "SDHI2-VQMMC";
-+				regulator-min-microvolt = <1800000>;
-+				regulator-max-microvolt = <3300000>;
-+				regulator-ramp-delay = <1200>;
-+				status = "disabled";
-+			};
- 		};
- 
- 		eth0: ethernet@11c30000 {
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index 624fcaea350f..a4cc07408b3f 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -14,6 +14,7 @@
- #define SW_GPIO4		1
- #define SW_I3C_EN		0
- #define SW_SER0_PMOD		1
-+#define SW_SDIO_M2E		0
- 
- #define PMOD_GPIO4		0
- #define PMOD_GPIO6		0
-@@ -38,6 +39,7 @@ / {
- 	aliases {
- 		i2c2 = &i2c2;
- 		i2c3 = &i2c3;
-+		mmc1 = &sdhi1;
- 		serial0 = &rsci2;
- 		serial1 = &rsci3;
- 		serial2 = &rsci1;
-@@ -69,6 +71,19 @@ codec_dai: codec {
- 		};
- 	};
- #endif
-+
-+#if RZ_BOOT_MODE3
-+	vqmmc_sd1_pvdd: regulator-vqmmc-sd1-pvdd {
-+		compatible = "regulator-gpio";
-+		regulator-name = "SD1_PVDD";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpios = <&pinctrl RZG3L_GPIO(J, 1) GPIO_ACTIVE_HIGH>;
-+		gpios-states = <0>;
-+		states = <3300000 0>, <1800000 1>;
-+		regulator-ramp-delay = <1200>;
-+	};
-+#endif
- };
- 
- &i2c2 {
-@@ -175,6 +190,68 @@ scif0_pins: scif0 {
- 		power-source = <1800>;
- 	};
- 
-+#if RZ_BOOT_MODE3
-+	sd1-pwr-en-hog {
-+		gpio-hog;
-+		gpios = <RZG3L_GPIO(J, 2) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "sd1_pwr_en";
-+	};
-+#endif
-+
-+	sdhi1_pins: sd1 {
-+		sd1-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(J, 0, 8)>; /* SD1_CD */
-+		};
-+
-+		sd1-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(G, 0, 1)>; /* SD1_CLK */
-+			power-source = <3300>;
-+		};
-+
-+		sd1-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(G, 1, 1)>; /* SD1_CMD */
-+			input-enable;
-+			power-source = <3300>;
-+			bias-pull-up;
-+		};
-+
-+		sd1-data {
-+			pinmux = <RZG3L_PORT_PINMUX(G, 2, 1)>, /* SD1_DAT0 */
-+				 <RZG3L_PORT_PINMUX(G, 3, 1)>, /* SD1_DAT1 */
-+				 <RZG3L_PORT_PINMUX(G, 4, 1)>, /* SD1_DAT2 */
-+				 <RZG3L_PORT_PINMUX(G, 5, 1)>; /* SD1_DAT3 */
-+			input-enable;
-+			power-source = <3300>;
-+		};
-+	};
-+
-+	sdhi1_uhs_pins: sd1-uhs {
-+		sd1-cd {
-+			pinmux = <RZG3L_PORT_PINMUX(J, 0, 8)>; /* SD1_CD */
-+		};
-+
-+		sd1-clk {
-+			pinmux = <RZG3L_PORT_PINMUX(G, 0, 1)>; /* SD1_CLK */
-+			power-source = <1800>;
-+		};
-+
-+		sd1-cmd {
-+			pinmux = <RZG3L_PORT_PINMUX(G, 1, 1)>; /* SD1_CMD */
-+			input-enable;
-+			power-source = <1800>;
-+		};
-+
-+		sd1-data {
-+			pinmux = <RZG3L_PORT_PINMUX(G, 2, 1)>, /* SD1_DAT0 */
-+				 <RZG3L_PORT_PINMUX(G, 3, 1)>, /* SD1_DAT1 */
-+				 <RZG3L_PORT_PINMUX(G, 4, 1)>, /* SD1_DAT2 */
-+				 <RZG3L_PORT_PINMUX(G, 5, 1)>; /* SD1_DAT3 */
-+			input-enable;
-+			power-source = <1800>;
-+		};
-+	};
-+
- 	ssi0_pins: ssi0 {
- 		pinmux = <RZG3L_PORT_PINMUX(H, 0, 9)>, /* SSIF0_RXD */
- 			 <RZG3L_PORT_PINMUX(H, 1, 9)>, /* SSIF0_BCK */
-@@ -219,6 +296,17 @@ &scif0 {
- 	pinctrl-names = "default";
- };
- 
-+#if RZ_BOOT_MODE3
-+&sdhi1 {
-+	pinctrl-0 = <&sdhi1_pins>;
-+	pinctrl-1 = <&sdhi1_uhs_pins>;
-+	pinctrl-names = "default", "state_uhs";
-+
-+	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&vqmmc_sd1_pvdd>;
-+};
-+#endif
-+
- #if !SW_SD2_EN
- &ssi0 {
- 	clocks = <&cpg CPG_MOD R9A08G046_SSI0_PCLK2>,
--- 
-2.43.0
+Sorry for the inconvenience.
+
+Cheers,
+Biju
+
+> -----Original Message-----
+> From: Biju <biju.das.au@gmail.com>
+> Sent: 03 June 2026 07:57
+> Subject: [PATCH v17 00/17] Add Renesas RZ/G3L SD/eMMC support
+>=20
+> From: Biju Das <biju.das.jz@bp.renesas.com>
+>=20
+> RZ/G3L SoC has:
+>=20
+> Channel 0 supports SD and eMMC (including HS400/HS400ES).
+> Channel 1 supports SD and eMMC (except for HS400).
+> Channel 2 supports SD.
+>=20
+> The SoC supports a maximum frequency of 150 MHz. The SD0 interface does n=
+ot support IOVS and PWEN in
+> the SDHI register (no internal regulator), unlike SD1 and SD2. It has an =
+internal divider for all
+> modes except HS400.
+> It also has a 2048-bit divider compared to 512 on others. Moreover RZ/G3L=
+ supports HS400 enhanced
+> strobe mode.
+>=20
+> v1->v2:
+>  * Collected tag for binding patch.
+>  * Resending the series as there is an issue with patch threading from
+>    patch #14.
+>=20
+> Biju Das (17):
+>   dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
+>   clk: renesas: r9a08g046: Add clock and reset entries for SDHI
+>   pinctrl: renesas: rzg2l: Add SD channel POC support for RZ/G3L
+>   mmc: renesas_sdhi: Fix whitespace alignment in struct
+>     renesas_sdhi_of_data
+>   mmc: renesas_sdhi_internal_dmac: Fix whitespace alignment in struct
+>     initializer
+>   mmc: renesas_sdhi: Introduce renesas_sdhi_hw_info to abstract clock
+>     mask
+>   mmc: renesas_sdhi: Add max_divider to renesas_sdhi_hw_info
+>   mmc: renesas_sdhi: Add tuning_delay hw_info flag
+>   mmc: renesas_sdhi: Add internal_divider hw_info flag for clk rate
+>     adjustment
+>   mmc: renesas_sdhi: Add optional axis/axim reset controls
+>   mmc: renesas_sdhi: Add RZ/G3L SDHI support
+>   mmc: renesas_sdhi: Save and restore IOVS across suspend/resume
+>   mmc: renesas_sdhi: Add RZ/G3L HS400 support
+>   mmc: renesas_sdhi: Add HS400 enhanced strobe support for RZ/G3L
+>   arm64: dts: renesas: r9a08g046: Add SDHI nodes for RZ/G3L SoC and
+>     SDHI1 pincontrol on SMARC EVK
+>   arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
+>   arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
+>=20
+>  .../devicetree/bindings/mmc/renesas,sdhi.yaml | 101 ++++++--
+>  arch/arm64/boot/dts/renesas/r9a08g046.dtsi    |  73 +++++-
+>  .../boot/dts/renesas/r9a08g046l48-smarc.dts   |  89 +++++++
+>  .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 199 +++++++++++++++
+>  drivers/clk/renesas/r9a08g046-cpg.c           |  92 +++++++
+>  drivers/mmc/host/renesas_sdhi.h               |  25 +-
+>  drivers/mmc/host/renesas_sdhi_core.c          | 226 +++++++++++++-----
+>  drivers/mmc/host/renesas_sdhi_internal_dmac.c |  71 +++++-
+>  drivers/mmc/host/renesas_sdhi_sys_dmac.c      |  67 ++++--
+>  drivers/pinctrl/renesas/pinctrl-rzg2l.c       |  74 ++++--
+>  10 files changed, 889 insertions(+), 128 deletions(-)
+>=20
+> --
+> 2.43.0
 
