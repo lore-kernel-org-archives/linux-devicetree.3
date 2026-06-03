@@ -1,140 +1,152 @@
-Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A19248C419
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:37:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1ABE384CFA
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:38:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497466; cv=none; b=ahQb5XiiTbY/hMrCDGWqUy+IcQZgBZvfOQYYqh8XLXzCcaJLxGsSLlrnz0b508pacbLd5S4ravId4yecetWCe9tst1dsk1eMAYD7qTjQLZljOPhGivOe57fA6IS5SBbqN/arvRzafCoBmGkB1M76encM2znzViMiSr6uNBU3vSc=
+	t=1780497534; cv=none; b=RcGXsLV9TBvDM9Iiqpv5sQn3z9qIfKY/QBqj2d0nFi+iBRbUhaOFLFIzgs8AqyURezjL18+gkXmrc/5LLf6MRKaSi2UVOnM4bYy/E6n+3QKJZx5tZ3FAYFVVjnMNsGF2d4yZmzunATpbG5oOfrKd+qBNGj0QhmfO7+NaTwyymps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497466; c=relaxed/simple;
-	bh=tapJulvq9sZNzCtmbZgAjkSubCFsjmsf/ax+SbMxIuk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jLHDg+f5KJ5NJORPZLmBta1Ye5hnR0GkoIQn4qgYHVgNw2WEfP/63wWAELp6fEeDwG17qxkVGkNqIycsfq5ENZ08KEt/zTEcQv+Xf+5Llvvjm7/6Ugs+4fNxGOqeBpH6oLOTQ0NFn23ZH1tTV+IGr5uwFiJUzj5vR+UZx/rmf+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ryoOVDNA; arc=none smtp.client-ip=209.85.128.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780497534; c=relaxed/simple;
+	bh=eSERxXuu45FHUSn04dchIIUl8V2Yk1PED5FxIpJjOTQ=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=dXmJ9JP97uU5BDcuUhu6cSuk4RJLMWcsa0Yz2Ha8DuVkk4BPGOskZ/+sTbJ9YAhxqyBEeI8fYNW3+Lfy89BadnW10gK79TArKT3XIEW5gvClcUNww4XGCqRcChYM2Hdz34sc6TY95wRLsyL9nGi9/vKOpRL/l1BDowe7cgRG0d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k03fkPuK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ryoOVDNA"
-Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-4903f7a90d1so117566165e9.2
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:37:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780497462; x=1781102262; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=2r42H6aMK4b6UNRgIksoOLm8aN27wEuwsly03FlTjcQ=;
-        b=ryoOVDNAYXL0jB59+hntfvuLGKACc7D8/gI0xdAv88FDydMIabb6tg1cSJBD3nmMKh
-         vnNyVwX347Ygx8dAh9rjBFtFtAT/rRYJkEHlfMb00cIlKcFRT1w1N82WUARQFnhyL9NK
-         Tb9DRGtb3Fl3aTGDhTr7FUj7IFX+os63FuehZGXDyeQAx0F2gmFyn1NRBYTAMOtNkpEk
-         iJ2UHP4bnA/72WIDEhQHScXb6dS8liqnTCLztDtPKy4xZNrloHk2sq3FmVrKHL9OcnWn
-         loSYvEEYMyVl44iRC+BBOniCSUR28aBkYlUkXn/ci6dFmoxL63PB38IH+W5unJEHO6q3
-         mRbA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780497462; x=1781102262;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=2r42H6aMK4b6UNRgIksoOLm8aN27wEuwsly03FlTjcQ=;
-        b=rc/6yxxhJNgNpxEabct3d3O0QHVdT6JnrLXIGCk02C2Q9v4z0JpimiQkolDfEWn1qV
-         9Hwn5RFACg9kDl1zUQm8XD50xSApRtB4j812Nl0L1YAXE1cdqe1HDIBSE/U+psjS9JrA
-         jLojhD48N+Hzs6axRgGKqEdoMXNwNcfWWHAA6Rv5Bi+8SdMbur8k0n+RfWeDSb6IeD98
-         ADeHrahqt9I1RZGsORndRBWN33NZhhqiCv5GMn9gIdeLYT2RQlGHoOSSxo/GUNWIrnJR
-         sefZbCLyZ/Z+g9lIY46OsJUqAbp4ah6S1NG4PE7FDT+ccMFLW1Y2SnFiluE4oM4kfwEb
-         QC9g==
-X-Forwarded-Encrypted: i=1; AFNElJ+CtCnOkd/jDTzX11gDBUCqFcnYa+1V9vrbDfxfSd6k9ZXrQvmFVZBKbN6z/CF/KjQlRRJdcdk9el0B@vger.kernel.org
-X-Gm-Message-State: AOJu0YxeU8/lWHK5i4o/Romocseh3ZXYkYdD2ru30/b3dklxlrYuG8Cx
-	2Wj4hb7cuyTJ9dBTZaAmvHBzZlIWQQVpQxX9Int6TXOrozQ1enPHG/Tl
-X-Gm-Gg: Acq92OHN4gVTeifOKxVV0QY1IkOT1bsKCjir7kq/2bY9A1m9lTEzgCTyM5szHx9yYBY
-	+iu9hTlZNDxxSAxfHiTAgv9PXclVwltFE5semofhi/x16kOwJuDCGhgYtDw2OKJ2eSZkGTBsh0Y
-	KpWskchKgujtpPCV47hiFDP7H45PetP6rrsb+WF4i3Xn3Kg2OpdcHoo52doHMtfG1gy7HnChMYt
-	VKbUbA5ieCxg9YftgSKjEJ/MR2L64MF45KrmUhKQn0ZiggU/s/0D5kW/Tw45ladgQ4VvGOh10yF
-	LzJIKEUOuW6tCDHNVS0vUKxKjt2fzb69PWqlX9NyWEjAAgMXJgh9LEoUe2Qn8ZOHCQkyvvCAxLv
-	9F/BEpfjfucNivjTiXAi5fRXguL0XGwnJUNCkEktwkQ471/Bl+8xfGjSyMec8/XPHIvLv56l3Nr
-	R0YqufogcRlnNIz6mf5SJIDK7GfEI6Pq68gEms2Sm+n1lYUNi7BORfdNWIWor3PeK+USAH11DV6
-	unFaOva09CT+msP8dAWEQ88XG0STQJNhnB/nSsX9EY4oJcz
-X-Received: by 2002:a05:600c:c163:b0:490:b5d0:598e with SMTP id 5b1f17b1804b1-490b5fe9575mr65008075e9.21.1780497461900;
-        Wed, 03 Jun 2026 07:37:41 -0700 (PDT)
-Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b6150bfcsm120267855e9.3.2026.06.03.07.37.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 07:37:41 -0700 (PDT)
-From: Stefano Radaelli <stefano.radaelli21@gmail.com>
-X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
-To: linux-kernel@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: pierluigi.p@variscite.com,
-	Stefano Radaelli <stefano.r@variscite.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v3 14/14] arm64: dts: freescale: imx8mp-var-som: add I2C1 bus recovery GPIOs
-Date: Wed,  3 Jun 2026 16:37:21 +0200
-Message-ID: <aa740b2d684362627b46d35912c979c01f8c2c36.1780497188.git.stefano.r@variscite.com>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <cover.1780497188.git.stefano.r@variscite.com>
-References: <cover.1780497188.git.stefano.r@variscite.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k03fkPuK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10E191F00893;
+	Wed,  3 Jun 2026 14:38:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780497533;
+	bh=LHQiol3uHgeSVYAOENZQw+8MwtqOLi7EfXfjeX0xyXs=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=k03fkPuKr9vRYOp5BM2AhIYxiYnD+X02wrkqp9V5u50w2wJRNCIKwZftsbybmlh8z
+	 bnmZq6cUuvmLtHBAG+svVY8yzSg9YWw5/gwbCbRDPBTHO0ACFx60nhaE3bNztAoQbL
+	 D6oK8o6R9hgk5A8V8jJYFDXTnvw+kVOZGQAWFj/xpS+ONo51T4XZAAF4RtQFpFLfR5
+	 fSN614ZhpFBP/7/mp6fA6NPuUTCNLtfj7W5qofOfKaoOCmRWolbxka52wFE70x8uqw
+	 O8TCEYXoA8PfdbWJOD0kjYCVJpKVxszv+4a4lY+ZZ/IipgUmJot++8M+f/veGURx42
+	 r7VelLNMktA1w==
+Message-ID: <0284546c-3a74-416d-8ad2-3f0628d08a1b@kernel.org>
+Date: Wed, 3 Jun 2026 16:38:49 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Jisheng Zhang <jszhang@kernel.org>
+Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
+ linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
+References: <20260525140018.19598-1-jszhang@kernel.org>
+ <20260525140018.19598-3-jszhang@kernel.org>
+ <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org> <ahZwl3uXjyOZRvGW@xhacker>
+ <4a8539d3-704b-4433-b4d6-e5acfe22d512@kernel.org> <ahre-7YdlcOZkwS1@xhacker>
+ <035ffb31-e4c8-49b0-8323-f9cfe54eae30@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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 a/A=
+In-Reply-To: <035ffb31-e4c8-49b0-8323-f9cfe54eae30@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Stefano Radaelli <stefano.r@variscite.com>
+On 03/06/2026 16:36, Krzysztof Kozlowski wrote:
+> On 30/05/2026 14:58, Jisheng Zhang wrote:
+>> On Wed, May 27, 2026 at 09:53:16AM +0200, Krzysztof Kozlowski wrote:
+>>> On 27/05/2026 06:18, Jisheng Zhang wrote:
+>>>> On Mon, May 25, 2026 at 05:25:45PM +0200, Krzysztof Kozlowski wrote:
+>>>>> On 25/05/2026 16:00, Jisheng Zhang wrote:
+>>>>>> Add dt-binding for support of apb reset which is to reset the APB
+>>>>>> interface.
+>>>>>
+>>>>> And this is ABI break, so you must explain WHY breaking ABI is worth
+>>>>
+>>>> This just adds an optional apb reset, it doesn't break any exisiting
+>>>> ABI. Kindly let me know whether adding new optional binding is also
+>>>> an ABI break.
+>>>
+>>> It does. One reset was before. Now all devices must have two resets.
+>>> Clear ABI impact.
+>>
+>> I checked the dts with only one reset by manual dt_binding_check
+>> and dtbs_check, it still work, so I'm not sure why those dts "must have
+>> two resets". Kindly let me know what's wrong.
+>>
+>>>
+>>>>
+>>>>> doing that or what is the impact. Additionally you should explain which
+>>>>> devices have it. Does Altera have it? You really lack explanation WHY
+>>>>> you are doing it and which hardware you exactly describe.
+>>>>
+>>>> I'm preparing one of synaptics SoCs support to uptream, it needs this
+>>>> apb reset signal for i3c. So you mean I delay this series until the SoC
+>>>> upstream series come, right?
+>>>
+>>> No. You just sent patch which basically says that Altera has two resets,
+>>> without any explanation of that.
+>>
+>> I guess you mixed other series/patches with mine here, no? I didn't
+>> mention Altera at all ;) What my series mentioned is adding apb reset
+>> which is to reset the APB interface.
+>>
+> 
+> 
+> Read the binding. Altera is already there. I do not talk about other
+> patches.
 
-Add the GPIO pinctrl state and GPIO descriptors required for I2C1 bus
-recovery on the VAR-SOM-MX8M-PLUS.
+... and then read exactly what your patch (not commit) is saying. It
+says among things that Altera has two resets, while commit is completely
+silent on that.
 
-This allows the I2C controller to recover the bus if SDA or SCL are held
-low by a device.
+> 
+> Your are changing an already accepted binding.
 
-Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
----
-v2->v3:
- - 
 
- arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi
-index 49467b48d0b0..61786eee0e82 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som.dtsi
-@@ -180,8 +180,11 @@ led@1 {
- 
- &i2c1 {
- 	clock-frequency = <400000>;
--	pinctrl-names = "default";
-+	pinctrl-names = "default", "gpio";
- 	pinctrl-0 = <&pinctrl_i2c1>;
-+	pinctrl-1 = <&pinctrl_i2c1_gpio>;
-+	scl-gpios = <&gpio2 6 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	sda-gpios = <&gpio2 7 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
- 	status = "okay";
- 
- 	pmic@25 {
-@@ -415,6 +418,13 @@ MX8MP_IOMUXC_SD1_DATA5__I2C1_SDA				0x400001c2
- 		>;
- 	};
- 
-+	pinctrl_i2c1_gpio: i2c1gpiogrp {
-+		fsl,pins = <
-+			MX8MP_IOMUXC_SD1_DATA4__GPIO2_IO06				0x1c2
-+			MX8MP_IOMUXC_SD1_DATA5__GPIO2_IO07				0x1c2
-+		>;
-+	};
-+
- 	pinctrl_pmic: pmicgrp {
- 		fsl,pins = <
- 			MX8MP_IOMUXC_SPDIF_RX__GPIO5_IO04				0x1c0
--- 
-2.47.3
-
+Best regards,
+Krzysztof
