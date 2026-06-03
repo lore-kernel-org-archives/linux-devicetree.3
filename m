@@ -1,200 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from fout-a7-smtp.messagingengine.com (fout-a7-smtp.messagingengine.com [103.168.172.150])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72F0B409112;
-	Wed,  3 Jun 2026 08:59:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45C8040910D;
+	Wed,  3 Jun 2026 08:59:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.150
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780477189; cv=none; b=Gndl2ecst7I1p+TOzR+R7LIVXMowog4i1t9/WnQlfsUJvtEh8pybiJ8K9RsdxAqTDFBT8RH6gUlys/+gDX4OZI4jQkh8F5tFlV1NDvj5H/ZH0z0uHVVGue/qRYx+KuY2MJZdJu28I1lCEScEV6v+FKNnaeBb22dWD7TsoKQ8lfQ=
+	t=1780477190; cv=none; b=r/48zY1OExHfR6H/DfiyqW7NUqHdngHi3jkttTXhjpCnbMKvKX698Fspj/6WHhryQ36umJGJU2Sbx50Yec7+8CKo4ALQ+cWtNE9QTaHO2e9Tt+MFvc7CiNmd8ibFexDkKBRjb4IABR8s1HgMCBQd9CPEv++RF4KW5vw57dYzTS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780477189; c=relaxed/simple;
-	bh=EraAJllM2k0pFFwkfe15iY+NLP8elH2WG5D1zys1DCk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=oZ7ZcPvOFd2xUE1B55oy0GlQyrWTmqliFWLUdRdvf8L0yrlpOHBkOshsHwlenPj5sFCnYYA2can7GXDZAl5lS6beM/tjK/A0cbPRPtYoafW9pjiywBHom5P2oti+Q2LRzy/aAEJlDrJs8EH9rGTUTippd0d/10qquNeMUCriEeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fv3dZ+zM; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780477190; c=relaxed/simple;
+	bh=ztF4BT8IElW1EAM/iUON2PhtHHt3jm5Fed4urA0d4bY=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=CgoVW/ez4XMaUzJDdHMfQvp1SGDHnI6rM9W6hqZWaOzm6wXlK/ztN/IEosf0JqiV9qKvX3RY95//kWScX0IEkS8G6EW42KWRHEtA2NlJJtaCnfjLvKdGrZYvL10ZSbkuxizZUFX9eFueP/j7p617c/fLxMFx+dzHxWREEGsv7dI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=NP31gjgb; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=MJJu0O99; arc=none smtp.client-ip=103.168.172.150
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fv3dZ+zM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10CD01F00893;
-	Wed,  3 Jun 2026 08:59:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780477188;
-	bh=N8jXeg6WlNR1NMvIlJFLSjjvT1fbY6XZ+2t2abj7K+8=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=fv3dZ+zMWpr2bYP5iE0JiF8Osmhw57W3tCAocPi7ulMJSsggs3u64v4bDSMM+f4FS
-	 XyLsb3KR3/xXYg2CWSFTLl97NctwGSl9xTEROZNM476wJdvh7/sswPrmnEr0RhXuTc
-	 m4Y5Bo+n4Odlm0eknyam55/d4FtKUI3Jadu83VrFPLNtIVwzYA/U+cp/7UghINtDiE
-	 T1vPMkYadVRIaIRboDUaQr3czCLOYa25R4/tqqmzdxbAoKIYtQ3a3VZrx8+SZK0ZLL
-	 moBz5dSktBbEXrJYZLKuy8yaAGyB6njhpmKoUHeNjnyPFC/PrGVk0M+NR6HwFgxUx/
-	 LOqdmWGQyRjBA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 05/14] media: mediatek: vcodec: get share memory
- address
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org, linux-media@vger.kernel.org
-In-Reply-To: <20260603084045.17488-6-kyrie.wu@mediatek.com>
-References: <20260603084045.17488-6-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 08:59:47 +0000
-Message-Id: <20260603085948.10CD01F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="NP31gjgb";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="MJJu0O99"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 8062AEC0143;
+	Wed,  3 Jun 2026 04:59:48 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-04.internal (MEProxy); Wed, 03 Jun 2026 04:59:48 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1780477188;
+	 x=1780563588; bh=R1Luc/aCcjuMXa/T7EwpzALBWVDdnlVy5kkRX84+U+c=; b=
+	NP31gjgbIgevccQrrzt+pHO6DNbMEDXbovqL00yLhEcwsVcOiopH3zkpkQQcSYy7
+	70vc7AMKe4l2d2hAbJech94LF9Wg/cwk6RJqbyGQL6z8gMjKl3hPhdMsj37U2RJE
+	sX4dZrw9Cf+J0c8uuQ2trzjABgoqaz/FHf/JkHUuIqsMsEMI6Yj0fupIpKs0zwH7
+	rEQcjcVjAWrLRRImy+0na+cYtNAFIKBLBpwVpJ4dFmv1IWNECX+K5ibVuO+vYxUU
+	+B7Ffa4d4LsnVD/14p/IvaM1R1iFU8vgpWTo80Y5+UqCEU5+MxqgFtVjNAY+XS95
+	Je6SKaK5m+5SSIzjnHPjFQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780477188; x=
+	1780563588; bh=R1Luc/aCcjuMXa/T7EwpzALBWVDdnlVy5kkRX84+U+c=; b=M
+	JJu0O99bA2f7xQ418KgOl/UV31AmRfJfsjegbRJjA/u8EHt2AuljdpF3QtVomOEE
+	XCaWdSoNve/2zCAj926ODXmm9XM75U0MP7tmS3rx5LyALgxDEUK3Y0tnYdJF/5ED
+	Wh/HX4C+WIfFXPjvuOKRcHrXIRZxhuMZWew9FFPs22fWjEQPAFfd9uU+vu0hSeFJ
+	tD01AloNAbPH+G8mGOkIp24EXYgJIqMH4JAivtXOj6fYLVlzszZxgt4wLMqpuWd8
+	mtG6eCHQo/lmdmFoyN1rrdtAJKpzywO56YTK3xR/TWxhETBY5Yg8oSj7BrRgjQ/8
+	g3Ossyo27KUw3CYue34JQ==
+X-ME-Sender: <xms:A-0fag7oca7qikHhl0CUlyQ_53SWDB-q2wFdji-Vs03jMoC-a-HxQA>
+    <xme:A-0fass1c4lY-jFyIIejqJycqgwJMLoAy1EUXIga89fG-BiCUSKY83woRZSoHpxGr
+    Of2QSTrH7Z9URV9VTKpsGSXG7igZNIqMB7HsL4dhVCYN4FM9TQgiQ>
+X-ME-Proxy-Cause: dmFkZTFEF1p3KY1NI3DS2ef3AXrVnrQiXettYjJNovNV+TA2YH9EdcHk0MqZ3oV56NdzN0
+    dTAKPjcvgZhId6ng7Q7btgM/a1BfqL5ySqk7elTgQKa6D+uaqSDBpMabDcWgOSZqAe4cbS
+    KNKPcsz1ZMoTzI/Xn1nfYU/M0xfTbeacep83OJnEB6HVMbAeTovgL7l9dX03eghfWf4nCE
+    G2pMY0/IjA92D/9AHm9m7xCGQ9o1y+1XWy12Ns4tw+sii6/EmcIKAUNdcQheVNVYdPiOK8
+    EEQ9MAd5Jp8FJkSva58L7zgj7h9FZCxttbf2IoK8Jr8GNq7hUL/LVYiWloIUc99h99lJG2
+    3MUxtLAdX4qJmjgBVLj5jn/A439aoTViYV6hd4sqfI6FXF3NG9mgrWW4WXTdsgW05Gjftp
+    lkELPwCAn0DJ+qgJ13sER550EkSkx8YQNPVa513pWyf2BbY6IciWnRdqN+uDV/0trW9Mty
+    2crlmLnb5W2h1kfMDpmCj96YPZnRhCujfsWaGjr773QDoVm/dYA+Ti/H1VH0vaQywnusZW
+    3GCRuJhL3yfTGzqgZrcTikg+RcsOQMmAepSe8TDpzmuOE+b1+Fz0HCk63f/CGKL1Vmi1JR
+    RjIdhP4zB43gz+ZB21Deq+fFZIwJTmymzKZMw1aBSnS45EtrHwIphvc+tHbg
+X-ME-Proxy: <xmx:A-0falU_FTpjDg238smBDQJz02CoF2cadVuCUA6R8agbzy-yipebNg>
+    <xmx:A-0faglmKlwi37cTbjl1oSNIrLtSzIOLY6YL91Puqg3ASxvLZmrWpA>
+    <xmx:A-0faoDazQIU68o916ZPKciFCPk7o5VJVAUIhbUBVuh45lFpABJrlA>
+    <xmx:A-0fal8aPpF2IdqYVglSw29VfVI4GlkkDiIYe2knCXa3xRORw56mKQ>
+    <xmx:BO0fav02tdSAa5_psnn6ISbiQ3n-1LGZL7gAoC72F8j1om3cVFyLJAPF>
+Feedback-ID: i72694427:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id ACAD018E0074; Wed,  3 Jun 2026 04:59:47 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-ThreadId: A511MZycEBGs
+Date: Wed, 03 Jun 2026 10:58:24 +0200
+From: "MINETTE Alexandre" <contact@alex-min.fr>
+To: "David Heidelberg" <david@ixit.cz>, "Linus Walleij" <linusw@kernel.org>
+Cc: "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "MyungJoo Ham" <myungjoo.ham@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Guru Das Srinagesh" <linux@gurudas.dev>,
+ "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
+ "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
+ phone-devel@vger.kernel.org
+Message-Id: <48cfedcb-a9f5-402e-9973-f5c175fd2740@app.fastmail.com>
+In-Reply-To: <4b797a3f-01c9-4b02-be98-7b82099c2e0e@ixit.cz>
+References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
+ <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
+ <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
+ <298550eb-1bdf-4d7c-8111-8b8f0b5dc056@app.fastmail.com>
+ <4b797a3f-01c9-4b02-be98-7b82099c2e0e@ixit.cz>
+Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling pinctrl
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
+Thanks David.
 
-New issues:
-- [High] The `mtk_vcodec_vcp_msg` ops structure lacks the `get_venc_capa` c=
-allback, causing a NULL pointer dereference when opening a VCP encoder.
-- [High] The VCP memory address mapping breaks encoder initialization becau=
-se encoder drivers were not updated to pass the new enum values.
+I initially considered adding a Fixes: tag, but I do not have a commit I
+can point to. This looks like a latent ordering issue in the
+Qualcomm pinctrl probe path and could have happened at any time until no=
+w.=20
 
-Pre-existing issues:
-- [High] Missing bounds validation for firmware-provided AV1 table sizes ca=
-uses potential out-of-bounds reads.
-- [High] `if (!ptr)` error checks fail to catch `ERR_PTR`, leading to kerne=
-l panic on mapping failure.
---
-
-commit 2fc79ef1812a3894cd11fa26b7b0e560b49068a2
-Author: Yunfei Dong <yunfei.dong@mediatek.com>
-
-media: mediatek: vcodec: get share memory address
-
-There is only one share memory for vcp architecture, need to
-divide it into many different functions.
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
-vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-[ ... ]
-> @@ -434,8 +434,26 @@ static unsigned int mtk_vcodec_vcp_get_vdec_capa(str=
-uct mtk_vcodec_fw *fw)
->  	       MTK_VDEC_IS_SUPPORT_10BIT | MTK_VDEC_IS_SUPPORT_EXT;
->  }
-> =20
-> -static void *mtk_vcodec_vcp_dm_addr(struct mtk_vcodec_fw *fw, u32 dtcm_d=
-mem_addr)
-> +static void *mtk_vcodec_vcp_dm_addr(struct mtk_vcodec_fw *fw, u32 mem_ty=
-pe)
->  {
-
-[Severity: High]
-Does the VCP firmware operations structure mtk_vcodec_vcp_msg support encod=
-ers?
-
-When opening an encoder device, fops_vcodec_open() unconditionally calls
-mtk_vcodec_fw_get_venc_capa(), which invokes fw->ops->get_venc_capa(fw).
-If mtk_vcodec_vcp_msg does not assign the .get_venc_capa callback, won't
-opening a VCP encoder trigger a NULL pointer dereference?
-
-> +	unsigned char *vsi_core =3D fw->vcp->vsi_core_addr;
-> +
-> +	switch (mem_type) {
-> +	case ENCODER_MEM:
-> +	case VCODEC_LAT_MEM:
-> +		return fw->vcp->vsi_addr;
-> +	case VCODEC_CORE_MEM:
-> +		return vsi_core;
-> +	case VP9_FRAME_MEM:
-> +		return vsi_core + VCODEC_VSI_LEN;
-> +	case AV1_CDF_MEM:
-> +		return vsi_core + VCODEC_VSI_LEN + VP9_FRAME_SIZE;
-> +	case AV1_IQ_MEM:
-> +		return vsi_core + VCODEC_VSI_LEN + VP9_FRAME_SIZE + AV1_CDF_SIZE;
-> +	default:
-> +		break;
-> +	}
-> +
->  	return NULL;
->  }
-
-[Severity: High]
-Are we sure all encoder calls have been updated to pass the new memory type
-enums?
-
-It looks like the encoder subsystem still passes physical device addresses
-instead of the new enum mtk_vcp_mem_type. For example, handle_enc_init_msg()
-in venc_vpu_if.c passes msg->vpu_inst_addr, and h264_enc_alloc_work_buf() in
-venc_h264_if.c passes vpua.
-
-Since this switch statement will fall through to default for those physical
-addresses, won't mtk_vcodec_fw_map_dm_addr() now return NULL and trigger a
-crash during encoder initialization?
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1=
-_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av=
-1_req_lat_if.c
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_la=
-t_if.c
-[ ... ]
-> @@ -775,7 +784,7 @@ static int vdec_av1_slice_init_cdf_table(struct vdec_=
-av1_slice_instance *instanc
->  	ctx =3D instance->ctx;
->  	vsi =3D instance->vpu.vsi;
->  	remote_cdf_table =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler,
-> -						     (u32)vsi->cdf_table_addr);
-> +						     vdec_av1_get_cdf_table_addr(ctx, vsi));
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to use vsi->cdf_table_size wit=
-hout
-validation?
-
-In vdec_av1_slice_init_cdf_table(), the size vsi->cdf_table_size is provided
-by the untrusted firmware and later used in a memory copy:
-
-memcpy(instance->cdf_table.va, remote_cdf_table, vsi->cdf_table_size);
-
-Could a compromised firmware provide an arbitrarily large size, leading to =
-an
-out-of-bounds read from the DMA region and a corresponding out-of-bounds wr=
-ite
-into kernel memory?
-
->  	if (IS_ERR(remote_cdf_table)) {
->  		mtk_vdec_err(ctx, "failed to map cdf table\n");
->  		return PTR_ERR(remote_cdf_table);
-
-> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9=
-_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp=
-9_req_lat_if.c
-> --- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_la=
-t_if.c
-> +++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_vp9_req_la=
-t_if.c
-[ ... ]
-> @@ -514,7 +523,7 @@ static int vdec_vp9_slice_init_default_frame_ctx(stru=
-ct vdec_vp9_slice_instance
->  		return -EINVAL;
-> =20
->  	remote_frame_ctx =3D mtk_vcodec_fw_map_dm_addr(ctx->dev->fw_handler,
-> -						     (u32)vsi->default_frame_ctx);
-> +						     vdec_vp9_get_frame_ctx_addr(ctx, vsi));
->  	if (!remote_frame_ctx) {
->  		mtk_vdec_err(ctx, "failed to map default frame ctx\n");
->  		return -EINVAL;
-
-[Severity: High]
-This is a pre-existing issue, but does this error check handle ERR_PTR retu=
-rns
-correctly?
-
-When using SCP firmware, scp_mapping_dm_addr() returns ERR_PTR(-EINVAL) on
-mapping failure. Since an error pointer evaluates as true, the
-if (!remote_frame_ctx) check is bypassed.
-
-Could this allow the invalid ERR_PTR to be passed to kmemdup() further down=
- in
-the function, causing a kernel panic?
-
+The failure became visible on APQ8064 boards such as this jflte, and I a=
+lso
+have a report that the same change helps flo/deb, but I do not want to
+add a misleading Fixes tag as we don't really know which commit really t=
+riggered the race condition.
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603084045.1748=
-8-1-kyrie.wu@mediatek.com?part=3D5
+  MINETTE Alexandre
+  contact@alex-min.fr
+
+Mar 19 mai 2026, =C3=A0 23:03, David Heidelberg a =C3=A9crit=E2=80=AF:
+> On 19/05/2026 10:48, MINETTE Alexandre wrote:
+>> Thanks a lot Linus!
+>>=20
+>> This patch is required for my Samsung Galaxy S4 GT-I9505 to boot but =
+I also
+>> have confirmation from another contributor that the same pinctrl patch
+>> helped boot the ASUS Nexus 7 (2013), codenamed flo, which is also bas=
+ed
+>> on APQ8064.
+>>=20
+>
+> Hello Alex,
+>
+> if what you wrote about asus-flo/deb is true, then this patch should h=
+ave=20
+> `Fixes: ` tag, as I remember it was booting with few limited patches ~=
+5 years=20
+> back then (only one serious was hack for proper clock bringup).
+>
+> David
+>
+> --=20
+> David Heidelberg
