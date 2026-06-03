@@ -1,154 +1,155 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5B136A36E
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:26:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008653FF893
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:28:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478776; cv=none; b=aI5wcF9yiZMngjf9hV4QyXM9JsePON8kvLT++0dH1lClMRnAP3WcP6tk95+W+9+0KmaPLWWntYIaxplKYzZhvIdoZbRjgJUKWB0Tbr6EthEzaZLIHcf0ZLNOergYaIWiOaNcityUsWdq4psg7q39iyDxAxujDX2gXkbL8G03pmI=
+	t=1780478901; cv=none; b=tU+ifGHD692OvqQ3yKHRNZFuMAc8uAsB+DKp/nwdpXzS5hVzMO25a877SN+9va2mClaDO0qcqH/Bl896zrEv0N5kqxK6h9YGKxZA8HTEENfXO5Da/GoyUiFzU69gLnPJf5zU/fouoN3JQWMPL+MUPUCkbu1yjnmMc+i0bK6azyA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478776; c=relaxed/simple;
-	bh=IRixWQMwizXFdhkvvgBqMpo7g1d2nL7BH7+e0C+a08c=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=T3YOl/Xb/9FDUkWsDKLENbhJHLN3fFNztShsljU5TU5bbVyIApyF7GyYKBbWWLnos2hHCIgjhMdOpRamMmmQ6zEruThWKTUbeHc8hREp+4F1XIQTJc70Pe2uSsZUjkGoGKoeZ0Js0S7TSjSxG0cQrmd126L+MMKS73YR2nJDZZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lTFed7pm; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lTFed7pm"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4601949975dso160939f8f.0
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 02:26:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780478773; x=1781083573; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LVv22gZyTmtymIxhoGte2pKFNDZ9dT7qVuNtoXNbMUA=;
-        b=lTFed7pmMZ9uNCoZyARWr5g75M74ezYc785BMdLbnW3+GprgZFXL2z7BiQMkkClVQy
-         kE0iWjhW/CCeFhJORITaU0rp7nqJo0uF1x1xyeg8komFjBHumA6y+wjMuuktiw0u2dHt
-         hjotIolEewzWLC1X+8uvAK4/jrwTQNrqL6SHEIACpfNQwJCKKTcp8hW4gxN2HcbGWzuL
-         gCs35UAASBnHOSmjRoJ9uWtApnrrnUpTc4kpGKnghjOSml/WecpQWqkTSbV8BpyA780j
-         jOQuE2YvFApmYQJl7O1Gk5sfcvkcx/a/kBC9Qm1cdkAiPYIMzVqCWlRX2g+ee/kS+G8i
-         SQmw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780478773; x=1781083573;
-        h=content-transfer-encoding:in-reply-to:from:content-language
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LVv22gZyTmtymIxhoGte2pKFNDZ9dT7qVuNtoXNbMUA=;
-        b=eMg5L+kEv5Kr2eCDUVxjoJMBSqCYRco1smtQJMxWLEXjwmpE+A63OCuKzCVmi2Q7Rk
-         BVZ9kUzHpciIM9xWFvLpEh2I+5vZNkqhHjBsqDnFH7y6ekLW1tGJVjNQJFjhm6Vfpah5
-         jUzsSnANGDLpJ5Jpe5Fk7ix31mPPE6pVb/jq/ljx9Zu/I+tS/hV+8CQEfdFrvlnIT1bM
-         LcNJNFg47dqCMuE2ODanVBOyfgMo9uilNBys+2/avUnW9j85d8Rk35wmYTGdL1x3lXDR
-         9HL93X9rwUY2zcdDpk4szwF9Gtk/8pPxaA401YzDgbQZtP0mqx9Rn7uXs8GqRTHEMwFa
-         qv3g==
-X-Forwarded-Encrypted: i=1; AFNElJ/f8lTaelmaQp78ViKncFFuhxpj2yPwGSZ5pmC6gSIbc21NjoTWWjp5C+vms4BCluPfQdeUSRTubH7Y@vger.kernel.org
-X-Gm-Message-State: AOJu0YylVeMYlMyqCsZf9TXzbwBekYgXDMiWZCdjjgXHRS4UX1oJwPFa
-	cQ6oaWfCA1M0y4a2CTJh+Nnrife4SHbYLSaNgkN+1uE6K5LXUw7K1pJ5obOhVnWw7+k=
-X-Gm-Gg: Acq92OGCpczcK+xeLt/YJSA5wNLtKy2XYCN83QC0kAZvqr2ymihd5E98eSyQRtWScbG
-	jJz+PJ/SlYsRr6/lPk1zgkBBPM8SOOXu/hckPunRoBsGzIRtOwoT+T9tXto1NRegdOPmYWqEMmu
-	LZL8qU6ERJksxd0VpTekvWzo6VIr1943A5iKIfVuCCsGhrE7bjWiZYnjjNhKKQ/pr5vSj3tMdjw
-	ROF6XwUkjMn34+e2n3PhgdIwylhwrUlDDEoxffQD89uiMBHHO8Sdim+mf5NXGB9R5hChWiQjEIL
-	ULmUdp2VETZHebhJ2GAvNGjjjHQqsP6BpRqhJ9RZ0vhTFPLP9zj45tN2/ifSGrsYtdRaJvnZ4cY
-	tXICdcLdcXNrE7KD0IY3ywY/TAfRmv0AMNHBjXTqsIW8qISeSkoJJt7j7jRz4x51RDGuphFkUhb
-	ZqosksdnPuIxojFIRMMNkdgwxpJuGtY1g5DgYYISp+1w==
-X-Received: by 2002:a05:600c:45d4:b0:490:5074:651e with SMTP id 5b1f17b1804b1-490b60ef350mr41726765e9.25.1780478773360;
-        Wed, 03 Jun 2026 02:26:13 -0700 (PDT)
-Received: from [10.11.12.110] ([82.76.215.73])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d64e8sm35451535e9.0.2026.06.03.02.26.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 02:26:12 -0700 (PDT)
-Message-ID: <c76c8f9b-bdd1-4006-aa28-735254f0409a@linaro.org>
-Date: Wed, 3 Jun 2026 12:26:08 +0300
+	s=arc-20240116; t=1780478901; c=relaxed/simple;
+	bh=0INONot60+NB/3Y6SrZWLNmW13aQx5ky62mxcs8WEoI=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=V3mpO/epaPwRqsAfcUuxDeQHknBnWYxvL2XmKYq2vkKOzplUnZiEp+y2lmvxc7RvOKSNri1w3jhggyX+UX3XBSMH3C/bkQWKMZH/YNYAuNVxC/MnJK0Qard9lpB7YZN4vILYpDyZkPRMz2oXB3jwOO5n4yngJdOV95DrcYW/b1o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUhtT-0002Zh-Sg; Wed, 03 Jun 2026 11:28:11 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUhtT-000tGs-0y;
+	Wed, 03 Jun 2026 11:28:11 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUhtT-000000004kG-0vVD;
+	Wed, 03 Jun 2026 11:28:11 +0200
+Message-ID: <67d859a23c788e2d74606c9be65cf2114ef45ad2.camel@pengutronix.de>
+Subject: Re: [PATCH 4/4] bus: add BCM6362 on-chip WLAN SHIM bridge driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Alessio Ferri <alessio.ferri@mythread.it>, 
+ =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?=
+	 <zajec5@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
+	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Florian Fainelli
+	 <florian.fainelli@broadcom.com>
+Cc: linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
+	devicetree@vger.kernel.org
+Date: Wed, 03 Jun 2026 11:28:11 +0200
+In-Reply-To: <20260529-add-bcm6362-wlan-v1-4-722242777f58@gmail.com>
+References: <20260529-add-bcm6362-wlan-v1-0-722242777f58@gmail.com>
+	 <20260529-add-bcm6362-wlan-v1-4-722242777f58@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v7 2/5] thermal: samsung: Add Exynos ACPM TMU driver GS101
-To: Alexey Klimov <alexey.klimov@linaro.org>,
- "Rafael J. Wysocki" <rafael@kernel.org>,
- Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
- Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
- Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>,
- "Gustavo A. R. Silva" <gustavoars@kernel.org>,
- Peter Griffin <peter.griffin@linaro.org>,
- =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
- Alim Akhtar <alim.akhtar@samsung.com>
-Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
- linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
- linux-arm-kernel@lists.infradead.org,
- Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260602-acpm-tmu-v7-0-8047dd54b0e9@linaro.org>
- <20260602-acpm-tmu-v7-2-8047dd54b0e9@linaro.org>
- <DIYTOGU8I2DV.1GKZ59F7AJWTE@linaro.org>
-Content-Language: en-US
-From: Tudor Ambarus <tudor.ambarus@linaro.org>
-In-Reply-To: <DIYTOGU8I2DV.1GKZ59F7AJWTE@linaro.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
+On Fr, 2026-05-29 at 02:06 +0200, Alessio Ferri wrote:
+> Add the bridge driver that brings up the BCM6362 on-chip WLAN SHIM
+> and then populates a brcm,bus-axi child whose backplane is
+> enumerated by drivers/bcma/host_soc.c.
+>=20
+> Add myself as MANTAINER for this shim.
+>
+[...]
+>=20
+> Assisted-by: Claude:claude-4.8-opus
+> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
+> ---
+>  MAINTAINERS                     |   7 ++
+>  drivers/bus/Kconfig             |  13 +++
+>  drivers/bus/Makefile            |   1 +
+>  drivers/bus/bcm6362-wlan-shim.c | 252 ++++++++++++++++++++++++++++++++++=
+++++++
+>  4 files changed, 273 insertions(+)
+>=20
+[...]
+> diff --git a/drivers/bus/bcm6362-wlan-shim.c b/drivers/bus/bcm6362-wlan-s=
+him.c
+> new file mode 100644
+> index 000000000000..a2de03cf8ff7
+> --- /dev/null
+> +++ b/drivers/bus/bcm6362-wlan-shim.c
+> @@ -0,0 +1,252 @@
+[...]
+> +static int bcm6362_wlan_bringup(struct bcm6362_wlan *priv)
+> +{
+> +	int ret;
+> +
+> +	dev_info(priv->dev, "bring-up: start\n");
 
+Too verbose.
 
-On 6/2/26 10:49 PM, Alexey Klimov wrote:
-> On Tue Jun 2, 2026 at 6:00 PM BST, Tudor Ambarus wrote:
->> Add driver for the Thermal Management Unit (TMU) managed via the Alive
->> Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
->> Google GS101 (and Exynos850, autov920, etc.).
->>
->> The TMU on utilizes a hybrid management model shared between the
->> Application Processor (AP) and the ACPM firmware. The driver maintains
->> direct memory-mapped access to the TMU interrupt pending registers to
->> identify thermal events, while delegating functional tasks - such as
->> sensor initialization, threshold configuration, and temperature
->> acquisition - to the ACPM firmware via the ACPM IPC protocol.
->>
->> Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
->> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
->> ---
->>  drivers/thermal/samsung/Kconfig    |  19 ++
->>  drivers/thermal/samsung/Makefile   |   2 +
->>  drivers/thermal/samsung/acpm-tmu.c | 618 +++++++++++++++++++++++++++++++++++++
->>  3 files changed, 639 insertions(+)
->>
->> diff --git a/drivers/thermal/samsung/Kconfig b/drivers/thermal/samsung/Kconfig
->> index f4eff5a41a84..383ae3f56cbb 100644
->> --- a/drivers/thermal/samsung/Kconfig
->> +++ b/drivers/thermal/samsung/Kconfig
->> @@ -9,3 +9,22 @@ config EXYNOS_THERMAL
->>  	  the TMU, reports temperature and handles cooling action if defined.
->>  	  This driver uses the Exynos core thermal APIs and TMU configuration
->>  	  data from the supported SoCs.
->> +
->> +config EXYNOS_ACPM_THERMAL
->> +	tristate "Exynos ACPM thermal management unit driver"
->> +	depends on THERMAL_OF
->> +	depends on HAS_IOMEM
->> +	depends on EXYNOS_ACPM_PROTOCOL || (COMPILE_TEST && !EXYNOS_ACPM_PROTOCOL)
+> +
+> +	ret =3D clk_prepare_enable(priv->clk);
+> +	if (ret) {
+> +		dev_err(priv->dev, "clk_prepare_enable failed: %d\n", ret);
+> +		return ret;
+> +	}
+> +	dev_info(priv->dev, "bring-up: clock enabled, rate=3D%lu Hz\n",
+> +		 clk_get_rate(priv->clk));
+> +	mdelay(10);
 
-I forgot to drop "|| (COMPILE_TEST && !EXYNOS_ACPM_PROTOCOL)", ACPM is NOT
-optional for this driver. I will comply this way with Arnd's solution from:
+Why is this a delay instead of a sleep? Why is it there at all?
+Prefer using msleep() or fsleep() if possible.
 
-https://lore.kernel.org/linux-samsung-soc/178006367096.55906.16678510397337205828.b4-ty@b4/T/#t
+> +
+> +	/* Reset toggle (brcm,bcm6345-reset hides the active-low softResetB
+> +	 * encoding, so assert/deassert read naturally here).
+> +	 */
+> +	reset_control_assert(priv->rst_shim_ubus);
+> +	reset_control_assert(priv->rst_shim);
+> +	mdelay(1);
+> +	reset_control_deassert(priv->rst_shim_ubus);
+> +	reset_control_deassert(priv->rst_shim);
 
->> +	default ARCH_EXYNOS
->> +	help
->> +	  Support for the Thermal Management Unit (TMU) on Samsung Exynos SoCs
->> +	  (such as Google GS101 and Exynos850).
-> 
-> This driver doesn't support Exynos850. There is no initialisation sequence
-> and etc, moreover the next section is also not entirely correct for Exynos850.
-> Not sure why it is mentioned here in such way.
-> (Not even mentioning that ACPM TMU part is not aligned for Exynos850)
-> 
+Switch deassert order for consistency with teardown, if possible.
+Or use reset_control_bulk_(de)assert() API.
 
-Okay, I'll drop the reference to e850.
+[...]
 
-Cheers,
-ta
+> +static int bcm6362_wlan_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct of_dev_auxdata auxdata[2];
+> +	struct bcm6362_wlan *priv;
+> +	int ret;
+> +
+> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+> +	if (!priv)
+> +		return -ENOMEM;
+> +	priv->dev =3D dev;
+> +
+> +	priv->shim =3D devm_platform_ioremap_resource_byname(pdev, "shim");
+> +	if (IS_ERR(priv->shim))
+> +		return PTR_ERR(priv->shim);
+> +
+> +	priv->clk =3D devm_clk_get(dev, NULL);
+> +	if (IS_ERR(priv->clk))
+> +		return PTR_ERR(priv->clk);
+> +
+> +	priv->rst_shim =3D devm_reset_control_get_exclusive(dev, "shim");
+> +	if (IS_ERR(priv->rst_shim))
+> +		return PTR_ERR(priv->rst_shim);
+> +
+> +	priv->rst_shim_ubus =3D devm_reset_control_get_exclusive(dev,
+> +							       "shim-ubus");
+> +	if (IS_ERR(priv->rst_shim_ubus))
+> +		return PTR_ERR(priv->rst_shim_ubus);
+
+Consider using devm_reset_control_bulk_get_exclusive().
+
+regards
+Philipp
