@@ -1,159 +1,94 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09F5C3E0240
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:24:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDAC3E51C1
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:24:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500287; cv=none; b=INVxzeRlUri5MmS6IATuzQFwe1GmHbCkVD5Iul+1qvmTQaF4Pm2JxBQfubK0z5E0hl5W4Np04AgnANNwFhiQqb60NNQ1Yw8fdXewHkAbwvsKCz3PCq92XS+KdLX1bNCz/ug68DRr/HjAqCtrUjjSWQjAAQ392b//ZjVbNtS1y8Q=
+	t=1780500288; cv=none; b=WtybeOMWOxfG1OmCxPo43TrcI2lbN8vxdjMP3e3aW0mBS3U9IR6HnUh7xVauLoAeswdcWsjQChwUH6YXwfFXEDZRt9QbUX7KAyEqwJMw70ap3SmAq8OLEi53ru2rDpmXZqrLrExPMP3sExAIwTTkW+44soaMn0wZtV77bQ0Qoeg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500287; c=relaxed/simple;
-	bh=NyT3bvkYhBzVis/qc4NVpDUc0HxiHbXcgKHaKLAMasY=;
-	h=From:To:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LIB9yWMJZhfX3o9fWAOS1iTdT7I2UqeMfI4xRm90x8k/y7Cl2neX4geIzyVDIswSbnIinicLmwV9xD5GH7FoFRyoEMv4pxFIuVRVD9Hu8h1I152vNwHbEQ3VNRLIQzkRlKBApkxU4A7bikPLtQAwKM/tmCIEc1GatUKX9Tk01K0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=SKMcKD79; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1780500288; c=relaxed/simple;
+	bh=ZnpcTYkrl6UVMmxdRN9nmnSy8X49AM9816i+X9vNISo=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DVOLsUJC+ed4aV0ezqnFYvbviLttkQ6ybYMTEMggX/NOqpOIxEWvMolpt2wLcD0yx/RncmgCwekrFF4A+jEF+DCAH50t4SMBsQ/Orkn9F+sAZeRynlEkxc5DePol6DvJlVPmZvXrVzNWC/Zj4oITWmYbkEfIlalPRJ0FsBzlRt0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xjcr8DmN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="SKMcKD79"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-4903997fcb5so129913905e9.2
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 08:24:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1780500283; x=1781105083; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
-        b=SKMcKD79kKsplaImXWSljuoFk26lfBdoU25DlYGEsC9+fm3BKwzdYPqDRwTw8yd3U1
-         Fvj9SPZUGjupaU5FcchcO8i4Mi/9ps23oAHxStsDm8lkNAXh4m3yTYBqOHBrnq0NRjmY
-         7tfDZaA2jUJamDc3nQeqvE3x10p1gzjoU6VRk37+JqN49Qv3XJcPAjf9z7142sD7yG/j
-         gk1RbgYX9Ng3zonqH7EfH2qL5NPcqoG/ER+11y+Ri/hOtehxhpbTNJ2WnJrjOS0APYFp
-         22A+Dr4jv0YUZNG/e5GZt/L914f5XLFWQbp8HH4V1F1YzwDVEt8WeaInVujVrTHk/hez
-         HFVw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780500283; x=1781105083;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:to:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=RUWg5GWqhMeDrgGwJjMhc1B+7LHRy8TQo04xcORPTAE=;
-        b=VMdeABvLsf3NjIWCtEos5ewOLXfCLJvF+LrDA9GMr5eReV/X19Ygr8jtQKycQOgeZD
-         91U/ZolT+pfg/GSQiLhPanH9vI6YmuAu7GR/JPhBMPfyss6raA8EOBQIT6BnNaDgQC/D
-         BNTPNBFZ8/aKNUKBsve3YI5dDo8g+fsRXjUtK6MyLRDg5WShWjS5wJlXCSC2QeZ04V4N
-         sS+CGsaTTYZ00ZBQjOeg2OW29uwVsCq0rOdpzhGtKqwNsCV8ecnEuplMEmTWDY65G72p
-         2mIweChwD7SJcZFchb2YIZwxF/NqSUmSThCKdD7irrFYe3/A5VIM/M5qGxl8Y5tWbuM0
-         jobg==
-X-Forwarded-Encrypted: i=1; AFNElJ+UUwqtQuYlH4q55aFxCALVYZ7K1VyL0FR+PsDnnd2//E2xZGT8Dnf9iX7p4FncBUtvbQpHDdu/ebwU@vger.kernel.org
-X-Gm-Message-State: AOJu0Yzz+drtgAck1ZWF9lZ47CVwoYT5VcIlFm+i3k81IvS4jVppVUm0
-	Kn2IM4iRTVslepKDkY8NoKiyKTNOQPP48ThCU+tZgvms2x65khjJW2BHZ8lj7ro4sww=
-X-Gm-Gg: Acq92OFfWxI9JcEzpB+i5iYr5uqpLTfOZHR/8DsUId7BQ8bGKkuQ+sW8KX1IQ8mn0JS
-	r1lrz5ELW2XcJYkDd20aAYblq9tSpnovOwzEPdn1O/z3rCLues+T7B9wZ8PYcKvqAvmMxvL1xjC
-	JaZ/ZPSbEXBJ1dPgxYmZBZaSPd4eOsT4SoD9j6bv1jg/D2kEg/IGkBq5Jm5kFRWlSzVQjW3w/gc
-	BvxsGw46CbictJlHXL74+9TsWYcq5Zw2D4Cz5D8bJpWBCRHlgx0ukDUHsxaZyoA+avirDJ3z4d8
-	jFUF19vtORXNGhcy9qDZou1fQRUEQ6LZ61EXKZmkw/pMcJc821z9D7Ii+H91bVmM2A2hAVyFHAo
-	CVWwVwHOhmCgxptwcieugyj8ooHhC9I8TxDK9ILLfOFxa7LUpv/dRtyX/cO8WPwcHImFcQ8V3ZU
-	t6rS0DkW0sqnIShyIGQ6sIVBUbGiZXg0m/HaFNQiGeDnk=
-X-Received: by 2002:a05:600c:8b01:b0:490:6237:5200 with SMTP id 5b1f17b1804b1-490b5d36863mr63918565e9.10.1780500283560;
-        Wed, 03 Jun 2026 08:24:43 -0700 (PDT)
-Received: from localhost ([82.192.120.99])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b725fb1bsm63329125e9.8.2026.06.03.08.24.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 08:24:43 -0700 (PDT)
-From: Andrea della Porta <andrea.porta@suse.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	linux-pwm@vger.kernel.org,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Florian Fainelli <florian.fainelli@broadcom.com>,
-	Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
-	Andrea della Porta <andrea.porta@suse.com>,
-	devicetree@vger.kernel.org,
-	linux-rpi-kernel@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Naushir Patuck <naush@raspberrypi.com>,
-	Stanimir Varbanov <svarbanov@suse.de>,
-	mbrugger@suse.com
-Subject: [PATCH v4 3/3] arm64: dts: broadcom: rpi-5: Add RP1 PWM node
-Date: Wed,  3 Jun 2026 17:27:46 +0200
-Message-ID: <3328baef11e5cf57391c2679d810922807f26a7a.1780498640.git.andrea.porta@suse.com>
-X-Mailer: git-send-email 2.51.0
-In-Reply-To: <cover.1780498640.git.andrea.porta@suse.com>
-References: <cover.1780498640.git.andrea.porta@suse.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xjcr8DmN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DF71F00893;
+	Wed,  3 Jun 2026 15:24:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780500287;
+	bh=VBXYpUPJj45hHgdQiSDTelr0i3Po08FW2pnai/5JD54=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Xjcr8DmNXikXu2V7+UTfRawsOU3ArYXPhtlVp4Sz+g4/2AOuKsGzdNyxS77rV0782
+	 d6LnOIKqj69iwHpoUGFsWr6eB38aoIk2YDfte4f2YQmPBZvi8lRYlKyoPRnNFHtRvq
+	 CH7oW685zBGIBsLmmTpqi57aimbpXBun/9k3cW9FE/Vnvmf7faKBQyvtNy/JzmR4Ri
+	 IgotlRZ8sevve7vQqty42cfvaD56WwyC+n3091mTBm72gpq2uAltDzRRwQBVUKDwzl
+	 49KIZlW2aAGseyLDcSftB5tPSZdMA7/qmM+TC2pRW2IQWeS0rvnEMeJaex97w59EyD
+	 K9SSWpiC+Vpgg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 2/5] dt-bindings: clock: versal-clk: Fix mio_clk
+ index range in clock-names pattern
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Michal Simek" <michal.simek@amd.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <5662c24a9e65310fc6520afc95f1a639fe6d221e.1780499520.git.michal.simek@amd.com>
+References: <5662c24a9e65310fc6520afc95f1a639fe6d221e.1780499520.git.michal.simek@amd.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 15:24:46 +0000
+Message-Id: <20260603152446.C5DF71F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Stanimir Varbanov <svarbanov@suse.de>
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The updated regex pattern fails to strictly constrain the MIO in=
+dex to 00..77 due to the `+` quantifier and `.*$` wildcard.
+--
 
-The RP1 chipset used on the Raspberry Pi 5 features an integrated
-PWM controller to drive the cooling fan.
+commit 1ce5272f4b64f82cb19e5c321c26383c8c4fc25b
+Author: Michal Simek <michal.simek@amd.com>
 
-Add the corresponding DT node for this PWM controller.
+dt-bindings: clock: versal-clk: Fix mio_clk index range in clock-names patt=
+ern
 
-Signed-off-by: Stanimir Varbanov <svarbanov@suse.de>
-Co-developed-by: Andrea della Porta <andrea.porta@suse.com>
-Signed-off-by: Andrea della Porta <andrea.porta@suse.com>
----
- arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts | 12 ++++++++++++
- arch/arm64/boot/dts/broadcom/rp1-common.dtsi     |  9 +++++++++
- 2 files changed, 21 insertions(+)
+This commit attempts to fix the clock-names pattern to enforce a two-digit
+decimal range constraint for MIO indices from 00 to 77. It replaces a broken
+character class with an explicit alternation.
 
-diff --git a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-index 0fc57e72632ed..748be8f1ee9e2 100644
---- a/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-+++ b/arch/arm64/boot/dts/broadcom/bcm2712-rpi-5-b.dts
-@@ -64,6 +64,12 @@ phy1: ethernet-phy@1 {
- };
- 
- &rp1_gpio {
-+	fan_pwm_default_state: fan-pwm-default-state {
-+		function = "pwm1";
-+		pins = "gpio45";
-+		bias-pull-down;
-+	};
-+
- 	usb_vbus_default_state: usb-vbus-default-state {
- 		function = "vbus1";
- 		groups = "vbus1";
-@@ -94,6 +100,12 @@ &rp1_i2c6 {
- 	pinctrl-names = "default";
- };
- 
-+&rp1_pwm1 {
-+	pinctrl-0 = <&fan_pwm_default_state>;
-+	pinctrl-names = "default";
-+	status = "okay";
-+};
-+
- &rp1_usb0 {
- 	pinctrl-0 = <&usb_vbus_default_state>;
- 	pinctrl-names = "default";
-diff --git a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-index 16f5359395835..df4c2d09c8d34 100644
---- a/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-+++ b/arch/arm64/boot/dts/broadcom/rp1-common.dtsi
-@@ -99,7 +99,16 @@ rp1_i2c6: i2c@40088000 {
- 		clocks = <&rp1_clocks RP1_CLK_SYS>;
- 		i2c-scl-rising-time-ns = <65>;
- 		i2c-scl-falling-time-ns = <100>;
-+		status = "disabled";
-+	};
- 
-+	rp1_pwm1: pwm@4009c000 {
-+		compatible = "raspberrypi,rp1-pwm";
-+		reg = <0x00 0x4009c000  0x0 0x100>;
-+		clocks = <&rp1_clocks RP1_CLK_PWM1>;
-+		assigned-clocks = <&rp1_clocks RP1_CLK_PWM1>;
-+		assigned-clock-rates = <50000000>;
-+		#pwm-cells = <3>;
- 		status = "disabled";
- 	};
- 
--- 
-2.35.3
+> diff --git a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml=
+ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> index bef109d163a82..d843d95801b5f 100644
+> --- a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> +++ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> @@ -116,7 +116,7 @@ allOf:
+>              - const: pss_alt_ref_clk
+>              - const: aux_ref_clk
+>              - const: gt_crx_ref_clk
+> -            - pattern: "^mio_clk[00-77]+.*$"
+> +            - pattern: "^mio_clk(0[0-9]|[1-6][0-9]|7[0-7])+.*$"
 
+[Severity: Medium]
+The commit message states the intent is to constrain the MIO index
+to the valid range 00..77.
+
+However, the + quantifier applies to the entire alternation group, allowing
+repetitions of two-digit numbers like mio_clk0011.
+
+Additionally, the .*$ wildcard matches any trailing characters, meaning a
+string like mio_clk0799 passes validation because 07 matches the group
+and 99 is consumed by .*$.
+
+Does this introduce a regression where the schema silently accepts invalid
+clock names?
+
+>              - pattern: "gem[0-3]+_emio_clk.*$"
+>              - pattern: "swdt[0-1]+_ext_clk.*$"
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780499520.gi=
+t.michal.simek@amd.com?part=3D2
