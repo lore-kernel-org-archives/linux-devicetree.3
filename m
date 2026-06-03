@@ -1,109 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f49.google.com (mail-wm1-f49.google.com [209.85.128.49])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68FD741C314;
-	Wed,  3 Jun 2026 08:25:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9446542188F
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.49
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780475112; cv=none; b=B/PDHh5kwz+mLVuU7SNuRcSvG641cP8QrcFo924glV8NFUeSrnA065Cv37pEi1X4AREO/xTCNX7Bkr8inE2G1f27gHP4UYAbexMenRGsaTDR9gq79YfoYTe6abcTXZTYfbJqit21HAG4NAak0FWX0bSQU+zDIwW0P01Z0f81B2A=
+	t=1780475112; cv=none; b=V8vmq9aOdU7v4cHG5VUnxM/+EUkhbayySkCK9qg5MrmIiaffkH5CTtayMz4rb2Uh3EsKOqH26s9FasFsTF4MEqwWimhjz+XzOnGGMXgMgyEqYg2wBrXSoBYGPDn2vnsF9og1T7TfPot/B63k950hLESjefROZNft3fFx4FL1HhQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780475112; c=relaxed/simple;
-	bh=nVhPK1Ite25Pa5B9ZRy6N25I+44LyzmpxuEq1fd02Uc=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=a1D1KRbUHMb1Yf9JtQhnbI/hIxZhdzIsnzmkvgmpqOAA8eQom09T9toPn8gOAGuexdnnxp5p/oFumo6396LWEESGvUpBECBNnZPC7U216ZQOxl/qsEmKcSc3HYJtjl0v9oACx5gYRTYNmKcnmvyatz/IUkEXYaP1IPjW0KwG3XA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Kp0RB3mn; arc=none smtp.client-ip=100.103.45.18
+	bh=VYwzH4XdiKHvxjnXr7YQady8HCkkBmaZVHex/S+NpyQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XmNr5rAa1HGbOGZpceCjze1j/6uVNjZUsWsT9HyW3tUogx3N5Au9pakPAwiK4n+rV+dQGPyemyTSQg/5E5QA+QbfkgAPL8/W7v6uFzbQyXieMDqpqC2JUDEX4lANlFOehQTWA5oDRbkE521uG13WDQTMwODuVWLce2tcfzjPXy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jl1NqSbp; arc=none smtp.client-ip=209.85.128.49
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Kp0RB3mn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F32ED1F0089A;
-	Wed,  3 Jun 2026 08:25:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780475111;
-	bh=kyj/ZEwoUj3qmXmSokMJB0S858wBTWhbj8un9+kesYU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Kp0RB3mncnZ2kFMGoK8t7eQvfAJeHkBuiX0i9T56MltJXpglhcWgUPZgyXdY/x0ir
-	 I2RdEWOGQesGYzal8vPYvzyx2QG+RClYqi1bLY3fz/mTuvuUWDNcugVZlUr+akXol1
-	 Bf4gNjRbjgpSZz1LUJnpnTSURT6C2HrJpE1B6zzTMH2hGlI3dPWpL+SL+bfdYk+RYv
-	 B5VTiwHRlPRzLU9QegoqLqUsc1CYwu45GODMK3qnI7vd/d2Pa+ILXDJ3bWbAGKzUVK
-	 aGBt7WzxDTFowQKYv4hhnfyGoF6tqbCtgfZjb8TdizpEaeCHKjI0bpmEQ5eKHoshCq
-	 PlFrdtzjQkJPg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH RESEND v4 6/8] can: flexcan: add NXP S32N79 SoC support
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Ciprian Costea" <ciprianmarian.costea@oss.nxp.com>
-Cc: Frank.Li@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, imx@lists.linux.dev, conor+dt@kernel.org
-In-Reply-To: <20260603071342.641874-7-ciprianmarian.costea@oss.nxp.com>
-References: <20260603071342.641874-7-ciprianmarian.costea@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 08:25:10 +0000
-Message-Id: <20260603082510.F32ED1F0089A@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jl1NqSbp"
+Received: by mail-wm1-f49.google.com with SMTP id 5b1f17b1804b1-4903d730b1fso112048095e9.2
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 01:25:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780475110; x=1781079910; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=OxV53FKG4HWP7RwRAnssIRH6mwl9ZfX/I+1CZeHHk4Y=;
+        b=Jl1NqSbpUiH9HFJezgptT14qPB3owbVrVirWWk/zp0O+upmmVwz5us/upyV0bWZYCT
+         Cd1pC2QaXZecTk2zEIVYmT2lTT7LCu/zRzzIQ+vef0zFtyGRLCHdAPjKIhsKlVBcjhg9
+         qWnTMJZXDeoUeEFKP3Xv9R3YrN05tBhN4s+EUQORsQPXIAMcvJnanWTd/OBAvyvGABif
+         QhbtgglH+pdPpHxbkRGdU2JTh3Xu/YQ5uD5rzJadezNlQ30n3Q46vyZzMBJb0cuYNBQe
+         VF34jgC6HrcuN00wX4BsWdAZKUnuD4N6/O0j6UCIPi5QREzHTIxzetfmwmnEtS3seSy1
+         sB0A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780475110; x=1781079910;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=OxV53FKG4HWP7RwRAnssIRH6mwl9ZfX/I+1CZeHHk4Y=;
+        b=cp+c2N1n8oakvjRjh3LpKlYEC4e0GyEKa6Pdyngbve1bTkZBtUEPMBQK/8axPiK544
+         Zoqq1I/6QSqbp+Wlupjs1xg1vLcs1qURgzMSppKpBSpSBzj4nzoaHFhBt3rnoUM8Hfp9
+         u/35R5n9DpZ5y+2B2QKP9/i5BxAY+H6pTYotKrEnr63OMSJBj2xlJneIRbDQ7evn5NkT
+         JnfQ4g9EVGiZClhfkVMoUYreCAXvYcjup4pecOr6XsXvuZ44NxJB65mB877t4zmU7JGG
+         hf4RbS4cJygTXwyr2ObuRHW0BbbvwkxXSz5G6ypHTNnMho90w/Y/Fffy4KGMpYIunWvs
+         YQzA==
+X-Forwarded-Encrypted: i=1; AFNElJ9gkOhhp0adJDwxPunQ8PW7uoX/FFqOi84m4O6hsar8sDKZ5gtIuHt9RZLaZSEB16PwKUp8A7We2G4Z@vger.kernel.org
+X-Gm-Message-State: AOJu0YwnctnWCBMxAjSNgsXJPtnmsufp/OQgMx2dLlm/V/PSYEjVyDF+
+	RSB4sCN5yGXfsqsgwpcw0Flt6Hf6cvWRlVu4pIiTUtO/D0e57BWmjAvP0SQ7Sg==
+X-Gm-Gg: Acq92OEo33wXOBEZoeKMt0FlL7Jx05wb2isMFXJzYNYxPPEZMpytigg/YTkPOn1f+w2
+	eETm1gMvK9XweN4tGk2menI7rKJQ3tvm1DoqlcdWGSWFE8ezt3cKtGDoGlSNdazgDP3iskVyyer
+	MIdJMYQy1VNTPhHgQY3mQjw8rnTlKt81UkttVzW3ecGBf08rE1N/VyMxuXMHZGfBkjWTCh5VQC2
+	MqocIuR7BdkYI/WNkhd370dxR03zD/Y/Iuz+b3sDc0WIL0dt41+F5NJdreeQnZfRXCJGn5UYV4O
+	mukCl+nQLrMHW5rx9d0jGt3LY75OByrnEtyXCJrUCUjOsjL3MRi1duV1VIhQNPoYWp6HrzYhkUZ
+	jCkueXKHTWTnfIXKCY53Ro5/PjULhFuvJR0ei8bnEAwo2/HVgpPqtIcJ0K3VpTEA2SgerSaZrSy
+	R+EsB8PzlsDFNFLQXKwfpPoETnAtZAVIhpMyzRLHz3sf+aSZ57lfl8KlxYK1FUzqaA3kp2Atbbz
+	JicvE8jveTtSvNQRg07Ex99TED01rc8+zpK5OAOVxuS2ANQPbn+dxXZbA4=
+X-Received: by 2002:a05:600c:1392:b0:490:52fb:12dd with SMTP id 5b1f17b1804b1-490b5e8cb8amr34882915e9.10.1780475109767;
+        Wed, 03 Jun 2026 01:25:09 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b63d8205sm33175305e9.11.2026.06.03.01.25.09
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 01:25:09 -0700 (PDT)
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
+To: linux-kernel@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org
+Cc: pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: [PATCH v3 3/5] arm64: dts: imx93-var-som-symphony: keep RGB_SEL low
+Date: Wed,  3 Jun 2026 10:25:02 +0200
+Message-ID: <0a3e17a7497616a1f83159b98a8e5ffa429f0acd.1780474803.git.stefano.r@variscite.com>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1780474803.git.stefano.r@variscite.com>
+References: <cover.1780474803.git.stefano.r@variscite.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+From: Stefano Radaelli <stefano.r@variscite.com>
 
-Pre-existing issues:
-- [High] Wakeup functionality is broken for multi-IRQ FlexCAN platforms (li=
-ke S32N79) because `enable_irq_wake()` is called on the mailbox interrupt (=
-`dev->irq`) instead of the state/wakeup interrupt (`priv->irq_err`).
---
+Keep the RGB_SEL line driven low on the Symphony carrier board.
 
-commit 39bd2be7b5ab93fd5fb7064b8e7d3eac344ed38f
-Author: Ciprian Marian Costea <ciprianmarian.costea@oss.nxp.com>
+This avoids leaving the line floating and ensures the board remains in
+the expected display configuration.
 
-can: flexcan: add NXP S32N79 SoC support
+Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
+---
+v2->v3:
+ - 
 
-This patch introduces support for the NXP S32N79 SoC in the FlexCAN driver.
-It adds a new device data structure specifying necessary quirks, including
-multiple interrupt handling, and registers the new compatible string.
+v1->v2:
+ - 
 
-> diff --git a/drivers/net/can/flexcan/flexcan-core.c b/drivers/net/can/fle=
-xcan/flexcan-core.c
-> --- a/drivers/net/can/flexcan/flexcan-core.c
-> +++ b/drivers/net/can/flexcan/flexcan-core.c
-> @@ -397,6 +397,15 @@ static const struct flexcan_devtype_data nxp_s32g2_d=
-evtype_data =3D {
->  		FLEXCAN_QUIRK_SECONDARY_MB_IRQ,
->  };
-> =20
-> +static const struct flexcan_devtype_data nxp_s32n_devtype_data =3D {
-> +	.quirks =3D FLEXCAN_QUIRK_DISABLE_RXFG | FLEXCAN_QUIRK_ENABLE_EACEN_RRS=
- |
-> +		FLEXCAN_QUIRK_DISABLE_MECR | FLEXCAN_QUIRK_USE_RX_MAILBOX |
-> +		FLEXCAN_QUIRK_BROKEN_PERR_STATE | FLEXCAN_QUIRK_SUPPORT_FD |
-> +		FLEXCAN_QUIRK_SUPPORT_ECC | FLEXCAN_QUIRK_SUPPORT_RX_MAILBOX |
-> +		FLEXCAN_QUIRK_SUPPORT_RX_MAILBOX_RTR |
-> +		FLEXCAN_QUIRK_IRQ_BERR,
+ arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-[Severity: High]
-This isn't a bug introduced by this patch, but will wakeup functionality be
-broken for this new platform since it uses multiple interrupts?
+diff --git a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+index 77377127c18c..c835394468ef 100644
+--- a/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
++++ b/arch/arm64/boot/dts/freescale/imx93-var-som-symphony.dts
+@@ -215,6 +215,14 @@ pcal6408: gpio@21 {
+ 		gpio-controller;
+ 		#gpio-cells = <2>;
+ 		status = "okay";
++
++		/* RGB_SEL */
++		lvds-brg-enable-hog {
++			gpio-hog;
++			gpios = <7 GPIO_ACTIVE_HIGH>;
++			output-low;
++			line-name = "lvds_brg_en";
++		};
+ 	};
+ 
+ 	st33ktpm2xi2c: tpm@2e {
+-- 
+2.47.3
 
-In flexcan_suspend() and flexcan_resume(), the driver hardcodes
-enable_irq_wake(dev->irq) and disable_irq_wake(dev->irq):
-
-flexcan_suspend() {
-	...
-	if (device_may_wakeup(device)) {
-		enable_irq_wake(dev->irq);
-	...
-}
-
-For multi-IRQ platforms using FLEXCAN_QUIRK_IRQ_BERR, dev->irq is dedicated
-to mailboxes, while state changes and wakeups (FLEXCAN_ESR_WAK_INT) are
-routed to priv->irq_err.
-
-Because enable_irq_wake() is never called for priv->irq_err, will the
-interrupt controller mask the actual wakeup interrupt during suspend,
-preventing the CAN controller from waking up the CPU?
-
-> +};
-> +
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603071342.6418=
-74-1-ciprianmarian.costea@oss.nxp.com?part=3D6
