@@ -1,531 +1,141 @@
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com [209.85.221.44])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A67F3E1D15
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:49:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6133D47B1;
+	Wed,  3 Jun 2026 15:50:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780501755; cv=none; b=sI4uHWPAQRMRXOlXi9e8ThxBSJqDGo9MhsnNxM0oBKUnMyjp3MfezTlZRN722KeZSOnFUAljhOhaUcqku7V516/VvDOPjKIqSYpFGuhrp2Htd83fvzPpUbBdddbctvO7pj7KM115Yy3mhdXtwbEJPzbI0rXVpUoOF4On4NIta20=
+	t=1780501844; cv=none; b=mbNlKuy7jCnA81FiCaOTk9nQ4b65aK7AM1XH3dSmWmIK3lJN1/RDRpS4euY69UAR1bQTAoFZh1aJ3zrEfv1ZpWBEbynIFVr72NC4xI50JW8E+i7TatqbpHx5JHTJju3ivf7kQ87OEELnuG+28mHwgJHxqcKXYHEPqwhRga4lQEo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780501755; c=relaxed/simple;
-	bh=ySh33wutmbZ5iVOabdfg/J07oPwEj+oqxH12+J3TS5w=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=DPxXSmYy262MaGbJ2yDi1wDcpHXKz6afhGNJsq/g+lCvwGimxwJjndo/yF8nkq9H1I4YXf8HOtdoy3mVkGcemraK3jLQsc1iMGanMsAb0fxq9cWkdj7tInGncS1hcOrVk8fIVP1z3DkXQeGt3wcF9DVFHTmZThS9oPI6ff3ib4Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BGErSJaO; arc=none smtp.client-ip=209.85.221.44
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780501844; c=relaxed/simple;
+	bh=hSEyrQnQzfFxChLpOBbQ5Vz93PJwfhQqH6ffjmGCdBQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=MMUwfL1u2KxgHDbgo73jXBWFiHYUBVx2ylLJ29xGU1HEgpj0KIxAKMWIIyYZM0jpcEEFtRqbA5JTj6mlj5ETpUXWHTH2ax1yZdZ2Fqte0/yXs+nWbH3Wvo13TLjhy9w2VVE1+3Pt1VX0vI9C7F30qz3flhgaLY1rnSLemf7aCw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nhLlZQBH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BGErSJaO"
-Received: by mail-wr1-f44.google.com with SMTP id ffacd0b85a97d-45eeba68948so5083780f8f.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 08:49:13 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780501752; x=1781106552; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=OjGdyVecCEjJ7bgAij4ZWnfiWhj3pQUXtFRn8jOj/9E=;
-        b=BGErSJaO+unIphq7jh3biQBUOYKBmbf+woArDr7U+b3572pj3INt04Luh8L4J94jYh
-         R8XgYycJynRLqwNaCtqmNEgkRpScU6jWYfXmC2y0fRCTeAznSE1Tn0aa0SqdfGLa1JIh
-         4OVD5R7KSdrI35ZfnaHvbW5v88InYZd9cs02R/9iODjmovVIQamMANf4lZzOhqqf/e4N
-         WINUc+Jlqku9uoiCfLBowuSBNRZs2ZfEjzOIvJHS+7diwy250g82gYgXJEk5/uCiJe5n
-         FY1K6z4rZaZfYURwmQK8vIXKF2sP4iB6p32R99SIk+2Dq/5iALsAAlwJEe0uIIbcgTCY
-         7djQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780501752; x=1781106552;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=OjGdyVecCEjJ7bgAij4ZWnfiWhj3pQUXtFRn8jOj/9E=;
-        b=KaIFN+od7gqDXPoj72dBb1UoilKWStSbrDIfQGmu/wIMzo+8hISz/QhiOCAlTDWLoj
-         BE3RZqOAkuLObXxocjj6XiZJo1uT2pywC1f3BXiBKgN/O/kVlkW88uAyIqw00dPr76HA
-         AfND4lWjiDcWO0mrjoUKyAkOqIwaegVqo9x/9K48SlyqlyQ75R2PSsbCruR/mGadhDjW
-         N0tTZSXYAGoxeI7Nc25OZ1/cQDvSPzJDN/xZKJoh5Ikr64wZ7DzKdDeWGZEMPzU3QIAH
-         B30U5U5lFiLQTTekJr1NHSOUZJQcKlJFxAw27EDMwSp13ZS13fSPKUS4FPO38vfDRMk5
-         P6Vw==
-X-Forwarded-Encrypted: i=1; AFNElJ/AThZNl5ujhLCM+g5AxBQmJvxLK60YlHZgomr91Qcyw6E/wlSuoh/7qEsDyLS9y6Jc62qBX8IxhUz1@vger.kernel.org
-X-Gm-Message-State: AOJu0Ywksqad63f0F/MkxnIx12nw89dRQ3LVfUYOh356u92X2WDg3K7V
-	RH6VRUDELs3hr/GfXdxcbq3wihEAxmjBIFBPEJknfAyYKAgvD4C7NSMd
-X-Gm-Gg: Acq92OEYoeu0SVYNM7TrqgtPel7YQSF+EnXmAy+12oGK0xdDbftkPblVGp6pv4hQl39
-	e/S9o7MbPb1w5fhEEiQVpQZPOG4FTRUFVYk6woCp7gvH6jzBXdgNz1g1w4c/VB5GgIq1Akhcgnx
-	r9Jxnclc6RvcA8GaJrafx1BOvGJ4bFTJ5Hq/+irLKdc7OgT8ITbAtCrDPpWBFe4TKOQH61oH42N
-	fj9gTkspDsBhTlyKAN1v9USajBHooyHGMDgPfbYi6rcyaE/My0hT91Cl6T+zSXS5W6u9PkvSnBc
-	noReta/NvAS92RNawdvy8pYesLz0Z9GQo11EtyfOpFHN935dWmqjbZSocL4G0VZRW2Vkrzj7+Qm
-	yOq+o7Sw6t8GdKP88l4S8jTI4QDb7uUbCotdpx5LxHOASznTgQrAiYUWSvGMkZXK9OQqLxBi/ZK
-	dcrmZ+nnWdQbsBiFxuWyswk+fibfw/YsQJMM8ttA==
-X-Received: by 2002:adf:efd2:0:b0:45e:f381:cd8a with SMTP id ffacd0b85a97d-46021781a7dmr4113017f8f.2.1780501751615;
-        Wed, 03 Jun 2026 08:49:11 -0700 (PDT)
-Received: from [192.168.8.79] ([2a00:f502:160:43ff:9a39:ef13:72e0:8f])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc412sm8886008f8f.4.2026.06.03.08.49.09
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 08:49:11 -0700 (PDT)
-From: Erikas Bitovtas <xerikasxx@gmail.com>
-Date: Wed, 03 Jun 2026 18:48:22 +0300
-Subject: [PATCH v2 2/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
- add initial device tree
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nhLlZQBH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 54BA71F00898;
+	Wed,  3 Jun 2026 15:50:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780501843;
+	bh=vCs9UAIkiodhsbZ/odVVdbmcYh4cByi63umqI9snLoM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=nhLlZQBHzf12m7nTEXBM2ed1IJWgFkuHT6XsTb2EEF94DiMUraBF0RSjS3ZRFYGgg
+	 DBLOBnqpwD8g/FEHx8gUU/EmZt5VzMU/nbBRK0EXknBFzJkDKsV1hfb/dtCXs565Xa
+	 5cXNJt6LTFfvtsOw6jSiwWYV67aM0W8TmseM2qV1YfFAOwb6rGMzHmwwmufiezLYyQ
+	 rVNPrwkPcJVBhPSv+khVbCXkrUP+UyroIEVQK/bUCmaXMQmdx6om5zwT23WM/9cGau
+	 ZTAFvqecZxFX+yTGIP+wbKnMvE4T26OZqD65V+anK22Kt17sctqriFtNv+Tn/+tshX
+	 MKcT+iVc002/g==
+Date: Wed, 3 Jun 2026 16:50:39 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Vladimir Oltean <vladimir.oltean@nxp.com>
+Cc: sashiko-reviews@lists.linux.dev, robh@kernel.org, vkoul@kernel.org,
+	neil.armstrong@linaro.org, conor+dt@kernel.org,
+	linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
+	olteanv@gmail.com
+Subject: Re: [PATCH v3 phy-next 14/16] dt-bindings: phy: lynx-10g: initial
+ document
+Message-ID: <20260603-numerate-unbundle-ef259832006d@spud>
+References: <20260603132059.503527-1-vladimir.oltean@nxp.com>
+ <20260603133350.9FA271F00893@smtp.kernel.org>
+ <20260603133825.l544tnmtn2pqfrzh@skbuf>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-yukon-eagle-v2-2-f86b440583f5@gmail.com>
-References: <20260603-yukon-eagle-v2-0-f86b440583f5@gmail.com>
-In-Reply-To: <20260603-yukon-eagle-v2-0-f86b440583f5@gmail.com>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
- linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
- phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>
-X-Mailer: b4 0.15.2
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="29efmMoE7cLoxf6X"
+Content-Disposition: inline
+In-Reply-To: <20260603133825.l544tnmtn2pqfrzh@skbuf>
 
-Add device tree for Sony Xperia M2 (sony-eagle) smartphone
-based on the Qualcomm MSM8926 SoC.
 
-Initial features:
-- Framebuffer
-- GPIO buttons (Volume Down and Camera)
-- Regulators
-- Internal storage
-- SD card
-- Accelerometer
-- Magnetometer
-- Ambient Light/Proximity sensor
-- NFC
-- pm8226_resin (Volume Up)
-- USB/Charger
+--29efmMoE7cLoxf6X
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
----
- arch/arm/boot/dts/qcom/Makefile                    |   1 +
- .../dts/qcom/msm8926-sony-xperia-yukon-eagle.dts   | 403 +++++++++++++++++++++
- 2 files changed, 404 insertions(+)
+On Wed, Jun 03, 2026 at 04:38:25PM +0300, Vladimir Oltean wrote:
+> On Wed, Jun 03, 2026 at 01:33:50PM +0000, sashiko-bot@kernel.org wrote:
+> > Thank you for your contribution! Sashiko AI review found 1 potential is=
+sue(s) to consider:
+> > - [Medium] The `if` condition for enforcing the `big-endian` property i=
+ncorrectly matches the `compatible` string array directly against an `enum`=
+, which will always evaluate to false and cause the requirement to silently=
+ fail.
+> > --
+> >=20
+> > commit 8bd3982a89722b20a3686e42d4ab3b9f0711ae11
+> > Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+> >=20
+> > dt-bindings: phy: lynx-10g: initial document
+> >=20
+> > This commit adds the schema for the 10G Lynx SerDes used on most QorIQ =
+and
+> > Layerscape SoCs. It defines the valid compatible strings, PHY cell requ=
+irements,
+> > and enforces SoC-specific constraints such as lane counts and endiannes=
+s.
+> >=20
+> > > diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml =
+b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> > > new file mode 100644
+> > > index 0000000000000..8cf6027a75b91
+> > > --- /dev/null
+> > > +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> > > +  - if:
+> > > +      properties:
+> > > +        compatible:
+> > > +          enum:
+> > > +            - fsl,ls1046a-serdes1
+> > > +            - fsl,ls1046a-serdes2
+> >=20
+> > [Severity: Medium]
+> > Does this conditional correctly enforce the big-endian property?=20
+> >=20
+> > Since the compatible property is a string array in device trees, evalua=
+ting it
+> > directly against an enum always returns false. Should this use "contain=
+s:"=20
+> > with the enum, similar to the preceding if block, so dt_binding_check=
+=20
+> > correctly enforces the requirement?
+>=20
+> The tests I did suggest that it does enforce the requirement.
 
-diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Makefile
-index 32a44b02d2fa..6b471a346d82 100644
---- a/arch/arm/boot/dts/qcom/Makefile
-+++ b/arch/arm/boot/dts/qcom/Makefile
-@@ -1,6 +1,7 @@
- # SPDX-License-Identifier: GPL-2.0
- dtb-$(CONFIG_ARCH_QCOM) += \
- 	msm8226-motorola-falcon.dtb \
-+	msm8926-sony-xperia-yukon-eagle.dtb \
- 	qcom-apq8016-sbc.dtb \
- 	qcom-apq8026-asus-sparrow.dtb \
- 	qcom-apq8026-huawei-sturgeon.dtb \
-diff --git a/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
-new file mode 100644
-index 000000000000..8ca834796e2c
---- /dev/null
-+++ b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
-@@ -0,0 +1,403 @@
-+// SPDX-License-Identifier: BSD-3-Clause
-+/*
-+ * Copyright (c) 2026 Erikas Bitovtas <xerikasxx@gmail.com>
-+ */
-+
-+/dts-v1/;
-+
-+#include "msm8926.dtsi"
-+#include "pm8226.dtsi"
-+
-+/delete-node/ &adsp_region;
-+/delete-node/ &mba_region;
-+/delete-node/ &mpss_region;
-+/delete-node/ &smem_region;
-+
-+/ {
-+	model = "Sony Xperia M2";
-+	compatible = "sony,eagle", "qcom,msm8926", "qcom,msm8226";
-+	chassis = "handset";
-+
-+	aliases {
-+		mmc0 = &sdhc_1;
-+		mmc1 = &sdhc_2;
-+		display0 = &framebuffer0;
-+	};
-+
-+	chosen {
-+		#address-cells = <1>;
-+		#size-cells = <1>;
-+		ranges;
-+
-+		stdout-path = "display0";
-+
-+		framebuffer0: framebuffer@3201000 {
-+			compatible = "simple-framebuffer";
-+			reg = <0x03201000 0x800000>;
-+			width = <540>;
-+			height = <960>;
-+			stride = <(540 * 3)>;
-+			format = "r8g8b8";
-+
-+			clocks = <&mmcc MDSS_AHB_CLK>,
-+				 <&mmcc MDSS_AXI_CLK>,
-+				 <&mmcc MDSS_BYTE0_CLK>,
-+				 <&mmcc MDSS_MDP_CLK>,
-+				 <&mmcc MDSS_PCLK0_CLK>,
-+				 <&mmcc MDSS_VSYNC_CLK>;
-+			power-domains = <&mmcc MDSS_GDSC>;
-+		};
-+	};
-+
-+	gpio-keys {
-+		compatible = "gpio-keys";
-+
-+		button-camera-focus {
-+			label = "Camera Focus";
-+			gpios = <&tlmm 108 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_CAMERA_FOCUS>;
-+			debounce-interval = <15>;
-+		};
-+
-+		button-camera-snapshot {
-+			label = "Camera Snapshot";
-+			gpios = <&tlmm 107 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_CAMERA>;
-+			debounce-interval = <15>;
-+		};
-+
-+		button-volume-down {
-+			label = "Volume Down";
-+			gpios = <&tlmm 106 GPIO_ACTIVE_LOW>;
-+			linux,code = <KEY_VOLUMEDOWN>;
-+			debounce-interval = <15>;
-+		};
-+	};
-+
-+	reserved-memory {
-+		framebuffer@3201000 {
-+			reg = <0x03201000 0x800000>;
-+			no-map;
-+		};
-+
-+		mpss_region: mpss@8000000 {
-+			reg = <0x08000000 0x4d00000>;
-+			no-map;
-+		};
-+
-+		reserved@cd00000 {
-+			reg = <0x0cd00000 0x200000>;
-+			no-map;
-+		};
-+
-+		mba_region: mba@d100000 {
-+			reg = <0x0d100000 0x3a000>;
-+			no-map;
-+		};
-+
-+		reserved@d13a000 {
-+			reg = <0x0d13a000 0xc6000>;
-+			no-map;
-+		};
-+
-+		wcnss_region: wcnss@d200000 {
-+			reg = <0x0d200000 0x5ae000>;
-+			no-map;
-+		};
-+
-+		reserved@d850000 {
-+			reg = <0x0d850000 0x3b0000>;
-+			no-map;
-+		};
-+
-+		adsp_region: adsp@dc00000 {
-+			reg = <0x0dc00000 0x1400000>;
-+			no-map;
-+		};
-+
-+		reserved@f000000 {
-+			reg = <0x0f000000 0x500000>;
-+			no-map;
-+		};
-+
-+		venus_region: venus@f500000 {
-+			reg = <0x0f500000 0x500000>;
-+			no-map;
-+		};
-+
-+		smem_region: smem@fa00000 {
-+			reg = <0x0fa00000 0x100000>;
-+			no-map;
-+		};
-+
-+		reserved@fb00000 {
-+			reg = <0x0fb00000 0x280000>;
-+			no-map;
-+		};
-+
-+		rmtfs@fd80000 {
-+			compatible = "qcom,rmtfs-mem";
-+			reg = <0x0fd80000 0x180000>;
-+			no-map;
-+
-+			qcom,client-id = <1>;
-+		};
-+	};
-+};
-+
-+&blsp1_i2c2 {
-+	status = "okay";
-+
-+	accelerometer@f {
-+		compatible = "kionix,kxtj21009";
-+		reg = <0x0f>;
-+
-+		interrupts-extended = <&tlmm 49 IRQ_TYPE_EDGE_RISING>;
-+
-+		vdd-supply = <&pm8226_l19>;
-+		vddio-supply = <&pm8226_lvs1>;
-+
-+		mount-matrix = "0", "1", "0",
-+			      "-1", "0", "0",
-+			      "0", "0", "1";
-+	};
-+
-+	magnetometer@2e {
-+		compatible = "yamaha,yas532";
-+		reg = <0x2e>;
-+
-+		vdd-supply = <&pm8226_l19>;
-+		iovdd-supply = <&pm8226_lvs1>;
-+	};
-+
-+	light-sensor@48 {
-+		compatible = "sensortek,stk3310";
-+		reg = <0x48>;
-+
-+		interrupts-extended = <&tlmm 65 IRQ_TYPE_EDGE_FALLING>;
-+
-+		proximity-near-level = <1700>;
-+	};
-+};
-+
-+&blsp1_i2c3 {
-+	status = "okay";
-+
-+	nfc@28 {
-+		compatible = "nxp,pn547", "nxp,nxp-nci-i2c";
-+		reg = <0x28>;
-+
-+		interrupts-extended = <&tlmm 21 IRQ_TYPE_EDGE_RISING>;
-+
-+		enable-gpios = <&tlmm 20 GPIO_ACTIVE_HIGH>;
-+		firmware-gpios = <&tlmm 22 GPIO_ACTIVE_HIGH>;
-+	};
-+};
-+
-+&pm8226_resin {
-+	linux,code = <KEY_VOLUMEUP>;
-+
-+	status = "okay";
-+};
-+
-+&pm8226_vib {
-+	status = "okay";
-+};
-+
-+&rpm_requests {
-+	regulators {
-+		compatible = "qcom,rpm-pm8226-regulators";
-+
-+		pm8226_s3: s3 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1300000>;
-+		};
-+
-+		pm8226_s4: s4 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2200000>;
-+		};
-+
-+		pm8226_s5: s5 {
-+			regulator-min-microvolt = <1150000>;
-+			regulator-max-microvolt = <1150000>;
-+		};
-+
-+		pm8226_l1: l1 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l2: l2 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l3: l3 {
-+			regulator-min-microvolt = <750000>;
-+			regulator-max-microvolt = <1287500>;
-+		};
-+
-+		pm8226_l4: l4 {
-+			regulator-min-microvolt = <1200000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l5: l5 {
-+			regulator-min-microvolt = <1050000>;
-+			regulator-max-microvolt = <1200000>;
-+		};
-+
-+		pm8226_l6: l6 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l7: l7 {
-+			regulator-min-microvolt = <1850000>;
-+			regulator-max-microvolt = <1850000>;
-+		};
-+
-+		pm8226_l8: l8 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l9: l9 {
-+			regulator-min-microvolt = <2050000>;
-+			regulator-max-microvolt = <2050000>;
-+		};
-+
-+		pm8226_l10: l10 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l12: l12 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <1800000>;
-+		};
-+
-+		pm8226_l14: l14 {
-+			regulator-min-microvolt = <2750000>;
-+			regulator-max-microvolt = <2750000>;
-+		};
-+
-+		pm8226_l15: l15 {
-+			regulator-min-microvolt = <2800000>;
-+			regulator-max-microvolt = <2800000>;
-+		};
-+
-+		pm8226_l16: l16 {
-+			regulator-min-microvolt = <3000000>;
-+			regulator-max-microvolt = <3350000>;
-+		};
-+
-+		pm8226_l17: l17 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l18: l18 {
-+			regulator-min-microvolt = <2950000>;
-+			regulator-max-microvolt = <2950000>;
-+
-+			regulator-system-load = <200000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l19: l19 {
-+			regulator-min-microvolt = <2850000>;
-+			regulator-max-microvolt = <2850000>;
-+		};
-+
-+		pm8226_l20: l20 {
-+			regulator-min-microvolt = <3075000>;
-+			regulator-max-microvolt = <3075000>;
-+		};
-+
-+		pm8226_l21: l21 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+			regulator-allow-set-load;
-+		};
-+
-+		pm8226_l22: l22 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l23: l23 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_l24: l24 {
-+			regulator-min-microvolt = <1300000>;
-+			regulator-max-microvolt = <1350000>;
-+		};
-+
-+		pm8226_l25: l25 {
-+			regulator-min-microvolt = <1775000>;
-+			regulator-max-microvolt = <2125000>;
-+		};
-+
-+		pm8226_l26: l26 {
-+			regulator-min-microvolt = <1225000>;
-+			regulator-max-microvolt = <1225000>;
-+		};
-+
-+		pm8226_l27: l27 {
-+			regulator-min-microvolt = <2100000>;
-+			regulator-max-microvolt = <2100000>;
-+		};
-+
-+		pm8226_l28: l28 {
-+			regulator-min-microvolt = <1800000>;
-+			regulator-max-microvolt = <2950000>;
-+		};
-+
-+		pm8226_lvs1: lvs1 {};
-+	};
-+};
-+
-+&smbb {
-+	qcom,fast-charge-current-limit = <1500000>;
-+	qcom,fast-charge-safe-voltage = <4250000>;
-+	qcom,minimum-input-voltage = <4200000>;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_1 {
-+	vmmc-supply = <&pm8226_l17>;
-+	vqmmc-supply = <&pm8226_l6>;
-+
-+	bus-width = <8>;
-+	non-removable;
-+
-+	status = "okay";
-+};
-+
-+&sdhc_2 {
-+	vmmc-supply = <&pm8226_l18>;
-+	vqmmc-supply = <&pm8226_l21>;
-+
-+	bus-width = <4>;
-+	cd-gpios = <&tlmm 38 GPIO_ACTIVE_LOW>;
-+
-+	status = "okay";
-+};
-+
-+&usb {
-+	extcon = <&smbb>;
-+	dr_mode = "peripheral";
-+
-+	status = "okay";
-+};
-+
-+&usb_hs_phy {
-+	extcon = <&smbb>;
-+	v1p8-supply = <&pm8226_l10>;
-+	v3p3-supply = <&pm8226_l20>;
-+};
+Yeah, sashiko just doesn't understand how this works without "contains".
+"contains" is only actually required for validation purposes if there's
+fallback compatibles and you're trying to get a partial match.
 
--- 
-2.54.0
+>=20
+> - "make dt_binding_check" passes with the submitted example
+>=20
+> - If I replace "fsl,ls1028a-serdes" from the example with
+>   "fsl,ls1046a-serdes1" but leave everything else as is (implying:
+>   little endian), I get:
+>=20
+> $ make -j 8 DT_CHECKER_FLAGS=3D-m dt_binding_check DT_SCHEMA_FILES=3Dphy/=
+fsl,lynx-10g.yaml
+>   SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+>   CHKDT   ../Documentation/devicetree/bindings
+>   LINT    ../Documentation/devicetree/bindings
+>   DTEX    Documentation/devicetree/bindings/phy/fsl,lynx-10g.example.dts
+>   DTC [C] Documentation/devicetree/bindings/phy/fsl,lynx-10g.example.dtb
+> Documentation/devicetree/bindings/phy/fsl,lynx-10g.example.dtb: serdes@1e=
+a0000 (fsl,ls1046a-serdes1): 'big-endian' is a required property
+>         from schema $id: http://devicetree.org/schemas/phy/fsl,lynx-10g.y=
+aml
 
+--29efmMoE7cLoxf6X
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBNTwAKCRB4tDGHoIJi
+0qEpAP9xJIQD67kq3rH/iSn47fcaj5H2Gm4eWSUDKokdZ9vTHgEAg/Se6W+36U7P
+aL+sw1M/xaTL+1SnXFHozFNqtmazbgE=
+=gCxu
+-----END PGP SIGNATURE-----
+
+--29efmMoE7cLoxf6X--
