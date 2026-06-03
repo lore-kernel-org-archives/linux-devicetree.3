@@ -1,124 +1,152 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from fout-a5-smtp.messagingengine.com (fout-a5-smtp.messagingengine.com [103.168.172.148])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D8954219EE;
-	Wed,  3 Jun 2026 08:30:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB9D539DBFC;
+	Wed,  3 Jun 2026 08:40:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780475431; cv=none; b=r2py/jPId7ep02ZEfz3SX+PU5n4ZqjDTx15uGEG1j2V6rc1/c0UyRBVF1bQu3C/QbymSSEfJjzHrk0fEjGd6OMJnhwkZRqDSU1EvdJ2Q5MtCTZubZ4GyXt0TiL2k9aU0np1UOm0VfV1+1zZpgbPcKokhbGYI2QvepdTeEeVEnOI=
+	t=1780476021; cv=none; b=t5cXDH//6Ksq3Sq/NnCsX0P7MeNCUMyiaVDWB6ejob7AAtfh+K9yovUySnURhwnrs8KahhWmbcFHkTjMWDPhm6c6YNhAskW5O3F+GKTNOipACCXdltk294qMRyidR1EOgJIIsAIgFum4IQkFKqV5gfw2Yv57lpOiZcobmiAonhg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780475431; c=relaxed/simple;
-	bh=GB89Y8MUH6tSku1C9M0gHxJRmpls8P2xLSXw0JEWHSw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=J4Rz7VcvVJTSLFGfbdOzSSgNYelB9nN1UtmRuiA94JiON2UfTP1ZBTOYG6WXHLgG3VIv0QcpBRou0X1ghAyh0BQhjJ3mzlSk1I44mXj0HWWF5U5Qx8ETiMDSfF5WM1iJA8Id2A3iKoOVaEbeYbfIMhDCf9u6zzEHa5oMrKCZm9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=URnIkHac; arc=none smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1780476021; c=relaxed/simple;
+	bh=K/rKz6b4F77j0xHWzIXpJgeNDf7V610k4bC4qX6dHXs=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=CAjnkncX2WHqKbj2AXXxQArdawp+bjePU5J1KjLqSWsYKvP0dFKrTaOL7vrcYsx+gqKbMltIsiRB+5ZiEsNgxYsNJClRvR90mj6HY+7C5ZNnB3ZGeaxRJM8AOUnN0A8jeLBML60N2Y+Z+SZCW/14w6rc65DSHhhiCeOI8Awz/3s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=NUhbtQtX; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=HgJyHdRS; arc=none smtp.client-ip=103.168.172.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="URnIkHac"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780475430; x=1812011430;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=GB89Y8MUH6tSku1C9M0gHxJRmpls8P2xLSXw0JEWHSw=;
-  b=URnIkHacivOEjAg/0Nt61+3FEBLRA0Suy0zVT1+VoaB2kwv8q67f/z9w
-   Tpy8ZRHa6ohJEJcb894MoZlJucYQlDD8aQplV7mBjeBSX9i5lj5+eQ0Fi
-   DCvrRO7xrbGO+iXc/rb1rowUWmnF1eBe8QQwP2/yeahxW9xI/RVjZCF6U
-   KUWaZv7bfNL4GjSUrzzdyDaKpYjEDOM3Ba48HxA2UwMr/o9fq80AMIY03
-   ukGSOMAbhGlM56ARJYVY8MEzl7hUr5S14SQIE+UkOHh985S51JY9rtmc3
-   QgX6U/iMHsSope4PjHXhTdss5s6Q/Rdfot1mdO9YXr4mIQ6+bzp8QetU4
-   g==;
-X-CSE-ConnectionGUID: mEvPUz1DSiOg8jMWtoKNyw==
-X-CSE-MsgGUID: 3Hx8ZyVbStms9Frs/vwizw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81334805"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="81334805"
-Received: from fmviesa009.fm.intel.com ([10.60.135.149])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 01:30:29 -0700
-X-CSE-ConnectionGUID: gEPMMCICRaWxS+ZoM8eblw==
-X-CSE-MsgGUID: YAWq7yJ2RBqIbyhXr3gn0w==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="237801576"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
-  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 01:30:25 -0700
-Date: Wed, 3 Jun 2026 11:30:22 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Rodrigo Alencar <455.rodrigo.alencar@gmail.com>
-Cc: rodrigo.alencar@analog.com, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-doc@vger.kernel.org, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v15 03/12] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <ah_mHskAN1zljpL5@ashevche-desk.local>
-References: <20260531-adf41513-iio-driver-v15-0-da09adf1c0dd@analog.com>
- <20260531-adf41513-iio-driver-v15-3-da09adf1c0dd@analog.com>
- <ah9EXNnutqk1FoV2@ashevche-desk.local>
- <etbgk2eap5w2db36kqoze7qehp2jmydc5a7stfymqowsqukf45@g2w4zew2zhic>
+	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="NUhbtQtX";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="HgJyHdRS"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfout.phl.internal (Postfix) with ESMTP id 16D21EC013A;
+	Wed,  3 Jun 2026 04:40:19 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-04.internal (MEProxy); Wed, 03 Jun 2026 04:40:19 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1780476019;
+	 x=1780562419; bh=u0muCYJkeE3pAYE8lO+AAxGI4J4BhmqEcwm6uUfo5uE=; b=
+	NUhbtQtXq9p/nvFoC74C/PrIAJqC6bllujDUVKiqxWWnA84ocxtk6uRXfbIl/0cO
+	i+hsW7ELyy2qYZD2v/NxN1RMlqzwe1lDNKCdu2NlTJgw+WAjLh7kNLcNUvHFF1IL
+	iS0C1chljLts+6KV5h3fW2cToPiEtY+E7HpzNCFTtjuVEXmMLr8hF5aFYnz5qPPu
+	5jpwp/wj/+L2ld7X9mG1jvtQ4xDneF+2XBPdk79P3Ql56K9E9vcu4TZUyQY5/AaD
+	5r3MLSfKiI0YGatPMgpPtI4ij8NwkFxqsMoK2JjN0uyACz4x/yDaEJVzW1TrmEye
+	WczvN6GhHr14LUGUgL4gOw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780476019; x=
+	1780562419; bh=u0muCYJkeE3pAYE8lO+AAxGI4J4BhmqEcwm6uUfo5uE=; b=H
+	gJyHdRSTRsWoDpuJsf7SJWxzVfm1dIVxuZktRPwJpnCUOzGt+eynSj4QNtK9VBt+
+	S0jm6E5WhzgLn1SyDpVYUBSPAyx3cEpzi+K9ebItz+nFl6CiEwGs7Xbqf9ufdJ0F
+	qa/urCO67q/hxfjF2KgfogPWFBJBinLYWw+0JH1FT0aLaZa03sYZ0VX349TGDovy
+	oOlFMR1WDmZ7SrE8yYYN3yPPSfYIfwboNX/K3NeY2ciIrkBrKv6s6JXSRk3xYbNw
+	hj6kGHKzTJ0aSoWPQ2EgmZS3TH8LXrOFmGYto7mmloQbPXrzOUc5FMQNpVxRJ/uO
+	w6gwWCx4qVXzbD948xo1A==
+X-ME-Sender: <xms:cugfalkrtFRJoZEYipjnGJLLK79ssZzaBQRS3TZRTQSDuOKjgz22sw>
+    <xme:cugfaro-Q--4yh0osdZvzxv0hW7y5fXjZZsBFqn6EK_9MbAhq0cmAWn5pv9BvklDV
+    DuUbHK9IKnjTvfYwrB8FjKhhzqrLTyO3gPhI104YnODxkuadkDtEQ>
+X-ME-Proxy-Cause: dmFkZTEjqkwl1pkbDArUnxuEE9GIScT8QO+8RvSWozOv35+sUiTP6ILEcbWB6RLnpvoP3a
+    Ba61CieoqCG+XP2aXBG06Q49zacl1TWZDij9mZ5F82zfTe0jpnrLGMRNbdJvC0FPseuIsm
+    0bTvDzAJDmxhsFLm1cIDD7h68Tco7NgQlFArcyK+9QG8qy/n3pGwgDvY5ukcuRNs+0M9Es
+    CkDowBjDl0Z7YoMuJbADt1w+VnwwQpS8eG6cRxSftCj6tJJ3THuMsY3pr6Lx6fWTZ1EpjI
+    xJvy7fGjVZ/qLMZ7wJa+egFrb1Phw9ygMsklLoOz7gzYuZSTsHb8OctXMhBoqT3RZDHmgx
+    L2BxiLdoF2oa4ypW459jUGwxzF66/Jzr+vCRHuIgIlZUuJZcwvn0f1gibdnq1sRwk6uPJi
+    568djrU1KhUo8av09KNlw3EsHTbJOkngAG+4TtOWgMOiWV9+nfNK5FBg1RLW17c3nXSyzP
+    wAtOx3pWkzFQAyyYKnPlMPfz+eFWVFsDs2z/aWRf9GhXdKFGu9r7CudNWQO0Dl+CpIZfIi
+    ASP+fYv1QfWjokvSqf6xIOP4CayS/+SjmH0wfKidhsSKCZjNVzWIjtj6QL0xlcAp6frGEb
+    I+etpvMfP7exP71LFKgjYtw3I9VIbYnQdH/I88cL0oi3r60YQmb0pXuVXW4A
+X-ME-Proxy: <xmx:cugfajihGlrX1kAJ-qiBxOhBd6SoT11j81dCPcitNeQOHm3I40ydkg>
+    <xmx:cugfarAFq-uIuJD1OXMgI1b5z3zRJseXAfN79wfjPDKdzqCpeRM7sA>
+    <xmx:cugfapve9avYfSV3IYPTPCKmiab9e2uk2aroJolroF4YFoy1nwdoqw>
+    <xmx:cugfat4b3L2DC-G2_6QuNaEqhcEOJLKzCKayrLi7ZD_PVZaeeu5q9Q>
+    <xmx:c-gfanApLeFI2REDd8kclC9auE-RF1W7wpIXdJ4H7oN0pt4tTUxk6jGP>
+Feedback-ID: i72694427:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 3B73B18E006C; Wed,  3 Jun 2026 04:40:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <etbgk2eap5w2db36kqoze7qehp2jmydc5a7stfymqowsqukf45@g2w4zew2zhic>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-ThreadId: ABg7bcuugZBJ
+Date: Wed, 03 Jun 2026 10:39:24 +0200
+From: "MINETTE Alexandre" <contact@alex-min.fr>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>
+Cc: "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "MyungJoo Ham" <myungjoo.ham@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Guru Das Srinagesh" <linux@gurudas.dev>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
+ "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
+ phone-devel@vger.kernel.org
+Message-Id: <50c433df-d737-45da-93dc-76d365052a6c@app.fastmail.com>
+In-Reply-To: <20260428-jumping-discerning-oarfish-d2caf1@quoll>
+References: <20260427-mainline-send-v1-sending-v2-0-dcaa9178007b@alex-min.fr>
+ <20260427-mainline-send-v1-sending-v2-7-dcaa9178007b@alex-min.fr>
+ <20260428-jumping-discerning-oarfish-d2caf1@quoll>
+Subject: Re: [PATCH v2 7/8] ARM: dts: qcom: pm8921: Add USB ID extcon
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Jun 03, 2026 at 09:13:40AM +0100, Rodrigo Alencar wrote:
-> On 26/06/03 12:00AM, Andy Shevchenko wrote:
-> > On Sun, May 31, 2026 at 09:30:46AM +0100, Rodrigo Alencar via B4 Relay wrote:
+Thanks for the feedback, Krzysztof.
 
-...
+Do you mean that the PM8921 USB ID handling should be exposed by the
+PM8921 parent node itself, so USB consumers would reference the PMIC
+directly, e.g.:
 
-> > > +static int _kstrtoudec64(const char *s, unsigned int scale, u64 *res)
-> > > +{
-> > > +	u64 _res = 0;
-> > > +	unsigned int rv_int, rv_frac;
-> > > +
-> > > +	rv_int = _parse_integer(s, 10, &_res);
-> > > +	if (rv_int & KSTRTOX_OVERFLOW)
-> > > +		return -ERANGE;
-> > > +	s += rv_int;
-> > > +
-> > > +	if (*s == '.')
-> > > +		s++; /* skip decimal point */
-> > > +
-> > > +	rv_frac = _parse_integer_limit_init(s, 10, _res, &_res, scale);
-> > > +	if (rv_frac & KSTRTOX_OVERFLOW)
-> > > +		return -ERANGE;
-> > > +	s += rv_frac;
-> > 
-> > > +	if (!rv_int && !rv_frac && !isdigit(*s))
-> > 
-> > Do we care about isdigit() here? Why?
-> 
-> The check here validates the presence of digits, and
-> this is to cover a corner case with scale = 0 and s = ".5",
-> which is considered a valid input and leads to rv_int = 0 and
-> rv_frac = 0, outputing res = 0
+  	extcon =3D <&muic>, <&pm8921>;
 
-Please, add a comment on top of this check.
+I am fine with that model, but it would require more driver changes: the
+current extcon driver binds to a separate platform device, while the
+PM8921 parent node is already handled by the PM8xxx MFD driver.
 
--- 
-With Best Regards,
-Andy Shevchenko
+Is that the direction you would prefer for v4?
+--=20
+  MINETTE Alexandre
+  contact@alex-min.fr
 
-
+Mar 28 avr 2026, =C3=A0 08:56, Krzysztof Kozlowski a =C3=A9crit=E2=80=AF:
+> On Mon, Apr 27, 2026 at 09:34:53PM +0200, Alexandre MINETTE wrote:
+>> Add the PM8921 USB ID interrupt as a disabled extcon provider. Boards
+>> can enable it when their USB controller consumes the PMIC USB ID state
+>> for OTG role detection.
+>>=20
+>> The interrupt corresponds to PM8921 USB_ID_IN, block 6 bit 1.
+>>=20
+>> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+>> ---
+>>  arch/arm/boot/dts/qcom/pm8921.dtsi | 7 +++++++
+>>  1 file changed, 7 insertions(+)
+>>=20
+>> diff --git a/arch/arm/boot/dts/qcom/pm8921.dtsi b/arch/arm/boot/dts/q=
+com/pm8921.dtsi
+>> index 535cb6a2543f..30366536f580 100644
+>> --- a/arch/arm/boot/dts/qcom/pm8921.dtsi
+>> +++ b/arch/arm/boot/dts/qcom/pm8921.dtsi
+>> @@ -121,6 +121,13 @@ ref_muxoff: adc-channel@f {
+>>  				reg =3D <0x00 0x0f>;
+>>  			};
+>>  		};
+>> +
+>> +		usb_id: usb-detect {
+>
+> You should not mix non-addressable children with addressable. If you
+> really do not have address, but other children have, then probably this
+> is part of the main device, so should be folded into the parent node.
+>
+> Best regards,
+> Krzysztof
