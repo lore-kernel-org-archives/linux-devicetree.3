@@ -1,117 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DU2PR03CU002.outbound.protection.outlook.com (mail-northeuropeazon11011061.outbound.protection.outlook.com [52.101.65.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DD630677E
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 13:33:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780493632; cv=none; b=VWvN2zpUZN8dmloTm66Eg0E3bNTUF7/YCrzPnX5R5Qq73C2DSmc3r1pXQphBImEdlzu2vs69Vt6cRyzR0Ot4VcHZ9dqZwkC6/QHJC+qWtJACaLCZd9VD5WvvIS7GjA1Apb27Gop5tP4b4NJuTPd08cNyXBiY21qT8HA6Bjzilhw=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780493632; c=relaxed/simple;
-	bh=L5DYClKodw4CfKVAdBP2EearXWSdEDHhxvv7whGfN6s=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ChGMWWpsjjhjKJKjbOQEIF3KSDHBZ4NCqoiqpiFV4VseBlfGrMUQQsaqaXgWE0NER5Ywxb8ivL2zdZYz+rEGx8QBRVgxXn3dd7PfgnBfBpvXFfQmvcZPtcSUcex5auF3/CopqZQRJivpuwVLr+tdS/q/5McSb22I6azxarsqFxM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k71CKX4F; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65BAA175A70
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 13:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.65.61
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780493913; cv=fail; b=Dw9NeVf1AR/nhRAd21laKTHEI6N6mcJNDXBnSK9FuOKmUBmLwi0hp1rFxm+yuyqIAkMUnnD1tYYiE/4nv1t816G7DVFT8qsd5gH1oPsdDoP8f6QMyrOa1rAnVRfCLmDVJroVbhGCAjo2EMe5fwAcxbogwcsSQD5SwD0v2/UrhKA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780493913; c=relaxed/simple;
+	bh=/52W+v3+eqzIjJSh13w4oaJdtWhsmCghM9wCEjpgpRQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=gYscsdBKssBi3NxU2xnTzzhq3aY19+5UW/Tyxrqi0erFM/zJDJIb+Q/2MQsWQD7ToikVllqO9zUX+27QWonzCxsIKGRituUlnpGVTNWpmP71gaszbwmfWQVOr6pYWBud+xYTm3noV44Ol7Bqujjgpgw5eihCKjFB4A1sZ6jLaoY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=dWRv7ely; arc=fail smtp.client-ip=52.101.65.61
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k71CKX4F"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9FA271F00893;
-	Wed,  3 Jun 2026 13:33:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780493631;
-	bh=rf2E9prqrL8aqRMvl7nVjS6YDnGr6PghVVVhphnS4lA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=k71CKX4FWp5Fr47ZRqNVsR7dFi3/eltyROPQqTjkI0GksY7PTj+aMuwCtCyEb1u8f
-	 29UFIPP/iEzlbEffF6FnzeJZXG89gqsO/+17scEuRWySfeoBp7HGi3y3kiu/sSVvfu
-	 Qu0tZ0zgeFiuzakTHyGjKoV28waH2pwLr8cCMyCnhqkOEQiBgE/k+l0gn52sh3c2je
-	 bNxE3a08uF4zVrlWMjOTZjWc+pQI0UR24DEdueU05Bl33w4UuyU9YuCpk/zpsmXXam
-	 0+Q/570UGY/y5HFNwhgeJXjnRxz5rRcsBZ+o6+x6v0bZxv3QL5xIsyHDwiczY0jDKQ
-	 pem2nWzpNaSwA==
-From: sashiko-bot@kernel.org
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="dWRv7ely"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Egq4JnGUM8uKfwDxU5IfMP5NfnxIjLeij5WpHZWKPtTOWOnPsuywX3q6NibQzluJUTo/eyfmHUJbP8+T3F8vfR1xnD4H/yqKZmXXbsS86UEzzdXt2XFsfVoZEyrY/uU88eZb8zQt843Qc2gh7fuoSV3rjI7RUuFjyfNYpWRdo0UiTTcjoXzJyrRlkiyRl4k6jlp0+tZAaIUiWh4ACdBBq2lgWECcdoXir/2xs0cq9SQV8eYhPBmQZHkf8AK/Gs+NkvzsI2HBvpA/MkMt5lPOKMBWV2g9k+k7+8OyJwNzX1k2+9N9K9oMxpuvuphG8yFa1Id3foUs9K2DpkB+U1eosA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=2NvoXCKga/6ELGsMNVHpXOXKyCVg0Hq6KZJbE04Fcrc=;
+ b=lLbG3/k7R3y6fI//ttCHsMo8FRYZ0fg4/6q4Q+P3/nN6F/nktxtPJq4RIn8rj7LUBl5fq4VvxS0RgUAUdvWaK+pcjjEulmicetdcQtALiLqT6F7LdVOBMcwGl9335qU1bYrIrR8YwbsxX9hYqSDAcU/P5nvoqKF0FOdcO61CAr0uA7XjJ4L0RATQ5p/yD+um35KOUTOdONChAVBTqPcOCWpB9PPakaPS0EFv5BU2MWJ4tFmv3usHZr5UJ9DfxKO6p7qDxue8cBlBI5rKu1sPZztPVQJgT45HKtnfBb8r73vkFdmGnswb0YpLppHzq9yoXiSJFlFAGwwJi3+RttupTw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=2NvoXCKga/6ELGsMNVHpXOXKyCVg0Hq6KZJbE04Fcrc=;
+ b=dWRv7elyPpqKJqqg6ZasrDlD1jUYm5P6grui/ewBnNxTgyGTNUxUD/gM9OhIYMqnCqrX3h+1WDSFyB70xFQAxbUnvTvgPNdXcPdJGuvKalAbkOcqFwPftwazkm2gG9O4wNXbzYPJaT2NCQkf3mUAN0KdI8Ws+PrAfc0gbZYkkeI3dT3lNlK1qBd0D30nffO6HBva2MfGZq11w7dy+pVzOXKq/hDuNySvMUmxc7STgHLHmT4fnBK1hBG29HskScT4udGrsovrS6fUF5Kub5KEMPIjwkEbfk9axKkS7tBrKTnyew5ACz7gCzpYmhjWTJoQ9UnSHp4vtj+GCh2qOjJXNA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by AM9PR04MB8422.eurprd04.prod.outlook.com (2603:10a6:20b:3ea::15) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 13:38:29 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 13:38:29 +0000
+Date: Wed, 3 Jun 2026 16:38:25 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org,
+	conor+dt@kernel.org, linux-phy@lists.infradead.org,
+	devicetree@vger.kernel.org, olteanv@gmail.com
 Subject: Re: [PATCH v3 phy-next 14/16] dt-bindings: phy: lynx-10g: initial
  document
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vladimir Oltean" <vladimir.oltean@nxp.com>
-Cc: robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, conor+dt@kernel.org, linux-phy@lists.infradead.org, devicetree@vger.kernel.org, olteanv@gmail.com
-In-Reply-To: <20260603132059.503527-1-vladimir.oltean@nxp.com>
+Message-ID: <20260603133825.l544tnmtn2pqfrzh@skbuf>
 References: <20260603132059.503527-1-vladimir.oltean@nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 13:33:50 +0000
-Message-Id: <20260603133350.9FA271F00893@smtp.kernel.org>
+ <20260603133350.9FA271F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260603133350.9FA271F00893@smtp.kernel.org>
+X-ClientProxiedBy: MR1P264CA0027.FRAP264.PROD.OUTLOOK.COM
+ (2603:10a6:501:2f::14) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AM9PR04MB8422:EE_
+X-MS-Office365-Filtering-Correlation-Id: 231b0170-365e-4dc4-13a3-08dec1756590
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|10070799003|376014|1800799024|19092799006|366016|56012099006|11063799006|4143699003|3023799007|22082099003|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	2KTBzM+5hZypX7UUiV7ZXajDZ+Gxb8BTkzRQmJ+8SBTXv+5gMAUz0XJJ+iJQsrdXUOjvlyO/rAJ/zwK19vQ8gWithZhZ7BNYnFCWlVaaIHqHFozHyQXtvRvYaumz1VSfJJTcSlQlaFKzcpjGZuAWGaQtJ6GUt9x91q+uskJ4rc9D1Er+FQiiD19+9gTz7HEZMGblWmQg2NuZU2r/fe2Tq2AzuBKpkBlGzi6Mjp/NZWdGNcpk5opuUaWH+zLeX9sz5CHjtJuQcASjET40fCwyxmGX8yGTYQufBhJG7X1KuXuDON7cIRLAntXCIUnmVPUbDvReVQvjzfPGaO4ixAWu53EwbPgdaAhQubJ+gQWhqYEbP5frnEpoSuOAlpZBvSjAQwEXD55oJBfAuYngTSESqweuRpVskN9FevBBXaisb9dXiKFCjzRQ/YpigmS1VLeZCi9vhCmJgVld3VycDiZBzG9NYf2P5r3Y0Ow3GtJN26TF7e1s2nvj4nuDLTeUDKNRqwHWcpDryAVPkG8egWYxo6Fi7XcE3QESPOuIK25geUpRka2zq/fHzoRIZ/DH6v95FNS4pO9fjLiJXk5dCyBt84z0Nlr7ASay/y+9pW+rpOahOQuHUXMFjbvvzWYh0H/eSTCrDCgZ2H10VPKc/MnrOZJMt5SQGUZci2ibDnSW9BgV8DHfKgGfu1ajCyfd6ejW
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(10070799003)(376014)(1800799024)(19092799006)(366016)(56012099006)(11063799006)(4143699003)(3023799007)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?thyimy7wiAfmReuCn7IPcXFVT0bSwSnlHKdZfP180eGw8qT3V5TtcPvtiKIu?=
+ =?us-ascii?Q?/Hz1tLvhco7ScBEyNcHE7l7CmpPx7HI1mtAhap4aAcvENz5f5lD7hSmNyHgb?=
+ =?us-ascii?Q?CTbmTlMdUaHORYtZkzgCR5znSunWvJcaZ/nxVHgvb1gK77YcJa5Gs5votHcv?=
+ =?us-ascii?Q?TsrvB879ZGQUe30sD7J575Xux7PmMKIozO5OKttTYg7QndiQcHmRx2iQvoql?=
+ =?us-ascii?Q?e4sChYDHlThe4lVrl8bki5+BNqV+b1FG2eVHdqXT+Yyz46bH6Dnf0NFUKddZ?=
+ =?us-ascii?Q?f7Op14k2b9ivVwhzgl68+zSaRTjElLBuGSWCOHtLVDMPf8UQUwiN17oUtpUl?=
+ =?us-ascii?Q?ZNIGKHQ/nNC+PTWIleIUnsGUWMZ5tSINQYyCFeoEXuPGYwCYunWJy2pA02w9?=
+ =?us-ascii?Q?7/LPXkKgcroG3jQCUqR7L0zdU3utrdJd8R+DlYfr1B8R+5+Gn/ObsMAqTAT4?=
+ =?us-ascii?Q?R6DdVKPdKIziknfJqstPRmjekAkI+4ww4WGYv+DrERQI/+izlrqVQf9eLIJ9?=
+ =?us-ascii?Q?svVYJ4nBKe8FTnNOoL8RlGyfUXrOxnrATi3F3lhLyaIUl36zE1kcMxuNiPgQ?=
+ =?us-ascii?Q?r1sAK+khYoJbqE6+O5rvqIZNlG3tqLCz24GxX/rZdbaTMsHsYOEMSFPM5cCk?=
+ =?us-ascii?Q?zT5HzeWK6Q36mKARsjbH4wzWnAjQaXOZIQvFfv1qHJYGxjp38o/c89hotG99?=
+ =?us-ascii?Q?/DGYQZAdm1iVC8foPeu7dgFk56NcXwCWtGRgHpDmCo0bdeyzGbyTJwDKTC4l?=
+ =?us-ascii?Q?Wq8dyRkOPngdO/My3/1TkZ5P1PUlam3UnmcCm0rZoXElCp5ROBcYOetOH+QW?=
+ =?us-ascii?Q?6SARToBTBgdqI+TEnJLWT0Vf4xqwKsnhF6VxooCnqEyDKCZF14786mGDVlN0?=
+ =?us-ascii?Q?g4KRmnJGGEx1wgluQ2id7G0twDXConWzHH+grqebmyEePECb31kpF2587XOZ?=
+ =?us-ascii?Q?gDg95fFPV63YA+bI/Bj7R2d7NrU/CXa4vVNszRyif7UJRbE8Fb1oSJjbt7eQ?=
+ =?us-ascii?Q?RziwcdWA92/iYtgKRuWU+H5TZ2s8BG5cIgXwizLk6b4wYLxcwYnN+vGRSutn?=
+ =?us-ascii?Q?Q/mosxy+wz+x0DX5X/GqiDe+kS2l3yi6/uCFmCloqh3O2DKRf51JCnaO+gs6?=
+ =?us-ascii?Q?+d+wxBIkpVV5KNrv/35Jqcfax5Xk4BFp4lsm1eYkOtO+hi0m8n9BBUT4IElz?=
+ =?us-ascii?Q?L2mYsQGqBATnoLv3lLgf30QzF1z82ooTNlqorOebaU4qWSoszOmIjO81ik4I?=
+ =?us-ascii?Q?gmpIYNoxFm4uuzKAH4jJ2kYx4zttMpTHAE3aPnXivDobqR48hT+NGwWfFjEX?=
+ =?us-ascii?Q?8B/vjq5yN/zuH50QwwiZ6Bo8u5RWw4lVnemWGwg3XUo901+MvH1KCcT2eLhe?=
+ =?us-ascii?Q?FR7BbDhEcTb70SLMw7DSpq9Wcmu01Zhn/lkTnE1SUDzz3fvaNB7HAj3ds77Y?=
+ =?us-ascii?Q?cLgC4z6MLqlmHM97dVEWnoHzypXaaKX5y1TkJHdK5yMX386wi6Ph+fZEZNii?=
+ =?us-ascii?Q?CHfy9Z/2lkDPrHkx6GsTqamdCzNRKjJrzCxG85e5lE5NiC0yNHBqMev0L9Vx?=
+ =?us-ascii?Q?a7uTJq+NO98u+IhsVLrsTljIJWjQO+aSlMl1omf1kmJbx+VpgmxC8xIUyoib?=
+ =?us-ascii?Q?Go+mgdbKnyZ5SNVm2LXypW5Whocu1fP9ILMDHt4tFusTjZXOdc2qcCSX1MkU?=
+ =?us-ascii?Q?MINVE+A16itH219Z6uAkrhpzFuSedSGMFkh3cqsOD+FXeUAuTCAH4XVGrKH3?=
+ =?us-ascii?Q?jx+jTpogIgzHgywaVcZroOAA8nwGUqXeiMOUBk/RBbaeJTnwFpmYeYegN6y9?=
+X-MS-Exchange-AntiSpam-MessageData-1: PQqqtWliyCqkpaBYog/BrxQibuIaQ6nHW8M=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 231b0170-365e-4dc4-13a3-08dec1756590
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 13:38:29.3452
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Uw/2Ob5S8HGlQEm/Z+prCz11JiWE0RGwFMpkC2PKhERevvB7Ss38PY1yrDcJyB64mzBA6B8rDNQyP+jVPmraOg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB8422
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The `if` condition for enforcing the `big-endian` property incor=
-rectly matches the `compatible` string array directly against an `enum`, wh=
-ich will always evaluate to false and cause the requirement to silently fai=
-l.
---
+On Wed, Jun 03, 2026 at 01:33:50PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Medium] The `if` condition for enforcing the `big-endian` property incorrectly matches the `compatible` string array directly against an `enum`, which will always evaluate to false and cause the requirement to silently fail.
+> --
+> 
+> commit 8bd3982a89722b20a3686e42d4ab3b9f0711ae11
+> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+> 
+> dt-bindings: phy: lynx-10g: initial document
+> 
+> This commit adds the schema for the 10G Lynx SerDes used on most QorIQ and
+> Layerscape SoCs. It defines the valid compatible strings, PHY cell requirements,
+> and enforces SoC-specific constraints such as lane counts and endianness.
+> 
+> > diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> > new file mode 100644
+> > index 0000000000000..8cf6027a75b91
+> > --- /dev/null
+> > +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
+> > +  - if:
+> > +      properties:
+> > +        compatible:
+> > +          enum:
+> > +            - fsl,ls1046a-serdes1
+> > +            - fsl,ls1046a-serdes2
+> 
+> [Severity: Medium]
+> Does this conditional correctly enforce the big-endian property? 
+> 
+> Since the compatible property is a string array in device trees, evaluating it
+> directly against an enum always returns false. Should this use "contains:" 
+> with the enum, similar to the preceding if block, so dt_binding_check 
+> correctly enforces the requirement?
 
-commit 8bd3982a89722b20a3686e42d4ab3b9f0711ae11
-Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+The tests I did suggest that it does enforce the requirement.
 
-dt-bindings: phy: lynx-10g: initial document
+- "make dt_binding_check" passes with the submitted example
 
-This commit adds the schema for the 10G Lynx SerDes used on most QorIQ and
-Layerscape SoCs. It defines the valid compatible strings, PHY cell requirem=
-ents,
-and enforces SoC-specific constraints such as lane counts and endianness.
+- If I replace "fsl,ls1028a-serdes" from the example with
+  "fsl,ls1046a-serdes1" but leave everything else as is (implying:
+  little endian), I get:
 
-> diff --git a/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml b/Do=
-cumentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-> new file mode 100644
-> index 0000000000000..8cf6027a75b91
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/phy/fsl,lynx-10g.yaml
-
-[ ... ]
-
-> +allOf:
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          contains:
-> +            enum:
-> +              - fsl,ls1028a-serdes
-> +              - fsl,ls1046a-serdes1
-> +              - fsl,ls1046a-serdes2
-> +              - fsl,ls1088a-serdes1
-> +              - fsl,ls1088a-serdes2
-> +    then:
-> +      patternProperties:
-> +        "^phy@[0-7]$":
-> +          properties:
-> +            reg:
-> +              minimum: 0
-> +              maximum: 3
-> +  - if:
-> +      properties:
-> +        compatible:
-> +          enum:
-> +            - fsl,ls1046a-serdes1
-> +            - fsl,ls1046a-serdes2
-
-[Severity: Medium]
-Does this conditional correctly enforce the big-endian property?=20
-
-Since the compatible property is a string array in device trees, evaluating=
- it
-directly against an enum always returns false. Should this use "contains:"=
-=20
-with the enum, similar to the preceding if block, so dt_binding_check=20
-correctly enforces the requirement?
-
-> +    then:
-> +      required:
-> +        - big-endian
-> +
-> +additionalProperties: false
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603131914.5030=
-53-1-vladimir.oltean@nxp.com?part=3D14
+$ make -j 8 DT_CHECKER_FLAGS=-m dt_binding_check DT_SCHEMA_FILES=phy/fsl,lynx-10g.yaml
+  SCHEMA  Documentation/devicetree/bindings/processed-schema.json
+  CHKDT   ../Documentation/devicetree/bindings
+  LINT    ../Documentation/devicetree/bindings
+  DTEX    Documentation/devicetree/bindings/phy/fsl,lynx-10g.example.dts
+  DTC [C] Documentation/devicetree/bindings/phy/fsl,lynx-10g.example.dtb
+Documentation/devicetree/bindings/phy/fsl,lynx-10g.example.dtb: serdes@1ea0000 (fsl,ls1046a-serdes1): 'big-endian' is a required property
+        from schema $id: http://devicetree.org/schemas/phy/fsl,lynx-10g.yaml
