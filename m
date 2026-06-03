@@ -1,113 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDF263F4DFC
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:01:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D0453ED5BE
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:04:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780466485; cv=none; b=dzRppPotXNwY1sswB5fs8OfKAl6SGBt0IEquZKytj/aQCy1oPyVacRjbgdPB2qQbWFHbltCWRphNVI5CkIjxMCdyK165IQKMdpr+GVOkaq88KHmEiDolB4eTeUUqrSeEl0BEPTY4mlm50UxDaN4khSWhALdF6+kPXG80EjJa0QQ=
+	t=1780466670; cv=none; b=iDKL42jt65mF4N/N4kInkKK5cqUkfV+lBhkp6Fjcc23IIelHMIJ62TS0gEdZ0q/xIxnOVDsZQaxfdm6kbDrlG33cpz6hSvb6quS1RQdV6pN3XOZeEU9iNgxMu3jT8zO1aTviEau6Bv20MQwsBdTzvdZ/wHoaxJ33QTA/aiH+N00=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780466485; c=relaxed/simple;
-	bh=tnpQMvXDN96HZn5Z7cry12pz5PIevfE/ZtGfrRECNPw=;
+	s=arc-20240116; t=1780466670; c=relaxed/simple;
+	bh=Txx0m0u/wIQ2Eb11pzACye+GWqNgGbdzXmkuYuJw1vE=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=OT2sjznSA35Ffs4zwLYq18yVrjjQlYw970C3PeO+3F3AClOpW8m+MGzg9mROxXbiQkOMKZ7W6rJLSQaPXKSVN2JS9wjkvo0BMnKvC1gYNRKySAjQ+bqSZ4PlceVplF30Z1BOVoPueSYyt8PZgMTYvyg3WOBuBtFGdHQLGBu8p+A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TcOIEXR6; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=BNK44DX5/55rBNtwugZ1A3WGMi8qWhDiBP5CErXi1czd11EYPN+aBCrPkKTywQ5SaLdOipU9aRPAnPh9vP2kHdPtzOjl0A9TR/ecoXhPppXsCgUfXy1IFdqrbuyhnAqk9AkSb5rzNoxadyrXJMYeRN63nVzQ9PdY0AL3BT97SsM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D9KyRGSn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TcOIEXR6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4767F1F00898;
-	Wed,  3 Jun 2026 06:01:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D9KyRGSn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6368A1F00898;
+	Wed,  3 Jun 2026 06:04:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780466484;
-	bh=6abASxgUjg/+2t9e2EVFKYsT9rgNnOLlhIKwVas6Z8w=;
+	s=k20260515; t=1780466668;
+	bh=KYTllQXUj2SscBlwr48WhRn92uq5ux2V65wcmEsrFLc=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=TcOIEXR6BZQZFXQKpLhSxlqBJjee+WRt6Ue18uNaw0JdcSw+kfHD0TdqxXPKmGzdm
-	 KzdH7dZJYF+47WwCRr1NGhDWfbC0vP+EJTEf2IkBLt1OmxYu13RO7ywuFLgtqa75+j
-	 4nnzjYm2VZY2AJkE11EqApUzLTkeE/ofRriimPOYwzanRBsMqB/q/bZJ+8jnvsAOnw
-	 FkAm2KqWDtjuQCwmUbmBylGW9f1odC9eyMtRnsUUoMfArkBuoDbqL6/vDuK0J3zVI7
-	 I3Q+MqC+w26J9ELCqW0J4VFDS+bf+3zfri6gaQrhElBMnxQey5BgtEOGOdYavPOHU2
-	 cmNy38SvwqQIA==
+	b=D9KyRGSnj1ZwdHMszQf26N8Jcq8+JZhMni0gT7Psaz2zmY6p/cf97jeSj+fNcyNwc
+	 H6TLDrNYvy5loqGFCXO2qXCrTvf8tSevXmHvtHDWeCBCc8gzuAK08/ZP3qoQBrrcBv
+	 /75tQ4vc63NmkdgT4NsJcHmpT9MlbP/BsQS5s/HP1I/PU9y/0lpPp/qxPsFLveZimj
+	 QVXWrzfhT9a7ZY+lW3lo+t+/8pwzGyG4BGo/b9PYfMGiAdiXOOE9l1YqPSoqv1IoWj
+	 QpmMA0Y1O6roEWd1qw/6PIKur8F8Ao/3Em9/ItewS/nlirbFywQgkgLRmWeX4Lua7e
+	 KG25G9G4vockQ==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] phy: qcom: usb-hs: honour qcom,vendor-init-seq raw
- ULPI writes
+Subject: Re: [PATCH v31 1/5] dt-bindings: i2c: Split AST2600 binding into a
+ new YAML
 Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk" <github.com@herrie.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, vkoul@kernel.org, neil.armstrong@linaro.org, linux-phy@lists.infradead.org, olteanv@gmail.com, conor+dt@kernel.org
-In-Reply-To: <20260603054809.565723-3-github.com@herrie.org>
-References: <20260603054809.565723-3-github.com@herrie.org>
+To: "Ryan Chen" <ryan_chen@aspeedtech.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260603-upstream_i2c-v31-1-ba7a02714f22@aspeedtech.com>
+References: <20260603-upstream_i2c-v31-1-ba7a02714f22@aspeedtech.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 06:01:23 +0000
-Message-Id: <20260603060124.4767F1F00898@smtp.kernel.org>
+Date: Wed, 03 Jun 2026 06:04:27 +0000
+Message-Id: <20260603060428.6368A1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
 s) to consider:
-
-Pre-existing issues:
-- [High] Using `seq->addr =3D=3D 0` as a loop terminator prevents writing t=
-o offset 0 in `qcom,init-seq`.
+- [Medium] The dt-binding YAML example uses incorrect clock and reset defin=
+itions for the AST2600 SoC, which maps the I2C controller to the wrong hard=
+ware lines.
+- [Medium] The newly introduced AST2600 I2C binding schema file is not regi=
+stered in the MAINTAINERS file under the ASPEED I2C CONTROLLER DRIVER secti=
+on.
 --
 
-commit 23768611bb7332cb583754c2260443d91ea51fb4
-Author: Herman van Hazendonk <github.com@herrie.org>
+commit ac52f88742bbf18c3be4d1bbc7f7a9f7bd2850ae
+Author: Ryan Chen <ryan_chen@aspeedtech.com>
 
-phy: qcom: usb-hs: honour qcom,vendor-init-seq raw ULPI writes
+dt-bindings: i2c: Split AST2600 binding into a new YAML
 
-This patch adds support for the optional qcom,vendor-init-seq DT property
-to write directly to raw ULPI register addresses. It also hardens the parse
-logic shared between qcom,init-seq and qcom,vendor-init-seq by factoring it
-out into qcom_usb_hs_phy_parse_init_seq().
+The AST2600 I2C controller introduces a completely new register layout
+with separate controller and target register blocks. This commit moves
+the AST2600 I2C binding into a dedicated aspeed,ast2600-i2c.yaml schema
+and adjusts for AST2600-specific requirements.
 
-> diff --git a/drivers/phy/qualcomm/phy-qcom-usb-hs.c b/drivers/phy/qualcom=
-m/phy-qcom-usb-hs.c
-> index 98a18987f1bec..89fbe8f8d0015 100644
-> --- a/drivers/phy/qualcomm/phy-qcom-usb-hs.c
-> +++ b/drivers/phy/qualcomm/phy-qcom-usb-hs.c
+[Severity: Medium]
+This patch splits out a new file but misses adding it to the maintainer
+index.
+
+MAINTAINERS:
+ARM/ASPEED I2C DRIVER
+...
+F:	Documentation/devicetree/bindings/i2c/aspeed,i2c.yaml
+
+Since there is no wildcard covering the directory, will get_maintainer.pl
+fail to match aspeed,ast2600-i2c.yaml to the ASPEED I2C maintainers?
+This regression means the primary maintainers might not be automatically
+copied on future patches modifying these bindings.
+
+> diff --git a/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yam=
+l b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+> new file mode 100644
+> index 0000000000000..abc614315dffb
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/aspeed,ast2600-i2c.yaml
+
 [ ... ]
-> @@ -199,6 +219,59 @@ static const struct phy_ops qcom_usb_hs_phy_ops =3D {
-[ ... ]
-> +static int qcom_usb_hs_phy_parse_init_seq(struct ulpi *ulpi,
-> +					  const char *propname,
-> +					  struct ulpi_seq **out)
-> +{
-[ ... ]
-> +	if (size) {
-> +		int ret =3D of_property_read_u8_array(ulpi->dev.of_node,
-> +						    propname, (u8 *)seq, size);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +	/* NUL-terminate so the power_on loop's seq->addr-as-sentinel works. */
-> +	seq[size / 2].addr =3D 0;
 
-[Severity: High]
-This is a pre-existing issue, but does using seq->addr =3D=3D 0 as a sentin=
-el
-prevent writing to offset 0 in qcom,init-seq?
+> +examples:
+> +  - |
+> +    #include <dt-bindings/clock/aspeed-clock.h>
+> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
+> +    i2c@80 {
+> +        compatible =3D "aspeed,ast2600-i2c-bus";
+> +        reg =3D <0x80 0x80>, <0xc00 0x20>;
+> +        #address-cells =3D <1>;
+> +        #size-cells =3D <0>;
+> +        clocks =3D <&syscon ASPEED_CLK_APB>;
+> +        resets =3D <&syscon ASPEED_RESET_I2C>;
 
-In qcom_usb_hs_phy_power_on(), the initialization loop terminates when
-seq->addr is 0:
+[Severity: Medium]
+Are these the correct clock and reset definitions for the AST2600 SoC?
 
-	for (seq =3D uphy->init_seq; seq->addr; seq++) {
-		ret =3D ulpi_write(ulpi, ULPI_EXT_VENDOR_SPECIFIC + seq->addr,
-				 seq->val);
+The example includes the legacy <dt-bindings/clock/aspeed-clock.h> header
+where ASPEED_CLK_APB evaluates to 26 and ASPEED_RESET_I2C evaluates to 7.
 
-Since seq->addr represents an offset added to ULPI_EXT_VENDOR_SPECIFIC
-for qcom,init-seq, an offset of 0 is valid and maps to the first vendor
-specific register. If a device tree specifies a write to offset 0, won't
-the loop prematurely terminate and silently truncate the remainder of the
-initialization sequence?
+For the AST2600 hardware, clock index 26 maps to ASPEED_CLK_GATE_UART5CLK
+and the correct I2C reset index is 34.
 
-> +	seq[size / 2].val =3D 0;
-> +
-> +	*out =3D seq;
-> +	return 0;
-> +}
+If this example is copied into an AST2600 device tree, will the driver
+toggle the UART5 clock gate and the wrong reset line? This regression could
+cause the I2C bus to fail initialization and disrupt UART5 operations.
+
+Should this use <dt-bindings/clock/ast2600-clock.h> instead?
+
+> +        clock-frequency =3D <100000>;
+> +        interrupts =3D <GIC_SPI 110 IRQ_TYPE_LEVEL_HIGH>;
+> +    };
 
 --=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603054809.5657=
-23-1-github.com@herrie.org?part=3D2
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-upstream_i=
+2c-v31-0-ba7a02714f22@aspeedtech.com?part=3D1
