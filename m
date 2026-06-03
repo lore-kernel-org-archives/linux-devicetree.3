@@ -1,210 +1,264 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.12])
+Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19010027.outbound.protection.outlook.com [52.103.23.27])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05C7131F9AB;
-	Wed,  3 Jun 2026 06:39:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.12
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780468793; cv=none; b=ixNJi7AnXolGJ07eoAjJM9YvzKNQ5v84HNdCQMhxkVt9cEH4cjmd0L6QKsTt9/GhEueIR8demY37OUV+9oFJJLys8/w70Zc57bsG+HCPdTzJTTh4Ovfji168IqcWAK2Ax5ejc9Qa7sNHLam4tyHbeCmLFgzQVMO+DMAeuMtgJv0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780468793; c=relaxed/simple;
-	bh=QmIWRaXeF2fKRC17cCFiZPWUh2eCA1WqliMbAIdeuSc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X1smaD0KhRQItC1JYPJPasAgU0lc3VVlJnfCCEsCN0/KgE50iZlnKJMPQ5tn6pAgAfIx1DxJ+sgMIjaGDe1CRf/9zXbGMON1NGnHMiyiJQRMg69R3jPKntLeNt2xn0CDi9jP8zDzNsS4gM6yog4yvrJ6LYYC44d8f18dWPuy5eg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=U/qET2L+; arc=none smtp.client-ip=198.175.65.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68413803D2;
+	Wed,  3 Jun 2026 06:43:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.27
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780468994; cv=fail; b=bwS853Ff0Y6izYH+9VY5+vfS6HuzNUXpDxcDPWffiqKDMLcfaJzaBFHLNdnVsfNQiFHuembhuN+9WGfTuNcYJ6Q0C32ApdfdnVFODnGUtAN4ck4p+kRo/vry97ydNPzgs+F8SOP1vr/ifq5awsuajIKMdRc5FYoTvLLRW3z02jg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780468994; c=relaxed/simple;
+	bh=mRsCH8qz/OQ9Chz61CfaIHJWapu7QOaaZM9F86ZqQho=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=bqNtVgtbnkZi2TobA06IvFo4ZXousp1UMxJRYpZl0LyJSt3eVuffpwMn25OVZ04clPrKVoc+JJzp0DCE/qtRbWZwo4Cle5hyYHH6jKr9C/9A4m5J9aEUMcfHdbCMWsAyQL5BrdqhEnDAyzAVAhEZNjs2O4FilRR0U242anfqUlg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=nKulzzeb; arc=fail smtp.client-ip=52.103.23.27
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="U/qET2L+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780468792; x=1812004792;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:content-transfer-encoding:in-reply-to;
-  bh=QmIWRaXeF2fKRC17cCFiZPWUh2eCA1WqliMbAIdeuSc=;
-  b=U/qET2L+UieVQYtr0iOEYqlpBAV2HecNbDIe4Bzbgo3Pruhe1Uptn2WQ
-   jPZj8Ez0FqzNtNSa7RbCEWl2uYMz5dOS86da2UAJ0RoseeuUyfiFohatn
-   MU+iZTLa6q08oJPwWuUIY3bH+fFiWv4QZtyHeqkAq0qXEpESjKPVsRZkX
-   TjK7If+8G2uyZSH1dANNSw+Cq/T5e3EdIGNWQ3RwPzHsOwW4tg6amvBat
-   c3hOPgeu9N9hd5P1P4FPalD36+Y3YIiRSPzMrOqkrK0Dk4ZMXGswUKw+Z
-   ZInhx1KhJdPyKh9E185fpoPNCyaDb5q6+iA3V3CXqmv55v2Zjf3rPXh4+
-   w==;
-X-CSE-ConnectionGUID: jS01UFwJRoOl19dGqdZ4Cg==
-X-CSE-MsgGUID: i2r4Y9cuRDSWknGysxLAuA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="92750733"
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="92750733"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 23:39:52 -0700
-X-CSE-ConnectionGUID: mAoLJE4xTLWZHY26Wo03Yw==
-X-CSE-MsgGUID: tQHaaNqJRFeWfj7ajuGnGA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
-   d="scan'208";a="243976573"
-Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 02 Jun 2026 23:39:49 -0700
-Date: Wed, 3 Jun 2026 09:39:47 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Cc: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-Subject: Re: =?utf-8?B?5Zue5aSNOiDlm57lpI06IFtQQVRD?= =?utf-8?Q?H?= v2 0/3]
- i2c: Add Starfive JHB100 I2C master/slave support
-Message-ID: <ah_MM_Ur-VGixAyr@ashevche-desk.local>
-References: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
- <ah9Yrt_gO8uGaPw_@ashevche-desk.local>
- <ZQ0PR01MB12690FA279708FD6A6DB063282132@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
- <ah_AOjTY9effYDtb@ashevche-desk.local>
- <ZQ0PR01MB126986C9C4A60F6AA767F3D882132@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
+	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="nKulzzeb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=ym8kq1kHV0P03tPr40S3r8dO7sdEkNNzW2cjsLwXyuFmZTBVQOZcAxQI+rAe2o+xMJqJ2saMsulW4huqCrWJfccEI8O764HghXpBrNwsk2+M+CEh05iWnY98R+a4T3f1rB8xHhtOhG/k8eT9xilgVYCIfBR7vqnmg8XzWfjH2gs0wSqoRUT6GMxWSbXIrqac+2T0iorvYz/jCxioLXFB4Zf3t8gAgOrSXFI78dSeD1eyiJYJirJxL6gpP3ibxL5W3erDsphszcA2TDrLTNbDZeZRbt8J6TbDGLwtMtCF10jEgaEoBt7mcjp7qNjBpM1bSLxk/S8MKUjFtATyLhjU7Q==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=C3Q0SFFvSt7o4fKKodrZPkHhB9oeNfziNErf01jd1Qk=;
+ b=FKYrvmGO+89Wes9MiFMFQhoc9e0z6YUpGR5RH8cIpo2SriYbo0Fh6NfEKrVawBBiFIC2paXQ262qS2bwn2xzhev9STR3Ox31fKVLD4YxYpmDzpimJMsXIAAhKxgKm04J0Xkw4wYpgzyxc3o1t++KAmCdrC7A7b+aYXUnIyylwlKvA5h4784UfggO/iQJTMsXCGA1WOEJbwr/pKWeIaVdQyA2nl0q3uPxG82QVKq+oQvzcdgAdD87ttFYqp5iKAoLXQDIjNXKALN1zLIdX0fkLyGg/A+uvyKgeDJBoC1IGO0quQBr7d6LVE7O3fO6Xzr/woiOyKN5qlS3NP81J85pbA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=C3Q0SFFvSt7o4fKKodrZPkHhB9oeNfziNErf01jd1Qk=;
+ b=nKulzzebuwjqibyzRwmfpHZzQLbpCp8lGeewsxCBhh+5+BWstGMyOG7XnNytss+1AYIx3jVodumcFb4JTb8Y4mUbwoQeXyRIYjG+uOjx1M1qEGFk9iDATl3m9Y5PmDkvNXw8pOpKp9psKQhIZpZ9aVQMu8ZY7leS5GBrvfbM8IwYqnvkMxuJZJfc1FuCZ7O1IuxPFLLA7yqOi3MNnz6HlNZhqfPkr19HVNY4xasdmGxWZm6o1imQAvR+abmjPSzGSV9ADx+nGRAnP+kWL20bblK6c3g0ena74a9+xfBDLy90veV63IvKx+xTPQZP4tX6iksK4O3lkevYAsIA1qYNsg==
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
+ by PH0PR19MB5132.namprd19.prod.outlook.com (2603:10b6:510:90::17) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Wed, 3 Jun 2026
+ 06:43:09 +0000
+Received: from SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
+ ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 06:43:09 +0000
+Message-ID:
+ <SN7PR19MB6736D1AF2EA0ED8ADA4A72E79D132@SN7PR19MB6736.namprd19.prod.outlook.com>
+Date: Wed, 3 Jun 2026 10:42:53 +0400
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 1/4] dt-bindings: net: ethernet-phy: move clocks
+ property to invidivual PHY bindings
+To: Conor Dooley <conor@kernel.org>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
+ Russell King <linux@armlinux.org.uk>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
+ Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
+References: <20260602-ipq5018-gephy-clocks-v2-0-65a1f1d881f3@outlook.com>
+ <20260602-ipq5018-gephy-clocks-v2-1-65a1f1d881f3@outlook.com>
+ <20260602-defense-diabetic-8a8e8e03a536@spud>
+Content-Language: en-US
+From: George Moussalem <george.moussalem@outlook.com>
+In-Reply-To: <20260602-defense-diabetic-8a8e8e03a536@spud>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: DX0P273CA0040.AREP273.PROD.OUTLOOK.COM
+ (2603:1086:300:58::10) To SN7PR19MB6736.namprd19.prod.outlook.com
+ (2603:10b6:806:263::12)
+X-Microsoft-Original-Message-ID:
+ <39f57a9c-ba0c-4124-b3fe-3d7e1327e1dd@outlook.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <ZQ0PR01MB126986C9C4A60F6AA767F3D882132@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|PH0PR19MB5132:EE_
+X-MS-Office365-Filtering-Correlation-Id: bea12255-4461-4c90-2767-08dec13b6003
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|37011999003|24021099003|55001999006|6090799003|51005399006|12121999013|5072599009|23021999003|8060799015|15080799012|19110799012|40105399003|3412199025|440099028|10035399007;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?ZXlGckd3UzRYOFpTUElZSXUrck1nY2pIVWRJcmlOeWlVaXpSQ0FMV01xM2o5?=
+ =?utf-8?B?Q2N3TjA4ejdYc3FkNkRZOWhnOFNPNGF1NHJkYlU4RFZHcWxkcTUrRWhrL3BK?=
+ =?utf-8?B?MHR0K3FzbE9sd2FZWnl3VzQ1YTFldGlOdmlDdVdMR1MzODZVd3ZhNzVzZTc2?=
+ =?utf-8?B?WHB2U04zMnJaZVp2RFlRM0JLLzVmWUlVcitIeitiVXovR0NWTC9HMmtjdkpQ?=
+ =?utf-8?B?Z2FkUytIWGlPaVdrN01PeEZWbk11Y1pHZHh6aXFOa3hOMWxETzh1bTQ5WThk?=
+ =?utf-8?B?RGpzNjRxL3BXaGIrS0ZLc3RGVUJuMmdXd2toNjU0dzdwTXhNQzdhWnNJYkhP?=
+ =?utf-8?B?dHFSU3RMNGF2TUlXcUhDWWVya1BiVFNWUkpLZ1kyOHFKcGxobmI3UUpmMkEy?=
+ =?utf-8?B?MHdoYmdCL2J4dUNyUUdKYWhnOHV0RTlzVUdJNWR0YjFWelVzUEVYZUFNZzVS?=
+ =?utf-8?B?dWxPN3FxeElvNktPd0FXQmlHUVRSSGRYTFN0SHd2VTVnbWFnWmluRXJ0ZVpC?=
+ =?utf-8?B?bXh6SjhiWWpGYS9MbldXV012ckdTT3JHQ0l0Vmhud1cwaWF3WXorQTlOL3d1?=
+ =?utf-8?B?L1pCWVgyYUJ1WUlFMUNRcTdwME41eHY3Vm1rVG45WmJMY1E4ZWFxeG1jZFVG?=
+ =?utf-8?B?K21rNFlNMG9qRittaHlJdWlpVmlrZ3dWSVN5TWhVTERvQk1sQXdDK3NXdnpD?=
+ =?utf-8?B?VU9sOE9rK3drbm5xVGlzblNTQy9VZS9tWDBhWTkzaHNiQXhrZjhhVkorVk5s?=
+ =?utf-8?B?YW90WnR1UitkZVNLd0NXWGNxcFJ0ZTBZTTdjSFlBenpPNFNyd0hEblNrdnps?=
+ =?utf-8?B?OTR0bUVUWTlDeWd4c0YxS05UcEVjZGYrUklRUGhTMmRSNFRFNndsMlMvVUxl?=
+ =?utf-8?B?NDcyTDZvVWRyU29KRmlWSmdJYzhlUS9GaXR6UXZJSjBXWEExTjNrQjNtM0wx?=
+ =?utf-8?B?bmdsdTcvN0MzNk1LZFJmamI2ZUZSOXZxcG0vZ0RsY1h2TmhHbEcxMEpmQXlZ?=
+ =?utf-8?B?cUNnek9uQVpqTmZrdEpSdS8zMURDWjgzYXJhRVVkYkkrcU1VZ25OdDBKTW9G?=
+ =?utf-8?B?WnE4dXEwcUVWd2VpcktHRG1pRlVheU9BUEFxS25sWm00VEFTY24vRlJvU240?=
+ =?utf-8?B?STkwUjVkTElNMm5reVc3VnpMS1VCNDBEN1pvZXVxRjh2YlhNUjgzaVc1cnBh?=
+ =?utf-8?B?bVEwL2djbUVHRHprR1ZlR2gvTXRUV3Y2WnEwSlZwVUg4S1NRREhkREpCNjBO?=
+ =?utf-8?B?aHFRS21Va1l2ai94RWdMMnZjVHJWTFBjZDRId3pnbHNBSndpdyttRlovWjhE?=
+ =?utf-8?B?R3VzM3gwSEQwSHA0UTBhR29XRDd5ZFlWd21oVUk2R1l4MTNTWkxiM2gyNkJU?=
+ =?utf-8?Q?O6B/elwJRLBl6/xgC4OOuOkTuQpqCvs0=3D?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?WUFaRkVZTnpWSEkvZk9VV3VQNFhyVDhrWUxSZ1dUZzFYUjhjL281aVpSRTJQ?=
+ =?utf-8?B?UW5xcmY4b29GZzIrellaL0Q4ZDE1b3VKUUw3d0xpbDhzWk1PRHRJZThjRldp?=
+ =?utf-8?B?T09OY2pveXJjenBEK202WU5NcExabGltRGZjMTMyKzRUV0hMenhwd3JIYTlG?=
+ =?utf-8?B?b1lBS25uYktnNUlGMTdGTDJzM3lsWTE5Y1lWMndEQ25QMThrWGFJWmoza1pR?=
+ =?utf-8?B?SVhlV0FzdGxwN0I1YnBIbkVkaWMwTTN3anhtbHFkQmFNL2xwcnNhdlM4emdR?=
+ =?utf-8?B?R2F3OE95UThrdzg0VUNnQytHWWRXS3l0aE1VSERQd3ZMNExHV2d2NlNPU2RD?=
+ =?utf-8?B?eGFzREQxcUFJWUR4bW5KU0V6dnhod28vcVZPTzRTTXhEWnFqTjJoQkZwK2tW?=
+ =?utf-8?B?eXlDMWltMzRMUlF6em4yZ0tpM3hZdUsvWmM4MUJ2SFExdE1NNWVLdk5iMkdB?=
+ =?utf-8?B?eTRDT3VMUk9JcEh6eDNMbE1yeGdWWlZ3TVZCVloxWnNZMjkrVWFJdG8vQUNM?=
+ =?utf-8?B?alprM1BSQzNKQlJ0aktQeStXdDVKRG9vdFZvREFKMytkUHBISGlvM3c4NHJG?=
+ =?utf-8?B?VlRQZTNldVU5eWREVDhzTFMwVldHTzdwMXBJSmV6Nloyd0F6TDVQT2JxL3hT?=
+ =?utf-8?B?Q243ckUzK3RHMGtqaE1FaXVpWEVjV0ptamZGd3JGNVVjRzBrc2ovK2FQYUJY?=
+ =?utf-8?B?QTNkSjMxVlovdGt1c0xMVzFsVEFPdDdvQVVRMVFnbzBZWm9wd2twWUVvUUVs?=
+ =?utf-8?B?NXR6S014SUdpZENhU3hKMEJFZXlRUVE4bEhiTlltQlNuRnBOWXJIRGtoRnpD?=
+ =?utf-8?B?ZFpsbVNXUG1mcjlXNnVVSlZnN3ArajZpYlZBOE9LNTZIaWMrbDRoOXFabFdH?=
+ =?utf-8?B?KzEvbldpenp3bFhyK1h3OFYzWmdsVzNITEZ1TXdmT094eXRON3lVNUFyWE4x?=
+ =?utf-8?B?aTNaU1lpR01tVTdTOURjcU55ZVpCbDdQT000ajF4ejdEMmJwemxWYVJIbG8x?=
+ =?utf-8?B?YXRMUE9SQXIzR3hkWk1tOXU2N1JDYlB3K21FSWQ5Y0ZUK04vY2lzQTNEYjNP?=
+ =?utf-8?B?c09tUWRuVU9Ed1R2WVB5L2xjbnppUmd3ZXU2YlhGQnBrb09TTE0zRkFvMWxw?=
+ =?utf-8?B?cnJaQ0tCbHRoNWlyTVdtS2ovbzNFaTE3NE9zUlNtcVczcHdtUHU0dHllUmgw?=
+ =?utf-8?B?OFN2OE01clg2ZTUxdUtVaEdEWFVzRkx4Qkd2b0xKSkgzQ1BaNzdCVlF2V2Z3?=
+ =?utf-8?B?UXZLUXdQMWFUVG15cnB2Wi9lbTRCN3FrcDJUWTc3eHdjcmgvUFd2ZUVvdk5C?=
+ =?utf-8?B?dFYwbk1FbHFPWjdEZzdDYzJaL0cycjFmZTlxL1NRdzY1NzIrd2xyQWZuQXZN?=
+ =?utf-8?B?OUo1SmZKTjJoQjhLbVFLRFduUG1CSTBCRHB4R0VRTUpkRVkzb1U4N1U3Y0ls?=
+ =?utf-8?B?Qk8zcllwd2NvTW1zOU8yTUxzc08zS0F5VnY4ZGhZN1NlVjJFWmhPZGt4TXF2?=
+ =?utf-8?B?RGNvQ3A0MnFPUUVBWEhjUzlwN3ZhQXNZQTk5cWRMUkxhbmFxb1ZIUVdCdTlJ?=
+ =?utf-8?B?WXJSUGRrTG9VTjd4TnVBVjJia3dtNTFoZnV5N0pMTTdrRzQyb09MMmtkRVd1?=
+ =?utf-8?B?RUMyY1ZQSzRwUHZDeGY2MUdMcVEwWjNMdWhPcjYwZ25GVUVwa0RMMWdEVHlI?=
+ =?utf-8?B?VG1HdkJQNWVGZml3QmtsQnpaY0U3YVBUeEJyRVFKMnRBYUpwTlNhSVdLUjNr?=
+ =?utf-8?B?ZElnMjFMcm9iT1R2Z2VFbSt0RUhlMlU0WUJVVlE2RlRCWThiUGZTK0JrdXhr?=
+ =?utf-8?B?ZGJWRVBSeGREM09oa29NcUYxMVE2S2hkZXlqVnFLdTBUME14OWkxRnZpTHM4?=
+ =?utf-8?B?d01taTZDdkgyNjFjVW55djdYZWZkZkd1Ynh2RHJGZ3gwclE9PQ==?=
+X-OriginatorOrg: outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bea12255-4461-4c90-2767-08dec13b6003
+X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 06:43:09.6540
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR19MB5132
 
-On Wed, Jun 03, 2026 at 06:09:24AM +0000, Lianfeng Ouyang wrote:
-> > -----邮件原件-----
-> > 发件人: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > 发送时间: 2026年6月3日 13:49
-> > On Wed, Jun 03, 2026 at 05:31:38AM +0000, Lianfeng Ouyang wrote:
-> > > > -----邮件原件-----
-> > > > 发件人: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-> > > > 发送时间: 2026年6月3日 6:27
-> > > > On Wed, May 27, 2026 at 04:50:36PM +0800, lianfeng.ouyang wrote:
-
-> > > > > The Starfive JHB100 I2C controller is a variant of the widely-used
-> > > > > DesignWare I2C IP, with a distinct register layout and enhanced features
-> > > > > such as SMBus Alert and programmable FIFO depths.
-> > > > >
-> > > > > The series is structured as follows:
-> > > > > 1.  Adds the device tree binding document for the starfive,jhb100-i2c
-> > > > >         compatible.
-> > > > > 2.  Prepares the existing i2c-designware-core by exporting and making
-> > > > >         certain key functions overridable, allowing code reuse.
-> > > > > 3.  Introduces the new i2c-starfive-* driver, with separate modules for
-> > > > >         master and slave functionality, based on the 2023-07 revision of
-> > > > > 	the Synopsys IP manual.
-> > > > >
-> > > > > Currently, due to the following differences, i2c designware cannot be
-> > > > > fully reused
-> > > > > 1.  For high and low level counting settings at different rates, i2c
-> > > > >         starfive can use IC_SCL-H/LCNT to set SS, FM, FM+, UFM
-> > > > > 2.  Interrupt clearing is achieved by writing 1 to the corresponding
-> > > > >         bit of INTR_CLR, while designware reads different clearing
-> > > > > 	registers
-> > > > > 3.  Master and slave require separate probe callbacks and cannot rely
-> > > > >         solely on the runtime mode switching provided by
-> > > > i2c_dw_set_mode()
-> > > > > 4.  The value of FIFO depth is not obtained through registers, but
-> > > > >         written through DTS
-> > > >
-> > > > NAK in this form. We well discourage code duplication and ugly ifdeffery with
-> > > > full of __weak annotations that may not be present in the regular driver.
-> > There
-> > > > is not even a tiny bit of justification for this nonsense.
-> > > >
-> > > > TL;DR: this series needs much more work.
-> > > >
-> > > > > I have written some poorly styled code to reduce changes to i2c
-> > designware
-> > > > > and reuse its functions by keeping aa always true, for example
-> > > > > 1.  the implementation of i2c-d w_probe_master() differs only for the two
-> > > > >         IPs in i2c_dw_set_timits_master(). In order to reuse
-> > > > > 	i2c_dw_probe_master(), i2c_dw_set_timits_master is declared as
-> > > > > 	__weak. A better approach is to use a callback function, but using
-> > > > > 	a callback function requires changing more i2c designware files.
-> > > > > 	I don't know what the attitude of the community is
-> > > > > 2.  For the operation of clearing interrupt flags, i2c designware reads
-> > > > >         and i2c starfive writes. Therefore, in order not to modify the
-> > > > > 	relevant logic of i2c designware, I added a write operation to
-> > > > > 	sf_reg_read()
-> > > > > So I think this version of the code is not allowed to merge, but I don't
-> > > > > know how to handle this situation because if i2c designware is not changed
-> > > > >  at all, we will have to write code that is similar to i2c designware.
-> > > > >  Will this type of IP not be allowed to merge?
-> > >
-> > > Thanks for the review.
-> > >
-> > > In the future, the designware will be changed to the form of callback functions,
-> > > and then callback functions will be passed in i2c starry - * and implemented
-> > > using designware as a library
-> > 
-> > Why you can't specify your own regmap as it was done in Baikal case? What are
-> > the obstacles to achieve that?
+On 6/2/26 20:34, Conor Dooley wrote:
+> On Tue, Jun 02, 2026 at 10:50:37AM +0400, George Moussalem via B4 Relay wrote:
+>> From: George Moussalem <george.moussalem@outlook.com>
+>>
+>> Move the clock property and restriction from the ethernet-phy.yaml file
+>> to the individual PHY binding files. This allows each PHY to manage its
+>> own clock requirements.
+>>
+>> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>> ---
+>> Commit 350b7a258f20 introduced the clocks property with a restriction to
+>> maximum 1 to the main ethernet-phy.yaml binding for Realtek to add an
+>> optional external clock source. This is restrictive to all PHY bindings,
+>> as some PHYs may require more than 1 clock such as the IPQ5018 PHY which
+>> requires 2 clocks (for RX and TX).
+>>
+>> There are three other PHY drivers that require clock management:
+>> - Micrel: requires 1 optional clock and the micrel.yaml file already
+>> accomodates for the clock property.
+>> - SMSC: requires an optional clock and the legacy bindings file
+>> (smsc-lan87xx.txt) already accomodates for the clock property.
+>> - BCM7xxx: requires an optional clock. I could not find a bindings file
+>> for this PHY family.
 > 
-> The main reasons are as follows
-> 1.  For high and low level counting settings at different rates, i2c
-> starfive just use IC_SCL_H/LCNT to set SS, FM, FM+, UFM, 
-> ====> Therefore, it is not possible to directly use the i2c_dew_set_timits_master() 
->       of designware, Because the definition of registers has changed
+> Have you done a large-scale dtbs_check run with this patch applied and
+> checked that it does not ban having a clock for phys with no dedicated
+> bindings?
 
-So, it's not a DW per se? What the DW databook reflects the register layout and
-other bits? I.o.w. which version of DW i2c IP is this?
+I've ran: make V=s CHECK_DTBS=y DT_SCHEMA_FILES=/net/ ARCH=arm64
 
-> 2.  Interrupt clearing is achieved by writing 1 to the corresponding
-> bit of INTR_CLR, while designware reads different clearing
-> registers
-> ====> The way of operating registers is different, so it cannot be 
->       distinguished solely by address or offset, and can only be adapted 
->       to operations belonging to i2c starfive through callback functions
+There were a whole lot of errors, mostly related to missing required
+regulator/power-supply properties, but none related to clocks.
 
-This can be done in the custom regmap functions. You know that you may
-redefine the regmap IO accessors and do whatever you want there based on
-the registers. Yes, what you are probably talking about is a workflow.
+Also ran: make dt_binding_check DT_SCHEMA_FILES=/net/
 
-But we basically need to see a patch-per-workflow change for each case
-to understand the differences better. I.o.w. if you need, for instance,
-separate or special IRQ handling part, create a patch to move existing
-code to a callback with explanation why it's needed. All the same for
-the timings and so on. It would be nice to have a datasheet at hand to
-actually read and see the differences. Without that it's even hard to
-propose better solutions. But current state is for sure no go.
+This ran successfully apart from the one error I highlighted in my reply
+to Rob on v1:
 
-> 3.  Master and slave require separate probe callbacks and cannot rely
-> solely on the runtime mode switching provided by i2c_dw_set_mode()
-> ====> There are host and slave IP addresses separately, unlike designware 
->       where one IP supports two roles, because the logic of switching roles 
->       cannot be distinguished by address and offset
+  DTC [C] Documentation/devicetree/bindings/net/renesas,ether.example.dtb
+/home/george/src/linux-next/out/Documentation/devicetree/bindings/net/renesas,ether.example.dtb:
+ethernet-phy@1 (ethernet-phy-id0022.1537): compatible:
+['ethernet-phy-id0022.1537', 'ethernet-phy-ieee802.3-c22'] is too long
+	from schema $id: http://devicetree.org/schemas/net/micrel.yaml
 
-This feature should be left at last, but altogether it smells like either
-a completely new i2c DW design (like they did for DMA and SSI at some
-point) and most likely will need a brand new driver explaining all of this
-with a link to a datasheet.
+In addition, I ran `grep -r '#include <linux/clk.h>' drivers/net/phy` to
+identify all phy drivers that manage clocks which I've reported above.
+There's one more: xlnx_gmii2rgmii.c which acquires and enables 1 clock
+which is also accounted for in its schema.
 
-> 4.  The value of FIFO depth is not obtained through registers, but
-> written through DTS
-> ====> The register does not have information on the depth of FIFO, 
->       and manual writing of register settings is required
+None of the phy-core files manage clocks.
+
+> I feel like weakening the limit of a single clock is probably more
+> accurate than outright banning clocks for ethernet phys without a
+> dedicated binding?
+
+If you think increasing the restriction is a better solution, I can
+submit an updated version. Kindly let me know.
+
 > 
-> In addition to the above four points, the initialization, transmission, and interrupts 
-> of i2c Starfive are basically the same as i2c Desirware. Therefore, we hope to reuse 
-> i2c designware instead of re implementing the i2c Starfive driver, otherwise the code repetition will be high
+> Cheers,
+> Conor.
+> 
+>> ---
+>>  Documentation/devicetree/bindings/net/ethernet-phy.yaml    | 6 ------
+>>  Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml | 6 ++++++
+>>  2 files changed, 6 insertions(+), 6 deletions(-)
+>>
+>> diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+>> index 21a1a63506f0..709ea976ef79 100644
+>> --- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+>> +++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
+>> @@ -105,12 +105,6 @@ properties:
+>>        1BR-10 names. The PHY must be configured to operate in BroadR-Reach mode
+>>        by software.
+>>  
+>> -  clocks:
+>> -    maxItems: 1
+>> -    description:
+>> -      External clock connected to the PHY. If not specified it is assumed
+>> -      that the PHY uses a fixed crystal or an internal oscillator.
+>> -
+>>    enet-phy-lane-swap:
+>>      $ref: /schemas/types.yaml#/definitions/flag
+>>      description:
+>> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+>> index 45033c31a2d5..8a26f6941dc4 100644
+>> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+>> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
+>> @@ -38,6 +38,12 @@ properties:
+>>        - ethernet-phy-id001c.cad0
+>>        - ethernet-phy-id001c.cb00
+>>  
+>> +  clocks:
+>> +    maxItems: 1
+>> +    description:
+>> +      External clock connected to the PHY. If not specified it is assumed
+>> +      that the PHY uses a fixed crystal or an internal oscillator.
+>> +
+>>    leds: true
+>>  
+>>    realtek,aldps-enable:
+>>
+>> -- 
+>> 2.53.0
+>>
+>>
 
-These sounds like candidates for i2c-designware-lib.c, indeed.
-But the rest most likely shouldn't be intervened at all. I.o.w.
-please provide a detailed analysis (something like [1]) in
-the cover letter, or just send an RFC on the driver design
-before even starting considering actual coding.
-
-> Hope I can answer your question, thank you
-
-[1]: e539f435cb9c ("spi: dw: Add support for DesignWare DWC_ssi")
-
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Best regards,
+George
 
