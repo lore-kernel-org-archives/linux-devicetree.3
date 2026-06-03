@@ -1,142 +1,129 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-dy1-f182.google.com (mail-dy1-f182.google.com [74.125.82.182])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADB24266BA;
-	Wed,  3 Jun 2026 16:50:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B19337756F
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 17:23:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.82.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780505416; cv=none; b=GePT03789aV/bY8S5GicizdCAKlvEEKUPBIhgxgf7qPP46xg0Q/g0UBwCyMKKljYdQMIAFnkLMde0dCHgBE5MTZ70nI3gs61pqk45v5BQOjHnfuEPceCAf9tlQ0jbQbl7bnVTjZaTjq+p3y1KrSWI70XAxPVMGGQZVEX/M6pZXo=
+	t=1780507422; cv=none; b=Z6RHW9wnxGXO+Ay6WcOLdbALtoCYUIL52zhSu99js/2ncPkrbXz9teKWOhQ9ybQDmJlPyQauf+dK6mFqqEXLCG/62RMXf1heaGqbAPGq/ZuXFJFJrfRj1HZ8NbeCqMwu6iaOw+3xv41xBqLLpJvdbZZO+04Uv6BiU6ijzx3JVNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780505416; c=relaxed/simple;
-	bh=DnA2JJz5trPES1DFKq8aSZziMagCnw0o1qTisz8fKiE=;
+	s=arc-20240116; t=1780507422; c=relaxed/simple;
+	bh=ZHGFNjdms5o72NHG5mqWdI+YKiAUtQqIG0qM2Nu/sBs=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nua2HLr7Hm/UP+dWbVFaK2dzNMXP0i+PeMWlSqmDgezFLQRifOiLDoHdVhjjv7arMOqOLgIJkltu0XkQT5obPAFmC91rWQ9BCHa1uQ53OQPmyeRNkV2v+koYHRL+31zM7boWkGzXrytin40d7Ln3TZHJa55dY1iTn6M168fQOlI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFEizWzh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZVadXrKa8hc5ACY5ajrm6EBO1dx1db/J20cNE9GSVJAlELF9Tm64WUl7sjq0j/TNnSCHXogsQ+nu6+1gAPx5xJmO2yVJhDPCO4I3JeKnuEyOdlaLt0slP8IqTmU6uhqwA7k+aXOkdPD/qrROhGXiO7ZnbHaK4gY9LnRRPNjxgpQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=C0ykJXsu; arc=none smtp.client-ip=74.125.82.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFEizWzh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F5D1F00893;
-	Wed,  3 Jun 2026 16:50:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780505415;
-	bh=vG2BviYc/C+MDKHIkeN902tisDjjqwsCpaMZr0/n/NI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=UFEizWzhvrAPdwvfrVrrm2pxizZW5BnXpsG+1r/8Z65vNQuUI0dshzxkfck0K/PNk
-	 O3AkFM1n8imanlDuEzm9goAMREiiSNUM4dpqpzyyJoXB6JV3Iu5GRMIY0QwKza5zHr
-	 QiFHYZs9hY2Mx/a7yW7di0/1bw4cVgA/Efngm1DltKY7VPgkH/hjPOUeuc4fGS5Gv5
-	 jty0Up4HUSx5m/d2iBAInQXvgPf8hJUfJL5s6n+uRLG1GNEywwHHAussS7/ZcvEjer
-	 HlJg48Efw8GPOOfnQPYyEpxjcqxc4rRTlzDjGyEicDpXAjYgNUSJ9rujYNKfuK9zrM
-	 JCTkdQ0XvYWqg==
-Date: Wed, 3 Jun 2026 17:50:11 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Naresh Solanki <naresh.solanki@9elements.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="C0ykJXsu"
+Received: by mail-dy1-f182.google.com with SMTP id 5a478bee46e88-304f0039c02so52070eec.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 10:23:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1780507420; x=1781112220; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=SrzBV/CHeC4K43UCwv6a0kN1Tfy/GhWE6NmP1fIYMXI=;
+        b=C0ykJXsu5pCDhL4JYW9V3w8b+ODbcDuvR1uaRaQ15dbWtStGSY2mczSaS9yDaW9ANS
+         JP9QhtfQkVmMazvuBi6bsvEsVTXoRxnDYsUWq+rTxcfh4paNMa3tFVbZsEh0+PJf+tph
+         eMdY0tgDWJmZr20KEVYJ9pxHb9/nXhj5VRgEY=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780507420; x=1781112220;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=SrzBV/CHeC4K43UCwv6a0kN1Tfy/GhWE6NmP1fIYMXI=;
+        b=nh5PkVJp5EneAWscE//q7pp8VqSt5BARGJGa0C+ULrkEzD/Xo1XVN1gMm1CAsbhr6d
+         BuoglvbN61d9esIeUlVO8J4M3iXUCuOY9V4kVN3GdipiLXqJElVuBhEFJ5nzAju+H8H7
+         I9jtry/Z8Lg3ueqQ1JRAl3rnTg119j3MvkC64RpDH4c7eQz79HjIwTVt4mEcdJftPf4b
+         tcZiqpO7IKWYsMArxCfa9sX04Z0GqRXaEY+fCROA/WPyq/Ng79s2AIzng5od24U152GX
+         Jxulgxy18iUQ/m3fE/oce/W+H4l546vxDL2uRHbjgdjTgPpY9wj3Tvr/36I6xtEn4/JU
+         yIsQ==
+X-Gm-Message-State: AOJu0YwWnPMoT6hEFlqzr5EFRXTdbgxeMxZ3E9fnznQ+noHl9kvNsfmG
+	SBFmMIr4MzcNVyKCBpMJlck+tGoLyJRLankbXECsHAxuV6hoyMyfcTVrZHgTqtpV2w==
+X-Gm-Gg: Acq92OHUPGDbnrXnm00qtcMKimFl5lcncY1qTX69VpXSti5PMwa9l5rp05q9lsMXH4f
+	JQTfC8HvgnfD3pfnNPz3fHeRHhvYJT9tvKAJlFK9mlCMLjlJVT2hcvTV56dc6fMNopZhUvW4eYF
+	OMN6+207A4n47fQP91Q3pRd9tqz9uqDn3MbN3Dchm1/tgFmS5/mw7bQHJMV89C6UCgm/uenZyMo
+	209W3H3M7+uH3dS37WmNXMItVEj8VhaBDpvPJ4gOODCPUV6bWPQ0Uf9sR7qzNPK7GM+xCZEVL9m
+	IV2On9CEgL7h1pAzVmnFnhhhCxpjVHD7z8PS0G4cA+8jUHKM6kHIEvegynJdRyYtdqyz1nFQND8
+	MmHReDKCoK1G/z7vNocvQ0lQUQKqPDI/1VbWhYmdE/xuoxQjNvP2j03OtHQ8+Yn2QCkliPEk9C/
+	BeZE6lNrj7Cfl6kjtvGh7J1dqJFtVuOwC5Z0jCxMi/83dc8Nb/jITisLuPob3afSha/M9g88g/
+X-Received: by 2002:a05:7301:128b:b0:2ea:b7a9:580d with SMTP id 5a478bee46e88-3074fa80739mr2310951eec.9.1780507420313;
+        Wed, 03 Jun 2026 10:23:40 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:c444:80f4:5ace:a65c])
+        by smtp.gmail.com with UTF8SMTPSA id 5a478bee46e88-3074d9fde90sm4323779eec.0.2026.06.03.10.23.38
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 10:23:39 -0700 (PDT)
+Date: Wed, 3 Jun 2026 10:23:37 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Bjorn Andersson <andersson@kernel.org>
+Cc: devicetree@vger.kernel.org, Doug Anderson <dianders@chromium.org>,
+	linux-arm-kernel@lists.infradead.org,
+	Tzung-Bi Shih <tzungbi@kernel.org>, chrome-platform@lists.linux.dev,
+	Julius Werner <jwerner@chromium.org>,
+	cros-qcom-dts-watchers@chromium.org, linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Grant Peltier <grantpeltier93@gmail.com>,
-	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
-	Patrick Rudolph <patrick.rudolph@9elements.com>
-Subject: Re: [PATCH 1/2] dt-bindings: hwmon: isl68137: Add RAA228234
- compatible
-Message-ID: <20260603-staring-cubbyhole-8f803b3ab30f@spud>
-References: <20260603110127.23930-1-naresh.solanki@9elements.com>
- <20260603-deskwork-perch-ae4eaf92368f@spud>
- <CABqG17jzv03U5=1zhVd57zDDWFXpt=mX030HVyLUpm5q0LRW1Q@mail.gmail.com>
+	Konrad Dybcio <konradybcio@kernel.org>,
+	Chen-Yu Tsai <wens@kernel.org>
+Subject: Re: [PATCH 0/7] dts: Add /firmware/#{address,size}-cells to
+ Chromium-based DTs
+Message-ID: <aiBjGekXkr2nIf-w@google.com>
+References: <20260428200712.2660635-1-briannorris@chromium.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dB8g81isTGQRJxN6"
-Content-Disposition: inline
-In-Reply-To: <CABqG17jzv03U5=1zhVd57zDDWFXpt=mX030HVyLUpm5q0LRW1Q@mail.gmail.com>
-
-
---dB8g81isTGQRJxN6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260428200712.2660635-1-briannorris@chromium.org>
 
-On Wed, Jun 03, 2026 at 10:10:14PM +0530, Naresh Solanki wrote:
-> Hi
->=20
->=20
-> On Wed, 3 Jun 2026 at 21:39, Conor Dooley <conor@kernel.org> wrote:
-> >
-> > On Wed, Jun 03, 2026 at 11:01:26AM +0000, Naresh Solanki wrote:
-> > > From: Patrick Rudolph <patrick.rudolph@9elements.com>
-> > >
-> > > Add the compatible string for the Renesas RAA228234 8-phase PWM
-> > > controller, which shares the same PMBus interface as the RAA228228.
-> >
-> > Given this, and what the driver change looks like, why is a fallback
-> > compatible not used?
-> Are you suggesting that the binding should use renesas,raa228228 as a
-> fallback compatible, similar to how renesas,raa228942 and
-> renesas,raa228943 fall back to renesas,raa228244?
+(Trim address list)
 
-I didn't see that at the time (I commented on this diff alone), but yes.
- 	{ .compatible =3D "renesas,raa228228", .data =3D (void *)raa_dmpvr2_2rail=
-_nontc },
-+	{ .compatible =3D "renesas,raa228234", .data =3D (void *)raa_dmpvr2_2rail=
-_nontc },
- 	{ .compatible =3D "renesas,raa228244", .data =3D (void *)raa_dmpvr2_2rail=
-_nontc },
- 	{ .compatible =3D "renesas,raa228246", .data =3D (void *)raa_dmpvr2_2rail=
-_nontc },
-driver change suggests you're compatible with the ..44 device.
+Hi Bjorn, AngeloGioacchino,
 
-I expect that you'll use a fallback in the next iteration then?
-pw-bot: changes-requested
+On Tue, Apr 28, 2026 at 01:06:52PM -0700, Brian Norris wrote:
+...
+> The /firmware node has an empty 'ranges', but does not have
+> address/size-cells.
+> 
+> Commit 6e5773d52f4a ("of/address: Fix WARN when attempting translating
+> non-translatable addresses") started requiring #address-cells for a
+> device's parent if we want to use the reg resource in a device node.
+> This leads to errors like the following:
+> 
+> [    7.763870] coreboot_table firmware:coreboot: probe with driver coreboot_table failed with error -22
+> 
+> This series adds appropriate #{address,size}-cells to the device trees
+> used on Arm Chromebooks to work around the problem.
+...
 
-Cheers,
-Conor.
+> Brian Norris (7):
+>   arm64: dts: rockchip: Add #{address,size}-cells to Chromium-based
+>     /firmware
+>   ARM: dts: rockchip: Add #{address,size}-cells to Chromium-based
+>     /firmware
+>   ARM: dts: nvidia: Add #{address,size}-cells to Chromium-based
+>     /firmware
+>   ARM: dts: samsung: Add #{address,size}-cells to Chromium-based
+>     /firmware
+>   arm64: dts: mediatek: Add #{address,size}-cells to Chromium-based
+>     /firmware
+>   arm64: dts: nvidia: Add #{address,size}-cells to Chromium-based
+>     /firmware
+>   arm64: dts: qcom: Add #{address,size}-cells to Chromium-based
+>     /firmware
 
-> Or is there a
-> specific reason you'd expect it not to be used here?
->=20
-> Regards,
-> Naresh
->=20
-> >
-> > >
-> > > Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
-> > > Signed-off-by: Naresh Solanki <naresh.solanki@9elements.com>
-> > > ---
-> > >  Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml | 1=
- +
-> > >  1 file changed, 1 insertion(+)
-> > >
-> > > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68=
-137.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
-> > > index 8216cdf758d8..2988bc6300ae 100644
-> > > --- a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
-> > > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
-> > > @@ -55,6 +55,7 @@ properties:
-> > >            - renesas,raa228004
-> > >            - renesas,raa228006
-> > >            - renesas,raa228228
-> > > +          - renesas,raa228234
-> > >            - renesas,raa228244
-> > >            - renesas,raa228246
-> > >            - renesas,raa229001
-> > > --
-> > > 2.43.0
-> > >
+Patch 1 and 2 (Rockchip) and 3 and 6 (Nvidia) are applied to linux-next.
+Patch 4 is obsolete / unnecessary. That leaves patch 5 (Mediatek) and 7
+(Qualcomm).
 
---dB8g81isTGQRJxN6
-Content-Type: application/pgp-signature; name="signature.asc"
+Bjorn (Qualcomm) and AngeloGioacchino (Mediatek), any thoughts? I can
+resend them separately if that helps somehow.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBbQwAKCRB4tDGHoIJi
-0mQMAQCGJi8T5FIPVvVa+N8QhldtoUD7PcyQabO+Bj51wRxBTAD+IUs8jZSqjEXW
-Dws1Sdwpfjd1OR7qW1NmAMkiBuWyRA4=
-=vj0j
------END PGP SIGNATURE-----
-
---dB8g81isTGQRJxN6--
+Regards,
+Brian
