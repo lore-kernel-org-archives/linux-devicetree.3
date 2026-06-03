@@ -1,180 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047283D1AB3;
-	Wed,  3 Jun 2026 15:13:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07DCC3A1E7F;
+	Wed,  3 Jun 2026 15:16:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780499584; cv=none; b=CBRtwLwwnhMDpovwo+ZXYACgwEkjOAYVLoZkYMx7yRULwHgLXevR7xA0LP72R+lfkxdTkrEdTsTts/afNrVelMd81449rlKwLWSrbgC0zyVSJPkzjtZl2rs3K6vGYq9/g1dXEP1iSz3ktjhu1Hxb/a99gn+am2qq7v57H7tW5y0=
+	t=1780499775; cv=none; b=PsD3F9A93prjmuO4z8jQkUixYR8q0UnIamF6yOzOu9lH6NaI4vlJ9Z5tTSkP4JsjGssWLBIXB5LRfG812z9N5P0P5ogsKIOJ7NZcDHfICp7F8ztm0JQNVgJFpn3/PPjxU5vPBvLUYTn7Ny98cJOUGVcDxNMxvyVRdNA+Kt+IyZM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780499584; c=relaxed/simple;
-	bh=bGv6026XnhDm8i+aKTBXzQ0LNc5FoJ6CnAMYvnx4k6Q=;
-	h=From:To:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=i4ZthIeQFj9GEoMPn4N47EtZ/h2SaqNE/GwprCNnI37g4hZotcROgimcuTPqnXMyiFqTgCBfZkJVbCMKTjiytM4mpI4DuK0kzOSJsXmfVhgFGEdxcJBng01oMIZvGZKko0OZDq+z36r8obZdoTmo4Qbo4gLQa0UqSwhdRBmZJjU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M4tKmGsa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780499775; c=relaxed/simple;
+	bh=E15Z2HLpNxRdOoHi9lUwcc6adK9szvvSvtwq3QLPM0o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tmbZju+g0v5LlGIKUN600xPsMcnMLQez1snPoafW/E9ayj7ii79CaonCa8adgdhpSL6Tw5IWED53l8US7htagEUhZqwtqKlQnsUN8/kd8a07qxB/S9LQLYNb+wx4q6ewMysSYsIJNlgHlDMCAqOz48KKTCvfad+WI2Ay48NHNAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H5JYwOQT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M4tKmGsa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9051F00893;
-	Wed,  3 Jun 2026 15:13:01 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H5JYwOQT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 846B01F00893;
+	Wed,  3 Jun 2026 15:16:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780499582;
-	bh=9gPkGzXG0HU/tmXo8RdeundsdIGxa43c7OU1rJGKo7A=;
-	h=From:To:Subject:In-Reply-To:References:Date;
-	b=M4tKmGsaYH/lff+c0Ae3MHSW2FbvA6PTeiPQ4bIhA2KQJzMf+I3V8Qgc8w1GJn2Vy
-	 KHYCsPeMkMWj244DQb0D27w3oZnqkFqvhisTxN5k+q/X0usb0MAaJ9jAfSEs7lL9AQ
-	 39TgzIvy5WIC64XM//kGYp/2kq6zyAVVu5czwpGaAbIeFesePdG2etoWRvU1ssSPTM
-	 LQpd0Q1jLYBVzbeIiL5yxBKETbMfSza/xALr1qmNnJ+N3zDCjMkp8FXxDPxuwSNTAh
-	 F0dFEHGPKDAxLSPu0ghoQ40eZWSaQD8boCmDskDcOzWI+jZpyB2oUJ3BS4JlpMghxx
-	 mRWG6nm8MjQPQ==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Herman van Hazendonk <github.com@herrie.org>, Bjorn Andersson
- <andersson@kernel.org>, Clark Williams <clrkwllms@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, devicetree@vger.kernel.org, Konrad Dybcio
- <konradybcio@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-rt-devel@lists.linux.dev, Rob Herring <robh@kernel.org>, Sebastian
- Andrzej Siewior <bigeasy@linutronix.de>, Steven Rostedt
- <rostedt@goodmis.org>, van Hazendonk <github.com@herrie.org>
-Subject: Re: [PATCH v2 2/2] irqchip: add MSM8x60 MPM wakeup interrupt
- controller driver
-In-Reply-To: <0133fce127c7507bbb907d0258ad69ac8d753218.1780195817.git.github.com@herrie.org>
-References: <cover.1780148149.git.github.com@herrie.org>
- <cover.1780195817.git.github.com@herrie.org>
- <0133fce127c7507bbb907d0258ad69ac8d753218.1780195817.git.github.com@herrie.org>
-Date: Wed, 03 Jun 2026 17:12:59 +0200
-Message-ID: <87ecin7j44.ffs@fw13>
+	s=k20260515; t=1780499774;
+	bh=E15Z2HLpNxRdOoHi9lUwcc6adK9szvvSvtwq3QLPM0o=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=H5JYwOQTiAby5DiNxuTlBrOH3Yt+5EvwTBKNlX1yS0VY/SLLg3OYlcP68KWLquWFv
+	 2l66Kc9Al2RnTB8qbrXCFSVo5jhbqqyStmgb85lT5KRbH0BoV+8QR1MWovLV4Y2wpq
+	 69BBCjl59y+RddFbjopMEZbzei/76ugUQ0r3XduoUpbR1KGAhsx64HFTmCTCNld/kR
+	 hXtFKZVtNmp+ZgJD/eiBpJzBVfDREE7iP2MvtWhxAzPJ08Q6s63x9JPCmbz1l948d/
+	 bwqB9KsG4uRbB5L30LWfuXiA+iSrdBT/0In59JUEGScPT9gduLf30c7W8MYRIHvThE
+	 r/bXOxI3UbmyA==
+Date: Wed, 3 Jun 2026 16:16:09 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v3 01/21] dt-bindings: pincfg-node: Add property
+ 'input-debounce-ns'
+Message-ID: <20260603-prevail-stereo-e5c6f56a433a@spud>
+References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
+ <20260603055347.66845-2-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="71FISapX4KtVwp+B"
+Content-Disposition: inline
+In-Reply-To: <20260603055347.66845-2-changhuang.liang@starfivetech.com>
 
-On Sun, May 31 2026 at 06:09, Herman van Hazendonk wrote:
-> + *
-> + *   1. Hierarchical irqdomain: for MPM pins that map to GIC SPIs (USB,
-> + *      HDMI, ...). Consumers wire their interrupts through this
-> + *      controller via interrupts-extended and the kernel manages
-> + *      enable / mask / set_type / set_wake via the IRQ subsystem.
-> + *
-> + *   2. Raw-pin API: for MPM pins that do NOT correspond to a GIC IRQ
-> + *      (SDC3_DAT1=21, SDC3_DAT3=22, SDC4_DAT1=23, SDC4_DAT3=24).
-> + *      These are physical wake-signal lines monitored by MPM
-> + *      directly. Consumers (mmci for SDC4 wake) call
-> + *      msm8660_mpm_set_pin_wake() etc. The consumer API establishes
-> + *      a device_link from consumer to producer so the MPM device
-> + *      cannot disappear while a consumer holds a handle.
 
-Why can't this be described in the device tree?
+--71FISapX4KtVwp+B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> +
-> +struct msm8660_mpm {
-> +	struct device *dev;
-> +	void __iomem *base;
-> +	struct irq_domain *domain;
-> +	struct msm8660_mpm_pin *pin_map;
-> +	unsigned int pin_map_count;
-> +	int parent_irq;
-> +	struct mbox_client mbox_client;
-> +	struct mbox_chan *mbox_chan;
-> +};
+Acked-by: Conor Dooley <conor.dooley@microchip.com>
+pw-bot: not-applicable
 
-https://docs.kernel.org/process/maintainer-tip.html#struct-declarations-and-initializers
+--71FISapX4KtVwp+B
+Content-Type: application/pgp-signature; name="signature.asc"
 
-Please read the rest of this document too.
+-----BEGIN PGP SIGNATURE-----
 
-> +
-> +/*
-> + * Singleton - there is only one MPM instance per SoC. msm8660_mpm_get()
-> + * returns this. Updates are serialised through the binding lifecycle so
-> + * a plain pointer is sufficient.
-> + */
-> +static struct msm8660_mpm *msm8660_mpm_global;
-> +
-> +static u32 msm8660_mpm_read(struct msm8660_mpm *mpm, unsigned int reg)
-> +{
-> +	return readl_relaxed(mpm->base + reg);
-> +}
-> +
-> +static void msm8660_mpm_write(struct msm8660_mpm *mpm, unsigned int reg,
-> +			      u32 val)
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBFOQAKCRB4tDGHoIJi
+0t5jAPsG52WyxIdGqkWQXbNR7WWwBbFJJlig8nviGZ33zar7yQEA6vpxDt44oWRn
++RG29Due1ymZZztK7tR9/NKS9Q5p1wc=
+=2VF4
+-----END PGP SIGNATURE-----
 
-No line break required. You have 100 characters. All over the place.
-
-> +static int msm8660_mpm_pin_to_hwirq(struct msm8660_mpm *mpm, int pin)
-> +{
-> +	int i;
-> +
-> +	for (i = 0; i < mpm->pin_map_count; i++) {
-
-for (int i = 0; ....
-
-> +		if (mpm->pin_map[i].pin == pin)
-> +			return mpm->pin_map[i].hwirq;
-> +	}
-> +	return -ENOENT;
-> +}
-> +
-> +/*
-> + * IPC handler: MPM fires this IRQ when one or more enabled wake pins
-> + * have pending activity. Read pending status, CLEAR the pending bits
-> + * BEFORE dispatching the per-pin handlers so a fresh edge that arrives
-> + * during dispatch cannot be wiped out by a later CLEAR write, then
-> + * replay each pending pin through the irqdomain.
-> + */
-> +static irqreturn_t msm8660_mpm_irq(int irq, void *data)
-> +{
-> +	struct msm8660_mpm *mpm = data;
-> +	unsigned long pending[MSM8660_MPM_REG_WIDTH];
-> +	unsigned long enable[MSM8660_MPM_REG_WIDTH];
-> +	int i, j;
-
-See documented variable ordering and put the iterator variables into context.
-
-> +static void msm8660_mpm_enable_hwirq(struct irq_data *d, bool enable)
-> +{
-> +	struct msm8660_mpm *mpm = irq_data_get_irq_chip_data(d);
-> +	int pin;
-> +	u32 val, mask;
-
-See docs
-
-> +static int msm8660_mpm_domain_alloc(struct irq_domain *domain,
-> +				    unsigned int virq, unsigned int nr_irqs,
-> +				    void *data)
-> +{
-> +	struct msm8660_mpm *mpm = domain->host_data;
-> +	struct irq_fwspec *fwspec = data;
-> +	struct irq_fwspec parent_fwspec;
-> +	irq_hw_number_t hwirq;
-> +	int i, ret;
-> +
-> +	if (fwspec->param_count != 2)
-> +		return -EINVAL;
-> +
-> +	hwirq = fwspec->param[0];
-> +
-> +	for (i = 0; i < nr_irqs; i++)
-> +		irq_domain_set_hwirq_and_chip(domain, virq + i, hwirq + i,
-> +					      &msm8660_mpm_chip, mpm);
-
-See bracket rules.
-
-> +static void msm8660_mpm_remove(struct platform_device *pdev)
-> +{
-> +	struct msm8660_mpm *mpm = platform_get_drvdata(pdev);
-> +
-> +	/*
-> +	 * Tear down in strict reverse order: drop the singleton so new
-> +	 * consumers cannot grab a handle, free the IRQ so the handler
-
-How is that serialized against a concurrent consumer request?
-
-Also please look at:
-
-   https://sashiko.dev/#/message/20260531043213.D18801F00893%40smtp.kernel.org
-
-Thanks,
-
-        tglx
+--71FISapX4KtVwp+B--
