@@ -1,250 +1,205 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94756282F39
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 13:15:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B862029B79B
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 13:17:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780492512; cv=none; b=c5n4RbcFBmVOAZuNjpDDDIKCmpsRCJ7/myFyxJCzgKPv4K3k8OHM/X3dl6fwzG4wbnBwdBwfQ2szUgHom/UxzPo+/TinzJq4TWU+9Ahn25foNA/f9YPkhaX8uL3R5HIeHU0KQj+k72v+gHnvLJ2CI0mAS64BRX2d237kNwvtRJ4=
+	t=1780492680; cv=none; b=QXMHob18nBT0njskCpzwHpn0m64EEHRy/Ydc6fwG6wt8n7Y64Nrh4jfDhyaR17IkOUsCU1VsdWZBR/c7yBlPnYloeakVEFKkaO3ALiQpYXUG6waQCjV9pFgoVVuWV+Guo+lGFcBFireIGRsSYj6WIkCs5GpQDzVY289npDpkp+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780492512; c=relaxed/simple;
-	bh=9Ka28VBnBHbOCZs2xk+dhQ9dZNrYGTpmWTmOpy9Y5Ak=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gfhNDbC08llesjzxGxRUwTWMpkm+mh0U8r1MUJEs/YPNbCKRyDJ8RIqdZNdR8KP/7NFKlAKP3UsTF1plqV2yW1gYNAmde4GZqRdsBuLnttNU/ZIfhxaj4HP5t+K0fT4xu43N3CZ7tLnhqlSNJ1qH1Guvjqw8XT2h4qwuB43dg3w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=c0FcG77Z; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780492680; c=relaxed/simple;
+	bh=XvtldXilXkY/PAyqaT9gfS+5Z6NSt+lIR0mWqy4PwBs=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UQojg62ff327dXa7yGW8wlQMmTyGCXYKXL+2CRZmWLPbGRoJ5fHd0uaf8HCny912s/H8ElcjEuEcgOb2q8M6w+pX9dZTkys49z23+wMz1PNTO3OK0tNarL+BYgCT4UMhwdwdYEa2IvfKlpzSxnhUKGZ7ge8cvVkLobdF+cieg8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Zv/jD7eh; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=MHpEuBDA; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="c0FcG77Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDB461F00898;
-	Wed,  3 Jun 2026 13:15:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780492511;
-	bh=nQNQ9YkLFQtxS5oxLy9KTjWwLnIm9mOVDOGfHDePJ7U=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=c0FcG77Z43Yd3oG4yVuqTkZY0fcHrTbffhRck/njgRsHGenvrMfnsf2DRqyCtr01g
-	 V6sextLEgdfSQZFMwXx+86Qi5BV2v5sKvqjbzYrW4g0KilpxLHBgBpG+mRt1TrkCcL
-	 9rKKNL0UpDqZUJWxI08P2o2AOjdS6LNOSIH8JdgSN4G0O1Ukbk1/lcT3IbJW/4HeSr
-	 3z8/bqZpsYhAN3niTSdIYzfFjc+9LRqrfcEtYs6jYTqOQOygCC3xbZzeFm3VUDlEyl
-	 T+fbhKTU6uuuwIMI9tKEkhWdqLBnCYgNFPISeFkCMU8xoh5f90JwFfSrBnRWsgD8Fi
-	 FB7ltXTi+JLnQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 2/2] drm/panel: Add BOE BF068MWM-TD0 panel driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Alexander Koskovich" <akoskovich@pm.me>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260603-asteroids-panel-support-v1-2-109c6ac81c8f@pm.me>
-References: <20260603-asteroids-panel-support-v1-2-109c6ac81c8f@pm.me>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 13:15:10 +0000
-Message-Id: <20260603131510.BDB461F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Zv/jD7eh";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="MHpEuBDA"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653CQsNo2076787
+	for <devicetree@vger.kernel.org>; Wed, 3 Jun 2026 13:17:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=csBmCVVylLxai6dnI43bsxJ9
+	942nZz/wU4Ao2SyUnqo=; b=Zv/jD7ehjMOQeMS++ZxuuHFJeMs7AJCN5OiS7DT3
+	e9htJKue7owJa2ft0KQD9fhM5CzCjYQoqbbh07uLwYa711JhUIXGkUJ9/VOFtWty
+	+O5kgF0gssl/Xei60U0664epmcBHXQIWpJZA35NYJBKbUHmG5Ocv/hTuQ0skkCsA
+	yAXpRAlGm2UdlXoZZlfGq8ImP2c6SFEPRNSBKh6dZNFKQiQlGQEuxRQ16jrufFhW
+	GL8Ub4BzZlevCNyOIVZNDLD+9b18q130Wl+WWu4dLny5CCguUb9E1ccaSogYK9vw
+	mqBUmhcuakH4WcTNjQcnQVVzg3+gifeXDGU/WFLlKLIflA==
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com [209.85.217.70])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejev19pcg-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 13:17:57 +0000 (GMT)
+Received: by mail-vs1-f70.google.com with SMTP id ada2fe7eead31-6751db2792dso5214577137.3
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 06:17:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780492677; x=1781097477; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=csBmCVVylLxai6dnI43bsxJ9942nZz/wU4Ao2SyUnqo=;
+        b=MHpEuBDA6QYyECtLhOhunlTJcEFCE33NyuEyZy0DtjnduPMOXkum+ontWTl/dXH4dN
+         BvKaBdZavdjEYzdq2Kh3z0dhSZgYALqrAfqMgkkoHZakyvyaTCbRxYd9SMGqBd4pbsjN
+         69iJal6Sm5xiqBtDw7ybtyjAQpoF8MJQI2mKgWeHBSSSxEzJvj+yU/Cvd+5W7xwXX77z
+         gKIITR3+Vt73pqdahkA4Ej/hIF6vNdCbWtBhCCYUTH96R0pEZnIJDSm40eb38INKlp/2
+         oF0elwJ0xVzHVninb8qeKfJexuFBQjpTBDEWFAA8Y0xEquCEIzXBArDIzn2u/uZQ41ar
+         c+9g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780492677; x=1781097477;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=csBmCVVylLxai6dnI43bsxJ9942nZz/wU4Ao2SyUnqo=;
+        b=eZXJFVD6hJRG7UQUoWInH7N7s/3svs/tO7yL5k0Na2lnVB3RNtb5vBIDPleILesuAK
+         F4vwT1J4HAFX8QSIXqy04t44DZyAlD2h1zvaNlHUopCfe0bhYVBazbpy8/Mwe3TzKpP8
+         d2xrcucWDuqQh/VxhU92ADSX4jtMx1aKqr6xdS8K4DQNy6CEqgX+GMpyw4fSik6dvDRA
+         cW2utyhC0VaVbipjKyERfAYR8oSkzmm23tiyDiwxcLQJp39PB1+CQJ/Gu5kISL13NS8j
+         4PhTDMB9iuMYknjiIB+s17J3LbRAYSeePwfzBw1juiwGly7isHeTxbNft7opUtsjjBv/
+         R78Q==
+X-Forwarded-Encrypted: i=1; AFNElJ/fEZERz1uyCQSqA17MYSq0MDAu9qojtLIbPpy6yQsMFuImkvkeP6e8VK5+GjKCPD7ooInUKtNLRxSC@vger.kernel.org
+X-Gm-Message-State: AOJu0Yznp/mr9acQ2k6OqVheVMJCZ65vDI+elSOxP5IueXIHZbGgmuuY
+	a3KXBV7JpDVC7wNrD3vI8QxQmwn43iY+umveBO/cUB8l650H7xWSnIF8FzjIDnzT9ci3mDXiPaT
+	IDMqacBVf4p6/5taAk69vqBWGYYqYi20pmEePdAX1tUisKUNV+7nE3RQyOEX1+5d7BttntrL1UR
+	g=
+X-Gm-Gg: Acq92OG8Fqc5HK3kyd1hplOJkymUMOf2WMif7+L7Np4sghnv28n2n1/rC/rkdEfLBa+
+	F8uiOrVrXBWR751M3t5U0+Wt1krHzv21T2Klqt3lSdKbEvDEwbxnwjyNri1wp/ajmywe68D+wsQ
+	83lzEUxfUm/oiViCkZ9rGg9Cj9fUcaoIeufjwalg+Dc5gajHzbrRccAzImVcVoWpP0TKmuwsZfM
+	zz9FI7Zcqmh089D/bRnfoxhhzBRUfRfZD+OWlYDt8kA81juNiYLIJccQnECZGESxTvtq44Vv1B3
+	UKoNZ6vZhoBlEUbd4DL50kws+ScVcXJSO1swkrTHvt5uTkfGJzTE4Yy+RNVpeWwK5YSg4GfLH4l
+	IcJqpkagsq0cGgzJb/vjCNDHsKMILt4sI7Iboy5brKxH0nY0oMlXvxbRw0V89J+DHWfYPReVtwQ
+	j8XMYR1mN0dexKW/NoxLJJ3A7S42+ACqosvtgDvJlyYrgJbg==
+X-Received: by 2002:a05:6102:5091:b0:6c5:d55d:c095 with SMTP id ada2fe7eead31-6ec4aac406fmr1221641137.26.1780492677064;
+        Wed, 03 Jun 2026 06:17:57 -0700 (PDT)
+X-Received: by 2002:a05:6102:5091:b0:6c5:d55d:c095 with SMTP id ada2fe7eead31-6ec4aac406fmr1221577137.26.1780492676569;
+        Wed, 03 Jun 2026 06:17:56 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2e9a9esm8876651fa.36.2026.06.03.06.17.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 06:17:55 -0700 (PDT)
+Date: Wed, 3 Jun 2026 16:17:52 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+Cc: Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, devicetree@vger.kernel.org
+Subject: Re: [PATCH 2/2] regulator: qcom-refgen: add support for the IPQ9650
+ SoC
+Message-ID: <ci2ur4vurrljhvkza7nqfq6hsjpj7aurb3r3lvjkebfwkcae35@kvnjmosamfzs>
+References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
+ <20260602-ipq9650_refgen-v1-2-55e2afa5ff64@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260602-ipq9650_refgen-v1-2-55e2afa5ff64@oss.qualcomm.com>
+X-Proofpoint-ORIG-GUID: fawxqMCaml5keyMgg6aWyrP84m4JlIML
+X-Authority-Analysis: v=2.4 cv=PNE/P/qC c=1 sm=1 tr=0 ts=6a202985 cx=c_pps
+ a=N1BjEkVkxJi3uNfLdpvX3g==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22 a=EUspDBNiAAAA:8
+ a=gpHlVAh8_vVDBl5ta1AA:9 a=CjuIK1q_8ugA:10 a=crWF4MFLhNY0qMRaF8an:22
+X-Proofpoint-GUID: fawxqMCaml5keyMgg6aWyrP84m4JlIML
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDEyNyBTYWx0ZWRfX6ariR1Ttz0zf
+ imBeJNWXGkBcq/i+IaN7oAQgl99jzdj95+g9elebwH96g7gkwMld1ZSifdnRndMTjWWB4csmE6w
+ kFPid3rCOcFDXKiKqUenv2dGeWw7A0fhVOH5BM1CSGpBsKjqbWILWm18VnLYNUjc0WSQh3smjCC
+ 8XTf9phMFf+i03/JoQ28UWtMoJFAZrR/sTPvfJE7mHWrbMaZ6vpXTdnQ8TqTbIW3P7u+ijyOQ9V
+ tE3OXpy+7GthDmbj7ob8Y3F5a0inwwGpZPmpBkAZSXrFNwH46PzywMCTklkIav46KMLE2w7IbNH
+ 126b9RADzmJEvcRO556s3WwAgmeU6eVb9Vc7zx8T6oPsRl1ILHayGauojBPFwksFr3oL2bd4aoD
+ 4yJMCqL/tfaQICYlCzwbu4lqopvg74U8mGK66yQkp/RcKWJ0bI0dssblnFhPF5kmNaxsDYS5Y0+
+ PAUi+jTibuUC7XDrp8A==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-03_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ phishscore=0 bulkscore=0 clxscore=1015 malwarescore=0 spamscore=0
+ adultscore=0 impostorscore=0 suspectscore=0 priorityscore=1501
+ lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606030127
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] State corruption due to un-restored MIPI_DSI_MODE_LPM flag on erro=
-r path
-- [High] Uninitialized core DSC parameters result in malformed PPS payload
-- [High] Concurrent unprotected bitwise modification of dsi->mode_flags
-- [High] DCS commands sent to unpowered hardware due to missing state check
-- [Medium] Resource leak on failure to setup DCS PPS or compression mode
-- [Medium] Race condition exposing incomplete panel configuration during pr=
-obe
-- [Low] Missing Kconfig dependency for DRM_DISPLAY_DSC_HELPER
---
-
-commit f349a000202648026372e12253353f6e49977419
-Author: Alexander Koskovich <akoskovich@pm.me>
-Subject: drm/panel: Add BOE BF068MWM-TD0 panel driver
-
-Add the panel driver for BOE BF068MWM-TD0 support found in the Nothing
-Phone (3a).
-
-> diff --git a/drivers/gpu/drm/panel/Kconfig b/drivers/gpu/drm/panel/Kconfig
-> index d592f4f4b939a..1e257657ef9ec 100644
-> --- a/drivers/gpu/drm/panel/Kconfig
-> +++ b/drivers/gpu/drm/panel/Kconfig
-[ ... ]
-> @@ -56,6 +56,17 @@ config DRM_PANEL_BOE_BF060Y8M_AJ0
->  	  uses 24 bit RGB per pixel. It provides a MIPI DSI interface to
->  	  the host and backlight is controlled through DSI commands.
-> =20
-> +config DRM_PANEL_BOE_BF068MWM_TD0
-> +	tristate "BOE BF068MWM-TD0 panel"
-> +	depends on OF
-> +	depends on DRM_MIPI_DSI
-> +	depends on BACKLIGHT_CLASS_DEVICE
-
-[Severity: Low]
-Since the driver invokes drm_dsc_pps_payload_pack(), should this config
-select DRM_DISPLAY_DSC_HELPER to prevent potential build failures when the
-DSC helper subsystem isn't enabled?
-
-> +	help
-> +	  Say Y here if you want to enable support for BOE BF068MWM-TD0
-> +	  6.77" AMOLED modules. The panel has a 1080x2392 resolution and
-> +	  uses 30 bit RGB per pixel. It provides a MIPI DSI interface to
-> +	  the host and backlight is controlled through DSI commands.
-> +
->  config DRM_PANEL_BOE_HIMAX8279D
->  	tristate "Boe Himax8279d panel"
->  	depends on OF
-> diff --git a/drivers/gpu/drm/panel/panel-boe-bf068mwm-td0.c b/drivers/gpu=
-/drm/panel/panel-boe-bf068mwm-td0.c
-> new file mode 100644
-> index 0000000000000..bbf7aed196161
-> --- /dev/null
-> +++ b/drivers/gpu/drm/panel/panel-boe-bf068mwm-td0.c
-[ ... ]
-> +static int boe_bf068mwm_td0_prepare(struct drm_panel *panel)
+On Tue, Jun 02, 2026 at 02:52:00PM +0530, Kathiravan Thirumoorthy wrote:
+> IPQ9650 SoC has 2 REFGEN blocks providing the reference current to the
+> PCIe and USB, UNIPHY PHYs. For the other SoCs, clocks for this block is
+> enabled on power up but that's not the case for IPQ9650 and we have to
+> enable those clocks explicitly to bring up the PHYs properly.
+> 
+> As per the design team, REFGEN block provides the reference current.
+> Hence marked the regulator type as REGULATOR_CURRENT.
+> 
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
+> ---
+>  drivers/regulator/qcom-refgen-regulator.c | 94 +++++++++++++++++++++++++++++--
+>  1 file changed, 90 insertions(+), 4 deletions(-)
+> 
+> @@ -62,6 +75,49 @@ static int qcom_sdm845_refgen_is_enabled(struct regulator_dev *rdev)
+>  	return 1;
+>  }
+>  
+> +static int qcom_ipq9650_refgen_enable(struct regulator_dev *rdev)
 > +{
-> +	struct boe_bf068mwm_td0 *ctx =3D to_boe_bf068mwm_td0(panel);
-> +	struct device *dev =3D &ctx->dsi->dev;
-> +	struct drm_dsc_picture_parameter_set pps;
+> +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
 > +	int ret;
 > +
-> +	ret =3D regulator_bulk_enable(ARRAY_SIZE(boe_bf068mwm_td0_supplies), ct=
-x->supplies);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to enable regulators: %d\n", ret);
+> +	ret = clk_bulk_prepare_enable(drvdata->num_clks, drvdata->clks);
+> +	if (ret)
 > +		return ret;
-> +	}
 > +
-> +	boe_bf068mwm_td0_reset(ctx);
-> +
-> +	ret =3D boe_bf068mwm_td0_on(ctx);
-> +	if (ret < 0) {
-> +		dev_err(dev, "Failed to initialize panel: %d\n", ret);
-> +		gpiod_set_value_cansleep(ctx->reset_gpio, 1);
-> +		regulator_bulk_disable(ARRAY_SIZE(boe_bf068mwm_td0_supplies), ctx->sup=
-plies);
-> +		return ret;
-> +	}
-> +
-> +	drm_dsc_pps_payload_pack(&pps, &ctx->dsc);
-> +
-> +	ret =3D mipi_dsi_picture_parameter_set(ctx->dsi, &pps);
-> +	if (ret < 0) {
-> +		dev_err(panel->dev, "failed to transmit PPS: %d\n", ret);
-> +		return ret;
-> +	}
-> +
-> +	ret =3D mipi_dsi_compression_mode(ctx->dsi, true);
-> +	if (ret < 0) {
-> +		dev_err(dev, "failed to enable compression mode: %d\n", ret);
-> +		return ret;
-> +	}
+> +	drvdata->enable_count++;
 
-[Severity: Medium]
-Will this error path leave the regulators enabled and the reset gpio unasse=
-rted?
+I think, a regulator enable() is called only once. Is there a point in
+having enable_count as int?
 
-If mipi_dsi_picture_parameter_set() or mipi_dsi_compression_mode() fails, t=
-he
-function returns early but does not seem to clean up the hardware resources
-enabled earlier in the prepare routine, potentially leading to a resource l=
-eak
-while leaving the hardware powered.
-
-> +
-> +	msleep(28);
 > +
 > +	return 0;
 > +}
-[ ... ]
-> +static int boe_bf068mwm_td0_bl_update_status(struct backlight_device *bl)
+> +
+> +static int qcom_ipq9650_refgen_disable(struct regulator_dev *rdev)
 > +{
-> +	struct mipi_dsi_device *dsi =3D bl_get_data(bl);
-> +	u16 brightness =3D backlight_get_brightness(bl);
-> +	int ret;
+> +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
 > +
-> +	dsi->mode_flags &=3D ~MIPI_DSI_MODE_LPM;
-
-[Severity: High]
-Could this unprotected bitwise modification of dsi->mode_flags lead to data
-races?
-
-Since userspace can adjust backlight concurrently with display modeset
-operations, altering these flags without synchronization might corrupt the
-DSI mode state if read or written to by other threads.
-
-> +
-> +	ret =3D mipi_dsi_dcs_set_display_brightness_large(dsi, brightness);
-
-[Severity: High]
-Does this code send DSI commands to hardware that might be powered off?
-
-The backlight update_status callback doesn't appear to check if the panel h=
-as
-been prepared before sending DCS commands, which could result in bus timeou=
-ts
-and controller errors if triggered via sysfs while unpowered.
-
-[Severity: High]
-If mipi_dsi_dcs_set_display_brightness_large() fails, will the
-MIPI_DSI_MODE_LPM flag remain permanently cleared?
-
-> +	if (ret < 0)
-> +		return ret;
-> +
-> +	dsi->mode_flags |=3D MIPI_DSI_MODE_LPM;
+> +	clk_bulk_disable_unprepare(drvdata->num_clks, drvdata->clks);
+> +	drvdata->enable_count--;
 > +
 > +	return 0;
 > +}
-[ ... ]
-> +static int boe_bf068mwm_td0_probe(struct mipi_dsi_device *dsi)
+> +
+> +static int qcom_ipq9650_refgen_is_enabled(struct regulator_dev *rdev)
 > +{
-> +	struct device *dev =3D &dsi->dev;
-> +	struct boe_bf068mwm_td0 *ctx;
-> +	int ret;
-[ ... ]
-> +	drm_panel_add(&ctx->panel);
+> +	struct qcom_refgen_drvdata *drvdata = rdev_get_drvdata(rdev);
 > +
-> +	/* This panel only supports DSC; unconditionally enable it */
-> +	dsi->dsc =3D &ctx->dsc;
-
-[Severity: Medium]
-Is it safe to register the panel via drm_panel_add() before the DSC
-parameters are configured and before attaching to the DSI host?
-
-This exposes the panel globally while it's still structurally incomplete,
-potentially leading to a race condition if another driver attempts to resol=
-ve
-the panel early.
-
-> +
-> +	ctx->dsc.dsc_version_major =3D 1;
-> +	ctx->dsc.dsc_version_minor =3D 1;
-> +	ctx->dsc.slice_height =3D 13;
-> +	ctx->dsc.slice_width =3D 540;
-> +
-> +	ctx->dsc.slice_count =3D 1080 / ctx->dsc.slice_width;
-> +	ctx->dsc.bits_per_component =3D 10;
-> +	ctx->dsc.bits_per_pixel =3D 8 << 4; /* 4 fractional bits */
-> +	ctx->dsc.block_pred_enable =3D true;
-
-[Severity: High]
-Will the absence of pic_width, pic_height, and rate control parameters here
-result in a malformed PPS payload?
-
-The drm_dsc_config struct is zero-initialized by devm_drm_panel_alloc().
-Because these fields are omitted during probe, drm_dsc_pps_payload_pack()
-will construct a zero-dimension PPS payload later, which may break display
-compression.
-
-> +
-> +	ret =3D mipi_dsi_attach(dsi);
-> +	if (ret < 0) {
-> +		drm_panel_remove(&ctx->panel);
-> +		return dev_err_probe(dev, ret, "Failed to attach to DSI host\n");
-> +	}
-> +
-> +	return 0;
+> +	return drvdata->enable_count > 0;
 > +}
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-asteroids-=
-panel-support-v1-0-109c6ac81c8f@pm.me?part=3D2
+Linux knows if it had enabled the regulator. I think the usual case for
+the is_enabled is to be able to read the hardware state. What is the
+point of having this callback?
+
+> +
+> +static const struct regulator_desc ipq9650_refgen_desc = {
+> +	.enable_time = 5,
+> +	.name = "refgen",
+> +	.owner = THIS_MODULE,
+> +	.type = REGULATOR_CURRENT,
+> +	.ops = &(const struct regulator_ops) {
+> +		.enable		= qcom_ipq9650_refgen_enable,
+> +		.disable	= qcom_ipq9650_refgen_disable,
+> +		.is_enabled	= qcom_ipq9650_refgen_is_enabled,
+> +	},
+> +};
+> +
+>  static const struct regulator_desc sdm845_refgen_desc = {
+>  	.enable_time = 5,
+>  	.name = "refgen",
+
+-- 
+With best wishes
+Dmitry
