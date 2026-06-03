@@ -1,264 +1,174 @@
-Received: from PH7PR06CU001.outbound.protection.outlook.com (mail-westus3azolkn19010027.outbound.protection.outlook.com [52.103.23.27])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f196.google.com (mail-pl1-f196.google.com [209.85.214.196])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C68413803D2;
-	Wed,  3 Jun 2026 06:43:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.23.27
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780468994; cv=fail; b=bwS853Ff0Y6izYH+9VY5+vfS6HuzNUXpDxcDPWffiqKDMLcfaJzaBFHLNdnVsfNQiFHuembhuN+9WGfTuNcYJ6Q0C32ApdfdnVFODnGUtAN4ck4p+kRo/vry97ydNPzgs+F8SOP1vr/ifq5awsuajIKMdRc5FYoTvLLRW3z02jg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780468994; c=relaxed/simple;
-	bh=mRsCH8qz/OQ9Chz61CfaIHJWapu7QOaaZM9F86ZqQho=;
-	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=bqNtVgtbnkZi2TobA06IvFo4ZXousp1UMxJRYpZl0LyJSt3eVuffpwMn25OVZ04clPrKVoc+JJzp0DCE/qtRbWZwo4Cle5hyYHH6jKr9C/9A4m5J9aEUMcfHdbCMWsAyQL5BrdqhEnDAyzAVAhEZNjs2O4FilRR0U242anfqUlg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com; spf=pass smtp.mailfrom=outlook.com; dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b=nKulzzeb; arc=fail smtp.client-ip=52.103.23.27
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=outlook.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=outlook.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F82B37FF53
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.196
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780469067; cv=none; b=Z9Gqlm/bRyz6Qdy5uBNPa3/IULN9PU+SxP1J0v+byvZmrS/fsIllBvbSfdKUOj4mjR3QlyrFVrOb8U9pfRIbblhhahjEuVb+KR0fk2ZHpt9xAsrLPPNDbGvvKiyJk+giNC0j/7h8qvtocX2DgQWeR9G6hsPaAsd6+ffOma3HSZA=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780469067; c=relaxed/simple;
+	bh=F5zhvt/iAlg6umNegPP2+kFF2Mb4DKEuLqC3mOxwjAU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dyqaJ8nqX3tRRRBW+7kSuG1P7FpV/ro8jE9VDkH0cuGiCBc5dsClaYF/hR0NlViUACLnDv47KyO1Xq70u7LnVL+7GiidcDDMiiwwXIDY3z6KnLKq6OtpY2GpuPBEXisnYRg1kDURxAqx3B251N8fBJAM+mOoc3Nto0KOyCcSikM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UwnTDDe2; arc=none smtp.client-ip=209.85.214.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=outlook.com header.i=@outlook.com header.b="nKulzzeb"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=ym8kq1kHV0P03tPr40S3r8dO7sdEkNNzW2cjsLwXyuFmZTBVQOZcAxQI+rAe2o+xMJqJ2saMsulW4huqCrWJfccEI8O764HghXpBrNwsk2+M+CEh05iWnY98R+a4T3f1rB8xHhtOhG/k8eT9xilgVYCIfBR7vqnmg8XzWfjH2gs0wSqoRUT6GMxWSbXIrqac+2T0iorvYz/jCxioLXFB4Zf3t8gAgOrSXFI78dSeD1eyiJYJirJxL6gpP3ibxL5W3erDsphszcA2TDrLTNbDZeZRbt8J6TbDGLwtMtCF10jEgaEoBt7mcjp7qNjBpM1bSLxk/S8MKUjFtATyLhjU7Q==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=C3Q0SFFvSt7o4fKKodrZPkHhB9oeNfziNErf01jd1Qk=;
- b=FKYrvmGO+89Wes9MiFMFQhoc9e0z6YUpGR5RH8cIpo2SriYbo0Fh6NfEKrVawBBiFIC2paXQ262qS2bwn2xzhev9STR3Ox31fKVLD4YxYpmDzpimJMsXIAAhKxgKm04J0Xkw4wYpgzyxc3o1t++KAmCdrC7A7b+aYXUnIyylwlKvA5h4784UfggO/iQJTMsXCGA1WOEJbwr/pKWeIaVdQyA2nl0q3uPxG82QVKq+oQvzcdgAdD87ttFYqp5iKAoLXQDIjNXKALN1zLIdX0fkLyGg/A+uvyKgeDJBoC1IGO0quQBr7d6LVE7O3fO6Xzr/woiOyKN5qlS3NP81J85pbA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=outlook.com;
- s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=C3Q0SFFvSt7o4fKKodrZPkHhB9oeNfziNErf01jd1Qk=;
- b=nKulzzebuwjqibyzRwmfpHZzQLbpCp8lGeewsxCBhh+5+BWstGMyOG7XnNytss+1AYIx3jVodumcFb4JTb8Y4mUbwoQeXyRIYjG+uOjx1M1qEGFk9iDATl3m9Y5PmDkvNXw8pOpKp9psKQhIZpZ9aVQMu8ZY7leS5GBrvfbM8IwYqnvkMxuJZJfc1FuCZ7O1IuxPFLLA7yqOi3MNnz6HlNZhqfPkr19HVNY4xasdmGxWZm6o1imQAvR+abmjPSzGSV9ADx+nGRAnP+kWL20bblK6c3g0ena74a9+xfBDLy90veV63IvKx+xTPQZP4tX6iksK4O3lkevYAsIA1qYNsg==
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com (2603:10b6:806:263::12)
- by PH0PR19MB5132.namprd19.prod.outlook.com (2603:10b6:510:90::17) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.17; Wed, 3 Jun 2026
- 06:43:09 +0000
-Received: from SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a]) by SN7PR19MB6736.namprd19.prod.outlook.com
- ([fe80::4b6c:b84f:b71c:d0a%3]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
- 06:43:09 +0000
-Message-ID:
- <SN7PR19MB6736D1AF2EA0ED8ADA4A72E79D132@SN7PR19MB6736.namprd19.prod.outlook.com>
-Date: Wed, 3 Jun 2026 10:42:53 +0400
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/4] dt-bindings: net: ethernet-phy: move clocks
- property to invidivual PHY bindings
-To: Conor Dooley <conor@kernel.org>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
- Russell King <linux@armlinux.org.uk>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Florian Fainelli <f.fainelli@gmail.com>,
- Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>, netdev@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, linux-arm-msm@vger.kernel.org
-References: <20260602-ipq5018-gephy-clocks-v2-0-65a1f1d881f3@outlook.com>
- <20260602-ipq5018-gephy-clocks-v2-1-65a1f1d881f3@outlook.com>
- <20260602-defense-diabetic-8a8e8e03a536@spud>
-Content-Language: en-US
-From: George Moussalem <george.moussalem@outlook.com>
-In-Reply-To: <20260602-defense-diabetic-8a8e8e03a536@spud>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: DX0P273CA0040.AREP273.PROD.OUTLOOK.COM
- (2603:1086:300:58::10) To SN7PR19MB6736.namprd19.prod.outlook.com
- (2603:10b6:806:263::12)
-X-Microsoft-Original-Message-ID:
- <39f57a9c-ba0c-4124-b3fe-3d7e1327e1dd@outlook.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UwnTDDe2"
+Received: by mail-pl1-f196.google.com with SMTP id d9443c01a7336-2c132ac5ec2so12251905ad.1
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:44:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780469066; x=1781073866; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=sd7sOkllNO4XLGxbX/2aYhqo9JXcF7DuVUpDO/tIkqk=;
+        b=UwnTDDe2HDAPPKNZ+EGfRLLYVrIlzEVtDcphB7zMHkrgATRevhZqQJ2kyqYfxli2EW
+         V64X+Z1saem+tV+jJMmGESDqSVi4S06wFoz3vnC/oEITkdu/ZBYFhvjjyQ84iXEL+hcw
+         OEmhfnDECGZ1tSdsuqaomLREDoxdealjHhrCOpyu3AE/m/qV0+04YEpRDhcHVFlSjyD9
+         SnQMvo25g6T+eGdTvuBykQrBLZF7NE5Rxlw0SxS9buo9sO5mJ6EVLm0PLlxZ4WrzPOxI
+         S+PUzZ69QItskJjccdE7lqd7MuhCw18RXZPI90dNlzsNA5qwHMhKBZW6sjw8Z41sE2vy
+         oRBA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780469066; x=1781073866;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=sd7sOkllNO4XLGxbX/2aYhqo9JXcF7DuVUpDO/tIkqk=;
+        b=VK7FAKiYyXDGEGtQJQ5oifZBn8EwSJm3ISfBQEyN/8cp2q7Qi/uvEH/EHWGpY+fxMq
+         capH+8SaV2mUogZv9MwehJmZ0fT2QFevNccu0vzKM+viMD2aLLHxa1VkONwNLZBPcm4V
+         PL7lPy3VTSFrT3lOLGyW0xxFGFKBefZ/qr2Ouqi0lwUyRab2JTvm6NzFUX1XU6gW4vrQ
+         VHGX1jCt1Jangujbltsw3n9UWTohXKANwCfM4qiYzvrmJ5SqVKzEd0xs8PE9iM5ZUbt+
+         fGwblj3jg83idt0iHoFLTMLEHv5IRChbtEGoU92josPfm4g0lhX/hH5AjitRdmteBLbq
+         OYEg==
+X-Forwarded-Encrypted: i=1; AFNElJ8e5OsieowH2mw4qAvaq16TXjByIghKg4zdSZ1/W8iF/5xOJJ9Gv4LjAa7jLz5QB59ZS5Tdr7z4yDWl@vger.kernel.org
+X-Gm-Message-State: AOJu0YyrH+HQrWo64LS6j6TJzI8pC4qA0ToRxhF1l9mPPNK4SyaxLypv
+	sX2VIUt5Zk3C31jQhgTUzSFBr2M6AxX7gCLAcdwyaqia5PkGUIuaBbM4
+X-Gm-Gg: Acq92OFQwdWhJy7cr+oQP6oJFOEnrVtUY6+tZtndZyvCeYKwYb/Bt7i9pr067qskqfg
+	LAth1HCeS/cA/HrjyQf/qbkydDFWHF5z5USFpabpVCUT/iTxrCEBaBtnTsRnJ31IVK2gmrPw+dU
+	QTcrMweP9aDR5LzU1u9uVGzni3jZ1JRlY/N9KsrG7oFrgnt0jVbwLMIFq4jRNUdUFoc2Zg53E8g
+	mnVc8P6SrJEOp/bzmIYoG8s57g4dFYVGqnZOyQtZQI+D6Do4MSCSfDdELqtRShxzA8W55cO6KEf
+	xXfWXhhCD04YJrU7RwZrFXCeFSwLaS8AsO9YVBawC+sbGa9nO1fWf7/SFuOkbDWpSkgn5msDE+N
+	4gbG30YxH3Lir6mYe1Hji6D5w5nyRxaIgAw+pJMn3otoMvsVFduLj7Xy1s6EKEunJAA+ClvxTS7
+	QUibOIZJWQUtK7oLc6NocD4wvFL3QTS9YsogJsHDpyiw==
+X-Received: by 2002:a17:903:298c:b0:2c1:4d9:c8db with SMTP id d9443c01a7336-2c1644dbfbamr22648805ad.37.1780469065484;
+        Tue, 02 Jun 2026 23:44:25 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c16629cfb4sm13674395ad.59.2026.06.02.23.44.15
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 02 Jun 2026 23:44:24 -0700 (PDT)
+Message-ID: <79932afc-2e91-4a54-aff9-f550be784c36@gmail.com>
+Date: Wed, 3 Jun 2026 14:44:13 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SN7PR19MB6736:EE_|PH0PR19MB5132:EE_
-X-MS-Office365-Filtering-Correlation-Id: bea12255-4461-4c90-2767-08dec13b6003
-X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|37011999003|24021099003|55001999006|6090799003|51005399006|12121999013|5072599009|23021999003|8060799015|15080799012|19110799012|40105399003|3412199025|440099028|10035399007;
-X-Microsoft-Antispam-Message-Info:
-	=?utf-8?B?ZXlGckd3UzRYOFpTUElZSXUrck1nY2pIVWRJcmlOeWlVaXpSQ0FMV01xM2o5?=
- =?utf-8?B?Q2N3TjA4ejdYc3FkNkRZOWhnOFNPNGF1NHJkYlU4RFZHcWxkcTUrRWhrL3BK?=
- =?utf-8?B?MHR0K3FzbE9sd2FZWnl3VzQ1YTFldGlOdmlDdVdMR1MzODZVd3ZhNzVzZTc2?=
- =?utf-8?B?WHB2U04zMnJaZVp2RFlRM0JLLzVmWUlVcitIeitiVXovR0NWTC9HMmtjdkpQ?=
- =?utf-8?B?Z2FkUytIWGlPaVdrN01PeEZWbk11Y1pHZHh6aXFOa3hOMWxETzh1bTQ5WThk?=
- =?utf-8?B?RGpzNjRxL3BXaGIrS0ZLc3RGVUJuMmdXd2toNjU0dzdwTXhNQzdhWnNJYkhP?=
- =?utf-8?B?dHFSU3RMNGF2TUlXcUhDWWVya1BiVFNWUkpLZ1kyOHFKcGxobmI3UUpmMkEy?=
- =?utf-8?B?MHdoYmdCL2J4dUNyUUdKYWhnOHV0RTlzVUdJNWR0YjFWelVzUEVYZUFNZzVS?=
- =?utf-8?B?dWxPN3FxeElvNktPd0FXQmlHUVRSSGRYTFN0SHd2VTVnbWFnWmluRXJ0ZVpC?=
- =?utf-8?B?bXh6SjhiWWpGYS9MbldXV012ckdTT3JHQ0l0Vmhud1cwaWF3WXorQTlOL3d1?=
- =?utf-8?B?L1pCWVgyYUJ1WUlFMUNRcTdwME41eHY3Vm1rVG45WmJMY1E4ZWFxeG1jZFVG?=
- =?utf-8?B?K21rNFlNMG9qRittaHlJdWlpVmlrZ3dWSVN5TWhVTERvQk1sQXdDK3NXdnpD?=
- =?utf-8?B?VU9sOE9rK3drbm5xVGlzblNTQy9VZS9tWDBhWTkzaHNiQXhrZjhhVkorVk5s?=
- =?utf-8?B?YW90WnR1UitkZVNLd0NXWGNxcFJ0ZTBZTTdjSFlBenpPNFNyd0hEblNrdnps?=
- =?utf-8?B?OTR0bUVUWTlDeWd4c0YxS05UcEVjZGYrUklRUGhTMmRSNFRFNndsMlMvVUxl?=
- =?utf-8?B?NDcyTDZvVWRyU29KRmlWSmdJYzhlUS9GaXR6UXZJSjBXWEExTjNrQjNtM0wx?=
- =?utf-8?B?bmdsdTcvN0MzNk1LZFJmamI2ZUZSOXZxcG0vZ0RsY1h2TmhHbEcxMEpmQXlZ?=
- =?utf-8?B?cUNnek9uQVpqTmZrdEpSdS8zMURDWjgzYXJhRVVkYkkrcU1VZ25OdDBKTW9G?=
- =?utf-8?B?WnE4dXEwcUVWd2VpcktHRG1pRlVheU9BUEFxS25sWm00VEFTY24vRlJvU240?=
- =?utf-8?B?STkwUjVkTElNMm5reVc3VnpMS1VCNDBEN1pvZXVxRjh2YlhNUjgzaVc1cnBh?=
- =?utf-8?B?bVEwL2djbUVHRHprR1ZlR2gvTXRUV3Y2WnEwSlZwVUg4S1NRREhkREpCNjBO?=
- =?utf-8?B?aHFRS21Va1l2ai94RWdMMnZjVHJWTFBjZDRId3pnbHNBSndpdyttRlovWjhE?=
- =?utf-8?B?R3VzM3gwSEQwSHA0UTBhR29XRDd5ZFlWd21oVUk2R1l4MTNTWkxiM2gyNkJU?=
- =?utf-8?Q?O6B/elwJRLBl6/xgC4OOuOkTuQpqCvs0=3D?=
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?WUFaRkVZTnpWSEkvZk9VV3VQNFhyVDhrWUxSZ1dUZzFYUjhjL281aVpSRTJQ?=
- =?utf-8?B?UW5xcmY4b29GZzIrellaL0Q4ZDE1b3VKUUw3d0xpbDhzWk1PRHRJZThjRldp?=
- =?utf-8?B?T09OY2pveXJjenBEK202WU5NcExabGltRGZjMTMyKzRUV0hMenhwd3JIYTlG?=
- =?utf-8?B?b1lBS25uYktnNUlGMTdGTDJzM3lsWTE5Y1lWMndEQ25QMThrWGFJWmoza1pR?=
- =?utf-8?B?SVhlV0FzdGxwN0I1YnBIbkVkaWMwTTN3anhtbHFkQmFNL2xwcnNhdlM4emdR?=
- =?utf-8?B?R2F3OE95UThrdzg0VUNnQytHWWRXS3l0aE1VSERQd3ZMNExHV2d2NlNPU2RD?=
- =?utf-8?B?eGFzREQxcUFJWUR4bW5KU0V6dnhod28vcVZPTzRTTXhEWnFqTjJoQkZwK2tW?=
- =?utf-8?B?eXlDMWltMzRMUlF6em4yZ0tpM3hZdUsvWmM4MUJ2SFExdE1NNWVLdk5iMkdB?=
- =?utf-8?B?eTRDT3VMUk9JcEh6eDNMbE1yeGdWWlZ3TVZCVloxWnNZMjkrVWFJdG8vQUNM?=
- =?utf-8?B?alprM1BSQzNKQlJ0aktQeStXdDVKRG9vdFZvREFKMytkUHBISGlvM3c4NHJG?=
- =?utf-8?B?VlRQZTNldVU5eWREVDhzTFMwVldHTzdwMXBJSmV6Nloyd0F6TDVQT2JxL3hT?=
- =?utf-8?B?Q243ckUzK3RHMGtqaE1FaXVpWEVjV0ptamZGd3JGNVVjRzBrc2ovK2FQYUJY?=
- =?utf-8?B?QTNkSjMxVlovdGt1c0xMVzFsVEFPdDdvQVVRMVFnbzBZWm9wd2twWUVvUUVs?=
- =?utf-8?B?NXR6S014SUdpZENhU3hKMEJFZXlRUVE4bEhiTlltQlNuRnBOWXJIRGtoRnpD?=
- =?utf-8?B?ZFpsbVNXUG1mcjlXNnVVSlZnN3ArajZpYlZBOE9LNTZIaWMrbDRoOXFabFdH?=
- =?utf-8?B?KzEvbldpenp3bFhyK1h3OFYzWmdsVzNITEZ1TXdmT094eXRON3lVNUFyWE4x?=
- =?utf-8?B?aTNaU1lpR01tVTdTOURjcU55ZVpCbDdQT000ajF4ejdEMmJwemxWYVJIbG8x?=
- =?utf-8?B?YXRMUE9SQXIzR3hkWk1tOXU2N1JDYlB3K21FSWQ5Y0ZUK04vY2lzQTNEYjNP?=
- =?utf-8?B?c09tUWRuVU9Ed1R2WVB5L2xjbnppUmd3ZXU2YlhGQnBrb09TTE0zRkFvMWxw?=
- =?utf-8?B?cnJaQ0tCbHRoNWlyTVdtS2ovbzNFaTE3NE9zUlNtcVczcHdtUHU0dHllUmgw?=
- =?utf-8?B?OFN2OE01clg2ZTUxdUtVaEdEWFVzRkx4Qkd2b0xKSkgzQ1BaNzdCVlF2V2Z3?=
- =?utf-8?B?UXZLUXdQMWFUVG15cnB2Wi9lbTRCN3FrcDJUWTc3eHdjcmgvUFd2ZUVvdk5C?=
- =?utf-8?B?dFYwbk1FbHFPWjdEZzdDYzJaL0cycjFmZTlxL1NRdzY1NzIrd2xyQWZuQXZN?=
- =?utf-8?B?OUo1SmZKTjJoQjhLbVFLRFduUG1CSTBCRHB4R0VRTUpkRVkzb1U4N1U3Y0ls?=
- =?utf-8?B?Qk8zcllwd2NvTW1zOU8yTUxzc08zS0F5VnY4ZGhZN1NlVjJFWmhPZGt4TXF2?=
- =?utf-8?B?RGNvQ3A0MnFPUUVBWEhjUzlwN3ZhQXNZQTk5cWRMUkxhbmFxb1ZIUVdCdTlJ?=
- =?utf-8?B?WXJSUGRrTG9VTjd4TnVBVjJia3dtNTFoZnV5N0pMTTdrRzQyb09MMmtkRVd1?=
- =?utf-8?B?RUMyY1ZQSzRwUHZDeGY2MUdMcVEwWjNMdWhPcjYwZ25GVUVwa0RMMWdEVHlI?=
- =?utf-8?B?VG1HdkJQNWVGZml3QmtsQnpaY0U3YVBUeEJyRVFKMnRBYUpwTlNhSVdLUjNr?=
- =?utf-8?B?ZElnMjFMcm9iT1R2Z2VFbSt0RUhlMlU0WUJVVlE2RlRCWThiUGZTK0JrdXhr?=
- =?utf-8?B?ZGJWRVBSeGREM09oa29NcUYxMVE2S2hkZXlqVnFLdTBUME14OWkxRnZpTHM4?=
- =?utf-8?B?d01taTZDdkgyNjFjVW55djdYZWZkZkd1Ynh2RHJGZ3gwclE9PQ==?=
-X-OriginatorOrg: outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bea12255-4461-4c90-2767-08dec13b6003
-X-MS-Exchange-CrossTenant-AuthSource: SN7PR19MB6736.namprd19.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 06:43:09.6540
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH0PR19MB5132
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/11] of: reserved_mem: avoid post-init UAF when
+ alloc_reserved_mem_array() fails
+To: Rob Herring <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, kexec@lists.infradead.org,
+ iommu@lists.linux.dev, zhaomeijing@lixiang.com, catalin.marinas@arm.com,
+ will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com,
+ quic_obabatun@quicinc.com
+References: <20260527032917.3385849-1-chenwandun1@gmail.com>
+ <20260527032917.3385849-4-chenwandun1@gmail.com>
+ <20260602162450.GA442759-robh@kernel.org>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <20260602162450.GA442759-robh@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On 6/2/26 20:34, Conor Dooley wrote:
-> On Tue, Jun 02, 2026 at 10:50:37AM +0400, George Moussalem via B4 Relay wrote:
->> From: George Moussalem <george.moussalem@outlook.com>
+
+
+On 6/3/26 00:24, Rob Herring wrote:
+> On Wed, May 27, 2026 at 11:29:09AM +0800, Wandun Chen wrote:
+>> From: Wandun Chen <chenwandun@lixiang.com>
 >>
->> Move the clock property and restriction from the ethernet-phy.yaml file
->> to the individual PHY binding files. This allows each PHY to manage its
->> own clock requirements.
+>> The global pointer 'reserved_mem' continues to reference the
+>> reserved_mem_array which lives in __initdata if
+>> alloc_reserved_mem_array() fails. of_reserved_mem_lookup() is
+>> exported for post-init use, that would dereference freed memory
+>> and trigger a use-after-free.
 >>
->> Signed-off-by: George Moussalem <george.moussalem@outlook.com>
+>> So reset reserved_mem_count to 0 when alloc_reserved_mem_array()
+>> fails.
+>>
+>> Fixes: 00c9a452a235 ("of: reserved_mem: Add code to dynamically allocate reserved_mem array")
+> Fixes should come first in a series.
+Understood, will do in future submissions.
+>
+>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
 >> ---
->> Commit 350b7a258f20 introduced the clocks property with a restriction to
->> maximum 1 to the main ethernet-phy.yaml binding for Realtek to add an
->> optional external clock source. This is restrictive to all PHY bindings,
->> as some PHYs may require more than 1 clock such as the IPQ5018 PHY which
->> requires 2 clocks (for RX and TX).
+>>   drivers/of/of_reserved_mem.c | 20 ++++++++++++++------
+>>   1 file changed, 14 insertions(+), 6 deletions(-)
 >>
->> There are three other PHY drivers that require clock management:
->> - Micrel: requires 1 optional clock and the micrel.yaml file already
->> accomodates for the clock property.
->> - SMSC: requires an optional clock and the legacy bindings file
->> (smsc-lan87xx.txt) already accomodates for the clock property.
->> - BCM7xxx: requires an optional clock. I could not find a bindings file
->> for this PHY family.
-> 
-> Have you done a large-scale dtbs_check run with this patch applied and
-> checked that it does not ban having a clock for phys with no dedicated
-> bindings?
-
-I've ran: make V=s CHECK_DTBS=y DT_SCHEMA_FILES=/net/ ARCH=arm64
-
-There were a whole lot of errors, mostly related to missing required
-regulator/power-supply properties, but none related to clocks.
-
-Also ran: make dt_binding_check DT_SCHEMA_FILES=/net/
-
-This ran successfully apart from the one error I highlighted in my reply
-to Rob on v1:
-
-  DTC [C] Documentation/devicetree/bindings/net/renesas,ether.example.dtb
-/home/george/src/linux-next/out/Documentation/devicetree/bindings/net/renesas,ether.example.dtb:
-ethernet-phy@1 (ethernet-phy-id0022.1537): compatible:
-['ethernet-phy-id0022.1537', 'ethernet-phy-ieee802.3-c22'] is too long
-	from schema $id: http://devicetree.org/schemas/net/micrel.yaml
-
-In addition, I ran `grep -r '#include <linux/clk.h>' drivers/net/phy` to
-identify all phy drivers that manage clocks which I've reported above.
-There's one more: xlnx_gmii2rgmii.c which acquires and enables 1 clock
-which is also accounted for in its schema.
-
-None of the phy-core files manage clocks.
-
-> I feel like weakening the limit of a single clock is probably more
-> accurate than outright banning clocks for ethernet phys without a
-> dedicated binding?
-
-If you think increasing the restriction is a better solution, I can
-submit an updated version. Kindly let me know.
-
-> 
-> Cheers,
-> Conor.
-> 
->> ---
->>  Documentation/devicetree/bindings/net/ethernet-phy.yaml    | 6 ------
->>  Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml | 6 ++++++
->>  2 files changed, 6 insertions(+), 6 deletions(-)
->>
->> diff --git a/Documentation/devicetree/bindings/net/ethernet-phy.yaml b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
->> index 21a1a63506f0..709ea976ef79 100644
->> --- a/Documentation/devicetree/bindings/net/ethernet-phy.yaml
->> +++ b/Documentation/devicetree/bindings/net/ethernet-phy.yaml
->> @@ -105,12 +105,6 @@ properties:
->>        1BR-10 names. The PHY must be configured to operate in BroadR-Reach mode
->>        by software.
->>  
->> -  clocks:
->> -    maxItems: 1
->> -    description:
->> -      External clock connected to the PHY. If not specified it is assumed
->> -      that the PHY uses a fixed crystal or an internal oscillator.
->> -
->>    enet-phy-lane-swap:
->>      $ref: /schemas/types.yaml#/definitions/flag
->>      description:
->> diff --git a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
->> index 45033c31a2d5..8a26f6941dc4 100644
->> --- a/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
->> +++ b/Documentation/devicetree/bindings/net/realtek,rtl82xx.yaml
->> @@ -38,6 +38,12 @@ properties:
->>        - ethernet-phy-id001c.cad0
->>        - ethernet-phy-id001c.cb00
->>  
->> +  clocks:
->> +    maxItems: 1
->> +    description:
->> +      External clock connected to the PHY. If not specified it is assumed
->> +      that the PHY uses a fixed crystal or an internal oscillator.
+>> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+>> index 313cbc57aa45..6d479381ff1f 100644
+>> --- a/drivers/of/of_reserved_mem.c
+>> +++ b/drivers/of/of_reserved_mem.c
+>> @@ -69,29 +69,31 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
+>>    * the initial static array is copied over to this new array and
+>>    * the new array is used from this point on.
+>>    */
+>> -static void __init alloc_reserved_mem_array(void)
+>> +static bool __init alloc_reserved_mem_array(void)
+>>   {
+>>   	struct reserved_mem *new_array;
+>>   	size_t alloc_size, copy_size, memset_size;
+>>   
+>> +	if (!total_reserved_mem_cnt)
+>> +		return true;
 >> +
->>    leds: true
->>  
->>    realtek,aldps-enable:
->>
->> -- 
->> 2.53.0
->>
->>
+>>   	alloc_size = array_size(total_reserved_mem_cnt, sizeof(*new_array));
+>>   	if (alloc_size == SIZE_MAX) {
+>>   		pr_err("Failed to allocate memory for reserved_mem array with err: %d", -EOVERFLOW);
+>> -		return;
+>> +		goto fail;
+>>   	}
+>>   
+>>   	new_array = memblock_alloc(alloc_size, SMP_CACHE_BYTES);
+>>   	if (!new_array) {
+>>   		pr_err("Failed to allocate memory for reserved_mem array with err: %d", -ENOMEM);
+>> -		return;
+>> +		goto fail;
+>>   	}
+>>   
+>>   	copy_size = array_size(reserved_mem_count, sizeof(*new_array));
+>>   	if (copy_size == SIZE_MAX) {
+>>   		memblock_free(new_array, alloc_size);
+>> -		total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
+>>   		pr_err("Failed to allocate memory for reserved_mem array with err: %d", -EOVERFLOW);
+> These prints could be moved to 'fail'. Perhaps instead of just printing
+> an error value, you can return the error value instead of boolean.
+Will do, consolidating pr_err() under 'fail' and changing the return type
+to int.
+>
+> If you respin just this patch, I can pick it up for 7.2.
+Before I respin, I'd like to flag a dependency:
+patch 05/07 in this series build on the signature change introduced by this
+patch ("the void -> bool return type change of alloc_reserved_mem_array()")
+
+Could you let me know which of the following you'd prefer:
+a) Take patch 03 alone via your tree as you suggested, after it lands, I'll
+    respin the remaining patches of this series.
+
+b) Keep patch 03 in the v4 respin of the full series, reordered to the front
+    per your earlier comment.
 
 Best regards,
-George
+Wandun
+>
+> Rob
 
