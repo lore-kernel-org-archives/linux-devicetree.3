@@ -1,271 +1,223 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from AM0PR83CU005.outbound.protection.outlook.com (mail-westeuropeazon11010019.outbound.protection.outlook.com [52.101.69.19])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F8E630567B
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 11:49:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780487387; cv=none; b=TKnuci8rHii0wCtawFG+GUct7U9pmEZtw7Cv4pvKsZNL673F6yC+LgffFC+QmWHvsE8yehfKaVThFDZpxHjSGUzKbXlRA9PGC3nGi7lI8FAvWdSgc00UdxWUERI8sgXBT9Nj610XeHSXQn3wPqGfokfRximgrQnHPlvqF23Q5oI=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780487387; c=relaxed/simple;
-	bh=5WYqa1g6S3Srxp29PLvPbFXXLuQROA62D+QIdoTrc38=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=CJZ5nz43Qh/Dby+s4uhxxZe5gicKy+w7wRHAhQk/N4csADOteqRHqcvab/lh5mHKr9+A5v/4xR/5mlLJns/+e2PGiGPJ5ewj9DOkx64CMuhcdkxF23NyETN1vYv3kt8mM1BxsBNbDDxfw96JbIK1N6wUw5n34s8Ql3zT5GwVhgk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MoPLcjQh; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7607477989
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 11:54:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.69.19
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780487643; cv=fail; b=hGlYfMNTcAqcw/EhMCDnQq5ihJng1lN/VvL01gKSVudwUwZAreD3neEpCT/zcNMEty/cnnco+liT8Frx5quPv84tPGZ5ZloKdfL8fA7VpkH/KWHiG6iJtiFcxIGNlZj4al1HCE0uiDoJMe2NSTlsPzpQxgB3l/0wQb637rjMW/w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780487643; c=relaxed/simple;
+	bh=nsayEAw9EyjUNYrQ0fYytxbzcfEYpNA3tsog4qV1H+I=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
+	 Content-Disposition:In-Reply-To:MIME-Version; b=tZyC/J13nYYR0OGw/CnFiGaBHXpYPPn3IPm1NC2c1SXeEWjrmEWC42lqycw/5c2ZVZOC6QNYNmad9wJQYgDztefACLNSopcmI6RyBi4UjZUiYYjh6D6vSZaPWbaUlQduVyZZkUXeFvW1BFdS5iC0HOIeGb/BXjyeFu6Wa2PbUtE=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=iSnEeuTT; arc=fail smtp.client-ip=52.101.69.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MoPLcjQh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 598F31F00899;
-	Wed,  3 Jun 2026 11:49:45 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780487385;
-	bh=HkiPbtY5/X4lDL1CH+PIxT+P5jW+l5bFJW/iRFV33Mc=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=MoPLcjQh5zGZAQCFIq5i/v2P6D7s/+2Y5y6cKLMHg3Vsq9gXYErBmxWx+PCFELWVu
-	 b3HBNO0lFVoIvFweGZoSogjSF3YBOSgCfm+RBBrTGYIqCmBVE6/Of/oV9bCHYqVUa1
-	 mXjz1P+pc3+1+VvNPMyrc8T6+rh6V6immUPkIWAj8iRg89bd76P0SwcD+YUcG4Gqbw
-	 izsNLDMu8SEwObxywAMfUr4cOYTnDGvoF/673wCSe/pPbnHs1D+w/HZPU3PDeloL9U
-	 kBy1q9HVyQzIv8tzrYvrKRggavA0h1vwERjKBsA8s3gpHWzsUDhrVsG3BWSASc4Eb8
-	 fNeLxj8SiEaFw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/2] clk: Add gpio-locked fixed clock driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Vyacheslav Yurkov via B4 Relay" <devnull+V.Yurkov.EXT.bruker.com@kernel.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260603-feature-clock-guard-v3-2-01cca0aa04a5@bruker.com>
-References: <20260603-feature-clock-guard-v3-2-01cca0aa04a5@bruker.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 11:49:44 +0000
-Message-Id: <20260603114945.598F31F00899@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="iSnEeuTT"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=Ywa8Ai3NqPPzh68R1wPZrTX05L9KYt+IFxulizfGKfnqVgNF8l4PLK9uag9H0nCXU0ZTA29+QNBRoqu534eIiRTgwTsSrzMdwqiFp5JXvYPEwAEIOhb4X88ucCXoqDxRpwW9jL+VITJmk/2+DS1JbDssnqKKQhP/m7CQj1K/imsV235T1wp/rU16Wn0t5ETO38eE77QNMVSm73zbWfyP/r5WS3KdIKWLmZSdiHVkRGSjG11VVavMmIwzxCPTmoW4JzYGiAKCQsaNqjiHEy5BlOPBDdTh1j6WHneOhQATMc2AqTsQ/DRhOWL0SFoS/5/rWypzht3qO9PEqqKyLCo4tA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=7LLqRVhNWdO53pqOQzC0RX5V7NZyoK/3Sll8+Gu5YEI=;
+ b=OpOajW5AneTSz6FlJ0fdOJxOpIetnU+51VH31epe8MSUkE7YIzPw6tymKpKYKk0i6r25sFAzDIOwucOY010WyrZ5eBPtzjjXBHOMZ4aV0lGrDawiNyaI6PIa/lv0bI6Iy6ks7yQKiQJCm2wllv03GzCikN5f4/luWAzkdlbjtwaDPzXJLA4O38lMTXCYrgha4z3JS3jcvasPZ0VKYU2VJ2FznPSctmSDH39rCYROZKBmeqCem+AkozPEr43G2sQeLaJspim6rr1SydAveszrHyq0JL7X3mjEX9Bl7V1d/qqgTxjl+aw/7u1ON6JHe1DNotF64q1YrjWYcuC5WMjZaQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
+ header.d=nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=7LLqRVhNWdO53pqOQzC0RX5V7NZyoK/3Sll8+Gu5YEI=;
+ b=iSnEeuTTxWKHVdtpCfSeMVZYpnEzMe+wNXMr21EiRSyRBDAso+l/bl2+4y7Az4kH8CRtsCHk9LZKZXsUQFmsZqWYnPIpY6ARX+caTAmVh5vasJgR9J5oIo18HwFjv5U+bIqU9cBRH89sGWfMndbcqVeHwtoKs88IWQZ+mV2HP/Qdspq3ad9n51TFs0nO+BtAABJZAt7HfMwiRVwNlfEqhdhjiHcpwst5wEe2EVzmDq33f64fjorFOl+sOfmPBSTG9RhzZKxG/jcunL5T5DZlNW7j4uOGq9pu/Ir1cOGIJJ/nqQZ/dirirxZ8Tpgs9lZsoleGpuezNdCudvpU6fCr+A==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=nxp.com;
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com (2603:10a6:208:17d::10)
+ by AM9PR04MB7667.eurprd04.prod.outlook.com (2603:10a6:20b:2d5::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.71.13; Wed, 3 Jun 2026
+ 11:53:57 +0000
+Received: from AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023]) by AM0PR04MB6900.eurprd04.prod.outlook.com
+ ([fe80::7fda:8431:ca1b:b023%5]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 11:53:57 +0000
+Date: Wed, 3 Jun 2026 14:53:54 +0300
+From: Vladimir Oltean <vladimir.oltean@nxp.com>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, vkoul@kernel.org,
+	neil.armstrong@linaro.org, linux-phy@lists.infradead.org,
+	robh@kernel.org, olteanv@gmail.com
+Subject: Re: [PATCH v2 phy-next 14/15] phy: lynx-10g: new driver
+Message-ID: <20260603115354.l356gejs6ysqf4s2@skbuf>
+References: <20260529171509.1163787-15-vladimir.oltean@nxp.com>
+ <20260529182118.007AC1F00893@smtp.kernel.org>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260529182118.007AC1F00893@smtp.kernel.org>
+X-ClientProxiedBy: BE1P281CA0089.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:b10:78::12) To AM0PR04MB6900.eurprd04.prod.outlook.com
+ (2603:10a6:208:17d::10)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AM0PR04MB6900:EE_|AM9PR04MB7667:EE_
+X-MS-Office365-Filtering-Correlation-Id: 9ce5c54b-c112-4bf8-10b4-08dec166cb5c
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|376014|1800799024|19092799006|10070799003|3023799007|56012099006|22082099003|6133799003|4143699003|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	GQFOE6P/jGXQi/1U3DC8o4KuHg0D4cKfaIZSQsbddMCKxamhz9vt03NyNEfIX3BeOrnBXLyga1AoVU4taow50qXs9YIC4npdq6Lp30SNTcxIh0nkJNOb/sCzYnzdpLSC0bAyu8Uya5KKCYiBVT1bRIrMgRHC+7pZdz+cKnLwqvMDKCK9Lx7+olmXl3cjnWhhhgNezwhA2Nz+XBby2JuXjwQ05WDuPyT/+zcWJQAH11EBfbrlVf9ii0p25QXs8lts94+8az94Mv2pH7fCo1tRE1SelRd9evh0ktn+CKNGijbemsngdso7G+45vU5Uqtu7PE+hNDrYWkgHL3tK/UxWNYzmcFn2gTNDnvzu1pK+Z96lt8TjnYEpxPsucU7WY8wbqxW38CU4pCvQnc6v/ngcL2Qh8H8NlPsmIOp55JLiUZY03idsD8DjpXUYhFSRK+t2Z8o4iUl/7RwX2Jp2lWzvq5wTn5RcLld0ZvXS0xdonnVBpvzZ4zXIZdt5pY/5GBgsY9CzNtWAAAS9hVDPW0VVed31+ZsW0M0k9WCxQEAY+XIm8Qk064NmucKgHiIOIy9lSmi+lIad1dSj6J+Lfq4ThHy9yqSXwjRTUGqstGyYXQjU8OH6VeY+yAK/W5YE/dcozypUGy+iR3fffLf+IalTX0IcASIAOn9EvsGdKLzeVWb8rLxrrspGVcj8dKKhg7Km
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:AM0PR04MB6900.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(19092799006)(10070799003)(3023799007)(56012099006)(22082099003)(6133799003)(4143699003)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 2
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?yhLpkSwFt3LdXX9t+67SLHe2KEVLxxfWlSSPswtZUl/yzds4FMeFivTVmENM?=
+ =?us-ascii?Q?hcQ7JuLQXiKq4pEr3x5qOgwbsHCYhqXXo8808XPReyB9J4jdLEV5xSBbk+G8?=
+ =?us-ascii?Q?yXSt21Od5RrNLd61gYmniU5qxq8zfblPWyZrQ11BNxMEcj5LmVUIGJHkqJVi?=
+ =?us-ascii?Q?UQnE8fWtohSdW6fgw760JoCFETB7RoTa8rx3qH1m+k03iaTudVmTfJi7xhQ0?=
+ =?us-ascii?Q?/E94RbvsikqWlcvVbhfgpSxTOBQnVGpGsKYZDw+rfRtJ18swVt6nyogvj7Me?=
+ =?us-ascii?Q?CdM2OZ0BYBfl3DG0pwe0GnqJgmW6XN8s6H676axD8P3hr6HZeBX29U8OFXOQ?=
+ =?us-ascii?Q?NohFdaeeLvhiFEDCgM4aKI9lBg+8dlf1LsCaGcjrGsGpOh4BtFwJ8JmFgbnV?=
+ =?us-ascii?Q?Qd1aAqu1+r+MSorC2jgUINN4m+oetk4UHGlHsqXDCSs7VGGg3g6KbZIwy8pl?=
+ =?us-ascii?Q?8IXlUH2fkVqmrroaU6m3Ur7ppIOUJx4gqFJ6wCp+/xIGPiiing57HyJeJTDS?=
+ =?us-ascii?Q?KQaj4kNJ/QJxtv9ogw4hSSmjF7LndjvRHEiCb1oAfH+Th69aFR98O1rlWtit?=
+ =?us-ascii?Q?9RS8arGrkq0n01DwKBDEO6n6sP68MxB1v+Jf8prO2OwWN3L2wksmiTLx3rQZ?=
+ =?us-ascii?Q?sUSwxSaPFKZGQHAEHyMb3zCl4jgIW0/0/YuwM6PxHk1YnYh93B24Cd9UESGX?=
+ =?us-ascii?Q?ia0hU+iZb/XGoc8iFdiQAHQsIrrsYYev1kRJC92o5m1LChqiI399GUYros+P?=
+ =?us-ascii?Q?4OmxhUQPUHdU+ancIyUd9t9OwNyGRaqMy5rWfMaMz41rmGs2Emb/O+YZdlLv?=
+ =?us-ascii?Q?SQpj//hwiAVahYfmUv88d6nTzxgFkGQti1RPs6ocpDXVzODPVajQU1jfqI0B?=
+ =?us-ascii?Q?O92Lu+LgrxtPxj0Pdg36x0JbGPzxbtPqLLpFiCEPT8u78wLqiFGcRR1LPgWh?=
+ =?us-ascii?Q?CZF5cCQADvcPgNUS3fzg/eI89ikwaCylL0MllT2bhbAgKSwA3ULdYbuApAkQ?=
+ =?us-ascii?Q?8ie5f1CsXy7Zc90pwDCsg7jFKMENxB8bo1bRIN2sYGzridw+6VYB2vzUkP6L?=
+ =?us-ascii?Q?w7zbaydJpCP0VOdLjXPNFMDlXU/V8r9BTCJav+kdjY6Jn2A912wSv0eFyPRT?=
+ =?us-ascii?Q?aqeJg6mGnYU+i8LNelx7PHjWkVeSls3TQPEGrVE9iyY/4TaLMAaM8iK34ADu?=
+ =?us-ascii?Q?uRzp9ZHO8AuzdTnchtfDSsgLEblOMBxvsKbtRg9JgOSUNSU5MSuGKaZJ5x8o?=
+ =?us-ascii?Q?ad8y1n7QPAmrZxtZ4X6Aab2iCO2r8iRnG27SVgvhsRL97QIWMSqphSqye8Sb?=
+ =?us-ascii?Q?6CSW2nq3C5NEVI1n6gyHNlLr1UPY7PHn4hgPUXKkpvAoo0uyiU5VAgfZWNC1?=
+ =?us-ascii?Q?uJBAhJ5sg0XYLUaEaCGzw6Y5ALJZyk4gyIODOoHnlsa3y2M+/x1DM1Vlzq6L?=
+ =?us-ascii?Q?N8E6c1lCvid7BIeyPZiCalTb98Fv+SbGmLXecggChvRL6r7G2hCWEqgIy39g?=
+ =?us-ascii?Q?SymARavFvc4/IuIQo/WbPWDM1CmXGzKJrywGjhcfH0dFAInBNEBCKyZF1I8c?=
+ =?us-ascii?Q?kkQzpG8diu5wcgXffoREUQrRiAtobbfNr1cGgqvxFhRtRnd+en+2rd4QGg5Z?=
+ =?us-ascii?Q?114uiyKv4322tLcCkIlYptlg5xXp1LGYvRCQCn9JWeS6uOUn4lEHpqM7pmfA?=
+ =?us-ascii?Q?9x8IOLRZ8imPTUxd5u+Ae8TpVhSKXxnMjrlR1jlwEjZgHhe6sQiuY2vAInJp?=
+ =?us-ascii?Q?MV5iDtBxOlLwsE+4FSGykToAG98Q5caerXeIQXoc/O1H5+KGmNr4fc22LEW/?=
+X-MS-Exchange-AntiSpam-MessageData-1: o5goLjUfQ0rZBd8DdNYtXc6Gba9HeypUJr4=
+X-OriginatorOrg: nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9ce5c54b-c112-4bf8-10b4-08dec166cb5c
+X-MS-Exchange-CrossTenant-AuthSource: AM0PR04MB6900.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 11:53:57.7593
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: O+h0Gxex97KFh5Q1l0GkRgPQ/FAjDKSHAzxrib/Yf3EHxbB8g/sQ9LTphgD2mu/2tIbdoIftwtiRbv6zGFMqWA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7667
 
-Thank you for your contribution! Sashiko AI review found 7 potential issue(=
-s) to consider:
-- [High] The driver reuses its `.enable` function for `.is_enabled`, return=
-ing 0 for ready and `-EBUSY` for not ready, which inverts CCF's `.is_enable=
-d` boolean semantics.
-- [High] The driver returns `-EBUSY` immediately from `.enable()` instead o=
-f internally waiting for the clock to lock, inappropriately forcing consume=
-rs to poll.
-- [High] The driver attempts to aggregate multiple input clocks using `num_=
-parents > 1`, but CCF treats multiple parents as a multiplexer (MUX), not a=
- logical AND gate.
-- [High] The driver populates `init.parent_names` with local consumer conne=
-ction IDs instead of globally registered clock names, breaking parent clock=
- resolution.
-- [High] The driver violates API boundaries by using `__clk_get_hw()` on co=
-nsumer `struct clk` pointers to check `clk_hw_is_enabled()`, which only che=
-cks software state and risks use-after-free.
-- [High] Calling `gpiod_get_array_value()` from `.enable()` and `.is_enable=
-d()` triggers a sleeping-in-atomic BUG if the GPIOs are on a slow bus.
-- [Medium] Input GPIOs are requested with `GPIOD_ASIS` instead of `GPIOD_IN=
-`, failing to guarantee the lines are configured as inputs.
---
+On Fri, May 29, 2026 at 06:21:17PM +0000, sashiko-bot@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> 
+> New issues:
+> - [High] Incorrect restoration of the PCCR mux configuration because `0` is treated as uninitialized.
+> - [High] Potential timing violation when bringing lanes out of reset and power down simultaneously.
+> 
+> Pre-existing issues:
+> - [High] lynx_xlate can return a NULL pointer for unprobed PHY lanes, leading to a NULL pointer dereference in the PHY core framework.
+> --
+> 
+> commit 851e6824db7b03958722b9808f3549609168de99
+> Author: Vladimir Oltean <vladimir.oltean@nxp.com>
+> 
+> phy: lynx-10g: new driver
+>     
+> Introduce a driver for the networking lanes of the 10G Lynx SerDes
+> block, present on the majority of Layerscape and QorIQ (Freescale/NXP)
+> SoCs.
+> 
+> > diff --git a/drivers/phy/freescale/phy-fsl-lynx-10g.c b/drivers/phy/freescale/phy-fsl-lynx-10g.c
+> > index 0000000000000..9b04d6a4b825a
+> > --- /dev/null
+> > +++ b/drivers/phy/freescale/phy-fsl-lynx-10g.c
+> [ ... ]
+> > +static int lynx_10g_lane_enable_pcvt(struct lynx_lane *lane,
+> > +				     enum lynx_lane_mode mode)
+> > +{
+> > +	struct lynx_priv *priv = lane->priv;
+> > +	u32 val;
+> > +	int err;
+> > +
+> > +	spin_lock(&priv->pcc_lock);
+> [ ... ]
+> > +	if (lane->default_pccr[mode]) {
+> [Severity: High]
+> Can this condition incorrectly fall through to hardcoded defaults if a valid
+> mux configuration of 0 is backed up?
+> 
+> Since default_pccr is zero-initialized by devm_kcalloc(), a backed-up value
+> of 0 evaluates to false. This skips the restoration and allows the driver to
+> apply hardcoded defaults later, which could permanently reroute the hardware
+> lanes and break the network interface.
 
-commit a891e5fe0dbdc27c3cfbbf69bfe6b147ef67ce9c
-Author: Vyacheslav Yurkov <V.Yurkov.EXT@bruker.com>
+No it cannot. default_pccr[mode] == 0 is not a valid mux configuration,
+it universally means the protocol converter is disabled.
 
-clk: Add gpio-locked fixed clock driver
+> > +		err = lynx_pccr_write(lane, mode, lane->default_pccr[mode]);
+> > +		goto out;
+> > +	}
+> > +
+> > +	val = 0;
+> [ ... ]
+> > +static int lynx_10g_power_on(struct phy *phy)
+> > +{
+> > +	struct lynx_lane *lane = phy_get_drvdata(phy);
+> > +
+> > +	if (lane->powered_up)
+> > +		return 0;
+> > +
+> > +	/* The RM says to wait for at least 120ns between per lane setting have
+> > +	 * been changed and the lane being taken out of reset
+> > +	 */
+> > +	usleep_range(1, 2);
+> > +
+> > +	lynx_lane_rmw(lane, LNaGCR0, LNaGCR0_RRST_OFF | LNaGCR0_TRST_OFF,
+> > +		      LNaGCR0_RRST | LNaGCR0_TRST |
+> > +		      LNaGCR0_RX_PD | LNaGCR0_TX_PD);
+> [Severity: High]
+> Does this code violate typical PHY hardware sequencing by clearing both the
+> power-down bits and digital reset bits simultaneously?
+> 
+> Releasing the digital reset at the same time as activating the analog
+> components doesn't leave time for the analog circuitry to stabilize. The
+> prior usleep_range() occurs before power-up is initiated, which might not
+> prevent hardware lockups or unreliable behavior on link up.
 
-A gpio-locked clock aggregates one or more input clocks and/or one or
-more GPIOs. It's a FPGA-assisted clocking design where peripheral clocks
-are generated by FPGA PLLs that are outside CPU control, with
-clock-valid/PLL-lock status exposed through GPIO signals.
-Consumers can use the output clock to wait until all input
-clocks are locked and only then initialize dependent peripherals.
+This is actually a great comment. Re-reading the hardware documentation,
+the power up sequence is indeed messed up. Will fix for v3.
 
-> diff --git a/drivers/clk/clk-gpio-locked.c b/drivers/clk/clk-gpio-locked.c
-> new file mode 100644
-> index 0000000000000..79098f9b65326
-> --- /dev/null
-> +++ b/drivers/clk/clk-gpio-locked.c
-[ ... ]
-> +static int is_gpio_ready(struct gpio_locked_clk_priv *priv)
-> +{
-> +	unsigned long values[BITS_TO_LONGS(MAX_INPUT_GPIO_COUNT)] =3D {0};
-> +	int ret =3D 0;
-> +
-> +	if (priv->num_gpios =3D=3D 0)
-> +		return 0;
-> +
-> +	ret =3D gpiod_get_array_value(priv->gpios->ndescs,
-> +		priv->gpios->desc,
-> +		priv->gpios->info,
-> +		values);
+> > +
+> > +	lane->powered_up = true;
+> > +
+> > +	return 0;
+> > +}
+> [ ... ]
+> > +static int lynx_10g_probe(struct platform_device *pdev)
+> > +{
+> > +	return lynx_probe(pdev, of_device_get_match_data(&pdev->dev),
+> > +			  &lynx_10g_ops);
+> > +}
+> [Severity: High]
+> This is a pre-existing issue, but does the core PHY framework crash if
+> lynx_xlate() returns a NULL pointer for an unprobed PHY lane?
+> 
+> If a PHY lane is requested via device tree but the driver did not probe it,
+> priv->lane[idx].phy will be NULL. If lynx_xlate() returns this NULL pointer,
+> the core PHY framework interprets it as a successful retrieval of an optional
+> PHY and might attempt to dereference it. Would it be safer to explicitly
+> return ERR_PTR(-ENODEV) in lynx_xlate() when the phy pointer is NULL?
 
-[Severity: High]
-Will this trigger a sleeping in atomic context warning if the GPIOs are on a
-slow bus?
-
-CCF .enable() and .is_enabled() callbacks execute in an atomic context
-under the global enable_lock spinlock with IRQs disabled. If the GPIOs
-are on an I2C/SPI expander, gpiod_get_array_value() requires a sleepable
-context.
-
-Should .prepare() and .is_prepared() be used instead?
-
-> +
-> +	if (ret) {
-> +		dev_err(priv->dev, "Failed to read GPIOs");
-> +		return -EIO;
-> +	}
-[ ... ]
-> +static int gpio_locked_clk_is_enabled(struct clk_hw *hw)
-> +{
-> +	struct gpio_locked_clk_priv *priv =3D to_gpio_locked_clk_priv(hw);
-> +	int ret =3D 0;
-> +
-> +	if (priv->num_gpios > 0) {
-> +		ret =3D is_gpio_ready(priv);
-> +		if (ret < 0)
-> +			return ret;
-> +	}
-
-[Severity: High]
-Does this logic invert the CCF state machine?
-
-The framework expects .is_enabled() to return non-zero if the clock is
-enabled and 0 if disabled. This function returns 0 when ready, and -EBUSY
-when not ready. Because -EBUSY (-16) is non-zero, CCF interprets a 'not
-ready' state as 'enabled', and a 'ready' state as 'disabled'.
-
-> +
-> +	// Now check for the clocks
-> +	for (int i =3D 0; i < priv->num_clks; i++) {
-> +		struct clk_hw *hw_clk =3D __clk_get_hw(priv->clks[i].clk);
-> +
-> +		if (!clk_hw_is_enabled(hw_clk)) {
-
-[Severity: High]
-Is it safe to use __clk_get_hw() on arbitrary consumer struct clk pointers?
-
-This internal CCF macro returns a raw pointer that could be freed if the
-provider unbinds, creating a use-after-free risk. Additionally,
-clk_hw_is_enabled() only checks the software enable_count rather than
-actual hardware PLL lock states.
-
-> +			dev_dbg(priv->dev, "Clock %i (%s) is not ready",
-> +				i, priv->clks[i].id);
-> +			return -EBUSY;
-> +		}
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +/* We can't enable the clock, but the Common Clock Framework calls only
-> + * enable() not is_enabled()
-> + */
-> +static int gpio_locked_clk_enable(struct clk_hw *hw)
-> +{
-> +	return gpio_locked_clk_is_enabled(hw);
-> +}
-
-[Severity: High]
-Can this cause consumers to fail instantly without waiting for the clock
-to lock?
-
-Standard clock consumers expect clk_prepare_enable() to block until the
-clock is stable or return a timeout error. By returning -EBUSY immediately
-without polling, consumer drivers calling clk_prepare_enable() during probe
-will instantly fail if the clock isn't already locked.
-
-Should the clock provider poll the lock status internally (preferably within
-its .prepare() callback)?
-
-> +
-> +/* We have to implement it, but we are not going to control
-> + * parent clock selection
-> + */
-> +static u8 gpio_locked_clk_get_parent(struct clk_hw *hw)
-> +{
-> +	return 0;
-> +}
-
-[Severity: High]
-Does CCF treat num_parents > 1 as a multiplexer rather than an AND-gate?
-
-When CCF propagates clk_enable(), it only enables the single active parent
-determined by .get_parent(), which hardcodes to 0 here. This means input
-clocks 1 through N-1 are never automatically enabled, causing the checks in
-gpio_locked_clk_is_enabled() to permanently fail unless those clocks happen
-to be enabled externally.
-
-> +
-> +static const struct clk_ops gpio_locked_clk_ops =3D {
-> +	.enable =3D	gpio_locked_clk_enable,
-> +	.is_enabled =3D	gpio_locked_clk_is_enabled,
-> +	.get_parent =3D	gpio_locked_clk_get_parent,
-> +};
-[ ... ]
-> +static int gpio_locked_clk_parse_gpios(struct gpio_locked_clk_priv *priv)
-> +{
-> +	struct device *dev =3D priv->dev;
-> +	struct device_node *np =3D dev->of_node;
-> +	int i;
-> +
-> +	priv->gpios =3D devm_gpiod_get_array_optional(dev, "locked", GPIOD_ASIS=
-);
-
-[Severity: Medium]
-Does requesting with GPIOD_ASIS guarantee the lines are configured as input=
-s?
-
-If the bootloader left the pins in an output state, reading them might retu=
-rn
-the internal output latch value instead of the external signal. Should
-GPIOD_IN be used instead?
-
-> +	if (IS_ERR(priv->gpios)) {
-> +		dev_err(dev, "failed to get GPIO array: %ld\n",
-> +				PTR_ERR(priv->gpios));
-> +		return PTR_ERR(priv->gpios);
-> +	}
-[ ... ]
-> +static int gpio_locked_clk_parse_outputs(struct gpio_locked_clk_priv *pr=
-iv)
-> +{
-> +	struct device *dev =3D priv->dev;
-> +	struct device_node *np =3D dev->of_node;
-> +	struct clk_init_data init =3D {};
-> +	int ret;
-[ ... ]
-> +	if (priv->num_clks) {
-> +		const char **parent_names;
-> +		int j;
-> +
-> +		parent_names =3D devm_kcalloc(dev, priv->num_clks,
-> +					    sizeof(*parent_names),
-> +					    GFP_KERNEL);
-> +		if (!parent_names)
-> +			return -ENOMEM;
-> +
-> +		for (j =3D 0; j < priv->num_clks; j++)
-> +			parent_names[j] =3D priv->clks[j].id;
-> +
-> +		init.parent_names =3D parent_names;
-
-[Severity: High]
-Does this assign local consumer connection names to init.parent_names
-instead of globally registered clock names?
-
-devm_clk_bulk_get_all() fills the id field with the local consumer
-connection name from the clock-names DT property, but init.parent_names
-expects global provider names. This could prevent CCF from linking the
-clock hierarchy correctly.
-
-Could init.parent_hws or init.parent_data be used instead?
-
-> +	}
-> +
-> +	priv->output_hw_clk.init =3D &init;
-> +
-> +	ret =3D devm_clk_hw_register(dev, &priv->output_hw_clk);
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-feature-cl=
-ock-guard-v3-0-01cca0aa04a5@bruker.com?part=3D2
+Will fix in v3.
