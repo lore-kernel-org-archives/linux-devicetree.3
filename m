@@ -1,163 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D993D522C;
-	Wed,  3 Jun 2026 15:24:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1753D905D;
+	Wed,  3 Jun 2026 15:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500271; cv=none; b=ni3W3AWkl1cmCEk8VuxQYj4aO7ekUOoVhryclSHz1FwJR8mriD8pcXaJJQ02vKjXi/xLJ/1PkUvyR7vkSIYoNLDJEMmtC7VnGuT+Rbh5G2jYBQhL+bZ9DxAJPtQnVj5XoEKPzP0LyyNlEYrxWK7yF3Fb5zFwdBzEs4uD0/1Dw/A=
+	t=1780500278; cv=none; b=l1ayDfX7XWBdC5OE72Wh79z+Iwz1aNn6iidJwqwkXDvNHylP31MiOm71G7m1O9wed4Ayz7fK7avsm9ONgzV/6ysSn3CWrKoqqfW0gf5bHBkWINsJBzwGy/tAwkcx9/Xn+2s8FEJxCkt26HVNHKpT/oLbd5CIZI9/9Aex5PQuaV4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500271; c=relaxed/simple;
-	bh=zo5Dz8ovc62ByM6P3PWKFIPchkqnIqVqSTT/9nFsr+k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hEC9xT4JlWyS3SGDo1FZ3eBSRXcCN1JP8lnMrKctilTQvQphW5wINOctz6AiAtcEUHX4XO+pkka9+jh0dZLLVtj0J8id7qyw4OEZT9eeitPbv3vQas5bmbJCMaWNLrE03Zjbk6hBDJx55/r+ekPT/iiCOI5NDngdpROd0QKD8Iw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CY6046kz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780500278; c=relaxed/simple;
+	bh=Wo7WvU7hG8UqR9oM2FnHyCbJ2ufNLi2uCnx5PAG0TkE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=gVz+C9LnFwZrrFjnpJ3ly1uA1lygQihAk3h0Lsuom6AkQK6IWMaufyhquJ+ThehglQ2SqrQw+/WCmMgRu+zV839cDZ0TsvoXHhKfElz6zfCZWbQ7jDSgM54kQ2Ukj79lCA3UoGxObs5m8O3Z/zJiWICwRUa5qU7Ya0uLIxke0yI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=G6HoOvL0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CY6046kz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10DA81F00893;
-	Wed,  3 Jun 2026 15:24:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="G6HoOvL0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0E651F00893;
+	Wed,  3 Jun 2026 15:24:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780500270;
-	bh=kjzxz0t6lEOZubRT0pRgqofvMBOODUDsEOG6BtNFkrY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=CY6046kzgjy/4LzHpfa083N0szyRpUPGZ0I+Wk+DFOg7yHaruMmEgIArZyLfSHeRD
-	 QE8DezpHY+8eYXp8keBkf6MFHUxwXX/IGsfFwnOrtQCasWpdF0OD18r+5OzF6/nf7J
-	 al9s/eLoErKQcEmTNZZ7TLF7yG2vVJKCvS22nf8udkazLaY7SXnhIgHF8cxuXttyuy
-	 kPBuM2EbwuS40xhnfS9TedanwKSCyKm7pGNKmCzXC0teyv3FJ7n7HFtMLE7Nlecbr5
-	 qTRo7Oou0oTsl8qgpyiehMwNt3xKBdvz4oQHY/ixSJS7Q5brkXUYQawah9FNimLCYh
-	 U7fh60Kdxx7zg==
-Date: Wed, 3 Jun 2026 16:24:26 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Chi-Wen Weng <cwweng.linux@gmail.com>
-Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
-Subject: Re: [PATCH 1/2] dt-bindings: spi: Add for Nuvoton MA35D1 SoC QSPI
- Controller
-Message-ID: <20260603-daybed-absentee-1b64f5caabe0@spud>
-References: <20260603043551.1062112-1-cwweng.linux@gmail.com>
- <20260603043551.1062112-2-cwweng.linux@gmail.com>
+	s=k20260515; t=1780500277;
+	bh=HNdlC6+cJBidtlUlePuZph88tbBAg1I6k9N5mrg/fMQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=G6HoOvL0sJEIKMxnx6ll5qujs8+SC7yKk9xA6cXa3zIRKuRU04wbyn6GA3zQgdo43
+	 6mllWBQAm6fS+66v+cTX8r00MBIwB2MX7JraKXbUCZINs5VnGbceFvNOQz18gvtL4B
+	 pXK3agdUJ/tF0xTUwUvvONJ82RG+sUEyk62zFyex9u252DlU6pj4jFCCJDQR/l0pSS
+	 SDkt5uUiabA22dblq6QCIT63d4k46DV1nqD2zrelIZm70aC7190cOLc6cO1Q4nD7Je
+	 miHBWlzwG6Fz4kk6lxwUdcTYLtS9dG9DkbVVkBO+u7Re8hmKWmSnlZ2g9sZtlqEcKN
+	 TkutyJ+RsqAtw==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, Sneh Mankad
+ <sneh.mankad@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>
+Subject: Re: [PATCH v2 2/8] irqchip/qcom-pdc: Move all statics to struct
+ pdc_desc
+In-Reply-To: <20260526-hamoa_pdc-v2-2-f6857af1ce91@oss.qualcomm.com>
+References: <20260526-hamoa_pdc-v2-0-f6857af1ce91@oss.qualcomm.com>
+ <20260526-hamoa_pdc-v2-2-f6857af1ce91@oss.qualcomm.com>
+Date: Wed, 03 Jun 2026 17:24:34 +0200
+Message-ID: <87bjdr7ikt.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="dmNkohdYccTOM49Q"
-Content-Disposition: inline
-In-Reply-To: <20260603043551.1062112-2-cwweng.linux@gmail.com>
+Content-Type: text/plain
 
+On Tue, May 26 2026 at 16:24, Maulik Shah wrote:
+> @@ -221,9 +231,9 @@ static void pdc_enable_intr(struct irq_data *d, bool on)
+>  {
+>  	unsigned long flags;
+>  
+> -	raw_spin_lock_irqsave(&pdc_lock, flags);
+> -	__pdc_enable_intr(d->hwirq, on);
+> -	raw_spin_unlock_irqrestore(&pdc_lock, flags);
+> +	raw_spin_lock_irqsave(&pdc->lock, flags);
 
---dmNkohdYccTOM49Q
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+While at it please convert this to:
 
-On Wed, Jun 03, 2026 at 12:35:50PM +0800, Chi-Wen Weng wrote:
-> Signed-off-by: Chi-Wen Weng <cwweng.linux@gmail.com>
+      guard(raw_spinlock_irqsave)(...);
 
-Missing commit message for one, but why can't your Nuvoton mail be used
-here?
+The _irqsave is not really required when invoked from the irqchip
+callbacks with irq desc lock held and interrupts disabled, but that's
+also magically invoked from other contexts. So you could spare that
+irqsave by wrapping the other callsite into:
 
-Sashiko had two comments about resets and num-cs that looked valid.
+        guard(irq)() or scoped_guard(irq)
 
-> ---
->  .../bindings/spi/nuvoton,ma35d1-qspi.yaml     | 61 +++++++++++++++++++
->  1 file changed, 61 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/spi/nuvoton,ma35d1-=
-qspi.yaml
->=20
-> diff --git a/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.ya=
-ml b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> new file mode 100644
-> index 000000000000..f7b9cb52d8e5
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/spi/nuvoton,ma35d1-qspi.yaml
-> @@ -0,0 +1,61 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/spi/nuvoton,ma35d1-qspi.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Nuvoton MA35D1 Quad SPI Controller
-> +
-> +maintainers:
-> +  - Chi-Wen Weng <cwweng@nuvoton.com>
-> +
-> +allOf:
-> +  - $ref: spi-controller.yaml#
-> +
-> +properties:
-> +  compatible:
-> +    const: nuvoton,ma35d1-qspi
-> +
-> +  reg:
-> +    maxItems: 1
-> +
-> +  interrupts:
-> +    maxItems: 1
-> +
-> +  clocks:
-> +    maxItems: 1
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - clocks
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
-> +    #include <dt-bindings/clock/nuvoton,ma35d1-clk.h>
-> +
-> +    soc {
-> +        #address-cells =3D <2>;
-> +        #size-cells =3D <2>;
-> +
-> +        spi@40680000 {
-> +            compatible =3D "nuvoton,ma35d1-qspi";
-> +            reg =3D <0x0 0x40680000 0x0 0x100>;
-> +            interrupts =3D <GIC_SPI 57 IRQ_TYPE_LEVEL_HIGH>;
-> +            clocks =3D <&clk QSPI0_GATE>;
-> +            #address-cells =3D <1>;
-> +            #size-cells =3D <0>;
-> +
-> +            flash@0 {
+> +	pdc->enable_intr(d->hwirq, on);
+> +	raw_spin_unlock_irqrestore(&pdc->lock, flags);
+>  }
+>  
+>  static void qcom_pdc_gic_disable(struct irq_data *d)
+> @@ -348,10 +358,10 @@ static struct pdc_pin_region *get_pin_region(int pin)
+>  {
+>  	int i;
+>  
+> -	for (i = 0; i < pdc_region_cnt; i++) {
+> -		if (pin >= pdc_region[i].pin_base &&
+> -		    pin < pdc_region[i].pin_base + pdc_region[i].cnt)
+> -			return &pdc_region[i];
+> +	for (i = 0; i < pdc->region_cnt; i++) {
 
-Drop this flash node, it serves no purpose here.
+for (int i = 0; ....
 
-pw-bot: changes-requested
-
-Thanks,
-Conor.
-
-> +                compatible =3D "jedec,spi-nor";
-> +                spi-max-frequency =3D <30000000>;
-> +                reg =3D <0>;
-> +                spi-rx-bus-width =3D <4>;
-> +                spi-tx-bus-width =3D <1>;
-> +            };
-> +        };
-> +    };
+> +		if (pin >= pdc->region[i].pin_base &&
+> +		    pin < pdc->region[i].pin_base + pdc->region[i].cnt)
+> +			return &pdc->region[i];
+>  
+> +	raw_spin_lock_init(&pdc->lock);
 > +
-> --=20
-> 2.25.1
->=20
+>  	pdc_domain = irq_domain_create_hierarchy(parent_domain,
+>  					IRQ_DOMAIN_FLAG_QCOM_PDC_WAKEUP,
+>  					PDC_MAX_IRQS,
 
---dmNkohdYccTOM49Q
-Content-Type: application/pgp-signature; name="signature.asc"
+Please fix up the coding style here according to
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBHKQAKCRB4tDGHoIJi
-0kNbAQCOgW0doQKE85Sk4jtKfNxpQIdQUC339qiL0/5yHx1NEwD9E3D0JKa6xsRm
-zY/qv1p/jXCiL28U4tfuyAiUS/355wA=
-=J1hd
------END PGP SIGNATURE-----
-
---dmNkohdYccTOM49Q--
+https://docs.kernel.org/process/maintainer-tip.html
