@@ -1,51 +1,49 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED812D238F;
-	Wed,  3 Jun 2026 16:43:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CADB24266BA;
+	Wed,  3 Jun 2026 16:50:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780504998; cv=none; b=IfZxZq6zHigkd+1hqyCt3AZYrGnerD9pjshzDhgrviiSPDxBr4csX94Prd+kxiOQdy1J73mmyJuakv3Sa5wnVZg4axkDrf/vsk64T65Y/eFMeZKDX3Pp6Pw0gax3hR54xJ9vyHo+Y3N9lCQMafPEcUsKTodRis3rnlNLXpatCag=
+	t=1780505416; cv=none; b=GePT03789aV/bY8S5GicizdCAKlvEEKUPBIhgxgf7qPP46xg0Q/g0UBwCyMKKljYdQMIAFnkLMde0dCHgBE5MTZ70nI3gs61pqk45v5BQOjHnfuEPceCAf9tlQ0jbQbl7bnVTjZaTjq+p3y1KrSWI70XAxPVMGGQZVEX/M6pZXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780504998; c=relaxed/simple;
-	bh=dntpDrMGqALzXTr+vxV/nyexYipxCv7gzTVl+1ltPdo=;
+	s=arc-20240116; t=1780505416; c=relaxed/simple;
+	bh=DnA2JJz5trPES1DFKq8aSZziMagCnw0o1qTisz8fKiE=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FEzLPK5XYO27U2sc3gCEfAUW4FGGBtfQkLJf8IZ9gUf0kSGQ7mphJ3vUQpaztMPclUqamrEu/uT5jGpLAJaXsh8YxHCJl8XWwso7ieLBDL83/Tl2jUk/HEJxoPp0ybOledT+madGOmxkGp/DJr6HjR4sQRx1hCD9Iny2zNnqwyk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C7BrbTck; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=nua2HLr7Hm/UP+dWbVFaK2dzNMXP0i+PeMWlSqmDgezFLQRifOiLDoHdVhjjv7arMOqOLgIJkltu0XkQT5obPAFmC91rWQ9BCHa1uQ53OQPmyeRNkV2v+koYHRL+31zM7boWkGzXrytin40d7Ln3TZHJa55dY1iTn6M168fQOlI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UFEizWzh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C7BrbTck"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 955271F00898;
-	Wed,  3 Jun 2026 16:43:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UFEizWzh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 46F5D1F00893;
+	Wed,  3 Jun 2026 16:50:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780504996;
-	bh=Z4JstCrvgUHq+IUxWBlO/QMKc5rWKAgnPJ1UKfXNnss=;
+	s=k20260515; t=1780505415;
+	bh=vG2BviYc/C+MDKHIkeN902tisDjjqwsCpaMZr0/n/NI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C7BrbTckQvXcWoV7k+AEBCsEVHxBwBKyRVbQMNUucK6Up4k+mlR/D2B+ty9bTqLC6
-	 TXyYpg2iAmZbYrcSf/IMx42niQl+mHUvOCBb0t+zktt8WMQQcFeeZ+L8BsSY4TYrFe
-	 SMxLlsrDm6jSETCY+mtmezh1ig1ZWzqM8StHwFWddZgXGWQRMy7Lzaz1dLLvobS5Ii
-	 dA0lkSooslWUAphAp8eOjJTAjX54a8pnk1nPZ0IJK6im27QMOvdGhM7NfhvaKPvaXt
-	 s7dJq2RJ1BZSMP41cVQv4yxHtDPtyuHL388CA2+C9GMN7wvIH310E7UgCTsSDcd20Z
-	 it1IkgBNDLRfQ==
-Date: Wed, 3 Jun 2026 17:43:11 +0100
+	b=UFEizWzhvrAPdwvfrVrrm2pxizZW5BnXpsG+1r/8Z65vNQuUI0dshzxkfck0K/PNk
+	 O3AkFM1n8imanlDuEzm9goAMREiiSNUM4dpqpzyyJoXB6JV3Iu5GRMIY0QwKza5zHr
+	 QiFHYZs9hY2Mx/a7yW7di0/1bw4cVgA/Efngm1DltKY7VPgkH/hjPOUeuc4fGS5Gv5
+	 jty0Up4HUSx5m/d2iBAInQXvgPf8hJUfJL5s6n+uRLG1GNEywwHHAussS7/ZcvEjer
+	 HlJg48Efw8GPOOfnQPYyEpxjcqxc4rRTlzDjGyEicDpXAjYgNUSJ9rujYNKfuK9zrM
+	 JCTkdQ0XvYWqg==
+Date: Wed, 3 Jun 2026 17:50:11 +0100
 From: Conor Dooley <conor@kernel.org>
-To: Changhuang Liang <changhuang.liang@starfivetech.com>
-Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+To: Naresh Solanki <naresh.solanki@9elements.com>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
 	Conor Dooley <conor+dt@kernel.org>,
-	Emil Renner Berthing <kernel@esmil.dk>,
-	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Philipp Zabel <p.zabel@pengutronix.de>,
-	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
-Subject: Re: [PATCH v3 03/21] dt-bindings: pinctrl: Add
- starfive,jhb100-sys0-pinctrl
-Message-ID: <20260603-groin-valid-a1d4445f7a6b@spud>
-References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
- <20260603055347.66845-4-changhuang.liang@starfivetech.com>
+	Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grantpeltier93@gmail.com>,
+	linux-hwmon@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-renesas-soc@vger.kernel.org,
+	Patrick Rudolph <patrick.rudolph@9elements.com>
+Subject: Re: [PATCH 1/2] dt-bindings: hwmon: isl68137: Add RAA228234
+ compatible
+Message-ID: <20260603-staring-cubbyhole-8f803b3ab30f@spud>
+References: <20260603110127.23930-1-naresh.solanki@9elements.com>
+ <20260603-deskwork-perch-ae4eaf92368f@spud>
+ <CABqG17jzv03U5=1zhVd57zDDWFXpt=mX030HVyLUpm5q0LRW1Q@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -53,43 +51,92 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="nFVpdkwrvTMCfj3J"
+	protocol="application/pgp-signature"; boundary="dB8g81isTGQRJxN6"
 Content-Disposition: inline
-In-Reply-To: <20260603055347.66845-4-changhuang.liang@starfivetech.com>
+In-Reply-To: <CABqG17jzv03U5=1zhVd57zDDWFXpt=mX030HVyLUpm5q0LRW1Q@mail.gmail.com>
 
 
---nFVpdkwrvTMCfj3J
+--dB8g81isTGQRJxN6
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, Jun 02, 2026 at 10:53:29PM -0700, Changhuang Liang wrote:
+On Wed, Jun 03, 2026 at 10:10:14PM +0530, Naresh Solanki wrote:
+> Hi
+>=20
+>=20
+> On Wed, 3 Jun 2026 at 21:39, Conor Dooley <conor@kernel.org> wrote:
+> >
+> > On Wed, Jun 03, 2026 at 11:01:26AM +0000, Naresh Solanki wrote:
+> > > From: Patrick Rudolph <patrick.rudolph@9elements.com>
+> > >
+> > > Add the compatible string for the Renesas RAA228234 8-phase PWM
+> > > controller, which shares the same PMBus interface as the RAA228228.
+> >
+> > Given this, and what the driver change looks like, why is a fallback
+> > compatible not used?
+> Are you suggesting that the binding should use renesas,raa228228 as a
+> fallback compatible, similar to how renesas,raa228942 and
+> renesas,raa228943 fall back to renesas,raa228244?
 
-> +          slew-rate:
-> +            enum: [ 0, 1 ]
-> +            default: 0
-> +            description: |
-> +                0: slow (half frequency)
+I didn't see that at the time (I commented on this diff alone), but yes.
+ 	{ .compatible =3D "renesas,raa228228", .data =3D (void *)raa_dmpvr2_2rail=
+_nontc },
++	{ .compatible =3D "renesas,raa228234", .data =3D (void *)raa_dmpvr2_2rail=
+_nontc },
+ 	{ .compatible =3D "renesas,raa228244", .data =3D (void *)raa_dmpvr2_2rail=
+_nontc },
+ 	{ .compatible =3D "renesas,raa228246", .data =3D (void *)raa_dmpvr2_2rail=
+_nontc },
+driver change suggests you're compatible with the ..44 device.
 
-Half frequency? Slew rates are usually measured in volts per second, not
-hertz. Do you know what the slew rates actually are and could put them
-in here as the real units? Or is it just "slow" and "fast" in your docs
-with no precise numbers?
+I expect that you'll use a fallback in the next iteration then?
+pw-bot: changes-requested
 
-I've got no questions other than this, so once this question is sorted,
-I'll be happy to ack all the bindings provided they're effectively the
-same.
+Cheers,
+Conor.
 
-> +                1: fast
+> Or is there a
+> specific reason you'd expect it not to be used here?
+>=20
+> Regards,
+> Naresh
+>=20
+> >
+> > >
+> > > Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
+> > > Signed-off-by: Naresh Solanki <naresh.solanki@9elements.com>
+> > > ---
+> > >  Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml | 1=
+ +
+> > >  1 file changed, 1 insertion(+)
+> > >
+> > > diff --git a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68=
+137.yaml b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > > index 8216cdf758d8..2988bc6300ae 100644
+> > > --- a/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > > +++ b/Documentation/devicetree/bindings/hwmon/pmbus/isil,isl68137.yaml
+> > > @@ -55,6 +55,7 @@ properties:
+> > >            - renesas,raa228004
+> > >            - renesas,raa228006
+> > >            - renesas,raa228228
+> > > +          - renesas,raa228234
+> > >            - renesas,raa228244
+> > >            - renesas,raa228246
+> > >            - renesas,raa229001
+> > > --
+> > > 2.43.0
+> > >
 
---nFVpdkwrvTMCfj3J
+--dB8g81isTGQRJxN6
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHQEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBZnwAKCRB4tDGHoIJi
-0vpAAPiFQ0YARyxgZCQaUynrtzsvBAbt0yy5kxy2vpklo/C5AQDWjzznOIi1/0El
-tLNQlHJKrwJ3v5PG6RXO8m1+IwCdBA==
-=GdZR
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBbQwAKCRB4tDGHoIJi
+0mQMAQCGJi8T5FIPVvVa+N8QhldtoUD7PcyQabO+Bj51wRxBTAD+IUs8jZSqjEXW
+Dws1Sdwpfjd1OR7qW1NmAMkiBuWyRA4=
+=vj0j
 -----END PGP SIGNATURE-----
 
---nFVpdkwrvTMCfj3J--
+--dB8g81isTGQRJxN6--
