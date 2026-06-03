@@ -1,222 +1,208 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D519481A83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1EC16481667
 	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:25:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500351; cv=none; b=Vt/PgJCWUGjr/Cn5ABlOKwuAcXeh+uAmOi6RiS+owRh4RfBheF4oZsI5sgQEt/QxwoLMsUguBQJ/B4s2Y+ZQZW6sR0t+TCjrWY0Eiu1S3NoN//voE0fdOFps40gXbE6bLrbdEJHor8GD+6xtLxhH1Y5QYARDnE5RuZ7dbAZC4zQ=
+	t=1780500352; cv=none; b=FpI4iXzc05RJz+Fka5roOce9ohM84USOTGmbHnJjABVyuOlVAMyHyFnr90yS4xGU/ZTCqW9ToaOgZmOpkv+VCRw+q12ehDfnUOMuQJDRFTdrGPi7O+qWKFOkRqfF6PrR6WxzEhWs4oiJrp8deT76UxnilcZtQF5wqiZhblCHqeE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500351; c=relaxed/simple;
-	bh=WDgPFdgIvvuAzMy4RRJnXdtPMp9gMufrgOvEvrQlbac=;
+	s=arc-20240116; t=1780500352; c=relaxed/simple;
+	bh=wTgxak9te5rQ+u1Y/ATQpZ8H1qFL+7vB0OS3CxvBi+0=;
 	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=ik7bVavpvK7OlDLeCdbePGObLtrlH4/ceIz9ZBKrXMtwiU2yVU/ZzpU/WfxevkYIbjBmONW+UbMsdBN2Bzu/pjsggLDHDIVHFcbHZDxg9EpiWzygQI62OIPjSUbcNCFAR/an/swTxoB7wGlyAesVDu0RbWrr1qPeoW7yCHor9OU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NZFgwKJu; arc=none smtp.client-ip=100.103.45.18
+	 Message-Id; b=HSSxqCB/LB1tiarH3YDfzO6DbsBxvUJti7yfYruZqMgFfEmYE9xjZFF5f1AzEkHJNLJe/cgWX81hgLh4YtYnGMnJ/+OOIIBFzfc4lrvssljVIZn6UiDmhyqeKAIvxyOcTVqbRDjk6Esm8LbsXrm3c5YUsulYMFl1vkqnGZ6H+gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Skoi4HOU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NZFgwKJu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E5991F00899;
-	Wed,  3 Jun 2026 15:25:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Skoi4HOU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 872401F00893;
+	Wed,  3 Jun 2026 15:25:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1780500350;
-	bh=e8/01dm7/038MgZ4Hq45bxdLezS/4TgS+xlAnfgMPmI=;
+	bh=+uPVwZIQ1rqi6T7Rj5brmQIgeGjLV1aUlYJpcfVPXlo=;
 	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=NZFgwKJuAw+z5fK/zaJNAtxcv3H07DV7j9qvHp28xIGW8473zwhdjeS1LVdJuncFP
-	 tGDym4NmweW42U8Ksajfw3OccN9vNrZ5dTKkySsQEJ7ihWsB+/sLgLnM8RJNTnI9tC
-	 CvAyRHEpiZBhb1mrIh0uVGGIUog6w1V3t1Np3SKoEHp9LRKnERoaWNRZSixS2R9hLp
-	 H+YewCb/e6cPt8KPN7vmb8ru//qdo1jX9c5okK9IbeDGfSHCb+lEwd1kBDA5IaXHrz
-	 RM9KStRVUDaI/wSrAAwMTreUdoSAf023rhiNXfBuZlAh/80rEnO1iljYHOyWbfHfAt
-	 UW3gwOi2oYn1g==
+	b=Skoi4HOUP07uXFB7hREcRKv6AhvQZqL7zvfFTHm1J7vAc5QXYyvSRhyKUQF3ZJZvj
+	 Hr4CYv7k3sdWpEezFS2vwRrT6ZLCP0y7q5pJVP/EDuzxbLdxos2mZGbaenBcx5R4uX
+	 P3aloO/FMrZSxcTOta2D49kPGqWeLjZXNWtfz2k8oWG257wRugFImPRM3Y2dzE4oUA
+	 3A5c7AwbOeKX4237KtzG20J4F5/krfsL2sreFBDx0bSKE5NZwiGkhIL4bGxg6HoBmX
+	 gP3KWMzPIQz8IyrNkUqFCU1p0lj6d/d3p+LttGqydbkb/Qz22lbNdR96lAbytLxS28
+	 U74xcY0TBYeYA==
 From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/5] arm64: dts: qcom: Add gp_mn pin state for GP M/N
- clock output
+Subject: Re: [PATCH 5/5] arm64: dts: qcom: Add GP M/N clock controller node
+ for SA8775P and QCS8300
 Reply-To: sashiko-reviews@lists.linux.dev
 To: "Taniya Das" <taniya.das@oss.qualcomm.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260602-pdm_clk_gp_mnd_v1-v1-4-1522662b6c53@oss.qualcomm.com>
-References: <20260602-pdm_clk_gp_mnd_v1-v1-4-1522662b6c53@oss.qualcomm.com>
+Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
+In-Reply-To: <20260602-pdm_clk_gp_mnd_v1-v1-5-1522662b6c53@oss.qualcomm.com>
+References: <20260602-pdm_clk_gp_mnd_v1-v1-5-1522662b6c53@oss.qualcomm.com>
 Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 15:25:48 +0000
-Message-Id: <20260603152549.2E5991F00899@smtp.kernel.org>
+Date: Wed, 03 Jun 2026 15:25:50 +0000
+Message-Id: <20260603152550.872401F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 5 potential issue(=
+Thank you for your contribution! Sashiko AI review found 4 potential issue(=
 s) to consider:
-- [High] The clock rate calculation logic fails to reject `N` and `M` combi=
-nations where `n <=3D 2 * m`, violating the hardware's duty cycle constrain=
-t and writing invalid states.
-- [High] Invalid pinctrl function configuration for `kodiak.dtsi`. The `gp_=
-mn` function is mapped to `gpio35`, but the SoC (SC7280) only supports it o=
-n `gpio60`.
-- [Medium] `gp_mnd_clk_get_duty_cycle` incorrectly returns the low-phase du=
-ty cycle ratio, creating a broken, asymmetric API contract with `gp_mnd_clk=
-_set_duty_cycle`.
-- [Low] The 'gp_mn' function is not added to the devicetree bindings for th=
-e QCS8300, SA8775P, or SC7280 TLMM schemas, which will cause dtbs_check err=
-ors.
-- [Low] The newly added pinctrl state nodes use underscores in their names =
-(`gp_mn_active-state`), violating devicetree node naming conventions.
+
+New issues:
+- [High] Intent Mismatch / Incorrect File Modification
+- [High] Missing 'status =3D "disabled";' causes unconditional probe and pi=
+n conflict
+- [Low] Device Tree Node Sorting violation
+
+Pre-existing issues:
+- [High] Hardware Constraint Violation in duty cycle computation
 --
 
-commit 39d6c11fb73944a2319cdb23d2516a67b5ac2e61
+commit 6b4f5403f54605460d10e6b912f07451ceb5b128
 Author: Taniya Das <taniya.das@oss.qualcomm.com>
 
-arm64: dts: qcom: Add gp_mn pin state for GP M/N clock output
-   =20
-This commit adds pinctrl states for the GP M/N divider clock output pin
-across multiple Qualcomm SoCs. It wires the GP M/N clock controller node
-via pinctrl-0 for the kodiak, lemans, and monaco device trees.
+arm64: dts: qcom: Add GP M/N clock controller node for SA8775P and QCS8300
 
->     - kodiak (sa8775p): Add gp_mn_active state on gpio35 (gp_mn function).
+This commit adds the GP M/N divider clock controller node to the SA8775P and
+QCS8300 device trees. The new node uses the qcom,clk-gp-mnd compatible and =
+is
+clocked by the PDM XO4 and AHB clocks to expose a single clock output.
+
+> Add the GP M/N divider clock controller node at 0x088d3000 to the
+> SA8775P (kodiak, lemans) and QCS8300 (monaco) SoC device trees.
 
 [Severity: High]
-The commit message indicates kodiak is an sa8775p board, but kodiak.dtsi is=
- an
-sc7280 device tree. Does the sc7280 SoC support the gp_mn function on gpio3=
-5,
-or is it exclusively available on gpio60? Applying this DT state might caus=
-e a
-runtime pinmux failure.
+Is Kodiak actually an SA8775P variant? Kodiak is typically the core SoC
+device tree for the SC7280 family (Snapdragon 7c Gen 3 / QCM6490), while
+SA8775P is exclusively Lemans. Does modifying kodiak.dtsi incorrectly apply
+this clock controller to the SC7280 family and break its device tree?
 
 > diff --git a/arch/arm64/boot/dts/qcom/kodiak.dtsi b/arch/arm64/boot/dts/q=
 com/kodiak.dtsi
-> index fa540d8c2615d..1ff9e1598d004 100644
 > --- a/arch/arm64/boot/dts/qcom/kodiak.dtsi
 > +++ b/arch/arm64/boot/dts/qcom/kodiak.dtsi
-> @@ -5908,6 +5908,13 @@ edp_hot_plug_det: edp-hot-plug-det-state {
->  				function =3D "edp_hot";
+> @@ -4412,6 +4412,20 @@ usb2_role_switch: endpoint {
 >  			};
+>  		};
 > =20
-> +			gp_mn_active: gp_mn_active-state {
+> +		gp_mn: clock-controller@88d3000 {
 
 [Severity: Low]
-Could this node name be updated to use hyphens instead of underscores to ma=
-tch
-devicetree naming conventions?
+Is this node placed in the correct sorting order? It appears to be inserted
+sequentially after the usb@8c00000 node, but 0x088d3000 is less than
+0x08c00000, which causes a unit-address sorting violation.
 
-> +				pins =3D "gpio35";
-> +				function =3D "gp_mn";
-
-[Severity: Low]
-Is the gp_mn function missing from the devicetree binding schemas for the
-SC7280 TLMM? This might cause dtbs_check errors.
-
-> +				drive-strength =3D <2>;
-> +				bias-disable;
-> +			};
-> +
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
-com/lemans.dtsi
-> index 353a6e6fd3acb..19f8cf4e15482 100644
-> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
-> @@ -6022,6 +6022,13 @@ dp1_hot_plug_det: dp1-hot-plug-det-state {
->  				bias-disable;
->  			};
-> =20
-> +			gp_mn_active: gp_mn_active-state {
-
-[Severity: Low]
-Should this node name be updated to use hyphens instead of underscores to m=
-atch
-devicetree naming conventions?
-
-> +				pins =3D "gpio35";
-> +				function =3D "gp_mn";
-
-[Severity: Low]
-Might the gp_mn function be missing from the devicetree binding schemas for=
- the
-SA8775P TLMM? This could lead to dtbs_check errors.
-
-> +				drive-strength =3D <2>;
-> +				bias-disable;
-> +			};
-> +
-[ ... ]
-> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
-com/monaco.dtsi
-> index e4c8466f941bd..ebe5889daa530 100644
-> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
-> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
-> @@ -6433,6 +6433,13 @@ dp_hot_plug_det: dp-hot-plug-det-state {
->  				bias-disable;
->  			};
-> =20
-> +			gp_mn_active: gp_mn_active-state {
-
-[Severity: Low]
-Are underscores permitted in this devicetree node name, or should they be
-replaced with hyphens?
-
-> +				pins =3D "gpio32";
-> +				function =3D "gp_mn";
-
-[Severity: Low]
-Could the gp_mn function also be missing from the QCS8300 TLMM binding sche=
-mas?
-
-> +				drive-strength =3D <2>;
-> +				bias-disable;
-> +			};
-
+> +			compatible =3D "qcom,clk-gp-mnd";
+> +			reg =3D <0x0 0x088d3000 0x0 0xc>;
+> +			clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +				 <&gcc GCC_PDM_AHB_CLK>;
+> +			clock-names =3D "pdm_clk", "ahb_clk";
+> +			clock-output-names =3D "gp_mn_clk";
+> +			#clock-cells =3D <0>;
+> +			pinctrl-names =3D "active";
+> +			pinctrl-0 =3D <&gp_mn_active>;
+> +			assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +			assigned-clock-rates =3D <4800000>;
+> +		};
 
 [Severity: High]
-Are combinations where n <=3D 2 * m properly handled in the clock rate calc=
-ulation
-logic in gp_mnd_clk_determine_rate()?
+Should this node include a status =3D "disabled" property? IP blocks that
+export signals to external pads are usually disabled by default in SoC dtsi
+files.=20
 
-drivers/clk/qcom/clk-gp-mnd.c:gp_mnd_clk_determine_rate() {
-	...
-	/* N =3D 2M + 1 leaves no valid D satisfying M < D < (N - M) */
-	if (n =3D=3D 2 * m + 1)
-		return -EINVAL;
-	...
-}
+Without it, does the qcom,clk-gp-mnd driver probe unconditionally on every
+board, forcibly multiplexing gpio35 to the gp_mn function? This could
+potentially break boards that require gpio35 for other functions like
+qup_spi8_cs or qup_uart8_rx.
 
-If an invalid rate is not rejected here, gp_mnd_clk_set_rate() calculates
-d_val =3D n / 2 and blind-writes it to the hardware, which violates the M <=
- D
-hardware requirement:
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/lemans.dtsi b/arch/arm64/boot/dts/q=
+com/lemans.dtsi
+> --- a/arch/arm64/boot/dts/qcom/lemans.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/lemans.dtsi
+> @@ -4353,6 +4353,20 @@ opp-384000000 {
+>  			};
+>  		};
+> =20
+> +		gp_mn: clock-controller@88d3000 {
+> +			compatible =3D "qcom,clk-gp-mnd";
+> +			reg =3D <0x0 0x088d3000 0x0 0xc>;
+> +			clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +				 <&gcc GCC_PDM_AHB_CLK>;
+> +			clock-names =3D "pdm_clk", "ahb_clk";
+> +			clock-output-names =3D "gp_mn_clk";
+> +			#clock-cells =3D <0>;
+> +			pinctrl-names =3D "active";
+> +			pinctrl-0 =3D <&gp_mn_active>;
+> +			assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +			assigned-clock-rates =3D <4800000>;
+> +		};
+
+[Severity: High]
+Would it be necessary to add a status =3D "disabled" property here as well =
+to
+prevent the unconditional multiplexing of gpio35?
+
+[ ... ]
+
+> diff --git a/arch/arm64/boot/dts/qcom/monaco.dtsi b/arch/arm64/boot/dts/q=
+com/monaco.dtsi
+> --- a/arch/arm64/boot/dts/qcom/monaco.dtsi
+> +++ b/arch/arm64/boot/dts/qcom/monaco.dtsi
+> @@ -4867,6 +4867,20 @@ opp-384000000 {
+>  			};
+>  		};
+> =20
+> +		gp_mn: clock-controller@88d3000 {
+> +			compatible =3D "qcom,clk-gp-mnd";
+> +			reg =3D <0x0 0x088d3000 0x0 0xc>;
+> +			clocks =3D <&gcc GCC_PDM_XO4_CLK>,
+> +				 <&gcc GCC_PDM_AHB_CLK>;
+> +			clock-names =3D "pdm_clk", "ahb_clk";
+> +			clock-output-names =3D "gp_mn_clk";
+> +			#clock-cells =3D <0>;
+> +			pinctrl-names =3D "active";
+> +			pinctrl-0 =3D <&gp_mn_active>;
+> +			assigned-clocks =3D <&gcc GCC_PDM_XO4_CLK>;
+> +			assigned-clock-rates =3D <4800000>;
+> +		};
+
+[Severity: High]
+Similarly, does this node also need status =3D "disabled" to ensure safe
+default behavior?
+
+[ ... ]
+
+While reviewing this change, a pre-existing issue was noticed in the clock
+driver itself regarding hardware duty cycle constraints:
 
 drivers/clk/qcom/clk-gp-mnd.c:gp_mnd_clk_set_rate() {
-	...
-	if (n =3D=3D 2 * m + 1)
-		return -EINVAL;
-
-	...
-	/* Program the closest-to-50% duty cycle. */
-	d_val =3D n / 2;
-	ret =3D regmap_write(gp->regmap, GP_MND_DUTY_REG, d_val);
-	...
+        /*
+         * When N =3D 2M + 1 the valid D range [M+1, M] is empty; no duty
+         * cycle can satisfy M < D < (N - M).  Reject before touching hw.
+         */
+        if (n =3D=3D 2 * m + 1)
+                return -EINVAL;
+        ...
+        /* Program the closest-to-50% duty cycle. */
+        d_val =3D n / 2;
+        ret =3D regmap_write(gp->regmap, GP_MND_DUTY_REG, d_val);
 }
 
+[Severity: High]
+This is a pre-existing issue, but does the driver fail to fully enforce the
+hardware duty cycle constraint M < D < (N - M)?
 
-[Severity: Medium]
-Will gp_mnd_clk_get_duty_cycle() incorrectly return the low-phase duty cycle
-ratio instead of the high-phase ratio?
+If req->rate >=3D parent_rate / 2, rational_best_approximation can return M=
+=3D1,
+N=3D2. In this scenario, N <=3D 2 * M is true, making the check n =3D=3D 2 =
+* m + 1
+evaluate to false, and the calculation proceeds.
 
-drivers/clk/qcom/clk-gp-mnd.c:gp_mnd_clk_get_duty_cycle() {
-	...
-	duty->num =3D d_val;
-	duty->den =3D gp->n_val;
-
-	return 0;
-}
-
-In gp_mnd_clk_set_duty_cycle(), duty->num is treated as the high-phase ratio
-and the low-phase cycle count (d_val) is computed using duty->den - duty->n=
-um.
-By returning d_val directly as duty->num in gp_mnd_clk_get_duty_cycle(), a
-consumer setting a 75% duty cycle will read back 25%, which breaks the Comm=
-on
-Clock Framework semantics.
+Does the driver then blindly compute d_val =3D N / 2 =3D 1 and program M=3D=
+1, D=3D1,
+N=3D2 into the hardware, violating the M < D constraint?
 
 --=20
 Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260602-pdm_clk_gp=
-_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com?part=3D4
+_mnd_v1-v1-0-1522662b6c53@oss.qualcomm.com?part=3D5
