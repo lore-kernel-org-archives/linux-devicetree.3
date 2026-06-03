@@ -1,303 +1,357 @@
-Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com [209.85.210.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cp2.siel.si (cp2.siel.si [46.19.12.180])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C0DC385D71
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:44:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.210.46
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780469091; cv=pass; b=QkRY1jpWqChvZ/uyBEgt3+KsOvFDfaZMbji7WGIb33kQZH9+RuKn2/KcLy+zWrQi6DN3JQnyMGNXvhckE+tMBoR8tAXF6M1VsRAoPB/Kq+NhAAtrhfNmZQr3gBb56uY8A1HOTNCtrqzIYynQhKSUY5WoAKNun+7hruXhHVfglD0=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780469091; c=relaxed/simple;
-	bh=56G+6KSF26fnjlqQuQaSxXvZtnVr1hBfZPPvTYbNb3A=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=hKtDrSkvZHI4hTigfnxV7YBtf0EJv35Cn0dQA6nd8z0XXvNS4jHrofLzroNs7ZlaKMOlYNkJcKF989t7c7PJ2rX9oNjik4r58uYBb213cIwkg2KxPQDqsHRhaVEFG0KdF7IEe4qBmJfiqAuf7IgAG/gOkA2kLcsreO5F/BnWq0s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org; spf=none smtp.mailfrom=brainfault.org; dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b=QzsgsQmo; arc=pass smtp.client-ip=209.85.210.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=brainfault.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=brainfault.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133953932E8;
+	Wed,  3 Jun 2026 06:48:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.19.12.180
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780469323; cv=none; b=A53/40k2kzV3F0eKq9tuY3RJZGB6AG1wqTEf4cWzkU03+i7/ZfxAbGX2q2cWZ73yjJhvWxIc8yULz+OjbUFMz+fxfSbbh7G27LMg/prQz8AsdjvOTtPP73RUf8hJDl1xMTk70vQSVUd3nO+QcrImYC0ai1XkewMHm7AH3F8ydmc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780469323; c=relaxed/simple;
+	bh=R6mYurVSngnDC42d0BRjIhMQ+eUy9yfltEFAqUJDvVs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s269s7zgk+U3uOandVyCuWsxZdKQym6rGypqaO+Nl13vHhI3mIB80bfbnfOmHxREljVTX/2x1f0slPq1mcLDFeLQ+EEZa0ercbz5lHEKwTCcG3vSbePTxgE2TiS7NPllPVb6XIoyplkkfkM5bvzlM9K2/EO0jaulegOobJiROyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com; spf=pass smtp.mailfrom=norik.com; dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b=Xa55WF9p; arc=none smtp.client-ip=46.19.12.180
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=norik.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=norik.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=brainfault-org.20251104.gappssmtp.com header.i=@brainfault-org.20251104.gappssmtp.com header.b="QzsgsQmo"
-Received: by mail-ot1-f46.google.com with SMTP id 46e09a7af769-7e6deacafa8so187373a34.0
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:44:48 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780469087; cv=none;
-        d=google.com; s=arc-20240605;
-        b=b/AIsGxEX0WwDiW4rgZdqvwyp5FxMvp5R1kk+PKsUMFksbmf3/ndLNKy1MwxZbWzVG
-         gyJ9QaOSLBEFZwdWDVu6kXcLXcN7g8iODQ2lBNLrZlLk1oGnj2vxvhvPVKIKSLnaoLLp
-         xlBNMBTSXVAwCN5TXdCqRqjVVgoQsNOKVx1gxlbEISSRk9eXxTGGgSNIuHaXIFooeJe1
-         nfbpa7uDV3n0YqYlLJrYTBAu22qJ4zCPVnCXLN9x08hya/WNpliBDFxIZ8cQZ/JzB4lg
-         HQtDu4LwvQs6BP0TOouGgtJE+3p+/HbgEebVocBtjekjgnHbSYYJTikxAw7NbnWDBh0t
-         SJjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vguV3vMU4h/2CSVTFHkBd4daU9WvVPcYCYkqg5eye6Q=;
-        fh=P88unQ2jYjz3oC4mIgyZ/azaGqIgFai8hpQAI4Lhm7k=;
-        b=T3OqEPuwnwPYd2SQEqzY81HWaG3dotBo15tmIPbhyu2Wo7i46o7/YAPWEnJEFTxhZj
-         kz+U1YdqHRc6hi+mdsQBuNBAF2Nt5Jm3XiADYrjBV7Tn4VoJO3YwsRvEl4hN0sgjh3Tx
-         3dtpoAfS8PCd83/7IMWT8UyTdYREswrvgEsCW+f9g1yIpswBIu+uo7cfUZzK1gmhMt+m
-         EhFHWTC81HeWVRw9qd7CyuFYvuiLuCa42/VkbLGOjW6fnR6pXafG5eo01O2UTVLnPyCP
-         XhtFpgB3WfIs1Kxv2vKMmsnM2kzMrgBhccT5ToCjnPqWpqIIEWk3IxJUeI8Qn2DhPQ30
-         uqTg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=brainfault-org.20251104.gappssmtp.com; s=20251104; t=1780469087; x=1781073887; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=vguV3vMU4h/2CSVTFHkBd4daU9WvVPcYCYkqg5eye6Q=;
-        b=QzsgsQmovGOac8c7c+vCD3KF3L7rEvmCTcOPgX/X+BPKUfo0BY92duMoCWgrGsAIw4
-         2QAD+/tP2v2Hk/puP/SbdOSoJKNCkf4g3VFxJ72jI47tISQ/JgDbLf+zZn68hRiKNiYf
-         C5gQjcyPLGi3AkYHR8F4K3K7sNqD9+xM9od7ipwB+58Kypg5lSk3TsIuE18e0LhsLron
-         xUYvKzsZzaskPxYSu/a9cx4PLpfyZM0Eloty4A64cjf5AYJGFPMd2N27/36P70cdmu20
-         PAjk7cYnrzyMIKA0zGtmfOtl3KbgdSq3Uxh1RZ4FTHigq8SahVi/MX6kBVsfUC094VT9
-         Rbvw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780469087; x=1781073887;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=vguV3vMU4h/2CSVTFHkBd4daU9WvVPcYCYkqg5eye6Q=;
-        b=kV7X+qkvZTxhFYMB1WVlHTK4l9cuMc58berF39DBEO5yA+1sGnF+0lKRrx/LhaM87t
-         8GwcZ/qGf/IbmBKoBl4hVVhdcR7wtzop+I2PTDZf+0oR0whiRNG4EFxyLj9R7NZUkHM5
-         aEaC2LWR9WpyINRuU+OQsLqk0l6Djoz2yh0bsHF+X61ENZsoWpwZ9yvdSaNpdAYV2NvW
-         Fb1L6OTVitu1n28MJZETy8Egp99+CG0s7jQgFP/TRna2DaiOqXrcllup5zO2Ym7l3LmO
-         hjLow9KG47f4wRk6Lz1PszXrLv39IXqJZrhx/B3gfWfV3HUrux5Y4FhvUvYBi1gfWsCj
-         TFoA==
-X-Forwarded-Encrypted: i=1; AFNElJ/uFJ2+BzRRzPvRcjYems/O6k2NzRjFn97dat1iqo8J0aDqoD+zLpRuQDvQuyhqPCX1FOLhtHzWFGcE@vger.kernel.org
-X-Gm-Message-State: AOJu0YyQ2KxgxOWH6B8vtGjZ3v3aAljf8PlBrfKXS7/6fJTYj8q7SEXa
-	B6X7Xp4RdWIykT0VzttR5s9tJgNvwDeWwrjt7L7bl9Lpps+bhDHVPgju2bVsvTFZFPZc0EeXEOo
-	zDrrm73+pu2fWZODwDng43Ftl7Q30x32imBhkQ5PmfQ==
-X-Gm-Gg: Acq92OGBusE/qxaZwOUKCRLXVGnPV85ooYLj4fF2iBByXbt6xuM3FVFahATypzvRaqA
-	1M2tszG7Zql+Q4oj9iz+42afJINsiHoooQ31yf0H9Qp2f9qlUwclBLJDFKLCNpOSi/4zT3kFcGE
-	OjPVSciQwQG9RfaEvacaJ9WpC+yFrjgpcVTND9CyntJHajKtPbE8HHWlB2JfVuQ51Yj+9dvvpCh
-	eD4oW9q2CVE2hS/iL8kLbseI8K9k4ZLBT7O/Bi2/pz3lnh66HElVLmJh7ddbIkEgHKI+e8deAet
-	BMQ5VTYNy/x6+fAfHbAJrnh/qvQ3EepgKUbmwI1zZqo2uIy5opnGnGi7nIW5PevD4XdQrIrpryr
-	3iM1g5vP1lylTrnh34EpjFrKbUitcLBrV/t8Pdw==
-X-Received: by 2002:a05:6820:f014:b0:694:8fe0:152e with SMTP id
- 006d021491bc7-69e48cf5960mr936756eaf.31.1780469087406; Tue, 02 Jun 2026
- 23:44:47 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=norik.com header.i=@norik.com header.b="Xa55WF9p"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=norik.com;
+	s=default; h=Content-Transfer-Encoding:MIME-Version:Message-ID:Date:Subject:
+	Cc:To:From:Sender:Reply-To:Content-Type:Content-ID:Content-Description:
+	Resent-Date:Resent-From:Resent-Sender:Resent-To:Resent-Cc:Resent-Message-ID:
+	In-Reply-To:References:List-Id:List-Help:List-Unsubscribe:List-Subscribe:
+	List-Post:List-Owner:List-Archive;
+	bh=dbX87z8LjPJwQt55Q5pDLHPc+DkK4Jni9A43QZIbxnk=; b=Xa55WF9p5Oja3fEwvjBjL+hgxr
+	p2b9jhSDVWiE/Ig+Rs2H6HQZ65AnMMPbI6TIFsGZEOIR+rSz5nas0fpKXtIWwuC2MMbXV/ZZ6fm8V
+	avPmC5j+84WHT60jNFWxpQDfdhBappDEmzOBBzKyR7BT7laWwmkAC3oEAtKXVqn/HLZMTNrjz6v6U
+	mN5ysrSrfQII2OFtzIpc2QqjPQZ7KR2eEtjvkA/kix6VRiFNt5iw2eFLzJJBeclErZnFVkUy+i3Wv
+	0fH9k3IEiHUxtH5Jf8AUNzqdlFXyQ9GzxqBkvm1FvPbYe5fo7wQH7mWJ6FCsSI1b+dI6mgCAs8PEK
+	rjjtEgLg==;
+Received: from 89-212-21-243.static.t-2.net ([89.212.21.243]:48996 helo=florijan-nb..)
+	by cp2.siel.si with esmtpsa  (TLS1.3) tls TLS_AES_256_GCM_SHA384
+	(Exim 4.99.4)
+	(envelope-from <florijan.plohl@norik.com>)
+	id 1wUeuu-00000009fV2-32RJ;
+	Wed, 03 Jun 2026 08:17:28 +0200
+From: Florijan Plohl <florijan.plohl@norik.com>
+To: Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: imx@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	upstream@lists.phytec.de
+Subject: [PATCH v3] arm64: dts: imx{91,93}-phyboard-segin: Add peb-av-18 overlays
+Date: Wed,  3 Jun 2026 08:15:01 +0200
+Message-ID: <20260603061726.2908262-1-florijan.plohl@norik.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260526145240.1627200-1-anup.patel@oss.qualcomm.com> <89e1334f-e7c2-4992-ba39-0d23f5605275@arm.com>
-In-Reply-To: <89e1334f-e7c2-4992-ba39-0d23f5605275@arm.com>
-From: Anup Patel <anup@brainfault.org>
-Date: Wed, 3 Jun 2026 12:14:36 +0530
-X-Gm-Features: AVHnY4JmV0zm-0tTvkp_o34WcjHkNEMQ2AMhT0fQwQmHlV9bWdR1bNfsmtDJXa0
-Message-ID: <CAAhSdy0dOeCrH2YEkEyrNQU2nyO-41AT3m4-BaYJuQ3GbocqmQ@mail.gmail.com>
-Subject: Re: [PATCH] driver core: platform: Setup device MSI domain just
- before driver probe
-To: Robin Murphy <robin.murphy@arm.com>
-Cc: Anup Patel <anup.patel@oss.qualcomm.com>, Palmer Dabbelt <palmer@dabbelt.com>, 
-	Paul Walmsley <pjw@kernel.org>, Alexandre Ghiti <alex@ghiti.fr>, Thomas Gleixner <tglx@kernel.org>, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Danilo Krummrich <dakr@kernel.org>, 
-	Tomasz Jeznach <tomasz.jeznach@linux.dev>, Joerg Roedel <joro@8bytes.org>, 
-	Will Deacon <will@kernel.org>, Jassi Brar <jassisinghbrar@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, 
-	"Rafael J . Wysocki" <rafael@kernel.org>, Len Brown <lenb@kernel.org>, 
-	Saket Dumbre <saket.dumbre@intel.com>, Rahul Pathak <rahul@summations.net>, 
-	Atish Patra <atish.patra@linux.dev>, Andrew Jones <andrew.jones@oss.qualcomm.com>, 
-	linux-acpi@vger.kernel.org, linux-riscv@lists.infradead.org, 
-	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org, 
-	driver-core@lists.linux.dev, iommu@lists.linux.dev, 
-	acpica-devel@lists.linux.dev, Sunil V L <sunilvl@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - cp2.siel.si
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - norik.com
+X-Get-Message-Sender-Via: cp2.siel.si: authenticated_id: florijan.plohl@norik.com
+X-Authenticated-Sender: cp2.siel.si: florijan.plohl@norik.com
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
 
-On Tue, May 26, 2026 at 8:53=E2=80=AFPM Robin Murphy <robin.murphy@arm.com>=
- wrote:
->
-> On 26/05/2026 3:52 pm, Anup Patel wrote:
-> > On RISC-V, the MSI controller (aka RISC-V IMSIC) is probed as a regular
-> > platform device and MSI client drivers are always probed after the MSI
-> > controller driver using fw_devlink. Unfortunately, this is not sufficie=
-nt
-> > to ensure device MSI domain is set for MSI client devices before driver
-> > probe because OF framework sets device MSI domain at the time of platfo=
-rm
-> > device creation whereas ACPI framework expects arch specific code to se=
-t
-> > the device MSI domain at the time of platform device creation.
-> >
-> > Currently, to work-around the problem of missing device MSI domain,
-> > various RISC-V MSI client drivers explicitly set device MSI domain
-> > in the driver probe function using below code pattern:
-> >
-> >       /*
-> >        * The device MSI domain for platform devices on RISC-V architect=
-ure
-> >        * is only available after the MSI controller driver is probed so=
-,
-> >        * explicitly configure here.
-> >        */
-> >       if (!dev_get_msi_domain(dev)) {
-> >               /*
-> >                * The device MSI domain for OF devices is only set at th=
-e
-> >                * time of populating/creating OF device. If the device M=
-SI
-> >                * domain is discovered later after the OF device is crea=
-ted
-> >                * then we need to set it explicitly before using any pla=
-tform
-> >                * MSI functions.
-> >                */
-> >               if (is_of_node(fwnode)) {
-> >                       of_msi_configure(dev, dev_of_node(dev));
-> >               } else if (is_acpi_device_node(fwnode)) {
-> >                       struct irq_domain *msi_domain;
-> >                       msi_domain =3D irq_find_matching_fwnode(imsic_acp=
-i_get_fwnode(dev),
-> >                                                             DOMAIN_BUS_=
-PLATFORM_MSI);
-> >                       dev_set_msi_domain(dev, msi_domain);
-> >               }
-> >
-> >               if (!dev_get_msi_domain(dev))
-> >                       return -EPROBE_DEFER;
-> >       }
-> >
-> > Instead of the above approach, extend the platform_dma_configure() to s=
-et
-> > device MSI domain for both OF and ACPI based platform devices before dr=
-iver
-> > probe and remove the duplicate code pattern from RISC-V MSI client driv=
-ers.
-> >
-> > Co-developed-by: Sunil V L <sunilvl@oss.qualcomm.com>
-> > Signed-off-by: Sunil V L <sunilvl@oss.qualcomm.com>
-> > Signed-off-by: Anup Patel <anup.patel@oss.qualcomm.com>
-> > ---
-> >   drivers/acpi/riscv/irq.c                | 13 +++++++++++
-> >   drivers/acpi/scan.c                     | 10 +++++++++
-> >   drivers/base/platform.c                 |  4 ++++
-> >   drivers/iommu/riscv/iommu-platform.c    |  9 --------
-> >   drivers/irqchip/irq-riscv-aplic-msi.c   | 27 -----------------------
-> >   drivers/irqchip/irq-riscv-rpmi-sysmsi.c | 29 ------------------------=
--
-> >   drivers/mailbox/riscv-sbi-mpxy-mbox.c   | 29 ------------------------=
--
-> >   include/acpi/acpi_bus.h                 |  1 +
-> >   include/linux/acpi.h                    | 10 +++++++++
-> >   9 files changed, 38 insertions(+), 94 deletions(-)
-> >
-> > diff --git a/drivers/acpi/riscv/irq.c b/drivers/acpi/riscv/irq.c
-> > index 9b88d0993e88..17fa5dcdd2c0 100644
-> > --- a/drivers/acpi/riscv/irq.c
-> > +++ b/drivers/acpi/riscv/irq.c
-> > @@ -5,8 +5,11 @@
-> >    */
-> >
-> >   #include <linux/acpi.h>
-> > +#include <linux/device.h>
-> >   #include <linux/sort.h>
-> >   #include <linux/irq.h>
-> > +#include <linux/irqdomain.h>
-> > +#include <linux/irqchip/riscv-imsic.h>
-> >
-> >   #include "init.h"
-> >
-> > @@ -397,6 +400,16 @@ static u32 riscv_acpi_add_irq_dep(acpi_handle hand=
-le)
-> >       return count;
-> >   }
-> >
-> > +void acpi_arch_msi_configure(struct device *dev)
-> > +{
-> > +     struct irq_domain *msi_domain;
-> > +
-> > +     msi_domain =3D irq_find_matching_fwnode(imsic_acpi_get_fwnode(dev=
-),
-> > +                                           DOMAIN_BUS_PLATFORM_MSI);
-> > +     if (msi_domain)
-> > +             dev_set_msi_domain(dev, msi_domain);
-> > +}
-> > +
-> >   u32 arch_acpi_add_auto_dep(acpi_handle handle)
-> >   {
-> >       if (acpi_has_method(handle, "_PRT"))
-> > diff --git a/drivers/acpi/scan.c b/drivers/acpi/scan.c
-> > index 530547cda8b2..e50e5d246a54 100644
-> > --- a/drivers/acpi/scan.c
-> > +++ b/drivers/acpi/scan.c
-> > @@ -1648,6 +1648,16 @@ static int acpi_iommu_configure_id(struct device=
- *dev, const u32 *id_in)
-> >
-> >   #endif /* !CONFIG_IOMMU_API */
-> >
-> > +/**
-> > + * acpi_msi_configure - Set-up MSI domain for the device.
-> > + * @dev: The pointer to the device
-> > + */
-> > +void acpi_msi_configure(struct device *dev)
-> > +{
-> > +     acpi_arch_msi_configure(dev);
-> > +}
-> > +EXPORT_SYMBOL_GPL(acpi_msi_configure);
-> > +
-> >   /**
-> >    * acpi_dma_configure_id - Set-up DMA configuration for the device.
-> >    * @dev: The pointer to the device
-> > diff --git a/drivers/base/platform.c b/drivers/base/platform.c
-> > index a19dd22deef2..225e33080bc6 100644
-> > --- a/drivers/base/platform.c
-> > +++ b/drivers/base/platform.c
-> > @@ -1470,8 +1470,12 @@ static int platform_dma_configure(struct device =
-*dev)
-> >       int ret =3D 0;
-> >
-> >       if (is_of_node(fwnode)) {
-> > +             if (!dev_get_msi_domain(dev))
-> > +                     of_msi_configure(dev, dev->of_node);
-> >               ret =3D of_dma_configure(dev, to_of_node(fwnode), true);
-> >       } else if (is_acpi_device_node(fwnode)) {
-> > +             if (!dev_get_msi_domain(dev))
-> > +                     acpi_msi_configure(dev);
->
-> But surely this needs to handle the deferral case that's being removed
-> from some of the users below?
+Add overlay for the PHYTEC Audio/Video adapter module PEB-AV-18 on
+phyBOARD-Segin-i.MX91/93 boards. The supported AC220 display is
+Powertip PH800480T032-ZHC19 panel with a backlight and Ilitek
+touch-screen controller.
 
-The deferral cases removed by this patch are redundant because:
-1) For device tree, the fw_devlink support in Linux DD core takes
-case of probe ordering and individual driver don't need to explicitly
-do EPROBE_DEFER
-2) For ACPI, the _DEP objects helps us ensure probe ordering.
+Signed-off-by: Florijan Plohl <florijan.plohl@norik.com>
+---
+Changes in v3:
+- Link to v2: https://lore.kernel.org/all/20260409090432.130489-1-florijan.plohl@norik.com/
+- rebase on top of v7.1-rc6
 
-In other words, the issue of probe ordering or deferral is already
-handled for both device tree and ACPI.
+Changes in v2:
+- Link to v1: https://lore.kernel.org/all/20260402070826.970012-1-florijan.plohl@norik.com/
+- Improve commit message to clarify what PEB-AV-18 is
+- Move imx91-phyboard-segin-peb-av-18 dtb entry next to
+  the other imx91 phyboard-segin definition in Makefile
+- Introduce common imx91-93-phyboard-segin-peb-av-18.dtsi
+- Adjust drive-strength values
 
-The only problem which remains is msi_domain pointer not set
-in struct device before the driver is probed. This happens because
-MSI controller driver is a regular platform driver hence MSI domain
-pointer is not set when platform devices are created.
+ arch/arm64/boot/dts/freescale/Makefile        |  6 ++
+ .../imx91-93-phyboard-segin-peb-av-18.dtsi    | 93 +++++++++++++++++++
+ .../imx91-phyboard-segin-peb-av-18.dtso       | 57 ++++++++++++
+ .../imx93-phyboard-segin-peb-av-18.dtso       | 57 ++++++++++++
+ 4 files changed, 213 insertions(+)
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi
+ create mode 100644 arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso
+ create mode 100644 arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso
 
->
-> Also I'm not really convinced about bundling it into dma_configure,
-> since it's mroe about IRQs than DMA. I wonder if overall it wouldn't be
+diff --git a/arch/arm64/boot/dts/freescale/Makefile b/arch/arm64/boot/dts/freescale/Makefile
+index 711e36cc2c99..e87cf999e0a5 100644
+--- a/arch/arm64/boot/dts/freescale/Makefile
++++ b/arch/arm64/boot/dts/freescale/Makefile
+@@ -442,6 +442,10 @@ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-evk.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-frdm.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-11x11-frdm-s.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx91-phyboard-segin.dtb
++
++imx91-phyboard-segin-peb-av-18-dtbs += imx91-phyboard-segin.dtb imx91-phyboard-segin-peb-av-18.dtbo
++dtb-$(CONFIG_ARCH_MXC) += imx91-phyboard-segin-peb-av-18.dtb
++
+ dtb-$(CONFIG_ARCH_MXC) += imx91-tqma9131-mba91xxca.dtb
+ 
+ imx91-tqma9131-mba91xxca-lvds-tm070jvhg33-dtbs := imx91-tqma9131-mba91xxca.dtb imx93-tqma9352-mba91xxca-lvds-tm070jvhg33.dtbo
+@@ -474,6 +478,7 @@ imx93-phyboard-nash-jtag-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-nash-jta
+ imx93-phyboard-nash-peb-wlbt-07-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-nash-peb-wlbt-07.dtbo
+ imx93-phyboard-nash-pwm-fan-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-nash-pwm-fan.dtbo
+ imx93-phyboard-segin-peb-av-02-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-av-02.dtbo
++imx93-phyboard-segin-peb-av-18-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-av-18.dtbo
+ imx93-phyboard-segin-peb-eval-01-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-eval-01.dtbo
+ imx93-phyboard-segin-peb-wlbt-05-dtbs += imx93-phyboard-segin.dtb imx93-phyboard-segin-peb-wlbt-05.dtbo
+ imx93-phycore-rpmsg-dtbs += imx93-phyboard-nash.dtb imx93-phyboard-segin.dtb imx93-phycore-rpmsg.dtbo
+@@ -481,6 +486,7 @@ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash-jtag.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash-peb-wlbt-07.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-nash-pwm-fan.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-av-02.dtb
++dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-av-18.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-eval-01.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phyboard-segin-peb-wlbt-05.dtb
+ dtb-$(CONFIG_ARCH_MXC) += imx93-phycore-rpmsg.dtb
+diff --git a/arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi b/arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi
+new file mode 100644
+index 000000000000..53d5cbcd798b
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx91-93-phyboard-segin-peb-av-18.dtsi
+@@ -0,0 +1,93 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ *
++ * Author: Florijan Plohl <florijan.plohl@norik.com>
++ */
++
++#include <dt-bindings/clock/imx93-clock.h>
++#include <dt-bindings/gpio/gpio.h>
++#include <dt-bindings/interrupt-controller/arm-gic.h>
++
++/dts-v1/;
++/plugin/;
++
++&{/} {
++	backlight: backlight {
++		compatible = "pwm-backlight";
++		brightness-levels = <0 4 8 16 32 64 128 255>;
++		default-brightness-level = <5>;
++		power-supply = <&reg_vcc_3v3_con>;
++		pwms = <&pwm7 0 5000000 0>;
++	};
++
++	panel {
++		compatible = "powertip,ph800480t032-zhc19";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_panel>;
++
++		backlight = <&backlight>;
++		enable-gpios = <&gpio4 29 GPIO_ACTIVE_HIGH>;
++		power-supply = <&reg_vcc_3v3_con>;
++
++		port {
++			panel_in: endpoint {
++				remote-endpoint = <&dpi_to_panel>;
++			};
++		};
++	};
++
++	pwm7: pwm-7 {
++		compatible = "pwm-gpio";
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_pwm7>;
++		gpios = <&gpio4 28 GPIO_ACTIVE_HIGH>;
++		#pwm-cells = <3>;
++	};
++
++	reg_vcc_3v3_con: regulator-vcc-3v3-con {
++		compatible = "regulator-fixed";
++		regulator-name = "VCC3V3_CON";
++		regulator-max-microvolt = <3300000>;
++		regulator-min-microvolt = <3300000>;
++	};
++};
++
++&dpi_bridge {
++	status = "okay";
++};
++
++&dpi_to_panel {
++	remote-endpoint = <&panel_in>;
++	bus-width = <18>;
++};
++
++&lcdif {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_lcdif>;
++	assigned-clocks = <&clk IMX93_CLK_VIDEO_PLL>;
++	assigned-clock-rates = <27272728>;
++	status = "okay";
++};
++
++&lpi2c2 {
++	#address-cells = <1>;
++	#size-cells = <0>;
++
++	touchscreen@41 {
++		compatible = "ilitek,ili2130";
++		reg = <0x41>;
++		pinctrl-names = "default";
++		pinctrl-0 = <&pinctrl_touchscreen>;
++		interrupt-parent = <&gpio4>;
++		interrupts = <12 IRQ_TYPE_EDGE_FALLING>;
++		reset-gpios = <&gpio4 1 GPIO_ACTIVE_LOW>;
++		touchscreen-size-x = <800>;
++		touchscreen-size-y = <480>;
++		wakeup-source;
++	};
++};
++
++&media_blk_ctrl {
++	status = "okay";
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso
+new file mode 100644
+index 000000000000..35edf9b0fb0f
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx91-phyboard-segin-peb-av-18.dtso
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ *
++ * Author: Florijan Plohl <florijan.plohl@norik.com>
++ */
++
++#include "imx91-pinfunc.h"
++#include "imx91-93-phyboard-segin-peb-av-18.dtsi"
++
++&iomuxc {
++	pinctrl_lcdif: lcdifgrp {
++		fsl,pins = <
++			MX91_PAD_GPIO_IO00__MEDIAMIX_DISP_CLK		0x57e
++			MX91_PAD_GPIO_IO01__MEDIAMIX_DISP_DE		0x51e
++			MX91_PAD_GPIO_IO02__MEDIAMIX_DISP_VSYNC		0x51e
++			MX91_PAD_GPIO_IO03__MEDIAMIX_DISP_HSYNC		0x51e
++			MX91_PAD_GPIO_IO04__MEDIAMIX_DISP_DATA0 	0x51e
++			MX91_PAD_GPIO_IO05__MEDIAMIX_DISP_DATA1		0x51e
++			MX91_PAD_GPIO_IO06__MEDIAMIX_DISP_DATA2		0x51e
++			MX91_PAD_GPIO_IO07__MEDIAMIX_DISP_DATA3		0x51e
++			MX91_PAD_GPIO_IO08__MEDIAMIX_DISP_DATA4		0x51e
++			MX91_PAD_GPIO_IO09__MEDIAMIX_DISP_DATA5		0x51e
++			MX91_PAD_GPIO_IO10__MEDIAMIX_DISP_DATA6		0x51e
++			MX91_PAD_GPIO_IO11__MEDIAMIX_DISP_DATA7		0x51e
++			MX91_PAD_GPIO_IO12__MEDIAMIX_DISP_DATA8		0x51e
++			MX91_PAD_GPIO_IO13__MEDIAMIX_DISP_DATA9		0x51e
++			MX91_PAD_GPIO_IO14__MEDIAMIX_DISP_DATA10	0x51e
++			MX91_PAD_GPIO_IO15__MEDIAMIX_DISP_DATA11	0x51e
++			MX91_PAD_GPIO_IO16__MEDIAMIX_DISP_DATA12	0x51e
++			MX91_PAD_GPIO_IO17__MEDIAMIX_DISP_DATA13	0x51e
++			MX91_PAD_GPIO_IO18__MEDIAMIX_DISP_DATA14	0x51e
++			MX91_PAD_GPIO_IO19__MEDIAMIX_DISP_DATA15	0x51e
++			MX91_PAD_GPIO_IO20__MEDIAMIX_DISP_DATA16	0x51e
++			MX91_PAD_GPIO_IO21__MEDIAMIX_DISP_DATA17	0x51e
++		>;
++	};
++
++	pinctrl_panel: panelgrp {
++		fsl,pins = <
++			MX91_PAD_CCM_CLKO4__GPIO4_IO29			0x1133e
++		>;
++	};
++
++	pinctrl_pwm7: pwm7grp {
++		fsl,pins = <
++			MX91_PAD_CCM_CLKO3__GPIO4_IO28			0x1133e
++		>;
++	};
++
++	pinctrl_touchscreen: touchscreengrp {
++		fsl,pins = <
++			MX91_PAD_ENET1_MDIO__GPIO4_IO1			0x11e
++			MX91_PAD_ENET1_RD2__GPIO4_IO12			0x1133e
++		>;
++	};
++};
+diff --git a/arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso
+new file mode 100644
+index 000000000000..11f7d7502be4
+--- /dev/null
++++ b/arch/arm64/boot/dts/freescale/imx93-phyboard-segin-peb-av-18.dtso
+@@ -0,0 +1,57 @@
++// SPDX-License-Identifier: (GPL-2.0+ OR MIT)
++/*
++ * Copyright (C) 2026 PHYTEC Messtechnik GmbH
++ *
++ * Author: Florijan Plohl <florijan.plohl@norik.com>
++ */
++
++#include "imx93-pinfunc.h"
++#include "imx91-93-phyboard-segin-peb-av-18.dtsi"
++
++&iomuxc {
++	pinctrl_lcdif: lcdifgrp {
++		fsl,pins = <
++			MX93_PAD_GPIO_IO00__MEDIAMIX_DISP_CLK		0x57e
++			MX93_PAD_GPIO_IO02__MEDIAMIX_DISP_VSYNC		0x51e
++			MX93_PAD_GPIO_IO01__MEDIAMIX_DISP_DE		0x51e
++			MX93_PAD_GPIO_IO03__MEDIAMIX_DISP_HSYNC		0x51e
++			MX93_PAD_GPIO_IO04__MEDIAMIX_DISP_DATA00	0x51e
++			MX93_PAD_GPIO_IO05__MEDIAMIX_DISP_DATA01	0x51e
++			MX93_PAD_GPIO_IO06__MEDIAMIX_DISP_DATA02	0x51e
++			MX93_PAD_GPIO_IO07__MEDIAMIX_DISP_DATA03	0x51e
++			MX93_PAD_GPIO_IO08__MEDIAMIX_DISP_DATA04	0x51e
++			MX93_PAD_GPIO_IO09__MEDIAMIX_DISP_DATA05	0x51e
++			MX93_PAD_GPIO_IO10__MEDIAMIX_DISP_DATA06	0x51e
++			MX93_PAD_GPIO_IO11__MEDIAMIX_DISP_DATA07	0x51e
++			MX93_PAD_GPIO_IO12__MEDIAMIX_DISP_DATA08	0x51e
++			MX93_PAD_GPIO_IO13__MEDIAMIX_DISP_DATA09	0x51e
++			MX93_PAD_GPIO_IO14__MEDIAMIX_DISP_DATA10	0x51e
++			MX93_PAD_GPIO_IO15__MEDIAMIX_DISP_DATA11	0x51e
++			MX93_PAD_GPIO_IO16__MEDIAMIX_DISP_DATA12	0x51e
++			MX93_PAD_GPIO_IO17__MEDIAMIX_DISP_DATA13	0x51e
++			MX93_PAD_GPIO_IO18__MEDIAMIX_DISP_DATA14	0x51e
++			MX93_PAD_GPIO_IO19__MEDIAMIX_DISP_DATA15	0x51e
++			MX93_PAD_GPIO_IO20__MEDIAMIX_DISP_DATA16	0x51e
++			MX93_PAD_GPIO_IO21__MEDIAMIX_DISP_DATA17	0x51e
++		>;
++	};
++
++	pinctrl_panel: panelgrp {
++		fsl,pins = <
++			MX93_PAD_CCM_CLKO4__GPIO4_IO29			0x1133e
++		>;
++	};
++
++	pinctrl_pwm7: pwm7grp {
++		fsl,pins = <
++			MX93_PAD_CCM_CLKO3__GPIO4_IO28			0x1133e
++		>;
++	};
++
++	pinctrl_touchscreen: touchscreengrp {
++		fsl,pins = <
++			MX93_PAD_ENET1_MDIO__GPIO4_IO01			0x11e
++			MX93_PAD_ENET1_RD2__GPIO4_IO12			0x1133e
++		>;
++	};
++};
+-- 
+2.43.0
 
-Using platform_dma_configure() to update the MSI domain
-in struct device is appropriate because:
-1) MSIs are device initiated writes just like DMA writes
-    initiated by the device.
-2) The iommu_device_use_default_domain() called by
-   platform_dma_configure() will override MSI domain
-   in struct device for architectures (such as x86 and
-   RISC-V) where IOMMU driver implements a IRQ
-   remap MSI domain for MSI capable devices.
-
-> better with a flow closer to regular request_irq(), with
-> msi_create_device_irq_domain() growing the ability to distingush between
-> "there is no domain" and "there is no domain now, but could be if we try
-> again later", such that drivers can handle deferral at the point where
-> they request MSI vectors?
-
-Like mentioned above, the problem is not about probe deferral
-(aka returning EPROBE_DEFER) from request_irq() or
-msi_create_device_irq_domain() rather about updating the
-MSI domain pointer in struct device before driver probe.
-
-Regards,
-Anup
