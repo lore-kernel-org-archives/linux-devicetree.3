@@ -1,147 +1,132 @@
-Received: from mail-dl1-f49.google.com (mail-dl1-f49.google.com [74.125.82.49])
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E75893A641F
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 07:42:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.82.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780472547; cv=pass; b=WUMvFJfEUg/76IeMpV+Ym5JZHvjbYzTSxh+wUXLGWwznqqI3Ph6z3BdpU9b8k7t5JUgEt4fLYPgrH++XKM0bwZWkyhMdU8o2ybBQLEtFDYhOsqw+89BF/BridPVfNXHE4mH7Iw4u7gz9ClYuXNTWVLPJwPZWS7HhmSzEWWMAioA=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780472547; c=relaxed/simple;
-	bh=kPEaoQ8OjP+EXnYI8JRzPvxllsKR3GiBChaozvD7CNU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=mMFm6b8r0MFnV85gtRjwx+JwKNQuJL90umLeIe7eVurl636FcyGhrPbUieTB4s5KE/lENKVfkMtUeH/pYkPPGZTZ/qOXdCjtTnWDN2Ckd+EMUo+MPhI/sPP1Lh2S0BDKFKIUK1rievSwYpnyjygFVwJT8qDSqtHewlh9+fzm8cM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qh4xtAy+; arc=pass smtp.client-ip=74.125.82.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90F512FDC28
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 07:42:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780472575; cv=none; b=I3lz1REVYKUUjkNpaSnzgRgBSHDcoAjPqxqAoE+0e9mdo8ujFulwyJvI0HNlNo2eAVVdAqsZ7WaudFS8NtKoT7KNqnKtZ+DnBp9nipEX3fvO+VnDtvW3OLxIQkoNN45jSUIkStzcqkJOUOp3G6U2I+2g0QwcfLFYft5eCV9vKH0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780472575; c=relaxed/simple;
+	bh=lVwBtt2edsM+1ehwihHjZpx4f/tEXrJc1FI0USge3Zo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uu+HW0fhzc2WVUdoqBpHAdElB6MwlLqpHKWEEXfIRQEYFiV4gfA903loSVf8mb4x9Jw/iatNkeWaJJuy4L4TmNAVu2g2NvT36a9mRurarOqJXlXaX9ms3ZtQ7wG4ff4g8nei4Odwfkpr4bptKuFn59RVE9k/ypQ6ZjbSX0qMLHQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oFL+k1FX; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qh4xtAy+"
-Received: by mail-dl1-f49.google.com with SMTP id a92af1059eb24-137dd523634so5397438c88.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 00:42:24 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780472544; cv=none;
-        d=google.com; s=arc-20240605;
-        b=ZdMBzJufrdMs3DQRURtCIBw2X1c1SAUHWjvCXDnVKjfnlx7+X0uuXAF6b9qxQuHfXr
-         1rD0RnZYycf95zMhDq5f0IgE+9jyQg9YC5c77HfHVzyXycHmSbCUOCOu5As4F/vshabG
-         H+DMtI5rTKX/d0KjhNOyiGj+7jLpYCiIH0dfACDCISOw5A5EsOBp39VFM6QIaRaQf50B
-         FxCgabcn+KSlVS2MJB29K9eiZ9byu1EExhj3Hr4POe2xpnha02v9cz4hzI1ZeQ6y7xKP
-         W6E12lNTzw5B993Bwvj4AkR3CEhib6TbutqWuFTVIdsHglRmM7+haJEa2oQxQE6baaL/
-         +Gbg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=a7XYs6K6ZH353PwGbbI2rOqTKDPXN26s6rlYcbF9OO8=;
-        fh=YkPaZEzRCeQPtLF0UBEHzgvvzZrlma59DdEItUrmgwk=;
-        b=f9fWFAEzfjr9NYm3J4MCIlbqq7DjszGaqAQeoYtmJlvHBCxQ2TPOuLqwyZXEUgU0Si
-         HMzncZCJxMa88A8fbusXNUoSHyKubLiIrwNfYpDgPnAjRXnEDG6SIHZF1nDiBQcbKvut
-         +t0zFZUlwFz1OVWTec35r7Y2ZPTjhsJVOS8EUjl9L2ATqZnleLfllE4vrArPkFlpm6le
-         /02YoJOv8d+A2XUZVGLM/YhXIogaQ5x+7fAu18JQFrTttAHFJFgA9jwKFFS5uHkhnV7K
-         j/3p5JCHuXQL9PMnrTI5yBD5Gw40EbEvZqrJNR2E/wjmO3FwyAfZoujAEpqY3TslAfBD
-         bS1w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oFL+k1FX"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84230ab8857so1757584b3a.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 00:42:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780472544; x=1781077344; darn=vger.kernel.org;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=a7XYs6K6ZH353PwGbbI2rOqTKDPXN26s6rlYcbF9OO8=;
-        b=qh4xtAy+sTSvNUJcGqNqTqb8ubhlk6Nx4W0oPyijq71XdjrCwRoEGtv/xa9e7Sg2Xe
-         +It0GQIQOFZoYXXm99XudycaVZ1e0FWurvdFt0YTqdz0eKe4j4xANbag939vyOjzPEe+
-         Bk3CtpxB3DdQrjjkNUJE1kjnEr4DR8oCNPkgJT9x0KQD/pFE5IhxLbPI5G5sGapJyUm+
-         GGmKFBqWU51moK3lhIxHUryM/CzgZDeLMAaiG8gXuT6LkArtE8QlWQd4s6MtyY1GmQc7
-         xXkK1dn8TEQb1PWCGEZzcjo5bygwOeib6SD+TpCBndHTisPdUrxiu0rsPtvwzHMTEUSG
-         QMZg==
+        d=gmail.com; s=20251104; t=1780472573; x=1781077373; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=Ocb0IlKQtOhGIBO9a9pzudmO73jlwJlFqSOEA/XxvwU=;
+        b=oFL+k1FX5/DBFSItg2RVUcli3/cC+SICLd+vTqUxTFfaUZOVrNhg8PK0R7ZwMRiQeM
+         6ZPg4tpyGohltuzWJOdHza4oFr9RAadAW+47rsI7QCvuYpBajZI9FLVRbD43uM9+OFit
+         /ZAXybVzy/HUpFx19sKHu7EwpWQAJkW9qZEkcq3WchH/IM1nO6TSB6JvqVASsXx79fPW
+         KIZx0kYHzisFxGqL2KkF0ymgdqs5LWqiQXDY40rn/viC+Ri8Qhwsaf5ZnXSKo3aiu+yn
+         dFOVGCuVPAb1HK32L4jQ5avxl7H6xevWjwuekyGH/1TieCv1HPoAwjF6VVZRboEm6kF6
+         /Csw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780472544; x=1781077344;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=a7XYs6K6ZH353PwGbbI2rOqTKDPXN26s6rlYcbF9OO8=;
-        b=GohlAUmf0x/mpvjU3P5UFYtLuR7O2FnWNh4Dv7twuhd76ecd4l6m1Ie9M0bCWeThcN
-         r03i77MqzhUeq3LuYRmqrqZOuuVfYZhDyc2f3BMkaq7TLtDNP3OFIC9JkNud+b1MkoA6
-         0WUctKKg58ZifIHSu4eunbOCC2j90msjVuQGo/B2jw7OsRmIIdkrUg8VdKBV5pUHbgk2
-         wY5BCnBAGMgqCsqlTmsmdfVpOrfAAoDe/GQM6Kb6RU31yuTMHwsDQYgm+ARLk0BKBrD9
-         0T+bh5j+kdosJw3l/dJnLZ4naQJYEnLD9Cu+4JEzZC2AvAUYzVqH6U6dWlccFn5U1n5Z
-         XU8w==
-X-Forwarded-Encrypted: i=1; AFNElJ9f9f2wypwMr6ec9Um+zg7cj8j9Ec/OBk0XWQj1WK+BV4hkD+3IEAE/G7u9YKqLSpH/ECVFlDFT+Nir@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx8hE9vns4d4NYr9hyqrtFnFhvUwv9D5eRQsLMrnqUMdmMHi6oK
-	fEXulW9q96x068BWJa8IJOAMEU+o6nHT31E6d6RGMuayJ2U7oHbzJjNmCOY82ZoxhukLiSsoNxe
-	C9kSQIq3o6adTHY76hb4uV8C+q7P5Sso=
-X-Gm-Gg: Acq92OFQ3BVxxmhjTQQrK4AUQHmmOBv0czV4PD80aKFfTgWxG9UqO8mKCueq0uUhD3N
-	kkuhAwINgW1Ty1oP809clTNNakpsVPgtPH7eUtGDP20d8MLD8tNg7fQrvstsWToxkth/+dmcyWF
-	jrvsncbj12IUm9Dir5w4whibhJxWLQT+kbebyafufM42vngGx6+lkHI+slw9PZ95nHKii+BWx4N
-	ZRcs0iKqhIiYC0RC9QNm3gc8jXoyjVuD7Vtb6rerMNq3zBiK1N+OaTdkufj1G3FkjXh7QRB8vGa
-	6xx56VLomVunVtfF9fc/WE6YCwStyQ==
-X-Received: by 2002:a05:693c:300a:b0:304:4f23:457e with SMTP id
- 5a478bee46e88-3074fb684ffmr1181310eec.22.1780472543899; Wed, 03 Jun 2026
- 00:42:23 -0700 (PDT)
+        d=1e100.net; s=20251104; t=1780472573; x=1781077373;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=Ocb0IlKQtOhGIBO9a9pzudmO73jlwJlFqSOEA/XxvwU=;
+        b=OZfKdUcwUQPRpoVIFn4C1slLn8nxU0Ql6KjXxFHJ0XcP2MXiXl+64bS4xMZOzItuXF
+         rnMakYKUfnGYJ/LGWdYyW4mnohVgSkj9pPqMa1N89K9jm9ymZukVO8FCVVkMdql5EO/F
+         wpZZk3clTsjoXpl0sR0b8i+G7XHdxVG/X2smKm5RE4Sdu9Q/PvwvvbBVbnXf+rC0rYVV
+         7x0MN5JVczHNE4kpa7lH5AWptxoB6nc4yEh5zVlh445B15IKMRSjv4XoVd8cFv7LLaTm
+         awoj08Z9Yqw5wF4975csMHortxmsCOyyeMJJ6Q99pc3Z27Lwq3u+RmzGp54scoJYdYKV
+         Kj+g==
+X-Forwarded-Encrypted: i=1; AFNElJ+PjbRsB6v7KQ+1FhGLNSGKtw/euUIKt2aLybFyZb7kTe3vEI46pklMy7H2E39Wi+xPvpSNw1gRQseg@vger.kernel.org
+X-Gm-Message-State: AOJu0YzDUA1fkOio4NhvUiY7k/w09V/Vkwgyr6NtGGBuflVXYw1N0+FU
+	MKW1l/gs+KXL+949BtnIPgQcaN/nPFYQEYzOAHpAXw4QN7RlsDrzH3Yg
+X-Gm-Gg: Acq92OFGxiQudAKIuM2OEDMY0Q/kdkhJpCo2vB/qWAqPgAkBxaWSnK1zrnRY3HHTg2S
+	rqRfvhSy7pAcUBPIJhlfAJ8PhhFc2y5oRkKZ1pYEZ1hqRuvwMpbdH4FRrmdOmBKj/0FsneDQF29
+	ubaUElWrTUe/4DiO0uJ+ds0RKg8sn3FiHZDCzhmSij9FSAWIA5mR/GPPbktWzXMBD1bnU9JLM7O
+	Rgxw/eH68Uv+AMHKJuDmbhMzR5bJON0yXElaNJ9+80eil3v47o3FPDcAi/EB9JzRzT0qmOvPBOn
+	sM9ugnxQVNIQ3IaCy7hotnSBa5/GH31SmFox+6q85xByHIbgq9VS0KK2x2RmUcVN+5fwwWqEbLS
+	E+J4qGNnkRmvbn3ZM4cOhHmEWI3QO9Y+fnmoGRHn7ik95YPwAIPSWqbU/j7SGuslXzM0F9GtafO
+	hfXZ+V2V/vZ1sEibvu6eWOvuhHMKypMD3mNhKbfVF3v9B47xM58NYqKbdr4xob6yXPBGP8hcjpn
+	tp3TqQN6EJzCgph69LDhbLp+wTzhLc2fmF+1DgC5WAlzFnuWsU42TDUXtll+SNj
+X-Received: by 2002:a05:6a00:a222:b0:835:3949:3c22 with SMTP id d2e1a72fcca58-84284e932eamr2481464b3a.27.1780472572742;
+        Wed, 03 Jun 2026 00:42:52 -0700 (PDT)
+Received: from donnager-debian.. ([45.124.203.15])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-842828daf76sm2161223b3a.42.2026.06.03.00.42.47
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 00:42:52 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+To: Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Anup Patel <anup@brainfault.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@kernel.org>,
+	Drew Fustini <fustini@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH 0/7] riscv: dts: tenstorrent: Add Atlantis platform
+Date: Wed,  3 Jun 2026 17:12:12 +0930
+Message-ID: <20260603074222.593243-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260531092924.12929-1-clamor95@gmail.com> <20260531092924.12929-2-clamor95@gmail.com>
-In-Reply-To: <20260531092924.12929-2-clamor95@gmail.com>
-From: Svyatoslav Ryhel <clamor95@gmail.com>
-Date: Wed, 3 Jun 2026 10:42:12 +0300
-X-Gm-Features: AVHnY4Ieen8ZoYHKJxqaa_bowmUWca3QV_nYMrOeqjf0cKthQQdJ7zZR2Kop0oE
-Message-ID: <CAPVz0n12a5XjoFbCYDuwa8gzYeyg9jcjOzKRArqFZBSgMkjCkg@mail.gmail.com>
-Subject: Re: [PATCH v1 1/1 RESEND] dt-bindings: media: mt9m114: document
- common video device properties
-To: Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Svyatoslav Ryhel <clamor95@gmail.com>, Sakari Ailus <sakari.ailus@linux.intel.com>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-=D0=BD=D0=B4, 31 =D1=82=D1=80=D0=B0=D0=B2. 2026=E2=80=AF=D1=80. =D0=BE 12:2=
-9 Svyatoslav Ryhel <clamor95@gmail.com> =D0=BF=D0=B8=D1=88=D0=B5:
->
-> Document common video interface device properties, such as rotation and
-> orientation.
->
-> Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
-> ---
+Add initial support for the Tenstorrent Atlantis platform, based on the
+Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
 
-I have forgot to include ack and review tags from pre-resend patch.
+The series adds a bare bones device tree with the CPU, interrupt
+controllers and a UART. This will be replaced in time with a full
+featured machine once details are available.
 
-Acked-by: Rob Herring (Arm) <robh@kernel.org>
-Reviewed-by: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
+Patches 1, 2, 3, 5, and 6 add compatibles or extensions to existing
+bindings.
 
-Hopefully, these can be added without resending.
+Patch 4 adds a new binding document for the aclint timer device.
 
->  .../devicetree/bindings/media/i2c/onnn,mt9m114.yaml          | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yam=
-l b/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yaml
-> index e896f4db2421..2b39614f5cbf 100644
-> --- a/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yaml
-> +++ b/Documentation/devicetree/bindings/media/i2c/onnn,mt9m114.yaml
-> @@ -15,6 +15,9 @@ description: |-
->    an I2C interface and outputs image data over a 8-bit parallel or 1-lan=
-e MIPI
->    CSI-2 connection.
->
-> +allOf:
-> +  - $ref: /schemas/media/video-interface-devices.yaml#
-> +
->  properties:
->    compatible:
->      enum:
-> @@ -90,7 +93,7 @@ required:
->    - vaa-supply
->    - port
->
-> -additionalProperties: false
-> +unevaluatedProperties: false
->
->  examples:
->    - |
-> --
-> 2.51.0
->
+The series has been boot tested on QEMU[1] and internal development
+platforms.
+
+[1] https://lore.kernel.org/qemu-riscv/20260603065859.592063-1-joel@jms.id.au/
+
+
+Drew Fustini (1):
+  dt-bindings: riscv: add Smrnmi extension description
+
+Joel Stanley (6):
+  dt-bindings: aplic: Add Tenstorrent Atlantis compatible
+  dt-bindings: imsics: Add Tenstorrent Atlantis compatible
+  dt-bindings: riscv: cpus: Add Tenstorrent Ascalon
+  dt-bindings: timer: Add RISC-V ACLINT bindings
+  dt-bindings: riscv: Add Tenstorrent Atlantis platform
+  riscv: dts: tenstorrent: Add Atlantis platform
+
+ MAINTAINERS                                   |   1 +
+ .../interrupt-controller/riscv,aplic.yaml     |   1 +
+ .../interrupt-controller/riscv,imsics.yaml    |   1 +
+ .../devicetree/bindings/riscv/cpus.yaml       |   5 +
+ .../devicetree/bindings/riscv/extensions.yaml |   6 +
+ .../bindings/riscv/tenstorrent.yaml           |   4 +
+ .../bindings/timer/riscv,aclint-mtimer.yaml   |  52 ++
+ arch/riscv/boot/dts/tenstorrent/Makefile      |   1 +
+ .../boot/dts/tenstorrent/atlantis-evb.dts     |  31 ++
+ .../boot/dts/tenstorrent/atlantis-soc.dtsi    | 470 ++++++++++++++++++
+ 10 files changed, 572 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+ create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts
+ create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
+
+-- 
+2.47.3
+
