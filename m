@@ -1,209 +1,197 @@
-Received: from mail.andi.de1.cc (mail.andi.de1.cc [178.238.236.174])
+Received: from DM5PR21CU001.outbound.protection.outlook.com (mail-centralusazon11011009.outbound.protection.outlook.com [52.101.62.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE05F384CFA;
-	Wed,  3 Jun 2026 15:10:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.238.236.174
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780499445; cv=none; b=tviRHBw7zko+Yv2GGuGLjZgocNs9bso/gLP6hVFwG3Qblw8F+eN5wgI19Pbqc38/acKW2m2t/YTOVA0PtnmWAD6Oqg3Aqc70Lz5SmDFy/BBNq/LnaJX89dJJJel1Onud9To+O1veNcXGNGslXMfCv1Q2I/T0RKJV//2yzyEEzE4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780499445; c=relaxed/simple;
-	bh=eKCixHxP4OHrmNzvG/H9bFpkf8RLwspWU1OQSLtQBAU=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=SuNiOpres/DCyTmdbR4fOqOMTvG2B3lYCLIo7WUhVIsJrs+V3OyhACYKP15C0esWV8jOC9bo5WTsafmu6RVlS3zmne3DuSUXH3UUQGwnkC7GpUPRfJfcusZlvsr8xAaZU0b7slemmeoad5vOcghcPgIwQ5cyPEk2qAXCTdDY5E0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info; spf=pass smtp.mailfrom=kemnade.info; dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b=HsUs0m04; arc=none smtp.client-ip=178.238.236.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kemnade.info
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kemnade.info
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB37425CC74;
+	Wed,  3 Jun 2026 15:12:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.62.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780499540; cv=fail; b=uMJwJweDJMTviBI9XKNviQ88p+jCMUTouWaEi+zWo3VytiFCmDOkV5UUtg50giM75acIqsheRHLiFN1FWuRPBd1vQcL2MlAxgYotAxFs0kkW45k7a23aZvLXzAL9p/YoqLG6NHwjqaJmjUXxk+LWzURf+yn7+P0RLUpT5YNcReg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780499540; c=relaxed/simple;
+	bh=qvEBZsq0/KH8mNsey45GvHVUh3ulgHnVYtvXBBpONf8=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Zca343lkh86oK2vEkhD/yCDZT+7EV0ys4huEvzH04T2YWPyc3u9nz501OqjOmbskPtEhC1VkLAKOAUqhw+3I3HASAdPq+vwxOD9T5AgUcxn0xO4pTU3x9QtrPc/gL0y+Zo+fzTtecVD2eFMa0w5I15CpcelUQIvG+gdjwuodoo0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=JTwBBHCf; arc=fail smtp.client-ip=52.101.62.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kemnade.info header.i=@kemnade.info header.b="HsUs0m04"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=kemnade.info; s=20220719; h=References:In-Reply-To:Cc:From:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID;
-	bh=AnWsPGZ65Ks2vM3FyVUF91sTsc3pQ1fxnLM5pPobsls=; b=HsUs0m04ndeqh0aEXv2DDHnWWb
-	a3nrtFHnwDOGYtwlD217gOZsV4kC57ujooka2UHd9Fe6RONHagXJMzWJKMv1YCqRlEWSOQEaGMQOF
-	KlgedXE7Hg3nUmOW/oaAS8sE3hqwh6cQNpG9et2bBuVl2O8ZoNvL+7ljBSqQTgdhVfQOaTQIm8KYs
-	wEcWHHcBjkpXU9U4H2MqFhlL9BgnDqmC2h2cyOD6ooC4bCKTDYH9oiCqkoITv5eBPszUDqHXeC2KV
-	xSkqCWyBPkc1YzhwlT2rcHfK3D2g/5MzYrzANcBaMwz5fBxjwzG40qVEPBiIJUoQDpnM5TJUYjAFF
-	XDRmpa3Q==;
-Date: Wed, 3 Jun 2026 17:10:38 +0200
-From: Andreas Kemnade <andreas@kemnade.info>
-To: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Cc: Lee Jones <lee@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Aaro
- Koskinen <aaro.koskinen@iki.fi>, Kevin Hilman <khilman@baylibre.com>, Roger
- Quadros <rogerq@kernel.org>, Tony Lindgren <tony@atomide.com>,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-omap@vger.kernel.org
-Subject: Re: [PATCH 2/2] ARM: dts: ti: Add specific compatibles for SCM conf
- nodes
-Message-ID: <20260603171038.137cd2e8@kemnade.info>
-In-Reply-To: <20260531110404.12768-4-krzysztof.kozlowski@oss.qualcomm.com>
-References: <20260531110404.12768-3-krzysztof.kozlowski@oss.qualcomm.com>
-	<20260531110404.12768-4-krzysztof.kozlowski@oss.qualcomm.com>
-X-Mailer: Claws Mail 4.3.1 (GTK 3.24.49; aarch64-unknown-linux-gnu)
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="JTwBBHCf"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=O7bhNC1Nmvjq7mt2uAfVSGuJVAx0s7oS9WSN7nn0kayxA+V3eJWe77M+BREtsqyt+yYnr4D6GlK7WP/Tt/E1RV1Zx9goK6qzC9Kep5925SI/7j5fLINFAY1Xm/L2gv1qHMAot5p8E+npebmDeOjIXNY8mjzWVOIHUY+H8gqNw7arP+gNvFsjz6Th2Xs+xQJxqwcnlwc89QXeeWdczU1GCJZJCh1Ly6AXXcJ8GmhhgybS28P9hEQ8uQ1FScRbwuTPUWpd1OUHNhIrOiEkQKVVvZTuSlzjbMsS2mAYHHrFAZeF5N0Nsi9cZKI55D6M09Io2D53yyViX7Y1FBhy8+6HkA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=ji9geGKiPwUw41rRXwy6+GiuzTDi/MOPDKkW36W3VNg=;
+ b=Dj5CtRxwRAOv1yW1kRET63Yp6VG3/vh2lvscuWd7HkmpNV7TRv03pxOOQ4GxnGsTrmzDQjvmonmRGHuOE8/PaWmj6kKIEmXDYlPHunS0oFqrKGoTDnKx3f7a8tI97lSjHb++mHgSZCIfEyAyQY5Qcb9I5e9oKGM0Qh/wA/6gYxl7kK5x+K8326VPL+Gy6mxqIwYbIKmRabiXU/KGOXeWJFQBC7HLmRq71Xsr2VhJIsSMx8V76pi5VbKkRTwtQyo1EXLCP9BUGB8XaCRw+mqvvJO39u2kIpPGaCROsmYdALvAIZHbXW15yhQJaFltmoKvnXC+iZHsQ5GFQkB8tQ0RIg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=ji9geGKiPwUw41rRXwy6+GiuzTDi/MOPDKkW36W3VNg=;
+ b=JTwBBHCfDIOFLHj6YVYfucZJgtuQXrQ7cBFA74XjLTQriASK3mG+32ih5D3idn9F0DFDDAjI/78QVWVZxUMxk7Tod9vpp50QOgQ+fDt758BIatLUpQCn1/177QvDRPeKVfsI9Ef8hHCrfXP5ifzfM7tL9hs8Qif1oMLl9V3FnM0=
+Received: from MN2PR15CA0051.namprd15.prod.outlook.com (2603:10b6:208:237::20)
+ by SA1PR12MB7247.namprd12.prod.outlook.com (2603:10b6:806:2bb::6) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 15:12:14 +0000
+Received: from MN1PEPF0000ECD9.namprd02.prod.outlook.com
+ (2603:10b6:208:237:cafe::54) by MN2PR15CA0051.outlook.office365.com
+ (2603:10b6:208:237::20) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.92.7 via Frontend Transport; Wed, 3
+ Jun 2026 15:12:14 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb08.amd.com; pr=C
+Received: from satlexmb08.amd.com (165.204.84.17) by
+ MN1PEPF0000ECD9.mail.protection.outlook.com (10.167.242.138) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.92.5 via Frontend Transport; Wed, 3 Jun 2026 15:12:14 +0000
+Received: from satlexmb10.amd.com (10.181.42.219) by satlexmb08.amd.com
+ (10.181.42.217) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 10:12:14 -0500
+Received: from satlexmb07.amd.com (10.181.42.216) by satlexmb10.amd.com
+ (10.181.42.219) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41; Wed, 3 Jun
+ 2026 10:12:13 -0500
+Received: from localhost (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.41 via Frontend
+ Transport; Wed, 3 Jun 2026 10:12:12 -0500
+From: Michal Simek <michal.simek@amd.com>
+To: <linux-kernel@vger.kernel.org>, <monstr@monstr.eu>,
+	<michal.simek@amd.com>, <git@amd.com>
+CC: Conor Dooley <conor+dt@kernel.org>, Krzysztof Kozlowski
+	<krzk+dt@kernel.org>, Michael Turquette <mturquette@baylibre.com>, "Rob
+ Herring" <robh@kernel.org>, Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
+	Stephen Boyd <sboyd@kernel.org>, "open list:OPEN FIRMWARE AND FLATTENED
+ DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>, kishore Manne
+	<nava.kishore.manne@amd.com>, "moderated list:ARM/ZYNQ ARCHITECTURE"
+	<linux-arm-kernel@lists.infradead.org>, "open list:COMMON CLK FRAMEWORK"
+	<linux-clk@vger.kernel.org>
+Subject: [PATCH v3 0/5] clock: versal-clk: Fix Versal NET clock binding and switch to CCF
+Date: Wed, 3 Jun 2026 17:12:05 +0200
+Message-ID: <cover.1780499520.git.michal.simek@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3501; i=michal.simek@amd.com; h=from:subject:message-id; bh=qvEBZsq0/KH8mNsey45GvHVUh3ulgHnVYtvXBBpONf8=; b=owGbwMvMwCG2mv3fB7+vgl8ZT6slMWQpuLiZr08TC3v0umfhuilMnD6L7vYX3P71xHVuifen7 1vDezsDO0pZGMQ4GGTFFFmmM+k4rPl2banY8sh8mDmsTCBDGLg4BWAiB/8wMrRcn18g8Ha1zttP CScnmV08N7FW/lFKwZyLanV+PZKBnOYMf2X5vjZk/DE/duaU6qbwuxL2qRyMfWmun/6v125g+3r 5IicA
+X-Developer-Key: i=michal.simek@amd.com; a=openpgp; fpr=67350C9BF5CCEE9B5364356A377C7F21FE3D1F91
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MN1PEPF0000ECD9:EE_|SA1PR12MB7247:EE_
+X-MS-Office365-Filtering-Correlation-Id: ac8c0d0e-2654-406d-7bd6-08dec1827e6a
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|82310400026|376014|7416014|1800799024|6133799003|56012099006|11063799006|3023799007|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	qwXSWj/OnuJjnUz9xELQJ6HX8ZJd++OiXKT1h9tWr6FCEkiNVhj7WZEZ2GHyZXqb0WXEPJBFVkBlz14oUuoqLqmkHuQnHA7rtVDxF0kJcBvfCuoiAiXHxjS+1qfH8CL74wGQ1KVlu/22+9JOkivDUdNeB1Po7jswkKTBgIdjbZzQXqg3ByB82tok2heUabvNLBv5gGeFaH+J5eQeFSONECdrFAyFQhqLYnvotP7rOS4ZYeK5CHfkZP8Z8BR3Av1QZ8P0NYs/kPEn3Qxapa1GGEefoT+gmnrsMETSR3xB5UIdsEbTzs7RZ/Fo0BHFZjyZGjpmD7HZ6/waPxQN/O6B3SHvNVGxsAaHheY551GTLZ+6CEPqE1ZZ2qMMC81LraFTi62WnVF05KHLYAFglsQjrRDI/GGm9jPhuvvUM8tyMxQMepoHrfhLsraLqMh0T1R+fc6/lgxDaQnTfurVtIwTjpUhipZ1M8LdF7nBpsyvgKEtc54hCh8IIn6QwF9a26YzvuZM8X5uHC9aXMFtyTJB8vxEmTwqvbron/rdaOtneXZKTax7XyntDyOOZ+qe2PmBdKtk1QpvQV3l4zxzSr66dCISG2QWQF2OPZxz8/m7SoK2Yct0Asp/+elWNJPkq/5A0kOSKGy5WizbJolIEQVEIaYHqVuPP1NlHvVFucadLytN/qN5EAKKacwQtR6XVNlLsUe0tw4LNu/Y4lNE+OLFMTtD3c2hSqd6uF74aQrjU9E=
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb08.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(82310400026)(376014)(7416014)(1800799024)(6133799003)(56012099006)(11063799006)(3023799007)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	BvAyBTc+PGZpv6IljbkLAVCO68nE+xhWhNWGrwIZVaEoS+VlfnYH3MfLYBCykOy5ZCnCcxj8fCfMTnYrf6m0NAUcv0q6/2tQSggOEN0JBFUK9oWFfzK+WtTV1p7gOTAhP4FqQUGgC/ypseSy/EoiGNAdoHZd+xEceUj88RDXBSUTOW5B4QYjWWjU20wajwt9n6cqkKlxlohjfsSIm0uT7XtX7EoDPI8U4I8cjjvTZH6Qk7hW6Sx9QIVqR6zZnpptSOoK9tKzVngGFkpNAaN8TQddgHehwRm+hNQH9c5GchfZKd5UN/UK858R6cjI4wVEC8YaRPfXWFO1OC9COeFiqsI8s5TwttYbB/WynirVhpCrK3XTbOhzmupM6m0ARhrwVzMfSI96Z8mdUMmB7vdh1RVmxnCRC6QIHshRILC4b5+TV8bmv8TdwJS4wXDvCm41
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 15:12:14.3552
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: ac8c0d0e-2654-406d-7bd6-08dec1827e6a
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb08.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MN1PEPF0000ECD9.namprd02.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA1PR12MB7247
 
-On Sun, 31 May 2026 13:04:06 +0200
-Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com> wrote:
+This series fixes the Versal NET clock controller DT binding validation
+and switches the platform to use the firmware-based CCF clock interface.
 
-> writing-bindings.rst rules dictate that "syscon" must come with a
-> specific compatible identifying the register layout.  Add specific
-> compatibles for these devices.
-> 
-> This also allows to solve a different problem: "syscon" is contradictory
-> to "simple-bus".  A system controller with registers having their own
-> functions is not really a trivial MMIO simple bus.  These two cannot be
-> used together, unless listed as an exception.
-> 
-> Signed-off-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+Patch 1 extracts zynqmp to own DT binding file.
 
-Reviewed-By: Andreas Kemnade <andreas@kemnade.info>
-> ---
->  arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi | 2 +-
->  arch/arm/boot/dts/ti/omap/am437x-l4.dtsi | 2 +-
->  arch/arm/boot/dts/ti/omap/dm814x.dtsi    | 2 +-
->  arch/arm/boot/dts/ti/omap/dm816x.dtsi    | 2 +-
->  arch/arm/boot/dts/ti/omap/dra7-l4.dtsi   | 2 +-
->  arch/arm/boot/dts/ti/omap/omap2430.dtsi  | 2 +-
->  arch/arm/boot/dts/ti/omap/omap3.dtsi     | 2 +-
->  arch/arm/boot/dts/ti/omap/omap4-l4.dtsi  | 2 +-
->  arch/arm/boot/dts/ti/omap/omap5-l4.dtsi  | 6 +++---
->  9 files changed, 11 insertions(+), 11 deletions(-)
-> 
-> diff --git a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-> index 89d16fcc773e..1e09d2b48925 100644
-> --- a/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/am33xx-l4.dtsi
-> @@ -308,7 +308,7 @@ am33xx_pinmux: pinmux@800 {
->  				};
->  
->  				scm_conf: scm_conf@0 {
-> -					compatible = "syscon", "simple-bus";
-> +					compatible = "ti,am3352-scm-conf", "syscon", "simple-bus";
->  					reg = <0x0 0x800>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi b/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-> index e08f356e71cb..30fcce33f4b7 100644
-> --- a/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/am437x-l4.dtsi
-> @@ -301,7 +301,7 @@ am43xx_pinmux: pinmux@800 {
->  				};
->  
->  				scm_conf: scm_conf@0 {
-> -					compatible = "syscon", "simple-bus";
-> +					compatible = "ti,am4372-scm-conf", "syscon", "simple-bus";
->  					reg = <0x0 0x800>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/dm814x.dtsi b/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-> index 27d1f35a31fd..9e02bfa5c3a2 100644
-> --- a/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dm814x.dtsi
-> @@ -432,7 +432,7 @@ control: control@140000 {
->  				ranges = <0 0x140000 0x20000>;
->  
->  				scm_conf: scm_conf@0 {
-> -					compatible = "syscon", "simple-bus";
-> +					compatible = "ti,dm814-scm-conf", "syscon", "simple-bus";
->  					reg = <0x0 0x800>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/dm816x.dtsi b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> index a1e0e904e0f0..ee0090f7aa64 100644
-> --- a/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dm816x.dtsi
-> @@ -100,7 +100,7 @@ dm816x_pinmux: pinmux@800 {
->  
->  			/* Device Configuration Registers */
->  			scm_conf: syscon@600 {
-> -				compatible = "syscon", "simple-bus";
-> +				compatible = "ti,dm8168-scm-conf", "syscon", "simple-bus";
->  				reg = <0x600 0x110>;
->  				#address-cells = <1>;
->  				#size-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> index c8d325b0f57b..9df7648c4b79 100644
-> --- a/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/dra7-l4.dtsi
-> @@ -64,7 +64,7 @@ scm: scm@0 {
->  				ranges = <0 0 0x2000>;
->  
->  				scm_conf: scm_conf@0 {
-> -					compatible = "syscon", "simple-bus";
-> +					compatible = "ti,dra7-scm-conf", "syscon", "simple-bus";
->  					reg = <0x0 0x1400>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/omap2430.dtsi b/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-> index 222613d2a4d1..01bd471f9223 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap2430.dtsi
-> @@ -50,7 +50,7 @@ omap2430_pmx: pinmux@30 {
->  				};
->  
->  				scm_conf: scm_conf@270 {
-> -					compatible = "syscon",
-> +					compatible = "ti,omap2-scm-conf", "syscon",
->  						     "simple-bus";
->  					reg = <0x270 0x240>;
->  					#address-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/omap3.dtsi b/arch/arm/boot/dts/ti/omap/omap3.dtsi
-> index 959069e24730..447736d2e53c 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap3.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap3.dtsi
-> @@ -116,7 +116,7 @@ omap3_pmx_core: pinmux@30 {
->  				};
->  
->  				scm_conf: scm_conf@270 {
-> -					compatible = "syscon", "simple-bus";
-> +					compatible = "ti,omap3-scm-conf", "syscon", "simple-bus";
->  					reg = <0x270 0x330>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-> index 4c78a0b28fab..c1afc49f456c 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap4-l4.dtsi
-> @@ -681,7 +681,7 @@ omap4_pmx_core: pinmux@40 {
->  			};
->  
->  			omap4_padconf_global: omap4_padconf_global@5a0 {
-> -				compatible = "syscon",
-> +				compatible = "ti,omap4-sysc-padconf-global", "syscon",
->  					     "simple-bus";
->  				reg = <0x5a0 0x170>;
->  				#address-cells = <1>;
-> diff --git a/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi b/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-> index 915870eb5c99..3350128db22d 100644
-> --- a/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-> +++ b/arch/arm/boot/dts/ti/omap/omap5-l4.dtsi
-> @@ -96,8 +96,7 @@ omap5_pmx_core: pinmux@40 {
->  				};
->  
->  				omap5_padconf_global: omap5_padconf_global@5a0 {
-> -					compatible = "syscon",
-> -						     "simple-bus";
-> +					compatible = "ti,omap5-scm-conf", "syscon", "simple-bus";
->  					reg = <0x5a0 0xec>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
-> @@ -2311,7 +2310,8 @@ omap5_scm_wkup_pad_conf: omap5_scm_wkup_pad_conf@da0 {
->  				ranges = <0 0 0x60>;
->  
->  				scm_wkup_pad_conf: scm_conf@0 {
-> -					compatible = "syscon", "simple-bus";
-> +					compatible = "ti,omap5-scm-wkup-conf",
-> +						     "syscon", "simple-bus";
->  					reg = <0x0 0x60>;
->  					#address-cells = <1>;
->  					#size-cells = <1>;
+Patch 2 restructures the if/then conditions in the versal-clk binding
+schema so that xlnx,versal-net-clk is matched first before falling back
+to xlnx,versal-clk. This fixes false "too long" validation errors caused
+by both conditions matching simultaneously when the fallback compatible
+is present. A dedicated example for the Versal NET 3-clock configuration
+is added and all examples are split into separate blocks for independent
+validation.
 
+Patch 3 switches Versal NET from static fixed-clock definitions to the
+firmware-based clock interface, enabling proper clock management
+through platform firmware. DT macro headers for clocks, power domains
+and resets are added.
+
+Thanks,
+Michal
+
+Changes in v3:
+- new patch in series
+- New patch in series
+- Cover change in zynqmp-firmware.yaml
+- Move clock-cells to be the last in the example
+- Remove comment around (Optional clock) which is obvious from schema
+  itself
+- Move clock-cells to be the last property in the example
+- use 2 spaces for indentation in example to follow the same style which is
+  already used
+- Add fixed tag
+- Remove interrupt from zynqmp-power - Versal NET is using event framework
+  instead. No interrupt is required.
+- Remove unused GEM{0,1}_REF_{R,T}X macros
+- Update commit message
+- s/zynqmp/versal-net/ in subject
+- Update copyrights
+- Make all macro values lower case
+- Fix guarding macro names
+
+Changes in v2:
+- New patch in series
+- Split zynqmp-clk from versal-clk
+- Update logic without ZynqMP part in this file and have if/else only
+  around min/maxItems
+- use clock-<HZ> node name for fixed clocks
+- Reuse existing versal-net-clk.dtsi file
+
+Michal Simek (5):
+  dt-bindings: firmware: xilinx: Add missing example for ZynqMP
+  dt-bindings: clock: versal-clk: Fix mio_clk index range in clock-names
+    pattern
+  dt-bindings: clock: Move xlnx,zynqmp-clk to its own schema
+  dt-bindings: clock: versal-clk: Fix Versal NET clock validation
+  arm64: versal-net: Switch Versal NET to firmware clock interface
+
+ .../bindings/clock/xlnx,versal-clk.yaml       |  89 +----
+ .../bindings/clock/xlnx,zynqmp-clk.yaml       |  68 ++++
+ .../firmware/xilinx/xlnx,zynqmp-firmware.yaml |  15 +-
+ .../arm64/boot/dts/xilinx/versal-net-clk.dtsi | 345 +++++++++++++-----
+ arch/arm64/boot/dts/xilinx/xlnx-versal-clk.h  | 123 +++++++
+ .../boot/dts/xilinx/xlnx-versal-net-clk.h     |  74 ++++
+ .../boot/dts/xilinx/xlnx-versal-net-power.h   |  38 ++
+ .../boot/dts/xilinx/xlnx-versal-net-resets.h  |  53 +++
+ .../arm64/boot/dts/xilinx/xlnx-versal-power.h |  55 +++
+ .../boot/dts/xilinx/xlnx-versal-resets.h      | 106 ++++++
+ 10 files changed, 795 insertions(+), 171 deletions(-)
+ create mode 100644 Documentation/devicetree/bindings/clock/xlnx,zynqmp-clk.yaml
+ create mode 100644 arch/arm64/boot/dts/xilinx/xlnx-versal-clk.h
+ create mode 100644 arch/arm64/boot/dts/xilinx/xlnx-versal-net-clk.h
+ create mode 100644 arch/arm64/boot/dts/xilinx/xlnx-versal-net-power.h
+ create mode 100644 arch/arm64/boot/dts/xilinx/xlnx-versal-net-resets.h
+ create mode 100644 arch/arm64/boot/dts/xilinx/xlnx-versal-power.h
+ create mode 100644 arch/arm64/boot/dts/xilinx/xlnx-versal-resets.h
+
+-- 
+2.43.0
+
+base-commit: 254f49634ee16a731174d2ae34bc50bd5f45e731
+branch: xnext/versal-net
