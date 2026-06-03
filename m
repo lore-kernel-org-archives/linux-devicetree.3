@@ -1,64 +1,64 @@
-Received: from mail-lf1-f52.google.com (mail-lf1-f52.google.com [209.85.167.52])
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AF0C48125D
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 13:12:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.167.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F690481232
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 13:13:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780492384; cv=none; b=Bl3Hwks1PH79u1OhpLyWM4/kstU9qxexvD3+AbOO5YaG6nQhw4tUtYV2blLN7gyAlMWD8twKyleUuKdJ+FIgdr0TL8wRVgc0y34m33qIx56npcFJcpHzp/dbYai4Hv0MW0e8CnolPqHeuNkOECQodAOIwdY0kAG/YF4S5mzAY80=
+	t=1780492386; cv=none; b=MXQITN0BnjAQypRsxlb1bGoZeiiz7pd+cAubTpq1/UPEH34c3FgsYt9b8Q5tGfxINS+FRhZSQoidciV8GHpxFtW4Icw2BwrJuLFI0AiJXWUhHBzx8OkwV981QNRKbwVjiAeg3YgoZ4Sir1Mp4ut4eR4CvS4qFKtLue8OLam4J5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780492384; c=relaxed/simple;
-	bh=CqAtrMIAuTr+WyduzWNqSyX4HgxvH4WS0Z4W7V7NMwk=;
+	s=arc-20240116; t=1780492386; c=relaxed/simple;
+	bh=brBknWTbJeFdLrLiJEDTIRXbjSKeg4crwnjhONTnli4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UMvYl9BFF5LluzIgvCATepjS7dOmdhNvS+RqbQob4dgTYVmvTnq7oFmQDNdgjsuOEL5c7GD5BR5kGcR9mkzzU93OSOn6EA2lw1MX1IYRIRqC177iFb0e6T4h6gmqXvUcIyyEQzLjq80JUbhPyI1V8R3f4LXOfUbZkLEUzuXe4k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X3kA1dy6; arc=none smtp.client-ip=209.85.167.52
+	 MIME-Version; b=RP8xHVkOqt+iLHkdop89uv/c1FTkCglkbjXofyBVw/k4Xw/9frBJxKV13FER9s3Svj7JUYpTvBv/CIkNyqg4LptytEyo4l23P79m3zI76PO4pR88B1lwsAisWuKdymxzN0YXZOYRjURMQsWoYFlWnnVPcpc+Mj5fzwHK8vCKqbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DvQJRSOT; arc=none smtp.client-ip=209.85.128.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X3kA1dy6"
-Received: by mail-lf1-f52.google.com with SMTP id 2adb3069b0e04-5aa6c66e6c5so2325306e87.2
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 06:12:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DvQJRSOT"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490abf12f0fso3918765e9.0
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 06:13:00 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780492377; x=1781097177; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780492379; x=1781097179; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=LItmvUsB8D4hbVjxhrNTZcvzqIugkVhfkUtCucFdaKU=;
-        b=X3kA1dy6bbjgE1rLir8uTtZ8/ubRVvDwwdfeEaCHWZeJiotlsuMsaIhEEQQCBzuusO
-         3hUSg65vDENL+/AqhamXD+bIExVArOAp8N/aWDaxjzBktn2UnhxA1uocUh0deE4l8hFB
-         tCM+dcOVu28pIkl5oL8XftoNp+rm8LrnmS+/8g6k+/TuB5xVD4VuEgeNv2gYlSqNfxHt
-         RCQWICVdEd8o5I40cjZhexXmP1xgaJY0VGgvkFhEQNaFGUDfN7Jb7QgHVnqUxl4u75iI
-         VHnQ4FDzJbZpoJzgXHBTaoq2p2C8zCLYMRFI23I5SwFwjbS/AE8Ew0i5ARaF4kbTuTku
-         PwaA==
+        bh=XS8EXfD0I7q+hrNj9u5k8EGUHhOwOotqLP8CFPXgTJk=;
+        b=DvQJRSOTvMhXs69+CdOgEgL+VJNl4fpsj49CYGsrxRaafUkhGw2zCzk8RiA04fcwTW
+         g8pdZfWKSNZacxaoxaBOa/vpEClMHiy1iKnT9rCVDDMQ+M0qt/XVzBCPkC2AvjDtNTJX
+         WJtJhXYNgBJGr/JjL+8m0HHrVRfCHVFOZBKf9z7RclohtNUV31PEp/cYPabjBg9D9OHC
+         9aRPwdw++BUtEoqRmoyclCaItFSlCdK9KOcvo7FueYTPtbg25R3cJDBiZ59dzuwKnPgV
+         HdGC5hWQcK9Cbm4Fk2NHOXVzufmL+LEmAWCLHlZ4ExzuH1QFIRnmUGgkL6HRVv5PSeh1
+         WrNg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780492377; x=1781097177;
+        d=1e100.net; s=20251104; t=1780492379; x=1781097179;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=LItmvUsB8D4hbVjxhrNTZcvzqIugkVhfkUtCucFdaKU=;
-        b=WTRMpZxjx0NRp5CVAmawF3sxA1mX4hgPyarX+zoNDrV9WoUGw0+80RZrlWYziP5esr
-         UkUAPee3Lsf1OLLqOWWfIvnQJptFk/F8oZl/hePf2Qi6uoaszewtsoDAYF79RsaM84Nd
-         pBZCW1lm4FAky6lI8B5HAmg3sjx0nibQGFX/QxOtNhJ+MrDx7WcPBJ/EoI1AXCQ2//pX
-         J4QuJdVtT03zfbvPHy0Bg6Weja44rry36gm8jzqw8KEMknZz+iS+wLuN89uVdoW+nG36
-         Cag4Yw1oDQj4GgwE1uzKZ7bGjFzFPaPZmJPby7mHtxWhCSE6fjHq2VU+LRo14pYjgvjb
-         YvCQ==
-X-Forwarded-Encrypted: i=1; AFNElJ84Uj2uA0oNjC2evdgvFGLaz/rglb2Z1sH5FkCGMww6SnmZE7mYk9X57IvXwuU0dq++Q9EChwYPMzYc@vger.kernel.org
-X-Gm-Message-State: AOJu0YwIanpTwAFho0VUZE/He1WaF5l7VfkYlPVVb20pA/hsnZwCDxp7
-	MyzJl9tBDFymgsyp+qTklMVjOzabOrKwLlnFLxlfyYm4GfJDSesCl+fE
-X-Gm-Gg: Acq92OFeC/278oQzMJEJFOSN9qlEmRBEXwb9m/w2/zTSJq9DjhJ+HdAcMe9XBxs64QB
-	+KIKjPdzUMUJHFyeNJ633gnkbKyl7uwDj9ilSna7SZ+B0DJuPEcPmi2XycEwiyB6GSpvR2qCL35
-	J0W7ziMJprqWK7SY/irQAidHPivofqc6PHajxW1nb1n6snR4kZM8mkhLpUG5vTAL/4WXGvJPMFi
-	RcHb1/j7RgU6eAC6fSy8DMax4c86RA46sWjnVYrVtjWcdJ173JZYeMi2a1/OA8ZcuyZqU9wvVFs
-	I+d7IWrwgCnuc8tdWEdvrcJNNoPJ9/+qrD1UvVCfcCFK4ePRjc0xM2ihBlFaWLGIUrTv3S/q3wJ
-	q9TjRAUYc04HOjul24ZcMLb8vZceXMI7clQl+vyUYjcg3mfj25VXqSd6BUSMVMjUgDMNy9Cvj7m
-	uPGsR5/6X38txjAJBD3p7i3KbCJJzq37hMnSK5lCQuwI8x6AE5+K0lIesF7qRwfZdj0+r5piyrM
-	wotQI9kYGqYQn0c3q7JkagEaXopSS8d3D/XvT9B0eeTFOgGDRVP59xoRW8=
-X-Received: by 2002:a05:6512:40cf:10b0:5aa:6e86:55e5 with SMTP id 2adb3069b0e04-5aa7c09b9c5mr1017427e87.13.1780492376896;
-        Wed, 03 Jun 2026 06:12:56 -0700 (PDT)
+        bh=XS8EXfD0I7q+hrNj9u5k8EGUHhOwOotqLP8CFPXgTJk=;
+        b=mlrZio9HBrPhjMWJHpDGBZi45Oh8SotPYWSnTY5icBjNpscwurUbMrBZ1jOyvp2VjW
+         X4DeddemCSsRe6BiNnjZTT4uK8jWTxujvIKlQ9/c0uVs7XpU2FFmUfxXbiIPWMP9zEnx
+         GHKdasfHSSMeLYarEbqCwJYcOXFB8jxEy9Y07VB6Nmb6y9CLFfeE4gjvakegSik1voBe
+         J+wsqhEw//X3Xls+NWiU/ggXxm+i4trgjnTDpk/JynwLXT9Q9XJhzed2CefbwCvH/7OS
+         WLvXTLpboMhakqJdiZ70VO5TxQm3SyqXvdbNJDWKt9aE78Wmke8zQtXZVFVIMcxL0fg+
+         bsIw==
+X-Forwarded-Encrypted: i=1; AFNElJ9it6Wb5/qwZUMeX0q2tVjTWrCin5+BDDB/wyfY0btYqnr6V0C7ajfnmM/7dOr/wPqaoZsOCYndgFLe@vger.kernel.org
+X-Gm-Message-State: AOJu0YzoqQ6OfrR07URzXnXPR3gTnDXFTSkRKTi0VRsZonuQ9iys8Y8V
+	ca1oBHJrxTbmSbWeMSd1i8Y4gsE3Jp9yaGTigYSxv81SVJtnGIASO6M2
+X-Gm-Gg: Acq92OGanffJfh2DDBBXspMawxtE8cOP/tztgt7pvIfOreMrEKQ+ZSeI30UO66Ou+Wp
+	FTVXwQchSdnkj9xbsHU/UQsF97K6Bq1JIc3/BRJbIEbCKFgZBTCypuXWR6aQM9S8QOB5Hceq4Mw
+	K0vM/iF133t3BZ87m/0KNIvLJeum1fjj/yKZSo8ZZt3xSfBlzjXHIf1gpel1SzMEhDJ7UdTCEsL
+	3TnAzosqJOuqz9ko3pa3sysLYCJ7JuYvnO/OLItYCZIohjToa/xDcyOPtHN0TTa2+/vuvKWByV4
+	tCXUeHfi9k3d2I8sCF3fmTchyzq1xH1KylvjaZUrVsqbczVAVB+dszM9OCHhE9Km+fC0zbGeIR3
+	GBXIXPoPrI8FIAe6D3GW5si9Utj52VMgAKIwCxL9DCCQHQMkWUrX+/nRWduV4yQEl4KrJqV5+WU
+	KQhipZntZrEisKcv0oMlfslTa2niqOxM2iqKiEGV1d5t03CiHggcoGohhJ+IcqQSI2aB1Cyib4d
+	3EPmezjKjFYZXD01C60rZUOJYFPQZsc/lEj0hfaWbIfP7tu
+X-Received: by 2002:a05:600c:468d:b0:488:7d01:f67b with SMTP id 5b1f17b1804b1-490b611af3bmr56074385e9.6.1780492378779;
+        Wed, 03 Jun 2026 06:12:58 -0700 (PDT)
 Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f3444fesm8361306f8f.20.2026.06.03.06.12.56
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f3444fesm8361306f8f.20.2026.06.03.06.12.57
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 06:12:56 -0700 (PDT)
+        Wed, 03 Jun 2026 06:12:58 -0700 (PDT)
 From: Stefano Radaelli <stefano.radaelli21@gmail.com>
 X-Google-Original-From: Stefano Radaelli <stefano.r@variscite.com>
 To: linux-kernel@vger.kernel.org,
@@ -74,9 +74,9 @@ Cc: pierluigi.p@variscite.com,
 	Sascha Hauer <s.hauer@pengutronix.de>,
 	Pengutronix Kernel Team <kernel@pengutronix.de>,
 	Fabio Estevam <festevam@gmail.com>
-Subject: [PATCH v2 03/12] arm64: dts: imx8mp-var-som-symphony: add TPM support
-Date: Wed,  3 Jun 2026 15:12:41 +0200
-Message-ID: <2e7ff00b61aaa855aaa2c6d9ad6e98eb673bacf5.1780492180.git.stefano.r@variscite.com>
+Subject: [PATCH v2 05/12] arm64: dts: imx8mp-var-som-symphony: enable header UARTs
+Date: Wed,  3 Jun 2026 15:12:43 +0200
+Message-ID: <52dc9b387d337c646718378306e76a1bb70616e2.1780492180.git.stefano.r@variscite.com>
 X-Mailer: git-send-email 2.47.3
 In-Reply-To: <cover.1780492180.git.stefano.r@variscite.com>
 References: <cover.1780492180.git.stefano.r@variscite.com>
@@ -90,76 +90,77 @@ Content-Transfer-Encoding: 8bit
 
 From: Stefano Radaelli <stefano.r@variscite.com>
 
-Add the ST33KTPM2XI2C TPM device on the Symphony carrier board.
-
-Enable the I2C4 bus, add the PCAL6408 GPIO expander used by the TPM and
-describe the TPM reset line.
+Enable UART1 and UART4 on the Symphony carrier board and add the
+corresponding pinctrl configurations.
 
 Signed-off-by: Stefano Radaelli <stefano.r@variscite.com>
 ---
 v1->v2:
  - 
 
- .../dts/freescale/imx8mp-var-som-symphony.dts | 39 +++++++++++++++++++
- 1 file changed, 39 insertions(+)
+ .../dts/freescale/imx8mp-var-som-symphony.dts | 28 +++++++++++++++++++
+ 1 file changed, 28 insertions(+)
 
 diff --git a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-index 76928b005826..6c19a63ce405 100644
+index b15ca44b9a92..9500c9bf0f42 100644
 --- a/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
 +++ b/arch/arm64/boot/dts/freescale/imx8mp-var-som-symphony.dts
-@@ -116,6 +116,31 @@ typec_dr_sw: endpoint {
- 	};
+@@ -154,6 +154,13 @@ &snvs_rtc {
+ 	status = "disabled";
  };
  
-+&i2c4 {
-+	clock-frequency = <400000>;
-+	pinctrl-names = "default", "gpio", "sleep";
-+	pinctrl-0 = <&pinctrl_i2c4>;
-+	pinctrl-1 = <&pinctrl_i2c4_gpio>;
-+	pinctrl-2 = <&pinctrl_i2c4_gpio>;
-+	scl-gpios = <&gpio5 20 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
-+	sda-gpios = <&gpio5 21 (GPIO_ACTIVE_HIGH | GPIO_OPEN_DRAIN)>;
++/* Header UART */
++&uart1 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart1>;
 +	status = "okay";
-+
-+	pcal6408: gpio@21 {
-+		compatible = "nxp,pcal6408";
-+		reg = <0x21>;
-+		#gpio-cells = <2>;
-+		gpio-controller;
-+	};
-+
-+	st33ktpm2xi2c: tpm@2e {
-+		compatible = "st,st33ktpm2xi2c", "tcg,tpm-tis-i2c";
-+		reg = <0x2e>;
-+		label = "tpm";
-+		reset-gpios = <&pcal6408 4 GPIO_ACTIVE_LOW>;
-+	};
 +};
 +
- &snvs_pwrkey {
+ /* Console */
+ &uart2 {
+ 	pinctrl-names = "default";
+@@ -161,6 +168,13 @@ &uart2 {
  	status = "okay";
  };
-@@ -201,6 +226,20 @@ MX8MP_IOMUXC_I2C3_SDA__GPIO5_IO19				0x1c2
+ 
++/* Header UART */
++&uart4 {
++	pinctrl-names = "default";
++	pinctrl-0 = <&pinctrl_uart4>;
++	status = "okay";
++};
++
+ &usb3_0 {
+ 	status = "okay";
+ };
+@@ -261,6 +275,13 @@ MX8MP_IOMUXC_GPIO1_IO05__GPIO1_IO05				0x10
  		>;
  	};
  
-+	pinctrl_i2c4: i2c4grp {
++	pinctrl_uart1: uart1grp {
 +		fsl,pins = <
-+			MX8MP_IOMUXC_I2C4_SCL__I2C4_SCL					0x400001c2
-+			MX8MP_IOMUXC_I2C4_SDA__I2C4_SDA					0x400001c2
++			MX8MP_IOMUXC_UART1_RXD__UART1_DCE_RX				0x40
++			MX8MP_IOMUXC_UART1_TXD__UART1_DCE_TX				0x40
 +		>;
 +	};
 +
-+	pinctrl_i2c4_gpio: i2c4gpiogrp {
-+		fsl,pins = <
-+			MX8MP_IOMUXC_I2C4_SCL__GPIO5_IO20				0x1c2
-+			MX8MP_IOMUXC_I2C4_SDA__GPIO5_IO21				0x1c2
-+		>;
-+	};
-+
- 	pinctrl_pca9534: pca9534grp {
+ 	pinctrl_uart2: uart2grp {
  		fsl,pins = <
- 			MX8MP_IOMUXC_GPIO1_IO15__GPIO1_IO15                             0xc0
+ 			MX8MP_IOMUXC_UART2_RXD__UART2_DCE_RX                            0x40
+@@ -268,6 +289,13 @@ MX8MP_IOMUXC_UART2_TXD__UART2_DCE_TX                            0x40
+ 		>;
+ 	};
+ 
++	pinctrl_uart4: uart4grp {
++		fsl,pins = <
++			MX8MP_IOMUXC_UART4_RXD__UART4_DCE_RX				0x40
++			MX8MP_IOMUXC_UART4_TXD__UART4_DCE_TX				0x40
++		>;
++	};
++
+ 	pinctrl_usdhc2_gpio: usdhc2-gpiogrp {
+ 		fsl,pins = <
+ 			MX8MP_IOMUXC_GPIO1_IO14__GPIO1_IO14                             0x1c4
 -- 
 2.47.3
 
