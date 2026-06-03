@@ -1,181 +1,82 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DC243403F8;
-	Wed,  3 Jun 2026 09:03:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 38F0736BCDD;
+	Wed,  3 Jun 2026 09:04:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780477411; cv=none; b=eEDWiV7FU+uwFVH241eVExktMW+Dy9Sh+7fbr0q8ui5GISveX/Rm1mCTU6lTvPOOZH/muOqS5agbMSaJqFnygaHrd/tG0vUgn1YXcEzSw2MRMbyyzb37UR2XfQeiYn4B2whx5X80NHlmbttdFdBSw+qucs5YZibvdeqkaiHhw8s=
+	t=1780477479; cv=none; b=sQPehqAdfVDCDIbCnBgAdyiuzdrFujFYCmpO3Bq0dqqwnZX8VNTmWaOf2XW166sNAqWmf+fLwk1fA2tAVDib5p9PBrtq/4YRxoarHL+alnLk8ar7vS0UpZN3aQMR09kC9Ib97kupI063IrOeNyD/IE7mZ+S1SRNwAzPw+ymwHiM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780477411; c=relaxed/simple;
-	bh=Cn4HqPEzDSKR1VFwEsa1F7fqAGHoPRocDLTYVL+3LSw=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=QNCm4nTx+aLVP2kxW2L4KK9MdGPQXJB4GfMLDJNzozKj9a21euig79G6vFspMqkYQz3sf46qlZ1ruMlyQw6Emki24bgWN22D9bdj+Sfa2SBTRIpgb2xq6GEM1AlFY8omzKMlLgFIUxvjAwD2B6cQemP5zSwyFSbuwWe9HUbv1zg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfM3kdVz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780477479; c=relaxed/simple;
+	bh=IIqWNvuaCFfyXb7RpNiIEodF4oOXvycYLVDdIB/K0tE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=msGZ0tLtNltk4rnECsLLwJ/jVyO56peVFpv5vWFe2CGNluBciYcAKBtyPqVw66Ihdo8I/1Ubu7C3OFp7sHu5f9f39Q8fxMF0OIyuJsXLt0/SQyqoOzWR2bsrDjsMw28N3/+LiXfScJADYMd1eQSlmMn+IAiW9wN4uBWe2lPf+TI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJyQ/xW/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfM3kdVz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C4B21F00893;
-	Wed,  3 Jun 2026 09:03:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJyQ/xW/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FA4E1F00893;
+	Wed,  3 Jun 2026 09:04:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780477410;
-	bh=fhVQNZwpYP4K7hTWOnVpXeyvnNRq1RJzmb44ElB8KJM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=XfM3kdVz25wn30leUWbR/YQJVxUOr9LqMMvCxP2pl/TlFKUPOPQuV19T18WHrbxET
-	 hYOL36JU+fewX+ySOSkROLkFPcr/eZFU/3q9Wnl1fKOu+XQzcm7zMfjK/DhyDlmlUe
-	 UdjH6S+2SsdJ8hSYTDADxjyyl0XJ8ZGVTZLSTDWdj5qgzRp07ZNNBPX+P6z3qGHlb7
-	 P8VXokCEvNsaBPB4D3cRUgKxWUnFHqN4T20WoVjP+yHS25k0nrlM2kw+qFUZeEC6nP
-	 vcXYE2D+zcjgN30O/bssAjlil0drbrDwMJ/BpZmYTsrjxcyLMyNlUFb7hlWTyov2Ho
-	 vrUMba2QiuAyg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 11/14] dt-bindings: media: mediatek: vcodec: add
- decoder dt-bindings for mt8196
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org
-In-Reply-To: <20260603084045.17488-12-kyrie.wu@mediatek.com>
-References: <20260603084045.17488-12-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 09:03:29 +0000
-Message-Id: <20260603090329.7C4B21F00893@smtp.kernel.org>
+	s=k20260515; t=1780477478;
+	bh=IIqWNvuaCFfyXb7RpNiIEodF4oOXvycYLVDdIB/K0tE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=aJyQ/xW/+yUWGJUaRhUBL3xWCEZwCGL+JkBZ0ppz/i4NNTt05nVcSjqOZaSJwAO0V
+	 Od5mmEoIdaP4GQ4BCnSY52sd6ofV+w7y+P4tJAIRxQT2jt19jFgF75XfaxRkXyZi1H
+	 pJzunLoIOBSQxSj9uFN7jemWHJg7mSP9QPUc20LKYn/K9i2OMx01Zx4PkdUQ5+fMyo
+	 eYrLrNAGU5EzXwAdLnLVKhd1SNaTZuW9xEbWdKBr+cX3EKiwC4a+0V7ysPx9lleEnJ
+	 7As0RsY0gjKTY0UGtmnE+w0v8YwbS6LEQyuJz8CU+El9uf9kYpSvsdpe4KKbJmV4jF
+	 Ky9Fz4P896thg==
+Date: Wed, 3 Jun 2026 10:04:33 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+	cwweng@nuvoton.com
+Subject: Re: [PATCH 1/2] dt-bindings: spi: Add for Nuvoton MA35D1 SoC QSPI
+ Controller
+Message-ID: <bc0f42c0-b85c-4239-93a4-429193338f99@sirena.org.uk>
+References: <20260603043551.1062112-1-cwweng.linux@gmail.com>
+ <20260603043551.1062112-2-cwweng.linux@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-
-Thank you for your contribution! Sashiko AI review found 4 potential issue(=
-s) to consider:
-- [Critical] The VCP message queue processing thread uses the untrusted `ob=
-j->id` directly as an array index without bounds checking, leading to out-o=
-f-bounds memory access and potential arbitrary code execution.
-- [High] The VCP message queue kthreads spawned during firmware load are le=
-aked, leading to a fatal Use-After-Free kernel panic on driver unbind.
-- [High] The `ipi_id_ack` array stores negative error codes into `bool` ele=
-ments, truncating them to `1`, and is never reset on success, which breaks =
-error handling and permanently poisons the IPC state.
-- [Medium] The patch adds the MT8196 compatible string but completely omits=
- the corresponding hardware constraints mentioned in the commit message, br=
-eaking device tree validation for this SoC.
---
-
-commit f686f0ab8d134aa32615f005292674ee98cf9fb9
-Author: Yunfei Dong <yunfei.dong@mediatek.com>
-
-dt-bindings: media: mediatek: vcodec: add decoder dt-bindings for mt8196
-
-This commit adds the device tree binding compatible string for the MT8196
-decoder. The commit message outlines hardware changes, including 12 clock
-inputs, 2 power domains, and the use of VCP instead of SCP.
-
-> The MT8196 decoder differs from previous generations in several
-> key aspects, most notably in its use of VCP instead of SCP.
-> Additionally, the MT8196 enhances codec capabilities by supporting
-> HEVC Main10 profile decoding. To accommodate these hardware changes,
-> the binding constraints specify a total of 12 clock inputs,
-> consisting of 9 decoder clocks and 3 VCP interface clocks,
-> along with 2 power domains covering both the decoder and VCP
-> subsystems.
-
-[Severity: Medium]
-The commit message mentions that the binding constraints specify a total of=
- 12
-clock inputs, 2 power domains, and the use of VCP instead of SCP. However,
-are these constraints actually added in this patch?
-
-> diff --git a/Documentation/devicetree/bindings/media/mediatek,vcodec-subd=
-ev-decoder.yaml b/Documentation/devicetree/bindings/media/mediatek,vcodec-s=
-ubdev-decoder.yaml
-> index bf8082d87ac03..74e1d88d30568 100644
-> --- a/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-deco=
-der.yaml
-> +++ b/Documentation/devicetree/bindings/media/mediatek,vcodec-subdev-deco=
-der.yaml
-> @@ -76,6 +76,7 @@ properties:
->        - mediatek,mt8186-vcodec-dec
->        - mediatek,mt8188-vcodec-dec
->        - mediatek,mt8195-vcodec-dec
-> +      - mediatek,mt8196-vcodec-dec
-
-Looking at the diff, it appears only the compatible string is added. The
-required conditional blocks and property constraints for the clocks, power
-domains, and the mediatek,vcp property seem to be missing. Would this cause
-valid MT8196 device tree files to falsely fail schema validation?
-
-I also have some questions regarding the VCP message queue handling in the
-related C driver files.
-
-In drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c:
-
-[Severity: High]
-Does this code leak the vcp_enc_msq_thread kthread?
-
-mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_load_firmware() {
-    ...
-    kthread_run(mtk_vcodec_vcp_msg_process_thread, fw, "vcp_enc_msq_thread"=
-);
-    ...
-}
-
-It seems the task_struct pointer returned by kthread_run() is discarded, so
-kthread_stop() cannot be called later in mtk_vcodec_vcp_release().
-
-If the thread is leaked, could this lead to a use-after-free crash on driver
-unbind? The leaked thread appears to block indefinitely on the waitqueue in=
-side
-the devres-managed fw->vcp struct:
-
-mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_msg_process_thread() {
-    ...
-    ret =3D wait_event_interruptible(fw->vcp->msg_queue.wq,
-                                   atomic_read(&fw->vcp->msg_queue.cnt) > 0=
-);
-    ...
-}
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="Sb6ZY9Vyc+0GIO+z"
+Content-Disposition: inline
+In-Reply-To: <20260603043551.1062112-2-cwweng.linux@gmail.com>
+X-Cookie: micro:
 
 
-[Severity: Critical]
-Can an invalid firmware payload trigger an out-of-bounds memory access here?
+--Sb6ZY9Vyc+0GIO+z
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_msg_process_thread() {
-    ...
-    mtk_vcodec_vcp_ipi_lock(fw->vcp, obj->id);
-    handler =3D fw->vcp->ipi_desc[obj->id].handler;
-    ...
-    handler(msg, obj->len, fw->vcp->ipi_desc[obj->id].priv);
-    ...
-}
+On Wed, Jun 03, 2026 at 12:35:50PM +0800, Chi-Wen Weng wrote:
+> Signed-off-by: Chi-Wen Weng <cwweng.linux@gmail.com>
 
-The obj->id value comes from the firmware IPC message payload. If this value
-exceeds the VCP_IPI_MAX bound, it looks like it could directly index outside
-the ipi_desc array, fetching an unvalidated function pointer and immediately
-executing it. Should we add a bounds check for obj->id?
+Please submit patches using subject lines reflecting the style for the
+subsystem, this makes it easier for people to identify relevant patches.
+Look at what existing commits in the area you're changing are doing and
+make sure your subject lines visually resemble what they're doing.
+There's no need to resubmit to fix this alone.
 
+--Sb6ZY9Vyc+0GIO+z
+Content-Type: application/pgp-signature; name="signature.asc"
 
-[Severity: High]
-Are standard negative error codes truncated in this structure?
+-----BEGIN PGP SIGNATURE-----
 
-drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.h:struct mt=
-k_vcp {
-    ...
-    bool ipi_id_ack[VCP_IPI_MAX];
-    ...
-}
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmof7iAACgkQJNaLcl1U
+h9DynQf/bCLcSynH3iL4U78NkMHh291CZ97AEcRUiIFy65RAzaofPIvhPKHslR9b
+EBr4EebxnhZ5GCPwCK1ZnoMt5Dne0Y0zEXixdN3DzuNwLtY3PpxDj2yQhBKG1crw
+VhElpG/aZilMjg4GWHWHo04BUc3eSG2FssD/xWuSSoFjoCMb8B+BLiJJrb2jNEpN
+GmBPNCoS9cygrJLHkWvbJ5ixmgFjDqgpKtEo1zyhp82W1KfwUPwxShk3YDxR1Nqt
+rZRUC6NKYsHYTeNoYlaCapLc60hQwAWyIP81/oTUMVLm+j7q5IrgaCf6TGYha48G
+xnhrOQfPiQpMmTg85oNO12HN5+0iCw==
+=M+zJ
+-----END PGP SIGNATURE-----
 
-Because ipi_id_ack is declared as a boolean array, assigning negative error
-codes to it will truncate them to 1 (true).
-
-Additionally, it seems the flag is never reset to false on success:
-
-mtk_vcodec_fw_vcp.c:mtk_vcodec_vcp_msg_ipi_send() {
-    ...
-    return vcp->ipi_id_ack[id];
-}
-
-If a single error or timeout sets this flag to true, won't all subsequent
-successful IPC sends falsely report failure because they read the stale true
-state?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603084045.1748=
-8-1-kyrie.wu@mediatek.com?part=3D11
+--Sb6ZY9Vyc+0GIO+z--
