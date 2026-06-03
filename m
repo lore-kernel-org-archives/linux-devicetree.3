@@ -1,108 +1,271 @@
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com [209.85.208.46])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C29193A16AB
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 12:22:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FB1367B90;
+	Wed,  3 Jun 2026 12:24:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780489337; cv=none; b=I7NTPOmTih4cgGA4yV8oFYgEciCNxt7KDBP7/HhsEWQbqY//yikdU41ZQm9QuNDcBNJW9sID7g42pjw7vpiWoN78xZV8/cQBsN3gv4nxYfAUp7gcjQO24Tc+NIPniSgssdOjW+8jYovbRBRGFtBhl7OOguTrS5vULn1/zmcdeEU=
+	t=1780489461; cv=none; b=MEIEkb0KP9SdlZIsOY5yOkbmkTUYP8fq7l9MnHyML5vNMyWHetHy9GKUB1gBGmlgc4SETBNvqHH24qgxDx427JYx22x0YSzdnUwRdU4zG1vMNPHtojzrz5J7EUdaHqppP/TcBnbX8UWpv/Dh6bJyJSCnSr3IP/pERmEc7TxBcHc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780489337; c=relaxed/simple;
-	bh=Oj1OP5B0k7dqDDl5yO9rCbKPUffT1+gV4fG7tK/igTw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=c27osvQfxOf7YGx+8jskud/zQS6V9gXe7e2AWIulzwUgD507fl0Wk2K+f2KhI2pGc54f5bTbx8+DZSSswpqabMfmp12M7iDiuoi4hm+40JQOOLf8DDnqPR/LxTDOIzHTXjw4VM/jGDvv5Joqqf5MvRNh2PIcKRFlyWN4aMnnvXQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=WoOVKHkc; arc=none smtp.client-ip=209.85.208.46
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780489461; c=relaxed/simple;
+	bh=nOyyGH1P6djiHEzmzGacg830szkwACcMg6XnfBHOBSo=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=S+73B9UB91i5ftxoNcjqMPbU5tDDuKBb5LrzGPlzvHIhfsDRp669yNZ1Zp8bcDbq9JOYpOlP9GTOI07GP2g39870ufbYY+uiY2c7qplRXhC16rAOmiIVYWe8UYTDghyRge/bHZrfgPFHh8icynZGq/rvjMfjM8vNYLanjIzTaEY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VnuBHFxM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="WoOVKHkc"
-Received: by mail-ed1-f46.google.com with SMTP id 4fb4d7f45d1cf-68ed5b52767so406580a12.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 05:22:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780489334; x=1781094134; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=LR+NPsTQNV2+0FxZsktMoZucngyJOnTRFU/6OwaVMIY=;
-        b=WoOVKHkcQGpRVrTCg87fLUidTriCeQ6ESGeQoToDmsC0AwOL5K2gX6HIK2K+yzUD6u
-         mhklh5fiVrTXQrv0zTOZC9KtMFc5WXnuidsNtkppqoffSXJytFsIURmPvuw+FHEn3KFP
-         +yucxIjO9ZxN4sce+1G6YzEBFwbTBn0pKC+a/h3O0IwSG/TQ+5KdW8/Sni8lIxtKSes+
-         gTV5Ud1znpur+lJAcUhuj55TmYcBBW1xrwPULBTOyBWKPUqJcfWxwXXOi0kTmloZ0a4B
-         dftnovvabnl6GRocCFMP4dcQqdDCTnGlwUcrnnrLT2LkrI3F34a3LuI/C6xdhV4nUbXG
-         S3kQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780489334; x=1781094134;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=LR+NPsTQNV2+0FxZsktMoZucngyJOnTRFU/6OwaVMIY=;
-        b=J10Ym0ppukQ4VH6KFxJV4wxUSBO9KQ0772p4/mZWTabYzGdmssS1Yf3KoKTLB7eNky
-         I/ZHt2DGa8MsLK9aUy2dkXA2AA3Z9t70lQiTu6TeiWgnrYo3XdEvr4ZypSS0yKOeJG6U
-         emHw/rzIidawG+fIADr2Fee+T1thM5gsj9z8ODLB9hMoak/pxrHt3IBQna6iMKrzE36o
-         4olnnXxPTn4G09OkIJQ6fYP+TFRzvknegStJGa43Eam6JKgCVEQc/a49QBEFIyya6RDD
-         ryMQmyYbowSMDZp+oZDgvmNqZ3EDKQ2zZkc3IGHLCaXQiyhNb+tm54PoFTfSsXjFHf6H
-         wcmA==
-X-Forwarded-Encrypted: i=1; AFNElJ/P/YCLUS0Ijs/CXUIDrlGqQErzOdq5PMzHpNGPbPHU7SRWcGpNKhHxC6ydOrPmAkZ91UyP2tm4keBM@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz/ZCK0P+3mDB3MZCecUtJUcEUFQsJOFxpJ+XS/vAjt9XmpXzfS
-	+4PMIkWA/E94Q/5bQkuZ6AIU+G0zbEEdOso00WEiIByojYekraWobEmHJpD2Cdh8udg=
-X-Gm-Gg: Acq92OG8pTh9UKd7+u+rJ39UveDZkzoABQX+eQYpGfiWJ6CQP2V6cv12XHnXZ+2w8AE
-	O4f8KTi0SlgcWDXAQxQcejfj1BEf6dtI9ovnfVjzwUkNvF1OXvit8YH3kkng3/2nkbQtGyCLJp3
-	QlFVjgAfPzw9O0QKVG+UAjV+0yrCi4/dWVdN9BtabNQ4Yo5ItLfp/iU/YKeJY+oIuUc1W4tiaQX
-	fAE+b6m49I8cORCvd0+kZ0gsitswdq1H11b76wlLeJ44AneyOxoAwWZ4YSDk28WofrRnCGXkmrA
-	cSPNpEwZ6zQaqR+Jd+1pjmdPBnVUhVDDJQtvrhc+nvgdDH4SiSHS4UwUI1xfdXc29u6uTFf20x0
-	oZ8jsAMZSdVEYzDa4Queq6e1RPU5e/QjA5MjJk7SjazyJc8036FrKApWjB45p7XjZudDl+vyFwu
-	93O2ho7fRkI4VRZNpj/lEYqXOQdsLj9psPA1M4NuPtmhMnsA==
-X-Received: by 2002:a05:6402:348e:b0:689:816a:5367 with SMTP id 4fb4d7f45d1cf-68e6be91165mr1508878a12.0.1780489333977;
-        Wed, 03 Jun 2026 05:22:13 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.42.178])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65851786sm1064884a12.17.2026.06.03.05.22.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 05:22:12 -0700 (PDT)
-Message-ID: <f6c91099-0002-4580-a5e8-5611b089024b@linaro.org>
-Date: Wed, 3 Jun 2026 13:22:11 +0100
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VnuBHFxM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CC31F00893;
+	Wed,  3 Jun 2026 12:24:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780489460;
+	bh=LgpJ04htxN+FPiPR/7cZ0zFIVPjLpPWLeq0o4HBwQoE=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=VnuBHFxM+e9+dKqrB+UTFtwqKJ6VuR4aosHHxBdyT6MFKogBxetK1gZTAvUb/YdUX
+	 BswkKGrFLRivbbwuiYSWZr+2IlR5ZozD61c2uX38SzTHAa8lu7eCJmGY5sFcsqdkvs
+	 CMTW7Dt5uGbUbzoI4E3C61u/HqykXhUPFTEQcouxoxoR1HkuN/ccXerACE2Q+gaZCK
+	 7exRauxf/HpczoyfVzfEG84GHHXbZQ4ZM0BKLo7CUFmQKC1/EyugN8LUPqKKvv81EX
+	 yOoECBi1JNzkMQ96q1Vm4VMmojsC5K6E4XPqQGx/FA7W6DIfwjsPYoWbCiNWnMKnHL
+	 5ZBV9StN5pJ7w==
+Date: Wed, 3 Jun 2026 13:24:09 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Rodrigo Alencar via B4 Relay
+ <devnull+rodrigo.alencar.analog.com@kernel.org>
+Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
+ linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
+ Hennerich <Michael.Hennerich@analog.com>, David Lechner
+ <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
+ <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
+ <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
+Subject: Re: [PATCH 09/12] iio: dac: ad5686: implement new sync() op for the
+ spi bus
+Message-ID: <20260603132409.504ee84a@jic23-huawei>
+In-Reply-To: <20260602-ad5686-new-features-v1-9-691e01883d27@analog.com>
+References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
+	<20260602-ad5686-new-features-v1-9-691e01883d27@analog.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 2/2] phy: qcom-mipi-csi2: Add a CSI2 MIPI DPHY driver
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>, Bryan O'Donoghue
- <bod@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-phy@lists.infradead.org, linux-media@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-2-a85668459521@linaro.org>
- <54904b61-222d-4600-ad4c-c03a9952d337@linaro.org>
- <be3e1abe-5148-4247-930b-2e23164eea73@linaro.org>
- <c6aetoiz3dcedlxwjmt5cqh2mngswtmanf6p4s2molemnviwdc@btotpaqwcsoy>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <c6aetoiz3dcedlxwjmt5cqh2mngswtmanf6p4s2molemnviwdc@btotpaqwcsoy>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On 03/06/2026 13:10, Dmitry Baryshkov wrote:
->> Documentation shows clock lane at lane 7.
->>
->> Truthfully it makes no sense that the clock lane would genuinely be locked
->> to lane 7 but the documentation does seem to suggest it.
->>
->> Yes in fact I agree. clock-lanes can be reintroduced if someone can show
->> hardware that supports/depends on it.
-> Konrad and I checked, Hamoa supports using other lanes as a clock lane.
+On Tue, 02 Jun 2026 17:33:56 +0100
+Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
 
-Are you sure about that ?
+> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
+> 
+> Use of local SPI bus data to manage a collection of SPI transfers and
+> flush them to the SPI platform driver with the sync() operation. This
+> allows for faster handling of multiple channel DAC writes, avoiding kernel
+> overhead per spi_sync() call, which will be helpful when enabling
+> triggered buffer support.
+> 
+> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
+Some minor stuff inline.  Maybe it does make sense to adapt for a generic
+solution in the spi core, maybe not but most of these comments apply anyway!
 
-ipcat I thought designated lane 7 specifically as clk-lane i.e. named it 
-CLK_LN of some description.
+Jonathan
 
----
-bod
+> ---
+>  drivers/iio/dac/ad5686-spi.c | 109 +++++++++++++++++++++++++++++++------------
+>  drivers/iio/dac/ad5686.c     |   4 +-
+>  drivers/iio/dac/ad5686.h     |   8 +++-
+>  drivers/iio/dac/ad5696-i2c.c |   2 +-
+>  4 files changed, 88 insertions(+), 35 deletions(-)
+> 
+> diff --git a/drivers/iio/dac/ad5686-spi.c b/drivers/iio/dac/ad5686-spi.c
+> index 6b6ef1d7071f..66a5a2164395 100644
+> --- a/drivers/iio/dac/ad5686-spi.c
+> +++ b/drivers/iio/dac/ad5686-spi.c
+> @@ -12,59 +12,81 @@
+>  #include <linux/errno.h>
+>  #include <linux/mod_devicetable.h>
+>  #include <linux/module.h>
+> +#include <linux/overflow.h>
+>  #include <linux/spi/spi.h>
+>  
+>  #include <asm/byteorder.h>
+>  
+>  #include "ad5686.h"
+>  
+> +struct ad5686_spi_data {
+> +	struct spi_message msg;
+> +	unsigned int size;
+
+Not obvious to me what size is from the naming. Maybe this
+structure needs some documentation.
+
+> +	unsigned int capacity;
+> +	struct spi_transfer xfers[] __counted_by(capacity);
+> +};
+> +
+>  static int ad5686_spi_write(struct ad5686_state *st,
+>  			    u8 cmd, u8 addr, u16 val)
+>  {
+> -	struct spi_device *spi = to_spi_device(st->dev);
+> -	u8 tx_len, *buf;
+> +	struct ad5686_spi_data *bus_data = st->bus_data;
+> +	struct spi_transfer *xfer;
+> +
+> +	if (bus_data->size >= bus_data->capacity)
+> +		return -E2BIG;
+> +
+> +	if (bus_data->size)
+> +		bus_data->xfers[bus_data->size - 1].cs_change = 1;
+> +	else
+> +		spi_message_init(&bus_data->msg);
+> +
+> +	xfer = &bus_data->xfers[bus_data->size];
+> +	xfer->rx_buf = NULL;
+> +	xfer->cs_change = 0;
+
+These are both 'resets' to defaults and you are heavily relying
+on other fields in that rather complex structure never being set.
+Maybe initializing all the fields is simpler?  
+
+>  
+>  	switch (st->chip_info->regmap_type) {
+>  	case AD5310_REGMAP:
+> -		st->data[0].d16 = cpu_to_be16(AD5310_CMD(cmd) |
+> -					      val);
+> -		buf = &st->data[0].d8[0];
+(why not use d16 here? Obviously this is original code, but applies
+below)
+> -		tx_len = 2;
+> +		st->data[bus_data->size].d16 =
+> +			cpu_to_be16(AD5310_CMD(cmd) | val);
+> +		xfer->tx_buf = &st->data[bus_data->size].d8[0];
+
+> +		xfer->len = 2;
+Following on from above on resetting xfer fields.
+
+		*xfer = (struct spi_transfers) {
+			.tx_buf = &st->data[bus_data->size].d16, 
+			.len = sizeof(&st->data[bus_data->size.d16),
+		};
+>  		break;
+>  	case AD5683_REGMAP:
+> -		st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
+> -					      AD5683_DATA(val));
+> -		buf = &st->data[0].d8[1];
+> -		tx_len = 3;
+> +		st->data[bus_data->size].d32 =
+> +			cpu_to_be32(AD5686_CMD(cmd) | AD5683_DATA(val));
+> +		xfer->tx_buf = &st->data[bus_data->size].d8[1];
+> +		xfer->len = 3;
+Similar use of designated initializer at small cost of clearing stuff
+that is clear.  I doubt that matters.
+
+>  		break;
+>  	case AD5686_REGMAP:
+> -		st->data[0].d32 = cpu_to_be32(AD5686_CMD(cmd) |
+> -					      AD5686_ADDR(addr) |
+> -					      val);
+> -		buf = &st->data[0].d8[1];
+> -		tx_len = 3;
+> +		st->data[bus_data->size].d32 =
+> +			cpu_to_be32(AD5686_CMD(cmd) | AD5686_ADDR(addr) | val);
+> +		xfer->tx_buf = &st->data[bus_data->size].d8[1];
+> +		xfer->len = 3;
+same again. 
+>  		break;
+>  	default:
+>  		return -EINVAL;
+>  	}
+>  
+> -	return spi_write(spi, buf, tx_len);
+> +	spi_message_add_tail(xfer, &bus_data->msg);
+> +	bus_data->size++;
+> +
+> +	return 0;
+> +}
+> +
+> +static int ad5686_spi_sync(struct ad5686_state *st)
+> +{
+> +	struct spi_device *spi = to_spi_device(st->dev);
+> +	struct ad5686_spi_data *bus_data = st->bus_data;
+> +
+> +	bus_data->size = 0; /* always reset, even on sync failure */
+> +	return spi_sync(spi, &bus_data->msg);
+>  }
+>  
+>  static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
+>  {
+> -	struct spi_transfer t[] = {
+> -		{
+> -			.tx_buf = &st->data[0].d8[1],
+> -			.len = 3,
+> -			.cs_change = 1,
+> -		}, {
+> -			.tx_buf = &st->data[1].d8[1],
+> -			.rx_buf = &st->data[2].d8[1],
+> -			.len = 3,
+> -		},
+> -	};
+>  	struct spi_device *spi = to_spi_device(st->dev);
+> +	struct ad5686_spi_data *bus_data = st->bus_data;
+> +	struct spi_transfer *xfer = &bus_data->xfers[0];
+>  	u8 cmd = 0;
+>  	int ret;
+>  
+> @@ -85,8 +107,18 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
+>  				      AD5686_ADDR(addr));
+>  	st->data[1].d32 = cpu_to_be32(AD5686_CMD(AD5686_CMD_NOOP));
+>  
+> -	ret = spi_sync_transfer(spi, t, ARRAY_SIZE(t));
+> -	if (ret < 0)
+> +	xfer[0].tx_buf = &st->data[0].d8[1];
+> +	xfer[0].len = 3;
+> +	xfer[0].cs_change = 1;
+> +	xfer[1].tx_buf = &st->data[1].d8[1];
+> +	xfer[1].rx_buf = &st->data[2].d8[1];
+> +	xfer[1].len = 3;
+> +	xfer[1].cs_change = 0;
+
+Similar to above - I'd initialize the lot as suggested up there.
+Saves on effort thinking about it. Maybe the cost matters but I doubt it.
+
+
+> +
+> +	spi_message_init_with_transfers(&bus_data->msg, xfer, 2);
+> +
+> +	ret = spi_sync(spi, &bus_data->msg);
+> +	if (ret)
+>  		return ret;
+>  
+>  	return be32_to_cpu(st->data[2].d32);
+> @@ -95,12 +127,27 @@ static int ad5686_spi_read(struct ad5686_state *st, u8 addr)
+>  static const struct ad5686_bus_ops ad5686_spi_ops = {
+>  	.write = ad5686_spi_write,
+>  	.read = ad5686_spi_read,
+> +	.sync = ad5686_spi_sync,
+>  };
+>  
+>  static int ad5686_spi_probe(struct spi_device *spi)
+>  {
+> -	return ad5686_probe(&spi->dev, spi_get_device_match_data(spi),
+> -			    spi->modalias, &ad5686_spi_ops);
+> +	const struct ad5686_chip_info *info = spi_get_device_match_data(spi);
+> +	struct ad5686_spi_data *bus_data;
+> +	unsigned int capacity;
+> +
+> +	/* read operation requires at least 2 transfers */
+> +	capacity = max(info->num_channels, 2);
+> +	bus_data = devm_kzalloc(&spi->dev,
+> +				struct_size(bus_data, xfers, capacity),
+> +				GFP_KERNEL);
+> +	if (!bus_data)
+> +		return -ENOMEM;
+> +
+> +	bus_data->capacity = capacity;
+> +
+> +	return ad5686_probe(&spi->dev, info, spi->modalias, &ad5686_spi_ops,
+> +			    bus_data);
+>  }
+>  
+>  static const struct spi_device_id ad5686_spi_id[] = {
