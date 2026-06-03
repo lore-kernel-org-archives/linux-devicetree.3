@@ -1,305 +1,135 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C757331F984
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:47:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4C33D968D
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:49:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780501642; cv=none; b=jOwlMiDgdRhapJTROtzmGXF4f9uybHhyVMymtVh2S99cqI29waS5fxC9LjD+vTHEWnDDpcW80vSVLUEAVWgD7vmAIySKVhgVg/bw/5IVovEa0MS0DGawsVsYcCFEXM720vHMxqHpbHvfU0X92GCtp2fyyJ5CU3PYldpftyYo5kU=
+	t=1780501750; cv=none; b=Ybg4yxEJAm1575WwP2egNjyFZK2pETQ36stMtH69zxFCQac7nAur3M0e7gRvu0QK1qrZRZUa0HJ0TOheNklSxPSxJxezIBc7yw2cW3DZtSCdZifRKs/6mlTCzTs5ngclLgMSlNkMzgocZop7JwaIlFDsnL9da/kXShSeL9mA/J4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780501642; c=relaxed/simple;
-	bh=IrTsfewZzvYypNgkd4eR3CgmP71Aef9VLz6a5KzpxuU=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=RXy7zPjkaL1xGmYHiuHyIGF4qFv5TuL2JhwoL1nOfBAmL3neY2lGVOTDIWKz0frsZFI4wqCgebygbAbi18m6UtG86vPotounYDkIg8y2iXnJDa/OSkyf9AleY9PF4yCkakf1JJ8qvoo6HMEAjYcbW9PZ2MacuLzsTn25S5272fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F5G28YbR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780501750; c=relaxed/simple;
+	bh=tzR6u468eiX3z652pYwVYHRR0tQSZHHfkd7L7z2RPVI=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=OhvEkl6oxokZ7pPm4jF4dSmHaixh5F4yvB8qrG/xQGN8dsuVltfFvLNr3N5EBLaaGaEDKRmhgQv3V8nZq4wUArbwT/Q/66uirPy/Y/CRGR1pLUxy/1/lou2nYawJBRZ6avUDfJK0MgnqDYYtB7zhGZzgZ+t6RT61yWXwORHdnxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Sjfc/xO7; arc=none smtp.client-ip=209.85.128.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F5G28YbR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B5C41F00893;
-	Wed,  3 Jun 2026 15:47:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780501636;
-	bh=TdoKGKmtWRWQiBG8WnFdA+Sqt61AdDDca1Vi+nAyP3Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=F5G28YbRysXIU28COESx1novY7IYlv+/0gysa5B8rS22YFJ+tCOUfnfPNYhLCFCmn
-	 wsTTMgZu1fHABT1feqhTAmr3BgeCio0XkxIImXkycvgjF8PUC6Yx2AudsSzzuBXSHW
-	 enwOnrpbPaqxu3YhGE797zV5VyRXNfk2hAASL07xXP4/ZUUEew5kTBHasUogK+0Nzt
-	 WMeXpjMdrg2N7q9QkqKUe3GtUj/vwsL87tZrqLf6UxUokz2dhIAj+fH953wB9wyzKX
-	 0xovh+/dSLn2fSeCsEnlYiuU/ZSbGbDlPtVmXXESaKMvfsZuEIAmDQe5BnuyhN9IwZ
-	 crst6RC1MadIA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v4 2/3] pwm: rp1: Add RP1 PWM controller driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Andrea della Porta" <andrea.porta@suse.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <8eef956a5eb473f051bbda89ec4c9991c1b47de2.1780498640.git.andrea.porta@suse.com>
-References: <8eef956a5eb473f051bbda89ec4c9991c1b47de2.1780498640.git.andrea.porta@suse.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 15:47:15 +0000
-Message-Id: <20260603154716.1B5C41F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Sjfc/xO7"
+Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490b3637b90so18251735e9.3
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 08:49:08 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780501747; x=1781106547; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=NLHaVnXrOktQICnRN40yNAwYJy7xMA0u1k7xFhJSUUU=;
+        b=Sjfc/xO7Hc/sT8u9aLCbr2wCovykt4o1e1omJuWazMBZGDtaQkDdkl9CGgSlVHAI4X
+         qY81xuOUVljkYizu8j9RdN6yq0OncG84Lc1g4SXLb7jowRVpAFtvqh1tL6v5PSinBT8p
+         O2hbSP1D8S0K+n1i6wrL/H0nSG393DVR4i3IX/JdFx+gL2hm6/4gbcuk5EQT4n2eqXXh
+         6HT1iT3S2tK440b4JxmIAmIid+XRD7lAoEQSUDwPXe3yW3H//IVM42VjwFffrldZndyR
+         7FFKBtXyctO30yyikRSoQ/DHLBlga1v30N64l/tlp90HjBRY6zStpbYrykdn+JL2c51C
+         1NtA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780501747; x=1781106547;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=NLHaVnXrOktQICnRN40yNAwYJy7xMA0u1k7xFhJSUUU=;
+        b=DW5k3/rFK96JcP+8UnXw00M9XD4wS4LHSP9F+Wbe1T+O19UsqcF/Hw+6pBXumY/4bS
+         /InTSSGVJZ5UL9Q8svoDeszc0I+YDiGTTzr606WZYedixvYdaIY5SLR0I8b6hNFDq7HC
+         Gx0IVxrQKp5iRASTiLHPiKCE/+xilAzdAx0GnlV1pg/TdX6GH9UZejXzFqCAgyuOoZ5l
+         Z/Bot+VBcUGLf7WH7VlTAsGLhg0YEmBawtU98ImQs+BFXcJIiYJjcaqj0xntkGLsrFQM
+         vR7hBIbUaRRKONNKG3rBgBtwV/qg3ziDuYl7fRvJD42p16zXTHzKoPVijkQFY+IaRwRg
+         fWCQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/91/I0oTRcupbh7Z2YMXEyKxX2nmeJR2LvnL28CEgo3y8n7r0ApIu0G2Pvmm1EFnEw6kQWVtz9YTro@vger.kernel.org
+X-Gm-Message-State: AOJu0YyfsKlKImheWl9KAp9go6ubhlzmGEqLObdllG6mB2+I8OXi4Nm3
+	Cnwm531qd3udFtYAs6ApsrwcT/Fmpf69ifqxtNbDp9rAhN0x+/O6jKpC
+X-Gm-Gg: Acq92OFgKD56C7VnrmJC5MNxyIWEIOoQ1KJtt14TMkwm7EhwpKL5RLcSxW4A0LvDEUQ
+	I7Tub8sZIr0qf9peRxhM1RR1FhsNQS91l6AJAL1isLIJY3KtskSL9aYxdx3D0r91LgP+xuTLwdE
+	BXHRjDNzd3dzI/BHZqjY8a3l8nXITigYj6pjcZxbLcyFh9tpTf+Hg15NuGsQ+3aTH8zsizH0ZTU
+	SW0936IV796O7ntzPSNp51C54NZw0Gcu4wmu8BnhBIrYSqBETynLKuSpOckRqOSbTKr/5ldaaoP
+	ivv56m2qTYIrEdRVg9IkniAs/cTiBb8tC9VCNX8SgHEgbjenLChmJxC6PLj7sFYrDjkm6vknvbn
+	UzLY1NjPQG62Y3d9LxmE0HjLNSve/A0N2/tHAXrEQl5CfHNPfeSobeo/vD4qtaV1RQ7Bu2CwPC0
+	pHpRERpqCQhdpJS1l9vjvPoTn85f4T4Of4p3X6BA==
+X-Received: by 2002:a05:600c:c092:b0:490:b724:5085 with SMTP id 5b1f17b1804b1-490b724521cmr43435605e9.33.1780501746668;
+        Wed, 03 Jun 2026 08:49:06 -0700 (PDT)
+Received: from [192.168.8.79] ([2a00:f502:160:43ff:9a39:ef13:72e0:8f])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc412sm8886008f8f.4.2026.06.03.08.49.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 08:49:06 -0700 (PDT)
+From: Erikas Bitovtas <xerikasxx@gmail.com>
+Subject: [PATCH v2 0/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
+ add initial device tree
+Date: Wed, 03 Jun 2026 18:48:20 +0300
+Message-Id: <20260603-yukon-eagle-v2-0-f86b440583f5@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/1WNQQ6CMBBFr0JmbQ3TQAFX3MOwKDDAKLSmBSIh3
+ F3AuHD5kvffX8GTY/JwC1ZwNLNna3aQlwCqTpuWBNc7gwylCmOpxDI9rRGk256EitNGNilqjGr
+ YFy9HDb/P2r34sp/KB1XjkTiMjv1o3XLezXh4v3LyV55RhCJLEbNaRTrBMm8Hzf21sgMU27Z9A
+ GUSqRW4AAAA
+X-Change-ID: 20260526-yukon-eagle-658f2f81a14d
+To: Bjorn Andersson <andersson@kernel.org>, 
+ Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org, 
+ linux-kernel@vger.kernel.org, ~postmarketos/upstreaming@lists.sr.ht, 
+ phone-devel@vger.kernel.org, Erikas Bitovtas <xerikasxx@gmail.com>, 
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
 
-Thank you for your contribution! Sashiko AI review found 8 potential issue(=
-s) to consider:
-- [High] Missing `pwmchip_remove()` on the `of_syscon_register_regmap()` er=
-ror path leaves a dangling PWM chip.
-- [High] When disabling a PWM channel, the driver fails to clear the polari=
-ty bit, causing the output to erroneously remain HIGH if it was previously =
-inverted.
-- [High] Registering a devm-managed regmap with the permanent syscon regist=
-ry creates a teardown asymmetry.
-- [High] Hardware channel control registers (`CHAN_CTRL`) are not restored =
-across system suspend/resume.
-- [Medium] Non-monotonic period limit checking in `rp1_pwm_round_waveform_t=
-ohw()` causes larger requested periods to result in smaller hardware period=
-s.
-- [Medium] Calculating `period_length_ns` from hardware state suffers from =
-a 32-bit integer overflow before casting to u64, resulting in a zero period.
-- [Medium] Calculating inverted polarity duty length underflows if the hard=
-ware is configured for a 100% duty cycle.
-- [Medium] Returning a positive integer (1) from `round_waveform_tohw` inco=
-rrectly propagates as an error.
---
+Sony Xperia M2 is a smartphone released in 2014 based on the Qualcomm
+Snapdragon 400 (MSM8926) platform.
 
-commit 90d2019e94496c6949f2d04c2605c6a197b16d6a
-Author: Naushir Patuck <naush@raspberrypi.com>
+Add initial device tree with for Sony Xperia M2 with support for:
+- Framebuffer
+- GPIO buttons (Volume Down and Camera)
+- Regulators
+- Internal storage
+- SD card
+- Accelerometer
+- Magnetometer
+- Ambient Light/Proximity sensor
+- NFC
+- pm8226_resin (Volume Up)
+- USB/Charger
 
-pwm: rp1: Add RP1 PWM controller driver
+Signed-off-by: Erikas Bitovtas <xerikasxx@gmail.com>
+---
+Changes in v2:
+- Dropped `regulator-always-on` for l3, l6 and l8.
+- Mentioned added GPIO buttons and reset input in the commit message.
+- Link to v1: https://patch.msgid.link/20260527-yukon-eagle-v1-0-98119d64a71b@gmail.com
 
-The Raspberry Pi RP1 southbridge features an embedded PWM controller
-with 4 output channels, alongside an RPM interface to read the fan
-speed on the Raspberry Pi 5. Add the supporting driver.
+To: Bjorn Andersson <andersson@kernel.org>
+To: Konrad Dybcio <konradybcio@kernel.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
-> diff --git a/drivers/pwm/pwm-rp1.c b/drivers/pwm/pwm-rp1.c
-> new file mode 100644
-> index 0000000000000..052c3ae770569
-> --- /dev/null
-> +++ b/drivers/pwm/pwm-rp1.c
-[ ... ]
-> +static int rp1_pwm_round_waveform_tohw(struct pwm_chip *chip,
-> +				       struct pwm_device *pwm,
-> +				       const struct pwm_waveform *wf,
-> +				       void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	u64 period_ticks, duty_ticks, offset_ticks;
-> +	struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u64 clk_rate =3D rp1->clk_rate;
-> +	int ret =3D 0;
-> +
-> +	if (!wf->period_length_ns) {
-> +		wfhw->enabled =3D false;
-> +		return 0;
-> +	}
-> +
-> +	period_ticks =3D mul_u64_u64_div_u64(wf->period_length_ns, clk_rate, NS=
-EC_PER_SEC);
-> +
-> +	/*
-> +	 * The period is limited to U32_MAX - 1
-> +	 * to allow 100% duty cycle.
-> +	 */
-> +	if (period_ticks > U32_MAX) {
-> +		period_ticks =3D U32_MAX - 1;
+---
+Erikas Bitovtas (2):
+      dt-bindings: arm: qcom: Add Sony Xperia M2
+      ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle: add initial device tree
 
-[Severity: Medium]
-Does this limit check break monotonicity for large periods?
+ Documentation/devicetree/bindings/arm/qcom.yaml    |   1 +
+ arch/arm/boot/dts/qcom/Makefile                    |   1 +
+ .../dts/qcom/msm8926-sony-xperia-yukon-eagle.dts   | 403 +++++++++++++++++++++
+ 3 files changed, 405 insertions(+)
+---
+base-commit: b7bee4ca5688e30ca50fbc87b1b8f7eed7006c17
+change-id: 20260526-yukon-eagle-658f2f81a14d
 
-If the requested period translates to U32_MAX, this condition is false and
-the period becomes U32_MAX - 1.
+Best regards,
+--  
+Erikas Bitovtas <xerikasxx@gmail.com>
 
-If it translates to U32_MAX + 1, it becomes U32_MAX - 1, which is then
-subtracted by 1 later, yielding U32_MAX - 2. This makes a larger requested
-period result in a smaller actual hardware period.
-
-> +	} else if (!period_ticks) {
-> +		period_ticks =3D 2;
-> +		ret =3D 1;
-> +	}
-
-[Severity: Medium]
-Is returning a positive integer here intentional?
-
-The PWM core subsystem expects round_waveform_tohw callbacks to return 0 on
-success or a negative error code on failure. Returning 1 could propagate as
-an error up to consumer drivers, breaking operation for very small periods.
-
-> +
-> +	duty_ticks =3D mul_u64_u64_div_u64(wf->duty_length_ns, clk_rate, NSEC_P=
-ER_SEC);
-[ ... ]
-> +static int rp1_pwm_round_waveform_fromhw(struct pwm_chip *chip,
-> +					 struct pwm_device *pwm,
-> +					 const void *_wfhw,
-> +					 struct pwm_waveform *wf)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u64 clk_rate =3D rp1->clk_rate;
-> +	u32 ticks;
-> +
-> +	*wf =3D (struct pwm_waveform){ };
-> +
-> +	if (!wfhw->enabled)
-> +		return 0;
-> +
-> +	wf->period_length_ns =3D DIV_ROUND_UP_ULL((u64)(wfhw->period_ticks + 1)=
- * NSEC_PER_SEC,
-> +						clk_rate);
-
-[Severity: Medium]
-Could this encounter a 32-bit integer overflow?
-
-Since wfhw->period_ticks is a 32-bit integer, the addition of 1 happens in
-32-bit space before the cast to u64.
-
-If the hardware register was configured to 0xffffffff by the bootloader for
-a 100% duty cycle, 0xffffffff + 1 wraps around to 0, producing a period of =
-0.
-
-Should the cast be placed before the addition?
-
-> +
-> +	if (!wfhw->inverted_polarity) {
-> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)wfhw->duty_ticks * NSEC_P=
-ER_SEC,
-> +						      clk_rate);
-> +	} else {
-> +		ticks =3D wfhw->period_ticks + 1 - wfhw->duty_ticks;
-> +		wf->duty_length_ns =3D DIV_ROUND_UP_ULL((u64)ticks * NSEC_PER_SEC, clk=
-_rate);
-
-[Severity: Medium]
-Will this subtraction underflow if the hardware is configured for a 100%
-duty cycle?
-
-The driver allows duty_ticks to exceed period_ticks + 1 to achieve a 100%
-duty cycle.
-
-If inverted polarity is active and duty_ticks is strictly larger than
-period_ticks + 1, this unsigned 32-bit subtraction will wrap around to a
-massive integer, corrupting the duty_length_ns.
-
-> +		wf->duty_offset_ns =3D wf->period_length_ns - wf->duty_length_ns;
-> +	}
-> +
-> +	return 0;
-> +}
-> +
-> +static int rp1_pwm_write_waveform(struct pwm_chip *chip,
-> +				  struct pwm_device *pwm,
-> +				  const void *_wfhw)
-> +{
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	const struct rp1_pwm_waveform *wfhw =3D _wfhw;
-> +	u32 value, ctrl;
-> +
-> +	/* early exit if disabled */
-> +	regmap_read(rp1->regmap, RP1_PWM_GLB_CTRL, &ctrl);
-> +	if (!wfhw->enabled) {
-> +		ctrl &=3D ~RP1_PWM_GLB_CTRL_CHANNEL_ENABLE(pwm->hwpwm);
-> +		goto exit_disable;
-> +	}
-
-[Severity: High]
-Does skipping the polarity update here cause the output to erroneously
-remain HIGH while disabled?
-
-The early exit skips the read-modify-write block that updates
-RP1_PWM_CHAN_CTRL_POLARITY.
-
-The driver notes state that when disabled, the output is driven to 1 if
-polarity is inversed. If a channel previously configured with inverted
-polarity is disabled, it seems it will continually output a HIGH signal,
-violating the PWM framework expectation.
-
-> +
-> +	/* set period and duty cycle */
-> +	regmap_write(rp1->regmap,
-[ ... ]
-> +static int rp1_pwm_probe(struct platform_device *pdev)
-> +{
-[ ... ]
-> +	chip->ops =3D &rp1_pwm_ops;
-> +
-> +	platform_set_drvdata(pdev, chip);
-> +
-> +	ret =3D pwmchip_add(chip);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to register PWM chip\n");
-> +		goto err_disable_clk;
-> +	}
-> +
-> +	ret =3D of_syscon_register_regmap(np, rp1->regmap);
-> +	if (ret) {
-> +		dev_err_probe(dev, ret, "Failed to register syscon\n");
-> +		goto err_disable_clk;
-> +	}
-
-[Severity: High]
-Is there a missing call to pwmchip_remove() on this error path?
-
-If of_syscon_register_regmap() fails, the function jumps to err_disable_clk
-and returns an error.
-
-Since the chip was allocated with devm_pwmchip_alloc(), devres will free
-the memory, but the PWM subsystem will retain pointers to the freed chip in
-its IDR mapping, potentially leading to a use-after-free.
-
-[Severity: High]
-Also, does registering a devm-managed regmap with the permanent syscon
-registry create a teardown asymmetry?
-
-The regmap is allocated with devm_regmap_init_mmio(). If the underlying
-device is hotplug removed, devres will automatically free the regmap memory.
-
-However, the syscon framework does not provide an unregister function,
-leaving it with a dangling pointer in its static list that could cause a
-use-after-free upon subsequent lookups.
-
-> +
-> +	return 0;
-> +
-> +err_disable_clk:
-> +	clk_disable_unprepare(rp1->clk);
-> +
-> +	return ret;
-> +}
-[ ... ]
-> +static int rp1_pwm_resume(struct device *dev)
-> +{
-> +	struct pwm_chip *chip =3D dev_get_drvdata(dev);
-> +	struct rp1_pwm *rp1 =3D pwmchip_get_drvdata(chip);
-> +	int ret;
-> +
-> +	ret =3D clk_prepare_enable(rp1->clk);
-> +	if (ret) {
-> +		dev_err(dev, "Failed to enable clock on resume: %pe\n", ERR_PTR(ret));
-> +		return ret;
-> +	}
-> +
-> +	rp1->clk_enabled =3D true;
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Should the hardware channel control registers (CHAN_CTRL) be restored across
-resume?
-
-When the system suspends, the southbridge may lose power and reset its
-registers. During probe, these registers are initialized with required
-configuration bits like MODE_TE_MS and FIFO_POP_MASK.
-
-This resume function merely re-enables the clock. Because the regmap is not
-configured to cache and restore registers, a subsequent write might update
-only the polarity bit, leaving the channel mode at 0 and breaking PWM
-output.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780498640.gi=
-t.andrea.porta@suse.com?part=3D2
