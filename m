@@ -1,89 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF2703D3CF8
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 18:43:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A4743F6616
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 18:49:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780512181; cv=none; b=dsPqFOC9NI9JNqgOE/ApvUZQZYiPW6mIcL3I9CXv95Kp0tkTgi0TnFZ0+LowjR9yi/FWNipKBbAxwJWFbJFoedfH5IppiSymHnVWAe2kAgh9cLdTj9JO6GeIjSdmTHcO6qsCQvcl8ndP1DhgzpeVtKt/Vwu9og/AIsljYsX2N5M=
+	t=1780512550; cv=none; b=oBTwmyIaTt6lyBS+6tVY/YQtKTFvYab7imzKXgxmiAYEjiTW4D6y1JGSKctz2hinKFRqppAYgcn+99pOId2Ci309JCMAMMxh4h5Rl1vKpYOdk+x7yCMneMeI3WIbV7LMPZsqLzpHUrVTF9ZJqOJ3fHyijJWfaa+TdSE1UiOoPhs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780512181; c=relaxed/simple;
-	bh=SThDNfz+eH+8w8LXSR+xbq1E8+NG3qLaNLs3QrFQAZM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Mfcp/kXP0pgZC7zCsypRTMACxSE/o3zRC7zDc88IuWfq6WJlRP5EjqWuXEVUfX9EcZ/+XvvVCrUPfs9Hj2tS1QMh3M/r8vi8Xqu7J+wsOrYEYeIKtE4ss/q+uxt9UFxDMdGkKR1mNv7zBGqmMgJ5CPim79YT3jwP6TkwOdFr3Is=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N+dyTJly; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780512550; c=relaxed/simple;
+	bh=R7ry8+1p2KFj22v87Id+msOrdyHFLWM2BhV+4BVrqhw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KmLk1wRGdCDy8pC39jOkkZEDceODnTz1klrVe4U3bXL5nCul3fE9Tc7zJ/aQIFROeoVOW9D+PTRyfvQhPW2SQGgC8AU8sDVVrZ2Rt7sLg7ajXnTx9HYhTZ4URmf5uua6NiDJ5s3/W/L0ER3KrXSgFgz3RtJtX/On7/nUaf+Ykaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GZuIBI2o; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N+dyTJly"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EAB3F1F00893;
-	Wed,  3 Jun 2026 18:42:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780512180;
-	bh=JAqDYvntffn1kXXZAlA7jigxX851i5OHx+L8F8kp0mY=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=N+dyTJlyENKIxrZNR3/MQBfO9bv0NhMIzZK8sSpV0zzcsK/pT2dcD/dYT2aUiSPzo
-	 A37eE+giwycc+AWvmP9/reyRigPlFWGiJ/iW//2X0Gl0mQWvEGpjs4RhuSmvm93s6Q
-	 5tPFxjYa/mHQ6hCW4UgF0bqOCBKepojgv9K7nIk5E+XCv+26fvMguKVXHd9a7z1Oum
-	 +BgsZBUoTuUG1f1OcNBH8SleVq7GPSDUkbqKSp9K4lkCjqJc1dATlQvb+spyh25NW4
-	 dI7zWPYNI3mL4kYlFlUNjA2woHCIGPxz3Rq8GpXHc8gacIkg6aPhOFI50E4wjatg65
-	 Z00oxGKNNzbAA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/2] dt-bindings: interconnect: qcom: add msm8660 fabric
- IDs
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk" <github.com@herrie.org>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260603163410.2312712-2-github.com@herrie.org>
-References: <20260603163410.2312712-2-github.com@herrie.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 18:42:59 +0000
-Message-Id: <20260603184259.EAB3F1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GZuIBI2o"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2c0c32f6ce1so28308355ad.2
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 11:49:09 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780512548; x=1781117348; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=LkcVdKytMoPBJ4y+eUSKashKKr7v/AknLWHa6cp3BZM=;
+        b=GZuIBI2oRYlQeBDtvZvBKG0Nh8IjUATgPTblfr2xdyNq9hYNes0z1eQ6SyowfnRMVo
+         zthPGoJCz4em01T7QOpyXxyw8+XBdAqJzPJW9ZSAXxxke1jlsl7iBkb+SVFgkMus6xrw
+         QyGcIlLKGYydPuBTTTRRENXXz0MZS764FATZKZ3/04G7X/ndkw44gJ3UBaOtU2ourlLc
+         7Y3MEyXWQZYXD9tn6YzAGy0Av7nBvk+PGLmxf0W62MNnOnvTImulypRyidviE1H5ae8y
+         SIMScKC2gJ/Cnxg21uuB5w/9x4o/OtD8xcgcg9s5hs6nrPWsqSEDqWAUpgUBBKnjeCdc
+         LndQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780512548; x=1781117348;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=LkcVdKytMoPBJ4y+eUSKashKKr7v/AknLWHa6cp3BZM=;
+        b=S8H3VFO/e4RvfPM86XVukUYN3i2cjMdmKJOBFRhRkvwtLTgujhwlmAyT5utrcW/fLS
+         UCrdVFQaCxufwhb5MvKru9Uj39GZDgSDNwWkLytU87QuOZiZW3gOAkdFDOaKhxL06/f7
+         Ch/JtaTuINlQCXij5qH4GNWkqKrvPRNM9oaDzzQFbzOSqW2d+150zkTVPAFp7MxOi8F3
+         4SwlThs7mkxWt032HxF82mZ7brBc98GyKPJN86U8abMvDv8u2oERGdScbiNn5Af2nYer
+         HlieyS6HiyP+z3Uc6gsb2a03YLsufmhjA+/yGTUF7uORsQYrjQN/28ZMWXC7EEMmjZ8Y
+         st2Q==
+X-Forwarded-Encrypted: i=1; AFNElJ+0G4DDopmJrriIDO2N98jOmsM38RGeBvrt5/0E+DnhRO1X7NIq0mGqDvc3+Ll5Oj8t3vteGCyv+4bN@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyRXWUnG4d36HlD21dUnWDhQSmiJCPRHxy6dZLnJn7YLagwT2G
+	8ytw69gHj6rV9jyGrYU5TICRg0A/O3bv4HJXxb04m4clYxXxe7CGOelC
+X-Gm-Gg: Acq92OGpZm/rZgIoICoRY67mr5t0ZuWIUO98w5IuFoQd+kZQDr//cYeIRJKqHoL5P67
+	HosFQkQ2zivV8sKH1sGRnizLyHE2155fHPoTMrGqeUhGGjhGLneHQ8/Irx4aoy8cq+T6l1jx5AC
+	L83mmobxqcIo34GjVqPccmjHqdNQAuWeb3x1EQTjSUcfTDS3jaBaGRSERKUsutvYUyb/bqOL9x7
+	9V//5AfIYzOeR0C+nhP8P2d+CCSfNxrbjQf40YUkK3CwDwmcAfOopaS2MjwkTeNPlj/WH/2ymR6
+	ACjs/bRLRSfVNKr9EOZve+AJZ+zdQCEsoUROjUSLjcQHQrZAqBjQSM8IwI+xFMx3p76bbUjZG9E
+	Ly6nKdWZ6jyPKuOEbdeAc78DMcgM8z8H32fxNmknGVK2cMbiiCsVzifdLdu13ERZiSPxuoxJXFO
+	fIoqAc2kSgqpwhx8PVU69U3P0MwSnT1et1zaTerZcmLi1B7wgt3YtJ9l2XMyRk7qMiqBzeJJVX2
+	AidjW4EQvcj6+B+975klfyz8cNDkuvChtC9gx4sUz0jV7+X6SWe6A==
+X-Received: by 2002:a17:902:f78a:b0:2b2:ebed:7af5 with SMTP id d9443c01a7336-2c163a1e038mr50337385ad.13.1780512548362;
+        Wed, 03 Jun 2026 11:49:08 -0700 (PDT)
+Received: from lord-daniel-VivoBook-ASUSLaptop-K3502ZA-S3502ZA.. ([2409:40c1:4015:6e6f:ee79:7998:9a6f:65e3])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f6d59csm32139675ad.4.2026.06.03.11.49.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 11:49:07 -0700 (PDT)
+From: Piyush Patle <piyushpatle228@gmail.com>
+To: linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: jic23@kernel.org,
+	ak@it-klinger.de,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andy@kernel.org,
+	nuno.sa@analog.com,
+	dlechner@baylibre.com
+Subject: [PATCH v11 00/11] iio: adc: Add support for AVIA HX710B ADC
+Date: Thu,  4 Jun 2026 00:18:48 +0530
+Message-ID: <20260603184859.89693-1-piyushpatle228@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Low] The commit message incorrectly claims the associated driver models =
-the SFPB and CFPB fabrics.
---
+The HX710B is a 24-bit ADC from AVIA Semiconductor, related to the
+HX711 already supported in this driver.  Unlike the HX711 (which has
+selectable gain and two input channels), the HX710B has a fixed gain
+of 128 and two operating modes selected by the trailing PD_SCK pulse
+count after each conversion:
 
-commit f2c1f888ae217770de22883ba69e0e4f0206a9ee
-Author: Herman van Hazendonk <github.com@herrie.org>
+  25 pulses (1 trailing): differential input at 10 SPS
+  26 pulses (2 trailing): DVDD-AVDD supply monitor at 40 SPS
+  27 pulses (3 trailing): differential input at 40 SPS
 
-dt-bindings: interconnect: qcom: add msm8660 fabric IDs
+This series first extends the existing HX711 binding and driver with
+preparatory refactoring, then adds HX710B support on top.
 
-This commit adds the interconnect master and slave IDs for the MSM8x60 fami=
-ly
-fabric mesh. It defines IDs for the various sub-fabrics including AFAB, SFA=
-B,
-MMFAB, DFAB, SFPB, and CFPB based on the legacy vendor driver.
+The differential input is exposed as a single IIO channel with
+IIO_CHAN_INFO_SAMP_FREQ, allowing userspace to select 10 or 40 SPS
+without needing two separate channels for the same physical input.
+The supply monitor is a second channel at fixed 40 SPS.
 
->     The chip's
->     NoC fabric is split into multiple sub-fabrics that the qnoc-msm8660
->     driver models:
->    =20
->       AFAB  - Applications fabric (Scorpion CPU + L2)
->       SFAB  - System fabric (DMA, SPS, security)
->       MMFAB - Multimedia fabric (MDP, GPU, camera, video, rotator)
->       DFAB  - Daytona fabric (SDC, ADM master/slave)
->       SFPB  - System Fast Peripheral Bridge (RPM, MPM, PMIC SSBI)
->       CFPB  - CPU Subsystem Fast Peripheral Bus (GSBI UART/QUP, USB FS,
->               TSIF, TSSC, PDM, PRNG)
+This revision is rebased onto current mainline.  Note that
+iio_device_claim_direct_mode() / iio_device_release_direct_mode() were
+removed from the IIO core since v10, so 11/11 now uses the replacement
+iio_device_claim_direct() / iio_device_release_direct() API.
 
-[Severity: Low]
-Is this description accurate regarding SFPB and CFPB?
+Tested on a PocketBeagle2 (TI AM625): the avia,hx710b node probes and
+the driver registers its two IIO channels.
 
-The commit message states that the qnoc-msm8660 driver models SFPB and CFPB,
-but looking at the driver implementation introduced in this series, it appe=
-ars
-to only model AFAB, SFAB, MMFAB, and DFAB.
+Changes from v10:
+  - 02/11: Retitled to "add VSUP and DVDD supply properties"; the
+    commit message now documents both supplies (the patch already
+    added both; only the title/text were out of sync). [Jonathan]
+  - 04/11: Reworded commit message so DVDD is no longer described as
+    HX710B-specific (it is added for both parts in 02/11). The
+    compatible match now uses "contains: const: avia,hx710b" so the
+    constraints still apply if the compatible is later used as a
+    fallback. dvdd-supply is now required for HX710B (in the HX710B
+    branch only, so existing HX711 device trees are unaffected) and
+    added to the HX710B example. [Jonathan, Conor, Sashiko]
+  - 11/11: Kconfig title and file header use "similar" instead of
+    "compatible". Simplified the tail of hx711_set_hx710b_channel()
+    to "return hx711_wait_for_ready()". Dropped an unrelated
+    reindentation of the iio_push_to_buffers_with_timestamp() call.
+    Converted hx710b_write_raw() to the new
+    iio_device_claim_direct() API (see above). [Jonathan]
 
-Could the commit message be updated to clarify that SFPB and CFPB are not
-actually modeled by the driver?
+The Reviewed-by (Andy Shevchenko) and Acked-by (Conor Dooley) tags on
+02/11 and 04/11 are carried over although those patches changed; please
+re-confirm if you disagree with the reworked constraints.
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603163410.2312=
-712-1-github.com@herrie.org?part=3D1
+Patches 01/11, 03/11, and 05/11 are unchanged from v10.
+
+Piyush Patle (11):
+  dt-bindings: iio: adc: hx711: clean up existing binding text
+  dt-bindings: iio: adc: hx711: add VSUP and DVDD supply properties
+  dt-bindings: iio: adc: hx711: add RATE GPIO property
+  dt-bindings: iio: adc: hx711: add HX710B support
+  iio: adc: hx711: move scale computation to per-device storage
+  iio: adc: hx711: introduce hx711_chip_info structure
+  iio: adc: hx711: pass trailing pulse count into hx711_read
+  iio: adc: hx711: split variable assignments in hx711_read and
+    hx711_reset
+  iio: adc: hx711: localize loop iterators in hx711_read
+  iio: adc: hx711: pass iio_chan_spec to hx711_reset_read
+  iio: adc: hx711: add support for HX710B
+
+ .../bindings/iio/adc/avia-hx711.yaml          |  82 ++++-
+ drivers/iio/adc/Kconfig                       |   8 +-
+ drivers/iio/adc/hx711.c                       | 343 +++++++++++++++---
+ 3 files changed, 359 insertions(+), 74 deletions(-)
+
+-- 
+2.43.0
+
