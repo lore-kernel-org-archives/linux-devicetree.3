@@ -1,477 +1,165 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from outbound7.mail.transip.nl (outbound7.mail.transip.nl [136.144.136.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E5663FC5AC
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 07:14:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C4FCC286D7D;
+	Wed,  3 Jun 2026 07:15:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=136.144.136.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780470865; cv=none; b=T8Y9O/kRai51rz7Yj78rXvP4kRfpsssh60ccHCIMuMRP7heglqoQqrvvfF+abpS1ZU+fY8QD1OxgFB2nJTlbfpiZvfVHB0+KGxyVMEgtVi6c0bUrvl0HZufAaWRBgcle3YLs0jSpe5ds+vQND1qCIEVDWwtAd+4W4zDSP2mrDtg=
+	t=1780470929; cv=none; b=Xwq9+5saE5HnMrHsH0BtbfjxHzb/iC/JlMnWggXWglYNUHPwnBlbMbY516gaYWAcIH44ZbonNR/iXfaTSY5WAw/YApCksrBEuLBBPnIw0wRHEf/9adljQdQaa5OpWGWEXUTAXScEs14ofyg3bIn3FYKSLjgR80UzlMose+MM7aQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780470865; c=relaxed/simple;
-	bh=kTw/EORGVplVOncPwo4esjkmCv0e8ML0rVKdAiB2k5U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=A5op+a0qM8eaVv3x3Pmr0x9vKq727sNxF+SCf1k9V9Nyt9i6BPMQ+7Nrv1vNX3v8psfn8FVjVPq/w7D3YwP/KOIZ9rtYFGq3vJBYxoEGURu4Zgtz0j40T8w21wuo7/G9No31LJoELO4NZ7EkhwhS1BOdZ5lN7QF9Nxq+qLhjtDU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nqgLSJgq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Dzn+2/UE; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780470929; c=relaxed/simple;
+	bh=CBox3QeLB8bD5zr5Zk/ou2hsAHr1V3tPZbRM4BFKHsM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=cGP9QSW3CVVYo7yR72oHCofejITeFBMyKifOhBsMo4OaIC0k5L4nC4siXzN7ubeSNAbDy3Gvr4jyBa2CRr9/o4ECeHk2HeI5niOMLosvbgjdmdplKOj9TFHj813T4UmjGM9VWSPOyTnmmTDnvI/uqISubqD6du6VLnK5pssDV1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=vweiJbfx; arc=none smtp.client-ip=136.144.136.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nqgLSJgq";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Dzn+2/UE"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6536RIGx1200016
-	for <devicetree@vger.kernel.org>; Wed, 3 Jun 2026 07:14:22 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	0NESXEAUnIJZlgHkQhSkW2BBr8htvCi9q/3exWK1858=; b=nqgLSJgqZuxMg4dj
-	TkTyKMYGew2vpzd0IHJcj+bRfWM+33dnwHxuTNAamr6pDsRV2FvzsmV5zd1bwJhI
-	tAOlM6O+ek6AdbS9PhZlK4v6jzh/DdFOpiIIbdhJ9W+1xpM/yavnl1x+qVdjteh8
-	2Vt1lYUMAQDpy2wPnUbTtipX3TPGAstlE0RZL6EXNhq4AbNzumGBA8zePWvUjomR
-	npOr5NyxqpfbiZMznELtlvnUdLvke48QBTmmcAvP56uIHzPNKxvolFaolqh1xpkY
-	J/H2O5PQeVGrF1elJ8yYuaW1JboWVsyqNMMgYbj9dn6pKgk3jXC88udBDXXOqC6e
-	vmlIZQ==
-Received: from mail-pl1-f198.google.com (mail-pl1-f198.google.com [209.85.214.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejckw0qa5-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:14:22 +0000 (GMT)
-Received: by mail-pl1-f198.google.com with SMTP id d9443c01a7336-2bf3636d6c0so46000885ad.2
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 00:14:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780470861; x=1781075661; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=0NESXEAUnIJZlgHkQhSkW2BBr8htvCi9q/3exWK1858=;
-        b=Dzn+2/UEZgq4KjcNDG0f4Tk4OZ3FT5METS7OgXmjQrOlZcoPNaH9HdB1Z/wFQTt6kV
-         8LdNmaPDVuRrJybptL1mMWn9a7TDSo+Qx9Am4oqleQy//lNjon5JqXbDNRtdel8R9g5K
-         GJhLhmGGzwE6uD9TWhlKapHN8X3CX/W7/YaiobBy8xrhRCvNuYe/k2GYfvfWd+6npvbT
-         Xt8cOrMZnTNfG0fZq6JCTqda6CNSrfzmpA3llY1dzhh/5CZFBoB6eGw/eGL7zdOj6e7y
-         HxSIowFbTqiHshfBuYQAJ6yeWbtlM0YRjW3tF7MklQIl9tnblzKsjOpx9z+IL9wgq9up
-         XSkg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780470861; x=1781075661;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=0NESXEAUnIJZlgHkQhSkW2BBr8htvCi9q/3exWK1858=;
-        b=PES7my3iOgxfiIClk6OzBp/5GvxklaoXK4fU04eIe1Yxc9iJOfqwqkqAF418ixLo8n
-         pntxC73wQbPI6nF/ufsn46yv6twIoL1OAiAacPNXCR0xD4ho7AH8sFBzKDqlDDsKwwxB
-         oMaZ+FPZzzGui5cQF5jgUP0DrX9T7N90krEgcnWYQLQtO3g7oHtcEae0+967VodbQH6z
-         l8WUxBtzAhAwYP7lAFiMtusbnTMEImSn1x9NU9oNh4cgQPPv5PRsKpwd93ZMGI5NxBZm
-         SPrj+3n9zSo0luzF1hDm2OflRrAIX6oRS3wfcjUuKOpS/0aRz1EVSZ2URinlVKC77n/z
-         7ebg==
-X-Forwarded-Encrypted: i=1; AFNElJ/FfS8fOOCi49U774IKHXA79g/JruszdsESh9ZFLP5gkWFsmeFqcZQpHK021U8W0b0Ar0+K4PJ5ueMp@vger.kernel.org
-X-Gm-Message-State: AOJu0YxNjS4D9QwoMm9pUYBR3VGbgIKqf1KfwpS3RGQWMIyACnDR1PAz
-	igvBK66rhcfZ2t/ucjurfHD4rM0a0dUQDhp7Gx78FDD1UJH0r7MJUF10gewuXxRZaf6FzRwBpZC
-	YZuqv2q0Uj4VBmrKjP/GJstTQhLeDOR8KxdzPcP9raJyowymR7EKUDMDFRARD8M7O
-X-Gm-Gg: Acq92OFKOpQL3o8USsw2FeGhqCy5LYfVnsDEosZUxih+dNEXrN1MGtUZVA/K68YqcE/
-	EQplhNIJHtyC5oWNkuEITawsVWvJfilanZiRzUEV+0H+6MGupEA1eF3cTo9w2k3tKy6ZpeuWTa1
-	okHTaGaBDjr5nvBxkGXxvVPMXT14wx5srmiHLevehIlzTnx0Aj5UiwONN5RfmxIXZqftRm6xR5o
-	MhkVb8+exi+ZVng5TRnXomrn12QlUXdBAtQ0YpL8OK7+uSdXbkXbVO42QNeYT7x30ktOEia2iR6
-	7ivJw1tlHYg/tlI4h30vhGAqkOvihnxPNyI1FQLCdlzcORs8g9snkQQCBaiBERAaE0Vu7B1cQXh
-	9yghTDn2kBw02PKioVOJGlW25LisF6aR34uGyqGJEUE8c4FOQ9d+ST3ibrSSmW91wNWo=
-X-Received: by 2002:a17:903:2409:b0:2bf:e5c:d90b with SMTP id d9443c01a7336-2c1644aae32mr24391965ad.32.1780470861101;
-        Wed, 03 Jun 2026 00:14:21 -0700 (PDT)
-X-Received: by 2002:a17:903:2409:b0:2bf:e5c:d90b with SMTP id d9443c01a7336-2c1644aae32mr24391335ad.32.1780470860486;
-        Wed, 03 Jun 2026 00:14:20 -0700 (PDT)
-Received: from hu-vjitta-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2c164f8429fsm17249725ad.18.2026.06.03.00.14.12
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 00:14:20 -0700 (PDT)
-From: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Date: Wed, 03 Jun 2026 12:43:14 +0530
-Subject: [PATCH v16 3/3] of: Respect #{iommu,msi}-cells in maps
+	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="vweiJbfx"
+Received: from submission9.mail.transip.nl (unknown [10.103.8.160])
+	by outbound7.mail.transip.nl (Postfix) with ESMTP id 4gVf9P3pr7zQvtGC;
+	Wed,  3 Jun 2026 09:15:21 +0200 (CEST)
+Received: from herrie-desktop.. (180-93-184-31.ftth.glasoperator.nl [31.184.93.180])
+	by submission9.mail.transip.nl (Postfix) with ESMTPA id 4gVf9N71GPz3NZKgV;
+	Wed,  3 Jun 2026 09:15:20 +0200 (CEST)
+From: Herman van Hazendonk <github.com@herrie.org>
+To: sre@kernel.org
+Cc: robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	linux-pm@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Herman van Hazendonk <github.com@herrie.org>
+Subject: [PATCH 1/2] dt-bindings: power: supply: maxim,max8903: add DC and USB input current-limit controls
+Date: Wed,  3 Jun 2026 09:15:18 +0200
+Message-ID: <20260603071519.807604-2-github.com@herrie.org>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260603071519.807604-1-github.com@herrie.org>
+References: <20260603071519.807604-1-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260603-parse_iommu_cells-v16-3-dc509dacb19a@oss.qualcomm.com>
-References: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
-In-Reply-To: <20260603-parse_iommu_cells-v16-0-dc509dacb19a@oss.qualcomm.com>
-To: Nipun Gupta <nipun.gupta@amd.com>, Nikhil Agarwal <nikhil.agarwal@amd.com>,
-        Joerg Roedel <joro@8bytes.org>, Will Deacon <will@kernel.org>,
-        Robin Murphy <robin.murphy@arm.com>,
-        Lorenzo Pieralisi <lpieralisi@kernel.org>,
-        Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
-        Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>,
-        Richard Zhu <hongxing.zhu@nxp.com>,
-        Lucas Stach <l.stach@pengutronix.de>,
-        =?utf-8?q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
-        Manivannan Sadhasivam <mani@kernel.org>,
-        Bjorn Helgaas <bhelgaas@google.com>, Frank Li <Frank.Li@nxp.com>,
-        Sascha Hauer <s.hauer@pengutronix.de>,
-        Pengutronix Kernel Team <kernel@pengutronix.de>,
-        Fabio Estevam <festevam@gmail.com>, Juergen Gross <jgross@suse.com>,
-        Stefano Stabellini <sstabellini@kernel.org>,
-        Oleksandr Tyshchenko <oleksandr_tyshchenko@epam.com>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
-        iommu@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-        devicetree@vger.kernel.org, linux-pci@vger.kernel.org,
-        imx@lists.linux.dev, xen-devel@lists.xenproject.org,
-        Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>,
-        Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780470825; l=12579;
- i=vijayanand.jitta@oss.qualcomm.com; s=20260301; h=from:subject:message-id;
- bh=LPtm8WRL1ePgVwpjpfKGmM3BfFB+wBr62xMWuFSMIXc=;
- b=akSqVr4B15pnrlPKudtM7LDFqnlZY755iH00YvUmRmRXT010tIliyd5qbMUXYUsNrA1CeFZLr
- x5IZ2Ex1fT9Afpi39siNTFcy0lhQVnAIK8REPd8mwI7kfwda3ocWUcq
-X-Developer-Key: i=vijayanand.jitta@oss.qualcomm.com; a=ed25519;
- pk=Lpi7Cs3wHe8KZtqvyci7FTOLzsKpEHKGCaPNZw+1zRI=
-X-Proofpoint-ORIG-GUID: -_8FuTHeefp_CYsNHft-CUDZPGyPMDhA
-X-Authority-Analysis: v=2.4 cv=edUNubEH c=1 sm=1 tr=0 ts=6a1fd44e cx=c_pps
- a=MTSHoo12Qbhz2p7MsH1ifg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=7CQSdrXTAAAA:8 a=EUspDBNiAAAA:8 a=9707C7GnR82a18xSEiYA:9 a=QEXdDO2ut3YA:10
- a=GvdueXVYPmCkWapjIL-Q:22 a=a-qgeE7W1pNrGK8U0ZQC:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDA2NyBTYWx0ZWRfX0EDLMy6HwWst
- ehHUPI8uV1kOjFRtjoSD2JqfgbD5hUeh510LumAEb0CjH8u4KgvVM7Ty0dz8h0KCqFDe40Y4Qxb
- KfgQFqlZyf+KsUo0UgeXkiupq2hL86ZBQMCjM4T/YFG/qieNcTxX0T6QI3Fwn3ubqR27pW4zAfT
- X00ilkQ+t40mXRoIXTAByLlnVADf7Y6qHrEkqPMxRAHCBY1cgplJn7QcV2SAUOQ2ukq7Df9OJ70
- URhh9LirKehX619DoC8hz1w6EtBQXuYJPk/89IeX1/WNZ32A//MjRgT3/R4+Xeht9VUMKnmCCL7
- Plag6Ap4o7pfEiyttIXBnZvMP5C2dLMe/PSufmWWc0Dzo/oq4fDzAH6fdJMIKMvPkOHr16gPPPd
- cmvtGk/uv1yc0ihm9olIejZBF3mFGfAb8U08dtn3YELxtwmd5oo89Q9VvTO7DURrBZ3kVr45ddO
- fnwJ0ET430s08ak5p7w==
-X-Proofpoint-GUID: -_8FuTHeefp_CYsNHft-CUDZPGyPMDhA
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-03_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 adultscore=0 malwarescore=0 suspectscore=0 impostorscore=0
- spamscore=0 lowpriorityscore=0 bulkscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606030067
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: ClueGetter at submission9.mail.transip.nl
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+ s=transip-a; d=herrie.org; t=1780470921; h=from:subject:to:cc:
+ references:in-reply-to:date:mime-version;
+ bh=etAnj7fgonFdKVbkoiHP4F3EeQb64hWRqIT01hc+eX4=;
+ b=vweiJbfx0EdZUupXRNc053qs50nOGApHgUkaQzWHesG2QhLBI/TTfBsbDGR/u+SdI45jEG
+ iIdlE7LTS5JfHkKq0cClDKAa8OTkfY8B42TZg9yCD3ZXculZ96nRFz3ipw17Y0zPx8GrO3
+ 4iPiAdSHZt+/V15TMzUvYmxsUucXcbP//4HYDiO2iVWoZX8aUljEJIWC400pntntNXDTWX
+ Zc/738zbX5Nn/EdyQ1ekZNB8LjceSQcpBFr4U0+khC47dLugRsDopnW2jv4qydz6zaK1p9
+ Jtf3LaRy9g3n0Uq4pl3El411Q9PfztpliP3pVfR227ja2sAYlH8BWrfPnv3zIA==
+X-Report-Abuse-To: abuse@transip.nl
 
-From: Robin Murphy <robin.murphy@arm.com>
+Add four optional properties to the MAX8903 charger binding to
+describe board-level GPIO control of the DC and USB input current
+limits:
 
-So far our parsing of {iommu,msi}-map properties has always blindly
-assumed that the output specifiers will always have exactly 1 cell.
-This typically does happen to be the case, but is not actually enforced
-(and the PCI msi-map binding even explicitly states support for 0 or 1
-cells) - as a result we've now ended up with dodgy DTs out in the field
-which depend on this behaviour to map a 1-cell specifier for a 2-cell
-provider, despite that being bogus per the bindings themselves.
+DC input (TA / DOK pin):
+  - dc-current-limit-gpios (1..4 GPIOs): mux control lines feeding
+    the MAX8903 IDC resistor mux;
+  - dc-current-limit-mapping (uint32-matrix of {microamps,
+    gpio_bit_pattern} pairs): the available current levels and the
+    GPIO bit pattern that selects each level.
 
-Since there is some potential use in being able to map at least single
-input IDs to multi-cell output specifiers (and properly support 0-cell
-outputs as well), add support for properly parsing and using the target
-nodes' #cells values, albeit with the unfortunate complication of still
-having to work around expectations of the old behaviour too.
+USB input (USB / UOK pin):
+  - usb-current-limit-gpios: a single GPIO driving the IUSB
+    tri-state pin (low / high);
+  - usb-current-limit-values: the two microamp values that the IUSB
+    pin selects.
 
-Since there are multi-cell output specifiers, the callers of of_map_id()
-may need to get the exact cell output value for further processing.
-Update of_map_id() to set args_count in the output to reflect the actual
-number of output specifier cells.
+These let userspace clamp the input draw via the standard
+POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT power_supply attribute. The HP
+TouchPad uses both: two TLMM lines select between 0.5 A, 1.0 A,
+1.5 A and 2.0 A DC input current limits behind the MAX8903B
+charger, and a third TLMM line picks the IUSB 100 mA / 500 mA
+limit.
 
-Signed-off-by: Robin Murphy <robin.murphy@arm.com>
-Signed-off-by: Charan Teja Kalla <charan.kalla@oss.qualcomm.com>
-Signed-off-by: Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
+These are purely additive; existing platforms remain unaffected.
+
+Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
 ---
- drivers/of/base.c  | 168 +++++++++++++++++++++++++++++++++++++++++------------
- include/linux/of.h |   6 +-
- 2 files changed, 135 insertions(+), 39 deletions(-)
+ .../bindings/power/supply/maxim,max8903.yaml  | 58 +++++++++++++++++++
+ 1 file changed, 58 insertions(+)
 
-diff --git a/drivers/of/base.c b/drivers/of/base.c
-index d658c2620135..ac7961cbab94 100644
---- a/drivers/of/base.c
-+++ b/drivers/of/base.c
-@@ -2116,19 +2116,49 @@ int of_find_last_cache_level(unsigned int cpu)
- 	return cache_level;
- }
+diff --git a/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml b/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
+index 86af38378999..5e970ebc08df 100644
+--- a/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
++++ b/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
+@@ -44,6 +44,41 @@ properties:
+     maxItems: 1
+     description: USB suspend pin (active high, output)
  
-+/*
-+ * Some DTs have an iommu-map targeting a 2-cell IOMMU node while
-+ * specifying only 1 cell. Fortunately they all consist of value '1'
-+ * as the 2nd cell entry with the same target, so check for that pattern.
-+ *
-+ * Example:
-+ *	IOMMU node:
-+ *		#iommu-cells = <2>;
-+ *
-+ *	Device node:
-+ *		iommu-map = <0x0000 &smmu 0x0000 0x1>,
-+ *			    <0x0100 &smmu 0x0100 0x1>;
-+ */
-+static bool of_check_bad_map(const __be32 *map, int len)
-+{
-+	__be32 phandle = map[1];
++  dc-current-limit-gpios:
++    minItems: 1
++    maxItems: 4
++    description:
++      GPIOs controlling DC input current limit via resistor mux.
++      Used with dc-current-limit-mapping to select charging current.
 +
-+	if (len % 4)
-+		return false;
-+	for (int i = 0; i < len; i += 4) {
-+		if (map[i + 1] != phandle || map[i + 3] != cpu_to_be32(1))
-+			return false;
-+	}
-+	return true;
-+}
++  dc-current-limit-mapping:
++    $ref: /schemas/types.yaml#/definitions/uint32-matrix
++    minItems: 2
++    maxItems: 16
++    description: |
++      Array of (current_microamps, gpio_bit_pattern) pairs defining available
++      DC current limits. The gpio_bit_pattern is applied to dc-current-limit-gpios
++      to select that current level.
++    items:
++      items:
++        - description: Current limit in microamps
++        - description: GPIO bit pattern value
 +
- /**
-  * of_map_id - Translate an ID through a downstream mapping.
-  * @np: root complex device node.
-  * @id: device ID to map.
-  * @map_name: property name of the map to use.
-+ * @cells_name: property name of target specifier cells.
-  * @map_mask_name: optional property name of the mask to use.
-  * @filter_np: pointer to an optional filter node, or NULL to allow bypass.
-  *	If non-NULL, the map property must exist (-ENODEV if absent). If
-  *	*filter_np is also non-NULL, only entries targeting that node match.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] will contain the translated ID. If a map entry was
-- *	matched, @arg->np will be set to the target node with a reference
-- *	held that the caller must release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	as defined by @cells_name in the target node, and
-+ *	@arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np will be set
-+ *	to the target node with a reference held that the caller must release
-+ *	with of_node_put().
-  *
-  * Given a device ID, look up the appropriate implementation-defined
-  * platform ID and/or the target device which receives transactions on that
-@@ -2137,19 +2167,21 @@ int of_find_last_cache_level(unsigned int cpu)
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       struct device_node * const *filter_np, struct of_phandle_args *arg)
- {
- 	u32 map_mask, masked_id;
--	int map_len;
-+	int map_bytes, map_len, offset = 0;
-+	bool bad_map = false;
- 	const __be32 *map = NULL;
- 
--	if (!np || !map_name || !arg)
-+	if (!np || !map_name || !cells_name || !arg)
- 		return -EINVAL;
- 	/* Ensure bypass/no-match success never returns a stale target node. */
- 	arg->np = NULL;
- 
--	map = of_get_property(np, map_name, &map_len);
-+	map = of_get_property(np, map_name, &map_bytes);
- 	if (!map) {
- 		if (filter_np)
- 			return -ENODEV;
-@@ -2159,11 +2191,9 @@ int of_map_id(const struct device_node *np, u32 id,
- 		return 0;
- 	}
- 
--	if (!map_len || map_len % (4 * sizeof(*map))) {
--		pr_err("%pOF: Error: Bad %s length: %d\n", np,
--			map_name, map_len);
--		return -EINVAL;
--	}
-+	if (map_bytes % sizeof(*map))
-+		goto err_map_len;
-+	map_len = map_bytes / sizeof(*map);
- 
- 	/* The default is to select all bits. */
- 	map_mask = 0xffffffff;
-@@ -2176,39 +2206,93 @@ int of_map_id(const struct device_node *np, u32 id,
- 		of_property_read_u32(np, map_mask_name, &map_mask);
- 
- 	masked_id = map_mask & id;
--	for ( ; map_len > 0; map_len -= 4 * sizeof(*map), map += 4) {
++  usb-current-limit-gpios:
++    maxItems: 1
++    description:
++      GPIO controlling USB input current limit.
++      Low = usb-current-limit-values[0], High = usb-current-limit-values[1].
 +
-+	while (offset < map_len) {
- 		struct device_node *phandle_node;
--		u32 id_base = be32_to_cpup(map + 0);
--		u32 phandle = be32_to_cpup(map + 1);
--		u32 out_base = be32_to_cpup(map + 2);
--		u32 id_len = be32_to_cpup(map + 3);
-+		u32 id_base, phandle, id_len, id_off, cells = 0;
-+		const __be32 *out_base;
++  usb-current-limit-values:
++    $ref: /schemas/types.yaml#/definitions/uint32-array
++    minItems: 2
++    maxItems: 2
++    default: [100000, 500000]
++    description:
++      USB current limits in microamps for GPIO low and high states.
++      Default is 100mA (low) and 500mA (high) per USB specification.
 +
-+		if (map_len - offset < 2)
-+			goto err_map_len;
+ required:
+   - compatible
+ 
+@@ -65,3 +100,26 @@ examples:
+       chg-gpios = <&gpio3 15 GPIO_ACTIVE_LOW>;
+       cen-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
+     };
++  - |
++    /* Example with DC and USB current limit control */
++    #include <dt-bindings/gpio/gpio.h>
++    charger-with-current-limit {
++      compatible = "maxim,max8903";
++      dok-gpios = <&gpio2 3 GPIO_ACTIVE_LOW>;
++      flt-gpios = <&gpio2 2 GPIO_ACTIVE_LOW>;
++      chg-gpios = <&gpio3 15 GPIO_ACTIVE_LOW>;
++      cen-gpios = <&gpio2 5 GPIO_ACTIVE_LOW>;
++      dcm-gpios = <&gpio2 6 GPIO_ACTIVE_HIGH>;
 +
-+		id_base = be32_to_cpup(map + offset);
- 
- 		if (id_base & ~map_mask) {
--			pr_err("%pOF: Invalid %s translation - %s-mask (0x%x) ignores id-base (0x%x)\n",
--				np, map_name, map_name,
--				map_mask, id_base);
-+			pr_err("%pOF: Invalid %s translation - %s (0x%x) ignores id-base (0x%x)\n",
-+			       np, map_name, map_mask_name, map_mask, id_base);
- 			return -EFAULT;
- 		}
- 
--		if (masked_id < id_base || masked_id >= id_base + id_len)
--			continue;
--
-+		phandle = be32_to_cpup(map + offset + 1);
- 		phandle_node = of_find_node_by_phandle(phandle);
- 		if (!phandle_node)
- 			return -ENODEV;
- 
-+		/*
-+		 * Assume 1-cell output specifier if the target node lacks the
-+		 * #cells property, for backward compatibility with controllers
-+		 * that predate the property (e.g. arm,gic-v2m-frame).
-+		 */
-+		if (bad_map || of_property_read_u32(phandle_node, cells_name, &cells))
-+			cells = 1;
++      /* DC input current limit via IDC resistor mux */
++      dc-current-limit-gpios = <&gpio1 0 GPIO_ACTIVE_HIGH>,
++                               <&gpio1 1 GPIO_ACTIVE_HIGH>;
++      dc-current-limit-mapping = <750000 0>,  /* GPIO[1:0]=0b00 */
++                                 <900000 1>,  /* GPIO[1:0]=0b01 */
++                                 <1400000 3>, /* GPIO[1:0]=0b11 */
++                                 <2000000 2>; /* GPIO[1:0]=0b10 */
 +
-+		if (cells > MAX_PHANDLE_ARGS) {
-+			pr_err("%pOF: %s cell count %d exceeds maximum\n",
-+			       phandle_node, cells_name, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
-+		if (offset == 0 && cells == 2) {
-+			bad_map = of_check_bad_map(map, map_len);
-+			if (bad_map) {
-+				pr_warn_once("%pOF: %s has 1-cell entries targeting 2-cell %s, treating as 1-cell output\n",
-+					     np, map_name, cells_name);
-+				cells = 1;
-+			}
-+		}
-+
-+		if (map_len - offset < 3 + cells) {
-+			of_node_put(phandle_node);
-+			goto err_map_len;
-+		}
-+
-+		out_base = map + offset + 2;
-+		offset += 3 + cells;
-+
-+		id_len = be32_to_cpup(map + offset - 1);
-+		id_off = masked_id - id_base;
-+		if (masked_id < id_base || id_off >= id_len) {
-+			of_node_put(phandle_node);
-+			continue;
-+		}
-+		if (id_len > 1 && cells > 1) {
-+			/*
-+			 * With 1 output cell we reasonably assume its value
-+			 * has a linear relationship to the input; with more,
-+			 * we'd need help from the provider to know what to do.
-+			 */
-+			pr_err("%pOF: Unsupported %s - cannot handle %d-ID range with %d-cell output specifier\n",
-+			       np, map_name, id_len, cells);
-+			of_node_put(phandle_node);
-+			return -EINVAL;
-+		}
-+
- 		if (filter_np && *filter_np && *filter_np != phandle_node) {
- 			of_node_put(phandle_node);
- 			continue;
- 		}
- 
- 		arg->np = phandle_node;
--		arg->args[0] = masked_id - id_base + out_base;
--		arg->args_count = 1;
-+		for (int i = 0; i < cells; i++)
-+			arg->args[i] = id_off + be32_to_cpu(out_base[i]);
-+		arg->args_count = cells;
- 
- 		pr_debug("%pOF: %s, using mask %08x, id-base: %08x, out-base: %08x, length: %08x, id: %08x -> %08x\n",
--			np, map_name, map_mask, id_base, out_base,
--			id_len, id, masked_id - id_base + out_base);
-+			np, map_name, map_mask, id_base,
-+			cells ? be32_to_cpup(out_base) : 0,
-+			id_len, id,
-+			cells ? id_off + be32_to_cpup(out_base) : id_off);
- 		return 0;
- 	}
- 
-@@ -2219,6 +2303,10 @@ int of_map_id(const struct device_node *np, u32 id,
- 	arg->args[0] = id;
- 	arg->args_count = 1;
- 	return 0;
-+
-+err_map_len:
-+	pr_err("%pOF: Error: Bad %s length: %d\n", np, map_name, map_bytes);
-+	return -EINVAL;
- }
- EXPORT_SYMBOL_GPL(of_map_id);
- 
-@@ -2228,18 +2316,21 @@ EXPORT_SYMBOL_GPL(of_map_id);
-  * @id: Requester ID of the device (e.g. PCI RID/BDF or a platform
-  *      stream/device ID) used as the lookup key in the iommu-map table.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "iommu-map" and "iommu-map-mask".
-+ * Convenience wrapper around of_map_id() using "iommu-map", "#iommu-cells",
-+ * and "iommu-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_iommu_id(const struct device_node *np, u32 id,
- 		    struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "iommu-map", "iommu-map-mask", NULL, arg);
-+	return of_map_id(np, id, "iommu-map", "#iommu-cells", "iommu-map-mask", NULL, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_iommu_id);
- 
-@@ -2252,17 +2343,20 @@ EXPORT_SYMBOL_GPL(of_map_iommu_id);
-  *	If non-NULL, the map property must exist (-ENODEV if absent). If
-  *	*filter_np is also non-NULL, only entries targeting that node match.
-  * @arg: pointer to a &struct of_phandle_args for the result. On success,
-- *	@arg->args[0] contains the translated ID. If a map entry was matched,
-- *	@arg->np holds a reference to the target node that the caller must
-- *	release with of_node_put().
-+ *	@arg->args_count will be set to the number of output specifier cells
-+ *	and @arg->args[0..args_count-1] will contain the translated output
-+ *	specifier values. If a map entry was matched, @arg->np holds a
-+ *	reference to the target node that the caller must release with
-+ *	of_node_put().
-  *
-- * Convenience wrapper around of_map_id() using "msi-map" and "msi-map-mask".
-+ * Convenience wrapper around of_map_id() using "msi-map", "#msi-cells",
-+ * and "msi-map-mask".
-  *
-  * Return: 0 on success or a standard error code on failure.
-  */
- int of_map_msi_id(const struct device_node *np, u32 id,
- 		  struct device_node * const *filter_np, struct of_phandle_args *arg)
- {
--	return of_map_id(np, id, "msi-map", "msi-map-mask", filter_np, arg);
-+	return of_map_id(np, id, "msi-map", "#msi-cells", "msi-map-mask", filter_np, arg);
- }
- EXPORT_SYMBOL_GPL(of_map_msi_id);
-diff --git a/include/linux/of.h b/include/linux/of.h
-index ea50b45d9ff7..374b249766a2 100644
---- a/include/linux/of.h
-+++ b/include/linux/of.h
-@@ -465,7 +465,8 @@ const char *of_prop_next_string(const struct property *prop, const char *cur);
- bool of_console_check(const struct device_node *dn, char *name, int index);
- 
- int of_map_id(const struct device_node *np, u32 id,
--	       const char *map_name, const char *map_mask_name,
-+	       const char *map_name, const char *cells_name,
-+	       const char *map_mask_name,
- 	       struct device_node * const *filter_np,
- 	       struct of_phandle_args *arg);
- 
-@@ -950,7 +951,8 @@ static inline void of_property_clear_flag(struct property *p, unsigned long flag
- }
- 
- static inline int of_map_id(const struct device_node *np, u32 id,
--			     const char *map_name, const char *map_mask_name,
-+			     const char *map_name, const char *cells_name,
-+			     const char *map_mask_name,
- 			     struct device_node * const *filter_np,
- 			     struct of_phandle_args *arg)
- {
-
++      /* USB current control */
++      usb-current-limit-gpios = <&gpio1 2 GPIO_ACTIVE_HIGH>;
++      usb-current-limit-values = <100000 500000>; /* 100mA / 500mA */
++    };
 -- 
-2.34.1
+2.43.0
 
