@@ -1,70 +1,113 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787A533DEC2;
-	Wed,  3 Jun 2026 15:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDAF633DEC2;
+	Wed,  3 Jun 2026 15:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500790; cv=none; b=iBMM5iictaFGbH4/k414nOn+u/T+vG56hyN1OzJQzr2OC0jAf+uMq14CLYm9Inp5XIw9+wTnQJ+n0RzoAHSzSwIga13+yGVL0RNLMcfNsQXpG2HKUD1PKCGgkXNNkrRsIrYh7+DWnK8wzlaRl8P6JLRU0E6oHijiAl5FWwM0HGs=
+	t=1780500796; cv=none; b=hID0Ito2UDdOfKqv1gg3YODEjeLMIIw6bzKkAjct/qGBWuzlIdU8uR9f6WVYBQPpUc7TaXwZQK5oVczttH8fPEv1GMg9rtfGQbSx4i33gmNIXWI7Qka87aGTOr8Z1mI6WEbCcLTZTf1upaAmqHay/wV5uHaFrnen8/Egr6Ax/IA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500790; c=relaxed/simple;
-	bh=QaoXYUZ1KX+3rTwMZiqjG5bpOAZKziB6V8JGosfvqpE=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=KSlcLlykKYyoGYDtHwOlk8x70vC/Xsv9KgVtB8Pz2pRytWXu5MbHSwgwl5fgQPedrYxs7ydcU8ZLGzb9mXCu0gybnSSVE5KL+lvFInj5Y3MTL9Lqrf3Ps/D4hSTwuhEd+ogiaTDID58KwyFmE2vardTplf4MxOuI9/DlxpjdDf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XLjdw6Ol; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780500796; c=relaxed/simple;
+	bh=YEBOwQI85zdxA5wFUjsqBcbBH92DqQhFC+iGQVQdHI8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cGDGlGpIxPQukPsMz+TtT9HXf4J4v+bDVKteqw0UMotw20LctoJNndzcOa8cWgM3nye0oCZQ6GyO4/XSNFDd3GIxBOgiKlsjltBCeTmlDjFFAQxXIbEs0g6jcTkNdIQU0zFCCub+kVMR7rEsu9f/stOu9sT1EclzUbirEQFsEX4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FrBbmMly; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XLjdw6Ol"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 670431F00893;
-	Wed,  3 Jun 2026 15:33:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FrBbmMly"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 284131F00893;
+	Wed,  3 Jun 2026 15:33:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780500789;
-	bh=iV1HV4/JIxJ9K22eiAig7puQk1qXi3wzIYtTmf8/mWA=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date;
-	b=XLjdw6OlhEt7dGw5U/4Dbaa7aSrqSp9TGJF/dDxhSB4dxmHE/86+t+qtYfHPKNORr
-	 V+wcJuvvnMV3tQ0t7Hy82aRj0egH+S5abPWGRCf3oAxitMKHGK1dK1d5fJmoT7GwYS
-	 67upp/W7GraNJ0+5M21zClr/s9mpNcHGRKx2byiHB+iauPjdVpH5X3CPvZj4ilkYQl
-	 j8kRYF8V5noJB9ZWd6DkER7HRxfACP92rLt2kEVJQhdvperD83HnzKMpR53g4KJtGY
-	 5BXp7DQQdWHZSbOYgXkRztoLTAqMtGHGaY5/eOr4AeybASC61y+biLE+rg2lEUUA1F
-	 4WK4XwpOEy4yg==
-From: Thomas Gleixner <tglx@kernel.org>
-To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Bjorn Andersson
- <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob
- Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
- Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
- devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, Sneh Mankad
- <sneh.mankad@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>
-Subject: Re: [PATCH v2 1/8] irqchip/qcom-pdc: restructure version support
-In-Reply-To: <20260526-hamoa_pdc-v2-1-f6857af1ce91@oss.qualcomm.com>
-References: <20260526-hamoa_pdc-v2-0-f6857af1ce91@oss.qualcomm.com>
- <20260526-hamoa_pdc-v2-1-f6857af1ce91@oss.qualcomm.com>
-Date: Wed, 03 Jun 2026 17:33:06 +0200
-Message-ID: <871pen7i6l.ffs@fw13>
+	s=k20260515; t=1780500795;
+	bh=NUAME6IAfjTZppzEkfuF9bDnThDJytcbxsI66lnZVgk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=FrBbmMly2qmUNYwQaXnWwMekhHGiGm+/YLuCNAHB0aigBfeZhau2RAwiaOjfdfhvr
+	 MG6dknwBYaWJySl55WgiKuSoHsdl4hmAE9suPcn5Ep4isUSwU+g+HHKhMeGQ4b6kY9
+	 wCs1w0gv7yd0SosN8lbkUcNLRYz2cSOZYuw9bllzUhMPpc19JVs2sVzFYfDbLFolYQ
+	 uSMEJYK74y+t+icvg/4R3heWLEqQggjO0gKEKrZoZetybxsAzaxa0jNIhzkDAOAJgg
+	 b5bpd47K+oo+EZ65YcMPviIg+jVzKV3N5w/M1xkVRUiTahM78kwuUSsOf10R0RqfTg
+	 nv3SY3IMsM1jg==
+Date: Wed, 3 Jun 2026 16:33:11 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Michal Simek <michal.simek@amd.com>
+Cc: linux-kernel@vger.kernel.org, monstr@monstr.eu, git@amd.com,
+	Conor Dooley <conor+dt@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Michael Turquette <mturquette@baylibre.com>,
+	Rob Herring <robh@kernel.org>,
+	Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
+	Stephen Boyd <sboyd@kernel.org>,
+	"open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS" <devicetree@vger.kernel.org>,
+	"open list:COMMON CLK FRAMEWORK" <linux-clk@vger.kernel.org>
+Subject: Re: [PATCH v3 2/5] dt-bindings: clock: versal-clk: Fix mio_clk index
+ range in clock-names pattern
+Message-ID: <20260603-catlike-uncrushed-b98b66dc92c1@spud>
+References: <cover.1780499520.git.michal.simek@amd.com>
+ <5662c24a9e65310fc6520afc95f1a639fe6d221e.1780499520.git.michal.simek@amd.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="xfm9JNkfptRGE7ME"
+Content-Disposition: inline
+In-Reply-To: <5662c24a9e65310fc6520afc95f1a639fe6d221e.1780499520.git.michal.simek@amd.com>
 
-On Tue, May 26 2026 at 16:24, Maulik Shah wrote:
+
+--xfm9JNkfptRGE7ME
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Wed, Jun 03, 2026 at 05:12:07PM +0200, Michal Simek wrote:
+> The clock-names pattern "^mio_clk[00-77]+.*$" was intended to constrain
+> the MIO index to the valid range 00..77 (ZynqMP has 78 MIO pins),
+> but a regex character class cannot express a multi-digit decimal range.
+> Replace the bogus character class with an explicit alternation that
+> enumerates the two-digit decimal values 00..77.
+>=20
+> Fixes: 03d4a1004053 ("dt-bindings: clock: versal: Convert the xlnx,zynqmp=
+-clk.txt to yaml")
+> Signed-off-by: Michal Simek <michal.simek@amd.com>
 > ---
->  drivers/irqchip/qcom-pdc.c | 193 +++++++++++++++++++++++++++++++++++----------
->  1 file changed, 150 insertions(+), 43 deletions(-)
+>=20
+> Changes in v3:
+> - New patch in series
+>=20
+>  Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>=20
+> diff --git a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml=
+ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> index bef109d163a8..d843d95801b5 100644
+> --- a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> +++ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
+> @@ -116,7 +116,7 @@ allOf:
+>              - const: pss_alt_ref_clk
+>              - const: aux_ref_clk
+>              - const: gt_crx_ref_clk
+> -            - pattern: "^mio_clk[00-77]+.*$"
+> +            - pattern: "^mio_clk(0[0-9]|[1-6][0-9]|7[0-7])+.*$"
 
-Applying patch _PATCH_v2_1_8_irqchip_qcom_pdc_restructure_version_support.patch
-patching file drivers/irqchip/qcom-pdc.c
-Hunk #1 FAILED at 21.
-Hunk #2 FAILED at 45.
-Hunk #3 FAILED at 55.
-Hunk #4 succeeded at 61 (offset -8 lines).
-Hunk #5 FAILED at 85.
-Hunk #6 FAILED at 113.
-Hunk #7 succeeded at 206 (offset -10 lines).
-Hunk #8 succeeded at 366 (offset -9 lines).
-Hunk #9 FAILED at 412.
-Hunk #10 succeeded at 436 (offset -10 lines).
-Hunk #11 succeeded at 451 (offset -10 lines).
-6 out of 11 hunks FAILED -- rejects in file drivers/irqchip/qcom-pdc.c
+What am I missing that prevents 0[0-9] and [1-6][0-9] being merged?
 
+>              - pattern: "gem[0-3]+_emio_clk.*$"
+>              - pattern: "swdt[0-1]+_ext_clk.*$"
+> =20
+> --=20
+> 2.43.0
+>=20
+
+--xfm9JNkfptRGE7ME
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBJNwAKCRB4tDGHoIJi
+0n1TAP9Bza0amWPa/YKSAQUP12mtkvmA8oEzPDRTECVH6irhWQD/fP2kn8CeJhPT
+1G6sYQQl+2HZ9s5N21MvgZbhL4XMhAQ=
+=bYsR
+-----END PGP SIGNATURE-----
+
+--xfm9JNkfptRGE7ME--
