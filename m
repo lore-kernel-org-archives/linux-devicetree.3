@@ -1,268 +1,157 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8019D37FF5B
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:14:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACCB37B028;
+	Wed,  3 Jun 2026 09:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478072; cv=none; b=FQtGqQH28esUIZZT7kO0jGf9mp/xD4D7QfjXiOpxB+Q8UnbS5wfzvtAGYv2ys99Be2wGxKE+14W0zU7AIxgMQD1utem87vAVdggGQLaHO3llCM+ZqCNWyN3gCeA3J+woFGmRQaNuO4VuvPpiK8ULbWNRjtXDfheDQJ5f39RaBoA=
+	t=1780478188; cv=none; b=r5Q49XEalAZ8OjCK5GPQjrfLX/sWAEuCGgU1lE2wYJumxcngwwN/+DvVkenzhpSCJWbsIBvQIsa6GVsmAzbPh7Lxh/EeFIZGrz5Ips4nzHbLEYYoE51pJdN9eg5T9rMubdobU8FYuf6eWaiRcIKfXxZQ+B1s0GXVDyO5RD1L6j8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478072; c=relaxed/simple;
-	bh=LnBZEwhoBmkIRgJfE/R+bY0lRndadHwTjPkNbZtn9qc=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=BGCfAZ17I0fUjHbZd044DekUoPoex40vs8unAviCcAOTduJi9REFOMJaqUCeXwIqECv0ebZATWQeVO+DE1ChEivvtXvJfkFG6xkp8WC8ZZBJHeCzyiliG9iy2a5UA2hcoHDwH2PsdCZAUSmfUsKOE47RqlVNvnx6MXyCvKAwXsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhg5-0000qw-Ok; Wed, 03 Jun 2026 11:14:21 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhg5-000tFC-18;
-	Wed, 03 Jun 2026 11:14:21 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhg5-000000004In-18Cd;
-	Wed, 03 Jun 2026 11:14:21 +0200
-Message-ID: <99743c29fe81a90d3c1f51889d42ef9d4766de3c.camel@pengutronix.de>
-Subject: Re: [PATCH RFC v3 3/5] clk: zte: Introduce a driver for zx297520v3
- top clocks and resets.
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Stefan =?ISO-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,  Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Brian Masney	 <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Wed, 03 Jun 2026 11:14:21 +0200
-In-Reply-To: <20260529-zx29clk-v3-3-c7fe54ea388f@gmail.com>
-References: <20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com>
-	 <20260529-zx29clk-v3-3-c7fe54ea388f@gmail.com>
-Content-Type: text/markdown; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1780478188; c=relaxed/simple;
+	bh=zZMMRaYCVfvGznAZaMWQjUMAtdzTOIBli6JD/djRl6c=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=eAo3Y8+4Jjp30Bo5AJs0DpS1RbtSTNC0TKF42V8skf3CCDRhSGhW/yuahquUPbelwcmc6WIQTdi8eVTGRIOtOLFPbptEQfEVW6AoFvPkuXZRVMaWoTB0Xmz0b0J6P2qdDRvh679re7Va9XNZERpm3k+PnKdlHkPBvlyO4t6AwSM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=lw+ngl/j; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZG6Jr+d/; arc=none smtp.client-ip=103.168.172.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="lw+ngl/j";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZG6Jr+d/"
+Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
+	by mailfhigh.phl.internal (Postfix) with ESMTP id 092B1140010D;
+	Wed,  3 Jun 2026 05:16:26 -0400 (EDT)
+Received: from phl-imap-03 ([10.202.2.93])
+  by phl-compute-04.internal (MEProxy); Wed, 03 Jun 2026 05:16:26 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
+	cc:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1780478186;
+	 x=1780564586; bh=vyee6GA+nWTTHzOKHQkml5rtHb2XOqTCfRzWyyvR/0M=; b=
+	lw+ngl/jwNEHm4RAoLixw50HbJ8WBvVO4Xh5FezsdzckaHYl+gj98dAg7D8KrXZO
+	acNm1NA1yy3GEzV6y95gv3Jj9CrZ3482cC/roLO9Kl2HOZCUPCq13tFTyMICyl+2
+	/hIXGY4L1aRpy+J3GkQeEmTOFZOZBfFUA4tZObMkyfol7XBa+WrJI7moST7mc98C
+	cfC+jyexq0gUAsSdC3D3PiUI81T3L/D0o+/onIRC5+QB3THev1jEIVcG7x8vzecX
+	LZN1Uqrv+jtYsn5lUYiA7H0s+BjXtLLXkLjKEPnuSNFq0i/ZmbWHyjiSUnptcbk/
+	zorPe5sw/43ha7xwUZOpPQ==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780478186; x=
+	1780564586; bh=vyee6GA+nWTTHzOKHQkml5rtHb2XOqTCfRzWyyvR/0M=; b=Z
+	G6Jr+d/mb4Vn+dx57WZu7UO4Cpa0sW0wjNe2Ea8Ti8m0NGnehJW2Jiyhu207AY/x
+	Yr4d5VelVByS2/UKT1ekkTP6VVlCfcCJ7dz8KtEfyljpCIuIp1Gu1U+zzTv2EFQ+
+	dQGq00FhBriCETd8BqyrEAw1zj0IjF92QydGFl7bp9vjL6nibK/O6ItBrT/pLGGX
+	CbJ/+8LnpPpsvLl1shC2GpzZJNP9ZaT2LIlsG8pfkhJlAqlib1XILJO99ylmvt30
+	a15ozh3gFswdwqiVtHFOWPURAk4L0q3tkN/QkFb9mAnldPDO2TH1kLyWf8KAx++N
+	DbmJ30Mb2namRoVRNZXOQ==
+X-ME-Sender: <xms:6fAfanEWFdfSK0xzUw3p7P_70Zqv-4DsDumqe0osby_MRNn4B-PNEg>
+    <xme:6fAfavLn3g_LpedoMZlOhNYqLlV8gykHFTIWfSSNlniWLxEm8-zCQ0RXgX-73k2zE
+    Qr20JasBAEI_cEbBlJioMZ--xo2OpDmNsYOvbwlZXGiVY8nvIW0Kw>
+X-ME-Proxy-Cause: dmFkZTEKtdUk3+AoNrb6F/9o5+qhQ3MJedbgaPlnSzxbii3fpnIWSakKB30IRXehXRWZ8a
+    3ArwDkxvG0XlD9ZRDd/oEngsRSASg8CVBxa7prWi7/Q1p6+/bTmnunWpL9c0l3T2Euye0G
+    LPwV1CcAvqwqTX3nCAUATvT0rYc0mnTpff6AkUQdW7vxkuRjFZaV997pWsndxIdO36608s
+    HlT87MdU4iNI0yTC+0PnFPdKzTNUKqg+6enjhDw6m2ys75CauEE69Gctn4VUaE8OuzHBaG
+    +vkSziUvakMY1a5UJoK6y/6Lelrq5Y1IRXaC91cn6GvZDAWRoL08YaFnWqmu8IIYsIdYrX
+    VHPJQgm8WlaYkTEPnEGSiRMQBc51jeK11IXvSKHod8QEIxgo2sGyEm8jxERRFsd5jbCf9U
+    v72TT+WsfUvH/zAZBCGgwYsp/sSr8I36+5XO2P9Y6jnCN/3dJix4qFCA3o5NOZEzNHL2QR
+    4xDLU9g8GgAAdpAVV/hfeUIp8BtE3N1yBGX2svO0c3cZ4R1zkZCpmLfUOmAP98zNusUBYN
+    axzCjNrnddeurXHP1yfFdngFwpxyBR51T9oZJuTKwY4par/mTFpKYyaQq7202ULoFkaElL
+    N7p9W3I2pcyFi+Z9K9Onq2eo6Ueeb+ahw+sW3rQx59YIyOxopNc98NzRjSYg
+X-ME-Proxy: <xmx:6fAfahCXgm-c-CqFw50O6wBWhMnxectsULnmhxR4hgxFVbQLkgHWPQ>
+    <xmx:6fAfaqjC7mKIzCzP6HTzIxcxnj0mNNKZy9e1S63FYQEVF9sjUVHkXA>
+    <xmx:6fAfajMkNJRCYsWZVAOdd4OM-utzxguWF7WEx3hS8ZXGbD8ztPuisg>
+    <xmx:6fAfapZNBotVaNo2Kq6tVXgORuFrfs4pjMwVJzXlrJeJoQv8iVHEcw>
+    <xmx:6vAfaoh1KFr33uvHO8-B9LUi2UhHhGsAl0z3dihTQuK4XfSfeh3agVg0>
+Feedback-ID: i72694427:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 1840618E006C; Wed,  3 Jun 2026 05:16:25 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+X-ThreadId: ALxfIZ7KI3KB
+Date: Wed, 03 Jun 2026 11:16:04 +0200
+From: "MINETTE Alexandre" <contact@alex-min.fr>
+To: "Krzysztof Kozlowski" <krzk@kernel.org>,
+ "Bjorn Andersson" <andersson@kernel.org>,
+ "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
+ "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+ "Conor Dooley" <conor+dt@kernel.org>,
+ "MyungJoo Ham" <myungjoo.ham@samsung.com>,
+ "Chanwoo Choi" <cw00.choi@samsung.com>,
+ "Guru Das Srinagesh" <linux@gurudas.dev>,
+ "Linus Walleij" <linusw@kernel.org>,
+ "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
+ "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
+ "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
+ "Guilherme G. Piccoli" <gpiccoli@igalia.com>
+Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
+ iommu@lists.linux.dev, phone-devel@vger.kernel.org
+Message-Id: <356a9e23-7172-4b26-993e-e82581d29553@app.fastmail.com>
+In-Reply-To: <39d8e501-d84e-4870-b98b-a08b0a68f8ee@kernel.org>
+References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
+ <20260519-mainline-send-v1-sending-v3-2-3dd7aa125353@alex-min.fr>
+ <39d8e501-d84e-4870-b98b-a08b0a68f8ee@kernel.org>
+Subject: Re: [PATCH v3 2/8] dt-bindings: extcon: qcom,pm8941-misc: Add PM8921
+ compatible
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fr, 2026-05-29 at 00:53 +0300, Stefan D=C3=B6singer wrote:
+Sorry I initially replied to the wrong thread by mistake.
 
-> ```
-This register space controls core devices: PLLs, the AHB bus, a lot of
-timers, the USB controller, the Cortex M0 processor that boots the board
-and a few other devices. For some reason the LTE coprocessor is also
-partially controlled by it. The main application processor and DDR
-memory are not found here though.
+Thanks for the feedback, Krzysztof.
 
->=20
-The register to reboot the board is also found here.
+Do you mean that the PM8921 USB ID handling should be exposed by the
+PM8921 parent node itself, so USB consumers would reference the PMIC
+directly, e.g.:
 
->=20
-Signed-off-by: Stefan D=C3=B6singer <stefandoesinger@gmail.com>
+  extcon =3D <&muic>, <&pm8921>;
 
->=20
----
+I am fine with that model, but it would require more driver changes: the
+current extcon driver binds to a separate platform device, while the
+PM8921 parent node is already handled by the PM8xxx MFD driver.
 
->=20
-Patch changlog:
+Is that the direction you would prefer for v4?
 
->=20
-v2:
-*) Add code to set up PLLs
-*) Merge top and matrix controllers into one device
-*) Bugfixes pointed out by Sashiko
----
- MAINTAINERS                      |   1 +
- drivers/clk/Kconfig              |   1 +
- drivers/clk/Makefile             |   1 +
- drivers/clk/zte/Kconfig          |  18 +
- drivers/clk/zte/Makefile         |   5 +
- drivers/clk/zte/clk-zx297520v3.c | 775 +++++++++++++++++++++++++++++++++++=
-++++
- drivers/clk/zte/pll.c            | 450 +++++++++++++++++++++++
- drivers/clk/zte/pll.h            |  23 ++
- 8 files changed, 1274 insertions(+)
+--=20
+  MINETTE Alexandre
+  contact@alex-min.fr
 
->=20
-```
-
-[...]
-
-> ```
-diff --git a/drivers/clk/zte/clk-zx297520v3.c b/drivers/clk/zte/clk-zx29752=
-0v3.c
-new file mode 100644
-index 000000000000..986042dd4caf
---- /dev/null
-+++ b/drivers/clk/zte/clk-zx297520v3.c
-@@ -0,0 +1,775 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Copyright (C) 2026 Stefan D=C3=B6singer
-+ */
-+#include <dt-bindings/clock/zte,zx297520v3-clk.h>
-+#include <linux/reset-controller.h>
-+#include <linux/platform_device.h>
-+#include <linux/clk-provider.h>
-+#include <linux/of_address.h>
-+#include <linux/reboot.h>
-+#include <linux/iopoll.h>
-+#include <linux/delay.h>
-+#include <linux/clk.h>
-+#include <linux/io.h>
-+
-+#include "pll.h"
-+
-+/* All LSP and some Matrix registers contain both resets and clock gates, =
-so access to them needs
-+ * to be synchronized between the reset and clock callbacks.
-+ */
-+static DEFINE_SPINLOCK(reg_lock);
-+
-+struct zx29_reset_reg {
-+	void __iomem *reg;
-+	u32 mask, wait_mask;
-+};
-+
-+struct zx29_clk_controller {
-+	struct clk_hw_onecell_data *clocks;
-+	struct reset_controller_dev rcdev;
-+	struct zx29_reset_reg resets[];
-+};
-+
-+static int __zx297520v3_rst_assert(struct reset_controller_dev *rcdev, uns=
-igned long id)
-+{
-+	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_clk_=
-controller,
-+							    rcdev);
-+	u32 val;
-+
-+	val =3D readl(data->resets[id].reg);
-+	val &=3D ~data->resets[id].mask;
-+	writel(val, data->resets[id].reg);
-+
-+	return 0;
-+}
-+
-+static int zx297520v3_rst_assert(struct reset_controller_dev *rcdev, unsig=
-ned long id)
-+{
-+	unsigned long flags;
-+	int res;
-+
-+	spin_lock_irqsave(&reg_lock, flags);
-+	res =3D __zx297520v3_rst_assert(rcdev, id);
-+	spin_unlock_irqrestore(&reg_lock, flags);
-+
-+	return res;
-+}
-+
-+static int __zx297520v3_rst_deassert(struct reset_controller_dev *rcdev, u=
-nsigned long id)
-+{
-+	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_clk_=
-controller,
-+							    rcdev);
-+	u32 val;
-+
-+	val =3D readl(data->resets[id].reg);
-+	val |=3D data->resets[id].mask;
-+	writel(val, data->resets[id].reg);
-```
-
-
-I'd move the spinlock in here ...
-
-
-> ```
-+	/* This is a special case used only by USB reset */
-+	if (data->resets[id].wait_mask) {
-+		return readl_poll_timeout(data->resets[id].reg + 4, val,
-+					  val & data->resets[id].wait_mask, 1, 100);
-```
-
-
-... because this might sleep.
-
-
-> ```
-+	}
-+
-+	return 0;
-+}
-+
-+static int zx297520v3_rst_deassert(struct reset_controller_dev *rcdev, uns=
-igned long id)
-+{
-+	unsigned long flags;
-+	int res;
-+
-+	spin_lock_irqsave(&reg_lock, flags);
-+	res =3D __zx297520v3_rst_deassert(rcdev, id);
-+	spin_unlock_irqrestore(&reg_lock, flags);
-+
-+	return res;
-+}
-+
-+static int zx297520v3_rst_reset(struct reset_controller_dev *rcdev, unsign=
-ed long id)
-+{
-+	unsigned long flags;
-+	int res;
-+
-+	spin_lock_irqsave(&reg_lock, flags);
-+
-+	res =3D __zx297520v3_rst_assert(rcdev, id);
-+	if (res)
-+		goto unlock;
-+	udelay(100);
-```
-
-
-Is this delay long enough for all potential users of reset_control_reset()?=
- Are there actually any at all?
-
-Why delay under the global spinlock? =20
-You could use fsleep() instead and only lock the read-modify-write cycles.
-
-
-> ```
-+	res =3D __zx297520v3_rst_deassert(rcdev, id);
-+
-+unlock:
-+	spin_unlock_irqrestore(&reg_lock, flags);
-+	return res;
-+}
-+
-+static int zx297520v3_rst_status(struct reset_controller_dev *rcdev,
-+			       unsigned long id)
-+{
-+	struct zx29_clk_controller *data =3D container_of(rcdev, struct zx29_clk_=
-controller,
-+							    rcdev);
-+	u32 val;
-+
-+	val =3D readl(data->resets[id].reg);
-+
-+	return val & data->resets[id].mask;
-```
-
-
-This will return a negative value for bit BIT(31), I'd wrap this with a dou=
-ble negation.
-
-regards =20
-Philipp
-
+Mer 20 mai 2026, =C3=A0 09:22, Krzysztof Kozlowski a =C3=A9crit=E2=80=AF:
+> On 19/05/2026 09:16, Alexandre MINETTE via B4 Relay wrote:
+>> From: Alexandre MINETTE <contact@alex-min.fr>
+>>=20
+>> PM8921/PM8821 provide USB ID detection through the PMIC USB block. The
+>> USB_ID_IN interrupt is exposed by the PM8921 interrupt controller and=
+ is
+>> used by APQ8064 platforms for OTG role detection.
+>>=20
+>> The device is modeled as a child of the SSBI-connected PM8921 PMIC.
+>> Unlike PM8941, the downstream PM8xxx misc device is not instantiated =
+with
+>> a register resource for this path, and the mainline extcon driver only
+>
+> I could have guessed that at v2, but this suggests that device is not a
+> separate block. If it does not have separate addressing, then it is not
+> a dedicated/separate sub device in the PMIC and your node plus binding
+> should be squashed into the parent.
+>
+>> needs the named USB ID interrupt. Allow qcom,pm8921-misc without requ=
+iring
+>> reg.
+>>=20
+>> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
+>> ---
+>>  .../devicetree/bindings/extcon/qcom,pm8941-misc.yaml    | 17 +++++++=
+++++++----
+>>  1 file changed, 13 insertions(+), 4 deletions(-)
+>
+>
+> Best regards,
+> Krzysztof
