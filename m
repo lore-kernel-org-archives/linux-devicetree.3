@@ -1,83 +1,79 @@
-Received: from mail-wm1-f42.google.com (mail-wm1-f42.google.com [209.85.128.42])
+Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48144349B15
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:57:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D0C3FFAAD
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:57:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780469860; cv=none; b=YjV3PsLXfdVy4qG3mVXNcktIlx2REmGK0BKMfBS4GY1PjVNeG2M7sQe3j9vBGn6dBjuIy34HL6RJgx5taaCEJy8YivFp8IWuzA1Fplqv/N4CrjStC1SPotCfTMC0umfxl8vZsxJNUVO18KwsiTTv7IIHhTLhyAWP8XCXiKPo8W0=
+	t=1780469877; cv=none; b=uz4kjU8MJdeWx7eXPN0zHG9PRtGYj3aT8nLGtxeE3SN5Oe67x03kLHzhHpGGtNli+iMWMAghte1RME3zz7r5MzGYruRlRii6OhMSzAjtbGnSPH/oUdzUfcIgFtc0yqhfbdVpwsP83Nw83ywRqfcS6uE2ZBrUAQFkTVE7r8E80Vs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780469860; c=relaxed/simple;
-	bh=ktPWTrIQ6kUyMYFIfy7AUvYRJMB22/jk4rE8DMBdAcI=;
+	s=arc-20240116; t=1780469877; c=relaxed/simple;
+	bh=v3IjyQgglOOTVeeWXh+06aZwuDskZfHVMBekAWMwrHQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b0Ay7GOLlRD5Tj4sPk2n/JcsWsp/Yfi5qlZ2KSkt1gQbxvBIQldOoQJ/CaWdMWER1JbljBCD2ujyUVwgQ4Y+ytQV+FKR0YWym4IXvdQx9ypPGweY63JpWmu8I5Ix64sQKaMw96C+gD0PmtKxZHellSxePH4YaogDKIFis8XsDCw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=C2eek9Tq; arc=none smtp.client-ip=209.85.128.42
+	 MIME-Version; b=lUGovDGoa2+m9ruIpnCFJryJwMipfVsKpuJ3c6rRbXdljdsgnCqIMf13U75RBJVochfkJGzthnsGR3/JziHoKNM1qTd4GG25eruvPqKg3nuBiT63G19lQwAfJTMwLsaFuiq80IkQZwjvJ82Y3GXdxwkw0JEym8mviwvfxZ+u8ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g3BCNlD1; arc=none smtp.client-ip=209.85.128.52
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="C2eek9Tq"
-Received: by mail-wm1-f42.google.com with SMTP id 5b1f17b1804b1-490afc47455so11368185e9.2
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:57:38 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g3BCNlD1"
+Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490b7866869so3731755e9.2
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:57:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780469857; x=1781074657; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780469872; x=1781074672; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=sxODoCaYbGYHXWV46RIuqQL4fxR5L5CkKK8wbKgagJA=;
-        b=C2eek9Tqala0KNlteyH+wFaDlUfs8LX6rXXOrQkv5HAbJBYSYNlMuNewhqt0lsb30v
-         zhD5RNeKNjEAP3RE3vbOkMuTVZ0qKhesXwNJXhyl3FOR9PT9syvcJdir4bZqH7wvx8+y
-         F7Bo1MQWfIY9hW89lymPg9+vXFXBepXjNTE2PTxKG0pxlXnJHsa/mZ5/+Uaw83wYOo8v
-         gOXZxBD+nnVDJzzLEHN9j+haE8cvVJ/IZ/Jkr59eoa3FbuRVog13Iyy3DeHBRa7JlFvX
-         +CpCW4kvFjvpffOPEdJU4qbk3Aego1xitJsZq1y3eonLvkhkNCr6Iz9+wu0xLvlg5gWD
-         DneQ==
+        bh=NCOt5VX5nH8DaUUpoW8TOvBdLCkAWYJWESW888dwXMY=;
+        b=g3BCNlD1FTrvfachFjoOgM9J5cHsccjsEJvFc7rPeWMc0LRp7XZLFbz+I1rxYDh69r
+         20bA//E8mgg8T4bDbAQ/mfeU/wF2MtrfpnGKW8G4+fzZqi0dbtpl2DHWjjc6YQMPc7YH
+         ohwCKfNDiFr390psFWTNKSXzWzXh6WpOhLsWqsRcFBf+39o/QCHHS8Y3tohkvolcJKMe
+         ItH7ibspQhR22N24oDw/ghkeWGl5AViWEh1auz0ZkcwCnB7ZnWJVUSY4aKGx3vXbceFQ
+         9KMGnM918WQvyLculcK/4+D0IZRTgvWmTXk34D6hEsHb8q4pyeASApEGf5IWPdJkVhnY
+         kCQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780469857; x=1781074657;
+        d=1e100.net; s=20251104; t=1780469872; x=1781074672;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=sxODoCaYbGYHXWV46RIuqQL4fxR5L5CkKK8wbKgagJA=;
-        b=kDzeTYdW6eZLyDq9q6MGLHwzEHyrJb7ym/2N+m0Gf4RU2nlXpt2fk8I8tHENve2rt7
-         NyWGQuPkJtB+CeyyppKsvXsxVs2JtgMT+xIanJdfOW+bfm/f9IlNuGBPXIdExd4hXbPm
-         Wub+X4l2wT78pfGl7OlMNwDw0TCxIfMj8oj+uunO6+GB/jdQ/vqogPimB7piT+j8b7nk
-         8DgFMFTy2LITfbZZhiEAYIo0XFPwqfpVhWG+6xNwm5ig8xEHIRD/tJ1/p/SCCSQo2YtZ
-         7Vxy/xut3Vrn10Wb/10bEY7LUTSp2Dh66nZ0w3hMWw9QJqROO8DS8O4JuIwUB1Je7ys4
-         VvKg==
-X-Forwarded-Encrypted: i=1; AFNElJ9+8psKxSqpw0IT3Th5g9CaEJc5eLvEvpIqL3iDm0eCJOLq5HyjIioDguoidZixIWxbyuftzokc37wO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx94phsVbBrOZC94OIjLK/6r7hkpzr0t+jheuUV/4Wx+P2Vut1Z
-	3u8xWgIkClEIubbdQdsMYeDXjsVAymj03Y4/wDUUQ/0aR/nnR8tkbBe6
-X-Gm-Gg: Acq92OFtHHF+u5dp6dIvfflQQu9GEc/rlhC6oekAo2KUNuZjIMwzM/CDJVe5b82xKrv
-	3pU3QD5PUM/RHoNtAfunk43YMUyHr4drRoq00L3Ad6lYfHqHuXJJuWRklTFQFKjXqAZz71ViIHo
-	r4vA7+PWDs4dLghrCtX32LorqvQGZi1c66JowJptYjVFE43r9b7NH0j4Phlr3jH2v0LiQIFR3EI
-	obIPOfYII6ZqxyjO5qni9/+xwP2I1mDWoQC2YUicUV+YU4fWuL1/KvZtgrDle8YK+9j/Y+hHyY1
-	IolAKQGtgxnsR7vazwUgRWfgen24sbEbisILfIittuWEIM6SQ2ySIJiB+SOJOIBr/tjA3KZO6y3
-	j1yt+hPHYThn225M9svVnSVmIk3fNV1fPCiEaTXZ/ywGvNYJflodHa4JV8o5hJAaQ0osu8KQQ8+
-	xeI+SE65ailmWE2b5MyJGoI0zrXtt0Ow1eg4xcScmGG1wXD+oa3orrWtFgsvc8dDjVkdr9BQ==
-X-Received: by 2002:a05:600c:810c:b0:48a:525b:e148 with SMTP id 5b1f17b1804b1-490b5e7959emr31834725e9.4.1780469856635;
-        Tue, 02 Jun 2026 23:57:36 -0700 (PDT)
+        bh=NCOt5VX5nH8DaUUpoW8TOvBdLCkAWYJWESW888dwXMY=;
+        b=pbccAyrXLpatQIRxsvdbnQeVHkYqtcJKeJkURg9uDVrQDhaYpljM2o/ys8CE0dJL3X
+         wO0QfHO+CF5GvFKHA9iY5Dabsh47DLAUJ3MZK/MbidK7xG28xy6OFQjY2BX+RYIvZoiw
+         eplOcTF1esiihoNRB/0DqoaCLbkns3KeAVfETUuD3XreD3fpDtj6cUrJ/pVdS/kZiQbP
+         9kTqGe860e8LB2dBcNTgH+5j9bl1bMm2IBCqEXyQ6tzcYL8jhiA0tsXWBdlypaeSAZ4O
+         zXvwDI2TJUB/txxq51+j4QDdDM4ZPgBoZf0rN3YlXIF/sUVz0keSOKKAAn4mCkurfQ/f
+         hXXw==
+X-Forwarded-Encrypted: i=1; AFNElJ/zKxfI3RVlfKYxclFuNkdPzNSDzpJ7a26bMn9BfFDXEXcLr2hBvNrY+FuQxt8TfJygjbGWaejIgtge@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx7mQgChR4WSL/4/S2GIX39ogJUAdngMC10uFTZ4PbVuJ+N7KWO
+	IfUSaPxZi2x3BmbJIBY/g8H2H5VHSELUXHVajMGod/s/J5zCmOgZnpnQ
+X-Gm-Gg: Acq92OGztIujV4jGTNN5zG8G8mScIcDNBAEpkQgj6SNPH7KrJhiCMbOD7oJH9hfOOVg
+	BQ2zJ0GblqtBE53nYrBqP7QOsn1bmPppaQS05+WdE/BqhZ2eJlAaN6xr6GwIz0szvcmQpQZRYHU
+	9OUn7vNpoOoI4GeLPBWAljd+t16phM1cbJoJ6Q5LnDDMFQ8ylmO4JOY0qElrTJ1hOrFCKzzggYI
+	cDgerI95fanUAc9qM9Vgoo04waqdYvCW2k58AusdLduy0uL/iraphN6mj/BMq5X8YB94MG4gSoW
+	iqthfiCtma6jMyWWgPOWpD6nHW85x77vZDBK8gIqEKXPNOSgDi34RF+AQhwP1OadyvHo+0LjpW9
+	caz1jLkq2quYKVhhTdh7wALGJzsvEP+lRyvQLKJufucrosLs+JyMNhyLl61atkqZ7szdaw9eCqA
+	ohlQaGjB+Q1MfxQQk+gpmDcdkdig4KW20a9isuGVADfhCj/exsns9nkBt/YxA=
+X-Received: by 2002:a05:600c:3e05:b0:48f:d5a0:284e with SMTP id 5b1f17b1804b1-490b6101131mr32373605e9.28.1780469871500;
+        Tue, 02 Jun 2026 23:57:51 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a700:7301:179c:89ab:19f6:9ba4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d90bdsm9001855e9.0.2026.06.02.23.57.35
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d90bdsm9001855e9.0.2026.06.02.23.57.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 23:57:36 -0700 (PDT)
+        Tue, 02 Jun 2026 23:57:51 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Ulf Hansson <ulfh@kernel.org>,
+To: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
 	Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>
+	Conor Dooley <conor+dt@kernel.org>
 Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	Wolfram Sang <wsa+renesas@sang-engineering.com>,
-	linux-mmc@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
 	devicetree@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>,
-	Conor Dooley <conor.dooley@microchip.com>
-Subject: [PATCH v17 01/17] dt-bindings: mmc: renesas,sdhi: Document RZ/G3L (r9a08g046) SoC
-Date: Wed,  3 Jun 2026 07:57:01 +0100
-Message-ID: <20260603065731.93243-2-biju.das.jz@bp.renesas.com>
+	Biju Das <biju.das.au@gmail.com>
+Subject: [PATCH v17 16/17] arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
+Date: Wed,  3 Jun 2026 07:57:16 +0100
+Message-ID: <20260603065731.93243-17-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
 References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
@@ -91,197 +87,176 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Document the RZ/G3L (r9a08g046) SDHI controller. The RZ/G3L SDHI
-controller is similar to RZ/G2L but has five clocks (core, clkh,
-cd, aclk, aclkm) and three resets (rst, axim, axis), so update the
-clocks/clock-names maximum to 5 and resets/reset-names maximum to 3.
-It has an internal divider for all modes except HS400, and a 2048-bit
-divider compared to 512 on others.
+Add support for enabling SD card or eMMC on SDHI0 on the RZ/G3L SMARC
+SoM. The selection between SD and eMMC is controlled by the
+SW_SD0_DEV_SEL macro in the board DTS, which must match the position
+of switch SYS.1 on the SoM. By default, eMMC is enabled.
 
-Acked-by: Conor Dooley <conor.dooley@microchip.com>
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v1->v2:
- * Collected tag.
+ * No change.
 ---
- .../devicetree/bindings/mmc/renesas,sdhi.yaml | 101 +++++++++++++-----
- 1 file changed, 75 insertions(+), 26 deletions(-)
+ .../boot/dts/renesas/r9a08g046l48-smarc.dts   |   1 +
+ .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 111 ++++++++++++++++++
+ 2 files changed, 112 insertions(+)
 
-diff --git a/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml b/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml
-index 4d66966ce290..16cb395403f6 100644
---- a/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml
-+++ b/Documentation/devicetree/bindings/mmc/renesas,sdhi.yaml
-@@ -18,6 +18,7 @@ properties:
-           - renesas,sdhi-r7s9210 # SH-Mobile AG5
-           - renesas,sdhi-r8a73a4 # R-Mobile APE6
-           - renesas,sdhi-r8a7740 # R-Mobile A1
-+          - renesas,sdhi-r9a08g046 # RZ/G3L
-           - renesas,sdhi-r9a09g057 # RZ/V2H(P)
-           - renesas,sdhi-sh73a0  # R-Mobile APE6
-       - items:
-@@ -86,11 +87,11 @@ properties:
+diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+index a4cc07408b3f..2f16a2bb6dc8 100644
+--- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
++++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
+@@ -9,6 +9,7 @@
  
-   clocks:
-     minItems: 1
--    maxItems: 4
-+    maxItems: 5
+ /* Switch selection settings */
+ #define RZ_BOOT_MODE3		1
++#define SW_SD0_DEV_SEL		0
+ #define SW_SD2_EN		0
+ #define SW_DPI_EN		0
+ #define SW_GPIO4		1
+diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+index 091a227233cb..446c7780cb30 100644
+--- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
++++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
+@@ -9,6 +9,10 @@
+  * Please set the below switch position on the SoM and the corresponding macro
+  * on the board DTS:
+  *
++ * Switch position SYS.1, Macro SW_SD0_DEV_SEL:
++ *      0 - SD0 is connected to eMMC (default)
++ *      1 - SD0 is connected to uSD0 card
++ *
+  * Switch position SYS.2, Macro SW_I3C_EN:
+  *      0 - SMARC_I2C_GP is enabled
+  *      1 - I3C is enabled
+@@ -37,6 +41,7 @@ aliases {
+ 		ethernet0 = &eth0;
+ 		ethernet1 = &eth1;
+ 		i2c0 = &i2c0;
++		mmc0 = &sdhi0;
+ 	};
  
-   clock-names:
-     minItems: 1
--    maxItems: 4
-+    maxItems: 5
+ 	memory@48000000 {
+@@ -63,6 +68,19 @@ reg_3p3v: regulator-3p3v {
+ 		regulator-always-on;
+ 	};
  
-   dmas:
-     minItems: 4
-@@ -116,7 +117,12 @@ properties:
-     maxItems: 1
- 
-   resets:
--    maxItems: 1
-+    minItems: 1
-+    maxItems: 3
++#if SW_SD0_DEV_SEL
++	vqmmc_sd0_pvdd: vqmmc-sd0-pvdd {
++		compatible = "regulator-gpio";
++		regulator-name = "SD0_PVDD";
++		regulator-min-microvolt = <1800000>;
++		regulator-max-microvolt = <3300000>;
++		gpios = <&pinctrl RZG3L_GPIO(L, 4) GPIO_ACTIVE_HIGH>;
++		gpios-states = <0>;
++		states = <3300000 0>, <1800000 1>;
++		regulator-ramp-delay = <1200>;
++	};
++#endif
 +
-+  reset-names:
-+    minItems: 1
-+    maxItems: 3
+ 	x2_clk: x2-clock {
+ 		compatible = "fixed-clock";
+ 		#clock-cells = <0>;
+@@ -216,7 +234,100 @@ i2c0_pins: i2c0 {
+ 		pinmux = <RZG3L_PORT_PINMUX(L, 2, 4)>, /* RIIC0_SCL */
+ 			 <RZG3L_PORT_PINMUX(L, 3, 4)>; /* RIIC0_SDA */
+ 	};
++
++	sd0-pwr-en-hog {
++		gpio-hog;
++		gpios = <RZG3L_GPIO(5, 1) GPIO_ACTIVE_HIGH>;
++		output-high;
++		line-name = "sd0_pwr_en";
++	};
++
++	sdhi0_emmc_pins: sd0-emmc {
++		sd0-ctrl {
++			pins = "SD0_CLK", "SD0_CMD";
++			power-source = <1800>;
++		};
++
++		sd0-data {
++			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3",
++			       "SD0_DAT4", "SD0_DAT5", "SD0_DAT6", "SD0_DAT7";
++			power-source = <1800>;
++		};
++
++		sd0-rst {
++			pins = "SD0_RST#";
++			power-source = <1800>;
++		};
++
++		sd0-ds {
++			pins = "SD0_DS";
++			power-source = <1800>;
++		};
++	};
++
++	sdhi0_usd_pins: sd0-usd {
++		sd0-cd {
++			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
++		};
++
++		sd0-ctrl {
++			pins = "SD0_CLK", "SD0_CMD";
++			power-source = <3300>;
++		};
++
++		sd0-data {
++			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
++			power-source = <3300>;
++		};
++	};
++
++	sdhi0_usd_uhs_pins: sd0-usd-uhs {
++		sd0-cd {
++			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
++		};
++
++		sd0-ctrl {
++			pins = "SD0_CLK", "SD0_CMD";
++			power-source = <1800>;
++		};
++
++		sd0-data {
++			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
++			power-source = <1800>;
++		};
++	};
++};
++
++#if (SW_SD0_DEV_SEL)
++&sdhi0 {
++	pinctrl-0 = <&sdhi0_usd_pins>;
++	pinctrl-1 = <&sdhi0_usd_uhs_pins>;
++	pinctrl-names = "default", "state_uhs";
++
++	vmmc-supply = <&reg_3p3v>;
++	vqmmc-supply = <&vqmmc_sd0_pvdd>;
++	bus-width = <4>;
++	sd-uhs-sdr50;
++	sd-uhs-sdr104;
++	status = "okay";
++};
++#else
++&sdhi0 {
++	pinctrl-0 = <&sdhi0_emmc_pins>;
++	pinctrl-1 = <&sdhi0_emmc_pins>;
++	pinctrl-names = "default", "state_uhs";
++
++	vmmc-supply = <&reg_3p3v>;
++	vqmmc-supply = <&reg_1p8v>;
++	bus-width = <8>;
++	mmc-hs200-1_8v;
++	mmc-hs400-1_8v;
++	mmc-hs400-enhanced-strobe;
++	non-removable;
++	fixed-emmc-driver-type = <1>;
++	status = "okay";
+ };
++#endif
  
-   pinctrl-0:
-     minItems: 1
-@@ -155,60 +161,101 @@ allOf:
-         properties:
-           compatible:
-             contains:
--              enum:
--                - renesas,sdhi-r9a09g057
--                - renesas,rzg2l-sdhi
-+              const: renesas,sdhi-r9a08g046
-       then:
-         properties:
-           clocks:
-             items:
-               - description: IMCLK, SDHI channel main clock1.
-               - description: CLK_HS, SDHI channel High speed clock which operates
--                             4 times that of SDHI channel main clock1.
-+                             2 times that of SDHI channel main clock1.
-               - description: IMCLK2, SDHI channel main clock2. When this clock is
-                              turned off, external SD card detection cannot be
-                              detected.
--              - description: ACLK, SDHI channel bus clock.
-+              - description: ACLK/IACLKS, SDHI channel bus clock.
-+              - description: IACLKM, SDHI channel bus clock m.
-           clock-names:
-             items:
-               - const: core
-               - const: clkh
-               - const: cd
-               - const: aclk
-+              - const: aclkm
-+          resets:
-+            items:
-+              - description: rst, Core reset.
-+              - description: axim, SDHI axi bus reset m.
-+              - description: axis, SDHI axi bus reset s.
-+          reset-names:
-+            items:
-+              - const: rst
-+              - const: axim
-+              - const: axis
-         required:
-           - clock-names
-           - resets
-+          - reset-names
-       else:
-         if:
-           properties:
-             compatible:
-               contains:
-                 enum:
--                  - renesas,rcar-gen2-sdhi
--                  - renesas,rcar-gen3-sdhi
--                  - renesas,rcar-gen4-sdhi
-+                  - renesas,sdhi-r9a09g057
-+                  - renesas,rzg2l-sdhi
-         then:
-           properties:
-             clocks:
--              minItems: 1
--              maxItems: 3
--            clock-names:
--              minItems: 1
--              uniqueItems: true
-               items:
--                - const: core
--                - enum: [ clkh, cd ]
--                - const: cd
--        else:
--          properties:
--            clocks:
--              minItems: 1
--              maxItems: 2
-+                - description: IMCLK, SDHI channel main clock1.
-+                - description: CLK_HS, SDHI channel High speed clock which operates
-+                               4 times that of SDHI channel main clock1.
-+                - description: IMCLK2, SDHI channel main clock2. When this clock is
-+                               turned off, external SD card detection cannot be
-+                               detected.
-+                - description: ACLK, SDHI channel bus clock.
-             clock-names:
--              minItems: 1
-               items:
-                 - const: core
-+                - const: clkh
-                 - const: cd
-+                - const: aclk
-+            resets:
-+              maxItems: 1
-+          required:
-+            - clock-names
-+            - resets
-+        else:
-+          if:
-+            properties:
-+              compatible:
-+                contains:
-+                  enum:
-+                    - renesas,rcar-gen2-sdhi
-+                    - renesas,rcar-gen3-sdhi
-+                    - renesas,rcar-gen4-sdhi
-+          then:
-+            properties:
-+              clocks:
-+                minItems: 1
-+                maxItems: 3
-+              clock-names:
-+                minItems: 1
-+                uniqueItems: true
-+                items:
-+                  - const: core
-+                  - enum: [ clkh, cd ]
-+                  - const: cd
-+          else:
-+            properties:
-+              clocks:
-+                minItems: 1
-+                maxItems: 2
-+              clock-names:
-+                minItems: 1
-+                items:
-+                  - const: core
-+                  - const: cd
- 
-   - if:
-       properties:
-@@ -247,7 +294,9 @@ allOf:
-       properties:
-         compatible:
-           contains:
--            const: renesas,sdhi-r9a09g057
-+            enum:
-+              - renesas,sdhi-r9a08g046
-+              - renesas,sdhi-r9a09g057
-     then:
-       properties:
-         vqmmc-regulator:
+ &wdt0 {
+ 	timeout-sec = <60>;
 -- 
 2.43.0
 
