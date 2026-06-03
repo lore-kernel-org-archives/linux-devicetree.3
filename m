@@ -1,115 +1,150 @@
-Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com [209.85.128.176])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07EF13D6488
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:42:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.176
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF993D967A;
+	Wed,  3 Jun 2026 14:44:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497770; cv=none; b=snO+Ft/SMDOPRIzWzPytk6fMuNWpah8EvnZMt11qqxr9/pQAebou8z661n556YrZaA2QR9GFZu7acGvwJ3t7dpbdG32HaFjeI/G7FN5Y/0xozKO/LKY+z3pO974pFDHkuGV0r3/umbFtFe+S812xNa5639Z+MNuW57QL+qCRcXQ=
+	t=1780497876; cv=none; b=h27JKSFPTUCA7qPlQ+b2CbdRKNzTng4sIs9GnshGIhS+vthpsw7OT6fNqywo9znL+bd2bvvPeEzsp9cdPAUlycjiBX2pfF/Dh4/eIQ8AR8gu78XGzNQMoKrSBSvoXlqtUYpjimTGV4tXNipkxvu/ZWSUmF4f8fyPD0yZJD+Kva4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497770; c=relaxed/simple;
-	bh=TElSRUVHBNGTnko5oEEDBAu/L+B9LgigDWbZewSLW9w=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CLGDYvFRrcoBcZD9bEIotq402ZKCdtTVv4Ad7qdClJrCHQb0F29cymQxJgLkrjTCU1tTEU0xjMcnZB7X2sHW4ggWXQ44xJLX4t7DDbfOBFG+xn48abRr07sJxhi3+86VJCykWFoDGff3t7iKyDXgNMaHPq4OxLVMmpLHCjXvNkw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nBx/fM1y; arc=none smtp.client-ip=209.85.128.176
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780497876; c=relaxed/simple;
+	bh=DJemCHXelp6y6s7MDJZjUY+k/5vkilvcFuhILApetv0=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=SZ3UXaTv8SGGaSj5pv6gAmTgz1gcGQF37se54jinP+oJiIrWGFY2d8QwzvwGKoZNXeH99LymLp/RDATcZCRtm6NlG6dHqqof0Hr0+aWH2ndNRvceaetaOd4WPtzGyque++tF/kluZYJy+2hYLJD2Y1ySzhZjX5L++Wel4qZaG8Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A+GqCWGI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nBx/fM1y"
-Received: by mail-yw1-f176.google.com with SMTP id 00721157ae682-7e0fc8ead7eso54202607b3.2
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:42:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780497768; x=1781102568; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=rHKWer5YzIktM08gYTN/IYle79QxK5fXHWRMtT9CjIU=;
-        b=nBx/fM1yzPAqi/VuwUplae+U9iBBMedtRsHNR0VBATfa1ALwrC/UNy+sjVLchIS+zk
-         gfTFe0j2c1gyNRDOM1A3Q7G3mTceA6br3d+eZWazFG4OkyuevsChAwRqCuHtaZXMO1v7
-         4lpw2f6GOxBTlpW8bQR/+d3kVSQEayXOv1Jkqvjosb8+KuyNp9uFCmKlv7C7KKb6byM3
-         kJNUVNxkmLxaYCH5kBW8nsml9VMMhmhDjpw0j40DE7HfdObWbdlDZJaD+YwzG7y+0KT8
-         i7RFf/88m/5vbU0L+pHbjeP11TWLpFpcBxpSKwGdDNVxjZ01ciZzV4VXbzXUv0H2POMA
-         XV9Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780497768; x=1781102568;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=rHKWer5YzIktM08gYTN/IYle79QxK5fXHWRMtT9CjIU=;
-        b=BRJFfbTOeohQmfT91BaKX/py70mgukGEyOd9vcuKa8Fyc2XS8s5vo0Zp0cN1SNdTH0
-         fg2pIRt7pz77KzNcpJYSS/dyGrPefydfQZxNNzmRpZoSAYTQIVnflLywQ4GKFG6H3u0G
-         7Quhm16eR9WlxjdsBVXu1VjCfPXIrG832LvCoT1thz70FuMMhf6DX7v8/cEYIMRVbazs
-         f+YiOkVgRTDS1GUegXmHoOifbgxq5pqiqni4RapstwS0QJQ9Djhd9yAcO83AwcnkVQ6w
-         cZECq5jse+Lg1OE58mKDJIRhiqC/oIUGCCNVghsVQoUefzdPYSZkU/YiAr0WTI3rMpdI
-         qbTw==
-X-Forwarded-Encrypted: i=1; AFNElJ/Q5uZ2hcGWfZXdGLgVIpqR+4qwv3+2iR39Nu+IpaAQJ5aoulOrxnG5XOzvzFFwjPykWZcYTiyot41v@vger.kernel.org
-X-Gm-Message-State: AOJu0YwlYmFN4N8ska0zOFf7KFItIDhScD+nAUiXnR8jcALXnHrzrx1I
-	2xkY/jFceWeT7QHU98FPFp3+jfELVpCC3Z2J7pdQkOhIWDOIDhDGv8pZ
-X-Gm-Gg: Acq92OHKmR3tVguRVc9eIc4RV5umMSM37sdQ9zBlnYeo6lNmc9DXzRN5YJIjUQRdgUh
-	XXMo2DyS37mGsb7runnDZPTPXTJT7cT8UM4UeDSzce7W9FvFZAi4wOpVliNMx/4LlobNcU/gS+h
-	v7HfT3aiOO5nq7OW73F50ZRigtyY/OxLQ1YxCzWNlH7eOKzLd0FcijXPSj1zNNHMMCLW2OO2Qaj
-	WbIbOSHW+p/M54k4/SQhQgdB3+5VHig8twhrXiZBvKxmj5XjanuKBZfNpCnhJkLRNB4OqLi8rSS
-	kgYL6dF1VL+tKuGdjyWsocJNHzDjZjmvtP+KnUMrt0+KYRGWp6tRtzL3XNpOBkvgKx3JPgjFxHo
-	TJMCEQfZ3qn9AlFYolpFScRFFB42JtVnA3Hg8SPBJ8WavQVkQxui/Ts/4xmBKcT7fCNJ7CZEHr0
-	2xbvcb6UiiXrl6yDO4gXvWRgB7rSSrNUQDLjGc3pQEgySFoQkv4OmYug==
-X-Received: by 2002:a05:690c:6806:b0:7d0:261a:692 with SMTP id 00721157ae682-7ea4b7e7289mr36006357b3.44.1780497767939;
-        Wed, 03 Jun 2026 07:42:47 -0700 (PDT)
-Received: from localhost ([2804:30c:1f02:6000:8b59:7c96:762e:9faa])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-7ea2148b48fsm17466527b3.12.2026.06.03.07.42.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 07:42:46 -0700 (PDT)
-Date: Wed, 3 Jun 2026 11:43:14 -0300
-From: Marcelo Schmitt <marcelo.schmitt1@gmail.com>
-To: Wadim Mueller <wafgo01@gmail.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Rob Herring <robh@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxwell Doose <m32285159@gmail.com>, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3 2/3] dt-bindings: iio: flow: add Sensirion SLF3S
- liquid flow sensor
-Message-ID: <aiA9gjJzWuX6taWv@debian-BULLSEYE-live-builder-AMD64>
-References: <20260530205435.37326-1-wafgo01@gmail.com>
- <20260530205435.37326-3-wafgo01@gmail.com>
- <ahxzpBcqN6o6q4a4@debian-BULLSEYE-live-builder-AMD64>
- <20260602-slf3s-v3-reply-08-wafgo01@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A+GqCWGI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 928EF1F00898;
+	Wed,  3 Jun 2026 14:44:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780497874;
+	bh=59hCP/n1qwr+OrrR7X03nglDH067pkyNmd7f+973UjI=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=A+GqCWGIWSZHQ/jJqbEftZKiraeLNN4CJ6oy9I8TP2tPolF3JP8TnWEiR/lWIWoYM
+	 VZQtWB81t0G5DrBRnWBKSNRFRwhr8IGhPVDyP2xyPgPBQUDA7qz+llFaXsFJI774OB
+	 corS1/eVt3gxRyoowJEljtNp7UR9SAoQ+d53SKNSohCtzSnKIP5VvZkWLV9Muq2uKf
+	 Vu+ookGMSd/br1KoROzU1mvzrLLHxzh5iYfxZt6K5TKTGrutTcxjCIkLIuEASArlLu
+	 AnQ2m2ZFHxc6np70qjeptcM6Lmm/Ads9jDbRPOfE3QbiQtbTX4EXPqfwdmsMnqmSqB
+	 wBBh+eXaWpqwQ==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 09/12] media: iris: Add support to select core for
+ dual core platforms
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: robh@kernel.org, conor+dt@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260603-glymur-v7-9-afaa55d11fe0@oss.qualcomm.com>
+References: <20260603-glymur-v7-9-afaa55d11fe0@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 14:44:34 +0000
+Message-Id: <20260603144434.928EF1F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260602-slf3s-v3-reply-08-wafgo01@gmail.com>
 
-On 06/03, Wadim Mueller wrote:
-> On Sun, 31 May 2026 14:45:08 -0300
-> Marcelo Schmitt <marcelo.schmitt1@gmail.com> wrote:
-> 
-> > We could add a mention to the IRQ pin to make the doc more complete.
-> >   interrupts:
-> >     maxItems: 1
-> 
-> I would let interrupts out for now. The driver is polled and in v2 the
-> feedback was to not put properties in the binding which we do not use. If
-> later a board uses the IRQ pin we can add it. Ok for you?
-> 
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [High] Dynamic core assignment logic mutates `inst->core_id` during strea=
+ming without firmware notification and without holding `inst->lock`.
+- [Medium] Initial core assignment bypasses MBPS constraints.
+--
 
-Well, okay for me. I suggested that because of the guidelines for dt-bindings [1].
+commit 2b81abf719d22ec30cd3764b2bba16be2af15168
+Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-[1] https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/tree/Documentation/devicetree/bindings/writing-bindings.rst?h=v7.1-rc6#n17
+media: iris: Add support to select core for dual core platforms
 
-Though, TBH, I'm also frequently tempted to leave interrupt properties out of
-bindings. It's not uncommon to have IIO drivers that don't support interrupt
-lines and, for those cases, having to describe the interrupts in dt ends up
-becoming just an extra task. Even though I don't know/recall the reason why dt
-maintainers have such guideline, they probably have a good reason to have that
-(right?). If the guidance has changed, then maybe we can update the guidelines
-for writing bindings?
+On platforms with two video codec cores, select the hardware core for
+a new session based on the current Macroblocks Per Frame (MBPF) and
+Macroblocks Per Second (MBPS) load on each core. The selected core is
+communicated to the firmware via the HFI_PROP_CORE_ID property at
+stream-on time.
 
-With best regards,
-Marcelo
+> diff --git a/drivers/media/platform/qcom/iris/iris_vb2.c b/drivers/media/=
+platform/qcom/iris/iris_vb2.c
+> index a2ea2d67f60d0..dbb89396e6514 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vb2.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vb2.c
+> @@ -176,6 +176,10 @@ int iris_vb2_start_streaming(struct vb2_queue *q, un=
+signed int count)
+>  	if (ret)
+>  		goto error;
+> =20
+> +	ret =3D iris_set_core_id(inst);
+
+[Severity: Medium]
+Since this initial core assignment is driven by iris_check_session_supporte=
+d()
+called just before this, does that function need to check both MBPF and MBPS
+limits?
+
+Currently, iris_check_session_supported() only calls iris_check_core_mbpf()=
+ to
+verify Macroblocks Per Frame limits. The complementary MBPS constraint check
+via iris_check_core_mbps() appears to be entirely omitted.
+
+Could this allow a session to be successfully assigned to a core that meets
+the MBPF limit but vastly exceeds its maximum processing capability (MBPS)?
+
+> +	if (ret)
+> +		goto error;
+> +
+>  	if (V4L2_TYPE_IS_OUTPUT(q->type)) {
+>  		if (inst->domain =3D=3D DECODER)
+>  			ret =3D iris_vdec_streamon_input(inst);
+
+[ ... ]
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu3x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu3x.c
+> index 65896d0c1f16b..9f8dacfa768d8 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu3x.c
+> @@ -318,6 +318,67 @@ static void iris_vpu36_program_bootup_registers(stru=
+ct iris_core *core)
+>  	writel(0x0, core->reg_base + CPU_CS_SCIACMDARG3);
+>  }
+> =20
+> +static int iris_vpu36_check_core_load(struct iris_inst *inst, bool mbpf)
+> +{
+> +	const struct iris_platform_data *platform_data =3D inst->core->iris_pla=
+tform_data;
+> +	u32 max_load =3D mbpf ? platform_data->max_core_mbpf : platform_data->m=
+ax_core_mbps;
+> +	u32 max_session_cnt =3D platform_data->max_session_count;
+> +	u32 core0_session_cnt =3D 0, core1_session_cnt =3D 0;
+> +	u32 core0_load =3D 0, core1_load =3D 0;
+> +	bool select_core0, select_core1;
+> +	struct iris_inst *instance;
+> +	u32 load, new_load;
+> +
+> +	inst->core_id =3D 0;
+
+[Severity: High]
+Is it safe to mutate inst->core_id here during active streaming without
+holding inst->lock?
+
+This function can be reached mid-stream if a concurrent s_parm call triggers
+iris_venc_s_param() -> iris_check_core_mbpf(). Since iris_venc_s_param()
+executes without holding inst->lock, a concurrent call can clear
+inst->core_id to 0 right before iris_set_core_id() reads it during
+iris_vb2_start_streaming().
+
+Additionally, altering inst->core_id mid-stream without notifying the
+firmware (which only receives HFI_PROP_CORE_ID at stream-on) permanently
+desynchronizes the driver from the firmware.
+
+This could cause iris_vpu36_get_required_freq() to incorrectly shift the
+session's power votes to the new core while the firmware continues executing
+on the old core, potentially leading to hardware underclocking and system h=
+angs.
+
+> +
+> +	list_for_each_entry(instance, &inst->core->instances, list) {
+> +		load =3D mbpf ? iris_get_mbpf(instance) : iris_get_mbps(instance);
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-glymur-v7-=
+0-afaa55d11fe0@oss.qualcomm.com?part=3D9
