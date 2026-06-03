@@ -1,83 +1,92 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F229C328B61
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:50:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72D6F31352B;
+	Wed,  3 Jun 2026 08:51:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780476625; cv=none; b=Cud33apbq9/6sBTGuD/a9vQlmptRSBgZme3l4ayybje4IMflaT40tQYgC1VG/RyFfWcLg2NtI7j69oyut2UfJPqf7X5oEujnQcDOBx4UO8PHPpi6fDlcOH9oS02jM3iOnEsaur1KegDn1bappDgbDbJi4iT8p4Q+FKT36MjjAQg=
+	t=1780476699; cv=none; b=SnPRyLanTWtPuSXdJRiAShU+3IyRlxsv39IHa3AXqH1+GrEVvu1avx8KL7LwhddcUqp7SjXENkRG+I/TwDKXnPvwQixL/hG/BZ8qvZoUmfGBTvbIA5svEry7MEQBXxlcB/mrzTiVTw+RtW1SHhBTlEtgme4D356yn3Wdn663QM8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780476625; c=relaxed/simple;
-	bh=kChDTn3kRYGc+IHl+JPYUW6GNro54cJia3usxiJj7kM=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=XkgL3olA1qEOwW58aaXVAapshXTvCzgu2To96MDdexlBPJCMIw9+fDa/Oc26d2RVQwVfzRE5PTUI5GC5slIC0olb5zgO4ElwEkvQ+iz+CcqhhGwy9CdeIS7jhCORMB2yJ/9mc1wcPIQf3PBtsJ0MsMG+fWd8CAcx6A574YBVHJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhIk-00064L-Vg; Wed, 03 Jun 2026 10:50:14 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhIk-000swV-2D;
-	Wed, 03 Jun 2026 10:50:14 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhIk-000000003f4-2VCO;
-	Wed, 03 Jun 2026 10:50:14 +0200
-Message-ID: <5620a8969da87612a2d89578be656b5d00662635.camel@pengutronix.de>
-Subject: Re: [PATCH RFC v3 0/5] ZTE zx297520v3 clock bindings and driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Stefan =?ISO-8859-1?Q?D=F6singer?= <stefandoesinger@gmail.com>,  Michael
- Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob
- Herring <robh@kernel.org>,  Krzysztof Kozlowski	 <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Brian Masney	 <bmasney@redhat.com>
-Cc: linux-clk@vger.kernel.org, devicetree@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org
-Date: Wed, 03 Jun 2026 10:50:14 +0200
-In-Reply-To: <20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com>
-References: <20260529-zx29clk-v3-0-c7fe54ea388f@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+	s=arc-20240116; t=1780476699; c=relaxed/simple;
+	bh=sLCb58xHcmUPPHSuiF6yEHJYQdG2XeWO0/DadmKfVGc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=gfCumiw4kc4lI5jcHKABOQFv+92b6b7ZSo963+56gudC+b8Gw09zhQgDLPx7EDitVriE07uAzurBkEByujVO5YUvYeG2j7HELtsw0vIx34LzvPIAZIXieiNHmEjP39hDqsefX7Mywo+6xVNeedbau0B5lzFzWakfGEhIKYB81cs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BEKYEpk5; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BEKYEpk5"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFAAE1F00893;
+	Wed,  3 Jun 2026 08:51:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780476698;
+	bh=ky+0PlcbE3OJcEuQIILClQcfknl4nIFL032gCd7KIqs=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=BEKYEpk5l7DZe9W2+zJ+QI8V6kShMNt2EV0GHN1pe9/FdTwvC6THTNJ98+J50etYf
+	 HaF5yRnzTZdZaL7BytOxp4/JsaUrUKShp6L6Y3BRMrF+8+qtuqG2it52GtQuK3Jlgl
+	 jCV/qtdLu6dXCsHSSn3/r/UA8NL6e8dPIX5RkOGb5WmleqDANCYirx7eH6TTLGxKrc
+	 qzLZs8fXrFNT6HiTmVU/k14jGpJkKg3ZBTlR4AAPQUtD/Fq0QDpCpcRa9lZqrWaxFI
+	 6zLCKdFZEDPpyinfyVZzu9r6w7t5cs5yu+zP3OKxKWP0A45sBwYqhIhwTwqgdC3slt
+	 BYQVZZxCo++xw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v5 06/14] media: mediatek: vcodec: define MT8196 vcodec
+ levels.
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Kyrie Wu" <kyrie.wu@mediatek.com>
+Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
+In-Reply-To: <20260603084045.17488-7-kyrie.wu@mediatek.com>
+References: <20260603084045.17488-7-kyrie.wu@mediatek.com>
+Content-Type: text/plain; charset=utf-8
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+Date: Wed, 03 Jun 2026 08:51:37 +0000
+Message-Id: <20260603085137.CFAAE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-On Fr, 2026-05-29 at 00:52 +0300, Stefan D=C3=B6singer wrote:
-> Hi,
->=20
-> I am sending version 3 of my zx297520v3 clock patch. The major change is=
-=20
-> that I have merged the top and matrix clocks into one device because=20
-> the interface between them is unclear in the hardware.
->=20
-> There are still a few open questions though:
->=20
-> 1) The clk-reset interaction: Both clocks and resets are in the same IO=
-=20
-> space, sometimes in the same registers. I see a number of clk drivers=20
-> that register a reset control. I noticed Yu-Chun Lin's RTD1625 clock=20
-> submission added an aux device and placed the reset code in=20
-> drivers/reset instead. Is there a preference for either way or any=20
-> guideline of which way to use in which circumstances?
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Low] The patch introduces the undeclared identifier `MTK_VDEC_MT8196` be=
+fore it is defined, causing a compilation error and breaking `git bisect`.
+--
 
-When there is no interaction required when operating the clk/reset
-bits, I prefer the reset driver sitting in drivers/reset as an aux
-device, especially when register access can be abstracted via a shared
-regmap. Some of the reset drivers under drivers/clk just predate the
-aux bus.
+commit 918de5bcb94623dd2782fada54c8dcb18dc11b48
+Author: Yunfei Dong <yunfei.dong@mediatek.com>
 
+media: mediatek: vcodec: define MT8196 vcodec levels.
 
-regards
-Philipp
+The patch updates various vcodec control configuration functions to add
+support for the MT8196 chip by setting the maximum profiles and levels for
+H264, HEVC, and VP9.
+
+> diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_de=
+c_stateless.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_d=
+ec_stateless.c
+> index ab1894fba0d90..472ece5713a56 100644
+> --- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_state=
+less.c
+> +++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_state=
+less.c
+> @@ -577,6 +577,7 @@ static void mtk_vcodec_dec_fill_h264_level(struct v4l=
+2_ctrl_config *cfg,
+>  		cfg->max =3D V4L2_MPEG_VIDEO_H264_LEVEL_5_2;
+>  		break;
+>  	case MTK_VDEC_MT8195:
+> +	case MTK_VDEC_MT8196:
+
+[Severity: Low]
+Does this introduce a build break for git bisect?
+
+The MTK_VDEC_MT8196 identifier appears to be undeclared at this point in the
+commit history. While it is fixed later in the series by the commit "media:
+mediatek: vcodec: add decoder compatible to support mt8196", using the
+identifier before it is defined will cause compilation errors and break git
+bisect.
+
+>  		cfg->max =3D V4L2_MPEG_VIDEO_H264_LEVEL_6_0;
+>  		break;
+>  	case MTK_VDEC_MT8183:
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603084045.1748=
+8-1-kyrie.wu@mediatek.com?part=3D6
