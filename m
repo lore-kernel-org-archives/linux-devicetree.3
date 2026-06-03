@@ -1,102 +1,154 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8939C3D5C10
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:18:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C10039A063;
+	Wed,  3 Jun 2026 15:18:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780499905; cv=none; b=K8V9/zEXXmqA4MKFM+rKMxQvNKglw2BZHNS0KE5do4ws5cRkPibEBUY8qSJ9NfNP8HLRuBPhVMDPokOyopGcWiVWyM14To+7yuSn8Dl1j8nNzDYzslJfuUqzwCuI5TNSaHk/+riHgttSXfLZFUnQ3ZoXtPys0ETxPNYmrVi9xIE=
+	t=1780499913; cv=none; b=sT3wDcMZy1cmkh1Dh7n9N1nzIaqpoJB4xkdN79UkPvp2/s1i8QICSCunBkMx4/6NgtYWU725kY4DcvCb4cFW5Gbpf7HoNXglO3T6+LuC45OFjwspzwN+MWTGgicXr0kEq3M3VrhdXsgYU2QyvHq8I2C6DIo2Ze3Gdm3y5WH+nDA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780499905; c=relaxed/simple;
-	bh=TAehl5camM5V5ntpuj3J1s48beGroMOf0MzV4UmomAo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=eOKhR0IqMGRXv1jARauK6+IfpEkA7lHZyl/9Mn/VzQ4qHoCoxwN01uJh0EMMjHrSvb1PUI0P1PprYO/gvtF0BMLrY68SmdtMf2HGEF0Go1fnTmBdOlK5iOF9gaDERLa/mhxpy99FDfskwL+46xMAyDmIpec2sgsCm6EzA7jnvY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp; spf=pass smtp.mailfrom=0x0f.com; dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b=P6ZVJFgc; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=thingy.jp
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=0x0f.com
+	s=arc-20240116; t=1780499913; c=relaxed/simple;
+	bh=ILeO4hImKBexRl/fKhTwLPIU3nPhZ/CXs2vCp2xpNsM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=j/E/PSFCTsswMOGt9d476Wd+HsyvzQUuXr14oJWyqzUniOFJOxaeOgkZrlv9Qqk2l1r2Il9bSmVQfPf7yRLU4DmGEQuVU2O4BWz2yUOznWzEkhjjoUt7KtZIQ+YGOcAYKEnUE+DhqVzWRFr5GmAyOEwLUllNF2O+CEJOyHs2MIk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GRiwEnU0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=thingy.jp header.i=@thingy.jp header.b="P6ZVJFgc"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-36b903567fdso6089349a91.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 08:18:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=thingy.jp; s=google; t=1780499900; x=1781104700; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to;
-        bh=8PSK+IOLu3pjEuzuFyxuhvtdL0wKMWbMiHMGffEw5CU=;
-        b=P6ZVJFgck8mDq05JOVgc66wSdz5CBBOXWfDBvIwxwv+gq7MDBQmzmxmmbcybV5yEMC
-         VQPSJGh86GgveJNa7pHJECgOXRV+VMIWQFqr3wnZRcnDvEuMw+c4yYaUEBKWBiRVVRsp
-         OTj1rkHlKELtKNDXMBAlx9eWQXo06+9ICywqg=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780499900; x=1781104700;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=8PSK+IOLu3pjEuzuFyxuhvtdL0wKMWbMiHMGffEw5CU=;
-        b=lnRt0JoOjn5V0m+3R0QHNPH3HF3XkCB9q+MLA9Ysi4iWLdPSh1oOIupV1X5TGS2urT
-         8+eap91laVgQp9UvGm6g4Gp5HD1+62UN/fXPHtZeP/FQRJrRjF8RGTDONqvYBTx20qtD
-         L1v/9ImdB8G5a58KUFE92e6aX/GxcCVxxOY4eXnWaq04VTMQP2Mv6YgzSl9jS7167YeG
-         yKKyAIYcRH6tOd90omTU3UxC5RmWsYz9BMv5Ovgt0wfSv7SRbRl2gFJ023eHjlzEWPG6
-         /slZtclLoWxdDwtvti7/kTHW1O190B1y7C2cfsYfh7qZ8ps9lraLg3lGTH0xV556ybfr
-         19HA==
-X-Gm-Message-State: AOJu0YxR7v695MXVcWff5cE+wxJDdpjJHYedw5xweBMwD3idQkt2nC0v
-	RQBcMglgYOD7M+hQjIEghkpGgeQMcTi3kfmc4reHddF0XE0q6gJbQBjHPVgEZcuyWEaBDd0X7h4
-	qV44n
-X-Gm-Gg: Acq92OGQPDOFj6U8GQ5xPpJB7bF9ALVA8qIyY5hni0k48ECQOgnb1oex5l+VIZ3JA3P
-	0RpoyxXyyZEPF/p5Zgg85HKkTKWUQpdIC0vdt7wvgW/Y8p4Fs0siXPY3+oAXTBzydgsn3vz0ayj
-	6RBxjcp1bY2OOeGNpWyTLy99bdflLWlAHimUkaV2mHCAae6eKHsbvV09qsQWeitpzIudimZ9UEj
-	S7F2jpXlLh7phBn98fRpBrxQhRlyyx1EfTH8/3ktU5Zfj3BtB0dsqD8jB/RjhwMKhgevVj/0aqo
-	OtMBl9StIn35Fr0A/2ppigrJWmY9Jm3Dp/DxTcLRDFSb+KsOU+6Sn7aysy7BG608Yt0gUx046zY
-	bzAfy09ci9uvoRtFHLBm8Rjjv72bbsClxjt0BTbs6E/bDdtEdahBiUx96qH5ShIywYpH/aeU6Hc
-	znCOPrr44stG0S7Hcrm0XVYMv05ycsdWOJToZZ2Fiwm45n5HP6XUFIyUwYqSW8zAHeqvVFS3CSH
-	NjsJcatlzIOC5cp/+fHh0odAsurw/2eSg==
-X-Received: by 2002:a05:6a20:938e:b0:3af:6704:18ca with SMTP id adf61e73a8af0-3b4978d5202mr4087030637.35.1780499900526;
-        Wed, 03 Jun 2026 08:18:20 -0700 (PDT)
-Received: from kinako.work.home.arpa (p1909097-ipxg00g01sizuokaden.shizuoka.ocn.ne.jp. [153.129.9.97])
-        by smtp.googlemail.com with ESMTPSA id 41be03b00d2f7-c85df0a624fsm2593229a12.18.2026.06.03.08.18.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 08:18:19 -0700 (PDT)
-From: Daniel Palmer <daniel@thingy.jp>
-To: robh@kernel.org,
-	saravanak@kernel.org
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Daniel Palmer <daniel@thingy.jp>
-Subject: [PATCH] drivers/of: fdt: Make ibm,phandle logic only happen on pseries
-Date: Thu,  4 Jun 2026 00:18:09 +0900
-Message-ID: <20260603151809.3256280-1-daniel@thingy.jp>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GRiwEnU0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 138891F00893;
+	Wed,  3 Jun 2026 15:18:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780499912;
+	bh=gqLubRzDZskEA9R3dJXzcbqYgA5a+l8atiBeOr7IMyo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=GRiwEnU0BcFdjpGIldWYYQNw1LEa2mwix99tP6yfOXlV79rEJOB706J70/mTY05WO
+	 Fz1N4FnNxlXkC8iT00hRocwYuYiQ5TdCqPT2sydp/zX7/EtIjkEamLOgG9Uf6fdbpb
+	 oGi23KdbA4opEgs1lk7n5Jsa/6NUpOWTCPx9yFQxztl221UC/bIjG7AsWjvK/b7p03
+	 c0KELW386SW/8QhA+/m2JjqAXvzwZN1LOmyw6K7ZLMi6AZwX2CAimlJaxAS1Rs5ilf
+	 z+BLZBYg6nT7r0qb+eKhvwVVyI/Tcz5OsTOaLIn0fMWIWeofmdWBCvnXIsEfctLaEW
+	 VftYIXSfp4npQ==
+Date: Wed, 3 Jun 2026 16:18:27 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>
+Cc: Linus Walleij <linusw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Emil Renner Berthing <kernel@esmil.dk>,
+	Paul Walmsley <pjw@kernel.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Philipp Zabel <p.zabel@pengutronix.de>,
+	Bartosz Golaszewski <brgl@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-riscv@lists.infradead.org,
+	Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+Subject: Re: [PATCH v3 02/21] pinctrl: pinconf-generic: Add property
+ 'input-debounce-ns'
+Message-ID: <20260603-sinless-mooing-48a37d3d05ea@spud>
+References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
+ <20260603055347.66845-3-changhuang.liang@starfivetech.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="UxFbr67Tboxoi01J"
+Content-Disposition: inline
+In-Reply-To: <20260603055347.66845-3-changhuang.liang@starfivetech.com>
 
-The "ibm,phandle" thing only seems to be needed on pseries
-machines but everyone gets it so they get a string and a little
-bit of useless code.
 
-In __of_attach_node() the pseries specific part uses
-IS_ENABLED(CONFIG_PPC_PSERIES) so do that here too.
+--UxFbr67Tboxoi01J
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Signed-off-by: Daniel Palmer <daniel@thingy.jp>
----
- drivers/of/fdt.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Linus,
 
-diff --git a/drivers/of/fdt.c b/drivers/of/fdt.c
-index 82f7327c59ea..2260a7c0c494 100644
---- a/drivers/of/fdt.c
-+++ b/drivers/of/fdt.c
-@@ -145,7 +145,7 @@ static void populate_properties(const void *blob,
- 		 * used in pSeries dynamic device tree
- 		 * stuff
- 		 */
--		if (!strcmp(pname, "ibm,phandle"))
-+		if (IS_ENABLED(CONFIG_PPC_PSERIES) && !strcmp(pname, "ibm,phandle"))
- 			np->phandle = be32_to_cpup(val);
- 
- 		pp->name   = (char *)pname;
--- 
-2.53.0
+On Tue, Jun 02, 2026 at 10:53:28PM -0700, Changhuang Liang wrote:
+> Add 'input-debounce-ns' to the generic parameters used for parsing DT
+> files, along with the corresponding configuration parameter
+> PIN_CONFIG_INPUT_DEBOUNCE_NS. This allows debounce time to be specified
+> in nanoseconds as an alternative to the existing 'input-debounce'
+> property which uses microseconds
+>=20
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+>  drivers/pinctrl/pinconf-generic.c       | 2 ++
+>  include/linux/pinctrl/pinconf-generic.h | 5 +++++
+>  2 files changed, 7 insertions(+)
+>=20
+> diff --git a/drivers/pinctrl/pinconf-generic.c b/drivers/pinctrl/pinconf-=
+generic.c
+> index 64ed28309788..9d67e2d26e28 100644
+> --- a/drivers/pinctrl/pinconf-generic.c
+> +++ b/drivers/pinctrl/pinconf-generic.c
+> @@ -43,6 +43,7 @@ static const struct pin_config_item conf_items[] =3D {
+>  	PCONFDUMP(PIN_CONFIG_DRIVE_STRENGTH, "output drive strength", "mA", tru=
+e),
+>  	PCONFDUMP(PIN_CONFIG_DRIVE_STRENGTH_UA, "output drive strength", "uA", =
+true),
+>  	PCONFDUMP(PIN_CONFIG_INPUT_DEBOUNCE, "input debounce", "usec", true),
+> +	PCONFDUMP(PIN_CONFIG_INPUT_DEBOUNCE_NS, "input debounce", "nsec", true),
+>  	PCONFDUMP(PIN_CONFIG_INPUT_ENABLE, "input enabled", NULL, false),
+>  	PCONFDUMP(PIN_CONFIG_INPUT_SCHMITT, "input schmitt trigger", NULL, fals=
+e),
+>  	PCONFDUMP(PIN_CONFIG_INPUT_SCHMITT_UV, "input schmitt threshold", "uV",=
+ true),
+> @@ -185,6 +186,7 @@ static const struct pinconf_generic_params dt_params[=
+] =3D {
+>  	{ "drive-strength", PIN_CONFIG_DRIVE_STRENGTH, 0 },
+>  	{ "drive-strength-microamp", PIN_CONFIG_DRIVE_STRENGTH_UA, 0 },
+>  	{ "input-debounce", PIN_CONFIG_INPUT_DEBOUNCE, 0 },
+> +	{ "input-debounce-ns", PIN_CONFIG_INPUT_DEBOUNCE_NS, 0 },
+>  	{ "input-disable", PIN_CONFIG_INPUT_ENABLE, 0 },
+>  	{ "input-enable", PIN_CONFIG_INPUT_ENABLE, 1 },
+>  	{ "input-schmitt", PIN_CONFIG_INPUT_SCHMITT, 0 },
+> diff --git a/include/linux/pinctrl/pinconf-generic.h b/include/linux/pinc=
+trl/pinconf-generic.h
+> index a5d4b2d8633a..1df63c732b99 100644
+> --- a/include/linux/pinctrl/pinconf-generic.h
+> +++ b/include/linux/pinctrl/pinconf-generic.h
+> @@ -71,6 +71,10 @@ struct pinctrl_map;
+>   *	which means it will wait for signals to settle when reading inputs. T=
+he
+>   *	argument gives the debounce time in usecs. Setting the
+>   *	argument to zero turns debouncing off.
+> + * @PIN_CONFIG_INPUT_DEBOUNCE_NS: this will configure the pin to debounc=
+e mode,
+> + *	which means it will wait for signals to settle when reading inputs. T=
+he
+> + *	argument gives the debounce time in nsecs. Setting the
+> + *	argument to zero turns debouncing off.
+>   * @PIN_CONFIG_INPUT_ENABLE: enable the pin's input.  Note that this doe=
+s not
+>   *	affect the pin's ability to drive output.  1 enables input, 0 disables
+>   *	input.
+> @@ -143,6 +147,7 @@ enum pin_config_param {
+>  	PIN_CONFIG_DRIVE_STRENGTH,
+>  	PIN_CONFIG_DRIVE_STRENGTH_UA,
+>  	PIN_CONFIG_INPUT_DEBOUNCE,
+> +	PIN_CONFIG_INPUT_DEBOUNCE_NS,
+>  	PIN_CONFIG_INPUT_ENABLE,
+>  	PIN_CONFIG_INPUT_SCHMITT,
+>  	PIN_CONFIG_INPUT_SCHMITT_ENABLE,
 
+Should this grow a mutual exclusion check in parse_fw_cfg()?
+Part of me says yes for consistency, but also as this is a new property
+that's going to have had exclusion in the binding from the start part of
+me says that it is unnecessary to add that.
+
+
+
+--UxFbr67Tboxoi01J
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiBFwgAKCRB4tDGHoIJi
+0shdAQDVn1y7zJ5GetjXm2OW2sQdptXIBXriOfUWzTJBsBzXhAEAqbwd03uZvPIu
+EdG/j/Pj6pCWlzrc4wAopEkRvGV20gs=
+=uhlk
+-----END PGP SIGNATURE-----
+
+--UxFbr67Tboxoi01J--
