@@ -1,181 +1,141 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 253B73F411B
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:23:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4113859EF
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:24:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478592; cv=none; b=fEBHi9o8ZtMb1uXaPfMGbTcbtyLCiYz1jMEzvKhpJowwzzplNuhcrnYQIiAwJyWF5/a9lrK54qiSq/8yvA7wgBhm3zJN4743sLoamdzTUxpRtHysvcu7YxjTY1MvxDS+x/ct+kY8K1hMSzsOYtDFY2pXEcADf7p+FWeNrkC2gZg=
+	t=1780478673; cv=none; b=QpEbry6t45edWBry/FAfJmoM2YWx6cBbcin8YEnY25eaaT5FPTBQHabXNO/1vHMwCtGxWZexMSHe3LzhsDVfUigqZp69BIzRL+DkQZ2Bb16nNmjcvUArdAZy1Ma7WYNUI+9dlG+kcqkCYwrvZA6zUD3j61+d2Qc8+gWCMRcouIQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478592; c=relaxed/simple;
-	bh=qVrTGnriBVUyIoUK7Ds+35uqO+BfzLR2zKQ3ngXR3FY=;
+	s=arc-20240116; t=1780478673; c=relaxed/simple;
+	bh=tQj2iyJK/ty6qWuD2nWo27J7s0BD+yJmE/SnLkDfTOw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Z3Jnqne8LyB0mvvNT18r/dKYclX19kwI+r/g6imx19HBNyRigV8Y7m23HOqSr5xm6q3iL8MlaibmlTdvSJ0WBEbfFypZjdA3GfJ91V0++gxt1ptmQY0ItudDCxa89LmT9i0UQ46YT/2f2U9S43zrjOqIv09BI14nWrRpBeiiScw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nrXGIQAh; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fpf4tqP66/Z6mMjTk/4nAxB4CRJ8NNO2uliqpd1B4v9ufBCd/tWvEpwAOFZS6bZSji3rtkD1UnDhU45zpfFVcozxrJNQk/kB6D0rXTDlTRao47/ZM963GPmKKlNM5QMWbJNWVIrrWwpS+kvOciBLaSNfaqsXu2r+eFsa40ujnbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GsQBXovb; arc=none smtp.client-ip=209.85.216.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nrXGIQAh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 447161F00893;
-	Wed,  3 Jun 2026 09:23:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780478590;
-	bh=MLar3ANMHIxzd0/TZSbopHbn8uvHPGqcW/THb8H8Wpk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=nrXGIQAh74jCUtbevLOqC+mfavS9ryQNqs1HIjofoUA56EhwX8AXExoZXazeqFav9
-	 Mq2eSrXhhKhaHwzGmjGPWB+kZoR/zAkwA8rLvM6Dbnlq2hXwpX5jOoEHnZVixfWi9j
-	 nml9wm2zagZxwm3uc062IrCKysID7gWBmZTd0aA9WBvlSVSKXxQ/i3FBTCeDq5kG9O
-	 qrbJ0RKyZoUNCa67ya8KoDT/n50u8XIPKE6sqXiIvgUCnaRUIK7ntKUvG0pYIkbYtU
-	 ej2TYRBB8d+jusvq0jPOVHBsbWB6kb82HVPCzgr23IZMxXJpUwfSAxI/JsCPXwqP0/
-	 lnoco2seDujfg==
-Date: Wed, 3 Jun 2026 10:23:06 +0100
-From: Conor Dooley <conor@kernel.org>
-To: Joel Stanley <joel@jms.id.au>
-Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Palmer Dabbelt <palmer@dabbelt.com>,
-	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
-	Alexandre Ghiti <alex@ghiti.fr>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Michael Ellerman <mpe@kernel.org>,
-	Drew Fustini <fustini@kernel.org>, linux-riscv@lists.infradead.org,
-	devicetree@vger.kernel.org
-Subject: Re: [PATCH 4/7] dt-bindings: timer: Add RISC-V ACLINT bindings
-Message-ID: <20260603-tadpole-slept-8b6eeae9cd47@spud>
-References: <20260603074222.593243-1-joel@jms.id.au>
- <20260603074222.593243-5-joel@jms.id.au>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GsQBXovb"
+Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-36ab8816a35so6178107a91.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 02:24:32 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780478672; x=1781083472; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=+evDZWLT5KzG1ZaMkX3r55/gKlKfN0VfS6IPwHPUrVw=;
+        b=GsQBXovbGdARAw1pgk5FGKHkDydrlbGmG20n/+U2X+/Y8+dR4lbFZW7mVz/y6AuSWZ
+         GB2JqEomZ5yLcUy0prQcJJuvpOYC+ZNvuIsGXdtKglMYZA0urAW2SgVx1DZhkpmyF+Es
+         NCOsUw0cY2OCPHEN1PFvow8H5aSfghLPsBnv0yAuSi83roV0WKy/wakhEPQKzcgymCSK
+         fmKCWqX9DJTfHmHzbn5ctrPwHqynEqd1BgUXu1qqzpTwSX2kA3qCIiQnHP+kQeagw3Bi
+         nJoCJEbFgWb+WiCQoIzg5mO8ueusnyvuZrF2vlK0tc2cWwyyLXuvai/PSa9h/Pfsf9ZF
+         tC/A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780478672; x=1781083472;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=+evDZWLT5KzG1ZaMkX3r55/gKlKfN0VfS6IPwHPUrVw=;
+        b=onGOycTb04JyTXxPYo8CbSufGPspHLCfmIOr4Ixnns3ZCw967VGkwDJFp9Ssindqdo
+         MXZoJi6zgcrA1A8b6u6nob+Noi3DU3DlgC7JOWo+7xamrEU4dP2AZSrjtTeUIWkzUqHq
+         mEDzNiI5YOX6ZLiDeBKYPL3i/iGVIA8VQf7zba1G+KR5BLNVBc2cq0X2Xlr0Qi3N5zUY
+         5r8KMP/OOrqpmg63fFqYWK/UsPggPinh81Ajrh+SDukarA0zkAZBPMYtYAwuYt7zcPox
+         IaHO987bhBRl1Eqf37Jz2hKDoXL3orRZrT03lN9TVXp/NURAo/N8Q3Jx4mHSMowOuwFX
+         kxYw==
+X-Forwarded-Encrypted: i=1; AFNElJ91PEW/XJklcvEd71V4U7nU4fPyxr+FeUMuz2HAKDt2KGTBSIhR+miYNiF7PmYXtIvLe+6C38+Y5+DO@vger.kernel.org
+X-Gm-Message-State: AOJu0Yy2rK8UdPqi9JFTP6CJJxH57bInnnnQaAdENAKHV5y2ET6tnL4m
+	2MQwZXvTgV50IJVu1ASRGDB2MKlh84mGO4naMWljoiXSYd08HPYI3AKE8yr2mtkq
+X-Gm-Gg: Acq92OEfMSJTidOASBuqY0lOT+pvo4s2pVn0qmJAdGf1cm9WYVbuE6ZP1XH42Fo/DEj
+	oHi3jMWz3O8otkW7svchM2pjSt4ZmiNXY8Vc4T7/+B77RMcvEzBoX0lOS/eyiYNlrb3YbeGJSTr
+	y1bYkX/Akv7NHrQG+wopGfwDAUfLKUNJwF9JNpQzHXUAIwLM/Wq/4R3T6USBYZN8a49dGxiPRRJ
+	Hgsuqy+pKYJ1VADohmdfV1rML9KNkqdiaPgBsUsXgP7w7RsouGZ49zGjA4uFjuBH73eRcc2WEBr
+	YZ599HULvcfFH0H4eN97dwRwGWd96KTCmRPBTONvrLjpQ5OWd3zu8Ojmq46s/fX4zJTs26nrMsJ
+	lYNyFNxFmBD85InDuJpsHkDOhSW12+HqHT+BxucJ1pbQ+/EzGLQWRzb2OFS73nBrcxacLUOM8kt
+	/gHk5tOHvobMJ8QFVOlq+1zju1O0Oq4f4p/A==
+X-Received: by 2002:a17:90b:2d8d:b0:36b:e8b9:46a4 with SMTP id 98e67ed59e1d1-36e32285cf3mr2634132a91.14.1780478671804;
+        Wed, 03 Jun 2026 02:24:31 -0700 (PDT)
+Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36e0a276ef2sm2484283a91.11.2026.06.03.02.24.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 02:24:30 -0700 (PDT)
+Date: Wed, 3 Jun 2026 17:24:10 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Rob Herring <robh@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
+Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
+	conor+dt@kernel.org, linux-pci@vger.kernel.org
+Subject: Re: [PATCH v2 4/5] dt-bindings: PCI: spacemit: Introduce Spacemit K3
+ PCIe host controller
+Message-ID: <ah_yGaCYLnTL1nyW@inochi.infowork>
+References: <20260517014841.254085-5-inochiama@gmail.com>
+ <20260517024848.4F346C19425@smtp.kernel.org>
+ <aglF_fbl--RgS7gQ@inochi.infowork>
+ <20260601224224.GA116470-robh@kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="snG+5dRCAbEpDZ3t"
-Content-Disposition: inline
-In-Reply-To: <20260603074222.593243-5-joel@jms.id.au>
-
-
---snG+5dRCAbEpDZ3t
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260601224224.GA116470-robh@kernel.org>
 
-On Wed, Jun 03, 2026 at 05:12:16PM +0930, Joel Stanley wrote:
-> Document the bindings for the RISC-V ACLINT.
->=20
-> Signed-off-by: Drew Fustini <fustini@kernel.org>
-> Signed-off-by: Joel Stanley <joel@jms.id.au>
-> ---
->  MAINTAINERS                                   |  1 +
->  .../bindings/timer/riscv,aclint-mtimer.yaml   | 52 +++++++++++++++++++
->  2 files changed, 53 insertions(+)
->  create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-=
-mtimer.yaml
->=20
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index 2fb1c75afd16..43dd9873bbc5 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -23005,6 +23005,7 @@ M:	Joel Stanley <jms@oss.tenstorrent.com>
->  L:	linux-riscv@lists.infradead.org
->  S:	Maintained
->  T:	git https://github.com/tenstorrent/linux.git
-> +F:	Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
->  F:	Documentation/devicetree/bindings/clock/tenstorrent,atlantis-prcm-rcp=
-u.yaml
->  F:	Documentation/devicetree/bindings/riscv/tenstorrent.yaml
->  F:	arch/riscv/boot/dts/tenstorrent/
-> diff --git a/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.=
-yaml b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
-> new file mode 100644
-> index 000000000000..192ff3fcf79f
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
-> @@ -0,0 +1,52 @@
-> +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/timer/riscv,aclint-mtimer.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: RISC-V Advanced Core Local Interruptor (ACLINT)
-> +
-> +maintainers:
-> +  - Joel Stanley <jms@oss.tenstorrent.com>
-> +
-> +description:
-> +  This RISC-V ACLINT specification defines a set of memory mapped device=
-s which
-> +  provide inter-processor interrupts (IPI) and timer functionalities for=
- each
-> +  HART on a multi-HART RISC-V platform. The specification can be found at
-> +  https://github.com/riscvarchive/riscv-aclint/
+On Mon, Jun 01, 2026 at 05:42:24PM -0500, Rob Herring wrote:
+> On Sun, May 17, 2026 at 12:38:39PM +0800, Inochi Amaoto wrote:
+> > On Sun, May 17, 2026 at 02:48:47AM +0000, sashiko-bot@kernel.org wrote:
+> > > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
+> > > - [Medium] The binding completely omits the `interrupts` and `interrupt-names` properties for the host controller.
+> > > - [Medium] The schema omits standard legacy INTx interrupt routing properties (`#interrupt-cells`, `interrupt-map`, `interrupt-map-mask`).
+> > > - [Low] The `phy-names` property lacks an `items` definition to restrict valid string values.
+> > > --
+> > > 
+> > > commit 7b8ba34456e71d6a9cf1028caa5504d64e8f58ba
+> > > Author: Inochi Amaoto <inochiama@gmail.com>
+> > > 
+> > > dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
+> > > 
+> > > This commit adds device tree binding support for the PCIe controller on the
+> > > SpacemiT K3 SoC. The controller is based on the Synopsys DesignWare PCIe IP
+> > > with some extra link and reset state control.
+> > > 
+> > > > diff --git a/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+> > > > new file mode 100644
+> > > > index 0000000000000..46147a37a9ce6
+> > > > --- /dev/null
+> > > > +++ b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
+> > > [ ... ]
+> > > > +  reset-names:
+> > > > +    items:
+> > > > +      - const: dbi
+> > > > +      - const: mstr
+> > > > +      - const: slv
+> > > > +
+> > > > +  msi-parent: true
+> > > > +
+> > > 
+> > > The driver implementation reads and clears interrupt status registers for
+> > > host-level events, and references registers for receiving INTx events from
+> > > downstream devices.
+> > > 
+> > > Should this binding include interrupts and interrupt-names properties to
+> > > document the host's interrupt routing?
+> > > 
+> > > Additionally, should standard legacy INTx interrupt routing properties like
+> > > #interrupt-cells, interrupt-map, and interrupt-map-mask be included in the
+> > > schema and example to support downstream devices that do not use MSI?
+> > > 
+> > 
+> > The driver just does the interrupt cleanup as it requires, and no
+> > additional interrupt is needed
+> 
+> Unless there are no interrupts and only MSIs are supported, then you 
+> need to define 'interrupts' property at least. The common schema only 
+> defines all possible names, but not which ones are used and the order.
+> 
+> Rob
 
-This is a draft specification, so having a "riscv,aclint-mtimer"
-compatible is not appropriate. Ordinarily I would say that you should be
-able to do this once frozen, but this spec is archived and unlikely to
-have that happen.
-pw-bot: changes-requested
+Yes, currently there is no interrupts that should be enabled in Linux, 
+and only MSI is supported without INTx. So I think it is fine to removed
+the interrupt properity.
 
-> +
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - tenstorrent,atlantis-aclint
-> +          - qemu,aclint-mtimer
-> +      - const: riscv,aclint-mtimer
-> +
-> +  reg:
-> +    minItems: 1
-> +    maxItems: 4095
-
-I don't see why this permits so many regions, the draft spec has two
-regions, one for MTIME and one for MTIMECMP0-4094.
-
-> +
-> +  interrupts-extended:
-> +    minItems: 1
-> +    maxItems: 4095
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-> +
-> +examples:
-> +  - |
-> +    // Example 1
-
-Delete this comment please.
-
-Thanks,
-Conor.
-
-> +
-> +    timer@ac000000 {
-> +      compatible =3D "tenstorrent,atlantis-aclint", "riscv,aclint-mtimer=
-";
-> +      interrupts-extended =3D <&cpu1intc 7>,
-> +                            <&cpu2intc 7>,
-> +                            <&cpu3intc 7>,
-> +                            <&cpu4intc 7>;
-> +      reg =3D <0xac000000 0x00010000>;
-> +    };
-> +...
-> --=20
-> 2.47.3
->=20
-
---snG+5dRCAbEpDZ3t
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah/yegAKCRB4tDGHoIJi
-0s9fAPwIGS5mhVyWlH71tkgaZ2FaQPoMl3V1VqK1FLqK583X7gEAz61WFaDPpR4R
-RRnPjJ0eWtwQEGIU6Iy6QvxYaOezQwA=
-=yBrM
------END PGP SIGNATURE-----
-
---snG+5dRCAbEpDZ3t--
+Regards,
+Inochi
