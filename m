@@ -1,204 +1,108 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vk1-f175.google.com (mail-vk1-f175.google.com [209.85.221.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA1FA30FF08;
-	Wed,  3 Jun 2026 12:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91BCB47DD61
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 12:43:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780490524; cv=none; b=JFVFAehOYow5nNdLtDsw1Pa3s6X3bpAwiD39rm2usW86S3wadFnWKK0rWM9lPpse8q8GE4He28e1zmYpdAV5rN3gnXWuA5/pPeJuOxgSyqPe7+S9UKBnmuGDJEqKUy8h58C4XkHbPbH+OvchrAeD0eIa/pAO+C7AIRwsp6+TLTc=
+	t=1780490586; cv=none; b=fZxnGXHQkTl5ounfFnZnp9+mKQDz5tqINwEle1kpMTgkqNQEgxuAKifAww6J9EX0skf5lQhWYyS/TPl1/fxC9gs64yt+cUbItPthF+KPMpBxw8O6d2bVlPGVc44TCMHAjbDZva0q1BcUd5oEXImPyGNDRyefM48ZZNpvDieny+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780490524; c=relaxed/simple;
-	bh=dWwGk9rQfTnjchtezlSWjb+t1YEjffClPqKEsjmAgZA=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sADotwpGLPubRdtJujTSNp/zMdo6jABwmG5kcq3v5pkjED/TkK2tmfb8ukhNeqRJcVdkMTcNa8hNxIZ5+QJvmFM/J2U/rPAlVuYJ+mJQMilMSDLlHytm080sq5kkbzQO/g/G8NMciwW7ogbHydc6ppALLGZZdy7jJSEpO7kcDPc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Aeil1ksO; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Aeil1ksO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57C021F00893;
-	Wed,  3 Jun 2026 12:41:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780490523;
-	bh=G8yheY5+6eUkXr3fPaoHOlmsKDT+Lz00pXPX5Sex3X8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Aeil1ksOTAsuqE72xZUS5FbFWWbX8seUrg32UHwTUpr1sOm+iTHTUJt1W/RFlPcEv
-	 uBv4MTbQa/YaGHCWajre1k4IPvhmyRsCr7pUuY+0q2Iab4Mowuc7iA4JBF2DsJSAk+
-	 3Vwr3WdH41x9hNdBEJjr2gAEmZrKpZQHig9tI4Ck/X/rJnmPH8OJCpxZSV35KwE1vK
-	 fNyqiQCegm0CcrxgMUJZzzigpFV5dV8Ia5PYWfIZPcfCi53w+9rn/mcBGhWbuYp30Y
-	 ScFPsqr8JCw0UkziI7XxEP2WYAbaTOZ3AUrsTYCdJP5sZ1m1m8/P2eFzHTEb9CJJo1
-	 YVTkNEJ5hXtiA==
-Date: Wed, 3 Jun 2026 13:41:51 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Rodrigo Alencar via B4 Relay
- <devnull+rodrigo.alencar.analog.com@kernel.org>
-Cc: rodrigo.alencar@analog.com, Michael Auchter <michael.auchter@ni.com>,
- linux@analog.com, linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-hardening@vger.kernel.org, Michael
- Hennerich <Michael.Hennerich@analog.com>, David Lechner
- <dlechner@baylibre.com>, Andy Shevchenko <andy@kernel.org>, Rob Herring
- <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>, Kees Cook
- <kees@kernel.org>, "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Subject: Re: [PATCH 10/12] iio: dac: ad5686: add triggered buffer support
-Message-ID: <20260603134151.7cf1654b@jic23-huawei>
-In-Reply-To: <20260602-ad5686-new-features-v1-10-691e01883d27@analog.com>
-References: <20260602-ad5686-new-features-v1-0-691e01883d27@analog.com>
-	<20260602-ad5686-new-features-v1-10-691e01883d27@analog.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=arc-20240116; t=1780490586; c=relaxed/simple;
+	bh=k13aCs1RdoPqecPo1wr59qkqrbO+R83+DXAj56G2grg=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=BXvamCHLetwcnoQZIcOKhXIjhLLteGOYu1pmhGaBfphXdKxj22tHTgX3e0xrDIXXD0PN0peyXMP4HwvL6vPNS0DHqKIiI+OYOX7j8C0KKbYqrvZyRXznJRH3xopYM+av8U34KSMRyzygOjYzVnM1wBcr1sboNmaBUgPeQpWWhdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.221.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-vk1-f175.google.com with SMTP id 71dfb90a1353d-59d541955f8so1581720e0c.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 05:43:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780490583; x=1781095383;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=jWxBYc1IVZbFBqFpe+a7OXnuXHa/My8CwptPt7UTNAk=;
+        b=H1Nnws+v/HlP41G0aKBjKncNLqmIAaOuo74jAmYgq0UbHDaicaYqr7jN1zo3JJ+xVT
+         LsGE7IzgljbbSCPX+3M3DQbW9jbfmG+smWgc3bRP9iJoPOMVHGQJ6hadT+uBiImpJq25
+         92vs5FWFzBRklsL8ML77fZp41s24t8UCyBdRFBb/yV3wqav1QUHgzc0WcnJRGBOaPVID
+         N5HV9M6lG8/5FIxN0/84WFP49o4hWJ0fKOx6SfzNwfL0HqR4MOSp42Mz6tjjj2FATmIQ
+         wE4hRGzzut4DrLdPbi1kuTZAnIiM9GpNtOXiif59kKrTeJLW19iwift6N5t/3u9O6f3d
+         0MnQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8xGavTRhDEn8mcceYAKAzd2T2IF5WrKV6DCgKNYS27nO8E1HyG76rjliPvqwsFZKQdwqn5bvtGrfr8@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz8PjAllkMTuYuP37XUROaq5+imUTNu5njSyMG+Gp1K4rVp0mtd
+	j0A4dQrXZgWT6z0G6z+FEMpH3XJUOc+fgfaMhtj/sKk6I8IH2Oafx50Sqop3KheYwHQ=
+X-Gm-Gg: Acq92OFfdeAizHM8KjOU6/eakqB8vbHxOIgevw+VtI44DnVVeuTD6SFMmxwuwySGSrZ
+	ZXTYFvgQXiQKcW88yPclqFwbRLgfvX0SMsxZNQcENqq9KcIpVFeVuBSceM4luKSJHHmwgGji59+
+	kUN0ZdV8N9pvSADkQX5a/6Z22S0MAKNtnQ08jlPQnk9uMYkpkM4EbKeZNn/BqASbrvFlKi0nzpP
+	pEdQMNSd4PxX4p/OCuarlflBDRNwumvl9MENfRCSnMyuxUgEDgM+mTPEl8IFaLlXi3gEzj/LSxt
+	D5j2Oy0euhYR5g+dzqaMUjF9vjX68Px9zZuJLkHmVZ33TtcKIwXChYsbY1I8ZRyLFwQCfVQ7flm
+	4Ully1948QjMMV14850+NKBIGhapeHHRy6fu9+AzuWeh5VVzat66cFNw3uSmefDjcm1T1aHb3m0
+	wx8vYPYCRBdRQUbKmdcyf43rquAg1hlTwnw2FM6qM/XcRBcqSruIUji9fHXniJpmQ32ckEmECpK
+	rRqZQqIeg==
+X-Received: by 2002:a05:6122:8291:b0:5a5:4166:67e8 with SMTP id 71dfb90a1353d-5a6e9aa165cmr1414900e0c.12.1780490583426;
+        Wed, 03 Jun 2026 05:43:03 -0700 (PDT)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5a6d65080a2sm2176479e0c.2.2026.06.03.05.43.01
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 05:43:01 -0700 (PDT)
+Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6cec1485789so1258448137.0
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 05:43:01 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ9uRcxkJ2vnROpRK+eynE0iit1NC5cgl+uatMIXdNnukclPRvRQCPHOHxrbfC9pxqFy9iEFZdxrgd7f@vger.kernel.org
+X-Received: by 2002:a05:6102:3594:b0:607:4fde:1921 with SMTP id
+ ada2fe7eead31-6ec490c3d34mr995887137.24.1780490581062; Wed, 03 Jun 2026
+ 05:43:01 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+References: <20260601113919.8327-1-marek.vasut+renesas@mailbox.org>
+In-Reply-To: <20260601113919.8327-1-marek.vasut+renesas@mailbox.org>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Wed, 3 Jun 2026 14:42:49 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXGJ+Ww+ek3KLvrnFKpw2cJn=RB8q3k=W6ECVgtw-zK6Q@mail.gmail.com>
+X-Gm-Features: AVHnY4IY7ZyzpnX56PnrLKeT4Q6f6pff2bdlvBxWDQkSl_14GHUg_sgrQjRBUyI
+Message-ID: <CAMuHMdXGJ+Ww+ek3KLvrnFKpw2cJn=RB8q3k=W6ECVgtw-zK6Q@mail.gmail.com>
+Subject: Re: [PATCH] arm64: dts: renesas: r8a78000: Enable application CPU
+ cores via PSCI
+To: Marek Vasut <marek.vasut+renesas@mailbox.org>
+Cc: linux-arm-kernel@lists.infradead.org, Conor Dooley <conor+dt@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On Tue, 02 Jun 2026 17:33:57 +0100
-Rodrigo Alencar via B4 Relay <devnull+rodrigo.alencar.analog.com@kernel.org> wrote:
+Hi Marek,
 
-> From: Rodrigo Alencar <rodrigo.alencar@analog.com>
-> 
-> Implement trigger handler by leveraging the LDAC gpio to update all DAC
-> channels at once when it is available. Also, the multiple channel writes
-> can be flushed at once with the sync() operation.
-> 
-> Signed-off-by: Rodrigo Alencar <rodrigo.alencar@analog.com>
-One passing comment inline. + some musings... I'd love to avoid
-the need for lots of drivers to call iio_trigger_notify_done() manually
-as it always results in ugly code paths.  
-> ---
->  drivers/iio/dac/Kconfig  |  2 ++
->  drivers/iio/dac/ad5686.c | 59 ++++++++++++++++++++++++++++++++++++++++++++++++
->  2 files changed, 61 insertions(+)
-> 
-> diff --git a/drivers/iio/dac/Kconfig b/drivers/iio/dac/Kconfig
-> index 657c68e75542..5f14fcd780e2 100644
-> --- a/drivers/iio/dac/Kconfig
-> +++ b/drivers/iio/dac/Kconfig
-> @@ -240,6 +240,8 @@ config LTC2688
->  
->  config AD5686
->  	tristate
-> +	select IIO_BUFFER
-> +	select IIO_TRIGGERED_BUFFER
->  
->  config AD5686_SPI
->  	tristate "Analog Devices AD5686 and similar multi-channel DACs (SPI)"
-> diff --git a/drivers/iio/dac/ad5686.c b/drivers/iio/dac/ad5686.c
-> index a4cc0f86ea54..5052df44ab1c 100644
-> --- a/drivers/iio/dac/ad5686.c
-> +++ b/drivers/iio/dac/ad5686.c
-> @@ -19,7 +19,11 @@
->  #include <linux/sysfs.h>
->  #include <linux/wordpart.h>
->  
-> +#include <linux/iio/buffer.h>
->  #include <linux/iio/iio.h>
-> +#include <linux/iio/trigger.h>
-> +#include <linux/iio/trigger_consumer.h>
-> +#include <linux/iio/triggered_buffer.h>
->  
->  #include "ad5686.h"
->  
-> @@ -245,6 +249,7 @@ static const struct iio_chan_spec_ext_info ad5686_ext_info[] = {
->  		.info_mask_separate = BIT(IIO_CHAN_INFO_RAW),	\
->  		.info_mask_shared_by_type = BIT(IIO_CHAN_INFO_SCALE),\
->  		.address = addr,				\
-> +		.scan_index = chan,				\
->  		.scan_type = {					\
->  			.sign = 'u',				\
->  			.realbits = (bits),			\
-> @@ -469,6 +474,53 @@ const struct ad5686_chip_info ad5679r_chip_info = {
->  };
->  EXPORT_SYMBOL_NS_GPL(ad5679r_chip_info, "IIO_AD5686");
->  
-> +static irqreturn_t ad5686_trigger_handler(int irq, void *p)
-> +{
-> +	struct iio_poll_func *pf = p;
-> +	struct iio_dev *indio_dev = pf->indio_dev;
-> +	struct iio_buffer *buffer = indio_dev->buffer;
-> +	struct ad5686_state *st = iio_priv(indio_dev);
-> +	u16 val[AD5686_MAX_CHANNELS] = { };
-> +	int ret, ch, i = 0;
-> +	bool async_update;
-> +	u8 cmd;
-> +
-> +	ret = iio_pop_from_buffer(buffer, val);
-> +	if (ret)
-> +		goto out;
-> +
-> +	mutex_lock(&st->lock);
-> +
-> +	async_update = st->ldac_gpio && bitmap_weight(indio_dev->active_scan_mask,
-> +						      iio_get_masklength(indio_dev)) > 1;
-> +	if (async_update) {
-> +		/* use ldac to update all channels simultaneously */
-> +		cmd = AD5686_CMD_WRITE_INPUT_N;
-> +		gpiod_set_value_cansleep(st->ldac_gpio, 0);
-> +	} else {
-> +		cmd = AD5686_CMD_WRITE_INPUT_N_UPDATE_N;
-> +	}
-> +
-> +	iio_for_each_active_channel(indio_dev, ch) {
-> +		ret = st->ops->write(st, cmd, indio_dev->channels[ch].address, val[i++]);
-> +		if (ret)
-> +			goto cleanup;
-> +	}
-> +
-> +	if (st->ops->sync)
-> +		ret = st->ops->sync(st); /* flush all pending transfers */
-> +
-> +cleanup:
-> +	if (async_update)
+On Mon, 1 Jun 2026 at 13:39, Marek Vasut
+<marek.vasut+renesas@mailbox.org> wrote:
+> Add PSCI "enable-method" DT property to all application CPU cores.
+> This allows the OS to bring application CPU cores up and down.
+>
+> Signed-off-by: Marek Vasut <marek.vasut+renesas@mailbox.org>
 
-Error paths are always fun.  Do we care about setting ldac_gpio to 1 if
-we failed to write the channel values?  That will set any that did successfully
-update, but not all of them.  Note I'm not sure on the right answer for this.
-There may not be one!
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
+
+> NOTE: This depends mainline TFA 2.15 or newer (or SDK TFA version
+>       which includes b950bc09f5e9 ("plat: rcar_gen5: Fix multicore
+>       boot by ensuring fixed address for plat_secondary_reset"))
+>       and on SDK 4.32 or newer SCP firmware.
+
+I assume SDK 4.32 includes a sufficiently new TFA, as that works for me?
+
+Thanks!
+
+Gr{oetje,eeting}s,
+
+                        Geert
 
 
-> +		gpiod_set_value_cansleep(st->ldac_gpio, 1);
-> +
-> +	mutex_unlock(&st->lock);
-> +out:
-> +	iio_trigger_notify_done(indio_dev->trig);
-We get this pattern so often (though not always).  Feels like maybe
-we should put some effort into a generic opt in solution for this.
+--
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
-A job for another day but options that come to mind.
-1) (hideous) a flag
-2) Maybe an alternative callback. thread_always_complete or
-   something like that.  Pain to wire through all the calls though
-   and injecting the necessary wrapper isn't great either.
-   Implementation wise would be a case of popping in a wrapper function
-   in iio_trigger_attach_poll() call to request_threaded_irq().
-3) Maybe a helper macro?  Bit ugly as we'd need one to generate
-   the wrapper function and another to use the same name for
-   the registration function.
-
-Hmm. Those are all ugly (maybe 2 is ok ish).  Suggestions welcome!
-
-
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
->  int ad5686_probe(struct device *dev,
->  		 const struct ad5686_chip_info *chip_info,
->  		 const char *name, const struct ad5686_bus_ops *ops,
-> @@ -569,6 +621,13 @@ int ad5686_probe(struct device *dev,
->  		return -EINVAL;
->  	}
->  
-> +	ret = devm_iio_triggered_buffer_setup_ext(dev, indio_dev, NULL,
-> +						  &ad5686_trigger_handler,
-> +						  IIO_BUFFER_DIRECTION_OUT,
-> +						  NULL, NULL);
-> +	if (ret)
-> +		return ret;
-> +
->  	return devm_iio_device_register(dev, indio_dev);
->  }
->  EXPORT_SYMBOL_NS_GPL(ad5686_probe, "IIO_AD5686");
-> 
-
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
