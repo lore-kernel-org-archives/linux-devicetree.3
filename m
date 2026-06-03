@@ -1,63 +1,63 @@
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com [209.85.128.52])
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57D0C3FFAAD
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:57:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.52
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 732CF400DEA
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 06:57:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780469877; cv=none; b=uz4kjU8MJdeWx7eXPN0zHG9PRtGYj3aT8nLGtxeE3SN5Oe67x03kLHzhHpGGtNli+iMWMAghte1RME3zz7r5MzGYruRlRii6OhMSzAjtbGnSPH/oUdzUfcIgFtc0yqhfbdVpwsP83Nw83ywRqfcS6uE2ZBrUAQFkTVE7r8E80Vs=
+	t=1780469877; cv=none; b=KkVu2jqDk63BquZaPeYE5hOf0Itrid7/ErsEyYTTMi8P3mBPw2LZtwcLg5c7RqFKkciBwyHqyaCrJZC708NCU+clsiKOVBfdROhniVba4Fq3AvoI04DX40kVTC1zLQ5jrEtk9fxykdkC0VxNVMhITqLxNE+BZl6qBUSCVEdmmFU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780469877; c=relaxed/simple;
-	bh=v3IjyQgglOOTVeeWXh+06aZwuDskZfHVMBekAWMwrHQ=;
+	bh=UQm6NkHuYIyeWv6CvUZG9GzuWmprq0FqpGDq3GMWI4Y=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lUGovDGoa2+m9ruIpnCFJryJwMipfVsKpuJ3c6rRbXdljdsgnCqIMf13U75RBJVochfkJGzthnsGR3/JziHoKNM1qTd4GG25eruvPqKg3nuBiT63G19lQwAfJTMwLsaFuiq80IkQZwjvJ82Y3GXdxwkw0JEym8mviwvfxZ+u8ig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g3BCNlD1; arc=none smtp.client-ip=209.85.128.52
+	 MIME-Version; b=NvG3YjODHs42c8HhqFMqe+sYVHZW3iSxKzNGSWRhdjDxzsKAsQ057d2Ut7ZpD1Klm1zBZDUM7tABr/lNr/PTRAIy7B0PCkHQafA7ghi8O/MFtmk7xPPwiBcuWrKs53uxO/b4HvNbi3vBvvuXfaPygLusLaetRg8mZP4nVIMvv2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bC72aH1G; arc=none smtp.client-ip=209.85.128.46
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g3BCNlD1"
-Received: by mail-wm1-f52.google.com with SMTP id 5b1f17b1804b1-490b7866869so3731755e9.2
-        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:57:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bC72aH1G"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490b64c8311so5812475e9.3
+        for <devicetree@vger.kernel.org>; Tue, 02 Jun 2026 23:57:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780469872; x=1781074672; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780469873; x=1781074673; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=NCOt5VX5nH8DaUUpoW8TOvBdLCkAWYJWESW888dwXMY=;
-        b=g3BCNlD1FTrvfachFjoOgM9J5cHsccjsEJvFc7rPeWMc0LRp7XZLFbz+I1rxYDh69r
-         20bA//E8mgg8T4bDbAQ/mfeU/wF2MtrfpnGKW8G4+fzZqi0dbtpl2DHWjjc6YQMPc7YH
-         ohwCKfNDiFr390psFWTNKSXzWzXh6WpOhLsWqsRcFBf+39o/QCHHS8Y3tohkvolcJKMe
-         ItH7ibspQhR22N24oDw/ghkeWGl5AViWEh1auz0ZkcwCnB7ZnWJVUSY4aKGx3vXbceFQ
-         9KMGnM918WQvyLculcK/4+D0IZRTgvWmTXk34D6hEsHb8q4pyeASApEGf5IWPdJkVhnY
-         kCQA==
+        bh=oKD/jOSADZ7rMDpz/kzySiiUCx3Fo+KM1sW62qF4fO4=;
+        b=bC72aH1GZyVGiRrtGtxYWUhbvOVTO2wdBvEgWzCJitAgNX2KL2qWRYf/nvgyif9VFb
+         A9TWvgSuK/9uLAkoOZFsC0tb3GXKyO9AvRVA2/dU+ISF8EnH2dFveMNprSW25mA6x6ps
+         tqjVqr3SEjuuDUbv2imeY3GFnDyd2ZQkokSu7qESsn75PYX7gOpG7hxexE3T6M1vxsZM
+         Gkn3sQ4TZA36gYey6cOF/hW/pK/p71FhNXZOR9b81CW6pZ0bRoEFGPTkkyC+NnWe+FxP
+         DGNSR5B7WdHNS2LyBzCd9ZDyM2YNjDBKGxwFoVrhhEYDatq0kSMvb3gM9J+NgJDaRQMK
+         LODQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780469872; x=1781074672;
+        d=1e100.net; s=20251104; t=1780469873; x=1781074673;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=NCOt5VX5nH8DaUUpoW8TOvBdLCkAWYJWESW888dwXMY=;
-        b=pbccAyrXLpatQIRxsvdbnQeVHkYqtcJKeJkURg9uDVrQDhaYpljM2o/ys8CE0dJL3X
-         wO0QfHO+CF5GvFKHA9iY5Dabsh47DLAUJ3MZK/MbidK7xG28xy6OFQjY2BX+RYIvZoiw
-         eplOcTF1esiihoNRB/0DqoaCLbkns3KeAVfETUuD3XreD3fpDtj6cUrJ/pVdS/kZiQbP
-         9kTqGe860e8LB2dBcNTgH+5j9bl1bMm2IBCqEXyQ6tzcYL8jhiA0tsXWBdlypaeSAZ4O
-         zXvwDI2TJUB/txxq51+j4QDdDM4ZPgBoZf0rN3YlXIF/sUVz0keSOKKAAn4mCkurfQ/f
-         hXXw==
-X-Forwarded-Encrypted: i=1; AFNElJ/zKxfI3RVlfKYxclFuNkdPzNSDzpJ7a26bMn9BfFDXEXcLr2hBvNrY+FuQxt8TfJygjbGWaejIgtge@vger.kernel.org
-X-Gm-Message-State: AOJu0Yx7mQgChR4WSL/4/S2GIX39ogJUAdngMC10uFTZ4PbVuJ+N7KWO
-	IfUSaPxZi2x3BmbJIBY/g8H2H5VHSELUXHVajMGod/s/J5zCmOgZnpnQ
-X-Gm-Gg: Acq92OGztIujV4jGTNN5zG8G8mScIcDNBAEpkQgj6SNPH7KrJhiCMbOD7oJH9hfOOVg
-	BQ2zJ0GblqtBE53nYrBqP7QOsn1bmPppaQS05+WdE/BqhZ2eJlAaN6xr6GwIz0szvcmQpQZRYHU
-	9OUn7vNpoOoI4GeLPBWAljd+t16phM1cbJoJ6Q5LnDDMFQ8ylmO4JOY0qElrTJ1hOrFCKzzggYI
-	cDgerI95fanUAc9qM9Vgoo04waqdYvCW2k58AusdLduy0uL/iraphN6mj/BMq5X8YB94MG4gSoW
-	iqthfiCtma6jMyWWgPOWpD6nHW85x77vZDBK8gIqEKXPNOSgDi34RF+AQhwP1OadyvHo+0LjpW9
-	caz1jLkq2quYKVhhTdh7wALGJzsvEP+lRyvQLKJufucrosLs+JyMNhyLl61atkqZ7szdaw9eCqA
-	ohlQaGjB+Q1MfxQQk+gpmDcdkdig4KW20a9isuGVADfhCj/exsns9nkBt/YxA=
-X-Received: by 2002:a05:600c:3e05:b0:48f:d5a0:284e with SMTP id 5b1f17b1804b1-490b6101131mr32373605e9.28.1780469871500;
-        Tue, 02 Jun 2026 23:57:51 -0700 (PDT)
+        bh=oKD/jOSADZ7rMDpz/kzySiiUCx3Fo+KM1sW62qF4fO4=;
+        b=HGnLD/q9062Xe638TQV3XJ53EmReVzs6rOjXgrv5pUxZOQ0hd+Z0dYsGxAuPAGkN07
+         H1X1ur5D8JL6WZ9b2IyTc/1GnX2YjqgAHqyOGWHFVDqxoVbQHDM0y/v0mtDjbJ/0F9po
+         Lix/qpm2LfZS2wcIJPX41BvF5+tH5WETByi7Dvrhv40s2untzaKMyHjvh3wV1GMKWqwe
+         vP+5002LJ1IimewOilbiOMKRA6e+M+UASJLdIGSYhEIT5a5eiXGg3lM4oD0Ze4EQVRiy
+         QmNN16Ky2g9qS4932nnU/oyd/Kfh1lCqbQL6ZDX30IjZIzmCp6fdO0CNIiVqJ1cQ6h9c
+         ltNQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/8gxejV1kcYZdrYRsluaEJvd9Zs4NvCpRb0ebY3RxZEJDiEJ8Jm4hFpUyP/fQgWqcB2GUjArGQ+eES@vger.kernel.org
+X-Gm-Message-State: AOJu0Yx6v2kaxI0P+D/OcztC3KCpyjLKC7vuWcOoZSL7jGmSAeeJv3te
+	B2Th/b9rEyvBL9YlvDHbjCfusclaXh8VqPEi8sjYUprBKK31AhoWgoX8
+X-Gm-Gg: Acq92OEkLJbIJYMty0JATqSD3Z3YPPDpvf4QFm+oR3+cs4FTFNZnOjJB8Y4AOVobJS7
+	O6zAJc73ADPDJ7QproYRvwLBggvxJEBfSuBiAbmxe0O2rq8EtuE+n+g1qIzsHkMpfvurk7NvcBt
+	xiZL8mYuHPo37IVVk9L6ZKrXTKn+6Uy0iO3AAUW45uUtNeVX6odh7bZV6vPqP9yHluH4ZgbvKDc
+	R/Ikgg/f/UGQeVL0us4kyz7/VLe1Ade1UJrDQc0Qxlr3NeWOjKwC1TRgNw+elsHACHdtJ3IUtdZ
+	anxGX/2aspCrAMYGyYOD0OTwOmW/IAJW2bsjGKUmn3RnazkkV9XxtB6ZIS4X08TBqdS48nXjbVf
+	eopzzHrBqG58hl4GzRTXc+fZVE7+qYT4NeMbY7+Y5aFlkwMD5a8QLsqCJ+4ruxS1g+C7mfgpSsH
+	5UR5jQLDSl4TqVbtAzUvZ0nRNubmDxLUEpRWxX0YdCAs2/C5qmbi0577Xmci8=
+X-Received: by 2002:a05:600c:4e52:b0:490:ae52:499c with SMTP id 5b1f17b1804b1-490b5ed4620mr33043315e9.21.1780469872601;
+        Tue, 02 Jun 2026 23:57:52 -0700 (PDT)
 Received: from localhost.localdomain ([2a00:23c4:a700:7301:179c:89ab:19f6:9ba4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d90bdsm9001855e9.0.2026.06.02.23.57.50
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d90bdsm9001855e9.0.2026.06.02.23.57.51
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 02 Jun 2026 23:57:51 -0700 (PDT)
+        Tue, 02 Jun 2026 23:57:52 -0700 (PDT)
 From: Biju <biju.das.au@gmail.com>
 X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
 To: Geert Uytterhoeven <geert+renesas@glider.be>,
@@ -71,9 +71,9 @@ Cc: Biju Das <biju.das.jz@bp.renesas.com>,
 	linux-kernel@vger.kernel.org,
 	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
 	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH v17 16/17] arm64: dts: renesas: rzg3l-smarc-som: Enable SD/eMMC on SDHI0
-Date: Wed,  3 Jun 2026 07:57:16 +0100
-Message-ID: <20260603065731.93243-17-biju.das.jz@bp.renesas.com>
+Subject: [PATCH v17 17/17] arm64: dts: renesas: rzg3l-smarc-som: Enable SDHI2
+Date: Wed,  3 Jun 2026 07:57:17 +0100
+Message-ID: <20260603065731.93243-18-biju.das.jz@bp.renesas.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
 References: <20260603065731.93243-1-biju.das.jz@bp.renesas.com>
@@ -87,176 +87,133 @@ Content-Transfer-Encoding: 8bit
 
 From: Biju Das <biju.das.jz@bp.renesas.com>
 
-Add support for enabling SD card or eMMC on SDHI0 on the RZ/G3L SMARC
-SoM. The selection between SD and eMMC is controlled by the
-SW_SD0_DEV_SEL macro in the board DTS, which must match the position
-of switch SYS.1 on the SoM. By default, eMMC is enabled.
+Enable SDHI2 on the RZ/G3L SMARC EVK platform using the internal
+voltage regulator for voltage switching. SDHI2 signals are muxed
+with I2S0; the selection is controlled by the SW_SD2_EN macro in
+the board DTS, which must match the position of switch SYS.4 on
+the SoM. By default, I2S0 is enabled.
 
 Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
 ---
 v1->v2:
  * No change.
 ---
- .../boot/dts/renesas/r9a08g046l48-smarc.dts   |   1 +
- .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 111 ++++++++++++++++++
- 2 files changed, 112 insertions(+)
+ .../boot/dts/renesas/rzg3l-smarc-som.dtsi     | 88 +++++++++++++++++++
+ 1 file changed, 88 insertions(+)
 
-diff --git a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-index a4cc07408b3f..2f16a2bb6dc8 100644
---- a/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-+++ b/arch/arm64/boot/dts/renesas/r9a08g046l48-smarc.dts
-@@ -9,6 +9,7 @@
- 
- /* Switch selection settings */
- #define RZ_BOOT_MODE3		1
-+#define SW_SD0_DEV_SEL		0
- #define SW_SD2_EN		0
- #define SW_DPI_EN		0
- #define SW_GPIO4		1
 diff --git a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-index 091a227233cb..446c7780cb30 100644
+index 446c7780cb30..3d5e6b8489a9 100644
 --- a/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
 +++ b/arch/arm64/boot/dts/renesas/rzg3l-smarc-som.dtsi
-@@ -9,6 +9,10 @@
-  * Please set the below switch position on the SoM and the corresponding macro
-  * on the board DTS:
-  *
-+ * Switch position SYS.1, Macro SW_SD0_DEV_SEL:
-+ *      0 - SD0 is connected to eMMC (default)
-+ *      1 - SD0 is connected to uSD0 card
-+ *
-  * Switch position SYS.2, Macro SW_I3C_EN:
-  *      0 - SMARC_I2C_GP is enabled
-  *      1 - I3C is enabled
-@@ -37,6 +41,7 @@ aliases {
- 		ethernet0 = &eth0;
+@@ -42,6 +42,7 @@ aliases {
  		ethernet1 = &eth1;
  		i2c0 = &i2c0;
-+		mmc0 = &sdhi0;
+ 		mmc0 = &sdhi0;
++		mmc2 = &sdhi2;
  	};
  
  	memory@48000000 {
-@@ -63,6 +68,19 @@ reg_3p3v: regulator-3p3v {
- 		regulator-always-on;
+@@ -296,6 +297,74 @@ sd0-data {
+ 			power-source = <1800>;
+ 		};
  	};
++
++	sdhi2_pins: sd2 {
++		sd2-cd {
++			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
++		};
++
++		sd2-clk {
++			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
++			power-source = <3300>;
++		};
++
++		sd2-cmd {
++			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
++			input-enable;
++			power-source = <3300>;
++		};
++
++		sd2-data {
++			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
++				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
++				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
++				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
++			input-enable;
++			power-source = <3300>;
++		};
++
++		sd2-iovs {
++			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
++		};
++
++		sd2-pwen {
++			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
++		};
++	};
++
++	sdhi2_pins_uhs: sd2-uhs {
++		sd2-cd {
++			pinmux = <RZG3L_PORT_PINMUX(K, 0, 1)>; /* SD2_CD */
++		};
++
++		sd2-clk {
++			pinmux = <RZG3L_PORT_PINMUX(H, 0, 1)>; /* SD2_CLK */
++			power-source = <1800>;
++		};
++
++		sd2-cmd {
++			pinmux = <RZG3L_PORT_PINMUX(H, 1, 1)>; /* SD2_CMD */
++			input-enable;
++			power-source = <1800>;
++		};
++
++		sd2-data {
++			pinmux = <RZG3L_PORT_PINMUX(H, 2, 1)>, /* SD2_DAT0 */
++				 <RZG3L_PORT_PINMUX(H, 3, 1)>, /* SD2_DAT1 */
++				 <RZG3L_PORT_PINMUX(H, 4, 1)>, /* SD2_DAT2 */
++				 <RZG3L_PORT_PINMUX(H, 5, 1)>; /* SD2_DAT3 */
++			input-enable;
++			power-source = <1800>;
++		};
++
++		sd2-iovs {
++			pinmux = <RZG3L_PORT_PINMUX(K, 1, 1)>; /* SD2_IOVS */
++		};
++
++		sd2-pwen {
++			pinmux = <RZG3L_PORT_PINMUX(K, 2, 1)>; /* SD2_PWEN */
++		};
++	};
+ };
  
-+#if SW_SD0_DEV_SEL
-+	vqmmc_sd0_pvdd: vqmmc-sd0-pvdd {
-+		compatible = "regulator-gpio";
-+		regulator-name = "SD0_PVDD";
-+		regulator-min-microvolt = <1800000>;
-+		regulator-max-microvolt = <3300000>;
-+		gpios = <&pinctrl RZG3L_GPIO(L, 4) GPIO_ACTIVE_HIGH>;
-+		gpios-states = <0>;
-+		states = <3300000 0>, <1800000 1>;
-+		regulator-ramp-delay = <1200>;
-+	};
-+#endif
-+
- 	x2_clk: x2-clock {
- 		compatible = "fixed-clock";
- 		#clock-cells = <0>;
-@@ -216,7 +234,100 @@ i2c0_pins: i2c0 {
- 		pinmux = <RZG3L_PORT_PINMUX(L, 2, 4)>, /* RIIC0_SCL */
- 			 <RZG3L_PORT_PINMUX(L, 3, 4)>; /* RIIC0_SDA */
- 	};
-+
-+	sd0-pwr-en-hog {
-+		gpio-hog;
-+		gpios = <RZG3L_GPIO(5, 1) GPIO_ACTIVE_HIGH>;
-+		output-high;
-+		line-name = "sd0_pwr_en";
-+	};
-+
-+	sdhi0_emmc_pins: sd0-emmc {
-+		sd0-ctrl {
-+			pins = "SD0_CLK", "SD0_CMD";
-+			power-source = <1800>;
-+		};
-+
-+		sd0-data {
-+			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3",
-+			       "SD0_DAT4", "SD0_DAT5", "SD0_DAT6", "SD0_DAT7";
-+			power-source = <1800>;
-+		};
-+
-+		sd0-rst {
-+			pins = "SD0_RST#";
-+			power-source = <1800>;
-+		};
-+
-+		sd0-ds {
-+			pins = "SD0_DS";
-+			power-source = <1800>;
-+		};
-+	};
-+
-+	sdhi0_usd_pins: sd0-usd {
-+		sd0-cd {
-+			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
-+		};
-+
-+		sd0-ctrl {
-+			pins = "SD0_CLK", "SD0_CMD";
-+			power-source = <3300>;
-+		};
-+
-+		sd0-data {
-+			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
-+			power-source = <3300>;
-+		};
-+	};
-+
-+	sdhi0_usd_uhs_pins: sd0-usd-uhs {
-+		sd0-cd {
-+			pinmux = <RZG2L_PORT_PINMUX(5, 0, 8)>; /* SD0_CD */
-+		};
-+
-+		sd0-ctrl {
-+			pins = "SD0_CLK", "SD0_CMD";
-+			power-source = <1800>;
-+		};
-+
-+		sd0-data {
-+			pins = "SD0_DAT0", "SD0_DAT1", "SD0_DAT2", "SD0_DAT3";
-+			power-source = <1800>;
-+		};
-+	};
-+};
-+
-+#if (SW_SD0_DEV_SEL)
-+&sdhi0 {
-+	pinctrl-0 = <&sdhi0_usd_pins>;
-+	pinctrl-1 = <&sdhi0_usd_uhs_pins>;
+ #if (SW_SD0_DEV_SEL)
+@@ -329,6 +398,25 @@ &sdhi0 {
+ };
+ #endif
+ 
++#if SW_SD2_EN
++&sdhi2 {
++	pinctrl-0 = <&sdhi2_pins>;
++	pinctrl-1 = <&sdhi2_pins_uhs>;
 +	pinctrl-names = "default", "state_uhs";
 +
 +	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&vqmmc_sd0_pvdd>;
++	vqmmc-supply = <&sdhi2_vqmmc>;
 +	bus-width = <4>;
 +	sd-uhs-sdr50;
 +	sd-uhs-sdr104;
 +	status = "okay";
 +};
-+#else
-+&sdhi0 {
-+	pinctrl-0 = <&sdhi0_emmc_pins>;
-+	pinctrl-1 = <&sdhi0_emmc_pins>;
-+	pinctrl-names = "default", "state_uhs";
 +
-+	vmmc-supply = <&reg_3p3v>;
-+	vqmmc-supply = <&reg_1p8v>;
-+	bus-width = <8>;
-+	mmc-hs200-1_8v;
-+	mmc-hs400-1_8v;
-+	mmc-hs400-enhanced-strobe;
-+	non-removable;
-+	fixed-emmc-driver-type = <1>;
++&sdhi2_vqmmc {
 +	status = "okay";
- };
++};
 +#endif
- 
++
  &wdt0 {
  	timeout-sec = <60>;
+ 	status = "okay";
 -- 
 2.43.0
 
