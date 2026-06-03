@@ -1,494 +1,299 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010068.outbound.protection.outlook.com [52.101.229.68])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5704339A4BA
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 20:24:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780518247; cv=none; b=hW6R+3CuwagV+yKgYSWyrGXGpk7L2+GsIt8OS9+KeMUSqu4SXdfb+qNPtSOLTkGS25rnn5o+6Xhl0G0qjpObQvrR7/Ohbt2ggsVKzh+NDrsAYremHATFgfSum7eJ6ry9CkUGPTmV33ALQj2CPp5SmCRym1uAGNKDtqgUS/CsR9k=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780518247; c=relaxed/simple;
-	bh=dgtu2Iep90AeJho7vMivN6OvXTJk+BhD2v7PAhpGkIg=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=OG2sFuFizLG2PfDAWjpjqwbQiYsON4ceJhmKbwHEatj/ewmnOho+V6VJDzMEcUqLhErAl71UAZkfaa0tindUtxzHzrcKXUU8FGbBg2cLtkjd10d7SJa3p2+11oxWMLgLrvS5X3n9pqqxhPqaD944CLoNiLQGAO+8Fu1OcRdfbOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=ZgTwajg/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=WiX5KYR6; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7BBD3E4C98;
+	Wed,  3 Jun 2026 20:28:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.68
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780518531; cv=fail; b=kdlFveq/hEGjcM7PUafxm5quvctGdybnQXYHJyEXU9ucCFPNPnw73Io56hYNirck6zXz4tUP3L/OqoaF+BRXJTBJCpetLdMFui+LjNnZiqYqZdUUhz3FzsKTqEkHQATU7T/783JT3Uf+2nbpAC/5n6Oa/ootdV+53hpf6HeSVZc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780518531; c=relaxed/simple;
+	bh=kDgR4cCS+yNAQULJic+bAVIFKiOresHNY6U0ScX3XrE=;
+	h=From:To:Cc:Subject:Date:Message-Id:Content-Type:MIME-Version; b=M5uaeEAD59lOpygVmRn/VwapW1YURJsoJCPvckbj0dQ0IVqhGc/G9Y9fMCNgJi9jJPAOBBBEnMa7iG66HXLVUFZ57ZFYpkOyZUPM5Vcp7LziAXa/gQ4lcXe59QUXe3qAyRB13AdffkRsezUn00JJeUuQDK683erGGmTJ2sgRaxc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com; spf=pass smtp.mailfrom=bp.renesas.com; dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b=i5o03SPb; arc=fail smtp.client-ip=52.101.229.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=bp.renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bp.renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="ZgTwajg/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="WiX5KYR6"
-Received: from pps.filterd (m0279871.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653HAFU32651796
-	for <devicetree@vger.kernel.org>; Wed, 3 Jun 2026 20:24:05 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	aWKiZt685wkb/zfGIBJDwQedq36r3+vpvu2k4QjMlOk=; b=ZgTwajg/k6/NXcl5
-	Jh7W5QBbjK2qrecULXUDS+r6jBiSw8aK7pDApPY1n4bvPmXEBslrlf5CRCZZt9+g
-	0tXjQuozplc4kDS+slqv0spJotxMuCA4vPY8XnnaWY1KNqy93lB/ii0rTgWaF+sT
-	Lph3lvD/EfleSjNG+GNK9C1sjKxJwQqBpZHyflu7cbhPVuxeg2fiXGFDxdNK4RAz
-	QCfQT2kQ/eG2CmvffyM349GQokYMOXhrqXRTaWH3rKCrksk8zdlGshnIDox05ZKM
-	x/V4dtspwDrtvSW76kPSzdtWmQvfqwJTEUNXvsmIG3QO+MG5SbmDBrLyydMXpn9R
-	3rmFXw==
-Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejre9gs77-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 20:24:05 +0000 (GMT)
-Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-304ea1eea05so17576018eec.0
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 13:24:05 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780518244; x=1781123044; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=aWKiZt685wkb/zfGIBJDwQedq36r3+vpvu2k4QjMlOk=;
-        b=WiX5KYR6TKWj8pRDoBzzWa58RQCRuyIRp31v/Br1t+TZpnmFXsBi2TF6g/KcK3g7po
-         gctMB2wLJ4V6BqSet22N/DT6A2PwvLNgNLZYY09Uhxalyoso76fHyIC5kQhP1P0Xarkz
-         uBQ2WIqraq/R7E5kOJcghwiWge3/HeO801JQ52RAv2YieRWjGZ3D/89muzUBfNnPya4R
-         6cx9KbeOQ9fnD3JOKNRI+rWCz2eaxfOLfX7Vsm926nG4xOYFpbR4lHtlNLHz3YM983mt
-         rWAnlBPm6EVAl9m7s6ADbMVKok7uVh6r0AFLa+IL6xw4BkXgtm4ABkN64QNDVkr9AHdx
-         Z8GQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780518244; x=1781123044;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:from:subject:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=aWKiZt685wkb/zfGIBJDwQedq36r3+vpvu2k4QjMlOk=;
-        b=QG4/SbW6whEYvzZI2+YCdfeyWx5jIQ8A8Lcy0SXINEdp/f4OJX/eeZmlneV0ec6Xq3
-         y9SgnF0AMnFZsS2pCS0euxIrrlLi/aHjTT3iY9h4+pX2u1auPOKyLzOIwD4NxXADfGdR
-         30c7zzp928ct9izt+Jl4mntOzffZrH4M7oG3Mx6azkVepvubAExDPJj+OqQF11xMp9oH
-         DJLJVXT98+1iEbW6peqZ26VTPL931629HA/hs8KfJ3eRECo6q6LKapOSFXKnOvY1hRgX
-         riusWIH9jvXmoJfYq4wjf+wCXhizqGwi74hF+biDn1/xAjKq7HWNZJGd4r4zXKAU36Fh
-         gB0w==
-X-Forwarded-Encrypted: i=1; AFNElJ8wtk3MAxUtzmJymr/ik2Lm9BgmbmVdv42LRcOIgjaINNGNi30BA7/2ZHfA3ZUsCeNjZ+MmbX3s9WnI@vger.kernel.org
-X-Gm-Message-State: AOJu0YwB8S9/53tDOtrxo0wtLZCT7U3BwBIN+o/dtdS7lFGtlkcHTmV6
-	0O1yp+NoYi3MCdnmLXu7tvYje2ua8sRe224yBDM1oD0JtCSK3RCEXE7nFabX5Az+nB2VSJFWoht
-	2LatvqqBQG9TofR1YrFIo+2ja640AlxugoEdimP2gpI+LOczCQ1FYq1thDhVKCqWtrNYWU/bC
-X-Gm-Gg: Acq92OEL5NI8F66O85pcxQ1y+LrRdDMHFng9P6WRh3N56BJDSOadUAC2zB33kveeO4z
-	U6UcJzU7O00eYgnqrJ1lRgHzvilKBibhkgXfcp1oXA9jOxEp37ufrup+R0ELoH1vWi0zDXWq11d
-	UUxE1f/nvCbrJlDSr5iIe1VsUegx7sdO30tH3mqtbbK8TO0hOimtlA7x4Ye4OsAqgmccSx+zQiS
-	mjaMvODWz2VaKn6scThPVcaPmzimEFSMMpivxaM8JLHtWi0fE+SUcPkvhO0ckKzTs/Nc0Rgm4kI
-	U3IIm88AzZ0lfqz+vQQ7NEY1dWn+lqQN/ubkQ2Tuus2BBdOEpxYWm63DPy3gMAn/dzLDMf+AaFc
-	vuHc+hZGAz31t6+VWlk5w8OCwwL+CM45NtxuHBGp/R+Qdur6Ed6s2H65qvqVhO2ocUQMSm6F/3K
-	HyAHfDLUI8rD0=
-X-Received: by 2002:a05:7300:2142:b0:304:630d:e4c4 with SMTP id 5a478bee46e88-3074fab7663mr2659625eec.10.1780518244119;
-        Wed, 03 Jun 2026 13:24:04 -0700 (PDT)
-X-Received: by 2002:a05:7300:2142:b0:304:630d:e4c4 with SMTP id 5a478bee46e88-3074fab7663mr2659592eec.10.1780518243493;
-        Wed, 03 Jun 2026 13:24:03 -0700 (PDT)
-Received: from [10.62.37.26] (i-global254.qualcomm.com. [199.106.103.254])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-3074df3b234sm4306900eec.23.2026.06.03.13.24.02
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 13:24:02 -0700 (PDT)
-Message-ID: <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
-Date: Wed, 3 Jun 2026 13:24:01 -0700
+	dkim=pass (1024-bit key) header.d=bp.renesas.com header.i=@bp.renesas.com header.b="i5o03SPb"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=UY/F0r6wKJd/9HKNzBivNMwTWFnItEWcyRQUXU/utc0+zDHU3XfUlXKwDeUPJBnqjvNTVDj1+EsWqm5LBnMBDiLH5KO5mBPNmrOdYiyhytibSi+58wI60G2ILvj1qAjP8PKvZdT2A5hNpPpZUbR6MFDyCs2BegazBcdO45Hq+bYEBupLO/lNiBiXTkeIHqjGuLje+Th9GnbvjpY82xoHwUNrnSFhAYOGkoePzaISbuOgIm+mlq/1bWvi2HDUkvAsi8eKR7ftdudEso0qjGREoluI13H2l3lPqYygGPnqKGOAmAOqIXi0+HzUCp6h4rc7DSVEKGko21i20kKBmOemvg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=w5Mi6xiNjzbyhVcFFp717zSEJqFJwBhM4YGie70hk1g=;
+ b=XsE7U9GNzEWYv1dHjzZCJRXH7wMNPW9k3gyUINpxGOHvrQUJjXe7rs5lkGhyTv9FnFcvvLFwIsO7jDLuiwSW33bqjuVwxRZDJkS8Qeg7H5X8jSDsUe73wLhUf7HmhjmdEnesfhtQ1Pu1LJ0GFzkTwJfOQsIiuhvrd48rw8wSghD7l5qIBV9ut1tn/jpyqeHjgumZoRUx+bfDHnYQEHyl0hYbL2JAtUX/lekCZov5L9oD3yMkqjiBihhq5iVdJuDkhMaHXT7A/OqNZpigOGE8HMcejnIAEK/2e2zW2pPrbBjuYw0/9rLCd4ytCEmk2cyjFCgD2PXV47N6UnKdIaI4cQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=bp.renesas.com; dmarc=pass action=none
+ header.from=bp.renesas.com; dkim=pass header.d=bp.renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bp.renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=w5Mi6xiNjzbyhVcFFp717zSEJqFJwBhM4YGie70hk1g=;
+ b=i5o03SPb4BPan1OOIYtyF2GDhiqHoNcGqXTHRC5mheuuTR0gLSVCUR2Btv4kS+Beg8fJaajyEdp1/JM7IIQNtVzC5GLOQWCvIyrTrPQisQh4nMDU/Owjo5olQD6pBtOXhGBLG1Gnnr9kpdvX+TjdwAzWgy0jfWX9Ib0gcq9jyFM=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=bp.renesas.com;
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com (2603:1096:405:35b::6)
+ by OSZPR01MB7724.jpnprd01.prod.outlook.com (2603:1096:604:1b4::13) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 20:28:47 +0000
+Received: from TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3]) by TY6PR01MB17377.jpnprd01.prod.outlook.com
+ ([fe80::f373:26d6:86c4:6aa3%6]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 20:28:47 +0000
+From: John Madieu <john.madieu.xa@bp.renesas.com>
+To: lgirdwood@gmail.com,
+	broonie@kernel.org,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	geert+renesas@glider.be,
+	magnus.damm@gmail.com
+Cc: kuninori.morimoto.gx@renesas.com,
+	linux-sound@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	john.madieu@gmail.com,
+	John Madieu <john.madieu.xa@bp.renesas.com>
+Subject: [PATCH] ASoC: dt-bindings: sound: renesas,r9a09g047: Fix dma-names list and ports schema
+Date: Wed,  3 Jun 2026 20:28:05 +0000
+Message-Id: <20260603202805.3530046-1-john.madieu.xa@bp.renesas.com>
+X-Mailer: git-send-email 2.25.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: FR3P281CA0014.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:1d::7) To TY6PR01MB17377.jpnprd01.prod.outlook.com
+ (2603:1096:405:35b::6)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-From: Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>
-To: Bryan O'Donoghue <bod@kernel.org>,
-        Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Vinod Koul
- <vkoul@kernel.org>,
-        Kishon Vijay Abraham I <kishon@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>,
-        Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
-        linux-media@vger.kernel.org, devicetree@vger.kernel.org,
-        linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
- <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-Proofpoint-ORIG-GUID: VE5S0nXERVe4WrE-xG2Z-LZGmlCkcAFl
-X-Proofpoint-GUID: VE5S0nXERVe4WrE-xG2Z-LZGmlCkcAFl
-X-Authority-Analysis: v=2.4 cv=KoF9H2WN c=1 sm=1 tr=0 ts=6a208d65 cx=c_pps
- a=cFYjgdjTJScbgFmBucgdfQ==:117 a=JYp8KDb2vCoCEuGobkYCKw==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=3WHJM1ZQz_JShphwDgj5:22
- a=gEfo2CItAAAA:8 a=KKAkSRfTAAAA:8 a=VwQbUJbxAAAA:8 a=Lt2A_MVf5n7MuNHE5loA:9
- a=3ZKOabzyN94A:10 a=QEXdDO2ut3YA:10 a=scEy_gLbYbu1JhEsrz4S:22
- a=sptkURWiP4Gy88Gu7hUp:22 a=cvBusfyB2V15izCimMoJ:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDE5OCBTYWx0ZWRfX3Fo60zsxl82J
- ErWrBQLeIMExap6qRagi1NR8uKfmTmg3o1TgNf/66Yrpr0Rt86YDv0M5JD6aI9ixgo6XgrqfRk5
- tLZ1PeOSzc+H3pq74/Y6MXF2QDACc6KxNn1VulXn071ZsHeC38MeXiS+EcG0kr7OU9Z5Bbhz9Fy
- xJloqc28ALbMjcEgcWMu1UFCpSTlyUyRNhsgDx1ObkUD9LsW74nTENg/mE6M5qpmbrRywIeI5vl
- qSeVfiPvE9RD/IKi/ZGfmaaJiUQv2rc45tsG9Jg6+DI7rC/o+bXAa5bZ7f3h+EXILQ9ASeIBnWq
- unhbwZfThbRDA82mbqwFqrWTC9vzkOJFX0zOh9I4L6QUsDBeFPItpM7rUHIVx1MW/N8BTz4j3vf
- zYqTPez55dutSr79kSmDu1+TR/rCfwAtcK93ZoVxu0fJnyAkwbHhJDdte7HzKU6HnkYWLOVc4xC
- Wrd/NVo4CGljKHvFIaw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-03_05,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 spamscore=0 clxscore=1015 bulkscore=0 suspectscore=0
- priorityscore=1501 adultscore=0 phishscore=0 impostorscore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606030198
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: TY6PR01MB17377:EE_|OSZPR01MB7724:EE_
+X-MS-Office365-Filtering-Correlation-Id: 41ac14f2-6857-4c50-368b-08dec1aeb6c5
+X-LD-Processed: 53d82571-da19-47e4-9cb4-625a166a4a2a,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|366016|1800799024|376014|7416014|52116014|38350700014|18002099003|56012099006|11063799006|3023799007;
+X-Microsoft-Antispam-Message-Info:
+	QmG7ftbIWeXJjMPM3De4TtQ+2bo23jIeTCbB5CZwzDM87wV6RCW8IMblRAtO1mCopIe5ZCdUswK5MwI+ceRSceXHYZxHVqEKUhebv1kiOKrVR6r9zcNYk0yQoKljijGbjM+BnMbRuIlnx8Uz6T7KBemk9b5kPYcw3WP9GastWzH09tzN6XFqT+2rQdAcKfhaFYAh9P8cTlvpg+S0j2Vk/k7KkTYIcagVEAe9K9uNsUeejjwXb9BpdDUjFo1eN4PvBJFRche31pKIvqCNfBq2dmAi+cNW23mKuHbm54N78EKNo2J1TA0S+cZKg8u9XTN/pv4I6OTwCAddad0SVtabglqa7naYBAnpvaqeYqGI7rMiJ9Sv8CJb4/6HBGUFj7Y0LLkPnHfTsrrScEdmhyq3b1HebjqMSh/1YqapT+fKStHF0d34CsUX1UEoFZZjaF7qhAevHCvFK8GMkKsxUtPjSDm7FxyffMhoFJKWOMsspEjD4iAVcMDXNdHSU/sxihclhcGHJl5sHzvtCs8p0LGJvlIzuCrgoHOZizMTcKP0d3MlgcGdfJa5mOfWfOMTV+SbjGynlEX1sDvEAbeQq9fo+xvkOS6XS/ShGVSdtAkxp1xyHyyrWqrhoKHYphjU0FgBN+2J6gwJBoy4i513n2pX3MF+nV2Ga+64fhAHZruyf9zQpel9Bue61kC0f9QjJGtpBurPf/QOxiV5aceTTeeNoQYC9ikC8SqBNb4V0rg6dvxFFCHkHTGckTjXTMMR6oz2
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:TY6PR01MB17377.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(376014)(7416014)(52116014)(38350700014)(18002099003)(56012099006)(11063799006)(3023799007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?6QtaydUCCdv7DEIpHZV6oK1qtM/mSLDnu2qa4tReCm2LRqq39nP4c67bpTm0?=
+ =?us-ascii?Q?3ofjxwRkGe+myl/t0QiWAW9UE/Kbck1WRS8j1U6Mk2wd8qAfzFsxUg7m8pzr?=
+ =?us-ascii?Q?1ESRF4PeFY5J7WKMPUbb783UwThS+UWkv4bahZO+/WJPpx5fKSpT78V3jCl0?=
+ =?us-ascii?Q?NDjmERdA8EwJ9JWU0ObxlDBClPejMfGyMYgWpvRLIf0zmyq6AbUDqYhZQGDc?=
+ =?us-ascii?Q?Om1wuB5NqWW5wc1gzyEJlIOhuDsUWjkQxnTZwrOrcM1mOC+IyI77Z0JUKKlq?=
+ =?us-ascii?Q?69ST9vFSBSMAkzMAAHXckI1QIFYBPUABAgUkI/EwbSi5rI5gkTimi4QnyOg5?=
+ =?us-ascii?Q?IrvWBtXgWeoFT+YJjMkMtaPXDlIso1ErF7BJYXgVcFNKli8F5HxibnzR8Zvr?=
+ =?us-ascii?Q?RAk+GnW3Epi19KX+w4bXvczvQZSxrXGcRdRREEzRVcAZqrukAeSn9J9TqS7T?=
+ =?us-ascii?Q?zAQ0z6TBADv0Vn/8YwUA8uTcYFa1gs0Og1EweVINKXDpJ7bKKBH4G61NwFJq?=
+ =?us-ascii?Q?gGQsQAbDKf69lifXVlc4FcIt9dyIYrxtP4jvMTfxDc4cOf8cwediSnSft9cM?=
+ =?us-ascii?Q?mZ9fw/iCkCnb1ZmVrgtCnjmfmYviH6lCKpqEcG6xDs0iHUEaBrrKm+k0fYUK?=
+ =?us-ascii?Q?jrH3Z0QqfgEKjDtp/Qdfx47hXULvF4rlshgyN/pWqc84k8/3oxzrNKbe8AwG?=
+ =?us-ascii?Q?KdoZqC1+dFSjxXl65k/y/bX0L3HJIF5udhkYQiZzUrnKDNF9eAOKOkuw+hjR?=
+ =?us-ascii?Q?CvxHArzOpQyspV4qVVKy+mVtAIrktQyLyFQSQblSaTA4tE9ldSR/PprQ5K06?=
+ =?us-ascii?Q?1C+jefFDGUi/kwO9iEaGWpET1fAnaaUbeMvSW/nzL9MNKMPtZe+gsTd3uC0D?=
+ =?us-ascii?Q?iLmFlfUE8nrzlhvdnc4ZHsGDZ9OuO3VqARUXOBk2dpMbB+KtNZv0bfrvsrZA?=
+ =?us-ascii?Q?hFhTsFjkS9UxMSPSSF6dDYImiIhLv7XEtEEMyIIof6q73jdMuNhSneBz+yxD?=
+ =?us-ascii?Q?G6tTyY/hmj3YUB52mMRskHjH5x71vQ+bEgC2Y7QYtJaHcy7NKsyluwyXdVqn?=
+ =?us-ascii?Q?HEKEsX+E7tQ+nV0lfcFGwCMwagmtzjaZ15/UYB1VFAgD/76JIg3Rb1+aL7Qv?=
+ =?us-ascii?Q?TZuAou4w3iZNGPuMPJe7M9LB8HYTg853Je2jcXUWU9TaFP9pOFDIl0S5k3kk?=
+ =?us-ascii?Q?E2lHqP42VJtoNEQ4BKzSw2coH86jBmveb9S/ZkG8PPI+yobuLcW/RgmDlJsi?=
+ =?us-ascii?Q?MJr/Q2qkyUHH79puf7Y3winFCKy8GgTE6s2qU5x+lPk46QDTqNogl2uLdMVj?=
+ =?us-ascii?Q?6ZEfXSJ12OZjQTOO5ZT+8xCP0o+3/O/VhUVF5G8LtlcgliDZWa/Vb2ghH/41?=
+ =?us-ascii?Q?ZGJqbQcrTfyOw4ooynffi3PU00wtxaJhl3/Hy+giNXgcKQVhVFtnw6RpoE+p?=
+ =?us-ascii?Q?esmhS4zHPQzyeqyCOjW9M+QapBXCqaB+pLgd0pKwptKs8BVqXJCB+Uasqqrg?=
+ =?us-ascii?Q?MUJeITJ57VAl9C9GMKZMT88WYbDK27N5QdPw7qsy+ybsza6Jbi4YpryPvgyl?=
+ =?us-ascii?Q?qCN3fgwLRNF8PJH8PMfoBEAMn3mA+3rcgzEOoU6o3XLoryx1hyGxGxbIWba9?=
+ =?us-ascii?Q?sTymb5NuRrHIv3G6DIF5rswqjyzctZX8IPhvDjZ4M5t0GQNSAr73VCCR3AtT?=
+ =?us-ascii?Q?mCWrRU5TXXQUeXx8FR0YV6bjPcsVTkLn+EVXZCuHKuZlMGz68kfj0WdgSl92?=
+ =?us-ascii?Q?/lzwo3HkYGfwp2i3bmKghmBwU86jR8w=3D?=
+X-OriginatorOrg: bp.renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 41ac14f2-6857-4c50-368b-08dec1aeb6c5
+X-MS-Exchange-CrossTenant-AuthSource: TY6PR01MB17377.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 20:28:47.1318
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: jpDt/X9zrcO7Q41HFM8OXsWvF8o9Fic7n8qQ6gZkDQEQs+Xq11OVc2xPt16uAPTj7KVwecmzsy0pImnTMcNDoaB0y3l5TAmk21OPjRvM5G4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB7724
 
+Express the dvc/src/ssiu dma-names as an items list rather than an
+allOf-wrapped single schema, and drop the now-redundant maxItems. Fix
+the ports container to reference graph.yaml's ports definition instead
+of port-base (a ports container is not itself a port), keeping
+port-base on the port@N children, and constrain each playback/capture
+phandle-array entry to a single phandle.
 
+While at it, drop the unused top-level #address-cells/#size-cells since
+no child node uses a unit address and the ports node provides its own,
+require interrupts/dmas/dma-names on the src sub-nodes to match the
+ssi/ssiu sub-nodes and the driver, pin clocks and resets to their fixed
+counts (47 and 14) to match the clock-names/reset-names lists, and put
+compatible and reg first in the example.
 
-On 6/3/2026 1:16 PM, Vijay Kumar Tumati wrote:
-> Hi,
-> 
-> On 6/2/2026 3:51 PM, Bryan O'Donoghue wrote:
->> On 02/06/2026 22:59, Vladimir Zapolskiy wrote:
->>> On 5/23/26 05:48, Bryan O'Donoghue wrote:
->>>> Add a base schema initially compatible with x1e80100 to describe 
->>>> MIPI CSI2
->>>> PHY devices.
->>>>
->>>> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
->>>>
->>>> The schema here defines three ports:
->>>>
->>>> port@0:
->>>>       The first input port where a sensor is always required.
->>>>
->>>> port@1:
->>>>       A second optional input port which if present implies DPHY 
->>>> split-mode.
->>>>
->>>> port@2:
->>>>       A third always required output port which connects to the 
->>>> controller.
->>>>
->>>
->>> This port numeration is imperfect, because port@0 and port@2 are 
->>> required,
->>> while middle port@1 is optional.
->>>
->>> Like it was stated before a number of times, it seems natural to operate
->>> with two ports, where input port may have two endpoints rather than 3 
->>> ports,
->>> also that approach solves the problem of a hole in the port numeration.
->>
->> Can you confirm this is what you are after ?
->>
->> port@0 {
->>      #address-cells = <1>;
->>      #size-cells = <0>;
->>
->>      endpoint@0 {              /* primary sensor */
->>          reg = <0>;
->>          data-lanes = <0 1 2 3>;
->>          remote-endpoint = <&sensor0_out>;
->>      };
->>
->>      endpoint@1 {              /* split-mode second sensor, optional */
->>          reg = <1>;
->>          data-lanes = <0>;
->>          remote-endpoint = <&sensor1_out>;
->>      };
->> };
->>
->> port@1 {                     /* output to CAMSS, was port@2 */
->>      endpoint { remote-endpoint = <&controller_in>; };
->> };
->>
->> This works for me BTW.
-> Either way, do we need to document the constraint of using port@0 or 
-> endpoint@0 'only' for the 4+1 or 2+1 mode and the other one is for the 
-> 1+1 mode? Or is it implicit from this bindings for a developer?>
->>>> The CSIPHY devices have their own pinouts on the SoC as well as 
->>>> their own
->>>> individual voltage rails.
->>>>
->>>> The need to model voltage rails on a per-PHY basis leads us to define
->>>> CSIPHY devices as individual nodes.
->>>>
->>>> Two nice outcomes in terms of schema and DT arise from this change.
->>>>
->>>> 1. The ability to define on a per-PHY basis voltage rails.
->>>> 2. The ability to require those voltage.
->>>>
->>>> We have had a complete bodge upstream for this where a single set of
->>>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
->>>>
->>>> Much like the I2C bus which is dedicated to Camera sensors - the CCI 
->>>> bus in
->>>> CAMSS parlance, the CSIPHY devices should be individually modelled.
->>>>
->>>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->>>> ---
->>>>    .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 209 ++++++++ 
->>>> + ++++++++++++
->>>>    1 file changed, 209 insertions(+)
->>>>
->>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100- 
->>>> csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100- 
->>>> csi2-phy.yaml
->>>> new file mode 100644
->>>> index 0000000000000..270375f949880
->>>> --- /dev/null
->>>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>>> @@ -0,0 +1,209 @@
->>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>> +%YAML 1.2
->>>> +---
->>>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>> +
->>>> +title: Qualcomm CSI2 PHY
->>>> +
->>>> +maintainers:
->>>> +  - Bryan O'Donoghue <bod@kernel.org>
->>>> +
->>>> +description:
->>>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI 
->>>> CSI2 sensors
->>>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and 
->>>> D-PHY
->>>> +  modes.
->>>> +
->>>> +properties:
->>>> +  compatible:
->>>> +    const: qcom,x1e80100-csi2-phy
->>>> +
->>>> +  reg:
->>>> +    maxItems: 1
->>>> +
->>>> +  "#phy-cells":
->>>> +    const: 1
->>>> +    description:
->>>> +      The single cell specifies the PHY operating mode.
->>>
->>> #phy-cells should be 0, because the PHY operating mode is well defined
->>> by 'bus-type' property of an endpoint on the sensor side, the opposite
->>> side of CAMSS/CSID as a CSIPHY "consumer" should not dictate the PHY 
->>> type.
->>
->> Rob said consumer but, I'm also not very bothered about that. bus-type 
->> is perfectly acceptable to me.
->>
->>>> +
->>>> +  clocks:
->>>> +    maxItems: 2
->>>> +
->>>> +  clock-names:
->>>> +    items:
->>>> +      - const: core
->>>> +      - const: timer
->>>> +
->>>> +  interrupts:
->>>> +    maxItems: 1
->>>> +
->>>> +  operating-points-v2:
->>>> +    maxItems: 1
->>>> +
->>>> +  power-domains:
->>>> +    items:
->>>> +      - description: MMCX voltage rail
->>>> +      - description: MXC or MXA voltage rail
->>>
->>> Only "qcom,x1e80100-csi2-phy" device is supported so far, unlikely it's
->>> the case that "MXC or MXA voltage rail" should be specified, it'd be
->>> just one of two or both.
->>
->> Hmm. I'm not being clear here if this is your take, I will reword it 
->> to make it clearer this generation of PHY _must_ have either
->>
->> - MMCX and MXC
->> or
->> - MMCX and MXA
-> I am not sure of this, Bryan. If you look at the PHY core clock 
-> separately, sure, that is correct. But all of them, on this platform as 
-> well, share the RCG, which requires all 3 power domains. So 
-> fundamentally, you need to enable all of those from each PHY. You can 
-> make it constant 3 power domains.>
->>>> +
->>>> +  power-domain-names:
->>>> +    items:
->>>> +      - const: mmcx
->>>> +      - const: mx
->>>> +
->>>> +  vdda-0p9-supply:
->>>> +    description: Phandle to a 0.9V regulator supply to a PHY.
->>>> +
->>>> +  vdda-1p2-supply:
->>>> +    description: Phandle to 1.2V regulator supply to a PHY.
->>>> +
->>>> +  ports:
->>>> +    $ref: /schemas/graph.yaml#/properties/ports
->>>> +
->>>> +    properties:
->>>> +      port@0:
->>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>>> +        description: Sensor input. Always present.
->>>> +        unevaluatedProperties: false
->>>> +
->>>> +        properties:
->>>> +          endpoint:
->>>> +            $ref: /schemas/media/video-interfaces.yaml#
->>>> +            unevaluatedProperties: false
->>>> +            properties:
->>>> +              data-lanes:
->>>> +                minItems: 1
->>>> +                maxItems: 4
->>>> +              clock-lanes:
->>>> +                maxItems: 1
->>>> +              remote-endpoint: true
->>>> +            required:
->>>> +              - data-lanes
->>>> +              - remote-endpoint
->>>> +
->>>> +      port@1:
->>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>>> +        description:
->>>> +          Second sensor input. When present, indicates DPHY split 
->>>> mode.
->>>> +        unevaluatedProperties: false
->>>> +
->>>> +        properties:
->>>> +          endpoint:
->>>> +            $ref: /schemas/media/video-interfaces.yaml#
->>>> +            unevaluatedProperties: false
->>>> +            properties:
->>>> +              data-lanes:
->>>> +                maxItems: 1
->>>> +              clock-lanes:
->>>> +                maxItems: 1
->>>> +              remote-endpoint: true
->>>> +            required:
->>>> +              - data-lanes
->>>> +              - clock-lanes
->>>> +              - remote-endpoint
->>>
->>> As it's stated above, it should be converted to a single port with two
->>> endpoints, it'd be done in accordance to video-interfaces.yaml.
->>>
->>>> +
->>>> +      port@2:
->>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>>> +        description: Output to CAMSS controller.
->>>> +        unevaluatedProperties: false
->>>> +
->>>> +        properties:
->>>> +          endpoint:
->>>> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
->>>> +            unevaluatedProperties: false
->>>> +            properties:
->>>> +              remote-endpoint: true
->>>> +            required:
->>>> +              - remote-endpoint
->>>> +
->>>> +    required:
->>>> +      - port@0
->>>> +      - port@2
->>>> +
->>>> +required:
->>>> +  - compatible
->>>> +  - reg
->>>> +  - "#phy-cells"
->>>> +  - clocks
->>>> +  - clock-names
->>>> +  - interrupts
->>>> +  - operating-points-v2
->>>> +  - power-domains
->>>> +  - power-domain-names
->>>> +  - vdda-0p9-supply
->>>> +  - vdda-1p2-supply
->>>> +  - ports
->>>> +
->>>> +additionalProperties: false
->>>> +
->>>> +examples:
->>>> +  - |
->>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
->>>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
->>>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
->>>> +
->>>> +    csiphy4: csiphy@ace4000 {
->>>> +        compatible = "qcom,x1e80100-csi2-phy";
->>>> +        reg = <0x0ace4000 0x2000>;
->>>> +        #phy-cells = <1>;
->>>> +
->>>> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->>>> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
->>>> +        clock-names = "core",
->>>> +                      "timer";
->>>> +
->>>> +        operating-points-v2 = <&csiphy_opp_table>;
->>>> +
->>>> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->>>> +
->>>> +        power-domains = <&rpmhpd RPMHPD_MMCX>,
->>>> +                        <&rpmhpd RPMHPD_MX>;
->>>> +        power-domain-names = "mmcx",
->>>> +                             "mx";
-Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
->>>> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
->>>> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
->>>> +
->>>> +        ports {
->>>> +            #address-cells = <1>;
->>>> +            #size-cells = <0>;
->>>> +
->>>> +            port@0 {
->>>> +                reg = <0>;
->>>> +                csiphy0_in_ep: endpoint {
->>>> +                    data-lanes = <0 1>;
->>>> +                    clock-lanes = <2>;
->>>> +                    remote-endpoint = <&sensor_out>;
->>>> +                };
->>>> +            };
->>>> +
->>>> +            port@2 {
->>>> +                reg = <2>;
->>>> +                csiphy0_out_ep: endpoint {
->>>> +                    remote-endpoint = <&controller_in>;
->>>> +                };
->>>> +            };
->>>> +        };
->>>> +    };
->>>> +
->>>> +    csiphy_opp_table: opp-table {
->>>> +        compatible = "operating-points-v2";
->>>> +
->>>> +        opp-300000000 {
->>>> +            opp-hz = /bits/ 64 <300000000>;
-> I wonder why you would have only one clock here. You should be setting 
-> the rate for both the core and timer, isn't it?>>> + required-opps = 
-> <&rpmhpd_opp_low_svs_d1>,
->>>> +                            <&rpmhpd_opp_low_svs_d1>;
-> Same here, it should 3 power domains set.>>> +        };
->>>> +
->>>> +        opp-400000000 {
->>>> +            opp-hz = /bits/ 64 <400000000>;
->>>> +            required-opps = <&rpmhpd_opp_low_svs>,
->>>> +                            <&rpmhpd_opp_low_svs_d1>;
-> Why is one at svs and the other at svs_d1? Shouldn't both be svs?>>> 
-> +        };
->>>> +
->>>> +        opp-480000000 {
->>>> +            opp-hz = /bits/ 64 <480000000>;
->>>> +            required-opps = <&rpmhpd_opp_low_svs>,
->>>> +                            <&rpmhpd_opp_low_svs_d1>;
-> And here, both should be svs_l1?>>> +        };
->>>> +    };
->>>>
->>>
->>> -- 
->>> Best wishes,
->>> Vladimir
->>
->>
-> Thanks,
-> Vijay.
-> 
+Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
+Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+---
+ .../sound/renesas,r9a09g047-sound.yaml        | 71 +++++++++++--------
+ 1 file changed, 43 insertions(+), 28 deletions(-)
+
+diff --git a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+index d7fa16554698..80670019d2f4 100644
+--- a/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
++++ b/Documentation/devicetree/bindings/sound/renesas,r9a09g047-sound.yaml
+@@ -42,13 +42,8 @@ properties:
+   "#clock-cells":
+     const: 0
+ 
+-  "#address-cells":
+-    const: 1
+-
+-  "#size-cells":
+-    const: 0
+-
+   clocks:
++    minItems: 47
+     maxItems: 47
+ 
+   clock-names:
+@@ -105,6 +100,7 @@ properties:
+     maxItems: 1
+ 
+   resets:
++    minItems: 14
+     maxItems: 14
+ 
+   reset-names:
+@@ -143,11 +139,12 @@ properties:
+               through the list to find a free channel.
+ 
+           dma-names:
+-            maxItems: 5
+-            allOf:
+-              - items:
+-                  enum:
+-                    - tx
++            items:
++              - const: tx
++              - const: tx
++              - const: tx
++              - const: tx
++              - const: tx
+ 
+         required:
+           - dmas
+@@ -203,12 +200,22 @@ properties:
+               falls through the list to find a free channel.
+ 
+           dma-names:
+-            maxItems: 10
+-            allOf:
+-              - items:
+-                  enum:
+-                    - tx
+-                    - rx
++            items:
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++
++        required:
++          - interrupts
++          - dmas
++          - dma-names
+ 
+   ssiu:
+     type: object
+@@ -229,12 +236,17 @@ properties:
+               falls through the list to find a free channel.
+ 
+           dma-names:
+-            maxItems: 10
+-            allOf:
+-              - items:
+-                  enum:
+-                    - tx
+-                    - rx
++            items:
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
++              - enum: [ tx, rx ]
+ 
+         required:
+           - dmas
+@@ -261,10 +273,9 @@ properties:
+           - interrupts
+ 
+   ports:
+-    $ref: audio-graph-port.yaml#/definitions/port-base
+-    unevaluatedProperties: false
++    $ref: /schemas/graph.yaml#/properties/ports
+     patternProperties:
+-      '^port@[0-9a-f]+$':
++      '^port(@[0-9a-f]+)?$':
+         $ref: audio-graph-port.yaml#/definitions/port-base
+         unevaluatedProperties: false
+         properties:
+@@ -276,6 +287,8 @@ properties:
+             properties:
+               playback:
+                 $ref: /schemas/types.yaml#/definitions/phandle-array
++                items:
++                  maxItems: 1
+                 description:
+                   Ordered list of phandles to the in-SoC modules used
+                   by this DAI in the playback direction. Each phandle
+@@ -285,6 +298,8 @@ properties:
+                   from CPU to off-SoC endpoint.
+               capture:
+                 $ref: /schemas/types.yaml#/definitions/phandle-array
++                items:
++                  maxItems: 1
+                 description:
+                   Ordered list of phandles to the in-SoC modules used
+                   by this DAI in the capture direction. Each phandle
+@@ -311,8 +326,6 @@ examples:
+     #include <dt-bindings/interrupt-controller/arm-gic.h>
+ 
+     sound@13c00000 {
+-      #sound-dai-cells = <1>;
+-      #clock-cells = <0>;
+       compatible = "renesas,r9a09g047-sound";
+       reg = <0x13c00000 0x10000>,
+             <0x13c20000 0x10000>,
+@@ -320,6 +333,8 @@ examples:
+             <0x13c31000 0x1f000>,
+             <0x13c50000 0x10000>;
+       reg-names = "scu", "adg", "ssiu", "ssi", "audmapp";
++      #sound-dai-cells = <1>;
++      #clock-cells = <0>;
+       clocks = <&cpg 245>,
+                <&cpg 385>, <&cpg 386>,
+                <&cpg 387>, <&cpg 388>,
+-- 
+2.25.1
 
