@@ -1,94 +1,84 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CDAC3E51C1
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 15:24:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D22903CF67A;
+	Wed,  3 Jun 2026 15:25:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780500288; cv=none; b=WtybeOMWOxfG1OmCxPo43TrcI2lbN8vxdjMP3e3aW0mBS3U9IR6HnUh7xVauLoAeswdcWsjQChwUH6YXwfFXEDZRt9QbUX7KAyEqwJMw70ap3SmAq8OLEi53ru2rDpmXZqrLrExPMP3sExAIwTTkW+44soaMn0wZtV77bQ0Qoeg=
+	t=1780500335; cv=none; b=WHn53n/+YyIMMB44BJ5peO+/VhJdiWIp9SuRr1Wcqvhb+YSLHgpRg+cV1OLS3KWOPH4D32LKVVoaSjQmThA+FMfkJNq1D2HMyv7q9ntjpktw7a29Rx2Qc0cBe4BJpg8XocjNfkiS35J9dqHTeQ/z3sueHRAfK7hqjcaMup+5uq4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780500288; c=relaxed/simple;
-	bh=ZnpcTYkrl6UVMmxdRN9nmnSy8X49AM9816i+X9vNISo=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=DVOLsUJC+ed4aV0ezqnFYvbviLttkQ6ybYMTEMggX/NOqpOIxEWvMolpt2wLcD0yx/RncmgCwekrFF4A+jEF+DCAH50t4SMBsQ/Orkn9F+sAZeRynlEkxc5DePol6DvJlVPmZvXrVzNWC/Zj4oITWmYbkEfIlalPRJ0FsBzlRt0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xjcr8DmN; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780500335; c=relaxed/simple;
+	bh=3T9XLXoNnQY5DKXl9mg8JORPuTpniOa8MzjuOk0JoTQ=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=Tx0aXDygbKvLDY+2LZSTQKOdeGSsjwlZek+xkGMSjXLyprlrp93uXVXKChC4wOpcuP+f3qQMVTmmAYCCrPk6SQDGnN6n6ZO+y56mJreKbtA8vQoZvo5sxa5OhcqYFfv7/y+cAKleC7XsNobwFtdRPVfjGRuadox4jIM3+WPD5KA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fRFAzz31; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xjcr8DmN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5DF71F00893;
-	Wed,  3 Jun 2026 15:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fRFAzz31"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA2EF1F00893;
+	Wed,  3 Jun 2026 15:25:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780500287;
-	bh=VBXYpUPJj45hHgdQiSDTelr0i3Po08FW2pnai/5JD54=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Xjcr8DmNXikXu2V7+UTfRawsOU3ArYXPhtlVp4Sz+g4/2AOuKsGzdNyxS77rV0782
-	 d6LnOIKqj69iwHpoUGFsWr6eB38aoIk2YDfte4f2YQmPBZvi8lRYlKyoPRnNFHtRvq
-	 CH7oW685zBGIBsLmmTpqi57aimbpXBun/9k3cW9FE/Vnvmf7faKBQyvtNy/JzmR4Ri
-	 IgotlRZ8sevve7vQqty42cfvaD56WwyC+n3091mTBm72gpq2uAltDzRRwQBVUKDwzl
-	 49KIZlW2aAGseyLDcSftB5tPSZdMA7/qmM+TC2pRW2IQWeS0rvnEMeJaex97w59EyD
-	 K9SSWpiC+Vpgg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3 2/5] dt-bindings: clock: versal-clk: Fix mio_clk
- index range in clock-names pattern
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Michal Simek" <michal.simek@amd.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <5662c24a9e65310fc6520afc95f1a639fe6d221e.1780499520.git.michal.simek@amd.com>
-References: <5662c24a9e65310fc6520afc95f1a639fe6d221e.1780499520.git.michal.simek@amd.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 15:24:46 +0000
-Message-Id: <20260603152446.C5DF71F00893@smtp.kernel.org>
+	s=k20260515; t=1780500334;
+	bh=9z/91wdszmHSOY/XimjV6/xEynDtvQK2rKYHHDh8JsE=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date;
+	b=fRFAzz3157zLlLdTXvtinX/acXVmpkbkkG7EoWHxDK3/BzeshPFgeFnGMXSjA1lq7
+	 +xGiwcsERiOx77n7KVJtvKxvp+CwxYuk/ip4PpxDwJPa6hBb7QGcAVoJJJgBRsMFWN
+	 EiX1+lwIxND5rWpJ0FTEzG5t4eQl9kaCsrL02FkW8tCt1kUzpUTQsfId2evzA0LQFM
+	 UcmLaIiH5xKcNZEEhFJba++abdXmE2fa4TSGzQRKJtujbsf07xYf8xi7vGYjEXVP3P
+	 z2wDR+MBfVcIF52UbdrM3pLAPMa2YBs3YhOCbaXHggc3MYo+C/K4fM+L2x9R3F0QpQ
+	 MgySOF9o4xSlg==
+From: Thomas Gleixner <tglx@kernel.org>
+To: Maulik Shah <maulik.shah@oss.qualcomm.com>, Bjorn Andersson
+ <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, Rob
+ Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor
+ Dooley <conor+dt@kernel.org>, Linus Walleij <linusw@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, Sneh Mankad
+ <sneh.mankad@oss.qualcomm.com>, Maulik Shah <maulik.shah@oss.qualcomm.com>
+Subject: Re: [PATCH v2 3/8] irqchip/qcom-pdc: Remove pdc_enable_intr() wrapper
+In-Reply-To: <20260526-hamoa_pdc-v2-3-f6857af1ce91@oss.qualcomm.com>
+References: <20260526-hamoa_pdc-v2-0-f6857af1ce91@oss.qualcomm.com>
+ <20260526-hamoa_pdc-v2-3-f6857af1ce91@oss.qualcomm.com>
+Date: Wed, 03 Jun 2026 17:25:31 +0200
+Message-ID: <878q8v7ij8.ffs@fw13>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The updated regex pattern fails to strictly constrain the MIO in=
-dex to 00..77 due to the `+` quantifier and `.*$` wildcard.
---
+On Tue, May 26 2026 at 16:24, Maulik Shah wrote:
 
-commit 1ce5272f4b64f82cb19e5c321c26383c8c4fc25b
-Author: Michal Simek <michal.simek@amd.com>
+> pdc->enable_intr() function already points to respective version
+> specific enable function. pdc_enable_intr() now only kept as wrapper.
+> Remove the wrapper and invoke pdc->enable_intr() from caller.
+>
+> Locking in pdc_enable_intr() applies lock to all pdc->enable_intr()
+> however its only required for pdc_enable_intr_bank() which uses
+> a shared bank across all interrupts. pdc_enable_intr_cfg() do not
+> required locking as IRQ_CFG registers are one per interrupt. Move
+> locking accordingly.
+>
+> Signed-off-by: Maulik Shah <maulik.shah@oss.qualcomm.com>
+> ---
+>  drivers/irqchip/qcom-pdc.c | 18 +++++++-----------
+>  1 file changed, 7 insertions(+), 11 deletions(-)
+>
+> diff --git a/drivers/irqchip/qcom-pdc.c b/drivers/irqchip/qcom-pdc.c
+> index 8f7802139e4e..db76737646e1 100644
+> --- a/drivers/irqchip/qcom-pdc.c
+> +++ b/drivers/irqchip/qcom-pdc.c
+> @@ -201,11 +201,14 @@ static void pdc_x1e_irq_enable_write(u32 bank, u32 enable)
+>  static void pdc_enable_intr_bank(int pin_out, bool on)
+>  {
+>  	unsigned long enable;
+> +	unsigned long flags;
+>  	u32 index, mask;
+>  
+>  	index = FIELD_GET(GENMASK(31, 5), pin_out);
+>  	mask = FIELD_GET(GENMASK(4, 0), pin_out);
+>  
+> +	raw_spin_lock_irqsave(&pdc->lock, flags);
 
-dt-bindings: clock: versal-clk: Fix mio_clk index range in clock-names patt=
-ern
-
-This commit attempts to fix the clock-names pattern to enforce a two-digit
-decimal range constraint for MIO indices from 00 to 77. It replaces a broken
-character class with an explicit alternation.
-
-> diff --git a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml=
- b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> index bef109d163a82..d843d95801b5f 100644
-> --- a/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> +++ b/Documentation/devicetree/bindings/clock/xlnx,versal-clk.yaml
-> @@ -116,7 +116,7 @@ allOf:
->              - const: pss_alt_ref_clk
->              - const: aux_ref_clk
->              - const: gt_crx_ref_clk
-> -            - pattern: "^mio_clk[00-77]+.*$"
-> +            - pattern: "^mio_clk(0[0-9]|[1-6][0-9]|7[0-7])+.*$"
-
-[Severity: Medium]
-The commit message states the intent is to constrain the MIO index
-to the valid range 00..77.
-
-However, the + quantifier applies to the entire alternation group, allowing
-repetitions of two-digit numbers like mio_clk0011.
-
-Additionally, the .*$ wildcard matches any trailing characters, meaning a
-string like mio_clk0799 passes validation because 07 matches the group
-and 99 is consumed by .*$.
-
-Does this introduce a regression where the schema silently accepts invalid
-clock names?
-
->              - pattern: "gem[0-3]+_emio_clk.*$"
->              - pattern: "swdt[0-1]+_ext_clk.*$"
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/cover.1780499520.gi=
-t.michal.simek@amd.com?part=3D2
+guard()
