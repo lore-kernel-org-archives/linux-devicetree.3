@@ -1,507 +1,406 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010055.outbound.protection.outlook.com [52.101.84.55])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0ED763A3816;
-	Wed,  3 Jun 2026 20:52:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780519946; cv=none; b=kRzC7cQ8ds+51VCda/jcse7LKDRjUNEwjPKgsyS56oi7KSPxh8ViYceE5I9ZoXUwNtjOGLfh65Yw5CdV3oDQ/q4nSmWFfZ3PpQvuijvLKR3D9IbMlmpakFDdP3xwb20N8+FYzrghf7X/8gpeLPv1wE9INQkAign9aEuuBnSG/wk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780519946; c=relaxed/simple;
-	bh=FqcZgc7ZIjoBwbbu4FAv9SlB9aWsVxht2QXmUv0T4z4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=MVvlTb4yz0zdio0QKU5//FJrvf9iKZBB0hGcjirQ1h1zFM03bhIzxPpo18bdY4cfBiTfjjRStQsvoIwZ7UGKF52Q9T2dfaUZP0R+Pm/erpkk3zmLIMDRFRqtRdNfuman1Tzx1V6R7CXR/UkdxA08/nHW8POUvaw4XFstob0t6Gw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UDwfgTj0; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C003AB285;
+	Wed,  3 Jun 2026 21:09:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.55
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780520983; cv=fail; b=OsskqeOOC8+w6OjFHSGDiRm08DF5ilsZqrGBtW3ayxjeY6x5haQDuPdSNb9uxcMs7twZRHYeEvBTQfHcuXkl1nkyxzaIcx2I/dAkheNyqB7osqQwJkGWt/fcjb9srMTwzcuFv3adjIrnhxyjSSpWQ7unVEOKaWu97vUwaqIW8Io=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780520983; c=relaxed/simple;
+	bh=UygMzDndGp/pbHJ7x255/ChWtC3MDi+6I3TIUFNHtGs=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=ASkkVUqmtSIbj41UMD0rtKai4cixyCV1fpTbAeY7S1FSyo9GaM2nP9LKbgC7FBhCpEw07KLNubTZcCGJFnWOUtQKazVU1bB6h2VRKKVg4NPqzzumuTPdkriHNnLpnKS8TTNMpZxixhGekG4JENamLgSfMzZfaq1JLJ2mmJauXb8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=SugxWgbd; arc=fail smtp.client-ip=52.101.84.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UDwfgTj0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0FE2E1F00893;
-	Wed,  3 Jun 2026 20:52:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780519944;
-	bh=YS+6UAe3eWKQ6I/deKGAHEi/uKiRdTdYTAK7SD/sfio=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UDwfgTj062Fo7wFHvKZQYtGqjCmabLdXZ4HVexYOR8i3cJ87e2XFQTupOuS41Sy4H
-	 zYl3rZ9akqFhCQp7cEvu00YKk3NAqZ2j0/XiavWJuo7nNR0/gffUAo1oRvI2ej1KUr
-	 Rle04Hcy5dHDw4rNVs4anzzA2rdNJlCSrIRTvPc+5fdenJuM4VNBx4pvB5kzn5X1ZF
-	 OgQSZgKMEhu5CWo8ZsQ3a5OFQU33DAqdb7BJ1b9zTGNnI1m3bxlGYhftBCP4/UEwe+
-	 SiVA4YjlfIM8uJ3gvwCBRenLSliNG0udrwvRrQtFMqob/Uv12LcHvpNKQ2slXQkI6l
-	 DxfdAdpZcjWVA==
-Message-ID: <dbc4b9b9-5c7a-4426-85bb-e99ad6be6ac6@kernel.org>
-Date: Wed, 3 Jun 2026 21:52:19 +0100
+	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="SugxWgbd"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=r3SemDrjqp9iWHyIUJLT5pErtHHRHl6Im+NIUDk9yAAjgguoY6YPoSyIezwHzkvwEECq3OYcG3HkT6VQhz9kBKiHmL0xUHqSHB4vyhMsL9s2RS7oEsB0KwG0ShPXKRDNVnlQn3DfzkWVO4FKzwQU2rm9RBRAx5FBDH8gs/KmlucsdwvZn2f3rChCe7LCn4zDRFUOAVTmMNmoI+R+9U50+iOJTzmfmInRiSjltfAqdSeiEAS3Voyv4SZBzbWdFkc16KQH9gFZha/iN/m14FYgEBtk1Iv5y+yhqFERL0rT7npmBmDDKYwzNg58i2DZSSDp/+FZ06VTLvrypztXP9Z5qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=qTHG+1YanwOe3GBHTQGXgVtvXSLS2uEFZy5djXv87zY=;
+ b=hXSY/p7yOuLHlAqLRigkqrRgd9DRWt0C1vPbyqP9uvylH9AlMwqLf7H91bbnrl97fyTNj14TTHgGdklFsYoA//c9jln/nE6guqoVAMz6E3CH69WBmXbA6WcgxOtedXjLfhs0qTQinyM8SrQdUTjekc78AemZZanjhppzYuV2UnGDUNTh7cyooW1Z9Gh/M2ue1UrjklR5Hchiply4oZgUXouz2k4B5dbBDqDEpJ4rMnunsy0OMOpGJaKmkN/cvnRV0A+mXNl4uQCuij2jAd0GpzePZfj8870dCdct72ns1E/odHRdE8XipDcMiC892/1I2BEo2TvMxldw0fcgbFi33Q==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
+ dkim=pass header.d=oss.nxp.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
+ s=selector1-NXP1-onmicrosoft-com;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=qTHG+1YanwOe3GBHTQGXgVtvXSLS2uEFZy5djXv87zY=;
+ b=SugxWgbdRN8I+2RQACZWM5OVffiJN7xPie3NSChbcmV2BNHZ7LKsLuEP8AbHATtzInC6RSbtzdCeRb4wrYo+8BjJ61xVJCCQmBB1rU28ayvyeu/DNFO55DE7TfIF0QRmmVFmgjzgPECW87V21WKaIgFaUXF7TZRDY5UThlheBl235blKM6gs5v0PDRRFP004qZYKZE12gclT4iUXaX0TYa18bH2Xcvy1tqVoc4ena/8u67x0eNGPKtp6q+tCeb5wOEAJaAwQ3+FUqtnNgtxcyQJxX6o8jP4niCjPJah7CJlTIGhqsSyIytKaoNWRDVMut2cAC6mQab/ujYUVgIk1PA==
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=oss.nxp.com;
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
+ by GV1PR04MB9071.eurprd04.prod.outlook.com (2603:10a6:150:22::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 21:09:37 +0000
+Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
+ ([fe80::2146:83a2:5329:b7c%6]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 21:09:36 +0000
+From: Frank.Li@oss.nxp.com
+To: Andrew Lunn <andrew@lunn.ch>,
+	Vladimir Oltean <olteanv@gmail.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Simon Horman <horms@kernel.org>,
+	Jonathan Corbet <corbet@lwn.net>,
+	Shuah Khan <skhan@linuxfoundation.org>,
+	Frank Li <Frank.Li@nxp.com>,
+	netdev@vger.kernel.org (open list:NETWORKING DRIVERS),
+	devicetree@vger.kernel.org (open list:OPEN FIRMWARE AND FLATTENED DEVICE TREE BINDINGS),
+	linux-kernel@vger.kernel.org (open list),
+	linux-doc@vger.kernel.org (open list:DOCUMENTATION)
+Cc: imx@lists.linux.dev
+Subject: [PATCH v2 1/1] dt-bindings: net: dsa: Convert lan9303.txt to yaml format
+Date: Wed,  3 Jun 2026 17:09:24 -0400
+Message-ID: <20260603210929.3099363-1-Frank.Li@oss.nxp.com>
+X-Mailer: git-send-email 2.43.0
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: SA0PR11CA0034.namprd11.prod.outlook.com
+ (2603:10b6:806:d0::9) To GV2PR04MB11799.eurprd04.prod.outlook.com
+ (2603:10a6:150:2cf::9)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bryan.odonoghue@linaro.org>, Vinod Koul
- <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
- <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
- <tgG0QPGHUXMOoExQ9gjtNbUKbFpoiuWPHWCsh5vpGqFRGIeTcWiiNC1okUddn3T6nCfDzNbLlYkpSMdhfFVxmA==@protonmail.internalid>
- <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
-From: Bryan O'Donoghue <bod@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=bod@kernel.org; keydata=
- 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
-In-Reply-To: <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|GV1PR04MB9071:EE_
+X-MS-Office365-Filtering-Correlation-Id: b2f23c23-f60b-4b9e-766f-08dec1b46ade
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|7416014|19092799006|1800799024|366016|56012099006|11063799006|6133799003|18002099003|3023799007|921020;
+X-Microsoft-Antispam-Message-Info:
+	NB7ezXZ84U19yyyU8Rw+cdJFbSyWNE2Z6ABMKQqQ+F/GrzwMd3WRmi0LLVh3ETlvBJFoMcClY35A5qFVyG3LWXKJQHNphPmW5P+HOAjQSY2ciCbZfAnL8plSeHhxTf4Yk8JttZcrA9sH+vQ63yKZ7v3McyxwRCOENxpGq64ovUJnLfT2N9yw3xR/1/U2dVQyJ4Eu0jyTJ566+jBWqBcW1fMMtghY2njEXFBeoSWHP86w1yvh6MajotOpAGq2k8DG19O9bCC00D8qbYzkwJe4KORLKP+4pf6vWnSVOrsrKnBfnJAv/aNHM8jZ+AcHgUkEIwtfDR1/4Iyk6no0X8dhrpqIoCj8LzMWl92PxqRgw1gBeqByRSiB6+Sb3MTnv57uQztPgjCpFaW9PIUZ3P9MsFClRQlpmLp0nYhm15hALObFm03WTCXmsPMPeDJ36yYsMD3Yqo2KhRM/CAXgp6vMpFEsbgvK4ReceVR7TqIgsd2T1sP1kO+wc5eBJyiuD0Nx/eS99bIhlJ/Dmj9y1LwrtmQp3nO6c/PaUoWpAlSL+8X/fbunu1a10iqou0QV7k5wofd6YnJrr82yseCi0fnhcm6gvGJKIkIvL3/NVIobjgEenjXXENSfOf3Fpo2hrcjdQoSb1aKknIXlAN4PNELYlxbb/GLFG1F4KLks8JPYu3kXTe/3A9wVnKsaAFB3X+zp
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(19092799006)(1800799024)(366016)(56012099006)(11063799006)(6133799003)(18002099003)(3023799007)(921020);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?kOB0XCkwHDsWv6zyVWPZ+ZoMDhsh0LksPfGTshB4tOO+pFRImKicmlTuVes3?=
+ =?us-ascii?Q?KHt76C6j4I8KSrxgX+yqrkilv+kSXxrES3Lql4YiN+BkAAG2Dka89F21YEtj?=
+ =?us-ascii?Q?37GE2xRWibHeYOUMA7zdY/BjUwPG0TcxtyVe1N+FkDe9oyW+kHOB/mzXfsaL?=
+ =?us-ascii?Q?fWJMoON/IUTHvoixwhs9XdnrCTr/Mt4LzGS/RP5RzvuYJEjK00ty0XtuZLbl?=
+ =?us-ascii?Q?upnXhreZ2qdFLPRJEl66ej2aN7ORolKDZ1bKgKWF7OPgili2cd3NJrdJMQtS?=
+ =?us-ascii?Q?6vI/FEjIQnQ6E323oWxznsmJV5lk7lOO5n1nADfOuToKwwyDbiBPLiqbcj5d?=
+ =?us-ascii?Q?p7cEsz56SiNdk6K2g4jSJRAWk0XONc0Hz0qUGonhJo8KtjG2pG+sJe37ps/x?=
+ =?us-ascii?Q?V+3ObXmtT2dGgQ25Ubz4KDIOF5/vyCVjmnX+sKtSoqJHMzFCAZHzUBZ7hKgq?=
+ =?us-ascii?Q?3l2Tn2TaVz4m7GAKzo2RJcSCY3i8WG3J/BYWlx+B2Cvv8/NQ/lc5rGSY4F/Z?=
+ =?us-ascii?Q?uXa7xNT/FrRSFb3lqwoeQA6E/Dtb+ptCfX3TVhLO4ToFiqcOoBx5/67sHh7X?=
+ =?us-ascii?Q?C1VmLDWR8p6wqsjKVzGUDjo/0KwaIX3vYbmQ2KqY4slMwGppTRAOYbVfQhHI?=
+ =?us-ascii?Q?+DA1BUSP2aqC8fmlFj+gu8gDBwxys7Sq5FicMkkNHefdhZQnyVN5hlhSvMzi?=
+ =?us-ascii?Q?YcVqL0WarqFNixGhB1wkwNlNTlFeHmuSFXgQdgjjYqZ+3yOwat0oVUv2IFfj?=
+ =?us-ascii?Q?FK/lbatJ6PstZLRnIv0LiPIppBYel6iJK72u5ThPF8ovZjDIBeDsOlBVqnQE?=
+ =?us-ascii?Q?JZxyya+foPqAbgcL+3aBQ4qDNTtaWw3zg43ajifN/CbKxYLrrO7N22D3AV3N?=
+ =?us-ascii?Q?ArFkqpYL25QbUUDHAkGjWgSiI5KtNhCQpruC5mlGCCYKXG5CRQPb9nW2r3yj?=
+ =?us-ascii?Q?m0a7U6/uuvnDeUQX/mOoQA+fDqWb0ZkTk2WFYd/cBFSjG+QSPz2SZD+u4Ddo?=
+ =?us-ascii?Q?heCnQbaWs6lMs6mXc1eY/K+nbvlx22ExuHlQjWnKyUo9+flSZ1ooH2Ly0yAh?=
+ =?us-ascii?Q?OneZbF3HUOFZQVuF6EPaVhJbKSAonIhmFhbgL74d9s1fFa22xo/4QNOkcmQX?=
+ =?us-ascii?Q?EZtLzDxx7R/+J1qPqyWTbUFmeK4dFOsVvthZNIZbs5I8LmW8ExcoLC6hf3Ra?=
+ =?us-ascii?Q?47t3bH442gJvF/ItTVy/T1xvInrDaR8W5X+ynh6ew5hqSIAiRs95TBGT8JUU?=
+ =?us-ascii?Q?eEZi7sXgev7u7KN+WcoBtPznzffXSBqfL80CMQVIKqVeQiC41JBXHiLMXd2k?=
+ =?us-ascii?Q?zFKDi6SaoGn5oJ+8ejrV4agqkQ450OO0qK0iqsolx16FJkYduOLF2amZcupv?=
+ =?us-ascii?Q?+6f+nIyPhrW2e1xm41vB2J6deIxXd5m6HK1/bUB/Gb9mHOaUC65WFJtVAKC3?=
+ =?us-ascii?Q?wuowg1U0IdE3gvr9Ffnbl9aBkJvuglCKZsa5+DPdHEKI7fUJuQgkoDc+nxZm?=
+ =?us-ascii?Q?a/VFR4SqyJ18eJlXqhzd+9CYNN235Suql3L6TilCso0S/mMeGaltfmAm9WKc?=
+ =?us-ascii?Q?R2JBC5aTkYxFTX8pEWNMN2S1NHrBLwZrMa5sYdRD6Q5nEB3jz7JJOKmBnjO4?=
+ =?us-ascii?Q?OUmS5IJbm0h/Fu8mBEawgI8JvFZLnVsDXnaXWwj8Y33G+we/7G4EFDkuDjmd?=
+ =?us-ascii?Q?+kfm76XrJkVhyaMYzqlBdJuqQoPdfAZrqSeooWVjV+yzEZ8oQFtr78GeryGv?=
+ =?us-ascii?Q?77apua7F2336lohL/U7wPLEuiFoSaaVQDIfx5JtDHTbm/jMcU81O?=
+X-OriginatorOrg: oss.nxp.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b2f23c23-f60b-4b9e-766f-08dec1b46ade
+X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2026 21:09:36.7526
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Qdd5YFMjwxHd7Ew4rb/KpkOgMWWtAUmel8wQYlOxDdiougYxoLkgQxichdM+B3C5RR4bsD+3gN6ep9A8rGqhffaoSw9ba7pAwru1nVz2OXWsBORH0oQAMlhogr/jzrhk
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1PR04MB9071
 
-On 03/06/2026 21:24, Vijay Kumar Tumati wrote:
-> 
-> 
-> On 6/3/2026 1:16 PM, Vijay Kumar Tumati wrote:
->> Hi,
->>
->> On 6/2/2026 3:51 PM, Bryan O'Donoghue wrote:
->>> On 02/06/2026 22:59, Vladimir Zapolskiy wrote:
->>>> On 5/23/26 05:48, Bryan O'Donoghue wrote:
->>>>> Add a base schema initially compatible with x1e80100 to describe
->>>>> MIPI CSI2
->>>>> PHY devices.
->>>>>
->>>>> The hardware can support both CPHY, DPHY and a special split-mode DPHY.
->>>>>
->>>>> The schema here defines three ports:
->>>>>
->>>>> port@0:
->>>>>        The first input port where a sensor is always required.
->>>>>
->>>>> port@1:
->>>>>        A second optional input port which if present implies DPHY
->>>>> split-mode.
->>>>>
->>>>> port@2:
->>>>>        A third always required output port which connects to the
->>>>> controller.
->>>>>
->>>>
->>>> This port numeration is imperfect, because port@0 and port@2 are
->>>> required,
->>>> while middle port@1 is optional.
->>>>
->>>> Like it was stated before a number of times, it seems natural to operate
->>>> with two ports, where input port may have two endpoints rather than 3
->>>> ports,
->>>> also that approach solves the problem of a hole in the port numeration.
->>>
->>> Can you confirm this is what you are after ?
->>>
->>> port@0 {
->>>       #address-cells = <1>;
->>>       #size-cells = <0>;
->>>
->>>       endpoint@0 {              /* primary sensor */
->>>           reg = <0>;
->>>           data-lanes = <0 1 2 3>;
->>>           remote-endpoint = <&sensor0_out>;
->>>       };
->>>
->>>       endpoint@1 {              /* split-mode second sensor, optional */
->>>           reg = <1>;
->>>           data-lanes = <0>;
->>>           remote-endpoint = <&sensor1_out>;
->>>       };
->>> };
->>>
->>> port@1 {                     /* output to CAMSS, was port@2 */
->>>       endpoint { remote-endpoint = <&controller_in>; };
->>> };
->>>
->>> This works for me BTW.
->> Either way, do we need to document the constraint of using port@0 or
->> endpoint@0 'only' for the 4+1 or 2+1 mode and the other one is for the
->> 1+1 mode? Or is it implicit from this bindings for a developer?
+From: Frank Li <Frank.Li@nxp.com>
 
-The binding mandates it with an if / else structure
+Convert lan9303.txt to yaml format to fix below CHECK_DTBS warnings:
+arch/arm/boot/dts/nxp/imx/imx53-kp-hsc.dtb: /soc/bus@50000000/i2c@53fec000/switch@a: failed to match any schema with compatible: ['smsc,lan9303-i2c']
 
->
->>>>> The CSIPHY devices have their own pinouts on the SoC as well as
->>>>> their own
->>>>> individual voltage rails.
->>>>>
->>>>> The need to model voltage rails on a per-PHY basis leads us to define
->>>>> CSIPHY devices as individual nodes.
->>>>>
->>>>> Two nice outcomes in terms of schema and DT arise from this change.
->>>>>
->>>>> 1. The ability to define on a per-PHY basis voltage rails.
->>>>> 2. The ability to require those voltage.
->>>>>
->>>>> We have had a complete bodge upstream for this where a single set of
->>>>> voltage rail for all CSIPHYs has been buried inside of CAMSS.
->>>>>
->>>>> Much like the I2C bus which is dedicated to Camera sensors - the CCI
->>>>> bus in
->>>>> CAMSS parlance, the CSIPHY devices should be individually modelled.
->>>>>
->>>>> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
->>>>> ---
->>>>>     .../bindings/phy/qcom,x1e80100-csi2-phy.yaml       | 209 ++++++++
->>>>> + ++++++++++++
->>>>>     1 file changed, 209 insertions(+)
->>>>>
->>>>> diff --git a/Documentation/devicetree/bindings/phy/qcom,x1e80100-
->>>>> csi2-phy.yaml b/Documentation/devicetree/bindings/phy/qcom,x1e80100-
->>>>> csi2-phy.yaml
->>>>> new file mode 100644
->>>>> index 0000000000000..270375f949880
->>>>> --- /dev/null
->>>>> +++ b/Documentation/devicetree/bindings/phy/qcom,x1e80100-csi2-phy.yaml
->>>>> @@ -0,0 +1,209 @@
->>>>> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
->>>>> +%YAML 1.2
->>>>> +---
->>>>> +$id: http://devicetree.org/schemas/phy/qcom,x1e80100-csi2-phy.yaml#
->>>>> +$schema: http://devicetree.org/meta-schemas/core.yaml#
->>>>> +
->>>>> +title: Qualcomm CSI2 PHY
->>>>> +
->>>>> +maintainers:
->>>>> +  - Bryan O'Donoghue <bod@kernel.org>
->>>>> +
->>>>> +description:
->>>>> +  Qualcomm MIPI CSI2 C-PHY/D-PHY combination PHY. Connects MIPI
->>>>> CSI2 sensors
->>>>> +  to Qualcomm's Camera CSI Decoder. The PHY supports both C-PHY and
->>>>> D-PHY
->>>>> +  modes.
->>>>> +
->>>>> +properties:
->>>>> +  compatible:
->>>>> +    const: qcom,x1e80100-csi2-phy
->>>>> +
->>>>> +  reg:
->>>>> +    maxItems: 1
->>>>> +
->>>>> +  "#phy-cells":
->>>>> +    const: 1
->>>>> +    description:
->>>>> +      The single cell specifies the PHY operating mode.
->>>>
->>>> #phy-cells should be 0, because the PHY operating mode is well defined
->>>> by 'bus-type' property of an endpoint on the sensor side, the opposite
->>>> side of CAMSS/CSID as a CSIPHY "consumer" should not dictate the PHY
->>>> type.
->>>
->>> Rob said consumer but, I'm also not very bothered about that. bus-type
->>> is perfectly acceptable to me.
->>>
->>>>> +
->>>>> +  clocks:
->>>>> +    maxItems: 2
->>>>> +
->>>>> +  clock-names:
->>>>> +    items:
->>>>> +      - const: core
->>>>> +      - const: timer
->>>>> +
->>>>> +  interrupts:
->>>>> +    maxItems: 1
->>>>> +
->>>>> +  operating-points-v2:
->>>>> +    maxItems: 1
->>>>> +
->>>>> +  power-domains:
->>>>> +    items:
->>>>> +      - description: MMCX voltage rail
->>>>> +      - description: MXC or MXA voltage rail
->>>>
->>>> Only "qcom,x1e80100-csi2-phy" device is supported so far, unlikely it's
->>>> the case that "MXC or MXA voltage rail" should be specified, it'd be
->>>> just one of two or both.
->>>
->>> Hmm. I'm not being clear here if this is your take, I will reword it
->>> to make it clearer this generation of PHY _must_ have either
->>>
->>> - MMCX and MXC
->>> or
->>> - MMCX and MXA
->> I am not sure of this, Bryan. If you look at the PHY core clock
->> separately, sure, that is correct. But all of them, on this platform as
->> well, share the RCG, which requires all 3 power domains. So
->> fundamentally, you need to enable all of those from each PHY. You can
->> make it constant 3 power domains.>
+Additional changes:
+  - rename switch-phy to switch in example.
 
-Hmm do you mean the GDSC which I omitted form the example and shouldn't 
-have TITAN_TOP_GDSC or do you mean MMCX, MXC and MXA are required ?
+Reviewed-by: Rob Herring (Arm) <robh@kernel.org>
+Signed-off-by: Frank Li <Frank.Li@nxp.com>
+---
+change in v2:
+- fix typo Additional in commit message
+- add rob's reviewed-by tags
+- fix doc ref problem
+---
+ .../devicetree/bindings/net/dsa/lan9303.txt   | 100 --------------
+ .../bindings/net/dsa/smsc,lan9303.yaml        | 123 ++++++++++++++++++
+ Documentation/networking/dsa/lan9303.rst      |   2 +-
+ 3 files changed, 124 insertions(+), 101 deletions(-)
+ delete mode 100644 Documentation/devicetree/bindings/net/dsa/lan9303.txt
+ create mode 100644 Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
 
-I don't believe the clock definitions say that. Also not what you said 
-in the previous cycle.
-
-I'd be obliged if you could be precise and clear since as you know the 
-PHY as a separate thing is important to release new SoC additions.
->>>>> +
->>>>> +  power-domain-names:
->>>>> +    items:
->>>>> +      - const: mmcx
->>>>> +      - const: mx
->>>>> +
->>>>> +  vdda-0p9-supply:
->>>>> +    description: Phandle to a 0.9V regulator supply to a PHY.
->>>>> +
->>>>> +  vdda-1p2-supply:
->>>>> +    description: Phandle to 1.2V regulator supply to a PHY.
->>>>> +
->>>>> +  ports:
->>>>> +    $ref: /schemas/graph.yaml#/properties/ports
->>>>> +
->>>>> +    properties:
->>>>> +      port@0:
->>>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>>>> +        description: Sensor input. Always present.
->>>>> +        unevaluatedProperties: false
->>>>> +
->>>>> +        properties:
->>>>> +          endpoint:
->>>>> +            $ref: /schemas/media/video-interfaces.yaml#
->>>>> +            unevaluatedProperties: false
->>>>> +            properties:
->>>>> +              data-lanes:
->>>>> +                minItems: 1
->>>>> +                maxItems: 4
->>>>> +              clock-lanes:
->>>>> +                maxItems: 1
->>>>> +              remote-endpoint: true
->>>>> +            required:
->>>>> +              - data-lanes
->>>>> +              - remote-endpoint
->>>>> +
->>>>> +      port@1:
->>>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>>>> +        description:
->>>>> +          Second sensor input. When present, indicates DPHY split
->>>>> mode.
->>>>> +        unevaluatedProperties: false
->>>>> +
->>>>> +        properties:
->>>>> +          endpoint:
->>>>> +            $ref: /schemas/media/video-interfaces.yaml#
->>>>> +            unevaluatedProperties: false
->>>>> +            properties:
->>>>> +              data-lanes:
->>>>> +                maxItems: 1
->>>>> +              clock-lanes:
->>>>> +                maxItems: 1
->>>>> +              remote-endpoint: true
->>>>> +            required:
->>>>> +              - data-lanes
->>>>> +              - clock-lanes
->>>>> +              - remote-endpoint
->>>>
->>>> As it's stated above, it should be converted to a single port with two
->>>> endpoints, it'd be done in accordance to video-interfaces.yaml.
->>>>
->>>>> +
->>>>> +      port@2:
->>>>> +        $ref: /schemas/graph.yaml#/$defs/port-base
->>>>> +        description: Output to CAMSS controller.
->>>>> +        unevaluatedProperties: false
->>>>> +
->>>>> +        properties:
->>>>> +          endpoint:
->>>>> +            $ref: /schemas/graph.yaml#/$defs/endpoint-base
->>>>> +            unevaluatedProperties: false
->>>>> +            properties:
->>>>> +              remote-endpoint: true
->>>>> +            required:
->>>>> +              - remote-endpoint
->>>>> +
->>>>> +    required:
->>>>> +      - port@0
->>>>> +      - port@2
->>>>> +
->>>>> +required:
->>>>> +  - compatible
->>>>> +  - reg
->>>>> +  - "#phy-cells"
->>>>> +  - clocks
->>>>> +  - clock-names
->>>>> +  - interrupts
->>>>> +  - operating-points-v2
->>>>> +  - power-domains
->>>>> +  - power-domain-names
->>>>> +  - vdda-0p9-supply
->>>>> +  - vdda-1p2-supply
->>>>> +  - ports
->>>>> +
->>>>> +additionalProperties: false
->>>>> +
->>>>> +examples:
->>>>> +  - |
->>>>> +    #include <dt-bindings/interrupt-controller/arm-gic.h>
->>>>> +    #include <dt-bindings/clock/qcom,x1e80100-camcc.h>
->>>>> +    #include <dt-bindings/clock/qcom,x1e80100-gcc.h>
->>>>> +    #include <dt-bindings/power/qcom,rpmhpd.h>
->>>>> +
->>>>> +    csiphy4: csiphy@ace4000 {
->>>>> +        compatible = "qcom,x1e80100-csi2-phy";
->>>>> +        reg = <0x0ace4000 0x2000>;
->>>>> +        #phy-cells = <1>;
->>>>> +
->>>>> +        clocks = <&camcc CAM_CC_CSIPHY0_CLK>,
->>>>> +                 <&camcc CAM_CC_CSI0PHYTIMER_CLK>;
->>>>> +        clock-names = "core",
->>>>> +                      "timer";
->>>>> +
->>>>> +        operating-points-v2 = <&csiphy_opp_table>;
->>>>> +
->>>>> +        interrupts = <GIC_SPI 477 IRQ_TYPE_EDGE_RISING>;
->>>>> +
->>>>> +        power-domains = <&rpmhpd RPMHPD_MMCX>,
->>>>> +                        <&rpmhpd RPMHPD_MX>;
->>>>> +        power-domain-names = "mmcx",
->>>>> +                             "mx";
-> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
-
-Yes the DTSI has TITAN_TOP_GDSC I haven't updated the YAML to capture that.
-
-So it should be
-
-top
-mmcx
-mx
-
-With obviously on mmcx and mx scalable. We established that CSIPHY4 had 
-MXA whereas the other CSIPHYs had MXC in v5 or v4 - can you be clear if 
-you agreeing with that still or saying something different. Per my 
-memory of reading the docs, there was nothing in the clock tree to 
-indicate both MXA and MXC were required for all PHYs.
-
->>>>> +        vdda-0p9-supply = <&vreg_l2c_0p8>;
->>>>> +        vdda-1p2-supply = <&vreg_l1c_1p2>;
->>>>> +
->>>>> +        ports {
->>>>> +            #address-cells = <1>;
->>>>> +            #size-cells = <0>;
->>>>> +
->>>>> +            port@0 {
->>>>> +                reg = <0>;
->>>>> +                csiphy0_in_ep: endpoint {
->>>>> +                    data-lanes = <0 1>;
->>>>> +                    clock-lanes = <2>;
->>>>> +                    remote-endpoint = <&sensor_out>;
->>>>> +                };
->>>>> +            };
->>>>> +
->>>>> +            port@2 {
->>>>> +                reg = <2>;
->>>>> +                csiphy0_out_ep: endpoint {
->>>>> +                    remote-endpoint = <&controller_in>;
->>>>> +                };
->>>>> +            };
->>>>> +        };
->>>>> +    };
->>>>> +
->>>>> +    csiphy_opp_table: opp-table {
->>>>> +        compatible = "operating-points-v2";
->>>>> +
->>>>> +        opp-300000000 {
->>>>> +            opp-hz = /bits/ 64 <300000000>;
->> I wonder why you would have only one clock here. You should be setting
->> the rate for both the core and timer, isn't it?
-
-Yes the dtsi has it, the example does not. I had pushback from others 
-about the example being too complex - you can't please all of the people 
-all of the time.
-
-I will drop the full table @ v9
-
->>> + required-opps =
->> <&rpmhpd_opp_low_svs_d1>,
->>>>> +                            <&rpmhpd_opp_low_svs_d1>;
->> Same here, it should 3 power domains set.>>> +        };
-
-Two power domains scaled, one set at least I hope that's what you mean 
-i.e. add the GDSC, already in my code I just didn't add it here as I 
-should have.
-
-- GDSC enabled
-- MMCX scaled
-- MX scaled
-
-When MX points to MXA the scaling is a NOP @ rpmhpd_opp_low_svs_d1.
-
-Agreed ?
->>>>> +
->>>>> +        opp-400000000 {
->>>>> +            opp-hz = /bits/ 64 <400000000>;
->>>>> +            required-opps = <&rpmhpd_opp_low_svs>,
->>>>> +                            <&rpmhpd_opp_low_svs_d1>;
->> Why is one at svs and the other at svs_d1? Shouldn't both be svs?>>>
->> +        };
->>>>> +
->>>>> +        opp-480000000 {
->>>>> +            opp-hz = /bits/ 64 <480000000>;
->>>>> +            required-opps = <&rpmhpd_opp_low_svs>,
->>>>> +                            <&rpmhpd_opp_low_svs_d1>;
->> And here, both should be svs_l1?>>> +        };
->>>>> +    };
->>>>>
->>>>
->>>> --
->>>> Best wishes,
->>>> Vladimir
->>>
->>>
->> Thanks,
->> Vijay.
->>
-> 
+diff --git a/Documentation/devicetree/bindings/net/dsa/lan9303.txt b/Documentation/devicetree/bindings/net/dsa/lan9303.txt
+deleted file mode 100644
+index 46a732087f5ca..0000000000000
+--- a/Documentation/devicetree/bindings/net/dsa/lan9303.txt
++++ /dev/null
+@@ -1,100 +0,0 @@
+-SMSC/MicroChip LAN9303 three port ethernet switch
+--------------------------------------------------
+-
+-Required properties:
+-
+-- compatible: should be
+-  - "smsc,lan9303-i2c" for I2C managed mode
+-    or
+-  - "smsc,lan9303-mdio" for mdio managed mode
+-
+-Optional properties:
+-
+-- reset-gpios: GPIO to be used to reset the whole device
+-- reset-duration: reset duration in milliseconds, defaults to 200 ms
+-
+-Subnodes:
+-
+-The integrated switch subnode should be specified according to the binding
+-described in dsa/dsa.txt. The CPU port of this switch is always port 0.
+-
+-Note: always use 'reg = <0/1/2>;' for the three DSA ports, even if the device is
+-configured to use 1/2/3 instead. This hardware configuration will be
+-auto-detected and mapped accordingly.
+-
+-Example:
+-
+-I2C managed mode:
+-
+-	master: masterdevice@X {
+-
+-		fixed-link { /* RMII fixed link to LAN9303 */
+-			speed = <100>;
+-			full-duplex;
+-		};
+-	};
+-
+-	switch: switch@a {
+-		compatible = "smsc,lan9303-i2c";
+-		reg = <0xa>;
+-		reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
+-		reset-duration = <200>;
+-
+-		ports {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			port@0 { /* RMII fixed link to master */
+-				reg = <0>;
+-				ethernet = <&master>;
+-			};
+-
+-			port@1 { /* external port 1 */
+-				reg = <1>;
+-				label = "lan1";
+-			};
+-
+-			port@2 { /* external port 2 */
+-				reg = <2>;
+-				label = "lan2";
+-			};
+-		};
+-	};
+-
+-MDIO managed mode:
+-
+-	master: masterdevice@X {
+-		phy-handle = <&switch>;
+-
+-		mdio {
+-			#address-cells = <1>;
+-			#size-cells = <0>;
+-
+-			switch: switch-phy@0 {
+-				compatible = "smsc,lan9303-mdio";
+-				reg = <0>;
+-				reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
+-				reset-duration = <100>;
+-
+-				ports {
+-					#address-cells = <1>;
+-					#size-cells = <0>;
+-
+-					port@0 {
+-						reg = <0>;
+-						ethernet = <&master>;
+-					};
+-
+-					port@1 { /* external port 1 */
+-						reg = <1>;
+-						label = "lan1";
+-					};
+-
+-					port@2 { /* external port 2 */
+-						reg = <2>;
+-						label = "lan2";
+-					};
+-				};
+-			};
+-		};
+-	};
+diff --git a/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml b/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
+new file mode 100644
+index 0000000000000..42f8473538a07
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml
+@@ -0,0 +1,123 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/dsa/smsc,lan9303.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: SMSC/MicroChip LAN9303 three port ethernet switch
++
++maintainers:
++  - Frank Li <Frank.Li@nxp.com>
++
++description:
++  The LAN9303 is a three port ethernet switch with integrated PHYs for the
++  two external ports. The third port is an RMII/MII interface to a host
++  processor. The device can be managed via I2C or MDIO.
++
++  Note - always use 'reg = <0/1/2>;' for the three DSA ports, even if the
++  device is configured to use 1/2/3 instead. This hardware configuration
++  will be auto-detected and mapped accordingly.
++
++properties:
++  compatible:
++    enum:
++      - smsc,lan9303-i2c
++      - smsc,lan9303-mdio
++
++  reg:
++    maxItems: 1
++
++  reset-gpios:
++    description:
++      GPIO to be used to reset the whole device
++    maxItems: 1
++
++  reset-duration:
++    description:
++      Reset duration in milliseconds
++    default: 200
++    $ref: /schemas/types.yaml#/definitions/uint32
++
++required:
++  - compatible
++  - reg
++
++unevaluatedProperties: false
++
++allOf:
++  - $ref: dsa.yaml#
++
++examples:
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    /* I2C managed mode */
++    i2c {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        switch@a {
++            compatible = "smsc,lan9303-i2c";
++            reg = <0xa>;
++            reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
++            reset-duration = <200>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    label = "cpu";
++                    ethernet = <&master>;
++                };
++
++                port@1 {
++                    reg = <1>;
++                    label = "lan1";
++                };
++
++                port@2 {
++                    reg = <2>;
++                    label = "lan2";
++                };
++            };
++        };
++    };
++
++  - |
++    #include <dt-bindings/gpio/gpio.h>
++
++    /* MDIO managed mode */
++    mdio {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        switch@0 {
++            compatible = "smsc,lan9303-mdio";
++            reg = <0>;
++            reset-gpios = <&gpio7 6 GPIO_ACTIVE_LOW>;
++            reset-duration = <100>;
++
++            ports {
++                #address-cells = <1>;
++                #size-cells = <0>;
++
++                port@0 {
++                    reg = <0>;
++                    label = "cpu";
++                    ethernet = <&master>;
++                };
++
++                port@1 {
++                    reg = <1>;
++                    label = "lan1";
++                };
++
++                port@2 {
++                    reg = <2>;
++                    label = "lan2";
++                };
++            };
++        };
++    };
+diff --git a/Documentation/networking/dsa/lan9303.rst b/Documentation/networking/dsa/lan9303.rst
+index ab81b4e0139e3..776572be265e1 100644
+--- a/Documentation/networking/dsa/lan9303.rst
++++ b/Documentation/networking/dsa/lan9303.rst
+@@ -12,7 +12,7 @@ Driver details
+ 
+ The driver is implemented as a DSA driver, see ``Documentation/networking/dsa/dsa.rst``.
+ 
+-See ``Documentation/devicetree/bindings/net/dsa/lan9303.txt`` for device tree
++See ``Documentation/devicetree/bindings/net/dsa/smsc,lan9303.yaml`` for device tree
+ binding.
+ 
+ The LAN9303 can be managed both via MDIO and I2C, both supported by this driver.
+-- 
+2.43.0
 
