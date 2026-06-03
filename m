@@ -1,293 +1,197 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from CHN02-SH0-obe.outbound.protection.partner.outlook.cn (mail-sh0chn02on2095.outbound.protection.partner.outlook.cn [139.219.146.95])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CA0F2C08BC;
-	Wed,  3 Jun 2026 07:05:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780470335; cv=none; b=gJirvYo0Vm3Q/gZ+4D3CcCs0ZKoB+PrzjnIDNsvGNkcj2N0Ialy36Svwf+brysZ/6juoeVPFxOycOPkawMH6MhfDoxu1PG8VhnXJoKWaBvA07+HyRVFIzbQPL/HL0qcsE+/KwKOmsowEDpUfrGELuYgkKiIk10tjLXeyl94JN2U=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780470335; c=relaxed/simple;
-	bh=obhaxkDBbofL2T3y02WGHzlUpfinhZPfwomPxGaN1FQ=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=K9zqILxPlbmQjyDsT12YNeZwk8VjodL5zKX+CH58KtlyKGcm8p7AJkNClAg0zDNFOfQoFQ+wiTGgeSLIBBuKhXpfPe/QGz+ITWF4r+JSTNp3ygcE62tDqS85sJFAGV/9WubHzMdTCLt/tGlJ/7w2/LudO2HuChJeyW+qwFZLdfw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JPasc9NF; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JPasc9NF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 641461F00893;
-	Wed,  3 Jun 2026 07:05:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780470333;
-	bh=1KSrGaZqDQ3Mx4+dmtoKcc8eUVkR3wqHBa3kGRLwpZU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=JPasc9NFlnGw3KzoaiNRW9/m/7zcCXDe+xo36qT6yyoqnSVgQELmvw2zDc9R+IINL
-	 LJ5ORgr4sbFZ8sQSo6v+UK/vPzBt2HG3vrbr4CMd7Fj9wQYAgXQar/1S8gxQE/aM/a
-	 7xJuKgIic+5xqxNrOHlAwd0vXAuqu4A/hyhuQKvk6yxO93NegGC7AVQI8LfdcJQcFX
-	 1P+84QPcS71aDTeFN/AtpmZpB/neKZRljmeX06/HHkyVkp16ttF3E7Ps/3ZwuFIc4x
-	 ZwRjn3gZn1jZe4ptANtPQ6/gZlIo/4imlVrRJmxQVZTN5/z0ORUbTOo5MzxGvr9JTj
-	 0c76M5DHbaHqA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v6 3/3] PCI: imx6: Add root port reset to support link
- recovery
-Reply-To: sashiko-reviews@lists.linux.dev
-To: hongxing.zhu@oss.nxp.com
-Cc: devicetree@vger.kernel.org, imx@lists.linux.dev, robh@kernel.org, conor+dt@kernel.org, Frank.Li@kernel.org, linux-pci@vger.kernel.org
-In-Reply-To: <20260603062510.3767610-4-hongxing.zhu@oss.nxp.com>
-References: <20260603062510.3767610-4-hongxing.zhu@oss.nxp.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 07:05:32 +0000
-Message-Id: <20260603070533.641461F00893@smtp.kernel.org>
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0868C399CE6;
+	Wed,  3 Jun 2026 07:05:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=139.219.146.95
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780470345; cv=fail; b=jgk6zKQZpyAx9vhLndWn3A+2O/5kJCrOASBtvpvZkI6bh4UME37DlVXl4C9fMz7tLIKmWk9rlr/F6RD2csj/+WpNSW89EvSRKOt/+okDkzZc6Pxz+TDxhS6XQ50YpXlQWmH0QqXLOGCyWu6surZobszvVrPeY0+EZtyF+NAeg/8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780470345; c=relaxed/simple;
+	bh=h/v85K9cbz/4EYbnA2gT8oHMlQxI3Df3iVBYX48SEQk=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=aqmC9tS1u1o20YP58AD6laK7dz0d2xTnAhQO/2uPCjsnVOtH/TS+SSxzOkkKvtAjGJSR0xtBhQEfkwFPlufA7XsOi8aDbdmMFigMBxtA7t3JJ7Rm0izMJLLgg7RitdzrcBxGVmooHXn2qxvE/eh2Z3MOrSJ9SbdDEcCnZg2Xwqg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com; spf=pass smtp.mailfrom=starfivetech.com; arc=fail smtp.client-ip=139.219.146.95
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=starfivetech.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=starfivetech.com
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector9901; d=microsoft.com; cv=none;
+ b=YqFqnSwLASkjxwW1KjXqsRJhmfkfu3M2w7w2J5Ajz1ZhLaIMfrXAWHVtMBrCzw/+u1vR8SX7IEdS0oyt5tvOuONj8KdWX/Y7JES3a0za0z1ssdgyWZ5xvOMflyHakk0eDBh2lJzOQC/uOwzVnASvhG55ELyjhsm/LEYH94PE1bjEEIVtkgW+CLq3WS80Rp7r3oi0eGb6Y5pYavkE4xA3MHMFngTdoqbKBUIhAuTMyODVVKjCeJ74dPcd34rmOUho7+iUPE2dOPkFKvoXXLWC1/MA0pa5Z7da0wQQ6vMptxO3LG6FaymbcO11RuVVNUsKEvC5mGUQ0oKYKKGZZxrVyw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector9901;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=h/v85K9cbz/4EYbnA2gT8oHMlQxI3Df3iVBYX48SEQk=;
+ b=hblv9NP6efiJH3G4FFGN74+PXTvxt7loNmXtYm31Igi/2nMikGyVM94tQay1OZaEviF5Xsu9Cvo9zyiOo1dWcditnW+cYT/1y0PQ9kLwAsuXTZfsSbQWA4Ez7j0Bqv/wQh/QAi7qxTNBhZyHDugYTmTPgtfDLTOs8kzOfyy8HOVgmPUFu55EPLUi1mGLWBvSeAvzS7J3JTaVIcRtXz0+uNloefvsWNjBqXY6hOp8RGlaTGMfVoVpqQjxPOYmpI6jeCofRy7c37kStenlQICgmErTVVkUiBmEemeALkYtYzR/PuHSbUT7yTEENO3spDELInI7D75XVuwPVzzEp5GfBQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=starfivetech.com; dmarc=pass action=none
+ header.from=starfivetech.com; dkim=pass header.d=starfivetech.com; arc=none
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:18::6) by ZQ0PR01MB1176.CHNPR01.prod.partner.outlook.cn
+ (2406:e500:c550:19::9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Wed, 3 Jun 2026
+ 05:31:38 +0000
+Received: from ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570]) by ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+ ([fe80::973:272c:ab11:7570%6]) with mapi id 15.21.0092.006; Wed, 3 Jun 2026
+ 05:31:38 +0000
+From: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+CC: Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
+	Mika Westerberg <mika.westerberg@linux.intel.com>,
+	"linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+Subject:
+ =?gb2312?B?u9i4tDogW1BBVENIIHYyIDAvM10gaTJjOiBBZGQgU3RhcmZpdmUgSkhCMTAw?=
+ =?gb2312?Q?_I2C_master/slave_support?=
+Thread-Topic: [PATCH v2 0/3] i2c: Add Starfive JHB100 I2C master/slave support
+Thread-Index: AQHc7bXo+kP9ks3Lj0ixZJAu4nf4cLYr4mgAgAB2cQA=
+Date: Wed, 3 Jun 2026 05:31:38 +0000
+Message-ID:
+ <ZQ0PR01MB12690FA279708FD6A6DB063282132@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
+References: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
+ <ah9Yrt_gO8uGaPw_@ashevche-desk.local>
+In-Reply-To: <ah9Yrt_gO8uGaPw_@ashevche-desk.local>
+Accept-Language: en-US
+Content-Language: zh-CN
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=starfivetech.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: ZQ0PR01MB1269:EE_|ZQ0PR01MB1176:EE_
+x-ms-office365-filtering-correlation-id: 2fe31706-9b30-45b6-07b3-08dec13162b6
+x-ms-exchange-senderadcheck: 1
+x-microsoft-antispam:
+ BCL:0;ARA:13230040|366016|376014|1800799024|38070700021|18002099003|22082099003|6133799003|4143699003|56012099006;
+x-microsoft-antispam-message-info:
+ 1GKT4CVUaOr3g3uYcnmmZ7KndPyoSysWHn38KXNdkGyLawwL9w+W2DNQjtPYtlc0FstSBmbdAo+CZXUxo2gSBAwm/vAU2cSnTMPac0h1XZgGy5ySuQ5LcZcg8yydU+vQNfnV20+fF3rNlwyl3pyoiIjPUa+ZPbU2cl+r5ibD/xr6hN/2T4xOA2XZLNRC+i/jerjJO9vHi1Ycb/fq5xW1HTrvDsaKlGlmKAgi7tgsi/ZRtUwlf1WaeNxm23xBXgV8PxCq+8saJrfJfX3k6w6hFGeb6gYI41O33vrDJSuGcBrVnCdlyk0QIWFVvzcbT7H59l6v0zXX9UhJnnVqWeqyTQZOXWmjuY5KIF2uHcClER/+D7a8/v1ZvRbacBppWZU79orfnNMyi6Nh36nVWoYYfWIl/n+YvZD5BtbqGYQaaa7cZEAA99povWOFvdHahgMNdjAOwktsW5mucUCO7mdT5MVuPcyp50bia8gNVmXkANPOm4uNKDDS3UmQ0gCRiqRotjsB6sel3YNpTePVpNY9Ya+CXV66NeEjlNe1jvJYtgVf56nrzqrAMiVK27EL93Lm
+x-forefront-antispam-report:
+ CIP:255.255.255.255;CTRY:;LANG:zh-cn;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn;PTR:;CAT:NONE;SFS:(13230040)(366016)(376014)(1800799024)(38070700021)(18002099003)(22082099003)(6133799003)(4143699003)(56012099006);DIR:OUT;SFP:1102;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0:
+ =?gb2312?B?eFRmT0NzSENqSFVBRTJCcnFDNGFDdUdLK2lGU21lWS9wRm5ZR1hBMnMzZFhI?=
+ =?gb2312?B?RmNreDVOYjNDSUJRYWdFcllDTVNZTTJoM2FKVG9tWmNNVU9jbWo5TVZQSDBl?=
+ =?gb2312?B?bWZUMzRNQnJ3M3R0d3o5c1p1L0g5Zk5vWDZOSmd2d2JEeVZaeWhwTFJIZDhj?=
+ =?gb2312?B?dUsySy80dXZMbG1OVkRZeXdZcFM2S2lhbmNqSHg4WWtVemdZelo5dEhiQmFu?=
+ =?gb2312?B?dS9WZ0lYSnVvVGt5T1lSeml6QzRHcWczVGVQNlQ5L0RZVjJaMWRxQ1MvejdT?=
+ =?gb2312?B?NWtjaGJ1ZFJtbnpoMXhiOFRVeCttQjlob2VxdjBaY1pnSy9uS0p5WXZRWjNm?=
+ =?gb2312?B?TmVMa2Y0ZTMrT3c5SFMvbkJFbVgyMWlIa3JwM0tycUZaQWpIclVpMDRxTERs?=
+ =?gb2312?B?eXZwZ1JVWTJOeWNsVFNpaU9qRXNiL0p1bHFqVzRTMXFUbnQ4Q3hLNEtCcFBW?=
+ =?gb2312?B?eHpjQTBGcUZGRWpYZ0V3VXlxT0RndnZHLzN6L21Ici9MSWtHVE4wNHhSOWlr?=
+ =?gb2312?B?Qis2QUVqSE1DbDFqd3ZzNDBMWnNrUFhDRHNwbGJYUXBDa3l5WTdXUjNTOHRk?=
+ =?gb2312?B?aFhhNVJ5dzBsR3Erc1JIOHhBcG5MbFJ4b2ZXbjVEYkpnYVFkY1pMNU1zMEhz?=
+ =?gb2312?B?ZGx6V1RNalBDa1dqYjUzUTRyMnJra1hmYitUNklHanVpeE92Qkh4NGpadHBM?=
+ =?gb2312?B?OGRtdm1KdDFTZ0lRVGF0QzIxeS9lMjU3a0ErOTZHbWhnRkdaRlpBczlNblA1?=
+ =?gb2312?B?UTg4Nm0ydEJ2bllqMExrL0t2L3RqUW9KQ3NvWElZODNBc3pqc1F5M0VvWHE4?=
+ =?gb2312?B?djdIcStRcjNSZTg5RGx0ajFtdEJYYlBKWE42bGR5UjhVTVUxWEtCSWdqcXVt?=
+ =?gb2312?B?ek9ZUlJURTlaZENkajhscVhnazhpakZadlhHMUZoNUpnVG5DYldmVVJ1ZDV1?=
+ =?gb2312?B?elZvam5HbWhlcmFUYnR1V0paQTVVSHVENm5zYktrRTFZdGlVaTRUcDdVd3RB?=
+ =?gb2312?B?akFSL214QUJrRDVMUW5hL1hMa29jakVzejlzblNPbndxVFBESzJ4YXJnY0h5?=
+ =?gb2312?B?REwwNVZuVmVaeTFPMndtSUFVQTZkM2xjdzZKUG1hemVHK1VULzJiZjJmZDVy?=
+ =?gb2312?B?YmM4aW83SFlSWjZCZVBIbmJtOVEvNGljd21LeWxjUDVqazdaSnJDTVpXSUFZ?=
+ =?gb2312?B?QkpwRmNaMVpPRzI4enpHRlArMjVWU2lEUnNuUDZ6ZzNRVW5MUnBieXBLQzly?=
+ =?gb2312?B?eS9vTC9jdnpSTzBzd1BWV3FHTXRYWEV0bitUSnJ1WGZXWHVRd28yQkY5VSt4?=
+ =?gb2312?B?RStGSFdNNGhvSVJFUytNSHZXR09BRVVzc2RkOHRjWG03SHV0ZWNrUTJzMmRi?=
+ =?gb2312?B?QlVnZTZHaXc5RFdkbzloRGdXMnRTcUk1bUI2bXVDbk9wM241RE5CMFZseExk?=
+ =?gb2312?B?N0szNUY4V1F4YnovMXRNd2dDMVNYNGQyY3pPUTZkbVprbGc1RnR6bUdubWYw?=
+ =?gb2312?B?WWJ6Y2wzNTdYOGJ2RkcyQXhDQmdYZEwxV1lXVWkxYm5YdFlUYUYzbGFuc0VX?=
+ =?gb2312?B?cndTa2l2eDBnTzRucHNRZHE2SG5welZPVGNLWHRUcTQ4a3VpSXJZRXJYNUhY?=
+ =?gb2312?B?YjFPWmNWMFZaV2pNTENXQ1Fjcjd2djJSMWN1a295OVc3eUV0L1Y0a2lXUThx?=
+ =?gb2312?B?Q1NuUkdUU3pHQXprOEsrRTFRTjh0MHpwZEk3ZExVajdpT2dIa0lWaVVTTVNl?=
+ =?gb2312?B?ZGIrRk42ay9XZGYwZ0VVWnBpQ1d5UU94V3drUkxvTHRLeWxPajVBUlIweWlB?=
+ =?gb2312?B?SHY3ZUlMZzI5bkQ3Vk0vY1NxTVJFYnFsdWRSd3VYV1daSUJzNWtoSnAyT0RG?=
+ =?gb2312?B?M1dRdlVEbVJMRFU5V0RmWHdueUJCUjFVbklPamhXaG9CUGo1Zk02SkJaUGhp?=
+ =?gb2312?B?cTBpUTFhejFLeld2eDRlSnhlMm9veW50OEQxVmdyZXJ3WEY3K1NJNHpKMmVU?=
+ =?gb2312?B?MC9OcTUzeFVqTGdnbVhaQklwcWt1Z1h5N3BmSVdKS21pcTNHSHlIUitZSVJm?=
+ =?gb2312?B?TU9aQ2U2UWk5dmdOaGpUMHFVeExvUmxDMENacDF5eE4wSjcvdk1iQy9GVDA2?=
+ =?gb2312?B?QUFpdUhhMy9GN255K1Y5dUlGODI5WDdhUHV0bEV4Y2JVbmU4Z1RmSVM5dEc1?=
+ =?gb2312?B?RlZPMlhHdGVnYkxGSS9aNDZNS0ZIcTZMb2N2MjdsNEczempySG82RVVUSk5V?=
+ =?gb2312?B?RUhKZVlSZmhRdDFpVTdkUVVQTWkyeGo4T3Q0bnRZWlVjOE4zUDNGMVFLV0V2?=
+ =?gb2312?B?czQ3c1llM2cveGZ4d2dSRllQVWd2dWNzZzA0a05SUmNvNVl5ZDZ0QVdkaVVw?=
+ =?gb2312?Q?1a8kBgXOFBPUAPz0=3D?=
+Content-Type: text/plain; charset="gb2312"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+X-OriginatorOrg: starfivetech.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2fe31706-9b30-45b6-07b3-08dec13162b6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 03 Jun 2026 05:31:38.6395
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 06fe3fa3-1221-43d3-861b-5a4ee687a85c
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: B9cwpwfykr7IARX9RfJJLaI9wVaN+VSt9SeIHxbci541qEjs9487wkyS12nM1vb97N6TVoLeTLAOnJG0zd5Zb4Hb0H/FcgeQG3cS3ix8dY6sndGqM62ExX0CIEuKksbz
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: ZQ0PR01MB1176
 
-Thank you for your contribution! Sashiko AI review found 9 potential issue(=
-s) to consider:
-- [High] Read-modify-write operations on mixed RW/W1C register silently dro=
-p interrupts.
-- [High] Shared interrupt handler checks status but fails to verify if the =
-interrupt is enabled.
-- [High] Ignored return value of `dw_pcie_wait_for_link()` hides downstream=
- link recovery failures.
-- [High] Lockless traversal of PCI bus devices in an asynchronous IRQ threa=
-d exposes the kernel to Use-After-Free and list corruption.
-- [High] Link down interrupt is not disabled during system shutdown, causin=
-g an AXI bus fault and system hang.
-- [High] Failed root port reset leaves the controller unclocked while still=
- active, causing a crash on subsequent PM suspend.
-- [High] Unprotected hardware indirect register access during root port res=
-et.
-- [Medium] Ignored negative error codes from `platform_get_irq_byname_optio=
-nal()` break probe deferral.
-- [Low] Build failure due to undefined functions and struct members.
---
-
-commit 5bee25b25210b0bc28349bc8474d10204a25cd72
-Author: Richard Zhu <hongxing.zhu@nxp.com>
-
-PCI: imx6: Add root port reset to support link recovery
-
-The PCIe link can go down due to various unexpected circumstances. Add
-root port reset support to enable link recovery for the i.MX PCIe
-controller when the optional "intr" interrupt is present.
-
-> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controll=
-er/dwc/pci-imx6.c
-> index 773ab65b2afac..aa5c90be23df8 100644
-> --- a/drivers/pci/controller/dwc/pci-imx6.c
-> +++ b/drivers/pci/controller/dwc/pci-imx6.c
-
-[ ... ]
-
-> @@ -1394,6 +1401,13 @@ static int imx_pcie_host_init(struct dw_pcie_rp *p=
-p)
-> =20
->  	imx_setup_phy_mpll(imx_pcie);
-> =20
-> +	/*
-> +	 * Callback invoked by PCI core when link down is detected and
-> +	 * recovery is needed.
-> +	 */
-> +	if (pp->bridge)
-> +		pp->bridge->reset_root_port =3D imx_pcie_reset_root_port;
-
-[Severity: Low]
-Does the reset_root_port member actually exist in struct pci_host_bridge?=20
-This appears to cause a build failure since the struct member is undefined.
-
-[ ... ]
-
-> @@ -1661,6 +1675,9 @@ static int imx_pcie_suspend_noirq(struct device *de=
-v)
->  	if (!(imx_pcie->drvdata->flags & IMX_PCIE_FLAG_SUPPORTS_SUSPEND))
->  		return 0;
-> =20
-> +	if (imx_pcie->lnk_intr > 0)
-> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				  IMX95_LINK_DOWN_INT_EN);
-
-[Severity: High]
-Since IMX95_LINK_INT_CTRL_STS mixes an RW enable bit and a write-1-to-clear=
-=20
-status bit, will using regmap_clear_bits perform a read-modify-write cycle=
-=20
-that inadvertently clears pending status bits if they are latched during th=
-e=20
-read?
-
-[ ... ]
-
-> +static irqreturn_t imx_pcie_lnk_irq_isr(int irq, void *priv)
-> +{
-> +	struct imx_pcie *imx_pcie =3D priv;
-> +	struct dw_pcie *pci =3D imx_pcie->pci;
-> +	struct device *dev =3D pci->dev;
-> +	u32 val;
-> +
-> +	regmap_read(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS, &val);
-> +	if (val & IMX95_LINK_DOWN_INT_STS) {
-
-[Severity: High]
-Is it possible for this shared interrupt handler to be invoked while the=20
-interrupt is disabled, see the latched status bit, and erroneously return=20
-IRQ_WAKE_THREAD?=20
-
-If a PME interrupt fires while the link down interrupt is intentionally=20
-disabled, the ISR will still claim it. Would it be safer to check if=20
-IMX95_LINK_DOWN_INT_EN is also set before proceeding?
-
-> +		dev_dbg(dev, "PCIe link down detected, initiating recovery\n");
-> +		/* Clear link down interrupt status by writing 1b'1 to it */
-> +		regmap_set_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				IMX95_LINK_DOWN_INT_STS);
-
-[Severity: High]
-Similar to the regmap_clear_bits call above, could using regmap_set_bits he=
-re=20
-perform a read-modify-write cycle that inadvertently clears other pending=20
-write-1-to-clear bits in the same register?
-
-> +		regmap_clear_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +				  IMX95_LINK_DOWN_INT_EN);
-> +
-> +		return IRQ_WAKE_THREAD;
-> +	}
-> +
-> +	return IRQ_NONE;
-> +}
-> +
-> +static irqreturn_t imx_pcie_lnk_irq_thread(int irq, void *priv)
-> +{
-> +	struct imx_pcie *imx_pcie =3D priv;
-> +	struct dw_pcie *pci =3D imx_pcie->pci;
-> +	struct dw_pcie_rp *pp =3D &pci->pp;
-> +	struct pci_dev *port;
-> +
-> +	for_each_pci_bridge(port, pp->bridge->bus)
-
-[Severity: High]
-Is it safe to iterate the bus list locklessly in this IRQ thread?=20
-Could concurrent modifications to the PCI bus list cause a use-after-free=20
-since the pci_bus_sem is not held?
-
-> +		if (pci_pcie_type(port) =3D=3D PCI_EXP_TYPE_ROOT_PORT)
-> +			pci_host_handle_link_down(port);
-
-[Severity: Low]
-Does the pci_host_handle_link_down function exist in the tree? This appears=
-=20
-to be an undefined function call which will cause a build failure.
-
-> +
-> +	regmap_set_bits(imx_pcie->iomuxc_gpr, IMX95_LINK_INT_CTRL_STS,
-> +			IMX95_LINK_DOWN_INT_EN);
-> +
-> +	return IRQ_HANDLED;
-> +}
-> +
-> +static int imx_pcie_reset_root_port(struct pci_host_bridge *bridge,
-> +				    struct pci_dev *pdev)
-> +{
-> +	struct pci_bus *bus =3D bridge->bus;
-> +	struct dw_pcie_rp *pp =3D bus->sysdata;
-> +	struct dw_pcie *pci =3D to_dw_pcie_from_pp(pp);
-> +	struct imx_pcie *imx_pcie =3D to_imx_pcie(pci);
-> +	int ret;
-> +
-> +	imx_pcie_msi_save_restore(imx_pcie, true);
-> +	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT))
-> +		imx_pcie_lut_save(imx_pcie);
-
-[Severity: High]
-The i.MX95 PCIe hardware uses an indirect access mechanism for LUTs. Since=
-=20
-this reset executes asynchronously in a threaded IRQ, should imx_pcie->lock=
-=20
-be acquired before calling imx_pcie_lut_save to prevent concurrent=20
-operations from clobbering the shared indirect address indices?
-
-> +	imx_pcie_stop_link(pci);
-> +	imx_pcie_host_exit(pp);
-> +
-> +	ret =3D imx_pcie_host_init(pp);
-> +	if (ret) {
-> +		dev_err(pci->dev, "Failed to re-init PCIe\n");
-> +		return ret;
-> +	}
-> +	ret =3D dw_pcie_setup_rc(pp);
-> +	if (ret)
-> +		goto err_host_deinit;
-> +
-> +	imx_pcie_start_link(pci);
-> +	dw_pcie_wait_for_link(pci);
-
-[Severity: High]
-Should the return value of dw_pcie_wait_for_link be checked here?=20
-By ignoring it, the function might falsely report success to the PCI core=20
-even if downstream link recovery fails, which could lead to unsupported=20
-request aborts when accessing downstream devices.
-
-> +
-> +	if (imx_check_flag(imx_pcie, IMX_PCIE_FLAG_HAS_LUT))
-> +		imx_pcie_lut_restore(imx_pcie);
-> +	imx_pcie_msi_save_restore(imx_pcie, false);
-> +
-> +	dev_dbg(pci->dev, "Root port reset completed\n");
-> +	return 0;
-> +
-> +err_host_deinit:
-> +	imx_pcie_host_exit(pp);
-
-[Severity: High]
-If the re-initialization fails and imx_pcie_host_exit disables the clocks,=
-=20
-the device still remains bound. If the system later initiates a suspend,=20
-will imx_pcie_suspend_noirq execute unconditionally and trigger a fatal=20
-external abort by attempting to read from the unclocked DBI registers?
-
-> +
-> +	return ret;
-> +}
-> +
-
-[ ... ]
-
-> @@ -1919,9 +2018,33 @@ static int imx_pcie_probe(struct platform_device *=
-pdev)
->  			val |=3D PCI_MSI_FLAGS_ENABLE;
->  			dw_pcie_writew_dbi(pci, offset + PCI_MSI_FLAGS, val);
->  		}
-> +
-> +		/* Get link event irq if it is present */
-> +		imx_pcie->lnk_intr =3D platform_get_irq_byname_optional(pdev, "intr");
-> +		if (imx_pcie->lnk_intr > 0) {
-
-[Severity: Medium]
-If the interrupt controller is not yet ready, the platform irq function=20
-returns -EPROBE_DEFER. Does checking strictly for > 0 cause the driver to=20
-silently ignore this error code and fail to defer the probe, permanently=20
-disabling the link recovery functionality?
-
-[ ... ]
-
-> +err_host_deinit:
-> +	dw_pcie_host_deinit(&pci->pp);
-> +
-> +	return ret;
->  }
-> =20
->  static void imx_pcie_shutdown(struct platform_device *pdev)
-
-[Severity: High]
-The patch enables the link down interrupt during probe, but looking at=20
-imx_pcie_shutdown(), it does not disable it before asserting core reset.=20
-Does asserting the core reset drop the link and trigger the interrupt?=20
-If so, this could wake the threaded handler to access DBI registers while=20
-the core is in reset, causing a synchronous external abort.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603062510.3767=
-610-1-hongxing.zhu@oss.nxp.com?part=3D3
+DQoNCj4gLS0tLS3Tyrz+1K28/i0tLS0tDQo+ILeivP7IyzogQW5keSBTaGV2Y2hlbmtvIDxhbmRy
+aXkuc2hldmNoZW5rb0BsaW51eC5pbnRlbC5jb20+DQo+ILeiy83KsbzkOiAyMDI2xOo21MIzyNUg
+NjoyNw0KPiDK1bz+yMs6IExpYW5mZW5nIE91eWFuZyA8bGlhbmZlbmcub3V5YW5nQHN0YXJmaXZl
+dGVjaC5jb20+DQo+ILOty806IEFuZGkgU2h5dGkgPGFuZGkuc2h5dGlAa2VybmVsLm9yZz47IFJv
+YiBIZXJyaW5nIDxyb2JoQGtlcm5lbC5vcmc+Ow0KPiBLcnp5c3p0b2YgS296bG93c2tpIDxrcnpr
+K2R0QGtlcm5lbC5vcmc+OyBDb25vciBEb29sZXkNCj4gPGNvbm9yK2R0QGtlcm5lbC5vcmc+OyBN
+aWthIFdlc3RlcmJlcmcgPG1pa2Eud2VzdGVyYmVyZ0BsaW51eC5pbnRlbC5jb20+Ow0KPiBsaW51
+eC1pMmNAdmdlci5rZXJuZWwub3JnOyBkZXZpY2V0cmVlQHZnZXIua2VybmVsLm9yZzsNCj4gbGlu
+dXgta2VybmVsQHZnZXIua2VybmVsLm9yZw0KPiDW98ziOiBSZTogW1BBVENIIHYyIDAvM10gaTJj
+OiBBZGQgU3RhcmZpdmUgSkhCMTAwIEkyQyBtYXN0ZXIvc2xhdmUgc3VwcG9ydA0KPiANCj4gT24g
+V2VkLCBNYXkgMjcsIDIwMjYgYXQgMDQ6NTA6MzZQTSArMDgwMCwgbGlhbmZlbmcub3V5YW5nIHdy
+b3RlOg0KPiANCj4gPiBUaGUgU3RhcmZpdmUgSkhCMTAwIEkyQyBjb250cm9sbGVyIGlzIGEgdmFy
+aWFudCBvZiB0aGUgd2lkZWx5LXVzZWQNCj4gPiBEZXNpZ25XYXJlIEkyQyBJUCwgd2l0aCBhIGRp
+c3RpbmN0IHJlZ2lzdGVyIGxheW91dCBhbmQgZW5oYW5jZWQgZmVhdHVyZXMNCj4gPiBzdWNoIGFz
+IFNNQnVzIEFsZXJ0IGFuZCBwcm9ncmFtbWFibGUgRklGTyBkZXB0aHMuDQo+ID4NCj4gPiBUaGUg
+c2VyaWVzIGlzIHN0cnVjdHVyZWQgYXMgZm9sbG93czoNCj4gPiAxLiAgQWRkcyB0aGUgZGV2aWNl
+IHRyZWUgYmluZGluZyBkb2N1bWVudCBmb3IgdGhlIHN0YXJmaXZlLGpoYjEwMC1pMmMNCj4gPiAg
+ICAgICAgIGNvbXBhdGlibGUuDQo+ID4gMi4gIFByZXBhcmVzIHRoZSBleGlzdGluZyBpMmMtZGVz
+aWdud2FyZS1jb3JlIGJ5IGV4cG9ydGluZyBhbmQgbWFraW5nDQo+ID4gICAgICAgICBjZXJ0YWlu
+IGtleSBmdW5jdGlvbnMgb3ZlcnJpZGFibGUsIGFsbG93aW5nIGNvZGUgcmV1c2UuDQo+ID4gMy4g
+IEludHJvZHVjZXMgdGhlIG5ldyBpMmMtc3RhcmZpdmUtKiBkcml2ZXIsIHdpdGggc2VwYXJhdGUg
+bW9kdWxlcyBmb3INCj4gPiAgICAgICAgIG1hc3RlciBhbmQgc2xhdmUgZnVuY3Rpb25hbGl0eSwg
+YmFzZWQgb24gdGhlIDIwMjMtMDcgcmV2aXNpb24gb2YNCj4gPiAJdGhlIFN5bm9wc3lzIElQIG1h
+bnVhbC4NCj4gPg0KPiA+IEN1cnJlbnRseSwgZHVlIHRvIHRoZSBmb2xsb3dpbmcgZGlmZmVyZW5j
+ZXMsIGkyYyBkZXNpZ253YXJlIGNhbm5vdCBiZQ0KPiA+IGZ1bGx5IHJldXNlZA0KPiA+IDEuICBG
+b3IgaGlnaCBhbmQgbG93IGxldmVsIGNvdW50aW5nIHNldHRpbmdzIGF0IGRpZmZlcmVudCByYXRl
+cywgaTJjDQo+ID4gICAgICAgICBzdGFyZml2ZSBjYW4gdXNlIElDX1NDTC1IL0xDTlQgdG8gc2V0
+IFNTLCBGTSwgRk0rLCBVRk0NCj4gPiAyLiAgSW50ZXJydXB0IGNsZWFyaW5nIGlzIGFjaGlldmVk
+IGJ5IHdyaXRpbmcgMSB0byB0aGUgY29ycmVzcG9uZGluZw0KPiA+ICAgICAgICAgYml0IG9mIElO
+VFJfQ0xSLCB3aGlsZSBkZXNpZ253YXJlIHJlYWRzIGRpZmZlcmVudCBjbGVhcmluZw0KPiA+IAly
+ZWdpc3RlcnMNCj4gPiAzLiAgTWFzdGVyIGFuZCBzbGF2ZSByZXF1aXJlIHNlcGFyYXRlIHByb2Jl
+IGNhbGxiYWNrcyBhbmQgY2Fubm90IHJlbHkNCj4gPiAgICAgICAgIHNvbGVseSBvbiB0aGUgcnVu
+dGltZSBtb2RlIHN3aXRjaGluZyBwcm92aWRlZCBieQ0KPiBpMmNfZHdfc2V0X21vZGUoKQ0KPiA+
+IDQuICBUaGUgdmFsdWUgb2YgRklGTyBkZXB0aCBpcyBub3Qgb2J0YWluZWQgdGhyb3VnaCByZWdp
+c3RlcnMsIGJ1dA0KPiA+ICAgICAgICAgd3JpdHRlbiB0aHJvdWdoIERUUw0KPiANCj4gTkFLIGlu
+IHRoaXMgZm9ybS4gV2Ugd2VsbCBkaXNjb3VyYWdlIGNvZGUgZHVwbGljYXRpb24gYW5kIHVnbHkg
+aWZkZWZmZXJ5IHdpdGgNCj4gZnVsbCBvZiBfX3dlYWsgYW5ub3RhdGlvbnMgdGhhdCBtYXkgbm90
+IGJlIHByZXNlbnQgaW4gdGhlIHJlZ3VsYXIgZHJpdmVyLiBUaGVyZQ0KPiBpcyBub3QgZXZlbiBh
+IHRpbnkgYml0IG9mIGp1c3RpZmljYXRpb24gZm9yIHRoaXMgbm9uc2Vuc2UuDQo+IA0KPiBUTDtE
+UjogdGhpcyBzZXJpZXMgbmVlZHMgbXVjaCBtb3JlIHdvcmsuDQo+IA0KPiA+IEkgaGF2ZSB3cml0
+dGVuIHNvbWUgcG9vcmx5IHN0eWxlZCBjb2RlIHRvIHJlZHVjZSBjaGFuZ2VzIHRvIGkyYyBkZXNp
+Z253YXJlDQo+ID4gYW5kIHJldXNlIGl0cyBmdW5jdGlvbnMgYnkga2VlcGluZyBhYSBhbHdheXMg
+dHJ1ZSwgZm9yIGV4YW1wbGUNCj4gPiAxLiAgdGhlIGltcGxlbWVudGF0aW9uIG9mIGkyYy1kIHdf
+cHJvYmVfbWFzdGVyKCkgZGlmZmVycyBvbmx5IGZvciB0aGUgdHdvDQo+ID4gICAgICAgICBJUHMg
+aW4gaTJjX2R3X3NldF90aW1pdHNfbWFzdGVyKCkuIEluIG9yZGVyIHRvIHJldXNlDQo+ID4gCWky
+Y19kd19wcm9iZV9tYXN0ZXIoKSwgaTJjX2R3X3NldF90aW1pdHNfbWFzdGVyIGlzIGRlY2xhcmVk
+IGFzDQo+ID4gCV9fd2Vhay4gQSBiZXR0ZXIgYXBwcm9hY2ggaXMgdG8gdXNlIGEgY2FsbGJhY2sg
+ZnVuY3Rpb24sIGJ1dCB1c2luZw0KPiA+IAlhIGNhbGxiYWNrIGZ1bmN0aW9uIHJlcXVpcmVzIGNo
+YW5naW5nIG1vcmUgaTJjIGRlc2lnbndhcmUgZmlsZXMuDQo+ID4gCUkgZG9uJ3Qga25vdyB3aGF0
+IHRoZSBhdHRpdHVkZSBvZiB0aGUgY29tbXVuaXR5IGlzDQo+ID4gMi4gIEZvciB0aGUgb3BlcmF0
+aW9uIG9mIGNsZWFyaW5nIGludGVycnVwdCBmbGFncywgaTJjIGRlc2lnbndhcmUgcmVhZHMNCj4g
+PiAgICAgICAgIGFuZCBpMmMgc3RhcmZpdmUgd3JpdGVzLiBUaGVyZWZvcmUsIGluIG9yZGVyIG5v
+dCB0byBtb2RpZnkgdGhlDQo+ID4gCXJlbGV2YW50IGxvZ2ljIG9mIGkyYyBkZXNpZ253YXJlLCBJ
+IGFkZGVkIGEgd3JpdGUgb3BlcmF0aW9uIHRvDQo+ID4gCXNmX3JlZ19yZWFkKCkNCj4gPiBTbyBJ
+IHRoaW5rIHRoaXMgdmVyc2lvbiBvZiB0aGUgY29kZSBpcyBub3QgYWxsb3dlZCB0byBtZXJnZSwg
+YnV0IEkgZG9uJ3QNCj4gPiBrbm93IGhvdyB0byBoYW5kbGUgdGhpcyBzaXR1YXRpb24gYmVjYXVz
+ZSBpZiBpMmMgZGVzaWdud2FyZSBpcyBub3QgY2hhbmdlZA0KPiA+ICBhdCBhbGwsIHdlIHdpbGwg
+aGF2ZSB0byB3cml0ZSBjb2RlIHRoYXQgaXMgc2ltaWxhciB0byBpMmMgZGVzaWdud2FyZS4NCj4g
+PiAgV2lsbCB0aGlzIHR5cGUgb2YgSVAgbm90IGJlIGFsbG93ZWQgdG8gbWVyZ2U/DQo+IA0KPiAt
+LQ0KPiBXaXRoIEJlc3QgUmVnYXJkcywNCj4gQW5keSBTaGV2Y2hlbmtvDQo+IA0KDQpUaGFua3Mg
+Zm9yIHRoZSByZXZpZXcuDQoNCkluIHRoZSBmdXR1cmUsIHRoZSBkZXNpZ253YXJlIHdpbGwgYmUg
+Y2hhbmdlZCB0byB0aGUgZm9ybSBvZiBjYWxsYmFjayBmdW5jdGlvbnMsIA0KYW5kIHRoZW4gY2Fs
+bGJhY2sgZnVuY3Rpb25zIHdpbGwgYmUgcGFzc2VkIGluIGkyYyBzdGFycnkgLSAqIGFuZCBpbXBs
+ZW1lbnRlZCANCnVzaW5nIGRlc2lnbndhcmUgYXMgYSBsaWJyYXJ5DQoNCkJlc3QgUmVnYXJkcywN
+CkxpYW5mZW5nIE91eWFuZw0KDQoNCg==
