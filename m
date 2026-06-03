@@ -1,155 +1,101 @@
-Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com [209.85.210.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 008653FF893
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:28:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02ACC38B12B
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478901; cv=none; b=tU+ifGHD692OvqQ3yKHRNZFuMAc8uAsB+DKp/nwdpXzS5hVzMO25a877SN+9va2mClaDO0qcqH/Bl896zrEv0N5kqxK6h9YGKxZA8HTEENfXO5Da/GoyUiFzU69gLnPJf5zU/fouoN3JQWMPL+MUPUCkbu1yjnmMc+i0bK6azyA=
+	t=1780478952; cv=none; b=nFR24GeJLlj0iJPLM9QD2dM76juEWAzG1QPHkmO6WZjGYjfO/iVkxo5E1Ua/Z56XwC3toYyc5VP3R5rujd6OZfFPB3WLJiWdXcqgZh9t7I41MSTegFhrhd/zIefafN5ooUGd6Gbc++sFOpKdOGJImYFByJIs3++X0v5EaugemlI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478901; c=relaxed/simple;
-	bh=0INONot60+NB/3Y6SrZWLNmW13aQx5ky62mxcs8WEoI=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=V3mpO/epaPwRqsAfcUuxDeQHknBnWYxvL2XmKYq2vkKOzplUnZiEp+y2lmvxc7RvOKSNri1w3jhggyX+UX3XBSMH3C/bkQWKMZH/YNYAuNVxC/MnJK0Qard9lpB7YZN4vILYpDyZkPRMz2oXB3jwOO5n4yngJdOV95DrcYW/b1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
-Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
-	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhtT-0002Zh-Sg; Wed, 03 Jun 2026 11:28:11 +0200
-Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
-	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
-	(Exim 4.96)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhtT-000tGs-0y;
-	Wed, 03 Jun 2026 11:28:11 +0200
-Received: from pza by lupine with local (Exim 4.98.2)
-	(envelope-from <p.zabel@pengutronix.de>)
-	id 1wUhtT-000000004kG-0vVD;
-	Wed, 03 Jun 2026 11:28:11 +0200
-Message-ID: <67d859a23c788e2d74606c9be65cf2114ef45ad2.camel@pengutronix.de>
-Subject: Re: [PATCH 4/4] bus: add BCM6362 on-chip WLAN SHIM bridge driver
-From: Philipp Zabel <p.zabel@pengutronix.de>
-To: Alessio Ferri <alessio.ferri@mythread.it>, 
- =?UTF-8?Q?Rafa=C5=82_Mi=C5=82ecki?=
-	 <zajec5@gmail.com>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski
-	 <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Florian Fainelli
-	 <florian.fainelli@broadcom.com>
-Cc: linux-kernel@vger.kernel.org, linux-wireless@vger.kernel.org, 
-	devicetree@vger.kernel.org
-Date: Wed, 03 Jun 2026 11:28:11 +0200
-In-Reply-To: <20260529-add-bcm6362-wlan-v1-4-722242777f58@gmail.com>
-References: <20260529-add-bcm6362-wlan-v1-0-722242777f58@gmail.com>
-	 <20260529-add-bcm6362-wlan-v1-4-722242777f58@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-0+deb13u1 
+	s=arc-20240116; t=1780478952; c=relaxed/simple;
+	bh=b0FwIuZ5pDLAhzbYxcTxm/lAPKiEu/hDBMREzsHSOvE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d7VAbD7Q03eujOBtnAIMD/vYu7vhru7pUS1vHQ0QWZ47W5yoMCdK4ih+ZI9wfK5L6Jpw9EaxHQanY6w439akeW6HM9AHiHKyQi3zl/2j9SGpLsA5zAv8Lmu6kmbkTjDtVFt+Yv3OXubbF2EnYZd3SPe7euuHNFMSXkbm94BYBAI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Dkz9MkDz; arc=none smtp.client-ip=209.85.210.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Dkz9MkDz"
+Received: by mail-pf1-f174.google.com with SMTP id d2e1a72fcca58-84229481d44so1580312b3a.0
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 02:29:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780478950; x=1781083750; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=b0FwIuZ5pDLAhzbYxcTxm/lAPKiEu/hDBMREzsHSOvE=;
+        b=Dkz9MkDzV8gIFNHcIMILa1pFiIoo+peVWML210SizsPzQTAyUERBvIM2xd1Wpg3wP3
+         MKWe0ckiaiHD11pBDoG8PprfXkwePzJo83LqTG8dY4ewLgOv5Jqb+OprOVajNH784lim
+         743YtLvWL9QCxx3zuYgO40BnByOROoMxQHlJVB8Kr94AqmzFqWxvju0W8TiX1lUEdfJe
+         +3W7JM8T90xB/p5eM1UxiNSTL3+8rl+02Mhef1/wasDmfalC+aAf4SYZXXB17cr/rFVW
+         06usqO/v0nbhBB2kia83S8f6y3h/6eNir8iYErEFqDI66cxxoAjYS45i1QWeo3wo7yZi
+         hWdQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780478950; x=1781083750;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=b0FwIuZ5pDLAhzbYxcTxm/lAPKiEu/hDBMREzsHSOvE=;
+        b=dN+plkeMgIkmO9Urd2TMPfnB3AMeoUUimyOowe+Zhq3PuB87sHaIRH1jARZ3lUxvo8
+         1LV4H+PTiUVbxbmZS5fKfGqMjk5hqlxlTxvlChqrelgdTDBS6EWwh26kgaD02C+9mhx6
+         7GVZhAqax9H26D+xsoT/Uz46M37PNXw2+X6DspFkB3MKkiVNlLn63Z4AQJlIf2ERFhAU
+         nlDWAOdTXiftyU93iL+Ldy8HgXf8FiDiGnI4Ovax66fMIUqkq5hQJMJ1wNzikM8nvz/7
+         D0VNNTS8ZcQG1U89TClSeEeTqwTRatqZDuVB/p+iQpOOaVHEOEWLsyFN9EbCt97TewNs
+         1bjg==
+X-Forwarded-Encrypted: i=1; AFNElJ+RUiql4RfaDgycIIlx0I6o8VT/u8E2UNvvcJPjRnR8jbo72ZNh9R3VdpDGClCCoxFhZ545AZ08BPCl@vger.kernel.org
+X-Gm-Message-State: AOJu0YwyuqYf2W349+bDNipK1MI20Zia1xqXFjlP0F5WgVtZ72GBm4+o
+	prL0P4R2kz7Gekhn7DdZJW/1JG8GEtgqMLjeNtVj7G+qd0WMzB6HLLHh
+X-Gm-Gg: Acq92OF4Q4uwO3vrryVLYkNqMvOtoT7ggNGTXWMPrBSamZcofUTi+6PzTlFhdvYonXx
+	gXp8LJ2a9slgpbASEZUCqUWZXIoXvDVSpMh10xz02JpQJEZQ2FDksaPAZLjolt52B2RMeIWxgZS
+	Z6MBcvb388PJXIArnMOCvcnn3nZn1lXIs4k8lb4c/eRA5peykHMoC/vHFsXwL0UQkYxaoaij7Jm
+	V1Ne2NDZnSgOis1mi/B35JH1iPFSrYUFf3TRavIFyxW4QBHlaPaxCum+O1ZtAD465lZmfgr8dTS
+	NTYglhQmlPo8vrZC4q/9MTsGWQMo7PTi++c3GgZrp+D99fpF62KRAEZIjpkwJvLKrZBgOSTxeOv
+	epbmaFNb3ZIPi2B+XZwKtLPnORgwa5HLfgoePpXaeL2gBNGPFI0gzXrUtAwZibk/fEDJ1SBW1qV
+	JqE2NLTrwKeKxnYebvO+dRDi/WHnSvjvZacORNyQmB3Ws+SXej9oi8ll7Py2N4nDgxyxR5n7Cvj
+	UsCg3fnODoNfA==
+X-Received: by 2002:a05:6a00:27a1:b0:82f:38df:681c with SMTP id d2e1a72fcca58-84284e3636fmr2479696b3a.6.1780478950133;
+        Wed, 03 Jun 2026 02:29:10 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8428288002asm2370530b3a.31.2026.06.03.02.29.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 02:29:09 -0700 (PDT)
+Message-ID: <a9417d76-eb10-4e33-98b6-4cce7bc3e190@gmail.com>
+Date: Wed, 3 Jun 2026 17:29:06 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
-X-SA-Exim-Mail-From: p.zabel@pengutronix.de
-X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
-X-PTX-Original-Recipient: devicetree@vger.kernel.org
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: spi: Add for Nuvoton MA35D1 SoC QSPI
+ Controller
+To: Mark Brown <broonie@kernel.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-spi@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20260603043551.1062112-1-cwweng.linux@gmail.com>
+ <20260603043551.1062112-2-cwweng.linux@gmail.com>
+ <bc0f42c0-b85c-4239-93a4-429193338f99@sirena.org.uk>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <bc0f42c0-b85c-4239-93a4-429193338f99@sirena.org.uk>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Fr, 2026-05-29 at 02:06 +0200, Alessio Ferri wrote:
-> Add the bridge driver that brings up the BCM6362 on-chip WLAN SHIM
-> and then populates a brcm,bus-axi child whose backplane is
-> enumerated by drivers/bcma/host_soc.c.
->=20
-> Add myself as MANTAINER for this shim.
->
-[...]
->=20
-> Assisted-by: Claude:claude-4.8-opus
-> Signed-off-by: Alessio Ferri <alessio.ferri@mythread.it>
-> ---
->  MAINTAINERS                     |   7 ++
->  drivers/bus/Kconfig             |  13 +++
->  drivers/bus/Makefile            |   1 +
->  drivers/bus/bcm6362-wlan-shim.c | 252 ++++++++++++++++++++++++++++++++++=
-++++++
->  4 files changed, 273 insertions(+)
->=20
-[...]
-> diff --git a/drivers/bus/bcm6362-wlan-shim.c b/drivers/bus/bcm6362-wlan-s=
-him.c
-> new file mode 100644
-> index 000000000000..a2de03cf8ff7
-> --- /dev/null
-> +++ b/drivers/bus/bcm6362-wlan-shim.c
-> @@ -0,0 +1,252 @@
-[...]
-> +static int bcm6362_wlan_bringup(struct bcm6362_wlan *priv)
-> +{
-> +	int ret;
-> +
-> +	dev_info(priv->dev, "bring-up: start\n");
+Hi Mark,
 
-Too verbose.
+Thanks, I will fix the subject lines in the next version.
 
-> +
-> +	ret =3D clk_prepare_enable(priv->clk);
-> +	if (ret) {
-> +		dev_err(priv->dev, "clk_prepare_enable failed: %d\n", ret);
-> +		return ret;
-> +	}
-> +	dev_info(priv->dev, "bring-up: clock enabled, rate=3D%lu Hz\n",
-> +		 clk_get_rate(priv->clk));
-> +	mdelay(10);
+Chi-Wen Weng
 
-Why is this a delay instead of a sleep? Why is it there at all?
-Prefer using msleep() or fsleep() if possible.
 
-> +
-> +	/* Reset toggle (brcm,bcm6345-reset hides the active-low softResetB
-> +	 * encoding, so assert/deassert read naturally here).
-> +	 */
-> +	reset_control_assert(priv->rst_shim_ubus);
-> +	reset_control_assert(priv->rst_shim);
-> +	mdelay(1);
-> +	reset_control_deassert(priv->rst_shim_ubus);
-> +	reset_control_deassert(priv->rst_shim);
-
-Switch deassert order for consistency with teardown, if possible.
-Or use reset_control_bulk_(de)assert() API.
-
-[...]
-
-> +static int bcm6362_wlan_probe(struct platform_device *pdev)
-> +{
-> +	struct device *dev =3D &pdev->dev;
-> +	struct of_dev_auxdata auxdata[2];
-> +	struct bcm6362_wlan *priv;
-> +	int ret;
-> +
-> +	priv =3D devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
-> +	if (!priv)
-> +		return -ENOMEM;
-> +	priv->dev =3D dev;
-> +
-> +	priv->shim =3D devm_platform_ioremap_resource_byname(pdev, "shim");
-> +	if (IS_ERR(priv->shim))
-> +		return PTR_ERR(priv->shim);
-> +
-> +	priv->clk =3D devm_clk_get(dev, NULL);
-> +	if (IS_ERR(priv->clk))
-> +		return PTR_ERR(priv->clk);
-> +
-> +	priv->rst_shim =3D devm_reset_control_get_exclusive(dev, "shim");
-> +	if (IS_ERR(priv->rst_shim))
-> +		return PTR_ERR(priv->rst_shim);
-> +
-> +	priv->rst_shim_ubus =3D devm_reset_control_get_exclusive(dev,
-> +							       "shim-ubus");
-> +	if (IS_ERR(priv->rst_shim_ubus))
-> +		return PTR_ERR(priv->rst_shim_ubus);
-
-Consider using devm_reset_control_bulk_get_exclusive().
-
-regards
-Philipp
+Mark Brown 於 2026/6/3 下午 05:04 寫道:
+> On Wed, Jun 03, 2026 at 12:35:50PM +0800, Chi-Wen Weng wrote:
+>> Signed-off-by: Chi-Wen Weng <cwweng.linux@gmail.com>
+> Please submit patches using subject lines reflecting the style for the
+> subsystem, this makes it easier for people to identify relevant patches.
+> Look at what existing commits in the area you're changing are doing and
+> make sure your subject lines visually resemble what they're doing.
+> There's no need to resubmit to fix this alone.
