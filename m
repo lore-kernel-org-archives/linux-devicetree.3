@@ -1,112 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6050C401A25
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 07:55:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE8BD3FF881;
+	Wed,  3 Jun 2026 07:59:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780473358; cv=none; b=gjvZqqeCRenHsMADNa/rLlxuKXy6YsJo5rVzaK7wiPEEVVFjS9Ll9LYemVGOJqOMFMMd+e2d8+GRG+r8HoAHsp3j8kayb/U6+eTw1fAWpmumYiCfL+x3u+glJUlPDzVpJ304N9d7U2vzQTHiIU8JjJY5gpP/4AfrZ/jQgYqvLm4=
+	t=1780473577; cv=none; b=VrJoHgEYXWPJmPl7ipS0MUNzQiU35DinfVZrc9GQe+6w0QbaFy27JJ4Qd3yHD6sOw/mMqhJIaFxz/UtLMqACC8XRDyhRcCOqla6ghT28YAJ3XeHFtqYFy8SucDDbnb7lY+74iZcu103AtyLHffZa6le1Q3Ql8Qy5SNgaAdJaSMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780473358; c=relaxed/simple;
-	bh=XZJenswdTRw1d6FNHVFFATpTw/lD4jQWNyl2DUZvlf0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=O5Ea5J6+IAHVR3fev1ebuyxwWV8BOvVYmIXNNLtzAwm54EmSbsWDoXOKifCu6SZ42zSfB5jBP640hLRyKlQZcH/Sig3kgvHQiOyaRKFQbuTDvIyGou0pMVL2Qb6nt2EYrdCNdBoe108XJiIV2jn/Yfjtvax8S9+Iqq8PvPmpfio=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V6c29d2n; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780473577; c=relaxed/simple;
+	bh=g9R6Pj7IedGiVjGt0NYiN3746tmR1kvMrqdl7k6vDVY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PEu0yfMZnzHXKHTp8WjACZjYIppvIJb1n3chiyQr01fXKYG2tWq5wSrwdHHRepje8tt1T3QMhX6t/mle68D46Y2toNAqPU2J2ncjFJUCAAtJWRezDa9fcv3CyE6NsE90c/8irbS757QamPpBmRi8HkYZnpRVOtjtqwbd/xsWG20=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ngqUzRym; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V6c29d2n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FCC91F00898;
-	Wed,  3 Jun 2026 07:55:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780473356;
-	bh=KeeG4eYlZCMNiuI1ugTXf6I+ChAN/zFgZEYbvP5DWLQ=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=V6c29d2nc2FAcxi2m1Gnkk8LGlxyJUclFo1VnEoD7mxpTYJREqIbo/NTlA2vtVNXV
-	 VOWtpsFto5y4rOJuPQHBvRxMqTjotDV/roUHgEmkOB7VLzqvYIcF/DFDnN+iw0PRM3
-	 9bxpWy4IRivGuRRb9Vq6FHlpK4nsGsrklkOtJm88y2yLpM/yUU0e+yIS5RSGzWQVlP
-	 KobyIx5Xe+9Z3YWAfFEvWE2awOklw30pA5iwACZRiuRKXbjEcGIJ6ZjjxeOqDz6j/k
-	 rfKFhyfG0rLVxcmsiGhHRSifXO/79GdsJew8nkdVwPMAm56s7o7mS0imvjzJduKIdF
-	 QnedEh3rsnA2w==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 4/7] dt-bindings: timer: Add RISC-V ACLINT bindings
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Joel Stanley" <joel@jms.id.au>
-Cc: devicetree@vger.kernel.org, robh@kernel.org, conor+dt@kernel.org
-In-Reply-To: <20260603074222.593243-5-joel@jms.id.au>
-References: <20260603074222.593243-5-joel@jms.id.au>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 07:55:56 +0000
-Message-Id: <20260603075556.8FCC91F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ngqUzRym"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780473577; x=1812009577;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=g9R6Pj7IedGiVjGt0NYiN3746tmR1kvMrqdl7k6vDVY=;
+  b=ngqUzRymW9x2jHSnbFoKcfyLsI3Xc7dPpnj4S6z4+yWIX7g1SLmBj4sG
+   rt2cB0ygRdFxB7QQW2rEeVjSA3FIZW1oA8u9y+yRL+BfwPbDA9PHZGoDd
+   4PUe6P3wdYKBmC7cq5Wu4MzdNGJtxv1ORt91rrp5FKVHZmb8jfyNMhuqU
+   bpWQGpNoxQmEyjS5m+ywIH4OPMn9XYgKNPHLiZYt4kxOGaMucjZ1u+3u3
+   8U6wASUPyGohyPWGwns3iTDuCfd+dLpJ27QmA9YQ7eSkKrDbSanBtgVRN
+   SlSkdjjquqDI4ZrVmcOp43coMSL7ScmJPE58sCZ/w08jiDlnbhgHPTnCq
+   g==;
+X-CSE-ConnectionGUID: agSXjQD6RvqGhpqTZEtg0A==
+X-CSE-MsgGUID: qp0O/t/vSt2bCmQc8BH3CQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11805"; a="81454380"
+X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
+   d="scan'208";a="81454380"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 00:59:37 -0700
+X-CSE-ConnectionGUID: petaq8DTTq2v4Q4wLo954Q==
+X-CSE-MsgGUID: 3vFwIrwwTXOZ009Dy6GzBg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,184,1774335600"; 
+   d="scan'208";a="243296934"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.244.116])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Jun 2026 00:59:33 -0700
+Date: Wed, 3 Jun 2026 10:59:30 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Marcelo Schmitt <marcelo.schmitt@analog.com>
+Cc: linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, jic23@kernel.org, nuno.sa@analog.com,
+	Michael.Hennerich@analog.com, dlechner@baylibre.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, pop.ioan-daniel@analog.com,
+	marcelo.schmitt1@gmail.com
+Subject: Re: [PATCH v2 0/4] iio: adc: Add support for LTC2378 and similar ADCs
+Message-ID: <ah_e4ovBsXQ-BVcw@ashevche-desk.local>
+References: <cover.1779976379.git.marcelo.schmitt@analog.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <cover.1779976379.git.marcelo.schmitt@analog.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [Low] The `reg` property erroneously allows up to 4095 items, undermining=
- schema validation.
-- [Low] The `interrupts-extended` property is missing from the `required` l=
-ist, weakening schema validation.
---
+On Thu, May 28, 2026 at 12:02:53PM -0300, Marcelo Schmitt wrote:
+> This patch series adds support for LTC2378 and similar low noise, low power,
+> high speed, successive approximation register (SAR) ADCs. These ADCs are similar
+> among each other, varying mainly on the amount of precision bits, maximum sample
+> rate, and input configuration (either fully differential or pseudo-differential).
+> 
+> The initial support patch enables single-shot sample read with a GPIO connected
+> to the CNV pin.
+> 
+> The second support patch enables high-speed data captures with SPI offloading.
+> The setup is similar to AD4030, with a specialized PWM generator being used both
+> for SPI offload triggering and conversion start signaling.
+> 
+> The last support patch enables running buffered data captures without SPI offloading.
+> 
+> Some structures and variables are introduced earlier to reduce diff in latter patches.
+> 
+> The initial version of the LTC2378 driver was developed by Ioan-Daniel. Though,
+> despite of the many changes I made to the code, I've kept him as module author
+> to provide credit for his work.
 
-commit 173c98f19d28214c8c437b5b2fe1fe7ffd581f01
-Author: Joel Stanley <joel@jms.id.au>
+No datasheet link, no explanation why the brand new driver is needed.
+No need to resend, just answer the above questions.
 
-dt-bindings: timer: Add RISC-V ACLINT bindings
+> Link to v1: https://lore.kernel.org/linux-iio/cover.1779117444.git.marcelo.schmitt1@gmail.com/
 
-This commit documents the device tree bindings for the RISC-V Advanced Core
-Local Interruptor (ACLINT). It defines the memory-mapped devices providing
-IPI and timer functionalities for each HART on a multi-HART platform.
+-- 
+With Best Regards,
+Andy Shevchenko
 
-> diff --git a/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.=
-yaml b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
-> new file mode 100644
-> index 0000000000000..192ff3fcf79f3
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
-[ ... ]
-> +properties:
-> +  compatible:
-> +    items:
-> +      - enum:
-> +          - tenstorrent,atlantis-aclint
-> +          - qemu,aclint-mtimer
-> +      - const: riscv,aclint-mtimer
-> +
-> +  reg:
-> +    minItems: 1
-> +    maxItems: 4095
 
-[Severity: Low]
-Is this maxItems limit of 4095 correct for the reg property?
-
-It appears this might be a copy-paste from the interrupts-extended property.
-Since the RISC-V ACLINT MTIMER typically has only 1 or 2 memory-mapped
-regions (e.g., for mtimecmp and mtime), allowing up to 4095 items could
-permit incorrect device tree definitions to silently pass schema validation.
-
-> +
-> +  interrupts-extended:
-> +    minItems: 1
-> +    maxItems: 4095
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +
-> +unevaluatedProperties: false
-
-[Severity: Low]
-Should interrupts-extended be added to this required list?
-
-Since the primary purpose of the ACLINT MTIMER is to generate machine-level
-timer interrupts for harts, omitting the interrupt routing from the required
-list might allow incomplete, non-functional hardware descriptions to pass
-validation. Other similar bindings typically mandate interrupt routing
-properties.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603074222.5932=
-43-1-joel@jms.id.au?part=3D4
