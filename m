@@ -1,130 +1,128 @@
-Received: from outbound1.mail.transip.nl (outbound1.mail.transip.nl [149.210.149.72])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAB7438D40E;
-	Wed,  3 Jun 2026 16:09:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.210.149.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66C0F3E9C17
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 16:11:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780502967; cv=none; b=brOxBiPeI303LwIP2qCgjiXYI6MOEiXIfNnZuhoPndZotSkgMZC+fdkINL8nNcJF+MYD6+MLHDcRnZzzEce2jk7tukw79V+Fq9TICJqY5fsUym9T7AT8Z9okQABzQUfSQc+qn1jg4NDqyEpw73fqe2xWgTJUv38V3q8JZfvWg6o=
+	t=1780503102; cv=none; b=KKZ3wG9+ziJ8c000RCUC9UXxup+1919BsAdI6NvOx6lxRD2UM6H9cBCpo5rDjKiIRT3S0Qk/23zRPxHNa0U5TySh8MF0vGQpJdXsTQY7p+/qBg9aBnPgjjS9iLWWquyMz5szXV2OnweT51vl7maB7gjuCU0E99hAB4yu+IoYWz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780502967; c=relaxed/simple;
-	bh=6iSSDJrd1g/5ccSaf2LhHGlopQA5o76L1WcoFbkvatk=;
-	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
-	 Message-ID:Content-Type; b=DLYzvM1DsGtxwqhXq+Udef9l7mn2dZKYPJkTCza23IelRijMeXNeno4q4Kd2TL33NbK13qbSmdXlSdqjytbJC3x23NJIX4FzjFr+XR+LIl87BPHrczYKiRxdyQVbPIEyzvbZOtnoQiCWnRjH9zlItP+KUgBuCb95Of/D5ZdX0Lc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org; spf=pass smtp.mailfrom=herrie.org; dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b=lBcog0a3; arc=none smtp.client-ip=149.210.149.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=herrie.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=herrie.org
+	s=arc-20240116; t=1780503102; c=relaxed/simple;
+	bh=y2QuyY9y2+W4x7yh5ykXMaqwBn2DYWfupWcvW61vm5M=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=FWfEV2nqFESQDrT2TzKD+cvSgQOI5c1uL8/kmJK8lCR+ScNsbub3rFnm1JWVL3+olKFjblTLd7Ib9t/HD4ysmqhk9Dq3wf0PV1qogSpxqyPgdejMlYhVffuX6Mmn9yloj6LEQEXLPjU4+iM6mMyD3K5kN7iKLFZCYe47uc5rkZw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RV8e9YxZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=herrie.org header.i=@herrie.org header.b="lBcog0a3"
-Received: from submission12.mail.transip.nl (unknown [10.103.8.163])
-	by outbound1.mail.transip.nl (Postfix) with ESMTP id 4gVt1V5zL9zRj44;
-	Wed,  3 Jun 2026 18:09:18 +0200 (CEST)
-Received: from transip.email (unknown [10.103.8.120])
-	by submission12.mail.transip.nl (Postfix) with ESMTPA id 4gVt1V2Fs4z3SJ37R;
-	Wed,  3 Jun 2026 18:09:18 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RV8e9YxZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BB40E1F00893;
+	Wed,  3 Jun 2026 16:11:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780503100;
+	bh=QN1r+q0ZGpsWtyExTWja+w3VVP7AF6HclrwBJiZg1N0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=RV8e9YxZgKgxplc0wyZf6S/YX0W+LrurLrpDYm+Sh0qWTDuHNmAQSiD0eBNAwZ+D+
+	 dCspjZROPUKxQyi9EaLmqjWCJjXeYH+QddR1lPSxJZGGLRXnLLcsDRMgubjb3bDOkr
+	 pA8MLHAqJkPoeg61YsHYSRG7iOqHLL8FRGzyRveRi9uV9uKNPS5pH7skOZoye3Q42p
+	 AcEd0FDDTd6JSotFHM/e74ZvJS1C3WZUe1R6L2/xLWZcyt6bTfVjMKYp/XHxCudBQ6
+	 JjhFbISdXTCTxvJWFwFYlP07sWFd2hjtYQzcJ2cbdxdXyIjZU/Av8Gmu9rCkXHrJ4b
+	 0ZqB+WW0PNaaA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 2/2] ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle:
+ add initial device tree
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Erikas Bitovtas" <xerikasxx@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260603-yukon-eagle-v2-2-f86b440583f5@gmail.com>
+References: <20260603-yukon-eagle-v2-2-f86b440583f5@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 16:11:39 +0000
+Message-Id: <20260603161139.BB40E1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Date: Wed, 03 Jun 2026 18:09:18 +0200
-From: me@herrie.org
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Cc: Herman van Hazendonk <github.com@herrie.org>,
- linux-phy@lists.infradead.org, devicetree@vger.kernel.org,
- linux-arm-msm@vger.kernel.org, Vinod Koul <vkoul@kernel.org>, Neil Armstrong
- <neil.armstrong@linaro.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Bjorn
- Andersson <andersson@kernel.org>
-Subject: Re: [PATCH 1/2] dt-bindings: phy: qcom,usb-hs-phy: add
- qcom,vendor-init-seq
-Reply-To: github.com@herrie.org, me@herrie.org
-Mail-Reply-To: github.com@herrie.org, me@herrie.org
-In-Reply-To: <ti5p3oreibkae4pl5sn52g3ctv3ufcs6aklwgbterksrxvxrbj@b6scawz2cqmq>
-References: <20260603054809.565723-1-github.com@herrie.org>
- <20260603054809.565723-2-github.com@herrie.org>
- <ti5p3oreibkae4pl5sn52g3ctv3ufcs6aklwgbterksrxvxrbj@b6scawz2cqmq>
-User-Agent: Webmail
-Message-ID: <66905f4914dc022629158ac02df1c7df@herrie.org>
-X-Sender: me@herrie.org
-Content-Type: text/plain; charset=UTF-8;
- format=flowed
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: ClueGetter at submission12.mail.transip.nl
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=transip-a; d=herrie.org; t=1780502958; h=from:reply-to:subject:to:
- cc:references:in-reply-to:date:mime-version:content-type;
- bh=kTA/m61jv540sGh4xUbqI8X96qKnrTavHeGABcK34xw=;
- b=lBcog0a3vWRJhh5Ky6Y9a4K8n6uHWEOvdCEfoobPhYWIdclMzODAJG95ViJwVs+pvfW+hx
- j6Ju/8EU2kjdaeF5kFQzsBDvYCf9qWAlPGGdoCy58HzC+dePji8pWoxKSKYkeDi6nFBGSo
- eAr97llmtKoUrfnkvTnlip7wE93ssiw8yVdgTGajFG9Kc+XriWd6I2FKohIb/Kv4fBGAGL
- svWzxcESHL2k86gSNnpZoaJBFSexeUi0uf/TuMkQ1CX/t43ptKJzXJq6EXTT6Gv+gwQH41
- WSP33Be/mXkW761Tc85FHqCZ6XhpAcmixSSgUGg8XKHly3abBeZ/zpMl69JHoQ==
-X-Report-Abuse-To: abuse@transip.nl
 
-On 2026-06-03 15:57, Dmitry Baryshkov wrote:
-> On Wed, Jun 03, 2026 at 07:48:08AM +0200, Herman van Hazendonk wrote:
->> Add an optional "qcom,vendor-init-seq" property carrying raw ULPI
->> (address, value) pairs that are written after PHY reset.
->> 
->> Unlike the existing "qcom,init-seq" property, the address field is
->> NOT offset by ULPI_EXT_VENDOR_SPECIFIC, so the new property can
->> reach the standard ULPI vendor register range (0x30-0x3f). MSM8x60-
->> class hardware needs this range to programme pre-emphasis, HS driver
->> slope and CDR auto-reset bits the legacy msm_otg driver used to set
->> via platform data.
-> 
-> Are those register writes specific to the device or to the whole
-> platform? In the latter case please extend the driver to write them.
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
+- [Low] The vibrator node (`pm8226_vib`) is enabled in the device tree but =
+is completely absent from the commit message's detailed list of initial fea=
+tures.
+- [Low] Invalid property `chassis` in the root node; should be `chassis-typ=
+e`.
+- [Low] Inconsistent device tree filename and Makefile entry.
+--
 
-Looking at every MSM8x60 reference kernel I could find (Qualcomm's own
-msm8x60 board, HP TouchPad / APQ8060, and some HTC/Saumsung MSM8660
-devices), the writes split into two groups:
+commit a5fd28eda39f46cd80de271c0a53f281a8f9fdf4
+Author: Erikas Bitovtas <xerikasxx@gmail.com>
 
-Platform-level (same across all MSM8x60 hardware):
-  - reg 0x36 bits 1+2: CDR auto-reset disabled, SE1 gating disabled
-  - reg 0x32 bits [5:4]: pre-emphasis at 20%
+ARM: dts: qcom: msm8926-sony-xperia-yukon-eagle: add initial device tree
 
-Board-specific:
-  - reg 0x32 bits [3:0]: HS driver slope — HP TouchPad uses 5, HTC
-    devices use 1. This clearly depends on board layout (trace length,
-    connector loading, etc.).
+This commit adds a new device tree for the Sony Xperia M2 (sony-eagle)
+smartphone, based on the Qualcomm MSM8926 SoC. It includes initial feature
+support such as the framebuffer, GPIO buttons, regulators, storage, and
+various sensors.
 
-So the platform-level writes should move unconditionally into the driver
-behind a match-data flag for the MSM8x60-class compatible, and only the
-HS driver slope value belongs in DT.
+> diff --git a/arch/arm/boot/dts/qcom/Makefile b/arch/arm/boot/dts/qcom/Mak=
+efile
+> index 32a44b02d2fa6..6b471a346d829 100644
+> --- a/arch/arm/boot/dts/qcom/Makefile
+> +++ b/arch/arm/boot/dts/qcom/Makefile
+> @@ -1,6 +1,7 @@
+>  # SPDX-License-Identifier: GPL-2.0
+>  dtb-$(CONFIG_ARCH_QCOM) +=3D \
+>  	msm8226-motorola-falcon.dtb \
+> +	msm8926-sony-xperia-yukon-eagle.dtb \
 
-> Also please note that writing raw register values is generally frowned
-> upon in the upstream. It's not easy to follow those and not nice to
-> modify. Instead, if some the values are required for the particular
-> device, please add corresponding values to the DT using the
-> human-oriented values rather than the register values.
+[Severity: Low]
+Is this filename consistent with established naming conventions? The other
+MSM8926-based boards in arch/arm/boot/dts/qcom/ typically use a qcom-
+prefix. Should this be renamed to qcom-msm8926-sony-xperia-yukon-eagle.dtb
+to match?
 
-Agreed. The old platform-data msm_otg driver already did exactly this
-with named fields (hsdrvslope, pemp_level, cdr_autoreset, se1_gating).
+>  	qcom-apq8016-sbc.dtb \
+>  	qcom-apq8026-asus-sparrow.dtb \
 
-I can drop qcom,vendor-init-seq entirely and replace it with a named
-property — something like qcom,hs-driver-slope — for the one value that
-genuinely varies per board.
+> diff --git a/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts b=
+/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+> new file mode 100644
+> index 0000000000000..8ca834796e2c8
+> --- /dev/null
+> +++ b/arch/arm/boot/dts/qcom/msm8926-sony-xperia-yukon-eagle.dts
+> @@ -0,0 +1,403 @@
+[ ... ]
+> +/ {
+> +	model =3D "Sony Xperia M2";
+> +	compatible =3D "sony,eagle", "qcom,msm8926", "qcom,msm8226";
+> +	chassis =3D "handset";
 
-> If you have questions regarding any of the bitfields, please ask here,
-> we can try finding the data for those.
+[Severity: Low]
+Does this property name pass dt_binding_check validation? The standard
+property for specifying the system form factor in the root node schema is
+chassis-type, not chassis.
 
-One thing I haven't been able to nail down: every HTC MSM8660 board also
-writes 0x0C (bits 2 and 3) to ULPI register 0x31 via phy_init_seq, but
-the HP TouchPad webOS kernel never sets that register through its named
-platform fields — and USB works fine on the TouchPad without it. Do you
-know what those two bits in 0x31 control? If they are needed on CI 45nm
-PHY silicon but not on the APQ8060 PHY variant, I should probably leave
-them out of the driver and note why.
+> +
+> +	aliases {
+[ ... ]
+> +&pm8226_resin {
+> +	linux,code =3D <KEY_VOLUMEUP>;
+> +
+> +	status =3D "okay";
+> +};
+> +
+> +&pm8226_vib {
+> +	status =3D "okay";
+> +};
 
-I don't have any technical documentation for the S3 SoC family, except 
-for the legacy kernels (HP, Samsung, HTC) and a bunch of various HP 
-TouchPad variants.
+[Severity: Low]
+This isn't a bug, but this node enables the vibrator, which is absent from
+the detailed list of initial features in the commit message. Could the
+commit message be updated to mention that vibrator support is also included?
 
-Let me know what you expect and I'll write up a v2.
+> +
+> +&rpm_requests {
 
-Thanks,
-Herman
-
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-yukon-eagl=
+e-v2-0-f86b440583f5@gmail.com?part=3D2
