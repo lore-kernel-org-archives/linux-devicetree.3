@@ -1,141 +1,154 @@
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com [209.85.216.51])
+Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4113859EF
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:24:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5B136A36E
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:26:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478673; cv=none; b=QpEbry6t45edWBry/FAfJmoM2YWx6cBbcin8YEnY25eaaT5FPTBQHabXNO/1vHMwCtGxWZexMSHe3LzhsDVfUigqZp69BIzRL+DkQZ2Bb16nNmjcvUArdAZy1Ma7WYNUI+9dlG+kcqkCYwrvZA6zUD3j61+d2Qc8+gWCMRcouIQ=
+	t=1780478776; cv=none; b=aI5wcF9yiZMngjf9hV4QyXM9JsePON8kvLT++0dH1lClMRnAP3WcP6tk95+W+9+0KmaPLWWntYIaxplKYzZhvIdoZbRjgJUKWB0Tbr6EthEzaZLIHcf0ZLNOergYaIWiOaNcityUsWdq4psg7q39iyDxAxujDX2gXkbL8G03pmI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478673; c=relaxed/simple;
-	bh=tQj2iyJK/ty6qWuD2nWo27J7s0BD+yJmE/SnLkDfTOw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fpf4tqP66/Z6mMjTk/4nAxB4CRJ8NNO2uliqpd1B4v9ufBCd/tWvEpwAOFZS6bZSji3rtkD1UnDhU45zpfFVcozxrJNQk/kB6D0rXTDlTRao47/ZM963GPmKKlNM5QMWbJNWVIrrWwpS+kvOciBLaSNfaqsXu2r+eFsa40ujnbU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GsQBXovb; arc=none smtp.client-ip=209.85.216.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780478776; c=relaxed/simple;
+	bh=IRixWQMwizXFdhkvvgBqMpo7g1d2nL7BH7+e0C+a08c=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=T3YOl/Xb/9FDUkWsDKLENbhJHLN3fFNztShsljU5TU5bbVyIApyF7GyYKBbWWLnos2hHCIgjhMdOpRamMmmQ6zEruThWKTUbeHc8hREp+4F1XIQTJc70Pe2uSsZUjkGoGKoeZ0Js0S7TSjSxG0cQrmd126L+MMKS73YR2nJDZZU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=lTFed7pm; arc=none smtp.client-ip=209.85.221.54
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GsQBXovb"
-Received: by mail-pj1-f51.google.com with SMTP id 98e67ed59e1d1-36ab8816a35so6178107a91.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 02:24:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="lTFed7pm"
+Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-4601949975dso160939f8f.0
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 02:26:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780478672; x=1781083472; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
-        bh=+evDZWLT5KzG1ZaMkX3r55/gKlKfN0VfS6IPwHPUrVw=;
-        b=GsQBXovbGdARAw1pgk5FGKHkDydrlbGmG20n/+U2X+/Y8+dR4lbFZW7mVz/y6AuSWZ
-         GB2JqEomZ5yLcUy0prQcJJuvpOYC+ZNvuIsGXdtKglMYZA0urAW2SgVx1DZhkpmyF+Es
-         NCOsUw0cY2OCPHEN1PFvow8H5aSfghLPsBnv0yAuSi83roV0WKy/wakhEPQKzcgymCSK
-         fmKCWqX9DJTfHmHzbn5ctrPwHqynEqd1BgUXu1qqzpTwSX2kA3qCIiQnHP+kQeagw3Bi
-         nJoCJEbFgWb+WiCQoIzg5mO8ueusnyvuZrF2vlK0tc2cWwyyLXuvai/PSa9h/Pfsf9ZF
-         tC/A==
+        d=linaro.org; s=google; t=1780478773; x=1781083573; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=LVv22gZyTmtymIxhoGte2pKFNDZ9dT7qVuNtoXNbMUA=;
+        b=lTFed7pmMZ9uNCoZyARWr5g75M74ezYc785BMdLbnW3+GprgZFXL2z7BiQMkkClVQy
+         kE0iWjhW/CCeFhJORITaU0rp7nqJo0uF1x1xyeg8komFjBHumA6y+wjMuuktiw0u2dHt
+         hjotIolEewzWLC1X+8uvAK4/jrwTQNrqL6SHEIACpfNQwJCKKTcp8hW4gxN2HcbGWzuL
+         gCs35UAASBnHOSmjRoJ9uWtApnrrnUpTc4kpGKnghjOSml/WecpQWqkTSbV8BpyA780j
+         jOQuE2YvFApmYQJl7O1Gk5sfcvkcx/a/kBC9Qm1cdkAiPYIMzVqCWlRX2g+ee/kS+G8i
+         SQmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780478672; x=1781083472;
-        h=in-reply-to:content-disposition:mime-version:references:message-id
-         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to;
-        bh=+evDZWLT5KzG1ZaMkX3r55/gKlKfN0VfS6IPwHPUrVw=;
-        b=onGOycTb04JyTXxPYo8CbSufGPspHLCfmIOr4Ixnns3ZCw967VGkwDJFp9Ssindqdo
-         MXZoJi6zgcrA1A8b6u6nob+Noi3DU3DlgC7JOWo+7xamrEU4dP2AZSrjtTeUIWkzUqHq
-         mEDzNiI5YOX6ZLiDeBKYPL3i/iGVIA8VQf7zba1G+KR5BLNVBc2cq0X2Xlr0Qi3N5zUY
-         5r8KMP/OOrqpmg63fFqYWK/UsPggPinh81Ajrh+SDukarA0zkAZBPMYtYAwuYt7zcPox
-         IaHO987bhBRl1Eqf37Jz2hKDoXL3orRZrT03lN9TVXp/NURAo/N8Q3Jx4mHSMowOuwFX
-         kxYw==
-X-Forwarded-Encrypted: i=1; AFNElJ91PEW/XJklcvEd71V4U7nU4fPyxr+FeUMuz2HAKDt2KGTBSIhR+miYNiF7PmYXtIvLe+6C38+Y5+DO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy2rK8UdPqi9JFTP6CJJxH57bInnnnQaAdENAKHV5y2ET6tnL4m
-	2MQwZXvTgV50IJVu1ASRGDB2MKlh84mGO4naMWljoiXSYd08HPYI3AKE8yr2mtkq
-X-Gm-Gg: Acq92OEfMSJTidOASBuqY0lOT+pvo4s2pVn0qmJAdGf1cm9WYVbuE6ZP1XH42Fo/DEj
-	oHi3jMWz3O8otkW7svchM2pjSt4ZmiNXY8Vc4T7/+B77RMcvEzBoX0lOS/eyiYNlrb3YbeGJSTr
-	y1bYkX/Akv7NHrQG+wopGfwDAUfLKUNJwF9JNpQzHXUAIwLM/Wq/4R3T6USBYZN8a49dGxiPRRJ
-	Hgsuqy+pKYJ1VADohmdfV1rML9KNkqdiaPgBsUsXgP7w7RsouGZ49zGjA4uFjuBH73eRcc2WEBr
-	YZ599HULvcfFH0H4eN97dwRwGWd96KTCmRPBTONvrLjpQ5OWd3zu8Ojmq46s/fX4zJTs26nrMsJ
-	lYNyFNxFmBD85InDuJpsHkDOhSW12+HqHT+BxucJ1pbQ+/EzGLQWRzb2OFS73nBrcxacLUOM8kt
-	/gHk5tOHvobMJ8QFVOlq+1zju1O0Oq4f4p/A==
-X-Received: by 2002:a17:90b:2d8d:b0:36b:e8b9:46a4 with SMTP id 98e67ed59e1d1-36e32285cf3mr2634132a91.14.1780478671804;
-        Wed, 03 Jun 2026 02:24:31 -0700 (PDT)
-Received: from localhost ([2001:19f0:8001:1b2d:5400:5ff:fefa:a95d])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36e0a276ef2sm2484283a91.11.2026.06.03.02.24.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 02:24:30 -0700 (PDT)
-Date: Wed, 3 Jun 2026 17:24:10 +0800
-From: Inochi Amaoto <inochiama@gmail.com>
-To: Rob Herring <robh@kernel.org>, Inochi Amaoto <inochiama@gmail.com>
-Cc: sashiko-reviews@lists.linux.dev, devicetree@vger.kernel.org, 
-	conor+dt@kernel.org, linux-pci@vger.kernel.org
-Subject: Re: [PATCH v2 4/5] dt-bindings: PCI: spacemit: Introduce Spacemit K3
- PCIe host controller
-Message-ID: <ah_yGaCYLnTL1nyW@inochi.infowork>
-References: <20260517014841.254085-5-inochiama@gmail.com>
- <20260517024848.4F346C19425@smtp.kernel.org>
- <aglF_fbl--RgS7gQ@inochi.infowork>
- <20260601224224.GA116470-robh@kernel.org>
+        d=1e100.net; s=20251104; t=1780478773; x=1781083573;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=LVv22gZyTmtymIxhoGte2pKFNDZ9dT7qVuNtoXNbMUA=;
+        b=eMg5L+kEv5Kr2eCDUVxjoJMBSqCYRco1smtQJMxWLEXjwmpE+A63OCuKzCVmi2Q7Rk
+         BVZ9kUzHpciIM9xWFvLpEh2I+5vZNkqhHjBsqDnFH7y6ekLW1tGJVjNQJFjhm6Vfpah5
+         jUzsSnANGDLpJ5Jpe5Fk7ix31mPPE6pVb/jq/ljx9Zu/I+tS/hV+8CQEfdFrvlnIT1bM
+         LcNJNFg47dqCMuE2ODanVBOyfgMo9uilNBys+2/avUnW9j85d8Rk35wmYTGdL1x3lXDR
+         9HL93X9rwUY2zcdDpk4szwF9Gtk/8pPxaA401YzDgbQZtP0mqx9Rn7uXs8GqRTHEMwFa
+         qv3g==
+X-Forwarded-Encrypted: i=1; AFNElJ/f8lTaelmaQp78ViKncFFuhxpj2yPwGSZ5pmC6gSIbc21NjoTWWjp5C+vms4BCluPfQdeUSRTubH7Y@vger.kernel.org
+X-Gm-Message-State: AOJu0YylVeMYlMyqCsZf9TXzbwBekYgXDMiWZCdjjgXHRS4UX1oJwPFa
+	cQ6oaWfCA1M0y4a2CTJh+Nnrife4SHbYLSaNgkN+1uE6K5LXUw7K1pJ5obOhVnWw7+k=
+X-Gm-Gg: Acq92OGCpczcK+xeLt/YJSA5wNLtKy2XYCN83QC0kAZvqr2ymihd5E98eSyQRtWScbG
+	jJz+PJ/SlYsRr6/lPk1zgkBBPM8SOOXu/hckPunRoBsGzIRtOwoT+T9tXto1NRegdOPmYWqEMmu
+	LZL8qU6ERJksxd0VpTekvWzo6VIr1943A5iKIfVuCCsGhrE7bjWiZYnjjNhKKQ/pr5vSj3tMdjw
+	ROF6XwUkjMn34+e2n3PhgdIwylhwrUlDDEoxffQD89uiMBHHO8Sdim+mf5NXGB9R5hChWiQjEIL
+	ULmUdp2VETZHebhJ2GAvNGjjjHQqsP6BpRqhJ9RZ0vhTFPLP9zj45tN2/ifSGrsYtdRaJvnZ4cY
+	tXICdcLdcXNrE7KD0IY3ywY/TAfRmv0AMNHBjXTqsIW8qISeSkoJJt7j7jRz4x51RDGuphFkUhb
+	ZqosksdnPuIxojFIRMMNkdgwxpJuGtY1g5DgYYISp+1w==
+X-Received: by 2002:a05:600c:45d4:b0:490:5074:651e with SMTP id 5b1f17b1804b1-490b60ef350mr41726765e9.25.1780478773360;
+        Wed, 03 Jun 2026 02:26:13 -0700 (PDT)
+Received: from [10.11.12.110] ([82.76.215.73])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b79d64e8sm35451535e9.0.2026.06.03.02.26.11
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 02:26:12 -0700 (PDT)
+Message-ID: <c76c8f9b-bdd1-4006-aa28-735254f0409a@linaro.org>
+Date: Wed, 3 Jun 2026 12:26:08 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260601224224.GA116470-robh@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v7 2/5] thermal: samsung: Add Exynos ACPM TMU driver GS101
+To: Alexey Klimov <alexey.klimov@linaro.org>,
+ "Rafael J. Wysocki" <rafael@kernel.org>,
+ Daniel Lezcano <daniel.lezcano@kernel.org>, Zhang Rui <rui.zhang@intel.com>,
+ Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>,
+ Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>,
+ "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ Peter Griffin <peter.griffin@linaro.org>,
+ =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>,
+ Alim Akhtar <alim.akhtar@samsung.com>
+Cc: jyescas@google.com, linux-kernel@vger.kernel.org,
+ linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-hardening@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org,
+ Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+References: <20260602-acpm-tmu-v7-0-8047dd54b0e9@linaro.org>
+ <20260602-acpm-tmu-v7-2-8047dd54b0e9@linaro.org>
+ <DIYTOGU8I2DV.1GKZ59F7AJWTE@linaro.org>
+Content-Language: en-US
+From: Tudor Ambarus <tudor.ambarus@linaro.org>
+In-Reply-To: <DIYTOGU8I2DV.1GKZ59F7AJWTE@linaro.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 01, 2026 at 05:42:24PM -0500, Rob Herring wrote:
-> On Sun, May 17, 2026 at 12:38:39PM +0800, Inochi Amaoto wrote:
-> > On Sun, May 17, 2026 at 02:48:47AM +0000, sashiko-bot@kernel.org wrote:
-> > > Thank you for your contribution! Sashiko AI review found 3 potential issue(s) to consider:
-> > > - [Medium] The binding completely omits the `interrupts` and `interrupt-names` properties for the host controller.
-> > > - [Medium] The schema omits standard legacy INTx interrupt routing properties (`#interrupt-cells`, `interrupt-map`, `interrupt-map-mask`).
-> > > - [Low] The `phy-names` property lacks an `items` definition to restrict valid string values.
-> > > --
-> > > 
-> > > commit 7b8ba34456e71d6a9cf1028caa5504d64e8f58ba
-> > > Author: Inochi Amaoto <inochiama@gmail.com>
-> > > 
-> > > dt-bindings: PCI: spacemit: Introduce Spacemit K3 PCIe host controller
-> > > 
-> > > This commit adds device tree binding support for the PCIe controller on the
-> > > SpacemiT K3 SoC. The controller is based on the Synopsys DesignWare PCIe IP
-> > > with some extra link and reset state control.
-> > > 
-> > > > diff --git a/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
-> > > > new file mode 100644
-> > > > index 0000000000000..46147a37a9ce6
-> > > > --- /dev/null
-> > > > +++ b/Documentation/devicetree/bindings/pci/spacemit,k3-pcie-host.yaml
-> > > [ ... ]
-> > > > +  reset-names:
-> > > > +    items:
-> > > > +      - const: dbi
-> > > > +      - const: mstr
-> > > > +      - const: slv
-> > > > +
-> > > > +  msi-parent: true
-> > > > +
-> > > 
-> > > The driver implementation reads and clears interrupt status registers for
-> > > host-level events, and references registers for receiving INTx events from
-> > > downstream devices.
-> > > 
-> > > Should this binding include interrupts and interrupt-names properties to
-> > > document the host's interrupt routing?
-> > > 
-> > > Additionally, should standard legacy INTx interrupt routing properties like
-> > > #interrupt-cells, interrupt-map, and interrupt-map-mask be included in the
-> > > schema and example to support downstream devices that do not use MSI?
-> > > 
-> > 
-> > The driver just does the interrupt cleanup as it requires, and no
-> > additional interrupt is needed
+
+
+On 6/2/26 10:49 PM, Alexey Klimov wrote:
+> On Tue Jun 2, 2026 at 6:00 PM BST, Tudor Ambarus wrote:
+>> Add driver for the Thermal Management Unit (TMU) managed via the Alive
+>> Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
+>> Google GS101 (and Exynos850, autov920, etc.).
+>>
+>> The TMU on utilizes a hybrid management model shared between the
+>> Application Processor (AP) and the ACPM firmware. The driver maintains
+>> direct memory-mapped access to the TMU interrupt pending registers to
+>> identify thermal events, while delegating functional tasks - such as
+>> sensor initialization, threshold configuration, and temperature
+>> acquisition - to the ACPM firmware via the ACPM IPC protocol.
+>>
+>> Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
+>> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+>> ---
+>>  drivers/thermal/samsung/Kconfig    |  19 ++
+>>  drivers/thermal/samsung/Makefile   |   2 +
+>>  drivers/thermal/samsung/acpm-tmu.c | 618 +++++++++++++++++++++++++++++++++++++
+>>  3 files changed, 639 insertions(+)
+>>
+>> diff --git a/drivers/thermal/samsung/Kconfig b/drivers/thermal/samsung/Kconfig
+>> index f4eff5a41a84..383ae3f56cbb 100644
+>> --- a/drivers/thermal/samsung/Kconfig
+>> +++ b/drivers/thermal/samsung/Kconfig
+>> @@ -9,3 +9,22 @@ config EXYNOS_THERMAL
+>>  	  the TMU, reports temperature and handles cooling action if defined.
+>>  	  This driver uses the Exynos core thermal APIs and TMU configuration
+>>  	  data from the supported SoCs.
+>> +
+>> +config EXYNOS_ACPM_THERMAL
+>> +	tristate "Exynos ACPM thermal management unit driver"
+>> +	depends on THERMAL_OF
+>> +	depends on HAS_IOMEM
+>> +	depends on EXYNOS_ACPM_PROTOCOL || (COMPILE_TEST && !EXYNOS_ACPM_PROTOCOL)
+
+I forgot to drop "|| (COMPILE_TEST && !EXYNOS_ACPM_PROTOCOL)", ACPM is NOT
+optional for this driver. I will comply this way with Arnd's solution from:
+
+https://lore.kernel.org/linux-samsung-soc/178006367096.55906.16678510397337205828.b4-ty@b4/T/#t
+
+>> +	default ARCH_EXYNOS
+>> +	help
+>> +	  Support for the Thermal Management Unit (TMU) on Samsung Exynos SoCs
+>> +	  (such as Google GS101 and Exynos850).
 > 
-> Unless there are no interrupts and only MSIs are supported, then you 
-> need to define 'interrupts' property at least. The common schema only 
-> defines all possible names, but not which ones are used and the order.
+> This driver doesn't support Exynos850. There is no initialisation sequence
+> and etc, moreover the next section is also not entirely correct for Exynos850.
+> Not sure why it is mentioned here in such way.
+> (Not even mentioning that ACPM TMU part is not aligned for Exynos850)
 > 
-> Rob
 
-Yes, currently there is no interrupts that should be enabled in Linux, 
-and only MSI is supported without INTx. So I think it is fine to removed
-the interrupt properity.
+Okay, I'll drop the reference to e850.
 
-Regards,
-Inochi
+Cheers,
+ta
