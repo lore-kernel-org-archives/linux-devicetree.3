@@ -1,129 +1,161 @@
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com [209.85.128.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00E0034E75A
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:33:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71FD633ADA3;
+	Wed,  3 Jun 2026 14:34:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497228; cv=none; b=cDwCtwNDKOFqgpcxZAkhY+QGj8jDwNGn+qyFsYqCq/HnADk0GSYGqRuy02XdKu7q52TkMdC8amhJ2ce/OmooOD4A4wulXjmW9JkNDgR/5n6kuKKzhuuFUTuSDJKY9qrQmUCQ5P9n7u7Lp5O1szjCAV9yQz22bi3E8pt9+t6/S1Q=
+	t=1780497255; cv=none; b=iAzxzG9HG0Ii+98KnxwXve+slUOHknxIG6w3F4iHy6hwb9G+mBU+dcGPZmR2OD5ApfunvAqBAB7cuUc9VwCRWc5v1YLKEE4rxk7UrPi+DTESotFY4icPZOdyglJNbB+SDYw7LbKCjoKLvgGY7gCWKSo6VMbTNygaFUZUa5vic0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497228; c=relaxed/simple;
-	bh=DYaktsBqOc25DaPSr846Lq7CCic5W7A90K1koGLeUdk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MurjzC8DQT22qZPsdMGpA2K6GH33PGQjq8Ow9c7JRX2KaENyypwhN0VsjDN37lKAhDzIT9p6UBeBJqofGXry3jhPr0JLOD6fA6afaeCgldWRSmn06b2KzL8/U8mPbmKb2sC2wGvBDBGxisrbNXgdiTvlGJZb5KALycLiM4YlYSs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=c6elcTAg; arc=none smtp.client-ip=209.85.128.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1780497255; c=relaxed/simple;
+	bh=tJFVf8vXzzjaB0v3APHNlAnYXLDp0ucb0cCQgWn023Y=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=bjOFrzgvR6jVk63I7TO/8Uu//qsuwA/4h1N+DDiOJtaW92KS6KtWjdHX39M7YLFkKsdjtlZzB+Bu1Cd+hEBA0C9mvIaGVT/5Zogyi2jS4BTQ37Yel+0iPKFX1zn8jpWVJyzSwKSQVpppOazWQRVB2w/Z7p5YcG9hbxlba7WN1zE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aKYcUPk8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="c6elcTAg"
-Received: by mail-wm1-f47.google.com with SMTP id 5b1f17b1804b1-490388fd0dbso125801115e9.0
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 07:33:45 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780497224; x=1781102024; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=uhBI88HcMxiu/qVRbd3Bgg5S6TL2Bjx/bQArdCqGIeA=;
-        b=c6elcTAgtmW2qCEz/5fF5QjKN6h8fUTlJjx8ETql1g6pvznAhcrHcNOVmnSNWNOrgO
-         mHAxgsikJN6EGZdTrHCz38vCakUdnPA83hHw2yFxo3rMULg54KpVT2ADUUP3MnLXvFgL
-         rurHwK9vkb0yBsdQDAZH5oMDp8zZBiyRJJA4Isf0CiwGYPZzoMqQ8vKGbL4vVh1xbmcH
-         0sFocROk16hcVYKtYA5mhrStWZ1aJ0KWDB7SY919K6U6zf0mDvkZTylW2U/ONJufzoPg
-         7Vrb11xSTV3Nb7P9Hr5p1xgr8yeRt1oZBo1mmn7crADROt5gcwAGtS0IlS++lNIP+PNQ
-         JaXA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780497224; x=1781102024;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to;
-        bh=uhBI88HcMxiu/qVRbd3Bgg5S6TL2Bjx/bQArdCqGIeA=;
-        b=Y9glEDKDqKzvh8n1c+QAUPnnzAMfAwQjzDISPn6exH0zWzi2kv0+NnWWvNs7+cqYcV
-         sBuN0sL1YR36jXj4uD0VvbB1Qih1hO2LmkXKdFRYWinmd0TeUTTQKCjQWn3mm6+wcd3E
-         etOVG+9jghboK304attJAHjsma7lduM0QwlBpNHGpK/igEaBmGX2BtPLgCNmDmCQudPI
-         C3LkW8kXrRDpwSILZXtAJQl5R5y2DPL8pY1xWQlny+gfoHH4S3XJrnOzvHEaNaZgb6kM
-         Qm5WVSDoiZAt4kiG5AxdSEGRLwc/fTj3xFeQv0yhe2cy5milrat9PeKed6JR1CBoh3gv
-         E1mA==
-X-Forwarded-Encrypted: i=1; AFNElJ95XeS4oDxR3KkHmrjL83QW8omkQIheeoMictuEZDtbSJ91xb0ety+F8yLLlfLOOwzX/usdRYNS/nNR@vger.kernel.org
-X-Gm-Message-State: AOJu0YxURJAcAgXiSSNxfmA7JpamGNwbNWgEjrhmPzuCwii//7Z3HmqN
-	KGwWSCliJwmZzTlARwxTE1ynTCRyxfJ7i122x1qn7DWNoHH9sW/CA0hedJaSXw==
-X-Gm-Gg: Acq92OHhIbokWn60Bk6ESRFx/OxM99OBfrPLeyNlDLR070tL/WaHOua7CNN/cyR+Ll7
-	u71oyAEM3phnbiYBZIoeDqD8+iXl/UbKPltpMf2T7tHFgeg8ohA2CUjSy6wZjbb7TMK0IBhSMq6
-	Lk3F/rHoDDt0RJac/mPhE5D7B2pVAkSwlluOtItHGDLGn9gCTBznMRXWOgwDd8ELWuRIAyCAyFV
-	YpaDIv0NEdzdTPr1MSPI7sJNkx6PjLPR+nwKO+yode2tpkFtqcUuhbYHZyvjSkVwW7N0Okff+eK
-	pg5NPVA3P4Lcb/Pgz0ACsE5jmCGwJD3OVTEbVozjIRL2T/bhqd51Ytpo8xf0eZ8D8u4cGE7ZteD
-	m4xAUD1+3ljNrUSPYh1e6Z822OMWmyEDnp2SIHATkD4ZHdiZLhKoGSAfFD25JlPM0GY2e5L90d3
-	Zq2NqCDxy0RuL8kqranytM/9PHxoGPJG48oVs1DLfBYsft/7+l6McAV9dtiFQ=
-X-Received: by 2002:a05:600c:810c:b0:490:afc5:f95d with SMTP id 5b1f17b1804b1-490b5e82e89mr65586495e9.29.1780497224451;
-        Wed, 03 Jun 2026 07:33:44 -0700 (PDT)
-Received: from localhost.localdomain ([2a00:23c4:a700:7301:179c:89ab:19f6:9ba4])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e823f7sm160147395e9.13.2026.06.03.07.33.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 07:33:44 -0700 (PDT)
-From: Biju <biju.das.au@gmail.com>
-X-Google-Original-From: Biju <biju.das.jz@bp.renesas.com>
-To: Geert Uytterhoeven <geert+renesas@glider.be>,
-	Magnus Damm <magnus.damm@gmail.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>,
-	linux-renesas-soc@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Prabhakar Mahadev Lad <prabhakar.mahadev-lad.rj@bp.renesas.com>,
-	Biju Das <biju.das.au@gmail.com>
-Subject: [PATCH 2/2] arm64: dts: renesas: r9a09g047: Add max-frequency for SDHI controllers
-Date: Wed,  3 Jun 2026 15:33:36 +0100
-Message-ID: <20260603143340.162457-3-biju.das.jz@bp.renesas.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260603143340.162457-1-biju.das.jz@bp.renesas.com>
-References: <20260603143340.162457-1-biju.das.jz@bp.renesas.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aKYcUPk8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC4D41F00893;
+	Wed,  3 Jun 2026 14:34:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780497254;
+	bh=Gq920oPUzop81+fde7fc5jCiNoQAZVW8+IXP28aDVLc=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aKYcUPk8yqwRAhVZYNJFqgbig7Ez4t+ELeCSeX0vsAsxEovN5taegZRC1X59bI72I
+	 /e7lo9JXrIi8ECQzERCEku/FjkQ4rMdU/WS9ZdF9w3aXyykZ6d+QqwnkMx4cYmq9Qi
+	 hFm/Cdx3kV4KztUDdWjNGJGECbCQkgRLN2atyHJQ82Z6hp8eoNjuDBhlJEaOTCZyoZ
+	 ydb0ycewysVzCl6+A+g++xD2ca2lT5jPNjk5CGTwDopueA852MY4fvGdq6wpEr9+wZ
+	 mWifr/byI+qsL1yR4JDXL1NXIINtnm+11LHKP/8Zzu8xeEA7+F0lDX1HtmJWPQRd9f
+	 7Ve8fI97P5VZg==
+Message-ID: <be917331-820d-4bd6-b877-77471af5b3b8@kernel.org>
+Date: Wed, 3 Jun 2026 16:34:07 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: =?UTF-8?B?UmU6IOWbnuWkjTog5Zue5aSNOiBbUEFUQ0ggdjIgMi8zXSBpMmM6IGRl?=
+ =?UTF-8?Q?signware=3A_Export_symbols_and_add_=5F=5Fweak_for_Starfive_I2C_dr?=
+ =?UTF-8?Q?iver?=
+To: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>,
+ Andi Shyti <andi.shyti@kernel.org>, Rob Herring <robh@kernel.org>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
+ <conor+dt@kernel.org>, Mika Westerberg <mika.westerberg@linux.intel.com>,
+ Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Cc: "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
+References: <20260527085039.44435-1-lianfeng.ouyang@starfivetech.com>
+ <20260527085039.44435-3-lianfeng.ouyang@starfivetech.com>
+ <c1ae50ab-1228-45a3-b910-4564774f4198@kernel.org>
+ <ZQ0PR01MB1269B87604C6DE7FC2E6ACCC82092@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
+ <d138759d-ec07-4d94-bbce-d34d5bd4fe61@kernel.org>
+ <ZQ0PR01MB1269926D984F86CB9B87E3F182092@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <ZQ0PR01MB1269926D984F86CB9B87E3F182092@ZQ0PR01MB1269.CHNPR01.prod.partner.outlook.cn>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Biju Das <biju.das.jz@bp.renesas.com>
+On 28/05/2026 10:28, Lianfeng Ouyang wrote:
+> 
+> 
+>> -----邮件原件-----
+>> 发件人: Krzysztof Kozlowski <krzk@kernel.org>
+>> 发送时间: 2026年5月28日 15:46
+>> 收件人: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>; Andi Shyti
+>> <andi.shyti@kernel.org>; Rob Herring <robh@kernel.org>; Krzysztof Kozlowski
+>> <krzk+dt@kernel.org>; Conor Dooley <conor+dt@kernel.org>; Mika
+>> Westerberg <mika.westerberg@linux.intel.com>; Andy Shevchenko
+>> <andriy.shevchenko@linux.intel.com>
+>> 抄送: linux-i2c@vger.kernel.org; devicetree@vger.kernel.org;
+>> linux-kernel@vger.kernel.org
+>> 主题: Re: 回复: [PATCH v2 2/3] i2c: designware: Export symbols and add
+>> __weak for Starfive I2C driver
+>>
+>> On 28/05/2026 04:36, Lianfeng Ouyang wrote:
+>>>>>  	{ .compatible = "mobileye,eyeq6lplus-i2c" },
+>>>>>  	{ .compatible = "mscc,ocelot-i2c" },
+>>>>>  	{ .compatible = "snps,designware-i2c" },
+>>>>> +	{ .compatible = "starfive,jhb100-i2c-master" },
+>>>>> +	{ .compatible = "starfive,jhb100-i2c-slave" },
+>>>>
+>>>> So both devices are the same... Or you miss proper entry in ID table.
+>>>> Don't sprinkle compatibles around the code - ID table match data is for
+>>>> variant customization.
+>>>>
+>>>> Best regards,
+>>>> Krzysztof
+>>>
+>>> Ok, Master and slave have different base addresses and interrupt numbers, but
+>>> the register layout is the same, so in the next version, I will only use the same
+>>> compatible ”starfive, jhb100-i2c“, and then add starfive, i2c-slave to the dts
+>> node
+>>> of the slave to distinguish them
+>>
+>> You do not need to distinguish same devices usually, but I still do not
+>> understand why do you need all these different compatibles and your
+>> commit msgs or binding text do not help, so I don't know what to advise.
+>>
+>>
+>> Best regards,
+>> Krzysztof
+> 
+> The IP corresponding to the i2c driver submitted this time is quite unique, 
+> so it should be distinguished. The master-slave of i2c designware are at the
+> same base address and switch according to the scene, so only one is initialized
+> in probe(). But i2c starfive has master-slave at different base addresses,
+> and it can work simultaneously. Therefore, both roles need to be initialized in 
+> their respective probes. If we don't distinguish, we don't know if this probe is 
+> initializing the master or the slave
+> 
 
-Add max-frequency property of 200MHz to the sdhi0, sdhi1, and sdhi2
-MMC controllers in the R9A09G047 SoC DTSI to define the maximum
-supported bus frequency.
+I don't think you read the comments. Again, you claim devices are
+incompatible but have exactly the same programming interface.
 
-Signed-off-by: Biju Das <biju.das.jz@bp.renesas.com>
----
- arch/arm64/boot/dts/renesas/r9a09g047.dtsi | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-index b48da8534a3d..760099697278 100644
---- a/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-+++ b/arch/arm64/boot/dts/renesas/r9a09g047.dtsi
-@@ -1265,6 +1265,7 @@ sdhi0: mmc@15c00000  {
- 			clocks = <&cpg CPG_MOD 0xa3>, <&cpg CPG_MOD 0xa5>,
- 				 <&cpg CPG_MOD 0xa4>, <&cpg CPG_MOD 0xa6>;
- 			clock-names = "core", "clkh", "cd", "aclk";
-+			max-frequency = <200000000>;
- 			resets = <&cpg 0xa7>;
- 			power-domains = <&cpg>;
- 			status = "disabled";
-@@ -1285,6 +1286,7 @@ sdhi1: mmc@15c10000 {
- 			clocks = <&cpg CPG_MOD 0xa7>, <&cpg CPG_MOD 0xa9>,
- 				 <&cpg CPG_MOD 0xa8>, <&cpg CPG_MOD 0xaa>;
- 			clock-names = "core", "clkh", "cd", "aclk";
-+			max-frequency = <200000000>;
- 			resets = <&cpg 0xa8>;
- 			power-domains = <&cpg>;
- 			status = "disabled";
-@@ -1305,6 +1307,7 @@ sdhi2: mmc@15c20000 {
- 			clocks = <&cpg CPG_MOD 0xab>, <&cpg CPG_MOD 0xad>,
- 				 <&cpg CPG_MOD 0xac>, <&cpg CPG_MOD 0xae>;
- 			clock-names = "core", "clkh", "cd", "aclk";
-+			max-frequency = <200000000>;
- 			resets = <&cpg 0xa9>;
- 			power-domains = <&cpg>;
- 			status = "disabled";
--- 
-2.43.0
-
+Best regards,
+Krzysztof
