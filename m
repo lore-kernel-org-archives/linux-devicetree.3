@@ -1,201 +1,128 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f46.google.com (mail-wm1-f46.google.com [209.85.128.46])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D996D407592;
-	Wed,  3 Jun 2026 11:01:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EC8472768
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 11:01:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780484485; cv=none; b=KTg+VC3UZHNvQZUcbC+okUNmIhrH1V+qPTvksk7vft8eQaU/dfa+wLEtYctd7R6olgCCkoNKkbGCdWEUGut9CTPkuPdAjrBhKkPW03b8x5PFCrKCFG2Js5McsZuGgTSZM6K6oRAyQyhqfZ6CouWsl9/vJV4v8yMG3KOojQSKsw4=
+	t=1780484494; cv=none; b=svV0urvIefDA/Xpooa7KeGk0JIs0ub7y5TZU04gK6mnZHX7Xfp60PNW+sBoYiuuhqKAreplvcmsZ20FHGfPvi3sfVQiGAi+NSCX1u3u8VngACTJn0isPsa/kr3EkwHesTJZaILYskfJ7PHHZrRWHQvjBVXAdi0eL5ZBR7O7pLYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780484485; c=relaxed/simple;
-	bh=olXcyto2y0hNmKyhM1+hLEFVSuUEYUpRrGLf2iRrqPM=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=UDV0wvsvgH4ENoenKtTDPjsaIfJ7dV4wUKDWWek26ukDIrrUvG9jcudw7OBhQhzKeUZgs4Vy3sqDlLqSLY5ZrQ7fiGfET2A9LF/P5hWPQjwyEUb9HW/UUE1jL6dzBebkWEFC1AsO3oUn6Pt9vv6AP9zJBwZG+HErn3TaLHcRqNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCq1gE4E; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780484494; c=relaxed/simple;
+	bh=LOrULc1iZDTGIdl+ETs35u9hgIKubwyvl2ebHAU2vSI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=UuttVPxhg+YY9AAhzE/CUHI6yvEq7Lup13wjatiz+1hgU3V96GF4Vf4hc/FSOwYyWNVe8D9btTVQiDTuG9bGI4ul7Qnl5BlFhW4OaK4B6dZoj5Wxp2ERp6MoI+h0K/oRuh+GHfarFdF5SLJeRWxSvXfO336Jxt/s+2x7xIqcUPE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com; spf=pass smtp.mailfrom=9elements.com; dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b=KKHStzNz; arc=none smtp.client-ip=209.85.128.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=9elements.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=9elements.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCq1gE4E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 541FB1F00893;
-	Wed,  3 Jun 2026 11:01:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780484483;
-	bh=ipbvZ982F1A42hFuMQBnrDar5vsOoLmsPhsUvz2IYOU=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=aCq1gE4Er85yZfO6rSdD5+Do1iQF2+ut2hdqU4NH3F30mT8ldMYYVRScq4WewwgTd
-	 1I2iSfnmFxEAaWDXU6wk8euUUVMXFH4ZssRJEj4eY3UHpzvUyI0bvXRF9EZ5C/LiZi
-	 xG+hVrxyhUoJym7183bMLjb/U/ADhX8GcKKJtiF5Q8v23VnJzjvR0i7De7VcZ2W2e2
-	 C138K3x9H5L4Q/QGWbUm1bV3QDS+mTKA6Dt9DOGLOZw1lTzsvNnN/6R6XlAoy7D+WO
-	 lfZp4p3zagwxgjhKQmTW8ItO5cG471juwoBAj/gLTXDPwhNNnM2n6wLvIkoUa+ZSQH
-	 +Beyc/IJKaPcg==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v5 03/14] media: mediatek: vcodec: add driver to support
- vcp encoder
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Kyrie Wu" <kyrie.wu@mediatek.com>
-Cc: conor+dt@kernel.org, linux-media@vger.kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260603084045.17488-4-kyrie.wu@mediatek.com>
-References: <20260603084045.17488-4-kyrie.wu@mediatek.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 11:01:22 +0000
-Message-Id: <20260603110123.541FB1F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=9elements.com header.i=@9elements.com header.b="KKHStzNz"
+Received: by mail-wm1-f46.google.com with SMTP id 5b1f17b1804b1-490b613a17bso7856475e9.3
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 04:01:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=9elements.com; s=google; t=1780484492; x=1781089292; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=IvwOj7IozsLi3dm+wQtK/2q0qsSj46KnFnlknrmF+Y8=;
+        b=KKHStzNz8CDpKxlJmB79NNHO6J4rSUmdnz50AqbyZv/T//rrhUGjSTL+YbYj1owc/7
+         rPhtrelU48GP4z2BKbzR7v+olEXDnEldfSQDHuoACWTa+tB02ShTHJW29Jrpmhe7v2/9
+         3oZvKztk4mwbbKI2bb4c8OK9TakD6dt9u9usu9DgOQC1p/7dkDK7dXw6s5qUMDlBrZQ9
+         7iAMmzU6BHwkSl//Lvb4oN4eqHHFo9s833loBC7eIyi/lkpr12aH7d7uY0cS4FDpnrn1
+         lG7Jug9B/2gi1WZsB2IGZlC40q1e1XeD8Zh8cZYvVi1XTlQPA9zbeCCMxQbfm7JFnuzz
+         P7hA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780484492; x=1781089292;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=IvwOj7IozsLi3dm+wQtK/2q0qsSj46KnFnlknrmF+Y8=;
+        b=kfDkjSvSBN2GKmy73rlpyoutHfyINM7xcCXHbndAI7xD2b97rviKBTo348rRrb1FMZ
+         o3BWvFUHVhp6Qh7XOF2H/JQJ/AUyHQGEWqt19DLtrFGInN2lLPtELiEjCI+fThmVKCx5
+         e8/HdW3rJkacU2wBAZGd4kDTEoQ1RjAB31EKguSWVDE5IIChMpNUgql91PsMQupqK0GU
+         ARPwqKLXdr+yN0ntEr5i/du1PCS7Mpz/ExAHBtHzZWUtUVf2icS/YKJB5taBhVyDXU6d
+         dlJ1wAr5aoDjUcX8smfTDfC7J8vcqQrgHehQyWToQ6eix/V3X6oitlHYWg2E9/L+TrZF
+         IGvQ==
+X-Forwarded-Encrypted: i=1; AFNElJ/FjSdWDy1/Jhyd9dbHKnrxpGKY1Pc693+7J3eFaHNLvWLA5b19GI7JmCOEM3vHJXG4dpRe6GDhr07v@vger.kernel.org
+X-Gm-Message-State: AOJu0YztWeGHe6HwDf90HET4TEQSPgXUcrfGCogEqVVuy0ktc509voZN
+	wVHXPu1F6Wn9ZAofoThosFvxlCXIvOqor9ubkJmvZNarcjiK45+A6psS2FUnwnaiYQQ=
+X-Gm-Gg: Acq92OGSiAY8CJK8a6BacN7byGi7zqk5bJCN8M0I9OkUiO4e/4D74dkY7OyBnwz5Kzo
+	6dFPkKF1RDEq0R4J/qp+JfISgdSVTnVYc+G7S962kch2u6Z7Q1Z+zVxA7T++XBgMLjaCDo7/3Bw
+	tPJk1GuW4fzaaxfBDbaOlFaEL2e2rHf+D4vgIY29QoAzOmWLG1Bb9mHhpk0JZH2FZd/2PZGE6Sk
+	4ag08A78t5fvIgpw4V/nvfzraXaw3I8XOsXP8PMqQzjD/fzpLXUl6tvRGi+B6v9AeJaDMiVgrjC
+	UmcaJBKs0eqAVdC2qDDtjE3EN6vhv4TNxWJo6L++BdhpTGWy2hJBSs72o8hbW5U+UP3mEw0MLHc
+	WeVTzUYroMXP7jaDlxsJKqYJrsaxoNDCQP2gHKp2RQJHJrNLgki+KBXtYQcSEwym3dyUsRmvTcp
+	PJzz5pQH7vt+PKKrfn5FCYD0a2/eyYYqm2htQNhEe/uwNfuG73Uu5AO8E6G0hzS8PqAKazhTEWX
+	5Xd5fVVtlJuG2Q+yjz2RFHRxdO+R+Oap1CuxiF+8RhpIE70MWfVSg==
+X-Received: by 2002:a05:600c:1c1e:b0:48a:5565:ec3d with SMTP id 5b1f17b1804b1-490b5ed1283mr47522445e9.22.1780484491776;
+        Wed, 03 Jun 2026 04:01:31 -0700 (PDT)
+Received: from nareshubuntu2404-gh-runner.lab.9e.network ([188.111.3.154])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490b0e76153sm138908575e9.11.2026.06.03.04.01.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 04:01:31 -0700 (PDT)
+From: Naresh Solanki <naresh.solanki@9elements.com>
+To: Guenter Roeck <linux@roeck-us.net>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>
+Cc: Geert Uytterhoeven <geert+renesas@glider.be>,
+	Magnus Damm <magnus.damm@gmail.com>,
+	Grant Peltier <grantpeltier93@gmail.com>,
+	linux-hwmon@vger.kernel.org,
+	devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	Patrick Rudolph <patrick.rudolph@9elements.com>,
+	Naresh Solanki <naresh.solanki@9elements.com>
+Subject: [PATCH 2/2] hwmon: pmbus: isl68137: Add support for RAA228234
+Date: Wed,  3 Jun 2026 11:01:27 +0000
+Message-ID: <20260603110127.23930-2-naresh.solanki@9elements.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260603110127.23930-1-naresh.solanki@9elements.com>
+References: <20260603110127.23930-1-naresh.solanki@9elements.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 6 potential issue(=
-s) to consider:
+From: Patrick Rudolph <patrick.rudolph@9elements.com>
 
-Pre-existing issues:
-- [Critical] Untrusted coprocessor input `obj->id` is used directly as an a=
-rray index without bounds checking, causing out-of-bounds memory access and=
- potential arbitrary code execution.
-- [High] The kthread_run() task pointer is discarded, causing a memory leak=
- and a fatal use-after-free when the device is unbound.
-- [High] The msg_signaled flag is not reset before waiting, allowing a stal=
-e, delayed ACK to trigger a false positive for a subsequent IPC message.
-- [High] The driver registers an IPC mailbox and a notifier but fails to un=
-register them during device teardown, leading to a Use-After-Free.
-- [High] The message processing thread exits permanently upon receiving an =
-unhandled message ID, hanging the entire driver.
-- [High] The driver fails to initialize the `ipi_desc` mutex for the CORE d=
-ecoder, leading to lockdep warnings and potential crashes.
---
+The RAA228234 is an 8-phase PWM controller from Renesas. It uses the
+same DMPVR2 PMBus interface as the RAA228228 (a dual-output 20-phase
+controller), so it can share the raa_dmpvr2_2rail_nontc configuration.
 
-commit 7793240a286886003391171d60e17e6a2e3e89f8
-Author: Yunfei Dong <yunfei.dong@mediatek.com>
+Add the device to the I2C and OF device ID tables.
 
-media: mediatek: vcodec: add driver to support vcp encoder
+Tested on RAA228234 hardware; confirmed all sensor readings are correct.
 
-Encoder also need to call vcp interface to communicate with vcp,
-add driver to support encoder.
+Signed-off-by: Patrick Rudolph <patrick.rudolph@9elements.com>
+Signed-off-by: Naresh Solanki <naresh.solanki@9elements.com>
+---
+ drivers/hwmon/pmbus/isl68137.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-> diff --git a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_=
-vcp.c b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> --- a/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> +++ b/drivers/media/platform/mediatek/vcodec/common/mtk_vcodec_fw_vcp.c
-> @@ -226,8 +228,13 @@ static int mtk_vcodec_vcp_msg_ipi_send(struct mtk_vc=
-odec_fw *fw, int id, void *b
->  	}
-> =20
->  	mutex_lock(&vcp->ipi_mutex);
-> -	feature_id =3D VDEC_FEATURE_ID;
-> -	mailbox_id =3D IPI_OUT_VDEC_1;
-> +	if (fw->fw_use =3D=3D ENCODER) {
-> +		feature_id =3D VENC_FEATURE_ID;
-> +		mailbox_id =3D IPI_OUT_VENC_0;
-> +	} else {
-> +		feature_id =3D VDEC_FEATURE_ID;
-> +		mailbox_id =3D IPI_OUT_VDEC_1;
-> +	}
+diff --git a/drivers/hwmon/pmbus/isl68137.c b/drivers/hwmon/pmbus/isl68137.c
+index 21d047b577a4..bef1459cec48 100644
+--- a/drivers/hwmon/pmbus/isl68137.c
++++ b/drivers/hwmon/pmbus/isl68137.c
+@@ -448,6 +448,7 @@ static const struct i2c_device_id raa_dmpvr_id[] = {
+ 	{"raa228004", raa_dmpvr2_hv},
+ 	{"raa228006", raa_dmpvr2_hv},
+ 	{"raa228228", raa_dmpvr2_2rail_nontc},
++	{"raa228234", raa_dmpvr2_2rail_nontc},
+ 	{"raa228244", raa_dmpvr2_2rail_nontc},
+ 	{"raa228246", raa_dmpvr2_2rail_nontc},
+ 	{"raa228942", raa_dmpvr2_2rail_nontc},
+@@ -501,6 +502,7 @@ static const struct of_device_id isl68137_of_match[] = {
+ 	{ .compatible = "renesas,raa228004", .data = (void *)raa_dmpvr2_hv },
+ 	{ .compatible = "renesas,raa228006", .data = (void *)raa_dmpvr2_hv },
+ 	{ .compatible = "renesas,raa228228", .data = (void *)raa_dmpvr2_2rail_nontc },
++	{ .compatible = "renesas,raa228234", .data = (void *)raa_dmpvr2_2rail_nontc },
+ 	{ .compatible = "renesas,raa228244", .data = (void *)raa_dmpvr2_2rail_nontc },
+ 	{ .compatible = "renesas,raa228246", .data = (void *)raa_dmpvr2_2rail_nontc },
+ 	{ .compatible = "renesas,raa229001", .data = (void *)raa_dmpvr2_2rail },
+-- 
+2.43.0
 
-[Severity: High]
-This is a pre-existing issue, but does mtk_vcodec_vcp_msg_ipi_send()
-properly handle stale delayed ACKs?
-
-If wait_event_timeout() times out later in this function, it appears it sets
-the msg_signaled flag to false and returns. However, if a delayed ACK arriv=
-es
-afterward, the worker thread will set the flag to true.
-
-Since mtk_vcodec_vcp_msg_ipi_send() does not re-initialize the msg_signaled
-flag to false before sending the next IPC message, could a subsequent wait
-immediately return success without actually waiting for the new message to
-be acknowledged?
-
-[ ... ]
-
-> @@ -383,6 +397,20 @@ static int mtk_vcodec_vcp_load_firmware(struct mtk_v=
-codec_fw *fw)
->  	mutex_init(&fw->vcp->ipi_desc[ipi_id].lock);
->  	mutex_init(&fw->vcp->ipi_mutex);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but are all the ipi_desc mutexes
-properly initialized?
-
-Here, mutex_init() is only called for a single ipi_id. If this path is taken
-for the decoder, it initializes the lock for VCP_IPI_LAT_DECODER, but it om=
-its
-VCP_IPI_CORE_DECODER.
-
-When the decoder client later registers its CORE handler,
-mtk_vcodec_vcp_ipi_register() will attempt to acquire the lock. Could locki=
-ng
-the uninitialized CORE mutex lead to lockdep splats or undefined behavior?
-
-> =20
-> +	if (fw->fw_use =3D=3D ENCODER) {
-> +		kthread_run(mtk_vcodec_vcp_msg_process_thread, fw, "vcp_enc_msq_thread=
-");
-> +
-
-[Severity: High]
-This is a pre-existing issue, but is it safe to discard the task pointer
-returned by kthread_run()?
-
-If the pointer is not saved, kthread_stop() cannot be called in
-mtk_vcodec_vcp_release() during device teardown. Because the fw structure
-is allocated with devm_kzalloc, the memory will be automatically freed when
-the driver unbinds.
-
-Could this cause a use-after-free when the unstopped thread wakes up
-and accesses the freed fw->vcp structures?
-
-[Severity: Critical]
-This is a pre-existing issue, but does mtk_vcodec_vcp_msg_process_thread()
-validate the obj->id from the coprocessor?
-
-Looking at the thread function, it appears the ID from the IPC payload is
-used directly as an array index:
-
-handler =3D fw->vcp->ipi_desc[obj->id].handler;
-
-If a compromised or malicious coprocessor sends an out-of-bounds ID, could
-this read out-of-bounds function pointers and execute them when calling
-handler(), leading to arbitrary kernel code execution?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but how does
-mtk_vcodec_vcp_msg_process_thread() handle invalid message IDs?
-
-If the handler is null for a message, the function executes return -EINVAL;
-instead of using continue; to process the next message.
-
-Does this permanently terminate the kthread loop? If the thread exits,
-wouldn't all subsequent valid IPC messages be queued but never processed,
-permanently hanging active decode or encode instances?
-
-[ ... ]
-
-> @@ -438,8 +466,8 @@ static void mtk_vcodec_vcp_release(struct mtk_vcodec_=
-fw *fw)
->  	if (!fw->vcp->is_register_done)
->  		return;
-> =20
-> -	feature_id =3D VDEC_FEATURE_ID;
-> -	ret =3D vcp_device->ops->vcp_deregister_feature(vcp_device, VDEC_FEATUR=
-E_ID);
-> +	feature_id =3D fw->fw_use =3D=3D ENCODER ? VENC_FEATURE_ID : VDEC_FEATU=
-RE_ID;
-> +	ret =3D vcp_device->ops->vcp_deregister_feature(vcp_device, feature_id);
->  	if (ret < 0) {
->  		dev_err(dev, "deregister feature_id(%d) fail(%d)\n", feature_id, ret);
->  		return;
-
-[Severity: High]
-This is a pre-existing issue, but does this release function completely
-tear down the IPC mailbox and notifier?
-
-The driver registers an IPC mailbox via mtk_vcp_mbox_ipc_register() and a
-notifier via vcp_register_notify() in mtk_vcodec_vcp_load_firmware().
-However, these do not appear to be unregistered here during teardown.
-
-Because fw->vcp is managed by devm_kzalloc, could this leave dangling
-callbacks in the IPC or notifier frameworks that might trigger a
-use-after-free if an event arrives after the device is unbound?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603084045.1748=
-8-1-kyrie.wu@mediatek.com?part=3D3
