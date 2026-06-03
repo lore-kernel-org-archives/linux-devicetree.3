@@ -1,245 +1,134 @@
-Received: from mailgw02.mediatek.com (unknown [210.61.82.184])
+Received: from metis.whiteo.stw.pengutronix.de (metis.whiteo.stw.pengutronix.de [185.203.201.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9558C44CAC6;
-	Wed,  3 Jun 2026 08:41:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=210.61.82.184
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9682439008
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:41:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.201.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780476094; cv=none; b=KuhJH0SuOz8vVrnhe7QHE+qLILOGxGw9NzNEiwboxU3Lw27s3vq2dPb18OyfgYZ+7SDNEEbvlO+9jKYoMNMdsxhlu9w7kmvb5bgJ8Bw0FMl8Cus/GNU7UGwRay56usy5SusOSNEvY3z7bDGm5qWcFAPvEepJBw+Gd8eozPgxXWU=
+	t=1780476095; cv=none; b=hx+7tpjEOeN6PjZ+k5HWmaAYn3nN1ov4lQ3R8w24U4QwpZ/fciWtD/suuzPCYd5Cz71myLcgfhbwbc7HV+cGHBjZeQsYpgK72+F8pBd2nbYFAy4D+WG4px9bHwm/CX2kLOn7ts82kkFbfPljhjqdvqtOcsWm3T1P97HljXNRDKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780476094; c=relaxed/simple;
-	bh=MrDnGf4uiukg2DltXaWuKzf0bc5AXAFQOmsRm38LpY4=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kwt40I4QFr56pVOicwn6dGiGlZT0FVtC2QVivyD1Zz2AeREAZCR0IgKHbByhU93Jii6Ql8xanHpPXm6XYLc/8/ArCau/vCDQj/BAWJ5039iPu/rqw8hD8bt7jeLq+ZIv85lUjmErP/WlppHsdShy9Jz9jPi1NMeKUpG62qVT3l4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com; spf=pass smtp.mailfrom=mediatek.com; dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b=i6z8Wls9; arc=none smtp.client-ip=210.61.82.184
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mediatek.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mediatek.com header.i=@mediatek.com header.b="i6z8Wls9"
-X-UUID: 042c855c5f2811f18dc8c9802ae25ab1-20260603
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=mediatek.com; s=dk;
-	h=Content-Type:Content-Transfer-Encoding:MIME-Version:References:In-Reply-To:Message-ID:Date:Subject:CC:To:From; bh=Pame0Wvxb+8KgxdVr8JXyDYWN37nDFeElaUgBwhHNFc=;
-	b=i6z8Wls9PVj91bT5Y0P8kuoQPMaJSpGUWr+8e59/qjnn4U9ETNALkd6PDPan94QTfQ+MxAtl8KaMurDHtTN5ozYcnPN862jQ5rufJQVBX+UOcIhSYK3wC4Rx1kjeLQjrY7xwNYrhkCO74h8sM/PBl8ORwcrqGWwP0iwqaYdJvmM=;
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.15,REQID:10dfec22-7762-4e54-b13f-7a651b4bc012,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:e276073,CLOUDID:2fb46dff-ece9-4b61-b051-0e792034d0bc,B
-	ulkID:nil,BulkQuantity:0,Recheck:0,SF:81|82|102|136|836|865|888|898,TC:-5,
-	Content:0|15|50,EDM:-3,IP:nil,URL:0,File:130,RT:0,Bulk:nil,QS:nil,BEC:-1,C
-	OL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 042c855c5f2811f18dc8c9802ae25ab1-20260603
-Received: from mtkmbs11n2.mediatek.inc [(172.21.101.187)] by mailgw02.mediatek.com
-	(envelope-from <kyrie.wu@mediatek.com>)
-	(Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
-	with ESMTP id 1565717292; Wed, 03 Jun 2026 16:41:29 +0800
-Received: from mtkmbs13n2.mediatek.inc (172.21.101.108) by
- MTKMBS09N1.mediatek.inc (172.21.101.35) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.29; Wed, 3 Jun 2026 16:41:28 +0800
-Received: from mhfsdcap04.gcn.mediatek.inc (10.17.3.154) by
- mtkmbs13n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.2562.29 via Frontend Transport; Wed, 3 Jun 2026 16:41:27 +0800
-From: Kyrie Wu <kyrie.wu@mediatek.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>, Andrew-CT Chen
-	<andrew-ct.chen@mediatek.com>, Yunfei Dong <yunfei.dong@mediatek.com>, Mauro
- Carvalho Chehab <mchehab@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno
-	<angelogioacchino.delregno@collabora.com>, Nicolas Dufresne
-	<nicolas.dufresne@collabora.com>, Ricardo Ribalda <ribalda@chromium.org>,
-	Kees Cook <kees@kernel.org>, Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Haoxiang Li <haoxiang_li2024@163.com>, Fei Shao <fshao@chromium.org>, Chen-Yu
- Tsai <wenst@chromium.org>, Laurent Pinchart
-	<laurent.pinchart+renesas@ideasonboard.com>, Sebastian Fricke
-	<sebastian.fricke@collabora.com>, Benjamin Gaignard
-	<benjamin.gaignard@collabora.com>, Philipp Zabel <p.zabel@pengutronix.de>,
-	Qianfeng Rong <rongqianfeng@vivo.com>, Jacopo Mondi
-	<jacopo.mondi@ideasonboard.com>, Irui Wang <irui.wang@mediatek.com>, Fan Wu
-	<fanwu01@zju.edu.cn>, <linux-media@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-mediatek@lists.infradead.org>,
-	Kyrie Wu <kyrie.wu@mediatek.com>
-CC: Sakari Ailus <sakari.ailus@linux.intel.com>, Tzung-Bi Shih
-	<tzungbi@kernel.org>, Tomasz Figa <tfiga@chromium.org>
-Subject: [PATCH v5 14/14] media: mediatek: decoder: support av1 extend vsi
-Date: Wed, 3 Jun 2026 16:40:44 +0800
-Message-ID: <20260603084045.17488-15-kyrie.wu@mediatek.com>
-X-Mailer: git-send-email 2.46.0
-In-Reply-To: <20260603084045.17488-1-kyrie.wu@mediatek.com>
-References: <20260603084045.17488-1-kyrie.wu@mediatek.com>
+	s=arc-20240116; t=1780476095; c=relaxed/simple;
+	bh=likZSeLJk+7oX+CAfmlufmM6j+VDUoCaGO7ku0Qkr/A=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=cwPysZ/3gul/+XbSMOlL3X8Z0AmF8UwCMUfuE1luDxJszjPLBIjXNCi1h94Qj27uDL2pQjQ1tmXWAsT0x8APCNIbd1aqm+w63/LDaJqzi0A2tQH7m3MNO09S4vBFfYkLFHm1r0KvLxTfYxxT4DoyadL6z+4kGKaRPQLEf/eTp2E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.201.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from drehscheibe.grey.stw.pengutronix.de ([2a0a:edc0:0:c01:1d::a2])
+	by metis.whiteo.stw.pengutronix.de with esmtp (Exim 4.92)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUhA7-0004gW-O9; Wed, 03 Jun 2026 10:41:19 +0200
+Received: from lupine.office.stw.pengutronix.de ([2a0a:edc0:0:900:1d::4e] helo=lupine)
+	by drehscheibe.grey.stw.pengutronix.de with esmtps  (TLS1.3) tls TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384
+	(Exim 4.96)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUhA3-000svg-2g;
+	Wed, 03 Jun 2026 10:41:15 +0200
+Received: from pza by lupine with local (Exim 4.98.2)
+	(envelope-from <p.zabel@pengutronix.de>)
+	id 1wUhA3-000000003PW-30NA;
+	Wed, 03 Jun 2026 10:41:15 +0200
+Message-ID: <05c54522ba76bfc4421e6838e8ff108437f69636.camel@pengutronix.de>
+Subject: Re: [PATCH v3 04/21] pinctrl: starfive: Add StarFive JHB100 sys0
+ controller driver
+From: Philipp Zabel <p.zabel@pengutronix.de>
+To: Changhuang Liang <changhuang.liang@starfivetech.com>, Linus Walleij	
+ <linusw@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof Kozlowski	
+ <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, Emil Renner
+ Berthing	 <kernel@esmil.dk>, Paul Walmsley <pjw@kernel.org>, Albert Ou	
+ <aou@eecs.berkeley.edu>, Palmer Dabbelt <palmer@dabbelt.com>, Alexandre
+ Ghiti	 <alex@ghiti.fr>, Bartosz Golaszewski <brgl@kernel.org>
+Cc: linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-riscv@lists.infradead.org, Lianfeng
+ Ouyang	 <lianfeng.ouyang@starfivetech.com>
+Date: Wed, 03 Jun 2026 10:41:15 +0200
+In-Reply-To: <20260603055347.66845-5-changhuang.liang@starfivetech.com>
+References: <20260603055347.66845-1-changhuang.liang@starfivetech.com>
+	 <20260603055347.66845-5-changhuang.liang@starfivetech.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.56.2-0+deb13u1 
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-MTK: N
+X-SA-Exim-Connect-IP: 2a0a:edc0:0:c01:1d::a2
+X-SA-Exim-Mail-From: p.zabel@pengutronix.de
+X-SA-Exim-Scanned: No (on metis.whiteo.stw.pengutronix.de); SAEximRunCond expanded to false
+X-PTX-Original-Recipient: devicetree@vger.kernel.org
 
-From: Yunfei Dong <yunfei.dong@mediatek.com>
+On Di, 2026-06-02 at 22:53 -0700, Changhuang Liang wrote:
+> Add pinctrl driver for StarFive JHB100 SoC System-0(sys0) pinctrl
+> controller.
+>=20
+> Co-developed-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: Lianfeng Ouyang <lianfeng.ouyang@starfivetech.com>
+> Signed-off-by: Changhuang Liang <changhuang.liang@starfivetech.com>
+> ---
+[...]
+> diff --git a/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c b/drivers=
+/pinctrl/starfive/pinctrl-starfive-jhb100.c
+> new file mode 100644
+> index 000000000000..52b97870b991
+> --- /dev/null
+> +++ b/drivers/pinctrl/starfive/pinctrl-starfive-jhb100.c
+> @@ -0,0 +1,1607 @@
+[...]
+> +int jhb100_pinctrl_probe(struct platform_device *pdev)
+> +{
+> +	struct device *dev =3D &pdev->dev;
+> +	struct gpio_irq_chip *girq;
+> +	const struct jhb100_pinctrl_domain_info *info;
+> +	struct jhb100_pinctrl *sfp;
+> +	struct pinctrl_desc *jhb100_pinctrl_desc;
+> +	struct starfive_pinctrl_regs *pinctrl_regs;
+> +	struct reset_control *rst;
+> +	struct clk *clk;
+> +	int ret;
+> +	int irq;
+> +
+> +	info =3D of_device_get_match_data(&pdev->dev);
+> +	if (!info)
+> +		return -ENODEV;
+> +
+> +	pinctrl_regs =3D info->regs;
+> +
+> +	sfp =3D devm_kzalloc(dev, sizeof(*sfp), GFP_KERNEL);
+> +	if (!sfp)
+> +		return -ENOMEM;
+> +
+> +	sfp->base =3D devm_platform_ioremap_resource(pdev, 0);
+> +	if (IS_ERR(sfp->base))
+> +		return PTR_ERR(sfp->base);
+> +
+> +	clk =3D devm_clk_get_optional_enabled(dev, NULL);
+> +	if (IS_ERR(clk))
+> +		return dev_err_probe(dev, PTR_ERR(clk), "could not get & enable clock\=
+n");
+> +
+> +	rst =3D devm_reset_control_array_get_optional_shared(dev);
 
-The driver can't access tile buffer address for extend architecture,
-set tile group information in vcp and share it with kernel.
+Why is this shared? Are there multiple pinctrl controllers sharing
+reset lines?
 
-Signed-off-by: Yunfei Dong <yunfei.dong@mediatek.com>
----
- .../vcodec/decoder/vdec/vdec_av1_req_lat_if.c | 59 ++++++++++++++++---
- 1 file changed, 52 insertions(+), 7 deletions(-)
+> +	if (IS_ERR(rst))
+> +		return dev_err_probe(dev, PTR_ERR(rst), "could not get reset control\n=
+");
+> +
+> +	/*
+> +	 * we don't want to assert reset and risk undoing pin muxing for the
+> +	 * early boot serial console, but let's make sure the reset line is
+> +	 * deasserted in case someone runs a really minimal bootloader.
+> +	 */
+> +	ret =3D reset_control_deassert(rst);
+> +	if (ret)
+> +		return dev_err_probe(dev, ret, "could not deassert reset\n");
 
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-index a0c7e89b8ae4..e9265b112bfb 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/vdec/vdec_av1_req_lat_if.c
-@@ -25,6 +25,9 @@
- 
- #define AV1_INVALID_IDX			-1
- 
-+#define AV1_NON_EXT_VSI_SIZE		0xD50
-+#define AV1_TILE_SIZE			64
-+
- #define AV1_DIV_ROUND_UP_POW2(value, n)			\
- ({							\
- 	typeof(n) _n  = n;				\
-@@ -641,6 +644,8 @@ struct vdec_av1_slice_fb {
-  * @frame:		current frame info
-  * @state:		status after decode done
-  * @cur_lst_tile_id:	tile id for large scale
-+ * @tile_group:	tile group info
-+ * @reserved:		reserved
-  */
- struct vdec_av1_slice_vsi {
- 	/* lat */
-@@ -665,6 +670,8 @@ struct vdec_av1_slice_vsi {
- 	struct vdec_av1_slice_frame frame;
- 	struct vdec_av1_slice_state state;
- 	u32 cur_lst_tile_id;
-+	struct vdec_av1_slice_tile_group tile_group;
-+	unsigned int reserved[4];
- };
- 
- /**
-@@ -1402,17 +1409,29 @@ static void vdec_av1_slice_setup_uh(struct vdec_av1_slice_instance *instance,
- 	vdec_av1_slice_setup_tile(frame, &ctrl_fh->tile_info);
- }
- 
-+static
-+struct vdec_av1_slice_tile_group *vdec_av1_get_tile_group(struct vdec_av1_slice_instance *instance,
-+							  struct vdec_av1_slice_vsi *vsi)
-+{
-+	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-+		return &vsi->tile_group;
-+	else
-+		return &instance->tile_group;
-+}
-+
- static int vdec_av1_slice_setup_tile_group(struct vdec_av1_slice_instance *instance,
- 					   struct vdec_av1_slice_vsi *vsi)
- {
- 	struct v4l2_ctrl_av1_tile_group_entry *ctrl_tge;
--	struct vdec_av1_slice_tile_group *tile_group = &instance->tile_group;
-+	struct vdec_av1_slice_tile_group *tile_group;
- 	struct vdec_av1_slice_uncompressed_header *uh = &vsi->frame.uh;
- 	struct vdec_av1_slice_tile *tile = &uh->tile;
- 	struct v4l2_ctrl *ctrl;
- 	u32 tge_size;
- 	int i;
- 
-+	tile_group = vdec_av1_get_tile_group(instance, vsi);
-+
- 	ctrl = v4l2_ctrl_find(&instance->ctx->ctrl_hdl, V4L2_CID_STATELESS_AV1_TILE_GROUP_ENTRY);
- 	if (!ctrl)
- 		return -EINVAL;
-@@ -1607,6 +1626,15 @@ static int vdec_av1_slice_setup_pfc(struct vdec_av1_slice_instance *instance,
- 	return ret;
- }
- 
-+static u32 vdec_av1_get_tiles_num(struct vdec_av1_slice_instance *instance,
-+				  struct vdec_av1_slice_vsi *vsi)
-+{
-+	if (IS_VDEC_SUPPORT_EXT(instance->ctx->dev->dec_capability))
-+		return vsi->tile_group.num_tiles;
-+	else
-+		return instance->tile_group.num_tiles;
-+}
-+
- static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instance *instance,
- 					    struct vdec_av1_slice_vsi *vsi,
- 					    struct mtk_vcodec_mem *bs,
-@@ -1647,12 +1675,18 @@ static void vdec_av1_slice_setup_lat_buffer(struct vdec_av1_slice_instance *inst
- 
- 	vsi->tile.buf = instance->tile.dma_addr;
- 	vsi->tile.size = instance->tile.size;
--	memcpy(lat_buf->tile_addr.va, instance->tile.va, 64 * instance->tile_group.num_tiles);
- 
- 	vsi->cdf_table.buf = instance->cdf_table.dma_addr;
- 	vsi->cdf_table.size = instance->cdf_table.size;
- 	vsi->iq_table.buf = instance->iq_table.dma_addr;
- 	vsi->iq_table.size = instance->iq_table.size;
-+
-+	/* lat_buf is used to share hardware decoder syntax between lat and core,
-+	 * there isn't only one. But there is only one tile.va for each instance.
-+	 * Need to copy tile information to lat_buf every time.
-+	 */
-+	memcpy(lat_buf->tile_addr.va, instance->tile.va,
-+	       AV1_TILE_SIZE * vdec_av1_get_tiles_num(instance, vsi));
- }
- 
- static void vdec_av1_slice_setup_seg_buffer(struct vdec_av1_slice_instance *instance,
-@@ -1675,7 +1709,7 @@ static void vdec_av1_slice_setup_tile_buffer(struct vdec_av1_slice_instance *ins
- 					     struct vdec_av1_slice_vsi *vsi,
- 					     struct mtk_vcodec_mem *bs)
- {
--	struct vdec_av1_slice_tile_group *tile_group = &instance->tile_group;
-+	struct vdec_av1_slice_tile_group *tile_group;
- 	struct vdec_av1_slice_uncompressed_header *uh = &vsi->frame.uh;
- 	struct vdec_av1_slice_tile *tile = &uh->tile;
- 	u32 tile_num, tile_row, tile_col;
-@@ -1686,6 +1720,8 @@ static void vdec_av1_slice_setup_tile_buffer(struct vdec_av1_slice_instance *ins
- 	u32 *tile_info_buf = instance->tile.va;
- 	u64 pa = (u64)bs->dma_addr;
- 
-+	tile_group = vdec_av1_get_tile_group(instance, vsi);
-+
- 	if (uh->disable_cdf_update == 0)
- 		allow_update_cdf = 1;
- 
-@@ -1907,7 +1943,7 @@ static int vdec_av1_slice_init(struct mtk_vcodec_dec_ctx *ctx)
- 	struct vdec_av1_slice_instance *instance;
- 	struct vdec_av1_slice_init_vsi *vsi;
- 	enum mtk_vcodec_fw_type fw_type = ctx->dev->fw_handler->type;
--	int ret;
-+	int ret, vsi_size = AV1_NON_EXT_VSI_SIZE;
- 
- 	instance = kzalloc_obj(*instance);
- 	if (!instance)
-@@ -1941,9 +1977,18 @@ static int vdec_av1_slice_init(struct mtk_vcodec_dec_ctx *ctx)
- 		goto error_vsi;
- 	}
- 
--	if (vsi->vsi_size != sizeof(struct vdec_av1_slice_vsi))
--		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%zx\n",
--			     vsi->vsi_size, sizeof(struct vdec_av1_slice_vsi));
-+	if (IS_VDEC_SUPPORT_EXT(ctx->dev->dec_capability)) {
-+		vsi_size = sizeof(struct vdec_av1_slice_vsi);
-+		vsi->iq_table_size = AV1_IQ_TABLE_SIZE;
-+		vsi->cdf_table_size = AV1_CDF_SIZE;
-+	}
-+
-+	if (vsi->vsi_size != vsi_size) {
-+		mtk_vdec_err(ctx, "remote vsi size 0x%x mismatch! expected: 0x%x\n",
-+			     vsi->vsi_size, vsi_size);
-+		ret = -EINVAL;
-+		goto error_vsi;
-+	}
- 
- 	instance->irq_enabled = 1;
- 	instance->inneracing_mode = IS_VDEC_INNER_RACING(instance->ctx->dev->dec_capability);
--- 
-2.45.2
+Missing reset_control_assert() in .remove will unbalance the
+deassertion counter if a pin controller with shared reset is
+unbound/rebound, causing the reset to never be asserted again.
 
+regards
+Philipp
