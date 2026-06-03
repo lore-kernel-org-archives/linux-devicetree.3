@@ -1,170 +1,182 @@
-Received: from fout-b7-smtp.messagingengine.com (fout-b7-smtp.messagingengine.com [202.12.124.150])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05DAF47ECF1;
-	Wed,  3 Jun 2026 12:45:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.150
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F236477990
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 12:54:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780490713; cv=none; b=GGZh0O+c7ybBNWkKZpEYaDS13vZQz8LLztG1EVygkuwCDK6asL5fUqk68rAzMqTGn6i8Gn3BlWdhmUJCemPyIinHGzO9/H8PZG0J/Q9K2HKweq0BFJFOcg4e/J6bEygIvQaGAdui4JgKBsUOD2ym3DZfJibbVCIc/i49mdj3pgQ=
+	t=1780491278; cv=none; b=pmq6qmTXVth3eGTBN3PCAmVekA2rt1lJueMP5LOXXFInFWu9NuPs6KjR/44eD7a31laEM5oIMpRhMFtixuh6uKgYLUXnDGs5Jxisme3Up5ZKHdsYGAmWN6JwRoxIKNWGzeVY69RyHcmldE4+H1EoqhUJLXsmiPrlLjkewV4P1zM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780490713; c=relaxed/simple;
-	bh=pmCaLcV3BndJE4Up2tsUK1bVlYyaiT27VrWZVDi0Pvo=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=MEISq4JlY8ULZt7dJlE1OyFIfu5Zxf1cRWmBqGmruhyTxqPGDaDLr+6d8RzPMUOmXZ4dQg6TANZ3OJCBRtQVuHlPe3OBaG5XNodY+vguf9X63i8uKala5XsW3Ff0YTtvMkAUvB+3PIky7RO+VLg51E0fDvJBPttqoF/DT3XXSjg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=jMb8Phkz; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZGjXwc+m; arc=none smtp.client-ip=202.12.124.150
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+	s=arc-20240116; t=1780491278; c=relaxed/simple;
+	bh=9+n+K6+F9T18IJNcVM8/gJFzB3IhFzMgRrteXx5TnGk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WHEeENWaBWC0Ybs1RMAO9SCi2gNOHi/Sj2AMtKM2guP+5J+G93L+NMExPauwPY8aV5WoBuUIW1PUBJOZEHLfezZmP+s8oSlyXKShMx9c4/pgv+o0eauF0sCb8Ng9THw6WtC7SzyX2h/yeludtnf04+dRuenRQai4TRYSHfnQrn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Fr9dezQq; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Q0+9VeCH; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="jMb8Phkz";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZGjXwc+m"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.stl.internal (Postfix) with ESMTP id 51AF51D000F6;
-	Wed,  3 Jun 2026 08:45:10 -0400 (EDT)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-04.internal (MEProxy); Wed, 03 Jun 2026 08:45:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1780490710;
-	 x=1780577110; bh=0w4fKjgwyN1sYXvZXWscVp1/gGoJcvguUwQb4TJrhg0=; b=
-	jMb8PhkzukIo0SYLecNSmZA01xaKX8vClWzSLEmPXDJiSCsTP8HWlAubG5XPDgnU
-	5trqGD0zzBjAEdwnQ1CwAxpmpf533hbTFoeTk49I/jIF1Xg4JiB3pCK8x8/b7AO7
-	mbRjZIIUoN+be1BF8yZ9OKVTJo636xHLX7E7EraYxgICZLdOQWhOmt+dYxzJ5oa0
-	ExZSFf063fB9t91AhxyaNwHoBa9ARgqBxi1epfJpDXrcTQb4IfvPCQXE0Xg7quF0
-	MzKEZ5/iXptuKVFUiz1ww1K7vI0T0hXa5Vw814sLXh16DushwC6e5MF3A6uZQpP3
-	HTbNEji7RlplMMVOpG4V/w==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780490710; x=
-	1780577110; bh=0w4fKjgwyN1sYXvZXWscVp1/gGoJcvguUwQb4TJrhg0=; b=Z
-	GjXwc+mbSkH3xpVIzZsnAVu4D6JR1PuaYbhjquSAIqCMFGU9rMdIkpMKHD8FX6UE
-	5CzNp6z++kt5vDuZw7m0bMv2Ce1mxUnDFIv9pXMD63lP2FMvV3nMPId8IF4v5TpB
-	VZSz54nFjnn+MO5c4XJUX4T7DdoOFBoFik/Bg1rTz/W6KQt2ULaZ+EZguwfwtygH
-	UGLGmWrTdvDcbWaQp8e0vR/PtXe8IpoM3ZFTo7GaWx/G8sP9EJ7qPkz8IxCWszet
-	OPcxRcBGPAApEzSrrsKLMVh5Uvcf76O8nBYEXt0OmxmnUSpheT6KUJhsk6CmC7aw
-	5Bbu9xTxlZTaXY9lTEcnQ==
-X-ME-Sender: <xms:1CEgaqLBMLPgjcl95GtFHHUFBjUy19XtCWwLrIhRrjtYzTmlpp7GfQ>
-    <xme:1CEgas_RoPLuGFSipaiWKnXSIE0DppRiPaNYIHmzs_J0guL4D2vRD92wtfVLQBiqA
-    yPD3bWlpbY4jcVO-Lh06Jm_5QOlDbf6OnduJEsKP3oG6VO44et-YK8>
-X-ME-Proxy-Cause: dmFkZTFKc6jEQ9TYKBUeYC5FWNyUnl0VlrqGUvFtj+p69xyNqcz9jlziX+utsFNH3pCofK
-    7QwJyK+T202ofToUC3x7QCWne3wa3FCewYAwcIhX/k210mHxjS65VfoD+uXZkzBhVPEfq0
-    o3SMlHT/qMbzfIdCi2jhahdfB8odVsD5DshhjXNK5pulYNh2Gfx/INZidrss9vTZHH17su
-    mMrdkccuOfuqLwEFIC9mD/DhZe8TNkwBcgcxVZ0GIDHf/yj3D1k4R43Y88ns/ARGC6oimw
-    LkM7pFlXX/1e5a8r0U+Vgq3LnSE15l3zgzGqTwxbRwAqz2+2OdLneQL4hm9jzSunEnieGb
-    qIu2GndAmKyw4GoihhxfT9GGnPa7hnI4q9K/EgSFy/ScJbXfliKxLwE+2XxVq4M8cg+3q2
-    TkiuuyxDg4RUpK1k1l7v6NDHQNOHQAJo1GNBaerf7k6/SMfSCpHW1f0s+9Tt4jNn98F72M
-    Zho2+D8NjYiAbinZ7aBS+aPtlSOibCev8PcUV+Xty1nszWrwyrGNFOAGZGHEfgj5hdtvdc
-    LqfS8uZYJb/hYkBg8y8pTKy5pLyiSmlBDxN3Zhanqid+wIepCb9yz6bWnfWPZpMGUMmq8S
-    UZDZXdeGl7u9oYkLNTnkwNXj67AhjaSA8JEWQMGlYATkQs+ZnXYOLvEs0uUQ
-X-ME-Proxy: <xmx:1CEgau7AmZ9inZRCKIuCt9XCXsyzb_2xjhKQpuVtSdWzpQrZn7_8YQ>
-    <xmx:1CEgag_vo7DzsJKjaVAALEH1L8HzfRLJ6NuREs0f-rdYP7eSZMy8yA>
-    <xmx:1CEgamig1OZTp704gUOqnVnxbgimKAPSEl2qtaMW0-tEa1r8zbwqKg>
-    <xmx:1CEgam47aIGs3Op-THljAYksPRyCAtu84mk1woSdlgRX0JtDWzLjRg>
-    <xmx:1iEgarnJZkm1Wf1fP7OZSQUsuYia_vZbHlxXbj2UnlamqlbN9wr-jawe>
-Feedback-ID: i72694427:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 9AC1218E0071; Wed,  3 Jun 2026 08:45:08 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Fr9dezQq";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Q0+9VeCH"
+Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653COgLm3077851
+	for <devicetree@vger.kernel.org>; Wed, 3 Jun 2026 12:54:36 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=A8NVRgi0C8volC2nHJt9tGXZ
+	IIMUtcoa+sDpiLdYLdM=; b=Fr9dezQqsFVQqD1QlFGT2jHheaHXwsttS5anhtvI
+	jl6FSFlDr2ibA55x5kmAZ8D0OvJDFkXkrc9bTaiz11UEqvYv/nkgxWwF1psVtgXS
+	5PK6I6r8HcineT5AZZTkRTDa+wJOR2br5m128Nj1EBU2v/pNDulDPHTxSEXZgfVg
+	DNYXEUXal6+QJ2Cj+wr0bcSBm0PRMINyRAxBvXO/gY+L6mjtF2GOZVFpC1QZcOZc
+	OxSB2pMEm9AhoSHomc3/GlwwIYpqZeT0yOoyEuH4xLXJTU77iIQbD1sDGN3q09OG
+	D/RFm5J60KpraDWJQWQv3rTeUZMd1999SYitTohNQc9b0g==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejabbtht5-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 12:54:36 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-6ee0bfb5681so646431137.0
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 05:54:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1780491275; x=1781096075; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=A8NVRgi0C8volC2nHJt9tGXZIIMUtcoa+sDpiLdYLdM=;
+        b=Q0+9VeCHb8753G5z9/BhXPzxO1FUthUx5sWKR4XORRwP8tIVhkaP0A3fShw1LefL/C
+         zQIHe4OjOy2wq1ZnXWZ9A5bE9+EaLX6+EU014RTIfjMYjUF3NEhJJV9T7qxOyacIeLVU
+         wJmA9dEStOhNj6V1eki96Ez/+qUfNSaVsn7GRYdzC0BBYb22m1eYXvO3dNujeAO+j7X5
+         1lS7VLfNEeM7UNKuf85eOabrQ6WpzGgvMfELP+mGsJ9dkDbno2Xo+cD7Oi2XvK7YZW9s
+         KInUUtOkyxyt89zJBzvU7qonr4LMlzGz8P0V667sF/iOJDu/p554B/5UzrBqvWv0y1Lj
+         1dnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780491275; x=1781096075;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=A8NVRgi0C8volC2nHJt9tGXZIIMUtcoa+sDpiLdYLdM=;
+        b=tWXbxovaS/vKv6qvuW9B8E9D5MWfZUR9uNY4h2cc36RtHGnqzWVqIfWj5QgJwhbgUl
+         gxUULlncQrj0JKFHW2myj1gBQCtI0LVJwitlriX2TF6FYdFnxXtrbJwka4LTRxdsU0PL
+         eXcio7bK/ufcENEsJpuAj14zKQIRoeBVgWsX5NwKIGBp/AmvM4MP/toqfc+5MgTgzHgX
+         2NOhD+IQknMWawd86obkZ+nb0olJa699563o8bWtKFG8proe+farUfj/4MP+KExNfLzT
+         b9DUyUzHNUDh0GqS0FZnrlGUb0nyyWPy1cV/CQcBOiUrJgiysSgPmzQPzOvznFHcGSdz
+         vIYw==
+X-Forwarded-Encrypted: i=1; AFNElJ/FzR9tgTUnXr8UkjJhhWS8jaALl9WKH+iWtdoKKrJ/PJ0FV5NvzladX4lPWPgQrSsP8hXejFH7yfZF@vger.kernel.org
+X-Gm-Message-State: AOJu0Yz0CurJiGGESCQMvtG7TUSmydrmefi8c3WXrcnI9XVPS48QD1G4
+	iN0lYxruefixKr35T66Rcdzb7HOVtxi28iWjSkCptrRkmmf7P1XHQzvWrV+X3rJHmAnS16gtYzS
+	THgf51rQChgNVbjsS0/4l7P/crToaqthZjSRXFD6dRn2UbLSOdgUvTqx8HeACSg+e
+X-Gm-Gg: Acq92OF5XMHkfUdwpGmXBoePViOcwv/lESqi9ryOyZI4EuYAkyI5PgA7yUeJpnFQ1HK
+	MaXSSLeH+6p2hA0uzg44rO103GJv/BSAmlFUYYiVtPAp/AUUmk/3QoSNFYc2vIYDCPb3Oo7oVRT
+	UIipCswNiFxTiRJZcyVwk3FyzOE4gQh25c1XLDfJE/Q6s6yCYsJOtTicB7oTq+Z9KoFvekOBjVy
+	9VbRuHYMJSE2wvjJHZjhCmZegNl5sbiZt+pMsBrwRky2QL1HN/emZ9VKWxfEpqmz7kkS4gI9dF3
+	J/GTUaPG2RhhJ+477vd4jOUx/w4UcvCqc0H0yzrJySoV+FtmQEl/ezfJbxWwYKnOp53e3/np8r6
+	vbUlKgDU3dGAhmW4VNhGOE+uvxhUc9utTGGmtpwmrJ2W8pp24+1uSK8y4HoOrG48lLnCSYmh8Xn
+	XIyloQXn/z0n5lq29ejzYiqIkdqi4zvvyy5FrKtNnvXOQfrg==
+X-Received: by 2002:a05:6102:5e97:b0:650:9174:32b with SMTP id ada2fe7eead31-6ec53921cb3mr1486309137.1.1780491275412;
+        Wed, 03 Jun 2026 05:54:35 -0700 (PDT)
+X-Received: by 2002:a05:6102:5e97:b0:650:9174:32b with SMTP id ada2fe7eead31-6ec53921cb3mr1486295137.1.1780491275012;
+        Wed, 03 Jun 2026 05:54:35 -0700 (PDT)
+Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5aa7b8fbe1dsm632104e87.27.2026.06.03.05.54.33
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 05:54:34 -0700 (PDT)
+Date: Wed, 3 Jun 2026 15:54:32 +0300
+From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+To: Alexander Koskovich <akoskovich@pm.me>
+Cc: Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>, linux-arm-msm@vger.kernel.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] arm64: dts: qcom: milos-nothing-asteroids: Drop simplefb
+Message-ID: <hs5roqpupi7svf4pyylvseqx44s6jcwnb4he36psoijjeeizbl@aq3b7k3xffxn>
+References: <20260603-asteroids-drop-simplefb-v1-1-34d73477c9d4@pm.me>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: A511MZycEBGs
-Date: Wed, 03 Jun 2026 14:44:47 +0200
-From: "MINETTE Alexandre" <contact@alex-min.fr>
-To: "Dmitry Baryshkov" <dmitry.baryshkov@oss.qualcomm.com>
-Cc: "David Heidelberg" <david@ixit.cz>, "Linus Walleij" <linusw@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Guru Das Srinagesh" <linux@gurudas.dev>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
- "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
- "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>, linux-arm-msm@vger.kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-gpio@vger.kernel.org, iommu@lists.linux.dev,
- phone-devel@vger.kernel.org
-Message-Id: <56ee469e-dab0-49fa-b808-d421b7505622@app.fastmail.com>
-In-Reply-To: 
- <thj65jrvef3z3dmn5f52jplewrjgklomc5s32grktsjejs72sw@npk26yx2hpf7>
-References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
- <20260519-mainline-send-v1-sending-v3-3-3dd7aa125353@alex-min.fr>
- <CAD++jLm=BxHsPJ4rgqwY8SvaefZUO+Pfv8E8xizqPsdJZw5weA@mail.gmail.com>
- <298550eb-1bdf-4d7c-8111-8b8f0b5dc056@app.fastmail.com>
- <4b797a3f-01c9-4b02-be98-7b82099c2e0e@ixit.cz>
- <48cfedcb-a9f5-402e-9973-f5c175fd2740@app.fastmail.com>
- <thj65jrvef3z3dmn5f52jplewrjgklomc5s32grktsjejs72sw@npk26yx2hpf7>
-Subject: Re: [PATCH v3 3/8] pinctrl: qcom: Register functions before enabling pinctrl
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260603-asteroids-drop-simplefb-v1-1-34d73477c9d4@pm.me>
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjAzMDEyMyBTYWx0ZWRfX7Q/vfSEtqOuV
+ LxhlVP/PRRrI5XtlCQYhxAC9jHbCvmodzg7TPnShxHhoyosG1d2xeTjjJI0nUpShC/2Y0pVYS0W
+ dq95BXDMJzE2ed6NRoPlFlFuCAY3JyQoEZVxgRfEoKlCBS6bjfDQNm+us6OtrLZsexct6SsylDG
+ cRU0W/9xQC92esJ6llKDXcsjLuKs7BUSt9T2zpbC3zhr7bmr5fI/EnRGOQX4qbzvBE893JW/S+g
+ HX11GfJsD0O+3sb6BaMk5g6aKT+Y8yPhoqyElROcV/henf1rFQsFOKx9+dOWI5JJV1TVIVnx8n3
+ LynPzmmuz2V+0obD9uN3eEeKZCzF2yznhh60n4FkNEcTGhxJYPFrqmdxiYiDU+JGso1ynSr2ZXr
+ Wq+DsFVl0c/YHVm78pPQhAARlDjjYFyegNrKW8BaIDQuTosP8uwQligAgXnRSggP41lCTSqSJNv
+ FTQwXoBUeZ8IGhCyAEw==
+X-Authority-Analysis: v=2.4 cv=UqZT8ewB c=1 sm=1 tr=0 ts=6a20240c cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=kj9zAlcOel0A:10
+ a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22 a=k0J_EwETjg03J8eOh8AA:9
+ a=CjuIK1q_8ugA:10 a=gYDTvv6II1OnSo0itH1n:22
+X-Proofpoint-ORIG-GUID: -LvQgcvD5r0NrV0Pv3kPCXSgVkEwfOOx
+X-Proofpoint-GUID: -LvQgcvD5r0NrV0Pv3kPCXSgVkEwfOOx
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-03_04,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 malwarescore=0 lowpriorityscore=0 priorityscore=1501
+ impostorscore=0 bulkscore=0 clxscore=1015 spamscore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
+ definitions=main-2606030123
 
-Right, thanks for checking.
+On Wed, Jun 03, 2026 at 12:41:34PM +0000, Alexander Koskovich wrote:
+> The dummy panel compatible 'boe,bf068mwm-td0' is missing documentation
+> and gives a warning. The 'interconnects' property is also missing from
+> the binding.
+> 
+> Dropping the nodes here and will just submit panel binding & driver for
+> use with MSM DRM.
+> 
+> Signed-off-by: Alexander Koskovich <akoskovich@pm.me>
+> ---
+>  .../boot/dts/qcom/milos-nothing-asteroids.dts      | 38 ----------------------
+>  1 file changed, 38 deletions(-)
+> 
+> @@ -131,15 +107,6 @@ ramoops@81f20000 {
+>  			mem-type = <2>;
+>  			pmsg-size = <0x200000>;
+>  		};
+> -
+> -		/*
+> -		 * ABL is powering down display and controller if this node is
+> -		 * not named exactly "splash_region".
+> -		 */
 
-I do not own the Nexus 7 flo/deb, so I cannot verify whether it needs
-this in the same way as jflte. I mentioned it because another
-postmarketOS contributor told me this patch helped on that device, but
-it is also possible that I misunderstood the failure they were seeing.
---=20
-  MINETTE Alexandre
-  contact@alex-min.fr
+You might want to keep this node.
 
-Mer 03 juin 2026, =C3=A0 14:29, Dmitry Baryshkov a =C3=A9crit=E2=80=AF:
-> On Wed, Jun 03, 2026 at 10:58:24AM +0200, MINETTE Alexandre wrote:
->> Thanks David.
->>=20
->> I initially considered adding a Fixes: tag, but I do not have a commi=
-t I
->> can point to. This looks like a latent ordering issue in the
->> Qualcomm pinctrl probe path and could have happened at any time until=
- now.=20
->>=20
->> The failure became visible on APQ8064 boards such as this jflte, and =
-I also
->> have a report that the same change helps flo/deb, but I do not want to
->> add a misleading Fixes tag as we don't really know which commit reall=
-y triggered the race condition.
->
-> But there are no gpio-hogs on Nexus7/flo.=20
->
->> --=20
->>   MINETTE Alexandre
->>   contact@alex-min.fr
->>=20
->> Mar 19 mai 2026, =C3=A0 23:03, David Heidelberg a =C3=A9crit=E2=80=AF:
->> > On 19/05/2026 10:48, MINETTE Alexandre wrote:
->> >> Thanks a lot Linus!
->> >>=20
->> >> This patch is required for my Samsung Galaxy S4 GT-I9505 to boot b=
-ut I also
->> >> have confirmation from another contributor that the same pinctrl p=
-atch
->> >> helped boot the ASUS Nexus 7 (2013), codenamed flo, which is also =
-based
->> >> on APQ8064.
->> >>=20
->> >
->> > Hello Alex,
->> >
->> > if what you wrote about asus-flo/deb is true, then this patch shoul=
-d have=20
->> > `Fixes: ` tag, as I remember it was booting with few limited patche=
-s ~5 years=20
->> > back then (only one serious was hack for proper clock bringup).
->> >
->> > David
->> >
->> > --=20
->> > David Heidelberg
->
-> --=20
-> With best wishes
-> Dmitry
+> -		splash_region@e3940000 {
+> -			reg = <0x0 0xe3940000 0x0 0x2b00000>;
+> -			no-map;
+> -		};
+>  	};
+>  };
+>  
+> @@ -507,11 +474,6 @@ vreg_l12f: ldo12 {
+>  	};
+>  };
+>  
+> -&dispcc {
+> -	/* Disable for now so simple-framebuffer continues working */
+> -	status = "disabled";
+> -};
+> -
+>  &gcc {
+>  	protected-clocks = <GCC_PCIE_1_AUX_CLK>, <GCC_PCIE_1_AUX_CLK_SRC>,
+>  			   <GCC_PCIE_1_CFG_AHB_CLK>, <GCC_PCIE_1_MSTR_AXI_CLK>,
+> 
+> ---
+> base-commit: b7bee4ca5688e30ca50fbc87b1b8f7eed7006c17
+> change-id: 20260603-asteroids-drop-simplefb-0aeb1d1bbadb
+> 
+> Best regards,
+> -- 
+> Alexander Koskovich <akoskovich@pm.me>
+> 
+> 
+
+-- 
+With best wishes
+Dmitry
