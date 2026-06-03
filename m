@@ -1,144 +1,333 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC79A33B6E8
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 14:36:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4CEEE399D0D;
+	Wed,  3 Jun 2026 14:37:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780497394; cv=none; b=LVJafMpnsUQkIn61OEpKUa1G3Cvy0iuLfckp0Z55rwETsP8EVTg2x83zW2UBiSoO30jJPlubqdW7RZvqyFqanvxPJQvCgOQHYjvrUNDF/bTOMdIxWJVFZAYe6osXpmJ+RPupU6RYrtOnWrL6XZ+s3Q7Xi6VfwBD5V4+H4KAX98w=
+	t=1780497440; cv=none; b=b+DvFqbJExHluFec7Fbu8qXdkkXX1nfogDpoglXD8mF1WOTGBgO+jS2LBUxOuMez+PKKUY/P6XGzQ2A3XDgc1imFnnUORAz1q+dwwAV8worN44ATtd6leoD38G1j8rbflJE8UVnCTHICwYHqTM+Jk08DdDle9clkqYXFneww5uY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780497394; c=relaxed/simple;
-	bh=tDIvRBi+Hz2F+jOYLhGPWHuA2xQF223gSLOaxmQh3ps=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Rvi92l8xz1JpNDR0g/mrZAI1iC83N4XLb7t3oIHqiwk6SbY1ridTbmqEeGOOoMHr7iNa1OJSDOEiTIEh/otX75LWSGR1HX4oeoCpdnWRrxkUYpasAZaSWdwlXbtzoZh7GyzwqGCRxBvMzcrczVjkCAX5Rg5JTXD8GpsDXtMP6Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UcfYuFsw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780497440; c=relaxed/simple;
+	bh=pWl1/RmqvpHcUDVI2tAuWXrcc8d66tisk1KWVRZbg5Y=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=DZL9Tq75rQwqDwoVyhxnbRvWwFP9//Aavo3ZiQr9BSllP9HtjIkve4n18L1rNiZo50w2SPUlibHz4ZNSweehp1xwMpjOtfY+PN3V/PHhxyYhupoVAnSzAgCBsuBYa/ZrYNf8SvX2jPiYSNQ98i4B9tHaI48kxVXVc146um5o4MQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=me5hK6y1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UcfYuFsw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5472A1F00893;
-	Wed,  3 Jun 2026 14:36:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="me5hK6y1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A65981F00893;
+	Wed,  3 Jun 2026 14:37:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780497393;
-	bh=AI46kP8UK6l9WEk1AQ1AFIFgvTSBlPzimOI+GhKMfYM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=UcfYuFswHKAWIOrbLOYdqwoYhRqsTDq4fDSvF2kb+f4bb+pJAfs16hBtXloG0cAP2
-	 abbksORJdIvj3OPEL8XILi37eQ7zOO720EQYz20zT9y9iL44ZKX8DpQYiFx74z4YY7
-	 bzbheKxr7R5wATCyqH0I8NUy4mp+d1+c9SPAcaMPnETFHZt0BhBk4ad2AX/PPgVaWA
-	 otwY14ogToUWG25fQQmtQ2UOQJNJNuI+Zu3gD28CN4aVU5vNDejdjx8e5eEtCmOoMu
-	 /nOTJRYtO5bQOAfQLUvX5yqaaTYHXZID/LNeUt/broeVJOujFTMZ+veR/Ho4FNrwJe
-	 Avfxi6Zz9OLcg==
-Message-ID: <035ffb31-e4c8-49b0-8323-f9cfe54eae30@kernel.org>
-Date: Wed, 3 Jun 2026 16:36:26 +0200
+	s=k20260515; t=1780497438;
+	bh=Bn56UH32ISeuaPasJihJWuyrFveRoM6qFNTcEtrTq1Q=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=me5hK6y1FSev3el2M9/ar60cWRtOMPhXgdaNRjGm0GSQfjkADGehXEHueQzwM9yiw
+	 ozdav3GsEkA9i8GmATva4FYkclCLf8ShbRTu8fdpy6yOh7AlwGDLHMlkVkItmqSqQb
+	 maZr5J7sY72Elt8mmZ6hcKcpZH5Ir5ykQkkvN6CvpnIg7yYLO8n5SGeB0pW+PRlK51
+	 hAmKXXgJXm9yaOZ0e9jbPT9tok652dt3xdKZGPX/Fj5LCTIKMgEZFHB9GYUV9HYUlC
+	 T9tdtT7ev+6YaaupqjpDMvgeEDdl7IDs+x5mdN3EkDPySi5HjWCdopuHTLDcWRiqFB
+	 H+ZJ9yafRnbRA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v7 06/12] media: iris: Replace enum-indexed clock and
+ power domain tables with per-block structures
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Vishnu Reddy" <busanna.reddy@oss.qualcomm.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, linux-media@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260603-glymur-v7-6-afaa55d11fe0@oss.qualcomm.com>
+References: <20260603-glymur-v7-6-afaa55d11fe0@oss.qualcomm.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Wed, 03 Jun 2026 14:37:18 +0000
+Message-Id: <20260603143718.A65981F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/3] dt-bindings: i3c: dw: Add apb reset
-To: Jisheng Zhang <jszhang@kernel.org>
-Cc: Alexandre Belloni <alexandre.belloni@bootlin.com>,
- Frank Li <Frank.Li@nxp.com>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley
- <conor+dt@kernel.org>, Philipp Zabel <p.zabel@pengutronix.de>,
- linux-i3c@lists.infradead.org, devicetree@vger.kernel.org
-References: <20260525140018.19598-1-jszhang@kernel.org>
- <20260525140018.19598-3-jszhang@kernel.org>
- <f8efa4ae-76e8-4082-a445-ca5f6d230bf3@kernel.org> <ahZwl3uXjyOZRvGW@xhacker>
- <4a8539d3-704b-4433-b4d6-e5acfe22d512@kernel.org> <ahre-7YdlcOZkwS1@xhacker>
-From: Krzysztof Kozlowski <krzk@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=krzk@kernel.org; keydata=
- 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 a/A=
-In-Reply-To: <ahre-7YdlcOZkwS1@xhacker>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
-On 30/05/2026 14:58, Jisheng Zhang wrote:
-> On Wed, May 27, 2026 at 09:53:16AM +0200, Krzysztof Kozlowski wrote:
->> On 27/05/2026 06:18, Jisheng Zhang wrote:
->>> On Mon, May 25, 2026 at 05:25:45PM +0200, Krzysztof Kozlowski wrote:
->>>> On 25/05/2026 16:00, Jisheng Zhang wrote:
->>>>> Add dt-binding for support of apb reset which is to reset the APB
->>>>> interface.
->>>>
->>>> And this is ABI break, so you must explain WHY breaking ABI is worth
->>>
->>> This just adds an optional apb reset, it doesn't break any exisiting
->>> ABI. Kindly let me know whether adding new optional binding is also
->>> an ABI break.
->>
->> It does. One reset was before. Now all devices must have two resets.
->> Clear ABI impact.
-> 
-> I checked the dts with only one reset by manual dt_binding_check
-> and dtbs_check, it still work, so I'm not sure why those dts "must have
-> two resets". Kindly let me know what's wrong.
-> 
->>
->>>
->>>> doing that or what is the impact. Additionally you should explain which
->>>> devices have it. Does Altera have it? You really lack explanation WHY
->>>> you are doing it and which hardware you exactly describe.
->>>
->>> I'm preparing one of synaptics SoCs support to uptream, it needs this
->>> apb reset signal for i3c. So you mean I delay this series until the SoC
->>> upstream series come, right?
->>
->> No. You just sent patch which basically says that Altera has two resets,
->> without any explanation of that.
-> 
-> I guess you mixed other series/patches with mine here, no? I didn't
-> mention Altera at all ;) What my series mentioned is adding apb reset
-> which is to reset the APB interface.
-> 
+Thank you for your contribution! Sashiko AI review found 7 potential issue(=
+s) to consider:
 
+New issues:
+- [High] Uninitialized stack pointer dereference when a hardware block has =
+0 power domains.
+- [High] Secondary hardware cores are left unpowered due to missing iterati=
+on over `num_cores`.
+- [High] NULL pointer dereference when optional hardware blocks are enabled=
+ in hardware but missing from platform data.
+- [High] Premature OPP voltage drop causes DVFS sequence violation.
+- [High] Uninitialized fields in `struct dev_pm_domain_attach_data` result =
+in arbitrary behavior.
+- [Medium] API mismatch silently discards additional power domains if `pd_c=
+nt > 1`.
 
-Read the binding. Altera is already there. I do not talk about other
-patches.
+Pre-existing issues:
+- [High] Resource leak of Runtime PM usage counter and OPP rate on error pa=
+th.
+--
 
-Your are changing an already accepted binding.
+commit 569dbace99d0eb806398e44f1f3dd0f46e77e155
+Author: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
 
-Best regards,
-Krzysztof
+media: iris: Replace enum-indexed clock and power domain tables with per-bl=
+ock structures
+
+This patch replaces flat, enum-indexed tables for clocks and power domains =
+with=20
+per-hardware block structures in the iris driver. It groups devices, power=
+=20
+domains, and clocks together logically in the iris_power_domain struct, and=
+=20
+removes index lookups at runtime.
+
+> diff --git a/drivers/media/platform/qcom/iris/iris_probe.c b/drivers/medi=
+a/platform/qcom/iris/iris_probe.c
+> index c2dcb50a27824..681db1da9559a 100644
+> --- a/drivers/media/platform/qcom/iris/iris_probe.c
+> +++ b/drivers/media/platform/qcom/iris/iris_probe.c
+> @@ -39,15 +39,32 @@ static int iris_init_icc(struct iris_core *core)
+>  	return devm_of_icc_bulk_get(core->dev, core->icc_count, core->icc_tbl);
+>  }
+> =20
+> -static int iris_init_power_domains(struct iris_core *core)
+> +static int iris_init_power_domains_per_block(struct iris_core *core,
+> +					     struct iris_power_domain *pd,
+> +					     const struct iris_power_domain_data *pd_data)
+>  {
+> +	struct dev_pm_domain_attach_data iris_pd_data;
+
+[Severity: High]
+Does this leave fields in iris_pd_data uninitialized? Since it's allocated =
+on the
+stack without zero-initialization, any fields added to struct
+dev_pm_domain_attach_data (like link_flags) could contain stack garbage when
+passed to devm_pm_domain_attach_list().
+
+> +	struct dev_pm_domain_list *pmdomain_tbl;
+>  	int ret;
+> =20
+> +	iris_pd_data.pd_names =3D pd_data->pd_names;
+> +	iris_pd_data.num_pd_names =3D pd_data->pd_cnt;
+> +	iris_pd_data.pd_flags =3D PD_FLAG_NO_DEV_LINK;
+> +
+> +	ret =3D devm_pm_domain_attach_list(core->dev, &iris_pd_data, &pmdomain_=
+tbl);
+> +	if (ret < 0)
+> +		return ret;
+> +
+> +	pd->dev =3D pmdomain_tbl->pd_devs[0];
+
+[Severity: High]
+If pd_data->pd_cnt is 0, devm_pm_domain_attach_list() returns 0 but does not
+modify pmdomain_tbl. Does this result in an uninitialized pointer dereferen=
+ce
+when accessing pmdomain_tbl->pd_devs[0]?
+
+[Severity: Medium]
+Also, if the platform data specifies multiple power domains (pd_cnt > 1), d=
+oes
+this logic silently discard all but the first power domain? Since
+PD_FLAG_NO_DEV_LINK is used, the driver has to power them on manually, which
+means secondary domains might never be powered on.
+
+> +
+> +	return 0;
+> +}
+[ ... ]
+> diff --git a/drivers/media/platform/qcom/iris/iris_resources.c b/drivers/=
+media/platform/qcom/iris/iris_resources.c
+> index 773f6548370a2..fdc6eb68e5c78 100644
+> --- a/drivers/media/platform/qcom/iris/iris_resources.c
+> +++ b/drivers/media/platform/qcom/iris/iris_resources.c
+[ ... ]
+> @@ -70,7 +69,7 @@ int iris_opp_set_rate(struct device *dev, unsigned long=
+ freq)
+>  	return dev_pm_opp_set_opp(dev, opp);
+>  }
+> =20
+> -int iris_enable_power_domains(struct iris_core *core, struct device *pd_=
+dev)
+> +int iris_enable_power_domain_and_clocks(struct iris_core *core, struct i=
+ris_power_domain *pd)
+>  {
+>  	int ret;
+> =20
+> @@ -78,66 +77,20 @@ int iris_enable_power_domains(struct iris_core *core,=
+ struct device *pd_dev)
+>  	if (ret)
+>  		return ret;
+> =20
+> -	ret =3D pm_runtime_get_sync(pd_dev);
+> +	ret =3D pm_runtime_get_sync(pd->dev);
+>  	if (ret < 0)
+>  		return ret;
+> =20
+
+[Severity: High]
+This is a pre-existing issue, but does this error path permanently leak the
+runtime PM usage counter and leave the global core device forced to its hig=
+hest
+performance state? If pm_runtime_get_sync() fails, there is no
+pm_runtime_put_noidle() or iris_opp_set_rate(core->dev, 0) called before
+returning.
+
+> -	return ret;
+> -}
+> -
+> -int iris_disable_power_domains(struct iris_core *core, struct device *pd=
+_dev)
+> -{
+> -	int ret;
+> -
+> -	ret =3D iris_opp_set_rate(core->dev, 0);
+> +	ret =3D clk_bulk_prepare_enable(pd->clk_cnt, pd->clocks);
+>  	if (ret)
+> -		return ret;
+> -
+> -	pm_runtime_put_sync(pd_dev);
+> -
+> -	return 0;
+> -}
+> +		pm_runtime_put_sync(pd->dev);
+> =20
+> -static struct clk *iris_get_clk_by_type(struct iris_core *core, enum pla=
+tform_clk_type clk_type)
+> -{
+[ ... ]
+> +	return ret;
+>  }
+> =20
+> -int iris_disable_unprepare_clock(struct iris_core *core, enum platform_c=
+lk_type clk_type)
+> +void iris_disable_power_domain_and_clocks(struct iris_core *core, struct=
+ iris_power_domain *pd)
+>  {
+> -	struct clk *clock;
+> -
+> -	clock =3D iris_get_clk_by_type(core, clk_type);
+> -	if (!clock)
+> -		return -EINVAL;
+> -
+> -	clk_disable_unprepare(clock);
+> -
+> -	return 0;
+> +	clk_bulk_disable_unprepare(pd->clk_cnt, pd->clocks);
+> +	iris_opp_set_rate(core->dev, 0);
+> +	pm_runtime_put_sync(pd->dev);
+>  }
+
+[Severity: High]
+Could dropping the OPP rate to 0 inside a block-specific helper cause issue=
+s?
+If multiple blocks are being torn down (for example, in
+iris_vpu4x_power_off_hardware() which shuts down VPP1, VPP0, then VCODEC), =
+this
+would instantly drop the global controller OPP to 0 when the first block is
+disabled, while other blocks' clocks are still running. Does this violate D=
+VFS
+constraints?
+
+[ ... ]
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu4x.c b/drivers/medi=
+a/platform/qcom/iris/iris_vpu4x.c
+> index 02e100a4045fc..0feb5eaa544f9 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu4x.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu4x.c
+[ ... ]
+> @@ -158,116 +136,43 @@ static void iris_vpu4x_ahb_sync_reset_hardware(str=
+uct iris_core *core)
+>  	writel(0x0, core->reg_base + CPU_CS_AHB_BRIDGE_SYNC_RESET);
+>  }
+> =20
+> -static int iris_vpu4x_enable_hardware_clocks(struct iris_core *core, u32=
+ efuse_value)
+> -{
+[ ... ]
+> -}
+> -
+>  static int iris_vpu4x_power_on_hardware(struct iris_core *core)
+>  {
+>  	u32 efuse_value =3D readl(core->reg_base + WRAPPER_EFUSE_MONITOR);
+>  	int ret;
+> =20
+> -	ret =3D iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRI=
+S_HW_POWER_DOMAIN]);
+> +	ret =3D iris_enable_power_domain_and_clocks(core, core->vcodec);
+>  	if (ret)
+>  		return ret;
+> =20
+>  	if (!(efuse_value & DISABLE_VIDEO_VPP0_BIT)) {
+> -		ret =3D iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs
+> -						[IRIS_VPP0_HW_POWER_DOMAIN]);
+> +		ret =3D iris_enable_power_domain_and_clocks(core, core->vcodec_vpp0);
+
+[Severity: High]
+If the hardware efuse indicates VPP0 is present, but the platform data omits
+vcodec_vpp0_data, core->vcodec_vpp0 will not be allocated during probe. Does
+this result in a NULL pointer dereference here since
+iris_enable_power_domain_and_clocks() accesses pd->dev?
+
+>  		if (ret)
+>  			goto disable_hw_power_domain;
+>  	}
+> =20
+[ ... ]
+> diff --git a/drivers/media/platform/qcom/iris/iris_vpu_common.c b/drivers=
+/media/platform/qcom/iris/iris_vpu_common.c
+> index 23a7ce3ecb2d0..f35754ef53ed1 100644
+> --- a/drivers/media/platform/qcom/iris/iris_vpu_common.c
+> +++ b/drivers/media/platform/qcom/iris/iris_vpu_common.c
+[ ... ]
+>  int iris_vpu_power_on_hw(struct iris_core *core)
+>  {
+> -	int ret;
+> -
+> -	ret =3D iris_enable_power_domains(core, core->pmdomain_tbl->pd_devs[IRI=
+S_HW_POWER_DOMAIN]);
+> -	if (ret)
+> -		return ret;
+> -
+> -	ret =3D iris_prepare_enable_clock(core, IRIS_HW_CLK);
+> -	if (ret)
+> -		goto err_disable_power;
+> -
+> -	ret =3D iris_prepare_enable_clock(core, IRIS_HW_AHB_CLK);
+> -	if (ret && ret !=3D -ENOENT)
+> -		goto err_disable_hw_clock;
+> -
+> -	ret =3D iris_prepare_enable_clock(core, IRIS_BSE_HW_CLK);
+> -	if (ret && ret !=3D -ENOENT)
+> -		goto err_disable_hw_ahb_clock;
+> -
+> -	return 0;
+> -
+> -err_disable_hw_ahb_clock:
+> -	iris_disable_unprepare_clock(core, IRIS_HW_AHB_CLK);
+> -err_disable_hw_clock:
+> -	iris_disable_unprepare_clock(core, IRIS_HW_CLK);
+> -err_disable_power:
+> -	iris_disable_power_domains(core, core->pmdomain_tbl->pd_devs[IRIS_HW_PO=
+WER_DOMAIN]);
+> -
+> -	return ret;
+> +	return iris_enable_power_domain_and_clocks(core, core->vcodec);
+>  }
+
+[Severity: High]
+Does this fail to power on any secondary hardware cores? The probe function
+dynamically allocates core->vcodec as an array based on num_cores, but this=
+ only
+passes the pointer to the first element to
+iris_enable_power_domain_and_clocks(), without iterating over the remaining
+cores.
+
+> =20
+>  int iris_vpu_set_hwmode(struct iris_core *core)
+>  {
+> -	return dev_pm_genpd_set_hwmode(core->pmdomain_tbl->pd_devs[IRIS_HW_POWE=
+R_DOMAIN], true);
+> +	return dev_pm_genpd_set_hwmode(core->vcodec->dev, true);
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-glymur-v7-=
+0-afaa55d11fe0@oss.qualcomm.com?part=3D6
