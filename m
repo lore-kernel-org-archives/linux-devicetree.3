@@ -1,138 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr1-f42.google.com (mail-wr1-f42.google.com [209.85.221.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1FA409106
-	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:08:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 37B683DB307
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 08:10:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780474116; cv=none; b=S7nWmVUwPKl9RcUkcfkRjOeBWG3GIOv/QLT/aXeOBwL6lLFmvRDy2HHvT/8rxgKImVV/xa2IgGYHTgFk41DGjNtP1RqNT/Tx3As+XGTZnEoWAAHMYqkpISgv4zDxIhekICC34k7tddK2JzUjVlmxp7xwtCaFycWka2Nh0SQ7SlQ=
+	t=1780474243; cv=none; b=F289ntKFjkALyGw0Ntt7lTISylFJvfP7jXkc3UZPHJpsEYh+buBHDOroQmnG9VWLez9MFVOemwbVKKlxU2J+DMJvtfHZkZA3/7XVnkPoCpdFwWeiZ/Z1mutxKNLcxS3Cr3oSWO+TsT+nydiYOwsp/gN3QJdq87ph5GhPToqMN4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780474116; c=relaxed/simple;
-	bh=gIslxKCpASPdKn/RtTY0A+/JpHtzEz7sBKsnt+nsKNs=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Ydmna+fXJ0XrykkawqVu+58MZFNwQ6Kr9eRlBNfK+Pxq1K9yRt8MaePxy4/BDpVedexErrJZDIgJ72w4JjOf7fr5tyqqk5vdJOB0PFRfIPQOSsOAEvTS8lkZH/ZacmpZd29HyInCVqQEkHd8FgISj3sWF7ymqsTXAu+Y1wDNpeo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jkia4g0V; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780474243; c=relaxed/simple;
+	bh=L9urVhS33Do6zCalZdU3eSAmMtEgi2x00tmzzJLChU0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=aa5gQiQaRz6y1B6a1Q4BKJNWwqnsY8VlRgBYBCRJJgo5vgooUif9lFWsiRor8hYMdJDKdFFetiOrD1YrQj6Zd/TJyFn+Ssj7YiuCWYkEJFTOj9mE5CDmobeEk/jpcNrk2ziHcGkaNDpln1fx37KiBpnveyzg7afCg12ErecAeeo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I3DxiR/w; arc=none smtp.client-ip=209.85.221.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jkia4g0V"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBBED1F00898;
-	Wed,  3 Jun 2026 08:08:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780474115;
-	bh=NMGZZdoAyopQDIKLMV68ePVlSufsXsxTlPhCf2ihjYA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=Jkia4g0Vtbs6QkhkPYqsZz+OBMHy8FZRAPa+HS4+2U33EqswMq0VVxbufaO1kBHAQ
-	 MsEhwP9eeLT2vQTa5m656j+cTOEqf6mGMMDoaJjM9lyu0d0vLIGytZaGt0RFqHgQkP
-	 NLVNhcps7mAx6RYlRGEGNMeW0Ti7Alb6L4N0goXRw3DMBhwCGQKen2IrdeIaqSMHqS
-	 eppIgNEwXC9pjVKtX0rGHltE2sZjLviUbbohLGW9+XIBxWwWsNDM4CwKKBdOqGxblh
-	 Kt1/HThCr2e8oZ4Ynt1ygbKGb1OKGenGVrGm+NBCurSlyP6vHkJWXTO84W8mXN5Jnw
-	 nkGBYfD37tUDQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 1/1] dt-bindings: mfd: add ti,lm8502 combo LED + haptic
- controller
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Herman van Hazendonk" <github.com@herrie.org>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260603080256.853037-2-github.com@herrie.org>
-References: <20260603080256.853037-2-github.com@herrie.org>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Wed, 03 Jun 2026 08:08:34 +0000
-Message-Id: <20260603080834.DBBED1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I3DxiR/w"
+Received: by mail-wr1-f42.google.com with SMTP id ffacd0b85a97d-45ef779c1c2so3308050f8f.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 01:10:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780474241; x=1781079041; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+        bh=PzoJAMfBbn1uwW6pXQumFkyZkDU4AXI6hlryg4nLphU=;
+        b=I3DxiR/wgkas9T61mMvmWAnhkNbZ1yajrGGd9lBHjuWhR7RW8L+KI7KeWezgcsOIbR
+         vkff6JQ202Cp7W8Ol3/k/IpuMG7KPAvPi1JsjGgRk9xmXKYssOJ+JiWBFTPcFHeXPeXW
+         eX7w254F7o15PQsDdkhXPN2sZiCV6H/aOFAWM4Md5j2cjBgH8d5kBCv5v0hMWl4Kez6J
+         MUT5kvXwR2P8YD1R3RgHiuh8+qr8gLS2heVwCCkMTa2MUe208NfGaXB7WRFEZ6ve6Bt1
+         CAtrw+muVtoVqsbjONNNmlY1kVqJZuqDb1HfJ5bLxChXXcRjOaJOT+UhN406Bf2Furyn
+         k61Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780474241; x=1781079041;
+        h=in-reply-to:content-disposition:mime-version:references:message-id
+         :subject:cc:to:from:date:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to;
+        bh=PzoJAMfBbn1uwW6pXQumFkyZkDU4AXI6hlryg4nLphU=;
+        b=fbxowCANB7DrJYIFDWyLS4EoOdTdk4oRKlw0JmoSIgUpHUq3uekfaHcDDty0KfHooT
+         1rzaATyz1Cav0CRAnilTp/9a6Eb4xaH6S5wYsITV+MrIxCu9fpSD3ZIfyl5lb5wglFnf
+         MzW/uPSeDEA/u0xMs8PIS6qF5vkG6a+5A47Du+Ovi+al84BmmVaaduVdqNUlDj6zul1r
+         edfVV5b5hCsrOyJ1qFLHFTPmYOpAbx5rP9i2ew/KaHIePP2v/uJVW5B6CI7pyIX1h2oQ
+         nlvRQnG9s5gGQi1i5qqkr5AeCR4Wx6jXVODY+UGM64kwKiivNh6tRAWjF/4UjM/mcoa0
+         7ukg==
+X-Forwarded-Encrypted: i=1; AFNElJ/yoNbQDTf0PKSXBemQ5MXr6ckNJlf/yPyzpCjeZ2YV7QZo1H7BCG391vEeEg5O1QxrhiKWUOZjwCrS@vger.kernel.org
+X-Gm-Message-State: AOJu0YxAxlurJx7lYZs3qDXWpqgSqcLI2VnJtR0MaTkI/C/VSZCKeGeU
+	GknS+/RDP9WO7XaeatPNHrdh2qbXXRcWjA8zrQk/9kCUbPhNslnY8M9I
+X-Gm-Gg: Acq92OGQAYF0v/FDnTONHJVimSviwWMSwZhIPQD77uHOWC1JisE672DyKnwrTCU8ohY
+	RWebHt23PkUFRLHZLcklsyWwRasyWnIMVp5t2PUFe/NVkJTnF5xCYS52pA4irRi1MIpCZDE6dYi
+	pASVHa+Jx/jBI+NwqZBbjDKz154P/BHWW6Tye4tl/29zQUqo3Olab8FXKmO3ySy0tEn+Bta8L71
+	81aC5Qe3OKwdegV5X+2YKn6hlcx0D+AID0qNS2Amz/VYCtBpTpio6o0TGG9VnjfjlMOhEg073pg
+	HP/+2D9aE1O5YC15O9lbaGSKQfvA8qF7BqThj+Kyb/lQA/KVVydq2Jwb6f91VtmLZMsTOYuAgYR
+	1ugTckd0RYSyex4Sja1ODvW1nrilDvM+JknL3wWd3f8rnEAtL666kZHyssZva07TA9C065XVdu6
+	fzRGQNWjCBMsOrEhowks8/hyR2qvWLiyplLfVvBqalIWfHFvJ1OglJATMqBbYgX/kxngbQ1Gp1a
+	BkjVMVJyTTfMxTqYLwWW9iAqL5OOe7z9lo6uYHrm04OH3kSmOehBs4=
+X-Received: by 2002:a5d:457b:0:b0:441:1e8e:d8fd with SMTP id ffacd0b85a97d-4602184d442mr1812471f8f.29.1780474240292;
+        Wed, 03 Jun 2026 01:10:40 -0700 (PDT)
+Received: from Lord-Beerus.station (net-93-144-65-244.cust.vodafonedsl.it. [93.144.65.244])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f368e9fsm5638407f8f.37.2026.06.03.01.10.39
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 01:10:39 -0700 (PDT)
+Date: Wed, 3 Jun 2026 10:10:38 +0200
+From: Stefano Radaelli <stefano.radaelli21@gmail.com>
+To: Frank Li <Frank.li@nxp.com>
+Cc: linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	pierluigi.p@variscite.com,
+	Stefano Radaelli <stefano.r@variscite.com>,
+	Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>
+Subject: Re: [PATCH v2 1/4] arm64: dts: imx93-var-som-symphony: add TPM
+ support
+Message-ID: <ah_hfhpujDwcGk9W@Lord-Beerus.station>
+References: <cover.1780051874.git.stefano.r@variscite.com>
+ <64adb6f0cf9efe107c761e1a69b9a63c7dd0141a.1780051874.git.stefano.r@variscite.com>
+ <ah3wMi6QW6DUPrS4@lizhi-Precision-Tower-5810>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <ah3wMi6QW6DUPrS4@lizhi-Precision-Tower-5810>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [Medium] The binding describes Linux driver internals (MFD structure) rat=
-her than hardware layout by creating artificial 'leds' and 'haptic' sub-nod=
-es.
---
+On Mon, Jun 01, 2026 at 04:48:50PM -0400, Frank Li wrote:
+> On Fri, May 29, 2026 at 12:52:44PM +0200, Stefano Radaelli wrote:
+> > From: Stefano Radaelli <stefano.r@variscite.com>
+> >
+> > Add the ST33KTPM2XI2C TPM device on the Symphony carrier board.
+> >
+> > The TPM enable line is a board-level signal driven through the PCAL6408
+> > GPIO expander. Keep it asserted with a GPIO hog so the TPM is enabled on
+> > this board.
+> >
+> > The TPM binding does not provide a dedicated enable GPIO or supply
+> > property, so this cannot currently be expressed as a direct TPM
+> > dependency.
+> 
+> there are reset/reset-gpio, can you use it?
+> 
+> Frank
+> >
 
-commit 25934ec50a44a98662b56dfb64e70a785820fdf7
-Author: Herman van Hazendonk <github.com@herrie.org>
+Hi Frank,
 
-dt-bindings: mfd: add ti,lm8502 combo LED + haptic controller
+you are right, reset-gpios property will do the job.
 
-This commit adds a new YAML device tree binding for the TI LM8502, an I2C
-combo LED and haptic controller. The device exposes its LED and haptic
-functionalities as sub-nodes of the main I2C device.
+I'll send V2 soon,
 
-> diff --git a/Documentation/devicetree/bindings/mfd/ti,lm8502.yaml b/Docum=
-entation/devicetree/bindings/mfd/ti,lm8502.yaml
-> new file mode 100644
-> index 0000000000000..10f2e32a07385
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/mfd/ti,lm8502.yaml
-> @@ -0,0 +1,160 @@
-[ ... ]
-> +description: |
-> +  The TI LM8502 is an I2C combo device with ten constant-current LED
-> +  outputs (D1..D10) and an internal H-bridge that drives a vibrator
-> +  motor. Pin D10 is shared between the tenth LED channel and the
-> +  haptic output; the haptic driver writes D10_CURRENT_CTRL =3D 0 at each
-> +  start to mux the pin to the H-bridge path.
-> +
-> +  The chip is exposed in Linux as an MFD with two children:
-> +    - ti,lm8502-leds   - LED-class outputs D1..D10
-> +    - ti,lm8502-haptic - EV_FF / FF_RUMBLE input device
-
-[Severity: Medium]
-Does this description rely too heavily on Linux driver internals rather than
-hardware layout?
-
-Device tree bindings should generally model the physical hardware structure.
-Describing how the OS software stack divides the MFD subsystems creates
-long-term maintenance debt since DT bindings form a stable hardware
-description ABI.
-
-> +
-> +  The parent node owns the I2C client, the chip-enable GPIO and the
-> +  vcc regulator; children share access to the parent's regmap.
-> +
-> +properties:
-> +  compatible:
-> +    const: ti,lm8502
-[ ... ]
-> +  leds:
-> +    type: object
-> +    additionalProperties: false
-> +    description: LED-class child for outputs D1..D10.
-> +
-> +    properties:
-> +      compatible:
-> +        const: ti,lm8502-leds
-
-[Severity: Medium]
-Is the ti,lm8502-leds compatible string strictly necessary for hardware
-description?
-
-Creating artificial sub-nodes with their own software-specific compatible
-strings just to force driver matching for the Linux MFD framework violates
-devicetree design principles.
-
-The sub-functions should typically be represented as properties or direct
-child nodes of the parent device without requiring separate compatible
-strings, unless they are genuinely independently reusable IP blocks.
-
-[ ... ]
-> +  haptic:
-> +    type: object
-> +    additionalProperties: false
-> +    description: FF_RUMBLE child for the internal H-bridge vibrator outp=
-ut.
-> +
-> +    properties:
-> +      compatible:
-> +        const: ti,lm8502-haptic
-
-[Severity: Medium]
-Similar to the leds sub-node, would it be possible to omit this artificial
-compatible string and represent the haptic function without a dedicated
-software-specific node?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603080256.8530=
-37-1-github.com@herrie.org?part=3D1
+Thank you,
+Stefano
