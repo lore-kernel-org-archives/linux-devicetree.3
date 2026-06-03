@@ -1,157 +1,88 @@
-Received: from fhigh-a5-smtp.messagingengine.com (fhigh-a5-smtp.messagingengine.com [103.168.172.156])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CACCB37B028;
-	Wed,  3 Jun 2026 09:16:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.156
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 099FD383990
+	for <devicetree@vger.kernel.org>; Wed,  3 Jun 2026 09:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780478188; cv=none; b=r5Q49XEalAZ8OjCK5GPQjrfLX/sWAEuCGgU1lE2wYJumxcngwwN/+DvVkenzhpSCJWbsIBvQIsa6GVsmAzbPh7Lxh/EeFIZGrz5Ips4nzHbLEYYoE51pJdN9eg5T9rMubdobU8FYuf6eWaiRcIKfXxZQ+B1s0GXVDyO5RD1L6j8=
+	t=1780478209; cv=none; b=ZSyAg+sHL1TvhqezuDKjE+XbmOmWgnyNWVpx21t2JCOmEzLDVxAi8ZJeC1JkIuWNA131q6oPXNDWviZtjT1YUR3YGOYNSZGi5L11G0bY2HE8p2ITjuLZdwxitOupRcYyJ8A8dld9VGuTSzlhExMSKjdnS2x7/a8oY4NQUvEuinU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780478188; c=relaxed/simple;
-	bh=zZMMRaYCVfvGznAZaMWQjUMAtdzTOIBli6JD/djRl6c=;
-	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
-	 Subject:Content-Type; b=eAo3Y8+4Jjp30Bo5AJs0DpS1RbtSTNC0TKF42V8skf3CCDRhSGhW/yuahquUPbelwcmc6WIQTdi8eVTGRIOtOLFPbptEQfEVW6AoFvPkuXZRVMaWoTB0Xmz0b0J6P2qdDRvh679re7Va9XNZERpm3k+PnKdlHkPBvlyO4t6AwSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr; spf=pass smtp.mailfrom=alex-min.fr; dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b=lw+ngl/j; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ZG6Jr+d/; arc=none smtp.client-ip=103.168.172.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=alex-min.fr
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alex-min.fr
+	s=arc-20240116; t=1780478209; c=relaxed/simple;
+	bh=S0Dp3roNTafspkw5dXHraXdzk0Q2pledRTqXBt74W9A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=jGnJG9EScfSq9/P15R7ZcpV9RfRDJoCyxpmBqeKLK+G+DppvZNkqUrnqKA+RxNBo3Te5AelfBGMParddDP9t/Wr/gKdk6WcolmP+Zt0+l+FkrSHmZVIoouU+IcpodWwE7i/XON5wAme5ST+qgYJwzqggAu0TRem5dcuiFLFedNc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XfY1Ggja; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=alex-min.fr header.i=@alex-min.fr header.b="lw+ngl/j";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ZG6Jr+d/"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfhigh.phl.internal (Postfix) with ESMTP id 092B1140010D;
-	Wed,  3 Jun 2026 05:16:26 -0400 (EDT)
-Received: from phl-imap-03 ([10.202.2.93])
-  by phl-compute-04.internal (MEProxy); Wed, 03 Jun 2026 05:16:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alex-min.fr; h=
-	cc:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1780478186;
-	 x=1780564586; bh=vyee6GA+nWTTHzOKHQkml5rtHb2XOqTCfRzWyyvR/0M=; b=
-	lw+ngl/jwNEHm4RAoLixw50HbJ8WBvVO4Xh5FezsdzckaHYl+gj98dAg7D8KrXZO
-	acNm1NA1yy3GEzV6y95gv3Jj9CrZ3482cC/roLO9Kl2HOZCUPCq13tFTyMICyl+2
-	/hIXGY4L1aRpy+J3GkQeEmTOFZOZBfFUA4tZObMkyfol7XBa+WrJI7moST7mc98C
-	cfC+jyexq0gUAsSdC3D3PiUI81T3L/D0o+/onIRC5+QB3THev1jEIVcG7x8vzecX
-	LZN1Uqrv+jtYsn5lUYiA7H0s+BjXtLLXkLjKEPnuSNFq0i/ZmbWHyjiSUnptcbk/
-	zorPe5sw/43ha7xwUZOpPQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1780478186; x=
-	1780564586; bh=vyee6GA+nWTTHzOKHQkml5rtHb2XOqTCfRzWyyvR/0M=; b=Z
-	G6Jr+d/mb4Vn+dx57WZu7UO4Cpa0sW0wjNe2Ea8Ti8m0NGnehJW2Jiyhu207AY/x
-	Yr4d5VelVByS2/UKT1ekkTP6VVlCfcCJ7dz8KtEfyljpCIuIp1Gu1U+zzTv2EFQ+
-	dQGq00FhBriCETd8BqyrEAw1zj0IjF92QydGFl7bp9vjL6nibK/O6ItBrT/pLGGX
-	CbJ/+8LnpPpsvLl1shC2GpzZJNP9ZaT2LIlsG8pfkhJlAqlib1XILJO99ylmvt30
-	a15ozh3gFswdwqiVtHFOWPURAk4L0q3tkN/QkFb9mAnldPDO2TH1kLyWf8KAx++N
-	DbmJ30Mb2namRoVRNZXOQ==
-X-ME-Sender: <xms:6fAfanEWFdfSK0xzUw3p7P_70Zqv-4DsDumqe0osby_MRNn4B-PNEg>
-    <xme:6fAfavLn3g_LpedoMZlOhNYqLlV8gykHFTIWfSSNlniWLxEm8-zCQ0RXgX-73k2zE
-    Qr20JasBAEI_cEbBlJioMZ--xo2OpDmNsYOvbwlZXGiVY8nvIW0Kw>
-X-ME-Proxy-Cause: dmFkZTEKtdUk3+AoNrb6F/9o5+qhQ3MJedbgaPlnSzxbii3fpnIWSakKB30IRXehXRWZ8a
-    3ArwDkxvG0XlD9ZRDd/oEngsRSASg8CVBxa7prWi7/Q1p6+/bTmnunWpL9c0l3T2Euye0G
-    LPwV1CcAvqwqTX3nCAUATvT0rYc0mnTpff6AkUQdW7vxkuRjFZaV997pWsndxIdO36608s
-    HlT87MdU4iNI0yTC+0PnFPdKzTNUKqg+6enjhDw6m2ys75CauEE69Gctn4VUaE8OuzHBaG
-    +vkSziUvakMY1a5UJoK6y/6Lelrq5Y1IRXaC91cn6GvZDAWRoL08YaFnWqmu8IIYsIdYrX
-    VHPJQgm8WlaYkTEPnEGSiRMQBc51jeK11IXvSKHod8QEIxgo2sGyEm8jxERRFsd5jbCf9U
-    v72TT+WsfUvH/zAZBCGgwYsp/sSr8I36+5XO2P9Y6jnCN/3dJix4qFCA3o5NOZEzNHL2QR
-    4xDLU9g8GgAAdpAVV/hfeUIp8BtE3N1yBGX2svO0c3cZ4R1zkZCpmLfUOmAP98zNusUBYN
-    axzCjNrnddeurXHP1yfFdngFwpxyBR51T9oZJuTKwY4par/mTFpKYyaQq7202ULoFkaElL
-    N7p9W3I2pcyFi+Z9K9Onq2eo6Ueeb+ahw+sW3rQx59YIyOxopNc98NzRjSYg
-X-ME-Proxy: <xmx:6fAfahCXgm-c-CqFw50O6wBWhMnxectsULnmhxR4hgxFVbQLkgHWPQ>
-    <xmx:6fAfaqjC7mKIzCzP6HTzIxcxnj0mNNKZy9e1S63FYQEVF9sjUVHkXA>
-    <xmx:6fAfajMkNJRCYsWZVAOdd4OM-utzxguWF7WEx3hS8ZXGbD8ztPuisg>
-    <xmx:6fAfapZNBotVaNo2Kq6tVXgORuFrfs4pjMwVJzXlrJeJoQv8iVHEcw>
-    <xmx:6vAfaoh1KFr33uvHO8-B9LUi2UhHhGsAl0z3dihTQuK4XfSfeh3agVg0>
-Feedback-ID: i72694427:Fastmail
-Received: by mailuser.phl.internal (Postfix, from userid 501)
-	id 1840618E006C; Wed,  3 Jun 2026 05:16:25 -0400 (EDT)
-X-Mailer: MessagingEngine.com Webmail Interface
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XfY1Ggja"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 113121F00893;
+	Wed,  3 Jun 2026 09:16:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780478206;
+	bh=S0Dp3roNTafspkw5dXHraXdzk0Q2pledRTqXBt74W9A=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=XfY1Ggja5PfDw5V3R1IhEm11y6Fmp/WnqGZdWUa1emZlRg47O5AdZguDyh7S7ggZp
+	 /LjEQZQfpwtlc/QwrYc+stfBK6CQNK6mk2x5UFeii24djZg4jebTkmvFZP6YLEV+p+
+	 t0dw881j28wB9q2qs9F8SGZtjxMIOwtp3dUUUB5lod8uFfqPwnztaK02qhHX5u6X16
+	 kRkthDlFAk8lUo4xJ/dwdn1MYngL4CaTUVyHyJ6AUyAUGYorjBQdqjli8X5WeFnOrP
+	 a6L4FFvZ/uGo0gE//ZnqQQViOgeefKUHAztZv1ap/BFCT2WZj2KnsqWg83zJpQiwY+
+	 McS90bsay30BQ==
+Date: Wed, 3 Jun 2026 10:16:42 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Joel Stanley <joel@jms.id.au>
+Cc: Paul Walmsley <pjw@kernel.org>, Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>,
+	Anup Patel <anup@brainfault.org>, Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@kernel.org>,
+	Drew Fustini <fustini@kernel.org>, linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH 7/7] riscv: dts: tenstorrent: Add Atlantis platform
+Message-ID: <20260603-selective-labored-f9afc652ac7b@spud>
+References: <20260603074222.593243-1-joel@jms.id.au>
+ <20260603074222.593243-8-joel@jms.id.au>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ThreadId: ALxfIZ7KI3KB
-Date: Wed, 03 Jun 2026 11:16:04 +0200
-From: "MINETTE Alexandre" <contact@alex-min.fr>
-To: "Krzysztof Kozlowski" <krzk@kernel.org>,
- "Bjorn Andersson" <andersson@kernel.org>,
- "Konrad Dybcio" <konradybcio@kernel.org>, "Rob Herring" <robh@kernel.org>,
- "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
- "Conor Dooley" <conor+dt@kernel.org>,
- "MyungJoo Ham" <myungjoo.ham@samsung.com>,
- "Chanwoo Choi" <cw00.choi@samsung.com>,
- "Guru Das Srinagesh" <linux@gurudas.dev>,
- "Linus Walleij" <linusw@kernel.org>,
- "Rob Clark" <robin.clark@oss.qualcomm.com>, "Joerg Roedel" <joro@8bytes.org>,
- "Will Deacon" <will@kernel.org>, "Robin Murphy" <robin.murphy@arm.com>,
- "Kees Cook" <kees@kernel.org>, "Tony Luck" <tony.luck@intel.com>,
- "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-Cc: linux-arm-msm@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-gpio@vger.kernel.org,
- iommu@lists.linux.dev, phone-devel@vger.kernel.org
-Message-Id: <356a9e23-7172-4b26-993e-e82581d29553@app.fastmail.com>
-In-Reply-To: <39d8e501-d84e-4870-b98b-a08b0a68f8ee@kernel.org>
-References: <20260519-mainline-send-v1-sending-v3-0-3dd7aa125353@alex-min.fr>
- <20260519-mainline-send-v1-sending-v3-2-3dd7aa125353@alex-min.fr>
- <39d8e501-d84e-4870-b98b-a08b0a68f8ee@kernel.org>
-Subject: Re: [PATCH v3 2/8] dt-bindings: extcon: qcom,pm8941-misc: Add PM8921
- compatible
-Content-Type: text/plain; charset=utf-8
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="v38FfJYRf01Nq9M/"
+Content-Disposition: inline
+In-Reply-To: <20260603074222.593243-8-joel@jms.id.au>
+
+
+--v38FfJYRf01Nq9M/
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
-Sorry I initially replied to the wrong thread by mistake.
+On Wed, Jun 03, 2026 at 05:12:19PM +0930, Joel Stanley wrote:
+> Add initial support for the Tenstorrent Atlantis platform, based on the
+> Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
+>=20
+> The evb machine represents an internal bringup vehicle with just the
+> interrupt controllers and a UART. This will be replaced in time with a
+> full featured machine once details are available.
+>=20
+> Signed-off-by: Drew Fustini <fustini@kernel.org>
+> Signed-off-by: Joel Stanley <joel@jms.id.au>
 
-Thanks for the feedback, Krzysztof.
+Signoff chain here, and elsewhere is not right.
+What did Drew do? Are they the author or is there a missing
+Co-developed-by?
 
-Do you mean that the PM8921 USB ID handling should be exposed by the
-PM8921 parent node itself, so USB consumers would reference the PMIC
-directly, e.g.:
+--v38FfJYRf01Nq9M/
+Content-Type: application/pgp-signature; name="signature.asc"
 
-  extcon =3D <&muic>, <&pm8921>;
+-----BEGIN PGP SIGNATURE-----
 
-I am fine with that model, but it would require more driver changes: the
-current extcon driver binds to a separate platform device, while the
-PM8921 parent node is already handled by the PM8xxx MFD driver.
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCah/w5gAKCRB4tDGHoIJi
+0nXSAP9ril9N3Rwg+mCFumbafIDvR95k++C9ZqZMpl6sHtK68wEA8GkzsDBwpHkf
+vShF75TGDsjz/1/VJFL0KRKfrFt3Xwc=
+=/UR0
+-----END PGP SIGNATURE-----
 
-Is that the direction you would prefer for v4?
-
---=20
-  MINETTE Alexandre
-  contact@alex-min.fr
-
-Mer 20 mai 2026, =C3=A0 09:22, Krzysztof Kozlowski a =C3=A9crit=E2=80=AF:
-> On 19/05/2026 09:16, Alexandre MINETTE via B4 Relay wrote:
->> From: Alexandre MINETTE <contact@alex-min.fr>
->>=20
->> PM8921/PM8821 provide USB ID detection through the PMIC USB block. The
->> USB_ID_IN interrupt is exposed by the PM8921 interrupt controller and=
- is
->> used by APQ8064 platforms for OTG role detection.
->>=20
->> The device is modeled as a child of the SSBI-connected PM8921 PMIC.
->> Unlike PM8941, the downstream PM8xxx misc device is not instantiated =
-with
->> a register resource for this path, and the mainline extcon driver only
->
-> I could have guessed that at v2, but this suggests that device is not a
-> separate block. If it does not have separate addressing, then it is not
-> a dedicated/separate sub device in the PMIC and your node plus binding
-> should be squashed into the parent.
->
->> needs the named USB ID interrupt. Allow qcom,pm8921-misc without requ=
-iring
->> reg.
->>=20
->> Signed-off-by: Alexandre MINETTE <contact@alex-min.fr>
->> ---
->>  .../devicetree/bindings/extcon/qcom,pm8941-misc.yaml    | 17 +++++++=
-++++++----
->>  1 file changed, 13 insertions(+), 4 deletions(-)
->
->
-> Best regards,
-> Krzysztof
+--v38FfJYRf01Nq9M/--
