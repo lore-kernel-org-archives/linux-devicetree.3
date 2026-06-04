@@ -1,98 +1,120 @@
-Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
+Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188023F6C48
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:21:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7A6C313E10
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:25:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780564911; cv=none; b=ETO1i2uzHs0FuN6YKRZLLb7zCXvfLPabw0UuJXfpcczKAxnTU7YENcfkMEzGxxiiY3ouA+l6u0j332UqyM2LoHfBcrXPiG/x+pLkH5gnmomGEw1jNHHknalNLqzZUrTzZAp3VkqLDXLTedPtg5TX2vpIEd+agO5rzCvzF/3K9m8=
+	t=1780565113; cv=none; b=Nt5orccqx/AexYVaRJ9UPV39i3GFJOreQwsynKeUxaf5MTofJrUK9CypDmIb0NKJKaYajoyc7ot+7gN2d5KUBI1QeQMryWtDmlvEjzKIfIXwYNv0XcSfwY6RlF1Jfj5LTHF3U/a/g4W7pIO/cqIKspnKfHbKxFPV8tm4U9imj0U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780564911; c=relaxed/simple;
-	bh=5pP+Mhk8279qkIOdLGflEyG8YfEu5sdvMxMifNU8e8o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JvJPNkKOcZZK7bcaP+W2yAsUQ6yGWvxSi2YBQx1RCCBLXJUaUT/dpQu72O6Gjq649iDX0c2I8/bUpiHMv05WjlpKLN/yAhTA7sUIl6J96CuYERT0mJZH5337wdFhFfe7dR8CDnIxOqKAf057LxezcRzYKQ7g8b60xR8AvyLCgGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+	s=arc-20240116; t=1780565113; c=relaxed/simple;
+	bh=rz20gXhQdVOrTdEhmhCpXq0m1jn6BoI/ZelHshCeHzA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=jjgnHYaMmonZgZiJBASaZUMsPGCkmxhLGgLo6x1iarYrbpsZSNd5sGgU1uzzH9Qk00IaDG+37O7MLRSl6HlD0WUavPlch9yaTwNJBTJs1KVRooJqd0K56YEGW+4ElgdI/3niQ6MGxqVpSHnXwhtBci/etTOSSuX5CPk3T0g/HrA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Nmw+4LnL; arc=none smtp.client-ip=209.85.216.50
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-bebac79fff8so43901966b.0
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:21:49 -0700 (PDT)
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Nmw+4LnL"
+Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-36c68964315so253971a91.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:25:11 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780565111; x=1781169911; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=rz20gXhQdVOrTdEhmhCpXq0m1jn6BoI/ZelHshCeHzA=;
+        b=Nmw+4LnLVpRJV/IdI8giZDLWdDFcOinq0XfLqgygraUWndBHFfgddC/UVbXFelmjHW
+         PjYbVmh7cSrtlIBBR+hZuknotPTR1kCt2UJYw/5kyaj9lf55xCBy/o7W3mN0o/WrxvTl
+         3n5thIhFRPcJWVoNu1TjEXNZMo+6zNJ0tEcdyn3ZKX7LQSMq8e15qOX/SowNahdDvGxi
+         xZbIC9D6dmEIFCiLYxM0nsesZ+fwvnCj6Nyy5Inw1/3k4HDiWTgNxzAOifBNVK4x07Qk
+         iK+Wy5xscApkBflsgaFIBMYcBMZv8PC9sxiJFW7rdgApczRQ1EKYEuH3zNh43yKg/3AE
+         haEw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780564908; x=1781169708;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=XUPD5OwKoUPxOlrUbBDtLNbSGHGp+GOIie5YrA6VRnQ=;
-        b=F4Tm7rlORvaLqUTg14xH2sDfbQSN2xjLnlMWrOzFGas3BNjGRhBp8oYAhg+Ua1MCN2
-         Fm6BqUzkY6BdJt6G7P+v35Gi1E/nnsIv6gQK/a5bI446ulXy00+Nwknp9QbZZISo05qK
-         dvHQpDqoDcyLCSFq3wKhPe3pWyn/MW7P6ddveQ0i/FbVmCUVGJNyJ2bqTXMr2Tzp0v5t
-         1NCD8IfZf9bkolS1UalSUhz1N/ytGJElzztbP5EDbCgm9M1cuV83P+WpIqzrNT65qIY8
-         UUfzL9I09fHraSfBg7uC1JH/QkNWS/cHtm1VWry7b3ompd0CT+Y7IWPLZXswHJ3nijg+
-         J26Q==
-X-Forwarded-Encrypted: i=1; AFNElJ8k56DAWmqYIYC8QF3e2TH7qJ6+fWGBD9rVhtjuSCbGRmzIvyj+oStv0n1eNvtVTg4fPSkBJAQw86Jr@vger.kernel.org
-X-Gm-Message-State: AOJu0YwR9gFW3x7cu91jbnHHGWimUrMZy9l+XoyADYaHCOk7reH+/4Bk
-	xhd+efQUJQ6e1UUHcAUgzmTzg8CjFvwPcXx8rtmI/maNcWAhzIPRBABJwKWZ1/cE9nQ=
-X-Gm-Gg: Acq92OFfwFSBfuYnbfurpC+FQE7+vG5bytBO0acCb6yHPf/zXquNI6EWyxNOjqXj6um
-	pKjOHx+Vjmup1RKN2b9C9bcK3co2lFUHdPSKGzfU66+EpQeHU//zo4eZnvAGatKMDE7g7NdytJ7
-	rUpGm1AYrElK8NyDfbhkwdcRISvF5QPqGQycBcH2hkHMICgVFyMuVBfKXj8XkRmmlfMq31bcKDv
-	83Qb8v1GTaOBEUaMDfAO/joBbpzblrhagVUXQIq35jBPuUqx42Z5VEToWGYVk4v6mW4BejzUBHD
-	VCe/7JimBk0CWsLFK1TjuA0pUpF/UUHQAqXPuf6vvxoxHw1tVlXks7AkMHr48Pfl3rNJKhw0SnJ
-	t7zgYfcbDu+MH7Cow5FjqE+n8NiNr55EkFlmF/CyFygUqVrFKe9DQaXD5QH9OPg0QNB3ZSf2DmV
-	yRB4kw+C37Ka8mgC2x9KuykyJSwqkRXcDdLFnf1X9PA60wVqKt09/WTvXX1bn1FSlTCwYKrcc=
-X-Received: by 2002:a17:907:94cc:b0:bb8:b593:edba with SMTP id a640c23a62f3a-bf0aed0fb30mr330436566b.38.1780564908285;
-        Thu, 04 Jun 2026 02:21:48 -0700 (PDT)
-Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com. [209.85.208.49])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051e9aa33sm277240066b.24.2026.06.04.02.21.46
-        for <devicetree@vger.kernel.org>
+        d=1e100.net; s=20251104; t=1780565111; x=1781169911;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=rz20gXhQdVOrTdEhmhCpXq0m1jn6BoI/ZelHshCeHzA=;
+        b=PnOZwmtH6VcbqtV4+bbZCd1cbsmGaSnjCWKBh5Sb8e95PskZmlxr6w5GamMyOIenB+
+         5EPkdNyt+AK0+Etzc/s5JyJ/3ELJ9at9XMgbbdlBnVS776U/SwMGRt2IfX7kSqOlenfa
+         bcRBCSUvraOTtpq0kDUm7ot+BO2UE0fwRND6aP0x8WUmwODpNQoAFqRSiK+5J95aeLcv
+         LXWWU6ZozMT7qEgfdY9K7Y+ivbTfRTDa7m2OK5MWHcBakWO0cB/YZ5uLnL9NXJDyuaMk
+         Th92sEEPYE/DvXai8p7d+JeILjSzQdIqq1Q2sAtTbDOe4yA4nsaEjllWQRwN1bYdT2lg
+         NF+w==
+X-Forwarded-Encrypted: i=1; AFNElJ+RpYHml6RDdNUl0RosEdDe9hCoKrMYalAvdW7+Mjf1tku2h8c5bhOv+o7MGlV6jcdOO6PW2wi3HS1U@vger.kernel.org
+X-Gm-Message-State: AOJu0Ywh41D+uwyfcQr+DAuBnrHJr6XyQ9HwcHqizi3nSHakSUuHgnDO
+	Uvuf0htZm1Vvj6Yii67WR1Jx25ISgc9zxH76w/5gQcmOKcpjYFGDiV/V
+X-Gm-Gg: Acq92OEMMQaIoVp/M3RZxbHG7v+R726S0zBDmvOYQ8l4gvGF1Rwsx8RR6tk7FdD3OpY
+	7UVdKBf9ukVzfjUdqzcuBXEKXrYvLafmlgiEKGMiPsV6BE8l1QUJA3/6GMQjCgc5j/U/2KNfrWM
+	gf8QRix+PCBi8EmxcFMGWDjDMY83Rvva5ieD4kcm3WuYGYkMeMv7mmRZ2P5qwy16IkdqBj70U9g
+	KNyAy94l7LRHdEnAmP14/QgpEcdi9ync8pkCyEBzM8ROJoCrlPQ6P2U82KPXP4LD0OhEjvdk3Xx
+	YP49y2duBmihL2lYY42uITtoSPh//Ldk7TzTOto8zR6OaOjpU5O9cc4LBi042ckEefrZlsu09o3
+	Y2ddZS33cklMlYTyEJOYEL8z/r1r1i+gXlt4dM96zAVhWJ0V17z7iYtosQTS2v0gbDPZkt2AWfJ
+	O/7uAaVWddcRJYZMNbGS6F8fAE+eqSAWAa6pWIZS2nrAdl3lvQs0J4NN02CYPdxRFtEZAOrLOL1
+	NpE3m/lhGilGA==
+X-Received: by 2002:a17:90b:53ce:b0:36d:c159:8f11 with SMTP id 98e67ed59e1d1-36e34775d33mr6490845a91.26.1780565111106;
+        Thu, 04 Jun 2026 02:25:11 -0700 (PDT)
+Received: from [172.19.1.42] (60-250-196-139.hinet-ip.hinet.net. [60.250.196.139])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36e7014f288sm3459212a91.2.2026.06.04.02.25.08
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 02:21:46 -0700 (PDT)
-Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-68d2342c5e6so713690a12.3
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:21:46 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ8T4TutzZjN3AuodhbrZlIOZGqO6bQ5NqbpcYRqFy1QutJH85vq7yyIyuJq1svZcii7zXtWAQBDOOnd@vger.kernel.org
-X-Received: by 2002:a05:6402:5412:b0:687:7fa4:faa0 with SMTP id
- 4fb4d7f45d1cf-68e7293d4dfmr3216975a12.23.1780564905953; Thu, 04 Jun 2026
- 02:21:45 -0700 (PDT)
+        Thu, 04 Jun 2026 02:25:10 -0700 (PDT)
+Message-ID: <b90b4b9e-9e11-40c4-9407-ac9bdc83b0b1@gmail.com>
+Date: Thu, 4 Jun 2026 17:25:07 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260602182157.304964-2-wsa+renesas@sang-engineering.com>
-In-Reply-To: <20260602182157.304964-2-wsa+renesas@sang-engineering.com>
-From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 4 Jun 2026 11:21:30 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdXQY+Oe425SPwR1jvX3ut4Na6P8a+=4asz565Pk_wK8eg@mail.gmail.com>
-X-Gm-Features: AVHnY4LbTi3uuwMEymEapl6w64Pb01ZaxDgzGzs7rTFgzCAq2HPVxYV4oXAMHf8
-Message-ID: <CAMuHMdXQY+Oe425SPwR1jvX3ut4Na6P8a+=4asz565Pk_wK8eg@mail.gmail.com>
-Subject: Re: [PATCH v4] arm64: renesas: r8a779g0: add MFIS node
-To: Wolfram Sang <wsa+renesas@sang-engineering.com>
-Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
-	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	devicetree@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/2] dt-bindings: spi: Add for Nuvoton MA35D1 SoC QSPI
+ Controller
+To: Conor Dooley <conor@kernel.org>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+ conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+References: <20260603043551.1062112-1-cwweng.linux@gmail.com>
+ <20260603043551.1062112-2-cwweng.linux@gmail.com>
+ <20260603-daybed-absentee-1b64f5caabe0@spud>
+ <41914879-5fd0-41dd-b097-2be80096e464@gmail.com>
+ <20260604-anthem-jokingly-8d8312ff0c3f@spud>
+Content-Language: en-US
+From: Chi-Wen Weng <cwweng.linux@gmail.com>
+In-Reply-To: <20260604-anthem-jokingly-8d8312ff0c3f@spud>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2 Jun 2026 at 20:22, Wolfram Sang
-<wsa+renesas@sang-engineering.com> wrote:
-> Describe the MFIS core which is used for various tasks including
-> inter-processor communication. Interrupt numbers look irregular but they
-> all work as expected on a Renesas R-Car V4H SparrowHawk board.
+Hi Conor,
+
+Thanks for the clarification.
+
+I will keep using my personal mail account for sending the patches to
+avoid the corporate confidentiality footer, but I will set the commit
+author and Signed-off-by to my Nuvoton address in v2.
+
+Best regards,
+Chi-Wen
+
+Conor Dooley 於 2026/6/4 下午 04:55 寫道:
+> On Thu, Jun 04, 2026 at 03:07:31PM +0800, Chi-Wen Weng wrote:
+>> Hi Conor,
+>>
+>> Thanks for the review.
+>>
+>>> Missing commit message for one, but why can't your Nuvoton mail be used
+>>> here?
+>> I apologize for the missing commit message; I will add a proper description
+>> in v2.
+>>
+>> Regarding the email address, my Nuvoton mail adds a corporate
+>> confidentiality disclaimer to outgoing
+>> external mail, so I use my personal address for sending kernel patches.
+> This prevents you sending with your work email account, but you can still
+> set your commit author to your Nuvoton address FWIW.
 >
-> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
-> ---
->
-> Changes since v3:
-> * fixed ordering again (Sashiko)
-
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-i.e. will queue in renesas-devel for v7.3.
-
-Gr{oetje,eeting}s,
-
-                        Geert
-
--- 
-Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
-
-In personal conversations with technical people, I call myself a hacker. But
-when I'm talking to journalists I just say "programmer" or something like that.
-                                -- Linus Torvalds
+>> Conor Dooley 於 2026/6/3 下午 11:24 寫道:
+>>> On Wed, Jun 03, 2026 at 12:35:50PM +0800, Chi-Wen Weng wrote:
+>>>> Signed-off-by: Chi-Wen Weng <cwweng.linux@gmail.com>
