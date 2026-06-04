@@ -1,87 +1,86 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A344242D97
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81FFD2701CB
 	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 01:33:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780536819; cv=none; b=Po5D2TdFqlalRBF1NOyr+Oo6SBig/pepi+xpNsJg+cWq5jJ28tSB+BfgU131Y1qP9hnto1msaI+Tj0/Oot6NJIFxo6I/hFkKBohuoLr/EMEsg+saP+woU7zwSRJzK+KronG/h11DI9UOz1XbStwjYISPcW8VN9vjE71xwnD8om4=
+	t=1780536819; cv=none; b=P15UFt5ZuuYU/7iCfHfsCb6IbgLi7Z1BnCweRU2ptvsiyKXHeSSblJy2XQVikSOulK+xqjcOEli2ujOZ/wGjkaVO9r7HeigK1SxZ1dZYMXEJg9o0wx0ldPbvn35Y1ImTO75g2vbL7akHh0kdp+lcDScENNtd2jORFZNAaMp4Xx0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780536819; c=relaxed/simple;
-	bh=vfLZQA0CCbl1QXldfy6CoH4yZcYAenCkW3y8IH9Sbb8=;
+	bh=2ILPtmC6htJwupXVcqBNOJFTUtBdC7zGearGnbGCWow=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=fmX3H1b/47xGtGZ7uT1FczEa+ROrP1y/EOBifejdtjvvprNAZvePPGfW3PWpufixma+R0t0jBaoHU/7AE27EDWTTDiJeFaPCXezns4vPbOy48Ij67uPJEKcALnlaiR8a9FOYO6sAXw8bPO8ZGOe8XveCUERTZQi4/XXZMH8dDTs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=RnNUhkkP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=fksgqJ/t; arc=none smtp.client-ip=205.220.168.131
+	 In-Reply-To:To:Cc; b=WTcQv3ijLHVQPLpStVeNpGg80SJxh5JywtlAG6Q0F10NyzJUQcEjTlJR98j6g/xaxfLhgFyFROIIHIDJnGsI7LhS6+bl8yleONYaMI030czCmUXiFyZoQalSWRtV2TpjpfN2MJyfI8R8PXqMox3kiuLblQAAQLqvwl/nlxRax3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=UlsFzu5u; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=jfeh5nYz; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="RnNUhkkP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="fksgqJ/t"
-Received: from pps.filterd (m0279865.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653JZ2gV1039351
-	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 01:33:34 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="UlsFzu5u";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="jfeh5nYz"
+Received: from pps.filterd (m0279869.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653I6ihF1993971
+	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 01:33:36 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-transfer-encoding:content-type:date:from:in-reply-to
 	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	cZNiqJWbEkNasW3EjtPd4UizYzo77rAvgCzDeRMLYD8=; b=RnNUhkkPIxx8SGT0
-	8d1+5Eko5JvHga0wGRpOggQZJQF9VbIq/QW0u4KDW4WBwqEoqdudX3yuN51sNFSx
-	qZtJmNUSmr2jDOMjlWkV9qSpEPAZMGRXtTwSXY8YHUjZyxy+DMI8vhdWCGlSCD9c
-	HepWjEtz6v40s68oOs1SH9v+1y6+vGIaUrXQnSxQeMlseIpaDTNToGkiPaSJVL3N
-	DZUUVSfsGcyFCSCRDqYDVe4Zbt8xXN3rnGYI6eEXm9uhv8UpIWwKUaEcWjjnlQeU
-	zB0DYeVPkLzdbz6ITLcFTrE9GLg2GnAsq1HjZxNaoKfQ8Bv6Vjg6FXk9dXzPxH+Y
-	velyEw==
-Received: from mail-dl1-f69.google.com (mail-dl1-f69.google.com [74.125.82.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejtj8h34n-1
+	z2jDYFyWFwiBr8ROyqOwhRj8gSALzKVWOWbM241VcAk=; b=UlsFzu5uCmmAOuY5
+	n+UNODU7rmR2+lk0CFS+M5gtZMOnvhOxMh+4eZbfPwGN3UmVTTwwAdb1oN+Jvppu
+	2lNxn4PDrTRWl0IJVTtHSel8cuTZ3pX3RbH5EVqNo1h7gbNILkK7plRHOcfTLkgH
+	kvC9Sj9KNQp22M4opri/thq0UvrcmffZruOA0oTmzh4TpjVWVMx9iy31Asre/Qk4
+	zjuvjWjZxZeKuMWTScFCxmVuTdTtzaqWMzsErWFBCzr5UFJSSxihlIXRsqEjbshB
+	lGpu8+qDIdNLh+iHjayzL7YKHud+0t3pUizmsCmrPxn7wUQCLk9kVkeDRuYklc+e
+	hqQ0gA==
+Received: from mail-dy1-f198.google.com (mail-dy1-f198.google.com [74.125.82.198])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejs8psdpq-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 01:33:34 +0000 (GMT)
-Received: by mail-dl1-f69.google.com with SMTP id a92af1059eb24-137f81004cbso725093c88.0
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 18:33:34 -0700 (PDT)
+	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 01:33:36 +0000 (GMT)
+Received: by mail-dy1-f198.google.com with SMTP id 5a478bee46e88-3074797dfa9so192540eec.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 18:33:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780536814; x=1781141614; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1780536815; x=1781141615; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:from:to:cc:subject:date:message-id
          :reply-to;
-        bh=cZNiqJWbEkNasW3EjtPd4UizYzo77rAvgCzDeRMLYD8=;
-        b=fksgqJ/tyWqs3mC3g3fzIvOyChkD5rPJbpMiEMRMfS6ealAio+ani1kn8yTLSiIn+R
-         S6+J0fO8Se8zqw5nQ61mLt6GxdYC4iyga7Qr6wrNeUugnlui1MwLTXIh8kqGrUII1rL8
-         pdJvmihoYxlDkVaHyMGajsMj6mA6nNmlrct6X5CfwQkn1r/eLFCJ/aoYFhJfuo1qLk+P
-         SwwpV3S1spDswXCBeqz1ZcENwoumX3MxV8NEp2X7pMGwca3GSLewr4bgtbZnHeC1Qr0a
-         x1GZcBQyEAq2MLClyt8M+ST52ivu8xdmVVUIBhtcgjs5Mc7O3HyKBB2FvA3CQKdYGPqk
-         3NKw==
+        bh=z2jDYFyWFwiBr8ROyqOwhRj8gSALzKVWOWbM241VcAk=;
+        b=jfeh5nYzu073Mm2aMGtl4E0ZlPc0N16M+f1rpON5oDGIdDZVv+0f35XU2bOp2dAmOl
+         QYC6RmHNZGWdRt3KSgXFf+13y/uSNoEwuCM5Z/xtWicMgEtH5w/xidjlv1UOJOnh18xD
+         RhM3VI3tANXtb3YbuVsITCoEg+8eLPvIdii2ZfnAw5NRKQR+zvuT8Y3wDNE0WynGwVcv
+         ZqvRXksBAe+kf+bewf0A7ZghN2gg99dXV1uwOFkQyFVvIoW4QnyqlcqmJNvygO/Y8BEk
+         B3t+XL53S8If8lV00PRf73BqbnWPvy6Rp0Lvc0NAG5+FPk7OMqMUwORhdTk/s3M1+hBG
+         0+gQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780536814; x=1781141614;
+        d=1e100.net; s=20251104; t=1780536815; x=1781141615;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
          :cc:subject:date:message-id:reply-to;
-        bh=cZNiqJWbEkNasW3EjtPd4UizYzo77rAvgCzDeRMLYD8=;
-        b=UAiZXSwez1AbCtGhGNG7J3ngNHR+8/5xzUpdlYTfMs0cE1JMDlY09O9T3yoBHfzJPL
-         nAaxadzfOWAImyw6Fvbkdp0R6qaCR7eQElFSn0q6WTF4xnqXnGmMXz/UtQIdVOgsJeFV
-         pQvCuzVbB5PThmhWEqqsF8VDeJsboWF+wuI4lmA3JSl5PnA7qR6ZTSCBSSqUKRyeXJSe
-         0JjuO5pSukneyuZ9czhWVSpI9jCuAoiyKAvjjKOMZLJiYY9fTCuQnHKnXWXP+c/a6ipG
-         dc8f70wOYb9C1uJwFKfgdYNniOqgi1owvaT7MuFm3gQTsaPBUnr+MtkRnByz14Dr/clh
-         8oBA==
-X-Forwarded-Encrypted: i=1; AFNElJ+qiTyyIYR9QPCXpBSe6whtlfd1EXZk127BdCF4wqQN56Dn2nKy1Zn1KdkDaKNL/Kg3hdZwKYMo246L@vger.kernel.org
-X-Gm-Message-State: AOJu0YxuAElu2bKnE0SesgwLjH23+QTBkvcQ8c3MtpU7dY7UvnkPo3pO
-	jfOMO6lxQ/q1eVPCAnDdlrk2wqkvMFWHkeh6Q8b/e9OyxtTONzxUqudm3bnOv5YSk75D+nvb3YJ
-	GGbLnAwVeyu7HhOzObSSO6D3xdB8a/GzVEo0vFbQCUpleTia0eldMFZqsTbiCbucR
-X-Gm-Gg: Acq92OH1lwgRqMzDeTruWkHnDMxg9qVKECcSDWLIUEA4WbOSouTDMJ23Bse2pJRUrqg
-	jhQJ8coFgk0vFXMX7tekzWyEgwlhVJKigQCWhIf/IhJMzW8s8cDqAWqS+AJhPdnl5c3lEdWx8td
-	5l652NwiTYYvR0EhVqLq9GF7tZYGRkn8eqBdpkyYsu/fby2YFgV8WFqi2u5xfI+tzjfCS8L/loj
-	j/2w9VjpqkgaJmnfRw9/jAkdCXBl4iToHqpzec8lIV78CdFeIFJXn+BjPMsOTIf8DZTaYyRqosz
-	ZZkVHCYTmlzho4DWZS9xl5sDpv2I8V+jdLRqgwl/Xd+a2j2gwVf4ETRd5VtGDDFvMb7UlNO5nrv
-	S30WmhNsEywRRWlAONRHVamImJFiBpfkIJLtEj3xZqgYCkNENHbR83wiFKdxAfr84+0BTcQ==
-X-Received: by 2002:a05:7022:481:b0:137:ec47:8ff2 with SMTP id a92af1059eb24-137f663ef61mr2413010c88.0.1780536814011;
+        bh=z2jDYFyWFwiBr8ROyqOwhRj8gSALzKVWOWbM241VcAk=;
+        b=U0TSh72pEmPjf0pwMM8o0t2KcPAD5bANOoOjoDF7ea5KejXtWmUXDTcZIVarnVuS5Q
+         v2HYokIrFj6DwssE3sfFR/FQzUWXJdsLNyXVmY9Ssz+Vy02lIL3mHr556/dj28l55Uvi
+         bjrEzZTpEM9cSwd5h4xHu5ooBAtcFbklNQFBbXQKFVk5J0sgSmyh6l+dZnIl89DFbxug
+         MYVys6w1XiBldO6Y4KZrqwO6BtPzI43C0dakVSoUFVPOM3s7xcIsfwprGlyfOe6w57Ei
+         rqAD3XDadmd1wzMa7dbXAniZjC4kVrW2s50h9Dxbgtz+U1QDypNw5cUHLjoMK7PdKCb4
+         3u8w==
+X-Forwarded-Encrypted: i=1; AFNElJ8sbqc+6mvQpjPVImKyXp81qUjIcFQNWSu8yB0UxfKKqXTh72Mo1der2gyL0diHU73uMZ/N7wprW7NJ@vger.kernel.org
+X-Gm-Message-State: AOJu0YxIGiRRlWh98O2arR6hUadQtZuDvEKfeFERcZ4dD8DVM8t9Qg/i
+	Ce06LpSUyyjZD0JIsHIV8yTMTuZWEdVn7kfCff1N2FlXl73jGQ7RIhX90ZMmM6ZXmmwwZwPIhot
+	t2RqAY9jQ9uV1feC/nBFVc5lx96YX9iYnMUPGK5LTzpCN26EQYTKLCfyjDcRfkR8f
+X-Gm-Gg: Acq92OEoypaDEFtcfSU0mU5dtzz3jXHW3f+O+/BxNV6MB6CkwGVzpWvFdAR0ka3njh9
+	U4AeKOdXF00PZ/d0WwJEU88DTotMo+hkDqewemUlqSBJHti/peK8AbzzOeKhpFEUdl0jZogFr5H
+	WviZYXLd2AYvrHt9mSdLDQNSszJMLRseVTSYcbjkjF9uEW6rW55PuKPrkZ3/F3fSyffkXsoAgco
+	sOMc3CfuhpTXgxdyR6Fajbg58wyMrlPkwOnaj+RcvMYByJ5WIKrKzDXkwYszcWlOGBSxPvc7mvH
+	bhtM26RffZQHL8EYoV9FHpkuRTDWYtzGJbRMtbev4x8FizGvEql8+hKjZPfj2wS2eHnSz4tITjz
+	AufzbEllOQRGCA6YFWUiEYNnO0vv6194wREo9C4xEf6LY2fHsHM5DYxJPtH49cx1kC8htaQ==
+X-Received: by 2002:a05:7022:f314:b0:11a:fb3c:568b with SMTP id a92af1059eb24-137f6ba38e5mr1296345c88.17.1780536815458;
+        Wed, 03 Jun 2026 18:33:35 -0700 (PDT)
+X-Received: by 2002:a05:7022:f314:b0:11a:fb3c:568b with SMTP id a92af1059eb24-137f6ba38e5mr1296336c88.17.1780536814946;
         Wed, 03 Jun 2026 18:33:34 -0700 (PDT)
-X-Received: by 2002:a05:7022:481:b0:137:ec47:8ff2 with SMTP id a92af1059eb24-137f663ef61mr2412998c88.0.1780536813497;
-        Wed, 03 Jun 2026 18:33:33 -0700 (PDT)
 Received: from [169.254.0.3] (Global_NAT1.qualcomm.com. [129.46.96.20])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f553ab33sm2870659c88.10.2026.06.03.18.33.32
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f553ab33sm2870659c88.10.2026.06.03.18.33.33
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 18:33:32 -0700 (PDT)
+        Wed, 03 Jun 2026 18:33:33 -0700 (PDT)
 From: Matthew Leung <matthew.leung@oss.qualcomm.com>
-Date: Thu, 04 Jun 2026 01:33:01 +0000
-Subject: [PATCH v2 07/10] phy: qcom-qmp: qserdes-txrx: Add v10.60 register
- offsets
+Date: Thu, 04 Jun 2026 01:33:02 +0000
+Subject: [PATCH v2 08/10] phy: qcom-qmp: pcs: Add v10.60 register offsets
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -90,7 +89,7 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260604-hawi-phy-pcie-v2-7-be908d3560db@oss.qualcomm.com>
+Message-Id: <20260604-hawi-phy-pcie-v2-8-be908d3560db@oss.qualcomm.com>
 References: <20260604-hawi-phy-pcie-v2-0-be908d3560db@oss.qualcomm.com>
 In-Reply-To: <20260604-hawi-phy-pcie-v2-0-be908d3560db@oss.qualcomm.com>
 To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
@@ -101,175 +100,89 @@ Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
         devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
         Matthew Leung <matthew.leung@oss.qualcomm.com>
 X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1780536795; l=7004;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780536795; l=1895;
  i=matthew.leung@oss.qualcomm.com; s=20260428; h=from:subject:message-id;
- bh=vfLZQA0CCbl1QXldfy6CoH4yZcYAenCkW3y8IH9Sbb8=;
- b=4z3h9nJGsLrWX7Rbt90jH/YhZjffMn+6VLL+O6t364FEubuIr7RFUgugDA0sEdkYQbDb3Gt9R
- sZwKgvV7OU2DyS2FfybTduLAFj32cO1pUCa/zOwX0M++d2s0RI39ui9
+ bh=2ILPtmC6htJwupXVcqBNOJFTUtBdC7zGearGnbGCWow=;
+ b=HjtEuYdgPwNBjfNk6Dz/PB9TbjV1eeA6SMtz2P80BbJnR9dKxGj8QiYoQAnQOND8Sn3IEmqH+
+ 74KD9+/rK2vADK0eZv78mn8nfpzQd6PhC1fRtO5fB9KYTwHNbS6z+L4
 X-Developer-Key: i=matthew.leung@oss.qualcomm.com; a=ed25519;
  pk=aT25ggJo5PMHLN9N+TsZ3s/BVU++kEYuiFebPWe21+o=
-X-Proofpoint-ORIG-GUID: 33FpCr-Vr6hZ7VXjWv-x06KsaBTYZLvA
-X-Proofpoint-GUID: 33FpCr-Vr6hZ7VXjWv-x06KsaBTYZLvA
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDAxMiBTYWx0ZWRfX9NTLWLcPJBDP
- 5QBJfF2bMfnTEQI4b36cmtQ1tqA8h8BHK1DP0BNN0Pj7qUPUn4pw7Dqr3EmW6q3SIOi0C/L1fAz
- rniueffGRvd5ObsvFO8M7SwBgLlsLaaGTobT2ygAUDEqu/0opMkPG6FcuE/Gf6R6aDsR3Kcb4la
- e9RFYSwxR9GJZN1cCUcuURqwDNw28DTiFR9i+nvUiN9GbKyueXREDP+AZJBcDGUNME5hEuOG/x5
- viQmoTUK7+2Da4/rhs5ZP6v2SfDCN23G4+mT2g3Q96IK5t5xGtj+UtdVGAK6aoycHPrC2C/mp61
- Zc5K6cPOFdp6M6odDejGdsIlfNw5OQeYqYuMFPFP75Hezt1xUPI4OXKgYU3NqQQmOzNZs8+P4NR
- n2a/CG9Dj4u5fEEsyzLLe7xzAbHZYydXpyMaxG1E8vW8xCbhHwgGB3+XSCJ9+RUu5pY1ufsGXzW
- gYZfobaeMFGZWc7ytBA==
-X-Authority-Analysis: v=2.4 cv=f4p4wuyM c=1 sm=1 tr=0 ts=6a20d5ee cx=c_pps
- a=kVLUcbK0zfr7ocalXnG1qA==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+X-Proofpoint-ORIG-GUID: gHEvg_RZjo8V2E6k4SSWYm_MpPqqbnMi
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDAxMiBTYWx0ZWRfXxqFqpWZqCKBA
+ M4EKPULZejh4N64DJCVdYYEx6EKHXzkzXyaK2x3w2yi5pLJNeuJqtIsv8zE1gE4x1hvWKUAqZBZ
+ LgbtBisdsf+OILirO8leIxNl5TjH8hXidMmiXq4yJvGQUXQsTo3wq8jXP5kQ+NWG30FAj8BWyMQ
+ l/1DPkfkF9Ey0jMRc3KU6uIjwSZf0QUya2EynYLrQmCnW4w26+pXTm/klggODPVa3MdZJV02OP1
+ fIZd3b+fUSIn1NNQzRVf0UUK1rdnp4Khd7t0b5Breo4qTTxNa+JZGwR0N6k7VqUW8yFlqNKCSrD
+ Yy/G688858IVfZGUEa0lR7yBaBvZ5etlk6KS+FZTGeq6FaZyAf1AMbK4f5yz2VNd0+CO59BeoN3
+ wAja5tXM1VAMQ7k4iUfM8bupKeQzUhI0SMB+qC72nsJAZsSdrJClcfMyKClDkH79lGcRegMrASG
+ sQ5GHuvz7phwGb/fzYg==
+X-Authority-Analysis: v=2.4 cv=E779Y6dl c=1 sm=1 tr=0 ts=6a20d5f0 cx=c_pps
+ a=wEP8DlPgTf/vqF+yE6f9lg==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
  a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=Um2Pa8k9VHT-vaBCBUpS:22
- a=EUspDBNiAAAA:8 a=3YFJjVyaoLhYZoL7l5QA:9 a=QEXdDO2ut3YA:10
- a=vr4QvYf-bLy2KjpDp97w:22
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=_glEPmIy2e8OvE2BGh3C:22
+ a=EUspDBNiAAAA:8 a=pc03IfIZ1lXN1Xjd0rsA:9 a=QEXdDO2ut3YA:10
+ a=bBxd6f-gb0O0v-kibOvt:22
+X-Proofpoint-GUID: gHEvg_RZjo8V2E6k4SSWYm_MpPqqbnMi
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
  definitions=2026-06-04_01,2026-05-28_03,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 suspectscore=0 phishscore=0 bulkscore=0 clxscore=1015
- adultscore=0 priorityscore=1501 impostorscore=0 malwarescore=0
- lowpriorityscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2605210000
- definitions=main-2606040012
+ clxscore=1015 lowpriorityscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ spamscore=0 phishscore=0 bulkscore=0 priorityscore=1501 suspectscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040012
 
-Hawi SoC bumps the HW version of QMP phy to v10.60 for PCIe. Add the new
-qserdes TX RX offsets in a dedicated header file.
+Hawi SoC bumps up the HW version of QMP phy to v10.60 for PCIe Gen4 x1.
+Add the new PCS offsets in a dedicated header file.
 
 Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
 ---
- .../qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h    | 109 +++++++++++++++++++++
- drivers/phy/qualcomm/phy-qcom-qmp.h                |   1 +
- 2 files changed, 110 insertions(+)
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h | 23 +++++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-qmp.h            |  2 ++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h
+diff --git a/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h
 new file mode 100644
-index 000000000000..3150a494685e
+index 000000000000..fe0279ac4e4d
 --- /dev/null
-+++ b/drivers/phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h
-@@ -0,0 +1,109 @@
++++ b/drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h
+@@ -0,0 +1,23 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
 +/*
 + * Copyright (c) Qualcomm Technologies, Inc. and/or its subsidiaries.
 + */
 +
-+#ifndef QCOM_PHY_QMP_QSERDES_TXRX_V10_60_H_
-+#define QCOM_PHY_QMP_QSERDES_TXRX_V10_60_H_
++#ifndef QCOM_PHY_QMP_PCS_V10_60_H_
++#define QCOM_PHY_QMP_PCS_V10_60_H_
 +
-+#define QSERDES_V10_60_TXRX_RES_CODE_LANE_OFFSET_TX			0x034
-+#define QSERDES_V10_60_TXRX_RES_CODE_LANE_OFFSET_RX			0x038
-+#define QSERDES_V10_60_TXRX_LANE_MODE_1					0x080
-+#define QSERDES_V10_60_TXRX_LANE_MODE_2					0x084
-+#define QSERDES_V10_60_TXRX_LANE_MODE_3					0x088
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_FO_GAIN_RATE1			0x0c8
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_FO_GAIN_RATE2			0x0cc
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_FO_GAIN_RATE3			0x0d0
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_FO_GAIN_RATE4			0x0d4
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_SO_GAIN_RATE1			0x0e0
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_SO_GAIN_RATE2			0x0e4
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_SO_GAIN_RATE3			0x0e8
-+#define QSERDES_V10_60_TXRX_UCDR_FASTLOCK_SO_GAIN_RATE4			0x0ec
-+#define QSERDES_V10_60_TXRX_UCDR_PI_CTRL1				0x12c
-+#define QSERDES_V10_60_TXRX_UCDR_PI_CTRL2				0x130
-+#define QSERDES_V10_60_TXRX_UCDR_PI_CTRL3				0x134
-+#define QSERDES_V10_60_TXRX_UCDR_PI_CTRL4				0x138
-+#define QSERDES_V10_60_TXRX_SVS_MODE_CTRL				0x19c
-+#define QSERDES_V10_60_TXRX_RXCLK_DIV2_CTRL				0x1a0
-+#define QSERDES_V10_60_TXRX_RX_BAND_CTRL0				0x1a4
-+#define QSERDES_V10_60_TXRX_RX_TERM_BW_CTRL0				0x1ac
-+#define QSERDES_V10_60_TXRX_RX_TERM_BW_CTRL1				0x1b0
-+#define QSERDES_V10_60_TXRX_UCDR_FO_GAIN_RATE1				0x1b8
-+#define QSERDES_V10_60_TXRX_UCDR_FO_GAIN_RATE2				0x1bc
-+#define QSERDES_V10_60_TXRX_UCDR_FO_GAIN_RATE3				0x1c0
-+#define QSERDES_V10_60_TXRX_UCDR_FO_GAIN_RATE4				0x1c4
-+#define QSERDES_V10_60_TXRX_UCDR_SO_GAIN_RATE1				0x1d0
-+#define QSERDES_V10_60_TXRX_UCDR_SO_GAIN_RATE2				0x1d4
-+#define QSERDES_V10_60_TXRX_UCDR_SO_GAIN_RATE3				0x1d8
-+#define QSERDES_V10_60_TXRX_UCDR_SO_GAIN_RATE4				0x1dc
-+#define QSERDES_V10_60_TXRX_UCDR_PI_CONTROLS				0x1e4
-+#define QSERDES_V10_60_TXRX_AUXDATA_BIN_RATE3				0x200
-+#define QSERDES_V10_60_TXRX_AUXDATA_BIN_RATE4				0x204
-+#define QSERDES_V10_60_TXRX_EOM_MAX_ERR_LIMIT_LSB			0x218
-+#define QSERDES_V10_60_TXRX_EOM_MAX_ERR_LIMIT_MSB			0x21c
-+#define QSERDES_V10_60_TXRX_VGA_CAL_CNTRL1				0x280
-+#define QSERDES_V10_60_TXRX_VGA_CAL_MAN_VAL				0x288
-+#define QSERDES_V10_60_TXRX_GM_CAL					0x29c
-+#define QSERDES_V10_60_TXRX_RX_EQU_ADAPTOR_CNTRL6			0x2b8
-+#define QSERDES_V10_60_TXRX_SIGDET_ENABLES				0x2d4
-+#define QSERDES_V10_60_TXRX_SIGDET_CNTRL				0x2d8
-+#define QSERDES_V10_60_TXRX_SIGDET_LVL					0x2dc
-+#define QSERDES_V10_60_TXRX_SIGDET_DEGLITCH_CNTRL			0x2e0
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B0				0x314
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B1				0x318
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B2				0x31c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B3				0x320
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B4				0x324
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B5				0x328
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B6				0x32c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B7				0x330
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B8				0x334
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B9				0x338
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE_0_1_B10			0x33c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B0				0x340
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B1				0x344
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B2				0x348
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B3				0x34c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B4				0x350
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B5				0x354
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B6				0x358
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B7				0x35c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B8				0x360
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B9				0x364
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE2_B10				0x368
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B0				0x36c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B1				0x370
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B2				0x374
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B3				0x378
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B4				0x37c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B5				0x380
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B6				0x384
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B7				0x388
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B8				0x38c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B9				0x390
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE3_B10				0x394
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B0				0x398
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B1				0x39c
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B2				0x3a0
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B3				0x3a4
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B4				0x3a8
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B5				0x3ac
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B6				0x3b0
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B7				0x3b4
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B8				0x3b8
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B9				0x3bc
-+#define QSERDES_V10_60_TXRX_RX_MODE_RATE4_SA_B10			0x3c0
-+#define QSERDES_V10_60_TXRX_Q_PI_INTRINSIC_BIAS_RATE32			0x478
-+#define QSERDES_V10_60_TXRX_Q_PI_INTRINSIC_BIAS_RATE45			0x47c
-+#define QSERDES_V10_60_TXRX_SIGDET_CAL_CTRL1				0x4c8
-+#define QSERDES_V10_60_TXRX_SIGDET_CAL_CTRL2				0x4cc
-+#define QSERDES_V10_60_TXRX_SIGDET_CAL_TRIM				0x4d0
-+#define QSERDES_V10_60_TXRX_TX_BAND0					0x4e8
-+#define QSERDES_V10_60_TXRX_TX_BAND1					0x4ec
-+#define QSERDES_V10_60_TXRX_SEL_10B_8B					0x4f4
-+#define QSERDES_V10_60_TXRX_SEL_20B_10B					0x4f8
-+#define QSERDES_V10_60_TXRX_EQ_RCF_CTRL_RATE3				0x53c
-+#define QSERDES_V10_60_TXRX_EQ_RCF_CTRL_RATE4				0x540
-+#define QSERDES_V10_60_TXRX_PHPRE_CTRL					0x5e8
++/* Only for QMP V10_60 PHY - USB/PCIe PCS registers */
++#define QPHY_V10_60_PCS_SW_RESET			0x000
++#define QPHY_V10_60_PCS_PCS_STATUS1			0x014
++#define QPHY_V10_60_PCS_POWER_DOWN_CONTROL		0x040
++#define QPHY_V10_60_PCS_START_CONTROL			0x044
++#define QPHY_V10_60_PCS_G12S1_TXDEEMPH_M6DB		0x170
++#define QPHY_V10_60_PCS_G3S2_PRE_GAIN			0x178
++#define QPHY_V10_60_PCS_RX_SIGDET_LVL			0x190
++#define QPHY_V10_60_PCS_ELECIDLE_DLY_SEL		0x1b8
++#define QPHY_V10_60_PCS_PCS_TX_RX_CONFIG1		0x1dc
++#define QPHY_V10_60_PCS_PCS_TX_RX_CONFIG2		0x1e0
++#define QPHY_V10_60_PCS_EQ_CONFIG4			0x1f8
++#define QPHY_V10_60_PCS_EQ_CONFIG5			0x1fc
 +
 +#endif
 diff --git a/drivers/phy/qualcomm/phy-qcom-qmp.h b/drivers/phy/qualcomm/phy-qcom-qmp.h
-index 85da2581ef90..e461a000da48 100644
+index e461a000da48..3a4a0a9a9e4d 100644
 --- a/drivers/phy/qualcomm/phy-qcom-qmp.h
 +++ b/drivers/phy/qualcomm/phy-qcom-qmp.h
-@@ -43,6 +43,7 @@
- #include "phy-qcom-qmp-qserdes-txrx-v10.h"
+@@ -73,6 +73,8 @@
  
- #include "phy-qcom-qmp-qserdes-com-v10_60.h"
-+#include "phy-qcom-qmp-qserdes-txrx-v10_60.h"
+ #include "phy-qcom-qmp-pcs-v10.h"
  
- #include "phy-qcom-qmp-qserdes-pll.h"
- 
++#include "phy-qcom-qmp-pcs-v10_60.h"
++
+ /* QPHY_SW_RESET bit */
+ #define SW_RESET				BIT(0)
+ /* QPHY_POWER_DOWN_CONTROL */
 
 -- 
 2.34.1
