@@ -1,153 +1,214 @@
-Received: from mail-wm1-f43.google.com (mail-wm1-f43.google.com [209.85.128.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42789199D8
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 00:30:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560541A23A4
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 01:33:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780533040; cv=none; b=s/E2vkKsUjTFuCrf6o6pTMI0EyUrBZvrQx913bkG2j3ifpNaJ2XYta1gYVeMR2waNZVb1BvTX9CVF1RXJoUxkCLGF5doOUEz6w2AccowMtK9dv7vV9XFccAShkcpAIWgn6lpi0Lbh3n3xwoxgJlkCfKYxov58+SWT6BcJOzSBkk=
+	t=1780536804; cv=none; b=qO2q+saF7xssQAa5ZN1UXT5uP0N77z4VohVlyC6LPdrhzkZq1kprgMVpPUDDq5qqeCD6rGmrVwYo2jPlkTVZZX779K3+1zOSngRiqSI+nR+uZtHyDNZQ5w3mYVYv4vwWspO0A8qYxgwqsHiq9LlCFdnypt8g8XUXNlEoAAGiHX4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780533040; c=relaxed/simple;
-	bh=JhiDwTV+ijp+Yldkrq2VgUruPnSxOK6hNGgkqkxKz+E=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=HKixaMwPYjOdrt9BVrK3CphE6MFqYXpY8Q60/ayYwWJEZNTl3FN/4CVV5XFs0yHQv6ilTVQIPopLG22ZOsRFRXiAzXKrVKXIyOWY+ff9VL0riPx22nnwvLltiHkfdBTMfnmXXVZw8y4FxWuE1Dy2qEfpUYMA+dJHbNkGL0vVk/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=pacFqSn1; arc=none smtp.client-ip=209.85.128.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780536804; c=relaxed/simple;
+	bh=uTCKAOimS1e3IAJT8RyhpxQQI0cr7ZclI5yzTrMleqQ=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gGr7AIbtypgGNQAY7rHZlMnpCfLoII5O9/Y6RHa5ofavus+6RYoGcxFNTHyqc6fF4bl6MnYSqYKYydgUZsxmdMSZrVf1OkpBtgV6mjRFo0j6/Bk2lOSaHkcE29w8Z1VtIswG5xXYsWmrRcT2Tj9Ph99WEJnfbJ1Q99dEn4lVro8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=fo1ujcOa; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=iaaXdt8C; arc=none smtp.client-ip=205.220.180.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="pacFqSn1"
-Received: by mail-wm1-f43.google.com with SMTP id 5b1f17b1804b1-490b3e03939so610625e9.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 17:30:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="fo1ujcOa";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="iaaXdt8C"
+Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 653Hw9cJ3234874
+	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 01:33:22 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=17PcoNEeNo90Qm4iX3hBk8
+	teNDLcrwWXo6ltz+wsj7M=; b=fo1ujcOalTQDpF/eq2+Z0Z52zTm9Xp44jCswuP
+	k/SRSAMzpmot8VcqFC0yEXonuqkiUqsSLctpV6yHSTWWGTtGDRfY/XrIWR8tLbG7
+	dIpeOwtQbHx9pkBnYAN14yf10t2fU+WiCI9ou2+PS4SXP191cutfqrUOsgODrMRw
+	7bFmXu0MoHte303a6Icj6WD4gSxrHbCMcnKaOz6wvb5wav+OfEDIZUj32Z12s5QA
+	qg6pq9WJo2ccFzQA7f7tm2MVtz6YETti/AUIaXqAaKbXqFqCW2CtLVH7k8D7SlfJ
+	IwF3bCgdgIt2FJc1YFa+mqcFprE0HuRQ0mby3leqF8la+cyQ==
+Received: from mail-dy1-f199.google.com (mail-dy1-f199.google.com [74.125.82.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejs4s1fep-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 01:33:22 +0000 (GMT)
+Received: by mail-dy1-f199.google.com with SMTP id 5a478bee46e88-304df51ff3eso124973eec.0
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 18:33:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780533038; x=1781137838; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=vjGmXAmM+3Nn1KtSjLMnBrRs8nWD00igFoG8wE5QxV0=;
-        b=pacFqSn1c+5Kr0h+C2jMEkWno4MZEYn54CByYGggmS1GQfeh5amjJ8b1qsG83hwgQG
-         N74cUkqYYL2mjwaQSIlBVn/c+xZXEtgL+60f2qDzge/dfpOLoUhCmsZHeAj+7bJasNTV
-         EWxbVvzoriI2f/BAR0hAx34UQA8SUjDgxioQZXSNYXelr3+6TrVcLLp0lDkviJVjKvtF
-         hZkhStg7BHXorglVyQt9uWmkmUF47r2ZkeJofMSQ9H1RuWRNCGvnnETLRdBV6nB6xXpu
-         sKWV9kuEwqhRcEeW+bNdKW3OP/odonkdupdQE0G35/p3gArutgAsIhZ3LiRwc19O1ybj
-         ZW7g==
+        d=oss.qualcomm.com; s=google; t=1780536801; x=1781141601; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:from:to:cc:subject:date:message-id:reply-to;
+        bh=17PcoNEeNo90Qm4iX3hBk8teNDLcrwWXo6ltz+wsj7M=;
+        b=iaaXdt8CsJZlAml85UCUs25eghlyI5TWfaAnIfH5FFi1C/+Bo+c9aRKIm4wPjH+CbC
+         PZs4ZBWLT9HWE0dcQmTLaR5DpYIKkZYiCSiJK0CNxcfnN5lBBXBriNCqE+viuML2eKTw
+         mF8fDh0e0TYtozltQ3nRrB2JQ2S1zPNZaeVSJziRO23zwF/eOFB3m6RrVh2LaHg9CKCC
+         fKaI9ix/1PU97M/oytb1vvyqwabt+8Ym7fnhyGsffxSh1vtxmugvcGrTsaYK4ntkmYzM
+         cUTF1CI9C/Zg4mTPvvxNvbvdFpS+afJ0UmdRw/yC8Ru0LOdmWj2hQ0XEqOXzpbnZ6VNp
+         QxLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780533038; x=1781137838;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=vjGmXAmM+3Nn1KtSjLMnBrRs8nWD00igFoG8wE5QxV0=;
-        b=RfYQzYDDoX5AOQavc+WZkQHuGXJP7AutozS/737ym7+fcX/Kx7peqroL1Z9jajWSjW
-         f4zgpoObioubVbflVEZAczteKJ9coqr4G9wxp+sInaj9ALzYAvKQPH7So4CcjTeVdYqF
-         CPZyzzcq0CTLS+nx7pEps99EiWtcDmB+XDIF3tqJwVF4fyT6mY9a3vUgvH7QeT2XtSrD
-         95ysISXsQTEdGKUj9saydE9Mi4OMhUq96Fg1LK6XemqWqJfSIBNcCHZs9QYSq+T2R9dm
-         IaCbDMn73N/V0ekJ5AZ7H7DD/wmJSneOVYbm9G4dgsc6wRcUNXb34RtPTeaG0bTvlqLR
-         g1/w==
-X-Forwarded-Encrypted: i=1; AFNElJ9jAu8L/D8z+jvgbPsmNPZecW+r6fOa9c43g5IksbsG0gosTLXgy+yMGrpaaBD+co4tu3EA3lGaULPb@vger.kernel.org
-X-Gm-Message-State: AOJu0YzAkf1ARZyFjL6Hy5O8QL3uvAD41ZZcu4dRGaUHaWnNTjU7kLaU
-	nJgw4DjTyZgvA1E/YQoIIMk/UgXTmvC9B1mBVb0kpsEwV38RhUv2AZFYSRdz5zhV1Y6rGRDAnYR
-	zsDyl00I=
-X-Gm-Gg: Acq92OF3Q8M1xxPXk/Q5nRMDA5viH/8Ryni2VWjgPz3lqEmOg1iIdtj8dBu6Ty69u+3
-	w81c9QwcxprfHNZu8GHOiRe2izYFocOrUtYBX425yrT+ldAKCSc43BjEO9wtrT7PTo3hYTa6K39
-	tGQezmx/kL2ZSsWzoQsr5m7phksyDDqayY33aEaOkWMZ+wY1nJN4akLkRrl/CXLMnJx+JmOrflE
-	FofnaiQyyDQ5GpnPqK9CxUS374L3fof0wULF0u+1kr7mRbkfLGQReZWne5hACkktsvz1s0ZbX9v
-	ogEL56ZotxJILOjtCuxudp+hTVHf15JZWjMTyMr4TsWS0k+A7ZoEKx1FskwjuXcWaoOuCuvvCm6
-	IzU5tLm8Lmz9ih0W4TrXbzGRBeIAXAKStJ8M823LGM0ygbHKufD0Q86zyJ7ohBw2cOiVNfaqLEp
-	jXqD2MD+nitNnT76LpuTgq2XQ10IDkFLeXssO4xx5boZsRWw==
-X-Received: by 2002:a05:600c:4c19:b0:48a:5236:7f38 with SMTP id 5b1f17b1804b1-490bc5166a0mr12416105e9.14.1780533037608;
-        Wed, 03 Jun 2026 17:30:37 -0700 (PDT)
-Received: from [192.168.0.101] ([109.77.42.178])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4601f2dc412sm11926549f8f.4.2026.06.03.17.30.35
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 17:30:37 -0700 (PDT)
-Message-ID: <83c12dc5-fcb4-4089-9917-9f0fcc4f940d@linaro.org>
-Date: Thu, 4 Jun 2026 01:30:34 +0100
+        d=1e100.net; s=20251104; t=1780536801; x=1781141601;
+        h=cc:to:content-transfer-encoding:mime-version:message-id:date
+         :subject:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=17PcoNEeNo90Qm4iX3hBk8teNDLcrwWXo6ltz+wsj7M=;
+        b=hdEJj9faGwGF9bjDEPjJdpitmvsiJTEHmXSpGf4BEYnL1ZirRye5Z3fRdWZAKBSk9P
+         xtNuX6bddeWV2IGfN2NYZQs+NF+XzUIkvb/uSAg6ZsDu5ewy4X7RElvXD+FUCQ3U0Wa9
+         sKT6SlFlbTIXbBBuwUYHT4yGgHLKR4e4NfXo2Fr0KTE3I9oSNlMZls7szcBwpfGqz2Al
+         zEhes0tbZGglq27UqYdHegpwTECSQ3e3egvlFQZfsURWPBvqCnlKMturYJGRVioUJ8wC
+         IP42ErA7F/rUXwA4G+c3noqleD2gkeqZsajMKdogwLK1DjVikcGeIh4xuJ+Yy8SbItxv
+         T88w==
+X-Forwarded-Encrypted: i=1; AFNElJ8uIgZvB+XSIUAl0DwnPjo/yhAWxRESyUZ9pzve7Gzow6oRKP8qfumhZDSGvDU7tG382VCEeLQDJtgi@vger.kernel.org
+X-Gm-Message-State: AOJu0YybGX3QenDvn5VJSeNX1bANjBDf1DoqoTUDy3L+hljOOMsBZ59/
+	AT+9SrdrIBmj2sDfFWtbGFHoV1Dx3VzgXxlqovjs07OF3Z0WjI/qpWIaD/LjuTOcyFSPfaZKfE3
+	2d00dmlef5nqUFTpSNzo9Gk9Rg67sydJLf0ZAW50E929NaKMrOwPfseN4pepEjwpv
+X-Gm-Gg: Acq92OFxgnoJ/Tbtxr4qn0s5OYlWfGl1e2EVG9L/nniVqk20LpXDGU24x0wkhZoT8EQ
+	3jl7lOBK0vB4gz6uKgAlGnCHVa7kkrd6t11SM8SWJPKglNiCbqIqm+Ben3xIRYYQtJHXgOhp4K0
+	1n6gsHVkxdpHqC94lA08PUMtAsEVIYmshE4bmPVJMj8KWKiuxqRM8xr9crqrnsa3xnXjHjYLtKb
+	LAUW3/3ISRAezMd30Xi/Qf+y5HSTS87ndNG5hsRE1QfjUP+SMbOD4VfVQLYdCZkiTHgH1dIQhKK
+	FyZxk+uQ6JRiQgg+5iR+lYwVHqv91T+iclfLnIA/RiBddfJqNY/fMDPowZEMJOXw1eIVTg9awNN
+	0OyUeWRUBKmxIiZ6KO4AtG55AfsY8Iwz6kjuNT+4KTZmS+TxjLxgayKaSOB8+yFoQeMPbjA==
+X-Received: by 2002:a05:7022:1b0c:b0:134:fea9:f107 with SMTP id a92af1059eb24-137f6bd09camr2140775c88.33.1780536801107;
+        Wed, 03 Jun 2026 18:33:21 -0700 (PDT)
+X-Received: by 2002:a05:7022:1b0c:b0:134:fea9:f107 with SMTP id a92af1059eb24-137f6bd09camr2140762c88.33.1780536800527;
+        Wed, 03 Jun 2026 18:33:20 -0700 (PDT)
+Received: from [169.254.0.3] (Global_NAT1.qualcomm.com. [129.46.96.20])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-137f553ab33sm2870659c88.10.2026.06.03.18.33.15
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 03 Jun 2026 18:33:18 -0700 (PDT)
+From: Matthew Leung <matthew.leung@oss.qualcomm.com>
+Subject: [PATCH v2 00/10] phy: qcom: qmp-pcie: Add PCIe PHY support for
+ Hawi
+Date: Thu, 04 Jun 2026 01:32:54 +0000
+Message-Id: <20260604-hawi-phy-pcie-v2-0-be908d3560db@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
- <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
- <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
- <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
- <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
- <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
- <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAMbVIGoC/12Nyw6CMBREf4XctSV9AIIr/8OwgHqx1wjFFlBC+
+ HcLxo2bSU4yc2YBj47QwylawOFEnmwXQB4i0KbqbsjoGhgklxlPecZM9SLWm5n1mpDJXBVK1Yk
+ QCiFseocNvXffpfyyH+s76mGTbA1DfrBu3g8nsfV+7vzPPQnGmVTHOi8SlapGn6338XOsHtq2b
+ RwCynVdP5LDLqfDAAAA
+X-Change-ID: 20260506-hawi-phy-pcie-283933b4113e
+To: Vinod Koul <vkoul@kernel.org>, Neil Armstrong <neil.armstrong@linaro.org>,
+        Rob Herring <robh@kernel.org>,
+        Krzysztof Kozlowski <krzk+dt@kernel.org>,
+        Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
+        Matthew Leung <matthew.leung@oss.qualcomm.com>,
+        Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780536795; l=3318;
+ i=matthew.leung@oss.qualcomm.com; s=20260428; h=from:subject:message-id;
+ bh=uTCKAOimS1e3IAJT8RyhpxQQI0cr7ZclI5yzTrMleqQ=;
+ b=y8pI9fhwl74kPeC+ouRPoY00C4rw66ueKur/P9ExNw3XdUoF/+dyqbO4Mq2iOdXplm/hJMmew
+ 2zXpR44WGJVBSah8G000oG3ontyhBmI9upH8Oq2K7z/WTmYnhlxZlN3
+X-Developer-Key: i=matthew.leung@oss.qualcomm.com; a=ed25519;
+ pk=aT25ggJo5PMHLN9N+TsZ3s/BVU++kEYuiFebPWe21+o=
+X-Proofpoint-ORIG-GUID: RRsCWqKJs_U7QdihIzpcNrtZjAjBgBC2
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDAxMiBTYWx0ZWRfX62Ss1mvQh9Ya
+ kIUawV7EyHdvn240eVSnvX16Ud8t0PRCJCrVVhOgB6QwqcjsmDugVnuoiXmV5Sx0WlAYdWWgBxM
+ lxDtaCM+0NFNmh2Jxk8kLWfjeH/llK8u/OS15kQ+ZjF0tT7JwJ9E58iqRPlVvJalaO5yXmtEDXa
+ 098JK/IxaGPmaZ5v31xulvf2gFVjIIZxh/bK9wzAS4OKEfCVzgiLaLB9zqM44dncR8wZPvA45x9
+ D+p+/Z7Cr79S6UgSaQgicz4bTzab5RipM+VxIjzImI+Z7DSuCuSZvdN+vS4/GtptKzpcLiCLVpW
+ 2WZ9zmR4261bU9SPmgo4XwK5uLkIDn1anozjeMBmqwqhhLqyUhtaLP2zNDqsgaVolcHCFuoQgN+
+ lNI5zC0czNhJJECoQMg8Gu16Nk6b0Ev/LKVgYCeHfP+AnOWQoskYJUb5WXNBHg3VhLPowep4JQf
+ JM14VQX9gOT0xywu4OA==
+X-Authority-Analysis: v=2.4 cv=afRRWxot c=1 sm=1 tr=0 ts=6a20d5e2 cx=c_pps
+ a=cFYjgdjTJScbgFmBucgdfQ==:117 a=ouPCqIW2jiPt+lZRy3xVPw==:17
+ a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=bC-a23v3AAAA:8 a=KKAkSRfTAAAA:8
+ a=JfrnYn6hAAAA:8 a=lrmUyyXwqMAXkeg-CF8A:9 a=QEXdDO2ut3YA:10
+ a=scEy_gLbYbu1JhEsrz4S:22 a=FO4_E8m0qiDe52t0p3_H:22 a=cvBusfyB2V15izCimMoJ:22
+ a=1CNFftbPRP8L7MoqJWF3:22
+X-Proofpoint-GUID: RRsCWqKJs_U7QdihIzpcNrtZjAjBgBC2
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
+ definitions=2026-06-04_01,2026-05-28_03,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 clxscore=1015
+ adultscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040012
 
-On 04/06/2026 01:07, Vladimir Zapolskiy wrote:
-> On 6/4/26 00:18, Bryan O'Donoghue wrote:
->> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
->>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
->>> If CSIPHYs are true subdevices under the umbrella CAMSS device and well
->>> described as subnodes, then likely none of power domains are needed 
->>> to be
->>> repeatedly described in the children device nodes, since this 
->>> information
->>> can be obtained from the parent device by the driver.
->>>
->>> Technically 'power-domains' property can be safely removed, I believe.
->>
->> The policy is to describe the power-domain dependency fully since DT
->> describes hardware not software architecture.
-> 
-> It brings no contardiction to the statement I've given above, the needed
-> power domans will be properly described in the parent device, and there 
-> is no
-> sense to repeat the properties it again and again in every child subdevice.
-> 
->> Also for a very practical reason a sub-devices can probe/run
->> asynchronously of the parent device being active so in fact we do need
->> to describe the PDs fully.
-> 
-> In opposite to the above this one is precisely a software centric argument,
-> which should be excluded from the consideration, as well it's not a big
-> deal to make a proper async initialization, removing excessive dt 
-> properties
-> is worth it.
-> 
+This series adds QMP PCIe PHY support for the Qualcomm Hawi SoC. The Hawi
+platform features two PCIe PHY configurations: Gen3 x2 and Gen4 x1.
 
-Right look forget about that.
+The Gen3 x2 PHY uses v10 register definitions, while the Gen4 x1 PHY uses
+v10.60 register definitions.
 
-- DT requires you to describe your hardware. You're not entitled to have
-   some other device vote for a clock or a PD you rely on.
+The series adds:
+- device tree bindings (patch 1)
+- v10 register offset headers (patches 2-5)
+- v10.60 register offset headers (patches 6-9)
+- driver support with PHY initialization tables for both configurations
+  (patch 10)
 
-   That's exactly the type of downstream short cut we are trying to zap.
+Overlap:
+The series has overlap with "phy: qcom: Introduce USB support for Hawi"
+by Ronak Raheja (see link [1]). Both patch series introduce a subset of
+v10 registers (this series for PCIe and Ronak's for USB). I have
+coordinated with Ronak regarding the overlap, and we can update the
+series to resolve any overlap based on the order of merging.
 
-- In our case we also need to vote on PDs individually when the PHY
-   is active.
+Link: https://lore.kernel.org/all/20260508213234.4643-1-ronak.raheja@oss.qualcomm.com/ [1]
 
-In extremis say we are only running the TPG then we have no reason to 
-vote for CSIPHY specific rails or operating points in the parent device.
+Signed-off-by: Matthew Leung <matthew.leung@oss.qualcomm.com>
+---
+Changes in v2:
+- Rebased onto v7.1-rc6
+- Patch 1: no change (Reviewed-by carried forward)
+- Patch 9: rename QPHY_PCIE_V10_60_PCS_PCS_TX_RX_CONFIG to
+  QPHY_PCIE_V10_60_PCS_TX_RX_CONFIG to be consistent with the
+  naming convention used in previous pcs-pcie headers
+- Patch 10: update usage of renamed macro
+- Link to v1: https://patch.msgid.link/20260508-hawi-phy-pcie-v1-0-237b894353fc@oss.qualcomm.com
 
-We could make the parent power-domain argument for CAMSS and CCI but we 
-have TITAN_TOP_GDSC in CCI specifically because we have to model the 
-hardware - including the PDs for that device.
-
-If tomorrow we put CCI as a sub-device of top-level CAMSS, that won't 
-negate the need to include that GDSC.
+To: Vinod Koul <vkoul@kernel.org>
+To: Neil Armstrong <neil.armstrong@linaro.org>
+To: Rob Herring <robh@kernel.org>
+To: Krzysztof Kozlowski <krzk+dt@kernel.org>
+To: Conor Dooley <conor+dt@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org
+Cc: linux-phy@lists.infradead.org
+Cc: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org
 
 ---
-bod
+Matthew Leung (10):
+      dt-bindings: phy: qcom,sc8280xp-qmp-pcie-phy: Add Hawi compatibles
+      phy: qcom-qmp: qserdes-com: Add v10 register offsets
+      phy: qcom-qmp: qserdes-txrx: Add v10 register offsets
+      phy: qcom-qmp: pcs: Add v10 register offsets
+      phy: qcom-qmp: pcs-pcie: Add v10 register offsets
+      phy: qcom-qmp: qserdes-com: Add v10.60 register offsets
+      phy: qcom-qmp: qserdes-txrx: Add v10.60 register offsets
+      phy: qcom-qmp: pcs: Add v10.60 register offsets
+      phy: qcom-qmp: pcs-pcie: Add v10.60 register offsets
+      phy: qcom: qmp-pcie: Add QMP PCIe PHY support for Hawi
+
+ .../bindings/phy/qcom,sc8280xp-qmp-pcie-phy.yaml   |   6 +
+ drivers/phy/qualcomm/phy-qcom-qmp-pcie.c           | 382 +++++++++++++++++++++
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10.h   |  18 +
+ .../phy/qualcomm/phy-qcom-qmp-pcs-pcie-v10_60.h    |  26 ++
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10.h        |  22 ++
+ drivers/phy/qualcomm/phy-qcom-qmp-pcs-v10_60.h     |  23 ++
+ .../phy/qualcomm/phy-qcom-qmp-qserdes-com-v10.h    |  49 +++
+ .../phy/qualcomm/phy-qcom-qmp-qserdes-com-v10_60.h |  55 +++
+ .../phy/qualcomm/phy-qcom-qmp-qserdes-txrx-v10.h   |  47 +++
+ .../qualcomm/phy-qcom-qmp-qserdes-txrx-v10_60.h    | 109 ++++++
+ drivers/phy/qualcomm/phy-qcom-qmp.h                |  10 +
+ 11 files changed, 747 insertions(+)
+---
+base-commit: e43ffb69e0438cddd72aaa30898b4dc446f664f8
+change-id: 20260506-hawi-phy-pcie-283933b4113e
+
+Best regards,
+--  
+Matthew Leung <matthew.leung@oss.qualcomm.com>
+
