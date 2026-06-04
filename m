@@ -1,292 +1,210 @@
-Received: from DB3PR0202CU003.outbound.protection.outlook.com (mail-northeuropeazon11010061.outbound.protection.outlook.com [52.101.84.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua1-f44.google.com (mail-ua1-f44.google.com [209.85.222.44])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D697378D84;
-	Thu,  4 Jun 2026 21:22:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.84.61
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780608134; cv=fail; b=Doacm986vc/KI0D2laMaezlpjMDFmuH0QaVjpiSDKgVDEsDIwbXi8IYlz6HsRLfJckLFLLaEiZfYeo65H/ZKtz+djFnTQBPDoRE7Kfj4v05geyOZdoEg8BAcS1t0PrNLnqTq72pmyHiUl7E5q3hkPlNRA6tIlwil1m5Z5A3/xvM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780608134; c=relaxed/simple;
-	bh=QdAGD2KAd7mJJBmxzsopJxE61boZ0Z1hNnRUNg3YqMs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=R5UzNwa6CK3C4wjg99dNK3eLEjBd8Xk8TwJ/NmxxajcdSS7nO8F+FtvflgyrytzFZ5eyB/WrF9zaJeBehPfoVqqzinwf0t+BBAehTrwoCSAMBkQE2F+Bgz9GRs+12VWYsZ5kjTlTvAMkFbnxBx0Ie1lYakIspuQk8dqarGk6zjo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com; spf=pass smtp.mailfrom=nxp.com; dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b=gynNTBjX; arc=fail smtp.client-ip=52.101.84.61
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE96F29AB05
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 21:23:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.44
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780608228; cv=none; b=RjUty5k9aGxwR5/6uEBRARbkSE/5aZrn2XjDLDefOnJIXX2TfwHycwd2bmRxXqK0u0kEfioAyKG3fyD7sKdJKysonkzylHAckqm1sgGEyASemcRDLiqJqSOVRg7ljglVfKTFf5c59peIp7YYuPXxOIz+Z3JpPqS67jZszqZrNVM=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780608228; c=relaxed/simple;
+	bh=56DCBwbBpEWN7ab0NGz3+vg6p3n+Q+puRjJ0XIHeC9g=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Poo0/tE2d0v4xGqnGa62n0KEgjvLrYv6GlNppl/ALDfgxBM8pj1ZOHhYaE0AMfRg9IXhZH9jg14Tjz+uaEJDhzLJQ8X7dWh2CIH6r7624osjVzrlLtQxzcrUdROf004+T9+n9uEW0uWDh5kp8bpApbGNgcVXe/KIvkIOVqQxT6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Dc0xtxBC; arc=none smtp.client-ip=209.85.222.44
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nxp.com header.i=@nxp.com header.b="gynNTBjX"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=egmnSNNo5hWQEKCwXm+fpVWo0cLv33CJyU7/SZalWQ8Yx7OzGx44SPxByy0m+0r9D/2BtL1ztqYNpxvdx4K8EV6i/v36zwWkkwEG27XPmoBlKJgWcagS5G39EWSdRJj05Mc5rAHbT6KMMtyD5gyf9XesafpiScsxlvBzXDVxwUeax+tL0HT6fatyKTvjMyeT7H3eNbbd3l6YzTlyIan+oJN2GWVhwPBsT/sHn23wwqcX17WIvpTV+cOd+4MJEssZBBqOgwbhmO3sNhOP658+Xtb5KRF0VZuyQsZAcwqCvy2XlJAQ9jAoouGryOiRU4Zof46kKmuAuNdSBKjNZkoSiQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TDscSxIuZOiEUGpDKH3E/gSXix4+lBXNPx3tI4lsf9k=;
- b=Lp+NGj9srVuPeqVcn6iUjynejQvjHkMkIfuzo1Ol7zCSAtiDWdTuC6o+OFlBOuUMQs1yUau0aVUdWfl5GYAAfXiqhSvzZpgd6dSrFveepYHCoIWS1vp1xWUWXMtuphG6J2xMQChBgUKsPdjf2b9cfrnDy6KOuX8nxHulh3vNRes8f6Oz0ipU38kusKw+mJ8sCN0Y5qAaiDfwYHLJRI1/WGcR1s4k94fkFZNmlT4ka9ilh0W/5GcC4FSFB9ZWTuJv77szzlDJBGY1OE8fXGbKBUteiBTYaus5FFwT0eLurd3rXbVNkiNbonDQMt/MiCS/3rRfq4+O/IDsNcxey6JaIQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nxp.com; dmarc=pass action=none header.from=nxp.com; dkim=pass
- header.d=nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nxp.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TDscSxIuZOiEUGpDKH3E/gSXix4+lBXNPx3tI4lsf9k=;
- b=gynNTBjXoHZ7yM5rDLj1WrN9fmCFRQOFFQy04KgazLp2gTZ/jWLGywSMtzSJV08AWIvh6eClE2ZtEIGxt0ULKuiUptAGcQpyRGUkcG6bzlJ+OQt9CH5w8ezXqTuMrHr9wDq3GJVtHkeDLjYRnej/OaL/461lxQyLpm8qk7xMkQWZ9dgZcvNt5w2GGYrtGpcoMTNyTDVu0K/uKTmy91hvfcxujdNuQlDm/gBd29AwV3hHBlqLiWn2UdLJJ1MZrEfynxutNzLhCihXRioHgEn9EmLOaKEQf79hfxxkVV/+iWqfGoPwSdPmIg3YLtvBoiofkx59BupsIu54x+AE6fzCwg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nxp.com;
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com (2603:10a6:102:2a9::8)
- by DBBPR04MB7866.eurprd04.prod.outlook.com (2603:10a6:10:1ef::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.8; Thu, 4 Jun 2026
- 21:22:09 +0000
-Received: from PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588]) by PA4PR04MB9366.eurprd04.prod.outlook.com
- ([fe80::75e4:8143:ddbc:6588%3]) with mapi id 15.21.0092.006; Thu, 4 Jun 2026
- 21:22:09 +0000
-Date: Thu, 4 Jun 2026 17:22:01 -0400
-From: Frank Li <Frank.li@nxp.com>
-To: Herve Codina <herve.codina@bootlin.com>
-Cc: David Gibson <david@gibson.dropbear.id.au>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Ayush Singh <ayush@beagleboard.org>,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	devicetree-compiler@vger.kernel.org, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, devicetree-spec@vger.kernel.org,
-	Hui Pu <hui.pu@gehealthcare.com>,
-	Ian Ray <ian.ray@gehealthcare.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>
-Subject: Re: [PATCH v2 06/10] flattree: Handle unknown tags
-Message-ID: <aiHseUpjVpSI4DW3@lizhi-Precision-Tower-5810>
-References: <20260409115426.352214-1-herve.codina@bootlin.com>
- <20260409115426.352214-7-herve.codina@bootlin.com>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260409115426.352214-7-herve.codina@bootlin.com>
-X-ClientProxiedBy: PH1PEPF00013301.namprd07.prod.outlook.com
- (2603:10b6:518:1::f) To PA4PR04MB9366.eurprd04.prod.outlook.com
- (2603:10a6:102:2a9::8)
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Dc0xtxBC"
+Received: by mail-ua1-f44.google.com with SMTP id a1e0cc1a2514c-96395a59ff6so462381241.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 14:23:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1780608226; x=1781213026; darn=vger.kernel.org;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=6ywNOCiZbOBaXvTwi0yahMBNcZD2OXLAw/3rJV8izSk=;
+        b=Dc0xtxBCvD3mSSret+tSKuTC/zuOMk+AjsqnfkSQE1AfTQcrsia+OP39Wn5NHn/kMc
+         CYaTJrbCgUC881zNwwiWGZcY6J18BRlszuell9X2KeCjNvsBY1JkNzosePVuw6T8jniB
+         lBCFuSuwbNvHd4H6nslyvHCZA1Va5VXYLy+9Q=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780608226; x=1781213026;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to;
+        bh=6ywNOCiZbOBaXvTwi0yahMBNcZD2OXLAw/3rJV8izSk=;
+        b=RdrMTjyqIFOruJTjrzV6YQLj70FUoMdEGYD2XpXgaGZO3YRUR9QcLIICJnldGxewsc
+         1wm7e9KunytBnnrJ561R4qsl31Uvl064+DatGWsh+RzXrWUTk2cBgcmE7ke+uNFX1Tis
+         WVkKzY9Xk0phxJ7gMjWjWCXzZWxOsEUwJafRSiA/pxfYBqHHZ3TsrYczktoFscAcux4Z
+         5RKXsc3v6YOG9YmrwuyzGtFX9NTJbCtNGrLXhwvad3B4QINv2Oxo0sDQIX536y1e7iDz
+         1eFxsQWmWvEc5PRNb8/d0aQ2b+WsS9/LQDjHiUighwjhPNbGLNybdpOJh+e2Wd7ifGbi
+         1Dag==
+X-Forwarded-Encrypted: i=1; AFNElJ+ON0GbztnWZWAohRP01BcfiUsc5tfmqC/JdcmpQ8GrGAG+Qy2YSZEbwttXzusNvXAneJEmSohNIWQf@vger.kernel.org
+X-Gm-Message-State: AOJu0YyaaCi1hPsniNDry5Nya2BgY0LkCn391+xmVrQnIpRW8wTghkad
+	xKDLkZnJbUpPeq+HIw+u3+RtUhP508xYaXIe4oXFVNQoAo58stqB70loHAnPsHxqm9SvaMGTLwz
+	We4c=
+X-Gm-Gg: Acq92OHnh/X9Xbko4N/yjgWbCgBwLP+uGJE0ssgcQ6bgShrU7PLOXErylKOI++rEj3r
+	KZ6xDlRBu48f7xVhcuPjANUD7W/xNkbIz4aQBF0mvGzvR5QhoOS5kZ7Nt7u5vBfsWRxf8QOoBtm
+	pv2XfY1RrMVNSa7kaaz2cn/krU/kDuhts7f9yK692IBhBNk9zzi4JILCDqfZCYUn+h/eOMA7szc
+	wNT1853wP7H8tPT1LbBqnILzy/aHfDZI92IywjcAjsURe5Ad9i/O7gWH+GCqO/wNBWAG6onqGCx
+	LkQSffQ+JiWy5Z81zzSNAtAIJcVJ+Nzeb1cfgWloIFNx8I4yCM+rKePt0+iGTuwnw4YGBAok6Qb
+	g1CZBv3m509Zy6Fl01z9bHmKGmhN/hOeyJk0cBN5tLvequf41kWbFB5iCWxhE+f9vcH2m6b1Fc2
+	7QBax09+YHkgFVhqiUjCm7EkhaRn4keAvDcmPW30TGtpQjJUGVwLMG31AP8ipV+GyYKn6+O2Ta
+X-Received: by 2002:a05:6102:510d:b0:631:4cd8:b6aa with SMTP id ada2fe7eead31-6ff07cf332dmr359409137.13.1780608225596;
+        Thu, 04 Jun 2026 14:23:45 -0700 (PDT)
+Received: from mail-ua1-f46.google.com (mail-ua1-f46.google.com. [209.85.222.46])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6eb6668702fsm5847336137.10.2026.06.04.14.23.37
+        for <devicetree@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 14:23:38 -0700 (PDT)
+Received: by mail-ua1-f46.google.com with SMTP id a1e0cc1a2514c-963a35acfaaso418283241.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 14:23:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ+aMA7nj7IV7ZforlsVwKPmVs4NMEuJ4KBFyLGeZsUdDoR2M/A4ofT2dsgBlQtRQlrCkv/+E3blbG7j@vger.kernel.org
+X-Received: by 2002:a05:6102:5e87:b0:6a2:cf9a:a5f3 with SMTP id
+ ada2fe7eead31-6fef26ce86amr349440137.0.1780608217159; Thu, 04 Jun 2026
+ 14:23:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PA4PR04MB9366:EE_|DBBPR04MB7866:EE_
-X-MS-Office365-Filtering-Correlation-Id: f7101f36-2547-4353-c3d9-08dec27f5609
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|1800799024|7416014|376014|366016|52116014|19092799006|38350700014|4143699003|5023799004|18002099003|22082099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	dCRtTEbJWEaSmWB3rOzY/EM0AkvU9LJHsWAKfYu0NzPQWf3DO9b8BIqIzgSeTu+b8YR7IAPRvkHzHT+tgsNsb3bqjw3J1xIH6JQyRyxQRdy60nfZEMKoBfWDuRiGacg7jZr1OpsAzMsLQxEttQXEZvYuX8E6RzV4fhWByJK7XBJMa3YdYadyVskZmtgrHK9eEfZbFCxoOu7AtnDrlRAojci1IFKJfaIDzp9QcsztEqfroPABOGH+trzcoYsjIeIuexTBoOMzv9sdOW9DeODFSGWU0LLCwL0VCOXNbQ83ApRp6UVV2oILbRNuvy7glj/IYpiu81jzHgp6hypT7sB6Th4TCp0Vqdlox2sUAxinzRwsCL/CtU7GPGBOd1iRRLCJ89KP5Woc3pV2ggSUnNZ5mwLXdGFE5dBHmDkZAkNMNBqb00HWmqHD031W0YI3LndfJvOyWWoNjOEWnXVUlPFsio9VySh21QO/lbFPpFif3iAEFdeqbjiImzUyOBZii8FBmleKhE8vHnYeNPxhd3kJQi0MOMEU9ZqtWZ4LRo78PkUHzOIa5f4JjmA03pP7k8KgN/cDai+nMQPdaDSajEg1lTAgQ8bigRymW8yOgaD2VphsxROKtsLcq81OTBO/ZF4aEO/iuaN5Qh8D0sOzIoqWqFN9g0I7Noq9QdJNPxJ/Ev8pl5+Qtpp4/XAMPPHPxx39SecjDqR54PrxmBW3932+IJTVMP2EIA9VLwbV+bri6xF2LWO+aVn3BhDYnksipj09
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PA4PR04MB9366.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(7416014)(376014)(366016)(52116014)(19092799006)(38350700014)(4143699003)(5023799004)(18002099003)(22082099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?+tSf/aejvg8j9akTFgokYr3I+CkLk9Y4TyJ+iBSgWDMAhkWh7QVFtMLYZw4j?=
- =?us-ascii?Q?6GFXWUBywsiOWG0v+c4mhNtPRu0x/jwCqxRdxQpgI0xMFmscx6YeMOkVdhbW?=
- =?us-ascii?Q?l+2C0UEisIRs3fNUzbaMg4esxN1MAQJzz0ZoImd3i/cfVPV1ehzR42uLrjgv?=
- =?us-ascii?Q?amzOr/1jOXeQTCnRndorv5BPi+SNAHjgPgqvAT8FS+XbVfN3tbQhiTgvp9F/?=
- =?us-ascii?Q?ThvAlC3mM3fIdtKSdy3csLs0e3hXBFujZwzHHVR7PlHOjxgFZOulpU4dVN85?=
- =?us-ascii?Q?mYEieRYHTZ9Oh+dp9UfO5hJOMh4cvNRaFf9RVHuGACAyGtd5OM1RICiHSsIQ?=
- =?us-ascii?Q?WK7hJC46ZTKsjFsIMNksfTwtiVNZyDfKEeyjT2mxXgSA4qGAr7m4lSLGkRlQ?=
- =?us-ascii?Q?/p++zK2hOhUxvL1XpVeDc0oXKifmTL3e3LoM2+cfWCP7eIaFGLiHGI5Uw2Oi?=
- =?us-ascii?Q?BKSeotBqWxkjVJ3yyQyEO74ojcl1lkmdYVZRvrDqdPIdU849xasC7DDp1QIp?=
- =?us-ascii?Q?5x0Z6+MOSAZ6qT6qPNKKld5CSYPY/vRCxaqrq3xsngvGVjCoQXtas7yVgEFP?=
- =?us-ascii?Q?rlvk2L6s8rxJ5bFgryqLlXJPQVkKryU+FJd3IkuUiS6CoQXHJZXWKCbRyykB?=
- =?us-ascii?Q?9I8TAbzs+TSU8dyGkiBRFCdZkU/TxwdUMbpoK5Wj9cTAkRS6PSem0oCjxdnn?=
- =?us-ascii?Q?Gg5BAvY+uIzxl54C9Cs29t4P8UGjcMqIqsRxP6XH0DFjh7w1cY8Cen0sz0DS?=
- =?us-ascii?Q?YI5KzAY/SCieat6dtrID4PgtwP/86m0X5lSojl0B7qCzxeEdWkmvOARPXlo0?=
- =?us-ascii?Q?icfcEcqgPPurJqRBRZfYVgMKY8WZneSOfLavLhc+C5lOsx+leTcpVWQuFhg3?=
- =?us-ascii?Q?uIYf48bD/2WdICGOFK20TcVFMXYKURpp2zjU/Qo65CQEWVnpomMRBM0BtZKQ?=
- =?us-ascii?Q?CaEjIdaGA5zOxNWlFHURReWK0za351vgdf6mej8QwF1E5O9O3zBN3WfLXtnt?=
- =?us-ascii?Q?vyRXiTkvDF6Y04KmHsO66ruxgZdAO6K/cNXJ+nEadWxsvuteiL26YpkMthfl?=
- =?us-ascii?Q?lj75dGqim9vu71uqMJBuO+UIJGPUUL+Ulf3cOyHo7KPnGH0M1M2e1JcHoPgR?=
- =?us-ascii?Q?XUKrwG09uzSp/g7EaW7tDwKS6+ENMJaY5+R4GUdP7o7h8QCeMUzEiJLwyQdo?=
- =?us-ascii?Q?sLldXnhhwhPOxfL/FUhyPfoRbt6O9L0CPBds4BJ/d7jfVrJdl8AcZimszopv?=
- =?us-ascii?Q?TUU2wddHtALx3/lkAo1bJbWKR0NSqmTR3fIzPnly1xN2d1G/VxpG2yU78La1?=
- =?us-ascii?Q?Aj9kxFG/AnUjcfCDuOX+t6+OdiRB0f5QpopoGpvX0fOjwvVHz7NhDbegPqqy?=
- =?us-ascii?Q?ZROGu3/rk7rNcsOv7RJZRwIvexKuUK+3L1bRADRp4y3gmxh6hAk7ef26wa6O?=
- =?us-ascii?Q?vNJW6HtbUYFhi4+HJdnmajVuWrcImL8cZHYMO7c3L0Gs5fj2gDMNKsKjKo9v?=
- =?us-ascii?Q?hPdStXcS1fDKxFxgKhG9418zym4HvXRz4Bs55944dyf+c5ciZxH7ZF+MxcoW?=
- =?us-ascii?Q?WqPaUn64y4Mtl8rIrNq7G18VK/BzYcvagxL0qAs438GwDAF3kW81Y0EnB5MR?=
- =?us-ascii?Q?yarKUJLyJl01Esp1MUbwFnCECkfM8YVpEbHvA8mRj6LGl5Kwof9CSuNEgkh5?=
- =?us-ascii?Q?M7iUjRjQsY2SaeD9UaNg/sOx1DRX5p4SUdSSfeoj/hVJu/4+?=
-X-OriginatorOrg: nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f7101f36-2547-4353-c3d9-08dec27f5609
-X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB9366.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 Jun 2026 21:22:09.4784
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 8vh31yJRHgviCOgIhtp8wFW2TQ3GOX2eRcwxv3gOYSDU99N3qYlpcV7bnkfvVrdNv1TPUvI+S0HWPz+NYFgcJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DBBPR04MB7866
+References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
+ <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
+In-Reply-To: <20260604-topic-yoga_submission-v1-1-57c70c23d0d6@oss.qualcomm.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Thu, 4 Jun 2026 14:23:25 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=UaPKiGSL6mhVdywp67skSr2B7977f3kZ23FFHaD=95RQ@mail.gmail.com>
+X-Gm-Features: AVVi8Cc4MG7c0lW6-0qjcdQ-D0zLqfcs-TS6nz5hMf5r8Kr4Mvblgg-anJYVP1A
+Message-ID: <CAD=FV=UaPKiGSL6mhVdywp67skSr2B7977f3kZ23FFHaD=95RQ@mail.gmail.com>
+Subject: Re: [PATCH 1/4] dt-bindings: display: panel: samsung,atna33xc20: Add ATNA40HQ08-0
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+Cc: Neil Armstrong <neil.armstrong@linaro.org>, Jessica Zhang <jesszhan0024@gmail.com>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, Rob Herring <robh@kernel.org>, 
+	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	Bjorn Andersson <andersson@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
+	dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Thu, Apr 09, 2026 at 01:54:22PM +0200, Herve Codina wrote:
-> The structured tag value definition introduced recently gives the
-> ability to ignore unknown tags without any error when they are read.
+Hi,
+
+On Thu, Jun 4, 2026 at 1:07=E2=80=AFAM Konrad Dybcio
+<konrad.dybcio@oss.qualcomm.com> wrote:
 >
-> Handle those structured tag.
+> Some variants of the Qualcomm Snapdragon X2 Elite-based Lenovo Yoga
+> Slim 7x Gen11 laptop ship with a Samsung ATNA40HQ08-0 2880x1800 120 Hz
+> OLED panel which seems to be compatible with the other ATNAxxx panels,
+> document it.
 >
-> Signed-off-by: Herve Codina <herve.codina@bootlin.com>
-> Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
+> Note that I stripped the -0 suffix from the compatible, as it seems to
+> be of little importance and some sources omit it.
+>
+> EDID:
+> 0000000 ff00 ffff ffff 00ff 834c 422f 002f 0000
+> 0000010 2300 0401 1eb5 7813 6603 ae85 3851 24b9
+> 0000020 500a 0054 0000 0101 0101 0101 0101 0101
+> 0000030 0101 0101 0101 0000 0000 0000 0000 0000
+> 0000040 0000 0000 0000 0000 0000 fd00 1e00 e678
+> 0000050 47e6 0a01 2020 2020 2020 0000 fe00 5300
+> 0000060 4344 2020 2020 2020 2020 2020 0000 fc00
+> 0000070 4100 4e54 3441 4830 3051 2d38 2030 c402
+> 0000080 2070 0279 2000 1800 1200 2ffb 0042 0000
+> 0000090 0000 0c23 5441 414e 3034 5148 3830 302d
+> 00000a0 0021 ca1d 5e0b 4007 080b 0007 7ae5 8551
+> 00000b0 b9a3 024a 020a 5445 5fd0 644c 4400 7823
+> 00000c0 0026 0609 0000 0000 5000 0000 0022 0014
+> 00000d0 0ad4 3f85 c70b 0700 1f00 0700 7707 4f00
+> 00000e0 0f00 2e00 0600 4500 5fd0 644c 002b 270c
+> 00000f0 1e00 0077 2700 1e00 003b 0000 0000 9085
+> 0000100 2070 0079 2200 1400 d400 050a 0b3f 00c7
+> 0000110 0007 001f 0707 07f7 07cf 000f 0081 731f
+> 0000120 001a 0300 1e5b 0078 8fa0 6a02 7802 0000
+> 0000130 0000 e38d 8005 e600 0506 8f01 016a 0000
+> 0000140 0000 0000 0000 0000 0000 0000 0000 0000
+> 0000150 0000 0000 0000 0000 0000 0000 0000 0000
+> 0000160 0000 0000 0000 0000 0000 0000 0000 0000
+> 0000170 0000 0000 0000 0000 0000 0000 0000 900f
+
+I'm not a fan of the EDID being presented in 16-bit words. :-/
+Changing it to this when applying:
+
+00 ff ff ff ff ff ff 00 4c 83 2f 42 2f 00 00 00
+00 23 01 04 b5 1e 13 78 03 66 85 ae 51 38 b9 24
+0a 50 54 00 00 00 01 01 01 01 01 01 01 01 01 01
+01 01 01 01 01 01 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 fd 00 1e 78 e6
+e6 47 01 0a 20 20 20 20 20 20 00 00 00 fe 00 53
+44 43 20 20 20 20 20 20 20 20 20 20 00 00 00 fc
+00 41 54 4e 41 34 30 48 51 30 38 2d 30 20 02 c4
+70 20 79 02 00 20 00 18 00 12 fb 2f 42 00 00 00
+00 00 23 0c 41 54 4e 41 34 30 48 51 30 38 2d 30
+21 00 1d ca 0b 5e 07 40 0b 08 07 00 e5 7a 51 85
+a3 b9 4a 02 0a 02 45 54 d0 5f 4c 64 00 44 23 78
+26 00 09 06 00 00 00 00 00 50 00 00 22 00 14 00
+d4 0a 85 3f 0b c7 00 07 00 1f 00 07 07 77 00 4f
+00 0f 00 2e 00 06 00 45 d0 5f 4c 64 2b 00 0c 27
+00 1e 77 00 00 27 00 1e 3b 00 00 00 00 00 85 90
+70 20 79 00 00 22 00 14 00 d4 0a 05 3f 0b c7 00
+07 00 1f 00 07 07 f7 07 cf 07 0f 00 81 00 1f 73
+1a 00 00 03 5b 1e 78 00 a0 8f 02 6a 02 78 00 00
+00 00 8d e3 05 80 00 e6 06 05 01 8f 6a 01 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 0f 90
+
+
+> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
 > ---
+>  Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.yaml =
+| 2 ++
+>  1 file changed, 2 insertions(+)
+>
+> diff --git a/Documentation/devicetree/bindings/display/panel/samsung,atna=
+33xc20.yaml b/Documentation/devicetree/bindings/display/panel/samsung,atna3=
+3xc20.yaml
+> index 1bbe0da3997c3b06eccd18fe8980b58a6c05d963..27536eeaed8594c047dd0fa1c=
+f425912be189508 100644
+> --- a/Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.=
+yaml
+> +++ b/Documentation/devicetree/bindings/display/panel/samsung,atna33xc20.=
+yaml
+> @@ -25,6 +25,8 @@ properties:
+>                - samsung,atna40ct06
+>                # Samsung 14" WQXGA+ (2880x1800 pixels) eDP AMOLED panel
+>                - samsung,atna40cu11
+> +              # Samsung 14" WQXGA+ (2880x1800 pixels) eDP AMOLED panel
+> +              - samsung,atna40hq08
 
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Sure. I'll repeat the same comment I made the last time someone landed
+a change to this file [1] in the hopes that maybe someone will post a
+patch one day:
 
->  flattree.c                                 | 65 ++++++++++++++++++++--
->  tests/run_tests.sh                         |  5 ++
->  tests/unknown_tags_can_skip.dtb.dts.expect | 19 +++++++
->  3 files changed, 84 insertions(+), 5 deletions(-)
->  create mode 100644 tests/unknown_tags_can_skip.dtb.dts.expect
->
-> diff --git a/flattree.c b/flattree.c
-> index f3b698c..88dbfa7 100644
-> --- a/flattree.c
-> +++ b/flattree.c
-> @@ -579,7 +579,8 @@ static void flat_read_chunk(struct inbuf *inb, void *p, int len)
->  	if ((inb->ptr + len) > inb->limit)
->  		die("Premature end of data parsing flat device tree\n");
->
-> -	memcpy(p, inb->ptr, len);
-> +	if (p)
-> +		memcpy(p, inb->ptr, len);
->
->  	inb->ptr += len;
->  }
-> @@ -604,6 +605,61 @@ static void flat_realign(struct inbuf *inb, int align)
->  		die("Premature end of data parsing flat device tree\n");
->  }
->
-> +static bool flat_skip_unknown_tag(struct inbuf *inb, uint32_t tag)
-> +{
-> +	uint32_t lng;
-> +
-> +	if (!(tag & FDT_TAG_STRUCTURED) || !(tag & FDT_TAG_SKIP_SAFE))
-> +		return false;
-> +
-> +	switch (tag & FDT_TAG_DATA_MASK) {
-> +	case FDT_TAG_DATA_NONE:
-> +		break;
-> +
-> +	case FDT_TAG_DATA_1CELL:
-> +		flat_read_word(inb);
-> +		break;
-> +
-> +	case FDT_TAG_DATA_2CELLS:
-> +		flat_read_word(inb);
-> +		flat_read_word(inb);
-> +		break;
-> +
-> +	case FDT_TAG_DATA_VARLEN:
-> +		/* Get the length */
-> +		lng = flat_read_word(inb);
-> +
-> +		/* Skip the following length bytes */
-> +		flat_read_chunk(inb, NULL, lng);
-> +
-> +		flat_realign(inb, sizeof(uint32_t));
-> +		break;
-> +	}
-> +
-> +	return true;
-> +}
-> +
-> +static uint32_t flat_read_tag(struct inbuf *inb)
-> +{
-> +	uint32_t tag;
-> +
-> +	do {
-> +		tag = flat_read_word(inb);
-> +		switch (tag) {
-> +		case FDT_BEGIN_NODE:
-> +		case FDT_END_NODE:
-> +		case FDT_PROP:
-> +		case FDT_NOP:
-> +		case FDT_END:
-> +			return tag;
-> +		default:
-> +			break;
-> +		}
-> +	} while (flat_skip_unknown_tag(inb, tag));
-> +
-> +	die("Cannot skip unknown tag 0x%08x\n", tag);
-> +}
-> +
->  static const char *flat_read_string(struct inbuf *inb)
->  {
->  	int len = 0;
-> @@ -750,7 +806,7 @@ static struct node *unflatten_tree(struct inbuf *dtbuf,
->  		struct property *prop;
->  		struct node *child;
->
-> -		val = flat_read_word(dtbuf);
-> +		val = flat_read_tag(dtbuf);
->  		switch (val) {
->  		case FDT_PROP:
->  			if (node->children)
-> @@ -905,14 +961,13 @@ struct dt_info *dt_from_blob(const char *fname)
->
->  	reservelist = flat_read_mem_reserve(&memresvbuf);
->
-> -	val = flat_read_word(&dtbuf);
-> -
-> +	val = flat_read_tag(&dtbuf);
->  	if (val != FDT_BEGIN_NODE)
->  		die("Device tree blob doesn't begin with FDT_BEGIN_NODE (begins with 0x%08x)\n", val);
->
->  	tree = unflatten_tree(&dtbuf, &strbuf, "", flags);
->
-> -	val = flat_read_word(&dtbuf);
-> +	val = flat_read_tag(&dtbuf);
->  	if (val != FDT_END)
->  		die("Device tree blob doesn't end with FDT_END\n");
->
-> diff --git a/tests/run_tests.sh b/tests/run_tests.sh
-> index f2855dd..d147011 100755
-> --- a/tests/run_tests.sh
-> +++ b/tests/run_tests.sh
-> @@ -881,6 +881,11 @@ dtc_tests () {
->
->      # Tests for overlay/plugin generation
->      dtc_overlay_tests
-> +
-> +    # Tests with "unknown tags"
-> +    run_dtc_test -I dtb -O dts -o unknown_tags_can_skip.dtb.dts unknown_tags_can_skip.dtb
-> +    base_run_test check_diff unknown_tags_can_skip.dtb.dts "$SRCDIR/unknown_tags_can_skip.dtb.dts.expect"
-> +    run_wrap_error_test $DTC -I dtb -O dts -o unknown_tags_no_skip.dtb.dts unknown_tags_no_skip.dtb
->  }
->
->  cmp_tests () {
-> diff --git a/tests/unknown_tags_can_skip.dtb.dts.expect b/tests/unknown_tags_can_skip.dtb.dts.expect
-> new file mode 100644
-> index 0000000..a11ee57
-> --- /dev/null
-> +++ b/tests/unknown_tags_can_skip.dtb.dts.expect
-> @@ -0,0 +1,19 @@
-> +/dts-v1/;
-> +
-> +/ {
-> +	prop-int = <0x3201>;
-> +	prop-str = "abcd";
-> +
-> +	subnode1 {
-> +		prop-int = <0x6401 0x6402>;
-> +	};
-> +
-> +	subnode2 {
-> +		prop-int1 = <0x64020 0x64021>;
-> +		prop-int2 = <0x32022>;
-> +
-> +		subsubnode {
-> +			prop-int = <0x64023 0x64024>;
-> +		};
-> +	};
-> +};
-> --
-> 2.53.0
->
+<repeat>
+Given how many of these we're up to now, I'm starting to wonder if we
+should come up with a generic compatible like we did with "edp-panel"
+and then we can stop having to merge CLs like this. All of these
+Samsung OLED eDP panels have the same power up sequence and once we do
+that then we can read them via EDID or via DP AUX bus to identify
+which specific panel we have and if they need additional tweaking,
+just like we do with "edp-panel". Do DT folks have any opinion about
+that? Coming up with a name would be a pain since I wouldn't want to
+assert that all future Samsung OLED eDP panels will have the same
+powerup sequence. Maybe "samsung,amoled-edp-panel-v1" even though that
+sounds terrible and there's no known need for a "-v2"?
+</repeat>
+
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
+
+Pushed to drm-misc-next:
+
+[1/4] dt-bindings: display: panel: samsung,atna33xc20: Add ATNA40HQ08-0
+      commit: 6f7565f2fc85e9dc0d9d7594bdfc2b03c4e11205
+
+
+[1] http://lore.kernel.org/r/CAD=3DFV=3DXvHu_NnahFOcfLV4XQm_mQkO5cG3YP+acRg=
+C9AE2m6Jw@mail.gmail.com
