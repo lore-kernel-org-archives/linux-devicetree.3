@@ -1,121 +1,176 @@
-Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com [209.85.208.48])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D4423B4E95
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:31:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.208.48
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780590673; cv=pass; b=QABfjEdm0Z4aEoHdObvTaT2ZGh7iCX+dhrCOqT4wPOEYYMpJ8J8IPH9DL/ueKmDb9cJk6D1OGaxL5KKU/gM7yxOtTDwdLkhPYeamPFzKbwgmRySUCyi/iCFhcegQqLnc5IZNseOPd+dJGAV7F4ooJYOLxXGoUJikrEI9fJuHz/Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780590673; c=relaxed/simple;
-	bh=bYQz5WGjsDPNgjJtpHPvb9PJr7MMreR1r3TlgYR8Xgc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=fkgbFLk3DVtywS4kzGMjTqAv4ZFHwdy6p3zqx43HZKZ4ywMMp66ZF0rmHn/Cpr8YBseNvBxtlrJ0V2CODOK3sGXEuumVS7mEZladRWbDJLphlc8jOGlQWj0nYXDLDvV0u7QbWAIkg3sZEH7Th37Xiyup9WyNZ+f3Qr7DSwGludk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=LYizWBKw; arc=pass smtp.client-ip=209.85.208.48
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4B73B637A;
+	Thu,  4 Jun 2026 16:32:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780590780; cv=none; b=NiMAevvZy+Syuxy3KH8+j7fOhsGdacEY8bi+NpxqwH/C5qczzoduU7ayY0jcbLy+SuY7qy7lnbzHltdK+OjJHxaQwPgVcS8dryNel3W+bY7gpNfyLveqEBWzRJNmv1a0DA4j5SRFMgG/CVALG01yGvytyY/ZmYSMjuUY/itixUs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780590780; c=relaxed/simple;
+	bh=/zxFcHp7S+pr6AnpRORp7rcfTIUVkf+kF2bJgK6VsRg=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=oiS+UtJyQ76HUMGdEGP41EFyubOpcJFr1OC48B1XU5al2DpEmaWWQeuO01Q01w+outxDPV5bd+SNwBs6Qu+R7cQVcEyQre+R+tWyGngjj6cjC9FkEGRFuMKKqtrZVUTRkxRHGj3vIl1d3GQRh173EtxCrPsKNBny4Bup1k/FMvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=brGPxMlK; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="LYizWBKw"
-Received: by mail-ed1-f48.google.com with SMTP id 4fb4d7f45d1cf-68cc6c7df99so1310679a12.1
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 09:31:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1780590671; cv=none;
-        d=google.com; s=arc-20240605;
-        b=JTvmXemsOMzyTwMFP3CxyKxgkKbnm7ha3QSPck4KM60qP3W0CQAeKk/ZoEXEUDTR5D
-         MDEdMG7MXvtPQAbxXAZtCh8aQh9RC5jU7OBJ1jmsVqRTELuLBzaryBvPG8MspV5b5isx
-         UfEb8r4zXfOv1eUcSsHx3WB1mpQd4gJ5bxEjCJZi7VrwuYXm6BRpgLr6yqpChpOnPx+1
-         TlKXk7JQsACL5h1fy4UPSo5TQugd1b6ffEGS/2svWnxiPYVV25ZIUiHLSLaLGU5awi4F
-         e3udLyYR6xRzmGW5qyUfa6woW4xBv2wce64G5xOG1yw2y0vb4Y65gqpb2EGzc3gflBIi
-         wLWg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=bYQz5WGjsDPNgjJtpHPvb9PJr7MMreR1r3TlgYR8Xgc=;
-        fh=JNbcGu99Ng5WB9STYhKurqs6pxuf3NNBWzzIdxy6644=;
-        b=VY0pBw5VXy2JfLgHkgtxpkpRIzRCyuOjNUvEFeH5JA9NCX+2BOafn6ST2UWKb2BpAv
-         FNJJpAUKVb5//21/Gjxx1QE7BOsme9n8+q2MAF7BPie54DAwW6p8DgWk7NF75Ch+cqkM
-         MWPHF+wXXP9cU3MLHiQVouYHvhy9wPTfrP52HyktuqQYwAj9efP6vGQWrjkOD3DwP7NP
-         vkKuqAofkcHY7NPv859vgQpowrMj+Io8wxOhY0rGwwq90zDsLbDyY/dWDXiuae3hZ45B
-         AVa79fZfHpIjerFzZ7KrDtsJwgCmk9uhpkTm4V30TF93AvHNzD6ImovObFeq0njBj58I
-         uu3Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780590671; x=1781195471; darn=vger.kernel.org;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:from:to:cc:subject:date:message-id:reply-to;
-        bh=bYQz5WGjsDPNgjJtpHPvb9PJr7MMreR1r3TlgYR8Xgc=;
-        b=LYizWBKwjoen9RbPlZkKqVX9HO4ohwNYKnGU+2Q+9RjwmmNdoOktu4fQ5uxRDDajqB
-         JqvjdzC53gLKc+JjhUzLqrcRERtB4d1WOkPgm/YeY18fypdqw8x4vfGp30qDadQFg+mz
-         3menY9qVtgPdGY3X5rl6F639jENH31rWDQQcJzfsLyqg8cD+EtYv7kKJliuvNEbdZqhS
-         aqdvEPZY13QDBE3KtMnin02ngDuXdHXs4Aj/y7mBKBgixCgVmSKkgsEs9z/tSMDYdAN5
-         PZspOYoGtFfvUL9v1bvQSMq9dXRTaon4BybuK0CmCpAfUFbHN5URmAZ835d3n0w9JhWf
-         3i6g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780590671; x=1781195471;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=bYQz5WGjsDPNgjJtpHPvb9PJr7MMreR1r3TlgYR8Xgc=;
-        b=oy9CGmYwYOO4zcoT0Pf5AEsftgkQuWF0zmAm8NRYnFOwn1cTzBwoDA3+/Oh7uzIk9M
-         aGyT9mESwi7NpLCwJeIyvSJiFDQZIZXAOPS+r9ZobukO3/H75iRbfIZ0bYjtv3gzDkEn
-         MfcuLZQTagQiQ7Xo3QL77iOBhS1Af+dN2uI+iozkh85CvG75D8/HDs2j2045aYjLUW6T
-         axngWazQMMOmZIfVvAqb9pm0xMSS2GWxxnkknWLsGumz68ZQc0TdfzEcKG+eEN4wWdFI
-         egNE+ufckuxobKzIXdOk4mc42o6Xfv+4PuGwVqcBe1dAKH3j1XDBEf7Taa4fc/KUNXhX
-         PLgg==
-X-Forwarded-Encrypted: i=1; AFNElJ9NiC76uzsoQnwoR+gpsEEROIVxqZtoYLq2kmhWlfNRkI0whnQ9aYGlZWK6mo8I25n3GwzO7Jzj1ToO@vger.kernel.org
-X-Gm-Message-State: AOJu0Yy7D1FQm5cFcgeSRpSQAmQPqShtOy2JUvOZN2RSIleSDhmprJiN
-	1PJYgT17tE7K3mggZHygaIaLwJ+cHlJLiuBhvB0Jatqd1/7NB6sGAlX5LOXY0atSN66l8XGhUnK
-	UfPcpYQ1zdTxCyaI0liOEu6pPQFwCLhPTRqkVMxgEcg==
-X-Gm-Gg: Acq92OESHHO5VmNwGAE0sBawWrm4ejkGcNMNv6ymZSFa1YqH7zex5uu0MWXcMrdbSw6
-	mHYDPxno1f5W7X39royfT55rXVr8r5Qsc0+Nb67LFQML6JidukmsPOC8N6K72yw21kbNJ4Fn8xM
-	FMEB9M096e57naer0ooUi9zFrqgGFzT4JTTTQhA0E6KSrCWLE+Xq2Le6eFSpD9z1gRibvWP+LKQ
-	JGEjkxeMr+1FMW7DXrICSKlEqfyLJkEsVOah4UxI7GNp8TsYbSjFy9I7YLJDzYLTcN+AGNd476Z
-	LI4X2pLCFbbSkhrwv+RCQTPD54lXbEN4PZP6WGA0Tmpr0EL8
-X-Received: by 2002:a05:6402:3215:b0:68b:539c:d269 with SMTP id
- 4fb4d7f45d1cf-68e710ebc51mr4808114a12.12.1780590670971; Thu, 04 Jun 2026
- 09:31:10 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="brGPxMlK"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A666FC2BCC7;
+	Thu,  4 Jun 2026 16:32:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1780590779;
+	bh=/zxFcHp7S+pr6AnpRORp7rcfTIUVkf+kF2bJgK6VsRg=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=brGPxMlKMQ/U/yL44iapFw7/Q/7ZXNg4jwbLtIdNK9SmIpFNcAPrdKYLjVatP98ei
+	 /u7CAbuSHr+tjH55uEv/zzOFBMSe1qhE1eaD8LRA7hVrrKvplW2RTvyDViisDoUSMI
+	 +iihybiipzNolMRM4ppdPHy+/6h5d27gmdUjnHwr35zzpJ8R4JT5iSKnDQwVVS5qQx
+	 qvC6xNZVSSCWYL2EmqOY8xCdHATiL6UxVYBvqJ7Vh1pZvo11UwlHLhzDKVMFnR3rgV
+	 Imo8UfYnOlciAka9Yv8pHNYYH/0pweS29aN9n3rpsBBDxcgExS57ImoZRa/D7X8zsi
+	 zzuSdHQj5C9Gw==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 8B7C6CD6E77;
+	Thu,  4 Jun 2026 16:32:59 +0000 (UTC)
+From: Ciprian Regus via B4 Relay <devnull+ciprian.regus.analog.com@kernel.org>
+Date: Thu, 04 Jun 2026 19:32:46 +0300
+Subject: [PATCH net-next v3 01/13] dt-bindings: net: Add ADIN1140
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260603-acpm-tmu-v8-0-0f1810a356e6@linaro.org> <20260603-acpm-tmu-v8-2-0f1810a356e6@linaro.org>
-In-Reply-To: <20260603-acpm-tmu-v8-2-0f1810a356e6@linaro.org>
-From: Peter Griffin <peter.griffin@linaro.org>
-Date: Thu, 4 Jun 2026 17:30:59 +0100
-X-Gm-Features: AVHnY4Jq-Cm1FpMQ9NjMzo61aJ4t188OLXQIR-HELOPptilenf70Fcb7QJeV21c
-Message-ID: <CADrjBPoHXi5hp9T=z97k4LKNKQUEnJdN4sSz5g+NgKAGC6jguQ@mail.gmail.com>
-Subject: Re: [PATCH v8 2/5] thermal: samsung: Add Exynos ACPM TMU driver GS101
-To: Tudor Ambarus <tudor.ambarus@linaro.org>
-Cc: "Rafael J. Wysocki" <rafael@kernel.org>, Daniel Lezcano <daniel.lezcano@kernel.org>, 
-	Zhang Rui <rui.zhang@intel.com>, Lukasz Luba <lukasz.luba@arm.com>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Bartlomiej Zolnierkiewicz <bzolnier@gmail.com>, Krzysztof Kozlowski <krzk@kernel.org>, Kees Cook <kees@kernel.org>, 
-	"Gustavo A. R. Silva" <gustavoars@kernel.org>, =?UTF-8?Q?Andr=C3=A9_Draszik?= <andre.draszik@linaro.org>, 
-	Alim Akhtar <alim.akhtar@samsung.com>, jyescas@google.com, linux-kernel@vger.kernel.org, 
-	linux-samsung-soc@vger.kernel.org, linux-pm@vger.kernel.org, 
-	devicetree@vger.kernel.org, linux-hardening@vger.kernel.org, 
-	linux-arm-kernel@lists.infradead.org, 
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260604-adin1140-driver-v3-1-5debdb3173c4@analog.com>
+References: <20260604-adin1140-driver-v3-0-5debdb3173c4@analog.com>
+In-Reply-To: <20260604-adin1140-driver-v3-0-5debdb3173c4@analog.com>
+To: Parthiban Veerasooran <parthiban.veerasooran@microchip.com>, 
+ Andrew Lunn <andrew+netdev@lunn.ch>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Shuah Khan <skhan@linuxfoundation.org>, Andrew Lunn <andrew@lunn.ch>, 
+ Heiner Kallweit <hkallweit1@gmail.com>, 
+ Russell King <linux@armlinux.org.uk>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-doc@vger.kernel.org, devicetree@vger.kernel.org, 
+ Ciprian Regus <ciprian.regus@analog.com>
+X-Mailer: b4 0.13.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1780590774; l=3033;
+ i=ciprian.regus@analog.com; s=20260330; h=from:subject:message-id;
+ bh=SD0s7kL32zflcmzvhYpP4wswiaVrrA6tg9sWjWntb8Q=;
+ b=z38lZROWZ8zoI1AIs66jVBqr6GbNaNYX226IDC0RneKOM2jFm53b0jOekbp2eH7xKxuQg3+OP
+ qJ1piLfRjJ5CEU2G+9suuJSxcwuXJbs28i70wH3LtX+z3cl4OTxbxSd
+X-Developer-Key: i=ciprian.regus@analog.com; a=ed25519;
+ pk=8WoNhI0kQcQUl8YqJO5ZevROYk9HP8lOIeIgIYgjfbc=
+X-Endpoint-Received: by B4 Relay for ciprian.regus@analog.com/20260330 with
+ auth_id=703
+X-Original-From: Ciprian Regus <ciprian.regus@analog.com>
+Reply-To: ciprian.regus@analog.com
 
-On Wed, 3 Jun 2026 at 14:00, Tudor Ambarus <tudor.ambarus@linaro.org> wrote:
->
-> Add driver for the Thermal Management Unit (TMU) managed via the Alive
-> Clock and Power Manager (ACPM), found on Samsung Exynos SoCs such as
-> the Google GS101.
->
-> The TMU on the GS101 utilizes a hybrid management model shared between
-> the Application Processor (AP) and the ACPM firmware. The driver
-> maintains direct memory-mapped access to the TMU interrupt pending
-> registers to identify thermal events, while delegating functional
-> tasks - such as sensor initialization, threshold configuration, and
-> temperature acquisition, to the ACPM firmware via the ACPM IPC
-> protocol.
->
-> Signed-off-by: Tudor Ambarus <tudor.ambarus@linaro.org>
-> Acked-by: Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>
-> ---
+From: Ciprian Regus <ciprian.regus@analog.com>
 
-Acked-by: Peter Griffin <peter.griffin@linaro.org>
+The ADIN1140 is a single port 10BASE-T1S Ethernet controller that
+includes both the MAC and a PHY in the same package.
+
+Signed-off-by: Ciprian Regus <ciprian.regus@analog.com>
+
+---
+v3 changelog:
+ - set adi,ad3306 as a fallback compatible.
+v2 changelog:
+ - Reorder the compatible entries in the dt schema (ad3306, adin1140).
+ - Removed "dt-bindings" from the commit title and message.
+ - Updated the DT example to use IRQ_TYPE_LEVEL_LOW instead of
+   IRQ_TYPE_EDGE_FALLING for the interrupt trigger condition.
+ - "implements" -> "tries to implement" in the description.
+ - Removed the MAINTAINERS entry, as it will be added in a later patch
+   in the series.
+ - Reordered as the first patch of the series
+---
+ .../devicetree/bindings/net/adi,adin1140.yaml      | 71 ++++++++++++++++++++++
+ 1 file changed, 71 insertions(+)
+
+diff --git a/Documentation/devicetree/bindings/net/adi,adin1140.yaml b/Documentation/devicetree/bindings/net/adi,adin1140.yaml
+new file mode 100644
+index 000000000000..739429c46253
+--- /dev/null
++++ b/Documentation/devicetree/bindings/net/adi,adin1140.yaml
+@@ -0,0 +1,71 @@
++# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
++%YAML 1.2
++---
++$id: http://devicetree.org/schemas/net/adi,adin1140.yaml#
++$schema: http://devicetree.org/meta-schemas/core.yaml#
++
++title: ADI ADIN1140 10BASE-T1S MAC-PHY
++
++maintainers:
++  - Ciprian Regus <ciprian.regus@analog.com>
++
++description: |
++  The ADIN1140 (also called AD3306) is a low power single port
++  10BASE-T1S MAC-PHY. It integrates an Ethernet PHY with a MAC
++  and all the associated analog circuitry.
++  The device tries to implement the Open Alliance TC6 10BASE-T1x MAC-PHY
++  Serial Interface specification and is compliant with the
++  IEEE 802.3cg-2019 Ethernet standard for 10 Mbps single pair
++  Ethernet (SPE). The device has a 4-wire SPI interface for
++  communication between the MAC and host processor.
++
++allOf:
++  - $ref: /schemas/net/ethernet-controller.yaml#
++  - $ref: /schemas/spi/spi-peripheral-props.yaml#
++
++properties:
++  compatible:
++    oneOf:
++      - items:
++          - const: adi,adin1140
++          - const: adi,ad3306
++      - const: adi,ad3306
++
++  reg:
++    maxItems: 1
++
++  spi-max-frequency:
++    maximum: 25000000
++
++  interrupts:
++    maxItems: 1
++    description: Interrupt from the MAC-PHY for receive data available
++      and error conditions
++
++required:
++  - compatible
++  - reg
++  - interrupts
++  - spi-max-frequency
++
++unevaluatedProperties: false
++
++examples:
++  - |
++    #include <dt-bindings/interrupt-controller/irq.h>
++
++    spi {
++        #address-cells = <1>;
++        #size-cells = <0>;
++
++        ethernet@0 {
++            compatible = "adi,ad3306";
++            reg = <0>;
++            spi-max-frequency = <23000000>;
++
++            interrupt-parent = <&gpio>;
++            interrupts = <6 IRQ_TYPE_LEVEL_LOW>;
++
++            local-mac-address = [ 00 11 22 33 44 55 ];
++        };
++    };
+
+-- 
+2.43.0
+
+
