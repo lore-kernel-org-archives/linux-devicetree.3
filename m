@@ -1,113 +1,223 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E17847DD56
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 13:51:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54EA24219EA;
+	Thu,  4 Jun 2026 13:51:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780581068; cv=none; b=u70Am8TS+Ghxo5NMAt6oyJPzC54jZyhFo4isn+SRjkX/SSBnkKpYAmeInRc4CjyxCGAgp6zlM3/bo1cANHUfq6kqF4VlyCOBfYFg6+Q5oNs9DQxtfloRRQNr7ptu3ZPusxXjclALQPckDFcitjVSW1nPbC7sMqZkEg4ONJD+9Ik=
+	t=1780581115; cv=none; b=UUKlEX45iP1J5AmOv/ngxapgiKnmM4hmt6sMyZGQ8b9d2bOGsoG9ZgYnCGvSgsd+mPNoIj3exWud1owllW+y75srlpjnfv65mDiSlkH/Q36jamTSKDKhATCvOHIBJ6K9KtOl+N/YGSn5lKIMPtMGA/67TjRZByASGLlFpuOAVWI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780581068; c=relaxed/simple;
-	bh=ghFGYZT2h2sA5vI481N32DSvcC2/yU2rJB2xsuoK3Ok=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=Dc8z8DJ9vK11Q+wjYelG4L6nfQyv1acFR8GvI8p2TVfEipZ5ve28o4KBNiqvXqq4feOXjdzoseUtYbkc+Xu/M+CL+G+j0XWLHsehtaGJJCYdMnymjx17n0HyL2G5PSDVStz8iLQoK5U/bXI9Srs+8rHYGJLbFu7feRzfyMQ0ERI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZQw/4eA; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780581115; c=relaxed/simple;
+	bh=cTdmqpJieRKHGaZXowXNPlqGx2BALwhboDTiLWTpksw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=N7ELi01t1SqZslR9NW7zpLHRfwpoOj9eAzhxYpKyoInG1n+YO8baQov3td8ZMqvaxmw60qT8+v82kbyELDeCy9M2v5rW6OI2eMz0d2o9GmLMV3KPCH9uisRO5i34WScMHQ8eIg+TieulT4I/hUozH2K1wHx5c2tyBhnOUDHu4UQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TgxsEfmZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZQw/4eA"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 867711F00893;
-	Thu,  4 Jun 2026 13:51:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TgxsEfmZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 326F11F00893;
+	Thu,  4 Jun 2026 13:51:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780581067;
-	bh=WrPrqkHnDQKrH5/Ts2L6tZs8U65wNNsOJJicOC1zknA=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=DZQw/4eAwf7y0sofJGGo50AMlC0zLhu6HfM5nMbxj/DQXLnJFA1pykiqREtIBOCr5
-	 TqeMXD/S0FHnsG4aha0cazhvfRzxRNsQqPCK4Anqo6rf/PqaCSwXr7AU/dOjc2nwhn
-	 bTFCqQO9ndvWQfRkivPrNCyNTswdsKSzHgYceIax46fKgQHD5ceZkSAkkPH0PRNX2S
-	 f9OFqxKJWq48RIYz1aTNDgJ0JpXiHNnj41uvCQ9vkCFwzk1hCEzUmPDK8rYpoRdERZ
-	 1XJON4PSVPP3FdFK3Gi3gI7v0CPcxjjKsBObYRi8IIwoTWVc8dH4LR8dtoBcWnYjP2
-	 U34hcYytqM6bw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v8 6/9] clk: eyeq: Introduce a generic clock type
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?QmVub8OudCBNb25pbg==?= <benoit.monin@bootlin.com>
-Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
-In-Reply-To: <20260604-clk-eyeq7-v8-6-53f618174cf6@bootlin.com>
-References: <20260604-clk-eyeq7-v8-6-53f618174cf6@bootlin.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 13:51:06 +0000
-Message-Id: <20260604135106.867711F00893@smtp.kernel.org>
+	s=k20260515; t=1780581114;
+	bh=lRF+QmqB9DlPbjnMDVrl0P136gkTPbDYComnEEWDIUE=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=TgxsEfmZ4NYxI2WgZWB6KZAEe45x4gh3wuEIFdH86ADbvWvROezwVQcLo/c4zJpDP
+	 RYYwgBC2erYIPLQ95A2xrcXOrgaR9YqSVa40fHOKMUm6d44ReBCKtXJAppkNbwXrl2
+	 yCqEWiLUe/EU/ITFsuFEvmLMoWpGTjfFgYGPLLZ1OJslAf6UjBJEoylwlfdOeKsocu
+	 8D4BpKYb8VWaQOhT/xyRtgc2ewSZxKqxiU4zFF6glWtQWrdqVGR9XRbbd7NOipTlyg
+	 WnEOTmePNhOrrtGXK5G8w18rfuXNUPByAQvcu7l6AG4zG7L0wUk/lXIOHUtRLx4Hyb
+	 3Xh7npHfrAAcQ==
+Date: Thu, 4 Jun 2026 14:51:48 +0100
+From: Lee Jones <lee@kernel.org>
+To: Oleksij Rempel <o.rempel@pengutronix.de>
+Cc: Guenter Roeck <linux@roeck-us.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>, Peter Rosin <peda@axentia.se>,
+	Linus Walleij <linusw@kernel.org>, kernel@pengutronix.de,
+	linux-kernel@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-hwmon@vger.kernel.org, linux-gpio@vger.kernel.org,
+	David Jander <david@protonic.nl>
+Subject: Re: [PATCH v12 2/6] mfd: add NXP MC33978/MC34978 core driver
+Message-ID: <20260604135148.GB4151951@google.com>
+References: <20260515160537.115808-1-o.rempel@pengutronix.de>
+ <20260515160537.115808-3-o.rempel@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260515160537.115808-3-o.rempel@pengutronix.de>
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
+On Fri, 15 May 2026, Oleksij Rempel wrote:
 
-Pre-existing issues:
-- [High] Missing spinlock in divider clock registration allows read-modify-=
-write races on shared registers.
---
+> Add core Multi-Function Device (MFD) driver for the NXP MC33978 and
+> MC34978 Multiple Switch Detection Interfaces (MSDI).
+> 
+> The MC33978/MC34978 devices provide 22 switch detection inputs, analog
+> multiplexing (AMUX), and comprehensive hardware fault detection.
+> 
+> This core driver handles:
+> - SPI communications via a custom regmap bus to support the device's
+>   pipelined two-frame MISO response requirement.
+> - Power sequencing for the VDDQ (logic) and VBATP (battery) regulators.
+> - Interrupt demultiplexing, utilizing an irq_domain to provide 22 virtual
+>   IRQs for switch state changes and 1 virtual IRQ for hardware faults.
+> - Inline status harvesting from the SPI MSB to detect and trigger events
+>   without requiring dedicated status register polling.
+> 
+> Child devices (pinctrl, hwmon, mux) are instantiated by the core driver
+> from match data.
+> 
+> Signed-off-by: Oleksij Rempel <o.rempel@pengutronix.de>
+> ---
+> changes v12:
+> - Split monolithic MFD driver into two modules per maintainer feedback:
+>   * drivers/mfd/mc33978.c: Thin wrapper for SPI binding, power sequencing,
+>     and child device registration
+>   * drivers/platform/misc/mc33978-core.c: Complex core functionality
+>     including custom regmap bus, IRQ domain, and event handling
+> - Add mc33978_core_init() API exported by core module for MFD initialization
+> - Introduce CONFIG_MC33978_CORE in drivers/platform/misc/Kconfig
+> - Update CONFIG_MFD_MC33978 to select CONFIG_MC33978_CORE
+> - Add MODULE_SOFTDEP("pre: mc33978-core") to ensure correct module load order
+> - Rename struct mc33978_mfd_priv to context-specific names:
+>   * mc33978_ddata in MFD driver
+>   * mc33978_core_data in core module
+> - Rename local variables from 'mc' to 'ddata'/'cdata' for clarity
+> - Replace MC33978_DRV_NAME macro with string literal "mc33978"
+> - Convert kerneldoc (/** */) on static functions to regular comments (/* */)
+> - Adopt 100-character line limit throughout
+> - Fix misleading cacheline alignment comment ("must be at end" -> "prevent
+>   DMA corruption from adjacent fields")
+> - Document IRQ locking strategy explicitly (irq_lock mutex for regmap/SPI,
+>   irq_state_lock raw spinlock for atomic state access)
+> - Reformat header file comments from inline style to preceding style for
+>   improved readability
+> - Enhance interrupt behavior documentation with detailed datasheet references
+>   explaining INT_flg clear timing and FAULT_STAT latching behavior
+> - add .suppress_bind_attrs = true
+> changes v11:
+> - Introduce synthetic wakeup bit to prevent hardware bit overloading and
+>   avoid phantom transient faults.
+> - Add smp_mb__before_atomic() to ensure memory visibility before
+>   updating harvested_flags.
+> - Update event processing to mask synthetic bits before evaluating
+>   hardware fault conditions.
+> - Introduce fault_lock spinlock to protect fault state members.
+> - Replace manual memory barriers and READ_ONCE/WRITE_ONCE with
+>   spinlock-protected access.
+> - Introduce irq_state_lock raw spinlock to protect IRQ state fields.
+> - Replace irq_lock mutex with raw spinlock in IRQ callbacks and event
+>   handling paths.
+> - Include MC33978_REG_ENTER_LPM in volatile and precious ranges.
+> - Mark MC33978_REG_ENTER_LPM as readable to avoid regcache sync writes.
+> changes v10:
+> - Refactor IRQ setup into a common helper to unify the .map and .alloc
+>   code paths.
+> - Enable hierarchical IRQ support to allow integration with the
+>   pinctrl/GPIO child domain.
+> - Simplify event handling by removing redundant boolean return values
+>   from internal handlers.
+> - Fix IRQ cleanup by disposing of all active mappings before removing
+>   the IRQ domain.
+> - Standardize IRQ constants using MC33978_NUM_IRQS for consistent domain
+>   sizing and bounds checks.
+> changes v9:
+> - Fix null irq_domain dereference from debugfs race by initializing IRQ domain
+>   early before regmap initialization.
+> - Refactor mc33978_handle_fault_condition() to improve readability by keeping
+>   variable declarations at the top and adding inline comments.
+> - Fix spurious transient fault events caused by redundant STAT_FAULT flags
+>   during event loop.
+> - Fix spurious interrupt loops by explicitly returning -ENODATA in
+>   mc33978_rx_decode() for registers without status bits.
+> - Validate hwirq bounds in mc33978_irq_domain_alloc() to prevent corruption
+>   of irq_rise/irq_fall bitmasks by malformed device tree inputs.
+> - set DOMAIN_BUS_NEXUS
+> - Protect work on teardown
+> - remove IRQF_SHARED
+> changes v8:
+> - Fix TOCTOU race condition in SPI event harvesting loop by grabbing
+>   harvested_flags before hardware reads.
+> - Fix broken hierarchical IRQ allocation by replacing
+>   irq_domain_set_hwirq_and_chip() with irq_domain_set_info() and passing
+>   the handle_simple_irq flow handler.
+> - Fix out-of-bounds stack read and endianness bug in for_each_set_bit() by
+>   typing fired_pins as unsigned long instead of casting u32.
+> - Prevent DMA cacheline corruption by explicitly aligning rx_frame with
+>   ____cacheline_aligned to separate it from tx_frame.
+> - Prevent spurious IRQs by verifying irq_find_mapping() returns non-zero
+>   before calling handle_nested_irq().
+> - Prevent missed transient hardware faults by explicitly evaluating
+>   hw_flags in mc33978_handle_fault_condition().
+> - Fix missing memory barrier in mc33978_harvest_status() with
+>   smp_mb__after_atomic() to ensure harvested_flags visibility.
+> - Fix devres use-after-free teardown race by using INIT_WORK and a custom
+>   cancel action after the IRQ domain is destroyed, instead of
+>   devm_work_autocancel.
+> - Prevent spurious pin interrupts on boot by priming cached_pin_state via
+>   a regmap_read() during probe before enabling IRQs.
+> - Implement .irq_set_wake callback to support system wake from
+>   hardware faults and switch state changes.
+> changes v7:
+> - Fix event handling race condition with smp_mb()
+> - Replace INIT_WORK() with devm_work_autocancel()
+> changes v6:
+> - Remove the hardcoded bypass in irq_set_type to allow child drivers to
+>   configure the FAULT line for edge-triggering.
+> - Implement software edge-detection for FAULT interrupt.
+> - Add MC33978_FAULT_ALARM_MASK to the shared header for child devices
+> - Use READ_ONCE() and WRITE_ONCE() for lockless shared state variables
+>   (cached_pin_mask, irq_rise, irq_fall, bus_fault_active,
+>   cached_fault_active) accessed across the SPI harvesting context and
+>   the event worker.
+> - Add an if (hwirq < MC33978_NUM_PINS) guard in irq_mask() and
+>   irq_unmask() to prevent the FAULT hwirq (22) from altering the
+>   physical pin mask registers.
+> - Lowercase the error strings in dev_err_probe()
+> - Add inline comments explaining the irq_map fallback behavior
+> changes v5:
+> - no changes
+> changes v4:
+> - Removed .of_compatible strings from the mfd_cell arrays
+> changes v3:
+> - Select IRQ_DOMAIN_HIERARCHY in Kconfig
+> - Add .alloc and .free callbacks to irq_domain_ops to support hierarchical
+>   IRQ domains
+> - Set IRQ_DOMAIN_FLAG_HIERARCHY flag on the core MFD irq_domain
+> - replace manual lock/unlock with guard()
+> changes v2:
+> - Rewrite the driver header comment
+> - Explicitly reject IRQ_TYPE_LEVEL_HIGH and IRQ_TYPE_LEVEL_LOW in
+>   mc33978_irq_set_type() to correctly reflect the hardware's edge-only
+>   interrupt capabilities.
+> - Pass the hardware fault IRQ to the hwmon child driver via mfd_cell
+>   resources, rather than requiring the child to parse the parent's irq_domain.
+> - Ensure the Kconfig strictly depends on OF and SPI
+> ---
+>  drivers/mfd/Kconfig                  |   15 +
+>  drivers/mfd/Makefile                 |    2 +
+>  drivers/mfd/mc33978.c                |  187 +++++
+>  include/linux/mfd/mc33978.h          |  160 ++++
 
-commit 64cecba2d1878b01e3dd2fecb67b0bb43fd51ec6
-Author: Beno=C3=AEt Monin <benoit.monin@bootlin.com>
+This is one patch.
 
-clk: eyeq: Introduce a generic clock type
+>  drivers/platform/Kconfig             |    2 +
+>  drivers/platform/Makefile            |    1 +
+>  drivers/platform/misc/Kconfig        |   10 +
+>  drivers/platform/misc/Makefile       |    6 +
+>  drivers/platform/misc/mc33978-core.c | 1106 ++++++++++++++++++++++++++
 
-This commit introduces a generic eqc_clock structure to represent PLLs,
-dividers, and fixed factors for the Mobileye EyeQ OLB. It includes specific
-probe and unregister functions for each clock type to support complex clock
-interdependencies.
+This should be in another.
 
-> diff --git a/drivers/clk/clk-eyeq.c b/drivers/clk/clk-eyeq.c
-> index e4e690a12a238..7b8de08388d3b 100644
-> --- a/drivers/clk/clk-eyeq.c
-> +++ b/drivers/clk/clk-eyeq.c
+>  9 files changed, 1489 insertions(+)
+>  create mode 100644 drivers/mfd/mc33978.c
+>  create mode 100644 drivers/platform/misc/Kconfig
+>  create mode 100644 drivers/platform/misc/Makefile
+>  create mode 100644 drivers/platform/misc/mc33978-core.c
+>  create mode 100644 include/linux/mfd/mc33978.h
 
-[ ... ]
-
-> @@ -336,6 +376,102 @@ static void eqc_auxdev_create_optional(struct devic=
-e *dev, void __iomem *base,
-
-[ ... ]
-
-> +static int eqc_probe_divider(struct device *dev, struct device_node *np,
-> +			     const struct eqc_clock *clk, void __iomem *base,
-> +			     struct clk_hw_onecell_data *cells)
-> +{
-> +	struct clk_parent_data parent_data;
-> +	struct clk_hw *hw;
-> +	int ret;
-> +
-> +	ret =3D eqc_fill_parent_data(clk, cells, &parent_data);
-> +	if (ret)
-> +		return ret;
-> +
-> +	hw =3D clk_hw_register_divider_table_parent_data(dev, clk->name,
-> +			&parent_data, 0, base + clk->div.reg, clk->div.shift,
-> +			clk->div.width, clk->div.flags, clk->div.table, NULL);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since multiple writable
-clock dividers share the same physical register (for example, div-ospi-ref
-and div-ospi-sys share the register at 0x090), can concurrent clk_set_rate()
-calls cause read-modify-write races here?
-
-Because NULL is passed as the lock parameter, the clock divider core will
-perform a lockless read-modify-write sequence. Would it be safer to provide
-a shared spinlock to protect the register state?
-
-> +	if (IS_ERR(hw))
-> +		return PTR_ERR(hw);
-> +
-> +	cells->hws[clk->index] =3D hw;
-> +	return 0;
-> +}
-
-[ ... ]
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-clk-eyeq7-=
-v8-0-53f618174cf6@bootlin.com?part=3D6
+-- 
+Lee Jones
