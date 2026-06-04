@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CD53317147;
-	Thu,  4 Jun 2026 15:09:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAF4A3264D9;
+	Thu,  4 Jun 2026 15:12:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780585785; cv=none; b=QWAxgSQsIS01u5h37WV7GL6z0qLGOzdj3EmzfZGcUxb3gHmVOfbYptyJKxTCWG14ekbAid+Q0v+i3DVcp/m5iIpvyxMqaZCJchg+/vc6SNhtGSeRlugwyr/g6l5rFOwYxhG2rUkVXMauKaixPa5dTNXFoSpeIk6CgmEhLh+ZYdE=
+	t=1780585949; cv=none; b=ixwk5o0IP0g5ro2Uamyx6FOT68eWFDf+nf/YCrQCY2V1re+Gr/X4Z1RWMR8i+1Mo3RuzK8zF8Rc7IG+uG7aavQnYMAieQVaZNy34o9mKowSCnoqdt8CKT34Dp+WXLnaNJpKU4IXvXgmrJGd9/RAv0NptGUauEZ1cZCtzQ/VIdd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780585785; c=relaxed/simple;
-	bh=JMmbbAyil4pFQwhk1IQHP2T4LoBkBG3HwQeeBC812Zo=;
+	s=arc-20240116; t=1780585949; c=relaxed/simple;
+	bh=c7YZ580rKIog1XjqjNXBfwBS6n7DilukM14B8QDSOuo=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=LS1bxq6m/4JlYeMGg6h3tS2aKt80xLEaKEPJOOxCDCOSNn2XmMuAORpTewO6bnUTFJ0jf+1lYK2GVDg41YOOxI58iOUcceC1+129uyYWp9eWRGCHZqKxfAvk3w1cHTLUH120yhnw3JDOrIf3SWelKxdjQa0RzzWSKvZo+NKX3Vk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f8/fwena; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=USdrDvbtkIQ8RjTYJImOSddjr5Oxp1IKFmPBgxDnyKfOC1X5fkHVBpuRfJxcB3ubJA0dmRHKffe3fqT+omMwBxukOldtz/GUiMMGgLswA2+8xuMNuPGWSGZXGNbDqOtbC3m4OD2WToRpJGnmvLxU21J5dL0xJLqbdCKh3CWmb/Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZgWOmsX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f8/fwena"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A4B61F00893;
-	Thu,  4 Jun 2026 15:09:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZgWOmsX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22CC01F00899;
+	Thu,  4 Jun 2026 15:12:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780585784;
-	bh=+L+7vSFl9vzgwqV/QZyiqqHxZQAd96QDEyqL6qtNsP4=;
+	s=k20260515; t=1780585948;
+	bh=bR/+jafAcVSnJv/wCrttjFYKh0+Ya10FBojZhRdPD6c=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=f8/fwenaF+gipkS+YKVYUhdIqGQyWlG5y4aDdhTta22pQbqCaKYIIyzOVwuOJ4cYD
-	 86tjGjB49YYAb8CRQTEMEf6QuE/BMPatROGieDwYAHtm3T8Hxzlk4/2KF6j0bKg9t9
-	 OwHRN0c16fsBBhuw/OmYaxf90Lr7ISQ7b9HrRLBl1/tgCzhGoA7Vz3pLoLDU1TKFut
-	 vMi35PpDdYkJDb5Fwc/Z/ITJJ4qRMDBOD/KIOjkbUk9PIhN89E79mrwks8KGp6bW54
-	 qmsy3Dyp48V2sJYxuMGWcnxGodh2aWWO/66GjTqmlNQ5QiSl760tEE/tZdl343XejD
-	 PDZJvhOhtfWTw==
-Message-ID: <7a330941-8715-4523-9f39-10b57586c69d@kernel.org>
-Date: Thu, 4 Jun 2026 17:09:35 +0200
+	b=RZgWOmsXH9WViiALTbww4cP4sRRQrZnomAuuTmxMk6mWrpvjQDWzwdVb7+yUfRJny
+	 HRw40KM8PuO/FjTgc/Ra2wbl9d3T7MFnyv6ZuCdrdp6Y3ZDitT/Yz+U8+BugXe0icA
+	 pTIlSK7wlDhSWcwY/eDtDuKmAHd+l2C+VgJDYfGjYMsQxL8kGXJyt3Ja2Lw+cFakYt
+	 MNBGvpwHynrCnVgewkjdyaBgoqVDvoBOPuI1GX4Y9eZumzAmxbNBDjfWLvS+D5N1Fg
+	 Bl1+efH+K6AP18ofajPn25WVQ1p+zd4OnnkzrZsZhBL0mEzwdwJYf9FpHZLbpF7Jz4
+	 UBqEFYcSGZhww==
+Message-ID: <b8758150-00a8-4d6e-bd2d-c1985d70ceac@kernel.org>
+Date: Thu, 4 Jun 2026 17:12:22 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,21 +35,16 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/4] dt-bindings: arm: qcom: Add Lenovo Yoga Slim 7x Gen11
-To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
- Neil Armstrong <neil.armstrong@linaro.org>,
- Jessica Zhang <jesszhan0024@gmail.com>, David Airlie <airlied@gmail.com>,
- Simona Vetter <simona@ffwll.ch>,
- Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
- Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>,
+Subject: Re: [PATCH 1/2] regulator: dt-bindings: qcom,sdm845-refgen-regulator:
+ Document IPQ9650
+To: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>,
+ Liam Girdwood <lgirdwood@gmail.com>, Mark Brown <broonie@kernel.org>,
  Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>, Douglas Anderson
- <dianders@chromium.org>, Bjorn Andersson <andersson@kernel.org>,
- Konrad Dybcio <konradybcio@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org
-References: <20260604-topic-yoga_submission-v1-0-57c70c23d0d6@oss.qualcomm.com>
- <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
+ Conor Dooley <conor+dt@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org,
+ devicetree@vger.kernel.org
+References: <20260602-ipq9650_refgen-v1-0-55e2afa5ff64@oss.qualcomm.com>
+ <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -95,36 +90,72 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260604-topic-yoga_submission-v1-2-57c70c23d0d6@oss.qualcomm.com>
+In-Reply-To: <20260602-ipq9650_refgen-v1-1-55e2afa5ff64@oss.qualcomm.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 04/06/2026 10:06, Konrad Dybcio wrote:
-> The Yoga Slim 7x Gen11 is a Snapdragon X2 Elite-based 14" laptop from
-> Lenovo, featuring an OLED touch panel. Add a compatible for it.
+On 02/06/2026 11:21, Kathiravan Thirumoorthy wrote:
+> IPQ9650 has two REFGEN blocks which provide reference current to the PCIe,
+> USB and UNIPHY PHYs. Unlike other supported platforms, IPQ9650 requires the
+> REFGEN clocks to be enabled explicitly.
 > 
-> According to the spec page [1], there  also exist other variations
-> (based on the Mahua SoC and/or with a different type of display panel),
-> but those are to be described separately
+> Document the IPQ9650 compatible and the required clocks for it.
 > 
-> [1] https://psref.lenovo.com/Product/Yoga_Slim_7_14Q8Y11?tab=spec
-> Signed-off-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> Signed-off-by: Kathiravan Thirumoorthy <kathiravan.thirumoorthy@oss.qualcomm.com>
 > ---
->  Documentation/devicetree/bindings/arm/qcom.yaml | 1 +
->  1 file changed, 1 insertion(+)
+>  .../regulator/qcom,sdm845-refgen-regulator.yaml     | 21 +++++++++++++++++++++
+>  1 file changed, 21 insertions(+)
 > 
-> diff --git a/Documentation/devicetree/bindings/arm/qcom.yaml b/Documentation/devicetree/bindings/arm/qcom.yaml
-> index 50cc18a6ec5eddaf48542b85387c2d430cd4721a..fca3d180489d4cd3eb2726a722f15febe44f03ad 100644
-> --- a/Documentation/devicetree/bindings/arm/qcom.yaml
-> +++ b/Documentation/devicetree/bindings/arm/qcom.yaml
-> @@ -68,6 +68,7 @@ properties:
+> diff --git a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
+> index 40f9223d4c27..2686569ca060 100644
+> --- a/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
+> +++ b/Documentation/devicetree/bindings/regulator/qcom,sdm845-refgen-regulator.yaml
+> @@ -16,6 +16,16 @@ description:
+>  allOf:
+>    - $ref: regulator.yaml#
+>  
+> +  - if:
+> +      properties:
+> +        compatible:
+> +          contains:
+> +            const: qcom,ipq9650-refgen-regulator
+> +    then:
+> +      required:
+> +        - clocks
+> +        - clock-names
+
+Entire allOF block goes to the end, see example-schema.
+
+> +
+>  properties:
+>    compatible:
+>      oneOf:
+> @@ -29,6 +39,7 @@ properties:
 >  
 >        - items:
 >            - enum:
-> +              - lenovo,yoga-slim7x-gen11
+> +              - qcom,ipq9650-refgen-regulator
+>                - qcom,qcs8300-refgen-regulator
+>                - qcom,sa8775p-refgen-regulator
+>                - qcom,sc7280-refgen-regulator
+> @@ -45,6 +56,16 @@ properties:
+>    reg:
+>      maxItems: 1
+>  
+> +  clocks:
+> +    items:
+> +      - description: Core reference clock
+> +      - description: AHB interface clock
+> +
+> +  clock-names:
+> +    items:
+> +      - const: core
+> +      - const: hclk
 
-I imagine you might want different panel variants, just like T14s has
-LCD and OLED?
+You just added clocks to each variant, which is not explained in commit
+msg. And it would be a separate commit anyway. Probably you wanted to
+add proper constraints (:false).
+
 
 Best regards,
 Krzysztof
