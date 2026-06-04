@@ -1,62 +1,62 @@
-Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
+Received: from mail-ej1-f44.google.com (mail-ej1-f44.google.com [209.85.218.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9D03DD512
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 06:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F353DD876
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 06:56:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780556187; cv=none; b=bk1Jb4pNohMRFMYTFPbjQ+C4gYiqCdZNh7YCZ+0tTKEy9xJjoBOo1sTtdQ/ZcfUo7em976W0yaZ9zLnGteHnmtlRaPHboPmHsmSWOFpwg28X65qsyWeLEEw27QATmtKnQgJA2fLs6q3SGr04ExrnRycpe026JDgyPxI4b06b2nw=
+	t=1780556187; cv=none; b=KskYWPnrN/QlL2Rz/PaeqYuy9IxuRT3UGuRYoYEWCAL6A+MpW/TU0h4ghCHG4d75XAqK1YJZKX7gL5g0PWYyQgtcHQa7NW3Z9QFeQlfagva0VFtwUXBaTwH/34Q1D816rCMDzsPAOy62EfYy8VWGoRcKzVoHfYRs4gbWe+pLlww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1780556187; c=relaxed/simple;
-	bh=mLqNH1tZT4PDvi9JL9X+OcDESHIRxNZrzPbcXi2+FgA=;
+	bh=WD6SpV06z/+rCtv5vu2qcqn8DOTtcqpPeKOCYnW7Gl8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Gl+Fj+y9u5Z17RpViApP6omdMEeCjsBBpiSziGacp1hXvCCM0XVHwkEtK0V9Zv0uaWwvv9EnZme+l6ULmj/rWlDR7lheJ8ja7syvFsUC0vSRMeJSyiTVb9QI0BvbXZ+mW5kGyhDd/VlP2VjFRef7K4D7ZKoccbBvxwyQsMnc8Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wi16XjE3; arc=none smtp.client-ip=209.85.218.45
+	 MIME-Version; b=Urs65poUemu/5ygWP4CCR7b9Rv0QTHj0NufNKXs9MsLXMQ6HCepQL79UMEY6cRFeXJcnhjWKd3Y0Ve0iMmQUzHr4+kB2+G9+IbK29FdpyKHKmemEpAOZcItAn9l4IUHcsWG/p2WmkZ+jvJ2A9fXAGlqSNFn2grp6YZbZAg7ih8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=anlTD5H1; arc=none smtp.client-ip=209.85.218.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wi16XjE3"
-Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-befd83e0521so303701266b.1
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 23:56:23 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="anlTD5H1"
+Received: by mail-ej1-f44.google.com with SMTP id a640c23a62f3a-bec49f7e35eso38255266b.2
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 23:56:24 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780556182; x=1781160982; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780556183; x=1781160983; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=Brk5Q3maRfMkheVWKLawYZfMADdxRxJPeRIKMtKkN+M=;
-        b=Wi16XjE33SHwDtZy5NufQyaH2maZyqnSMC8knPCY6IqcJNYzwnzP7qHNfttlkVnECv
-         c5e81ILS74dc4Co6mWx4NVYRHRwzMXsZXSdakRxwJB629E+ktmrJLyOk6NGzH8kOakRB
-         otIfs/rpyZDq89gBK6CjhvlC4b1U5CeD3f10V6ZP9RjHUksu8aSE2/2IiA3KLGAN5Qxw
-         LSKcONkSlYbV2IxHJ0OGmCm0CcUvrnYikCHz9YDXAkZmEKyZclAu85+VjFl5510AbbPV
-         YiZoUhrZOIABLEakBc799r0zglT2eegFWSL57rsv1ufQQJMWx7V9Wr+EUm3B1BPt8i52
-         uVSQ==
+        bh=Qj5QrO6XqMBpUhtJt/zlH5aTxtuKQkoxIMlaQ1G+P/k=;
+        b=anlTD5H1/C1mYsJVoVC83k9pyO1ASOxNH6uSJFl6CtdRxAWGMOsmX2VN/HVtCNWOjP
+         6jzjjCVTqMJ4fC1Su5fEodD3i2Uj9xen50Iokfc4HK11M+xxot077Ogck82Xw17epZYI
+         yW7pHfQ3ayYIq+n+I7BQ8f6jQlEkkHgJ+UfejFBWjOW25QjfPS/jpFhuuHVIwEWwwrMd
+         i3RcWP5961aaviZ2j6/lgwL6bGJEQc+OgQRUMUevB4tTedAqjXnisjTfFPZvoJPlV7S/
+         vsvQwlEW8th7ww0oXUZabUIykGMua5CQXhPy4t4avDhvhsA2UVG5vu6lNDWjpE86H6j9
+         A/+A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780556182; x=1781160982;
+        d=1e100.net; s=20251104; t=1780556183; x=1781160983;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=Brk5Q3maRfMkheVWKLawYZfMADdxRxJPeRIKMtKkN+M=;
-        b=qLPwtA1l3Q88L6x6H5VOqujv4aDM7NsqbgXks6907DancYzOTkWlNpnSjirRQ2bFOH
-         pcl2zom+1T/4Wg5ncTy9O0AaVWDnKSK42/b5roF2csX+1bcfng3GZWWieJMLWCYiAQsd
-         zj9o0Zd1ao6eiWUB9oaWCrvyk9lliBK2pyy5EJMWUPcEZdvNgzbltW+mJuuCKg0f8+02
-         ti9v/x+8Tie1a7IeFsOyWXT21uAbCvffY3MIko1zLHP0bYEqaz+KYpH0HBV5F8y4F9CT
-         PYN/Q/bmMOo88y6STLdJ16Fcdad/ZeTuF0MYlBc7aFwerGZRv0d7AokvVOHBd252bsp6
-         WEXA==
-X-Gm-Message-State: AOJu0YzNwT81vFhk6osjkxTd9JBQtS7CBaZLLxezRpylVwSPSV/J3pxS
-	ilqYivl/TwPcJ6Rv0L/PQBoVdA7f90iCD5+yABzoZIznhtXfGzylDuEf
-X-Gm-Gg: Acq92OGp5zUSPJezdlQGppH5BaWARf/ns2xlWWdl12ErPHacRk/NorYebZpgJUshIul
-	DdpL8RBhPI1Crw2GKLndgHyNEXLxZxwOeSoa8ihu4SDqwLAnf3YhP7xkClGnLj/xNVWOP1HKz4a
-	sxA1lPrQBlueOLE2MT0lhLkrsTrGOC/Upx7wGBhebQC5dUFDseI2lCnz5zoZWC0QSSQGXLwTXnV
-	BqWlnf2OdKoKR4vQFo7N86E9oCUK4YF12woy0RvBeUh5GCjeii94eR9+xY9BDKLyCneLIWdv/Kf
-	dm0TvQGRrrrBbjR7yWrMuS6xqtV4ZKThpw4U57laHwWq/xWK37zEwfwLIZ/lk0pbIRUoedDEDZ7
-	Fk+SAwZCVOCMTRs2Jxa0wDR+loJNU8i1X87OyTsXt3h6TsRap8ISDZ1d4yWQ3UKccAOCNJvUFun
-	/0hPeYkGsaWczhYVBaUClJukTayellQFYnWQ==
-X-Received: by 2002:a17:907:cca7:b0:bf2:6d61:3268 with SMTP id a640c23a62f3a-bf26d707c73mr23050166b.23.1780556182337;
-        Wed, 03 Jun 2026 23:56:22 -0700 (PDT)
+        bh=Qj5QrO6XqMBpUhtJt/zlH5aTxtuKQkoxIMlaQ1G+P/k=;
+        b=PcZ/lo098cCuqaQU0JfXzml+Nw/SiCm3Uk1Sx9mmAFNFj9nmTA3qr58hs8wVLEiJ/x
+         fkpV6mhQ6+fbkH2S84z08Mrd2iURPrsSCvXbDPo31Pcl7cMNHYpt+S21nVj/53wi4o1H
+         KO6gj48NlRJRX0BZ4QbcJHUFiNylHy6QNxqHuuQRgwMYOrBgIlPcpqhOdyayaik9LNfW
+         F9MMaO/Sqqq/Q9fMTp2ueqgwjI4NbP3Obb53ta28g2Hj6mrLqMacwrXXbmz7UkV8/4Yg
+         ZajHUh/bVz0ObRnFKvdLxt/NLcudxWd0g6h2vpD5/Jl3hPBIITT669LdbGOCs6dgC5F1
+         jIhQ==
+X-Gm-Message-State: AOJu0Yx9EdlUXVbLBPdpD+19s++YR+5LXIXJS9SwP2wMhhbMtbG0m27X
+	fTgX2PVNKJ5YHP1cRHlBuIv1wzsssnQzTVs0qlrKfLsNeIrELGvGmQ2d
+X-Gm-Gg: Acq92OHYEROICLiaI79tvG80hvGaNnNoMq6SPXibmggw9DjfmB/IvUblVwbvt7C4MeI
+	ZsM6xdPmZ8+vEmM1LM2T8IDkkMiVcBXXgHC5IUJE3eQn7lsvifpiDwDdImXpeOl2CqhVvN+zIaO
+	cmsUHSbKYlW76D6TrrUqC8lP5kl6KBL1Yf31Qmnyve36W0Nl6B8wACfjrLhjqcf7Uji6ufUirCh
+	Ujc4e3Y+C5fKO/+GsQENydF+dCCotY6XQ3r19JGWExwIgCSIppoixEhOr0uoC+eO54bL2RAXFNu
+	ThPTlqQ74ONjeCNo5tv7E4/xOdt4OUlRc6FtVizET+pTY5F8Zy77MKot/0c7slvfUyEhJeCVKi+
+	PtczfAXIXtjGOih69gCo+403jBRJXrj17v/C/4/ATnNiIYDDyIv1g1cnikieV4nUOOSu5k0ufga
+	FUX21VuuwzB4t/sHJwOd9gq2I=
+X-Received: by 2002:a17:907:3c8e:b0:bec:157:a63a with SMTP id a640c23a62f3a-bf0ac20eb8emr318362566b.1.1780556183335;
+        Wed, 03 Jun 2026 23:56:23 -0700 (PDT)
 Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051c83c93sm264113866b.16.2026.06.03.23.56.21
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051c83c93sm264113866b.16.2026.06.03.23.56.22
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 23:56:21 -0700 (PDT)
+        Wed, 03 Jun 2026 23:56:22 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 07/10] ARM: tegra: tf701t: Fix BCM4334 configuration
-Date: Thu,  4 Jun 2026 09:55:53 +0300
-Message-ID: <20260604065556.137614-8-clamor95@gmail.com>
+Subject: [PATCH v1 08/10] ARM: tegra: tf701t: Complete power sensor node
+Date: Thu,  4 Jun 2026 09:55:54 +0300
+Message-ID: <20260604065556.137614-9-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260604065556.137614-1-clamor95@gmail.com>
 References: <20260604065556.137614-1-clamor95@gmail.com>
@@ -81,61 +81,27 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Drop reset GPIO from bluetooth part and add lpo clock to both WiFi and
-bluetooth nodes.
+Add missing vs-supply and io-channel-cells.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 13 ++++++++-----
- 1 file changed, 8 insertions(+), 5 deletions(-)
+ arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index 73276f2aa7fe..e3e0b4ba7eb8 100644
+index e3e0b4ba7eb8..df4ccb332301 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -1300,8 +1300,9 @@ bluetooth {
- 			compatible = "brcm,bcm4334-bt";
- 			max-speed = <4000000>;
+@@ -1391,6 +1391,9 @@ power-sensor@44 {
+ 			reg = <0x44>;
  
--			clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
--			clock-names = "txco";
-+			clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>,
-+				 <&palmas_clk32k>;
-+			clock-names = "txco", "lpo";
- 
- 			interrupt-parent = <&gpio>;
- 			interrupts = <TEGRA_GPIO(U, 6) IRQ_TYPE_EDGE_RISING>;
-@@ -1309,7 +1310,6 @@ bluetooth {
- 
- 			device-wakeup-gpios = <&gpio TEGRA_GPIO(EE, 1) GPIO_ACTIVE_HIGH>;
- 			shutdown-gpios = <&gpio TEGRA_GPIO(Q, 7) GPIO_ACTIVE_HIGH>;
--			reset-gpios = <&gpio TEGRA_GPIO(Q, 6) GPIO_ACTIVE_LOW>;
- 
- 			vbat-supply = <&vdd_3v3_com>;
- 			vddio-supply = <&vdd_1v8_vio>;
-@@ -1450,7 +1450,7 @@ palmas_gpio: gpio {
- 				#gpio-cells = <2>;
- 			};
- 
--			palmas_clk32kg@0 {
-+			palmas_clk32k: palmas_clk32kg@0 {
- 				compatible = "ti,palmas-clk32kg";
- 				#clock-cells = <0>;
- 			};
-@@ -2382,9 +2382,12 @@ mmc@78000000 {
- 		vqmmc-supply = <&vdd_1v8_vio>;
- 
- 		wifi@1 {
--			compatible = "brcm,bcm4329-fmac";
-+			compatible = "brcm,bcm43340-fmac", "brcm,bcm4329-fmac";
- 			reg = <1>;
- 
-+			clocks = <&palmas_clk32k>;
-+			clock-names = "lpo";
+ 			shunt-resistor = <5000>;
 +
- 			interrupt-parent = <&gpio>;
- 			interrupts = <TEGRA_GPIO(U, 5) IRQ_TYPE_LEVEL_HIGH>;
- 			interrupt-names = "host-wake";
++			vs-supply = <&vdd_3v3_sys>;
++			#io-channel-cells = <1>;
+ 		};
+ 	};
+ 
 -- 
 2.53.0
 
