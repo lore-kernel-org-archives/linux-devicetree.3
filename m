@@ -1,62 +1,62 @@
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com [209.85.218.50])
+Received: from mail-ej1-f45.google.com (mail-ej1-f45.google.com [209.85.218.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3243C3DCDBC
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9D03DD512
 	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 06:56:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.50
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780556185; cv=none; b=ohj1yh1pfV+lqBwWRd/x7oqrMbkvMp5vfz9ud4wXWDRucV6H3S7V+hJT68B0WTHIHcrMxN23qo5XbVv7RrEuq2MQnno508j4SAPAybR6bYzUaDAMXY2oc1mJh8NVN4cfzKCQsa6xJudffXBRG09h62py7PV8jLmO3bQlez2ELgE=
+	t=1780556187; cv=none; b=bk1Jb4pNohMRFMYTFPbjQ+C4gYiqCdZNh7YCZ+0tTKEy9xJjoBOo1sTtdQ/ZcfUo7em976W0yaZ9zLnGteHnmtlRaPHboPmHsmSWOFpwg28X65qsyWeLEEw27QATmtKnQgJA2fLs6q3SGr04ExrnRycpe026JDgyPxI4b06b2nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780556185; c=relaxed/simple;
-	bh=74c2+EdyIjHTyeZ+NFsgiYzpE1mENWj5YYqu9FDW5XQ=;
+	s=arc-20240116; t=1780556187; c=relaxed/simple;
+	bh=mLqNH1tZT4PDvi9JL9X+OcDESHIRxNZrzPbcXi2+FgA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JBqUgsVWjGm32GHMkyOD7fqMc/osye2Plg7UewWVoJlSm6ci5AvcenjFqWYFDv4FSqkCn3gDDgF0Vap2J0yQI7anDwkYm6vhIsC423v3YThNkZL9aMFH0Hc+TnlgE3aVbqbq2q752d7nyy0hYMId5VpcRDlF5JFWBgZWkToLzVQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Aq53YfVp; arc=none smtp.client-ip=209.85.218.50
+	 MIME-Version; b=Gl+Fj+y9u5Z17RpViApP6omdMEeCjsBBpiSziGacp1hXvCCM0XVHwkEtK0V9Zv0uaWwvv9EnZme+l6ULmj/rWlDR7lheJ8ja7syvFsUC0vSRMeJSyiTVb9QI0BvbXZ+mW5kGyhDd/VlP2VjFRef7K4D7ZKoccbBvxwyQsMnc8Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Wi16XjE3; arc=none smtp.client-ip=209.85.218.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Aq53YfVp"
-Received: by mail-ej1-f50.google.com with SMTP id a640c23a62f3a-bec354815b9so29538066b.3
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 23:56:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Wi16XjE3"
+Received: by mail-ej1-f45.google.com with SMTP id a640c23a62f3a-befd83e0521so303701266b.1
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 23:56:23 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780556181; x=1781160981; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780556182; x=1781160982; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=lhqotlkyoOnYDxs8tXDl3w5aFlnumJhN/b8jC9ZAfX8=;
-        b=Aq53YfVpdGSA2APa75UF6SCoG64kV34B4LTI3ULqx99eKf4///AJeXlIK7iHjYV56v
-         zJ8pRbS540eDENGWW/TsyT4iIvGQW/OXgT2sfU/uPg45eEtQix7jgkGDy7cMUVmkDFyg
-         CpkhWgJphVlJjZo8Ic+osHGLNAsCo0DWJenFEf9FK2ZqM6dkp0K5Ag8Ml9Z4vQrwwLBt
-         Gtsgndu/5hJp7oVTshlbzxbLe/2N5JMPbS/+n5DGWJQRKkp39+u91BGANbJJGH0rJMCZ
-         Hf9UPYOuTdZ6M4YgXufb5JuIytBMiqQD8xvqrvzwJz2Og8hvAHTXmuIfKilnBVqbRA/P
-         apJQ==
+        bh=Brk5Q3maRfMkheVWKLawYZfMADdxRxJPeRIKMtKkN+M=;
+        b=Wi16XjE33SHwDtZy5NufQyaH2maZyqnSMC8knPCY6IqcJNYzwnzP7qHNfttlkVnECv
+         c5e81ILS74dc4Co6mWx4NVYRHRwzMXsZXSdakRxwJB629E+ktmrJLyOk6NGzH8kOakRB
+         otIfs/rpyZDq89gBK6CjhvlC4b1U5CeD3f10V6ZP9RjHUksu8aSE2/2IiA3KLGAN5Qxw
+         LSKcONkSlYbV2IxHJ0OGmCm0CcUvrnYikCHz9YDXAkZmEKyZclAu85+VjFl5510AbbPV
+         YiZoUhrZOIABLEakBc799r0zglT2eegFWSL57rsv1ufQQJMWx7V9Wr+EUm3B1BPt8i52
+         uVSQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780556181; x=1781160981;
+        d=1e100.net; s=20251104; t=1780556182; x=1781160982;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=lhqotlkyoOnYDxs8tXDl3w5aFlnumJhN/b8jC9ZAfX8=;
-        b=U+33GUcalr0O+Q/DsUYUEO0ooFHgpt06xTe+IOEe8rZwNzRgpaDPi03sp18QrVHAe6
-         Fz37r0KWoCcY7hurB+eIVOTPvHRpQterOeXBzvG181xbjMCEozSVxuoUUfpGkMyDr5f3
-         rnYM1u+W9kVfW9iLu7YKdbaOndO18btBpq6L+oqtuFD0ZXIMYpc5n8qmG0Nk71gX9wj0
-         HnFz6GliNnxKUijY35Kf7J6+tg9rCK1zwwrPU4I0N54zU3nfnQTN2oEbmkC4YtLLs6cD
-         OR13kiWGMh5MD/LFOOlWBv3IOVBYMK5VZA6JzIm8R0m6MB7qj/VoNttrplaxfO/IHP6X
-         5i1A==
-X-Gm-Message-State: AOJu0YxlEQxJWodB5PaEG2atsH7kpolAY+X2wTAKkT9mKsvj8JyNsp3H
-	fAWYF3jfXf2tGxiWRSzBhPyTFUTTQkxot01LelwRUXUCFAFW/V2k2ry4
-X-Gm-Gg: Acq92OHkEw8yaswGoTs6pxjRwq2dNO8EDvSkqR+FOoP0jFuzG/750WWH+ycNi5UMP5x
-	uXav2q9b43RHoNvlZdOGqPvRyJqg+JJFBfND/X1lsKonQQl2TfC0IowH/8IwpPv6P0tIBl4/s9H
-	K+dfudImrP0j6yltKX2dNrIASNEAe+zLcxRD0Lz4optBaqKKA8S+ipR0Ant4siWuNBSlWylT7Vt
-	57KS3wD29gzboXDm/EKfV49ErWTO2q7fSKsKJ1ww4z2tuZRs/X9JyLYMTiUFFzngn4EfJPbWwQJ
-	oD278eYZdnOPy47pnCbDUXBrJ/yiu5rgLfrumxwRXAmaArM+JWyPGxaYeVWZwD821OxT17wJG8I
-	Wxk+6v8G2AyeJTg0LUPNPbhQMUJenrHZhlfQidVo+dO9Ei7DWHQYpv2IqI/WWKbnuBJKnlna23K
-	bNQfgE73ggX7dEV+eKzEjPtG4=
-X-Received: by 2002:a17:907:7248:b0:bed:8f7e:d85b with SMTP id a640c23a62f3a-bf0af50a2b0mr329317566b.42.1780556181344;
-        Wed, 03 Jun 2026 23:56:21 -0700 (PDT)
+        bh=Brk5Q3maRfMkheVWKLawYZfMADdxRxJPeRIKMtKkN+M=;
+        b=qLPwtA1l3Q88L6x6H5VOqujv4aDM7NsqbgXks6907DancYzOTkWlNpnSjirRQ2bFOH
+         pcl2zom+1T/4Wg5ncTy9O0AaVWDnKSK42/b5roF2csX+1bcfng3GZWWieJMLWCYiAQsd
+         zj9o0Zd1ao6eiWUB9oaWCrvyk9lliBK2pyy5EJMWUPcEZdvNgzbltW+mJuuCKg0f8+02
+         ti9v/x+8Tie1a7IeFsOyWXT21uAbCvffY3MIko1zLHP0bYEqaz+KYpH0HBV5F8y4F9CT
+         PYN/Q/bmMOo88y6STLdJ16Fcdad/ZeTuF0MYlBc7aFwerGZRv0d7AokvVOHBd252bsp6
+         WEXA==
+X-Gm-Message-State: AOJu0YzNwT81vFhk6osjkxTd9JBQtS7CBaZLLxezRpylVwSPSV/J3pxS
+	ilqYivl/TwPcJ6Rv0L/PQBoVdA7f90iCD5+yABzoZIznhtXfGzylDuEf
+X-Gm-Gg: Acq92OGp5zUSPJezdlQGppH5BaWARf/ns2xlWWdl12ErPHacRk/NorYebZpgJUshIul
+	DdpL8RBhPI1Crw2GKLndgHyNEXLxZxwOeSoa8ihu4SDqwLAnf3YhP7xkClGnLj/xNVWOP1HKz4a
+	sxA1lPrQBlueOLE2MT0lhLkrsTrGOC/Upx7wGBhebQC5dUFDseI2lCnz5zoZWC0QSSQGXLwTXnV
+	BqWlnf2OdKoKR4vQFo7N86E9oCUK4YF12woy0RvBeUh5GCjeii94eR9+xY9BDKLyCneLIWdv/Kf
+	dm0TvQGRrrrBbjR7yWrMuS6xqtV4ZKThpw4U57laHwWq/xWK37zEwfwLIZ/lk0pbIRUoedDEDZ7
+	Fk+SAwZCVOCMTRs2Jxa0wDR+loJNU8i1X87OyTsXt3h6TsRap8ISDZ1d4yWQ3UKccAOCNJvUFun
+	/0hPeYkGsaWczhYVBaUClJukTayellQFYnWQ==
+X-Received: by 2002:a17:907:cca7:b0:bf2:6d61:3268 with SMTP id a640c23a62f3a-bf26d707c73mr23050166b.23.1780556182337;
+        Wed, 03 Jun 2026 23:56:22 -0700 (PDT)
 Received: from xeon ([188.163.112.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051c83c93sm264113866b.16.2026.06.03.23.56.20
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051c83c93sm264113866b.16.2026.06.03.23.56.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 03 Jun 2026 23:56:20 -0700 (PDT)
+        Wed, 03 Jun 2026 23:56:21 -0700 (PDT)
 From: Svyatoslav Ryhel <clamor95@gmail.com>
 To: Rob Herring <robh@kernel.org>,
 	Krzysztof Kozlowski <krzk+dt@kernel.org>,
@@ -67,9 +67,9 @@ To: Rob Herring <robh@kernel.org>,
 Cc: devicetree@vger.kernel.org,
 	linux-tegra@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v1 06/10] ARM: tegra: tf701t: Tune MMC devices
-Date: Thu,  4 Jun 2026 09:55:52 +0300
-Message-ID: <20260604065556.137614-7-clamor95@gmail.com>
+Subject: [PATCH v1 07/10] ARM: tegra: tf701t: Fix BCM4334 configuration
+Date: Thu,  4 Jun 2026 09:55:53 +0300
+Message-ID: <20260604065556.137614-8-clamor95@gmail.com>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260604065556.137614-1-clamor95@gmail.com>
 References: <20260604065556.137614-1-clamor95@gmail.com>
@@ -81,113 +81,61 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Set WiFi sdmmc device to SDR104 and improve power sequence. Set uSD sdmmc
-device to SDR104 and reconfigure its power supply. Set eMMC sdmmc device
-to HS200.
+Drop reset GPIO from bluetooth part and add lpo clock to both WiFi and
+bluetooth nodes.
 
 Signed-off-by: Svyatoslav Ryhel <clamor95@gmail.com>
 ---
- .../boot/dts/nvidia/tegra114-asus-tf701t.dts  | 36 +++++++------------
- 1 file changed, 13 insertions(+), 23 deletions(-)
+ arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-index 3e2bc611e2f7..73276f2aa7fe 100644
+index 73276f2aa7fe..e3e0b4ba7eb8 100644
 --- a/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
 +++ b/arch/arm/boot/dts/nvidia/tegra114-asus-tf701t.dts
-@@ -1645,9 +1645,9 @@ ldo8 {
+@@ -1300,8 +1300,9 @@ bluetooth {
+ 			compatible = "brcm,bcm4334-bt";
+ 			max-speed = <4000000>;
  
- 					vddio_usd: ldo9 {
- 						regulator-name = "vddio_usd";
--						/* min voltage of 1.8v is not stable */
--						regulator-min-microvolt = <2900000>;
-+						regulator-min-microvolt = <1800000>;
- 						regulator-max-microvolt = <2900000>;
-+						regulator-boot-on;
- 					};
+-			clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
+-			clock-names = "txco";
++			clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>,
++				 <&palmas_clk32k>;
++			clock-names = "txco", "lpo";
  
- 					avdd_hdmi: ldoln {
-@@ -2350,9 +2350,9 @@ brcm_wifi_pwrseq: pwrseq-wifi {
- 		clocks = <&tegra_pmc TEGRA_PMC_CLK_BLINK>;
- 		clock-names = "ext_clock";
+ 			interrupt-parent = <&gpio>;
+ 			interrupts = <TEGRA_GPIO(U, 6) IRQ_TYPE_EDGE_RISING>;
+@@ -1309,7 +1310,6 @@ bluetooth {
  
--		reset-gpios = <&gpio TEGRA_GPIO(X, 7) GPIO_ACTIVE_LOW>;
--		post-power-on-delay-ms = <300>;
--		power-off-delay-us = <300>;
-+		reset-gpios = <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_LOW>;
-+		post-power-on-delay-ms = <100>;
-+		power-off-delay-us = <100>;
- 	};
+ 			device-wakeup-gpios = <&gpio TEGRA_GPIO(EE, 1) GPIO_ACTIVE_HIGH>;
+ 			shutdown-gpios = <&gpio TEGRA_GPIO(Q, 7) GPIO_ACTIVE_HIGH>;
+-			reset-gpios = <&gpio TEGRA_GPIO(Q, 6) GPIO_ACTIVE_LOW>;
  
- 	/* WiFi */
-@@ -2371,11 +2371,9 @@ mmc@78000000 {
- 		bus-width = <4>;
- 		non-removable;
+ 			vbat-supply = <&vdd_3v3_com>;
+ 			vddio-supply = <&vdd_1v8_vio>;
+@@ -1450,7 +1450,7 @@ palmas_gpio: gpio {
+ 				#gpio-cells = <2>;
+ 			};
  
--		sd-uhs-ddr50;
-+		sd-uhs-sdr104;
- 		mmc-ddr-1_8v;
- 
--		power-gpios = <&gpio TEGRA_GPIO(CC, 5) GPIO_ACTIVE_HIGH>;
--
- 		nvidia,default-tap = <0x2>;
- 		nvidia,default-trim = <0x2>;
- 
-@@ -2396,14 +2394,18 @@ wifi@1 {
- 	/* MicroSD card */
- 	mmc@78000400 {
- 		status = "okay";
--
- 		bus-width = <4>;
-+
- 		cd-gpios = <&gpio TEGRA_GPIO(V, 2) GPIO_ACTIVE_LOW>;
-+		power-gpios = <&gpio TEGRA_GPIO(K, 1) GPIO_ACTIVE_HIGH>;
-+
-+		sd-uhs-sdr104;
-+		mmc-ddr-1_8v;
- 
- 		nvidia,default-tap = <0x3>;
- 		nvidia,default-trim = <0x3>;
- 
--		vmmc-supply = <&vdd_2v9_usd>;
-+		vmmc-supply = <&vcore_emmc>;
- 		vqmmc-supply = <&vddio_usd>;
- 	};
- 
-@@ -2413,7 +2415,7 @@ mmc@78000600 {
- 		bus-width = <8>;
- 
- 		non-removable;
--		mmc-ddr-1_8v;
-+		mmc-hs200-1_8v;
- 
- 		vmmc-supply = <&vcore_emmc>;
+-			palmas_clk32kg@0 {
++			palmas_clk32k: palmas_clk32kg@0 {
+ 				compatible = "ti,palmas-clk32kg";
+ 				#clock-cells = <0>;
+ 			};
+@@ -2382,9 +2382,12 @@ mmc@78000000 {
  		vqmmc-supply = <&vdd_1v8_vio>;
-@@ -2614,17 +2616,6 @@ hdmi_5v0_sys: regulator-hdmi {
- 		vin-supply = <&vdd_smps10_out2>;
- 	};
  
--	vdd_2v9_usd: regulator-vdd-usd {
--		compatible = "regulator-fixed";
--		regulator-name = "vdd_sd_slot";
--		regulator-min-microvolt = <2900000>;
--		regulator-max-microvolt = <2900000>;
--		regulator-boot-on;
--		gpio = <&gpio TEGRA_GPIO(K, 1) GPIO_ACTIVE_HIGH>;
--		enable-active-high;
--		vin-supply = <&vcore_emmc>;
--	};
--
- 	vdd_1v8_cam: regulator-cam-vio {
- 		compatible = "regulator-fixed";
- 		regulator-name = "vdd_1v8_cam";
-@@ -2661,7 +2652,6 @@ vdd_3v3_com: regulator-com {
- 		regulator-name = "vdd_3v3_com";
- 		regulator-min-microvolt = <3300000>;
- 		regulator-max-microvolt = <3300000>;
--		regulator-always-on;
- 		regulator-boot-on;
- 		gpio = <&gpio TEGRA_GPIO(U, 1) GPIO_ACTIVE_HIGH>;
- 		enable-active-high;
+ 		wifi@1 {
+-			compatible = "brcm,bcm4329-fmac";
++			compatible = "brcm,bcm43340-fmac", "brcm,bcm4329-fmac";
+ 			reg = <1>;
+ 
++			clocks = <&palmas_clk32k>;
++			clock-names = "lpo";
++
+ 			interrupt-parent = <&gpio>;
+ 			interrupts = <TEGRA_GPIO(U, 5) IRQ_TYPE_LEVEL_HIGH>;
+ 			interrupt-names = "host-wake";
 -- 
 2.53.0
 
