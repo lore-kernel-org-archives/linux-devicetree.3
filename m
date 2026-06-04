@@ -1,136 +1,130 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41983DFC8F
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 20:45:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48F0F3CA487;
+	Thu,  4 Jun 2026 20:50:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780605909; cv=none; b=mTQtVU0q4tRMHh/dYs1WHWIWLfGmw9W4F3W1TwmmOIvxUNgcKtdon9h9gchBKhCdDyNmwUWIbS1Ej2o0R0jWmFGjfv/yhj6cnq/6rwKzmftnPdIV8gMkfPlv8QM4Gh9A/R3JVNIg2wB38fmdAluWPcGbk3xRegVx3AnUrX3KHFU=
+	t=1780606222; cv=none; b=NdV9HxQ1BF8Pz75C93EZ79DkZHm16IVgm96BoMpOeAXIHHPoKWsHcMJKk3HNHcR5fZegzRoStT0fdHP2+fNy8V90nNNydjQFOkN0xgtEYSrjaptH9RewZ8dVrla91/99mdZNadcjMqw7ScD1gGlpAIk2/zJ+P777ukSZUmzR65s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780605909; c=relaxed/simple;
-	bh=fnxuFjsk27LRLgBJedoJGhu5j+HJTdT4KydJw+zNHKk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mpLrftgG+I0IBKKOXxmx2fPx0HjKpldX5pd6OZioAy3asqYNea5ygSqdX3TW/AbO72IQrrn03p141PR4f+m3MhHXdPkAc74ybad/oH1BMu1l5+43Q1pv9+CK8vCRcP15Cd0hFEyHF4CI3YNlf0VaOji+hXj6uBClHhAKAg6U31A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AssVGOtl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780606222; c=relaxed/simple;
+	bh=E4v7IX+5tcqvUwBc9HCj1aWsJOdNPZVNz29a67II4hg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=UhBGNq7tb7gkINRTm8InDMe+Iw8aMXBcg4U69hXXbjbNgCOZZO1VB6y0A9B1ayowNCJ6HvNhS7VcVcJ+QydtIXU9TQKpE648s/yohU6xWSlbmf0ZXa82c82QenW/y347+YyrTsyO0tonCkKu1fwn8PcC3+zqloJhwTPxMBEHguo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Q96Of93r; arc=none smtp.client-ip=198.175.65.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AssVGOtl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 126881F00893;
-	Thu,  4 Jun 2026 20:45:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780605908;
-	bh=stowl0EbPDcRMLkEbV+ANGMYqP7KCxS179Gq/4jGXEk=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=AssVGOtlXrtCr+prEpnB82WpAuhMVfjQW6tL6AeCyE+vAoLOdf3TAU/y+UNcnaZwL
-	 rt9aNiuVaMMPVTwc2+cSlmdtf0XFG59mq3q7sPc+fDdsgMg2Q/IClnMHKD0zLk5qGC
-	 X81AspE3XdWvGMKeDbFtQ0UKfLBK4jjmIjQrgnEBJiu5yH2kjnvj2yuIHMJBSOANh9
-	 3rX10iyJVARu8bN3HiXwc4nMyx6M9qcfU1z6vKrVZksrSdLUG3TwNm+scFW00vVl5y
-	 parGokw/Ybr5GkPeM+0k+syymvNBCgw3VCD1VPl3fgHun2vvMNt7xI1RGMoJX6HiYY
-	 83ui+D8V+TsvA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH V10 3/9] iio: imu: inv_icm42607: Add inv_icm42607 Core
- Driver
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Chris Morgan" <macroalpha82@gmail.com>
-Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
-In-Reply-To: <20260604201832.60656-4-macroalpha82@gmail.com>
-References: <20260604201832.60656-4-macroalpha82@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 20:45:07 +0000
-Message-Id: <20260604204508.126881F00893@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Q96Of93r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1780606222; x=1812142222;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=E4v7IX+5tcqvUwBc9HCj1aWsJOdNPZVNz29a67II4hg=;
+  b=Q96Of93ryF9WfCx4PKlpXR/cUUFcHlZtttxDN0Akqk3TCtVyJVf+iNQq
+   MkmKx5sTkek3DdhE/a0AjA1ZS/KJeVpZ4cET3fdkgbpifERE0UwTjuaOS
+   D5rU+oN7p8mWDtwQJ+46ptWgZm8/gI41FXaPTeGleRV04BsA8k7Urdgcs
+   FFwlg6f+DTj2YtxwcZEvWzjzelUk/rZLD4LdOzteWt6ZeV5MP31sSfy/R
+   Y+3KS7JOJA6uv216PeRpQEJ5T1/63kr2M4UwQla4nbRrsXYCSwIhkIVvf
+   n0hKbd7taY/U55FwiCPOVMIfA8mJ3vSF1x8X93cxWK9yfusEOgDJWjn85
+   w==;
+X-CSE-ConnectionGUID: V3EmmrhITjuy7WkZLjPCiQ==
+X-CSE-MsgGUID: Qo70NKSzSXe0cJZfXLF/Rg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="81625897"
+X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
+   d="scan'208";a="81625897"
+Received: from fmviesa005.fm.intel.com ([10.60.135.145])
+  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 13:50:21 -0700
+X-CSE-ConnectionGUID: 46kngQ6PQ0u4zToey6Bv4Q==
+X-CSE-MsgGUID: GAPdH26TThS3wGhTs3qXjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
+   d="scan'208";a="249750331"
+Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
+  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 13:50:17 -0700
+Date: Thu, 4 Jun 2026 23:50:15 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: jic23@kernel.org, dlechner@baylibre.com, nuno.sa@analog.com,
+	andy@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, tomasborquez13@gmail.com,
+	masneyb@onstation.org, linux-iio@vger.kernel.org,
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v3 3/3] iio: light: isl29018: support cover-glass gain
+ compensation via DT
+Message-ID: <aiHlB4b_1ylnLv8B@ashevche-desk.local>
+References: <20260604100617.3486541-1-github.com@herrie.org>
+ <20260604100617.3486541-4-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260604100617.3486541-4-github.com@herrie.org>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] The driver state structure `st` is never saved to the device's drv=
-data, leading to a guaranteed NULL pointer dereference in PM callbacks.
-- [Low] Redundant error code argument in `dev_err_probe()` format string.
---
+On Thu, Jun 04, 2026 at 12:06:17PM +0200, Herman van Hazendonk wrote:
+> Boards that mount the ISL29018 behind tinted or coated cover glass
+> experience optical loss that effectively reduces the sensor's apparent
+> sensitivity.  The existing in_illuminance0_calibscale sysfs attribute
+> can correct for this at runtime, but firmware knows the loss factor at
+> design time and there is no way to seed it without a userspace helper.
+> 
+> Add support for an optional "isil,cover-comp-gain" device-tree property
+> that initialises calibscale at probe time.  If the property is present
+> but cannot be read, probe returns an error via dev_err_probe() so the
+> root cause is visible in the log.  If absent, calibscale defaults to 1
+> (unity gain, matching the previous behaviour).  Userspace can still
+> override the value at runtime through the sysfs attribute.
+> 
+> The approach follows the precedent set by the TSL2563 driver.
 
-commit d1ce5988d50518ee3fa99e6870abfe673fb42169
-Author: Chris Morgan <macromorgan@hotmail.com>
+...
 
-    iio: imu: inv_icm42607: Add inv_icm42607 Core Driver
-   =20
-    Add the core component of a new inv_icm42607 driver. This includes
-    a few setup functions and the full register definition in the
-    header file.
+>  	struct iio_dev *indio_dev;
+>  	const void *ddata = NULL;
+>  	const char *name;
+> +	struct device *dev;
+>  	int dev_id;
+>  	int err;
+>  
 
-> diff --git a/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c b/drivers/i=
-io/imu/inv_icm42607/inv_icm42607_core.c
-> new file mode 100644
-> index 0000000000000..74d4cb03f7b86
-> --- /dev/null
-> +++ b/drivers/iio/imu/inv_icm42607/inv_icm42607_core.c
+> +	dev = &client->dev;
 
-[ ... ]
+Make this go together with the definition.
 
-> +int inv_icm42607_core_probe(struct regmap *regmap,
-> +			    const struct inv_icm42607_hw *hw,
-> +			    inv_icm42607_bus_setup bus_setup)
-> +{
-> +	struct device *dev =3D regmap_get_device(regmap);
-> +	struct inv_icm42607_state *st;
-> +	int ret;
-> +
-> +	st =3D devm_kzalloc(dev, sizeof(*st), GFP_KERNEL);
-> +	if (!st)
-> +		return -ENOMEM;
-> +
-> +	ret =3D devm_mutex_init(dev, &st->lock);
-> +	if (ret)
-> +		return ret;
-> +
-> +	st->hw =3D hw;
-> +	st->map =3D regmap;
-> +
-> +	ret =3D iio_read_mount_matrix(dev, &st->orientation);
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "failed to retrieve mounting matrix %d\n", ret);
+	struct device *dev = &client->dev;
 
-[Severity: Low]
-This isn't a bug, but is it necessary to include the %d format specifier and
-ret argument in this dev_err_probe() call?
 
-The dev_err_probe() API natively prefixes the log message with the provided
-error code, so passing it as an explicit format argument might result in the
-error code being printed twice.
+...
 
-> +
-> +	ret =3D devm_regulator_get_enable(dev, "vdd");
-> +	if (ret)
-> +		return dev_err_probe(dev, ret,
-> +				     "Failed to get vdd regulator\n");
+Use something like
 
-[ ... ]
+	const char *propname;
+	...
+	propname = "isil,cover-comp-gain";
 
-> +	/* Setup chip registers (includes WHOAMI check, reset check, bus setup)=
- */
-> +	ret =3D inv_icm42607_setup(st, bus_setup);
-> +	if (ret)
-> +		return ret;
-> +
-> +	return 0;
-> +}
 
-[Severity: High]
-Should this code save the driver state structure to the device's drvdata?
+> +	if (device_property_present(dev, "isil,cover-comp-gain")) {
+> +		err = device_property_read_u32(dev, "isil,cover-comp-gain",
+> +					       &chip->calibscale);
+> +		if (err)
+> +			return dev_err_probe(dev, err,
+> +					     "invalid isil,cover-comp-gain\n");
 
-Because runtime PM is enabled at the end of the driver series,
-inv_icm42607_runtime_suspend() will automatically trigger after the
-autosuspend delay.
+And make these three one-liners.
 
-It calls dev_get_drvdata(dev) to retrieve the state structure, which will
-return NULL since it was never set here.
+> +	} else {
+> +		chip->calibscale = 1;
+> +	}
 
-Could this lead to a NULL pointer dereference shortly after initialization
-when the PM callbacks try to access the state structure?
+-- 
+With Best Regards,
+Andy Shevchenko
 
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604201832.6065=
-6-1-macroalpha82@gmail.com?part=3D3
+
