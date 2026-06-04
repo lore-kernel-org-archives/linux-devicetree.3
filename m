@@ -1,62 +1,62 @@
-Received: from mail-oa1-f42.google.com (mail-oa1-f42.google.com [209.85.160.42])
+Received: from mail-oa1-f44.google.com (mail-oa1-f44.google.com [209.85.160.44])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E8E30D40C
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 22:10:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8975130E859
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 22:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.44
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780611028; cv=none; b=qgoWAl7TeBYSuxen9OwyWO6UY4+FTCQTe5tfPDBZqDvWOwEHhgb0OSfviDXUF4ULVOAf23a4SVVYoer4+xg8kSlkAptwROSsUxyczgkORX6G91vxglSGFX6GhGDMahfedEVTxKqeRDgo3WW317N/F10W6zKuivJ8TVCfLwseRT0=
+	t=1780611029; cv=none; b=Yghfhoy8A2jS4nFWG+ssWwOga2ErzlES2K2glE/8OihHAV8sadK3wUFB5gHyv9LILlxtTyEyRYqA/SIvTEC+F1OzIHi3nsalpuGWrtsdQtCVHTkKfn6kSljoZalbG2sGaWpCmCOuusWQScFLshrmI0IAj+D+JlC8STG9xfY+Rag=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780611028; c=relaxed/simple;
-	bh=W5m2lzvYLlw7r+o+e7AscuV7yWW+tXbCRyHIj9wK4BU=;
+	s=arc-20240116; t=1780611029; c=relaxed/simple;
+	bh=0NME0sM49RF5DaMChUXyALkrZCsgLNDsxmIMYYiB3/M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WXuJzq0exgF6fftbmF4jxi/JOGW8caCPc/xma0dHGjUx5szfzP9NbA1XmFVpmPCibigkcsR4mb19dMeHjCCxsRRmiL/b+QmmqRq1IoiIs5MJJy63nyzQeRKuVdiP6eQPEB9c9i95cxVLHvZnb0vcRGGnaAkoXN69L2XiqQtDhAI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OrSkfk/F; arc=none smtp.client-ip=209.85.160.42
+	 MIME-Version; b=az3J3h2jREuwBXA1y7rokMlJUiD1jw8sKkoCTQ5tTEN8rtSkt0sj/H6ThVJJ+xioL/E3GKpkVry/az5EnSkbI9nt2WBF++5CB0DyunHY7Adi8tAgrhZ4wETuDT99yINoLwaZTeoHZilvEn4+71zDSrHFl8udYsiG2Tbetbzw7KQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZQLOVY3A; arc=none smtp.client-ip=209.85.160.44
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OrSkfk/F"
-Received: by mail-oa1-f42.google.com with SMTP id 586e51a60fabf-43bfe209e45so846829fac.0
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 15:10:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZQLOVY3A"
+Received: by mail-oa1-f44.google.com with SMTP id 586e51a60fabf-43f1f2b82c6so986383fac.3
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 15:10:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780611026; x=1781215826; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1780611027; x=1781215827; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=ASzuiA/oWwreVgFn7/8SW3dexF4emahYNJXfppn07Ak=;
-        b=OrSkfk/FHAVg8HI63LIOZZdg10F4tV2h8jxc0mvTDBBKamSePmDW+oguPi8acF5HQl
-         aWV27zAMwOdADj4ENjVy5HIq9YxhDZ8h7dzwhqQ5Lr4bipoExTyOu7gWbAfD/rIbqIFD
-         Zh+NXSfDeyVVUtsUXmkHm+FF3AlifAPdDEY4UtNAX17oQgVpBS7xZ9NnrVvcbTWPcwLp
-         72XQuOf8CUgUYc5PUI3HYH5BOfa7yvLi8iU36srjMwTLsl3Rd4n1X4ne/BwVtr95zIXL
-         gYMhQB6cadNdKJFTz+TpRRt2tOBjp4YlGbvs031hzPf7lYKWWZh8paWenbdcsxMBgwUJ
-         koWw==
+        bh=FI9ZQ9CgMmpb7a0bvB8JNCWm0010rqvUn1D/bvnZnqE=;
+        b=ZQLOVY3ABLAutgwMPMtaK4EyaR+b/RtYjbqlDHk43q2n9qmM9ynF2fD4BD/RYbsxNc
+         UTPpoanFwCjpfidQZzzNzb1qRdSvXMyrh19ii0EgGzemC85hEuvX70Y0vba4hbQh1qml
+         B8OYUkSvtKyZ2SibHmzh3gY4pMeQjWPVWxOlliX7JyIPmn+5M/81lwdIKLIRDNqQvuXF
+         gMBnycytc1ax7Oy6YngDLdFfk0UxK+HoI2+uqDWbPUZd0xBM35fpbnENoTYeOH0UYkU+
+         ZSED8lin+k/pDl/Y+5ccaUjDI3Hi6bO/Aa3io3Ue2WZwGXJMsQBKPGZgZGS0Aj2Keenu
+         UfQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780611026; x=1781215826;
+        d=1e100.net; s=20251104; t=1780611027; x=1781215827;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to;
-        bh=ASzuiA/oWwreVgFn7/8SW3dexF4emahYNJXfppn07Ak=;
-        b=aW1Vc85GOQB6BizOA8SdWk0Kb36G6Ok6y8F5ft92TunEt3kog9MypLcsKL1wUKnfJG
-         rptSuFRGxodPW9qxtfrNiTgpYGqlFbF04MPU0gSldF2u1zVDzTQbvTeoJdXmbIHpV4RL
-         iDyyKT2SrnJpbZ+vzQUM0wU3E2PNnIhti2FoxI8T23DzS007qzm5h0/QNtrUfYnXsKct
-         Aj5J3jzySpvF8qu/pcIZd5zwbP71SFLbRj9GkQcWt2jB04R6b/TzDHHuJei/VEtBD/sH
-         7ve5dPNSPRfB9dclUjeK8m6oge1bMMJNANQxPQplScIdNZsNjyeEfmqBKvj9itDAmlCM
-         loUg==
-X-Gm-Message-State: AOJu0YzyJcNfm3XZG6zoV5gB/s86WvATXv0CWThO5h1PPG3db6atiWlU
-	1b+OD/6uuA6hOtD/Qar7Ux9Hd8JDowUqH9G4U63zPM25uy/Jabu3MRqj
-X-Gm-Gg: Acq92OGO67djU1779BdNdQG64c39rNYk8kc3oa109CvDVimrk8tIQ5uX33uEQjoWk+g
-	Lqc7OlVo5034fAeqv4m6A0tBqmo1Sg0rtCIVOT/GHoqJAr3lqeppnGwC2z0ziW64LXBcqcaV73y
-	RdBN6Lo77aTs2QE7+r7Sxnmp+SVOL6F7s6DTv5xR97U9em2ou+CJ9UHR0wwiD+OPttKgfy1xve4
-	TkhUlxalIfDATS/PmBNhdZ+z6R7vZ9ojpXfs/NBLWiCuJX/9/Crb42gi3zp1nLLV4EBbkliIRHn
-	InbRG2lAyhYLz5fyfZeS7ESY+cbJ9Pfv++FJN70RPO92H1zU2toQ8QPN85nihQMV652Nq2aHvME
-	lQF55ZxmUhNyrLDsqxcgB2KO+LOotivstnHMm+XYKcoIqH7VUTp4cOw+Muj+pmMfC27i/W4pbeR
-	PDRShOPIbpJqv9IrslRVY0p+LQFhokQBk=
-X-Received: by 2002:a05:6870:6987:b0:43e:5b7f:8b81 with SMTP id 586e51a60fabf-4413ddad56amr411159fac.25.1780611025808;
-        Thu, 04 Jun 2026 15:10:25 -0700 (PDT)
+        bh=FI9ZQ9CgMmpb7a0bvB8JNCWm0010rqvUn1D/bvnZnqE=;
+        b=BgLM51Y3pLhpsUTjb9Eg/GjKaXRt1ZafnzEbGrcUGuuX8rpN8UPffPuoBVMUC90/U7
+         wwqr5SuTYD59ACRCJ0MyHmRPX6DImkoGZ685P2gU8PGkewcEoMOT+88y0kNZqqzXJsQT
+         IdiPExz1lTuQY0vGIxP8HIICM50GoaT0LmgbMqTjZaAPm7V91egHZrvjv0lkphBnN3XZ
+         u3uFPorFlHD8OGIcJel+R4+F5rMQHRUPnmpkuYsvdsDxXswdDkJbu+KuX3i9nUzN1zyT
+         w6yIOgsFNCIUhlY96MT008GJTxJZh4NOSV8G0kxcj7g0DuleUTMtU3sPFt54ILDl6NDw
+         kawQ==
+X-Gm-Message-State: AOJu0YzHUMa1mwF5qSLTv2hVmBGSbmDduMUziJm5iVWcW+QM0Z0pyYDR
+	DiKTkbhRH257/AqTD2WUjyOH/rkNh3HHuPp0nL47f8JamrZxHmWnHM4D
+X-Gm-Gg: Acq92OHzOJVbcuOrmFbG0LroNkiloHwZgwn4n0G/Gkd3yd+DvAIK8cpJhpiMpY0e/kP
+	sayCqYw8DSwT4Jtsrnz1FdPC7f4Zg4mkpIDd4Ggkv42Jax1dELT2qqfGoR5yaErOn3yPxkremy4
+	LjKNuGlRne0XnHNRoU8uVTnWruK+/VsJoqiuisZj+Lwfq/HWvD0DBFvbQov1OF1avXlaZi/l61C
+	ZB/wS9sXYo6KiDFSc1YXYVFVHK6Li9o3Oy07xxp5WTnaDtrkZRTNHSshKyxhaoQooZIBvD0MZp+
+	796sl8KGP2ahSexilOAKo6IYFs9URMwwpS8XcIHS1gpB0R0/k1kZ5nr2FuHN/ybcX4V8zCMH/Cq
+	hq9cPjbhLcnqIyuU92o6A0w9t65kjiVieAu3sgmtBbRbX8pmoTsWEdisolbYuwKrNyc4AKgtaVV
+	RTGCse8s78p4s7F7fPKImdAzHXJCStHNM=
+X-Received: by 2002:a05:6820:1844:b0:69d:ff30:172f with SMTP id 006d021491bc7-69e68b5f811mr585576eaf.21.1780611027662;
+        Thu, 04 Jun 2026 15:10:27 -0700 (PDT)
 Received: from localhost.localdomain ([2600:1700:fb0:1bc0::54])
-        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-440d84c0ce2sm6802987fac.16.2026.06.04.15.10.25
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-440d84c0ce2sm6802987fac.16.2026.06.04.15.10.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 15:10:25 -0700 (PDT)
+        Thu, 04 Jun 2026 15:10:27 -0700 (PDT)
 From: Chris Morgan <macroalpha82@gmail.com>
 To: linux-rockchip@lists.infradead.org
 Cc: devicetree@vger.kernel.org,
@@ -74,9 +74,9 @@ Cc: devicetree@vger.kernel.org,
 	krzk+dt@kernel.org,
 	robh@kernel.org,
 	Chris Morgan <macromorgan@hotmail.com>
-Subject: [PATCH V5 1/6] dt-bindings: power: supply: sgm41542: document sgm41542
-Date: Thu,  4 Jun 2026 17:07:56 -0500
-Message-ID: <20260604220802.119107-2-macroalpha82@gmail.com>
+Subject: [PATCH V5 3/6] dt-bindings: display: panel: Add Anbernic TD4310 panel
+Date: Thu,  4 Jun 2026 17:07:58 -0500
+Message-ID: <20260604220802.119107-4-macroalpha82@gmail.com>
 X-Mailer: git-send-email 2.43.0
 In-Reply-To: <20260604220802.119107-1-macroalpha82@gmail.com>
 References: <20260604220802.119107-1-macroalpha82@gmail.com>
@@ -90,127 +90,88 @@ Content-Transfer-Encoding: 8bit
 
 From: Chris Morgan <macromorgan@hotmail.com>
 
-Document the SG Micro sgm41542 battery charger/boost converter.
-The parameters of input-current-limit-microamp and
-input-voltage-limit-microvolt are defined as such since they are in
-common use among multiple bindings currently.
+The panel used by Anbernic in the RG Vita-Pro is a DSI panel based
+on the TD4310 controller IC. It measures approximately 5.5 inches
+diagonally and is 1080x1920 in resolution.
 
 Signed-off-by: Chris Morgan <macromorgan@hotmail.com>
 ---
- .../power/supply/sgmicro,sgm41542.yaml        | 104 ++++++++++++++++++
- 1 file changed, 104 insertions(+)
- create mode 100644 Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
+ .../display/panel/anbernic,td4310.yaml        | 66 +++++++++++++++++++
+ 1 file changed, 66 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
 
-diff --git a/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
+diff --git a/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
 new file mode 100644
-index 000000000000..a97afea83700
+index 000000000000..6f7f92b9c860
 --- /dev/null
-+++ b/Documentation/devicetree/bindings/power/supply/sgmicro,sgm41542.yaml
-@@ -0,0 +1,104 @@
++++ b/Documentation/devicetree/bindings/display/panel/anbernic,td4310.yaml
+@@ -0,0 +1,66 @@
 +# SPDX-License-Identifier: (GPL-2.0-only OR BSD-2-Clause)
 +%YAML 1.2
 +---
-+$id: http://devicetree.org/schemas/power/supply/sgmicro,sgm41542.yaml#
++$id: http://devicetree.org/schemas/display/panel/anbernic,td4310.yaml#
 +$schema: http://devicetree.org/meta-schemas/core.yaml#
 +
-+title: SGM41542 Battery Charger
-+
-+description:
-+  The SGMicro SGM41542 is a single cell battery charger/boost controller.
++title: Anbernic TD4310 Based Panels
 +
 +maintainers:
 +  - Chris Morgan <macromorgan@hotmail.com>
-+  - Xu Shengfei <xsf@rock-chips.com>
++
++description:
++  Anbernic TD4310 Based Panels, such as the RG-Vita-Pro panel
++  (a 1080x1920 5.5 inch panel).
 +
 +allOf:
-+  - $ref: power-supply.yaml#
++  - $ref: panel-common.yaml#
 +
 +properties:
 +  compatible:
-+    const: sgmicro,sgm41542
-+
-+  input-current-limit-microamp:
-+    description:
-+      Optional value to clamp the maximum input current limit to for
-+      the device. If omitted, the default value for the hardware will
-+      be used (2400000).
-+    minimum: 100000
-+    maximum: 3800000
-+
-+  input-voltage-limit-microvolt:
-+    description:
-+      Optional value to clamp the maximum input voltage limit to for
-+      the device. If omitted, the default value for the hardware will
-+      be used (4500000).
-+    minimum: 3900000
-+    maximum: 12000000
-+
-+  interrupts:
-+    maxItems: 1
-+
-+  monitored-battery:
-+    description: |
-+        A phandle to a monitored battery node. Values for the following
-+        are used by the driver and if not present will result in default
-+        values being applied:
-+        constant-charge-current-max-microamp
-+        constant-charge-voltage-max-microvolt
-+        charge-term-current-microamp
-+        precharge-current-microamp
++    items:
++      - enum:
++          - anbernic,panel-vita-pro
++      - const: anbernic,td4310
 +
 +  reg:
 +    maxItems: 1
 +
-+  regulators:
-+    type: object
-+    properties:
-+      otg-vbus:
-+        type: object
-+        description: OTG boost regulator
-+        $ref: /schemas/regulator/regulator.yaml
-+        unevaluatedProperties: false
-+    additionalProperties: false
++  vdd-supply:
++    description: Panel power supply
 +
 +required:
 +  - compatible
++  - port
 +  - reg
++  - reset-gpios
++  - vdd-supply
 +
 +unevaluatedProperties: false
 +
 +examples:
 +  - |
 +    #include <dt-bindings/gpio/gpio.h>
-+    #include <dt-bindings/interrupt-controller/irq.h>
 +
-+    battery: battery {
-+      compatible = "simple-battery";
-+      constant-charge-current-max-microamp = <10000000>;
-+      constant-charge-voltage-max-microvolt = <4350000>;
-+      precharge-current-microamp = <180000>;
-+      charge-term-current-microamp = <300000>;
-+    };
++    dsi {
++        #address-cells = <1>;
++        #size-cells = <0>;
 +
-+    i2c {
-+      #address-cells = <1>;
-+      #size-cells = <0>;
++        panel@0 {
++            compatible = "anbernic,panel-vita-pro", "anbernic,td4310";
++            reg = <0>;
++            backlight = <&backlight>;
++            enable-gpios = <&gpio0 9 GPIO_ACTIVE_HIGH>;
++            reset-gpios = <&gpio0 13 GPIO_ACTIVE_LOW>;
++            rotation = <270>;
++            vdd-supply = <&vdd_lcd>;
 +
-+      charger@3b {
-+        compatible = "sgmicro,sgm41542";
-+        reg = <0x3b>;
-+        input-current-limit-microamp = <3000000>;
-+        input-voltage-limit-microvolt = <4500000>;
-+        interrupt-parent = <&gpio0>;
-+        interrupts = <26 IRQ_TYPE_EDGE_FALLING>;
-+        monitored-battery = <&battery>;
-+
-+        regulators {
-+          otg-vbus {
-+            regulator-max-microvolt = <5000000>;
-+            regulator-min-microvolt = <5000000>;
-+          };
++            port {
++                panel_in: endpoint {
++                    remote-endpoint = <&dsi_out>;
++                };
++            };
 +        };
-+      };
 +    };
++
++...
 -- 
 2.43.0
 
