@@ -1,158 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E62EC259C80;
-	Thu,  4 Jun 2026 14:11:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BC84259C80
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:11:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780582299; cv=none; b=ddvnutLRemxuNOOW3HVtb1Z5D7DOW+qzQxNdWZ0OWToFShcqm4n04qXrKa8V9s3He6xDcIMUd0uqgNSU6ai+jwT0M4+23B6r/4eFk0I1WSFtJ7oduTe0cg9kjiUHOGbno+US4UcxgjjNWMTakhewl0UftYn79psgn1BOhWfw+Ao=
+	t=1780582305; cv=none; b=O2DHfiCNCLd1G9s7NwhRs9irZ00dmBhv2p+Nr7yBergZMwWxQUmnc7PX29IFmnAOSziy8pXmdF1jcRZYNKTJ46cI6dULS3oQBLEQH1ZpiKvQmB0tqgHFeZNMmbHYEsFUPt/nibik/T37++lV83YFabuf/F9bnUrHj8YF8A3GLeM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780582299; c=relaxed/simple;
-	bh=c8MRTraEcn0OO+rGytzTy1mD4h0gR3K/7RG7LVvZFt8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RFQp+jW/NSGRSTGIQQH9z+yERm4wnSaPzIoZOVrmc6jHR7iXgp5BWeBDYtCE3mEYBgBuCedAVI+fYWT2JY7qJTlffMsjBQ8CdwYT0+9QU1O2jLBxSmBrTx6mhKM+rJG5TwjxjdQRpT60r8MmDXOZNUQpKaSuS2hxO7oV0en0Aro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XOgx2IWr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780582305; c=relaxed/simple;
+	bh=RGn7HbrFyAt47FBYl5ZGQfywJ4vY002qYKf3eSFothc=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=K+O90jU4eTsnEXDrR0M1xgVFU7cs75sgY6h9IXulukVCYYWP5V2GskHXeGmBmlZhWZZa7AsR2BAClN587KBaXjGiHjcL6K6oq+wn7AkwHFzgILHJRGTMcSeApDrYOkMi2FXnCe9+kn5vp2DFqTG+j33ApuwCLvyjqyB8S84c+LY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QOV+uKdU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XOgx2IWr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9E91F00893;
-	Thu,  4 Jun 2026 14:11:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QOV+uKdU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7B1E81F00893;
+	Thu,  4 Jun 2026 14:11:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780582297;
-	bh=0Sh8NbjgSm3sX3rE5H27Sw9yGDX3iYRRahDZnYRzigY=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=XOgx2IWry6BQMO6hf28wILss3wx9fWI9pLICcpBiEVvTiBYLRWH76sW0VccP0wsD6
-	 x6Rp4lgpXHKOwgxN7oGX5zC0Ei4svwjET5+bnxB07wPuFNMNIQjU93gMZ8agZUJkm+
-	 j0jhV99LPtm1d9A2nOAmT964FlZr8ApxETSo9q2G5esDbwSCW4mTxcsEIV573cdI/9
-	 RL+/pdbC+5hBwMJ6PSxYhkuue/2TI2vZgDeNel2pyMmGlonrJQtlTNJk5vuH8Mi1iW
-	 PmLjfaIbytO+sCNgAFxGSN4VTEeChsII1Vx6HOPJMbaR7X1oreY3CGSQjHKg2EiJ2d
-	 XKvrYEL43jJFw==
-Date: Thu, 4 Jun 2026 09:11:36 -0500
-From: Rob Herring <robh@kernel.org>
-To: John Madieu <john.madieu.xa@bp.renesas.com>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, geert+renesas@glider.be, magnus.damm@gmail.com,
-	kuninori.morimoto.gx@renesas.com, linux-sound@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org, john.madieu@gmail.com
-Subject: Re: [PATCH] ASoC: dt-bindings: sound: renesas,r9a09g047: Fix
- dma-names list and ports schema
-Message-ID: <20260604141136.GA328529-robh@kernel.org>
-References: <20260603202805.3530046-1-john.madieu.xa@bp.renesas.com>
+	s=k20260515; t=1780582302;
+	bh=MH5p5UiRGIxma5jv4p3iiLlreHzJsU1eQo5K+b7v1QA=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=QOV+uKdUZO2+uB77cd6Dbj+5LJDwYmxGF1aOY8WnsOxw3NqBEMS11ys0lUTDsEaaF
+	 amwB82L94bLw6d3hlx+7hnDEwv5sebJGTJJBpS8SUSP2xQv3Dzw0Z3Fm6MW44AVOoS
+	 AxKR32yQe9WGh6SGb0Z4Mb2Vg0TrVV/JE7fLXse+ypnD0NuTwxFbNCbaZRCLQOEGRO
+	 R1u9Nrd4BUTZIlnbUvpfIo99RCOW5Ei9QWUIAe9Z0V/qKbumeaDCU6Jow9oFP9BlqO
+	 9HQpXzcXryHJFt+WV8XPrG+SJVkiWxNv+3Pfs6QKWjMObQQ0PMZtDWN8OMTD04v/Mu
+	 qbAOX/879e1sg==
+From: sashiko-bot@kernel.org
+Subject: Re: [RFC PATCH v3 8/9] arm64: dts: rockchip: rk356x: Add the NPU
+ and its IOMMU
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Midgy BALON" <midgy971@gmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org, dri-devel@lists.freedesktop.org
+In-Reply-To: <20260604135255.62682-9-midgy971@gmail.com>
+References: <20260604135255.62682-9-midgy971@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 14:11:42 +0000
+Message-Id: <20260604141142.7B1E81F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260603202805.3530046-1-john.madieu.xa@bp.renesas.com>
 
-On Wed, Jun 03, 2026 at 08:28:05PM +0000, John Madieu wrote:
-> Express the dvc/src/ssiu dma-names as an items list rather than an
-> allOf-wrapped single schema, and drop the now-redundant maxItems. Fix
-> the ports container to reference graph.yaml's ports definition instead
-> of port-base (a ports container is not itself a port), keeping
-> port-base on the port@N children, and constrain each playback/capture
-> phandle-array entry to a single phandle.
-> 
-> While at it, drop the unused top-level #address-cells/#size-cells since
-> no child node uses a unit address and the ports node provides its own,
-> require interrupts/dmas/dma-names on the src sub-nodes to match the
-> ssi/ssiu sub-nodes and the driver, pin clocks and resets to their fixed
-> counts (47 and 14) to match the clock-names/reset-names lists, and put
-> compatible and reg first in the example.
-> 
-> Fixes: a86fd3c20218 ("ASoC: dt-bindings: sound: Add DT binding for RZ/G3E sound")
-> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
-> ---
->  .../sound/renesas,r9a09g047-sound.yaml        | 71 +++++++++++--------
->  1 file changed, 43 insertions(+), 28 deletions(-)
+Thank you for your contribution! Sashiko AI review found 3 potential issue(=
+s) to consider:
 
+New issues:
+- [High] The NPU node simultaneously defines `power-domains` and `rockchip,=
+pmu`, causing the generic power domain framework and the NPU driver to conc=
+urrently manipulate the same PMU power and idle registers.
+- [Low] Device tree nodes `npu@fde40000` and `iommu@fde4b000` are not sorte=
+d by unit address.
 
-> @@ -143,11 +139,12 @@ properties:
->                through the list to find a free channel.
->  
->            dma-names:
-> -            maxItems: 5
-> -            allOf:
-> -              - items:
-> -                  enum:
-> -                    - tx
-> +            items:
-> +              - const: tx
-> +              - const: tx
-> +              - const: tx
-> +              - const: tx
-> +              - const: tx
+Pre-existing issues:
+- [Critical] The driver calls `devm_clk_bulk_get` without initializing the =
+`.id` fields of the clock bulk data array, causing all clock requests to in=
+correctly default to the first clock in the device tree node.
+--
 
-All you need is:
+commit dff3ba648a490ef1a1c6644d672ca0b9e1d68360
+Author: Midgy BALON <midgy971@gmail.com>
 
-maxItems: 5
-items:
-  const: tx
+arm64: dts: rockchip: rk356x: Add the NPU and its IOMMU
 
-(The schema form (vs. list form) of 'items' applies to all items.)
+This commit adds the NPU and its associated IOMMU device tree nodes to the=
+=20
+RK3568 base devicetree. It also configures the necessary clocks, resets, and
+power domain for the NPU.
 
->  
->          required:
->            - dmas
-> @@ -203,12 +200,22 @@ properties:
->                falls through the list to find a free channel.
->  
->            dma-names:
-> -            maxItems: 10
-> -            allOf:
-> -              - items:
-> -                  enum:
-> -                    - tx
-> -                    - rx
-> +            items:
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
+> diff --git a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi b/arch/arm64/b=
+oot/dts/rockchip/rk356x-base.dtsi
+> index 64bdd8b7754b5..50ce5a5e4fc24 100644
+> --- a/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
+> +++ b/arch/arm64/boot/dts/rockchip/rk356x-base.dtsi
 
-maxItems: 10
-items:
-  enum: [ tx, rx ]
+[ ... ]
 
-> +
-> +        required:
-> +          - interrupts
-> +          - dmas
-> +          - dma-names
->  
->    ssiu:
->      type: object
-> @@ -229,12 +236,17 @@ properties:
->                falls through the list to find a free channel.
->  
->            dma-names:
-> -            maxItems: 10
-> -            allOf:
-> -              - items:
-> -                  enum:
-> -                    - tx
-> -                    - rx
-> +            items:
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
-> +              - enum: [ tx, rx ]
+> @@ -948,6 +955,37 @@ qos_rga_wr: qos@fe158300 {
+>  		reg =3D <0x0 0xfe158300 0x0 0x20>;
+>  	};
+> =20
+> +	rknn_core_0: npu@fde40000 {
+[Severity: Low]
+This isn't a bug, but should the npu@fde40000 and iommu@fde4b000 nodes be
+ordered alphanumerically by unit address? They appear to be inserted after
+qos@fe158300 rather than being placed right before gpu@fde60000.
 
-And same here.
+> +		compatible =3D "rockchip,rk3568-rknn-core";
+> +		reg =3D <0x0 0xfde40000 0x0 0x1000>,
+> +		      <0x0 0xfde41000 0x0 0x1000>,
+> +		      <0x0 0xfde43000 0x0 0x1000>;
+> +		reg-names =3D "pc", "cna", "core";
+> +		interrupts =3D <GIC_SPI 151 IRQ_TYPE_LEVEL_HIGH>;
+> +		clocks =3D <&cru ACLK_NPU>, <&cru HCLK_NPU>,
+> +			 <&scmi_clk SCMI_CLK_NPU>, <&cru PCLK_NPU_PRE>;
+[Severity: Critical]
+This is a pre-existing issue, but enabling this node exposes a bug where
+devm_clk_bulk_get() is called without initializing the .id fields in
+rocket_core_init().
 
-Rob
+Since the connection ID is NULL, does clk_get() implicitly fall back to
+of_clk_get(np, 0) for each loop iteration, mapping all four clock array
+entries to ACLK_NPU?
+
+Later, when rk3568_noc_init() dynamically scales the SCMI clock rate to
+1 GHz:
+
+    clk_set_rate(core->clks[ROCKET_RK3568_SCMI_CLK].clk, 1000000000UL);
+
+Does this mistakenly configure the rate of ACLK_NPU instead, which could
+overclock the AXI bus and lead to immediate hardware instability?
+
+> +		clock-names =3D "aclk", "hclk", "npu", "pclk";
+> +		assigned-clocks =3D <&scmi_clk SCMI_CLK_NPU>;
+> +		assigned-clock-rates =3D <200000000>;
+> +		resets =3D <&cru SRST_A_NPU>, <&cru SRST_H_NPU>;
+> +		reset-names =3D "srst_a", "srst_h";
+> +		power-domains =3D <&power RK3568_PD_NPU>;
+> +		rockchip,pmu =3D <&pmu>;
+[Severity: High]
+Could setting both power-domains and rockchip,pmu cause a race condition
+with TF-A and corrupt hardware state?
+
+The generic power domain framework inherently manages power gating and NoC
+bus idle requests for this domain, and explicitly protects these PMU
+transitions with pmu->mutex.
+
+Concurrently, the rocket driver's rk3568_noc_init() issues direct, un-polled
+regmap_write() operations to the exact same PMU offsets:
+
+    regmap_write(pmu, 0xa0, BIT(1 + 16));
+    ...
+    regmap_write(pmu, 0x50, BIT(2 + 16));
+
+Does bypassing GenPD's tracked state machine and the pmu->mutex lock create
+a layering violation here?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604135255.6268=
+2-1-midgy971@gmail.com?part=3D8
