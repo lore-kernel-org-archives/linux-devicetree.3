@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6D340C5C5;
-	Thu,  4 Jun 2026 11:16:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCF093DFC6C;
+	Thu,  4 Jun 2026 11:17:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780571804; cv=none; b=U6eHxSjkr3pRRavJ4e1MuzXyrbj/Wf4M/TB1kxQ6sNnyvXuEhZPmHyFzONaF1everKzSF6x8xESuX+ESwpghML8cnzpo8WHDJZdFk5YqVUxfNz8HBUjQHMefN0lwrNioUMctN6WJofcx0fCn1a1VpppgxYyMundzdnI8OwpJWk4=
+	t=1780571864; cv=none; b=hPf3JpNIszbMG3+nP+xJTqJWE2zxJ9edmz1TVyKQ9dZa6KV8Rl5Py5JeJ6fcihdpo39mWAf5SY/wnBDTmE3FSaWLu9gBbSv3hCdTwemwnK6q7iH2XdqBe4EER8FgfwXjvkM/Q6EWcbxhozMIBmfSNlKmRywYnB9x653Adg5oGQk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780571804; c=relaxed/simple;
-	bh=OED0BtuNfFgVi6qfJCVn34WtAksCCbrinOF8AZoWbj8=;
+	s=arc-20240116; t=1780571864; c=relaxed/simple;
+	bh=1mcRn4ZQ28+Yk5olKQ18seKw2OfI62JQJ/S3hJ0T7bM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ny58hFvrrTWNyifWvaXf/5dfOzhi5QV3jnqkxoICgBllJfmHR1fzAdrf5f22HzU1soNgFrn6y2jLb29yMX5D9SWHb1XvXiMtUvnnxtKRrqfqf5QK++QBDeJ7hblLZxzeVUsn43QO4tEi4R3LnFjF8VFx+5Pi7GvwptSscNGLDYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAdcQFYv; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=s+vVWR+DdEoXAKra+xnq+jRisp+/DHW0aOsZpJ8q2fSQ3Pcv5WZvs53QoMxM5dyKQkkC/syyjyzJpiBqeSNOdWHDjjZKI69U0dZg8MrFKr9iSy+hE4U+uxby/XxHFZmghwojO/Qdsj2eK62oyL5SAp9BspBAFCac3BfAHwJnML0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kb88yoAH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAdcQFYv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADF61F00893;
-	Thu,  4 Jun 2026 11:16:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kb88yoAH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2EEF61F00893;
+	Thu,  4 Jun 2026 11:17:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780571802;
-	bh=moby2GDtXlNhQY/wGiKDLL0iXmsEGITDqv/W8g+zfcY=;
+	s=k20260515; t=1780571863;
+	bh=2lxc/gZ9aXQ3wOmIi0KfB4bkI0RoMt4TEsuud+ysVmg=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=mAdcQFYvW+Cvoqu6s3W7O1wxpN9V+F8DLrrBEOPc/ayQ4yUoPniqSEv6Z40ZgKezl
-	 7i9e6MZHvrIaCJ+n5MpQFsU/wTaCvcF6SR7pSm5YiOYzXpA9g1iMJ+IHCd6qGIaPGg
-	 qOHV5S+el9kHlFlLU7QASUxhb6PnFkklr471a2w9QyqUdDyXwnOFBsH1Nmfy37Du+J
-	 /G6+LkgnWx68hZD4z43coO1XlmmczMYQoDfVrKmphxgeeNZggOf+TncnnRW18iXCy8
-	 vtZ2NlSMje0/+ybMekhhknwtYz4dgTBHJBLvl4E82PlRSTpuSU5bhwL5nS0Vhp5kUB
-	 nM6K2klBgx5/g==
-Message-ID: <2d196c4a-911e-43d7-a70b-c0666788dda7@kernel.org>
-Date: Thu, 4 Jun 2026 13:16:38 +0200
+	b=kb88yoAHWECJ0YarpPpXeFaeKFNa2TeCmcOhdZ6Qi8sxoUxymWG2s5N3sYeaiQvDZ
+	 P2ALCovFptkKqUOESRICUUTUNX52KRw/2XPSfjelmyWLYtxPpAhh431tm7e4Bvpr+u
+	 wZTwzljAI4pyvSYYnsDb38f6rlFWbTAXhbF50+dufUEtLoTBavV+U6RcgpabcvCzHS
+	 El4W3OOO3+DSQ/2ezQEZMfIJlzapDQ30ZQE5uOit1ne2lM204hI9Vtj7xO2QgPjYT/
+	 3UlFakjYHAhfZp4mMEVc3Bk2nAVI6pcfb+Qt3l2n6sCCU2isZMyyHKs0wxUnRLCITi
+	 9RGDxLsAy8RXg==
+Message-ID: <0df042cb-591a-46f1-a53e-04f94bca2c1c@kernel.org>
+Date: Thu, 4 Jun 2026 13:17:35 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,12 +35,23 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/2] arm64: dts: socfpga: agilex5: Enable the SMMU
-To: muhammad.nazim.amirul.nazle.asmade@altera.com, dinguyen@kernel.org
-Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
-References: <20260604105020.24782-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260604105020.24782-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+Subject: Re: [PATCH 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC i2c
+ driver.
+To: =?UTF-8?B?QmVuIEh1YW5nKOm7g+Wjq+i7kik=?= <Ben_Huang@novatek.com.tw>,
+ Conor Dooley <conor@kernel.org>
+Cc: Novatek i2c <SP_ISW1_AT@novatek.com.tw>,
+ "andi.shyti@kernel.org" <andi.shyti@kernel.org>,
+ "robh@kernel.org" <robh@kernel.org>, "krzk+dt@kernel.org"
+ <krzk+dt@kernel.org>, "conor+dt@kernel.org" <conor+dt@kernel.org>,
+ "linux-i2c@vger.kernel.org" <linux-i2c@vger.kernel.org>,
+ "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ =?UTF-8?B?VG9ieSBDaHVpKOW+kOWNk+aclyk=?= <Toby_Chui@novatek.com.tw>,
+ =?UTF-8?B?U2hpaHBlaSBIc3Uo6Kix6Kmp54+uKQ==?= <Shihpei_Hsu@novatek.com.tw>
+References: <20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw>
+ <f6cce361-47ef-4488-ac1e-5f60d3cd578b@kernel.org>
+ <20260604-grievance-esophagus-a607a9d734eb@spud>
+ <PUZPR04MB61094E3F7A824A3C8D81D8AEB7102@PUZPR04MB6109.apcprd04.prod.outlook.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -86,46 +97,19 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <20260604105020.24782-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
+In-Reply-To: <PUZPR04MB61094E3F7A824A3C8D81D8AEB7102@PUZPR04MB6109.apcprd04.prod.outlook.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 04/06/2026 12:50, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
-> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+On 04/06/2026 11:02, Ben Huang(黃士軒) wrote:
+> Hi,
 > 
-> The SMMU is disabled in socfpga_agilex5.dtsi. The SoC uses a different
-> memory-mapped base address for its peripherals, which requires the SMMU
-> to be active so that the Secure Device Manager (SDM) can correctly
-> access those regions through address translation.
+> 	Sorry for late response.
 > 
-> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
-> ---
-> Changes in v3:
-> - Fix commit header to follow subsystem naming convention
-> - Remove commit body line that restated the subject
-> - Clarify which file had the SMMU disabled
-> 
-> Changes in v2:
-> - Move SMMU enable into the base DTSI file instead of individual DTS files
-> ---
->  arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> index b06c6d5d60ee..64f3739a0c33 100644
-> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
-> @@ -385,7 +385,7 @@ smmu: iommu@16000000 {
->  			interrupt-names = "eventq", "gerror", "priq";
->  			dma-coherent;
->  			#iommu-cells = <1>;
-> -			status = "disabled";
-> +			status = "okay";
+> 	Please help review the modification in MAINTAINERS.
+> 	I am still looking for internal help to remove HTML-related messages.
 
-NAK. Nothing improved and you gave me exactly MINUS 5 minutes to reply
-to your comment. You FIRST sent v3 and then 5 minutes later you replied
-to my comment. So I should go back in time? How do you imagine this
-process working?
+It's confidential, no?
 
 Best regards,
 Krzysztof
