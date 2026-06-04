@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B2AB293458;
-	Thu,  4 Jun 2026 11:15:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6D340C5C5;
+	Thu,  4 Jun 2026 11:16:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780571715; cv=none; b=qo07EYseL2wlfPTRE/ir3xnavAIq7LkeCpd7AL7Nfk39tIlSl2TaESMpMo7MSumTyklMrRizQvkwFjuslD11WU7IGKbsjUP0DCDjUamNLVwaBh1xiRPtuLO+lGT5/fq5BNX9MmEVqrK3Y1KQdub4rJeOxVNAdgbEGzeT/6ymxH0=
+	t=1780571804; cv=none; b=U6eHxSjkr3pRRavJ4e1MuzXyrbj/Wf4M/TB1kxQ6sNnyvXuEhZPmHyFzONaF1everKzSF6x8xESuX+ESwpghML8cnzpo8WHDJZdFk5YqVUxfNz8HBUjQHMefN0lwrNioUMctN6WJofcx0fCn1a1VpppgxYyMundzdnI8OwpJWk4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780571715; c=relaxed/simple;
-	bh=2hZsUzV5rZSjJFXJN/G4U1/FCPPDFSk/82udvY4q4K0=;
+	s=arc-20240116; t=1780571804; c=relaxed/simple;
+	bh=OED0BtuNfFgVi6qfJCVn34WtAksCCbrinOF8AZoWbj8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jLg5XOi+L9Q+rgP6/mGsRx0WG6izTbsGO5ecX+hsMKN+TMrmkE1CFGttAGu7BNOGOvjTqSxixOEiy61dBfPgXE07SV5NbovkPBqrKMBOd8pafC2mnh6DGZTRksLBCU7pjMPqGX9rUYbihHnTq/ntUBDj+iGTryZWxWqd3qgs/VU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Zwddmue5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=Ny58hFvrrTWNyifWvaXf/5dfOzhi5QV3jnqkxoICgBllJfmHR1fzAdrf5f22HzU1soNgFrn6y2jLb29yMX5D9SWHb1XvXiMtUvnnxtKRrqfqf5QK++QBDeJ7hblLZxzeVUsn43QO4tEi4R3LnFjF8VFx+5Pi7GvwptSscNGLDYI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mAdcQFYv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Zwddmue5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5490B1F00893;
-	Thu,  4 Jun 2026 11:15:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mAdcQFYv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6ADF61F00893;
+	Thu,  4 Jun 2026 11:16:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780571714;
-	bh=2RHAd0AqNW6F5CWh7mk9JT6EDU1giLw0MsbHsiaAQVA=;
+	s=k20260515; t=1780571802;
+	bh=moby2GDtXlNhQY/wGiKDLL0iXmsEGITDqv/W8g+zfcY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=Zwddmue5OvqEtG41bGX2r4KEWvCz/MT32H+jTB1LMVx3rCTIvqELtjVi9qGC4VXW9
-	 4COYhYY70853+E+43ZVLnB6De0ySSWun2X63+fCRLFVloRK7xfirAAICmwJptQjpQq
-	 fh35Jv6Yf2qu/lBOEPpfadNw00T56ReoRADsxT+MS6jm5m9v+1FdHFD/M3jtEMjmJG
-	 3wj2KUOqz9LxiUCjz77+TcHn0yIQfFtUQRbAPWT8+ibQeb8EgjzYyPCGU7wJw9oPoL
-	 WXdK8IS0nI5x2A5ga1L2Tb3v9BJYPd2HkYwyLjeVG55wRl6HpZbUhYO0KAnqvi8n1J
-	 poeWYF0EIAD1w==
-Message-ID: <62e4809b-078b-432f-a3b1-59559a4aa77f@kernel.org>
-Date: Thu, 4 Jun 2026 13:15:08 +0200
+	b=mAdcQFYvW+Cvoqu6s3W7O1wxpN9V+F8DLrrBEOPc/ayQ4yUoPniqSEv6Z40ZgKezl
+	 7i9e6MZHvrIaCJ+n5MpQFsU/wTaCvcF6SR7pSm5YiOYzXpA9g1iMJ+IHCd6qGIaPGg
+	 qOHV5S+el9kHlFlLU7QASUxhb6PnFkklr471a2w9QyqUdDyXwnOFBsH1Nmfy37Du+J
+	 /G6+LkgnWx68hZD4z43coO1XlmmczMYQoDfVrKmphxgeeNZggOf+TncnnRW18iXCy8
+	 vtZ2NlSMje0/+ybMekhhknwtYz4dgTBHJBLvl4E82PlRSTpuSU5bhwL5nS0Vhp5kUB
+	 nM6K2klBgx5/g==
+Message-ID: <2d196c4a-911e-43d7-a70b-c0666788dda7@kernel.org>
+Date: Thu, 4 Jun 2026 13:16:38 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -35,20 +35,12 @@ List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/2] arm64: dts: socfpga: Enable the SMMU for SoCFPGA
- device trees
-To: "Nazle Asmade, Muhammad Nazim Amirul"
- <muhammad.nazim.amirul.nazle.asmade@altera.com>,
- "dinguyen@kernel.org" <dinguyen@kernel.org>
-Cc: "robh@kernel.org" <robh@kernel.org>,
- "krzk+dt@kernel.org" <krzk+dt@kernel.org>,
- "conor+dt@kernel.org" <conor+dt@kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>
-References: <20260515080014.6260-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <20260515080014.6260-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
- <c1aad046-fef0-4c2a-9e51-59e643e7966d@kernel.org>
- <47a7cb44-416b-4e48-a7f2-b6b69b71896a@altera.com>
+Subject: Re: [PATCH v3 1/2] arm64: dts: socfpga: agilex5: Enable the SMMU
+To: muhammad.nazim.amirul.nazle.asmade@altera.com, dinguyen@kernel.org
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+References: <20260604105020.24782-1-muhammad.nazim.amirul.nazle.asmade@altera.com>
+ <20260604105020.24782-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -94,59 +86,46 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
  zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
  XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
-In-Reply-To: <47a7cb44-416b-4e48-a7f2-b6b69b71896a@altera.com>
+In-Reply-To: <20260604105020.24782-2-muhammad.nazim.amirul.nazle.asmade@altera.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
 
-On 04/06/2026 12:55, Nazle Asmade, Muhammad Nazim Amirul wrote:
-> On 30/5/2026 7:11 pm, Krzysztof Kozlowski wrote:
->> [You don't often get email from krzk@kernel.org. Learn why this is important at https://aka.ms/LearnAboutSenderIdentification ]
->>
->> On 15/05/2026 10:00, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
->>> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
->>>
->>> Enable the SMMU on the SoCFPGA board device trees where it was
->>> missing. The SoC uses a different memory-mapped base address for
->>> its peripherals, which requires the System Memory Management Unit
->>> (SMMU) to be active so that the Secure Device Manager (SDM) can
->>> correctly access those regions through address translation.
->>>
->>> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
->>> ---
->>> Changes in v2:
->>> - Move SMMU enable into the base DTSI file instead of individual DTS files
->>>
->>>   arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 2 +-
->>>   1 file changed, 1 insertion(+), 1 deletion(-)
->>>
->>> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
->>> index b06c6d5d60ee..64f3739a0c33 100644
->>> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
->>> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
->>> @@ -385,7 +385,7 @@ smmu: iommu@16000000 {
->>>                        interrupt-names = "eventq", "gerror", "priq";
->>>                        dma-coherent;
->>>                        #iommu-cells = <1>;
->>> -                     status = "disabled";
->>> +                     status = "okay";
->>
->> Which file disabled it?
->>
->> Best regards,
->> Krzysztof
-> Hi Dinh, Krzysztof
+On 04/06/2026 12:50, muhammad.nazim.amirul.nazle.asmade@altera.com wrote:
+> From: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
 > 
-> Thank you for the review and feedback!
+> The SMMU is disabled in socfpga_agilex5.dtsi. The SoC uses a different
+> memory-mapped base address for its peripherals, which requires the SMMU
+> to be active so that the Secure Device Manager (SDM) can correctly
+> access those regions through address translation.
 > 
-> Addressing Dinh's comment — the commit header has been updated to follow 
-> the subsystem naming convention.
+> Signed-off-by: Nazim Amirul <muhammad.nazim.amirul.nazle.asmade@altera.com>
+> ---
+> Changes in v3:
+> - Fix commit header to follow subsystem naming convention
+> - Remove commit body line that restated the subject
+> - Clarify which file had the SMMU disabled
 > 
-> Addressing Krzysztof's question — the SMMU was disabled in 
-> socfpga_agilex5.dtsi itself, where the node is defined with status = 
-> "disabled". This has been clarified in the updated commit message.
+> Changes in v2:
+> - Move SMMU enable into the base DTSI file instead of individual DTS files
+> ---
+>  arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> index b06c6d5d60ee..64f3739a0c33 100644
+> --- a/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> +++ b/arch/arm64/boot/dts/intel/socfpga_agilex5.dtsi
+> @@ -385,7 +385,7 @@ smmu: iommu@16000000 {
+>  			interrupt-names = "eventq", "gerror", "priq";
+>  			dma-coherent;
+>  			#iommu-cells = <1>;
+> -			status = "disabled";
+> +			status = "okay";
 
-This makes no sense. I am asking which nod makes it disabled now, that
-you need to enable it.
+NAK. Nothing improved and you gave me exactly MINUS 5 minutes to reply
+to your comment. You FIRST sent v3 and then 5 minutes later you replied
+to my comment. So I should go back in time? How do you imagine this
+process working?
 
 Best regards,
 Krzysztof
