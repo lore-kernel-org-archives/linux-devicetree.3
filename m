@@ -1,276 +1,214 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD54035BDCA;
-	Thu,  4 Jun 2026 09:20:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416A93E9C33
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:20:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780564822; cv=none; b=W7aZZDB7UdSnFnaIL9h5txB88uA98aNfpG8sv+eg/OrRbpY2Z/Lqp+xOi5v/PERcSiD2+Ua5thU0zMy52dLd7BanqmTU4hrcMokdfA1kaA5mBCxaI5ZquL+TWFbF6AsBNphxKqttXaP8N49BcabNSnXMyPV5KOZpf8I5qX+wrhE=
+	t=1780564852; cv=none; b=e89szYgPJzCLe0FS+OYNT+7Iyssx444KAh4+hnwFMwaEAIOmiyeo1SFwwbgf9YsdkrsgO+xDz2Ohjv5xRpB0CoAGHvAVvCKb3SEueSG56aZglmRXLTW+lMBIRtZa4KZHSwv9HKcubekGvYHV/dtELKWDFqiFt7ezhavni7nbXRI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780564822; c=relaxed/simple;
-	bh=EScwtVtHVv7EXmUVim3RrrnEtQbK/uJ4Hrp1cA0YN4A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ohvq4saiFWSeI1wpz8JF+Po2prV047l9oJCGw7M8x5cy+wUCgDVwGS4QDg6j6EyvOorajwT6FkP37TLMwiN+r7yjooGHq5/J61ZU4Jlit7DQT+hMJaQh7DabLkmT/eKK/k+j5EJL2UsAjFtG+Q3MAhnE48DeBYGj+5/54YPoVe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fZYTMnRF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780564852; c=relaxed/simple;
+	bh=WCmb9+DZHNXcKsfaqnMvmzEYr12OVR4soMLhduJC3Es=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ChKZokRWkdefmxj7ZERMqQsocc1z4e2o7CPFbsiy0hUQ5ZXrHuxil3VGZc35+3Q/Dk1zcQr/8+1MRgKBvN8kq5zScconTnpCdcJiMjz6WhOijZUjSdeUV46JJhGF7rjq1HYci6FBaGOvnOk0qszrKrGvRvWyUyMxrRRneKuKI5o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=f9WtFGKR; arc=none smtp.client-ip=209.85.208.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fZYTMnRF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F1A601F00893;
-	Thu,  4 Jun 2026 09:20:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780564820;
-	bh=aXWX2X1IdSYuWmeJ4APMMdKu4ZoZ7LZ+WFh9+wZtPXc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=fZYTMnRFIH8WWQgBB2lEzzMzQy+hhuNR+MyMG6+e3Tlzf3roeq3kJR1MK+By5cR+z
-	 n0ISfSyzY4DtK4ROq5VUTKP+xNd1wCU0awoLYdid9jlMZ+tYbPZR6c8GbgQVhel2ix
-	 EhEo7b4XltVj6L9MX4d8BeU51tAvI7yqAcJ3Hnoq5JINf3iAB0Qs/wffYJMKeXtIUI
-	 tGHqMJYcy8PoXDZKK9iJzkT3HiDJkCbC5qwV5qCvU+2IMinWU+439/VipnM912qlW9
-	 pILQkFBeSZUG2Mkg9S3pczfhGKDWW8L6d8UB5lZb/EqCZdofYitmBVw6x4e3CDn9Ua
-	 PQdWBa8YnyCWQ==
-Date: Thu, 4 Jun 2026 11:20:18 +0200
-From: Lorenzo Bianconi <lorenzo@kernel.org>
-To: Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>
-Cc: Christian Marangi <ansuelsmth@gmail.com>,
-	Benjamin Larsson <benjamin.larsson@genexis.eu>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, netdev@vger.kernel.org,
-	devicetree@vger.kernel.org,
-	Madhur Agrawal <madhur.agrawal@airoha.com>
-Subject: Re: [PATCH net-next v9 6/6] net: airoha: Support multiple LAN/WAN
- interfaces for hw MAC address configuration
-Message-ID: <aiFDUpMC1RHRkzZL@lore-desk>
-References: <20260603-airoha-eth-multi-serdes-v9-0-5d476bc2f426@kernel.org>
- <20260603-airoha-eth-multi-serdes-v9-6-5d476bc2f426@kernel.org>
+	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="f9WtFGKR"
+Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-396709ba436so777151fa.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:20:48 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=linaro.org; s=google; t=1780564847; x=1781169647; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=mmJhxd6Spss8k56OkvnPH6btFz24l1uTr3gxaOR02sU=;
+        b=f9WtFGKRkPuBnHZtizCUjJYzQaa3Nc7lgf4zXaBa3y2ewSm/pcdM0fit55u+mhYF9c
+         CEao1AWAk4oSxOu0OAcDiFy6vafnMR0QKNtWNjrx+9lv1Jp+EgkfoWoXGsTn9HY5MY1T
+         a/EJcMZlVUiY69YPwSLsBSxouoUjSgJSq7nWMtTk8riY48ObMVk8c6iwNZtCoVS87tp6
+         //jscplnHLdb1GwMRe8U1JIB8aYl4KRkxQXluOnQyIuR4X9Zos+Eytidq7PiT+k/R0l0
+         AZqgpOcEkp5BuF1nOtzmtXW8Qdrax/kNLwv7YDRQDGc2ak4TIO9Wy1ZMhx6vN2TddOYB
+         o1pA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780564847; x=1781169647;
+        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
+         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=mmJhxd6Spss8k56OkvnPH6btFz24l1uTr3gxaOR02sU=;
+        b=oR8zXJyOYev8ZIBGk8ydTrvutm5r0BdDicgsCYDytREcuT1mTkn7UHSs1sjfPDN0QM
+         0F/aBKgBqNc2db+zhd8jQcIhSftRIR4m0/kQlE+V/joowZ2obrU0eV2YAxS4cyA2O3MZ
+         eDjM8Ao0pSUP03Q3c9tjX6wfeRNsedoV28ANSPvQUTbOcOA8+7fFprBtSfboFYrdSMMF
+         BY3Y8XPjecPhPS5BYOweCrrwCJCflrLVyR3mmXg4TKXSJD/thaxe/gihwk29EYr3On+C
+         VwGY4tc6gIba37hNu2BUD4G685uMdbqBobBxA++SXb8jEVr5xGpASQWqBgKISMEYOkc6
+         BeuQ==
+X-Forwarded-Encrypted: i=1; AFNElJ8HzqIEbSFa8TKQlUZK4F0T0CRO99SSJDi+GuzItvXETo9smnMw9uTOoMgUU6eOjlrpti3My3fo6Rxn@vger.kernel.org
+X-Gm-Message-State: AOJu0Yxl//ApyawR8p2684+5QBCRZSJlIlZHEoUsHg44beKMmunYHBny
+	BQAsEKT99KttHvGxfNi+qdMOvduHq/jE5uggOosZk1mk/M2oLiTSE1TbYYW5s9Iu/io=
+X-Gm-Gg: Acq92OFVisLElNWnsoVgBI37/L9qWIoc4TUUwx/49As+caNTzh7p3wYGMrkTARh7NZv
+	QXjWO7+3Srmtdw+bZ+HOZGi4OIpcEy8cToQtcCEN0r2QZLqAjjU0KkKjlQ7i5NdSx2nJaarWkj6
+	IeJsuKIja/A226+G7uvtndAgaOTBGwz2Cw1NLK9LUcXmlZHMlH65o3qGNWhjzMeTWQCnRvfoWkS
+	ajWPgXE1Tu/gLm7VUxHxJnGTqmwx03ZCy4haYcw7q2ppqRIafT3ezuJN0iqt9bYs2l0pmoXiQx1
+	hG35Q7Njcvx1ihSXKlQr7xUKGXpuzKuTro9clXWDlA7VWj9EFppdZv00iWOnRcxQEojEWhbruBT
+	VruGR8n0J5uu8vtDMSJR3LIiu+xpuOQbHUb6qDGI57lusbEUFSgTJVckrLChyUKDeIBx2WTXbSU
+	+SMMeVMfkvxXDnQkxXXObwtFIb1evc7ezcWiZto4atjjHgc3bMyqu2Ef2eOsyq+HRt+XG0qGmAu
+	ZilI8z561DAS0oCZs9CaRbZ/dc=
+X-Received: by 2002:a05:651c:2108:b0:393:c17d:9cfa with SMTP id 38308e7fff4ca-396bf225a0fmr2871101fa.5.1780564847147;
+        Thu, 04 Jun 2026 02:20:47 -0700 (PDT)
+Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2d503fsm14959581fa.34.2026.06.04.02.20.45
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 04 Jun 2026 02:20:46 -0700 (PDT)
+Message-ID: <9ab0d8f4-e1b6-415b-976b-721ab7a29194@linaro.org>
+Date: Thu, 4 Jun 2026 12:20:44 +0300
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="SFnAkeHUpYpN2nJa"
-Content-Disposition: inline
-In-Reply-To: <20260603-airoha-eth-multi-serdes-v9-6-5d476bc2f426@kernel.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
+To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
+ Bryan O'Donoghue <bod@kernel.org>,
+ Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
+ Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
+ Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>,
+ Neil Armstrong <neil.armstrong@linaro.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
+ linux-media@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
+ <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
+ <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
+ <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
+ <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
+ <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
+ <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
+ <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
+ <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
+ <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
+ <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
+ <83c12dc5-fcb4-4089-9917-9f0fcc4f940d@linaro.org>
+ <1b107aca-a857-4e58-a763-39c82af67747@linaro.org>
+ <67b6f6ae-bfca-4afd-adfb-6ec1741105d8@linaro.org>
+From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
+In-Reply-To: <67b6f6ae-bfca-4afd-adfb-6ec1741105d8@linaro.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
+On 6/4/26 12:06, Bryan O'Donoghue wrote:
+> On 04/06/2026 09:46, Vladimir Zapolskiy wrote:
+>> On 6/4/26 03:30, Bryan O'Donoghue wrote:
+>>> On 04/06/2026 01:07, Vladimir Zapolskiy wrote:
+>>>> On 6/4/26 00:18, Bryan O'Donoghue wrote:
+>>>>> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
+>>>>>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
+>>>>>> If CSIPHYs are true subdevices under the umbrella CAMSS device and
+>>>>>> well
+>>>>>> described as subnodes, then likely none of power domains are needed
+>>>>>> to be
+>>>>>> repeatedly described in the children device nodes, since this
+>>>>>> information
+>>>>>> can be obtained from the parent device by the driver.
+>>>>>>
+>>>>>> Technically 'power-domains' property can be safely removed, I believe.
+>>>>>
+>>>>> The policy is to describe the power-domain dependency fully since DT
+>>>>> describes hardware not software architecture.
+>>>>
+>>>> It brings no contardiction to the statement I've given above, the needed
+>>>> power domans will be properly described in the parent device, and there
+>>>> is no
+>>>> sense to repeat the properties it again and again in every child
+>>>> subdevice.
+>>>>
+>>>>> Also for a very practical reason a sub-devices can probe/run
+>>>>> asynchronously of the parent device being active so in fact we do need
+>>>>> to describe the PDs fully.
+>>>>
+>>>> In opposite to the above this one is precisely a software centric
+>>>> argument,
+>>>> which should be excluded from the consideration, as well it's not a big
+>>>> deal to make a proper async initialization, removing excessive dt
+>>>> properties
+>>>> is worth it.
+>>>>
+>>>
+>>> Right look forget about that.
+>>>
+>>> - DT requires you to describe your hardware. You're not entitled to have
+>>>      some other device vote for a clock or a PD you rely on.
+>>>
+>>
+>> Above are two uncorrelated between each other sentences.
+>>
+>> A device ("consumer") can ask another device ("provider") to behave in
+>> one or another way, this is the only possible and thus natually selected
+>> system design, and nothing behind it was asked. There is no justification
+>> for the proposed flood of multiply repeated data, it's avoidable.
+> 
+> CAMSS or rather the components of CAMSS modelled in the current node,
+> is/are not the provider of the GDSCs or the power-domains, it/they are
+> consumers themselves from CAMCC.
 
---SFnAkeHUpYpN2nJa
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+Well, this is the argument about software, and software can be changed.
 
-On Jun 03, Lorenzo Bianconi wrote:
-> The EN7581 and AN7583 SoCs provide registers to configure hardware LAN/WAN
-> MAC addresses. These registers are used during FE hw acceleration to
-> determine whether received traffic is destined to this host (L3 traffic)
-> or should be switched to another device (L2 traffic).
-> The SoC hardware design assumes all interfaces configured as LAN (or WAN)
-> share the MAC address MSBs, which are programmed into the
-> REG_FE_{LAN,WAN}_MAC_H register. The LSBs of 'local' mac addresses can be
-> expressed as a range via the REG_FE_MAC_LMIN and REG_FE_MAC_LMAX
-> registers. In order to properly accelerate the traffic, FE module requires
-> the user to configure the REG_FE_{LAN,WAN}_MAC_H register respecting this
-> limitation. Please note a misconfiguration in REG_FE_{LAN,WAN}_MAC_H
-> will still allow the user to log into the device for debugging.
-> Previously, only a single interface was considered when programming these
-> registers. Extend the logic to derive the correct minimum and maximum
-> values for REG_FE_MAC_LMIN/REG_FE_MAC_LMAX when two or more interfaces are
-> configured as LAN or WAN. Since this functionality was not available
-> before this series, no regression is introduced.
+> The producer/consumer model is CAMCC to components within the Camera
+> block. Some components depend on say MXA, MXC, some do not. Nothing in
+> CAMSS itself is a power-domain provider.
+>>>      That's exactly the type of downstream short cut we are trying to zap.
+>>>
+>>> - In our case we also need to vote on PDs individually when the PHY
+>>>      is active.
+>>>
+>>> In extremis say we are only running the TPG then we have no reason to
+>>> vote for CSIPHY specific rails or operating points in the parent device.
+>>
+>> So, TPG shall communicate with CAMSS, there is no CSIPHY in the equation.
+> 
+> Right but it would be inappropriate to enable all of the PDs for all of
+> the components in the CAMSS block when we can do so more granularly.
 
-Commenting on sashiko's report:
-https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260603-airoha-eth-mul=
-ti-serdes-v9-0-5d476bc2f426%40kernel.org
+Whenever it is actually necessary, it should be possible to split PDs into
+generic/parent and subdevice specific groups, it's a part of software
+implementation. In some cases there might be no need to define any child
+side PDs, likely CSIPHY falls into this category.
 
-- How does this validation interact with the init path?=20
-  In airoha_alloc_gdm_device(), interfaces lacking a DT MAC fall back to
-  eth_hw_addr_random(), and airoha_dev_init() calls airoha_set_macaddr()
-  but discards the int return, so a netdev whose initial MAC would fail
-  the new MSB check still proceeds to register and reaches NETREG_REGISTERE=
-D.
-  - This is done on purpose to not block the device probe and allow the user
-    to log into the system, and based on the syslog, fix the issue manually.
+> If you drive the CSID with a TPG you shouldn't be voting for MXA or MXC
+> since these are PDs related to the CSIPHY only and TPG and CSIPHY do the
+> same thing from the CSID perspective - input data.
+> 
+>>
+>>> We could make the parent power-domain argument for CAMSS and CCI but we
+>>> have TITAN_TOP_GDSC in CCI specifically because we have to model the
+>>> hardware - including the PDs for that device.
+>>
+>> CCI is not described as a child of CAMSS, here the situation is different.
+> 
+> CCI probably _should_ be a child of CAMSS given the design we are going
+> for here.
+> 
+> Leaving that aside it doesn't matter if a node appears as a child node
+> or a peer node - the DT should describe the hardware setup.
 
-Regards,
-Lorenzo
+If a node is child or a sibling is a hardware description, different
+hardware descriptions bring different dt properties, this is normal.
 
->=20
-> Tested-by: Madhur Agrawal <madhur.agrawal@airoha.com>
-> Signed-off-by: Lorenzo Bianconi <lorenzo@kernel.org>
-> ---
->  drivers/net/ethernet/airoha/airoha_eth.c | 77 ++++++++++++++++++++++++++=
-++----
->  drivers/net/ethernet/airoha/airoha_eth.h |  2 +-
->  drivers/net/ethernet/airoha/airoha_ppe.c |  4 +-
->  3 files changed, 71 insertions(+), 12 deletions(-)
->=20
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.c b/drivers/net/ether=
-net/airoha/airoha_eth.c
-> index 64ee526da241..8f2608293bb7 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.c
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.c
-> @@ -71,20 +71,76 @@ static void airoha_qdma_irq_disable(struct airoha_irq=
-_bank *irq_bank,
->  	airoha_qdma_set_irqmask(irq_bank, index, mask, 0);
->  }
-> =20
-> -static void airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *add=
-r)
-> +static int airoha_set_macaddr(struct airoha_gdm_dev *dev, const u8 *addr)
->  {
-> +	u8 ref_addr[ETH_ALEN] __aligned(2);
->  	struct airoha_eth *eth =3D dev->eth;
-> -	u32 val, reg;
-> +	u32 reg, val, lmin, lmax;
-> +	int i;
-> +
-> +	eth_zero_addr(ref_addr);
-> +	lmin =3D (addr[3] << 16) | (addr[4] << 8) | addr[5];
-> +	lmax =3D lmin;
-> +
-> +	for (i =3D 0; i < ARRAY_SIZE(eth->ports); i++) {
-> +		struct airoha_gdm_port *port =3D eth->ports[i];
-> +		int j;
-> +
-> +		if (!port)
-> +			continue;
-> +
-> +		for (j =3D 0; j < ARRAY_SIZE(port->devs); j++) {
-> +			struct airoha_gdm_dev *iter_dev;
-> +			struct net_device *netdev;
-> +
-> +			iter_dev =3D port->devs[j];
-> +			if (!iter_dev || iter_dev =3D=3D dev)
-> +				continue;
-> +
-> +			if (airoha_is_lan_gdm_dev(iter_dev) !=3D
-> +			    airoha_is_lan_gdm_dev(dev))
-> +				continue;
-> +
-> +			netdev =3D netdev_from_priv(iter_dev);
-> +			if (netdev->reg_state !=3D NETREG_REGISTERED)
-> +				continue;
-> +
-> +			ether_addr_copy(ref_addr, netdev->dev_addr);
-> +			val =3D (netdev->dev_addr[3] << 16) |
-> +			      (netdev->dev_addr[4] << 8) | netdev->dev_addr[5];
-> +			if (val < lmin)
-> +				lmin =3D val;
-> +			if (val > lmax)
-> +				lmax =3D val;
-> +		}
-> +	}
-> +
-> +	if (!is_zero_ether_addr(ref_addr) && memcmp(ref_addr, addr, 3)) {
-> +		/* According to the HW design, hw mac address MSBs must be
-> +		 * the same for each net_device with the same LAN/WAN
-> +		 * configuration.
-> +		 */
-> +		struct net_device *netdev =3D netdev_from_priv(dev);
-> +
-> +		dev_warn(eth->dev,
-> +			 "%s: wrong mac addr, MSBs must be %02x:%02x:%02x\n",
-> +			 netdev->name, ref_addr[0], ref_addr[1],
-> +			 ref_addr[2]);
-> +		dev_warn(eth->dev, "FE hw forwarding won't work properly\n");
-> +
-> +		return -EINVAL;
-> +	}
-> =20
->  	reg =3D airoha_is_lan_gdm_dev(dev) ? REG_FE_LAN_MAC_H : REG_FE_WAN_MAC_=
-H;
->  	val =3D (addr[0] << 16) | (addr[1] << 8) | addr[2];
->  	airoha_fe_wr(eth, reg, val);
-> =20
-> -	val =3D (addr[3] << 16) | (addr[4] << 8) | addr[5];
-> -	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), val);
-> -	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), val);
-> +	airoha_fe_wr(eth, REG_FE_MAC_LMIN(reg), lmin);
-> +	airoha_fe_wr(eth, REG_FE_MAC_LMAX(reg), lmax);
-> =20
-> -	airoha_ppe_init_upd_mem(dev);
-> +	airoha_ppe_init_upd_mem(dev, addr);
-> +
-> +	return 0;
->  }
-> =20
->  static void airoha_set_gdm_port_fwd_cfg(struct airoha_eth *eth, u32 addr,
-> @@ -1826,13 +1882,18 @@ static int airoha_dev_stop(struct net_device *net=
-dev)
->  static int airoha_dev_set_macaddr(struct net_device *netdev, void *p)
->  {
->  	struct airoha_gdm_dev *dev =3D netdev_priv(netdev);
-> +	struct sockaddr *addr =3D p;
->  	int err;
-> =20
-> -	err =3D eth_mac_addr(netdev, p);
-> +	err =3D eth_prepare_mac_addr_change(netdev, p);
->  	if (err)
->  		return err;
-> =20
-> -	airoha_set_macaddr(dev, netdev->dev_addr);
-> +	err =3D airoha_set_macaddr(dev, addr->sa_data);
-> +	if (err)
-> +		return err;
-> +
-> +	eth_commit_mac_addr_change(netdev, p);
-> =20
->  	return 0;
->  }
-> diff --git a/drivers/net/ethernet/airoha/airoha_eth.h b/drivers/net/ether=
-net/airoha/airoha_eth.h
-> index 3e8262f583a7..8f42973f9cf5 100644
-> --- a/drivers/net/ethernet/airoha/airoha_eth.h
-> +++ b/drivers/net/ethernet/airoha/airoha_eth.h
-> @@ -683,7 +683,7 @@ void airoha_ppe_check_skb(struct airoha_ppe_dev *dev,=
- struct sk_buff *skb,
->  int airoha_ppe_setup_tc_block_cb(struct airoha_ppe_dev *dev, void *type_=
-data);
->  int airoha_ppe_init(struct airoha_eth *eth);
->  void airoha_ppe_deinit(struct airoha_eth *eth);
-> -void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev);
-> +void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev, const u8 *addr);
->  u32 airoha_ppe_get_total_num_entries(struct airoha_ppe *ppe);
->  struct airoha_foe_entry *airoha_ppe_foe_get_entry(struct airoha_ppe *ppe,
->  						  u32 hash);
-> diff --git a/drivers/net/ethernet/airoha/airoha_ppe.c b/drivers/net/ether=
-net/airoha/airoha_ppe.c
-> index f54622904733..91bcc55a6ac6 100644
-> --- a/drivers/net/ethernet/airoha/airoha_ppe.c
-> +++ b/drivers/net/ethernet/airoha/airoha_ppe.c
-> @@ -1487,12 +1487,10 @@ void airoha_ppe_check_skb(struct airoha_ppe_dev *=
-dev, struct sk_buff *skb,
->  	airoha_ppe_foe_insert_entry(ppe, skb, hash, rx_wlan);
->  }
-> =20
-> -void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev)
-> +void airoha_ppe_init_upd_mem(struct airoha_gdm_dev *dev, const u8 *addr)
->  {
-> -	struct net_device *netdev =3D netdev_from_priv(dev);
->  	struct airoha_gdm_port *port =3D dev->port;
->  	struct airoha_eth *eth =3D dev->eth;
-> -	const u8 *addr =3D netdev->dev_addr;
->  	u32 val;
-> =20
->  	val =3D (addr[2] << 24) | (addr[3] << 16) | (addr[4] << 8) | addr[5];
->=20
-> --=20
-> 2.54.0
->=20
+> I can't imagine a patch that would remove a power-domain from a device
+> being accepted simply because the node being moved is expressed as a
+> child of another node.
 
---SFnAkeHUpYpN2nJa
-Content-Type: application/pgp-signature; name=signature.asc
+I strongly believe every dt binding describing actual hardware will find
+its way to be implemented in software in a proper way, it should be doable.
 
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaiFDUgAKCRA6cBh0uS2t
-rKFZAPsFq8wtcGM5fSMmaXoN8r3ZJahwhyksHFbQVLSGqyPnpgEAonKxBLMX2x26
-QDHe2K2ddF+pJgWY5jkwF5mFrWv1uQo=
-=7aG6
------END PGP SIGNATURE-----
-
---SFnAkeHUpYpN2nJa--
+>>> If tomorrow we put CCI as a sub-device of top-level CAMSS, that won't
+>>> negate the need to include that GDSC.
+>>
+>> Of course in this case a phandle to Titan GDSC will be marked as obsolete
+>> or unused for CCI, no problem here.
+>>
+-- 
+Best wishes,
+Vladimir
