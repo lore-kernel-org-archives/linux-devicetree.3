@@ -1,147 +1,95 @@
-Received: from canpmsgout05.his.huawei.com (canpmsgout05.his.huawei.com [113.46.200.220])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9990638F65F;
-	Thu,  4 Jun 2026 08:48:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B7A463F0A83;
+	Thu,  4 Jun 2026 08:56:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780562920; cv=none; b=L+Bjl+Zq7U31pG2lUE93ROwQoKwBghfgEPkHguIVFUpPgJf/4GzIOj2Us02kw044N9n4OWXJ6t1MvwtbXVxVXNJSRWKHVAuD5UjFo45Se3f/bUjRsUQSx0gKdhzd4yVpetSXu10SpKSsa/LuNEZqtP2H8nd1TYoCICjIgRWqo8s=
+	t=1780563363; cv=none; b=W72iIohfn3ptsiZmVMpZ6tmXPvJGnKVctmNxwAlz252DBpbpbA/CngkQKqUbRYrs6b2n0Zxg4DCXuJwta2bO+M/M1Cihsd/M/OJK/k/dbj9pMMLtGvbSGumxGAyf1h9SJevlTyZpHcKOdge+Srcw094IPCUJaPUn5Oz/0FfimxI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780562920; c=relaxed/simple;
-	bh=x7GaYiqMTWI/bcabYGbp7H9giCfeL76lqyy7FI5AAOA=;
-	h=Message-ID:Date:From:MIME-Version:To:CC:Subject:References:
-	 In-Reply-To:Content-Type; b=Faknayv2Zc0BrpRwBxHx4I1+rKfgpxNHK0eTteeEkOeAB+RNQ6tPhvdRevK/n5ApVIXWVLNo2MtxsweSMvLg+NETEWCdFKFw3EZ/oyGLZevjuS/RwS6bkvBShG/DEH/QyT91lyr6e8EtMDkxYDQbuAb/j/ZT5ctzbTppAtOiR8A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Blv0Q6d5; arc=none smtp.client-ip=113.46.200.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=quarantine dis=none) header.from=hisilicon.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1780563363; c=relaxed/simple;
+	bh=g0ZRTPlwT/xyxpdHcA09ypJlccbn5Vup1lZsGchbYCc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uP8Bf+B+ceh4xeWoqLY3IQsESVNZWCcxtTMqUz3sqaXSBBc/LZZf+3nH8xwakvPmYq2l+UINv3NXAYSNHAo6+cOyzf9DsWtevprasP+FBtOCZqSZIiwyjNyJh7VNuQd2ZLQEVV1dH0Wqc1U3uI8ZSVuqBSQuK5uvxtJ6rz+XM0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VQ0J+Cbb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Blv0Q6d5"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=Kh0tuMr6VTEn44mFd/E8yc0V3r7gVRubTW/7QOQfE5Y=;
-	b=Blv0Q6d5R7jbsGsvojmckBh+EF5Lec6wid6lkHa1RQhtrR4gA9FAvTBM+v2y/u5YUysfOptN0
-	85r53KV1+ejSxhuiB7wKEPE5/SkcFBSXmvTF6u9Qg1v+2Fq8FACrzQjvUgAzmpiQqvggOVgEPUX
-	MSTIBavKImJStLwigiDiBlU=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout05.his.huawei.com (SkyGuard) with ESMTPS id 4gWJ1K4WZQz12LJg;
-	Thu,  4 Jun 2026 16:40:37 +0800 (CST)
-Received: from dggemv706-chm.china.huawei.com (unknown [10.3.19.33])
-	by mail.maildlp.com (Postfix) with ESMTPS id C56C140569;
-	Thu,  4 Jun 2026 16:48:32 +0800 (CST)
-Received: from kwepemq100003.china.huawei.com (7.202.195.72) by
- dggemv706-chm.china.huawei.com (10.3.19.33) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 4 Jun 2026 16:48:32 +0800
-Received: from [10.67.113.213] (10.67.113.213) by
- kwepemq100003.china.huawei.com (7.202.195.72) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1544.11; Thu, 4 Jun 2026 16:48:32 +0800
-Message-ID: <6A213BDF.9060202@hisilicon.com>
-Date: Thu, 4 Jun 2026 16:48:31 +0800
-From: Wei Xu <xuwei5@hisilicon.com>
-User-Agent: Mozilla/5.0 (Windows NT 6.3; WOW64; rv:24.0) Gecko/20100101 Thunderbird/24.2.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VQ0J+Cbb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9DD1F00898;
+	Thu,  4 Jun 2026 08:56:00 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780563362;
+	bh=g0ZRTPlwT/xyxpdHcA09ypJlccbn5Vup1lZsGchbYCc=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=VQ0J+CbbA8z53ymXbXli2ktLm3hj2dpSm8vYx6EOzsIKD04T5HKXpSIq7rQ/Rl6xg
+	 u6Ed2IgM7TNaL7b8OZ0rglBpOuIfA6F9gPm6yXsIFjqGYqiWqUMBaCjMXvUWhjlpTM
+	 L9oIoX7KNYDGHvj/H1Tf220DR8/2HEXoS8z2hSqZhpQuUdXtyERbR/wD6JVK3fVFUf
+	 CNz+c+8aejAmVcMYgM7nujR0135LyQJjNV7GtOr7S7zzpUHZRb1S5gQEg4/HLZjiye
+	 +o3yrZ4sdPPAthl0/wzun3PunauL63PeFwdiAGAT0ooIajFer6gpyTbLf8UvmFAMf5
+	 Byte3zz3XJXIQ==
+Date: Thu, 4 Jun 2026 09:55:58 +0100
+From: Conor Dooley <conor@kernel.org>
+To: Chi-Wen Weng <cwweng.linux@gmail.com>
+Cc: broonie@kernel.org, robh@kernel.org, krzk+dt@kernel.org,
+	conor+dt@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-spi@vger.kernel.org, devicetree@vger.kernel.org,
+	linux-kernel@vger.kernel.org, cwweng@nuvoton.com
+Subject: Re: [PATCH 1/2] dt-bindings: spi: Add for Nuvoton MA35D1 SoC QSPI
+ Controller
+Message-ID: <20260604-anthem-jokingly-8d8312ff0c3f@spud>
+References: <20260603043551.1062112-1-cwweng.linux@gmail.com>
+ <20260603043551.1062112-2-cwweng.linux@gmail.com>
+ <20260603-daybed-absentee-1b64f5caabe0@spud>
+ <41914879-5fd0-41dd-b097-2be80096e464@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-To: Akash Sukhavasi <akash.sukhavasi@gmail.com>
-CC: <krzk+dt@kernel.org>, <robh@kernel.org>, <conor+dt@kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <devicetree@vger.kernel.org>,
-	<linux-kernel@vger.kernel.org>, <xuwei5@hisilicon.com>
-Subject: Re: [PATCH] arm64: dts: hisilicon: hi3660-hikey960: move role-switch
- endpoint into connector
-References: <20260520215325.55353-1-akash.sukhavasi@gmail.com> <aiBVHbRX3wxUNFs2@gmail.com>
-In-Reply-To: <aiBVHbRX3wxUNFs2@gmail.com>
-Content-Type: text/plain; charset="ISO-8859-1"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemq100003.china.huawei.com (7.202.195.72)
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="DXfNWS54udZtd82S"
+Content-Disposition: inline
+In-Reply-To: <41914879-5fd0-41dd-b097-2be80096e464@gmail.com>
 
-Hi Akash,
 
-On 2026/6/4 2:54, Akash Sukhavasi wrote:
-> On Wed, May 20, 2026 at 04:53:25PM -0500, Akash Sukhavasi wrote:
->> The rt1711h Type-C controller on the HiKey960 has the USB role-switch
->> endpoint placed as a top-level 'port' node, outside the connector
->> subnode. This triggers two dtbs_check warnings against
->> richtek,rt1711h.yaml:
->>
->>   - 'port' does not match any of the regexes: '^pinctrl-[0-9]+$'
->>   - connector:ports: 'port@0' is a required property
->>
->> Move the role-switch endpoint into the connector's port@0, which is
->> where usb-connector.yaml expects it. Update the DWC3 remote-endpoint
->> phandle accordingly.
->>
->> The TCPM core (tcpm.c) looks up the role switch starting from the
->> connector fwnode via fwnode_usb_role_switch_get(). With the endpoint
->> inside the connector's port@0, it is found through the primary lookup
->> path rather than the device-level fallback.
->>
->> Cross-compiled for arm64. Verified with dt_binding_check and
->> dtbs_check. Not runtime-tested on hardware.
->>
->> Signed-off-by: Akash Sukhavasi <akash.sukhavasi@gmail.com>
->> ---
->>  .../boot/dts/hisilicon/hi3660-hikey960.dts      | 17 +++++++----------
->>  1 file changed, 7 insertions(+), 10 deletions(-)
->>
->> diff --git a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
->> index c6056a85c..27fb08d34 100644
->> --- a/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
->> +++ b/arch/arm64/boot/dts/hisilicon/hi3660-hikey960.dts
->> @@ -550,6 +550,12 @@ usb_con: connector {
->>  			ports {
->>  				#address-cells = <1>;
->>  				#size-cells = <0>;
->> +				port@0 {
->> +					reg = <0>;
->> +					usb_con_hs: endpoint {
->> +						remote-endpoint = <&dwc3_role_switch>;
->> +					};
->> +				};
->>  				port@1 {
->>  					reg = <1>;
->>  					usb_con_ss: endpoint {
->> @@ -558,15 +564,6 @@ usb_con_ss: endpoint {
->>  				};
->>  			};
->>  		};
->> -		port {
->> -			#address-cells = <1>;
->> -			#size-cells = <0>;
->> -
->> -			rt1711h_ep: endpoint@0 {
->> -				reg = <0>;
->> -				remote-endpoint = <&dwc3_role_switch>;
->> -			};
->> -		};
->>  	};
->>  
->>  	adv7533: adv7533@39 {
->> @@ -683,7 +680,7 @@ port {
->>  		#size-cells = <0>;
->>  		dwc3_role_switch: endpoint@0 {
->>  			reg = <0>;
->> -			remote-endpoint = <&rt1711h_ep>;
->> +			remote-endpoint = <&usb_con_hs>;
->>  		};
->>  
->>  		dwc3_ss: endpoint@1 {
->> --
-> 
-> Hi Wei,
-> 
-> Friendly ping on this one.
-> Also, is the hikey960 board still actively taking fixes?
-> 
+--DXfNWS54udZtd82S
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-Sorry for the late reply!
-Fine to me and applied to the HiSilicon arm64 dt tree.
-Thanks!
+On Thu, Jun 04, 2026 at 03:07:31PM +0800, Chi-Wen Weng wrote:
+> Hi Conor,
+>=20
+> Thanks for the review.
+>=20
+> > Missing commit message for one, but why can't your Nuvoton mail be used
+> > here?
+>=20
+> I apologize for the missing commit message; I will add a proper descripti=
+on
+> in v2.
+>=20
+> Regarding the email address, my Nuvoton mail adds a corporate
+> confidentiality disclaimer to outgoing
+> external mail, so I use my personal address for sending kernel patches.
 
-Best Regards,
-Wei
+This prevents you sending with your work email account, but you can still
+set your commit author to your Nuvoton address FWIW.
+
+> Conor Dooley =E6=96=BC 2026/6/3 =E4=B8=8B=E5=8D=88 11:24 =E5=AF=AB=E9=81=
+=93:
+> > On Wed, Jun 03, 2026 at 12:35:50PM +0800, Chi-Wen Weng wrote:
+> > > Signed-off-by: Chi-Wen Weng <cwweng.linux@gmail.com>
+
+--DXfNWS54udZtd82S
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQRh246EGq/8RLhDjO14tDGHoIJi0gUCaiE9ngAKCRB4tDGHoIJi
+0ns5AQDkCCpaoPInNNPpkFtOd/vTQh2GyJEX+MDZdhtwHCHGVgD9G5JmWreurTno
+vUf1oScgNMeUb2uh4YdzD0lMOOWV0Qw=
+=pGiX
+-----END PGP SIGNATURE-----
+
+--DXfNWS54udZtd82S--
