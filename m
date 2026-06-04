@@ -1,214 +1,98 @@
-Received: from mail-lj1-f174.google.com (mail-lj1-f174.google.com [209.85.208.174])
+Received: from mail-ej1-f47.google.com (mail-ej1-f47.google.com [209.85.218.47])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 416A93E9C33
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:20:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 188023F6C48
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:21:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.218.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780564852; cv=none; b=e89szYgPJzCLe0FS+OYNT+7Iyssx444KAh4+hnwFMwaEAIOmiyeo1SFwwbgf9YsdkrsgO+xDz2Ohjv5xRpB0CoAGHvAVvCKb3SEueSG56aZglmRXLTW+lMBIRtZa4KZHSwv9HKcubekGvYHV/dtELKWDFqiFt7ezhavni7nbXRI=
+	t=1780564911; cv=none; b=ETO1i2uzHs0FuN6YKRZLLb7zCXvfLPabw0UuJXfpcczKAxnTU7YENcfkMEzGxxiiY3ouA+l6u0j332UqyM2LoHfBcrXPiG/x+pLkH5gnmomGEw1jNHHknalNLqzZUrTzZAp3VkqLDXLTedPtg5TX2vpIEd+agO5rzCvzF/3K9m8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780564852; c=relaxed/simple;
-	bh=WCmb9+DZHNXcKsfaqnMvmzEYr12OVR4soMLhduJC3Es=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=ChKZokRWkdefmxj7ZERMqQsocc1z4e2o7CPFbsiy0hUQ5ZXrHuxil3VGZc35+3Q/Dk1zcQr/8+1MRgKBvN8kq5zScconTnpCdcJiMjz6WhOijZUjSdeUV46JJhGF7rjq1HYci6FBaGOvnOk0qszrKrGvRvWyUyMxrRRneKuKI5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=f9WtFGKR; arc=none smtp.client-ip=209.85.208.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="f9WtFGKR"
-Received: by mail-lj1-f174.google.com with SMTP id 38308e7fff4ca-396709ba436so777151fa.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:20:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780564847; x=1781169647; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:from:to:cc:subject:date
-         :message-id:reply-to;
-        bh=mmJhxd6Spss8k56OkvnPH6btFz24l1uTr3gxaOR02sU=;
-        b=f9WtFGKRkPuBnHZtizCUjJYzQaa3Nc7lgf4zXaBa3y2ewSm/pcdM0fit55u+mhYF9c
-         CEao1AWAk4oSxOu0OAcDiFy6vafnMR0QKNtWNjrx+9lv1Jp+EgkfoWoXGsTn9HY5MY1T
-         a/EJcMZlVUiY69YPwSLsBSxouoUjSgJSq7nWMtTk8riY48ObMVk8c6iwNZtCoVS87tp6
-         //jscplnHLdb1GwMRe8U1JIB8aYl4KRkxQXluOnQyIuR4X9Zos+Eytidq7PiT+k/R0l0
-         AZqgpOcEkp5BuF1nOtzmtXW8Qdrax/kNLwv7YDRQDGc2ak4TIO9Wy1ZMhx6vN2TddOYB
-         o1pA==
+	s=arc-20240116; t=1780564911; c=relaxed/simple;
+	bh=5pP+Mhk8279qkIOdLGflEyG8YfEu5sdvMxMifNU8e8o=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=JvJPNkKOcZZK7bcaP+W2yAsUQ6yGWvxSi2YBQx1RCCBLXJUaUT/dpQu72O6Gjq649iDX0c2I8/bUpiHMv05WjlpKLN/yAhTA7sUIl6J96CuYERT0mJZH5337wdFhFfe7dR8CDnIxOqKAf057LxezcRzYKQ7g8b60xR8AvyLCgGI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.218.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Received: by mail-ej1-f47.google.com with SMTP id a640c23a62f3a-bebac79fff8so43901966b.0
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:21:49 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780564847; x=1781169647;
-        h=content-transfer-encoding:in-reply-to:from:references:cc:to:subject
-         :user-agent:mime-version:date:message-id:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=mmJhxd6Spss8k56OkvnPH6btFz24l1uTr3gxaOR02sU=;
-        b=oR8zXJyOYev8ZIBGk8ydTrvutm5r0BdDicgsCYDytREcuT1mTkn7UHSs1sjfPDN0QM
-         0F/aBKgBqNc2db+zhd8jQcIhSftRIR4m0/kQlE+V/joowZ2obrU0eV2YAxS4cyA2O3MZ
-         eDjM8Ao0pSUP03Q3c9tjX6wfeRNsedoV28ANSPvQUTbOcOA8+7fFprBtSfboFYrdSMMF
-         BY3Y8XPjecPhPS5BYOweCrrwCJCflrLVyR3mmXg4TKXSJD/thaxe/gihwk29EYr3On+C
-         VwGY4tc6gIba37hNu2BUD4G685uMdbqBobBxA++SXb8jEVr5xGpASQWqBgKISMEYOkc6
-         BeuQ==
-X-Forwarded-Encrypted: i=1; AFNElJ8HzqIEbSFa8TKQlUZK4F0T0CRO99SSJDi+GuzItvXETo9smnMw9uTOoMgUU6eOjlrpti3My3fo6Rxn@vger.kernel.org
-X-Gm-Message-State: AOJu0Yxl//ApyawR8p2684+5QBCRZSJlIlZHEoUsHg44beKMmunYHBny
-	BQAsEKT99KttHvGxfNi+qdMOvduHq/jE5uggOosZk1mk/M2oLiTSE1TbYYW5s9Iu/io=
-X-Gm-Gg: Acq92OFVisLElNWnsoVgBI37/L9qWIoc4TUUwx/49As+caNTzh7p3wYGMrkTARh7NZv
-	QXjWO7+3Srmtdw+bZ+HOZGi4OIpcEy8cToQtcCEN0r2QZLqAjjU0KkKjlQ7i5NdSx2nJaarWkj6
-	IeJsuKIja/A226+G7uvtndAgaOTBGwz2Cw1NLK9LUcXmlZHMlH65o3qGNWhjzMeTWQCnRvfoWkS
-	ajWPgXE1Tu/gLm7VUxHxJnGTqmwx03ZCy4haYcw7q2ppqRIafT3ezuJN0iqt9bYs2l0pmoXiQx1
-	hG35Q7Njcvx1ihSXKlQr7xUKGXpuzKuTro9clXWDlA7VWj9EFppdZv00iWOnRcxQEojEWhbruBT
-	VruGR8n0J5uu8vtDMSJR3LIiu+xpuOQbHUb6qDGI57lusbEUFSgTJVckrLChyUKDeIBx2WTXbSU
-	+SMMeVMfkvxXDnQkxXXObwtFIb1evc7ezcWiZto4atjjHgc3bMyqu2Ef2eOsyq+HRt+XG0qGmAu
-	ZilI8z561DAS0oCZs9CaRbZ/dc=
-X-Received: by 2002:a05:651c:2108:b0:393:c17d:9cfa with SMTP id 38308e7fff4ca-396bf225a0fmr2871101fa.5.1780564847147;
-        Thu, 04 Jun 2026 02:20:47 -0700 (PDT)
-Received: from [192.168.1.100] (91-159-24-186.elisa-laajakaista.fi. [91.159.24.186])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2d503fsm14959581fa.34.2026.06.04.02.20.45
+        d=1e100.net; s=20251104; t=1780564908; x=1781169708;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=XUPD5OwKoUPxOlrUbBDtLNbSGHGp+GOIie5YrA6VRnQ=;
+        b=F4Tm7rlORvaLqUTg14xH2sDfbQSN2xjLnlMWrOzFGas3BNjGRhBp8oYAhg+Ua1MCN2
+         Fm6BqUzkY6BdJt6G7P+v35Gi1E/nnsIv6gQK/a5bI446ulXy00+Nwknp9QbZZISo05qK
+         dvHQpDqoDcyLCSFq3wKhPe3pWyn/MW7P6ddveQ0i/FbVmCUVGJNyJ2bqTXMr2Tzp0v5t
+         1NCD8IfZf9bkolS1UalSUhz1N/ytGJElzztbP5EDbCgm9M1cuV83P+WpIqzrNT65qIY8
+         UUfzL9I09fHraSfBg7uC1JH/QkNWS/cHtm1VWry7b3ompd0CT+Y7IWPLZXswHJ3nijg+
+         J26Q==
+X-Forwarded-Encrypted: i=1; AFNElJ8k56DAWmqYIYC8QF3e2TH7qJ6+fWGBD9rVhtjuSCbGRmzIvyj+oStv0n1eNvtVTg4fPSkBJAQw86Jr@vger.kernel.org
+X-Gm-Message-State: AOJu0YwR9gFW3x7cu91jbnHHGWimUrMZy9l+XoyADYaHCOk7reH+/4Bk
+	xhd+efQUJQ6e1UUHcAUgzmTzg8CjFvwPcXx8rtmI/maNcWAhzIPRBABJwKWZ1/cE9nQ=
+X-Gm-Gg: Acq92OFfwFSBfuYnbfurpC+FQE7+vG5bytBO0acCb6yHPf/zXquNI6EWyxNOjqXj6um
+	pKjOHx+Vjmup1RKN2b9C9bcK3co2lFUHdPSKGzfU66+EpQeHU//zo4eZnvAGatKMDE7g7NdytJ7
+	rUpGm1AYrElK8NyDfbhkwdcRISvF5QPqGQycBcH2hkHMICgVFyMuVBfKXj8XkRmmlfMq31bcKDv
+	83Qb8v1GTaOBEUaMDfAO/joBbpzblrhagVUXQIq35jBPuUqx42Z5VEToWGYVk4v6mW4BejzUBHD
+	VCe/7JimBk0CWsLFK1TjuA0pUpF/UUHQAqXPuf6vvxoxHw1tVlXks7AkMHr48Pfl3rNJKhw0SnJ
+	t7zgYfcbDu+MH7Cow5FjqE+n8NiNr55EkFlmF/CyFygUqVrFKe9DQaXD5QH9OPg0QNB3ZSf2DmV
+	yRB4kw+C37Ka8mgC2x9KuykyJSwqkRXcDdLFnf1X9PA60wVqKt09/WTvXX1bn1FSlTCwYKrcc=
+X-Received: by 2002:a17:907:94cc:b0:bb8:b593:edba with SMTP id a640c23a62f3a-bf0aed0fb30mr330436566b.38.1780564908285;
+        Thu, 04 Jun 2026 02:21:48 -0700 (PDT)
+Received: from mail-ed1-f49.google.com (mail-ed1-f49.google.com. [209.85.208.49])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-bf051e9aa33sm277240066b.24.2026.06.04.02.21.46
+        for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 02:20:46 -0700 (PDT)
-Message-ID: <9ab0d8f4-e1b6-415b-976b-721ab7a29194@linaro.org>
-Date: Thu, 4 Jun 2026 12:20:44 +0300
+        Thu, 04 Jun 2026 02:21:46 -0700 (PDT)
+Received: by mail-ed1-f49.google.com with SMTP id 4fb4d7f45d1cf-68d2342c5e6so713690a12.3
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:21:46 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ8T4TutzZjN3AuodhbrZlIOZGqO6bQ5NqbpcYRqFy1QutJH85vq7yyIyuJq1svZcii7zXtWAQBDOOnd@vger.kernel.org
+X-Received: by 2002:a05:6402:5412:b0:687:7fa4:faa0 with SMTP id
+ 4fb4d7f45d1cf-68e7293d4dfmr3216975a12.23.1780564905953; Thu, 04 Jun 2026
+ 02:21:45 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
- <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
- <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
- <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
- <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
- <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
- <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
- <83c12dc5-fcb4-4089-9917-9f0fcc4f940d@linaro.org>
- <1b107aca-a857-4e58-a763-39c82af67747@linaro.org>
- <67b6f6ae-bfca-4afd-adfb-6ec1741105d8@linaro.org>
-From: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>
-In-Reply-To: <67b6f6ae-bfca-4afd-adfb-6ec1741105d8@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+References: <20260602182157.304964-2-wsa+renesas@sang-engineering.com>
+In-Reply-To: <20260602182157.304964-2-wsa+renesas@sang-engineering.com>
+From: Geert Uytterhoeven <geert@linux-m68k.org>
+Date: Thu, 4 Jun 2026 11:21:30 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdXQY+Oe425SPwR1jvX3ut4Na6P8a+=4asz565Pk_wK8eg@mail.gmail.com>
+X-Gm-Features: AVHnY4LbTi3uuwMEymEapl6w64Pb01ZaxDgzGzs7rTFgzCAq2HPVxYV4oXAMHf8
+Message-ID: <CAMuHMdXQY+Oe425SPwR1jvX3ut4Na6P8a+=4asz565Pk_wK8eg@mail.gmail.com>
+Subject: Re: [PATCH v4] arm64: renesas: r8a779g0: add MFIS node
+To: Wolfram Sang <wsa+renesas@sang-engineering.com>
+Cc: linux-renesas-soc@vger.kernel.org, Magnus Damm <magnus.damm@gmail.com>, 
+	Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
+	devicetree@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-On 6/4/26 12:06, Bryan O'Donoghue wrote:
-> On 04/06/2026 09:46, Vladimir Zapolskiy wrote:
->> On 6/4/26 03:30, Bryan O'Donoghue wrote:
->>> On 04/06/2026 01:07, Vladimir Zapolskiy wrote:
->>>> On 6/4/26 00:18, Bryan O'Donoghue wrote:
->>>>> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
->>>>>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
->>>>>> If CSIPHYs are true subdevices under the umbrella CAMSS device and
->>>>>> well
->>>>>> described as subnodes, then likely none of power domains are needed
->>>>>> to be
->>>>>> repeatedly described in the children device nodes, since this
->>>>>> information
->>>>>> can be obtained from the parent device by the driver.
->>>>>>
->>>>>> Technically 'power-domains' property can be safely removed, I believe.
->>>>>
->>>>> The policy is to describe the power-domain dependency fully since DT
->>>>> describes hardware not software architecture.
->>>>
->>>> It brings no contardiction to the statement I've given above, the needed
->>>> power domans will be properly described in the parent device, and there
->>>> is no
->>>> sense to repeat the properties it again and again in every child
->>>> subdevice.
->>>>
->>>>> Also for a very practical reason a sub-devices can probe/run
->>>>> asynchronously of the parent device being active so in fact we do need
->>>>> to describe the PDs fully.
->>>>
->>>> In opposite to the above this one is precisely a software centric
->>>> argument,
->>>> which should be excluded from the consideration, as well it's not a big
->>>> deal to make a proper async initialization, removing excessive dt
->>>> properties
->>>> is worth it.
->>>>
->>>
->>> Right look forget about that.
->>>
->>> - DT requires you to describe your hardware. You're not entitled to have
->>>      some other device vote for a clock or a PD you rely on.
->>>
->>
->> Above are two uncorrelated between each other sentences.
->>
->> A device ("consumer") can ask another device ("provider") to behave in
->> one or another way, this is the only possible and thus natually selected
->> system design, and nothing behind it was asked. There is no justification
->> for the proposed flood of multiply repeated data, it's avoidable.
-> 
-> CAMSS or rather the components of CAMSS modelled in the current node,
-> is/are not the provider of the GDSCs or the power-domains, it/they are
-> consumers themselves from CAMCC.
+On Tue, 2 Jun 2026 at 20:22, Wolfram Sang
+<wsa+renesas@sang-engineering.com> wrote:
+> Describe the MFIS core which is used for various tasks including
+> inter-processor communication. Interrupt numbers look irregular but they
+> all work as expected on a Renesas R-Car V4H SparrowHawk board.
+>
+> Signed-off-by: Wolfram Sang <wsa+renesas@sang-engineering.com>
+> ---
+>
+> Changes since v3:
+> * fixed ordering again (Sashiko)
 
-Well, this is the argument about software, and software can be changed.
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-devel for v7.3.
 
-> The producer/consumer model is CAMCC to components within the Camera
-> block. Some components depend on say MXA, MXC, some do not. Nothing in
-> CAMSS itself is a power-domain provider.
->>>      That's exactly the type of downstream short cut we are trying to zap.
->>>
->>> - In our case we also need to vote on PDs individually when the PHY
->>>      is active.
->>>
->>> In extremis say we are only running the TPG then we have no reason to
->>> vote for CSIPHY specific rails or operating points in the parent device.
->>
->> So, TPG shall communicate with CAMSS, there is no CSIPHY in the equation.
-> 
-> Right but it would be inappropriate to enable all of the PDs for all of
-> the components in the CAMSS block when we can do so more granularly.
+Gr{oetje,eeting}s,
 
-Whenever it is actually necessary, it should be possible to split PDs into
-generic/parent and subdevice specific groups, it's a part of software
-implementation. In some cases there might be no need to define any child
-side PDs, likely CSIPHY falls into this category.
+                        Geert
 
-> If you drive the CSID with a TPG you shouldn't be voting for MXA or MXC
-> since these are PDs related to the CSIPHY only and TPG and CSIPHY do the
-> same thing from the CSID perspective - input data.
-> 
->>
->>> We could make the parent power-domain argument for CAMSS and CCI but we
->>> have TITAN_TOP_GDSC in CCI specifically because we have to model the
->>> hardware - including the PDs for that device.
->>
->> CCI is not described as a child of CAMSS, here the situation is different.
-> 
-> CCI probably _should_ be a child of CAMSS given the design we are going
-> for here.
-> 
-> Leaving that aside it doesn't matter if a node appears as a child node
-> or a peer node - the DT should describe the hardware setup.
-
-If a node is child or a sibling is a hardware description, different
-hardware descriptions bring different dt properties, this is normal.
-
-> I can't imagine a patch that would remove a power-domain from a device
-> being accepted simply because the node being moved is expressed as a
-> child of another node.
-
-I strongly believe every dt binding describing actual hardware will find
-its way to be implemented in software in a proper way, it should be doable.
-
->>> If tomorrow we put CCI as a sub-device of top-level CAMSS, that won't
->>> negate the need to include that GDSC.
->>
->> Of course in this case a phandle to Titan GDSC will be marked as obsolete
->> or unused for CCI, no problem here.
->>
 -- 
-Best wishes,
-Vladimir
+Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
+
+In personal conversations with technical people, I call myself a hacker. But
+when I'm talking to journalists I just say "programmer" or something like that.
+                                -- Linus Torvalds
