@@ -1,130 +1,152 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7FF305682
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 08:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1CD23C199E;
+	Thu,  4 Jun 2026 08:33:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780561347; cv=none; b=G32dTVaM6azlyW4GvQ2HoUlbWC/wkUkTgAGZP3mI0Uhqq11GramD+/JFwKOQDtf7fgwlb2AW1syCd0IzMBgsvFwvpOnBpGOyJ2mezZsJ8ia16ojIuXSIjGtDZ/aILf9wn3ux8udYh2XYDnuoGVJVQqZAOXIOJX1iv2ZUgj520HM=
+	t=1780562007; cv=none; b=W3ZymFLtZmAy4T2QkhcFNWFj6jdq9WZ2oMpCe94yL1OjUeggKAlnzx627puMIauEy8+Wc4cA28jm1TMsBidrCVxec/j6IdlsMJeWPgJ3Q72xfGaQTZEZLppJGRNlTLg2G4gfv91ClVZzLYLFFJHbv10rszh3tiygnD1/w68cnz8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780561347; c=relaxed/simple;
-	bh=qIf0q6nPGKv9Kn7b5/DqMsF0DvqjDrnhgzFo5r92Dyk=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=klk1hECoUvKJ4Qtv0BJ0aFvjqGwZR5MQ2xhboMGZgtx9OWpf0rjPVCfBVOiTL+oMoQm5doJ1ut3hr+5wQ+Yg1zEAmb2Pno4IwZx/xwJYSHfvaMLqpHehl7mAsE4flPsJOJ/f92CuSwJctX763ZBfdYDnr8Iwd9CGCx2lUGHxjLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SQHjIXSc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780562007; c=relaxed/simple;
+	bh=fN7QWmBX6UiZ9Jfh+lKcCqexBDWY1iBe5MdOt+/SSyc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TpeAL+rSaB19o2woXYhghALQY2CKLDLDEXljmZEcZYfAeuHOiIaowCR2C4H5he6vLp6+2USQNM4852rKwr0kQRkLavMOmGCoR29PAo6acqr4Iqu241D8qdDi/8POyN50E830bFlBUtUuZOA0JLg9Q/btB3QjZqWaIetLM06xclM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hkUnuWr2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SQHjIXSc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 787D21F00893;
-	Thu,  4 Jun 2026 08:22:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hkUnuWr2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C57F81F00893;
+	Thu,  4 Jun 2026 08:33:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780561346;
-	bh=qLESv79Gs9i/g3fBG1Ar34reaAJiM2FZ8YIohVIqRUw=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=SQHjIXScgJXDMfdK5itfyUkXp+9Cw8vo5GPX2aWf9CosmbKN9v8hZrfbSCVzBsRK9
-	 LMt1VQn6YCO/Itla9b+u01m5hewVzPAAggChb6Ug1pC3PB83HURSnIjxgYmJXHqCpD
-	 ARQSmjqmJlG5ZE231wrX0NqDa1Uuae6/xhRxo86cCyoXmaa/otBBd/2hfoiG+Q6iFS
-	 3QZpRvbiPfTfvpbup1rInNJM4x2bWIMpX6M9SVymg1q98rQf5H2x/TT/NM8CeooCPR
-	 6w3AkhqRSesYg/kpSlmZI1zJ9lwMu6pA6XRgmOel17q5rzQ/6KKI1zpBryNc1lzG8y
-	 tYRsN8G8T+Lcw==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH 3/4] arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim
- 7x Gen11
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Konrad Dybcio" <konrad.dybcio@oss.qualcomm.com>
-Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org, dri-devel@lists.freedesktop.org
-In-Reply-To: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
-References: <20260604-topic-yoga_submission-v1-3-57c70c23d0d6@oss.qualcomm.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 08:22:25 +0000
-Message-Id: <20260604082226.787D21F00893@smtp.kernel.org>
+	s=k20260515; t=1780562006;
+	bh=x9K5u8SP5ZGeSxr1oo9OtnVaDCP+qHoYO4mPjYD+CG8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hkUnuWr2s6CgeVuGMi9AEipArgipRW2JONlQleVvc+seerS2gQJBeAH+kHKPj6uvK
+	 vJSaP7HQcI5eukq+A69Ncl1Pf1vKI7GzYQcun63DKK4NS9xN8vPQsArTZ8SIyHsfUR
+	 d/p3d2mFnM0feIu3A0HFh0edUZGoAnFHqgscRnFRFbjILxIrgqD3trNM9nBWUCufiQ
+	 PCVSjQikq4DzeZLVaXcjCoA2GnC6hOXBt6cBlyu9vhU02Y04PKWYzcYEOaBTQvrS6K
+	 4Ozs3FJeQ+oBbjUyVDmCvhbFAVt4uBgfhibY8btXIpTdCseXk85BT2+MYcEzoJtzjW
+	 0TGvXjRkzLZJQ==
+Date: Thu, 4 Jun 2026 10:33:23 +0200
+From: Lorenzo Bianconi <lorenzo@kernel.org>
+To: sashiko-reviews@lists.linux.dev
+Cc: conor+dt@kernel.org, robh@kernel.org, devicetree@vger.kernel.org,
+	netdev@vger.kernel.org
+Subject: Re: [PATCH net-next v9 3/6] net: airoha: Support multiple
+ net_devices for a single FE GDM port
+Message-ID: <aiE4U_HOgBpuRZOm@lore-desk>
+References: <20260603-airoha-eth-multi-serdes-v9-3-5d476bc2f426@kernel.org>
+ <20260604060125.5B5A11F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="W5hlnucVWG49UUuI"
+Content-Disposition: inline
+In-Reply-To: <20260604060125.5B5A11F00898@smtp.kernel.org>
 
-Thank you for your contribution! Sashiko AI review found 3 potential issue(=
-s) to consider:
-- [High] Missing `vdd-micb-supply` in `lpass_vamacro` node breaks DMIC capt=
-ure.
-- [Low] Missing `key-volume-up` subnode in `gpio-keys` despite claiming its=
- pinctrl.
-- [Low] The `nvme_sec_reg_en` pinctrl node is defined but never referenced.
---
 
-commit cf25549a8fd93e158d3d638230deeb2a24306da5
-Author: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+--W5hlnucVWG49UUuI
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-arm64: dts: qcom: Add Glymur-based Lenovo Yoga Slim 7x Gen11
+[...]
+>=20
+> Are there similar issues with the ingress configuration?  Earlier in
+> airoha_dev_open(), REG_GDM_INGRESS_CFG(port->id) is modified based on whe=
+ther
+> the specific netdev uses DSA:
+>=20
+> 	if (netdev_uses_dsa(netdev))
+> 		airoha_fe_set(qdma->eth, REG_GDM_INGRESS_CFG(port->id),
+> 			      GDM_STAG_EN_MASK);
+> 	else
+> 		airoha_fe_clear(qdma->eth, REG_GDM_INGRESS_CFG(port->id),
+> 				GDM_STAG_EN_MASK);
 
-This commit introduces the device tree for the Lenovo Yoga Slim 7x Gen11
-laptop. It defines nodes and configurations for several supported hardware
-features such as audio, GPU, keyboard, and networking.
+This is not a real issue since just GDM1 can be used as cpu port of the dsa
+switch (MT7630) and we do not support multiple net_devices for GDM1.
 
-> diff --git a/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts b/arc=
-h/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-> new file mode 100644
-> --- /dev/null
-> +++ b/arch/arm64/boot/dts/qcom/glymur-lenovo-yoga-slim7x.dts
-[ ... ]
-> +	gpio-keys {
-> +		compatible =3D "gpio-keys";
-> +
-> +		pinctrl-0 =3D <&key_vol_up_default>, <&hall_int_n_default>;
-> +		pinctrl-names =3D "default";
-> +
-> +		switch-lid {
-> +			label =3D "lid";
-> +			gpios =3D <&tlmm 92 GPIO_ACTIVE_LOW>;
-> +			linux,input-type =3D <EV_SW>;
-> +			linux,code =3D <SW_LID>;
-> +			wakeup-source;
-> +			wakeup-event-action =3D <EV_ACT_DEASSERTED>;
-> +		};
-> +	};
+>=20
+> Also, do airoha_dev_stop() and airoha_dev_change_mtu() have similar
+> regressions?  They appear to blindly overwrite shared registers like
+> REG_GDM_FWD_CFG (setting it to FE_PSE_PORT_DROP) and REG_GDM_LEN_CFG(port=
+->id).
+>=20
+> I noticed the stop() and MTU issues might be fixed in a subsequent patch,=
+ but
+> should this intermediate patch be self-contained to avoid breaking
+> bisectability?
 
-[Severity: Low]
-Does this code miss a subnode for the volume up key?
+These issues are addressed in subsequent patches on the same series.
 
-The pinctrl state for key_vol_up_default is claimed by the gpio-keys node
-here, but without a corresponding child node, the input subsystem will not
-register the volume up button.
+>=20
+> [ ... ]
+> > @@ -3080,15 +3100,51 @@ static int airoha_alloc_gdm_port(struct airoha_=
+eth *eth,
+> >  	u64_stats_init(&port->stats.syncp);
+> >  	spin_lock_init(&port->stats.lock);
+> >  	port->id =3D id;
+> > -	/* XXX: Read nbq from DTS */
+> > -	port->nbq =3D id =3D=3D AIROHA_GDM3_IDX && airoha_is_7581(eth) ? 4 : =
+0;
+> >  	eth->ports[p] =3D port;
+> > =20
+> >  	err =3D airoha_metadata_dst_alloc(port);
+> >  	if (err)
+> >  		return err;
+> > =20
+> > -	return airoha_alloc_gdm_device(eth, port, np);
+> > +	/* Default nbq value to ensure backward compatibility */
+> > +	nbq =3D id =3D=3D AIROHA_GDM3_IDX && airoha_is_7581(eth) ? 4 : 0;
+> > +
+> > +	for_each_child_of_node(np, node) {
+> > +		/* Multiple external serdes connected to the FE GDM port via an
+> > +		 * external arbiter.
+> > +		 */
+> > +		const __be32 *nbq_ptr;
+>=20
+> [Severity: Medium]
+> Will these multiplexed devices report duplicated, incorrect hardware stat=
+istics?
 
-[ ... ]
-> +&lpass_vamacro {
-> +	pinctrl-0 =3D <&dmic01_default>, <&dmic23_default>;
-> +	pinctrl-names =3D "default";
-> +	qcom,dmic-sample-rate =3D <4800000>;
-> +};
+hw statistics will be addressed with a dedicated patch not part of the seri=
+es.
 
-[Severity: High]
-Should this node include a vdd-micb-supply property pointing to vreg_l1b_e0?
+Regards,
+Lorenzo
 
-The audio routing connects the digital microphones to the vdd-micb DAPM
-widget. Without a vdd-micb-supply property here, the lpass-va-macro driver
-falls back to a dummy regulator.
+>=20
+> When userspace queries statistics for any single multiplexed device,
+> airoha_dev_get_stats64() fetches from port->stats, which is updated by
+> airoha_update_hw_stats() reading the clear-on-read MAC hardware counters =
+for
+> the entire physical GDM port.
+>=20
+> Since the port->stats structure is shared across all net_devices attached=
+ to
+> the port, each device will report the total traffic volume of all devices
+> sharing the port rather than its own traffic.
+>=20
+> Should the driver rely on per-queue software counters to provide accurate
+> per-device statistics when hardware MACs are multiplexed?
+>=20
+> --=20
+> Sashiko AI review =B7 https://sashiko.dev/#/patchset/20260603-airoha-eth-=
+multi-serdes-v9-0-5d476bc2f426@kernel.org?part=3D3
 
-Since the physical supply (vreg_l1b_e0) has no consumers and lacks a boot-on
-or always-on property, the kernel regulator core will disable it. Will this
-leave the microphones without bias power and result in silent audio capture?
+--W5hlnucVWG49UUuI
+Content-Type: application/pgp-signature; name=signature.asc
 
-[ ... ]
-> +&pmh0110_f_e1_gpios {
-> +	nvme_sec_reg_en: nvme-reg-en-state {
-> +		pins =3D "gpio14";
-> +		function =3D "normal";
-> +		bias-disable;
-> +	};
-> +};
+-----BEGIN PGP SIGNATURE-----
 
-[Severity: Low]
-Is this pinctrl state needed?
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaiE4UwAKCRA6cBh0uS2t
+rNsZAP0fGngKikTPqftV8uTqDHz1LwoBivQnPwVjtaDVyBF8owD/T8DBwL4Vs5wO
+ZAdrFgmC3b0Z1skjdTitrNS/9rQQUQw=
+=b3/r
+-----END PGP SIGNATURE-----
 
-It is defined here but does not appear to be referenced by any device node's
-pinctrl properties. Could this be leftover dead code from a reference desig=
-n?
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-topic-yoga=
-_submission-v1-0-57c70c23d0d6@oss.qualcomm.com?part=3D3
+--W5hlnucVWG49UUuI--
