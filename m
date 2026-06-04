@@ -1,164 +1,152 @@
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com [209.85.217.43])
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com [209.85.160.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BC313369D7A
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 11:39:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.217.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA542429827
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 11:48:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780573197; cv=none; b=TfFjSOpSXGzZCMS9sMFQFubBD58H84F/OfhgfsHJPd1Fv+Inn8oWnENLR/709TwEraoQGCxLxkBJk9furGhT9qooMpKHI4LubsZCB4DNZbMkSrolYuuWWoEG1emDOfHgATX2Jl7IPPAL6/QE75NRVl/qSibvTy594CLEzRAr+is=
+	t=1780573740; cv=none; b=hguvwNPOTEcS1rVOpPqjrZTEoAsNTLSl1SSmb1LamPz68aD6lqXkEIsbfA2w2dPcPukbfbliOKszCh1H0C6kDp3TGYc+SJ17K7pqwbJ4+JgJ2NYZJyFIKk/thx/PokanKLL8RMa+PA1jw+Edeg6HmQlh9e/mowL4DA11ULHWC/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780573197; c=relaxed/simple;
-	bh=h7RzAlW+e/DbDaPRYK/dV7EgaMQjIr/OWSPs4s1Uyuk=;
+	s=arc-20240116; t=1780573740; c=relaxed/simple;
+	bh=NFcn+5re6W8fOUpStLnoOpP08n3MpCoonlan2BCzqsg=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=CGV8o3a1+xzCjiLTewxXB9txsMrRMOZS6vSe1aMk2mS8bW66UAslyAYw/KdS2Hr6C1ALATfyQPz+cWdOheM5iNb1jSTrUyahPSaPLnFpvrgQ/ofz7973IRJdbGc9o9UpUcnL7QUHIY6Oi0RUhLLFdP2Opy3InCKf3TJBQs6LV6M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.217.43
+	 To:Cc:Content-Type; b=GFPor7BL82lUyHfX8VbQi3TcvN4WE+FSjjgTlBrI0S+YRvWEwnk/OJuvV44g8qaOnTJgQXn0HuPGoY3jw5tR/IMssNM20cA7CrXqrrHxFLbF+2op8ZCFWkUrASmKfdJkVtgSWn4WiHnljwjcEmNJFSP6deVQmDxJzSS/R1BMBCQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org; spf=pass smtp.mailfrom=gmail.com; arc=none smtp.client-ip=209.85.160.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=linux-m68k.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Received: by mail-vs1-f43.google.com with SMTP id ada2fe7eead31-6efdb57db0cso160025137.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 04:39:55 -0700 (PDT)
+Received: by mail-qt1-f174.google.com with SMTP id d75a77b69052e-516d0db9372so4759741cf.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 04:48:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780573195; x=1781177995;
+        d=1e100.net; s=20251104; t=1780573738; x=1781178538;
         h=cc:to:subject:message-id:date:from:in-reply-to:references
          :mime-version:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to;
-        bh=GA1zRYlCwaY5UIVlOist2qYc6nqjPNa2Luk4uie1AQQ=;
-        b=XLggUAjx0w1vinwl2Zblo3D1OBAjrm0v8N+8T/YN8C8Ypt8EROAZAdLCoLxaENMIxu
-         pcY7ieiJwCIXXF8NCstMmvju/UTJQ7gDR6BpqexuleoOIjA/AniVbbxs/LdjbMZu/CFs
-         EQJl+sMu8sOILzm4tmglYmViTBhLkO0BLZg0lMKUQd+UgJTPboKIG4cVO8QvpcpnxJoW
-         7oUKejj0LjMyIOmshkC/t/mCX4ZWPXSoSkkZuScxUbk6w6r75C+ADtfMcCEpQG/vNMvn
-         M94XrCxUxwaiCLmazElN0dJ2j4UVvVl47nuuW1PIyMniLdbDgxsliUoyU2dPqMtpz+IL
-         FBwg==
-X-Forwarded-Encrypted: i=1; AFNElJ8COQkz7FmNiG/81+ysesN+Ez8jYXCO86+wE8Dt+5o4KKKl5Zk3XlJcMqglnG32S3Vj/yGK7PBGSS5c@vger.kernel.org
-X-Gm-Message-State: AOJu0Yyy56KGUdgJIsjmIZfSvHFE3/lon1RHGZ/N2v4ZUrOipQjNqnqW
-	WJL+omtwuXdPOz7UVHbuOITETf6IHZ1TIhY7Gp5C5lRgpTHStGf8/J7gFwMbkvWktSs=
-X-Gm-Gg: Acq92OGeYClaKOmt7wLrjnmMeyOemiaVKUKeir1Vh7cuCy8x6GbYML0ynqfVWjdKlqR
-	lu9MsxLwVD9LT0yMXjwMkYr9s/iZf2zRNq3PeIJjXBFAFaUoaNFigjjTJ+TTGfzRci/Z6a2KvMD
-	ehWbc9GMZ9UPpQHVEugIm19aqsuxtw4Gnc9YZdMbYC9BhIfyCbiQrtDBxBpW/7RmWFnZoeGqzBd
-	PzkxdiyiHBKgO3gQuoGJqwFNQytqdcs6H7VxHl3tgzaNFZZcYcmn2UT01AwITfaByOILB0ecomY
-	cIJNrxGJoz6/zFi3rrFjAv9n/CFFHrgN8HKgNoBxhZedU9J6w+FcRaUCokNHVoZnYM5t5MUGQ/s
-	FDPxT7U/ywYk+IHKAM8P7R6vz95sPeQft1WXJv4XVZkYzq8jEDThxt7SxyzOpdSn+T1kvVWg1dc
-	0c1rbO7sODIrP1+pX2k382rqwYglkHYztzuLn0gDhP2cjtEsGZ3ruk9B8mgQ49gF1rmMXpJj0=
-X-Received: by 2002:a05:6102:41a4:b0:607:5cd7:d7c0 with SMTP id ada2fe7eead31-6ec460bc68emr4380148137.19.1780573194747;
-        Thu, 04 Jun 2026 04:39:54 -0700 (PDT)
-Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com. [209.85.217.42])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-6eb551b4c56sm4674435137.2.2026.06.04.04.39.53
+        bh=9SjEL3J1M6ssyuV3yx1NZqXFQtnLE7rLxALmfU/mPzo=;
+        b=lmhlMXV+bFgdYrIXoXk2ZCpDw9OjFV586LJyuWYTo29JgvgddZa5Nhj1ScuinZSvWd
+         tjhH5FhAt+s1oz0+e0Qss8pzCrV56HhmAJ2mvUydYgTqnrk5S8d2imd13uJ0CfT/RIph
+         vOWUHY8NHCZphvqq09WWrIc7Ga5uB08Wg/WJijzpAY/oTY3GfhmhS06FllQNpYyjF0sv
+         ywwSX7eOdM0/uULLaUoV5qtZVUsBGWV0CphFGN+yakxWMnCHC/TK0werr0tq3dqePNHG
+         bTEiahb38rvgMxJpGHTqmkLZIwUW89E59qisCliTrfQWV2QqJ+sozwURWQLRODK1YhWa
+         sYag==
+X-Forwarded-Encrypted: i=1; AFNElJ/IMBtVY77/AM7O6oQ3BSVebJArjMVdx9DGhbnMqINokLX4mTWsdaiQnJt4QCyo/jvSkVYQWvfvvaeB@vger.kernel.org
+X-Gm-Message-State: AOJu0YwSRRqVY/hd5akxsSxkMHfpgDTIVFXNbF5E0fQWYnRk43Y1bC+M
+	ZkvX02vVov8bvDVTonXao5wJmlw4tJFkGvc/kqeUuu1J6jukG07KZM/XT9p6UcYzpCY=
+X-Gm-Gg: Acq92OHnFBIfjRPR/HsPa0rrADOLDdiks9A/L7DaWi8VavusyIrZnfzZEbpnkyty6wM
+	rycMz721rIys1mk2Fo4AkV+NWu0MN6anqLMo7VWFsqQFvthCt5WGhffKlJ3aTYaFtUlM6T0tIjE
+	WrNhsvkk8DZkVC6zMDprPgi4qY1EF+tFzW3CaFU2WSGBni4ptVrkUm3kXcjYgzcMpja/8wtQBS7
+	p8iO9ZkKMz2R8N7p215Nj2A/VbAGa4dSMD2MHM2Oa8ulaoRqI2+uJ40AEXfcNRcTZryVX0GLOFE
+	JV9QkF/tNd/vI6MpMWkI8+hiuhO1U10g8D1co/zbIs34zSs/d8qOyO2jlcouMXSNEClKC9inCp0
+	/JGtV6gzDK3LXrqay9tU4FGTSIsNG8a1xFbWncUvf/FCBPRcIz2Tv7GF9WTNSMzlOMEd5cOembm
+	xEZWcjgDAu6NHhfAG3ItxygyP0sopwf0M3ZZeM4TCYAAX9zp0IoCbamFqynS1NXAnSTfKFlOF3E
+	Mg=
+X-Received: by 2002:a05:622a:313:b0:516:508b:bf4d with SMTP id d75a77b69052e-51778789b11mr113507961cf.56.1780573737917;
+        Thu, 04 Jun 2026 04:48:57 -0700 (PDT)
+Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com. [209.85.222.181])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-51775d9efa1sm48759421cf.20.2026.06.04.04.48.57
         for <devicetree@vger.kernel.org>
         (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 04:39:54 -0700 (PDT)
-Received: by mail-vs1-f42.google.com with SMTP id ada2fe7eead31-6cfdcc79789so194934137.3
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 04:39:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AFNElJ9lw2zDVPtzA3se5t6Ot1VPHU1xcMNTwyLE3okhqGkoa0q0fOQ7G+UTvQDkiAw0njkRb0kkyvQfI4MY@vger.kernel.org
-X-Received: by 2002:a05:6102:2b87:b0:6db:4f2b:6cd2 with SMTP id
- ada2fe7eead31-6ec4d5157a9mr4436237137.31.1780573193567; Thu, 04 Jun 2026
- 04:39:53 -0700 (PDT)
+        Thu, 04 Jun 2026 04:48:57 -0700 (PDT)
+Received: by mail-qk1-f181.google.com with SMTP id af79cd13be357-915906a4becso72115185a.2
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 04:48:57 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AFNElJ//5dJrGmGyPmXEXUvFLWUzkK/zGEoaUlVOTlC3hbZJxaY3RAFXM2bfczlNIqtACjBV2DMZzKzqL+Tt@vger.kernel.org
+X-Received: by 2002:a05:6102:8017:b0:633:3040:ca5c with SMTP id
+ ada2fe7eead31-6ec4cc6cc9fmr4288587137.30.1780573310828; Thu, 04 Jun 2026
+ 04:41:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260525110603.4018170-2-john.madieu.xa@bp.renesas.com>
- <20260525111920.15F771F000E9@smtp.kernel.org> <20260525-gaining-unaired-c96367a78c9b@spud>
- <CAMuHMdWUeExOnKm1=kRSr0=HVJhgyLDBAK3VqTP-LK1q0-f9gA@mail.gmail.com>
- <20260527-prankish-causing-4139d0dd0b51@spud> <CAMuHMdVtLorK+Hjc-ZWCAn273ZN6yUEdyjxpJ5ynZ09sWqcBdg@mail.gmail.com>
- <20260527-botanical-pushy-b9cffbe9ea16@spud>
-In-Reply-To: <20260527-botanical-pushy-b9cffbe9ea16@spud>
+References: <20260525110603.4018170-1-john.madieu.xa@bp.renesas.com> <20260525110603.4018170-3-john.madieu.xa@bp.renesas.com>
+In-Reply-To: <20260525110603.4018170-3-john.madieu.xa@bp.renesas.com>
 From: Geert Uytterhoeven <geert@linux-m68k.org>
-Date: Thu, 4 Jun 2026 13:39:40 +0200
-X-Gmail-Original-Message-ID: <CAMuHMdWGuZS5aCn8TXg9mZd8=3UaZ_L1QzO+ozajVQ+gUDrk_g@mail.gmail.com>
-X-Gm-Features: AVVi8CfdijaxamMwVKcNgiCLNexBulG-uqDwuK5a2fXjKCLaNr0jqJtQpxnHUc0
-Message-ID: <CAMuHMdWGuZS5aCn8TXg9mZd8=3UaZ_L1QzO+ozajVQ+gUDrk_g@mail.gmail.com>
-Subject: Re: [PATCH v4 1/8] dt-bindings: clock: renesas: Add audio clock
- inputs for RZ/V2H family
-To: Conor Dooley <conor@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, 
-	John Madieu <john.madieu.xa@bp.renesas.com>, conor+dt@kernel.org, 
-	wsa+renesas@sang-engineering.com, devicetree@vger.kernel.org, robh@kernel.org
+Date: Thu, 4 Jun 2026 13:41:39 +0200
+X-Gmail-Original-Message-ID: <CAMuHMdVC_XtgRxJVjX6wnzMHYZeSGeqOmHsm4Tg6RJ0Tm=dX6w@mail.gmail.com>
+X-Gm-Features: AVVi8Ccw5Ba_60Dzs2adNDvsycCaE2yjwE6AKvLwWxbsEZk5LA6wgR8624sRVIc
+Message-ID: <CAMuHMdVC_XtgRxJVjX6wnzMHYZeSGeqOmHsm4Tg6RJ0Tm=dX6w@mail.gmail.com>
+Subject: Re: [PATCH v4 2/8] clk: renesas: r9a09g047: Add audio clock and reset support
+To: John Madieu <john.madieu.xa@bp.renesas.com>
+Cc: mturquette@baylibre.com, sboyd@kernel.org, robh@kernel.org, 
+	krzk+dt@kernel.org, conor+dt@kernel.org, magnus.damm@gmail.com, 
+	bmasney@redhat.com, prabhakar.mahadev-lad.rj@bp.renesas.com, 
+	linux-renesas-soc@vger.kernel.org, linux-clk@vger.kernel.org, 
+	devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	biju.das.jz@bp.renesas.com, john.madieu@gmail.com
 Content-Type: text/plain; charset="UTF-8"
 
-On Wed, 27 May 2026 at 18:36, Conor Dooley <conor@kernel.org> wrote:
-> On Wed, May 27, 2026 at 05:45:12PM +0200, Geert Uytterhoeven wrote:
-> > On Wed, 27 May 2026 at 16:54, Conor Dooley <conor@kernel.org> wrote:
-> > > On Wed, May 27, 2026 at 02:44:51PM +0200, Geert Uytterhoeven wrote:
-> > > > On Mon, 25 May 2026 at 18:57, Conor Dooley <conor@kernel.org> wrote:
-> > > > > On Mon, May 25, 2026 at 11:19:19AM +0000, sashiko-bot@kernel.org wrote:
-> > > > > > Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
-> > > > > > - [Medium] Strict array ordering prevents the independent use of newly added optional clocks.
-> > > > > > --
-> > > > > >
-> > > > > > commit 3723d06ba80fe72a3e7492af52e5e54aa0f36b03
-> > > > > > Author: John Madieu <john.madieu.xa@bp.renesas.com>
-> > > > > >
-> > > > > > dt-bindings: clock: renesas: Add audio clock inputs for RZ/V2H family
-> > > > > >
-> > > > > > This commit updates the clock bindings for the RZ/V2H family SoCs to include
-> > > > > > the optional external audio clock inputs AUDIO_CLKB and AUDIO_CLKC. The
-> > > > > > AUDIO_CLKA input is fed internally and thus does not require a binding entry.
-> > > > > >
-> > > > > > > diff --git a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
-> > > > > > > --- a/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
-> > > > > > > +++ b/Documentation/devicetree/bindings/clock/renesas,rzv2h-cpg.yaml
-> > > > > > > @@ -26,16 +26,22 @@ properties:
-> > > > > > >      maxItems: 1
-> > > > > > >
-> > > > > > >    clocks:
-> > > > > > > +    minItems: 3
-> > > > > > >      items:
-> > > > > > >        - description: AUDIO_EXTAL clock input
-> > > > > > >        - description: RTXIN clock input
-> > > > > > >        - description: QEXTAL clock input
-> > > > > > > +      - description: AUDIO_CLKB clock input
-> > > > > > > +      - description: AUDIO_CLKC clock input
-> > > > > > >
-> > > > > > >    clock-names:
-> > > > > > > +    minItems: 3
-> > > > > > >      items:
-> > > > > > >        - const: audio_extal
-> > > > > > >        - const: rtxin
-> > > > > > >        - const: qextal
-> > > > > > > +      - const: audio_clkb
-> > > > > > > +      - const: audio_clkc
-> > > > > >
-> > > > > > [Severity: Medium]
-> > > > > > Will this strict array ordering prevent the independent use of the newly
-> > > > > > added optional clocks?
-> > > > > >
-> > > > > > Because JSON schema validates arrays strictly by position based on the items
-> > > > > > list, if a hardware board connects AUDIO_CLKC but does not connect AUDIO_CLKB,
-> > > > > > the device tree node would provide an array of 4 clocks where the 4th name
-> > > > > > is audio_clkc.
-> > > > > >
-> > > > > > When dt_binding_check evaluates this, won't it check the 4th element against
-> > > > > > the schema's expectation of audio_clkb and fail, incorrectly rejecting a valid
-> > > > > > hardware configuration?
-> > > > > >
-> > > > > > Should this use an anyOf block enumerating the valid permutations of optional
-> > > > > > clocks to avoid forcing users to write incorrect device trees to pass
-> > > > > > validation?
-> > > > >
-> > > > > Seems like a valid question to me. Can be solved by making the second
-> > > > > last clock an enum.
-> > > >
-> > > > Calling them optional may be a misnomer: these pins are present.
-> > > > Typically we provide zero rate fixed clocks for such clocks in the
-> > > > SoC .dtsi, to be filled in or replaced by the board .dts.
-> > >
-> > > IOW, either both clocks will be provided or none will be?
-> >
-> > Exactly, see the first hunk of "[PATCH v4 3/8] arm64: dts: renesas:
-> > rzv2h: Add audio clock inputs" later in this series.
-> > https://lore.kernel.org/20260525110603.4018170-4-john.madieu.xa@bp.renesas.com
->
-> In that case,
-> Acked-by: Conor Dooley <conor.dooley@microchip.com>
+Hi John,
 
-Thanks, will queue in renesas-clk for v7.3.
+On Mon, 25 May 2026 at 13:07, John Madieu <john.madieu.xa@bp.renesas.com> wrote:
+> Add clock and reset entries for audio-related modules on the RZ/G3E SoC.
+>
+> Target modules are:
+>  - SSIU (Serial Sound Interface Unit) with SSI ch0-ch9
+>  - SCU (Sampling Rate Converter Unit) with SRC ch0-ch9, DVC ch0-ch1,
+>    CTU/MIX ch0-ch1
+>  - DMACpp (Audio DMA Controller)
+>  - ADG (Audio Clock Generator) with divider input clocks and audio
+>    master clock outputs
+>
+> The ADG SSI clock outputs (adg_ssi[0-9]_clk) are parented on
+> CLK_PLLCLN_DIV8 as a deliberate simplification: the ADG dynamically
+> muxes each output between adg_0_clk_195m and audio_clk[a,b,c] at
+> runtime via ADG_AUDIO_CLK_SEL{0,1,2}, owned by the rsnd-adg driver.
+>
+> While at it, reorder plldty_div16 to group it with the other plldty
+> fixed dividers.
+>
+> Signed-off-by: John Madieu <john.madieu.xa@bp.renesas.com>
+> ---
+>
+> Changes:
+>
+> v4:
+>  - Drop CLK_AUDIO_CLKA and its DEF_INPUT("audio_clka") entry, and
+>    reparent adg_0_audio_clka on CLK_AUDIO_EXTAL, since AUDIO_CLKA is
+>    provided by the existing AUDIO_EXTAL pin (Geert Uytterhoeven).
+>  - Drop the internal core clocks Geert flagged as unused:
+>    pllcm33_div4_ddiv2, pllcm33_div4_ddiv2_div2, pllcln_div32,
+>    plldty_div2, plldty_div4 and cdiv5_mainosc. pllcln_div4 is kept,
+>    as scu_0_clkx2 is parented on it.
+>  - Rename the audio module clocks as suggested by Geert: ssif_clk ->
+>    ssif_0_clk, scu_clk -> scu_0_clk, scu_clkx2 -> scu_0_clkx2,
+>    admac_clk -> dmacpp_0_clk, adg_clks1 -> adg_0_clks1, adg_clk_200m
+>    -> adg_0_clk_195m, adg_audio_clk{a,b,c} -> adg_0_audio_clk{a,b,c},
+>    ssif_supply_clk -> ssiu_supply_clk. Update the target-module list
+>    in the commit message (ADMAC -> DMACpp) to match.
+>  - Rename the audio reset entries as suggested by Geert: SCU_RESET_SRU
+>    -> SCU_0_RESET_SRU, ADMAC_ARESETN -> DMACpp_0_ARST,
+>    ADG_RST_RESET_ADG -> ADG_0_RST_RESET_ADG.
+>  - The adg_ssi[0-9]_clk parent is left unchanged as CLK_PLLCLN_DIV8.
+>    Geert questioned whether this is correct, since these clocks are
+>    ADG-generated. The parent is not changed; instead the commit
+>    message now documents that the ADG muxes each output between
+>    adg_0_clk_195m and audio_clk[a,b,c] at runtime via
+>    ADG_AUDIO_CLK_SEL{0,1,2}, which no static parent can describe.
+
+Thanks for the update!
+
+> --- a/drivers/clk/renesas/r9a09g047-cpg.c
+> +++ b/drivers/clk/renesas/r9a09g047-cpg.c
+
+> @@ -532,6 +538,96 @@ static const struct rzv2h_mod_clk r9a09g047_mod_clks[] __initconst = {
+>                                                 BUS_MSTOP(3, BIT(4))),
+>         DEF_MOD("tsu_1_pclk",                   CLK_QEXTAL, 16, 10, 8, 10,
+>                                                 BUS_MSTOP(2, BIT(15))),
+> +       DEF_MOD("ssif_0_clk",                   CLK_PLLCLN_DIV8, 15, 5, 7, 21,
+> +                                               BUS_MSTOP(2, BIT(3) | BIT(4))),
+
+I will reorder while applying, to preserve sort order (by _onindex/_onbit).
+
+Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
+i.e. will queue in renesas-clk for v7.3 with the above fixed.
 
 Gr{oetje,eeting}s,
 
                         Geert
 
--- 
+--
 Geert Uytterhoeven -- There's lots of Linux beyond ia32 -- geert@linux-m68k.org
 
 In personal conversations with technical people, I call myself a hacker. But
