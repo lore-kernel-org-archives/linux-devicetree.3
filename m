@@ -1,198 +1,256 @@
-Received: from mail-ed1-f50.google.com (mail-ed1-f50.google.com [209.85.208.50])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m1973189.qiye.163.com (mail-m1973189.qiye.163.com [220.197.31.89])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A703EDE67
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 09:07:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.208.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA264401486;
+	Thu,  4 Jun 2026 09:08:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780564024; cv=none; b=gXc0+0yqdWYjVI0HPeOdIMyKT/mc1OGPiTMkjT7xlvRkbN9e0CyEAoi2sTKJT7IFRCQOV2V3C2kgch32jk23oobxVC8dwiDu5kTIaDL742EdxuIJgc17v0jF/RjBIqCuDXOfVxoaFCNdL2n8a8QjBkBPpCIecG0Skv1vjlUg5Ow=
+	t=1780564137; cv=none; b=jIdtabxqlu5ndHs0WV860XZoUswzEkjWpOCt7qec+GJKM01BoLbxGAXkD1m055svkUijUioJ075sXPIc0wCYRt0U4HegpPaIZr1x2fVL13Ydx+4/k+zKogHMObAw7WQo1chvJcaDJbmouV2vezTPC26ROTK9NqfGKefQN2luhPU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780564024; c=relaxed/simple;
-	bh=UPQDLXU71Z4mW/BBDvxtUkcJKh7WhEhkMLc5+Z6fWS4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Ny10pgmWc2tWKghAz6tiLxxKtRxFUG3XDuOov6RyD/1dARSL/aoISiKKlPlQIEILZXGBL7ttoS4Pm/yWCEqghApGKqTmNGOMb38GWQAdjrIjEX9MIZR+v82y4A8ABrodLc5WB8lpK6YUOrXxn/GDU0p8ysIyoKEXi2zorT18gig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org; spf=pass smtp.mailfrom=linaro.org; dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b=eSCE0aa9; arc=none smtp.client-ip=209.85.208.50
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linaro.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linaro.org
+	s=arc-20240116; t=1780564137; c=relaxed/simple;
+	bh=IPQLjrEiNsWN8mkhjLN5cnngBqz6MM4T/9jbyDUck+s=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=mnn2gGJ2GgJyRvHe1kWdECvoO/iLACdvcDnYn4uuntwgp7iaTtYBhE2QHgGOTyNXd/Wf98091G2iLmDKRhJtUm1/DJN3gTf4liuoA3eBdyanWA62kFiBnMOrct8XvGvm51QsBTKPPcPcvY57SKQYD3306pU8A4t/tmza+jjFsuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com; spf=pass smtp.mailfrom=rock-chips.com; dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b=C+fjXuPi; arc=none smtp.client-ip=220.197.31.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rock-chips.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rock-chips.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=linaro.org header.i=@linaro.org header.b="eSCE0aa9"
-Received: by mail-ed1-f50.google.com with SMTP id 4fb4d7f45d1cf-68e5f7c1131so814540a12.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 02:07:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=linaro.org; s=google; t=1780564021; x=1781168821; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to;
-        bh=rbplG8EyIp0hP6o+wQA2geXN0fkmfIWqDHbmX7Sw1Aw=;
-        b=eSCE0aa9NQH+CN3QSeurs39QAnZjFw13IkSypaf8ZFIBR5379A+Jgoj4+DUoDfiESn
-         8Y8HluaXq6FYMbxGOLxyPmJAh1Zmp0ZDBg0xOrIyWtKyUvm00sTza6esR0puMnWSC+ha
-         0eL1NR1c5n0e5NCWTHEwm8dkEfAGqwAAD0qdjN2+LqOHvssfBM7+pKIRaEzrnNwKC5Fn
-         K0+YdguM+NrPhL2pN3cL+wmTsQpHSNVlRwkHAsy6qXUzHbJQrQpCLY3CjFK22Trkw5r4
-         mkobtl8PvVjlGBtM03Oc8T/qWKq34NTJxsgIFaO3bTygzIscPp91P5AIXjH0owvS4M1/
-         6+Pg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780564021; x=1781168821;
-        h=content-transfer-encoding:in-reply-to:content-language:from
-         :references:cc:to:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=rbplG8EyIp0hP6o+wQA2geXN0fkmfIWqDHbmX7Sw1Aw=;
-        b=e+cKh0LLQoPR1uxhN+F666t6F7rhPciZtHzPjkemNm+icvnljgL01wA96yj+JXfJZA
-         PLaJzdEcrC06/rm5bnVC8KSgnVr6bOZVJ3gmotMXIgn+i/lofLvwAbwTdPYbR3IXU5cP
-         m9Kivpaj0c71b35ia/Nj42KITIXOp1yMK1PcelgF5/8xi34ynuufJT2d1GbCIJ1Czh7E
-         NWtg8uhCjbYh+iFCJ1lPNjjPKfEO9wqxSb7FodYD1NAhTtoN+9qx1MGHO/smL5vS6FuD
-         dEZkB9NgQjTwiCm7sFXqJawW8tEBM/JnLMhx3D0y8t82bvhEpbSkPaWedhzT8jm46pm7
-         91CA==
-X-Forwarded-Encrypted: i=1; AFNElJ9t30nI775cexu0zATTjW1k4MHv6AL0AYsqmtpeCOAQJJyAI1Ejg9HYRO5Ukq0tqI8r/6ND2mb3t5wP@vger.kernel.org
-X-Gm-Message-State: AOJu0YzmCibgw0iR6pchrpfkfrkhBTbCsobRmBRcQRY52eL8yj+gEMZI
-	rSZFsJQPiM6zsfT/41fAYUpcZZjPKqqRVOi3rlJdvYFP8fIaOZtGdWkX214sSbHWnuw=
-X-Gm-Gg: Acq92OEmC7TlI5BMJkzfdOuhdDW+oj5ZgFGSL2TTxBzf/d3Ztaxjt+1+gYHgmZmSyt9
-	/Ou4e8CeFJPvSoq6HYoBfs96zR0p1ee8n0GWtuHZYV8spoX2HL1IiQg8p7XsFJ7SK2nnqxUIc/u
-	Pftd5K4i/n07yDOUA1noELz32BYW1wgBBMZskS1zR+meNRsYl49ScQPwHBaPucaXhQmZJiOr2JO
-	paq4euU0rkwUhR3vh6cDy1QUvz8FMKzySowtjK2uTA5Ih5aWiFSrxjof+bG8EVbjtKQxTG8xScK
-	K8roGqmFrT6NVnJKhzlJsQ8JE+kaQEnNGqQK4SlFErrBPy68PzHKE+b/NKO3tRp3PpfveRt70Oe
-	3Xt0kg/vzzctMT8gmQGWMA9D63w8EPd8sNPA4zr0kQs4DK+jJ6U/lIWJzPnDnHP1foDTEBwS9VS
-	JwCt2TVaXH9bOiE0yg6I19P4Cw1HLjCk/a+JxHnC3oMckfIlI=
-X-Received: by 2002:a05:6402:e9f:b0:687:ece2:aac6 with SMTP id 4fb4d7f45d1cf-68e713e302fmr3453410a12.15.1780564021418;
-        Thu, 04 Jun 2026 02:07:01 -0700 (PDT)
-Received: from [192.168.0.101] ([109.76.175.228])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-68e65851786sm2153584a12.17.2026.06.04.02.06.59
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 04 Jun 2026 02:07:00 -0700 (PDT)
-Message-ID: <67b6f6ae-bfca-4afd-adfb-6ec1741105d8@linaro.org>
-Date: Thu, 4 Jun 2026 10:06:58 +0100
+	dkim=pass (1024-bit key) header.d=rock-chips.com header.i=@rock-chips.com header.b="C+fjXuPi"
+Received: from zyb-HP-ProDesk-680-G2-MT.. (unknown [61.154.14.86])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 410f6c9e6;
+	Thu, 4 Jun 2026 16:53:19 +0800 (GMT+08:00)
+From: Damon Ding <damon.ding@rock-chips.com>
+To: hjc@rock-chips.com,
+	heiko@sntech.de,
+	andy.yan@rock-chips.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	robh@kernel.org,
+	krzk+dt@kernel.org,
+	conor+dt@kernel.org,
+	andrzej.hajda@intel.com,
+	neil.armstrong@linaro.org,
+	rfoss@kernel.org
+Cc: Laurent.pinchart@ideasonboard.com,
+	jonas@kwiboo.se,
+	jernej.skrabec@gmail.com,
+	nicolas.frattaroli@collabora.com,
+	cristian.ciocaltea@collabora.com,
+	sebastian.reichel@collabora.com,
+	dmitry.baryshkov@oss.qualcomm.com,
+	luca.ceresoli@bootlin.com,
+	dianders@chromium.org,
+	m.szyprowski@samsung.com,
+	dri-devel@lists.freedesktop.org,
+	devicetree@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-rockchip@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Damon Ding <damon.ding@rock-chips.com>
+Subject: [PATCH v5 4/4] drm/bridge: analogix_dp: Add support for optional data-lanes mapping
+Date: Thu,  4 Jun 2026 16:52:20 +0800
+Message-Id: <20260604085220.2862986-5-damon.ding@rock-chips.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260604085220.2862986-1-damon.ding@rock-chips.com>
+References: <20260604085220.2862986-1-damon.ding@rock-chips.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v8 1/2] dt-bindings: phy: qcom: Add CSI2 C-PHY/DPHY schema
-To: Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>,
- Bryan O'Donoghue <bod@kernel.org>,
- Vijay Kumar Tumati <vijay.tumati@oss.qualcomm.com>,
- Vinod Koul <vkoul@kernel.org>, Kishon Vijay Abraham I <kishon@kernel.org>,
- Rob Herring <robh@kernel.org>, Krzysztof Kozlowski <krzk+dt@kernel.org>,
- Conor Dooley <conor+dt@kernel.org>,
- Neil Armstrong <neil.armstrong@linaro.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-phy@lists.infradead.org,
- linux-media@vger.kernel.org, devicetree@vger.kernel.org,
- linux-kernel@vger.kernel.org
-References: <20260523-x1e-csi2-phy-v8-0-a85668459521@linaro.org>
- <20260523-x1e-csi2-phy-v8-1-a85668459521@linaro.org>
- <rpnNMsR9GY8gbynzeBO8Zm61JAOq3ubt6sp0x3WDPPwkMAJzlcofECD1kabN-IUoK6sSwP5P6l28UIZLFCOpjQ==@protonmail.internalid>
- <dda32577-04e0-4507-acaf-a5694f4f31b3@linaro.org>
- <478df3ed-d4ef-43aa-bb84-e2075798542b@kernel.org>
- <ec98ef2f-02b4-4086-8b4b-07b6953dbd20@oss.qualcomm.com>
- <514cf213-5778-45e1-8d70-d3fe27991fcc@oss.qualcomm.com>
- <7JNJ4dUNz4ennJ5dkzhfLSuVo72JpfZAbprICPRqlRYnSzVDJw6x3h-1nESd_PK-3us9f1V3qOiLiywsTqP8vQ==@protonmail.internalid>
- <f01c0e22-4e5c-44e7-9ea4-4bc8d53aea2e@linaro.org>
- <29e8491f-20e8-4082-8943-66bee7e3af1d@kernel.org>
- <5ca611b1-0663-4975-bd56-b1343851e5fd@linaro.org>
- <83c12dc5-fcb4-4089-9917-9f0fcc4f940d@linaro.org>
- <1b107aca-a857-4e58-a763-39c82af67747@linaro.org>
-From: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Content-Language: en-US
-In-Reply-To: <1b107aca-a857-4e58-a763-39c82af67747@linaro.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0a9e91d6469103a8kunm52a01cd0409925
+X-HM-MType: 1
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCShpOVk0fHU8eHUJJTR9NHVYVFA
+	kWGhdVEwETFhoSFyQUDg9ZV1kYEgtZQVlNSlVKTk9VSk9VQ01ZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pKQk1VSktLVUpCWQY+
+DKIM-Signature: a=rsa-sha256;
+	b=C+fjXuPiMsaQvF5ARMIfqrHySgHL79nTwEzI+gvhZVCfkdOe1JqkUXMpS6uvf30oPl2cqneE+nYlfwQebOPg7a7FHz0ZE7j3/4cYpgVGePmWVFBKKYE2sUsG4UkGBk4CYnrD77k4uXt99HXhiudIbfxdjkgo5hsm+utqTFpoPrY=; c=relaxed/relaxed; s=default; d=rock-chips.com; v=1;
+	bh=O/Xmys3hdVcG95GwMYwNDu2dcFOpni9GNeu8EtSpmFc=;
+	h=date:mime-version:subject:message-id:from;
 
-On 04/06/2026 09:46, Vladimir Zapolskiy wrote:
-> On 6/4/26 03:30, Bryan O'Donoghue wrote:
->> On 04/06/2026 01:07, Vladimir Zapolskiy wrote:
->>> On 6/4/26 00:18, Bryan O'Donoghue wrote:
->>>> On 03/06/2026 21:51, Vladimir Zapolskiy wrote:
->>>>>> Actually, one more thing, Why isn't TITAN TOP GDSC here?>>>> +
->>>>> If CSIPHYs are true subdevices under the umbrella CAMSS device and 
->>>>> well
->>>>> described as subnodes, then likely none of power domains are needed
->>>>> to be
->>>>> repeatedly described in the children device nodes, since this
->>>>> information
->>>>> can be obtained from the parent device by the driver.
->>>>>
->>>>> Technically 'power-domains' property can be safely removed, I believe.
->>>>
->>>> The policy is to describe the power-domain dependency fully since DT
->>>> describes hardware not software architecture.
->>>
->>> It brings no contardiction to the statement I've given above, the needed
->>> power domans will be properly described in the parent device, and there
->>> is no
->>> sense to repeat the properties it again and again in every child 
->>> subdevice.
->>>
->>>> Also for a very practical reason a sub-devices can probe/run
->>>> asynchronously of the parent device being active so in fact we do need
->>>> to describe the PDs fully.
->>>
->>> In opposite to the above this one is precisely a software centric 
->>> argument,
->>> which should be excluded from the consideration, as well it's not a big
->>> deal to make a proper async initialization, removing excessive dt
->>> properties
->>> is worth it.
->>>
->>
->> Right look forget about that.
->>
->> - DT requires you to describe your hardware. You're not entitled to have
->>     some other device vote for a clock or a PD you rely on.
->>
-> 
-> Above are two uncorrelated between each other sentences.
-> 
-> A device ("consumer") can ask another device ("provider") to behave in
-> one or another way, this is the only possible and thus natually selected
-> system design, and nothing behind it was asked. There is no justification
-> for the proposed flood of multiply repeated data, it's avoidable.
+Parse the optional 'data-lanes' device tree property to support
+custom physical lane mapping configuration.
 
-CAMSS or rather the components of CAMSS modelled in the current node, 
-is/are not the provider of the GDSCs or the power-domains, it/they are 
-consumers themselves from CAMCC.
+If no valid configuration is found, fall back to the default
+lane map (0, 1, 2, 3) automatically and keep the driver running.
 
-The producer/consumer model is CAMCC to components within the Camera 
-block. Some components depend on say MXA, MXC, some do not. Nothing in 
-CAMSS itself is a power-domain provider.
->>     That's exactly the type of downstream short cut we are trying to zap.
->>
->> - In our case we also need to vote on PDs individually when the PHY
->>     is active.
->>
->> In extremis say we are only running the TPG then we have no reason to
->> vote for CSIPHY specific rails or operating points in the parent device.
-> 
-> So, TPG shall communicate with CAMSS, there is no CSIPHY in the equation.
+Lane mapping is mainly used for below scenarios:
+1. Correct PCB lane swap and differential line routing crossover
+   without hardware changes;
+2. Adapt mismatched lane pin definitions between SoC and eDP panel;
+3. Support multiple panel hardware variants on the same board
+   by configuring data-lanes in device tree only.
 
-Right but it would be inappropriate to enable all of the PDs for all of 
-the components in the CAMSS block when we can do so more granularly.
+Reviewed-by: Sebastian Reichel <sebastian.reichel@collabora.com>
+Signed-off-by: Damon Ding <damon.ding@rock-chips.com>
 
-If you drive the CSID with a TPG you shouldn't be voting for MXA or MXC 
-since these are PDs related to the CSIPHY only and TPG and CSIPHY do the 
-same thing from the CSID perspective - input data.
+---
 
-> 
->> We could make the parent power-domain argument for CAMSS and CCI but we
->> have TITAN_TOP_GDSC in CCI specifically because we have to model the
->> hardware - including the PDs for that device.
-> 
-> CCI is not described as a child of CAMSS, here the situation is different.
+Changes in v2:
+- Add lane mapping application scenarios in commit message.
 
-CCI probably _should_ be a child of CAMSS given the design we are going 
-for here.
+Changes in v5:
+- Add Reviewed-by tag.
+---
+ .../drm/bridge/analogix/analogix_dp_core.c    | 56 +++++++++++++++++++
+ .../drm/bridge/analogix/analogix_dp_core.h    |  4 +-
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.c | 15 +++--
+ .../gpu/drm/bridge/analogix/analogix_dp_reg.h |  4 ++
+ 4 files changed, 70 insertions(+), 9 deletions(-)
 
-Leaving that aside it doesn't matter if a node appears as a child node 
-or a peer node - the DT should describe the hardware setup.
-
-I can't imagine a patch that would remove a power-domain from a device 
-being accepted simply because the node being moved is expressed as a 
-child of another node.
-
->> If tomorrow we put CCI as a sub-device of top-level CAMSS, that won't
->> negate the need to include that GDSC.
-> 
-> Of course in this case a phandle to Titan GDSC will be marked as obsolete
-> or unused for CCI, no problem here.
-> 
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+index 9300b0db8785..ea525aa3effd 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.c
+@@ -1234,6 +1234,59 @@ static const struct drm_bridge_funcs analogix_dp_bridge_funcs = {
+ 	.detect = analogix_dp_bridge_detect,
+ };
+ 
++static int analogix_dp_dt_parse_lanes_map(struct analogix_dp_device *dp)
++{
++	struct video_info *video_info = &dp->video_info;
++	struct device_node *endpoint;
++	u32 tmp[LANE_COUNT4];
++	u32 map[LANE_COUNT4] = {0, 1, 2, 3};
++	bool used[LANE_COUNT4] = {false};
++	int num_lanes;
++	int ret, i;
++
++	memcpy(video_info->lane_map, map, sizeof(map));
++
++	num_lanes = drm_of_get_data_lanes_count_ep(dp->dev->of_node, 1, 0, 1,
++						   video_info->max_lane_count);
++	if (num_lanes < 0)
++		return -EINVAL;
++
++	endpoint = of_graph_get_endpoint_by_regs(dp->dev->of_node, 1, -1);
++	if (!endpoint)
++		return -EINVAL;
++
++	ret = of_property_read_u32_array(endpoint, "data-lanes", tmp, num_lanes);
++	of_node_put(endpoint);
++	if (ret)
++		return -EINVAL;
++
++	for (i = 0; i < num_lanes; i++) {
++		if (tmp[i] >= LANE_COUNT4) {
++			dev_dbg(dp->dev, "data-lanes[%d] = %u is out of range\n", i, tmp[i]);
++			return -EINVAL;
++		}
++
++		if (used[tmp[i]]) {
++			dev_dbg(dp->dev, "data-lanes[%d] = %u is duplicate\n", i, tmp[i]);
++			return -EINVAL;
++		}
++
++		used[tmp[i]] = true;
++		map[i] = tmp[i];
++	}
++
++	for (i = 0; i < LANE_COUNT4 && num_lanes < LANE_COUNT4; i++) {
++		if (!used[i])
++			map[num_lanes++] = i;
++	}
++
++	dev_dbg(dp->dev, "Using parsed lane map: <%u %u %u %u>\n", map[0], map[1], map[2], map[3]);
++
++	memcpy(video_info->lane_map, map, sizeof(map));
++
++	return 0;
++}
++
+ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ {
+ 	struct device_node *dp_node = dp->dev->of_node;
+@@ -1270,6 +1323,9 @@ static int analogix_dp_dt_parse_pdata(struct analogix_dp_device *dp)
+ 		break;
+ 	}
+ 
++	if (analogix_dp_dt_parse_lanes_map(dp))
++		dev_dbg(dp->dev, "No valid data-lanes found, using default lane map\n");
++
+ 	return 0;
+ }
+ 
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+index 94348c4e3623..a75d0fb8f980 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_core.h
+@@ -137,6 +137,8 @@ struct video_info {
+ 
+ 	int max_link_rate;
+ 	enum link_lane_count_type max_lane_count;
++
++	u32 lane_map[LANE_COUNT4];
+ };
+ 
+ struct link_train {
+@@ -175,7 +177,7 @@ struct analogix_dp_device {
+ /* analogix_dp_reg.c */
+ void analogix_dp_enable_video_mute(struct analogix_dp_device *dp, bool enable);
+ void analogix_dp_stop_video(struct analogix_dp_device *dp);
+-void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable);
++void analogix_dp_lane_mapping(struct analogix_dp_device *dp);
+ void analogix_dp_init_analog_param(struct analogix_dp_device *dp);
+ void analogix_dp_init_interrupt(struct analogix_dp_device *dp);
+ void analogix_dp_reset(struct analogix_dp_device *dp);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+index ea8401293a23..c1344a3f013a 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.c
+@@ -48,16 +48,15 @@ void analogix_dp_stop_video(struct analogix_dp_device *dp)
+ 	writel(reg, dp->reg_base + ANALOGIX_DP_VIDEO_CTL_1);
+ }
+ 
+-void analogix_dp_lane_swap(struct analogix_dp_device *dp, bool enable)
++void analogix_dp_lane_mapping(struct analogix_dp_device *dp)
+ {
++	u32 *lane_map = dp->video_info.lane_map;
+ 	u32 reg;
+ 
+-	if (enable)
+-		reg = LANE3_MAP_LOGIC_LANE_0 | LANE2_MAP_LOGIC_LANE_1 |
+-		      LANE1_MAP_LOGIC_LANE_2 | LANE0_MAP_LOGIC_LANE_3;
+-	else
+-		reg = LANE3_MAP_LOGIC_LANE_3 | LANE2_MAP_LOGIC_LANE_2 |
+-		      LANE1_MAP_LOGIC_LANE_1 | LANE0_MAP_LOGIC_LANE_0;
++	reg = lane_map[0] << LANE0_MAP_SHIFT;
++	reg |= lane_map[1] << LANE1_MAP_SHIFT;
++	reg |= lane_map[2] << LANE2_MAP_SHIFT;
++	reg |= lane_map[3] << LANE3_MAP_SHIFT;
+ 
+ 	writel(reg, dp->reg_base + ANALOGIX_DP_LANE_MAP);
+ }
+@@ -140,7 +139,7 @@ void analogix_dp_reset(struct analogix_dp_device *dp)
+ 
+ 	usleep_range(20, 30);
+ 
+-	analogix_dp_lane_swap(dp, 0);
++	analogix_dp_lane_mapping(dp);
+ 
+ 	writel(0x0, dp->reg_base + ANALOGIX_DP_SYS_CTL_1);
+ 	writel(0x40, dp->reg_base + ANALOGIX_DP_SYS_CTL_2);
+diff --git a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
+index 12735139046c..ac914e37089b 100644
+--- a/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
++++ b/drivers/gpu/drm/bridge/analogix/analogix_dp_reg.h
+@@ -209,6 +209,10 @@
+ #define LANE0_MAP_LOGIC_LANE_1			(0x1 << 0)
+ #define LANE0_MAP_LOGIC_LANE_2			(0x2 << 0)
+ #define LANE0_MAP_LOGIC_LANE_3			(0x3 << 0)
++#define LANE3_MAP_SHIFT				(6)
++#define LANE2_MAP_SHIFT				(4)
++#define LANE1_MAP_SHIFT				(2)
++#define LANE0_MAP_SHIFT				(0)
+ 
+ /* ANALOGIX_DP_ANALOG_CTL_1 */
+ #define TX_TERMINAL_CTRL_50_OHM			(0x1 << 4)
+-- 
+2.34.1
 
