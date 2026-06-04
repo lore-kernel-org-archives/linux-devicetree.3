@@ -1,322 +1,244 @@
-Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D295413230;
-	Thu,  4 Jun 2026 11:19:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F32B426EAA;
+	Thu,  4 Jun 2026 11:22:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780571948; cv=none; b=iR4tZBwplHvDvNdl1arXhcfxcHqHnY+xNrMqudF3MYuSHvznHsOKqHLvg6auWqIAH0sG9yMCR5ZznAH9kJQlBTqC9ymI35tBcVNWwJ33Ot4PXnlnvsxyrIhOdYif+e4ktebMML55l13c7ngYP4CZnxOJrVhhIQ4up24es5sSCUE=
+	t=1780572147; cv=none; b=kOwAT7rHXXjVL5ENI05oqym+QTPlukZPAz5dHqzS7G5ebcaSzOKyQXDrkV+R53XLZHly8I6u89uq0JuV6xUKhEnCEAMs0K8B4wrNq9/mRjnlj6NBwf89PDJ/u5uZvLaRtIYcsdbH9yn0h6kIE/Fbz2vF88AM7FXNdMRPepbEltk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780571948; c=relaxed/simple;
-	bh=dLgbHU1TIrBnFuzvHr8FQBlwZDVyOkN8JtITv/7d1O0=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ZgUg1oaB6LtAaVJbbkKzhLwK9OC9Fi8I5bd0SRWyjKUFxDK7udJWDkQu71O60S2NLM/zkbngFbPBsUnz+/iR0E0R/LhMlKuHfBJKUxpr+RkoDCbawM1RdoSYt+38TTyd5X7gRQ8yqgE+wL/2fgdUTZ7VYweSW0lPwQbMVeqzuJM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=a3qQzpHO; arc=none smtp.client-ip=211.75.126.72
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
+	s=arc-20240116; t=1780572147; c=relaxed/simple;
+	bh=rCU4Gxie0eVTTkpbXv9dbym1eyR074y2+nE+wP0mWpA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=CmDVKgHp7LhNjXn+UJdAHad0C3J/zE7tneHHatzBPb2Qs09M5nm4xudtpVRZBzIn1ZrV3b1N2SydUbMKhUi9Fo7PGvlPlHevf3EaIvdmuxOijajq5AIt444YgiOtg6O91QjizkaCaMx9URg7oKQL3k7Z/AqxDAANU9zzY+TWZTI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cSo2CUdD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="a3qQzpHO"
-X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 654BIMHe8299934, This message is accepted by code: ctloc85258
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
-	t=1780571902; bh=2y39ejFgo5oVqse/gOT1R7NkdhQZHGhNBtJddbK8aJg=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Transfer-Encoding:Content-Type;
-	b=a3qQzpHOR6LLe8Io4EzYeehsALA0XODKOOztzxBXJR7J+GApOjbZ/q10P+/hbNULD
-	 jT+dXFq/rpSw5VZ5NnHcBUltURiK35p9h0sg9IBxdAAPTF35VrMTBSXcCIFv53uJtL
-	 8K9PPqc3TsUGVbXXZXkxSyTqcuHt3PPQXyEfAgfy1tKWcmCkmA7L1qoHVfNfvX/Qo5
-	 fvI5oTkK56LpFXEhlOruSR/2ZkqS728nj9BOJYMPYomhw2FnwSjBgwvGC4+3fUCvs4
-	 BGubevlLsexNLE21/8TwQYGki6SvmokWGQPfeMse0jJVbXBnL3nxhwTtgkULGOrSis
-	 LAMtnu4IwJIyQ==
-Received: from mail.realtek.com (rtkexhmbs04.realtek.com.tw[10.21.1.54])
-	by rtits2.realtek.com.tw (8.15.2/3.28/5.94) with ESMTPS id 654BIMHe8299934
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
-	Thu, 4 Jun 2026 19:18:22 +0800
-Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
- RTKEXHMBS04.realtek.com.tw (10.21.1.54) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 4 Jun 2026 19:18:22 +0800
-Received: from RTKEXHMBS05.realtek.com.tw (10.21.1.55) by
- RTKEXHMBS06.realtek.com.tw (10.21.1.56) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.17; Thu, 4 Jun 2026 19:18:21 +0800
-Received: from cn1dhc-k02 (172.21.252.101) by RTKEXHMBS05.realtek.com.tw
- (10.21.1.55) with Microsoft SMTP Server id 15.2.2562.17 via Frontend
- Transport; Thu, 4 Jun 2026 19:18:21 +0800
-From: Yu-Chun Lin <eleanor.lin@realtek.com>
-To: <robh@kernel.org>, <krzk+dt@kernel.org>, <conor+dt@kernel.org>,
-	<tychang@realtek.com>
-CC: <eleanor.lin@realtek.com>, <cy.huang@realtek.com>,
-	<stanley_chang@realtek.com>, <james.tai@realtek.com>, <afaerber@suse.com>,
-	<devicetree@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>,
-	<linux-realtek-soc@lists.infradead.org>
-Subject: [PATCH 2/3] soc: realtek: Add driver for DHC I/O level detector
-Date: Thu, 4 Jun 2026 19:18:19 +0800
-Message-ID: <20260604111821.975624-3-eleanor.lin@realtek.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260604111821.975624-1-eleanor.lin@realtek.com>
-References: <20260604111821.975624-1-eleanor.lin@realtek.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cSo2CUdD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8A1E1F00893;
+	Thu,  4 Jun 2026 11:22:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780572146;
+	bh=YqaIARxLCsfRvEuwDJUVGQSwsaKgqQhBSuWQAJzCQKk=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=cSo2CUdDtSwzmTl4SbVCV01/t4l/Dudj/mefXIyBNYHuoH+icLvBi9SQb+9o+kZ2S
+	 nmvIFxh0hlcjyNbQ2MraUCqzHCYMkE9ubDoLAZTxJ9vccqnSnzZQUq1LHYSGxbAeYG
+	 ClKYYxFAaf41z5JyDl4nXBgFkoKQQOqIBYFAldPR6LPfWGJqjh/iFanLJZ1gTPvzw3
+	 y3xB5w2XKlKjbLsamDMgG4pR3A9zpwQolINbR3O5Sf/z1mjlrwVL3LqLLduXIkr9Fy
+	 IEXRPY7JdAoDxt6C8rbNa3Mj1aRIPjxW+V4+1B6BWXpUxIbEH4ta4sMMRnW+2U6tDE
+	 8C59L3MG3QqYg==
+Message-ID: <200a6c34-3321-4c2c-9746-52348e700cd9@kernel.org>
+Date: Thu, 4 Jun 2026 13:22:17 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 2/3] dt-bindings: iio: flow: add Sensirion SLF3S liquid
+ flow sensor
+To: Jonathan Cameron <jic23@kernel.org>
+Cc: Wadim Mueller <wafgo01@gmail.com>,
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, Rob Herring <robh@kernel.org>,
+ Conor Dooley <conor+dt@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>, Maxwell Doose <m32285159@gmail.com>,
+ linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+References: <20260530205435.37326-1-wafgo01@gmail.com>
+ <20260530205435.37326-3-wafgo01@gmail.com>
+ <20260601-banana-narwhal-of-music-0b4d3a@quoll>
+ <20260601150959.49bbf125@jic23-huawei>
+ <1dbd3ab3-de6c-44dd-8100-e8ee60f558c8@kernel.org>
+ <20260604100304.11d0e003@jic23-huawei>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <20260604100304.11d0e003@jic23-huawei>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-From: Tzuyi Chang <tychang@realtek.com>
+On 04/06/2026 11:03, Jonathan Cameron wrote:
+> On Wed, 3 Jun 2026 16:29:10 +0200
+> Krzysztof Kozlowski <krzk@kernel.org> wrote:
+> 
+>> On 01/06/2026 16:09, Jonathan Cameron wrote:
+>>> On Mon, 1 Jun 2026 13:53:23 +0200
+>>> Krzysztof Kozlowski <krzk@kernel.org> wrote:
+>>>   
+>>>> On Sat, May 30, 2026 at 10:54:31PM +0200, Wadim Mueller wrote:  
+>>>>> Document the bindings for the Sensirion SLF3S family of digital
+>>>>> liquid-flow sensors on I2C.  The family currently covers the
+>>>>> SLF3S-0600F, SLF3S-1300F and SLF3S-4000B variants.
+>>>>>
+>>>>> The driver auto-detects the variant from the product-information
+>>>>> register at probe time; the per-variant compatible strings exist
+>>>>> for documentation and dt_binding_check purposes.    
+>>>>
+>>>> Here...
+>>>>  
+>>>>> +description:
+>>>>> +  Family of digital liquid-flow sensors from Sensirion with I2C
+>>>>> +  interface.  All family members share the same register map; sub-types
+>>>>> +  differ only in the flow scale factor and the calibrated measurement
+>>>>> +  range, both of which are detected at probe time via the
+>>>>> +  product-information register.    
+>>>>
+>>>> And here...
+>>>>  
+>>>>> +
+>>>>> +properties:
+>>>>> +  compatible:
+>>>>> +    enum:
+>>>>> +      - sensirion,slf3s-0600f
+>>>>> +      - sensirion,slf3s-1300f
+>>>>> +      - sensirion,slf3s-4000b    
+>>>>
+>>>> And here something else. Confusing. Didn't you say device variants are
+>>>> auto-detectable? So you have only one compatible sensirion,slf3s.  
+>>>
+>>> And then future fallback compatibles can never work. 
+>>> Basically as far as I have ever been able to establish this is why
+>>> generic compatibles are almost always the wrong way to go.
+>>>
+>>> If we get a future part with an unknown ID and don't have these existing
+>>> specific compatibles, then we have no way to specify which one it is  
+>>
+>> But why would you have future part with unknown ID?
+> 
+> That's what manufacturers do on a very frequent basis.  They tweak something
+> that has no affect on the interface or channel scaling etc and release a new part
+> with a different ID.  Can be something like a part suited to different operating
+> conditions, or with a different supply tolerance.
 
-Add driver support for the Realtek DHC I/O level detector.
+and it will have a different, known that time ID. How could be "unknown"?
 
-The driver reads hardware registers to determine the current I/O voltage
-levels (e.g., 1.8V or 3.3V) for specific IP blocks. Based on the
-detection results, it selects and applies the appropriate pinctrl states
-to ensure the correct pad configurations are used.
+> 
+>>
+>> The device is slf3s with variants. All of known variants have an
+>> interface to detect the actual variant. There is no indication that this
+>> won't work - why would company remove the ID register?
+> 
+> They won't remove the ID, but they will put other values in it to
+> indicate new revisions of a part - often entirely backwards compatible
+> - sometimes with extra features that we don't use until the driver is updated.
+> 
+> 
+>>
+>> But even if this happens, then it would be change of device interface,
+>> thus you cannot use generic compatible and you will have a new dedicated
+>> compatible.
+> 
+> We've had this discussion a number of times for whether an ID register difference
+> alone makes a device non compatible, and the answer from DT review has always been
+> a firm no and that it is incorrect to reject an unknown ID if the dt-compatible
 
-Signed-off-by: Tzuyi Chang <tychang@realtek.com>
-Signed-off-by: Yu-Chun Lin <eleanor.lin@realtek.com>
----
- MAINTAINERS                         |   1 +
- drivers/soc/Kconfig                 |   1 +
- drivers/soc/Makefile                |   1 +
- drivers/soc/realtek/Kconfig         |  21 ++++
- drivers/soc/realtek/Makefile        |   2 +
- drivers/soc/realtek/rtd-io-detect.c | 152 ++++++++++++++++++++++++++++
- 6 files changed, 178 insertions(+)
- create mode 100644 drivers/soc/realtek/Kconfig
- create mode 100644 drivers/soc/realtek/Makefile
- create mode 100644 drivers/soc/realtek/rtd-io-detect.c
+True, but this is not the case here. That incompatible device would
+simply not use this compatible, thus it will not start the probe.
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index 9ec290e38b44..6121eb4f904e 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -3379,6 +3379,7 @@ F:	arch/arm/boot/dts/realtek/
- F:	arch/arm/mach-realtek/
- F:	arch/arm64/boot/dts/realtek/
- F:	drivers/pinctrl/realtek/
-+F:	drivers/soc/realtek/
- 
- ARM/RISC-V/RENESAS ARCHITECTURE
- M:	Geert Uytterhoeven <geert+renesas@glider.be>
-diff --git a/drivers/soc/Kconfig b/drivers/soc/Kconfig
-index a2d65adffb80..d63b9d4dc042 100644
---- a/drivers/soc/Kconfig
-+++ b/drivers/soc/Kconfig
-@@ -20,6 +20,7 @@ source "drivers/soc/microchip/Kconfig"
- source "drivers/soc/nuvoton/Kconfig"
- source "drivers/soc/pxa/Kconfig"
- source "drivers/soc/qcom/Kconfig"
-+source "drivers/soc/realtek/Kconfig"
- source "drivers/soc/renesas/Kconfig"
- source "drivers/soc/rockchip/Kconfig"
- source "drivers/soc/samsung/Kconfig"
-diff --git a/drivers/soc/Makefile b/drivers/soc/Makefile
-index c9e689080ceb..8678b1001183 100644
---- a/drivers/soc/Makefile
-+++ b/drivers/soc/Makefile
-@@ -26,6 +26,7 @@ obj-y				+= nuvoton/
- obj-y				+= pxa/
- obj-y				+= amlogic/
- obj-y				+= qcom/
-+obj-y				+= realtek/
- obj-y				+= renesas/
- obj-y				+= rockchip/
- obj-$(CONFIG_SOC_SAMSUNG)	+= samsung/
-diff --git a/drivers/soc/realtek/Kconfig b/drivers/soc/realtek/Kconfig
-new file mode 100644
-index 000000000000..4c5796c7f9f7
---- /dev/null
-+++ b/drivers/soc/realtek/Kconfig
-@@ -0,0 +1,21 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+#
-+# Realtek SoC drivers
-+#
-+menu "Realtek SoC drivers"
-+        depends on ARCH_REALTEK || COMPILE_TEST
-+
-+config RTD_IO_LEVEL_DETECT
-+	tristate "Realtek DHC I/O Level Detector"
-+	depends on PINCTRL_RTD
-+	select MFD_SYSCON
-+	default ARCH_REALTEK
-+	help
-+	  Enable support for the Realtek DHC I/O level detector.
-+
-+	  This driver handles the auto-detection of I/O signaling levels
-+	  (such as 1.8V and 3.3V) and dynamically configures the pad states
-+	  for specific IP blocks.
-+
-+endmenu
-+
-diff --git a/drivers/soc/realtek/Makefile b/drivers/soc/realtek/Makefile
-new file mode 100644
-index 000000000000..c307e5bdb52d
---- /dev/null
-+++ b/drivers/soc/realtek/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+obj-$(CONFIG_RTD_IO_LEVEL_DETECT) += rtd-io-detect.o
-diff --git a/drivers/soc/realtek/rtd-io-detect.c b/drivers/soc/realtek/rtd-io-detect.c
-new file mode 100644
-index 000000000000..84ef8ea23cb5
---- /dev/null
-+++ b/drivers/soc/realtek/rtd-io-detect.c
-@@ -0,0 +1,152 @@
-+// SPDX-License-Identifier: GPL-2.0-or-later
-+/*
-+ * Realtek DHC I/O Level Detect driver
-+ *
-+ * Copyright (c) 2026 Realtek Semiconductor Corp.
-+ */
-+
-+#include <linux/mfd/syscon.h>
-+#include <linux/module.h>
-+#include <linux/of.h>
-+#include <linux/pinctrl/consumer.h>
-+#include <linux/platform_device.h>
-+#include <linux/property.h>
-+#include <linux/regmap.h>
-+
-+struct rtd_io_detect_desc_info {
-+	const char *name;
-+	const char *state_1v8;
-+	const char *state_3v3;
-+	unsigned int reg_offset;
-+	unsigned int en_offset;
-+	unsigned int status_offset;
-+};
-+
-+struct rtd_io_detect_descs {
-+	const struct rtd_io_detect_desc_info *info;
-+	int num_descs;
-+};
-+
-+struct rtd_io_detect_data {
-+	const struct rtd_io_detect_descs *descs;
-+	struct regmap *base;
-+	struct device *dev;
-+};
-+
-+#define RTD_IO_DETECT_DESC(_name, _reg_off, _en_off, _st_off) \
-+	{ \
-+		.name = #_name, \
-+		.state_1v8 = #_name "_1v8", \
-+		.state_3v3 = #_name "_3v3", \
-+		.reg_offset = _reg_off, \
-+		.en_offset = _en_off, \
-+		.status_offset = _st_off, \
-+	}
-+
-+static const struct rtd_io_detect_desc_info rtd1625_io_detect_desc[] = {
-+	RTD_IO_DETECT_DESC(rgmii, 0x1a0, 8, 1),
-+	RTD_IO_DETECT_DESC(sd, 0x1a0, 9, 2),
-+	RTD_IO_DETECT_DESC(csi, 0x1a0, 10, 3),
-+	RTD_IO_DETECT_DESC(sdio, 0x1a0, 11, 4),
-+	RTD_IO_DETECT_DESC(uart1, 0x1a0, 12, 5),
-+	RTD_IO_DETECT_DESC(aio, 0x1a0, 13, 6),
-+	RTD_IO_DETECT_DESC(emmc, 0x1a0, 14, 7),
-+};
-+
-+static const struct rtd_io_detect_descs rtd1625_io_detect_descs = {
-+	.info = rtd1625_io_detect_desc,
-+	.num_descs = ARRAY_SIZE(rtd1625_io_detect_desc),
-+};
-+
-+static void detect_io_set(struct pinctrl *pinctrl,
-+			  const struct rtd_io_detect_desc_info *desc,
-+			  struct rtd_io_detect_data *data)
-+{
-+	struct pinctrl_state *state_1v8;
-+	struct pinctrl_state *state_3v3;
-+	unsigned int val;
-+	int ret;
-+
-+	state_1v8 = pinctrl_lookup_state(pinctrl, desc->state_1v8);
-+	if (IS_ERR(state_1v8)) {
-+		dev_err(data->dev, "Failed to lookup %s state: %ld\n",
-+			desc->state_1v8, PTR_ERR(state_1v8));
-+		return;
-+	}
-+
-+	state_3v3 = pinctrl_lookup_state(pinctrl, desc->state_3v3);
-+	if (IS_ERR(state_3v3)) {
-+		dev_err(data->dev, "Failed to lookup %s state: %ld\n",
-+			desc->state_3v3, PTR_ERR(state_3v3));
-+		return;
-+	}
-+
-+	regmap_update_bits(data->base, desc->reg_offset,
-+			   BIT(desc->en_offset), BIT(desc->en_offset));
-+
-+	regmap_read(data->base, desc->reg_offset, &val);
-+
-+	ret = pinctrl_select_state(pinctrl,
-+				   (val & BIT(desc->status_offset)) ? state_3v3 : state_1v8);
-+	if (ret)
-+		dev_err(data->dev, "Failed to select pinctrl state\n");
-+}
-+
-+static int rtd_io_detect_probe(struct platform_device *pdev)
-+{
-+	struct rtd_io_detect_data *data;
-+	struct device *dev = &pdev->dev;
-+	struct device_node *pinctrl_np;
-+	struct pinctrl *pinctrl;
-+	int i;
-+
-+	data = devm_kzalloc(dev, sizeof(*data), GFP_KERNEL);
-+	if (!data)
-+		return -ENOMEM;
-+
-+	pinctrl_np = of_parse_phandle(dev->of_node, "realtek,iso-pinctrl", 0);
-+	if (!pinctrl_np) {
-+		dev_err(dev, "Failed to find ISO pinctrl node\n");
-+		return -ENODEV;
-+	}
-+
-+	data->base = device_node_to_regmap(pinctrl_np);
-+	of_node_put(pinctrl_np);
-+
-+	if (IS_ERR(data->base))
-+		return dev_err_probe(dev, PTR_ERR(data->base), "Failed to get regmap\n");
-+
-+	data->descs = device_get_match_data(dev);
-+	if (!data->descs)
-+		return -EINVAL;
-+
-+	pinctrl = devm_pinctrl_get(dev);
-+	if (IS_ERR(pinctrl))
-+		return dev_err_probe(dev, PTR_ERR(pinctrl), "Failed to get pinctrl\n");
-+
-+	data->dev = dev;
-+
-+	for (i = 0; i < data->descs->num_descs; i++)
-+		detect_io_set(pinctrl, &data->descs->info[i], data);
-+
-+	return 0;
-+}
-+
-+static const struct of_device_id rtd_io_detect_of_matches[] = {
-+	{ .compatible = "realtek,rtd1625-io-detect", .data = &rtd1625_io_detect_descs },
-+	{ /* sentinel */ }
-+};
-+MODULE_DEVICE_TABLE(of, rtd_io_detect_of_matches);
-+
-+static struct platform_driver rtd_io_detect_driver = {
-+	.driver = {
-+		.name = "rtd_io_level_detect",
-+		.of_match_table = rtd_io_detect_of_matches,
-+	},
-+	.probe = rtd_io_detect_probe,
-+};
-+module_platform_driver(rtd_io_detect_driver);
-+
-+MODULE_DESCRIPTION("Realtek DHC SoC I/O Level Detect driver");
-+MODULE_LICENSE("GPL");
-+
--- 
-2.43.0
 
+> is known.  The compromise that people were happy with was an info print if
+> such a mismatch is detected as it might indicate an incompatible part replacement
+> and a broken DT.
+> 
+> Probably 80%+ of IIO bindings with fallback compatibles do not have
+> matching "who am I" register values.  This is incredibly common.
+> 
+>>
+>> If the device is actually "slf3s-0600f" (because slf3s is a family),
+>> then I am fine with using that as the fallback. Specific front
+>> compatibles are also fine in such case.
+> 
+> Yes, it's a part in the family. Each of the compatibles here has a
+> separate datasheet:
+> 
+> https://sensirion.com/media/documents/C4F8D965/66F56F53/LQ_DS_SLF3S-0600F_Datasheet.pdf
+> https://sensirion.com/media/documents/6971528D/63625D22/Sensirion_Datasheet_SLF3S-1300F.pdf
+> etc
+> 
+> (wonderfully inconsistent file naming ;)
+> 
+>>
+>>
+>>
+>>> compatible with.  Given these are providing scaling info that means we
+>>> can't realistically support such a future part with a fallback at all.
+>>>
+>>> That would only be possible if there was feature level discovery. A single
+>>> whoami register with no structure to the value is useless for this.  
+>>
+>> The whoami register defines all the features, no? What would feature
+>> discovery improve? ID register is simply logical OR of some feature set,
+>> still uniquely identifying the features set/variant.
+> 
+> Would be lovely if true. Sadly almost never true. They are typically just
+> the next number in a list of parts released. There is no direct information
+> on feature set encoded in that value, we have to have a look up table in
+> the driver to translate to feature set. (Not relevant here but sometimes
+> manufacturers forget to change the number and we get different feature
+> sets with the same ID and no discoverability)
+
+I did not mean there is direct information. I meant that you can create
+such map, so basically it is defining all features.
+
+> 
+> If they were an OR of features that would be great.
+> 
+> The thing is a little structured in this case
+> 
+> 0x07         Liquid flow sensor
+> 0x  03       Product family (e.g. SLF3x)
+> 0x    03     Subtype (e.g. SLF3S-0600F)
+> 0x      02   Revision number (changes with minor firmware or hardware revisions)
+> 
+> But both the product family and subtype are numbers to feed into look up tables
+> (maybe revision number as well)
+
+The values don't matter. What only matters is that each is unique, you
+can map it to a real device (and its datasheet) and features are
+decodable from the datasheet.
+
+Best regards,
+Krzysztof
