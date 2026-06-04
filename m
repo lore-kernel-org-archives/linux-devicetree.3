@@ -1,149 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A133D6CAB
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 07:26:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89F9138A734;
+	Thu,  4 Jun 2026 07:27:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780558006; cv=none; b=gm/mBxPBbcWzdk0PoeR4cdcRdjlovjrbcKygGcyX1zU82ldhfQ7OGbIjeQ2iC9KOAWh5VOZNGB1zejGGPxYZokHB1mgfrL0MKl2I188auSnhGe+c90dfKm0qKvxMXliNmijNBwI3yW9NvxHmXUPn10FP0Jqnn+MpX+HjNNSlcM0=
+	t=1780558022; cv=none; b=Q2Sq9UtdLhIBN/W7R9nEEs4zza33p0wmqhVZuq/PuXuTYCx/nplbzCJ4cyyA8jSdYY0+8efUnMPjEj85T/XtSpNlrSKJw5pWS2cch2ntnRx9y7PBXxh4t/sfyAGGn8h8IeWyad3h6By7vL7kZqmu82ZbyCm8xcOUS1HuCIk7O4Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780558006; c=relaxed/simple;
-	bh=wLmKl4PP77ejeaYz1wRwlFr2xWuoFQcB/q6HThgM1X0=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=bZQbDH7RBS4ZQQkITE/9fAR02Ll6AY/2UtR9QaZTJUYw9pvq54LVnUajw9eJdUOsZOxfWCzRHaT5iUpJXIUdW1HlGUGm2SQW5JT27D0zReF+35g6mKL3KXCbPltuQjr97WZJy1851bxDVkz9EE7N9zFKWsqwPP0CGHzHFuSxmpU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FlhGageW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780558022; c=relaxed/simple;
+	bh=fLmxhC6rYWbcw9CwQPl3+hDXC/D1Z0XXQJLPfNlnrSk=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sHWY5Qnmz1p/Yju1Xlsfhoymlf8GkjVr6iQDrM30mE2w+6neyTPXPPefKEKFHffckzZrJISWuTLfr6k4nmgcYVn4BKKn6rgKCQphBEBEXXxIHevR0EfVoxx9DKpDOcoPBBDN7y3/FWgkvKU/UfX9EGtYIJ/LkcGKirK3OjfkuWI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E/OrR3sg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FlhGageW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88B771F00893;
-	Thu,  4 Jun 2026 07:26:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E/OrR3sg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89C6D1F00893;
+	Thu,  4 Jun 2026 07:26:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780558005;
-	bh=9CnImL2c17SmVeaI0fZrLs8/BzS4vLxXmpaRGxHEiaM=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=FlhGageWRp6EFP/WXrsVXxKWYAVs7QTS1yLiZ0KU1aUoXrH5Esms4RmgFvFfjTyLr
-	 Jx/FqmvEfKp06pkfkbxHRAuaxGzlNZqxnlsX17Dkakm4WmUG0N0ksDYmwTckAQTPTt
-	 vktikNWXadHpzWmoSsOUXjmFIBiPiZmhpBTNAjQl1tpHtZpfpRkabL+DEN2HtdDxS+
-	 B+b1Xe7k5HVuimIuAoejLYjzguTW7bBXrjzx3B6ujh9b1D1NmT4tTthjn+KuAx9Su3
-	 B4iWYPWhceTcw+i8nZUsAAE2SycPmJSr54fWHACeEc/0hz/YmscEwBC4XPc9HfK6f1
-	 IREKdpbkZrhnQ==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH net-next v7 9/9] net: dsa: lan9645x: add port statistics
-Reply-To: sashiko-reviews@lists.linux.dev
-To: =?utf-8?b?SmVucyBFbWlsIFNjaHVseiDDmHN0ZXJnYWFyZA==?= <jensemil.schulzostergaard@microchip.com>
-Cc: devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260603-dsa_lan9645x_switch_driver_base-v7-9-b2f90e676707@microchip.com>
-References: <20260603-dsa_lan9645x_switch_driver_base-v7-9-b2f90e676707@microchip.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 07:26:45 +0000
-Message-Id: <20260604072645.88B771F00893@smtp.kernel.org>
+	s=k20260515; t=1780558021;
+	bh=tOSeJd5Q5zNAoyY/GFqlDU7UE8aN39e8iRO7S2kCXPA=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=E/OrR3sgoL6Iol3KdIkZc/DH2rf3iAphlPvOhYyB+P+ZVqBA0tKzCrjhmcSDQfiJm
+	 PuFnyoVS8+SXRLZ2iwjgMRiizOFiiyZ9TifECh0eliH//5rylB1v24AAT5P+v4c42j
+	 cYW0uuKoLGnslhsbaVYDl8g5G4lEt1z/fzebPZLO3ouX3tYXUcUJp0rdFulkkB5xmG
+	 m3lqS5WT/wToXACIDPL+x4Dekuvf6/YPWY/1fdUMMWyU3IIYODharZniO/UH4W+uQ9
+	 tKvD7dWjQ0peevK10ahXoHKel6ZV78tGcapHB8WBT6XJ3TMl4m7d3JT0CsUNFQTWCB
+	 rnuxm5LPWP/Nw==
+Message-ID: <f6cce361-47ef-4488-ac1e-5f60d3cd578b@kernel.org>
+Date: Thu, 4 Jun 2026 09:26:56 +0200
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/3] MAINTAINERS: Add entry for Novatek NT726xx SoC i2c
+ driver.
+To: SP_ISW1_AT@novatek.com.tw, andi.shyti@kernel.org, robh@kernel.org,
+ krzk+dt@kernel.org, conor+dt@kernel.org, linux-i2c@vger.kernel.org,
+ devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: ben_huang@novatek.com.tw, toby_chui@novatek.com.tw,
+ shihpei_hsu@novatek.com.tw
+References: <20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGVBBMBCgA/AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJoF1BKBQkWlnSaAAoJEBuTQ307
+ QWKbHukP/3t4tRp/bvDnxJfmNdNVn0gv9ep3L39IntPalBFwRKytqeQkzAju0whYWg+R/rwp
+ +r2I1Fzwt7+PTjsnMFlh1AZxGDmP5MFkzVsMnfX1lGiXhYSOMP97XL6R1QSXxaWOpGNCDaUl
+ ajorB0lJDcC0q3xAdwzRConxYVhlgmTrRiD8oLlSCD5baEAt5Zw17UTNDnDGmZQKR0fqLpWy
+ 786Lm5OScb7DjEgcA2PRm17st4UQ1kF0rQHokVaotxRM74PPDB8bCsunlghJl1DRK9s1aSuN
+ hL1Pv9VD8b4dFNvCo7b4hfAANPU67W40AaaGZ3UAfmw+1MYyo4QuAZGKzaP2ukbdCD/DYnqi
+ tJy88XqWtyb4UQWKNoQqGKzlYXdKsldYqrLHGoMvj1UN9XcRtXHST/IaLn72o7j7/h/Ac5EL
+ 8lSUVIG4TYn59NyxxAXa07Wi6zjVL1U11fTnFmE29ALYQEXKBI3KUO1A3p4sQWzU7uRmbuxn
+ naUmm8RbpMcOfa9JjlXCLmQ5IP7Rr5tYZUCkZz08LIfF8UMXwH7OOEX87Y++EkAB+pzKZNNd
+ hwoXulTAgjSy+OiaLtuCys9VdXLZ3Zy314azaCU3BoWgaMV0eAW/+gprWMXQM1lrlzvwlD/k
+ whyy9wGf0AEPpLssLVt9VVxNjo6BIkt6d1pMg6mHsUEVzsFNBFVDXDQBEADNkrQYSREUL4D3
+ Gws46JEoZ9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLue
+ MNsWLJBvBaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6ei
+ OMheesVS5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wA
+ GldWsRxbf3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA
+ 6z6lBZn0WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9
+ YegxWKvXXHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt
+ 91pFzBSOIpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gU
+ BLHFTg2hYnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/
+ JoFzZ4B0p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu
+ 4vXVFBYIGmpyNPYzRm0QPwARAQABwsF8BBgBCgAmAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtB
+ YpsFAmgXUF8FCRaWWyoACgkQG5NDfTtBYptO0w//dlXJs5/42hAXKsk+PDg3wyEFb4NpyA1v
+ qmx7SfAzk9Hf6lWwU1O6AbqNMbh6PjEwadKUk1m04S7EjdQLsj/MBSgoQtCT3MDmWUUtHZd5
+ RYIPnPq3WVB47GtuO6/u375tsxhtf7vt95QSYJwCB+ZUgo4T+FV4hquZ4AsRkbgavtIzQisg
+ Dgv76tnEv3YHV8Jn9mi/Bu0FURF+5kpdMfgo1sq6RXNQ//TVf8yFgRtTUdXxW/qHjlYURrm2
+ H4kutobVEIxiyu6m05q3e9eZB/TaMMNVORx+1kM3j7f0rwtEYUFzY1ygQfpcMDPl7pRYoJjB
+ dSsm0ZuzDaCwaxg2t8hqQJBzJCezTOIkjHUsWAK+tEbU4Z4SnNpCyM3fBqsgYdJxjyC/tWVT
+ AQ18NRLtPw7tK1rdcwCl0GFQHwSwk5pDpz1NH40e6lU+NcXSeiqkDDRkHlftKPV/dV+lQXiu
+ jWt87ecuHlpL3uuQ0ZZNWqHgZoQLXoqC2ZV5KrtKWb/jyiFX/sxSrodALf0zf+tfHv0FZWT2
+ zHjUqd0t4njD/UOsuIMOQn4Ig0SdivYPfZukb5cdasKJukG1NOpbW7yRNivaCnfZz6dTawXw
+ XRIV/KDsHQiyVxKvN73bThKhONkcX2LWuD928tAR6XMM2G5ovxLe09vuOzzfTWQDsm++9UKF a/A=
+In-Reply-To: <20260604060411.355675-1-SP_ISW1_AT@novatek.com.tw>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential issue(=
-s) to consider:
-- [High] Deadlock risk due to using plain `spin_lock()` on `sw_lock` in bot=
-h process and softirq contexts.
---
+On 04/06/2026 08:04, SP_ISW1_AT@novatek.com.tw wrote:
+> CONFIDENTIALITY NOTICE: This message, including attachments, contains 
+> information which may be confidential and privileged, and is intended only for 
+> use by the addressees designated above. Unless you are the intended recipient, 
+> any use, copying, disclosure, or distribution is prohibited. If you have 
+> received the message in error, please immediately delete the message and destroy 
 
-commit cc6b09f42ef1f85f9c4a542f2826c373a91c2f46
-Author: Jens Emil Schulz =C3=98stergaard <jensemil.schulzostergaard@microch=
-ip.com>
+So can I review it or not?
 
-net: dsa: lan9645x: add port statistics
+Patch is obviously incorrect, but not sure if I am not breaking your
+confidentiality rules.
 
-Add statistics support for the port counters. Chip registers are 32 bit,
-so this unit is responsible maintaining a 64bit software cache, and
-updating it frequently to handle overflows in hardware.
-
-> diff --git a/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c b/driver=
-s/net/dsa/microchip/lan9645x/lan9645x_stats.c
-> new file mode 100644
-> index 0000000000000..e38f510eb8f66
-> --- /dev/null
-> +++ b/drivers/net/dsa/microchip/lan9645x/lan9645x_stats.c
-[ ... ]
-> +static void __lan9645x_stats_view_idx_update(struct lan9645x *lan9645x,
-> +					     enum lan9645x_view_stat_type vtype,
-> +					     int idx)
-> +{
-> +	struct lan9645x_stats *s =3D lan9645x->stats;
+> all copies thereof and notify the sender by reply email.本郵件及任何附件均屬機 
+> 密，僅供其上指定地址之收件人使用。除非您是指定之收件人，否則請勿使用、複製、揭露 
+> 或散布本郵件之任何部份。若您錯誤地收到此郵件，請立即回覆電子郵件通知寄件人，並請 
+> 完全刪除且銷毀本郵件及其複本。
+> 
+> 
+> From: Ben Huang <Ben_Huang@novatek.com.tw>
+> 
+> Add entry for maintenance of Novatek NT726xx SoC i2c driver.
+> 
+> Signed-off-by: Ben Huang <Ben_Huang@novatek.com.tw>
+> ---
+>  MAINTAINERS | 7 +++++++
+>  1 file changed, 7 insertions(+)
+> 
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index 9ec290e38b44..7a77a1690f15 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -19014,6 +19014,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/nolibc/linux-nolibc.git
+>  F:	tools/include/nolibc/
+>  F:	tools/testing/selftests/nolibc/
+>  
+> +NOVATEK NT726XX I2C CONTROLLER DRIVER
+> +M:	Ben Huang <ben_huang@novatek.com.tw>
+> +L:	linux-i2c@vger.kernel.org
+> +S:	Maintained
+> +F:	Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+> +F:	drivers/i2c/busses/i2c-nt726xx.c
 > +
-> +	lockdep_assert_held(&s->hw_lock);
-> +
-> +	if (!__lan9645x_stats_view_idx_hw_read(lan9645x, vtype, idx)) {
-> +		spin_lock(&s->sw_lock);
+>  NOVATEK NVT-TS I2C TOUCHSCREEN DRIVER
+>  M:	Hans de Goede <hansg@kernel.org>
+>  L:	linux-input@vger.kernel.org
 
-[Severity: High]
-Does this code risk a deadlock? This lock is acquired here in process conte=
-xt
-(the delayed workqueue worker) using a plain spin_lock().
 
-However, lan9645x_stats_get_stats64() is called in atomic context (such as
-softirq) and also acquires sw_lock. If a softirq preempts the process-conte=
-xt
-thread while it holds sw_lock, and the softirq then attempts to read
-statistics, the softirq could spin forever trying to acquire the same sw_lo=
-ck.
-
-Should the process-context paths use spin_lock_bh() instead to disable
-bottom halves and prevent this race?
-
-> +		__lan9645x_stats_view_idx_transfer(lan9645x, vtype, idx);
-> +		spin_unlock(&s->sw_lock);
-> +	}
-> +}
-[ ... ]
-> +void lan9645x_stats_get_ethtool_stats(struct lan9645x *lan9645x, int por=
-t,
-> +				      u64 *data)
-> +{
-> +	struct lan9645x_stats *stats =3D lan9645x->stats;
-> +	u64 *c;
-> +	int i;
-> +
-> +	c =3D lan9645x_stats_view_idx_update(lan9645x, LAN9645X_STAT_PORTS, por=
-t);
-> +
-> +	spin_lock(&stats->sw_lock);
-
-[Severity: High]
-Is it possible for a softirq to preempt here as well? Like the update funct=
-ion
-above, this is in process context and uses a plain spin_lock(), which carri=
-es
-the same deadlock risk with the atomic context in lan9645x_stats_get_stats6=
-4().
-
-The same pattern is repeated across all the other ethtool callbacks in this
-file.
-
-> +	for (i =3D 0; i < ARRAY_SIZE(lan9645x_port_ethtool_stats); i++)
-> +		*data++ =3D c[lan9645x_port_ethtool_stats[i].idx];
-> +	spin_unlock(&stats->sw_lock);
-> +}
-[ ... ]
-> +/* Called in atomic context */
-> +void lan9645x_stats_get_stats64(struct lan9645x *lan9645x, int port,
-> +				struct rtnl_link_stats64 *stats)
-> +{
-> +	struct lan9645x_stats *s =3D lan9645x->stats;
-> +	u64 *c;
-> +
-> +	c =3D STAT_COUNTERS(lan9645x, LAN9645X_STAT_PORTS, port);
-> +
-> +	spin_lock(&s->sw_lock);
-
-[Severity: High]
-Could the deadlock mentioned above occur here if the lock is acquired by a
-preempting softirq, since this is explicitly called in atomic context?
-
-> +
-> +	stats->rx_bytes =3D c[SCNT_RX_OCT] + c[SCNT_RX_PMAC_OCT];
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260603-dsa_lan964=
-5x_switch_driver_base-v7-0-b2f90e676707@microchip.com?part=3D9
+Best regards,
+Krzysztof
