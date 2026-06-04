@@ -1,153 +1,130 @@
-Received: from usb-smtp-delivery-120.mimecast.com (usb-smtp-delivery-120.mimecast.com [170.10.153.120])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71BC23C503
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:51:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.153.120
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF07021D596
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:51:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780584692; cv=none; b=HtEzd6qUGK1xUQQVZT0Y5Pn446u2jO+PjmiDK8kkANJImjIH8XYRvLe8M673kDJtNfsYaBt0Zmv0iwQPOOYXpwy0dmfsG9/nzMMy/2ujKAxmbuhfW7IR2YPVJNsc+ss9SicIviD+8x/TJAyTUqO+3IpainoKefHbjwEgvmlbAG4=
+	t=1780584713; cv=none; b=gQciIMl6Nu1cMpnHzxxiqnJWl1iralO7Uk+Euhy17zrmJDYYJw/0I2Nzk611v1nK/TSc2JeQePwAne+9NTFKf4l/TGKG7ZuMv4gp+YdfpLB1+Pjcd87CF0kdbul1rryzMg9b83bGl2ivBWPphfyg0DSeHTusv+itW67whZiQ9Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780584692; c=relaxed/simple;
-	bh=XQDvGuBCKWLLr6nccJZYBVXdSy0v/+LJTT+/47lKA18=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 MIME-Version:Content-Type; b=Rf9TpWetYSRGzJH0+u74B+p/AStWyCAbSpTYowrQD42SSz5aPwOn8IDngR1aomra7Ne7fRQ2jwcBSq9RjIwrcgWj7wItd7SjIAeE/eqSOflg05qhM2qoEgPlgAN2mO6/wJrhVuXj0OixoXa5bICToWOwOaJq40g/WbfjrNt2D64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com; spf=pass smtp.mailfrom=onsemi.com; dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b=bQ+D3ouh; arc=none smtp.client-ip=170.10.153.120
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=onsemi.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=onsemi.com
+	s=arc-20240116; t=1780584713; c=relaxed/simple;
+	bh=Tbw/YQktjqZ32uQ0sec0H8yqRbA2dYw/TL4URlqH9uA=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=CverymZ/wwwPjTDmg5pk7hNrG0pZ7JujKkHOIZnQyzLwcgNiCed5Jm4CQI+2VBPhV0LMKYewaZmzRe2+42EWoLW/lPZnPZPdeYZeN8Lc47dwTRv/KPNFJjmue5WExvKrxON/9ZAWuLugI5zCaNUVjwLoZTcPgWE3brsfoMjEFT4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bbyxvwIx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=onsemi.com header.i=@onsemi.com header.b="bQ+D3ouh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=onsemi.com;
-	s=mimecast20250127; t=1780584684;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=XQDvGuBCKWLLr6nccJZYBVXdSy0v/+LJTT+/47lKA18=;
-	b=bQ+D3ouhm8fhPGrN4+wy+X+w+rNOKyWuRDMRGL+R6sOYV7eCzbg6dxCscwP/eLatP2iiuT
-	QJ2V/3uNChTADByZVWBfUJjgWWEpQb7lkTofWOuxT4kOE9rdVFRh+u6sdw5sTGl5YBjksv
-	3EC56JlFScfWyNa3gomOyz0MjBC1CENtIMIs/YGP9ofOWhrktNfi2igBG+ZowYbhH5Ijsr
-	7aQugZAxUJUtvByyFbSfD0j2oAsZuYmO9CmqToUEvNIXhoeZ/Ww8wW9i2UIxyKVxAcNL2e
-	yADiTrNFGn0F39cLGe+Jv8MQgZ20MrT2m3e9aXCVYkL292VLXSRzTrzfVpCN4Q==
-Received: from DM5PR21CU001.outbound.protection.outlook.com
- (mail-centralusazon11011024.outbound.protection.outlook.com [52.101.62.24])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id usb-mta-28-3QnhUujYPsSPpH5Q8kyTOQ-1; Thu,
- 04 Jun 2026 07:51:20 -0700
-X-MC-Unique: 3QnhUujYPsSPpH5Q8kyTOQ-1
-X-Mimecast-MFC-AGG-ID: 3QnhUujYPsSPpH5Q8kyTOQ_1780584676
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com (2603:10b6:930:9c::17)
- by BY5PR02MB6689.namprd02.prod.outlook.com (2603:10b6:a03:20f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.92.7; Thu, 4 Jun 2026
- 14:51:09 +0000
-Received: from CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda]) by CY8PR02MB9249.namprd02.prod.outlook.com
- ([fe80::e437:4ba8:6506:4cda%3]) with mapi id 15.21.0092.007; Thu, 4 Jun 2026
- 14:51:09 +0000
-From: Selvamani Rajagopal <Selvamani.Rajagopal@onsemi.com>
-To: Paolo Abeni <pabeni@redhat.com>, Parthiban Veerasooran
-	<parthiban.veerasooran@microchip.com>, Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Rob Herring <robh@kernel.org>, Krzysztof
- Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: Piergiorgio Beruto <Pier.Beruto@onsemi.com>, Andrew Lunn <andrew@lunn.ch>,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, Conor Dooley
-	<conor.dooley@microchip.com>, "devicetree@vger.kernel.org"
-	<devicetree@vger.kernel.org>
-Subject: RE: [PATCH net v3 0/2] Resubmitting with cover-letter and threaded
- patch series.
-Thread-Topic: [PATCH net v3 0/2] Resubmitting with cover-letter and threaded
- patch series.
-Thread-Index: AQHc8eDJSLy74ngCnk2lTBbpvAesgLYuZacAgAAZeCA=
-Date: Thu, 4 Jun 2026 14:51:09 +0000
-Message-ID: <CY8PR02MB92490D1BEFDB7DB856F9843783102@CY8PR02MB9249.namprd02.prod.outlook.com>
-References: <20260601-level-trigger-v3-0-da73e7010532@onsemi.com>
- <42052da1-2d33-4023-b383-482006fcb628@redhat.com>
-In-Reply-To: <42052da1-2d33-4023-b383-482006fcb628@redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR02MB9249:EE_|BY5PR02MB6689:EE_
-x-ms-office365-filtering-correlation-id: be6f5704-0ab7-4f0d-3705-08dec248b6cf
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|7416014|1800799024|366016|376014|56012099006|4143699003|11063799006|22082099003|38070700021|18002099003
-x-microsoft-antispam-message-info: wohVayzYtjTtAM4U50tNs8wC1Nl335EmiZAzdqD3ZeDmwgzh5gTxkAPD/0q1/xyzWIva3F6CVv3qgbzflrB66+svGe0JYFnv9as/Flsyc0cQjb7bOaulB/hZJruH2gqJASkQ1O8g684EYqIXWSzY/iXi5Ky/M0gxUSb8NUQZq7GQVlrbzHtdB0Jx7JzNkw8ur9qRGy8shRdWxZdr+N8fY+o1jlzlOYWUFXZ+o1xCpDFlThMW7JGx996QldRnSWkJmP4wc49V5RmDkFUrWFaiK/C+MU/A5FxNzciv5G21NhEOOrVbhPHj0WR45Wd34RhipkI/L/v+H1Y4hh6A/0fb6m/3oO7g5ZJQxhh2j+WagcIqModWNIzh4pUeW1DV936l6TJ0bet/DQXW0O1OqHzjO+/lWguLGKu0HeHxO+eFpqlJwOJ5crjh+XwLBRaDhxSqoAKW4lEty2T34MhGdPR1sK92FUy+MwDjr3dOdpzGg4k4i+n6PRcwLkfs/VxLRnGO9Lm5oN6Tc+ILESm6ispiZMTN8v+meKdWmi/erIlznlXofTWwlQRyDH3Sx3SMMEBiMgpcJOqbnPbbb7XwzFSGlE9/m0rx5BjYwofg3iG5UY/uLVwKRB2xWL8PiUboleRJZxe/m5fceZzL5bN6dI9thXFJAPHzOPNqYu7aSbYCk+l4x3qdTVHV7nwrvWHiTpFhaOQA24yjUQMxDFhYtEiHw4cLAoJpsJT2DiwtZ1F4tXtUQ/QEfyqaMz2TBdFmAkeZ
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR02MB9249.namprd02.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(366016)(376014)(56012099006)(4143699003)(11063799006)(22082099003)(38070700021)(18002099003);DIR:OUT;SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?RlhMWVMvbkMyTFl5VHpJSUYwRkFLOVI5QXduV0Z3eE54L0hIQ3dOMlMyMXo1?=
- =?utf-8?B?cmUwYWYvTHFHSGlINWhXRWMySk5OMnhXSlQ0cHdNU3BJUU5sMUFCTmdrRFJo?=
- =?utf-8?B?ZGRQTFh1cU5nUWZTc1NyN3NQRFFhSDdoejF1Szk4cm1HUE9LaEp1Tnd0VUZW?=
- =?utf-8?B?NHJzdWJqN1kwUWNzT3VLTE5yaHRGN2g3bGFMRDBrQzBXaGJIM1M4bGVIUkxU?=
- =?utf-8?B?YlJCak1EY2daa1NjVDN4NHd5V0tSS09RNlJHSjJDMWxUZEtWa0ZmTVFoeSs1?=
- =?utf-8?B?Rk1KTWhKNzZPS0loRmh4Qm9JZm83VXNsM3BqTnl6QnNkSEJyTHpyc0NoQ1ND?=
- =?utf-8?B?ZWNvMVd3YVByVVd1c2lhb3dLcExQTno4TXhIekwrK2cvMCtZT0I2QklUVjZ6?=
- =?utf-8?B?ZFY3MU9uVThqMlg3MnlVQ05lUzNEViswUGlCOWpySzh5UGtTWWJqR1BsMXJ1?=
- =?utf-8?B?NnNacTVGUFVmU3c4M3JBcEVncHhNVTMrSzlGcWd3RFI3Mmw3UjlzeVFhRkdU?=
- =?utf-8?B?b0JhamZBVWVmdEE3M3RMd1F6dWh1dnQ2TS91TkRXOUlSKzhkSGVrQ1kya08x?=
- =?utf-8?B?R2NrVUl6bXUvR3lOWkxjZVFZQzJJMXNnTVNGS1ZNZzE4WWRZTWh5TTQ4WVhR?=
- =?utf-8?B?N1FKNVFnakRtczl3UGpWeC9ueEZHT05wbE1jcFFCZDMyTmlFS3dzczQ5VkJu?=
- =?utf-8?B?YnFyaWVDK21qVC8zMXYxUE4xUVREWGRWcHkzaCtNS3pkaFRiNWJ3OThNOGpP?=
- =?utf-8?B?UnZQYzZtdEh3NVVPdlYwSW05WE14Ly9LaU5DdE5yZExJUlJnTW9jMU9JaDIz?=
- =?utf-8?B?SVFpQUNYWEpnaWFsSFc1bkZGSjg1Q2s5WWNZK1BFWm5pbTZqZTY5MzFxTmJP?=
- =?utf-8?B?OHd3dDVtNFJCQTRiYTJHZTkwbHpDUnE2Nlk2VzJNTlNoYk4zZENiMnlDdnBx?=
- =?utf-8?B?VzVFb3ozY2JDR1RPYVlBdWNqZ3kzeDY0VllxbWlTVlNOakxSbzR4UkFnaHNZ?=
- =?utf-8?B?RzZaeEp6UWVRTUVtY2cvMmh6Ukh6c1NTM2FONFRUaDlXWVhhZEhaVVNnQWlK?=
- =?utf-8?B?NWdOWGlrR1lxUFFuelFVTUlVS1djTXNtMFZhNk82TnFEMm9iaEIxcndQWnFD?=
- =?utf-8?B?L3BSVXI2N3MybWFKazREclJ5NkI4cDZNb1piL0ZxdWpOcHBpbERBYmRUdGV6?=
- =?utf-8?B?N3J6bWs2RTNNNmhVaXpaM3h1MmZhQm1MYnA0VkM2Q1JROThnang3QnRGRS9M?=
- =?utf-8?B?NEhIWWRVNnAzeGZweGl3bnE0ck9LRS9kK2o2YVBTbnRhZnY0b1NJV1AvVFAz?=
- =?utf-8?B?L2xJRmhlM1VaTWVoVW5pT05JdFloM1RJTEwydVQ3L2dLRG05YittRVduRW9J?=
- =?utf-8?B?NEs0WjdreUd2WmcrQzBlbUpRNG5GSUZBS3JoWWVLU3cwRzd1cDJ5ZHpSM0RB?=
- =?utf-8?B?SFREOC9GNUxOaGhac0R5dTNTOE5sdkFub2xZTS9SaVBIZVJwZ2VKemJiaUJn?=
- =?utf-8?B?ckprOHdOT3hURWJOMFYzdXdpWXBRbmJzTU10V2F2TWJHbXIyNmlSYXdNKzcr?=
- =?utf-8?B?cnAvVHRVa2pPT2FXVklJcTFrZXJia0h1MThheXJLY0pFbmQrcXBVMWhIOFFo?=
- =?utf-8?B?TElGN3QzSVdwVlZsOURGVzNqZ0NBMjltUHYybWRVNm9NSVkweC9RYXJ0ZEpB?=
- =?utf-8?B?WU4vb2VJQ25HUzRkZ1lsN0tqaHVVR2ZSaytQODJ6S1lKYXpzbHFnZDM1Rk5J?=
- =?utf-8?B?dG9sSWRtbU5JWm94NWZSVHNTUHlDTnljYlAvWHNzSWF1T1ptL2pzRXFGZWZ0?=
- =?utf-8?B?WU1paWY4UEs5UGdpazlSQUdyQnBvTWExditzZXA4RWVOWGcvWEFNMjd4cDgz?=
- =?utf-8?B?UmpWM1B6WjdQcXBpS3dPSU5sQ2laWkc2anhlY01taDF1UTNlbi95NTEwVWhj?=
- =?utf-8?B?VVpKUjgxOXhxQ1I4cFpENXBSMFJpMGIxbjZ6YjBlWmZiQ3Nldnl4d2hmRUFH?=
- =?utf-8?B?WVJHbW4yaVlsd3BTTm9sWW9hdUFSRDFyaVZhUG9KUXJ3bzJKdUxuOW5EZGUz?=
- =?utf-8?B?bEZINGh5T1R3b2RBc1lhNlYranVrY0V1R0hGWExnaUo2UVhRVmJvUnlhZFox?=
- =?utf-8?B?enNmb1M3bEVwdkxPZ2VENzhJNkI5VzNIbEFHUGZacEZGTG94clpWNEZHeE4r?=
- =?utf-8?B?dU5tQU5WRkhNcklqQVVQUGVJbVlLbjZLS3N0M3pwOVQvQ1JGNHpVZk1PMHRU?=
- =?utf-8?B?ZGRZdXhBZ3B4ekpwcDZRc3VOMDFkZVp6U1l5QnhFYldPamxBc3FMRWlzTitB?=
- =?utf-8?B?YVdxTE1UbVl0SXB4MEJTMFVRdFRXSjdFTTZjQitaZXpTVW53QUNtSXNhVUZX?=
- =?utf-8?Q?iIOXT72/8EGUMumY=3D?=
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bbyxvwIx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 526DD1F00893;
+	Thu,  4 Jun 2026 14:51:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780584712;
+	bh=/llI3C+WbmqIAlH2drSmCyljnggatwoNel1mhCkb2/0=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=bbyxvwIxVxw7CKhNO8TadpwbO4IKMGmdH5KAiQii7EVPG1z10SSJU3rTnmMxMuyY8
+	 vGsgnvMjwnomeBfEXZ7wVTFsG2rE6DgGWzwSRNshw/gKWPK0gK4ciStGOWI5n4dDsh
+	 nFv6mX6h450tx20im3WU+u/pIf32r4J1XLLgCGFa5DW4GluoxPftMSTRNnegQKbEJV
+	 m6vtsohm8GjvmWzS9VFrfeEy8vhxYGsXm7ljQwnLbUza90zwTEetMTIEmiE+cX9+IG
+	 Ms52jWxKG75+SJgR0Js8anGYkWk4UUf2kLHALvYSnZ7lBn9FJVW6LizS+RI4lD+7oA
+	 h0E+4yVLfLjIw==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v2 4/7] dt-bindings: timer: Add RISC-V ACLINT mtimer
+ bindings
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Joel Stanley" <joel@jms.id.au>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260604143957.668047-5-joel@jms.id.au>
+References: <20260604143957.668047-5-joel@jms.id.au>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 14:51:51 +0000
+Message-Id: <20260604145152.526DD1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: T0pHZIlYC7QPxuqKGjAYo8ZjF5pqdwagVogppVt8FCv1f3HhX2ProLLB7D1lDn9nm5VJs5fMuVhcrXsJN02gUNe84lVQlrevYRX3nt3c97x/K/4GA8BZltvu60IkW+si9qGxYvx/B668fic7+V8F8Y/eqoYjqAhvgIJQFfhtQb/Ag0pns+aJJX4RpAfxxnMhpEXdaNhd3UMZJW0STzpBe5sfoNSNsauCoJLtMO9b9PCnyvHtXFMBdJTAL3/PzXFaK5Cl6Nxb2kVXrMVXApP7ImmS43tB7GljzzKtWv0qItDNMsg4pVhGjgM1YlxZOWhXB/nZ/AdtCeC5heUYzKVoRA==
-X-OriginatorOrg: onsemi.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR02MB9249.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: be6f5704-0ab7-4f0d-3705-08dec248b6cf
-X-MS-Exchange-CrossTenant-originalarrivaltime: 04 Jun 2026 14:51:09.3243
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 04e1674b-7af5-4d13-a082-64fc6e42384c
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PBpqKMLKo/SoM1UlD+jacWIxEYajLnm4DeX+TFPcZW+WWUG2YqVV0pJhfaLa2sYPx1rPRCL70U0QK2dHGkeEhw29Oll17syy5X7nYVPukRI=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR02MB6689
-X-Mimecast-Spam-Score: 0
-X-Mimecast-MFC-PROC-ID: be0Dx9Qc6F5VFuO8YMiOjzHhADuydVdb6oRPgs-5D2s_1780584676
-X-Mimecast-Originator: onsemi.com
-Content-Language: en-US
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: base64
 
-PiA+DQo+ID4gTWFpbnRhaW5lciBmb3IgdGhpcyBkcml2ZXIgaXMgYWxyZWFkeSBpbmZvcm1lZCBh
-bmQgYXdhcmUgb2YgdGhlc2UNCj4gPiBjaGFuZ2VzLiBUZXN0aW5nIGZvciB0aGVzZSBjaGFuZ2Vz
-IHdhcyBkb25lIGluIG9uc2VtaSdzIHNldHVwIGFuZA0KPiA+IGZvdW5kIHRvIGJlIHdvcmtpbmcu
-DQo+ID4NCj4gPiBTaWduZWQtb2ZmLWJ5OiBTZWx2YW1hbmkgUmFqYWdvcGFsIDxTZWx2YW1hbmku
-UmFqYWdvcGFsQG9uc2VtaS5jb20+DQo+IA0KPiBOb3RlIGZvciBmdXR1cmUgc3VibWlzc2lvbnM6
-IHRoZSBjb3ZlciBsZXR0ZXIgc3ViaiBtdXN0IHJlZmVyIHRvIHRoZQ0KPiBzZXJpZXMgY29udGVu
-dCwgYW5kIG5vdCB0byBjaGFuZ2VzIGZyb20gdGhlIHByZXZpb3VzIHJldmlzaW9uLg0KDQpVbmRl
-cnN0b29kLiBUaGFua3MuDQoNCj4gDQo+IC9QDQoNCg==
+Thank you for your contribution! Sashiko AI review found 2 potential issue(=
+s) to consider:
+- [Medium] The `reg` and `reg-names` properties implicitly require exactly =
+two items, preventing configurations with a shared or external `mtime` regi=
+ster.
+- [Low] The `interrupts-extended` and `reg-names` properties are missing fr=
+om the `required` list in the RISC-V ACLINT MTIMER devicetree binding.
+--
 
+commit 1c0856d0470ac7f69215cb07bf901304f4595567
+Author: Joel Stanley <joel@jms.id.au>
+
+dt-bindings: timer: Add RISC-V ACLINT mtimer bindings
+
+This commit introduces the device tree binding for the RISC-V machine-level
+timer (MTIMER). It supports configuring the memory-mapped mtime and per-hart
+mtimecmp registers.
+
+Link: https://lists.riscv.org/g/tech-aia/topic/connections_between_aia_and/=
+107177435
+
+> diff --git a/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.=
+yaml b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+> new file mode 100644
+> index 0000000000000..1d645570b1914
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    items:
+> +      - enum:
+> +          - tenstorrent,atlantis-aclint-mtimer
+> +          - qemu,aclint-mtimer
+> +      - const: riscv,aclint-mtimer
+> +
+> +  reg:
+> +    items:
+> +      - description: MTIMECMP registers, one per hart
+> +      - description: MTIME register
+
+[Severity: Medium]
+The RISC-V ACLINT specification allows the mtime register to be shared acro=
+ss
+multiple MTIMER devices. By defining the reg array with two items, does this
+schema implicitly enforce exactly two items, preventing configurations where
+mtime is shared or external?
+
+Should this include a minItems constraint to support secondary MTIMER devic=
+es
+that only implement the mtimecmp region?
+
+> +
+> +  reg-names:
+> +    items:
+> +      - const: mtimecmp
+> +      - const: mtime
+
+[Severity: Medium]
+Similarly, does this implicitly require exactly two names, which would
+incorrectly reject device trees that lack a dedicated mtime region?
+
+> +
+> +  interrupts-extended:
+> +    minItems: 1
+> +    maxItems: 4095
+> +
+> +required:
+> +  - compatible
+> +  - reg
+
+[Severity: Low]
+Should interrupts-extended and reg-names be included in this required list?
+
+Because the MTIMER hardware relies on timer interrupts to signal events to
+the harts, omitting interrupts-extended allows device tree nodes to pass
+schema validation without specifying how timer events are routed. Would this
+result in a non-functional device passing validation?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604143957.6680=
+47-1-joel@jms.id.au?part=3D4
