@@ -1,73 +1,40 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AB63374726;
-	Thu,  4 Jun 2026 19:40:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1373374726;
+	Thu,  4 Jun 2026 19:41:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780602057; cv=none; b=BvwPPIHLNLQFtw8BW2RBWyy8UHbqnG3vfsQwr4L9+wWsLJP7oDfe/64EoFl438C30r9t4WfjlHJVo5URlKlHrbXEigF1Qm0cbJ1UtbJnTYdGXJIyc71jwUJ21XAnYFVWYCiiZaPN+RgrVybeZ+xbth+EVbvEdBQMQNJo0JqC7uU=
+	t=1780602062; cv=none; b=iPCfHPy2tbjB3eXqe4Tww6UlYQHxXEwtss284FnCxbdpWXw4+8To3Hr2MMrz3Z5S3Wv0ZXFv6I7WrVNLrfKpgmG8ryt1h4btIwW40KtIY6UwM/WpgS256qmBKxzvBCTgv6tnqEoWE+vd8ECBVNgPcM0mSpYRP9uZKlrqhvovQfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780602057; c=relaxed/simple;
-	bh=Y9wjbRT9w94Gcp/bzW1GMOk9EUx5ovP+IYIpAbYawNs=;
+	s=arc-20240116; t=1780602062; c=relaxed/simple;
+	bh=avF4zvV6bShcA/jrum1X9wooFD1tJq5s8UZJr7nIET0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rExwIlndEWihsmxvMlVSvT7c10q2pu8uHhW4meHF5C6aviIT6OZS9p+bfC5+7zw0204wHs6MaI0m64KA1PznkI/ilA2ppmfXmLl1Fgko28nb8hpoTzLS+dhVqJb6Llx1NcObCt2SlFxKUWMxQUdx1U9IWa+7GcPmPs+BWehQTSI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=GFxbvpvn; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kb6i5qQvk+/67TkHudUU00cHWu/S2+51LupXyyUbAKTEmsBPkeQpo49n2pComsWRHoCDsL8Zk75GBNlxDiU7dIandhuOuObtIJlb062damMRjMT92YBR88V5iPhjxAxfdkM/p+PDQ+odACgyESPHk2HDoxZERoEdopB4TLI1qkI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lyhL/8sE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="GFxbvpvn"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1780602056; x=1812138056;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=Y9wjbRT9w94Gcp/bzW1GMOk9EUx5ovP+IYIpAbYawNs=;
-  b=GFxbvpvnno7gdU4ugw+cgfpDgnoJv8TJr1yCtB4f1su9XJ5rS2/uYFX2
-   k3B72L1oRmuMol4GIG+4nKDTPnqgjCKpaIlowSi0YOz1/G+cGeo6voS9e
-   9mMfTwr7znxND6zIKM+Mjc2iANSYRRSh01IiGeRYXTeTeIOj4Pi7GVSJd
-   MsV5xr43uTrLgSLS19Wt8dsaSOTVQgdA1T3BDdutW/7Bz6eJCAq6zPiuI
-   Fg2IvyfTpf5iVjwNifaz/GA/DQU/IPG/RSb+EJqABz1hPV0LkESdyOTbU
-   0wftH9jE3yZMOEwhfmqcvjgWMln7T4DELHV0w4mud1sD/2CpVwZauqPyw
-   Q==;
-X-CSE-ConnectionGUID: K7kQhUZKRoORhIobMk7LzQ==
-X-CSE-MsgGUID: K51GNdLYRjip6ycrZRuAKQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11807"; a="80577597"
-X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
-   d="scan'208";a="80577597"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 12:40:55 -0700
-X-CSE-ConnectionGUID: QFwM7w91QJSjNZj3WfltbQ==
-X-CSE-MsgGUID: fwQvEaiPRcOYj7CA0byi4A==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.24,187,1774335600"; 
-   d="scan'208";a="268565706"
-Received: from ettammin-mobl3.ger.corp.intel.com (HELO localhost) ([10.245.245.47])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 04 Jun 2026 12:40:50 -0700
-Date: Thu, 4 Jun 2026 22:40:48 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: rodrigo.alencar@analog.com
-Cc: linux-kernel@vger.kernel.org, linux-iio@vger.kernel.org,
-	devicetree@vger.kernel.org, linux-doc@vger.kernel.org,
-	linux@analog.com, Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Lars-Peter Clausen <lars@metafoo.de>,
-	Michael Hennerich <Michael.Hennerich@analog.com>,
-	Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Jonathan Corbet <corbet@lwn.net>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Petr Mladek <pmladek@suse.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Rasmus Villemoes <linux@rasmusvillemoes.dk>,
-	Sergey Senozhatsky <senozhatsky@chromium.org>,
-	Shuah Khan <skhan@linuxfoundation.org>
-Subject: Re: [PATCH v16 05/14] lib: kstrtox: add kstrtoudec64() and
- kstrtodec64()
-Message-ID: <aiHUwARy7g3cSv1t@ashevche-desk.local>
-References: <20260604-adf41513-iio-driver-v16-0-1a7d09143bc2@analog.com>
- <20260604-adf41513-iio-driver-v16-5-1a7d09143bc2@analog.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lyhL/8sE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 300431F00893;
+	Thu,  4 Jun 2026 19:41:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780602061;
+	bh=qs5k5qHJ1kjvv4+UJ0vLk5/id/HIGqin3qOQAuoTQv4=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lyhL/8sEzpLNb3rrXHpXoE0lUrMq9J7Olckoo35pVN/PGV5yV0EMthatHnKRwyhm+
+	 /L4JQDv8KocMILqR6JWgr5oF1c51x9ulUI+LuHhtUOYf2PNxnjOWXZ1XV8ru6RuEIg
+	 dPMbTpOCRGz4kyhGK9O2PhsbDJK8D46e5n8phIg4fIGRIo77Kdz+UGZnSHd+QNwuOA
+	 ALyNp21bpnBgeRu6iEUzxO+CTBuK7SX5wumbFEcRkNiGt0AI354TURrJbh8QCpm6IY
+	 +qzMUCmhr4XucR9rPKaKN3ztUIKtHtYWVXPieea8qlxbK+hW/tGam8UbnENQfHZz90
+	 ja3zn3DC+29wQ==
+Date: Thu, 4 Jun 2026 14:41:00 -0500
+From: "Rob Herring (Arm)" <robh@kernel.org>
+To: Wandun Chen <chenwandun1@gmail.com>
+Cc: linux-kernel@vger.kernel.org, saravanak@kernel.org,
+	devicetree@vger.kernel.org
+Subject: Re: [PATCH v4] of: reserved_mem: avoid post-init UAF when
+ alloc_reserved_mem_array() fails
+Message-ID: <178060205928.1082614.14477209562811042441.robh@kernel.org>
+References: <20260604015332.3669384-1-chenwandun1@gmail.com>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
@@ -76,24 +43,32 @@ List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260604-adf41513-iio-driver-v16-5-1a7d09143bc2@analog.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260604015332.3669384-1-chenwandun1@gmail.com>
 
-On Thu, Jun 04, 2026 at 10:58:59AM +0100, Rodrigo Alencar via B4 Relay wrote:
 
-> Add helpers that parses decimal numbers into 64-bit number, i.e., decimal
-> point numbers with pre-defined scale are parsed into a 64-bit value (fixed
-> precision). After the decimal point, digits beyond the specified scale
-> are ignored.
+On Thu, 04 Jun 2026 09:53:32 +0800, Wandun Chen wrote:
+> From: Wandun Chen <chenwandun@lixiang.com>
+> 
+> The global pointer 'reserved_mem' continues to reference the
+> reserved_mem_array which lives in __initdata if
+> alloc_reserved_mem_array() fails. of_reserved_mem_lookup() is
+> exported for post-init use, that would dereference freed memory
+> and trigger a use-after-free.
+> 
+> So reset reserved_mem_count to 0 when alloc_reserved_mem_array()
+> fails.
+> 
+> Fixes: 00c9a452a235 ("of: reserved_mem: Add code to dynamically allocate reserved_mem array")
+> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+> 
+> ---
+> v3 -> v4:
+> 1. Move prints to 'fail' label.
+> 2. Change return value from bool to int.
+> ---
+>  drivers/of/of_reserved_mem.c | 28 +++++++++++++++++++---------
+>  1 file changed, 19 insertions(+), 9 deletions(-)
+> 
 
-Okay, this seems universal enough, follows the semantics of kstrto*() family
-and gives a good results. Let's make it sail!
-
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+Applied, thanks!
 
