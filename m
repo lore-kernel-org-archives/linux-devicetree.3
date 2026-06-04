@@ -1,199 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pf1-f195.google.com (mail-pf1-f195.google.com [209.85.210.195])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C5AC2749DC;
-	Thu,  4 Jun 2026 01:47:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35AF8280035
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 01:49:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.195
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780537636; cv=none; b=J3UEB+h090J0XOMAab8L2sZYB425kP1/lk1vFiA0L/ykdDvZN6c9M+nJ7tt+cgI/tBWMSY/hxGmoabTB3aR5D4+mJIZD6gFH9jNPr97RDui5izpbfZcqtoa3RmRnd78dwoDhcTFNJGxChEa3O+T5qXDZCB5dezm8SDHyRUMBq1M=
+	t=1780537743; cv=none; b=QbQzjjySOGzcWhqSYZEBb35vt9sO5ZqPL4SSvikuV1TUE1JCj5P5VpZ1l27//xPRT4akNmsIHjjt/F2bolzy+JeWMuazN0OWGmiufh0x149GmGqTw9e9+5P61ROa1mOUWarJWW0mjGydJL9DSth94RikZBGebyWTkLtXSuuhcH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780537636; c=relaxed/simple;
-	bh=UMwyZf/uKr+FZ8yBlfVfuUbz6t9g0HNZRLt+heTYhIk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Mu9G51+fXitRnbSOGhEr1mZ0ntaa5KdJWbqBDhcNb/ruaN1JfYerbpbBHLacwbl3NCtHvTEZ79luMRxeZLcfsg+Xr/2JFqzjrbDuXdywSwcNOt7w2jFBWSEsUBult508O1NRUlPoS/5BTV5+cD58Nm//Dg5vNpg+CHvQBfhXc18=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L9KE8GwL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780537743; c=relaxed/simple;
+	bh=gamBR4h2rf1Imsoj8RobEGb1Bt2afo71z/VsoMkVocw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Je5QVlD9ibRonAfuoF019qc21YtbqYDdohv+B9QUUM/fWn0lZkCOerHhKpSgysw5rw0fkMwaiWL5wHz/dlnzaWth+s9qcmOTMEJrwlWGyIFPrlX0wQleL7hbHP1NuPZ3XzFBINCzpHliShCaDCvCdUNLkKDMbQpAgnFHnHkf0yA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GzKYh+Q6; arc=none smtp.client-ip=209.85.210.195
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L9KE8GwL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B462B1F00898;
-	Thu,  4 Jun 2026 01:47:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780537635;
-	bh=B1/4QNZrjCVuXvK5agPN2ARKZz6GtIJ7tiYvtXOug94=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L9KE8GwLkuM+TtfWZd1UYzDn2pG4LUYkRe3PoIH6R63B87VzB793SUBqiAptWLFtV
-	 fGfC2Cc3xMboII64HEAIRpzs5qvOIDzT7HrfVOozK4tCKb9Dg/M4CZlAxavWtSkHNe
-	 /fLwi1wVN9Gt5zMiiqahnRkgOytqA4nEDBJXycbz83R6nRRL2kH/bT3mCoJTjSLXW4
-	 w2rgae/UttLLJK7oa2iXDWHA0Qc3dYlzVc4InCNlZqLE9yttgmCl6Emp8/82GLIwot
-	 eCngV0FnT6GFwhJ/QMK0ov3tpf7eLyfF9KmgciEGloKvcqiCHlq0YVgZmkocpw6wW1
-	 Dkslbh8Gcls+A==
-Date: Wed, 3 Jun 2026 20:47:13 -0500
-From: Rob Herring <robh@kernel.org>
-To: Ninad Naik <ninadnaik07@gmail.com>
-Cc: lgirdwood@gmail.com, broonie@kernel.org, krzk+dt@kernel.org,
-	conor+dt@kernel.org, matthias.bgg@gmail.com,
-	angelogioacchino.delregno@collabora.com, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, me@brighamcampbell.com,
-	linux-kernel-mentees@lists.linux.dev, skhan@linuxfoundation.org
-Subject: Re: [PATCH] regulator: dt-bindings: mt6311: Convert to DT schema
-Message-ID: <20260604014713.GA2331501-robh@kernel.org>
-References: <20260531165712.729635-1-ninadnaik07@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GzKYh+Q6"
+Received: by mail-pf1-f195.google.com with SMTP id d2e1a72fcca58-8422871b42dso81080b3a.3
+        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 18:49:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780537741; x=1781142541; darn=vger.kernel.org;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :from:to:cc:subject:date:message-id:reply-to;
+        bh=R9vTs/JHnHpc6BmzGsq91wlnVhg5cqc1lx/XeBVEZpQ=;
+        b=GzKYh+Q6LF1yOU5QGHQSc2uflOqpcVZX/+CQme/uY/0e7iAFJ0i9kL8LvVcxKD5K+r
+         C4NY+HlBKuAAoiSGYxTE4/fRxlqdDy+/UQkotTde0m3dA/TbsytmwrwdmM67Hekklmoh
+         IPA3d/SDcTceDD0C5VxlLDm7gNfLc3yffsqm3u8hy/6yFSUsUtBdS/OHfasoyAaPng/r
+         XIC32YBozORzD/n9Ot5euDw+fNUFU8jeXtKwDm23AIIibeis1tndN8ueBzOI/17X8FCY
+         sePvNYZfBkzuFW3HxWrUqHy5/QH3MXq0py61r/pxG4mALYbRy4akoqE531B0tcxTr5ZI
+         /1tg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780537741; x=1781142541;
+        h=content-transfer-encoding:in-reply-to:from:content-language
+         :references:cc:to:subject:user-agent:mime-version:date:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to;
+        bh=R9vTs/JHnHpc6BmzGsq91wlnVhg5cqc1lx/XeBVEZpQ=;
+        b=Be2JswWLwDXiWaAKH5UMSBwPPT9M8kxFOJg+3fKxOMemALgsqOthX4o7swTNLoNk+1
+         r7x3YnAzxFDaHTZJbWlD39xrcDTa+fEMw+wqGFkvlHPZ7563NJshbRy+5rMkTQodd0nL
+         BRfQTIwAdOFtVPUTJuh3KwLyXGtQOERqPFRVzLGTr8oi+46fAynjd+IRqxn4/+Drr4cG
+         7Tusqx79P4yqiKDl2okSMmpIiCKJ7DXBGjJ+JpziZ05VBq+HPvKV1nzArcharl7wxpa1
+         EoF5Eeq0kF7YxxS/eYJ46oy25SEOZ8hlQ9G5CnC0k2gLyulQ40kpWY2Oi0YScW/gVQ4d
+         3PWg==
+X-Forwarded-Encrypted: i=1; AFNElJ+7SFBXiNDQnq0unDXLszVh+KlrHA1BArsJnVV99HUuPOgB0oVJoDnO27nwRPo0ElxVoTNZ802pHiKt@vger.kernel.org
+X-Gm-Message-State: AOJu0YyUZqDLBDv07r82PELEeyA7ooGybtZ83jd42t5LDjWN41gmiDGA
+	0FhW7p+H4XZ++9SwAaRXj1czmgHm9WFBM4QEp70oVsc3DtDExgerzhsR
+X-Gm-Gg: Acq92OGneJcfzK+8nTTu90JKgARwC5Q+dCfvFgC6/g+JUVRKitGr329kdYI2NA4GpbK
+	HZNIP9KL2inIegRcJSaYePkKwvQI8mhepIOkX6eQaZgREva4UlfV0WcA+tWd2VrqTrpeLCZMQ//
+	csMDh1twTQkOHNY7XsA1BQvrP7yAaGska2RdZN+Cawi8vAwNk35PavzMt1uRNhJKS3Ez+xkLo+a
+	hNDPal0lYAqQcrbAK92cC25+i9oETHIU/wNs3GAJmQ39IbhPPSJANCh2ozGiHv9RoKpU5rM9UkF
+	tq86GRma5NkoIgsQpryG6kC3trbRo8K6QLEUHAvqF/532UDWDKDlhTbMd20NFwu2WEELpBNEtTP
+	+l3v5aYWgNQ5PsLeG0XoYiUpvqJfKnXYX9qGBd9ARZULS1rcrbc18Go0YUb3NFvz6lN2sUpr305
+	tg4P0524ip3nKuNp+LoEoKR4X8FmT+kS1X6/1Apn0Qng==
+X-Received: by 2002:aa7:8882:0:b0:842:38d2:a35f with SMTP id d2e1a72fcca58-84284e8dc75mr6032800b3a.31.1780537741272;
+        Wed, 03 Jun 2026 18:49:01 -0700 (PDT)
+Received: from [10.125.112.20] ([210.184.73.204])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282350f8csm4439444b3a.14.2026.06.03.18.48.48
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 03 Jun 2026 18:49:00 -0700 (PDT)
+Message-ID: <8e088395-c22d-4bc8-9e58-84235af1e56b@gmail.com>
+Date: Thu, 4 Jun 2026 09:48:44 +0800
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260531165712.729635-1-ninadnaik07@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3 03/11] of: reserved_mem: avoid post-init UAF when
+ alloc_reserved_mem_array() fails
+To: Rob Herring <robh@kernel.org>
+Cc: linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ loongarch@lists.linux.dev, linux-riscv@lists.infradead.org,
+ devicetree@vger.kernel.org, kexec@lists.infradead.org,
+ iommu@lists.linux.dev, zhaomeijing@lixiang.com, catalin.marinas@arm.com,
+ will@kernel.org, chenhuacai@kernel.org, kernel@xen0n.name, pjw@kernel.org,
+ palmer@dabbelt.com, aou@eecs.berkeley.edu, alex@ghiti.fr,
+ saravanak@kernel.org, akpm@linux-foundation.org, bhe@redhat.com,
+ rppt@kernel.org, pasha.tatashin@soleen.com, pratyush@kernel.org,
+ ruirui.yang@linux.dev, m.szyprowski@samsung.com, robin.murphy@arm.com,
+ quic_obabatun@quicinc.com
+References: <20260527032917.3385849-1-chenwandun1@gmail.com>
+ <20260527032917.3385849-4-chenwandun1@gmail.com>
+ <20260602162450.GA442759-robh@kernel.org>
+ <79932afc-2e91-4a54-aff9-f550be784c36@gmail.com>
+ <CAL_JsqJOC1ko1Len3Dyc5SNKrHmhQn9uiDAkFfVbYa2wAfFUTg@mail.gmail.com>
+Content-Language: en-US
+From: Wandun <chenwandun1@gmail.com>
+In-Reply-To: <CAL_JsqJOC1ko1Len3Dyc5SNKrHmhQn9uiDAkFfVbYa2wAfFUTg@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Sun, May 31, 2026 at 10:27:12PM +0530, Ninad Naik wrote:
-> Convert mediatek,mt6311 to DT schema.
-> 
-> Signed-off-by: Ninad Naik <ninadnaik07@gmail.com>
-> ---
->  .../regulator/mediatek,mt6311-regulator.yaml  | 72 +++++++++++++++++++
->  .../bindings/regulator/mt6311-regulator.txt   | 35 ---------
->  2 files changed, 72 insertions(+), 35 deletions(-)
->  create mode 100644 Documentation/devicetree/bindings/regulator/mediatek,mt6311-regulator.yaml
->  delete mode 100644 Documentation/devicetree/bindings/regulator/mt6311-regulator.txt
-> 
-> diff --git a/Documentation/devicetree/bindings/regulator/mediatek,mt6311-regulator.yaml b/Documentation/devicetree/bindings/regulator/mediatek,mt6311-regulator.yaml
-> new file mode 100644
-> index 000000000000..a51db46b0f41
-> --- /dev/null
-> +++ b/Documentation/devicetree/bindings/regulator/mediatek,mt6311-regulator.yaml
-> @@ -0,0 +1,72 @@
-> +# SPDX-License-Identifier: (GPL-2.0 OR BSD-2-Clause)
-> +%YAML 1.2
-> +---
-> +$id: http://devicetree.org/schemas/regulator/mediatek,mt6311-regulator.yaml#
-> +$schema: http://devicetree.org/meta-schemas/core.yaml#
-> +
-> +title: Mediatek MT6311 Regulator
-> +
-> +maintainers:
-> +  - AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-> +
-> +description: |
 
-Don't need '|' if no formatting.
 
-> +  The MediaTek MT6311 is an I2C power management IC that provides one step-down
-> +  converter and one low-dropout regulator. The regulators are named VDVFS and
-> +  VBIASN, respectively.
-> +
-> +properties:
-> +  compatible:
-> +    const: mediatek,mt6311-regulator
-> +
-> +  reg:
-> +    description: I2C slave address.
-> +    maxItems: 1
-> +
-> +  regulators:
-> +    type: object
-> +    description: List of regulators provided by this controller.
-> +
-> +    patternProperties:
-> +      "^(VDVFS|VBIASN)$":
-> +        type: object
-> +        $ref: regulator.yaml#
-> +        description: |
-> +          Regulator nodes.
+On 6/4/26 01:44, Rob Herring wrote:
+> On Wed, Jun 3, 2026 at 1:44 AM Wandun <chenwandun1@gmail.com> wrote:
+>>
+>>
+>> On 6/3/26 00:24, Rob Herring wrote:
+>>> On Wed, May 27, 2026 at 11:29:09AM +0800, Wandun Chen wrote:
+>>>> From: Wandun Chen <chenwandun@lixiang.com>
+>>>>
+>>>> The global pointer 'reserved_mem' continues to reference the
+>>>> reserved_mem_array which lives in __initdata if
+>>>> alloc_reserved_mem_array() fails. of_reserved_mem_lookup() is
+>>>> exported for post-init use, that would dereference freed memory
+>>>> and trigger a use-after-free.
+>>>>
+>>>> So reset reserved_mem_count to 0 when alloc_reserved_mem_array()
+>>>> fails.
+>>>>
+>>>> Fixes: 00c9a452a235 ("of: reserved_mem: Add code to dynamically allocate reserved_mem array")
+>>> Fixes should come first in a series.
+>> Understood, will do in future submissions.
+>>>> Signed-off-by: Wandun Chen <chenwandun@lixiang.com>
+>>>> ---
+>>>>    drivers/of/of_reserved_mem.c | 20 ++++++++++++++------
+>>>>    1 file changed, 14 insertions(+), 6 deletions(-)
+>>>>
+>>>> diff --git a/drivers/of/of_reserved_mem.c b/drivers/of/of_reserved_mem.c
+>>>> index 313cbc57aa45..6d479381ff1f 100644
+>>>> --- a/drivers/of/of_reserved_mem.c
+>>>> +++ b/drivers/of/of_reserved_mem.c
+>>>> @@ -69,29 +69,31 @@ static int __init early_init_dt_alloc_reserved_memory_arch(phys_addr_t size,
+>>>>     * the initial static array is copied over to this new array and
+>>>>     * the new array is used from this point on.
+>>>>     */
+>>>> -static void __init alloc_reserved_mem_array(void)
+>>>> +static bool __init alloc_reserved_mem_array(void)
+>>>>    {
+>>>>       struct reserved_mem *new_array;
+>>>>       size_t alloc_size, copy_size, memset_size;
+>>>>
+>>>> +    if (!total_reserved_mem_cnt)
+>>>> +            return true;
+>>>> +
+>>>>       alloc_size = array_size(total_reserved_mem_cnt, sizeof(*new_array));
+>>>>       if (alloc_size == SIZE_MAX) {
+>>>>               pr_err("Failed to allocate memory for reserved_mem array with err: %d", -EOVERFLOW);
+>>>> -            return;
+>>>> +            goto fail;
+>>>>       }
+>>>>
+>>>>       new_array = memblock_alloc(alloc_size, SMP_CACHE_BYTES);
+>>>>       if (!new_array) {
+>>>>               pr_err("Failed to allocate memory for reserved_mem array with err: %d", -ENOMEM);
+>>>> -            return;
+>>>> +            goto fail;
+>>>>       }
+>>>>
+>>>>       copy_size = array_size(reserved_mem_count, sizeof(*new_array));
+>>>>       if (copy_size == SIZE_MAX) {
+>>>>               memblock_free(new_array, alloc_size);
+>>>> -            total_reserved_mem_cnt = MAX_RESERVED_REGIONS;
+>>>>               pr_err("Failed to allocate memory for reserved_mem array with err: %d", -EOVERFLOW);
+>>> These prints could be moved to 'fail'. Perhaps instead of just printing
+>>> an error value, you can return the error value instead of boolean.
+>> Will do, consolidating pr_err() under 'fail' and changing the return type
+>> to int.
+>>> If you respin just this patch, I can pick it up for 7.2.
+>> Before I respin, I'd like to flag a dependency:
+>> patch 05/07 in this series build on the signature change introduced by this
+>> patch ("the void -> bool return type change of alloc_reserved_mem_array()")
+>>
+>> Could you let me know which of the following you'd prefer:
+>> a) Take patch 03 alone via your tree as you suggested, after it lands, I'll
+>>      respin the remaining patches of this series.
+> I would go with this option. AIUI, this series isn't going to land in
+> 7.2, so ultimately you will rebase on v7.2-rc1 which will have the
+> fix.
+OK, will send v4.
 
-Drop. That's obvious with the $ref.
+Best regards,
+Wandun
+>
+>> b) Keep patch 03 in the v4 respin of the full series, reordered to the front
+>>      per your earlier comment.
+>
+> Rob
 
-> +        unevaluatedProperties: false
-> +
-> +    additionalProperties: false
-> +
-> +required:
-> +  - compatible
-> +  - reg
-> +  - regulators
-> +
-> +additionalProperties: false
-> +
-> +examples:
-> +  - |
-> +    i2c {
-> +      #address-cells = <1>;
-> +      #size-cells = <0>;
-> +
-> +      mt6311: pmic@6b {
-
-Drop unused label.
-
-> +        compatible = "mediatek,mt6311-regulator";
-> +        reg = <0x6b>;
-> +
-> +        regulators {
-> +          mt6311_vcpu_reg: VDVFS {
-
-Drop unused label.
-
-> +            regulator-name = "VDVFS";
-> +            regulator-min-microvolt = <600000>;
-> +            regulator-max-microvolt = <1400000>;
-> +            regulator-ramp-delay = <10000>;
-> +          };
-> +
-> +          mt6311_ldo_reg: VBIASN {
-
-Drop unused label.
-
-> +            regulator-name = "VBIASN";
-> +            regulator-min-microvolt = <200000>;
-> +            regulator-max-microvolt = <800000>;
-> +          };
-> +        };
-> +      };
-> +    };
-> +...
-> diff --git a/Documentation/devicetree/bindings/regulator/mt6311-regulator.txt b/Documentation/devicetree/bindings/regulator/mt6311-regulator.txt
-> deleted file mode 100644
-> index 84d544d8c1b1..000000000000
-> --- a/Documentation/devicetree/bindings/regulator/mt6311-regulator.txt
-> +++ /dev/null
-> @@ -1,35 +0,0 @@
-> -Mediatek MT6311 Regulator
-> -
-> -Required properties:
-> -- compatible: "mediatek,mt6311-regulator"
-> -- reg: I2C slave address, usually 0x6b.
-> -- regulators: List of regulators provided by this controller. It is named
-> -  to VDVFS and VBIASN.
-> -  The definition for each of these nodes is defined using the standard binding
-> -  for regulators at Documentation/devicetree/bindings/regulator/regulator.txt.
-> -
-> -The valid names for regulators are:
-> -BUCK:
-> -  VDVFS
-> -LDO:
-> -  VBIASN
-> -
-> -Example:
-> -	mt6311: pmic@6b {
-> -		compatible = "mediatek,mt6311-regulator";
-> -		reg = <0x6b>;
-> -
-> -		regulators {
-> -			mt6311_vcpu_reg: VDVFS {
-> -				regulator-name = "VDVFS";
-> -				regulator-min-microvolt = < 600000>;
-> -				regulator-max-microvolt = <1400000>;
-> -				regulator-ramp-delay = <10000>;
-> -			};
-> -			mt6311_ldo_reg: VBIASN {
-> -				regulator-name = "VBIASN";
-> -				regulator-min-microvolt = <200000>;
-> -				regulator-max-microvolt = <800000>;
-> -			};
-> -		};
-> -	};
-> -- 
-> 2.54.0
-> 
-> 
