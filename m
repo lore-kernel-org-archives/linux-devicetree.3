@@ -1,174 +1,179 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA1863BCD2E
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 06:16:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E06C738DD3
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 06:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780553780; cv=none; b=i9uZ0EDNviWVKdEw6tRN4hYWBxNWcumF0bM7dy7HenrbLSENMn62lXwFZDTk0l3cFMeQzZzvv7ZWDVOu2jBqrFvYqSA+PiJ9Rr87Hsu35/5+GN58dAXM0FyKtQ/EJmYL4dxYo8KzkEFOJ1/ULcD+kxZ/pFMC/eKnr9LjtIaIdvE=
+	t=1780553793; cv=none; b=mBl5El1Kr1zF7uSeOOeauaRFoV5nPiHWRfJHjrG0t+ubWtzkh6US9Px+cRodsACxZNOrq0igCMev/HrXjbgFgd5A0iPfaLaCdw5IxShi8F9GW9bG8+uEd+5qf1G1gqKPIpzUcUXFG4NZDfHWQAJGyVmZ3MoQS2z8kfjQwN9xY9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780553780; c=relaxed/simple;
-	bh=LAo1gykKBlyc6hrnwCyTN9ZSW8quXPMknkJE2Y7GFkE=;
-	h=Message-ID:Date:MIME-Version:From:Subject:To:Cc:References:
-	 In-Reply-To:Content-Type; b=jxLgK/pxQkoFBnRt/xhti3FQJASGEq/SQ18eMawaPJ4EidqAf5m8DTa5boOVKHxZo2nx//okPByvHkL0UJ1Blk1cynyoXM5eu6G/vDz6CsGVx5jJPnBNKp9dP9Fs3fSvTV7kzlfab3CRjMcLWq6OpyX6k8KIxJYI80GHiQV8d/g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=L9ogwoOp; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=DL6c1GY1; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780553793; c=relaxed/simple;
+	bh=zdKPr4O7URfXxE1lBmxSDGBFGz2PI5AE+cvAVwsMI+Q=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=Yp2UvxDrflh9ujkYr5D4NZZW4jzBDNjyKrLC+wSFcEYIts95PB2RlvFa4Z7WDHE/yt399tbAYHHvrc+l81VVc22sjCoGAsHpeD294zg3AnnhYP1gRL3rFwEDgP7Py3jH8E1y0t/hp2YqIJOMJLmIypIkUa4IynYd3HoqNpyfHHU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KBWDDKYK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="L9ogwoOp";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="DL6c1GY1"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 6543HkvL3233912
-	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 06:16:18 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	PltNnGhhKDeL8iIccExfCGRq7JR/z+5HhaWbWWSvhQE=; b=L9ogwoOp8II6c7CR
-	yvh2QDGdz75nuBt+xCtGVQ+KwA9amMfAh5ie9HO04IHljwQgLvI6Ag/pWR9GUhVw
-	S20I99jltULEusGAaFqCPLarQyPYk/h+GXIZRcM7YDaZqCZAY9G1bkPzbZLhypNH
-	UtyAEzYK5E8JKo/jyJY8mJWFLPhmo99tAx3+HD3S3dnnMXNIZ/l8x5UH05FVUKzu
-	GpvOlKH6srt5Driy7iQc/CgBUVeSC/m4zD+A4grdAYQ4/7px44NmiHBTqngVcdVp
-	4m2S+s5uAQpclDgHz1zUDG+xq+sBC9hc3Lsex6s8bbE5tcZC+K0aZFATSodPf1P0
-	erA95Q==
-Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com [209.85.216.71])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejs4s29a3-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 06:16:18 +0000 (GMT)
-Received: by mail-pj1-f71.google.com with SMTP id 98e67ed59e1d1-36b934a336eso277149a91.2
-        for <devicetree@vger.kernel.org>; Wed, 03 Jun 2026 23:16:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780553778; x=1781158578; darn=vger.kernel.org;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=PltNnGhhKDeL8iIccExfCGRq7JR/z+5HhaWbWWSvhQE=;
-        b=DL6c1GY1PxE9z0NYLZdVL05WT/0bQhq9wmnXrzcr5OgpUjMVWkxKqt1Eg/OCox5Ae/
-         9/dWCWaZSs38BGyLt8oyeQj/E7KaNAN4Shl/Hx2QfDbwhlJBFWt2oiw9zHWFdtLrfQtJ
-         y62iIrIuRy//T23FMht3ZURevQgKaZgEpu91oNypD/cmW2u5NW9TJdQnKMMY1EJXJ1tU
-         dSWE5PfdW1E9OrZCBsYBzByduiM+287YjdIntD82S+G9XAon1oeojieUWf60FXoNGo7r
-         hb8rOQizKJJHYedtgqk8WpcLpEIFyDvf9FoIy6Cb6c1scwH6aemi8WGFdZoRSXWf8uKO
-         BvUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780553778; x=1781158578;
-        h=content-transfer-encoding:in-reply-to:content-language:references
-         :cc:to:subject:from:user-agent:mime-version:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=PltNnGhhKDeL8iIccExfCGRq7JR/z+5HhaWbWWSvhQE=;
-        b=E9gVpFTI6+6AwaU0HkaN7BozTskORGUVZbVhV2jA17MxwVqW0GgAwmW9HTzZRiouVR
-         WDjjyHMIzRs3DxTG0EH9lbXCfF7V60MYM4QdXzz6qGS74qKTde1kKLYWIGrriPInlmpB
-         TFelNxlfHt/g6dpHPyTBcBWVN/diUODaCsG2zIf0dwPIGqbTtjN5CvCK5yw2vb//loCG
-         RuOZnm+jNcuZRNH1sxB36M1MSZrkUL3naOVFcM3oN7/EaQ+nH4rKDqllB2Rc4pHEavaD
-         hWLZfKaAefPH9DRoL7iw2K3i1HU0G1sdfXfFy3w5rtu/h1gACRTfZH9xqFmIWtXEmGaD
-         natA==
-X-Forwarded-Encrypted: i=1; AFNElJ8qPGo8XIK14FAzVjIEuQr1EeMM8WctasyzFmuF2zxmBNyTUzi4w8H2QppIqczBzJF/6MSSDzOTukgD@vger.kernel.org
-X-Gm-Message-State: AOJu0YwQQR2GUeqQi3rQ+vl/3ZGf5Z48YzgGT1ceCMpyMvIo40SImxq/
-	p2HV+SQhQS0yUtfQGBlK7SHP9JIxrRjQ0P+i8a6cqiG/NUP/oXe4+uaaX0Tm41L0GG/uxWCIO5G
-	ACs0BuitEPTq3v0sjWSqaAcJm43e4LwgV+S9AQRDo/mj4Vji55h27zRPAhiXkyMMY
-X-Gm-Gg: Acq92OEXAewFHcV1AJzE4NMGEHPGnNkDrxVr8qIW5vgPrL7zenC7CgpxtprQ+zIzdst
-	68i4DSjke3I/KqjBAHvEd/Pwdues7YOFV54fIn5v100XvsqhLinfDlPljqBqIIqu/eRwDHzg6tg
-	8VyZc5woshzV8vnhf23slroC/DcHqTemitZ5xOYUj/6Tcg3YWmzAWxj7nhToanYKBVGwjDelxkz
-	L7i50/Ax+FWNQ3ggSj52Zp1y+zRSG3s+8UlJF/mVUQKd39VOOozwsQ4bkOALN5zoZYqpXCVQKs1
-	078DXVBUixxA8R0NoQdMR6lK6BkOTz8bQtxKbB6KSEkqX3TBCIoCAPm4vKsm3be1dbBIkCsQLlE
-	mCFtKyu57oTnpvKsyC+DrC0GHWW4n4eSP5jcWhXhIeazA1/igxayz96NUaS0oDAS/
-X-Received: by 2002:a17:90b:28c6:b0:36b:8baa:a683 with SMTP id 98e67ed59e1d1-36e32a430b2mr6139773a91.19.1780553777536;
-        Wed, 03 Jun 2026 23:16:17 -0700 (PDT)
-X-Received: by 2002:a17:90b:28c6:b0:36b:8baa:a683 with SMTP id 98e67ed59e1d1-36e32a430b2mr6139735a91.19.1780553777056;
-        Wed, 03 Jun 2026 23:16:17 -0700 (PDT)
-Received: from [10.206.105.200] ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-36f6bf827e6sm2477908a91.1.2026.06.03.23.16.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 03 Jun 2026 23:16:16 -0700 (PDT)
-Message-ID: <a8fcf4fd-3237-389c-8552-addfc2a97dbc@oss.qualcomm.com>
-Date: Thu, 4 Jun 2026 11:46:09 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KBWDDKYK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DE951F00893;
+	Thu,  4 Jun 2026 06:16:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780553791;
+	bh=RolzxYb7Qda/9GD65WbZ3jLva45xCO1Qh8MnQGuGXag=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=KBWDDKYKpFXkeB4W8sNABDH2VjMm/YZ557yBlJGMtd2e4/Pnbak1uEY25VmUfzlB+
+	 5+XNEdPBbQgDSLQ0g4vxwplEMQrPY6zqHQ97BCTcZzHTNp+kbknRJY7jCG2qWnLK8V
+	 FCCB6ePB2FZJgVFnTDOw5Bp1+nvLD84LI0M64LXEPzMf/Rd6pJj4KMg3UgA7Kxhti6
+	 Ai55MIECIAaSiG3bu9Xkw+sUqQTA26shNUl7phTxccjwSZJwiR460atzSh3XVj0V67
+	 6b7hXPwVXBBbStsVazRC3DoYHaReYlmDZ3n25rUrmGkRTksvj+1JcTqoCzG5PHyLHb
+	 YeAqwOZ++GC+Q==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH 2/3] dt-bindings: i2c: add Novatek NT726xx SoC i2c
+ controller
+Reply-To: sashiko-reviews@lists.linux.dev
+To: SP_ISW1_AT@novatek.com.tw
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, robh@kernel.org
+In-Reply-To: <20260604060430.355733-1-SP_ISW1_AT@novatek.com.tw>
+References: <20260604060430.355733-1-SP_ISW1_AT@novatek.com.tw>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 06:16:30 +0000
+Message-Id: <20260604061631.5DE951F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-From: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
-Subject: Re: [PATCH v2 2/4] media: dt-bindings: qcom,qcm2290-venus: add Venus
- on SM6115
-To: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd
- <sboyd@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Mauro Carvalho Chehab
- <mchehab@kernel.org>,
-        Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley
- <conor+dt@kernel.org>,
-        Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
-        Konrad Dybcio <konradybcio@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        linux-kernel@vger.kernel.org, linux-media@vger.kernel.org,
-        devicetree@vger.kernel.org
-References: <20260515-iris-sm6115-v2-0-2ab75229de61@oss.qualcomm.com>
- <20260515-iris-sm6115-v2-2-2ab75229de61@oss.qualcomm.com>
-Content-Language: en-US
-In-Reply-To: <20260515-iris-sm6115-v2-2-2ab75229de61@oss.qualcomm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-ORIG-GUID: cNQpfpdgdTl1_0sVCKAdzvRN7u7cl4RO
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDA1OCBTYWx0ZWRfX6TVIfC/bDDVl
- n9OjrC6AQO8qLSL4wunxz57cKtpVS3rKGHXzUPcCZ7t6kcUf/AJDD0Zls2/NSfL3ZGWlD2qs7WH
- MzHVd4+syDOSAjwZDs2vMqLNZ4cJ2qyiB9RKXw3tsSKDxmXng24QTj5I8NGKNaQKDh7+Iz1GKkZ
- ryym+fwLzS/fREJnLWQtt4lwYSAgk5ZLm+P+XQu0qDDIcQencvCKoyGac69Bg8i3G6p1Aw3ZpHp
- aoJ7ckt/vUCK/fTbyOc4GSeyOTk+iPfxJZVtq9k4jRMlx8Gq33csID24h5JBLptyjVZUOdDvYSe
- Q1UdwMsaH3UqCTYWwBGVzfMqiCs3S0C8Bg9T9wlcZIrsoh1KPrXuDhN6JNvl99/vxZNyUam6hsv
- 6bRSxEcBwIe6hDTnDwxtMkzLG6Pvq5ux2EEQNnKcwpiX34sswVxIpVt0Jt1GdgPB9ei8J1IZ4Jk
- ydM+Ivq4H5wQmQo/2fw==
-X-Authority-Analysis: v=2.4 cv=afRRWxot c=1 sm=1 tr=0 ts=6a211832 cx=c_pps
- a=UNFcQwm+pnOIJct1K4W+Mw==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=mmEirQiFKNK8A5MC6IkA:9 a=QEXdDO2ut3YA:10
- a=uKXjsCUrEbL0IQVhDsJ9:22
-X-Proofpoint-GUID: cNQpfpdgdTl1_0sVCKAdzvRN7u7cl4RO
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-04_02,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 suspectscore=0 bulkscore=0 phishscore=0 clxscore=1015
- adultscore=0 lowpriorityscore=0 spamscore=0 impostorscore=0 malwarescore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040058
 
+Thank you for your contribution! Sashiko AI review found 6 potential issue(=
+s) to consider:
+- [High] The commit message includes a restrictive corporate confidentialit=
+y boilerplate.
+- [High] Redefinition of the standard `clock-frequency` property units to k=
+Hz instead of Hz.
+- [High] Custom properties `nvt,hwmods` and `bus-enable` improperly reinven=
+t standard Devicetree bindings and framework mechanisms.
+- [Medium] Missing explicit type definitions for the custom properties `nvt=
+,hwmods` and `bus-enable`.
+- [Low] The custom property `bus-enable` is missing a vendor prefix.
+- [Low] The compatible string uses an underscore instead of a hyphen.
+--
 
-On 5/15/2026 5:29 PM, Dmitry Baryshkov wrote:
-> The Qualcomm SM6115 platform contains the AR50_Lite core similar to the
-> one found on the QCM2290. Define new platform-specific compatible, while
-> using QCM2290 as a fallback.
->
-> Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-> ---
->  Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
->
-> diff --git a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> index 7e6dc410c2d2..ab4c56ee9182 100644
-> --- a/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> +++ b/Documentation/devicetree/bindings/media/qcom,qcm2290-venus.yaml
-> @@ -18,7 +18,11 @@ allOf:
->  
->  properties:
->    compatible:
-> -    const: qcom,qcm2290-venus
-> +    oneOf:
-> +      - items:
-> +        - const: qcom,sm6115-venus
-> +        - const: qcom,qcm2290-venus
-> +      - const: qcom,qcm2290-venus
->  
->    power-domains:
->      maxItems: 3
+commit b57b0e4f8d5415ed28a61406a5c742ff25ba61db
+Author: SP_ISW1_AT@novatek.com.tw <SP_ISW1_AT@novatek.com.tw>
 
-Reviewed-by: Vishnu Reddy <busanna.reddy@oss.qualcomm.com>
+dt-bindings: i2c: add Novatek NT726xx SoC i2c controller
 
+This commit adds device tree binding documentation for the Novatek NT726xx
+SoC I2C master controller.
+
+>     CONFIDENTIALITY NOTICE: This message, including attachments, contains=
+ information which may be confidential and privileged, and is intended only=
+ for use by the addressees designated above. Unless you are the intended re=
+cipient, any use, copying, disclosure, or distribution is prohibited. If yo=
+u have received the message in error, please immediately delete the message=
+ and destroy all copies thereof and notify the sender by reply email. =E6=
+=9C=AC=E9=83=B5=E4=BB=B6=E5=8F=8A=E4=BB=BB=E4=BD=95=E9=99=84=E4=BB=B6=E5=9D=
+=87=E5=B1=AC=E6=A9=9F=E5=AF=86=EF=BC=8C=E5=83=85=E4=BE=9B=E5=85=B6=E4=B8=8A=
+=E6=8C=87=E5=AE=9A=E5=9C=B0=E5=9D=80=E4=B9=8B=E6=94=B6=E4=BB=B6=E4=BA=BA=E4=
+=BD=BF=E7=94=A8=E3=80=82=E9=99=A4=E9=9D=9E=E6=82=A8=E6=98=AF=E6=8C=87=E5=AE=
+=9A=E4=B9=8B=E6=94=B6=E4=BB=B6=E4=BA=BA=EF=BC=8C=E5=90=A6=E5=89=87=E8=AB=8B=
+=E5=8B=BF=E4=BD=BF=E7=94=A8=E3=80=81=E8=A4=87=E8=A3=BD=E3=80=81=E6=8F=AD=E9=
+=9C=B2=E6=88=96=E6=95=A3=E5=B8=83=E6=9C=AC=E9=83=B5=E4=BB=B6=E4=B9=8B=E4=BB=
+=BB=E4=BD=95=E9=83=A8=E4=BB=BD=E3=80=82=E8=8B=A5=E6=82=A8=E9=8C=AF=E8=AA=A4=
+=E5=9C=B0=E6=94=B6=E5=88=B0=E6=AD=A4=E9=83=B5=E4=BB=B6=EF=BC=8C=E8=AB=8B=E7=
+=AB=8B=E5=8D=B3=E5=9B=9E=E8=A6=86=E9=9B=BB=E5=AD=90=E9=83=B5=E4=BB=B6=E9=80=
+=9A=E7=9F=A5=E5=AF=84=E4=BB=B6=E4=BA=BA=EF=BC=8C=E4=B8=A6=E8=AB=8B=E5=AE=8C=
+=E5=85=A8=E5=88=AA=E9=99=A4=E4=B8=94=E9=8A=B7=E6=AF=80=E6=9C=AC=E9=83=B5=E4=
+=BB=B6=E5=8F=8A=E5=85=B6=E8=A4=87=E6=9C=AC=E3=80=82
+
+[Severity: High]
+Is it possible to remove this confidentiality boilerplate from the commit
+message?
+
+Such legal disclaimers conflict with the open-source nature of the Linux
+kernel, the GPL-2.0 license, and the Developer's Certificate of Origin.
+
+> diff --git a/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.ya=
+ml b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+> new file mode 100644
+> index 0000000000000..0826ee9ec8315
+> --- /dev/null
+> +++ b/Documentation/devicetree/bindings/i2c/novatek,nt726xx-i2c.yaml
+
+[ ... ]
+
+> +properties:
+> +  compatible:
+> +    const: novatek,nt726xx_i2c
+
+[Severity: Low]
+Does this compatible string follow the standard naming conventions?
+
+Device tree guidelines typically suggest using hyphens rather than undersco=
+res
+in compatible strings, which would make this novatek,nt726xx-i2c instead.
+
+> +  nvt,hwmods:
+> +    description: Name of each i2c pin, must be named with "i2cX" (X is
+> +                 an integer starting from 0)
+> +    minItems: 1
+
+[Severity: High]
+Is this custom property intended to encode the I2C adapter number?
+
+Standard practice is to rely on the standard aliases node for this purpose,
+like aliases { i2c0 =3D &i2c0; };, rather than bypassing it with a custom s=
+tring.
+
+[Severity: Medium]
+Could we add an explicit type definition for nvt,hwmods?
+
+Custom vendor properties require type definitions, such as referencing the
+string type schema, because constraints like minItems are insufficient for
+validation tools to deduce the type.
+
+> +  bus-enable:
+> +    description: enable this i2c pin function or not
+> +    maxItems: 1
+
+[Severity: High]
+Does this property reinvent the standard status property?
+
+Usually, device enablement is handled with status =3D "okay" or
+status =3D "disabled" rather than creating a custom enable flag.
+
+[Severity: Medium]
+Since this is a custom property, shouldn't it include an explicit type
+definition?
+
+Additionally, using maxItems: 1 on what appears to be a scalar flag without=
+ an
+array type definition will cause validation tools to fail.
+
+[Severity: Low]
+If this property is kept instead of using the standard status property, sho=
+uld
+it include a vendor prefix like nvt,bus-enable to prevent future namespace
+collisions with generic bindings?
+
+[ ... ]
+
+> +  clock-frequency:
+> +    description: Operation clock frequency of i2c in kHz. Default is 100=
+kHz.
+> +    default: 100
+> +    maxItems: 1
+
+[Severity: High]
+Is it safe to redefine the standard clock-frequency units to kHz here?
+
+The generic i2c-controller schema and device tree specification define
+clock-frequency in Hertz (Hz). If a standard device tree configures
+clock-frequency =3D <100000> for 100 kHz, the driver might interpret it as
+100,000 kHz, potentially leading to a misconfigured hardware clock divisor =
+and
+bus malfunction.
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604060430.3557=
+33-1-SP_ISW1_AT@novatek.com.tw?part=3D2
