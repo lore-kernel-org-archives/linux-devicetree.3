@@ -1,405 +1,144 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com [209.85.215.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE4303E0083;
-	Thu,  4 Jun 2026 14:40:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D817B13B293
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 14:40:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780584010; cv=none; b=EnwWzPpoX2xfADQYysAPiLuT0pLRPo7SLqIZzZB56gjSJsU6AbiTZbs7ffOrLZz3/EswZ3yzETgNOu9PbD6kS8pDwWf+9hhfaESr1ktvwFnm1x0syFiN6vwr//CEoNqTdSN8wRWWhnfJEVK4Ca/khjfqRFtG+WW5dDjFs1icibY=
+	t=1780584053; cv=none; b=Gkl8tf8cfesTCjVIXbX2hdxS13yxQw4tn+l2pE03LUWK1jTIJlGnrY+fQbZyZVMA20jp7xZoQgfeKc5YJSoZUCzQlfRUg3UCsqjGOSyi+zdDy6+XamXHo+HJpnAZ2LFPWRhrDRt07wzJg8eeKDeTsXHrew/qkYklyJmsml2Yu0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780584010; c=relaxed/simple;
-	bh=+o7Aw44wN+yPG8vjSPSShJh5bPl92tSZ91C8n7QuH+4=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=mjf0WjdqnSLnTy+aTusonlV4Xcg8hokaCd+XvtYlaSzod2wGy59gN2Zha39MxLTBQoN+RymvBYlP/UZasKI4Q10SQwF/kWKbNWVpKP71tePcn1tNflWIgX0+aC/M/d9aVs0Wfvp9iR6/xltncv4Ied77GSXHpXbFgDIC/GO9R/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dLzuqPmm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1780584053; c=relaxed/simple;
+	bh=cCQQTR9BQTegjjCAlHWxg4CufTI52gL9cLg5/LUcxPA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OaAvEj1LLALZa/MLm+hfehSPqbniT6vQbL77mPs93WCSvfQYNYP6VfxXpKR9e/3tSSLxHbwtRR/ohv7wy6oG5gKMp/QpwKUiYTwp+8yVl3L/Wa+wEt6ZkGvAXqBQe9t4CgX53ToNHDF54kYDX2voG9uoQEk9dzEbQhAO5ebny0c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MZwPJ4KO; arc=none smtp.client-ip=209.85.215.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jms.id.au
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dLzuqPmm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4219B1F00898;
-	Thu,  4 Jun 2026 14:40:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1780584008;
-	bh=8hOnLnfbm81DrOnjK1RrFIJfMgQ6Qfa3N8h/N+q+D1Q=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=dLzuqPmmfF4Lp2zZ9VozOUZTORxHeL+zXHsO2z9oqwwKFr45oHptv0sL+oBHo7ygt
-	 2hT9v3IFmu0RpxER0b+7y6okmQQGOvV2wsksEbKtgi0Ji6bkYjTU+ePOvuzr9zsabm
-	 gE+p+5zxld5/HK+F7wR1qtUrEfhMlNMoMO4w3rMuZ8i55PP3JnPVuovODbEbp9/9WM
-	 WI63aTidsJqgvj3d7T/sUMZC1DHRwd4Cw7xkURN73whEk2FuN6OJK1WTGPu6YqHkHL
-	 8g1bgn42KXPezc7MotidJikvI7q3mNamkPh+BOFI34AH4xDPyrYdulS9MPSrUiDTMh
-	 08b8uE7J6CzsA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v13 15/22] media: i2c: add Maxim GMSL2/3 deserializer
- framework
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Dumitru Ceclan via B4 Relay" <devnull+dumitru.ceclan.analog.com@kernel.org>
-Cc: linux-media@vger.kernel.org, devicetree@vger.kernel.org, conor+dt@kernel.org, robh@kernel.org
-In-Reply-To: <20260604-gmsl2-3_serdes-v13-15-9d8a4919983b@analog.com>
-References: <20260604-gmsl2-3_serdes-v13-15-9d8a4919983b@analog.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Thu, 04 Jun 2026 14:40:07 +0000
-Message-Id: <20260604144008.4219B1F00898@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MZwPJ4KO"
+Received: by mail-pg1-f175.google.com with SMTP id 41be03b00d2f7-c8588ec1b44so632443a12.1
+        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 07:40:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1780584051; x=1781188851; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:from:to:cc:subject:date:message-id:reply-to;
+        bh=MYjvVyEwufg+Sp1o9wIFatQQ1kTSx89J6iGBCB8C5c8=;
+        b=MZwPJ4KOS1VbjpTBCRDkIM70Ek7VEDqWv3wwPJ5EzaScLcGeqcUyZGLxTE7Btp7OWP
+         3CuQRO4Bg1BCexQn3/CPe+gzwLIIaR9WAWxtPdek+HZb8b5g5ap5XMtjN+sr3ebzO0VL
+         7hwmiIFXpj134f4AOX//rOYdyG36BDRSxGgRy9srKoTvklLi8Y8RM/1axZowIoYq8y3v
+         5GUpE88pGNo1jttNAENZAm5fLvJzmlhE8TuBBoOXg9Rli0F2C+j268tdPraij48lgWRa
+         uaSZRUeKn4f5XYcFk4ieHRX4aWv6u8VeNHfNxpHyHdeAfVRZaY1BeYu/fAmbzRT5K5e4
+         GPXw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1780584051; x=1781188851;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to;
+        bh=MYjvVyEwufg+Sp1o9wIFatQQ1kTSx89J6iGBCB8C5c8=;
+        b=gaMI/sDxbGt3OH9KQAha28W+JXcyGig9RV8zbygdVYaVohTJmBMgvIagezt6Qz/pwx
+         E7SAVqekMiN0e3HYkv2lUM7gFB/b44GxLcEx3nua54Y57KCcBHW16XRLch2Be73dl82p
+         4NhlymBLTSLTVN5hNQT2elNdMaEJMbzfilaYxDCaXVne4AxJzUzkpHiif8sacTzDZv13
+         bYOGVIRIiYEU1oPP4WyUgKJWzUlDj2Hl0aYMmJvJY9CjIyXiBnP2nfdfsi8N0AMuQXFz
+         tTulfSOFkIgcuALyQ2QVEOQhNyJ7SMoOGO7nfKIHHvhwfb2Ii0vIDkULp7S9hZgZoPLJ
+         TxCA==
+X-Forwarded-Encrypted: i=1; AFNElJ85SZTaeylhre2pv+zhl3w0TV7rjnMwD6hTmn6t1sP6/+v5lIWvGAu7JACozDIsqLEmE+RDu2jrIHIk@vger.kernel.org
+X-Gm-Message-State: AOJu0YwBIlrEZMGANyz/apMJ51eYAUEDBdNaLBqrLBIjjFGpCG+SMWZn
+	lyVD2hGn/Er9uyFJ9ZIqIzzjCY7UAAxGXgB3Ctaw64C+wTAuwPSSiuCA
+X-Gm-Gg: Acq92OFPz8VTB6rB3dzESSuR1x5gbilAp+AMiELYfrQ8T/fCW0kNKEaS3cD32ib3c40
+	WHMzM7LjnJ/NhLQmuWDZ8Y/c2pU+N5L9Bf9cGHTBTawDw8sgIq8Z34bzbH0Ehyloml+uHI47DSb
+	XqXMFkfYWriq99+WBsrVHZUXOX4zQ77KDAeKBsP9vAcIg0jYvwL5Azi0SFoGC6yR+VG7frIEMyq
+	TsiuBOIIeJJZdZuewx5z//SXlYEfQym4hj8de9waHQMmt/cvqchbuSG7+bvURSouR+YXwVHx22t
+	gytvLzDXA3RYNqARvuuII9Xk3yhFiJmdytqnPV3ldd8NElTHuMafjmZA6IKFnsQdZ8K+sNey30b
+	A5rYqKb4CGhG6ykdTFUECVzD1UUpOBLbfeecgItyTjLrmPmCIUef82nmWknqzelJIEh2Zd8yIzX
+	9tkxKC6FE/NjpoAtrNu/bCoH9sdEQUivNdDJ0nWIpKqQGdhUUuQURxxB9a1i4qT+Cw0zepRLdK/
+	8Qp8Z4GeNhJFckbWmGc/pjnucGv8ltg7JOVJJueNuqQ9Y/x8uP0Z47XPIOWUqc/
+X-Received: by 2002:a05:6a00:4fc1:b0:82c:9e00:f958 with SMTP id d2e1a72fcca58-84284a8c87fmr7952955b3a.0.1780584050963;
+        Thu, 04 Jun 2026 07:40:50 -0700 (PDT)
+Received: from donnager-debian.. ([45.124.203.15])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-84282372868sm7279753b3a.17.2026.06.04.07.40.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 04 Jun 2026 07:40:50 -0700 (PDT)
+Sender: "joel.stan@gmail.com" <joel.stan@gmail.com>
+From: Joel Stanley <joel@jms.id.au>
+To: Paul Walmsley <pjw@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	Palmer Dabbelt <palmer@dabbelt.com>
+Cc: Anirudh Srinivasan <asrinivasan@oss.tenstorrent.com>,
+	Anup Patel <anup@brainfault.org>,
+	Albert Ou <aou@eecs.berkeley.edu>,
+	Alexandre Ghiti <alex@ghiti.fr>,
+	Nicholas Piggin <npiggin@gmail.com>,
+	Michael Ellerman <mpe@kernel.org>,
+	Drew Fustini <fustini@kernel.org>,
+	linux-riscv@lists.infradead.org,
+	devicetree@vger.kernel.org
+Subject: [PATCH v2 0/7] riscv: dts: tenstorrent: Add Atlantis platform 
+Date: Fri,  5 Jun 2026 00:09:46 +0930
+Message-ID: <20260604143957.668047-1-joel@jms.id.au>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 13 potential issue=
-(s) to consider:
-- [Critical] Missing bounds check in `max_des_get_frame_desc_state` allows =
-a stack buffer overflow when writing to `fd->entry`.
-- [High] Fwnode endpoint reference leaks on probe error paths.
-- [High] Asynchronous I2C client binding notifier incorrectly assumes the f=
-irst bound client is the serializer, blocking other I2C devices.
-- [High] Hardware pipes 4-7 will never be used due to a flawed 1:1 lookup m=
-apping in `max_des_find_link_pipe`.
-- [High] Bypassing I2C mux/ATR locking in `max_des_init_link_ser_xlate` lea=
-ds to I2C bus corruption.
-- [High] Unprotected access to `pipe->remaps` and `pipe->vc_remaps` during =
-the `VIDIOC_LOG_STATUS` ioctl.
-- [High] TOCTOU race on `hw.source->sd` allows dereferencing a NULL or free=
-d subdev pointer during stream updates.
-- [High] Invalid validation check of physical data lane indices against the=
- active lane count in `max_des_parse_src_dt_endpoint`.
-- [Medium] `max_des_set_fmt` rejects format changes for unrouted streams, v=
-iolating the V4L2 subdev API contract.
-- [Medium] Returning `-EINVAL` on unsupported formats and intervals violate=
-s the V4L2 specification.
-- [Medium] Use of `devm_kcalloc` and `devm_kfree` in hotpaths causes severe=
- devres list traversal overhead.
-- [Medium] The `V4L2_CID_TEST_PATTERN` control does not immediately apply t=
-o the hardware, and stream restarts ignore the change.
-- [Medium] Returning early on `regulator_disable` failure in `max_des_updat=
-e_pocs` aborts cleanup for remaining POC supplies.
---
+Add initial support for the Tenstorrent Atlantis platform, based on the
+Atlantis SoC featuring 8x RVA23-compliant Tenstorrent Ascalon-XG cores.
 
-commit 10b6032537ce5fb1d90f4cb0131ac25ff19cabea
-Author: Cosmin Tanislav <demonsingur@gmail.com>
+The series adds a bare bones device tree with the CPU, interrupt
+controllers and a UART. This will be replaced in time with a full
+featured machine once details are available.
 
-media: i2c: add Maxim GMSL2/3 deserializer framework
+Patches 1, 2, 3, 5, and 6 add compatibles or extensions to existing
+bindings.
 
-This commit introduces a common framework for Maxim GMSL2/3 deserializers. =
-It
-adds support for the Streams API, I2C ATR, automatic GMSL link version
-negotiation, stream ID selection, VC remapping, and multiple other hardware
-features across all supported chips.
+Patch 4 adds a new binding document for the aclint timer device.
 
-> diff --git a/drivers/media/i2c/maxim-serdes/max_des.c b/drivers/media/i2c=
-/maxim-serdes/max_des.c
-> new file mode 100644
-> --- /dev/null
-> +++ b/drivers/media/i2c/maxim-serdes/max_des.c
-[ ... ]
-> +static struct max_des_pipe *
-> +max_des_find_link_pipe(struct max_des *des, struct max_des_link *link)
-> +{
-> +	unsigned int i;
-> +
-> +	for (i =3D 0; i < des->info->num_pipes; i++) {
-> +		struct max_des_pipe *pipe =3D &des->pipes[i];
-> +
-> +		if (pipe->link_id =3D=3D link->index)
-> +			return pipe;
-> +	}
-> +
-> +	return NULL;
-> +}
+The series has been boot tested on QEMU[1] and internal development
+platforms.
 
-[Severity: High]
-Does this force a 1:1 mapping between links and pipes? Since the assignment
-uses a modulo operation elsewhere to map multiple pipes to a single link,
-returning on the first match appears to prevent pipes 4-7 from ever being
-selected. Can this break demultiplexing for multiple streams on the same li=
-nk?
+[1] https://lore.kernel.org/qemu-riscv/20260603065859.592063-1-joel@jms.id.au/
 
-[ ... ]
-> +static int max_des_set_modes(struct max_des_priv *priv,
-> +			     struct max_des_mode_context *context)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < des->info->num_links; i++) {
-> +		struct max_des_link_hw hw;
-> +		u32 pipe_double_bpps =3D 0;
-[ ... ]
-> +		if (!hw.source->sd)
-> +			continue;
-> +
-> +		pipe_double_bpps =3D context->pipes_double_bpps[hw.pipe->index];
-> +
-> +		ret =3D max_ser_set_double_bpps(hw.source->sd, pipe_double_bpps);
+Thanks to Anup and Connor for the reviews on v1.
 
-[Severity: High]
-Does this access contain a time-of-check to time-of-use race?
+v1:
+https://lore.kernel.org/linux-riscv/20260603074222.593243-1-joel@jms.id.au/
 
-The subdev pointer is checked for NULL, but the async notifier unbind
-callback can clear this pointer concurrently without holding the state lock.
+Changes since v1:
+- Rework mtimer bindings, fix reg property, update compatible and use
+  priv spec as reference
+- Drop Drew's sob from bindings patches I wrote
+- Add Drew's co-developed-by to dts patch
+- Correct aplic num-sources
 
-Could the pointer become NULL just before it is used?
+Drew Fustini (1):
+  dt-bindings: riscv: add Smrnmi extension description
 
-[ ... ]
-> +static int max_des_update_pipe_remaps(struct max_des_priv *priv,
-> +				      struct max_des_remap_context *context,
-> +				      struct max_des_pipe *pipe,
-> +				      struct v4l2_subdev_state *state,
-> +				      u64 *streams_masks)
-> +{
-[ ... ]
-> +	remaps =3D devm_kcalloc(priv->dev, des->info->num_remaps_per_pipe,
-> +			      sizeof(*remaps), GFP_KERNEL);
-> +	if (!remaps)
-> +		return -ENOMEM;
-[ ... ]
-> +	if (pipe->remaps)
-> +		devm_kfree(priv->dev, pipe->remaps);
-> +
-> +	pipe->remaps =3D remaps;
-> +	pipe->num_remaps =3D num_remaps;
+Joel Stanley (6):
+  dt-bindings: aplic: Add Tenstorrent Atlantis compatible
+  dt-bindings: imsics: Add Tenstorrent Atlantis compatible
+  dt-bindings: riscv: cpus: Add Tenstorrent Ascalon
+  dt-bindings: timer: Add RISC-V ACLINT mtimer bindings
+  dt-bindings: riscv: Add Tenstorrent Atlantis platform
+  riscv: dts: tenstorrent: Add Atlantis platform
 
-[Severity: Medium]
-Is it safe to use device-managed allocations in this hotpath?
+ MAINTAINERS                                   |   1 +
+ .../interrupt-controller/riscv,aplic.yaml     |   1 +
+ .../interrupt-controller/riscv,imsics.yaml    |   1 +
+ .../devicetree/bindings/riscv/cpus.yaml       |   5 +
+ .../devicetree/bindings/riscv/extensions.yaml |   6 +
+ .../bindings/riscv/tenstorrent.yaml           |   4 +
+ .../bindings/timer/riscv,aclint-mtimer.yaml   |  56 +++
+ arch/riscv/boot/dts/tenstorrent/Makefile      |   1 +
+ .../boot/dts/tenstorrent/atlantis-evb.dts     |  33 ++
+ .../boot/dts/tenstorrent/atlantis-soc.dtsi    | 471 ++++++++++++++++++
+ 10 files changed, 579 insertions(+)
+ create mode 100644 Documentation/devicetree/bindings/timer/riscv,aclint-mtimer.yaml
+ create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-evb.dts
+ create mode 100644 arch/riscv/boot/dts/tenstorrent/atlantis-soc.dtsi
 
-Allocating and freeing memory via the devres API during stream state changes
-forces a traversal of the device resource list every time. Could this cause
-severe overhead and lock contention?
+-- 
+2.47.3
 
-[ ... ]
-> +static int max_des_init_link_ser_xlate(struct max_des_priv *priv,
-> +				       struct max_des_link *link,
-> +				       struct i2c_adapter *adapter,
-> +				       u8 power_up_addr, u8 new_addr)
-> +{
-[ ... ]
-> +	ret =3D des->ops->select_links(des, BIT(link->index));
-> +	if (ret)
-> +		return ret;
-> +
-> +	ret =3D max_ser_wait_for_multiple(adapter, addrs, ARRAY_SIZE(addrs),
-> +					&current_addr);
-
-[Severity: High]
-Can this sequence cause I2C bus corruption?
-
-The code modifies the hardware mux state directly via select_links and
-performs transfers on the parent adapter without acquiring the I2C mux core
-lock.
-
-If another thread initiates a transfer on an already-bound child adapter
-concurrently, could its traffic be routed to the wrong hardware link?
-
-[ ... ]
-> +static int max_des_ser_attach_addr(struct max_des_priv *priv, u32 chan_i=
-d,
-> +				   u16 addr, u16 alias)
-> +{
-[ ... ]
-> +	if (link->ser_xlate.en) {
-> +		dev_err(priv->dev, "Serializer for link %u already bound\n",
-> +			link->index);
-> +		return -EINVAL;
-> +	}
-
-[Severity: High]
-Does this logic unintentionally block other I2C devices from binding?
-
-Once the serializer binds, this returns an error for any subsequent device
-like a camera sensor on the same link. Could this prevent the ATR core from
-successfully allocating aliases for those devices?
-
-[ ... ]
-> +static int max_des_get_frame_desc_state(struct v4l2_subdev *sd,
-> +					struct v4l2_subdev_state *state,
-> +					struct v4l2_mbus_frame_desc *fd,
-> +					unsigned int pad)
-> +{
-[ ... ]
-> +		hw.entry.bus.csi2.vc =3D dst_vc_id;
-> +		hw.entry.stream =3D route->source_stream;
-> +
-> +		fd->entry[fd->num_entries++] =3D hw.entry;
-> +	}
-
-[Severity: Critical]
-Is there a bounds check missing for the array access here?
-
-The entry array has a fixed capacity, but userspace can configure a large
-number of routes. If more active streams map to the same source pad than the
-array can hold, could this write out of bounds on the stack?
-
-[ ... ]
-> +static int max_des_set_tpg_fmt(struct v4l2_subdev *sd,
-> +			       struct v4l2_subdev_state *state,
-> +			       struct v4l2_subdev_format *format)
-> +{
-[ ... ]
-> +	entry =3D max_des_find_tpg_entry(des, 0, fmt->width, fmt->height,
-> +				       fmt->code, 0, 0);
-> +	if (!entry)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Does returning an error for unsupported formats violate the V4L2 API
-contract? The specification mandates that unsupported requested formats
-should be adjusted to the closest valid match rather than rejected.
-
-[ ... ]
-> +static int max_des_set_fmt(struct v4l2_subdev *sd,
-> +			   struct v4l2_subdev_state *state,
-> +			   struct v4l2_subdev_format *format)
-> +{
-[ ... ]
-> +	fmt =3D v4l2_subdev_state_get_opposite_stream_format(state, format->pad,
-> +							   format->stream);
-> +	if (!fmt)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Does returning an error for unrouted streams violate the V4L2 API contract?
-
-The specification mandates that format configuration should succeed
-independently of the routing table.
-
-[ ... ]
-> +static int max_des_set_frame_interval(struct v4l2_subdev *sd,
-> +				      struct v4l2_subdev_state *state,
-> +				      struct v4l2_subdev_frame_interval *fi)
-> +{
-[ ... ]
-> +	entry =3D max_des_find_tpg_entry(des, 0, fmt->width, fmt->height,
-> +				       fmt->code, fi->interval.denominator,
-> +				       fi->interval.numerator);
-> +	if (!entry)
-> +		return -EINVAL;
-
-[Severity: Medium]
-Similar to the format configuration, does returning an error for unsupported
-intervals violate the V4L2 API contract? The specification mandates that
-drivers adjust unsupported intervals instead of rejecting them.
-
-[ ... ]
-> +static int max_des_log_status(struct v4l2_subdev *sd)
-> +{
-[ ... ]
-> +		if (des->ops->set_pipe_remap) {
-> +			v4l2_info(sd, "\tremaps: %u\n", pipe->num_remaps);
-> +			for (j =3D 0; j < pipe->num_remaps; j++) {
-> +				struct max_des_remap *remap =3D &pipe->remaps[j];
-
-[Severity: High]
-Can this loop dereference freed memory?
-
-The log status callback executes without holding the subdev state lock. If
-another thread concurrently triggers a stream update, it might free and
-replace the remaps array while it is being read here.
-
-[ ... ]
-> +static int max_des_s_ctrl(struct v4l2_ctrl *ctrl)
-> +{
-> +	struct max_des_priv *priv =3D ctrl_to_priv(ctrl->handler);
-> +	struct max_des *des =3D priv->des;
-> +
-> +	switch (ctrl->id) {
-> +	case V4L2_CID_TEST_PATTERN:
-> +		des->tpg_pattern =3D ctrl->val;
-> +		return 0;
-> +	}
-
-[Severity: Medium]
-Does this control handler fail to apply the test pattern to the hardware?
-It updates the software state but does not seem to invoke the hardware
-callback.
-
-[ ... ]
-> +static int max_des_update_tpg(struct max_des_priv *priv,
-> +			      struct v4l2_subdev_state *state,
-> +			      u64 *streams_masks)
-> +{
-[ ... ]
-> +	if (entry =3D=3D des->tpg_entry)
-> +		return 0;
-> +
-> +	ret =3D des->ops->set_tpg(des, entry);
-
-[Severity: Medium]
-Does this stream restart optimization ignore pending test pattern changes?
-
-Because the code returns early if the format has not changed, it appears a =
-new
-test pattern selected via userspace will not be applied to the hardware unt=
-il
-the resolution is also modified.
-
-[ ... ]
-> +static int max_des_update_pocs(struct max_des_priv *priv, bool enable)
-> +{
-[ ... ]
-> +		if (enable)
-> +			ret =3D regulator_enable(priv->pocs[i]);
-> +		else
-> +			ret =3D regulator_disable(priv->pocs[i]);
-> +
-> +		if (ret) {
-> +			dev_err(priv->dev,
-> +				"Failed to set POC supply to %u: %u\n",
-> +				enable, ret);
-> +			if (!enable)
-> +				return ret;
-
-[Severity: Medium]
-Is it safe to return early when disabling regulators?
-
-If one regulator fails to disable during driver unbind or system suspend,
-this breaks out of the loop and leaves all subsequent regulators perpetually
-powered on.
-
-[ ... ]
-> +static int max_des_parse_src_dt_endpoint(struct max_des_priv *priv,
-> +					 struct max_des_phy *phy,
-> +					 struct fwnode_handle *fwnode)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < mipi->num_data_lanes; i++) {
-> +		if (mipi->data_lanes[i] > mipi->num_data_lanes) {
-> +			dev_err(priv->dev, "Invalid data lane %u on port %u\n",
-> +				mipi->data_lanes[i], pad);
-> +			return -EINVAL;
-> +		}
-> +	}
-
-[Severity: High]
-Is this validation comparing the physical lane index against the active lane
-count?
-
-The array holds physical pin numbers, while the active count dictates the
-number of used lanes. If a board routes higher numbered pins but uses fewer
-total lanes, this check seems to erroneously reject valid physical
-configurations.
-
-[ ... ]
-> +static int max_des_parse_dt(struct max_des_priv *priv)
-> +{
-[ ... ]
-> +	for (i =3D 0; i < des->info->num_links; i++) {
-> +		struct max_des_link *link =3D &des->links[i];
-> +		struct max_serdes_source *source;
-> +
-> +		source =3D max_des_get_link_source(priv, link);
-> +		source->index =3D i;
-> +
-> +		ret =3D max_des_parse_sink_dt_endpoint(priv, link, source, fwnode);
-> +		if (ret)
-> +			return ret;
-> +	}
-> +
-> +	return 0;
-> +}
-
-[Severity: High]
-Do the error paths in probe leak the fwnode endpoint references?
-
-When the parse sink endpoint function acquires a reference, it seems the
-cleanup only happens on successful driver teardown. If initialization fails
-in this loop or later in probe, the acquired references are not released.
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-gmsl2-3_se=
-rdes-v13-0-9d8a4919983b@analog.com?part=3D15
