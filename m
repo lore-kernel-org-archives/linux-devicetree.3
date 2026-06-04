@@ -1,215 +1,102 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA9A448B383
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:22:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 477E937BE8A
+	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 16:27:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780590164; cv=none; b=uIGbcXRxiAcibj4KLqzGnx6vVFPtjT2QDFtVXjjAPC2O/ZnxJDgZ9FjAvM5quf0i06AIfmFElO36iG5LkD5Sfup0+/9jVE3RzT0i7TV1Rq/VI0l9WoX5+H7JjCQBw4QvbcvmnZaww7q5m5UjFfgtMVZOvJ0kEctA4B0NPzBWxzs=
+	t=1780590473; cv=none; b=SPKS0tzpISZZF+24bsBVvHkZme2cfZ8rgVEwRIiAwZQ+4zEH+LZeeKvZfm/JZRsWPIS3tpLt+TmcaW8WUgpsO5eiG5bRg4DvXVCbS5pTsEeGmUVDyTNEvLtTzRv+h8WekpDtcHfazGAcygjOjIRKfRrMxpzXaG0Uw9hmsj8ks9g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780590164; c=relaxed/simple;
-	bh=XKrmOUE+ITe0K52I3f+8XQpNgOZVciYbk2KqzJHOOj0=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=ofeXi9wHbb94WqRXKIpWrZsdK8PIIYUOTBNhPzbvr9g2XKb3nah+6IDPy+6ACypgQPmEjd06CFiX34c+EgAfXU1wSrdYjRMoYuhvbNsjszovO2uSlpKoCQFXON1X47b34582alSyyq0B016tIhMPKjT1XTTvM25gFh0HxRQq3So=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=kUgmbA5Y; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=GAq6uKlS; arc=none smtp.client-ip=205.220.168.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1780590473; c=relaxed/simple;
+	bh=3j8MhvS8b+aczEMK1dQCzVigM/U8A7T/VkMiJU2zrMs=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=sJtief4SrhlIA7QwgDHSPeag//o7iYqJdIGjX74ARAeaZcB9weVR4N1eWoyq77SX1qSbyz5GjVRqfG1pA59+U8niIsrpBWrAWWSjxYUCHE/pr2BdG5oVd0ooKiVSgbjswI+MlVlp5HBDPNDqjRSbXvrZjHgfmkoiodjwpc/NQIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Wz9tuDkM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="kUgmbA5Y";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="GAq6uKlS"
-Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 654EXfxT598074
-	for <devicetree@vger.kernel.org>; Thu, 4 Jun 2026 16:22:40 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	xKGI1tkayHJ/4zmc6j63m1NJbgsynd524kpMerhxDG4=; b=kUgmbA5YPEkzYKoJ
-	8qEBlEWgjXCABWUgHI5lA1iNEqxpswvx73fZ3pKI0rMWEeVhVEooj9FElOjGqZZI
-	HeBL8nTBCopxi/mS0LSpQgVgdNrj1VZC0nq7ztVCj0ixyNvvxCHqurbnIJ18WdV5
-	jRPtVo/etZ0eBRk1Y6TXfBb7PDauoO7ZtwkDLkjTwgSmXtDx3IJezRZanCEbTEPv
-	9gG7PE26dfrBnP9vDkQKKSGUz3MlFHoBlYkYp+IjpFAZ7GT6m+yXTdYuwNx9Jgl4
-	Q3N8i3sgy5BHPDvePu9ZEYH2Ugfe8lh9V+2b0SWuZV5a1yDTntRGaw8UZYpYr8k6
-	mgOZ5g==
-Received: from mail-ua1-f69.google.com (mail-ua1-f69.google.com [209.85.222.69])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4ejy8m3erv-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 16:22:40 +0000 (GMT)
-Received: by mail-ua1-f69.google.com with SMTP id a1e0cc1a2514c-963e6319d22so362092241.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 09:22:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1780590159; x=1781194959; darn=vger.kernel.org;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to;
-        bh=xKGI1tkayHJ/4zmc6j63m1NJbgsynd524kpMerhxDG4=;
-        b=GAq6uKlS/LVbsnOxL+dwBMsSw/tr0PTpb3dOOwZD7EFA7YcTm4ojYVJsffRFacot7u
-         lUzDky71sJTfjlIX6sxje9eKlHk1j8y8MRoIkuIPkHH3t6WYuEMN4mR6VbQ9kJ3LE6ax
-         0/9c2X+nXYP7aITfrwU19NRKXpExHYczRcSqrj6xN45kU0mYMivviNhZs7YPikpJfIdD
-         NQFkHd7l931EBrAethpwAR0s9N35qBG1Y/pIKSRmNktVn7GnX6UGKGKNEBWHSuynWsvr
-         hXU3AsE+X2QUtxXOkui/KF77Yflwkw5bM80FMmPKGK62IggjjMqLQ1XKsarlMpjSE9L9
-         sAbw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780590159; x=1781194959;
-        h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to;
-        bh=xKGI1tkayHJ/4zmc6j63m1NJbgsynd524kpMerhxDG4=;
-        b=QKcR0zIvKe5AqepNMRSS/hwXsz2D2S9+Pt/XniQ+s0Q1l4mRujhM/tAUPKMIceQaqP
-         8AZhQnWBtSNr2KDqE8ibjxU/mp7byVWFBTeY8rEBg0wyLpzQK83i4Dwudhr3bWpdf70B
-         msSG/ZDxkoR/ufBpKNYM+V8kmWW3WEAFxPjqT0sE0omOuc5Lpk1arK/k6epTcmJY+2K4
-         XRqU9guFePndbuAcGfC6XmxJ5sqgFUwd6NSkZU3lupyJMyO+85RpuBXAtcrKRrpWct1J
-         yJCPI9kVro+a0fpO6AlxjN3ldJc1RI82FbNUso6cUD5XKlal2QJu7vLZGo7Huq56fRb2
-         iV9A==
-X-Forwarded-Encrypted: i=1; AFNElJ+9SJOgdv6w7hxQeKwN88gjHNN1SXydz1s8Smx5q0460zS+4+U5e30EB0rqW9NKRbsuXkrK4CQ+U82Y@vger.kernel.org
-X-Gm-Message-State: AOJu0Yz9MHZE47wN5br8IdOR+a6J/MukpcSOKB6TUqAKrDak9y85/Fi0
-	P5YgtjOqVOSdOTMJDCWXmiA2UIeI1Ig7gYVBYvhXy0LFsGfqoincS0L0V8rYTsW52Twjr4qvxkw
-	kolWED8nU+mVX2i1swnpr8E/qmwClrj68ni/JkFr2ymsLKjpEN/UrHIx74Rk8vpn4
-X-Gm-Gg: Acq92OFnihpjGsp+Nkz+MOQLVOuVuPORQvpWNuuxRtheVWif6+naqzj1ATzspyPSKNW
-	IlE0gCLp7GL6DpWqsYbEKkL9DZyfFQZIatIuRDRNkfJE+QLwHG22R2BL499VJDn+YPJA0UI65rV
-	NBcQaQXkSzECT6iQXCCZo6UCMxXR2a2pTl/Hhv3eWxNAmAtrT5vix2ewF+v2aIcxQ5VhItuebZW
-	KOVmUoVKZWOSMGn/xTGMrHvQEGAn6wuHC2g1jowxX4yd7uorPTgnMqRM81vZ29M93j+afOqRr8k
-	wq5dEGUIDrDYRQrbobAyQI5LD36ymt/mOyMkjjYiZXp0xtxjxRqDw3IxFtKkt2AN81wWSKSt7ir
-	17akCT4Q8m21giAdHZxTJH+vRD5GjVsp+bmx1fYu4ZMb9l9RdGp2WFnpJa2pD0dfvcKfemz9fGr
-	1pY+OGap/KK06oMsu8nmt4aDhd2JYLuKQRcLTZ56Dif7H3Iw==
-X-Received: by 2002:a05:6102:554c:b0:6c3:1bcd:31dd with SMTP id ada2fe7eead31-6ec2a218ccemr5618146137.6.1780590159115;
-        Thu, 04 Jun 2026 09:22:39 -0700 (PDT)
-X-Received: by 2002:a05:6102:554c:b0:6c3:1bcd:31dd with SMTP id ada2fe7eead31-6ec2a218ccemr5618115137.6.1780590158504;
-        Thu, 04 Jun 2026 09:22:38 -0700 (PDT)
-Received: from umbar.lan (2001-14ba-a073-af00-264b-feff-fe8b-be8a.rev.dnainternet.fi. [2001:14ba:a073:af00:264b:feff:fe8b:be8a])
-        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-396ac2d5034sm17591591fa.29.2026.06.04.09.22.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 09:22:31 -0700 (PDT)
-From: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Date: Thu, 04 Jun 2026 19:22:24 +0300
-Subject: [PATCH v7 2/2] arm64: dts: qcom: sm8250: correct frequencies in
- the Iris OPP table
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Wz9tuDkM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD6AE1F00893;
+	Thu,  4 Jun 2026 16:27:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1780590471;
+	bh=BkBfj4eVuTPlihOFE/3EUw1V547G+q1HvX+zAA9FYdY=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=Wz9tuDkMFVxQKW0pujAsaiD6hBc77xRhXPru00qaHwqR6cnIwVbcjpcsS+4NEOSiz
+	 yPDiZifB4B2Ib2HF/80T1SuE2VUs9HK74jnTk/Qo6zWDr+Tw4eUjPzPP+VxPYNquLt
+	 hlDVOCIb3qe7Gw2jKJ5gqn9M714aKCcz35klLu0gp5YKOJ3bPpZdq/oZcv6FqGzz3B
+	 dOeMSVG/XP6ULfKmXkEE/K+Qt/3dUj8BV3aB4ENZuFU2S+7TaMvK6M0GDKxaFjzdL+
+	 FrcrPc87qL003XopzstKaHFRYQWnklawB+cfPggB7KjUj6GnEUwPrO/ojr94rjPcst
+	 2xnx/kD274tQg==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH v3 02/10] arm64: dts: qcom: sc8280xp-arcata: Enable the
+ eDP display
+Reply-To: sashiko-reviews@lists.linux.dev
+To: =?utf-8?b?SsOpcsO0bWUgZGUgQnJldGFnbmUgdmlhIEI0IFJlbGF5?= <devnull+jerome.debretagne.gmail.com@kernel.org>
+Cc: robh@kernel.org, conor+dt@kernel.org, devicetree@vger.kernel.org
+In-Reply-To: <20260604-surface-sp9-5g-for-next-v3-2-6aa6f6612c10@gmail.com>
+References: <20260604-surface-sp9-5g-for-next-v3-2-6aa6f6612c10@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 04 Jun 2026 16:27:51 +0000
+Message-Id: <20260604162751.AD6AE1F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260604-iris-venus-fix-sm8250-v7-2-7bd2f0e5bae8@oss.qualcomm.com>
-References: <20260604-iris-venus-fix-sm8250-v7-0-7bd2f0e5bae8@oss.qualcomm.com>
-In-Reply-To: <20260604-iris-venus-fix-sm8250-v7-0-7bd2f0e5bae8@oss.qualcomm.com>
-To: Bjorn Andersson <andersson@kernel.org>,
-        Michael Turquette <mturquette@baylibre.com>,
-        Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>,
-        Krzysztof Kozlowski <krzk+dt@kernel.org>,
-        Conor Dooley <conor+dt@kernel.org>, Taniya Das <quic_tdas@quicinc.com>,
-        Jonathan Marek <jonathan@marek.ca>,
-        "Rafael J. Wysocki" <rafael@kernel.org>,
-        Bryan O'Donoghue <bod@kernel.org>,
-        Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
-        Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
-        Mauro Carvalho Chehab <mchehab@kernel.org>,
-        Stanimir Varbanov <stanimir.varbanov@linaro.org>,
-        Abhinav Kumar <abhinav.kumar@linux.dev>,
-        Hans Verkuil <hverkuil@kernel.org>,
-        Stefan Schmidt <stefan.schmidt@linaro.org>,
-        Konrad Dybcio <konradybcio@kernel.org>,
-        Bryan O'Donoghue <bryan.odonoghue@linaro.org>,
-        Dikshita Agarwal <dikshita@qti.qualcomm.com>,
-        Ulf Hansson <ulfh@kernel.org>
-Cc: linux-arm-msm@vger.kernel.org, linux-clk@vger.kernel.org,
-        devicetree@vger.kernel.org, linux-kernel@vger.kernel.org,
-        linux-pm@vger.kernel.org, linux-media@vger.kernel.org,
-        Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
-        Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1944;
- i=dmitry.baryshkov@oss.qualcomm.com; h=from:subject:message-id;
- bh=XKrmOUE+ITe0K52I3f+8XQpNgOZVciYbk2KqzJHOOj0=;
- b=owEBbQGS/pANAwAKAYs8ij4CKSjVAcsmYgBqIaZB8KW2EJaZslWv4cgtu4BtIbj4ClbJQflSg
- BNh3H7S0HiJATMEAAEKAB0WIQRMcISVXLJjVvC4lX+LPIo+Aiko1QUCaiGmQQAKCRCLPIo+Aiko
- 1b7UB/9WRsG3yOEdy2z7QpRpAjy5xLS0+pDuTCD65G9a84L8W1/UozRyuhxDaz2PvTKPYdOspLF
- EkOOglEk96ACEuMTjOzPgecq+ozYKVQXGHp1txCaY1NLQCnT3fSYxXX4/lYILH/9KDUWCUBaXwS
- O62zgRGLw07XXOees9Y1+VjWsKKEGosLGUGCNAcW0ZhhSM9Kse1PYWBzgE9m1v+veIXnhPiv3yZ
- gG9dvuM/PDW6Lt9ywCAxrsm4w92z8pVoQGUcwbc2J88dIu1d3pDHS9F0mOGNSqqQ716CF1TIQD1
- ed8wwf9VgAjjmDk9+utlciBkdkszso0LYBvr9tg5ypn1P0L5
-X-Developer-Key: i=dmitry.baryshkov@oss.qualcomm.com; a=openpgp;
- fpr=8F88381DD5C873E4AE487DA5199BF1243632046A
-X-Authority-Analysis: v=2.4 cv=KfDidwYD c=1 sm=1 tr=0 ts=6a21a650 cx=c_pps
- a=UbhLPJ621ZpgOD2l3yZY1w==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
- a=FelO9ux0wxsA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=EUspDBNiAAAA:8
- a=EQKuo8RqpatckOKiKW0A:9 a=QEXdDO2ut3YA:10 a=TOPH6uDL9cOC6tEoww4z:22
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwNjA0MDE2MCBTYWx0ZWRfXx+uhtExO/pQR
- szrtt7Nhwb+qJBpZveaxh6wPMaCFzsisBQmchI9xgIXhgjQ63SJlRvJSiPdqCwtZcBq+AthRifD
- XT6AyAC2M5QlHNgZtZmZKHW5Ce8kxcWtPj7Fyc7hJCvE3hMSFmtfc0uzaL+NoAWdJMHpvJZ7BiN
- a9WgBu/GZtlAdYFskt5hPP/4XnwWW6TAxRbrM2W/W8P0zArpHXWviI5OkoaOdggrF4n9nQ57Dmr
- 8UMbIuWZ7hbXLmlrBSs2b8KsZI0VUTQD8fC+gAiBAyPUnIrwoMXnjnP6OOaVZrqY7PphBdEOuT9
- 9e9/6SwMwWDZpf1mZshIFTw9QuRPJQgpbtEzCqiAum8EF+3UUcJv3FJKzzDIGc7ezn2RCA9fpb8
- YsHFDM4QvK28+S2HYa4n+8bLk4E8AHwuyFqDKfaUT/7moWUoMEVqGqlA7OjbwB9BhXmH4RnOlFq
- YZCn+CgfH4DTzaSi/Mw==
-X-Proofpoint-GUID: jy6-vTq9mEPNc20URhGpYxUe-gt5HhRd
-X-Proofpoint-ORIG-GUID: jy6-vTq9mEPNc20URhGpYxUe-gt5HhRd
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1143,Hydra:6.1.125,FMLib:17.12.100.49
- definitions=2026-06-04_04,2026-05-28_03,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 impostorscore=0 lowpriorityscore=0 malwarescore=0 adultscore=0
- priorityscore=1501 suspectscore=0 spamscore=0 phishscore=0 clxscore=1015
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2605210000 definitions=main-2606040160
 
-The OPP table for the Iris core is wrong, it copies the VDD table from
-the downstream kernel, but that table is written for the
-video_cc_mvs0_clk_src, while the upstream uses video_cc_mvs0_clk for OPP
-rate setting (which is clk_src divided by 3). Specify correct
-frequencies in the OPP table.
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [Medium] The commit silently removes the `status =3D "okay";` override fo=
+r the `&dispcc1` node and the `regulator-always-on` property from the `vreg=
+_l6b` regulator without mentioning these functional changes in the commit m=
+essage.
+--
 
-Fixes: fa245b3f06cd ("arm64: dts: qcom: sm8250: Add venus DT node")
-Reported-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-Reviewed-by: Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>
-Signed-off-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
----
- arch/arm64/boot/dts/qcom/sm8250.dtsi | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
+commit 225c01f9a1d48e2b3f638fa8c5a506daa682de98
+Author: J=C3=A9r=C3=B4me de Bretagne <jerome.debretagne@gmail.com>
 
-diff --git a/arch/arm64/boot/dts/qcom/sm8250.dtsi b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-index 6150380795b8..f6044bfaef87 100644
---- a/arch/arm64/boot/dts/qcom/sm8250.dtsi
-+++ b/arch/arm64/boot/dts/qcom/sm8250.dtsi
-@@ -4355,26 +4355,26 @@ venus: video-codec@aa00000 {
- 			venus_opp_table: opp-table {
- 				compatible = "operating-points-v2";
- 
--				opp-720000000 {
--					opp-hz = /bits/ 64 <720000000>;
-+				opp-240000000 {
-+					opp-hz = /bits/ 64 <240000000>;
- 					required-opps = <&rpmhpd_opp_svs>,
- 							<&rpmhpd_opp_low_svs>;
- 				};
- 
--				opp-1014000000 {
--					opp-hz = /bits/ 64 <1014000000>;
-+				opp-338000000 {
-+					opp-hz = /bits/ 64 <338000000>;
- 					required-opps = <&rpmhpd_opp_svs>,
- 							<&rpmhpd_opp_svs>;
- 				};
- 
--				opp-1098000000 {
--					opp-hz = /bits/ 64 <1098000000>;
-+				opp-366000000 {
-+					opp-hz = /bits/ 64 <366000000>;
- 					required-opps = <&rpmhpd_opp_svs_l1>,
- 							<&rpmhpd_opp_svs_l1>;
- 				};
- 
--				opp-1332000000 {
--					opp-hz = /bits/ 64 <1332000000>;
-+				opp-444000000 {
-+					opp-hz = /bits/ 64 <444000000>;
- 					required-opps = <&rpmhpd_opp_svs_l1>,
- 							<&rpmhpd_opp_nom>;
- 				};
+arm64: dts: qcom: sc8280xp-arcata: Enable the eDP display
 
--- 
-2.47.3
+This commit adds the vreg_edp_3p3, edp_reg_en, and mdss0_dp3 nodes
+to enable the eDP-based LCD display on the Surface Pro 9 5G.
 
+> diff --git a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts b/arc=
+h/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> index f24f60dc73afe..476e17415da27 100644
+> --- a/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+> +++ b/arch/arm64/boot/dts/qcom/sc8280xp-microsoft-arcata.dts
+[ ... ]
+> @@ -344,7 +360,6 @@ vreg_l6b: ldo6 {
+>  			regulator-max-microvolt =3D <880000>;
+>  			regulator-initial-mode =3D <RPMH_REGULATOR_MODE_HPM>;
+>  			regulator-boot-on;
+> -			regulator-always-on;	// FIXME: VDD_A_EDP_0_0P9
+
+[Severity: Medium]
+The removal of regulator-always-on allows dynamic power management, which
+seems correct for eDP enablement. Could this functional power management
+cleanup be documented in the commit message?
+
+>  		};
+>  	};
+> =20
+[ ... ]
+> @@ -448,10 +463,6 @@ &dispcc0 {
+>  	status =3D "okay";
+>  };
+> =20
+> -&dispcc1 {
+> -	status =3D "okay";
+> -};
+> -
+
+[Severity: Medium]
+Is the silent removal of the dispcc1 status override intentional?=20
+
+Disabling the clock controller is a functional change. Should it be=20
+mentioned in the commit message to clarify the patch's impact and aid=20
+future bisectability?
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260604-surface-sp=
+9-5g-for-next-v3-0-6aa6f6612c10@gmail.com?part=3D2
