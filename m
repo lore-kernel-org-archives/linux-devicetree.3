@@ -1,135 +1,217 @@
-Received: from mail-wm1-f54.google.com (mail-wm1-f54.google.com [209.85.128.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from sender4-op-o11.zoho.com (sender4-op-o11.zoho.com [136.143.188.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FE6872617
-	for <devicetree@vger.kernel.org>; Thu,  4 Jun 2026 22:37:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.54
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1780612671; cv=none; b=UNMvbT8fUCl2ds4vU9zLccNp+8PbXnMBqLcn5q/rdeM1m07v9aa07WZXg868133q30IGfy0jzjRonTwXFKcJP2hdZZOm8LtZM05DbyJzkOTyorh7/oD7cpnppsIJ8oPVlPwlTjGX/J5MqHX6SgADT679gM1AEyK3YcSBzitSoTs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1780612671; c=relaxed/simple;
-	bh=wJxkHSt4+uNnpf6l5+6ajY9tYSWVGS4iEgWKAK5VKP4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QdfeOrTvQAn1FaYXtfAB4McikxdQg7ER4l5gdrt0tMRU4ijGJaT5r1kWWPmiqOYaCx09gmnkj5IA54/SjeNoGEwwgeb7iCRD7t1yn912miO/L83Muj8VRMRKNy7M3XSAUHpC9VwvKRhAgT1eNuukBbLiZyIZrcxg2uBbsqtC/Dg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FvpxPuvd; arc=none smtp.client-ip=209.85.128.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBE702EEE72;
+	Thu,  4 Jun 2026 22:43:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1780613018; cv=pass; b=gyin01bKz91BUxFfc0ZltnZZ6yWQw5MzYOMFDa8lX6u5T09Q4DHMcBlvdwXUlW981oUKdzjoOda4doqBpkH8U4D0ro4mdozVuqur/9AT96Y4q5K5n39ExVXmbTWSEdXei09mzGFENYwYLxWXXv5gXe6xF+cxn4mgTz42Czhs7Ko=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1780613018; c=relaxed/simple;
+	bh=RK8ldNIq4y4q218TvWRfgdxiF5Rc1tBIcygYULlykJQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nP8ktjwb9WS5RrByIwOh2Hbxf58XebFBWSAXyYw7dxlMgIdIwtmlxd7Ws1FX/Ei0R6+1N4lg3XOWD+JbPcWJtB2ax5DVkf0oRb/2kY7JuVBIpt7oeqAVEsWcseqZRDXDaAzDwciRyR13yg+4YY08WWU5I7XtEKvo/zPp3Dg+G8c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=ifxeqzMd; arc=pass smtp.client-ip=136.143.188.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FvpxPuvd"
-Received: by mail-wm1-f54.google.com with SMTP id 5b1f17b1804b1-490c0c92cffso4912055e9.2
-        for <devicetree@vger.kernel.org>; Thu, 04 Jun 2026 15:37:50 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1780612669; x=1781217469; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:from:to:cc:subject
-         :date:message-id:reply-to;
-        bh=pGK6nyQiO5fRhl198UMuPRvqMBmif9tHjKq3IyAKSuc=;
-        b=FvpxPuvdEcZNkPZGOmsxbmyUQj8+OX0umvR7izy5MTyhiV7s7P6x7YtjdVC8MkCAjN
-         aLrb9hWhdgJZ0z33Fi4jb0dKmey3ZAA+tliAlHBnMWCSaVIjIgsPqJHq+yZ+hv/zrp/G
-         eUAgQBdaqgMWR0nEweE8hn1M8UdT6ps6pneHxCvsg0IkxEbndSzo2FveL8EASl7a0Kju
-         CuZLlMly2fFk0VmDb+bgZxAfXQGpVpGm8Bv0r9iZJ1fhGg61yQdXPPAhYqDvuqoW96Ep
-         HaphEUlP2ld0dUBB/09IExXt3si2ODKZisuI6+kV2OJ+aHaYzrln+GKz7JavOrx6HhPm
-         w3jg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1780612669; x=1781217469;
-        h=mime-version:user-agent:content-transfer-encoding:references
-         :in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
-        bh=pGK6nyQiO5fRhl198UMuPRvqMBmif9tHjKq3IyAKSuc=;
-        b=M9C01Fq8xLMu4ZID7b7N8uxnF7IR0O3zXZ4cSaQ99YrUnEcSDe0v+k7NcocjMnlEiW
-         HoCyfCXzH2vjC/fCG1ySE4TnDaDTDNrbEOQ4PsjssANKDanH2b1+4GJHCiR6MBxbWY+9
-         8yZYlVVw6/JfrAv0gstuiHi8g9Y3bmNsbAdHPo6+DOl82Dyuc5tdrBVQFY39PT3WYRho
-         zqBuQ+3G4/3DZcCQRknYMEfq8DKy9zOkvCk9j0lk3uOcEV0qY4z/YfAdZsa1NJPkt/Nr
-         lLiTZTePeOJYJQu28TUje4o4RvPnESgOX7Q6XA8aGNEpRvFsJ/YWsSEZCYg/BTpINuC3
-         NQ3g==
-X-Forwarded-Encrypted: i=1; AFNElJ+/10gwFi5T+o5NpmbJQAMCnlEbNeDMAMEnrXjT8sMM/2WkwcEKsPm2zAw9546RaRk0YwDaH1v+/Wcr@vger.kernel.org
-X-Gm-Message-State: AOJu0YzFiFA2zVh44aElHk3I1C5yX+fYMGDBtySR1ZMb7KCmqg6IPPul
-	vzDNeVq8Y2YDxQSgpnrCTuHZfVq1Q7pRbQxAS13V7H+jTqeYw2yUwbLyNyibVjAq
-X-Gm-Gg: Acq92OHBsf568tWevjRbI2u3bGQfLC+vTMYdcYbIOW7xwqR6TL0oO/DI/BrJggL9khT
-	kZg3ZMKSC7cTEF0ETQXolGknxxHqESXpR2pY3714voaWv3+sPLaJXsZIaRxAQs3p5XrzOQTBwMs
-	E+Oq/fyh9WBblzOLdxgvoTHJkRgp+Z547xtJAu78DyDop+o1LP2HJZ2eVEPgeQd+9sPClBtC5rv
-	jBMLi2WpuGiVgp0NYK+Pa+MxnouqTaxhTO2aFZL6m9sbG8LbpjzPtxL9SfATg7GGyIxhhvwNDmh
-	71c2rbnE5TogOmIqc0pJnaSdFM39n/qOeN/2B0rII3fNzi33IR/wCzqMEZup359WRXMEnt73uI6
-	d7TicxRXbj6yiK1rYZQbdod34aLey3GtBJ2jUv/RBB0IG1PDu+LsOlku1BuCKRYAfcGwBsqGH3S
-	jvTiF7HJiGqoLEUXBxamVDcthrreuEwoIgGdGQGOUwklgRKl0g0DPyMqbm6JeHm5CrNTQL4ESGR
-	A13PazAR8BNPg==
-X-Received: by 2002:a05:600c:6994:b0:490:3f7a:108b with SMTP id 5b1f17b1804b1-490c25de6f1mr7829425e9.16.1780612668566;
-        Thu, 04 Jun 2026 15:37:48 -0700 (PDT)
-Received: from giga-mm-11.home (72.92.4.85.dynamic.cust.swisscom.net. [85.4.92.72])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-490c1e20b0asm13827345e9.1.2026.06.04.15.37.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 04 Jun 2026 15:37:47 -0700 (PDT)
-Message-ID: <36c392676bc5cd69de5e8ca2cabe5ccbbced7517.camel@gmail.com>
-Subject: Re: [PATCH v2 3/3] arm64: dts: allwinner: A133: add support for
- Baijie Helper A133 board
-From: Alexander Sverdlin <alexander.sverdlin@gmail.com>
-To: Andre Przywara <andre.przywara@arm.com>
-Cc: Paul Kocialkowski <paulk@sys-base.io>, linux-sunxi@lists.linux.dev, 
-	devicetree@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
-	linux-kernel@vger.kernel.org
-Date: Fri, 05 Jun 2026 00:37:40 +0200
-In-Reply-To: <20260518235432.07537260@ryzen.lan>
-References: <20260510201644.4143710-1-alexander.sverdlin@gmail.com>
-		<20260510201644.4143710-4-alexander.sverdlin@gmail.com>
-		<agr9m_tidBr6Cu2h@collins>
-		<04da68168f92b196cce4d49c766fc62702bf6472.camel@gmail.com>
-	 <20260518235432.07537260@ryzen.lan>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="ifxeqzMd"
+ARC-Seal: i=1; a=rsa-sha256; t=1780613002; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=VvtuU39/xkeO0kBPui+ZcRVhlOW1UCYLZWZBmOyG7FjSiUCT1O8zBA/jAr8cXCWDANAzVkk7x/Xt1EyAoHxZTvZBBLtfCGC09N6CTT72KTSqGDWv0EPLqH2a14+MUmnUMazFqFrqlbfnCY+rMpUqLM3qgi48QMotGU82kG2HGwM=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1780613002; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:References:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=pdqX7LQ1wxWcyGd/5yWW3kd9MJdu3ozrKdic9+rKC7I=; 
+	b=b4fLeGgQNDExTQF3b8hbG+oEJTjbgsXmwkJySUxBuN2UwQ3J9K1pm7CZgS9T6n6/uZOW8I6ThCUpuf5oMD2Pg1cSfTqF1r2sQu5K+t2v3XqGH4QX0LFev4Ru+uvbZ06EI9RToYXI6vvQ10fv6ISUsCk78rAoc4223Vvle7PXiu4=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1780613002;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:References:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=pdqX7LQ1wxWcyGd/5yWW3kd9MJdu3ozrKdic9+rKC7I=;
+	b=ifxeqzMdovNulTQgVjUkOCiSTwqbHfjn6bERrIMc3GqoBMhO1gTNp6YO3gqggw30
+	gimua9Aw7CYIVvlDDsCu59ijbXIxHdUwXr36h0G7VyW4A5v8uZGRRL2ghLLQK8gg1S9
+	9Wyx+B20yNR6c5Bfyvxc6AnSgQev61/Xx2aodPwI=
+Received: by mx.zohomail.com with SMTPS id 178061300020975.38972895762834;
+	Thu, 4 Jun 2026 15:43:20 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id 74078183856; Fri, 05 Jun 2026 00:43:16 +0200 (CEST)
+Date: Fri, 5 Jun 2026 00:43:16 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Herman van Hazendonk <github.com@herrie.org>
+Cc: robh@kernel.org, krzk+dt@kernel.org, conor+dt@kernel.org, 
+	linux-pm@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: maxim,max8903: add DC
+ and USB input current-limit controls
+Message-ID: <aiH9IOUWjmpkpko_@venus>
+References: <20260603071519.807604-1-github.com@herrie.org>
+ <20260603071519.807604-2-github.com@herrie.org>
 Precedence: bulk
 X-Mailing-List: devicetree@vger.kernel.org
 List-Id: <devicetree.vger.kernel.org>
 List-Subscribe: <mailto:devicetree+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:devicetree+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="cqfzidfxitp4ifnn"
+Content-Disposition: inline
+In-Reply-To: <20260603071519.807604-2-github.com@herrie.org>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.2.1.5.2/280.604.68
+X-ZohoMailClient: External
 
-Hi Andre,
 
-On Mon, 2026-05-18 at 23:54 +0200, Andre Przywara wrote:
-> > > > +&reg_dcdc2 {
-> > > > +	regulator-always-on;
-> > > > +	regulator-min-microvolt =3D <500000>;
-> > > > +	regulator-max-microvolt =3D <1300000>;=C2=A0=20
-> > >=20
-> > > Should be:
-> > > =C2=A0	regulator-min-microvolt =3D <900000>;
-> > > =C2=A0	regulator-max-microvolt =3D <1300000>;=C2=A0=20
-> >=20
-> > 0.81..1.2v according to A133 Datasheet Revision 1.1 Jul.14, 2020?
+--cqfzidfxitp4ifnn
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH 1/2] dt-bindings: power: supply: maxim,max8903: add DC
+ and USB input current-limit controls
+MIME-Version: 1.0
+
+Hi,
+
+On Wed, Jun 03, 2026 at 09:15:18AM +0200, Herman van Hazendonk wrote:
+> Add four optional properties to the MAX8903 charger binding to
+> describe board-level GPIO control of the DC and USB input current
+> limits:
 >=20
-> Do you have the CPU OPPs for this board? Do they slightly
-> overclock/over-volt the core? We have seen this for some other boards.
-> But you could go with the safer 810mV...1200mV range, and we adjust
-> this when needed.
+> DC input (TA / DOK pin):
+>   - dc-current-limit-gpios (1..4 GPIOs): mux control lines feeding
+>     the MAX8903 IDC resistor mux;
+>   - dc-current-limit-mapping (uint32-matrix of {microamps,
+>     gpio_bit_pattern} pairs): the available current levels and the
+>     GPIO bit pattern that selects each level.
+>=20
+> USB input (USB / UOK pin):
+>   - usb-current-limit-gpios: a single GPIO driving the IUSB
+>     tri-state pin (low / high);
+>   - usb-current-limit-values: the two microamp values that the IUSB
+>     pin selects.
+>
+> These let userspace clamp the input draw via the standard
+> POWER_SUPPLY_PROP_INPUT_CURRENT_LIMIT power_supply attribute. The HP
+> TouchPad uses both: two TLMM lines select between 0.5 A, 1.0 A,
+> 1.5 A and 2.0 A DC input current limits behind the MAX8903B
+> charger, and a third TLMM line picks the IUSB 100 mA / 500 mA
+> limit.
+>=20
+> These are purely additive; existing platforms remain unaffected.
+>=20
+> Signed-off-by: Herman van Hazendonk <github.com@herrie.org>
+> ---
+>  .../bindings/power/supply/maxim,max8903.yaml  | 58 +++++++++++++++++++
+>  1 file changed, 58 insertions(+)
+>=20
+> diff --git a/Documentation/devicetree/bindings/power/supply/maxim,max8903=
+=2Eyaml b/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
+> index 86af38378999..5e970ebc08df 100644
+> --- a/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
+> +++ b/Documentation/devicetree/bindings/power/supply/maxim,max8903.yaml
+> @@ -44,6 +44,41 @@ properties:
+>      maxItems: 1
+>      description: USB suspend pin (active high, output)
+> =20
+> +  dc-current-limit-gpios:
+> +    minItems: 1
+> +    maxItems: 4
+> +    description:
+> +      GPIOs controlling DC input current limit via resistor mux.
+> +      Used with dc-current-limit-mapping to select charging current.
+> +
+> +  dc-current-limit-mapping:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-matrix
+> +    minItems: 2
+> +    maxItems: 16
+> +    description: |
+> +      Array of (current_microamps, gpio_bit_pattern) pairs defining avai=
+lable
+> +      DC current limits. The gpio_bit_pattern is applied to dc-current-l=
+imit-gpios
+> +      to select that current level.
+> +    items:
+> +      items:
+> +        - description: Current limit in microamps
+> +        - description: GPIO bit pattern value
+> +
+> +  usb-current-limit-gpios:
+> +    maxItems: 1
+> +    description:
+> +      GPIO controlling USB input current limit.
+> +      Low =3D usb-current-limit-values[0], High =3D usb-current-limit-va=
+lues[1].
+> +
+> +  usb-current-limit-values:
+> +    $ref: /schemas/types.yaml#/definitions/uint32-array
+> +    minItems: 2
+> +    maxItems: 2
+> +    default: [100000, 500000]
+> +    description:
+> +      USB current limits in microamps for GPIO low and high states.
+> +      Default is 100mA (low) and 500mA (high) per USB specification.
 
-I'm not sure how to interpret this, if it helps, vendor BSP has:
+The IUSB pin always selects between 100mA and 500mA for the MAX8903
+according to the datasheet, so why is there a DT property?
 
-root@HelperA133:~# hexdump -Cv /proc/device-tree/opp_l_table/opp@1512000000=
-/
-clock-latency-ns  name              opp-hz            opp-microvolt-b0  opp=
--microvolt-b1  opp-microvolt-b2  opp-microvolt-b3 =20
-root@HelperA133:~# hexdump -Cv /proc/device-tree/opp_l_table/opp@1512000000=
-/opp-microvolt-b0
-00000000  00 12 01 60                                       |...`|
-root@HelperA133:~# hexdump -Cv /proc/device-tree/opp_l_table/opp@1512000000=
-/opp-microvolt-b1
-00000000  00 11 3e 10 00 11 3e 10  00 11 65 20              |..>...>...e |
-root@HelperA133:~# hexdump -Cv /proc/device-tree/opp_l_table/opp@1512000000=
-/opp-microvolt-b2
-00000000  00 10 c8 e0                                       |....|
-root@HelperA133:~# hexdump -Cv /proc/device-tree/opp_l_table/opp@1512000000=
-/opp-microvolt-b3
-00000000  00 10 7a c0                                       |..z.|
-root@HelperA133:~# hexdump -Cv /proc/device-tree/opp_l_table/compatible=20
-00000000  61 6c 6c 77 69 6e 6e 65  72 2c 73 75 6e 35 30 69  |allwinner,sun5=
-0i|
-00000010  2d 6f 70 65 72 61 74 69  6e 67 2d 70 6f 69 6e 74  |-operating-poi=
-nt|
-00000020  73 00                                             |s.|
+Greetings,
 
-At least 1512MHz is possible (but datasheet says 1.6GHz, so probably no ove=
-rclocking yet).
+-- Sebastian
 
---=20
-Alexander Sverdlin.
+> +
+>  required:
+>    - compatible
+> =20
+> @@ -65,3 +100,26 @@ examples:
+>        chg-gpios =3D <&gpio3 15 GPIO_ACTIVE_LOW>;
+>        cen-gpios =3D <&gpio2 5 GPIO_ACTIVE_LOW>;
+>      };
+> +  - |
+> +    /* Example with DC and USB current limit control */
+> +    #include <dt-bindings/gpio/gpio.h>
+> +    charger-with-current-limit {
+> +      compatible =3D "maxim,max8903";
+> +      dok-gpios =3D <&gpio2 3 GPIO_ACTIVE_LOW>;
+> +      flt-gpios =3D <&gpio2 2 GPIO_ACTIVE_LOW>;
+> +      chg-gpios =3D <&gpio3 15 GPIO_ACTIVE_LOW>;
+> +      cen-gpios =3D <&gpio2 5 GPIO_ACTIVE_LOW>;
+> +      dcm-gpios =3D <&gpio2 6 GPIO_ACTIVE_HIGH>;
+> +
+> +      /* DC input current limit via IDC resistor mux */
+> +      dc-current-limit-gpios =3D <&gpio1 0 GPIO_ACTIVE_HIGH>,
+> +                               <&gpio1 1 GPIO_ACTIVE_HIGH>;
+> +      dc-current-limit-mapping =3D <750000 0>,  /* GPIO[1:0]=3D0b00 */
+> +                                 <900000 1>,  /* GPIO[1:0]=3D0b01 */
+> +                                 <1400000 3>, /* GPIO[1:0]=3D0b11 */
+> +                                 <2000000 2>; /* GPIO[1:0]=3D0b10 */
+> +
+> +      /* USB current control */
+> +      usb-current-limit-gpios =3D <&gpio1 2 GPIO_ACTIVE_HIGH>;
+> +      usb-current-limit-values =3D <100000 500000>; /* 100mA / 500mA */
+> +    };
+> --=20
+> 2.43.0
+>=20
+
+--cqfzidfxitp4ifnn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmoh/4AACgkQ2O7X88g7
++pr4cA//fOqQ7w8bYspjrUW3LnS/rmz+8gUdTh92bGjGyP3+oyK4EIHXZNvBUyaz
+141DzjDX4WkZXmB6PMl815vvuT/FeHnEgTZfxiHPzLJC5GyYyX7wgVVnZ5W7mGAl
+pxDmCYxkBWGUO+FRVhPY8aKMBW54A60nT+9aKGF/WAXnmIdRDOSkwfL0qaoDZGAu
+K1DnIE7hKzi/H1IKJKAmThTi3QEJUPAgDA3QDU+Vb3BvLqJWYJcyPvHDBRBJFqlu
+xfsIbCb8WfChsp8T5vPkafifRfYIfXMh3QhSc3IHLYcBWx9UKD7WZA8YKqwztGAx
+cNW1emZ2ZrZvMXy1qor3mZ6zcRN2oO6ZW6no/U81ZXkP2dcW70nk/0VxNboHFZUz
+J78ZL51HPbfCXMmE7tCo9Z9ANCvggKkBTRbNEG616qDek4SCMR+1mEIw5/cdXwTt
+gJjjrs/OLBl43hBRuyUBRYEdMd8c9PqhctbVDzdZ+XVDRGAG6EgQbBYn8VVfVCJb
+PGjkvmazjvs+WDaab8Y/NYrs9W/pJWjxZtQR19bRyZfjHky09dl9SewAX0ded6fK
+ftiJPtRLzTvHP7FR1KiFNmxCZPfPmGr33vKTxKFpZQS5gF4AIdOpAIKx/qJ5OiAn
+kw2bYg1HvEBqZ45WOkbx9mRw/NO10IMNcGL4u7Uko+yD1nIhHQY=
+=uvqI
+-----END PGP SIGNATURE-----
+
+--cqfzidfxitp4ifnn--
